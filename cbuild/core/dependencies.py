@@ -22,14 +22,10 @@ def get_pkg_depends(pkg, with_subpkgs):
         if not with_subpkgs:
             rundeps.append(depname)
             continue
-        foo = chroot.invoke_xcmd(xbps.uhelper(), [
-            "getpkgdepname", depname
-        ]).stdout.strip().decode("ascii")
-        if len(foo) == 0:
-            foo = chroot.invoke_xcmd(xbps.uhelper(), [
-                "getpkgname", depname
-            ]).stdout.strip().decode("ascii")
-            if len(foo) == 0:
+        foo = xbps.get_pkg_dep_name(depname)
+        if not foo:
+            foo = xbps.get_pkg_name(depname)
+            if not foo:
                 foo = depname
         rundeps.append(foo)
 

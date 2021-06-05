@@ -1,36 +1,24 @@
-from cbuild.core import logger, chroot, paths, xbps
+from cbuild.core import logger, chroot, paths, xbps, version
 
 import os
 import pathlib
 
 def add_rundep(pkg, sdep):
-    depn = chroot.invoke_xcmd(xbps.uhelper(), [
-        "getpkgdepname", sdep
-    ]).stdout.strip().decode("ascii")
-
-    if len(depn) == 0:
-        depn = chroot.invoke_xcmd(xbps.uhelper(), [
-            "getpkgname", sdep
-        ]).stdout.strip().decode("ascii")
+    depn = xbps.get_pkg_dep_name(sdep)
+    if not depn:
+        depn = xbps.get_pkg_name(sdep)
 
     found = False
 
     for dep in pkg.run_depends:
-        rdepn = chroot.invoke_xcmd(xbps.uhelper(), [
-            "getpkgdepname", dep
-        ]).stdout.strip().decode("ascii")
-
-        if len(rdepn) == 0:
-            rdepn = chroot.invoke_xcmd(xbps.uhelper(), [
-                "getpkgname", dep
-            ]).stdout.strip().decode("ascii")
+        rdepn = xbps.get_pkg_dep_name(dep)
+        if not rdepn:
+            rdepn = xbps.get_pkg_name(dep)
 
         if rdepn != depn:
             continue
 
-        if chroot.invoke_xcmd(xbps.uhelper(), [
-            "cmpver", dep, sdep
-        ]).returncode == 255:
+        if version.compare(rdepn, depn) < 0:
             for n, v in enumerate(pkg.run_depends):
                 if v == dep:
                     pkg.run_depends[n] = sdep
@@ -43,13 +31,9 @@ def store_rundeps(pkg):
     if len(pkg.run_depends) > 0:
         dl = []
         for d in pkg.run_depends:
-            dn = chroot.invoke_xcmd(xbps.uhelper(), [
-                "getpkgdepname", d
-            ]).stdout.strip()
-            pn = chroot.invoke_xcmd(xbps.uhelper(), [
-                "getpkgname", d
-            ]).stdout.strip()
-            if len(dn) == 0 and len(pn) == 0:
+            dn = xbps.get_pkg_dep_name(d)
+            pn = xbps.get_pkg_name(d)
+            if not dn and not pn:
                 d += ">=0"
             dl.append(d)
         with open(pkg.destdir / "rdeps", "w") as rdeps:
@@ -129,9 +113,7 @@ def invoke(pkg):
             # check if provided by multiple packages
             rdep = None
             for d in shmap[dep]:
-                pkgn = chroot.invoke_xcmd(xbps.uhelper(), [
-                    "getpkgname", d
-                ]).stdout.strip().decode("ascii")
+                pkgn = xbps.get_pkg_name(d)
                 if pkgn == pkg.rparent.pkgname:
                     rdep = d
                     break
@@ -150,14 +132,10 @@ def invoke(pkg):
         else:
             rdep = shmap[dep][0]
 
-        pkgn = chroot.invoke_xcmd(xbps.uhelper(), [
-            "getpkgname", rdep
-        ]).stdout.strip().decode("ascii")
-        pkgv = chroot.invoke_xcmd(xbps.uhelper(), [
-            "getpkgversion", rdep
-        ]).stdout.strip().decode("ascii")
+        pkgn = xbps.get_pkg_name(rdep)
+        pkgv = xbps.get_pkg_version(rdep)
 
-        if len(pkgn) == 0 or len(pkgv) == 0:
+        if not pkgn or len(pkgv) == 0:
             log.out_red(f"   SONAME: {dep} <-> UNKNOWN PKG PLEASE FIX!")
             broken = True
             continue
