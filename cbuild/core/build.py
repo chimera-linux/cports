@@ -69,16 +69,11 @@ def build(step, pkg, origpkg):
 
     for repo in genrepos:
         logger.get().out(f"Registering new packages to {repo}...")
-        os.chdir(repo)
-        if pkg.rparent.force_mode:
-            eargs = ["-f"]
-        else:
-            eargs = []
-        chroot.invoke_xcmd(
-            xbps.rindex(), eargs + ["-a"] + genrepos[repo],
-            capture_out = False, check = True
-        )
-        os.chdir(paths.distdir())
+        if not xbps.register_pkgs(
+            genrepos[repo], repo, pkg.rparent.force_mode
+        ):
+            logger.get().out_red(f"Registering packages failed.")
+            raise Exception()
 
     # cleanup
     pkgm.remove_autodeps(pkg)

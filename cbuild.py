@@ -49,7 +49,6 @@ logger.init(not args.no_color and not "NO_COLOR" in os.environ)
 
 # check masterdir and while at it perform arch checks
 chroot.chroot_check()
-xbps.init()
 
 # fix up environment
 os.environ["XBPS_ARCH"] = cpu.host()

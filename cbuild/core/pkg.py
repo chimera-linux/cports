@@ -1,4 +1,4 @@
-from cbuild.core import logger, chroot, xbps
+from cbuild.core import logger, xbps
 from os import path
 import os
 import shutil
@@ -6,24 +6,12 @@ import shutil
 def remove_autodeps(pkg):
     pkg.log(f"removing autodeps...")
 
-    x = chroot.invoke_reconfigure(["-a"], capture_out = True)
-    sout = x.stdout
-    serr = x.stderr
+    success, sout, serr = xbps.reconfigure(capture_out = True)
 
-    x = chroot.invoke_xcmd(
-        xbps.remove(), ["-Ryod"], capture_out = True, yes_input = True
-    )
-    while x.returncode == 0:
-        if len(x.stdout.strip()) == 0:
-            break
-        sout += x.stdout
-        serr += x.stderr
-        x = chroot.invoke_xcmd(
-            xbps.remove(), ["-Ryod"], capture_out = True,
-            yes_input = True
-        )
+    if success:
+        success, sout, serr = xbps.remove_orphans()
 
-    if x.returncode != 0:
+    if not success:
         sout = sout.strip()
         serr = serr.strip()
         if len(sout) > 0:
@@ -32,7 +20,7 @@ def remove_autodeps(pkg):
         if len(serr) > 0:
             pkg.logger.out_plain(">> stderr:")
             pkg.logger.out_plain(serr.decode("ascii"))
-        pkg.error(f"failed to remove autodeps ({x.returncode})")
+        pkg.error(f"failed to remove autodeps")
 
 def _remove_ro(f, path, _):
     os.chmod(path, stat.S_IWRITE)

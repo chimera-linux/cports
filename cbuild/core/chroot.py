@@ -180,8 +180,9 @@ def reconfigure():
 
     pkgs = [ "ca-certificates" ]
     for pkg in pkgs:
-        if invoke_query([pkg]):
-            invoke_reconfigure(["-f", pkg])
+        if not xbps.reconfigure(pkg):
+            logger.get().out_red(f"cbuild: failed to reconfigure {pkg}")
+            raise Exception()
 
     f = open(statefile, "w")
     f.close()
@@ -204,15 +205,15 @@ def install(arch = None, bootstrap = False):
     if not bootstrap:
         cenv["XBPS_TARGET_ARCH"] = arch
 
-    if invoke_xcmd(
-        xbps.install(), ["-y", "base-chroot"],
-        env = cenv, capture_out = False
-    ).returncode != 0:
+    if not xbps.install(
+        ["base-chroot"], arch = arch if not bootstrap else None
+    ):
         logger.get().out_red("cbuild: failed to install base-chroot")
         raise Exception()
 
-    if invoke_query(["base-files"]):
-        invoke_reconfigure(["-f", "base-files"], env = {"XBPS_ARCH": arch})
+    if not xbps.reconfigure("base-files", arch = arch):
+        logger.get().out_red("cbuild: failed to configure chroot")
+        raise Exception()
 
     logger.get().out("cbuild: installed base-chroot successfully!")
 
@@ -275,34 +276,4 @@ def enter(cmd, args = [], set_env = True, capture_out = False, check = False,
         ] + args,
         env = envs, capture_output = capture_out, check = check,
         stdout = stdout, stderr = stderr
-    )
-
-def invoke_xcmd(
-    cmd, args, capture_out = True, check = False, env = {}, chroot = False,
-    yes_input = False
-):
-    qs = shlex.split(cmd)
-    if not chroot_check() or not chroot:
-        return subprocess.run(
-            qs + args,
-            env = dict(os.environ).update(env) if bool(env) else None,
-            capture_output = capture_out, check = check
-        )
-    return enter(
-        qs[0], qs[1:] + args, capture_out = capture_out, check = check,
-        env = env, input = "yes\n".encode() if yes_input else None
-    )
-
-def invoke_query(args, capture_out = True, yes_input = False):
-    return invoke_xcmd(
-        xbps.query(), args, capture_out = capture_out,
-        yes_input = yes_input
-    )
-
-def invoke_reconfigure(
-    args, capture_out = False, check = True, env = {}, yes_input = False
-):
-    return invoke_xcmd(
-        xbps.reconfigure(), args, capture_out = capture_out,
-        check = check, env = env, yes_input = yes_input
     )

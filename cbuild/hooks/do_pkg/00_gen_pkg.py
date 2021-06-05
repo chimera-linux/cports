@@ -1,10 +1,11 @@
-from cbuild.core import chroot, logger, paths
+from cbuild.core import logger, paths
 
 from cbuild import cpu
 
 import os
 import glob
 import time
+import subprocess
 
 def genpkg(pkg, repo, arch, binpkg):
     if not os.path.isdir(pkg.destdir):
@@ -128,9 +129,7 @@ def genpkg(pkg, repo, arch, binpkg):
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
         os.chdir(repo)
-        rc = chroot.invoke_xcmd(
-            "xbps-create", args, capture_out = False
-        ).returncode
+        rc = subprocess.run(["xbps-create"] + args).returncode
     finally:
         os.unlink(lockpath)
         os.chdir(paths.distdir())
