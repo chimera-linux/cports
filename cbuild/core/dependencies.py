@@ -1,7 +1,7 @@
 from cbuild.core import logger, template, paths, xbps
 from cbuild.step import build as do_build
 from cbuild import cpu
-from os import path, makedirs
+from os import makedirs
 
 # works on either subpackage or main package
 def get_pkg_depends(pkg, with_subpkgs):
@@ -65,7 +65,7 @@ def install(pkg, origpkg, step):
     if len(pkg.hostmakedepends) > 0:
         tmpls = []
         for dep in pkg.hostmakedepends:
-            if path.isfile(path.join(paths.templates(), dep, "template.py")):
+            if (paths.templates() / dep / "template.py").is_file():
                 tmpls.append(dep)
                 continue
             rurl = xbps.repository_url(dep)
@@ -103,7 +103,7 @@ def install(pkg, origpkg, step):
     if len(pkg.makedepends) > 0:
         tmpls = []
         for dep in pkg.makedepends:
-            if path.isfile(path.join(paths.templates(), dep, "template.py")):
+            if (paths.templates() / dep / "template.py").is_file():
                 tmpls.append(dep)
                 continue
             rurl = xbps.repository_url(dep)
@@ -140,7 +140,7 @@ def install(pkg, origpkg, step):
     if len(cleandeps) > 0:
         tmpls = []
         for dep in cleandeps:
-            if path.isfile(path.join(paths.templates(), dep, "template.py")):
+            if (paths.templates() / dep / "template.py").is_file():
                 tmpls.append(dep)
                 continue
             rurl = xbps.repository_url(dep)

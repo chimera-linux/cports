@@ -1,10 +1,5 @@
-from cbuild.core import logger
-
-import os
-
 def invoke(pkg):
-    if not os.path.isfile(pkg.destdir / "rdeps"):
+    if not (pkg.destdir / "rdeps").is_file():
         return
 
-    with open(pkg.destdir / "rdeps") as f:
-        logger.get().out_plain(f.read())
+    pkg.logger.out_plain((pkg.destdir / "rdeps").read_text())

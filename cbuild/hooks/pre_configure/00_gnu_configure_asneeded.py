@@ -1,5 +1,3 @@
-import os
-from os import path
 import re
 
 def invoke(pkg):
@@ -8,7 +6,7 @@ def invoke(pkg):
 
     confp = pkg.abs_wrksrc / "configure"
 
-    if not path.isfile(confp):
+    if not confp.is_file():
         return
 
     # http://lists.gnu.org/archive/html/libtool-patches/2004-06/msg00002.html
@@ -20,6 +18,6 @@ def invoke(pkg):
                     r"\1='-shared -Wl,--as-needed'", ln
                 ))
 
-    os.unlink(confp)
-    os.rename(str(confp) + ".tmp", confp)
-    os.chmod(confp, 0o755)
+    confp.unlink()
+    confp.with_suffix(".tmp").rename(confp)
+    confp.chmod(0o755)

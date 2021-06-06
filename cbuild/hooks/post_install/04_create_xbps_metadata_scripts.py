@@ -46,7 +46,7 @@ ARCH="\$6"
 
     tmpf.write(b"\n")
 
-    tdir = os.path.join(paths.templates(), "xbps-triggers", "files")
+    tdir = paths.templates() / "xbps-triggers" / "files"
 
     if len(pkg.triggers) > 0:
         tmpf.write(b"case \"${ACTION}\" in\n")
@@ -54,14 +54,14 @@ ARCH="\$6"
         tgs = {}
 
         for f in pkg.triggers:
-            if not os.path.isfile(os.path.join(tdir, f)):
+            if not (tdir / f).is_file():
                 tmpf.close()
                 pkg.error(f"unknown trigger {f}")
             logger.get().out_plain(
                 f"   Added trigger '{f}' for the '{action.upper()}' script."
             )
             sp = subprocess.run(
-                [os.path.join(tdir, f), "targets"], capture_output = True
+                [str (tdir / f), "targets"], capture_output = True
             )
             tgs[f] = sp.stdout.strip().decode("ascii").split()
 
@@ -84,14 +84,13 @@ ARCH="\$6"
 
         tmpf.write(b"\t;;\n")
         tmpf.write(b"esac\n\n")
-    elif not os.path.isfile(path):
+    elif not path.is_file():
         tmpf.close()
         return
 
     if action == "install" or action == "remove":
-        if os.path.isfile(path):
-            with open(path, "rb") as f:
-                tmpf.write(f.read())
+        if path.is_file():
+            tmpf.write(path.read_bytes())
         tmpf.write(b"\n")
         tmpf.write(b"exit 0\n")
         tmpf.seek(0)
@@ -103,23 +102,23 @@ ARCH="\$6"
 def invoke(pkg):
     if pkg.parent:
         # subpkg
-        pkgbase = os.path.join(paths.templates(), pkg.parent.pkgname)
-        meta_install = os.path.join(pkgbase, pkg.pkgname + ".INSTALL")
-        msg_install = os.path.join(pkgbase, pkg.pkgname + ".INSTALL.msg")
-        meta_remove = os.path.join(pkgbase, pkg.pkgname + ".REMOVE")
-        msg_remove = os.path.join(pkgbase, pkg.pkgname + ".REMOVE.msg")
+        pkgbase = paths.templates() / pkg.parent.pkgname
+        meta_install = pkgbase / (pkg.pkgname + ".INSTALL")
+        msg_install = pkgbase / (pkg.pkgname + ".INSTALL.msg")
+        meta_remove = pkgbase / (pkg.pkgname + ".REMOVE")
+        msg_remove = pkgbase / (pkg.pkgname + ".REMOVE.msg")
     else:
         # sourcepkg
-        pkgbase = os.path.join(paths.templates(), pkg.pkgname)
-        meta_install = os.path.join(pkgbase, "INSTALL")
-        msg_install = os.path.join(pkgbase, "INSTALL.msg")
-        meta_remove = os.path.join(pkgbase, "REMOVE")
-        msg_remove = os.path.join(pkgbase, "REMOVE.msg")
+        pkgbase = paths.templates() / pkg.pkgname
+        meta_install = pkgbase / "INSTALL"
+        msg_install = pkgbase / "INSTALL.msg"
+        meta_remove = pkgbase / "REMOVE"
+        msg_remove = pkgbase / "REMOVE.msg"
 
     handle_scripts(pkg, "install", meta_install)
     handle_scripts(pkg, "remove", meta_remove)
 
-    if os.path.isfile(msg_install):
+    if msg_install.is_file():
         os.chmod(shutil.copy2(msg_install, pkg.destdir), 0o644)
-    if os.path.isfile(msg_remove):
+    if msg_remove.is_file():
         os.chmod(shutil.copy2(msg_remove, pkg.destdir), 0o644)

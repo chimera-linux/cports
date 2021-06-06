@@ -52,25 +52,26 @@ def redir_allout(logpath):
 # e.g. _submove("foo/bar", "/a", "/b") will move "/b/foo/bar" to "/a/foo/bar"
 #
 def _submove(src, dest, root):
-    dirs, fname = os.path.split(src)
-    ddirs = os.path.join(dest, dirs)
+    dirs = src.parent
+    fname = src.name
+    ddirs = dest / dirs
 
     os.makedirs(ddirs, exist_ok = True)
 
-    fsrc = os.path.join(root, src)
-    fdest = os.path.join(dest, src)
+    fsrc = root / src
+    fdest = dest / src
 
-    if not os.path.exists(fdest):
+    if not fdest.exists():
         shutil.move(fsrc, ddirs)
     else:
-        if os.path.isdir(fdest) and os.path.isdir(fsrc):
+        if fdest.is_dir() and fsrc.is_dir():
             # merge the directories
-            for fn in os.listdir(fsrc):
-                _submove(fn, fdest, fsrc)
+            for fn in fsrc.iterdir():
+                _submove(fn.name, fdest, fsrc)
             # remove the source dir that should now be empty
-            os.rmdir(os.path.join(dirp))
+            fsrc.rmdir()
         else:
-            raise FileExistsError(f"'{dirp}' and '{destp}' overlap")
+            raise FileExistsError(f"'{str(fstr)}' and '{str(fdest)}' overlap")
 
 hooks = {
     "pre_fetch": [],
@@ -294,45 +295,48 @@ class Template(Package):
             call_pkg_hooks(self, "post_" + stepn)
 
     def install_files(self, path, dest, symlinks = True):
-        if os.path.isabs(dest):
+        path = pathlib.Path(path)
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
             self.logger.out_red(
-                f"install_files: path '{dest}' must not be absolute"
+                f"install_files: path '{str(dest)}' must not be absolute"
             )
             raise PackageError()
-        if os.path.isabs(path):
+        if path.is_absolute():
             self.logger.out_red(f"path '{path}' must not be absolute")
             raise PackageError()
 
-        path = os.path.join(self.abs_wrksrc, path)
-        dest = os.path.join(self.destdir, dest, os.path.basename(path))
+        path = self.abs_wrksrc / path
+        dest = self.destdir / dest / path.name
 
         shutil.copytree(path, dest, symlinks = symlinks)
 
     def install_dir(self, *args):
         for dn in args:
-            if os.path.isabs(dn):
-                self.logger.out_red(f"path '{dn}' must not be absolute")
+            dn = pathlib.Path(dn)
+            if dn.is_absolute():
+                self.logger.out_red(f"path '{str(dn)}' must not be absolute")
                 raise PackageError()
-            dirp = os.path.join(self.destdir, dn)
+            dirp = self.destdir / dn
             self.log(f"creating path: {dirp}")
             os.makedirs(dirp, exist_ok = True)
 
     def install_bin(self, *args):
         self.install_dir("usr/bin")
         for bn in args:
-            spath = os.path.join(self.abs_wrksrc, bn)
-            dpath = os.path.join(self.destdir, "usr/bin")
-            self.log(f"copying (755): {spath} -> {dpath}")
+            spath = self.abs_wrksrc / bn
+            dpath = self.destdir / "usr/bin"
+            self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
             shutil.copy2(spath, dpath)
-            os.chmod(os.path.join(dpath, os.path.split(spath)[1]), 0o755)
+            (dpath / spath.name).chmod(0o755)
 
     def install_man(self, *args):
         self.install_dir("usr/share/man")
-        manbase = os.path.join(self.destdir, "usr/share/man")
+        manbase = self.destdir / "usr/share/man"
         for mn in args:
-            absmn = os.path.join(self.abs_wrksrc, mn)
-            mnf = os.path.split(absmn)[1]
-            mnext = os.path.splitext(mnf)[1]
+            absmn = self.abs_wrksrc / mn
+            mnf = absmn.name
+            mnext = absmn.suffix
             if len(mnext) == 0:
                 self.logger.out_red(f"manpage '{mnf}' has no section")
                 raise PackageError()
@@ -341,35 +345,38 @@ class Template(Package):
             except:
                 self.logger.out_red(f"manpage '{mnf}' has an invalid section")
                 raise PackageError()
-            mandir = os.path.join(manbase, "man" + mnext)
+            mandir = manbase / ("man" + mnext)
             os.makedirs(mandir, exist_ok = True)
-            self.log(f"copying (644): {absmn} -> {mandir}")
+            self.log(f"copying (644): {str(absmn)} -> {str(mandir)}")
             shutil.copy2(absmn, mandir)
-            os.chmod(os.path.join(mandir, mnf), 0o644)
+            (mandir / mnf).chmod(0o644)
 
     def install_link(self, src, dest):
-        if os.path.isabs(dest):
-            self.logger.out_red(f"path '{dest}' must not be absolute")
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
+            self.logger.out_red(f"path '{str(dest)}' must not be absolute")
             raise PackageError()
-        dest = os.path.join(self.destdir, dest)
-        self.log(f"symlinking: {src} -> {dest}")
-        os.symlink(src, dest)
+        dest = self.destdir / dest
+        self.log(f"symlinking: {str(src)} -> {str(dest)}")
+        dest.symlink_to(src)
 
     def unlink(self, f, root = None):
-        if os.path.isabs(f):
-            self.logger.out_red(f"path '{f}' must not be absolute")
+        f = pathlib.Path(f)
+        if f.is_absolute():
+            self.logger.out_red(f"path '{str(f)}' must not be absolute")
             raise PackageError()
-        remp = os.path.join(root if root else self.destdir, f)
-        self.log(f"removing: {remp}")
-        os.unlink(remp)
+        remp = (pathlib.Path(root) if root else self.destdir) / f
+        self.log(f"removing: {str(remp)}")
+        remp.unlink()
 
     def rmtree(self, path, root = None):
-        if os.path.isabs(path):
+        path = pathlib.Path(path)
+        if path.is_absolute():
             self.logger.out_red(f"path '{path}' must not be absolute")
             raise PackageError()
 
-        path = os.path.join(root if root else self.destdir, path)
-        if not os.path.isdir(path):
+        path = (pathlib.Path(root) if root else self.destdir) / path
+        if not path.is_dir():
             self.logger.out_red(f"path '{path}' must be a directory")
             raise PackageError()
 
@@ -420,19 +427,22 @@ class Subpackage(Package):
 
     def take(self, *args):
         for p in args:
-            if os.path.isabs(p):
-                self.logger.out_red(f"path '{p}' must not be absolute!")
+            p = pathlib.Path(p)
+            if p.is_absolute():
+                self.logger.out_red(f"path '{p}' must not be absolute")
                 raise PackageError()
-            origp = os.path.join(self.parent.destdir, p)
-            got = glob.glob(origp)
+            origp = self.parent.destdir / p
+            got = glob.glob(str(origp))
             if len(got) == 0:
-                self.logger.out_red(f"path '{p}' did not match anything!")
+                self.logger.out_red(f"path '{p}' did not match anything")
                 raise PackageError()
             for fullp in got:
                 # relative path to the file/dir in original destdir
                 pdest = self.parent.destdir
-                self.log(f"moving: {fullp} -> {self.destdir}")
-                _submove(os.path.relpath(fullp, pdest), self.destdir, pdest)
+                self.log(f"moving: {fullp} -> {str(self.destdir)}")
+                _submove(
+                    pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
+                )
 
 def from_module(m, ret):
     # fill in required fields
@@ -493,19 +503,17 @@ def from_module(m, ret):
             setattr(ret, "post_" + phase, getattr(m, "post_" + phase))
 
     # paths that can be used by template methods
-    ret.files_path = pathlib.Path(paths.templates()) / ret.pkgname / "files"
+    ret.files_path = paths.templates() / ret.pkgname / "files"
     ret.chroot_files_path = pathlib.Path("/void-packages/srcpkgs") \
         / ret.pkgname / "files"
-    ret.patches_path = pathlib.Path(paths.templates()) \
-        / ret.pkgname / "patches"
-    ret.builddir = pathlib.Path(paths.masterdir()) / "builddir"
+    ret.patches_path = paths.templates() / ret.pkgname / "patches"
+    ret.builddir = paths.masterdir() / "builddir"
     ret.chroot_builddir = pathlib.Path("/builddir")
-    ret.destdir_base = pathlib.Path(paths.masterdir()) / "destdir"
+    ret.destdir_base = paths.masterdir() / "destdir"
     ret.chroot_destdir_base = pathlib.Path("/destdir")
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
     ret.chroot_destdir = ret.chroot_destdir_base / f"{ret.pkgname}-{ret.version}"
-    ret.abs_wrksrc = pathlib.Path(paths.masterdir()) \
-        / "builddir" / ret.wrksrc
+    ret.abs_wrksrc = paths.masterdir() / "builddir" / ret.wrksrc
     ret.abs_build_wrksrc = ret.abs_wrksrc / ret.build_wrksrc
     ret.chroot_wrksrc = pathlib.Path("/builddir") \
         / ret.wrksrc
@@ -603,7 +611,7 @@ def read_pkg(pkgname, force_mode, bootstrapping):
     if not isinstance(pkgname, str):
         logger.get().out_red("Missing package name.")
         raise PackageError()
-    if not os.path.isfile(os.path.join("srcpkgs", pkgname, "template")):
+    if not (paths.templates() / pkgname / "template").is_file():
         logger.get().out_red("Missing template for '%s'" % cmd[0])
         raise PackageError()
 
@@ -630,19 +638,17 @@ def register_hooks():
     ]:
         for sstep in ["pre", "do", "post"]:
             stepn = f"{sstep}_{step}"
-            dirn = "cbuild/hooks/" + stepn
-            if os.path.isdir(dirn):
-                for f in glob.glob(os.path.join(dirn, "*.py")):
-                    # turn into module name
-                    f = f[0:-3].replace("/", ".")
-                    hookn = f[f.rfind(".") + 1:]
-                    # __init__ is a special case and must be skipped
-                    if hookn == "__init__":
-                        pass
-                    modh = importlib.import_module(f)
+            dirn = paths.cbuild() / "hooks" / stepn
+            if dirn.is_dir():
+                for f in dirn.glob("*.py"):
+                    # this must be skipped
+                    if f.name == "__init__.py":
+                        continue
+                    modn = "cbuild.hooks." + stepn + "." + f.stem
+                    modh = importlib.import_module(modn)
                     if not hasattr(modh, "invoke"):
                         logger.get().out_red(
-                            f"Hook '{stepn}/{hookn}' does not have an entry point."
+                            f"Hook '{stepn}/{f.stem}' does not have an entry point."
                         )
                         raise Exception()
-                    hooks[stepn].append((modh.invoke, hookn))
+                    hooks[stepn].append((modh.invoke, f.stem))

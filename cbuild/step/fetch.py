@@ -4,7 +4,7 @@ import os
 
 def invoke(pkg):
     fetch_done = pkg.statedir / f"{pkg.pkgname}__fetch_done"
-    if os.path.isfile(fetch_done):
+    if fetch_done.is_file():
         return
 
     template.call_pkg_hooks(pkg, "pre_fetch")
@@ -20,4 +20,4 @@ def invoke(pkg):
     template.run_pkg_func(pkg, "post_fetch")
     template.call_pkg_hooks(pkg, "post_fetch")
 
-    open(fetch_done, "w").close()
+    fetch_done.touch()

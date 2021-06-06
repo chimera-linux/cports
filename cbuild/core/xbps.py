@@ -4,15 +4,15 @@ from cbuild import cpu
 from os import path
 import shlex
 import subprocess
-import os
+import pathlib
 import re
 
 def repository_url(pkgn):
     v = subprocess.run(
         [
             "xbps-query",
-            "-c", path.join(paths.hostdir(), "repocache-" + cpu.host()),
-            "-r", paths.masterdir(), "-C", "etc/xbps.d",
+            "-c", str(paths.hostdir() / ("repocache-" + cpu.host())),
+            "-r", str(paths.masterdir()), "-C", "etc/xbps.d",
             "-R", "-prepository", pkgn
         ],
         capture_output = True
@@ -28,7 +28,7 @@ def reconfigure(pkgn = None, arch = None, capture_out = False):
 
     if not pkgn:
         v = subprocess.run(
-            ["xbps-reconfigure", "-r", paths.masterdir(), "-a"],
+            ["xbps-reconfigure", "-r", str(paths.masterdir()), "-a"],
             capture_output = capture_out, env = rcenv
         )
         if not capture_out:
@@ -36,14 +36,14 @@ def reconfigure(pkgn = None, arch = None, capture_out = False):
         return v.returncode == 0, v.stdout, v.stderr
 
     if subprocess.run([
-        "xbps-query", "-r", paths.masterdir(), "-C", pkgn
+        "xbps-query", "-r", str(paths.masterdir()), "-C", pkgn
     ], capture_output = True).returncode != 0:
         if not capture_out:
             return True
         return True, None, None
 
     v = subprocess.run(
-        ["xbps-reconfigure", "-r", paths.masterdir(), "-f", pkgn],
+        ["xbps-reconfigure", "-r", str(paths.masterdir()), "-f", pkgn],
         env = rcenv, capture_output = capture_out
     )
     if not capture_out:
@@ -59,8 +59,8 @@ def install(pkglist, arch = None, capture_out = False):
     v = subprocess.run(
         [
             "xbps-install",
-            "-c", path.join(paths.hostdir(), "repocache-" + cpu.host()),
-            "-r", paths.masterdir(), "-C", "etc/xbps.d", "-Ay"
+            "-c", str(paths.hostdir() / ("repocache-" + cpu.host())),
+            "-r", str(paths.masterdir()), "-C", "etc/xbps.d", "-Ay"
         ] + pkglist, env = cenv, capture_output = capture_out
     )
     if not capture_out:
@@ -69,7 +69,7 @@ def install(pkglist, arch = None, capture_out = False):
 
 def remove_orphans():
     v = subprocess.run(
-        ["xbps-remove", "-r", paths.masterdir(), "-Ryod"],
+        ["xbps-remove", "-r", str(paths.masterdir()), "-Ryod"],
         input = b"yes", capture_output = True
     )
     sout = b""
@@ -81,7 +81,7 @@ def remove_orphans():
         sout += v.stdout
         serr += v.stderr
         v = subprocess.run(
-            ["xbps-remove", "-r", paths.masterdir(), "-Ryod"],
+            ["xbps-remove", "-r", str(paths.masterdir()), "-Ryod"],
             input = b"yes", capture_output = True
         )
 
@@ -90,8 +90,8 @@ def remove_orphans():
 def checkvers(tmpls):
     out = subprocess.run(
         [
-            "xbps-checkvers", "-r", paths.masterdir(),
-            "-D", paths.distdir(), "-sm"
+            "xbps-checkvers", "-r", str(paths.masterdir()),
+            "-D", str(paths.distdir()), "-sm"
         ] + tmpls,
         capture_output = True
     ).stdout.strip().decode("ascii")
@@ -105,10 +105,10 @@ def checkvers(tmpls):
     return ret
 
 def register_pkgs(pkglist, repopath, force = False):
-    if not os.path.isdir(repopath):
+    if not pathlib.Path(repopath).is_dir():
         return False
     # subshell so we cd safely
-    cmd = f"cd {shlex.quote(repopath)} && xbps-rindex "
+    cmd = f"cd {shlex.quote(str(repopath))} && xbps-rindex "
     if force:
         cmd += "-f "
     cmd += "-a "

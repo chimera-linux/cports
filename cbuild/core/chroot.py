@@ -5,7 +5,6 @@ import glob
 import shutil
 import shlex
 import getpass
-from os import path
 from tempfile import mkstemp
 
 from cbuild.core import logger, paths, xbps
@@ -22,11 +21,10 @@ def chroot_check():
 
     _chroot_checked = True
 
-    if os.path.isfile(os.path.join(paths.masterdir(), ".xbps_chroot_init")):
+    if (paths.masterdir() / ".xbps_chroot_init").is_file():
         _chroot_ready = True
-        with open(os.path.join(paths.masterdir(), ".xbps_chroot_init")) as f:
-            cpun = f.read().strip()
-            cpu.init(cpun, cpun)
+        cpun = (paths.masterdir() / ".xbps_chroot_init").read_text().strip()
+        cpu.init(cpun, cpun)
     else:
         cpun = os.uname().machine + "-musl"
         cpu.init(cpun, cpun)
@@ -56,10 +54,10 @@ def _remove_ro(f, path, _):
     f(path)
 
 def _init():
-    xdir = path.join(paths.masterdir(), "etc", "xbps")
+    xdir = paths.masterdir() / "etc" / "xbps"
     os.makedirs(xdir, exist_ok = True)
 
-    shf = open(path.join(paths.masterdir(), "bin", "xbps-shell"), "w")
+    shf = open(paths.masterdir() / "bin" / "xbps-shell", "w")
     shf.write(f"""#!/bin/sh
 
 PATH=/void-packages:/usr/bin
@@ -67,11 +65,11 @@ PATH=/void-packages:/usr/bin
 exec env -i -- SHELL=/bin/sh PATH="$PATH" \
     XBPS_ARCH={cpu.host()} XBPS_CHECK_PKGS="" \
     IN_CHROOT=1 LC_COLLATE=C LANG=en_US.UTF-8 TERM=linux HOME="/tmp" \
-    PS1="[\\u@{paths.masterdir()} \\W]$ " /bin/bash +h
+    PS1="[\\u@{str(paths.masterdir())} \\W]$ " /bin/bash +h
 """)
     shf.close()
 
-    dof = open(path.join(paths.masterdir(), "bin", "cbuild-do"), "w")
+    dof = open(paths.masterdir() / "bin" / "cbuild-do", "w")
     dof.write("""#!/bin/sh
 [ -n "$XBPS_STATEDIR" ] && export PATH="${XBPS_STATEDIR}/wrappers:$PATH"
 cd $1
@@ -80,100 +78,90 @@ exec "$@"
 """)
     dof.close()
 
-    os.chmod(path.join(paths.masterdir(), "bin", "xbps-shell"), 0o755)
-    os.chmod(path.join(paths.masterdir(), "bin", "cbuild-do"), 0o755)
+    (paths.masterdir() / "bin" / "xbps-shell").chmod(0o755)
+    (paths.masterdir() / "bin" / "cbuild-do").chmod(0o755)
 
-    shutil.copy("/etc/resolv.conf", path.join(paths.masterdir(), "etc"))
+    shutil.copy("/etc/resolv.conf", paths.masterdir() / "etc")
 
 def _prepare(arch = None):
-    sfpath = path.join(paths.masterdir(), ".xbps_chroot_init")
-    if path.isfile(sfpath):
+    sfpath = paths.masterdir() / ".xbps_chroot_init"
+    if sfpath.is_file():
         return
-    if not path.isfile(path.join(paths.masterdir(), "bin", "bash")):
+    if not (paths.masterdir() / "usr" /"bin" / "bash").is_file():
         logger.get().out_red("cbuild: bootstrap not installed, can't continue")
         raise Exception()
 
-    if path.isfile("/usr/share/zoneinfo/UTC"):
-        zpath = path.join(paths.masterdir(), "usr", "share", "zoneinfo")
+    if pathlib.Path("/usr/share/zoneinfo/UTC").is_file():
+        zpath = paths.masterdir() / "usr" / "share" / "zoneinfo"
         os.makedirs(zpath, exist_ok = True)
         shutil.copy("/usr/share/zoneinfo/UTC", zpath)
-        os.symlink("../usr/share/zoneinfo/UTC", path.join(
-            paths.masterdir(), "etc", "localtime"
-        ))
+        (paths.masterdir() / "etc" / "localtime").symlink_to(
+            "../usr/share/zoneinfo/UTC"
+        )
     else:
         logger.get().out(
             "cbuild: no local timezone configuration file created"
         )
 
     for f in ["dev", "sys", "tmp", "proc", "host", "boot", "void-packages"]:
-        os.makedirs(path.join(paths.masterdir(), f), exist_ok = True)
+        os.makedirs(paths.masterdir() / f, exist_ok = True)
 
     shutil.copy(
-        path.join(paths.masterdir(), "base-files", "files", "passwd"),
-        path.join(paths.masterdir(), "etc")
+        paths.templates() / "base-files" / "files" / "passwd",
+        paths.masterdir() / "etc"
     )
     shutil.copy(
-        path.join(paths.masterdir(), "base-files", "files", "group"),
-        path.join(paths.masterdir(), "etc")
+        paths.templates() / "base-files" / "files" / "group",
+        paths.masterdir() / "etc"
     )
     shutil.copy(
-        path.join(paths.masterdir(), "base-files", "files", "hosts"),
-        path.join(paths.masterdir(), "etc")
+        paths.templates() / "base-files" / "files" / "hosts",
+        paths.masterdir() / "etc"
     )
 
-    pf = open(path.join(paths.masterdir(), "etc", "passwd"), "a")
-    username = getpass.getuser()
-    gid = os.getgid()
-    uid = os.getuid()
-    pf.write(f"{username}:x:{uid}:{gid}:{username} user:/tmp:/bin/xbps-shell\n")
-    pf.close()
+    with open(paths.masterdir() / "etc" / "passwd", "a") as pf:
+        username = getpass.getuser()
+        gid = os.getgid()
+        uid = os.getuid()
+        pf.write(f"{username}:x:{uid}:{gid}:{username} user:/tmp:/bin/xbps-shell\n")
 
-    pf = open(path.join(paths.masterdir(), "etc", "group"), "a")
-    pf.write(f"{username}:x:{gid}:\n")
-    pf.close()
+    with open(paths.masterdir() / "etc" / "group", "a") as pf:
+        pf.write(f"{username}:x:{gid}:\n")
 
-    sf = open(sfpath, "w")
-    sf.write(arch + "\n")
-    sf.close()
+    with open(sfpath, "w") as sf:
+        sf.write(arch + "\n")
 
 def repo_sync():
-    confdir = path.join(paths.masterdir(), "etc", "xbps.d")
+    confdir = paths.masterdir() / "etc" / "xbps.d"
 
-    if path.isdir(confdir):
+    if confdir.is_dir():
         shutil.rmtree(confdir, onerror = _remove_ro)
 
     os.makedirs(confdir, exist_ok = True)
-    try:
-        os.remove(path.join(confdir, "00-repository-alt-local.conf"))
-    except:
-        pass
+    (confdir / "00-repository-alt-local.conf").unlink(missing_ok = True)
 
     # disable main repository conf
-    os.symlink("/dev/null", path.join(confdir, "00-repository-main.conf"))
+    (confdir / "00-repository-main.conf").symlink_to("/dev/null")
 
     # generate xbps.d(5) config files for repos
-    _subst_in("/host", paths.hostdir(), path.join(
-        paths.distdir(), "etc", "xbps.d", "repos-local.conf"
-    ), path.join(confdir, "10-repository-local.conf"))
+    _subst_in("/host", str(paths.hostdir()), str(
+        paths.distdir() / "etc" / "xbps.d" / "repos-local.conf"
+    ), str(confdir / "10-repository-local.conf"))
 
-    rmlist = glob.glob(path.join(confdir, "*remote*"))
+    rmlist = confdir.glob("*remote*")
     for f in rmlist:
-        try:
-            os.remove(f)
-        except:
-            pass
+        f.unlink(missing_ok = True)
 
-    apf = open(path.join(confdir, "00-xbps-src.conf"), "a")
-    apf.write("\nsyslog=false\n")
-    apf.close()
+    with open(confdir / "00-xbps-src.conf", "a") as apf:
+        apf.write("\nsyslog=false\n")
 
 def reconfigure():
     if not chroot_check():
         return
 
-    statefile = path.join(paths.masterdir(), ".xbps_chroot_configured")
+    statefile = paths.masterdir() / ".xbps_chroot_configured"
 
-    if path.isfile(statefile):
+    if statefile.is_file():
         return
 
     logger.get().out("cbuild: reconfiguring base-chroot...")
@@ -184,8 +172,7 @@ def reconfigure():
             logger.get().out_red(f"cbuild: failed to reconfigure {pkg}")
             raise Exception()
 
-    f = open(statefile, "w")
-    f.close()
+    statefile.touch()
 
 def install(arch = None, bootstrap = False):
     if chroot_check():
@@ -230,7 +217,7 @@ def update(do_clean = True):
     reconfigure()
 
     logger.get().out("cbuild: updating software in %s masterdir..." \
-        % paths.masterdir())
+        % str(paths.masterdir()))
 
 def enter(cmd, args = [], set_env = True, capture_out = False, check = False,
           env = {}, stdout = None, stderr = None):
@@ -266,9 +253,9 @@ def enter(cmd, args = [], set_env = True, capture_out = False, check = False,
     return subprocess.run(
         [
             "bwrap",
-            "--dev-bind", paths.masterdir(), "/",
-            "--dev-bind", paths.hostdir(), "/host",
-            "--dev-bind", paths.distdir(), "/void-packages",
+            "--dev-bind", str(paths.masterdir()), "/",
+            "--dev-bind", str(paths.hostdir()), "/host",
+            "--dev-bind", str(paths.distdir()), "/void-packages",
             "--dev", "/dev",
             "--proc", "/proc",
             "--tmpfs", "/tmp",

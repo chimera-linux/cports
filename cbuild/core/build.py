@@ -1,6 +1,6 @@
 from cbuild.step import fetch, extract, patch, configure
 from cbuild.step import build as buildm, install, prepkg, pkg as pkgsm
-from cbuild.core import logger, chroot, dependencies, pkg as pkgm, paths, xbps
+from cbuild.core import logger, dependencies, pkg as pkgm, paths, xbps
 
 import os
 

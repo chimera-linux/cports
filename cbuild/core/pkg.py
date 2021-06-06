@@ -1,5 +1,4 @@
 from cbuild.core import logger, xbps
-from os import path
 import os
 import shutil
 
@@ -27,49 +26,40 @@ def _remove_ro(f, path, _):
     f(path)
 
 def remove_pkg_wrksrc(pkg):
-    if path.isdir(pkg.abs_wrksrc):
+    if pkg.abs_wrksrc.is_dir():
         pkg.log("cleaning build directory...")
         shutil.rmtree(pkg.abs_wrksrc, onerror = _remove_ro)
 
 def remove_pkg_statedir(pkg):
-    if path.isdir(pkg.statedir):
+    if pkg.statedir.is_dir():
         shutil.rmtree(pkg.statedir, onerror = _remove_ro)
 
 def remove_pkg(pkg):
-    if not path.isdir(pkg.destdir):
+    if not pkg.destdir.is_dir():
         return
 
     def remove_spkg(spkg, dbase):
         tpath = dbase / f"{spkg.pkgname}-{pkg.version}"
-        if path.isdir(tpath):
+        if tpath.is_dir():
             spkg.log(f"removing files from destdir...")
             shutil.rmtree(tpath, onerror = _remove_ro)
         tpath = dbase / f"{spkg.pkgname}-dbg-{pkg.version}"
-        if path.isdir(tpath):
+        if tpath.is_dir():
             spkg.log(f"removing dbg files from destdir...")
             shutil.rmtree(tpath, onerror = _remove_ro)
-        try:
-            os.remove(pkg.statedir / f"{spkg.pkgname}__subpkg_install_done")
-        except FileNotFoundError:
-            pass
-        try:
-            os.remove(pkg.statedir / f"{spkg.pkgname}__prepkg_done")
-        except FileNotFoundError:
-            pass
+        (pkg.statedir / f"{spkg.pkgname}__subpkg_install_done").unlink(
+            missing_ok = True
+        )
+        (pkg.statedir / f"{spkg.pkgname}__prepkg_done").unlink(missing_ok = True)
 
     remove_spkg(pkg, pkg.destdir_base)
     for sp in pkg.subpkg_list:
         remove_spkg(sp, pkg.destdir_base)
 
-    try:
-        os.remove(pkg.statedir / f"{pkg.pkgname}__install_done")
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(pkg.statedir / f"{pkg.pkgname}__pre_install_done")
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(pkg.statedir / f"{pkg.pkgname}__post_install_done")
-    except FileNotFoundError:
-        pass
+    (pkg.statedir / f"{pkg.pkgname}__install_done").unlink(missing_ok = True)
+    (pkg.statedir / f"{pkg.pkgname}__pre_install_done").unlink(
+        missing_ok = True
+    )
+    (pkg.statedir / f"{pkg.pkgname}__post_install_done").unlink(
+        missing_ok = True
+    )

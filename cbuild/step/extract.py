@@ -4,7 +4,7 @@ import os
 
 def invoke(pkg):
     extract_done = pkg.statedir / f"{pkg.pkgname}__extract_done"
-    if os.path.isfile(extract_done):
+    if extract_done.is_file():
         return
 
     template.call_pkg_hooks(pkg, "pre_extract")
@@ -19,4 +19,4 @@ def invoke(pkg):
     template.run_pkg_func(pkg, "post_extract")
     template.call_pkg_hooks(pkg, "post_extract")
 
-    open(extract_done, "w").close()
+    extract_done.touch()

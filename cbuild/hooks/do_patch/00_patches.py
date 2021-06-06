@@ -1,22 +1,20 @@
 from cbuild.core import chroot
 
-import os
-import glob
 import shutil
+import pathlib
 import subprocess
 
 def process_patch(pkg, patchpath):
     pargs = "-Np0"
-    argsf = patchpath + ".args"
+    argsf = pathlib.Path(str(patchpath) + ".args")
 
-    if os.path.isfile(argsf):
-        with open(argsf) as f:
-            pargs = f.read().strip()
+    if argsf.is_file():
+        pargs = argsf.read_text().strip()
     elif pkg.patch_args:
         pargs = pkg.patch_args
 
-    _, patchfn = os.path.split(patchpath)
-    _, patchsfx = os.path.splitext(patchfn)
+    patchfn = patchpath.name
+    patchsfx = patchpath.suffix
 
     try:
         shutil.copy(patchpath, pkg.abs_wrksrc)
@@ -27,12 +25,12 @@ def process_patch(pkg, patchpath):
         chroot.enter(
             "gunzip", [str(pkg.chroot_wrksrc / patchfn)], check = True
         )
-        patchfn = os.path.splitext(patchfn)
+        patchfn = patchpath.stem
     elif patchsfx == ".bz2":
         chroot.enter(
             "bunzip2", [str(pkg.chroot_wrksrc / patchfn)], check = True
         )
-        patchfn = os.path.splitext(patchfn)
+        patchfn = patchpath.stem
     elif patchsfx == ".diff" or patchsfx == ".patch":
         pass
     else:
@@ -45,20 +43,19 @@ def process_patch(pkg, patchpath):
     ], stderr = subprocess.DEVNULL, check = True)
 
 def invoke(pkg):
-    if not os.path.isdir(pkg.abs_wrksrc):
+    if not pkg.abs_wrksrc.is_dir():
         return
-    if not os.path.isdir(pkg.patches_path):
+    if not pkg.patches_path.is_dir():
         return
 
-    if os.path.isfile(pkg.patches_path / "series"):
+    if (pkg.patches_path / "series").is_file():
         with open(pkg.patches_path / "series") as f:
             for line in f.readlines():
-                process_patch(pkg, str(pkg.patches_path / line))
+                process_patch(pkg, pkg.patches_path / line)
     else:
-        for p in sorted(glob.glob(str(pkg.patches_path / "*"))):
-            if not os.path.isfile(p):
+        for p in sorted(pkg.patches_path.glob("*")):
+            if not p.is_file():
                 continue
-            pr, pext = os.path.splitext(p)
-            if pext == ".args":
+            if p.suffix == ".args":
                 continue
             process_patch(pkg, p)

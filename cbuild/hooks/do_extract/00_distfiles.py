@@ -32,7 +32,7 @@ tar_cmd = None
 def extract_tar(pkg, fname, dfile, edir, sfx):
     if chroot.enter(tar_cmd, [
         "-x", "--no-same-permissions", "--no-same-owner",
-        "-f", dfile, "-C", edir
+        "-f", str(dfile), "-C", edir
     ]).returncode != 0:
         pkg.error(f"extracting '{fname}' failed!")
 
@@ -76,7 +76,7 @@ extract_table = {
 def invoke(pkg):
     if pkg.create_wrksrc:
         os.makedirs(pkg.abs_wrksrc, exist_ok = False)
-        if not os.path.isdir(pkg.abs_wrksrc):
+        if not pkg.abs_wrksrc.is_dir():
             pkg.error(f"failed to create wrksrc")
 
     x = chroot.enter(

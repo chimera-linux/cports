@@ -40,7 +40,7 @@ def store_rundeps(pkg):
             rdeps.write(" ".join(dl))
 
 def invoke(pkg):
-    shlibmap = os.path.join(paths.cbuild(), "shlibs")
+    shlibmap = paths.cbuild() / "shlibs"
 
     if pkg.noverifyrdeps:
         store_rundeps(pkg)
@@ -52,7 +52,7 @@ def invoke(pkg):
 
     for root, dirs, files in os.walk(pkg.destdir):
         for f in files:
-            fp = os.path.join(root, f)
+            fp = pathlib.Path(root) / f
 
             curfilemap[f] = True
 
@@ -63,14 +63,14 @@ def invoke(pkg):
                 if fh.read(4) != b"\x7FELF":
                     continue
 
-            ff = os.path.relpath(fp, pkg.destdir)
+            ff = fp.relative_to(pkg.destdir)
 
-            if ff in pkg.skiprdeps:
+            if "/" + str(ff) in pkg.skiprdeps:
                 pkg.log(f"skipping dependency scan for {ff}")
                 continue
 
             for ln in chroot.enter(pkg.rparent.tools["OBJDUMP"], [
-                "-p", os.path.join(pkg.chroot_destdir, ff)
+                "-p", str(pkg.chroot_destdir / ff)
             ], capture_out = True).stdout.splitlines():
                 ln = ln.strip()
                 if not ln.startswith(b"NEEDED"):

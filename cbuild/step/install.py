@@ -6,15 +6,15 @@ def invoke(pkg, subpkg_mode):
     install_done = pkg.statedir / f"{pkg.pkgname}__install_done"
 
     if not subpkg_mode:
-        if not os.path.isfile(install_done) or pkg.force_mode:
+        if not install_done.is_file() or pkg.force_mode:
             os.makedirs(pkg.destdir, exist_ok = True)
             pkg.run_step("install", skip_post = True)
-            open(install_done, "w").close()
+            install_done.touch()
         return
 
     subpkg_install_done = pkg.statedir / f"{pkg.pkgname}__subpkg_install_done"
 
-    if os.path.isfile(subpkg_install_done):
+    if subpkg_install_done.is_file():
         return
 
     # this is a real subpackage
@@ -27,4 +27,4 @@ def invoke(pkg, subpkg_mode):
     pkg.run_depends = dependencies.get_pkg_depends(pkg, False)
     template.call_pkg_hooks(pkg, "post_install")
 
-    open(subpkg_install_done, "w").close()
+    subpkg_install_done.touch()
