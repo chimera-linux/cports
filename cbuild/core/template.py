@@ -151,6 +151,93 @@ class Package:
             return self.pkgname
         return "cbuild"
 
+core_fields = [
+    # name default type optional mandatory
+
+    # core fields that are set early
+    ("pkgname", None, str, False, True),
+    ("version", None, str, False, True),
+    ("revision", None, int, False, True),
+    ("short_desc", None, str, False, True),
+    ("homepage", None, str, False, True),
+    ("license", None, str, False, True),
+
+    # not mandatory but encouraged
+    ("maintainer", None, str, True, False),
+
+    # other core-ish fields
+    ("subpackages", [], list, True, False),
+    ("broken", None, None, True, False),
+    ("build_style", None, str, True, False),
+
+    # distfiles
+    ("distfiles", [], list, True, False),
+    ("checksum", [], list, True, False),
+    ("skip_extraction", [], list, True, False),
+
+    # target support
+    ("archs", None, str, True, False),
+    ("bootstrap", False, bool, False, False),
+
+    # build directory and patches
+    ("wrksrc", None, str, True, False),
+    ("build_wrksrc", "", str, False, False),
+    ("create_wrksrc", False, bool, False, False),
+    ("patch_args", None, str, True, False),
+
+    # dependency lists
+    ("hostmakedepends", [], list, False, False),
+    ("makedepends", [], list, False, False),
+    ("depends", [], list, False, False),
+
+    # other package lists + related
+    ("provides", [], list, False, False),
+    ("replaces", [], list, False, False),
+    ("conflicts", [], list, False, False),
+    ("reverts", [], list, False, False),
+    ("skiprdeps", [], list, False, False),
+    ("noverifyrdeps", False, bool, False, False),
+
+    # build systems
+    ("configure_args", [], list, True, False),
+    ("make_build_args", [], list, True, False),
+    ("make_install_args", [], list, True, False),
+    ("make_build_target", "", str, False, False),
+    ("make_install_target", "install", str, False, False),
+
+    # target build related
+    ("nopie", False, bool, False, False),
+    ("tools", {}, dict, False, False),
+    ("env", {}, dict, False, False),
+    ("CFLAGS", [], list, True, False),
+    ("CXXFLAGS", [], list, True, False),
+    ("LDFLAGS", [], list, True, False),
+
+    # shlibs
+    ("shlib_provides", [], list, True, False),
+    ("shlib_requires", [], list, True, False),
+    ("noshlibprovides", False, bool, False, False),
+
+    # packaging
+    ("triggers", [], list, True, False),
+    ("make_dirs", [], list, True, False),
+    ("repository", None, str, True, False),
+    ("preserve", False, bool, False, False),
+    ("mutable_files", [], list, True, False),
+    ("conf_files", [], list, True, False),
+    ("alternatives", [], list, True, False),
+    ("tags", [], list, True, False),
+    ("changelog", None, str, True, False),
+]
+
+# for defaults, always make copies
+def copy_of_dval(val):
+    if isinstance(val, list):
+        return list(val)
+    if isinstance(val, dict):
+        return dict(val)
+    return val
+
 class Template(Package):
     def __init__(self, origin):
         super().__init__()
@@ -160,83 +247,27 @@ class Template(Package):
         else:
             self.origin = self
 
-        # mandatory fields
-        self.pkgname = None
-        self.version = None
-        self.revision = None
-        self.short_desc = None
-        self.homepage = None
-        self.license = None
-    
-        # optional core fields
-        self.archs = None
-        self.hostmakedepends = []
-        self.makedepends = []
-        self.depends = []
-        self.shlib_provides = None
-        self.shlib_requires = None
-        self.bootstrap = None
-        self.maintainer = None
-        self.wrksrc = None
-        self.build_wrksrc = ""
-        self.create_wrksrc = False
-        self.patch_args = None
-        self.configure_args = []
-        self.make_build_args = []
-        self.make_install_args = []
-        self.make_build_target = ""
-        self.make_install_target = "install"
-        self.distfiles = None
-        self.checksum = None
-        self.skip_extraction = []
-        self.subpackages = []
-        self.triggers = []
-        self.broken = None
-        self.nopie = False
-        self.noverifyrdeps = False
-        self.noshlibprovides = False
-        self.skiprdeps = []
-        self.shlib_requires = []
-        self.shlib_provides = []
-        self.make_dirs = []
-        self.repository = None
-        self.preserve = False
-        self.provides = []
-        self.replaces = []
-        self.conflicts = []
-        self.reverts = []
-        self.mutable_files = []
-        self.conf_files = []
-        self.alternatives = []
-        self.tags = []
-        self.changelog = None
-        self.CFLAGS = []
-        self.CXXFLAGS = []
-        self.LDFLAGS = []
-        self.tools = {}
-        self.env = {}
-    
-        # injected
-        self.build_style = None
-        self.run_depends = None
-    
+        # default all the fields
+        for fl, dval, tp, opt, mand in core_fields:
+            setattr(self, fl, copy_of_dval(dval))
+
         # other fields
+        self.run_depends = None
         self.parent = None
         self.rparent = self
         self.subpkg_list = []
         self.source_date_epoch = None
 
     def ensure_fields(self):
-        for f in [
-            "pkgname", "version", "revision",
-            "short_desc", "homepage", "license"
-        ]:
-            if not getattr(self, f):
-                self.error("missing field: %s" % f)
+        for fl, dval, tp, opt, mand in core_fields:
+            # mandatory fields are all at the beginning
+            if not mand:
+                break
+            # basic validation of type
+            if not hasattr(self, fl) or not isinstance(getattr(self, fl), tp):
+                self.error("missing or invalid field: %s" % fl)
 
     def validate_version(self):
-        if not isinstance(self.version, str):
-            self.error("malformed version field")
         if "-" in self.version:
             self.error("version contains invalid character: -")
         if "_" in self.version:
@@ -453,13 +484,14 @@ class Subpackage(Package):
                 )
 
 def from_module(m, ret):
-    # fill in required fields
-    ret.pkgname = m.pkgname
-    ret.version = m.version
-    ret.revision = m.revision
-    ret.short_desc = m.short_desc
-    ret.homepage = m.homepage
-    ret.license = m.license
+    # fill in mandatory fields
+    for fl, dval, tp, opt, mand in core_fields:
+        # mandatory fields are all at the beginning
+        if not mand:
+            break
+        # no validation for now, that is done later
+        if hasattr(m, fl):
+            setattr(ret, fl, getattr(m, fl))
 
     # basic validation
     ret.ensure_fields()
@@ -468,22 +500,21 @@ def from_module(m, ret):
     # this is useful so we don't have to repeat ourselves
     ret.pkgver = f"{ret.pkgname}-{ret.version}_{ret.revision}"
 
-    # other fields
-    for fld in [
-        "archs", "hostmakedepends", "makedepends", "depends",
-        "shlib_provides", "shlib_requires", "bootstrap",
-        "maintainer", "wrksrc", "build_wrksrc", "create_wrksrc", "patch_args",
-        "configure_args", "make_build_args", "make_install_args",
-        "make_build_target", "make_install_target",
-        "distfiles", "checksum", "skip_extraction", "subpackages", "triggers",
-        "broken", "nopie", "noverifyrdeps", "noshlibprovides", "skiprdeps",
-        "shlib_requires", "shlib_provides", "make_dirs", "repository",
-        "preserve", "provides", "replaces", "conflicts", "reverts",
-        "mutable_files", "conf_files", "alternatives", "tags", "changelog",
-        "CFLAGS", "CXXFLAGS", "LDFLAGS", "tools", "env", "build_style"
-    ]:
-        if hasattr(m, fld):
-            setattr(ret, fld, getattr(m, fld))
+    # fill in core non-mandatory fields
+    for fl, dval, tp, opt, mand in core_fields:
+        # already set
+        if mand:
+            continue
+        # also perform type validation
+        if hasattr(m, fl):
+            flv = getattr(m, fl)
+            if (not opt and flv == None) or not isinstance(flv, tp):
+                ret.error("invalid field value: %s" % fl)
+            # validated, set
+            if opt and flv == None:
+                setattr(ret, fl, dval)
+            else:
+                setattr(ret, fl, flv)
 
     if not ret.wrksrc:
         ret.wrksrc = f"{ret.pkgname}-{ret.version}"

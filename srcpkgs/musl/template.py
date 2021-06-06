@@ -1,5 +1,5 @@
 pkgname = "musl"
-reverts = "1.2.0_1"
+reverts = ["1.2.0_1"]
 version = "1.1.24"
 revision = 7
 archs = "*-musl"
