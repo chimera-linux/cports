@@ -1,10 +1,13 @@
 from cbuild.util import make
 
 def do_configure(self):
-    self.do("./configure", self.configure_args, build = True, env = {
-        "lt_cv_sys_lib_dlsearch_path_spec": \
-            "/usr/lib64 /usr/lib32 /usr/lib /lib /usr/local/lib"
-    })
+    self.do(
+        str(self.chroot_build_wrksrc / self.configure_script),
+        self.configure_args, build = True, env = {
+            "lt_cv_sys_lib_dlsearch_path_spec": \
+                "/usr/lib64 /usr/lib32 /usr/lib /lib /usr/local/lib"
+        }
+    )
 
 def do_build(self):
     self.make = make.Make(self, env = {

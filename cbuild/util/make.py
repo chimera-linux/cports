@@ -8,9 +8,9 @@ def jobs():
     return _jobs
 
 class Make:
-    def __init__(self, tmpl, jobs = None, command = "make", env = {}):
+    def __init__(self, tmpl, jobs = None, command = None, env = {}):
         self.template = tmpl
-        self.command = command
+        self.command = command if command else tmpl.make_cmd
         self.env = env
         if not jobs:
             self.jobs = _jobs
@@ -23,6 +23,9 @@ class Make:
 
         if not jobs:
             jobs = self.jobs
+
+        if self.template.disable_parallel_build:
+            jobs = 1
 
         argsbase = ["-j" + str(jobs)]
 
