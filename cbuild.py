@@ -91,7 +91,7 @@ def bootstrap(tgt):
 def do_chroot(tgt):
     chroot.repo_sync()
     chroot.reconfigure()
-    chroot.enter("/bin/xbps-shell", set_env = False)
+    chroot.enter("/bin/xbps-shell")
 
 def clean(tgt):
     pass
