@@ -69,7 +69,7 @@ def build(step, pkg, depmap):
                 pkgs = []
                 genrepos[repo] = pkgs
             else:
-                pkgs = genrepo[repo]
+                pkgs = genrepos[repo]
             pkgs.append(pkgn.strip())
 
     for repo in genrepos:
