@@ -280,9 +280,9 @@ class Template(Package):
 
         cenv.update(self.tools)
         cenv.update(self.env)
-        return chroot.enter("/usr/bin/cbuild-do", [
-            str(self.chroot_build_wrksrc if build else self.chroot_wrksrc), cmd
-        ] + args, env = cenv, check = True)
+
+        wdir = str(self.chroot_build_wrksrc if build else self.chroot_wrksrc)
+        return chroot.enter(cmd, args, env = cenv, wrkdir = wdir, check = True)
 
     def run_step(self, stepn, optional = False, skip_post = False):
         call_pkg_hooks(self, "pre_" + stepn)
@@ -529,7 +529,7 @@ def from_module(m, ret):
     ret.statedir = ret.builddir / (".xbps-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
 
-    ret.env["XBPS_STATEDIR"] = "/builddir/.xbps-" + ret.pkgname
+    ret.env["CBUILD_STATEDIR"] = "/builddir/.xbps-" + ret.pkgname
 
     if not hasattr(ret, "do_install"):
         ret.error("do_install is missing")

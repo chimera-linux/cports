@@ -2,6 +2,7 @@ from cbuild.core import logger, chroot
 
 import os
 import re
+import pathlib
 
 def invoke(pkg):
     if pkg.noshlibprovides:
@@ -13,7 +14,7 @@ def invoke(pkg):
 
     for root, dirs, files in os.walk(pkg.destdir):
         for f in files:
-            fp = os.path.join(root, f)
+            fp = pathlib.Path(root) / f
 
             if not os.access(fp, os.W_OK):
                 continue
@@ -22,10 +23,10 @@ def invoke(pkg):
                 if fh.read(4) != b"\x7FELF":
                     continue
 
-            ff = os.path.relpath(fp, pkg.destdir)
+            ff = fp.relative_to(pkg.destdir)
 
             for ln in chroot.enter(pkg.rparent.tools["OBJDUMP"], [
-                "-p", os.path.join(pkg.chroot_destdir, ff)
+                "-p", str(pkg.chroot_destdir / ff)
             ], capture_out = True).stdout.splitlines():
                 ln = ln.strip()
                 if not ln.startswith(b"SONAME"):

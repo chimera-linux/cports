@@ -69,17 +69,7 @@ exec env -i -- SHELL=/bin/sh PATH="$PATH" \
 """)
     shf.close()
 
-    dof = open(paths.masterdir() / "bin" / "cbuild-do", "w")
-    dof.write("""#!/bin/sh
-[ -n "$XBPS_STATEDIR" ] && export PATH="${XBPS_STATEDIR}/wrappers:$PATH"
-cd $1
-shift
-exec "$@"
-""")
-    dof.close()
-
     (paths.masterdir() / "bin" / "xbps-shell").chmod(0o755)
-    (paths.masterdir() / "bin" / "cbuild-do").chmod(0o755)
 
     shutil.copy("/etc/resolv.conf", paths.masterdir() / "etc")
 
@@ -219,48 +209,54 @@ def update(do_clean = True):
     logger.get().out("cbuild: updating software in %s masterdir..." \
         % str(paths.masterdir()))
 
-def enter(cmd, args = [], set_env = True, capture_out = False, check = False,
-          env = {}, stdout = None, stderr = None):
-    if not set_env:
-        if bool(env):
-            envs = dict(os.environ).update(env)
-        else:
-            envs = None
-    else:
-        envs = {
-            "PATH": "/usr/bin:" + os.environ["PATH"],
-            "SHELL": "/bin/sh",
-            "HOME": "/tmp",
-            "IN_CHROOT": "1",
-            "LC_COLLATE": "C",
-            "LANG": "en_US.UTF-8",
-            **env
-        }
-        if "NO_PROXY" in os.environ:
-            envs["NO_PROXY"] = os.environ["NO_PROXY"]
-        if "FTP_PROXY" in os.environ:
-            envs["FTP_PROXY"] = os.environ["FTP_PROXY"]
-        if "HTTP_PROXY" in os.environ:
-            envs["HTTP_PROXY"] = os.environ["HTTP_PROXY"]
-        if "HTTPS_PROXY" in os.environ:
-            envs["HTTPS_PROXY"] = os.environ["HTTPS_PROXY"]
-        if "SOCKS_PROXY" in os.environ:
-            envs["SOCKS_PROXY"] = os.environ["SOCKS_PROXY"]
-        if "FTP_RETRIES" in os.environ:
-            envs["FTP_RETRIES"] = os.environ["FTP_RETRIES"]
-        if "HTTP_PROXY_AUTH" in os.environ:
-            envs["HTTP_PROXY_AUTH"] = os.environ["HTTP_PROXY_AUTH"]
+def enter(cmd, args = [], capture_out = False, check = False,
+          env = {}, stdout = None, stderr = None, wrkdir = None):
+    envs = {
+        "PATH": "/usr/bin:" + os.environ["PATH"],
+        "SHELL": "/bin/sh",
+        "HOME": "/tmp",
+        "IN_CHROOT": "1",
+        "LC_COLLATE": "C",
+        "LANG": "en_US.UTF-8",
+        **env
+    }
+    if "NO_PROXY" in os.environ:
+        envs["NO_PROXY"] = os.environ["NO_PROXY"]
+    if "FTP_PROXY" in os.environ:
+        envs["FTP_PROXY"] = os.environ["FTP_PROXY"]
+    if "HTTP_PROXY" in os.environ:
+        envs["HTTP_PROXY"] = os.environ["HTTP_PROXY"]
+    if "HTTPS_PROXY" in os.environ:
+        envs["HTTPS_PROXY"] = os.environ["HTTPS_PROXY"]
+    if "SOCKS_PROXY" in os.environ:
+        envs["SOCKS_PROXY"] = os.environ["SOCKS_PROXY"]
+    if "FTP_RETRIES" in os.environ:
+        envs["FTP_RETRIES"] = os.environ["FTP_RETRIES"]
+    if "HTTP_PROXY_AUTH" in os.environ:
+        envs["HTTP_PROXY_AUTH"] = os.environ["HTTP_PROXY_AUTH"]
+
+    # if running from template, ensure wrappers are early in executable path
+    if "CBUILD_STATEDIR" in envs:
+        envs["PATH"] = envs["CBUILD_STATEDIR"] + "/wrappers:" + envs["PATH"]
+
+    bcmd = [
+        "bwrap",
+        "--dev-bind", str(paths.masterdir()), "/",
+        "--dev-bind", str(paths.hostdir()), "/host",
+        "--dev-bind", str(paths.distdir()), "/void-packages",
+        "--dev", "/dev",
+        "--proc", "/proc",
+        "--tmpfs", "/tmp",
+    ]
+
+    if wrkdir:
+        bcmd.append("--chdir")
+        bcmd.append(str(wrkdir))
+
+    bcmd.append(cmd)
+    bcmd += args
+
     return subprocess.run(
-        [
-            "bwrap",
-            "--dev-bind", str(paths.masterdir()), "/",
-            "--dev-bind", str(paths.hostdir()), "/host",
-            "--dev-bind", str(paths.distdir()), "/void-packages",
-            "--dev", "/dev",
-            "--proc", "/proc",
-            "--tmpfs", "/tmp",
-            cmd
-        ] + args,
-        env = envs, capture_output = capture_out, check = check,
+        bcmd, env = envs, capture_output = capture_out, check = check,
         stdout = stdout, stderr = stderr
     )
