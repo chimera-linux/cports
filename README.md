@@ -10,7 +10,6 @@ bootstrap collection. This is, however, going to change in very near future.
 Right now it is very limited. It is capable of creating packages, but it cannot
 properly build dependencies and most commands are missing.
 
-* Dependency building
 * Cross-compiling
 * Clean, bootstrap update, etc.
 * Complete bootstrap collection

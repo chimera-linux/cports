@@ -34,6 +34,11 @@ parser.add_argument(
 parser.add_argument(
     "-j", "--jobs", help = "Number of jobs to use.", default = 1
 )
+parser.add_argument(
+    "-E", "--skip-if-exists", action = "store_const",
+    const = True, default = False,
+    help = "Do not build if the package already exists in local repository."
+)
 parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
 args = parser.parse_args()
@@ -93,9 +98,12 @@ def clean(tgt):
 
 def do_pkg(tgt):
     pkgn = cmd[1] if len(cmd) >= 1 else None
+    rp = template.read_pkg(
+        pkgn, args.force, False, args.skip_if_exists, None
+    )
     # don't remove builddir/destdir
     chroot.update(do_clean = False)
-    build.build(tgt, template.read_pkg(pkgn, args.force, False), pkgn)
+    build.build(tgt, rp, {})
 
 def do_bad(tgt):
     logger.get().out_red("cbuild: invalid target " + tgt)
@@ -118,6 +126,8 @@ try:
         "install": do_pkg,
         "pkg": do_pkg
     }).get(cmd[0], do_bad)(cmd[0])
+except template.SkipPackage:
+    pass
 except:
     logger.get().out_red("A failure has occured!")
     traceback.print_exc(file = logger.get().estream)

@@ -4,9 +4,14 @@ from cbuild.core import logger, dependencies, pkg as pkgm, paths, xbps
 
 import os
 
-def build(step, pkg, origpkg):
+def build(step, pkg, depmap):
+    if pkg.pkgname in depmap:
+        pkg.error(f"build-time dependency cycle encountered for {pkg.pkgname} (dependency of {pkg.origin.pkgname})")
+
+    depmap[pkg.pkgname] = True
+
     # check and install dependencies
-    dependencies.install(pkg, origpkg, step)
+    dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap)
 
     # run up to the step we need
     fetch.invoke(pkg)

@@ -7,13 +7,13 @@ import subprocess
 import pathlib
 import re
 
-def repository_url(pkgn):
+def repository_property(pkgn, pname):
     v = subprocess.run(
         [
             "xbps-query",
             "-c", str(paths.hostdir() / ("repocache-" + cpu.host())),
             "-r", str(paths.masterdir()), "-C", "etc/xbps.d",
-            "-R", "-prepository", pkgn
+            "-R", "-p" + pname, pkgn
         ],
         capture_output = True
     ).stdout.strip().decode("ascii")
@@ -22,6 +22,9 @@ def repository_url(pkgn):
         return None
 
     return v
+
+def repository_url(pkgn):
+    return repository_property(pkgn, "repository")
 
 def reconfigure(pkgn = None, arch = None, capture_out = False):
     rcenv = {"XBPS_ARCH": arch if arch else cpu.host()}

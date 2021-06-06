@@ -44,7 +44,7 @@ def _install_from_repo(pkg, pkglist):
             pkg.logger.out_plain(outl)
         pkg.error(f"failed to install dependencies")
 
-def install(pkg, origpkg, step):
+def install(pkg, origpkg, step, depmap):
     style = ""
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
@@ -178,13 +178,34 @@ def install(pkg, origpkg, step):
                 missing_rdeps.append(vpkg)
 
     for hd in host_missing_deps:
-        pass
+        pn = xbps.get_pkg_name(hd)
+        try:
+            build.build(step, template.read_pkg(
+                pn, pkg.force_mode, pkg.bootstrapping, True, pkg
+            ), depmap)
+        except template.SkipPackage:
+            pass
+        host_binpkg_deps.append(hd)
 
     for td in missing_deps:
-        pass
+        pn = xbps.get_pkg_name(td)
+        try:
+            build.build(step, template.read_pkg(
+                pn, pkg.force_mode, pkg.bootstrapping, True, pkg
+            ), depmap)
+        except template.SkipPackage:
+            pass
+        host_binpkg_deps.append(td)
 
     for rd in missing_rdeps:
-        pass
+        pn = xbps.get_pkg_name(rd)
+        try:
+            build.build(step, template.read_pkg(
+                pn, pkg.force_mode, pkg.bootstrapping, True, pkg
+            ), depmap)
+        except template.SkipPackage:
+            pass
+        host_binpkg_deps.append(rd)
 
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")

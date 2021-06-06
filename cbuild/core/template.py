@@ -16,10 +16,13 @@ import subprocess
 import shutil
 import builtins
 
-from cbuild.core import logger, chroot, paths
+from cbuild.core import logger, chroot, paths, xbps
 from cbuild import cpu
 
 class PackageError(Exception):
+    pass
+
+class SkipPackage(Exception):
     pass
 
 @contextlib.contextmanager
@@ -149,8 +152,13 @@ class Package:
         return "cbuild"
 
 class Template(Package):
-    def __init__(self):
+    def __init__(self, origin):
         super().__init__()
+
+        if origin:
+            self.origin = origin
+        else:
+            self.origin = self
 
         # mandatory fields
         self.pkgname = None
@@ -523,11 +531,24 @@ def from_module(m, ret):
 
     ret.env["XBPS_STATEDIR"] = "/builddir/.xbps-" + ret.pkgname
 
+    if not hasattr(ret, "do_install"):
+        ret.error("do_install is missing")
+
+    if ret.skip_if_exist:
+        # FIXME: this actually uses remote repos too
+        bpkgver = xbps.repository_property(ret.pkgname, "pkgver")
+        if ret.pkgver == bpkgver:
+            if ret.origin == ret:
+                # only print if this is not a dependency build
+                brepo = xbps.repository_url(ret.pkgname)
+                ret.log(f"found ({cpu.target()}) ({brepo})")
+            raise SkipPackage()
+
     spdupes = {}
     # link subpackages and fill in their fields
     for spn, spf in ret.subpackages:
         if spn in spdupes:
-            self.error(f"subpackage '{spn}' already exists")
+            ret.error(f"subpackage '{spn}' already exists")
         spdupes[spn] = True
         sp = Subpackage(spn, ret)
         sp.version = ret.version
@@ -540,7 +561,7 @@ def from_module(m, ret):
         ret.subpkg_list.append(sp)
 
     if ret.broken:
-        self.log_red("cannot be built, it's currently broken")
+        ret.log_red("cannot be built, it's currently broken")
         if isinstance(ret.broken, str):
             ret.error(f"{ret.broken}")
         else:
@@ -607,7 +628,7 @@ def from_module(m, ret):
 
     return ret
 
-def read_pkg(pkgname, force_mode, bootstrapping):
+def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
     if not isinstance(pkgname, str):
         logger.get().out_red("Missing package name.")
         raise PackageError()
@@ -615,9 +636,10 @@ def read_pkg(pkgname, force_mode, bootstrapping):
         logger.get().out_red("Missing template for '%s'" % cmd[0])
         raise PackageError()
 
-    ret = Template()
+    ret = Template(origin)
     ret.force_mode = force_mode
     ret.bootstrapping = bootstrapping
+    ret.skip_if_exist = skip_if_exist
 
     def subpkg_deco(spkgname):
         def deco(f):
