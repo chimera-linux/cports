@@ -45,9 +45,9 @@ def genpkg(pkg, repo, arch, binpkg):
             args.append("--replaces")
             args.append(" ".join(pkg.replaces))
 
-        if len(pkg.reverts) > 0:
+        if len(pkg.rparent.reverts) > 0:
             args.append("--reverts")
-            args.append(" ".join(pkg.reverts))
+            args.append(" ".join(pkg.rparent.reverts))
 
         if len(pkg.mutable_files) > 0:
             args.append("--mutable-files")
@@ -99,9 +99,9 @@ def genpkg(pkg, repo, arch, binpkg):
             args.append("--tags")
             args.append(" ".join(pkg.tags))
 
-        if pkg.changelog:
+        if pkg.rparent.changelog:
             args.append("--changelog")
-            args.append(pkg.changelog)
+            args.append(pkg.rparent.changelog)
 
         args.append("--architecture")
         args.append(arch)

@@ -156,6 +156,9 @@ def invoke(pkg):
 
         add_rundep(pkg, sdep)
 
+    if broken:
+        pkg.error("cannot guess required shlibs")
+
     store_rundeps(pkg)
 
     # add any explicit deps
