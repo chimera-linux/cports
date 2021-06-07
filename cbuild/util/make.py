@@ -17,7 +17,7 @@ class Make:
         else:
             self.jobs = jobs
 
-    def invoke(self, target = None, args = [], jobs = None, env = {}):
+    def invoke(self, targets = [], args = [], jobs = None, env = {}):
         renv = dict(self.env)
         renv.update(env)
 
@@ -29,8 +29,11 @@ class Make:
 
         argsbase = ["-j" + str(jobs)]
 
-        if target and len(target) > 0:
-            argsbase.append(target)
+        if targets:
+            if isinstance(targets, list):
+                argsbase += targets
+            else:
+                argsbase.append(str(targets))
 
         argsbase += args
 

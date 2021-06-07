@@ -386,6 +386,7 @@ class Template(Package):
                 f"install_file: destination file '{str(dfn)}' already exists"
             )
             raise PackageError()
+        self.install_dir(dest)
         shutil.copy2(src, dfn)
         dfn.chmod(mode)
 
@@ -394,6 +395,15 @@ class Template(Package):
         for bn in args:
             spath = self.abs_wrksrc / bn
             dpath = self.destdir / "usr/bin"
+            self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
+            shutil.copy2(spath, dpath)
+            (dpath / spath.name).chmod(0o755)
+
+    def install_lib(self, *args):
+        self.install_dir("usr/lib")
+        for bn in args:
+            spath = self.abs_wrksrc / bn
+            dpath = self.destdir / "usr/lib"
             self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
             shutil.copy2(spath, dpath)
             (dpath / spath.name).chmod(0o755)
@@ -413,7 +423,7 @@ class Template(Package):
             except:
                 self.logger.out_red(f"manpage '{mnf}' has an invalid section")
                 raise PackageError()
-            mandir = manbase / ("man" + mnext)
+            mandir = manbase / ("man" + str(mnsec))
             os.makedirs(mandir, exist_ok = True)
             self.log(f"copying (644): {str(absmn)} -> {str(mandir)}")
             shutil.copy2(absmn, mandir)
