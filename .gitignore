@@ -1,0 +1,6 @@
+*~
+*.o
+__pycache__
+masterdir*
+hostdir*
+.xbps-checkvers*.plist
