@@ -686,8 +686,8 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
     if not isinstance(pkgname, str):
         logger.get().out_red("Missing package name.")
         raise PackageError()
-    if not (paths.templates() / pkgname / "template").is_file():
-        logger.get().out_red("Missing template for '%s'" % cmd[0])
+    if not (paths.templates() / pkgname / "template.py").is_file():
+        logger.get().out_red("Missing template for '%s'" % pkgname)
         raise PackageError()
 
     ret = Template(origin)
