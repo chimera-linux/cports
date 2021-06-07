@@ -428,6 +428,15 @@ class Template(Package):
         self.log(f"symlinking: {str(src)} -> {str(dest)}")
         dest.symlink_to(src)
 
+    def copy(self, src, dest, root = None):
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
+            self.logger.out_red(f"path '{str(dest)}' must not be absolute")
+            raise PackageError()
+        cp = (pathlib.Path(root) if root else self.destdir) / dest
+        self.log(f"copying: {str(src)} -> {str(cp)}")
+        shutil.copy2(src, cp)
+
     def unlink(self, f, root = None, missing_ok = False):
         f = pathlib.Path(f)
         if f.is_absolute():

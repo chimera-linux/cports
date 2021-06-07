@@ -19,10 +19,11 @@ class GnuLike:
         # custom flags always
         argsbase += flags
         # custom ldflags sometimes
-        if not obj_file:
-            argsbase += ldflags
+        if obj_file:
             # to compile an object file
             argsbase.append("-c")
+        else:
+            argsbase += ldflags
         # output always
         argsbase += ["-o", str(pkg.chroot_build_wrksrc / output)]
         # fire
