@@ -363,6 +363,28 @@ class Template(Package):
             self.log(f"creating path: {dirp}")
             os.makedirs(dirp, exist_ok = True)
 
+    def install_file(self, src, dest, mode = 0o644, name = None):
+        src = pathlib.Path(src)
+        dest = pathlib.Path(dest)
+        # sanitize destination
+        if dest.is_absolute():
+            self.logger.out_red(
+                f"install_file: path '{str(dest)}' must not be absolute"
+            )
+            raise PackageError()
+        # default name
+        if not name:
+            name = src.name
+        # copy
+        dfn = self.destdir / dest / name
+        if dfn.exists():
+            self.logger.out_red(
+                f"install_file: destination file '{str(dfn)}' already exists"
+            )
+            raise PackageError()
+        shutil.copy2(src, dfn)
+        dfn.chmod(mode)
+
     def install_bin(self, *args):
         self.install_dir("usr/bin")
         for bn in args:
