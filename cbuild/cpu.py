@@ -36,6 +36,7 @@ def _match_arch(archn, *args):
             else:
                 odd = not odd
                 continue
+    return match
 
 def match_target(*args):
     return _match_arch(target(), *args)

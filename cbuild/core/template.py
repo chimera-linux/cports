@@ -424,14 +424,14 @@ class Template(Package):
         self.log(f"symlinking: {str(src)} -> {str(dest)}")
         dest.symlink_to(src)
 
-    def unlink(self, f, root = None):
+    def unlink(self, f, root = None, missing_ok = False):
         f = pathlib.Path(f)
         if f.is_absolute():
             self.logger.out_red(f"path '{str(f)}' must not be absolute")
             raise PackageError()
         remp = (pathlib.Path(root) if root else self.destdir) / f
         self.log(f"removing: {str(remp)}")
-        remp.unlink()
+        remp.unlink(missing_ok)
 
     def rmtree(self, path, root = None):
         path = pathlib.Path(path)
@@ -694,6 +694,7 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
     ret.force_mode = force_mode
     ret.bootstrapping = bootstrapping
     ret.skip_if_exist = skip_if_exist
+    ret.cross_build = False
 
     def subpkg_deco(spkgname):
         def deco(f):
