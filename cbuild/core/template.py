@@ -302,21 +302,25 @@ class Template(Package):
             self.error(f"this package cannot be built for {cpu.target()}")
 
     def do(self, cmd, args, env = {}, build = False):
-        cenv = dict(env);
-        cenv["CFLAGS"] = " ".join(self.CFLAGS)
-        cenv["CXXFLAGS"] = " ".join(self.CXXFLAGS)
-        cenv["LDFLAGS"] = " ".join(self.LDFLAGS)
-        cenv["XBPS_TARGET_MACHINE"] = cpu.target()
-        cenv["XBPS_MACHINE"] = cpu.host()
-        cenv["XBPS_TRIPLET"] = self.triplet
+        cenv = {
+            "CFLAGS": " ".join(self.CFLAGS),
+            "CXXFLAGS": " ".join(self.CXXFLAGS),
+            "LDFLAGS": " ".join(self.LDFLAGS),
+            "XBPS_TARGET_MACHINE": cpu.target(),
+            "XBPS_MACHINE": cpu.host(),
+            "XBPS_TRIPLET": self.triplet,
+        }
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
 
         cenv.update(self.tools)
         cenv.update(self.env)
+        cenv.update(env)
 
         wdir = str(self.chroot_build_wrksrc if build else self.chroot_wrksrc)
-        return chroot.enter(cmd, args, env = cenv, wrkdir = wdir, check = True)
+        return chroot.enter(
+            str(cmd), args, env = cenv, wrkdir = wdir, check = True
+        )
 
     def run_step(self, stepn, optional = False, skip_post = False):
         call_pkg_hooks(self, "pre_" + stepn)

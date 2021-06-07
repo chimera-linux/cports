@@ -56,6 +56,9 @@ def invoke(pkg):
 
             curfilemap[f] = True
 
+            if fp.is_symlink():
+                continue
+
             if not os.access(fp, os.W_OK):
                 continue
 

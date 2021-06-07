@@ -3,17 +3,11 @@ from cbuild.util import make
 def do_configure(self):
     self.do(
         self.chroot_build_wrksrc / self.configure_script,
-        self.configure_args, build = True, env = {
-            "lt_cv_sys_lib_dlsearch_path_spec": \
-                "/usr/lib64 /usr/lib32 /usr/lib /lib /usr/local/lib"
-        }
+        self.configure_args, build = True
     )
 
 def do_build(self):
-    self.make = make.Make(self, env = {
-        "lt_cv_sys_lib_dlsearch_path_spec": \
-            "/usr/lib64 /usr/lib32 /usr/lib /lib /usr/local/lib"
-    })
+    self.make = make.Make(self)
     self.make.build()
 
 def do_check(self):
@@ -23,7 +17,7 @@ def do_install(self):
     self.make.install()
 
 def use(tmpl):
-    tmpl.build_style = "gnu_configure"
+    tmpl.build_style = "configure"
     tmpl.do_configure = do_configure
     tmpl.do_build = do_build
     tmpl.do_check = do_check

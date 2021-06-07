@@ -19,6 +19,9 @@ def invoke(pkg):
             if not os.access(fp, os.W_OK):
                 continue
 
+            if fp.is_symlink():
+                continue
+
             with open(fp, "rb") as fh:
                 if fh.read(4) != b"\x7FELF":
                     continue
