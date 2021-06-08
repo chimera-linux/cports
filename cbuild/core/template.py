@@ -151,6 +151,154 @@ class Package:
             return self.pkgname
         return "cbuild"
 
+    def install_files(self, path, dest, symlinks = True):
+        path = pathlib.Path(path)
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
+            self.logger.out_red(
+                f"install_files: path '{str(dest)}' must not be absolute"
+            )
+            raise PackageError()
+        if path.is_absolute():
+            self.logger.out_red(f"path '{path}' must not be absolute")
+            raise PackageError()
+
+        path = self.rparent.abs_wrksrc / path
+        dest = self.destdir / dest / path.name
+
+        shutil.copytree(path, dest, symlinks = symlinks)
+
+    def install_dir(self, *args):
+        for dn in args:
+            dn = pathlib.Path(dn)
+            if dn.is_absolute():
+                self.logger.out_red(f"path '{str(dn)}' must not be absolute")
+                raise PackageError()
+            dirp = self.destdir / dn
+            self.log(f"creating path: {dirp}")
+            os.makedirs(dirp, exist_ok = True)
+
+    def install_file(self, src, dest, mode = 0o644, name = None):
+        src = pathlib.Path(src)
+        dest = pathlib.Path(dest)
+        # sanitize destination
+        if dest.is_absolute():
+            self.logger.out_red(
+                f"install_file: path '{str(dest)}' must not be absolute"
+            )
+            raise PackageError()
+        # default name
+        if not name:
+            name = src.name
+        # copy
+        dfn = self.destdir / dest / name
+        if dfn.exists():
+            self.logger.out_red(
+                f"install_file: destination file '{str(dfn)}' already exists"
+            )
+            raise PackageError()
+        self.install_dir(dest)
+        shutil.copy2(src, dfn)
+        dfn.chmod(mode)
+
+    def install_bin(self, *args):
+        self.install_dir("usr/bin")
+        for bn in args:
+            spath = self.rparent.abs_wrksrc / bn
+            dpath = self.destdir / "usr/bin"
+            self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
+            shutil.copy2(spath, dpath)
+            (dpath / spath.name).chmod(0o755)
+
+    def install_lib(self, *args):
+        self.install_dir("usr/lib")
+        for bn in args:
+            spath = self.rparent.abs_wrksrc / bn
+            dpath = self.destdir / "usr/lib"
+            self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
+            shutil.copy2(spath, dpath)
+            (dpath / spath.name).chmod(0o755)
+
+    def install_man(self, *args):
+        self.install_dir("usr/share/man")
+        manbase = self.destdir / "usr/share/man"
+        for mn in args:
+            absmn = self.rparent.abs_wrksrc / mn
+            mnf = absmn.name
+            mnext = absmn.suffix
+            if len(mnext) == 0:
+                self.logger.out_red(f"manpage '{mnf}' has no section")
+                raise PackageError()
+            try:
+                mnsec = int(mnext[1:])
+            except:
+                self.logger.out_red(f"manpage '{mnf}' has an invalid section")
+                raise PackageError()
+            mandir = manbase / ("man" + str(mnsec))
+            os.makedirs(mandir, exist_ok = True)
+            self.log(f"copying (644): {str(absmn)} -> {str(mandir)}")
+            shutil.copy2(absmn, mandir)
+            (mandir / mnf).chmod(0o644)
+
+    def install_license(self, *args):
+        self.install_dir("usr/share/licenses/" + self.pkgname)
+        for bn in args:
+            spath = self.rparent.abs_wrksrc / bn
+            dpath = self.destdir / "usr/share/licenses" / self.pkgname
+            self.log(f"copying (644): {str(spath)} -> {str(dpath)}")
+            shutil.copy2(spath, dpath)
+            (dpath / spath.name).chmod(0o644)
+
+    def install_link(self, src, dest):
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
+            self.logger.out_red(f"path '{str(dest)}' must not be absolute")
+            raise PackageError()
+        dest = self.destdir / dest
+        self.log(f"symlinking: {str(src)} -> {str(dest)}")
+        dest.symlink_to(src)
+
+    def copy(self, src, dest, root = None):
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
+            self.logger.out_red(f"path '{str(dest)}' must not be absolute")
+            raise PackageError()
+        cp = (pathlib.Path(root) if root else self.destdir) / dest
+        self.log(f"copying: {str(src)} -> {str(cp)}")
+        shutil.copy2(src, cp)
+
+    def unlink(self, f, root = None, missing_ok = False):
+        f = pathlib.Path(f)
+        if f.is_absolute():
+            self.logger.out_red(f"path '{str(f)}' must not be absolute")
+            raise PackageError()
+        remp = (pathlib.Path(root) if root else self.destdir) / f
+        self.log(f"removing: {str(remp)}")
+        remp.unlink(missing_ok)
+
+    def rmtree(self, path, root = None):
+        path = pathlib.Path(path)
+        if path.is_absolute():
+            self.logger.out_red(f"path '{path}' must not be absolute")
+            raise PackageError()
+
+        path = (pathlib.Path(root) if root else self.destdir) / path
+        if not path.is_dir():
+            self.logger.out_red(f"path '{path}' must be a directory")
+            raise PackageError()
+
+        def _remove_ro(f, p, _):
+            os.chmod(p, stat.S_IWRITE)
+            f(p)
+
+        shutil.rmtree(path, onerror = _remove_ro)
+
+    def find(self, pattern, files = False, root = None):
+        rootp = pathlib.Path(root if root else self.destdir)
+        for fn in rootp.rglob(pattern):
+            if not files or fn.is_file():
+                yield fn.relative_to(rootp)
+
 core_fields = [
     # name default type optional mandatory subpkg inherit
 
@@ -301,7 +449,7 @@ class Template(Package):
         if not matched:
             self.error(f"this package cannot be built for {cpu.target()}")
 
-    def do(self, cmd, args, env = {}, build = False):
+    def do(self, cmd, args, env = {}, build = False, wrksrc = None):
         cenv = {
             "CFLAGS": " ".join(self.CFLAGS),
             "CXXFLAGS": " ".join(self.CXXFLAGS),
@@ -317,9 +465,13 @@ class Template(Package):
         cenv.update(self.env)
         cenv.update(env)
 
-        wdir = str(self.chroot_build_wrksrc if build else self.chroot_wrksrc)
+
+        wdir = self.chroot_build_wrksrc if build else self.chroot_wrksrc
+        if wrksrc:
+            wdir = wdir / wrksrc
+
         return chroot.enter(
-            str(cmd), args, env = cenv, wrkdir = wdir, check = True
+            str(cmd), args, env = cenv, wrkdir = str(wdir), check = True
         )
 
     def run_step(self, stepn, optional = False, skip_post = False):
@@ -339,154 +491,6 @@ class Template(Package):
 
         if not skip_post:
             call_pkg_hooks(self, "post_" + stepn)
-
-    def install_files(self, path, dest, symlinks = True):
-        path = pathlib.Path(path)
-        dest = pathlib.Path(dest)
-        if dest.is_absolute():
-            self.logger.out_red(
-                f"install_files: path '{str(dest)}' must not be absolute"
-            )
-            raise PackageError()
-        if path.is_absolute():
-            self.logger.out_red(f"path '{path}' must not be absolute")
-            raise PackageError()
-
-        path = self.abs_wrksrc / path
-        dest = self.destdir / dest / path.name
-
-        shutil.copytree(path, dest, symlinks = symlinks)
-
-    def install_dir(self, *args):
-        for dn in args:
-            dn = pathlib.Path(dn)
-            if dn.is_absolute():
-                self.logger.out_red(f"path '{str(dn)}' must not be absolute")
-                raise PackageError()
-            dirp = self.destdir / dn
-            self.log(f"creating path: {dirp}")
-            os.makedirs(dirp, exist_ok = True)
-
-    def install_file(self, src, dest, mode = 0o644, name = None):
-        src = pathlib.Path(src)
-        dest = pathlib.Path(dest)
-        # sanitize destination
-        if dest.is_absolute():
-            self.logger.out_red(
-                f"install_file: path '{str(dest)}' must not be absolute"
-            )
-            raise PackageError()
-        # default name
-        if not name:
-            name = src.name
-        # copy
-        dfn = self.destdir / dest / name
-        if dfn.exists():
-            self.logger.out_red(
-                f"install_file: destination file '{str(dfn)}' already exists"
-            )
-            raise PackageError()
-        self.install_dir(dest)
-        shutil.copy2(src, dfn)
-        dfn.chmod(mode)
-
-    def install_bin(self, *args):
-        self.install_dir("usr/bin")
-        for bn in args:
-            spath = self.abs_wrksrc / bn
-            dpath = self.destdir / "usr/bin"
-            self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o755)
-
-    def install_lib(self, *args):
-        self.install_dir("usr/lib")
-        for bn in args:
-            spath = self.abs_wrksrc / bn
-            dpath = self.destdir / "usr/lib"
-            self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o755)
-
-    def install_man(self, *args):
-        self.install_dir("usr/share/man")
-        manbase = self.destdir / "usr/share/man"
-        for mn in args:
-            absmn = self.abs_wrksrc / mn
-            mnf = absmn.name
-            mnext = absmn.suffix
-            if len(mnext) == 0:
-                self.logger.out_red(f"manpage '{mnf}' has no section")
-                raise PackageError()
-            try:
-                mnsec = int(mnext[1:])
-            except:
-                self.logger.out_red(f"manpage '{mnf}' has an invalid section")
-                raise PackageError()
-            mandir = manbase / ("man" + str(mnsec))
-            os.makedirs(mandir, exist_ok = True)
-            self.log(f"copying (644): {str(absmn)} -> {str(mandir)}")
-            shutil.copy2(absmn, mandir)
-            (mandir / mnf).chmod(0o644)
-
-    def install_license(self, *args):
-        self.install_dir("usr/share/licenses/" + self.pkgname)
-        for bn in args:
-            spath = self.abs_wrksrc / bn
-            dpath = self.destdir / "usr/share/licenses" / self.pkgname
-            self.log(f"copying (644): {str(spath)} -> {str(dpath)}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o644)
-
-    def install_link(self, src, dest):
-        dest = pathlib.Path(dest)
-        if dest.is_absolute():
-            self.logger.out_red(f"path '{str(dest)}' must not be absolute")
-            raise PackageError()
-        dest = self.destdir / dest
-        self.log(f"symlinking: {str(src)} -> {str(dest)}")
-        dest.symlink_to(src)
-
-    def copy(self, src, dest, root = None):
-        dest = pathlib.Path(dest)
-        if dest.is_absolute():
-            self.logger.out_red(f"path '{str(dest)}' must not be absolute")
-            raise PackageError()
-        cp = (pathlib.Path(root) if root else self.destdir) / dest
-        self.log(f"copying: {str(src)} -> {str(cp)}")
-        shutil.copy2(src, cp)
-
-    def unlink(self, f, root = None, missing_ok = False):
-        f = pathlib.Path(f)
-        if f.is_absolute():
-            self.logger.out_red(f"path '{str(f)}' must not be absolute")
-            raise PackageError()
-        remp = (pathlib.Path(root) if root else self.destdir) / f
-        self.log(f"removing: {str(remp)}")
-        remp.unlink(missing_ok)
-
-    def rmtree(self, path, root = None):
-        path = pathlib.Path(path)
-        if path.is_absolute():
-            self.logger.out_red(f"path '{path}' must not be absolute")
-            raise PackageError()
-
-        path = (pathlib.Path(root) if root else self.destdir) / path
-        if not path.is_dir():
-            self.logger.out_red(f"path '{path}' must be a directory")
-            raise PackageError()
-
-        def _remove_ro(f, p, _):
-            os.chmod(p, stat.S_IWRITE)
-            f(p)
-
-        shutil.rmtree(path, onerror = _remove_ro)
-
-    def find(self, pattern, files = False, root = None):
-        rootp = pathlib.Path(root if root else self.destdir)
-        for fn in rootp.rglob(pattern):
-            if not files or fn.is_file():
-                yield fn.relative_to(rootp)
 
 class Subpackage(Package):
     def __init__(self, name, parent):

@@ -32,7 +32,9 @@ def _match_arch(archn, *args):
             odd = not odd
         else:
             if match:
-                return v(archn)
+                if callable(v):
+                    return v(archn)
+                return v
             else:
                 odd = not odd
                 continue
