@@ -3,6 +3,8 @@ from cbuild.step import build as do_build
 from cbuild import cpu
 from os import makedirs
 
+# avoid re-parsing same templates every time; the version will
+# never be conditional and that is the only thing we care about
 _tcache = {}
 
 def _srcpkg_ver(pkgn):
@@ -16,9 +18,10 @@ def _srcpkg_ver(pkgn):
         return _tcache[pkgn]
 
     rv = template.read_pkg(pkgn, False, False, False, None)
-    _tcache[pkgn] = rv
+    cv = rv.version + "_" + str(rv.revision)
+    _tcache[pkgn] = cv
 
-    return rv.version + "_" + str(rv.revision)
+    return cv
 
 def _setup_depends(pkg):
     hdeps = []
