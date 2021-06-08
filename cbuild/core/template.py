@@ -429,6 +429,15 @@ class Template(Package):
             shutil.copy2(absmn, mandir)
             (mandir / mnf).chmod(0o644)
 
+    def install_license(self, *args):
+        self.install_dir("usr/share/licenses/" + self.pkgname)
+        for bn in args:
+            spath = self.abs_wrksrc / bn
+            dpath = self.destdir / "usr/share/licenses" / self.pkgname
+            self.log(f"copying (644): {str(spath)} -> {str(dpath)}")
+            shutil.copy2(spath, dpath)
+            (dpath / spath.name).chmod(0o644)
+
     def install_link(self, src, dest):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
@@ -726,7 +735,9 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
 
     setattr(builtins, "subpackage", subpkg_deco)
     setattr(builtins, "bootstrapping", bootstrapping)
+    setattr(builtins, "cross_build", False)
     mod = importlib.import_module("srcpkgs." + pkgname + ".template")
+    delattr(builtins, "cross_build")
     delattr(builtins, "subpackage")
     delattr(builtins, "bootstrapping")
 

@@ -34,7 +34,7 @@ def _setup_depends(pkg):
     for dep in crdeps:
         pd = xbps.get_pkg_dep_name(dep)
         if not pd:
-            pd = xpbs.get_pkg_name(dep)
+            pd = xbps.get_pkg_name(dep)
         if not pd:
             rdeps.append(dep + ">=0")
         else:
@@ -50,7 +50,7 @@ def _setup_depends(pkg):
     for dep in pkg.makedepends:
         sver = _srcpkg_ver(dep)
         if not sver:
-            hdeps.append(dep)
+            tdeps.append(dep)
             continue
         tdeps.append(dep + "-" + sver)
 
@@ -196,7 +196,7 @@ def install(pkg, origpkg, step, depmap):
         # not a subpackage
         props = xbps.repository_properties(pkgn, ["pkgver", "repository"])
         if props and xbps.pkg_match(props[0], dep):
-            log.out_plain(f"   [target] {dep}: found ({props[1]})")
+            log.out_plain(f"   [runtime] {dep}: found ({props[1]})")
             continue
         # not found
         log.out_plain(f"   [runtime] {dep}: not found")
