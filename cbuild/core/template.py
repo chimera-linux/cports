@@ -565,7 +565,7 @@ def from_module(m, ret):
         # also perform type validation
         if hasattr(m, fl):
             flv = getattr(m, fl)
-            if not opt and not isinstance(flv, tp):
+            if not opt and tp and not isinstance(flv, tp):
                 ret.error("invalid field value: %s" % fl)
             # validated, set
             if opt and flv == None:
@@ -596,7 +596,7 @@ def from_module(m, ret):
             continue
 
         flv = getattr(m, fl)
-        if not opt and not isinstance(flv, tp):
+        if not opt and tp and not isinstance(flv, tp):
             ret.error("invalid field value: %s" % fl)
         # validated, set
         if opt and flv == None:
@@ -670,7 +670,7 @@ def from_module(m, ret):
             flv = getattr(sp, fl)
             if opt and flv == None:
                 continue
-            if not isinstance(flv, tp):
+            if tp and not isinstance(flv, tp):
                 ret.error("invalid field value: %s" % fl)
         # validate build-style fields
         for fl, dval, tp, opt, asp, inh in ret.build_style_fields:
@@ -679,7 +679,7 @@ def from_module(m, ret):
             flv = getattr(sp, fl)
             if opt and flv == None:
                 continue
-            if not isinstance(flv, tp):
+            if tp and not isinstance(flv, tp):
                 ret.error("invalid field value: %s" % fl)
         # go
         ret.subpkg_list.append(sp)

@@ -5,9 +5,9 @@ def do_configure(self):
         self.chroot_build_wrksrc / self.configure_script,
         self.configure_args, build = True
     )
+    self.make = make.Make(self)
 
 def do_build(self):
-    self.make = make.Make(self)
     self.make.build()
 
 def do_check(self):
