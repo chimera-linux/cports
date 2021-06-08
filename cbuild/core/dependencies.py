@@ -28,20 +28,21 @@ def _setup_depends(pkg):
     tdeps = []
     rdeps = []
 
-    crdeps = list(pkg.depends)
+    crdeps = [(pkg.pkgname, x) for x in pkg.depends]
 
     # also account for subpackages
     for sp in pkg.subpkg_list:
-        crdeps += sp.depends
+        for x in sp.depends:
+            crdeps.append((sp.pkgname, x))
 
-    for dep in crdeps:
+    for orig, dep in crdeps:
         pd = xbps.get_pkg_dep_name(dep)
         if not pd:
             pd = xbps.get_pkg_name(dep)
         if not pd:
-            rdeps.append(dep + ">=0")
+            rdeps.append((orig, dep + ">=0"))
         else:
-            rdeps.append(dep)
+            rdeps.append((orig, dep))
 
     for dep in pkg.hostmakedepends:
         sver = _srcpkg_ver(dep)
@@ -150,15 +151,7 @@ def install(pkg, origpkg, step, depmap):
                 continue
             log.out_plain(f"   [target] {dep}: unresolved build dependency")
             pkg.error(f"target dependency '{dep}' does not exist")
-        # got a template, first ensure it's not a subpackage
-        is_subpkg = False
-        for sp in pkg.subpkg_list:
-            if sp.pkgname == pkgn:
-                is_subpkg = True
-                break
-        if is_subpkg:
-            continue
-        # not a subpackage, so match normally like above
+        # got a template
         inst = _is_installed(dep)
         if inst:
             log.out_plain(f"   [target] {dep}: installed")
@@ -181,22 +174,27 @@ def install(pkg, origpkg, step, depmap):
         # consider missing
         missing_deps.append(dep)
 
-    for dep in irdeps:
+    for origin, dep in irdeps:
         pkgn = xbps.get_pkg_dep_name(dep)
         # sanitize
         if not pkgn:
             pkgn = xbps.get_pkg_name(dep)
             if not pkgn:
                 pkg.error(f"invalid runtime dependency: {dep}")
-        # first ensure it's not a subpackage
-        is_subpkg = False
-        for sp in pkg.subpkg_list:
-            if sp.pkgname == pkgn:
-                is_subpkg = True
-                break
-        if is_subpkg:
+        # check some special cases where we skip
+        if origin == pkg.pkgname:
+            # parent depending on subpackage
+            is_subpkg = False
+            for sp in pkg.subpkg_list:
+                if sp.pkgname == pkgn:
+                    is_subpkg = True
+                    break
+            if is_subpkg:
+                continue
+        elif pkgn == pkg.pkgname:
+            # subpackage depending on parent
             continue
-        # not a subpackage
+        # check the repository
         props = xbps.repository_properties(pkgn, ["pkgver", "repository"])
         if props and xbps.pkg_match(props[0], dep):
             log.out_plain(f"   [runtime] {dep}: found ({props[1]})")
@@ -204,7 +202,7 @@ def install(pkg, origpkg, step, depmap):
         # not found
         log.out_plain(f"   [runtime] {dep}: not found")
         # check for loops
-        if pkgn == origpkg or pkgn == pkg.pkgname:
+        if pkgn == origin or (pkgn == origpkg and pkg.pkgname != origpkg):
             pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # consider missing
         missing_rdeps.append(dep)
