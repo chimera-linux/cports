@@ -3,33 +3,58 @@ from cbuild.step import build as do_build
 from cbuild import cpu
 from os import makedirs
 
-# works on either subpackage or main package
-def get_pkg_depends(pkg, with_subpkgs):
-    rundeps = []
+_tcache = {}
 
-    if hasattr(pkg, "depends"):
-        collected = list(pkg.depends)
-    else:
-        collected = []
+def _srcpkg_ver(pkgn):
+    global _tcache
 
-    if with_subpkgs:
-        if hasattr(pkg, "subpackages"):
-            for sp in pkg.subpkg_list:
-                if hasattr(sp, "depends"):
-                    collected += sp.depends
+    # avoid a failure
+    if not (paths.templates() / pkgn / "template.py").is_file():
+        return None
 
-    for depname in collected:
-        if not with_subpkgs:
-            rundeps.append(depname)
+    if pkgn in _tcache:
+        return _tcache[pkgn]
+
+    rv = template.read_pkg(pkgn, False, False, False, None)
+    _tcache[pkgn] = rv
+
+    return rv.version + "_" + str(rv.revision)
+
+def _setup_depends(pkg):
+    hdeps = []
+    tdeps = []
+    rdeps = []
+
+    crdeps = list(pkg.depends)
+
+    # also account for subpackages
+    for sp in pkg.subpkg_list:
+        crdeps += sp.depends
+
+    for dep in crdeps:
+        pd = xbps.get_pkg_dep_name(dep)
+        if not pd:
+            pd = xpbs.get_pkg_name(dep)
+        if not pd:
+            rdeps.append(dep + ">=0")
+        else:
+            rdeps.append(dep)
+
+    for dep in pkg.hostmakedepends:
+        sver = _srcpkg_ver(dep)
+        if not sver:
+            hdeps.append(dep)
             continue
-        foo = xbps.get_pkg_dep_name(depname)
-        if not foo:
-            foo = xbps.get_pkg_name(depname)
-            if not foo:
-                foo = depname
-        rundeps.append(foo)
+        hdeps.append(dep + "-" + sver)
 
-    return rundeps
+    for dep in pkg.makedepends:
+        sver = _srcpkg_ver(dep)
+        if not sver:
+            hdeps.append(dep)
+            continue
+        tdeps.append(dep + "-" + sver)
+
+    return hdeps, tdeps, rdeps
 
 def _install_from_repo(pkg, pkglist):
     success, sout, serr = xbps.install(pkglist, capture_out = True)
@@ -43,6 +68,16 @@ def _install_from_repo(pkg, pkglist):
             pkg.logger.out_plain(">> stderr:")
             pkg.logger.out_plain(outl)
         pkg.error(f"failed to install dependencies")
+
+def _is_installed(pkgn):
+    pn = xbps.get_pkg_dep_name(pkgn)
+    if not pn:
+        pn = xbps.get_pkg_name(pkgn)
+
+    if not pn:
+        return None
+
+    return xbps.get_installed_version(pn) != None
 
 def install(pkg, origpkg, step, depmap):
     style = ""
@@ -62,120 +97,114 @@ def install(pkg, origpkg, step, depmap):
 
     log = logger.get()
 
-    if len(pkg.hostmakedepends) > 0:
-        tmpls = []
-        for dep in pkg.hostmakedepends:
-            if (paths.templates() / dep / "template.py").is_file():
-                tmpls.append(dep)
-                continue
+    ihdeps, itdeps, irdeps = _setup_depends(pkg)
+
+    if len(ihdeps) == 0 and len(itdeps) == 0 and len(irdeps) == 0:
+        return
+
+    for dep in ihdeps:
+        pkgn = xbps.get_pkg_name(dep)
+        # maybe no template
+        if not pkgn:
             rurl = xbps.repository_url(dep)
             if rurl:
                 log.out_plain(f"   [host] {dep}: found ({rurl})")
                 host_binpkg_deps.append(dep)
                 continue
+            log.out_plain(f"   [host] {dep}: unresolved build dependency")
             pkg.error(f"host dependency '{dep}' does not exist")
-        for depn, deprv, depver, subpkg, repourl in xbps.checkvers(tmpls):
-            vpkg = f"{subpkg}-{depver}"
-            # binary package found in repo
-            if depver == deprv:
-                log.out_plain(f"   [host] {vpkg}: found ({repourl})")
-                host_binpkg_deps.append(vpkg)
-                continue
-            # binary package not found
-            if depn != subpkg:
-                # subpkg, check if it's a subpkg of itself
-                found = False
-                for sp in pkg.subpkg_list:
-                    if sp.pkgname == subpkg:
-                        found = True
-                        break
-                if found:
-                    log.out_plain(
-                        f"   [host] {vpkg}: not found (subpkg, ignored)"
-                    )
-                else:
-                    log.out_plain(f"   [host] {vpkg}: not found")
-                    host_missing_deps.append(vpkg)
-            else:
-                log.out_plain(f"   [host] {vpkg}: not found")
-                host_missing_deps.append(vpkg)
+        # got a template
+        inst = _is_installed(dep)
+        if inst:
+            log.out_plain(f"   [host] {dep}: installed")
+            continue
+        # unresolved
+        if inst == None:
+            log.out_plain(f"   [host] {dep}: unresolved build dependency")
+            pkg.error(f"host dependency '{dep}' does not exist")
+        # not installed
+        rurl = xbps.repository_url(dep)
+        if rurl:
+            log.out_plain(f"   [host] {dep}: found ({rurl})")
+            host_binpkg_deps.append(dep)
+            continue
+        # not found
+        log.out_plain(f"   [host] {dep}: not found")
+        # check for loops
+        if pkgn == origpkg or pkgn == pkg.pkgname:
+            pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
+        # consider missing
+        host_missing_deps.append(dep)
 
-    if len(pkg.makedepends) > 0:
-        tmpls = []
-        for dep in pkg.makedepends:
-            if (paths.templates() / dep / "template.py").is_file():
-                tmpls.append(dep)
-                continue
+    for dep in itdeps:
+        pkgn = xbps.get_pkg_name(dep)
+        # maybe no template
+        if not pkgn:
             rurl = xbps.repository_url(dep)
             if rurl:
                 log.out_plain(f"   [target] {dep}: found ({rurl})")
                 binpkg_deps.append(dep)
                 continue
+            log.out_plain(f"   [target] {dep}: unresolved build dependency")
             pkg.error(f"target dependency '{dep}' does not exist")
-        for depn, deprv, depver, subpkg, repourl in xbps.checkvers(tmpls):
-            vpkg = f"{subpkg}-{depver}"
-            # binary package found in repo
-            if depver == deprv:
-                log.out_plain(f"   [target] {vpkg}: found ({repourl})")
-                binpkg_deps.append(vpkg)
-                continue
-            # binary package not found
-            if depn != subpkg:
-                # subpkg, check if it's a subpkg of itself
-                found = False
-                for sp in pkg.subpkg_list:
-                    if sp.pkgname == subpkg:
-                        found = True
-                        break
-                if found:
-                    pkg.error(f"target dependency '{subpkg}' is a subpackage")
-                else:
-                    log.out_plain(f"   [target] {vpkg}: not found")
-                    missing_deps.append(vpkg)
-            else:
-                log.out_plain(f"   [target] {vpkg}: not found")
-                missing_deps.append(vpkg)
+        # got a template, first ensure it's not a subpackage
+        is_subpkg = False
+        for sp in pkg.subpkg_list:
+            if sp.pkgname == pkgn:
+                is_subpkg = True
+                break
+        if is_subpkg:
+            continue
+        # not a subpackage, so match normally like above
+        inst = _is_installed(dep)
+        if inst:
+            log.out_plain(f"   [target] {dep}: installed")
+            continue
+        # unresolved
+        if inst == None:
+            log.out_plain(f"   [target] {dep}: unresolved build dependency")
+            pkg.error(f"target dependency '{dep}' does not exist")
+        # not installed
+        rurl = xbps.repository_url(dep)
+        if rurl:
+            log.out_plain(f"   [target] {dep}: found ({rurl})")
+            binpkg_deps.append(dep)
+            continue
+        # not found
+        log.out_plain(f"   [target] {dep}: not found")
+        # check for loops
+        if pkgn == origpkg or pkgn == pkg.pkgname:
+            pkg.error(f"[target] build loop detected: {pkgn} <-> {pkgn}")
+        # consider missing
+        missing_deps.append(dep)
 
-    cleandeps = get_pkg_depends(pkg, True)
-    if len(cleandeps) > 0:
-        tmpls = []
-        for dep in cleandeps:
-            if (paths.templates() / dep / "template.py").is_file():
-                tmpls.append(dep)
-                continue
-            rurl = xbps.repository_url(dep)
-            if rurl:
-                log.out_plain(f"   [runtime] {dep}: found ({rurl})")
-                continue
-            pkg.error(f"target dependency '{dep}' does not exist!")
-        for depn, deprv, depver, subpkg, repourl in xbps.checkvers(tmpls):
-            vpkg = f"{subpkg}-{depver}"
-            # binary package found in repo
-            if depver == deprv:
-                log.out_plain(f"   [runtime] {vpkg}: found ({repourl})")
-                continue
-            # binary package not found
-            if depn != subpkg:
-                # subpkg, check if it's a subpkg of itself
-                found = False
-                for sp in pkg.subpkg_list:
-                    if sp.pkgname == subpkg:
-                        found = True
-                        break
-                if found:
-                    log.out_plain(
-                        f"   [runtime] {vpkg}: not found (subpkg, ignored)"
-                    )
-                else:
-                    log.out_plain(f"   [runtime] {vpkg}: not found")
-                    missing_rdeps.append(vpkg)
-            elif depn == pkg.pkgname:
-                log.out_plain(
-                    f"   [runtime] {vpkg}: not found (self, ignored)"
-                )
-            else:
-                log.out_plain(f"   [runtime] {vpkg}: not found")
-                missing_rdeps.append(vpkg)
+    for dep in irdeps:
+        pkgn = xbps.get_pkg_dep_name(dep)
+        # sanitize
+        if not pkgn:
+            pkgn = xbps.get_pkg_name(dep)
+            if not pkgn:
+                pkg.error(f"invalid runtime dependency: {dep}")
+        # first ensure it's not a subpackage
+        is_subpkg = False
+        for sp in pkg.subpkg_list:
+            if sp.pkgname == pkgn:
+                is_subpkg = True
+                break
+        if is_subpkg:
+            continue
+        # not a subpackage
+        props = xbps.repository_properties(pkgn, ["pkgver", "repository"])
+        if props and xbps.pkg_match(props[0], dep):
+            log.out_plain(f"   [target] {dep}: found ({props[1]})")
+            continue
+        # not found
+        log.out_plain(f"   [runtime] {dep}: not found")
+        # check for loops
+        if pkgn == origpkg or pkgn == pkg.pkgname:
+            pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
+        # consider missing
+        missing_rdeps.append(dep)
 
     for hd in host_missing_deps:
         pn = xbps.get_pkg_name(hd)

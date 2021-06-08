@@ -603,7 +603,7 @@ def from_module(m, ret):
 
     if ret.skip_if_exist:
         # FIXME: this actually uses remote repos too
-        bpkgver = xbps.repository_property(ret.pkgname, "pkgver")
+        bpkgver = xbps.repository_properties(ret.pkgname, ["pkgver"])
         if ret.pkgver == bpkgver:
             if ret.origin == ret:
                 # only print if this is not a dependency build

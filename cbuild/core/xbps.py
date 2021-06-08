@@ -1,19 +1,20 @@
-from cbuild.core import paths
+from cbuild.core import paths, version
 from cbuild import cpu
 
 from os import path
 import shlex
 import subprocess
 import pathlib
+import fnmatch
 import re
 
-def repository_property(pkgn, pname):
+def repository_properties(pkgn, plist):
     v = subprocess.run(
         [
             "xbps-query",
             "-c", str(paths.hostdir() / ("repocache-" + cpu.host())),
             "-r", str(paths.masterdir()), "-C", "etc/xbps.d",
-            "-R", "-p" + pname, pkgn
+            "-R", "-p" + ",".join(plist), pkgn
         ],
         capture_output = True
     ).stdout.strip().decode("ascii")
@@ -21,10 +22,13 @@ def repository_property(pkgn, pname):
     if len(v) == 0:
         return None
 
-    return v
+    if len(plist) == 1:
+        return v
+
+    return v.split("\n")
 
 def repository_url(pkgn):
-    return repository_property(pkgn, "repository")
+    return repository_properties(pkgn, ["repository"])
 
 def reconfigure(pkgn = None, arch = None, capture_out = False):
     rcenv = {"XBPS_ARCH": arch if arch else cpu.host()}
@@ -89,23 +93,6 @@ def remove_orphans():
         )
 
     return v.returncode == 0, sout, serr
-
-def checkvers(tmpls):
-    out = subprocess.run(
-        [
-            "xbps-checkvers", "-r", str(paths.masterdir()),
-            "-D", str(paths.distdir()), "-sm"
-        ] + tmpls,
-        capture_output = True
-    ).stdout.strip().decode("ascii")
-
-    ret = []
-    for ln in out.split("\n"):
-        if len(ln) == 0:
-            continue
-        ret.append(tuple(ln.split()[0:5]))
-
-    return ret
 
 def register_pkgs(pkglist, repopath, force = False):
     if not pathlib.Path(repopath).is_dir():
@@ -182,3 +169,42 @@ def get_pkg_version(s):
                     return None
 
     return None
+
+def get_installed_version(pkg):
+    out = subprocess.run(
+        [
+            "xbps-uhelper", "-r", str(paths.masterdir()),
+            "version", pkg
+        ],
+        capture_output = True, env = {"XBPS_ARCH": cpu.host()}
+    ).stdout.strip().decode("ascii")
+
+    if len(out) == 0:
+        return None
+
+    return out
+
+def _match_ver(pkgv, pattern):
+    pass
+
+_matchers = {
+    "<": version.match,
+    ">": version.match,
+    "*": fnmatch.fnmatchcase,
+    "?": fnmatch.fnmatchcase,
+    "[": fnmatch.fnmatchcase,
+    "]": fnmatch.fnmatchcase
+}
+
+def pkg_match(pkgv, pattern):
+    if pkgv == pattern:
+        return True
+
+    global _matchers
+
+    for c in pattern:
+        f = _matchers.get(c, None)
+        if f:
+            return f(pkgv, pattern)
+
+    return False

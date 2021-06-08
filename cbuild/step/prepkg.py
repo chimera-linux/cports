@@ -6,7 +6,7 @@ def invoke(pkg):
     if prepkg_done.is_file() and not pkg.rparent.force_mode:
         return
 
-    pkg.run_depends = dependencies.get_pkg_depends(pkg, False)
+    pkg.run_depends = list(pkg.depends)
     template.call_pkg_hooks(pkg, "pre_pkg")
 
     prepkg_done.touch()
