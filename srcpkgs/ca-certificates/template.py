@@ -41,10 +41,11 @@ def post_extract(self):
                     ln
                 )
                 ofile.write(ln)
-        os.rename(
-            self.abs_wrksrc / "mozilla/Makefile.new",
-            self.abs_wrksrc / "mozilla/Makefile"
-        )
+
+    os.rename(
+        self.abs_wrksrc / "mozilla/Makefile.new",
+        self.abs_wrksrc / "mozilla/Makefile"
+    )
 
 def do_build(self):
     from cbuild.util import make

@@ -37,10 +37,10 @@ def pre_check(self):
                 ln = ln.replace("f: Operation n", "f: N")
                 ofile.write(ln)
 
-        os.rename(
-            self.abs_wrksrc / "test/attr.test.new",
-            self.abs_wrksrc / "test/attr.test"
-        )
+    os.rename(
+        self.abs_wrksrc / "test/attr.test.new",
+        self.abs_wrksrc / "test/attr.test"
+    )
 
 @subpackage("attr-devel")
 def _devel(self):
