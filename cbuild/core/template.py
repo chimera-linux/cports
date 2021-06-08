@@ -540,6 +540,13 @@ class Subpackage(Package):
                     pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
                 )
 
+def _subpkg_install_list(self, l):
+    def real_install():
+        for it in l:
+            self.take(it)
+
+    return real_install
+
 def from_module(m, ret):
     # fill in mandatory fields
     for fl, dval, tp, opt, mand, sp, inh in core_fields:
@@ -662,7 +669,11 @@ def from_module(m, ret):
         sp.destdir = ret.destdir_base / f"{sp.pkgname}-{ret.version}"
         sp.chroot_destdir = ret.chroot_destdir_base / f"{sp.pkgname}-{ret.version}"
         sp.statedir = ret.statedir
-        sp.pkg_install = spf(sp)
+        pinst = spf(sp)
+        if not callable(pinst):
+            sp.pkg_install = _subpkg_install_list(sp, pinst)
+        else:
+            sp.pkg_install = pinst
         # validate fields
         for fl, dval, tp, opt, mand, asp, inh in core_fields:
             if not asp:

@@ -20,7 +20,7 @@ def invoke(pkg, subpkg_mode):
     # this is a real subpackage
     if pkg.parent:
         os.makedirs(pkg.destdir, exist_ok = True)
-        if hasattr(pkg, "pkg_install"):
+        if pkg.pkg_install:
             template.call_pkg_hooks(pkg, "pre_install")
             template.run_pkg_func(pkg, "pkg_install", on_subpkg = True)
 

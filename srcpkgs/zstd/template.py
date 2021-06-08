@@ -26,20 +26,16 @@ def do_install(self):
 def _lib(self):
     self.short_desc = "Fast real-time compression algorithm"
 
-    def install():
-        self.take("usr/lib/*.so.*")
-
-    return install
+    return ["usr/lib/*.so.*"]
 
 @subpackage("libzstd-devel")
 def _devel(self):
     self.short_desc = "Fast real-time compression algorithm - development files"
     self.depends = [f"libzstd-{version}_{revision}"]
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/pkgconfig")
-        self.take("usr/lib/*.so")
-        self.take("usr/lib/*.a")
-
-    return install
+    return [
+        "usr/include",
+        "usr/lib/pkgconfig",
+        "usr/lib/*.so",
+        "usr/lib/*.a"
+    ]
