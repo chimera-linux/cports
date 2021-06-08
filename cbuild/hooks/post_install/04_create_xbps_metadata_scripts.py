@@ -42,7 +42,20 @@ ARCH="\$6"
     if len(pkg.make_dirs) > 0:
         if not "mkdirs" in pkg.triggers:
             pkg.triggers.append("mkdirs")
-        tmpf.write(b"export make_dirs=\"${make_dirs}\"\n")
+        tmpf.write(b"export make_dirs=\"")
+        prev = False
+        for dirn, mode, user, grp in pkg.make_dirs:
+            if prev:
+                tmpf.write(b" ")
+            tmpf.write(dirn.encode())
+            tmpf.write(b" ")
+            tmpf.write(oct(mode).replace("0o", "0").encode())
+            tmpf.write(b" ")
+            tmpf.write(user.encode())
+            tmpf.write(b" ")
+            tmpf.write(grp.encode())
+            prev = True
+        tmpf.write(b"\"\n")
 
     tmpf.write(b"\n")
 
