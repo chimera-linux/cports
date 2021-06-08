@@ -181,19 +181,27 @@ def install(pkg, origpkg, step, depmap):
             pkgn = xbps.get_pkg_name(dep)
             if not pkgn:
                 pkg.error(f"invalid runtime dependency: {dep}")
-        # check some special cases where we skip
-        if origin == pkg.pkgname:
-            # parent depending on subpackage
+        # check special cases if guaranteed not to be a loop
+        if pkgn != origin:
+            # subpackage depending on parent
+            if pkgn == pkg.pkgname:
+                log.out_plain(f"   [runtime] {dep}: subpackage (ignored)")
+                continue
+            # parent or another subpackage depending on subpackage
             is_subpkg = False
             for sp in pkg.subpkg_list:
                 if sp.pkgname == pkgn:
                     is_subpkg = True
                     break
             if is_subpkg:
+                log.out_plain(f"   [runtime] {dep}: subpackage (ignored)")
                 continue
-        elif pkgn == pkg.pkgname:
-            # subpackage depending on parent
-            continue
+        else:
+            # if package and its origin are the same, it depends on itself
+            pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
+        # we're a dependency build but depend on whatever depends on us
+        if pkgn == origpkg and pkg.pkgname != origpkg:
+            pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # check the repository
         props = xbps.repository_properties(pkgn, ["pkgver", "repository"])
         if props and xbps.pkg_match(props[0], dep):
@@ -201,9 +209,6 @@ def install(pkg, origpkg, step, depmap):
             continue
         # not found
         log.out_plain(f"   [runtime] {dep}: not found")
-        # check for loops
-        if pkgn == origin or (pkgn == origpkg and pkg.pkgname != origpkg):
-            pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # consider missing
         missing_rdeps.append(dep)
 
