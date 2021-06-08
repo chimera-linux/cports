@@ -10,10 +10,11 @@ changelog = "https://sourceware.org/bzip2/CHANGES"
 distfiles = [f"https://sourceware.org/pub/bzip2/bzip2-{version}.tar.gz"]
 checksum = ["ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"]
 
-def do_build(self):
+def init_build(self):
     from cbuild.util import make
     self.make = make.Make(self)
 
+def do_build(self):
     self.make.build([
         "-f", "Makefile-libbz2_so",
         "CFLAGS=" + " ".join(self.CFLAGS + self.LDFLAGS)

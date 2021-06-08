@@ -3,6 +3,9 @@ from cbuild.core import template
 import os
 
 def invoke(pkg):
+    template.call_pkg_hooks(pkg, "init_extract")
+    template.run_pkg_func(pkg, "init_extract")
+
     extract_done = pkg.statedir / f"{pkg.pkgname}__extract_done"
     if extract_done.is_file():
         return

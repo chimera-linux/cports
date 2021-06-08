@@ -48,10 +48,11 @@ def do_configure(self):
         ], build = True, wrksrc = "ncurses-build"
     )
 
-def do_build(self):
+def init_build(self):
     from cbuild.util import make
     self.make = make.Make(self)
 
+def do_build(self):
     self.make.build(wrksrc = "ncursesw-build")
     self.make.build(wrksrc = "ncurses-build")
 

@@ -1,6 +1,6 @@
 from cbuild.step import fetch, extract, patch, configure
 from cbuild.step import build as buildm, install, prepkg, pkg as pkgsm
-from cbuild.core import logger, dependencies, pkg as pkgm, paths, xbps
+from cbuild.core import logger, dependencies, template, pkg as pkgm, paths, xbps
 
 import os
 
@@ -39,6 +39,8 @@ def build(step, pkg, depmap):
 
     # after subpackages are done, do the same for main package in subpkg mode
     install.invoke(pkg, True)
+
+    template.call_pkg_hooks(pkg, "init_pkg")
 
     for sp in pkg.subpkg_list:
         prepkg.invoke(sp)

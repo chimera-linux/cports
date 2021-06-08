@@ -162,6 +162,20 @@ def post_extract(self):
 
     pcpath.rmdir()
 
+def init_configure(self):
+    from cbuild.util import make
+    self.make = make.Make(self)
+
+    self.LDFLAGS.append("-Wl,-z,stack-size=2097152")
+    self.LDFLAGS.append("-pthread")
+
+    self.env["HOSTCFLAGS"] = "-D_GNU_SOURCE"
+
+    self.CFLAGS.append("-DNO_POSIX_2008_LOCALE")
+    self.CFLAGS.append("-D_GNU_SOURCE")
+
+    self.tools["LD"] = self.tools["CC"]
+
 def do_configure(self):
     cargs = [
         "--prefix=/usr",
@@ -183,16 +197,6 @@ def do_configure(self):
     if self.cross_build:
         cargs.append("--target=" + self.cross_triplet)
 
-    self.LDFLAGS.append("-Wl,-z,stack-size=2097152")
-    self.LDFLAGS.append("-pthread")
-
-    self.env["HOSTCFLAGS"] = "-D_GNU_SOURCE"
-
-    self.CFLAGS.append("-DNO_POSIX_2008_LOCALE")
-    self.CFLAGS.append("-D_GNU_SOURCE")
-
-    self.tools["LD"] = self.tools["CC"]
-
     cargs.append("-Dcccdlflags=-fPIC")
     cargs.append("-Doptimize=-Wall " + " ".join(self.CFLAGS))
     cargs.append("-Dccflags=" + " ".join(self.CFLAGS))
@@ -203,14 +207,9 @@ def do_configure(self):
 
     self.do(self.chroot_wrksrc / "configure", cargs, build = True)
 
-    from cbuild.util import make
-
-    self.make = make.Make(self)
-
 def do_check(self):
     from cbuild.util import make
 
-    self.tools["LD"] = self.tools["CC"]
     self.env["TEST_JOBS"] = str(make.jobs())
 
     self.make.invoke("test")

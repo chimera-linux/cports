@@ -3,6 +3,9 @@ from cbuild.core import template
 import os
 
 def invoke(pkg):
+    template.call_pkg_hooks(pkg, "init_fetch")
+    template.run_pkg_func(pkg, "init_fetch")
+
     fetch_done = pkg.statedir / f"{pkg.pkgname}__fetch_done"
     if fetch_done.is_file():
         return

@@ -1,11 +1,13 @@
 from cbuild.util import make
 
+def init_configure(self):
+    self.make = make.Make(self)
+
 def do_configure(self):
     self.do(
         self.chroot_build_wrksrc / self.configure_script,
         self.configure_args, build = True
     )
-    self.make = make.Make(self)
 
 def do_build(self):
     self.make.build()

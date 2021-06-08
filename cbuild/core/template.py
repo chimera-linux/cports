@@ -77,24 +77,31 @@ def _submove(src, dest, root):
             raise FileExistsError(f"'{str(fstr)}' and '{str(fdest)}' overlap")
 
 hooks = {
+    "init_fetch": [],
     "pre_fetch": [],
     "do_fetch": [],
     "post_fetch": [],
+    "init_extract": [],
     "pre_extract": [],
     "do_extract": [],
     "post_extract": [],
+    "init_patch": [],
     "pre_patch": [],
     "do_patch": [],
     "post_patch": [],
+    "init_configure": [],
     "pre_configure": [],
     "do_configure": [],
     "post_configure": [],
+    "init_build": [],
     "pre_build": [],
     "do_build": [],
     "post_build": [],
+    "init_install": [],
     "pre_install": [],
     "do_install": [],
     "post_install": [],
+    "init_pkg": [],
     "pre_pkg": [],
     "do_pkg": [],
     "post_pkg": []
@@ -615,6 +622,8 @@ def from_module(m, ret):
     for phase in [
         "fetch", "patch", "extract", "configure", "build", "check", "install"
     ]:
+        if hasattr(m, "init_" + phase):
+            setattr(ret, "init_" + phase, getattr(m, "init_" + phase))
         if hasattr(m, "pre_" + phase):
             setattr(ret, "pre_" + phase, getattr(m, "pre_" + phase))
         if hasattr(m, "do_" + phase):
@@ -796,7 +805,7 @@ def register_hooks():
     for step in [
         "fetch", "extract", "patch", "configure", "build", "install", "pkg"
     ]:
-        for sstep in ["pre", "do", "post"]:
+        for sstep in ["init", "pre", "do", "post"]:
             stepn = f"{sstep}_{step}"
             dirn = paths.cbuild() / "hooks" / stepn
             if dirn.is_dir():

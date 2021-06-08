@@ -6,6 +6,9 @@ def invoke(pkg, subpkg_mode):
     install_done = pkg.statedir / f"{pkg.pkgname}__install_done"
 
     if not subpkg_mode:
+        template.call_pkg_hooks(pkg, "init_install")
+        template.run_pkg_func(pkg, "init_install")
+
         if not install_done.is_file() or pkg.force_mode:
             os.makedirs(pkg.destdir, exist_ok = True)
             pkg.run_step("install", skip_post = True)

@@ -24,11 +24,12 @@ alternatives = [
     ("hostname", "hostname.1", "/usr/share/man/man1/hostname-coreutils.1"),
 ]
 
+def init_configure(self):
+    from cbuild.util import make
+    self.make = make.Make(self)
+
 def pre_configure(self):
     from cbuild import cpu
-    from cbuild.util import make
-
-    self.make = make.Make(self)
 
     if not self.cross_build:
         return

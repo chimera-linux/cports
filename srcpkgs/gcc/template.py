@@ -159,9 +159,11 @@ def do_configure(self):
     os.makedirs(self.abs_wrksrc / "build", exist_ok = True)
     self.do(self.chroot_wrksrc / "configure", cargs, wrksrc = "build")
 
-def do_build(self):
+def init_build(self):
     from cbuild.util import make
     self.make = make.Make(self, wrksrc = "build")
+
+def do_build(self):
     self.make.build()
 
 def do_install(self):

@@ -1,8 +1,9 @@
 from cbuild.util import make
 
-def do_build(self):
+def init_configure(self):
     self.make = make.Make(self)
 
+def do_build(self):
     if self.make_use_env:
         self.make.build()
         return
