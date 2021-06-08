@@ -510,6 +510,14 @@ class Subpackage(Package):
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
+        for fl, dval, tp, opt, sp, inh in parent.build_style_fields:
+            if not sp:
+                continue
+            if inh:
+                setattr(self, fl, copy_of_dval(getattr(parent, fl)))
+            else:
+                setattr(self, fl, copy_of_dval(dval))
+
         self.force_mode = parent.force_mode
         self.bootstrapping = parent.bootstrapping
 
@@ -570,6 +578,8 @@ def from_module(m, ret):
 
     ret.validate_arch()
 
+    ret.build_style_fields = []
+
     # also support build_style via string name for nicer syntax
     if isinstance(ret.build_style, str):
         bs = importlib.import_module("cbuild.build_style." + ret.build_style)
@@ -578,6 +588,21 @@ def from_module(m, ret):
     # perform initialization (will inject build-style etc)
     if hasattr(m, "init"):
         m.init(ret)
+
+    # like above but for build-style specific fields
+    for fl, dval, tp, opt, sp, inh in ret.build_style_fields:
+        if not hasattr(m, fl):
+            setattr(ret, fl, copy_of_dval(dval))
+            continue
+
+        flv = getattr(m, fl)
+        if not opt and not isinstance(flv, tp):
+            ret.error("invalid field value: %s" % fl)
+        # validated, set
+        if opt and flv == None:
+            setattr(ret, fl, dval)
+        else:
+            setattr(ret, fl, flv)
 
     # add our own methods
     for phase in [
@@ -640,6 +665,15 @@ def from_module(m, ret):
         sp.pkg_install = spf(sp)
         # validate fields
         for fl, dval, tp, opt, mand, asp, inh in core_fields:
+            if not asp:
+                continue
+            flv = getattr(sp, fl)
+            if opt and flv == None:
+                continue
+            if not isinstance(flv, tp):
+                ret.error("invalid field value: %s" % fl)
+        # validate build-style fields
+        for fl, dval, tp, opt, asp, inh in ret.build_style_fields:
             if not asp:
                 continue
             flv = getattr(sp, fl)
