@@ -5,7 +5,8 @@ wrksrc = f"grep-{version}"
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
-    "--disable-perl-regexp", "--disable-nls", "ac_cv_path_GREP=grep"
+    "--disable-perl-regexp", "--disable-nls", "ac_cv_path_GREP=grep",
+    "ac_cv_lib_error_at_line=no", "ac_cv_header_sys_cdefs_h=no"
 ]
 short_desc = "The GNU grep utility - for use with xbps-src"
 maintainer = "Enno Boland <gottox@voidlinux.org>"
