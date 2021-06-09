@@ -772,10 +772,15 @@ def from_module(m, ret):
 
     return ret
 
+_tmpl_dict = {}
+
 def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
+    global _tmpl_dict
+
     if not isinstance(pkgname, str):
         logger.get().out_red("Missing package name.")
         raise PackageError()
+
     if not (paths.templates() / pkgname / "template.py").is_file():
         logger.get().out_red("Missing template for '%s'" % pkgname)
         raise PackageError()
@@ -794,12 +799,28 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
     setattr(builtins, "subpackage", subpkg_deco)
     setattr(builtins, "bootstrapping", bootstrapping)
     setattr(builtins, "cross_build", False)
-    mod = importlib.import_module("srcpkgs." + pkgname + ".template")
+
+    modh = _tmpl_dict.get(pkgname, None)
+    if modh:
+        # clear all user set fields since reload retains them
+        for fld in dir(modh):
+            # don't mess with the internals
+            if fld.startswith("__") and fld.endswith("__"):
+                continue
+            delattr(modh, fld)
+        # now reload
+        modh = importlib.reload(modh)
+    else:
+        # never loaded
+        modh = importlib.import_module("srcpkgs." + pkgname + ".template")
+
+    _tmpl_dict[pkgname] = modh
+
     delattr(builtins, "cross_build")
     delattr(builtins, "subpackage")
     delattr(builtins, "bootstrapping")
 
-    return from_module(mod, ret)
+    return from_module(modh, ret)
 
 def register_hooks():
     for step in [

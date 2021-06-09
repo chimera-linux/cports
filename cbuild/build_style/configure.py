@@ -20,6 +20,7 @@ def do_install(self):
 
 def use(tmpl):
     tmpl.build_style = "configure"
+    tmpl.init_configure = init_configure
     tmpl.do_configure = do_configure
     tmpl.do_build = do_build
     tmpl.do_check = do_check
