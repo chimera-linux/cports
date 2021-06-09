@@ -51,7 +51,8 @@ def post_patch(self):
         self.log(f" Applying patch {_patchprefix}-{p}.")
         self.do("patch", [
             "-sNp0", "-i",
-            f"/host/sources/chroot-bash-{version}/{_patchprefix}-{p}"
+            str(self.chroot_hostdir / "sources" \
+                / f"chroot-bash-{version}/{_patchprefix}-{p}")
         ])
 
 def post_install(self):
