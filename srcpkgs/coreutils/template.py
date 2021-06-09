@@ -49,20 +49,24 @@ def pre_configure(self):
     hmake.invoke("distclean")
 
 def do_configure(self):
-    cargs = ["ac_cv_func_sysfs=no"]
+    cargs = [
+        "ac_cv_func_sysfs=no",
+        "ac_cv_lib_error_at_line=no",
+        "ac_cv_header_sys_cdefs_h=no"
+    ]
 
     if self.cross_build:
         cargs += [
             "fu_cv_sys_stat_statfs2_bsize=no",
             "gl_cv_func_working_mkstemp=yes",
-            "gl_cv_func_working_acl_get_file=yes"
+            "gl_cv_func_working_acl_get_file=yes",
         ]
 
     self.do(self.chroot_wrksrc / "configure", [
         "--prefix=/usr", "--disable-rpath",
         "--enable-install-program=arch,hostname",
         "--enable-no-install-program=kill,uptime"
-    ])
+    ] + cargs)
 
     if self.cross_build:
         import re
