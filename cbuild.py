@@ -86,7 +86,10 @@ def binary_bootstrap(tgt):
         chroot.install(cmd[1])
 
 def bootstrap(tgt):
-    pass
+    rp = template.read_pkg("base-chroot", False, True, False, None)
+    build.build(tgt, rp, {})
+    shutil.rmtree(paths.masterdir())
+    chroot.install(cpu.host())
 
 def do_chroot(tgt):
     chroot.repo_sync()

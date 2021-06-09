@@ -23,12 +23,14 @@ def process_patch(pkg, patchpath):
 
     if patchsfx == ".gz":
         chroot.enter(
-            "gunzip", [str(pkg.chroot_wrksrc / patchfn)], check = True
+            "gunzip", [str(pkg.chroot_wrksrc / patchfn)], check = True,
+            bootstrapping = pkg.bootstrapping
         )
         patchfn = patchpath.stem
     elif patchsfx == ".bz2":
         chroot.enter(
-            "bunzip2", [str(pkg.chroot_wrksrc / patchfn)], check = True
+            "bunzip2", [str(pkg.chroot_wrksrc / patchfn)], check = True,
+            bootstrapping = pkg.bootstrapping
         )
         patchfn = patchpath.stem
     elif patchsfx == ".diff" or patchsfx == ".patch":
@@ -38,9 +40,12 @@ def process_patch(pkg, patchpath):
 
     pkg.log(f"patching: {patchfn}")
 
-    chroot.enter("/usr/bin/cbuild-do", [
-        pkg.chroot_wrksrc, "patch", "-sl", pargs, "-i", patchfn
-    ], stderr = subprocess.DEVNULL, check = True)
+    chroot.enter(
+        "patch", ["-sl", pargs, "-i", patchfn],
+        stderr = subprocess.DEVNULL, check = True,
+        wrkdir = pkg.chroot_wrksrc,
+        bootstrapping = pkg.bootstrapping
+    )
 
 def invoke(pkg):
     if not pkg.abs_wrksrc.is_dir():

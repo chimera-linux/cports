@@ -72,9 +72,12 @@ def invoke(pkg):
                 pkg.log(f"skipping dependency scan for {ff}")
                 continue
 
-            for ln in chroot.enter(pkg.rparent.tools["OBJDUMP"], [
-                "-p", str(pkg.chroot_destdir / ff)
-            ], capture_out = True).stdout.splitlines():
+            for ln in chroot.enter(
+                pkg.rparent.tools["OBJDUMP"], [
+                    "-p", str(pkg.chroot_destdir / ff)
+                ],
+                capture_out = True, bootstrapping = pkg.bootstrapping
+            ).stdout.splitlines():
                 ln = ln.strip()
                 if not ln.startswith(b"NEEDED"):
                     continue

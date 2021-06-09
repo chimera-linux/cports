@@ -33,7 +33,7 @@ def extract_tar(pkg, fname, dfile, edir, sfx):
     if chroot.enter(tar_cmd, [
         "-x", "--no-same-permissions", "--no-same-owner",
         "-f", str(dfile), "-C", edir
-    ]).returncode != 0:
+    ], bootstrapping = pkg.bootstrapping).returncode != 0:
         pkg.error(f"extracting '{fname}' failed!")
 
 def extract_notar(pkg, fname, dfile, edir, sfx):
@@ -80,11 +80,15 @@ def invoke(pkg):
             pkg.error(f"failed to create wrksrc")
 
     x = chroot.enter(
-        "sh", ["-c", "command -v bsdtar"], capture_out = True, check = True
+        "sh", ["-c", "command -v bsdtar"],
+        capture_out = True, check = True,
+        bootstrapping = pkg.bootstrapping
     )
     if len(x.stdout.strip()) == 0:
         x = chroot.enter(
-            "sh", ["-c", "command -v tar"], capture_out = True, check = True
+            "sh", ["-c", "command -v tar"],
+            capture_out = True, check = True,
+            bootstrapping = pkg.bootstrapping
         )
     if len(x.stdout.strip()) == 0:
         pkg.error("no suitable tar command")
@@ -116,5 +120,6 @@ def invoke(pkg):
         if not exf:
             pkg.error(f"cannot guess '{fname}' extract suffix")
         exf(pkg, fname, os.path.join(
-            "/host/sources", f"{pkg.pkgname}-{pkg.version}", fname
+            pkg.chroot_hostdir / "sources",
+            f"{pkg.pkgname}-{pkg.version}", fname
         ), extractdir, suffix)

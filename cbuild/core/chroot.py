@@ -5,6 +5,7 @@ import glob
 import shutil
 import shlex
 import getpass
+import pathlib
 from tempfile import mkstemp
 
 from cbuild.core import logger, paths, xbps
@@ -210,7 +211,8 @@ def update(do_clean = True):
         % str(paths.masterdir()))
 
 def enter(cmd, args = [], capture_out = False, check = False,
-          env = {}, stdout = None, stderr = None, wrkdir = None):
+          env = {}, stdout = None, stderr = None, wrkdir = None,
+          bootstrapping = False):
     envs = {
         "PATH": "/usr/bin:" + os.environ["PATH"],
         "SHELL": "/bin/sh",
@@ -238,6 +240,14 @@ def enter(cmd, args = [], capture_out = False, check = False,
     # if running from template, ensure wrappers are early in executable path
     if "CBUILD_STATEDIR" in envs:
         envs["PATH"] = envs["CBUILD_STATEDIR"] + "/wrappers:" + envs["PATH"]
+
+    if bootstrapping:
+        return subprocess.run(
+            [cmd] + args, env = envs,
+            capture_output = capture_out, check = check,
+            stdout = stdout, stderr = stderr,
+            cwd = os.path.abspath(wrkdir) if wrkdir else None
+        )
 
     bcmd = [
         "bwrap",

@@ -463,10 +463,11 @@ class Template(Package):
             "LDFLAGS": " ".join(self.LDFLAGS),
             "XBPS_TARGET_MACHINE": cpu.target(),
             "XBPS_MACHINE": cpu.host(),
-            "XBPS_TRIPLET": self.triplet,
         }
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
+        if self.triplet:
+            cenv["XBPS_TRIPLET"] = self.triplet
 
         cenv.update(self.tools)
         cenv.update(self.env)
@@ -478,7 +479,8 @@ class Template(Package):
             wdir = wdir / wrksrc
 
         return chroot.enter(
-            str(cmd), args, env = cenv, wrkdir = str(wdir), check = True
+            str(cmd), args, env = cenv, wrkdir = str(wdir), check = True,
+            bootstrapping = self.bootstrapping
         )
 
     def run_step(self, stepn, optional = False, skip_post = False):
@@ -633,22 +635,33 @@ def from_module(m, ret):
 
     # paths that can be used by template methods
     ret.files_path = paths.templates() / ret.pkgname / "files"
-    ret.chroot_files_path = pathlib.Path("/void-packages/srcpkgs") \
-        / ret.pkgname / "files"
     ret.patches_path = paths.templates() / ret.pkgname / "patches"
     ret.builddir = paths.masterdir() / "builddir"
-    ret.chroot_builddir = pathlib.Path("/builddir")
     ret.destdir_base = paths.masterdir() / "destdir"
-    ret.chroot_destdir_base = pathlib.Path("/destdir")
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
-    ret.chroot_destdir = ret.chroot_destdir_base / f"{ret.pkgname}-{ret.version}"
     ret.abs_wrksrc = paths.masterdir() / "builddir" / ret.wrksrc
     ret.abs_build_wrksrc = ret.abs_wrksrc / ret.build_wrksrc
-    ret.chroot_wrksrc = pathlib.Path("/builddir") \
-        / ret.wrksrc
-    ret.chroot_build_wrksrc = ret.chroot_wrksrc / ret.build_wrksrc
     ret.statedir = ret.builddir / (".xbps-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
+
+    if ret.bootstrapping:
+        ret.chroot_files_path = ret.files_path
+        ret.chroot_builddir = ret.builddir
+        ret.chroot_destdir_base = ret.destdir_base
+        ret.chroot_wrksrc = ret.abs_wrksrc
+        ret.chroot_hostdir = paths.hostdir()
+    else:
+        ret.chroot_files_path = pathlib.Path("/void-packages/srcpkgs") \
+            / ret.pkgname / "files"
+        ret.chroot_builddir = pathlib.Path("/builddir")
+        ret.chroot_destdir_base = pathlib.Path("/destdir")
+        ret.chroot_wrksrc = pathlib.Path("/builddir") \
+            / ret.wrksrc
+        ret.chroot_hostdir = pathlib.Path("/host")
+
+    ret.chroot_build_wrksrc = ret.chroot_wrksrc / ret.build_wrksrc
+    ret.chroot_destdir = ret.chroot_destdir_base \
+        / f"{ret.pkgname}-{ret.version}"
 
     ret.env["CBUILD_STATEDIR"] = "/builddir/.xbps-" + ret.pkgname
 

@@ -210,7 +210,9 @@ def install(pkg, origpkg, step, depmap):
         # not found
         log.out_plain(f"   [runtime] {dep}: not found")
         # consider missing
-        missing_rdeps.append(dep)
+        missing_rdeps.append(pkgn)
+
+    from cbuild.core import build
 
     for hd in host_missing_deps:
         pn = xbps.get_pkg_name(hd)
@@ -220,7 +222,7 @@ def install(pkg, origpkg, step, depmap):
             ), depmap)
         except template.SkipPackage:
             pass
-        host_binpkg_deps.append(hd)
+        host_binpkg_deps.append(pn)
 
     for td in missing_deps:
         pn = xbps.get_pkg_name(td)
@@ -230,13 +232,12 @@ def install(pkg, origpkg, step, depmap):
             ), depmap)
         except template.SkipPackage:
             pass
-        host_binpkg_deps.append(td)
+        host_binpkg_deps.append(pn)
 
     for rd in missing_rdeps:
-        pn = xbps.get_pkg_name(rd)
         try:
             build.build(step, template.read_pkg(
-                pn, pkg.force_mode, pkg.bootstrapping, True, pkg
+                rd, pkg.force_mode, pkg.bootstrapping, True, pkg
             ), depmap)
         except template.SkipPackage:
             pass
