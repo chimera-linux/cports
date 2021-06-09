@@ -3,7 +3,10 @@ version = "4.8.0"
 revision = 1
 bootstrap = True
 build_style = "gnu_configure"
-configure_args = ["--program-prefix=g"]
+configure_args = [
+    "--program-prefix=g", "ac_cv_lib_error_at_line=no",
+    "ac_cv_header_sys_cdefs_h=no"
+]
 short_desc = "GNU Find Utilities"
 maintainer = "Enno Boland <gottox@voidlinux.org>"
 license = "GPL-3.0-or-later"

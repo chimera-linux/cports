@@ -5,7 +5,9 @@ bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
     "gl_cv_func_gettimeofday_clobber=no",
-    "gl_cv_func_tzset_clobber=no"
+    "gl_cv_func_tzset_clobber=no",
+    "ac_cv_lib_error_at_line=no",
+    "ac_cv_header_sys_cdefs_h=no"
 ]
 checkdepends = ["perl"]
 short_desc = "The GNU diff utilities"

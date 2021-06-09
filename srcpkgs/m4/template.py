@@ -4,7 +4,10 @@ revision = 2
 patch_args = "-Np1"
 bootstrap = True
 build_style = "gnu_configure"
-configure_args = ["--enable-changeword", "--enable-threads"]
+configure_args = [
+    "--enable-changeword", "--enable-threads",
+    "ac_cv_lib_error_at_line=no", "ac_cv_header_sys_cdefs_h=no"
+]
 short_desc = "GNU version of UNIX m4 macro language processor"
 homepage = "https://www.gnu.org/software/m4/"
 license = "GPL-3.0-or-later"

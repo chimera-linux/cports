@@ -3,7 +3,10 @@ version = "4.8"
 revision = 1
 bootstrap = True
 build_style = "gnu_configure"
-configure_args = ["--enable-acl", "gl_cv_func_working_acl_get_file=yes"]
+configure_args = [
+    "--enable-acl", "gl_cv_func_working_acl_get_file=yes",
+    "ac_cv_lib_error_at_line=no", "ac_cv_header_sys_cdefs_h=no"
+]
 makedepends = ["acl-devel"]
 checkdepends = ["perl"]
 short_desc = "The GNU stream editor"
