@@ -15,7 +15,7 @@ from cbuild import sites, cpu
 distfiles = [f"{sites.kernel}/kernel/v{_mver}.x/linux-{version}.tar.xz"]
 checksum = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
 
-if not bootstrapping:
+if not current.bootstrapping:
     hostmakedepends.append("perl")
 
 _arch = cpu.match_target(

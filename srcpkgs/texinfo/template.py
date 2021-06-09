@@ -16,7 +16,7 @@ from cbuild import sites
 distfiles = [f"{sites.gnu}/{pkgname}/{pkgname}-{version}.tar.xz"]
 checksum = ["988403c1542d15ad044600b909997ba3079b10e03224c61188117f3676b02caa"]
 
-if not cross_build:
+if not current.cross_build:
     configure_args.append("--enable-perl-xs")
 
 def post_install(self):

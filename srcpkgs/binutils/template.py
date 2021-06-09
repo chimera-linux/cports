@@ -19,7 +19,7 @@ patch_args = "-Np1"
 
 subpackages = []
 
-if not bootstrapping:
+if not current.bootstrapping:
     hostmakedepends += ["flex", "perl", "texinfo"]
     checkdepends = ["bc"]
 
@@ -109,5 +109,5 @@ def _devel(self):
 
     return install
 
-if not bootstrapping:
+if not current.bootstrapping:
     subpackages.append(("binutils-devel", _devel))

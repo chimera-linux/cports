@@ -23,9 +23,9 @@ from cbuild import sites
 distfiles = [f"{sites.kernel}/libs/security/linux-privs/libcap2/{pkgname}-{version}.tar.xz"]
 checksum = ["e98bc4d93645082ec787730b0fd1a712b38882465c505777de17c338831ee181"]
 
-if not bootstrapping:
+if not current.bootstrapping:
     hostmakedepends = ["perl"]
-    if not cross_build:
+    if not current.cross_build:
         hostmakedepends.append("gperf")
 
 def pre_build(self):

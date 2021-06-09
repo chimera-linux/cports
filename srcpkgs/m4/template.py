@@ -15,7 +15,7 @@ from cbuild import sites
 distfiles = [f"{sites.gnu}/{pkgname}/{pkgname}-{version}.tar.xz"]
 checksum = ["f2c1e86ca0a404ff281631bdc8377638992744b175afb806e25871a24a934e07"]
 
-if bootstrapping:
+if current.bootstrapping:
     # disable makeinfo always
     # texinfo defaults to utf-8 now and the file is in iso-8859-1
     # don't touch the file otherwise it will try to rebuild

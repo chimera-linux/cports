@@ -22,7 +22,7 @@ distfiles = [
 ]
 checksum = ["9f61417a44d5b954a5012b6f34e526a3336dcf5dd720e2bb7ada92ad8b3d6680"]
 
-if not bootstrapping:
+if not current.bootstrapping:
     hostmakedepends = ["perl", "tar"]
 
 def pre_configure(self):

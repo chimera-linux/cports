@@ -16,7 +16,7 @@ checksum = ["4458d8de7849df44ccab15e16b1548b285224dbba5f08fac070c1c0e0bcc4cfa"]
 
 replaces = ["chroot-coreutils>=0", "coreutils-doc>=0", "b2sum>=0"]
 
-if not bootstrapping:
+if not current.bootstrapping:
     hostmakedepends = ["perl"]
 
 alternatives = [

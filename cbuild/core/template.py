@@ -797,8 +797,7 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
         return deco
 
     setattr(builtins, "subpackage", subpkg_deco)
-    setattr(builtins, "bootstrapping", bootstrapping)
-    setattr(builtins, "cross_build", False)
+    setattr(builtins, "current", ret)
 
     modh = _tmpl_dict.get(pkgname, None)
     if modh:
@@ -816,9 +815,8 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
 
     _tmpl_dict[pkgname] = modh
 
-    delattr(builtins, "cross_build")
+    delattr(builtins, "current")
     delattr(builtins, "subpackage")
-    delattr(builtins, "bootstrapping")
 
     return from_module(modh, ret)
 

@@ -40,7 +40,7 @@ replaces = [
     "libmpx>=0", "libmpx-devel>=0"
 ]
 
-if not bootstrapping:
+if not current.bootstrapping:
     hostmakedepends = ["tar", "texinfo", "perl", "flex"]
 
 makedepends = ["zlib-devel"]
@@ -59,7 +59,7 @@ _triplet = cpu.match_target(
     "ppc64*", "powerpc64-linux-musl"
 )
 
-if cross_build:
+if current.cross_build:
     hostmakedepends.append("cross-" + _triplet)
 
 def post_extract(self):
