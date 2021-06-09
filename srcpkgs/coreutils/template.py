@@ -89,6 +89,7 @@ def do_install(self):
     self.make.install()
 
     import os
+    import shutil
 
     os.rename(
         self.destdir / "usr/bin/hostname",
@@ -98,3 +99,5 @@ def do_install(self):
         self.destdir / "usr/share/man/man1/hostname.1",
         self.destdir / "usr/share/man/man1/hostname-coreutils.1"
     )
+
+    shutil.rmtree(self.destdir / "usr/share/info")

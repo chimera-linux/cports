@@ -14,7 +14,7 @@ configure_args = [
     "--disable-nls", "--disable-wall", "--disable-chfn-chsh-password",
     "--disable-su", "--disable-sulogin", "--disable-login",
     "--disable-runuser", "--disable-setpriv", "--disable-libsmartcols",
-    "scanf_cv_alloc_modifier=as"
+    "--without-readline", "scanf_cv_alloc_modifier=as"
 ]
 makedepends = ["zlib-devel"]
 short_desc = "Miscellaneous linux utilities -- for xbps-src use"

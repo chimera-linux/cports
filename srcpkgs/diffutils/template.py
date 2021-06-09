@@ -23,3 +23,7 @@ checksum = ["b3a7a6221c3dc916085f0d205abf6b8e1ba443d4dd965118da364a1dc1cb3a26"]
 def pre_configure(self):
     if self.cross_build:
         self.configure_args.append("gl_cv_func_getopt_gnu=yes")
+
+def post_install(self):
+    import shutil
+    shutil.rmtree(self.destdir / "usr/share/info")

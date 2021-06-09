@@ -27,3 +27,7 @@ alternatives = [
 
 def post_configure(self):
     self.make.invoke("dblocation.texi", ["-C", "locate"])
+
+def post_install(self):
+    import shutil
+    shutil.rmtree(self.destdir / "usr/share/info")

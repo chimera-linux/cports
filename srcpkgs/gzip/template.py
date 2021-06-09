@@ -15,3 +15,7 @@ from cbuild import sites
 
 distfiles = [f"{sites.gnu}/{pkgname}/{pkgname}-{version}.tar.xz"]
 checksum = ["8425ccac99872d544d4310305f915f5ea81e04d0f437ef1a230dc9d1c819d7c0"]
+
+def post_install(self):
+    import shutil
+    shutil.rmtree(self.destdir / "usr/share/info")

@@ -32,3 +32,7 @@ def post_extract(self):
     os.rename(
         self.abs_wrksrc / "Makefile.in.new", self.abs_wrksrc / "Makefile.in"
     )
+
+def post_install(self):
+    import shutil
+    shutil.rmtree(self.destdir / "usr/share/info")
