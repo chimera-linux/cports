@@ -8,10 +8,10 @@ license = "Public Domain"
 homepage = "http://www.voidlinux.org"
 
 depends = [
-    "musl-devel", "base-files", "binutils", "gcc", "patch", "sed", "findutils",
-    "diffutils", "make", "coreutils", "file", "bsdtar", "xbps",
-    "ncurses", "bsdgrep", "bsdgzip", "chroot-bash", "chroot-gawk",
-    "chroot-git", "chroot-util-linux"
+    "musl-devel", "base-files", "binutils", "gcc", "sed", "findutils",
+    "diffutils", "make", "coreutils", "file", "xbps",
+    "ncurses", "bsdgrep", "bsdgzip", "bsdpatch", "bsdtar",
+    "chroot-bash", "chroot-gawk", "chroot-git", "chroot-util-linux"
 ]
 
 def do_fetch(self):
