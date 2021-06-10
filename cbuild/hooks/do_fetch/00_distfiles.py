@@ -83,6 +83,7 @@ def invoke(pkg):
             pkg.log(f"fetching distfile '{fname}'...")
             try:
                 fname = request.urlretrieve(url, str(dfile))[0]
+                fname = os.path.basename(fname)
             except:
                 pass
         if not dfile.is_file():
