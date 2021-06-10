@@ -57,7 +57,7 @@ def reconfigure(pkgn = None, arch = None, capture_out = False):
         return v.returncode == 0
     return v.returncode == 0, v.stdout, v.stderr
 
-def install(pkglist, arch = None, capture_out = False):
+def install(pkglist, arch = None, capture_out = False, automatic = True):
     if arch:
         cenv = {"XBPS_TARGET_ARCH": arch}
     else:
@@ -67,7 +67,8 @@ def install(pkglist, arch = None, capture_out = False):
         [
             "xbps-install",
             "-c", str(paths.hostdir() / ("repocache-" + cpu.host())),
-            "-r", str(paths.masterdir()), "-C", "etc/xbps.d", "-Ay"
+            "-r", str(paths.masterdir()), "-C", "etc/xbps.d",
+            "-Ay" if automatic else "-y"
         ] + pkglist, env = cenv, capture_output = capture_out
     )
     if not capture_out:

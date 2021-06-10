@@ -184,7 +184,8 @@ def install(arch = None, bootstrap = False):
         cenv["XBPS_TARGET_ARCH"] = arch
 
     if not xbps.install(
-        ["base-chroot"], arch = arch if not bootstrap else None
+        ["base-chroot"], arch = arch if not bootstrap else None,
+        automatic = False
     ):
         logger.get().out_red("cbuild: failed to install base-chroot")
         raise Exception()
