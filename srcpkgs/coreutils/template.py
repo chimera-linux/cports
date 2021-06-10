@@ -17,11 +17,6 @@ checksum = ["4458d8de7849df44ccab15e16b1548b285224dbba5f08fac070c1c0e0bcc4cfa"]
 if not current.bootstrapping:
     hostmakedepends = ["perl"]
 
-alternatives = [
-    ("hostname", "hostname", "/usr/bin/hostname-coreutils"),
-    ("hostname", "hostname.1", "/usr/share/man/man1/hostname-coreutils.1"),
-]
-
 def init_configure(self):
     from cbuild.util import make
     self.make = make.Make(self)
@@ -86,16 +81,5 @@ def do_build(self):
 def do_install(self):
     self.make.install()
 
-    import os
     import shutil
-
-    os.rename(
-        self.destdir / "usr/bin/hostname",
-        self.destdir / "usr/bin/hostname-coreutils"
-    )
-    os.rename(
-        self.destdir / "usr/share/man/man1/hostname.1",
-        self.destdir / "usr/share/man/man1/hostname-coreutils.1"
-    )
-
     shutil.rmtree(self.destdir / "usr/share/info")
