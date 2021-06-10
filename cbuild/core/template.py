@@ -379,7 +379,6 @@ core_fields = [
     ("make_dirs", [], list, True, False, True, False),
     ("repository", None, str, True, False, True, True),
     ("conf_files", [], list, True, False, True, False),
-    ("alternatives", [], list, True, False, True, False),
     ("tags", [], list, True, False, True, False),
     ("changelog", None, str, True, False, False, False),
 ]

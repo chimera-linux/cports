@@ -70,10 +70,6 @@ def genpkg(pkg, repo, arch, binpkg):
                 args.append("--shlib-requires")
                 args.append(shp)
 
-        if len(pkg.alternatives) > 0:
-            args.append("--alternatives")
-            args.append(" ".join([":".join(v) for v in pkg.alternatives]))
-
         if len(pkg.tags) > 0:
             args.append("--tags")
             args.append(" ".join(pkg.tags))
