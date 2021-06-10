@@ -28,8 +28,6 @@ conf_files = [
     "/etc/nsswitch.conf",
 ]
 
-replaces = ["base-directories>=0"]
-
 def do_install(self):
     from cbuild import cpu
 

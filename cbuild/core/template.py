@@ -347,7 +347,6 @@ core_fields = [
 
     # other package lists + related
     ("provides", [], list, False, False, True, False),
-    ("replaces", [], list, False, False, True, False),
     ("conflicts", [], list, False, False, True, False),
     ("skiprdeps", [], list, False, False, True, False),
     ("noverifyrdeps", False, bool, False, False, True, False),

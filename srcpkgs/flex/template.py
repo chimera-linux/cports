@@ -22,7 +22,6 @@ def post_install(self):
 
 @subpackage("libfl-devel")
 def _devel(self):
-    self.replaces = ["libfl>=0"]
     self.short_desc = short_desc + " - development files"
 
     def install():

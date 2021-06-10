@@ -1,6 +1,7 @@
 pkgname = "chroot-gawk"
 version = "5.0.1"
 revision = 1
+bootstrap = True
 wrksrc = f"gawk-{version}"
 build_style = "gnu_configure"
 configure_args = [
@@ -15,10 +16,6 @@ from cbuild import sites
 
 distfiles = [f"{sites.gnu}/gawk/gawk-{version}.tar.xz"]
 checksum = ["8e4e86f04ed789648b66f757329743a0d6dfb5294c3b91b756a474f1ce05a794"]
-
-bootstrap = True
-provides = ["awk-0_1"]
-replaces = ["awk>=0"]
 
 def post_install(self):
     self.rmtree("usr/share")

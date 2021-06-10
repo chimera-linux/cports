@@ -41,10 +41,6 @@ def genpkg(pkg, repo, arch, binpkg):
             args.append("--conflicts")
             args.append(" ".join(pkg.conflicts))
 
-        if len(pkg.replaces) > 0:
-            args.append("--replaces")
-            args.append(" ".join(pkg.replaces))
-
         if len(pkg.mutable_files) > 0:
             args.append("--mutable-files")
             args.append(" ".join(pkg.mutable_files))

@@ -141,13 +141,6 @@ provides = [
     "perl-version-0.9924_1",
 ]
 
-from cbuild.core import xbps
-
-replaces = []
-
-for f in provides:
-    replaces.append(xbps.get_pkg_name(f) + ">=0")
-
 def post_extract(self):
     import shutil
 

@@ -36,10 +36,6 @@ checksum = [
 nopie = True
 bootstrap = True
 
-replaces = [
-    "libmpx>=0", "libmpx-devel>=0"
-]
-
 if not current.bootstrapping:
     hostmakedepends = ["tar", "texinfo", "perl", "flex"]
 
