@@ -41,10 +41,6 @@ def genpkg(pkg, repo, arch, binpkg):
             args.append("--conflicts")
             args.append(" ".join(pkg.conflicts))
 
-        if len(pkg.mutable_files) > 0:
-            args.append("--mutable-files")
-            args.append(" ".join(pkg.mutable_files))
-
         if (pkg.destdir / "rdeps").is_file():
             rdeps = (pkg.destdir / "rdeps").read_text().strip()
             if len(rdeps) > 0:
@@ -62,12 +58,6 @@ def genpkg(pkg, repo, arch, binpkg):
             args.append("--config-files")
             args.append(" ".join(cf))
 
-        if (pkg.statedir / "gitrev").is_file():
-            grevs = (pkg.statedir / "gitrev").read_text().strip()
-            if len(grevs) > 0:
-                args.append("--source-revisions")
-                args.append(grevs)
-
         if (pkg.destdir / "shlib-provides").is_file():
             shp = (pkg.destdir / "shlib-provides").read_text().strip()
             if len(shp) > 0:
@@ -83,9 +73,6 @@ def genpkg(pkg, repo, arch, binpkg):
         if len(pkg.alternatives) > 0:
             args.append("--alternatives")
             args.append(" ".join([":".join(v) for v in pkg.alternatives]))
-
-        if pkg.preserve:
-            args.append("--preserve")
 
         if len(pkg.tags) > 0:
             args.append("--tags")

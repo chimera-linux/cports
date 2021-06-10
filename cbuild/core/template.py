@@ -378,8 +378,6 @@ core_fields = [
     ("triggers", [], list, True, False, True, False),
     ("make_dirs", [], list, True, False, True, False),
     ("repository", None, str, True, False, True, True),
-    ("preserve", False, bool, False, False, True, False),
-    ("mutable_files", [], list, True, False, True, False),
     ("conf_files", [], list, True, False, True, False),
     ("alternatives", [], list, True, False, True, False),
     ("tags", [], list, True, False, True, False),
