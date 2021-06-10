@@ -11,8 +11,6 @@ license = "BSD-3-Clause"
 homepage = "https://github.com/chimera-linux/musl-fts"
 distfiles = [f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{version}-mk.tar.gz"]
 checksum = ["6422f2bf36abf4e2e5dac53b8e3318f23359ba9eb459e412f91553e9815b6661"]
-conflicts = ["grep>=0"]
-provides = [f"grep-{version}_{revision}"]
 
 def post_install(self):
     self.install_license("COPYING")
