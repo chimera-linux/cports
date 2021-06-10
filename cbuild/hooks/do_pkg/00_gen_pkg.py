@@ -45,10 +45,6 @@ def genpkg(pkg, repo, arch, binpkg):
             args.append("--replaces")
             args.append(" ".join(pkg.replaces))
 
-        if len(pkg.rparent.reverts) > 0:
-            args.append("--reverts")
-            args.append(" ".join(pkg.rparent.reverts))
-
         if len(pkg.mutable_files) > 0:
             args.append("--mutable-files")
             args.append(" ".join(pkg.mutable_files))

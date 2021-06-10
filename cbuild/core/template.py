@@ -349,7 +349,6 @@ core_fields = [
     ("provides", [], list, False, False, True, False),
     ("replaces", [], list, False, False, True, False),
     ("conflicts", [], list, False, False, True, False),
-    ("reverts", [], list, False, False, False, False),
     ("skiprdeps", [], list, False, False, True, False),
     ("noverifyrdeps", False, bool, False, False, True, False),
 
