@@ -4,8 +4,7 @@ revision = 1
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
-    "--program-prefix=g", "ac_cv_lib_error_at_line=no",
-    "ac_cv_header_sys_cdefs_h=no"
+    "ac_cv_lib_error_at_line=no", "ac_cv_header_sys_cdefs_h=no"
 ]
 short_desc = "GNU Find Utilities"
 maintainer = "Enno Boland <gottox@voidlinux.org>"
@@ -17,13 +16,6 @@ from cbuild import sites
 
 distfiles = [f"{sites.gnu}/{pkgname}/{pkgname}-{version}.tar.xz"]
 checksum = ["57127b7e97d91282c6ace556378d5455a9509898297e46e10443016ea1387164"]
-
-alternatives = [
-    ("xargs", "xargs", "/usr/bin/gxargs"),
-    ("xargs", "xargs.1", "/usr/share/man/man1/gxargs.1"),
-    ("find", "find", "/usr/bin/gfind"),
-    ("find", "find.1", "/usr/share/man/man1/gfind.1"),
-]
 
 def post_configure(self):
     self.make.invoke("dblocation.texi", ["-C", "locate"])
