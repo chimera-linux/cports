@@ -8,9 +8,9 @@ license = "Public Domain"
 homepage = "http://www.voidlinux.org"
 
 depends = [
-    "musl-devel", "base-files", "binutils", "gcc", "sed", "findutils",
+    "musl-devel", "base-files", "binutils", "gcc", "findutils",
     "diffutils", "make", "coreutils", "file", "xbps",
-    "ncurses", "bsdgrep", "bsdgzip", "bsdpatch", "bsdtar",
+    "ncurses", "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed", "bsdtar",
     "chroot-bash", "chroot-gawk", "chroot-git", "chroot-util-linux"
 ]
 

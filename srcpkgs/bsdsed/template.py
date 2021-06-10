@@ -1,0 +1,11 @@
+pkgname = "bsdsed"
+version = "0.99.0"
+revision = 1
+bootstrap = True
+build_style = "gnu_makefile"
+short_desc = "The sed(1) utility from FreeBSD"
+maintainer = "q66 <daniel@octaforge.org>"
+license = "BSD-2-Clause"
+homepage = "https://github.com/chimera-linux/bsdsed"
+distfiles = [f"https://github.com/chimera-linux/bsdsed/archive/refs/tags/v{version}.tar.gz"]
+checksum = ["b6c54e8ba398b57739b5b7e69faf801345b3e6abb81b446243474349f4f78cf0"]

@@ -20,6 +20,7 @@ def verify_cksum(fname, dfile, cksum, pkg):
             os.makedirs(shapath, exist_ok = True)
             dfile.link_to(linkpath)
         pkg.logger.out_plain("OK.")
+        return True
 
 def link_cksum(fname, dfile, cksum, pkg):
     shapath = paths.sources() / "by_sha256"
