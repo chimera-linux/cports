@@ -9,9 +9,9 @@ homepage = "http://www.voidlinux.org"
 
 depends = [
     "musl-devel", "base-files", "binutils", "gcc", "patch", "sed", "findutils",
-    "diffutils", "make", "gzip", "coreutils", "file", "bsdtar", "xbps",
-    "ncurses", "bsdgrep", "chroot-bash", "chroot-gawk", "chroot-git",
-    "chroot-util-linux"
+    "diffutils", "make", "coreutils", "file", "bsdtar", "xbps",
+    "ncurses", "bsdgrep", "bsdgzip", "chroot-bash", "chroot-gawk",
+    "chroot-git", "chroot-util-linux"
 ]
 
 def do_fetch(self):
