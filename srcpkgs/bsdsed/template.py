@@ -1,5 +1,5 @@
 pkgname = "bsdsed"
-version = "0.99.0"
+version = "0.99.1"
 revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
@@ -8,4 +8,4 @@ maintainer = "q66 <daniel@octaforge.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdsed"
 distfiles = [f"https://github.com/chimera-linux/bsdsed/archive/refs/tags/v{version}.tar.gz"]
-checksum = ["b6c54e8ba398b57739b5b7e69faf801345b3e6abb81b446243474349f4f78cf0"]
+checksum = ["aecd6385ef4ebe97831e92c5d1505f6f054beca17f2a2953874e6326a0afc15b"]
