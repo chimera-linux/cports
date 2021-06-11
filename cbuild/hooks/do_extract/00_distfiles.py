@@ -81,13 +81,13 @@ def invoke(pkg):
 
     x = chroot.enter(
         "sh", ["-c", "command -v bsdtar"],
-        capture_out = True, check = True,
+        capture_out = True,
         bootstrapping = pkg.bootstrapping
     )
     if len(x.stdout.strip()) == 0:
         x = chroot.enter(
             "sh", ["-c", "command -v tar"],
-            capture_out = True, check = True,
+            capture_out = True,
             bootstrapping = pkg.bootstrapping
         )
     if len(x.stdout.strip()) == 0:
