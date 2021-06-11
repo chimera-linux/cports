@@ -1,0 +1,29 @@
+--- boot-strap
++++ boot-strap
+@@ -1,4 +1,4 @@
+-:
++#!/bin/sh
+ # NAME:
+ #	boot-strap
+ #
+@@ -430,8 +430,7 @@ op_build() {
+ }
+ 
+ op_test() {
+-	[ -x bmake ] || op_build
+-	Bmake test || exit 1
++	:
+ }
+ 
+ op_clean() {
+--- install-sh
++++ install-sh
+@@ -1,4 +1,4 @@
+-:
++#!/bin/sh
+ # NAME:
+ #	install.sh - portable version of install(1)
+ #
+-- 
+2.32.0
+
