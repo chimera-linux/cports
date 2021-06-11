@@ -18,7 +18,7 @@ def verify_cksum(fname, dfile, cksum, pkg):
         linkpath = shapath / f"{cksum}_{fname}"
         if not linkpath.is_file():
             os.makedirs(shapath, exist_ok = True)
-            dfile.link_to(linkpath)
+            linkpath.link_to(dfile)
         pkg.logger.out_plain("OK.")
         return True
 
@@ -26,7 +26,7 @@ def link_cksum(fname, dfile, cksum, pkg):
     shapath = paths.sources() / "by_sha256"
     linkpath = shapath / f"{cksum}_{fname}"
     if len(cksum) > 0 and linkpath.is_file():
-        dfile.link_to(linkpath)
+        linkpath.link_to(dfile)
         pkg.log(f"using known distfile '{fname}'")
 
 def invoke(pkg):
