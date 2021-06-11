@@ -20,11 +20,6 @@ distfiles = [f"{sites.nongnu}/attr/attr-{version}.tar.gz"]
 checksum = ["bae1c6949b258a0d68001367ce0c741cebdacdd3b62965d17e5eb23cd78adaf8"]
 conf_files = ["/etc/xattr.conf"]
 
-# The included libtool is rotten and only works with bash; easiest fix.
-env = {
-    "CONFIG_SHELL": "/bin/bash"
-}
-
 def pre_check(self):
     import os
     # Either the test wasn't updated or the package misconfigures/miscompiles
