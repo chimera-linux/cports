@@ -9,7 +9,7 @@ homepage = "http://www.voidlinux.org"
 
 depends = [
     "musl-devel", "base-files", "binutils", "gcc", "findutils",
-    "diffutils", "make", "coreutils", "dash", "file", "xbps", "awk",
+    "diffutils", "bmake", "make", "coreutils", "dash", "file", "xbps", "awk",
     "ncurses", "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed", "bsdtar",
     "chroot-git", "chroot-util-linux"
 ]
