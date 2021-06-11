@@ -66,7 +66,7 @@ PATH=/void-packages:/usr/bin
 exec env -i -- SHELL=/bin/sh PATH="$PATH" \
     XBPS_ARCH={cpu.host()} XBPS_CHECK_PKGS="" \
     IN_CHROOT=1 LC_COLLATE=C LANG=en_US.UTF-8 TERM=linux HOME="/tmp" \
-    PS1="[\\u@{str(paths.masterdir())} \\W]$ " /bin/bash +h
+    PS1="[\\u@{str(paths.masterdir())} \\W]$ " /bin/sh
 """)
     shf.close()
 
@@ -78,7 +78,7 @@ def _prepare(arch = None):
     sfpath = paths.masterdir() / ".xbps_chroot_init"
     if sfpath.is_file():
         return
-    if not (paths.masterdir() / "usr" /"bin" / "bash").is_file():
+    if not (paths.masterdir() / "usr" / "bin" / "sh").is_file():
         logger.get().out_red("cbuild: bootstrap not installed, can't continue")
         raise Exception()
 
