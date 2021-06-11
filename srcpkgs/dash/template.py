@@ -3,6 +3,7 @@ version = "0.5.11.3"
 revision = 1
 bootstrap = True
 build_style = "gnu_configure"
+make_cmd = "gmake"
 short_desc="POSIX-compliant Unix shell, much smaller than GNU bash"
 maintainer="q66 <daniel@octaforge.org>"
 license="BSD-3-Clause"

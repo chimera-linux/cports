@@ -4,6 +4,7 @@ revision = 5
 bootstrap = True
 build_style = "configure"
 configure_args = ["--prefix=/usr", "--sysconfdir=/etc"]
+make_cmd = "gmake"
 short_desc = "XBPS package system utilities"
 maintainer = "Juan RP <xtraeme@gmail.com>"
 license = "BSD-2-Clause, BSD-3-Clause, ISC"

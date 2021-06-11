@@ -10,6 +10,7 @@ pkgname = "gcc"
 version = f"{_patchver}pre1"
 wrksrc = f"gcc-{_patchver}_pre1"
 revision = 3
+make_cmd = "gmake"
 short_desc = "GNU Compiler Collection"
 maintainer = "Enno Boland <gottox@voidlinux.org>"
 homepage = "http://gcc.gnu.org"

@@ -5,6 +5,7 @@ archs = "*-musl"
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
+make_cmd = "gmake"
 short_desc = "Musl C library"
 maintainer = "Enno Boland <gottox@voidlinux.org>"
 license = "MIT"

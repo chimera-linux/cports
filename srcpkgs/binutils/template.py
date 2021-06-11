@@ -2,6 +2,7 @@ pkgname = "binutils"
 version = "2.35.1"
 revision = 4
 bootstrap = True
+make_cmd = "gmake"
 make_install_args = ["tooldir=/usr"]
 hostmakedepends = []
 makedepends = ["zlib-devel"]

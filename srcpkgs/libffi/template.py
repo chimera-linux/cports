@@ -5,6 +5,7 @@ build_style = "gnu_configure"
 configure_args = [
     "--includedir=/usr/include", "--disable-multi-os-directory", "--with-pic"
 ]
+make_cmd = "gmake"
 checkdepends = ["dejagnu"]
 short_desc = "Library supporting Foreign Function Interfaces"
 maintainer = "q66 <daniel@octaforge.org>"

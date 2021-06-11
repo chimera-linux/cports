@@ -3,6 +3,7 @@ version = "1.9.3"
 revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
+make_cmd = "gmake"
 make_check_target = "test"
 checkdepends = ["python3"]
 short_desc = "LZ4 compression utilities"

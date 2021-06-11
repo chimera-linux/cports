@@ -7,6 +7,7 @@ configure_args = [
     f"--libdir=/usr/lib",
     f"--libexecdir=/usr/lib"
 ]
+make_cmd = "gmake"
 makedepends = ["attr-devel"]
 short_desc = "Access Control List filesystem support"
 maintainer = "Orphaned <orphan@voidlinux.org>"

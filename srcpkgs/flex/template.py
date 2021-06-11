@@ -3,6 +3,7 @@ version = "2.6.4"
 revision = 3
 build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
+make_cmd = "gmake"
 hostmakedepends = ["byacc", "m4"]
 makedepends = ["byacc", "m4"]
 depends = ["byacc", f"libfl-devel-{version}_{revision}", "m4"]

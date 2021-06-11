@@ -3,6 +3,7 @@ version = "2.49"
 revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
+make_cmd = "gmake"
 make_install_args = [
     "PKGCONFIGDIR=/usr/lib/pkgconfig",
     "SBINDIR=/usr/bin",

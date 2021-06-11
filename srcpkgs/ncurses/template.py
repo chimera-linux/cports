@@ -3,6 +3,7 @@ version = "6.2"
 revision = 4
 bootstrap = True
 configure_args = ["--enable-big-core"]
+make_cmd = "gmake"
 short_desc = "System V Release 4.0 curses emulation library"
 maintainer = "Enno Boland <gottox@voidlinux.org>"
 license = "MIT"

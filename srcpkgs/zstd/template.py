@@ -2,6 +2,7 @@ pkgname = "zstd"
 version = "1.5.0"
 revision = 1
 bootstrap = True
+make_cmd = "gmake"
 makedepends = ["zlib-devel", "liblzma-devel", "liblz4-devel"]
 checkdepends = ["gtest-devel"]
 short_desc = "Fast real-time compression algorithm - CLI tool"

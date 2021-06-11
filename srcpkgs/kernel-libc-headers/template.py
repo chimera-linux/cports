@@ -4,6 +4,7 @@ version = f"{_mver}.4"
 revision = 1
 bootstrap = True
 wrksrc = f"linux-{version}"
+make_cmd = "gmake"
 hostmakedepends = []
 short_desc = "Linux API headers for userland development"
 maintainer = "Érico Nogueira <ericonr@disroot.org>"

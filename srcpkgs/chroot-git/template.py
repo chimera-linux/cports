@@ -4,6 +4,7 @@ revision = 1
 bootstrap = True
 wrksrc = f"git-{version}"
 build_style = "gnu_configure"
+make_cmd = "gmake"
 configure_args = [
     "--without-curl", "--without-openssl",
     "--without-python", "--without-expat",
