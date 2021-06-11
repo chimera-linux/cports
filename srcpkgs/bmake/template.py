@@ -30,3 +30,4 @@ def do_install(self):
     )
     self.unlink("usr/share/man/cat1")
     self.install_license("LICENSE")
+    self.install_link("bmake", "usr/bin/make")
