@@ -4,6 +4,7 @@ revision = 1
 bootstrap = True
 build_style = "configure"
 configure_script = "Configure"
+make_cmd = "bmake"
 configure_args = [
     "--prefix=/usr", "--openssldir=/etc/ssl", "--libdir=lib",
     "shared", "no-ssl3-method", "no-asm", "-Wa,--noexecstack"

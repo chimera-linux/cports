@@ -3,6 +3,7 @@ version = "3.5.1"
 revision = 2
 bootstrap = True
 build_style = "gnu_configure"
+make_cmd = "bmake"
 configure_args = [
     "--enable-acl", "--enable-xattr", "--without-expat",
     "--with-lz4", "--with-openssl", "--with-zstd", "--without-xml2",

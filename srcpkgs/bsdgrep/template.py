@@ -4,6 +4,7 @@ revision = 1
 wrksrc = f"bsdgrep-{version}"
 bootstrap = True
 build_style = "gnu_makefile"
+make_cmd = "bmake"
 makedepends = ["bzip2-devel", "zlib-devel", "musl-fts-devel"]
 short_desc = "FreeBSD grep(1)"
 maintainer = "q66 <daniel@octaforge.org>"

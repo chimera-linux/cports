@@ -3,6 +3,7 @@ version = "20210520"
 revision = 1
 build_style = "gnu_configure"
 configure_args = ["--program-transform=s,^,b,"]
+make_cmd = "bmake"
 short_desc = "Berkeley yacc, a LALR(1) parser generator"
 maintainer = "q66 <daniel@octaforge.org>"
 license="Public Domain"

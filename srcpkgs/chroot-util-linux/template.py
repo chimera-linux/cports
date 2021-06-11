@@ -5,6 +5,7 @@ revision = 2
 wrksrc = f"util-linux-{version}"
 bootstrap = True
 build_style = "gnu_configure"
+make_cmd = "bmake"
 configure_args = [
     "--without-ncurses", "--without-ncursesw", "--without-udev",
     "--without-systemd", "--disable-libuuid", "--disable-libblkid",

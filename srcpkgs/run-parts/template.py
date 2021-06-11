@@ -4,6 +4,7 @@ revision = 1
 bootstrap = True
 wrksrc = "debianutils"
 build_style = "gnu_configure"
+make_cmd = "bmake"
 make_build_target = "run-parts"
 short_desc = "Run scripts or programs in a directory"
 maintainer = "Peter Bui <pbui@github.bx612.space>"

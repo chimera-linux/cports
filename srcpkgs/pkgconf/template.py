@@ -3,6 +3,7 @@ version = "1.7.3"
 revision = 1
 bootstrap = True
 build_style = "gnu_configure"
+make_cmd = "bmake"
 configure_args = ["--disable-shared", "--disable-static"]
 checkdepends = ["kyua"]
 short_desc = "Provides compiler and linker configuration"

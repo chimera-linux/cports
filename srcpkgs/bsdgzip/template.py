@@ -3,6 +3,7 @@ version = "0.99.0"
 revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
+make_cmd = "bmake"
 hostmakedepends = ["pkgconf"]
 makedepends = ["musl-fts-devel", "liblzma-devel", "zlib-devel", "bzip2-devel"]
 short_desc = "The gzip(1) suite of utilities from FreeBSD"

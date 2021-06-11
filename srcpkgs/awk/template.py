@@ -4,6 +4,7 @@ revision = 1
 bootstrap = True
 _commit="c0f4e97e4561ff42544e92512bbaf3d7d1f6a671"
 wrksrc = f"awk-{_commit}"
+make_cmd = "bmake"
 hostmakedepends = ["byacc"]
 short_desc = "One true awk"
 maintainer = "q66 <daniel@octaforge.org>"

@@ -3,6 +3,7 @@ version = "0.99.1"
 revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
+make_cmd = "bmake"
 short_desc = "The sed(1) utility from FreeBSD"
 maintainer = "q66 <daniel@octaforge.org>"
 license = "BSD-2-Clause"

@@ -3,6 +3,7 @@ version = "1.2.11"
 revision = 3
 bootstrap = True
 build_style = "configure"
+make_cmd = "bmake"
 short_desc = "Compression/decompression Library"
 maintainer = "Orphaned <orphan@voidlinux.org>"
 license = "Zlib"

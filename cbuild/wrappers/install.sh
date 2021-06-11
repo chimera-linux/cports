@@ -63,4 +63,4 @@ done
 
 eval set -- "$iopts"
 
-exec /usr/bin/install ./test2.sh "$@"
+exec /usr/bin/install "$@"
