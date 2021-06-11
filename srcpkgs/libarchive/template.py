@@ -25,6 +25,9 @@ def do_check(self):
 
 def post_install(self):
     self.install_license("COPYING")
+    import os
+    os.rename(self.destdir / "usr/bin/bsdtar", self.destdir / "usr/bin/tar")
+    os.rename(self.destdir / "usr/bin/bsdcpio", self.destdir / "usr/bin/cpio")
 
 @subpackage("bsdtar")
 def _bsdtar(self):
