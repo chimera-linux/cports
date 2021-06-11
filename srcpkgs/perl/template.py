@@ -4,7 +4,7 @@ revision = 2
 _perl_cross_version = "1.3.5"
 build_style = "gnu_configure"
 hostmakedepends = ["less"]
-makedepends = ["zlib-devel", "bzip2-devel", "gdbm-devel"]
+makedepends = ["zlib-devel", "bzip2-devel"]
 depends = ["less"]
 checkdepends = ["iana-etc", "perl-AnyEvent", "perl-Test-Pod", "procps-ng"]
 short_desc = "Practical Extraction and Report Language"
@@ -35,7 +35,6 @@ provides = [
     "perl-Compress-Raw-Bzip2-2.093_1",
     "perl-Compress-Raw-Zlib-2.093_1",
     "perl-Config-Perl-V-0.32_1",
-    "perl-DB_File-1.853_1",
     "perl-Data-Dumper-2.174.01_1",
     "perl-Devel-PPPort-3.57_1",
     "perl-Devel-SelfStubber-1.06_1",
