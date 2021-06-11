@@ -37,7 +37,7 @@ nopie = True
 bootstrap = True
 
 if not current.bootstrapping:
-    hostmakedepends = ["tar", "texinfo", "perl", "flex"]
+    hostmakedepends = ["texinfo", "perl", "flex"]
 
 makedepends = ["zlib-devel"]
 depends = [
