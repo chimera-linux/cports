@@ -1,6 +1,6 @@
 pkgname = "coreutils"
 version = "8.32"
-revision = 4
+revision = 5
 bootstrap = True
 makedepends = ["gmp-devel", "acl-devel", "libcap-devel"]
 short_desc = "GNU core utilities"
@@ -13,6 +13,18 @@ from cbuild import sites
 
 distfiles = [f"{sites.gnu}/coreutils/coreutils-{version}.tar.xz"]
 checksum = ["4458d8de7849df44ccab15e16b1548b285224dbba5f08fac070c1c0e0bcc4cfa"]
+
+_no_install = [
+    "[", "basename", "cat", "chgrp", "chmod", "chown", "chroot", "cksum",
+    "comm", "cp", "csplit", "cut", "date", "dd", "dir", "dirname", "echo",
+    "env", "expand", "expr", "factor", "false", "fmt", "fold", "groups",
+    "head", "id", "join", "kill", "link", "ln", "logname", "ls", "mkdir",
+    "mknod", "mktemp", "mv", "nice", "nl", "nohup", "paste", "pr", "printenv",
+    "printf", "pwd", "readlink", "realpath", "rm", "rmdir", "seq", "sleep",
+    "split", "stat", "stdbuf", "sum", "sync", "tee", "test", "touch",
+    "true", "truncate", "tty", "unexpand", "uniq", "unlink", "uptime",
+    "users", "whoami", "xargs", "yes"
+]
 
 if not current.bootstrapping:
     hostmakedepends = ["perl"]
@@ -30,7 +42,7 @@ def pre_configure(self):
     self.do(self.chroot_wrksrc / "configure", [
         "--prefix=" + str(self.chroot_wrksrc / ("coreutils-" + cpu.host())),
         "--enable-install-program=arch,hostname",
-        "--enable-no-install-program=kill,uptime"
+        "--enable-no-install-program=" + ",".join(_no_install)
     ], env = {
         "CC": "cc", "LD": "ld", "AR": "ar", "RANLIB": "ranlib",
         "CFLAGS": "-Os", "CXXFLAGS": "-Os", "LDFLAGS": ""
@@ -58,7 +70,7 @@ def do_configure(self):
     self.do(self.chroot_wrksrc / "configure", [
         "--prefix=/usr", "--disable-rpath",
         "--enable-install-program=arch,hostname",
-        "--enable-no-install-program=kill,uptime"
+        "--enable-no-install-program=" + ",".join(_no_install)
     ] + cargs)
 
     if self.cross_build:
