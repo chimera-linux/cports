@@ -113,7 +113,7 @@ def invoke(pkg):
                 log.out_red(f"   SONAME: {dep} <-> UNKNOWN PKG PLEASE FIX!")
                 broken = True
             else:
-                log.out_plain(f"   SONAME: {dep} <-> {pkg.name} (ignored)")
+                log.out_plain(f"   SONAME: {dep} <-> {pkg.pkgname} (ignored)")
             continue
         elif len(shmap[dep]) > 1:
             # check if provided by multiple packages

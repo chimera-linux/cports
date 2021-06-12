@@ -18,7 +18,7 @@ def verify_cksum(fname, dfile, cksum, pkg):
         linkpath = shapath / f"{cksum}_{fname}"
         if not linkpath.is_file():
             os.makedirs(shapath, exist_ok = True)
-            linkpath.link_to(dfile)
+            dfile.link_to(linkpath)
         pkg.logger.out_plain("OK.")
         return True
 
