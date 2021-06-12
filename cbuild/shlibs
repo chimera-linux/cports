@@ -67,3 +67,4 @@ libcrypto.so.1.1 libcrypto1.1-1.1.1f_1
 libssl.so.1.1 libssl1.1-1.1.1f_1
 libzstd.so.1 libzstd-1.0.0_1
 libfts.so.0 musl-fts-1.2.7_1
+librpmatch.so.0 musl-rpmatch-1.0_1
