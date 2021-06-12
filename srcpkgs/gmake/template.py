@@ -5,7 +5,6 @@ bootstrap = True
 wrksrc = f"make-{version}"
 build_style = "gnu_configure"
 configure_args = ["--without-guile", "--program-prefix=g"]
-make_cmd = "bmake"
 checkdepends = ["perl"]
 short_desc = "GNU Make build tool"
 maintainer = "Enno Boland <gottox@voidlinux.org>"

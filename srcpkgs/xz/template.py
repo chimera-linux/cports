@@ -3,7 +3,6 @@ version = "5.2.5"
 revision = 1
 bootstrap = True
 build_style = "gnu_configure"
-make_cmd = "bmake"
 short_desc = "The XZ compression utilities"
 maintainer = "Enno Boland <gottox@voidlinux.org>"
 license = "Public domain, GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later"

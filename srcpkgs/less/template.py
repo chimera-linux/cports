@@ -2,7 +2,6 @@ pkgname = "less"
 version = "581.2"
 revision = 1
 build_style = "gnu_configure"
-make_cmd = "bmake"
 configure_args = ["--with-regex=posix"]
 makedepends = ["ncurses-devel"]
 short_desc = "Pager program similar to more(1)"

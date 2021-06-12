@@ -4,7 +4,6 @@ revision = 2
 bootstrap = True
 conf_files = ["/etc/ca-certificates.conf"]
 wrksrc = "work"
-make_cmd = "bmake"
 hostmakedepends = ["openssl"]
 depends = ["openssl<=2.0_1", "run-parts"]
 short_desc = "Common CA certificates for SSL/TLS"

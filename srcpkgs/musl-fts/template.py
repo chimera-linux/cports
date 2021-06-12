@@ -4,7 +4,6 @@ revision = 1
 wrksrc = f"musl-fts-{version}-mk"
 bootstrap = True
 build_style = "gnu_makefile"
-make_cmd = "bmake"
 make_build_args = ["PREFIX=/usr"]
 short_desc = "Implementation of fts(3) for musl libc"
 maintainer = "q66 <daniel@octaforge.org>"

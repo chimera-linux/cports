@@ -2,7 +2,6 @@ pkgname = "bzip2"
 version = "1.0.8"
 revision = 1
 bootstrap = True
-make_cmd = "bmake"
 short_desc = "Freely available, patent free, high-quality data compressor"
 maintainer = "Orphaned <orphan@voidlinux.org>"
 license = "bzip2-1.0.6"

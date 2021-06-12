@@ -3,7 +3,6 @@ version = "5.40"
 revision = 2
 bootstrap = True
 build_style = "gnu_configure"
-make_cmd = "bmake"
 configure_args = ["--enable-static", "--disable-libseccomp"]
 makedepends = ["zlib-devel"]
 short_desc = "File type identification utility"

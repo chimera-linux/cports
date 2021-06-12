@@ -3,7 +3,6 @@ version = "0.99.0"
 revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
-make_cmd = "bmake"
 short_desc = "The patch(1) utility from FreeBSD"
 maintainer = "q66 <daniel@octaforge.org>"
 license = "BSD-2-Clause"

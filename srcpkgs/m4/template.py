@@ -4,7 +4,6 @@ revision = 2
 patch_args = "-Np1"
 bootstrap = True
 build_style = "gnu_configure"
-make_cmd = "bmake"
 configure_args = [
     "--enable-changeword", "--enable-threads",
     "ac_cv_lib_error_at_line=no", "ac_cv_header_sys_cdefs_h=no"
