@@ -12,7 +12,7 @@ makedepends = [
 short_desc = "Alternative to GNU coreutils from FreeBSD"
 maintainer = "q66 <daniel@octaforge.org>"
 license = "BSD-2-Clause"
-homepage = "https://github.com/chimera-linux/bsdgrep"
+homepage = "https://github.com/chimera-linux/bsdutils"
 distfiles = [f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"]
 checksum = ["fb007a201c8bcc2c164cfdb7ddb0821bfc629d2ed4fdd921f5495f8245af1884"]
 
