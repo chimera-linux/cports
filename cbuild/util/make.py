@@ -1,3 +1,5 @@
+import shutil
+
 _jobs = 1
 
 def set_jobs(nj):
@@ -15,10 +17,18 @@ class Make:
         self.command = command if command else tmpl.make_cmd
         self.wrksrc = wrksrc
         self.env = env
+
         if not jobs:
             self.jobs = _jobs
         else:
             self.jobs = jobs
+
+        if tmpl.bootstrapping and self.command == "gmake":
+            # when bootstrapping (which means using external make) and
+            # no gmake is explicitly available, fall back to make (as
+            # that is generally guaranteed to be GNU make)
+            if not shutil.which("gmake"):
+                self.command = "make"
 
     def invoke(
         self, targets = [], args = [], jobs = None, env = {}, wrksrc = None
