@@ -11,7 +11,7 @@ depends = [
     "musl-devel", "base-files", "binutils", "gcc", "diffutils", "bmake",
     "gmake", "bsdutils", "coreutils", "dash", "file", "xbps", "awk",
     "ncurses", "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed", "bsdtar",
-    "chroot-git", "chroot-util-linux"
+    "chroot-util-linux"
 ]
 
 def do_fetch(self):
