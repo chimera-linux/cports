@@ -21,6 +21,7 @@ def do_configure(self):
             "--buildtype=plain",
             "--auto-features=auto",
             "--wrap-mode=nodownload",
+            "-Ddefault_library=both",
             "-Db_ndebug=true",
             "-Db_staticpic=true"
         ] + self.configure_args + [self.meson_dir, "build"], build = True

@@ -37,5 +37,6 @@ def _devel(self):
     return [
         "usr/include",
         "usr/lib/pkgconfig",
-        "usr/lib/*.so"
+        "usr/lib/*.so",
+        "usr/lib/*.a"
     ]
