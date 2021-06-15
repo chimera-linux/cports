@@ -16,14 +16,14 @@ checksum = ["4458d8de7849df44ccab15e16b1548b285224dbba5f08fac070c1c0e0bcc4cfa"]
 
 _no_install = [
     "[", "basename", "cat", "chgrp", "chmod", "chown", "chroot", "cksum",
-    "comm", "cp", "csplit", "cut", "date", "dd", "dir", "dirname", "echo",
-    "env", "expand", "expr", "factor", "false", "fmt", "fold", "groups",
-    "head", "id", "join", "kill", "link", "ln", "logname", "ls", "mkdir",
-    "mknod", "mktemp", "mv", "nice", "nl", "nohup", "paste", "pr", "printenv",
-    "printf", "pwd", "readlink", "realpath", "rm", "rmdir", "seq", "sleep",
-    "split", "stat", "stdbuf", "sum", "sync", "tee", "test", "touch",
-    "true", "truncate", "tty", "unexpand", "uniq", "unlink", "uptime",
-    "users", "whoami", "xargs", "yes"
+    "comm", "cp", "csplit", "cut", "date", "dd", "dir", "dircolors",
+    "dirname", "echo", "env", "expand", "expr", "factor", "false", "fmt",
+    "fold", "groups", "head", "id", "join", "kill", "link", "ln", "logname",
+    "ls", "mkdir", "mknod", "mktemp", "mv", "nice", "nl", "nohup", "paste",
+    "pr", "printenv", "printf", "pwd", "readlink", "realpath", "rm", "rmdir",
+    "seq", "sleep", "split", "stat", "stdbuf", "sum", "sync", "tee", "test",
+    "touch", "true", "truncate", "tty", "unexpand", "uniq", "unlink", "uptime",
+    "users", "vdir", "whoami", "xargs", "yes"
 ]
 
 if not current.bootstrapping:
