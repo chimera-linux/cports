@@ -1,0 +1,57 @@
+commit 14b12973425e3f9fa6834cc3f2ecbd3154734904
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 15 02:01:51 2021 +0200
+
+    bla
+
+diff --git src/Makefile.in src/Makefile.in
+index 8dad4de..7f5365e 100644
+--- src/Makefile.in
++++ src/Makefile.in
+@@ -804,30 +804,37 @@ uninstall-man: uninstall-man1
+ 
+ 
+ token.h token_vars.h: mktokens
+-	$(AM_V_GEN)$(SHELL) $^
++	$(AM_V_GEN)$(SHELL) mktokens
+ 
+ builtins.def: builtins.def.in $(top_builddir)/config.h
+-	$(AM_V_CC)$(COMPILE) -E -x c -o $@ $<
++	$(AM_V_CC)$(COMPILE) -E -x c -o builtins.def builtins.def.in
+ 
+ builtins.c builtins.h: mkbuiltins builtins.def
+-	$(AM_V_GEN)$(SHELL) $^
++	$(AM_V_GEN)$(SHELL) mkbuiltins builtins.def
+ 
+ init.c: mkinit $(dash_CFILES)
+-	$(AM_V_GEN)./$^
++	$(AM_V_GEN)./mkinit $(dash_CFILES)
+ 
+ nodes.c nodes.h: mknodes nodetypes nodes.c.pat
+-	$(AM_V_GEN)./$^
++	$(AM_V_GEN)./mknodes nodetypes nodes.c.pat
+ 
+ syntax.c syntax.h: mksyntax
+-	$(AM_V_GEN)./$^
++	$(AM_V_GEN)./mksyntax
+ 
+ signames.c: mksignames
+-	$(AM_V_GEN)./$^
++	$(AM_V_GEN)./mksignames
+ 
+ mksyntax: token.h
++	$(AM_V_CC)$(COMPILE_FOR_BUILD) -o mksyntax mksyntax.c
+ 
+-$(HELPERS): %: %.c
+-	$(AM_V_CC)$(COMPILE_FOR_BUILD) -o $@ $<
++mkinit:
++	$(AM_V_CC)$(COMPILE_FOR_BUILD) -o mkinit mkinit.c
++
++mknodes:
++	$(AM_V_CC)$(COMPILE_FOR_BUILD) -o mknodes mknodes.c
++
++mksignames:
++	$(AM_V_CC)$(COMPILE_FOR_BUILD) -o mksignames mksignames.c
+ 
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
