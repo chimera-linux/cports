@@ -23,7 +23,7 @@ def do_configure(self):
             "--wrap-mode=nodownload",
             "-Db_ndebug=true",
             "-Db_staticpic=true"
-        ] + self.configure_args + [".", "build"], build = True
+        ] + self.configure_args + [self.meson_dir, "build"], build = True
     )
 
 def do_build(self):
@@ -46,3 +46,7 @@ def use(tmpl):
     tmpl.do_install = do_install
     tmpl.make_build_target = "all"
     tmpl.make_cmd = "ninja"
+
+    tmpl.build_style_fields = [
+        ("meson_dir", ".", str, False, False, False)
+    ]

@@ -2,27 +2,25 @@ pkgname = "zstd"
 version = "1.5.0"
 revision = 1
 bootstrap = True
-make_cmd = "gmake"
+build_style = "meson"
 makedepends = ["zlib-devel", "liblzma-devel", "liblz4-devel"]
 checkdepends = ["gtest-devel"]
+configure_args = [
+    "-Dzlib=enabled", "-Dlzma=enabled", "-Dlz4=enabled", "-Dbin_contrib=true"
+]
 short_desc = "Fast real-time compression algorithm - CLI tool"
-maintainer = "Orphaned <orphan@voidlinux.org>"
-license = "BSD-3-Clause, GPL-2.0-or-later"
+maintainer = "q66 <daniel@octaforge.org>"
+license = "BSD-3-Clause"
 homepage = "http://www.zstd.net"
 distfiles = [f"https://github.com/facebook/zstd/releases/download/v{version}/zstd-{version}.tar.gz"]
 checksum = ["5194fbfa781fcf45b98c5e849651aa7b3b0a008c6b72d4a0db760f3002291e94"]
 
-def init_build(self):
-    from cbuild.util import make
-    self.make = make.Make(self)
+meson_dir = "build/meson"
 
-def do_build(self):
-    self.make.invoke("lib-mt")
-    self.make.build(["-C", "contrib/pzstd"])
+if not current.bootstrapping:
+    hostmakedepends = ["pkgconf", "meson"]
 
-def do_install(self):
-    self.make.install(["PREFIX=/usr"])
-    self.make.install(["-C", "contrib/pzstd", "PREFIX=/usr"])
+def post_install(self):
     self.install_license("LICENSE")
 
 @subpackage("libzstd")
@@ -39,6 +37,5 @@ def _devel(self):
     return [
         "usr/include",
         "usr/lib/pkgconfig",
-        "usr/lib/*.so",
-        "usr/lib/*.a"
+        "usr/lib/*.so"
     ]
