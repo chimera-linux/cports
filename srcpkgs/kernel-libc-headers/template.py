@@ -5,7 +5,6 @@ revision = 1
 bootstrap = True
 wrksrc = f"linux-{version}"
 make_cmd = "gmake"
-hostmakedepends = []
 short_desc = "Linux API headers for userland development"
 maintainer = "Érico Nogueira <ericonr@disroot.org>"
 license = "GPL-2.0-only"
@@ -17,7 +16,7 @@ distfiles = [f"{sites.kernel}/kernel/v{_mver}.x/linux-{version}.tar.xz"]
 checksum = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
 
 if not current.bootstrapping:
-    hostmakedepends.append("perl")
+    hostmakedepends = ["gmake", "perl"]
 
 _arch = cpu.match_target(
     "x86_64*", lambda a: "x86",

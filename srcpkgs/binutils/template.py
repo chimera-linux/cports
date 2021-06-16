@@ -21,7 +21,7 @@ patch_args = "-Np1"
 subpackages = []
 
 if not current.bootstrapping:
-    hostmakedepends += ["flex", "perl", "texinfo"]
+    hostmakedepends += ["gmake", "flex", "perl", "texinfo"]
     checkdepends = ["bc"]
 
 def get_triplet(self):

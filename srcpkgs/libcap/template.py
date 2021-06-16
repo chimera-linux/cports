@@ -25,7 +25,7 @@ distfiles = [f"{sites.kernel}/libs/security/linux-privs/libcap2/{pkgname}-{versi
 checksum = ["e98bc4d93645082ec787730b0fd1a712b38882465c505777de17c338831ee181"]
 
 if not current.bootstrapping:
-    hostmakedepends = ["perl"]
+    hostmakedepends = ["gmake", "perl"]
 
 def pre_build(self):
     if not self.cross_build:

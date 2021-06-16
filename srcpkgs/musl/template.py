@@ -15,6 +15,9 @@ checksum = ["9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"]
 
 shlib_provides = ["libc.so"]
 
+if not current.bootstrapping:
+    hostmakedepends = ["gmake"]
+
 def post_build(self):
     from cbuild.util import compiler
     cc = compiler.C(self)
