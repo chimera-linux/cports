@@ -16,8 +16,6 @@ from cbuild import sites, cpu
 distfiles = [f"{sites.gnu}/{pkgname}/{pkgname}-{version}.tar.xz"]
 checksum = ["3ced91db9bf01182b7e420eab68039f2083aed0a214c0424e257eae3ddee8607"]
 
-patch_args = "-Np1"
-
 subpackages = []
 
 if not current.bootstrapping:

@@ -1,5 +1,5 @@
---- boot-strap
-+++ boot-strap
+--- a/boot-strap
++++ b/boot-strap
 @@ -1,4 +1,4 @@
 -:
 +#!/bin/sh
@@ -16,8 +16,8 @@
  }
  
  op_clean() {
---- install-sh
-+++ install-sh
+--- a/install-sh
++++ b/install-sh
 @@ -1,4 +1,4 @@
 -:
 +#!/bin/sh

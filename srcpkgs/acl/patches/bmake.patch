@@ -1,5 +1,5 @@
---- Makefile.in
-+++ Makefile.in
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -783,7 +783,7 @@ SUBST_INSTALL_HEADER = \
  	  $(SED) -e "s/\<EXPORT\>/extern/" < "$$1" > "include/$$file.t" || exit 1; \
  	  $(MKDIR_P) "$$2" || exit 1; \

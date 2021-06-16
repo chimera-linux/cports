@@ -1,7 +1,6 @@
 pkgname = "m4"
 version = "1.4.18"
 revision = 2
-patch_args = "-Np1"
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = [

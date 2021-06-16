@@ -1,7 +1,7 @@
 diff --git src/Makefile.in src/Makefile.in
 index 8dad4de..7f5365e 100644
---- src/Makefile.in
-+++ src/Makefile.in
+--- a/src/Makefile.in
++++ b/src/Makefile.in
 @@ -804,30 +804,37 @@ uninstall-man: uninstall-man1
  
  

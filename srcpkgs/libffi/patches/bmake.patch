@@ -1,5 +1,5 @@
---- Makefile.in
-+++ Makefile.in
+--- a/Makefile.in
++++ b/Makefile.in
 @@ -2012,7 +2012,7 @@ uninstall-am: uninstall-pkgconfigDATA uninstall-toolexeclibLTLIBRARIES
  @LIBFFI_BUILD_VERSIONED_SHLIB_SUN_TRUE@@LIBFFI_BUILD_VERSIONED_SHLIB_TRUE@	 > $@ || (rm -f $@ ; exit 1)
  
