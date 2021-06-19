@@ -9,6 +9,8 @@ import tempfile
 import subprocess
 from datetime import datetime
 
+from . import util, sign
+
 # emulate `du -ks` * 1024, which is what alpine uses for size
 def _du_k(fl):
     hls = {}
@@ -30,7 +32,9 @@ def _hash_file(fp, md):
         md.update(chunk)
     return md.hexdigest()
 
-def create(pkgname, pkgver, arch, epoch, destdir, tmpdir, outfile, metadata):
+def create(
+    pkgname, pkgver, arch, epoch, destdir, tmpdir, outfile, privkey, metadata
+):
     tmpdir = pathlib.Path(tmpdir)
     dt = datetime.utcfromtimestamp(epoch)
 
@@ -168,31 +172,15 @@ def create(pkgname, pkgver, arch, epoch, destdir, tmpdir, outfile, metadata):
 
     # concat together
     with open(outfile, "wb") as ffile:
-        cbytes = ctario.getvalue()
-        tlen = len(cbytes)
-        # length of the initial archive without trailing headers
-        clen = 0
-        cbeg = 0
-        while True:
-            # this should not happen though
-            if (tlen - clen) < 512:
-                break
-            # try if there's a name
-            hname = cbytes[cbeg:cbeg + 100]
-            # trailing header
-            if hname[0] == 0:
-                break
-            # header size
-            clen += 512
-            # data size, if any
-            szb = cbytes[cbeg + 124:cbeg + 136].rstrip(b"\x00")
-            if len(szb) > 0:
-                # align to 512
-                clen += (int(szb, 8) + 511) & ~511
-            # new header start
-            cbeg = clen
-        # now compress the header and append
-        ffile.write(gzip.compress(cbytes[0:clen], mtime = int(epoch)))
+        # compressed, stripped control data
+        compctl = gzip.compress(
+            util.strip_tar_endhdr(ctario.getvalue()), mtime = int(epoch)
+        )
+        # if given a key, sign control data and write signature first
+        if privkey:
+            ffile.write(sign.sign(privkey, compctl, epoch))
+        # then the control data
+        ffile.write(compctl)
         # we don't need the control stream anymore
         ctario.close()
         # write the data and buffer it because it's potentially huge

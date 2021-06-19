@@ -1,10 +1,63 @@
 from cbuild.core import logger, paths
 
 import os
+import io
+import gzip
 import time
 import getpass
 import pathlib
+import tarfile
 import subprocess
+
+from . import util
+
+# returns the compressed signature data given
+# either an input file path or raw input bytes
+def sign(keypath, data, epoch):
+    if isinstance(data, bytes):
+        inparg = []
+        inpval = data
+    else:
+        inparg = [str(data)]
+        inpval = None
+
+    keypath = pathlib.Path(keypath)
+
+    if not keypath.is_file():
+        logger.get().out_red(f"Non-existent private key '{keypath}'")
+        raise Exception()
+
+    keyname = keypath.name + ".pub"
+    signame = ".SIGN.RSA." + keyname
+
+    sout = subprocess.run([
+        "openssl", "dgst", "-sha1", "-sign", str(keypath), "-out", "-"
+    ] + inparg, input = inpval, capture_output = True)
+
+    if sout.returncode != 0:
+        logger.get().out_red("Signing failed!")
+        logger.get().out_plain(sout.stderr.strip().decode())
+
+    sigio = io.BytesIO()
+    rawdata = sout.stdout
+
+    with tarfile.open(None, "w", fileobj = sigio) as sigtar:
+        tinfo = tarfile.TarInfo(signame)
+        tinfo.size = len(rawdata)
+        tinfo.mtime = int(epoch)
+        tinfo.uname = "root"
+        tinfo.gname = "root"
+        tinfo.uid = 0
+        tinfo.gid = 0
+        with io.BytesIO(rawdata) as sigstream:
+            sigtar.addfile(tinfo, sigstream)
+
+    cval = gzip.compress(
+        util.strip_tar_endhdr(sigio.getvalue()), mtime = int(epoch)
+    )
+
+    sigio.close()
+    return cval
 
 def keygen(keypath, size = 2048):
     pass
@@ -22,7 +75,7 @@ def keygen(keypath, size = 2048):
             keyn = getpass.getuser()
         else:
             keyn = eaddr
-        keypath = keyn + "-" + hex(int(time.time()))[2:]
+        keypath = keyn + "-" + hex(int(time.time()))[2:] + ".rsa"
         logger.get().warn(f"No key path provided, using '{keypath}'")
 
     keypath = pathlib.Path(keypath)
