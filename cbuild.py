@@ -7,6 +7,7 @@ import argparse
 import signal
 import importlib
 import traceback
+import configparser
 
 from os import path
 
@@ -20,6 +21,8 @@ os.chdir(path.dirname(__file__))
 from cbuild.util import make
 from cbuild.core import xbps, chroot, logger, template, build
 from cbuild import cpu
+
+from cbuild.apk import sign
 
 parser = argparse.ArgumentParser(description = "Chimera Linux build system.")
 
@@ -46,6 +49,26 @@ args = parser.parse_args()
 cmd = args.command
 
 make.set_jobs(int(args.jobs))
+
+# read global configuration
+
+global_cfg = configparser.ConfigParser()
+global_cfg.read("etc/config.ini")
+
+if "general" in global_cfg:
+    gencfg = global_cfg["general"]
+    make.set_jobs(gencfg.getint("jobs", fallback = 1))
+
+signkey = None
+
+if "signing" in global_cfg:
+    signcfg = global_cfg["signing"]
+    signkey = signcfg.get("key", fallback = None)
+
+# set args options
+
+if args.jobs:
+    make.set_jobs(int(args.jobs))
 
 # ensure files are created with sane permissions
 os.umask(0o022)
@@ -92,6 +115,19 @@ def bootstrap(tgt):
     shutil.rmtree(paths.masterdir())
     chroot.install(cpu.host())
 
+def do_keygen(tgt):
+    if len(cmd) >= 3:
+        keyn, keysize = cmd[1], int(cmd[2])
+    elif len(cmd) >= 2:
+        keyn, keysize = cmd[1], 2048
+    else:
+        keyn, keysize = None, 2048
+
+    if not keyn or len(keyn) == 0:
+        keyn = signkey
+
+    sign.keygen(keyn, keysize)
+
 def do_chroot(tgt):
     chroot.repo_sync()
     chroot.reconfigure()
@@ -119,6 +155,7 @@ try:
     ({
         "binary-bootstrap": binary_bootstrap,
         "bootstrap": bootstrap,
+        "keygen": do_keygen,
         "chroot": do_chroot,
         "clean": clean,
         "fetch": do_pkg,
