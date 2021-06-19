@@ -6,6 +6,7 @@
 from re import search
 import fnmatch
 import shutil
+import time
 import glob
 import sys
 import os
@@ -392,7 +393,7 @@ def copy_of_dval(val):
     return val
 
 class Template(Package):
-    def __init__(self, origin):
+    def __init__(self, pkgname, origin):
         super().__init__()
 
         if origin:
@@ -404,12 +405,65 @@ class Template(Package):
         for fl, dval, tp, opt, mand, sp, inh in core_fields:
             setattr(self, fl, copy_of_dval(dval))
 
+        # make this available early
+        self.pkgname = pkgname
+
         # other fields
         self.run_depends = None
         self.parent = None
         self.rparent = self
         self.subpkg_list = []
         self.source_date_epoch = None
+        self.git_revision = None
+        self.git_dirty = False
+
+    def setup_reproducible(self):
+        self.source_date_epoch = int(time.time())
+
+        if not shutil.which("git"):
+            # no git, not reproducible
+            return
+
+        tpath = paths.templates() / self.pkgname
+
+        if subprocess.run([
+            "git", "rev-parse", "--show-toplevel"
+        ], capture_output = True, cwd = tpath).returncode != 0:
+            # not in a git repository
+            return
+
+        # find whether the template dir has local modifications
+        dirty = len(subprocess.run([
+            "git", "status", "-s", "--", str(tpath)
+        ], capture_output = True).stdout.strip()) != 0
+
+        # find the last revision modifying the template
+        self.git_revision = subprocess.run([
+            "git", "log", "--format=oneline", "-n1", "--", str(tpath)
+        ], capture_output = True).stdout.strip()[0:40].decode("ascii")
+
+        if len(self.git_revision) < 40:
+            # ???
+            self.git_revision = None
+            return
+
+        self.git_dirty = dirty
+
+        # template directory modified, do not use a reproducible date
+        if dirty:
+            return
+
+        # get the date of the git revision
+        ts = subprocess.run([
+            "git", "log", "-1", "--format=%cd",
+            "--date=unix", self.git_revision
+        ], capture_output = True).stdout.strip()
+
+        try:
+            self.source_date_epoch = int(ts)
+        except ValueError:
+            # ???
+            pass
 
     def ensure_fields(self):
         for fl, dval, tp, opt, mand, sp, inh in core_fields:
@@ -793,11 +847,13 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
         logger.get().out_red("Missing template for '%s'" % pkgname)
         raise PackageError()
 
-    ret = Template(origin)
+    ret = Template(pkgname, origin)
     ret.force_mode = force_mode
     ret.bootstrapping = bootstrapping
     ret.skip_if_exist = skip_if_exist
     ret.cross_build = False
+
+    ret.setup_reproducible()
 
     def subpkg_deco(spkgname):
         def deco(f):
