@@ -35,7 +35,7 @@ parser.add_argument(
     help = "Force plain output."
 )
 parser.add_argument(
-    "-j", "--jobs", help = "Number of jobs to use.", default = 1
+    "-j", "--jobs", help = "Number of jobs to use.", default = None
 )
 parser.add_argument(
     "-E", "--skip-if-exists", action = "store_const",
@@ -47,8 +47,6 @@ parser.add_argument("command", nargs = "+", help = "The command to issue.")
 args = parser.parse_args()
 
 cmd = args.command
-
-make.set_jobs(int(args.jobs))
 
 # read global configuration
 

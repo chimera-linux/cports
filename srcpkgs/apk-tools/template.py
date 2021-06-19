@@ -3,7 +3,9 @@ version = "2.12.5"
 revision = 1
 bootstrap = True
 build_style = "meson"
-configure_args = ["-Dlua=disabled", "-Ddocs=disabled", "-Dhelp=disabled"]
+configure_args = [
+    "-Dlua=disabled", "-Ddocs=disabled", "-Dhelp=disabled", "-Dstatic_apk=true"
+]
 makedepends = ["zlib-devel", "openssl-devel"]
 short_desc = "Alpine package manager"
 maintainer = "q66 <daniel@octaforge.org>"
@@ -28,3 +30,9 @@ def _devel(self):
         "usr/lib/*.a",
         "usr/lib/pkgconfig",
     ]
+
+@subpackage("apk-tools-static")
+def _static(self):
+    self.short_desc = short_desc + " - static build"
+
+    return ["usr/bin/apk.static"]

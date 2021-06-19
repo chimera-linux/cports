@@ -37,6 +37,7 @@ def sign(keypath, data, epoch):
     if sout.returncode != 0:
         logger.get().out_red("Signing failed!")
         logger.get().out_plain(sout.stderr.strip().decode())
+        raise Exception()
 
     sigio = io.BytesIO()
     rawdata = sout.stdout
