@@ -105,7 +105,8 @@ def do_install(self):
         f"libncursesw.so.{version}", f"usr/lib/libtinfo.so.{version}"
     )
     self.install_link(
-        f"libtinfo.so.{version}", f"libtinfo.so.{version[0:version.find('.')]}"
+        f"libtinfo.so.{version}",
+        f"usr/lib/libtinfo.so.{version[0:version.find('.')]}"
     )
     self.install_link("ncursesw.pc", "usr/lib/pkgconfig/tinfo.pc")
 
