@@ -150,8 +150,6 @@ def do_configure(self):
     self.CXXFLAGS = [x for x in self.CXXFLAGS if x != "-fno-PIE"]
     self.LDFLAGS = [x for x in self.CFLAGS if x != "-no-pie"]
 
-    self.env["CONFIG_SHELL"] = "/bin/bash"
-
     import os
     os.makedirs(self.abs_wrksrc / "build", exist_ok = True)
     self.do(self.chroot_wrksrc / "configure", cargs, wrksrc = "build")
