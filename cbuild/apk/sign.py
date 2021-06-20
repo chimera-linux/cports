@@ -11,6 +11,19 @@ import subprocess
 
 from . import util
 
+def _get_keypath(keypath):
+    keypath = pathlib.Path(keypath)
+
+    if keypath.is_absolute():
+        return keypath
+
+    if keypath.parent == pathlib.Path():
+        # just a filename
+        return paths.distdir() / "etc" / "keys" / keypath
+    else:
+        # otherwise a path relative to distdir
+        return paths.distdir() / keypath
+
 # returns the compressed signature data given
 # either an input file path or raw input bytes
 def sign(keypath, data, epoch):
@@ -21,7 +34,7 @@ def sign(keypath, data, epoch):
         inparg = [str(data)]
         inpval = None
 
-    keypath = pathlib.Path(keypath)
+    keypath = _get_keypath(keypath)
 
     if not keypath.is_file():
         logger.get().out_red(f"Non-existent private key '{keypath}'")
@@ -79,15 +92,7 @@ def keygen(keypath, size = 2048):
         keypath = keyn + "-" + hex(int(time.time()))[2:] + ".rsa"
         logger.get().warn(f"No key path provided, using '{keypath}'")
 
-    keypath = pathlib.Path(keypath)
-
-    if not keypath.is_absolute():
-        if keypath.parent == pathlib.Path():
-            # just a filename
-            keypath = paths.distdir() / "etc" / "keys" / keypath
-        else:
-            # otherwise a path relative to distdir
-            keypath = paths.distdir() / keypath
+    keypath = _get_keypath(keypath)
 
     os.makedirs(keypath.parent, exist_ok = True)
 

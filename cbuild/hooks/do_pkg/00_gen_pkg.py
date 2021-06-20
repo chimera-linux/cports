@@ -41,11 +41,11 @@ def genpkg(pkg, repo, arch, binpkg):
             args.append("--conflicts")
             args.append(" ".join(pkg.conflicts))
 
-        if (pkg.destdir / "rdeps").is_file():
-            rdeps = (pkg.destdir / "rdeps").read_text().strip()
+        if hasattr(pkg, "xbps_rdeps"):
+            rdeps = pkg.xbps_rdeps
             if len(rdeps) > 0:
                 args.append("--dependencies")
-                args.append(rdeps)
+                args.append(" ".join(rdeps))
 
         cf = []
         for c in pkg.conf_files:
@@ -58,17 +58,17 @@ def genpkg(pkg, repo, arch, binpkg):
             args.append("--config-files")
             args.append(" ".join(cf))
 
-        if (pkg.destdir / "shlib-provides").is_file():
-            shp = (pkg.destdir / "shlib-provides").read_text().strip()
+        if hasattr(pkg, "so_provides"):
+            shp = pkg.so_provides
             if len(shp) > 0:
                 args.append("--shlib-provides")
-                args.append(shp)
+                args.append(" ".join(shp))
 
-        if (pkg.destdir / "shlib-requires").is_file():
-            shp = (pkg.destdir / "shlib-requires").read_text().strip()
+        if hasattr(pkg, "so_requires"):
+            shp = pkg.so_requires
             if len(shp) > 0:
                 args.append("--shlib-requires")
-                args.append(shp)
+                args.append(" ".join(shp))
 
         if len(pkg.tags) > 0:
             args.append("--tags")

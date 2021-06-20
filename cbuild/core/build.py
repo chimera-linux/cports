@@ -4,14 +4,14 @@ from cbuild.core import logger, dependencies, template, pkg as pkgm, paths, xbps
 
 import os
 
-def build(step, pkg, depmap):
+def build(step, pkg, depmap, signkey):
     if pkg.pkgname in depmap:
         pkg.error(f"build-time dependency cycle encountered for {pkg.pkgname} (dependency of {pkg.origin.pkgname})")
 
     depmap[pkg.pkgname] = True
 
     # check and install dependencies
-    dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap)
+    dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
 
     # run up to the step we need
     fetch.invoke(pkg)
@@ -54,6 +54,8 @@ def build(step, pkg, depmap):
     rp = open(pkg.statedir / f"{pkg.pkgname}_register_pkg", "w")
     rp.close()
 
+    pkg.signing_key = signkey
+
     # generate binary packages
     for sp in pkg.subpkg_list:
         pkgsm.invoke(sp, paths.repository())
@@ -81,6 +83,8 @@ def build(step, pkg, depmap):
         ):
             logger.get().out_red(f"Registering packages failed.")
             raise Exception()
+
+    pkg.signing_key = None
 
     # cleanup
     pkgm.remove_autodeps(pkg)

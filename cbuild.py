@@ -109,7 +109,7 @@ def binary_bootstrap(tgt):
 def bootstrap(tgt):
     rp = template.read_pkg("base-chroot", False, True, False, None)
     chroot.repo_sync()
-    build.build(tgt, rp, {})
+    build.build(tgt, rp, {}, signkey)
     shutil.rmtree(paths.masterdir())
     chroot.install(cpu.host())
 
@@ -141,7 +141,7 @@ def do_pkg(tgt):
     )
     # don't remove builddir/destdir
     chroot.update(do_clean = False)
-    build.build(tgt, rp, {})
+    build.build(tgt, rp, {}, signkey)
 
 def do_bad(tgt):
     logger.get().out_red("cbuild: invalid target " + tgt)

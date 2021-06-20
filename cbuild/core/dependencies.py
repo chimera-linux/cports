@@ -83,7 +83,7 @@ def _is_installed(pkgn):
 
     return xbps.get_installed_version(pn) != None
 
-def install(pkg, origpkg, step, depmap):
+def install(pkg, origpkg, step, depmap, signkey):
     style = ""
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
@@ -219,7 +219,7 @@ def install(pkg, origpkg, step, depmap):
         try:
             build.build(step, template.read_pkg(
                 pn, pkg.force_mode, pkg.bootstrapping, True, pkg
-            ), depmap)
+            ), depmap, signkey)
         except template.SkipPackage:
             pass
         host_binpkg_deps.append(pn)
@@ -229,7 +229,7 @@ def install(pkg, origpkg, step, depmap):
         try:
             build.build(step, template.read_pkg(
                 pn, pkg.force_mode, pkg.bootstrapping, True, pkg
-            ), depmap)
+            ), depmap, signkey)
         except template.SkipPackage:
             pass
         host_binpkg_deps.append(pn)
@@ -238,7 +238,7 @@ def install(pkg, origpkg, step, depmap):
         try:
             build.build(step, template.read_pkg(
                 rd, pkg.force_mode, pkg.bootstrapping, True, pkg
-            ), depmap)
+            ), depmap, signkey)
         except template.SkipPackage:
             pass
         host_binpkg_deps.append(rd)

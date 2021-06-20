@@ -36,8 +36,7 @@ def store_rundeps(pkg):
             if not dn and not pn:
                 d += ">=0"
             dl.append(d)
-        with open(pkg.destdir / "rdeps", "w") as rdeps:
-            rdeps.write(" ".join(dl))
+        pkg.xbps_rdeps = dl
 
 def invoke(pkg):
     shlibmap = paths.cbuild() / "shlibs"

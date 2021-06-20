@@ -49,6 +49,8 @@ def create(
     ctrl += b"# " + dt.isoformat(" ").encode() + b"\n"
 
     def add_field(fn, fv):
+        if not fv:
+            return
         nonlocal ctrl
         ctrl += fn.encode() + b" = " + fv.encode() + b"\n"
 
@@ -69,6 +71,7 @@ def create(
     add_field("builddate", str(int(epoch)))
 
     meta_field("packager")
+    meta_field("maintainer")
 
     add_field("size", str(_du_k(flist)))
     add_field("arch", arch)
