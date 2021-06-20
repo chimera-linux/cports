@@ -683,8 +683,9 @@ def from_module(m, ret):
             setattr(ret, "post_" + phase, getattr(m, "post_" + phase))
 
     # paths that can be used by template methods
-    ret.files_path = paths.templates() / ret.pkgname / "files"
-    ret.patches_path = paths.templates() / ret.pkgname / "patches"
+    ret.template_path = paths.templates() / ret.pkgname
+    ret.files_path = ret.template_path / "files"
+    ret.patches_path = ret.template_path / "patches"
     ret.builddir = paths.masterdir() / "builddir"
     ret.destdir_base = paths.masterdir() / "destdir"
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"

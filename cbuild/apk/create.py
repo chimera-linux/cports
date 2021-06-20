@@ -41,7 +41,11 @@ def create(
     # collect file list
     destdir = pathlib.Path(destdir)
     flist = [destdir]
-    flist += pathlib.Path(destdir).rglob("*")
+    for fl in pathlib.Path(destdir).iterdir():
+        # ignore metadata
+        if fl.is_file():
+            continue
+        flist += fl.rglob("*")
     # sort it
     flist.sort()
 
@@ -125,6 +129,11 @@ def create(
         tinfo.pax_headers["atime"] = "0"
         return tinfo
 
+    def hook_filter(tinfo):
+        tinfo = ctrl_filter(tinfo)
+        tinfo.mode = 0o755
+        return tinfo
+
     # data filter also has checksums
     def data_filter(tinfo):
         tinfo = ctrl_filter(tinfo)
@@ -172,6 +181,9 @@ def create(
         cinfo.size = len(ctrl)
         with io.BytesIO(ctrl) as cstream:
             ctar.addfile(cinfo, cstream)
+        if "hooks" in metadata:
+            for hook in metadata["hooks"]:
+                ctar.add(hook, hook.name.lstrip(pkgname), filter = hook_filter)
 
     # concat together
     with open(outfile, "wb") as ffile:

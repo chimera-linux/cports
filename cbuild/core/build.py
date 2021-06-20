@@ -86,7 +86,7 @@ def build(step, pkg, depmap, signkey):
             raise Exception()
 
         logger.get().out(f"Building apk index at {repo}...")
-        if not apk.build_index(repo, pkg.source_date_epoch, pkg.signing_key):
+        if not apk.build_index(repo, pkg.source_date_epoch, signkey):
             logger.get().out_red(f"Indexing apk repositories failed.")
             raise Exception()
 

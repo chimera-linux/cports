@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Enable shadow passwd/groups.
+if [ -x bin/pwconv -a -x bin/grpconv -a "$(id -u)" -eq 0 ]; then
+    pwconv && grpconv
+fi

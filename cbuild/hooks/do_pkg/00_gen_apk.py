@@ -24,6 +24,12 @@ def normalize_pkgn(name):
             return name[0:pkgr] + "-r" + name[pkgr + 1:]
     return name
 
+_hooks = [
+    "pre-install", "post-install",
+    "pre-upgrade", "post-upgrade",
+    "pre-deinstall", "post-deinstall"
+]
+
 def genpkg(pkg, repo, arch, binpkg):
     if not pkg.destdir.is_dir():
         pkg.log_warn(f"cannot find pkg destdir, skipping...")
@@ -74,6 +80,15 @@ def genpkg(pkg, repo, arch, binpkg):
 
         if hasattr(pkg, "so_requires"):
             metadata["shlib_requires"] = pkg.so_requires
+
+        mhooks = []
+        for h in _hooks:
+            hf = pkg.rparent.template_path / (pkg.pkgname + "." + h)
+            if hf.is_file():
+                mhooks.append(hf)
+
+        if len(mhooks) > 0:
+            metadata["hooks"] = mhooks
 
         logger.get().out(f"Creating {binpkg} in repository {str(repo)}...")
 
