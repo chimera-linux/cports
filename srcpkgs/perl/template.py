@@ -156,7 +156,10 @@ def post_extract(self):
     pcpath.rmdir()
 
 def init_configure(self):
+    import shutil
+
     from cbuild.util import make
+
     self.make = make.Make(self)
 
     self.LDFLAGS.append("-Wl,-z,stack-size=2097152")
@@ -168,6 +171,10 @@ def init_configure(self):
     self.CFLAGS.append("-D_GNU_SOURCE")
 
     self.tools["LD"] = self.tools["CC"]
+
+    # to prevent perl buildsystem from invoking bmake
+    if not self.bootstrapping or shutil.which("gmake"):
+        self.env["MAKE"] = "gmake"
 
 def do_configure(self):
     cargs = [
