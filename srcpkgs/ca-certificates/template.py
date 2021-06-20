@@ -78,3 +78,7 @@ def do_install(self):
         "/etc/ssl/certs/ca-certificates.crt", "etc/ssl/certs.pem"
     )
     self.unlink("usr/sbin")
+
+def pre_pkg(self):
+    self.install_dir("etc/ca-certificates/update.d")
+    self.install_dir("etc/ssl/certs")

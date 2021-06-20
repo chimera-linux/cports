@@ -1,6 +1,3 @@
 #!/bin/sh
 
-[ ! -d etc/ca-certificates/update.d ] && \
-    install -d etc/ca-certificates/update.d
-[ ! -d etc/ssl/certs ] && install -d etc/ssl/certs
 env DESTDIR="$(pwd -P)" usr/bin/update-ca-certificates --fresh >/dev/null 2>&1
