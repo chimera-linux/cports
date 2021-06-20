@@ -1,6 +1,7 @@
 from cbuild.step import fetch, extract, patch, configure
 from cbuild.step import build as buildm, install, prepkg, pkg as pkgsm
 from cbuild.core import logger, dependencies, template, pkg as pkgm, paths, xbps
+from cbuild.apk import cli as apk
 
 import os
 
@@ -82,6 +83,11 @@ def build(step, pkg, depmap, signkey):
             genrepos[repo], repo, pkg.rparent.force_mode
         ):
             logger.get().out_red(f"Registering packages failed.")
+            raise Exception()
+
+        logger.get().out(f"Building apk index at {repo}...")
+        if not apk.build_index(repo, pkg.source_date_epoch, pkg.signing_key):
+            logger.get().out_red(f"Indexing apk repositories failed.")
             raise Exception()
 
     pkg.signing_key = None

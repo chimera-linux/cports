@@ -104,7 +104,7 @@ def register_pkgs(pkglist, repopath, force = False):
         cmd += "-f "
     cmd += "-a "
     cmd += " ".join(pkglist)
-    return subprocess.run(cmd, shell = True)
+    return subprocess.run(cmd, shell = True).returncode == 0
 
 def get_pkg_dep_name(s):
     found = re.search(r"[><\*\?\[\]]", s)

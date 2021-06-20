@@ -140,6 +140,7 @@ def do_pkg(tgt):
         pkgn, args.force, False, args.skip_if_exists, None
     )
     # don't remove builddir/destdir
+    chroot.repo_sync()
     chroot.update(do_clean = False)
     build.build(tgt, rp, {}, signkey)
 

@@ -146,6 +146,15 @@ def repo_sync():
     with open(confdir / "00-xbps-src.conf", "a") as apf:
         apf.write("\nsyslog=false\n")
 
+    # copy over apk public keys
+    keydir = paths.masterdir() / "etc/apk/keys"
+
+    shutil.rmtree(keydir, ignore_errors = True)
+    os.makedirs(keydir, exist_ok = True)
+
+    for f in (paths.distdir() / "etc/keys").glob("*.pub"):
+        shutil.copy2(f, keydir)
+
 def reconfigure():
     if not chroot_check():
         return
