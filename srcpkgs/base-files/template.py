@@ -121,3 +121,50 @@ def do_install(self):
 
     for f in self.files_path.glob("*.rules"):
         self.install_file(f, "usr/lib/udev/rules.d")
+
+def pre_pkg(self):
+    # base root dirs
+    for d in [
+        "boot", "etc", "etc/modprobe.d", "etc/modules-load.d", "etc/skel",
+        "home", "dev", "proc", "usr", "mnt", "opt", "sys", "media", "var",
+        "run", "run/lock"
+    ]:
+        self.install_dir(d)
+
+    # /usr dirs
+    for d in [
+        "local", "local/bin", "local/sbin", "local/include", "local/lib",
+        "bin", "include", "lib", "src"
+    ]:
+        self.install_dir("usr/" + d)
+
+    # /usr/share and /usr/local/share
+    for d in [
+        "locale", "misc", "terminfo", "zoneinfo", "doc", "info"
+    ]:
+        self.install_dir("usr/share/" + d)
+        self.install_dir("usr/local/share/" + d)
+
+    # mandirs
+    for i in range(1, 9):
+        self.install_dir("usr/share/man/man" + str(i))
+        self.install_dir("usr/local/share/man/man" + str(i))
+
+    # /var dirs
+    for d in ["empty", "log", "opt", "cache", "lib", "mail", "spool"]:
+        self.install_dir("var/" + d)
+
+    # /var symlinks
+    self.install_link("../run/lock", "var/lock")
+    self.install_link("../run", "var/run")
+    self.install_link("../mail", "var/spool/mail")
+
+    # root's home dir
+    self.install_dir("root")
+    (self.destdir / "root").chmod(0o750)
+
+    # /tmp and /var/tmp
+    self.install_dir("tmp")
+    (self.destdir / "tmp").chmod(0o777)
+    self.install_dir("var/tmp")
+    (self.destdir / "var/tmp").chmod(0o777)

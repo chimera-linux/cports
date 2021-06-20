@@ -682,6 +682,10 @@ def from_module(m, ret):
         if hasattr(m, "post_" + phase):
             setattr(ret, "post_" + phase, getattr(m, "post_" + phase))
 
+    # pre_pkg from template
+    if hasattr(m, "pre_pkg"):
+        ret.pre_pkg = m.pre_pkg
+
     # paths that can be used by template methods
     ret.template_path = paths.templates() / ret.pkgname
     ret.files_path = ret.template_path / "files"
