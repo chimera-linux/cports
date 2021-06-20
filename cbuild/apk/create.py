@@ -77,7 +77,12 @@ def create(
     meta_field("packager")
     meta_field("maintainer")
 
-    add_field("size", str(_du_k(flist)))
+    psz = _du_k(flist)
+    # prevent packages with empty files from being considered virtual
+    if psz == 0 and len(flist) > 0:
+        psz = 1
+
+    add_field("size", str(psz))
     add_field("arch", arch)
 
     if not meta_field("origin"):
