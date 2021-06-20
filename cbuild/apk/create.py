@@ -45,6 +45,7 @@ def create(
         # ignore metadata
         if fl.is_file():
             continue
+        flist.append(fl)
         flist += fl.rglob("*")
     # sort it
     flist.sort()
