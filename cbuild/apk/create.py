@@ -46,7 +46,8 @@ def create(
         if fl.is_file():
             continue
         flist.append(fl)
-        flist += fl.rglob("*")
+        if not fl.is_symlink():
+            flist += fl.rglob("*")
     # sort it
     flist.sort()
 
