@@ -19,7 +19,7 @@ paths.init(path.dirname(__file__), "masterdir", "hostdir")
 os.chdir(path.dirname(__file__))
 
 from cbuild.util import make
-from cbuild.core import xbps, chroot, logger, template, build
+from cbuild.core import chroot, logger, template, build
 from cbuild import cpu
 
 from cbuild.apk import sign
@@ -77,7 +77,7 @@ logger.init(not args.no_color and not "NO_COLOR" in os.environ)
 chroot.chroot_check()
 
 # fix up environment
-os.environ["XBPS_ARCH"] = cpu.host()
+os.environ["CBUILD_ARCH"] = cpu.host()
 os.environ["PATH"] = os.environ["PATH"] + ":" + \
     path.join(paths.masterdir(), "usr/bin")
 
@@ -129,7 +129,7 @@ def do_keygen(tgt):
 def do_chroot(tgt):
     chroot.repo_sync()
     chroot.reconfigure()
-    chroot.enter("/bin/xbps-shell")
+    chroot.enter("/bin/cbuild-shell")
 
 def clean(tgt):
     pass

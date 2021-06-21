@@ -1,6 +1,6 @@
 from cbuild.step import fetch, extract, patch, configure
 from cbuild.step import build as buildm, install, prepkg, pkg as pkgsm
-from cbuild.core import logger, dependencies, template, pkg as pkgm, paths, xbps
+from cbuild.core import logger, dependencies, template, pkg as pkgm, paths
 from cbuild.apk import cli as apk
 
 import os
@@ -12,7 +12,7 @@ def build(step, pkg, depmap, signkey):
     depmap[pkg.pkgname] = True
 
     # check and install dependencies
-    dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
+    autodep = dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
 
     # run up to the step we need
     fetch.invoke(pkg)
@@ -79,13 +79,6 @@ def build(step, pkg, depmap, signkey):
 
     for repo in genrepos:
         logger.get().out(f"Registering new packages to {repo}...")
-        if not xbps.register_pkgs(
-            genrepos[repo], repo, pkg.rparent.force_mode
-        ):
-            logger.get().out_red(f"Registering packages failed.")
-            raise Exception()
-
-        logger.get().out(f"Building apk index at {repo}...")
         if not apk.build_index(repo, pkg.source_date_epoch, signkey):
             logger.get().out_red(f"Indexing apk repositories failed.")
             raise Exception()

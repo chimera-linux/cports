@@ -1,25 +1,37 @@
-from cbuild.core import logger, xbps
+from cbuild.core import logger, paths, chroot
 import os
 import shutil
+import subprocess
 
 def remove_autodeps(pkg):
     pkg.log(f"removing autodeps...")
 
-    success, sout, serr = xbps.reconfigure(capture_out = True)
+    failed = False
 
-    if success:
-        success, sout, serr = xbps.remove_orphans()
+    if subprocess.run([
+        "apk", "info", "--root", str(paths.masterdir()), "autodeps-host"
+    ], capture_output = True).returncode == 0:
+        del_ret = chroot.enter("apk", [
+            "del", "autodeps-host"
+        ], capture_out = True)
+        if del_ret.returncode != 0:
+            pkg.logger.out_plain(">> stderr (host):")
+            pkg.logger.out_plain(del_ret.stderr.decode())
+            failed = True
 
-    if not success:
-        sout = sout.strip()
-        serr = serr.strip()
-        if len(sout) > 0:
-            pkg.logger.out_plain(">> stdout:")
-            pkg.logger.out_plain(sout.decode("ascii"))
-        if len(serr) > 0:
-            pkg.logger.out_plain(">> stderr:")
-            pkg.logger.out_plain(serr.decode("ascii"))
-        pkg.error(f"failed to remove autodeps")
+    if subprocess.run([
+        "apk", "info", "--root", str(paths.masterdir()), "autodeps-target"
+    ], capture_output = True).returncode == 0:
+        del_ret = chroot.enter("apk", [
+            "del", "autodeps-target"
+        ], capture_out = True)
+        if del_ret.returncode != 0:
+            pkg.logger.out_plain(">> stderr (target):")
+            pkg.logger.out_plain(del_ret.stderr.decode())
+            failed = True
+
+    if failed:
+        pkg.error("failed to remove autodeps")
 
 def _remove_ro(f, path, _):
     os.chmod(path, stat.S_IWRITE)

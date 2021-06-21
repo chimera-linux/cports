@@ -1,17 +1,31 @@
 from cbuild.core import logger, chroot
 
 import os
-import re
 import pathlib
+
+def _matches_lib(sfxs, root, destdir):
+    if len(sfxs) == 0:
+        return False
+
+    if len(sfxs) == 1:
+        return root == (destdir / "usr/lib")
+
+    sfxs = sfxs[1:]
+
+    for sfx in sfxs:
+        try:
+            int(sfx[1:])
+        except ValueError:
+            return False
+
+    return True
 
 def invoke(pkg):
     if pkg.noshlibprovides:
         return
 
-    pattern = r"\w+(.*)+\.so(\.[0-9]+)*$"
-    vpattern = r"\w+(.*)+\.so(\.[0-9]+)+$"
-    sonames = []
     asonames = []
+    cursonames = pkg.rparent.current_sonames
 
     for root, dirs, files in os.walk(pkg.destdir):
         root = pathlib.Path(root)
@@ -30,7 +44,13 @@ def invoke(pkg):
 
             ff = fp.relative_to(pkg.destdir)
 
-            if len(ff.suffixes) == 0 or ff.suffixes[0] != ".so":
+            sfxs = ff.suffixes
+
+            # we don't care about anything before the .so
+            while len(sfxs) > 0 and sfxs[0] != ".so":
+                sfxs = sfxs[1:]
+            # no .so
+            if len(sfxs) == 0:
                 continue
 
             got_soname = False
@@ -46,25 +66,22 @@ def invoke(pkg):
                 ln = ln[6:].strip().decode("ascii")
                 got_soname = True
 
-                if re.match(vpattern, ln) or (
-                    re.match(pattern, ln) and root == pkg.destdir / "usr/lib"
-                ):
-                    sonames.append(ln)
-                    autosfx = "".join(ff.suffixes[1:])[1:]
+                if _matches_lib(sfxs, root, pkg.destdir):
+                    autosfx = "".join(sfxs)[1:]
                     if len(autosfx) == 0:
                         autosfx = ln[ln.rfind(".so") + 4:]
                     if len(autosfx) == 0:
                         autosfx = "0"
+
                     asonames.append((ln, autosfx))
+                    cursonames[ln] = pkg.pkgname
                     relp = os.path.relpath(root, start = pkg.destdir)
                     logger.get().out_plain(f"   SONAME {ln} from {relp}")
 
             if not got_soname:
-                if re.match(vpattern, ff.name) or (
-                    re.match(pattern, ff.name) and root == pkg.destdir / "usr/lib"
-                ):
+                if _matches_lib(sfxs, root, pkg.destdir):
                     asonames.append((ff.name, "0"))
+                    cursonames[ff.name] = pkg.pkgname
+                    logger.get().out_plain(f"   SONAME {ff.name} from {relp}")
 
-    sonames += pkg.shlib_provides
     pkg.aso_provides = asonames
-    pkg.so_provides = sonames

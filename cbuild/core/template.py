@@ -10,6 +10,7 @@ import time
 import glob
 import sys
 import os
+import re
 import importlib
 import pathlib
 import contextlib
@@ -17,7 +18,7 @@ import subprocess
 import shutil
 import builtins
 
-from cbuild.core import logger, chroot, paths, xbps
+from cbuild.core import logger, chroot, paths
 from cbuild import cpu
 
 class PackageError(Exception):
@@ -416,6 +417,7 @@ class Template(Package):
         self.source_date_epoch = None
         self.git_revision = None
         self.git_dirty = False
+        self.current_sonames = {}
 
     def setup_reproducible(self):
         self.source_date_epoch = int(time.time())
@@ -510,13 +512,13 @@ class Template(Package):
             "CFLAGS": " ".join(self.CFLAGS),
             "CXXFLAGS": " ".join(self.CXXFLAGS),
             "LDFLAGS": " ".join(self.LDFLAGS),
-            "XBPS_TARGET_MACHINE": cpu.target(),
-            "XBPS_MACHINE": cpu.host(),
+            "CBUILD_TARGET_MACHINE": cpu.target(),
+            "CBUILD_MACHINE": cpu.host(),
         }
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
         if self.triplet:
-            cenv["XBPS_TRIPLET"] = self.triplet
+            cenv["CBUILD_TRIPLET"] = self.triplet
 
         cenv.update(self.tools)
         cenv.update(self.env)
@@ -620,7 +622,7 @@ def from_module(m, ret):
     ret.validate_version()
 
     # this is useful so we don't have to repeat ourselves
-    ret.pkgver = f"{ret.pkgname}-{ret.version}_{ret.revision}"
+    ret.pkgver = f"{ret.pkgname}-{ret.version}-r{ret.revision}"
 
     # fill in core non-mandatory fields
     for fl, dval, tp, opt, mand, sp, inh in core_fields:
@@ -695,7 +697,7 @@ def from_module(m, ret):
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
     ret.abs_wrksrc = paths.masterdir() / "builddir" / ret.wrksrc
     ret.abs_build_wrksrc = ret.abs_wrksrc / ret.build_wrksrc
-    ret.statedir = ret.builddir / (".xbps-" + ret.pkgname)
+    ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
 
     if ret.bootstrapping:
@@ -717,20 +719,27 @@ def from_module(m, ret):
     ret.chroot_destdir = ret.chroot_destdir_base \
         / f"{ret.pkgname}-{ret.version}"
 
-    ret.env["CBUILD_STATEDIR"] = "/builddir/.xbps-" + ret.pkgname
+    ret.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + ret.pkgname
 
     if not hasattr(ret, "do_install"):
         ret.error("do_install is missing")
 
     if ret.skip_if_exist:
-        # FIXME: this actually uses remote repos too
-        bpkgver = xbps.repository_properties(ret.pkgname, ["pkgver"])
-        if ret.pkgver == bpkgver:
-            if ret.origin == ret:
-                # only print if this is not a dependency build
-                brepo = xbps.repository_url(ret.pkgname)
-                ret.log(f"found ({cpu.target()}) ({brepo})")
-            raise SkipPackage()
+        pinfo = subprocess.run([
+            "apk", "info", "--root", str(mdir),
+            "--repositories-file", str(paths.distdir() / "etc/apk/repositories_host"),
+            "--description", ret.pkgname
+        ], capture_output = True)
+        if pinfo.returncode == 0 and len(pinfo.stdout) > 0:
+            match = re.match(
+                f"{ret.pkgname}-(.+) description",
+                pinfo.stdout.lstrip().decode()
+            )
+            if match and ret.pkgver == match[1]:
+                if ret.origin == ret:
+                    # TODO: print the repo somehow
+                    ret.log(f"found ({cpu.target()})")
+                raise SkipPackage()
 
     spdupes = {}
     # link subpackages and fill in their fields
@@ -741,7 +750,7 @@ def from_module(m, ret):
         sp = Subpackage(spn, ret)
         sp.version = ret.version
         sp.revision = ret.revision
-        sp.pkgver = f"{sp.pkgname}-{ret.version}_{ret.revision}"
+        sp.pkgver = f"{sp.pkgname}-{ret.version}-r{ret.revision}"
         sp.destdir = ret.destdir_base / f"{sp.pkgname}-{ret.version}"
         sp.chroot_destdir = ret.chroot_destdir_base / f"{sp.pkgname}-{ret.version}"
         sp.statedir = ret.statedir
@@ -783,26 +792,26 @@ def from_module(m, ret):
         bp = importlib.import_module(
             "cbuild.build_profiles." + cpu.target()
         )
-        if not hasattr(bp, "XBPS_TRIPLET"):
+        if not hasattr(bp, "CBUILD_TRIPLET"):
             ret.error(f"no target triplet defined")
-        ret.triplet = bp.XBPS_TRIPLET
+        ret.triplet = bp.CBUILD_TRIPLET
     else:
         bp = importlib.import_module("cbuild.build_profiles.bootstrap")
         ret.triplet = None
 
-    if hasattr(bp, "XBPS_TARGET_CFLAGS"):
-        ret.CFLAGS = bp.XBPS_TARGET_CFLAGS + ret.CFLAGS
-    if hasattr(bp, "XBPS_TARGET_CXXFLAGS"):
-        ret.CXXFLAGS = bp.XBPS_TARGET_CXXFLAGS + ret.CXXFLAGS
-    if hasattr(bp, "XBPS_TARGET_LDFLAGS"):
-        ret.LDFLAGS = bp.XBPS_TARGET_LDFLAGS + ret.LDFLAGS
+    if hasattr(bp, "CBUILD_TARGET_CFLAGS"):
+        ret.CFLAGS = bp.CBUILD_TARGET_CFLAGS + ret.CFLAGS
+    if hasattr(bp, "CBUILD_TARGET_CXXFLAGS"):
+        ret.CXXFLAGS = bp.CBUILD_TARGET_CXXFLAGS + ret.CXXFLAGS
+    if hasattr(bp, "CBUILD_TARGET_LDFLAGS"):
+        ret.LDFLAGS = bp.CBUILD_TARGET_LDFLAGS + ret.LDFLAGS
 
-    if hasattr(bp, "XBPS_CFLAGS"):
-        ret.CFLAGS = bp.XBPS_CFLAGS + ret.CFLAGS
-    if hasattr(bp, "XBPS_CXXFLAGS"):
-        ret.CXXFLAGS = bp.XBPS_CXXFLAGS + ret.CXXFLAGS
-    if hasattr(bp, "XBPS_LDFLAGS"):
-        ret.LDFLAGS = bp.XBPS_LDFLAGS + ret.LDFLAGS
+    if hasattr(bp, "CBUILD_CFLAGS"):
+        ret.CFLAGS = bp.CBUILD_CFLAGS + ret.CFLAGS
+    if hasattr(bp, "CBUILD_CXXFLAGS"):
+        ret.CXXFLAGS = bp.CBUILD_CXXFLAGS + ret.CXXFLAGS
+    if hasattr(bp, "CBUILD_LDFLAGS"):
+        ret.LDFLAGS = bp.CBUILD_LDFLAGS + ret.LDFLAGS
 
     os.makedirs(ret.statedir, exist_ok = True)
     os.makedirs(ret.wrapperdir, exist_ok = True)

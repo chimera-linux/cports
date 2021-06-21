@@ -1,4 +1,4 @@
-from cbuild.core import logger, template, paths, xbps
+from cbuild.core import logger, template, paths, xbps, chroot
 from cbuild.step import build as do_build
 from cbuild import cpu
 from os import makedirs
@@ -60,28 +60,26 @@ def _setup_depends(pkg):
 
     return hdeps, tdeps, rdeps
 
-def _install_from_repo(pkg, pkglist):
-    success, sout, serr = xbps.install(pkglist, capture_out = True)
-    if not success:
-        outl = sout.strip().decode("ascii")
-        if len(outl) > 0:
-            pkg.logger.out_plain(">> stdout:")
-            pkg.logger.out_plain(outl)
-        outl = serr.decode("ascii")
+def _install_from_repo(pkg, pkglist, virtn):
+    ret = chroot.enter(
+        "apk", ["add", "--virtual", virtn] + pkglist, capture_out = True
+    )
+    if ret.returncode != 0:
+        outl = ret.stderr.strip().decode()
         if len(outl) > 0:
             pkg.logger.out_plain(">> stderr:")
             pkg.logger.out_plain(outl)
         pkg.error(f"failed to install dependencies")
 
 def _is_installed(pkgn):
-    pn = xbps.get_pkg_dep_name(pkgn)
-    if not pn:
-        pn = xbps.get_pkg_name(pkgn)
+    return chroot.enter("apk", [
+        "info", "--installed", pkgn
+    ], capture_out = True).returncode == 0
 
-    if not pn:
-        return None
-
-    return xbps.get_installed_version(pn) != None
+def _is_available(pkgn):
+    return chroot.enter("apk", [
+        "info", "--description", pkgn
+    ], capture_out = True).returncode == 0
 
 def install(pkg, origpkg, step, depmap, signkey):
     style = ""
@@ -108,70 +106,54 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     for dep in ihdeps:
         pkgn = xbps.get_pkg_name(dep)
-        # maybe no template
+        pkgf = pkgn
         if not pkgn:
-            rurl = xbps.repository_url(dep)
-            if rurl:
-                log.out_plain(f"   [host] {dep}: found ({rurl})")
-                host_binpkg_deps.append(dep)
-                continue
-            log.out_plain(f"   [host] {dep}: unresolved build dependency")
-            pkg.error(f"host dependency '{dep}' does not exist")
-        # got a template
-        inst = _is_installed(dep)
-        if inst:
+            pkgn = dep
+        # check if already installed
+        if _is_installed(pkgn):
             log.out_plain(f"   [host] {dep}: installed")
             continue
-        # unresolved
-        if inst == None:
+        # check if available in repository
+        if _is_available(pkgn):
+            log.out_plain(f"   [host] {dep}: found")
+            host_binpkg_deps.append(pkgn)
+            continue
+        # dep finder did not previously resolve a template
+        if not pkgf:
             log.out_plain(f"   [host] {dep}: unresolved build dependency")
             pkg.error(f"host dependency '{dep}' does not exist")
-        # not installed
-        rurl = xbps.repository_url(dep)
-        if rurl:
-            log.out_plain(f"   [host] {dep}: found ({rurl})")
-            host_binpkg_deps.append(dep)
-            continue
         # not found
         log.out_plain(f"   [host] {dep}: not found")
         # check for loops
         if pkgn == origpkg or pkgn == pkg.pkgname:
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
-        # consider missing
+        # build from source
         host_missing_deps.append(dep)
 
     for dep in itdeps:
         pkgn = xbps.get_pkg_name(dep)
-        # maybe no template
+        pkgf = pkgn
         if not pkgn:
-            rurl = xbps.repository_url(dep)
-            if rurl:
-                log.out_plain(f"   [target] {dep}: found ({rurl})")
-                binpkg_deps.append(dep)
-                continue
-            log.out_plain(f"   [target] {dep}: unresolved build dependency")
-            pkg.error(f"target dependency '{dep}' does not exist")
-        # got a template
-        inst = _is_installed(dep)
-        if inst:
+            pkgn = dep
+        # check if already installed
+        if _is_installed(pkgn):
             log.out_plain(f"   [target] {dep}: installed")
             continue
-        # unresolved
-        if inst == None:
+        # check if available in repository
+        if _is_available(pkgn):
+            log.out_plain(f"   [target] {dep}: found")
+            binpkg_deps.append(pkgn)
+            continue
+        # dep finder did not previously resolve a template
+        if not pkgf:
             log.out_plain(f"   [target] {dep}: unresolved build dependency")
             pkg.error(f"target dependency '{dep}' does not exist")
-        # not installed
-        rurl = xbps.repository_url(dep)
-        if rurl:
-            log.out_plain(f"   [target] {dep}: found ({rurl})")
-            binpkg_deps.append(dep)
-            continue
         # not found
         log.out_plain(f"   [target] {dep}: not found")
         # check for loops
         if pkgn == origpkg or pkgn == pkg.pkgname:
-            pkg.error(f"[target] build loop detected: {pkgn} <-> {pkgn}")
-        # consider missing
+            pkg.error(f"[target] build loop detected: {pkgn} <-> {origpkg}")
+        # build from source
         missing_deps.append(dep)
 
     for origin, dep in irdeps:
@@ -203,9 +185,9 @@ def install(pkg, origpkg, step, depmap, signkey):
         if pkgn == origpkg and pkg.pkgname != origpkg:
             pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # check the repository
-        props = xbps.repository_properties(pkgn, ["pkgver", "repository"])
-        if props and xbps.pkg_match(props[0], dep):
-            log.out_plain(f"   [runtime] {dep}: found ({props[1]})")
+        # FIXME: check version constraints
+        if _is_available(pkgn):
+            log.out_plain(f"   [runtime] {dep}: found")
             continue
         # not found
         log.out_plain(f"   [runtime] {dep}: not found")
@@ -245,8 +227,8 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
-        _install_from_repo(pkg, host_binpkg_deps)
+        _install_from_repo(pkg, host_binpkg_deps, "autodeps-host")
 
     if len(binpkg_deps) > 0:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
-        _install_from_repo(pkg, binpkg_deps)
+        _install_from_repo(pkg, binpkg_deps, "autodeps-target")

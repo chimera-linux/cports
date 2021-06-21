@@ -1,48 +1,13 @@
-from cbuild.core import logger, chroot, paths, xbps, version
+from cbuild.core import logger, chroot, paths, version
 
 import os
 import pathlib
-
-def add_rundep(pkg, sdep):
-    depn = xbps.get_pkg_dep_name(sdep)
-    if not depn:
-        depn = xbps.get_pkg_name(sdep)
-
-    found = False
-
-    for dep in pkg.run_depends:
-        rdepn = xbps.get_pkg_dep_name(dep)
-        if not rdepn:
-            rdepn = xbps.get_pkg_name(dep)
-
-        if rdepn != depn:
-            continue
-
-        if version.compare(rdepn, depn) < 0:
-            for n, v in enumerate(pkg.run_depends):
-                if v == dep:
-                    pkg.run_depends[n] = sdep
-        found = True
-
-    if not found:
-        pkg.run_depends.append(sdep)
-
-def store_rundeps(pkg):
-    if len(pkg.run_depends) > 0:
-        dl = []
-        for d in pkg.run_depends:
-            dn = xbps.get_pkg_dep_name(d)
-            pn = xbps.get_pkg_name(d)
-            if not dn and not pn:
-                d += ">=0"
-            dl.append(d)
-        pkg.xbps_rdeps = dl
+import subprocess
 
 def invoke(pkg):
     shlibmap = paths.cbuild() / "shlibs"
 
     if pkg.noverifyrdeps:
-        store_rundeps(pkg)
         return
 
     curfilemap = {}
@@ -104,67 +69,34 @@ def invoke(pkg):
     broken = False
     log = logger.get()
 
+    # FIXME: also emit dependencies for proper version constraints
     for dep in verify_deps:
-        # dependency not in shlibs
-        if not dep in shmap:
-            # dependency not in current pkg
-            if not dep in curfilemap:
-                log.out_red(f"   SONAME: {dep} <-> UNKNOWN PKG PLEASE FIX!")
-                broken = True
-            else:
-                log.out_plain(f"   SONAME: {dep} <-> {pkg.pkgname} (ignored)")
+        # in current package or a subpackage, ignore
+        if dep in pkg.rparent.current_sonames:
+            depn = pkg.rparent.current_sonames[dep]
+            log.out_plain(f"   SONAME: {dep} <-> {depn} (ignored)")
             continue
-        elif len(shmap[dep]) > 1:
-            # check if provided by multiple packages
-            rdep = None
-            for d in shmap[dep]:
-                pkgn = xbps.get_pkg_name(d)
-                if pkgn == pkg.rparent.pkgname:
-                    rdep = d
-                    break
-                else:
-                    # assume we found something for now
-                    found = True
-                    for sp in pkg.rparent.subpkg_list:
-                        if pkgn == sp.pkgname:
-                            rdep = d
-                            break
-                    else:
-                        # called when no break was encountered
-                        found = False
-                    if found:
-                        break
-        else:
-            rdep = shmap[dep][0]
-
-        pkgn = xbps.get_pkg_name(rdep)
-        pkgv = xbps.get_pkg_version(rdep)
-
-        if not pkgn or len(pkgv) == 0:
-            log.out_red(f"   SONAME: {dep} <-> UNKNOWN PKG PLEASE FIX!")
+        # otherwise, check if it came from an installed dependency
+        info = subprocess.run([
+            "apk", "info", "--root", str(paths.masterdir()),
+            "--installed", "so:" + dep
+        ], capture_output = True)
+        if info.returncode != 0:
+            log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
             broken = True
             continue
-
-        sdep = f"{pkgn}>={pkgv}"
-        for sp in pkg.rparent.subpkg_list:
-            if sp == pkgn:
-                sdep = f"{pkgn}-{pkg.version}_{pkg.revision}"
-                break
-
-        if pkgn != pkg.pkgname:
-            log.out_plain(f"   SONAME: {dep} <-> {sdep}")
-            pkg.so_requires.append(dep)
-        else:
-            # ignore libs by current package
-            log.out_plain(f"   SONAME: {dep} <-> {rdep} (ignored)")
+        sdep = info.stdout.strip().decode()
+        if len(sdep) == 0:
+            # this should never happen though
+            log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
+            broken = True
             continue
-
-        add_rundep(pkg, sdep)
+        # we found a package
+        log.out_plain(f"   SONAME: {dep} <-> {sdep}")
+        pkg.so_requires.append(dep)
 
     if broken:
         pkg.error("cannot guess required shlibs")
-
-    store_rundeps(pkg)
 
     # add any explicit deps
     pkg.so_requires += pkg.shlib_requires

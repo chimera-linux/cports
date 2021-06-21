@@ -1,2 +1,2 @@
-XBPS_CFLAGS = ["-O2", "-pipe"]
-XBPS_CXXFLAGS = list(XBPS_CFLAGS)
+CBUILD_CFLAGS = ["-O2", "-pipe"]
+CBUILD_CXXFLAGS = list(CBUILD_CFLAGS)

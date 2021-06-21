@@ -101,8 +101,8 @@ def genpkg(pkg, repo, arch, binpkg):
         lockpath.unlink()
 
 def invoke(pkg):
-    arch = cpu.target().rstrip("-musl")
-    binpkg = f"{pkg.pkgname}-{pkg.version}-r{str(pkg.revision)}.apk"
+    arch = cpu.target()
+    binpkg = f"{pkg.pkgver}.apk"
 
     if pkg.repository:
         repo = paths.repository() / pkg.repository / arch

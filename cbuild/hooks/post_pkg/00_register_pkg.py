@@ -3,12 +3,12 @@ from cbuild import cpu
 
 def invoke(pkg):
     arch = cpu.target()
-    binpkg = f"{pkg.pkgver}.{arch}.xbps"
+    binpkg = f"{pkg.pkgver}.apk"
 
     if pkg.repository:
-        repo = paths.repository() / pkg.repository
+        repo = paths.repository() / pkg.repository / arch
     else:
-        repo = paths.repository()
+        repo = paths.repository() / arch
 
     # TODO: dbg
 

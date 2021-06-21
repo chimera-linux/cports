@@ -8,7 +8,7 @@ import getpass
 import pathlib
 from tempfile import mkstemp
 
-from cbuild.core import logger, paths, xbps
+from cbuild.core import logger, paths
 from cbuild import cpu
 
 _chroot_checked = False
@@ -22,12 +22,12 @@ def chroot_check():
 
     _chroot_checked = True
 
-    if (paths.masterdir() / ".xbps_chroot_init").is_file():
+    if (paths.masterdir() / ".cbuild_chroot_init").is_file():
         _chroot_ready = True
-        cpun = (paths.masterdir() / ".xbps_chroot_init").read_text().strip()
+        cpun = (paths.masterdir() / ".cbuild_chroot_init").read_text().strip()
         cpu.init(cpun, cpun)
     else:
-        cpun = os.uname().machine + "-musl"
+        cpun = os.uname().machine
         cpu.init(cpun, cpun)
 
     return _chroot_ready
@@ -55,27 +55,27 @@ def _remove_ro(f, path, _):
     f(path)
 
 def _init():
-    xdir = paths.masterdir() / "etc" / "xbps"
+    xdir = paths.masterdir() / "etc" / "apk"
     os.makedirs(xdir, exist_ok = True)
 
-    shf = open(paths.masterdir() / "bin" / "xbps-shell", "w")
+    shf = open(paths.masterdir() / "bin" / "cbuild-shell", "w")
     shf.write(f"""#!/bin/sh
 
 PATH=/void-packages:/usr/bin
 
 exec env -i -- SHELL=/bin/sh PATH="$PATH" \
-    XBPS_ARCH={cpu.host()} XBPS_CHECK_PKGS="" \
+    CBUILD_ARCH={cpu.host()} \
     IN_CHROOT=1 LC_COLLATE=C LANG=en_US.UTF-8 TERM=linux HOME="/tmp" \
     PS1="[\\u@{str(paths.masterdir())} \\W]$ " /bin/sh
 """)
     shf.close()
 
-    (paths.masterdir() / "bin" / "xbps-shell").chmod(0o755)
+    (paths.masterdir() / "bin" / "cbuild-shell").chmod(0o755)
 
     shutil.copy("/etc/resolv.conf", paths.masterdir() / "etc")
 
 def _prepare(arch = None):
-    sfpath = paths.masterdir() / ".xbps_chroot_init"
+    sfpath = paths.masterdir() / ".cbuild_chroot_init"
     if sfpath.is_file():
         return
     if not (paths.masterdir() / "usr" / "bin" / "sh").is_file():
@@ -114,7 +114,7 @@ def _prepare(arch = None):
         username = getpass.getuser()
         gid = os.getgid()
         uid = os.getuid()
-        pf.write(f"{username}:x:{uid}:{gid}:{username} user:/tmp:/bin/xbps-shell\n")
+        pf.write(f"{username}:x:{uid}:{gid}:{username} user:/tmp:/bin/cbuild-shell\n")
 
     with open(paths.masterdir() / "etc" / "group", "a") as pf:
         pf.write(f"{username}:x:{gid}:\n")
@@ -123,28 +123,11 @@ def _prepare(arch = None):
         sf.write(arch + "\n")
 
 def repo_sync():
-    confdir = paths.masterdir() / "etc" / "xbps.d"
-
-    if confdir.is_dir():
-        shutil.rmtree(confdir, onerror = _remove_ro)
+    confdir = paths.masterdir() / "etc/apk"
 
     os.makedirs(confdir, exist_ok = True)
-    (confdir / "00-repository-alt-local.conf").unlink(missing_ok = True)
 
-    # disable main repository conf
-    (confdir / "00-repository-main.conf").symlink_to("/dev/null")
-
-    # generate xbps.d(5) config files for repos
-    _subst_in("/host", str(paths.hostdir()), str(
-        paths.distdir() / "etc" / "xbps.d" / "repos-local.conf"
-    ), str(confdir / "10-repository-local.conf"))
-
-    rmlist = confdir.glob("*remote*")
-    for f in rmlist:
-        f.unlink(missing_ok = True)
-
-    with open(confdir / "00-xbps-src.conf", "a") as apf:
-        apf.write("\nsyslog=false\n")
+    shutil.copy2(paths.distdir() / "etc/apk/repositories", confdir)
 
     # copy over apk public keys
     keydir = paths.masterdir() / "etc/apk/keys"
@@ -159,18 +142,16 @@ def reconfigure():
     if not chroot_check():
         return
 
-    statefile = paths.masterdir() / ".xbps_chroot_configured"
+    statefile = paths.masterdir() / ".cbuild_chroot_configured"
 
     if statefile.is_file():
         return
 
-    logger.get().out("cbuild: reconfiguring base-chroot...")
+    logger.get().out("cbuild: reconfiguring base...")
 
-    pkgs = [ "ca-certificates" ]
-    for pkg in pkgs:
-        if not xbps.reconfigure(pkg):
-            logger.get().out_red(f"cbuild: failed to reconfigure {pkg}")
-            raise Exception()
+    if enter("update-ca-certificates", ["--fresh"]).returncode != 0:
+        logger.get().out_red(f"cbuild: failed to reconfigure base")
+        raise Exception()
 
     statefile.touch()
 
@@ -180,6 +161,21 @@ def install(arch = None, bootstrap = False):
 
     logger.get().out("cbuild: installing base-chroot...")
 
+    # we init the database ourselves
+    mdir = paths.masterdir()
+    os.makedirs(mdir / "tmp", exist_ok = True)
+    os.makedirs(mdir / "dev", exist_ok = True)
+    os.makedirs(mdir / "etc/apk", exist_ok = True)
+    os.makedirs(mdir / "usr/lib/apk/db", exist_ok = True)
+    os.makedirs(mdir / "var/cache/apk", exist_ok = True)
+    os.makedirs(mdir / "var/cache/misc", exist_ok = True)
+
+    # largely because of custom usrmerge
+    (mdir / "lib").symlink_to("usr/lib")
+
+    (mdir / "usr/lib/apk/db/installed").touch()
+    (mdir / "etc/apk/world").touch()
+
     oldh = cpu.host()
     oldt = cpu.target()
     try:
@@ -188,19 +184,16 @@ def install(arch = None, bootstrap = False):
     finally:
         cpu.init(oldh, oldt)
 
-    cenv = {}
-    if not bootstrap:
-        cenv["XBPS_TARGET_ARCH"] = arch
+    if not arch or bootstrap:
+        arch = cpu.host()
 
-    if not xbps.install(
-        ["base-chroot"], arch = arch if not bootstrap else None,
-        automatic = False
-    ):
+    irun = subprocess.run([
+        "apk", "add", "--root", str(mdir), "--no-scripts",
+        "--repositories-file", str(paths.distdir() / "etc/apk/repositories_host"),
+        "--arch", arch, "base-chroot"
+    ])
+    if irun.returncode != 0:
         logger.get().out_red("cbuild: failed to install base-chroot")
-        raise Exception()
-
-    if not xbps.reconfigure("base-files", arch = arch):
-        logger.get().out_red("cbuild: failed to configure chroot")
         raise Exception()
 
     logger.get().out("cbuild: installed base-chroot successfully!")
