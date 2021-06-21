@@ -67,7 +67,7 @@ def invoke(pkg):
                 got_soname = True
 
                 if _matches_lib(sfxs, root, pkg.destdir):
-                    autosfx = "".join(sfxs)[1:]
+                    autosfx = "".join(sfxs[1:])[1:]
                     if len(autosfx) == 0:
                         autosfx = ln[ln.rfind(".so") + 4:]
                     if len(autosfx) == 0:
