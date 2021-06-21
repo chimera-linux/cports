@@ -2,14 +2,14 @@ pkgname = "base-chroot"
 version = "0.66"
 revision = 5
 bootstrap = True
-short_desc = "Minimal set of packages required for chroot with xbps-src"
-maintainer = "Juan RP <xtraeme@gmail.com>"
+short_desc = "Core package set for cbuild containers"
+maintainer = "q66 <daniel@octaforge.org>"
 license = "Public Domain"
-homepage = "http://www.voidlinux.org"
+homepage = "https://chimera-linux.org"
 
 depends = [
     "musl-devel", "base-files", "binutils", "gcc", "diffutils", "bmake",
-    "bsdutils", "coreutils", "dash", "file", "xbps", "apk-tools", "awk",
+    "bsdutils", "coreutils", "dash", "file", "apk-tools", "awk",
     "ncurses", "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed", "bsdtar",
     "chroot-util-linux"
 ]
