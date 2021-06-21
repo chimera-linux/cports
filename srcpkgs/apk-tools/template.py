@@ -7,6 +7,7 @@ configure_args = [
     "-Dlua=disabled", "-Ddocs=disabled", "-Dhelp=disabled", "-Dstatic_apk=true"
 ]
 makedepends = ["zlib-devel", "openssl-devel"]
+depends = ["ca-certificates"]
 short_desc = "Alpine package manager"
 maintainer = "q66 <daniel@octaforge.org>"
 license = "GPL-2.0-only"
