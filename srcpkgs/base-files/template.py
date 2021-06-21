@@ -2,11 +2,10 @@ pkgname = "base-files"
 version = "0.142"
 revision = 11
 bootstrap = True
-depends = ["xbps-triggers"]
-short_desc = "Void Linux base system files"
-maintainer = "Enno Boland <orphan@voidlinux.org>"
+short_desc = "Chimera Linux base system files"
+maintainer = "q66 <daniel@octaforge.org>"
 license = "Public Domain"
-homepage = "https://www.voidlinux.org"
+homepage = "https://chimera-linux.org"
 
 conf_files = [
     "/etc/inputrc",
