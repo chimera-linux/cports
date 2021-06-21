@@ -20,7 +20,7 @@ def do_configure(self):
 
 @subpackage("zlib-devel")
 def _devel(self):
-    self.depends = [f"zlib>={version}_{revision}"]
+    self.depends = [f"zlib={version}-r{revision}"]
     self.short_desc = short_desc + " - development files"
 
     def install():

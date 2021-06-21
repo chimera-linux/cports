@@ -29,7 +29,7 @@ def pre_configure(self):
 
 @subpackage("acl-devel")
 def _devel(self):
-    self.depends = ["attr-devel", f"{pkgname}>={version}_{revision}"]
+    self.depends = ["attr-devel", f"{pkgname}={version}-r{revision}"]
     self.short_desc = short_desc + " - development files"
 
     def install():

@@ -28,8 +28,8 @@ distfiles = [
     f"{sites.kernel}/utils/util-linux/v{_mver}/util-linux-{version}.tar.xz"
 ]
 checksum = ["86e6707a379c7ff5489c218cfaf1e3464b0b95acf7817db0bc5f179e356a67b2"]
-conflicts = ["util-linux>=0"]
-provides = [f"util-linux-{version}_{revision}"]
+conflicts = ["util-linux"]
+provides = [f"util-linux={version}-r{revision}"]
 
 def pre_configure(self):
     from cbuild.core import paths

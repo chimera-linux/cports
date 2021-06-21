@@ -18,7 +18,7 @@ def post_install(self):
 @subpackage("musl-fts-devel")
 def _devel(self):
     self.short_desc = short_desc + " - development files"
-    self.depends = [f"{pkgname}-{version}_{revision}"]
+    self.depends = [f"{pkgname}={version}-r{revision}"]
 
     return [
         "usr/share/man", "usr/include", "usr/lib/*.a", "usr/lib/*.so",

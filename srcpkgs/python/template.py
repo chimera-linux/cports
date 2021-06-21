@@ -92,7 +92,7 @@ def do_install(self):
 @subpackage("python-devel")
 def _devel(self):
     self.short_desc = short_desc + " - development files"
-    self.depends = [f"{pkgname}-{version}_{revision}"]
+    self.depends = [f"{pkgname}={version}-r{revision}"]
 
     def install():
         import os

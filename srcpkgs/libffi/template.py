@@ -19,7 +19,7 @@ def post_install(self):
 @subpackage("libffi-devel")
 def _devel(self):
     self.short_desc = short_desc + " - development files"
-    self.depends = [f"libffi>={version}_{revision}"]
+    self.depends = [f"libffi={version}-r{revision}"]
 
     def install():
         self.take("usr/include")

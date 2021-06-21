@@ -31,7 +31,7 @@ def _libmagic(self):
 
 @subpackage("file-devel")
 def _devel(self):
-    self.depends = makedepends + [f"libmagic>={version}_{revision}"]
+    self.depends = makedepends + [f"libmagic={version}-r{revision}"]
     self.short_desc = "File type identification library - development files"
 
     def install():

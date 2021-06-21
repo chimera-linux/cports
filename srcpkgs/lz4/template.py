@@ -32,7 +32,7 @@ def _lib(self):
 @subpackage("liblz4-devel")
 def _devel(self):
     self.short_decs = "LZ4 compression library - development files"
-    self.depends = [f"liblz4-{version}_{revision}"]
+    self.depends = [f"liblz4={version}-r{revision}"]
 
     def install():
         self.take("usr/include")

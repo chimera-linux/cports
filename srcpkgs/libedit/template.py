@@ -19,7 +19,7 @@ def post_install(self):
 
 @subpackage("libedit-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}>={version}_{revision}"] + makedepends
+    self.depends = [f"{pkgname}={version}-r{revision}"] + makedepends
     self.short_desc = short_desc + " - development files"
 
     def install():

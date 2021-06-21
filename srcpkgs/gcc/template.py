@@ -7,8 +7,7 @@ _mpc_version = "1.1.0"
 _isl_version = "0.21"
 
 pkgname = "gcc"
-version = f"{_patchver}pre1"
-wrksrc = f"gcc-{_patchver}_pre1"
+version = f"{_patchver}_pre1"
 revision = 3
 make_cmd = "gmake"
 short_desc = "GNU Compiler Collection"
@@ -19,7 +18,7 @@ license = "GFDL-1.2-or-later, GPL-3.0-or-later, LGPL-2.1-or-later"
 from cbuild import sites, cpu
 
 distfiles = [
-    f"https://dev.alpinelinux.org/~nenolod/{wrksrc}.tar.xz",
+    f"https://dev.alpinelinux.org/~nenolod/gcc-{version}.tar.xz",
     f"https://gmplib.org/download/gmp/gmp-{_gmp_version}.tar.xz",
     f"{sites.gnu}/mpfr/mpfr-{_mpfr_version}.tar.xz",
     f"{sites.gnu}/mpc/mpc-{_mpc_version}.tar.gz",
@@ -43,8 +42,8 @@ if not current.bootstrapping:
 makedepends = ["zlib-devel"]
 depends = [
     "binutils",
-    f"libgcc-devel-{version}_{revision}",
-    f"libstdc++-devel-{version}_{revision}",
+    f"libgcc-devel={version}-r{revision}",
+    f"libstdc++-devel={version}-r{revision}",
     "musl-devel",
 ]
 checkdepends = ["dejagnu"]
@@ -244,7 +243,7 @@ def _libgcc(self):
 
 @subpackage("libgcc-devel")
 def _libgcc_devel(self):
-    self.depends = [f"libgcc-{version}_{revision}"]
+    self.depends = [f"libgcc={version}-r{revision}"]
     self.short_desc = short_desc + " - GCC library - development files"
 
     def install():
@@ -255,7 +254,7 @@ def _libgcc_devel(self):
 
 @subpackage("libstdc++-devel")
 def _libstdc_devel(self):
-    self.depends = [f"libstdc++>={_minorver}"]
+    self.depends = [f"libstdc++={version}-r{revision}"]
     self.short_desc = short_desc + " - Standard C++ Library - development files"
 
     def install():

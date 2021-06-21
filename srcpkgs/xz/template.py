@@ -31,7 +31,7 @@ def _lib(self):
 @subpackage("liblzma-devel")
 def _devel(self):
     self.short_desc = "XZ-format compression library - development files"
-    self.depends = [f"liblzma>={version}_{revision}"]
+    self.depends = [f"liblzma={version}-r{revision}"]
 
     def install():
         self.take("usr/include")

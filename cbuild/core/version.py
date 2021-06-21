@@ -1,14 +1,17 @@
-# implements the same version comparison algorithm as xbps
+# implements the version comparison algorithm for apk
 
 from enum import Enum
 
-mods = {
-    "alpha": -3,
-    "beta": -2,
-    "pre": -1,
-    "rc": -1,
-    "pl": 0,
-    ".": 0
+suffixes = {
+    "_alpha": -3,
+    "_beta":  -2,
+    "_pre":   -1,
+    "_rc":    -1,
+    "_cvs":   float("inf"),
+    "_svn":   float("inf"),
+    "_git":   float("inf"),
+    "_hg":    float("inf"),
+    "_p":     float("inf"),
 }
 
 class Version:
@@ -16,12 +19,61 @@ class Version:
         self.components = []
         self.revision = 0
 
-        while vers != None:
-            vers = self.make_component(vers)
+        # always need at least one version
+        fdig, vers = self.parse_num(vers)
+        if fdig == None:
+            raise Exception("invalid version")
+        self.components.append(fdig)
 
-    def make_component(self, s):
+        # can be followed by any sequence of .<number>
+        while len(vers) > 0 and vers[0] == ".":
+            numv, vers = self.parse_num(vers[1:])
+            if numv == None:
+                raise Exception("invalid version")
+            self.components.append(0)
+            self.components.append(numv)
+
+        # can be followed by a bunch of alphanumerics
+        for i in range(len(vers)):
+            if not vers[i].isalnum():
+                vers = vers[i:]
+                break
+            # like an implied dot
+            self.components.append(0)
+            self.components.append(ord(vers[i].lower()) - 96)
+
+        # can be followed by one or more known suffixes
+        while len(vers) > 0 and vers[0] == "_":
+            for sfx in suffixes:
+                if vers.startswith(sfx):
+                    self.components.append(suffixes[sfx])
+                    vers = vers[len(sfx):]
+                    break
+            else:
+                # bad suffix
+                raise Exception("invalid version")
+
+        # revision
+        if vers[0:2] == "-r":
+            revlen = 0
+            for c in vers[2:]:
+                if not c.isdigit():
+                    break
+                revlen += 1
+            if revlen == 0:
+                raise Exception("invalid version")
+            self.revision = int(vers[2:revlen + 2])
+            vers = vers[revlen + 2:]
+        else:
+            self.revision = 0
+
+        # anything left is bad
+        if len(vers) > 0:
+            raise Exception("invalid version")
+
+    def parse_num(self, s):
         if len(s) == 0:
-            return None
+            return None, s
 
         diglen = 0
         for c in s:
@@ -29,35 +81,10 @@ class Version:
                 break
             diglen += 1
 
-        # number component
-        if diglen > 0:
-            self.components.append(int(s[0:diglen]))
-            return s[diglen:]
+        if diglen == 0:
+            return None, s
 
-        # known modifier
-        for k in mods:
-            if s[0:len(k)] == k:
-                self.components.append(mods[k])
-                return s[len(k):]
-
-        # revision
-        if s[0] == "_":
-            revlen = 0
-            for c in s[1:]:
-                if not c.isdigit():
-                    break
-                revlen += 1
-            if revlen > 0:
-                self.revision = int(s[1:revlen + 1])
-            return s[revlen + 1:]
-
-        # other alphabetics undergo regular comparison
-        if s[0].isalpha():
-            # like a dot
-            self.components.append(0)
-            self.components.append(ord(s[0].lower()) - 96)
-
-        return s[1:]
+        return int(s[0:diglen]), s[diglen:]
 
 def compare(ver1, ver2):
     ver1 = Version(ver1)
@@ -85,15 +112,13 @@ class Operator(Enum):
     GE = 2
     GT = 3
     EQ = 4
-    NQ = 5
 
 _ops = {
     "<=": Operator.LE,
     "<":  Operator.LT,
     ">=": Operator.GE,
     ">":  Operator.GT,
-    "==": Operator.EQ,
-    "!=": Operator.NQ
+    "=":  Operator.EQ
 }
 
 def _op_find(pat):
@@ -107,29 +132,25 @@ def _op_find(pat):
     return opid, 2
 
 def match(ver, pattern):
-    veridx = ver.rfind("-")
-
-    if veridx < 0:
-        return False
-
     sepidx = -1
+
     for i, c in enumerate(pattern):
-        if c == "<" or c == ">":
+        if c == "<" or c == ">" or c == "=":
             sepidx = i
             break
     else:
         return False
 
-    # name lengths don't match
-    if veridx != sepidx:
+    # ver must be foo-VERSION where foo matches pattern before the operator
+    if len(ver) <= sepidx or ver[sepidx] != "-":
         return False
 
     # names don't match
-    if ver[0:veridx] != pattern[0:sepidx]:
+    if ver[0:sepidx] != pattern[0:sepidx]:
         return False
 
     pattern = pattern[sepidx:]
-    ver = ver[veridx + 1:]
+    ver = ver[sepidx + 1:]
 
     sep1, sep1l = _op_find(pattern)
 
@@ -148,6 +169,8 @@ def match(ver, pattern):
                 return False
             # substring the version for lower limit cmp
             pattern = pattern[sep1l:sidx]
+        else:
+            pattern = pattern[sep1l:]
     else:
         pattern = pattern[sep1l:]
 
@@ -163,8 +186,6 @@ def match(ver, pattern):
     elif sep1 == Operator.GT and cmpv <= 0:
         return False
     elif sep1 == Operator.EQ and cmpv != 0:
-        return False
-    elif sep1 == Operator.NQ and cmpv == 0:
         return False
 
     return True

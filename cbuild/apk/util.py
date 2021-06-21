@@ -1,3 +1,7 @@
+from cbuild.core import version
+
+import re
+
 def strip_tar_endhdr(data):
     tlen = len(data)
     # length of the initial archive without trailing headers
@@ -23,3 +27,34 @@ def strip_tar_endhdr(data):
         dbeg = dlen
 
     return data[0:dlen]
+
+_valid_ops = {
+    "<=": True,
+    "<":  True,
+    ">=": True,
+    ">":  True,
+    "=":  True,
+}
+
+def split_pkg_name(s):
+    found = re.search(r"[><=]", s)
+    if not found:
+        return None, None, None
+
+    sn = s[:found.start()]
+    sv = s[found.start():]
+
+    if len(sn) == 0:
+        return None, None, None
+
+    for i in range(len(sv)):
+        if sv[i].isdigit():
+            op = sv[0:i]
+            if not op in _valid_ops:
+                return None, None, None
+            return sn, sv[i:], op
+
+    return None, None, None
+
+def pkg_match(pkgv, pattern):
+    return version.match(pkgv, pattern)

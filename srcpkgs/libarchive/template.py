@@ -48,7 +48,7 @@ def _bsdtar(self):
 @subpackage("libarchive-devel")
 def _devel(self):
     self.short_desc = short_desc + " - development files"
-    self.depends = makedepends + [f"{pkgname}>={version}_{revision}"]
+    self.depends = makedepends + [f"{pkgname}={version}-r{revision}"]
 
     def install():
         self.take("usr/include")

@@ -32,7 +32,7 @@ def _lib(self):
 @subpackage("libzstd-devel")
 def _devel(self):
     self.short_desc = "Fast real-time compression algorithm - development files"
-    self.depends = [f"libzstd-{version}_{revision}"]
+    self.depends = [f"libzstd={version}-r{revision}"]
 
     return [
         "usr/include",

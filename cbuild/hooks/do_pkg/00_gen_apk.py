@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths, xbps
+from cbuild.core import logger, paths
 from cbuild.apk import create as apk_c, sign as apk_s
 
 from cbuild import cpu
@@ -8,21 +8,6 @@ import glob
 import time
 import pathlib
 import subprocess
-
-def normalize_pkgn(name):
-    pkgn = xbps.get_pkg_name(name)
-    if pkgn:
-        pkgv = xbps.get_pkg_version(name)
-        pkgr = pkgv.rfind("_")
-        return pkgn + "=" + pkgv[0:pkgr] + "-r" + pkgv[pkgr + 1:]
-    pkgn = xbps.get_pkg_dep_name(name)
-    if pkgn:
-        pkgc = name[len(pkgn):]
-        pkgr = pkgc.rfind("_")
-        if pkgr:
-            pkgr = name.rfind("_")
-            return name[0:pkgr] + "-r" + name[pkgr + 1:]
-    return name
 
 _hooks = [
     "pre-install", "post-install",
@@ -69,9 +54,9 @@ def genpkg(pkg, repo, arch, binpkg):
         mdeps = []
 
         for c in pkg.conflicts:
-            mdeps.append("!" + normalize_pkgn(c))
+            mdeps.append("!" + c)
         for c in pkg.depends:
-            mdeps.append(normalize_pkgn(c))
+            mdeps.append(c)
 
         metadata["depends"] = mdeps
 

@@ -54,7 +54,7 @@ def do_install(self):
 
 @subpackage("bzip2-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}>={version}_{revision}"]
+    self.depends = [f"{pkgname}={version}-r{revision}"]
     self.short_desc = short_desc + " - development files"
 
     def install():

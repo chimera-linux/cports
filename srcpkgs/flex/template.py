@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
 hostmakedepends = ["byacc", "m4"]
 makedepends = ["byacc", "m4"]
-depends = ["byacc", f"libfl-devel-{version}_{revision}", "m4"]
+depends = ["byacc", f"libfl-devel={version}-r{revision}", "m4"]
 short_desc = "Fast Lexical Analyzer"
 maintainer = "Enno Boland <gottox@voidlinux.org>"
 license = "custom:flex"

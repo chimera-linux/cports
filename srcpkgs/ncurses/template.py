@@ -17,7 +17,7 @@ checksum = ["30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"]
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]
 
-depends = [f"ncurses-base-{version}_{revision}"]
+depends = [f"ncurses-base={version}-r{revision}"]
 
 def do_configure(self):
     self.CFLAGS.append("-fPIC")
@@ -130,7 +130,7 @@ def _libs(self):
 @subpackage("ncurses-devel")
 def _devel(self):
     self.short_desc = short_desc + " - development files"
-    self.depends = [f"ncurses-libs-{version}_{revision}"]
+    self.depends = [f"ncurses-libs={version}-r{revision}"]
 
     def install():
         self.take("usr/bin/ncurses*-config")
@@ -165,7 +165,7 @@ def _base(self):
 @subpackage("ncurses-term")
 def _term(self):
     self.short_desc = short_desc + " - full terminal descriptions"
-    self.depends = [f"ncurses-base-{version}_{revision}"]
+    self.depends = [f"ncurses-base={version}-r{revision}"]
 
     def install():
         self.take("usr/share/tabset")
@@ -176,7 +176,7 @@ def _term(self):
 @subpackage("ncurses-libtinfo-libs")
 def _tinfo(self):
     self.short_desc = short_desc + " - libtinfo.so symlink"
-    self.depends = [f"ncurses-libs-{version}_{revision}"]
+    self.depends = [f"ncurses-libs={version}-r{revision}"]
 
     def install():
         self.take("usr/lib/libtinfo*.so.*")
@@ -187,8 +187,8 @@ def _tinfo(self):
 def _tdevel(self):
     self.short_desc = short_desc + " - libtinfo.so symlink - development files"
     self.depends = [
-        f"ncurses-devel-{version}_{revision}",
-        f"ncurses-libtinfo-libs-{version}_{revision}"
+        f"ncurses-devel={version}-r{revision}",
+        f"ncurses-libtinfo-libs={version}-r{revision}"
     ]
 
     def install():

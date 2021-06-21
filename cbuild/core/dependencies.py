@@ -1,5 +1,6 @@
-from cbuild.core import logger, template, paths, xbps, chroot
+from cbuild.core import logger, template, paths, chroot
 from cbuild.step import build as do_build
+from cbuild.apk import util as autil
 from cbuild import cpu
 from os import makedirs
 
@@ -18,7 +19,7 @@ def _srcpkg_ver(pkgn):
         return _tcache[pkgn]
 
     rv = template.read_pkg(pkgn, False, False, False, None)
-    cv = rv.version + "_" + str(rv.revision)
+    cv = rv.version + "-r" + str(rv.revision)
     _tcache[pkgn] = cv
 
     return cv
@@ -36,10 +37,8 @@ def _setup_depends(pkg):
             crdeps.append((sp.pkgname, x))
 
     for orig, dep in crdeps:
-        pd = xbps.get_pkg_dep_name(dep)
-        if not pd:
-            pd = xbps.get_pkg_name(dep)
-        if not pd:
+        pn, pv, pop = autil.split_pkg_name(dep)
+        if not pn:
             rdeps.append((orig, dep + ">=0"))
         else:
             rdeps.append((orig, dep))
@@ -47,16 +46,16 @@ def _setup_depends(pkg):
     for dep in pkg.hostmakedepends:
         sver = _srcpkg_ver(dep)
         if not sver:
-            hdeps.append(dep)
+            hdeps.append((None, dep))
             continue
-        hdeps.append(dep + "-" + sver)
+        hdeps.append((sver, dep))
 
     for dep in pkg.makedepends:
         sver = _srcpkg_ver(dep)
         if not sver:
-            tdeps.append(dep)
+            tdeps.append((None, dep))
             continue
-        tdeps.append(dep + "-" + sver)
+        tdeps.append((sver, dep))
 
     return hdeps, tdeps, rdeps
 
@@ -76,10 +75,31 @@ def _is_installed(pkgn):
         "info", "--installed", pkgn
     ], capture_out = True).returncode == 0
 
-def _is_available(pkgn):
-    return chroot.enter("apk", [
+def _is_available(pkgn, pattern = None):
+    aout = chroot.enter("apk", [
         "info", "--description", pkgn
-    ], capture_out = True).returncode == 0
+    ], capture_out = True)
+
+    if aout.returncode != 0:
+        return None
+
+    sout = aout.stdout.strip()
+    didx = sout.find(b"description:")
+    if didx < 0:
+        logger.get().out_red("cbuild: invalid apk output")
+        raise Exception()
+
+    pn = sout[0:didx].strip()
+    if len(pn) == 0:
+        logger.get().out_red("cbuild: invalid apk output")
+        raise Exception()
+
+    pn = pn.decode()
+
+    if not pattern or autil.pkg_match(pn, pattern):
+        return pn[len(pkgn) + 1:]
+
+    return None
 
 def install(pkg, origpkg, step, depmap, signkey):
     style = ""
@@ -104,65 +124,57 @@ def install(pkg, origpkg, step, depmap, signkey):
     if len(ihdeps) == 0 and len(itdeps) == 0 and len(irdeps) == 0:
         return
 
-    for dep in ihdeps:
-        pkgn = xbps.get_pkg_name(dep)
-        pkgf = pkgn
-        if not pkgn:
-            pkgn = dep
+    for sver, pkgn in ihdeps:
         # check if already installed
         if _is_installed(pkgn):
-            log.out_plain(f"   [host] {dep}: installed")
+            log.out_plain(f"   [host] {pkgn}: installed")
             continue
         # check if available in repository
-        if _is_available(pkgn):
-            log.out_plain(f"   [host] {dep}: found")
+        aver = _is_available(pkgn, (pkgn + "=" + sver) if sver else None)
+        if aver:
+            log.out_plain(f"   [host] {pkgn}: found ({aver})")
             host_binpkg_deps.append(pkgn)
             continue
         # dep finder did not previously resolve a template
-        if not pkgf:
-            log.out_plain(f"   [host] {dep}: unresolved build dependency")
-            pkg.error(f"host dependency '{dep}' does not exist")
+        if not sver:
+            log.out_plain(f"   [host] {pkgn}: unresolved build dependency")
+            pkg.error(f"host dependency '{pkgn}' does not exist")
         # not found
-        log.out_plain(f"   [host] {dep}: not found")
+        log.out_plain(f"   [host] {pkgn}: not found")
         # check for loops
         if pkgn == origpkg or pkgn == pkg.pkgname:
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
-        host_missing_deps.append(dep)
+        host_missing_deps.append(pkgn)
 
-    for dep in itdeps:
-        pkgn = xbps.get_pkg_name(dep)
-        pkgf = pkgn
-        if not pkgn:
-            pkgn = dep
+    for sver, pkgn in itdeps:
         # check if already installed
         if _is_installed(pkgn):
-            log.out_plain(f"   [target] {dep}: installed")
+            log.out_plain(f"   [target] {pkgn}: installed")
             continue
         # check if available in repository
-        if _is_available(pkgn):
-            log.out_plain(f"   [target] {dep}: found")
+        aver = _is_available(pkgn, (pkgn + "=" + sver) if sver else None)
+        if aver:
+            log.out_plain(f"   [target] {pkgn}: found ({aver})")
             binpkg_deps.append(pkgn)
             continue
         # dep finder did not previously resolve a template
-        if not pkgf:
-            log.out_plain(f"   [target] {dep}: unresolved build dependency")
-            pkg.error(f"target dependency '{dep}' does not exist")
+        if not sver:
+            log.out_plain(f"   [target] {pkgn}: unresolved build dependency")
+            pkg.error(f"target dependency '{pkgn}' does not exist")
         # not found
-        log.out_plain(f"   [target] {dep}: not found")
+        log.out_plain(f"   [target] {pkgn}: not found")
         # check for loops
         if pkgn == origpkg or pkgn == pkg.pkgname:
             pkg.error(f"[target] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
-        missing_deps.append(dep)
+        missing_deps.append(pkgn)
 
     for origin, dep in irdeps:
-        pkgn = xbps.get_pkg_dep_name(dep)
+        pkgn, pkgv, pkgop = autil.split_pkg_name(dep)
         # sanitize
         if not pkgn:
-            pkgn = xbps.get_pkg_name(dep)
-            if not pkgn:
-                pkg.error(f"invalid runtime dependency: {dep}")
+            pkg.error(f"invalid runtime dependency: {dep}")
         # check special cases if guaranteed not to be a loop
         if pkgn != origin:
             # subpackage depending on parent
@@ -185,9 +197,9 @@ def install(pkg, origpkg, step, depmap, signkey):
         if pkgn == origpkg and pkg.pkgname != origpkg:
             pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # check the repository
-        # FIXME: check version constraints
-        if _is_available(pkgn):
-            log.out_plain(f"   [runtime] {dep}: found")
+        aver = _is_available(pkgn, dep)
+        if aver:
+            log.out_plain(f"   [runtime] {dep}: found ({aver})")
             continue
         # not found
         log.out_plain(f"   [runtime] {dep}: not found")
@@ -196,8 +208,7 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     from cbuild.core import build
 
-    for hd in host_missing_deps:
-        pn = xbps.get_pkg_name(hd)
+    for pn in host_missing_deps:
         try:
             build.build(step, template.read_pkg(
                 pn, pkg.force_mode, pkg.bootstrapping, True, pkg
@@ -206,8 +217,7 @@ def install(pkg, origpkg, step, depmap, signkey):
             pass
         host_binpkg_deps.append(pn)
 
-    for td in missing_deps:
-        pn = xbps.get_pkg_name(td)
+    for pn in missing_deps:
         try:
             build.build(step, template.read_pkg(
                 pn, pkg.force_mode, pkg.bootstrapping, True, pkg

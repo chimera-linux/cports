@@ -81,9 +81,9 @@ def _crehash(self):
 def _devel(self):
     self.short_desc = short_desc + " - development files"
     self.depends = [
-        f"{pkgname}>={version}_{revision}",
-        "libssl1.1>={version}_{revision}",
-        "libcrypto1.1>={version}_{revision}"
+        f"{pkgname}={version}-r{revision}",
+        "libssl1.1={version}-r{revision}",
+        "libcrypto1.1={version}-r{revision}"
     ]
 
     def install():

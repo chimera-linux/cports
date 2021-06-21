@@ -26,7 +26,7 @@ def _gmpxx(self):
 def _develxx(self):
     self.short_desc = short_desc + " - C++ development files"
     self.depends = [
-        f"gmp-devel-{version}_{revision}", f"gmpxx-{version}_{revision}"
+        f"gmp-devel={version}-r{revision}", f"gmpxx={version}-r{revision}"
     ]
 
     def install():
@@ -40,7 +40,7 @@ def _develxx(self):
 @subpackage("gmp-devel")
 def _devel(self):
     self.short_desc = short_desc + " - development files"
-    self.depends = [f"gmp-{version}_{revision}"]
+    self.depends = [f"gmp={version}-r{revision}"]
 
     def install():
         self.take("usr/include")
