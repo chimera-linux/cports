@@ -8,6 +8,7 @@ configure_args = [
     "-DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra;compiler-rt;libcxx;libcxxabi;libunwind;lld;openmp",
     # other stuff
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
+    #"-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES", TODO: enable when we bootstrap with llvm
     "-DLIBCXX_CXX_ABI=libcxxabi",
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
