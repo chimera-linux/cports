@@ -71,10 +71,16 @@ def invoke(pkg):
 
     # FIXME: also emit dependencies for proper version constraints
     for dep in verify_deps:
-        # in current package or a subpackage, ignore
+        # current package or a subpackage
         if dep in pkg.rparent.current_sonames:
             depn = pkg.rparent.current_sonames[dep]
-            log.out_plain(f"   SONAME: {dep} <-> {depn} (ignored)")
+            if depn == pkg.pkgname:
+                # current package: ignore
+                log.out_plain(f"   SONAME: {dep} <-> {depn} (ignored)")
+            else:
+                # subpackage: add
+                log.out_plain(f"   SONAME: {dep} <-> {depn}")
+                pkg.so_requires.append(dep)
             continue
         # otherwise, check if it came from an installed dependency
         info = subprocess.run([
