@@ -23,12 +23,17 @@ class Make:
         else:
             self.jobs = jobs
 
-        if tmpl.bootstrapping and self.command == "gmake":
-            # when bootstrapping (which means using external make) and
-            # no gmake is explicitly available, fall back to make (as
-            # that is generally guaranteed to be GNU make)
-            if not shutil.which("gmake"):
-                self.command = "make"
+        if tmpl.bootstrapping:
+            # since usual Linux systems have make point to GNU make and bmake
+            # point to BSD make, we need to make some adjustments for that:
+            if self.command == "gmake":
+                # if gmake was forced and does not exist, fall back to make
+                if not shutil.which("gmake"):
+                    self.command = "make"
+            elif self.command == "make"
+                # normal make means bmake for us; if it exists, use it
+                if shutil.which("bmake"):
+                    self.command = "bmake"
 
     def invoke(
         self, targets = [], args = [], jobs = None, env = {}, wrksrc = None
