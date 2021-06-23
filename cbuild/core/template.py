@@ -18,7 +18,7 @@ import subprocess
 import shutil
 import builtins
 
-from cbuild.core import logger, chroot, paths
+from cbuild.core import logger, chroot, paths, version
 from cbuild import cpu
 
 class PackageError(Exception):
@@ -477,12 +477,10 @@ class Template(Package):
                 self.error("missing or invalid field: %s" % fl)
 
     def validate_version(self):
-        if "-" in self.version:
-            self.error("version contains invalid character: -")
-        if "_" in self.version:
-            self.error("version contains invalid character: _")
-        if not search("\d", self.version):
-            self.error("version must contain a digit")
+        try:
+            x = version.Version(self.version + "-r" + str(self.revision))
+        except:
+            self.error("version has an invalid format")
 
     def validate_arch(self):
         if not self.archs:

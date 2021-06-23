@@ -1,0 +1,25 @@
+From b287a2c2b779758a31dc3902a7daf63cc0e6727f Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 23 Jun 2021 01:40:50 +0200
+Subject: [PATCH 1/2] disable ld build
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index e8713982..cbfd9c59 100644
+--- a/Makefile
++++ b/Makefile
+@@ -31,7 +31,7 @@ SUBDIR += cxxfilt
+ SUBDIR += elfcopy
+ SUBDIR += elfdump
+ SUBDIR += findtextrel
+-SUBDIR += ld
++#SUBDIR += ld
+ SUBDIR += nm
+ SUBDIR += readelf
+ SUBDIR += size
+-- 
+2.32.0
+

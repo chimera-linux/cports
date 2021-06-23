@@ -48,6 +48,11 @@ class Version:
                 if vers.startswith(sfx):
                     self.components.append(suffixes[sfx])
                     vers = vers[len(sfx):]
+                    # the suffix can be followed by a number
+                    fdig, vers = self.parse_num(vers)
+                    if fdig != None:
+                        self.components.append(0)
+                        self.components.append(fdig)
                     break
             else:
                 # bad suffix
