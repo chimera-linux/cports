@@ -27,6 +27,9 @@ def invoke(pkg):
             pkg.log(f"skipping dependency scan for {str(fp)}")
             continue
 
+        if pname != pkg.pkgname:
+            continue
+
         for n in needed:
             verify_deps[n] = True
 
