@@ -1,0 +1,15 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -2484,10 +2484,10 @@ uninstall-man: uninstall-man1
+ 
+ @USE_PYTHON_TRUE@lddtree: lddtree.py
+ @USE_PYTHON_FALSE@lddtree: lddtree.sh
+-	cp $< $@
++	cp lddtree.sh $@
+ 
+ symtree: symtree.sh
+-	cp $< $@
++	cp symtree.sh $@
+ check-hook:
+ 	$(TMAKE) check
+ check: check-hook
