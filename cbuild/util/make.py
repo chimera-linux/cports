@@ -30,7 +30,7 @@ class Make:
                 # if gmake was forced and does not exist, fall back to make
                 if not shutil.which("gmake"):
                     self.command = "make"
-            elif self.command == "make"
+            elif self.command == "make":
                 # normal make means bmake for us; if it exists, use it
                 if shutil.which("bmake"):
                     self.command = "bmake"

@@ -375,6 +375,7 @@ core_fields = [
     ("shlib_provides", [], list, True, False, True, False),
     ("shlib_requires", [], list, True, False, True, False),
     ("noshlibprovides", False, bool, False, False, True, False),
+    ("allow_textrels", False, bool, False, False, False, True),
 
     # packaging
     ("triggers", [], list, True, False, True, False),

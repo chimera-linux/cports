@@ -8,44 +8,27 @@ def invoke(pkg):
     if pkg.noverifyrdeps:
         return
 
-    curfilemap = {}
     verify_deps = {}
     pkg.so_requires = []
+    curelf = pkg.rparent.current_elfs
+    curso = {}
 
-    for root, dirs, files in os.walk(pkg.destdir):
-        for f in files:
-            fp = pathlib.Path(root) / f
+    for fp, finfo in curelf.items():
+        fp = pathlib.Path(fp)
 
-            curfilemap[f] = True
+        soname, needed, pname = finfo
 
-            if fp.is_symlink():
-                continue
+        if soname:
+            curso[soname] = pname
+        elif fp.suffix == ".so" and str(fp.parent) == "usr/lib":
+            curso[soname] = fp.name
 
-            if not os.access(fp, os.W_OK):
-                continue
+        if ("/" + str(fp)) in pkg.skiprdeps:
+            pkg.log(f"skipping dependency scan for {str(fp)}")
+            continue
 
-            with open(fp, "rb") as fh:
-                if fh.read(4) != b"\x7FELF":
-                    continue
-
-            ff = fp.relative_to(pkg.destdir)
-
-            if "/" + str(ff) in pkg.skiprdeps:
-                pkg.log(f"skipping dependency scan for {ff}")
-                continue
-
-            for ln in chroot.enter(
-                pkg.rparent.tools["OBJDUMP"], [
-                    "-p", str(pkg.chroot_destdir / ff)
-                ],
-                capture_out = True, bootstrapping = pkg.bootstrapping
-            ).stdout.splitlines():
-                ln = ln.strip()
-                if not ln.startswith(b"NEEDED"):
-                    continue
-                ln = ln[6:].strip().decode("ascii")
-                if not ln in verify_deps:
-                    verify_deps[ln] = True
+        for n in needed:
+            verify_deps[n] = True
 
     broken = False
     log = logger.get()
@@ -53,8 +36,8 @@ def invoke(pkg):
     # FIXME: also emit dependencies for proper version constraints
     for dep in verify_deps:
         # current package or a subpackage
-        if dep in pkg.rparent.current_sonames:
-            depn = pkg.rparent.current_sonames[dep]
+        if dep in curso:
+            depn = curso[dep]
             if depn == pkg.pkgname:
                 # current package: ignore
                 log.out_plain(f"   SONAME: {dep} <-> {depn} (ignored)")
