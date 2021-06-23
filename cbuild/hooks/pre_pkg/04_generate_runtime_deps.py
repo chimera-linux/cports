@@ -5,8 +5,6 @@ import pathlib
 import subprocess
 
 def invoke(pkg):
-    shlibmap = paths.cbuild() / "shlibs"
-
     if pkg.noverifyrdeps:
         return
 
@@ -48,23 +46,6 @@ def invoke(pkg):
                 ln = ln[6:].strip().decode("ascii")
                 if not ln in verify_deps:
                     verify_deps[ln] = True
-
-    shmap = {}
-    with open(shlibmap) as f:
-        for ln in f:
-            ln = ln.strip()
-            if ln.startswith("#"):
-                continue
-
-            sv = ln.split()
-            solib, pkgn = sv[0], sv[1]
-            if not solib in shmap:
-                shl = []
-                shmap[solib] = shl
-            else:
-                shl = shmap[solib]
-
-            shmap[solib].append(pkgn)
 
     broken = False
     log = logger.get()
