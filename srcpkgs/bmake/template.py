@@ -19,8 +19,7 @@ def do_build(self):
     )
 
 def do_install(self):
-    self.install_dir("usr/share/man/man1")
-    self.install_link("man1", "usr/share/man/cat1")
+    import shutil
     self.do(
         self.chroot_wrksrc / "boot-strap", [
             "--prefix=/usr", "--install-destdir=" + str(self.chroot_destdir),
@@ -28,6 +27,8 @@ def do_install(self):
         ],
         wrksrc = "build"
     )
-    self.unlink("usr/share/man/cat1")
+    shutil.rmtree(self.destdir / "usr/share/man")
+    self.install_man("bmake.1")
+    self.install_man("make.1")
     self.install_license("LICENSE")
     self.install_link("bmake", "usr/bin/make")
