@@ -19,7 +19,7 @@ paths.init(path.dirname(__file__), "masterdir", "hostdir")
 os.chdir(path.dirname(__file__))
 
 from cbuild.util import make
-from cbuild.core import chroot, logger, template, build
+from cbuild.core import chroot, logger, template, build, pkg
 from cbuild import cpu
 
 from cbuild.apk import sign
@@ -143,6 +143,7 @@ def do_pkg(tgt):
     # don't remove builddir/destdir
     chroot.repo_sync()
     chroot.update(do_clean = False)
+    pkg.remove_autodeps(rp)
     build.build(tgt, rp, {}, signkey)
 
 def do_bad(tgt):
