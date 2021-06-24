@@ -1,0 +1,24 @@
+From 7a8ab50e981ff21227c2bf0699ee381299ad7e94 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 23 Jun 2021 23:23:50 +0200
+Subject: [PATCH] libelf: disable -Werror
+
+---
+ libelf/os.Linux.mk | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/libelf/os.Linux.mk b/libelf/os.Linux.mk
+index 2292b6ec..89c23e74 100644
+--- a/libelf/os.Linux.mk
++++ b/libelf/os.Linux.mk
+@@ -5,7 +5,6 @@ CFLAGS+=	-Wcast-align
+ CFLAGS+=	-Wcast-qual
+ CFLAGS+=	-Wchar-subscripts
+ CFLAGS+=	-Wconversion
+-CFLAGS+=	-Werror
+ CFLAGS+=	-Wextra
+ CFLAGS+=	-Wformat=2
+ CFLAGS+=	-Winline
+-- 
+2.32.0
+

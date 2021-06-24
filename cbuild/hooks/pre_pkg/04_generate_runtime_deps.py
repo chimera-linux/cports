@@ -4,6 +4,13 @@ import os
 import pathlib
 import subprocess
 
+# a special map since these are used from the host during bootstrap stage
+bootstrap_map = {
+    "libc.so": "musl",
+    "libc++.so.1": "libcxx",
+    "libunwind.so.1": "libunwind",
+}
+
 def invoke(pkg):
     if pkg.noverifyrdeps:
         return
@@ -21,7 +28,7 @@ def invoke(pkg):
         if soname:
             curso[soname] = pname
         elif fp.suffix == ".so" and str(fp.parent) == "usr/lib":
-            curso[soname] = fp.name
+            curso[fp.name] = pname
 
         if ("/" + str(fp)) in pkg.skiprdeps:
             pkg.log(f"skipping dependency scan for {str(fp)}")
@@ -50,15 +57,18 @@ def invoke(pkg):
                 pkg.so_requires.append(dep)
             continue
         # otherwise, check if it came from an installed dependency
-        info = subprocess.run([
-            "apk", "info", "--root", str(paths.masterdir()),
-            "--installed", "so:" + dep
-        ], capture_output = True)
-        if info.returncode != 0:
-            log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
-            broken = True
-            continue
-        sdep = info.stdout.strip().decode()
+        if not pkg.bootstrapping or not (dep in bootstrap_map):
+            info = subprocess.run([
+                "apk", "info", "--root", str(paths.masterdir()),
+                "--installed", "so:" + dep
+            ], capture_output = True)
+            if info.returncode != 0:
+                log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
+                broken = True
+                continue
+            sdep = info.stdout.strip().decode()
+        else:
+            sdep = bootstrap_map[dep]
         if len(sdep) == 0:
             # this should never happen though
             log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")

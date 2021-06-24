@@ -1,3 +1,4 @@
+from cbuild.core import paths
 from cbuild.util import make
 import os
 
@@ -12,8 +13,28 @@ def do_configure(self):
 
     os.makedirs(self.abs_build_wrksrc / "build", exist_ok = True)
 
+    mdir = str(paths.masterdir())
+
+    cargs = []
+
+    if self.bootstrapping:
+        with open(self.abs_build_wrksrc / "build/bootstrap.cmake", "w") as infile:
+            infile.write(f"""
+SET(CMAKE_SYSTEM_NAME Linux)
+SET(CMAKE_SYSTEM_VERSION 1)
+
+SET(CMAKE_C_COMPILER   {self.tools["CC"]})
+SET(CMAKE_CXX_COMPILER {self.tools["CXX"]})
+
+SET(CMAKE_FIND_ROOT_PATH  "{mdir}/usr;{mdir}")
+
+SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+""")
+        cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
+
     self.do(
-        "cmake", [
+        "cmake", cargs + [
             "-DCMAKE_INSTALL_PREFIX=/usr",
             "-DCMAKE_BUILD_TYPE=None",
             "-DCMAKE_INSTALL_LIBDIR=lib",

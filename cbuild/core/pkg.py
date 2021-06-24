@@ -9,22 +9,42 @@ def remove_autodeps(pkg):
     failed = False
 
     if subprocess.run([
-        "apk", "info", "--root", str(paths.masterdir()), "autodeps-host"
+        "apk", "info", "--installed", "--root",
+        str(paths.masterdir()), "autodeps-host"
     ], capture_output = True).returncode == 0:
-        del_ret = chroot.enter("apk", [
-            "del", "autodeps-host"
-        ], capture_out = True)
+        if pkg.bootstrapping:
+            del_ret = subprocess.run([
+                "apk", "del", "--root", str(paths.masterdir()),
+                "--no-scripts", "--repositories-file",
+                str(paths.distdir() / "etc/apk/repositories_host"),
+                "autodeps-host"
+            ], capture_output = True)
+        else:
+            del_ret = chroot.enter("apk", [
+                "del", "autodeps-host"
+            ], capture_out = True)
+
         if del_ret.returncode != 0:
             pkg.logger.out_plain(">> stderr (host):")
             pkg.logger.out_plain(del_ret.stderr.decode())
             failed = True
 
     if subprocess.run([
-        "apk", "info", "--root", str(paths.masterdir()), "autodeps-target"
+        "apk", "info", "--installed", "--root",
+        str(paths.masterdir()), "autodeps-target"
     ], capture_output = True).returncode == 0:
-        del_ret = chroot.enter("apk", [
-            "del", "autodeps-target"
-        ], capture_out = True)
+        if pkg.bootstrapping:
+            del_ret = subprocess.run([
+                "apk", "del", "--root", str(paths.masterdir()),
+                "--no-scripts", "--repositories-file",
+                str(paths.distdir() / "etc/apk/repositories_host"),
+                "autodeps-target"
+            ], capture_output = True)
+        else:
+            del_ret = chroot.enter("apk", [
+                "del", "autodeps-target"
+            ], capture_out = True)
+
         if del_ret.returncode != 0:
             pkg.logger.out_plain(">> stderr (target):")
             pkg.logger.out_plain(del_ret.stderr.decode())

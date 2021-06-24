@@ -5,13 +5,13 @@ bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl", "--enable-xattr", "--without-expat",
-    "--with-lz4", "--with-openssl", "--with-zstd", "--without-xml2",
+    "--with-lz4", "--with-openssl", "--without-xml2",
     "--without-nettle", "--disable-rpath"
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "zlib-devel", "bzip2-devel", "liblzma-devel",
-    "acl-devel", "libzstd-devel", "liblz4-devel", "openssl-devel"
+    "acl-devel", "liblz4-devel", "openssl-devel"
 ]
 short_desc = "Library to read/write several different streaming archive formats"
 maintainer = "Juan RP <xtraeme@gmail.com>"
@@ -19,6 +19,12 @@ license = "BSD-2-Clause"
 homepage = "http://www.libarchive.org/"
 distfiles = [f"https://github.com/libarchive/libarchive/releases/download/{version}/libarchive-{version}.tar.gz"]
 checksum = ["9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a"]
+
+if not current.bootstrapping:
+    configure_args.append("--with-zstd")
+    makedepends.append("libzstd-devel")
+else:
+    configure_args.append("--without-zstd")
 
 def do_check(self):
     pass

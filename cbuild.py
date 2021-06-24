@@ -107,7 +107,8 @@ def binary_bootstrap(tgt):
         chroot.install(cmd[1])
 
 def bootstrap(tgt):
-    rp = template.read_pkg("base-chroot", False, True, False, None)
+    rp = template.read_pkg("llvm", False, True, False, None)
+    chroot.initdb()
     chroot.repo_sync()
     build.build(tgt, rp, {}, signkey)
     shutil.rmtree(paths.masterdir())

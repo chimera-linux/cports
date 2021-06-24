@@ -29,7 +29,9 @@ def do_build(self):
     import glob
 
     mk = make.Make(self, jobs = 1)
-    mk.invoke("mrproper", ["ARCH=" + _arch, "headers"])
+    mk.invoke("mrproper", [
+        "ARCH=" + _arch, "CC=clang", "HOSTCC=clang", "headers"
+    ])
 
     # remove extra files and drm headers
     for fn in self.find(".*", files = True, root = self.abs_wrksrc):

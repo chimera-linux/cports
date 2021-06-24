@@ -1,10 +1,10 @@
 pkgname = "elftoolchain"
 _commit = "f7e9afc6f9ad0d84ea73b4659c5d6d13275d2306"
 version = "0.7.1_svn20210623"
+bootstrap = True
 revision = 1
 wrksrc = f"{pkgname}-{_commit}"
 build_style = "gnu_makefile"
-hostmakedepends = ["m4", "byacc", "flex"]
 makedepends = ["libarchive-devel"]
 make_build_args = [
     "WITH_ADDITIONAL_DOCUMENTATION=no",
@@ -24,11 +24,16 @@ homepage = "https://sourceforge.net/projects/elftoolchain"
 distfiles = [f"https://github.com/{pkgname}/{pkgname}/archive/{_commit}.tar.gz"]
 checksum = ["3d9e0513af4b7cb8ac7944d98057b8d61fcc4ff326b030a7b06006c0abb7922c"]
 
+if not current.bootstrapping:
+    hostmakedepends = ["m4", "byacc", "flex"]
+
 def post_install(self):
     self.install_license("LICENSE")
     # fix some permissions
     for f in (self.destdir / "usr/lib").glob("*.so.*"):
         f.chmod(0o755)
+    # install a musl-compatible elfdefinitions.h
+    self.install_file(self.files_path / "elfdefinitions.h", "usr/include/sys")
 
 @subpackage("elftoolchain-devel")
 def _devel(self):

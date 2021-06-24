@@ -98,3 +98,5 @@ def build(step, pkg, depmap, signkey):
     pkgm.remove_pkg_wrksrc(pkg)
     pkgm.remove_pkg(pkg)
     pkgm.remove_pkg_statedir(pkg)
+
+    del depmap[pkg.pkgname]

@@ -4,6 +4,7 @@ revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
 make_cmd = "gmake"
+make_build_args = ["CC=clang", "BUILD_CC=clang", "GOLANG=no"]
 make_install_args = [
     "PKGCONFIGDIR=/usr/lib/pkgconfig",
     "SBINDIR=/usr/bin",

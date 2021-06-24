@@ -3,7 +3,10 @@ version = "5.40"
 revision = 2
 bootstrap = True
 build_style = "gnu_configure"
-configure_args = ["--enable-static", "--disable-libseccomp"]
+configure_args = [
+    "--enable-static", "--disable-libseccomp",
+    "--disable-bzlib", "--disable-xzlib"
+]
 makedepends = ["zlib-devel"]
 short_desc = "File type identification utility"
 maintainer = "Enno Boland <gottox@voidlinux.org>"

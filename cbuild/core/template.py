@@ -523,7 +523,6 @@ class Template(Package):
         cenv.update(self.env)
         cenv.update(env)
 
-
         wdir = self.chroot_build_wrksrc if build else self.chroot_wrksrc
         if wrksrc:
             wdir = wdir / wrksrc
@@ -725,20 +724,16 @@ def from_module(m, ret):
 
     if ret.skip_if_exist:
         pinfo = subprocess.run([
-            "apk", "info", "--root", str(mdir),
-            "--repositories-file", str(paths.distdir() / "etc/apk/repositories_host"),
-            "--description", ret.pkgname
+            "apk", "search", "-e", "--root", str(paths.masterdir()),
+            "--repositories-file",
+            str(paths.distdir() / "etc/apk/repositories_host"),
+            ret.pkgname
         ], capture_output = True)
-        if pinfo.returncode == 0 and len(pinfo.stdout) > 0:
-            match = re.match(
-                f"{ret.pkgname}-(.+) description",
-                pinfo.stdout.lstrip().decode()
-            )
-            if match and ret.pkgver == match[1]:
-                if ret.origin == ret:
-                    # TODO: print the repo somehow
-                    ret.log(f"found ({cpu.target()})")
-                raise SkipPackage()
+        if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
+            if ret.origin == ret:
+                # TODO: print the repo somehow
+                ret.log(f"found ({pinfo.stdout.strip().decode()})")
+            raise SkipPackage()
 
     spdupes = {}
     # link subpackages and fill in their fields
@@ -819,17 +814,17 @@ def from_module(m, ret):
     ret.CXXFLAGS = ["-O2"] + ret.CXXFLAGS
 
     if not "CC" in ret.tools:
-        ret.tools["CC"] = "cc"
+        ret.tools["CC"] = "clang"
     if not "CXX" in ret.tools:
-        ret.tools["CXX"] = "c++"
+        ret.tools["CXX"] = "clang++"
     if not "CPP" in ret.tools:
-        ret.tools["CPP"] = "cpp"
+        ret.tools["CPP"] = "clang-cpp"
     if not "LD" in ret.tools:
         ret.tools["LD"] = "ld"
     if not "AR" in ret.tools:
         ret.tools["AR"] = "ar"
     if not "AS" in ret.tools:
-        ret.tools["AS"] = "as"
+        ret.tools["AS"] = "clang"
     if not "RANLIB" in ret.tools:
         ret.tools["RANLIB"] = "ranlib"
     if not "STRIP" in ret.tools:

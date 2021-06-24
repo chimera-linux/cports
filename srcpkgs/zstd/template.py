@@ -1,8 +1,8 @@
 pkgname = "zstd"
 version = "1.5.0"
 revision = 1
-bootstrap = True
 build_style = "meson"
+hostmakedepends = ["pkgconf", "meson"]
 makedepends = ["zlib-devel", "liblzma-devel", "liblz4-devel"]
 checkdepends = ["gtest-devel"]
 configure_args = [
@@ -16,9 +16,6 @@ distfiles = [f"https://github.com/facebook/zstd/releases/download/v{version}/zst
 checksum = ["5194fbfa781fcf45b98c5e849651aa7b3b0a008c6b72d4a0db760f3002291e94"]
 
 meson_dir = "build/meson"
-
-if not current.bootstrapping:
-    hostmakedepends = ["pkgconf", "meson"]
 
 def post_install(self):
     self.install_license("LICENSE")

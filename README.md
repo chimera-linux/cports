@@ -15,5 +15,4 @@ bootstrapping itself from source.
 
 * Cross-compiling
 * Clean, bootstrap update, etc.
-* Rebase on Clang
 * ...

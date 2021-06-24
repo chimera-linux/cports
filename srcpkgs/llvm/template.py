@@ -1,6 +1,7 @@
 pkgname = "llvm"
 version = "12.0.0"
 revision = 1
+bootstrap = True
 wrksrc = f"llvm-project-{version}.src"
 build_style = "cmake"
 configure_args = [
@@ -8,7 +9,7 @@ configure_args = [
     "-DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra;compiler-rt;libcxx;libcxxabi;libunwind;lld;openmp",
     # other stuff
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
-    #"-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES", TODO: enable when we bootstrap with llvm
+    "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
     "-DLIBCXX_CXX_ABI=libcxxabi",
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
@@ -26,14 +27,11 @@ configure_args = [
     "-DCLANG_DEFAULT_RTLIB=compiler-rt",
     "-DCLANG_DEFAULT_UNWINDLIB=libunwind",
     "-DCLANG_DEFAULT_CXX_STDLIB=libc++",
+    "-DLLVM_ENABLE_LIBXML2=NO",
+    "-DLLVM_ENABLE_LLD=YES",
+    "-DLLVM_ENABLE_LIBCXX=YES",
 ]
-hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
-]
-makedepends = [
-    "python-devel", "zlib-devel", "libffi-devel", "libedit-devel",
-    "libexecinfo-devel"
-]
+makedepends = ["zlib-devel", "libffi-devel", "libexecinfo-devel"]
 depends = [
     f"libllvm={version}-r{revision}",
     f"libomp={version}-r{revision}",
@@ -48,18 +46,32 @@ checksum = ["9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"]
 
 cmake_dir = "llvm"
 
-def pre_configure(self):
-    from cbuild import cpu
+if not current.bootstrapping:
+    hostmakedepends = [
+        "cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
+    ]
+    makedepends += ["python-devel", "libedit-devel", "elftoolchain-devel"]
+else:
+    CFLAGS = ["-fPIC"]
+    CXXFLAGS = ["-fPIC"]
+    configure_args += [
+        "-DLLVM_ENABLE_LIBEDIT=NO",
+        "-DLLVM_ENABLE_LIBPFM=NO",
+        "-DLLVM_ENABLE_TERMINFO=NO",
+    ]
 
-    larch = cpu.match_target(
-        "x86_64*", "X86",
-        "ppc*", "PowerPC",
-        "aarch64*", "AArch64"
-    )
+from cbuild import cpu
 
-    self.configure_args.append("-DLLVM_TARGET_ARCH=" + larch)
-    self.configure_args.append("-DLLVM_HOST_TRIPLE=" + self.triplet)
-    self.configure_args.append("-DLLVM_DEFAULT_TARGET_TRIPLE=" + self.triplet)
+_triplet, _arch = cpu.match_target(
+    "x86_64*", ("x86_64-linux-musl", "X86"),
+    "aarch64*", ("aarch64-linux-musl", "AArch64"),
+    "ppc64le*", ("powerpc64le-linux-musl", "PowerPC"),
+    "ppc64*", ("powerpc64-linux-musl", "PowerPC"),
+)
+
+configure_args.append("-DLLVM_TARGET_ARCH=" + _arch)
+configure_args.append("-DLLVM_HOST_TRIPLE=" + _triplet)
+configure_args.append("-DLLVM_DEFAULT_TARGET_TRIPLE=" + _triplet)
 
 def post_install(self):
     self.install_file(
@@ -83,6 +95,11 @@ def post_install(self):
         self.abs_wrksrc / "libunwind/include/mach-o/compact_unwind_encoding.h",
         "usr/include/mach-o"
     )
+    # it's our default toolchain
+    self.install_link("clang", "usr/bin/cc")
+    self.install_link("clang++", "usr/bin/c++")
+    if not (self.destdir / "usr/bin/ld").is_symlink():
+        self.install_link("ld.lld", "usr/bin/ld")
 
 @subpackage("clang-tools-extra")
 def _tools_extra(self):
@@ -111,12 +128,16 @@ def _tools_extra(self):
 def _libomp(self):
     self.short_desc = short_desc + " - Clang OpenMP support library"
 
+    if not self.bootstrapping:
+        extra = ["usr/lib/libomptarget.rtl.*.so"]
+    else:
+        extra = []
+
     return [
         "usr/lib/libomp.so",
-        #"usr/lib/libomptarget.rtl.*.so", FIXME need libelf
         "usr/lib/libarcher.so",
         "usr/lib/libomp*.so.*"
-    ]
+    ] + extra
 
 @subpackage("libomp-devel")
 def _libomp_devel(self):
@@ -144,6 +165,8 @@ def _clang(self):
         "usr/include/clang-c",
         "usr/bin/*clang*",
         "usr/bin/c-index-test",
+        "usr/bin/cc",
+        "usr/bin/c++",
         "usr/lib/clang",
         "usr/lib/cmake/clang",
         "usr/lib/libclang*.a",
@@ -154,10 +177,9 @@ def _clang(self):
 @subpackage("clang-analyzer")
 def _clang_analyzer(self):
     self.short_desc = short_desc + " - Source code analysis"
-    self.depends = [
-        f"clang={version}-r{revision}",
-        f"python",
-    ]
+    self.depends = [f"clang={version}-r{revision}"]
+    if not self.bootstrapping:
+        self.depends.append("python")
 
     return [
         "usr/bin/scan-*",
@@ -245,6 +267,7 @@ def _lld(self):
     self.short_desc = short_desc + " - linker"
 
     return [
+        "usr/bin/ld",
         "usr/bin/lld*",
         "usr/bin/wasm-ld",
         "usr/bin/ld.lld*",

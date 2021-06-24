@@ -138,6 +138,14 @@ def repo_sync():
     for f in (paths.distdir() / "etc/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
 
+    # do not refresh if chroot is not initialized
+    if not (paths.masterdir() / ".cbuild_chroot_init").is_file():
+        return
+
+    if enter("apk", ["update"]).returncode != 0:
+        logger.get().out_red(f"cbuild: failed to update pkg database")
+        raise Exception()
+
 def reconfigure():
     if not chroot_check():
         return
@@ -155,12 +163,7 @@ def reconfigure():
 
     statefile.touch()
 
-def install(arch = None, bootstrap = False):
-    if chroot_check():
-        return
-
-    logger.get().out("cbuild: installing base-chroot...")
-
+def initdb():
     # we init the database ourselves
     mdir = paths.masterdir()
     os.makedirs(mdir / "tmp", exist_ok = True)
@@ -171,10 +174,19 @@ def install(arch = None, bootstrap = False):
     os.makedirs(mdir / "var/cache/misc", exist_ok = True)
 
     # largely because of custom usrmerge
-    (mdir / "lib").symlink_to("usr/lib")
+    if not (mdir / "lib").is_symlink():
+        (mdir / "lib").symlink_to("usr/lib")
 
     (mdir / "usr/lib/apk/db/installed").touch()
     (mdir / "etc/apk/world").touch()
+
+def install(arch = None, bootstrap = False):
+    if chroot_check():
+        return
+
+    logger.get().out("cbuild: installing base-chroot...")
+
+    initdb()
 
     oldh = cpu.host()
     oldt = cpu.target()
@@ -188,7 +200,7 @@ def install(arch = None, bootstrap = False):
         arch = cpu.host()
 
     irun = subprocess.run([
-        "apk", "add", "--root", str(mdir), "--no-scripts",
+        "apk", "add", "--root", str(paths.masterdir()), "--no-scripts",
         "--repositories-file", str(paths.distdir() / "etc/apk/repositories_host"),
         "--arch", arch, "base-chroot"
     ])

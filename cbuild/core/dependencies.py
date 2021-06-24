@@ -3,6 +3,7 @@ from cbuild.step import build as do_build
 from cbuild.apk import util as autil
 from cbuild import cpu
 from os import makedirs
+import subprocess
 
 # avoid re-parsing same templates every time; the version will
 # never be conditional and that is the only thing we care about
@@ -60,9 +61,17 @@ def _setup_depends(pkg):
     return hdeps, tdeps, rdeps
 
 def _install_from_repo(pkg, pkglist, virtn):
-    ret = chroot.enter(
-        "apk", ["add", "--virtual", virtn] + pkglist, capture_out = True
-    )
+    if pkg.bootstrapping:
+        ret = subprocess.run([
+            "apk", "add", "--root", str(paths.masterdir()),
+            "--no-scripts", "--repositories-file",
+            str(paths.distdir() / "etc/apk/repositories_host"),
+            "--virtual", virtn
+        ] + pkglist, capture_output = True)
+    else:
+        ret = chroot.enter(
+            "apk", ["add", "--virtual", virtn] + pkglist, capture_out = True
+        )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()
         if len(outl) > 0:
@@ -71,30 +80,27 @@ def _install_from_repo(pkg, pkglist, virtn):
         pkg.error(f"failed to install dependencies")
 
 def _is_installed(pkgn):
-    return chroot.enter("apk", [
-        "info", "--installed", pkgn
-    ], capture_out = True).returncode == 0
+    return subprocess.run(["apk", "info", "--root", str(paths.masterdir()),
+        "--repositories-file",
+        str(paths.distdir() / "etc/apk/repositories_host"),
+        "--installed", pkgn
+    ], capture_output = True).returncode == 0
 
 def _is_available(pkgn, pattern = None):
-    aout = chroot.enter("apk", [
-        "info", "--description", pkgn
-    ], capture_out = True)
+    aout = subprocess.run([
+        "apk", "search", "-e", "--root",
+        str(paths.masterdir()), "--repositories-file",
+        str(paths.distdir() / "etc/apk/repositories_host"),
+        pkgn
+    ], capture_output = True)
 
     if aout.returncode != 0:
         return None
 
-    sout = aout.stdout.strip()
-    didx = sout.find(b"description:")
-    if didx < 0:
-        logger.get().out_red("cbuild: invalid apk output")
-        raise Exception()
+    pn = aout.stdout.strip().decode()
 
-    pn = sout[0:didx].strip()
     if len(pn) == 0:
-        logger.get().out_red("cbuild: invalid apk output")
-        raise Exception()
-
-    pn = pn.decode()
+        return None
 
     if not pattern or autil.pkg_match(pn, pattern):
         return pn[len(pkgn) + 1:]

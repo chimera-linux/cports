@@ -8,8 +8,8 @@ license = "Public Domain"
 homepage = "https://chimera-linux.org"
 
 depends = [
-    "musl-devel", "base-files", "binutils", "gcc", "diffutils", "bmake",
-    "bsdutils", "coreutils", "dash", "file", "apk-tools", "awk",
+    "musl-devel", "base-files", "elftoolchain", "clang", "lld", "diffutils",
+    "bmake", "bsdutils", "coreutils", "dash", "file", "apk-tools", "awk",
     "ncurses", "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed", "bsdtar",
     "chroot-util-linux"
 ]

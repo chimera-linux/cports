@@ -5,7 +5,7 @@ bootstrap = True
 conf_files = ["/etc/ca-certificates.conf"]
 wrksrc = "work"
 hostmakedepends = ["openssl"]
-depends = ["openssl<=2.0_1", "run-parts"]
+depends = ["openssl<=2.0", "run-parts"]
 short_desc = "Common CA certificates for SSL/TLS"
 maintainer = "Orphaned <orphan@voidlinux.org>"
 license = "GPL-2.0-or-later, MPL-2.0"

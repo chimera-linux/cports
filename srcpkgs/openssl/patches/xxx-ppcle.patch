@@ -22,8 +22,8 @@ index 8dc3e85..18f10c9 100644
          cflags           => add("-m64"),
 diff --git config config
 index 26225ca..6a1e830 100755
---- config
-+++ config
+--- a/config
++++ b/config
 @@ -543,6 +543,7 @@ case "$GUESSOS" in
  	fi
  	;;

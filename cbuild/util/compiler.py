@@ -31,9 +31,13 @@ class GnuLike:
         return self.template.do(self.cexec, argsbase, build = True)
 
 class C(GnuLike):
-    def __init__(self, tmpl, cexec = "cc"):
+    def __init__(self, tmpl, cexec = None):
+        if not cexec:
+            cexec = tmpl.tools["CC"]
         super().__init__(tmpl, cexec, tmpl.CFLAGS, tmpl.LDFLAGS)
 
 class CXX(GnuLike):
-    def __init__(self, tmpl, cexec = "cxx"):
+    def __init__(self, tmpl, cexec = None):
+        if not cexec:
+            cexec = tmpl.tools["CXX"]
         super().__init__(tmpl, cexec, tmpl.CXXFLAGS, tmpl.LDFLAGS)
