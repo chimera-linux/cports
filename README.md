@@ -45,7 +45,6 @@ to start with. Also, you will need the following tools:
 * GNU `make` (either as `gmake` or as `make`)
 * NetBSD `make` (either as `bmake` or as `make`)
 * `ninja`
-* `scanelf` (`pax-tools`)
 * `byacc`
 * `flex`
 * `perl`
