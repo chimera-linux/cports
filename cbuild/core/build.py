@@ -1,6 +1,7 @@
 from cbuild.step import fetch, extract, patch, configure
 from cbuild.step import build as buildm, install, prepkg, pkg as pkgsm
-from cbuild.core import logger, dependencies, scanelf, template, pkg as pkgm, paths
+from cbuild.core import chroot, logger, dependencies
+from cbuild.core import scanelf, template, pkg as pkgm, paths
 from cbuild.apk import cli as apk
 
 import os
@@ -94,7 +95,7 @@ def build(step, pkg, depmap, signkey):
     pkg.signing_key = None
 
     # cleanup
-    pkgm.remove_autodeps(pkg)
+    chroot.remove_autodeps(pkg.bootstrapping)
     pkgm.remove_pkg_wrksrc(pkg)
     pkgm.remove_pkg(pkg)
     pkgm.remove_pkg_statedir(pkg)

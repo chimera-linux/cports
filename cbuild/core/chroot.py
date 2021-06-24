@@ -216,6 +216,62 @@ def install(arch = None, bootstrap = False):
     chroot_check()
     _init()
 
+def remove_autodeps(bootstrapping):
+    if bootstrapping == None:
+        bootstrapping = not (paths.masterdir() / ".cbuild_chroot_init").is_file()
+
+    log = logger.get()
+
+    log.out("cbuild: removing autodeps...")
+
+    failed = False
+
+    if subprocess.run([
+        "apk", "info", "--installed", "--root",
+        str(paths.masterdir()), "autodeps-host"
+    ], capture_output = True).returncode == 0:
+        if bootstrapping:
+            del_ret = subprocess.run([
+                "apk", "del", "--root", str(paths.masterdir()),
+                "--no-scripts", "--repositories-file",
+                str(paths.distdir() / "etc/apk/repositories_host"),
+                "autodeps-host"
+            ], capture_output = True)
+        else:
+            del_ret = enter("apk", [
+                "del", "autodeps-host"
+            ], capture_out = True)
+
+        if del_ret.returncode != 0:
+            log.out_plain(">> stderr (host):")
+            log.out_plain(del_ret.stderr.decode())
+            failed = True
+
+    if subprocess.run([
+        "apk", "info", "--installed", "--root",
+        str(paths.masterdir()), "autodeps-target"
+    ], capture_output = True).returncode == 0:
+        if bootstrapping:
+            del_ret = subprocess.run([
+                "apk", "del", "--root", str(paths.masterdir()),
+                "--no-scripts", "--repositories-file",
+                str(paths.distdir() / "etc/apk/repositories_host"),
+                "autodeps-target"
+            ], capture_output = True)
+        else:
+            del_ret = enter("apk", [
+                "del", "autodeps-target"
+            ], capture_out = True)
+
+        if del_ret.returncode != 0:
+            log.out_plain(">> stderr (target):")
+            log.out_plain(del_ret.stderr.decode())
+            failed = True
+
+    if failed:
+        log.out_red("cbuild: failed to remove autodeps")
+        raise Exception()
+
 def update(do_clean = True):
     if not chroot_check():
         return
@@ -224,6 +280,11 @@ def update(do_clean = True):
 
     logger.get().out("cbuild: updating software in %s masterdir..." \
         % str(paths.masterdir()))
+
+    remove_autodeps(False)
+
+    enter("apk", ["update", "-q"], check = True)
+    enter("apk", ["upgrade"], check = True)
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
