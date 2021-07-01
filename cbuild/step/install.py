@@ -1,4 +1,4 @@
-from cbuild.core import template, dependencies
+from cbuild.core import template, dependencies, scanelf
 
 import os
 
@@ -18,6 +18,7 @@ def invoke(pkg, subpkg_mode):
     subpkg_install_done = pkg.statedir / f"{pkg.pkgname}__subpkg_install_done"
 
     if subpkg_install_done.is_file():
+        scanelf.scan(pkg, pkg.rparent.current_elfs)
         return
 
     # this is a real subpackage
@@ -28,6 +29,9 @@ def invoke(pkg, subpkg_mode):
             template.run_pkg_func(pkg, "pkg_install", on_subpkg = True)
 
     pkg.run_depends = list(pkg.depends)
+
+    scanelf.scan(pkg, pkg.rparent.current_elfs)
+
     template.call_pkg_hooks(pkg, "post_install")
 
     subpkg_install_done.touch()

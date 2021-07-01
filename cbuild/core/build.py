@@ -1,7 +1,7 @@
 from cbuild.step import fetch, extract, patch, configure
 from cbuild.step import build as buildm, install, prepkg, pkg as pkgsm
 from cbuild.core import chroot, logger, dependencies
-from cbuild.core import scanelf, template, pkg as pkgm, paths
+from cbuild.core import template, pkg as pkgm, paths
 from cbuild.apk import cli as apk
 
 import os
@@ -35,6 +35,10 @@ def build(step, pkg, depmap, signkey):
     # invoke install for main package
     install.invoke(pkg, False)
 
+    # scan for ELF information after subpackages are split up
+    # but before post_install hooks (done by the install step)
+    pkg.current_elfs = {}
+
     # handle subpackages
     for sp in pkg.subpkg_list:
         install.invoke(sp, True)
@@ -43,14 +47,6 @@ def build(step, pkg, depmap, signkey):
     install.invoke(pkg, True)
 
     template.call_pkg_hooks(pkg, "init_pkg")
-
-    # scan for ELF information after subpackages are split up
-    pkg.current_elfs = {}
-
-    for sp in pkg.subpkg_list:
-        scanelf.scan(sp, pkg.current_elfs)
-
-    scanelf.scan(pkg, pkg.current_elfs)
 
     for sp in pkg.subpkg_list:
         prepkg.invoke(sp)
