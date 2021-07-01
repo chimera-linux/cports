@@ -1,6 +1,6 @@
 pkgname = "base-chroot"
 version = "0.66"
-revision = 6
+revision = 7
 bootstrap = True
 short_desc = "Core package set for cbuild containers"
 maintainer = "q66 <daniel@octaforge.org>"
@@ -8,10 +8,9 @@ license = "Public Domain"
 homepage = "https://chimera-linux.org"
 
 depends = [
-    "musl-devel", "base-files", "elftoolchain", "clang", "lld", "diffutils",
-    "bmake", "bsdutils", "dash", "file", "apk-tools", "awk",
-    "ncurses", "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed", "bsdtar",
-    "chroot-util-linux"
+    "musl-devel", "base-files", "elftoolchain", "clang", "lld", "bmake",
+    "bsdutils", "dash", "file", "apk-tools", "awk", "ncurses", "bsdgrep",
+    "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "chroot-util-linux"
 ]
 
 def do_fetch(self):
