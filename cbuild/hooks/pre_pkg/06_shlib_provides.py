@@ -31,7 +31,7 @@ def invoke(pkg):
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
 
-        soname, needed, pname = finfo
+        soname, needed, pname, static = finfo
 
         # we only care about our own
         if pname != pkg.pkgname:

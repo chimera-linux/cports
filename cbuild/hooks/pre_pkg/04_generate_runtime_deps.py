@@ -23,7 +23,7 @@ def invoke(pkg):
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
 
-        soname, needed, pname = finfo
+        soname, needed, pname, static = finfo
 
         if soname:
             curso[soname] = pname

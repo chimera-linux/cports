@@ -8,7 +8,7 @@ def scan(pkg, somap):
     scanout = subprocess.run(
         [
             "scanelf", "--nobanner", "--nocolor", "--recursive", "--symlink",
-            "--format", "%o|%t|%n|%S|", str(pkg.destdir)
+            "--format", "%b|%o|%t|%n|%S|", str(pkg.destdir)
         ],
         capture_output = True
     )
@@ -17,9 +17,9 @@ def scan(pkg, somap):
         pkg.error("failed to scan shlibs")
 
     for ln in scanout.stdout.splitlines():
-        stp, textrel, needed, soname, fpath = ln.split(b"|")
+        bind, stp, textrel, needed, soname, fpath = ln.split(b"|")
         # object files
-        if stp == "ET_REL":
+        if stp == b"ET_REL":
             continue
         # check textrels
         if textrel.strip() != b"-" and not pkg.allow_textrels:
@@ -38,4 +38,6 @@ def scan(pkg, somap):
         else:
             soname = soname.decode()
         # write
-        somap[str(fpath)] = (soname, needed, pkg.pkgname)
+        somap[str(fpath)] = (
+            soname, needed, pkg.pkgname, bind.strip() == b"STATIC"
+        )
