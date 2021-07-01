@@ -364,7 +364,11 @@ core_fields = [
     ("disable_parallel_build", False, bool, False, False, False, False),
 
     # target build related
+    ("nodebug", False, bool, False, False, False, False),
+    ("nostrip", False, bool, False, False, True, False),
+    ("nostrip_files", [], list, False, False, True, False),
     ("nopie", False, bool, False, False, False, False),
+    ("nopie_files", [], list, False, False, True, False),
     ("tools", {}, dict, False, False, False, False),
     ("env", {}, dict, False, False, False, False),
     ("CFLAGS", [], list, True, False, False, False),
@@ -812,6 +816,10 @@ def from_module(m, ret):
 
     ret.CFLAGS = ["-O2"] + ret.CFLAGS
     ret.CXXFLAGS = ["-O2"] + ret.CXXFLAGS
+
+    if not ret.nodebug:
+        ret.CFLAGS.append("-g")
+        ret.CXXFLAGS.append("-g")
 
     if not "CC" in ret.tools:
         ret.tools["CC"] = "clang"

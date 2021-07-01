@@ -15,8 +15,13 @@ _hooks = [
     "pre-deinstall", "post-deinstall"
 ]
 
-def genpkg(pkg, repo, arch, binpkg):
-    if not pkg.destdir.is_dir():
+def genpkg(
+    pkg, repo, arch, binpkg, destdir = None, dbg = False
+):
+    if not destdir:
+        destdir = pkg.destdir
+
+    if not destdir.is_dir():
         pkg.log_warn(f"cannot find pkg destdir, skipping...")
         return
 
@@ -35,7 +40,11 @@ def genpkg(pkg, repo, arch, binpkg):
         metadata = {}
         args = []
 
-        metadata["pkgdesc"] = pkg.short_desc
+        short_desc = pkg.short_desc
+        if dbg:
+            short_desc += " (debug files)"
+
+        metadata["pkgdesc"] = short_desc
         metadata["url"] = pkg.rparent.homepage
         metadata["maintainer"] = pkg.rparent.maintainer
         #metadata["packager"] = pkg.rparent.maintainer
@@ -48,38 +57,46 @@ def genpkg(pkg, repo, arch, binpkg):
                 "-dirty" if pkg.rparent.git_dirty else ""
             )
 
-        if len(pkg.provides) > 0:
+        if not dbg and len(pkg.provides) > 0:
             metadata["provides"] = pkg.provides
 
         mdeps = []
 
-        for c in pkg.conflicts:
-            mdeps.append("!" + c)
-        for c in pkg.depends:
-            mdeps.append(c)
+        if not dbg:
+            for c in pkg.conflicts:
+                mdeps.append("!" + c)
+            for c in pkg.depends:
+                mdeps.append(c)
+        else:
+            mdeps.append(f"{pkg.pkgname}={pkg.version}-r{pkg.revision}")
 
         metadata["depends"] = mdeps
 
-        if hasattr(pkg, "aso_provides"):
-            metadata["shlib_provides"] = pkg.aso_provides
+        if not dbg:
+            if hasattr(pkg, "aso_provides"):
+                metadata["shlib_provides"] = pkg.aso_provides
 
-        if hasattr(pkg, "so_requires"):
-            metadata["shlib_requires"] = pkg.so_requires
+            if hasattr(pkg, "so_requires"):
+                metadata["shlib_requires"] = pkg.so_requires
 
-        mhooks = []
-        for h in _hooks:
-            hf = pkg.rparent.template_path / (pkg.pkgname + "." + h)
-            if hf.is_file():
-                mhooks.append(hf)
+            mhooks = []
+            for h in _hooks:
+                hf = pkg.rparent.template_path / (pkg.pkgname + "." + h)
+                if hf.is_file():
+                    mhooks.append(hf)
 
-        if len(mhooks) > 0:
-            metadata["hooks"] = mhooks
+            if len(mhooks) > 0:
+                metadata["hooks"] = mhooks
 
         logger.get().out(f"Creating {binpkg} in repository {str(repo)}...")
 
+        pkgname = pkg.pkgname
+        if dbg:
+            pkgname += "-dbg"
+
         apk_c.create(
-            pkg.pkgname, pkg.version + "-r" + str(pkg.revision), arch,
-            pkg.rparent.source_date_epoch, pkg.destdir, pkg.statedir, binpath,
+            pkgname, f"{pkg.version}-r{pkg.revision}", arch,
+            pkg.rparent.source_date_epoch, destdir, pkg.statedir, binpath,
             pkg.rparent.signing_key, metadata
         )
     finally:
@@ -88,6 +105,7 @@ def genpkg(pkg, repo, arch, binpkg):
 def invoke(pkg):
     arch = cpu.target()
     binpkg = f"{pkg.pkgver}.apk"
+    binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.version}-r{pkg.revision}.apk"
 
     if pkg.repository:
         repo = paths.repository() / pkg.repository / arch
@@ -98,6 +116,15 @@ def invoke(pkg):
 
     for sp in pkg.rparent.subpkg_list:
         if sp.pkgname == f"{pkg.rparent.pkgname}-dbg":
+            # if there's an explicit subpkg for -dbg, don't autogenerate
             return
 
-    # TODO: dbg
+    dbgdest = pkg.rparent.destdir_base / f"{pkg.pkgname}-dbg-{pkg.version}"
+
+    # don't have a dbg destdir
+    if not dbgdest.is_dir():
+        return
+
+    repo = paths.repository() / "debug" / arch
+
+    genpkg(pkg, repo, arch, binpkg_dbg, dbgdest, True)
