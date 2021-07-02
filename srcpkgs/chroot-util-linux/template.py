@@ -44,3 +44,5 @@ def post_install(self):
     self.rmtree("usr/sbin")
     self.rmtree("usr/share/man")
     self.rmtree("usr/share/bash-completion")
+    # Conflicts with bsdutils
+    self.unlink("usr/bin/hexdump")
