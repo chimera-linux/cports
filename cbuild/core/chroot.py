@@ -66,7 +66,7 @@ PATH=/cports:/usr/bin
 exec env -i -- SHELL=/bin/sh PATH="$PATH" \
     CBUILD_ARCH={cpu.host()} \
     IN_CHROOT=1 LC_COLLATE=C LANG=en_US.UTF-8 TERM=linux HOME="/tmp" \
-    PS1="[\\u@{str(paths.masterdir())} \\W]$ " /bin/sh
+    PS1='$PWD$ ' /bin/sh
 """)
     shf.close()
 
