@@ -1,5 +1,5 @@
 pkgname = "bsdutils"
-_commit="cd3f2427f59d40851d0781ae5e9c1cd479ffade4"
+_commit="3c2d40f9a1cf0803e77f130953aabf26aa2f738c"
 version = "0.0.1"
 revision = 3
 wrksrc = f"bsdutils-{_commit}"
@@ -14,7 +14,7 @@ maintainer = "q66 <daniel@octaforge.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdutils"
 distfiles = [f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"]
-checksum = ["cb03da705357ee2b24a55f3ccae9943749e1f39bdc9f574972842637f9dfa988"]
+checksum = ["a9e6c7e0c4277e323d19b0730b99c42f7e8a012ac33882ac7a5b3db179f0188f"]
 
 if not current.bootstrapping:
     hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
