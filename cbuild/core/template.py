@@ -473,6 +473,36 @@ class Template(Package):
             # ???
             pass
 
+    def setup_profile(self, bootstrapping):
+        if not bootstrapping:
+            bp = importlib.import_module(
+                "cbuild.build_profiles." + cpu.target()
+            )
+
+            if not hasattr(bp, "CBUILD_TRIPLET"):
+                self.error("no target triplet defined")
+            if not hasattr(bp, "CBUILD_TARGET_ENDIAN"):
+                self.error("no target endianness defined")
+            if not hasattr(bp, "CBUILD_TARGET_WORDSIZE"):
+                self.error("no target wordsize defined")
+
+            wsize = bp.CBUILD_TARGET_WORDSIZE
+            endian = bp.CBUILD_TARGET_ENDIAN
+
+            if wsize != 32 and wsize != 64:
+                self.error("invalid CBUILD_TARGET_WORDSIZE value")
+            if endian != "little" and endian != "big":
+                self.error("invalid CBUILD_TARGET_ENDIAN value")
+
+            self.triplet = bp.CBUILD_TRIPLET
+            cpu.init_target(wsize, endian)
+        else:
+            bp = importlib.import_module("cbuild.build_profiles.bootstrap")
+            self.triplet = None
+            cpu.init_target(cpu.host_wordsize(), cpu.host_endian())
+
+        self.build_profile = bp
+
     def ensure_fields(self):
         for fl, dval, tp, opt, mand, sp, inh in core_fields:
             # mandatory fields are all at the beginning
@@ -785,31 +815,19 @@ def from_module(m, ret):
         else:
             ret.error(f"yes")
 
-    # try reading the profile
-    if not ret.bootstrapping:
-        bp = importlib.import_module(
-            "cbuild.build_profiles." + cpu.target()
-        )
-        if not hasattr(bp, "CBUILD_TRIPLET"):
-            ret.error(f"no target triplet defined")
-        ret.triplet = bp.CBUILD_TRIPLET
-    else:
-        bp = importlib.import_module("cbuild.build_profiles.bootstrap")
-        ret.triplet = None
+    if hasattr(ret.build_profile, "CBUILD_TARGET_CFLAGS"):
+        ret.CFLAGS = ret.build_profile.CBUILD_TARGET_CFLAGS + ret.CFLAGS
+    if hasattr(ret.build_profile, "CBUILD_TARGET_CXXFLAGS"):
+        ret.CXXFLAGS = ret.build_profile.CBUILD_TARGET_CXXFLAGS + ret.CXXFLAGS
+    if hasattr(ret.build_profile, "CBUILD_TARGET_LDFLAGS"):
+        ret.LDFLAGS = ret.build_profile.CBUILD_TARGET_LDFLAGS + ret.LDFLAGS
 
-    if hasattr(bp, "CBUILD_TARGET_CFLAGS"):
-        ret.CFLAGS = bp.CBUILD_TARGET_CFLAGS + ret.CFLAGS
-    if hasattr(bp, "CBUILD_TARGET_CXXFLAGS"):
-        ret.CXXFLAGS = bp.CBUILD_TARGET_CXXFLAGS + ret.CXXFLAGS
-    if hasattr(bp, "CBUILD_TARGET_LDFLAGS"):
-        ret.LDFLAGS = bp.CBUILD_TARGET_LDFLAGS + ret.LDFLAGS
-
-    if hasattr(bp, "CBUILD_CFLAGS"):
-        ret.CFLAGS = bp.CBUILD_CFLAGS + ret.CFLAGS
-    if hasattr(bp, "CBUILD_CXXFLAGS"):
-        ret.CXXFLAGS = bp.CBUILD_CXXFLAGS + ret.CXXFLAGS
-    if hasattr(bp, "CBUILD_LDFLAGS"):
-        ret.LDFLAGS = bp.CBUILD_LDFLAGS + ret.LDFLAGS
+    if hasattr(ret.build_profile, "CBUILD_CFLAGS"):
+        ret.CFLAGS = ret.build_profile.CBUILD_CFLAGS + ret.CFLAGS
+    if hasattr(ret.build_profile, "CBUILD_CXXFLAGS"):
+        ret.CXXFLAGS = ret.build_profile.CBUILD_CXXFLAGS + ret.CXXFLAGS
+    if hasattr(ret.build_profile, "CBUILD_LDFLAGS"):
+        ret.LDFLAGS = ret.build_profile.CBUILD_LDFLAGS + ret.LDFLAGS
 
     os.makedirs(ret.statedir, exist_ok = True)
     os.makedirs(ret.wrapperdir, exist_ok = True)
@@ -870,6 +888,7 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
     ret.cross_build = False
 
     ret.setup_reproducible()
+    ret.setup_profile(bootstrapping)
 
     def subpkg_deco(spkgname):
         def deco(f):
