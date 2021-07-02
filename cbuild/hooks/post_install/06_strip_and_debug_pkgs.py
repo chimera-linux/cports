@@ -10,7 +10,7 @@ def make_debug(pkg, f, relf):
 
     dfile.parent.mkdir(parents = True, exist_ok = True)
     try:
-        pkg.rparent.do("objcopy", [
+        pkg.rparent.do(pkg.rparent.tools["OBJCOPY"], [
             "--only-keep-debug",
             str(pkg.chroot_destdir / relf), str(cfile)
         ])
@@ -25,7 +25,7 @@ def attach_debug(pkg, f, relf):
 
     cfile = pkg.chroot_destdir / "usr/lib/debug" / relf
     try:
-        pkg.rparent.do("objcopy", [
+        pkg.rparent.do(pkg.rparent.tools["OBJCOPY"], [
             "--add-gnu-debuglink=" + str(cfile),
             str(pkg.chroot_destdir / relf)
         ])
@@ -57,7 +57,7 @@ def invoke(pkg):
         if not vt:
             with open(v, "rb") as ef:
                 if ef.read(8) != b"!<arch>\n":
-                    break
+                    continue
 
         found_nostrip = True
 
