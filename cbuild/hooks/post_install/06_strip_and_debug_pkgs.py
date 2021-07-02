@@ -109,7 +109,7 @@ def invoke(pkg):
             pkg.error(f"failed to scan {str(vr)}")
 
         # strip the filename
-        scanout = scanout.stdout.strip()[:-len(str(v)) + 1]
+        scanout = scanout.stdout.strip()[:-len(str(v)) - 1]
 
         # get the type and interpreter
         splitv = scanout.split(b"|")
