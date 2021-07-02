@@ -65,7 +65,7 @@ def _install_from_repo(pkg, pkglist, virtn):
         ret = subprocess.run([
             "apk", "add", "--root", str(paths.masterdir()),
             "--no-scripts", "--repositories-file",
-            str(paths.distdir() / "etc/apk/repositories_host"),
+            str(paths.hostdir() / "repositories"),
             "--virtual", virtn
         ] + pkglist, capture_output = True)
     else:
@@ -82,7 +82,7 @@ def _install_from_repo(pkg, pkglist, virtn):
 def _is_installed(pkgn):
     return subprocess.run(["apk", "info", "--root", str(paths.masterdir()),
         "--repositories-file",
-        str(paths.distdir() / "etc/apk/repositories_host"),
+        str(paths.hostdir() / "repositories"),
         "--installed", pkgn
     ], capture_output = True).returncode == 0
 
@@ -90,7 +90,7 @@ def _is_available(pkgn, pattern = None):
     aout = subprocess.run([
         "apk", "search", "-e", "--root",
         str(paths.masterdir()), "--repositories-file",
-        str(paths.distdir() / "etc/apk/repositories_host"),
+        str(paths.hostdir() / "repositories"),
         pkgn
     ], capture_output = True)
 

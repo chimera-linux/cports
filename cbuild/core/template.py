@@ -709,7 +709,7 @@ def from_module(m, ret):
         ret.chroot_wrksrc = ret.abs_wrksrc
         ret.chroot_hostdir = paths.hostdir()
     else:
-        ret.chroot_files_path = pathlib.Path("/void-packages/srcpkgs") \
+        ret.chroot_files_path = pathlib.Path("/cports/srcpkgs") \
             / ret.pkgname / "files"
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
@@ -729,8 +729,7 @@ def from_module(m, ret):
     if ret.skip_if_exist:
         pinfo = subprocess.run([
             "apk", "search", "-e", "--root", str(paths.masterdir()),
-            "--repositories-file",
-            str(paths.distdir() / "etc/apk/repositories_host"),
+            "--repositories-file", str(paths.hostdir() / "repositories"),
             ret.pkgname
         ], capture_output = True)
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:

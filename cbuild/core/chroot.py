@@ -61,7 +61,7 @@ def _init():
     shf = open(paths.masterdir() / "bin" / "cbuild-shell", "w")
     shf.write(f"""#!/bin/sh
 
-PATH=/void-packages:/usr/bin
+PATH=/cports:/usr/bin
 
 exec env -i -- SHELL=/bin/sh PATH="$PATH" \
     CBUILD_ARCH={cpu.host()} \
@@ -94,7 +94,7 @@ def _prepare(arch = None):
             "cbuild: no local timezone configuration file created"
         )
 
-    for f in ["dev", "sys", "tmp", "proc", "host", "boot", "void-packages"]:
+    for f in ["dev", "sys", "tmp", "proc", "host", "boot", "cports"]:
         os.makedirs(paths.masterdir() / f, exist_ok = True)
 
     shutil.copy(
@@ -127,7 +127,26 @@ def repo_sync():
 
     os.makedirs(confdir, exist_ok = True)
 
-    shutil.copy2(paths.distdir() / "etc/apk/repositories", confdir)
+    repos_mdir = open(confdir / "repositories", "w")
+    repos_hdir = open(paths.hostdir() / "repositories", "w")
+
+    repos_mdir.write("# automatically generated apk repo list for chroot use\n")
+    repos_hdir.write("# automatically generated apk repo list for host use\n")
+
+    for f in (paths.distdir() / "etc/apk/repositories.d").glob("*.conf"):
+        with open(f) as repof:
+            for repo in repof:
+                relpath = repo.lstrip("/")
+                # in-chroot
+                repos_mdir.write("/host/binpkgs/")
+                repos_mdir.write(relpath)
+                # out of chroot
+                repos_hdir.write(str(paths.hostdir() / "binpkgs"))
+                repos_hdir.write("/")
+                repos_hdir.write(relpath)
+
+    repos_mdir.close()
+    repos_hdir.close()
 
     # copy over apk public keys
     keydir = paths.masterdir() / "etc/apk/keys"
@@ -201,7 +220,7 @@ def install(arch = None, bootstrap = False):
 
     irun = subprocess.run([
         "apk", "add", "--root", str(paths.masterdir()), "--no-scripts",
-        "--repositories-file", str(paths.distdir() / "etc/apk/repositories_host"),
+        "--repositories-file", str(paths.hostdir() / "repositories"),
         "--arch", arch, "base-chroot"
     ])
     if irun.returncode != 0:
@@ -234,7 +253,7 @@ def remove_autodeps(bootstrapping):
             del_ret = subprocess.run([
                 "apk", "del", "--root", str(paths.masterdir()),
                 "--no-scripts", "--repositories-file",
-                str(paths.distdir() / "etc/apk/repositories_host"),
+                str(paths.hostdir() / "repositories"),
                 "autodeps-host"
             ], capture_output = True)
         else:
@@ -255,7 +274,7 @@ def remove_autodeps(bootstrapping):
             del_ret = subprocess.run([
                 "apk", "del", "--root", str(paths.masterdir()),
                 "--no-scripts", "--repositories-file",
-                str(paths.distdir() / "etc/apk/repositories_host"),
+                str(paths.hostdir() / "repositories"),
                 "autodeps-target"
             ], capture_output = True)
         else:
@@ -329,7 +348,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "bwrap",
         "--dev-bind", str(paths.masterdir()), "/",
         "--dev-bind", str(paths.hostdir()), "/host",
-        "--dev-bind", str(paths.distdir()), "/void-packages",
+        "--dev-bind", str(paths.distdir()), "/cports",
         "--dev", "/dev",
         "--proc", "/proc",
         "--tmpfs", "/tmp",
