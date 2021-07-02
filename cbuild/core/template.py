@@ -184,8 +184,9 @@ class Package:
                 self.logger.out_red(f"path '{str(dn)}' must not be absolute")
                 raise PackageError()
             dirp = self.destdir / dn
-            self.log(f"creating path: {dirp}")
-            os.makedirs(dirp, exist_ok = True)
+            if not dirp.is_dir():
+                self.log(f"creating path: {dirp}")
+                os.makedirs(dirp)
 
     def install_file(self, src, dest, mode = 0o644, name = None):
         src = pathlib.Path(src)
