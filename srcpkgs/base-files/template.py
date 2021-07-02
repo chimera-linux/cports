@@ -3,7 +3,7 @@ version = "0.142"
 revision = 11
 bootstrap = True
 short_desc = "Chimera Linux base system files"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 homepage = "https://chimera-linux.org"
 

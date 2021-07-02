@@ -6,7 +6,7 @@ build_style = "gnu_configure"
 configure_args = ["--without-guile", "--program-prefix=g"]
 checkdepends = ["perl"]
 short_desc = "GNU Make build tool"
-maintainer = "Enno Boland <gottox@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 homepage = "http://www.gnu.org/software/make"
 

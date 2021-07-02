@@ -14,7 +14,7 @@ makedepends = [
     "acl-devel", "liblz4-devel", "openssl-devel"
 ]
 short_desc = "Library to read/write several different streaming archive formats"
-maintainer = "Juan RP <xtraeme@gmail.com>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "http://www.libarchive.org/"
 distfiles = [f"https://github.com/libarchive/libarchive/releases/download/{version}/libarchive-{version}.tar.gz"]

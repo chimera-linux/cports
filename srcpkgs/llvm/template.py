@@ -38,7 +38,7 @@ depends = [
     "libexecinfo-devel"
 ]
 short_desc = "Low Level Virtual Machine"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
 distfiles = [f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz"]

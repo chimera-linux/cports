@@ -18,7 +18,7 @@ configure_args = [
 ]
 makedepends = ["zlib-devel"]
 short_desc = "Miscellaneous linux utilities -- for xbps-src use"
-maintainer = "Enno Boland <gottox@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 homepage = "http://userweb.kernel.org/~kzak/util-linux-ng"
 

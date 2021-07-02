@@ -6,7 +6,7 @@ build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
 short_desc = "Musl C library"
-maintainer = "Enno Boland <gottox@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.musl-libc.org/"
 distfiles = [f"http://www.musl-libc.org/releases/musl-{version}.tar.gz"]

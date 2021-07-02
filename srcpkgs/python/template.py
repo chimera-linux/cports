@@ -11,7 +11,7 @@ makedepends = [
 ]
 depends = ["ca-certificates"]
 short_desc = "Python programming language"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 homepage = "https://python.org"
 distfiles = [f"https://python.org/ftp/python/{version}/Python-{version}.tar.xz"]

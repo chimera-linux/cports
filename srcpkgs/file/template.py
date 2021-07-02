@@ -9,7 +9,7 @@ configure_args = [
 ]
 makedepends = ["zlib-devel"]
 short_desc = "File type identification utility"
-maintainer = "Enno Boland <gottox@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "http://www.darwinsys.com/file/"
 distfiles = [f"https://astron.com/pub/file/file-{version}.tar.gz"]

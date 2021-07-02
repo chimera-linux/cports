@@ -6,7 +6,7 @@ bootstrap = True
 wrksrc = f"linux-{version}"
 make_cmd = "gmake"
 short_desc = "Linux API headers for userland development"
-maintainer = "Érico Nogueira <ericonr@disroot.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://www.kernel.org"
 

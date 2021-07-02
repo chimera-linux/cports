@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--with-regex=posix"]
 makedepends = ["ncurses-devel"]
 short_desc = "Pager program similar to more(1)"
-maintainer = "Enno Boland <gottox@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "less"
 homepage = "http://www.greenwoodsoftware.com/less"
 distfiles = [f"http://www.greenwoodsoftware.com/less/less-{version}.tar.gz"]

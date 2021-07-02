@@ -9,7 +9,7 @@ makedepends = ["zlib-devel", "bzip2-devel"]
 depends = ["less"]
 checkdepends = ["iana-etc", "perl-AnyEvent", "perl-Test-Pod", "procps-ng"]
 short_desc = "Practical Extraction and Report Language"
-maintainer = "Leah Neukirchen <leah@vuxu.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic=1.0-Perl, GPL=1.0-or-later"
 homepage = "https://www.perl.org"
 distfiles = [

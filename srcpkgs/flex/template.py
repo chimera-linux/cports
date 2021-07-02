@@ -7,7 +7,7 @@ hostmakedepends = ["byacc", "bsdm4"]
 makedepends = ["byacc", "bsdm4"]
 depends = ["byacc", f"libfl-devel={version}-r{revision}", "bsdm4"]
 short_desc = "Fast Lexical Analyzer"
-maintainer = "Enno Boland <gottox@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:flex"
 homepage = "https://github.com/westes/flex"
 distfiles = [f"https://github.com/westes/{pkgname}/releases/download/v{version}/{pkgname}-{version}.tar.gz"]

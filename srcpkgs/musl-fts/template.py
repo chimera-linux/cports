@@ -6,7 +6,7 @@ bootstrap = True
 build_style = "gnu_makefile"
 make_build_args = ["PREFIX=/usr"]
 short_desc = "Implementation of fts(3) for musl libc"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "https://github.com/chimera-linux/musl-fts"
 distfiles = [f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{version}-mk.tar.gz"]

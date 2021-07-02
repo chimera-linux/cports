@@ -9,7 +9,7 @@ configure_args = [
     "-Dzlib=enabled", "-Dlzma=enabled", "-Dlz4=enabled", "-Dbin_contrib=true"
 ]
 short_desc = "Fast real-time compression algorithm - CLI tool"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "http://www.zstd.net"
 distfiles = [f"https://github.com/facebook/zstd/releases/download/v{version}/zstd-{version}.tar.gz"]

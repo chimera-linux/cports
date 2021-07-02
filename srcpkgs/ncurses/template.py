@@ -5,7 +5,7 @@ bootstrap = True
 configure_args = ["--enable-big-core"]
 make_cmd = "gmake"
 short_desc = "System V Release 4.0 curses emulation library"
-maintainer = "Enno Boland <gottox@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.gnu.org/software/ncurses/"
 

@@ -9,7 +9,7 @@ configure_args = [
 ]
 makedepends = ["attr-devel"]
 short_desc = "Access Control List filesystem support"
-maintainer = "Orphaned <orphan@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 homepage = "https://savannah.nongnu.org/projects/acl"
 

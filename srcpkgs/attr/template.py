@@ -10,7 +10,7 @@ configure_args = [
 make_check_args = ["-j1"] # Tests broken when ran in parallel
 checkdepends = ["perl"]
 short_desc = "Extended attribute support library for ACL support"
-maintainer = "Orphaned <orphan@voidlinux.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 homepage = "http://savannah.nongnu.org/projects/attr"
 

@@ -4,7 +4,7 @@ revision = 1
 build_style = "gnu_configure"
 configure_args = ["--program-transform=s,^,b,"]
 short_desc = "Berkeley yacc, a LALR(1) parser generator"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license="Public Domain"
 homepage = "http://invisible-island.net/byacc/"
 distfiles = [f"ftp://ftp.invisible-island.net/{pkgname}/{pkgname}-{version}.tgz"]

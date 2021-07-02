@@ -10,7 +10,7 @@ makedepends = [
     "musl-fts-devel", "musl-rpmatch-devel", "libxo-devel"
 ]
 short_desc = "Alternative to GNU coreutils from FreeBSD"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdutils"
 distfiles = [f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"]

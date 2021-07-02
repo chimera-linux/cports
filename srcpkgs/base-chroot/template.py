@@ -3,7 +3,7 @@ version = "0.66"
 revision = 7
 bootstrap = True
 short_desc = "Core package set for cbuild containers"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 homepage = "https://chimera-linux.org"
 

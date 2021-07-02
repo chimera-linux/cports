@@ -7,7 +7,7 @@ configure_args = [
 ]
 checkdepends = ["dejagnu"]
 short_desc = "Library supporting Foreign Function Interfaces"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://sourceware.org/libffi"
 distfiles = [f"ftp://sourceware.org/pub/{pkgname}/{pkgname}-{version}.tar.gz"]

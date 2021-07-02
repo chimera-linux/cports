@@ -18,7 +18,7 @@ make_install_args = make_build_args + [
 make_use_env = True
 depends = [f"libelf={version}-r{revision}"]
 short_desc = "BSD licensed ELF toolchain"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://sourceforge.net/projects/elftoolchain"
 distfiles = [f"https://github.com/{pkgname}/{pkgname}/archive/{_commit}.tar.gz"]

@@ -4,7 +4,7 @@ revision = 1
 build_style = "gnu_makefile"
 make_build_args = ["PREFIX=/usr"]
 short_desc = "BSD licensed clone of the GNU libc backtrace facility"
-maintainer = "q66 <daniel@octaforge.org>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "http://www.freshports.org/devel/libexecinfo"
 distfiles = [f"http://distcache.freebsd.org/local-distfiles/itetcu/libexecinfo-{version}.tar.bz2"]

@@ -11,7 +11,7 @@ configure_args = [
 make_check_target = "test"
 make_install_args = ["MANSUFFIX=ssl"]
 short_desc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
-maintainer = "John <johnz@posteo.net>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "OpenSSL"
 homepage = "https://www.openssl.org"
 distfiles = [f"https://www.openssl.org/source/openssl-{version}.tar.gz"]
