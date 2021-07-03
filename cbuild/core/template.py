@@ -50,7 +50,7 @@ def redir_allout(logpath):
         os.close(pw)
         os.close(pr)
         # wait for the tee to finish
-        tee.wait()
+        tee.communicate()
 
 # relocate "src" from root "root" to root "dest"
 #
