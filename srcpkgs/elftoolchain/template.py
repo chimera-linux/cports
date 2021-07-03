@@ -27,6 +27,12 @@ checksum = ["3d9e0513af4b7cb8ac7944d98057b8d61fcc4ff326b030a7b06006c0abb7922c"]
 if not current.bootstrapping:
     hostmakedepends = ["bsdm4", "byacc", "flex"]
 
+def init_build(self):
+    flags = " ".join(self.CFLAGS + self.LDFLAGS)
+    self.env["SHLIB_LDADD"] = flags
+    # abuse this to work around elftoolchain's fucky build system
+    self.env["LDSTATIC"] = flags
+
 def post_install(self):
     self.install_license("LICENSE")
     # fix some permissions
