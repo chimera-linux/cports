@@ -822,18 +822,12 @@ def from_module(m, ret):
     if hasattr(ret.build_profile, "CBUILD_TARGET_LDFLAGS"):
         ret.LDFLAGS = ret.build_profile.CBUILD_TARGET_LDFLAGS + ret.LDFLAGS
 
-    if hasattr(ret.build_profile, "CBUILD_CFLAGS"):
-        ret.CFLAGS = ret.build_profile.CBUILD_CFLAGS + ret.CFLAGS
-    if hasattr(ret.build_profile, "CBUILD_CXXFLAGS"):
-        ret.CXXFLAGS = ret.build_profile.CBUILD_CXXFLAGS + ret.CXXFLAGS
-    if hasattr(ret.build_profile, "CBUILD_LDFLAGS"):
-        ret.LDFLAGS = ret.build_profile.CBUILD_LDFLAGS + ret.LDFLAGS
-
     os.makedirs(ret.statedir, exist_ok = True)
     os.makedirs(ret.wrapperdir, exist_ok = True)
 
-    ret.CFLAGS = ["-O2"] + ret.CFLAGS
-    ret.CXXFLAGS = ["-O2"] + ret.CXXFLAGS
+    ret.CFLAGS = ret.base_cflags + ret.CFLAGS
+    ret.CXXFLAGS = ret.base_cxxflags + ret.CXXFLAGS
+    ret.LDFLAGS = ret.base_ldflags + ret.LDFLAGS
 
     if not ret.nodebug and ret.build_dbg:
         ret.CFLAGS.append("-g")
@@ -871,7 +865,8 @@ def from_module(m, ret):
 _tmpl_dict = {}
 
 def read_pkg(
-    pkgname, force_mode, bootstrapping, skip_if_exist, build_dbg, origin
+    pkgname, force_mode, bootstrapping, skip_if_exist, build_dbg,
+    cflags, cxxflags, ldflags, origin
 ):
     global _tmpl_dict
 
@@ -889,6 +884,9 @@ def read_pkg(
     ret.skip_if_exist = skip_if_exist
     ret.build_dbg = build_dbg
     ret.cross_build = False
+    ret.base_cflags = cflags
+    ret.base_cxxflags = cxxflags
+    ret.base_ldflags = ldflags
 
     ret.setup_reproducible()
     ret.setup_profile(bootstrapping)

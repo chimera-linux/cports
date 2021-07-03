@@ -3,6 +3,7 @@
 import os
 import sys
 import shutil
+import shlex
 import argparse
 import signal
 import importlib
@@ -34,6 +35,9 @@ for prog in [
 
 # global options
 
+opt_cflags    = "-O2"
+opt_cxxflags  = "-O2"
+opt_ldflags   = ""
 opt_gen_dbg   = False
 opt_skipexist = False
 opt_makejobs  = 1
@@ -48,13 +52,16 @@ opt_hostdir   = "hostdir"
 global_cfg = configparser.ConfigParser()
 global_cfg.read("etc/config.ini")
 
-if "general" in global_cfg:
-    gencfg = global_cfg["general"]
+if "build" in global_cfg:
+    bcfg = global_cfg["build"]
 
-    opt_gen_dbg   = gencfg.getboolean("build_dbg", fallback = opt_gen_dbg)
-    opt_makejobs  = gencfg.getint("jobs", fallback = opt_makejobs)
-    opt_masterdir = gencfg.get("masterdir", fallback = opt_masterdir)
-    opt_hostdir   = gencfg.get("hostdir", fallback = opt_hostdir)
+    opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
+    opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
+    opt_cflags    = bcfg.get("cflags", fallback = opt_cflags)
+    opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
+    opt_ldflags   = bcfg.get("ldflags", fallback = opt_ldflags)
+    opt_masterdir = bcfg.get("masterdir", fallback = opt_masterdir)
+    opt_hostdir   = bcfg.get("hostdir", fallback = opt_hostdir)
 
 if "signing" in global_cfg:
     signcfg = global_cfg["signing"]
@@ -167,7 +174,9 @@ def bootstrap(tgt):
     if not shutil.which("gmake") and not shutil.which("bmake"):
         sys.exit("Required bootstrap program not found: gmake/bmake")
 
-    rp = template.read_pkg("base-chroot", False, True, False, False, None)
+    rp = template.read_pkg(
+        "base-chroot", False, True, False, False, [], [], [], None
+    )
     chroot.initdb()
     chroot.repo_sync()
     build.build(tgt, rp, {}, opt_signkey)
@@ -222,7 +231,9 @@ def do_remove_autodeps(tgt):
 def do_pkg(tgt):
     pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
-        pkgn, opt_force, False, opt_skipexist, opt_gen_dbg, None
+        pkgn, opt_force, False, opt_skipexist, opt_gen_dbg,
+        shlex.split(opt_cflags), shlex.split(opt_cxxflags),
+        shlex.split(opt_ldflags), None
     )
     # don't remove builddir/destdir
     chroot.repo_sync()
