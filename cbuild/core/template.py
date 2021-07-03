@@ -30,16 +30,15 @@ class SkipPackage(Exception):
 @contextlib.contextmanager
 def redir_allout(logpath):
     try:
-        pr, pw = os.pipe()
         # save old descriptors
         oldout = os.dup(sys.stdout.fileno())
         olderr = os.dup(sys.stderr.fileno())
         # this will do the logging for us; this way we can get
         # both standard output and file redirection at once
-        tee = subprocess.Popen(["tee", logpath], stdin = pr)
+        tee = subprocess.Popen(["tee", logpath], stdin = subprocess.PIPE)
         # everything goes into the pipe
-        os.dup2(pw, sys.stdout.fileno())
-        os.dup2(pw, sys.stderr.fileno())
+        os.dup2(tee.stdin.fileno(), sys.stdout.fileno())
+        os.dup2(tee.stdin.fileno(), sys.stderr.fileno())
         # fire
         yield
     finally:
@@ -47,8 +46,10 @@ def redir_allout(logpath):
         os.dup2(oldout, sys.stdout.fileno())
         os.dup2(olderr, sys.stderr.fileno())
         # close the pipe
-        os.close(pw)
-        os.close(pr)
+        tee.stdin.close()
+        # close the old duplicates
+        os.close(oldout)
+        os.close(olderr)
         # wait for the tee to finish
         tee.communicate()
 
