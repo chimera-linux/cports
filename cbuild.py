@@ -50,31 +50,14 @@ opt_mdirtemp  = False
 opt_masterdir = "masterdir"
 opt_hostdir   = "hostdir"
 
-# parse config file and set the global options from it
-
-global_cfg = configparser.ConfigParser()
-global_cfg.read("etc/config.ini")
-
-if "build" in global_cfg:
-    bcfg = global_cfg["build"]
-
-    opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
-    opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
-    opt_cflags    = bcfg.get("cflags", fallback = opt_cflags)
-    opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
-    opt_ldflags   = bcfg.get("ldflags", fallback = opt_ldflags)
-    opt_masterdir = bcfg.get("masterdir", fallback = opt_masterdir)
-    opt_hostdir   = bcfg.get("hostdir", fallback = opt_hostdir)
-
-if "signing" in global_cfg:
-    signcfg = global_cfg["signing"]
-
-    opt_signkey = signcfg.get("key", fallback = opt_signkey)
-
 # parse command line arguments
 
 parser = argparse.ArgumentParser(description = "Chimera Linux build system.")
 
+parser.add_argument(
+    "-c", "--config", default = "etc/config.ini",
+    help = "The configuration file to use."
+)
 parser.add_argument(
     "-f", "--force", action = "store_const", const = True, default = False,
     help = "Force writing a package even when exists."
@@ -110,6 +93,27 @@ parser.add_argument(
 parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
 cmdline = parser.parse_args()
+
+# parse config file and set the global options from it
+
+global_cfg = configparser.ConfigParser()
+global_cfg.read(cmdline.config)
+
+if "build" in global_cfg:
+    bcfg = global_cfg["build"]
+
+    opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
+    opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
+    opt_cflags    = bcfg.get("cflags", fallback = opt_cflags)
+    opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
+    opt_ldflags   = bcfg.get("ldflags", fallback = opt_ldflags)
+    opt_masterdir = bcfg.get("masterdir", fallback = opt_masterdir)
+    opt_hostdir   = bcfg.get("hostdir", fallback = opt_hostdir)
+
+if "signing" in global_cfg:
+    signcfg = global_cfg["signing"]
+
+    opt_signkey = signcfg.get("key", fallback = opt_signkey)
 
 # command line args override config file
 
