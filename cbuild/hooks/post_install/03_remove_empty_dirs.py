@@ -6,7 +6,7 @@ def clean_empty(pkg, dpath):
             clean_empty(pkg, f)
         empty = False
 
-    if empty:
+    if empty and dpath != pkg.destdir:
         pstr = str(dpath.relative_to(pkg.destdir))
         pkg.log_warn(f"removed empty directory: {pstr}")
         dpath.rmdir()
