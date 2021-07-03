@@ -85,6 +85,8 @@ def keygen(keypath, size = 2048):
             eaddr = eaddr.stdout.strip().decode()
             if len(eaddr) == 0:
                 eaddr = None
+        else:
+            eaddr = None
         if not eaddr:
             keyn = getpass.getuser()
         else:
