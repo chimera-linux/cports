@@ -31,11 +31,10 @@ configure_args = [
     "-DLLVM_ENABLE_LLD=YES",
     "-DLLVM_ENABLE_LIBCXX=YES",
 ]
-makedepends = ["zlib-devel", "libffi-devel", "libexecinfo-devel"]
+makedepends = ["zlib-devel", "libffi-devel"]
 depends = [
     f"libllvm={version}-r{revision}",
     f"libomp={version}-r{revision}",
-    "libexecinfo-devel"
 ]
 short_desc = "Low Level Virtual Machine"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -50,7 +49,11 @@ if not current.bootstrapping:
     hostmakedepends = [
         "cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
     ]
-    makedepends += ["python-devel", "libedit-devel", "elftoolchain-devel"]
+    makedepends += [
+        "python-devel", "libedit-devel", "elftoolchain-devel",
+        "libexecinfo-devel"
+    ]
+    depends += ["libexecinfo-devel"]
 else:
     CFLAGS = ["-fPIC"]
     CXXFLAGS = ["-fPIC"]
@@ -58,6 +61,12 @@ else:
         "-DLLVM_ENABLE_LIBEDIT=NO",
         "-DLLVM_ENABLE_LIBPFM=NO",
         "-DLLVM_ENABLE_TERMINFO=NO",
+        # for stage 0 bootstrap, avoid all the optional runtime
+        "-DCOMPILER_RT_BUILD_SANITIZERS=NO",
+        "-DCOMPILER_RT_BUILD_XRAY=NO",
+        "-DCOMPILER_RT_BUILD_LIBFUZZER=NO",
+        "-DCOMPILER_RT_BUILD_PROFILE=NO",
+        "-DCOMPILER_RT_BUILD_MEMPROF=NO",
     ]
 
 from cbuild import cpu

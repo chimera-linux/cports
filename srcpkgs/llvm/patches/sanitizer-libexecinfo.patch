@@ -1,0 +1,25 @@
+From 2b8456d57c0feb8de9c9dde1bd1025442ca7f31f Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 3 Jul 2021 21:33:58 +0200
+Subject: [PATCH] use libexecinfo for sanitizers
+
+---
+ compiler-rt/CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
+index b44ad2c..1dddf1c 100644
+--- a/compiler-rt/CMakeLists.txt
++++ b/compiler-rt/CMakeLists.txt
+@@ -420,6 +420,8 @@ append_list_if(COMPILER_RT_HAS_WD4800_FLAG /wd4800 SANITIZER_COMMON_CFLAGS)
+ 
+ append_list_if(MINGW -fms-extensions SANITIZER_COMMON_CFLAGS)
+ 
++list(APPEND SANITIZER_COMMON_LINK_LIBS execinfo)
++
+ # Set common link flags.
+ append_list_if(COMPILER_RT_HAS_NODEFAULTLIBS_FLAG -nodefaultlibs SANITIZER_COMMON_LINK_FLAGS)
+ append_list_if(COMPILER_RT_HAS_Z_TEXT -Wl,-z,text SANITIZER_COMMON_LINK_FLAGS)
+-- 
+2.32.0
+
