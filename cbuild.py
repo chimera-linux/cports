@@ -40,6 +40,8 @@ opt_makejobs  = 1
 opt_nocolor   = "NO_COLOR" in os.environ
 opt_signkey   = None
 opt_force     = False
+opt_masterdir = "masterdir"
+opt_hostdir   = "hostdir"
 
 # parse config file and set the global options from it
 
@@ -49,8 +51,10 @@ global_cfg.read("etc/config.ini")
 if "general" in global_cfg:
     gencfg = global_cfg["general"]
 
-    opt_gen_dbg  = gencfg.getboolean("build_dbg", fallback = False)
-    opt_makejobs = gencfg.getint("jobs", fallback = 1)
+    opt_gen_dbg   = gencfg.getboolean("build_dbg", fallback = False)
+    opt_makejobs  = gencfg.getint("jobs", fallback = 1)
+    opt_masterdir = gencfg.get("masterdir", fallback = "masterdir")
+    opt_hostdir   = gencfg.get("hostdir", fallback = "hostdir")
 
 if "signing" in global_cfg:
     signcfg = global_cfg["signing"]
@@ -82,6 +86,12 @@ parser.add_argument(
     const = True, default = False,
     help = "Build debug packages."
 )
+parser.add_argument(
+    "-m", "--masterdir", default = None, help = "The masterdir path."
+)
+parser.add_argument(
+    "-H", "--hostdir", default = None, help = "The hostdir path."
+)
 parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
 cmdline = parser.parse_args()
@@ -103,12 +113,18 @@ if cmdline.force:
 if cmdline.skip_if_exists:
     opt_skipexist = True
 
+if cmdline.masterdir:
+    opt_masterdir = cmdline.masterdir
+
+if cmdline.hostdir:
+    opt_hostdir = cmdline.hostdir
+
 # set global config bits as needed
 
 from cbuild.core import paths
 
 # init paths early, modules rely on it
-paths.init(os.path.dirname(__file__), "masterdir", "hostdir")
+paths.init(os.path.dirname(__file__), opt_masterdir, opt_hostdir)
 
 from cbuild.util import make
 from cbuild.core import chroot, logger, template, build
