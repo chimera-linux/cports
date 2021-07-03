@@ -51,15 +51,15 @@ global_cfg.read("etc/config.ini")
 if "general" in global_cfg:
     gencfg = global_cfg["general"]
 
-    opt_gen_dbg   = gencfg.getboolean("build_dbg", fallback = False)
-    opt_makejobs  = gencfg.getint("jobs", fallback = 1)
-    opt_masterdir = gencfg.get("masterdir", fallback = "masterdir")
-    opt_hostdir   = gencfg.get("hostdir", fallback = "hostdir")
+    opt_gen_dbg   = gencfg.getboolean("build_dbg", fallback = opt_gen_dbg)
+    opt_makejobs  = gencfg.getint("jobs", fallback = opt_makejobs)
+    opt_masterdir = gencfg.get("masterdir", fallback = opt_masterdir)
+    opt_hostdir   = gencfg.get("hostdir", fallback = opt_hostdir)
 
 if "signing" in global_cfg:
     signcfg = global_cfg["signing"]
 
-    opt_signkey = signcfg.get("key", fallback = None)
+    opt_signkey = signcfg.get("key", fallback = opt_signkey)
 
 # parse command line arguments
 
