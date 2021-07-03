@@ -22,7 +22,7 @@ def target_endian():
     return _target_endian
 
 def host_endian():
-    return sys.byteorder()
+    return sys.byteorder
 
 def target_wordsize():
     return _target_wsize
