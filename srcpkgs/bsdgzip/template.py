@@ -1,5 +1,5 @@
 pkgname = "bsdgzip"
-version = "0.99.0"
+version = "0.99.1"
 revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
@@ -10,4 +10,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdgzip"
 distfiles = [f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{version}.tar.gz"]
-checksum = ["c0307abd0c94c6f664364f35d7e087c0da019f4cc70de5f84767ba38e398a78d"]
+checksum = ["9ea8712dfce8e0ac5713cee40ade52c71a339b53e672c0caa82a692a77569c57"]

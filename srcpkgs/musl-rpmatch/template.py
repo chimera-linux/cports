@@ -1,7 +1,7 @@
 pkgname = "musl-rpmatch"
 version = "1.0"
 revision = 1
-wrksrc = f"musl-rpmatch-{version}-mk"
+wrksrc = f"musl-rpmatch-{version}-mk2"
 bootstrap = True
 build_style = "gnu_makefile"
 make_build_args = ["PREFIX=/usr"]
@@ -9,8 +9,8 @@ short_desc = "Implementation of rpmatch(3) for musl libc"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "https://github.com/chimera-linux/musl-rpmatch"
-distfiles = [f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{version}-mk.tar.gz"]
-checksum = ["ccc55d3822dda0a355dd4fb376e64feea7c327e134a630e954a84ba8d7cf0c03"]
+distfiles = [f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{version}-mk2.tar.gz"]
+checksum = ["a7b9649b49a8a59da09cf61228dc812cae6f0aea8be036788a9173c6f15a1a77"]
 
 def post_install(self):
     self.install_license("COPYING")
