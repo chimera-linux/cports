@@ -1,6 +1,6 @@
 pkgname = "kernel-libc-headers"
-_mver = "5.10"
-version = f"{_mver}.4"
+_mver = "5"
+version = f"{_mver}.10.4"
 revision = 1
 bootstrap = True
 wrksrc = f"linux-{version}"
