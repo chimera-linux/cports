@@ -42,11 +42,18 @@ parser.add_argument(
     const = True, default = False,
     help = "Do not build if the package already exists in local repository."
 )
+parser.add_argument(
+    "-g", "--build-dbg", action = "store_const",
+    const = True, default = False,
+    help = "Build debug packages."
+)
 parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
 args = parser.parse_args()
 
 cmd = args.command
+
+opt_gen_dbg = False
 
 # read global configuration
 
@@ -56,6 +63,7 @@ global_cfg.read("etc/config.ini")
 if "general" in global_cfg:
     gencfg = global_cfg["general"]
     make.set_jobs(gencfg.getint("jobs", fallback = 1))
+    opt_gen_dbg = gencfg.getboolean("build_dbg", fallback = False)
 
 signkey = None
 
@@ -67,6 +75,9 @@ if "signing" in global_cfg:
 
 if args.jobs:
     make.set_jobs(int(args.jobs))
+
+if args.build_dbg:
+    opt_gen_dbg = True
 
 # ensure files are created with sane permissions
 os.umask(0o022)
@@ -107,7 +118,7 @@ def binary_bootstrap(tgt):
         chroot.install(cmd[1])
 
 def bootstrap(tgt):
-    rp = template.read_pkg("base-chroot", False, True, False, None)
+    rp = template.read_pkg("base-chroot", False, True, False, False, None)
     chroot.initdb()
     chroot.repo_sync()
     build.build(tgt, rp, {}, signkey)
@@ -162,7 +173,7 @@ def do_remove_autodeps(tgt):
 def do_pkg(tgt):
     pkgn = cmd[1] if len(cmd) >= 1 else None
     rp = template.read_pkg(
-        pkgn, args.force, False, args.skip_if_exists, None
+        pkgn, args.force, False, args.skip_if_exists, opt_gen_dbg, None
     )
     # don't remove builddir/destdir
     chroot.repo_sync()

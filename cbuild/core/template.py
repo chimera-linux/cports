@@ -835,7 +835,7 @@ def from_module(m, ret):
     ret.CFLAGS = ["-O2"] + ret.CFLAGS
     ret.CXXFLAGS = ["-O2"] + ret.CXXFLAGS
 
-    if not ret.nodebug:
+    if not ret.nodebug and ret.build_dbg:
         ret.CFLAGS.append("-g")
         ret.CXXFLAGS.append("-g")
 
@@ -870,7 +870,9 @@ def from_module(m, ret):
 
 _tmpl_dict = {}
 
-def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
+def read_pkg(
+    pkgname, force_mode, bootstrapping, skip_if_exist, build_dbg, origin
+):
     global _tmpl_dict
 
     if not isinstance(pkgname, str):
@@ -885,6 +887,7 @@ def read_pkg(pkgname, force_mode, bootstrapping, skip_if_exist, origin):
     ret.force_mode = force_mode
     ret.bootstrapping = bootstrapping
     ret.skip_if_exist = skip_if_exist
+    ret.build_dbg = build_dbg
     ret.cross_build = False
 
     ret.setup_reproducible()

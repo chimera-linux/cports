@@ -19,7 +19,7 @@ def _srcpkg_ver(pkgn):
     if pkgn in _tcache:
         return _tcache[pkgn]
 
-    rv = template.read_pkg(pkgn, False, False, False, None)
+    rv = template.read_pkg(pkgn, False, False, False, False, None)
     cv = rv.version + "-r" + str(rv.revision)
     _tcache[pkgn] = cv
 
@@ -217,7 +217,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in host_missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, pkg.force_mode, pkg.bootstrapping, True, pkg
+                pn, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -226,7 +226,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, pkg.force_mode, pkg.bootstrapping, True, pkg
+                pn, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -235,7 +235,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for rd in missing_rdeps:
         try:
             build.build(step, template.read_pkg(
-                rd, pkg.force_mode, pkg.bootstrapping, True, pkg
+                rd, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
