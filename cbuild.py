@@ -6,7 +6,9 @@ import shutil
 import shlex
 import argparse
 import signal
+import pathlib
 import importlib
+import tempfile
 import traceback
 import configparser
 
@@ -44,6 +46,7 @@ opt_makejobs  = 1
 opt_nocolor   = "NO_COLOR" in os.environ
 opt_signkey   = None
 opt_force     = False
+opt_mdirtemp  = False
 opt_masterdir = "masterdir"
 opt_hostdir   = "hostdir"
 
@@ -99,6 +102,11 @@ parser.add_argument(
 parser.add_argument(
     "-H", "--hostdir", default = None, help = "The hostdir path."
 )
+parser.add_argument(
+    "-t", "--temporary", action = "store_const",
+    const = True, default = False,
+    help = "Use a temporary masterdir to build"
+)
 parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
 cmdline = parser.parse_args()
@@ -125,6 +133,14 @@ if cmdline.masterdir:
 
 if cmdline.hostdir:
     opt_hostdir = cmdline.hostdir
+
+if cmdline.temporary:
+    mdp = pathlib.Path.cwd() / opt_masterdir
+    # the temporary directory should be in the same location as masterdir
+    opt_mdirtemp  = True
+    opt_masterdir = tempfile.mkdtemp(
+        prefix = mdp.name + ".", dir = mdp.parent
+    )
 
 # set global config bits as needed
 
@@ -200,6 +216,8 @@ def do_keygen(tgt):
     sign.keygen(keyn, keysize)
 
 def do_chroot(tgt):
+    if opt_mdirtemp:
+        chroot.install(cpu.host())
     chroot.repo_sync()
     chroot.reconfigure()
     chroot.enter("/bin/cbuild-shell")
@@ -235,6 +253,8 @@ def do_pkg(tgt):
         shlex.split(opt_cflags), shlex.split(opt_cxxflags),
         shlex.split(opt_ldflags), None
     )
+    if opt_mdirtemp:
+        chroot.install(cpu.host())
     # don't remove builddir/destdir
     chroot.repo_sync()
     chroot.update(do_clean = False)
@@ -271,3 +291,6 @@ except template.SkipPackage:
 except:
     logger.get().out_red("A failure has occured!")
     traceback.print_exc(file = logger.get().estream)
+finally:
+    if opt_mdirtemp:
+        shutil.rmtree(paths.masterdir())
