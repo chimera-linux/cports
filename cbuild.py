@@ -26,8 +26,11 @@ signal.signal(signal.SIGINT, do_exit)
 signal.signal(signal.SIGTERM, do_exit)
 
 # program checks
-if not shutil.which("bwrap"):
-    sys.exit("Required program not found: bwrap")
+for prog in [
+    "bwrap", "scanelf", "openssl", "apk", "git", "tee"
+]:
+    if not shutil.which(prog):
+        sys.exit(f"Required program not found: {prog}")
 
 # global options
 
@@ -137,6 +140,17 @@ def binary_bootstrap(tgt):
         chroot.install(cmdline.command[1])
 
 def bootstrap(tgt):
+    # extra program checks
+    for prog in [
+        "clang", "lld", "cmake", "meson", "pkg-config",
+        "make", "ninja", "strip", "byacc", "flex", "perl", "m4"
+    ]:
+        if not shutil.which(prog):
+            sys.exit(f"Required bootstrap program not found: {prog}")
+
+    if not shutil.which("gmake") and not shutil.which("bmake"):
+        sys.exit("Required bootstrap program not found: gmake/bmake")
+
     rp = template.read_pkg("base-chroot", False, True, False, False, None)
     chroot.initdb()
     chroot.repo_sync()
