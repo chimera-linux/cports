@@ -58,6 +58,9 @@ def invoke(pkg):
             with open(v, "rb") as ef:
                 if ef.read(8) != b"!<arch>\n":
                     continue
+                # empty archive
+                if ef.read(1) == b"":
+                    continue
 
         found_nostrip = True
 
