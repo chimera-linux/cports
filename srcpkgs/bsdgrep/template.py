@@ -1,5 +1,5 @@
 pkgname = "bsdgrep"
-version = "1.0.3"
+version = "1.0.4"
 revision = 1
 wrksrc = f"bsdgrep-{version}"
 bootstrap = True
@@ -10,4 +10,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdgrep"
 distfiles = [f"https://github.com/chimera-linux/bsdgrep/archive/refs/tags/v{version}.tar.gz"]
-checksum = ["b7f987508153b309ba629af4b977b491f04cdf57fdaad22228fdc5ab9b5e7900"]
+checksum = ["839a505c5d5f6d53069e1863ed264d33120db01df29a606441a67cd40ce032ea"]
