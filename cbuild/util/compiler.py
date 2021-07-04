@@ -1,4 +1,5 @@
 from cbuild.core import logger
+import shlex
 
 class GnuLike:
     def __init__(self, tmpl, cexec, default_flags, default_ldflags):
@@ -27,7 +28,7 @@ class GnuLike:
         # output always
         argsbase += ["-o", str(pkg.chroot_build_wrksrc / output)]
         # fire
-        logger.get().out_plain(self.cexec + " " + " ".join(argsbase))
+        logger.get().out_plain(self.cexec + " " + shlex.join(argsbase))
         return self.template.do(self.cexec, argsbase, build = True)
 
 class C(GnuLike):

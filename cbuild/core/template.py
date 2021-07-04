@@ -6,6 +6,7 @@
 from re import search
 import fnmatch
 import shutil
+import shlex
 import time
 import glob
 import sys
@@ -544,9 +545,9 @@ class Template(Package):
 
     def do(self, cmd, args, env = {}, build = False, wrksrc = None):
         cenv = {
-            "CFLAGS": " ".join(self.CFLAGS),
-            "CXXFLAGS": " ".join(self.CXXFLAGS),
-            "LDFLAGS": " ".join(self.LDFLAGS),
+            "CFLAGS": shlex.join(self.CFLAGS),
+            "CXXFLAGS": shlex.join(self.CXXFLAGS),
+            "LDFLAGS": shlex.join(self.LDFLAGS),
             "CBUILD_TARGET_MACHINE": cpu.target(),
             "CBUILD_MACHINE": cpu.host(),
         }

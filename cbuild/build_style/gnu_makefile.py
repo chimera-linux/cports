@@ -1,4 +1,5 @@
 from cbuild.util import make
+import shlex
 
 def init_configure(self):
     self.make = make.Make(self)
@@ -19,9 +20,9 @@ def do_build(self):
         "LD=" + self.tools["LD"],
         "AR=" + self.tools["AR"],
         "AS=" + self.tools["AS"],
-        "CFLAGS=" + " ".join(self.CFLAGS),
-        "LDFLAGS=" + " ".join(self.LDFLAGS),
-        "CXXFLAGS=" + " ".join(self.CXXFLAGS),
+        "CFLAGS=" + shlex.join(self.CFLAGS),
+        "LDFLAGS=" + shlex.join(self.LDFLAGS),
+        "CXXFLAGS=" + shlex.join(self.CXXFLAGS),
     ])
 
 def do_check(self):
