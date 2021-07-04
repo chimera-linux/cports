@@ -3,7 +3,7 @@ version = "0.99.0"
 revision = 1
 bootstrap = True
 build_style = "gnu_makefile"
-make_build_args = ["YACC=byacc"]
+make_build_args = ["YACC=byacc", "LEX=true"]
 short_desc = "The m4(1) utility from FreeBSD"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
