@@ -1,7 +1,7 @@
 def invoke(pkg):
     pkg.LDFLAGS.insert(0, "-Wl,--as-needed")
 
-    if not pkg.nopie:
+    if pkg.hardening["pie"]:
         pkg.CFLAGS.insert(0, "-D_FORTIFY_SOURCE=2")
         pkg.CFLAGS.insert(0, "-fstack-clash-protection")
 

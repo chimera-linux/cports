@@ -155,7 +155,7 @@ def invoke(pkg):
             print(f"   Stripped executable: {str(vr)}")
 
             allow_nopie = False
-            if not pkg.nopie:
+            if pkg.hardening["pie"]:
                 for f in pkg.nopie_files:
                     if vr.match(f):
                         allow_nopie = True

@@ -370,7 +370,7 @@ core_fields = [
     ("nodebug", False, bool, False, False, False, False),
     ("nostrip", False, bool, False, False, True, False),
     ("nostrip_files", [], list, False, False, True, False),
-    ("nopie", False, bool, False, False, False, False),
+    ("hardening", [], list, False, False, True, False),
     ("nopie_files", [], list, False, False, True, False),
     ("tools", {}, dict, False, False, False, False),
     ("env", {}, dict, False, False, False, False),
@@ -392,6 +392,11 @@ core_fields = [
     ("tags", [], list, True, False, True, False),
     ("changelog", None, str, True, False, False, False),
 ]
+
+# recognized hardening options
+hardening_fields = {
+    "pie": True
+}
 
 # for defaults, always make copies
 def copy_of_dval(val):
@@ -542,6 +547,21 @@ class Template(Package):
                     break
         if not matched:
             self.error(f"this package cannot be built for {cpu.target()}")
+
+    def parse_hardening(self):
+        hdict = dict(hardening_fields)
+
+        for fl in self.hardening:
+            neg = fl.startswith("!")
+            if neg:
+                fl = fl[1:]
+
+            if not fl in hdict:
+                self.error(f"unrecognized hardening option: {fl}")
+
+            hdict[fl] = not neg
+
+        self.hardening = hdict
 
     def do(self, cmd, args, env = {}, build = False, wrksrc = None):
         cenv = {
@@ -705,6 +725,9 @@ def from_module(m, ret):
             setattr(ret, fl, dval)
         else:
             setattr(ret, fl, flv)
+
+    # parse hardening fields
+    ret.parse_hardening()
 
     # add our own methods
     for phase in [
