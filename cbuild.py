@@ -170,19 +170,20 @@ os.environ["CBUILD_ARCH"] = cpu.host()
 os.environ["PATH"] = os.environ["PATH"] + ":" + \
     str(paths.masterdir() / "usr/bin")
 
-# create necessary directories
-os.makedirs(paths.masterdir(), exist_ok = True)
-os.makedirs(paths.hostdir(), exist_ok = True)
-os.makedirs(paths.repository(), exist_ok = True)
-os.makedirs(paths.sources(), exist_ok = True)
-
 def binary_bootstrap(tgt):
+    paths.prepare()
+
     if len(cmdline.command) <= 1:
         chroot.install(cpu.host())
     else:
         chroot.install(cmdline.command[1])
 
 def bootstrap(tgt):
+    max_stage = 2
+
+    if len(cmdline.command) > 1:
+        max_stage = int(cmdline.command[1])
+
     # extra program checks
     for prog in [
         "clang", "lld", "cmake", "meson", "pkg-config",
@@ -194,14 +195,51 @@ def bootstrap(tgt):
     if not shutil.which("gmake") and not shutil.which("bmake"):
         sys.exit("Required bootstrap program not found: gmake/bmake")
 
-    rp = template.read_pkg(
-        "base-chroot", False, True, False, False, [], [], [], None
-    )
-    chroot.initdb()
-    chroot.repo_sync()
-    build.build(tgt, rp, {}, opt_signkey)
-    shutil.rmtree(paths.masterdir())
-    chroot.install(cpu.host())
+    oldmdir = paths.masterdir()
+
+    paths.set_stage(0)
+    paths.reinit_masterdir(oldmdir, 0)
+
+    if not chroot.chroot_check(True):
+        logger.get().out("cbuild: bootstrapping stage 0")
+
+        rp = template.read_pkg(
+            "base-chroot", False, True, False, False, [], [], [], None
+        )
+        paths.prepare()
+        chroot.initdb()
+        chroot.repo_sync()
+        build.build(tgt, rp, {}, opt_signkey)
+        shutil.rmtree(paths.masterdir())
+        chroot.install(cpu.host())
+
+    # change binary repo path
+    paths.set_stage(1)
+    # set masterdir to stage 1 for chroot check
+    paths.reinit_masterdir(oldmdir, 1)
+
+    if not chroot.chroot_check(True):
+        logger.get().out("cbuild: bootstrapping stage 1")
+        # use stage 0 masterdir to build, but build into stage 1 repo
+        paths.reinit_masterdir(oldmdir, 0)
+        do_pkg("pkg", "base-chroot")
+        # go back to stage 1
+        paths.reinit_masterdir(oldmdir, 1)
+        chroot.install(cpu.host())
+
+    # change binary repo path
+    paths.set_stage(2)
+    # set masterdir to stage 2 for chroot check
+    paths.reinit_masterdir(oldmdir, 2)
+
+    if not chroot.chroot_check(True):
+        logger.get().out("cbuild: bootstrapping stage 2")
+        # use stage 1 masterdir to build, but build into stage 2 repo
+        paths.reinit_masterdir(oldmdir, 1)
+        do_pkg("pkg", "base-chroot")
+        # go back to stage 2
+        paths.reinit_masterdir(oldmdir, 2)
+        chroot.install(cpu.host())
 
 def bootstrap_update(tgt):
     chroot.update()
@@ -222,6 +260,7 @@ def do_keygen(tgt):
 def do_chroot(tgt):
     if opt_mdirtemp:
         chroot.install(cpu.host())
+    paths.prepare()
     chroot.repo_sync()
     chroot.reconfigure()
     chroot.enter("/bin/cbuild-shell")
@@ -250,8 +289,9 @@ def do_zap(tgt):
 def do_remove_autodeps(tgt):
     chroot.remove_autodeps(None)
 
-def do_pkg(tgt):
-    pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
+def do_pkg(tgt, pkgn = None):
+    if not pkgn:
+        pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
         pkgn, opt_force, False, opt_skipexist, opt_gen_dbg,
         shlex.split(opt_cflags), shlex.split(opt_cxxflags),
@@ -260,6 +300,7 @@ def do_pkg(tgt):
     if opt_mdirtemp:
         chroot.install(cpu.host())
     # don't remove builddir/destdir
+    paths.prepare()
     chroot.repo_sync()
     chroot.update(do_clean = False)
     chroot.remove_autodeps(False)

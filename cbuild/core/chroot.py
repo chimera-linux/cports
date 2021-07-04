@@ -14,10 +14,10 @@ from cbuild import cpu
 _chroot_checked = False
 _chroot_ready = False
 
-def chroot_check():
+def chroot_check(force = False):
     global _chroot_checked, _chroot_ready
 
-    if _chroot_checked:
+    if _chroot_checked and not force:
         return _chroot_ready
 
     _chroot_checked = True
@@ -27,6 +27,7 @@ def chroot_check():
         cpun = (paths.masterdir() / ".cbuild_chroot_init").read_text().strip()
         cpu.init(cpun, cpun)
     else:
+        _chroot_ready = False
         cpun = os.uname().machine
         cpu.init(cpun, cpun)
 
@@ -74,7 +75,7 @@ exec env -i -- SHELL=/bin/sh PATH="$PATH" \
 
     shutil.copy("/etc/resolv.conf", paths.masterdir() / "etc")
 
-def _prepare(arch = None):
+def _prepare(arch, stage):
     sfpath = paths.masterdir() / ".cbuild_chroot_init"
     if sfpath.is_file():
         return
@@ -138,10 +139,14 @@ def repo_sync():
             for repo in repof:
                 relpath = repo.lstrip("/")
                 # in-chroot
-                repos_mdir.write("/host/binpkgs/")
+                repos_mdir.write(str(
+                    pathlib.Path("/host") /
+                    paths.repository().relative_to(paths.hostdir())
+                ))
+                repos_mdir.write("/")
                 repos_mdir.write(relpath)
                 # out of chroot
-                repos_hdir.write(str(paths.hostdir() / "binpkgs"))
+                repos_hdir.write(str(paths.repository()))
                 repos_hdir.write("/")
                 repos_hdir.write(relpath)
 
@@ -199,7 +204,7 @@ def initdb():
     (mdir / "usr/lib/apk/db/installed").touch()
     (mdir / "etc/apk/world").touch()
 
-def install(arch = None, bootstrap = False):
+def install(arch = None, stage = 2):
     if chroot_check():
         return
 
@@ -215,7 +220,7 @@ def install(arch = None, bootstrap = False):
     finally:
         cpu.init(oldh, oldt)
 
-    if not arch or bootstrap:
+    if not arch or stage < 2:
         arch = cpu.host()
 
     irun = subprocess.run([
@@ -229,7 +234,7 @@ def install(arch = None, bootstrap = False):
 
     logger.get().out("cbuild: installed base-chroot successfully!")
 
-    _prepare(arch)
+    _prepare(arch, stage)
     _chroot_checked = False
     _chroot_ready = False
     chroot_check()

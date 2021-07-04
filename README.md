@@ -92,54 +92,52 @@ file so it can use the keys.
 
 If you do not create and set up a key, your packages and repo will be unsigned.
 
-### Bootstrap process - stage 0
+### Bootstrap process
 
-The bootstrapping process has three stages. The first stage is initiated like this:
+To perform a full bootstrap, simply run the following:
 
 ```
 $ ./cbuild.py bootstrap
 ```
 
-We call this stage 0. During this stage, host tools (including the compiler) are used
-to build a minimal collection of packages (enough to assemble the `masterdir`).
+You can also stop the bootstrap process at a specific stage by passing the
+stage number (0, 1 or 2) as an argument after `bootstrap`. To explain what
+is going on, read below.
 
-Once this finishes, you will have a `masterdir` present, plus the built packages in
-the `hostdir/binpkgs` repository.
+#### Bootstrap process - stage 0
 
-While this `masterdir` can be used to build packages right away, you are not supposed
-to as it can be influenced by the host configuration.
+The bootstrapping process has three stages. First is stage 0, which is built
+on the host system (without any isolation). Your host system is used to build
+a minimal set of packages required to assemble the `masterdir`.
 
-If the building fails at any stage, you will need to correct the issue (or report a
-bug if it's on our side) and issue the command again. It will not build things that
-are already built.
+Once the first stage completes, you should have a `masterdir-stage0` (assembled
+container) as well as `hostdir/binpkgs-stage0` (built package repository).
+
+This `masterdir` is enough to build software, but you are not supposed to use it
+directly since it is largely influenced by the host software and configuration.
+
+If the building fails at any stage, you can just restart it and it will continue
+where it left off. It will not build any things already built.
 
 ### Bootstrap process - stage 1
 
-You can initiate this stage by getting rid of your `hostdir/binpkgs` (but keeping
-the `masterdir`) and then issuing a command to build the `masterdir` primary
-metapackage, `base-chroot`.
+Once a stage 0 `masterdir` is available, this stage will proceed. It will generate
+a `masterdir-stage1` as well as `hostdir/binpkgs-stage1`.
 
-```
-$ mv hostdir/binpkgs hostdir/binpkgs_bak
-$ ./cbuild.py pkg base-chroot
-```
-
-If this completes successfully, kill your old `masterdir` and rebootstrap:
-
-```
-$ ./cbuild.py zap
-$ ./cbuild.py binary-bootstrap
-```
-
-This will use your newly built binary repository to assemble a fresh `masterdir`.
-
-You now have a stage 1 root, which is close to what you want.
+This `masterdir` is fairly close to the actual final container, but may still
+contain leftovers caused by the toolchain used to build it being "dirty". That
+is why everything needs to be rebuilt once again.
 
 ### Bootstrap process - stage 2
 
-However, the stage 1 packages were built with a "dirty" toolchain. While it's highly
-likely that the packages are already identical to final, it is not guaranteed.
+Once a stage 1 `masterdir` is available, this stage is built. It is built in exactly
+the same way as stage 1, except it will create a `masterdir` and its repository
+will be stored in `hostdir/binpkgs`.
 
-Therefore, just repeat the stage 1 process again, but using your newly built
-packages. Once that is done and you've once again zapped your `masterdir` and
-reassembled it, you should have a final `chroot` that is ready to build packages.
+After the whole process is done, you will have three `masterdirs`, as well as three
+repositories. You can discard the first two stages if you want. They are kept around
+for reference.
+
+Keep in mind that the `masterdir` as well as `hostdir` path/name may change
+based on the configuration file and command line options you pass. The `-stage0`
+and `-stage1` suffixes are appended universally though.
