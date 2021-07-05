@@ -313,7 +313,7 @@ def update(do_clean = True):
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, unshare_all = False,
-          pretend_uid = None, pretend_gid = None):
+          mount_distdir = True, pretend_uid = None, pretend_gid = None):
     envs = {
         "PATH": "/usr/bin:" + os.environ["PATH"],
         "SHELL": "/bin/sh",
@@ -361,11 +361,13 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "--bind", str(paths.masterdir() / "builddir"), "/builddir",
         "--bind", str(paths.masterdir() / "destdir"), "/destdir",
         "--bind", str(paths.hostdir()), "/host",
-        "--bind", str(paths.distdir()), "/cports",
         "--dev", "/dev",
         "--proc", "/proc",
         "--tmpfs", "/tmp",
     ]
+
+    if mount_distdir:
+        bcmd += ["--bind", str(paths.distdir()), "/cports"]
 
     if pretend_uid != None:
         bcmd += ["--uid", str(pretend_uid)]
