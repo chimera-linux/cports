@@ -27,12 +27,17 @@ suffixes = {
     "*.crate":      "crate",
 }
 
-tar_cmd = None
-
 def extract_tar(pkg, fname, dfile, edir, sfx):
-    if chroot.enter(tar_cmd, [
+    # for bootstrap, use python's native extractor
+    if pkg.bootstrapping:
+        import tarfile
+        with tarfile.open(dfile) as tf:
+            tf.extractall(path = edir)
+        return
+
+    if chroot.enter("tar", [
         "-x", "--no-same-permissions", "--no-same-owner",
-        "-f", str(dfile), "-C", edir
+        "-f", str(dfile), "-C", str(edir)
     ], bootstrapping = pkg.bootstrapping).returncode != 0:
         pkg.error(f"extracting '{fname}' failed!")
 
@@ -79,23 +84,6 @@ def invoke(pkg):
         if not pkg.abs_wrksrc.is_dir():
             pkg.error(f"failed to create wrksrc")
 
-    x = chroot.enter(
-        "sh", ["-c", "command -v bsdtar"],
-        capture_out = True,
-        bootstrapping = pkg.bootstrapping
-    )
-    if len(x.stdout.strip()) == 0:
-        x = chroot.enter(
-            "sh", ["-c", "command -v tar"],
-            capture_out = True,
-            bootstrapping = pkg.bootstrapping
-        )
-    if len(x.stdout.strip()) == 0:
-        pkg.error("no suitable tar command")
-
-    global tar_cmd
-    tar_cmd = x.stdout.strip().decode("ascii")
-
     for d in pkg.distfiles:
         if isinstance(d, tuple):
             fname = d[1]
@@ -110,6 +98,10 @@ def invoke(pkg):
                 break
         if not suffix:
             pkg.error(f"unknown distfile suffix for '{fname}'")
+
+        if pkg.bootstrapping:
+            if suffix != "tgz" and suffix != "tbz" and suffix != "txz":
+                pkg.error(f"distfile not supported for bootstrap: {fname}")
 
         if pkg.create_wrksrc:
             extractdir = pkg.chroot_wrksrc
