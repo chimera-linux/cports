@@ -395,7 +395,9 @@ core_fields = [
 
 # recognized hardening options
 hardening_fields = {
-    "pie": True
+    "pie": True,
+    "ssp": True, # this should really be compiler default
+    "scp": False, # stack-clash-protection
 }
 
 # for defaults, always make copies
@@ -431,6 +433,7 @@ class Template(Package):
         self.git_revision = None
         self.git_dirty = False
         self.current_sonames = {}
+        self.default_hardening = []
 
     def setup_reproducible(self):
         self.source_date_epoch = int(time.time())
@@ -501,6 +504,9 @@ class Template(Package):
             if endian != "little" and endian != "big":
                 self.error("invalid CBUILD_TARGET_ENDIAN value")
 
+            if hasattr(bp, "CBUILD_TARGET_HARDENING"):
+                self.default_hardening = bp.CBUILD_TARGET_HARDENING
+
             self.triplet = bp.CBUILD_TRIPLET
             cpu.init_target(wsize, endian)
         else:
@@ -551,7 +557,7 @@ class Template(Package):
     def parse_hardening(self):
         hdict = dict(hardening_fields)
 
-        for fl in self.hardening:
+        for fl in self.default_hardening + self.hardening:
             neg = fl.startswith("!")
             if neg:
                 fl = fl[1:]
