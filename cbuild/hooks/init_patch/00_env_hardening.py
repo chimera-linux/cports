@@ -1,10 +1,11 @@
 def invoke(pkg):
     pkg.LDFLAGS.insert(0, "-Wl,--as-needed")
 
-    if pkg.hardening["pie"]:
+    if pkg.hardening["fortify"]:
         pkg.CFLAGS.insert(0, "-D_FORTIFY_SOURCE=2")
         pkg.CXXFLAGS.insert(0, "-D_FORTIFY_SOURCE=2")
 
+    if pkg.hardening["pie"]:
         pkg.LDFLAGS.insert(0, "-Wl,-z,now")
         pkg.LDFLAGS.insert(0, "-Wl,-z,relro")
     else:

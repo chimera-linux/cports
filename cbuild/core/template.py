@@ -116,7 +116,7 @@ def run_pkg_func(pkg, func, funcn = None, desc = None, on_subpkg = False):
         if not hasattr(pkg, func):
             return False
         funcn = func
-        
+
         func = getattr(pkg, funcn)
     if not desc:
         desc = funcn
@@ -395,6 +395,7 @@ core_fields = [
 
 # recognized hardening options
 hardening_fields = {
+    "fortify": True,
     "pie": True,
     "ssp": True, # this should really be compiler default
     "scp": False, # stack-clash-protection
