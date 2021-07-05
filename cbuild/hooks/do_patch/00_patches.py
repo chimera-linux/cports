@@ -24,13 +24,13 @@ def process_patch(pkg, patchpath):
     if patchsfx == ".gz":
         chroot.enter(
             "gunzip", [str(pkg.chroot_wrksrc / patchfn)], check = True,
-            bootstrapping = pkg.bootstrapping
+            bootstrapping = pkg.bootstrapping, ro_root = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".bz2":
         chroot.enter(
             "bunzip2", [str(pkg.chroot_wrksrc / patchfn)], check = True,
-            bootstrapping = pkg.bootstrapping
+            bootstrapping = pkg.bootstrapping, ro_root = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".diff" or patchsfx == ".patch":
@@ -44,7 +44,8 @@ def process_patch(pkg, patchpath):
         "patch", ["-sl", pargs, "-i", patchfn],
         stderr = subprocess.DEVNULL, check = True,
         wrkdir = pkg.chroot_wrksrc,
-        bootstrapping = pkg.bootstrapping
+        bootstrapping = pkg.bootstrapping,
+        ro_root = True
     )
 
 def invoke(pkg):
