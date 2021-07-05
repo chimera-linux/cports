@@ -312,7 +312,8 @@ def update(do_clean = True):
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
-          bootstrapping = False, ro_root = False):
+          bootstrapping = False, ro_root = False,
+          pretend_uid = None, pretend_gid = None):
     envs = {
         "PATH": "/usr/bin:" + os.environ["PATH"],
         "SHELL": "/bin/sh",
@@ -364,10 +365,12 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "--dev", "/dev",
         "--proc", "/proc",
         "--tmpfs", "/tmp",
-        # pretend we're root so apk can do upgrades
-        "--uid", "0",
-        "--gid", "0",
     ]
+
+    if pretend_uid != None:
+        bcmd += ["--uid", str(pretend_uid)]
+    if pretend_gid != None:
+        bcmd += ["--gid", str(pretend_gid)]
 
     if wrkdir:
         bcmd.append("--chdir")

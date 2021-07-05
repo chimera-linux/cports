@@ -70,7 +70,10 @@ def _install_from_repo(pkg, pkglist, virtn):
         ] + pkglist, capture_output = True)
     else:
         ret = chroot.enter(
-            "apk", ["add", "--virtual", virtn] + pkglist, capture_out = True
+            "apk", ["add", "--virtual", virtn] + pkglist,
+            capture_out = True,
+            pretend_uid = 0,
+            pretend_gid = 0
         )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()
