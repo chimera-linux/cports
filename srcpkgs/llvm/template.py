@@ -45,6 +45,9 @@ checksum = ["9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"]
 
 cmake_dir = "llvm"
 
+CFLAGS = ["-fPIC"]
+CXXFLAGS = ["-fPIC"]
+
 if not current.bootstrapping:
     hostmakedepends = [
         "cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
@@ -55,8 +58,6 @@ if not current.bootstrapping:
     ]
     depends += ["libexecinfo-devel"]
 else:
-    CFLAGS = ["-fPIC"]
-    CXXFLAGS = ["-fPIC"]
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",
         "-DLLVM_ENABLE_LIBPFM=NO",
