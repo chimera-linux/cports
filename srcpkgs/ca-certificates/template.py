@@ -18,12 +18,14 @@ checksum = ["daa3afae563711c30a0586ddae4336e8e3974c2b627faaca404c4e0141b64665"]
 
 def post_extract(self):
     from cbuild.util import compiler
+    import shutil
     import re
     import os
 
+    shutil.copy(self.files_path / "certdata2pem.c", self.abs_wrksrc)
     cc = compiler.C(self)
     cc.invoke(
-        [self.chroot_files_path / "certdata2pem.c"], "mozilla/certdata2pem"
+        ["certdata2pem.c"], "mozilla/certdata2pem"
     )
 
     self.copy(

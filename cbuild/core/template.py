@@ -760,14 +760,11 @@ def from_module(m, ret):
     ret.wrapperdir = ret.statedir / "wrappers"
 
     if ret.bootstrapping:
-        ret.chroot_files_path = ret.files_path
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
         ret.chroot_wrksrc = ret.abs_wrksrc
         ret.chroot_hostdir = paths.hostdir()
     else:
-        ret.chroot_files_path = pathlib.Path("/cports/srcpkgs") \
-            / ret.pkgname / "files"
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
         ret.chroot_wrksrc = pathlib.Path("/builddir") \

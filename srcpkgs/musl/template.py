@@ -19,10 +19,14 @@ if not current.bootstrapping:
 
 def post_build(self):
     from cbuild.util import compiler
+    import shutil
+    shutil.copy(self.files_path / "getent.c", self.abs_wrksrc)
+    shutil.copy(self.files_path / "getconf.c", self.abs_wrksrc)
+    shutil.copy(self.files_path / "iconv.c", self.abs_wrksrc)
     cc = compiler.C(self)
-    cc.invoke([self.chroot_files_path / "getent.c"], "getent")
-    cc.invoke([self.chroot_files_path / "getconf.c"], "getconf")
-    cc.invoke([self.chroot_files_path / "iconv.c"], "iconv")
+    cc.invoke(["getent.c"], "getent")
+    cc.invoke(["getconf.c"], "getconf")
+    cc.invoke(["iconv.c"], "iconv")
 
 def do_install(self):
     self.install_dir("usr/lib")
