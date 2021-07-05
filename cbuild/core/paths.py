@@ -56,5 +56,6 @@ def cbuild():
 def prepare():
     hostdir().mkdir(parents = True, exist_ok = True)
     sources().mkdir(parents = True, exist_ok = True)
-    masterdir().mkdir(parents = True, exist_ok = True)
+    (masterdir() / "builddir").mkdir(parents = True, exist_ok = True)
+    (masterdir() / "destdir").mkdir(parents = True, exist_ok = True)
     repository().mkdir(parents = True, exist_ok = True)

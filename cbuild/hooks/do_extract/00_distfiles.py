@@ -38,7 +38,7 @@ def extract_tar(pkg, fname, dfile, edir, sfx):
     if chroot.enter("tar", [
         "-x", "--no-same-permissions", "--no-same-owner",
         "-f", str(dfile), "-C", str(edir)
-    ], bootstrapping = pkg.bootstrapping).returncode != 0:
+    ]).returncode != 0:
         pkg.error(f"extracting '{fname}' failed!")
 
 def extract_notar(pkg, fname, dfile, edir, sfx):

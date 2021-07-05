@@ -312,7 +312,7 @@ def update(do_clean = True):
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
-          bootstrapping = False):
+          bootstrapping = False, ro_root = False):
     envs = {
         "PATH": "/usr/bin:" + os.environ["PATH"],
         "SHELL": "/bin/sh",
@@ -341,6 +341,11 @@ def enter(cmd, args = [], capture_out = False, check = False,
     if "CBUILD_STATEDIR" in envs:
         envs["PATH"] = envs["CBUILD_STATEDIR"] + "/wrappers:" + envs["PATH"]
 
+    if ro_root:
+        root_bind = "--ro-bind"
+    else:
+        root_bind = "--bind"
+
     if bootstrapping:
         return subprocess.run(
             [cmd] + args, env = envs,
@@ -351,9 +356,11 @@ def enter(cmd, args = [], capture_out = False, check = False,
 
     bcmd = [
         "bwrap",
-        "--dev-bind", str(paths.masterdir()), "/",
-        "--dev-bind", str(paths.hostdir()), "/host",
-        "--dev-bind", str(paths.distdir()), "/cports",
+        root_bind, str(paths.masterdir()), "/",
+        "--bind", str(paths.masterdir() / "builddir"), "/builddir",
+        "--bind", str(paths.masterdir() / "destdir"), "/destdir",
+        "--bind", str(paths.hostdir()), "/host",
+        "--bind", str(paths.distdir()), "/cports",
         "--dev", "/dev",
         "--proc", "/proc",
         "--tmpfs", "/tmp",
