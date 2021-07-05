@@ -586,7 +586,8 @@ class Template(Package):
 
         return chroot.enter(
             str(cmd), args, env = cenv, wrkdir = str(wdir), check = True,
-            bootstrapping = self.bootstrapping, ro_root = True
+            bootstrapping = self.bootstrapping, ro_root = True,
+            unshare_all = True
         )
 
     def run_step(self, stepn, optional = False, skip_post = False):

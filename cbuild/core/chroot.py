@@ -312,7 +312,7 @@ def update(do_clean = True):
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
-          bootstrapping = False, ro_root = False,
+          bootstrapping = False, ro_root = False, unshare_all = False,
           pretend_uid = None, pretend_gid = None):
     envs = {
         "PATH": "/usr/bin:" + os.environ["PATH"],
@@ -371,6 +371,9 @@ def enter(cmd, args = [], capture_out = False, check = False,
         bcmd += ["--uid", str(pretend_uid)]
     if pretend_gid != None:
         bcmd += ["--gid", str(pretend_gid)]
+
+    if unshare_all:
+        bcmd += ["--unshare-all"]
 
     if wrkdir:
         bcmd.append("--chdir")
