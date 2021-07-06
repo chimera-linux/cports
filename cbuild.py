@@ -213,6 +213,9 @@ def bootstrap(tgt):
         shutil.rmtree(paths.masterdir())
         chroot.install(cpu.host())
 
+    if max_stage == 0:
+        return
+
     # change binary repo path
     paths.set_stage(1)
     # set masterdir to stage 1 for chroot check
@@ -226,6 +229,9 @@ def bootstrap(tgt):
         # go back to stage 1
         paths.reinit_masterdir(oldmdir, 1)
         chroot.install(cpu.host())
+
+    if max_stage == 1:
+        return
 
     # change binary repo path
     paths.set_stage(2)
