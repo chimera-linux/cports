@@ -36,6 +36,7 @@ depends = [
     f"libllvm={version}-r{revision}",
     f"libomp={version}-r{revision}",
 ]
+make_cmd = "make"
 short_desc = "Low Level Virtual Machine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
@@ -50,7 +51,7 @@ CXXFLAGS = ["-fPIC"]
 
 if not current.bootstrapping:
     hostmakedepends = [
-        "cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
+        "cmake", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
     ]
     makedepends += [
         "python-devel", "libedit-devel", "elftoolchain-devel",
