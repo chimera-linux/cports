@@ -85,8 +85,8 @@ def invoke(pkg):
             try:
                 fname = request.urlretrieve(url, str(dfile))[0]
                 fname = os.path.basename(fname)
-            except:
-                pass
+            except Exception as e:
+                pkg.log_warn(f"error fetching '{fname}': {e}")
         if not dfile.is_file():
             pkg.error(f"failed to fetch '{fname}'")
         if not verify_cksum(fname, dfile, ck, pkg):
