@@ -45,9 +45,11 @@ def use(tmpl):
     tmpl.do_build = do_build
     tmpl.do_check = do_check
     tmpl.do_install = do_install
-    tmpl.make_build_target = "all"
-    tmpl.make_cmd = "ninja"
 
     tmpl.build_style_fields = [
         ("meson_dir", ".", str, False, False, False)
+    ]
+    tmpl.build_style_defaults = [
+        ("make_cmd", "ninja"),
+        ("make_build_target", "all")
     ]

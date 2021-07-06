@@ -709,6 +709,7 @@ def from_module(m, ret):
     ret.validate_arch()
 
     ret.build_style_fields = []
+    ret.build_style_defaults = []
 
     # also support build_style via string name for nicer syntax
     if isinstance(ret.build_style, str):
@@ -733,6 +734,11 @@ def from_module(m, ret):
             setattr(ret, fl, dval)
         else:
             setattr(ret, fl, flv)
+
+    # set default fields for build_style if not set by template
+    for fl, dval in ret.build_style_defaults:
+        if not hasattr(m, fl):
+            setattr(ret, fl, copy_of_dval(dval))
 
     # parse hardening fields
     ret.parse_hardening()
