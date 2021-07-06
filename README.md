@@ -119,7 +119,7 @@ directly since it is largely influenced by the host software and configuration.
 If the building fails at any stage, you can just restart it and it will continue
 where it left off. It will not build any things already built.
 
-### Bootstrap process - stage 1
+#### Bootstrap process - stage 1
 
 Once a stage 0 `masterdir` is available, this stage will proceed. It will generate
 a `masterdir-stage1` as well as `hostdir/binpkgs-stage1`.
@@ -128,7 +128,7 @@ This `masterdir` is fairly close to the actual final container, but may still
 contain leftovers caused by the toolchain used to build it being "dirty". That
 is why everything needs to be rebuilt once again.
 
-### Bootstrap process - stage 2
+#### Bootstrap process - stage 2
 
 Once a stage 1 `masterdir` is available, this stage is built. It is built in exactly
 the same way as stage 1, except it will create a `masterdir` and its repository
@@ -141,3 +141,29 @@ for reference.
 Keep in mind that the `masterdir` as well as `hostdir` path/name may change
 based on the configuration file and command line options you pass. The `-stage0`
 and `-stage1` suffixes are appended universally though.
+
+#### Bootstrapping on an incompatible host
+
+If you're running an incompatible host, which generally means running a glibc system,
+there is still an option for you. You can use the `bootstrap.sh` script.
+
+The script works by downloading a compatible rootfs (Void Linux with `musl`) and
+then running a regular bootstrap in it. It takes care of installing the appropriate
+dependencies into the root, and the entire process runs unprivileged, thanks to
+namespaces and `bubblewrap`.
+
+Any arguments passed to the script are passed to `cbuild.py`. This is generally
+most useful for passing the number of make jobs, e.g. `-j16` to use 16 threads.
+
+**NOTE:** You will still need to prepare as usual! That means generating a signing
+key and setting up the configuration file for it. Once the process successfully
+finishes, you wil have a `masterdir` ready and you will no longer need to use the
+script. Instead, you will simply build packages as normal, as the host environment
+becomes irrelevant.
+
+If the process fails during stage 0, you will probably want to fix the problem and
+resume it. To prevent the script from starting from scratch, just set the environment
+variable `BOOTSTRAP_ROOT` to the path to the directory with the already-made root.
+That will make it proceed. This is only necessary if the failure is in stage 0,
+as for stage 1 onwards the host system already does not matter and you can simply
+run `cbuild.py bootstrap` directly.
