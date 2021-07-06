@@ -26,11 +26,16 @@ _arch = cpu.match_target(
 
 def do_build(self):
     from cbuild.util import make
-    import glob
+    import glob, shlex
 
     mk = make.Make(self, jobs = 1)
     mk.invoke("mrproper", [
-        "ARCH=" + _arch, "CC=clang", "HOSTCC=clang", "headers"
+        "ARCH=" + _arch, "CC=clang", "HOSTCC=clang",
+        "CFLAGS=" + shlex.join(self.CFLAGS),
+        "HOSTCFLAGS=" + shlex.join(self.CFLAGS),
+        "LDFLAGS=" + shlex.join(self.LDFLAGS),
+        "HOSTLDFLAGS=" + shlex.join(self.LDFLAGS),
+        "headers"
     ])
 
     # remove extra files and drm headers
