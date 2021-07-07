@@ -5,3 +5,6 @@ masterdir*
 hostdir*
 etc/keys
 etc/config.ini
+void-*.tar.xz
+bootstrap.*
+!bootstrap.sh

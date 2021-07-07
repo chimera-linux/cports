@@ -1,14 +1,3 @@
-From cddc7e9ea835929fa3031336c8454a6abe5514e8 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <dkolesa@igalia.com>
-Date: Wed, 7 Jul 2021 15:45:58 +0200
-Subject: [PATCH] enforce compiler-rt libcc
-
----
- configure | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
-
-diff --git a/configure b/configure
-index a5231a0..ca2efcd 100755
 --- a/configure
 +++ b/configure
 @@ -592,11 +592,7 @@ tryldflag LDFLAGS_AUTO -Wl,--exclude-libs=ALL
