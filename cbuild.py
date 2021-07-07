@@ -45,6 +45,8 @@ opt_skipexist = False
 opt_makejobs  = 1
 opt_nocolor   = "NO_COLOR" in os.environ
 opt_signkey   = None
+opt_unsigned  = False
+opt_allowroot = False
 opt_force     = False
 opt_mdirtemp  = False
 opt_masterdir = "masterdir"
@@ -59,24 +61,24 @@ parser.add_argument(
     help = "The configuration file to use."
 )
 parser.add_argument(
-    "-f", "--force", action = "store_const", const = True, default = False,
+    "-f", "--force", action = "store_const", const = True, default = opt_force,
     help = "Force writing a package even when exists."
 )
 parser.add_argument(
-    "-L", "--no-color", action = "store_const", const = True, default = False,
-    help = "Force plain output."
+    "-L", "--no-color", action = "store_const", const = True,
+    default = opt_nocolor, help = "Force plain output."
 )
 parser.add_argument(
     "-j", "--jobs", help = "Number of jobs to use.", default = None
 )
 parser.add_argument(
     "-E", "--skip-if-exists", action = "store_const",
-    const = True, default = False,
+    const = True, default = opt_skipexist,
     help = "Do not build if the package already exists in local repository."
 )
 parser.add_argument(
     "-g", "--build-dbg", action = "store_const",
-    const = True, default = False,
+    const = True, default = opt_gen_dbg,
     help = "Build debug packages."
 )
 parser.add_argument(
@@ -87,8 +89,18 @@ parser.add_argument(
 )
 parser.add_argument(
     "-t", "--temporary", action = "store_const",
-    const = True, default = False,
-    help = "Use a temporary masterdir to build"
+    const = True, default = opt_mdirtemp,
+    help = "Use a temporary masterdir to build."
+)
+parser.add_argument(
+    "--allow-unsigned", action = "store_const",
+    const = True, default = opt_unsigned,
+    help = "Allow building without a signing key."
+)
+parser.add_argument(
+    "--allow-root", action = "store_const",
+    const = True, default = opt_allowroot,
+    help = "Allow running as root."
 )
 parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
@@ -164,6 +176,16 @@ logger.init(not opt_nocolor)
 
 # check masterdir and while at it perform arch checks
 chroot.chroot_check()
+
+# ensure we don't run as root
+if not opt_allowroot and os.geteuid() == 0:
+    logger.get().out_red("cbuild: please don't run as root")
+    sys.exit(1)
+
+# ensure we've got a signing key
+if not opt_signkey and not opt_unsigned:
+    logger.get().out_red("cbuild: no signing key set")
+    sys.exit(1)
 
 # fix up environment
 os.environ["CBUILD_ARCH"] = cpu.host()
