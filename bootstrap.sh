@@ -100,8 +100,27 @@ if [ ! -d "${BOOTSTRAP_ROOT}" ]; then
 fi
 
 cp /etc/resolv.conf "${BOOTSTRAP_ROOT}/etc"
-cp tools/bootstrap-inner.sh "${BOOTSTRAP_ROOT}"
 mkdir -p "${BOOTSTRAP_ROOT}/cports"
+
+cat << EOF > "${BOOTSTRAP_ROOT}/bootstrap-inner.sh"
+# update base
+echo ">> Updating base system..."
+xbps-install -y -S || exit 1
+xbps-install -yu xbps || exit 1
+xbps-install -Syu || exit 1
+
+# install dependencies
+echo ">> Installing cbuild dependencies..."
+xbps-install -y python3 pax-utils apk-tools openssl git bubblewrap || exit 1
+echo ">> Installing build tools..."
+xbps-install -y base-devel clang lld libcxx-devel llvm-libunwind-devel \
+                cmake meson pkgconf bmake ninja byacc flex perl m4 || exit 1
+
+cd /cports
+python3 cbuild.py "\$@" bootstrap
+EOF
+
+chmod 755 "${BOOTSTRAP_ROOT}/bootstrap-inner.sh"
 
 bwrap --unshare-user \
     --bind "${BOOTSTRAP_ROOT}" "/" \
