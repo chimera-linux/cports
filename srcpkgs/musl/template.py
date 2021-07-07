@@ -17,6 +17,12 @@ shlib_provides = ["libc.so"]
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]
 
+def pre_configure(self):
+    if not self.bootstrapping:
+        return
+    # ensure that even early musl uses compiler-rt
+    self.env["LIBCC_LDFLAGS"] = "--rtlib=compiler-rt"
+
 def post_build(self):
     from cbuild.util import compiler
     import shutil
