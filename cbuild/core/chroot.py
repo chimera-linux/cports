@@ -251,7 +251,7 @@ def remove_autodeps(bootstrapping):
     failed = False
 
     if subprocess.run([
-        "apk", "info", "--installed", "--root",
+        "apk", "info", "--allow-untrusted", "--installed", "--root",
         str(paths.masterdir()), "autodeps-host"
     ], capture_output = True).returncode == 0:
         if bootstrapping:
@@ -272,7 +272,7 @@ def remove_autodeps(bootstrapping):
             failed = True
 
     if subprocess.run([
-        "apk", "info", "--installed", "--root",
+        "apk", "info", "--allow-untrusted", "--installed", "--root",
         str(paths.masterdir()), "autodeps-target"
     ], capture_output = True).returncode == 0:
         if bootstrapping:

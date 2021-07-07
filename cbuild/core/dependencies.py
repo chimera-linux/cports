@@ -60,17 +60,21 @@ def _setup_depends(pkg):
 
     return hdeps, tdeps, rdeps
 
-def _install_from_repo(pkg, pkglist, virtn):
+def _install_from_repo(pkg, pkglist, virtn, signkey):
+    extra_opts = []
+    if not signkey:
+        extra_opts.append("--allow-untrusted")
+
     if pkg.bootstrapping:
         ret = subprocess.run([
             "apk", "add", "--root", str(paths.masterdir()),
             "--no-scripts", "--repositories-file",
             str(paths.hostdir() / "repositories"),
             "--virtual", virtn
-        ] + pkglist, capture_output = True)
+        ] + extra_opts + pkglist, capture_output = True)
     else:
         ret = chroot.enter(
-            "apk", ["add", "--virtual", virtn] + pkglist,
+            "apk", ["add", "--virtual", virtn] + extra_opts + pkglist,
             capture_out = True,
             pretend_uid = 0,
             pretend_gid = 0
@@ -84,14 +88,14 @@ def _install_from_repo(pkg, pkglist, virtn):
 
 def _is_installed(pkgn):
     return subprocess.run(["apk", "info", "--root", str(paths.masterdir()),
-        "--repositories-file",
+        "--allow-untrusted", "--repositories-file",
         str(paths.hostdir() / "repositories"),
         "--installed", pkgn
     ], capture_output = True).returncode == 0
 
 def _is_available(pkgn, pattern = None):
     aout = subprocess.run([
-        "apk", "search", "-e", "--root",
+        "apk", "search", "-e", "--allow-untrusted", "--root",
         str(paths.masterdir()), "--repositories-file",
         str(paths.hostdir() / "repositories"),
         pkgn
@@ -249,8 +253,8 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
-        _install_from_repo(pkg, host_binpkg_deps, "autodeps-host")
+        _install_from_repo(pkg, host_binpkg_deps, "autodeps-host", signkey)
 
     if len(binpkg_deps) > 0:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
-        _install_from_repo(pkg, binpkg_deps, "autodeps-target")
+        _install_from_repo(pkg, binpkg_deps, "autodeps-target", signkey)

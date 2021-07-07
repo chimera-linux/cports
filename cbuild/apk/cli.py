@@ -15,7 +15,7 @@ def build_index(repopath, epoch, keypath):
 
     # if no key is given, just use the final index name
     if not keypath:
-        cmd += ["--output", "APKINDEX.tar.gz"]
+        cmd += ["--allow-untrusted", "--output", "APKINDEX.tar.gz"]
     else:
         cmd += ["--output", "APKINDEX.unsigned.tar.gz"]
 

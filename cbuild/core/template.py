@@ -796,7 +796,8 @@ def from_module(m, ret):
     if ret.skip_if_exist:
         pinfo = subprocess.run([
             "apk", "search", "-e", "--root", str(paths.masterdir()),
-            "--repositories-file", str(paths.hostdir() / "repositories"),
+            "--allow-untrusted", "--repositories-file",
+            str(paths.hostdir() / "repositories"),
             ret.pkgname
         ], capture_output = True)
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:

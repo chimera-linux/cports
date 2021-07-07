@@ -60,7 +60,7 @@ def invoke(pkg):
         if not pkg.bootstrapping or not (dep in bootstrap_map):
             info = subprocess.run([
                 "apk", "info", "--root", str(paths.masterdir()),
-                "--installed", "so:" + dep
+                "--allow-untrusted", "--installed", "so:" + dep
             ], capture_output = True)
             if info.returncode != 0:
                 log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
