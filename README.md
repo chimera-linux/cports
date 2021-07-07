@@ -70,6 +70,10 @@ contains source distfiles and caches.
 
 The system automatically signs your packages, if a signing key is provided.
 
+It will also not run as root by default. You can override this, but in general you
+should not and instead you should properly rely on the sandboxing abilities of the
+system.
+
 ### Preparing
 
 First you will need to generate your signing key. You can do that like this:
@@ -87,10 +91,12 @@ An optional second argument can specify the key size (2048 by default).
 
 The default path for key storage is `etc/keys`.
 
-Once generated, you will receive instructions on how to set up the `cbuild` config
-file so it can use the keys.
+Once generated, the tool will automatically update the configuration file (which
+is `etc/config.ini` by default, but you can override it on command line) with the
+correct key path.
 
-If you do not create and set up a key, your packages and repo will be unsigned.
+The system will not let you build packages if a key is not generated and set by
+default. You can override it with `--allow-unsigned`, but it is not recommended.
 
 ### Bootstrap process
 

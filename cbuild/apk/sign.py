@@ -2,6 +2,7 @@ from cbuild.core import logger, paths
 
 import os
 import io
+import re
 import gzip
 import time
 import getpass
@@ -73,7 +74,7 @@ def sign(keypath, data, epoch):
     sigio.close()
     return cval
 
-def keygen(keypath, size = 2048):
+def keygen(keypath, size, cfgfile, cfgpath):
     pass
 
     if not keypath:
@@ -120,8 +121,41 @@ def keygen(keypath, size = 2048):
         raise Exception()
 
     logger.get().out("Key successfully generated.")
-    logger.get().out("In order to use it, add it to your 'etc/config.ini':")
-    logger.get().out_plain("""
-[signing]
-key = KEYPATH # absolute path, relative path to cports or filename in etc/keys
-""")
+
+    if "signing" in cfgfile and "key" in cfgfile["signing"]:
+        if cfgfile["signing"]["key"] != cfgpath:
+            logger.get().out("Signing key set in config, but not the same.")
+            logger.get().out("You will probably need to update it.")
+        else:
+            logger.get().out("The key was already found in the config file.")
+        return
+
+    logger.get().out("Updating configuration file...")
+
+    rkpath = keypath
+    if rkpath.is_relative_to(paths.distdir() / "etc" / "keys"):
+        rkpath = str(rkpath.relative_to(paths.distdir() / "etc" / "keys"))
+    elif rkpath.is_relative_to(paths.distdir()):
+        rkpath = str(rkpath.relative_to(paths.distdir()))
+    else:
+        rkpath = str(rkpath)
+
+    if "signing" in cfgfile:
+        with open(cfgpath, "r") as cf:
+            with open(cfgpath + ".new", "w") as ocf:
+                for l in cf:
+                    ocf.write(l)
+                    if re.match(r"^\[signing\]", l):
+                        ocf.write(f"key = {rkpath}\n")
+
+        os.rename(cfgpath + ".new", cfgpath)
+    else:
+        with open(cfgpath, "a") as cf:
+            cf.write("\n[signing]\n")
+            cf.write(f"key = {rkpath}\n")
+
+    if not pout.returncode == 0:
+        logger.get().out_red("Public key generation failed")
+        raise Exception()
+
+    logger.get().out("Configuration file updated.")

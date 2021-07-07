@@ -183,7 +183,7 @@ if not opt_allowroot and os.geteuid() == 0:
     sys.exit(1)
 
 # ensure we've got a signing key
-if not opt_signkey and not opt_unsigned:
+if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
     logger.get().out_red("cbuild: no signing key set")
     sys.exit(1)
 
@@ -283,7 +283,7 @@ def do_keygen(tgt):
     if not keyn or len(keyn) == 0:
         keyn = opt_signkey
 
-    sign.keygen(keyn, keysize)
+    sign.keygen(keyn, keysize, global_cfg, cmdline.config)
 
 def do_chroot(tgt):
     if opt_mdirtemp:
