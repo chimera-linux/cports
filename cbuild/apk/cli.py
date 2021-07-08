@@ -1,4 +1,5 @@
 from cbuild.core import logger, paths, version
+from cbuild import cpu
 
 from . import sign
 
@@ -6,8 +7,9 @@ import os
 import pathlib
 import subprocess
 
-def summarize_repo(repopath, olist):
+def summarize_repo(repopath, olist, quiet = False):
     rtimes = {}
+    obsolete = []
 
     for f in repopath.glob("*.apk"):
         fn = f.name
@@ -16,7 +18,8 @@ def summarize_repo(repopath, olist):
         if rd > 0:
             rd = pf.rfind("-", 0, rd)
         if rd < 0:
-            logger.get().warn(f"Malformed file name found, skipping: {str(fn)}")
+            if not quiet:
+                logger.get().warn(f"Malformed file name found, skipping: {str(fn)}")
             continue
         pn = pf[0:rd]
         mt = os.path.getmtime(f)
@@ -31,22 +34,46 @@ def summarize_repo(repopath, olist):
                 tof = f.name
                 tov = pf[rd + 1:]
                 rtimes[pn] = (mt, f.name)
+                obsolete.append(ofn)
             elif mt < omt:
                 fromf = f.name
                 fromv = pf[rd + 1:]
                 tof = ofn
                 tov = ofn[rd + 1:-4]
+                obsolete.append(f.name)
             else:
                 # same timestamp? should pretty much never happen
                 # take the newer version anyway
                 if version.compare(pf[rd + 1:], ofn[rd + 1:-4]) > 0:
                     rtimes[pn] = (mt, f.name)
+                    obsolete.append(ofn)
+                else:
+                    obsolete.append(f.name)
 
-            if version.compare(tov, fromv) < 0:
+            if version.compare(tov, fromv) < 0 and not quiet:
                 logger.get().warn(f"Using lower version ({fromf} => {tof}): newer timestamp...")
 
     for k, v in rtimes.items():
         olist.append(v[1])
+
+    return obsolete
+
+def prune(repopath):
+    repopath = repopath / cpu.target()
+
+    if not repopath.is_dir():
+        return
+
+    logger.get().out(f"pruning old packages: {str(repopath)}")
+
+    nlist = []
+    olist = summarize_repo(repopath, nlist, True)
+
+    for pkg in olist:
+        print(f"pruning: {pkg}")
+        (repopath / pkg).unlink()
+
+    logger.get().out("repo cleanup complete")
 
 def build_index(repopath, epoch, keypath):
     repopath = pathlib.Path(repopath)

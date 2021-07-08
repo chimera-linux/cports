@@ -169,7 +169,7 @@ paths.init(os.path.dirname(__file__), opt_masterdir, opt_hostdir)
 
 from cbuild.util import make
 from cbuild.core import chroot, logger, template, build
-from cbuild.apk import sign
+from cbuild.apk import sign, cli as apk_cli
 from cbuild import cpu
 
 make.set_jobs(opt_makejobs)
@@ -319,6 +319,18 @@ def do_zap(tgt):
 def do_remove_autodeps(tgt):
     chroot.remove_autodeps(None)
 
+def do_prune_obsolete(tgt):
+    logger.get().out("cbuild: pruning repositories...")
+    # ensure we know what cpu arch we are dealing with
+    chroot.chroot_check()
+
+    with open(paths.hostdir() / "repositories") as repof:
+        for ln in repof:
+            ln = ln.strip()
+            if ln.startswith("#"):
+                continue
+            apk_cli.prune(pathlib.Path(ln))
+
 def do_pkg(tgt, pkgn = None):
     if not pkgn:
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
@@ -351,6 +363,7 @@ try:
         "chroot": do_chroot,
         "clean": do_clean,
         "remove-autodeps": do_remove_autodeps,
+        "prune-obsolete": do_prune_obsolete,
         "zap": do_zap,
         "fetch": do_pkg,
         "extract": do_pkg,

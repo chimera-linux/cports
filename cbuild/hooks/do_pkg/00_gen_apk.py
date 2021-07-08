@@ -35,7 +35,7 @@ def genpkg(
         time.sleep(1)
 
     if binpath.is_file():
-        tmt = os.path.getmtime(pkg.template_path / "template.py")
+        tmt = os.path.getmtime(pkg.rparent.template_path / "template.py")
         if os.path.getmtime(binpath) > tmt and not pkg.force_mode:
             pkg.log_warn(f"fresh binary package already exists, skipping...")
             return
