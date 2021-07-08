@@ -1,9 +1,52 @@
-from cbuild.core import logger, paths
+from cbuild.core import logger, paths, version
 
 from . import sign
 
+import os
 import pathlib
 import subprocess
+
+def summarize_repo(repopath, olist):
+    rtimes = {}
+
+    for f in repopath.glob("*.apk"):
+        fn = f.name
+        pf = fn[:-4]
+        rd = pf.rfind("-")
+        if rd > 0:
+            rd = pf.rfind("-", 0, rd)
+        if rd < 0:
+            logger.get().warn(f"Malformed file name found, skipping: {str(fn)}")
+            continue
+        pn = pf[0:rd]
+        mt = os.path.getmtime(f)
+        if not pn in rtimes:
+            rtimes[pn] = (mt, f.name)
+        else:
+            omt, ofn = rtimes[pn]
+            # this package is newer, so prefer it
+            if mt > omt:
+                fromf = ofn
+                fromv = ofn[rd + 1:-4]
+                tof = f.name
+                tov = pf[rd + 1:]
+                rtimes[pn] = (mt, f.name)
+            elif mt < omt:
+                fromf = f.name
+                fromv = pf[rd + 1:]
+                tof = ofn
+                tov = ofn[rd + 1:-4]
+            else:
+                # same timestamp? should pretty much never happen
+                # take the newer version anyway
+                if version.compare(pf[rd + 1:], ofn[rd + 1:-4]) > 0:
+                    rtimes[pn] = (mt, f.name)
+
+            if version.compare(tov, fromv) < 0:
+                logger.get().warn(f"Using lower version ({fromf} => {tof}): newer timestamp...")
+
+    for k, v in rtimes.items():
+        olist.append(v[1])
 
 def build_index(repopath, epoch, keypath):
     repopath = pathlib.Path(repopath)
@@ -19,8 +62,7 @@ def build_index(repopath, epoch, keypath):
     else:
         cmd += ["--output", "APKINDEX.unsigned.tar.gz"]
 
-    for f in repopath.glob("*.apk"):
-        cmd.append(str(f.name))
+    summarize_repo(repopath, cmd)
 
     # create unsigned index
     signr = subprocess.run(cmd, cwd = repopath, env = {
