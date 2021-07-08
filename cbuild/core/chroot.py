@@ -166,7 +166,9 @@ def repo_sync():
     if not (paths.masterdir() / ".cbuild_chroot_init").is_file():
         return
 
-    if enter("apk", ["update"]).returncode != 0:
+    if enter(
+        "apk", ["update"], pretend_uid = 0, pretend_gid = 0
+    ).returncode != 0:
         logger.get().out_red(f"cbuild: failed to update pkg database")
         raise Exception()
 
@@ -264,7 +266,7 @@ def remove_autodeps(bootstrapping):
         else:
             del_ret = enter("apk", [
                 "del", "autodeps-host"
-            ], capture_out = True)
+            ], capture_out = True, pretend_uid = 0, pretend_gid = 0)
 
         if del_ret.returncode != 0:
             log.out_plain(">> stderr (host):")
@@ -285,7 +287,7 @@ def remove_autodeps(bootstrapping):
         else:
             del_ret = enter("apk", [
                 "del", "autodeps-target"
-            ], capture_out = True)
+            ], capture_out = True, pretend_uid = 0, pretend_gid = 0)
 
         if del_ret.returncode != 0:
             log.out_plain(">> stderr (target):")
@@ -307,8 +309,13 @@ def update(do_clean = True):
 
     remove_autodeps(False)
 
-    enter("apk", ["update", "-q"], check = True)
-    enter("apk", ["upgrade", "--available"], check = True)
+    enter(
+        "apk", ["update", "-q"], pretend_uid = 0, pretend_gid = 0, check = True
+    )
+    enter(
+        "apk", ["upgrade", "--available"],
+        pretend_uid = 0, pretend_gid = 0, check = True
+    )
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
