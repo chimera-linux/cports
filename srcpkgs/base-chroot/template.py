@@ -13,6 +13,9 @@ depends = [
     "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "chroot-util-linux"
 ]
 
+if not current.bootstrapping:
+    depends += ["ccache"]
+
 def do_fetch(self):
     pass
 

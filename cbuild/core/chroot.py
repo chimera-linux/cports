@@ -313,7 +313,8 @@ def update(do_clean = True):
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, unshare_all = False,
-          mount_distdir = True, pretend_uid = None, pretend_gid = None):
+          mount_distdir = True, pretend_uid = None, pretend_gid = None,
+          extra_path = None):
     envs = {
         "PATH": "/usr/bin:" + os.environ["PATH"],
         "SHELL": "/bin/sh",
@@ -337,6 +338,9 @@ def enter(cmd, args = [], capture_out = False, check = False,
         envs["FTP_RETRIES"] = os.environ["FTP_RETRIES"]
     if "HTTP_PROXY_AUTH" in os.environ:
         envs["HTTP_PROXY_AUTH"] = os.environ["HTTP_PROXY_AUTH"]
+
+    if "CCACHEPATH" in envs:
+        envs["PATH"] = envs["CCACHEPATH"] + ":" + envs["PATH"]
 
     # if running from template, ensure wrappers are early in executable path
     if "CBUILD_STATEDIR" in envs:

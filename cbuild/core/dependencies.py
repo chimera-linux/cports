@@ -19,7 +19,9 @@ def _srcpkg_ver(pkgn):
     if pkgn in _tcache:
         return _tcache[pkgn]
 
-    rv = template.read_pkg(pkgn, False, False, False, False, [], [], [], None)
+    rv = template.read_pkg(
+        pkgn, False, False, False, False, [], [], [], False, None
+    )
     cv = rv.version + "-r" + str(rv.revision)
     _tcache[pkgn] = cv
 
@@ -225,7 +227,8 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 pn, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg,
-                pkg.base_cflags, pkg.base_cxxflags, pkg.base_ldflags, pkg
+                pkg.base_cflags, pkg.base_cxxflags, pkg.base_ldflags,
+                pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -235,7 +238,8 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 pn, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg,
-                pkg.base_cflags, pkg.base_cxxflags, pkg.base_ldflags, pkg
+                pkg.base_cflags, pkg.base_cxxflags, pkg.base_ldflags,
+                pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -245,7 +249,8 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 rd, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg,
-                pkg.base_cflags, pkg.base_cxxflags, pkg.base_ldflags, pkg
+                pkg.base_cflags, pkg.base_cxxflags, pkg.base_ldflags,
+                pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass

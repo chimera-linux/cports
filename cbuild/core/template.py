@@ -583,6 +583,13 @@ class Template(Package):
         if self.triplet:
             cenv["CBUILD_TRIPLET"] = self.triplet
 
+        if self.use_ccache:
+            cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
+            cenv["CCACHE_DIR"] = "/host/ccache"
+            cenv["CCACHE_COMPILERCHECK"] = "content"
+            cenv["CCACHE_COMPRESS"] = "1"
+            cenv["CCACHE_BASEDIR"] = str(self.chroot_build_wrksrc)
+
         cenv.update(self.tools)
         cenv.update(self.env)
         cenv.update(env)
@@ -903,7 +910,7 @@ _tmpl_dict = {}
 
 def read_pkg(
     pkgname, force_mode, bootstrapping, skip_if_exist, build_dbg,
-    cflags, cxxflags, ldflags, origin
+    cflags, cxxflags, ldflags, use_ccache, origin
 ):
     global _tmpl_dict
 
@@ -924,6 +931,7 @@ def read_pkg(
     ret.base_cflags = cflags
     ret.base_cxxflags = cxxflags
     ret.base_ldflags = ldflags
+    ret.use_ccache = use_ccache
 
     ret.setup_reproducible()
     ret.setup_profile(bootstrapping)

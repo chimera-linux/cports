@@ -42,6 +42,7 @@ opt_cxxflags  = "-O2"
 opt_ldflags   = ""
 opt_gen_dbg   = False
 opt_skipexist = False
+opt_ccache    = False
 opt_makejobs  = 1
 opt_nocolor   = "NO_COLOR" in os.environ
 opt_signkey   = None
@@ -115,6 +116,7 @@ if "build" in global_cfg:
     bcfg = global_cfg["build"]
 
     opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
+    opt_ccache    = bcfg.getboolean("ccache", fallback = opt_ccache)
     opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
     opt_cflags    = bcfg.get("cflags", fallback = opt_cflags)
     opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
@@ -193,7 +195,7 @@ os.environ["PATH"] = os.environ["PATH"] + ":" + \
     str(paths.masterdir() / "usr/bin")
 
 def binary_bootstrap(tgt):
-    paths.prepare()
+    paths.prepare(opt_ccache)
 
     if len(cmdline.command) <= 1:
         chroot.install(cpu.host())
@@ -226,9 +228,9 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 0")
 
         rp = template.read_pkg(
-            "base-chroot", False, True, False, False, [], [], [], None
+            "base-chroot", False, True, False, False, [], [], [], False, None
         )
-        paths.prepare()
+        paths.prepare(opt_ccache)
         chroot.initdb()
         chroot.repo_sync()
         build.build(tgt, rp, {}, opt_signkey)
@@ -288,7 +290,7 @@ def do_keygen(tgt):
 def do_chroot(tgt):
     if opt_mdirtemp:
         chroot.install(cpu.host())
-    paths.prepare()
+    paths.prepare(opt_ccache)
     chroot.repo_sync()
     chroot.reconfigure()
     chroot.enter("/bin/cbuild-shell", pretend_uid = 0, pretend_gid = 0)
@@ -323,12 +325,12 @@ def do_pkg(tgt, pkgn = None):
     rp = template.read_pkg(
         pkgn, opt_force, False, opt_skipexist, opt_gen_dbg,
         shlex.split(opt_cflags), shlex.split(opt_cxxflags),
-        shlex.split(opt_ldflags), None
+        shlex.split(opt_ldflags), opt_ccache, None
     )
     if opt_mdirtemp:
         chroot.install(cpu.host())
     # don't remove builddir/destdir
-    paths.prepare()
+    paths.prepare(opt_ccache)
     chroot.repo_sync()
     chroot.update(do_clean = False)
     chroot.remove_autodeps(False)
