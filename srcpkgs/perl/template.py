@@ -1,6 +1,6 @@
 pkgname = "perl"
 version = "5.32.1"
-revision = 2
+revision = 0
 _perl_cross_version = "1.3.5"
 build_style = "gnu_configure"
 make_cmd = "gmake"

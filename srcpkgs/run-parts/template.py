@@ -1,6 +1,6 @@
 pkgname = "run-parts"
 version = "4.11.2"
-revision = 1
+revision = 0
 bootstrap = True
 wrksrc = "debianutils"
 build_style = "gnu_configure"

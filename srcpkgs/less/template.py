@@ -1,6 +1,6 @@
 pkgname = "less"
 version = "581.2"
-revision = 1
+revision = 0
 build_style = "gnu_configure"
 configure_args = ["--with-regex=posix"]
 makedepends = ["ncurses-devel"]

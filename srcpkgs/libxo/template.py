@@ -1,6 +1,6 @@
 pkgname = "libxo"
 version = "1.6.0"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = ["--disable-gettext", "--disable-dependency-tracking"]

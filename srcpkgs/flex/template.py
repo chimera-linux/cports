@@ -1,6 +1,6 @@
 pkgname = "flex"
 version = "2.6.4"
-revision = 3
+revision = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
 hostmakedepends = ["byacc", "bsdm4"]

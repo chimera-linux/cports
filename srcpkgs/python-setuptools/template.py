@@ -1,6 +1,6 @@
 pkgname = "python-setuptools"
 version = "57.0.0"
-revision = 1
+revision = 0
 wrksrc = f"setuptools-{version}"
 build_style = "python_module"
 hostmakedepends = ["python-devel"]

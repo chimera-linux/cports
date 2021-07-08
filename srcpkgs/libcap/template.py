@@ -1,6 +1,6 @@
 pkgname = "libcap"
 version = "2.49"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_makefile"
 make_cmd = "gmake"

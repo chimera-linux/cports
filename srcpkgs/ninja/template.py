@@ -1,6 +1,6 @@
 pkgname = "ninja"
 version = "1.10.2"
-revision = 1
+revision = 0
 hostmakedepends = ["python"]
 short_desc = "Small build system with a focus on speed"
 maintainer = "q66 <q66@chimera-linux.org>"

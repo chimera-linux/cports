@@ -1,6 +1,6 @@
 pkgname = "ncurses"
 version = "6.2"
-revision = 4
+revision = 0
 bootstrap = True
 configure_args = ["--enable-big-core"]
 make_cmd = "gmake"

@@ -1,6 +1,6 @@
 pkgname = "bsddiff"
 version = "0.99.0"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "meson"
 short_desc = "Alternative to GNU diffutils from FreeBSD"

@@ -1,6 +1,6 @@
 pkgname = "llvm"
 version = "12.0.0"
-revision = 1
+revision = 0
 bootstrap = True
 wrksrc = f"llvm-project-{version}.src"
 build_style = "cmake"

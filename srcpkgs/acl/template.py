@@ -1,6 +1,6 @@
 pkgname = "acl"
 version = "2.3.1"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = [

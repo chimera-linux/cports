@@ -1,6 +1,6 @@
 pkgname = "musl-fts"
 version = "1.2.7"
-revision = 1
+revision = 0
 wrksrc = f"musl-fts-{version}-mk2"
 bootstrap = True
 build_style = "gnu_makefile"

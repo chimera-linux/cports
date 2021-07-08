@@ -1,7 +1,7 @@
 pkgname = "chroot-util-linux"
 _mver = "2.32"
 version = f"{_mver}.1"
-revision = 2
+revision = 0
 wrksrc = f"util-linux-{version}"
 bootstrap = True
 build_style = "gnu_configure"

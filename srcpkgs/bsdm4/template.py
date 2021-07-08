@@ -1,6 +1,6 @@
 pkgname = "bsdm4"
 version = "0.99.0"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_makefile"
 make_build_args = ["YACC=byacc", "LEX=true"]

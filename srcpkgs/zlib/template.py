@@ -1,6 +1,6 @@
 pkgname = "zlib"
 version = "1.2.11"
-revision = 3
+revision = 0
 bootstrap = True
 build_style = "configure"
 short_desc = "Compression/decompression Library"

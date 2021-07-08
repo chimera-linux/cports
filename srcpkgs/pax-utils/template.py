@@ -1,6 +1,6 @@
 pkgname = "pax-utils"
 version = "1.3.2"
-revision = 1
+revision = 0
 build_style = "gnu_configure"
 configure_args = ["--with-caps"]
 hostmakedepends = ["pkgconf"]

@@ -1,6 +1,6 @@
 pkgname = "ccache"
 version = "4.2.1"
-revision = 1
+revision = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTING=OFF"]
 hostmakedepends = ["cmake", "ninja", "perl"]

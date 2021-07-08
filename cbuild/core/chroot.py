@@ -308,7 +308,7 @@ def update(do_clean = True):
     remove_autodeps(False)
 
     enter("apk", ["update", "-q"], check = True)
-    enter("apk", ["upgrade"], check = True)
+    enter("apk", ["upgrade", "--available"], check = True)
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,

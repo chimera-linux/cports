@@ -1,7 +1,7 @@
 pkgname = "cmake"
 _mver = "3.20"
 version = f"{_mver}.3"
-revision = 1
+revision = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/usr", "--mandir=/share/man", "--docdir=/share/doc/cmake",

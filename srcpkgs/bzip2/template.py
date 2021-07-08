@@ -1,6 +1,6 @@
 pkgname = "bzip2"
 version = "1.0.8"
-revision = 1
+revision = 0
 bootstrap = True
 short_desc = "Freely available, patent free, high-quality data compressor"
 maintainer = "q66 <q66@chimera-linux.org>"

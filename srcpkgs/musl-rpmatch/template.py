@@ -1,6 +1,6 @@
 pkgname = "musl-rpmatch"
 version = "1.0"
-revision = 1
+revision = 0
 wrksrc = f"musl-rpmatch-{version}-mk2"
 bootstrap = True
 build_style = "gnu_makefile"

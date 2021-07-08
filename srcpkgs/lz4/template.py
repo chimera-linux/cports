@@ -1,6 +1,6 @@
 pkgname = "lz4"
 version = "1.9.3"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_makefile"
 short_desc = "LZ4 compression utilities"

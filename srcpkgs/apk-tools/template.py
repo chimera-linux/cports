@@ -1,6 +1,6 @@
 pkgname = "apk-tools"
 version = "2.12.5"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "meson"
 configure_args = [

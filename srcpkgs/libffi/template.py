@@ -1,6 +1,6 @@
 pkgname = "libffi"
 version = "3.3"
-revision = 2
+revision = 0
 build_style = "gnu_configure"
 configure_args = [
     "--includedir=/usr/include", "--disable-multi-os-directory", "--with-pic"

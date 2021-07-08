@@ -1,7 +1,7 @@
 pkgname = "kernel-libc-headers"
 _mver = "5"
 version = f"{_mver}.10.4"
-revision = 1
+revision = 0
 bootstrap = True
 wrksrc = f"linux-{version}"
 make_cmd = "gmake"

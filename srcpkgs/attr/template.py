@@ -1,6 +1,6 @@
 pkgname = "attr"
 version = "2.5.1"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = [

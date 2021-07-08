@@ -1,6 +1,6 @@
 pkgname = "byacc"
 version = "20210520"
-revision = 1
+revision = 0
 build_style = "gnu_configure"
 configure_args = ["--program-transform=s,^,b,"]
 short_desc = "Berkeley yacc, a LALR(1) parser generator"

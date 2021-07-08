@@ -1,6 +1,6 @@
 pkgname = "dash"
 version = "0.5.11.3"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 short_desc="POSIX-compliant Unix shell, much smaller than GNU bash"

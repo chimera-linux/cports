@@ -1,6 +1,6 @@
 pkgname = "xz"
 version = "5.2.5"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 short_desc = "The XZ compression utilities"

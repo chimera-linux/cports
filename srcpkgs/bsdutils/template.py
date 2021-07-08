@@ -1,7 +1,7 @@
 pkgname = "bsdutils"
 _commit="3c2d40f9a1cf0803e77f130953aabf26aa2f738c"
 version = "0.0.1"
-revision = 3
+revision = 0
 wrksrc = f"bsdutils-{_commit}"
 bootstrap = True
 build_style = "meson"

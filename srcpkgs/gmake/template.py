@@ -1,6 +1,6 @@
 pkgname = "gmake"
 version = "4.3"
-revision = 3
+revision = 0
 wrksrc = f"make-{version}"
 build_style = "gnu_configure"
 configure_args = ["--without-guile", "--program-prefix=g"]

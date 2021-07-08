@@ -1,6 +1,6 @@
 pkgname = "openssl"
 version = "1.1.1k"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "configure"
 configure_script = "Configure"

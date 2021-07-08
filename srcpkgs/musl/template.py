@@ -1,6 +1,6 @@
 pkgname = "musl"
 version = "1.2.2"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]

@@ -1,6 +1,6 @@
 pkgname = "libarchive"
 version = "3.5.1"
-revision = 2
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = [

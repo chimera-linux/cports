@@ -1,6 +1,6 @@
 pkgname = "bmake"
 version = "20210420"
-revision = 1
+revision = 0
 bootstrap = True
 wrksrc = "bmake"
 short_desc = "Portable version of NetBSD make"

@@ -1,7 +1,7 @@
 pkgname = "meson"
 _mver = "0.58"
 version = f"{_mver}.1"
-revision = 1
+revision = 0
 build_style = "python_module"
 hostmakedepends = ["python-devel", "python-setuptools"]
 depends = ["ninja", "python-setuptools"]

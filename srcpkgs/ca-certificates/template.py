@@ -1,6 +1,6 @@
 pkgname = "ca-certificates"
 version = "20210119"
-revision = 2
+revision = 0
 bootstrap = True
 conf_files = ["/etc/ca-certificates.conf"]
 wrksrc = "work"

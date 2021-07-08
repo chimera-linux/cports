@@ -1,6 +1,6 @@
 pkgname = "pkgconf"
 version = "1.7.3"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = ["--disable-shared", "--disable-static"]

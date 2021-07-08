@@ -1,6 +1,6 @@
 pkgname = "zstd"
 version = "1.5.0"
-revision = 1
+revision = 0
 build_style = "meson"
 hostmakedepends = ["pkgconf", "meson"]
 makedepends = ["zlib-devel", "liblzma-devel", "liblz4-devel"]

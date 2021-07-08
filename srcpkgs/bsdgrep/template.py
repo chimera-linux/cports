@@ -1,6 +1,6 @@
 pkgname = "bsdgrep"
 version = "1.0.4"
-revision = 1
+revision = 0
 wrksrc = f"bsdgrep-{version}"
 bootstrap = True
 build_style = "gnu_makefile"

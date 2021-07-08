@@ -1,6 +1,6 @@
 pkgname = "base-chroot"
 version = "0.66"
-revision = 7
+revision = 0
 bootstrap = True
 short_desc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"

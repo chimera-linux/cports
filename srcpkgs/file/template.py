@@ -1,6 +1,6 @@
 pkgname = "file"
 version = "5.40"
-revision = 2
+revision = 0
 bootstrap = True
 build_style = "gnu_configure"
 configure_args = [

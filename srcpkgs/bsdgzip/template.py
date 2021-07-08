@@ -1,6 +1,6 @@
 pkgname = "bsdgzip"
 version = "0.99.1"
-revision = 1
+revision = 0
 bootstrap = True
 build_style = "gnu_makefile"
 hostmakedepends = ["pkgconf"]

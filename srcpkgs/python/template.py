@@ -1,7 +1,7 @@
 pkgname = "python"
 _majver = "3.9"
 version = f"{_majver}.5"
-revision = 1
+revision = 0
 wrksrc = f"Python-{version}"
 hostmakedepends = ["pkgconf"]
 # FIXME: expat, readline, sqlite
