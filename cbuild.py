@@ -63,7 +63,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "-f", "--force", action = "store_const", const = True, default = opt_force,
-    help = "Force writing a package even when exists."
+    help = "Force writing a package even when it exists and template is older."
 )
 parser.add_argument(
     "-L", "--no-color", action = "store_const", const = True,

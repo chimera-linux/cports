@@ -34,6 +34,12 @@ def genpkg(
         pkg.log_warn(f"binary package being created, waiting...")
         time.sleep(1)
 
+    if binpath.is_file():
+        tmt = os.path.getmtime(pkg.template_path / "template.py")
+        if os.path.getmtime(binpath) > tmt and not pkg.force_mode:
+            pkg.log_warn(f"fresh binary package already exists, skipping...")
+            return
+
     try:
         lockpath.touch()
 
