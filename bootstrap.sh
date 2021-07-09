@@ -120,13 +120,11 @@ cd /cports
 python3 cbuild.py "\$@" bootstrap
 EOF
 
-chmod 755 "${BOOTSTRAP_ROOT}/bootstrap-inner.sh"
-
 bwrap --unshare-user \
     --bind "${BOOTSTRAP_ROOT}" "/" \
     --dev /dev --proc /proc --tmpfs /tmp \
     --bind "$(pwd)" /cports \
-    /bootstrap-inner.sh "$@"
+    /bin/sh /bootstrap-inner.sh "$@"
 
 if [ $? -ne 0 ]; then
     echo "Bootstrap failed!"
