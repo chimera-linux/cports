@@ -1,0 +1,26 @@
+# This is a reference for the cbuild configuration file.
+# Every value specified here is the system's default.
+
+# options related to building packages
+[build]
+# whether -dbg packages will be generated
+build_dbg = no
+# whether ccache will be used in the build
+ccache = no
+# number of jobs to use when building
+jobs = 1
+# default user C compiler flags
+cflags = -O2
+# default user C++ compiler flags
+cxxflags = -O2
+# default user linker flags
+ldflags =
+# default masterdir path (absolute or relative to cports)
+masterdir = masterdir
+# default hostdir path (absolute or relative to cports)
+hostdir = hostdir
+
+# options related to signing packages
+[signing]
+# signing key name (in etc/keys) or path (absolute or relative to cports)
+key = your_private_key.rsa
