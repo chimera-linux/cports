@@ -1,31 +1,10 @@
-from cbuild.util import make
+from cbuild.util import make, meson
 
 def init_configure(self):
     self.make = make.Make(self, wrksrc = "build")
 
 def do_configure(self):
-    self.do(
-        "meson", [
-            "--prefix=/usr",
-            "--libdir=/usr/lib",
-            "--libexecdir=/usr/libexec",
-            "--bindir=/usr/bin",
-            "--sbindir=/usr/bin",
-            "--includedir=/usr/include",
-            "--datadir=/usr/share",
-            "--mandir=/usr/share/man",
-            "--infodir=/usr/share/info",
-            "--sysconfdir=/etc",
-            "--localstatedir=/var",
-            "--sharedstatedir=/var/lib",
-            "--buildtype=plain",
-            "--auto-features=auto",
-            "--wrap-mode=nodownload",
-            "-Ddefault_library=both",
-            "-Db_ndebug=true",
-            "-Db_staticpic=true"
-        ] + self.configure_args + [self.meson_dir, "build"], build = True
-    )
+    meson.configure(self, self.meson_dir)
 
 def do_build(self):
     self.make.build()
@@ -34,9 +13,7 @@ def do_check(self):
     pass
 
 def do_install(self):
-    self.make.install(default_args = False, env = {
-        "DESTDIR": str(self.chroot_destdir)
-    })
+    self.make.install(args_use_env = True)
 
 def use(tmpl):
     tmpl.build_style = "meson"

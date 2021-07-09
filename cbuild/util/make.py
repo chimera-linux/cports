@@ -71,13 +71,18 @@ class Make:
 
     def install(
         self, args = [], jobs = None, env = {}, default_args = True,
-        wrksrc = None
+        args_use_env = False, wrksrc = None
     ):
         pkg = self.template
         argsbase = []
 
         if default_args:
-            argsbase.append("DESTDIR=" + str(pkg.chroot_destdir))
+            if not args_use_env:
+                argsbase.append("DESTDIR=" + str(pkg.chroot_destdir))
+            else:
+                renv = {"DESTDIR": str(pkg.chroot_destdir)}
+                renv.update(env)
+                env = renv
 
         argsbase += pkg.make_install_args
         argsbase += args

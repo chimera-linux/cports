@@ -13,12 +13,7 @@ def do_check(self):
     pass
 
 def do_install(self):
-    if self.make_cmd == "ninja":
-        self.make.install(default_args = False, env = {
-            "DESTDIR": str(self.chroot_destdir)
-        })
-    else:
-        self.make.install()
+    self.make.install(args_use_env = (self.make_cmd == "ninja"))
 
 def use(tmpl):
     tmpl.build_style = "cmake"
