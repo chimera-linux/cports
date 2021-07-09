@@ -936,9 +936,10 @@ def read_pkg(
     ret.setup_reproducible()
     ret.setup_profile(bootstrapping)
 
-    def subpkg_deco(spkgname):
+    def subpkg_deco(spkgname, cond = True):
         def deco(f):
-            ret.subpackages.append((spkgname, f))
+            if cond:
+                ret.subpackages.append((spkgname, f))
         return deco
 
     setattr(builtins, "subpackage", subpkg_deco)
