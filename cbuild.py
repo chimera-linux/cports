@@ -208,17 +208,6 @@ def bootstrap(tgt):
     if len(cmdline.command) > 1:
         max_stage = int(cmdline.command[1])
 
-    # extra program checks
-    for prog in [
-        "clang", "lld", "cmake", "meson", "pkg-config",
-        "make", "ninja", "strip", "byacc", "flex", "perl", "m4"
-    ]:
-        if not shutil.which(prog):
-            sys.exit(f"Required bootstrap program not found: {prog}")
-
-    if not shutil.which("gmake") and not shutil.which("bmake"):
-        sys.exit("Required bootstrap program not found: gmake/bmake")
-
     oldmdir = paths.masterdir()
 
     paths.set_stage(0)
@@ -226,6 +215,17 @@ def bootstrap(tgt):
 
     if not chroot.chroot_check(True):
         logger.get().out("cbuild: bootstrapping stage 0")
+
+        # extra program checks
+        for prog in [
+            "clang", "lld", "cmake", "meson", "pkg-config",
+            "make", "ninja", "strip", "byacc", "flex", "perl", "m4"
+        ]:
+            if not shutil.which(prog):
+                sys.exit(f"Required bootstrap program not found: {prog}")
+
+        if not shutil.which("gmake") and not shutil.which("bmake"):
+            sys.exit("Required bootstrap program not found: gmake/bmake")
 
         rp = template.read_pkg(
             "base-chroot", False, True, False, False, [], [], [], False, None
