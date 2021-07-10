@@ -1,5 +1,6 @@
 pkgname = "llvm"
-version = "12.0.0"
+_mver = "12"
+version = f"{_mver}.0.0"
 revision = 0
 bootstrap = True
 wrksrc = f"llvm-project-{version}.src"
@@ -35,6 +36,8 @@ makedepends = ["zlib-devel", "libffi-devel"]
 depends = [
     f"libllvm={version}-r{revision}",
     f"libomp={version}-r{revision}",
+    f"llvm-linker-tools={version}-r{revision}",
+    f"llvm-runtime={version}-r{revision}"
 ]
 make_cmd = "make"
 short_desc = "Low Level Virtual Machine"
@@ -168,21 +171,43 @@ def _clang(self):
     self.depends = [
         f"libcxx-devel={version}-r{revision}",
         f"libcxxabi-devel={version}-r{revision}",
+        f"clang-rt-devel={version}-r{revision}",
+        "elftoolchain",
         "musl-devel",
+    ]
+
+    return [
+        "usr/bin/*clang*",
+        "usr/bin/c-index-test",
+        "usr/bin/cc",
+        "usr/bin/c++",
+        "usr/lib/cmake/clang",
+        "usr/share/clang"
+    ]
+
+@subpackage("clang-rt-devel")
+def _clang_rt_devel(self):
+    self.short_desc = short_desc + " - clang runtime development files"
+
+    return [
+        "usr/lib/clang"
+    ]
+
+@subpackage("clang-devel")
+def _clang_devel(self):
+    self.short_desc = short_desc + " - clang development files"
+    self.depends = [
+        f"clang-rt-devel={version}-r{revision}",
+        f"libclang={version}-r{revision}",
+        f"libclang-cpp={version}-r{revision}",
+        f"libcxx-devel={version}-r{revision}"
     ]
 
     return [
         "usr/include/clang",
         "usr/include/clang-c",
-        "usr/bin/*clang*",
-        "usr/bin/c-index-test",
-        "usr/bin/cc",
-        "usr/bin/c++",
-        "usr/lib/clang",
-        "usr/lib/cmake/clang",
         "usr/lib/libclang*.a",
         "usr/lib/libclang*.so",
-        "usr/share/clang"
     ]
 
 @subpackage("clang-analyzer")
@@ -271,7 +296,7 @@ def _libcxxabi_devel(self):
 def _libllvm(self):
     self.short_desc = short_desc + " - runtime library"
 
-    return ["usr/lib/libLLVM-*.so*"]
+    return [f"usr/lib/libLLVM-{_mver}.so"]
 
 @subpackage("lld")
 def _lld(self):
@@ -294,4 +319,49 @@ def _lld_devel(self):
         "usr/include/lld",
         "usr/lib/cmake/lld",
         "usr/lib/liblld*a"
+    ]
+
+@subpackage("llvm-linker-tools")
+def _llvm_linker_tools(self):
+    self.short_desc = short_desc + " - linker plugins"
+
+    return [
+        "usr/lib/libLTO.so.*"
+    ]
+
+@subpackage("llvm-devel")
+def _llvm_devel(self):
+    self.short_desc = short_desc + " - development files"
+    self.depends = [
+        f"llvm={version}-r{revision}",
+        f"llvm-tools={version}-r{revision}",
+        f"libclang-cpp={version}-r{revision}"
+    ]
+
+    return [
+        "usr/include",
+        "usr/lib/*.a",
+        "usr/lib/*.so",
+        "usr/lib/cmake",
+    ]
+
+@subpackage("llvm-tools")
+def _llvm_tools(self):
+    self.short_desc = short_desc + " - testing tools"
+
+    return [
+        "usr/bin/FileCheck",
+        "usr/bin/count",
+        "usr/bin/not",
+        "usr/bin/split-file",
+        "usr/bin/yaml-bench",
+        "usr/share/opt-viewer",
+    ]
+
+@subpackage("llvm-runtime")
+def _llvm_runtime(self):
+    self.short_desc = short_desc + " - runtime"
+
+    return [
+        "usr/bin/lli*",
     ]
