@@ -888,21 +888,21 @@ def from_module(m, ret):
     if not "LD" in ret.tools:
         ret.tools["LD"] = "ld"
     if not "AR" in ret.tools:
-        ret.tools["AR"] = "ar"
+        ret.tools["AR"] = "llvm-ar"
     if not "AS" in ret.tools:
         ret.tools["AS"] = "clang"
     if not "RANLIB" in ret.tools:
-        ret.tools["RANLIB"] = "ranlib"
+        ret.tools["RANLIB"] = "llvm-ranlib"
     if not "STRIP" in ret.tools:
-        ret.tools["STRIP"] = "strip"
+        ret.tools["STRIP"] = "llvm-strip"
     if not "OBJDUMP" in ret.tools:
-        ret.tools["OBJDUMP"] = "objdump"
+        ret.tools["OBJDUMP"] = "llvm-objdump"
     if not "OBJCOPY" in ret.tools:
-        ret.tools["OBJCOPY"] = "objcopy"
+        ret.tools["OBJCOPY"] = "llvm-objcopy"
     if not "NM" in ret.tools:
-        ret.tools["NM"] = "nm"
+        ret.tools["NM"] = "llvm-nm"
     if not "READELF" in ret.tools:
-        ret.tools["READELF"] = "readelf"
+        ret.tools["READELF"] = "llvm-readelf"
     if not "PKG_CONFIG" in ret.tools:
         ret.tools["PKG_CONFIG"] = "pkg-config"
 
