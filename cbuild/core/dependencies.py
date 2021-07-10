@@ -243,7 +243,7 @@ def install(pkg, origpkg, step, depmap, signkey):
             ), depmap, signkey)
         except template.SkipPackage:
             pass
-        host_binpkg_deps.append(pn)
+        binpkg_deps.append(pn)
 
     for rd in missing_rdeps:
         try:

@@ -808,10 +808,12 @@ def from_module(m, ret):
             ret.pkgname
         ], capture_output = True)
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
-            if ret.origin == ret:
-                # TODO: print the repo somehow
-                ret.log(f"found ({pinfo.stdout.strip().decode()})")
-            raise SkipPackage()
+            foundp = pinfo.stdout.strip().decode()
+            if foundp == ret.pkgver:
+                if ret.origin == ret:
+                    # TODO: print the repo somehow
+                    ret.log(f"found ({pinfo.stdout.strip().decode()})")
+                raise SkipPackage()
 
     spdupes = {}
     # link subpackages and fill in their fields
