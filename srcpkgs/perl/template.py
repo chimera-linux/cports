@@ -180,10 +180,8 @@ def init_configure(self):
         self.env["MAKE"] = "gmake"
 
 def do_configure(self):
-    from cbuild import cpu
-
     cargs = [
-        "--prefix=/usr", "--with-objdump=/usr/bin/false",
+        "--prefix=/usr", "--with-objdump=/usr/bin/llvm-objdump",
         "-Dusethreads", "-Duseshrplib", "-Dusesoname", "-Dusevendorprefix",
         "-Dprefix=/usr", "-Dvendorprefix=/usr",
         "-Dprivlib=/usr/share/perl5/core_perl",
@@ -198,11 +196,6 @@ def do_configure(self):
         "-Dman3dir=/usr/share/man/man3",
         "-Dd_sockaddr_in6=define",
     ]
-
-    if cpu.target_endian() == "big":
-        cargs.append("-Dbyteorder=4321")
-    else:
-        cargs.append("-Dbyteorder=1234")
 
     if self.cross_build:
         cargs.append("--target=" + self.cross_triplet)
