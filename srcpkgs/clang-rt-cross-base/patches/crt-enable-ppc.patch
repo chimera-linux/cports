@@ -1,0 +1,25 @@
+From 933c402cdf246a99dedae9dda14b6da587bbf956 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Thu, 24 Jun 2021 05:15:32 +0200
+Subject: [PATCH] enable crt for ppc*
+
+---
+ compiler-rt/cmake/config-ix.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/compiler-rt/cmake/config-ix.cmake b/compiler-rt/cmake/config-ix.cmake
+index f81b838..ac6d48c 100644
+--- a/compiler-rt/cmake/config-ix.cmake
++++ b/compiler-rt/cmake/config-ix.cmake
+@@ -299,7 +299,7 @@ set(ALL_SANITIZER_COMMON_SUPPORTED_ARCH ${X86} ${X86_64} ${PPC64} ${RISCV64}
+     ${ARM32} ${ARM64} ${MIPS32} ${MIPS64} ${S390X} ${SPARC} ${SPARCV9})
+ set(ALL_ASAN_SUPPORTED_ARCH ${X86} ${X86_64} ${ARM32} ${ARM64} ${RISCV64}
+     ${MIPS32} ${MIPS64} ${PPC64} ${S390X} ${SPARC} ${SPARCV9})
+-set(ALL_CRT_SUPPORTED_ARCH ${X86} ${X86_64} ${ARM32} ${ARM64} ${RISCV32} ${RISCV64} ${VE})
++set(ALL_CRT_SUPPORTED_ARCH ${X86} ${X86_64} ${ARM32} ${ARM64} ${RISCV32} ${RISCV64} ${PPC32} ${PPC64} ${VE})
+ set(ALL_DFSAN_SUPPORTED_ARCH ${X86_64} ${MIPS64} ${ARM64})
+ 
+ if(ANDROID)
+-- 
+2.32.0
+

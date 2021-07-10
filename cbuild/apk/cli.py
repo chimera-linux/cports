@@ -93,6 +93,7 @@ def build_index(repopath, epoch, keypath):
 
     # create unsigned index
     signr = subprocess.run(cmd, cwd = repopath, env = {
+        "PATH": os.environ["PATH"],
         "SOURCE_DATE_EPOCH": str(epoch)
     })
     if signr.returncode != 0:
