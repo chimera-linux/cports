@@ -14,7 +14,7 @@ checksum = ["9d6ba1cdefdc690401f404b747d81a9a1802b17af4235815866b7620d980477e"]
 
 def post_install(self):
     self.install_dir("usr/lib/ccache/bin")
-    self.install_link("../../../ccache", "usr/lib/ccache/bin/clang")
-    self.install_link("../../../ccache", "usr/lib/ccache/bin/clang++")
-    self.install_link("../../../ccache", "usr/lib/ccache/bin/cc")
-    self.install_link("../../../ccache", "usr/lib/ccache/bin/c++")
+    self.install_link("../../../bin/ccache", "usr/lib/ccache/bin/clang")
+    self.install_link("../../../bin/ccache", "usr/lib/ccache/bin/clang++")
+    self.install_link("../../../bin/ccache", "usr/lib/ccache/bin/cc")
+    self.install_link("../../../bin/ccache", "usr/lib/ccache/bin/c++")
