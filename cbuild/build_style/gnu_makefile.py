@@ -7,9 +7,8 @@ def do_build(self):
         return
 
     # by default, pass various stuff directly rather than through env
-    self.make.build([
+    tool_args = [
         "OBJCOPY=" + self.tools["OBJCOPY"],
-        "OBJDUMP=" + self.tools["OBJDUMP"],
         "RANLIB=" + self.tools["RANLIB"],
         "CXX=" + self.tools["CXX"],
         "CPP=" + self.tools["CPP"],
@@ -20,7 +19,12 @@ def do_build(self):
         "CFLAGS=" + shlex.join(self.CFLAGS),
         "LDFLAGS=" + shlex.join(self.LDFLAGS),
         "CXXFLAGS=" + shlex.join(self.CXXFLAGS),
-    ])
+    ]
+
+    if not self.bootstrapping:
+        tool_args.append("OBJDUMP=" + self.tools["OBJDUMP"])
+
+    self.make.build(tool_args)
 
 def do_check(self):
     pass
