@@ -552,6 +552,8 @@ class Template(Package):
             if not "profile" in cp:
                 self.error("invalid build-profile")
 
+            psct = cp["profile"]
+
             self.triplet = None
             cpu.init_target(cpu.host_wordsize(), cpu.host_endian())
 
