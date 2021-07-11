@@ -17,5 +17,5 @@ distfiles = [f"{sites.debian}/main/d/debianutils/debianutils_{version}.tar.xz"]
 checksum = ["3b680e81709b740387335fac8f8806d71611dcf60874e1a792e862e48a1650de"]
 
 def do_install(self):
-    self.install_bin("run-parts")
+    self.install_bin("build/run-parts")
     self.install_man("run-parts.8")
