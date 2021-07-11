@@ -27,11 +27,13 @@ configure_args = [
     "-DCOMPILER_RT_BUILD_SANITIZERS=OFF",
     "-DCOMPILER_RT_BUILD_XRAY=OFF",
 ]
-hostmakedepends = ["cmake", "gmake", "python", "llvm", "clang-tools-extra"]
+hostmakedepends = [
+    "cmake", "gmake", "python", "llvm-devel", "clang-tools-extra"
+]
 makedepends = ["zlib-devel", "libffi-devel"]
 depends = []
 make_cmd = "make"
-short_desc = "Low Level Virtual Machine (aarch64 core runtime)"
+short_desc = "Core cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
