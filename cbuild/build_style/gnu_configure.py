@@ -1,15 +1,8 @@
-from cbuild.util import make
-
-benv = {
-    "lt_cv_sys_lib_dlsearch_path_spec": \
-        "/usr/lib64 /usr/lib32 /usr/lib /lib /usr/local/lib"
-}
+from cbuild.util import gnu_configure, make
 
 def do_configure(self):
-    self.do(
-        self.chroot_build_wrksrc / self.configure_script,
-        self.configure_args, build = True, env = benv
-    )
+    gnu_configure.replace_guess(self)
+    gnu_configure.configure(self, configure_script = self.configure_script)
 
 def do_build(self):
     self.make.build()
@@ -27,4 +20,6 @@ def use(tmpl):
     tmpl.do_check = do_check
     tmpl.do_install = do_install
 
-    tmpl.make = make.Make(tmpl, env = benv)
+    tmpl.make = make.Make(
+        tmpl, wrksrc = "build", env = gnu_configure.get_make_env()
+    )
