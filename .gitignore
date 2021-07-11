@@ -8,3 +8,4 @@ etc/config.ini
 void-*.tar.xz
 bootstrap.*
 !bootstrap.sh
+!bootstrap.ini
