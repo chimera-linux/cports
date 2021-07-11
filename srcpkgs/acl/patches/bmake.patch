@@ -14,10 +14,10 @@
  
  install-libacl_h: include/libacl.h
 -	$(SUBST_INSTALL_HEADER) "$<" "$(DESTDIR)$(pkgincludedir)"
-+	$(SUBST_INSTALL_HEADER) "include/libacl.h" "$(DESTDIR)$(pkgincludedir)"
++	$(SUBST_INSTALL_HEADER) "$(srcdir)/include/libacl.h" "$(DESTDIR)$(pkgincludedir)"
  install-acl_h: include/acl.h
 -	$(SUBST_INSTALL_HEADER) "$<" "$(DESTDIR)$(sysincludedir)"
-+	$(SUBST_INSTALL_HEADER) "include/acl.h" "$(DESTDIR)$(sysincludedir)"
++	$(SUBST_INSTALL_HEADER) "$(srcdir)/include/acl.h" "$(DESTDIR)$(sysincludedir)"
  install-data-local: install-libacl_h install-acl_h
  uninstall-local:
  	-rm -f "$(DESTDIR)$(pkgincludedir)/libacl.h" "$(DESTDIR)$(sysincludedir)/acl.h"

@@ -14,13 +14,13 @@
  
  install-attributes_h: include/attributes.h
 -	$(SUBST_INSTALL_HEADER) "$<" "$(DESTDIR)$(pkgincludedir)"
-+	$(SUBST_INSTALL_HEADER) "include/attributes.h" "$(DESTDIR)$(pkgincludedir)"
++	$(SUBST_INSTALL_HEADER) "$(srcdir)/include/attributes.h" "$(DESTDIR)$(pkgincludedir)"
  install-error_context_h: include/error_context.h
 -	$(SUBST_INSTALL_HEADER) "$<" "$(DESTDIR)$(pkgincludedir)"
-+	$(SUBST_INSTALL_HEADER) "include/error_context.h" "$(DESTDIR)$(pkgincludedir)"
++	$(SUBST_INSTALL_HEADER) "$(srcdir)/include/error_context.h" "$(DESTDIR)$(pkgincludedir)"
  install-libattr_h: include/libattr.h
 -	$(SUBST_INSTALL_HEADER) "$<" "$(DESTDIR)$(pkgincludedir)"
-+	$(SUBST_INSTALL_HEADER) "include/libattr.h" "$(DESTDIR)$(pkgincludedir)"
++	$(SUBST_INSTALL_HEADER) "$(srcdir)/include/libattr.h" "$(DESTDIR)$(pkgincludedir)"
  install-data-local: install-attributes_h install-error_context_h install-libattr_h
  uninstall-local:
  	-rm -f \

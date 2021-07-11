@@ -5,11 +5,11 @@
  @USE_PYTHON_TRUE@lddtree: lddtree.py
  @USE_PYTHON_FALSE@lddtree: lddtree.sh
 -	cp $< $@
-+	cp lddtree.sh $@
++	cp $(srcdir)/lddtree.sh $@
  
  symtree: symtree.sh
 -	cp $< $@
-+	cp symtree.sh $@
++	cp $(srcdir)/symtree.sh $@
  check-hook:
  	$(TMAKE) check
  check: check-hook
