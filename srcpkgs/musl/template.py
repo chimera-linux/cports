@@ -27,7 +27,6 @@ _triplets = [
 
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]
-    makedepends = ["clang-rt-cross-base"]
 else:
     _triplets = []
 
