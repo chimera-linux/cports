@@ -18,6 +18,7 @@ import contextlib
 import subprocess
 import shutil
 import builtins
+import configparser
 
 from cbuild.core import logger, chroot, paths, version
 from cbuild import cpu
@@ -485,35 +486,54 @@ class Template(Package):
             pass
 
     def setup_profile(self, bootstrapping):
-        if not bootstrapping:
-            bp = importlib.import_module(
-                "cbuild.build_profiles." + cpu.target()
-            )
+        cp = configparser.ConfigParser(
+            interpolation = configparser.ExtendedInterpolation()
+        )
 
-            if not hasattr(bp, "CBUILD_TRIPLET"):
+        if not bootstrapping:
+            with open(
+                paths.cbuild() / "build_profiles" / (cpu.target() + ".ini")
+            ) as cf:
+                cp.read_file(cf)
+
+            if not "profile" in cp:
+                self.error("invalid build-profile")
+
+            psct = cp["profile"]
+
+            if not "triplet" in psct:
                 self.error("no target triplet defined")
-            if not hasattr(bp, "CBUILD_TARGET_ENDIAN"):
+            if not "endian" in psct:
                 self.error("no target endianness defined")
-            if not hasattr(bp, "CBUILD_TARGET_WORDSIZE"):
+            if not "wordsize" in psct:
                 self.error("no target wordsize defined")
 
-            wsize = bp.CBUILD_TARGET_WORDSIZE
-            endian = bp.CBUILD_TARGET_ENDIAN
+            wsize = psct.getint("wordsize")
+            endian = psct.get("endian")
 
             if wsize != 32 and wsize != 64:
                 self.error("invalid CBUILD_TARGET_WORDSIZE value")
             if endian != "little" and endian != "big":
                 self.error("invalid CBUILD_TARGET_ENDIAN value")
 
-            if hasattr(bp, "CBUILD_TARGET_HARDENING"):
-                self.default_hardening = bp.CBUILD_TARGET_HARDENING
+            if "hardening" in psct:
+                self.default_hardening = psct.get("hardening").split()
 
-            self.triplet = bp.CBUILD_TRIPLET
+            self.triplet = psct["triplet"]
             cpu.init_target(wsize, endian)
+
+            bp = dict(psct)
         else:
-            bp = importlib.import_module("cbuild.build_profiles.bootstrap")
+            with open(paths.cbuild() / "build_profiles/bootstrap.ini") as cf:
+                cp.read_file(cf)
+
+            if not "profile" in cp:
+                self.error("invalid build-profile")
+
             self.triplet = None
             cpu.init_target(cpu.host_wordsize(), cpu.host_endian())
+
+            bp = dict(psct)
 
         self.build_profile = bp
 
@@ -861,12 +881,12 @@ def from_module(m, ret):
         else:
             ret.error(f"yes")
 
-    if hasattr(ret.build_profile, "CBUILD_TARGET_CFLAGS"):
-        ret.CFLAGS = ret.build_profile.CBUILD_TARGET_CFLAGS + ret.CFLAGS
-    if hasattr(ret.build_profile, "CBUILD_TARGET_CXXFLAGS"):
-        ret.CXXFLAGS = ret.build_profile.CBUILD_TARGET_CXXFLAGS + ret.CXXFLAGS
-    if hasattr(ret.build_profile, "CBUILD_TARGET_LDFLAGS"):
-        ret.LDFLAGS = ret.build_profile.CBUILD_TARGET_LDFLAGS + ret.LDFLAGS
+    if "cflags" in ret.build_profile:
+        ret.CFLAGS = shlex.split(ret.build_profile["cflags"]) + ret.CFLAGS
+    if "cxxflags" in ret.build_profile:
+        ret.CXXFLAGS = shlex.split(ret.build_profile["cxxflags"]) + ret.CXXFLAGS
+    if "ldflags" in ret.build_profile:
+        ret.LDFLAGS = shlex.split(ret.build_profile["ldflags"]) + ret.LDFLAGS
 
     os.makedirs(ret.statedir, exist_ok = True)
     os.makedirs(ret.wrapperdir, exist_ok = True)
