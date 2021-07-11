@@ -1,6 +1,6 @@
 from cbuild.core import chroot
 from fnmatch import fnmatch
-import os
+import pathlib
 
 suffixes = {
     "*.tar.lzma":   "txz",
@@ -80,7 +80,7 @@ extract_table = {
 
 def invoke(pkg):
     if pkg.create_wrksrc:
-        os.makedirs(pkg.abs_wrksrc, exist_ok = False)
+        pkg.abs_wrksrc.mkdir(exist_ok = True, parents = True)
         if not pkg.abs_wrksrc.is_dir():
             pkg.error(f"failed to create wrksrc")
 
@@ -111,7 +111,12 @@ def invoke(pkg):
         exf = extract_table.get(suffix, None)
         if not exf:
             pkg.error(f"cannot guess '{fname}' extract suffix")
+        if pkg.bootstrapping:
+            srcs_path = paths.hostdir() / "sources"
+        else:
+            srcs_path = pathlib.Path("/sources")
         exf(
-            pkg, fname, f"/sources/{pkg.pkgname}-{pkg.version}/{fname}",
+            pkg, fname,
+            str(srcs_path / f"{pkg.pkgname}-{pkg.version}/{fname}"),
             extractdir, suffix
         )
