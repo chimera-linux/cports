@@ -1,8 +1,5 @@
 from cbuild.util import cmake, make
 
-def init_configure(self):
-    self.make = make.Make(self, wrksrc = "build")
-
 def do_configure(self):
     cmake.configure(self, self.cmake_dir)
 
@@ -17,11 +14,12 @@ def do_install(self):
 
 def use(tmpl):
     tmpl.build_style = "cmake"
-    tmpl.init_configure = init_configure
     tmpl.do_configure = do_configure
     tmpl.do_build = do_build
     tmpl.do_check = do_check
     tmpl.do_install = do_install
+
+    tmpl.make = make.Make(tmpl, wrksrc = "build")
 
     tmpl.build_style_fields = [
         ("cmake_dir", None, str, False, False, False)

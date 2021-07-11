@@ -14,7 +14,7 @@ class Make:
         self, tmpl, jobs = None, command = None, env = {}, wrksrc = None
     ):
         self.template = tmpl
-        self.command = command if command else tmpl.make_cmd
+        self.command = command
         self.wrksrc = wrksrc
         self.env = env
 
@@ -23,7 +23,13 @@ class Make:
         else:
             self.jobs = jobs
 
-        if tmpl.bootstrapping:
+    def get_command(self):
+        if self.command:
+            return self.command
+
+        self.command = self.template.make_cmd
+
+        if self.template.bootstrapping:
             # since usual Linux systems have make point to GNU make and bmake
             # point to BSD make, we need to make some adjustments for that:
             if self.command == "gmake":
@@ -34,6 +40,8 @@ class Make:
                 # normal make means bmake for us; if it exists, use it
                 if shutil.which("bmake"):
                     self.command = "bmake"
+
+        return self.command
 
     def invoke(
         self, targets = [], args = [], jobs = None, env = {}, wrksrc = None
@@ -58,7 +66,7 @@ class Make:
         argsbase += args
 
         return self.template.do(
-            self.command, argsbase, build = True, env = renv,
+            self.get_command(), argsbase, build = True, env = renv,
             wrksrc = wrksrc if wrksrc else self.wrksrc
         )
 

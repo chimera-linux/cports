@@ -1,8 +1,5 @@
 from cbuild.util import make
 
-def init_configure(self):
-    self.make = make.Make(self)
-
 def do_configure(self):
     self.do(
         self.chroot_build_wrksrc / self.configure_script,
@@ -20,8 +17,9 @@ def do_install(self):
 
 def use(tmpl):
     tmpl.build_style = "configure"
-    tmpl.init_configure = init_configure
     tmpl.do_configure = do_configure
     tmpl.do_build = do_build
     tmpl.do_check = do_check
     tmpl.do_install = do_install
+
+    tmpl.make = make.Make(tmpl)
