@@ -168,6 +168,10 @@ finishes, you wil have a `masterdir` ready and you will no longer need to use th
 script. Instead, you will simply build packages as normal, as the host environment
 becomes irrelevant.
 
+**NOTE:** You should avoid using absolute paths to `hostdir` and `masterdir` when
+using `bootstrap.sh` since the whole process is contained in an alternative root
+and these absolute paths will not be what you want them to be.
+
 If the process fails during stage 0, you will probably want to fix the problem and
 resume it. To prevent the script from starting from scratch, just set the environment
 variable `BOOTSTRAP_ROOT` to the path to the directory with the already-made root.
