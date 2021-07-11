@@ -168,7 +168,7 @@ from cbuild.core import paths
 paths.init(os.path.dirname(__file__), opt_masterdir, opt_hostdir)
 
 from cbuild.util import make
-from cbuild.core import chroot, logger, template, build
+from cbuild.core import chroot, logger, template, build, profile
 from cbuild.apk import sign, cli as apk_cli
 from cbuild import cpu
 
@@ -193,6 +193,9 @@ if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
 os.environ["CBUILD_ARCH"] = cpu.host()
 os.environ["PATH"] = os.environ["PATH"] + ":" + \
     str(paths.masterdir() / "usr/bin")
+
+# initialize profiles
+profile.init(global_cfg)
 
 def binary_bootstrap(tgt):
     paths.prepare(opt_ccache)
