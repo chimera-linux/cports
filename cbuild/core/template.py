@@ -555,6 +555,7 @@ class Template(Package):
             self.triplet = None
             cpu.init_target(cpu.host_wordsize(), cpu.host_endian())
 
+            psct = cp["profile"]
             bp = dict(psct)
 
         self.build_profile = bp
