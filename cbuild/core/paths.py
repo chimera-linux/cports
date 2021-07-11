@@ -64,7 +64,7 @@ def prepare(use_ccache):
 
     # prepare masterdir
     for f in [
-        "builddir", "destdir", "cports", "binpkgs", "sources",
+        "builddir", "destdir", "binpkgs", "sources",
         "dev", "sys", "tmp", "proc", "host", "boot",
     ]:
         (masterdir() / f).mkdir(parents = True, exist_ok = True)

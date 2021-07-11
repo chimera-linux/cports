@@ -293,7 +293,10 @@ def do_chroot(tgt):
     paths.prepare(opt_ccache)
     chroot.repo_sync()
     chroot.reconfigure()
-    chroot.enter("/bin/cbuild-shell", pretend_uid = 0, pretend_gid = 0)
+    chroot.enter(
+        "/bin/cbuild-shell", pretend_uid = 0, pretend_gid = 0,
+        mount_binpkgs = True, mount_ccache = True
+    )
 
 def do_clean(tgt):
     chroot.remove_autodeps(None)

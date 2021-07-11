@@ -645,7 +645,7 @@ class Template(Package):
         return chroot.enter(
             str(cmd), args, env = cenv, wrkdir = str(wdir), check = True,
             bootstrapping = self.bootstrapping, ro_root = True,
-            mount_distdir = False, mount_ccache = True, unshare_all = True
+            mount_ccache = True, unshare_all = True
         )
 
     def stamp(self, name):

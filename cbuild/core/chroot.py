@@ -62,7 +62,7 @@ def _init():
     shf = open(paths.masterdir() / "bin" / "cbuild-shell", "w")
     shf.write(f"""#!/bin/sh
 
-PATH=/cports:/usr/bin
+PATH=/usr/bin
 
 exec env -i -- SHELL=/bin/sh PATH="$PATH" \
     CBUILD_ARCH={cpu.host()} \
@@ -318,7 +318,7 @@ def update(do_clean = True):
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, unshare_all = False,
-          mount_distdir = True, mount_binpkgs = False, mount_ccache = False,
+          mount_binpkgs = False, mount_ccache = False,
           pretend_uid = None, pretend_gid = None, extra_path = None):
     envs = {
         "PATH": "/usr/bin:" + os.environ["PATH"],
@@ -374,9 +374,6 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "--proc", "/proc",
         "--tmpfs", "/tmp",
     ]
-
-    if mount_distdir:
-        bcmd += ["--bind", str(paths.distdir()), "/cports"]
 
     if mount_binpkgs:
         bcmd += ["--ro-bind", str(paths.hostdir() / "binpkgs"), "/binpkgs"]
