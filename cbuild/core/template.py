@@ -29,6 +29,28 @@ class PackageError(Exception):
 class SkipPackage(Exception):
     pass
 
+class StampException(BaseException):
+    pass
+
+class StampCheck:
+    def __init__(self, pkg, name):
+        self.pkg = pkg
+        self.name = name
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exct, excv, tback):
+        if not exct:
+            (self.pkg.abs_wrksrc / f".stamp_{self.name}_done").touch()
+            return True
+
+        return isinstance(excv, StampException)
+
+    def check(self):
+        if (self.pkg.abs_wrksrc / f".stamp_{self.name}_done").exists():
+            raise StampException()
+
 @contextlib.contextmanager
 def redir_allout(logpath):
     try:
@@ -623,6 +645,9 @@ class Template(Package):
             bootstrapping = self.bootstrapping, ro_root = True,
             mount_distdir = False, unshare_all = True
         )
+
+    def stamp(self, name):
+        return StampCheck(self, name)
 
     def run_step(self, stepn, optional = False, skip_post = False):
         call_pkg_hooks(self, "pre_" + stepn)

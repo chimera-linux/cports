@@ -28,6 +28,8 @@ _triplets = [
     ("x86_64", "x86_64-linux-musl", []),
 ]
 
+import shlex
+
 def do_configure(self):
     for an, at, cflags in _triplets:
         if cpu.target() == an:
@@ -37,8 +39,8 @@ def do_configure(self):
         mbpath = self.abs_wrksrc / f"build-{an}"
         mbpath.mkdir(exist_ok = True)
         # configure musl
-        if not (mbpath / ".configure_done").exists():
-            import shlex
+        with self.stamp(f"{an}_configure") as s:
+            s.check()
             self.do(
                 self.chroot_wrksrc / "configure",
                 configure_args + ["--host=" + at], build = True,
@@ -47,7 +49,6 @@ def do_configure(self):
                     "CC": "clang -target " + at
                 }
             )
-            (mbpath / ".configure_done").touch()
 
 def do_build(self):
     for an, at, cflags in _triplets:
@@ -55,11 +56,11 @@ def do_build(self):
             continue
         mbpath = self.abs_wrksrc / f"build-{an}"
         mbpath.mkdir(exist_ok = True)
-        if not (mbpath / ".build_done").exists():
+        with self.stamp(f"{an}_build") as s:
+            s.check()
             make.Make(
                 self, wrksrc = self.chroot_wrksrc / f"build-{an}"
             ).build()
-            (mbpath / ".install_done").touch()
 
 def do_install(self):
     for an, at, cflags in _triplets:
