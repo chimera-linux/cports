@@ -218,7 +218,7 @@ def bootstrap(tgt):
 
         # extra program checks
         for prog in [
-            "clang", "lld", "cmake", "meson", "pkg-config",
+            "clang", "lld", "cmake", "meson", "patch", "pkg-config",
             "make", "ninja", "strip", "byacc", "flex", "perl", "m4"
         ]:
             if not shutil.which(prog):

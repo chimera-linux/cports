@@ -41,6 +41,7 @@ to start with. Also, you will need the following tools:
 * `clang` with `lld`, `libc++`, `compiler-rt` and LLVM's `libunwind`
 * `cmake`
 * `meson`
+* `patch`
 * `pkg-config`
 * GNU `make` (either as `gmake` or as `make`)
 * NetBSD `make` (either as `bmake` or as `make`)
