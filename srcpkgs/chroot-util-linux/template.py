@@ -39,6 +39,14 @@ def pre_configure(self):
     self.CFLAGS.append("-I" + str(paths.masterdir() / "usr/include"))
     self.LDFLAGS.append("-L" + str(paths.masterdir() / "usr/lib"))
 
+def do_build(self):
+    # there's something broken about the build system that sometimes
+    # fails during the first pass regarding manpage generation
+    try:
+        self.make.build()
+    except:
+        self.make.build()
+
 def post_install(self):
     # Remove unused stuff
     self.rmtree("usr/sbin")
