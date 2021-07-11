@@ -3,8 +3,13 @@ _majver = "3.9"
 version = f"{_majver}.5"
 revision = 0
 wrksrc = f"Python-{version}"
+build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
 # FIXME: expat, readline, sqlite
+configure_args = [
+    "--enable-shared", "--enable-ipv6", "--with-computed-gotos",
+    "--with-system-ffi", "--without-ensurepip"
+]
 makedepends = [
     "libffi-devel", "openssl-devel", "bzip2-devel",
     "zlib-devel", "liblzma-devel"
@@ -17,6 +22,11 @@ homepage = "https://python.org"
 distfiles = [f"https://python.org/ftp/python/{version}/Python-{version}.tar.xz"]
 checksum = ["0c5a140665436ec3dbfbb79e2dfb6d192655f26ef4a29aeffcb6d1820d716d83"]
 
+def init_configure(self):
+    from cbuild import cpu
+    bigend = "yes" if (cpu.target_endian() == "big") else "no"
+    self.configure_args.append("ax_cv_c_float_words_bigendian=" + bigend)
+
 def pre_configure(self):
     import shutil
     shutil.rmtree(
@@ -25,22 +35,6 @@ def pre_configure(self):
     shutil.rmtree(
         self.abs_wrksrc / "Modules/_ctypes/libffi_osx", ignore_errors = True
     )
-
-def do_configure(self):
-    from cbuild import cpu
-    bigend = "yes" if (cpu.target_endian() == "big") else "no"
-    self.do(self.chroot_wrksrc / "configure", self.configure_args + [
-        "--enable-shared", "--enable-ipv6", "--with-computed-gotos",
-        "--with-system-ffi", "--without-ensurepip",
-        "ax_cv_c_float_words_bigendian=" + bigend
-    ])
-
-def init_build(self):
-    from cbuild.util import make
-    self.make = make.Make(self)
-
-def do_build(self):
-    self.make.build()
 
 def do_install(self):
     import shutil
