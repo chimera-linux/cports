@@ -108,8 +108,8 @@ $ ./cbuild.py bootstrap
 ```
 
 You can also stop the bootstrap process at a specific stage by passing the
-stage number (0, 1 or 2) as an argument after `bootstrap`. To explain what
-is going on, read below.
+stage number (0, 1 or 2) as an argument after `bootstrap` (except when using
+the `bootstrap.sh` script). To explain what is going on, read below.
 
 #### Bootstrap process - stage 0
 
@@ -161,6 +161,11 @@ namespaces and `bubblewrap`.
 
 Any arguments passed to the script are passed to `cbuild.py`. This is generally
 most useful for passing the number of make jobs, e.g. `-j16` to use 16 threads.
+You can not use it to pass the stage number like you can pass to the `bootstrap`
+command when using `cbuild.py` directly, since the positional and optional
+arguments are order sensitive (positional arguments come after optional ones)
+and these are passed before the `bootstrap` command itself; if you need to
+override this, use the `BOOTSTRAP_STAGE` environment variable.
 
 **NOTE:** You will still need to prepare as usual! That means generating a signing
 key and setting up the configuration file for it. Once the process successfully

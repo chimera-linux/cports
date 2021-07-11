@@ -102,6 +102,10 @@ fi
 cp /etc/resolv.conf "${BOOTSTRAP_ROOT}/etc"
 mkdir -p "${BOOTSTRAP_ROOT}/cports"
 
+if [ -z "${BOOTSTRAP_STAGE}" ]; then
+    BOOTSTRAP_STAGE="2"
+fi
+
 cat << EOF > "${BOOTSTRAP_ROOT}/bootstrap-inner.sh"
 # update base
 echo ">> Updating base system..."
@@ -117,7 +121,7 @@ xbps-install -y base-devel clang lld libcxx-devel llvm-libunwind-devel \
                 cmake meson pkgconf bmake ninja byacc flex perl m4 || exit 1
 
 cd /cports
-python3 cbuild.py "\$@" bootstrap
+python3 cbuild.py "\$@" bootstrap ${BOOTSTRAP_STAGE}
 EOF
 
 bwrap --unshare-user \
