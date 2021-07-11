@@ -1,4 +1,4 @@
-from cbuild.core import chroot
+from cbuild.core import chroot, paths
 from fnmatch import fnmatch
 import pathlib
 
