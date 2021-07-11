@@ -19,7 +19,7 @@ index 8dad4de..7f5365e 100644
  
  init.c: mkinit $(dash_CFILES)
 -	$(AM_V_GEN)./$^
-+	$(AM_V_GEN)./mkinit $(shell echo $(dash_CFILES)|sed "s,\<,$(srcdir)/,g")
++	$(AM_V_GEN)./mkinit `echo $(dash_CFILES)|sed "s,[^ ]* *,$(srcdir)/&,g"`
  
  nodes.c nodes.h: mknodes nodetypes nodes.c.pat
 -	$(AM_V_GEN)./$^
