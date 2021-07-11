@@ -50,6 +50,8 @@ to start with. Also, you will need the following tools:
 * `flex`
 * `perl`
 * `m4`
+* `zx`
+* `patch`
 
 You should be able to find them in your host distro's package collection. They are
 necessary as binary tools needed to build various packages.
