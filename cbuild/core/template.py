@@ -629,7 +629,7 @@ class Template(Package):
 
         if self.use_ccache:
             cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
-            cenv["CCACHE_DIR"] = "/host/ccache"
+            cenv["CCACHE_DIR"] = "/ccache"
             cenv["CCACHE_COMPILERCHECK"] = "content"
             cenv["CCACHE_COMPRESS"] = "1"
             cenv["CCACHE_BASEDIR"] = str(self.chroot_build_wrksrc)
@@ -645,7 +645,7 @@ class Template(Package):
         return chroot.enter(
             str(cmd), args, env = cenv, wrkdir = str(wdir), check = True,
             bootstrapping = self.bootstrapping, ro_root = True,
-            mount_distdir = False, unshare_all = True
+            mount_distdir = False, mount_ccache = True, unshare_all = True
         )
 
     def stamp(self, name):
@@ -830,13 +830,11 @@ def from_module(m, ret):
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
         ret.chroot_wrksrc = ret.abs_wrksrc
-        ret.chroot_hostdir = paths.hostdir()
     else:
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
         ret.chroot_wrksrc = pathlib.Path("/builddir") \
             / ret.wrksrc
-        ret.chroot_hostdir = pathlib.Path("/host")
 
     ret.chroot_build_wrksrc = ret.chroot_wrksrc / ret.build_wrksrc
     ret.chroot_destdir = ret.chroot_destdir_base \

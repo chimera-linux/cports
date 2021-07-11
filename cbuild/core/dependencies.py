@@ -79,7 +79,8 @@ def _install_from_repo(pkg, pkglist, virtn, signkey):
             "apk", ["add", "--virtual", virtn] + extra_opts + pkglist,
             capture_out = True,
             pretend_uid = 0,
-            pretend_gid = 0
+            pretend_gid = 0,
+            mount_binpkgs = True
         )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()

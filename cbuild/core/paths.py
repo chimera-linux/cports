@@ -61,3 +61,10 @@ def prepare(use_ccache):
     repository().mkdir(parents = True, exist_ok = True)
     if use_ccache:
         (hostdir() / "ccache").mkdir(exist_ok = True)
+
+    # prepare masterdir
+    for f in [
+        "builddir", "destdir", "cports", "binpkgs", "sources",
+        "dev", "sys", "tmp", "proc", "host", "boot",
+    ]:
+        (masterdir() / f).mkdir(parents = True, exist_ok = True)

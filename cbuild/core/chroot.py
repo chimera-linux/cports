@@ -95,9 +95,6 @@ def _prepare(arch, stage):
             "cbuild: no local timezone configuration file created"
         )
 
-    for f in ["dev", "sys", "tmp", "proc", "host", "boot", "cports"]:
-        os.makedirs(paths.masterdir() / f, exist_ok = True)
-
     shutil.copy(
         paths.templates() / "base-files" / "files" / "passwd",
         paths.masterdir() / "etc"
@@ -139,11 +136,7 @@ def repo_sync():
             for repo in repof:
                 relpath = repo.lstrip("/")
                 # in-chroot
-                repos_mdir.write(str(
-                    pathlib.Path("/host") /
-                    paths.repository().relative_to(paths.hostdir())
-                ))
-                repos_mdir.write("/")
+                repos_mdir.write("/binpkgs/")
                 repos_mdir.write(relpath)
                 # out of chroot
                 repos_hdir.write(str(paths.repository()))
@@ -167,7 +160,8 @@ def repo_sync():
         return
 
     if enter(
-        "apk", ["update"], pretend_uid = 0, pretend_gid = 0
+        "apk", ["update"], pretend_uid = 0, pretend_gid = 0,
+        mount_binpkgs = True
     ).returncode != 0:
         logger.get().out_red(f"cbuild: failed to update pkg database")
         raise Exception()
@@ -236,6 +230,7 @@ def install(arch = None, stage = 2):
 
     logger.get().out("cbuild: installed base-chroot successfully!")
 
+    paths.prepare(False)
     _prepare(arch, stage)
     _chroot_checked = False
     _chroot_ready = False
@@ -264,9 +259,10 @@ def remove_autodeps(bootstrapping):
                 "autodeps-host"
             ], capture_output = True)
         else:
-            del_ret = enter("apk", [
-                "del", "autodeps-host"
-            ], capture_out = True, pretend_uid = 0, pretend_gid = 0)
+            del_ret = enter(
+                "apk", ["del", "autodeps-host"], capture_out = True,
+                pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
+            )
 
         if del_ret.returncode != 0:
             log.out_plain(">> stderr (host):")
@@ -285,9 +281,10 @@ def remove_autodeps(bootstrapping):
                 "autodeps-target"
             ], capture_output = True)
         else:
-            del_ret = enter("apk", [
-                "del", "autodeps-target"
-            ], capture_out = True, pretend_uid = 0, pretend_gid = 0)
+            del_ret = enter(
+                "apk", ["del", "autodeps-target"], capture_out = True,
+                pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
+            )
 
         if del_ret.returncode != 0:
             log.out_plain(">> stderr (target):")
@@ -310,18 +307,19 @@ def update(do_clean = True):
     remove_autodeps(False)
 
     enter(
-        "apk", ["update", "-q"], pretend_uid = 0, pretend_gid = 0, check = True
+        "apk", ["update", "-q"], pretend_uid = 0, pretend_gid = 0,
+        mount_binpkgs = True, check = True
     )
     enter(
         "apk", ["upgrade", "--available"],
-        pretend_uid = 0, pretend_gid = 0, check = True
+        pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True, check = True
     )
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, unshare_all = False,
-          mount_distdir = True, pretend_uid = None, pretend_gid = None,
-          extra_path = None):
+          mount_distdir = True, mount_binpkgs = False, mount_ccache = False,
+          pretend_uid = None, pretend_gid = None, extra_path = None):
     envs = {
         "PATH": "/usr/bin:" + os.environ["PATH"],
         "SHELL": "/bin/sh",
@@ -371,7 +369,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         root_bind, str(paths.masterdir()), "/",
         "--bind", str(paths.masterdir() / "builddir"), "/builddir",
         "--bind", str(paths.masterdir() / "destdir"), "/destdir",
-        "--bind", str(paths.hostdir()), "/host",
+        "--ro-bind", str(paths.hostdir() / "sources"), "/sources",
         "--dev", "/dev",
         "--proc", "/proc",
         "--tmpfs", "/tmp",
@@ -379,6 +377,12 @@ def enter(cmd, args = [], capture_out = False, check = False,
 
     if mount_distdir:
         bcmd += ["--bind", str(paths.distdir()), "/cports"]
+
+    if mount_binpkgs:
+        bcmd += ["--ro-bind", str(paths.hostdir() / "binpkgs"), "/binpkgs"]
+
+    if mount_ccache:
+        bcmd += ["--bind", str(paths.hostdir() / "ccache"), "/ccache"]
 
     if pretend_uid != None:
         bcmd += ["--uid", str(pretend_uid)]

@@ -111,7 +111,7 @@ def invoke(pkg):
         exf = extract_table.get(suffix, None)
         if not exf:
             pkg.error(f"cannot guess '{fname}' extract suffix")
-        exf(pkg, fname, os.path.join(
-            pkg.chroot_hostdir / "sources",
-            f"{pkg.pkgname}-{pkg.version}", fname
-        ), extractdir, suffix)
+        exf(
+            pkg, fname, f"/sources/{pkg.pkgname}-{pkg.version}/{fname}",
+            extractdir, suffix
+        )
