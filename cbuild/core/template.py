@@ -926,32 +926,53 @@ def from_module(m, ret):
         ret.CFLAGS.append("-g")
         ret.CXXFLAGS.append("-g")
 
-    if not "CC" in ret.tools:
+    # when bootstrapping, use a fixed set of tools; none of the bootstrap
+    # packages should be overriding these, and we want to prefer the usual
+    # binutils/elftoolchain ones so we don't pull in all of llvm tools
+    #
+    # the llvm tools are only meaningful once we have a full chroot assembled
+    # since they provide extras and possibly help in cross-compiling scenarios
+    if ret.bootstrapping:
         ret.tools["CC"] = "clang"
-    if not "CXX" in ret.tools:
         ret.tools["CXX"] = "clang++"
-    if not "CPP" in ret.tools:
         ret.tools["CPP"] = "clang-cpp"
-    if not "LD" in ret.tools:
-        ret.tools["LD"] = "ld"
-    if not "AR" in ret.tools:
-        ret.tools["AR"] = "llvm-ar"
-    if not "AS" in ret.tools:
+        ret.tools["LD"] = "ld.lld"
+        ret.tools["NM"] = "nm"
+        ret.tools["AR"] = "ar"
         ret.tools["AS"] = "clang"
-    if not "RANLIB" in ret.tools:
-        ret.tools["RANLIB"] = "llvm-ranlib"
-    if not "STRIP" in ret.tools:
-        ret.tools["STRIP"] = "llvm-strip"
-    if not "OBJDUMP" in ret.tools:
-        ret.tools["OBJDUMP"] = "llvm-objdump"
-    if not "OBJCOPY" in ret.tools:
-        ret.tools["OBJCOPY"] = "llvm-objcopy"
-    if not "NM" in ret.tools:
-        ret.tools["NM"] = "llvm-nm"
-    if not "READELF" in ret.tools:
-        ret.tools["READELF"] = "llvm-readelf"
-    if not "PKG_CONFIG" in ret.tools:
+        ret.tools["RANLIB"] = "ranlib"
+        ret.tools["STRIP"] = "strip"
+        # objdump explicitly not provided
+        ret.tools["OBJCOPY"] = "objcopy"
+        ret.tools["READELF"] = "readelf"
         ret.tools["PKG_CONFIG"] = "pkg-config"
+    else:
+        if not "CC" in ret.tools:
+            ret.tools["CC"] = "clang"
+        if not "CXX" in ret.tools:
+            ret.tools["CXX"] = "clang++"
+        if not "CPP" in ret.tools:
+            ret.tools["CPP"] = "clang-cpp"
+        if not "LD" in ret.tools:
+            ret.tools["LD"] = "ld"
+        if not "NM" in ret.tools:
+            ret.tools["NM"] = "llvm-nm"
+        if not "AR" in ret.tools:
+            ret.tools["AR"] = "llvm-ar"
+        if not "AS" in ret.tools:
+            ret.tools["AS"] = "clang"
+        if not "RANLIB" in ret.tools:
+            ret.tools["RANLIB"] = "llvm-ranlib"
+        if not "STRIP" in ret.tools:
+            ret.tools["STRIP"] = "llvm-strip"
+        if not "OBJDUMP" in ret.tools:
+            ret.tools["OBJDUMP"] = "llvm-objdump"
+        if not "OBJCOPY" in ret.tools:
+            ret.tools["OBJCOPY"] = "llvm-objcopy"
+        if not "READELF" in ret.tools:
+            ret.tools["READELF"] = "llvm-readelf"
+        if not "PKG_CONFIG" in ret.tools:
+            ret.tools["PKG_CONFIG"] = "pkg-config"
 
     return ret
 
