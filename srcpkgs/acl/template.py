@@ -18,15 +18,6 @@ from cbuild import sites
 distfiles = [f"{sites.nongnu}/acl/acl-{version}.tar.gz"]
 checksum = ["760c61c68901b37fdd5eefeeaf4c0c7a26bdfdd8ac747a1edff1ce0e243c11af"]
 
-def pre_configure(self):
-    if not self.bootstrapping:
-        return
-
-    from cbuild.core import paths
-
-    self.CFLAGS.append("-I" + str(paths.masterdir() / "usr/include"))
-    self.LDFLAGS.append("-L" + str(paths.masterdir() / "usr/lib"))
-
 @subpackage("acl-devel")
 def _devel(self):
     self.depends = ["attr-devel", f"{pkgname}={version}-r{revision}"]

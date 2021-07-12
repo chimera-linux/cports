@@ -20,7 +20,7 @@ import shutil
 import builtins
 import configparser
 
-from cbuild.core import logger, chroot, paths, version
+from cbuild.core import logger, chroot, paths, version, profile
 from cbuild import cpu
 
 class PackageError(Exception):
@@ -398,6 +398,7 @@ core_fields = [
     ("tools", {}, dict, False, False, False, False),
     ("env", {}, dict, False, False, False, False),
     ("CFLAGS", [], list, True, False, False, False),
+    ("FFLAGS", [], list, True, False, False, False),
     ("CXXFLAGS", [], list, True, False, False, False),
     ("LDFLAGS", [], list, True, False, False, False),
 
@@ -507,60 +508,6 @@ class Template(Package):
             # ???
             pass
 
-    def setup_profile(self, bootstrapping):
-        cp = configparser.ConfigParser(
-            interpolation = configparser.ExtendedInterpolation()
-        )
-
-        if not bootstrapping:
-            with open(
-                paths.cbuild() / "build_profiles" / (cpu.target() + ".ini")
-            ) as cf:
-                cp.read_file(cf)
-
-            if not "profile" in cp:
-                self.error("invalid build-profile")
-
-            psct = cp["profile"]
-
-            if not "triplet" in psct:
-                self.error("no target triplet defined")
-            if not "endian" in psct:
-                self.error("no target endianness defined")
-            if not "wordsize" in psct:
-                self.error("no target wordsize defined")
-
-            wsize = psct.getint("wordsize")
-            endian = psct.get("endian")
-
-            if wsize != 32 and wsize != 64:
-                self.error("invalid CBUILD_TARGET_WORDSIZE value")
-            if endian != "little" and endian != "big":
-                self.error("invalid CBUILD_TARGET_ENDIAN value")
-
-            if "hardening" in psct:
-                self.default_hardening = psct.get("hardening").split()
-
-            self.triplet = psct["triplet"]
-            cpu.init_target(wsize, endian)
-
-            bp = dict(psct)
-        else:
-            with open(paths.cbuild() / "build_profiles/bootstrap.ini") as cf:
-                cp.read_file(cf)
-
-            if not "profile" in cp:
-                self.error("invalid build-profile")
-
-            psct = cp["profile"]
-
-            self.triplet = None
-            cpu.init_target(cpu.host_wordsize(), cpu.host_endian())
-
-            bp = dict(psct)
-
-        self.build_profile = bp
-
     def ensure_fields(self):
         for fl, dval, tp, opt, mand, sp, inh in core_fields:
             # mandatory fields are all at the beginning
@@ -599,33 +546,19 @@ class Template(Package):
         if not matched:
             self.error(f"this package cannot be built for {cpu.target()}")
 
-    def parse_hardening(self):
-        hdict = dict(hardening_fields)
-
-        for fl in self.default_hardening + self.hardening:
-            neg = fl.startswith("!")
-            if neg:
-                fl = fl[1:]
-
-            if not fl in hdict:
-                self.error(f"unrecognized hardening option: {fl}")
-
-            hdict[fl] = not neg
-
-        self.hardening = hdict
-
     def do(self, cmd, args, env = {}, build = False, wrksrc = None):
         cenv = {
-            "CFLAGS": shlex.join(self.CFLAGS),
-            "CXXFLAGS": shlex.join(self.CXXFLAGS),
-            "LDFLAGS": shlex.join(self.LDFLAGS),
+            "CFLAGS": self.get_cflags(shell = True),
+            "FFLAGS": self.get_fflags(shell = True),
+            "CXXFLAGS": self.get_cxxflags(shell = True),
+            "LDFLAGS": self.get_ldflags(shell = True),
             "CBUILD_TARGET_MACHINE": cpu.target(),
             "CBUILD_MACHINE": cpu.host(),
         }
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
-        if self.triplet:
-            cenv["CBUILD_TRIPLET"] = self.triplet
+        if self.build_profile.triplet:
+            cenv["CBUILD_TRIPLET"] = self.build_profile.triplet
 
         if self.use_ccache:
             cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
@@ -652,6 +585,9 @@ class Template(Package):
         return StampCheck(self, name)
 
     def run_step(self, stepn, optional = False, skip_post = False):
+        # reinit to make sure we've got up to date info
+        cpu.init_target(self.build_profile.wordsize, self.build_profile.endian)
+
         call_pkg_hooks(self, "pre_" + stepn)
 
         # run pre_* phase
@@ -668,6 +604,37 @@ class Template(Package):
 
         if not skip_post:
             call_pkg_hooks(self, "post_" + stepn)
+
+    def get_cflags(self, extra_flags = [], hardening = [], shell = False):
+        return self.build_profile.get_cflags(
+            self.CFLAGS + extra_flags,
+            not self.nodebug and self.build_dbg,
+            self.hardening + hardening,
+            shell = shell
+        )
+
+    def get_cxxflags(self, extra_flags = [], hardening = [], shell = False):
+        return self.build_profile.get_cxxflags(
+            self.CXXFLAGS + extra_flags,
+            not self.nodebug and self.build_dbg,
+            self.hardening + hardening,
+            shell = shell
+        )
+
+    def get_fflags(self, extra_flags = [], hardening = [], shell = False):
+        return self.build_profile.get_fflags(
+            self.FFLAGS + extra_flags,
+            not self.nodebug and self.build_dbg,
+            self.hardening + hardening,
+            shell = shell
+        )
+
+    def get_ldflags(self, extra_flags = [], hardening = [], shell = False):
+        return self.build_profile.get_ldflags(
+            self.LDFLAGS + extra_flags,
+            self.hardening + hardening,
+            shell = shell
+        )
 
 class Subpackage(Package):
     def __init__(self, name, parent):
@@ -794,9 +761,6 @@ def from_module(m, ret):
         if not hasattr(m, fl):
             setattr(ret, fl, copy_of_dval(dval))
 
-    # parse hardening fields
-    ret.parse_hardening()
-
     # add our own methods
     for phase in [
         "fetch", "patch", "extract", "configure", "build", "check", "install"
@@ -906,23 +870,8 @@ def from_module(m, ret):
         else:
             ret.error(f"yes")
 
-    if "cflags" in ret.build_profile:
-        ret.CFLAGS = shlex.split(ret.build_profile["cflags"]) + ret.CFLAGS
-    if "cxxflags" in ret.build_profile:
-        ret.CXXFLAGS = shlex.split(ret.build_profile["cxxflags"]) + ret.CXXFLAGS
-    if "ldflags" in ret.build_profile:
-        ret.LDFLAGS = shlex.split(ret.build_profile["ldflags"]) + ret.LDFLAGS
-
     os.makedirs(ret.statedir, exist_ok = True)
     os.makedirs(ret.wrapperdir, exist_ok = True)
-
-    ret.CFLAGS = ret.base_cflags + ret.CFLAGS
-    ret.CXXFLAGS = ret.base_cxxflags + ret.CXXFLAGS
-    ret.LDFLAGS = ret.base_ldflags + ret.LDFLAGS
-
-    if not ret.nodebug and ret.build_dbg:
-        ret.CFLAGS.append("-g")
-        ret.CXXFLAGS.append("-g")
 
     # when bootstrapping, use a fixed set of tools; none of the bootstrap
     # packages should be overriding these, and we want to prefer the usual
@@ -978,7 +927,7 @@ _tmpl_dict = {}
 
 def read_pkg(
     pkgname, force_mode, bootstrapping, skip_if_exist, build_dbg,
-    cflags, cxxflags, ldflags, use_ccache, origin
+    use_ccache, origin
 ):
     global _tmpl_dict
 
@@ -996,13 +945,16 @@ def read_pkg(
     ret.skip_if_exist = skip_if_exist
     ret.build_dbg = build_dbg
     ret.cross_build = False
-    ret.base_cflags = cflags
-    ret.base_cxxflags = cxxflags
-    ret.base_ldflags = ldflags
     ret.use_ccache = use_ccache
 
     ret.setup_reproducible()
-    ret.setup_profile(bootstrapping)
+
+    if not bootstrapping:
+        ret.build_profile = profile.get_target()
+    else:
+        ret.build_profile = profile.get_profile("bootstrap")
+
+    cpu.init_target(ret.build_profile.wordsize, ret.build_profile.endian)
 
     def subpkg_deco(spkgname, cond = True):
         def deco(f):

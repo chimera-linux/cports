@@ -29,12 +29,16 @@ def do_build(self):
     import glob, shlex
 
     mk = make.Make(self, jobs = 1)
+
+    cfl = self.get_cflags(shell = True)
+    lfl = self.get_ldflags(shell = True)
+
     mk.invoke("mrproper", [
         "ARCH=" + _arch, "CC=clang", "HOSTCC=clang",
-        "CFLAGS=" + shlex.join(self.CFLAGS),
-        "HOSTCFLAGS=" + shlex.join(self.CFLAGS),
-        "LDFLAGS=" + shlex.join(self.LDFLAGS),
-        "HOSTLDFLAGS=" + shlex.join(self.LDFLAGS),
+        "CFLAGS=" + cfl,
+        "HOSTCFLAGS=" + cfl,
+        "LDFLAGS=" + lfl,
+        "HOSTLDFLAGS=" + lfl,
         "headers"
     ])
 

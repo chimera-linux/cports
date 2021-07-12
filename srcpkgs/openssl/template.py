@@ -38,8 +38,8 @@ configure_args += ecargs
 
 def pre_configure(self):
     #self.configure_args += self.CPPFLAGS
-    self.configure_args += self.CFLAGS
-    self.configure_args += self.LDFLAGS
+    self.configure_args += self.get_cflags()
+    self.configure_args += self.get_ldflags()
 
 def do_build(self):
     self.make.invoke("depend")

@@ -31,9 +31,9 @@ def configure(
         "--infodir=/usr/share/info", "--localstatedir=/var"
     ]
 
-    if pkg.triplet:
-        cargs.append("--build=" + pkg.triplet)
-        cargs.append("--host=" + pkg.triplet)
+    if pkg.build_profile.triplet:
+        cargs.append("--build=" + pkg.build_profile.triplet)
+        cargs.append("--host=" + pkg.build_profile.triplet)
 
     # autoconf cache
     eenv = dict(benv)

@@ -200,11 +200,14 @@ def do_configure(self):
     if self.cross_build:
         cargs.append("--target=" + self.cross_triplet)
 
+    cfl = self.get_cflags(shell = True)
+    lfl = self.get_ldflags(shell = True)
+
     cargs.append("-Dcccdlflags=-fPIC")
-    cargs.append("-Doptimize=-Wall " + " ".join(self.CFLAGS))
-    cargs.append("-Dccflags=" + " ".join(self.CFLAGS))
-    cargs.append("-Dlddlflags=-shared " + " ".join(self.LDFLAGS))
-    cargs.append("-Dldflags=" + " ".join(self.LDFLAGS))
+    cargs.append("-Doptimize=-Wall " + cfl)
+    cargs.append("-Dccflags=" + cfl)
+    cargs.append("-Dlddlflags=-shared " + lfl)
+    cargs.append("-Dldflags=" + lfl)
     cargs.append("-Dperl_static_inline=static __inline__")
     cargs.append("-Dd_static_inline")
 

@@ -20,7 +20,8 @@ def do_build(self):
     self.make.build([
         "CC=" + self.tools["CC"],
         "HOSTCC=" + self.tools["CC"],
-        "CFLAGS=" + " ".join(self.CFLAGS + self.LDFLAGS + ["-DHAS_ISBLANK"]),
+        "CFLAGS=" + self.get_cflags(shell = True) + " " + \
+                    self.get_ldflags(shell = True) + " -DHAS_ISBLANK"),
         "YACC=byacc -H awkgram.tab.h -o awkgram.tab.c",
     ])
 

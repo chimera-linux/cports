@@ -28,7 +28,9 @@ if not current.bootstrapping:
     hostmakedepends = ["bsdm4", "byacc", "flex"]
 
 def init_build(self):
-    flags = " ".join(self.CFLAGS + self.LDFLAGS)
+    flags = self.get_cflags(shell = True) + " " + \
+            self.get_ldflags(shell = True)
+
     self.env["SHLIB_LDADD"] = flags
     # abuse this to work around elftoolchain's fucky build system
     self.env["LDSTATIC"] = flags

@@ -30,15 +30,6 @@ distfiles = [
 checksum = ["86e6707a379c7ff5489c218cfaf1e3464b0b95acf7817db0bc5f179e356a67b2"]
 conflicts = ["util-linux"]
 
-def pre_configure(self):
-    from cbuild.core import paths
-
-    if not self.bootstrapping:
-        return
-
-    self.CFLAGS.append("-I" + str(paths.masterdir() / "usr/include"))
-    self.LDFLAGS.append("-L" + str(paths.masterdir() / "usr/lib"))
-
 def do_build(self):
     # there's something broken about the build system that sometimes
     # fails during the first pass regarding manpage generation

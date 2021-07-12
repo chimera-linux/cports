@@ -231,7 +231,7 @@ def bootstrap(tgt):
             sys.exit("Required bootstrap program not found: gmake/bmake")
 
         rp = template.read_pkg(
-            "base-chroot", False, True, False, False, [], [], [], False, None
+            "base-chroot", False, True, False, False, False, None
         )
         paths.prepare(opt_ccache)
         chroot.initdb()
@@ -342,8 +342,7 @@ def do_pkg(tgt, pkgn = None):
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
         pkgn, opt_force, False, opt_skipexist, opt_gen_dbg,
-        shlex.split(opt_cflags), shlex.split(opt_cxxflags),
-        shlex.split(opt_ldflags), opt_ccache, None
+        opt_ccache, None
     )
     if opt_mdirtemp:
         chroot.install(cpu.host())

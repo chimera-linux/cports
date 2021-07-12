@@ -17,11 +17,12 @@ def init_build(self):
 def do_build(self):
     self.make.build([
         "-f", "Makefile-libbz2_so",
-        "CFLAGS=" + " ".join(self.CFLAGS + self.LDFLAGS)
+        "CFLAGS=" + self.get_cflags(shell = True) + " " + \
+                    self.get_ldflags(shell = True)
     ])
     self.make.invoke(["bzip2recover", "libbz2.a"], [
-        "CFLAGS=" + " ".join(self.CFLAGS),
-        "LDFLAGS=" + " ".join(self.LDFLAGS)
+        "CFLAGS=" + self.get_cflags(shell = True),
+        "LDFLAGS=" + self.get_ldflags(shell = True)
     ])
 
 def do_check(self):
