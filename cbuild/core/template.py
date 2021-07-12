@@ -605,32 +605,60 @@ class Template(Package):
         if not skip_post:
             call_pkg_hooks(self, "post_" + stepn)
 
-    def get_cflags(self, extra_flags = [], hardening = [], shell = False):
-        return self.build_profile.get_cflags(
+    def get_cflags(
+        self, extra_flags = [], hardening = [], shell = False, target = None
+    ):
+        if not target:
+            target = self.build_profile
+        else:
+            target = profile.get_profile(target)
+
+        return target.get_cflags(
             self.CFLAGS + extra_flags,
             not self.nodebug and self.build_dbg,
             self.hardening + hardening,
             shell = shell
         )
 
-    def get_cxxflags(self, extra_flags = [], hardening = [], shell = False):
-        return self.build_profile.get_cxxflags(
+    def get_cxxflags(
+        self, extra_flags = [], hardening = [], shell = False, target = None
+    ):
+        if not target:
+            target = self.build_profile
+        else:
+            target = profile.get_profile(target)
+
+        return target.get_cxxflags(
             self.CXXFLAGS + extra_flags,
             not self.nodebug and self.build_dbg,
             self.hardening + hardening,
             shell = shell
         )
 
-    def get_fflags(self, extra_flags = [], hardening = [], shell = False):
-        return self.build_profile.get_fflags(
+    def get_fflags(
+        self, extra_flags = [], hardening = [], shell = False, target = None
+    ):
+        if not target:
+            target = self.build_profile
+        else:
+            target = profile.get_profile(target)
+
+        return target.get_fflags(
             self.FFLAGS + extra_flags,
             not self.nodebug and self.build_dbg,
             self.hardening + hardening,
             shell = shell
         )
 
-    def get_ldflags(self, extra_flags = [], hardening = [], shell = False):
-        return self.build_profile.get_ldflags(
+    def get_ldflags(
+        self, extra_flags = [], hardening = [], shell = False, target = None
+    ):
+        if not target:
+            target = self.build_profile
+        else:
+            target = profile.get_profile(target)
+
+        return target.get_ldflags(
             self.LDFLAGS + extra_flags,
             self.hardening + hardening,
             shell = shell
