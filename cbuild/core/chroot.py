@@ -376,7 +376,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
     ]
 
     if mount_binpkgs:
-        bcmd += ["--ro-bind", str(paths.hostdir() / "binpkgs"), "/binpkgs"]
+        bcmd += ["--ro-bind", str(paths.repository()), "/binpkgs"]
 
     if mount_ccache:
         bcmd += ["--bind", str(paths.hostdir() / "ccache"), "/ccache"]
