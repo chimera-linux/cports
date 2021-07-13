@@ -10,7 +10,7 @@
 -LIB=	execinfo
 +CC=cc
 +AR=ar
-+EXECINFO_CFLAGS=$(CFLAGS) -std=gnu99 -c
++EXECINFO_CFLAGS=$(CFLAGS) -std=gnu99 -fPIC
 +EXECINFO_LDFLAGS=$(LDFLAGS)
  
 -SRCS=	stacktraverse.c stacktraverse.h execinfo.c execinfo.h
@@ -18,16 +18,16 @@
  
 -INCS=	execinfo.h
 +static:
-+	$(CC) $(EXECINFO_CFLAGS) $(EXECINFO_LDFLAGS) stacktraverse.c
-+	$(CC) $(EXECINFO_CFLAGS) $(EXECINFO_LDFLAGS) execinfo.c
++	$(CC) $(EXECINFO_CFLAGS) -c stacktraverse.c
++	$(CC) $(EXECINFO_CFLAGS) -c execinfo.c
 +	$(AR) rcs libexecinfo.a stacktraverse.o execinfo.o
  
 -SHLIB_MAJOR=	1
 -SHLIB_MINOR=	0
 +dynamic:
-+	$(CC) $(EXECINFO_CFLAGS) $(EXECINFO_LDFLAGS) stacktraverse.c -o stacktraverse.So
-+	$(CC) $(EXECINFO_CFLAGS) $(EXECINFO_LDFLAGS) execinfo.c -o execinfo.So
-+	$(CC) -shared -Wl,-soname,libexecinfo.so.1 -o libexecinfo.so.1 stacktraverse.So execinfo.So
++	$(CC) $(EXECINFO_CFLAGS) -c stacktraverse.c -o stacktraverse.So
++	$(CC) $(EXECINFO_CFLAGS) -c execinfo.c -o execinfo.So
++	$(CC) -shared -Wl,-soname,libexecinfo.so.1 -o libexecinfo.so.1 $(EXECINFO_CFLAGS) $(EXECINFO_LDFLAGS) stacktraverse.So execinfo.So
  
 -NOPROFILE=	yes
 -
