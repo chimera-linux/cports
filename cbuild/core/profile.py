@@ -104,6 +104,8 @@ class Profile:
 
         if "hardening" in pdata:
             self._hardening = pdata.get("hardening").split()
+        else:
+            self._hardening = []
 
         def get_gflag(fn):
             if f"build.{archn}" in gdata:

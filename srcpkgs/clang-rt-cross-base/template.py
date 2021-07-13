@@ -48,15 +48,9 @@ checksum = [
 
 cmake_dir = "compiler-rt"
 
-CFLAGS = ["-O2", "-fPIC"]
-
 subpackages = []
 
-_triplets = [
-    ("aarch64", "aarch64-linux-musl", ["-march=armv8-a"]),
-    ("ppc64le", "powerpc64le-linux-musl", ["-mtune=power9"]),
-    ("x86_64", "x86_64-linux-musl", []),
-]
+_targets = ["aarch64", "ppc64le", "x86_64"]
 
 from cbuild.util import cmake, make
 from cbuild import cpu
@@ -71,60 +65,64 @@ def init_configure(self):
     self.make = make.Make(self)
 
 def do_configure(self):
-    for an, at, cflags in _triplets:
+    for an in _targets:
         if cpu.target() == an:
             continue
 
-        self.CFLAGS = CFLAGS + cflags
-        # musl build dir
-        mbpath = self.abs_wrksrc / f"musl/build-{an}"
-        mbpath.mkdir(exist_ok = True)
-        # configure musl
-        if not (mbpath / ".configure_done").exists():
-            self.do(
-                self.chroot_wrksrc / "musl/configure",
-                ["--prefix=/usr", "--host=" + at], build = True,
-                wrksrc = self.chroot_wrksrc / f"musl/build-{an}",
-                env = {
-                    "CC": "clang -target " + at
-                }
-            )
-            (mbpath / ".configure_done").touch()
-        # install musl headers for arch
-        if not (mbpath / ".install_done").exists():
-            make.Make(
-                self, command = "gmake",
-                wrksrc = self.chroot_wrksrc / f"musl/build-{an}"
-            ).invoke(
-                "install-headers",
-                ["DESTDIR=" + str(self.chroot_wrksrc / f"musl-{an}")]
-            )
-            (mbpath / ".install_done").touch()
-        # configure compiler-rt
-        cbpath = self.abs_wrksrc / f"build-{an}"
-        if not (cbpath / ".configure_done").exists():
-            cmake.configure(self, self.cmake_dir, f"build-{an}", [
-                "-DCMAKE_SYSROOT=" + str(self.chroot_wrksrc  / f"musl-{an}"),
-                f"-DCMAKE_ASM_COMPILER_TARGET={at}",
-                f"-DCMAKE_C_COMPILER_TARGET={at}"
-            ])
-            (cbpath / ".configure_done").touch()
+        with self.profile(an):
+            at = self.build_profile.triplet
+            # musl build dir
+            mbpath = self.abs_wrksrc / f"musl/build-{an}"
+            mbpath.mkdir(exist_ok = True)
+            # configure musl
+            if not (mbpath / ".configure_done").exists():
+                self.do(
+                    self.chroot_wrksrc / "musl/configure",
+                    ["--prefix=/usr", "--host=" + at], build = True,
+                    wrksrc = self.chroot_wrksrc / f"musl/build-{an}",
+                    env = {
+                        "CC": "clang -target " + at
+                    }
+                )
+                (mbpath / ".configure_done").touch()
+            # install musl headers for arch
+            if not (mbpath / ".install_done").exists():
+                make.Make(
+                    self, command = "gmake",
+                    wrksrc = self.chroot_wrksrc / f"musl/build-{an}"
+                ).invoke(
+                    "install-headers",
+                    ["DESTDIR=" + str(self.chroot_wrksrc / f"musl-{an}")]
+                )
+                (mbpath / ".install_done").touch()
+            # configure compiler-rt
+            cbpath = self.abs_wrksrc / f"build-{an}"
+            if not (cbpath / ".configure_done").exists():
+                cmake.configure(self, self.cmake_dir, f"build-{an}", [
+                    "-DCMAKE_SYSROOT=" + str(self.chroot_wrksrc  / f"musl-{an}"),
+                    f"-DCMAKE_ASM_COMPILER_TARGET={at}",
+                    f"-DCMAKE_C_COMPILER_TARGET={at}"
+                ])
+                (cbpath / ".configure_done").touch()
 
 def do_build(self):
-    for an, at, cflags in _triplets:
+    for an in _targets:
         if cpu.target() == an:
             continue
 
-        cbpath = self.abs_wrksrc / f"build-{an}"
-        if not (cbpath / ".build_done").exists():
-            self.make.build(wrksrc = f"build-{an}")
-            (cbpath / ".build_done").touch()
+        with self.profile(an):
+            cbpath = self.abs_wrksrc / f"build-{an}"
+            if not (cbpath / ".build_done").exists():
+                self.make.build(wrksrc = f"build-{an}")
+                (cbpath / ".build_done").touch()
 
 def do_install(self):
-    for an, at, cflags in _triplets:
+    for an in _targets:
         if cpu.target() == an:
             continue
-        self.make.install(wrksrc = f"build-{an}")
+
+        with self.profile(an):
+            self.make.install(wrksrc = f"build-{an}")
 
 def _gen_subp(an, at):
     def _subp(self):
@@ -134,9 +132,12 @@ def _gen_subp(an, at):
 
     return _subp
 
-for an, at, cflags in _triplets:
+for an in _targets:
     if cpu.target() == an:
         continue
+
+    with current.profile(an):
+        at = current.build_profile.triplet
 
     subpackages.append((f"clang-rt-cross-base-{an}", _gen_subp(an, at)))
     depends.append(f"clang-rt-cross-base-{an}={version}-r{revision}")

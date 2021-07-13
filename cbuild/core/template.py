@@ -664,6 +664,15 @@ class Template(Package):
             shell = shell
         )
 
+    @contextlib.contextmanager
+    def profile(self, target):
+        old_tgt = self.build_profile
+        try:
+            self.build_profile = profile.get_profile(target)
+            yield
+        finally:
+            self.build_profile = old_tgt
+
 class Subpackage(Package):
     def __init__(self, name, parent):
         super().__init__()
