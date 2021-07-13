@@ -63,6 +63,7 @@ class Profile:
     def __init__(self, archn, pdata, gdata):
         # bootstrap is a simplfied case
         if archn == "bootstrap":
+            self._arch = cpu.host()
             self._triplet = None
             self._endian = cpu.host_endian()
             self._wordsize = cpu.host_wordsize()
@@ -86,6 +87,7 @@ class Profile:
             logger.get().out_red(f"Unknown wordsize for {archn}")
             raise Exception()
 
+        self._arch = archn
         self._triplet = pdata.get("triplet")
         self._endian = pdata.get("endian")
         self._wordsize = pdata.getint("wordsize")
@@ -128,6 +130,10 @@ class Profile:
         self._cxxflags += get_gflag("cxxflags")
         self._fflags += get_gflag("fflags")
         self._ldflags += get_gflag("ldflags")
+
+    @property
+    def arch(self):
+        return self._arch
 
     @property
     def triplet(self):
@@ -226,6 +232,10 @@ class Profile:
     @property
     def endian(self):
         return self._endian
+
+    @property
+    def cross(self):
+        return self._arch != cpu.host()
 
 _all_profiles = {}
 
