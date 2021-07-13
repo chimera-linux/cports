@@ -1,0 +1,31 @@
+From f49205db4746040db75efacb38c200f4f2dd336a Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 16 Jun 2021 02:34:41 +0200
+Subject: [PATCH] comment out check to avoid gnu sed syntax
+
+---
+ scripts/headers_install.sh | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git scripts/headers_install.sh scripts/headers_install.sh
+index dd554bd..1ff46c2 100755
+--- a/scripts/headers_install.sh
++++ b/scripts/headers_install.sh
+@@ -24,10 +24,10 @@ TMPFILE=$OUTFILE.tmp
+ trap 'rm -f $OUTFILE $TMPFILE' EXIT
+ 
+ # SPDX-License-Identifier with GPL variants must have "WITH Linux-syscall-note"
+-if [ -n "$(sed -n -e "/SPDX-License-Identifier:.*GPL-/{/WITH Linux-syscall-note/!p}" $INFILE)" ]; then
+-	echo "error: $INFILE: missing \"WITH Linux-syscall-note\" for SPDX-License-Identifier" >&2
+-	exit 1
+-fi
++#if [ -n "$(sed -n -e "/SPDX-License-Identifier:.*GPL-/{/WITH Linux-syscall-note/!p}" $INFILE)" ]; then
++#	echo "error: $INFILE: missing \"WITH Linux-syscall-note\" for SPDX-License-Identifier" >&2
++#	exit 1
++#fi
+ 
+ sed -E -e '
+ 	s/([[:space:](])(__user|__force|__iomem)[[:space:]]/\1/g
+-- 
+2.32.0
+
