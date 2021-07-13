@@ -16,9 +16,10 @@ def do_build(self):
         "LD=" + self.tools["LD"],
         "AR=" + self.tools["AR"],
         "AS=" + self.tools["AS"],
-        "CFLAGS=" + shlex.join(self.CFLAGS),
-        "LDFLAGS=" + shlex.join(self.LDFLAGS),
-        "CXXFLAGS=" + shlex.join(self.CXXFLAGS),
+        "CFLAGS=" + self.get_cflags(shell = True),
+        "FFLAGS=" + self.get_fflags(shell = True),
+        "LDFLAGS=" + self.get_ldflags(shell = True),
+        "CXXFLAGS=" + self.get_cxxflags(shell = True),
     ]
 
     if not self.bootstrapping:
