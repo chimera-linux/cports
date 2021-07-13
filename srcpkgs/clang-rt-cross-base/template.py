@@ -72,10 +72,10 @@ def do_configure(self):
         with self.profile(an):
             at = self.build_profile.triplet
             # musl build dir
-            mbpath = self.abs_wrksrc / f"musl/build-{an}"
-            mbpath.mkdir(exist_ok = True)
+            (self.abs_wrksrc / f"musl/build-{an}").mkdir(exist_ok = True)
             # configure musl
-            if not (mbpath / ".configure_done").exists():
+            with self.stamp(f"{an}_musl_configure") as s:
+                s.check()
                 self.do(
                     self.chroot_wrksrc / "musl/configure",
                     ["--prefix=/usr", "--host=" + at], build = True,
@@ -84,9 +84,9 @@ def do_configure(self):
                         "CC": "clang -target " + at
                     }
                 )
-                (mbpath / ".configure_done").touch()
             # install musl headers for arch
-            if not (mbpath / ".install_done").exists():
+            with self.stamp(f"{an}_musl_install") as s:
+                s.check()
                 make.Make(
                     self, command = "gmake",
                     wrksrc = self.chroot_wrksrc / f"musl/build-{an}"
@@ -94,16 +94,14 @@ def do_configure(self):
                     "install-headers",
                     ["DESTDIR=" + str(self.chroot_wrksrc / f"musl-{an}")]
                 )
-                (mbpath / ".install_done").touch()
             # configure compiler-rt
-            cbpath = self.abs_wrksrc / f"build-{an}"
-            if not (cbpath / ".configure_done").exists():
+            with self.stamp(f"{an}_configure") as s:
+                s.check()
                 cmake.configure(self, self.cmake_dir, f"build-{an}", [
                     "-DCMAKE_SYSROOT=" + str(self.chroot_wrksrc  / f"musl-{an}"),
                     f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                     f"-DCMAKE_C_COMPILER_TARGET={at}"
                 ])
-                (cbpath / ".configure_done").touch()
 
 def do_build(self):
     for an in _targets:
@@ -111,10 +109,9 @@ def do_build(self):
             continue
 
         with self.profile(an):
-            cbpath = self.abs_wrksrc / f"build-{an}"
-            if not (cbpath / ".build_done").exists():
+            with self.stamp(f"{an}_build") as s:
+                s.check()
                 self.make.build(wrksrc = f"build-{an}")
-                (cbpath / ".build_done").touch()
 
 def do_install(self):
     for an in _targets:
