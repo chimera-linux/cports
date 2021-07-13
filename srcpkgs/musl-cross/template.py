@@ -29,7 +29,7 @@ def do_configure(self):
             continue
 
         with self.profile(an):
-            at = self.build_profile.triplet
+            at = self.build_profile.short_triplet
             # musl build dir
             mbpath = self.abs_wrksrc / f"build-{an}"
             mbpath.mkdir(exist_ok = True)
@@ -65,7 +65,7 @@ def do_install(self):
             continue
 
         with self.profile(an):
-            at = self.build_profile.triplet
+            at = self.build_profile.short_triplet
             self.install_dir(f"usr/{at}/usr/lib")
             self.install_link("usr/lib", f"usr/{at}/lib")
             make.Make(
@@ -86,4 +86,4 @@ def _gen_crossp(an, at):
 
 for an in _targets:
     with current.profile(an):
-        _gen_crossp(an, current.build_profile.triplet)
+        _gen_crossp(an, current.build_profile.short_triplet)

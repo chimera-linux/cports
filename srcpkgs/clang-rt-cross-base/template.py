@@ -48,6 +48,9 @@ checksum = [
 
 cmake_dir = "compiler-rt"
 
+CFLAGS = ["-fPIC"]
+CXXFLAGS = ["-fPIC"]
+
 subpackages = []
 
 _targets = ["aarch64", "ppc64le", "x86_64"]
@@ -70,7 +73,7 @@ def do_configure(self):
             continue
 
         with self.profile(an):
-            at = self.build_profile.triplet
+            at = self.build_profile.short_triplet
             # musl build dir
             (self.abs_wrksrc / f"musl/build-{an}").mkdir(exist_ok = True)
             # configure musl
@@ -134,7 +137,7 @@ for an in _targets:
         continue
 
     with current.profile(an):
-        at = current.build_profile.triplet
+        at = current.build_profile.short_triplet
 
     subpackages.append((f"clang-rt-cross-base-{an}", _gen_subp(an, at)))
     depends.append(f"clang-rt-cross-base-{an}={version}-r{revision}")

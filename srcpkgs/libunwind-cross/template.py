@@ -33,8 +33,8 @@ _targets = ["aarch64", "ppc64le", "x86_64"]
 
 # we don't have these available yet; but cmake tests for
 # executables with default flags, so avoid trying to use them
-CFLAGS = ["--unwindlib=none"]
-CXXFLAGS = ["--unwindlib=none", "-nostdlib"]
+CFLAGS = ["-fPIC", "--unwindlib=none"]
+CXXFLAGS = ["-fPIC", "--unwindlib=none", "-nostdlib"]
 
 from cbuild.util import cmake, make
 from cbuild import cpu
@@ -48,7 +48,7 @@ def do_configure(self):
             continue
 
         with self.profile(an):
-            at = self.build_profile.triplet
+            at = self.build_profile.short_triplet
             # configure libunwind
             with self.stamp(f"{an}_configure") as s:
                 s.check()
@@ -70,7 +70,7 @@ def do_build(self):
                 self.make.build(wrksrc = f"build-{an}")
 
 def _install_hdrs(self):
-    at = self.build_profile.triplet
+    at = self.build_profile.short_triplet
     self.install_dir(f"usr/{at}/usr/include/mach-o")
     self.install_file(
         self.abs_wrksrc / "libunwind/include/__libunwind_config.h",
@@ -97,7 +97,7 @@ def do_install(self):
         with self.profile(an):
             self.make.install(
                 ["DESTDIR=" + str(
-                    self.chroot_destdir / "usr" / self.build_profile.triplet
+                    self.chroot_destdir / "usr" / self.build_profile.short_triplet
                 )],
                 wrksrc = f"build-{an}", default_args = False
             )
@@ -115,4 +115,4 @@ def _gen_crossp(an, at):
 
 for an in _targets:
     with current.profile(an):
-        _gen_crossp(an, current.build_profile.triplet)
+        _gen_crossp(an, current.build_profile.short_triplet)

@@ -139,6 +139,17 @@ class Profile:
     def triplet(self):
         return self._triplet
 
+    @property
+    def short_triplet(self):
+        tpl = self.triplet
+        if not tpl:
+            return None
+        return tpl.replace("-unknown-", "-")
+
+    @property
+    def sysroot(self):
+        return pathlib.Path("/usr") / self.short_triplet
+
     def get_cflags(
         self, extra_flags = [], debug = False, hardening = [], shell = False
     ):

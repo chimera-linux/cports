@@ -65,11 +65,12 @@ def do_install(self):
         if cpu.target() == an:
             continue
         with self.profile(an):
-            self.install_dir(f"usr/{self.build_profile.triplet}/usr")
+            at = self.build_profile.short_triplet
+            self.install_dir(f"usr/{at}/usr")
             self.install_files("inc_" + an, "usr")
             shutil.move(
                 self.destdir / "usr" / ("inc_" + an),
-                self.destdir / f"usr/{self.build_profile.triplet}/usr/include"
+                self.destdir / f"usr/{at}/usr/include"
             )
 
 def _gen_crossp(an, at):
@@ -82,4 +83,4 @@ def _gen_crossp(an, at):
 
 for an, arch in _targets:
     with current.profile(an):
-        _gen_crossp(an, current.build_profile.triplet)
+        _gen_crossp(an, current.build_profile.short_triplet)

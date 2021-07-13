@@ -50,6 +50,9 @@ checksum = [
 
 cmake_dir = "compiler-rt"
 
+CFLAGS = ["-fPIC"]
+CXXFLAGS = ["-fPIC"]
+
 _targets = ["aarch64", "ppc64le", "x86_64"]
 
 from cbuild.util import cmake, make
@@ -64,7 +67,7 @@ def do_configure(self):
             continue
 
         with self.profile(an):
-            at = self.build_profile.triplet
+            at = self.build_profile.short_triplet
             # configure compiler-rt
             with self.stamp(f"{an}_configure") as s:
                 s.check()
@@ -101,6 +104,9 @@ def do_install(self):
     shutil.rmtree(self.destdir / f"usr/lib/clang/{version}/bin")
 
 def _gen_crossp(an):
+    with current.profile(an):
+        at = current.build_profile.short_triplet
+
     @subpackage(f"clang-rt-cross-{an}", cpu.target() != an)
     def _subp(self):
         self.short_desc = f"{short_desc} - {an} support"
@@ -110,7 +116,7 @@ def _gen_crossp(an):
             f"libexecinfo-cross-{an}"
         ]
         self.noshlibprovides = True
-        return [f"usr/lib/clang/{version}/lib/linux/libclang_rt.*{an}*"]
+        return [f"usr/lib/clang/{version}/lib/linux/libclang_rt.*{at[0:at.find('-')]}*"]
     if cpu.target() != an:
         depends.append(f"clang-rt-cross-{an}={version}-r{revision}")
 

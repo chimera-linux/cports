@@ -27,7 +27,7 @@ def do_build(self):
             continue
 
         with self.profile(an):
-            at = self.build_profile.triplet
+            at = self.build_profile.short_triplet
             self.make.build([
                 f"CC=clang -target {at} --sysroot /usr/{at}",
                 "PREFIX=/usr",
@@ -51,7 +51,7 @@ def do_install(self):
         if cpu.target() == an:
             continue
         with self.profile(an):
-            at = self.build_profile.triplet
+            at = self.build_profile.short_triplet
             self.install_dir(f"usr/{at}/usr/lib/pkgconfig")
             self.install_dir(f"usr/{at}/usr/include")
             self.install_dir(f"usr/{at}/usr/lib")
@@ -96,4 +96,4 @@ def _gen_crossp(an, at):
 
 for an in _targets:
     with current.profile(an):
-        _gen_crossp(an, current.build_profile.triplet)
+        _gen_crossp(an, current.build_profile.short_triplet)

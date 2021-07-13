@@ -34,7 +34,8 @@ cmake_dir = "libcxxabi"
 _targets = ["aarch64", "ppc64le", "x86_64"]
 
 # not available yet, prevent cmake checks
-CXXFLAGS = ["-nostdlib"]
+CFLAGS = ["-fPIC"]
+CXXFLAGS = ["-fPIC", "-nostdlib"]
 
 from cbuild.util import cmake, make
 from cbuild import cpu
@@ -48,7 +49,7 @@ def do_configure(self):
             continue
 
         with self.profile(an):
-            at = self.build_profile.triplet
+            at = self.build_profile.short_triplet
             # configure libcxxabi
             with self.stamp(f"{an}_configure") as s:
                 s.check()
@@ -70,7 +71,7 @@ def do_build(self):
                 self.make.build(wrksrc = f"build-{an}")
 
 def _install_hdrs(self):
-    at = self.build_profile.triplet
+    at = self.build_profile.short_triplet
     self.install_dir(f"usr/{at}/usr/include")
     self.install_file(
         self.abs_wrksrc / "libcxxabi/include/__cxxabi_config.h",
@@ -89,7 +90,7 @@ def do_install(self):
         with self.profile(an):
             self.make.install(
                 ["DESTDIR=" + str(
-                    self.chroot_destdir / "usr" / self.build_profile.triplet
+                    self.chroot_destdir / "usr" / self.build_profile.short_triplet
                 )],
                 wrksrc = f"build-{an}", default_args = False
             )
@@ -107,4 +108,4 @@ def _gen_crossp(an, at):
 
 for an in _targets:
     with current.profile(an):
-        _gen_crossp(an, current.build_profile.triplet)
+        _gen_crossp(an, current.build_profile.short_triplet)
