@@ -6,6 +6,7 @@ build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 hostmakedepends = ["gmake"]
 makedepends = ["clang-rt-cross-base"]
+depends = []
 make_cmd = "gmake"
 short_desc = "Musl C library - cross toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -80,6 +81,8 @@ def _gen_crossp(an, at):
         self.short_desc = f"{short_desc} - {an} support"
         self.depends = [f"clang-rt-cross-base-{an}"]
         return [f"usr/{at}"]
+    if cpu.target() != an:
+        depends.append(f"musl-cross-{an}")
 
 for an in _targets:
     with current.profile(an):
