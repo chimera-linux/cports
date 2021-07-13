@@ -15,6 +15,7 @@ configure_args = [
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
+    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
 ]
 hostmakedepends = ["cmake", "python"]
 makedepends = ["libcxxabi-cross", "kernel-libc-headers-cross"]
@@ -58,7 +59,8 @@ def do_configure(self):
                     f"-DCMAKE_SYSROOT=/usr/{at}",
                     f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                     f"-DCMAKE_CXX_COMPILER_TARGET={at}",
-                    f"-DCMAKE_C_COMPILER_TARGET={at}"
+                    f"-DCMAKE_C_COMPILER_TARGET={at}",
+                    f"-DLIBCXX_CXX_ABI_LIBRARY_PATH=/usr/{at}/usr/lib"
                 ])
 
 def do_build(self):
