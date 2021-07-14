@@ -526,6 +526,7 @@ class Template(Package):
             self.error("version has an invalid format")
 
     def validate_arch(self):
+        archn = self.build_profile.arch
         if not self.archs:
             return
         if not isinstance(self.archs, str):
@@ -537,7 +538,7 @@ class Template(Package):
             if arch[0] == "~":
                 negarch = True
                 arch = arch[1:]
-            if fnmatch.fnmatchcase(cpu.target(), arch):
+            if fnmatch.fnmatchcase(archn, arch):
                 if not negarch:
                     matched = True
                     break
@@ -546,7 +547,7 @@ class Template(Package):
                     matched = True
                     break
         if not matched:
-            self.error(f"this package cannot be built for {cpu.target()}")
+            self.error(f"this package cannot be built for {archn}")
 
     def do(self, cmd, args, env = {}, build = False, wrksrc = None):
         cenv = {
@@ -554,7 +555,7 @@ class Template(Package):
             "FFLAGS": self.get_fflags(shell = True),
             "CXXFLAGS": self.get_cxxflags(shell = True),
             "LDFLAGS": self.get_ldflags(shell = True),
-            "CBUILD_TARGET_MACHINE": cpu.target(),
+            "CBUILD_TARGET_MACHINE": self.build_profile.arch,
             "CBUILD_MACHINE": cpu.host(),
         }
         if self.source_date_epoch:
@@ -572,6 +573,12 @@ class Template(Package):
         cenv.update(self.tools)
         cenv.update(self.env)
         cenv.update(env)
+
+        if self.cross_build and not self.build_profile.cross:
+            cenv["CC"] = cenv["BUILD_CC"]
+            cenv["CXX"] = cenv["BUILD_CXX"]
+            cenv["CPP"] = cenv["BUILD_CPP"]
+            cenv["LD"] = cenv["BUILD_LD"]
 
         wdir = self.chroot_build_wrksrc if build else self.chroot_wrksrc
         if wrksrc:
@@ -850,6 +857,9 @@ def from_module(m, ret):
     else:
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
+        if ret.build_profile.cross:
+            ret.chroot_destdir_base = ret.chroot_destdir_base / \
+                ret.build_profile.triplet
         ret.chroot_wrksrc = pathlib.Path("/builddir") \
             / ret.wrksrc
 
@@ -940,6 +950,10 @@ def from_module(m, ret):
     # the llvm tools are only meaningful once we have a full chroot assembled
     # since they provide extras and possibly help in cross-compiling scenarios
     if ret.bootstrapping:
+        ret.tools["BUILD_CC"] = "clang"
+        ret.tools["BUILD_CXX"] = "clang++"
+        ret.tools["BUILD_CPP"] = "clang-cpp"
+        ret.tools["BUILD_LD"] = "ld.lld"
         ret.tools["CC"] = "clang"
         ret.tools["CXX"] = "clang++"
         ret.tools["CPP"] = "clang-cpp"
@@ -954,14 +968,33 @@ def from_module(m, ret):
         ret.tools["READELF"] = "readelf"
         ret.tools["PKG_CONFIG"] = "pkg-config"
     else:
-        if not "CC" in ret.tools:
-            ret.tools["CC"] = "clang"
-        if not "CXX" in ret.tools:
-            ret.tools["CXX"] = "clang++"
-        if not "CPP" in ret.tools:
-            ret.tools["CPP"] = "clang-cpp"
-        if not "LD" in ret.tools:
-            ret.tools["LD"] = "ld"
+        if not "BUILD_CC" in ret.tools:
+            ret.tools["BUILD_CC"] = "clang"
+        if not "BUILD_CXX" in ret.tools:
+            ret.tools["BUILD_CXX"] = "clang++"
+        if not "BUILD_CPP" in ret.tools:
+            ret.tools["BUILD_CPP"] = "clang-cpp"
+        if not "BUILD_LD" in ret.tools:
+            ret.tools["BUILD_LD"] = "ld"
+        if ret.cross_build:
+            trip = profile.get_profile(ret.cross_build).short_triplet
+            if not "CC" in ret.tools:
+                ret.tools["CC"] = f"{trip}-clang"
+            if not "CXX" in ret.tools:
+                ret.tools["CXX"] = f"{trip}-clang++"
+            if not "CPP" in ret.tools:
+                ret.tools["CPP"] = f"{trip}-clang-cpp"
+            if not "LD" in ret.tools:
+                ret.tools["LD"] = f"{trip}-ld"
+        else:
+            if not "CC" in ret.tools:
+                ret.tools["CC"] = "clang"
+            if not "CXX" in ret.tools:
+                ret.tools["CXX"] = "clang++"
+            if not "CPP" in ret.tools:
+                ret.tools["CPP"] = "clang-cpp"
+            if not "LD" in ret.tools:
+                ret.tools["LD"] = "ld"
         if not "NM" in ret.tools:
             ret.tools["NM"] = "llvm-nm"
         if not "AR" in ret.tools:

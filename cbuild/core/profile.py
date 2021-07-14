@@ -148,6 +148,9 @@ class Profile:
 
     @property
     def sysroot(self):
+        if not self.cross:
+            return pathlib.Path("/")
+
         return pathlib.Path("/usr") / self.short_triplet
 
     def get_cflags(
@@ -158,6 +161,8 @@ class Profile:
         # bootstrap
         if not self._triplet:
             bflags = ["-isystem", str(paths.masterdir() / "usr/include")]
+        elif self.cross:
+            bflags = ["--sysroot", str(self.sysroot)]
         else:
             bflags = []
 
@@ -179,6 +184,8 @@ class Profile:
         # bootstrap
         if not self._triplet:
             bflags = ["-isystem", str(paths.masterdir() / "usr/include")]
+        elif self.cross:
+            bflags = ["--sysroot", str(self.sysroot)]
         else:
             bflags = []
 
@@ -200,6 +207,8 @@ class Profile:
         # bootstrap
         if not self._triplet:
             bflags = ["-isystem", str(paths.masterdir() / "usr/include")]
+        elif self.cross:
+            bflags = ["--sysroot", str(self.sysroot)]
         else:
             bflags = []
 

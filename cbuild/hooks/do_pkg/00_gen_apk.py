@@ -1,8 +1,6 @@
 from cbuild.core import logger, paths
 from cbuild.apk import create as apk_c, sign as apk_s
 
-from cbuild import cpu
-
 import os
 import glob
 import time
@@ -109,7 +107,7 @@ def genpkg(
         lockpath.unlink()
 
 def invoke(pkg):
-    arch = cpu.target()
+    arch = pkg.rparent.build_profile.arch
     binpkg = f"{pkg.pkgver}.apk"
     binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.version}-r{pkg.revision}.apk"
 

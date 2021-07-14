@@ -75,8 +75,11 @@ def _install_from_repo(pkg, pkglist, virtn, signkey):
             "--virtual", virtn
         ] + extra_opts + pkglist, capture_output = True)
     else:
+        argb = ["add"]
+        if virtn:
+            argb += ["--virtual", virtn]
         ret = chroot.enter(
-            "apk", ["add", "--virtual", virtn] + extra_opts + pkglist,
+            "apk", argb + extra_opts + pkglist,
             capture_out = True,
             pretend_uid = 0,
             pretend_gid = 0,
@@ -116,6 +119,19 @@ def _is_available(pkgn, pattern = None):
         return pn[len(pkgn) + 1:]
 
     return None
+
+def install_toolchain(pkg, signkey):
+    if not pkg.build_profile.cross:
+        return
+
+    archn = pkg.build_profile.arch
+
+    if _is_installed(f"base-cross-{archn}"):
+        return
+
+    pkg.log(f"installing cross toolchain for {archn}...")
+
+    _install_from_repo(pkg, [f"base-cross-{archn}"], None, signkey)
 
 def install(pkg, origpkg, step, depmap, signkey):
     style = ""

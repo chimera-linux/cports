@@ -12,6 +12,9 @@ def build(step, pkg, depmap, signkey):
 
     depmap[pkg.pkgname] = True
 
+    # doesn't do anything for native builds
+    dependencies.install_toolchain(pkg, signkey)
+
     # check and install dependencies
     autodep = dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
 

@@ -31,7 +31,7 @@ def target_wordsize():
 def host_wordsize():
     return int(platform.architecture()[0][:-3])
 
-def _match_arch(archn, *args):
+def match_arch(archn, *args):
     odd = True
     match = False
     for v in args:
@@ -49,7 +49,7 @@ def _match_arch(archn, *args):
     return match
 
 def match_target(*args):
-    return _match_arch(target(), *args)
+    return match_arch(target(), *args)
 
 def match_host(*args):
-    return _match_arch(host(), *args)
+    return match_arch(host(), *args)
