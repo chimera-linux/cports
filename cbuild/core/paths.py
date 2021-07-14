@@ -53,14 +53,13 @@ def templates():
 def cbuild():
     return _cbdir
 
-def prepare(use_ccache):
+def prepare():
     hostdir().mkdir(parents = True, exist_ok = True)
     sources().mkdir(parents = True, exist_ok = True)
     (masterdir() / "builddir").mkdir(parents = True, exist_ok = True)
     (masterdir() / "destdir").mkdir(parents = True, exist_ok = True)
     repository().mkdir(parents = True, exist_ok = True)
-    if use_ccache:
-        (hostdir() / "ccache").mkdir(exist_ok = True)
+    (hostdir() / "ccache").mkdir(exist_ok = True)
 
     # prepare masterdir
     for f in [

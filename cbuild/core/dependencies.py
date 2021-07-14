@@ -240,7 +240,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, ctarget if not pkg.bootstrapping else None,
+                pn, ctgt if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
@@ -250,7 +250,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for rd in missing_rdeps:
         try:
             build.build(step, template.read_pkg(
-                rd, ctarget if not pkg.bootstrapping else None,
+                rd, ctgt if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:

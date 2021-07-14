@@ -225,7 +225,7 @@ def install(arch = None, stage = 2):
 
     logger.get().out("cbuild: installed base-chroot successfully!")
 
-    paths.prepare(False)
+    paths.prepare()
     _prepare(arch, stage)
     _chroot_checked = False
     _chroot_ready = False

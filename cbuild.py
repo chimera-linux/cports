@@ -216,7 +216,7 @@ if opt_arch:
         sys.exit(1)
 
 def binary_bootstrap(tgt):
-    paths.prepare(opt_ccache)
+    paths.prepare()
 
     if len(cmdline.command) <= 1:
         chroot.install(cpu.host())
@@ -251,7 +251,7 @@ def bootstrap(tgt):
         rp = template.read_pkg(
             "base-chroot", None, False, False, False, False, None
         )
-        paths.prepare(opt_ccache)
+        paths.prepare()
         chroot.initdb()
         chroot.repo_sync()
         build.build(tgt, rp, {}, opt_signkey)
@@ -311,7 +311,7 @@ def do_keygen(tgt):
 def do_chroot(tgt):
     if opt_mdirtemp:
         chroot.install(cpu.host())
-    paths.prepare(opt_ccache)
+    paths.prepare()
     chroot.repo_sync()
     chroot.reconfigure()
     chroot.enter(
@@ -365,7 +365,7 @@ def do_pkg(tgt, pkgn = None):
     if opt_mdirtemp:
         chroot.install(cpu.host())
     # don't remove builddir/destdir
-    paths.prepare(opt_ccache)
+    paths.prepare()
     chroot.repo_sync()
     chroot.update(do_clean = False)
     chroot.remove_autodeps(False)
