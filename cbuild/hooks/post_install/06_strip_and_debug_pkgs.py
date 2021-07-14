@@ -41,7 +41,7 @@ def invoke(pkg):
 
     elfs = pkg.rparent.current_elfs
 
-    have_pie = pkg.has_hardening("pie")
+    have_pie = pkg.rparent.has_hardening("pie")
 
     for v in pkg.destdir.rglob("*"):
         # already stripped debug symbols

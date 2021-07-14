@@ -143,10 +143,11 @@ def run_pkg_func(pkg, func, funcn = None, desc = None, on_subpkg = False):
         func = getattr(pkg, funcn)
     if not desc:
         desc = funcn
+    crossb = pkg.rparent.cross_build if pkg.rparent.cross_build else ""
     if pkg.parent:
-        logf = pkg.parent.statedir / f"{pkg.pkgname}__{funcn}.log"
+        logf = pkg.parent.statedir / f"{pkg.pkgname}_{crossb}_{funcn}.log"
     else:
-        logf = pkg.statedir / f"{pkg.pkgname}__{funcn}.log"
+        logf = pkg.statedir / f"{pkg.pkgname}_{crossb}_{funcn}.log"
     pkg.log(f"running {desc}...")
     with redir_allout(logf):
         if on_subpkg:
@@ -351,6 +352,7 @@ core_fields = [
     # other core-ish fields
     ("subpackages", [], list, True, False, False, False),
     ("broken", None, None, True, False, False, False),
+    ("nocross", None, None, True, False, False, False),
     ("build_style", None, str, True, False, False, False),
 
     # distfiles
@@ -828,12 +830,18 @@ def from_module(m, ret):
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
     ret.builddir = paths.masterdir() / "builddir"
-    ret.destdir_base = paths.masterdir() / "destdir"
-    ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
     ret.abs_wrksrc = paths.masterdir() / "builddir" / ret.wrksrc
     ret.abs_build_wrksrc = ret.abs_wrksrc / ret.build_wrksrc
     ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
+
+    if ret.build_profile.cross:
+        ret.destdir_base = paths.masterdir() / "destdir" / \
+            ret.build_profile.triplet
+    else:
+        ret.destdir_base = paths.masterdir() / "destdir"
+
+    ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
 
     if ret.bootstrapping:
         ret.chroot_builddir = ret.builddir
@@ -915,6 +923,13 @@ def from_module(m, ret):
         else:
             ret.error(f"yes")
 
+    if ret.cross_build and ret.nocross:
+        ret.log_red(f"cannot be cross-compiled for {self.cross_build}")
+        if isinstance(ret.nocross, str):
+            ret.error(f"{ret.broken}")
+        else:
+            ret.error(f"yes")
+
     os.makedirs(ret.statedir, exist_ok = True)
     os.makedirs(ret.wrapperdir, exist_ok = True)
 
@@ -988,7 +1003,6 @@ def read_pkg(
     ret.bootstrapping = not pkgarch
     ret.skip_if_exist = skip_if_exist
     ret.build_dbg = build_dbg
-    ret.cross_build = False
     ret.use_ccache = use_ccache
 
     ret.setup_reproducible()
@@ -997,6 +1011,11 @@ def read_pkg(
         ret.build_profile = profile.get_profile(pkgarch)
     else:
         ret.build_profile = profile.get_profile("bootstrap")
+
+    if ret.build_profile.cross:
+        ret.cross_build = pkgarch
+    else:
+        ret.cross_build = None
 
     cpu.init_target(ret.build_profile)
 

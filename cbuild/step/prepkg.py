@@ -1,7 +1,8 @@
 from cbuild.core import template, dependencies
 
 def invoke(pkg):
-    prepkg_done = pkg.statedir / f"{pkg.pkgname}__prepkg_done"
+    crossb = pkg.rparent.cross_build if pkg.rparent.cross_build else ""
+    prepkg_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_prepkg_done"
 
     if prepkg_done.is_file() and not pkg.rparent.force_mode:
         return
