@@ -232,6 +232,9 @@ class Profile:
 
         return ret
 
+    def has_hardening(self, hname, hardening = []):
+        return _get_harden(self._hardening, hardening)[hname]
+
     @property
     def hardening(self):
         return self._hardening

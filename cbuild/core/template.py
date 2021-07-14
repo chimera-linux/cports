@@ -664,6 +664,14 @@ class Template(Package):
             shell = shell
         )
 
+    def has_hardening(self, hname, target = None):
+        if not target:
+            target = self.build_profile
+        else:
+            target = profile.get_profile(target)
+
+        return target.has_hardening(hname, self.hardening)
+
     @contextlib.contextmanager
     def profile(self, target):
         old_tgt = self.build_profile

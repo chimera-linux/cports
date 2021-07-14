@@ -41,6 +41,8 @@ def invoke(pkg):
 
     elfs = pkg.rparent.current_elfs
 
+    have_pie = pkg.has_hardening("pie")
+
     for v in pkg.destdir.rglob("*"):
         # already stripped debug symbols
         if v.is_relative_to(dbgdir):
@@ -155,7 +157,7 @@ def invoke(pkg):
             print(f"   Stripped executable: {str(vr)}")
 
             allow_nopie = False
-            if pkg.hardening["pie"]:
+            if have_pie:
                 for f in pkg.nopie_files:
                     if vr.match(f):
                         allow_nopie = True
