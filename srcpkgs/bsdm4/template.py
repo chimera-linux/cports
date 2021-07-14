@@ -1,5 +1,5 @@
 pkgname = "bsdm4"
-version = "0.99.0"
+version = "0.99.1"
 revision = 0
 bootstrap = True
 build_style = "gnu_makefile"
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdm4"
 distfiles = [f"https://github.com/chimera-linux/bsdm4/archive/refs/tags/v{version}.tar.gz"]
-checksum = ["79169016a8fdfbea2284b5e576807e0e32e46ae98561b57888b7898bf45350c0"]
+checksum = ["dbe405f94c3dcfd084b97585b270d4b004a4fae26c3c8cf37670e830354a123b"]
 
 if not current.bootstrapping:
     hostmakedepends = ["byacc"]
