@@ -21,7 +21,7 @@ def do_build(self):
         "CC=" + self.tools["CC"],
         "HOSTCC=" + self.tools["CC"],
         "CFLAGS=" + self.get_cflags(shell = True) + " " + \
-                    self.get_ldflags(shell = True) + " -DHAS_ISBLANK"),
+                    self.get_ldflags(shell = True) + " -DHAS_ISBLANK",
         "YACC=byacc -H awkgram.tab.h -o awkgram.tab.c",
     ])
 
