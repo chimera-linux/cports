@@ -25,11 +25,11 @@ def chroot_check(force = False):
     if (paths.masterdir() / ".cbuild_chroot_init").is_file():
         _chroot_ready = True
         cpun = (paths.masterdir() / ".cbuild_chroot_init").read_text().strip()
-        cpu.init(cpun, cpun)
+        cpu.init(cpun)
     else:
         _chroot_ready = False
         cpun = os.uname().machine
-        cpu.init(cpun, cpun)
+        cpu.init(cpun)
 
     return _chroot_ready
 
@@ -208,16 +208,11 @@ def install(arch = None, stage = 2):
 
     initdb()
 
-    oldh = cpu.host()
-    oldt = cpu.target()
-    try:
-        cpu.init(arch, oldt)
-        repo_sync()
-    finally:
-        cpu.init(oldh, oldt)
-
     if not arch or stage < 2:
         arch = cpu.host()
+
+    cpu.init(arch)
+    repo_sync()
 
     irun = subprocess.run([
         "apk", "add", "--root", str(paths.masterdir()), "--no-scripts",

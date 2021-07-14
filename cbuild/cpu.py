@@ -2,15 +2,16 @@ import fnmatch
 import platform
 import sys
 
-def init(host, target):
+def init(host):
     global _host, _target
     _host = host
-    _target = target
+    _target = host
 
-def init_target(wordsize, endian):
-    global _target_wsize, _target_endian
-    _target_wsize = wordsize
-    _target_endian = endian
+def init_target(profile):
+    global _target, _target_wsize, _target_endian
+    _target = profile.arch
+    _target_wsize = profile.wordsize
+    _target_endian = profile.endian
 
 def target():
     return _target

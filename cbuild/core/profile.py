@@ -272,9 +272,3 @@ def init(cparser):
 
 def get_profile(archn):
     return _all_profiles[archn]
-
-def get_host():
-    return _all_profiles[cpu.host()]
-
-def get_target():
-    return _all_profiles[cpu.target()]

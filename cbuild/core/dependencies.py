@@ -20,7 +20,7 @@ def _srcpkg_ver(pkgn):
         return _tcache[pkgn]
 
     rv = template.read_pkg(
-        pkgn, False, False, False, False, False, None
+        pkgn, cpu.target(), False, False, False, False, None
     )
     cv = rv.version + "-r" + str(rv.revision)
     _tcache[pkgn] = cv
@@ -224,11 +224,14 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     from cbuild.core import build
 
+    chost = cpu.host()
+    ctgt = cpu.target()
+
     for pn in host_missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg,
-                pkg.use_ccache, pkg
+                pn, chost if not pkg.bootstrapping else None,
+                pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -237,8 +240,8 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg,
-                pkg.use_ccache, pkg
+                pn, ctarget if not pkg.bootstrapping else None,
+                pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -247,12 +250,15 @@ def install(pkg, origpkg, step, depmap, signkey):
     for rd in missing_rdeps:
         try:
             build.build(step, template.read_pkg(
-                rd, pkg.force_mode, pkg.bootstrapping, True, pkg.build_dbg,
-                pkg.use_ccache, pkg
+                rd, ctarget if not pkg.bootstrapping else None,
+                pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
         host_binpkg_deps.append(rd)
+
+    # reinit after parsings
+    cpu.init_target(pkg.build_profile)
 
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")

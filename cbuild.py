@@ -40,6 +40,7 @@ for prog in [
 opt_cflags    = "-O2"
 opt_cxxflags  = "-O2"
 opt_ldflags   = ""
+opt_arch      = None
 opt_gen_dbg   = False
 opt_skipexist = False
 opt_ccache    = False
@@ -83,6 +84,9 @@ parser.add_argument(
     help = "Build debug packages."
 )
 parser.add_argument(
+    "-a", "--arch", help = "Target architecture to build for.", default = None
+)
+parser.add_argument(
     "-m", "--masterdir", default = None, help = "The masterdir path."
 )
 parser.add_argument(
@@ -121,6 +125,7 @@ if "build" in global_cfg:
     opt_cflags    = bcfg.get("cflags", fallback = opt_cflags)
     opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
     opt_ldflags   = bcfg.get("ldflags", fallback = opt_ldflags)
+    opt_arch      = bcfg.get("arch", fallback = opt_arch)
     opt_masterdir = bcfg.get("masterdir", fallback = opt_masterdir)
     opt_hostdir   = bcfg.get("hostdir", fallback = opt_hostdir)
 
@@ -136,6 +141,9 @@ if cmdline.jobs:
 
 if cmdline.build_dbg:
     opt_gen_dbg = True
+
+if cmdline.arch:
+    opt_arch = cmdline.arch
 
 if cmdline.no_color:
     opt_nocolor = True
@@ -197,6 +205,16 @@ os.environ["PATH"] = os.environ["PATH"] + ":" + \
 # initialize profiles
 profile.init(global_cfg)
 
+# check target arch validity if provided
+if opt_arch:
+    try:
+        profile.get_profile(opt_arch)
+    except:
+        logger.get().out_red(
+            f"cbuild: unknown target architecture '{opt_arch}'"
+        )
+        sys.exit(1)
+
 def binary_bootstrap(tgt):
     paths.prepare(opt_ccache)
 
@@ -231,7 +249,7 @@ def bootstrap(tgt):
             sys.exit("Required bootstrap program not found: gmake/bmake")
 
         rp = template.read_pkg(
-            "base-chroot", False, True, False, False, False, None
+            "base-chroot", None, False, False, False, False, None
         )
         paths.prepare(opt_ccache)
         chroot.initdb()
@@ -341,8 +359,8 @@ def do_pkg(tgt, pkgn = None):
     if not pkgn:
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
-        pkgn, opt_force, False, opt_skipexist, opt_gen_dbg,
-        opt_ccache, None
+        pkgn, opt_arch if opt_arch else cpu.host(), opt_force,
+        opt_skipexist, opt_gen_dbg, opt_ccache, None
     )
     if opt_mdirtemp:
         chroot.install(cpu.host())

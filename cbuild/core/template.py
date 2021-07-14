@@ -586,7 +586,7 @@ class Template(Package):
 
     def run_step(self, stepn, optional = False, skip_post = False):
         # reinit to make sure we've got up to date info
-        cpu.init_target(self.build_profile.wordsize, self.build_profile.endian)
+        cpu.init_target(self.build_profile)
 
         call_pkg_hooks(self, "pre_" + stepn)
 
@@ -963,8 +963,7 @@ def from_module(m, ret):
 _tmpl_dict = {}
 
 def read_pkg(
-    pkgname, force_mode, bootstrapping, skip_if_exist, build_dbg,
-    use_ccache, origin
+    pkgname, pkgarch, force_mode, skip_if_exist, build_dbg, use_ccache, origin
 ):
     global _tmpl_dict
 
@@ -978,7 +977,7 @@ def read_pkg(
 
     ret = Template(pkgname, origin)
     ret.force_mode = force_mode
-    ret.bootstrapping = bootstrapping
+    ret.bootstrapping = not pkgarch
     ret.skip_if_exist = skip_if_exist
     ret.build_dbg = build_dbg
     ret.cross_build = False
@@ -986,12 +985,12 @@ def read_pkg(
 
     ret.setup_reproducible()
 
-    if not bootstrapping:
-        ret.build_profile = profile.get_target()
+    if pkgarch:
+        ret.build_profile = profile.get_profile(pkgarch)
     else:
         ret.build_profile = profile.get_profile("bootstrap")
 
-    cpu.init_target(ret.build_profile.wordsize, ret.build_profile.endian)
+    cpu.init_target(ret.build_profile)
 
     def subpkg_deco(spkgname, cond = True):
         def deco(f):
