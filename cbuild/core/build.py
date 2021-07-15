@@ -15,6 +15,12 @@ def build(step, pkg, depmap, signkey):
     # doesn't do anything for native builds
     dependencies.install_toolchain(pkg, signkey)
 
+    # we treat the sysroot as a chimera root
+    dependencies.init_sysroot(pkg)
+
+    # remove automatic crossdeps from last time
+    dependencies.remove_autocrossdeps(pkg)
+
     # check and install dependencies
     autodep = dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
 
@@ -95,6 +101,7 @@ def build(step, pkg, depmap, signkey):
 
     # cleanup
     chroot.remove_autodeps(pkg.bootstrapping)
+    dependencies.remove_autocrossdeps(pkg)
     pkgm.remove_pkg_wrksrc(pkg)
     pkgm.remove_pkg(pkg)
     pkgm.remove_pkg_statedir(pkg)

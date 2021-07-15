@@ -1,4 +1,4 @@
-from cbuild.core import paths
+from cbuild.core import paths, profile
 from cbuild.util import make
 from cbuild import cpu
 
@@ -52,8 +52,8 @@ def configure(
     cachedir = paths.cbuild() / "misc/autoconf_cache"
 
     if pkg.build_profile.triplet:
-        cargs.append("--build=" + pkg.build_profile.triplet)
-        cargs.append("--host=" + pkg.build_profile.triplet)
+        cargs.append("--build=" + profile.get_profile(cpu.host()).short_triplet)
+        cargs.append("--host=" + pkg.build_profile.short_triplet)
 
     if pkg.build_profile.cross:
         cargs.append("--with-sysroot=" + str(pkg.build_profile.sysroot))

@@ -120,6 +120,16 @@ def _prepare(arch, stage):
     with open(sfpath, "w") as sf:
         sf.write(arch + "\n")
 
+def setup_keys(rootp):
+    # copy over apk public keys
+    keydir = rootp / "etc/apk/keys"
+
+    shutil.rmtree(keydir, ignore_errors = True)
+    os.makedirs(keydir, exist_ok = True)
+
+    for f in (paths.distdir() / "etc/keys").glob("*.pub"):
+        shutil.copy2(f, keydir)
+
 def repo_sync():
     confdir = paths.masterdir() / "etc/apk"
 
@@ -146,14 +156,7 @@ def repo_sync():
     repos_mdir.close()
     repos_hdir.close()
 
-    # copy over apk public keys
-    keydir = paths.masterdir() / "etc/apk/keys"
-
-    shutil.rmtree(keydir, ignore_errors = True)
-    os.makedirs(keydir, exist_ok = True)
-
-    for f in (paths.distdir() / "etc/keys").glob("*.pub"):
-        shutil.copy2(f, keydir)
+    setup_keys(paths.masterdir())
 
     # do not refresh if chroot is not initialized
     if not (paths.masterdir() / ".cbuild_chroot_init").is_file():
@@ -183,22 +186,24 @@ def reconfigure():
 
     statefile.touch()
 
-def initdb():
+def initdb(path = None):
     # we init the database ourselves
-    mdir = paths.masterdir()
-    os.makedirs(mdir / "tmp", exist_ok = True)
-    os.makedirs(mdir / "dev", exist_ok = True)
-    os.makedirs(mdir / "etc/apk", exist_ok = True)
-    os.makedirs(mdir / "usr/lib/apk/db", exist_ok = True)
-    os.makedirs(mdir / "var/cache/apk", exist_ok = True)
-    os.makedirs(mdir / "var/cache/misc", exist_ok = True)
+    if not path:
+        path = paths.masterdir()
+
+    os.makedirs(path / "tmp", exist_ok = True)
+    os.makedirs(path / "dev", exist_ok = True)
+    os.makedirs(path / "etc/apk", exist_ok = True)
+    os.makedirs(path / "usr/lib/apk/db", exist_ok = True)
+    os.makedirs(path / "var/cache/apk", exist_ok = True)
+    os.makedirs(path / "var/cache/misc", exist_ok = True)
 
     # largely because of custom usrmerge
-    if not (mdir / "lib").is_symlink():
-        (mdir / "lib").symlink_to("usr/lib")
+    if not (path / "lib").is_symlink():
+        (path / "lib").symlink_to("usr/lib")
 
-    (mdir / "usr/lib/apk/db/installed").touch()
-    (mdir / "etc/apk/world").touch()
+    (path / "usr/lib/apk/db/installed").touch()
+    (path / "etc/apk/world").touch()
 
 def install(arch = None, stage = 2):
     if chroot_check():

@@ -874,7 +874,8 @@ def from_module(m, ret):
 
     if ret.skip_if_exist:
         pinfo = subprocess.run([
-            "apk", "search", "-e", "--root", str(paths.masterdir()),
+            "apk", "search", "--arch", ret.build_profile.arch, "-e",
+            "--root", str(paths.masterdir()),
             "--allow-untrusted", "--repositories-file",
             str(paths.hostdir() / "repositories"),
             ret.pkgname
