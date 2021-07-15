@@ -1,9 +1,13 @@
 from cbuild.core import logger, template, paths, chroot
 from cbuild.step import build as do_build
-from cbuild.apk import util as autil
+from cbuild.apk import create as apkc, util as autil, cli as apki
 from cbuild import cpu
 from os import makedirs
 import subprocess
+import tempfile
+import pathlib
+import shutil
+import time
 
 # avoid re-parsing same templates every time; the version will
 # never be conditional and that is the only thing we care about
@@ -161,6 +165,71 @@ def install_toolchain(pkg, signkey):
 
     _install_from_repo(pkg, [f"base-cross-{archn}"], None, signkey)
 
+def setup_dummy(pkg, rootp):
+    tmpd = tempfile.mkdtemp()
+    tmpd = pathlib.Path(tmpd)
+
+    pkgn = "base-cross-target-meta"
+    pkgv = "0.1-r0"
+    archn = pkg.build_profile.arch
+    repod = tmpd / archn
+    repod.mkdir()
+
+    epoch = int(time.time())
+
+    pkg.log(f"updating virtual provider for {archn}...")
+
+    try:
+        apkc.create(
+            pkgn, pkgv, pkg.build_profile.arch,
+            epoch, tmpd, tmpd, repod / f"{pkgn}-{pkgv}.apk", None,
+            {
+                "pkgdesc": "Target sysroot virtual provider",
+                "provides": [
+                    "musl=9999-r0",
+                    "musl-devel=9999-r0",
+                    "kernel-libc-headers=9999-r0",
+                    "libcxx=9999-r0",
+                    "libcxx-devel=9999-r0",
+                    "libcxxabi=9999-r0",
+                    "libcxxabi-devel=9999-r0",
+                    "libunwind=9999-r0",
+                    "libunwind-devel=9999-r0",
+                    "libexecinfo=9999-r0",
+                    "libexecinfo-devel=9999-r0",
+                ],
+                "shlib_provides": [
+                    ("libc.so", "0"),
+                    ("libc++abi.so.1", "1.0"),
+                    ("libc++.so.1", "1.0"),
+                    ("libunwind.so.1", "1.0"),
+                    ("libexecinfo.so.1", "1"),
+                ]
+            }
+        )
+        if not apki.build_index(repod, epoch, None):
+            pkg.error(f"failed to index virtual provider for {archn}")
+
+        if _is_installed(pkgn, pkg):
+            acmd = "fix"
+        else:
+            acmd = "add"
+
+        ret = subprocess.run([
+            "apk", acmd, "--allow-untrusted", "--arch", archn,
+            "--repository", str(tmpd), "--root", str(rootp), "--no-scripts",
+            pkgn
+        ], capture_output = True)
+
+        if ret.returncode != 0:
+            outl = ret.stderr.strip().decode()
+            if len(outl) > 0:
+                pkg.logger.out_plain(">> stderr:")
+                pkg.logger.out_plain(outl)
+            pkg.error(f"failed to install virtual provider for {archn}")
+    finally:
+        shutil.rmtree(tmpd)
+
 def init_sysroot(pkg):
     if not pkg.build_profile.cross:
         return
@@ -172,6 +241,7 @@ def init_sysroot(pkg):
         chroot.initdb(sysp)
 
     chroot.setup_keys(sysp)
+    setup_dummy(pkg, sysp)
 
 def remove_autocrossdeps(pkg):
     if not pkg.build_profile.cross:
