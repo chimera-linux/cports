@@ -103,7 +103,12 @@ def do_configure(self):
                 cmake.configure(self, self.cmake_dir, f"build-{an}", [
                     "-DCMAKE_SYSROOT=" + str(self.chroot_wrksrc  / f"musl-{an}"),
                     f"-DCMAKE_ASM_COMPILER_TARGET={at}",
-                    f"-DCMAKE_C_COMPILER_TARGET={at}"
+                    f"-DCMAKE_C_COMPILER_TARGET={at}",
+                    f"-DCMAKE_CXX_COMPILER_TARGET={at}",
+                    # override the cflags-provided sysroot
+                    f"-DCMAKE_C_FLAGS=" + self.get_cflags([
+                        "--sysroot=" + str(self.chroot_wrksrc  / f"musl-{an}")
+                    ], shell = True)
                 ])
 
 def do_build(self):
