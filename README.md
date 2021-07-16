@@ -12,7 +12,6 @@ Currently it is still very much work in progress.
 
 * Currently the system is a work in progress, so the package set is not set in
   stone. Things will likely undergo significant changes.
-* Cross-compiling is not yet supported.
 * Various commands and flags are currently unimplemented.
 * There may be bugs scattered around the place.
 
