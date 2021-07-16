@@ -52,12 +52,15 @@ def do_configure(self):
             # configure libunwind
             with self.stamp(f"{an}_configure") as s:
                 s.check()
+                extra_flags = []
+                if an == "riscv64":
+                    extra_flags = ["-DCMAKE_ASM_FLAGS=-mno-relax"]
                 cmake.configure(self, self.cmake_dir, f"build-{an}", [
                     f"-DCMAKE_SYSROOT=/usr/{at}",
                     f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                     f"-DCMAKE_CXX_COMPILER_TARGET={at}",
                     f"-DCMAKE_C_COMPILER_TARGET={at}"
-                ])
+                ] + extra_flags)
 
 def do_build(self):
     for an in _targets:
