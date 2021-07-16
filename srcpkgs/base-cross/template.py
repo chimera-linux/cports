@@ -7,7 +7,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 homepage = "https://chimera-linux.org"
 
-_targets = ["aarch64", "ppc64le", "x86_64"]
+_targets = ["aarch64", "ppc64le", "x86_64", "riscv64"]
 
 def do_fetch(self):
     pass

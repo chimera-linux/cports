@@ -81,6 +81,7 @@ _triplet, _arch = cpu.match_target(
     "aarch64*", ("aarch64-linux-musl", "AArch64"),
     "ppc64le*", ("powerpc64le-linux-musl", "PowerPC"),
     "ppc64*", ("powerpc64-linux-musl", "PowerPC"),
+    "riscv64*", ("riscv64-linux-musl", "RISCV"),
 )
 
 configure_args.append("-DLLVM_TARGET_ARCH=" + _arch)

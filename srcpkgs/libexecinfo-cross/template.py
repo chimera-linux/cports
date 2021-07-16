@@ -12,7 +12,7 @@ homepage = "http://www.freshports.org/devel/libexecinfo"
 distfiles = [f"http://distcache.freebsd.org/local-distfiles/itetcu/libexecinfo-{version}.tar.bz2"]
 checksum = ["c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"]
 
-_targets = ["aarch64", "ppc64le", "x86_64"]
+_targets = ["aarch64", "ppc64le", "x86_64", "riscv64"]
 
 from cbuild import cpu
 

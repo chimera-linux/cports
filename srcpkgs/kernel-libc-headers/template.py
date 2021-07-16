@@ -21,7 +21,8 @@ if not current.bootstrapping:
 _arch = cpu.match_target(
     "x86_64*", lambda a: "x86",
     "aarch64*", lambda a: "arm64",
-    "ppc*", lambda a: "powerpc"
+    "ppc*", lambda a: "powerpc",
+    "riscv64*", lambda a: "riscv",
 )
 
 def do_build(self):

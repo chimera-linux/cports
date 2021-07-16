@@ -21,7 +21,7 @@ hardening = ["!scp"]
 from cbuild.util import compiler, make
 from cbuild import cpu
 
-_targets = ["aarch64", "ppc64le", "x86_64"]
+_targets = ["aarch64", "ppc64le", "x86_64", "riscv64"]
 
 def do_configure(self):
     for an in _targets:

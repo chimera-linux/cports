@@ -19,16 +19,8 @@ shlib_provides = ["libc.so"]
 
 from cbuild.util import compiler
 
-_triplets = [
-    ("aarch64", "aarch64-linux-musl", ["-march=armv8-a"]),
-    ("ppc64le", "powerpc64le-linux-musl", ["-mtune=power9"]),
-    ("x86_64", "x86_64-linux-musl", []),
-]
-
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]
-else:
-    _triplets = []
 
 def pre_configure(self):
     # ensure that even early musl uses compiler-rt

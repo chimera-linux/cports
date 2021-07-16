@@ -31,7 +31,7 @@ checksum = [
 
 cmake_dir = "libcxxabi"
 
-_targets = ["aarch64", "ppc64le", "x86_64"]
+_targets = ["aarch64", "ppc64le", "x86_64", "riscv64"]
 
 # not available yet, prevent cmake checks
 CFLAGS = ["-fPIC"]

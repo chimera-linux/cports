@@ -17,7 +17,12 @@ checksum = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
 
 hostmakedepends = ["gmake", "perl"]
 
-_targets = [("aarch64", "arm64"), ("ppc64le", "powerpc"), ("x86_64", "x86")]
+_targets = [
+    ("aarch64", "arm64"),
+    ("ppc64le", "powerpc"),
+    ("x86_64", "x86"),
+    ("riscv64", "riscv"),
+]
 
 def do_build(self):
     from cbuild.util import make

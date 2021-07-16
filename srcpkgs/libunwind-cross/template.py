@@ -29,7 +29,7 @@ checksum = [
 
 cmake_dir = "libunwind"
 
-_targets = ["aarch64", "ppc64le", "x86_64"]
+_targets = ["aarch64", "ppc64le", "x86_64", "riscv64"]
 
 # we don't have these available yet; but cmake tests for
 # executables with default flags, so avoid trying to use them

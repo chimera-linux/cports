@@ -28,6 +28,7 @@ ecargs = cpu.match_target(
     "aarch64*", ["linux-aarch64"],
     "ppc64le*", ["linux-ppc64le"],
     "ppc64*", ["linux-ppc64"],
+    "riscv64*", ["linux-generic64"], # linux64-riscv64 for openssl 3
     "*", None
 )
 
