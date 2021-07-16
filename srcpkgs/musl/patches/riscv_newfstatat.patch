@@ -1,0 +1,25 @@
+From 1f0c7cb1cc2170bf230623dc0b57d9a9f001af08 Mon Sep 17 00:00:00 2001
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 19 May 2021 00:34:03 -0700
+Subject: [PATCH] riscv: rename __NR_fstatat __NR_newfstatat
+
+on riscv64 this syscall is called __NR_newfstatat
+this helps the name match kernel UAPI for external
+programs
+---
+ arch/riscv64/bits/syscall.h.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/riscv64/bits/syscall.h.in b/arch/riscv64/bits/syscall.h.in
+index f9c421d0..39c0d650 100644
+--- a/arch/riscv64/bits/syscall.h.in
++++ b/arch/riscv64/bits/syscall.h.in
+@@ -76,7 +76,7 @@
+ #define __NR_splice 76
+ #define __NR_tee 77
+ #define __NR_readlinkat 78
+-#define __NR_fstatat 79
++#define __NR_newfstatat 79
+ #define __NR_fstat 80
+ #define __NR_sync 81
+ #define __NR_fsync 82
