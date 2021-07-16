@@ -46,7 +46,6 @@ def configure(
 
     # autoconf cache
     eenv = dict(benv)
-    eenv.update(env)
 
     # caches taken from openembedded
     cachedir = paths.cbuild() / "misc/autoconf_cache"
@@ -68,17 +67,16 @@ def configure(
             pkg.build_profile.arch,
             "arm*",     ["arm-common", "arm-linux"],
             "aarch64*", ["aarch64-linux"],
-            "i686*",    ["ix86-common"],
-            "mips*",    ["mips-common", "mips-linux"],
             "x86_64*",  ["x86_64-linux"],
             "ppc64*",   ["powerpc-common", "powerpc-linux", "powerpc64-linux"],
-            "ppc*",     ["powerpc-common", "powerpc-linux", "powerpc32-linux"],
             "*", []
         )
         for l in cl:
             _read_cache(cachedir, l, eenv)
     else:
         _read_cache(cachedir, "musl-linux", eenv)
+
+    eenv.update(env)
 
     # http://lists.gnu.org/archive/html/libtool-patches/2004-06/msg00002.html
     with open(rscript) as f:
