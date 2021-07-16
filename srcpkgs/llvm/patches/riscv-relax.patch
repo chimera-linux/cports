@@ -1,30 +1,27 @@
-From 6d1f992d49af3b1cec4f0ad9841e48a8765ebb67 Mon Sep 17 00:00:00 2001
+From 86fecd2f21110a531ab875e3af205f7f03e65184 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 17 Jul 2021 00:11:12 +0200
 Subject: [PATCH] riscv: disable linker relaxation by default
 
 ---
- clang/lib/Driver/ToolChains/Arch/RISCV.cpp | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ clang/lib/Driver/ToolChains/Arch/RISCV.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/clang/lib/Driver/ToolChains/Arch/RISCV.cpp b/clang/lib/Driver/ToolChains/Arch/RISCV.cpp
-index c7f2a3e..4ad90b2 100644
+index c7f2a3e..a3f6493 100644
 --- a/clang/lib/Driver/ToolChains/Arch/RISCV.cpp
 +++ b/clang/lib/Driver/ToolChains/Arch/RISCV.cpp
-@@ -555,10 +555,10 @@ void riscv::getRISCVTargetFeatures(const Driver &D, const llvm::Triple &Triple,
+@@ -554,8 +554,8 @@ void riscv::getRISCVTargetFeatures(const Driver &D, const llvm::Triple &Triple,
+   if (Args.hasArg(options::OPT_ffixed_x31))
      Features.push_back("+reserve-x31");
  
-   // -mrelax is default, unless -mno-relax is specified.
+-  // -mrelax is default, unless -mno-relax is specified.
 -  if (Args.hasFlag(options::OPT_mrelax, options::OPT_mno_relax, true))
--    Features.push_back("+relax");
--  else
++  // -mno-relax is default, unless -mrelax is specified.
 +  if (Args.hasFlag(options::OPT_mrelax, options::OPT_mno_relax, false))
+     Features.push_back("+relax");
+   else
      Features.push_back("-relax");
-+  else
-+    Features.push_back("+relax");
- 
-   // GCC Compatibility: -mno-save-restore is default, unless -msave-restore is
-   // specified.
 -- 
 2.32.0
 
