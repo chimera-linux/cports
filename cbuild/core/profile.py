@@ -69,11 +69,21 @@ class Profile:
             self._wordsize = cpu.host_wordsize()
             self._hardening = []
             # we ignore user flags here to guarantee a good base
-            self._cflags = shlex.split(pdata.get("cflags", fallback = ""))
-            self._cxxflags = shlex.split(pdata.get("cxxflags", fallback = ""))
-            self._fflags = shlex.split(pdata.get("fflags", fallback = ""))
-            self._ldflags = shlex.split(pdata.get("ldflags", fallback = ""))
+            pd = pdata["profile"]
+            self._cflags = shlex.split(pd.get("cflags", fallback = ""))
+            self._cxxflags = shlex.split(pd.get("cxxflags", fallback = ""))
+            self._fflags = shlex.split(pd.get("fflags", fallback = ""))
+            self._ldflags = shlex.split(pd.get("ldflags", fallback = ""))
+            # account for arch specific bootstrap flags
+            if self._arch in pdata:
+                pd = pdata[self._arch]
+                self._cflags += shlex.split(pd.get("cflags", fallback = ""))
+                self._cxxflags += shlex.split(pd.get("cxxflags", fallback = ""))
+                self._fflags += shlex.split(pd.get("fflags", fallback = ""))
+                self._ldflags += shlex.split(pd.get("ldflags", fallback = ""))
             return
+
+        pdata = pdata["profile"]
 
         if not "triplet" in pdata:
             logger.get().out_red(f"Unknown triplet for {archn}")
@@ -280,7 +290,7 @@ def init(cparser):
             logger.get().out_red(f"Malformed profile: {archn}")
             raise Exception()
 
-        _all_profiles[archn] = Profile(archn, cp["profile"], cparser)
+        _all_profiles[archn] = Profile(archn, cp, cparser)
 
 def get_profile(archn):
     return _all_profiles[archn]
