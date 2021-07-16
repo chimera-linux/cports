@@ -20,6 +20,7 @@ hostmakedepends = ["gmake", "perl"]
 _targets = [
     ("aarch64", "arm64"),
     ("ppc64le", "powerpc"),
+    ("ppc64", "powerpc"),
     ("x86_64", "x86"),
     ("riscv64", "riscv"),
 ]

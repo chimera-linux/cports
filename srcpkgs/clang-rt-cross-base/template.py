@@ -53,7 +53,7 @@ CXXFLAGS = ["-fPIC"]
 
 subpackages = []
 
-_targets = ["aarch64", "ppc64le", "x86_64", "riscv64"]
+_targets = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 
 from cbuild.util import cmake, make
 from cbuild import cpu
