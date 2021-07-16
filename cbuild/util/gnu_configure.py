@@ -1,4 +1,4 @@
-from cbuild.core import paths, profile
+from cbuild.core import logger, paths, profile
 from cbuild.util import make
 from cbuild import cpu
 
@@ -10,6 +10,22 @@ benv = {
         "/usr/lib64 /usr/lib32 /usr/lib /lib /usr/local/lib"
 }
 
+def _cache_expand(s, eenv):
+    if len(s) == 0 or s[0] != "$":
+        return s
+
+    if not s.startswith("${") or not s.endswith("}"):
+        logger.get().log(f"Malformed autoconf cache entry: {s}")
+
+    v = s[2:-1].split("=")
+    if len(v) != 2:
+        logger.get().log(f"Malformed autoconf cache entry: {s}")
+
+    if v[0] in eenv:
+        return eenv[v[0]]
+    else:
+        return v[1]
+
 def _read_cache(cpath, cname, eenv):
     with open(cpath / cname) as f:
         for ln in f.readlines():
@@ -18,7 +34,7 @@ def _read_cache(cpath, cname, eenv):
                 continue
             pos = ln.find("=")
             if pos >= 0:
-                eenv[ln[0:pos]] = ln[pos + 1:]
+                eenv[ln[0:pos]] = _cache_expand(ln[pos + 1:], eenv)
             else:
                 eenv[ln] = "yes"
 
