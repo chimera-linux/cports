@@ -6,11 +6,16 @@ from cbuild.apk import cli as apk
 
 import os
 
-def build(step, pkg, depmap, signkey):
-    if pkg.pkgname in depmap:
+def build(step, pkg, depmap, signkey, chost = False):
+    if chost:
+        depn = "host-" + pkg.pkgname
+    else:
+        depn = pkg.pkgname
+
+    if pkg.pkgname in depmap or depn in depmap:
         pkg.error(f"build-time dependency cycle encountered for {pkg.pkgname} (dependency of {pkg.origin.pkgname})")
 
-    depmap[pkg.pkgname] = True
+    depmap[depn] = True
 
     # doesn't do anything for native builds
     dependencies.install_toolchain(pkg, signkey)
@@ -106,4 +111,4 @@ def build(step, pkg, depmap, signkey):
     pkgm.remove_pkg(pkg)
     pkgm.remove_pkg_statedir(pkg)
 
-    del depmap[pkg.pkgname]
+    del depmap[depn]

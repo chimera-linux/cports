@@ -312,7 +312,7 @@ def install(pkg, origpkg, step, depmap, signkey):
         # not found
         log.out_plain(f"   [host] {pkgn}: not found")
         # check for loops
-        if pkgn == origpkg or pkgn == pkg.pkgname:
+        if not pkg.cross_build and (pkgn == origpkg or pkgn == pkg.pkgname):
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
         host_missing_deps.append(pkgn)
@@ -388,7 +388,7 @@ def install(pkg, origpkg, step, depmap, signkey):
             build.build(step, template.read_pkg(
                 pn, chost if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
-            ), depmap, signkey)
+            ), depmap, signkey, chost = not not pkg.cross_build)
         except template.SkipPackage:
             pass
         host_binpkg_deps.append(pn)
