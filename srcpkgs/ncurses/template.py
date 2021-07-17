@@ -19,37 +19,40 @@ if not current.bootstrapping:
 
 depends = [f"ncurses-base={version}-r{revision}"]
 
+CFLAGS = ["-fPIC"]
+
 def do_configure(self):
-    self.CFLAGS.append("-fPIC")
-    bcflags = ["-O2", "-fPIC"]
+    from cbuild.util import gnu_configure
+    from cbuild import cpu
+
+    with self.profile(cpu.host()):
+        bcflags = self.get_cflags(shell = True)
 
     import os
     os.makedirs(self.abs_wrksrc / "ncurses-build", exist_ok = True)
     os.makedirs(self.abs_wrksrc / "ncursesw-build", exist_ok = True)
 
     # widec build
-    self.do(
-        self.chroot_build_wrksrc / "configure",
-        self.configure_args + [
+    gnu_configure.configure(
+        self, build_dir = "ncursesw-build", extra_args = [
             "--enable-widec", "--with-shared", "--without-debug",
             "--with-manpage-symlinks", "--with-manpage-format=normal",
             "--without-ada", "--enable-ext-colors", "--without-tests",
             "--enable-pc-files", "--with-pkg-config-libdir=/usr/lib/pkgconfig",
             "ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config",
-            "BUILD_CFLAGS=" + " ".join(bcflags)
-        ], build = True, wrksrc = "ncursesw-build"
+            "BUILD_CFLAGS=" + bcflags
+        ]
     )
 
     # non-widec build
-    self.do(
-        self.chroot_build_wrksrc / "configure",
-        self.configure_args + [
+    gnu_configure.configure(
+        self, build_dir = "ncurses-build", extra_args = [
             "--with-shared", "--without-debug", "--without-ada",
             "--without-tests", "--enable-pc-files",
             "--with-pkg-config-libdir=/usr/lib/pkgconfig",
             "ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config",
-            "BUILD_CFLAGS=" + " ".join(bcflags)
-        ], build = True, wrksrc = "ncurses-build"
+            "BUILD_CFLAGS=" + bcflags
+        ]
     )
 
 def init_build(self):
