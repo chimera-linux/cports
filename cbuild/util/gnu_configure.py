@@ -4,6 +4,7 @@ from cbuild import cpu
 
 import re
 import shutil
+import shlex
 
 benv = {
     "lt_cv_sys_lib_dlsearch_path_spec": \
@@ -16,15 +17,25 @@ def _cache_expand(s, eenv):
 
     if not s.startswith("${") or not s.endswith("}"):
         logger.get().log(f"Malformed autoconf cache entry: {s}")
+        return None
 
     v = s[2:-1].split("=")
     if len(v) != 2:
         logger.get().log(f"Malformed autoconf cache entry: {s}")
+        return None
 
     if v[0] in eenv:
         return eenv[v[0]]
-    else:
-        return v[1]
+
+    v = v[1]
+    if v.startswith("'") or v.startswith("\""):
+        vs = shlex.split(v)
+        if len(vs) != 1:
+            logger.get().log(f"Invalid cache entry value: {v}")
+            return None
+        return vs[0]
+
+    return v
 
 def _read_cache(cpath, cname, eenv):
     with open(cpath / cname) as f:
@@ -34,7 +45,9 @@ def _read_cache(cpath, cname, eenv):
                 continue
             pos = ln.find("=")
             if pos >= 0:
-                eenv[ln[0:pos]] = _cache_expand(ln[pos + 1:], eenv)
+                cv = _cache_expand(ln[pos + 1:], eenv)
+                if cv:
+                    eenv[ln[0:pos]] = cv
             else:
                 eenv[ln] = "yes"
 
