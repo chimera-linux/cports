@@ -24,6 +24,11 @@ checksum = [
 # prevent a massive log dump
 CFLAGS = ["-Wno-compound-token-split-by-macro"]
 
+# perl's build system sucks and does not pass CFLAGS when linking, this
+# is still bad (since all CFLAGS should be passed) but it's too big to fix
+if current.cross_build:
+    LDFLAGS = ["--sysroot=" + str(current.build_profile.sysroot)]
+
 # Before updating this package to a new major version, run ${FILESDIR}/provides.pl
 # against ${wrksrc} to find the list of built in packages.
 
