@@ -1,4 +1,5 @@
 from cbuild.core import paths
+from cbuild import cpu
 
 def configure(pkg, cmake_dir = None, build_dir = "build", extra_args = []):
     if cmake_dir:
@@ -28,6 +29,45 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 """)
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
+    elif pkg.cross_build:
+        cmake_cpu = cpu.match_arch(pkg.build_profile.arch,
+            "arm*",     "arm",
+            "aarch64*", "aarch64",
+            "ppc64le*", "ppc64le",
+            "ppc64*",   "ppc64",
+            "ppc*",     "ppc",
+            "x86_64*",  "x86_64",
+            "i686*",    "x86",
+            "riscv64*", "riscv64",
+            "*", None
+        )
+
+        sroot = str(pkg.build_profile.sysroot)
+
+        with open(
+            pkg.abs_build_wrksrc / build_dir / "cross.cmake", "w"
+        ) as infile:
+            infile.write(f"""
+SET(CMAKE_SYSTEM_NAME Linux)
+SET(CMAKE_SYSTEM_VERSION 1)
+
+SET(CMAKE_C_COMPILER   {pkg.tools["CC"]})
+SET(CMAKE_CXX_COMPILER {pkg.tools["CXX"]})
+SET(CMAKE_C_COMPILER_TARGET {pkg.build_profile.short_triplet})
+SET(CMAKE_CXX_COMPILER_TARGET {pkg.build_profile.short_triplet})
+SET(CMAKE_ASM_COMPILER_TARGET {pkg.build_profile.short_triplet})
+SET(CMAKE_CROSSCOMPILING TRUE)
+SET(CMAKE_SYSROOT "{sroot}")
+
+SET(CMAKE_SYSTEM_PROCESSOR {cmake_cpu})
+
+SET(CMAKE_FIND_ROOT_PATH  "{sroot}/usr;{sroot}")
+
+SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+""")
+        cargs.append("-DCMAKE_TOOLCHAIN_FILE=cross.cmake")
 
     pkg.do(
         "cmake", cargs + [
