@@ -241,6 +241,8 @@ class Profile:
                 "-L" + str(paths.masterdir() / "usr/lib"),
                 "-Wl,-rpath-link=" + str(paths.masterdir() / "usr/lib")
             ]
+        elif self.cross:
+            bflags = ["--sysroot", str(self.sysroot)]
         else:
             bflags = []
 
