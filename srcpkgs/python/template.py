@@ -14,6 +14,8 @@ makedepends = [
     "libffi-devel", "openssl-devel", "bzip2-devel",
     "zlib-devel", "liblzma-devel"
 ]
+# bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)
+make_cmd = "gmake"
 depends = ["ca-certificates"]
 short_desc = "Python programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -23,7 +25,7 @@ distfiles = [f"https://python.org/ftp/python/{version}/Python-{version}.tar.xz"]
 checksum = ["0c5a140665436ec3dbfbb79e2dfb6d192655f26ef4a29aeffcb6d1820d716d83"]
 
 if current.cross_build:
-    hostmakedepends += ["python"]
+    hostmakedepends += ["gmake", "python"]
 
 def init_configure(self):
     from cbuild import cpu
