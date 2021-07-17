@@ -18,15 +18,17 @@ checksum = ["daa3afae563711c30a0586ddae4336e8e3974c2b627faaca404c4e0141b64665"]
 
 def post_extract(self):
     from cbuild.util import compiler
+    from cbuild import cpu
     import shutil
     import re
     import os
 
     shutil.copy(self.files_path / "certdata2pem.c", self.abs_wrksrc)
-    cc = compiler.C(self)
-    cc.invoke(
-        ["certdata2pem.c"], "mozilla/certdata2pem"
-    )
+    with self.profile(cpu.host()):
+        cc = compiler.C(self)
+        cc.invoke(
+            ["certdata2pem.c"], "mozilla/certdata2pem"
+        )
 
     self.copy(
         self.files_path / "remove-expired-certs.sh",

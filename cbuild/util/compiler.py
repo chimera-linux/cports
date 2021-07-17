@@ -34,11 +34,17 @@ class GnuLike:
 class C(GnuLike):
     def __init__(self, tmpl, cexec = None):
         if not cexec:
-            cexec = tmpl.tools["CC"]
+            if tmpl.cross_build and not tmpl.build_profile.cross:
+                cexec = tmpl.tools["BUILD_CC"]
+            else:
+                cexec = tmpl.tools["CC"]
         super().__init__(tmpl, cexec, tmpl.get_cflags(), tmpl.get_ldflags())
 
 class CXX(GnuLike):
     def __init__(self, tmpl, cexec = None):
         if not cexec:
-            cexec = tmpl.tools["CXX"]
+            if tmpl.cross_build and not tmpl.build_profile.cross:
+                cexec = tmpl.tools["BUILD_CXX"]
+            else:
+                cexec = tmpl.tools["CXX"]
         super().__init__(tmpl, cexec, tmpl.get_cxxflags(), tmpl.get_ldflags())
