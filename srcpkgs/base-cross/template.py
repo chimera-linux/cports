@@ -50,7 +50,8 @@ def _gen_crossp(an, at):
         self.depends = [
             f"clang-rt-cross-{an}",
             f"musl-cross-{an}",
-            f"libcxx-cross-{an}"
+            f"libcxx-cross-{an}",
+            f"kernel-libc-headers-cross-{an}",
         ]
         return [f"usr/bin/{at}-*", f"usr/lib/ccache/bin/{at}-*"]
     if cpu.target() != an:
