@@ -987,6 +987,8 @@ def from_module(m, ret):
                 ret.tools["CPP"] = f"{trip}-clang-cpp"
             if not "LD" in ret.tools:
                 ret.tools["LD"] = f"{trip}-ld"
+            if not "PKG_CONFIG" in ret.tools:
+                ret.tools["PKG_CONFIG"] = f"{trip}-pkg-config"
         else:
             if not "CC" in ret.tools:
                 ret.tools["CC"] = "clang"
@@ -996,6 +998,8 @@ def from_module(m, ret):
                 ret.tools["CPP"] = "clang-cpp"
             if not "LD" in ret.tools:
                 ret.tools["LD"] = "ld"
+            if not "PKG_CONFIG" in ret.tools:
+                ret.tools["PKG_CONFIG"] = "pkg-config"
         if not "NM" in ret.tools:
             ret.tools["NM"] = "llvm-nm"
         if not "AR" in ret.tools:
@@ -1012,8 +1016,6 @@ def from_module(m, ret):
             ret.tools["OBJCOPY"] = "llvm-objcopy"
         if not "READELF" in ret.tools:
             ret.tools["READELF"] = "llvm-readelf"
-        if not "PKG_CONFIG" in ret.tools:
-            ret.tools["PKG_CONFIG"] = "pkg-config"
 
     return ret
 
