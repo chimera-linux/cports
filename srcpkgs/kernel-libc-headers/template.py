@@ -31,15 +31,20 @@ def do_build(self):
 
     mk = make.Make(self, jobs = 1)
 
-    cfl = self.get_cflags(shell = True)
-    lfl = self.get_ldflags(shell = True)
+    tcfl = self.get_cflags(shell = True)
+    tlfl = self.get_ldflags(shell = True)
+    with self.profile(cpu.host()):
+        hcfl = self.get_cflags(shell = True)
+        hlfl = self.get_ldflags(shell = True)
 
     mk.invoke("mrproper", [
-        "ARCH=" + _arch, "CC=clang", "HOSTCC=clang",
-        "CFLAGS=" + cfl,
-        "HOSTCFLAGS=" + cfl,
-        "LDFLAGS=" + lfl,
-        "HOSTLDFLAGS=" + lfl,
+        "ARCH=" + _arch,
+        "CC=clang -target " + self.build_profile.short_triplet,
+        "HOSTCC=clang",
+        "CFLAGS=" + tcfl,
+        "HOSTCFLAGS=" + hcfl,
+        "LDFLAGS=" + tlfl,
+        "HOSTLDFLAGS=" + hlfl,
         "headers"
     ])
 
