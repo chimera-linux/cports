@@ -369,7 +369,7 @@ def install(pkg, origpkg, step, depmap, signkey):
         if pkgn == origpkg and pkg.pkgname != origpkg:
             pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # check the repository
-        aver = _is_available(pkgn, dep)
+        aver = _is_available(pkgn, dep, pkg)
         if aver:
             log.out_plain(f"   [runtime] {dep}: found ({aver})")
             continue
