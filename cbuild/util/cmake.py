@@ -29,7 +29,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 """)
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
-    elif pkg.cross_build:
+    elif pkg.build_profile.cross:
         cmake_cpu = cpu.match_arch(pkg.build_profile.arch,
             "arm*",     "arm",
             "aarch64*", "aarch64",

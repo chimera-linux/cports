@@ -81,12 +81,48 @@ _triplet, _arch = cpu.match_target(
     "aarch64*", ("aarch64-linux-musl", "AArch64"),
     "ppc64le*", ("powerpc64le-linux-musl", "PowerPC"),
     "ppc64*", ("powerpc64-linux-musl", "PowerPC"),
-    "riscv64*", ("riscv64-linux-musl", "RISCV"),
+    "riscv64*", ("riscv64-linux-musl", "RISCV64"),
 )
 
-configure_args.append("-DLLVM_TARGET_ARCH=" + _arch)
-configure_args.append("-DLLVM_HOST_TRIPLE=" + _triplet)
-configure_args.append("-DLLVM_DEFAULT_TARGET_TRIPLE=" + _triplet)
+def init_configure(self):
+    if not self.cross_build:
+        return
+
+    self.configure_args.append("-DLLVM_TABLEGEN=" + str(self.chroot_wrksrc / "build_host/bin/llvm-tblgen"))
+    self.configure_args.append("-DCLANG_TABLEGEN=" + str(self.chroot_wrksrc / "build_host/bin/clang-tblgen"))
+
+def pre_configure(self):
+    if not self.cross_build:
+        return
+
+    from cbuild.util import make, cmake
+
+    self.log("building host tblgen...")
+
+    with self.profile(cpu.host()):
+        with self.stamp("host_llvm_configure"):
+            cmake.configure(self, self.cmake_dir, "build_host")
+
+        with self.stamp("host_llvm_tblgen") as s:
+            s.check()
+            make.Make(self, wrksrc = "build_host").build([
+                "-C", "utils/TableGen"
+            ])
+
+        with self.stamp("host_clang_tblgen") as s:
+            s.check()
+            make.Make(self, wrksrc = "build_host").build([
+                "-C", "tools/clang/utils/TableGen"
+            ])
+
+def do_configure(self):
+    from cbuild.util import cmake
+
+    cmake.configure(self, self.cmake_dir, "build", [
+        "-DLLVM_TARGET_ARCH=" + _arch,
+        "-DLLVM_HOST_TRIPLE=" + _triplet,
+        "-DLLVM_DEFAULT_TARGET_TRIPLE=" + _triplet,
+    ])
 
 def post_install(self):
     self.install_file(
@@ -115,6 +151,9 @@ def post_install(self):
     self.install_link("clang++", "usr/bin/c++")
     if not (self.destdir / "usr/bin/ld").is_symlink():
         self.install_link("ld.lld", "usr/bin/ld")
+
+    if self.cross_build:
+        self.unlink("usr/bin/llvm-config-host")
 
 @subpackage("clang-tools-extra")
 def _tools_extra(self):
