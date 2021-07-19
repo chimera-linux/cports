@@ -571,14 +571,21 @@ class Template(Package):
             cenv["CCACHE_BASEDIR"] = str(self.chroot_build_wrksrc)
 
         cenv.update(self.tools)
-        cenv.update(self.env)
-        cenv.update(env)
 
         if self.cross_build and not self.build_profile.cross:
             cenv["CC"] = cenv["BUILD_CC"]
             cenv["CXX"] = cenv["BUILD_CXX"]
             cenv["CPP"] = cenv["BUILD_CPP"]
             cenv["LD"] = cenv["BUILD_LD"]
+
+        with self.profile(cpu.host()):
+            cenv["BUILD_CFLAGS"] = self.get_cflags(shell = True)
+            cenv["BUILD_FFLAGS"] = self.get_fflags(shell = True)
+            cenv["BUILD_CXXFLAGS"] = self.get_cxxflags(shell = True)
+            cenv["BUILD_LDFLAGS"] = self.get_ldflags(shell = True)
+
+        cenv.update(self.env)
+        cenv.update(env)
 
         wdir = self.chroot_build_wrksrc if build else self.chroot_wrksrc
         if wrksrc:
