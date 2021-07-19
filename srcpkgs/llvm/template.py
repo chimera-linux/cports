@@ -179,7 +179,7 @@ def _tools_extra(self):
 def _libomp(self):
     self.short_desc = short_desc + " - Clang OpenMP support library"
 
-    if not self.bootstrapping:
+    if not self.bootstrapping and _arch != "RISCV64":
         extra = ["usr/lib/libomptarget.rtl.*.so"]
     else:
         extra = []
