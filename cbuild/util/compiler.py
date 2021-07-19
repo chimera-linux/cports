@@ -9,7 +9,8 @@ class GnuLike:
         self.ldflags = default_ldflags
 
     def invoke(
-        self, inputs, output, obj_file = False, flags = [], ldflags = []
+        self, inputs, output, obj_file = False, flags = [], ldflags = [],
+        quiet = False
     ):
         pkg = self.template
         # default flags + inputs are always passed
@@ -28,7 +29,8 @@ class GnuLike:
         # output always
         argsbase += ["-o", str(pkg.chroot_build_wrksrc / output)]
         # fire
-        logger.get().out_plain(self.cexec + " " + shlex.join(argsbase))
+        if not quiet:
+            logger.get().out_plain(self.cexec + " " + shlex.join(argsbase))
         return self.template.do(self.cexec, argsbase, build = True)
 
 class C(GnuLike):

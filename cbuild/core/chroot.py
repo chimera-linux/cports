@@ -344,12 +344,17 @@ def enter(cmd, args = [], capture_out = False, check = False,
     if "HTTP_PROXY_AUTH" in os.environ:
         envs["HTTP_PROXY_AUTH"] = os.environ["HTTP_PROXY_AUTH"]
 
-    if "CCACHEPATH" in envs:
-        envs["PATH"] = envs["CCACHEPATH"] + ":" + envs["PATH"]
-
     # if running from template, ensure wrappers are early in executable path
     if "CBUILD_STATEDIR" in envs:
         envs["PATH"] = envs["CBUILD_STATEDIR"] + "/wrappers:" + envs["PATH"]
+
+    # ccache path is searched first
+    #
+    # this has the implication of having ccache invoke whatever cc wrapper
+    # we have at the time, rather than the other way around, which means
+    # the wrappers don't have to account for ccache explicitly
+    if "CCACHEPATH" in envs:
+        envs["PATH"] = envs["CCACHEPATH"] + ":" + envs["PATH"]
 
     if ro_root:
         root_bind = "--ro-bind"

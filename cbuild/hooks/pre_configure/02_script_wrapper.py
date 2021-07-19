@@ -1,4 +1,6 @@
 from cbuild.core import paths
+from cbuild.util import compiler
+from cbuild import cpu
 
 import shutil
 
@@ -9,6 +11,20 @@ def _enable_wrappers(pkg):
             continue
         shutil.copy2(wrapperdir / f, pkg.statedir / "wrappers" / f.stem)
         (pkg.statedir / "wrappers" / f.stem).chmod(0o755)
+
+def _wrap_cross_cc(pkg):
+    wrapperdir = paths.cbuild() / "wrappers"
+
+    with pkg.profile(cpu.host()):
+        shutil.copy2(wrapperdir / "cross-cc.c", pkg.statedir / "wrappers")
+        wpath = f"/builddir/.cbuild-{pkg.pkgname}/wrappers/"
+        compiler.C(pkg).invoke(
+            [wpath + "cross-cc.c"], wpath + "cross-cc", quiet = True
+        )
+
+    at = pkg.build_profile.short_triplet
+    for n in ["clang", "clang++", "cc", "c++"]:
+        (pkg.wrapperdir / f"{at}-{n}").symlink_to("cross-cc")
 
 def _wrap_cross_pkgconf(pkg):
     wdir = pkg.statedir / "wrappers"
@@ -34,4 +50,5 @@ def invoke(pkg):
 
     # wrappers for cross tools as necessary
 
+    _wrap_cross_cc(pkg)
     _wrap_cross_pkgconf(pkg)
