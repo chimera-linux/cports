@@ -7,6 +7,8 @@ def _make_crossfile(pkg, build_dir):
 
     cfpath = pkg.abs_build_wrksrc / build_dir / "cbuild.cross"
 
+    (pkg.abs_build_wrksrc / build_dir).mkdir(parents = True, exist_ok = True)
+
     meson_cpu = cpu.match_arch(pkg.build_profile.arch,
         "arm*",     "arm",
         "aarch64*", "aarch64",
