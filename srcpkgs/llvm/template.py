@@ -152,9 +152,6 @@ def post_install(self):
     if not (self.destdir / "usr/bin/ld").is_symlink():
         self.install_link("ld.lld", "usr/bin/ld")
 
-    if self.cross_build:
-        self.unlink("usr/bin/llvm-config-host")
-
 @subpackage("clang-tools-extra")
 def _tools_extra(self):
     self.short_desc = short_desc + " - extra Clang tools"
