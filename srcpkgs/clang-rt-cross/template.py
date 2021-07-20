@@ -115,7 +115,7 @@ def _gen_crossp(an):
             f"libcxx-cross-{an}",
             f"libexecinfo-cross-{an}"
         ]
-        self.noshlibprovides = True
+        self.options = ["!scanshlibs"]
         return [f"usr/lib/clang/{version}/lib/linux/libclang_rt.*{at[0:at.find('-')]}*"]
     if cpu.target() != an:
         depends.append(f"clang-rt-cross-{an}={version}-r{revision}")

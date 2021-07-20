@@ -1,7 +1,6 @@
 pkgname = "libarchive"
 version = "3.5.1"
 revision = 0
-bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl", "--enable-xattr", "--without-expat",
@@ -19,6 +18,8 @@ license = "BSD-2-Clause"
 homepage = "http://www.libarchive.org/"
 distfiles = [f"https://github.com/libarchive/libarchive/releases/download/{version}/libarchive-{version}.tar.gz"]
 checksum = ["9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a"]
+
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     configure_args.append("--with-zstd")

@@ -3,7 +3,6 @@ _mver = "2.32"
 version = f"{_mver}.1"
 revision = 0
 wrksrc = f"util-linux-{version}"
-bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
     "--without-ncurses", "--without-ncursesw", "--without-udev",
@@ -22,6 +21,8 @@ short_desc = "Miscellaneous linux utilities -- for xbps-src use"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 homepage = "http://userweb.kernel.org/~kzak/util-linux-ng"
+
+options = ["bootstrap"]
 
 from cbuild import sites
 

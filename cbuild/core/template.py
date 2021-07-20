@@ -335,6 +335,17 @@ class Package:
             if not files or fn.is_file():
                 yield fn.relative_to(rootp)
 
+default_options = {
+    #           default inherit
+    "bootstrap": (False, True),
+    "scanrdeps": (True, False),
+    "scanshlibs": (True, False),
+    "textrels": (False, True),
+    "parallel": (True, True),
+    "debug": (True, True),
+    "strip": (True, False),
+}
+
 core_fields = [
     # name default type optional mandatory subpkg inherit
 
@@ -349,6 +360,9 @@ core_fields = [
     # not mandatory but encouraged
     ("maintainer", None, str, True, False, False, False),
 
+    # various options that can be set for the template
+    ("options", [], list, True, False, True, False),
+
     # other core-ish fields
     ("subpackages", [], list, True, False, False, False),
     ("broken", None, None, True, False, False, False),
@@ -362,7 +376,6 @@ core_fields = [
 
     # target support
     ("archs", None, str, True, False, False, False),
-    ("bootstrap", False, bool, False, False, False, False),
 
     # build directory and patches
     ("wrksrc", None, str, True, False, False, False),
@@ -379,7 +392,6 @@ core_fields = [
     ("provides", [], list, False, False, True, False),
     ("conflicts", [], list, False, False, True, False),
     ("skiprdeps", [], list, False, False, True, False),
-    ("noverifyrdeps", False, bool, False, False, True, False),
 
     # build systems
     ("configure_args", [], list, True, False, False, False),
@@ -389,11 +401,8 @@ core_fields = [
     ("make_install_args", [], list, True, False, False, False),
     ("make_build_target", "", str, False, False, False, False),
     ("make_install_target", "install", str, False, False, False, False),
-    ("disable_parallel_build", False, bool, False, False, False, False),
 
     # target build related
-    ("nodebug", False, bool, False, False, False, False),
-    ("nostrip", False, bool, False, False, True, False),
     ("nostrip_files", [], list, False, False, True, False),
     ("hardening", [], list, False, False, True, False),
     ("nopie_files", [], list, False, False, True, False),
@@ -407,8 +416,6 @@ core_fields = [
     # shlibs
     ("shlib_provides", [], list, True, False, True, False),
     ("shlib_requires", [], list, True, False, True, False),
-    ("noshlibprovides", False, bool, False, False, True, False),
-    ("allow_textrels", False, bool, False, False, False, True),
 
     # packaging
     ("triggers", [], list, True, False, True, False),
@@ -631,7 +638,7 @@ class Template(Package):
 
         return target.get_cflags(
             self.CFLAGS + extra_flags,
-            not self.nodebug and self.build_dbg,
+            self.options["debug"] and self.build_dbg,
             self.hardening + hardening,
             shell = shell
         )
@@ -646,7 +653,7 @@ class Template(Package):
 
         return target.get_cxxflags(
             self.CXXFLAGS + extra_flags,
-            not self.nodebug and self.build_dbg,
+            self.options["debug"] and self.build_dbg,
             self.hardening + hardening,
             shell = shell
         )
@@ -661,7 +668,7 @@ class Template(Package):
 
         return target.get_fflags(
             self.FFLAGS + extra_flags,
-            not self.nodebug and self.build_dbg,
+            self.options["debug"] and self.build_dbg,
             self.hardening + hardening,
             shell = shell
         )
@@ -784,6 +791,23 @@ def from_module(m, ret):
                 setattr(ret, fl, dval)
             else:
                 setattr(ret, fl, flv)
+
+    # transform options
+    ropts = {}
+
+    for dopt, dtup in default_options.items():
+        ropts[dopt] = dtup[0]
+
+    if ret.options:
+        for opt in ret.options:
+            neg = opt.startswith("!")
+            if neg:
+                opt = opt[1:]
+            if not opt in ropts:
+                ret.error("unknown option: %s" % opt)
+            ropts[opt] = not neg
+
+    ret.options = ropts
 
     if not ret.wrksrc:
         ret.wrksrc = f"{ret.pkgname}-{ret.version}"
@@ -931,6 +955,26 @@ def from_module(m, ret):
                 continue
             if tp and not isinstance(flv, tp):
                 ret.error("invalid field value: %s" % fl)
+
+        # deal with options
+        ropts = {}
+
+        for dopt, dtup in default_options.items():
+            # only write options supported in subpackages
+            if not dtup[1]:
+                ropts[dopt] = ret.options[dopt]
+
+        if sp.options:
+            for opt in sp.options:
+                neg = opt.startswith("!")
+                if neg:
+                    opt = opt[1:]
+                if not opt in ropts:
+                    ret.error("unknown subpackage option: %s" % opt)
+                ropts[opt] = not neg
+
+        sp.options = ropts
+
         # go
         ret.subpkg_list.append(sp)
 

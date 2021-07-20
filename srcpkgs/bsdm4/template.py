@@ -1,7 +1,6 @@
 pkgname = "bsdm4"
 version = "0.99.1"
 revision = 0
-bootstrap = True
 build_style = "gnu_makefile"
 make_build_args = ["YACC=byacc", "LEX=true"]
 short_desc = "The m4(1) utility from FreeBSD"
@@ -10,6 +9,8 @@ license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdm4"
 distfiles = [f"https://github.com/chimera-linux/bsdm4/archive/refs/tags/v{version}.tar.gz"]
 checksum = ["dbe405f94c3dcfd084b97585b270d4b004a4fae26c3c8cf37670e830354a123b"]
+
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     hostmakedepends = ["byacc"]

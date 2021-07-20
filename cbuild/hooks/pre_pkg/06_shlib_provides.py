@@ -22,7 +22,7 @@ def _matches_lib(sfxs, root):
     return True
 
 def invoke(pkg):
-    if pkg.noshlibprovides:
+    if not pkg.options["scanshlibs"]:
         return
 
     asonames = []

@@ -2,7 +2,6 @@ pkgname = "llvm"
 _mver = "12"
 version = f"{_mver}.0.0"
 revision = 0
-bootstrap = True
 wrksrc = f"llvm-project-{version}.src"
 build_style = "cmake"
 configure_args = [
@@ -46,6 +45,8 @@ license = "Apache-2.0"
 homepage = "https://llvm.org"
 distfiles = [f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz"]
 checksum = ["9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"]
+
+options = ["bootstrap"]
 
 cmake_dir = "llvm"
 

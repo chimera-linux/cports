@@ -1,7 +1,6 @@
 pkgname = "acl"
 version = "2.3.1"
 revision = 0
-bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
     f"--libdir=/usr/lib",
@@ -12,6 +11,8 @@ short_desc = "Access Control List filesystem support"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 homepage = "https://savannah.nongnu.org/projects/acl"
+
+options = ["bootstrap"]
 
 from cbuild import sites
 

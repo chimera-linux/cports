@@ -33,7 +33,7 @@ def scan(pkg, somap):
         if fpath.is_relative_to("usr/share"):
             elf_usrshare.append(fpath)
         # check textrels
-        if textrel.strip() != b"-" and not pkg.allow_textrels:
+        if textrel.strip() != b"-" and not pkg.rparent.options["textrels"]:
             elf_textrels.append(fpath)
         # get a list
         needed = needed.strip().decode()

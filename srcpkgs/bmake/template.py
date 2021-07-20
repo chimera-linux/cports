@@ -1,7 +1,6 @@
 pkgname = "bmake"
 version = "20210420"
 revision = 0
-bootstrap = True
 wrksrc = "bmake"
 short_desc = "Portable version of NetBSD make"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -9,6 +8,8 @@ license = "BSD-3-Clause"
 homepage = "http://www.crufty.net/help/sjg/bmake.html"
 distfiles = [f"http://www.crufty.net/ftp/pub/sjg/bmake-{version}.tar.gz"]
 checksum = ["47e551293843d504fe4197413aa6d7ee003090669ac200932ff40e9ccb4658aa"]
+
+options = ["bootstrap"]
 
 def do_build(self):
     import os

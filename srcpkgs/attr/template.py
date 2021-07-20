@@ -1,7 +1,6 @@
 pkgname = "attr"
 version = "2.5.1"
 revision = 0
-bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
     f"--libdir=/usr/lib",
@@ -13,6 +12,8 @@ short_desc = "Extended attribute support library for ACL support"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 homepage = "http://savannah.nongnu.org/projects/attr"
+
+options = ["bootstrap"]
 
 from cbuild import sites
 

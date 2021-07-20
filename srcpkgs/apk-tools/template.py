@@ -1,7 +1,6 @@
 pkgname = "apk-tools"
 version = "2.12.5"
 revision = 0
-bootstrap = True
 build_style = "meson"
 configure_args = [
     "-Dlua=disabled", "-Ddocs=disabled", "-Dhelp=disabled", "-Dstatic_apk=true"
@@ -14,6 +13,8 @@ license = "GPL-2.0-only"
 homepage = "http://git.alpinelinux.org/cgit/apk-tools"
 distfiles = [f"http://git.alpinelinux.org/cgit/{pkgname}/snapshot/{pkgname}-{version}.tar.bz2"]
 checksum = ["a3cbabbcd3072f197b19f85e13e526b8b769d1e537f8156457b1779bcc9300fe"]
+
+options = ["bootstrap"]
 
 CFLAGS = ["-Wno-error"]
 

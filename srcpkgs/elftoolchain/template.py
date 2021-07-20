@@ -1,7 +1,6 @@
 pkgname = "elftoolchain"
 _commit = "f7e9afc6f9ad0d84ea73b4659c5d6d13275d2306"
 version = "0.7.1_svn20210623"
-bootstrap = True
 revision = 0
 wrksrc = f"{pkgname}-{_commit}"
 build_style = "gnu_makefile"
@@ -23,6 +22,8 @@ license = "BSD-2-Clause"
 homepage = "https://sourceforge.net/projects/elftoolchain"
 distfiles = [f"https://github.com/{pkgname}/{pkgname}/archive/{_commit}.tar.gz"]
 checksum = ["3d9e0513af4b7cb8ac7944d98057b8d61fcc4ff326b030a7b06006c0abb7922c"]
+
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     hostmakedepends = ["bsdm4", "byacc", "flex"]

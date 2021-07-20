@@ -1,7 +1,6 @@
 pkgname = "libxo"
 version = "1.6.0"
 revision = 0
-bootstrap = True
 build_style = "gnu_configure"
 configure_args = ["--disable-gettext", "--disable-dependency-tracking"]
 short_desc = "Library for generating text, XML, JSON, and HTML output"
@@ -10,6 +9,8 @@ license = "BSD-2-Clause"
 homepage = "https://github.com/Juniper/libxo"
 distfiles = [f"https://github.com/Juniper/{pkgname}/releases/download/{version}/{pkgname}-{version}.tar.gz"]
 checksum = ["9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"]
+
+options = ["bootstrap"]
 
 def post_extract(self):
     import shutil

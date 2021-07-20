@@ -52,7 +52,7 @@ class Make:
         if not jobs:
             jobs = self.jobs
 
-        if self.template.disable_parallel_build:
+        if not self.template.options["parallel"]:
             jobs = 1
 
         argsbase = ["-j" + str(jobs)]

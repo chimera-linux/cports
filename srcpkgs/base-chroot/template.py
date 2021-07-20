@@ -1,7 +1,6 @@
 pkgname = "base-chroot"
 version = "0.66"
 revision = 0
-bootstrap = True
 short_desc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
@@ -12,6 +11,8 @@ depends = [
     "bsdutils", "dash", "file", "apk-tools", "awk", "ncurses", "bsdgrep",
     "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "chroot-util-linux"
 ]
+
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     depends += ["ccache"]

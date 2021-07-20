@@ -1,7 +1,6 @@
 pkgname = "libcap"
 version = "2.49"
 revision = 0
-bootstrap = True
 build_style = "gnu_makefile"
 make_cmd = "gmake"
 make_build_args = ["CC=clang", "BUILD_CC=clang", "GOLANG=no"]
@@ -19,6 +18,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://sites.google.com/site/fullycapable/"
 changelog = "https://sites.google.com/site/fullycapable/release-notes-for-libcap"
+
+options = ["bootstrap"]
 
 from cbuild import sites
 

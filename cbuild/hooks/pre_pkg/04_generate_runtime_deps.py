@@ -12,7 +12,7 @@ bootstrap_map = {
 }
 
 def invoke(pkg):
-    if pkg.noverifyrdeps:
+    if not pkg.options["scanrdeps"]:
         return
 
     verify_deps = {}

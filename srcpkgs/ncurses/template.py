@@ -1,13 +1,14 @@
 pkgname = "ncurses"
 version = "6.2"
 revision = 0
-bootstrap = True
 configure_args = ["--enable-big-core"]
 make_cmd = "gmake"
 short_desc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.gnu.org/software/ncurses/"
+
+options = ["bootstrap"]
 
 from cbuild import sites
 

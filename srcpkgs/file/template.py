@@ -1,7 +1,6 @@
 pkgname = "file"
 version = "5.40"
 revision = 0
-bootstrap = True
 build_style = "gnu_configure"
 configure_args = [
     "--enable-static", "--disable-libseccomp",
@@ -14,6 +13,8 @@ license = "BSD-2-Clause"
 homepage = "http://www.darwinsys.com/file/"
 distfiles = [f"https://astron.com/pub/file/file-{version}.tar.gz"]
 checksum = ["167321f43c148a553f68a0ea7f579821ef3b11c27b8cbe158e4df897e4a5dd57"]
+
+options = ["bootstrap"]
 
 if current.cross_build:
     hostmakedepends = ["file"]

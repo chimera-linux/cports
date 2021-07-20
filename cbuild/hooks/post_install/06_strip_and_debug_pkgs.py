@@ -2,7 +2,7 @@ import shutil
 import subprocess
 
 def make_debug(pkg, f, relf):
-    if pkg.rparent.nodebug or not pkg.rparent.build_dbg:
+    if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
         return
 
     dfile = pkg.destdir / "usr/lib/debug" / relf
@@ -20,7 +20,7 @@ def make_debug(pkg, f, relf):
     dfile.chmod(0o644)
 
 def attach_debug(pkg, f, relf):
-    if pkg.rparent.nodebug or not pkg.rparent.build_dbg:
+    if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
         return
 
     cfile = pkg.chroot_destdir / "usr/lib/debug" / relf
@@ -33,7 +33,7 @@ def attach_debug(pkg, f, relf):
         pkg.error(f"failed to attach debug link to {str(relf)}")
 
 def invoke(pkg):
-    if pkg.nostrip:
+    if not pkg.options["strip"]:
         return
 
     strip_path = "/usr/bin/" + pkg.rparent.tools["STRIP"]
@@ -188,7 +188,7 @@ def invoke(pkg):
         # strip shared library
 
     # prepare debug package
-    if pkg.rparent.nodebug or not pkg.rparent.build_dbg:
+    if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
         return
 
     # no debug symbols found

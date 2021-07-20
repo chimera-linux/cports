@@ -1,7 +1,6 @@
 pkgname = "run-parts"
 version = "4.11.2"
 revision = 0
-bootstrap = True
 wrksrc = "debianutils"
 build_style = "gnu_configure"
 make_build_target = "run-parts"
@@ -10,6 +9,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 homepage = "https://tracker.debian.org/pkg/debianutils"
 changelog = "http://metadata.ftp-master.debian.org/changelogs/main/d/debianutils/debianutils_${version}_changelog"
+
+options = ["bootstrap"]
 
 from cbuild import sites
 

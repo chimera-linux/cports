@@ -2,13 +2,14 @@ pkgname = "kernel-libc-headers"
 _mver = "5"
 version = f"{_mver}.10.4"
 revision = 0
-bootstrap = True
 wrksrc = f"linux-{version}"
 make_cmd = "gmake"
 short_desc = "Linux API headers for userland development"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://www.kernel.org"
+
+options = ["bootstrap"]
 
 from cbuild import sites, cpu
 

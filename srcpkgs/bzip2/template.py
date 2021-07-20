@@ -1,7 +1,6 @@
 pkgname = "bzip2"
 version = "1.0.8"
 revision = 0
-bootstrap = True
 short_desc = "Freely available, patent free, high-quality data compressor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "bzip2-1.0.6"
@@ -9,6 +8,8 @@ homepage = "https://sourceware.org/bzip2/"
 changelog = "https://sourceware.org/bzip2/CHANGES"
 distfiles = [f"https://sourceware.org/pub/bzip2/bzip2-{version}.tar.gz"]
 checksum = ["ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"]
+
+options = ["bootstrap"]
 
 CFLAGS = ["-fPIC"]
 

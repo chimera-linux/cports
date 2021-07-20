@@ -92,7 +92,7 @@ def _gen_crossp(an, at):
     def _subp(self):
         self.short_desc = f"{short_desc} - {an} support"
         self.depends = [f"libcxxabi-cross-{an}"]
-        self.noshlibprovides = True
+        self.options = ["!scanshlibs"]
         return [f"usr/{at}"]
     if cpu.target() != an:
         depends.append(f"libcxx-cross-{an}={version}-r{revision}")

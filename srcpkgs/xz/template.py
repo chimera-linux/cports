@@ -1,7 +1,6 @@
 pkgname = "xz"
 version = "5.2.5"
 revision = 0
-bootstrap = True
 build_style = "gnu_configure"
 short_desc = "The XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -9,6 +8,8 @@ license = "Public domain, GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later"
 homepage = "https://tukaani.org/xz"
 distfiles = [f"https://tukaani.org/xz/xz-{version}.tar.bz2"]
 checksum = ["5117f930900b341493827d63aa910ff5e011e0b994197c3b71c08a20228a42df"]
+
+options = ["bootstrap"]
 
 def post_install(self):
     import shutil
