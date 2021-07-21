@@ -1,5 +1,5 @@
 from cbuild.step import fetch, extract, patch, configure
-from cbuild.step import build as buildm, install, prepkg, pkg as pkgsm
+from cbuild.step import build as buildm, check, install, prepkg, pkg as pkgsm
 from cbuild.core import chroot, logger, dependencies
 from cbuild.core import template, pkg as pkgm, paths
 from cbuild.apk import cli as apk
@@ -44,6 +44,9 @@ def build(step, pkg, depmap, signkey, chost = False):
         return
     buildm.invoke(pkg, step)
     if step == "build":
+        return
+    check.invoke(pkg, step)
+    if step == "check":
         return
 
     # invoke install for main package

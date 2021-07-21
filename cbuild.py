@@ -43,6 +43,7 @@ opt_ldflags   = ""
 opt_arch      = None
 opt_gen_dbg   = False
 opt_skipexist = False
+opt_check     = False
 opt_ccache    = False
 opt_makejobs  = 1
 opt_nocolor   = "NO_COLOR" in os.environ
@@ -77,6 +78,11 @@ parser.add_argument(
     "-E", "--skip-if-exists", action = "store_const",
     const = True, default = opt_skipexist,
     help = "Do not build if the package already exists in local repository."
+)
+parser.add_argument(
+    "-q", "--check", action = "store_const",
+    const = True, default = opt_check,
+    help = "Run the check stage."
 )
 parser.add_argument(
     "-g", "--build-dbg", action = "store_const",
@@ -121,6 +127,7 @@ if "build" in global_cfg:
 
     opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
     opt_ccache    = bcfg.getboolean("ccache", fallback = opt_ccache)
+    opt_check     = bcfg.getboolean("check", fallback = opt_check)
     opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
     opt_cflags    = bcfg.get("cflags", fallback = opt_cflags)
     opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
@@ -153,6 +160,9 @@ if cmdline.force:
 
 if cmdline.skip_if_exists:
     opt_skipexist = True
+
+if cmdline.check:
+    opt_check = True
 
 if cmdline.masterdir:
     opt_masterdir = cmdline.masterdir
@@ -249,7 +259,7 @@ def bootstrap(tgt):
             sys.exit("Required bootstrap program not found: gmake/bmake")
 
         rp = template.read_pkg(
-            "base-chroot", None, False, False, False, False, None
+            "base-chroot", None, False, False, False, False, False, None
         )
         paths.prepare()
         chroot.initdb()
@@ -360,7 +370,7 @@ def do_pkg(tgt, pkgn = None):
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
         pkgn, opt_arch if opt_arch else cpu.host(), opt_force,
-        opt_skipexist, opt_gen_dbg, opt_ccache, None
+        opt_skipexist, opt_check, opt_gen_dbg, opt_ccache, None
     )
     if opt_mdirtemp:
         chroot.install(cpu.host())

@@ -124,6 +124,10 @@ hooks = {
     "pre_build": [],
     "do_build": [],
     "post_build": [],
+    "init_check": [],
+    "pre_check": [],
+    "do_check": [],
+    "post_check": [],
     "init_install": [],
     "pre_install": [],
     "do_install": [],
@@ -344,6 +348,7 @@ default_options = {
     "parallel": (True, True),
     "debug": (True, True),
     "strip": (True, False),
+    "check": (True, True),
 }
 
 core_fields = [
@@ -1073,7 +1078,8 @@ def from_module(m, ret):
 _tmpl_dict = {}
 
 def read_pkg(
-    pkgname, pkgarch, force_mode, skip_if_exist, build_dbg, use_ccache, origin
+    pkgname, pkgarch, force_mode, skip_if_exist, run_check,
+    build_dbg, use_ccache, origin
 ):
     global _tmpl_dict
 
@@ -1089,6 +1095,7 @@ def read_pkg(
     ret.force_mode = force_mode
     ret.bootstrapping = not pkgarch
     ret.skip_if_exist = skip_if_exist
+    ret.run_check = run_check
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
 
@@ -1138,7 +1145,8 @@ def read_pkg(
 
 def register_hooks():
     for step in [
-        "fetch", "extract", "patch", "configure", "build", "install", "pkg"
+        "fetch", "extract", "patch", "configure",
+        "build", "check", "install", "pkg"
     ]:
         for sstep in ["init", "pre", "do", "post"]:
             stepn = f"{sstep}_{step}"

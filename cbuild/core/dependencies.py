@@ -24,7 +24,7 @@ def _srcpkg_ver(pkgn):
         return _tcache[pkgn]
 
     rv = template.read_pkg(
-        pkgn, cpu.target(), False, False, False, False, None
+        pkgn, cpu.target(), False, False, False, False, False, None
     )
     cv = rv.version + "-r" + str(rv.revision)
     _tcache[pkgn] = cv
@@ -387,7 +387,8 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 pn, chost if not pkg.bootstrapping else None,
-                pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
+                pkg.force_mode, True, pkg.run_check, pkg.build_dbg,
+                pkg.use_ccache, pkg
             ), depmap, signkey, chost = not not pkg.cross_build)
         except template.SkipPackage:
             pass
@@ -397,7 +398,8 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 pn, ctgt if not pkg.bootstrapping else None,
-                pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
+                pkg.force_mode, True, pkg.run_check, pkg.build_dbg,
+                pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -407,7 +409,8 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 rd, ctgt if not pkg.bootstrapping else None,
-                pkg.force_mode, True, pkg.build_dbg, pkg.use_ccache, pkg
+                pkg.force_mode, True, pkg.run_check, pkg.build_dbg,
+                pkg.use_ccache, pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
