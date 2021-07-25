@@ -650,6 +650,10 @@ class Template(Package):
     ):
         if not target:
             target = self.build_profile
+        elif target == "host":
+            target = profile.get_profile(cpu.host())
+        elif target == "target":
+            target = profile.get_profile(cpu.target())
         else:
             target = profile.get_profile(target)
 
@@ -665,6 +669,10 @@ class Template(Package):
     ):
         if not target:
             target = self.build_profile
+        elif target == "host":
+            target = profile.get_profile(cpu.host())
+        elif target == "target":
+            target = profile.get_profile(cpu.target())
         else:
             target = profile.get_profile(target)
 
@@ -680,6 +688,10 @@ class Template(Package):
     ):
         if not target:
             target = self.build_profile
+        elif target == "host":
+            target = profile.get_profile(cpu.host())
+        elif target == "target":
+            target = profile.get_profile(cpu.target())
         else:
             target = profile.get_profile(target)
 
@@ -695,6 +707,10 @@ class Template(Package):
     ):
         if not target:
             target = self.build_profile
+        elif target == "host":
+            target = profile.get_profile(cpu.host())
+        elif target == "target":
+            target = profile.get_profile(cpu.target())
         else:
             target = profile.get_profile(target)
 
@@ -710,6 +726,10 @@ class Template(Package):
 
         if not target:
             target = self.build_profile
+        elif target == "host":
+            target = profile.get_profile(cpu.host())
+        elif target == "target":
+            target = profile.get_profile(cpu.target())
         else:
             target = profile.get_profile(target)
 
@@ -721,6 +741,10 @@ class Template(Package):
     def has_hardening(self, hname, target = None):
         if not target:
             target = self.build_profile
+        elif target == "host":
+            target = profile.get_profile(cpu.host())
+        elif target == "target":
+            target = profile.get_profile(cpu.target())
         else:
             target = profile.get_profile(target)
 
