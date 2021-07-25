@@ -10,7 +10,7 @@ def make_debug(pkg, f, relf):
 
     dfile.parent.mkdir(parents = True, exist_ok = True)
     try:
-        pkg.rparent.do(pkg.rparent.tools["OBJCOPY"], [
+        pkg.rparent.do(pkg.rparent.get_tool("OBJCOPY"), [
             "--only-keep-debug",
             str(pkg.chroot_destdir / relf), str(cfile)
         ])
@@ -25,7 +25,7 @@ def attach_debug(pkg, f, relf):
 
     cfile = pkg.chroot_destdir / "usr/lib/debug" / relf
     try:
-        pkg.rparent.do(pkg.rparent.tools["OBJCOPY"], [
+        pkg.rparent.do(pkg.rparent.get_tool("OBJCOPY"), [
             "--add-gnu-debuglink=" + str(cfile),
             str(pkg.chroot_destdir / relf)
         ])
@@ -36,7 +36,7 @@ def invoke(pkg):
     if not pkg.options["strip"]:
         return
 
-    strip_path = "/usr/bin/" + pkg.rparent.tools["STRIP"]
+    strip_path = "/usr/bin/" + pkg.rparent.get_tool("STRIP")
     dbgdir = pkg.destdir / "usr/lib/debug"
 
     elfs = pkg.rparent.current_elfs

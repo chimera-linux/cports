@@ -33,7 +33,7 @@ def do_build(self):
                 "PREFIX=/usr",
                 "CFLAGS=" + self.get_cflags(shell = True),
                 "LDFLAGS=--unwindlib=none " + self.get_ldflags(shell = True),
-                "AR=" + self.tools["AR"]
+                "AR=" + self.get_tool("AR")
             ])
             shutil.move(
                 self.abs_wrksrc / "libexecinfo.a",

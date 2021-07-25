@@ -20,8 +20,8 @@ def configure(pkg, cmake_dir = None, build_dir = "build", extra_args = []):
 SET(CMAKE_SYSTEM_NAME Linux)
 SET(CMAKE_SYSTEM_VERSION 1)
 
-SET(CMAKE_C_COMPILER   {pkg.tools["CC"]})
-SET(CMAKE_CXX_COMPILER {pkg.tools["CXX"]})
+SET(CMAKE_C_COMPILER   {pkg.get_tool("CC")})
+SET(CMAKE_CXX_COMPILER {pkg.get_tool("CXX")})
 
 SET(CMAKE_FIND_ROOT_PATH  "{mdir}/usr;{mdir}")
 
@@ -51,8 +51,8 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 SET(CMAKE_SYSTEM_NAME Linux)
 SET(CMAKE_SYSTEM_VERSION 1)
 
-SET(CMAKE_C_COMPILER   {pkg.tools["CC"]})
-SET(CMAKE_CXX_COMPILER {pkg.tools["CXX"]})
+SET(CMAKE_C_COMPILER   {pkg.get_tool("CC")})
+SET(CMAKE_CXX_COMPILER {pkg.get_tool("CXX")})
 SET(CMAKE_C_COMPILER_TARGET {pkg.build_profile.short_triplet})
 SET(CMAKE_CXX_COMPILER_TARGET {pkg.build_profile.short_triplet})
 SET(CMAKE_ASM_COMPILER_TARGET {pkg.build_profile.short_triplet})

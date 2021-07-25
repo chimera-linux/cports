@@ -26,15 +26,15 @@ def _make_crossfile(pkg, build_dir):
     with open(cfpath, "w") as outf:
         outf.write(f"""
 [binaries]
-c = '{pkg.tools["CC"]}'
-cpp = '{pkg.tools["CXX"]}'
-ar = '{pkg.tools["AR"]}'
-nm = '{pkg.tools["NM"]}'
-ld = '{pkg.tools["LD"]}'
-strip = '{pkg.tools["STRIP"]}'
-readelf = '{pkg.tools["READELF"]}'
-objcopy = '{pkg.tools["OBJCOPY"]}'
-pkgconfig = '{pkg.tools["PKG_CONFIG"]}'
+c = '{pkg.get_tool("CC")}'
+cpp = '{pkg.get_tool("CXX")}'
+ar = '{pkg.get_tool("AR")}'
+nm = '{pkg.get_tool("NM")}'
+ld = '{pkg.get_tool("LD")}'
+strip = '{pkg.get_tool("STRIP")}'
+readelf = '{pkg.get_tool("READELF")}'
+objcopy = '{pkg.get_tool("OBJCOPY")}'
+pkgconfig = '{pkg.get_tool("PKG_CONFIG")}'
 llvm-config = '/usr/bin/llvm-config'
 
 [properties]

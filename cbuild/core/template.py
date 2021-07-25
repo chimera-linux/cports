@@ -439,6 +439,14 @@ hardening_fields = {
     "scp": False, # stack-clash-protection
 }
 
+cross_tools = {
+    "CC": True,
+    "CXX": True,
+    "CPP": True,
+    "LD": True,
+    "PKG_CONFIG": True,
+}
+
 # for defaults, always make copies
 def copy_of_dval(val):
     if isinstance(val, list):
@@ -563,6 +571,11 @@ class Template(Package):
 
     def do(self, cmd, args, env = {}, build = False, wrksrc = None):
         cenv = {
+            "CC": self.get_tool("CC"),
+            "CXX": self.get_tool("CXX"),
+            "CPP": self.get_tool("CPP"),
+            "LD": self.get_tool("LD"),
+            "PKG_CONFIG": self.get_tool("PKG_CONFIG"),
             "CFLAGS": self.get_cflags(shell = True),
             "FFLAGS": self.get_fflags(shell = True),
             "CXXFLAGS": self.get_cxxflags(shell = True),
@@ -584,13 +597,12 @@ class Template(Package):
 
         cenv.update(self.tools)
 
-        if self.cross_build and not self.build_profile.cross:
-            cenv["CC"] = cenv["BUILD_CC"]
-            cenv["CXX"] = cenv["BUILD_CXX"]
-            cenv["CPP"] = cenv["BUILD_CPP"]
-            cenv["LD"] = cenv["BUILD_LD"]
-
         with self.profile(cpu.host()):
+            cenv["BUILD_CC"] = self.get_tool("CC")
+            cenv["BUILD_CXX"] = self.get_tool("CXX")
+            cenv["BUILD_CPP"] = self.get_tool("CPP")
+            cenv["BUILD_LD"] = self.get_tool("LD")
+            cenv["BUILD_PKG_CONFIG"] = self.get_tool("PKG_CONFIG")
             cenv["BUILD_CFLAGS"] = self.get_cflags(shell = True)
             cenv["BUILD_FFLAGS"] = self.get_fflags(shell = True)
             cenv["BUILD_CXXFLAGS"] = self.get_cxxflags(shell = True)
@@ -691,6 +703,20 @@ class Template(Package):
             self.hardening + hardening,
             shell = shell
         )
+
+    def get_tool(self, name, target = None):
+        if not name in self.tools:
+            return None
+
+        if not target:
+            target = self.build_profile
+        else:
+            target = profile.get_profile(target)
+
+        if name in cross_tools and target.cross:
+            return f"{target.short_triplet}-{self.tools[name]}"
+
+        return self.tools[name]
 
     def has_hardening(self, hname, target = None):
         if not target:
@@ -1007,10 +1033,6 @@ def from_module(m, ret):
     # the llvm tools are only meaningful once we have a full chroot assembled
     # since they provide extras and possibly help in cross-compiling scenarios
     if ret.bootstrapping:
-        ret.tools["BUILD_CC"] = "clang"
-        ret.tools["BUILD_CXX"] = "clang++"
-        ret.tools["BUILD_CPP"] = "clang-cpp"
-        ret.tools["BUILD_LD"] = "ld.lld"
         ret.tools["CC"] = "clang"
         ret.tools["CXX"] = "clang++"
         ret.tools["CPP"] = "clang-cpp"
@@ -1025,37 +1047,16 @@ def from_module(m, ret):
         ret.tools["READELF"] = "readelf"
         ret.tools["PKG_CONFIG"] = "pkg-config"
     else:
-        if not "BUILD_CC" in ret.tools:
-            ret.tools["BUILD_CC"] = "clang"
-        if not "BUILD_CXX" in ret.tools:
-            ret.tools["BUILD_CXX"] = "clang++"
-        if not "BUILD_CPP" in ret.tools:
-            ret.tools["BUILD_CPP"] = "clang-cpp"
-        if not "BUILD_LD" in ret.tools:
-            ret.tools["BUILD_LD"] = "ld"
-        if ret.cross_build:
-            trip = profile.get_profile(ret.cross_build).short_triplet
-            if not "CC" in ret.tools:
-                ret.tools["CC"] = f"{trip}-clang"
-            if not "CXX" in ret.tools:
-                ret.tools["CXX"] = f"{trip}-clang++"
-            if not "CPP" in ret.tools:
-                ret.tools["CPP"] = f"{trip}-clang-cpp"
-            if not "LD" in ret.tools:
-                ret.tools["LD"] = f"{trip}-ld"
-            if not "PKG_CONFIG" in ret.tools:
-                ret.tools["PKG_CONFIG"] = f"{trip}-pkg-config"
-        else:
-            if not "CC" in ret.tools:
-                ret.tools["CC"] = "clang"
-            if not "CXX" in ret.tools:
-                ret.tools["CXX"] = "clang++"
-            if not "CPP" in ret.tools:
-                ret.tools["CPP"] = "clang-cpp"
-            if not "LD" in ret.tools:
-                ret.tools["LD"] = "ld"
-            if not "PKG_CONFIG" in ret.tools:
-                ret.tools["PKG_CONFIG"] = "pkg-config"
+        if not "CC" in ret.tools:
+            ret.tools["CC"] = "clang"
+        if not "CXX" in ret.tools:
+            ret.tools["CXX"] = "clang++"
+        if not "CPP" in ret.tools:
+            ret.tools["CPP"] = "clang-cpp"
+        if not "LD" in ret.tools:
+            ret.tools["LD"] = "ld"
+        if not "PKG_CONFIG" in ret.tools:
+            ret.tools["PKG_CONFIG"] = "pkg-config"
         if not "NM" in ret.tools:
             ret.tools["NM"] = "llvm-nm"
         if not "AR" in ret.tools:

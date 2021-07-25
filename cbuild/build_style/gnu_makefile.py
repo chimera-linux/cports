@@ -8,14 +8,14 @@ def do_build(self):
 
     # by default, pass various stuff directly rather than through env
     tool_args = [
-        "OBJCOPY=" + self.tools["OBJCOPY"],
-        "RANLIB=" + self.tools["RANLIB"],
-        "CXX=" + self.tools["CXX"],
-        "CPP=" + self.tools["CPP"],
-        "CC=" + self.tools["CC"],
-        "LD=" + self.tools["LD"],
-        "AR=" + self.tools["AR"],
-        "AS=" + self.tools["AS"],
+        "OBJCOPY=" + self.get_tool("OBJCOPY"),
+        "RANLIB=" + self.get_tool("RANLIB"),
+        "CXX=" + self.get_tool("CXX"),
+        "CPP=" + self.get_tool("CPP"),
+        "CC=" + self.get_tool("CC"),
+        "LD=" + self.get_tool("LD"),
+        "AR=" + self.get_tool("AR"),
+        "AS=" + self.get_tool("AS"),
         "CFLAGS=" + self.get_cflags(shell = True),
         "FFLAGS=" + self.get_fflags(shell = True),
         "LDFLAGS=" + self.get_ldflags(shell = True),
@@ -23,7 +23,7 @@ def do_build(self):
     ]
 
     if not self.bootstrapping:
-        tool_args.append("OBJDUMP=" + self.tools["OBJDUMP"])
+        tool_args.append("OBJDUMP=" + self.get_tool("OBJDUMP"))
 
     self.make.build(tool_args)
 

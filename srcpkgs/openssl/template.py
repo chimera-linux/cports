@@ -45,7 +45,7 @@ def pre_configure(self):
 
 def do_build(self):
     self.make.invoke("depend")
-    self.make.build(["MAKEDEPPROG=" + self.tools["CC"]])
+    self.make.build(["MAKEDEPPROG=" + self.get_tool("CC")])
 
 @subpackage("libcrypto1.1")
 def _libcrypto(self):
