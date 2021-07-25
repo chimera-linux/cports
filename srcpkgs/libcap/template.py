@@ -3,7 +3,7 @@ version = "2.49"
 revision = 0
 build_style = "gnu_makefile"
 make_cmd = "gmake"
-make_build_args = ["CC=clang", "BUILD_CC=clang", "GOLANG=no"]
+make_build_args = ["GOLANG=no"]
 make_install_args = [
     "PKGCONFIGDIR=/usr/lib/pkgconfig",
     "SBINDIR=/usr/bin",
@@ -19,8 +19,6 @@ license = "GPL-2.0-only"
 homepage = "http://sites.google.com/site/fullycapable/"
 changelog = "https://sites.google.com/site/fullycapable/release-notes-for-libcap"
 
-options = ["bootstrap"]
-
 from cbuild import sites
 
 distfiles = [f"{sites.kernel}/libs/security/linux-privs/libcap2/{pkgname}-{version}.tar.xz"]
@@ -29,11 +27,11 @@ checksum = ["e98bc4d93645082ec787730b0fd1a712b38882465c505777de17c338831ee181"]
 if not current.bootstrapping:
     hostmakedepends = ["gmake", "perl"]
 
-def pre_build(self):
-    if not self.cross_build:
-        return
-
-    self.make_build_args.append(f"CROSS_COMPILE={self.cross_triplet}-")
+def init_configure(self):
+    self.make_build_args += [
+        "CC=" + self.get_tool("CC"),
+        "BUILD_CC=" + self.get_tool("CC", target = "host"),
+    ]
 
 @subpackage("libcap-devel")
 def _devel(self):
