@@ -161,6 +161,17 @@ def install_toolchain(pkg, signkey):
     if _is_installed(f"base-cross-{archn}"):
         return
 
+    from cbuild.core import build
+
+    try:
+        build.build("pkg", template.read_pkg(
+            f"base-cross-{archn}", cpu.host(),
+            False, True, pkg.run_check, pkg.build_dbg,
+            pkg.use_ccache, None
+        ), {}, signkey, chost = True)
+    except template.SkipPackage:
+        pass
+
     pkg.log(f"installing cross toolchain for {archn}...")
 
     _install_from_repo(pkg, [f"base-cross-{archn}"], None, signkey)
