@@ -1041,7 +1041,7 @@ def from_module(m, ret):
             ret.error(f"yes")
 
     if ret.cross_build and ret.nocross:
-        ret.log_red(f"cannot be cross-compiled for {self.cross_build}")
+        ret.log_red(f"cannot be cross-compiled for {ret.cross_build}")
         if isinstance(ret.nocross, str):
             ret.error(f"{ret.broken}")
         else:

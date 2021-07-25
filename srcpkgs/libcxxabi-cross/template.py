@@ -28,6 +28,7 @@ distfiles = [
 checksum = [
     "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"
 ]
+nocross = True
 
 cmake_dir = "libcxxabi"
 

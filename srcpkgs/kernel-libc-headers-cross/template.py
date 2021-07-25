@@ -9,6 +9,7 @@ short_desc = "Linux API headers for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://www.kernel.org"
+nocross = True
 
 from cbuild import sites, cpu
 

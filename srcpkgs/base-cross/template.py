@@ -6,6 +6,7 @@ short_desc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 homepage = "https://chimera-linux.org"
+nocross = True
 
 _targets = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 
