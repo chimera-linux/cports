@@ -1,5 +1,4 @@
 from cbuild.core import paths
-from cbuild import cpu
 
 def configure(pkg, cmake_dir = None, build_dir = "build", extra_args = []):
     if cmake_dir:
@@ -30,17 +29,17 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 """)
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
     elif pkg.build_profile.cross:
-        cmake_cpu = cpu.match_arch(pkg.build_profile.arch,
-            "arm*",     "arm",
-            "aarch64*", "aarch64",
-            "ppc64le*", "ppc64le",
-            "ppc64*",   "ppc64",
-            "ppc*",     "ppc",
-            "x86_64*",  "x86_64",
-            "i686*",    "x86",
-            "riscv64*", "riscv64",
-            "*", None
-        )
+        # map known profiles to cmake arch
+        cmake_cpu = {
+            "aarch64": "aarch64",
+            "ppc64le": "ppc64le",
+            "ppc64": "ppc64",
+            "x86_64": "x86_64",
+            "riscv64": "riscv64"
+        }.get(pkg.build_profile.arch, None)
+
+        if not cmake_cpu:
+            pkg.error(f"unknown architecture: {pkg.build_profile.arch}")
 
         sroot = str(pkg.build_profile.sysroot)
 

@@ -1,5 +1,4 @@
 from cbuild.core import paths
-from cbuild import cpu
 
 def _make_crossfile(pkg, build_dir):
     if not pkg.build_profile.cross:
@@ -9,16 +8,14 @@ def _make_crossfile(pkg, build_dir):
 
     (pkg.abs_build_wrksrc / build_dir).mkdir(parents = True, exist_ok = True)
 
-    meson_cpu = cpu.match_arch(pkg.build_profile.arch,
-        "arm*",     "arm",
-        "aarch64*", "aarch64",
-        "ppc64*",   "ppc64",
-        "ppc*",     "ppc",
-        "x86_64*",  "x86_64",
-        "i686*",    "x86",
-        "riscv64*", "riscv64",
-        "*", None
-    )
+    # map known profiles to meson arch
+    meson_cpu = {
+        "aarch64": "aarch64",
+        "ppc64le": "ppc64",
+        "ppc64": "ppc64",
+        "x86_64": "x86_64",
+        "riscv64": "riscv64"
+    }.get(pkg.build_profile.arch, None)
 
     if not meson_cpu:
         pkg.error(f"unknown architecture: {pkg.build_profile.arch}")

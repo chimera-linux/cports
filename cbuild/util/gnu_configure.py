@@ -1,6 +1,5 @@
-from cbuild.core import logger, paths, profile
+from cbuild.core import logger, paths
 from cbuild.util import make
-from cbuild import cpu
 
 import re
 import shutil
@@ -80,7 +79,8 @@ def configure(
     cachedir = paths.cbuild() / "misc/autoconf_cache"
 
     if pkg.build_profile.triplet:
-        cargs.append("--build=" + profile.get_profile(cpu.host()).short_triplet)
+        with pkg.profile("host"):
+            cargs.append("--build=" + pkg.build_profile.short_triplet)
         cargs.append("--host=" + pkg.build_profile.short_triplet)
 
     if pkg.build_profile.cross:
@@ -92,14 +92,13 @@ def configure(
         # endian cache
         _read_cache(cachedir, "endian-" + pkg.build_profile.endian, eenv)
         # machine cache
-        cl = cpu.match_arch(
-            pkg.build_profile.arch,
-            "arm*",     ["arm-common", "arm-linux"],
-            "aarch64*", ["aarch64-linux"],
-            "x86_64*",  ["x86_64-linux"],
-            "ppc64*",   ["powerpc-common", "powerpc-linux", "powerpc64-linux"],
-            "*", []
-        )
+        cl = {
+            "armv7l": ["arm-common", "arm-linux"],
+            "aarch64": ["aarch64-linux"],
+            "ppc64le": ["powerpc-common", "powerpc-linux", "powerpc64-linux"],
+            "ppc64": ["powerpc-common", "powerpc-linux", "powerpc64-linux"],
+            "x86_64": ["x86_64-linux"]
+        }.get(pkg.build_profile.arch, [])
         for l in cl:
             _read_cache(cachedir, l, eenv)
     else:

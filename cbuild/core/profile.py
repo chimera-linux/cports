@@ -2,8 +2,11 @@ from cbuild.core import paths, logger
 from cbuild import cpu
 
 import configparser
+import platform
 import pathlib
 import shlex
+import os
+import sys
 
 # recognized hardening options
 hardening_fields = {
@@ -63,10 +66,11 @@ class Profile:
     def __init__(self, archn, pdata, gdata):
         # bootstrap is a simplfied case
         if archn == "bootstrap":
-            self._arch = cpu.host()
+            # initialize with arch data of the host system
+            self._arch = os.uname().machine
             self._triplet = None
-            self._endian = cpu.host_endian()
-            self._wordsize = cpu.host_wordsize()
+            self._endian = sys.byteorder
+            self._wordsize = int(platform.architecture()[0][:-3])
             self._hardening = []
             # we ignore user flags here to guarantee a good base
             pd = pdata["profile"]
