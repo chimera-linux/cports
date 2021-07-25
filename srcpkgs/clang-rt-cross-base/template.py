@@ -59,18 +59,15 @@ _targets = list(filter(
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
 
-from cbuild.util import cmake, make
-
 def post_patch(self):
     import shutil
     shutil.move(
         self.builddir / f"musl-{_musl_version}", self.abs_wrksrc / "musl"
     )
 
-def init_configure(self):
-    self.make = make.Make(self)
-
 def do_configure(self):
+    from cbuild.util import cmake, make
+
     for an in _targets:
         with self.profile(an):
             at = self.build_profile.short_triplet

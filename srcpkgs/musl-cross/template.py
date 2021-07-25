@@ -19,8 +19,6 @@ nocross = True
 # segfaults otherwise
 hardening = ["!scp"]
 
-from cbuild.util import compiler, make
-
 _targets = list(filter(
     lambda p: p != current.build_profile.arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
@@ -52,9 +50,9 @@ def do_build(self):
             mbpath.mkdir(exist_ok = True)
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                make.Make(
-                    self, wrksrc = self.chroot_wrksrc / f"build-{an}"
-                ).build()
+                self.make.build(
+                    wrksrc = self.chroot_wrksrc / f"build-{an}"
+                )
 
 def do_install(self):
     for an in _targets:
@@ -62,11 +60,9 @@ def do_install(self):
             at = self.build_profile.short_triplet
             self.install_dir(f"usr/{at}/usr/lib")
             self.install_link("usr/lib", f"usr/{at}/lib")
-            make.Make(
-                self, wrksrc = self.chroot_wrksrc / f"build-{an}"
-            ).install([
+            self.make.install([
                 "DESTDIR=" + str(self.chroot_destdir / "usr" / at)
-            ], default_args = False)
+            ], default_args = False, wrksrc = self.chroot_wrksrc / f"build-{an}")
             self.unlink(f"usr/{at}/lib")
 
 def _gen_crossp(an, at):

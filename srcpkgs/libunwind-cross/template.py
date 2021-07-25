@@ -39,12 +39,9 @@ _targets = list(filter(
 CFLAGS = ["-fPIC", "--unwindlib=none"]
 CXXFLAGS = ["-fPIC", "--unwindlib=none", "-nostdlib"]
 
-from cbuild.util import cmake, make
-
-def init_configure(self):
-    self.make = make.Make(self)
-
 def do_configure(self):
+    from cbuild.util import cmake
+
     for an in _targets:
         with self.profile(an):
             at = self.build_profile.short_triplet
