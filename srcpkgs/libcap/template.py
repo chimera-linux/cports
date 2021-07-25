@@ -2,6 +2,7 @@ pkgname = "libcap"
 version = "2.49"
 revision = 0
 build_style = "gnu_makefile"
+hostmakedepends = ["gmake", "perl"]
 make_cmd = "gmake"
 make_build_args = ["GOLANG=no"]
 make_install_args = [
@@ -18,14 +19,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://sites.google.com/site/fullycapable/"
 changelog = "https://sites.google.com/site/fullycapable/release-notes-for-libcap"
-
-from cbuild import sites
-
-distfiles = [f"{sites.kernel}/libs/security/linux-privs/libcap2/{pkgname}-{version}.tar.xz"]
+distfiles = [f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/{pkgname}-{version}.tar.xz"]
 checksum = ["e98bc4d93645082ec787730b0fd1a712b38882465c505777de17c338831ee181"]
-
-if not current.bootstrapping:
-    hostmakedepends = ["gmake", "perl"]
 
 def init_configure(self):
     self.make_build_args += [

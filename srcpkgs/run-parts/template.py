@@ -9,13 +9,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 homepage = "https://tracker.debian.org/pkg/debianutils"
 changelog = "http://metadata.ftp-master.debian.org/changelogs/main/d/debianutils/debianutils_${version}_changelog"
-
-options = ["bootstrap"]
-
-from cbuild import sites
-
-distfiles = [f"{sites.debian}/main/d/debianutils/debianutils_{version}.tar.xz"]
+distfiles = [f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{version}.tar.xz"]
 checksum = ["3b680e81709b740387335fac8f8806d71611dcf60874e1a792e862e48a1650de"]
+options = ["bootstrap"]
 
 def do_install(self):
     self.install_bin("build/run-parts")

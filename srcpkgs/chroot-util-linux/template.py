@@ -24,13 +24,11 @@ homepage = "http://userweb.kernel.org/~kzak/util-linux-ng"
 
 options = ["bootstrap"]
 
-from cbuild import sites
-
 if not current.bootstrapping:
 	hostmakedepends = ["gmake"]
 
 distfiles = [
-    f"{sites.kernel}/utils/util-linux/v{_mver}/util-linux-{version}.tar.xz"
+    f"$(KERNEL_SITE)/utils/util-linux/v{_mver}/util-linux-{version}.tar.xz"
 ]
 checksum = ["86e6707a379c7ff5489c218cfaf1e3464b0b95acf7817db0bc5f179e356a67b2"]
 conflicts = ["util-linux"]

@@ -7,13 +7,9 @@ short_desc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.gnu.org/software/ncurses/"
-
-options = ["bootstrap"]
-
-from cbuild import sites
-
-distfiles = [f"{sites.gnu}/ncurses/{pkgname}-{version}.tar.gz"]
+distfiles = [f"$(GNU_SITE)/ncurses/{pkgname}-{version}.tar.gz"]
 checksum = ["30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"]
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]

@@ -3,6 +3,22 @@ import os
 import hashlib
 from urllib import request
 
+sites = {
+    "sourceforge": "https://downloads.sourceforge.net/sourceforge",
+    "freedesktop": "https://freedesktop.org/software",
+    "mozilla": "https://ftp.mozilla.org/pub",
+    "debian": "http://ftp.debian.org/debian/pool",
+    "ubuntu": "http://archive.ubuntu.com/ubuntu/pool",
+    "nongnu": "https://download.savannah.nongnu.org/releases",
+    "kernel": "https://www.kernel.org/pub/linux",
+    "gnome": "https://download.gnome.org/sources",
+    "xorg": "https://www.x.org/releases/individual",
+    "cpan": "https://www.cpan.org/modules/by-module",
+    "pypi": "https://files.pythonhosted.org/packages/source",
+    "gnu": "https://ftp.gnu.org/gnu",
+    "kde": "https://download.kde.org/stable",
+}
+
 def get_cksum(fname, dfile, pkg):
     return hashlib.sha256(dfile.read_bytes()).hexdigest()
 
@@ -28,6 +44,20 @@ def link_cksum(fname, dfile, cksum, pkg):
     if len(cksum) > 0 and linkpath.is_file():
         linkpath.link_to(dfile)
         pkg.log(f"using known distfile '{fname}'")
+
+def interp_url(pkg, url):
+    if not url.startswith("$("):
+        return url
+
+    import re
+
+    def matchf(m):
+        mw = m.group(1).rstrip("_SITE").lower()
+        if not mw in sites:
+            pkg.error(f"malformed distfile URL '{url}'")
+        return sites[mw]
+
+    return re.sub(r"\$\((\w+)\)", matchf, url)
 
 def invoke(pkg):
     srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.version}"
@@ -56,6 +86,7 @@ def invoke(pkg):
         else:
             fname = d[d.rfind("/") + 1:]
             url = d
+        url = interp_url(pkg, url)
         dfile = srcdir / fname
         if dfile.is_file():
             filesum = get_cksum(fname, dfile, pkg)
@@ -77,6 +108,7 @@ def invoke(pkg):
         else:
             fname = d[d.rfind("/") + 1:]
             url = d
+        url = interp_url(pkg, url)
         dfile = srcdir / fname
         if not dfile.is_file():
             link_cksum(fname, dfile, ck, pkg)

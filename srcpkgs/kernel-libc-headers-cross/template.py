@@ -4,19 +4,15 @@ version = f"{_mver}.10.4"
 revision = 0
 wrksrc = f"linux-{version}"
 make_cmd = "gmake"
+hostmakedepends = ["gmake", "perl"]
 depends = []
 short_desc = "Linux API headers for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://www.kernel.org"
-nocross = True
-
-from cbuild import sites
-
-distfiles = [f"{sites.kernel}/kernel/v{_mver}.x/linux-{version}.tar.xz"]
+distfiles = [f"$(KERNEL_SITE)/kernel/v{_mver}.x/linux-{version}.tar.xz"]
 checksum = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
-
-hostmakedepends = ["gmake", "perl"]
+nocross = True
 
 _targets = list(filter(
     lambda p: p[0] != current.build_profile.arch,
