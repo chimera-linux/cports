@@ -1,5 +1,4 @@
-from cbuild.core import logger, paths, version
-from cbuild import cpu
+from cbuild.core import chroot, logger, paths, version
 
 from . import sign
 
@@ -59,7 +58,7 @@ def summarize_repo(repopath, olist, quiet = False):
     return obsolete
 
 def prune(repopath):
-    repopath = repopath / cpu.target()
+    repopath = repopath / chroot.target_cpu()
 
     if not repopath.is_dir():
         return

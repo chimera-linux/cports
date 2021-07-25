@@ -9,10 +9,23 @@ import pathlib
 from tempfile import mkstemp
 
 from cbuild.core import logger, paths
-from cbuild import cpu
 
 _chroot_checked = False
 _chroot_ready = False
+
+def host_cpu():
+    return _host
+
+def target_cpu():
+    return _target
+
+def set_target(tgt):
+    global _target
+    _target = tgt
+
+def set_host(tgt):
+    global _host
+    _host = tgt
 
 def chroot_check(force = False):
     global _chroot_checked, _chroot_ready
@@ -25,11 +38,12 @@ def chroot_check(force = False):
     if (paths.masterdir() / ".cbuild_chroot_init").is_file():
         _chroot_ready = True
         cpun = (paths.masterdir() / ".cbuild_chroot_init").read_text().strip()
-        cpu.init(cpun)
     else:
         _chroot_ready = False
         cpun = os.uname().machine
-        cpu.init(cpun)
+
+    set_host(cpun)
+    set_target(cpun)
 
     return _chroot_ready
 
@@ -65,7 +79,7 @@ def _init():
 PATH=/usr/bin
 
 exec env -i -- SHELL=/bin/sh PATH="$PATH" \
-    CBUILD_ARCH={cpu.host()} \
+    CBUILD_ARCH={host_cpu()} \
     IN_CHROOT=1 LC_COLLATE=C LANG=en_US.UTF-8 TERM=linux HOME="/tmp" \
     PS1='$PWD$ ' /bin/sh
 """)
@@ -214,9 +228,10 @@ def install(arch = None, stage = 2):
     initdb()
 
     if not arch or stage < 2:
-        arch = cpu.host()
+        arch = host_cpu()
 
-    cpu.init(arch)
+    set_host(arch)
+    set_target(arch)
     repo_sync()
 
     irun = subprocess.run([

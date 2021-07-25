@@ -1,5 +1,4 @@
-from cbuild.core import paths, logger
-from cbuild import cpu
+from cbuild.core import paths, logger, chroot
 
 import configparser
 import platform
@@ -274,7 +273,7 @@ class Profile:
 
     @property
     def cross(self):
-        return self._arch != cpu.host()
+        return self._arch != chroot.host_cpu()
 
 _all_profiles = {}
 

@@ -21,7 +21,6 @@ import builtins
 import configparser
 
 from cbuild.core import logger, chroot, paths, version, profile
-from cbuild import cpu
 
 class PackageError(Exception):
     pass
@@ -581,7 +580,7 @@ class Template(Package):
             "CXXFLAGS": self.get_cxxflags(shell = True),
             "LDFLAGS": self.get_ldflags(shell = True),
             "CBUILD_TARGET_MACHINE": self.build_profile.arch,
-            "CBUILD_MACHINE": cpu.host(),
+            "CBUILD_MACHINE": chroot.host_cpu(),
         }
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
@@ -597,7 +596,7 @@ class Template(Package):
 
         cenv.update(self.tools)
 
-        with self.profile(cpu.host()):
+        with self.profile("host"):
             cenv["BUILD_CC"] = self.get_tool("CC")
             cenv["BUILD_CXX"] = self.get_tool("CXX")
             cenv["BUILD_CPP"] = self.get_tool("CPP")
@@ -626,7 +625,7 @@ class Template(Package):
 
     def run_step(self, stepn, optional = False, skip_post = False):
         # reinit to make sure we've got up to date info
-        cpu.init_target(self.build_profile)
+        chroot.set_target(self.build_profile.arch)
 
         call_pkg_hooks(self, "pre_" + stepn)
 
@@ -651,9 +650,9 @@ class Template(Package):
         if not target:
             target = self.build_profile
         elif target == "host":
-            target = profile.get_profile(cpu.host())
+            target = profile.get_profile(chroot.host_cpu())
         elif target == "target":
-            target = profile.get_profile(cpu.target())
+            target = profile.get_profile(chroot.target_cpu())
         else:
             target = profile.get_profile(target)
 
@@ -670,9 +669,9 @@ class Template(Package):
         if not target:
             target = self.build_profile
         elif target == "host":
-            target = profile.get_profile(cpu.host())
+            target = profile.get_profile(chroot.host_cpu())
         elif target == "target":
-            target = profile.get_profile(cpu.target())
+            target = profile.get_profile(chroot.target_cpu())
         else:
             target = profile.get_profile(target)
 
@@ -689,9 +688,9 @@ class Template(Package):
         if not target:
             target = self.build_profile
         elif target == "host":
-            target = profile.get_profile(cpu.host())
+            target = profile.get_profile(chroot.host_cpu())
         elif target == "target":
-            target = profile.get_profile(cpu.target())
+            target = profile.get_profile(chroot.target_cpu())
         else:
             target = profile.get_profile(target)
 
@@ -708,9 +707,9 @@ class Template(Package):
         if not target:
             target = self.build_profile
         elif target == "host":
-            target = profile.get_profile(cpu.host())
+            target = profile.get_profile(chroot.host_cpu())
         elif target == "target":
-            target = profile.get_profile(cpu.target())
+            target = profile.get_profile(chroot.target_cpu())
         else:
             target = profile.get_profile(target)
 
@@ -727,9 +726,9 @@ class Template(Package):
         if not target:
             target = self.build_profile
         elif target == "host":
-            target = profile.get_profile(cpu.host())
+            target = profile.get_profile(chroot.host_cpu())
         elif target == "target":
-            target = profile.get_profile(cpu.target())
+            target = profile.get_profile(chroot.target_cpu())
         else:
             target = profile.get_profile(target)
 
@@ -742,9 +741,9 @@ class Template(Package):
         if not target:
             target = self.build_profile
         elif target == "host":
-            target = profile.get_profile(cpu.host())
+            target = profile.get_profile(chroot.host_cpu())
         elif target == "target":
-            target = profile.get_profile(cpu.target())
+            target = profile.get_profile(chroot.target_cpu())
         else:
             target = profile.get_profile(target)
 
@@ -755,9 +754,9 @@ class Template(Package):
         old_tgt = self.build_profile
 
         if target == "host":
-            target = cpu.host()
+            target = chroot.host_cpu()
         elif target == "target":
-            target = cpu.target()
+            target = chroot.target_cpu()
 
         try:
             self.build_profile = profile.get_profile(target)
@@ -1145,7 +1144,7 @@ def read_pkg(
     else:
         ret.cross_build = None
 
-    cpu.init_target(ret.build_profile)
+    chroot.set_target(ret.build_profile.arch)
 
     def subpkg_deco(spkgname, cond = True):
         def deco(f):

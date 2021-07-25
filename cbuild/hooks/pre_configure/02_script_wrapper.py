@@ -1,6 +1,5 @@
 from cbuild.core import paths
 from cbuild.util import compiler
-from cbuild import cpu
 
 import shutil
 
@@ -15,7 +14,7 @@ def _enable_wrappers(pkg):
 def _wrap_cross_cc(pkg):
     wrapperdir = paths.cbuild() / "wrappers"
 
-    with pkg.profile(cpu.host()):
+    with pkg.profile("host"):
         shutil.copy2(wrapperdir / "cross-cc.c", pkg.statedir / "wrappers")
         wpath = f"/builddir/.cbuild-{pkg.pkgname}/wrappers/"
         pkg.abs_wrksrc.mkdir(exist_ok = True, parents = True)

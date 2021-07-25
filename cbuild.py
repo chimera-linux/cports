@@ -188,7 +188,6 @@ paths.init(os.path.dirname(__file__), opt_masterdir, opt_hostdir)
 from cbuild.util import make
 from cbuild.core import chroot, logger, template, build, profile
 from cbuild.apk import sign, cli as apk_cli
-from cbuild import cpu
 
 make.set_jobs(opt_makejobs)
 
@@ -208,7 +207,7 @@ if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
     sys.exit(1)
 
 # fix up environment
-os.environ["CBUILD_ARCH"] = cpu.host()
+os.environ["CBUILD_ARCH"] = chroot.host_cpu()
 os.environ["PATH"] = os.environ["PATH"] + ":" + \
     str(paths.masterdir() / "usr/bin")
 
@@ -229,7 +228,7 @@ def binary_bootstrap(tgt):
     paths.prepare()
 
     if len(cmdline.command) <= 1:
-        chroot.install(cpu.host())
+        chroot.install(chroot.host_cpu())
     else:
         chroot.install(cmdline.command[1])
 
@@ -266,7 +265,7 @@ def bootstrap(tgt):
         chroot.repo_sync()
         build.build(tgt, rp, {}, opt_signkey)
         shutil.rmtree(paths.masterdir())
-        chroot.install(cpu.host())
+        chroot.install(chroot.host_cpu())
 
     if max_stage == 0:
         return
@@ -283,7 +282,7 @@ def bootstrap(tgt):
         do_pkg("pkg", "base-chroot")
         # go back to stage 1
         paths.reinit_masterdir(oldmdir, 1)
-        chroot.install(cpu.host())
+        chroot.install(chroot.host_cpu())
 
     if max_stage == 1:
         return
@@ -300,7 +299,7 @@ def bootstrap(tgt):
         do_pkg("pkg", "base-chroot")
         # go back to stage 2
         paths.reinit_masterdir(oldmdir, 2)
-        chroot.install(cpu.host())
+        chroot.install(chroot.host_cpu())
 
 def bootstrap_update(tgt):
     chroot.update()
@@ -320,7 +319,7 @@ def do_keygen(tgt):
 
 def do_chroot(tgt):
     if opt_mdirtemp:
-        chroot.install(cpu.host())
+        chroot.install(chroot.host_cpu())
     paths.prepare()
     chroot.repo_sync()
     chroot.reconfigure()
@@ -369,11 +368,11 @@ def do_pkg(tgt, pkgn = None):
     if not pkgn:
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
-        pkgn, opt_arch if opt_arch else cpu.host(), opt_force,
+        pkgn, opt_arch if opt_arch else chroot.host_cpu(), opt_force,
         opt_skipexist, opt_check, opt_gen_dbg, opt_ccache, None
     )
     if opt_mdirtemp:
-        chroot.install(cpu.host())
+        chroot.install(chroot.host_cpu())
     # don't remove builddir/destdir
     paths.prepare()
     chroot.repo_sync()

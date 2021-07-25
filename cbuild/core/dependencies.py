@@ -1,7 +1,6 @@
 from cbuild.core import logger, template, paths, chroot
 from cbuild.step import build as do_build
 from cbuild.apk import create as apkc, util as autil, cli as apki
-from cbuild import cpu
 from os import makedirs
 import subprocess
 import tempfile
@@ -24,7 +23,7 @@ def _srcpkg_ver(pkgn):
         return _tcache[pkgn]
 
     rv = template.read_pkg(
-        pkgn, cpu.target(), False, False, False, False, False, None
+        pkgn, chroot.target_cpu(), False, False, False, False, False, None
     )
     cv = rv.version + "-r" + str(rv.revision)
     _tcache[pkgn] = cv
@@ -165,7 +164,7 @@ def install_toolchain(pkg, signkey):
 
     try:
         build.build("pkg", template.read_pkg(
-            f"base-cross-{archn}", cpu.host(),
+            f"base-cross-{archn}", chroot.host_cpu(),
             False, True, pkg.run_check, pkg.build_dbg,
             pkg.use_ccache, None
         ), {}, signkey, chost = True)
@@ -288,9 +287,9 @@ def install(pkg, origpkg, step, depmap, signkey):
         style = f" [{pkg.build_style}]"
 
     if pkg.pkgname != origpkg:
-        pkg.log(f"building{style} (dependency of {origpkg}) for {cpu.target()}...")
+        pkg.log(f"building{style} (dependency of {origpkg}) for {chroot.target_cpu()}...")
     else:
-        pkg.log(f"building{style} for {cpu.target()}...")
+        pkg.log(f"building{style} for {chroot.target_cpu()}...")
 
     host_binpkg_deps = []
     binpkg_deps = []
@@ -391,8 +390,8 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     from cbuild.core import build
 
-    chost = cpu.host()
-    ctgt = cpu.target()
+    chost = chroot.host_cpu()
+    ctgt = chroot.target_cpu()
 
     for pn in host_missing_deps:
         try:
@@ -428,7 +427,7 @@ def install(pkg, origpkg, step, depmap, signkey):
         host_binpkg_deps.append(rd)
 
     # reinit after parsings
-    cpu.init_target(pkg.build_profile)
+    chroot.set_target(pkg.build_profile.arch)
 
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
