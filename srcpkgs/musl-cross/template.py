@@ -20,15 +20,14 @@ nocross = True
 hardening = ["!scp"]
 
 from cbuild.util import compiler, make
-from cbuild import cpu
 
-_targets = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(
+    lambda p: p != current.build_profile.arch,
+    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+))
 
 def do_configure(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             at = self.build_profile.short_triplet
             # musl build dir
@@ -48,9 +47,6 @@ def do_configure(self):
 
 def do_build(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             mbpath = self.abs_wrksrc / f"build-{an}"
             mbpath.mkdir(exist_ok = True)
@@ -62,9 +58,6 @@ def do_build(self):
 
 def do_install(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             at = self.build_profile.short_triplet
             self.install_dir(f"usr/{at}/usr/lib")
@@ -77,13 +70,12 @@ def do_install(self):
             self.unlink(f"usr/{at}/lib")
 
 def _gen_crossp(an, at):
-    @subpackage(f"musl-cross-{an}", cpu.target() != an)
+    @subpackage(f"musl-cross-{an}")
     def _subp(self):
         self.short_desc = f"{short_desc} - {an} support"
         self.depends = [f"clang-rt-cross-base-{an}"]
         return [f"usr/{at}"]
-    if cpu.target() != an:
-        depends.append(f"musl-cross-{an}")
+    depends.append(f"musl-cross-{an}")
 
 for an in _targets:
     with current.profile(an):

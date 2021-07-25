@@ -54,19 +54,18 @@ cmake_dir = "compiler-rt"
 CFLAGS = ["-fPIC"]
 CXXFLAGS = ["-fPIC"]
 
-_targets = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(
+    lambda p: p != current.build_profile.arch,
+    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+))
 
 from cbuild.util import cmake, make
-from cbuild import cpu
 
 def init_configure(self):
     self.make = make.Make(self)
 
 def do_configure(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             at = self.build_profile.short_triplet
             # configure compiler-rt
@@ -81,9 +80,6 @@ def do_configure(self):
 
 def do_build(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
@@ -93,9 +89,6 @@ def do_install(self):
     import shutil
 
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             self.make.install(wrksrc = f"build-{an}")
 
@@ -108,7 +101,7 @@ def _gen_crossp(an):
     with current.profile(an):
         at = current.build_profile.short_triplet
 
-    @subpackage(f"clang-rt-cross-{an}", cpu.target() != an)
+    @subpackage(f"clang-rt-cross-{an}")
     def _subp(self):
         self.short_desc = f"{short_desc} - {an} support"
         self.depends = [
@@ -118,8 +111,7 @@ def _gen_crossp(an):
         ]
         self.options = ["!scanshlibs"]
         return [f"usr/lib/clang/{version}/lib/linux/libclang_rt.*{at[0:at.find('-')]}*"]
-    if cpu.target() != an:
-        depends.append(f"clang-rt-cross-{an}={version}-r{revision}")
+    depends.append(f"clang-rt-cross-{an}={version}-r{revision}")
 
 for an in _targets:
     _gen_crossp(an)

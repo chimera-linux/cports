@@ -11,7 +11,7 @@ homepage = "http://www.kernel.org"
 
 options = ["bootstrap"]
 
-from cbuild import sites, cpu
+from cbuild import sites
 
 distfiles = [f"{sites.kernel}/kernel/v{_mver}.x/linux-{version}.tar.xz"]
 checksum = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
@@ -19,12 +19,13 @@ checksum = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
 if not current.bootstrapping:
     hostmakedepends = ["gmake", "perl"]
 
-_arch = cpu.match_target(
-    "x86_64*", lambda a: "x86",
-    "aarch64*", lambda a: "arm64",
-    "ppc*", lambda a: "powerpc",
-    "riscv64*", lambda a: "riscv",
-)
+_arch = {
+    "x86_64": "x86",
+    "aarch64": "arm64",
+    "ppc64le": "powerpc",
+    "ppc64": "powerpc",
+    "riscv64": "riscv",
+}[current.build_profile.arch]
 
 def do_build(self):
     from cbuild.util import make
@@ -34,7 +35,7 @@ def do_build(self):
 
     tcfl = self.get_cflags(shell = True)
     tlfl = self.get_ldflags(shell = True)
-    with self.profile(cpu.host()):
+    with self.profile("host"):
         hcfl = self.get_cflags(shell = True)
         hlfl = self.get_ldflags(shell = True)
 

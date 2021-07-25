@@ -24,9 +24,8 @@ CFLAGS = ["-fPIC"]
 
 def do_configure(self):
     from cbuild.util import gnu_configure
-    from cbuild import cpu
 
-    with self.profile(cpu.host()):
+    with self.profile("host"):
         bcflags = self.get_cflags(shell = True)
 
     import os

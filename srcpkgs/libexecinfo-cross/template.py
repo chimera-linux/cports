@@ -13,16 +13,15 @@ distfiles = [f"http://distcache.freebsd.org/local-distfiles/itetcu/libexecinfo-{
 checksum = ["c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"]
 nocross = True
 
-_targets = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-
-from cbuild import cpu
+_targets = list(filter(
+    lambda p: p != current.build_profile.arch,
+    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+))
 
 def do_build(self):
     import shutil
 
     for an in _targets:
-        if cpu.target() == an:
-            continue
         # skip already done pass
         if (self.abs_wrksrc / f"libexecinfo.a.{an}").exists():
             continue
@@ -49,8 +48,6 @@ def do_install(self):
     import shutil
 
     for an in _targets:
-        if cpu.target() == an:
-            continue
         with self.profile(an):
             at = self.build_profile.short_triplet
             self.install_dir(f"usr/{at}/usr/lib/pkgconfig")
@@ -86,14 +83,13 @@ def do_install(self):
             )
 
 def _gen_crossp(an, at):
-    @subpackage(f"libexecinfo-cross-{an}", cpu.target() != an)
+    @subpackage(f"libexecinfo-cross-{an}")
     def _subp(self):
         self.short_desc = f"{short_desc} - {an} support"
         self.depends = [f"musl-cross-{an}"]
         self.options = ["!scanshlibs"]
         return [f"usr/{at}"]
-    if cpu.target() != an:
-        depends.append(f"libexecinfo-cross-{an}={version}-r{revision}")
+    depends.append(f"libexecinfo-cross-{an}={version}-r{revision}")
 
 for an in _targets:
     with current.profile(an):

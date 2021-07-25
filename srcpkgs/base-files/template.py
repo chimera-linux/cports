@@ -29,7 +29,6 @@ conf_files = [
 ]
 
 def do_install(self):
-    from cbuild import cpu
 
     # Create bin and lib dirs and symlinks
     for d in ["bin", "lib"]:
@@ -41,8 +40,9 @@ def do_install(self):
     self.install_link("bin", "usr/sbin")
 
     # Symlink word-specific lib paths
-    self.install_link("usr/lib", "lib" + str(cpu.target_wordsize()))
-    self.install_link("lib", "usr/lib" + str(cpu.target_wordsize()))
+    wsize = self.build_profile.wordsize
+    self.install_link("usr/lib", "lib" + str(wsize))
+    self.install_link("lib", "usr/lib" + str(wsize))
 
     # Install misc config files
     self.install_dir("etc/skel")

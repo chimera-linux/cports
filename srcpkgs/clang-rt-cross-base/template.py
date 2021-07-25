@@ -54,10 +54,12 @@ CXXFLAGS = ["-fPIC"]
 
 subpackages = []
 
-_targets = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(
+    lambda p: p != current.build_profile.arch,
+    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+))
 
 from cbuild.util import cmake, make
-from cbuild import cpu
 
 def post_patch(self):
     import shutil
@@ -70,9 +72,6 @@ def init_configure(self):
 
 def do_configure(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             at = self.build_profile.short_triplet
             # musl build dir
@@ -114,9 +113,6 @@ def do_configure(self):
 
 def do_build(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
@@ -124,9 +120,6 @@ def do_build(self):
 
 def do_install(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             self.make.install(wrksrc = f"build-{an}")
 
@@ -139,9 +132,6 @@ def _gen_subp(an, at):
     return _subp
 
 for an in _targets:
-    if cpu.target() == an:
-        continue
-
     with current.profile(an):
         at = current.build_profile.short_triplet
 

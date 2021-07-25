@@ -32,22 +32,22 @@ nocross = True
 
 cmake_dir = "libcxxabi"
 
-_targets = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(
+    lambda p: p != current.build_profile.arch,
+    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+))
 
 # not available yet, prevent cmake checks
 CFLAGS = ["-fPIC"]
 CXXFLAGS = ["-fPIC", "-nostdlib"]
 
 from cbuild.util import cmake, make
-from cbuild import cpu
 
 def init_configure(self):
     self.make = make.Make(self)
 
 def do_configure(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
 
         with self.profile(an):
             at = self.build_profile.short_triplet
@@ -63,9 +63,6 @@ def do_configure(self):
 
 def do_build(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
@@ -85,9 +82,6 @@ def _install_hdrs(self):
 
 def do_install(self):
     for an in _targets:
-        if cpu.target() == an:
-            continue
-
         with self.profile(an):
             self.make.install(
                 ["DESTDIR=" + str(
@@ -98,14 +92,13 @@ def do_install(self):
             _install_hdrs(self)
 
 def _gen_crossp(an, at):
-    @subpackage(f"libcxxabi-cross-{an}", cpu.target() != an)
+    @subpackage(f"libcxxabi-cross-{an}")
     def _subp(self):
         self.short_desc = f"{short_desc} - {an} support"
         self.depends = [f"libunwind-cross-{an}"]
         self.options = ["!scanshlibs"]
         return [f"usr/{at}"]
-    if cpu.target() != an:
-        depends.append(f"libcxxabi-cross-{an}={version}-r{revision}")
+    depends.append(f"libcxxabi-cross-{an}={version}-r{revision}")
 
 for an in _targets:
     with current.profile(an):

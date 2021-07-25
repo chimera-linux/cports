@@ -753,6 +753,12 @@ class Template(Package):
     @contextlib.contextmanager
     def profile(self, target):
         old_tgt = self.build_profile
+
+        if target == "host":
+            target = cpu.host()
+        elif target == "target":
+            target = cpu.target()
+
         try:
             self.build_profile = profile.get_profile(target)
             yield

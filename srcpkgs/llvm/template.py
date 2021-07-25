@@ -75,15 +75,13 @@ else:
         "-DCOMPILER_RT_BUILD_MEMPROF=NO",
     ]
 
-from cbuild import cpu
-
-_triplet, _arch = cpu.match_target(
-    "x86_64*", ("x86_64-linux-musl", "X86"),
-    "aarch64*", ("aarch64-linux-musl", "AArch64"),
-    "ppc64le*", ("powerpc64le-linux-musl", "PowerPC"),
-    "ppc64*", ("powerpc64-linux-musl", "PowerPC"),
-    "riscv64*", ("riscv64-linux-musl", "RISCV64"),
-)
+_triplet, _arch = {
+    "x86_64": ("x86_64-linux-musl", "X86"),
+    "aarch64": ("aarch64-linux-musl", "AArch64"),
+    "ppc64le": ("powerpc64le-linux-musl", "PowerPC"),
+    "ppc64": ("powerpc64-linux-musl", "PowerPC"),
+    "riscv64": ("riscv64-linux-musl", "RISCV64"),
+}[current.build_profile.arch]
 
 def init_configure(self):
     if not self.cross_build:
@@ -100,7 +98,7 @@ def pre_configure(self):
 
     self.log("building host tblgen...")
 
-    with self.profile(cpu.host()):
+    with self.profile("host"):
         with self.stamp("host_llvm_configure"):
             cmake.configure(self, self.cmake_dir, "build_host")
 

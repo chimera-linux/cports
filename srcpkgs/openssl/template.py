@@ -22,19 +22,16 @@ options = ["bootstrap"]
 if not current.bootstrapping:
     hostmakedepends = ["perl"]
 
-from cbuild import cpu
-
-ecargs = cpu.match_target(
-    "x86_64*", ["enable-ec_nistp_64_gcc_128", "linux-x86_64"],
-    "aarch64*", ["linux-aarch64"],
-    "ppc64le*", ["linux-ppc64le"],
-    "ppc64*", ["linux-ppc64"],
-    "riscv64*", ["linux-generic64"], # linux64-riscv64 for openssl 3
-    "*", None
-)
+ecargs = {
+    "x86_64": ["enable-ec_nistp_64_gcc_128", "linux-x86_64"],
+    "aarch64": ["linux-aarch64"],
+    "ppc64le": ["linux-ppc64le"],
+    "ppc64": ["linux-ppc64"],
+    "riscv64": ["linux-generic64"], # linux64-riscv64 for openssl 3
+}.get(current.build_profile.arch, None)
 
 if not ecargs:
-    broken = f"Unknown CPU: {cpu.target()}"
+    broken = f"Unknown CPU: {current.build_profile.arch}"
 
 configure_args += ecargs
 

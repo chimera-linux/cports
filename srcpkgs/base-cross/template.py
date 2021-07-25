@@ -8,7 +8,10 @@ license = "Public Domain"
 homepage = "https://chimera-linux.org"
 nocross = True
 
-_targets = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(
+    lambda p: p != current.build_profile.arch,
+    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+))
 
 def do_fetch(self):
     pass
@@ -43,9 +46,7 @@ def do_install(self):
     pass
 
 def _gen_crossp(an, at):
-    from cbuild import cpu
-
-    @subpackage(f"base-cross-{an}", cpu.target() != an)
+    @subpackage(f"base-cross-{an}")
     def _subp(self):
         self.short_desc = f"{short_desc} - {an}"
         self.depends = [
@@ -55,8 +56,7 @@ def _gen_crossp(an, at):
             f"kernel-libc-headers-cross-{an}",
         ]
         return [f"usr/bin/{at}-*", f"usr/lib/ccache/bin/{at}-*"]
-    if cpu.target() != an:
-        depends.append(f"base-cross-{an}={version}-r{revision}")
+    depends.append(f"base-cross-{an}={version}-r{revision}")
 
 for an in _targets:
     with current.profile(an):
