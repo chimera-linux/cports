@@ -26,23 +26,21 @@ def post_install(self):
 def _libmagic(self):
     self.short_desc = "File type identification library"
 
-    def install():
-        self.take("usr/lib/*.so.*")
-        self.take("usr/share/misc")
-        self.take("usr/share/man/man4")
-
-    return install
+    return [
+        "usr/lib/*.so.*",
+        "usr/share/misc",
+        "usr/share/man/man4",
+    ]
 
 @subpackage("file-devel")
 def _devel(self):
     self.depends = makedepends + [f"libmagic={version}-r{revision}"]
     self.short_desc = "File type identification library - development files"
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/*.a")
-        self.take("usr/lib/*.so")
-        self.take("usr/lib/pkgconfig")
-        self.take("usr/share/man/man3")
-
-    return install
+    return [
+        "usr/include",
+        "usr/lib/*.a",
+        "usr/lib/*.so",
+        "usr/lib/pkgconfig",
+        "usr/share/man/man3",
+    ]

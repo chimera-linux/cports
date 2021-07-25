@@ -24,20 +24,16 @@ def post_install(self):
 def _lib(self):
     self.short_desc = "XZ-format compression library"
 
-    def install():
-        self.take("usr/lib/*.so.*")
-
-    return install
+    return ["usr/lib/*.so.*"]
 
 @subpackage("liblzma-devel")
 def _devel(self):
     self.short_desc = "XZ-format compression library - development files"
     self.depends = [f"liblzma={version}-r{revision}"]
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/*.a")
-        self.take("usr/lib/*.so")
-        self.take("usr/lib/pkgconfig")
-
-    return install
+    return [
+        "usr/include",
+        "usr/lib/*.a",
+        "usr/lib/*.so",
+        "usr/lib/pkgconfig",
+    ]

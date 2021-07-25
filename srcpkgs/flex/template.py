@@ -24,8 +24,4 @@ def post_install(self):
 def _devel(self):
     self.short_desc = short_desc + " - development files"
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/*.a")
-
-    return install
+    return ["usr/include", "usr/lib/*.a"]

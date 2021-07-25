@@ -24,20 +24,16 @@ def post_install(self):
 def _lib(self):
     self.short_desc = "LZ4 compression library"
 
-    def install():
-        self.take("usr/lib/*.so.*")
-
-    return install
+    return "usr/lib/*.so.*"]
 
 @subpackage("liblz4-devel")
 def _devel(self):
     self.short_decs = "LZ4 compression library - development files"
     self.depends = [f"liblz4={version}-r{revision}"]
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/*.a")
-        self.take("usr/lib/*.so")
-        self.take("usr/lib/pkgconfig")
-
-    return install
+    return [
+        "usr/include",
+        "usr/lib/*.a",
+        "usr/lib/*.so",
+        "usr/lib/pkgconfig",
+    ]

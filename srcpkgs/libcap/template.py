@@ -38,23 +38,18 @@ def _devel(self):
     self.depends = [f"{pkgname}={version}-r{revision}"]
     self.short_desc = short_desc + " - development files"
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/libcap.a")
-        self.take("usr/lib/libpsx.a")
-        self.take("usr/lib/libcap.so")
-        self.take("usr/lib/libpsx.so")
-        self.take("usr/lib/pkgconfig")
-        self.take("usr/share/man/man3")
-
-    return install
+    return [
+        "usr/include",
+        "usr/lib/libcap.a",
+        "usr/lib/libpsx.a",
+        "usr/lib/libcap.so",
+        "usr/lib/libpsx.so",
+        "usr/lib/pkgconfig",
+        "usr/share/man/man3",
+    ]
 
 @subpackage("libcap-progs")
 def _progs(self):
     self.short_desc = short_desc + " - utilities"
 
-    def install():
-        self.take("usr/bin")
-        self.take("usr/share")
-
-    return install
+    return ["usr/bin", "usr/share"]

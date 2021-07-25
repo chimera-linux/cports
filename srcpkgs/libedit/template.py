@@ -23,11 +23,10 @@ def _devel(self):
     self.depends = [f"{pkgname}={version}-r{revision}"] + makedepends
     self.short_desc = short_desc + " - development files"
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/*.a")
-        self.take("usr/lib/*.so")
-        self.take("usr/lib/pkgconfig")
-        self.take("usr/share/man/man3")
-
-    return install
+    return [
+        "usr/include",
+        "usr/lib/*.a",
+        "usr/lib/*.so",
+        "usr/lib/pkgconfig",
+        "usr/share/man/man3",
+    ]

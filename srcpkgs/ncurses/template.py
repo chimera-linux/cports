@@ -123,69 +123,63 @@ def do_install(self):
 def _libs(self):
     self.short_desc = short_desc + " - shared libraries"
 
-    def install():
-        self.take("usr/lib/libform*.so.*")
-        self.take("usr/lib/libmenu*.so.*")
-        self.take("usr/lib/libncurses*.so.*")
-        self.take("usr/lib/libpanel*.so.*")
-
-    return install
+    return [
+        "usr/lib/libform*.so.*",
+        "usr/lib/libmenu*.so.*",
+        "usr/lib/libncurses*.so.*",
+        "usr/lib/libpanel*.so.*",
+    ]
 
 @subpackage("ncurses-devel")
 def _devel(self):
     self.short_desc = short_desc + " - development files"
     self.depends = [f"ncurses-libs={version}-r{revision}"]
 
-    def install():
-        self.take("usr/bin/ncurses*-config")
-        self.take("usr/include")
-        self.take("usr/lib/pkgconfig/ncursesw.pc")
-        self.take("usr/lib/pkgconfig/formw.pc")
-        self.take("usr/lib/pkgconfig/menuw.pc")
-        self.take("usr/lib/pkgconfig/ncurses++w.pc")
-        self.take("usr/lib/pkgconfig/panelw.pc")
-        self.take("usr/lib/*.a")
-        self.take("usr/lib/libcurses*.so")
-        self.take("usr/lib/libform*.so")
-        self.take("usr/lib/libmenu*.so")
-        self.take("usr/lib/libncurses*.so")
-        self.take("usr/lib/libpanel*.so")
-        self.take("usr/share/man/man3")
-        self.take("usr/share/man/man1/ncursesw6-config.1")
-
-    return install
+    return [
+        "usr/bin/ncurses*-config",
+        "usr/include",
+        "usr/lib/pkgconfig/ncursesw.pc",
+        "usr/lib/pkgconfig/formw.pc",
+        "usr/lib/pkgconfig/menuw.pc",
+        "usr/lib/pkgconfig/ncurses++w.pc",
+        "usr/lib/pkgconfig/panelw.pc",
+        "usr/lib/*.a",
+        "usr/lib/libcurses*.so",
+        "usr/lib/libform*.so",
+        "usr/lib/libmenu*.so",
+        "usr/lib/libncurses*.so",
+        "usr/lib/libpanel*.so",
+        "usr/share/man/man3",
+        "usr/share/man/man1/ncursesw6-config.1",
+    ]
 
 @subpackage("ncurses-base")
 def _base(self):
     self.short_desc = short_desc + " - base terminfo files"
 
-    def install():
-        with (self.rparent.files_path / "base-files").open() as f:
-            for fn in f:
-                self.take(fn.strip()[1:])
+    flist = []
+    with (self.rparent.files_path / "base-files").open() as f:
+        for fn in f:
+            flist.append(fn.strip()[1:])
 
-    return install
+    return flist
 
 @subpackage("ncurses-term")
 def _term(self):
     self.short_desc = short_desc + " - full terminal descriptions"
     self.depends = [f"ncurses-base={version}-r{revision}"]
 
-    def install():
-        self.take("usr/share/tabset")
-        self.take("usr/share/terminfo")
-
-    return install
+    return [
+        "usr/share/tabset",
+        "usr/share/terminfo",
+    ]
 
 @subpackage("ncurses-libtinfo-libs")
 def _tinfo(self):
     self.short_desc = short_desc + " - libtinfo.so symlink"
     self.depends = [f"ncurses-libs={version}-r{revision}"]
 
-    def install():
-        self.take("usr/lib/libtinfo*.so.*")
-
-    return install
+    return ["usr/lib/libtinfo*.so.*"]
 
 @subpackage("ncurses-libtinfo-devel")
 def _tdevel(self):
@@ -195,8 +189,7 @@ def _tdevel(self):
         f"ncurses-libtinfo-libs={version}-r{revision}"
     ]
 
-    def install():
-        self.take("usr/lib/libtinfo.so")
-        self.take("usr/lib/pkgconfig/tinfo.pc")
-
-    return install
+    return [
+        "usr/lib/libtinfo.so",
+        "usr/lib/pkgconfig/tinfo.pc",
+    ]

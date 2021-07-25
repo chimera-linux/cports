@@ -35,33 +35,30 @@ def post_install(self):
     import os
     os.rename(self.destdir / "usr/bin/bsdtar", self.destdir / "usr/bin/tar")
     os.rename(self.destdir / "usr/bin/bsdcpio", self.destdir / "usr/bin/cpio")
+    os.rename(
+        self.destdir / "usr/share/man/man5/mtree.5",
+        self.destdir / "usr/share/man/man5/libarchive-mtree.5"
+    )
 
 @subpackage("bsdtar")
 def _bsdtar(self):
     self.short_desc = "BSD utilities using libarchive"
 
-    def install():
-        self.take("usr/bin")
-        self.take("usr/share/man/man1")
-        self.take("usr/share/man/man5")
-        import os
-        os.rename(
-            self.destdir / "usr/share/man/man5/mtree.5",
-            self.destdir / "usr/share/man/man5/libarchive-mtree.5"
-        )
-
-    return install
+    return [
+        "usr/bin",
+        "usr/share/man/man1",
+        "usr/share/man/man5",
+    ]
 
 @subpackage("libarchive-devel")
 def _devel(self):
     self.short_desc = short_desc + " - development files"
     self.depends = makedepends + [f"{pkgname}={version}-r{revision}"]
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/*.a")
-        self.take("usr/lib/*.so")
-        self.take("usr/lib/pkgconfig")
-        self.take("usr/share")
-
-    return install
+    return [
+        "usr/include",
+        "usr/lib/*.a",
+        "usr/lib/*.so",
+        "usr/lib/pkgconfig",
+        "usr/share",
+    ]

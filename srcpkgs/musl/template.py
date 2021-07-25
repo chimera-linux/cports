@@ -64,9 +64,8 @@ def _devel(self):
     self.depends = ["kernel-libc-headers", f"{pkgname}={version}-r{revision}"]
     self.short_desc = short_desc + " - development files"
 
-    def install():
-        self.take("usr/include")
-        self.take("usr/lib/*.a")
-        self.take("usr/lib/*.o")
-
-    return install
+    return [
+        "usr/include",
+        "usr/lib/*.a",
+        "usr/lib/*.o",
+    ]

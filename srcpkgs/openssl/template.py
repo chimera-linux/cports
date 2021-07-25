@@ -51,20 +51,16 @@ def do_build(self):
 def _libcrypto(self):
     self.short_desc = short_desc + " - crypto library"
 
-    def install():
-        self.take("usr/lib/libcrypto.so.*")
-        self.take("usr/lib/engines-1.1")
-
-    return install
+    return [
+        "usr/lib/libcrypto.so.*",
+        "usr/lib/engines-1.1",
+    ]
 
 @subpackage("libssl1.1")
 def _libssl(self):
     self.short_desc = short_desc + " - SSL/TLS library"
 
-    def install():
-        self.take("usr/lib/libssl.so.*")
-
-    return install
+    return ["usr/lib/libssl.so.*"]
 
 @subpackage("openssl-c_rehash")
 def _crehash(self):
@@ -74,10 +70,7 @@ def _crehash(self):
     if not self.bootstrapping:
         self.depends.append("perl")
 
-    def install():
-        self.take("usr/bin/c_rehash")
-
-    return install
+    return ["usr/bin/c_rehash"]
 
 @subpackage("openssl-devel")
 def _devel(self):
@@ -88,12 +81,11 @@ def _devel(self):
         f"libcrypto1.1={version}-r{revision}"
     ]
 
-    def install():
-        self.take("usr/share/man/man3")
-        self.take("usr/share/doc")
-        self.take("usr/include")
-        self.take("usr/lib/pkgconfig")
-        self.take("usr/lib/*.a")
-        self.take("usr/lib/*.so")
-
-    return install
+    return [
+        "usr/share/man/man3",
+        "usr/share/doc",
+        "usr/include",
+        "usr/lib/pkgconfig",
+        "usr/lib/*.a",
+        "usr/lib/*.so",
+    ]
