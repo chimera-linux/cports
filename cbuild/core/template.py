@@ -1047,6 +1047,9 @@ def from_module(m, ret):
         else:
             ret.error(f"yes")
 
+    if ret.bootstrapping and not ret.options["bootstrap"]:
+        ret.error("attempt to bootstrap a non-bootstrap package")
+
     os.makedirs(ret.statedir, exist_ok = True)
     os.makedirs(ret.wrapperdir, exist_ok = True)
 
