@@ -24,7 +24,7 @@ def post_install(self):
 def _lib(self):
     self.short_desc = "LZ4 compression library"
 
-    return "usr/lib/*.so.*"]
+    return ["usr/lib/*.so.*"]
 
 @subpackage("liblz4-devel")
 def _devel(self):
