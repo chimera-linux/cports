@@ -52,7 +52,7 @@ def interp_url(pkg, url):
     import re
 
     def matchf(m):
-        mw = m.group(1).rstrip("_SITE").lower()
+        mw = m.group(1).removesuffix("_SITE").lower()
         if not mw in sites:
             pkg.error(f"malformed distfile URL '{url}'")
         return sites[mw]
