@@ -190,7 +190,7 @@ def create(
             ctar.addfile(cinfo, cstream)
         if "hooks" in metadata:
             for hook in metadata["hooks"]:
-                ctar.add(hook, hook.name.lstrip(pkgname), filter = hook_filter)
+                ctar.add(hook, hook.name.removeprefix(pkgname), filter = hook_filter)
 
     # concat together
     with open(outfile, "wb") as ffile:
