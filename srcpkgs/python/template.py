@@ -4,7 +4,7 @@ version = f"{_majver}.5"
 revision = 0
 wrksrc = f"Python-{version}"
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["pkgconf", "gmake"]
 # FIXME: expat, readline, sqlite
 configure_args = [
     "--enable-shared", "--enable-ipv6", "--with-computed-gotos",
@@ -25,7 +25,7 @@ distfiles = [f"https://python.org/ftp/python/{version}/Python-{version}.tar.xz"]
 checksum = ["0c5a140665436ec3dbfbb79e2dfb6d192655f26ef4a29aeffcb6d1820d716d83"]
 
 if current.cross_build:
-    hostmakedepends += ["gmake", "python"]
+    hostmakedepends += ["python"]
 
 def init_configure(self):
     bigend = "yes" if (self.build_profile.endian == "big") else "no"
