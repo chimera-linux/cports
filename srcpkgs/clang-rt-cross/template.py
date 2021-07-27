@@ -73,7 +73,7 @@ def do_configure(self):
                     f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                     f"-DCMAKE_CXX_COMPILER_TARGET={at}",
                     f"-DCMAKE_C_COMPILER_TARGET={at}"
-                ])
+                ], cross_build = False)
 
 def do_build(self):
     for an in _targets:

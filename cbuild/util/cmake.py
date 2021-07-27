@@ -1,6 +1,9 @@
 from cbuild.core import paths
 
-def configure(pkg, cmake_dir = None, build_dir = "build", extra_args = []):
+def configure(
+    pkg, cmake_dir = None, build_dir = "build", extra_args = [],
+    cross_build = None
+):
     if cmake_dir:
         cdir = str(pkg.chroot_wrksrc / cmake_dir)
     else:
@@ -28,7 +31,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 """)
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
-    elif pkg.build_profile.cross:
+    elif pkg.build_profile.cross and cross_build != False:
         # map known profiles to cmake arch
         cmake_cpu = {
             "aarch64": "aarch64",

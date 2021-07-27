@@ -106,7 +106,7 @@ def do_configure(self):
                     f"-DCMAKE_C_FLAGS=" + self.get_cflags([
                         "--sysroot=" + str(self.chroot_wrksrc  / f"musl-{an}")
                     ], shell = True)
-                ])
+                ], cross_build = False)
 
 def do_build(self):
     for an in _targets:
