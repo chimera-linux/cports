@@ -75,12 +75,12 @@ else:
         "-DCOMPILER_RT_BUILD_MEMPROF=NO",
     ]
 
-_triplet, _arch = {
-    "x86_64": ("x86_64-linux-musl", "X86"),
-    "aarch64": ("aarch64-linux-musl", "AArch64"),
-    "ppc64le": ("powerpc64le-linux-musl", "PowerPC"),
-    "ppc64": ("powerpc64-linux-musl", "PowerPC"),
-    "riscv64": ("riscv64-linux-musl", "RISCV64"),
+_arch = {
+    "x86_64": "X86",
+    "aarch64": "AArch64",
+    "ppc64le": "PowerPC",
+    "ppc64": "PowerPC",
+    "riscv64": "RISCV64",
 }[current.build_profile.arch]
 
 def init_configure(self):
@@ -117,10 +117,14 @@ def pre_configure(self):
 def do_configure(self):
     from cbuild.util import cmake
 
+    # when bootstrapping, this will check the actual profile
+    with self.profile(self.build_profile.arch):
+        trip = self.build_profile.short_triplet
+
     cmake.configure(self, self.cmake_dir, "build", [
         "-DLLVM_TARGET_ARCH=" + _arch,
-        "-DLLVM_HOST_TRIPLE=" + _triplet,
-        "-DLLVM_DEFAULT_TARGET_TRIPLE=" + _triplet,
+        "-DLLVM_HOST_TRIPLE=" + trip,
+        "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
     ])
 
 def post_install(self):
