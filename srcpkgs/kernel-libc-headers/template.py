@@ -31,14 +31,16 @@ def do_build(self):
 
     tcfl = self.get_cflags(shell = True)
     tlfl = self.get_ldflags(shell = True)
+    tcc = self.get_tool("CC")
     with self.profile("host"):
         hcfl = self.get_cflags(shell = True)
         hlfl = self.get_ldflags(shell = True)
+        hcc = self.get_tool("CC")
 
     mk.invoke("mrproper", [
         "ARCH=" + _arch,
-        "CC=clang -target " + self.build_profile.short_triplet,
-        "HOSTCC=clang",
+        "CC=" + tcc,
+        "HOSTCC=" + hcc,
         "CFLAGS=" + tcfl,
         "HOSTCFLAGS=" + hcfl,
         "LDFLAGS=" + tlfl,
