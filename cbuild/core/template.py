@@ -454,6 +454,18 @@ def copy_of_dval(val):
         return dict(val)
     return val
 
+def pkg_profile(pkg, target):
+    if pkg.bootstrapping and (target == "host" or target == "target"):
+        return profile.get_profile("bootstrap")
+    elif target == "host":
+        return profile.get_profile(chroot.host_cpu())
+    elif target == "target":
+        return profile.get_profile(chroot.target_cpu())
+    elif not target:
+        return pkg.build_profile
+
+    return profile.get_profile(target)
+
 class Template(Package):
     def __init__(self, pkgname, origin):
         super().__init__()
@@ -647,14 +659,7 @@ class Template(Package):
     def get_cflags(
         self, extra_flags = [], hardening = [], shell = False, target = None
     ):
-        if not target:
-            target = self.build_profile
-        elif target == "host":
-            target = profile.get_profile(chroot.host_cpu())
-        elif target == "target":
-            target = profile.get_profile(chroot.target_cpu())
-        else:
-            target = profile.get_profile(target)
+        target = pkg_profile(self, target)
 
         return target.get_cflags(
             self.CFLAGS + extra_flags,
@@ -666,14 +671,7 @@ class Template(Package):
     def get_cxxflags(
         self, extra_flags = [], hardening = [], shell = False, target = None
     ):
-        if not target:
-            target = self.build_profile
-        elif target == "host":
-            target = profile.get_profile(chroot.host_cpu())
-        elif target == "target":
-            target = profile.get_profile(chroot.target_cpu())
-        else:
-            target = profile.get_profile(target)
+        target = pkg_profile(self, target)
 
         return target.get_cxxflags(
             self.CXXFLAGS + extra_flags,
@@ -685,14 +683,7 @@ class Template(Package):
     def get_fflags(
         self, extra_flags = [], hardening = [], shell = False, target = None
     ):
-        if not target:
-            target = self.build_profile
-        elif target == "host":
-            target = profile.get_profile(chroot.host_cpu())
-        elif target == "target":
-            target = profile.get_profile(chroot.target_cpu())
-        else:
-            target = profile.get_profile(target)
+        target = pkg_profile(self, target)
 
         return target.get_fflags(
             self.FFLAGS + extra_flags,
@@ -704,14 +695,7 @@ class Template(Package):
     def get_ldflags(
         self, extra_flags = [], hardening = [], shell = False, target = None
     ):
-        if not target:
-            target = self.build_profile
-        elif target == "host":
-            target = profile.get_profile(chroot.host_cpu())
-        elif target == "target":
-            target = profile.get_profile(chroot.target_cpu())
-        else:
-            target = profile.get_profile(target)
+        target = pkg_profile(self, target)
 
         return target.get_ldflags(
             self.LDFLAGS + extra_flags,
@@ -723,14 +707,7 @@ class Template(Package):
         if not name in self.tools:
             return None
 
-        if not target:
-            target = self.build_profile
-        elif target == "host":
-            target = profile.get_profile(chroot.host_cpu())
-        elif target == "target":
-            target = profile.get_profile(chroot.target_cpu())
-        else:
-            target = profile.get_profile(target)
+        target = pkg_profile(self, target)
 
         if name in cross_tools and target.cross:
             return f"{target.short_triplet}-{self.tools[name]}"
@@ -738,14 +715,7 @@ class Template(Package):
         return self.tools[name]
 
     def has_hardening(self, hname, target = None):
-        if not target:
-            target = self.build_profile
-        elif target == "host":
-            target = profile.get_profile(chroot.host_cpu())
-        elif target == "target":
-            target = profile.get_profile(chroot.target_cpu())
-        else:
-            target = profile.get_profile(target)
+        target = pkg_profile(self, target)
 
         return target.has_hardening(hname, self.hardening)
 
@@ -753,7 +723,9 @@ class Template(Package):
     def profile(self, target):
         old_tgt = self.build_profile
 
-        if target == "host":
+        if self.bootstrapping and (target == "host" or target == "target"):
+            target = "bootstrap"
+        elif target == "host":
             target = chroot.host_cpu()
         elif target == "target":
             target = chroot.target_cpu()
