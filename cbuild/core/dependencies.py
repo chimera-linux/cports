@@ -12,7 +12,7 @@ import time
 # never be conditional and that is the only thing we care about
 _tcache = {}
 
-def _srcpkg_ver(pkgn):
+def _srcpkg_ver(pkgn, pkgb):
     global _tcache
 
     # avoid a failure
@@ -23,7 +23,7 @@ def _srcpkg_ver(pkgn):
         return _tcache[pkgn]
 
     rv = template.read_pkg(
-        pkgn, chroot.target_cpu(), False, False, False, False, False, None
+        pkgn, pkgb.build_profile.arch, False, False, False, False, False, None
     )
     cv = rv.version + "-r" + str(rv.revision)
     _tcache[pkgn] = cv
@@ -50,14 +50,14 @@ def _setup_depends(pkg):
             rdeps.append((orig, dep))
 
     for dep in pkg.hostmakedepends:
-        sver = _srcpkg_ver(dep)
+        sver = _srcpkg_ver(dep, pkg)
         if not sver:
             hdeps.append((None, dep))
             continue
         hdeps.append((sver, dep))
 
     for dep in pkg.makedepends:
-        sver = _srcpkg_ver(dep)
+        sver = _srcpkg_ver(dep, pkg)
         if not sver:
             tdeps.append((None, dep))
             continue
@@ -286,10 +286,12 @@ def install(pkg, origpkg, step, depmap, signkey):
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
 
+    tarch = pkg.build_profile.arch
+
     if pkg.pkgname != origpkg:
-        pkg.log(f"building{style} (dependency of {origpkg}) for {chroot.target_cpu()}...")
+        pkg.log(f"building{style} (dependency of {origpkg}) for {tarch}...")
     else:
-        pkg.log(f"building{style} for {chroot.target_cpu()}...")
+        pkg.log(f"building{style} for {tarch}...")
 
     host_binpkg_deps = []
     binpkg_deps = []
@@ -391,7 +393,6 @@ def install(pkg, origpkg, step, depmap, signkey):
     from cbuild.core import build
 
     chost = chroot.host_cpu()
-    ctgt = pkg.build_profile.arch
 
     for pn in host_missing_deps:
         try:
@@ -407,7 +408,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, ctgt if not pkg.bootstrapping else None,
+                pn, tarch if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.build_dbg,
                 pkg.use_ccache, pkg
             ), depmap, signkey)
@@ -418,7 +419,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for rd in missing_rdeps:
         try:
             build.build(step, template.read_pkg(
-                rd, ctgt if not pkg.bootstrapping else None,
+                rd, tarch if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.build_dbg,
                 pkg.use_ccache, pkg
             ), depmap, signkey)
@@ -427,7 +428,7 @@ def install(pkg, origpkg, step, depmap, signkey):
         host_binpkg_deps.append(rd)
 
     # reinit after parsings
-    chroot.set_target(pkg.build_profile.arch)
+    chroot.set_target(tarch)
 
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
