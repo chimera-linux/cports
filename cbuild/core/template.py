@@ -582,11 +582,6 @@ class Template(Package):
 
     def do(self, cmd, args, env = {}, build = False, wrksrc = None):
         cenv = {
-            "CC": self.get_tool("CC"),
-            "CXX": self.get_tool("CXX"),
-            "CPP": self.get_tool("CPP"),
-            "LD": self.get_tool("LD"),
-            "PKG_CONFIG": self.get_tool("PKG_CONFIG"),
             "CFLAGS": self.get_cflags(shell = True),
             "FFLAGS": self.get_fflags(shell = True),
             "CXXFLAGS": self.get_cxxflags(shell = True),
@@ -607,6 +602,12 @@ class Template(Package):
             cenv["CCACHE_BASEDIR"] = str(self.chroot_build_wrksrc)
 
         cenv.update(self.tools)
+
+        cenv["CC"] = self.get_tool("CC")
+        cenv["CXX"] = self.get_tool("CXX")
+        cenv["CPP"] = self.get_tool("CPP")
+        cenv["LD"] = self.get_tool("LD")
+        cenv["PKG_CONFIG"] = self.get_tool("PKG_CONFIG")
 
         with self.profile("host"):
             cenv["BUILD_CC"] = self.get_tool("CC")

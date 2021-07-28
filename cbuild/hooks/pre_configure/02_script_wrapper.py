@@ -24,7 +24,8 @@ def _wrap_cross_cc(pkg):
 
     at = pkg.build_profile.short_triplet
     for n in ["clang", "clang++", "cc", "c++"]:
-        (pkg.wrapperdir / f"{at}-{n}").symlink_to("cross-cc")
+        if not (pkg.wrapperdir / f"{at}-{n}").exists():
+            (pkg.wrapperdir / f"{at}-{n}").symlink_to("cross-cc")
 
 def _wrap_cross_pkgconf(pkg):
     wdir = pkg.statedir / "wrappers"
