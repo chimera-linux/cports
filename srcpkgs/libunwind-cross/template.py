@@ -13,7 +13,7 @@ configure_args = [
     "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
 ]
 hostmakedepends = ["cmake"]
-makedepends = ["clang-rt-cross-base", "musl-cross"]
+makedepends = ["musl-cross"]
 depends = ["musl-cross"]
 make_cmd = "make"
 short_desc = "LLVM libunwind for cross-compiling"

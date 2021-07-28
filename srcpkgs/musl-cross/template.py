@@ -5,8 +5,8 @@ wrksrc = f"musl-{version}"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 hostmakedepends = ["gmake"]
-makedepends = ["clang-rt-cross-base"]
-depends = []
+makedepends = ["clang-rt-crt-cross"]
+depends = ["clang-rt-crt-cross"]
 make_cmd = "gmake"
 short_desc = "Musl C library - cross toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -69,7 +69,7 @@ def _gen_crossp(an, at):
     @subpackage(f"musl-cross-{an}")
     def _subp(self):
         self.short_desc = f"{short_desc} - {an} support"
-        self.depends = [f"clang-rt-cross-base-{an}"]
+        self.depends = [f"clang-rt-crt-cross-{an}"]
         return [f"usr/{at}"]
     depends.append(f"musl-cross-{an}")
 

@@ -1,4 +1,4 @@
-pkgname = "clang-rt-cross-base"
+pkgname = "clang-rt-crt-cross"
 _musl_version = "1.2.2"
 version = "12.0.0"
 revision = 0
@@ -132,5 +132,5 @@ for an in _targets:
     with current.profile(an):
         at = current.build_profile.short_triplet
 
-    subpackages.append((f"clang-rt-cross-base-{an}", _gen_subp(an, at)))
-    depends.append(f"clang-rt-cross-base-{an}={version}-r{revision}")
+    subpackages.append((f"clang-rt-crt-cross-{an}", _gen_subp(an, at)))
+    depends.append(f"clang-rt-crt-cross-{an}={version}-r{revision}")

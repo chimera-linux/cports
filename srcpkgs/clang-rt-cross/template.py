@@ -32,10 +32,10 @@ hostmakedepends = [
     "cmake", "gmake", "python", "llvm-devel", "clang-tools-extra"
 ]
 makedepends = [
-    "zlib-devel", "libffi-devel", "clang-rt-cross-base",
+    "zlib-devel", "libffi-devel", "clang-rt-crt-cross",
     "libcxx-cross", "libexecinfo-cross", "kernel-libc-headers-cross"
 ]
-depends = ["clang-rt-cross-base", "libcxx-cross", "libexecinfo-cross"]
+depends = ["clang-rt-crt-cross", "libcxx-cross", "libexecinfo-cross"]
 make_cmd = "make"
 short_desc = "Cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -102,7 +102,7 @@ def _gen_crossp(an):
     def _subp(self):
         self.short_desc = f"{short_desc} - {an} support"
         self.depends = [
-            f"clang-rt-cross-base-{an}",
+            f"clang-rt-crt-cross-{an}",
             f"libcxx-cross-{an}",
             f"libexecinfo-cross-{an}"
         ]

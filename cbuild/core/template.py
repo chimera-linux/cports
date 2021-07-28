@@ -712,8 +712,7 @@ class Template(Package):
 
         if name in cross_tools and target.cross:
             # special case for cross toolchains
-            if not self.pkgname.endswith("-cross") and \
-               not self.pkgname.endswith("-cross-base"):
+            if not self.pkgname.endswith("-cross"):
                 return f"{target.short_triplet}-{self.tools[name]}"
 
         return self.tools[name]
