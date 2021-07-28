@@ -391,7 +391,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     from cbuild.core import build
 
     chost = chroot.host_cpu()
-    ctgt = chroot.target_cpu()
+    ctgt = pkg.build_profile.arch
 
     for pn in host_missing_deps:
         try:
