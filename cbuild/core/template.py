@@ -348,6 +348,7 @@ default_options = {
     "debug": (True, True),
     "strip": (True, False),
     "check": (True, True),
+    "cross": (True, True),
 }
 
 core_fields = [
@@ -369,8 +370,7 @@ core_fields = [
 
     # other core-ish fields
     ("subpackages", [], list, True, False, False, False),
-    ("broken", None, None, True, False, False, False),
-    ("nocross", None, None, True, False, False, False),
+    ("broken", None, str, False, False, False, False),
     ("build_style", None, str, True, False, False, False),
 
     # distfiles
@@ -1014,18 +1014,10 @@ def from_module(m, ret):
         ret.subpkg_list.append(sp)
 
     if ret.broken:
-        ret.log_red("cannot be built, it's currently broken")
-        if isinstance(ret.broken, str):
-            ret.error(f"{ret.broken}")
-        else:
-            ret.error(f"yes")
+        ret.error(f"cannot be built, it's currently broken: {ret.broken}")
 
-    if ret.cross_build and ret.nocross:
-        ret.log_red(f"cannot be cross-compiled for {ret.cross_build}")
-        if isinstance(ret.nocross, str):
-            ret.error(f"{ret.broken}")
-        else:
-            ret.error(f"yes")
+    if ret.cross_build and not ret.options["cross"]:
+        ret.error(f"cannot be cross-compiled for {ret.cross_build}")
 
     if ret.bootstrapping and not ret.options["bootstrap"]:
         ret.error("attempt to bootstrap a non-bootstrap package")

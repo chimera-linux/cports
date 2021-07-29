@@ -6,7 +6,7 @@ short_desc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 homepage = "https://chimera-linux.org"
-nocross = True
+options = ["!cross"]
 
 _targets = list(filter(
     lambda p: p != current.build_profile.arch,
