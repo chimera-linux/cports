@@ -6,7 +6,8 @@ build_style = "configure"
 configure_args = [
     "--prefix=/usr", "--mandir=/share/man", "--docdir=/share/doc/cmake",
     "--system-libarchive", "--system-zlib", "--system-bzip2",
-    "--system-liblzma", "--system-zstd"
+    "--system-liblzma", "--system-zstd",
+    f"--parallel={current.conf_jobs}"
 ]
 makedepends = ["libarchive-devel", "ncurses-devel"]
 short_desc = "Cross-platform, open source build system"
@@ -18,10 +19,6 @@ checksum = ["4d008ac3461e271fcfac26a05936f77fc7ab64402156fb371d41284851a651b8"]
 
 # prevent cmake self-bootstrap false positive nonsense
 CXXFLAGS = ["-Wno-unused-command-line-argument"]
-
-from cbuild.util import make
-
-configure_args += ["--parallel=" + str(make.jobs())]
 
 def post_install(self):
     import shutil

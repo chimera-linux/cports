@@ -849,6 +849,12 @@ def from_module(m, ret):
 
     ret.validate_arch()
 
+    # the real job count
+    if not ret.options["parallel"]:
+        ret.make_jobs = 1
+    else:
+        ret.make_jobs = ret.conf_jobs
+
     ret.build_style_fields = []
     ret.build_style_defaults = []
 
@@ -1072,12 +1078,6 @@ def from_module(m, ret):
             ret.tools["OBJCOPY"] = "llvm-objcopy"
         if not "READELF" in ret.tools:
             ret.tools["READELF"] = "llvm-readelf"
-
-    # the real job count
-    if not ret.options["parallel"]:
-        ret.make_jobs = 1
-    else:
-        ret.make_jobs = ret.conf_jobs
 
     return ret
 
