@@ -1,6 +1,5 @@
 from cbuild.core import logger, paths
 
-import os
 import io
 import re
 import gzip
@@ -97,7 +96,7 @@ def keygen(keypath, size, cfgfile, cfgpath):
 
     keypath = _get_keypath(keypath)
 
-    os.makedirs(keypath.parent, exist_ok = True)
+    keypath.parent.mkdir(parents = True, exist_ok = True)
 
     if keypath.is_file():
         logger.get().out_red("Attempt to overwrite an existing key, aborting")
@@ -148,7 +147,7 @@ def keygen(keypath, size, cfgfile, cfgpath):
                     if re.match(r"^\[signing\]", l):
                         ocf.write(f"key = {rkpath}\n")
 
-        os.rename(cfgpath + ".new", cfgpath)
+        pathlib.Path(cfgpath + ".new").rename(cfgpath)
     else:
         with open(cfgpath, "a") as cf:
             cf.write("\n[signing]\n")

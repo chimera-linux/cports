@@ -1,7 +1,6 @@
 from cbuild.core import logger, paths
 from cbuild.apk import create as apk_c, sign as apk_s
 
-import os
 import glob
 import time
 import pathlib
@@ -26,15 +25,15 @@ def genpkg(
     binpath = repo / binpkg
     lockpath = binpath.with_suffix(binpath.suffix + ".lock")
 
-    os.makedirs(repo, exist_ok = True)
+    repo.mkdir(parents = True, exist_ok = True)
 
     while lockpath.is_file():
         pkg.log_warn(f"binary package being created, waiting...")
         time.sleep(1)
 
     if binpath.is_file():
-        tmt = os.path.getmtime(pkg.rparent.template_path / "template.py")
-        if os.path.getmtime(binpath) > tmt and not pkg.force_mode:
+        tmt = (pkg.rparent.template_path / "template.py").stat().st_mtime
+        if binpath.stat().st_mtime > tmt and not pkg.force_mode:
             pkg.log_warn(f"fresh binary package already exists, skipping...")
             return
 

@@ -21,7 +21,7 @@ def summarize_repo(repopath, olist, quiet = False):
                 logger.get().warn(f"Malformed file name found, skipping: {str(fn)}")
             continue
         pn = pf[0:rd]
-        mt = os.path.getmtime(f)
+        mt = f.stat().st_mtime
         if not pn in rtimes:
             rtimes[pn] = (mt, f.name)
         else:

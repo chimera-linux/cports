@@ -33,7 +33,7 @@ def verify_cksum(fname, dfile, cksum, pkg):
         shapath = paths.sources() / "by_sha256"
         linkpath = shapath / f"{cksum}_{fname}"
         if not linkpath.is_file():
-            os.makedirs(shapath, exist_ok = True)
+            shapath.mkdir(parents = True, exist_ok = True)
             dfile.link_to(linkpath)
         pkg.logger.out_plain("OK.")
         return True
@@ -67,7 +67,7 @@ def invoke(pkg):
 
     if not srcdir.is_dir():
         try:
-            os.makedirs(srcdir)
+            srcdir.mkdir(parents = True)
             os.chown(srcdir, -1, os.getgid(), srcdir)
         except:
             pass

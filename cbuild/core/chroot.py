@@ -71,7 +71,7 @@ def _remove_ro(f, path, _):
 
 def _init():
     xdir = paths.masterdir() / "etc" / "apk"
-    os.makedirs(xdir, exist_ok = True)
+    xdir.mkdir(parents = True, exist_ok = True)
 
     shf = open(paths.masterdir() / "bin" / "cbuild-shell", "w")
     shf.write(f"""#!/bin/sh
@@ -99,7 +99,7 @@ def _prepare(arch, stage):
 
     if pathlib.Path("/usr/share/zoneinfo/UTC").is_file():
         zpath = paths.masterdir() / "usr" / "share" / "zoneinfo"
-        os.makedirs(zpath, exist_ok = True)
+        zpath.mkdir(parents = True, exist_ok = True)
         shutil.copy("/usr/share/zoneinfo/UTC", zpath)
         (paths.masterdir() / "etc" / "localtime").symlink_to(
             "../usr/share/zoneinfo/UTC"
@@ -139,15 +139,14 @@ def setup_keys(rootp):
     keydir = rootp / "etc/apk/keys"
 
     shutil.rmtree(keydir, ignore_errors = True)
-    os.makedirs(keydir, exist_ok = True)
+    keydir.mkdir(parents = True, exist_ok = True)
 
     for f in (paths.distdir() / "etc/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
 
 def repo_sync():
     confdir = paths.masterdir() / "etc/apk"
-
-    os.makedirs(confdir, exist_ok = True)
+    confdir.mkdir(parents = True, exist_ok = True)
 
     repos_mdir = open(confdir / "repositories", "w")
     repos_hdir = open(paths.hostdir() / "repositories", "w")
@@ -205,12 +204,12 @@ def initdb(path = None):
     if not path:
         path = paths.masterdir()
 
-    os.makedirs(path / "tmp", exist_ok = True)
-    os.makedirs(path / "dev", exist_ok = True)
-    os.makedirs(path / "etc/apk", exist_ok = True)
-    os.makedirs(path / "usr/lib/apk/db", exist_ok = True)
-    os.makedirs(path / "var/cache/apk", exist_ok = True)
-    os.makedirs(path / "var/cache/misc", exist_ok = True)
+    (path / "tmp").mkdir(parents = True, exist_ok = True)
+    (path / "dev").mkdir(parents = True, exist_ok = True)
+    (path / "etc/apk").mkdir(parents = True, exist_ok = True)
+    (path / "usr/lib/apk/db").mkdir(parents = True, exist_ok = True)
+    (path / "var/cache/apk").mkdir(parents = True, exist_ok = True)
+    (path / "var/cache/misc").mkdir(parents = True, exist_ok = True)
 
     # largely because of custom usrmerge
     if not (path / "lib").is_symlink():

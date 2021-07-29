@@ -1,7 +1,5 @@
 from cbuild.core import template, dependencies, scanelf
 
-import os
-
 def invoke(pkg, subpkg_mode):
     crossb = pkg.rparent.cross_build if pkg.rparent.cross_build else ""
     install_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_install_done"
@@ -11,7 +9,7 @@ def invoke(pkg, subpkg_mode):
         template.run_pkg_func(pkg, "init_install")
 
         if not install_done.is_file() or pkg.force_mode:
-            os.makedirs(pkg.destdir, exist_ok = True)
+            pkg.destdir.mkdir(parents = True, exist_ok = True)
             pkg.run_step("install", skip_post = True)
             install_done.touch()
         return
@@ -24,7 +22,7 @@ def invoke(pkg, subpkg_mode):
 
     # this is a real subpackage
     if pkg.parent:
-        os.makedirs(pkg.destdir, exist_ok = True)
+        pkg.destdir.mkdir(parents = True, exist_ok = True)
         if pkg.pkg_install:
             template.call_pkg_hooks(pkg, "pre_install")
             template.run_pkg_func(pkg, "pkg_install", on_subpkg = True)

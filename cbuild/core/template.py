@@ -85,7 +85,7 @@ def _submove(src, dest, root):
     fname = src.name
     ddirs = dest / dirs
 
-    os.makedirs(ddirs, exist_ok = True)
+    ddirs.mkdir(parents = True, exist_ok = True)
 
     fsrc = root / src
     fdest = dest / src
@@ -215,7 +215,7 @@ class Package:
             dirp = self.destdir / dn
             if not dirp.is_dir():
                 self.log(f"creating path: {dirp}")
-                os.makedirs(dirp)
+                dirp.mkdir(parents = True)
 
     def install_file(self, src, dest, mode = 0o644, name = None):
         src = pathlib.Path(src)
@@ -274,7 +274,7 @@ class Package:
                 self.logger.out_red(f"manpage '{mnf}' has an invalid section")
                 raise PackageError()
             mandir = manbase / ("man" + str(mnsec))
-            os.makedirs(mandir, exist_ok = True)
+            mandir.mkdir(parents = True, exist_ok = True)
             self.log(f"copying (644): {str(absmn)} -> {str(mandir)}")
             shutil.copy2(absmn, mandir)
             (mandir / mnf).chmod(0o644)
@@ -1028,8 +1028,8 @@ def from_module(m, ret):
     if ret.bootstrapping and not ret.options["bootstrap"]:
         ret.error("attempt to bootstrap a non-bootstrap package")
 
-    os.makedirs(ret.statedir, exist_ok = True)
-    os.makedirs(ret.wrapperdir, exist_ok = True)
+    ret.statedir.mkdir(parents = True, exist_ok = True)
+    ret.wrapperdir.mkdir(parents = True, exist_ok = True)
 
     # when bootstrapping, use a fixed set of tools; none of the bootstrap
     # packages should be overriding these, and we want to prefer the usual
