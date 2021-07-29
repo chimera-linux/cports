@@ -1,14 +1,5 @@
 import shutil
 
-_jobs = 1
-
-def set_jobs(nj):
-    global _jobs
-    _jobs = nj
-
-def jobs():
-    return _jobs
-
 class Make:
     def __init__(
         self, tmpl, jobs = None, command = None, env = {}, wrksrc = None
@@ -17,11 +8,7 @@ class Make:
         self.command = command
         self.wrksrc = wrksrc
         self.env = env
-
-        if not jobs:
-            self.jobs = _jobs
-        else:
-            self.jobs = jobs
+        self.jobs = jobs
 
     def get_command(self):
         if self.command:
@@ -52,8 +39,8 @@ class Make:
         if not jobs:
             jobs = self.jobs
 
-        if not self.template.options["parallel"]:
-            jobs = 1
+        if not jobs:
+            jobs = self.template.make_jobs
 
         argsbase = ["-j" + str(jobs)]
 

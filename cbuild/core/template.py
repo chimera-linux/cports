@@ -1073,13 +1073,19 @@ def from_module(m, ret):
         if not "READELF" in ret.tools:
             ret.tools["READELF"] = "llvm-readelf"
 
+    # the real job count
+    if not ret.options["parallel"]:
+        ret.make_jobs = 1
+    else:
+        ret.make_jobs = ret.conf_jobs
+
     return ret
 
 _tmpl_dict = {}
 
 def read_pkg(
     pkgname, pkgarch, force_mode, skip_if_exist, run_check,
-    build_dbg, use_ccache, origin
+    jobs, build_dbg, use_ccache, origin
 ):
     global _tmpl_dict
 
@@ -1098,6 +1104,7 @@ def read_pkg(
     ret.run_check = run_check
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
+    ret.conf_jobs = jobs
 
     ret.setup_reproducible()
 

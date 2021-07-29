@@ -189,8 +189,6 @@ from cbuild.util import make
 from cbuild.core import chroot, logger, template, build, profile
 from cbuild.apk import sign, cli as apk_cli
 
-make.set_jobs(opt_makejobs)
-
 logger.init(not opt_nocolor)
 
 # check masterdir and while at it perform arch checks
@@ -258,7 +256,8 @@ def bootstrap(tgt):
             sys.exit("Required bootstrap program not found: gmake/bmake")
 
         rp = template.read_pkg(
-            "base-chroot", None, False, False, False, False, False, None
+            "base-chroot", None, False, False, False, opt_makejobs,
+            False, False, None
         )
         paths.prepare()
         chroot.initdb()
@@ -369,7 +368,7 @@ def do_pkg(tgt, pkgn = None):
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), opt_force,
-        opt_skipexist, opt_check, opt_gen_dbg, opt_ccache, None
+        opt_skipexist, opt_check, opt_makejobs, opt_gen_dbg, opt_ccache, None
     )
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
