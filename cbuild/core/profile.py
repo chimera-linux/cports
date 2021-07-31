@@ -185,7 +185,7 @@ class Profile:
             ret.append("-g")
 
         if shell:
-            return shlex.join(ret)
+            return shlex.join(map(lambda v: str(v), ret))
 
         return ret
 
@@ -208,7 +208,7 @@ class Profile:
             ret.append("-g")
 
         if shell:
-            return shlex.join(ret)
+            return shlex.join(map(lambda v: str(v), ret))
 
         return ret
 
@@ -231,7 +231,7 @@ class Profile:
             ret.append("-g")
 
         if shell:
-            return shlex.join(ret)
+            return shlex.join(map(lambda v: str(v), ret))
 
         return ret
 
@@ -252,7 +252,7 @@ class Profile:
         ret = hflags + self._ldflags + bflags + extra_flags
 
         if shell:
-            return shlex.join(ret)
+            return shlex.join(map(lambda v: str(v), ret))
 
         return ret
 

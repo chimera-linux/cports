@@ -30,7 +30,9 @@ class GnuLike:
         argsbase += ["-o", str(pkg.chroot_build_wrksrc / output)]
         # fire
         if not quiet:
-            logger.get().out_plain(self.cexec + " " + shlex.join(argsbase))
+            logger.get().out_plain(self.cexec + " " + shlex.join(
+                map(lambda v: str(v), argsbase)
+            ))
         return self.template.do(self.cexec, argsbase, build = True)
 
 class C(GnuLike):
