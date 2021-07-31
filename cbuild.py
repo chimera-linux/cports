@@ -334,19 +334,20 @@ def do_clean(tgt):
         shutil.rmtree(dirp)
     elif dirp.exists():
         logger.get().out_red("cbuild: broken masterdir (builddir invalid)")
-        return
+        raise Exception()
     dirp = paths.masterdir() / "destdir"
     if dirp.is_dir():
         shutil.rmtree(dirp)
     elif dirp.exists():
         logger.get().out_red("cbuild: broken masterdir (destdir invalid)")
-        return
+        raise Exception()
 
 def do_zap(tgt):
     if paths.masterdir().is_dir():
         shutil.rmtree(paths.masterdir())
     elif paths.masterdir().exists():
         logger.get().out_red("cbuild: broken masterdir")
+        raise Exception()
 
 def do_remove_autodeps(tgt):
     chroot.remove_autodeps(None)
@@ -410,6 +411,7 @@ except template.SkipPackage:
 except:
     logger.get().out_red("A failure has occured!")
     traceback.print_exc(file = logger.get().estream)
+    sys.exit(1)
 finally:
     if opt_mdirtemp:
         shutil.rmtree(paths.masterdir())
