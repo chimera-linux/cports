@@ -23,13 +23,13 @@ def process_patch(pkg, patchpath):
 
     if patchsfx == ".gz":
         chroot.enter(
-            "gunzip", [str(pkg.chroot_wrksrc / patchfn)], check = True,
+            "gunzip", [pkg.chroot_wrksrc / patchfn], check = True,
             bootstrapping = pkg.bootstrapping, ro_root = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".bz2":
         chroot.enter(
-            "bunzip2", [str(pkg.chroot_wrksrc / patchfn)], check = True,
+            "bunzip2", [pkg.chroot_wrksrc / patchfn], check = True,
             bootstrapping = pkg.bootstrapping, ro_root = True
         )
         patchfn = patchpath.stem

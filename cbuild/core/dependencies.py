@@ -26,7 +26,7 @@ def _srcpkg_ver(pkgn, pkgb):
         pkgn, pkgb.build_profile.arch,
         False, False, False, 1, False, False, None
     )
-    cv = rv.version + "-r" + str(rv.revision)
+    cv = f"{rv.version}-r{rv.revision}"
     _tcache[pkgn] = cv
 
     return cv
@@ -84,9 +84,9 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
             rootp = rootp / pkg.build_profile.sysroot.relative_to("/")
 
         ret = subprocess.run([
-            "apk", "add", "--root", str(rootp),
+            "apk", "add", "--root", rootp,
             "--no-scripts", "--repositories-file",
-            str(paths.hostdir() / "repositories"),
+            paths.hostdir() / "repositories",
             "--virtual", virtn
         ] + extra_opts + pkglist, capture_output = True)
     else:
@@ -110,7 +110,7 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
 def _is_installed(pkgn, pkg = None):
     bcmd = [
         "apk", "info", "--installed", "--allow-untrusted",
-        "--repositories-file", str(paths.hostdir() / "repositories")
+        "--repositories-file", paths.hostdir() / "repositories"
     ]
 
     if pkg and pkg.build_profile.cross:
@@ -120,13 +120,13 @@ def _is_installed(pkgn, pkg = None):
         sysp = paths.masterdir()
 
     return subprocess.run(
-        bcmd + ["--root", str(sysp), pkgn], capture_output = True
+        bcmd + ["--root", sysp, pkgn], capture_output = True
     ).returncode == 0
 
 def _is_available(pkgn, pattern, pkg = None):
     bcmd = [
         "apk", "search", "-e", "--allow-untrusted",
-        "--repositories-file", str(paths.hostdir() / "repositories")
+        "--repositories-file", paths.hostdir() / "repositories"
     ]
 
     if pkg and pkg.build_profile.cross:
@@ -136,7 +136,7 @@ def _is_available(pkgn, pattern, pkg = None):
         sysp = paths.masterdir()
 
     aout = subprocess.run(
-        bcmd + ["--root", str(sysp), pkgn], capture_output = True
+        bcmd + ["--root", sysp, pkgn], capture_output = True
     )
 
     if aout.returncode != 0:
@@ -228,7 +228,7 @@ def setup_dummy(pkg, rootp):
 
         ret = subprocess.run([
             "apk", acmd, "--allow-untrusted", "--arch", archn,
-            "--repository", str(tmpd), "--root", str(rootp), "--no-scripts",
+            "--repository", tmpd, "--root", rootp, "--no-scripts",
             pkgn
         ], capture_output = True)
 
@@ -262,7 +262,7 @@ def remove_autocrossdeps(pkg):
 
     if subprocess.run([
         "apk", "info", "--arch", pkg.build_profile.arch, "--allow-untrusted",
-        "--installed", "--root", str(sysp), "autodeps-target"
+        "--installed", "--root", sysp, "autodeps-target"
     ], capture_output = True).returncode != 0:
         return
 
@@ -271,9 +271,9 @@ def remove_autocrossdeps(pkg):
     pkg.log(f"removing autocrossdeps for {archn}...")
 
     del_ret = subprocess.run([
-        "apk", "del", "--arch", pkg.build_profile.arch, "--root", str(sysp),
+        "apk", "del", "--arch", pkg.build_profile.arch, "--root", sysp,
         "--no-scripts", "--repositories-file",
-        str(paths.hostdir() / "repositories"),
+        paths.hostdir() / "repositories",
         "autodeps-target"
     ], capture_output = True)
 

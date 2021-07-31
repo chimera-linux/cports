@@ -91,7 +91,7 @@ def genpkg(
             if len(mhooks) > 0:
                 metadata["hooks"] = mhooks
 
-        logger.get().out(f"Creating {binpkg} in repository {str(repo)}...")
+        logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
         pkgname = pkg.pkgname
         if dbg:

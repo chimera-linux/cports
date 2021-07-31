@@ -55,16 +55,13 @@ def configure(
     build_dir = "build", extra_args = [], env = {}
 ):
     if configure_dir:
-        cscript = str(pkg.chroot_wrksrc / configure_dir / configure_script)
+        cscript = pkg.chroot_wrksrc / configure_dir / configure_script
         rscript = pkg.abs_wrksrc / configure_dir / configure_script
     else:
-        cscript = str(pkg.chroot_wrksrc / configure_script)
+        cscript = pkg.chroot_wrksrc / configure_script
         rscript = pkg.abs_wrksrc / configure_script
 
     (pkg.abs_build_wrksrc / build_dir).mkdir(parents = True, exist_ok = True)
-
-    mdir = str(paths.masterdir())
-    cargs = []
 
     cargs = [
         "--prefix=/usr", "--sysconfdir=/etc", "--sbindir=/usr/bin",

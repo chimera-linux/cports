@@ -18,7 +18,7 @@ def summarize_repo(repopath, olist, quiet = False):
             rd = pf.rfind("-", 0, rd)
         if rd < 0:
             if not quiet:
-                logger.get().warn(f"Malformed file name found, skipping: {str(fn)}")
+                logger.get().warn(f"Malformed file name found, skipping: {fn}")
             continue
         pn = pf[0:rd]
         mt = f.stat().st_mtime
@@ -63,7 +63,7 @@ def prune(repopath):
     if not repopath.is_dir():
         return
 
-    logger.get().out(f"pruning old packages: {str(repopath)}")
+    logger.get().out(f"pruning old packages: {repopath}")
 
     nlist = []
     olist = summarize_repo(repopath, nlist, True)
@@ -77,7 +77,7 @@ def prune(repopath):
 def build_index(repopath, epoch, keypath):
     repopath = pathlib.Path(repopath)
 
-    cmd = ["apk", "index", "--quiet", "--root", str(paths.masterdir())]
+    cmd = ["apk", "index", "--quiet", "--root", paths.masterdir()]
 
     if (repopath / "APKINDEX.tar.gz").is_file():
         cmd += ["--index", "APKINDEX.tar.gz"]

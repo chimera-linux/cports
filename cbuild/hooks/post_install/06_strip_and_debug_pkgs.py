@@ -11,11 +11,10 @@ def make_debug(pkg, f, relf):
     dfile.parent.mkdir(parents = True, exist_ok = True)
     try:
         pkg.rparent.do(pkg.rparent.get_tool("OBJCOPY"), [
-            "--only-keep-debug",
-            str(pkg.chroot_destdir / relf), str(cfile)
+            "--only-keep-debug", pkg.chroot_destdir / relf, cfile
         ])
     except:
-        pkg.error(f"failed to create dbg file for {str(relf)}")
+        pkg.error(f"failed to create dbg file for {relf}")
 
     dfile.chmod(0o644)
 
@@ -26,11 +25,10 @@ def attach_debug(pkg, f, relf):
     cfile = pkg.chroot_destdir / "usr/lib/debug" / relf
     try:
         pkg.rparent.do(pkg.rparent.get_tool("OBJCOPY"), [
-            "--add-gnu-debuglink=" + str(cfile),
-            str(pkg.chroot_destdir / relf)
+            f"--add-gnu-debuglink={cfile}", pkg.chroot_destdir / relf
         ])
     except:
-        pkg.error(f"failed to attach debug link to {str(relf)}")
+        pkg.error(f"failed to attach debug link to {relf}")
 
 def invoke(pkg):
     if not pkg.options["strip"]:
@@ -86,9 +84,9 @@ def invoke(pkg):
             try:
                 pkg.rparent.do(strip_path, ["--strip-debug", cfile])
             except:
-                pkg.error(f"failed to strip {str(vr)}")
+                pkg.error(f"failed to strip {vr}")
 
-            print(f"   Stripped static library: {str(vr)}")
+            print(f"   Stripped static library: {vr}")
             continue
 
         soname, needed, pname, static = vt
@@ -99,19 +97,19 @@ def invoke(pkg):
             try:
                 pkg.rparent.do(strip_path, [cfile])
             except:
-                pkg.error(f"failed to strip {str(vr)}")
+                pkg.error(f"failed to strip {vr}")
 
-            print(f"   Stripped static executable: {str(vr)}")
+            print(f"   Stripped static executable: {vr}")
             continue
 
         # guess what it is
         scanout = subprocess.run([
             "scanelf", "--nobanner", "--nocolor",
-            "--format", "%a|%o|%i", str(v)
+            "--format", "%a|%o|%i", v
         ], capture_output = True)
 
         if scanout.returncode != 0:
-            pkg.error(f"failed to scan {str(vr)}")
+            pkg.error(f"failed to scan {vr}")
 
         # strip the filename
         scanout = scanout.stdout.strip()[:-len(str(v)) - 1]
@@ -120,13 +118,13 @@ def invoke(pkg):
         splitv = scanout.split(b"|")
         if len(splitv) != 3:
             pkg.error(
-                f"invalid scanelf output for {str(vr)}: {scanout.encode()}"
+                f"invalid scanelf output for {vr}: {scanout.encode()}"
             )
         mtype, etype, interp = splitv
 
         # may just be using ELF as a container format
         if mtype.strip() == b"EM_NONE":
-            print(f"   Ignoring ELF file with no machine: {str(vr)}")
+            print(f"   Ignoring ELF file with no machine: {vr}")
 
         # pie or nopie?
         if etype == b"ET_DYN":
@@ -134,14 +132,14 @@ def invoke(pkg):
         elif etype == b"ET_EXEC":
             pie = False
         else:
-            pkg.error(f"unknown type for {str(vr)}: {etype.encode()}")
+            pkg.error(f"unknown type for {vr}: {etype.encode()}")
 
         # executable or library?
         dynlib = (len(interp.strip()) == 0)
 
         # sanity check
         if not pie and dynlib:
-            pkg.error(f"dynamic executable without an interpreter: {str(vr)}")
+            pkg.error(f"dynamic executable without an interpreter: {vr}")
 
         # regardless, sanitize mode
         v.chmod(0o755)
@@ -152,9 +150,9 @@ def invoke(pkg):
             try:
                 pkg.rparent.do(strip_path, [cfile])
             except:
-                pkg.error(f"failed to strip {str(vr)}")
+                pkg.error(f"failed to strip {vr}")
 
-            print(f"   Stripped executable: {str(vr)}")
+            print(f"   Stripped executable: {vr}")
 
             allow_nopie = False
             if have_pie:
@@ -166,7 +164,7 @@ def invoke(pkg):
                 allow_nopie = True
 
             if not allow_nopie:
-                pkg.error(f"non-PIE executable found in PIE build: {str(vr)}")
+                pkg.error(f"non-PIE executable found in PIE build: {vr}")
 
             attach_debug(pkg, v, vr)
             continue
@@ -176,12 +174,12 @@ def invoke(pkg):
         try:
             pkg.rparent.do(strip_path, ["--strip-unneeded", cfile])
         except:
-            pkg.error(f"failed to strip {str(vr)}")
+            pkg.error(f"failed to strip {vr}")
 
         if not dynlib:
-            print(f"   Stripped position-independent executable: {str(vr)}")
+            print(f"   Stripped position-independent executable: {vr}")
         else:
-            print(f"   Stripped library: {str(vr)}")
+            print(f"   Stripped library: {vr}")
 
         attach_debug(pkg, v, vr)
 

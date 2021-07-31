@@ -23,7 +23,7 @@ def reinit_masterdir(masterdir, stage):
         _mdir = masterdir
     else:
         oname = masterdir.name
-        _mdir = masterdir.with_name(oname + "-stage" + str(stage))
+        _mdir = masterdir.with_name(f"{oname}-stage{stage}")
 
 def set_stage(stage):
     global _stage
@@ -42,7 +42,7 @@ def repository():
     if _stage == 2:
         return hostdir() / "binpkgs"
     else:
-        return hostdir() / ("binpkgs-stage" + str(_stage))
+        return hostdir() / f"binpkgs-stage{_stage}"
 
 def sources():
     return _srcs

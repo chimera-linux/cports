@@ -14,7 +14,7 @@ def invoke(pkg):
 
     if binpath.is_file():
         with open(pkg.statedir / f"{pkg.rparent.pkgname}_register_pkg", "a") as f:
-            f.write(f"{str(repo)}:{binpkg}\n")
+            f.write(f"{repo}:{binpkg}\n")
 
     repo = paths.repository() / "debug" / arch
     binpath = repo / binpkg_dbg
@@ -28,4 +28,4 @@ def invoke(pkg):
         return
 
     with open(pkg.statedir / f"{pkg.rparent.pkgname}_register_pkg", "a") as f:
-        f.write(f"{str(repo)}:{binpkg_dbg}\n")
+        f.write(f"{repo}:{binpkg_dbg}\n")

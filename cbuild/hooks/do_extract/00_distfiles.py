@@ -37,7 +37,7 @@ def extract_tar(pkg, fname, dfile, edir, sfx):
 
     if chroot.enter("tar", [
         "-x", "--no-same-permissions", "--no-same-owner",
-        "-f", str(dfile), "-C", str(edir)
+        "-f", dfile, "-C", edir
     ], ro_root = True).returncode != 0:
         pkg.error(f"extracting '{fname}' failed!")
 
@@ -117,6 +117,6 @@ def invoke(pkg):
             srcs_path = pathlib.Path("/sources")
         exf(
             pkg, fname,
-            str(srcs_path / f"{pkg.pkgname}-{pkg.version}/{fname}"),
+            srcs_path / f"{pkg.pkgname}-{pkg.version}/{fname}",
             extractdir, suffix
         )

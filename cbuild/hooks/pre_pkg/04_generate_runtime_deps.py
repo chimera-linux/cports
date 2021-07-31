@@ -31,7 +31,7 @@ def invoke(pkg):
             curso[fp.name] = pname
 
         if ("/" + str(fp)) in pkg.skiprdeps:
-            pkg.log(f"skipping dependency scan for {str(fp)}")
+            pkg.log(f"skipping dependency scan for {fp}")
             continue
 
         if pname != pkg.pkgname:
@@ -59,7 +59,7 @@ def invoke(pkg):
         # otherwise, check if it came from an installed dependency
         if not pkg.bootstrapping or not (dep in bootstrap_map):
             info = subprocess.run([
-                "apk", "info", "--root", str(paths.masterdir()),
+                "apk", "info", "--root", paths.masterdir(),
                 "--allow-untrusted", "--installed", "so:" + dep
             ], capture_output = True)
             if info.returncode != 0:

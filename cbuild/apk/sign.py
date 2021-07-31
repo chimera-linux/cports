@@ -31,7 +31,7 @@ def sign(keypath, data, epoch):
         inparg = []
         inpval = data
     else:
-        inparg = [str(data)]
+        inparg = [data]
         inpval = None
 
     keypath = _get_keypath(keypath)
@@ -44,7 +44,7 @@ def sign(keypath, data, epoch):
     signame = ".SIGN.RSA." + keyname
 
     sout = subprocess.run([
-        "openssl", "dgst", "-sha1", "-sign", str(keypath), "-out", "-"
+        "openssl", "dgst", "-sha1", "-sign", keypath, "-out", "-"
     ] + inparg, input = inpval, capture_output = True)
 
     if sout.returncode != 0:
@@ -103,7 +103,7 @@ def keygen(keypath, size, cfgfile, cfgpath):
         raise Exception()
 
     kout = subprocess.run([
-        "openssl", "genrsa", "-out", str(keypath), str(size)
+        "openssl", "genrsa", "-out", keypath, str(size)
     ], umask = 0o007)
 
     if not kout.returncode == 0:
@@ -111,7 +111,7 @@ def keygen(keypath, size, cfgfile, cfgpath):
         raise Exception()
 
     pout = subprocess.run([
-        "openssl", "rsa", "-in", str(keypath),
+        "openssl", "rsa", "-in", keypath,
         "-pubout", "-out", str(keypath) + ".pub"
     ])
 
@@ -133,11 +133,9 @@ def keygen(keypath, size, cfgfile, cfgpath):
 
     rkpath = keypath
     if rkpath.is_relative_to(paths.distdir() / "etc" / "keys"):
-        rkpath = str(rkpath.relative_to(paths.distdir() / "etc" / "keys"))
+        rkpath = rkpath.relative_to(paths.distdir() / "etc" / "keys")
     elif rkpath.is_relative_to(paths.distdir()):
-        rkpath = str(rkpath.relative_to(paths.distdir()))
-    else:
-        rkpath = str(rkpath)
+        rkpath = rkpath.relative_to(paths.distdir())
 
     if "signing" in cfgfile:
         with open(cfgpath, "r") as cf:

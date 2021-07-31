@@ -5,13 +5,12 @@ def configure(
     cross_build = None
 ):
     if cmake_dir:
-        cdir = str(pkg.chroot_wrksrc / cmake_dir)
+        cdir = pkg.chroot_wrksrc / cmake_dir
     else:
-        cdir = str(pkg.chroot_wrksrc)
+        cdir = pkg.chroot_wrksrc
 
     (pkg.abs_build_wrksrc / build_dir).mkdir(parents = True, exist_ok = True)
 
-    mdir = str(paths.masterdir())
     cargs = []
 
     if pkg.bootstrapping:
@@ -25,7 +24,7 @@ SET(CMAKE_SYSTEM_VERSION 1)
 SET(CMAKE_C_COMPILER   {pkg.get_tool("CC")})
 SET(CMAKE_CXX_COMPILER {pkg.get_tool("CXX")})
 
-SET(CMAKE_FIND_ROOT_PATH  "{mdir}/usr;{mdir}")
+SET(CMAKE_FIND_ROOT_PATH  "{paths.masterdir() / 'usr'};{paths.masterdir()}")
 
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -44,7 +43,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         if not cmake_cpu:
             pkg.error(f"unknown architecture: {pkg.build_profile.arch}")
 
-        sroot = str(pkg.build_profile.sysroot)
+        sroot = pkg.build_profile.sysroot
 
         with open(
             pkg.abs_build_wrksrc / build_dir / "cross.cmake", "w"
@@ -63,7 +62,7 @@ SET(CMAKE_SYSROOT "{sroot}")
 
 SET(CMAKE_SYSTEM_PROCESSOR {cmake_cpu})
 
-SET(CMAKE_FIND_ROOT_PATH  "{sroot}/usr;{sroot}")
+SET(CMAKE_FIND_ROOT_PATH  "{sroot / 'usr'};{sroot}")
 
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)

@@ -8,7 +8,7 @@ def scan(pkg, somap):
     scanout = subprocess.run(
         [
             "scanelf", "--nobanner", "--nocolor", "--recursive", "--symlink",
-            "--format", "%a|%b|%o|%t|%n|%S|", str(pkg.destdir)
+            "--format", "%a|%b|%o|%t|%n|%S|", pkg.destdir
         ],
         capture_output = True
     )
@@ -58,7 +58,7 @@ def scan(pkg, somap):
             pkg.error("ELF files in /usr/share:")
         except:
             for f in elf_usrshare:
-                print(f"   {str(f)}")
+                print(f"   {f}")
             raise
 
     if len(elf_textrels) > 0:
@@ -66,5 +66,5 @@ def scan(pkg, somap):
             pkg.error("found textrels:")
         except:
             for f in elf_textrels:
-                print(f"   {str(f)}")
+                print(f"   {f}")
             raise

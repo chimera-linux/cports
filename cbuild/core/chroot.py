@@ -234,8 +234,8 @@ def install(arch = None, stage = 2):
     repo_sync()
 
     irun = subprocess.run([
-        "apk", "add", "--root", str(paths.masterdir()), "--no-scripts",
-        "--repositories-file", str(paths.hostdir() / "repositories"),
+        "apk", "add", "--root", paths.masterdir(), "--no-scripts",
+        "--repositories-file", paths.hostdir() / "repositories",
         "--arch", arch, "base-chroot"
     ])
     if irun.returncode != 0:
@@ -263,13 +263,13 @@ def remove_autodeps(bootstrapping):
 
     if subprocess.run([
         "apk", "info", "--allow-untrusted", "--installed", "--root",
-        str(paths.masterdir()), "autodeps-host"
+        paths.masterdir(), "autodeps-host"
     ], capture_output = True).returncode == 0:
         if bootstrapping:
             del_ret = subprocess.run([
-                "apk", "del", "--root", str(paths.masterdir()),
+                "apk", "del", "--root", paths.masterdir(),
                 "--no-scripts", "--repositories-file",
-                str(paths.hostdir() / "repositories"),
+                paths.hostdir() / "repositories",
                 "autodeps-host"
             ], capture_output = True)
         else:
@@ -285,13 +285,13 @@ def remove_autodeps(bootstrapping):
 
     if subprocess.run([
         "apk", "info", "--allow-untrusted", "--installed", "--root",
-        str(paths.masterdir()), "autodeps-target"
+        paths.masterdir(), "autodeps-target"
     ], capture_output = True).returncode == 0:
         if bootstrapping:
             del_ret = subprocess.run([
-                "apk", "del", "--root", str(paths.masterdir()),
+                "apk", "del", "--root", paths.masterdir(),
                 "--no-scripts", "--repositories-file",
-                str(paths.hostdir() / "repositories"),
+                paths.hostdir() / "repositories",
                 "autodeps-target"
             ], capture_output = True)
         else:
@@ -385,20 +385,20 @@ def enter(cmd, args = [], capture_out = False, check = False,
 
     bcmd = [
         "bwrap",
-        root_bind, str(paths.masterdir()), "/",
-        "--bind", str(paths.masterdir() / "builddir"), "/builddir",
-        "--bind", str(paths.masterdir() / "destdir"), "/destdir",
-        "--ro-bind", str(paths.hostdir() / "sources"), "/sources",
+        root_bind, paths.masterdir(), "/",
+        "--bind", paths.masterdir() / "builddir", "/builddir",
+        "--bind", paths.masterdir() / "destdir", "/destdir",
+        "--ro-bind", paths.hostdir() / "sources", "/sources",
         "--dev", "/dev",
         "--proc", "/proc",
         "--tmpfs", "/tmp",
     ]
 
     if mount_binpkgs:
-        bcmd += ["--ro-bind", str(paths.repository()), "/binpkgs"]
+        bcmd += ["--ro-bind", paths.repository(), "/binpkgs"]
 
     if mount_ccache:
-        bcmd += ["--bind", str(paths.hostdir() / "ccache"), "/ccache"]
+        bcmd += ["--bind", paths.hostdir() / "ccache", "/ccache"]
 
     if pretend_uid != None:
         bcmd += ["--uid", str(pretend_uid)]
@@ -410,7 +410,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
 
     if wrkdir:
         bcmd.append("--chdir")
-        bcmd.append(str(wrkdir))
+        bcmd.append(wrkdir)
 
     bcmd.append(cmd)
     bcmd += args

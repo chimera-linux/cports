@@ -100,7 +100,7 @@ def _submove(src, dest, root):
             # remove the source dir that should now be empty
             fsrc.rmdir()
         else:
-            raise FileExistsError(f"'{str(fstr)}' and '{str(fdest)}' overlap")
+            raise FileExistsError(f"'{fstr}' and '{fdest}' overlap")
 
 hooks = {
     "init_fetch": [],
@@ -194,7 +194,7 @@ class Package:
         dest = pathlib.Path(dest)
         if dest.is_absolute():
             self.logger.out_red(
-                f"install_files: path '{str(dest)}' must not be absolute"
+                f"install_files: path '{dest}' must not be absolute"
             )
             raise PackageError()
         if path.is_absolute():
@@ -210,7 +210,7 @@ class Package:
         for dn in args:
             dn = pathlib.Path(dn)
             if dn.is_absolute():
-                self.logger.out_red(f"path '{str(dn)}' must not be absolute")
+                self.logger.out_red(f"path '{dn}' must not be absolute")
                 raise PackageError()
             dirp = self.destdir / dn
             if not dirp.is_dir():
@@ -223,7 +223,7 @@ class Package:
         # sanitize destination
         if dest.is_absolute():
             self.logger.out_red(
-                f"install_file: path '{str(dest)}' must not be absolute"
+                f"install_file: path '{dest}' must not be absolute"
             )
             raise PackageError()
         # default name
@@ -233,7 +233,7 @@ class Package:
         dfn = self.destdir / dest / name
         if dfn.exists():
             self.logger.out_red(
-                f"install_file: destination file '{str(dfn)}' already exists"
+                f"install_file: destination file '{dfn}' already exists"
             )
             raise PackageError()
         self.install_dir(dest)
@@ -245,7 +245,7 @@ class Package:
         for bn in args:
             spath = self.rparent.abs_wrksrc / bn
             dpath = self.destdir / "usr/bin"
-            self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
+            self.log(f"copying (755): {spath} -> {dpath}")
             shutil.copy2(spath, dpath)
             (dpath / spath.name).chmod(0o755)
 
@@ -254,7 +254,7 @@ class Package:
         for bn in args:
             spath = self.rparent.abs_wrksrc / bn
             dpath = self.destdir / "usr/lib"
-            self.log(f"copying (755): {str(spath)} -> {str(dpath)}")
+            self.log(f"copying (755): {spath} -> {dpath}")
             shutil.copy2(spath, dpath)
             (dpath / spath.name).chmod(0o755)
 
@@ -273,9 +273,9 @@ class Package:
             except:
                 self.logger.out_red(f"manpage '{mnf}' has an invalid section")
                 raise PackageError()
-            mandir = manbase / ("man" + str(mnsec))
+            mandir = manbase / f"man{mnsec}"
             mandir.mkdir(parents = True, exist_ok = True)
-            self.log(f"copying (644): {str(absmn)} -> {str(mandir)}")
+            self.log(f"copying (644): {absmn} -> {mandir}")
             shutil.copy2(absmn, mandir)
             (mandir / mnf).chmod(0o644)
 
@@ -284,35 +284,35 @@ class Package:
         for bn in args:
             spath = self.rparent.abs_wrksrc / bn
             dpath = self.destdir / "usr/share/licenses" / self.pkgname
-            self.log(f"copying (644): {str(spath)} -> {str(dpath)}")
+            self.log(f"copying (644): {spath} -> {dpath}")
             shutil.copy2(spath, dpath)
             (dpath / spath.name).chmod(0o644)
 
     def install_link(self, src, dest):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
-            self.logger.out_red(f"path '{str(dest)}' must not be absolute")
+            self.logger.out_red(f"path '{dest}' must not be absolute")
             raise PackageError()
         dest = self.destdir / dest
-        self.log(f"symlinking: {str(src)} -> {str(dest)}")
+        self.log(f"symlinking: {src} -> {dest}")
         dest.symlink_to(src)
 
     def copy(self, src, dest, root = None):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
-            self.logger.out_red(f"path '{str(dest)}' must not be absolute")
+            self.logger.out_red(f"path '{dest}' must not be absolute")
             raise PackageError()
         cp = (pathlib.Path(root) if root else self.destdir) / dest
-        self.log(f"copying: {str(src)} -> {str(cp)}")
+        self.log(f"copying: {src} -> {cp}")
         shutil.copy2(src, cp)
 
     def unlink(self, f, root = None, missing_ok = False):
         f = pathlib.Path(f)
         if f.is_absolute():
-            self.logger.out_red(f"path '{str(f)}' must not be absolute")
+            self.logger.out_red(f"path '{f}' must not be absolute")
             raise PackageError()
         remp = (pathlib.Path(root) if root else self.destdir) / f
-        self.log(f"removing: {str(remp)}")
+        self.log(f"removing: {remp}")
         remp.unlink(missing_ok)
 
     def rmtree(self, path, root = None):
@@ -510,12 +510,12 @@ class Template(Package):
 
         # find whether the template dir has local modifications
         dirty = len(subprocess.run([
-            "git", "status", "-s", "--", str(tpath)
+            "git", "status", "-s", "--", tpath
         ], capture_output = True).stdout.strip()) != 0
 
         # find the last revision modifying the template
         self.git_revision = subprocess.run([
-            "git", "log", "--format=oneline", "-n1", "--", str(tpath)
+            "git", "log", "--format=oneline", "-n1", "--", tpath
         ], capture_output = True).stdout.strip()[0:40].decode("ascii")
 
         if len(self.git_revision) < 40:
@@ -552,7 +552,7 @@ class Template(Package):
 
     def validate_version(self):
         try:
-            x = version.Version(self.version + "-r" + str(self.revision))
+            x = version.Version(f"{self.version}-r{self.revision}")
         except:
             self.error("version has an invalid format")
 
@@ -628,7 +628,7 @@ class Template(Package):
             wdir = wdir / wrksrc
 
         return chroot.enter(
-            str(cmd), args, env = cenv, wrkdir = str(wdir), check = True,
+            cmd, args, env = cenv, wrkdir = wdir, check = True,
             bootstrapping = self.bootstrapping, ro_root = True,
             mount_ccache = True, unshare_all = True
         )
@@ -782,7 +782,7 @@ class Subpackage(Package):
             for fullp in got:
                 # relative path to the file/dir in original destdir
                 pdest = self.parent.destdir
-                self.log(f"moving: {fullp} -> {str(self.destdir)}")
+                self.log(f"moving: {fullp} -> {self.destdir}")
                 _submove(
                     pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
                 )
@@ -947,9 +947,9 @@ def from_module(m, ret):
     if ret.skip_if_exist:
         pinfo = subprocess.run([
             "apk", "search", "--arch", ret.build_profile.arch, "-e",
-            "--root", str(paths.masterdir()),
+            "--root", paths.masterdir(),
             "--allow-untrusted", "--repositories-file",
-            str(paths.hostdir() / "repositories"),
+            paths.hostdir() / "repositories",
             ret.pkgname
         ], capture_output = True)
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:

@@ -55,6 +55,6 @@ def invoke(pkg):
                     autosfx = "0"
 
             asonames.append((soname, autosfx))
-            logger.get().out_plain(f"   SONAME {soname} from {str(fp.parent)}")
+            logger.get().out_plain(f"   SONAME {soname} from {fp.parent}")
 
     pkg.aso_provides = asonames
