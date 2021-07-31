@@ -1171,3 +1171,4 @@ def register_hooks():
                         )
                         raise Exception()
                     hooks[stepn].append((modh.invoke, f.stem))
+                    hooks[stepn].sort(key = lambda v: v[1])
