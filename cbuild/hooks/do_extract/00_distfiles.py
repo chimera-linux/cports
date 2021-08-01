@@ -80,9 +80,7 @@ extract_table = {
 
 def invoke(pkg):
     if pkg.create_wrksrc:
-        pkg.abs_wrksrc.mkdir(exist_ok = True, parents = True)
-        if not pkg.abs_wrksrc.is_dir():
-            pkg.error(f"failed to create wrksrc")
+        (pkg.builddir / pkg.wrksrc).mkdir(exist_ok = True, parents = True)
 
     for d in pkg.distfiles:
         if isinstance(d, tuple):
@@ -104,7 +102,7 @@ def invoke(pkg):
                 pkg.error(f"distfile not supported for bootstrap: {fname}")
 
         if pkg.create_wrksrc:
-            extractdir = pkg.chroot_wrksrc
+            extractdir = pkg.builddir / pkg.wrksrc
         else:
             extractdir = pkg.chroot_builddir
 

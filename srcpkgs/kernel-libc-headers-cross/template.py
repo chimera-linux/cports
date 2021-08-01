@@ -31,7 +31,7 @@ def do_build(self):
 
     for an, arch in _targets:
         # already done
-        if (self.abs_wrksrc / ("inc_" + an)).exists():
+        if (self.cwd / ("inc_" + an)).exists():
             continue
 
         mk = make.Make(self, jobs = 1)
@@ -40,25 +40,25 @@ def do_build(self):
         ])
 
         # remove extra files and drm headers
-        for fn in self.find(".*", files = True, root = self.abs_wrksrc):
-            self.unlink(fn, root = self.abs_wrksrc)
+        for fn in self.find(".*", files = True, root = self.cwd):
+            self.unlink(fn, root = self.cwd)
 
         # save the makefile
         shutil.copy(
-            self.abs_wrksrc / "usr/include/Makefile",
-            self.abs_wrksrc / "Makefile.usr_include"
+            self.cwd / "usr/include/Makefile",
+            self.cwd / "Makefile.usr_include"
         )
         # clean up
-        self.unlink("usr/include/Makefile", root = self.abs_wrksrc)
-        self.rmtree("usr/include/drm", root = self.abs_wrksrc)
+        self.unlink("usr/include/Makefile", root = self.cwd)
+        self.rmtree("usr/include/drm", root = self.cwd)
         shutil.move(
-            self.abs_wrksrc / "usr/include", self.abs_wrksrc / ("inc_" + an)
+            self.cwd / "usr/include", self.cwd / ("inc_" + an)
         )
         # restore things as they were for next pass
-        (self.abs_wrksrc / "usr/include").mkdir()
+        (self.cwd / "usr/include").mkdir()
         shutil.move(
-            self.abs_wrksrc / "Makefile.usr_include",
-            self.abs_wrksrc / "usr/include/Makefile"
+            self.cwd / "Makefile.usr_include",
+            self.cwd / "usr/include/Makefile"
         )
 
 def do_install(self):

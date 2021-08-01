@@ -69,13 +69,9 @@ def _install_hdrs(self):
     at = self.build_profile.short_triplet
     self.install_dir(f"usr/{at}/usr/include")
     self.install_file(
-        self.abs_wrksrc / "libcxxabi/include/__cxxabi_config.h",
-        f"usr/{at}/usr/include"
+        "libcxxabi/include/__cxxabi_config.h", f"usr/{at}/usr/include"
     )
-    self.install_file(
-        self.abs_wrksrc / "libcxxabi/include/cxxabi.h",
-        f"usr/{at}/usr/include"
-    )
+    self.install_file("libcxxabi/include/cxxabi.h", f"usr/{at}/usr/include")
 
 def do_install(self):
     for an in _targets:

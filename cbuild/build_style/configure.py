@@ -2,8 +2,7 @@ from cbuild.util import make
 
 def do_configure(self):
     self.do(
-        self.chroot_build_wrksrc / self.configure_script,
-        self.configure_args, build = True
+        self.chroot_cwd / self.configure_script, self.configure_args
     )
 
 def do_build(self):

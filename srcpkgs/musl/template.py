@@ -31,9 +31,9 @@ def post_build(self):
     from cbuild.util import compiler
     import shutil
 
-    shutil.copy(self.files_path / "getent.c", self.abs_wrksrc)
-    shutil.copy(self.files_path / "getconf.c", self.abs_wrksrc)
-    shutil.copy(self.files_path / "iconv.c", self.abs_wrksrc)
+    shutil.copy(self.files_path / "getent.c", self.cwd)
+    shutil.copy(self.files_path / "getconf.c", self.cwd)
+    shutil.copy(self.files_path / "iconv.c", self.cwd)
 
     cc = compiler.C(self)
     cc.invoke(["getent.c"], "getent")

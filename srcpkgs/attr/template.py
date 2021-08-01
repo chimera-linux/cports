@@ -22,16 +22,13 @@ def pre_check(self):
     # the error message in musl based systems
     # EXPECTED: Operation not supported
     # RECIEVED: Not supported
-    with open(self.abs_wrksrc / "test/attr.test") as ifile:
-        with open(self.abs_wrksrc / "test/attr.test.new") as ofile:
+    with open(self.cwd / "test/attr.test") as ifile:
+        with open(self.cwd / "test/attr.test.new") as ofile:
             for ln in ifile:
                 ln = ln.replace("f: Operation n", "f: N")
                 ofile.write(ln)
 
-    os.rename(
-        self.abs_wrksrc / "test/attr.test.new",
-        self.abs_wrksrc / "test/attr.test"
-    )
+    os.rename(self.cwd / "test/attr.test.new", self.cwd / "test/attr.test")
 
 @subpackage("attr-devel")
 def _devel(self):

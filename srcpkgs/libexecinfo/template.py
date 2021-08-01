@@ -13,10 +13,10 @@ checksum = ["c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"]
 def do_install(self):
     self.install_dir("usr/lib/pkgconfig")
     self.install_dir("usr/include")
-    self.install_file(self.abs_wrksrc / "libexecinfo.pc", "usr/lib/pkgconfig")
-    self.install_file(self.abs_wrksrc / "execinfo.h", "usr/include")
-    self.install_file(self.abs_wrksrc / "stacktraverse.h", "usr/include")
-    self.install_file(self.abs_wrksrc / "libexecinfo.a", "usr/lib")
+    self.install_file("libexecinfo.pc", "usr/lib/pkgconfig")
+    self.install_file("execinfo.h", "usr/include")
+    self.install_file("stacktraverse.h", "usr/include")
+    self.install_file("libexecinfo.a", "usr/lib")
     self.install_lib("libexecinfo.so.1")
     self.install_link("libexecinfo.so.1", "usr/lib/libexecinfo.so")
 

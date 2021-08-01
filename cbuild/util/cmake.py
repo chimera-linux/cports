@@ -5,17 +5,17 @@ def configure(
     cross_build = None
 ):
     if cmake_dir:
-        cdir = pkg.chroot_wrksrc / cmake_dir
+        cdir = pkg.chroot_cwd / cmake_dir
     else:
-        cdir = pkg.chroot_wrksrc
+        cdir = pkg.chroot_cwd
 
-    (pkg.abs_build_wrksrc / build_dir).mkdir(parents = True, exist_ok = True)
+    (pkg.cwd / build_dir).mkdir(parents = True, exist_ok = True)
 
     cargs = []
 
     if pkg.bootstrapping:
         with open(
-            pkg.abs_build_wrksrc / build_dir / "bootstrap.cmake", "w"
+            pkg.cwd / build_dir / "bootstrap.cmake", "w"
         ) as infile:
             infile.write(f"""
 SET(CMAKE_SYSTEM_NAME Linux)
@@ -46,7 +46,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         sroot = pkg.build_profile.sysroot
 
         with open(
-            pkg.abs_build_wrksrc / build_dir / "cross.cmake", "w"
+            pkg.cwd / build_dir / "cross.cmake", "w"
         ) as infile:
             infile.write(f"""
 SET(CMAKE_SYSTEM_NAME Linux)
@@ -77,7 +77,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
             "-DCMAKE_INSTALL_LIBDIR=lib",
             "-DCMAKE_INSTALL_SBINDIR=bin"
         ] + pkg.configure_args + extra_args + [cdir],
-        wrksrc = build_dir, build = True, env = {
+        wrksrc = build_dir, env = {
             "CMAKE_GENERATOR": (
                 "Ninja" if pkg.make_cmd == "ninja" else "Unix Makefiles"
             )

@@ -18,5 +18,5 @@ if not current.bootstrapping:
 def post_extract(self):
     import shutil
     # pre-bootstrapped copies to avoid dependency cycle with flex
-    shutil.copy(self.files_path / "tokenizer.c", self.abs_wrksrc)
-    shutil.copy(self.files_path / "tokenizer.h", self.abs_wrksrc)
+    shutil.copy(self.files_path / "tokenizer.c", self.cwd)
+    shutil.copy(self.files_path / "tokenizer.h", self.cwd)

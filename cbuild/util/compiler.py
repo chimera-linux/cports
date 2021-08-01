@@ -27,13 +27,13 @@ class GnuLike:
         else:
             argsbase += ldflags
         # output always
-        argsbase += ["-o", str(pkg.chroot_build_wrksrc / output)]
+        argsbase += ["-o", str(pkg.chroot_cwd / output)]
         # fire
         if not quiet:
             logger.get().out_plain(self.cexec + " " + shlex.join(
                 map(lambda v: str(v), argsbase)
             ))
-        return self.template.do(self.cexec, argsbase, build = True)
+        return self.template.do(self.cexec, argsbase)
 
 class C(GnuLike):
     def __init__(self, tmpl, cexec = None):

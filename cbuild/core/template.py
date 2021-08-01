@@ -41,13 +41,13 @@ class StampCheck:
 
     def __exit__(self, exct, excv, tback):
         if not exct:
-            (self.pkg.abs_wrksrc / f".stamp_{self.name}_done").touch()
+            (self.pkg.cwd / f".stamp_{self.name}_done").touch()
             return True
 
         return isinstance(excv, StampException)
 
     def check(self):
-        if (self.pkg.abs_wrksrc / f".stamp_{self.name}_done").exists():
+        if (self.cwd / f".stamp_{self.name}_done").exists():
             raise StampException()
 
 @contextlib.contextmanager
@@ -201,7 +201,7 @@ class Package:
             self.logger.out_red(f"path '{path}' must not be absolute")
             raise PackageError()
 
-        path = self.rparent.abs_wrksrc / path
+        path = self.rparent.cwd / path
         dest = self.destdir / dest / path.name
 
         shutil.copytree(path, dest, symlinks = symlinks)
@@ -237,13 +237,13 @@ class Package:
             )
             raise PackageError()
         self.install_dir(dest)
-        shutil.copy2(src, dfn)
+        shutil.copy2(self.cwd / src, dfn)
         dfn.chmod(mode)
 
     def install_bin(self, *args):
         self.install_dir("usr/bin")
         for bn in args:
-            spath = self.rparent.abs_wrksrc / bn
+            spath = self.rparent.cwd / bn
             dpath = self.destdir / "usr/bin"
             self.log(f"copying (755): {spath} -> {dpath}")
             shutil.copy2(spath, dpath)
@@ -252,7 +252,7 @@ class Package:
     def install_lib(self, *args):
         self.install_dir("usr/lib")
         for bn in args:
-            spath = self.rparent.abs_wrksrc / bn
+            spath = self.rparent.cwd / bn
             dpath = self.destdir / "usr/lib"
             self.log(f"copying (755): {spath} -> {dpath}")
             shutil.copy2(spath, dpath)
@@ -262,7 +262,7 @@ class Package:
         self.install_dir("usr/share/man")
         manbase = self.destdir / "usr/share/man"
         for mn in args:
-            absmn = self.rparent.abs_wrksrc / mn
+            absmn = self.rparent.cwd / mn
             mnf = absmn.name
             mnext = absmn.suffix
             if len(mnext) == 0:
@@ -282,7 +282,7 @@ class Package:
     def install_license(self, *args):
         self.install_dir("usr/share/licenses/" + self.pkgname)
         for bn in args:
-            spath = self.rparent.abs_wrksrc / bn
+            spath = self.rparent.cwd / bn
             dpath = self.destdir / "usr/share/licenses" / self.pkgname
             self.log(f"copying (644): {spath} -> {dpath}")
             shutil.copy2(spath, dpath)
@@ -304,7 +304,7 @@ class Package:
             raise PackageError()
         cp = (pathlib.Path(root) if root else self.destdir) / dest
         self.log(f"copying: {src} -> {cp}")
-        shutil.copy2(src, cp)
+        shutil.copy2(self.cwd / src, cp)
 
     def unlink(self, f, root = None, missing_ok = False):
         f = pathlib.Path(f)
@@ -580,7 +580,7 @@ class Template(Package):
         if not matched:
             self.error(f"this package cannot be built for {archn}")
 
-    def do(self, cmd, args, env = {}, build = False, wrksrc = None):
+    def do(self, cmd, args, env = {}, wrksrc = None):
         cenv = {
             "CFLAGS": self.get_cflags(shell = True),
             "FFLAGS": self.get_fflags(shell = True),
@@ -599,7 +599,7 @@ class Template(Package):
             cenv["CCACHE_DIR"] = "/ccache"
             cenv["CCACHE_COMPILERCHECK"] = "content"
             cenv["CCACHE_COMPRESS"] = "1"
-            cenv["CCACHE_BASEDIR"] = str(self.chroot_build_wrksrc)
+            cenv["CCACHE_BASEDIR"] = str(self.chroot_cwd)
 
         cenv.update(self.tools)
 
@@ -623,7 +623,7 @@ class Template(Package):
         cenv.update(self.env)
         cenv.update(env)
 
-        wdir = self.chroot_build_wrksrc if build else self.chroot_wrksrc
+        wdir = self.chroot_cwd
         if wrksrc:
             wdir = wdir / wrksrc
 
@@ -909,8 +909,6 @@ def from_module(m, ret):
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
     ret.builddir = paths.masterdir() / "builddir"
-    ret.abs_wrksrc = paths.masterdir() / "builddir" / ret.wrksrc
-    ret.abs_build_wrksrc = ret.abs_wrksrc / ret.build_wrksrc
     ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
 
@@ -925,17 +923,16 @@ def from_module(m, ret):
     if ret.bootstrapping:
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
-        ret.chroot_wrksrc = ret.abs_wrksrc
     else:
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
         if ret.build_profile.cross:
             ret.chroot_destdir_base = ret.chroot_destdir_base / \
                 ret.build_profile.triplet
-        ret.chroot_wrksrc = pathlib.Path("/builddir") \
-            / ret.wrksrc
 
-    ret.chroot_build_wrksrc = ret.chroot_wrksrc / ret.build_wrksrc
+    ret.cwd = paths.masterdir() / "builddir" / ret.wrksrc / ret.build_wrksrc
+    ret.chroot_cwd = pathlib.Path("/builddir") / ret.cwd.relative_to(ret.builddir)
+
     ret.chroot_destdir = ret.chroot_destdir_base \
         / f"{ret.pkgname}-{ret.version}"
 

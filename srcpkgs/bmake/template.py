@@ -13,12 +13,12 @@ options = ["bootstrap"]
 
 def do_build(self):
     import os
-    os.makedirs(self.abs_wrksrc / "build", exist_ok = True)
+    os.makedirs(self.cwd / "build", exist_ok = True)
     eargs = []
     if self.cross_build:
         eargs = ["--host=" + self.build_profile.short_triplet]
     self.do(
-        self.chroot_wrksrc / "boot-strap",
+        self.chroot_cwd / "boot-strap",
         eargs + ["--prefix=/usr", "op=build"],
         wrksrc = "build"
     )
@@ -29,7 +29,7 @@ def do_install(self):
     if self.cross_build:
         eargs = ["BMAKE=make"]
     self.do(
-        self.chroot_wrksrc / "boot-strap", [
+        self.chroot_cwd / "boot-strap", [
             "--prefix=/usr", "--install-destdir=" + str(self.chroot_destdir),
             "op=install"
         ] + eargs,

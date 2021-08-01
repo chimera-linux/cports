@@ -24,7 +24,7 @@ def post_install(self):
     import shutil
     self.install_license("Copyright.txt")
     shutil.copyfile(
-        self.abs_wrksrc / "Utilities/KWIML/Copyright.txt",
-        self.abs_wrksrc / "KWIML-Copyright.txt"
+        self.cwd / "Utilities/KWIML/Copyright.txt",
+        self.cwd / "KWIML-Copyright.txt"
     )
     self.install_license("KWIML-Copyright.txt")

@@ -17,7 +17,7 @@ def _wrap_cross_cc(pkg):
     with pkg.profile("host"):
         shutil.copy2(wrapperdir / "cross-cc.c", pkg.statedir / "wrappers")
         wpath = f"/builddir/.cbuild-{pkg.pkgname}/wrappers/"
-        pkg.abs_wrksrc.mkdir(exist_ok = True, parents = True)
+        pkg.cwd.mkdir(exist_ok = True, parents = True)
         compiler.C(pkg).invoke(
             [wpath + "cross-cc.c"], wpath + "cross-cc", quiet = True
         )

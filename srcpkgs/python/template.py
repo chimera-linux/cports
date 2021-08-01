@@ -33,12 +33,8 @@ def init_configure(self):
 
 def pre_configure(self):
     import shutil
-    shutil.rmtree(
-        self.abs_wrksrc / "Modules/_ctypes/darwin", ignore_errors = True
-    )
-    shutil.rmtree(
-        self.abs_wrksrc / "Modules/_ctypes/libffi_osx", ignore_errors = True
-    )
+    shutil.rmtree(self.cwd / "Modules/_ctypes/darwin", ignore_errors = True)
+    shutil.rmtree(self.cwd / "Modules/_ctypes/libffi_osx", ignore_errors = True)
 
 def do_install(self):
     import shutil

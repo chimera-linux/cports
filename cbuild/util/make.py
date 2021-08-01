@@ -53,7 +53,7 @@ class Make:
         argsbase += args
 
         return self.template.do(
-            self.get_command(), argsbase, build = True, env = renv,
+            self.get_command(), argsbase, env = renv,
             wrksrc = wrksrc if wrksrc else self.wrksrc
         )
 

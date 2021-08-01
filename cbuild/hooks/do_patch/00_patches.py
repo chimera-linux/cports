@@ -17,20 +17,20 @@ def process_patch(pkg, patchpath):
     patchsfx = patchpath.suffix
 
     try:
-        shutil.copy(patchpath, pkg.abs_wrksrc)
+        shutil.copy(patchpath, pkg.builddir / pkg.wrksrc)
     except:
         pkg.error(f"could not copy patch '{patchfn}'")
 
     if patchsfx == ".gz":
         chroot.enter(
-            "gunzip", [pkg.chroot_wrksrc / patchfn], check = True,
-            bootstrapping = pkg.bootstrapping, ro_root = True
+            "gunzip", [pkg.chroot_builddir / pkg.wrksrc / patchfn],
+            check = True, bootstrapping = pkg.bootstrapping, ro_root = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".bz2":
         chroot.enter(
-            "bunzip2", [pkg.chroot_wrksrc / patchfn], check = True,
-            bootstrapping = pkg.bootstrapping, ro_root = True
+            "bunzip2", [pkg.chroot_builddir / pkg.wrksrc / patchfn],
+            check = True, bootstrapping = pkg.bootstrapping, ro_root = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".diff" or patchsfx == ".patch":
@@ -43,13 +43,13 @@ def process_patch(pkg, patchpath):
     chroot.enter(
         "patch", ["-sl", pargs, "-i", patchfn],
         stderr = subprocess.DEVNULL, check = True,
-        wrkdir = pkg.chroot_wrksrc,
+        wrkdir = pkg.chroot_builddir / pkg.wrksrc,
         bootstrapping = pkg.bootstrapping,
         ro_root = True
     )
 
 def invoke(pkg):
-    if not pkg.abs_wrksrc.is_dir():
+    if not (pkg.builddir / pkg.wrksrc).is_dir():
         return
     if not pkg.patches_path.is_dir():
         return

@@ -87,8 +87,8 @@ def init_configure(self):
     if not self.cross_build:
         return
 
-    self.configure_args.append("-DLLVM_TABLEGEN=" + str(self.chroot_wrksrc / "build_host/bin/llvm-tblgen"))
-    self.configure_args.append("-DCLANG_TABLEGEN=" + str(self.chroot_wrksrc / "build_host/bin/clang-tblgen"))
+    self.configure_args.append("-DLLVM_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/llvm-tblgen"))
+    self.configure_args.append("-DCLANG_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/clang-tblgen"))
 
 def pre_configure(self):
     if not self.cross_build:
@@ -129,24 +129,24 @@ def do_configure(self):
 
 def post_install(self):
     self.install_file(
-        self.abs_wrksrc / "libcxxabi/include/__cxxabi_config.h", "usr/include"
+        "libcxxabi/include/__cxxabi_config.h", "usr/include"
     )
     self.install_file(
-        self.abs_wrksrc / "libcxxabi/include/cxxabi.h", "usr/include"
+        "libcxxabi/include/cxxabi.h", "usr/include"
     )
 
     self.install_dir("usr/include/mach-o")
     self.install_file(
-        self.abs_wrksrc / "libunwind/include/__libunwind_config.h", "usr/include"
+        "libunwind/include/__libunwind_config.h", "usr/include"
     )
     self.install_file(
-        self.abs_wrksrc / "libunwind/include/libunwind.h", "usr/include"
+        "libunwind/include/libunwind.h", "usr/include"
     )
     self.install_file(
-        self.abs_wrksrc / "libunwind/include/unwind.h", "usr/include"
+        "libunwind/include/unwind.h", "usr/include"
     )
     self.install_file(
-        self.abs_wrksrc / "libunwind/include/mach-o/compact_unwind_encoding.h",
+        "libunwind/include/mach-o/compact_unwind_encoding.h",
         "usr/include/mach-o"
     )
     # it's our default toolchain

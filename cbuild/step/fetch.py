@@ -13,8 +13,7 @@ def invoke(pkg):
     template.run_pkg_func(pkg, "pre_fetch")
 
     if hasattr(pkg, "do_fetch"):
-        if len(pkg.build_wrksrc) > 0:
-            pkg.abs_build_wrksrc.mkdir(parents = True, exist_ok = True)
+        pkg.cwd.mkdir(parents = True, exist_ok = True)
         template.run_pkg_func(pkg, "do_fetch")
     else:
         template.call_pkg_hooks(pkg, "do_fetch")

@@ -49,11 +49,11 @@ def do_build(self):
     ])
 
     # remove extra files and drm headers
-    for fn in self.find(".*", files = True, root = self.abs_wrksrc):
-        self.unlink(fn, root = self.abs_wrksrc)
+    for fn in self.find(".*", files = True, root = self.cwd):
+        self.unlink(fn, root = self.cwd)
 
-    self.unlink("usr/include/Makefile", root = self.abs_wrksrc)
-    self.rmtree("usr/include/drm", root = self.abs_wrksrc)
+    self.unlink("usr/include/Makefile", root = self.cwd)
+    self.rmtree("usr/include/drm", root = self.cwd)
 
 def do_install(self):
     self.install_files("usr/include", "usr")

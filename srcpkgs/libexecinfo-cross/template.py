@@ -23,7 +23,7 @@ def do_build(self):
 
     for an in _targets:
         # skip already done pass
-        if (self.abs_wrksrc / f"libexecinfo.a.{an}").exists():
+        if (self.cwd / f"libexecinfo.a.{an}").exists():
             continue
 
         with self.profile(an):
@@ -36,12 +36,12 @@ def do_build(self):
                 "AR=" + self.get_tool("AR")
             ])
             shutil.move(
-                self.abs_wrksrc / "libexecinfo.a",
-                self.abs_wrksrc / f"libexecinfo.a.{an}"
+                self.cwd / "libexecinfo.a",
+                self.cwd / f"libexecinfo.a.{an}"
             )
             shutil.move(
-                self.abs_wrksrc / "libexecinfo.so.1",
-                self.abs_wrksrc / f"libexecinfo.so.{an}"
+                self.cwd / "libexecinfo.so.1",
+                self.cwd / f"libexecinfo.so.{an}"
             )
 
 def do_install(self):
@@ -54,29 +54,18 @@ def do_install(self):
             self.install_dir(f"usr/{at}/usr/include")
             self.install_dir(f"usr/{at}/usr/lib")
             shutil.move(
-                self.abs_wrksrc / f"libexecinfo.a.{an}",
-                self.abs_wrksrc / "libexecinfo.a"
+                self.cwd / f"libexecinfo.a.{an}",
+                self.cwd / "libexecinfo.a"
             )
             shutil.move(
-                self.abs_wrksrc / f"libexecinfo.so.{an}",
-                self.abs_wrksrc / "libexecinfo.so.1"
+                self.cwd / f"libexecinfo.so.{an}",
+                self.cwd / "libexecinfo.so.1"
             )
+            self.install_file("libexecinfo.pc", f"usr/{at}/usr/lib/pkgconfig")
+            self.install_file("execinfo.h", f"usr/{at}/usr/include")
+            self.install_file("libexecinfo.a", f"usr/{at}/usr/lib")
             self.install_file(
-                self.abs_wrksrc / "libexecinfo.pc",
-                f"usr/{at}/usr/lib/pkgconfig"
-            )
-            self.install_file(
-                self.abs_wrksrc / "execinfo.h",
-                f"usr/{at}/usr/include"
-            )
-            self.install_file(
-                self.abs_wrksrc / "libexecinfo.a",
-                f"usr/{at}/usr/lib"
-            )
-            self.install_file(
-                self.abs_wrksrc / "libexecinfo.so.1",
-                f"usr/{at}/usr/lib",
-                mode = 0o755
+                "libexecinfo.so.1", f"usr/{at}/usr/lib", mode = 0o755
             )
             self.install_link(
                 "libexecinfo.so.1", f"usr/{at}/usr/lib/libexecinfo.so"

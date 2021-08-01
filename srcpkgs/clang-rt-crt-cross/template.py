@@ -62,7 +62,7 @@ _targets = list(filter(
 def post_patch(self):
     import shutil
     shutil.move(
-        self.builddir / f"musl-{_musl_version}", self.abs_wrksrc / "musl"
+        self.builddir / f"musl-{_musl_version}", self.cwd / "musl"
     )
 
 def do_configure(self):
@@ -72,14 +72,14 @@ def do_configure(self):
         with self.profile(an):
             at = self.build_profile.short_triplet
             # musl build dir
-            (self.abs_wrksrc / f"musl/build-{an}").mkdir(exist_ok = True)
+            (self.cwd / f"musl/build-{an}").mkdir(exist_ok = True)
             # configure musl
             with self.stamp(f"{an}_musl_configure") as s:
                 s.check()
                 self.do(
-                    self.chroot_wrksrc / "musl/configure",
-                    ["--prefix=/usr", "--host=" + at], build = True,
-                    wrksrc = self.chroot_wrksrc / f"musl/build-{an}",
+                    self.chroot_cwd / "musl/configure",
+                    ["--prefix=/usr", "--host=" + at],
+                    wrksrc = f"musl/build-{an}",
                     env = {
                         "CC": "clang -target " + at
                     }
@@ -89,22 +89,22 @@ def do_configure(self):
                 s.check()
                 make.Make(
                     self, command = "gmake",
-                    wrksrc = self.chroot_wrksrc / f"musl/build-{an}"
+                    wrksrc = self.chroot_cwd / f"musl/build-{an}"
                 ).invoke(
                     "install-headers",
-                    ["DESTDIR=" + str(self.chroot_wrksrc / f"musl-{an}")]
+                    ["DESTDIR=" + str(self.chroot_cwd / f"musl-{an}")]
                 )
             # configure compiler-rt
             with self.stamp(f"{an}_configure") as s:
                 s.check()
                 cmake.configure(self, self.cmake_dir, f"build-{an}", [
-                    "-DCMAKE_SYSROOT=" + str(self.chroot_wrksrc  / f"musl-{an}"),
+                    "-DCMAKE_SYSROOT=" + str(self.chroot_cwd  / f"musl-{an}"),
                     f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                     f"-DCMAKE_C_COMPILER_TARGET={at}",
                     f"-DCMAKE_CXX_COMPILER_TARGET={at}",
                     # override the cflags-provided sysroot
                     f"-DCMAKE_C_FLAGS=" + self.get_cflags([
-                        "--sysroot=" + str(self.chroot_wrksrc  / f"musl-{an}")
+                        "--sysroot=" + str(self.chroot_cwd  / f"musl-{an}")
                     ], shell = True)
                 ], cross_build = False)
 

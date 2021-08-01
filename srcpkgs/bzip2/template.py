@@ -33,7 +33,7 @@ def do_check(self):
 
 def do_install(self):
     import os
-    os.rename(self.abs_wrksrc / "bzip2-shared", self.abs_wrksrc / "bzip2")
+    os.rename(self.cwd / "bzip2-shared", self.cwd / "bzip2")
 
     self.install_bin("bzip2")
     self.install_bin("bzip2recover")
@@ -48,8 +48,8 @@ def do_install(self):
     self.install_link("libbz2.so." + version, "usr/lib/libbz2.so.1")
     self.install_link("libbz2.so." + version, "usr/lib/libbz2.so.1.0")
 
-    self.install_file(self.abs_wrksrc / "libbz2.a", "usr/lib")
-    self.install_file(self.abs_wrksrc / "bzlib.h", "usr/include")
+    self.install_file("libbz2.a", "usr/lib")
+    self.install_file("bzlib.h", "usr/include")
 
     self.install_man("bzip2.1")
     self.install_link("bzip2.1", "usr/share/man/man1/bunzip2.1")

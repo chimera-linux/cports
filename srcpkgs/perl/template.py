@@ -147,14 +147,14 @@ provides = [
 def post_extract(self):
     import shutil
 
-    pcpath = self.abs_wrksrc / ".." / f"perl-cross-{_perl_cross_version}"
+    pcpath = self.cwd / ".." / f"perl-cross-{_perl_cross_version}"
 
     for f in pcpath.iterdir():
         if f.name == "utils":
-            shutil.move(f / "Makefile", self.abs_wrksrc / "utils")
+            shutil.move(f / "Makefile", self.cwd / "utils")
             f.rmdir()
             continue
-        shutil.move(f, self.abs_wrksrc)
+        shutil.move(f, self.cwd)
 
     pcpath.rmdir()
 
@@ -211,7 +211,7 @@ def do_configure(self):
     cargs.append("-Dperl_static_inline=static __inline__")
     cargs.append("-Dd_static_inline")
 
-    self.do(self.chroot_wrksrc / "configure", cargs, build = True)
+    self.do(self.chroot_cwd / "configure", cargs)
 
 def do_check(self):
     from cbuild.util import make
@@ -253,12 +253,12 @@ def post_install(self):
 
     cfpath = self.destdir / "usr/lib/perl5/core_perl/Config_heavy.pl"
     with open(cfpath) as ifile:
-        with open(self.abs_wrksrc / "Config_heavy.pl.new", "w") as ofile:
+        with open(self.cwd / "Config_heavy.pl.new", "w") as ofile:
             for ln in ifile:
                 ln = re.sub("-specs=.*hardened-ld", "", ln)
                 ln = re.sub("-specs=.*hardened-cc1", "", ln)
                 ofile.write(ln)
 
     cfpath.unlink()
-    os.rename(self.abs_wrksrc / "Config_heavy.pl.new", cfpath)
+    os.rename(self.cwd / "Config_heavy.pl.new", cfpath)
     cfpath.chmod(0o644)

@@ -19,7 +19,7 @@ def post_extract(self):
     import re
     import os
 
-    shutil.copy(self.files_path / "certdata2pem.c", self.abs_wrksrc)
+    shutil.copy(self.files_path / "certdata2pem.c", self.cwd)
     with self.profile("host"):
         cc = compiler.C(self)
         cc.invoke(
@@ -28,11 +28,11 @@ def post_extract(self):
 
     self.copy(
         self.files_path / "remove-expired-certs.sh",
-        "mozilla", root = self.abs_wrksrc
+        "mozilla", root = self.cwd
     )
 
-    with open(self.abs_wrksrc / "mozilla/Makefile", "r") as ifile:
-        with open(self.abs_wrksrc / "mozilla/Makefile.new", "w") as ofile:
+    with open(self.cwd / "mozilla/Makefile", "r") as ifile:
+        with open(self.cwd / "mozilla/Makefile.new", "w") as ofile:
             for ln in ifile:
                 ln = ln.replace("python3 certdata2pem.py", "./certdata2pem")
                 ln = re.sub(
@@ -43,8 +43,8 @@ def post_extract(self):
                 ofile.write(ln)
 
     os.rename(
-        self.abs_wrksrc / "mozilla/Makefile.new",
-        self.abs_wrksrc / "mozilla/Makefile"
+        self.cwd / "mozilla/Makefile.new",
+        self.cwd / "mozilla/Makefile"
     )
 
 def init_build(self):
@@ -64,9 +64,7 @@ def do_install(self):
     self.make.install()
 
     self.install_dir("usr/share/man/man8")
-    self.install_file(
-        self.abs_wrksrc / "sbin/update-ca-certificates.8", "usr/share/man/man8"
-    )
+    self.install_file("sbin/update-ca-certificates.8", "usr/share/man/man8")
 
     cpath = self.destdir / "usr/share/ca-certificates"
     with open(self.destdir / "etc/ca-certificates.conf", "w") as ofile:

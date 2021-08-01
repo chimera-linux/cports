@@ -4,9 +4,9 @@ def _make_crossfile(pkg, build_dir):
     if not pkg.build_profile.cross:
         return
 
-    cfpath = pkg.abs_build_wrksrc / build_dir / "cbuild.cross"
+    cfpath = pkg.cwd / build_dir / "cbuild.cross"
 
-    (pkg.abs_build_wrksrc / build_dir).mkdir(parents = True, exist_ok = True)
+    (pkg.cwd / build_dir).mkdir(parents = True, exist_ok = True)
 
     # map known profiles to meson arch
     meson_cpu = {
@@ -62,7 +62,7 @@ def configure(pkg, meson_dir = None, build_dir = "build", extra_args = []):
     cargs = []
     if cfp:
         cargs = ["--cross-file=" + str(
-            pkg.chroot_build_wrksrc / cfp.relative_to(pkg.abs_build_wrksrc)
+            pkg.chroot_cwd / cfp.relative_to(pkg.cwd)
         )]
 
     pkg.do(
@@ -85,6 +85,5 @@ def configure(pkg, meson_dir = None, build_dir = "build", extra_args = []):
             "-Ddefault_library=both",
             "-Db_ndebug=true",
             "-Db_staticpic=true"
-        ] + cargs + pkg.configure_args + extra_args + [meson_dir, build_dir],
-        build = True
+        ] + cargs + pkg.configure_args + extra_args + [meson_dir, build_dir]
     )

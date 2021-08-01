@@ -14,8 +14,8 @@ options = ["bootstrap"]
 
 def post_extract(self):
     import shutil
-    (self.abs_wrksrc / "libxo/sys").mkdir()
-    shutil.copy(self.files_path / "queue.h", self.abs_wrksrc / "libxo/sys")
+    (self.cwd / "libxo/sys").mkdir()
+    shutil.copy(self.files_path / "queue.h", self.cwd / "libxo/sys")
 
 @subpackage("libxo-devel")
 def _devel(self):

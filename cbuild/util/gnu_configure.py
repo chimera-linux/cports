@@ -55,13 +55,13 @@ def configure(
     build_dir = "build", extra_args = [], env = {}
 ):
     if configure_dir:
-        cscript = pkg.chroot_wrksrc / configure_dir / configure_script
-        rscript = pkg.abs_wrksrc / configure_dir / configure_script
+        cscript = pkg.chroot_cwd / configure_dir / configure_script
+        rscript = pkg.cwd / configure_dir / configure_script
     else:
-        cscript = pkg.chroot_wrksrc / configure_script
-        rscript = pkg.abs_wrksrc / configure_script
+        cscript = pkg.chroot_cwd / configure_script
+        rscript = pkg.cwd / configure_script
 
-    (pkg.abs_build_wrksrc / build_dir).mkdir(parents = True, exist_ok = True)
+    (pkg.cwd / build_dir).mkdir(parents = True, exist_ok = True)
 
     cargs = [
         "--prefix=/usr", "--sysconfdir=/etc", "--sbindir=/usr/bin",
@@ -118,14 +118,14 @@ def configure(
 
     pkg.do(
         cscript, cargs + pkg.configure_args + extra_args,
-        wrksrc = build_dir, build = True, env = eenv
+        wrksrc = build_dir, env = eenv
     )
 
 def get_make_env():
     return benv
 
 def replace_guess(pkg):
-    for f in pkg.abs_wrksrc.rglob("*config*.*"):
+    for f in (pkg.builddir / pkg.wrksrc).rglob("*config*.*"):
         if f.is_symlink():
             continue
         if f.suffix == ".guess":

@@ -66,19 +66,19 @@ def _install_hdrs(self):
     at = self.build_profile.short_triplet
     self.install_dir(f"usr/{at}/usr/include/mach-o")
     self.install_file(
-        self.abs_wrksrc / "libunwind/include/__libunwind_config.h",
+        "libunwind/include/__libunwind_config.h",
         f"usr/{at}/usr/include"
     )
     self.install_file(
-        self.abs_wrksrc / "libunwind/include/libunwind.h",
+        "libunwind/include/libunwind.h",
         f"usr/{at}/usr/include"
     )
     self.install_file(
-        self.abs_wrksrc / "libunwind/include/unwind.h",
+        "libunwind/include/unwind.h",
         f"usr/{at}/usr/include"
     )
     self.install_file(
-        self.abs_wrksrc / "libunwind/include/mach-o/compact_unwind_encoding.h",
+        "libunwind/include/mach-o/compact_unwind_encoding.h",
         f"usr/{at}/usr/include/mach-o"
     )
 

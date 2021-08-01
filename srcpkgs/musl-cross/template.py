@@ -29,15 +29,15 @@ def do_configure(self):
         with self.profile(an):
             at = self.build_profile.short_triplet
             # musl build dir
-            mbpath = self.abs_wrksrc / f"build-{an}"
+            mbpath = self.cwd / f"build-{an}"
             mbpath.mkdir(exist_ok = True)
             # configure musl
             with self.stamp(f"{an}_configure") as s:
                 s.check()
                 self.do(
-                    self.chroot_wrksrc / "configure",
-                    configure_args + ["--host=" + at], build = True,
-                    wrksrc = self.chroot_wrksrc / f"build-{an}",
+                    self.chroot_cwd / "configure",
+                    configure_args + ["--host=" + at],
+                    wrksrc = f"build-{an}",
                     env = {
                         "CC": "clang -target " + at
                     }
@@ -46,13 +46,11 @@ def do_configure(self):
 def do_build(self):
     for an in _targets:
         with self.profile(an):
-            mbpath = self.abs_wrksrc / f"build-{an}"
+            mbpath = self.cwd / f"build-{an}"
             mbpath.mkdir(exist_ok = True)
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                self.make.build(
-                    wrksrc = self.chroot_wrksrc / f"build-{an}"
-                )
+                self.make.build(wrksrc = self.chroot_cwd / f"build-{an}")
 
 def do_install(self):
     for an in _targets:
@@ -62,7 +60,7 @@ def do_install(self):
             self.install_link("usr/lib", f"usr/{at}/lib")
             self.make.install([
                 "DESTDIR=" + str(self.chroot_destdir / "usr" / at)
-            ], default_args = False, wrksrc = self.chroot_wrksrc / f"build-{an}")
+            ], default_args = False, wrksrc = self.chroot_cwd / f"build-{an}")
             self.unlink(f"usr/{at}/lib")
 
 def _gen_crossp(an, at):
