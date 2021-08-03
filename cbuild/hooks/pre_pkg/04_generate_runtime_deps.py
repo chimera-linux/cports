@@ -58,10 +58,18 @@ def invoke(pkg):
             continue
         # otherwise, check if it came from an installed dependency
         if not pkg.bootstrapping or not (dep in bootstrap_map):
-            info = subprocess.run([
-                "apk", "info", "--root", paths.masterdir(),
-                "--allow-untrusted", "--installed", "so:" + dep
-            ], capture_output = True)
+            aopts = [
+                "apk", "info", "--allow-untrusted", "--installed"
+            ]
+            bp = pkg.rparent.build_profile
+            if bp.cross:
+                aopts += [
+                    "--arch", bp.arch,
+                    "--root", paths.masterdir() / bp.sysroot.relative_to("/")
+                ]
+            else:
+                aopts += ["--root", paths.masterdir()]
+            info = subprocess.run(aopts + ["so:" + dep], capture_output = True)
             if info.returncode != 0:
                 log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
                 broken = True
