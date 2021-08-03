@@ -109,19 +109,6 @@ def _prepare(arch, stage):
             "cbuild: no local timezone configuration file created"
         )
 
-    shutil.copy(
-        paths.templates() / "base-files" / "files" / "passwd",
-        paths.masterdir() / "etc"
-    )
-    shutil.copy(
-        paths.templates() / "base-files" / "files" / "group",
-        paths.masterdir() / "etc"
-    )
-    shutil.copy(
-        paths.templates() / "base-files" / "files" / "hosts",
-        paths.masterdir() / "etc"
-    )
-
     with open(paths.masterdir() / "etc" / "passwd", "a") as pf:
         username = getpass.getuser()
         gid = os.getgid()
