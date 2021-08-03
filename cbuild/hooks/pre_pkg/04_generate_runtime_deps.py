@@ -58,8 +58,10 @@ def invoke(pkg):
             continue
         # otherwise, check if it came from an installed dependency
         if not pkg.bootstrapping or not (dep in bootstrap_map):
+            # dependency must be calculated for target arch
             info = subprocess.run([
-                "apk", "info", "--root", paths.masterdir(),
+                "apk", "info",
+                "--root", paths.masterdir() / pkg.build_profile.sysroot.relative_to("/"),
                 "--allow-untrusted", "--installed", "so:" + dep
             ], capture_output = True)
             if info.returncode != 0:
