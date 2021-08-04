@@ -61,6 +61,12 @@ def _get_hldflags(dharden, tharden):
 
     return hflags
 
+def _flags_ret(it, shell):
+    if shell:
+        return shlex.join(it)
+    else:
+        return list(it)
+
 class Profile:
     def __init__(self, archn, pdata, gdata):
         # bootstrap is a simplfied case
@@ -184,10 +190,7 @@ class Profile:
         if debug:
             ret.append("-g")
 
-        if shell:
-            return shlex.join(map(lambda v: str(v), ret))
-
-        return ret
+        return _flags_ret(map(lambda v: str(v), ret), shell)
 
     def get_cxxflags(
         self, extra_flags = [], debug = False, hardening = [], shell = False
@@ -207,10 +210,7 @@ class Profile:
         if debug:
             ret.append("-g")
 
-        if shell:
-            return shlex.join(map(lambda v: str(v), ret))
-
-        return ret
+        return _flags_ret(map(lambda v: str(v), ret), shell)
 
     def get_fflags(
         self, extra_flags = [], debug = False, hardening = [], shell = False
@@ -230,10 +230,7 @@ class Profile:
         if debug:
             ret.append("-g")
 
-        if shell:
-            return shlex.join(map(lambda v: str(v), ret))
-
-        return ret
+        return _flags_ret(map(lambda v: str(v), ret), shell)
 
     def get_ldflags(self, extra_flags = [], hardening = [], shell = False):
         hflags = _get_hldflags(self._hardening, hardening)
@@ -251,10 +248,7 @@ class Profile:
 
         ret = hflags + self._ldflags + bflags + extra_flags
 
-        if shell:
-            return shlex.join(map(lambda v: str(v), ret))
-
-        return ret
+        return _flags_ret(map(lambda v: str(v), ret), shell)
 
     def has_hardening(self, hname, hardening = []):
         return _get_harden(self._hardening, hardening)[hname]
