@@ -500,22 +500,20 @@ class Template(Package):
             # no git, not reproducible
             return
 
-        tpath = paths.templates() / self.pkgname
-
         if subprocess.run([
             "git", "rev-parse", "--show-toplevel"
-        ], capture_output = True, cwd = tpath).returncode != 0:
+        ], capture_output = True, cwd = self.template_path).returncode != 0:
             # not in a git repository
             return
 
         # find whether the template dir has local modifications
         dirty = len(subprocess.run([
-            "git", "status", "-s", "--", tpath
+            "git", "status", "-s", "--", self.template_path
         ], capture_output = True).stdout.strip()) != 0
 
         # find the last revision modifying the template
         self.git_revision = subprocess.run([
-            "git", "log", "--format=oneline", "-n1", "--", tpath
+            "git", "log", "--format=oneline", "-n1", "--", self.template_path
         ], capture_output = True).stdout.strip()[0:40].decode("ascii")
 
         if len(self.git_revision) < 40:
@@ -905,7 +903,6 @@ def from_module(m, ret):
         ret.pre_pkg = m.pre_pkg
 
     # paths that can be used by template methods
-    ret.template_path = paths.templates() / ret.pkgname
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
     ret.builddir = paths.masterdir() / "builddir"
@@ -1095,6 +1092,7 @@ def read_pkg(
         raise PackageError()
 
     ret = Template(pkgname, origin)
+    ret.template_path = paths.templates() / pkgname
     ret.force_mode = force_mode
     ret.bootstrapping = not pkgarch
     ret.skip_if_exist = skip_if_exist
