@@ -47,7 +47,7 @@ class StampCheck:
         return isinstance(excv, StampException)
 
     def check(self):
-        if (self.cwd / f".stamp_{self.name}_done").exists():
+        if (self.pkg.cwd / f".stamp_{self.name}_done").exists():
             raise StampException()
 
 @contextlib.contextmanager
