@@ -38,11 +38,11 @@ llvm-config = '/usr/bin/llvm-config'
 needs_exe_wrapper = true
 
 [built-in options]
-c_args = {pkg.get_cflags()}
-c_link_args = {pkg.get_ldflags()}
+c_args = {list(map(lambda v: str(v), pkg.get_cflags()))}
+c_link_args = {list(map(lambda v: str(v), pkg.get_ldflags()))}
 
-cpp_args = {pkg.get_cxxflags()}
-cpp_link_args = {pkg.get_ldflags()}
+cpp_args = {list(map(lambda v: str(v), pkg.get_cxxflags()))}
+cpp_link_args = {list(map(lambda v: str(v), pkg.get_ldflags()))}
 
 [host_machine]
 system = 'linux'
