@@ -146,11 +146,11 @@ def repo_sync():
             for repo in repof:
                 relpath = repo.lstrip("/")
                 # in-chroot
-                repos_mdir.write("/binpkgs/")
+                repos_mdir.write("/binpkgs/main/")
                 repos_mdir.write(relpath)
                 # out of chroot
                 repos_hdir.write(str(paths.repository()))
-                repos_hdir.write("/")
+                repos_hdir.write("/main/")
                 repos_hdir.write(relpath)
 
     repos_mdir.close()

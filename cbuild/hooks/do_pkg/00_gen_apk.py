@@ -110,10 +110,7 @@ def invoke(pkg):
     binpkg = f"{pkg.pkgver}.apk"
     binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.version}-r{pkg.revision}.apk"
 
-    if pkg.repository:
-        repo = paths.repository() / pkg.repository / arch
-    else:
-        repo = paths.repository() / arch
+    repo = paths.repository() / pkg.rparent.repository / arch
 
     genpkg(pkg, repo, arch, binpkg)
 
@@ -128,6 +125,6 @@ def invoke(pkg):
     if not dbgdest.is_dir():
         return
 
-    repo = paths.repository() / "debug" / arch
+    repo = paths.repository() / pkg.rparent.repository / "debug" / arch
 
     genpkg(pkg, repo, arch, binpkg_dbg, dbgdest, True)

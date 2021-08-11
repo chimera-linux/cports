@@ -424,7 +424,6 @@ core_fields = [
     # packaging
     ("triggers", [], list, True, False, True, False),
     ("make_dirs", [], list, True, False, True, False),
-    ("repository", None, str, True, False, True, True),
     ("conf_files", [], list, True, False, True, False),
     ("tags", [], list, True, False, True, False),
     ("changelog", None, str, True, False, False, False),
@@ -481,6 +480,8 @@ class Template(Package):
 
         # make this available early
         self.pkgname = pkgname
+        # fix hardcoding later
+        self.repository = "main"
 
         # other fields
         self.run_depends = None
@@ -1136,7 +1137,7 @@ def read_pkg(
         modh = importlib.reload(modh)
     else:
         # never loaded
-        modh = importlib.import_module("srcpkgs." + pkgname + ".template")
+        modh = importlib.import_module("main." + pkgname + ".template")
 
     _tmpl_dict[pkgname] = modh
 

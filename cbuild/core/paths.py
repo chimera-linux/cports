@@ -13,7 +13,7 @@ def init(distdir, masterdir, hostdir):
     _hdir = (cwd / hostdir).resolve()
 
     _srcs = _hdir / "sources"
-    _srcps = _ddir / "srcpkgs"
+    _srcps = _ddir / "main"
 
     _cbdir = _ddir / "cbuild"
 

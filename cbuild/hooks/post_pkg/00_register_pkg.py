@@ -5,10 +5,7 @@ def invoke(pkg):
     binpkg = f"{pkg.pkgver}.apk"
     binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.version}-r{pkg.revision}.apk"
 
-    if pkg.repository:
-        repo = paths.repository() / pkg.repository / arch
-    else:
-        repo = paths.repository() / arch
+    repo = paths.repository() / pkg.rparent.repository / arch
 
     binpath = repo / binpkg
 
@@ -16,7 +13,7 @@ def invoke(pkg):
         with open(pkg.statedir / f"{pkg.rparent.pkgname}_register_pkg", "a") as f:
             f.write(f"{repo}:{binpkg}\n")
 
-    repo = paths.repository() / "debug" / arch
+    repo = paths.repository() / pkg.rparent.repository / "debug" / arch
     binpath = repo / binpkg_dbg
 
     if not binpath.is_file():

@@ -81,9 +81,9 @@ def build(step, pkg, depmap, signkey, chost = False):
 
     # generate binary packages
     for sp in pkg.subpkg_list:
-        pkgsm.invoke(sp, paths.repository())
+        pkgsm.invoke(sp)
 
-    pkgsm.invoke(pkg, paths.repository())
+    pkgsm.invoke(pkg)
 
     # register binary packages
 
