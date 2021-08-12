@@ -256,7 +256,7 @@ def bootstrap(tgt):
             sys.exit("Required bootstrap program not found: gmake/bmake")
 
         rp = template.read_pkg(
-            "base-chroot", None, False, False, False, opt_makejobs,
+            "main/base-chroot", None, False, False, False, opt_makejobs,
             False, False, None
         )
         paths.prepare()

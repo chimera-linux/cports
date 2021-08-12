@@ -11,11 +11,14 @@ import time
 # never be conditional and that is the only thing we care about
 _tcache = {}
 
+def _resolve_tmpl(pkgn):
+    return "main/" + pkgn
+
 def _srcpkg_ver(pkgn, pkgb):
     global _tcache
 
     # avoid a failure
-    if not (paths.templates() / pkgn / "template.py").is_file():
+    if not (paths.distdir() / pkgn / "template.py").is_file():
         return None
 
     if pkgn in _tcache:
@@ -50,14 +53,14 @@ def _setup_depends(pkg):
             rdeps.append((orig, dep))
 
     for dep in pkg.hostmakedepends:
-        sver = _srcpkg_ver(dep, pkg)
+        sver = _srcpkg_ver(_resolve_tmpl(dep), pkg)
         if not sver:
             hdeps.append((None, dep))
             continue
         hdeps.append((sver, dep))
 
     for dep in pkg.makedepends:
-        sver = _srcpkg_ver(dep, pkg)
+        sver = _srcpkg_ver(_resolve_tmpl(dep), pkg)
         if not sver:
             tdeps.append((None, dep))
             continue
@@ -150,7 +153,7 @@ def install_toolchain(pkg, signkey):
 
     try:
         build.build("pkg", template.read_pkg(
-            f"base-cross-{archn}", chroot.host_cpu(),
+            f"main/base-cross-{archn}", chroot.host_cpu(),
             False, True, pkg.run_check, pkg.conf_jobs, pkg.build_dbg,
             pkg.use_ccache, None
         ), {}, signkey, chost = True)
@@ -377,7 +380,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in host_missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, chost if not pkg.bootstrapping else None,
+                _resolve_tmpl(pn), chost if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg
             ), depmap, signkey, chost = not not pkg.cross_build)
@@ -388,7 +391,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, tarch if not pkg.bootstrapping else None,
+                _resolve_tmpl(pn), tarch if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg
             ), depmap, signkey)
@@ -399,7 +402,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for rd in missing_rdeps:
         try:
             build.build(step, template.read_pkg(
-                rd, tarch if not pkg.bootstrapping else None,
+                _resolve_tmpl(rd), tarch if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg
             ), depmap, signkey)

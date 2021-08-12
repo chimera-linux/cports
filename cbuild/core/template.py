@@ -480,9 +480,7 @@ class Template(Package):
             setattr(self, fl, copy_of_dval(dval))
 
         # make this available early
-        self.pkgname = pkgname
-        # fix hardcoding later
-        self.repository = "main"
+        self.repository, self.pkgname = pkgname.split("/")
 
         # other fields
         self.run_depends = None
@@ -1086,12 +1084,12 @@ def read_pkg(
         logger.get().out_red("Missing package name.")
         raise PackageError()
 
-    if not (paths.templates() / pkgname / "template.py").is_file():
+    if not (paths.distdir() / pkgname / "template.py").is_file():
         logger.get().out_red("Missing template for '%s'" % pkgname)
         raise PackageError()
 
     ret = Template(pkgname, origin)
-    ret.template_path = paths.templates() / pkgname
+    ret.template_path = paths.distdir() / pkgname
     ret.force_mode = force_mode
     ret.bootstrapping = not pkgarch
     ret.skip_if_exist = skip_if_exist
@@ -1135,7 +1133,7 @@ def read_pkg(
         modh = importlib.reload(modh)
     else:
         # never loaded
-        modh = importlib.import_module("main." + pkgname + ".template")
+        modh = importlib.import_module(pkgname.replace("/", ".") + ".template")
 
     _tmpl_dict[pkgname] = modh
 

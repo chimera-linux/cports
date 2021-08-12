@@ -5,7 +5,7 @@ import pathlib
 _stage = 2
 
 def init(distdir, masterdir, hostdir):
-    global _ddir, _mdir, _hdir, _srcs, _srcps, _cbdir
+    global _ddir, _mdir, _hdir, _srcs, _cbdir
 
     cwd = pathlib.Path.cwd()
     _ddir = pathlib.Path(distdir)
@@ -13,8 +13,6 @@ def init(distdir, masterdir, hostdir):
     _hdir = (cwd / hostdir).resolve()
 
     _srcs = _hdir / "sources"
-    _srcps = _ddir / "main"
-
     _cbdir = _ddir / "cbuild"
 
 def reinit_masterdir(masterdir, stage):
@@ -46,9 +44,6 @@ def repository():
 
 def sources():
     return _srcs
-
-def templates():
-    return _srcps
 
 def cbuild():
     return _cbdir
