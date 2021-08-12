@@ -21,6 +21,7 @@ import builtins
 import configparser
 
 from cbuild.core import logger, chroot, paths, version, profile
+from cbuild.apk import cli
 
 class PackageError(Exception):
     pass
@@ -940,11 +941,8 @@ def from_module(m, ret):
         ret.error("do_install is missing")
 
     if ret.skip_if_exist:
-        pinfo = subprocess.run([
-            "apk", "search", "--arch", ret.build_profile.arch, "-e",
-            "--root", paths.masterdir(),
-            "--allow-untrusted", "--repositories-file",
-            paths.hostdir() / "repositories",
+        pinfo = cli.call("search", [
+            "--arch", ret.build_profile.arch, "-e", "--allow-untrusted",
             ret.pkgname
         ], capture_output = True)
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:

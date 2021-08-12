@@ -9,6 +9,7 @@ import pathlib
 from tempfile import mkstemp
 
 from cbuild.core import logger, paths
+from cbuild.apk import cli as apki
 
 _chroot_checked = False
 _chroot_ready = False
@@ -131,30 +132,18 @@ def setup_keys(rootp):
     for f in (paths.distdir() / "etc/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
 
+def get_confrepos():
+    return _crepos
+
 def repo_sync():
-    confdir = paths.masterdir() / "etc/apk"
-    confdir.mkdir(parents = True, exist_ok = True)
+    global _crepos
 
-    repos_mdir = open(confdir / "repositories", "w")
-    repos_hdir = open(paths.hostdir() / "repositories", "w")
-
-    repos_mdir.write("# automatically generated apk repo list for chroot use\n")
-    repos_hdir.write("# automatically generated apk repo list for host use\n")
-
+    _crepos = []
     for f in (paths.distdir() / "etc/apk/repositories.d").glob("*.conf"):
         with open(f) as repof:
             for repo in repof:
-                relpath = repo.lstrip("/")
-                # in-chroot
-                repos_mdir.write("/binpkgs/main/")
-                repos_mdir.write(relpath)
-                # out of chroot
-                repos_hdir.write(str(paths.repository()))
-                repos_hdir.write("/main/")
-                repos_hdir.write(relpath)
-
-    repos_mdir.close()
-    repos_hdir.close()
+                relpath = repo.lstrip("/").strip()
+                _crepos.append(relpath)
 
     setup_keys(paths.masterdir())
 
@@ -162,10 +151,7 @@ def repo_sync():
     if not (paths.masterdir() / ".cbuild_chroot_init").is_file():
         return
 
-    if enter(
-        "apk", ["update"], pretend_uid = 0, pretend_gid = 0,
-        mount_binpkgs = True
-    ).returncode != 0:
+    if apki.call_chroot("update", []).returncode != 0:
         logger.get().out_red(f"cbuild: failed to update pkg database")
         raise Exception()
 
@@ -220,11 +206,7 @@ def install(arch = None, stage = 2):
     set_target(arch)
     repo_sync()
 
-    irun = subprocess.run([
-        "apk", "add", "--root", paths.masterdir(), "--no-scripts",
-        "--repositories-file", paths.hostdir() / "repositories",
-        "--arch", arch, "base-chroot"
-    ])
+    irun = apki.call("add", ["--arch", arch, "--no-scripts", "base-chroot"])
     if irun.returncode != 0:
         logger.get().out_red("cbuild: failed to install base-chroot")
         raise Exception()
@@ -248,21 +230,16 @@ def remove_autodeps(bootstrapping):
 
     failed = False
 
-    if subprocess.run([
-        "apk", "info", "--allow-untrusted", "--installed", "--root",
-        paths.masterdir(), "autodeps-host"
+    if apki.call("info", [
+        "--allow-untrusted", "--installed", "autodeps-host"
     ], capture_output = True).returncode == 0:
         if bootstrapping:
-            del_ret = subprocess.run([
-                "apk", "del", "--root", paths.masterdir(),
-                "--no-scripts", "--repositories-file",
-                paths.hostdir() / "repositories",
-                "autodeps-host"
+            del_ret = apki.call("del", [
+                "--no-scripts", "autodeps-host"
             ], capture_output = True)
         else:
-            del_ret = enter(
-                "apk", ["del", "autodeps-host"], capture_out = True,
-                pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
+            del_ret = apki.call_chroot(
+                "del", ["autodeps-host"], capture_out = True
             )
 
         if del_ret.returncode != 0:
@@ -270,21 +247,16 @@ def remove_autodeps(bootstrapping):
             log.out_plain(del_ret.stderr.decode())
             failed = True
 
-    if subprocess.run([
-        "apk", "info", "--allow-untrusted", "--installed", "--root",
-        paths.masterdir(), "autodeps-target"
+    if apki.call("info", [
+        "--allow-untrusted", "--installed", "autodeps-target"
     ], capture_output = True).returncode == 0:
         if bootstrapping:
-            del_ret = subprocess.run([
-                "apk", "del", "--root", paths.masterdir(),
-                "--no-scripts", "--repositories-file",
-                paths.hostdir() / "repositories",
-                "autodeps-target"
+            del_ret = apki.call("del", [
+                "--no-scripts", "autodeps-target"
             ], capture_output = True)
         else:
-            del_ret = enter(
-                "apk", ["del", "autodeps-target"], capture_out = True,
-                pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
+            del_ret = apki.call_chroot(
+                "del", ["autodeps-target"], capture_out = True
             )
 
         if del_ret.returncode != 0:
@@ -307,14 +279,8 @@ def update(do_clean = True):
 
     remove_autodeps(False)
 
-    enter(
-        "apk", ["update", "-q"], pretend_uid = 0, pretend_gid = 0,
-        mount_binpkgs = True, check = True
-    )
-    enter(
-        "apk", ["upgrade", "--available"],
-        pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True, check = True
-    )
+    apki.call_chroot("update", ["-q"], check = True)
+    apki.call_chroot("upgrade", ["--available"], check = True)
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,

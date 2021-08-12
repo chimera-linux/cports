@@ -1,10 +1,47 @@
-from cbuild.core import chroot, logger, paths, version
+from cbuild.core import logger, paths, version
 
 from . import sign
 
 import os
 import pathlib
 import subprocess
+
+def _collect_repos(intree):
+    from cbuild.core import chroot
+
+    ret = []
+    for r in chroot.get_confrepos():
+        ret.append("--repository")
+        if intree:
+            ret.append("/binpkgs/main/" + r)
+        else:
+            ret.append(str(paths.repository()) + "/main/" + r)
+    return ret
+
+def call(
+    subcmd, args, cwd = None, env = None, capture_output = False, root = None
+):
+    return subprocess.run(
+        [
+            "apk", subcmd, "--root", root if root else paths.masterdir(),
+            "--repositories-file", "/dev/null",
+        ] + _collect_repos(False) + args,
+        cwd = cwd, env = env, capture_output = capture_output
+    )
+
+def call_chroot(
+    subcmd, args, capture_out = False, check = False
+):
+    from cbuild.core import chroot
+
+    return chroot.enter(
+        "apk",
+        [
+            subcmd, "--repositories-file", "/dev/null"
+        ] + _collect_repos(True) + args,
+        capture_out = capture_out, check = check,
+        pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
+    )
 
 def summarize_repo(repopath, olist, quiet = False):
     rtimes = {}
@@ -58,6 +95,8 @@ def summarize_repo(repopath, olist, quiet = False):
     return obsolete
 
 def prune(repopath):
+    from cbuild.core import chroot
+
     repopath = repopath / chroot.target_cpu()
 
     if not repopath.is_dir():
@@ -77,21 +116,21 @@ def prune(repopath):
 def build_index(repopath, epoch, keypath):
     repopath = pathlib.Path(repopath)
 
-    cmd = ["apk", "index", "--quiet", "--root", paths.masterdir()]
+    aargs = ["--quiet"]
 
     if (repopath / "APKINDEX.tar.gz").is_file():
-        cmd += ["--index", "APKINDEX.tar.gz"]
+        aargs += ["--index", "APKINDEX.tar.gz"]
 
     # if no key is given, just use the final index name
     if not keypath:
-        cmd += ["--allow-untrusted", "--output", "APKINDEX.tar.gz"]
+        aargs += ["--allow-untrusted", "--output", "APKINDEX.tar.gz"]
     else:
-        cmd += ["--output", "APKINDEX.unsigned.tar.gz"]
+        aargs += ["--output", "APKINDEX.unsigned.tar.gz"]
 
-    summarize_repo(repopath, cmd)
+    summarize_repo(repopath, aargs)
 
     # create unsigned index
-    signr = subprocess.run(cmd, cwd = repopath, env = {
+    signr = call("index", aargs, cwd = repopath, env = {
         "PATH": os.environ["PATH"],
         "SOURCE_DATE_EPOCH": str(epoch)
     })
