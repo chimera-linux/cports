@@ -939,18 +939,20 @@ def from_module(m, ret):
 
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
 
+    ret.cwd = paths.masterdir() / "builddir" / ret.wrksrc / ret.build_wrksrc
+
     if ret.bootstrapping:
+        ret.chroot_cwd = ret.cwd
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
     else:
+        ret.chroot_cwd = pathlib.Path("/builddir") / \
+            ret.cwd.relative_to(ret.builddir)
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
         if ret.build_profile.cross:
             ret.chroot_destdir_base = ret.chroot_destdir_base / \
                 ret.build_profile.triplet
-
-    ret.cwd = paths.masterdir() / "builddir" / ret.wrksrc / ret.build_wrksrc
-    ret.chroot_cwd = pathlib.Path("/builddir") / ret.cwd.relative_to(ret.builddir)
 
     ret.chroot_destdir = ret.chroot_destdir_base \
         / f"{ret.pkgname}-{ret.version}"
@@ -1111,6 +1113,7 @@ def read_pkg(
         for r in resolve.source_repositories:
             if (paths.distdir() / r / pkgname / "template.py").is_file():
                 pkgname = f"{r}/{pkgname}"
+                break
         else:
             if ignore_missing:
                 return None

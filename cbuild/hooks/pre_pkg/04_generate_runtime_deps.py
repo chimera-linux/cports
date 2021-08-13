@@ -5,13 +5,6 @@ import os
 import pathlib
 import subprocess
 
-# a special map since these are used from the host during bootstrap stage
-bootstrap_map = {
-    "libc.so": "musl",
-    "libc++.so.1": "libcxx",
-    "libunwind.so.1": "libunwind",
-}
-
 def invoke(pkg):
     if not pkg.options["scanrdeps"]:
         return
@@ -58,26 +51,47 @@ def invoke(pkg):
                 pkg.so_requires.append(dep)
             continue
         # otherwise, check if it came from an installed dependency
-        if not pkg.bootstrapping or not (dep in bootstrap_map):
-            bp = pkg.rparent.build_profile
-            if bp.cross:
-                broot = paths.masterdir() / bp.sysroot.relative_to("/")
-                aarch = bp.arch
-            else:
-                broot = None
-                aarch = None
-            info = cli.call(
-                "info", ["--installed", "so:" + dep], None, root = broot,
-                capture_output = True, arch = aarch, allow_untrusted = True
-            )
+        bp = pkg.rparent.build_profile
+        if bp.cross:
+            broot = paths.masterdir() / bp.sysroot.relative_to("/")
+            aarch = bp.arch
+        else:
+            broot = None
+            aarch = None
+
+        info = cli.call(
+            "info", ["--installed", "so:" + dep], None, root = broot,
+            capture_output = True, arch = aarch, allow_untrusted = True
+        )
+        if info.returncode != 0:
+            # when bootstrapping, also check the repository
+            if pkg.bootstrapping:
+                info = cli.call(
+                    "info", ["--description", "so:" + dep], "main",
+                    capture_output = True, allow_untrusted = True
+                )
+                # this needs a bit more parsing, first take only the name-ver
+                outl = info.stdout.split()
+                sdep = None
+                if len(outl) > 0:
+                    outl = outl[0].strip().decode()
+                    # find -rX
+                    dash = outl.rfind("-")
+                    if dash > 0:
+                        # find the version separator
+                        dash = outl.rfind("-", 0, dash)
+                        if dash > 0:
+                            # consider just the name
+                            sdep = outl[0:dash]
+            # either of the commands failed
             if info.returncode != 0:
                 log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
                 broken = True
                 continue
-            sdep = info.stdout.strip().decode()
         else:
-            sdep = bootstrap_map[dep]
-        if len(sdep) == 0:
+            sdep = info.stdout.strip().decode()
+
+        if not sdep or len(sdep) == 0:
             # this should never happen though
             log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
             broken = True

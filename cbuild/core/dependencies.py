@@ -406,7 +406,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for rd in missing_rdeps:
         try:
             build.build(step, template.read_pkg(
-                pn, tarch if not pkg.bootstrapping else None,
+                rd, tarch if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
             ), depmap, signkey)
