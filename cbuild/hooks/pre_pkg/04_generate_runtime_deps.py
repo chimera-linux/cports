@@ -67,7 +67,9 @@ def invoke(pkg):
             else:
                 broot = None
             aopts += ["so:" + dep]
-            info = cli.call("info", aopts, capture_output = True, root = broot)
+            info = cli.call(
+                "info", aopts, None, capture_output = True, root = broot
+            )
             if info.returncode != 0:
                 log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")
                 broken = True

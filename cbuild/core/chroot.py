@@ -151,7 +151,7 @@ def repo_sync():
     if not (paths.masterdir() / ".cbuild_chroot_init").is_file():
         return
 
-    if apki.call_chroot("update", []).returncode != 0:
+    if apki.call_chroot("update", [], "main").returncode != 0:
         logger.get().out_red(f"cbuild: failed to update pkg database")
         raise Exception()
 
@@ -206,7 +206,9 @@ def install(arch = None, stage = 2):
     set_target(arch)
     repo_sync()
 
-    irun = apki.call("add", ["--arch", arch, "--no-scripts", "base-chroot"])
+    irun = apki.call(
+        "add", ["--arch", arch, "--no-scripts", "base-chroot"], "main"
+    )
     if irun.returncode != 0:
         logger.get().out_red("cbuild: failed to install base-chroot")
         raise Exception()
@@ -232,14 +234,14 @@ def remove_autodeps(bootstrapping):
 
     if apki.call("info", [
         "--allow-untrusted", "--installed", "autodeps-host"
-    ], capture_output = True).returncode == 0:
+    ], None, capture_output = True).returncode == 0:
         if bootstrapping:
             del_ret = apki.call("del", [
                 "--no-scripts", "autodeps-host"
-            ], capture_output = True)
+            ], None, capture_output = True)
         else:
             del_ret = apki.call_chroot(
-                "del", ["autodeps-host"], capture_out = True
+                "del", ["autodeps-host"], None, capture_out = True
             )
 
         if del_ret.returncode != 0:
@@ -249,14 +251,14 @@ def remove_autodeps(bootstrapping):
 
     if apki.call("info", [
         "--allow-untrusted", "--installed", "autodeps-target"
-    ], capture_output = True).returncode == 0:
+    ], None, capture_output = True).returncode == 0:
         if bootstrapping:
             del_ret = apki.call("del", [
                 "--no-scripts", "autodeps-target"
-            ], capture_output = True)
+            ], None, capture_output = True)
         else:
             del_ret = apki.call_chroot(
-                "del", ["autodeps-target"], capture_out = True
+                "del", ["autodeps-target"], None, capture_out = True
             )
 
         if del_ret.returncode != 0:
@@ -279,8 +281,8 @@ def update(do_clean = True):
 
     remove_autodeps(False)
 
-    apki.call_chroot("update", ["-q"], check = True)
-    apki.call_chroot("upgrade", ["--available"], check = True)
+    apki.call_chroot("update", ["-q"], "main", check = True)
+    apki.call_chroot("upgrade", ["--available"], "main", check = True)
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,

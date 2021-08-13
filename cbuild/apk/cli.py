@@ -6,31 +6,43 @@ import os
 import pathlib
 import subprocess
 
-def _collect_repos(intree):
+def _collect_repos(mrepo, intree):
     from cbuild.core import chroot
 
     ret = []
+    # sometimes we need no repos
+    if not mrepo:
+        return ret
+
+    if isinstance(mrepo, str):
+        srepos = [mrepo]
+    else:
+        srepos = mrepo.source_repositories
+
     for r in chroot.get_confrepos():
-        ret.append("--repository")
-        if intree:
-            ret.append("/binpkgs/main/" + r)
-        else:
-            ret.append(str(paths.repository()) + "/main/" + r)
+        for cr in srepos:
+            ret.append("--repository")
+            if intree:
+                ret.append(f"/binpkgs/{cr}/{r}")
+            else:
+                ret.append(str(paths.repository()) + f"/{cr}/{r}")
+
     return ret
 
 def call(
-    subcmd, args, cwd = None, env = None, capture_output = False, root = None
+    subcmd, args, mrepo, cwd = None, env = None,
+    capture_output = False, root = None
 ):
     return subprocess.run(
         [
             "apk", subcmd, "--root", root if root else paths.masterdir(),
             "--repositories-file", "/dev/null",
-        ] + _collect_repos(False) + args,
+        ] + _collect_repos(mrepo, False) + args,
         cwd = cwd, env = env, capture_output = capture_output
     )
 
 def call_chroot(
-    subcmd, args, capture_out = False, check = False
+    subcmd, args, mrepo, capture_out = False, check = False
 ):
     from cbuild.core import chroot
 
@@ -38,7 +50,7 @@ def call_chroot(
         "apk",
         [
             subcmd, "--repositories-file", "/dev/null"
-        ] + _collect_repos(True) + args,
+        ] + _collect_repos(mrepo, True) + args,
         capture_out = capture_out, check = check,
         pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
     )
@@ -130,7 +142,7 @@ def build_index(repopath, epoch, keypath):
     summarize_repo(repopath, aargs)
 
     # create unsigned index
-    signr = call("index", aargs, cwd = repopath, env = {
+    signr = call("index", aargs, None, cwd = repopath, env = {
         "PATH": os.environ["PATH"],
         "SOURCE_DATE_EPOCH": str(epoch)
     })

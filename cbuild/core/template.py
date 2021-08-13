@@ -482,6 +482,28 @@ class Template(Package):
         # make this available early
         self.repository, self.pkgname = pkgname.split("/")
 
+        # resolve all source repos available to this package
+        self.source_repositories = [self.repository]
+        crepo = self.repository
+        # the toplevel repo is already added
+        while True:
+            # check if the current repo has a parent link
+            rp = paths.distdir() / crepo / ".parent"
+            if not rp.is_symlink():
+                break
+            # try resolving it, if it resolves, consider it
+            try:
+                rp = rp.readlink()
+            except:
+                break
+            # it resolved, consider the name
+            crepo = rp.name
+            # skip if it does not resolve to a repository
+            if not (paths.distdir() / crepo).is_dir():
+                break
+            # append and repeat
+            self.source_repositories.append(crepo)
+
         # other fields
         self.run_depends = None
         self.parent = None
@@ -942,7 +964,7 @@ def from_module(m, ret):
         pinfo = cli.call("search", [
             "--arch", ret.build_profile.arch, "-e", "--allow-untrusted",
             ret.pkgname
-        ], capture_output = True)
+        ], ret.repository, capture_output = True)
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
             foundp = pinfo.stdout.strip().decode()
             if foundp == ret.pkgver:
@@ -1076,7 +1098,7 @@ _tmpl_dict = {}
 
 def read_pkg(
     pkgname, pkgarch, force_mode, skip_if_exist, run_check,
-    jobs, build_dbg, use_ccache, origin
+    jobs, build_dbg, use_ccache, origin, resolve = None, ignore_missing = False
 ):
     global _tmpl_dict
 
@@ -1084,7 +1106,18 @@ def read_pkg(
         logger.get().out_red("Missing package name.")
         raise PackageError()
 
-    if not (paths.distdir() / pkgname / "template.py").is_file():
+    if resolve:
+        for r in resolve.source_repositories:
+            if (paths.distdir() / r / pkgname / "template.py").is_file():
+                pkgname = f"{r}/{pkgname}"
+        else:
+            if ignore_missing:
+                return None
+            logger.get().out_red("Missing template for '%s'" % pkgname)
+            raise PackageError()
+    elif not (paths.distdir() / pkgname / "template.py").is_file():
+        if ignore_missing:
+            return None
         logger.get().out_red("Missing template for '%s'" % pkgname)
         raise PackageError()
 

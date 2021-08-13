@@ -11,23 +11,20 @@ import time
 # never be conditional and that is the only thing we care about
 _tcache = {}
 
-def _resolve_tmpl(pkgn):
-    return "main/" + pkgn
-
 def _srcpkg_ver(pkgn, pkgb):
     global _tcache
-
-    # avoid a failure
-    if not (paths.distdir() / pkgn / "template.py").is_file():
-        return None
 
     if pkgn in _tcache:
         return _tcache[pkgn]
 
     rv = template.read_pkg(
         pkgn, pkgb.build_profile.arch,
-        False, False, False, 1, False, False, None
+        False, False, False, 1, False, False, None,
+        resolve = pkgb, ignore_missing = True
     )
+    if not rv:
+        return None
+
     cv = f"{rv.version}-r{rv.revision}"
     _tcache[pkgn] = cv
 
@@ -53,14 +50,14 @@ def _setup_depends(pkg):
             rdeps.append((orig, dep))
 
     for dep in pkg.hostmakedepends:
-        sver = _srcpkg_ver(_resolve_tmpl(dep), pkg)
+        sver = _srcpkg_ver(dep, pkg)
         if not sver:
             hdeps.append((None, dep))
             continue
         hdeps.append((sver, dep))
 
     for dep in pkg.makedepends:
-        sver = _srcpkg_ver(_resolve_tmpl(dep), pkg)
+        sver = _srcpkg_ver(dep, pkg)
         if not sver:
             tdeps.append((None, dep))
             continue
@@ -85,14 +82,15 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
             extra_opts += ["--arch", pkg.build_profile.arch]
             rootp = rootp / pkg.build_profile.sysroot.relative_to("/")
 
-        ret = apki.call("add", [
-            "--no-scripts", "--virtual", virtn
-        ] + extra_opts + pkglist, root = rootp, capture_output = True)
+        ret = apki.call(
+            "add", ["--no-scripts", "--virtual", virtn] + extra_opts + pkglist,
+            pkg, root = rootp, capture_output = True
+        )
     else:
         if virtn:
             extra_opts = ["--virtual", virtn] + extra_opts
         ret = apki.call_chroot(
-            "add", extra_opts + pkglist, capture_out = True
+            "add", extra_opts + pkglist, pkg, capture_out = True
         )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()
@@ -111,20 +109,21 @@ def _is_installed(pkgn, pkg = None):
         sysp = paths.masterdir()
 
     return apki.call(
-        "info", bcmd, root = sysp, capture_output = True
+        "info", bcmd, None, root = sysp, capture_output = True
     ).returncode == 0
 
-def _is_available(pkgn, pattern, pkg = None):
+def _is_available(pkgn, pattern, pkg, host = False):
     bcmd = ["-e", "--allow-untrusted"]
 
-    if pkg and pkg.build_profile.cross:
+    if not host and pkg.build_profile.cross:
         bcmd += ["--arch", pkg.build_profile.arch]
         sysp = paths.masterdir() / pkg.build_profile.sysroot.relative_to("/")
     else:
         sysp = paths.masterdir()
 
     aout = apki.call(
-        "search", bcmd + [pkgn], root = sysp, capture_output = True
+        "search", bcmd + [pkgn], pkg, root = sysp,
+        capture_output = True
     )
 
     if aout.returncode != 0:
@@ -217,7 +216,7 @@ def setup_dummy(pkg, rootp):
         ret = apki.call(acmd, [
             "--allow-untrusted", "--arch", archn, "--no-scripts",
             "--repository", tmpd, pkgn
-        ], root = rootp, capture_output = True)
+        ], None, root = rootp, capture_output = True)
 
         if ret.returncode != 0:
             outl = ret.stderr.strip().decode()
@@ -250,14 +249,14 @@ def remove_autocrossdeps(pkg):
 
     if apki.call("info", [
         "--arch", archn, "--allow-untrusted", "--installed", "autodeps-target"
-    ], root = sysp, capture_output = True).returncode != 0:
+    ], None, root = sysp, capture_output = True).returncode != 0:
         return
 
     pkg.log(f"removing autocrossdeps for {archn}...")
 
     del_ret = apki.call("del", [
         "--arch", archn, "--no-scripts", "autodeps-target"
-    ], root = sysp, capture_output = True)
+    ], None, root = sysp, capture_output = True)
 
     if del_ret.returncode != 0:
         log.out_plain(">> stderr (host):")
@@ -295,7 +294,9 @@ def install(pkg, origpkg, step, depmap, signkey):
             log.out_plain(f"   [host] {pkgn}: installed")
             continue
         # check if available in repository
-        aver = _is_available(pkgn, (pkgn + "=" + sver) if sver else None)
+        aver = _is_available(
+            pkgn, (pkgn + "=" + sver) if sver else None, pkg, host = True
+        )
         if aver:
             log.out_plain(f"   [host] {pkgn}: found ({aver})")
             host_binpkg_deps.append(pkgn)
@@ -380,9 +381,9 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in host_missing_deps:
         try:
             build.build(step, template.read_pkg(
-                _resolve_tmpl(pn), chost if not pkg.bootstrapping else None,
+                pn, chost if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg
+                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
             ), depmap, signkey, chost = not not pkg.cross_build)
         except template.SkipPackage:
             pass
@@ -391,9 +392,9 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in missing_deps:
         try:
             build.build(step, template.read_pkg(
-                _resolve_tmpl(pn), tarch if not pkg.bootstrapping else None,
+                pn, tarch if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg
+                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -402,9 +403,9 @@ def install(pkg, origpkg, step, depmap, signkey):
     for rd in missing_rdeps:
         try:
             build.build(step, template.read_pkg(
-                _resolve_tmpl(rd), tarch if not pkg.bootstrapping else None,
+                pn, tarch if not pkg.bootstrapping else None,
                 pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg
+                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
             ), depmap, signkey)
         except template.SkipPackage:
             pass
