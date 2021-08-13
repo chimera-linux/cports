@@ -6,7 +6,7 @@ import os
 import pathlib
 import subprocess
 
-def _collect_repos(mrepo, intree):
+def _collect_repos(mrepo, intree, arch):
     from cbuild.core import chroot
 
     ret = []
@@ -19,10 +19,13 @@ def _collect_repos(mrepo, intree):
     else:
         srepos = mrepo.source_repositories
 
+    if not arch:
+        arch = chroot.host_cpu()
+
     for r in chroot.get_confrepos():
         for cr in srepos:
             rpath = paths.repository() / cr / r
-            if not rpath.is_dir():
+            if not (rpath / arch / "APKINDEX.tar.gz").is_file():
                 continue
             ret.append("--repository")
             if intree:
@@ -34,26 +37,37 @@ def _collect_repos(mrepo, intree):
 
 def call(
     subcmd, args, mrepo, cwd = None, env = None,
-    capture_output = False, root = None
+    capture_output = False, root = None, arch = None,
+    allow_untrusted = False
 ):
+    cmd = [
+        "apk", subcmd, "--root", root if root else paths.masterdir(),
+        "--repositories-file", "/dev/null",
+    ]
+    if arch:
+        cmd += ["--arch", arch]
+    if allow_untrusted:
+        cmd.append("--allow-untrusted")
+
     return subprocess.run(
-        [
-            "apk", subcmd, "--root", root if root else paths.masterdir(),
-            "--repositories-file", "/dev/null",
-        ] + _collect_repos(mrepo, False) + args,
+        cmd + _collect_repos(mrepo, False, arch) + args,
         cwd = cwd, env = env, capture_output = capture_output
     )
 
 def call_chroot(
-    subcmd, args, mrepo, capture_out = False, check = False
+    subcmd, args, mrepo, capture_out = False, check = False, arch = None,
+    allow_untrusted = False
 ):
     from cbuild.core import chroot
 
+    cmd = [subcmd, "--repositories-file", "/dev/null"]
+    if arch:
+        cmd += ["--arch", arch]
+    if allow_untrusted:
+        cmd.append("--allow-untrusted")
+
     return chroot.enter(
-        "apk",
-        [
-            subcmd, "--repositories-file", "/dev/null"
-        ] + _collect_repos(mrepo, True) + args,
+        "apk", cmd + _collect_repos(mrepo, True, arch) + args,
         capture_out = capture_out, check = check,
         pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
     )
@@ -138,7 +152,7 @@ def build_index(repopath, epoch, keypath):
 
     # if no key is given, just use the final index name
     if not keypath:
-        aargs += ["--allow-untrusted", "--output", "APKINDEX.tar.gz"]
+        aargs += ["--output", "APKINDEX.tar.gz"]
     else:
         aargs += ["--output", "APKINDEX.unsigned.tar.gz"]
 
@@ -148,7 +162,7 @@ def build_index(repopath, epoch, keypath):
     signr = call("index", aargs, None, cwd = repopath, env = {
         "PATH": os.environ["PATH"],
         "SOURCE_DATE_EPOCH": str(epoch)
-    })
+    }, allow_untrusted = not keypath)
     if signr.returncode != 0:
         logger.get().out_red("Indexing failed!")
         return False

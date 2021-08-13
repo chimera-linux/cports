@@ -219,7 +219,7 @@ def install(arch = None, stage = 2):
     repo_sync()
 
     irun = apki.call(
-        "add", ["--arch", arch, "--no-scripts", "base-chroot"], "main"
+        "add", ["--no-scripts", "base-chroot"], "main", arch = arch
     )
     if irun.returncode != 0:
         logger.get().out_red("cbuild: failed to install base-chroot")
@@ -245,8 +245,8 @@ def remove_autodeps(bootstrapping):
     failed = False
 
     if apki.call("info", [
-        "--allow-untrusted", "--installed", "autodeps-host"
-    ], None, capture_output = True).returncode == 0:
+        "--installed", "autodeps-host"
+    ], None, capture_output = True, allow_untrusted = True).returncode == 0:
         if bootstrapping:
             del_ret = apki.call("del", [
                 "--no-scripts", "autodeps-host"
@@ -262,8 +262,8 @@ def remove_autodeps(bootstrapping):
             failed = True
 
     if apki.call("info", [
-        "--allow-untrusted", "--installed", "autodeps-target"
-    ], None, capture_output = True).returncode == 0:
+        "--installed", "autodeps-target"
+    ], None, capture_output = True, allow_untrusted = True).returncode == 0:
         if bootstrapping:
             del_ret = apki.call("del", [
                 "--no-scripts", "autodeps-target"

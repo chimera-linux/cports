@@ -961,10 +961,11 @@ def from_module(m, ret):
         ret.error("do_install is missing")
 
     if ret.skip_if_exist:
-        pinfo = cli.call("search", [
-            "--arch", ret.build_profile.arch, "-e", "--allow-untrusted",
-            ret.pkgname
-        ], ret.repository, capture_output = True)
+        pinfo = cli.call(
+            "search", ["-e", ret.pkgname],
+            ret.repository, capture_output = True,
+            arch = ret.build_profile.arch, allow_untrusted = True
+        )
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
             foundp = pinfo.stdout.strip().decode()
             if foundp == ret.pkgver:

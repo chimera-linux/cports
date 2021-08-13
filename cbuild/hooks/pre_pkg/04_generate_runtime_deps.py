@@ -59,16 +59,16 @@ def invoke(pkg):
             continue
         # otherwise, check if it came from an installed dependency
         if not pkg.bootstrapping or not (dep in bootstrap_map):
-            aopts = ["--allow-untrusted", "--installed"]
             bp = pkg.rparent.build_profile
             if bp.cross:
                 broot = paths.masterdir() / bp.sysroot.relative_to("/")
-                aopts += ["--arch", bp.arch]
+                aarch = bp.arch
             else:
                 broot = None
-            aopts += ["so:" + dep]
+                aarch = None
             info = cli.call(
-                "info", aopts, None, capture_output = True, root = broot
+                "info", ["--installed", "so:" + dep], None, root = broot,
+                capture_output = True, arch = aarch, allow_untrusted = True
             )
             if info.returncode != 0:
                 log.out_red(f"   SONAME: {dep} <-> UNKNOWN PACKAGE!")

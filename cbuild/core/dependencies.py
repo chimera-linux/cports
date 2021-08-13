@@ -66,10 +66,6 @@ def _setup_depends(pkg):
     return hdeps, tdeps, rdeps
 
 def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
-    extra_opts = []
-    if not signkey:
-        extra_opts.append("--allow-untrusted")
-
     # if installing target deps and we're crossbuilding, target the sysroot
     sroot = cross and pkg.build_profile.cross
 
@@ -79,18 +75,24 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
         if sroot:
             # pretend we're another arch
             # scripts are already never run in this case
-            extra_opts += ["--arch", pkg.build_profile.arch]
+            aarch = pkg.build_profile.arch
             rootp = rootp / pkg.build_profile.sysroot.relative_to("/")
+        else:
+            aarch = None
 
         ret = apki.call(
-            "add", ["--no-scripts", "--virtual", virtn] + extra_opts + pkglist,
-            pkg, root = rootp, capture_output = True
+            "add", ["--no-scripts", "--virtual", virtn] + pkglist,
+            pkg, root = rootp, capture_output = True, arch = aarch,
+            allow_untrusted = not signkey
         )
     else:
         if virtn:
-            extra_opts = ["--virtual", virtn] + extra_opts
+            aopts = ["--virtual", virtn] + pkglist
+        else:
+            aopts = pkglist
         ret = apki.call_chroot(
-            "add", extra_opts + pkglist, pkg, capture_out = True
+            "add", aopts, pkg, capture_out = True,
+            allow_untrusted = not signkey
         )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()
@@ -100,30 +102,29 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
         pkg.error(f"failed to install dependencies")
 
 def _is_installed(pkgn, pkg = None):
-    bcmd = ["--installed", "--allow-untrusted", pkgn]
-
     if pkg and pkg.build_profile.cross:
-        bcmd = ["--arch", pkg.build_profile.arch] + bcmd
         sysp = paths.masterdir() / pkg.build_profile.sysroot.relative_to("/")
+        aarch = pkg.build_profile.arch
     else:
         sysp = paths.masterdir()
+        aarch = None
 
     return apki.call(
-        "info", bcmd, None, root = sysp, capture_output = True
+        "info", ["--installed", pkgn], None, root = sysp,
+        capture_output = True, arch = aarch, allow_untrusted = True
     ).returncode == 0
 
 def _is_available(pkgn, pattern, pkg, host = False):
-    bcmd = ["-e", "--allow-untrusted"]
-
     if not host and pkg.build_profile.cross:
-        bcmd += ["--arch", pkg.build_profile.arch]
         sysp = paths.masterdir() / pkg.build_profile.sysroot.relative_to("/")
+        aarch = pkg.build_profile.arch
     else:
         sysp = paths.masterdir()
+        aarch = None
 
     aout = apki.call(
-        "search", bcmd + [pkgn], pkg, root = sysp,
-        capture_output = True
+        "search", ["-e", pkgn], pkg, root = sysp, capture_output = True,
+        arch = aarch, allow_untrusted = True
     )
 
     if aout.returncode != 0:
@@ -213,10 +214,11 @@ def setup_dummy(pkg, rootp):
         else:
             acmd = "add"
 
-        ret = apki.call(acmd, [
-            "--allow-untrusted", "--arch", archn, "--no-scripts",
-            "--repository", tmpd, pkgn
-        ], None, root = rootp, capture_output = True)
+        ret = apki.call(
+            acmd, ["--no-scripts", "--repository", tmpd, pkgn], None,
+            root = rootp, capture_output = True, arch = archn,
+            allow_untrusted = True
+        )
 
         if ret.returncode != 0:
             outl = ret.stderr.strip().decode()
@@ -247,16 +249,17 @@ def remove_autocrossdeps(pkg):
     sysp = paths.masterdir() / pkg.build_profile.sysroot.relative_to("/")
     archn = pkg.build_profile.arch
 
-    if apki.call("info", [
-        "--arch", archn, "--allow-untrusted", "--installed", "autodeps-target"
-    ], None, root = sysp, capture_output = True).returncode != 0:
+    if apki.call(
+        "info", ["--installed", "autodeps-target"], None, root = sysp,
+        capture_output = True, arch = archn, allow_untrusted = True
+    ).returncode != 0:
         return
 
     pkg.log(f"removing autocrossdeps for {archn}...")
 
     del_ret = apki.call("del", [
-        "--arch", archn, "--no-scripts", "autodeps-target"
-    ], None, root = sysp, capture_output = True)
+        "--no-scripts", "autodeps-target"
+    ], None, root = sysp, capture_output = True, arch = archn)
 
     if del_ret.returncode != 0:
         log.out_plain(">> stderr (host):")
