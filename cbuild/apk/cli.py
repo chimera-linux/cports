@@ -21,11 +21,14 @@ def _collect_repos(mrepo, intree):
 
     for r in chroot.get_confrepos():
         for cr in srepos:
+            rpath = paths.repository() / cr / r
+            if not rpath.is_dir():
+                continue
             ret.append("--repository")
             if intree:
                 ret.append(f"/binpkgs/{cr}/{r}")
             else:
-                ret.append(str(paths.repository()) + f"/{cr}/{r}")
+                ret.append(str(rpath))
 
     return ret
 
