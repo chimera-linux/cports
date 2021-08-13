@@ -135,7 +135,7 @@ def setup_keys(rootp):
 def get_confrepos():
     return _crepos
 
-def repo_sync():
+def repo_sync(genrepos = False):
     global _crepos
 
     _crepos = []
@@ -146,6 +146,18 @@ def repo_sync():
                 _crepos.append(relpath)
 
     setup_keys(paths.masterdir())
+
+    # generate a repositories file for chroots
+    rfile = paths.masterdir() / "etc/apk/repositories"
+    # erase first in any case
+    rfile.unlink(missing_ok = True)
+    # generate only if needed (for explicit chroots)
+    if genrepos:
+        with rfile.open("w") as rfh:
+            for rd in paths.repository().iterdir():
+                for cr in _crepos:
+                    if (rd / cr / host_cpu() / "APKINDEX.tar.gz").is_file():
+                        rfh.write(f"/binpkgs/{rd.name}/{cr}\n")
 
     # do not refresh if chroot is not initialized
     if not (paths.masterdir() / ".cbuild_chroot_init").is_file():

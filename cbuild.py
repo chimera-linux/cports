@@ -320,7 +320,7 @@ def do_chroot(tgt):
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
     paths.prepare()
-    chroot.repo_sync()
+    chroot.repo_sync(True)
     chroot.reconfigure()
     chroot.enter(
         "/bin/cbuild-shell", pretend_uid = 0, pretend_gid = 0,
