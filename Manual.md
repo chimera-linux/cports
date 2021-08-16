@@ -12,7 +12,10 @@ you should not rely on them or expect them to be stable.
   * [Categories](#categories)
   * [Quality Requirements](#quality_requirements)
   * [Build Phases](#phases)
-  * [Template Naming](#naming)
+  * [Package Naming](#naming)
+  * [Filesystem Structure](#filesystem_structure)
+  * [Template Structure](#template_structure)
+    * [Template Options](#template_options)
 * [Contributing](#contributing)
 * [Help](#help)
 
@@ -202,7 +205,260 @@ phase (from `fetch` to `pkg`). All phases leading up to the specified
 phase are run first, unless already ran.
 
 <a id="naming"></a>
-### Template Naming
+### Package Naming
+
+All packages should only use lowercase characters that are in the ASCII,
+never mixed case, regardless of what the software is called.
+
+In general, the primary package of the template (i.e. not a subpackage)
+should follow the upstream name (other than case) regardless of the
+contents of the package. That is, when a library is called `foo`,
+the package should be called `foo`, not `libfoo`.
+
+However, if a library is a subpackage of a bigger software project,
+the `lib` prefix should be used. So if project `foo` consists of a
+primary `foo` package and a library subpackage, that subpackage should
+be called `libfoo`.
+
+Development packages should use the `-devel` suffix, like `foo-devel`
+for the `foo` template. In general, libraries should always have a
+corresponding `-devel` package, except in some rare cases where this
+does not make sense (primarily development toolchains where the
+primary package is already a development package and the library
+is split out to avoid installing the whole thing in case of runtime
+dependencies).
+
+Development packages should contain `.so` symlinks (where not required
+at runtime) as well as include files, `pkg-config` files and any other
+files required for development but not required at runtime.
+
+Debug packages have the `-dbg` suffix and are created automatically in
+most cases.
+
+If a primary package (typically a library or some kind of module) has
+auxiliary programs that are separated into a subpackage, the subpackage
+should be called `foo-progs`.
+
+Subpackages for language bindings should put the language name in the
+suffix, e.g. `foo-python`. However, language modules that are the primary
+package should put that in the prefix, e.g. `python-foo`.
+
+<a id="filesystem_structure"></a>
+### Filesystem Structure
+
+Programs meant to be executed directly by the user always go in `/usr/bin`.
+The `/usr/sbin`, `/bin` and `/sbin` paths are just symbolic links to the
+primary `/usr/bin` path and should never be present in packages.
+
+Libraries go in `/usr/lib`. Do not use `/usr/lib64` or `/usr/lib32`,
+these should never be present in packages. Same goes for the toplevel
+`/lib` or `/lib64` or `/lib32` paths. In general, compatibility symlinks
+are present in the system and they all point to just `/usr/lib`.
+
+Executable programs that are internal and not meant to be run by the
+user go in `/usr/libexec` (unless the software does not allow this).
+
+Include files go in `/usr/include`. Data files go in `/usr/share`; the
+directory must not contain any ELF executables.
+
+In general, the `/usr` directory should be considered immutable when
+it comes to user interventions, i.e. editable configuration files should
+not be installed in there. However, non-editable configuration files
+should always go there and not in `/etc`.
+
+Editable configuration files go in `/etc`.
+
+Cross-compiling sysroots are in `/usr/<triplet>` where triplet is for
+example `powerpc64-linux-musl` (i.e. short triplet). These contain a
+simplified filesystem layout (the `usr` directory with the usual files
+and symlinks, and the `bin`, `lib` etc symlinks at top level).
+
+<a id="template_structure"></a>
+### Template Structure
+
+A template consists of **variables** and **functions**. A simple template
+may only consist of variables, while those that need to define some
+custom behavior may also contain functions.
+
+The template follows the standard Python syntax. Variables are assigned
+like `foo = value`. Functions are defined like `def function(): ...`.
+
+In general, changes made to toplevel variables from inside functions are
+not respected as variables are read and stored before the functions are
+executed. Any later accesses to variables must be done through the template
+handle passed to functions as the first argument (typically called `self`).
+
+These variables are mandatory:
+
+* `pkgname` *(str)* The primary package name, must match template name.
+* `version` *(str)* The package version, applies to all subpackages. Must
+  follow the correct format for the `apk` package manager.
+* `revision` *(int)* The revision number for the package. When changes are
+  made to the template that require rebuilding of the package, the revision
+  is incremented by one. The initial value should be zero.
+* `short_desc` *(str)* A short, one line description of the package. Should
+  be kept at 72 characters or shorter. In general, this should not begin with
+  an article (`the` is sometimes permissible), and should not end with a period.
+* `homepage` *(str)* The homepage URL of the project being packaged. Should
+  not include the trailing slash.
+* `license` *(str)* The license of the project in SPDX format (e.g.
+  `BSD-3-Clause`). If there are multiple licenses, they should be separated
+  by a comma and a space (`GPL-2.0-or-later, MIT`).
+
+There is also a variety of variables that are builtin but not mandatory.
+Keep in mind that default values may be overridden by build styles.
+
+* `CFLAGS` *(list)* Compiler flags used for the C compiler, regardless of
+  profile, at any point. Passed after other compiler flags.
+* `CXXFLAGS` *(list)* Compiler flags used for the C++ compiler, regardless of
+  profile, at any point. Passed after other compiler flags.
+* `FFLAGS` *(list)* Compiler flags used for the Fortran compiler, regardless of
+  profile, at any point. Passed after other compiler flags.
+* `LDFLAGS` *(list)* Linker flags used regardless of build profile, passed
+  after other linker flags.
+* `archs` *(str)* A space delimited list of architectures the template builds
+  for. May contain wildcards. The `~foo` syntax is a negation.
+* `broken` *(str)* If specified, the package will refuse to build. The value
+  is a string that contains the reason why the package does not build.
+* `build_style` *(str)* The build style used for the template. See the
+  section about build styles for more details.
+* `build_wrksrc` *(str)* A subpath within `wrksrc` that is assumed to be the
+  current working directory after extraction.
+* `checksum` *(list)* A list of SHA256 checksums specified as digest strings
+  corresponding to each field in `distfiles`. Used for verification.
+* `create_wrksrc` *(boolean)* If specified, `wrksrc` is created and the
+  `distfiles` are extracted into it rather than into `builddir` directly.
+  This is mainly useful when the source tarball does not contain the directory
+  but rather its contents.
+* `configure_args` *(list)* This list is generally specific to the build
+  system the template uses. Generally speaking, it provides the arguments
+  passed to some kind of `configure` script.
+* `configure_script` *(str)* The name of the script relative to current
+  working directory used for configuration. Only used by build styles that
+  use such scripts. The default value is `configure`.
+* `depends` *(list)* Runtime dependencies of the package. They are not
+  installed in the build container, but are checked for availability (and
+  built if missing). While these may be just names, you can also specify
+  constraints (e.g. `foo<=1.0-r1`) and conflicts (`!foo`).
+* `distfiles` *(list)* A list of URLs to download and extract (by default).
+  The items can be either strings (in which case the filename is inferred
+  from the URL itself) or 2-tuples (in which case the first field is the URL
+  and the second field is the file name it will have when downloaded).
+* `env` *(dict)* Environment variables to be exported when running commands
+  within the sandbox. This is considered last, so it overrides any possible
+  values that may be exported by other means. Use sparingly.
+* `hardening` *(list)* Hardening options to be enabled or disabled for the
+  template. Refer to the hardening section for more information. This is
+  a simple list of strings that works similarly to `options`, with `!`
+  disabling the hardening options.
+* `hostmakedepends` *(list)* A list of strings specifying package names to
+  be installed in the build container before building. These are always
+  installed in the build container itself rather than target sysroot,
+  even if cross compiling. Typically contains runnable tools.
+* `maintainer` *(str)* This one is not mandatory but is highly recommended.
+  A template with no `maintainer` field is orphaned. No package in the
+  `main` section of the `cports` collection must be orphaned.
+* `make_cmd` *(str)* The name of the program used for building. May not
+  apply to all templates or build styles. By default this is `bmake` (the
+  default Make implementation in Chimera).
+* `make_build_args` *(list)* A list of custom arguments passed to `make_cmd`
+  during build phase.
+* `make_build_target` *(str)* The `make_cmd` target to be used to build.
+  Different build systems may use this differently. Empty by default.
+* `make_install_args` *(list)* A list of custom arguments passed to `make_cmd`
+  when installing.
+* `make_install_target` *(str)* The `make_cmd` target to be used to install.
+  Different build systems may use this differently (`install` by default).
+* `makedepends` *(list)* A list of strings specifying package names to be
+  installed in the build container. When cross compiling, these are installed
+  into the target architecture sysroot. When not cross compiling, this is
+  simply concatenated with `hostmakedepends`.
+* `nopie_files` *(list)* A list of glob patterns (strings). By default,
+  the system will reject non-PIE executables when PIE is enabled, but
+  if the file's path matches any of the patterns in this list, it will
+  be ignored instead.
+* `nostrip_files` *(list)* A list of glob patterns (strings). When scanning
+  files to be stripped of debug symbols, each pattern in this list is
+  considered. If anything is matched, the file will not be stripped.
+  This is useful if you want the default strip behavior for most things
+  but there are some files that absolutely cannot be stripped.
+* `options` *(list)* Various boolean toggles for the template. It is a list
+  of strings; a string `foo` toggles the option on, while `!foo` does the
+  opposite. Every permissible option has a default.
+* `patch_args` *(str)* Options passed to `patch` when applying patches.
+  By default, patches are applied with `-Np1`.
+* `provides` *(list)* A list of packages provided virtually, specified
+  in the format `foo=1.0-r0`. The package manager will consider these
+  alternative names for the package, and automatically have them
+  conflict with other packages of this name. If the version part is
+  not provided, several packages of that name may be installed, but
+  none of them will be considered by default; instead, an error message
+  will be given and the user will need to choose.
+* `shlib_provides` *(list)* Extra shared libraries to be provided by
+  the package. The fields should be 2-tuples; the first element should
+  be the `soname`, the second field the full suffix after `.so` (so
+  e.g. for file `libfoo.so.1.4.2` with `soname` `libfoo.so.1`, this
+  should be `("libfoo.so.1", "1.4.2")`). If there is no suffix after
+  the `.so`, you should use the value `"0"`. If there is no `soname`,
+  you should use the unsuffixed filename (i.e. `libfoo.so`).
+* `shlib_requires` *(list)* A list of extra shared library dependencies
+  for the package. The values should be the `sonames`, not full filenames.
+* `skip_extraction` *(list)* A list of filenames in `distfiles` to not
+  extract during the `extract` phase.
+* `skiprdeps` *(list)* A list of paths (relative to `destdir`) referring
+  to files that will not be scanned for runtime dependencies.
+* `subpackages` *(list)* A list of subpackages the template provides. The
+  list must contain two-tuples of subpackage name and a function defining
+  the subpackage. In most cases, you do not need to specify this explicitly.
+  See the section about subpackages for more details.
+* `tools` *(dict)* This can be used to override default tools. Refer to the
+  section about tools for more information.
+* `triggers` *(list)* A list of paths the package should trigger on. I.e.
+  if any package changes anything in those paths, the trigger script for
+  this package should run.
+* `wrksrc` *(str)* The working directory the build system will assume
+  once distfiles have been extracted (or its parent, if `build_wrksrc`
+  is specified). By default this is `{pkgname}-{version}`.
+
+<a id="template_options"></a>
+#### Template Options
+
+There are various options you can specify as a part of the `options` variable.
+Some of them can only be specified at the top level, while some also apply
+to subpackages.
+
+The following options are toplevel-only, i.e. they apply globally within
+the template including for subpackages:
+
+* `bootstrap` *(false)* This option specifies that the template is built
+  during bootstrapping. Other templates will fail to build unless a build
+  container is available.
+* `textrels` *(false)* By default, if `cbuild` finds textrels within any
+  ELF files in the packages, it will error. It is possible to override
+  this by enabling the option.
+* `parallel` *(true)* By disabling this, you can enforce single-threaded
+  builds for the template. By default the number of build jobs passed
+  by `cbuild` is respected.
+* `debug` *(true)* By default, debug packages (`-dbg`) are generated if
+  there are any strippable debug symbols. By setting this to `false`,
+  you can disable passing of debug options to the compiler, as well as
+  prevent generation of debug packages.
+* `check` *(true)* By disabling this you can ensure the `check` phase
+  is never run, even if enabled and enforced in the build system.
+* `cross` *(true)* If disabled, the template will error early when
+  attempting cross compilation.
+
+The following options apply to a single package and need to be specified
+for subpackages separately if needed:
+
+* `scanrdeps` *(true)* This specifies whether automatic runtime dependencies
+  are scanned for the package. By default, ELF files are scanned for their
+  dependencies, which is usually desirable, but not always.
+* `scanshlibs` *(true)* If disabled, the package will not be scanned for
+  shared libraries to be provided by the package.
+* `strip` *(true)* If disabled, ELF files in this package will not be
+  stripped, which means debug symbols will remain where they are and
+  debug package will not be generated.
 
 <a id="contributing"></a>
 ## Contributing
