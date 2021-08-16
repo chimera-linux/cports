@@ -16,8 +16,6 @@ options = ["bootstrap"]
 # segfaults otherwise
 hardening = ["!scp"]
 
-shlib_provides = ["libc.so"]
-
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]
 
