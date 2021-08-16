@@ -150,9 +150,9 @@ to unshare all namespaces when performing actions within the sandbox. That
 means sandbox-run actions have no access to the network, by design.
 
 Except for the `setup` phase, the sandbox is mounted read only with the
-exception of the `builddir` (before `install`), `destdir` (after `build`)
-and `tmp` directories. That means once `setup` is done, nothing is allowed
-to modify the container.
+exception of the `builddir` (up to and including `install`), `destdir`
+(after `build`) and `tmp` directories. That means once `setup` is done,
+nothing is allowed to modify the container.
 
 All steps are meant to be repeatable and atomic. That means if the step
 fails in the middle, it should be considered unfinished and should not
@@ -191,14 +191,14 @@ build fails elsewhere and needs to be restarted).
   to turn off tests with a flag to `cbuild`, and templates may disable
   running tests.
 
-* `install` Install the files into `destdir`. Well behaved templates are
-  not supposed to change the `builddir` anymore, so by default it will
-  be mounted read-only at this point. However, this is overridable since
-  there is software that cannot be convinced; this should be used very
-  sparingly in general though. If the template defines subpackages,
-  they can define which files they are supposed to contain; this is
-  done by "taking" files from the initial populated `destdir` after
-  the template-defined `do_install` finishes.
+* `install` Install the files into `destdir`. If the template defines
+  subpackages, they can define which files they are supposed to contain;
+  this is done by "taking" files from the initial populated `destdir`
+  after the template-defined `do_install` finishes. At the time the
+  subpackages are populated, `builddir` is read-only in the sandbox.
+  Ideally it would also be read-only during `install`, but that is
+  not actually possible to ensure (since build systems like to touch
+  their metadata and so on).
 
 * `pkg` Create binary packages and register them into your local repo.
 
@@ -671,8 +671,7 @@ The following bind mounts are provided:
 * `/ccache` The `ccache` data path (`CCACHE_DIR`), read-write.
 * `/builddir` The directory in which `distfiles` are extracted and
   which is the base for the template `cwd` (`wrksrc` is inside).
-  Read-write before `install` phase, read-only afterwards unless
-  overridden.
+  Read-only during subpackage population and later.
 * `/destdir` The destination directory for installing; packages will
   install into `/destdir/pkgname-version`, or when cross compiling,
   into `/destdir/triplet/pkgname-version`. Read only before `install`,

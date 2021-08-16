@@ -17,6 +17,7 @@ def build(step, pkg, depmap, signkey, chost = False):
 
     depmap[depn] = True
 
+    pkg.install_done = False
     pkg.current_phase = "setup"
 
     # doesn't do anything for native builds
@@ -72,6 +73,7 @@ def build(step, pkg, depmap, signkey, chost = False):
     pkg.current_phase = "install"
     install.invoke(pkg, False)
 
+    pkg.install_done = True
     # scan for ELF information after subpackages are split up
     # but before post_install hooks (done by the install step)
     pkg.current_elfs = {}
