@@ -17,6 +17,8 @@ def build(step, pkg, depmap, signkey, chost = False):
 
     depmap[depn] = True
 
+    pkg.current_phase = "setup"
+
     # doesn't do anything for native builds
     dependencies.install_toolchain(pkg, signkey)
 
@@ -30,26 +32,33 @@ def build(step, pkg, depmap, signkey, chost = False):
     autodep = dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
 
     # run up to the step we need
+    pkg.current_phase = "fetch"
     fetch.invoke(pkg)
     if step == "fetch":
         return
+    pkg.current_phase = "extract"
     extract.invoke(pkg)
     if step == "extract":
         return
+    pkg.current_phase = "patch"
     patch.invoke(pkg)
     if step == "patch":
         return
+    pkg.current_phase = "configure"
     configure.invoke(pkg, step)
     if step == "configure":
         return
+    pkg.current_phase = "build"
     buildm.invoke(pkg, step)
     if step == "build":
         return
+    pkg.current_phase = "check"
     check.invoke(pkg, step)
     if step == "check":
         return
 
     # invoke install for main package
+    pkg.current_phase = "install"
     install.invoke(pkg, False)
 
     # scan for ELF information after subpackages are split up
@@ -63,6 +72,7 @@ def build(step, pkg, depmap, signkey, chost = False):
     # after subpackages are done, do the same for main package in subpkg mode
     install.invoke(pkg, True)
 
+    pkg.current_phase = "pkg"
     template.call_pkg_hooks(pkg, "init_pkg")
 
     for sp in pkg.subpkg_list:
