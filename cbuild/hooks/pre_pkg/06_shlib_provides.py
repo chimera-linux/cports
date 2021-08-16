@@ -28,6 +28,14 @@ def invoke(pkg):
     asonames = []
     curelf = pkg.rparent.current_elfs
 
+    soset = {}
+
+    # add explicit provides
+    for soname, sfx in pkg.shlib_provides:
+        soset[soname] = True
+        logger.get().out_plain(f"   SONAME {soname} (explicit)")
+        asonames.append((soname, sfx))
+
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
 
@@ -54,7 +62,12 @@ def invoke(pkg):
                 if len(autosfx) == 0:
                     autosfx = "0"
 
-            asonames.append((soname, autosfx))
-            logger.get().out_plain(f"   SONAME {soname} from {fp.parent}")
+            if not soname in soset:
+                asonames.append((soname, autosfx))
+                logger.get().out_plain(f"   SONAME {soname} from {fp.parent}")
+            else:
+                logger.get().out_plain(
+                    f"   SONAME {soname} from {fp.parent} (skipped)"
+                )
 
     pkg.aso_provides = asonames
