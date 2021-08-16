@@ -105,7 +105,7 @@ that we cannot redistribute. Software here may depend on anything from `main`
 or `contrib`. Unlike `contrib` packages, no binary packages are shipped and
 users need to build it themselves.
 
-Finally, the `experimental` category is a mostly unrestricted and has the
+Finally, the `experimental` category is mostly unrestricted and has the
 least stringent quality requirements. Anything that is anyhow controversial
 goes here; once determined to be acceptable, a maintainer may move the
 template to `contrib` (or sometimes `non-free`). Software in this category
@@ -659,8 +659,10 @@ override the rest.
 
 The container is entered with current working directory by default set to
 the currently configured working directory of the template handle, which
-by default is the working directory as defined in the template. This may
-be overridden via API parameters, or by overriding the template-wide
+by default is the working directory as defined in the template, except for
+the fetch and extract stages, when the actual template-defined working
+directory may not exist yet (during those stages it defaults to `builddir`).
+This may be overridden via API parameters, or by overriding the template-wide
 current working directory.
 
 The following bind mounts are provided:

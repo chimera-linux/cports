@@ -31,6 +31,13 @@ def build(step, pkg, depmap, signkey, chost = False):
     # check and install dependencies
     autodep = dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
 
+    oldcwd = pkg.cwd
+    oldchd = pkg.chroot_cwd
+
+    # temporarily override default cwd since the wrksrc does not exist yet
+    pkg.cwd = pkg.builddir
+    pkg.chroot_cwd = pkg.chroot_builddir
+
     # run up to the step we need
     pkg.current_phase = "fetch"
     fetch.invoke(pkg)
@@ -38,6 +45,10 @@ def build(step, pkg, depmap, signkey, chost = False):
         return
     pkg.current_phase = "extract"
     extract.invoke(pkg)
+
+    pkg.cwd = oldcwd
+    pkg.chroot_cwd = oldchd
+
     if step == "extract":
         return
     pkg.current_phase = "patch"
