@@ -17,7 +17,8 @@ configure_args = [
 ]
 make_cmd = "gmake"
 makedepends = ["zlib-devel"]
-short_desc = "Miscellaneous linux utilities -- for xbps-src use"
+depends = ["!util-linux"]
+short_desc = "Miscellaneous linux utilities (for cbuild use)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 homepage = "http://userweb.kernel.org/~kzak/util-linux-ng"

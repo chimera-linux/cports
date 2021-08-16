@@ -65,8 +65,6 @@ def genpkg(
         mdeps = []
 
         if not dbg:
-            for c in pkg.conflicts:
-                mdeps.append("!" + c)
             for c in pkg.depends:
                 mdeps.append(c)
         else:

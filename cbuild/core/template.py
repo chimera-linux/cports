@@ -395,7 +395,6 @@ core_fields = [
 
     # other package lists + related
     ("provides", [], list, False, False, True, False),
-    ("conflicts", [], list, False, False, True, False),
     ("skiprdeps", [], list, False, False, True, False),
 
     # build systems
@@ -501,7 +500,6 @@ class Template(Package):
             self.source_repositories.append(crepo)
 
         # other fields
-        self.run_depends = None
         self.parent = None
         self.rparent = self
         self.subpkg_list = []
@@ -762,7 +760,6 @@ class Subpackage(Package):
         self.pkgname = name
         self.parent = parent
         self.rparent = parent
-        self.run_depends = None
 
         # default subpackage fields
         for fl, dval, tp, opt, mand, sp, inh in core_fields:

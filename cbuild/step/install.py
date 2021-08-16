@@ -27,8 +27,6 @@ def invoke(pkg, subpkg_mode):
             template.call_pkg_hooks(pkg, "pre_install")
             template.run_pkg_func(pkg, "pkg_install", on_subpkg = True)
 
-    pkg.run_depends = list(pkg.depends)
-
     scanelf.scan(pkg, pkg.rparent.current_elfs)
 
     template.call_pkg_hooks(pkg, "post_install")
