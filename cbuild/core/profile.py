@@ -11,6 +11,7 @@ import sys
 hardening_fields = {
     "fortify": True,
     "pie": True,
+    "relro": True,
     "ssp": True, # this should really be compiler default
     "scp": False, # stack-clash-protection
 }
@@ -53,10 +54,11 @@ def _get_hldflags(dharden, tharden):
     hflags = ["-Wl,--as-needed"]
     hard = _get_harden(dharden, tharden)
 
-    if hard["pie"]:
+    if hard["relro"]:
         hflags.append("-Wl,-z,now")
         hflags.append("-Wl,-z,relro")
-    else:
+
+    if not hard["pie"]:
         hflags.append("-no-pie")
 
     return hflags

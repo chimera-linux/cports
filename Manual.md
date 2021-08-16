@@ -16,6 +16,7 @@ you should not rely on them or expect them to be stable.
   * [Filesystem Structure](#filesystem_structure)
   * [Template Structure](#template_structure)
     * [Template Options](#template_options)
+    * [Hardening Options](#hardening_options)
 * [Contributing](#contributing)
 * [Help](#help)
 
@@ -459,6 +460,24 @@ for subpackages separately if needed:
 * `strip` *(true)* If disabled, ELF files in this package will not be
   stripped, which means debug symbols will remain where they are and
   debug package will not be generated.
+
+<a id="hardening_options"></a>
+#### Hardening Options
+
+The `cbuild` system implements an automatic way to deal with toggling
+different hardening options.
+
+Currently the following options are always enabled by default:
+
+* `fortify` Toggles `-D_FORTIFY_SOURCE=2`.
+* `pie` Position-independent executables.
+* `relro` Full RELRO.
+* `ssp` Enables `-fstack-protector-strong`.
+
+The following options are only enabled on targets where the toolchain
+supports it:
+
+* `scp` Enables `-fstack-clash-protection`.
 
 <a id="contributing"></a>
 ## Contributing
