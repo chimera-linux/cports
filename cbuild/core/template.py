@@ -646,6 +646,7 @@ class Template(Package):
         return chroot.enter(
             cmd, args, env = cenv, wrkdir = wdir, check = True,
             bootstrapping = self.bootstrapping, ro_root = True,
+            ro_dest = (self.current_phase != "install"),
             mount_ccache = True, unshare_all = True
         )
 

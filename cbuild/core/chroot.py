@@ -298,8 +298,8 @@ def update(do_clean = True):
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
-          bootstrapping = False, ro_root = False, unshare_all = False,
-          mount_binpkgs = False, mount_ccache = False,
+          bootstrapping = False, ro_root = False, ro_dest = True,
+          unshare_all = False, mount_binpkgs = False, mount_ccache = False,
           pretend_uid = None, pretend_gid = None, extra_path = None):
     defpath = "/usr/bin"
     if bootstrapping:
@@ -345,6 +345,11 @@ def enter(cmd, args = [], capture_out = False, check = False,
     else:
         root_bind = "--bind"
 
+    if ro_dest:
+        dest_bind = "--ro-bind"
+    else:
+        dest_bind = "--bind"
+
     if bootstrapping:
         return subprocess.run(
             [cmd] + args, env = envs,
@@ -357,7 +362,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "bwrap",
         root_bind, paths.masterdir(), "/",
         "--bind", paths.masterdir() / "builddir", "/builddir",
-        "--bind", paths.masterdir() / "destdir", "/destdir",
+        dest_bind, paths.masterdir() / "destdir", "/destdir",
         "--ro-bind", paths.hostdir() / "sources", "/sources",
         "--dev", "/dev",
         "--proc", "/proc",
