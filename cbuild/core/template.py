@@ -601,12 +601,12 @@ class Template(Package):
             "CXXFLAGS": self.get_cxxflags(shell = True),
             "LDFLAGS": self.get_ldflags(shell = True),
             "CBUILD_TARGET_MACHINE": self.build_profile.arch,
-            "CBUILD_MACHINE": chroot.host_cpu(),
+            "CBUILD_HOST_MACHINE": chroot.host_cpu(),
         }
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
         if self.build_profile.triplet:
-            cenv["CBUILD_TRIPLET"] = self.build_profile.triplet
+            cenv["CBUILD_TARGET_TRIPLET"] = self.build_profile.triplet
 
         if self.use_ccache:
             cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
@@ -633,6 +633,8 @@ class Template(Package):
             cenv["BUILD_FFLAGS"] = self.get_fflags(shell = True)
             cenv["BUILD_CXXFLAGS"] = self.get_cxxflags(shell = True)
             cenv["BUILD_LDFLAGS"] = self.get_ldflags(shell = True)
+            if self.build_profile.triplet:
+                cenv["CBUILD_HOST_TRIPLET"] = self.build_profile.triplet
 
         cenv.update(self.env)
         cenv.update(env)

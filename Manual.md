@@ -18,6 +18,8 @@ you should not rely on them or expect them to be stable.
     * [Template Options](#template_options)
     * [Hardening Options](#hardening_options)
     * [Tools](#tools)
+  * [Build Profiles](#build_profiles)
+  * [Build Environment](#build_environment)
 * [Contributing](#contributing)
 * [Help](#help)
 
@@ -525,6 +527,160 @@ where appropriate.
 
 There are many more variables that are implicitly exported into the
 environment, but those are documented elsewhere.
+
+<a id="build_profiles"></a>
+### Build Profiles
+
+The `cbuild` system allows for flexible definition of profiles for
+different target architectures. These profiles are used for both
+native and cross builds.
+
+The definition exists in `cbuild/build_profiles/ARCH.ini` where `ARCH`
+is the `apk` architecture name (in general matching `uname -m`).
+
+It may look like this:
+
+```
+[profile]
+cflags   = -march=rv64gc -mabi=lp64d
+cxxflags = ${cflags}
+fflags   = ${cflags}
+endian   = little
+wordsize = 64
+triplet  = riscv64-unknown-linux-musl
+```
+
+These are also the fields it has to define. The `triplet` must always
+be the full triplet (`cbuild` will take care of building the short
+triplet from it if needed). The compiler flags are optional.
+
+There is also the special `bootstrap` profile used when bootstrapping.
+It differs from regular profiles in that the endianness and word size
+are implied from the host, and the flags contain more things as the
+user provided flags from `cbuild` are ignored when bootstrapping.
+
+Unlike other profiles, `bootstrap` may also provide per-architecture
+sections.
+
+The `cbuild` system provides special API to manipulate profiles, and
+you can utilize any arbitrary profiles within one build if needed.
+More about that in the respective API sections, but the API allows
+one to retrieve compiler flags in proper architecture-specific way,
+check if we are cross-compiling and otherwise inspect the target.
+
+<a id="build_environment"></a>
+### Build Environment
+
+This section of the documentation defines what the build environment
+looks like when building a package.
+
+Except when bootstrapping from scratch, most of the actual build process
+runs sandboxed. The sandboxing is provided by the means of a minimal
+Chimera container (as defined by the `main/base-chroot` package) and
+the `bwrap` tool (`bubblewrap`), which utilizes Linux Namespaces to
+provide a safe and unprivileged environment.
+
+During initial setup, all required dependencies are installed. The
+root is mounted read-write during this stage, and network access is
+still available. This stage is considered trusted; no shell code is
+executed.
+
+When cross-compiling, the toolchain pieces required for the target
+architecture are installed (e.g. `base-cross-aarch64` for `aarch64`).
+The target dependencies are installed not in the container directly,
+but rather in the target sysroot, which is `/usr/aarch64-linux-musl`
+in the container (as an example for `aarch64`).
+
+In order to trick `apk` into managing the sysroot properly, the system
+automatically creates an internal dummy metapackage. This is needed so
+that installing packages into the sysroot does not overwrite files
+provided by the container's cross toolchain packages, this includes
+things like `musl` as well as `libcxx`, `libunwind` and other bits
+that are a part of the cross-toolchain and should not be installed
+as regular packages (which they otherwise would, as dependencies).
+
+Once the environment is set up and template code runs, the root is
+always mounted as read only. That prevents unintended modifications
+to the container, ensuring that it always remains consistent.
+
+The following environment variables are exported into the sandbox:
+
+* `PATH` The executable path, includes `/usr/bin` plus possible
+  additions for `ccache` and so on.
+* `SHELL` Set to `/bin/sh`.
+* `HOME` Set to `/tmp`.
+* `LC_COLLATE` Set to `C`.
+* `LANG` Set to `en_US.UTF-8`.
+* `SOURCE_DATE_EPOCH` The timestamp for reproducible builds.
+* `CBUILD_STATEDIR` Points to where current package build metadata
+  is stored, such as stamps for finished phases.
+* `CFLAGS` Target C compiler flags.
+* `FFLAGS` Target Fortran compiler flags.
+* `CXXFLAGS` Target C++ compiler flags.
+* `LDFLAGS` Target linker flags.
+* `CC` Target C compiler.
+* `CXX` Target C++ compiler.
+* `CPP` Target C preprocessor.
+* `LD` Target linker.
+* `PKG_CONFIG` Target `pkg-config`.
+* `CBUILD_TARGET_MACHINE` Target `apk` machine architecture.
+* `CBUILD_TARGET_TRIPLET` Full target triplet (as described in profile).
+  This is not exported during stage0 bootstrap.
+* `BUILD_CFLAGS` Host C compiler flags.
+* `BUILD_FFLAGS` Host Fortran compiler flags.
+* `BUILD_CXXFLAGS` Host C++ compiler flags.
+* `BUILD_LDFLAGS` Host linker flags.
+* `BUILD_CC` Host C compiler.
+* `BUILD_CXX` Host C++ compiler.
+* `BUILD_CPP` Host C preprocessor.
+* `BUILD_LD` Host linker.
+* `BUILD_PKG_CONFIG` Host `pkg-config`.
+* `CBUILD_HOST_MACHINE` Host `apk` machine architecture.
+* `CBUILD_HOST_TRIPLET` Full host triplet (as described in profile).
+  This is not exported during stage0 bootstrap.
+
+Additionally, when using `ccache`, the following are also exported:
+
+* `CCACHEPATH` The path to `ccache` toolchain symlinks.
+* `CCACHE_DIR` The path to `ccache` data.
+* `CCACHE_COMPILERCHECK` Set to `content`.
+* `CCACHE_COMPRESS` Set to `1`.
+* `CCACHE_BASEDIR` Set to the `cbuild`-set current working directory.
+
+When set in host environment, the variables `NO_PROXY`, `FTP_PROXY`,
+`HTTP_PROXY`, `HTTPS_PROXY`, `SOCKS_PROXY`, `FTP_RETRIES`, `HTTP_PROXY_AUTH`
+are carried over into the environment.
+
+The values of the `tools` meta variable are also exported. Additionally,
+values of the `env` meta variable are exported, taking priority over any
+other values. Finally, when invoking code in the sandbox, the user of the
+API may specify additional custom environment variables, which further
+override the rest.
+
+The container is entered with current working directory by default set to
+the currently configured working directory of the template handle, which
+by default is the working directory as defined in the template. This may
+be overridden via API parameters, or by overriding the template-wide
+current working directory.
+
+The following bind mounts are provided:
+
+* `/` The root, read-only.
+* `/ccache` The `ccache` data path (`CCACHE_DIR`), read-write.
+* `/builddir` The directory in which `distfiles` are extracted and
+  which is the base for the template `cwd` (`wrksrc` is inside).
+  Read-write before `install` phase, read-only afterwards unless
+  overridden.
+* `/destdir` The destination directory for installing; packages will
+  install into `/destdir/pkgname-version`, or when cross compiling,
+  into `/destdir/triplet/pkgname-version`. Read only before `install`,
+  and read-write for the `install` phase.
+* `/sources` Read-only, points to where all distfiles are stored.
+* `/dev`, `/proc` and `/tmp` are fresh (not bound).
+
+Once the `fetch` phase is done, all possible namespaces are unshared.
+This includes the network namespace, so there is no more network
+access within the sandbox at this point.
 
 <a id="contributing"></a>
 ## Contributing

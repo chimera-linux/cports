@@ -301,11 +301,14 @@ def enter(cmd, args = [], capture_out = False, check = False,
           bootstrapping = False, ro_root = False, unshare_all = False,
           mount_binpkgs = False, mount_ccache = False,
           pretend_uid = None, pretend_gid = None, extra_path = None):
+    defpath = "/usr/bin"
+    if bootstrapping:
+        defpath = "/usr/bin:" + os.environ["PATH"]
+
     envs = {
-        "PATH": "/usr/bin:" + os.environ["PATH"],
+        "PATH": defpath,
         "SHELL": "/bin/sh",
         "HOME": "/tmp",
-        "IN_CHROOT": "1",
         "LC_COLLATE": "C",
         "LANG": "en_US.UTF-8",
         **env
