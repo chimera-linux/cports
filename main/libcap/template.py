@@ -18,7 +18,6 @@ short_desc = "POSIX.1e capabilities suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://sites.google.com/site/fullycapable/"
-changelog = "https://sites.google.com/site/fullycapable/release-notes-for-libcap"
 distfiles = [f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/{pkgname}-{version}.tar.xz"]
 checksum = ["e98bc4d93645082ec787730b0fd1a712b38882465c505777de17c338831ee181"]
 

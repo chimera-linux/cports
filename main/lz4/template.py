@@ -6,7 +6,6 @@ short_desc = "LZ4 compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause, GPL-2.0-or-later"
 homepage = "https://lz4.github.io/lz4"
-changelog = "https://raw.githubusercontent.com/lz4/lz4/dev/NEWS"
 distfiles = [f"https://github.com/lz4/lz4/archive/v{version}.tar.gz"]
 checksum = ["030644df4611007ff7dc962d981f390361e6c97a34e5cbc393ddfbe019ffe2c1"]
 

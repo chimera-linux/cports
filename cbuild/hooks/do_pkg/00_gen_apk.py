@@ -53,7 +53,6 @@ def genpkg(
         #metadata["packager"] = pkg.rparent.maintainer
         metadata["origin"] = pkg.rparent.pkgname
         metadata["license"] = pkg.rparent.license
-        # TODO: remove changelog, tags, conf_files; add remaining apk stuff
 
         if pkg.rparent.git_revision:
             metadata["commit"] = pkg.rparent.git_revision + (

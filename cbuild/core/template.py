@@ -424,10 +424,6 @@ core_fields = [
 
     # packaging
     ("triggers", [], list, True, False, True, False),
-    ("make_dirs", [], list, True, False, True, False),
-    ("conf_files", [], list, True, False, True, False),
-    ("tags", [], list, True, False, True, False),
-    ("changelog", None, str, True, False, False, False),
 ]
 
 # recognized hardening options
