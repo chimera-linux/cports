@@ -17,6 +17,7 @@ you should not rely on them or expect them to be stable.
   * [Template Structure](#template_structure)
     * [Template Options](#template_options)
     * [Hardening Options](#hardening_options)
+    * [Tools](#tools)
 * [Contributing](#contributing)
 * [Help](#help)
 
@@ -475,9 +476,55 @@ Currently the following options are always enabled by default:
 * `ssp` Enables `-fstack-protector-strong`.
 
 The following options are only enabled on targets where the toolchain
-supports it:
+supports it (currently `ppc64le`, `ppc64` and `x86_64`):
 
 * `scp` Enables `-fstack-clash-protection`.
+
+<a id="tools"></a>
+#### Tools
+
+The build system also provides separate management of tools for convenience.
+Tools in this case refer primarily to the toolchain.
+
+By default, the following tools are defined:
+
+* `CC` The C compiler, `clang` by default.
+* `CXX` The C++ compiler, `clang++` by default.
+* `CPP` The C preprocessor, `clang-cpp` by default.
+* `LD` The linker, `ld.lld` by default.
+* `PKG_CONFIG` The `pkg-config` implementation, `pkg-config` by default.
+* `NM` The `nm` tool, `llvm-nm` when not bootstrapping, `nm` otherwise.
+* `AR` The `ar` archiver, `llvm-ar` when not bootstrapping, `ar` otherwise.
+* `AS` The assembler, `clang` by default.
+* `RANLIB` The `ranlib` tool, `llvm-ranlib` when not bootstrapping
+  and `ranlib` otherwise.
+* `STRIP` The `strip` tool, `llvm-strip` when not bootstrapping
+  and `strip` otherwise.
+* `OBJDUMP` The `objdump` tool, `llvm-objdump`, and not provided
+  when bootstrapping (ELF Toolchain does not provide it).
+* `OBJCOPY` The `objcopy` tool, `llvm-objcopy` when not bootstrapping
+  and `objcopy` otherwise.
+* `READELF` The `readelf` tool, `llvm-readelf` when not bootstrapping
+  and `readelf` otherwise.
+
+When invoking commands within the sandbox, the build system will export
+the values as environment variables, but before user provided environment
+variables are exported (therefore, actual explicit env vars take priority).
+
+The `CC`, `CXX`, `CPP`, `LD` and `PKG_CONFIG` tools are treated specially
+for cross-compiling targets; when a cross-compiling target is detected,
+the short tripet is prepended. This also happens when the user overrides
+the tool via the `tools` variable in the template. Therefore, if you set
+`CC` to `foo` and you cross-compile to `aarch64`, you may get something
+like `aarch64-linux-musl-foo`.
+
+Additionally, these tools are also exported into the environment with
+their host values, as `BUILD_CC`, `BUILD_LD` and so on. This is to ensure
+that project build systems can utilize both host and target toolchains
+where appropriate.
+
+There are many more variables that are implicitly exported into the
+environment, but those are documented elsewhere.
 
 <a id="contributing"></a>
 ## Contributing
