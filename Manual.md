@@ -334,7 +334,7 @@ Keep in mind that default values may be overridden by build styles.
 * `build_style` *(str)* The build style used for the template. See the
   section about build styles for more details.
 * `build_wrksrc` *(str)* A subpath within `wrksrc` that is assumed to be the
-  current working directory after extraction.
+  current working directory during `configure` and later.
 * `checksum` *(list)* A list of SHA256 checksums specified as digest strings
   corresponding to each field in `distfiles`. Used for verification.
 * `create_wrksrc` *(boolean)* If specified, `wrksrc` is created and the
@@ -428,8 +428,9 @@ Keep in mind that default values may be overridden by build styles.
   if any package changes anything in those paths, the trigger script for
   this package should run.
 * `wrksrc` *(str)* The working directory the build system will assume
-  once distfiles have been extracted (or its parent, if `build_wrksrc`
-  is specified). By default this is `{pkgname}-{version}`.
+  once distfiles have been extracted (i.e. for `patch` and later, from
+  `configure` onwards it may be `build_wrksrc`). By default this is
+  `{pkgname}-{version}`.
 
 <a id="template_functions"></a>
 #### Template Functions
@@ -838,13 +839,14 @@ other values. Finally, when invoking code in the sandbox, the user of the
 API may specify additional custom environment variables, which further
 override the rest.
 
-The container is entered with current working directory by default set to
-the currently configured working directory of the template handle, which
-by default is the working directory as defined in the template, except for
-the fetch and extract stages, when the actual template-defined working
-directory may not exist yet (during those stages it defaults to `builddir`).
-This may be overridden via API parameters, or by overriding the template-wide
-current working directory.
+The container is entered with a specific current working directory. During
+the all parts of `fetch` and `extract` this is the `builddir`. From `patch`
+onwards this is `wrksrc`, and from `configure` onwards this is `build_wrksrc`
+inside `wrksrc`. This applies to all parts of each phase, including `init`,
+`pre` and `post`.
+
+The current working directory may be overridden locally via API, either for
+the template or for the specific container invocation.
 
 The following bind mounts are provided:
 

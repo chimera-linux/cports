@@ -936,7 +936,7 @@ def from_module(m, ret):
 
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
 
-    ret.cwd = paths.masterdir() / "builddir" / ret.wrksrc / ret.build_wrksrc
+    ret.cwd = ret.builddir / ret.wrksrc / ret.build_wrksrc
 
     if ret.bootstrapping:
         ret.chroot_cwd = ret.cwd

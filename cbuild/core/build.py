@@ -46,16 +46,21 @@ def build(step, pkg, depmap, signkey, chost = False):
         return
     pkg.current_phase = "extract"
     extract.invoke(pkg)
-
-    pkg.cwd = oldcwd
-    pkg.chroot_cwd = oldchd
-
     if step == "extract":
         return
+
+    pkg.cwd = pkg.builddir / pkg.wrksrc
+    pkg.chroot_cwd = pathlib.Path("/builddir") / \
+            pkg.cwd.relative_to(pkg.builddir)
+
     pkg.current_phase = "patch"
     patch.invoke(pkg)
     if step == "patch":
         return
+
+    pkg.cwd = oldcwd
+    pkg.chroot_cwd = oldchd
+
     pkg.current_phase = "configure"
     configure.invoke(pkg, step)
     if step == "configure":
