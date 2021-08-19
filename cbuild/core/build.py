@@ -5,6 +5,7 @@ from cbuild.core import template, pkg as pkgm, paths
 from cbuild.apk import cli as apk
 
 import os
+import pathlib
 
 def build(step, pkg, depmap, signkey, chost = False):
     if chost:
