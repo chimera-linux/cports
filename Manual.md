@@ -15,11 +15,15 @@ you should not rely on them or expect them to be stable.
   * [Package Naming](#naming)
   * [Filesystem Structure](#filesystem_structure)
   * [Template Structure](#template_structure)
+    * [Template Variables](#template_variables)
+    * [Template Functions](#template_functions)
+    * [Subpackages](#subpackages)
     * [Template Options](#template_options)
     * [Hardening Options](#hardening_options)
     * [Tools](#tools)
   * [Build Profiles](#build_profiles)
   * [Build Environment](#build_environment)
+  * [Hooks and Invocation](#hooks)
 * [Contributing](#contributing)
 * [Help](#help)
 
@@ -166,7 +170,7 @@ build fails elsewhere and needs to be restarted).
   is prepared and target dependencies are installed in it.
 
 * `fetch` During `fetch`, required files are downloaded as defined by the
-  `distfiles` metadata variable by default (or the `do_fetch` function of
+  `distfiles` template variable by default (or the `do_fetch` function of
   the template in rare cases). The builtin download behavior runs outside
   of the sandbox as pure Python code. When overridden with `do_fetch`, it
   also overlaps with the `extract` stage as the function is supposed to
@@ -286,6 +290,9 @@ custom behavior may also contain functions.
 
 The template follows the standard Python syntax. Variables are assigned
 like `foo = value`. Functions are defined like `def function(): ...`.
+
+<a id="template_variables"></a>
+#### Template Variables
 
 In general, changes made to toplevel variables from inside functions are
 not respected as variables are read and stored before the functions are
@@ -423,6 +430,180 @@ Keep in mind that default values may be overridden by build styles.
 * `wrksrc` *(str)* The working directory the build system will assume
   once distfiles have been extracted (or its parent, if `build_wrksrc`
   is specified). By default this is `{pkgname}-{version}`.
+
+<a id="template_functions"></a>
+#### Template Functions
+
+The other thing template files can specify is functions. Functions define
+template logic; they are here for everything that cannot be done in a purely
+declarative manner. Functions and variables interact; variables provide data
+for the functions to read.
+
+In general, the functions defined by templates are phase functions; they are
+associated with a specific build phase. There are some functions that do not
+fit this mold, however.
+
+Every user-defined function in a template takes one argument, typically called
+`self`. It refers to the template object; you can read the current state of
+template variables as well as other special variables through it, and perform
+various actions using the API it defines.
+
+The first template-defined function that is called is `init`. This function
+is called very early during initialization of the template object; most of
+its fields are not populated at this point. The following is guaranteed
+during the time `init(self)` is called:
+
+1) Template variables are populated; every template variable is accessible
+   through `self`.
+2) Template options are initialized.
+3) The `build_style`, if used, is initialized.
+4) Version and architecture are validated.
+
+The following is guaranteed not to be initialized:
+
+1) Build-style specific template variables are not populated.
+2) Build-style specific template variable defaults are not set.
+3) Template functions are not filled in.
+4) Path variables are not filled in.
+5) It is yet unknown whether the build will proceed, since `broken`
+   and other things have not yet been checked.
+6) Subpackages are not populated.
+7) Tools are not handled yet.
+8) Mostly everything else.
+
+Basically, you can consider this function as the continuation of global
+scope; you can finish any initialization that you haven't done globally
+here, before other things are checked.
+
+Assuming the build proceeds, phase functions are called. Every phase may
+use up to 4 functions - `init_PHASE`, `pre_PHASE`, `do_PHASE` and `post_PHASE`.
+They are called in that order. The `pre_` and `post_` functions exist so that
+the template can specify additional logic for when the `do_` function is
+already defined by a `build_style`.
+
+The `init_` prefixed function is, unlike the other 3, not subject to stamp
+checking. That means it is called every time, even during repeated builds,
+which is useful as the template handle is persistent - once data is written
+in it, it will last all the way to the end, so you can use the `init_` hooks
+to initialize data that later phases depend on, even if the phase itself is
+not invoked during this run (e.g. when re-running build after a failure).
+
+The phases for which all this applies are `fetch`, `patch`, `extract`,
+`configure`, `build`, `check` and `install`. They are invoked in this
+order.
+
+Additionally, the template may also define `pre_pkg`, which is special;
+it is not called only for the template handle but rather for every
+subpackage as well.
+
+Every other function defined in template scope is not used by `cbuild`.
+However, all regular names are reserved for future expansion. If you want
+to define custom functions (e.g. helpers) in template scope, prefix their
+names with an underscore.
+
+Also keep in mind that the order of execution also interacts with hooks.
+See the section on hooks for more information.
+
+<a id="subpackages"></a>
+#### Subpackages
+
+The `cbuild` system has support for subpackages. Subpackages are just
+regular packages repository-wise, except they are built as a part of
+some main package's process, and are created from its files.
+
+Subpackages are used for a variety of things, such as separating
+development files from the main package, or for plugins.
+
+There are two ways to register a subpackage in a template. These two
+ways are mutually exclusive, with the `subpackages` array taking preference.
+Therefore, when deciding, pick the one better suited for your template.
+
+In either case, you should create a symbolic link named like the subpackage
+in the respective repo category and have it point to the directory with the
+main package template.
+
+The simpler way to define a subpackage in the template is through a decorator.
+This decorator is available globally during the time a package is initialized.
+The syntax works like this:
+
+```
+@subpackage("mysubpackage")
+def _subpkg(self):
+    ...
+```
+
+The function name is up to you, it does not matter. In order to cover more
+cases, the subpackage definition can also be conditional:
+
+```
+@subpackage("mysubpackage", foo == bar)
+def ...
+```
+
+The subpackage will only be defined if the condition argument is `True`.
+
+The more complicated way is through the `subpackages` template variable.
+This is basically just an array of 2-tuples, where the first field in
+the tuple is the subpackage name and the second field is the function
+reference. The actual function body is identical for both approaches.
+
+```
+def _subpkg(self):
+    ...
+
+subpackages = [("mysubpackage", _subpkg)]
+```
+
+Usually the decorator way is better for most cases, while the array way
+is better if your subpackage set varies a lot conditionally, or if you
+want to ensure different ordering for subpackage population than listed
+in the template.
+
+The subpackage body function can then look like this:
+
+```
+def _devel(self):
+    self.short_desc = short_desc + " - development files"
+    self.depends = [...]
+    self.options = ["textrels"]
+
+    return ["usr/include", "usr/lib/*.so", "usr/lib/*.a"]
+```
+
+How this works should be fairly self-explanatory, but to make it clearer,
+the function assigns template variables that apply to subpackages and
+returns an array of files or directories to "steal" from the main
+package. This is why subpackage ordering can be important; sometimes
+some files may overlap and you may need to ensure some subpackages
+"steal" their files first.
+
+The `self` argument here is the subpackage handle.
+
+If better control over the files is needed, you can also return a function
+instead of a variable. The function takes no arguments (you are supposed
+to nest this function and refer to the subpackage via its parent function)
+and can use `self.take(...)` and the likes.
+
+The following variables apply to subpackages. Most do not inherit their
+value from the parent and are assigned the defaults; some are inherited,
+those are explicitly marked.
+
+* `short_desc` (inherits)
+* `options`
+* `depends`
+* `provides`
+* `skiprdeps`
+* `nostrip_files`
+* `hardening`
+* `nopie_files`
+* `shlib_provides`
+* `shlib_requires`
+* `triggers`
+
+The `hardening` option does not actually do anything (since subpackages do
+not affect the build) and its sole purpose is to be able to turn off the PIE
+check for subpackages (as projects may build a mixture of PIE and non-PIE
+files).
 
 <a id="template_options"></a>
 #### Template Options
@@ -682,6 +863,87 @@ The following bind mounts are provided:
 Once the `fetch` phase is done, all possible namespaces are unshared.
 This includes the network namespace, so there is no more network
 access within the sandbox at this point.
+
+<a id="hooks"></a>
+### Hooks and Invocation
+
+The `cbuild` system is largely driven by hooks. A hook is a Python source
+file present in `cbuild/hooks/<section>`. Hooks take care of things such
+as distfile handling, environment setup, linting, cleanups, and even
+package generation and repo registration.
+
+The section consists of the `init_`, `pre_`, `do_` or `post_` prefix plus
+the phase name (`fetch`, `extract`, `patch`, `configure`, `build`, `check`,
+`install` and `pkg`).
+
+Hooks are stamp-checked, except the `init_` hooks which are run always.
+They are called together with the corresponding phase functions (if such
+phase function exists) defined in the template. Every hook defined in the
+section directory is invoked, in sorted order. They use a numerical prefix
+to ensure proper sorting.
+
+A hook looks like this:
+
+```
+def invoke(pkg):
+    pass
+```
+
+It takes a package (sometimes this may be a subpackage) and does not return
+a value, though it may error.
+
+This is the entire call chain of a template build. The `init:` and `pre:`
+invocations mean `init_` or `pre_` hooks plus template function if available.
+
+For `post:`, the order is reversed, with the function called first and the
+hooks called afterwards. For `do_fetch` and `do_extract`, either the hooks
+or the function are called but not both; the function overrides the hooks.
+This allows templates to define custom behavior if needed, but fall back
+to the defaults that are useful for most.
+
+When `step:` is written, it means `init_` hooks and function called always,
+followed by `pre_` hooks and function, followed by `do_` function and hooks,
+followed by `post_` function and hooks. All steps have their `do_` function
+optional (i.e. template does not have to define it) except `install`, which
+always has to have it defined in the template.
+
+1) `init`
+2) init: `fetch`
+3) pre: `fetch`
+4) `do_fetch` OR `do_fetch` hooks
+5) post: `fetch`
+6) init: `extract`
+7) `do_extract` OR `do_extract` hooks
+8) post: `extract`
+9) step: `patch`
+10) step: `configure`
+11) step: `build`
+12) step: `check`
+13) step: `install`
+
+The `install` step is also special in that it does not call `post_install`
+hooks yet (`post_install` function is called though).
+
+After this, subpackage installation is performed. For each subpackage, the
+following is run:
+
+1) subpackage is checked for `pkg_install`
+2) if defined, `pre_install` hooks are called, followed by `pkg_install`
+3) `post_install` hooks are called always
+
+Finally, `post_install` hooks are called for the main package.
+
+For both subpackages and main package, the system scans for shared libraries
+in the package, before `post_install` hooks are called.
+
+Once done, `init_pkg` hooks are called for the main package. Then, for each
+subpackage, `pre_pkg` hooks are called, followed by the template `pre_pkg`
+function (which is special in this way). The same is done for the main
+package afterwards (`pre_pkg` hooks and function).
+
+Finally, `do_pkg` and `post_pkg` hooks are called first for each subpackage
+and then for the main package. After this, the build system rebuilds repo
+indexes, removes automatic dependencies, and performs cleanup.
 
 <a id="contributing"></a>
 ## Contributing
