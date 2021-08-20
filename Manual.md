@@ -24,6 +24,13 @@ you should not rely on them or expect them to be stable.
   * [Build Profiles](#build_profiles)
   * [Build Environment](#build_environment)
   * [Hooks and Invocation](#hooks)
+* [Template API](#template_api)
+  * [Builtins](#api_builtins)
+  * [Handle API](#api_handle)
+    * [Package Class](#class_package)
+    * [Template Class](#class_template)
+    * [Subpackage Class](#class_subpackage)
+  * [Utility API](#api_util)
 * [Contributing](#contributing)
 * [Help](#help)
 
@@ -946,6 +953,250 @@ package afterwards (`pre_pkg` hooks and function).
 Finally, `do_pkg` and `post_pkg` hooks are called first for each subpackage
 and then for the main package. After this, the build system rebuilds repo
 indexes, removes automatic dependencies, and performs cleanup.
+
+<a id="template_api"></a>
+## Template API
+
+The public API of `cbuild` that is accessible from templates consists of
+exactly 2 parts: the API available as a part of the template handle, and
+the API in the `cbuild.util` module namespace.
+
+The template handle provides the important APIs that cannot be reimplemented
+using other APIs. The utility namespace, on the other hand, provides things
+that are useful to have implemented in a unified manner, but are implemented
+in terms of the existing interfaces.
+
+There are also several builtin global variables that are accessible from
+the template scope at the time the template itself is executed. These are
+only available during that time, and never after that, so do not attempt
+to access them from inside functions.
+
+<a id="api_builtins"></a>
+### Builtins
+
+#### @subpackage(name, cond = True)
+
+This is a subpackage decorator, see [Subpackages](#subpackages).
+
+#### current
+
+Using `current`, you can access the `Template` handle from the global scope.
+Keep in mind that at this point, it is uninitialized - not even things run
+during the `init()` call are set up.
+
+<a id="api_handle"></a>
+### Handle API
+
+The handle API consists of 3 classes. The `Package` class provides base API
+that is available from both the main template and subpackage handles. The
+`Template` class represents the template handle available as `self` in
+global functions, while the `Subpackage` class represents the object in
+subpackages.
+
+Both `Template` and `Subpackage` inherit from `Package`.
+
+<a id="class_package"></a>
+#### Package Class
+
+Shared API for both templates and subpackages.
+
+All APIs may raise errors. The user is not supposed to handle the errors,
+they will be handled appropriately by `cbuild`.
+
+Filesystem APIs take strings or `pathlib` paths.
+
+##### self.pkgname
+
+A string representing the name of the package.
+
+##### self.pkgver
+
+A string representing the canonical versioned package name string. This
+follows the `apk` format if `{pkgname}-{version}-r{revision}`.
+
+##### self.version
+
+The version number of the package. While provided as a template variable,
+this is inherited into subpackages as well, so it's considered a part of
+the base API.
+
+##### self.revision
+
+The revision number of the package. While provided as a template variable,
+this is inherited into subpackages as well, so it's considered a part of
+the base API.
+
+##### self.logger
+
+Represents an instance of a class with this API:
+
+```
+class Logger:
+    def out_plain(self, msg, end = "\n")
+    def out(self, msg, end = "\n")
+    def warn(self, msg, end = "\n")
+    def out_red(self, msg, end = "\n")
+```
+
+The `out_plain()` method writes out the given string plus the `end`.
+The `out()` method does the same, but in a colored format and prefixed
+with the `=> ` string.
+
+The `warn()` method prints out `=> WARNING: <msg><end>` in a warning
+color. The `out_red` is like `out`, except in red, providing a base for
+printing out errors.
+
+Whether the color-using methods use colors or not depends on the current
+configuration of `cbuild` (arguments, environment, whether we are in an
+interactive terminal are all things that may disable colors).
+
+##### def log(self, msg, end = "\n")
+
+Using `self.logger.out()`, print out a specially prefixed message. The
+message has the format `<name>: <msg><end>`, where `name` is either
+`self.pkgver`, `self.pkgname` or fallback `cbuild`, in the order of
+availability.
+
+##### def log_red(self, msg, end = "\n")
+
+Like `log`, but using `out_red`.
+
+##### def log_warn(self, msg, end = "\n")
+
+Like `log`, but using `warn`.
+
+##### def error(self, msg, end = "\n")
+
+In addition to logging a message like `log_red`, also raises an error,
+which will abort the build.
+
+##### def install_files(self, path, dest, symlinks = True)
+
+Installs `path` (which may be a file or a directory and is relative
+to `cwd` of the template) to `dest` (which must refer to a directory,
+and must not be absolute - it is treated as relative to `destdir`).
+
+If `symlinks` is `True` (which is the default), symlinks in `path`
+will also be symlinks in `dest`.
+
+Usage:
+
+```
+self.install_files("data/foo", "usr/share")
+```
+
+##### def install_dir(self, *args)
+
+For each argument, creates a directory in `destdir`. None of the arguments
+must represent absolute paths.
+
+Usage:
+
+```
+self.install_dir("usr/include", "usr/share")
+```
+
+##### def install_file(self, src, dest, mode = 0o644, name = None)
+
+Installs `src` into `dest`, where `src` refers to a file (absolute or
+relative to `cwd`) and `dest` refers to a directory (must exist and be
+relative).
+
+The destination file must not already exist. The permissions are adjusted
+to `mode`, unless set to `None`. The destination file name will be `name`,
+unless it is `None`, in which case the source file name is kept.
+
+The `dest` is created if non-existent.
+
+##### def install_bin(self, *args)
+
+For each argument representing a file relative to `cwd`, install this file
+in `usr/bin` and adjust the permissions. The file will be readable and
+executable to all, and writable to owner only.
+
+The path is created if non-existent.
+
+##### def install_lib(self, *args)
+
+For each argument representing a file relative to `cwd`, install this file
+in `usr/lib` and adjust the permissions. The file will be readable and
+executable to all, and writable to owner only. Meant to be used for dynamic
+libraries, static library archives should use `install_file`.
+
+The path is created if non-existent.
+
+##### def install_man(self, *args)
+
+For each argument representing a file relative to `cwd`, install this file
+as a manpage. That means installing into `usr/share/man` into the right
+section determined by the input file name. For example, if the file is
+`foo.1`, it will be installed into `man1`. The permissions will be `644`.
+
+If the input file does not have a section number or it is invalid, an error
+is raised.
+
+All paths are created as necessary.
+
+##### def install_license(self, *args)
+
+For each argument representing a path to a license file relative to `cwd`,
+install this into `/usr/share/licenses/{pkgname}` with permissions `644`.
+
+##### def install_link(self, src, dest)
+
+Creates a symbolic link at `dest`, pointing to `src`.
+
+Usage:
+
+```
+self.install_link("libfoo.so.1", "usr/lib/libfoo.so")
+```
+
+##### def copy(self, src, dest, root = None)
+
+Copies a file pointed to by `src` (relative to `cwd`) to `dest` (which must
+be a relative path in `destdir`). If `dest` is a directory, the file will
+be copied into it, otherwise it will be created there.
+
+The `src` may be an aboslute path. If `root` is specified, it will be used
+instead of `destdir`.
+
+##### def unlink(self, f, root = None, missing_ok = False)
+
+Removes `f`, which must refer to a file and must not be absolute. If
+`missing_ok` is `True`, no error will be raised if non-existent.
+
+If `root` is given, the `f` will be relative to it, otherwise `destdir`
+is used.
+
+##### def rmtree(self, path, root = None)
+
+Removes the directory `path` (it must point to a directory, not a file).
+The `path` must not be absolute, it will be considred relative to `root`,
+unless not provided (in which case `destdir` is used).
+
+##### def find(self, pattern, files = False, root = None)
+
+Returns a generator object. For glob pattern `pattern`, search for files
+within `root` (or `destdir`). Each result is a `pathlib.Path` object that
+matches `pattern` and is relative (to `root`). The globbing is recursive.
+
+Usage:
+
+```
+# finds every python script inside destdir, recursively
+for p in self.find("*.py"):
+    ...
+```
+
+<a id="class_template"></a>
+#### Template Class
+
+<a id="class_subpackage"></a>
+#### Subpackage Class
+
+<a id="api_util"></a>
+### Utility API
 
 <a id="contributing"></a>
 ## Contributing

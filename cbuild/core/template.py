@@ -238,8 +238,9 @@ class Package:
             )
             raise PackageError()
         self.install_dir(dest)
-        shutil.copy2(self.cwd / src, dfn)
-        dfn.chmod(mode)
+        shutil.copy2(self.rparent.cwd / src, dfn)
+        if mode != None:
+            dfn.chmod(mode)
 
     def install_bin(self, *args):
         self.install_dir("usr/bin")
@@ -305,7 +306,7 @@ class Package:
             raise PackageError()
         cp = (pathlib.Path(root) if root else self.destdir) / dest
         self.log(f"copying: {src} -> {cp}")
-        shutil.copy2(self.cwd / src, cp)
+        shutil.copy2(self.rparent.cwd / src, cp)
 
     def unlink(self, f, root = None, missing_ok = False):
         f = pathlib.Path(f)
