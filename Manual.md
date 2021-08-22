@@ -1050,6 +1050,38 @@ Whether the color-using methods use colors or not depends on the current
 configuration of `cbuild` (arguments, environment, whether we are in an
 interactive terminal are all things that may disable colors).
 
+##### self.options
+
+A dictionary representing the enabled/disabled options for the template
+or subpackage. It is one of the few member variables that actually override
+the template variables; within the template, you specify `options` as a
+list, but that is not useful for checking, so the system internally maps
+it to an array (and fills in the defaults as well, so you can check for
+options the template did not explicitly set).
+
+Usage:
+
+```
+if not self.options["strip"]:
+    ... do something that only happens when stripping is disabled ...
+```
+
+##### self.destdir
+
+The absolute path to the destination root of the template or subpackage.
+This directory will be populated during the `install` phase and represents
+the target root.
+
+##### self.chroot_destdir
+
+Same as `destdir`, but when viewed from inside the sandbox.
+
+##### self.statedir
+
+The absolute path to the directory (stored within `builddir`) which
+contains all the state files (i.e. tracking which phases are done and
+so on in a persistent manner to allow resuming, plus any wrappers).
+
 ##### def log(self, msg, end = "\n")
 
 Using `self.logger.out()`, print out a specially prefixed message. The
@@ -1194,6 +1226,144 @@ for p in self.find("*.py"):
 
 APIs not available on subpackages.
 
+##### self.cross_build
+
+A boolean specifying whether this is a cross build (to another architecture).
+
+##### self.conf_jobs
+
+The number of configured jobs to use for building. This is not affected
+by whether parallel builds are disabled via options, always referring
+to the number provided by `cbuild`.
+
+##### self.make_jobs
+
+The number of jobs to use for building. Unlike `conf_jobs`, this will always
+be 1 if `parallel` option is disabled.
+
+##### self.force_mode
+
+Whether the build was forced (boolean).
+
+##### self.bootstrapping
+
+Whether we're currently bootstrapping stage 0 (i.e. no sandbox, no container).
+
+##### self.run_check
+
+Whether running the `check` phase is enabled by `cbuild`.
+
+##### self.build_dbg
+
+Whether building `dbg` packages is enabled by `cbuild`.
+
+##### self.use_ccache
+
+Whether using `ccache` is enabled by `cbuild`
+
+##### self.build_profile
+
+The current build profile handle. Represents a `Profile` object, which
+has the following interface:
+
+```
+class Profile:
+    arch = ...
+    triplet = ...
+    short_triplet = ...
+    sysroot = ...
+    hardening = ...
+    wordsize = ...
+    endian = ...
+    cross = ...
+
+    def get_cflags(self, extra_flags = [], debug = False, hardening = [], shell = False)
+    def get_cxxflags(self, extra_flags = [], debug = False, hardening = [], shell = False)
+    def get_fflags(self, extra_flags = [], debug = False, hardening = [], shell = False)
+    def get_ldflags(self, extra_flags = [], hardening = [], shell = False)
+
+    def has_hardening(self, hname, hardening = [])
+```
+
+The properties have the following meanings:
+
+* `arch` The `apk` architecture name of the profile.
+* `triplet` The "long" target triplet (e.g. `aarch64-unknown-linux-musl`)
+* `short_triplet` The "short" target triplet (e.g. `aarch64-linux-musl`)
+* `sysroot` A `pathlib` path representing the sysroot.
+* `hardening` A list of hardening options for the profile.
+* `wordsize` The integer word size of the target (typically 64 or 32).
+* `endian` The endianness of the target (`little` or `big`).
+* `cross` A boolean that is `True` for cross compiling targets and
+  `False` otherwise.
+
+There is a special `bootstrap` profile where the `triplet` and `short_triplet`
+are `None`.
+
+The `sysroot` refers to `/` for native targets and `/usr/<short_triplet>` for
+cross-compiling targets.
+
+The `get_cflags`, `get_cxxflags`, `get_fflags`, `get_ldflags` and `get_hardening`
+correspond to the equivalently named methods on `Template`, except they are
+not influenced by the template's configuration. The `Template` methods are
+actually implemented on top of those (passing the template's information
+using the arguments as necessary).
+
+In general, you will not want to use the profile's methods, and the member
+variables are strictly read only.
+
+##### self.cwd
+
+The current working directory of the template. This does not mirror the
+actual current working directory of the OS; it is the directory that is
+used strictly by the Python APIs of `cbuild`.
+
+##### self.chroot_cwd
+
+Like `cwd`, but when viewed from inside of the sandbox. In general you
+will use this when building paths for commands to be executed within,
+as using `cwd` directly would refer to a non-existent or incorrect
+path.
+
+##### self.template_path
+
+The absolute path to the directory with `template.py`.
+
+##### self.files_path
+
+The absolute path to the `files` directory of the template. This directory
+contains auxiliary files needed for the build, shipped in `cports`.
+
+##### self.patches_path
+
+The absolute path to the `patches` directory of the template. This directory
+contains patches that are applied in the `patch` phase.
+
+##### self.builddir
+
+The absolute path to the `builddir`. This directory is where distfiles are
+extracted, and which is used as the mutable base for builds.
+
+##### self.chroot_builddir
+
+Like `builddir`, but when viewed from inside the sandbox.
+
+##### self.wrapperdir
+
+A directory within `statedir` (an absolute path to it) that is used for
+wrappers. This is added to `PATH` when executing commands within the sandbox,
+in order to override or wrap certain tools where we don't want the default
+behavior.
+
+##### self.destdir_base
+
+The base directory (absolute path) where all destination directories for
+packages will be stored, i.e. for the main package as well as subpackages.
+
+##### self.chroot_destdir_base
+
+Like `destdir_base`, but when viewed from inside the sandbox.
+
 ##### def do(self, cmd, args, env = {}, wrksrc = None)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,
@@ -1299,6 +1469,33 @@ The `target` argument is the same as for `profile()`.
 
 <a id="class_subpackage"></a>
 #### Subpackage Class
+
+These methods are only available on subpackage objects. You cannot create
+a subpackage object directly, but it can be passed to hooks as well as
+certain user defined functions.
+
+##### def take(self, *args)
+
+For each argument, the subpackage will "steal" the path from the main
+package. The arguments can be strings or `pathlib` paths, representing
+relative paths to `destdir` of the main package.
+
+You will want to use this if you return a function from the subpackage
+function. The following are equivalent:
+
+```
+def _subpkg(self):
+    ...
+    return ["usr/include", "usr/lib/*.a", "usr/lib/*.so"]
+
+def _subpkg(self):
+    ...
+    def install():
+        self.take("usr/include")
+        self.take("usr/lib/*.a", "usr/lib/*.so")
+
+    return install
+```
 
 <a id="api_util"></a>
 ### Utility API
