@@ -1192,6 +1192,111 @@ for p in self.find("*.py"):
 <a id="class_template"></a>
 #### Template Class
 
+APIs not available on subpackages.
+
+##### def do(self, cmd, args, env = {}, wrksrc = None)
+
+Execute a command in the build container, sandboxed. Does not spawn a shell,
+instead directly runs `cmd`, passing it `args`. You can use `env` to provide
+extra environment variables in addition to the implied ones (see the build
+environment section). The provided env vars override whatever builtin ones
+the system sets up.
+
+The `wrksrc` is relative to current `cwd` of the template. If not given, the
+working directory will be the current `cwd` of the template itself.
+
+The level of sandboxing used depends on the current build phase. In all cases,
+the root filesystem will be mounted read only, the `builddir` will be mutable
+unless we're after `post_install`, the `destdir` will be immutable unless we
+are at `install` phase, and all namespaces will be unshared (including network
+namespace) unless we're at `fetch`.
+
+Usage:
+
+```
+self.do("foo", ["--arg1", "--arg2"], wrksrc = "bar")
+```
+
+##### def stamp(self, name)
+
+This is a utility API meant to be used as a context manager. It deals with
+a stamp file (identified by `name`) in the current template `cwd`. You can
+use it to have some code run just once, and once it succeeds, not have it
+run again even if the same phase is run. You use it like this:
+
+```
+with self.stamp("test") as s:
+    s.check() # this is important
+    ... do whatever you want here ...
+```
+
+The `check()` method ensures that the code following it is not run if the
+stamp file already exists. The script will proceed after the context.
+
+##### def profile(self, target)
+
+To be used as a context manager. Temporarily overrides the current build
+profile to the given `target`, which can be a specific profile name (for
+example `aarch64`) or the special aliases `host` and `target`, which refer
+to the build machine and the target machine respectively (the target machine
+is the same as build machine when not cross compiling).
+
+Usage:
+
+```
+with self.profile("aarch64"):
+    ... do something that we need for aarch64 at the time ...
+```
+
+##### def get_cflags(self, extra_flags = [], hardening = [], shell = False, target = None)
+
+Get the `CFLAGS` to be used for a compiler. They will consist of the following:
+
+1) Hardening `CFLAGS` as defined by current `hardening` of the template,
+   possibly extended or overridden by the `hardening` argument.
+2) The `CFLAGS` of the current build profile, possibly overridden by
+   the `target` argument.
+3) Bootstrapping or cross-compiling `CFLAGS`.
+4) The `CFLAGS` of the template.
+5) Any extra `CFLAGS` provided by `extra_cflags`.
+6) Debug `CFLAGS` if set for the template.
+
+The `target` argument is the same as for `profile()`.
+
+The return value will be a list of strings, unless `shell` is `True`, in
+which case the result will be a properly shell-escaped string.
+
+##### def get_cxxflags(self, extra_flags = [], hardening = [], shell = False, target = None)
+
+Identical to `get_cflags()`, but for C++.
+
+##### def get_fflags(self, extra_flags = [], hardening = [], shell = False, target = None)
+
+Identical to `get_cflags()`, but for Fortran.
+
+##### def get_ldflags(self, extra_flags = [], hardening = [], shell = False, target = None)
+
+Like `get_cflags()`, but to be passed when linking. Usually you will want
+to pass the `CFLAGS` (or whatever your language is) followed by `LDFLAGS`.
+
+##### def get_tool(self, name, target = None)
+
+Get the specific tool (e.g. `CC`) for the current profile or for `target`.
+
+The `target` argument is the same as for `profile()`.
+
+This properly deals with cross-compiling, taking care of adding the right
+prefix where needed and so on. It should always be used instead of querying
+the `tools` member variable directly.
+
+##### def has_hardening(self, hname, target = None)
+
+Check if the current configuration (i.e. taking into account the template
+as well as the current profile or the `target`) has the given hardening
+flag enabled.
+
+The `target` argument is the same as for `profile()`.
+
 <a id="class_subpackage"></a>
 #### Subpackage Class
 
