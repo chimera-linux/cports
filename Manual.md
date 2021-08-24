@@ -17,6 +17,7 @@ you should not rely on them or expect them to be stable.
   * [Template Structure](#template_structure)
     * [Template Variables](#template_variables)
     * [Template Functions](#template_functions)
+    * [Build Styles](#build_styles)
     * [Subpackages](#subpackages)
     * [Template Options](#template_options)
     * [Hardening Options](#hardening_options)
@@ -511,6 +512,169 @@ names with an underscore.
 
 Also keep in mind that the order of execution also interacts with hooks.
 See the section on hooks for more information.
+
+<a id="build_styles"></a>
+#### Build Styles
+
+Build styles are a way to simplify the template by inserting pre-defined
+logic with a single line.
+
+```
+build_style = "meson"
+```
+
+Simply with this, you declare that this template uses the Meson build
+system. What actually happens is that the build style will create some
+of the necessary functions (`do_build` etc) implicitly.
+
+A build style is a Python file in `cbuild/build_style` and looks like
+this:
+
+```
+def do_configure(self):
+    pass
+
+def do_build(self):
+    pass
+
+def do_install(self):
+    pass
+
+def use(tmpl):
+    tmpl.build_style = "mystyle"
+    tmpl.do_configure = do_configure
+    tmpl.do_build = do_build
+    tmpl.do_install = do_install
+
+    tmpl.build_style_fields = [
+        ("name", "default_value", str, False, False, False)
+    ]
+    tmpl.build_style_defaults = [
+        ("make_cmd", "mything")
+    ]
+```
+
+The template can further override pieces of the build style as necessary,
+while the build style can set any functions it wants. It can also define
+new template variables, as well as override default values for any
+template variable.
+
+In general, build styles are simply small wrappers over the `cbuild.util`
+namespace APIs. That allows you to use the APIs when you need logic that
+cannot be declared with just a simple variable, and keep templates simple
+where that is sufficient.
+
+There are currently a few build styles available.
+
+##### cmake
+
+You can generally use this for CMake-using projects.
+
+Variables:
+
+* `cmake_dir` A directory relative to `cwd` of the template that contains
+  the root `CMakeLists.txt`. By default it is `None`, which means that it
+  is directly in `cwd`.
+
+Default values:
+
+* `make_cmd` = `ninja`
+* `make_build_target` = `all`
+
+Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+
+Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
+for the template, with `build` `wrksrc`.
+
+Implemented around `cbuild.util.cmake`.
+
+##### configure
+
+A simple style that simply runs `self.configure_script` within `self.chroot_cwd`
+with `self.configure_args` for `do_configure` and uses a simple `Make` from
+`cbuild.util` to build.
+
+Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+
+You are expected to supply all other logic yourself. This build style works
+best when you need a simple, unassuming wrapper for projects using custom
+configure scripts. For `autotools` and `autotools`-compatible systems, use
+`gnu_configure`.
+
+Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
+for the template, with no other changes.
+
+##### gnu_configure
+
+A more comprehensive `build_style`, written around `cbuild.util.gnu_configure`.
+
+Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+
+During `do_configure`, `gnu_configure.replace_guess` is called first, followed
+by `gnu_configure.configure`.
+
+Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
+for the template, with `build` `wrksrc`, and `env` retrieved using the
+`gnu_configure.get_make_env` API.
+
+All of this means that `gnu_configure` can implicitly deal with cross-compiling
+and other things, while `configure` can't.
+
+##### gnu_makefile
+
+A simple wrapper around `cbuild.util.make`.
+
+Variables:
+
+* `make_use_env` A boolean (defaults to `False`) specifying whether some of the
+  core variables will be provided solely via the environment. If unset, they
+  are provided on the command line. These variables are `OBJCOPY`, `RANLIB`,
+  `CXX`, `CPP`, `CC`, `LD`, `AR`, `AS`, `CFLAGS`, `FFLAGS`, `LDFLAGS`, `CXXFLAGS`
+  and `OBJDUMP` (the last one only when not bootstrapping) during `do_build`.
+  All of these inherently exist in the environment, so if this is `True`, they
+  will simply not be passed on the command line arguments.
+
+Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+
+The `install` target is always called with `STRIP=true` and `PREFIX=/usr`.
+
+Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
+for the template, with no other changes.
+
+##### meson
+
+You can use this for Meson-using projects.
+
+Variables:
+
+* `meson_dir` A directory relative to `cwd` of the template that contains
+  the root `meson.build`. By default it is `None`, which means that it
+  is directly in `cwd`.
+
+Default values:
+
+* `make_cmd` = `ninja`
+* `make_build_target` = `all`
+
+Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+
+Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
+for the template, with `build` `wrksrc`.
+
+Implemented around `cbuild.util.meson`.
+
+##### python_module
+
+A build style for Python modules (using `setup.py`).
+
+Sets `do_build`, `do_check`, `do_install`.
+
+The `do_build` executes `setup.py` with `python`, with the `build` target
+plus any `self.make_build_args`.
+
+The `do_install` executes `setup.py` with `python`, with the `install` target
+and arguments `--prefix=/usr`, `--root={self.chroot_destdir}` plus any
+`self.make_install_args`.
 
 <a id="subpackages"></a>
 #### Subpackages
@@ -1499,6 +1663,281 @@ def _subpkg(self):
 
 <a id="api_util"></a>
 ### Utility API
+
+Utility APIs exist in the `cbuild.util` namespace. They provide building
+blocks for templates, built using the other available public API. You do
+not have to actually use any of these building blocks from technical
+standpoint, but you are highly encouraged to use them in practice, as
+they simplify the template logic greatly.
+
+#### cbuild.util.cmake
+
+A wrapper for management of CMake projects.
+
+##### def configure(pkg, cmake_dir = None, build_dir = "build", extra_args = [], cross_build = None)
+
+Executes `cmake`. The directory for build files is `build_dir`, which
+is relative to `chroot_cwd`. The root `CMakeLists.txt` exists within
+`cmake_dir`, which is relative to `chroot_cwd` (when `None`, it is
+assumed to be `.`).
+
+The `pkg` is an instance of `Template`.
+
+The `build_dir` is created if non-existent.
+
+The arguments passed to `cmake` are in this order:
+
+* `-DCMAKE_TOOLCHAIN_FILE=...`
+* `-DCMAKE_INSTALL_PREFIX=/usr`,
+* `-DCMAKE_BUILD_TYPE=None`,
+* `-DCMAKE_INSTALL_LIBDIR=lib`,
+* `-DCMAKE_INSTALL_SBINDIR=bin`,
+* `pkg.configure_args`
+* `extra_args`
+* The directory for `cmake_dir`.
+
+The `CMAKE_GENERATOR` environment variable is set to `Ninja` if `pkg.make_cmd`
+is `ninja`, otherwise to `Unix Makefiles`.
+
+An appropriate toolchain file is created when bootstrapping and when cross
+compiling. You can prevent the creation of a toolchain file by explicitly
+setting `cross_build` to `False`. That will ensure a native-like build even
+when the profile is set to a cross-compiling one.
+
+#### cbuild.util.compiler
+
+A simple wrapper to directly invoke a compiler.
+
+##### class GnuLike
+
+A base class for a GNU-like compiler driver (such as Clang or GCC).
+
+###### def __init__(self, tmpl, cexec, default_flags, default_ldflags)
+
+The constructor. Sets the fields `template`, `cexec`, `flags` and `ldflags`.
+
+The `cexec` argument is the compiler executable name (or path). The
+flags arguments must be provided in the array form (not a string).
+
+The `flags` are always passed for invocation, and `ldflags` only for linking.
+
+###### def invoke(self, inputs, output, obj_file = False, flags = [], ldflags = [], quiet = False)
+
+Invoke the compiler. Arguments will be passed in the following order:
+
+* `self.flags`
+* `inputs` Each entry is converted to `str`.
+* `self.ldflags` if `obj_file` is `False`.
+* `flags`
+* `-c` if `obj_file` is `True`, `ldflags` otherwise.
+* `-o`
+* `output` (made absolute against `chroot_cwd`)
+
+If `quiet` is `True`, the command will not be printed. Otherwise, the command
+with all its arguments will be printed out via the logger before execution.
+
+##### class C(GnuLike)
+
+A C compiler. Like `GnuLike`, but more automatic.
+
+###### def __init__(self, tmpl, cexec = None)
+
+Calls `GnuLike.__init__`. If `cexec` is `None`, it defaults to `tmpl.get_tool("CC")`.
+The `flags` are `tmpl.get_cflags()`, while `ldflags` are `tmpl.get_ldflags()`.
+
+##### class CXX(GnuLike)
+
+A C++ compiler. Like `GnuLike`, but more automatic.
+
+###### def __init__(self, tmpl, cexec = None)
+
+Calls `GnuLike.__init__`. If `cexec` is `None`, it defaults to `tmpl.get_tool("CXX")`.
+The `flags` are `tmpl.get_cxxflags()`, while `ldflags` are `tmpl.get_ldflags()`.
+
+#### cbuild.util.gnu_configure
+
+A wrapper for handling of GNU Autotools and compatible projects.
+
+##### def configure(pkg, configure_dir = None, configure_script = "configure", build_dir = "build", extra_args = [], env = {})
+
+First, `build_dir` is created if non-existent (relative to `cwd`). Then,
+the `configure_script` is called (which lives in `configure_dir`, which
+lives in `chroot_cwd`).
+
+The `pkg` is an instance of `Template`.
+
+These arguments are passed first:
+
+* `--prefix=/usr`
+* `--sysconfdir=/etc`
+* `--sbindir=/usr/bin`
+* `--bindir=/usr/bin`
+* `--mandir=/usr/share/man`
+* `--infodir=/usr/share/info`
+* `--localstatedir=/var`
+
+If cross-compiling, these are followed by `--build=TRIPLET` and `--target=TRIPLET`
+which are automatically guessed from the profiles. Additionally, these
+are also passed for cross mode:
+
+* `--with-sysroot={sysroot}`
+* `--with-libtool-sysroot={sysroot}`
+
+When cross compiling, autoconf caches are exported into the environment, which
+are described by the files in `cbuild/misc/autoconf_cache`. The `common_linux`
+is parsed first, then `musl-linux`, `endian-(big|little)`, and architecture
+specific files.
+
+Architecture-specific cache files are:
+
+* For 32-bit ARM, `arm-common` and `arm-linux`.
+* For AArch64, `aarch64-linux`.
+* For `ppc64` and `ppc64le`, `powerpc-common`, `powerpc-linux`, `powerpc64-linux`.
+* For `x86_64`, `x86_64-linux`.
+
+When not cross-compiling, the `musl-linux` cache file is still read and
+exported.
+
+The result of `get_make_env()` is also exported into the environment, before
+anything else.
+
+The `pkg.configure_args` are passed after the implicit args, finally followed
+by `extra_args`. Additionally, `env` is exported into the environment, after
+the cache files (so the environment dictionary can override any caches).
+
+##### def get_make_env()
+
+The Make environment to use when building Autotools-based projects.
+
+Currently contains the `lt_cv_sys_lib_dlsearch_path_spec`, which is
+set to `/usr/lib64 /usr/lib32 /usr/lib /lib /usr/local/lib`.
+
+##### def replace_guess(pkg)
+
+Given a `Template`, finds files named `*config*.guess` and `*config*.sub`
+recursively and replaces them with fresh copies from `cbuild/misc`.
+
+This provides an automated fixup for when projects ship with outdated
+`config.guess` and `config.sub` which frequently miss `musl` support
+or new targets such as `riscv64`.
+
+#### cbuild.util.make
+
+A wrapper around Make and Make-style tools.
+
+##### class Make
+
+###### def __init__(self, tmpl, jobs = None, command = None, env = {}, wrksrc = None)
+
+Initializes the Make. The arguments can provide default values for various
+settings, which can further be overridden in sub-invocations.
+
+The `command` is the default `make` command (which is not necessarily
+the actual command used). The `wrksrc` is relative to `cwd`.
+
+###### def get_command(self)
+
+The the actual command used. If `command` was provided via constructor,
+that is considered the base, otherwise `self.template.make_cmd` is.
+
+If not bootstrapping, that is then returned as-is. When bootstrapping,
+more logic is taken to accommodate standard Linux host environments:
+
+* If the command is `gmake` and the `gmake` command is not available,
+  we fall back to `make`.
+* If the command is `make` and the `bmake` command is available, we
+  use `bmake` instead.
+
+The reason this is done is that we use `make` by default for most
+projects, but `make` on Chimera is NetBSD `bmake`, while on most
+Linux systems this is GNU `make`. Meanwhile, if a template specifies
+`gmake` as the command, we want GNU `make` to be used (which is
+called `gmake` in Chimera) but `gmake` may not exist on regular
+Linux distributions (where it's called just `make`).
+
+This makes it compatible with both Chimera and regular Linux systems
+as the `bmake` alias exists in both and `gmake` is still used when
+requested and exists.
+
+###### def invoke(self, targets = [], args = [], jobs = None, env = {}, wrksrc = None)
+
+Invoke the tool, whose name is retrieved with `get_command()`. The
+arguments are passed like this:
+
+* `-jJOBS` where `JOBS` is `jobs` or `self.jobs` or `self.template.make_jobs`.
+* `targets`, which can be a list of strings or a string, if a list all are
+  passed, if a string the string is passed.
+* `args`
+
+The environment for the invocation is the combination of `self.env` and
+the passed `env`, further passed to `self.template.do()`. The `wrksrc` is
+either the `wrksrc` argument or `self.wrksrc`.
+
+You can use this method as a completely generic, unspecialized invocation.
+
+###### def build(self, args = [], jobs = None, env = {}, wrksrc = None)
+
+Calls `invoke`. The `targets` is `self.template.make_build_target`, the
+`args` are `self.template.make_build_args` plus any extra `args`. The
+other arguments are passed as is.
+
+###### def install(self, args = [], jobs = None, env = {}, default_args = True, args_use_env = False, wrksrc = None)
+
+Calls `invoke`. The `targets` is `self.template.make_install_target` and
+`jobs`, `wrksrc` are passed as is.
+
+If `default_args` is `True`, `DESTDIR` is passed implicitly (set to the
+value of `self.chroot_destdir`. The method of passing it depends on the
+value of `args_use_env`. If that is `True`, it is passed in the environment,
+otherwise it is passed on the arguments (as the first argument).
+
+Other arguments that are passed as `self.template.make_install_args` plus
+any extra `args`.
+
+The `env` is passed as is, except when `DESTDIR` is passed via environment,
+then it is passed together with that (user passed environment always takes
+preference).
+
+#### cbuild.util.meson
+
+A wrapper for management of Meson projects.
+
+##### def configure(pkg, meson_dir = None, build_dir = "build", extra_args = [])
+
+Executes `meson`. The `meson_dir` is where the root `meson.build` is located,
+assumed to be `.` implicitly, relative to `chroot_cwd`. The `build_dir` is
+the directory for build files, also relative to `chroot_cwd`.
+
+The `pkg` is an instance of `Template`.
+
+The `build_dir` is created if non-existent.
+
+The arguments passed to `meson` are in this order:
+
+* `--prefix=/usr`
+* `--libdir=/usr/lib`
+* `--libexecdir=/usr/libexec`
+* `--bindir=/usr/bin`
+* `--sbindir=/usr/bin`
+* `--includedir=/usr/include`
+* `--datadir=/usr/share`
+* `--mandir=/usr/share/man`
+* `--infodir=/usr/share/info`
+* `--sysconfdir=/etc`
+* `--localstatedir=/var`
+* `--sharedstatedir=/var/lib`
+* `--buildtype=plain`
+* `--auto-features=auto`
+* `--wrap-mode=nodownload`
+* `-Ddefault_library=both`
+* `-Db_ndebug=true`
+* `-Db_staticpic=true`
+* `--cross-file=...` if cross-compiling
+* `extra_args`
+* `meson_dir`
+* `build_dir`
+
+When cross compiling, an appropriate cross file is automatically generated.
 
 <a id="contributing"></a>
 ## Contributing

@@ -1,6 +1,3 @@
-def do_configure(self):
-    self.do(self.chroot_cwd / self.configure_script, self.configure_args)
-
 def do_build(self):
     self.do("python", ["setup.py", "build"] + self.make_build_args)
 
