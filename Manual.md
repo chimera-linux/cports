@@ -102,7 +102,7 @@ The `main` category contains software curated and supported by the distro.
 In general, a system composed purely of `main` packages should be bootable,
 but may not contain all functionality required by users. Templates are
 evaluated for `main` based on various factors such as usefulness, quality of
-the software, licensing and others. Teplates in `main` must not depend on
+the software, licensing and others. Templates in `main` must not depend on
 templates in other categories.
 
 The `contrib` category is a *user repository*. The requirements for `contrib`
@@ -419,7 +419,10 @@ Keep in mind that default values may be overridden by build styles.
   e.g. for file `libfoo.so.1.4.2` with `soname` `libfoo.so.1`, this
   should be `("libfoo.so.1", "1.4.2")`). If there is no suffix after
   the `.so`, you should use the value `"0"`. If there is no `soname`,
-  you should use the unsuffixed filename (i.e. `libfoo.so`).
+  you should use the unsuffixed filename (i.e. `libfoo.so`). Typically,
+  you will not use this as the shared library scanning is automatic; but
+  sometimes libraries provide either a non-conforming `SONAME` which the
+  scanner does not pick up, or the scanner is disabled explicitly.
 * `shlib_requires` *(list)* A list of extra shared library dependencies
   for the package. The values should be the `sonames`, not full filenames.
 * `skip_extraction` *(list)* A list of filenames in `distfiles` to not
