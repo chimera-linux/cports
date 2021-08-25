@@ -145,22 +145,19 @@ provides = [
 ]
 
 def post_extract(self):
-    import shutil
+    pcpath = self.cwd / f"perl-cross-{_perl_cross_version}"
 
-    pcpath = self.cwd / ".." / f"perl-cross-{_perl_cross_version}"
-
-    for f in pcpath.iterdir():
-        if f.name == "utils":
-            shutil.move(f / "Makefile", self.cwd / "utils")
-            f.rmdir()
-            continue
-        shutil.move(f, self.cwd)
+    with self.pushd(f"perl-{version}"):
+        for f in pcpath.iterdir():
+            if f.name == "utils":
+                self.mv(f / "Makefile", "utils")
+                f.rmdir()
+                continue
+            self.mv(f, ".")
 
     pcpath.rmdir()
 
 def init_configure(self):
-    import shutil
-
     from cbuild.util import make
 
     self.make = make.Make(self)
@@ -176,8 +173,7 @@ def init_configure(self):
     self.tools["LD"] = self.tools["CC"]
 
     # to prevent perl buildsystem from invoking bmake
-    if not self.bootstrapping or shutil.which("gmake"):
-        self.env["MAKE"] = "gmake"
+    self.env["MAKE"] = self.make.get_command()
 
 def do_configure(self):
     cargs = [
