@@ -144,16 +144,15 @@ provides = [
     "perl-version=0.9924-r1",
 ]
 
-def post_extract(self):
-    pcpath = self.cwd / f"perl-cross-{_perl_cross_version}"
+def pre_patch(self):
+    pcpath = self.cwd / f"../perl-cross-{_perl_cross_version}"
 
-    with self.pushd(f"perl-{version}"):
-        for f in pcpath.iterdir():
-            if f.name == "utils":
-                self.mv(f / "Makefile", "utils")
-                f.rmdir()
-                continue
-            self.mv(f, ".")
+    for f in pcpath.iterdir():
+        if f.name == "utils":
+            self.mv(f / "Makefile", "utils")
+            f.rmdir()
+            continue
+        self.mv(f, ".")
 
     pcpath.rmdir()
 
