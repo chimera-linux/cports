@@ -12,8 +12,7 @@ checksum = ["47e551293843d504fe4197413aa6d7ee003090669ac200932ff40e9ccb4658aa"]
 options = ["bootstrap"]
 
 def do_build(self):
-    import os
-    os.makedirs(self.cwd / "build", exist_ok = True)
+    self.mkdir("build", parents = True)
     eargs = []
     if self.cross_build:
         eargs = ["--host=" + self.build_profile.short_triplet]

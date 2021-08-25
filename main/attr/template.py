@@ -17,7 +17,6 @@ checksum = ["bae1c6949b258a0d68001367ce0c741cebdacdd3b62965d17e5eb23cd78adaf8"]
 options = ["bootstrap"]
 
 def pre_check(self):
-    import os
     # Either the test wasn't updated or the package misconfigures/miscompiles
     # the error message in musl based systems
     # EXPECTED: Operation not supported
@@ -28,7 +27,7 @@ def pre_check(self):
                 ln = ln.replace("f: Operation n", "f: N")
                 ofile.write(ln)
 
-    os.rename(self.cwd / "test/attr.test.new", self.cwd / "test/attr.test")
+    self.mv("test/attr.test.new", "test/attr.test")
 
 @subpackage("attr-devel")
 def _devel(self):

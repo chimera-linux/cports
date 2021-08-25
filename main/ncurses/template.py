@@ -24,9 +24,8 @@ def do_configure(self):
     with self.profile("host"):
         bcflags = self.get_cflags(shell = True)
 
-    import os
-    os.makedirs(self.cwd / "ncurses-build", exist_ok = True)
-    os.makedirs(self.cwd / "ncursesw-build", exist_ok = True)
+    self.mkdir("ncurses-build", parents = True)
+    self.mkdir("ncursesw-build", parents = True)
 
     # widec build
     gnu_configure.configure(

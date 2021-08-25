@@ -32,13 +32,11 @@ def do_check(self):
 
 def post_install(self):
     self.install_license("COPYING")
-    import os
-    os.rename(self.destdir / "usr/bin/bsdtar", self.destdir / "usr/bin/tar")
-    os.rename(self.destdir / "usr/bin/bsdcpio", self.destdir / "usr/bin/cpio")
-    os.rename(
-        self.destdir / "usr/share/man/man5/mtree.5",
-        self.destdir / "usr/share/man/man5/libarchive-mtree.5"
-    )
+    with self.pushd(self.destdir):
+        self.mv("usr/bin/bsdtar", "usr/bin/tar")
+        self.mv("usr/bin/bsdcpio", "usr/bin/cpio")
+        with self.pushd("usr/share/man/man5"):
+            self.mv("mtree.5", "libarchive-mtree.5")
 
 @subpackage("bsdtar")
 def _bsdtar(self):

@@ -31,8 +31,7 @@ def do_check(self):
     self.make.invoke("check")
 
 def do_install(self):
-    import os
-    os.rename(self.cwd / "bzip2-shared", self.cwd / "bzip2")
+    self.cp("bzip2-shared", "bzip2")
 
     self.install_bin("bzip2")
     self.install_bin("bzip2recover")
