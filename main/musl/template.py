@@ -27,11 +27,11 @@ def pre_configure(self):
 
 def post_build(self):
     from cbuild.util import compiler
-    import shutil
 
-    shutil.copy(self.files_path / "getent.c", self.cwd)
-    shutil.copy(self.files_path / "getconf.c", self.cwd)
-    shutil.copy(self.files_path / "iconv.c", self.cwd)
+    self.cp(self.files_path / "getent.c", ".")
+    self.cp(self.files_path / "getent.c", ".")
+    self.cp(self.files_path / "getconf.c", ".")
+    self.cp(self.files_path / "iconv.c", ".")
 
     cc = compiler.C(self)
     cc.invoke(["getent.c"], "getent")

@@ -27,7 +27,7 @@ _targets = list(filter(
 
 def do_build(self):
     from cbuild.util import make
-    import glob, shutil
+    import glob
 
     for an, arch in _targets:
         # already done
@@ -44,32 +44,22 @@ def do_build(self):
             self.unlink(fn, root = self.cwd)
 
         # save the makefile
-        shutil.copy(
-            self.cwd / "usr/include/Makefile",
-            self.cwd / "Makefile.usr_include"
-        )
+        self.cp("usr/include/Makefile", "Makefile.usr_include")
         # clean up
         self.unlink("usr/include/Makefile", root = self.cwd)
         self.rmtree("usr/include/drm", root = self.cwd)
-        shutil.move(
-            self.cwd / "usr/include", self.cwd / ("inc_" + an)
-        )
+        self.mv("usr/include", "inc_" + an)
         # restore things as they were for next pass
         (self.cwd / "usr/include").mkdir()
-        shutil.move(
-            self.cwd / "Makefile.usr_include",
-            self.cwd / "usr/include/Makefile"
-        )
+        self.mv("Makefile.usr_include", "usr/include/Makefile")
 
 def do_install(self):
-    import shutil
-
     for an, arch in _targets:
         with self.profile(an):
             at = self.build_profile.short_triplet
             self.install_dir(f"usr/{at}/usr")
             self.install_files("inc_" + an, "usr")
-            shutil.move(
+            self.mv(
                 self.destdir / "usr" / ("inc_" + an),
                 self.destdir / f"usr/{at}/usr/include"
             )

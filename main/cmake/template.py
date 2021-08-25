@@ -21,10 +21,6 @@ checksum = ["4d008ac3461e271fcfac26a05936f77fc7ab64402156fb371d41284851a651b8"]
 CXXFLAGS = ["-Wno-unused-command-line-argument"]
 
 def post_install(self):
-    import shutil
     self.install_license("Copyright.txt")
-    shutil.copyfile(
-        self.cwd / "Utilities/KWIML/Copyright.txt",
-        self.cwd / "KWIML-Copyright.txt"
-    )
+    self.cp("Utilities/KWIML/Copyright.txt", "KWIML-Copyright.txt")
     self.install_license("KWIML-Copyright.txt")

@@ -16,7 +16,7 @@ if not current.bootstrapping:
     hostmakedepends = ["byacc"]
 
 def post_extract(self):
-    import shutil
-    # pre-bootstrapped copies to avoid dependency cycle with flex
-    shutil.copy(self.files_path / "tokenizer.c", self.cwd)
-    shutil.copy(self.files_path / "tokenizer.h", self.cwd)
+    with self.pushd(f"bsdm4-{version}"):
+        # pre-bootstrapped copies to avoid dependency cycle with flex
+        self.cp(self.files_path / "tokenizer.c", ".")
+        self.cp(self.files_path / "tokenizer.h", ".")

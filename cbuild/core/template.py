@@ -203,7 +203,7 @@ class Package:
         new_path = new_path.resolve()
 
         self.rparent.cwd = new_path
-        self.rparent_chroot_cwd = pathlib.Path("/") / new_path.relative_to(
+        self.rparent.chroot_cwd = pathlib.Path("/") / new_path.relative_to(
             paths.masterdir()
         )
 
@@ -249,15 +249,6 @@ class Package:
 
     def chmod(self, path, mode):
         (self.rparent.cwd / path).chmod(mode)
-
-    def copy(self, src, dest, root = None):
-        dest = pathlib.Path(dest)
-        if dest.is_absolute():
-            self.logger.out_red(f"path '{dest}' must not be absolute")
-            raise PackageError()
-        cp = (pathlib.Path(root) if root else self.destdir) / dest
-        self.log(f"copying: {src} -> {cp}")
-        shutil.copy2(self.rparent.cwd / src, cp)
 
     def unlink(self, f, root = None, missing_ok = False):
         f = pathlib.Path(f)

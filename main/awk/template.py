@@ -27,8 +27,7 @@ def do_build(self):
     ])
 
 def do_install(self):
-    import shutil
-    shutil.copy(self.cwd / "a.out", self.cwd / "awk")
+    self.cp("a.out", "awk")
     self.install_bin("awk")
     self.install_man("awk.1")
     self.install_license("LICENSE")

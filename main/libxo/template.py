@@ -13,9 +13,9 @@ checksum = ["9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"]
 options = ["bootstrap"]
 
 def post_extract(self):
-    import shutil
-    (self.cwd / "libxo/sys").mkdir()
-    shutil.copy(self.files_path / "queue.h", self.cwd / "libxo/sys")
+    with self.pushd(f"libxo-{version}"):
+        (self.cwd / "libxo/sys").mkdir()
+        self.cp(self.files_path / "queue.h", "libxo/sys")
 
 @subpackage("libxo-devel")
 def _devel(self):

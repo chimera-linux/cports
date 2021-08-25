@@ -15,37 +15,30 @@ options = ["bootstrap"]
 
 def post_extract(self):
     from cbuild.util import compiler
-    import shutil
     import re
-    import os
 
-    shutil.copy(self.files_path / "certdata2pem.c", self.cwd)
-    with self.profile("host"):
-        cc = compiler.C(self)
-        cc.invoke(
-            ["certdata2pem.c"], "mozilla/certdata2pem"
-        )
+    with self.pushd("work"):
+        self.cp(self.files_path / "certdata2pem.c", ".")
+        with self.profile("host"):
+            cc = compiler.C(self)
+            cc.invoke(
+                ["certdata2pem.c"], "mozilla/certdata2pem"
+            )
 
-    self.copy(
-        self.files_path / "remove-expired-certs.sh",
-        "mozilla", root = self.cwd
-    )
+        self.cp(self.files_path / "remove-expired-certs.sh", "mozilla")
 
-    with open(self.cwd / "mozilla/Makefile", "r") as ifile:
-        with open(self.cwd / "mozilla/Makefile.new", "w") as ofile:
-            for ln in ifile:
-                ln = ln.replace("python3 certdata2pem.py", "./certdata2pem")
-                ln = re.sub(
-                    "(.*)(certdata2pem.*)",
-                    "\\1\\2\n\\1./remove-expired-certs.sh",
-                    ln
-                )
-                ofile.write(ln)
+        with open(self.cwd / "mozilla/Makefile", "r") as ifile:
+            with open(self.cwd / "mozilla/Makefile.new", "w") as ofile:
+                for ln in ifile:
+                    ln = ln.replace("python3 certdata2pem.py", "./certdata2pem")
+                    ln = re.sub(
+                        "(.*)(certdata2pem.*)",
+                        "\\1\\2\n\\1./remove-expired-certs.sh",
+                        ln
+                    )
+                    ofile.write(ln)
 
-    os.rename(
-        self.cwd / "mozilla/Makefile.new",
-        self.cwd / "mozilla/Makefile"
-    )
+        self.mv("mozilla/Makefile.new", "mozilla/Makefile")
 
 def init_build(self):
     from cbuild.util import make
