@@ -1332,88 +1332,6 @@ octal notation (e.g. `0o644` for owner-writable, all-readable). The
 
 This mimics the behavior of the Unix `chmod` tool.
 
-##### def install_files(self, path, dest, symlinks = True)
-
-Installs `path` (which may be a file or a directory and is relative
-to `cwd` of the template) to `dest` (which must refer to a directory,
-and must not be absolute - it is treated as relative to `destdir`).
-
-If `symlinks` is `True` (which is the default), symlinks in `path`
-will also be symlinks in `dest`.
-
-Usage:
-
-```
-self.install_files("data/foo", "usr/share")
-```
-
-##### def install_dir(self, *args)
-
-For each argument, creates a directory in `destdir`. None of the arguments
-must represent absolute paths.
-
-Usage:
-
-```
-self.install_dir("usr/include", "usr/share")
-```
-
-##### def install_file(self, src, dest, mode = 0o644, name = None)
-
-Installs `src` into `dest`, where `src` refers to a file (absolute or
-relative to `cwd`) and `dest` refers to a directory (must exist and be
-relative).
-
-The destination file must not already exist. The permissions are adjusted
-to `mode`, unless set to `None`. The destination file name will be `name`,
-unless it is `None`, in which case the source file name is kept.
-
-The `dest` is created if non-existent.
-
-##### def install_bin(self, *args)
-
-For each argument representing a file relative to `cwd`, install this file
-in `usr/bin` and adjust the permissions. The file will be readable and
-executable to all, and writable to owner only.
-
-The path is created if non-existent.
-
-##### def install_lib(self, *args)
-
-For each argument representing a file relative to `cwd`, install this file
-in `usr/lib` and adjust the permissions. The file will be readable and
-executable to all, and writable to owner only. Meant to be used for dynamic
-libraries, static library archives should use `install_file`.
-
-The path is created if non-existent.
-
-##### def install_man(self, *args)
-
-For each argument representing a file relative to `cwd`, install this file
-as a manpage. That means installing into `usr/share/man` into the right
-section determined by the input file name. For example, if the file is
-`foo.1`, it will be installed into `man1`. The permissions will be `644`.
-
-If the input file does not have a section number or it is invalid, an error
-is raised.
-
-All paths are created as necessary.
-
-##### def install_license(self, *args)
-
-For each argument representing a path to a license file relative to `cwd`,
-install this into `/usr/share/licenses/{pkgname}` with permissions `644`.
-
-##### def install_link(self, src, dest)
-
-Creates a symbolic link at `dest`, pointing to `src`.
-
-Usage:
-
-```
-self.install_link("libfoo.so.1", "usr/lib/libfoo.so")
-```
-
 ##### def copy(self, src, dest, root = None)
 
 Copies a file pointed to by `src` (relative to `cwd`) to `dest` (which must
@@ -1696,6 +1614,88 @@ as well as the current profile or the `target`) has the given hardening
 flag enabled.
 
 The `target` argument is the same as for `profile()`.
+
+##### def install_files(self, path, dest, symlinks = True)
+
+Installs `path` (which may be a file or a directory and is relative
+to `cwd` of the template) to `dest` (which must refer to a directory,
+and must not be absolute - it is treated as relative to `destdir`).
+
+If `symlinks` is `True` (which is the default), symlinks in `path`
+will also be symlinks in `dest`.
+
+Usage:
+
+```
+self.install_files("data/foo", "usr/share")
+```
+
+##### def install_dir(self, *args)
+
+For each argument, creates a directory in `destdir`. None of the arguments
+must represent absolute paths.
+
+Usage:
+
+```
+self.install_dir("usr/include", "usr/share")
+```
+
+##### def install_file(self, src, dest, mode = 0o644, name = None)
+
+Installs `src` into `dest`, where `src` refers to a file (absolute or
+relative to `cwd`) and `dest` refers to a directory (must exist and be
+relative).
+
+The destination file must not already exist. The permissions are adjusted
+to `mode`, unless set to `None`. The destination file name will be `name`,
+unless it is `None`, in which case the source file name is kept.
+
+The `dest` is created if non-existent.
+
+##### def install_bin(self, *args)
+
+For each argument representing a file relative to `cwd`, install this file
+in `usr/bin` and adjust the permissions. The file will be readable and
+executable to all, and writable to owner only.
+
+The path is created if non-existent.
+
+##### def install_lib(self, *args)
+
+For each argument representing a file relative to `cwd`, install this file
+in `usr/lib` and adjust the permissions. The file will be readable and
+executable to all, and writable to owner only. Meant to be used for dynamic
+libraries, static library archives should use `install_file`.
+
+The path is created if non-existent.
+
+##### def install_man(self, *args)
+
+For each argument representing a file relative to `cwd`, install this file
+as a manpage. That means installing into `usr/share/man` into the right
+section determined by the input file name. For example, if the file is
+`foo.1`, it will be installed into `man1`. The permissions will be `644`.
+
+If the input file does not have a section number or it is invalid, an error
+is raised.
+
+All paths are created as necessary.
+
+##### def install_license(self, *args)
+
+For each argument representing a path to a license file relative to `cwd`,
+install this into `/usr/share/licenses/{pkgname}` with permissions `644`.
+
+##### def install_link(self, src, dest)
+
+Creates a symbolic link at `dest`, pointing to `src`.
+
+Usage:
+
+```
+self.install_link("libfoo.so.1", "usr/lib/libfoo.so")
+```
 
 <a id="class_subpackage"></a>
 #### Subpackage Class

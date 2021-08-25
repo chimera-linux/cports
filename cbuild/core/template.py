@@ -250,115 +250,6 @@ class Package:
     def chmod(self, path, mode):
         (self.rparent.cwd / path).chmod(mode)
 
-    def install_files(self, path, dest, symlinks = True):
-        path = pathlib.Path(path)
-        dest = pathlib.Path(dest)
-        if dest.is_absolute():
-            self.logger.out_red(
-                f"install_files: path '{dest}' must not be absolute"
-            )
-            raise PackageError()
-        if path.is_absolute():
-            self.logger.out_red(f"path '{path}' must not be absolute")
-            raise PackageError()
-
-        path = self.rparent.cwd / path
-        dest = self.destdir / dest / path.name
-
-        shutil.copytree(path, dest, symlinks = symlinks)
-
-    def install_dir(self, *args):
-        for dn in args:
-            dn = pathlib.Path(dn)
-            if dn.is_absolute():
-                self.logger.out_red(f"path '{dn}' must not be absolute")
-                raise PackageError()
-            dirp = self.destdir / dn
-            if not dirp.is_dir():
-                self.log(f"creating path: {dirp}")
-                dirp.mkdir(parents = True)
-
-    def install_file(self, src, dest, mode = 0o644, name = None):
-        src = pathlib.Path(src)
-        dest = pathlib.Path(dest)
-        # sanitize destination
-        if dest.is_absolute():
-            self.logger.out_red(
-                f"install_file: path '{dest}' must not be absolute"
-            )
-            raise PackageError()
-        # default name
-        if not name:
-            name = src.name
-        # copy
-        dfn = self.destdir / dest / name
-        if dfn.exists():
-            self.logger.out_red(
-                f"install_file: destination file '{dfn}' already exists"
-            )
-            raise PackageError()
-        self.install_dir(dest)
-        shutil.copy2(self.rparent.cwd / src, dfn)
-        if mode != None:
-            dfn.chmod(mode)
-
-    def install_bin(self, *args):
-        self.install_dir("usr/bin")
-        for bn in args:
-            spath = self.rparent.cwd / bn
-            dpath = self.destdir / "usr/bin"
-            self.log(f"copying (755): {spath} -> {dpath}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o755)
-
-    def install_lib(self, *args):
-        self.install_dir("usr/lib")
-        for bn in args:
-            spath = self.rparent.cwd / bn
-            dpath = self.destdir / "usr/lib"
-            self.log(f"copying (755): {spath} -> {dpath}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o755)
-
-    def install_man(self, *args):
-        self.install_dir("usr/share/man")
-        manbase = self.destdir / "usr/share/man"
-        for mn in args:
-            absmn = self.rparent.cwd / mn
-            mnf = absmn.name
-            mnext = absmn.suffix
-            if len(mnext) == 0:
-                self.logger.out_red(f"manpage '{mnf}' has no section")
-                raise PackageError()
-            try:
-                mnsec = int(mnext[1:])
-            except:
-                self.logger.out_red(f"manpage '{mnf}' has an invalid section")
-                raise PackageError()
-            mandir = manbase / f"man{mnsec}"
-            mandir.mkdir(parents = True, exist_ok = True)
-            self.log(f"copying (644): {absmn} -> {mandir}")
-            shutil.copy2(absmn, mandir)
-            (mandir / mnf).chmod(0o644)
-
-    def install_license(self, *args):
-        self.install_dir("usr/share/licenses/" + self.pkgname)
-        for bn in args:
-            spath = self.rparent.cwd / bn
-            dpath = self.destdir / "usr/share/licenses" / self.pkgname
-            self.log(f"copying (644): {spath} -> {dpath}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o644)
-
-    def install_link(self, src, dest):
-        dest = pathlib.Path(dest)
-        if dest.is_absolute():
-            self.logger.out_red(f"path '{dest}' must not be absolute")
-            raise PackageError()
-        dest = self.destdir / dest
-        self.log(f"symlinking: {src} -> {dest}")
-        dest.symlink_to(src)
-
     def copy(self, src, dest, root = None):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
@@ -817,6 +708,115 @@ class Template(Package):
             yield
         finally:
             self.build_profile = old_tgt
+
+    def install_files(self, path, dest, symlinks = True):
+        path = pathlib.Path(path)
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
+            self.logger.out_red(
+                f"install_files: path '{dest}' must not be absolute"
+            )
+            raise PackageError()
+        if path.is_absolute():
+            self.logger.out_red(f"path '{path}' must not be absolute")
+            raise PackageError()
+
+        path = self.cwd / path
+        dest = self.destdir / dest / path.name
+
+        shutil.copytree(path, dest, symlinks = symlinks)
+
+    def install_dir(self, *args):
+        for dn in args:
+            dn = pathlib.Path(dn)
+            if dn.is_absolute():
+                self.logger.out_red(f"path '{dn}' must not be absolute")
+                raise PackageError()
+            dirp = self.destdir / dn
+            if not dirp.is_dir():
+                self.log(f"creating path: {dirp}")
+                dirp.mkdir(parents = True)
+
+    def install_file(self, src, dest, mode = 0o644, name = None):
+        src = pathlib.Path(src)
+        dest = pathlib.Path(dest)
+        # sanitize destination
+        if dest.is_absolute():
+            self.logger.out_red(
+                f"install_file: path '{dest}' must not be absolute"
+            )
+            raise PackageError()
+        # default name
+        if not name:
+            name = src.name
+        # copy
+        dfn = self.destdir / dest / name
+        if dfn.exists():
+            self.logger.out_red(
+                f"install_file: destination file '{dfn}' already exists"
+            )
+            raise PackageError()
+        self.install_dir(dest)
+        shutil.copy2(self.cwd / src, dfn)
+        if mode != None:
+            dfn.chmod(mode)
+
+    def install_bin(self, *args):
+        self.install_dir("usr/bin")
+        for bn in args:
+            spath = self.cwd / bn
+            dpath = self.destdir / "usr/bin"
+            self.log(f"copying (755): {spath} -> {dpath}")
+            shutil.copy2(spath, dpath)
+            (dpath / spath.name).chmod(0o755)
+
+    def install_lib(self, *args):
+        self.install_dir("usr/lib")
+        for bn in args:
+            spath = self.cwd / bn
+            dpath = self.destdir / "usr/lib"
+            self.log(f"copying (755): {spath} -> {dpath}")
+            shutil.copy2(spath, dpath)
+            (dpath / spath.name).chmod(0o755)
+
+    def install_man(self, *args):
+        self.install_dir("usr/share/man")
+        manbase = self.destdir / "usr/share/man"
+        for mn in args:
+            absmn = self.cwd / mn
+            mnf = absmn.name
+            mnext = absmn.suffix
+            if len(mnext) == 0:
+                self.logger.out_red(f"manpage '{mnf}' has no section")
+                raise PackageError()
+            try:
+                mnsec = int(mnext[1:])
+            except:
+                self.logger.out_red(f"manpage '{mnf}' has an invalid section")
+                raise PackageError()
+            mandir = manbase / f"man{mnsec}"
+            mandir.mkdir(parents = True, exist_ok = True)
+            self.log(f"copying (644): {absmn} -> {mandir}")
+            shutil.copy2(absmn, mandir)
+            (mandir / mnf).chmod(0o644)
+
+    def install_license(self, *args):
+        self.install_dir("usr/share/licenses/" + self.pkgname)
+        for bn in args:
+            spath = self.cwd / bn
+            dpath = self.destdir / "usr/share/licenses" / self.pkgname
+            self.log(f"copying (644): {spath} -> {dpath}")
+            shutil.copy2(spath, dpath)
+            (dpath / spath.name).chmod(0o644)
+
+    def install_link(self, src, dest):
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
+            self.logger.out_red(f"path '{dest}' must not be absolute")
+            raise PackageError()
+        dest = self.destdir / dest
+        self.log(f"symlinking: {src} -> {dest}")
+        dest.symlink_to(src)
 
 class Subpackage(Package):
     def __init__(self, name, parent):
