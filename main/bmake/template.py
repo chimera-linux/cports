@@ -24,7 +24,6 @@ def do_build(self):
     )
 
 def do_install(self):
-    import shutil
     eargs = []
     if self.cross_build:
         eargs = ["BMAKE=make"]
@@ -35,7 +34,7 @@ def do_install(self):
         ] + eargs,
         wrksrc = "build"
     )
-    shutil.rmtree(self.destdir / "usr/share/man")
+    self.rm(self.destdir / "usr/share/man", recursive = True)
     self.install_man("bmake.1")
     self.install_man("make.1")
     self.install_license("LICENSE")

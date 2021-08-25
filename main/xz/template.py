@@ -12,13 +12,12 @@ checksum = ["5117f930900b341493827d63aa910ff5e011e0b994197c3b71c08a20228a42df"]
 options = ["bootstrap"]
 
 def post_install(self):
-    import shutil
-    shutil.rmtree(self.destdir / "usr/share/doc")
+    self.rm(self.destdir / "usr/share/doc", recursive = True)
     for tool in [
         "xzgrep", "xzfgrep", "xzegrep", "lzgrep", "lzfgrep", "lzegrep"
     ]:
-        (self.destdir / "usr/bin" / tool).unlink()
-        (self.destdir / "usr/share/man/man1" / (tool + ".1")).unlink()
+        self.rm(self.destdir / "usr/bin" / tool)
+        self.rm(self.destdir / "usr/share/man/man1" / (tool + ".1"))
 
 @subpackage("liblzma")
 def _lib(self):

@@ -14,5 +14,5 @@ checksum = ["02eba0c305ad349ad6ff1f30edae793061ce95680fd5bdee0e14caf731dee1e7"]
 
 def post_install(self):
     # bash scripts
-    (self.destdir / "usr/bin/lddtree").unlink(missing_ok = True)
-    (self.destdir / "usr/bin/symtree").unlink(missing_ok = True)
+    self.rm(self.destdir / "usr/bin/lddtree", force = True)
+    self.rm(self.destdir / "usr/bin/symtree", force = True)

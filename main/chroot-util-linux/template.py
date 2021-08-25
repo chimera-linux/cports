@@ -39,8 +39,9 @@ def do_build(self):
 
 def post_install(self):
     # Remove unused stuff
-    self.rmtree("usr/sbin")
-    self.rmtree("usr/share/man")
-    self.rmtree("usr/share/bash-completion")
-    # Conflicts with bsdutils
-    self.unlink("usr/bin/hexdump")
+    with self.pushd(self.destdir):
+        self.rm("usr/sbin", recursive = True)
+        self.rm("usr/share/man", recursive = True)
+        self.rm("usr/share/bash-completion", recursive = True)
+        # Conflicts with bsdutils
+        self.rm("usr/bin/hexdump")

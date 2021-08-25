@@ -32,29 +32,26 @@ def init_configure(self):
     self.configure_args.append("ax_cv_c_float_words_bigendian=" + bigend)
 
 def pre_configure(self):
-    import shutil
-    shutil.rmtree(self.cwd / "Modules/_ctypes/darwin", ignore_errors = True)
-    shutil.rmtree(self.cwd / "Modules/_ctypes/libffi_osx", ignore_errors = True)
+    self.rm("Modules/_ctypes/darwin", recursive = True)
+    self.rm("Modules/_ctypes/libffi_osx", recursive = True)
 
 def do_install(self):
-    import shutil
-
     self.make.invoke(
         ["install", "maninstall"], ["DESTDIR=" + str(self.chroot_destdir)]
     )
     self.install_license("LICENSE")
 
-    (self.destdir / "usr/bin/2to3").unlink(missing_ok = True)
+    self.rm(self.destdir / "usr/bin/2to3", force = True)
     for f in (self.destdir / "usr/bin").glob("idle*"):
         f.unlink()
 
     lbase = self.destdir / ("usr/lib/python" + _majver)
 
-    shutil.rmtree(lbase / "idlelib", ignore_errors = True)
-    shutil.rmtree(lbase / "tkinter", ignore_errors = True)
-    shutil.rmtree(lbase / "turtledemo", ignore_errors = True)
-    shutil.rmtree(lbase / "test", ignore_errors = True)
-    shutil.rmtree(lbase / "lib2to3/tests", ignore_errors = True)
+    self.rm(lbase / "idlelib", recursive = True)
+    self.rm(lbase / "tkinter", recursive = True)
+    self.rm(lbase / "turtledemo", recursive = True)
+    self.rm(lbase / "test", recursive = True)
+    self.rm(lbase / "lib2to3/tests", recursive = True)
 
     (lbase / "turtle.py").unlink(missing_ok = True)
 
@@ -77,7 +74,7 @@ def do_install(self):
     for f in lbase.glob("config-*"):
         subst_wdir(f / "Makefile")
         for ff in f.glob("libpython*.a"):
-            shutil.move(ff, self.destdir / "usr/lib")
+            self.mv(ff, self.destdir / "usr/lib")
 
     self.install_link("pydoc" + _majver, "usr/bin/pydoc")
     self.install_link("python" + _majver, "usr/bin/python")

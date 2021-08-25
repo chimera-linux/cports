@@ -72,7 +72,7 @@ def do_configure(self):
         with self.profile(an):
             at = self.build_profile.short_triplet
             # musl build dir
-            (self.cwd / f"musl/build-{an}").mkdir(exist_ok = True)
+            self.mkdir(f"musl/build-{an}", parents = True)
             # configure musl
             with self.stamp(f"{an}_musl_configure") as s:
                 s.check()

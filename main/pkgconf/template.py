@@ -16,8 +16,7 @@ options = ["bootstrap"]
 def post_install(self):
     self.install_license("COPYING")
 
-    import shutil
-    shutil.rmtree(self.destdir / "usr/include")
+    self.rm(self.destdir / "usr/include", recursive = True)
 
     self.install_link("pkgconf", "usr/bin/pkg-config")
     self.install_link("pkgconf.1", "usr/share/man/man1/pkg-config.1")

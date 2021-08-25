@@ -13,7 +13,7 @@ checksum = ["9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"]
 options = ["bootstrap"]
 
 def post_patch(self):
-    (self.cwd / "libxo/sys").mkdir()
+    self.mkdir("libxo/sys")
     self.cp(self.files_path / "queue.h", "libxo/sys")
 
 @subpackage("libxo-devel")

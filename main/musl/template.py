@@ -46,7 +46,7 @@ def do_install(self):
     self.make.install()
 
     # no need for the symlink anymore
-    self.unlink("lib")
+    self.rm(self.destdir / "lib")
 
     self.install_dir("usr/bin")
     self.install_link("../lib/libc.so", "usr/bin/ldd")

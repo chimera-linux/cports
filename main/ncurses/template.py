@@ -74,18 +74,18 @@ def do_install(self):
         libp.chmod(0o755)
         self.install_link(f"lib{lib}w.a", f"usr/lib/lib{lib}.a")
 
-    self.unlink("usr/lib/libncurses++.a", missing_ok = True)
+    self.rm(self.destdir / "usr/lib/libncurses++.a", force = True)
     self.install_link("libncurses++w.a", "usr/lib/libncurses++.a")
 
     # some packages look for -lcurses during build
-    self.unlink("usr/lib/libcursesw.so", missing_ok = True)
+    self.rm(self.destdir / "usr/lib/libcursesw.so", force = True)
     with open(self.destdir / "usr/lib/libcursesw.so", "w") as f:
         f.write(f"INPUT(-lncursesw)\n")
     (self.destdir / "usr/lib/libcursesw.so").chmod(0o755)
 
-    self.unlink("usr/lib/libcurses.so", missing_ok = True)
-    self.unlink("usr/lib/libcursesw.a", missing_ok = True)
-    self.unlink("usr/lib/libcurses.a", missing_ok = True)
+    self.rm(self.destdir / "usr/lib/libcurses.so", force = True)
+    self.rm(self.destdir / "usr/lib/libcursesw.a", force = True)
+    self.rm(self.destdir / "usr/lib/libcurses.a", force = True)
 
     self.install_link("libncurses.so", "usr/lib/libcurses.so")
     self.install_link("libncursesw.a", "usr/lib/libcursesw.a")
@@ -110,7 +110,7 @@ def do_install(self):
     self.install_link("ncursesw.pc", "usr/lib/pkgconfig/tinfo.pc")
 
     # remove broken symlink
-    self.unlink("usr/lib/terminfo", missing_ok = True)
+    self.rm(self.destdir / "usr/lib/terminfo", force = True)
 
     # FIXME for cross remove cross base from /usr/bin/ncursesw6-config
 

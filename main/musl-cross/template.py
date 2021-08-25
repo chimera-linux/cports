@@ -29,8 +29,7 @@ def do_configure(self):
         with self.profile(an):
             at = self.build_profile.short_triplet
             # musl build dir
-            mbpath = self.cwd / f"build-{an}"
-            mbpath.mkdir(exist_ok = True)
+            self.mkdir(f"build-{an}", parents = True)
             # configure musl
             with self.stamp(f"{an}_configure") as s:
                 s.check()
@@ -46,8 +45,7 @@ def do_configure(self):
 def do_build(self):
     for an in _targets:
         with self.profile(an):
-            mbpath = self.cwd / f"build-{an}"
-            mbpath.mkdir(exist_ok = True)
+            self.mkdir(f"build-{an}", parents = True)
             with self.stamp(f"{an}_build") as s:
                 s.check()
                 self.make.build(wrksrc = self.chroot_cwd / f"build-{an}")
@@ -61,7 +59,7 @@ def do_install(self):
             self.make.install([
                 "DESTDIR=" + str(self.chroot_destdir / "usr" / at)
             ], default_args = False, wrksrc = self.chroot_cwd / f"build-{an}")
-            self.unlink(f"usr/{at}/lib")
+            self.rm(self.destdir / f"usr/{at}/lib")
 
 def _gen_crossp(an, at):
     @subpackage(f"musl-cross-{an}")

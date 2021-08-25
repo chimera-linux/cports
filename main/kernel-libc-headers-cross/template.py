@@ -41,16 +41,16 @@ def do_build(self):
 
         # remove extra files and drm headers
         for fn in self.find(".*", files = True, root = self.cwd):
-            self.unlink(fn, root = self.cwd)
+            self.rm(fn)
 
         # save the makefile
         self.cp("usr/include/Makefile", "Makefile.usr_include")
         # clean up
-        self.unlink("usr/include/Makefile", root = self.cwd)
-        self.rmtree("usr/include/drm", root = self.cwd)
+        self.rm("usr/include/Makefile")
+        self.rm("usr/include/drm", recursive = True)
         self.mv("usr/include", "inc_" + an)
         # restore things as they were for next pass
-        (self.cwd / "usr/include").mkdir()
+        self.mkdir("usr/include")
         self.mv("Makefile.usr_include", "usr/include/Makefile")
 
 def do_install(self):

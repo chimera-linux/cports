@@ -1308,6 +1308,26 @@ Both paths are considered potentially relative to `cwd`.
 
 This mimics the behavior of the Unix `mv` tool.
 
+##### def mkdir(self, path, parents = False)
+
+Creates the directory `path`. If `parents` is `False` and the parent of
+`path` does not exist, this will error. If the directory already exists,
+it will likewise error. If `parents` is `True`, it will create all parent
+directories, and it will never error when `path` already exists and is
+a directory.
+
+Mimics the behavior of the Unix `mkdir` tool, possibly with `-p`.
+
+##### def rm(self, path, recursive = False, force = False):
+
+Removes the path `path`. Can be either a file or a directory. If it is
+a directory (symlinks are treated as files) and `recursive` is not `True`,
+an error is raised. If `force` is `True`, the function will never error
+when `path` is non-existent.
+
+Mimics the behavior of the Unix `rm` tool, `recursive` is like `-r` and
+`force` is like `-f`.
+
 ##### def ln_s(self, srcp, destp, relative = False)
 
 Creates a symlink at `destp` pointing to `srcp`. The `dest` is considered
@@ -1340,20 +1360,6 @@ be copied into it, otherwise it will be created there.
 
 The `src` may be an aboslute path. If `root` is specified, it will be used
 instead of `destdir`.
-
-##### def unlink(self, f, root = None, missing_ok = False)
-
-Removes `f`, which must refer to a file and must not be absolute. If
-`missing_ok` is `True`, no error will be raised if non-existent.
-
-If `root` is given, the `f` will be relative to it, otherwise `destdir`
-is used.
-
-##### def rmtree(self, path, root = None)
-
-Removes the directory `path` (it must point to a directory, not a file).
-The `path` must not be absolute, it will be considred relative to `root`,
-unless not provided (in which case `destdir` is used).
 
 ##### def find(self, pattern, files = False, root = None)
 

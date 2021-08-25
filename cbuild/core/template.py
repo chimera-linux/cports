@@ -239,6 +239,29 @@ class Package:
 
         return pathlib.Path(shutil.move(srcp, destp))
 
+    def mkdir(self, path, parents = False):
+        (self.rparent.cwd / path).mkdir(parents = parents, exist_ok = parents)
+
+    def rm(self, path, recursive = False, force = False):
+        path = self.rparent.cwd / path
+
+        if not recursive:
+            if path.is_dir() and not path.is_symlink():
+                self.error(f"'{path}' is a directory")
+            path.unlink(missing_ok = force)
+        else:
+            def _remove_ro(f, p, _):
+                os.chmod(p, stat.S_IWRITE)
+                f(p)
+
+            if force and not path.exists():
+                return
+
+            if not path.is_dir() or path.is_symlink():
+                path.unlink(missing_ok = force)
+            else:
+                shutil.rmtree(path, onerror = _remove_ro)
+
     def ln_s(self, srcp, destp, relative = False):
         destp = self.rparent.cwd / destp
         if destp.is_dir():
@@ -249,32 +272,6 @@ class Package:
 
     def chmod(self, path, mode):
         (self.rparent.cwd / path).chmod(mode)
-
-    def unlink(self, f, root = None, missing_ok = False):
-        f = pathlib.Path(f)
-        if f.is_absolute():
-            self.logger.out_red(f"path '{f}' must not be absolute")
-            raise PackageError()
-        remp = (pathlib.Path(root) if root else self.destdir) / f
-        self.log(f"removing: {remp}")
-        remp.unlink(missing_ok)
-
-    def rmtree(self, path, root = None):
-        path = pathlib.Path(path)
-        if path.is_absolute():
-            self.logger.out_red(f"path '{path}' must not be absolute")
-            raise PackageError()
-
-        path = (pathlib.Path(root) if root else self.destdir) / path
-        if not path.is_dir():
-            self.logger.out_red(f"path '{path}' must be a directory")
-            raise PackageError()
-
-        def _remove_ro(f, p, _):
-            os.chmod(p, stat.S_IWRITE)
-            f(p)
-
-        shutil.rmtree(path, onerror = _remove_ro)
 
     def find(self, pattern, files = False, root = None):
         rootp = pathlib.Path(root if root else self.destdir)

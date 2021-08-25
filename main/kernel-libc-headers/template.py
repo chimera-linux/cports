@@ -25,7 +25,6 @@ _arch = {
 
 def do_build(self):
     from cbuild.util import make
-    import glob, shlex
 
     mk = make.Make(self, jobs = 1)
 
@@ -50,10 +49,10 @@ def do_build(self):
 
     # remove extra files and drm headers
     for fn in self.find(".*", files = True, root = self.cwd):
-        self.unlink(fn, root = self.cwd)
+        self.rm(fn)
 
-    self.unlink("usr/include/Makefile", root = self.cwd)
-    self.rmtree("usr/include/drm", root = self.cwd)
+    self.rm("usr/include/Makefile")
+    self.rm("usr/include/drm", recursive = True)
 
 def do_install(self):
     self.install_files("usr/include", "usr")

@@ -83,16 +83,15 @@ def do_build(self):
                 self.make.build(wrksrc = f"build-{an}")
 
 def do_install(self):
-    import shutil
-
     for an in _targets:
         with self.profile(an):
             self.make.install(wrksrc = f"build-{an}")
 
     # we don't need or want these for cross
-    shutil.rmtree(self.destdir / f"usr/lib/clang/{version}/share")
-    shutil.rmtree(self.destdir / f"usr/lib/clang/{version}/include")
-    shutil.rmtree(self.destdir / f"usr/lib/clang/{version}/bin")
+    with self.pushd(self.destdir):
+        self.rm(f"usr/lib/clang/{version}/share", recursive = True)
+        self.rm(f"usr/lib/clang/{version}/include", recursive = True)
+        self.rm(f"usr/lib/clang/{version}/bin", recursive = True)
 
 def _gen_crossp(an):
     with current.profile(an):
