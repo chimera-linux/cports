@@ -1268,6 +1268,70 @@ Like `log`, but using `warn`.
 In addition to logging a message like `log_red`, also raises an error,
 which will abort the build.
 
+##### def pushd(self, dirn)
+
+To be used as a context manager. Temporarily changes the `cwd` as well
+as `chroot_cwd` of the template to point to `dirn` (which is treated
+as a relative path to current `cwd`).
+
+This is pretty much an equivalent of the Unix `pushd`/`popd` commands.
+
+Usage:
+
+```
+with self.pushd("src"):
+    pass
+```
+
+##### def cp(self, srcp, destp, recursive = False, symlinks = True)
+
+Copies `srcp` to `destp`. Both paths are considered potentially relative
+to `cwd`. If `srcp` is a file, it is copied into `destp` if a directory,
+or becomes `destp`. If `symlinks` is `True`, symlinks are followed, i.e.
+if `srcp` was a symlink, the result will be a copy of the file it resolves
+to.
+
+If `srcp` is a directory, `recursive` must be `True` else the function
+will error. This includes the case when `srcp` is a symbolic link to a
+directory. In the latter case, `srcp` is copied as-is to `dest` like
+if it was a file, and `symlinks` is ignored. The meaning of `symlinks`
+is the opposite for directories with `recursive`, if it is `True`, all
+symlinks are preserved, otherwise they are resolved.
+
+This mimics the behavior of the Unix `cp` tool.
+
+##### def mv(self, srcp, destp)
+
+Moves `srcp` to `destp`. If `destp` is an existing directory, `srcp` is
+moved into that directory, otherwise `srcp` is renamed to `destp`.
+Both paths are considered potentially relative to `cwd`.
+
+This mimics the behavior of the Unix `mv` tool.
+
+##### def ln_s(self, srcp, destp, relative = False)
+
+Creates a symlink at `destp` pointing to `srcp`. The `dest` is considered
+potentially relative to `cwd`. If `destp` resolves to a directory, the
+symlink is created inside that directory (including if it is a symlink
+to a directory). In that case, the symlink's name will be the name
+portion of `srcp`.
+
+When `relative` is `True`, `srcp` is resolved to be relative to `destp`
+using `os.path.relpath`; otherwise it is not modified in any way and
+used as the target as-is. It can be a `pathlib` path or a string, just
+like `destp`.
+
+This mimics the behavior of the Unix `ln` tool with the `-s` switch and
+optionally with `-r`.
+
+##### def chmod(self, path, mode)
+
+Changes the mode of `path` to `mode`. Usually you will want to use the
+octal notation (e.g. `0o644` for owner-writable, all-readable). The
+`path` is considered potentially relative to `cwd`.
+
+This mimics the behavior of the Unix `chmod` tool.
+
 ##### def install_files(self, path, dest, symlinks = True)
 
 Installs `path` (which may be a file or a directory and is relative

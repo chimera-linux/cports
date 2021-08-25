@@ -190,6 +190,66 @@ class Package:
             return self.pkgname
         return "cbuild"
 
+    @contextlib.contextmanager
+    def pushd(self, dirn):
+        old_path = self.rparent.cwd
+        old_cpath = self.rparent.chroot_cwd
+
+        new_path = old_path / dirn
+
+        if not new_path.is_dir():
+            self.error(f"path '{new_path}' is not a directory")
+
+        new_path = new_path.resolve()
+
+        self.rparent.cwd = new_path
+        self.rparent_chroot_cwd = pathlib.Path("/") / new_path.relative_to(
+            paths.masterdir()
+        )
+
+        try:
+            yield
+        finally:
+            self.rparent.cwd = old_path
+            self.rparent.chroot_cwd = old_cpath
+
+    def cp(self, srcp, destp, recursive = False, symlinks = True):
+        srcp = self.rparent.cwd / srcp
+        destp = self.rparent.cwd / destp
+
+        if recursive and srcp.is_dir():
+            if destp.is_dir():
+                destp = destp / srcp.name
+            if srcp.is_symlink():
+                ret = shutil.copy2(srcp, destp, follow_symlinks = False)
+            else:
+                ret = shutil.copytree(
+                    srcp, destp, symlinks = symlinks, dirs_exist_ok = True
+                )
+        elif srcp.is_dir():
+            self.error(f"'{srcp}' is a directory, but not using 'recursive'")
+        else:
+            ret = shutil.copy2(srcp, destp, follow_symlinks = symlinks)
+
+        return pathlib.Path(ret)
+
+    def mv(self, srcp, destp):
+        srcp = self.rparent.cwd / srcp
+        destp = self.rparent.cwd / destp
+
+        return pathlib.Path(shutil.move(srcp, destp))
+
+    def ln_s(self, srcp, destp, relative = False):
+        destp = self.rparent.cwd / destp
+        if destp.is_dir():
+            destp = destp / pathlib.Path(srcp).name
+        if relative:
+            srcp = os.path.relpath(srcp, start = destp)
+        destp.symlink_to(srcp)
+
+    def chmod(self, path, mode):
+        (self.rparent.cwd / path).chmod(mode)
+
     def install_files(self, path, dest, symlinks = True):
         path = pathlib.Path(path)
         dest = pathlib.Path(dest)
