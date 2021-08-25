@@ -19,8 +19,6 @@ _targets = list(filter(
 ))
 
 def do_build(self):
-    import shutil
-
     for an in _targets:
         # skip already done pass
         if (self.cwd / f"libexecinfo.a.{an}").exists():
@@ -35,32 +33,18 @@ def do_build(self):
                 "LDFLAGS=--unwindlib=none " + self.get_ldflags(shell = True),
                 "AR=" + self.get_tool("AR")
             ])
-            shutil.move(
-                self.cwd / "libexecinfo.a",
-                self.cwd / f"libexecinfo.a.{an}"
-            )
-            shutil.move(
-                self.cwd / "libexecinfo.so.1",
-                self.cwd / f"libexecinfo.so.{an}"
-            )
+            self.mv("libexecinfo.a", f"libexecinfo.a.{an}")
+            self.mv("libexecinfo.so.1", f"libexecinfo.so.{an}")
 
 def do_install(self):
-    import shutil
-
     for an in _targets:
         with self.profile(an):
             at = self.build_profile.short_triplet
             self.install_dir(f"usr/{at}/usr/lib/pkgconfig")
             self.install_dir(f"usr/{at}/usr/include")
             self.install_dir(f"usr/{at}/usr/lib")
-            shutil.move(
-                self.cwd / f"libexecinfo.a.{an}",
-                self.cwd / "libexecinfo.a"
-            )
-            shutil.move(
-                self.cwd / f"libexecinfo.so.{an}",
-                self.cwd / "libexecinfo.so.1"
-            )
+            self.mv(f"libexecinfo.a.{an}", "libexecinfo.a")
+            self.mv(f"libexecinfo.so.{an}", "libexecinfo.so.1")
             self.install_file("libexecinfo.pc", f"usr/{at}/usr/lib/pkgconfig")
             self.install_file("execinfo.h", f"usr/{at}/usr/include")
             self.install_file("libexecinfo.a", f"usr/{at}/usr/lib")

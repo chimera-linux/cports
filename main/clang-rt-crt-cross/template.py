@@ -60,10 +60,7 @@ _targets = list(filter(
 ))
 
 def post_patch(self):
-    import shutil
-    shutil.move(
-        self.builddir / f"musl-{_musl_version}", self.cwd / "musl"
-    )
+    self.mv(self.builddir / f"musl-{_musl_version}", "musl")
 
 def do_configure(self):
     from cbuild.util import cmake, make

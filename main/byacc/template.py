@@ -14,8 +14,5 @@ options = ["bootstrap"]
 
 def post_install(self):
     self.install_license("README", "LICENSE")
-
-    import shutil
-
     self.install_link("byacc", "usr/bin/yacc")
     self.install_link("byacc.1", "usr/share/man/man1/yacc.1")
