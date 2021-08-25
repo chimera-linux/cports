@@ -13,7 +13,6 @@ def do_install(self):
     )
 
 def use(tmpl):
-    tmpl.build_style = "python_module"
     tmpl.do_build = do_build
     tmpl.do_check = do_check
     tmpl.do_install = do_install

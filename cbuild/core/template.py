@@ -876,12 +876,10 @@ def from_module(m, ret):
     ret.build_style_fields = []
     ret.build_style_defaults = []
 
-    # also support build_style via string name for nicer syntax
-    if isinstance(ret.build_style, str):
-        bs = importlib.import_module("cbuild.build_style." + ret.build_style)
-        bs.use(ret)
+    if ret.build_style:
+        importlib.import_module(f"cbuild.build_style.{ret.build_style}").use(ret)
 
-    # perform initialization (will inject build-style etc)
+    # perform initialization
     if hasattr(m, "init"):
         m.init(ret)
 

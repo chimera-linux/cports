@@ -544,7 +544,6 @@ def do_install(self):
     pass
 
 def use(tmpl):
-    tmpl.build_style = "mystyle"
     tmpl.do_configure = do_configure
     tmpl.do_build = do_build
     tmpl.do_install = do_install

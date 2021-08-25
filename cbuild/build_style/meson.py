@@ -13,7 +13,6 @@ def do_install(self):
     self.make.install(args_use_env = True)
 
 def use(tmpl):
-    tmpl.build_style = "meson"
     tmpl.do_configure = do_configure
     tmpl.do_build = do_build
     tmpl.do_check = do_check

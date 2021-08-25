@@ -14,7 +14,6 @@ def do_install(self):
     self.make.install()
 
 def use(tmpl):
-    tmpl.build_style = "gnu_configure"
     tmpl.do_configure = do_configure
     tmpl.do_build = do_build
     tmpl.do_check = do_check
