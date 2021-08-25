@@ -37,7 +37,7 @@ DIR="$1"
 
 today=$(date +%Y%m%d)
 
-find ${DIR} -type f -a -iname "*.crt" -printf "%p\n" | while read cert; do
+find ${DIR} -type f -a -iname "*.crt" -print | while read cert; do
   notafter=$(/usr/bin/openssl x509 -enddate -in "${cert}" -noout)
   date=$( echo ${notafter} |  sed 's/^notAfter=//' )
   mydate "$date"
