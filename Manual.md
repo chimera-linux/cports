@@ -1361,17 +1361,17 @@ be copied into it, otherwise it will be created there.
 The `src` may be an aboslute path. If `root` is specified, it will be used
 instead of `destdir`.
 
-##### def find(self, pattern, files = False, root = None)
+##### def find(self, path, pattern, files = False)
 
-Returns a generator object. For glob pattern `pattern`, search for files
-within `root` (or `destdir`). Each result is a `pathlib.Path` object that
-matches `pattern` and is relative (to `root`). The globbing is recursive.
+Returns a generator object that represents a recursive search for `pattern`
+within `path` (which is considered potentially relative to `cwd`). Each
+result is a `pathlib.Path` object that is a found entry. If `files` is
+set to `True`, only files are considered.
 
 Usage:
 
 ```
-# finds every python script inside destdir, recursively
-for p in self.find("*.py"):
+for p in self.find("foo", "*.py"):
     ...
 ```
 

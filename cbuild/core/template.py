@@ -273,11 +273,18 @@ class Package:
     def chmod(self, path, mode):
         (self.rparent.cwd / path).chmod(mode)
 
-    def find(self, pattern, files = False, root = None):
-        rootp = pathlib.Path(root if root else self.destdir)
-        for fn in rootp.rglob(pattern):
-            if not files or fn.is_file():
-                yield fn.relative_to(rootp)
+    def find(self, path, pattern, files = False):
+        path = pathlib.Path(path)
+        if path.is_absolute():
+            for fn in path.rglob(pattern):
+                if not files or fn.is_file():
+                    yield fn
+        else:
+            cwp = self.rparent.cwd
+            path = cwp / path
+            for fn in path.rglob(pattern):
+                if not files or fn.is_file():
+                    yield fn.relative_to(cwp)
 
 default_options = {
     #           default inherit

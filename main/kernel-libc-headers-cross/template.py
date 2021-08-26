@@ -40,7 +40,7 @@ def do_build(self):
         ])
 
         # remove extra files and drm headers
-        for fn in self.find(".*", files = True, root = self.cwd):
+        for fn in self.find(".", ".*", files = True):
             self.rm(fn)
 
         # save the makefile
