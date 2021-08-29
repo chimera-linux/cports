@@ -51,8 +51,7 @@ def build(step, pkg, depmap, signkey, chost = False):
         return
 
     pkg.cwd = pkg.builddir / pkg.wrksrc
-    pkg.chroot_cwd = pathlib.Path("/builddir") / \
-            pkg.cwd.relative_to(pkg.builddir)
+    pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
 
     pkg.current_phase = "patch"
     patch.invoke(pkg)
