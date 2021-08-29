@@ -18,14 +18,9 @@ def post_patch(self):
     import re
 
     self.cp(self.files_path / "certdata2pem.c", ".")
-    with self.profile("host"):
-        cc = compiler.C(self)
-        cc.invoke(
-            ["certdata2pem.c"], "mozilla/certdata2pem"
-        )
-
     self.cp(self.files_path / "remove-expired-certs.sh", "mozilla")
 
+    # NB: ./certdata2pem is built in init_build()
     with open(self.cwd / "mozilla/Makefile", "r") as ifile:
         with open(self.cwd / "mozilla/Makefile.new", "w") as ofile:
             for ln in ifile:
@@ -40,6 +35,14 @@ def post_patch(self):
     self.mv("mozilla/Makefile.new", "mozilla/Makefile")
 
 def init_build(self):
+
+    from cbuild.util import compiler
+    with self.profile("host"):
+        cc = compiler.C(self)
+        cc.invoke(
+            ["certdata2pem.c"], "mozilla/certdata2pem"
+        )
+
     from cbuild.util import make
     self.make = make.Make(self)
 
