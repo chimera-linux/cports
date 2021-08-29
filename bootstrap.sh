@@ -56,7 +56,7 @@ esac
 
 TARNAME="void-${CARCH}-musl-ROOTFS-${BASE_DATE}.tar.xz"
 
-if [ ! -f "${TARNAME}" -a -z "${BOOTSTRAP_ROOT}" ]; then
+if [ ! -f "${TARNAME}" ]; then
     echo "Fetching base tarball..."
 
     ! test -f "${TARNAME}" && curl "${BASE_URL}/${TARNAME}" -o "${TARNAME}"
@@ -67,7 +67,7 @@ if [ ! -f "${TARNAME}" -a -z "${BOOTSTRAP_ROOT}" ]; then
     fi
 fi
 
-if [ -z "${BOOTSTRAP_ROOT}" ]; then
+if [ -z "${BOOTSTRAP_ROOT}" -o ! -d "${BOOTSTRAP_ROOT}" ]; then
     echo "${BASE_SHA256} ${TARNAME}" | sha256sum --check
 
     if [ $? -ne 0 ]; then
@@ -76,11 +76,20 @@ if [ -z "${BOOTSTRAP_ROOT}" ]; then
     fi
 fi
 
-if [ -z "${BOOTSTRAP_ROOT}" ]; then
-    BOOTSTRAP_ROOT=$(mktemp -d "bootstrap.XXXXXXXXXX")
-
-    if [ $? -ne 0 ]; then
-        echo "Failed to create bootstrap directory"
+if [ -z "${BOOTSTRAP_ROOT}" -o ! -d "${BOOTSTRAP_ROOT}" ]; then
+    if [ -z "${BOOTSTRAP_ROOT}" ]; then
+        BOOTSTRAP_ROOT=$(mktemp -d "bootstrap.XXXXXXXXXX")
+    
+        if [ $? -ne 0 ]; then
+            echo "Failed to create bootstrap directory"
+            exit 1
+        fi
+    else
+        mkdir "${BOOTSTRAP_ROOT}"
+        if [ $? -ne 0 ]; then
+            echo "Failed to create bootstrap directory ${BOOTSTRAP_ROOT}"
+            exit 1
+        fi
     fi
 
     cd "${BOOTSTRAP_ROOT}"
@@ -93,10 +102,6 @@ if [ -z "${BOOTSTRAP_ROOT}" ]; then
     fi
 
     cd ..
-fi
-
-if [ ! -d "${BOOTSTRAP_ROOT}" ]; then
-    echo "Bootstrap root does not exist!"
 fi
 
 cp /etc/resolv.conf "${BOOTSTRAP_ROOT}/etc"
