@@ -278,7 +278,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 1")
         # use stage 0 masterdir to build, but build into stage 1 repo
         paths.reinit_masterdir(oldmdir, 0)
-        do_pkg("pkg", "base-chroot")
+        do_pkg("pkg", "main/base-chroot")
         # go back to stage 1
         paths.reinit_masterdir(oldmdir, 1)
         chroot.install(chroot.host_cpu())
@@ -295,7 +295,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 2")
         # use stage 1 masterdir to build, but build into stage 2 repo
         paths.reinit_masterdir(oldmdir, 1)
-        do_pkg("pkg", "base-chroot")
+        do_pkg("pkg", "main/base-chroot")
         # go back to stage 2
         paths.reinit_masterdir(oldmdir, 2)
         chroot.install(chroot.host_cpu())
