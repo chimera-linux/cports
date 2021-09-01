@@ -414,7 +414,6 @@ def install(pkg, origpkg, step, depmap, signkey):
             ), depmap, signkey)
         except template.SkipPackage:
             pass
-        host_binpkg_deps.append(rd)
 
     # reinit after parsings
     chroot.set_target(tarch)
