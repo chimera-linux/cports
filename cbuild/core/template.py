@@ -101,7 +101,7 @@ def _submove(src, dest, root):
             # remove the source dir that should now be empty
             fsrc.rmdir()
         else:
-            raise FileExistsError(f"'{fstr}' and '{fdest}' overlap")
+            raise FileExistsError(f"'{fsrc}' and '{fdest}' overlap")
 
 hooks = {
     "init_fetch": [],
