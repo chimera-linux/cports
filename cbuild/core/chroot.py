@@ -195,6 +195,7 @@ def initdb(path = None):
     (path / "usr/lib/apk/db").mkdir(parents = True, exist_ok = True)
     (path / "var/cache/apk").mkdir(parents = True, exist_ok = True)
     (path / "var/cache/misc").mkdir(parents = True, exist_ok = True)
+    (path / "var/log").mkdir(parents = True, exist_ok = True)
 
     # largely because of custom usrmerge
     if not (path / "lib").is_symlink():
