@@ -14,10 +14,12 @@ options = ["bootstrap"]
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)
     for tool in [
-        "xzgrep", "xzfgrep", "xzegrep", "lzgrep", "lzfgrep", "lzegrep"
+        "xzgrep", "xzfgrep", "xzegrep", "lzgrep", "lzfgrep", "lzegrep",
+        "xzdiff", "lzdiff", "xzcmp", "lzcmp"
     ]:
         self.rm(self.destdir / "usr/bin" / tool)
         self.rm(self.destdir / "usr/share/man/man1" / (tool + ".1"))
+        self.rm(self.destdir / "usr/share/man/de/man1" / (tool + ".1"))
 
 @subpackage("liblzma")
 def _lib(self):
