@@ -39,7 +39,7 @@ def do_install(self):
     self.install_link("bzip2", "usr/bin/bunzip2")
     self.install_link("bzip2", "usr/bin/bzcat")
 
-    self.install_bin("bzdiff", "bzmore")
+    self.install_bin("bzmore")
 
     self.install_lib("libbz2.so." + version)
     self.install_link("libbz2.so." + version, "usr/lib/libbz2.so")
