@@ -20,6 +20,8 @@ checksum = ["4d008ac3461e271fcfac26a05936f77fc7ab64402156fb371d41284851a651b8"]
 # prevent cmake self-bootstrap false positive nonsense
 CXXFLAGS = ["-Wno-unused-command-line-argument"]
 
+options = ["!check"]
+
 def post_install(self):
     self.install_license("Copyright.txt")
     self.cp("Utilities/KWIML/Copyright.txt", "KWIML-Copyright.txt")

@@ -15,7 +15,7 @@ homepage = "https://github.com/chimera-linux/bsdutils"
 distfiles = [f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"]
 checksum = ["a9e6c7e0c4277e323d19b0730b99c42f7e8a012ac33882ac7a5b3db179f0188f"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]

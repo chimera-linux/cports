@@ -9,7 +9,7 @@ homepage = "https://tukaani.org/xz"
 distfiles = [f"https://tukaani.org/xz/xz-{version}.tar.bz2"]
 checksum = ["5117f930900b341493827d63aa910ff5e011e0b994197c3b71c08a20228a42df"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)

@@ -24,6 +24,8 @@ checksum = [
 # prevent a massive log dump
 CFLAGS = ["-Wno-compound-token-split-by-macro"]
 
+options = ["!check"]
+
 # Before updating this package to a new major version, run ${FILESDIR}/provides.pl
 # against ${wrksrc} to find the list of built in packages.
 

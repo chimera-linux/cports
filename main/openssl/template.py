@@ -17,7 +17,7 @@ distfiles = [f"https://www.openssl.org/source/openssl-{version}.tar.gz"]
 checksum = ["892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"]
 conf_files = ["/etc/ssl/openssl.cnf"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["perl"]

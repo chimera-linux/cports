@@ -13,7 +13,7 @@ license = "LGPL-2.1-or-later"
 homepage = "https://savannah.nongnu.org/projects/acl"
 distfiles = [f"$(NONGNU_SITE)/acl/acl-{version}.tar.gz"]
 checksum = ["760c61c68901b37fdd5eefeeaf4c0c7a26bdfdd8ac747a1edff1ce0e243c11af"]
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 @subpackage("acl-devel")
 def _devel(self):

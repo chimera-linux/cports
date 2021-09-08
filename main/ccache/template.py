@@ -12,6 +12,8 @@ homepage = "https://ccache.samba.org"
 distfiles = [f"https://github.com/ccache/ccache/releases/download/v{version}/{pkgname}-{version}.tar.xz"]
 checksum = ["9d6ba1cdefdc690401f404b747d81a9a1802b17af4235815866b7620d980477e"]
 
+options = ["!check"]
+
 def post_install(self):
     self.install_dir("usr/lib/ccache/bin")
     self.install_link("../../../bin/ccache", "usr/lib/ccache/bin/clang")

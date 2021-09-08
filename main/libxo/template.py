@@ -10,7 +10,7 @@ homepage = "https://github.com/Juniper/libxo"
 distfiles = [f"https://github.com/Juniper/{pkgname}/releases/download/{version}/{pkgname}-{version}.tar.gz"]
 checksum = ["9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 def post_patch(self):
     self.mkdir("libxo/sys")

@@ -14,7 +14,7 @@ homepage = "http://www.darwinsys.com/file/"
 distfiles = [f"https://astron.com/pub/file/file-{version}.tar.gz"]
 checksum = ["167321f43c148a553f68a0ea7f579821ef3b11c27b8cbe158e4df897e4a5dd57"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 if current.cross_build:
     hostmakedepends = ["file"]

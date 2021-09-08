@@ -11,7 +11,7 @@ homepage = "http://www.musl-libc.org/"
 distfiles = [f"http://www.musl-libc.org/releases/musl-{version}.tar.gz"]
 checksum = ["9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 # segfaults otherwise
 hardening = ["!scp"]

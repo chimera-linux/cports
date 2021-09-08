@@ -45,7 +45,7 @@ checksum = [
     "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628",
     "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 ]
-options = ["!cross"]
+options = ["!cross", "!check"]
 
 cmake_dir = "compiler-rt"
 

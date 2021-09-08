@@ -12,6 +12,8 @@ homepage = "https://cgit.gentoo.org/proj/pax-utils.git"
 distfiles = [f"https://gentoo.osuosl.org/distfiles/{pkgname}-{version}.tar.xz"]
 checksum = ["02eba0c305ad349ad6ff1f30edae793061ce95680fd5bdee0e14caf731dee1e7"]
 
+options = ["!check"]
+
 def post_install(self):
     # bash scripts
     self.rm(self.destdir / "usr/bin/lddtree", force = True)

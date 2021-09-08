@@ -23,7 +23,7 @@ homepage = "https://sourceforge.net/projects/elftoolchain"
 distfiles = [f"https://github.com/{pkgname}/{pkgname}/archive/{_commit}.tar.gz"]
 checksum = ["3d9e0513af4b7cb8ac7944d98057b8d61fcc4ff326b030a7b06006c0abb7922c"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["bsdm4", "byacc", "flex"]

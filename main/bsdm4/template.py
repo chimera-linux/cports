@@ -10,7 +10,7 @@ homepage = "https://github.com/chimera-linux/bsdm4"
 distfiles = [f"https://github.com/chimera-linux/bsdm4/archive/refs/tags/v{version}.tar.gz"]
 checksum = ["dbe405f94c3dcfd084b97585b270d4b004a4fae26c3c8cf37670e830354a123b"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["byacc"]

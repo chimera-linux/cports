@@ -11,4 +11,4 @@ homepage = "https://github.com/chimera-linux/bsdgrep"
 distfiles = [f"https://github.com/chimera-linux/bsdgrep/archive/refs/tags/v{version}.tar.gz"]
 checksum = ["839a505c5d5f6d53069e1863ed264d33120db01df29a606441a67cd40ce032ea"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]

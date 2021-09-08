@@ -13,7 +13,7 @@ homepage = "http://www.thrysoee.dk/editline"
 distfiles = [f"http://thrysoee.dk/editline/{pkgname}-{_datever}-{_distver}.tar.gz"]
 checksum = ["0220bc2047e927c0c1984ef5f7b4eb2a9469a5b7bf12ba573ca3b23ca02bbb6f"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "!check"]
 
 def post_install(self):
     self.install_license("COPYING")

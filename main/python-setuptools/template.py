@@ -12,6 +12,8 @@ homepage = "https://github.com/pypa/setuptools"
 distfiles = [f"$(PYPI_SITE)/s/setuptools/setuptools-{version}.tar.gz"]
 checksum = ["401cbf33a7bf817d08014d51560fc003b895c4cdc1a5b521ad2969e928a07535"]
 
+options = ["!check"]
+
 env = {
     "SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES": "0",
     "SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT": "1"
