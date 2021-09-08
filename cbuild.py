@@ -43,7 +43,7 @@ opt_ldflags   = ""
 opt_arch      = None
 opt_gen_dbg   = False
 opt_skipexist = False
-opt_check     = False
+opt_check     = True
 opt_ccache    = False
 opt_makejobs  = 1
 opt_nocolor   = "NO_COLOR" in os.environ
@@ -80,9 +80,9 @@ parser.add_argument(
     help = "Do not build if the package already exists in local repository."
 )
 parser.add_argument(
-    "-q", "--check", action = "store_const",
-    const = True, default = opt_check,
-    help = "Run the check stage."
+    "-C", "--skip-check", action = "store_const",
+    const = False, default = opt_check,
+    help = "Skip running the check stage."
 )
 parser.add_argument(
     "-g", "--build-dbg", action = "store_const",
@@ -161,8 +161,8 @@ if cmdline.force:
 if cmdline.skip_if_exists:
     opt_skipexist = True
 
-if cmdline.check:
-    opt_check = True
+if cmdline.skip_check:
+    opt_check = False
 
 if cmdline.masterdir:
     opt_masterdir = cmdline.masterdir
