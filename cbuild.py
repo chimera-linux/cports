@@ -81,7 +81,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "-C", "--skip-check", action = "store_const",
-    const = False, default = opt_check,
+    const = True, default = not opt_check,
     help = "Skip running the check stage."
 )
 parser.add_argument(
