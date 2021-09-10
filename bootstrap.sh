@@ -9,7 +9,7 @@
 #
 # If the process fails at any point, you can re-run with BOOTSTRAP_ROOT
 # set in the environment to make it continue. During stage 0 bootstrap,
-# it is safe to remove masterdir-stage0 on failure. During any other
+# it is safe to remove bldroot-stage0 on failure. During any other
 # stage, you should only remove the builddir/destdir inside.
 #
 # Additional options passed to this script are passed to cbuild.py. This

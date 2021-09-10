@@ -52,7 +52,7 @@ opt_unsigned  = False
 opt_allowroot = False
 opt_force     = False
 opt_mdirtemp  = False
-opt_masterdir = "masterdir"
+opt_bldroot   = "bldroot"
 opt_hostdir   = "hostdir"
 
 # parse command line arguments
@@ -93,7 +93,7 @@ parser.add_argument(
     "-a", "--arch", help = "Target architecture to build for.", default = None
 )
 parser.add_argument(
-    "-m", "--masterdir", default = None, help = "The masterdir path."
+    "-m", "--build-root", default = None, help = "The build root path."
 )
 parser.add_argument(
     "-H", "--hostdir", default = None, help = "The hostdir path."
@@ -101,7 +101,7 @@ parser.add_argument(
 parser.add_argument(
     "-t", "--temporary", action = "store_const",
     const = True, default = opt_mdirtemp,
-    help = "Use a temporary masterdir to build."
+    help = "Use a temporary build root."
 )
 parser.add_argument(
     "--allow-unsigned", action = "store_const",
@@ -133,7 +133,7 @@ if "build" in global_cfg:
     opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
     opt_ldflags   = bcfg.get("ldflags", fallback = opt_ldflags)
     opt_arch      = bcfg.get("arch", fallback = opt_arch)
-    opt_masterdir = bcfg.get("masterdir", fallback = opt_masterdir)
+    opt_bldroot   = bcfg.get("bldroot", fallback = opt_bldroot)
     opt_hostdir   = bcfg.get("hostdir", fallback = opt_hostdir)
 
 if "signing" in global_cfg:
@@ -164,17 +164,17 @@ if cmdline.skip_if_exists:
 if cmdline.skip_check:
     opt_check = False
 
-if cmdline.masterdir:
-    opt_masterdir = cmdline.masterdir
+if cmdline.build_root:
+    opt_bldroot = cmdline.build_root
 
 if cmdline.hostdir:
     opt_hostdir = cmdline.hostdir
 
 if cmdline.temporary:
-    mdp = pathlib.Path.cwd() / opt_masterdir
-    # the temporary directory should be in the same location as masterdir
-    opt_mdirtemp  = True
-    opt_masterdir = tempfile.mkdtemp(
+    mdp = pathlib.Path.cwd() / opt_bldroot
+    # the temporary directory should be in the same location as build root
+    opt_mdirtemp = True
+    opt_bldroot  = tempfile.mkdtemp(
         prefix = mdp.name + ".", dir = mdp.parent
     )
 
@@ -183,7 +183,7 @@ if cmdline.temporary:
 from cbuild.core import paths
 
 # init paths early, modules rely on it
-paths.init(os.path.dirname(__file__), opt_masterdir, opt_hostdir)
+paths.init(os.path.dirname(__file__), opt_bldroot, opt_hostdir)
 
 from cbuild.util import make
 from cbuild.core import chroot, logger, template, build, profile

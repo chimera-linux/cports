@@ -1,7 +1,7 @@
 *~
 *.o
 __pycache__
-masterdir*
+bldroot*
 hostdir*
 etc/keys
 etc/config.ini

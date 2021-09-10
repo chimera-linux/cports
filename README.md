@@ -57,10 +57,11 @@ necessary as binary tools needed to build various packages.
 ### How it works
 
 The `cbuild` system, similarly to Void's `xbps-src`, builds software in a safe and
-minimal container called the `masterdir`. This container is pretty much a `chroot`
+minimal container, or the build root. This container is pretty much a `chroot`
 style environment (but running unprivileged thanks to `bwrap`) which is used as
 a starting point. Dependencies are installed into this container before any
-software is built.
+software is built. The default directory name is `bldroot`, but this can be
+overridden.
 
 There are two kinds of build dependencies, host and target dependencies. When not
 cross-compiling, they are the same.
@@ -114,12 +115,12 @@ the `bootstrap.sh` script). To explain what is going on, read below.
 
 The bootstrapping process has three stages. First is stage 0, which is built
 on the host system (without any isolation). Your host system is used to build
-a minimal set of packages required to assemble the `masterdir`.
+a minimal set of packages required to assemble the build root.
 
-Once the first stage completes, you should have a `masterdir-stage0` (assembled
+Once the first stage completes, you should have a `bldroot-stage0` (assembled
 container) as well as `hostdir/binpkgs-stage0` (built package repository).
 
-This `masterdir` is enough to build software, but you are not supposed to use it
+This build root is enough to build software, but you are not supposed to use it
 directly since it is largely influenced by the host software and configuration.
 
 If the building fails at any stage, you can just restart it and it will continue
@@ -127,24 +128,24 @@ where it left off. It will not build any things already built.
 
 #### Bootstrap process - stage 1
 
-Once a stage 0 `masterdir` is available, this stage will proceed. It will generate
-a `masterdir-stage1` as well as `hostdir/binpkgs-stage1`.
+Once a stage 0 `bldroot` is available, this stage will proceed. It will generate
+a `bldroot-stage1` as well as `hostdir/binpkgs-stage1`.
 
-This `masterdir` is fairly close to the actual final container, but may still
+This build root is fairly close to the actual final container, but may still
 contain leftovers caused by the toolchain used to build it being "dirty". That
 is why everything needs to be rebuilt once again.
 
 #### Bootstrap process - stage 2
 
-Once a stage 1 `masterdir` is available, this stage is built. It is built in exactly
-the same way as stage 1, except it will create a `masterdir` and its repository
+Once a `bldroot-stage1` is available, this stage is built. It is built in exactly
+the same way as stage 1, except it will create a `bldroot` and its repository
 will be stored in `hostdir/binpkgs`.
 
-After the whole process is done, you will have three `masterdirs`, as well as three
+After the whole process is done, you will have three build roots, as well as three
 repositories. You can discard the first two stages if you want. They are kept around
 for reference.
 
-Keep in mind that the `masterdir` as well as `hostdir` path/name may change
+Keep in mind that the build root as well as `hostdir` path/name may change
 based on the configuration file and command line options you pass. The `-stage0`
 and `-stage1` suffixes are appended universally though.
 
@@ -168,13 +169,13 @@ override this, use the `BOOTSTRAP_STAGE` environment variable.
 
 **NOTE:** You will still need to prepare as usual! That means generating a signing
 key and setting up the configuration file for it. Once the process successfully
-finishes, you wil have a `masterdir` ready and you will no longer need to use the
+finishes, you wil have a build root ready and you will no longer need to use the
 script. Instead, you will simply build packages as normal, as the host environment
 becomes irrelevant.
 
-**NOTE:** You should avoid using absolute paths to `hostdir` and `masterdir` when
-using `bootstrap.sh` since the whole process is contained in an alternative root
-and these absolute paths will not be what you want them to be.
+**NOTE:** You should avoid using absolute paths to `hostdir` and the build root
+when using `bootstrap.sh` since the whole process is contained in an alternative
+root and these absolute paths will not be what you want them to be.
 
 If the process fails during stage 0, you will probably want to fix the problem and
 resume it. To prevent the script from starting from scratch, just set the environment
