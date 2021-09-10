@@ -93,7 +93,7 @@ parser.add_argument(
     "-a", "--arch", help = "Target architecture to build for.", default = None
 )
 parser.add_argument(
-    "-m", "--build-root", default = None, help = "The build root path."
+    "-b", "--build-root", default = None, help = "The build root path."
 )
 parser.add_argument(
     "-H", "--hostdir", default = None, help = "The hostdir path."
