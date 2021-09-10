@@ -181,7 +181,7 @@ class Profile:
 
         # bootstrap
         if not self._triplet:
-            bflags = ["-isystem", paths.masterdir() / "usr/include"]
+            bflags = ["-isystem", paths.bldroot() / "usr/include"]
         elif self.cross:
             bflags = ["--sysroot", self.sysroot]
         else:
@@ -201,7 +201,7 @@ class Profile:
 
         # bootstrap
         if not self._triplet:
-            bflags = ["-isystem", paths.masterdir() / "usr/include"]
+            bflags = ["-isystem", paths.bldroot() / "usr/include"]
         elif self.cross:
             bflags = ["--sysroot", self.sysroot]
         else:
@@ -221,7 +221,7 @@ class Profile:
 
         # bootstrap
         if not self._triplet:
-            bflags = ["-isystem", paths.masterdir() / "usr/include"]
+            bflags = ["-isystem", paths.bldroot() / "usr/include"]
         elif self.cross:
             bflags = ["--sysroot", self.sysroot]
         else:
@@ -240,8 +240,8 @@ class Profile:
         # bootstrap
         if not self._triplet:
             bflags = [
-                "-L" + str(paths.masterdir() / "usr/lib"),
-                "-Wl,-rpath-link=" + str(paths.masterdir() / "usr/lib")
+                "-L" + str(paths.bldroot() / "usr/lib"),
+                "-Wl,-rpath-link=" + str(paths.bldroot() / "usr/lib")
             ]
         elif self.cross:
             bflags = ["--sysroot", self.sysroot]

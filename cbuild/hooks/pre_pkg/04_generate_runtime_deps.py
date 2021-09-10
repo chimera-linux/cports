@@ -53,7 +53,7 @@ def invoke(pkg):
         # otherwise, check if it came from an installed dependency
         bp = pkg.rparent.build_profile
         if bp.cross:
-            broot = paths.masterdir() / bp.sysroot.relative_to("/")
+            broot = paths.bldroot() / bp.sysroot.relative_to("/")
             aarch = bp.arch
         else:
             broot = None

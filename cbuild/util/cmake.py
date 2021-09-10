@@ -24,7 +24,7 @@ SET(CMAKE_SYSTEM_VERSION 1)
 SET(CMAKE_C_COMPILER   {pkg.get_tool("CC")})
 SET(CMAKE_CXX_COMPILER {pkg.get_tool("CXX")})
 
-SET(CMAKE_FIND_ROOT_PATH  "{paths.masterdir() / 'usr'};{paths.masterdir()}")
+SET(CMAKE_FIND_ROOT_PATH  "{paths.bldroot() / 'usr'};{paths.bldroot()}")
 
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)

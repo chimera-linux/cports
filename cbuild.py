@@ -191,7 +191,7 @@ from cbuild.apk import sign, cli as apk_cli
 
 logger.init(not opt_nocolor)
 
-# check masterdir and while at it perform arch checks
+# check container and while at it perform arch checks
 chroot.chroot_check()
 
 # ensure we don't run as root
@@ -207,7 +207,7 @@ if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
 # fix up environment
 os.environ["CBUILD_ARCH"] = chroot.host_cpu()
 os.environ["PATH"] = os.environ["PATH"] + ":" + \
-    str(paths.masterdir() / "usr/bin")
+    str(paths.bldroot() / "usr/bin")
 
 # initialize profiles
 profile.init(global_cfg)
@@ -236,10 +236,10 @@ def bootstrap(tgt):
     if len(cmdline.command) > 1:
         max_stage = int(cmdline.command[1])
 
-    oldmdir = paths.masterdir()
+    oldmdir = paths.bldroot()
 
     paths.set_stage(0)
-    paths.reinit_masterdir(oldmdir, 0)
+    paths.reinit_buildroot(oldmdir, 0)
 
     if not chroot.chroot_check(True):
         logger.get().out("cbuild: bootstrapping stage 0")
@@ -263,7 +263,7 @@ def bootstrap(tgt):
         chroot.initdb()
         chroot.repo_sync()
         build.build(tgt, rp, {}, opt_signkey)
-        shutil.rmtree(paths.masterdir())
+        shutil.rmtree(paths.bldroot())
         chroot.install(chroot.host_cpu())
 
     if max_stage == 0:
@@ -271,16 +271,16 @@ def bootstrap(tgt):
 
     # change binary repo path
     paths.set_stage(1)
-    # set masterdir to stage 1 for chroot check
-    paths.reinit_masterdir(oldmdir, 1)
+    # set build root to stage 1 for chroot check
+    paths.reinit_buildroot(oldmdir, 1)
 
     if not chroot.chroot_check(True):
         logger.get().out("cbuild: bootstrapping stage 1")
-        # use stage 0 masterdir to build, but build into stage 1 repo
-        paths.reinit_masterdir(oldmdir, 0)
+        # use stage 0 build root to build, but build into stage 1 repo
+        paths.reinit_buildroot(oldmdir, 0)
         do_pkg("pkg", "main/base-chroot")
         # go back to stage 1
-        paths.reinit_masterdir(oldmdir, 1)
+        paths.reinit_buildroot(oldmdir, 1)
         chroot.install(chroot.host_cpu())
 
     if max_stage == 1:
@@ -288,16 +288,16 @@ def bootstrap(tgt):
 
     # change binary repo path
     paths.set_stage(2)
-    # set masterdir to stage 2 for chroot check
-    paths.reinit_masterdir(oldmdir, 2)
+    # set build root to stage 2 for chroot check
+    paths.reinit_buildroot(oldmdir, 2)
 
     if not chroot.chroot_check(True):
         logger.get().out("cbuild: bootstrapping stage 2")
-        # use stage 1 masterdir to build, but build into stage 2 repo
-        paths.reinit_masterdir(oldmdir, 1)
+        # use stage 1 build root to build, but build into stage 2 repo
+        paths.reinit_buildroot(oldmdir, 1)
         do_pkg("pkg", "main/base-chroot")
         # go back to stage 2
-        paths.reinit_masterdir(oldmdir, 2)
+        paths.reinit_buildroot(oldmdir, 2)
         chroot.install(chroot.host_cpu())
 
 def bootstrap_update(tgt):
@@ -329,24 +329,24 @@ def do_chroot(tgt):
 
 def do_clean(tgt):
     chroot.remove_autodeps(None)
-    dirp = paths.masterdir() / "builddir"
+    dirp = paths.bldroot() / "builddir"
     if dirp.is_dir():
         shutil.rmtree(dirp)
     elif dirp.exists():
-        logger.get().out_red("cbuild: broken masterdir (builddir invalid)")
+        logger.get().out_red("cbuild: broken container (builddir invalid)")
         raise Exception()
-    dirp = paths.masterdir() / "destdir"
+    dirp = paths.bldroot() / "destdir"
     if dirp.is_dir():
         shutil.rmtree(dirp)
     elif dirp.exists():
-        logger.get().out_red("cbuild: broken masterdir (destdir invalid)")
+        logger.get().out_red("cbuild: broken container (destdir invalid)")
         raise Exception()
 
 def do_zap(tgt):
-    if paths.masterdir().is_dir():
-        shutil.rmtree(paths.masterdir())
-    elif paths.masterdir().exists():
-        logger.get().out_red("cbuild: broken masterdir")
+    if paths.bldroot().is_dir():
+        shutil.rmtree(paths.bldroot())
+    elif paths.bldroot().exists():
+        logger.get().out_red("cbuild: broken build container")
         raise Exception()
 
 def do_remove_autodeps(tgt):
@@ -414,4 +414,4 @@ except:
     sys.exit(1)
 finally:
     if opt_mdirtemp:
-        shutil.rmtree(paths.masterdir())
+        shutil.rmtree(paths.bldroot())

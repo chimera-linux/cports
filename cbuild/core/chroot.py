@@ -36,9 +36,9 @@ def chroot_check(force = False):
 
     _chroot_checked = True
 
-    if (paths.masterdir() / ".cbuild_chroot_init").is_file():
+    if (paths.bldroot() / ".cbuild_chroot_init").is_file():
         _chroot_ready = True
-        cpun = (paths.masterdir() / ".cbuild_chroot_init").read_text().strip()
+        cpun = (paths.bldroot() / ".cbuild_chroot_init").read_text().strip()
     else:
         _chroot_ready = False
         cpun = os.uname().machine
@@ -71,10 +71,10 @@ def _remove_ro(f, path, _):
     f(path)
 
 def _init():
-    xdir = paths.masterdir() / "etc" / "apk"
+    xdir = paths.bldroot() / "etc" / "apk"
     xdir.mkdir(parents = True, exist_ok = True)
 
-    shf = open(paths.masterdir() / "bin" / "cbuild-shell", "w")
+    shf = open(paths.bldroot() / "bin" / "cbuild-shell", "w")
     shf.write(f"""#!/bin/sh
 
 PATH=/usr/bin
@@ -86,23 +86,23 @@ exec env -i -- SHELL=/bin/sh PATH="$PATH" \
 """)
     shf.close()
 
-    (paths.masterdir() / "bin" / "cbuild-shell").chmod(0o755)
+    (paths.bldroot() / "bin" / "cbuild-shell").chmod(0o755)
 
-    shutil.copy("/etc/resolv.conf", paths.masterdir() / "etc")
+    shutil.copy("/etc/resolv.conf", paths.bldroot() / "etc")
 
 def _prepare(arch, stage):
-    sfpath = paths.masterdir() / ".cbuild_chroot_init"
+    sfpath = paths.bldroot() / ".cbuild_chroot_init"
     if sfpath.is_file():
         return
-    if not (paths.masterdir() / "usr" / "bin" / "sh").is_file():
+    if not (paths.bldroot() / "usr" / "bin" / "sh").is_file():
         logger.get().out_red("cbuild: bootstrap not installed, can't continue")
         raise Exception()
 
     if pathlib.Path("/usr/share/zoneinfo/UTC").is_file():
-        zpath = paths.masterdir() / "usr" / "share" / "zoneinfo"
+        zpath = paths.bldroot() / "usr" / "share" / "zoneinfo"
         zpath.mkdir(parents = True, exist_ok = True)
         shutil.copy("/usr/share/zoneinfo/UTC", zpath)
-        (paths.masterdir() / "etc" / "localtime").symlink_to(
+        (paths.bldroot() / "etc" / "localtime").symlink_to(
             "../usr/share/zoneinfo/UTC"
         )
     else:
@@ -110,13 +110,13 @@ def _prepare(arch, stage):
             "cbuild: no local timezone configuration file created"
         )
 
-    with open(paths.masterdir() / "etc" / "passwd", "a") as pf:
+    with open(paths.bldroot() / "etc" / "passwd", "a") as pf:
         username = getpass.getuser()
         gid = os.getgid()
         uid = os.getuid()
         pf.write(f"{username}:x:{uid}:{gid}:{username} user:/tmp:/bin/cbuild-shell\n")
 
-    with open(paths.masterdir() / "etc" / "group", "a") as pf:
+    with open(paths.bldroot() / "etc" / "group", "a") as pf:
         pf.write(f"{username}:x:{gid}:\n")
 
     with open(sfpath, "w") as sf:
@@ -145,10 +145,10 @@ def repo_sync(genrepos = False):
                 relpath = repo.lstrip("/").strip()
                 _crepos.append(relpath)
 
-    setup_keys(paths.masterdir())
+    setup_keys(paths.bldroot())
 
     # generate a repositories file for chroots
-    rfile = paths.masterdir() / "etc/apk/repositories"
+    rfile = paths.bldroot() / "etc/apk/repositories"
     # erase first in any case
     rfile.unlink(missing_ok = True)
     # generate only if needed (for explicit chroots)
@@ -160,7 +160,7 @@ def repo_sync(genrepos = False):
                         rfh.write(f"/binpkgs/{rd.name}/{cr}\n")
 
     # do not refresh if chroot is not initialized
-    if not (paths.masterdir() / ".cbuild_chroot_init").is_file():
+    if not (paths.bldroot() / ".cbuild_chroot_init").is_file():
         return
 
     if apki.call_chroot("update", [], "main").returncode != 0:
@@ -171,7 +171,7 @@ def reconfigure():
     if not chroot_check():
         return
 
-    statefile = paths.masterdir() / ".cbuild_chroot_configured"
+    statefile = paths.bldroot() / ".cbuild_chroot_configured"
 
     if statefile.is_file():
         return
@@ -187,7 +187,7 @@ def reconfigure():
 def initdb(path = None):
     # we init the database ourselves
     if not path:
-        path = paths.masterdir()
+        path = paths.bldroot()
 
     (path / "tmp").mkdir(parents = True, exist_ok = True)
     (path / "dev").mkdir(parents = True, exist_ok = True)
@@ -237,7 +237,7 @@ def install(arch = None, stage = 2):
 
 def remove_autodeps(bootstrapping):
     if bootstrapping == None:
-        bootstrapping = not (paths.masterdir() / ".cbuild_chroot_init").is_file()
+        bootstrapping = not (paths.bldroot() / ".cbuild_chroot_init").is_file()
 
     log = logger.get()
 
@@ -289,8 +289,8 @@ def update(do_clean = True):
 
     reconfigure()
 
-    logger.get().out("cbuild: updating software in %s masterdir..." \
-        % str(paths.masterdir()))
+    logger.get().out("cbuild: updating software in %s container..." \
+        % str(paths.bldroot()))
 
     remove_autodeps(False)
 
@@ -366,9 +366,9 @@ def enter(cmd, args = [], capture_out = False, check = False,
 
     bcmd = [
         "bwrap",
-        root_bind, paths.masterdir(), "/",
-        build_bind, paths.masterdir() / "builddir", "/builddir",
-        dest_bind, paths.masterdir() / "destdir", "/destdir",
+        root_bind, paths.bldroot(), "/",
+        build_bind, paths.bldroot() / "builddir", "/builddir",
+        dest_bind, paths.bldroot() / "destdir", "/destdir",
         "--ro-bind", paths.hostdir() / "sources", "/sources",
         "--dev", "/dev",
         "--proc", "/proc",

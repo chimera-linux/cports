@@ -204,7 +204,7 @@ class Package:
 
         self.rparent.cwd = new_path
         self.rparent.chroot_cwd = pathlib.Path("/") / new_path.relative_to(
-            paths.masterdir()
+            paths.bldroot()
         )
 
         try:
@@ -978,15 +978,15 @@ def from_module(m, ret):
     # paths that can be used by template methods
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
-    ret.builddir = paths.masterdir() / "builddir"
+    ret.builddir = paths.bldroot() / "builddir"
     ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
 
     if ret.build_profile.cross:
-        ret.destdir_base = paths.masterdir() / "destdir" / \
+        ret.destdir_base = paths.bldroot() / "destdir" / \
             ret.build_profile.triplet
     else:
-        ret.destdir_base = paths.masterdir() / "destdir"
+        ret.destdir_base = paths.bldroot() / "destdir"
 
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
 

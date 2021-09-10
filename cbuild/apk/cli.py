@@ -41,7 +41,7 @@ def call(
     allow_untrusted = False
 ):
     cmd = [
-        "apk", subcmd, "--root", root if root else paths.masterdir(),
+        "apk", subcmd, "--root", root if root else paths.bldroot(),
         "--repositories-file", "/dev/null",
     ]
     if arch:

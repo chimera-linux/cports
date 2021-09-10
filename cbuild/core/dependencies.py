@@ -72,7 +72,7 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
     sroot = cross and pkg.build_profile.cross
 
     if pkg.bootstrapping or sroot:
-        rootp = paths.masterdir()
+        rootp = paths.bldroot()
 
         if sroot:
             # pretend we're another arch
@@ -105,10 +105,10 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
 
 def _is_installed(pkgn, pkg = None):
     if pkg and pkg.build_profile.cross:
-        sysp = paths.masterdir() / pkg.build_profile.sysroot.relative_to("/")
+        sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
         aarch = pkg.build_profile.arch
     else:
-        sysp = paths.masterdir()
+        sysp = paths.bldroot()
         aarch = None
 
     return apki.call(
@@ -118,10 +118,10 @@ def _is_installed(pkgn, pkg = None):
 
 def _is_available(pkgn, pattern, pkg, host = False):
     if not host and pkg.build_profile.cross:
-        sysp = paths.masterdir() / pkg.build_profile.sysroot.relative_to("/")
+        sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
         aarch = pkg.build_profile.arch
     else:
-        sysp = paths.masterdir()
+        sysp = paths.bldroot()
         aarch = None
 
     aout = apki.call(
@@ -235,7 +235,7 @@ def init_sysroot(pkg):
     if not pkg.build_profile.cross:
         return
 
-    sysp = paths.masterdir() / pkg.build_profile.sysroot.relative_to("/")
+    sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
 
     if not (sysp / "etc/apk/world").exists():
         pkg.log(f"setting up sysroot for {pkg.build_profile.arch}...")
@@ -248,7 +248,7 @@ def remove_autocrossdeps(pkg):
     if not pkg.build_profile.cross:
         return
 
-    sysp = paths.masterdir() / pkg.build_profile.sysroot.relative_to("/")
+    sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
     archn = pkg.build_profile.arch
 
     if apki.call(

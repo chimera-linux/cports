@@ -4,6 +4,6 @@ def invoke(pkg):
     if not pkg.bootstrapping:
         return
 
-    usrdir = paths.masterdir() / "usr"
+    usrdir = paths.bldroot() / "usr"
     pkg.env["PKG_CONFIG_PATH"] = str(usrdir / "lib/pkgconfig") + ":" \
                                + str(usrdir / "share/pkgconfig")
