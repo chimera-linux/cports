@@ -142,8 +142,7 @@ def repo_sync(genrepos = False):
     for f in (paths.distdir() / "etc/apk/repositories.d").glob("*.conf"):
         with open(f) as repof:
             for repo in repof:
-                relpath = repo.lstrip("/").strip()
-                _crepos.append(relpath)
+                _crepos.append(repo.strip())
 
     setup_keys(paths.bldroot())
 

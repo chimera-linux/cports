@@ -6,6 +6,12 @@ import os
 import pathlib
 import subprocess
 
+_use_net = True
+
+def set_network(use_net):
+    global _use_net
+    _use_net = use_net
+
 def _collect_repos(mrepo, intree, arch):
     from cbuild.core import chroot
 
@@ -23,6 +29,13 @@ def _collect_repos(mrepo, intree, arch):
         arch = chroot.host_cpu()
 
     for r in chroot.get_confrepos():
+        if not r.startswith("/"):
+            # should be a remote repository, skip outright if we
+            # know that remote repos will not be used during this run
+            if _use_net:
+                ret.append(r)
+            continue
+        r = r.lstrip("/")
         for cr in srepos:
             rpath = paths.repository() / cr / r
             if not (rpath / arch / "APKINDEX.tar.gz").is_file():
@@ -46,6 +59,8 @@ def call(
     ]
     if arch:
         cmd += ["--arch", arch]
+    if not _use_net:
+        cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
 
@@ -63,6 +78,8 @@ def call_chroot(
     cmd = [subcmd, "--repositories-file", "/dev/null"]
     if arch:
         cmd += ["--arch", arch]
+    if not _use_net:
+        cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
 

@@ -52,6 +52,7 @@ opt_unsigned  = False
 opt_allowroot = False
 opt_force     = False
 opt_mdirtemp  = False
+opt_nonet     = False
 opt_skipdeps  = False
 opt_keeptemp  = False
 opt_bldroot   = "bldroot"
@@ -104,6 +105,11 @@ parser.add_argument(
     "-t", "--temporary", action = "store_const",
     const = True, default = opt_mdirtemp,
     help = "Use a temporary build root."
+)
+parser.add_argument(
+    "-N", "--no-remote", action = "store_const",
+    const = True, default = opt_nonet,
+    help = "Do not ever use remote repositories."
 )
 parser.add_argument(
     "-I", "--skip-dependencies", action = "store_const",
@@ -182,6 +188,9 @@ if cmdline.build_root:
 if cmdline.hostdir:
     opt_hostdir = cmdline.hostdir
 
+if cmdline.no_remote:
+    opt_nonet = True
+
 if cmdline.skip_dependencies:
     opt_skipdeps = True
 
@@ -239,6 +248,9 @@ if opt_arch:
             f"cbuild: unknown target architecture '{opt_arch}'"
         )
         sys.exit(1)
+
+# let apk know if we're using network
+apk_cli.set_network(not opt_nonet)
 
 def binary_bootstrap(tgt):
     paths.prepare()
