@@ -53,6 +53,7 @@ opt_allowroot = False
 opt_force     = False
 opt_mdirtemp  = False
 opt_skipdeps  = False
+opt_keeptemp  = False
 opt_bldroot   = "bldroot"
 opt_hostdir   = "hostdir"
 
@@ -108,6 +109,11 @@ parser.add_argument(
     "-I", "--skip-dependencies", action = "store_const",
     const = True, default = opt_skipdeps,
     help = "Skip installing (and removing) dependencies."
+)
+parser.add_argument(
+    "-K", "--keep-temporary", action = "store_const",
+    const = True, default = opt_keeptemp,
+    help = "Keep temporary files and build dependencies after build."
 )
 parser.add_argument(
     "--allow-unsigned", action = "store_const",
@@ -186,6 +192,9 @@ if cmdline.temporary:
 
 if cmdline.skip_dependencies:
     opt_skipdeps = True
+
+if cmdline.keep_temporary:
+    opt_keeptemp = True
 
 # set global config bits as needed
 
@@ -387,7 +396,10 @@ def do_pkg(tgt, pkgn = None):
     chroot.repo_sync()
     if not opt_skipdeps:
         chroot.update(do_clean = False)
-    build.build(tgt, rp, {}, opt_signkey, skip_deps = opt_skipdeps)
+    build.build(
+        tgt, rp, {}, opt_signkey, skip_deps = opt_skipdeps,
+        keep_temp = opt_keeptemp
+    )
 
 def do_bad(tgt):
     logger.get().out_red("cbuild: invalid target " + tgt)

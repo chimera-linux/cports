@@ -7,7 +7,10 @@ from cbuild.apk import cli as apk
 import os
 import pathlib
 
-def build(step, pkg, depmap, signkey, chost = False, skip_deps = False):
+def build(
+    step, pkg, depmap, signkey, chost = False,
+    skip_deps = False, keep_temp = False
+):
     if chost:
         depn = "host-" + pkg.pkgname
     else:
@@ -137,10 +140,11 @@ def build(step, pkg, depmap, signkey, chost = False, skip_deps = False):
     pkg.signing_key = None
 
     # cleanup
-    chroot.remove_autodeps(pkg.bootstrapping)
-    dependencies.remove_autocrossdeps(pkg)
-    pkgm.remove_pkg_wrksrc(pkg)
-    pkgm.remove_pkg(pkg)
-    pkgm.remove_pkg_statedir(pkg)
+    if not keep_temp:
+        chroot.remove_autodeps(pkg.bootstrapping)
+        dependencies.remove_autocrossdeps(pkg)
+        pkgm.remove_pkg_wrksrc(pkg)
+        pkgm.remove_pkg(pkg)
+        pkgm.remove_pkg_statedir(pkg)
 
     del depmap[depn]
