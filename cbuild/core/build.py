@@ -7,7 +7,7 @@ from cbuild.apk import cli as apk
 import os
 import pathlib
 
-def build(step, pkg, depmap, signkey, chost = False):
+def build(step, pkg, depmap, signkey, chost = False, skip_deps = False):
     if chost:
         depn = "host-" + pkg.pkgname
     else:
@@ -21,17 +21,18 @@ def build(step, pkg, depmap, signkey, chost = False):
     pkg.install_done = False
     pkg.current_phase = "setup"
 
-    # doesn't do anything for native builds
-    dependencies.install_toolchain(pkg, signkey)
+    if not skip_deps:
+        # doesn't do anything for native builds
+        dependencies.install_toolchain(pkg, signkey)
 
-    # we treat the sysroot as a chimera root
-    dependencies.init_sysroot(pkg)
+        # we treat the sysroot as a chimera root
+        dependencies.init_sysroot(pkg)
 
-    # remove automatic crossdeps from last time
-    dependencies.remove_autocrossdeps(pkg)
+        # remove automatic crossdeps from last time
+        dependencies.remove_autocrossdeps(pkg)
 
-    # check and install dependencies
-    autodep = dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
+        # check and install dependencies
+        dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
 
     oldcwd = pkg.cwd
     oldchd = pkg.chroot_cwd

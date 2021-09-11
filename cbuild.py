@@ -52,6 +52,7 @@ opt_unsigned  = False
 opt_allowroot = False
 opt_force     = False
 opt_mdirtemp  = False
+opt_skipdeps  = False
 opt_bldroot   = "bldroot"
 opt_hostdir   = "hostdir"
 
@@ -102,6 +103,11 @@ parser.add_argument(
     "-t", "--temporary", action = "store_const",
     const = True, default = opt_mdirtemp,
     help = "Use a temporary build root."
+)
+parser.add_argument(
+    "-I", "--skip-dependencies", action = "store_const",
+    const = True, default = opt_skipdeps,
+    help = "Skip installing (and removing) dependencies."
 )
 parser.add_argument(
     "--allow-unsigned", action = "store_const",
@@ -177,6 +183,9 @@ if cmdline.temporary:
     opt_bldroot  = tempfile.mkdtemp(
         prefix = mdp.name + ".", dir = mdp.parent
     )
+
+if cmdline.skip_dependencies:
+    opt_skipdeps = True
 
 # set global config bits as needed
 
@@ -376,9 +385,9 @@ def do_pkg(tgt, pkgn = None):
     # don't remove builddir/destdir
     paths.prepare()
     chroot.repo_sync()
-    chroot.update(do_clean = False)
-    chroot.remove_autodeps(False)
-    build.build(tgt, rp, {}, opt_signkey)
+    if not opt_skipdeps:
+        chroot.update(do_clean = False)
+    build.build(tgt, rp, {}, opt_signkey, skip_deps = opt_skipdeps)
 
 def do_bad(tgt):
     logger.get().out_red("cbuild: invalid target " + tgt)
