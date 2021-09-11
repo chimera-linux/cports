@@ -182,6 +182,12 @@ if cmdline.build_root:
 if cmdline.hostdir:
     opt_hostdir = cmdline.hostdir
 
+if cmdline.skip_dependencies:
+    opt_skipdeps = True
+
+if cmdline.keep_temporary:
+    opt_keeptemp = True
+
 if cmdline.temporary:
     mdp = pathlib.Path.cwd() / opt_bldroot
     # the temporary directory should be in the same location as build root
@@ -189,12 +195,6 @@ if cmdline.temporary:
     opt_bldroot  = tempfile.mkdtemp(
         prefix = mdp.name + ".", dir = mdp.parent
     )
-
-if cmdline.skip_dependencies:
-    opt_skipdeps = True
-
-if cmdline.keep_temporary:
-    opt_keeptemp = True
 
 # set global config bits as needed
 
@@ -434,5 +434,5 @@ except:
     traceback.print_exc(file = logger.get().estream)
     sys.exit(1)
 finally:
-    if opt_mdirtemp:
+    if opt_mdirtemp and not opt_keeptemp:
         shutil.rmtree(paths.bldroot())
