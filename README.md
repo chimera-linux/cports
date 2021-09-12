@@ -66,8 +66,9 @@ overridden.
 There are two kinds of build dependencies, host and target dependencies. When not
 cross-compiling, they are the same.
 
-Packages are stored in a local repository within the `hostdir`. The `hostdir` also
-contains source distfiles and caches.
+Packages are then stored in a local repository (by default `packages`). The system
+also stores source distfiles and caches in their own directories as needed. You
+can control paths to all of the directories.
 
 The system automatically signs your packages, if a signing key is provided.
 
@@ -118,7 +119,7 @@ on the host system (without any isolation). Your host system is used to build
 a minimal set of packages required to assemble the build root.
 
 Once the first stage completes, you should have a `bldroot-stage0` (assembled
-container) as well as `hostdir/binpkgs-stage0` (built package repository).
+container) as well as `packages-stage0` (built package repository).
 
 This build root is enough to build software, but you are not supposed to use it
 directly since it is largely influenced by the host software and configuration.
@@ -129,7 +130,7 @@ where it left off. It will not build any things already built.
 #### Bootstrap process - stage 1
 
 Once a stage 0 `bldroot` is available, this stage will proceed. It will generate
-a `bldroot-stage1` as well as `hostdir/binpkgs-stage1`.
+a `bldroot-stage1` as well as `packages-stage1`.
 
 This build root is fairly close to the actual final container, but may still
 contain leftovers caused by the toolchain used to build it being "dirty". That
@@ -139,15 +140,15 @@ is why everything needs to be rebuilt once again.
 
 Once a `bldroot-stage1` is available, this stage is built. It is built in exactly
 the same way as stage 1, except it will create a `bldroot` and its repository
-will be stored in `hostdir/binpkgs`.
+will be stored in `packages` by default.
 
 After the whole process is done, you will have three build roots, as well as three
 repositories. You can discard the first two stages if you want. They are kept around
 for reference.
 
-Keep in mind that the build root as well as `hostdir` path/name may change
-based on the configuration file and command line options you pass. The `-stage0`
-and `-stage1` suffixes are appended universally though.
+Keep in mind that the build root and other paths and names may change based on
+the configuration file and command line options you pass. The `-stage0` as well
+as `-stage1` suffixes are appended universally though.
 
 #### Bootstrapping on an incompatible host
 
@@ -173,9 +174,9 @@ finishes, you wil have a build root ready and you will no longer need to use the
 script. Instead, you will simply build packages as normal, as the host environment
 becomes irrelevant.
 
-**NOTE:** You should avoid using absolute paths to `hostdir` and the build root
-when using `bootstrap.sh` since the whole process is contained in an alternative
-root and these absolute paths will not be what you want them to be.
+**NOTE:** You should avoid using absolute paths to various artifact directories and
+the build root when using `bootstrap.sh` since the whole process is contained in an
+alternative root and these absolute paths will not be what you want them to be.
 
 If the process fails during stage 0, you will probably want to fix the problem and
 resume it. To prevent the script from starting from scratch, just set the environment

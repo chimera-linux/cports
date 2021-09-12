@@ -4,16 +4,16 @@ import pathlib
 
 _stage = 2
 
-def init(distdir, rootdir, adir):
-    global _ddir, _bdir, _adir, _srcs, _cbdir, _ccdir
+def init(distdir, rootdir, rdir, sdir, cdir):
+    global _ddir, _bdir, _rdir, _srcs, _cbdir, _ccdir
 
     cwd = pathlib.Path.cwd()
     _ddir = pathlib.Path(distdir)
     _bdir = (cwd / rootdir).resolve()
-    _adir = (cwd / adir).resolve()
+    _rdir = (cwd / rdir).resolve()
+    _srcs = (cwd / sdir).resolve()
+    _ccdir = (cwd / cdir).resolve()
 
-    _srcs = _adir / "sources"
-    _ccdir = _adir / "ccache"
     _cbdir = _ddir / "cbuild"
 
 def reinit_buildroot(rootdir, stage):
@@ -36,9 +36,9 @@ def bldroot():
 
 def repository():
     if _stage == 2:
-        return _adir / "binpkgs"
+        return _rdir
     else:
-        return _adir / f"binpkgs-stage{_stage}"
+        return _rdir.with_name(f"{_rdir.name}-stage{_stage}")
 
 def sources():
     return _srcs
@@ -51,7 +51,7 @@ def cbuild():
 
 def prepare():
     sources().mkdir(parents = True, exist_ok = True)
-    ccache().mkdir(exist_ok = True)
+    ccache().mkdir(parents = True, exist_ok = True)
     (bldroot() / "builddir").mkdir(parents = True, exist_ok = True)
     (bldroot() / "destdir").mkdir(parents = True, exist_ok = True)
     repository().mkdir(parents = True, exist_ok = True)

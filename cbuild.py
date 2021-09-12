@@ -56,7 +56,9 @@ opt_nonet     = False
 opt_skipdeps  = False
 opt_keeptemp  = False
 opt_bldroot   = "bldroot"
-opt_hostdir   = "hostdir"
+opt_pkgpath   = "packages"
+opt_srcpath   = "sources"
+opt_cchpath   = "ccache"
 
 # parse command line arguments
 
@@ -99,7 +101,14 @@ parser.add_argument(
     "-b", "--build-root", default = None, help = "The build root path."
 )
 parser.add_argument(
-    "-H", "--hostdir", default = None, help = "The hostdir path."
+    "-r", "--repository-path", default = None, help = "Local repository path."
+)
+parser.add_argument(
+    "-s", "--sources-path", default = None,
+    help = "Source distfiles storage path."
+)
+parser.add_argument(
+    "--ccache-path", default = None, help = "Compiler cache storage path."
 )
 parser.add_argument(
     "-t", "--temporary", action = "store_const",
@@ -152,7 +161,9 @@ if "build" in global_cfg:
     opt_ldflags   = bcfg.get("ldflags", fallback = opt_ldflags)
     opt_arch      = bcfg.get("arch", fallback = opt_arch)
     opt_bldroot   = bcfg.get("bldroot", fallback = opt_bldroot)
-    opt_hostdir   = bcfg.get("hostdir", fallback = opt_hostdir)
+    opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
+    opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
+    opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
 
 if "signing" in global_cfg:
     signcfg = global_cfg["signing"]
@@ -185,8 +196,14 @@ if cmdline.skip_check:
 if cmdline.build_root:
     opt_bldroot = cmdline.build_root
 
-if cmdline.hostdir:
-    opt_hostdir = cmdline.hostdir
+if cmdline.repository_path:
+    opt_pkgpath = cmdline.repository_path
+
+if cmdline.sources_path:
+    opt_srcpath = cmdline.sources_path
+
+if cmdline.ccache_path:
+    opt_cchpath = cmdline.ccache_path
 
 if cmdline.no_remote:
     opt_nonet = True
@@ -210,7 +227,10 @@ if cmdline.temporary:
 from cbuild.core import paths
 
 # init paths early, modules rely on it
-paths.init(os.path.dirname(__file__), opt_bldroot, opt_hostdir)
+paths.init(
+    os.path.dirname(__file__), opt_bldroot,
+    opt_pkgpath, opt_srcpath, opt_cchpath
+)
 
 from cbuild.util import make
 from cbuild.core import chroot, logger, template, build, profile

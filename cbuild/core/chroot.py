@@ -155,7 +155,8 @@ def repo_sync(genrepos = False):
         with rfile.open("w") as rfh:
             for rd in paths.repository().iterdir():
                 for cr in _crepos:
-                    idxp = rd / cr.lstrip("/") / host_cpu() / "APKINDEX.tar.gz"
+                    cr = cr.lstrip("/")
+                    idxp = rd / cr / host_cpu() / "APKINDEX.tar.gz"
                     if idxp.is_file():
                         rfh.write(f"/binpkgs/{rd.name}/{cr}\n")
 

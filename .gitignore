@@ -2,7 +2,9 @@
 *.o
 __pycache__
 bldroot*
-hostdir*
+ccache*
+sources*
+packages*
 etc/keys
 etc/config.ini
 void-*.tar.xz
