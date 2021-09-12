@@ -369,7 +369,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         root_bind, paths.bldroot(), "/",
         build_bind, paths.bldroot() / "builddir", "/builddir",
         dest_bind, paths.bldroot() / "destdir", "/destdir",
-        "--ro-bind", paths.hostdir() / "sources", "/sources",
+        "--ro-bind", paths.sources(), "/sources",
         "--dev", "/dev",
         "--proc", "/proc",
         "--tmpfs", "/tmp",
@@ -379,7 +379,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         bcmd += ["--ro-bind", paths.repository(), "/binpkgs"]
 
     if mount_ccache:
-        bcmd += ["--bind", paths.hostdir() / "ccache", "/ccache"]
+        bcmd += ["--bind", paths.ccache(), "/ccache"]
 
     if pretend_uid != None:
         bcmd += ["--uid", str(pretend_uid)]
