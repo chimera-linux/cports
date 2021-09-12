@@ -110,7 +110,7 @@ def invoke(pkg):
         if not exf:
             pkg.error(f"cannot guess '{fname}' extract suffix")
         if pkg.bootstrapping:
-            srcs_path = paths.hostdir() / "sources"
+            srcs_path = paths.sources()
         else:
             srcs_path = pathlib.Path("/sources")
         exf(
