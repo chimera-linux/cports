@@ -140,10 +140,13 @@ def summarize_repo(repopath, olist, quiet = False):
 
     return obsolete
 
-def prune(repopath):
+def prune(repopath, arch = None):
     from cbuild.core import chroot
 
-    repopath = repopath / chroot.target_cpu()
+    if not arch:
+        arch = chroot.target_cpu()
+
+    repopath = repopath / arch
 
     if not repopath.is_dir():
         return

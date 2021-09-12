@@ -387,12 +387,18 @@ def do_prune_obsolete(tgt):
     # ensure we know what cpu arch we are dealing with
     chroot.chroot_check()
 
-    with open(paths.hostdir() / "repositories") as repof:
-        for ln in repof:
-            ln = ln.strip()
-            if ln.startswith("#"):
-                continue
-            apk_cli.prune(pathlib.Path(ln))
+    reposd = paths.repository()
+    reposet = {}
+
+    for idx in reposd.rglob("APKINDEX.tar.gz"):
+        repop = idx.parent.parent
+        if not repop.is_relative_to(reposd):
+            continue
+        # only prune once
+        if str(repop) in reposet:
+            continue
+        reposet[str(repop)] = True
+        apk_cli.prune(repop, opt_arch)
 
 def do_pkg(tgt, pkgn = None):
     if not pkgn:
