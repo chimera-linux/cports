@@ -74,8 +74,8 @@ Notably the following options must be enabled:
 * `CONFIG_NET_NS=y`
 * `CONFIG_CGROUPS=y`
 
-You can check for those with something like `zcat /proc/config.gz` or
-alternatively `cat /boot/config-$(uname -r)`.
+You can check for those with something like `zgrep /proc/config.gz` or
+alternatively `grep /boot/config-$(uname -r)`.
 
 Most distribution kernels should have the options enabled by default.
 
