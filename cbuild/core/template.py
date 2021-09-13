@@ -1181,7 +1181,6 @@ def read_pkg(
     ret.force_mode = force_mode
     ret.bootstrapping = not pkgarch
     ret.skip_if_exist = skip_if_exist
-    ret.run_check = run_check
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs
@@ -1197,6 +1196,8 @@ def read_pkg(
         ret.cross_build = pkgarch
     else:
         ret.cross_build = None
+
+    ret.run_check = run_check and not ret.cross_build
 
     chroot.set_target(ret.build_profile.arch)
 
