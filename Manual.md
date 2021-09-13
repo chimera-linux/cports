@@ -9,22 +9,22 @@ you should not rely on them or expect them to be stable.
 *Table of Contents*
 
 * [Introduction](#introduction)
-  * [Categories](#categories)
-  * [Quality Requirements](#quality_requirements)
-  * [Build Phases](#phases)
-  * [Package Naming](#naming)
-  * [Filesystem Structure](#filesystem_structure)
-  * [Template Structure](#template_structure)
-    * [Template Variables](#template_variables)
-    * [Template Functions](#template_functions)
-    * [Build Styles](#build_styles)
-    * [Subpackages](#subpackages)
-    * [Template Options](#template_options)
-    * [Hardening Options](#hardening_options)
-    * [Tools](#tools)
-  * [Build Profiles](#build_profiles)
-  * [Build Environment](#build_environment)
-  * [Hooks and Invocation](#hooks)
+* [Categories](#categories)
+* [Quality Requirements](#quality_requirements)
+* [Build Phases](#phases)
+* [Package Naming](#naming)
+* [Filesystem Structure](#filesystem_structure)
+* [Template Structure](#template_structure)
+  * [Template Variables](#template_variables)
+  * [Template Functions](#template_functions)
+  * [Build Styles](#build_styles)
+  * [Subpackages](#subpackages)
+  * [Template Options](#template_options)
+  * [Hardening Options](#hardening_options)
+  * [Tools](#tools)
+* [Build Profiles](#build_profiles)
+* [Build Environment](#build_environment)
+* [Hooks and Invocation](#hooks)
 * [Template API](#template_api)
   * [Builtins](#api_builtins)
   * [Handle API](#api_handle)
@@ -86,7 +86,7 @@ $ ./cbuild.py pkg main/foo
 The result will be a local repository containing the binary packages.
 
 <a id="categories"></a>
-### Categories
+## Categories
 
 The Chimera packaging collection provides four categories in which templates
 can go. These currently are:
@@ -124,7 +124,7 @@ template to `contrib` (or sometimes `non-free`). Software in this category
 does not have binary packages shipped and users are on their own testing it.
 
 <a id="quality_requirements"></a>
-### Quality Requirements
+## Quality Requirements
 
 In order to be included in `experimental`, there are few requirements. The
 software has to provide something of usefulness to the users and must not
@@ -150,7 +150,7 @@ latest stable release is very old and provides worse user experience) but
 not for `main`.
 
 <a id="phases"></a>
-### Build Phases
+## Build Phases
 
 Building a package consists of several phases. All phases other after `setup`
 until and including `install`  can have template specified behavior. The build
@@ -221,7 +221,7 @@ phase (from `fetch` to `pkg`). All phases leading up to the specified
 phase are run first, unless already ran.
 
 <a id="naming"></a>
-### Package Naming
+## Package Naming
 
 All packages should only use lowercase characters that are in the ASCII,
 never mixed case, regardless of what the software is called.
@@ -260,7 +260,7 @@ suffix, e.g. `foo-python`. However, language modules that are the primary
 package should put that in the prefix, e.g. `python-foo`.
 
 <a id="filesystem_structure"></a>
-### Filesystem Structure
+## Filesystem Structure
 
 Programs meant to be executed directly by the user always go in `/usr/bin`.
 The `/usr/sbin`, `/bin` and `/sbin` paths are just symbolic links to the
@@ -290,7 +290,7 @@ simplified filesystem layout (the `usr` directory with the usual files
 and symlinks, and the `bin`, `lib` etc symlinks at top level).
 
 <a id="template_structure"></a>
-### Template Structure
+## Template Structure
 
 A template consists of **variables** and **functions**. A simple template
 may only consist of variables, while those that need to define some
@@ -300,7 +300,7 @@ The template follows the standard Python syntax. Variables are assigned
 like `foo = value`. Functions are defined like `def function(): ...`.
 
 <a id="template_variables"></a>
-#### Template Variables
+### Template Variables
 
 In general, changes made to toplevel variables from inside functions are
 not respected as variables are read and stored before the functions are
@@ -444,7 +444,7 @@ Keep in mind that default values may be overridden by build styles.
   `{pkgname}-{version}`.
 
 <a id="template_functions"></a>
-#### Template Functions
+### Template Functions
 
 The other thing template files can specify is functions. Functions define
 template logic; they are here for everything that cannot be done in a purely
@@ -517,7 +517,7 @@ Also keep in mind that the order of execution also interacts with hooks.
 See the section on hooks for more information.
 
 <a id="build_styles"></a>
-#### Build Styles
+### Build Styles
 
 Build styles are a way to simplify the template by inserting pre-defined
 logic with a single line.
@@ -568,7 +568,7 @@ where that is sufficient.
 
 There are currently a few build styles available.
 
-##### cmake
+#### cmake
 
 You can generally use this for CMake-using projects.
 
@@ -590,7 +590,7 @@ for the template, with `build` `wrksrc`.
 
 Implemented around `cbuild.util.cmake`.
 
-##### configure
+#### configure
 
 A simple style that simply runs `self.configure_script` within `self.chroot_cwd`
 with `self.configure_args` for `do_configure` and uses a simple `Make` from
@@ -606,7 +606,7 @@ configure scripts. For `autotools` and `autotools`-compatible systems, use
 Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
 for the template, with no other changes.
 
-##### gnu_configure
+#### gnu_configure
 
 A more comprehensive `build_style`, written around `cbuild.util.gnu_configure`.
 
@@ -622,7 +622,7 @@ for the template, with `build` `wrksrc`, and `env` retrieved using the
 All of this means that `gnu_configure` can implicitly deal with cross-compiling
 and other things, while `configure` can't.
 
-##### gnu_makefile
+#### gnu_makefile
 
 A simple wrapper around `cbuild.util.make`.
 
@@ -643,7 +643,7 @@ The `install` target is always called with `STRIP=true` and `PREFIX=/usr`.
 Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
 for the template, with no other changes.
 
-##### meson
+#### meson
 
 You can use this for Meson-using projects.
 
@@ -665,7 +665,7 @@ for the template, with `build` `wrksrc`.
 
 Implemented around `cbuild.util.meson`.
 
-##### python_module
+#### python_module
 
 A build style for Python modules (using `setup.py`).
 
@@ -679,7 +679,7 @@ and arguments `--prefix=/usr`, `--root={self.chroot_destdir}` plus any
 `self.make_install_args`.
 
 <a id="subpackages"></a>
-#### Subpackages
+### Subpackages
 
 The `cbuild` system has support for subpackages. Subpackages are just
 regular packages repository-wise, except they are built as a part of
@@ -780,7 +780,7 @@ check for subpackages (as projects may build a mixture of PIE and non-PIE
 files).
 
 <a id="template_options"></a>
-#### Template Options
+### Template Options
 
 There are various options you can specify as a part of the `options` variable.
 Some of them can only be specified at the top level, while some also apply
@@ -820,7 +820,7 @@ for subpackages separately if needed:
   debug package will not be generated.
 
 <a id="hardening_options"></a>
-#### Hardening Options
+### Hardening Options
 
 The `cbuild` system implements an automatic way to deal with toggling
 different hardening options.
@@ -838,7 +838,7 @@ supports it (currently `ppc64le`, `ppc64` and `x86_64`):
 * `scp` Enables `-fstack-clash-protection`.
 
 <a id="tools"></a>
-#### Tools
+### Tools
 
 The build system also provides separate management of tools for convenience.
 Tools in this case refer primarily to the toolchain.
@@ -884,7 +884,7 @@ There are many more variables that are implicitly exported into the
 environment, but those are documented elsewhere.
 
 <a id="build_profiles"></a>
-### Build Profiles
+## Build Profiles
 
 The `cbuild` system allows for flexible definition of profiles for
 different target architectures. These profiles are used for both
@@ -924,7 +924,7 @@ one to retrieve compiler flags in proper architecture-specific way,
 check if we are cross-compiling and otherwise inspect the target.
 
 <a id="build_environment"></a>
-### Build Environment
+## Build Environment
 
 This section of the documentation defines what the build environment
 looks like when building a package.
@@ -1040,7 +1040,7 @@ This includes the network namespace, so there is no more network
 access within the sandbox at this point.
 
 <a id="hooks"></a>
-### Hooks and Invocation
+## Hooks and Invocation
 
 The `cbuild` system is largely driven by hooks. A hook is a Python source
 file present in `cbuild/hooks/<section>`. Hooks take care of things such
