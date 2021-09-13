@@ -32,7 +32,7 @@ system provides a way for people to build their own binary packages from
 special templates.
 
 If you are looking for instructions on how to write templates, refer to the
-`Manual.md` instead.
+`Packaging.md` instead.
 
 <a id="getting_started"></a>
 ## Getting Started

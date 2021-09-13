@@ -17,7 +17,7 @@ Once you have that, clone your fork and prepare the changes.
 ## Preparing your changes
 
 Whether you are creating a new template or modifying an existing one, you
-should follow the manual (see `Manual.md`) which should be able to answer
+should follow the manual (see `Packaging.md`) which should be able to answer
 all or at least most questions.
 
 Always ensure to follow the expected style and other basics to make the

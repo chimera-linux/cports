@@ -12,10 +12,10 @@ behaviors are the same.
 
 There are two authoritative documents on the system:
 
-* `Manual.md` is the reference manual for packagers. It covers the API of the
+* `Usage.md` is the reference for users. It covers usage of `cbuild` and its
+  basic and advanced options as well as concepts and requirements.
+* `Packaging.md` is the reference manual for packagers. It covers the API of the
   system and guidelines for creating and modifying templates, but not usage.
-* `Usage.md` is the reference for users. It covers all the options of the
-  `cbuild` system itself.
 
 Most people looking to get involved with the project should read both.
 
