@@ -417,15 +417,6 @@ only have an effect with specific commands.
 <a id="commands"></a>
 ### Commands
 
-        "fetch": do_pkg,
-        "extract": do_pkg,
-        "patch": do_pkg,
-        "configure": do_pkg,
-        "build": do_pkg,
-        "check": do_pkg,
-        "install": do_pkg,
-        "pkg": do_pkg
-
 The following commands are recognized:
 
 * `binary-bootstrap [ARCH]` Create a build root from local packages. The local
