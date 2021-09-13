@@ -1405,7 +1405,14 @@ Whether we're currently bootstrapping stage 0 (i.e. no sandbox, no container).
 
 ##### self.run_check
 
-Whether running the `check` phase is enabled by `cbuild`.
+Whether running the `check` phase is enabled by `cbuild`. This is `False` for
+cross builds even if testing is otherwise enabled. Keep in mind that setting
+`!check` in `options` will not make this `False`, as it's set before options
+are read.
+
+You should never base your `makedepends` or `hostmakedepends` on whether you
+are running tests or not. Packages should always be built with an identical
+environment regardless of settings.
 
 ##### self.build_dbg
 
