@@ -5,8 +5,14 @@
 [build]
 # whether -dbg packages will be generated
 build_dbg = no
+# default build root path (absolute or relative to cports)
+build_root = bldroot
 # whether ccache will be used in the build
 ccache = no
+# default ccache files path (absolute or relative to cports)
+ccache_path = ccache
+# whether to run check phase
+check = yes
 # number of jobs to use when building
 jobs = 1
 # default user C compiler flags
@@ -15,10 +21,10 @@ cflags = -O2
 cxxflags = -O2
 # default user linker flags
 ldflags =
-# default masterdir path (absolute or relative to cports)
-masterdir = masterdir
-# default hostdir path (absolute or relative to cports)
-hostdir = hostdir
+# default local repository path for packages (absolute or relative to cports)
+repository = packages
+# default source distfiles path (absolute or relative to cports)
+sources = sources
 
 # options related to signing packages
 [signing]

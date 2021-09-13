@@ -46,7 +46,7 @@ opt_skipexist = False
 opt_check     = True
 opt_ccache    = False
 opt_makejobs  = 1
-opt_nocolor   = "NO_COLOR" in os.environ
+opt_nocolor   = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
 opt_signkey   = None
 opt_unsigned  = False
 opt_allowroot = False
@@ -108,9 +108,6 @@ parser.add_argument(
     help = "Source distfiles storage path."
 )
 parser.add_argument(
-    "--ccache-path", default = None, help = "Compiler cache storage path."
-)
-parser.add_argument(
     "-t", "--temporary", action = "store_const",
     const = True, default = opt_mdirtemp,
     help = "Use a temporary build root."
@@ -160,7 +157,7 @@ if "build" in global_cfg:
     opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
     opt_ldflags   = bcfg.get("ldflags", fallback = opt_ldflags)
     opt_arch      = bcfg.get("arch", fallback = opt_arch)
-    opt_bldroot   = bcfg.get("bldroot", fallback = opt_bldroot)
+    opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
     opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
     opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
     opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
