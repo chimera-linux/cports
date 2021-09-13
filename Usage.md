@@ -64,7 +64,7 @@ The userland dependencies are the following:
 * `tee`
 
 You also need Linux kernel 3.8 or newer, with namespaces and cgroups enabled.
-Notab,y the following options must be enabled:
+Notably the following options must be enabled:
 
 * `CONFIG_NAMESPACES=y`
 * `CONFIG_UTS_NS=y`
