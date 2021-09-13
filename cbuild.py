@@ -49,7 +49,6 @@ opt_makejobs  = 1
 opt_nocolor   = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
 opt_signkey   = None
 opt_unsigned  = False
-opt_allowroot = False
 opt_force     = False
 opt_mdirtemp  = False
 opt_nonet     = False
@@ -132,11 +131,6 @@ parser.add_argument(
     const = True, default = opt_unsigned,
     help = "Allow building without a signing key."
 )
-parser.add_argument(
-    "--allow-root", action = "store_const",
-    const = True, default = opt_allowroot,
-    help = "Allow running as root."
-)
 parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
 cmdline = parser.parse_args()
@@ -199,9 +193,6 @@ if cmdline.repository_path:
 if cmdline.sources_path:
     opt_srcpath = cmdline.sources_path
 
-if cmdline.ccache_path:
-    opt_cchpath = cmdline.ccache_path
-
 if cmdline.no_remote:
     opt_nonet = True
 
@@ -239,7 +230,7 @@ logger.init(not opt_nocolor)
 chroot.chroot_check()
 
 # ensure we don't run as root
-if not opt_allowroot and os.geteuid() == 0:
+if os.geteuid() == 0:
     logger.get().out_red("cbuild: please don't run as root")
     sys.exit(1)
 
