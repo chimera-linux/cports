@@ -175,7 +175,7 @@ class Profile:
         return pathlib.Path("/usr") / self.short_triplet
 
     def get_cflags(
-        self, extra_flags = [], debug = False, hardening = [], shell = False
+        self, extra_flags = [], debug = -1, hardening = [], shell = False
     ):
         hflags = _get_hcflags(self._hardening, hardening)
 
@@ -189,13 +189,13 @@ class Profile:
 
         ret = hflags + self._cflags + bflags + extra_flags
 
-        if debug:
-            ret.append("-g")
+        if debug >= 0:
+            ret.append(f"-g{debug}")
 
         return _flags_ret(map(lambda v: str(v), ret), shell)
 
     def get_cxxflags(
-        self, extra_flags = [], debug = False, hardening = [], shell = False
+        self, extra_flags = [], debug = -1, hardening = [], shell = False
     ):
         hflags = _get_hcflags(self._hardening, hardening)
 
@@ -209,13 +209,13 @@ class Profile:
 
         ret = hflags + self._cxxflags + bflags + extra_flags
 
-        if debug:
-            ret.append("-g")
+        if debug >= 0:
+            ret.append(f"-g{debug}")
 
         return _flags_ret(map(lambda v: str(v), ret), shell)
 
     def get_fflags(
-        self, extra_flags = [], debug = False, hardening = [], shell = False
+        self, extra_flags = [], debug = -1, hardening = [], shell = False
     ):
         hflags = _get_hcflags(self._hardening, hardening)
 
@@ -229,8 +229,8 @@ class Profile:
 
         ret = hflags + self._fflags + bflags + extra_flags
 
-        if debug:
-            ret.append("-g")
+        if debug >= 0:
+            ret.append(f"-g{debug}")
 
         return _flags_ret(map(lambda v: str(v), ret), shell)
 

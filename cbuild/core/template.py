@@ -359,6 +359,7 @@ core_fields = [
     ("nopie_files", [], list, False, False, True, False),
     ("tools", {}, dict, False, False, False, False),
     ("env", {}, dict, False, False, False, False),
+    ("debug_level", 2, int, False, False, False, False),
     ("CFLAGS", [], list, True, False, False, False),
     ("FFLAGS", [], list, True, False, False, False),
     ("CXXFLAGS", [], list, True, False, False, False),
@@ -629,7 +630,7 @@ class Template(Package):
 
         return target.get_cflags(
             self.CFLAGS + extra_flags,
-            self.options["debug"] and self.build_dbg,
+            self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
             shell = shell
         )
@@ -641,7 +642,7 @@ class Template(Package):
 
         return target.get_cxxflags(
             self.CXXFLAGS + extra_flags,
-            self.options["debug"] and self.build_dbg,
+            self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
             shell = shell
         )
@@ -653,7 +654,7 @@ class Template(Package):
 
         return target.get_fflags(
             self.FFLAGS + extra_flags,
-            self.options["debug"] and self.build_dbg,
+            self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
             shell = shell
         )

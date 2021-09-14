@@ -355,6 +355,9 @@ Keep in mind that default values may be overridden by build styles.
 * `configure_script` *(str)* The name of the script relative to current
   working directory used for configuration. Only used by build styles that
   use such scripts. The default value is `configure`.
+* `debug_level` *(int)* The level to use when generating debug information
+  in the compiler (i.e. `-gN` for C). By default, this is 2, to match the
+  default level of the compiler with `-g`.
 * `depends` *(list)* Runtime dependencies of the package. They are not
   installed in the build container, but are checked for availability (and
   built if missing). While these may be just names, you can also specify
