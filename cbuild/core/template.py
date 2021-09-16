@@ -842,24 +842,23 @@ class Subpackage(Package):
         self.force_mode = parent.force_mode
         self.bootstrapping = parent.bootstrapping
 
-    def take(self, *args):
-        for p in args:
-            p = pathlib.Path(p)
-            if p.is_absolute():
-                self.logger.out_red(f"path '{p}' must not be absolute")
-                raise PackageError()
-            origp = self.parent.destdir / p
-            got = glob.glob(str(origp))
-            if len(got) == 0:
-                self.logger.out_red(f"path '{p}' did not match anything")
-                raise PackageError()
-            for fullp in got:
-                # relative path to the file/dir in original destdir
-                pdest = self.parent.destdir
-                self.log(f"moving: {fullp} -> {self.destdir}")
-                _submove(
-                    pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
-                )
+    def take(self, p, missing_ok = False):
+        p = pathlib.Path(p)
+        if p.is_absolute():
+            self.logger.out_red(f"path '{p}' must not be absolute")
+            raise PackageError()
+        origp = self.parent.destdir / p
+        got = glob.glob(str(origp))
+        if len(got) == 0 and not missing_ok:
+            self.logger.out_red(f"path '{p}' did not match anything")
+            raise PackageError()
+        for fullp in got:
+            # relative path to the file/dir in original destdir
+            pdest = self.parent.destdir
+            self.log(f"moving: {fullp} -> {self.destdir}")
+            _submove(
+                pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
+            )
 
 def _subpkg_install_list(self, l):
     def real_install():

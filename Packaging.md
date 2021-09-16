@@ -759,7 +759,7 @@ The `self` argument here is the subpackage handle.
 If better control over the files is needed, you can also return a function
 instead of a variable. The function takes no arguments (you are supposed
 to nest this function and refer to the subpackage via its parent function)
-and can use `self.take(...)` and the likes.
+and can use `self.take(path)` and the likes.
 
 The following variables apply to subpackages. Most do not inherit their
 value from the parent and are assigned the defaults; some are inherited,
@@ -1720,11 +1720,14 @@ These methods are only available on subpackage objects. You cannot create
 a subpackage object directly, but it can be passed to hooks as well as
 certain user defined functions.
 
-##### def take(self, *args)
+##### def take(self, p, missing_ok = False)
 
-For each argument, the subpackage will "steal" the path from the main
-package. The arguments can be strings or `pathlib` paths, representing
-relative paths to `destdir` of the main package.
+The subpackage will "steal" path `p`. The argument can be a string or
+a `pathlib` path, representing a relative path to `destdir` of the main
+package.
+
+If `missing_ok` is `True`, the function will not error if the path does
+not exist. In general you should not set this.
 
 You will want to use this if you return a function from the subpackage
 function. The following are equivalent:
@@ -1738,7 +1741,8 @@ def _subpkg(self):
     ...
     def install():
         self.take("usr/include")
-        self.take("usr/lib/*.a", "usr/lib/*.so")
+        self.take("usr/lib/*.a")
+        self.take("usr/lib/*.so")
 
     return install
 ```
