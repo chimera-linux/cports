@@ -52,9 +52,14 @@ class Make:
 
         argsbase += args
 
+        if not wrksrc:
+            wrksrc = self.wrksrc
+        if not wrksrc:
+            wrksrc = self.template.make_dir
+
         return self.template.do(
             self.get_command(), argsbase, env = renv,
-            wrksrc = wrksrc if wrksrc else self.wrksrc
+            wrksrc = wrksrc
         )
 
     def build(self, args = [], jobs = None, env = {}, wrksrc = None):

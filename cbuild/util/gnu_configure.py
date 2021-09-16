@@ -51,9 +51,15 @@ def _read_cache(cpath, cname, eenv):
                 eenv[ln] = "yes"
 
 def configure(
-    pkg, configure_dir = None, configure_script = "configure",
-    build_dir = "build", extra_args = [], env = {}
+    pkg, configure_dir = None, configure_script = None,
+    build_dir = None, extra_args = [], env = {}
 ):
+    if not configure_script:
+        configure_script = pkg.configure_script
+
+    if not build_dir:
+        build_dir = pkg.make_dir
+
     if configure_dir:
         cscript = pkg.chroot_cwd / configure_dir / configure_script
         rscript = pkg.cwd / configure_dir / configure_script

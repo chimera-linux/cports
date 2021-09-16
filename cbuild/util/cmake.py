@@ -1,13 +1,16 @@
 from cbuild.core import paths
 
 def configure(
-    pkg, cmake_dir = None, build_dir = "build", extra_args = [],
+    pkg, cmake_dir = None, build_dir = None, extra_args = [],
     cross_build = None
 ):
     if cmake_dir:
         cdir = pkg.chroot_cwd / cmake_dir
     else:
         cdir = pkg.chroot_cwd
+
+    if not build_dir:
+        build_dir = pkg.make_dir
 
     (pkg.cwd / build_dir).mkdir(parents = True, exist_ok = True)
 

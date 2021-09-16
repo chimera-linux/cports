@@ -2,7 +2,7 @@ from cbuild.util import gnu_configure, make
 
 def do_configure(self):
     gnu_configure.replace_guess(self)
-    gnu_configure.configure(self, configure_script = self.configure_script)
+    gnu_configure.configure(self)
 
 def do_build(self):
     self.make.build()
@@ -20,5 +20,8 @@ def use(tmpl):
     tmpl.do_install = do_install
 
     tmpl.make = make.Make(
-        tmpl, wrksrc = "build", env = gnu_configure.get_make_env()
+        tmpl, env = gnu_configure.get_make_env()
     )
+    tmpl.build_style_defaults = [
+        ("make_dir", "build"),
+    ]

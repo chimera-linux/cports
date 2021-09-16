@@ -53,9 +53,12 @@ endian = '{pkg.build_profile.endian}'
 
     return cfpath
 
-def configure(pkg, meson_dir = None, build_dir = "build", extra_args = []):
+def configure(pkg, meson_dir = None, build_dir = None, extra_args = []):
     if not meson_dir:
         meson_dir = "."
+
+    if not build_dir:
+        build_dir = pkg.make_dir
 
     cfp = _make_crossfile(pkg, build_dir)
 

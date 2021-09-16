@@ -388,6 +388,12 @@ Keep in mind that default values may be overridden by build styles.
   during build phase.
 * `make_build_target` *(str)* The `make_cmd` target to be used to build.
   Different build systems may use this differently. Empty by default.
+* `make_dir` *(str)* The subdirectory of `cwd` that `make_cmd` is invoked in
+  by default. This has the default value of `.`, so it normally does not
+  impose any directory changes. However, the default may be altered by
+  build styles. This is utilized by build systems such as `meson` and
+  `cmake` to build outside the regular tree. It is also utilized by their
+  `configure` steps as the working directory.
 * `make_install_args` *(list)* A list of custom arguments passed to `make_cmd`
   when installing.
 * `make_install_target` *(str)* The `make_cmd` target to be used to install.
@@ -623,11 +629,14 @@ Default values:
 
 * `make_cmd` = `ninja`
 * `make_build_target` = `all`
+* `make_dir` = `build`
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
 
+The `cmake` tool is run inside `self.make_dir`.
+
 Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
-for the template, with `build` `wrksrc`.
+for the template.
 
 Implemented around `cbuild.util.cmake`.
 
@@ -651,10 +660,14 @@ for the template, with no other changes.
 
 A more comprehensive `build_style`, written around `cbuild.util.gnu_configure`.
 
+Default values:
+
+* `make_dir` = `build`
+
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
 
 During `do_configure`, `gnu_configure.replace_guess` is called first, followed
-by `gnu_configure.configure`.
+by `gnu_configure.configure`. The `configure` script is run inside `self.make_dir`.
 
 Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
 for the template, with `build` `wrksrc`, and `env` retrieved using the
@@ -698,8 +711,11 @@ Default values:
 
 * `make_cmd` = `ninja`
 * `make_build_target` = `all`
+* `make_dir` = `build`
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+
+The `cmake` tool is run inside `self.make_dir`.
 
 Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
 for the template, with `build` `wrksrc`.
@@ -1798,12 +1814,12 @@ they simplify the template logic greatly.
 
 A wrapper for management of CMake projects.
 
-##### def configure(pkg, cmake_dir = None, build_dir = "build", extra_args = [], cross_build = None)
+##### def configure(pkg, cmake_dir = None, build_dir = None, extra_args = [], cross_build = None)
 
 Executes `cmake`. The directory for build files is `build_dir`, which
-is relative to `chroot_cwd`. The root `CMakeLists.txt` exists within
-`cmake_dir`, which is relative to `chroot_cwd` (when `None`, it is
-assumed to be `.`).
+is relative to `chroot_cwd` (when `None`, it is `pkg.make_dir`). The
+root `CMakeLists.txt` exists within `cmake_dir`, which is relative to
+`chroot_cwd` (when `None`, it is assumed to be `.`).
 
 The `pkg` is an instance of `Template`.
 
@@ -1882,11 +1898,12 @@ The `flags` are `tmpl.get_cxxflags()`, while `ldflags` are `tmpl.get_ldflags()`.
 
 A wrapper for handling of GNU Autotools and compatible projects.
 
-##### def configure(pkg, configure_dir = None, configure_script = "configure", build_dir = "build", extra_args = [], env = {})
+##### def configure(pkg, configure_dir = None, configure_script = None, build_dir = None, extra_args = [], env = {})
 
-First, `build_dir` is created if non-existent (relative to `cwd`). Then,
-the `configure_script` is called (which lives in `configure_dir`, which
-lives in `chroot_cwd`).
+First, `build_dir` is created if non-existent (relative to `cwd`). If not
+set, it is assumed to be `pkg.make_dir`. Then, the `configure_script` is
+called (which lives in `configure_dir`, by default `.`, which lives in
+`chroot_cwd`).
 
 The `pkg` is an instance of `Template`.
 
@@ -1995,7 +2012,8 @@ arguments are passed like this:
 
 The environment for the invocation is the combination of `self.env` and
 the passed `env`, further passed to `self.template.do()`. The `wrksrc` is
-either the `wrksrc` argument or `self.wrksrc`.
+either the `wrksrc` argument, `self.wrksrc`, or `self.template.wrksrc` in
+that order (the first that is set is used).
 
 You can use this method as a completely generic, unspecialized invocation.
 
@@ -2026,11 +2044,12 @@ preference).
 
 A wrapper for management of Meson projects.
 
-##### def configure(pkg, meson_dir = None, build_dir = "build", extra_args = [])
+##### def configure(pkg, meson_dir = None, build_dir = None, extra_args = [])
 
 Executes `meson`. The `meson_dir` is where the root `meson.build` is located,
 assumed to be `.` implicitly, relative to `chroot_cwd`. The `build_dir` is
-the directory for build files, also relative to `chroot_cwd`.
+the directory for build files, also relative to `chroot_cwd`, its default
+value when `None` is `pkg.make_dir`.
 
 The `pkg` is an instance of `Template`.
 

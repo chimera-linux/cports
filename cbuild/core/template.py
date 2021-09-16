@@ -348,6 +348,7 @@ core_fields = [
     ("configure_args", [], list, True, False, False, False),
     ("configure_script", "configure", str, False, False, False, False),
     ("make_cmd", "bmake", str, False, False, False, False),
+    ("make_dir", ".", str, False, False, False, False),
     ("make_build_args", [], list, True, False, False, False),
     ("make_install_args", [], list, True, False, False, False),
     ("make_build_target", "", str, False, False, False, False),
