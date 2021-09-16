@@ -519,28 +519,73 @@ class Template(Package):
             self.error("version has an invalid format")
 
     def validate_arch(self):
-        archn = self.build_profile.arch
+        bprof = self.build_profile
+        archn = bprof.arch
+        # no archs specified: we match always
         if not self.archs:
             return
-        if not isinstance(self.archs, str):
+        # bad archs type
+        if not isinstance(self.archs, list):
             self.error("malformed archs field")
-        archs = self.archs.split()
-        matched = False
-        for arch in archs:
-            negarch = False
-            if arch[0] == "~":
-                negarch = True
-                arch = arch[1:]
-            if fnmatch.fnmatchcase(archn, arch):
-                if not negarch:
-                    matched = True
-                    break
-            else:
-                if negarch:
-                    matched = True
-                    break
-        if not matched:
+        # find matching patterns; pattern matching the arch name more exactly
+        # (i.e. having more non-pattern characters) trumps the previous one
+        prevmatch = None
+        prevneg = False
+        # function to find number of exact chars in both patterns
+        def _find_exact(s):
+            i = 0
+            ret = 0
+            while i < len(s):
+                if s[i] == "*" or s[i] == "?":
+                    i += 1
+                    continue
+                if s[i] == "[":
+                    while i < len(s) and s[i] != "]":
+                        i += 1
+                    if i == len(s):
+                        break
+                    i += 1
+                    continue
+                ret += 1
+                i += 1
+            return ret
+        # now match
+        for v in self.archs:
+            # negative match pattern: acknowledge and get the pattern
+            curneg = v.startswith("!")
+            if curneg:
+                v = v[1:]
+            # if not a match, skip
+            if not fnmatch.fnmatchcase(archn, v):
+                continue
+            # no previous reference pattern
+            if not prevmatch:
+                prevmatch = v
+                prevneg = curneg
+                continue
+            # equal patterns: skip
+            if v == prevmatch:
+                if prevneg != curneg:
+                    self.error(f"conflicting arch patterns: {v}, !{v}")
+                continue
+            # find the non-pattern lengths
+            nexactprev = _find_exact(prevmatch)
+            nexactcur = _find_exact(v)
+            # same number of exactly matched characters is ambiguous
+            if nexactcur == nexactprev:
+                if prevneg:
+                    prevmatch = f"!{prevmatch}"
+                if curneg:
+                    v = f"!{v}"
+                self.error(f"ambiguous arch patterns: {prevmatch}, {v}")
+            # otherwise consider the one with longer exact match
+            if nexactcur > nexactprev:
+                prevmatch = v
+                prevneg = curneg
+        # no match or negative match
+        if not prevmatch or prevneg:
             self.error(f"this package cannot be built for {archn}")
+        # otherwise we're good
 
     def do(self, cmd, args, env = {}, wrksrc = None):
         cenv = {

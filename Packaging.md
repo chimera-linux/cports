@@ -17,6 +17,7 @@ you should not rely on them or expect them to be stable.
 * [Template Structure](#template_structure)
   * [Template Variables](#template_variables)
   * [Template Functions](#template_functions)
+  * [Architecture Patterns](#arch_patterns)
   * [Build Styles](#build_styles)
   * [Subpackages](#subpackages)
   * [Template Options](#template_options)
@@ -335,8 +336,8 @@ Keep in mind that default values may be overridden by build styles.
   profile, at any point. Passed after other compiler flags.
 * `LDFLAGS` *(list)* Linker flags used regardless of build profile, passed
   after other linker flags.
-* `archs` *(str)* A space delimited list of architectures the template builds
-  for. May contain wildcards. The `~foo` syntax is a negation.
+* `archs` *(list)* A list of architecture patterns to determine if the template
+   can be built for the current architecture. See "Architecture Patterns" below.
 * `broken` *(str)* If specified, the package will refuse to build. The value
   is a string that contains the reason why the package does not build.
 * `build_style` *(str)* The build style used for the template. See the
@@ -518,6 +519,43 @@ names with an underscore.
 
 Also keep in mind that the order of execution also interacts with hooks.
 See the section on hooks for more information.
+
+<a id="arch_patterns"></a>
+### Architecture Patterns
+
+A template can specify which architectures it can build for. The `archs`
+meta field is used for that and has roughly this format:
+
+```
+archs = ["pat1", "pat2", ...]
+```
+
+A concrete example would be something like this:
+
+```
+archs = ["x86_64", "ppc*", "riscv*", "!arm*"]
+```
+
+This would specify that the template can build on the `x86_64` architecture
+as well as any architecture matching `ppc*` or `riscv*`, but never on any
+architecture matching `arm*`.
+
+The syntax follows usual shell-style "glob" rules. That means supporting
+the `*`, `?`, `[seq]` and `[!seq]` patterns (the matching is implemented
+using the `fnmatch` case-sensitive pattern matcher in Python). In addition
+to that, `!` in front of the pattern can negate it.
+
+When not specified, it's the same as specifying `*` as the sole pattern.
+
+The system checks the list for all matching patterns. The most strictly
+matching pattern trumps everything, with "most strictly" meaning matching
+the largest number of exact characters; all pattern styles are considered
+equally "loose", so `foo*z` is equally strict to `foo[xy]z`. It is an
+error if you have two matching equally strict patterns, as well as if you
+have two identical patterns but only one is negating.
+
+If the finally picked pattern is negating or if no matching pattern was
+found in the list, the template is considered not buildable.
 
 <a id="build_styles"></a>
 ### Build Styles
