@@ -69,6 +69,64 @@ def _flags_ret(it, shell):
     else:
         return list(it)
 
+def _get_gencflags(self, bcflags, extra_flags, debug, hardening, shell):
+    hflags = _get_hcflags(self._hardening, hardening)
+
+    # bootstrap
+    if not self._triplet:
+        bflags = ["-isystem", paths.bldroot() / "usr/include"]
+    elif self.cross:
+        bflags = ["--sysroot", self.sysroot]
+    else:
+        bflags = []
+
+    ret = hflags + bcflags + bflags + extra_flags
+
+    if debug >= 0:
+        ret.append(f"-g{debug}")
+
+    return _flags_ret(map(lambda v: str(v), ret), shell)
+
+def _get_cflags(self, extra_flags, debug, hardening, shell):
+    return _get_gencflags(
+        self, self._cflags, extra_flags, debug, hardening, shell
+    )
+
+def _get_cxxflags(self, extra_flags, debug, hardening, shell):
+    return _get_gencflags(
+        self, self._cxxflags, extra_flags, debug, hardening, shell
+    )
+
+def _get_fflags(self, extra_flags, debug, hardening, shell):
+    return _get_gencflags(
+        self, self._fflags, extra_flags, debug, hardening, shell
+    )
+
+def _get_ldflags(self, extra_flags, debug, hardening, shell):
+    hflags = _get_hldflags(self._hardening, hardening)
+
+    # bootstrap
+    if not self._triplet:
+        bflags = [
+            "-L" + str(paths.bldroot() / "usr/lib"),
+            "-Wl,-rpath-link=" + str(paths.bldroot() / "usr/lib")
+        ]
+    elif self.cross:
+        bflags = ["--sysroot", self.sysroot]
+    else:
+        bflags = []
+
+    ret = hflags + self._ldflags + bflags + extra_flags
+
+    return _flags_ret(map(lambda v: str(v), ret), shell)
+
+_flag_handlers = {
+    "CFLAGS": _get_cflags,
+    "CXXFLAGS": _get_cxxflags,
+    "FFLAGS": _get_fflags,
+    "LDFLAGS": _get_ldflags,
+}
+
 class Profile:
     def __init__(self, archn, pdata, gdata):
         # bootstrap is a simplfied case
@@ -174,85 +232,10 @@ class Profile:
 
         return pathlib.Path("/usr") / self.short_triplet
 
-    def get_cflags(
-        self, extra_flags = [], debug = -1, hardening = [], shell = False
+    def get_tool_flags(
+        self, name, extra_flags = [], debug = -1, hardening = [], shell = False
     ):
-        hflags = _get_hcflags(self._hardening, hardening)
-
-        # bootstrap
-        if not self._triplet:
-            bflags = ["-isystem", paths.bldroot() / "usr/include"]
-        elif self.cross:
-            bflags = ["--sysroot", self.sysroot]
-        else:
-            bflags = []
-
-        ret = hflags + self._cflags + bflags + extra_flags
-
-        if debug >= 0:
-            ret.append(f"-g{debug}")
-
-        return _flags_ret(map(lambda v: str(v), ret), shell)
-
-    def get_cxxflags(
-        self, extra_flags = [], debug = -1, hardening = [], shell = False
-    ):
-        hflags = _get_hcflags(self._hardening, hardening)
-
-        # bootstrap
-        if not self._triplet:
-            bflags = ["-isystem", paths.bldroot() / "usr/include"]
-        elif self.cross:
-            bflags = ["--sysroot", self.sysroot]
-        else:
-            bflags = []
-
-        ret = hflags + self._cxxflags + bflags + extra_flags
-
-        if debug >= 0:
-            ret.append(f"-g{debug}")
-
-        return _flags_ret(map(lambda v: str(v), ret), shell)
-
-    def get_fflags(
-        self, extra_flags = [], debug = -1, hardening = [], shell = False
-    ):
-        hflags = _get_hcflags(self._hardening, hardening)
-
-        # bootstrap
-        if not self._triplet:
-            bflags = ["-isystem", paths.bldroot() / "usr/include"]
-        elif self.cross:
-            bflags = ["--sysroot", self.sysroot]
-        else:
-            bflags = []
-
-        ret = hflags + self._fflags + bflags + extra_flags
-
-        if debug >= 0:
-            ret.append(f"-g{debug}")
-
-        return _flags_ret(map(lambda v: str(v), ret), shell)
-
-    def get_ldflags(
-        self, extra_flags = [], debug = -1, hardening = [], shell = False
-    ):
-        hflags = _get_hldflags(self._hardening, hardening)
-
-        # bootstrap
-        if not self._triplet:
-            bflags = [
-                "-L" + str(paths.bldroot() / "usr/lib"),
-                "-Wl,-rpath-link=" + str(paths.bldroot() / "usr/lib")
-            ]
-        elif self.cross:
-            bflags = ["--sysroot", self.sysroot]
-        else:
-            bflags = []
-
-        ret = hflags + self._ldflags + bflags + extra_flags
-
-        return _flags_ret(map(lambda v: str(v), ret), shell)
+        return _flag_handlers[name](self, extra_flags, debug, hardening, shell)
 
     def has_hardening(self, hname, hardening = []):
         return _get_harden(self._hardening, hardening)[hname]

@@ -674,7 +674,8 @@ class Template(Package):
     ):
         target = pkg_profile(self, target)
 
-        return target.get_cflags(
+        return target.get_tool_flags(
+            "CFLAGS",
             self.CFLAGS + extra_flags,
             self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
@@ -686,7 +687,8 @@ class Template(Package):
     ):
         target = pkg_profile(self, target)
 
-        return target.get_cxxflags(
+        return target.get_tool_flags(
+            "CXXFLAGS",
             self.CXXFLAGS + extra_flags,
             self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
@@ -698,7 +700,8 @@ class Template(Package):
     ):
         target = pkg_profile(self, target)
 
-        return target.get_fflags(
+        return target.get_tool_flags(
+            "FFLAGS",
             self.FFLAGS + extra_flags,
             self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
@@ -710,7 +713,8 @@ class Template(Package):
     ):
         target = pkg_profile(self, target)
 
-        return target.get_ldflags(
+        return target.get_tool_flags(
+            "LDFLAGS",
             self.LDFLAGS + extra_flags,
             self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,

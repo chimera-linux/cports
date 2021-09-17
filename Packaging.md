@@ -1495,10 +1495,7 @@ class Profile:
     endian = ...
     cross = ...
 
-    def get_cflags(self, extra_flags = [], debug = -1, hardening = [], shell = False)
-    def get_cxxflags(self, extra_flags = [], debug = -1, hardening = [], shell = False)
-    def get_fflags(self, extra_flags = [], debug = -1, hardening = [], shell = False)
-    def get_ldflags(self, extra_flags = [], debug = -1, hardening = [], shell = False)
+    def get_tool_flags(self, name, extra_flags = [], debug = -1, hardening = [], shell = False)
 
     def has_hardening(self, hname, hardening = [])
 ```
@@ -1521,11 +1518,10 @@ are `None`.
 The `sysroot` refers to `/` for native targets and `/usr/<short_triplet>` for
 cross-compiling targets.
 
-The `get_cflags`, `get_cxxflags`, `get_fflags`, `get_ldflags` and `get_hardening`
-correspond to the equivalently named methods on `Template`, except they are
-not influenced by the template's configuration. The `Template` methods are
-actually implemented on top of those (passing the template's information
-using the arguments as necessary).
+The `get_tool_flags` method is used to implement the appropriate methods for
+retrieving `CFLAGS`, `LDFLAGS` and so on on `Template`. They are not influenced
+by the template's configuration. You pass the flags variable name as the name,
+such as the string `CFLAGS`.
 
 In general, you will not want to use the profile's methods, and the member
 variables are strictly read only.
