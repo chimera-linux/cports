@@ -234,7 +234,9 @@ class Profile:
 
         return _flags_ret(map(lambda v: str(v), ret), shell)
 
-    def get_ldflags(self, extra_flags = [], hardening = [], shell = False):
+    def get_ldflags(
+        self, extra_flags = [], debug = -1, hardening = [], shell = False
+    ):
         hflags = _get_hldflags(self._hardening, hardening)
 
         # bootstrap

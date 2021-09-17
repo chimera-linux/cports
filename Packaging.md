@@ -1495,10 +1495,10 @@ class Profile:
     endian = ...
     cross = ...
 
-    def get_cflags(self, extra_flags = [], debug = False, hardening = [], shell = False)
-    def get_cxxflags(self, extra_flags = [], debug = False, hardening = [], shell = False)
-    def get_fflags(self, extra_flags = [], debug = False, hardening = [], shell = False)
-    def get_ldflags(self, extra_flags = [], hardening = [], shell = False)
+    def get_cflags(self, extra_flags = [], debug = -1, hardening = [], shell = False)
+    def get_cxxflags(self, extra_flags = [], debug = -1, hardening = [], shell = False)
+    def get_fflags(self, extra_flags = [], debug = -1, hardening = [], shell = False)
+    def get_ldflags(self, extra_flags = [], debug = -1, hardening = [], shell = False)
 
     def has_hardening(self, hname, hardening = [])
 ```
@@ -1903,7 +1903,7 @@ A wrapper for handling of GNU Autotools and compatible projects.
 First, `build_dir` is created if non-existent (relative to `cwd`). If not
 set, it is assumed to be `pkg.make_dir`. Then, the `configure_script` is
 called (which lives in `configure_dir`, by default `.`, which lives in
-`chroot_cwd`).
+`chroot_cwd`, and its name is by default `pkg.configure_script`).
 
 The `pkg` is an instance of `Template`.
 

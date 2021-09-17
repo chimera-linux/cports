@@ -712,6 +712,7 @@ class Template(Package):
 
         return target.get_ldflags(
             self.LDFLAGS + extra_flags,
+            self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
             shell = shell
         )
