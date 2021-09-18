@@ -1,7 +1,6 @@
 pkgname = "musl-fts"
 version = "1.2.7"
 revision = 0
-wrksrc = f"musl-fts-{version}-mk2"
 build_style = "gnu_makefile"
 make_build_args = ["PREFIX=/usr"]
 short_desc = "Implementation of fts(3) for musl libc"

@@ -3,7 +3,6 @@ _datever = "20210522"
 _distver = 3.1
 version = f"{_datever}.{_distver}"
 revision = 0
-wrksrc = f"{pkgname}-{_datever}-{_distver}"
 build_style = "gnu_configure"
 makedepends = ["ncurses-devel"]
 short_desc = "Port of the NetBSD command line editing library"

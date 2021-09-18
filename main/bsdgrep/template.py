@@ -1,7 +1,6 @@
 pkgname = "bsdgrep"
 version = "1.0.4"
 revision = 0
-wrksrc = f"bsdgrep-{version}"
 build_style = "gnu_makefile"
 makedepends = ["bzip2-devel", "zlib-devel", "musl-fts-devel"]
 short_desc = "FreeBSD grep(1)"

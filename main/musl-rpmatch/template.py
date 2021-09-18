@@ -1,7 +1,6 @@
 pkgname = "musl-rpmatch"
 version = "1.0"
 revision = 0
-wrksrc = f"musl-rpmatch-{version}-mk2"
 build_style = "gnu_makefile"
 make_build_args = ["PREFIX=/usr"]
 short_desc = "Implementation of rpmatch(3) for musl libc"

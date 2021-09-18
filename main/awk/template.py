@@ -2,7 +2,6 @@ pkgname = "awk"
 version = "20210215"
 revision = 0
 _commit="c0f4e97e4561ff42544e92512bbaf3d7d1f6a671"
-wrksrc = f"awk-{_commit}"
 hostmakedepends = ["byacc"]
 short_desc = "One true awk"
 maintainer = "q66 <q66@chimera-linux.org>"

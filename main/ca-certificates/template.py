@@ -2,7 +2,6 @@ pkgname = "ca-certificates"
 version = "20210119"
 revision = 0
 conf_files = ["/etc/ca-certificates.conf"]
-wrksrc = "work"
 hostmakedepends = ["openssl"]
 depends = ["openssl<=2.0", "run-parts"]
 short_desc = "Common CA certificates for SSL/TLS"

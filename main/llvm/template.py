@@ -2,7 +2,6 @@ pkgname = "llvm"
 _mver = "12"
 version = f"{_mver}.0.0"
 revision = 0
-wrksrc = f"llvm-project-{version}.src"
 build_style = "cmake"
 configure_args = [
     # don't enable lldb for now, we don't package enough for it

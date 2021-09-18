@@ -2,7 +2,6 @@ pkgname = "elftoolchain"
 _commit = "f7e9afc6f9ad0d84ea73b4659c5d6d13275d2306"
 version = "0.7.1_svn20210623"
 revision = 0
-wrksrc = f"{pkgname}-{_commit}"
 build_style = "gnu_makefile"
 makedepends = ["libarchive-devel"]
 make_build_args = [

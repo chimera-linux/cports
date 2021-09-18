@@ -2,7 +2,6 @@ pkgname = "kernel-libc-headers-cross"
 _mver = "5"
 version = f"{_mver}.10.4"
 revision = 0
-wrksrc = f"linux-{version}"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl"]
 depends = []

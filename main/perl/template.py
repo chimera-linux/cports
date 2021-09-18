@@ -154,21 +154,20 @@ provides = [
 ]
 
 def pre_patch(self):
-    pcpath = self.cwd / f"../perl-cross-{_perl_cross_version}"
+    for f in (self.cwd / f"perl-{version}").iterdir():
+        self.mv(f, ".")
 
-    for f in pcpath.iterdir():
+    for f in (self.cwd / f"perl-cross-{_perl_cross_version}").iterdir():
         if f.name == "utils":
             self.mv(f / "Makefile", "utils")
             f.rmdir()
             continue
         self.mv(f, ".")
 
-    pcpath.rmdir()
-
 def init_configure(self):
     from cbuild.util import make
 
-    self.make = make.Make(self)
+    self.make = make.Make(self, wrksrc = ".")
 
     self.env["HOSTCFLAGS"] = "-D_GNU_SOURCE"
 

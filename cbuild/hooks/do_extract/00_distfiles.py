@@ -1,6 +1,7 @@
 from cbuild.core import chroot, paths
 from fnmatch import fnmatch
 import pathlib
+import tempfile
 
 suffixes = {
     "*.tar.lzma":   "txz",
@@ -79,42 +80,68 @@ extract_table = {
 }
 
 def invoke(pkg):
-    if pkg.create_wrksrc:
-        (pkg.builddir / pkg.wrksrc).mkdir(exist_ok = True, parents = True)
+    wpath = pkg.builddir / pkg.wrksrc
+    # ensure that we start clean
+    if wpath.exists():
+        try:
+            wpath.rmdir()
+        except:
+            pkg.error(f"cannot populate wrksrc (it exists and is dirty)")
+    # now extract in a temporary place
+    with tempfile.TemporaryDirectory(dir = pkg.builddir) as extractdir:
+        # need to be able to manipulate it
+        extractdir = pathlib.Path(extractdir)
+        # go over each distfile and ensure extraction in the dir
+        for d in pkg.distfiles:
+            if isinstance(d, tuple):
+                fname = d[1]
+            else:
+                fname = d[d.rfind("/") + 1:]
+            if fname in pkg.skip_extraction:
+                continue
+            suffix = None
+            for key in suffixes:
+                if fnmatch(fname, key):
+                    suffix = suffixes[key]
+                    break
+            if not suffix:
+                pkg.error(f"unknown distfile suffix for '{fname}'")
 
-    for d in pkg.distfiles:
-        if isinstance(d, tuple):
-            fname = d[1]
+            if pkg.bootstrapping:
+                if suffix != "tgz" and suffix != "tbz" and suffix != "txz":
+                    pkg.error(f"distfile not supported for bootstrap: {fname}")
+
+            exf = extract_table.get(suffix, None)
+            if not exf:
+                pkg.error(f"cannot guess '{fname}' extract suffix")
+            if pkg.bootstrapping:
+                srcs_path = paths.sources()
+            else:
+                srcs_path = pathlib.Path("/sources")
+            exf(
+                pkg, fname,
+                srcs_path / f"{pkg.pkgname}-{pkg.version}/{fname}",
+                pkg.chroot_builddir / extractdir.name, suffix
+            )
+        # try iterating it
+        it = extractdir.iterdir()
+        entry = None
+        sentry = None
+        try:
+            # try to get two entries from the directory
+            entry = next(it)
+            sentry = next(it)
+        except StopIteration:
+            pass
+        # in case wrksrc was declared to be multilevel
+        wpath.parent.mkdir(parents = True, exist_ok = True)
+        # if the extracted contents are a single real directory, use
+        # it as wrksrc (rename appropriately); otherwise use a fresh
+        # wrksrc and move all the extracted stuff in there
+        if sentry or not entry.is_dir() or entry.is_symlink():
+            # simply rename
+            extractdir.rename(wpath)
         else:
-            fname = d[d.rfind("/") + 1:]
-        if fname in pkg.skip_extraction:
-            continue
-        suffix = None
-        for key in suffixes:
-            if fnmatch(fname, key):
-                suffix = suffixes[key]
-                break
-        if not suffix:
-            pkg.error(f"unknown distfile suffix for '{fname}'")
-
-        if pkg.bootstrapping:
-            if suffix != "tgz" and suffix != "tbz" and suffix != "txz":
-                pkg.error(f"distfile not supported for bootstrap: {fname}")
-
-        if pkg.create_wrksrc:
-            extractdir = pkg.builddir / pkg.wrksrc
-        else:
-            extractdir = pkg.chroot_builddir
-
-        exf = extract_table.get(suffix, None)
-        if not exf:
-            pkg.error(f"cannot guess '{fname}' extract suffix")
-        if pkg.bootstrapping:
-            srcs_path = paths.sources()
-        else:
-            srcs_path = pathlib.Path("/sources")
-        exf(
-            pkg, fname,
-            srcs_path / f"{pkg.pkgname}-{pkg.version}/{fname}",
-            extractdir, suffix
-        )
+            entry.rename(wpath)
+    # all done, extractdir should no longer exist
+    return

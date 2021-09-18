@@ -1,7 +1,6 @@
 pkgname = "libcxxabi-cross"
 version = "12.0.0"
 revision = 0
-wrksrc = f"llvm-project-{version}.src"
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",

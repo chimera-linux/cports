@@ -338,10 +338,6 @@ Keep in mind that default values may be overridden by build styles.
   current working directory during `configure` and later.
 * `checksum` *(list)* A list of SHA256 checksums specified as digest strings
   corresponding to each field in `distfiles`. Used for verification.
-* `create_wrksrc` *(boolean)* If specified, `wrksrc` is created and the
-  `distfiles` are extracted into it rather than into `builddir` directly.
-  This is mainly useful when the source tarball does not contain the directory
-  but rather its contents.
 * `configure_args` *(list)* This list is generally specific to the build
   system the template uses. Generally speaking, it provides the arguments
   passed to some kind of `configure` script.
@@ -443,10 +439,13 @@ Keep in mind that default values may be overridden by build styles.
 * `triggers` *(list)* A list of paths the package should trigger on. I.e.
   if any package changes anything in those paths, the trigger script for
   this package should run.
-* `wrksrc` *(str)* The working directory the build system will assume
-  once distfiles have been extracted (i.e. for `patch` and later, from
-  `configure` onwards it may be `build_wrksrc`). By default this is
-  `{pkgname}-{version}`.
+* `wrksrc` *(str)* The working directory of the build system. By default
+  this is `{pkgname}-{version}`. It exists inside `builddir` and is created
+  automatically. During `configure` and later, the system may change into
+  `build_wrksrc` (which is expected to be inside `wrksrc`). The contents of
+  extracted distfiles are stored here. If distfile extraction results in
+  exactly one directory, then the contents of the directory are stored
+  instead.
 
 <a id="template_functions"></a>
 ### Template Functions
@@ -1104,11 +1103,10 @@ other values. Finally, when invoking code in the sandbox, the user of the
 API may specify additional custom environment variables, which further
 override the rest.
 
-The container is entered with a specific current working directory. During
-the all parts of `fetch` and `extract` this is the `builddir`. From `patch`
-onwards this is `wrksrc`, and from `configure` onwards this is `build_wrksrc`
-inside `wrksrc`. This applies to all parts of each phase, including `init`,
-`pre` and `post`.
+The container is entered with a specific current working directory. At first
+this is `wrksrc`, then from `configure` onwards it may be `build_wrksrc` if
+set (which is inside `wrksrc`). This applies to all parts of each phase,
+including `init`, `pre` and `post`.
 
 The current working directory may be overridden locally via API, either for
 the template or for the specific container invocation.
@@ -1117,9 +1115,8 @@ The following bind mounts are provided:
 
 * `/` The root, read-only.
 * `/ccache` The `ccache` data path (`CCACHE_DIR`), read-write.
-* `/builddir` The directory in which `distfiles` are extracted and
-  which is the base for the template `cwd` (`wrksrc` is inside).
-  Read-only during subpackage population and later.
+* `/builddir` The directory in which `wrksrc` exists, which is populated
+  with distfiles contents (see the documentation for `wrksrc` for details).
 * `/destdir` The destination directory for installing; packages will
   install into `/destdir/pkgname-version`, or when cross compiling,
   into `/destdir/triplet/pkgname-version`. Read only before `install`,

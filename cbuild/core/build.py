@@ -40,9 +40,11 @@ def build(
     oldcwd = pkg.cwd
     oldchd = pkg.chroot_cwd
 
-    # temporarily override default cwd since the wrksrc does not exist yet
-    pkg.cwd = pkg.builddir
-    pkg.chroot_cwd = pkg.chroot_builddir
+    pkg.cwd = pkg.builddir / pkg.wrksrc
+    pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
+
+    # ensure the wrksrc exists; it will be populated later
+    pkg.cwd.mkdir(exist_ok = True, parents = True)
 
     # run up to the step we need
     pkg.current_phase = "fetch"
@@ -53,9 +55,6 @@ def build(
     extract.invoke(pkg)
     if step == "extract":
         return
-
-    pkg.cwd = pkg.builddir / pkg.wrksrc
-    pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
 
     pkg.current_phase = "patch"
     patch.invoke(pkg)

@@ -1,7 +1,6 @@
 pkgname = "libexecinfo-cross"
 version = "1.1"
 revision = 0
-wrksrc = f"libexecinfo-{version}"
 build_style = "gnu_makefile"
 makedepends = ["musl-cross"]
 depends = ["musl-cross"]

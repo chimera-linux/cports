@@ -2,7 +2,6 @@ pkgname = "bsdutils"
 _commit="fcd11975c10fd553b14ba9098dc3c26568f56f2d"
 version = "0.0.1"
 revision = 0
-wrksrc = f"bsdutils-{_commit}"
 build_style = "meson"
 makedepends = [
     "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",

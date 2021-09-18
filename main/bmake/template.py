@@ -1,7 +1,6 @@
 pkgname = "bmake"
 version = "20210420"
 revision = 0
-wrksrc = "bmake"
 short_desc = "Portable version of NetBSD make"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

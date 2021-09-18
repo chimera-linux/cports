@@ -1,7 +1,6 @@
 pkgname = "musl-cross"
 version = "1.2.2"
 revision = 0
-wrksrc = f"musl-{version}"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 hostmakedepends = ["gmake"]

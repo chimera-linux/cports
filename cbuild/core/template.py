@@ -332,7 +332,6 @@ core_fields = [
     # build directory and patches
     ("wrksrc", None, str, True, False, False, False),
     ("build_wrksrc", "", str, False, False, False, False),
-    ("create_wrksrc", False, bool, False, False, False, False),
     ("patch_args", None, str, True, False, False, False),
 
     # dependency lists

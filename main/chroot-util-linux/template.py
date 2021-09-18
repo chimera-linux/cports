@@ -2,7 +2,6 @@ pkgname = "chroot-util-linux"
 _mver = "2.32"
 version = f"{_mver}.1"
 revision = 0
-wrksrc = f"util-linux-{version}"
 build_style = "gnu_configure"
 configure_args = [
     "--without-ncurses", "--without-ncursesw", "--without-udev",

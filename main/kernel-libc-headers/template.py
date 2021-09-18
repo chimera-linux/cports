@@ -2,7 +2,6 @@ pkgname = "kernel-libc-headers"
 _mver = "5"
 version = f"{_mver}.10.4"
 revision = 0
-wrksrc = f"linux-{version}"
 make_cmd = "gmake"
 short_desc = "Linux API headers for userland development"
 maintainer = "q66 <q66@chimera-linux.org>"
