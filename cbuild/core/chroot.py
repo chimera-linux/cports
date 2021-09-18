@@ -132,11 +132,13 @@ def setup_keys(rootp):
     for f in (paths.distdir() / "etc/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
 
-def get_confrepos():
-    return _crepos
+_crepos = None
 
-def repo_sync(genrepos = False):
+def get_confrepos():
     global _crepos
+
+    if _crepos:
+        return _crepos
 
     _crepos = []
     for f in (paths.distdir() / "etc/apk/repositories.d").glob("*.conf"):
@@ -144,6 +146,9 @@ def repo_sync(genrepos = False):
             for repo in repof:
                 _crepos.append(repo.strip())
 
+    return _crepos
+
+def repo_sync(genrepos = False):
     setup_keys(paths.bldroot())
 
     # generate a repositories file for chroots
@@ -154,7 +159,7 @@ def repo_sync(genrepos = False):
     if genrepos:
         with rfile.open("w") as rfh:
             for rd in paths.repository().iterdir():
-                for cr in _crepos:
+                for cr in get_confrepos():
                     cr = cr.lstrip("/")
                     idxp = rd / cr / host_cpu() / "APKINDEX.tar.gz"
                     if idxp.is_file():

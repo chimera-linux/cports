@@ -1,5 +1,5 @@
 pkgname = "bsdutils"
-_commit="0c83b868c95e598613326bc365262fd0456f0088"
+_commit="fcd11975c10fd553b14ba9098dc3c26568f56f2d"
 version = "0.0.1"
 revision = 0
 wrksrc = f"bsdutils-{_commit}"
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdutils"
 distfiles = [f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"]
-checksum = ["025a4bc07bf530eae627f3c6926875344c382a2808ad1a77d81dc5b1ee30622e"]
+checksum = ["55096a3a3f766b6fee21adf5c9981afe180d70aa43962eed3a6b9aa2a0af354d"]
 
 options = ["bootstrap", "!check"]
 
