@@ -974,25 +974,40 @@ It may look like this:
 
 ```
 [profile]
-cflags   = -march=rv64gc -mabi=lp64d
-cxxflags = ${cflags}
-fflags   = ${cflags}
 endian   = little
 wordsize = 64
 triplet  = riscv64-unknown-linux-musl
+[flags]
+CFLAGS   = -march=rv64gc -mabi=lp64d
+CXXFLAGS = ${CFLAGS}
+FFLAGS   = ${CFLAGS}
+LDFLAGS  =
 ```
 
 These are also the fields it has to define. The `triplet` must always
 be the full triplet (`cbuild` will take care of building the short
 triplet from it if needed). The compiler flags are optional.
 
-There is also the special `bootstrap` profile used when bootstrapping.
-It differs from regular profiles in that the endianness and word size
-are implied from the host, and the flags contain more things as the
-user provided flags from `cbuild` are ignored when bootstrapping.
+There may also be an extra field in `profile`:
 
-Unlike other profiles, `bootstrap` may also provide per-architecture
-sections.
+```
+hardening = ...
+```
+
+This specifies extra default hardening options that are enabled for
+the profile only. Chimera tries to enable as many of those as possible
+globally, but some are not available on all architectures. It can also
+disable hardening options if needed (by prefixing with `!`). The `scp`
+option is one of those that is only supported on certain architectures
+by the toolchain.
+
+There is also the special `bootstrap` profile used when bootstrapping.
+It differs from normal profiles in that the `profile` section is not
+actually specified, as the endianness and word size are already known
+from the host and the rest of the info is architecture specific. What
+it can specify is the `flags` section, and possibly also additional
+per-architecture flags (e.g. `flags.riscv64`). User specified flags
+from global config are ignored when bootstrapping.
 
 The `cbuild` system provides special API to manipulate profiles, and
 you can utilize any arbitrary profiles within one build if needed.

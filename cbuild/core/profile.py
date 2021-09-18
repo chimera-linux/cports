@@ -69,7 +69,7 @@ def _flags_ret(it, shell):
     else:
         return list(it)
 
-def _get_gencflags(self, bcflags, extra_flags, debug, hardening, shell):
+def _get_gencflags(self, name, extra_flags, debug, hardening, shell):
     hflags = _get_hcflags(self._hardening, hardening)
 
     # bootstrap
@@ -80,29 +80,14 @@ def _get_gencflags(self, bcflags, extra_flags, debug, hardening, shell):
     else:
         bflags = []
 
-    ret = hflags + bcflags + bflags + extra_flags
+    ret = hflags + self._flags[name] + bflags + extra_flags
 
     if debug >= 0:
         ret.append(f"-g{debug}")
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
-def _get_cflags(self, extra_flags, debug, hardening, shell):
-    return _get_gencflags(
-        self, self._cflags, extra_flags, debug, hardening, shell
-    )
-
-def _get_cxxflags(self, extra_flags, debug, hardening, shell):
-    return _get_gencflags(
-        self, self._cxxflags, extra_flags, debug, hardening, shell
-    )
-
-def _get_fflags(self, extra_flags, debug, hardening, shell):
-    return _get_gencflags(
-        self, self._fflags, extra_flags, debug, hardening, shell
-    )
-
-def _get_ldflags(self, extra_flags, debug, hardening, shell):
+def _get_ldflags(self, name, extra_flags, debug, hardening, shell):
     hflags = _get_hldflags(self._hardening, hardening)
 
     # bootstrap
@@ -116,14 +101,14 @@ def _get_ldflags(self, extra_flags, debug, hardening, shell):
     else:
         bflags = []
 
-    ret = hflags + self._ldflags + bflags + extra_flags
+    ret = hflags + self._flags["LDFLAGS"] + bflags + extra_flags
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
 _flag_handlers = {
-    "CFLAGS": _get_cflags,
-    "CXXFLAGS": _get_cxxflags,
-    "FFLAGS": _get_fflags,
+    "CFLAGS": _get_gencflags,
+    "CXXFLAGS": _get_gencflags,
+    "FFLAGS": _get_gencflags,
     "LDFLAGS": _get_ldflags,
 }
 
@@ -131,6 +116,14 @@ _flag_types = list(_flag_handlers.keys())
 
 class Profile:
     def __init__(self, archn, pdata, gdata):
+        self._flags = {}
+
+        # profile flags are always used
+        if "flags" in pdata:
+            pd = pdata["flags"]
+            for ft in _flag_types:
+                self._flags[ft] = shlex.split(pd.get(ft, fallback = ""))
+
         # bootstrap is a simplfied case
         if archn == "bootstrap":
             # initialize with arch data of the host system
@@ -139,19 +132,11 @@ class Profile:
             self._endian = sys.byteorder
             self._wordsize = int(platform.architecture()[0][:-3])
             self._hardening = []
-            # we ignore user flags here to guarantee a good base
-            pd = pdata["profile"]
-            self._cflags = shlex.split(pd.get("cflags", fallback = ""))
-            self._cxxflags = shlex.split(pd.get("cxxflags", fallback = ""))
-            self._fflags = shlex.split(pd.get("fflags", fallback = ""))
-            self._ldflags = shlex.split(pd.get("ldflags", fallback = ""))
             # account for arch specific bootstrap flags
-            if self._arch in pdata:
-                pd = pdata[self._arch]
-                self._cflags += shlex.split(pd.get("cflags", fallback = ""))
-                self._cxxflags += shlex.split(pd.get("cxxflags", fallback = ""))
-                self._fflags += shlex.split(pd.get("fflags", fallback = ""))
-                self._ldflags += shlex.split(pd.get("ldflags", fallback = ""))
+            if f"flags.{self._arch}" in pdata:
+                pd = pdata[f"flags.{self._arch}"]
+                for ft in _flag_types:
+                    self._flags[ft] += shlex.split(pd.get(ft, fallback = ""))
             return
 
         pdata = pdata["profile"]
@@ -191,26 +176,18 @@ class Profile:
             self._hardening = []
 
         def get_gflag(fn):
-            if f"build.{archn}" in gdata:
-                ccat = gdata[f"build.{archn}"]
-            elif "build" in gdata:
-                ccat = gdata["build"]
+            if f"flags.{archn}" in gdata:
+                ccat = gdata[f"flags.{archn}"]
+            elif "flags" in gdata:
+                ccat = gdata["flags"]
             else:
                 return []
             return shlex.split(ccat.get(fn, fallback = ""))
 
-        # profile data comes first
-        self._cflags = shlex.split(pdata.get("cflags", fallback = ""))
-        self._cxxflags = shlex.split(pdata.get("cxxflags", fallback = ""))
-        self._fflags = shlex.split(pdata.get("fflags", fallback = ""))
-        self._ldflags = shlex.split(pdata.get("ldflags", fallback = ""))
-
         # user flags may override whatever is in profile
         # it also usually defines what optimization level we're using
-        self._cflags += get_gflag("cflags")
-        self._cxxflags += get_gflag("cxxflags")
-        self._fflags += get_gflag("fflags")
-        self._ldflags += get_gflag("ldflags")
+        for ft in _flag_types:
+            self._flags[ft] += get_gflag(ft)
 
     @property
     def arch(self):
@@ -237,7 +214,9 @@ class Profile:
     def get_tool_flags(
         self, name, extra_flags = [], debug = -1, hardening = [], shell = False
     ):
-        return _flag_handlers[name](self, extra_flags, debug, hardening, shell)
+        return _flag_handlers[name](
+            self, name, extra_flags, debug, hardening, shell
+        )
 
     def _get_supported_tool_flags(self):
         return _flag_types
@@ -277,7 +256,7 @@ def init(cparser):
         with open(pf) as cf:
             cp.read_file(cf)
 
-        if not "profile" in cp:
+        if archn != "bootstrap" and not "profile" in cp:
             logger.get().out_red(f"Malformed profile: {archn}")
             raise Exception()
 

@@ -15,16 +15,21 @@ ccache_path = ccache
 check = yes
 # number of jobs to use when building
 jobs = 1
-# default user C compiler flags
-cflags = -O2
-# default user C++ compiler flags
-cxxflags = -O2
-# default user linker flags
-ldflags =
 # default local repository path for packages (absolute or relative to cports)
 repository = packages
 # default source distfiles path (absolute or relative to cports)
 sources = sources
+
+# flags passed to tools
+[flags]
+# default user C compiler flags
+CFLAGS = -O2
+# default user C++ compiler flags
+CXXFLAGS = -O2
+# default user Fortran compiler flags
+FFLAGS = -O2
+# default user linker flags
+LDFLAGS =
 
 # options related to signing packages
 [signing]

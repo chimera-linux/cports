@@ -39,7 +39,7 @@ for prog in [
 
 opt_cflags    = "-O2"
 opt_cxxflags  = "-O2"
-opt_ldflags   = ""
+opt_fflags    = "-O2"
 opt_arch      = None
 opt_gen_dbg   = False
 opt_skipexist = False
@@ -147,14 +147,23 @@ if "build" in global_cfg:
     opt_ccache    = bcfg.getboolean("ccache", fallback = opt_ccache)
     opt_check     = bcfg.getboolean("check", fallback = opt_check)
     opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
-    opt_cflags    = bcfg.get("cflags", fallback = opt_cflags)
-    opt_cxxflags  = bcfg.get("cxxflags", fallback = opt_cxxflags)
-    opt_ldflags   = bcfg.get("ldflags", fallback = opt_ldflags)
     opt_arch      = bcfg.get("arch", fallback = opt_arch)
     opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
     opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
     opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
     opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
+
+if not "flags" in global_cfg:
+    global_cfg["flags"] = {}
+
+if not "CFLAGS" in global_cfg["flags"]:
+    global_cfg["flags"]["CFLAGS"] = opt_cflags
+
+if not "CXXFLAGS" in global_cfg["flags"]:
+    global_cfg["flags"]["CXXFLAGS"] = opt_cxxflags
+
+if not "FFLAGS" in global_cfg["flags"]:
+    global_cfg["flags"]["FFLAGS"] = opt_fflags
 
 if "signing" in global_cfg:
     signcfg = global_cfg["signing"]
