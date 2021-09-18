@@ -16,7 +16,9 @@ checksum = ["e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995"]
 options = ["!check"]
 
 # Required to enable the definition of reallocarray() in stdlib.h
-CFLAGS = ["-D_GNU_SOURCE"]
+tool_flags = {
+    "CFLAGS": ["-D_GNU_SOURCE"],
+}
 
 def post_install(self):
     self.install_link("flex", "usr/bin/lex")

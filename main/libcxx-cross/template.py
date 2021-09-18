@@ -41,8 +41,10 @@ _targets = list(filter(
 ))
 
 # not available yet, prevent cmake checks
-CFLAGS = ["-fPIC"]
-CXXFLAGS = ["-fPIC", "-nostdlib"]
+tool_flags = {
+    "CFLAGS": ["-fPIC"],
+    "CXXFLAGS": ["-fPIC", "-nostdlib"],
+}
 
 def do_configure(self):
     from cbuild.util import cmake

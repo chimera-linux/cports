@@ -22,7 +22,14 @@ checksum = [
 ]
 
 # prevent a massive log dump
-CFLAGS = ["-Wno-compound-token-split-by-macro"]
+tool_flags = {
+    "CFLAGS": [
+        "-Wno-compound-token-split-by-macro",
+        "-DNO_POSIX_2008_LOCALE",
+        "-D_GNU_SOURCE",
+    ],
+    "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
+}
 
 options = ["!check"]
 
@@ -163,13 +170,7 @@ def init_configure(self):
 
     self.make = make.Make(self)
 
-    self.LDFLAGS.append("-Wl,-z,stack-size=2097152")
-    self.LDFLAGS.append("-pthread")
-
     self.env["HOSTCFLAGS"] = "-D_GNU_SOURCE"
-
-    self.CFLAGS.append("-DNO_POSIX_2008_LOCALE")
-    self.CFLAGS.append("-D_GNU_SOURCE")
 
     self.tools["LD"] = self.tools["CC"]
 

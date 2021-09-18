@@ -49,8 +49,10 @@ options = ["!cross", "!check"]
 
 cmake_dir = "compiler-rt"
 
-CFLAGS = ["-fPIC"]
-CXXFLAGS = ["-fPIC"]
+tool_flags = {
+    "CFLAGS": ["-fPIC"],
+    "CXXFLAGS": ["-fPIC"],
+}
 
 subpackages = []
 

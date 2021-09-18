@@ -38,8 +38,10 @@ _targets = list(filter(
 
 # we don't have these available yet; but cmake tests for
 # executables with default flags, so avoid trying to use them
-CFLAGS = ["-fPIC", "--unwindlib=none"]
-CXXFLAGS = ["-fPIC", "--unwindlib=none", "-nostdlib"]
+tool_flags = {
+    "CFLAGS": ["-fPIC", "--unwindlib=none"],
+    "CXXFLAGS": ["-fPIC", "--unwindlib=none", "-nostdlib"],
+}
 
 def do_configure(self):
     from cbuild.util import cmake

@@ -50,8 +50,10 @@ options = ["bootstrap", "!check"]
 
 cmake_dir = "llvm"
 
-CFLAGS = ["-fPIC"]
-CXXFLAGS = ["-fPIC"]
+tool_flags = {
+    "CFLAGS": ["-fPIC"],
+    "CXXFLAGS": ["-fPIC"],
+}
 
 if not current.bootstrapping:
     hostmakedepends = [

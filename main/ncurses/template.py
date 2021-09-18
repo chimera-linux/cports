@@ -16,7 +16,9 @@ if not current.bootstrapping:
 
 depends = [f"ncurses-base={version}-r{revision}"]
 
-CFLAGS = ["-fPIC"]
+tool_flags = {
+    "CFLAGS": ["-fPIC"],
+}
 
 def do_configure(self):
     from cbuild.util import gnu_configure

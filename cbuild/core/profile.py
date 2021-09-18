@@ -127,6 +127,8 @@ _flag_handlers = {
     "LDFLAGS": _get_ldflags,
 }
 
+_flag_types = list(_flag_handlers.keys())
+
 class Profile:
     def __init__(self, archn, pdata, gdata):
         # bootstrap is a simplfied case
@@ -236,6 +238,9 @@ class Profile:
         self, name, extra_flags = [], debug = -1, hardening = [], shell = False
     ):
         return _flag_handlers[name](self, extra_flags, debug, hardening, shell)
+
+    def _get_supported_tool_flags(self):
+        return _flag_types
 
     def has_hardening(self, hname, hardening = []):
         return _get_harden(self._hardening, hardening)[hname]

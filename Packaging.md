@@ -22,7 +22,7 @@ you should not rely on them or expect them to be stable.
   * [Subpackages](#subpackages)
   * [Template Options](#template_options)
   * [Hardening Options](#hardening_options)
-  * [Tools](#tools)
+  * [Tools and Tool Flags](#tools)
 * [Build Profiles](#build_profiles)
 * [Build Environment](#build_environment)
 * [Hooks and Invocation](#hooks)
@@ -328,14 +328,6 @@ These variables are mandatory:
 There is also a variety of variables that are builtin but not mandatory.
 Keep in mind that default values may be overridden by build styles.
 
-* `CFLAGS` *(list)* Compiler flags used for the C compiler, regardless of
-  profile, at any point. Passed after other compiler flags.
-* `CXXFLAGS` *(list)* Compiler flags used for the C++ compiler, regardless of
-  profile, at any point. Passed after other compiler flags.
-* `FFLAGS` *(list)* Compiler flags used for the Fortran compiler, regardless of
-  profile, at any point. Passed after other compiler flags.
-* `LDFLAGS` *(list)* Linker flags used regardless of build profile, passed
-  after other linker flags.
 * `archs` *(list)* A list of architecture patterns to determine if the template
    can be built for the current architecture. See "Architecture Patterns" below.
 * `broken` *(str)* If specified, the package will refuse to build. The value
@@ -445,6 +437,9 @@ Keep in mind that default values may be overridden by build styles.
   See the section about subpackages for more details.
 * `tools` *(dict)* This can be used to override default tools. Refer to the
   section about tools for more information.
+* `tool_flags` *(dict)* This can be used to override things such as `CFLAGS`
+  or `LDFLAGS`. Refer to the section about tools and tool flags for more
+  information.
 * `triggers` *(list)* A list of paths the package should trigger on. I.e.
   if any package changes anything in those paths, the trigger script for
   this package should run.
@@ -895,10 +890,11 @@ supports it (currently `ppc64le`, `ppc64` and `x86_64`):
 * `scp` Enables `-fstack-clash-protection`.
 
 <a id="tools"></a>
-### Tools
+### Tools and Tool Flags
 
 The build system also provides separate management of tools for convenience.
-Tools in this case refer primarily to the toolchain.
+Similarly, it allows you to declare custom tool flags. Tools and tool flags
+in this case refer primarily to the toolchain and flags passed to it.
 
 By default, the following tools are defined:
 
@@ -921,6 +917,13 @@ By default, the following tools are defined:
 * `READELF` The `readelf` tool, `llvm-readelf` when not bootstrapping
   and `readelf` otherwise.
 
+The following tool flags are defined:
+
+* `CFLAGS` (C)
+* `CXXFLAGS` (C++)
+* `FFLAGS` (Fortran)
+* `LDFLAGS` (linker, usually passed together with one of the above)
+
 When invoking commands within the sandbox, the build system will export
 the values as environment variables, but before user provided environment
 variables are exported (therefore, actual explicit env vars take priority).
@@ -936,6 +939,23 @@ Additionally, these tools are also exported into the environment with
 their host values, as `BUILD_CC`, `BUILD_LD` and so on. This is to ensure
 that project build systems can utilize both host and target toolchains
 where appropriate.
+
+Tool flags have a bit more elaborate handling. Similarly to tools they
+are also exported into the environment by their names, including for
+the host profile with the `BUILD_` prefix. However, the actual values
+are composed of multiple parts, which are generally the following:
+
+1) Any hardening flags for the tool as defined by current `hardening` of the
+   template, possibly extended or overridden by the `hardening` argument.
+2) The flags as defined in either the current build profile or `target`.
+3) Bootstrapping or cross-compiling flags.
+4) The flags as defined in your template, if any.
+5) Any extra flags from `extra_flags`.
+6) Debug flags as corresponding to the tool according to the current debug
+   level (default or template-specified), if building with debug.
+
+Not all of the above may apply to all tool types, but it tends to apply to
+compilers. Any differences will be noted in here, if needed.
 
 There are many more variables that are implicitly exported into the
 environment, but those are documented elsewhere.
@@ -1634,33 +1654,11 @@ with self.profile("aarch64"):
 
 ##### def get_tool_flags(self, name, extra_flags = [], hardening = [], shell = False, target = None)
 
-This is a universal API to be used for getting flags used by various tools.
-Typically these are compilers, but they can be any other tool. Tool flags
-are identified by `name`, which is the environment variable name they are
-exported as. All tool flags are always available in the build environment.
-
-The contents depend on the tool. The currently supported flags are:
-
-* `CFLAGS` (C)
-* `CXXFLAGS` (C++)
-* `FFLAGS` (Fortran)
-* `LDFLAGS` (linker, usually passed together with one of the above)
-
-The general contents and order tend to be the following:
-
-1) Any hardening flags for the tool as defined by current `hardening` of the
-   template, possibly extended or overridden by the `hardening` argument.
-2) The flags as defined in either the current build profile or `target`.
-3) Bootstrapping or cross-compiling flags.
-4) The flags as defined in your template, if any.
-5) Any extra flags from `extra_flags`.
-6) Debug flags as corresponding to the tool according to the current debug
-   level (default or template-specified), if building with debug.
-
-Not all of the above may apply to all tool types, but it tends to apply to
-compilers. Any differences will be noted in here, if needed.
+Get specific tool flags (e.g. `CFLAGS`) for the current profile or for `target`.
 
 The `target` argument is the same as for `profile()`.
+
+See the section on tools and tool flags for more information.
 
 The return value will be a list of strings, unless `shell` is `True`, in
 which case the result is a shell-escaped string that can be passed safely.

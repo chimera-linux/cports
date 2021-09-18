@@ -16,7 +16,9 @@ checksum = ["a3cbabbcd3072f197b19f85e13e526b8b769d1e537f8156457b1779bcc9300fe"]
 
 options = ["bootstrap", "!check"]
 
-CFLAGS = ["-Wno-error"]
+tool_flags = {
+    "CFLAGS": ["-Wno-error"]
+}
 
 if not current.bootstrapping:
     hostmakedepends = ["pkgconf", "meson"]

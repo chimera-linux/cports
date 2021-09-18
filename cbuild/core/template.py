@@ -359,6 +359,7 @@ core_fields = [
     ("hardening", [], list, False, False, True, False),
     ("nopie_files", [], list, False, False, True, False),
     ("tools", {}, dict, False, False, False, False),
+    ("tool_flags", {}, dict, False, False, False, False),
     ("env", {}, dict, False, False, False, False),
     ("debug_level", 2, int, False, False, False, False),
     ("CFLAGS", [], list, True, False, False, False),
@@ -590,13 +591,14 @@ class Template(Package):
 
     def do(self, cmd, args, env = {}, wrksrc = None):
         cenv = {
-            "CFLAGS": self.get_cflags(shell = True),
-            "FFLAGS": self.get_fflags(shell = True),
-            "CXXFLAGS": self.get_cxxflags(shell = True),
-            "LDFLAGS": self.get_ldflags(shell = True),
             "CBUILD_TARGET_MACHINE": self.build_profile.arch,
             "CBUILD_HOST_MACHINE": chroot.host_cpu(),
         }
+
+        # cflags and so on
+        for k in self.tool_flags:
+            cenv[k] = self.get_tool_flags(k, shell = True)
+
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
         if self.build_profile.triplet:
@@ -623,10 +625,11 @@ class Template(Package):
             cenv["BUILD_CPP"] = self.get_tool("CPP")
             cenv["BUILD_LD"] = self.get_tool("LD")
             cenv["BUILD_PKG_CONFIG"] = self.get_tool("PKG_CONFIG")
-            cenv["BUILD_CFLAGS"] = self.get_cflags(shell = True)
-            cenv["BUILD_FFLAGS"] = self.get_fflags(shell = True)
-            cenv["BUILD_CXXFLAGS"] = self.get_cxxflags(shell = True)
-            cenv["BUILD_LDFLAGS"] = self.get_ldflags(shell = True)
+
+            # cflags and so on
+            for k in self.tool_flags:
+                cenv["BUILD_" + k] = self.get_tool_flags(k, shell = True)
+
             if self.build_profile.triplet:
                 cenv["CBUILD_HOST_TRIPLET"] = self.build_profile.triplet
 
@@ -675,9 +678,13 @@ class Template(Package):
     ):
         target = pkg_profile(self, target)
 
+        if name in self.tool_flags:
+            tfb = self.tool_flags[name] + extra_flags
+        else:
+            tfb = extra_flags
+
         return target.get_tool_flags(
-            name,
-            self.CFLAGS + extra_flags,
+            name, tfb,
             self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
             shell = shell
@@ -1138,6 +1145,11 @@ def from_module(m, ret):
 
     ret.statedir.mkdir(parents = True, exist_ok = True)
     ret.wrapperdir.mkdir(parents = True, exist_ok = True)
+
+    # fill the remaining toolflag lists so it's complete
+    for tf in ret.build_profile._get_supported_tool_flags():
+        if not tf in ret.tool_flags:
+            ret.tool_flags[tf] = []
 
     # when bootstrapping, use a fixed set of tools; none of the bootstrap
     # packages should be overriding these, and we want to prefer the usual
