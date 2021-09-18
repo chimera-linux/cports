@@ -1632,36 +1632,54 @@ with self.profile("aarch64"):
     ... do something that we need for aarch64 at the time ...
 ```
 
-##### def get_cflags(self, extra_flags = [], hardening = [], shell = False, target = None)
+##### def get_tool_flags(self, name, extra_flags = [], hardening = [], shell = False, target = None)
 
-Get the `CFLAGS` to be used for a compiler. They will consist of the following:
+This is a universal API to be used for getting flags used by various tools.
+Typically these are compilers, but they can be any other tool. Tool flags
+are identified by `name`, which is the environment variable name they are
+exported as. All tool flags are always available in the build environment.
 
-1) Hardening `CFLAGS` as defined by current `hardening` of the template,
-   possibly extended or overridden by the `hardening` argument.
-2) The `CFLAGS` of the current build profile, possibly overridden by
-   the `target` argument.
-3) Bootstrapping or cross-compiling `CFLAGS`.
-4) The `CFLAGS` of the template.
-5) Any extra `CFLAGS` provided by `extra_cflags`.
-6) Debug `CFLAGS` if set for the template.
+The contents depend on the tool. The currently supported flags are:
+
+* `CFLAGS` (C)
+* `CXXFLAGS` (C++)
+* `FFLAGS` (Fortran)
+* `LDFLAGS` (linker, usually passed together with one of the above)
+
+The general contents and order tend to be the following:
+
+1) Any hardening flags for the tool as defined by current `hardening` of the
+   template, possibly extended or overridden by the `hardening` argument.
+2) The flags as defined in either the current build profile or `target`.
+3) Bootstrapping or cross-compiling flags.
+4) The flags as defined in your template, if any.
+5) Any extra flags from `extra_flags`.
+6) Debug flags as corresponding to the tool according to the current debug
+   level (default or template-specified), if building with debug.
+
+Not all of the above may apply to all tool types, but it tends to apply to
+compilers. Any differences will be noted in here, if needed.
 
 The `target` argument is the same as for `profile()`.
 
 The return value will be a list of strings, unless `shell` is `True`, in
-which case the result will be a properly shell-escaped string.
+which case the result is a shell-escaped string that can be passed safely.
+
+##### def get_cflags(self, extra_flags = [], hardening = [], shell = False, target = None)
+
+A shortcut for `get_tool_flags` with `CFLAGS`.
 
 ##### def get_cxxflags(self, extra_flags = [], hardening = [], shell = False, target = None)
 
-Identical to `get_cflags()`, but for C++.
+A shortcut for `get_tool_flags` with `CXXFLAGS`.
 
 ##### def get_fflags(self, extra_flags = [], hardening = [], shell = False, target = None)
 
-Identical to `get_cflags()`, but for Fortran.
+A shortcut for `get_tool_flags` with `FFLAGS`.
 
 ##### def get_ldflags(self, extra_flags = [], hardening = [], shell = False, target = None)
 
-Like `get_cflags()`, but to be passed when linking. Usually you will want
-to pass the `CFLAGS` (or whatever your language is) followed by `LDFLAGS`.
+A shortcut for `get_tool_flags` with `LDFLAGS`.
 
 ##### def get_tool(self, name, target = None)
 

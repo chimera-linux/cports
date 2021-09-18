@@ -669,56 +669,46 @@ class Template(Package):
         if not skip_post:
             call_pkg_hooks(self, "post_" + stepn)
 
-    def get_cflags(
-        self, extra_flags = [], hardening = [], shell = False, target = None
+    def get_tool_flags(
+        self, name, extra_flags = [], hardening = [],
+        shell = False, target = None
     ):
         target = pkg_profile(self, target)
 
         return target.get_tool_flags(
-            "CFLAGS",
+            name,
             self.CFLAGS + extra_flags,
             self.debug_level if self.options["debug"] else -1,
             self.hardening + hardening,
             shell = shell
         )
 
+    def get_cflags(
+        self, extra_flags = [], hardening = [], shell = False, target = None
+    ):
+        return self.get_tool_flags(
+            "CFLAGS", extra_flags, hardening, shell, target
+        )
+
     def get_cxxflags(
         self, extra_flags = [], hardening = [], shell = False, target = None
     ):
-        target = pkg_profile(self, target)
-
-        return target.get_tool_flags(
-            "CXXFLAGS",
-            self.CXXFLAGS + extra_flags,
-            self.debug_level if self.options["debug"] else -1,
-            self.hardening + hardening,
-            shell = shell
+        return self.get_tool_flags(
+            "CXXFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_fflags(
         self, extra_flags = [], hardening = [], shell = False, target = None
     ):
-        target = pkg_profile(self, target)
-
-        return target.get_tool_flags(
-            "FFLAGS",
-            self.FFLAGS + extra_flags,
-            self.debug_level if self.options["debug"] else -1,
-            self.hardening + hardening,
-            shell = shell
+        return self.get_tool_flags(
+            "FFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_ldflags(
         self, extra_flags = [], hardening = [], shell = False, target = None
     ):
-        target = pkg_profile(self, target)
-
-        return target.get_tool_flags(
-            "LDFLAGS",
-            self.LDFLAGS + extra_flags,
-            self.debug_level if self.options["debug"] else -1,
-            self.hardening + hardening,
-            shell = shell
+        return self.get_tool_flags(
+            "LDFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_tool(self, name, target = None):
