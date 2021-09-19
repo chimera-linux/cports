@@ -5,7 +5,7 @@ import pathlib
 import subprocess
 
 def process_patch(pkg, patchpath):
-    pargs = ["-slNp1"]
+    pargs = ["-sNp1"]
     argsf = pathlib.Path(str(patchpath) + ".args")
 
     if argsf.is_file():

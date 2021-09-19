@@ -413,7 +413,7 @@ Keep in mind that default values may be overridden by build styles.
   of strings; a string `foo` toggles the option on, while `!foo` does the
   opposite. Every permissible option has a default.
 * `patch_args` *(list)* Options passed to `patch` when applying patches,
-  in addition to the builtin ones (`-slNp1`). You can use this to override
+  in addition to the builtin ones (`-sNp1`). You can use this to override
   the strip count or pass additional options.
 * `provides` *(list)* A list of packages provided virtually, specified
   in the format `foo=1.0-r0`. The package manager will consider these
