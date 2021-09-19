@@ -332,7 +332,7 @@ core_fields = [
     # build directory and patches
     ("wrksrc", None, str, True, False, False, False),
     ("build_wrksrc", "", str, False, False, False, False),
-    ("patch_args", None, str, True, False, False, False),
+    ("patch_args", [], list, False, False, False, False),
 
     # dependency lists
     ("hostmakedepends", [], list, False, False, False, False),

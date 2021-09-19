@@ -5,13 +5,13 @@ import pathlib
 import subprocess
 
 def process_patch(pkg, patchpath):
-    pargs = "-Np1"
+    pargs = ["-slNp1"]
     argsf = pathlib.Path(str(patchpath) + ".args")
 
     if argsf.is_file():
-        pargs = argsf.read_text().strip()
+        pargs += shlex.split(argsf.read_text().strip())
     elif pkg.patch_args:
-        pargs = pkg.patch_args
+        pargs += pkg.patch_args
 
     patchfn = patchpath.name
     patchsfx = patchpath.suffix
@@ -41,7 +41,7 @@ def process_patch(pkg, patchpath):
     pkg.log(f"patching: {patchfn}")
 
     chroot.enter(
-        "patch", ["-sl", pargs, "-i", patchfn],
+        "patch", pargs + ["-i", patchfn],
         stderr = subprocess.DEVNULL, check = True,
         wrkdir = pkg.chroot_builddir / pkg.wrksrc,
         bootstrapping = pkg.bootstrapping,

@@ -402,8 +402,9 @@ Keep in mind that default values may be overridden by build styles.
 * `options` *(list)* Various boolean toggles for the template. It is a list
   of strings; a string `foo` toggles the option on, while `!foo` does the
   opposite. Every permissible option has a default.
-* `patch_args` *(str)* Options passed to `patch` when applying patches.
-  By default, patches are applied with `-Np1`.
+* `patch_args` *(list)* Options passed to `patch` when applying patches,
+  in addition to the builtin ones (`-slNp1`). You can use this to override
+  the strip count or pass additional options.
 * `provides` *(list)* A list of packages provided virtually, specified
   in the format `foo=1.0-r0`. The package manager will consider these
   alternative names for the package, and automatically have them
