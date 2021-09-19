@@ -360,10 +360,6 @@ core_fields = [
     ("tool_flags", {}, dict, False, False, False, False),
     ("env", {}, dict, False, False, False, False),
     ("debug_level", 2, int, False, False, False, False),
-    ("CFLAGS", [], list, True, False, False, False),
-    ("FFLAGS", [], list, True, False, False, False),
-    ("CXXFLAGS", [], list, True, False, False, False),
-    ("LDFLAGS", [], list, True, False, False, False),
 
     # shlibs
     ("shlib_provides", [], list, True, False, True, False),
