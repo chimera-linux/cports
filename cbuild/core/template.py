@@ -330,7 +330,6 @@ core_fields = [
     ("archs", None, str, True, False, False, False),
 
     # build directory and patches
-    ("wrksrc", None, str, True, False, False, False),
     ("build_wrksrc", "", str, False, False, False, False),
     ("patch_args", [], list, False, False, False, False),
 
@@ -963,9 +962,7 @@ def from_module(m, ret):
             ropts[opt] = not neg
 
     ret.options = ropts
-
-    if not ret.wrksrc:
-        ret.wrksrc = f"{ret.pkgname}-{ret.version}"
+    ret.wrksrc = f"{ret.pkgname}-{ret.version}"
 
     ret.validate_arch()
 

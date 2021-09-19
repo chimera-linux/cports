@@ -173,6 +173,11 @@ influence repeated runs. The build system keeps track of the steps and
 upon successful completion, the step is not run again (e.g. when the
 build fails elsewhere and needs to be restarted).
 
+All build phases are run in either `self.wkrsrc` (all phases), or in
+`build_wrksrc` inside that directory (`configure` and later). The value
+of `self.wrksrc` is `{self.pkgname}-{self.version}`. It exists within
+the `builddir` and is created automatically.
+
 * `setup` The build system prepares the environment. This means creating
   the necessary files and directories for the syndbox and installing the
   build dependencies. When cross-compiling, the cross target environment
@@ -186,7 +191,8 @@ build fails elsewhere and needs to be restarted).
   prepare the `builddir` like `extract` would.
 
 * `extract` All defined `distfiles` are extracted. The builtin behavior
-  runs inside of the sandbox, except when bootstrapping.
+  runs inside of the sandbox, except when bootstrapping. It populates
+  the `self.wrksrc`.
 
 * `patch` This phase applies patches provided in `templatedir/patches`
   to the extracted sources by default. User defined override can perform
@@ -334,8 +340,8 @@ Keep in mind that default values may be overridden by build styles.
   is a string that contains the reason why the package does not build.
 * `build_style` *(str)* The build style used for the template. See the
   section about build styles for more details.
-* `build_wrksrc` *(str)* A subpath within `wrksrc` that is assumed to be the
-  current working directory during `configure` and later.
+* `build_wrksrc` *(str)* A subpath within `self.wrksrc` that is assumed to be
+  the current working directory during `configure` and later.
 * `checksum` *(list)* A list of SHA256 checksums specified as digest strings
   corresponding to each field in `distfiles`. Used for verification.
 * `configure_args` *(list)* This list is generally specific to the build
@@ -354,7 +360,11 @@ Keep in mind that default values may be overridden by build styles.
 * `distfiles` *(list)* A list of URLs to download and extract (by default).
   The items can be either strings (in which case the filename is inferred
   from the URL itself) or 2-tuples (in which case the first field is the URL
-  and the second field is the file name it will have when downloaded).
+  and the second field is the file name it will have when downloaded). The
+  files are extracted in `self.wrksrc` in a way so that if extraction yields
+  just a single regular directory, the contents of that will go in the
+  `self.wrksrc`, otherwise the extracted files/directories are moved into
+  the directory.
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.
@@ -440,13 +450,6 @@ Keep in mind that default values may be overridden by build styles.
 * `triggers` *(list)* A list of paths the package should trigger on. I.e.
   if any package changes anything in those paths, the trigger script for
   this package should run.
-* `wrksrc` *(str)* The working directory of the build system. By default
-  this is `{pkgname}-{version}`. It exists inside `builddir` and is created
-  automatically. During `configure` and later, the system may change into
-  `build_wrksrc` (which is expected to be inside `wrksrc`). The contents of
-  extracted distfiles are stored here. If distfile extraction results in
-  exactly one directory, then the contents of the directory are stored
-  instead.
 
 <a id="template_functions"></a>
 ### Template Functions
@@ -1105,9 +1108,9 @@ API may specify additional custom environment variables, which further
 override the rest.
 
 The container is entered with a specific current working directory. At first
-this is `wrksrc`, then from `configure` onwards it may be `build_wrksrc` if
-set (which is inside `wrksrc`). This applies to all parts of each phase,
-including `init`, `pre` and `post`.
+this is `self.wrksrc`, then from `configure` onwards it may be `build_wrksrc`
+if set (which is inside `self.wrksrc`). This applies to all parts of each
+phase, including `init`, `pre` and `post`.
 
 The current working directory may be overridden locally via API, either for
 the template or for the specific container invocation.
@@ -1116,8 +1119,7 @@ The following bind mounts are provided:
 
 * `/` The root, read-only.
 * `/ccache` The `ccache` data path (`CCACHE_DIR`), read-write.
-* `/builddir` The directory in which `wrksrc` exists, which is populated
-  with distfiles contents (see the documentation for `wrksrc` for details).
+* `/builddir` The directory in which `self.wrksrc` exists.
 * `/destdir` The destination directory for installing; packages will
   install into `/destdir/pkgname-version`, or when cross compiling,
   into `/destdir/triplet/pkgname-version`. Read only before `install`,
@@ -1558,6 +1560,12 @@ such as the string `CFLAGS`.
 
 In general, you will not want to use the profile's methods, and the member
 variables are strictly read only.
+
+##### self.wrksrc
+
+A string representing the name of the directory inside `builddir` that
+is used as the default working source. It is usually the basis for `self.cwd`,
+along with the potential user-set `build_wrksrc` meta variable.
 
 ##### self.cwd
 
