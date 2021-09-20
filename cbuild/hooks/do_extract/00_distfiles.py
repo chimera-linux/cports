@@ -133,6 +133,9 @@ def invoke(pkg):
             sentry = next(it)
         except StopIteration:
             pass
+        # no contents
+        if not entry:
+            return
         # in case wrksrc was declared to be multilevel
         wpath.parent.mkdir(parents = True, exist_ok = True)
         # if the extracted contents are a single real directory, use
