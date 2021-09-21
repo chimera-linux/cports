@@ -19,7 +19,7 @@ def _srcpkg_ver(pkgn, pkgb):
 
     rv = template.read_pkg(
         pkgn, pkgb.build_profile.arch,
-        False, False, False, 1, False, False, None,
+        True, False, 1, False, False, None,
         resolve = pkgb, ignore_missing = True
     )
     if not rv:
@@ -156,7 +156,7 @@ def install_toolchain(pkg, signkey):
     try:
         build.build("pkg", template.read_pkg(
             f"main/base-cross-{archn}", chroot.host_cpu(),
-            False, True, pkg.run_check, pkg.conf_jobs, pkg.build_dbg,
+            False, pkg.run_check, pkg.conf_jobs, pkg.build_dbg,
             pkg.use_ccache, None
         ), {}, signkey, chost = True)
     except template.SkipPackage:
@@ -387,7 +387,7 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 pn, chost if not pkg.bootstrapping else None,
-                pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
+                False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
             ), depmap, signkey, chost = not not pkg.cross_build)
         except template.SkipPackage:
@@ -398,7 +398,7 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 pn, tarch if not pkg.bootstrapping else None,
-                pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
+                False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
             ), depmap, signkey)
         except template.SkipPackage:
@@ -409,7 +409,7 @@ def install(pkg, origpkg, step, depmap, signkey):
         try:
             build.build(step, template.read_pkg(
                 rd, tarch if not pkg.bootstrapping else None,
-                pkg.force_mode, True, pkg.run_check, pkg.conf_jobs,
+                False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
             ), depmap, signkey)
         except template.SkipPackage:

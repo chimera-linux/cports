@@ -42,7 +42,6 @@ opt_cxxflags  = "-O2"
 opt_fflags    = "-O2"
 opt_arch      = None
 opt_gen_dbg   = False
-opt_skipexist = False
 opt_check     = True
 opt_ccache    = False
 opt_makejobs  = 1
@@ -77,11 +76,6 @@ parser.add_argument(
 )
 parser.add_argument(
     "-j", "--jobs", help = "Number of jobs to use.", default = None
-)
-parser.add_argument(
-    "-E", "--skip-if-exists", action = "store_const",
-    const = True, default = opt_skipexist,
-    help = "Do not build if the package already exists in local repository."
 )
 parser.add_argument(
     "-C", "--skip-check", action = "store_const",
@@ -186,9 +180,6 @@ if cmdline.no_color:
 
 if cmdline.force:
     opt_force = True
-
-if cmdline.skip_if_exists:
-    opt_skipexist = True
 
 if cmdline.skip_check:
     opt_check = False
@@ -302,14 +293,19 @@ def bootstrap(tgt):
         if not shutil.which("gmake") and not shutil.which("bmake"):
             sys.exit("Required bootstrap program not found: gmake/bmake")
 
-        rp = template.read_pkg(
-            "main/base-chroot", None, False, False, False, opt_makejobs,
-            False, False, None
-        )
+        rp = None
+        try:
+            rp = template.read_pkg(
+                "main/base-chroot", None, False, False, opt_makejobs,
+                False, False, None
+            )
+        except template.SkipPackage:
+            pass
         paths.prepare()
         chroot.initdb()
         chroot.repo_sync()
-        build.build(tgt, rp, {}, opt_signkey)
+        if rp:
+            build.build(tgt, rp, {}, opt_signkey)
         shutil.rmtree(paths.bldroot())
         chroot.install(chroot.host_cpu())
 
@@ -325,7 +321,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 1")
         # use stage 0 build root to build, but build into stage 1 repo
         paths.reinit_buildroot(oldmdir, 0)
-        do_pkg("pkg", "main/base-chroot")
+        do_pkg("pkg", "main/base-chroot", False)
         # go back to stage 1
         paths.reinit_buildroot(oldmdir, 1)
         chroot.install(chroot.host_cpu())
@@ -342,7 +338,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 2")
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 1)
-        do_pkg("pkg", "main/base-chroot")
+        do_pkg("pkg", "main/base-chroot", False)
         # go back to stage 2
         paths.reinit_buildroot(oldmdir, 2)
         chroot.install(chroot.host_cpu())
@@ -417,12 +413,14 @@ def do_prune_obsolete(tgt):
         reposet[str(repop)] = True
         apk_cli.prune(repop, opt_arch)
 
-def do_pkg(tgt, pkgn = None):
+def do_pkg(tgt, pkgn = None, force = None):
+    if force == None:
+        force = opt_force
     if not pkgn:
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
-        pkgn, opt_arch if opt_arch else chroot.host_cpu(), opt_force,
-        opt_skipexist, opt_check, opt_makejobs, opt_gen_dbg, opt_ccache, None
+        pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
+        opt_check, opt_makejobs, opt_gen_dbg, opt_ccache, None
     )
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())

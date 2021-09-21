@@ -388,10 +388,8 @@ only have an effect with specific commands.
 * `-c PATH`, `--config PATH` *(default: `etc/config.ini`)* The path to the config
   file that `cbuild` reads configuration data from.
 * `-C`, `--skip-check` Never attempt to run the `check` phase.
-* `-E`, `--skip-if-exists` If the package exists in the local repository, do
-  not attempt a build.
 * `-f`, `--force` Packages will be created and overwritten even if one already
-  exists in the local repository and is newer than the template's timestamp.
+  exists in the local repository.
 * `-g`, `--build-dbg` Always build `-dbg` packages.
 * `-I`, `--skip-dependencies` Skip installation of dependencies in the `bldroot`,
   as well as removal of automatic dependencies after successful build.
@@ -456,7 +454,9 @@ The following commands are recognized:
   phase contains all of the others. For example, `configure` will invoke
   all of `fetch`, `extract`, `patch` and `configure` phases before stopping
   there. A complete `pkg` will also take care of automatically cleaning up
-  afterwards, unless overridden.
+  afterwards, unless overridden. The build will not run if an up to date
+  version of the package already exists in the local repository, unless
+  overridden with `-f` or `--force`.
 
 <a id="config_file"></a>
 ### Configuration File

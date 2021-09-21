@@ -1053,7 +1053,7 @@ def from_module(m, ret):
     if not hasattr(ret, "do_install"):
         ret.error("do_install is missing")
 
-    if ret.skip_if_exist:
+    if not ret.force_mode:
         pinfo = cli.call(
             "search", ["-e", ret.pkgname],
             ret.repository, capture_output = True,
@@ -1196,7 +1196,7 @@ def from_module(m, ret):
 _tmpl_dict = {}
 
 def read_pkg(
-    pkgname, pkgarch, force_mode, skip_if_exist, run_check,
+    pkgname, pkgarch, force_mode, run_check,
     jobs, build_dbg, use_ccache, origin, resolve = None, ignore_missing = False
 ):
     global _tmpl_dict
@@ -1225,7 +1225,6 @@ def read_pkg(
     ret.template_path = paths.distdir() / pkgname
     ret.force_mode = force_mode
     ret.bootstrapping = not pkgarch
-    ret.skip_if_exist = skip_if_exist
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs
