@@ -456,7 +456,9 @@ The following commands are recognized:
   there. A complete `pkg` will also take care of automatically cleaning up
   afterwards, unless overridden. The build will not run if an up to date
   version of the package already exists in the local repository, unless
-  overridden with `-f` or `--force`.
+  overridden with `-f` or `--force`, when using the "pkg" target. Other
+  targets will run always unless already finished in builddir (you can
+  make them always run regardless by passing `-f` or `--force`).
 
 <a id="config_file"></a>
 ### Configuration File

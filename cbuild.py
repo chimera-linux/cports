@@ -420,7 +420,8 @@ def do_pkg(tgt, pkgn = None, force = None):
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
-        opt_check, opt_makejobs, opt_gen_dbg, opt_ccache, None
+        opt_check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
+        target = tgt if (tgt != "pkg") else None
     )
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
