@@ -10,6 +10,7 @@ you should not rely on them or expect them to be stable.
 
 * [Introduction](#introduction)
 * [Categories](#categories)
+* [Targets and Tiers](#targets)
 * [Quality Requirements](#quality_requirements)
 * [Build Phases](#phases)
 * [Package Naming](#naming)
@@ -124,6 +125,51 @@ goes here; once determined to be acceptable, a maintainer may move the
 template to `contrib` (or sometimes `non-free`). Software in this category
 does not have binary packages shipped and users are on their own testing it.
 
+<a id="targets"></a>
+## Targets and Tiers
+
+Chimera target architecture support is tiered. The tiering affects whether
+software can get included in `main` and `contrib`.
+
+Tier 1 targets must be supported by all software receiving binary packages,
+i.e. those in `main` and `contrib` section; software not being supported on
+a tier 1 target means staying in `experimental`. All `main` software must
+have its test suite passing on tier 1 targets unless there is a good reason
+for the otherwise (e.g. tests themselves being broken).
+
+Tier 2 targets will receive packaging when possible. They must have a
+fully working `main`, but `contrib` packages may be missing in some cases.
+They are not required to fully pass tests in either category; tests are
+run but they may be disabled on per-template basis.
+
+Tier 3 targets will receive packages from `main` only (the goal is to have
+the full set built, but not 100% necessary). Test suites are not required
+to pass and not run. Any `contrib` packages must be built on the user
+machine. Additionally, tier 3 targets do not block updates. Support
+is on fully community basis.
+
+Tier 4 targets have profiles but are completely unsupported. Fixes are
+accepted from the community.
+
+**Tier 1 targets:**
+
+* `ppc64le`
+* `aarch64`
+* `x86_64`
+
+**Tier 2 targets:**
+
+* `riscv64`
+* `ppc64`
+
+**Tier 3 targets:**
+
+* Currently none.
+
+**Tier4 targets:**
+
+* Currently none.
+
 <a id="quality_requirements"></a>
 ## Quality Requirements
 
@@ -138,8 +184,7 @@ must be packaged from source code (there may be exceptions, but they are
 rare, such as bootstrap toolchains for languages that cannot be bootstrapped
 purely from source code).
 
-Inclusion into `main` requires the software to work on all tier 1 targets.
-Additionally, it has to not be vetoed by any core reviewer. In general,
+Software in `main` must not be vetoed by any core reviewer. In general,
 unless there is a good reason for inclusion into `main`, things shall
 remain in `contrib`.
 
