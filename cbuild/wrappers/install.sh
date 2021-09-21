@@ -51,6 +51,5 @@ done
 eval set -- "$iopts"
 
 export STRIPBIN=/usr/bin/true
-export DONTSTRIP=1
 
 exec /usr/bin/install "$@"
