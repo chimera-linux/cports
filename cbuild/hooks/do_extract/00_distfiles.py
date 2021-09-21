@@ -146,5 +146,6 @@ def invoke(pkg):
             extractdir.rename(wpath)
         else:
             entry.rename(wpath)
-    # all done, extractdir should no longer exist
-    return
+    # all done; re-create the wrksrc in case nothing was extracted
+    if not wpath.exists():
+        wpath.mkdir(parents = True)
