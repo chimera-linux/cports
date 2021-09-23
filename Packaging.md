@@ -487,6 +487,9 @@ Keep in mind that default values may be overridden by build styles.
   list must contain two-tuples of subpackage name and a function defining
   the subpackage. In most cases, you do not need to specify this explicitly.
   See the section about subpackages for more details.
+* `suid_files` *(list)* A list of glob patterns (strings). The system will
+  reject any `setuid` and `setgid` files that do not match at least one
+  pattern in this list.
 * `tools` *(dict)* This can be used to override default tools. Refer to the
   section about tools for more information.
 * `tool_flags` *(dict)* This can be used to override things such as `CFLAGS`

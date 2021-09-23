@@ -356,6 +356,7 @@ core_fields = [
     ("nostrip_files", [], list, False, False, True, False),
     ("hardening", [], list, False, False, True, False),
     ("nopie_files", [], list, False, False, True, False),
+    ("suid_files", [], list, False, False, True, False),
     ("tools", {}, dict, False, False, False, False),
     ("tool_flags", {}, dict, False, False, False, False),
     ("env", {}, dict, False, False, False, False),
