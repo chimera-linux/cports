@@ -587,13 +587,14 @@ class Template(Package):
         cenv = {
             "CBUILD_TARGET_MACHINE": self.build_profile.arch,
             "CBUILD_HOST_MACHINE": chroot.host_cpu(),
-            "STRIPBIN": "/usr/bin/true",
         }
 
         fakestrip = "/usr/bin/true"
         # we don't know if host system has usrmerge
         if self.bootstrapping:
             fakestrip = shutil.which("true")
+
+        cenv["STRIPBIN"] = fakestrip
 
         # cflags and so on
         for k in self.tool_flags:
