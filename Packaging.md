@@ -1681,6 +1681,10 @@ unless we're after `post_install`, the `destdir` will be immutable unless we
 are at `install` phase, and all namespaces will be unshared (including network
 namespace) unless we're at `fetch`.
 
+If run during the `install` phase, the command will be run masquerading as
+the `root` user. This affects all things that use this API, e.g. `make`
+invocations. This behavior is to better accommodate various build systems.
+
 Usage:
 
 ```
