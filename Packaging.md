@@ -1118,6 +1118,8 @@ The following environment variables are exported into the sandbox:
 * `CPP` Target C preprocessor.
 * `LD` Target linker.
 * `PKG_CONFIG` Target `pkg-config`.
+* `STRIPBIN` Set to `/usr/bin/true` (or the actual path to `true` when
+   bootstrapping), in order to bypass stripping done by install(1).
 * `CBUILD_TARGET_MACHINE` Target `apk` machine architecture.
 * `CBUILD_TARGET_TRIPLET` Full target triplet (as described in profile).
   This is not exported during stage0 bootstrap.
