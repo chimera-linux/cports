@@ -28,7 +28,7 @@ def invoke(pkg):
         if found_suid:
             continue
 
-        badbins.ppend(v)
+        badbins.append(v)
 
     if len(badbins) > 0:
         try:
