@@ -133,9 +133,11 @@ software can get included in `main` and `contrib`.
 
 Tier 1 targets must be supported by all software receiving binary packages,
 i.e. those in `main` and `contrib` section; software not being supported on
-a tier 1 target means staying in `experimental`. All `main` software must
-have its test suite passing on tier 1 targets unless there is a good reason
-for the otherwise (e.g. tests themselves being broken).
+a tier 1 target means staying in `experimental`. This does not apply when
+the software only reasonably makes sense on a subset of the architectures
+(an example would be a UEFI bootloader).  All `main` software must have its
+test suite passing on tier 1 targets unless there is a good reason for the
+otherwise (e.g. tests themselves being broken).
 
 Tier 2 targets will receive packaging when possible. They must have a
 fully working `main`, but `contrib` packages may be missing in some cases.
