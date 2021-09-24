@@ -37,10 +37,18 @@ BASE_DATE="20210218"
 BASE_URL="https://a-hel-fi.m.voidlinux.org/live/${BASE_DATE}"
 
 case "$CARCH" in
-    ppc64le)
-        BASE_DATE="20200411"
+    ppc*)
+        BASE_DATE="20210825"
         BASE_URL="https://repo.voidlinux-ppc.org/live/${BASE_DATE}"
-        BASE_SHA256="9d0b17364dd5b44dc47fa18e7ba242f441049b2ae2d567d5cf0e9e19ff0366b9"
+        ;;
+esac
+
+case "$CARCH" in
+    ppc64le)
+        BASE_SHA256="262b98a97348bd846112cce9d3f6b32f92916dfcd1aa9e50820f02e94fe43866"
+        ;;
+    ppc64)
+        BASE_SHA256="cb92d61622beba5e1006925b717a3f713995cb09959d488e783b56e37db0bab7"
         ;;
     aarch64)
         BASE_SHA256="f550bbe36688e7276c020c96d60124ae77adf95268c2c4cf55ff8d1d8de86226"
