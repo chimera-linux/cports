@@ -38,6 +38,9 @@ Using a correct commit message is also important:
 * Removals should use `category/pkgname: remove`.
 * Changes to `cbuild` should use `cbuild: custom message`.
 
+Commit messages as well as things such as package descriptions should be
+written in American English and be grammatically correct.
+
 It is your responsibility to verify that submitted changes do build. If the
 CI fails, fix any issues that you are capable of fixing yourself.
 

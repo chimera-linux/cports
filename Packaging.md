@@ -372,6 +372,7 @@ These variables are mandatory:
 * `short_desc` *(str)* A short, one line description of the package. Should
   be kept at 72 characters or shorter. In general, this should not begin with
   an article (`the` is sometimes permissible), and should not end with a period.
+  It should use American English and not contain any mistakes.
 * `homepage` *(str)* The homepage URL of the project being packaged. Should
   not include the trailing slash.
 * `license` *(str)* The license of the project in SPDX format (e.g.
