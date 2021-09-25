@@ -12,14 +12,17 @@ import tempfile
 import traceback
 import configparser
 
+# in python 3.9+ just __file__ would be okay
+cbpath = os.path.dirname(os.path.join(os.getcwd(), __file__))
+
 # start from a sane directory
-os.chdir(os.path.dirname(__file__))
+os.chdir(cbpath)
 
 # ensure files are created with sane permissions
 os.umask(0o022)
 
 # we should always be able to import modules from here
-sys.path.append(os.path.dirname(__file__))
+sys.path.append(cbpath)
 
 def do_exit(signum, stack):
     raise Exception("cbuild: interrupted!")
@@ -215,10 +218,7 @@ if cmdline.temporary:
 from cbuild.core import paths
 
 # init paths early, modules rely on it
-paths.init(
-    os.path.dirname(__file__), opt_bldroot,
-    opt_pkgpath, opt_srcpath, opt_cchpath
-)
+paths.init(cbpath, opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath)
 
 from cbuild.util import make
 from cbuild.core import chroot, logger, template, build, profile
