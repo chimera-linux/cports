@@ -55,7 +55,7 @@ the Linux kernel you are running.
 
 The userland dependencies are the following:
 
-* Python (3.x series; any recent version should do)
+* Python 3.8 or newer
 * `scanelf` (from `pax-utils`)
 * `apk` (from `apk-tools`)
 * `openssl`
