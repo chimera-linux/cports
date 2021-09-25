@@ -590,12 +590,12 @@ class Template(Package):
             "CBUILD_HOST_MACHINE": chroot.host_cpu(),
         }
 
-        fakestrip = "/usr/bin/true"
-        # we don't know if host system has usrmerge
-        if self.bootstrapping:
-            fakestrip = shutil.which("true")
+        fakestrip = self.wrapperdir / "strip"
+        if not self.bootstrapping:
+            fakestrip = pathlib.Path("/builddir") / \
+                fakestrip.relative_to(self.builddir)
 
-        cenv["STRIPBIN"] = fakestrip
+        cenv["STRIPBIN"] = str(fakestrip)
 
         # cflags and so on
         for k in self.tool_flags:
