@@ -4,6 +4,7 @@ import io
 import re
 import gzip
 import time
+import shlex
 import getpass
 import pathlib
 import tarfile
@@ -102,9 +103,10 @@ def keygen(keypath, size, cfgfile, cfgpath):
         logger.get().out_red("Attempt to overwrite an existing key, aborting")
         raise Exception()
 
-    kout = subprocess.run([
-        "openssl", "genrsa", "-out", keypath, str(size)
-    ], umask = 0o007)
+    # umask parameter to subprocess.run is python 3.9+
+    kout = subprocess.run(["umask 007; openssl genrsa -out {} {}".format(
+        shlex.quote(str(keypath)), str(size)
+    )], shell = True)
 
     if not kout.returncode == 0:
         logger.get().out_red("Key generation failed")
@@ -131,11 +133,14 @@ def keygen(keypath, size, cfgfile, cfgpath):
 
     logger.get().out("Updating configuration file...")
 
-    rkpath = keypath
-    if rkpath.is_relative_to(paths.distdir() / "etc" / "keys"):
-        rkpath = rkpath.relative_to(paths.distdir() / "etc" / "keys")
-    elif rkpath.is_relative_to(paths.distdir()):
-        rkpath = rkpath.relative_to(paths.distdir())
+    rkpath = None
+    try:
+        rkpath = keypath.relative_to(paths.distdir() / "etc" / "keys")
+    except ValueError:
+        try:
+            rkpath = keypath.relative_to(paths.distdir())
+        except ValueError:
+            rkpath = keypath
 
     if "signing" in cfgfile:
         with open(cfgpath, "r") as cf:

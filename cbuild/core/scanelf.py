@@ -19,6 +19,13 @@ def scan(pkg, somap):
     elf_usrshare = []
     elf_textrels = []
 
+    def is_relp(p, pp):
+        try:
+            p.relative_to(pp)
+        except ValueError:
+            return False
+        return True
+
     for ln in scanout.stdout.splitlines():
         mtype, bind, stp, textrel, needed, soname, fpath = ln.split(b"|")
         # elf used as container files
@@ -30,7 +37,7 @@ def scan(pkg, somap):
         # get file
         fpath = pathlib.Path(fpath.strip().decode()).relative_to(pkg.destdir)
         # deny /usr/share files
-        if fpath.is_relative_to("usr/share"):
+        if is_relp(fpath, "usr/share"):
             elf_usrshare.append(fpath)
         # check textrels
         if textrel.strip() != b"-" and not pkg.rparent.options["textrels"]:
