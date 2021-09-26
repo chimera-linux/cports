@@ -1,7 +1,7 @@
 pkgname = "bsdgrep"
 version = "1.0.4"
 revision = 0
-build_style = "gnu_makefile"
+build_style = "makefile"
 makedepends = ["bzip2-devel", "zlib-devel", "musl-fts-devel"]
 short_desc = "FreeBSD grep(1)"
 maintainer = "q66 <q66@chimera-linux.org>"

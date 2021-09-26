@@ -1,7 +1,7 @@
 pkgname = "bsdm4"
 version = "0.99.1"
 revision = 0
-build_style = "gnu_makefile"
+build_style = "makefile"
 make_build_args = ["YACC=byacc", "LEX=true"]
 short_desc = "The m4(1) utility from FreeBSD"
 maintainer = "q66 <q66@chimera-linux.org>"

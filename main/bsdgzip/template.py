@@ -1,7 +1,7 @@
 pkgname = "bsdgzip"
 version = "0.99.3"
 revision = 0
-build_style = "gnu_makefile"
+build_style = "makefile"
 hostmakedepends = ["pkgconf"]
 makedepends = ["musl-fts-devel", "liblzma-devel", "zlib-devel", "bzip2-devel"]
 short_desc = "The gzip(1) suite of utilities from FreeBSD"

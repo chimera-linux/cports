@@ -1,7 +1,7 @@
 pkgname = "libcap"
 version = "2.49"
 revision = 0
-build_style = "gnu_makefile"
+build_style = "makefile"
 hostmakedepends = ["gmake", "perl"]
 make_cmd = "gmake"
 make_build_args = ["GOLANG=no"]

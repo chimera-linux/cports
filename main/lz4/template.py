@@ -1,7 +1,7 @@
 pkgname = "lz4"
 version = "1.9.3"
 revision = 0
-build_style = "gnu_makefile"
+build_style = "makefile"
 short_desc = "LZ4 compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause, GPL-2.0-or-later"

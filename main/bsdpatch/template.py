@@ -1,7 +1,7 @@
 pkgname = "bsdpatch"
 version = "0.99.1"
 revision = 0
-build_style = "gnu_makefile"
+build_style = "makefile"
 short_desc = "The patch(1) utility from FreeBSD"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
