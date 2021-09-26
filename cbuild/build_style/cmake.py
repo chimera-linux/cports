@@ -21,7 +21,7 @@ def use(tmpl):
     tmpl.make = make.Make(tmpl)
 
     tmpl.build_style_fields = [
-        ("cmake_dir", None, str, False, False, False)
+        ("cmake_dir", None, str, False, False)
     ]
     tmpl.build_style_defaults = [
         ("make_cmd", "ninja"),

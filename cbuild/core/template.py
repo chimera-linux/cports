@@ -300,74 +300,74 @@ default_options = {
 }
 
 core_fields = [
-    # name default type optional mandatory subpkg inherit
+    # name default type mandatory subpkg inherit
 
     # core fields that are set early
-    ("pkgname", None, str, False, True, False, False),
-    ("version", None, str, False, True, False, False),
-    ("revision", None, int, False, True, False, False),
-    ("short_desc", None, str, False, True, True, True),
-    ("homepage", None, str, False, True, False, False),
-    ("license", None, str, False, True, False, False),
+    ("pkgname", None, str, True, False, False),
+    ("version", None, str, True, False, False),
+    ("revision", None, int, True, False, False),
+    ("short_desc", None, str, True, True, True),
+    ("homepage", None, str, True, False, False),
+    ("license", None, str, True, False, False),
 
     # not mandatory but encouraged
-    ("maintainer", None, str, True, False, False, False),
+    ("maintainer", None, str, False, False, False),
 
     # various options that can be set for the template
-    ("options", [], list, True, False, True, False),
+    ("options", [], list, False, True, False),
 
     # other core-ish fields
-    ("subpackages", [], list, True, False, False, False),
-    ("broken", None, str, False, False, False, False),
-    ("build_style", None, str, True, False, False, False),
+    ("subpackages", [], list, False, False, False),
+    ("broken", None, str, False, False, False),
+    ("build_style", None, str, False, False, False),
 
     # distfiles
-    ("distfiles", [], list, True, False, False, False),
-    ("checksum", [], list, True, False, False, False),
-    ("skip_extraction", [], list, True, False, False, False),
+    ("distfiles", [], list, False, False, False),
+    ("checksum", [], list, False, False, False),
+    ("skip_extraction", [], list, False, False, False),
 
     # target support
-    ("archs", None, str, True, False, False, False),
+    ("archs", None, str, False, False, False),
 
     # build directory and patches
-    ("build_wrksrc", "", str, False, False, False, False),
-    ("patch_args", [], list, False, False, False, False),
+    ("build_wrksrc", "", str, False, False, False),
+    ("patch_args", [], list, False, False, False),
 
     # dependency lists
-    ("hostmakedepends", [], list, False, False, False, False),
-    ("makedepends", [], list, False, False, False, False),
-    ("depends", [], list, False, False, True, False),
+    ("hostmakedepends", [], list, False, False, False),
+    ("makedepends", [], list, False, False, False),
+    ("depends", [], list, False, True, False),
 
     # other package lists + related
-    ("provides", [], list, False, False, True, False),
-    ("skiprdeps", [], list, False, False, True, False),
+    ("provides", [], list, False, True, False),
+    ("skiprdeps", [], list, False, True, False),
 
     # build systems
-    ("configure_args", [], list, True, False, False, False),
-    ("configure_script", "configure", str, False, False, False, False),
-    ("make_cmd", "bmake", str, False, False, False, False),
-    ("make_dir", ".", str, False, False, False, False),
-    ("make_build_args", [], list, True, False, False, False),
-    ("make_install_args", [], list, True, False, False, False),
-    ("make_build_target", "", str, False, False, False, False),
-    ("make_install_target", "install", str, False, False, False, False),
+    ("configure_args", [], list, False, False, False),
+    ("configure_script", "configure", str, False, False, False),
+    ("make_cmd", "bmake", str, False, False, False),
+    ("make_dir", ".", str, False, False, False),
+    ("make_build_args", [], list, False, False, False),
+    ("make_install_args", [], list, False, False, False),
+    ("make_build_target", "", str, False, False, False),
+    ("make_install_target", "install", str, False, False, False),
 
     # target build related
-    ("nostrip_files", [], list, False, False, True, False),
-    ("hardening", [], list, False, False, True, False),
-    ("nopie_files", [], list, False, False, True, False),
-    ("suid_files", [], list, False, False, True, False),
-    ("tools", {}, dict, False, False, False, False),
-    ("tool_flags", {}, dict, False, False, False, False),
-    ("env", {}, dict, False, False, False, False),
-    ("debug_level", 2, int, False, False, False, False),
+    ("nostrip_files", [], list, False, True, False),
+    ("hardening", [], list, False, True, False),
+    ("nopie_files", [], list, False, True, False),
+    ("suid_files", [], list, False, True, False),
+    ("tools", {}, dict, False, False, False),
+    ("tool_flags", {}, dict, False, False, False),
+    ("env", {}, dict, False, False, False),
+    ("debug_level", 2, int, False, False, False),
 
     # shlibs
-    ("shlib_provides", [], list, True, False, True, False),
-    ("shlib_requires", [], list, True, False, True, False),
+    ("shlib_provides", [], list, False, True, False),
+    ("shlib_requires", [], list, False, True, False),
 
     # packaging
-    ("triggers", [], list, True, False, True, False),
+    ("triggers", [], list, False, True, False),
 ]
 
 # recognized hardening options
@@ -416,7 +416,7 @@ class Template(Package):
             self.origin = self
 
         # default all the fields
-        for fl, dval, tp, opt, mand, sp, inh in core_fields:
+        for fl, dval, tp, mand, sp, inh in core_fields:
             setattr(self, fl, copy_of_dval(dval))
 
         # make this available early
@@ -501,7 +501,7 @@ class Template(Package):
             pass
 
     def ensure_fields(self):
-        for fl, dval, tp, opt, mand, sp, inh in core_fields:
+        for fl, dval, tp, mand, sp, inh in core_fields:
             # mandatory fields are all at the beginning
             if not mand:
                 break
@@ -878,7 +878,7 @@ class Subpackage(Package):
         self.rparent = parent
 
         # default subpackage fields
-        for fl, dval, tp, opt, mand, sp, inh in core_fields:
+        for fl, dval, tp, mand, sp, inh in core_fields:
             if not sp:
                 continue
             if inh:
@@ -886,7 +886,7 @@ class Subpackage(Package):
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
-        for fl, dval, tp, opt, sp, inh in parent.build_style_fields:
+        for fl, dval, tp, sp, inh in parent.build_style_fields:
             if not sp:
                 continue
             if inh:
@@ -924,7 +924,7 @@ def _subpkg_install_list(self, l):
 
 def from_module(m, ret):
     # fill in mandatory fields
-    for fl, dval, tp, opt, mand, sp, inh in core_fields:
+    for fl, dval, tp, mand, sp, inh in core_fields:
         # mandatory fields are all at the beginning
         if not mand:
             break
@@ -940,20 +940,17 @@ def from_module(m, ret):
     ret.pkgver = f"{ret.pkgname}-{ret.version}-r{ret.revision}"
 
     # fill in core non-mandatory fields
-    for fl, dval, tp, opt, mand, sp, inh in core_fields:
+    for fl, dval, tp, mand, sp, inh in core_fields:
         # already set
         if mand:
             continue
         # also perform type validation
         if hasattr(m, fl):
             flv = getattr(m, fl)
-            if not opt and tp and not isinstance(flv, tp):
+            if tp and not isinstance(flv, tp):
                 ret.error("invalid field value: %s" % fl)
             # validated, set
-            if opt and flv == None:
-                setattr(ret, fl, dval)
-            else:
-                setattr(ret, fl, flv)
+            setattr(ret, fl, flv)
 
     # transform options
     ropts = {}
@@ -992,19 +989,16 @@ def from_module(m, ret):
         m.init(ret)
 
     # like above but for build-style specific fields
-    for fl, dval, tp, opt, sp, inh in ret.build_style_fields:
+    for fl, dval, tp, sp, inh in ret.build_style_fields:
         if not hasattr(m, fl):
             setattr(ret, fl, copy_of_dval(dval))
             continue
 
         flv = getattr(m, fl)
-        if not opt and tp and not isinstance(flv, tp):
+        if tp and not isinstance(flv, tp):
             ret.error("invalid field value: %s" % fl)
         # validated, set
-        if opt and flv == None:
-            setattr(ret, fl, dval)
-        else:
-            setattr(ret, fl, flv)
+        setattr(ret, fl, flv)
 
     # set default fields for build_style if not set by template
     for fl, dval in ret.build_style_defaults:
@@ -1099,21 +1093,17 @@ def from_module(m, ret):
         else:
             sp.pkg_install = pinst
         # validate fields
-        for fl, dval, tp, opt, mand, asp, inh in core_fields:
+        for fl, dval, tp, mand, asp, inh in core_fields:
             if not asp:
                 continue
             flv = getattr(sp, fl)
-            if opt and flv == None:
-                continue
             if tp and not isinstance(flv, tp):
                 ret.error("invalid field value: %s" % fl)
         # validate build-style fields
-        for fl, dval, tp, opt, asp, inh in ret.build_style_fields:
+        for fl, dval, tp, asp, inh in ret.build_style_fields:
             if not asp:
                 continue
             flv = getattr(sp, fl)
-            if opt and flv == None:
-                continue
             if tp and not isinstance(flv, tp):
                 ret.error("invalid field value: %s" % fl)
 

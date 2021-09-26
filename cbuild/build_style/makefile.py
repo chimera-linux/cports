@@ -41,5 +41,5 @@ def use(tmpl):
     tmpl.make = make.Make(tmpl)
 
     tmpl.build_style_fields = [
-        ("make_use_env", False, bool, False, False, False)
+        ("make_use_env", False, bool, False, False)
     ]
