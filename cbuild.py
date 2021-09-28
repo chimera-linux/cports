@@ -101,7 +101,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "-s", "--sources-path", default = None,
-    help = "Source distfiles storage path."
+    help = "Sources storage path."
 )
 parser.add_argument(
     "-t", "--temporary", action = "store_const",

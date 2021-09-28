@@ -12,7 +12,7 @@ short_desc = "Practical Extraction and Report Language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic=1.0-Perl, GPL=1.0-or-later"
 homepage = "https://www.perl.org"
-distfiles = [
+sources = [
     f"https://www.cpan.org/src/5.0/perl-{version}.tar.gz",
     f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_version}/perl-cross-{_perl_cross_version}.tar.gz"
 ]

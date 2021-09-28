@@ -121,10 +121,9 @@ Most of the time, the build root is:
 
 * Read only - after installing dependencies, programs run within are not allowed
   to write outside of their designated directories.
-* Without network access - after fetching all source distfiles, programs are not
-  allowed to access the network from within. This enforces the policy of having
-  to fetch all of their files ahead of time. Checksums are enforced for those
-  files.
+* Without network access - after fetching all sources, programs are not allowed
+  to access the network from within. This enforces the policy of having to fetch
+  all of their files ahead of time. Checksums are enforced for those files.
 * Isolated - the sandbox does not have access to the outside file system.
 * Unprivileged - after the fetch stage, all namespace types are unshared.
 
@@ -133,10 +132,10 @@ When building a package, the following happens, in simplified terms:
 * Build dependencies are installed in the sandbox, provided they are available.
   If some dependency is unavailable, it is built first, using the same process.
   This can happen recursively.
-* All declared source distfiles are fetched, if not already cached. They are
-  subsequently verified (the checksums must match what the template declares).
-  If this fails, the fetch is re-tried.
-* Source distfiles are extracted and patches are applied if necessary.
+* All declared sources are fetched, if not already cached. They are subsequently
+  verified (the checksums must match what the template declares). If this fails,
+  the fetch is re-tried.
+* Sources are extracted and patches are applied if necessary.
 * The software is configured and built within the sandbox.
 * Files are installed in a special `destdir`. Outside of this, the directory
   where files are extracted, the `/tmp` directory in the sandbox and potential
@@ -147,7 +146,7 @@ When building a package, the following happens, in simplified terms:
 If you are familiar with `xbps-src`, these are the main conceptual differences:
 
 * Most `cbuild` code is run outside the sandbox. Only specific commands are run
-  within, which includes dependency installation, distfiles extraction, patching,
+  within, which includes dependency installation, sources extraction, patching,
   and the build itself. Once files are installed, `cbuild` handles the rest on
   its own without involving the container. In contrast, `xbps-src` will reexec
   itself inside its sandbox and run everything there.
@@ -308,7 +307,7 @@ You will have the following artifacts:
 * `packages-stage1` is the repository of packages `bldroot-stage1` is created
   from.
 * `packages` is the final repository.
-* `sources` is the source distfiles cache, shared for all.
+* `sources` is the sources cache, shared for all.
 
 You can remove all the `*-stage*` directories if you want. They are present
 mostly for inspection.
@@ -406,7 +405,7 @@ only have an effect with specific commands.
 * `-r REPO`, `--repository-path REPO` *(default: `packages`)* Set the path to the
   local repository to build packages in.
 * `-s SOURCES`, `--sources-path SOURCES` *(default: `sources`)* Set the path to the
-  source distfiles cache.
+  sources cache.
 * `-t`, `--temporary` Create a temporary `bldroot` for the build. The `-b` argument
   is used as a base path as well as the name prefix for the temporary root if
   provided. The temporary root is removed at the end (whether the build succeeded

@@ -7,7 +7,7 @@ short_desc = "Implementation of fts(3) for musl libc"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "https://github.com/chimera-linux/musl-fts"
-distfiles = [f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{version}-mk2.tar.gz"]
+sources = [f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{version}-mk2.tar.gz"]
 sha256 = ["1f65612b523e7040dbd9d5579a2eca97ede79c2ff3f91db7ccc288263e60da50"]
 
 options = ["bootstrap", "!check"]

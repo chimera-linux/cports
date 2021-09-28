@@ -23,7 +23,7 @@ def get_cksum(fname, dfile, pkg):
     return hashlib.sha256(dfile.read_bytes()).hexdigest()
 
 def verify_cksum(fname, dfile, cksum, pkg):
-    pkg.log(f"verifying sha256sums for distfile '{fname}'... ", "")
+    pkg.log(f"verifying sha256sums for source '{fname}'... ", "")
     filesum = get_cksum(fname, dfile, pkg)
     if cksum != filesum:
         pkg.logger.out_plain("")
@@ -43,7 +43,7 @@ def link_cksum(fname, dfile, cksum, pkg):
     linkpath = shapath / f"{cksum}_{fname}"
     if len(cksum) > 0 and linkpath.is_file():
         linkpath.link_to(dfile)
-        pkg.log(f"using known distfile '{fname}'")
+        pkg.log(f"using known source '{fname}'")
 
 def interp_url(pkg, url):
     if not url.startswith("$("):
@@ -54,7 +54,7 @@ def interp_url(pkg, url):
     def matchf(m):
         mw = m.group(1).removesuffix("_SITE").lower()
         if not mw in sites:
-            pkg.error(f"malformed distfile URL '{url}'")
+            pkg.error(f"malformed source URL '{url}'")
         return sites[mw]
 
     return re.sub(r"\$\((\w+)\)", matchf, url)
@@ -75,10 +75,10 @@ def invoke(pkg):
     if not srcdir.is_dir():
         pkg.error(f"'{srcdir}' is not a directory")
 
-    if len(pkg.distfiles) != len(pkg.sha256):
-        pkg.error(f"sha256sums do not match distfiles")
+    if len(pkg.sources) != len(pkg.sha256):
+        pkg.error(f"sha256sums do not match sources")
 
-    for dc in zip(pkg.distfiles, pkg.sha256):
+    for dc in zip(pkg.sources, pkg.sha256):
         d, ck = dc
         if isinstance(d, tuple):
             fname = d[1]
@@ -97,10 +97,10 @@ def invoke(pkg):
                 pkg.log_warn(f"wrong sha256 found for {fname} - purging")
                 # TODO
 
-    if len(pkg.distfiles) == dfgood:
+    if len(pkg.sources) == dfgood:
         return
 
-    for dc in zip(pkg.distfiles, pkg.sha256):
+    for dc in zip(pkg.sources, pkg.sha256):
         d, ck = dc
         if isinstance(d, tuple):
             fname = d[1]
@@ -113,7 +113,7 @@ def invoke(pkg):
         if not dfile.is_file():
             link_cksum(fname, dfile, ck, pkg)
         if not dfile.is_file():
-            pkg.log(f"fetching distfile '{fname}'...")
+            pkg.log(f"fetching source '{fname}'...")
             try:
                 fname = request.urlretrieve(url, str(dfile))[0]
                 fname = os.path.basename(fname)
@@ -125,4 +125,4 @@ def invoke(pkg):
             errors += 1
 
     if errors > 0:
-        pkg.error(f"couldn't verify distfiles")
+        pkg.error(f"couldn't verify sources")

@@ -13,7 +13,7 @@ short_desc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OpenSSL"
 homepage = "https://www.openssl.org"
-distfiles = [f"https://www.openssl.org/source/openssl-{version}.tar.gz"]
+sources = [f"https://www.openssl.org/source/openssl-{version}.tar.gz"]
 sha256 = ["892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"]
 conf_files = ["/etc/ssl/openssl.cnf"]
 

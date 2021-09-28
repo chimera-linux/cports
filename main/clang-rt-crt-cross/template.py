@@ -36,7 +36,7 @@ short_desc = "Core cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
-distfiles = [
+sources = [
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz",
     f"http://www.musl-libc.org/releases/musl-{_musl_version}.tar.gz"
 ]

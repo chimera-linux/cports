@@ -8,7 +8,7 @@ short_desc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.musl-libc.org/"
-distfiles = [f"http://www.musl-libc.org/releases/musl-{version}.tar.gz"]
+sources = [f"http://www.musl-libc.org/releases/musl-{version}.tar.gz"]
 sha256 = ["9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"]
 
 options = ["bootstrap", "!check"]

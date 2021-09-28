@@ -24,7 +24,7 @@ short_desc = "LLVM libc++ for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
-distfiles = [
+sources = [
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz"
 ]
 sha256 = [

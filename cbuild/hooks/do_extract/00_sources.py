@@ -91,8 +91,8 @@ def invoke(pkg):
     with tempfile.TemporaryDirectory(dir = pkg.builddir) as extractdir:
         # need to be able to manipulate it
         extractdir = pathlib.Path(extractdir)
-        # go over each distfile and ensure extraction in the dir
-        for d in pkg.distfiles:
+        # go over each source and ensure extraction in the dir
+        for d in pkg.sources:
             if isinstance(d, tuple):
                 fname = d[1]
             else:
@@ -105,11 +105,11 @@ def invoke(pkg):
                     suffix = suffixes[key]
                     break
             if not suffix:
-                pkg.error(f"unknown distfile suffix for '{fname}'")
+                pkg.error(f"unknown source suffix for '{fname}'")
 
             if pkg.bootstrapping:
                 if suffix != "tgz" and suffix != "tbz" and suffix != "txz":
-                    pkg.error(f"distfile not supported for bootstrap: {fname}")
+                    pkg.error(f"source not supported for bootstrap: {fname}")
 
             exf = extract_table.get(suffix, None)
             if not exf:

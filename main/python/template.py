@@ -20,7 +20,7 @@ short_desc = "Python programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 homepage = "https://python.org"
-distfiles = [f"https://python.org/ftp/python/{version}/Python-{version}.tar.xz"]
+sources = [f"https://python.org/ftp/python/{version}/Python-{version}.tar.xz"]
 sha256 = ["0c5a140665436ec3dbfbb79e2dfb6d192655f26ef4a29aeffcb6d1820d716d83"]
 
 options = ["!check"]

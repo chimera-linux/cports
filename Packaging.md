@@ -64,8 +64,8 @@ short_desc = "A simple package"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "https://foo.software"
-distfiles = [f"https://foo.software/{pkgname}-{version}.tar.gz"]
-checksum = ["ad031c86b23ed776697f77f1a3348cd7129835965d4ee9966bc50e65c97703e8"]
+sources = [f"https://foo.software/{pkgname}-{version}.tar.gz"]
+sha256 = ["ad031c86b23ed776697f77f1a3348cd7129835965d4ee9966bc50e65c97703e8"]
 ```
 
 Of course, often a template will be a lot more complicated than this, as
@@ -231,13 +231,13 @@ the `builddir` and is created automatically.
   is prepared and target dependencies are installed in it.
 
 * `fetch` During `fetch`, required files are downloaded as defined by the
-  `distfiles` template variable by default (or the `do_fetch` function of
+  `sources` template variable by default (or the `do_fetch` function of
   the template in rare cases). The builtin download behavior runs outside
   of the sandbox as pure Python code. When overridden with `do_fetch`, it
   also overlaps with the `extract` stage as the function is supposed to
   prepare the `builddir` like `extract` would.
 
-* `extract` All defined `distfiles` are extracted. The builtin behavior
+* `extract` All defined `sources` are extracted. The builtin behavior
   runs inside of the sandbox, except when bootstrapping. It populates
   the `self.wrksrc`.
 
@@ -403,14 +403,6 @@ Keep in mind that default values may be overridden by build styles.
   installed in the build container, but are checked for availability (and
   built if missing). While these may be just names, you can also specify
   constraints (e.g. `foo<=1.0-r1`) and conflicts (`!foo`).
-* `distfiles` *(list)* A list of URLs to download and extract (by default).
-  The items can be either strings (in which case the filename is inferred
-  from the URL itself) or 2-tuples (in which case the first field is the URL
-  and the second field is the file name it will have when downloaded). The
-  files are extracted in `self.wrksrc` in a way so that if extraction yields
-  just a single regular directory, the contents of that will go in the
-  `self.wrksrc`, otherwise the extracted files/directories are moved into
-  the directory.
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.
@@ -469,7 +461,7 @@ Keep in mind that default values may be overridden by build styles.
   none of them will be considered by default; instead, an error message
   will be given and the user will need to choose.
 * `sha256` *(list)* A list of SHA256 checksums specified as digest strings
-  corresponding to each field in `distfiles`. Used for verification.
+  corresponding to each field in `sources`. Used for verification.
 * `shlib_provides` *(list)* Extra shared libraries to be provided by
   the package. The fields should be 2-tuples; the first element should
   be the `soname`, the second field the full suffix after `.so` (so
@@ -482,10 +474,18 @@ Keep in mind that default values may be overridden by build styles.
   scanner does not pick up, or the scanner is disabled explicitly.
 * `shlib_requires` *(list)* A list of extra shared library dependencies
   for the package. The values should be the `sonames`, not full filenames.
-* `skip_extraction` *(list)* A list of filenames in `distfiles` to not
+* `skip_extraction` *(list)* A list of filenames in `sources` to not
   extract during the `extract` phase.
 * `skiprdeps` *(list)* A list of paths (relative to `destdir`) referring
   to files that will not be scanned for runtime dependencies.
+* `sources` *(list)* A list of URLs to download and extract (by default).
+  The items can be either strings (in which case the filename is inferred
+  from the URL itself) or 2-tuples (in which case the first field is the URL
+  and the second field is the file name it will have when downloaded). The
+  files are extracted in `self.wrksrc` in a way so that if extraction yields
+  just a single regular directory, the contents of that will go in the
+  `self.wrksrc`, otherwise the extracted files/directories are moved into
+  the directory.
 * `subpackages` *(list)* A list of subpackages the template provides. The
   list must contain two-tuples of subpackage name and a function defining
   the subpackage. In most cases, you do not need to specify this explicitly.
@@ -1177,7 +1177,7 @@ The following bind mounts are provided:
   install into `/destdir/pkgname-version`, or when cross compiling,
   into `/destdir/triplet/pkgname-version`. Read only before `install`,
   and read-write for the `install` phase.
-* `/sources` Read-only, points to where all distfiles are stored.
+* `/sources` Read-only, points to where all sources are stored.
 * `/dev`, `/proc` and `/tmp` are fresh (not bound).
 
 Once the `fetch` phase is done, all possible namespaces are unshared.
@@ -1189,7 +1189,7 @@ access within the sandbox at this point.
 
 The `cbuild` system is largely driven by hooks. A hook is a Python source
 file present in `cbuild/hooks/<section>`. Hooks take care of things such
-as distfile handling, environment setup, linting, cleanups, and even
+as sources handling, environment setup, linting, cleanups, and even
 package generation and repo registration.
 
 The section consists of the `init_`, `pre_`, `do_` or `post_` prefix plus
@@ -1649,7 +1649,7 @@ contains patches that are applied in the `patch` phase.
 
 ##### self.builddir
 
-The absolute path to the `builddir`. This directory is where distfiles are
+The absolute path to the `builddir`. This directory is where sources are
 extracted, and which is used as the mutable base for builds.
 
 ##### self.chroot_builddir

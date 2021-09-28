@@ -7,7 +7,7 @@ short_desc = "Linux API headers for userland development"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://www.kernel.org"
-distfiles = [f"$(KERNEL_SITE)/kernel/v{_mver}.x/linux-{version}.tar.xz"]
+sources = [f"$(KERNEL_SITE)/kernel/v{_mver}.x/linux-{version}.tar.xz"]
 sha256 = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
 options = ["bootstrap", "!check"]
 

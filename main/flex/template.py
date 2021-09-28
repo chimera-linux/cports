@@ -10,7 +10,7 @@ short_desc = "Fast Lexical Analyzer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:flex"
 homepage = "https://github.com/westes/flex"
-distfiles = [f"https://github.com/westes/{pkgname}/releases/download/v{version}/{pkgname}-{version}.tar.gz"]
+sources = [f"https://github.com/westes/{pkgname}/releases/download/v{version}/{pkgname}-{version}.tar.gz"]
 sha256 = ["e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995"]
 
 options = ["!check"]

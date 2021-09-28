@@ -321,9 +321,9 @@ core_fields = [
     ("broken", None, str, False, False, False),
     ("build_style", None, str, False, False, False),
 
-    # distfiles
-    ("distfiles", [], list, False, False, False),
+    # sources
     ("sha256", [], list, False, False, False),
+    ("sources", [], list, False, False, False),
     ("skip_extraction", [], list, False, False, False),
 
     # target support
