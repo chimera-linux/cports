@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 homepage = "http://savannah.nongnu.org/projects/attr"
 distfiles = [f"$(NONGNU_SITE)/attr/attr-{version}.tar.gz"]
-checksum = ["bae1c6949b258a0d68001367ce0c741cebdacdd3b62965d17e5eb23cd78adaf8"]
+sha256 = ["bae1c6949b258a0d68001367ce0c741cebdacdd3b62965d17e5eb23cd78adaf8"]
 options = ["bootstrap", "!check"]
 
 def pre_check(self):

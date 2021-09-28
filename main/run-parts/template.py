@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 homepage = "https://tracker.debian.org/pkg/debianutils"
 distfiles = [f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{version}.tar.xz"]
-checksum = ["3b680e81709b740387335fac8f8806d71611dcf60874e1a792e862e48a1650de"]
+sha256 = ["3b680e81709b740387335fac8f8806d71611dcf60874e1a792e862e48a1650de"]
 options = ["bootstrap", "!check"]
 
 def do_install(self):

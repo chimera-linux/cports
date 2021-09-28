@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license="Public Domain"
 homepage = "http://invisible-island.net/byacc/"
 distfiles = [f"ftp://ftp.invisible-island.net/{pkgname}/{pkgname}-{version}.tgz"]
-checksum = ["d7d31dae72cb973482ef7f975609ae401ccc12ee3fb168b67a69526c60afe43e"]
+sha256 = ["d7d31dae72cb973482ef7f975609ae401ccc12ee3fb168b67a69526c60afe43e"]
 
 options = ["bootstrap", "!check"]
 

@@ -40,7 +40,7 @@ distfiles = [
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz",
     f"http://www.musl-libc.org/releases/musl-{_musl_version}.tar.gz"
 ]
-checksum = [
+sha256 = [
     "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628",
     "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 ]

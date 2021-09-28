@@ -16,7 +16,7 @@ distfiles = [
     f"https://www.cpan.org/src/5.0/perl-{version}.tar.gz",
     f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_version}/perl-cross-{_perl_cross_version}.tar.gz"
 ]
-checksum = [
+sha256 = [
     "03b693901cd8ae807231b1787798cf1f2e0b8a56218d07b7da44f784a7caeb2c",
     "91c66f6b2b99fccfd4fee14660b677380b0c98f9456359e91449798c2ad2ef25"
 ]

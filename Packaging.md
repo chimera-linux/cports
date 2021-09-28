@@ -390,8 +390,6 @@ Keep in mind that default values may be overridden by build styles.
   section about build styles for more details.
 * `build_wrksrc` *(str)* A subpath within `self.wrksrc` that is assumed to be
   the current working directory during `configure` and later.
-* `checksum` *(list)* A list of SHA256 checksums specified as digest strings
-  corresponding to each field in `distfiles`. Used for verification.
 * `configure_args` *(list)* This list is generally specific to the build
   system the template uses. Generally speaking, it provides the arguments
   passed to some kind of `configure` script.
@@ -470,6 +468,8 @@ Keep in mind that default values may be overridden by build styles.
   not provided, several packages of that name may be installed, but
   none of them will be considered by default; instead, an error message
   will be given and the user will need to choose.
+* `sha256` *(list)* A list of SHA256 checksums specified as digest strings
+  corresponding to each field in `distfiles`. Used for verification.
 * `shlib_provides` *(list)* Extra shared libraries to be provided by
   the package. The fields should be 2-tuples; the first element should
   be the `soname`, the second field the full suffix after `.so` (so

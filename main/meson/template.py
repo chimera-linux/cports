@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://mesonbuild.com"
 distfiles = [f"https://github.com/mesonbuild/{pkgname}/releases/download/{version}/{pkgname}-{version}.tar.gz"]
-checksum = ["3144a3da662fcf79f1e5602fa929f2821cba4eba28c2c923fe0a7d3e3db04d5d"]
+sha256 = ["3144a3da662fcf79f1e5602fa929f2821cba4eba28c2c923fe0a7d3e3db04d5d"]
 
 options = ["!check"]
 

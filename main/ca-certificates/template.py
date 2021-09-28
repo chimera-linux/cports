@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later, MPL-2.0"
 homepage = "https://tracker.debian.org/pkg/ca-certificates"
 distfiles = [f"$(DEBIAN_SITE)/main/c/{pkgname}/{pkgname}_{version}.tar.xz"]
-checksum = ["daa3afae563711c30a0586ddae4336e8e3974c2b627faaca404c4e0141b64665"]
+sha256 = ["daa3afae563711c30a0586ddae4336e8e3974c2b627faaca404c4e0141b64665"]
 options = ["bootstrap", "!check"]
 
 def post_patch(self):

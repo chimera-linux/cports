@@ -323,7 +323,7 @@ core_fields = [
 
     # distfiles
     ("distfiles", [], list, False, False, False),
-    ("checksum", [], list, False, False, False),
+    ("sha256", [], list, False, False, False),
     ("skip_extraction", [], list, False, False, False),
 
     # target support

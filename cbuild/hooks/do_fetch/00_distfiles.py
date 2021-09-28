@@ -23,11 +23,11 @@ def get_cksum(fname, dfile, pkg):
     return hashlib.sha256(dfile.read_bytes()).hexdigest()
 
 def verify_cksum(fname, dfile, cksum, pkg):
-    pkg.log(f"verifying checksum for distfile '{fname}'... ", "")
+    pkg.log(f"verifying sha256sums for distfile '{fname}'... ", "")
     filesum = get_cksum(fname, dfile, pkg)
     if cksum != filesum:
         pkg.logger.out_plain("")
-        pkg.logger.out_red(f"SHA256 mismatch for '{fname}':\n@{filesum}")
+        pkg.logger.out_red(f"SHA256 mismatch for '{fname}':\n{filesum}")
         return False
     else:
         shapath = paths.sources() / "by_sha256"
@@ -75,10 +75,10 @@ def invoke(pkg):
     if not srcdir.is_dir():
         pkg.error(f"'{srcdir}' is not a directory")
 
-    if len(pkg.distfiles) != len(pkg.checksum):
-        pkg.error(f"checksums do not match distfiles")
+    if len(pkg.distfiles) != len(pkg.sha256):
+        pkg.error(f"sha256sums do not match distfiles")
 
-    for dc in zip(pkg.distfiles, pkg.checksum):
+    for dc in zip(pkg.distfiles, pkg.sha256):
         d, ck = dc
         if isinstance(d, tuple):
             fname = d[1]
@@ -94,13 +94,13 @@ def invoke(pkg):
                 dfgood += 1
             else:
                 ino = dfile.stat().st_ino
-                pkg.log_warn(f"wrong checksum found for {fname} - purging")
+                pkg.log_warn(f"wrong sha256 found for {fname} - purging")
                 # TODO
 
     if len(pkg.distfiles) == dfgood:
         return
 
-    for dc in zip(pkg.distfiles, pkg.checksum):
+    for dc in zip(pkg.distfiles, pkg.sha256):
         d, ck = dc
         if isinstance(d, tuple):
             fname = d[1]

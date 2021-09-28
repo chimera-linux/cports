@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 homepage = "https://ccache.samba.org"
 distfiles = [f"https://github.com/ccache/ccache/releases/download/v{version}/{pkgname}-{version}.tar.xz"]
-checksum = ["9d6ba1cdefdc690401f404b747d81a9a1802b17af4235815866b7620d980477e"]
+sha256 = ["9d6ba1cdefdc690401f404b747d81a9a1802b17af4235815866b7620d980477e"]
 
 options = ["!check"]
 
