@@ -63,7 +63,7 @@ pkgdesc = "A simple package"
 build_style = "gnu_makefile"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
-homepage = "https://foo.software"
+url = "https://foo.software"
 sources = [f"https://foo.software/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["ad031c86b23ed776697f77f1a3348cd7129835965d4ee9966bc50e65c97703e8"]
 ```
@@ -363,6 +363,9 @@ handle passed to functions as the first argument (typically called `self`).
 
 These variables are mandatory:
 
+* `license` *(str)* The license of the project in SPDX format (e.g.
+  `BSD-3-Clause`). If there are multiple licenses, they should be separated
+  by a comma and a space (`GPL-2.0-or-later, MIT`).
 * `pkgname` *(str)* The primary package name, must match template name.
 * `pkgver` *(str)* The package version, applies to all subpackages. Must
   follow the correct format for the `apk` package manager.
@@ -374,11 +377,8 @@ These variables are mandatory:
   be kept at 72 characters or shorter. In general, this should not begin with
   an article (`the` is sometimes permissible), and should not end with a period.
   It should use American English and not contain any mistakes.
-* `homepage` *(str)* The homepage URL of the project being packaged. Should
+* `url` *(str)* The homepage URL of the project being packaged. Should
   not include the trailing slash.
-* `license` *(str)* The license of the project in SPDX format (e.g.
-  `BSD-3-Clause`). If there are multiple licenses, they should be separated
-  by a comma and a space (`GPL-2.0-or-later, MIT`).
 
 There is also a variety of variables that are builtin but not mandatory.
 Keep in mind that default values may be overridden by build styles.

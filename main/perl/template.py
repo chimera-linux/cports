@@ -11,7 +11,7 @@ checkdepends = ["iana-etc", "perl-AnyEvent", "perl-Test-Pod", "procps-ng"]
 pkgdesc = "Practical Extraction and Report Language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic=1.0-Perl, GPL=1.0-or-later"
-homepage = "https://www.perl.org"
+url = "https://www.perl.org"
 sources = [
     f"https://www.cpan.org/src/5.0/perl-{pkgver}.tar.gz",
     f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_ver}/perl-cross-{_perl_cross_ver}.tar.gz"

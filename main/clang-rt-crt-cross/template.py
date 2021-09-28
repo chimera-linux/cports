@@ -35,7 +35,7 @@ make_cmd = "make"
 pkgdesc = "Core cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
-homepage = "https://llvm.org"
+url = "https://llvm.org"
 sources = [
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz",
     f"http://www.musl-libc.org/releases/musl-{_musl_ver}.tar.gz"

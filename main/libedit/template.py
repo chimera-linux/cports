@@ -8,7 +8,7 @@ makedepends = ["ncurses-devel"]
 pkgdesc = "Port of the NetBSD command line editing library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
-homepage = "http://www.thrysoee.dk/editline"
+url = "http://www.thrysoee.dk/editline"
 sources = [f"http://thrysoee.dk/editline/{pkgname}-{_datever}-{_distver}.tar.gz"]
 sha256 = ["0220bc2047e927c0c1984ef5f7b4eb2a9469a5b7bf12ba573ca3b23ca02bbb6f"]
 

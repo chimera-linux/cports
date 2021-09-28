@@ -9,7 +9,7 @@ checkdepends = ["dejagnu"]
 pkgdesc = "Library supporting Foreign Function Interfaces"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
-homepage = "http://sourceware.org/libffi"
+url = "http://sourceware.org/libffi"
 sources = [f"ftp://sourceware.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056"]
 

@@ -10,7 +10,7 @@ makedepends = ["zlib-devel"]
 pkgdesc = "File type identification utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
-homepage = "http://www.darwinsys.com/file/"
+url = "http://www.darwinsys.com/file/"
 sources = [f"https://astron.com/pub/file/file-{pkgver}.tar.gz"]
 sha256 = ["167321f43c148a553f68a0ea7f579821ef3b11c27b8cbe158e4df897e4a5dd57"]
 

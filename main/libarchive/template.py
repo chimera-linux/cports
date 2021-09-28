@@ -15,7 +15,7 @@ makedepends = [
 pkgdesc = "Library to read/write several different streaming archive formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
-homepage = "http://www.libarchive.org/"
+url = "http://www.libarchive.org/"
 sources = [f"https://github.com/libarchive/libarchive/releases/download/{pkgver}/libarchive-{pkgver}.tar.gz"]
 sha256 = ["9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a"]
 

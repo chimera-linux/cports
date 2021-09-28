@@ -42,7 +42,7 @@ def genpkg(
             pkgdesc += " (debug files)"
 
         metadata["pkgdesc"] = pkgdesc
-        metadata["url"] = pkg.rparent.homepage
+        metadata["url"] = pkg.rparent.url
         metadata["maintainer"] = pkg.rparent.maintainer
         #metadata["packager"] = pkg.rparent.maintainer
         metadata["origin"] = pkg.rparent.pkgname

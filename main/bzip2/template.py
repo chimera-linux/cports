@@ -4,7 +4,7 @@ pkgrel = 0
 pkgdesc = "Freely available, patent free, high-quality data compressor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "bzip2-1.0.6"
-homepage = "https://sourceware.org/bzip2"
+url = "https://sourceware.org/bzip2"
 sources = [f"https://sourceware.org/pub/bzip2/bzip2-{pkgver}.tar.gz"]
 sha256 = ["ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"]
 

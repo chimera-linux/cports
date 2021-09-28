@@ -5,7 +5,7 @@ depends = ["clang-rt-cross", "musl-cross", "libcxx-cross"]
 pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
-homepage = "https://chimera-linux.org"
+url = "https://chimera-linux.org"
 options = ["!cross"]
 
 _targets = list(filter(

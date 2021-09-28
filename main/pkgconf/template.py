@@ -7,7 +7,7 @@ checkdepends = ["kyua"]
 pkgdesc = "Provides compiler and linker configuration"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
-homepage = "http://pkgconf.org"
+url = "http://pkgconf.org"
 sources = [f"https://sources.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"]
 sha256 = ["b846aea51cf696c3392a0ae58bef93e2e72f8e7073ca6ad1ed8b01c85871f9c0"]
 

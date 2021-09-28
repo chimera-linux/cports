@@ -4,7 +4,7 @@ pkgrel = 0
 pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
-homepage = "https://chimera-linux.org"
+url = "https://chimera-linux.org"
 
 options = ["bootstrap"]
 

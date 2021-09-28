@@ -303,12 +303,12 @@ core_fields = [
     # name default type mandatory subpkg inherit
 
     # core fields that are set early
+    ("license", None, str, True, False, False),
     ("pkgdesc", None, str, True, True, True),
     ("pkgname", None, str, True, False, False),
     ("pkgrel", None, int, True, False, False),
     ("pkgver", None, str, True, False, False),
-    ("homepage", None, str, True, False, False),
-    ("license", None, str, True, False, False),
+    ("url", None, str, True, False, False),
 
     # not mandatory but encouraged
     ("maintainer", None, str, False, False, False),

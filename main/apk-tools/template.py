@@ -10,7 +10,7 @@ depends = ["ca-certificates"]
 pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
-homepage = "http://git.alpinelinux.org/cgit/apk-tools"
+url = "http://git.alpinelinux.org/cgit/apk-tools"
 sources = [f"http://git.alpinelinux.org/cgit/{pkgname}/snapshot/{pkgname}-{pkgver}.tar.bz2"]
 sha256 = ["a3cbabbcd3072f197b19f85e13e526b8b769d1e537f8156457b1779bcc9300fe"]
 

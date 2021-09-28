@@ -6,7 +6,7 @@ make_build_args = ["PREFIX=/usr"]
 pkgdesc = "BSD licensed clone of the GNU libc backtrace facility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
-homepage = "http://www.freshports.org/devel/libexecinfo"
+url = "http://www.freshports.org/devel/libexecinfo"
 sources = [f"http://distcache.freebsd.org/local-sources/itetcu/libexecinfo-{pkgver}.tar.bz2"]
 sha256 = ["c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"]
 

@@ -4,7 +4,7 @@ pkgrel = 0
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
-homepage = "https://chimera-linux.org"
+url = "https://chimera-linux.org"
 
 depends = [
     "musl-devel", "base-files", "elftoolchain", "llvm", "clang", "lld", "bmake",

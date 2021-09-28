@@ -7,7 +7,7 @@ checkdepends = ["perl"]
 pkgdesc = "GNU Make build tool"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
-homepage = "http://www.gnu.org/software/make"
+url = "http://www.gnu.org/software/make"
 sources = [f"$(GNU_SITE)/make/make-{pkgver}.tar.lz"]
 sha256 = ["de1a441c4edf952521db30bfca80baae86a0ff1acd0a00402999344f04c45e82"]
 
