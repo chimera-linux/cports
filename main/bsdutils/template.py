@@ -7,7 +7,7 @@ makedepends = [
     "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",
     "musl-fts-devel", "musl-rpmatch-devel", "libxo-devel"
 ]
-short_desc = "Alternative to GNU coreutils from FreeBSD"
+pkgdesc = "Alternative to GNU coreutils from FreeBSD"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdutils"

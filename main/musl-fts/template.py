@@ -3,7 +3,7 @@ version = "1.2.7"
 revision = 0
 build_style = "makefile"
 make_build_args = ["PREFIX=/usr"]
-short_desc = "Implementation of fts(3) for musl libc"
+pkgdesc = "Implementation of fts(3) for musl libc"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "https://github.com/chimera-linux/musl-fts"
@@ -17,7 +17,7 @@ def post_install(self):
 
 @subpackage("musl-fts-devel")
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"{pkgname}={version}-r{revision}"]
 
     return [

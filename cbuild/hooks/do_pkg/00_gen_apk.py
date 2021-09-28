@@ -37,11 +37,11 @@ def genpkg(
         metadata = {}
         args = []
 
-        short_desc = pkg.short_desc
+        pkgdesc = pkg.pkgdesc
         if dbg:
-            short_desc += " (debug files)"
+            pkgdesc += " (debug files)"
 
-        metadata["pkgdesc"] = short_desc
+        metadata["pkgdesc"] = pkgdesc
         metadata["url"] = pkg.rparent.homepage
         metadata["maintainer"] = pkg.rparent.maintainer
         #metadata["packager"] = pkg.rparent.maintainer

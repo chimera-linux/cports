@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = ["-DENABLE_TESTING=OFF"]
 hostmakedepends = ["cmake", "ninja", "perl"]
 makedepends = ["libzstd-devel", "zlib-devel"]
-short_desc = "Fast C/C++ compiler cache"
+pkgdesc = "Fast C/C++ compiler cache"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 homepage = "https://ccache.samba.org"

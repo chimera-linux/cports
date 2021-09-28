@@ -1,7 +1,7 @@
 pkgname = "bzip2"
 version = "1.0.8"
 revision = 0
-short_desc = "Freely available, patent free, high-quality data compressor"
+pkgdesc = "Freely available, patent free, high-quality data compressor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "bzip2-1.0.6"
 homepage = "https://sourceware.org/bzip2"
@@ -59,7 +59,7 @@ def do_install(self):
 @subpackage("bzip2-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={version}-r{revision}"]
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",

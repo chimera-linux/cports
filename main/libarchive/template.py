@@ -12,7 +12,7 @@ makedepends = [
     "zlib-devel", "bzip2-devel", "liblzma-devel",
     "acl-devel", "liblz4-devel", "openssl-devel"
 ]
-short_desc = "Library to read/write several different streaming archive formats"
+pkgdesc = "Library to read/write several different streaming archive formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "http://www.libarchive.org/"
@@ -40,7 +40,7 @@ def post_install(self):
 
 @subpackage("bsdtar")
 def _bsdtar(self):
-    self.short_desc = "BSD utilities using libarchive"
+    self.pkgdesc = "BSD utilities using libarchive"
 
     return [
         "usr/bin",
@@ -50,7 +50,7 @@ def _bsdtar(self):
 
 @subpackage("libarchive-devel")
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
     self.depends = makedepends + [f"{pkgname}={version}-r{revision}"]
 
     return [

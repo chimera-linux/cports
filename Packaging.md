@@ -59,8 +59,8 @@ to contain any actual functions. For example:
 pkgname = "foo"
 version = "0.99.0"
 revision = 0
+pkgdesc = "A simple package"
 build_style = "gnu_makefile"
-short_desc = "A simple package"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "https://foo.software"
@@ -369,7 +369,7 @@ These variables are mandatory:
 * `revision` *(int)* The revision number for the package. When changes are
   made to the template that require rebuilding of the package, the revision
   is incremented by one. The initial value should be zero.
-* `short_desc` *(str)* A short, one line description of the package. Should
+* `pkgdesc` *(str)* A short, one line description of the package. Should
   be kept at 72 characters or shorter. In general, this should not begin with
   an article (`the` is sometimes permissible), and should not end with a period.
   It should use American English and not contain any mistakes.
@@ -843,7 +843,7 @@ The subpackage body function can then look like this:
 
 ```
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = f"{pkgdesc} - development files"
     self.depends = [...]
     self.options = ["textrels"]
 
@@ -868,7 +868,7 @@ The following variables apply to subpackages. Most do not inherit their
 value from the parent and are assigned the defaults; some are inherited,
 those are explicitly marked.
 
-* `short_desc` (inherits)
+* `pkgdesc` (inherits)
 * `options`
 * `depends`
 * `provides`

@@ -9,7 +9,7 @@ configure_args = [
 ]
 make_check_target = "test"
 make_install_args = ["MANSUFFIX=ssl"]
-short_desc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
+pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OpenSSL"
 homepage = "https://www.openssl.org"
@@ -46,7 +46,7 @@ def do_build(self):
 
 @subpackage("libcrypto1.1")
 def _libcrypto(self):
-    self.short_desc = short_desc + " - crypto library"
+    self.pkgdesc = pkgdesc + " - crypto library"
 
     return [
         "usr/lib/libcrypto.so.*",
@@ -55,13 +55,13 @@ def _libcrypto(self):
 
 @subpackage("libssl1.1")
 def _libssl(self):
-    self.short_desc = short_desc + " - SSL/TLS library"
+    self.pkgdesc = pkgdesc + " - SSL/TLS library"
 
     return ["usr/lib/libssl.so.*"]
 
 @subpackage("openssl-c_rehash")
 def _crehash(self):
-    self.short_desc = short_desc + " - c_rehash utility"
+    self.pkgdesc = pkgdesc + " - c_rehash utility"
     self.depends = ["openssl"]
 
     if not self.bootstrapping:
@@ -71,7 +71,7 @@ def _crehash(self):
 
 @subpackage("openssl-devel")
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [
         f"{pkgname}={version}-r{revision}",
         f"libssl1.1={version}-r{revision}",

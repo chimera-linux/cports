@@ -1,7 +1,7 @@
 pkgname = "bmake"
 version = "20210420"
 revision = 0
-short_desc = "Portable version of NetBSD make"
+pkgdesc = "Portable version of NetBSD make"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "http://www.crufty.net/help/sjg/bmake.html"

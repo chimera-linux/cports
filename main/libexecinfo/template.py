@@ -3,7 +3,7 @@ version = "1.1"
 revision = 0
 build_style = "makefile"
 make_build_args = ["PREFIX=/usr"]
-short_desc = "BSD licensed clone of the GNU libc backtrace facility"
+pkgdesc = "BSD licensed clone of the GNU libc backtrace facility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "http://www.freshports.org/devel/libexecinfo"
@@ -24,7 +24,7 @@ def do_install(self):
 
 @subpackage("libexecinfo-devel")
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"{pkgname}={version}-r{revision}"]
 
     return [

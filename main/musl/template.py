@@ -4,7 +4,7 @@ revision = 0
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
-short_desc = "Musl C library"
+pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.musl-libc.org/"
@@ -61,7 +61,7 @@ def do_install(self):
 @subpackage("musl-devel")
 def _devel(self):
     self.depends = ["kernel-libc-headers", f"{pkgname}={version}-r{revision}"]
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",

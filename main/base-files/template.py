@@ -1,7 +1,7 @@
 pkgname = "base-files"
 version = "0.142"
 revision = 0
-short_desc = "Chimera Linux base system files"
+pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 homepage = "https://chimera-linux.org"

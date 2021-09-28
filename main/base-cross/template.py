@@ -2,7 +2,7 @@ pkgname = "base-cross"
 version = "0.1"
 revision = 0
 depends = ["clang-rt-cross", "musl-cross", "libcxx-cross"]
-short_desc = "Base metapackage for cross-compiling"
+pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 homepage = "https://chimera-linux.org"
@@ -48,7 +48,7 @@ def do_install(self):
 def _gen_crossp(an, at):
     @subpackage(f"base-cross-{an}")
     def _subp(self):
-        self.short_desc = f"{short_desc} - {an}"
+        self.pkgdesc = f"{pkgdesc} - {an}"
         self.depends = [
             f"clang-rt-cross-{an}",
             f"musl-cross-{an}",

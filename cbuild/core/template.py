@@ -304,9 +304,9 @@ core_fields = [
 
     # core fields that are set early
     ("pkgname", None, str, True, False, False),
+    ("pkgdesc", None, str, True, True, True),
     ("version", None, str, True, False, False),
     ("revision", None, int, True, False, False),
-    ("short_desc", None, str, True, True, True),
     ("homepage", None, str, True, False, False),
     ("license", None, str, True, False, False),
 

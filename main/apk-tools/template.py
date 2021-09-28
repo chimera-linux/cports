@@ -7,7 +7,7 @@ configure_args = [
 ]
 makedepends = ["zlib-devel", "openssl-devel"]
 depends = ["ca-certificates"]
-short_desc = "Alpine package manager"
+pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://git.alpinelinux.org/cgit/apk-tools"
@@ -25,7 +25,7 @@ if not current.bootstrapping:
 
 @subpackage("apk-tools-devel")
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"{pkgname}={version}-r{revision}"]
 
     return [
@@ -37,6 +37,6 @@ def _devel(self):
 
 @subpackage("apk-tools-static")
 def _static(self):
-    self.short_desc = short_desc + " - static build"
+    self.pkgdesc = pkgdesc + " - static build"
 
     return ["usr/bin/apk.static"]

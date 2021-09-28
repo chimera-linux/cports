@@ -4,7 +4,7 @@ revision = 0
 build_style = "gnu_configure"
 configure_args = ["--with-regex=posix"]
 makedepends = ["ncurses-devel"]
-short_desc = "Pager program similar to more(1)"
+pkgdesc = "Pager program similar to more(1)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "less"
 homepage = "http://www.greenwoodsoftware.com/less"

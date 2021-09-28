@@ -6,7 +6,7 @@ configure_args = [
     "--includedir=/usr/include", "--disable-multi-os-directory", "--with-pic"
 ]
 checkdepends = ["dejagnu"]
-short_desc = "Library supporting Foreign Function Interfaces"
+pkgdesc = "Library supporting Foreign Function Interfaces"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://sourceware.org/libffi"
@@ -20,7 +20,7 @@ def post_install(self):
 
 @subpackage("libffi-devel")
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"libffi={version}-r{revision}"]
 
     return [

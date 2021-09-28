@@ -2,7 +2,7 @@ pkgname = "zlib"
 version = "1.2.11"
 revision = 0
 build_style = "configure"
-short_desc = "Compression/decompression Library"
+pkgdesc = "Compression/decompression Library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 homepage = "http://www.zlib.net"
@@ -19,7 +19,7 @@ def do_configure(self):
 @subpackage("zlib-devel")
 def _devel(self):
     self.depends = [f"zlib={version}-r{revision}"]
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",

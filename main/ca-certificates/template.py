@@ -4,7 +4,7 @@ revision = 0
 conf_files = ["/etc/ca-certificates.conf"]
 hostmakedepends = ["openssl"]
 depends = ["openssl<=2.0", "run-parts"]
-short_desc = "Common CA certificates for SSL/TLS"
+pkgdesc = "Common CA certificates for SSL/TLS"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later, MPL-2.0"
 homepage = "https://tracker.debian.org/pkg/ca-certificates"

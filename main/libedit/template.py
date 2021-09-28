@@ -5,7 +5,7 @@ version = f"{_datever}.{_distver}"
 revision = 0
 build_style = "gnu_configure"
 makedepends = ["ncurses-devel"]
-short_desc = "Port of the NetBSD command line editing library"
+pkgdesc = "Port of the NetBSD command line editing library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "http://www.thrysoee.dk/editline"
@@ -20,7 +20,7 @@ def post_install(self):
 @subpackage("libedit-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={version}-r{revision}"] + makedepends
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",

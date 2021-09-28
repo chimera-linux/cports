@@ -32,7 +32,7 @@ hostmakedepends = [
 makedepends = ["zlib-devel", "libffi-devel"]
 depends = []
 make_cmd = "make"
-short_desc = "Core cross-compiling runtime for LLVM"
+pkgdesc = "Core cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
@@ -120,7 +120,7 @@ def do_install(self):
 
 def _gen_subp(an, at):
     def _subp(self):
-        self.short_desc = f"{short_desc} - {an} support"
+        self.pkgdesc = f"{pkgdesc} - {an} support"
         self.depends = [f"clang>={version}"]
         return [f"usr/lib/clang/{version}/lib/linux/*{at[0:at.find('-')]}*"]
 

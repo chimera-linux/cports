@@ -15,7 +15,7 @@ make_install_args = make_build_args + [
 ]
 make_use_env = True
 depends = [f"libelf={version}-r{revision}"]
-short_desc = "BSD licensed ELF toolchain"
+pkgdesc = "BSD licensed ELF toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://sourceforge.net/projects/elftoolchain"
@@ -46,7 +46,7 @@ def post_install(self):
 @subpackage("elftoolchain-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={version}-r{revision}"]
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",
@@ -57,7 +57,7 @@ def _devel(self):
 
 @subpackage("libelf")
 def _libelf(self):
-    self.short_desc = short_desc + " - libelf"
+    self.pkgdesc = pkgdesc + " - libelf"
 
     return [
         "usr/lib/*.so.*"

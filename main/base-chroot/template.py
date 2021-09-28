@@ -1,7 +1,7 @@
 pkgname = "base-chroot"
 version = "0.66"
 revision = 0
-short_desc = "Core package set for cbuild containers"
+pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 homepage = "https://chimera-linux.org"

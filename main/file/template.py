@@ -7,7 +7,7 @@ configure_args = [
     "--disable-bzlib", "--disable-xzlib"
 ]
 makedepends = ["zlib-devel"]
-short_desc = "File type identification utility"
+pkgdesc = "File type identification utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "http://www.darwinsys.com/file/"
@@ -24,7 +24,7 @@ def post_install(self):
 
 @subpackage("libmagic")
 def _libmagic(self):
-    self.short_desc = "File type identification library"
+    self.pkgdesc = "File type identification library"
 
     return [
         "usr/lib/*.so.*",
@@ -35,7 +35,7 @@ def _libmagic(self):
 @subpackage("file-devel")
 def _devel(self):
     self.depends = makedepends + [f"libmagic={version}-r{revision}"]
-    self.short_desc = "File type identification library - development files"
+    self.pkgdesc = "File type identification library - development files"
 
     return [
         "usr/include",

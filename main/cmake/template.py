@@ -10,7 +10,7 @@ configure_args = [
     f"--parallel={current.conf_jobs}"
 ]
 makedepends = ["libarchive-devel", "ncurses-devel"]
-short_desc = "Cross-platform, open source build system"
+pkgdesc = "Cross-platform, open source build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause, ICU"
 homepage = "https://cmake.org"

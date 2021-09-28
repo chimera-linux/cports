@@ -2,7 +2,7 @@ pkgname = "lz4"
 version = "1.9.3"
 revision = 0
 build_style = "makefile"
-short_desc = "LZ4 compression utilities"
+pkgdesc = "LZ4 compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause, GPL-2.0-or-later"
 homepage = "https://lz4.github.io/lz4"
@@ -21,7 +21,7 @@ def post_install(self):
 
 @subpackage("liblz4")
 def _lib(self):
-    self.short_desc = "LZ4 compression library"
+    self.pkgdesc = "LZ4 compression library"
 
     return ["usr/lib/*.so.*"]
 

@@ -3,7 +3,7 @@ version = "6.2"
 revision = 0
 configure_args = ["--enable-big-core"]
 make_cmd = "gmake"
-short_desc = "System V Release 4.0 curses emulation library"
+pkgdesc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.gnu.org/software/ncurses/"
@@ -117,7 +117,7 @@ def do_install(self):
 
 @subpackage("ncurses-libs")
 def _libs(self):
-    self.short_desc = short_desc + " - shared libraries"
+    self.pkgdesc = pkgdesc + " - shared libraries"
 
     return [
         "usr/lib/libform*.so.*",
@@ -128,7 +128,7 @@ def _libs(self):
 
 @subpackage("ncurses-devel")
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"ncurses-libs={version}-r{revision}"]
 
     return [
@@ -151,7 +151,7 @@ def _devel(self):
 
 @subpackage("ncurses-base")
 def _base(self):
-    self.short_desc = short_desc + " - base terminfo files"
+    self.pkgdesc = pkgdesc + " - base terminfo files"
 
     flist = []
     with (self.rparent.files_path / "base-files").open() as f:
@@ -162,7 +162,7 @@ def _base(self):
 
 @subpackage("ncurses-term")
 def _term(self):
-    self.short_desc = short_desc + " - full terminal descriptions"
+    self.pkgdesc = pkgdesc + " - full terminal descriptions"
     self.depends = [f"ncurses-base={version}-r{revision}"]
 
     return [
@@ -172,14 +172,14 @@ def _term(self):
 
 @subpackage("ncurses-libtinfo-libs")
 def _tinfo(self):
-    self.short_desc = short_desc + " - libtinfo.so symlink"
+    self.pkgdesc = pkgdesc + " - libtinfo.so symlink"
     self.depends = [f"ncurses-libs={version}-r{revision}"]
 
     return ["usr/lib/libtinfo*.so.*"]
 
 @subpackage("ncurses-libtinfo-devel")
 def _tdevel(self):
-    self.short_desc = short_desc + " - libtinfo.so symlink - development files"
+    self.pkgdesc = pkgdesc + " - libtinfo.so symlink - development files"
     self.depends = [
         f"ncurses-devel={version}-r{revision}",
         f"ncurses-libtinfo-libs={version}-r{revision}"

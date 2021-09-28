@@ -16,7 +16,7 @@ makedepends = [
 # bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)
 make_cmd = "gmake"
 depends = ["ca-certificates"]
-short_desc = "Python programming language"
+pkgdesc = "Python programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 homepage = "https://python.org"
@@ -83,7 +83,7 @@ def do_install(self):
 
 @subpackage("python-devel")
 def _devel(self):
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"{pkgname}={version}-r{revision}"]
 
     def install():

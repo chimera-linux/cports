@@ -3,7 +3,7 @@ version = "20210520"
 revision = 0
 build_style = "gnu_configure"
 configure_args = ["--program-transform=s,^,b,"]
-short_desc = "Berkeley yacc, a LALR(1) parser generator"
+pkgdesc = "Berkeley yacc, a LALR(1) parser generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license="Public Domain"
 homepage = "http://invisible-island.net/byacc/"

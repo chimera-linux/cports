@@ -7,7 +7,7 @@ configure_args = [
     f"--libexecdir=/usr/lib"
 ]
 makedepends = ["attr-devel"]
-short_desc = "Access Control List filesystem support"
+pkgdesc = "Access Control List filesystem support"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 homepage = "https://savannah.nongnu.org/projects/acl"
@@ -18,7 +18,7 @@ options = ["bootstrap", "!check"]
 @subpackage("acl-devel")
 def _devel(self):
     self.depends = ["attr-devel", f"{pkgname}={version}-r{revision}"]
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",
@@ -31,7 +31,7 @@ def _devel(self):
 
 @subpackage("acl-progs")
 def _progs(self):
-    self.short_desc = short_desc + " - utilities"
+    self.pkgdesc = pkgdesc + " - utilities"
 
     return [
         "usr/bin",

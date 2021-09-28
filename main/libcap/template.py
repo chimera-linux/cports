@@ -14,7 +14,7 @@ make_install_args = [
 ]
 make_use_env = True
 makedepends = ["attr-devel"]
-short_desc = "POSIX.1e capabilities suite"
+pkgdesc = "POSIX.1e capabilities suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://sites.google.com/site/fullycapable/"
@@ -32,7 +32,7 @@ def init_configure(self):
 @subpackage("libcap-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={version}-r{revision}"]
-    self.short_desc = short_desc + " - development files"
+    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",
@@ -46,6 +46,6 @@ def _devel(self):
 
 @subpackage("libcap-progs")
 def _progs(self):
-    self.short_desc = short_desc + " - utilities"
+    self.pkgdesc = pkgdesc + " - utilities"
 
     return ["usr/bin", "usr/share"]

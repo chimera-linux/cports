@@ -3,7 +3,7 @@ version = "0.99.1"
 revision = 0
 build_style = "makefile"
 make_build_args = ["YACC=byacc", "LEX=true"]
-short_desc = "The m4(1) utility from FreeBSD"
+pkgdesc = "The m4(1) utility from FreeBSD"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/chimera-linux/bsdm4"

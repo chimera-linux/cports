@@ -15,7 +15,7 @@ hostmakedepends = ["cmake"]
 makedepends = ["musl-cross"]
 depends = ["musl-cross"]
 make_cmd = "make"
-short_desc = "LLVM libunwind for cross-compiling"
+pkgdesc = "LLVM libunwind for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
@@ -99,7 +99,7 @@ def do_install(self):
 def _gen_crossp(an, at):
     @subpackage(f"libunwind-cross-{an}")
     def _subp(self):
-        self.short_desc = f"{short_desc} - {an} support"
+        self.pkgdesc = f"{pkgdesc} - {an} support"
         self.depends = [f"musl-cross-{an}"]
         self.options = ["!scanshlibs"]
         return [f"usr/{at}"]
