@@ -7,7 +7,7 @@ import pathlib
 import shutil
 import time
 
-# avoid re-parsing same templates every time; the version will
+# avoid re-parsing same templates every time; the pkgver will
 # never be conditional and that is the only thing we care about
 _tcache = {}
 
@@ -25,7 +25,7 @@ def _srcpkg_ver(pkgn, pkgb):
     if not rv:
         return None
 
-    cv = f"{rv.version}-r{rv.revision}"
+    cv = f"{rv.pkgver}-r{rv.pkgrel}"
     _tcache[pkgn] = cv
 
     return cv

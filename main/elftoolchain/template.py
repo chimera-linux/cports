@@ -1,7 +1,7 @@
 pkgname = "elftoolchain"
 _commit = "f7e9afc6f9ad0d84ea73b4659c5d6d13275d2306"
-version = "0.7.1_svn20210623"
-revision = 0
+pkgver = "0.7.1_svn20210623"
+pkgrel = 0
 build_style = "makefile"
 makedepends = ["libarchive-devel"]
 make_build_args = [
@@ -14,7 +14,7 @@ make_install_args = make_build_args + [
     "MANTARGET=man", "MANDIR=/usr/share/man"
 ]
 make_use_env = True
-depends = [f"libelf={version}-r{revision}"]
+depends = [f"libelf={pkgver}-r{pkgrel}"]
 pkgdesc = "BSD licensed ELF toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
@@ -45,7 +45,7 @@ def post_install(self):
 
 @subpackage("elftoolchain-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={version}-r{revision}"]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.pkgdesc = pkgdesc + " - development files"
 
     return [

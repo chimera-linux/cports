@@ -1,6 +1,6 @@
 pkgname = "base-files"
-version = "0.142"
-revision = 0
+pkgver = "0.142"
+pkgrel = 0
 pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"

@@ -120,7 +120,7 @@ def invoke(pkg):
                 srcs_path = pathlib.Path("/sources")
             exf(
                 pkg, fname,
-                srcs_path / f"{pkg.pkgname}-{pkg.version}/{fname}",
+                srcs_path / f"{pkg.pkgname}-{pkg.pkgver}/{fname}",
                 pkg.chroot_builddir / extractdir.name, suffix
             )
         # try iterating it

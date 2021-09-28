@@ -1,6 +1,6 @@
 pkgname = "openssl"
-version = "1.1.1k"
-revision = 0
+pkgver = "1.1.1k"
+pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
@@ -13,7 +13,7 @@ pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OpenSSL"
 homepage = "https://www.openssl.org"
-sources = [f"https://www.openssl.org/source/openssl-{version}.tar.gz"]
+sources = [f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"]
 sha256 = ["892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"]
 conf_files = ["/etc/ssl/openssl.cnf"]
 
@@ -73,9 +73,9 @@ def _crehash(self):
 def _devel(self):
     self.pkgdesc = pkgdesc + " - development files"
     self.depends = [
-        f"{pkgname}={version}-r{revision}",
-        f"libssl1.1={version}-r{revision}",
-        f"libcrypto1.1={version}-r{revision}"
+        f"{pkgname}={pkgver}-r{pkgrel}",
+        f"libssl1.1={pkgver}-r{pkgrel}",
+        f"libcrypto1.1={pkgver}-r{pkgrel}"
     ]
 
     return [

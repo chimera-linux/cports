@@ -1,6 +1,6 @@
 pkgname = "libexecinfo-cross"
-version = "1.1"
-revision = 0
+pkgver = "1.1"
+pkgrel = 0
 build_style = "makefile"
 makedepends = ["musl-cross"]
 depends = ["musl-cross"]
@@ -8,7 +8,7 @@ pkgdesc = "BSD licensed clone of the GNU backtrace (cross compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "http://www.freshports.org/devel/libexecinfo"
-sources = [f"http://distcache.freebsd.org/local-sources/itetcu/libexecinfo-{version}.tar.bz2"]
+sources = [f"http://distcache.freebsd.org/local-sources/itetcu/libexecinfo-{pkgver}.tar.bz2"]
 sha256 = ["c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"]
 options = ["!cross", "!check"]
 
@@ -61,7 +61,7 @@ def _gen_crossp(an, at):
         self.depends = [f"musl-cross-{an}"]
         self.options = ["!scanshlibs"]
         return [f"usr/{at}"]
-    depends.append(f"libexecinfo-cross-{an}={version}-r{revision}")
+    depends.append(f"libexecinfo-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:
     with current.profile(an):

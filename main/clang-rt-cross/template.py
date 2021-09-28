@@ -1,10 +1,10 @@
 pkgname = "clang-rt-cross"
-version = "12.0.0"
-revision = 0
+pkgver = "12.0.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
-    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{version}",
+    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver}",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
@@ -41,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
 sources = [
-    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz"
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 ]
 sha256 = [
     "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"
@@ -90,9 +90,9 @@ def do_install(self):
 
     # we don't need or want these for cross
     with self.pushd(self.destdir):
-        self.rm(f"usr/lib/clang/{version}/share", recursive = True)
-        self.rm(f"usr/lib/clang/{version}/include", recursive = True)
-        self.rm(f"usr/lib/clang/{version}/bin", recursive = True)
+        self.rm(f"usr/lib/clang/{pkgver}/share", recursive = True)
+        self.rm(f"usr/lib/clang/{pkgver}/include", recursive = True)
+        self.rm(f"usr/lib/clang/{pkgver}/bin", recursive = True)
 
 def _gen_crossp(an):
     with current.profile(an):
@@ -107,8 +107,8 @@ def _gen_crossp(an):
             f"libexecinfo-cross-{an}"
         ]
         self.options = ["!scanshlibs"]
-        return [f"usr/lib/clang/{version}/lib/linux/libclang_rt.*{at[0:at.find('-')]}*"]
-    depends.append(f"clang-rt-cross-{an}={version}-r{revision}")
+        return [f"usr/lib/clang/{pkgver}/lib/linux/libclang_rt.*{at[0:at.find('-')]}*"]
+    depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:
     _gen_crossp(an)

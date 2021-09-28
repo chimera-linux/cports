@@ -1,6 +1,6 @@
 pkgname = "libcxx-cross"
-version = "12.0.0"
-revision = 0
+pkgver = "12.0.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
 sources = [
-    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz"
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 ]
 sha256 = [
     "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"
@@ -86,7 +86,7 @@ def _gen_crossp(an, at):
         self.depends = [f"libcxxabi-cross-{an}"]
         self.options = ["!scanshlibs"]
         return [f"usr/{at}"]
-    depends.append(f"libcxx-cross-{an}={version}-r{revision}")
+    depends.append(f"libcxx-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:
     with current.profile(an):

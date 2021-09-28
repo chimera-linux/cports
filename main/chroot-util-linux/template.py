@@ -1,7 +1,7 @@
 pkgname = "chroot-util-linux"
 _mver = "2.32"
-version = f"{_mver}.1"
-revision = 0
+pkgver = f"{_mver}.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--without-ncurses", "--without-ncursesw", "--without-udev",
@@ -28,7 +28,7 @@ if not current.bootstrapping:
 	hostmakedepends = ["gmake"]
 
 sources = [
-    f"$(KERNEL_SITE)/utils/util-linux/v{_mver}/util-linux-{version}.tar.xz"
+    f"$(KERNEL_SITE)/utils/util-linux/v{_mver}/util-linux-{pkgver}.tar.xz"
 ]
 sha256 = ["86e6707a379c7ff5489c218cfaf1e3464b0b95acf7817db0bc5f179e356a67b2"]
 conflicts = ["util-linux"]

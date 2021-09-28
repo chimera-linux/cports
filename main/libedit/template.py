@@ -1,8 +1,8 @@
 pkgname = "libedit"
 _datever = "20210522"
 _distver = 3.1
-version = f"{_datever}.{_distver}"
-revision = 0
+pkgver = f"{_datever}.{_distver}"
+pkgrel = 0
 build_style = "gnu_configure"
 makedepends = ["ncurses-devel"]
 pkgdesc = "Port of the NetBSD command line editing library"
@@ -19,7 +19,7 @@ def post_install(self):
 
 @subpackage("libedit-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={version}-r{revision}"] + makedepends
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"] + makedepends
     self.pkgdesc = pkgdesc + " - development files"
 
     return [

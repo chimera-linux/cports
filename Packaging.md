@@ -57,14 +57,14 @@ to contain any actual functions. For example:
 
 ```
 pkgname = "foo"
-version = "0.99.0"
-revision = 0
+pkgver = "0.99.0"
+pkgrel = 0
 pkgdesc = "A simple package"
 build_style = "gnu_makefile"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 homepage = "https://foo.software"
-sources = [f"https://foo.software/{pkgname}-{version}.tar.gz"]
+sources = [f"https://foo.software/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["ad031c86b23ed776697f77f1a3348cd7129835965d4ee9966bc50e65c97703e8"]
 ```
 
@@ -222,7 +222,7 @@ build fails elsewhere and needs to be restarted).
 
 All build phases are run in either `self.wkrsrc` (all phases), or in
 `build_wrksrc` inside that directory (`configure` and later). The value
-of `self.wrksrc` is `{self.pkgname}-{self.version}`. It exists within
+of `self.wrksrc` is `{self.pkgname}-{self.pkgver}`. It exists within
 the `builddir` and is created automatically.
 
 * `setup` The build system prepares the environment. This means creating
@@ -364,11 +364,12 @@ handle passed to functions as the first argument (typically called `self`).
 These variables are mandatory:
 
 * `pkgname` *(str)* The primary package name, must match template name.
-* `version` *(str)* The package version, applies to all subpackages. Must
+* `pkgver` *(str)* The package version, applies to all subpackages. Must
   follow the correct format for the `apk` package manager.
-* `revision` *(int)* The revision number for the package. When changes are
-  made to the template that require rebuilding of the package, the revision
-  is incremented by one. The initial value should be zero.
+* `pkgrel` *(int)* The release number for the package. When changes are
+  made to the template that require rebuilding of the package, this is
+  is incremented by one. The initial value should be zero. When bumping
+  to a new version, it should be reset back to zero.
 * `pkgdesc` *(str)* A short, one line description of the package. Should
   be kept at 72 characters or shorter. In general, this should not begin with
   an article (`the` is sometimes permissible), and should not end with a period.
@@ -1174,8 +1175,8 @@ The following bind mounts are provided:
 * `/ccache` The `ccache` data path (`CCACHE_DIR`), read-write.
 * `/builddir` The directory in which `self.wrksrc` exists.
 * `/destdir` The destination directory for installing; packages will
-  install into `/destdir/pkgname-version`, or when cross compiling,
-  into `/destdir/triplet/pkgname-version`. Read only before `install`,
+  install into `/destdir/pkgname-pkgver`, or when cross compiling,
+  into `/destdir/triplet/pkgname-pkgver`. Read only before `install`,
   and read-write for the `install` phase.
 * `/sources` Read-only, points to where all sources are stored.
 * `/dev`, `/proc` and `/tmp` are fresh (not bound).
@@ -1322,18 +1323,13 @@ A string representing the name of the package.
 
 ##### self.pkgver
 
-A string representing the canonical versioned package name string. This
-follows the `apk` format if `{pkgname}-{version}-r{revision}`.
-
-##### self.version
-
 The version number of the package. While provided as a template variable,
 this is inherited into subpackages as well, so it's considered a part of
 the base API.
 
-##### self.revision
+##### self.pkgrel
 
-The revision number of the package. While provided as a template variable,
+The release number of the package. While provided as a template variable,
 this is inherited into subpackages as well, so it's considered a part of
 the base API.
 
@@ -1396,9 +1392,14 @@ so on in a persistent manner to allow resuming, plus any wrappers).
 ##### def log(self, msg, end = "\n")
 
 Using `self.logger.out()`, print out a specially prefixed message. The
-message has the format `<name>: <msg><end>`, where `name` is either
-`self.pkgver`, `self.pkgname` or fallback `cbuild`, in the order of
-availability.
+message has the format `<prefix>: <msg><end>`, where `prefix` can be
+one of the following:
+
+* `{self.pkgname}-{self.pkgver}-r{self.pkgrel}`
+* `{self.pkgname}`
+* `cbuild`
+
+This depends on the stage of the build.
 
 ##### def log_red(self, msg, end = "\n")
 

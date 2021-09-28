@@ -1,20 +1,20 @@
 pkgname = "ncurses"
-version = "6.2"
-revision = 0
+pkgver = "6.2"
+pkgrel = 0
 configure_args = ["--enable-big-core"]
 make_cmd = "gmake"
 pkgdesc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.gnu.org/software/ncurses/"
-sources = [f"$(GNU_SITE)/ncurses/{pkgname}-{version}.tar.gz"]
+sources = [f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"]
 options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]
 
-depends = [f"ncurses-base={version}-r{revision}"]
+depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
 
 tool_flags = {
     "CFLAGS": ["-fPIC"],
@@ -93,20 +93,20 @@ def do_install(self):
     self.install_link("libncurses.a", "usr/lib/libcurses.a")
 
     # non-widec compatibility library
-    self.install_lib(f"ncurses-build/lib/libncurses.so.{version}")
+    self.install_lib(f"ncurses-build/lib/libncurses.so.{pkgver}")
     self.install_link(
-        f"libncurses.so.{version}",
-        f"usr/lib/libncurses.so.{version[0:version.find('.')]}"
+        f"libncurses.so.{pkgver}",
+        f"usr/lib/libncurses.so.{pkgver[0:pkgver.find('.')]}"
     )
 
     # create libtinfo symlinks
     self.install_link("libncursesw.so", "usr/lib/libtinfo.so")
     self.install_link(
-        f"libncursesw.so.{version}", f"usr/lib/libtinfo.so.{version}"
+        f"libncursesw.so.{pkgver}", f"usr/lib/libtinfo.so.{pkgver}"
     )
     self.install_link(
-        f"libtinfo.so.{version}",
-        f"usr/lib/libtinfo.so.{version[0:version.find('.')]}"
+        f"libtinfo.so.{pkgver}",
+        f"usr/lib/libtinfo.so.{pkgver[0:pkgver.find('.')]}"
     )
     self.install_link("ncursesw.pc", "usr/lib/pkgconfig/tinfo.pc")
 
@@ -129,7 +129,7 @@ def _libs(self):
 @subpackage("ncurses-devel")
 def _devel(self):
     self.pkgdesc = pkgdesc + " - development files"
-    self.depends = [f"ncurses-libs={version}-r{revision}"]
+    self.depends = [f"ncurses-libs={pkgver}-r{pkgrel}"]
 
     return [
         "usr/bin/ncurses*-config",
@@ -163,7 +163,7 @@ def _base(self):
 @subpackage("ncurses-term")
 def _term(self):
     self.pkgdesc = pkgdesc + " - full terminal descriptions"
-    self.depends = [f"ncurses-base={version}-r{revision}"]
+    self.depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
 
     return [
         "usr/share/tabset",
@@ -173,7 +173,7 @@ def _term(self):
 @subpackage("ncurses-libtinfo-libs")
 def _tinfo(self):
     self.pkgdesc = pkgdesc + " - libtinfo.so symlink"
-    self.depends = [f"ncurses-libs={version}-r{revision}"]
+    self.depends = [f"ncurses-libs={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libtinfo*.so.*"]
 
@@ -181,8 +181,8 @@ def _tinfo(self):
 def _tdevel(self):
     self.pkgdesc = pkgdesc + " - libtinfo.so symlink - development files"
     self.depends = [
-        f"ncurses-devel={version}-r{revision}",
-        f"ncurses-libtinfo-libs={version}-r{revision}"
+        f"ncurses-devel={pkgver}-r{pkgrel}",
+        f"ncurses-libtinfo-libs={pkgver}-r{pkgrel}"
     ]
 
     return [

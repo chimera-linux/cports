@@ -1,6 +1,6 @@
 pkgname = "pkgconf"
-version = "1.7.3"
-revision = 0
+pkgver = "1.7.3"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-shared", "--disable-static"]
 checkdepends = ["kyua"]
@@ -8,7 +8,7 @@ pkgdesc = "Provides compiler and linker configuration"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://pkgconf.org"
-sources = [f"https://sources.dereferenced.org/pkgconf/pkgconf-{version}.tar.xz"]
+sources = [f"https://sources.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"]
 sha256 = ["b846aea51cf696c3392a0ae58bef93e2e72f8e7073ca6ad1ed8b01c85871f9c0"]
 
 options = ["bootstrap", "!check"]

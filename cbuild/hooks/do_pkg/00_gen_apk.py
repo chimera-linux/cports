@@ -62,7 +62,7 @@ def genpkg(
             for c in pkg.depends:
                 mdeps.append(c)
         else:
-            mdeps.append(f"{pkg.pkgname}={pkg.version}-r{pkg.revision}")
+            mdeps.append(f"{pkg.pkgname}={pkg.pkgver}-r{pkg.pkgrel}")
 
         metadata["depends"] = mdeps
 
@@ -89,7 +89,7 @@ def genpkg(
             pkgname += "-dbg"
 
         apk_c.create(
-            pkgname, f"{pkg.version}-r{pkg.revision}", arch,
+            pkgname, f"{pkg.pkgver}-r{pkg.pkgrel}", arch,
             pkg.rparent.source_date_epoch, destdir, pkg.statedir, binpath,
             pkg.rparent.signing_key, metadata
         )
@@ -98,8 +98,8 @@ def genpkg(
 
 def invoke(pkg):
     arch = pkg.rparent.build_profile.arch
-    binpkg = f"{pkg.pkgver}.apk"
-    binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.version}-r{pkg.revision}.apk"
+    binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
+    binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
     repo = paths.repository() / pkg.rparent.repository / arch
 
@@ -110,7 +110,7 @@ def invoke(pkg):
             # if there's an explicit subpkg for -dbg, don't autogenerate
             return
 
-    dbgdest = pkg.rparent.destdir_base / f"{pkg.pkgname}-dbg-{pkg.version}"
+    dbgdest = pkg.rparent.destdir_base / f"{pkg.pkgname}-dbg-{pkg.pkgver}"
 
     # don't have a dbg destdir
     if not dbgdest.is_dir():

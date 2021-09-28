@@ -1,6 +1,6 @@
 pkgname = "musl"
-version = "1.2.2"
-revision = 0
+pkgver = "1.2.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
@@ -8,7 +8,7 @@ pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 homepage = "http://www.musl-libc.org/"
-sources = [f"http://www.musl-libc.org/releases/musl-{version}.tar.gz"]
+sources = [f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz"]
 sha256 = ["9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"]
 
 options = ["bootstrap", "!check"]
@@ -60,7 +60,7 @@ def do_install(self):
 
 @subpackage("musl-devel")
 def _devel(self):
-    self.depends = ["kernel-libc-headers", f"{pkgname}={version}-r{revision}"]
+    self.depends = ["kernel-libc-headers", f"{pkgname}={pkgver}-r{pkgrel}"]
     self.pkgdesc = pkgdesc + " - development files"
 
     return [

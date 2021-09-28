@@ -23,11 +23,11 @@ def remove_pkg(pkg):
     crossb = pkg.cross_build if pkg.cross_build else ""
 
     def remove_spkg(spkg, dbase):
-        tpath = dbase / f"{spkg.pkgname}-{pkg.version}"
+        tpath = dbase / f"{spkg.pkgname}-{pkg.pkgver}"
         if tpath.is_dir():
             spkg.log(f"removing files from destdir...")
             shutil.rmtree(tpath, onerror = _remove_ro)
-        tpath = dbase / f"{spkg.pkgname}-dbg-{pkg.version}"
+        tpath = dbase / f"{spkg.pkgname}-dbg-{pkg.pkgver}"
         if tpath.is_dir():
             spkg.log(f"removing dbg files from destdir...")
             shutil.rmtree(tpath, onerror = _remove_ro)

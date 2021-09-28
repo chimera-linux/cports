@@ -1,7 +1,7 @@
 pkgname = "perl"
-version = "5.32.1"
-revision = 0
-_perl_cross_version = "1.3.5"
+pkgver = "5.32.1"
+pkgrel = 0
+_perl_cross_ver = "1.3.5"
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "less"]
@@ -13,8 +13,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic=1.0-Perl, GPL=1.0-or-later"
 homepage = "https://www.perl.org"
 sources = [
-    f"https://www.cpan.org/src/5.0/perl-{version}.tar.gz",
-    f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_version}/perl-cross-{_perl_cross_version}.tar.gz"
+    f"https://www.cpan.org/src/5.0/perl-{pkgver}.tar.gz",
+    f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_ver}/perl-cross-{_perl_cross_ver}.tar.gz"
 ]
 sha256 = [
     "03b693901cd8ae807231b1787798cf1f2e0b8a56218d07b7da44f784a7caeb2c",
@@ -154,10 +154,10 @@ provides = [
 ]
 
 def pre_patch(self):
-    for f in (self.cwd / f"perl-{version}").iterdir():
+    for f in (self.cwd / f"perl-{pkgver}").iterdir():
         self.mv(f, ".")
 
-    for f in (self.cwd / f"perl-cross-{_perl_cross_version}").iterdir():
+    for f in (self.cwd / f"perl-cross-{_perl_cross_ver}").iterdir():
         if f.name == "utils":
             self.mv(f / "Makefile", "utils")
             f.rmdir()
@@ -226,7 +226,7 @@ def post_install(self):
         if f.is_file() and not f.is_symlink():
             f.chmod(0o644)
 
-    self.install_link("perl", "usr/bin/perl" + version)
+    self.install_link("perl", f"usr/bin/perl{pkgver}")
 
     # remove all pod files except those under
     # /usr/share/perl5/core_perl/pod/ (FS#16488)

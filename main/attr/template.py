@@ -1,6 +1,6 @@
 pkgname = "attr"
-version = "2.5.1"
-revision = 0
+pkgver = "2.5.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     f"--libdir=/usr/lib",
@@ -12,7 +12,7 @@ pkgdesc = "Extended attribute support library for ACL support"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 homepage = "http://savannah.nongnu.org/projects/attr"
-sources = [f"$(NONGNU_SITE)/attr/attr-{version}.tar.gz"]
+sources = [f"$(NONGNU_SITE)/attr/attr-{pkgver}.tar.gz"]
 sha256 = ["bae1c6949b258a0d68001367ce0c741cebdacdd3b62965d17e5eb23cd78adaf8"]
 options = ["bootstrap", "!check"]
 
@@ -31,7 +31,7 @@ def pre_check(self):
 
 @subpackage("attr-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={version}-r{revision}"]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.pkgdesc = pkgdesc + " - development files"
 
     return [

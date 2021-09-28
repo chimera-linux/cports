@@ -184,8 +184,8 @@ class Package:
         raise PackageError()
 
     def _get_pv(self):
-        if self.pkgver:
-            return self.pkgver
+        if self.pkgname and self.pkgver:
+            return f"{self.pkgname}-{self.pkgver}-r{self.pkgrel}"
         elif self.pkgname:
             return self.pkgname
         return "cbuild"
@@ -303,10 +303,10 @@ core_fields = [
     # name default type mandatory subpkg inherit
 
     # core fields that are set early
-    ("pkgname", None, str, True, False, False),
     ("pkgdesc", None, str, True, True, True),
-    ("version", None, str, True, False, False),
-    ("revision", None, int, True, False, False),
+    ("pkgname", None, str, True, False, False),
+    ("pkgrel", None, int, True, False, False),
+    ("pkgver", None, str, True, False, False),
     ("homepage", None, str, True, False, False),
     ("license", None, str, True, False, False),
 
@@ -509,11 +509,11 @@ class Template(Package):
             if not hasattr(self, fl) or not isinstance(getattr(self, fl), tp):
                 self.error("missing or invalid field: %s" % fl)
 
-    def validate_version(self):
+    def validate_pkgver(self):
         try:
-            x = version.Version(f"{self.version}-r{self.revision}")
+            x = version.Version(f"{self.pkgver}-r{self.pkgrel}")
         except:
-            self.error("version has an invalid format")
+            self.error("pkgver has an invalid format")
 
     def validate_arch(self):
         bprof = self.build_profile
@@ -934,10 +934,7 @@ def from_module(m, ret):
 
     # basic validation
     ret.ensure_fields()
-    ret.validate_version()
-
-    # this is useful so we don't have to repeat ourselves
-    ret.pkgver = f"{ret.pkgname}-{ret.version}-r{ret.revision}"
+    ret.validate_pkgver()
 
     # fill in core non-mandatory fields
     for fl, dval, tp, mand, sp, inh in core_fields:
@@ -968,7 +965,7 @@ def from_module(m, ret):
             ropts[opt] = not neg
 
     ret.options = ropts
-    ret.wrksrc = f"{ret.pkgname}-{ret.version}"
+    ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"
 
     ret.validate_arch()
 
@@ -1035,7 +1032,7 @@ def from_module(m, ret):
     else:
         ret.destdir_base = paths.bldroot() / "destdir"
 
-    ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.version}"
+    ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.pkgver}"
 
     ret.cwd = ret.builddir / ret.wrksrc / ret.build_wrksrc
 
@@ -1053,7 +1050,7 @@ def from_module(m, ret):
                 ret.build_profile.triplet
 
     ret.chroot_destdir = ret.chroot_destdir_base \
-        / f"{ret.pkgname}-{ret.version}"
+        / f"{ret.pkgname}-{ret.pkgver}"
 
     ret.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + ret.pkgname
 
@@ -1068,7 +1065,7 @@ def from_module(m, ret):
         )
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
             foundp = pinfo.stdout.strip().decode()
-            if foundp == ret.pkgver:
+            if foundp == f"{ret.pkgname}-{ret.pkgver}-r{ret.pkgrel}":
                 if ret.origin == ret:
                     # TODO: print the repo somehow
                     ret.log(f"found ({pinfo.stdout.strip().decode()})")
@@ -1081,11 +1078,10 @@ def from_module(m, ret):
             ret.error(f"subpackage '{spn}' already exists")
         spdupes[spn] = True
         sp = Subpackage(spn, ret)
-        sp.version = ret.version
-        sp.revision = ret.revision
-        sp.pkgver = f"{sp.pkgname}-{ret.version}-r{ret.revision}"
-        sp.destdir = ret.destdir_base / f"{sp.pkgname}-{ret.version}"
-        sp.chroot_destdir = ret.chroot_destdir_base / f"{sp.pkgname}-{ret.version}"
+        sp.pkgver = ret.pkgver
+        sp.pkgrel = ret.pkgrel
+        sp.destdir = ret.destdir_base / f"{sp.pkgname}-{ret.pkgver}"
+        sp.chroot_destdir = ret.chroot_destdir_base / f"{sp.pkgname}-{ret.pkgver}"
         sp.statedir = ret.statedir
         pinst = spf(sp)
         if not callable(pinst):

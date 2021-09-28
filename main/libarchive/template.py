@@ -1,6 +1,6 @@
 pkgname = "libarchive"
-version = "3.5.1"
-revision = 0
+pkgver = "3.5.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl", "--enable-xattr", "--without-expat",
@@ -16,7 +16,7 @@ pkgdesc = "Library to read/write several different streaming archive formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "http://www.libarchive.org/"
-sources = [f"https://github.com/libarchive/libarchive/releases/download/{version}/libarchive-{version}.tar.gz"]
+sources = [f"https://github.com/libarchive/libarchive/releases/download/{pkgver}/libarchive-{pkgver}.tar.gz"]
 sha256 = ["9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a"]
 
 options = ["bootstrap", "!check"]
@@ -51,7 +51,7 @@ def _bsdtar(self):
 @subpackage("libarchive-devel")
 def _devel(self):
     self.pkgdesc = pkgdesc + " - development files"
-    self.depends = makedepends + [f"{pkgname}={version}-r{revision}"]
+    self.depends = makedepends + [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
         "usr/include",

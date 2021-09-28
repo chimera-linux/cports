@@ -2,8 +2,8 @@ from cbuild.core import paths
 
 def invoke(pkg):
     arch = pkg.rparent.build_profile.arch
-    binpkg = f"{pkg.pkgver}.apk"
-    binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.version}-r{pkg.revision}.apk"
+    binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
+    binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
     repo = paths.repository() / pkg.rparent.repository / arch
 
@@ -20,7 +20,7 @@ def invoke(pkg):
         return
 
     if not (
-        pkg.rparent.destdir_base / f"{pkg.pkgname}-dbg-{pkg.version}"
+        pkg.rparent.destdir_base / f"{pkg.pkgname}-dbg-{pkg.pkgver}"
     ).is_dir():
         return
 

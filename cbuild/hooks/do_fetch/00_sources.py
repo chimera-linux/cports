@@ -60,7 +60,7 @@ def interp_url(pkg, url):
     return re.sub(r"\$\((\w+)\)", matchf, url)
 
 def invoke(pkg):
-    srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.version}"
+    srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.pkgver}"
     dfcount = 0
     dfgood = 0
     errors = 0

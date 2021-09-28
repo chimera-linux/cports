@@ -1,6 +1,6 @@
 pkgname = "base-cross"
-version = "0.1"
-revision = 0
+pkgver = "0.1"
+pkgrel = 0
 depends = ["clang-rt-cross", "musl-cross", "libcxx-cross"]
 pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -56,7 +56,7 @@ def _gen_crossp(an, at):
             f"kernel-libc-headers-cross-{an}",
         ]
         return [f"usr/bin/{at}-*", f"usr/lib/ccache/bin/{at}-*"]
-    depends.append(f"base-cross-{an}={version}-r{revision}")
+    depends.append(f"base-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:
     with current.profile(an):

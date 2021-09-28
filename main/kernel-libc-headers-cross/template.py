@@ -1,7 +1,7 @@
 pkgname = "kernel-libc-headers-cross"
 _mver = "5"
-version = f"{_mver}.10.4"
-revision = 0
+pkgver = f"{_mver}.10.4"
+pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl"]
 depends = []
@@ -9,7 +9,7 @@ pkgdesc = "Linux API headers for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://www.kernel.org"
-sources = [f"$(KERNEL_SITE)/kernel/v{_mver}.x/linux-{version}.tar.xz"]
+sources = [f"$(KERNEL_SITE)/kernel/v{_mver}.x/linux-{pkgver}.tar.xz"]
 sha256 = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
 options = ["!cross", "!check"]
 
@@ -68,7 +68,7 @@ def _gen_crossp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} - {an} support"
         return [f"usr/{at}"]
-    depends.append(f"kernel-libc-headers-cross-{an}={version}-r{revision}")
+    depends.append(f"kernel-libc-headers-cross-{an}={pkgver}-r{pkgrel}")
 
 for an, arch in _targets:
     with current.profile(an):

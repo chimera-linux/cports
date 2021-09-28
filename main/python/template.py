@@ -1,7 +1,7 @@
 pkgname = "python"
 _majver = "3.9"
-version = f"{_majver}.5"
-revision = 0
+pkgver = f"{_majver}.5"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "gmake"]
 # FIXME: expat, readline, sqlite
@@ -20,7 +20,7 @@ pkgdesc = "Python programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 homepage = "https://python.org"
-sources = [f"https://python.org/ftp/python/{version}/Python-{version}.tar.xz"]
+sources = [f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"]
 sha256 = ["0c5a140665436ec3dbfbb79e2dfb6d192655f26ef4a29aeffcb6d1820d716d83"]
 
 options = ["!check"]
@@ -84,7 +84,7 @@ def do_install(self):
 @subpackage("python-devel")
 def _devel(self):
     self.pkgdesc = pkgdesc + " - development files"
-    self.depends = [f"{pkgname}={version}-r{revision}"]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     def install():
         import os

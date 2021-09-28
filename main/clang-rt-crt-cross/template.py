@@ -1,11 +1,11 @@
 pkgname = "clang-rt-crt-cross"
-_musl_version = "1.2.2"
-version = "12.0.0"
-revision = 0
+_musl_ver = "1.2.2"
+pkgver = "12.0.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
-    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{version}",
+    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver}",
     # prevent executable checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # only build that target
@@ -37,8 +37,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 homepage = "https://llvm.org"
 sources = [
-    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{version}/llvm-project-{version}.src.tar.xz",
-    f"http://www.musl-libc.org/releases/musl-{_musl_version}.tar.gz"
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz",
+    f"http://www.musl-libc.org/releases/musl-{_musl_ver}.tar.gz"
 ]
 sha256 = [
     "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628",
@@ -61,7 +61,7 @@ _targets = list(filter(
 ))
 
 def post_patch(self):
-    self.mv(self.builddir / f"musl-{_musl_version}", "musl")
+    self.mv(self.builddir / f"musl-{_musl_ver}", "musl")
 
 def do_configure(self):
     from cbuild.util import cmake, make
@@ -121,8 +121,8 @@ def do_install(self):
 def _gen_subp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} - {an} support"
-        self.depends = [f"clang>={version}"]
-        return [f"usr/lib/clang/{version}/lib/linux/*{at[0:at.find('-')]}*"]
+        self.depends = [f"clang>={pkgver}"]
+        return [f"usr/lib/clang/{pkgver}/lib/linux/*{at[0:at.find('-')]}*"]
 
     return _subp
 
@@ -131,4 +131,4 @@ for an in _targets:
         at = current.build_profile.short_triplet
 
     subpackages.append((f"clang-rt-crt-cross-{an}", _gen_subp(an, at)))
-    depends.append(f"clang-rt-crt-cross-{an}={version}-r{revision}")
+    depends.append(f"clang-rt-crt-cross-{an}={pkgver}-r{pkgrel}")

@@ -1,11 +1,11 @@
 pkgname = "bzip2"
-version = "1.0.8"
-revision = 0
+pkgver = "1.0.8"
+pkgrel = 0
 pkgdesc = "Freely available, patent free, high-quality data compressor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "bzip2-1.0.6"
 homepage = "https://sourceware.org/bzip2"
-sources = [f"https://sourceware.org/pub/bzip2/bzip2-{version}.tar.gz"]
+sources = [f"https://sourceware.org/pub/bzip2/bzip2-{pkgver}.tar.gz"]
 sha256 = ["ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"]
 
 options = ["bootstrap", "!check"]
@@ -43,10 +43,10 @@ def do_install(self):
 
     self.install_bin("bzmore")
 
-    self.install_lib("libbz2.so." + version)
-    self.install_link("libbz2.so." + version, "usr/lib/libbz2.so")
-    self.install_link("libbz2.so." + version, "usr/lib/libbz2.so.1")
-    self.install_link("libbz2.so." + version, "usr/lib/libbz2.so.1.0")
+    self.install_lib(f"libbz2.so.{pkgver}")
+    self.install_link(f"libbz2.so.{pkgver}", "usr/lib/libbz2.so")
+    self.install_link(f"libbz2.so.{pkgver}", "usr/lib/libbz2.so.1")
+    self.install_link(f"libbz2.so.{pkgver}", "usr/lib/libbz2.so.1.0")
 
     self.install_file("libbz2.a", "usr/lib")
     self.install_file("bzlib.h", "usr/include")
@@ -58,7 +58,7 @@ def do_install(self):
 
 @subpackage("bzip2-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={version}-r{revision}"]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.pkgdesc = pkgdesc + " - development files"
 
     return [

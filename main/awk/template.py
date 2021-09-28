@@ -1,6 +1,6 @@
 pkgname = "awk"
-version = "20210215"
-revision = 0
+pkgver = "20210215"
+pkgrel = 0
 _commit="c0f4e97e4561ff42544e92512bbaf3d7d1f6a671"
 hostmakedepends = ["byacc"]
 pkgdesc = "One true awk"

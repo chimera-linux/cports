@@ -1,6 +1,6 @@
 pkgname = "libcap"
-version = "2.49"
-revision = 0
+pkgver = "2.49"
+pkgrel = 0
 build_style = "makefile"
 hostmakedepends = ["gmake", "perl"]
 make_cmd = "gmake"
@@ -18,7 +18,7 @@ pkgdesc = "POSIX.1e capabilities suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://sites.google.com/site/fullycapable/"
-sources = [f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/{pkgname}-{version}.tar.xz"]
+sources = [f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/{pkgname}-{pkgver}.tar.xz"]
 sha256 = ["e98bc4d93645082ec787730b0fd1a712b38882465c505777de17c338831ee181"]
 
 options = ["!check"]
@@ -31,7 +31,7 @@ def init_configure(self):
 
 @subpackage("libcap-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={version}-r{revision}"]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.pkgdesc = pkgdesc + " - development files"
 
     return [

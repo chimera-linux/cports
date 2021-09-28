@@ -1,6 +1,6 @@
 pkgname = "apk-tools"
-version = "2.12.5"
-revision = 0
+pkgver = "2.12.5"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dlua=disabled", "-Ddocs=disabled", "-Dhelp=disabled", "-Dstatic_apk=true"
@@ -11,7 +11,7 @@ pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 homepage = "http://git.alpinelinux.org/cgit/apk-tools"
-sources = [f"http://git.alpinelinux.org/cgit/{pkgname}/snapshot/{pkgname}-{version}.tar.bz2"]
+sources = [f"http://git.alpinelinux.org/cgit/{pkgname}/snapshot/{pkgname}-{pkgver}.tar.bz2"]
 sha256 = ["a3cbabbcd3072f197b19f85e13e526b8b769d1e537f8156457b1779bcc9300fe"]
 
 options = ["bootstrap", "!check"]
@@ -26,7 +26,7 @@ if not current.bootstrapping:
 @subpackage("apk-tools-devel")
 def _devel(self):
     self.pkgdesc = pkgdesc + " - development files"
-    self.depends = [f"{pkgname}={version}-r{revision}"]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
         "usr/include",

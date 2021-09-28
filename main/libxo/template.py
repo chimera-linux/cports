@@ -1,13 +1,13 @@
 pkgname = "libxo"
-version = "1.6.0"
-revision = 0
+pkgver = "1.6.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-gettext", "--disable-dependency-tracking"]
 pkgdesc = "Library for generating text, XML, JSON, and HTML output"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 homepage = "https://github.com/Juniper/libxo"
-sources = [f"https://github.com/Juniper/{pkgname}/releases/download/{version}/{pkgname}-{version}.tar.gz"]
+sources = [f"https://github.com/Juniper/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"]
 
 options = ["bootstrap", "!check"]
@@ -18,7 +18,7 @@ def post_patch(self):
 
 @subpackage("libxo-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={version}-r{revision}"]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.pkgdesc = pkgdesc + " - development files"
 
     return [
