@@ -24,10 +24,6 @@ def invoke(pkg):
         elif fp.suffix == ".so" and str(fp.parent) == "usr/lib":
             curso[fp.name] = pname
 
-        if ("/" + str(fp)) in pkg.skiprdeps:
-            pkg.log(f"skipping dependency scan for {fp}")
-            continue
-
         if pname != pkg.pkgname:
             continue
 

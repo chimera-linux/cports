@@ -486,8 +486,6 @@ Keep in mind that default values may be overridden by build styles.
   scanner does not pick up, or the scanner is disabled explicitly.
 * `shlib_requires` *(list)* A list of extra shared library dependencies
   for the package. The values should be the `sonames`, not full filenames.
-* `skiprdeps` *(list)* A list of paths (relative to `destdir`) referring
-  to files that will not be scanned for runtime dependencies.
 * `sources` *(list)* A list of URLs to download and extract (by default).
   The items can be either strings (in which case the filename is inferred
   from the URL itself), 2-tuples or 3-tuples. When a source is a tuple,
@@ -887,12 +885,12 @@ those are explicitly marked.
 * `options`
 * `depends`
 * `provides`
-* `skiprdeps`
 * `nostrip_files`
 * `hardening`
 * `nopie_files`
 * `shlib_provides`
 * `shlib_requires`
+* `suid_files`
 * `triggers`
 
 The `hardening` option does not actually do anything (since subpackages do

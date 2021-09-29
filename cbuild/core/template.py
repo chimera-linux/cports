@@ -341,7 +341,6 @@ core_fields = [
 
     # other package lists + related
     ("provides", [], list, False, True, False),
-    ("skiprdeps", [], list, False, True, False),
 
     # build systems
     ("configure_args", [], list, False, False, False),
