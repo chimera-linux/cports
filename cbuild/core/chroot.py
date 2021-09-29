@@ -70,6 +70,19 @@ def _remove_ro(f, path, _):
     os.chmod(path, stat.S_IWRITE)
     f(path)
 
+def _prepare_passwd():
+    bfp = paths.distdir() / "main/base-files/files"
+    tfp = paths.bldroot() / "etc"
+
+    shutil.copy(bfp / "passwd", tfp)
+    shutil.copy(bfp / "group", tfp)
+
+    with open(tfp / "passwd", "a") as pf:
+        pf.write(f"cbuild:x:1337:1337:cbuild user:/tmp:/bin/cbuild-shell\n")
+
+    with open(tfp / "group", "a") as pf:
+        pf.write(f"cbuild:x:1337:\n")
+
 def _init():
     xdir = paths.bldroot() / "etc" / "apk"
     xdir.mkdir(parents = True, exist_ok = True)
@@ -110,14 +123,7 @@ def _prepare(arch, stage):
             "cbuild: no local timezone configuration file created"
         )
 
-    with open(paths.bldroot() / "etc" / "passwd", "a") as pf:
-        username = getpass.getuser()
-        gid = os.getgid()
-        uid = os.getuid()
-        pf.write(f"{username}:x:{uid}:{gid}:{username} user:/tmp:/bin/cbuild-shell\n")
-
-    with open(paths.bldroot() / "etc" / "group", "a") as pf:
-        pf.write(f"{username}:x:{gid}:\n")
+    _prepare_passwd()
 
     with open(sfpath, "w") as sf:
         sf.write(arch + "\n")
@@ -300,6 +306,9 @@ def update(do_clean = True):
 
     remove_autodeps(False)
 
+    # reinit passwd/group
+    _prepare_passwd()
+
     apki.call_chroot("update", ["-q"], "main", check = True)
     apki.call_chroot("upgrade", ["--available"], "main", check = True)
 
@@ -387,10 +396,13 @@ def enter(cmd, args = [], capture_out = False, check = False,
     if mount_ccache:
         bcmd += ["--bind", paths.ccache(), "/ccache"]
 
-    if pretend_uid != None:
-        bcmd += ["--uid", str(pretend_uid)]
-    if pretend_gid != None:
-        bcmd += ["--gid", str(pretend_gid)]
+    if pretend_uid == None:
+        pretend_uid = 1337
+    if pretend_gid == None:
+        pretend_gid = 1337
+
+    bcmd += ["--uid", str(pretend_uid)]
+    bcmd += ["--gid", str(pretend_gid)]
 
     if unshare_all:
         bcmd += ["--unshare-all"]
