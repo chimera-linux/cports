@@ -289,6 +289,7 @@ class Package:
 default_options = {
     #           default inherit
     "bootstrap": (False, True),
+    "checkroot": (False, True),
     "scanrdeps": (True, False),
     "scanshlibs": (True, False),
     "textrels": (False, True),
@@ -645,6 +646,8 @@ class Template(Package):
 
         puid = None
         if self.current_phase == "install":
+            puid = 0
+        elif self.current_phase == "check" and self.options["checkroot"]:
             puid = 0
 
         return chroot.enter(

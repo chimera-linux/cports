@@ -917,6 +917,10 @@ the template including for subpackages:
   prevent generation of debug packages.
 * `check` *(true)* By disabling this you can ensure the `check` phase
   is never run, even if enabled and enforced in the build system.
+* `checkroot` *(false)* You can use this to run the `check` stage as
+  root. This is useful for some test suites that will not function
+  otherwise. Of course, this still uses namespaces, so it does not
+  actually run as your host system root (as it can't).
 * `cross` *(true)* If disabled, the template will error early when
   attempting cross compilation.
 
@@ -1696,9 +1700,10 @@ unless we're after `post_install`, the `destdir` will be immutable unless we
 are at `install` phase, and all namespaces will be unshared (including network
 namespace) unless we're at `fetch`.
 
-If run during the `install` phase, the command will be run masquerading as
-the `root` user. This affects all things that use this API, e.g. `make`
-invocations. This behavior is to better accommodate various build systems.
+If run during the `install` phase (or during the `check` phase when `checkroot`
+is enabled in `options`), the command will be run masquerading as the `root`
+user. This affects all things that use this API, e.g. `make` invocations.
+This behavior is to better accommodate various build systems.
 
 Usage:
 
