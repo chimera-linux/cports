@@ -245,7 +245,7 @@ _all_profiles = {}
 def init(cparser):
     global _all_profiles
 
-    profiles = paths.cbuild() / "build_profiles"
+    profiles = paths.distdir() / "etc/build_profiles"
 
     for pf in profiles.glob("*.ini"):
         archn = pf.with_suffix("").name

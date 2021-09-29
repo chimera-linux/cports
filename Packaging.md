@@ -1038,7 +1038,7 @@ The `cbuild` system allows for flexible definition of profiles for
 different target architectures. These profiles are used for both
 native and cross builds.
 
-The definition exists in `cbuild/build_profiles/ARCH.ini` where `ARCH`
+The definition exists in `etc/build_profiles/ARCH.ini` where `ARCH`
 is the `apk` architecture name (in general matching `uname -m`).
 
 It may look like this:
