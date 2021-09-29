@@ -6,7 +6,7 @@ import pathlib
 import subprocess
 
 def invoke(pkg):
-    if not pkg.options["scanrdeps"]:
+    if not pkg.options["scanrundeps"]:
         return
 
     verify_deps = {}

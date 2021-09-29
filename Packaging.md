@@ -935,7 +935,7 @@ the template including for subpackages:
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:
 
-* `scanrdeps` *(true)* This specifies whether automatic runtime dependencies
+* `scanrundeps` *(true)* This specifies whether automatic runtime dependencies
   are scanned for the package. By default, ELF files are scanned for their
   dependencies, which is usually desirable, but not always.
 * `scanshlibs` *(true)* If disabled, the package will not be scanned for

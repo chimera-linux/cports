@@ -290,7 +290,7 @@ default_options = {
     #           default inherit
     "bootstrap": (False, True),
     "checkroot": (False, True),
-    "scanrdeps": (True, False),
+    "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "textrels": (False, True),
     "parallel": (True, True),
