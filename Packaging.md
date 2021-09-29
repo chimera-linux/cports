@@ -428,9 +428,14 @@ Keep in mind that default values may be overridden by build styles.
   apply to all templates or build styles. By default this is `bmake` (the
   default Make implementation in Chimera).
 * `make_build_args` *(list)* A list of custom arguments passed to `make_cmd`
-  during build phase.
+  during the build phase.
 * `make_build_target` *(str)* The `make_cmd` target to be used to build.
   Different build systems may use this differently. Empty by default.
+* `make_check_args` *(list)* A list of custom arguments passed to `make_cmd`
+  when running tests.
+* `make_check_target` *(str)* The `make_cmd` target to be used to run tests.
+  Different build systems may use this differently (`check` by default
+  unless overridden by the `build_style`).
 * `make_dir` *(str)* The subdirectory of `cwd` that `make_cmd` is invoked in
   by default. This has the default value of `.`, so it normally does not
   impose any directory changes. However, the default may be altered by
@@ -685,6 +690,7 @@ Default values:
 
 * `make_cmd` = `ninja`
 * `make_build_target` = `all`
+* `make_check_target` = `test`
 * `make_dir` = `build`
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
@@ -767,6 +773,7 @@ Default values:
 
 * `make_cmd` = `ninja`
 * `make_build_target` = `all`
+* `make_check_target` = `test`
 * `make_dir` = `build`
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
@@ -2141,6 +2148,12 @@ any extra `args`.
 The `env` is passed as is, except when `DESTDIR` is passed via environment,
 then it is passed together with that (user passed environment always takes
 preference).
+
+###### def check(self, args = [], jobs = None, env = {}, wrksrc = None)
+
+Calls `invoke`. The `targets` is `self.template.make_check_target`, the
+`args` are `self.template.make_check_args` plus any extra `args`. The
+other arguments are passed as is.
 
 #### cbuild.util.meson
 

@@ -351,8 +351,10 @@ core_fields = [
     ("make_dir", ".", str, False, False, False),
     ("make_build_args", [], list, False, False, False),
     ("make_install_args", [], list, False, False, False),
+    ("make_check_args", [], list, False, False, False),
     ("make_build_target", "", str, False, False, False),
     ("make_install_target", "install", str, False, False, False),
+    ("make_check_target", "check", str, False, False, False),
 
     # target build related
     ("nostrip_files", [], list, False, True, False),

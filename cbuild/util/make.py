@@ -90,3 +90,10 @@ class Make:
         return self.invoke(
             pkg.make_install_target, argsbase, jobs, env, wrksrc
         )
+
+    def check(self, args = [], jobs = None, env = {}, wrksrc = None):
+        pkg = self.template
+        return self.invoke(
+            pkg.make_check_target, pkg.make_check_args + args,
+            jobs, env, wrksrc
+        )

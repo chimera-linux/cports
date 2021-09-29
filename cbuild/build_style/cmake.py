@@ -26,5 +26,6 @@ def use(tmpl):
     tmpl.build_style_defaults = [
         ("make_cmd", "ninja"),
         ("make_build_target", "all"),
+        ("make_check_target", "test"),
         ("make_dir", "build"),
     ]
