@@ -486,18 +486,19 @@ Keep in mind that default values may be overridden by build styles.
   scanner does not pick up, or the scanner is disabled explicitly.
 * `shlib_requires` *(list)* A list of extra shared library dependencies
   for the package. The values should be the `sonames`, not full filenames.
-* `skip_extraction` *(list)* A list of filenames in `sources` to not
-  extract during the `extract` phase.
 * `skiprdeps` *(list)* A list of paths (relative to `destdir`) referring
   to files that will not be scanned for runtime dependencies.
 * `sources` *(list)* A list of URLs to download and extract (by default).
   The items can be either strings (in which case the filename is inferred
-  from the URL itself) or 2-tuples (in which case the first field is the URL
-  and the second field is the file name it will have when downloaded). The
-  files are extracted in `self.wrksrc` in a way so that if extraction yields
-  just a single regular directory, the contents of that will go in the
-  `self.wrksrc`, otherwise the extracted files/directories are moved into
-  the directory.
+  from the URL itself), 2-tuples or 3-tuples. When a source is a tuple,
+  it can have the filename explicitly specified as the second field, with
+  the first field being the URL. The third field (or second field, in which
+  case the filename is inferred from the URL) can be a boolean. If this is
+  `False`, the source file will not be extracted (using `True` will result
+  in the default behavior). Otherwise, the files will be extracted into
+  `self.wrksrc` in a way so that if extraction yields just a single regular
+  directory, the contents of that will go in the `self.wrksrc`, otherwise
+  the extracted files/directories are moved into the directory.
 * `subpackages` *(list)* A list of subpackages the template provides. The
   list must contain two-tuples of subpackage name and a function defining
   the subpackage. In most cases, you do not need to specify this explicitly.

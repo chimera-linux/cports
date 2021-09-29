@@ -325,7 +325,6 @@ core_fields = [
     # sources
     ("sha256", [], list, False, False, False),
     ("sources", [], list, False, False, False),
-    ("skip_extraction", [], list, False, False, False),
 
     # target support
     ("archs", None, str, False, False, False),

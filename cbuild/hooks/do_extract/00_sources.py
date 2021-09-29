@@ -93,12 +93,21 @@ def invoke(pkg):
         extractdir = pathlib.Path(extractdir)
         # go over each source and ensure extraction in the dir
         for d in pkg.sources:
+            doext = None
+            # check if to skip extraction
             if isinstance(d, tuple):
+                if len(d) > 2:
+                    doext = d[2]
+                elif isinstance(d[1], bool):
+                    doext = d[1]
+            # specifically False, skip
+            if doext == False:
+                continue
+            # tuple-specified filename
+            if isinstance(d, tuple) and not isinstance(d[1], bool):
                 fname = d[1]
             else:
                 fname = d[d.rfind("/") + 1:]
-            if fname in pkg.skip_extraction:
-                continue
             suffix = None
             for key in suffixes:
                 if fnmatch(fname, key):

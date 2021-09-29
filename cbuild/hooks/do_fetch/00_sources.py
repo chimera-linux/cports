@@ -59,6 +59,11 @@ def interp_url(pkg, url):
 
     return re.sub(r"\$\((\w+)\)", matchf, url)
 
+def get_nameurl(pkg, d):
+    if isinstance(d, tuple) and not isinstance(d[1], bool):
+        return interp_url(pkg, d[0]), d[1]
+    return interp_url(pkg, d), d[d.rfind("/") + 1:]
+
 def invoke(pkg):
     srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.pkgver}"
     dfcount = 0
@@ -80,13 +85,7 @@ def invoke(pkg):
 
     for dc in zip(pkg.sources, pkg.sha256):
         d, ck = dc
-        if isinstance(d, tuple):
-            fname = d[1]
-            url = d[0]
-        else:
-            fname = d[d.rfind("/") + 1:]
-            url = d
-        url = interp_url(pkg, url)
+        url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
         if dfile.is_file():
             filesum = get_cksum(fname, dfile, pkg)
@@ -102,13 +101,7 @@ def invoke(pkg):
 
     for dc in zip(pkg.sources, pkg.sha256):
         d, ck = dc
-        if isinstance(d, tuple):
-            fname = d[1]
-            url = d[0]
-        else:
-            fname = d[d.rfind("/") + 1:]
-            url = d
-        url = interp_url(pkg, url)
+        url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
         if not dfile.is_file():
             link_cksum(fname, dfile, ck, pkg)
