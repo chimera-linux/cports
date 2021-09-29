@@ -334,6 +334,7 @@ core_fields = [
     ("patch_args", [], list, False, False, False),
 
     # dependency lists
+    ("checkdepends", [], list, False, False, False),
     ("hostmakedepends", [], list, False, False, False),
     ("makedepends", [], list, False, False, False),
     ("depends", [], list, False, True, False),

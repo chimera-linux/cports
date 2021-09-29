@@ -391,6 +391,12 @@ Keep in mind that default values may be overridden by build styles.
   section about build styles for more details.
 * `build_wrksrc` *(str)* A subpath within `self.wrksrc` that is assumed to be
   the current working directory during `configure` and later.
+* `checkdepends` *(list)* This is like `hostmakedepends`, but only installed
+  if the `check` option is enabled for the template and not cross-building.
+  Note that these are installed even if the user explicitly chooses not to
+  run tests, in order to ensure a reproducible build environment. It mostly
+  exists to visually separate dependencies only needed for tests from
+  the others.
 * `configure_args` *(list)* This list is generally specific to the build
   system the template uses. Generally speaking, it provides the arguments
   passed to some kind of `configure` script.

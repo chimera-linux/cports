@@ -51,7 +51,11 @@ def _setup_depends(pkg):
         else:
             rdeps.append((orig, dep))
 
-    for dep in pkg.hostmakedepends:
+    cdeps = []
+    if not pkg.cross_build and pkg.options["check"]:
+        cdeps = pkg.checkdepends
+
+    for dep in pkg.hostmakedepends + cdeps:
         sver = _srcpkg_ver(dep, pkg)
         if not sver:
             hdeps.append((None, dep))
