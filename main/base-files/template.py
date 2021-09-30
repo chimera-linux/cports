@@ -19,11 +19,6 @@ def do_install(self):
     self.install_link("usr/bin", "sbin")
     self.install_link("bin", "usr/sbin")
 
-    # Symlink word-specific lib paths
-    wsize = self.build_profile.wordsize
-    self.install_link("usr/lib", "lib" + str(wsize))
-    self.install_link("lib", "usr/lib" + str(wsize))
-
     for f in [
         "profile", "hosts", "issue", "subuid", "subgid",
         "fstab", "passwd", "group", "crypttab",
