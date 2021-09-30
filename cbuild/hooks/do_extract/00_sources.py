@@ -2,6 +2,7 @@ from cbuild.core import chroot, paths
 from fnmatch import fnmatch
 import pathlib
 import tempfile
+import shutil
 
 suffixes = {
     "*.tar.lzma":   "txz",
@@ -24,7 +25,6 @@ suffixes = {
     "*.txt":        "txt",
     "*.sh":         "txt",
     "*.7z":	        "7z",
-    "*.gem":	    "gem",
     "*.crate":      "crate",
 }
 
@@ -34,31 +34,41 @@ def extract_tar(pkg, fname, dfile, edir, sfx):
         import tarfile
         with tarfile.open(dfile) as tf:
             tf.extractall(path = edir)
-        return
+        return True
 
-    if chroot.enter("tar", [
+    return chroot.enter("tar", [
         "-x", "--no-same-permissions", "--no-same-owner",
         "-f", dfile, "-C", edir
-    ], ro_root = True).returncode != 0:
-        pkg.error(f"extracting '{fname}' failed!")
+    ], ro_root = True).returncode == 0
 
 def extract_notar(pkg, fname, dfile, edir, sfx):
-    pass
+    if suffix == "gz":
+        cmd = "gunzip"
+    elif suffix == "bz2":
+        cmd = "bunzip2"
+    elif suffix == "xz":
+        cmd = "unxz"
+    else:
+        pkg.error(f"unknown suffix '{sfx}'")
 
-def extract_zip(pkg, fname, dfile, edir, sfx):
-    pass
+    return chroot.enter(
+        cmd, ["-f", dfile], ro_root = True, wrkdir = edir
+    ).returncode == 0
+
+def extract_alsotar(pkg, fname, dfile, edir, sfx):
+    return chroot.enter("tar", [
+        "-xf", dfile, "-C", edir
+    ], ro_root = True).returncode == 0
 
 def extract_rpm(pkg, fname, dfile, edir, sfx):
-    pass
+    return chroot.enter(
+        "rpmextract", [dfile], ro_root = True, wrkdir = edir
+    ).returncode == 0
 
 def extract_txt(pkg, fname, dfile, edir, sfx):
-    pass
-
-def extract_7z(pkg, fname, dfile, edir, sfx):
-    pass
-
-def extract_gem(pkg, fname, dfile, edir, sfx):
-    pass
+    return chroot.enter(
+        "cp", ["-f", dfile, edir], ro_root = True, wrkdir = edir
+    ).returncode == 0
 
 extract_table = {
     "tar": extract_tar,
@@ -72,11 +82,11 @@ extract_table = {
     "bz2": extract_notar,
     "xz": extract_notar,
 
-    "zip": extract_zip,
+    "zip": extract_alsotar,
+    "7z": extract_alsotar,
+
     "rpm": extract_rpm,
     "txt": extract_txt,
-    "7z": extract_7z,
-    "gem": extract_gem,
 }
 
 def invoke(pkg):
@@ -127,11 +137,12 @@ def invoke(pkg):
                 srcs_path = paths.sources()
             else:
                 srcs_path = pathlib.Path("/sources")
-            exf(
+            if not exf(
                 pkg, fname,
                 srcs_path / f"{pkg.pkgname}-{pkg.pkgver}/{fname}",
                 pkg.chroot_builddir / extractdir.name, suffix
-            )
+            ):
+                pkg.error(f"extracting '{fname}' failed (missing program?)")
         # try iterating it
         it = extractdir.iterdir()
         entry = None
