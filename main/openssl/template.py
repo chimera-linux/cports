@@ -15,7 +15,6 @@ license = "OpenSSL"
 url = "https://www.openssl.org"
 sources = [f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"]
 sha256 = ["892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"]
-conf_files = ["/etc/ssl/openssl.cnf"]
 
 options = ["bootstrap", "!check"]
 
