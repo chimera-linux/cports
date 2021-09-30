@@ -74,8 +74,8 @@ def _prepare_passwd():
     bfp = paths.distdir() / "main/base-files/files"
     tfp = paths.bldroot() / "etc"
 
-    shutil.copy(bfp / "passwd", tfp)
-    shutil.copy(bfp / "group", tfp)
+    shutil.copy(bfp / "etc/passwd", tfp)
+    shutil.copy(bfp / "etc/group", tfp)
 
     with open(tfp / "passwd", "a") as pf:
         pf.write(f"cbuild:x:1337:1337:cbuild user:/tmp:/bin/cbuild-shell\n")

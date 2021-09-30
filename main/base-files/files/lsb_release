@@ -1,12 +1,13 @@
 #!/bin/sh
 #
 # Compatibility script for FSG lsb_release v1.4 or newer
+# Imported from Void Linux
 #
 version="1.0"
-distributor_id="VoidLinux"
-description="Void Linux"
+distributor_id="Chimera"
+description="Chimera Linux"
 release="rolling"
-codename="void"
+codename="chimera"
 options=""
 short=0
 

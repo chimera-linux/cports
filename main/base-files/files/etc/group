@@ -24,4 +24,3 @@ kvm:x:24:
 input:x:25:
 nogroup:x:99:
 users:x:100:
-xbuilder:x:101:
