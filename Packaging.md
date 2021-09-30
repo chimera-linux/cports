@@ -574,10 +574,6 @@ The phases for which all this applies are `fetch`, `patch`, `extract`,
 `configure`, `build`, `check` and `install`. They are invoked in this
 order.
 
-Additionally, the template may also define `pre_pkg`, which is special;
-it is not called only for the template handle but rather for every
-subpackage as well.
-
 Every other function defined in template scope is not used by `cbuild`.
 However, all regular names are reserved for future expansion. If you want
 to define custom functions (e.g. helpers) in template scope, prefix their
@@ -1278,9 +1274,7 @@ For both subpackages and main package, the system scans for shared libraries
 in the package, before `post_install` hooks are called.
 
 Once done, `init_pkg` hooks are called for the main package. Then, for each
-subpackage, `pre_pkg` hooks are called, followed by the template `pre_pkg`
-function (which is special in this way). The same is done for the main
-package afterwards (`pre_pkg` hooks and function).
+subpackage and finally for the main package, `pre_pkg` hooks are called.
 
 Finally, `do_pkg` and `post_pkg` hooks are called first for each subpackage
 and then for the main package. After this, the build system rebuilds repo

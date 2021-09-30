@@ -8,6 +8,5 @@ def invoke(pkg):
         return
 
     template.call_pkg_hooks(pkg, "pre_pkg")
-    template.run_pkg_func(pkg, "pre_pkg")
 
     prepkg_done.touch()
