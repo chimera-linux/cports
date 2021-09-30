@@ -695,9 +695,11 @@ class Template(Package):
         else:
             tfb = extra_flags
 
+        dodbg = self.build_dbg and self.options["debug"]
+
         return target.get_tool_flags(
             name, tfb,
-            self.debug_level if self.options["debug"] else -1,
+            self.debug_level if dodbg else -1,
             self.hardening + hardening,
             shell = shell
         )
