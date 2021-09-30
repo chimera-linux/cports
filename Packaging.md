@@ -416,7 +416,8 @@ Keep in mind that default values may be overridden by build styles.
 * `hardening` *(list)* Hardening options to be enabled or disabled for the
   template. Refer to the hardening section for more information. This is
   a simple list of strings that works similarly to `options`, with `!`
-  disabling the hardening options.
+  disabling the hardening options. Any enabled hardening option that is
+  not supported by the target will be ignored.
 * `hostmakedepends` *(list)* A list of strings specifying package names to
   be installed in the build container before building. These are always
   installed in the build container itself rather than target sysroot,
@@ -1065,12 +1066,11 @@ There may also be an extra field in `profile`:
 hardening = ...
 ```
 
-This specifies extra default hardening options that are enabled for
-the profile only. Chimera tries to enable as many of those as possible
-globally, but some are not available on all architectures. It can also
-disable hardening options if needed (by prefixing with `!`). The `scp`
-option is one of those that is only supported on certain architectures
-by the toolchain.
+This specifies hardening which is supported or unsupported by the target.
+It does not actually enable or disable the options directly; the defaults
+for all hardening options are shared between all targets. However, by
+declaring some hardening option supported or unsupported, this can alter
+the defaults. Disabling is done by prefixing the name with `!`.
 
 There is also the special `bootstrap` profile used when bootstrapping.
 It differs from normal profiles in that the `profile` section is not
@@ -1609,7 +1609,8 @@ The properties have the following meanings:
 * `triplet` The "long" target triplet (e.g. `aarch64-unknown-linux-musl`)
 * `short_triplet` The "short" target triplet (e.g. `aarch64-linux-musl`)
 * `sysroot` A `pathlib` path representing the sysroot.
-* `hardening` A list of hardening options for the profile.
+* `hardening` A list of hardening options the profile supports or does not
+  support.
 * `wordsize` The integer word size of the target (typically 64 or 32).
 * `endian` The endianness of the target (`little` or `big`).
 * `cross` A boolean that is `True` for cross compiling targets and
@@ -1787,7 +1788,8 @@ the `tools` member variable directly.
 
 Check if the current configuration (i.e. taking into account the template
 as well as the current profile or the `target`) has the given hardening
-flag enabled.
+flag enabled. For a hardening flag to be enabled, it must not be disabled
+by the template or defaults, and it must be supported for the target.
 
 The `target` argument is the same as for `profile()`.
 

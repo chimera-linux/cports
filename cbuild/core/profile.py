@@ -13,13 +13,22 @@ hardening_fields = {
     "pie": True,
     "relro": True,
     "ssp": True, # this should really be compiler default
-    "scp": False, # stack-clash-protection
+    "scp": True, # stack-clash-protection
 }
 
-def _get_harden(dharden, tharden):
-    hdict = dict(hardening_fields)
+# some hardening options are universal while some must be
+# declared by the target as supported, on other systems
+# they become noop
+supported_hardening = {
+    "fortify": True,
+    "pie": True,
+    "relro": True,
+    "ssp": True,
+    "scp": False,
+}
 
-    for fl in dharden + tharden:
+def _htodict(hlist, hdict):
+    for fl in hlist:
         neg = fl.startswith("!")
         if neg:
             fl = fl[1:]
@@ -32,9 +41,20 @@ def _get_harden(dharden, tharden):
 
     return hdict
 
-def _get_hcflags(dharden, tharden):
+def _get_harden(sharden, tharden):
+    # hardening that is declared
+    hdict = dict(hardening_fields)
+    # hardening that is supported
+    shdict = dict(supported_hardening)
+
+    hdict = _htodict(tharden, hdict)
+    shdict = _htodict(sharden, shdict)
+
+    return hdict
+
+def _get_hcflags(sharden, tharden):
     hflags = []
-    hard = _get_harden(dharden, tharden)
+    hard = _get_harden(sharden, tharden)
 
     if hard["fortify"]:
         hflags.append("-D_FORTIFY_SOURCE=2")
@@ -50,9 +70,9 @@ def _get_hcflags(dharden, tharden):
 
     return hflags
 
-def _get_hldflags(dharden, tharden):
+def _get_hldflags(sharden, tharden):
     hflags = ["-Wl,--as-needed"]
-    hard = _get_harden(dharden, tharden)
+    hard = _get_harden(sharden, tharden)
 
     if hard["relro"]:
         hflags.append("-Wl,-z,now")
