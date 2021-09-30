@@ -933,6 +933,10 @@ the template including for subpackages:
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:
 
+* `keepempty` *(false)* By default, `cbuild` will prune all empty directories
+  from every package. This can be used to override that. It should almost
+  never be used. However, there are some cases, notably `base-files`, where
+  keeping empty directories is intended.
 * `scanrundeps` *(true)* This specifies whether automatic runtime dependencies
   are scanned for the package. By default, ELF files are scanned for their
   dependencies, which is usually desirable, but not always.
