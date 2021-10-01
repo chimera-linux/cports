@@ -33,7 +33,7 @@ fi
 
 CARCH=$(uname -m)
 
-BASE_DATE="20210218"
+BASE_DATE="20210930"
 BASE_URL="https://a-hel-fi.m.voidlinux.org/live/${BASE_DATE}"
 
 case "$CARCH" in
@@ -51,10 +51,10 @@ case "$CARCH" in
         BASE_SHA256="cb92d61622beba5e1006925b717a3f713995cb09959d488e783b56e37db0bab7"
         ;;
     aarch64)
-        BASE_SHA256="f550bbe36688e7276c020c96d60124ae77adf95268c2c4cf55ff8d1d8de86226"
+        BASE_SHA256="933f4ef034419b9164f882dabf75de5e08886185b9ec70ce26dd22d3c19526cb"
         ;;
     x86_64)
-        BASE_SHA256="07690d28eb8eebbb839af19bd4873689e6ed0fee53d271f0ce27e2edab8a3364"
+        BASE_SHA256="d322171b39e3c670faa2835f6c6bba27951a9710f018410e090247b651f9251a"
         ;;
     *)
         echo "Unsupported architecture: $CARCH"
