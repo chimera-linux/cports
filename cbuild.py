@@ -56,6 +56,7 @@ opt_mdirtemp  = False
 opt_nonet     = False
 opt_skipdeps  = False
 opt_keeptemp  = False
+opt_altrepo   = None
 opt_bldroot   = "bldroot"
 opt_pkgpath   = "packages"
 opt_srcpath   = "sources"
@@ -98,6 +99,10 @@ parser.add_argument(
 )
 parser.add_argument(
     "-r", "--repository-path", default = None, help = "Local repository path."
+)
+parser.add_argument(
+    "-R", "--alt-repository", default = None,
+    help = "Alternative repository to use."
 )
 parser.add_argument(
     "-s", "--sources-path", default = None,
@@ -146,6 +151,7 @@ if "build" in global_cfg:
     opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
     opt_arch      = bcfg.get("arch", fallback = opt_arch)
     opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
+    opt_altrepo   = bcfg.get("alt_repository", fallback = opt_altrepo)
     opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
     opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
     opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
@@ -193,6 +199,9 @@ if cmdline.build_root:
 if cmdline.repository_path:
     opt_pkgpath = cmdline.repository_path
 
+if cmdline.alt_repository:
+    opt_altrepo = cmdline.alt_repository
+
 if cmdline.sources_path:
     opt_srcpath = cmdline.sources_path
 
@@ -218,7 +227,14 @@ if cmdline.temporary:
 from cbuild.core import paths
 
 # init paths early, modules rely on it
-paths.init(cbpath, opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath)
+
+mainrepo = opt_altrepo
+altrepo = opt_pkgpath
+if not mainrepo:
+    mainrepo = opt_pkgpath
+    altrepo = None
+
+paths.init(cbpath, opt_bldroot, mainrepo, altrepo, opt_srcpath, opt_cchpath)
 
 from cbuild.util import make
 from cbuild.core import chroot, logger, template, build, profile

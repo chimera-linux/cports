@@ -17,6 +17,9 @@ check = yes
 jobs = 1
 # default local repository path for packages (absolute or relative to cports)
 repository = packages
+# alternative repository path, will be used instead of repository but deps
+# will be found in both the main repository and the alternative repo path
+#alt_repository = testpkgs
 # default source distfiles path (absolute or relative to cports)
 sources = sources
 

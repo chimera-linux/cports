@@ -404,6 +404,12 @@ only have an effect with specific commands.
 * `-N`, `--no-remote` Never use remote repositories to fetch dependencies.
 * `-r REPO`, `--repository-path REPO` *(default: `packages`)* Set the path to the
   local repository to build packages in.
+* `-R REPO`, `--alt-repository REPO` *(default: None)* Create packages into an
+  alternative repository. This is a completely separate repository path. When
+  installing dependencies, both repositories are considered; when checking for
+  whether to build at all, only the alternative repository is considered. This
+  is useful for doing various quick tests and so on without messing up your
+  main repo, while still pulling build dependencies from the primary one.
 * `-s SOURCES`, `--sources-path SOURCES` *(default: `sources`)* Set the path to the
   sources cache.
 * `-t`, `--temporary` Create a temporary `bldroot` for the build. The `-b` argument

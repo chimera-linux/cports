@@ -12,7 +12,7 @@ def set_network(use_net):
     global _use_net
     _use_net = use_net
 
-def _collect_repos(mrepo, intree, arch):
+def _collect_repos(mrepo, intree, arch, use_altrepo = True):
     from cbuild.core import chroot
 
     ret = []
@@ -46,12 +46,30 @@ def _collect_repos(mrepo, intree, arch):
             else:
                 ret.append(str(rpath))
 
+    if not paths.alt_repository() or not use_altrepo:
+        return ret
+
+    # append alt repository to the end
+    for r in chroot.get_confrepos():
+        if not r.startswith("/"):
+            continue
+        r = r.lstrip("/")
+        for cr in srepos:
+            rpath = paths.alt_repository() / cr / r
+            if not (rpath / arch / "APKINDEX.tar.gz").is_file():
+                continue
+            ret.append("--repository")
+            if intree:
+                ret.append(f"/altbinpkgs/{cr}/{r}")
+            else:
+                ret.append(str(rpath))
+
     return ret
 
 def call(
     subcmd, args, mrepo, cwd = None, env = None,
     capture_output = False, root = None, arch = None,
-    allow_untrusted = False
+    allow_untrusted = False, use_altrepo = True
 ):
     cmd = [
         "apk", subcmd, "--root", root if root else paths.bldroot(),
@@ -65,7 +83,7 @@ def call(
         cmd.append("--allow-untrusted")
 
     return subprocess.run(
-        cmd + _collect_repos(mrepo, False, arch) + args,
+        cmd + _collect_repos(mrepo, False, arch, use_altrepo) + args,
         cwd = cwd, env = env, capture_output = capture_output
     )
 

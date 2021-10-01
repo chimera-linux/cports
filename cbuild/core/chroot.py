@@ -170,6 +170,13 @@ def repo_sync(genrepos = False):
                     idxp = rd / cr / host_cpu() / "APKINDEX.tar.gz"
                     if idxp.is_file():
                         rfh.write(f"/binpkgs/{rd.name}/{cr}\n")
+            if paths.alt_repository():
+                for rd in paths.alt_repository().iterdir():
+                    for cr in get_confrepos():
+                        cr = cr.lstrip("/")
+                        idxp = rd / cr / host_cpu() / "APKINDEX.tar.gz"
+                        if idxp.is_file():
+                            rfh.write(f"/altbinpkgs/{rd.name}/{cr}\n")
 
     # do not refresh if chroot is not initialized
     if not (paths.bldroot() / ".cbuild_chroot_init").is_file():
@@ -392,6 +399,8 @@ def enter(cmd, args = [], capture_out = False, check = False,
 
     if mount_binpkgs:
         bcmd += ["--ro-bind", paths.repository(), "/binpkgs"]
+        if paths.alt_repository():
+            bcmd += ["--ro-bind", paths.alt_repository(), "/altbinpkgs"]
 
     if mount_ccache:
         bcmd += ["--bind", paths.ccache(), "/ccache"]

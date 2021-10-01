@@ -4,13 +4,17 @@ import pathlib
 
 _stage = 2
 
-def init(distdir, rootdir, rdir, sdir, cdir):
-    global _ddir, _bdir, _rdir, _srcs, _cbdir, _ccdir
+def init(distdir, rootdir, rdir, ardir, sdir, cdir):
+    global _ddir, _bdir, _rdir, _ardir, _srcs, _cbdir, _ccdir
 
     cwd = pathlib.Path.cwd()
     _ddir = pathlib.Path(distdir)
     _bdir = (cwd / rootdir).resolve()
     _rdir = (cwd / rdir).resolve()
+    if ardir:
+        _ardir = (cwd / ardir).resolve()
+    else:
+        _ardir = None
     _srcs = (cwd / sdir).resolve()
     _ccdir = (cwd / cdir).resolve()
 
@@ -33,6 +37,9 @@ def distdir():
 
 def bldroot():
     return _bdir
+
+def alt_repository():
+    return _ardir
 
 def repository():
     if _stage == 2:
@@ -58,7 +65,7 @@ def prepare():
 
     # prepare build root
     for f in [
-        "builddir", "destdir", "binpkgs", "sources", "ccache",
+        "builddir", "destdir", "binpkgs", "altbinpkgs", "sources", "ccache",
         "dev", "sys", "tmp", "proc", "host", "boot",
     ]:
         (bldroot() / f).mkdir(parents = True, exist_ok = True)
