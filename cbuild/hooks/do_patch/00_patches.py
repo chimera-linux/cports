@@ -41,7 +41,7 @@ def process_patch(pkg, patchpath):
     pkg.log(f"patching: {patchfn}")
 
     chroot.enter(
-        "patch", pargs + ["-i", patchfn],
+        "patch", pargs + ["-i", pkg.chroot_cwd / patchfn],
         stderr = subprocess.DEVNULL, check = True,
         wrkdir = pkg.chroot_builddir / pkg.wrksrc,
         bootstrapping = pkg.bootstrapping,

@@ -3,6 +3,7 @@ _musl_ver = "1.2.2"
 pkgver = "12.0.0"
 pkgrel = 0
 build_style = "cmake"
+build_wrksrc = f"llvm-project-{pkgver}.src"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
     f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver}",
@@ -44,6 +45,7 @@ sha256 = [
     "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628",
     "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 ]
+patch_args = ["-d", f"llvm-project-{pkgver}.src"]
 options = ["!cross", "!check"]
 
 cmake_dir = "compiler-rt"
@@ -61,7 +63,7 @@ _targets = list(filter(
 ))
 
 def post_patch(self):
-    self.mv(self.builddir / f"musl-{_musl_ver}", "musl")
+    self.mv(f"musl-{_musl_ver}", f"llvm-project-{pkgver}.src/musl")
 
 def do_configure(self):
     from cbuild.util import cmake, make
