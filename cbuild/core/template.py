@@ -299,6 +299,8 @@ default_options = {
     "strip": (True, False),
     "check": (True, True),
     "cross": (True, True),
+    "lint": (True, False),
+    "spdx": (True, False),
 }
 
 core_fields = [

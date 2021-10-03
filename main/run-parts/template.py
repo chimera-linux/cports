@@ -9,7 +9,7 @@ license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/debianutils"
 sources = [f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.tar.xz"]
 sha256 = ["3b680e81709b740387335fac8f8806d71611dcf60874e1a792e862e48a1650de"]
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "!lint", "!spdx"]
 
 def do_install(self):
     self.install_bin("build/run-parts")

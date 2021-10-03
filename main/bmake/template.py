@@ -8,7 +8,7 @@ url = "http://www.crufty.net/help/sjg/bmake.html"
 sources = [f"http://www.crufty.net/ftp/pub/sjg/bmake-{pkgver}.tar.gz"]
 sha256 = ["47e551293843d504fe4197413aa6d7ee003090669ac200932ff40e9ccb4658aa"]
 
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "!lint", "!spdx"]
 
 def do_build(self):
     self.mkdir("build", parents = True)

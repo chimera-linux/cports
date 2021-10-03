@@ -6,7 +6,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Public Domain"
 url = "https://chimera-linux.org"
 
-options = ["bootstrap", "keepempty"]
+options = ["bootstrap", "keepempty", "!lint", "!spdx"]
 
 def do_install(self):
     # base root dirs

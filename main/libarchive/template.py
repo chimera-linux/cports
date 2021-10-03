@@ -19,7 +19,7 @@ url = "http://www.libarchive.org/"
 sources = [f"https://github.com/libarchive/libarchive/releases/download/{pkgver}/libarchive-{pkgver}.tar.gz"]
 sha256 = ["9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a"]
 
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "!lint", "!spdx"]
 
 if not current.bootstrapping:
     configure_args.append("--with-zstd")

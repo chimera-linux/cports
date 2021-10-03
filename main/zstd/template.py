@@ -15,7 +15,7 @@ url = "http://www.zstd.net"
 sources = [f"https://github.com/facebook/zstd/releases/download/v{pkgver}/zstd-{pkgver}.tar.gz"]
 sha256 = ["5194fbfa781fcf45b98c5e849651aa7b3b0a008c6b72d4a0db760f3002291e94"]
 
-options = ["!check"]
+options = ["!check", "!lint", "!spdx"]
 meson_dir = "build/meson"
 
 def post_install(self):

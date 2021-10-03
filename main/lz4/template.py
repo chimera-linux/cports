@@ -9,7 +9,7 @@ url = "https://lz4.github.io/lz4"
 sources = [f"https://github.com/lz4/lz4/archive/v{pkgver}.tar.gz"]
 sha256 = ["030644df4611007ff7dc962d981f390361e6c97a34e5cbc393ddfbe019ffe2c1"]
 
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "!lint", "!spdx"]
 
 make_cmd = "gmake"
 

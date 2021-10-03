@@ -31,7 +31,7 @@ tool_flags = {
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
 
-options = ["!check"]
+options = ["!check", "!lint", "!spdx"]
 
 # Before updating this package to a new major version, run ${FILESDIR}/provides.pl
 # against ${wrksrc} to find the list of built in packages.

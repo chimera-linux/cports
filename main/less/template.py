@@ -11,4 +11,4 @@ url = "http://www.greenwoodsoftware.com/less"
 sources = [f"http://www.greenwoodsoftware.com/less/less-{pkgver}.tar.gz"]
 sha256 = ["ce34b47caf20a99740672bf560fc48d5d663c5e78e67bc254e616b9537d5d83b"]
 
-options = ["!check"]
+options = ["!check", "!lint", "!spdx"]

@@ -926,6 +926,11 @@ the template including for subpackages:
   actually run as your host system root (as it can't).
 * `cross` *(true)* If disabled, the template will error early when
   attempting cross compilation.
+* `lint` *(true)* If enabled, the template format will be checked for
+  errors before building. This includes correct ordering of fields
+  and other checks.
+* `spdx` *(true)* If enabled, the license name(s) will be validated
+  as SPDX compliant.
 
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:

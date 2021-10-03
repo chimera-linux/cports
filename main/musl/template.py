@@ -11,7 +11,7 @@ url = "http://www.musl-libc.org/"
 sources = [f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz"]
 sha256 = ["9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"]
 
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "!lint", "!spdx"]
 
 # segfaults otherwise
 hardening = ["!scp"]

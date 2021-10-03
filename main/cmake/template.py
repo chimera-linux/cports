@@ -22,7 +22,7 @@ tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
 }
 
-options = ["!check"]
+options = ["!check", "!lint", "!spdx"]
 
 def post_install(self):
     self.install_license("Copyright.txt")

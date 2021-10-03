@@ -10,7 +10,7 @@ url = "https://github.com/chimera-linux/musl-rpmatch"
 sources = [f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}-mk2.tar.gz"]
 sha256 = ["a7b9649b49a8a59da09cf61228dc812cae6f0aea8be036788a9173c6f15a1a77"]
 
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "!lint", "!spdx"]
 
 def post_install(self):
     self.install_license("COPYING")

@@ -9,7 +9,7 @@ url = "https://tukaani.org/xz"
 sources = [f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"]
 sha256 = ["5117f930900b341493827d63aa910ff5e011e0b994197c3b71c08a20228a42df"]
 
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "!lint", "!spdx"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)
