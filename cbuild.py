@@ -224,7 +224,7 @@ if cmdline.temporary:
 
 # set global config bits as needed
 
-from cbuild.core import paths
+from cbuild.core import paths, spdx
 
 # init paths early, modules rely on it
 
@@ -235,6 +235,9 @@ if not mainrepo:
     altrepo = None
 
 paths.init(cbpath, opt_bldroot, mainrepo, altrepo, opt_srcpath, opt_cchpath)
+
+# init license information
+spdx.init()
 
 from cbuild.util import make
 from cbuild.core import chroot, logger, template, build, profile

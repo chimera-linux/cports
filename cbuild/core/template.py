@@ -20,7 +20,7 @@ import shutil
 import builtins
 import configparser
 
-from cbuild.core import logger, chroot, paths, version, profile
+from cbuild.core import logger, chroot, paths, version, profile, spdx
 from cbuild.apk import cli
 
 class PackageError(Exception):
@@ -977,6 +977,16 @@ def from_module(m, ret):
     ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"
 
     ret.validate_arch()
+
+    # validate license if we need to
+    if ret.options["spdx"]:
+        lerr = None
+        try:
+            spdx.validate(ret.license)
+        except RuntimeError as e:
+            lerr = str(e)
+        if lerr:
+            ret.error("failed validating license: %s" % lerr)
 
     # the real job count
     if not ret.options["parallel"]:

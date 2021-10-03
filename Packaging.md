@@ -363,9 +363,10 @@ handle passed to functions as the first argument (typically called `self`).
 
 These variables are mandatory:
 
-* `license` *(str)* The license of the project in SPDX format (e.g.
-  `BSD-3-Clause`). If there are multiple licenses, they should be separated
-  by a comma and a space (`GPL-2.0-or-later, MIT`).
+* `license` *(str)* The license of the project in SPDX license expression
+  format (e.g. `BSD-3-Clause OR GPL-2.0-or-later`). The license should be
+  a single expression. You can disable validation of the license by using
+  the `!spdx` option (e.g. for custom licenses not covered by SPDX).
 * `pkgname` *(str)* The primary package name, must match template name.
 * `pkgver` *(str)* The package version, applies to all subpackages. Must
   follow the correct format for the `apk` package manager.
