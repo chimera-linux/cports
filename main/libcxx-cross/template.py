@@ -30,7 +30,7 @@ sources = [
 sha256 = [
     "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"
 ]
-options = ["!cross", "!check", "!lint", "!spdx"]
+options = ["!cross", "!check", "!lint"]
 
 cmake_dir = "libcxx"
 

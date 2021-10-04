@@ -46,7 +46,7 @@ sha256 = [
     "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
-options = ["!cross", "!check", "!lint", "!spdx"]
+options = ["!cross", "!check", "!lint"]
 
 cmake_dir = "compiler-rt"
 

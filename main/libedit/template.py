@@ -12,7 +12,7 @@ url = "http://www.thrysoee.dk/editline"
 sources = [f"http://thrysoee.dk/editline/{pkgname}-{_datever}-{_distver}.tar.gz"]
 sha256 = ["0220bc2047e927c0c1984ef5f7b4eb2a9469a5b7bf12ba573ca3b23ca02bbb6f"]
 
-options = ["bootstrap", "!check", "!lint", "!spdx"]
+options = ["bootstrap", "!check", "!lint"]
 
 def post_install(self):
     self.install_license("COPYING")

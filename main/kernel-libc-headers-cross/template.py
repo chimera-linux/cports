@@ -11,7 +11,7 @@ license = "GPL-2.0-only"
 url = "http://www.kernel.org"
 sources = [f"$(KERNEL_SITE)/kernel/v{_mver}.x/linux-{pkgver}.tar.xz"]
 sha256 = ["904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"]
-options = ["!cross", "!check", "!lint", "!spdx"]
+options = ["!cross", "!check", "!lint"]
 
 _targets = list(filter(
     lambda p: p[0] != current.build_profile.arch,

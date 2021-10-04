@@ -10,7 +10,7 @@ url = "https://github.com/Juniper/libxo"
 sources = [f"https://github.com/Juniper/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"]
 
-options = ["bootstrap", "!check", "!lint", "!spdx"]
+options = ["bootstrap", "!check", "!lint"]
 
 def post_patch(self):
     self.mkdir("libxo/sys")

@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://userweb.kernel.org/~kzak/util-linux-ng"
 
-options = ["bootstrap", "!check", "!lint", "!spdx"]
+options = ["bootstrap", "!check", "!lint"]
 
 if not current.bootstrapping:
 	hostmakedepends = ["gmake"]
