@@ -4,18 +4,20 @@ pkgrel = 0
 build_style = "gnu_configure"
 pkgdesc = "The XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Public domain, GPL-2.0-or-later, GPL-3.0-or-later, LGPL-2.1-or-later"
+license = "custom:xz"
 url = "https://tukaani.org/xz"
 sources = [f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"]
 sha256 = ["5117f930900b341493827d63aa910ff5e011e0b994197c3b71c08a20228a42df"]
 
-options = ["bootstrap", "!check", "!lint", "!spdx"]
+options = ["bootstrap", "!check", "!lint"]
 
 def post_install(self):
+    self.install_license("COPYING")
     self.rm(self.destdir / "usr/share/doc", recursive = True)
     for tool in [
         "xzgrep", "xzfgrep", "xzegrep", "lzgrep", "lzfgrep", "lzegrep",
-        "xzdiff", "lzdiff", "xzcmp", "lzcmp"
+        "xzdiff", "lzdiff", "xzcmp", "lzcmp", "xzless", "xzmore",
+        "lzless", "lzmore"
     ]:
         self.rm(self.destdir / "usr/bin" / tool)
         self.rm(self.destdir / "usr/share/man/man1" / (tool + ".1"))
