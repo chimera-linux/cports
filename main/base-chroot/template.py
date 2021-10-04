@@ -3,7 +3,7 @@ pkgver = "0.1"
 pkgrel = 0
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Public Domain"
+license = "custom:meta"
 url = "https://chimera-linux.org"
 
 depends = [
@@ -12,7 +12,7 @@ depends = [
     "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "chroot-util-linux"
 ]
 
-options = ["bootstrap", "!lint", "!spdx"]
+options = ["bootstrap", "!lint"]
 
 if not current.bootstrapping:
     depends += ["ccache"]

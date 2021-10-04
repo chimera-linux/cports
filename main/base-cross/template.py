@@ -4,9 +4,9 @@ pkgrel = 0
 depends = ["clang-rt-cross", "musl-cross", "libcxx-cross"]
 pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Public Domain"
+license = "custom:meta"
 url = "https://chimera-linux.org"
-options = ["!cross", "!lint", "!spdx"]
+options = ["!cross", "!lint"]
 
 _targets = list(filter(
     lambda p: p != current.build_profile.arch,

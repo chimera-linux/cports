@@ -3,10 +3,10 @@ pkgver = "0.1"
 pkgrel = 0
 pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Public Domain"
+license = "custom:meta"
 url = "https://chimera-linux.org"
 
-options = ["bootstrap", "keepempty", "!lint", "!spdx"]
+options = ["bootstrap", "keepempty", "!lint"]
 
 def do_install(self):
     # base root dirs
