@@ -10,7 +10,7 @@ depends = ["less"]
 checkdepends = ["iana-etc", "perl-AnyEvent", "perl-Test-Pod", "procps-ng"]
 pkgdesc = "Practical Extraction and Report Language"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "Artistic=1.0-Perl, GPL=1.0-or-later"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://www.perl.org"
 sources = [
     f"https://www.cpan.org/src/5.0/perl-{pkgver}.tar.gz",
@@ -31,7 +31,7 @@ tool_flags = {
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
 
-options = ["!check", "!lint", "!spdx"]
+options = ["!check", "!lint"]
 
 # Before updating this package to a new major version, run ${FILESDIR}/provides.pl
 # against ${wrksrc} to find the list of built in packages.
