@@ -366,7 +366,11 @@ These variables are mandatory:
 * `license` *(str)* The license of the project in SPDX license expression
   format (e.g. `BSD-3-Clause OR GPL-2.0-or-later`). The license should be
   a single expression. You can disable validation of the license by using
-  the `!spdx` option (e.g. for custom licenses not covered by SPDX).
+  the `!spdx` option (e.g. for custom licenses not covered by SPDX). The
+  syntax supports custom license IDs via `custom:somename`. While this is
+  not a part of the SPDX license expression specification, it can be used
+  to cover e.g. dual license software with a custom and standard license
+  via something like `custom:foo OR BSD-3-Clause`.
 * `pkgname` *(str)* The primary package name, must match template name.
 * `pkgver` *(str)* The package version, applies to all subpackages. Must
   follow the correct format for the `apk` package manager.

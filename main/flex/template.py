@@ -13,7 +13,7 @@ url = "https://github.com/westes/flex"
 sources = [f"https://github.com/westes/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995"]
 
-options = ["!check", "!lint", "!spdx"]
+options = ["!check", "!lint"]
 
 # Required to enable the definition of reallocarray() in stdlib.h
 tool_flags = {

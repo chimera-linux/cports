@@ -62,7 +62,21 @@ class SPDXParser:
             if idlen == 0:
                 raise RuntimeError("unknown token: " + self.stream[0])
             tok = self.stream[0:idlen]
-            # this must be a license id and it's not one
+            # custom license in an SPDX expression
+            if tok == "custom" and self.stream[idlen:idlen + 1] == ":":
+                idlen = idlen + 1
+                ollen = idlen
+                while stlen > idlen:
+                    c = self.stream[idlen]
+                    if (c != "-") and (c != ".") and not c.isalnum():
+                        break
+                    idlen = idlen + 1
+                if idlen == ollen:
+                    raise RuntimeError("unknown token: 'custom:'")
+                tok = self.stream[0:idlen]
+                self.stream = self.stream[idlen:]
+                return tok
+            # this must be a license id
             if not tok in self.ldict and not tok in self.edict:
                 raise RuntimeError("unknown token: " + tok)
             # may be directly followed by a +
@@ -88,6 +102,11 @@ class SPDXParser:
         # license id maybe with exception
         if tok.endswith("+"):
             tok = tok[0:len(tok) - 1]
+        # custom licenses do not allow exceptions etc.
+        if tok.startswith("custom:"):
+            self.token = self.lex()
+            return
+        # not a custom license
         if not tok in self.ldict:
             raise RuntimeError("license id expected, got: " + tok)
         # check for exception
