@@ -10,7 +10,7 @@ url = "https://github.com/onetrueawk/awk"
 sources = [f"https://github.com/onetrueawk/awk/archive/{_commit}.tar.gz"]
 sha256 = ["8e727fc750fa96898786dc3b5b3206734cc399e4fa9f2d182ab2ad2473f31118"]
 
-options = ["bootstrap", "!check", "!lint", "!spdx"]
+options = ["bootstrap", "!check", "!lint"]
 
 def init_configure(self):
     from cbuild.util import make
