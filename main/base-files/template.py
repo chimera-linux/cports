@@ -1,6 +1,7 @@
 pkgname = "base-files"
 pkgver = "0.1"
 pkgrel = 0
+build_style = "meta"
 pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"

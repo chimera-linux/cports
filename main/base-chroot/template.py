@@ -1,6 +1,7 @@
 pkgname = "base-chroot"
 pkgver = "0.1"
 pkgrel = 0
+build_style = "meta"
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
@@ -16,9 +17,3 @@ options = ["bootstrap", "!lint"]
 
 if not current.bootstrapping:
     depends += ["ccache"]
-
-def do_fetch(self):
-    pass
-
-def do_install(self):
-    pass

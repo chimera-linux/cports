@@ -1,6 +1,7 @@
 pkgname = "base-cross"
 pkgver = "0.1"
 pkgrel = 0
+build_style = "meta"
 depends = ["clang-rt-cross", "musl-cross", "libcxx-cross"]
 pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -12,9 +13,6 @@ _targets = list(filter(
     lambda p: p != current.build_profile.arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
-
-def do_fetch(self):
-    pass
 
 def do_install(self):
     for an in _targets:
