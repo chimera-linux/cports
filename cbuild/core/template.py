@@ -520,6 +520,27 @@ class Template(Package):
         except:
             self.error("pkgver has an invalid format")
 
+    def validate_pkgdesc(self):
+        # do not validate if not linting
+        if not self.options["lint"]:
+            return
+
+        dstr = self.pkgdesc
+        if re.search(r"\.$", dstr):
+            self.error("pkgdesc should not end with a period")
+        if re.search(r"\s$", dstr):
+            self.error("pkgdesc should not end with whitespace")
+        if re.search(r"^\s", dstr):
+            self.error("pkgdesc should not start with whitespace")
+        if re.search(r"\s$", dstr):
+            self.error("pkgdesc should not end with whitespace")
+        if re.search(r"^(An?|The) ", dstr):
+            self.error("pkgdesc should not start with an article")
+        if re.search(r"^[a-z]", dstr):
+            self.error("pkgdesc should start with an uppercase letter")
+        if len(dstr) > 72:
+            self.error("pkgdesc should be no longer than 72 characters")
+
     def validate_arch(self):
         bprof = self.build_profile
         archn = bprof.arch
@@ -977,6 +998,7 @@ def from_module(m, ret):
     ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"
 
     ret.validate_arch()
+    ret.validate_pkgdesc()
 
     # validate license if we need to
     if ret.options["spdx"]:
