@@ -679,6 +679,11 @@ where that is sufficient.
 
 There are currently a few build styles available.
 
+#### meta
+
+A metapackage `build_style`. It merely defines empty `do_fetch` as well
+as `do_install`.
+
 #### cmake
 
 You can generally use this for CMake-using projects.
