@@ -27,7 +27,7 @@ def _lib(self):
 
 @subpackage("liblz4-devel")
 def _devel(self):
-    self.short_decs = "LZ4 compression library - development files"
+    self.short_decs = "LZ4 compression library (development files)"
     self.depends = [f"liblz4={pkgver}-r{pkgrel}"]
 
     return [

@@ -35,7 +35,7 @@ def _libmagic(self):
 @subpackage("file-devel")
 def _devel(self):
     self.depends = makedepends + [f"libmagic={pkgver}-r{pkgrel}"]
-    self.pkgdesc = "File type identification library - development files"
+    self.pkgdesc = "File type identification library (development files)"
 
     return [
         "usr/include",

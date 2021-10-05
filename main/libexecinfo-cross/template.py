@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "makefile"
 makedepends = ["musl-cross"]
 depends = ["musl-cross"]
-pkgdesc = "BSD licensed clone of the GNU backtrace (cross compiling)"
+pkgdesc = "BSD licensed clone of the GNU backtrace (cross-compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.freshports.org/devel/libexecinfo"
@@ -57,7 +57,7 @@ def do_install(self):
 def _gen_crossp(an, at):
     @subpackage(f"libexecinfo-cross-{an}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} - {an} support"
+        self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"musl-cross-{an}"]
         self.options = ["!scanshlibs"]
         return [f"usr/{at}"]

@@ -20,7 +20,6 @@ def post_install(self):
 
 @subpackage("libffi-devel")
 def _devel(self):
-    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"libffi={pkgver}-r{pkgrel}"]
 
     return [

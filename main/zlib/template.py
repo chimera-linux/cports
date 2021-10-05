@@ -19,7 +19,6 @@ def do_configure(self):
 @subpackage("zlib-devel")
 def _devel(self):
     self.depends = [f"zlib={pkgver}-r{pkgrel}"]
-    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",

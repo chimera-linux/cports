@@ -31,7 +31,7 @@ def _lib(self):
 
 @subpackage("liblzma-devel")
 def _devel(self):
-    self.pkgdesc = "XZ-format compression library - development files"
+    self.pkgdesc = "XZ-format compression library (development files)"
     self.depends = [f"liblzma={pkgver}-r{pkgrel}"]
 
     return [

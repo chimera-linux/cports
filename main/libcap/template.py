@@ -32,7 +32,6 @@ def init_configure(self):
 @subpackage("libcap-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",
@@ -46,6 +45,4 @@ def _devel(self):
 
 @subpackage("libcap-progs")
 def _progs(self):
-    self.pkgdesc = pkgdesc + " - utilities"
-
     return ["usr/bin", "usr/share"]

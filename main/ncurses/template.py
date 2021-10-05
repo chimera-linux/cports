@@ -6,7 +6,7 @@ make_cmd = "gmake"
 pkgdesc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
-url = "http://www.gnu.org/software/ncurses/"
+url = "http://www.gnu.org/software/ncurses"
 sources = [f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"]
 options = ["bootstrap", "!check", "!lint"]
@@ -117,8 +117,6 @@ def do_install(self):
 
 @subpackage("ncurses-libs")
 def _libs(self):
-    self.pkgdesc = pkgdesc + " - shared libraries"
-
     return [
         "usr/lib/libform*.so.*",
         "usr/lib/libmenu*.so.*",
@@ -128,7 +126,6 @@ def _libs(self):
 
 @subpackage("ncurses-devel")
 def _devel(self):
-    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"ncurses-libs={pkgver}-r{pkgrel}"]
 
     return [
@@ -151,7 +148,7 @@ def _devel(self):
 
 @subpackage("ncurses-base")
 def _base(self):
-    self.pkgdesc = pkgdesc + " - base terminfo files"
+    self.pkgdesc = f"{pkgdesc} (base terminfo files)"
 
     flist = []
     with (self.rparent.files_path / "base-files").open() as f:
@@ -162,7 +159,7 @@ def _base(self):
 
 @subpackage("ncurses-term")
 def _term(self):
-    self.pkgdesc = pkgdesc + " - full terminal descriptions"
+    self.pkgdesc = f"{pkgdesc} (full terminal descriptions)"
     self.depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
 
     return [
@@ -172,14 +169,14 @@ def _term(self):
 
 @subpackage("ncurses-libtinfo-libs")
 def _tinfo(self):
-    self.pkgdesc = pkgdesc + " - libtinfo.so symlink"
+    self.pkgdesc = f"{pkgdesc} (libtinfo.so symlink)"
     self.depends = [f"ncurses-libs={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libtinfo*.so.*"]
 
 @subpackage("ncurses-libtinfo-devel")
 def _tdevel(self):
-    self.pkgdesc = pkgdesc + " - libtinfo.so symlink - development files"
+    self.pkgdesc = f"{pkgdesc} (libtinfo.so symlink) (development files)"
     self.depends = [
         f"ncurses-devel={pkgver}-r{pkgrel}",
         f"ncurses-libtinfo-libs={pkgver}-r{pkgrel}"

@@ -20,7 +20,7 @@ hostmakedepends = ["cmake", "python"]
 makedepends = ["libcxxabi-cross", "kernel-libc-headers-cross"]
 depends = ["libcxxabi-cross"]
 make_cmd = "make"
-pkgdesc = "LLVM libc++ for cross-compiling"
+pkgdesc = "LLVM libc++ (cross-compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
@@ -82,7 +82,7 @@ def do_install(self):
 def _gen_crossp(an, at):
     @subpackage(f"libcxx-cross-{an}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} - {an} support"
+        self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"libcxxabi-cross-{an}"]
         self.options = ["!scanshlibs"]
         return [f"usr/{at}"]

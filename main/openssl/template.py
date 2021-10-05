@@ -45,7 +45,7 @@ def do_build(self):
 
 @subpackage("libcrypto1.1")
 def _libcrypto(self):
-    self.pkgdesc = pkgdesc + " - crypto library"
+    self.pkgdesc = f"{pkgdesc} (crypto library)"
 
     return [
         "usr/lib/libcrypto.so.*",
@@ -54,13 +54,13 @@ def _libcrypto(self):
 
 @subpackage("libssl1.1")
 def _libssl(self):
-    self.pkgdesc = pkgdesc + " - SSL/TLS library"
+    self.pkgdesc = f"{pkgdesc} (SSL/TLS library)"
 
     return ["usr/lib/libssl.so.*"]
 
 @subpackage("openssl-c_rehash")
 def _crehash(self):
-    self.pkgdesc = pkgdesc + " - c_rehash utility"
+    self.pkgdesc = f"{pkgdesc} (c_rehash utility)"
     self.depends = ["openssl"]
 
     if not self.bootstrapping:
@@ -70,7 +70,6 @@ def _crehash(self):
 
 @subpackage("openssl-devel")
 def _devel(self):
-    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}",
         f"libssl1.1={pkgver}-r{pkgrel}",

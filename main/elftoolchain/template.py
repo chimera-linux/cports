@@ -46,7 +46,6 @@ def post_install(self):
 @subpackage("elftoolchain-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",
@@ -57,7 +56,7 @@ def _devel(self):
 
 @subpackage("libelf")
 def _libelf(self):
-    self.pkgdesc = pkgdesc + " - libelf"
+    self.pkgdesc = f"{pkgdesc} (libelf)"
 
     return [
         "usr/lib/*.so.*"

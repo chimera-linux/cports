@@ -7,7 +7,7 @@ hostmakedepends = ["gmake"]
 makedepends = ["clang-rt-crt-cross"]
 depends = ["clang-rt-crt-cross"]
 make_cmd = "gmake"
-pkgdesc = "Musl C library - cross toolchain"
+pkgdesc = "Musl C library (cross-compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org/"
@@ -63,7 +63,7 @@ def do_install(self):
 def _gen_crossp(an, at):
     @subpackage(f"musl-cross-{an}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} - {an} support"
+        self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang-rt-crt-cross-{an}"]
         return [f"usr/{at}"]
     depends.append(f"musl-cross-{an}")

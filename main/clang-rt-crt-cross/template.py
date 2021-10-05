@@ -122,7 +122,7 @@ def do_install(self):
 
 def _gen_subp(an, at):
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} - {an} support"
+        self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang>={pkgver}"]
         return [f"usr/lib/clang/{pkgver}/lib/linux/*{at[0:at.find('-')]}*"]
 

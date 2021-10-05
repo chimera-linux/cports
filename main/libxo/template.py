@@ -19,7 +19,6 @@ def post_patch(self):
 @subpackage("libxo-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/bin/libxo-config",
@@ -32,9 +31,7 @@ def _devel(self):
     ]
 
 @subpackage("libxo-progs")
-def _devel(self):
-    self.pkgdesc = pkgdesc + " - programs"
-
+def _progs(self):
     return [
         "usr/bin",
     ]

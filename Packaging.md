@@ -286,6 +286,12 @@ contents of the package. That is, when a library is called `foo`,
 the package should be called `foo`, not `libfoo`.
 
 However, if a library is a subpackage of a bigger software project,
+there are two things you can do. If the subpackage provides a single
+library, typically coupled with a dedicated development package and
+so on, you should use the `lib` prefix. If a subpackage provides
+a collection of runtime libraries and the development package belongs
+to the main package instead, the `-libs` suffix should be used.
+
 the `lib` prefix should be used. So if project `foo` consists of a
 primary `foo` package and a library subpackage, that subpackage should
 be called `libfoo`.
@@ -381,9 +387,11 @@ These variables are mandatory:
   is incremented by one. The initial value should be zero. When bumping
   to a new version, it should be reset back to zero.
 * `pkgdesc` *(str)* A short, one line description of the package. Should
-  be kept at 72 characters or shorter. In general, this should not begin with
-  an article (`the` is sometimes permissible), and should not end with a period.
-  It should use American English and not contain any mistakes.
+  be kept at 72 characters or shorter. In general, this should not begin
+  with an article, and should not end with a period. It should use American
+  English and not contain any mistakes. The description is inherited into
+  all subpackages, though certain subpackages gain some suffixes. See the
+  section about subpackages for more details.
 * `url` *(str)* The homepage URL of the project being packaged. Should
   not include the trailing slash.
 
@@ -865,7 +873,6 @@ The subpackage body function can then look like this:
 
 ```
 def _devel(self):
-    self.pkgdesc = f"{pkgdesc} - development files"
     self.depends = [...]
     self.options = ["textrels"]
 
@@ -906,6 +913,20 @@ The `hardening` option does not actually do anything (since subpackages do
 not affect the build) and its sole purpose is to be able to turn off the PIE
 check for subpackages (as projects may build a mixture of PIE and non-PIE
 files).
+
+The `pkgdesc` may gain a suffix if the subpackage name has a certain suffix:
+
+* For `-devel`, it will be `(development files)`
+* For `-doc`, it will be `(documentation)`
+* For `-libs`, it will be `(libraries)`
+* For `-dbg`, it will be `(debug files)`
+* For `-progs`, it will be `(programs)`
+
+In general, subpackage descriptions should have suffixes like that. You can
+choose the best suffix for packages not matching standardized names. Sometimes
+it may also be the case a `-devel` subpackage corresponds to another subpackage
+rather than the main package, and the default description will thus be wrong.
+In those cases, you should override it while following the conventions.
 
 <a id="template_options"></a>
 ### Template Options

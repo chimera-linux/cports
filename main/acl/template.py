@@ -18,7 +18,6 @@ options = ["bootstrap", "!check", "!lint"]
 @subpackage("acl-devel")
 def _devel(self):
     self.depends = ["attr-devel", f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",
@@ -31,8 +30,6 @@ def _devel(self):
 
 @subpackage("acl-progs")
 def _progs(self):
-    self.pkgdesc = pkgdesc + " - utilities"
-
     return [
         "usr/bin",
         "usr/share"

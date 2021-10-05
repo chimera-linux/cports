@@ -59,7 +59,6 @@ def do_install(self):
 @subpackage("bzip2-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",

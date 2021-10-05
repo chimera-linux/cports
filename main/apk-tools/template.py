@@ -25,7 +25,6 @@ if not current.bootstrapping:
 
 @subpackage("apk-tools-devel")
 def _devel(self):
-    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
@@ -37,6 +36,6 @@ def _devel(self):
 
 @subpackage("apk-tools-static")
 def _static(self):
-    self.pkgdesc = pkgdesc + " - static build"
+    self.pkgdesc = f"{pkgdesc} (static build)"
 
     return ["usr/bin/apk.static"]

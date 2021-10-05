@@ -26,6 +26,4 @@ def post_install(self):
 
 @subpackage("libfl-devel")
 def _devel(self):
-    self.pkgdesc = pkgdesc + " - development files"
-
     return ["usr/include", "usr/lib/*.a"]

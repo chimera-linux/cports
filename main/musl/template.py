@@ -61,7 +61,6 @@ def do_install(self):
 @subpackage("musl-devel")
 def _devel(self):
     self.depends = ["kernel-libc-headers", f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",

@@ -50,7 +50,6 @@ def _bsdtar(self):
 
 @subpackage("libarchive-devel")
 def _devel(self):
-    self.pkgdesc = pkgdesc + " - development files"
     self.depends = makedepends + [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [

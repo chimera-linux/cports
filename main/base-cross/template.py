@@ -46,7 +46,7 @@ def do_install(self):
 def _gen_crossp(an, at):
     @subpackage(f"base-cross-{an}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} - {an}"
+        self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [
             f"clang-rt-cross-{an}",
             f"musl-cross-{an}",

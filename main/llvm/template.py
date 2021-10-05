@@ -158,7 +158,7 @@ def post_install(self):
 
 @subpackage("clang-tools-extra")
 def _tools_extra(self):
-    self.pkgdesc = pkgdesc + " - extra Clang tools"
+    self.pkgdesc = f"{pkgdesc} (extra Clang tools)"
     self.depends = [f"clang={pkgver}-r{pkgrel}"]
 
     return [
@@ -181,7 +181,7 @@ def _tools_extra(self):
 
 @subpackage("libomp")
 def _libomp(self):
-    self.pkgdesc = pkgdesc + " - Clang OpenMP support library"
+    self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library)"
 
     if not self.bootstrapping and _arch != "RISCV64":
         extra = ["usr/lib/libomptarget.rtl.*.so"]
@@ -196,7 +196,7 @@ def _libomp(self):
 
 @subpackage("libomp-devel")
 def _libomp_devel(self):
-    self.pkgdesc = pkgdesc + " - Clang OpenMP support library - development files"
+    self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library) (development files)"
     self.depends = [f"libomp={pkgver}-r{pkgrel}"]
 
     return [
@@ -208,7 +208,7 @@ def _libomp_devel(self):
 
 @subpackage("clang")
 def _clang(self):
-    self.pkgdesc = pkgdesc + " - C language family frontend"
+    self.pkgdesc = f"{pkgdesc} (C language family frontend)"
     self.depends = [
         f"libcxx-devel={pkgver}-r{pkgrel}",
         f"libcxxabi-devel={pkgver}-r{pkgrel}",
@@ -228,7 +228,7 @@ def _clang(self):
 
 @subpackage("clang-rt-devel")
 def _clang_rt_devel(self):
-    self.pkgdesc = pkgdesc + " - clang runtime development files"
+    self.pkgdesc = f"{pkgdesc} (Clang runtime development files)"
 
     return [
         "usr/lib/clang"
@@ -236,7 +236,7 @@ def _clang_rt_devel(self):
 
 @subpackage("clang-devel")
 def _clang_devel(self):
-    self.pkgdesc = pkgdesc + " - clang development files"
+    self.pkgdesc = f"{pkgdesc} (Clang development files)"
     self.depends = [
         f"clang-rt-devel={pkgver}-r{pkgrel}",
         f"libclang={pkgver}-r{pkgrel}",
@@ -253,7 +253,7 @@ def _clang_devel(self):
 
 @subpackage("clang-analyzer")
 def _clang_analyzer(self):
-    self.pkgdesc = pkgdesc + " - Source code analysis"
+    self.pkgdesc = f"{pkgdesc} (source code analysis)"
     self.depends = [f"clang={pkgver}-r{pkgrel}"]
     if not self.bootstrapping:
         self.depends.append("python")
@@ -266,25 +266,25 @@ def _clang_analyzer(self):
 
 @subpackage("libclang")
 def _libclang(self):
-    self.pkgdesc = pkgdesc + " - C frontend runtime library"
+    self.pkgdesc = f"{pkgdesc} (C frontend runtime library)"
 
     return ["usr/lib/libclang.so.*"]
 
 @subpackage("libclang-cpp")
 def _libclang_cpp(self):
-    self.pkgdesc = pkgdesc + " - C frontend runtime library"
+    self.pkgdesc = f"{pkgdesc} (C frontend runtime library)"
 
     return ["usr/lib/libclang-cpp.so.*"]
 
 @subpackage("libunwind")
 def _libunwind(self):
-    self.pkgdesc = pkgdesc + " - libunwind"
+    self.pkgdesc = f"{pkgdesc} (libunwind)"
 
     return ["usr/lib/libunwind.so.*"]
 
 @subpackage("libunwind-devel")
 def _libunwind_devel(self):
-    self.pkgdesc = pkgdesc + " - libunwind - development files"
+    self.pkgdesc = f"{pkgdesc} (libunwind) (development files)"
     self.depends = [f"libunwind={pkgver}-r{pkgrel}"]
 
     return [
@@ -296,13 +296,13 @@ def _libunwind_devel(self):
 
 @subpackage("libcxx")
 def _libcxx(self):
-    self.pkgdesc = pkgdesc + " - C++ standard library"
+    self.pkgdesc = f"{pkgdesc} (C++ standard library)"
 
     return ["usr/lib/libc++.so.*"]
 
 @subpackage("libcxx-devel")
 def _libcxx_devel(self):
-    self.pkgdesc = pkgdesc + " - C++ standard library - development files"
+    self.pkgdesc = f"{pkgdesc} (C++ standard library) (development files)"
     self.depends = [f"libcxx={pkgver}-r{pkgrel}"]
 
     return [
@@ -314,14 +314,14 @@ def _libcxx_devel(self):
 
 @subpackage("libcxxabi")
 def _libcxxabi(self):
-    self.pkgdesc = pkgdesc + " - low level libc++ runtime"
+    self.pkgdesc = f"{pkgdesc} (low level C++ runtime)"
     self.depends = [f"libunwind={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libc++abi.so.*"]
 
 @subpackage("libcxxabi-devel")
 def _libcxxabi_devel(self):
-    self.pkgdesc = pkgdesc + " - low level libc++ runtime - development files"
+    self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (development files)"
     self.depends = [
         f"libcxxabi={pkgver}-r{pkgrel}",
         f"libunwind-devel={pkgver}-r{pkgrel}"
@@ -335,13 +335,13 @@ def _libcxxabi_devel(self):
 
 @subpackage("libllvm")
 def _libllvm(self):
-    self.pkgdesc = pkgdesc + " - runtime library"
+    self.pkgdesc = f"{pkgdesc} (runtime library)"
 
     return [f"usr/lib/libLLVM-{_mver}.so"]
 
 @subpackage("lld")
 def _lld(self):
-    self.pkgdesc = pkgdesc + " - linker"
+    self.pkgdesc = f"{pkgdesc} (linker)"
 
     return [
         "usr/bin/ld",
@@ -353,7 +353,7 @@ def _lld(self):
 
 @subpackage("lld-devel")
 def _lld_devel(self):
-    self.pkgdesc = pkgdesc + " - linker - development files"
+    self.pkgdesc = f"{pkgdesc} (linker) (development files)"
     self.depends = [f"lld={pkgver}-r{pkgrel}"]
 
     return [
@@ -364,7 +364,7 @@ def _lld_devel(self):
 
 @subpackage("llvm-linker-tools")
 def _llvm_linker_tools(self):
-    self.pkgdesc = pkgdesc + " - linker plugins"
+    self.pkgdesc = f"{pkgdesc} (linker plugins)"
 
     return [
         "usr/lib/libLTO.so.*"
@@ -372,7 +372,6 @@ def _llvm_linker_tools(self):
 
 @subpackage("llvm-devel")
 def _llvm_devel(self):
-    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [
         f"llvm={pkgver}-r{pkgrel}",
         f"llvm-tools={pkgver}-r{pkgrel}",
@@ -388,7 +387,7 @@ def _llvm_devel(self):
 
 @subpackage("llvm-tools")
 def _llvm_tools(self):
-    self.pkgdesc = pkgdesc + " - testing tools"
+    self.pkgdesc = f"{pkgdesc} (testing tools)"
 
     return [
         "usr/bin/FileCheck",
@@ -401,7 +400,7 @@ def _llvm_tools(self):
 
 @subpackage("llvm-runtime")
 def _llvm_runtime(self):
-    self.pkgdesc = pkgdesc + " - runtime"
+    self.pkgdesc = f"{pkgdesc} (runtime)"
 
     return [
         "usr/bin/lli*",

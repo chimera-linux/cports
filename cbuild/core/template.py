@@ -924,6 +924,18 @@ class Subpackage(Package):
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
+        # default suffixes
+        if name.endswith("-devel"):
+            self.pkgdesc += " (development files)"
+        elif name.endswith("-doc"):
+            self.pkgdesc += " (documentation)"
+        elif name.endswith("-libs"):
+            self.pkgdesc += " (libraries)"
+        elif name.endswith("-dbg"):
+            self.pkgdesc += " (debug files)"
+        elif name.endswith("-progs"):
+            self.pkgdesc += " (programs)"
+
         self.force_mode = parent.force_mode
         self.bootstrapping = parent.bootstrapping
 

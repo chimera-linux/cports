@@ -5,7 +5,7 @@ pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl"]
 depends = []
-pkgdesc = "Linux API headers for cross-compiling"
+pkgdesc = "Linux API headers (cross-compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://www.kernel.org"
@@ -66,7 +66,7 @@ def do_install(self):
 def _gen_crossp(an, at):
     @subpackage(f"kernel-libc-headers-cross-{an}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} - {an} support"
+        self.pkgdesc = f"{pkgdesc} ({an} support)"
         return [f"usr/{at}"]
     depends.append(f"kernel-libc-headers-cross-{an}={pkgver}-r{pkgrel}")
 

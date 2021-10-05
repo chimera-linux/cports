@@ -8,7 +8,7 @@ checkdepends = ["gtest-devel"]
 configure_args = [
     "-Dzlib=enabled", "-Dlzma=enabled", "-Dlz4=enabled", "-Dbin_contrib=true"
 ]
-pkgdesc = "Fast real-time compression algorithm - CLI tool"
+pkgdesc = "Fast real-time compression algorithm (CLI tool)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.zstd.net"
@@ -29,7 +29,7 @@ def _lib(self):
 
 @subpackage("libzstd-devel")
 def _devel(self):
-    self.pkgdesc = "Fast real-time compression algorithm - development files"
+    self.pkgdesc = "Fast real-time compression algorithm (development files)"
     self.depends = [f"libzstd={pkgver}-r{pkgrel}"]
 
     return [

@@ -20,7 +20,6 @@ def post_install(self):
 @subpackage("libedit-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"] + makedepends
-    self.pkgdesc = pkgdesc + " - development files"
 
     return [
         "usr/include",

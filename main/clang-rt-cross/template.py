@@ -100,7 +100,7 @@ def _gen_crossp(an):
 
     @subpackage(f"clang-rt-cross-{an}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} - {an} support"
+        self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [
             f"clang-rt-crt-cross-{an}",
             f"libcxx-cross-{an}",

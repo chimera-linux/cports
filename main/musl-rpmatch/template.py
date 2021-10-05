@@ -17,7 +17,6 @@ def post_install(self):
 
 @subpackage("musl-rpmatch-devel")
 def _devel(self):
-    self.pkgdesc = pkgdesc + " - development files"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return [
