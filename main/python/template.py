@@ -10,7 +10,7 @@ configure_args = [
     "--with-system-ffi", "--without-ensurepip"
 ]
 makedepends = [
-    "libffi-devel", "openssl-devel", "bzip2-devel",
+    "libffi-devel", "openssl-devel", "libbz2-devel",
     "zlib-devel", "liblzma-devel"
 ]
 # bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)

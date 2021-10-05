@@ -9,7 +9,7 @@ configure_args = [
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "zlib-devel", "bzip2-devel", "liblzma-devel",
+    "zlib-devel", "libbz2-devel", "liblzma-devel",
     "acl-devel", "liblz4-devel", "openssl-devel"
 ]
 pkgdesc = "Library to read/write several different streaming archive formats"
