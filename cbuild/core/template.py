@@ -957,6 +957,50 @@ class Subpackage(Package):
                 pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
             )
 
+    def take_devel(self):
+        self.take("usr/bin/*-config", missing_ok = True)
+        self.take("usr/lib/*.a", missing_ok = True)
+        self.take("usr/lib/*.so", missing_ok = True)
+        self.take("usr/lib/pkgconfig", missing_ok = True)
+        self.take("usr/lib/cmake", missing_ok = True)
+        self.take("usr/lib/glade/modules", missing_ok = True)
+        self.take("usr/include", missing_ok = True)
+        self.take("usr/share/pkgconfig", missing_ok = True)
+        self.take("usr/share/aclocal", missing_ok = True)
+        self.take("usr/share/gettext", missing_ok = True)
+        self.take("usr/share/vala/vapi", missing_ok = True)
+        self.take("usr/share/gir-[0-9]*", missing_ok = True)
+        self.take("usr/share/glade/catalogs", missing_ok = True)
+
+    def take_doc(self):
+        self.take("usr/share/doc", missing_ok = True)
+        self.take("usr/share/man", missing_ok = True)
+        self.take("usr/share/info", missing_ok = True)
+        self.take("usr/share/html", missing_ok = True)
+        self.take("usr/share/licenses", missing_ok = True)
+        self.take("usr/share/sgml", missing_ok = True)
+        self.take("usr/share/gtk-doc", missing_ok = True)
+        self.take("usr/share/ri", missing_ok = True)
+        self.take("usr/share/help", missing_ok = True)
+
+    def take_libs(self):
+        self.take("usr/lib/lib*.so.[0-9]*")
+
+    def take_progs(self):
+        self.take("usr/bin/*")
+
+    def default_devel(self):
+        return lambda: self.take_devel()
+
+    def default_doc(self):
+        return lambda: self.take_devel()
+
+    def default_libs(self):
+        return lambda: self.take_libs()
+
+    def default_progs(self):
+        return lambda: self.take_progs()
+
 def _subpkg_install_list(self, l):
     def real_install():
         for it in l:

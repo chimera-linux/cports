@@ -27,16 +27,11 @@ def post_install(self):
 def _lib(self):
     self.pkgdesc = "XZ-format compression library"
 
-    return ["usr/lib/*.so.*"]
+    return self.default_libs()
 
 @subpackage("liblzma-devel")
 def _devel(self):
     self.pkgdesc = "XZ-format compression library (development files)"
     self.depends = [f"liblzma={pkgver}-r{pkgrel}"]
 
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-        "usr/lib/pkgconfig",
-    ]
+    return self.default_devel()

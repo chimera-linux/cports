@@ -1947,6 +1947,49 @@ def _subpkg(self):
     return install
 ```
 
+##### def take_devel(self)
+
+This function will `take` everything that should usually belong in a
+development package. See the implementation in `cbuild/core/template.py`
+for the current coverage.
+
+##### def take_doc(self)
+
+This function will `take` everything that should usually belong in a
+documentation package. See the implementation in `cbuild/core/template.py`
+for the current coverage.
+
+##### def take_libs(self)
+
+This function will `take` everything that should usually belong in a
+`-libs` package. This is all shared libraries in `usr/lib` that start
+with `lib` and follow a regular soname style.
+
+##### def take_progs(self)
+
+This function will `take` everything that should usually belong in a
+`-progs` package, i.e. all binaries in `usr/bin`.
+
+##### def default_devel(self)
+
+A simple lazy wrapper around `take_devel` returning a function that you
+should return from a subpackage (e.g. `return self.default_devel()`).
+
+##### def default_doc(self)
+
+A simple lazy wrapper around `take_doc` returning a function that you
+should return from a subpackage (e.g. `return self.default_doc()`).
+
+##### def default_libs(self)
+
+A simple lazy wrapper around `take_libs` returning a function that you
+should return from a subpackage (e.g. `return self.default_libs()`).
+
+##### def default_progs(self)
+
+A simple lazy wrapper around `take_progs` returning a function that you
+should return from a subpackage (e.g. `return self.default_progs()`).
+
 <a id="api_util"></a>
 ### Utility API
 
