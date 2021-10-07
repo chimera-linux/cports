@@ -41,16 +41,9 @@ def invoke(pkg):
 
     have_pie = pkg.rparent.has_hardening("pie")
 
-    def is_relp(p, pp):
-        try:
-            p.relative_to(pp)
-        except ValueError:
-            return False
-        return True
-
     for v in pkg.destdir.rglob("*"):
         # already stripped debug symbols
-        if is_relp(v, dbgdir):
+        if v.is_relative_to(dbgdir):
             continue
 
         # must be a regular file
