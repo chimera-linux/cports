@@ -12,6 +12,9 @@ import tempfile
 import traceback
 import configparser
 
+if sys.version_info < (3, 9):
+    sys.exit("Python 3.9 or newer is required")
+
 # in python 3.9+ just __file__ would be okay
 cbpath = os.path.dirname(os.path.join(os.getcwd(), __file__))
 
