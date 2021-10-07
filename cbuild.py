@@ -15,17 +15,14 @@ import configparser
 if sys.version_info < (3, 9):
     sys.exit("Python 3.9 or newer is required")
 
-# in python 3.9+ just __file__ would be okay
-cbpath = os.path.dirname(os.path.join(os.getcwd(), __file__))
-
 # start from a sane directory
-os.chdir(cbpath)
+os.chdir(os.path.dirname(__file__))
 
 # ensure files are created with sane permissions
 os.umask(0o022)
 
 # we should always be able to import modules from here
-sys.path.append(cbpath)
+sys.path.append(os.path.dirname(__file__))
 
 def do_exit(signum, stack):
     raise Exception("cbuild: interrupted!")
@@ -237,7 +234,10 @@ if not mainrepo:
     mainrepo = opt_pkgpath
     altrepo = None
 
-paths.init(cbpath, opt_bldroot, mainrepo, altrepo, opt_srcpath, opt_cchpath)
+paths.init(
+    os.path.dirname(__file__), opt_bldroot, mainrepo, altrepo,
+    opt_srcpath, opt_cchpath
+)
 
 # init license information
 spdx.init()
