@@ -965,6 +965,7 @@ class Subpackage(Package):
         self.take("usr/lib/cmake", missing_ok = True)
         self.take("usr/lib/glade/modules", missing_ok = True)
         self.take("usr/include", missing_ok = True)
+        self.take("usr/share/cmake", missing_ok = True)
         self.take("usr/share/pkgconfig", missing_ok = True)
         self.take("usr/share/aclocal", missing_ok = True)
         self.take("usr/share/gettext", missing_ok = True)
