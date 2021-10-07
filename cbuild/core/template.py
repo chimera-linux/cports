@@ -924,17 +924,29 @@ class Subpackage(Package):
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
+        ddeps = []
+        bdep = None
+
         # default suffixes
         if name.endswith("-devel"):
             self.pkgdesc += " (development files)"
+            bdep = name.removesuffix("-devel")
         elif name.endswith("-doc"):
             self.pkgdesc += " (documentation)"
+            bdep = name.removesuffix("-doc")
         elif name.endswith("-libs"):
             self.pkgdesc += " (libraries)"
         elif name.endswith("-dbg"):
             self.pkgdesc += " (debug files)"
+            bdep = name.removesuffix("-dbg")
         elif name.endswith("-progs"):
             self.pkgdesc += " (programs)"
+
+        # by default some subpackages depeond on their parent package
+        if bdep:
+            ddeps.append(f"{bdep}={parent.pkgver}-r{parent.pkgrel}")
+
+        self.depends = ddeps
 
         self.force_mode = parent.force_mode
         self.bootstrapping = parent.bootstrapping

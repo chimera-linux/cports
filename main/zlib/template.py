@@ -18,12 +18,4 @@ def do_configure(self):
 
 @subpackage("zlib-devel")
 def _devel(self):
-    self.depends = [f"zlib={pkgver}-r{pkgrel}"]
-
-    return [
-        "usr/include",
-        "usr/lib/pkgconfig",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-        "usr/share",
-    ]
+    return self.default_devel()

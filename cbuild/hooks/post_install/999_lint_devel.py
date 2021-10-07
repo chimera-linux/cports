@@ -2,8 +2,8 @@ def invoke(pkg):
     if pkg.pkgname.endswith("-devel"):
         return
 
-    for pn, pf in pkg.rparent.subpackages:
-        if pn.endswith("-devel"):
+    for sp in pkg.rparent.subpkg_list:
+        if sp.pkgname.endswith("-devel"):
             break
     else:
         return

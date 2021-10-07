@@ -26,4 +26,5 @@ def post_install(self):
 
 @subpackage("libfl-devel")
 def _devel(self):
-    return ["usr/include", "usr/lib/*.a"]
+    self.depends = []
+    return self.default_devel()

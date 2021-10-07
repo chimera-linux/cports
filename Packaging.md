@@ -690,7 +690,7 @@ There are currently a few build styles available.
 #### meta
 
 A metapackage `build_style`. It merely defines empty `do_fetch` as well
-as `do_install`.
+as `do_install`. All empty packages must use this build style.
 
 #### cmake
 
@@ -927,6 +927,13 @@ choose the best suffix for packages not matching standardized names. Sometimes
 it may also be the case a `-devel` subpackage corresponds to another subpackage
 rather than the main package, and the default description will thus be wrong.
 In those cases, you should override it while following the conventions.
+
+Additionally, `depends` is special for subpackages. If the subpackage is a
+`-devel`, `-doc` or `-dbg` subpackage, it will by default gain a dependency
+on their parent (i.e. unprefixed) package automatically. If you want to add
+more dependencies, you can append. If you do not want the parent package
+dependency, e.g. when the package is special and does not have a parent,
+you can just overwrite it.
 
 <a id="template_options"></a>
 ### Template Options
