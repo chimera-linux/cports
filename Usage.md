@@ -177,7 +177,7 @@ If you are familiar with `xbps-src`, these are the main conceptual differences:
 You will need to generate a signing key. You can do that like this:
 
 ```
-$ ./cbuild.py keygen
+$ ./cbuild keygen
 ```
 
 You can optionally pass your own private key name or path as an argument. If
@@ -207,7 +207,7 @@ order to do that, please refer to the [bootstrapping](#bootstrapping) section.
 To create a build root:
 
 ```
-$ ./cbuild.py binary-bootstrap
+$ ./cbuild binary-bootstrap
 ```
 
 By default, this will be `bldroot` inside your `cports` directory. If you have
@@ -222,7 +222,7 @@ Then, the only thing left to do is to pick a package to build. Let's say, `awk`
 from the `main` category. You need to run this:
 
 ```
-$ ./cbuild.py pkg main/awk
+$ ./cbuild pkg main/awk
 ```
 
 This will parse `main/awk/template.py` and build it according to the metadata
@@ -271,7 +271,7 @@ Chimera uses a 3-stage bootstrap process. It is largely automatic and hidden
 from you. You can invoke it like:
 
 ```
-$ ./cbuild.py bootstrap
+$ ./cbuild bootstrap
 ```
 
 Optionally you can stop the process at a specific stage by passing its number
@@ -326,7 +326,7 @@ This works by fetching a compatible `rootfs` (Void Linux with `musl`) and then
 running regular bootstrap within. It uses `bwrap` for this, so you should never
 run it as `root`.
 
-Any arguments passed to the script are passed to `cbuild.py`. This is most useful
+Any arguments passed to the script are passed to `cbuild`. This is most useful
 for passing the number of build jobs (e.g. `-j16` to use 16 threads). You can not
 use it to pass the stage number directly like you can pass to `bootstrap`, since
 the positional and optional arguments are order sensitive (positional arguments
@@ -351,7 +351,7 @@ you already have. This will make it proceed instead.
 
 If the process fails during any other stage, you no longer need to use the script
 (though there is nothing preventing you from doing so). Once stage 0 is finished,
-you already have a suitable root in place, so you can run `cbuild.py bootstrap`
+you already have a suitable root in place, so you can run `cbuild bootstrap`
 directly in your own system.
 
 <a id="cbuild_reference"></a>
@@ -360,7 +360,7 @@ directly in your own system.
 Every `cbuild` action consists of the following:
 
 ```
-$ ./cbuild.py [optional arguments] COMMAND [command arguments]
+$ ./cbuild [optional arguments] COMMAND [command arguments]
 ```
 
 The order of reading settings is the following:
@@ -491,7 +491,7 @@ Cross compiling is nearly identical to compiling natively. You just need to
 do something like this:
 
 ```
-$ ./cbuild.py -a aarch64 pkg main/zlib
+$ ./cbuild -a aarch64 pkg main/zlib
 ```
 
 The system will automatically take care of setting up an architecture sysroot

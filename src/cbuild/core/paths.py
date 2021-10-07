@@ -4,7 +4,7 @@ import pathlib
 
 _stage = 2
 
-def init(distdir, rootdir, rdir, ardir, sdir, cdir):
+def init(cbuildir, distdir, rootdir, rdir, ardir, sdir, cdir):
     global _ddir, _bdir, _rdir, _ardir, _srcs, _cbdir, _ccdir
 
     cwd = pathlib.Path.cwd()
@@ -18,7 +18,7 @@ def init(distdir, rootdir, rdir, ardir, sdir, cdir):
     _srcs = (cwd / sdir).resolve()
     _ccdir = (cwd / cdir).resolve()
 
-    _cbdir = _ddir / "cbuild"
+    _cbdir = pathlib.Path(cbuildir) / "cbuild"
 
 def reinit_buildroot(rootdir, stage):
     global _bdir

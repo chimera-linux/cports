@@ -82,7 +82,7 @@ which is controlled and highly restricted.
 You can invoke `cbuild` to build the software like this:
 
 ```
-$ ./cbuild.py pkg main/foo
+$ ./cbuild pkg main/foo
 ```
 
 The result will be a local repository containing the binary packages.

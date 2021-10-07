@@ -157,7 +157,7 @@ _parser = None
 def init():
     from cbuild.core import paths
     global _parser
-    _parser = SPDXParser(paths.distdir() / "cbuild/spdx")
+    _parser = SPDXParser(paths.cbuild() / "spdx")
 
 def validate(str):
     _parser.parse(str)

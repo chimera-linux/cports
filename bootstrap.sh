@@ -12,7 +12,7 @@
 # it is safe to remove bldroot-stage0 on failure. During any other
 # stage, you should only remove the builddir/destdir inside.
 #
-# Additional options passed to this script are passed to cbuild.py. This
+# Additional options passed to this script are passed to cbuild. This
 # is most useful to set the number of jobs (e.g. -j16).
 #
 
@@ -134,7 +134,7 @@ xbps-install -y base-devel clang lld libcxx-devel llvm-libunwind-devel \
                 cmake meson pkgconf bmake ninja byacc flex perl m4 || exit 1
 
 cd /cports
-python3 cbuild.py "\$@" bootstrap ${BOOTSTRAP_STAGE}
+./cbuild "\$@" bootstrap ${BOOTSTRAP_STAGE}
 EOF
 
 bwrap --unshare-user \
