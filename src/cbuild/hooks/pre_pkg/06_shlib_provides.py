@@ -41,8 +41,7 @@ def invoke(pkg):
         soname = soname[:eq]
         sfx = soname[eq + 1:]
         soset[soname] = True
-        logger.get().out_plain(f"   SONAME {soname} (explicit)")
-        asonames.append((soname, sfx))
+        logger.get().out_plain(f"   SONAME {soname}={sfx} (explicit)")
 
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)

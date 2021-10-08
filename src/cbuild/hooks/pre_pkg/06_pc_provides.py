@@ -1,4 +1,4 @@
-from cbuild.core import chroot
+from cbuild.core import chroot, logger
 from cbuild.apk import cli
 
 import re
@@ -8,6 +8,19 @@ def invoke(pkg):
         return
 
     pcs = {}
+    pcset = {}
+
+    for p in pkg.provides:
+        if not p.startswith("pc:"):
+            continue
+        pcname = p[3:]
+        eq = pcname.find("=")
+        if eq < 0:
+            pkg.error(f"invalid explicit .pc file: {soname}")
+        pcname = pcname[:eq]
+        sfx = pcname[eq + 1:]
+        pcset[pcname] = True
+        logger.get().out_plain(f"   pc: {pcname}={sfx} (explicit)")
 
     def scan_pc(v):
         fn = v.name
@@ -16,11 +29,12 @@ def invoke(pkg):
         if sn in pcs:
             pkg.error(f"multiple paths provide one .pc: {fn}")
         # we will be scanning in-chroot
-        cdv = pkg.chroot_destdir / v.relative_to(pkg.destdir)
+        rlp = v.relative_to(pkg.destdir).parent
+        cdv = pkg.chroot_destdir / rlp
         pcc = chroot.enter(
             "pkg-config", ["--modversion", sn], capture_out = True,
             env = {
-                "PKG_CONFIG_PATH": str(cdv.parent),
+                "PKG_CONFIG_PATH": str(cdv),
                 "PKG_CONFIG_MAXIMUM_TRAVERSE_DEPTH": "1",
             }
         )
@@ -35,7 +49,13 @@ def invoke(pkg):
         # fallback
         if len(mver) == 0:
             mver = "0"
-        pcs[sn] = f"{sn}={mver}"
+        if sn in pcset:
+            logger.get().out_plain(
+                f"   pc: {sn}={mver} from {rlp} (skipped)"
+            )
+        else:
+            pcs[sn] = f"{sn}={mver}"
+            logger.get().out_plain(f"   pc: {sn}={mver} from {rlp}")
 
     for f in pkg.destdir.glob("usr/lib/pkgconfig/*.pc"):
         scan_pc(f)
