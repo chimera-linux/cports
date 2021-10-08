@@ -162,11 +162,10 @@ accepted from the community.
 **Tier 2 targets:**
 
 * `riscv64`
-* `ppc64`
 
 **Tier 3 targets:**
 
-* Currently none.
+* `ppc64`
 
 **Tier4 targets:**
 
