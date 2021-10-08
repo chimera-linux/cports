@@ -496,8 +496,10 @@ Keep in mind that default values may be overridden by build styles.
   a version fallback) and commands (like `cmd:foo`). This is notably
   useful when combined with the `!scanpkgconf` option and so on.
   It can also be used to provide extra shared libraries. This needs
-  to be versioned (e.g. `so:libfoo.so.1=1.4.2`). You can likewise use
-  `0` as a fallback there. Typically, you will not use this as the shared
+  to be versioned with the full version of the shared library (you can
+  infer that from the filename, e.g. `so:libfoo.so.1=1.4.2` when you have
+  `libfoo.so.1` `SONAME` and full name `libfoo.so.1.4.2`). You can likewise
+  use `0` as a fallback there. Typically, you will not use this as the shared
   library scanning is automatic; but sometimes libraries provide either a
   non-conforming `SONAME` which the scanner does not pick up, or the
   scanner is disabled explicitly.
