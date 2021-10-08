@@ -16,8 +16,11 @@ sha256 = ["167321f43c148a553f68a0ea7f579821ef3b11c27b8cbe158e4df897e4a5dd57"]
 
 options = ["bootstrap", "!check", "!lint"]
 
+if not current.bootstrapping:
+    hostmakedepends = ["pkgconf"]
+
 if current.cross_build:
-    hostmakedepends = ["file"]
+    hostmakedepends += ["file"]
 
 def post_install(self):
     self.install_license("COPYING")

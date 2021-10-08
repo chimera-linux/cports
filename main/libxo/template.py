@@ -12,6 +12,9 @@ sha256 = ["9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"]
 
 options = ["bootstrap", "!check", "!lint"]
 
+if not current.bootstrapping:
+    hostmakedepends = ["pkgconf"]
+
 def post_patch(self):
     self.mkdir("libxo/sys")
     self.cp(self.files_path / "queue.h", "libxo/sys")

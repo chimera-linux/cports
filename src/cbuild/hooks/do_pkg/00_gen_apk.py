@@ -73,6 +73,15 @@ def genpkg(
             if hasattr(pkg, "so_requires"):
                 metadata["shlib_requires"] = pkg.so_requires
 
+            if hasattr(pkg, "pc_provides"):
+                metadata["pc_provides"] = pkg.pc_provides
+
+            if hasattr(pkg, "cmd_provides"):
+                metadata["cmd_provides"] = pkg.cmd_provides
+
+            if hasattr(pkg, "pc_requires"):
+                metadata["pc_requires"] = pkg.pc_requires
+
             mhooks = []
             for h in _hooks:
                 hf = pkg.rparent.template_path / (pkg.pkgname + "." + h)

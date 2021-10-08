@@ -293,6 +293,8 @@ default_options = {
     "keepempty": (False, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
+    "scanpkgconf": (True, False),
+    "scancmd": (True, False),
     "textrels": (False, True),
     "parallel": (True, True),
     "debug": (True, True),

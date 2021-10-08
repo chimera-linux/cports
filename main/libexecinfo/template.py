@@ -2,6 +2,7 @@ pkgname = "libexecinfo"
 pkgver = "1.1"
 pkgrel = 0
 build_style = "makefile"
+hostmakedepends = ["pkgconf"]
 make_build_args = ["PREFIX=/usr"]
 pkgdesc = "BSD licensed clone of the GNU libc backtrace facility"
 maintainer = "q66 <q66@chimera-linux.org>"

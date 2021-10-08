@@ -15,6 +15,9 @@ sha256 = ["72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056"]
 
 options = ["bootstrap", "!check", "!lint"]
 
+if not current.bootstrapping:
+    hostmakedepends = ["pkgconf"]
+
 def post_install(self):
     self.install_license("LICENSE")
 

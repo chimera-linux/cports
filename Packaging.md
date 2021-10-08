@@ -487,7 +487,10 @@ Keep in mind that default values may be overridden by build styles.
   conflict with other packages of this name. If the version part is
   not provided, several packages of that name may be installed, but
   none of them will be considered by default; instead, an error message
-  will be given and the user will need to choose.
+  will be given and the user will need to choose. Additionally, it can
+  be used to provide `pc` files (like `pc:foo=1.0`, you can use `0` as
+  a version fallback) and commands (like `cmd:foo`). This is notably
+  useful when combined with the `!scanpkgconf` option and so on.
 * `sha256` *(list)* A list of SHA256 checksums specified as digest strings
   corresponding to each field in `sources`. Used for verification.
 * `shlib_provides` *(list)* Extra shared libraries to be provided by
@@ -984,6 +987,8 @@ for subpackages separately if needed:
   dependencies, which is usually desirable, but not always.
 * `scanshlibs` *(true)* If disabled, the package will not be scanned for
   shared libraries to be provided by the package.
+* `scanpkgconf` *(true)* If disabled, the package will not be scanned for
+  `.pc` files.
 * `strip` *(true)* If disabled, ELF files in this package will not be
   stripped, which means debug symbols will remain where they are and
   debug package will not be generated.

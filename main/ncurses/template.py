@@ -12,7 +12,7 @@ sha256 = ["30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"]
 options = ["bootstrap", "!check", "!lint"]
 
 if not current.bootstrapping:
-    hostmakedepends = ["gmake"]
+    hostmakedepends = ["pkgconf", "gmake"]
 
 depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
 

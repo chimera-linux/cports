@@ -14,7 +14,7 @@ options = ["bootstrap", "!check", "!lint"]
 make_cmd = "gmake"
 
 if not current.bootstrapping:
-    hostmakedepends = ["gmake"]
+    hostmakedepends = ["pkgconf", "gmake"]
 
 def post_install(self):
     self.install_license("lib/LICENSE")

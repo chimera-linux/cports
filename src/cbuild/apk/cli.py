@@ -107,6 +107,13 @@ def call_chroot(
         pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
     )
 
+def check_version(v):
+    v = subprocess.run(
+        ["apk", "version", "--check", "--quiet", v],
+        capture_output = True
+    )
+    return v.returncode == 0
+
 def summarize_repo(repopath, olist, quiet = False):
     rtimes = {}
     obsolete = []

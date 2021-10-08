@@ -19,7 +19,7 @@ sha256 = ["892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"]
 options = ["bootstrap", "!check", "!lint"]
 
 if not current.bootstrapping:
-    hostmakedepends = ["perl"]
+    hostmakedepends = ["pkgconf", "perl"]
 
 ecargs = {
     "x86_64": ["enable-ec_nistp_64_gcc_128", "linux-x86_64"],
