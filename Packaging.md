@@ -989,6 +989,8 @@ for subpackages separately if needed:
   shared libraries to be provided by the package.
 * `scanpkgconf` *(true)* If disabled, the package will not be scanned for
   `.pc` files.
+* `scancmd` *(true)* If disabled, the package will not be scanned for
+  executable commands.
 * `strip` *(true)* If disabled, ELF files in this package will not be
   stripped, which means debug symbols will remain where they are and
   debug package will not be generated.
