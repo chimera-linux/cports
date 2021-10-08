@@ -211,6 +211,7 @@ def setup_dummy(pkg, rootp):
                     "libunwind-devel=9999-r0",
                     "libexecinfo=9999-r0",
                     "libexecinfo-devel=9999-r0",
+                    "pc:libexecinfo=9999"
                 ],
                 "shlib_provides": [
                     ("libc.so", "0"),
