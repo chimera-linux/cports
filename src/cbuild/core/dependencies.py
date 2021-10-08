@@ -30,6 +30,15 @@ def _srcpkg_ver(pkgn, pkgb):
 
     return cv
 
+def _is_rdep(pn):
+    if pn.startswith("so:"):
+        return False
+    elif pn.startswith("pc:"):
+        return False
+    elif pn.startswith("cmd:"):
+        return False
+    return True
+
 def _setup_depends(pkg):
     hdeps = []
     tdeps = []
@@ -43,7 +52,7 @@ def _setup_depends(pkg):
             crdeps.append((sp.pkgname, x))
 
     for orig, dep in crdeps:
-        if dep.startswith("!"):
+        if dep.startswith("!") or not _is_rdep(x):
             continue
         pn, pv, pop = autil.split_pkg_name(dep)
         if not pn:

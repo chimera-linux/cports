@@ -369,10 +369,6 @@ core_fields = [
     ("env", {}, dict, False, False, False),
     ("debug_level", 2, int, False, False, False),
 
-    # shlibs
-    ("shlib_provides", [], list, False, True, False),
-    ("shlib_requires", [], list, False, True, False),
-
     # packaging
     ("triggers", [], list, False, True, False),
 ]

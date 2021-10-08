@@ -424,7 +424,11 @@ Keep in mind that default values may be overridden by build styles.
 * `depends` *(list)* Runtime dependencies of the package. They are not
   installed in the build container, but are checked for availability (and
   built if missing). While these may be just names, you can also specify
-  constraints (e.g. `foo<=1.0-r1`) and conflicts (`!foo`).
+  constraints (e.g. `foo<=1.0-r1`) and conflicts (`!foo`). You can also
+  specify dependencies on `pkgconf` files (`pc:foo`), executable commands
+  (`cmd:foo`) and shared libraries (`so:libfoo.so.1`, though this is not
+  recommended). Keep in mind that "virtual" dependencies like that are not
+  checked, since they might have multiple providers.
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.
@@ -491,20 +495,14 @@ Keep in mind that default values may be overridden by build styles.
   be used to provide `pc` files (like `pc:foo=1.0`, you can use `0` as
   a version fallback) and commands (like `cmd:foo`). This is notably
   useful when combined with the `!scanpkgconf` option and so on.
+  It can also be used to provide extra shared libraries. This needs
+  to be versioned (e.g. `so:libfoo.so.1=1.4.2`). You can likewise use
+  `0` as a fallback there. Typically, you will not use this as the shared
+  library scanning is automatic; but sometimes libraries provide either a
+  non-conforming `SONAME` which the scanner does not pick up, or the
+  scanner is disabled explicitly.
 * `sha256` *(list)* A list of SHA256 checksums specified as digest strings
   corresponding to each field in `sources`. Used for verification.
-* `shlib_provides` *(list)* Extra shared libraries to be provided by
-  the package. The fields should be 2-tuples; the first element should
-  be the `soname`, the second field the full suffix after `.so` (so
-  e.g. for file `libfoo.so.1.4.2` with `soname` `libfoo.so.1`, this
-  should be `("libfoo.so.1", "1.4.2")`). If there is no suffix after
-  the `.so`, you should use the value `"0"`. If there is no `soname`,
-  you should use the unsuffixed filename (i.e. `libfoo.so`). Typically,
-  you will not use this as the shared library scanning is automatic; but
-  sometimes libraries provide either a non-conforming `SONAME` which the
-  scanner does not pick up, or the scanner is disabled explicitly.
-* `shlib_requires` *(list)* A list of extra shared library dependencies
-  for the package. The values should be the `sonames`, not full filenames.
 * `sources` *(list)* A list of URLs to download and extract (by default).
   The items can be either strings (in which case the filename is inferred
   from the URL itself), 2-tuples or 3-tuples. When a source is a tuple,

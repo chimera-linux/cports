@@ -31,7 +31,15 @@ def invoke(pkg):
     soset = {}
 
     # add explicit provides
-    for soname, sfx in pkg.shlib_provides:
+    for p in pkg.provides:
+        if not p.startswith("so:"):
+            continue
+        soname = p[3:]
+        eq = soname.find("=")
+        if eq < 0:
+            pkg.error(f"invalid explicit shlib: {soname}")
+        soname = soname[:eq]
+        sfx = soname[eq + 1:]
         soset[soname] = True
         logger.get().out_plain(f"   SONAME {soname} (explicit)")
         asonames.append((soname, sfx))

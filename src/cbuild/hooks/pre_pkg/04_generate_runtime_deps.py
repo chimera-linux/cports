@@ -99,6 +99,3 @@ def invoke(pkg):
 
     if broken:
         pkg.error("cannot guess required shlibs")
-
-    # add any explicit deps
-    pkg.so_requires += pkg.shlib_requires
