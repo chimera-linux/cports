@@ -98,6 +98,10 @@ def _scan_so(pkg):
 def _scan_pc(pkg):
     pcreq = {}
 
+    # ugly hack to get around scanning when building pkgconf itself
+    if (pkg.rparent.destdir / "usr/bin/pkg-config").exists():
+        return
+
     def scan_pc(v):
         sn = v.stem
         # we will be scanning in-chroot
@@ -145,23 +149,33 @@ def _scan_pc(pkg):
     def subpkg_provides_pc(pn):
         for sp in pkg.rparent.subpkg_list:
             if (sp.destdir / f"usr/lib/pkgconfig/{pn}.pc").exists():
-                return True
+                return sp.pkgname
             if (sp.destdir / f"usr/share/pkgconfig/{pn}.pc").exists():
-                return True
-        return False
+                return sp.pkgname
+        return None
 
     for k in pcreq:
         pn = pcreq[k]
         # provided by one of ours or by a dependency
-        if subpkg_provides_pc(pn) or cli.is_installed(k, pkg):
+        in_subpkg = subpkg_provides_pc(pn)
+        if in_subpkg or cli.is_installed(k, pkg):
             pkg.pc_requires.append(k)
             # locate the explicit provider
-            prov = cli.get_provider(k, pkg)
-            if prov and prov in pkg.depends:
+            if not in_subpkg:
+                prov = cli.get_provider(k, pkg)
+            else:
+                prov = in_subpkg
+            # this should never happen
+            if not prov:
+                pkg.error(f"   pc: {k} <-> UNKNOWN PACKAGE!")
+            else:
+                log.out_plain(f"   pc: {k} <-> {prov}")
+            # warn about redundancy
+            if prov in pkg.depends:
                 pkg.log_warn(f"redundant runtime dependency '{prov}'")
             continue
         # no provider found
-        pkg.log_warn(f"could not find provider for '{k}' (may need rebuild)")
+        pkg.error(f"   pc: {k} <-> UNKNOWN PACKAGE!")
 
 def invoke(pkg):
     if not pkg.options["scanrundeps"]:
