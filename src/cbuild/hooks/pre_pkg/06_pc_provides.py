@@ -63,10 +63,4 @@ def invoke(pkg):
     for f in pkg.destdir.glob("usr/share/pkgconfig/*.pc"):
         scan_pc(f)
 
-    pcvals = list(pcs.values())
-    pcvals.sort()
-
-    if len(pcvals) == 0:
-        return
-
-    pkg.pc_provides = pcvals
+    pkg.pc_provides = list(pcs.values())

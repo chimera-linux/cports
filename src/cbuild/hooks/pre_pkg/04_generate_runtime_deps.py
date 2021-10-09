@@ -1,14 +1,12 @@
 from cbuild.core import logger, chroot, paths, version
 from cbuild.apk import cli
 
+import re
 import os
 import pathlib
 import subprocess
 
-def invoke(pkg):
-    if not pkg.options["scanrundeps"]:
-        return
-
+def _scan_so(pkg):
     verify_deps = {}
     pkg.so_requires = []
     curelf = pkg.rparent.current_elfs
@@ -97,5 +95,77 @@ def invoke(pkg):
         log.out_plain(f"   SONAME: {dep} <-> {sdep}")
         pkg.so_requires.append(dep)
 
-    if broken:
-        pkg.error("cannot guess required shlibs")
+def _scan_pc(pkg):
+    pcreq = {}
+
+    def scan_pc(v):
+        sn = v.stem
+        # we will be scanning in-chroot
+        rlp = v.relative_to(pkg.destdir).parent
+        cdv = pkg.chroot_destdir / rlp
+        # analyze the .pc file
+        pcc = chroot.enter(
+            "pkg-config", [
+                "--print-requires", "--print-requires-private", sn
+            ],
+            capture_out = True,
+            env = {
+                "PKG_CONFIG_PATH": str(cdv),
+            }
+        )
+        if pcc.returncode != 0:
+            pkg.error("failed scanning .pc files (missing pkgconf?)")
+        # parse the output
+        for ln in pcc.stdout.strip().splitlines():
+            ln = ln.strip().decode()
+            # turn into an apk-compatible format
+            ln = re.sub(r"\s*([<>=]+)\s*", r"\1", ln)
+            # find where the version constraint begins
+            idx = re.search(r"[<>=]", ln)
+            if idx:
+                pname = ln[:idx.start()]
+            else:
+                pname = ln
+            # if self-provided, skip
+            if (pkg.destdir / f"usr/lib/pkgconfig/{pname}.pc").exists():
+                continue
+            elif (pkg.destdir / f"usr/share/pkgconfig/{pname}.pc").exists():
+                continue
+            # external, so depend on it
+            pcreq[ln] = pname
+
+    for f in pkg.destdir.glob("usr/lib/pkgconfig/*.pc"):
+        scan_pc(f)
+
+    for f in pkg.destdir.glob("usr/share/pkgconfig/*.pc"):
+        scan_pc(f)
+
+    pkg.pc_requires = []
+
+    def subpkg_provides_pc(pn):
+        for sp in pkg.rparent.subpkg_list:
+            if (sp.destdir / f"usr/lib/pkgconfig/{pn}.pc").exists():
+                return True
+            if (sp.destdir / f"usr/share/pkgconfig/{pn}.pc").exists():
+                return True
+        return False
+
+    for k in pcreq:
+        pn = pcreq[k]
+        # provided by one of ours or by a dependency
+        if subpkg_provides_pc(pn) or cli.is_installed(k, pkg):
+            pkg.pc_requires.append(k)
+            # locate the explicit provider
+            prov = cli.get_provider(k, pkg)
+            if prov and prov in pkg.depends:
+                pkg.log_warn(f"redundant runtime dependency '{prov}'")
+            continue
+        # no provider found
+        pkg.log_warn(f"could not find provider for '{k}' (may need rebuild)")
+
+def invoke(pkg):
+    if not pkg.options["scanrundeps"]:
+        return
+
+    _scan_so(pkg)
+    _scan_pc(pkg)

@@ -116,19 +116,6 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
             pkg.logger.out_plain(outl)
         pkg.error(f"failed to install dependencies")
 
-def _is_installed(pkgn, pkg = None):
-    if pkg and pkg.build_profile.cross:
-        sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
-        aarch = pkg.build_profile.arch
-    else:
-        sysp = paths.bldroot()
-        aarch = None
-
-    return apki.call(
-        "info", ["--installed", pkgn], None, root = sysp,
-        capture_output = True, arch = aarch, allow_untrusted = True
-    ).returncode == 0
-
 def _is_available(pkgn, pattern, pkg, host = False):
     if not host and pkg.build_profile.cross:
         sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
@@ -161,7 +148,7 @@ def install_toolchain(pkg, signkey):
 
     archn = pkg.build_profile.arch
 
-    if _is_installed(f"base-cross-{archn}"):
+    if apki.is_installed(f"base-cross-{archn}"):
         return
 
     from cbuild.core import build
@@ -227,7 +214,7 @@ def setup_dummy(pkg, rootp):
         if not apki.build_index(repod, epoch, None):
             pkg.error(f"failed to index virtual provider for {archn}")
 
-        if _is_installed(pkgn, pkg):
+        if apki.is_installed(pkgn, pkg):
             acmd = "fix"
         else:
             acmd = "add"
@@ -311,7 +298,7 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     for sver, pkgn in ihdeps:
         # check if already installed
-        if _is_installed(pkgn):
+        if apki.is_installed(pkgn):
             log.out_plain(f"   [host] {pkgn}: installed")
             continue
         # check if available in repository
@@ -336,7 +323,7 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     for sver, pkgn in itdeps:
         # check if already installed
-        if _is_installed(pkgn, pkg):
+        if apki.is_installed(pkgn, pkg):
             log.out_plain(f"   [target] {pkgn}: installed")
             continue
         # check if available in repository

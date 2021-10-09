@@ -107,6 +107,37 @@ def call_chroot(
         pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
     )
 
+def is_installed(pkgn, pkg = None):
+    if pkg and pkg.build_profile.cross:
+        sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
+        aarch = pkg.build_profile.arch
+    else:
+        sysp = paths.bldroot()
+        aarch = None
+
+    return call(
+        "info", ["--installed", pkgn], None, root = sysp,
+        capture_output = True, arch = aarch, allow_untrusted = True
+    ).returncode == 0
+
+def get_provider(thing, pkg):
+    if pkg and pkg.build_profile.cross:
+        sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
+        aarch = pkg.build_profile.arch
+    else:
+        sysp = paths.bldroot()
+        aarch = None
+
+    out = call(
+        "search", ["--quiet", thing], pkg, root = sysp,
+        capture_output = True, arch = aarch, allow_untrusted = True
+    ).stdout.strip().decode()
+
+    if len(out) == 0:
+        return None
+
+    return out
+
 def check_version(v):
     v = subprocess.run(
         ["apk", "version", "--check", "--quiet", v],

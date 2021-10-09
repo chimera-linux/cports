@@ -54,6 +54,7 @@ def genpkg(
             )
 
         if not dbg and len(pkg.provides) > 0:
+            pkg.provides.sort()
             metadata["provides"] = pkg.provides
 
         mdeps = []
@@ -64,22 +65,28 @@ def genpkg(
         else:
             mdeps.append(f"{pkg.pkgname}={pkg.pkgver}-r{pkg.pkgrel}")
 
+        mdeps.sort()
         metadata["depends"] = mdeps
 
         if not dbg:
             if hasattr(pkg, "aso_provides"):
+                pkg.aso_provides.sort(key = lambda x: x[0])
                 metadata["shlib_provides"] = pkg.aso_provides
 
             if hasattr(pkg, "so_requires"):
+                pkg.so_requires.sort()
                 metadata["shlib_requires"] = pkg.so_requires
 
             if hasattr(pkg, "pc_provides"):
+                pkg.pc_provides.sort()
                 metadata["pc_provides"] = pkg.pc_provides
 
             if hasattr(pkg, "cmd_provides"):
+                pkg.cmd_provides.sort()
                 metadata["cmd_provides"] = pkg.cmd_provides
 
             if hasattr(pkg, "pc_requires"):
+                pkg.pc_requires.sort()
                 metadata["pc_requires"] = pkg.pc_requires
 
             mhooks = []
