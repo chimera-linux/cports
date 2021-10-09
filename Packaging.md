@@ -21,6 +21,7 @@ you should not rely on them or expect them to be stable.
   * [Architecture Patterns](#arch_patterns)
   * [Build Styles](#build_styles)
   * [Subpackages](#subpackages)
+  * [Automatic Dependencies](#automatic_deps)
   * [Template Options](#template_options)
   * [Hardening Options](#hardening_options)
   * [Tools and Tool Flags](#tools)
@@ -427,7 +428,9 @@ Keep in mind that default values may be overridden by build styles.
   specify dependencies on `pkgconf` files (`pc:foo`), executable commands
   (`cmd:foo`) and shared libraries (`so:libfoo.so.1`, though this is not
   recommended). Keep in mind that "virtual" dependencies like that are not
-  checked, since they might have multiple providers.
+  checked, since they might have multiple providers. Also, in a lot of cases
+  dependencies are automatic. You should not specify any dependencies that
+  would already be covered by the scanner.
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.
@@ -938,9 +941,107 @@ dependency, e.g. when the package is special and does not have a parent,
 you can just overwrite it.
 
 If any broken symlink in a package or subpackage resolves to another subpackage
-or the main package, a dependency is automatically emitted. That means devel
-packages with `.so` symmlinks automatically gain a dependency on their main
-package, so you do not have to and you should not specify it explicitly.
+or the main package, a dependency is automatically emitted - see the section
+about automatic dependencies below.
+
+<a id="automatic_deps"></a>
+### Automatic Dependencies
+
+The build system includes an automatic dependency scanner. This allows you
+to deal with a lot of what you would ordinarily need to specify by hand.
+
+Packages are scanned for the following:
+
+1) What they provide
+2) What they depend on
+
+Packages can automatically provide:
+
+1) Shared libraries (`.so` files)
+2) `pkg-config` definitions (`.pc` files)
+3) Commands (executables)
+
+Packages can automatically depend on:
+
+1) Shared libraries
+2) `pkg-config` definitions
+3) Symbolic link providers
+
+First, packages are scanned for their shared library dependencies. This is
+done by recursively scanning the package tree for ELF files and inspecting
+their `NEEDED`. This will result in a `SONAME`. This `SONAME` is then
+matched against providers among installed packages. That means providers
+must be installed as `makedepends`.
+
+If a provider is not found, the system will error. Of course, things that
+are provided within the package are skipped. Likewise, if a dependency is
+found in a subpackage of the current build, it is used directly and not
+scanned within repositories.
+
+Shared libraries without `SONAME` can still participate in the resolution
+if they exist directly in `usr/lib` and do not have a suffix beyond `.so`.
+
+During stage 0 bootstrap, the repository is considered in addition to
+already installed packages. This is because we do not have a full build
+root at this point, and lots of things are instead provided from the
+host system at that point.
+
+Once shared libraries are dealt with, the package is scanned for `.pc`
+files. Each `.pc` file is inspected for their `Requires` (public as well
+as private) and dependencies are automatically added as `pc:` dependencies
+into the resulting `apk`. These can be version constrained, the version
+constraint is preserved. The `.pc` files may exist in `usr/lib/pkgconfig`
+and `usr/share/pkgconfig` and nowhere else.
+
+Of course, if the `.pc` file exists within the same package, no dependency
+is added. All `pc:` dependencies that are added are reverse-scanned for
+their providers in the repository (an exception to this is if the `pc:`
+dependency exists in a subpackage). If no provider can be located, the
+system will error.
+
+Lastly, symlink dependencies are scanned. If a broken symlink is encountered
+somewhere in the package, the system will try to resolve it to files in
+other subpackages of the same set. If found, a dependency will be added,
+this dependency is versioned (since all subpackages share a version).
+This is mostly useful so that `-devel` packages can automatically depend
+on whatever they correspond to (since `-devel` packages contain `.so`
+symlinks, which resolve to real files in the runtime package).
+
+Broken symlinks that do not resolve to anything are normally an error. You
+can override it by putting `brokenlinks` in `options`.
+
+Once dependencies are scanned, the package is scanned for provides, so
+that other packages can depend on it.
+
+ELF files with a suffix starting with `.so` are considered for `so:`
+provides. Files with just `.so` suffix participate in this if they exist
+directly in `usr/lib` (as otherwise they may be e.g. plugins and we do
+not want to handle those). Versioned files (e.g. `.so.1`) can be located
+anywhere. If the version contains anything that is not a number, it is
+skipped.
+
+Eligible files are scanned for `SONAME` information. If they do noz provide
+a `SONAME`, the shared library file name itself is used in its place, and
+`0` is used as a version. Otherwise, the version number part of the file
+name is used as the version. So for example, a `SONAME`-less `libfoo.so`
+will make a `so:libfoo.so=0` while a `libfoo.so.1.2.3` with `libfoo.so.1`
+`SONAME` will make a `so:libfoo.so.1=1.2.3`. This information is saved,
+and things can depend on it then.
+
+The package is then scanned for `.pc` files to be provided. Only two paths
+are considered, `usr/lib/pkgconfig` and `usr/share/pkgconfig`. IT is an error
+for the same `.pc` file to exist in both paths. The `.pc` files are scanned
+for version (this version is sanitized, any `-(alpha|beta|rc|pre)` has its
+dash replaced with an underscore to be compliant, and the result is verified
+with `apk`). If no version information is present, `0` is used by default.
+For `foo.pc`, The provide will become `pc:foo=VER`.
+
+Lastly, the package is scanned for command provides. Every file in `usr/bin`
+is a command, and will make a `cmd:foo` for `usr/bin/foo`.
+
+There are some `options` you can use to control this. With `!scanrundeps`,
+no dependencies will be scanned. As for provides, that can be controlled
+with `scanshlibs`, `scanpkgconf` and `scancmd`.
 
 <a id="template_options"></a>
 ### Template Options
@@ -986,6 +1087,9 @@ for subpackages separately if needed:
   from every package. This can be used to override that. It should almost
   never be used. However, there are some cases, notably `base-files`, where
   keeping empty directories is intended.
+* `brokenlinks` *(false)* By default, broken symlinks that cannot be resolved
+  within any subpackage will result in an error. You can override this behavior
+  but usually shouldn't.
 * `scanrundeps` *(true)* This specifies whether automatic runtime dependencies
   are scanned for the package. By default, ELF files are scanned for their
   dependencies, which is usually desirable, but not always.
