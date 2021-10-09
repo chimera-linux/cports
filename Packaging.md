@@ -931,11 +931,16 @@ rather than the main package, and the default description will thus be wrong.
 In those cases, you should override it while following the conventions.
 
 Additionally, `depends` is special for subpackages. If the subpackage is a
-`-devel`, `-doc` or `-dbg` subpackage, it will by default gain a dependency
-on their parent (i.e. unprefixed) package automatically. If you want to add
-more dependencies, you can append. If you do not want the parent package
+`-doc` or `-dbg` subpackage, it will by default gain a dependency on their
+parent (i.e. unprefixed) package automatically. If you want to add more
+dependencies, you can append. If you do not want the parent package
 dependency, e.g. when the package is special and does not have a parent,
 you can just overwrite it.
+
+If any broken symlink in a package or subpackage resolves to another subpackage
+or the main package, a dependency is automatically emitted. That means devel
+packages with `.so` symmlinks automatically gain a dependency on their main
+package, so you do not have to and you should not specify it explicitly.
 
 <a id="template_options"></a>
 ### Template Options

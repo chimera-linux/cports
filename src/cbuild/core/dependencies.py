@@ -52,7 +52,7 @@ def _setup_depends(pkg):
             crdeps.append((sp.pkgname, x))
 
     for orig, dep in crdeps:
-        if dep.startswith("!") or not _is_rdep(x):
+        if dep.startswith("!") or not _is_rdep(dep):
             continue
         pn, pv, pop = autil.split_pkg_name(dep)
         if not pn:

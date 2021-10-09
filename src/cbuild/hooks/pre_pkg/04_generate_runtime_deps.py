@@ -97,6 +97,7 @@ def _scan_so(pkg):
 
 def _scan_pc(pkg):
     pcreq = {}
+    log = logger.get()
 
     # ugly hack to get around scanning when building pkgconf itself
     if (pkg.rparent.destdir / "usr/bin/pkg-config").exists():
@@ -177,9 +178,61 @@ def _scan_pc(pkg):
         # no provider found
         pkg.error(f"   pc: {k} <-> UNKNOWN PACKAGE!")
 
+def _scan_symlinks(pkg):
+    allow_broken = pkg.options["brokenlinks"]
+    log = logger.get()
+
+    subpkg_deps = {}
+
+    for f in pkg.destdir.rglob("*"):
+        # skip non-symlinks
+        if not f.is_symlink():
+            continue
+        # resolve
+        sdest = f.readlink()
+        # normalize to absolute path within destdir
+        if sdest.is_absolute():
+            sdest = pkg.destdir / sdest.relative_to("/")
+        else:
+            sdest = f.parent / sdest
+        # if it resolves, it exists within the package, so skip
+        if sdest.exists():
+            continue
+        # otherwise it's a broken symlink, relativize to destdir
+        sdest = sdest.relative_to(pkg.destdir)
+        # check each subpackage for the file
+        for sp in pkg.rparent.subpkg_list:
+            np = sp.destdir / sdest
+            if np.exists():
+                log.out_plain(f"   symlink: {sdest} <-> {sp.pkgname}")
+                subpkg_deps[sp.pkgname] = True
+                break
+        else:
+            # could be a main package too
+            if (pkg.rparent.destdir / sdest).exists():
+                log.out_plain(f"   symlink: {sdest} <-> {pkg.rparent.pkgname}")
+                subpkg_deps[pkg.rparent.pkgname] = True
+            else:
+                # nothing found
+                if allow_broken:
+                    continue
+                pkg.error("   symlink: {sdest} <-> UNKNOWN PACKAGE!")
+
+    for k in subpkg_deps:
+        kv = f"{k}={pkg.rparent.pkgver}-r{pkg.rparent.pkgrel}"
+        try:
+            # if we have a plain dependency in the list,
+            # replace it with a versioned dependency
+            pkg.depends[pkg.depends.index(k)] = kv
+        except ValueError:
+            # if the exact dependency is already present, skip it
+            if not kv in pkg.depends:
+                pkg.depends.append(kv)
+
 def invoke(pkg):
     if not pkg.options["scanrundeps"]:
         return
 
     _scan_so(pkg)
     _scan_pc(pkg)
+    _scan_symlinks(pkg)

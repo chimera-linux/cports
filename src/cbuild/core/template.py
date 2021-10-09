@@ -291,6 +291,7 @@ default_options = {
     "bootstrap": (False, True),
     "checkroot": (False, True),
     "keepempty": (False, False),
+    "brokenlinks": (False, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),
@@ -928,7 +929,6 @@ class Subpackage(Package):
         # default suffixes
         if name.endswith("-devel"):
             self.pkgdesc += " (development files)"
-            bdep = name.removesuffix("-devel")
         elif name.endswith("-doc"):
             self.pkgdesc += " (documentation)"
             bdep = name.removesuffix("-doc")
