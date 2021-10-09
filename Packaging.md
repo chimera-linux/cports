@@ -60,7 +60,7 @@ to contain any actual functions. For example:
 pkgname = "foo"
 pkgver = "0.99.0"
 pkgrel = 0
-build_style = "gnu_makefile"
+build_style = "makefile"
 pkgdesc = "Simple package"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
