@@ -20,7 +20,7 @@ import shutil
 import builtins
 import configparser
 
-from cbuild.core import logger, chroot, paths, version, profile, spdx
+from cbuild.core import logger, chroot, paths, profile, spdx
 from cbuild.apk import cli
 
 class PackageError(Exception):
@@ -514,9 +514,7 @@ class Template(Package):
                 self.error("missing or invalid field: %s" % fl)
 
     def validate_pkgver(self):
-        try:
-            x = version.Version(f"{self.pkgver}-r{self.pkgrel}")
-        except:
+        if not cli.check_version(f"{self.pkgver}-r{self.pkgrel}"):
             self.error("pkgver has an invalid format")
 
     def validate_pkgdesc(self):

@@ -1,4 +1,4 @@
-from cbuild.core import logger, chroot, paths, version
+from cbuild.core import logger, chroot, paths
 from cbuild.apk import cli
 
 import re

@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths, version
+from cbuild.core import logger, paths
 
 from . import sign
 
@@ -138,12 +138,28 @@ def get_provider(thing, pkg):
 
     return out
 
-def check_version(v):
+def check_version(*args):
     v = subprocess.run(
-        ["apk", "version", "--check", "--quiet", v],
+        ["apk", "version", "--quiet", "--check", *args],
         capture_output = True
     )
     return v.returncode == 0
+
+def compare_version(v1, v2, strict = True):
+    if strict and not check_version(v1, v2):
+        raise Exception("invalid version")
+
+    v = subprocess.run(
+        ["apk", "version", "--quiet", "--test", v1, v2],
+        capture_output = True, check = True
+    ).stdout.strip()
+
+    if v == b"=":
+        return 0
+    elif v == b"<":
+        return -1
+    else:
+        return 1
 
 def summarize_repo(repopath, olist, quiet = False):
     rtimes = {}
@@ -182,13 +198,13 @@ def summarize_repo(repopath, olist, quiet = False):
             else:
                 # same timestamp? should pretty much never happen
                 # take the newer version anyway
-                if version.compare(pf[rd + 1:], ofn[rd + 1:-4]) > 0:
+                if compare_version(pf[rd + 1:], ofn[rd + 1:-4]) > 0:
                     rtimes[pn] = (mt, f.name)
                     obsolete.append(ofn)
                 else:
                     obsolete.append(f.name)
 
-            if version.compare(tov, fromv) < 0 and not quiet:
+            if compare_version(tov, fromv) < 0 and not quiet:
                 logger.get().warn(f"Using lower version ({fromf} => {tof}): newer timestamp...")
 
     for k, v in rtimes.items():

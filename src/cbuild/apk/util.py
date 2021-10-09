@@ -1,4 +1,6 @@
-from cbuild.core import version
+from cbuild.apk import cli
+
+from enum import Enum
 
 import re
 
@@ -56,5 +58,86 @@ def split_pkg_name(s):
 
     return None, None, None
 
-def pkg_match(pkgv, pattern):
-    return version.match(pkgv, pattern)
+class Operator(Enum):
+    LE = 0
+    LT = 1
+    GE = 2
+    GT = 3
+    EQ = 4
+
+_ops = {
+    "<=": Operator.LE,
+    "<":  Operator.LT,
+    ">=": Operator.GE,
+    ">":  Operator.GT,
+    "=":  Operator.EQ
+}
+
+def _op_find(pat):
+    global _ops
+    opid = _ops.get(pat[0:2], None)
+    if not opid:
+        opid = _ops.get(pat[0], None)
+        if not opid:
+            return None, -1
+        return opid, 1
+    return opid, 2
+
+def pkg_match(ver, pattern):
+    sepidx = -1
+
+    for i, c in enumerate(pattern):
+        if c == "<" or c == ">" or c == "=":
+            sepidx = i
+            break
+    else:
+        return False
+
+    # ver must be foo-VERSION where foo matches pattern before the operator
+    if len(ver) <= sepidx or ver[sepidx] != "-":
+        return False
+
+    # names don't match
+    if ver[0:sepidx] != pattern[0:sepidx]:
+        return False
+
+    pattern = pattern[sepidx:]
+    ver = ver[sepidx + 1:]
+
+    sep1, sep1l = _op_find(pattern)
+
+    if sep1 == Operator.GT or sep1 == Operator.GE:
+        sidx = pattern.find("<")
+        if sidx > 0:
+            sep2, sep2l = _op_find(pattern[sidx:])
+            if not sep2:
+                return False
+            cmpv = cli.compare_version(ver, pattern[sidx + sep2l:])
+            # if version is greater, always return
+            if cmpv > 0:
+                return False
+            # for less-than, also return if version is equal
+            if sep2 == Operator.LT and cmpv == 0:
+                return False
+            # substring the version for lower limit cmp
+            pattern = pattern[sep1l:sidx]
+        else:
+            pattern = pattern[sep1l:]
+    else:
+        pattern = pattern[sep1l:]
+
+    # lower limit comparison
+    cmpv = cli.compare_version(ver, pattern)
+
+    if sep1 == Operator.LE and cmpv > 0:
+        return False
+    elif sep1 == Operator.LT and cmpv >= 0:
+        return False
+    elif sep1 == Operator.GE and cmpv < 0:
+        return False
+    elif sep1 == Operator.GT and cmpv <= 0:
+        return False
+    elif sep1 == Operator.EQ and cmpv != 0:
+        return False
+
+    return True
