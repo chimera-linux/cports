@@ -7,14 +7,14 @@ makedepends = [
     "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",
     "musl-fts-devel", "musl-rpmatch-devel", "libxo-devel"
 ]
-pkgdesc = "Alternative to GNU coreutils from FreeBSD"
+pkgdesc = "FreeBSD userland utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/bsdutils"
 source = f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"
 sha256 = "55096a3a3f766b6fee21adf5c9981afe180d70aa43962eed3a6b9aa2a0af354d"
-
-options = ["bootstrap", "!check", "!lint"]
+# no test suite
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
