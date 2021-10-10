@@ -7,7 +7,7 @@ pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
-options = ["!cross", "!lint"]
+options = ["!cross", "brokenlinks"]
 
 _targets = list(filter(
     lambda p: p != current.build_profile.arch,

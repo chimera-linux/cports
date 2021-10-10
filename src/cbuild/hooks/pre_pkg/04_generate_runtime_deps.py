@@ -216,7 +216,7 @@ def _scan_symlinks(pkg):
                 # nothing found
                 if allow_broken:
                     continue
-                pkg.error("   symlink: {sdest} <-> UNKNOWN PACKAGE!")
+                pkg.error(f"   symlink: {sdest} <-> UNKNOWN PACKAGE!")
 
     for k in subpkg_deps:
         kv = f"{k}={pkg.rparent.pkgver}-r{pkg.rparent.pkgrel}"
