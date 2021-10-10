@@ -448,6 +448,8 @@ core_fields_priority = [
     ("broken", True),
 ]
 
+# this will map field names to numerical indexes
+core_fields_map = None
 
 # recognized hardening options
 hardening_fields = {
@@ -627,6 +629,63 @@ class Template(Package):
             self.error("pkgdesc should start with an uppercase letter")
         if len(dstr) > 72:
             self.error("pkgdesc should be no longer than 72 characters")
+
+    def validate_order(self):
+        global core_fields_map
+        # do not validate if not linting
+        if not self.options["lint"]:
+            return
+        # otherwise we need a mapping of var names to indexes
+        if not core_fields_map:
+            core_fields_map = {}
+            # initialize the priority mapping if not done already
+            idx = 0
+            for n, pinc in core_fields_priority:
+                if pinc:
+                    idx += 1
+                core_fields_map[n] = idx
+        # by default assume success
+        succ = True
+        # we must read and parse the file
+        with open(self.template_path / "template.py") as f:
+            midx = 0
+            midx_line = None
+            msg = None
+            for ln in f:
+                # an empty line aborts the lint
+                if ln == "\n":
+                    break
+                sln = ln.strip()
+                # non-empty or commented line skips the line
+                if (len(sln) == 0) or sln.startswith("#"):
+                    continue
+                # a non-assignment skips the line
+                ass = ln.find("=")
+                if ass < 0:
+                    continue
+                # get the assigned name
+                vnm = ln[0:ass].strip()
+                # not an actual name or it starts with underscore, so skip it
+                if not vnm.isidentifier() or vnm.startswith("_"):
+                    continue
+                # unknown variables must go last, so they get a fallback index
+                cidx = core_fields_map.get(vnm, len(core_fields_priority))
+                if cidx < midx:
+                    msg = f"'{midx_line}' should go after '{vnm}'"
+                elif cidx > midx:
+                    midx = cidx
+                    midx_line = vnm
+                    if msg:
+                        succ = False
+                        self.log_red(msg)
+                        msg = None
+            # we have reached the end, print the message if any
+            if msg:
+                succ = False
+                self.log_red(msg)
+        # if failed, error out
+        if not succ:
+            self.error("lint failed: incorrect variable order")
 
     def validate_arch(self):
         bprof = self.build_profile
@@ -1146,6 +1205,7 @@ def from_module(m, ret):
 
     ret.validate_arch()
     ret.validate_pkgdesc()
+    ret.validate_order()
 
     # validate license if we need to
     if ret.options["spdx"]:
