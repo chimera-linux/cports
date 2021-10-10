@@ -6,8 +6,8 @@ pkgdesc = "POSIX-compliant Unix shell, much smaller than GNU bash"
 maintainer = "q66 <daniel@octaforge.org>"
 license = "BSD-3-Clause"
 url = "http://gondor.apana.org.au/~herbert/dash"
-sources = [f"http://gondor.apana.org.au/~herbert/dash/files/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["62b9f1676ba6a7e8eaec541a39ea037b325253240d1f378c72360baa1cbcbc2a"]
+source = f"http://gondor.apana.org.au/~herbert/dash/files/{pkgname}-{pkgver}.tar.gz"
+sha256 = "62b9f1676ba6a7e8eaec541a39ea037b325253240d1f378c72360baa1cbcbc2a"
 
 options = ["bootstrap", "!check", "!lint"]
 

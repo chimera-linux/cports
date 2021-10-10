@@ -42,8 +42,8 @@ pkgdesc = "Low Level Virtual Machine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
-sources = [f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"]
-sha256 = ["9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"]
+source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
+sha256 = "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"
 
 options = ["bootstrap", "!check", "!lint"]
 

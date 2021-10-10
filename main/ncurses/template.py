@@ -7,8 +7,8 @@ pkgdesc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.gnu.org/software/ncurses"
-sources = [f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"]
+source = f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"
+sha256 = "30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"
 options = ["bootstrap", "!check", "!lint"]
 
 if not current.bootstrapping:

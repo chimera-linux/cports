@@ -9,8 +9,8 @@ pkgdesc = "PaX aware and related utilities for ELF binaries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://cgit.gentoo.org/proj/pax-utils.git"
-sources = [f"https://gentoo.osuosl.org/sources/{pkgname}-{pkgver}.tar.xz"]
-sha256 = ["02eba0c305ad349ad6ff1f30edae793061ce95680fd5bdee0e14caf731dee1e7"]
+source = f"https://gentoo.osuosl.org/sources/{pkgname}-{pkgver}.tar.xz"
+sha256 = "02eba0c305ad349ad6ff1f30edae793061ce95680fd5bdee0e14caf731dee1e7"
 
 options = ["!check", "!lint"]
 

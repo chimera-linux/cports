@@ -14,8 +14,8 @@ pkgdesc = "Cross-platform, open source build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
-sources = [f"https://www.cmake.org/files/v{_mver}/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["4d008ac3461e271fcfac26a05936f77fc7ab64402156fb371d41284851a651b8"]
+source = f"https://www.cmake.org/files/v{_mver}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "4d008ac3461e271fcfac26a05936f77fc7ab64402156fb371d41284851a651b8"
 
 # prevent cmake self-bootstrap false positive nonsense
 tool_flags = {

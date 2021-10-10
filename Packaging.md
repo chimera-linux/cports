@@ -65,8 +65,8 @@ pkgdesc = "Simple package"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://foo.software"
-sources = [f"https://foo.software/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["ad031c86b23ed776697f77f1a3348cd7129835965d4ee9966bc50e65c97703e8"]
+source = f"https://foo.software/{pkgname}-{pkgver}.tar.gz"
+sha256 = "ad031c86b23ed776697f77f1a3348cd7129835965d4ee9966bc50e65c97703e8"
 ```
 
 Of course, often a template will be a lot more complicated than this, as
@@ -231,13 +231,13 @@ the `builddir` and is created automatically.
   is prepared and target dependencies are installed in it.
 
 * `fetch` During `fetch`, required files are downloaded as defined by the
-  `sources` template variable by default (or the `do_fetch` function of
+  `source` template variable by default (or the `do_fetch` function of
   the template in rare cases). The builtin download behavior runs outside
   of the sandbox as pure Python code. When overridden with `do_fetch`, it
   also overlaps with the `extract` stage as the function is supposed to
   prepare the `builddir` like `extract` would.
 
-* `extract` All defined `sources` are extracted. The builtin behavior
+* `extract` All defined sources are extracted. The builtin behavior
   runs inside of the sandbox, except when bootstrapping. It populates
   the `self.wrksrc`.
 
@@ -505,19 +505,21 @@ Keep in mind that default values may be overridden by build styles.
   library scanning is automatic; but sometimes libraries provide either a
   non-conforming `SONAME` which the scanner does not pick up, or the
   scanner is disabled explicitly.
-* `sha256` *(list)* A list of SHA256 checksums specified as digest strings
-  corresponding to each field in `sources`. Used for verification.
-* `sources` *(list)* A list of URLs to download and extract (by default).
-  The items can be either strings (in which case the filename is inferred
-  from the URL itself), 2-tuples or 3-tuples. When a source is a tuple,
-  it can have the filename explicitly specified as the second field, with
-  the first field being the URL. The third field (or second field, in which
-  case the filename is inferred from the URL) can be a boolean. If this is
-  `False`, the source file will not be extracted (using `True` will result
-  in the default behavior). Otherwise, the files will be extracted into
-  `self.wrksrc` in a way so that if extraction yields just a single regular
-  directory, the contents of that will go in the `self.wrksrc`, otherwise
-  the extracted files/directories are moved into the directory.
+* `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
+  as a string) specified as digest strings corresponding to each field in
+  `source`. Used for verification.
+* `source` *(list or str or tuple)* A list of URLs to download and extract
+  (by default). The items can be either strings (in which case the filename
+  is inferred from the URL itself), 2-tuples or 3-tuples. In case of a single
+  source, the variable itself can be a string or tuple as if it was the item.
+  When a source is a tuple, it can have the filename explicitly specified as
+  the second field, with the first field being the URL. The third field (or
+  second field, in which case the filename is inferred from the URL) can be
+  a boolean. If this is `False`, the source file will not be extracted (using
+  `True` will result in the default behavior). Otherwise, the files will be
+  extracted into `self.wrksrc` in a way so that if extraction yields just a
+  single regular directory, the contents of that will go in the `self.wrksrc`,
+  otherwise the extracted files/directories are moved into the directory.
 * `subpackages` *(list)* A list of subpackages the template provides. The
   list must contain two-tuples of subpackage name and a function defining
   the subpackage. In most cases, you do not need to specify this explicitly.

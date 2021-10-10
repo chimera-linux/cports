@@ -80,10 +80,10 @@ def invoke(pkg):
     if not srcdir.is_dir():
         pkg.error(f"'{srcdir}' is not a directory")
 
-    if len(pkg.sources) != len(pkg.sha256):
+    if len(pkg.source) != len(pkg.sha256):
         pkg.error(f"sha256sums do not match sources")
 
-    for dc in zip(pkg.sources, pkg.sha256):
+    for dc in zip(pkg.source, pkg.sha256):
         d, ck = dc
         url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
@@ -96,10 +96,10 @@ def invoke(pkg):
                 pkg.log_warn(f"wrong sha256 found for {fname} - purging")
                 # TODO
 
-    if len(pkg.sources) == dfgood:
+    if len(pkg.source) == dfgood:
         return
 
-    for dc in zip(pkg.sources, pkg.sha256):
+    for dc in zip(pkg.source, pkg.sha256):
         d, ck = dc
         url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname

@@ -13,8 +13,8 @@ pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OpenSSL"
 url = "https://www.openssl.org"
-sources = [f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"]
-sha256 = ["892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"]
+source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
+sha256 = "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
 
 options = ["bootstrap", "!check", "!lint"]
 

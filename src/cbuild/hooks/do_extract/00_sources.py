@@ -102,7 +102,7 @@ def invoke(pkg):
         # need to be able to manipulate it
         extractdir = pathlib.Path(extractdir)
         # go over each source and ensure extraction in the dir
-        for d in pkg.sources:
+        for d in pkg.source:
             doext = None
             # check if to skip extraction
             if isinstance(d, tuple):

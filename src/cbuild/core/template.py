@@ -329,8 +329,8 @@ core_fields = [
     ("build_style", None, str, False, False, False),
 
     # sources
-    ("sha256", [], list, False, False, False),
-    ("sources", [], list, False, False, False),
+    ("sha256", [], (list, str), False, False, False),
+    ("source", [], (list, str, tuple), False, False, False),
 
     # target support
     ("archs", None, str, False, False, False),
@@ -397,6 +397,19 @@ def copy_of_dval(val):
     if isinstance(val, dict):
         return dict(val)
     return val
+
+def validate_type(val, tp):
+    if not tp:
+        return True
+    if isinstance(tp, tuple):
+        for rt in tp:
+            if isinstance(val, rt):
+                break
+        else:
+            return False
+    elif not isinstance(val, tp):
+        return False
+    return True
 
 def pkg_profile(pkg, target):
     if pkg.bootstrapping and (target == "host" or target == "target"):
@@ -510,7 +523,9 @@ class Template(Package):
             if not mand:
                 break
             # basic validation of type
-            if not hasattr(self, fl) or not isinstance(getattr(self, fl), tp):
+            if not hasattr(self, fl) or not validate_type(
+                getattr(self, fl), tp
+            ):
                 self.error("missing or invalid field: %s" % fl)
 
     def validate_pkgver(self):
@@ -1039,7 +1054,7 @@ def from_module(m, ret):
         # also perform type validation
         if hasattr(m, fl):
             flv = getattr(m, fl)
-            if tp and not isinstance(flv, tp):
+            if not validate_type(flv, tp):
                 ret.error("invalid field value: %s" % fl)
             # validated, set
             setattr(ret, fl, flv)
@@ -1121,10 +1136,6 @@ def from_module(m, ret):
         if hasattr(m, "post_" + phase):
             setattr(ret, "post_" + phase, getattr(m, "post_" + phase))
 
-    # pre_pkg from template
-    if hasattr(m, "pre_pkg"):
-        ret.pre_pkg = m.pre_pkg
-
     # paths that can be used by template methods
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
@@ -1200,14 +1211,14 @@ def from_module(m, ret):
             if not asp:
                 continue
             flv = getattr(sp, fl)
-            if tp and not isinstance(flv, tp):
+            if not validate_type(flv, tp):
                 ret.error("invalid field value: %s" % fl)
         # validate build-style fields
         for fl, dval, tp, asp, inh in ret.build_style_fields:
             if not asp:
                 continue
             flv = getattr(sp, fl)
-            if tp and not isinstance(flv, tp):
+            if not validate_type(flv, tp):
                 ret.error("invalid field value: %s" % fl)
 
         # deal with options
@@ -1296,6 +1307,12 @@ def from_module(m, ret):
             ret.tools["OBJCOPY"] = "llvm-objcopy"
         if not "READELF" in ret.tools:
             ret.tools["READELF"] = "llvm-readelf"
+
+    # ensure sources and checksums are a list
+    if not isinstance(ret.source, list):
+        ret.source = [ret.source]
+    if isinstance(ret.sha256, str):
+        ret.sha256 = [ret.sha256]
 
     return ret
 
