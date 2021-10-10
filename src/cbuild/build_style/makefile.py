@@ -28,7 +28,7 @@ def do_build(self):
     self.make.build(tool_args)
 
 def do_check(self):
-    pass
+    self.make.check()
 
 def do_install(self):
     self.make.install(["STRIP=true", "PREFIX=/usr"])
