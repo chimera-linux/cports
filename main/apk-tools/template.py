@@ -14,7 +14,7 @@ url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"http://git.alpinelinux.org/cgit/{pkgname}/snapshot/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "a3cbabbcd3072f197b19f85e13e526b8b769d1e537f8156457b1779bcc9300fe"
 
-options = ["bootstrap", "!check", "!lint"]
+options = ["bootstrap"]
 
 tool_flags = {
     "CFLAGS": ["-Wno-error"]
@@ -25,17 +25,10 @@ if not current.bootstrapping:
 
 @subpackage("apk-tools-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return [
-        "usr/include",
-        "usr/lib/*.so",
-        "usr/lib/*.a",
-        "usr/lib/pkgconfig",
-    ]
+    return self.default_devel(man = True)
 
 @subpackage("apk-tools-static")
 def _static(self):
-    self.pkgdesc = f"{pkgdesc} (static build)"
+    self.pkgdesc += " (static build)"
 
     return ["usr/bin/apk.static"]
