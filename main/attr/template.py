@@ -19,19 +19,6 @@ options = ["bootstrap"]
 if not current.bootstrapping:
     hostmakedepends = ["pkgconf"]
 
-def pre_check(self):
-    # Either the test wasn't updated or the package misconfigures/miscompiles
-    # the error message in musl based systems
-    # EXPECTED: Operation not supported
-    # RECIEVED: Not supported
-    with open(self.cwd / "test/attr.test") as ifile:
-        with open(self.cwd / "test/attr.test.new", "w") as ofile:
-            for ln in ifile:
-                ln = ln.replace("f: Operation n", "f: N")
-                ofile.write(ln)
-
-    self.mv("test/attr.test.new", "test/attr.test")
-
 @subpackage("attr-devel")
 def _devel(self):
     return self.default_devel(man = True, extra = ["usr/share/doc"])
