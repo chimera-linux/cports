@@ -372,6 +372,17 @@ core_fields = [
 
     # packaging
     ("triggers", [], list, False, True, False),
+
+    # fields relating to build fields
+
+    # cmake
+    ("cmake_dir", None, str, False, False, False),
+
+    # makefile
+    ("make_use_env", False, bool, False, False, False),
+
+    # meson
+    ("meson_dir", ".", str, False, False, False),
 ]
 
 # recognized hardening options
@@ -928,14 +939,6 @@ class Subpackage(Package):
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
-        for fl, dval, tp, sp, inh in parent.build_style_fields:
-            if not sp:
-                continue
-            if inh:
-                setattr(self, fl, copy_of_dval(getattr(parent, fl)))
-            else:
-                setattr(self, fl, copy_of_dval(dval))
-
         ddeps = []
         bdep = None
 
@@ -1096,7 +1099,6 @@ def from_module(m, ret):
     else:
         ret.make_jobs = ret.conf_jobs
 
-    ret.build_style_fields = []
     ret.build_style_defaults = []
 
     if ret.build_style:
@@ -1105,18 +1107,6 @@ def from_module(m, ret):
     # perform initialization
     if hasattr(m, "init"):
         m.init(ret)
-
-    # like above but for build-style specific fields
-    for fl, dval, tp, sp, inh in ret.build_style_fields:
-        if not hasattr(m, fl):
-            setattr(ret, fl, copy_of_dval(dval))
-            continue
-
-        flv = getattr(m, fl)
-        if tp and not isinstance(flv, tp):
-            ret.error("invalid field value: %s" % fl)
-        # validated, set
-        setattr(ret, fl, flv)
 
     # set default fields for build_style if not set by template
     for fl, dval in ret.build_style_defaults:
@@ -1208,13 +1198,6 @@ def from_module(m, ret):
             sp.pkg_install = pinst
         # validate fields
         for fl, dval, tp, mand, asp, inh in core_fields:
-            if not asp:
-                continue
-            flv = getattr(sp, fl)
-            if not validate_type(flv, tp):
-                ret.error("invalid field value: %s" % fl)
-        # validate build-style fields
-        for fl, dval, tp, asp, inh in ret.build_style_fields:
             if not asp:
                 continue
             flv = getattr(sp, fl)

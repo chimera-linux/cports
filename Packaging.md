@@ -536,6 +536,10 @@ Keep in mind that default values may be overridden by build styles.
   if any package changes anything in those paths, the trigger script for
   this package should run.
 
+Additionally, there is a variety of variables that are not generic but rather
+are used by specific build styles. They are listed and described in each
+build style's section.
+
 <a id="template_functions"></a>
 ### Template Functions
 
@@ -674,9 +678,6 @@ def use(tmpl):
     tmpl.do_build = do_build
     tmpl.do_install = do_install
 
-    tmpl.build_style_fields = [
-        ("name", "default_value", str, False, False, False)
-    ]
     tmpl.build_style_defaults = [
         ("make_cmd", "mything")
     ]

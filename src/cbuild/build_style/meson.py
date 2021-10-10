@@ -20,9 +20,6 @@ def use(tmpl):
 
     tmpl.make = make.Make(tmpl)
 
-    tmpl.build_style_fields = [
-        ("meson_dir", ".", str, False, False)
-    ]
     tmpl.build_style_defaults = [
         ("make_cmd", "ninja"),
         ("make_build_target", "all"),
