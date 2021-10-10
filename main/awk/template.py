@@ -9,8 +9,8 @@ license = "SMLNJ"
 url = "https://github.com/onetrueawk/awk"
 source = f"https://github.com/onetrueawk/awk/archive/{_commit}.tar.gz"
 sha256 = "8e727fc750fa96898786dc3b5b3206734cc399e4fa9f2d182ab2ad2473f31118"
-
-options = ["bootstrap", "!check", "!lint"]
+# test suite uses local tools that are not present
+options = ["bootstrap", "!check"]
 
 def init_configure(self):
     from cbuild.util import make
@@ -24,6 +24,9 @@ def do_build(self):
                     self.get_ldflags(shell = True) + " -DHAS_ISBLANK",
         "YACC=byacc -H awkgram.tab.h -o awkgram.tab.c",
     ])
+
+def do_check(self):
+    self.make.check()
 
 def do_install(self):
     self.cp("a.out", "awk")
