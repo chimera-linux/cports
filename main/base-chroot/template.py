@@ -13,7 +13,7 @@ depends = [
     "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "chroot-util-linux"
 ]
 
-options = ["bootstrap", "!lint"]
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     depends += ["ccache"]
