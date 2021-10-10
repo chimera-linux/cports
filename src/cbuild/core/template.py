@@ -82,6 +82,7 @@ def redir_allout(logpath):
 # e.g. _submove("foo/bar", "/a", "/b") will move "/b/foo/bar" to "/a/foo/bar"
 #
 def _submove(src, dest, root):
+    src = pathlib.Path(src)
     dirs = src.parent
     fname = src.name
     ddirs = dest / dirs
@@ -1147,8 +1148,10 @@ class Subpackage(Package):
     def take_libs(self):
         self.take("usr/lib/lib*.so.[0-9]*")
 
-    def take_progs(self):
+    def take_progs(self, man = False):
         self.take("usr/bin/*")
+        if man:
+            self.take("usr/share/man/man1", missing_ok = True)
 
     def default_devel(self, man = False, extra = None):
         def func():
@@ -1171,9 +1174,9 @@ class Subpackage(Package):
 
         return func
 
-    def default_progs(self, extra = None):
+    def default_progs(self, man = False, extra = None):
         def func():
-            self.take_progs()
+            self.take_progs(man)
             _default_take_extra(self, extra)
 
         return func

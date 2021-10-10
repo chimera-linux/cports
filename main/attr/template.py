@@ -14,7 +14,7 @@ license = "LGPL-2.1-or-later"
 url = "http://savannah.nongnu.org/projects/attr"
 source = f"$(NONGNU_SITE)/attr/attr-{pkgver}.tar.gz"
 sha256 = "bae1c6949b258a0d68001367ce0c741cebdacdd3b62965d17e5eb23cd78adaf8"
-options = ["bootstrap", "!check", "!lint"]
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     hostmakedepends = ["pkgconf"]
@@ -25,7 +25,7 @@ def pre_check(self):
     # EXPECTED: Operation not supported
     # RECIEVED: Not supported
     with open(self.cwd / "test/attr.test") as ifile:
-        with open(self.cwd / "test/attr.test.new") as ofile:
+        with open(self.cwd / "test/attr.test.new", "w") as ofile:
             for ln in ifile:
                 ln = ln.replace("f: Operation n", "f: N")
                 ofile.write(ln)
@@ -34,21 +34,8 @@ def pre_check(self):
 
 @subpackage("attr-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-        "usr/lib/pkgconfig",
-        "usr/share/man/man3",
-        "usr/share/doc",
-    ]
+    return self.default_devel(man = True, extra = ["usr/share/doc"])
 
 @subpackage("attr-progs")
 def _progs(self):
-    return [
-        "usr/bin",
-        "usr/share/man/man1",
-        "usr/share/locale",
-    ]
+    return self.default_progs(man = True, extra = ["usr/share"])

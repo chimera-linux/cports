@@ -2081,7 +2081,6 @@ for the current coverage.
 
 If `man` is `True`, the package should also contain sections 2 and 3 manpages.
 
-
 ##### def take_doc(self, man = True)
 
 This function will `take` everything that should usually belong in a
@@ -2097,10 +2096,12 @@ This function will `take` everything that should usually belong in a
 `-libs` package. This is all shared libraries in `usr/lib` that start
 with `lib` and follow a regular soname style.
 
-##### def take_progs(self)
+##### def take_progs(self, man = False)
 
 This function will `take` everything that should usually belong in a
 `-progs` package, i.e. all binaries in `usr/bin`.
+
+If `man` is `True`, the package should also contain section 1 manpages.
 
 ##### def default_devel(self, man = False, extra = None)
 
@@ -2137,10 +2138,10 @@ is without argunents.
 A simple lazy wrapper around `take_progs` returning a function that you
 should return from a subpackage (e.g. `return self.default_progs()`).
 
-The `extra` argument can specify additional things to take. If `extra`
-is a `list`, each item in the list is passed to `take()` (without any
-other arguments). Otherwise it is considered a callable and called as
-is without argunents.
+The `man` argument is passed as is to `take_progs`. The `extra` argument
+can specify additional things to take. If `extra` is a `list`, each item
+in the list is passed to `take()` (without any other arguments). Otherwise
+it is considered a callable and called as is without argunents.
 
 <a id="api_util"></a>
 ### Utility API
