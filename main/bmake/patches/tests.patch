@@ -1,0 +1,34 @@
+commit 05c68c9e44726707b5a190e1eed9f5fd3681a8ae
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Mon Oct 11 01:46:38 2021 +0200
+
+    disable broken tests
+
+diff --git a/unit-tests/Makefile b/unit-tests/Makefile
+index b421da5..8da194d 100644
+--- a/unit-tests/Makefile
++++ b/unit-tests/Makefile
+@@ -121,7 +121,6 @@ TESTS+=		deptgt-begin
+ TESTS+=		deptgt-begin-fail
+ TESTS+=		deptgt-begin-fail-indirect
+ TESTS+=		deptgt-default
+-TESTS+=		deptgt-delete_on_error
+ TESTS+=		deptgt-end
+ TESTS+=		deptgt-end-fail
+ TESTS+=		deptgt-end-fail-all
+@@ -221,7 +220,6 @@ TESTS+=		objdir-writable
+ .endif
+ TESTS+=		opt
+ TESTS+=		opt-backwards
+-TESTS+=		opt-chdir
+ TESTS+=		opt-debug
+ TESTS+=		opt-debug-all
+ TESTS+=		opt-debug-archive
+@@ -347,7 +345,6 @@ TESTS+=		varmod-head
+ TESTS+=		varmod-ifelse
+ TESTS+=		varmod-indirect
+ TESTS+=		varmod-l-name-to-value
+-TESTS+=		varmod-localtime
+ TESTS+=		varmod-loop
+ TESTS+=		varmod-loop-varname
+ TESTS+=		varmod-match

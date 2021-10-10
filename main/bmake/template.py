@@ -7,8 +7,7 @@ license = "BSD-3-Clause"
 url = "http://www.crufty.net/help/sjg/bmake.html"
 source = f"http://www.crufty.net/ftp/pub/sjg/bmake-{pkgver}.tar.gz"
 sha256 = "47e551293843d504fe4197413aa6d7ee003090669ac200932ff40e9ccb4658aa"
-
-options = ["bootstrap", "!check", "!lint"]
+options = ["bootstrap"]
 
 def do_build(self):
     self.mkdir("build", parents = True)
@@ -37,3 +36,10 @@ def do_install(self):
     self.install_man("make.1")
     self.install_license("LICENSE")
     self.install_link("bmake", "usr/bin/make")
+
+def do_check(self):
+    self.do(
+        self.chroot_cwd / "boot-strap",
+        ["--prefix=/usr", "op=test"],
+        wrksrc = "build"
+    )
