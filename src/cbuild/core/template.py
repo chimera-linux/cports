@@ -385,6 +385,70 @@ core_fields = [
     ("meson_dir", ".", str, False, False, False),
 ]
 
+# a field priority list, the second element indicates whether
+# the field should have a higher priority than its preceeding
+# field (i.e. False means it has the same priority)
+core_fields_priority = [
+    ("pkgname", True),
+    ("pkgver", True),
+    ("pkgrel", True),
+
+    ("archs", True),
+
+    ("build_wrksrc", True),
+    ("build_style", True),
+
+    ("configure_script", True),
+    ("configure_args", True),
+
+    ("make_cmd", True),
+    ("make_dir", True),
+    ("make_build_target", True),
+    ("make_build_args", True),
+    ("make_install_target", True),
+    ("make_install_args", True),
+    ("make_check_target", True),
+    ("make_check_args", True),
+
+    ("make_use_env", True),
+    ("cmake_dir", False),
+    ("meson_dir", False),
+
+    ("hostmakedepends", True),
+    ("makedepends", True),
+    ("checkdepends", True),
+    ("depends", True),
+
+    ("provides", True),
+    ("triggers", True),
+
+    ("pkgdesc", True),
+    ("maintainer", True),
+    ("license", True),
+    ("url", True),
+
+    ("subpackages", True),
+
+    ("source", True),
+    ("sha256", True),
+
+    ("debug_level", True),
+    ("patch_args", True),
+    ("tools", True),
+    ("tool_flags", True),
+    ("env", True),
+
+    ("nostrip_files", True),
+    ("nopie_files", True),
+    ("suid_files", True),
+
+    ("hardening", True),
+    ("options", True),
+
+    ("broken", True),
+]
+
+
 # recognized hardening options
 hardening_fields = {
     "fortify": True,
