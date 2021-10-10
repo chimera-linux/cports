@@ -453,6 +453,8 @@ The following commands are recognized:
 * `remove-autodeps` Remove automatic dependencies possibly installed in the
   build root.
 * `zap` Remove the build root.
+* `lint` Read and parse the template, and do lint checks on it. Do nothing
+  else. Error on failures.
 * `fetch`, `extract`, `patch`, `configure`, `build`, `check`, `install`, `pkg`
   Given an argument of template path (`category/name`) this will invoke the
   build process for the given template up until the given phase. The `pkg`

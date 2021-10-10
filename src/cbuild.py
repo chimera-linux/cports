@@ -439,6 +439,16 @@ def do_prune_obsolete(tgt):
         reposet[str(repop)] = True
         apk_cli.prune(repop, opt_arch)
 
+def do_lint(tgt):
+    pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
+    # just read it and do nothing else
+    # don't let the skip logic kick in
+    template.read_pkg(
+        pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
+        opt_check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
+        target = "lint"
+    )
+
 def do_pkg(tgt, pkgn = None, force = None):
     if force == None:
         force = opt_force
@@ -478,6 +488,7 @@ try:
         "remove-autodeps": do_remove_autodeps,
         "prune-obsolete": do_prune_obsolete,
         "zap": do_zap,
+        "lint": do_lint,
         "fetch": do_pkg,
         "extract": do_pkg,
         "patch": do_pkg,
