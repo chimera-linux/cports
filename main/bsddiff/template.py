@@ -8,8 +8,8 @@ license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/bsdutils"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "9505436bc26b7a9ba7efed7e67194f1fc21ff3b3b4c968277c96d3da25676ca1"
-
-options = ["bootstrap", "!check", "!lint"]
+# no test suite
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["meson"]
