@@ -1079,7 +1079,8 @@ the template including for subpackages:
   attempting cross compilation.
 * `lint` *(true)* If enabled, the template format will be checked for
   errors before building. This includes correct ordering of fields
-  and other checks.
+  and other checks. It does not check formatting of the template, as
+  that can be handled better with external tools.
 * `spdx` *(true)* If enabled, the license name(s) will be validated
   as SPDX compliant.
 

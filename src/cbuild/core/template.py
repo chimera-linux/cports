@@ -611,7 +611,7 @@ class Template(Package):
 
     def validate_pkgdesc(self):
         # do not validate if not linting
-        if not self.options["lint"]:
+        if self._ignore_errors or not self.options["lint"]:
             return
 
         dstr = self.pkgdesc
@@ -633,7 +633,7 @@ class Template(Package):
     def validate_order(self):
         global core_fields_map
         # do not validate if not linting
-        if not self.options["lint"]:
+        if self._ignore_errors or not self.options["lint"]:
             return
         # otherwise we need a mapping of var names to indexes
         if not core_fields_map:
@@ -1172,6 +1172,22 @@ def from_module(m, ret):
     ret.ensure_fields()
     ret.validate_pkgver()
 
+    # possibly skip very early once we have the bare minimum info
+    if not ret.force_mode and not ret._target:
+        pinfo = cli.call(
+            "search", ["-e", ret.pkgname],
+            ret.repository, capture_output = True,
+            arch = ret.build_profile.arch,
+            allow_untrusted = True, use_altrepo = False
+        )
+        if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
+            foundp = pinfo.stdout.strip().decode()
+            if foundp == f"{ret.pkgname}-{ret.pkgver}-r{ret.pkgrel}":
+                if ret.origin == ret:
+                    # TODO: print the repo somehow
+                    ret.log(f"found ({pinfo.stdout.strip().decode()})")
+                raise SkipPackage()
+
     # fill in core non-mandatory fields
     for fl, dval, tp, mand, sp, inh in core_fields:
         # already set
@@ -1287,21 +1303,6 @@ def from_module(m, ret):
 
     if not hasattr(ret, "do_install"):
         ret.error("do_install is missing")
-
-    if not ret.force_mode and not ret._target:
-        pinfo = cli.call(
-            "search", ["-e", ret.pkgname],
-            ret.repository, capture_output = True,
-            arch = ret.build_profile.arch,
-            allow_untrusted = True, use_altrepo = False
-        )
-        if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
-            foundp = pinfo.stdout.strip().decode()
-            if foundp == f"{ret.pkgname}-{ret.pkgver}-r{ret.pkgrel}":
-                if ret.origin == ret:
-                    # TODO: print the repo somehow
-                    ret.log(f"found ({pinfo.stdout.strip().decode()})")
-                raise SkipPackage()
 
     spdupes = {}
     # link subpackages and fill in their fields
@@ -1427,7 +1428,8 @@ _tmpl_dict = {}
 
 def read_pkg(
     pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
-    origin, resolve = None, ignore_missing = False, target = None
+    origin, resolve = None, ignore_missing = False, ignore_errors = False,
+    target = None
 ):
     global _tmpl_dict
 
@@ -1458,6 +1460,7 @@ def read_pkg(
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs
+    ret._ignore_errors = ignore_errors
     ret._target = target
 
     ret.setup_reproducible()

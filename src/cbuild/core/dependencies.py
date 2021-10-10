@@ -20,7 +20,7 @@ def _srcpkg_ver(pkgn, pkgb):
     rv = template.read_pkg(
         pkgn, pkgb.build_profile.arch,
         True, False, 1, False, False, None,
-        resolve = pkgb, ignore_missing = True
+        resolve = pkgb, ignore_missing = True, ignore_errors = True
     )
     if not rv:
         return None
