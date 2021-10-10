@@ -1045,6 +1045,14 @@ class Template(Package):
         self.log(f"symlinking: {src} -> {dest}")
         dest.symlink_to(src)
 
+def _default_take_extra(self, extra):
+    if extra is not None:
+        if isinstance(extra, list):
+            for v in extra:
+                self.take(v)
+        else:
+            extra()
+
 class Subpackage(Package):
     def __init__(self, name, parent):
         super().__init__()
@@ -1106,7 +1114,7 @@ class Subpackage(Package):
                 pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
             )
 
-    def take_devel(self):
+    def take_devel(self, man = False):
         self.take("usr/bin/*-config", missing_ok = True)
         self.take("usr/lib/*.a", missing_ok = True)
         self.take("usr/lib/*.so", missing_ok = True)
@@ -1121,10 +1129,13 @@ class Subpackage(Package):
         self.take("usr/share/vala/vapi", missing_ok = True)
         self.take("usr/share/gir-[0-9]*", missing_ok = True)
         self.take("usr/share/glade/catalogs", missing_ok = True)
+        if man:
+            self.take("usr/share/man/man[23]", missing_ok = True)
 
-    def take_doc(self):
+    def take_doc(self, man = True):
         self.take("usr/share/doc", missing_ok = True)
-        self.take("usr/share/man", missing_ok = True)
+        if man:
+            self.take("usr/share/man", missing_ok = True)
         self.take("usr/share/info", missing_ok = True)
         self.take("usr/share/html", missing_ok = True)
         self.take("usr/share/licenses", missing_ok = True)
@@ -1139,17 +1150,33 @@ class Subpackage(Package):
     def take_progs(self):
         self.take("usr/bin/*")
 
-    def default_devel(self):
-        return lambda: self.take_devel()
+    def default_devel(self, man = False, extra = None):
+        def func():
+            self.take_devel(man)
+            _default_take_extra(self, extra)
 
-    def default_doc(self):
-        return lambda: self.take_devel()
+        return func
 
-    def default_libs(self):
-        return lambda: self.take_libs()
+    def default_doc(self, man = True, extra = None):
+        def func():
+            self.take_doc(man)
+            _default_take_extra(self, extra)
 
-    def default_progs(self):
-        return lambda: self.take_progs()
+        return func
+
+    def default_libs(self, extra = None):
+        def func():
+            self.take_libs()
+            _default_take_extra(self, extra)
+
+        return func
+
+    def default_progs(self, extra = None):
+        def func():
+            self.take_progs()
+            _default_take_extra(self, extra)
+
+        return func
 
 def _subpkg_install_list(self, l):
     def real_install():

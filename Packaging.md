@@ -2073,17 +2073,23 @@ def _subpkg(self):
     return install
 ```
 
-##### def take_devel(self)
+##### def take_devel(self, man = False)
 
 This function will `take` everything that should usually belong in a
 development package. See the implementation in `cbuild/core/template.py`
 for the current coverage.
 
-##### def take_doc(self)
+If `man` is `True`, the package should also contain sections 2 and 3 manpages.
+
+
+##### def take_doc(self, man = True)
 
 This function will `take` everything that should usually belong in a
 documentation package. See the implementation in `cbuild/core/template.py`
 for the current coverage.
+
+By default, manual pages are included. You can set `man` to `False` to skip
+those.
 
 ##### def take_libs(self)
 
@@ -2096,25 +2102,45 @@ with `lib` and follow a regular soname style.
 This function will `take` everything that should usually belong in a
 `-progs` package, i.e. all binaries in `usr/bin`.
 
-##### def default_devel(self)
+##### def default_devel(self, man = False, extra = None)
 
 A simple lazy wrapper around `take_devel` returning a function that you
 should return from a subpackage (e.g. `return self.default_devel()`).
 
-##### def default_doc(self)
+The `man` argument is passed as is to `take_devel`. The `extra` argument
+can specify additional things to take. If `extra` is a `list`, each item
+in the list is passed to `take()` (without any other arguments). Otherwise
+it is considered a callable and called as is without argunents.
+
+##### def default_doc(self, man = True, extra = None)
 
 A simple lazy wrapper around `take_doc` returning a function that you
 should return from a subpackage (e.g. `return self.default_doc()`).
 
-##### def default_libs(self)
+The `man` argument is passed as is to `take_doc`. The `extra` argument
+can specify additional things to take. If `extra` is a `list`, each item
+in the list is passed to `take()` (without any other arguments). Otherwise
+it is considered a callable and called as is without argunents.
+
+##### def default_libs(self, extra = None)
 
 A simple lazy wrapper around `take_libs` returning a function that you
 should return from a subpackage (e.g. `return self.default_libs()`).
 
-##### def default_progs(self)
+The `extra` argument can specify additional things to take. If `extra`
+is a `list`, each item in the list is passed to `take()` (without any
+other arguments). Otherwise it is considered a callable and called as
+is without argunents.
+
+##### def default_progs(self. extra = None)
 
 A simple lazy wrapper around `take_progs` returning a function that you
 should return from a subpackage (e.g. `return self.default_progs()`).
+
+The `extra` argument can specify additional things to take. If `extra`
+is a `list`, each item in the list is passed to `take()` (without any
+other arguments). Otherwise it is considered a callable and called as
+is without argunents.
 
 <a id="api_util"></a>
 ### Utility API
