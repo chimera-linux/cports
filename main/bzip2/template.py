@@ -7,12 +7,8 @@ license = "custom:bzip2"
 url = "https://sourceware.org/bzip2"
 source = f"https://sourceware.org/pub/bzip2/bzip2-{pkgver}.tar.gz"
 sha256 = "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
-
-options = ["bootstrap", "!check", "!lint"]
-
-tool_flags = {
-    "CFLAGS": ["-fPIC"],
-}
+tool_flags = {"CFLAGS": ["-fPIC"]}
+options = ["bootstrap"]
 
 def init_build(self):
     from cbuild.util import make
@@ -62,15 +58,10 @@ def do_install(self):
 def _lib(self):
     self.pkgdesc = "Bzip2-format compression library"
 
-    return ["usr/lib/*.so.*"]
+    return self.default_libs()
 
 @subpackage("libbz2-devel")
 def _devel(self):
     self.pkgdesc = "Bzip2-format compression library (development files)"
-    self.depends = [f"libbz2={pkgver}-r{pkgrel}"]
 
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-    ]
+    return self.default_devel()
