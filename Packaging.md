@@ -392,8 +392,9 @@ These variables are mandatory:
   English and not contain any mistakes. The description is inherited into
   all subpackages, though certain subpackages gain some suffixes. See the
   section about subpackages for more details.
-* `url` *(str)* The homepage URL of the project being packaged. Should
-  not include the trailing slash.
+* `url` *(str)* The homepage URL of the project being packaged. To pass
+  lint, the URL must have either the `http` or `https` scheme, must parse
+  correctly and not have a trailing slash in the path.
 
 There is also a variety of variables that are builtin but not mandatory.
 Keep in mind that default values may be overridden by build styles.
@@ -1077,10 +1078,11 @@ the template including for subpackages:
   actually run as your host system root (as it can't).
 * `cross` *(true)* If disabled, the template will error early when
   attempting cross compilation.
-* `lint` *(true)* If enabled, the template format will be checked for
-  errors before building. This includes correct ordering of fields
-  and other checks. It does not check formatting of the template, as
-  that can be handled better with external tools.
+* `lint` *(true)* If enabled, the template contents will be checked
+  for additional errors before building. This includes correct ordering
+  of fields, validation of URL and description strings and other checks.
+  It does not check formatting of the template, as that can be handled
+  better with external tools.
 * `spdx` *(true)* If enabled, the license name(s) will be validated
   as SPDX compliant.
 

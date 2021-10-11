@@ -610,6 +610,29 @@ class Template(Package):
         if not cli.check_version(f"{self.pkgver}-r{self.pkgrel}"):
             self.error("pkgver has an invalid format")
 
+    def validate_url(self):
+        # do not validate if not linting
+        if self._ignore_errors or not self.options["lint"]:
+            return
+
+        from urllib.parse import urlparse
+
+        succ = True
+
+        try:
+            uval = urlparse(self.url)
+        except:
+            succ = False
+
+        if not succ:
+            self.error("failed to parse url")
+
+        if (uval.scheme != "http") and (uval.scheme != "https"):
+            self.error("url must be http or https")
+
+        if uval.path.endswith("/"):
+            self.error("url path must not end with a slash")
+
     def validate_pkgdesc(self):
         # do not validate if not linting
         if self._ignore_errors or not self.options["lint"]:
@@ -1251,6 +1274,7 @@ def from_module(m, ret):
 
     ret.validate_arch()
     ret.validate_pkgdesc()
+    ret.validate_url()
     ret.validate_order()
 
     # validate license if we need to
