@@ -23,14 +23,11 @@ license = "GPL-2.0-or-later"
 url = "http://userweb.kernel.org/~kzak/util-linux-ng"
 source = f"$(KERNEL_SITE)/utils/util-linux/v{_mver}/util-linux-{pkgver}.tar.xz"
 sha256 = "86e6707a379c7ff5489c218cfaf1e3464b0b95acf7817db0bc5f179e356a67b2"
-
-options = ["bootstrap", "!check", "!lint"]
+# test suite needs bash
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
 	hostmakedepends = ["gmake"]
-
-def do_build(self):
-    self.make.build()
 
 def post_install(self):
     # Remove unused stuff
