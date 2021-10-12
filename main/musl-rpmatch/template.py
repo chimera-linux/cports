@@ -9,8 +9,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/musl-rpmatch"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}-mk2.tar.gz"
 sha256 = "a7b9649b49a8a59da09cf61228dc812cae6f0aea8be036788a9173c6f15a1a77"
-
-options = ["bootstrap", "!check", "!lint"]
+# no test suite
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["pkgconf"]
@@ -20,9 +20,4 @@ def post_install(self):
 
 @subpackage("musl-rpmatch-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return [
-        "usr/include", "usr/lib/*.a", "usr/lib/*.so",
-        "usr/lib/pkgconfig"
-    ]
+    return self.default_devel()
