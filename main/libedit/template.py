@@ -11,8 +11,7 @@ license = "BSD-3-Clause"
 url = "http://www.thrysoee.dk/editline"
 source = f"http://thrysoee.dk/editline/{pkgname}-{_datever}-{_distver}.tar.gz"
 sha256 = "0220bc2047e927c0c1984ef5f7b4eb2a9469a5b7bf12ba573ca3b23ca02bbb6f"
-
-options = ["bootstrap", "!check", "!lint"]
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     hostmakedepends = ["pkgconf"]
@@ -22,12 +21,6 @@ def post_install(self):
 
 @subpackage("libedit-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"] + makedepends
+    self.depends += makedepends
 
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-        "usr/lib/pkgconfig",
-        "usr/share/man/man3",
-    ]
+    return self.default_devel(man = True)
