@@ -7,16 +7,15 @@ configure_args = [
     "--prefix=/usr", "--openssldir=/etc/ssl", "--libdir=lib",
     "shared", "no-ssl3-method", "no-asm", "-Wa,--noexecstack"
 ]
-make_check_target = "test"
 make_install_args = ["MANSUFFIX=ssl"]
+make_check_target = "test"
 pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OpenSSL"
 url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
 sha256 = "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
-
-options = ["bootstrap", "!check", "!lint"]
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     hostmakedepends = ["pkgconf", "perl"]
@@ -70,17 +69,6 @@ def _crehash(self):
 
 @subpackage("openssl-devel")
 def _devel(self):
-    self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
-        f"libssl1.1={pkgver}-r{pkgrel}",
-        f"libcrypto1.1={pkgver}-r{pkgrel}"
-    ]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}",]
 
-    return [
-        "usr/share/man/man3",
-        "usr/share/doc",
-        "usr/include",
-        "usr/lib/pkgconfig",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-    ]
+    return self.default_devel(man = True)
