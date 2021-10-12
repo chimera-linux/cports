@@ -1009,7 +1009,7 @@ class Template(Package):
             raise PackageError()
         self.install_dir(dest)
         shutil.copy2(self.cwd / src, dfn)
-        if mode != None:
+        if mode is not None:
             dfn.chmod(mode)
 
     def install_bin(self, *args):

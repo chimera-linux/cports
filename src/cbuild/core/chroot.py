@@ -255,7 +255,7 @@ def install(arch = None, stage = 2):
     _init()
 
 def remove_autodeps(bootstrapping):
-    if bootstrapping == None:
+    if bootstrapping is None:
         bootstrapping = not (paths.bldroot() / ".cbuild_chroot_init").is_file()
 
     log = logger.get()
@@ -405,9 +405,9 @@ def enter(cmd, args = [], capture_out = False, check = False,
     if mount_ccache:
         bcmd += ["--bind", paths.ccache(), "/ccache"]
 
-    if pretend_uid == None:
+    if pretend_uid is None:
         pretend_uid = 1337
-    if pretend_gid == None:
+    if pretend_gid is None:
         pretend_gid = 1337
 
     bcmd += ["--uid", str(pretend_uid)]
