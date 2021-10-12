@@ -104,6 +104,8 @@ def _scan_pc(pkg):
         return
 
     def scan_pc(v):
+        if not v.exists():
+            return
         sn = v.stem
         # we will be scanning in-chroot
         rlp = v.relative_to(pkg.destdir).parent
@@ -184,6 +186,17 @@ def _scan_symlinks(pkg):
 
     subpkg_deps = {}
 
+    # we use this instead of exists() as exists() will resolve
+    # symbolic links, while we're ok with a symlink pointing to
+    # a symlink (this is not considered broken, as the other
+    # symlink will be checked separately)
+    def _exists_link(p):
+        try:
+            p.lstat()
+        except FileNotFoundError:
+            return False
+        return True
+
     for f in pkg.destdir.rglob("*"):
         # skip non-symlinks
         if not f.is_symlink():
@@ -196,20 +209,20 @@ def _scan_symlinks(pkg):
         else:
             sdest = f.parent / sdest
         # if it resolves, it exists within the package, so skip
-        if sdest.exists():
+        if _exists_link(sdest):
             continue
         # otherwise it's a broken symlink, relativize to destdir
         sdest = sdest.relative_to(pkg.destdir)
         # check each subpackage for the file
         for sp in pkg.rparent.subpkg_list:
             np = sp.destdir / sdest
-            if np.exists():
+            if _exists_link(np):
                 log.out_plain(f"   symlink: {sdest} <-> {sp.pkgname}")
                 subpkg_deps[sp.pkgname] = True
                 break
         else:
             # could be a main package too
-            if (pkg.rparent.destdir / sdest).exists():
+            if _exists_link(pkg.rparent.destdir / sdest):
                 log.out_plain(f"   symlink: {sdest} <-> {pkg.rparent.pkgname}")
                 subpkg_deps[pkg.rparent.pkgname] = True
             else:

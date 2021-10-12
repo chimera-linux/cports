@@ -1154,6 +1154,7 @@ class Subpackage(Package):
         self.take("usr/share/gir-[0-9]*", missing_ok = True)
         self.take("usr/share/glade/catalogs", missing_ok = True)
         if man:
+            self.take("usr/share/man/man1/*-config.1", missing_ok = True)
             self.take("usr/share/man/man[23]", missing_ok = True)
 
     def take_doc(self, man = True):

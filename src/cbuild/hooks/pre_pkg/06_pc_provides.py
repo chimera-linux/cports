@@ -23,6 +23,8 @@ def invoke(pkg):
         logger.get().out_plain(f"   pc: {pcname}={sfx} (explicit)")
 
     def scan_pc(v):
+        if not v.exists():
+            return
         fn = v.name
         sn = v.stem
         # maybe provided in two locations

@@ -4,19 +4,15 @@ pkgrel = 0
 configure_args = ["--enable-big-core"]
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]
+depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
 pkgdesc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.gnu.org/software/ncurses"
 source = f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"
 sha256 = "30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"
-options = ["bootstrap", "!check", "!lint"]
-
-depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
-
-tool_flags = {
-    "CFLAGS": ["-fPIC"],
-}
+tool_flags = {"CFLAGS": ["-fPIC"],}
+options = ["bootstrap"]
 
 def do_configure(self):
     from cbuild.util import gnu_configure
@@ -57,6 +53,10 @@ def init_build(self):
 def do_build(self):
     self.make.build(wrksrc = "ncursesw-build")
     self.make.build(wrksrc = "ncurses-build")
+
+def do_check(self):
+    self.make.check(wrksrc = "ncursesw-build")
+    self.make.check(wrksrc = "ncurses-build")
 
 def do_install(self):
     self.install_license("COPYING")
@@ -113,36 +113,29 @@ def do_install(self):
 
     # FIXME for cross remove cross base from /usr/bin/ncursesw6-config
 
+@subpackage("ncurses-libtinfo-libs")
+def _tinfo(self):
+    self.pkgdesc = f"{pkgdesc} (libtinfo.so symlink)"
+
+    return ["usr/lib/libtinfo*.so.*"]
+
+@subpackage("ncurses-libtinfo-devel")
+def _tdevel(self):
+    self.pkgdesc = f"{pkgdesc} (libtinfo.so symlink) (development files)"
+    self.depends += [f"ncurses-devel={pkgver}-r{pkgrel}"]
+
+    return [
+        "usr/lib/libtinfo.so",
+        "usr/lib/pkgconfig/tinfo.pc",
+    ]
+
 @subpackage("ncurses-libs")
 def _libs(self):
-    return [
-        "usr/lib/libform*.so.*",
-        "usr/lib/libmenu*.so.*",
-        "usr/lib/libncurses*.so.*",
-        "usr/lib/libpanel*.so.*",
-    ]
+    return self.default_libs()
 
 @subpackage("ncurses-devel")
 def _devel(self):
-    self.depends = [f"ncurses-libs={pkgver}-r{pkgrel}"]
-
-    return [
-        "usr/bin/ncurses*-config",
-        "usr/include",
-        "usr/lib/pkgconfig/ncursesw.pc",
-        "usr/lib/pkgconfig/formw.pc",
-        "usr/lib/pkgconfig/menuw.pc",
-        "usr/lib/pkgconfig/ncurses++w.pc",
-        "usr/lib/pkgconfig/panelw.pc",
-        "usr/lib/*.a",
-        "usr/lib/libcurses*.so",
-        "usr/lib/libform*.so",
-        "usr/lib/libmenu*.so",
-        "usr/lib/libncurses*.so",
-        "usr/lib/libpanel*.so",
-        "usr/share/man/man3",
-        "usr/share/man/man1/ncursesw6-config.1",
-    ]
+    return self.default_devel(man = True)
 
 @subpackage("ncurses-base")
 def _base(self):
@@ -163,24 +156,4 @@ def _term(self):
     return [
         "usr/share/tabset",
         "usr/share/terminfo",
-    ]
-
-@subpackage("ncurses-libtinfo-libs")
-def _tinfo(self):
-    self.pkgdesc = f"{pkgdesc} (libtinfo.so symlink)"
-    self.depends = [f"ncurses-libs={pkgver}-r{pkgrel}"]
-
-    return ["usr/lib/libtinfo*.so.*"]
-
-@subpackage("ncurses-libtinfo-devel")
-def _tdevel(self):
-    self.pkgdesc = f"{pkgdesc} (libtinfo.so symlink) (development files)"
-    self.depends = [
-        f"ncurses-devel={pkgver}-r{pkgrel}",
-        f"ncurses-libtinfo-libs={pkgver}-r{pkgrel}"
-    ]
-
-    return [
-        "usr/lib/libtinfo.so",
-        "usr/lib/pkgconfig/tinfo.pc",
     ]
