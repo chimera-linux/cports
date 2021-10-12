@@ -2,14 +2,13 @@ pkgname = "xz"
 pkgver = "5.2.5"
 pkgrel = 0
 build_style = "gnu_configure"
-pkgdesc = "The XZ compression utilities"
+pkgdesc = "XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:xz"
 url = "https://tukaani.org/xz"
 source = f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"
 sha256 = "5117f930900b341493827d63aa910ff5e011e0b994197c3b71c08a20228a42df"
-
-options = ["bootstrap", "!check", "!lint"]
+options = ["bootstrap"]
 
 if not current.bootstrapping:
     hostmakedepends = ["pkgconf"]
