@@ -11,7 +11,5 @@ url = "http://www.gnu.org/software/make"
 source = f"$(GNU_SITE)/make/make-{pkgver}.tar.lz"
 sha256 = "de1a441c4edf952521db30bfca80baae86a0ff1acd0a00402999344f04c45e82"
 
-options = ["!check", "!lint"]
-
 def post_install(self):
     self.rm(self.destdir / "usr/share/info", recursive = True)
