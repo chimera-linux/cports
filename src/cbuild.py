@@ -347,7 +347,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 1")
         # use stage 0 build root to build, but build into stage 1 repo
         paths.reinit_buildroot(oldmdir, 0)
-        do_pkg("pkg", "main/base-chroot", False)
+        do_pkg("pkg", "main/base-chroot", False, False)
         # go back to stage 1
         paths.reinit_buildroot(oldmdir, 1)
         chroot.install(chroot.host_cpu())
@@ -445,18 +445,19 @@ def do_lint(tgt):
     # don't let the skip logic kick in
     template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
-        opt_check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
-        target = "lint"
+        False, 1, False, False, None, target = "lint"
     )
 
-def do_pkg(tgt, pkgn = None, force = None):
-    if force == None:
+def do_pkg(tgt, pkgn = None, force = None, check = None):
+    if force is None:
         force = opt_force
+    if check is None:
+        check = opt_check
     if not pkgn:
         pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
     rp = template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
-        opt_check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
+        check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
         target = tgt if (tgt != "pkg") else None
     )
     if opt_mdirtemp:
