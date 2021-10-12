@@ -7,19 +7,18 @@ make_cmd = "gmake"
 pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
-url = "http://www.musl-libc.org/"
-source = f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz"
+url = "http://www.musl-libc.org"
+source = f"http://www.musl-libc.org/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
-
-options = ["bootstrap", "!check", "!lint"]
-
 # segfaults otherwise
 hardening = ["!scp"]
+# does not ship tests
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]
 
-def pre_configure(self):
+def init_configure(self):
     # ensure that even early musl uses compiler-rt
     if self.bootstrapping:
         self.env["LIBCC_LDFLAGS"] = "--rtlib=compiler-rt"

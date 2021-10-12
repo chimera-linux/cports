@@ -216,6 +216,12 @@ def _scan_symlinks(pkg):
                 # nothing found
                 if allow_broken:
                     continue
+                # special case true/false
+                if sdest == pathlib.Path("usr/bin/true"):
+                    continue
+                if sdest == pathlib.Path("usr/bin/false"):
+                    continue
+                # else error
                 pkg.error(f"   symlink: {sdest} <-> UNKNOWN PACKAGE!")
 
     for k in subpkg_deps:
