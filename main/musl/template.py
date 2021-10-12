@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
+hostmakedepends = ["gmake"]
 pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -14,9 +15,6 @@ sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
 options = ["bootstrap", "!check", "brokenlinks"]
-
-if not current.bootstrapping:
-    hostmakedepends = ["gmake"]
 
 def init_configure(self):
     # ensure that even early musl uses compiler-rt

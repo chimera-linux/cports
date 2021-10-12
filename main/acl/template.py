@@ -6,6 +6,7 @@ configure_args = [
     f"--libdir=/usr/lib",
     f"--libexecdir=/usr/lib"
 ]
+hostmakedepends = ["pkgconf"]
 makedepends = ["attr-devel"]
 checkdepends = ["perl"]
 pkgdesc = "Access Control List filesystem support"
@@ -16,9 +17,6 @@ source = f"$(NONGNU_SITE)/acl/acl-{pkgver}.tar.gz"
 sha256 = "760c61c68901b37fdd5eefeeaf4c0c7a26bdfdd8ac747a1edff1ce0e243c11af"
 # test suite makes assumptions about a GNU environment
 options = ["bootstrap", "!check"]
-
-if not current.bootstrapping:
-    hostmakedepends = ["pkgconf"]
 
 @subpackage("acl-devel")
 def _devel(self):

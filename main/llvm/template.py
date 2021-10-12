@@ -30,6 +30,9 @@ configure_args = [
     "-DLLVM_ENABLE_LLD=YES",
     "-DLLVM_ENABLE_LIBCXX=YES",
 ]
+hostmakedepends = [
+    "cmake", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
+]
 makedepends = ["zlib-devel", "libffi-devel"]
 depends = [
     f"libllvm={pkgver}-r{pkgrel}",
@@ -55,9 +58,6 @@ tool_flags = {
 }
 
 if not current.bootstrapping:
-    hostmakedepends = [
-        "cmake", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
-    ]
     makedepends += [
         "python-devel", "libedit-devel", "elftoolchain-devel",
         "libexecinfo-devel"

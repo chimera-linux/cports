@@ -443,7 +443,8 @@ Keep in mind that default values may be overridden by build styles.
 * `hostmakedepends` *(list)* A list of strings specifying package names to
   be installed in the build container before building. These are always
   installed in the build container itself rather than target sysroot,
-  even if cross compiling. Typically contains runnable tools.
+  even if cross compiling. Typically contains runnable tools. This is
+  not installed during stage 0 bootstrap, since they come from the host.
 * `maintainer` *(str)* This one is not mandatory but is highly recommended.
   A template with no `maintainer` field is orphaned. No package in the
   `main` section of the `cports` collection must be orphaned.

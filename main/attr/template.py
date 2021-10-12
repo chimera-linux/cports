@@ -7,6 +7,7 @@ configure_args = [
     f"--libexecdir=/usr/lib"
 ]
 make_check_args = ["-j1"] # Tests broken when ran in parallel
+hostmakedepends = ["pkgconf"]
 checkdepends = ["perl"]
 pkgdesc = "Extended attribute support library for ACL support"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,9 +16,6 @@ url = "http://savannah.nongnu.org/projects/attr"
 source = f"$(NONGNU_SITE)/attr/attr-{pkgver}.tar.gz"
 sha256 = "bae1c6949b258a0d68001367ce0c741cebdacdd3b62965d17e5eb23cd78adaf8"
 options = ["bootstrap"]
-
-if not current.bootstrapping:
-    hostmakedepends = ["pkgconf"]
 
 @subpackage("attr-devel")
 def _devel(self):

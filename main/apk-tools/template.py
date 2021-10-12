@@ -5,6 +5,7 @@ build_style = "meson"
 configure_args = [
     "-Dlua=disabled", "-Ddocs=disabled", "-Dhelp=disabled", "-Dstatic_apk=true"
 ]
+hostmakedepends = ["pkgconf", "meson"]
 makedepends = ["zlib-devel", "openssl-devel"]
 depends = ["ca-certificates"]
 pkgdesc = "Alpine package manager"
@@ -13,15 +14,10 @@ license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"http://git.alpinelinux.org/cgit/{pkgname}/snapshot/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "a3cbabbcd3072f197b19f85e13e526b8b769d1e537f8156457b1779bcc9300fe"
-
-options = ["bootstrap"]
-
 tool_flags = {
     "CFLAGS": ["-Wno-error"]
 }
-
-if not current.bootstrapping:
-    hostmakedepends = ["pkgconf", "meson"]
+options = ["bootstrap"]
 
 @subpackage("apk-tools-devel")
 def _devel(self):

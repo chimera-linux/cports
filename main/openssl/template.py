@@ -9,6 +9,7 @@ configure_args = [
 ]
 make_install_args = ["MANSUFFIX=ssl"]
 make_check_target = "test"
+hostmakedepends = ["pkgconf", "perl"]
 pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OpenSSL"
@@ -16,9 +17,6 @@ url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
 sha256 = "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
 options = ["bootstrap"]
-
-if not current.bootstrapping:
-    hostmakedepends = ["pkgconf", "perl"]
 
 ecargs = {
     "x86_64": ["enable-ec_nistp_64_gcc_128", "linux-x86_64"],
