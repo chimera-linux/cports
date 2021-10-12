@@ -4,10 +4,11 @@ pkgrel = 0
 _perl_cross_ver = "1.3.5"
 build_style = "gnu_configure"
 make_cmd = "gmake"
+make_check_target = "test"
 hostmakedepends = ["gmake", "less"]
 makedepends = ["zlib-devel", "libbz2-devel"]
-depends = ["less"]
 checkdepends = ["iana-etc", "perl-AnyEvent", "perl-Test-Pod", "procps-ng"]
+depends = ["less"]
 pkgdesc = "Practical Extraction and Report Language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
@@ -20,7 +21,6 @@ sha256 = [
     "03b693901cd8ae807231b1787798cf1f2e0b8a56218d07b7da44f784a7caeb2c",
     "91c66f6b2b99fccfd4fee14660b677380b0c98f9456359e91449798c2ad2ef25"
 ]
-
 # prevent a massive log dump
 tool_flags = {
     "CFLAGS": [
@@ -30,8 +30,8 @@ tool_flags = {
     ],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
-
-options = ["!check", "!lint"]
+# missing checkdepends
+options = ["!check"]
 
 # Before updating this package to a new major version, run ${FILESDIR}/provides.pl
 # against ${wrksrc} to find the list of built in packages.
@@ -164,6 +164,17 @@ def pre_patch(self):
             continue
         self.mv(f, ".")
 
+    # for some reason tarballs have messed up permissions, this bothers
+    # patch(1) so fix them up
+    for f in [
+        "cnf/configure_tool.sh",
+        "cpan/Digest-SHA/Makefile.PL",
+        "cpan/CPAN/lib/CPAN/FirstTime.pm",
+        "Configure",
+        "Makefile.SH",
+    ]:
+        (self.cwd / f).chmod(0o666)
+
 def init_configure(self):
     from cbuild.util import make
 
@@ -211,11 +222,9 @@ def do_configure(self):
     self.do(self.chroot_cwd / "configure", cargs)
 
 def do_check(self):
-    from cbuild.util import make
-
-    self.env["TEST_JOBS"] = str(make.jobs())
-
-    self.make.invoke("test")
+    self.make.check(env = {
+        "TEST_JOBS": str(self.make_jobs)
+    })
 
 def post_install(self):
     for f in (self.destdir / "usr/share").rglob("*"):
