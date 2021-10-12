@@ -3,17 +3,17 @@ _commit = "f7e9afc6f9ad0d84ea73b4659c5d6d13275d2306"
 pkgver = "0.7.1_svn20210623"
 pkgrel = 0
 build_style = "makefile"
-makedepends = ["libarchive-devel"]
 make_build_args = [
-    "WITH_ADDITIONAL_DOCUMENTATION=no",
-    "WITH_TESTS=no", "MANTARGET=man"
+    "WITH_ADDITIONAL_DOCUMENTATION=no", "WITH_TESTS=no", "MANTARGET=man"
 ]
 # work around all sorts of bmake weirdness
 make_install_args = make_build_args + [
     "LIBOWN=", "BINOWN=", "BINMODE=755", "NONBINMODE=644", "DIRMODE=755",
     "MANTARGET=man", "MANDIR=/usr/share/man"
 ]
+make_check_target = "run-tests"
 make_use_env = True
+makedepends = ["libarchive-devel"]
 depends = [f"libelf={pkgver}-r{pkgrel}"]
 pkgdesc = "BSD licensed ELF toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -21,8 +21,8 @@ license = "BSD-2-Clause"
 url = "https://sourceforge.net/projects/elftoolchain"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/{_commit}.tar.gz"
 sha256 = "3d9e0513af4b7cb8ac7944d98057b8d61fcc4ff326b030a7b06006c0abb7922c"
-
-options = ["bootstrap", "!check", "!lint"]
+# missing tet
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["bsdm4", "byacc", "flex"]
@@ -45,19 +45,11 @@ def post_install(self):
 
 @subpackage("elftoolchain-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-        "usr/share/man/man3"
-    ]
+    return self.default_devel(man = True)
 
 @subpackage("libelf")
 def _libelf(self):
-    self.pkgdesc = f"{pkgdesc} (libelf)"
+    self.pkgdesc += " (libelf)"
 
-    return [
-        "usr/lib/*.so.*"
-    ]
+    return self.default_libs()
+
