@@ -64,12 +64,13 @@ def _setup_depends(pkg):
     if not pkg.cross_build and pkg.options["check"]:
         cdeps = pkg.checkdepends
 
-    for dep in pkg.hostmakedepends + cdeps:
-        sver = _srcpkg_ver(dep, pkg)
-        if not sver:
-            hdeps.append((None, dep))
-            continue
-        hdeps.append((sver, dep))
+    if not pkg.bootstrapping:
+        for dep in pkg.hostmakedepends + cdeps:
+            sver = _srcpkg_ver(dep, pkg)
+            if not sver:
+                hdeps.append((None, dep))
+                continue
+            hdeps.append((sver, dep))
 
     for dep in pkg.makedepends:
         sver = _srcpkg_ver(dep, pkg)
