@@ -1295,6 +1295,9 @@ The following environment variables are exported into the sandbox:
 * `HOME` Set to `/tmp`.
 * `LC_COLLATE` Set to `C`.
 * `LANG` Set to `en_US.UTF-8`.
+* `PYTHONUNBUFFERED` Set to `1`. This disables output buffering on
+  Python subprocesses, which allows output to be printed right away,
+  since `cbuild` captures it for logging purposes.
 * `SOURCE_DATE_EPOCH` The timestamp for reproducible builds.
 * `CBUILD_STATEDIR` Points to where current package build metadata
   is stored, such as stamps for finished phases.

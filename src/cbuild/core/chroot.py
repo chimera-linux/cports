@@ -334,6 +334,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "HOME": "/tmp",
         "LC_COLLATE": "C",
         "LANG": "en_US.UTF-8",
+        "PYTHONUNBUFFERED": "1",
         **env
     }
     if "NO_PROXY" in os.environ:
