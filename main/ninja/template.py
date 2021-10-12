@@ -9,13 +9,17 @@ url = "https://ninja-build.org"
 source = f"https://github.com/ninja-build/ninja/archive/v{pkgver}.tar.gz"
 sha256 = "ce35865411f0490368a8fc383f29071de6690cbadc27704734978221f25e2bed"
 
-options = ["!check", "!lint"]
-
 def do_configure(self):
     self.do("python", ["configure.py", "--bootstrap"])
 
 def do_build(self):
     self.do("python", ["configure.py"])
+
+def do_check(self):
+    self.do(self.chroot_cwd / "ninja", ["ninja_test"])
+    self.do(self.chroot_cwd / "ninja_test", [
+        "--gtest_filter=-SubprocessTest.SetWithLots"
+    ])
 
 # FIXME: docs, completions
 def do_install(self):
