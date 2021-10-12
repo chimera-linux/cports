@@ -15,20 +15,17 @@ makedepends = [
 pkgdesc = "Library to read/write several different streaming archive formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
-url = "http://www.libarchive.org/"
+url = "http://www.libarchive.org"
 source = f"https://github.com/libarchive/libarchive/releases/download/{pkgver}/libarchive-{pkgver}.tar.gz"
 sha256 = "9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a"
-
-options = ["bootstrap", "!check", "!lint"]
+# encoding failures on musl; harmless
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     configure_args.append("--with-zstd")
     makedepends.append("libzstd-devel")
 else:
     configure_args.append("--without-zstd")
-
-def do_check(self):
-    pass
 
 def post_install(self):
     self.install_license("COPYING")
@@ -42,20 +39,10 @@ def post_install(self):
 def _bsdtar(self):
     self.pkgdesc = "BSD utilities using libarchive"
 
-    return [
-        "usr/bin",
-        "usr/share/man/man1",
-        "usr/share/man/man5",
-    ]
+    return self.default_progs(man = True, extra = ["usr/share/man/man5"])
 
 @subpackage("libarchive-devel")
 def _devel(self):
-    self.depends = makedepends + [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends += makedepends
 
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-        "usr/lib/pkgconfig",
-        "usr/share",
-    ]
+    return self.default_devel(man = True)
