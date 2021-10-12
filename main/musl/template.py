@@ -12,8 +12,8 @@ source = f"http://www.musl-libc.org/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 # segfaults otherwise
 hardening = ["!scp"]
-# does not ship tests
-options = ["bootstrap", "!check"]
+# does not ship tests + allow "broken" symlinks to true
+options = ["bootstrap", "!check", "brokenlinks"]
 
 if not current.bootstrapping:
     hostmakedepends = ["gmake"]

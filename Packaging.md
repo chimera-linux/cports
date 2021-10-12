@@ -1012,9 +1012,7 @@ on whatever they correspond to (since `-devel` packages contain `.so`
 symlinks, which resolve to real files in the runtime package).
 
 Broken symlinks that do not resolve to anything are normally an error. You
-can override it by putting `brokenlinks` in `options`. There is an exception
-to links that resolve to `/usr/bin/true` or `/usr/bin/false`, those will
-never error.
+can override it by putting `brokenlinks` in `options`.
 
 Once dependencies are scanned, the package is scanned for provides, so
 that other packages can depend on it.
@@ -1097,8 +1095,7 @@ for subpackages separately if needed:
   keeping empty directories is intended.
 * `brokenlinks` *(false)* By default, broken symlinks that cannot be resolved
   within any subpackage will result in an error. You can override this behavior
-  but usually shouldn't. Keep in mind that there is an exception for links that
-  resolve to `/usr/bin/true` or `/usr/bin/false`, as those will not error.
+  but usually shouldn't.
 * `scanrundeps` *(true)* This specifies whether automatic runtime dependencies
   are scanned for the package. By default, ELF files are scanned for their
   dependencies, which is usually desirable, but not always.
