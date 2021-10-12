@@ -12,8 +12,8 @@ license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"ftp://sourceware.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056"
-
-options = ["bootstrap", "!check", "!lint"]
+# missing checkdepends for now
+options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
     hostmakedepends = ["pkgconf"]
@@ -23,12 +23,4 @@ def post_install(self):
 
 @subpackage("libffi-devel")
 def _devel(self):
-    self.depends = [f"libffi={pkgver}-r{pkgrel}"]
-
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/*.so",
-        "usr/lib/pkgconfig",
-        "usr/share",
-    ]
+    return self.default_devel()
