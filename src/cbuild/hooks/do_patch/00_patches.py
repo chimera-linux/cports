@@ -4,8 +4,14 @@ import shutil
 import pathlib
 import subprocess
 
-def process_patch(pkg, patchpath):
-    pargs = ["-sNp1", "-V", "none"]
+def process_patch(pkg, patchpath, gnupatch):
+    pargs = ["-sNp1"]
+
+    if not gnupatch:
+        pargs += ["-V", "none"]
+    else:
+        pargs.append("--no-backup-if-mismatch")
+
     argsf = pathlib.Path(str(patchpath) + ".args")
 
     if argsf.is_file():
@@ -54,14 +60,22 @@ def invoke(pkg):
     if not pkg.patches_path.is_dir():
         return
 
+    # in bootstrap envs we might be using gnu patch with different args
+    gnupatch = False
+    if pkg.bootstrapping:
+        sr = subprocess.run(
+            ["patch", "--version"], capture_output = True
+        ).stdout.splitlines()
+        gnupatch = len(sr) > 0 and sr[0].startswith(b"GNU")
+
     if (pkg.patches_path / "series").is_file():
         with open(pkg.patches_path / "series") as f:
             for line in f.readlines():
-                process_patch(pkg, pkg.patches_path / line)
+                process_patch(pkg, pkg.patches_path / line, gnupatch)
     else:
         for p in sorted(pkg.patches_path.glob("*")):
             if not p.is_file():
                 continue
             if p.suffix == ".args":
                 continue
-            process_patch(pkg, p)
+            process_patch(pkg, p, gnupatch)
