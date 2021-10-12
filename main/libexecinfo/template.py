@@ -2,16 +2,16 @@ pkgname = "libexecinfo"
 pkgver = "1.1"
 pkgrel = 0
 build_style = "makefile"
-hostmakedepends = ["pkgconf"]
 make_build_args = ["PREFIX=/usr"]
+hostmakedepends = ["pkgconf"]
 pkgdesc = "BSD licensed clone of the GNU libc backtrace facility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.freshports.org/devel/libexecinfo"
 source = f"http://distcache.freebsd.org/local-sources/itetcu/libexecinfo-{pkgver}.tar.bz2"
 sha256 = "c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"
-
-options = ["!check", "!lint"]
+# no test suite
+options = ["!check"]
 
 def do_install(self):
     self.install_dir("usr/lib/pkgconfig")
@@ -25,8 +25,5 @@ def do_install(self):
 
 @subpackage("libexecinfo-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    return self.default_devel()
 
-    return [
-        "usr/include", "usr/lib/*.so", "usr/lib/*.a", "usr/lib/pkgconfig"
-    ]
