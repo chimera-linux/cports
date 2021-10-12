@@ -354,6 +354,12 @@ If the process fails during any other stage, you no longer need to use the scrip
 you already have a suitable root in place, so you can run `cbuild bootstrap`
 directly in your own system.
 
+If you want to continue a failed build during stage 1 and onwards without doing
+a cleanup, you simply need to use normal `pkg` while pointing `cbuild` to the
+current-stage `bldroot` and `packages`. Using just `bootstrap` to continue will
+try packaging `base-chroot` for the stage, which will result in all the usual
+cleanup being done, so the affected template will restart from scratch.
+
 <a id="cbuild_reference"></a>
 ## Cbuild Reference
 
@@ -387,11 +393,13 @@ only have an effect with specific commands.
 * `-c PATH`, `--config PATH` *(default: `etc/config.ini`)* The path to the config
   file that `cbuild` reads configuration data from.
 * `-C`, `--skip-check` Never attempt to run the `check` phase.
+* `-D`, `--dirty-build` Skip installation of dependencies in the `bldroot`,
+  as well as removal of automatic dependencies after successful build, and
+  do not clean the remains of a previous build of the template from `builddir`
+  and `destdir`. This is mostly useful to continue previous failed builds.
 * `-f`, `--force` Packages will be created and overwritten even if one already
   exists in the local repository.
 * `-g`, `--build-dbg` Always build `-dbg` packages.
-* `-I`, `--skip-dependencies` Skip installation of dependencies in the `bldroot`,
-  as well as removal of automatic dependencies after successful build.
 * `-j JOBS`, `--jobs JOBS` *(default: 1)* The number of build jobs to use. You
   will usually want to set this to the number of CPU threads you have, unless
   limited by memory.

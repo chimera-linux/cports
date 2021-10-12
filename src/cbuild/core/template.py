@@ -1414,9 +1414,6 @@ def from_module(m, ret):
     if ret.bootstrapping and not ret.options["bootstrap"]:
         ret.error("attempt to bootstrap a non-bootstrap package")
 
-    ret.statedir.mkdir(parents = True, exist_ok = True)
-    ret.wrapperdir.mkdir(parents = True, exist_ok = True)
-
     # fill the remaining toolflag lists so it's complete
     for tf in ret.build_profile._get_supported_tool_flags():
         if not tf in ret.tool_flags:

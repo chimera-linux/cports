@@ -59,7 +59,7 @@ opt_unsigned  = False
 opt_force     = False
 opt_mdirtemp  = False
 opt_nonet     = False
-opt_skipdeps  = False
+opt_dirty     = False
 opt_keeptemp  = False
 opt_altrepo   = None
 opt_bldroot   = "bldroot"
@@ -124,8 +124,8 @@ parser.add_argument(
     help = "Do not ever use remote repositories."
 )
 parser.add_argument(
-    "-I", "--skip-dependencies", action = "store_const",
-    const = True, default = opt_skipdeps,
+    "-D", "--dirty-build", action = "store_const",
+    const = True, default = opt_dirty,
     help = "Skip installing (and removing) dependencies."
 )
 parser.add_argument(
@@ -213,8 +213,8 @@ if cmdline.sources_path:
 if cmdline.no_remote:
     opt_nonet = True
 
-if cmdline.skip_dependencies:
-    opt_skipdeps = True
+if cmdline.dirty_build:
+    opt_dirty = True
 
 if cmdline.keep_temporary:
     opt_keeptemp = True
@@ -465,10 +465,10 @@ def do_pkg(tgt, pkgn = None, force = None, check = None):
     # don't remove builddir/destdir
     paths.prepare()
     chroot.repo_sync()
-    if not opt_skipdeps:
+    if not opt_dirty:
         chroot.update(do_clean = False)
     build.build(
-        tgt, rp, {}, opt_signkey, skip_deps = opt_skipdeps,
+        tgt, rp, {}, opt_signkey, dirty = opt_dirty,
         keep_temp = opt_keeptemp
     )
 

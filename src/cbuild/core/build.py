@@ -9,7 +9,7 @@ import pathlib
 
 def build(
     step, pkg, depmap, signkey, chost = False,
-    skip_deps = False, keep_temp = False
+    dirty = False, keep_temp = False
 ):
     if chost:
         depn = "host-" + pkg.pkgname
@@ -24,7 +24,19 @@ def build(
     pkg.install_done = False
     pkg.current_phase = "setup"
 
-    if not skip_deps:
+    # always clean up before starting, unless exlpicitly requested not to
+    # or unless bootstrapping stage 0 (as resumption is useful by default
+    # in there) but not any other stage
+    if not dirty and not pkg.bootstrapping:
+        # clean up old state
+        pkgm.remove_pkg_wrksrc(pkg)
+        pkgm.remove_pkg(pkg)
+        pkgm.remove_pkg_statedir(pkg)
+
+    pkg.statedir.mkdir(parents = True, exist_ok = True)
+    pkg.wrapperdir.mkdir(parents = True, exist_ok = True)
+
+    if not dirty:
         # doesn't do anything for native builds
         dependencies.install_toolchain(pkg, signkey)
 
