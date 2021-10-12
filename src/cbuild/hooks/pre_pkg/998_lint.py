@@ -11,7 +11,7 @@ def invoke(pkg):
         dirempty = False
         rf = f.relative_to(pkg.destdir)
         if f.is_symlink() or not f.is_dir():
-            self.log_red(f"forbidden file '{rf}'")
+            pkg.log_red(f"forbidden file '{rf}'")
             lintfail = True
 
     # certain paths must not exist, they are symlinks or in base-files
@@ -34,7 +34,7 @@ def invoke(pkg):
         "usr/share/mime/version",
     ]:
         if (pkg.destdir / d).exists():
-            self.log_red(f"forbidden path '{d}'")
+            pkg.log_red(f"forbidden path '{d}'")
             lintfail = True
 
     allowpaths = {
@@ -49,19 +49,23 @@ def invoke(pkg):
     for f in pkg.destdir.glob("*"):
         rf = f.relative_to(pkg.destdir)
         if not f.name in allowpaths:
-            self.log_red(f"forbidden dorirectory '{rf}'")
+            pkg.log_red(f"forbidden dorirectory '{rf}'")
             lintfail = True
 
-    if dirempty and pkg.build_style != "meta":
-        self.log_red("empty packages must use meta build_style")
-        lintfail = True
+    if dirempty and pkg.rparent.build_style != "meta":
+        if pkg.rparent is not pkg:
+            pkg.log_red("non-meta subpackages must not be empty")
+            lintfail = True
+        elif len(pkg.subpkg_list) == 0:
+            pkg.log_red("empty packages must use meta build_style")
+            lintfail = True
 
     # stuff in /etc that should go in /usr/share
     for d in [
         "bash_completion.d", "X11/xorg.conf.d", "gconf/schemas"
     ]:
         if (pkg.destdir / "etc" / d).exists():
-            self.log_red(f"{d} should go in /usr/share, not /etc")
+            pkg.log_red(f"{d} should go in /usr/share, not /etc")
             lintfail = True
 
     # stuff in /etc that should go in /usr/lib
@@ -69,7 +73,7 @@ def invoke(pkg):
         "modprobe.d", "sysctl.d", "udev/rules.d", "udev/hwdb.d"
     ]:
         if (pkg.destdir / "etc" / d).exists():
-            self.log_red(f"{d} should go in /usr/lib, not /etc")
+            pkg.log_red(f"{d} should go in /usr/lib, not /etc")
             lintfail = True
 
     # stuff in /usr that should go in /usr/share
@@ -77,7 +81,7 @@ def invoke(pkg):
         "man", "doc", "dict"
     ]:
         if (pkg.destdir / "usr" / d).exists():
-            self.log_red(f"{d} should go in /usr/share, not /usr")
+            pkg.log_red(f"{d} should go in /usr/share, not /usr")
             lintfail = True
 
     if lintfail:
