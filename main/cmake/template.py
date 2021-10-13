@@ -1,6 +1,6 @@
 pkgname = "cmake"
-_mver = "3.20"
-pkgver = f"{_mver}.3"
+_mver = "3.21"
+pkgver = f"{_mver}.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -15,14 +15,13 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
 source = f"https://www.cmake.org/files/v{_mver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "4d008ac3461e271fcfac26a05936f77fc7ab64402156fb371d41284851a651b8"
-
+sha256 = "fac3915171d4dff25913975d712f76e69aef44bf738ba7b976793a458b4cfed4"
 # prevent cmake self-bootstrap false positive nonsense
 tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
 }
-
-options = ["!check", "!lint"]
+# checkdepends are missing
+options = ["!check"]
 
 def post_install(self):
     self.install_license("Copyright.txt")
