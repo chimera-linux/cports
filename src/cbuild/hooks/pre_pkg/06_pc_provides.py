@@ -34,7 +34,9 @@ def invoke(pkg):
         rlp = v.relative_to(pkg.destdir).parent
         cdv = pkg.chroot_destdir / rlp
         pcc = chroot.enter(
-            "pkg-config", ["--modversion", sn], capture_out = True,
+            "pkg-config", ["--modversion", sn],
+            capture_out = True, bootstrapping = pkg.bootstrapping,
+            ro_root = True, ro_build = True, unshare_all = True,
             env = {
                 "PKG_CONFIG_PATH": str(cdv),
                 "PKG_CONFIG_MAXIMUM_TRAVERSE_DEPTH": "1",

@@ -115,7 +115,8 @@ def _scan_pc(pkg):
             "pkg-config", [
                 "--print-requires", "--print-requires-private", sn
             ],
-            capture_out = True,
+            capture_out = True, bootstrapping = pkg.bootstrapping,
+            ro_root = True, ro_build = True, unshare_all = True,
             env = {
                 "PKG_CONFIG_PATH": str(cdv),
             }

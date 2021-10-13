@@ -30,13 +30,15 @@ def process_patch(pkg, patchpath, gnupatch):
     if patchsfx == ".gz":
         chroot.enter(
             "gunzip", [pkg.chroot_builddir / pkg.wrksrc / patchfn],
-            check = True, bootstrapping = pkg.bootstrapping, ro_root = True
+            check = True, bootstrapping = pkg.bootstrapping, ro_root = True,
+            unshare_all = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".bz2":
         chroot.enter(
             "bunzip2", [pkg.chroot_builddir / pkg.wrksrc / patchfn],
-            check = True, bootstrapping = pkg.bootstrapping, ro_root = True
+            check = True, bootstrapping = pkg.bootstrapping, ro_root = True,
+            unshare_all = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".diff" or patchsfx == ".patch":
