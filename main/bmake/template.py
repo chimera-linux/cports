@@ -1,12 +1,12 @@
 pkgname = "bmake"
-pkgver = "20210420"
+pkgver = "20211001"
 pkgrel = 0
 pkgdesc = "Portable version of NetBSD make"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.crufty.net/help/sjg/bmake.html"
 source = f"http://www.crufty.net/ftp/pub/sjg/bmake-{pkgver}.tar.gz"
-sha256 = "47e551293843d504fe4197413aa6d7ee003090669ac200932ff40e9ccb4658aa"
+sha256 = "cad7ef0fb41138050f8932af3a7ade16f7265b3f37ff6356703e0b1ad6542739"
 options = ["bootstrap"]
 
 def do_build(self):
