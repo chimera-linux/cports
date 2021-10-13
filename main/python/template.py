@@ -1,29 +1,37 @@
 pkgname = "python"
-_majver = "3.9"
-pkgver = f"{_majver}.5"
+_majver = "3.10"
+pkgver = f"{_majver}.0"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf", "gmake"]
 # FIXME: expat, readline, sqlite
 configure_args = [
     "--enable-shared", "--enable-ipv6", "--with-computed-gotos",
     "--with-system-ffi", "--without-ensurepip"
 ]
+# bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)
+make_cmd = "gmake"
+make_check_target = "quicktest"
+# disable tests that disagree with our build environment
+make_check_args = [
+    "-i", "test_chown_*",
+    "-i", "test_getspnam_exception",
+    "-i", "test_find_library_with_*",
+    "-i", "test_localtime_daylight_*_dst_true",
+]
+hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
     "libffi-devel", "openssl-devel", "libbz2-devel",
     "zlib-devel", "liblzma-devel"
 ]
-# bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)
-make_cmd = "gmake"
 depends = ["ca-certificates"]
 pkgdesc = "Python programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "0c5a140665436ec3dbfbb79e2dfb6d192655f26ef4a29aeffcb6d1820d716d83"
-
-options = ["!check", "!lint"]
+sha256 = "5a99f8e7a6a11a7b98b4e75e0d1303d3832cada5534068f69c7b6222a7b1b002"
+# checkdepends not available yet
+options = ["!check"]
 
 if current.cross_build:
     hostmakedepends += ["python"]
