@@ -70,25 +70,6 @@ def extract_txt(pkg, fname, dfile, edir, sfx):
         "cp", ["-f", dfile, edir], ro_root = True, wrkdir = edir
     ).returncode == 0
 
-extract_table = {
-    "tar": extract_tar,
-    "txz": extract_tar,
-    "tbz": extract_tar,
-    "tlz": extract_tar,
-    "tgz": extract_tar,
-    "crate": extract_tar,
-
-    "gz": extract_notar,
-    "bz2": extract_notar,
-    "xz": extract_notar,
-
-    "zip": extract_alsotar,
-    "7z": extract_alsotar,
-
-    "rpm": extract_rpm,
-    "txt": extract_txt,
-}
-
 def invoke(pkg):
     wpath = pkg.builddir / pkg.wrksrc
     # ensure that we start clean
@@ -130,9 +111,20 @@ def invoke(pkg):
                 if suffix != "tgz" and suffix != "tbz" and suffix != "txz":
                     pkg.error(f"source not supported for bootstrap: {fname}")
 
-            exf = extract_table.get(suffix, None)
-            if not exf:
-                pkg.error(f"cannot guess '{fname}' extract suffix")
+            match suffix:
+                case "tar" | "txz" | "tbz" | "tlz" | "tgz" | "crate":
+                    exf = extract_tar
+                case "gz" | "bz2" | "xz":
+                    exf = extract_notar
+                case "zip" | "7z":
+                    exf = extract_alsotar
+                case "rpm":
+                    exf = extract_rpm
+                case "txt":
+                    exf = extract_txt
+                case _:
+                    pkg.error(f"cannot guess '{fname}' extract suffix")
+
             if pkg.bootstrapping:
                 srcs_path = paths.sources()
             else:

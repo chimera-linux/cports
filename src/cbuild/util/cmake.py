@@ -35,16 +35,11 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
     elif pkg.build_profile.cross and cross_build != False:
         # map known profiles to cmake arch
-        cmake_cpu = {
-            "aarch64": "aarch64",
-            "ppc64le": "ppc64le",
-            "ppc64": "ppc64",
-            "x86_64": "x86_64",
-            "riscv64": "riscv64"
-        }.get(pkg.build_profile.arch, None)
-
-        if not cmake_cpu:
-            pkg.error(f"unknown architecture: {pkg.build_profile.arch}")
+        match pkg.build_profile.arch:
+            case "aarch64" | "ppc64le" | "ppc64" | "x86_64" | "riscv64":
+                cmake_cpu = pkg.build_profile.arch
+            case _:
+                pkg.error(f"unknown architecture: {pkg.build_profile.arch}")
 
         sroot = pkg.build_profile.sysroot
 

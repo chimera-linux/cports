@@ -9,16 +9,13 @@ def _make_crossfile(pkg, build_dir):
     (pkg.cwd / build_dir).mkdir(parents = True, exist_ok = True)
 
     # map known profiles to meson arch
-    meson_cpu = {
-        "aarch64": "aarch64",
-        "ppc64le": "ppc64",
-        "ppc64": "ppc64",
-        "x86_64": "x86_64",
-        "riscv64": "riscv64"
-    }.get(pkg.build_profile.arch, None)
-
-    if not meson_cpu:
-        pkg.error(f"unknown architecture: {pkg.build_profile.arch}")
+    match pkg.build_profile.arch:
+        case "aarch64" | "x86_64" | "riscv64":
+            meson_cpu = pkg.build_profile.arch
+        case "ppc64le" | "ppc64":
+            meson_cpu = "ppc64"
+        case _:
+            pkg.error(f"unknown architecture: {pkg.build_profile.arch}")
 
     with open(cfpath, "w") as outf:
         outf.write(f"""

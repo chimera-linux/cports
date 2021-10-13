@@ -12,8 +12,8 @@ import tempfile
 import traceback
 import configparser
 
-if sys.version_info < (3, 9):
-    sys.exit("Python 3.9 or newer is required")
+if sys.version_info < (3, 10):
+    sys.exit("Python 3.10 or newer is required")
 
 cbpath = os.path.dirname(os.path.realpath(__file__))
 rtpath = os.path.dirname(cbpath)
@@ -472,33 +472,26 @@ def do_pkg(tgt, pkgn = None, force = None, check = None):
         keep_temp = opt_keeptemp
     )
 
-def do_bad(tgt):
-    logger.get().out_red("cbuild: invalid target " + tgt)
-    sys.exit(1)
-
 template.register_hooks()
 
 try:
-    ({
-        "binary-bootstrap": binary_bootstrap,
-        "bootstrap": bootstrap,
-        "bootstrap-update": bootstrap_update,
-        "keygen": do_keygen,
-        "chroot": do_chroot,
-        "clean": do_clean,
-        "remove-autodeps": do_remove_autodeps,
-        "prune-obsolete": do_prune_obsolete,
-        "zap": do_zap,
-        "lint": do_lint,
-        "fetch": do_pkg,
-        "extract": do_pkg,
-        "patch": do_pkg,
-        "configure": do_pkg,
-        "build": do_pkg,
-        "check": do_pkg,
-        "install": do_pkg,
-        "pkg": do_pkg
-    }).get(cmdline.command[0], do_bad)(cmdline.command[0])
+    cmd = cmdline.command[0]
+    match cmd:
+        case "binary-bootstrap": binary_bootstrap(cmd)
+        case "bootstrap": bootstrap(cmd)
+        case "bootstrap-update": bootstrap_update(cmd)
+        case "keygen": do_keygen(cmd)
+        case "chroot": do_chroot(cmd)
+        case "clean": do_clean(cmd)
+        case "remove-autodeps": do_remove_autodeps(cmd)
+        case "prune-obsolete": do_prune_obsolete(cmd)
+        case "zap": do_zap(cmd)
+        case "lint": do_lint(cmd)
+        case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)
+        case "build" | "check" | "install" | "pkg": do_pkg(cmd)
+        case _:
+            logger.get().out_red(f"cbuild: invalid target {cmd}")
+            sys.exit(1)
 except template.SkipPackage:
     pass
 except:
