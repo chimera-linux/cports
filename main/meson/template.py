@@ -1,6 +1,6 @@
 pkgname = "meson"
 _mver = "0.58"
-pkgver = f"{_mver}.1"
+pkgver = f"{_mver}.2"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-devel", "python-setuptools"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://mesonbuild.com"
 source = f"https://github.com/mesonbuild/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3144a3da662fcf79f1e5602fa929f2821cba4eba28c2c923fe0a7d3e3db04d5d"
+sha256 = "7634ec32955d3f897d623b88e9d2988451035f43d73c17a29caf767387baedb7"
 # checkdepends not available yet
 options = ["!check"]
 
