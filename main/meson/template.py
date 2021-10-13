@@ -11,7 +11,7 @@ license = "Apache-2.0"
 url = "https://mesonbuild.com"
 source = f"https://github.com/mesonbuild/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "3144a3da662fcf79f1e5602fa929f2821cba4eba28c2c923fe0a7d3e3db04d5d"
-
-options = ["!check", "!lint"]
+# checkdepends not available yet
+options = ["!check"]
 
 # FIXME: tests, install completions etc.
