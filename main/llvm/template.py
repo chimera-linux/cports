@@ -76,13 +76,13 @@ else:
         "-DCOMPILER_RT_BUILD_MEMPROF=NO",
     ]
 
-_arch = {
-    "x86_64": "X86",
-    "aarch64": "AArch64",
-    "ppc64le": "PowerPC",
-    "ppc64": "PowerPC",
-    "riscv64": "RISCV64",
-}[current.build_profile.arch]
+match current.build_profile.arch:
+    case "x86_64": _arch = "X86"
+    case "aarch64": _arch = "AArch64"
+    case "ppc64le" | "ppc64": _arch = "PowerPC"
+    case "riscv64": _arch = "RISCV64"
+    case _:
+        broken = f"Unknown CPU architecture: {current.build_profile.arch}"
 
 def init_configure(self):
     if not self.cross_build:

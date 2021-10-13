@@ -13,13 +13,13 @@ sha256 = "904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"
 # nothing to test
 options = ["bootstrap", "!check"]
 
-_arch = {
-    "x86_64": "x86",
-    "aarch64": "arm64",
-    "ppc64le": "powerpc",
-    "ppc64": "powerpc",
-    "riscv64": "riscv",
-}[current.build_profile.arch]
+match current.build_profile.arch:
+    case "x86_64": _arch = "x86"
+    case "aarch64": _arch = "arm64"
+    case "ppc64le" | "ppc64": _arch = "powerpc"
+    case "riscv64": _arch = "riscv"
+    case _:
+        broken = f"Unknown CPU architecture: {current.build_profile.arch}"
 
 def do_build(self):
     from cbuild.util import make

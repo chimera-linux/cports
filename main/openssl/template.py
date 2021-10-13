@@ -18,18 +18,15 @@ source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
 sha256 = "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
 options = ["bootstrap"]
 
-ecargs = {
-    "x86_64": ["enable-ec_nistp_64_gcc_128", "linux-x86_64"],
-    "aarch64": ["linux-aarch64"],
-    "ppc64le": ["linux-ppc64le"],
-    "ppc64": ["linux-ppc64"],
-    "riscv64": ["linux-generic64"], # linux64-riscv64 for openssl 3
-}.get(current.build_profile.arch, None)
-
-if not ecargs:
-    broken = f"Unknown CPU: {current.build_profile.arch}"
-
-configure_args += ecargs
+match current.build_profile.arch:
+    case "x86_64":
+        configure_args += ["enable-ec_nistp_64_gcc_128", "linux-x86_64"]
+    case "aarch64" | "ppc64le" | "ppc64":
+        configure_args += [f"linux-{current.build_profile.arch}"]
+    case "riscv64":
+        configure_args += ["linux-generic64"] # linux64-riscv64 for openssl 3
+    case _:
+        broken = f"Unknown CPU architecture: {current.build_profile.arch}"
 
 def pre_configure(self):
     #self.configure_args += self.CPPFLAGS
