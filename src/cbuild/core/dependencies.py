@@ -61,7 +61,7 @@ def _setup_depends(pkg):
             rdeps.append((orig, dep))
 
     cdeps = []
-    if not pkg.cross_build and pkg.options["check"]:
+    if not pkg.cross_build and (pkg.options["check"] or pkg._force_check):
         cdeps = pkg.checkdepends
 
     if not pkg.bootstrapping:
@@ -158,7 +158,7 @@ def install_toolchain(pkg, signkey):
         build.build("pkg", template.read_pkg(
             f"main/base-cross-{archn}", chroot.host_cpu(),
             False, pkg.run_check, pkg.conf_jobs, pkg.build_dbg,
-            pkg.use_ccache, None
+            pkg.use_ccache, None, force_check = pkg._force_check
         ), {}, signkey, chost = True)
     except template.SkipPackage:
         pass
@@ -392,7 +392,8 @@ def install(pkg, origpkg, step, depmap, signkey):
             build.build(step, template.read_pkg(
                 pn, chost if not pkg.bootstrapping else None,
                 False, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
+                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
+                force_check = pkg._force_check
             ), depmap, signkey, chost = not not pkg.cross_build)
         except template.SkipPackage:
             pass
@@ -403,7 +404,8 @@ def install(pkg, origpkg, step, depmap, signkey):
             build.build(step, template.read_pkg(
                 pn, tarch if not pkg.bootstrapping else None,
                 False, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
+                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
+                force_check = pkg._force_check
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -414,7 +416,8 @@ def install(pkg, origpkg, step, depmap, signkey):
             build.build(step, template.read_pkg(
                 rd, tarch if not pkg.bootstrapping else None,
                 False, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg
+                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
+                force_check = pkg._force_check
             ), depmap, signkey)
         except template.SkipPackage:
             pass

@@ -5,7 +5,7 @@ def invoke(pkg, step):
         pkg.log("skipping check (cross build)")
         return
 
-    if not pkg.options["check"]:
+    if not pkg.options["check"] and not pkg._force_check:
         pkg.log("skipping check (disabled by template)")
         return
 

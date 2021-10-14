@@ -45,27 +45,28 @@ for prog in [
 
 # global options
 
-opt_cflags    = "-O2"
-opt_cxxflags  = "-O2"
-opt_fflags    = "-O2"
-opt_arch      = None
-opt_gen_dbg   = False
-opt_check     = True
-opt_ccache    = False
-opt_makejobs  = 1
-opt_nocolor   = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
-opt_signkey   = None
-opt_unsigned  = False
-opt_force     = False
-opt_mdirtemp  = False
-opt_nonet     = False
-opt_dirty     = False
-opt_keeptemp  = False
-opt_altrepo   = None
-opt_bldroot   = "bldroot"
-opt_pkgpath   = "packages"
-opt_srcpath   = "sources"
-opt_cchpath   = "ccache"
+opt_cflags     = "-O2"
+opt_cxxflags   = "-O2"
+opt_fflags     = "-O2"
+opt_arch       = None
+opt_gen_dbg    = False
+opt_check      = True
+opt_ccache     = False
+opt_makejobs   = 1
+opt_nocolor    = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
+opt_signkey    = None
+opt_unsigned   = False
+opt_force      = False
+opt_mdirtemp   = False
+opt_nonet      = False
+opt_dirty      = False
+opt_keeptemp   = False
+opt_forcecheck = False
+opt_altrepo    = None
+opt_bldroot    = "bldroot"
+opt_pkgpath    = "packages"
+opt_srcpath    = "sources"
+opt_cchpath    = "ccache"
 
 # parse command line arguments
 
@@ -137,6 +138,11 @@ parser.add_argument(
     "--allow-unsigned", action = "store_const",
     const = True, default = opt_unsigned,
     help = "Allow building without a signing key."
+)
+parser.add_argument(
+    "--force-check", action = "store_const",
+    const = True, default = opt_forcecheck,
+    help = "Force running check even if disabled by template."
 )
 parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
@@ -218,6 +224,9 @@ if cmdline.dirty_build:
 
 if cmdline.keep_temporary:
     opt_keeptemp = True
+
+if cmdline.force_check:
+    opt_forcecheck = True
 
 if cmdline.temporary:
     mdp = pathlib.Path.cwd() / opt_bldroot
@@ -458,7 +467,8 @@ def do_pkg(tgt, pkgn = None, force = None, check = None):
     rp = template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
         check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
-        target = tgt if (tgt != "pkg") else None
+        target = tgt if (tgt != "pkg") else None,
+        force_check = opt_forcecheck
     )
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
