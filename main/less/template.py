@@ -11,10 +11,6 @@ url = "http://www.greenwoodsoftware.com/less"
 source = f"http://www.greenwoodsoftware.com/less/less-{pkgver}.tar.gz"
 sha256 = "ce34b47caf20a99740672bf560fc48d5d663c5e78e67bc254e616b9537d5d83b"
 
-def post_extract(self):
-    # permissions are bad by default and patch refuses it
-    (self.cwd / "Makefile.in").chmod(0o644)
-
 def post_install(self):
     self.install_file(self.files_path / "lesspipe.sh", "usr/bin", mode = 0o755)
     self.install_file(

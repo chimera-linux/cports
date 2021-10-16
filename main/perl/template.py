@@ -164,17 +164,6 @@ def pre_patch(self):
             continue
         self.mv(f, ".")
 
-    # for some reason tarballs have messed up permissions, this bothers
-    # patch(1) so fix them up
-    for f in [
-        "cnf/configure_tool.sh",
-        "cpan/Digest-SHA/Makefile.PL",
-        "cpan/CPAN/lib/CPAN/FirstTime.pm",
-        "Configure",
-        "Makefile.SH",
-    ]:
-        (self.cwd / f).chmod(0o666)
-
 def init_configure(self):
     from cbuild.util import make
 

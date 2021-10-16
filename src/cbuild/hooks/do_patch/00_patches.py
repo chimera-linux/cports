@@ -8,7 +8,7 @@ def process_patch(pkg, patchpath, gnupatch):
     pargs = ["-sNp1"]
 
     if not gnupatch:
-        pargs += ["-V", "none"]
+        pargs += ["-z", ""]
     else:
         pargs.append("--no-backup-if-mismatch")
 
