@@ -1,0 +1,38 @@
+From cc28bc1d4541062f7934b52dfd24fe8fd70c828e Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 16 Oct 2021 04:52:03 +0200
+Subject: [PATCH] use portable install(1) syntax in autopoint
+
+---
+ src/autopoint.in | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/src/autopoint.in b/src/autopoint.in
+index ce41116..ac99800 100755
+--- a/src/autopoint.in
++++ b/src/autopoint.in
+@@ -23,15 +23,18 @@ do
+   if [ "${line##*po/Makefile.in}" != "$line" ]; then
+     poprefix="${line##*[}"
+     poprefix="${poprefix%%po/Makefile.in*}"
+-    install -D -m 644 @datadir@/data/autopoint_Makefile.in "./${poprefix}/po/Makefile.in.in"
++    install -d "./${poprefix}/po"
++    install -m 644 @datadir@/data/autopoint_Makefile.in "./${poprefix}/po/Makefile.in.in"
+   fi
+ done < "configure.ac"
+ 
+ touch "./${dirprefix}/config.rpath" ABOUT-NLS
+ 
+ for i in intl/Makefile.in po/Makefile.in.in ; do
+-	install -D -m 644 @datadir@/data/autopoint_Makefile.in "$i"
++	install -d "${i%/*}"
++	install -m 644 @datadir@/data/autopoint_Makefile.in "$i"
+ done
+ 
+-install -D -m 644 @datadir@/data/Makevars.template po/Makevars.template
++install -d po
++install -m 644 @datadir@/data/Makevars.template po/Makevars.template
+ true
+-- 
+2.33.0
+
