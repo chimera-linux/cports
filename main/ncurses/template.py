@@ -1,7 +1,15 @@
 pkgname = "ncurses"
 pkgver = "6.2"
 pkgrel = 0
-configure_args = ["--enable-big-core"]
+build_style = "gnu_configure"
+configure_args = [
+    "--enable-widec", "--enable-big-core", "--enable-ext-colors",
+    "--enable-pc-files", "--without-debug", "--without-ada",
+    "--with-shared", "--with-manpage-symlinks",
+    "--with-manpage-format=normal",
+    "--with-pkg-config-libdir=/usr/lib/pkgconfig",
+    "ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config",
+]
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]
 depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
@@ -14,54 +22,14 @@ sha256 = "30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"
 tool_flags = {"CFLAGS": ["-fPIC"],}
 options = ["bootstrap"]
 
-def do_configure(self):
-    from cbuild.util import gnu_configure
-
+def init_configure(self):
     with self.profile("host"):
         bcflags = self.get_cflags(shell = True)
 
-    self.mkdir("ncurses-build", parents = True)
-    self.mkdir("ncursesw-build", parents = True)
+    self.configure_args += [f"BUILD_CFLAGS={bcflags}"]
 
-    # widec build
-    gnu_configure.configure(
-        self, build_dir = "ncursesw-build", extra_args = [
-            "--enable-widec", "--with-shared", "--without-debug",
-            "--with-manpage-symlinks", "--with-manpage-format=normal",
-            "--without-ada", "--enable-ext-colors", "--without-tests",
-            "--enable-pc-files", "--with-pkg-config-libdir=/usr/lib/pkgconfig",
-            "ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config",
-            "BUILD_CFLAGS=" + bcflags
-        ]
-    )
-
-    # non-widec build
-    gnu_configure.configure(
-        self, build_dir = "ncurses-build", extra_args = [
-            "--with-shared", "--without-debug", "--without-ada",
-            "--without-tests", "--enable-pc-files",
-            "--with-pkg-config-libdir=/usr/lib/pkgconfig",
-            "ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config",
-            "BUILD_CFLAGS=" + bcflags
-        ]
-    )
-
-def init_build(self):
-    from cbuild.util import make
-    self.make = make.Make(self)
-
-def do_build(self):
-    self.make.build(wrksrc = "ncursesw-build")
-    self.make.build(wrksrc = "ncurses-build")
-
-def do_check(self):
-    self.make.check(wrksrc = "ncursesw-build")
-    self.make.check(wrksrc = "ncurses-build")
-
-def do_install(self):
+def post_install(self):
     self.install_license("COPYING")
-
-    self.make.install(wrksrc = "ncursesw-build")
 
     # fool packages looking to link to non-wide-character ncurses libraries
     for lib in ["curses", "ncurses", "form", "panel", "menu"]:
@@ -89,13 +57,6 @@ def do_install(self):
     self.install_link("libncurses.so", "usr/lib/libcurses.so")
     self.install_link("libncursesw.a", "usr/lib/libcursesw.a")
     self.install_link("libncurses.a", "usr/lib/libcurses.a")
-
-    # non-widec compatibility library
-    self.install_lib(f"ncurses-build/lib/libncurses.so.{pkgver}")
-    self.install_link(
-        f"libncurses.so.{pkgver}",
-        f"usr/lib/libncurses.so.{pkgver[0:pkgver.find('.')]}"
-    )
 
     # create libtinfo symlinks
     self.install_link("libncursesw.so", "usr/lib/libtinfo.so")
