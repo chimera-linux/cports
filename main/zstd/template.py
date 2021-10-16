@@ -20,6 +20,11 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    for tool in [
+        "zstdgrep", "zstdless"
+    ]:
+        self.rm(self.destdir / "usr/bin" / tool)
+        self.rm(self.destdir / "usr/share/man/man1" / (tool + ".1"))
 
 @subpackage("libzstd")
 def _lib(self):
