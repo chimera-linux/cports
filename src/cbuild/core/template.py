@@ -944,7 +944,7 @@ class Template(Package):
         return target.has_hardening(hname, self.hardening)
 
     @contextlib.contextmanager
-    def profile(self, target):
+    def _profile(self, target):
         old_tgt = self.build_profile
 
         if self.bootstrapping and (target == "host" or target == "target"):
@@ -959,6 +959,11 @@ class Template(Package):
             yield
         finally:
             self.build_profile = old_tgt
+
+    def profile(self, target = None):
+        if target == None:
+            return self.build_profile
+        return self._profile(target)
 
     def install_files(self, path, dest, symlinks = True):
         path = pathlib.Path(path)

@@ -1902,9 +1902,10 @@ with self.stamp("test") as s:
 The `check()` method ensures that the code following it is not run if the
 stamp file already exists. The script will proceed after the context.
 
-##### def profile(self, target)
+##### def profile(self, target = None)
 
-To be used as a context manager. Temporarily overrides the current build
+If `target` is not given, simply returns the current profile, otherwise
+to be used as a context manager. Temporarily overrides the current build
 profile to the given `target`, which can be a specific profile name (for
 example `aarch64`) or the special aliases `host` and `target`, which refer
 to the build machine and the target machine respectively (the target machine
@@ -1915,6 +1916,9 @@ Usage:
 ```
 with self.profile("aarch64"):
     ... do something that we need for aarch64 at the time ...
+
+if self.profile().endian == "big":
+    ...
 ```
 
 ##### def get_tool_flags(self, name, extra_flags = [], hardening = [], shell = False, target = None)
