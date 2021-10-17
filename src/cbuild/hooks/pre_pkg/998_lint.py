@@ -52,7 +52,7 @@ def invoke(pkg):
             pkg.log_red(f"forbidden dorirectory '{rf}'")
             lintfail = True
 
-    if dirempty and pkg.rparent.build_style != "meta":
+    if dirempty and pkg.build_style != "meta":
         if pkg.rparent is not pkg:
             pkg.log_red("non-meta subpackages must not be empty")
             lintfail = True

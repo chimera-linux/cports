@@ -702,7 +702,9 @@ There are currently a few build styles available.
 #### meta
 
 A metapackage `build_style`. It merely defines empty `do_fetch` as well
-as `do_install`. All empty packages must use this build style.
+as `do_install`. All empty packages must use this build style, including
+subpackages; metasubpackages of normal packages must mark themselves with
+this. This is the only time a subpackage sets `build_style`.
 
 #### cmake
 

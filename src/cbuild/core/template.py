@@ -1377,6 +1377,7 @@ def from_module(m, ret):
         sp.destdir = ret.destdir_base / f"{sp.pkgname}-{ret.pkgver}"
         sp.chroot_destdir = ret.chroot_destdir_base / f"{sp.pkgname}-{ret.pkgver}"
         sp.statedir = ret.statedir
+        sp.build_style = ret.build_style
         pinst = spf(sp)
         if not callable(pinst):
             sp.pkg_install = _subpkg_install_list(sp, pinst)
@@ -1389,6 +1390,10 @@ def from_module(m, ret):
             flv = getattr(sp, fl)
             if not validate_type(flv, tp):
                 ret.error("invalid field value: %s" % fl)
+        # build_style is validated specially
+        if sp.build_style and sp.build_style != ret.build_style and \
+           sp.build_style != "meta":
+            ret.error("subpackages cannot declare non-meta build_style")
 
         # deal with options
         ropts = {}
