@@ -377,8 +377,9 @@ These variables are mandatory:
   not a part of the SPDX license expression specification, it can be used
   to cover e.g. dual license software with a custom and standard license
   via something like `custom:foo OR BSD-3-Clause`. Metapackages should
-  always use license `custom:meta`. Packages with custom licenses should
-  use `custom:packagename`, and properly install the license. The license
+  always use license `custom:meta`. Public domain packages should always
+  use `custom:none`. Packages that have some custom license should use
+  `custom:packagename`, and properly install the license. The license
   is inherited into all subpackages, and subpackages are allowed to set
   it themselves.
 * `pkgname` *(str)* The primary package name, must match template name.
