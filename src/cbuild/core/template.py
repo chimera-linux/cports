@@ -311,7 +311,7 @@ core_fields = [
     # name default type mandatory subpkg inherit
 
     # core fields that are set early
-    ("license", None, str, True, False, False),
+    ("license", None, str, True, True, True),
     ("pkgdesc", None, str, True, True, True),
     ("pkgname", None, str, True, False, False),
     ("pkgrel", None, int, True, False, False),
@@ -1408,6 +1408,15 @@ def from_module(m, ret):
                 ropts[opt] = not neg
 
         sp.options = ropts
+
+        if sp.options["spdx"] and sp.license != ret.license:
+            lerr = None
+            try:
+                spdx.validate(sp.license)
+            except RuntimeError as e:
+                lerr = str(e)
+            if lerr:
+                ret.error("failed validating subpackage license: %s" % lerr)
 
         # go
         ret.subpkg_list.append(sp)

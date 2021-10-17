@@ -46,7 +46,7 @@ def genpkg(
         metadata["maintainer"] = pkg.rparent.maintainer
         #metadata["packager"] = pkg.rparent.maintainer
         metadata["origin"] = pkg.rparent.pkgname
-        metadata["license"] = pkg.rparent.license
+        metadata["license"] = pkg.license
 
         if pkg.rparent.git_revision:
             metadata["commit"] = pkg.rparent.git_revision + (
