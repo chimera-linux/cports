@@ -71,7 +71,7 @@ def configure(
 
     cargs = [
         "--prefix=/usr", "--sysconfdir=/etc", "--sbindir=/usr/bin",
-        "--bindir=/usr/bin", "--mandir=/usr/share/man",
+        "--bindir=/usr/bin", "--libdir=/usr/lib", "--mandir=/usr/share/man",
         "--infodir=/usr/share/info", "--localstatedir=/var"
     ]
 
