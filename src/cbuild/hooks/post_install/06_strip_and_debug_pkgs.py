@@ -1,5 +1,6 @@
 import shutil
 import subprocess
+import stat
 
 def make_debug(pkg, f, relf):
     if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
@@ -29,6 +30,15 @@ def attach_debug(pkg, f, relf):
         ])
     except:
         pkg.error(f"failed to attach debug link to {relf}")
+
+def _sanitize_exemode(f):
+    st = f.lstat()
+    mode = 0o755
+    if (st.st_mode & stat.S_ISUID):
+        mode |= 0o4000
+    if (st.st_mode & stat.S_ISGID):
+        mode |= 0o2000
+    f.chmod(mode)
 
 def invoke(pkg):
     if not pkg.options["strip"]:
@@ -93,7 +103,7 @@ def invoke(pkg):
 
         # strip static executable
         if static:
-            v.chmod(0o755)
+            _sanitize_exemode(v)
             try:
                 pkg.rparent.do(strip_path, [cfile])
             except:
@@ -142,7 +152,7 @@ def invoke(pkg):
             pkg.error(f"dynamic executable without an interpreter: {vr}")
 
         # regardless, sanitize mode
-        v.chmod(0o755)
+        _sanitize_exemode(v)
 
         # strip nopie executable
         if not pie:
