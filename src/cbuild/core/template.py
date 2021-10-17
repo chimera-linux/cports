@@ -956,7 +956,7 @@ class Template(Package):
 
         try:
             self.build_profile = profile.get_profile(target)
-            yield
+            yield self.build_profile
         finally:
             self.build_profile = old_tgt
 

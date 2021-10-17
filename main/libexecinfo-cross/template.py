@@ -14,7 +14,7 @@ sha256 = "c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"
 options = ["!cross", "!check"]
 
 _targets = list(filter(
-    lambda p: p != current.build_profile.arch,
+    lambda p: p != current.profile().arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
 
@@ -24,8 +24,8 @@ def do_build(self):
         if (self.cwd / f"libexecinfo.a.{an}").exists():
             continue
 
-        with self.profile(an):
-            at = self.build_profile.short_triplet
+        with self.profile(an) as pf:
+            at = pf.short_triplet
             self.make.build([
                 f"CC=clang -target {at} --sysroot /usr/{at}",
                 "PREFIX=/usr",
@@ -38,8 +38,8 @@ def do_build(self):
 
 def do_install(self):
     for an in _targets:
-        with self.profile(an):
-            at = self.build_profile.short_triplet
+        with self.profile(an) as pf:
+            at = pf.short_triplet
             self.install_dir(f"usr/{at}/usr/lib/pkgconfig")
             self.install_dir(f"usr/{at}/usr/include")
             self.install_dir(f"usr/{at}/usr/lib")
@@ -65,5 +65,5 @@ def _gen_crossp(an, at):
     depends.append(f"libexecinfo-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:
-    with current.profile(an):
-        _gen_crossp(an, current.build_profile.short_triplet)
+    with current.profile(an) as pf:
+        _gen_crossp(an, pf.short_triplet)

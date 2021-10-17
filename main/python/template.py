@@ -37,7 +37,7 @@ if current.cross_build:
     hostmakedepends += ["python"]
 
 def init_configure(self):
-    bigend = "yes" if (self.build_profile.endian == "big") else "no"
+    bigend = "yes" if (self.profile().endian == "big") else "no"
     self.configure_args.append("ax_cv_c_float_words_bigendian=" + bigend)
 
 def pre_configure(self):

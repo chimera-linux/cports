@@ -52,7 +52,7 @@ tool_flags = {
 }
 
 _targets = list(filter(
-    lambda p: p != current.build_profile.arch,
+    lambda p: p != current.profile().arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
 
@@ -60,8 +60,8 @@ def do_configure(self):
     from cbuild.util import cmake
 
     for an in _targets:
-        with self.profile(an):
-            at = self.build_profile.short_triplet
+        with self.profile(an) as pf:
+            at = pf.short_triplet
             # configure compiler-rt
             with self.stamp(f"{an}_configure") as s:
                 s.check()
@@ -91,8 +91,8 @@ def do_install(self):
         self.rm(f"usr/lib/clang/{pkgver}/bin", recursive = True)
 
 def _gen_crossp(an):
-    with current.profile(an):
-        at = current.build_profile.short_triplet
+    with current.profile(an) as pf:
+        at = pf.short_triplet
 
     @subpackage(f"clang-rt-cross-{an}")
     def _subp(self):

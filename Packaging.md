@@ -1914,7 +1914,7 @@ is the same as build machine when not cross compiling).
 Usage:
 
 ```
-with self.profile("aarch64"):
+with self.profile("aarch64") as pf:
     ... do something that we need for aarch64 at the time ...
 
 if self.profile().endian == "big":

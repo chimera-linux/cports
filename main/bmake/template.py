@@ -13,7 +13,7 @@ def do_build(self):
     self.mkdir("build", parents = True)
     eargs = []
     if self.cross_build:
-        eargs = ["--host=" + self.build_profile.short_triplet]
+        eargs = ["--host=" + self.profile().short_triplet]
     self.do(
         self.chroot_cwd / "boot-strap",
         eargs + ["--prefix=/usr", "op=build"],
