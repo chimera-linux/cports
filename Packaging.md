@@ -1253,6 +1253,51 @@ More about that in the respective API sections, but the API allows
 one to retrieve compiler flags in proper architecture-specific way,
 check if we are cross-compiling and otherwise inspect the target.
 
+API-side, the profile (retrieved with `self.profile()` for example)
+is represented as a `Profile` object. It looks like this:
+
+```
+class Profile:
+    arch = ...
+    triplet = ...
+    short_triplet = ...
+    sysroot = ...
+    hardening = ...
+    wordsize = ...
+    endian = ...
+    cross = ...
+
+    def get_tool_flags(self, name, extra_flags = [], debug = -1, hardening = [], shell = False)
+
+    def has_hardening(self, hname, hardening = [])
+```
+
+The properties have the following meanings:
+
+* `arch` The `apk` architecture name of the profile.
+* `triplet` The "long" target triplet (e.g. `aarch64-unknown-linux-musl`)
+* `short_triplet` The "short" target triplet (e.g. `aarch64-linux-musl`)
+* `sysroot` A `pathlib` path representing the sysroot.
+* `hardening` A list of hardening options the profile supports or does not
+  support.
+* `wordsize` The integer word size of the target (typically 64 or 32).
+* `endian` The endianness of the target (`little` or `big`).
+* `cross` A boolean that is `True` for cross compiling targets and
+  `False` otherwise.
+
+For the `bootstrap` profile, `triplet` and `short_triplet` are `None`.
+
+The `sysroot` refers to `/` for native targets and `/usr/<short_triplet>` for
+cross-compiling targets.
+
+The `get_tool_flags` method is used to implement the appropriate methods for
+retrieving `CFLAGS`, `LDFLAGS` and so on on `Template`. They are not influenced
+by the template's configuration. You pass the flags variable name as the name,
+such as the string `CFLAGS`.
+
+In general, you will not want to use the profile's methods, and the member
+variables are strictly read only.
+
 <a id="build_environment"></a>
 ## Build Environment
 
@@ -1751,54 +1796,6 @@ Whether building `dbg` packages is enabled by `cbuild`.
 ##### self.use_ccache
 
 Whether using `ccache` is enabled by `cbuild`
-
-##### self.build_profile
-
-The current build profile handle. Represents a `Profile` object, which
-has the following interface:
-
-```
-class Profile:
-    arch = ...
-    triplet = ...
-    short_triplet = ...
-    sysroot = ...
-    hardening = ...
-    wordsize = ...
-    endian = ...
-    cross = ...
-
-    def get_tool_flags(self, name, extra_flags = [], debug = -1, hardening = [], shell = False)
-
-    def has_hardening(self, hname, hardening = [])
-```
-
-The properties have the following meanings:
-
-* `arch` The `apk` architecture name of the profile.
-* `triplet` The "long" target triplet (e.g. `aarch64-unknown-linux-musl`)
-* `short_triplet` The "short" target triplet (e.g. `aarch64-linux-musl`)
-* `sysroot` A `pathlib` path representing the sysroot.
-* `hardening` A list of hardening options the profile supports or does not
-  support.
-* `wordsize` The integer word size of the target (typically 64 or 32).
-* `endian` The endianness of the target (`little` or `big`).
-* `cross` A boolean that is `True` for cross compiling targets and
-  `False` otherwise.
-
-There is a special `bootstrap` profile where the `triplet` and `short_triplet`
-are `None`.
-
-The `sysroot` refers to `/` for native targets and `/usr/<short_triplet>` for
-cross-compiling targets.
-
-The `get_tool_flags` method is used to implement the appropriate methods for
-retrieving `CFLAGS`, `LDFLAGS` and so on on `Template`. They are not influenced
-by the template's configuration. You pass the flags variable name as the name,
-such as the string `CFLAGS`.
-
-In general, you will not want to use the profile's methods, and the member
-variables are strictly read only.
 
 ##### self.wrksrc
 

@@ -108,9 +108,11 @@ def call_chroot(
     )
 
 def is_installed(pkgn, pkg = None):
-    if pkg and pkg.build_profile.cross:
-        sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
-        aarch = pkg.build_profile.arch
+    cpf = pkg.profile() if pkg else None
+
+    if pkg and cpf.cross:
+        sysp = paths.bldroot() / cpf.sysroot.relative_to("/")
+        aarch = cpf.arch
     else:
         sysp = paths.bldroot()
         aarch = None
@@ -121,9 +123,11 @@ def is_installed(pkgn, pkg = None):
     ).returncode == 0
 
 def get_provider(thing, pkg):
-    if pkg and pkg.build_profile.cross:
-        sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
-        aarch = pkg.build_profile.arch
+    cpf = pkg.profile() if pkg else None
+
+    if pkg and cpf.cross:
+        sysp = paths.bldroot() / cpf.sysroot.relative_to("/")
+        aarch = cpf.arch
     else:
         sysp = paths.bldroot()
         aarch = None

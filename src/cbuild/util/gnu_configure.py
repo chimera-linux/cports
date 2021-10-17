@@ -81,19 +81,19 @@ def configure(
     # caches taken from openembedded
     cachedir = paths.cbuild() / "misc/autoconf_cache"
 
-    if pkg.build_profile.triplet:
-        with pkg.profile("host"):
-            cargs.append("--build=" + pkg.build_profile.short_triplet)
-        cargs.append("--host=" + pkg.build_profile.short_triplet)
+    if pkg.profile().triplet:
+        with pkg.profile("host") as pf:
+            cargs.append("--build=" + pf.short_triplet)
+        cargs.append("--host=" + pkg.profile().short_triplet)
 
-    if pkg.build_profile.cross:
-        cargs.append("--with-sysroot=" + str(pkg.build_profile.sysroot))
-        cargs.append("--with-libtool-sysroot=" + str(pkg.build_profile.sysroot))
+    if pkg.profile().cross:
+        cargs.append("--with-sysroot=" + str(pkg.profile().sysroot))
+        cargs.append("--with-libtool-sysroot=" + str(pkg.profile().sysroot))
         # base cache
         _read_cache(cachedir, "common-linux", eenv)
         _read_cache(cachedir, "musl-linux", eenv)
         # endian cache
-        _read_cache(cachedir, "endian-" + pkg.build_profile.endian, eenv)
+        _read_cache(cachedir, "endian-" + pkg.profile().endian, eenv)
         # machine cache
         cl = {
             "armv7l": ["arm-common", "arm-linux"],
@@ -101,7 +101,7 @@ def configure(
             "ppc64le": ["powerpc-common", "powerpc-linux", "powerpc64-linux"],
             "ppc64": ["powerpc-common", "powerpc-linux", "powerpc64-linux"],
             "x86_64": ["x86_64-linux"]
-        }.get(pkg.build_profile.arch, [])
+        }.get(pkg.profile().arch, [])
         for l in cl:
             _read_cache(cachedir, l, eenv)
     else:

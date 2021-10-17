@@ -45,7 +45,7 @@ def _scan_so(pkg):
                 pkg.so_requires.append(dep)
             continue
         # otherwise, check if it came from an installed dependency
-        bp = pkg.rparent.build_profile
+        bp = pkg.rparent.profile()
         if bp.cross:
             broot = paths.bldroot() / bp.sysroot.relative_to("/")
             aarch = bp.arch

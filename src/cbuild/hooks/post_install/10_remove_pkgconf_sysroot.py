@@ -2,7 +2,7 @@
 # cross builds do not differ from native ones (e.g. /usr/ARCH/usr -> /usr)
 
 def invoke(pkg):
-    sr = str(pkg.rparent.build_profile.sysroot / "usr")
+    sr = str(pkg.rparent.profile().sysroot / "usr")
 
     for f in pkg.destdir.glob("usr/*/pkgconfig/*.pc"):
         if not f.is_file() or f.is_symlink():

@@ -18,7 +18,7 @@ def _srcpkg_ver(pkgn, pkgb):
         return _tcache[pkgn]
 
     rv = template.read_pkg(
-        pkgn, pkgb.build_profile.arch,
+        pkgn, pkgb.profile().arch,
         True, False, 1, False, False, None,
         resolve = pkgb, ignore_missing = True, ignore_errors = True
     )
@@ -83,7 +83,7 @@ def _setup_depends(pkg):
 
 def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
     # if installing target deps and we're crossbuilding, target the sysroot
-    sroot = cross and pkg.build_profile.cross
+    sroot = cross and pkg.profile().cross
 
     if pkg.bootstrapping or sroot:
         rootp = paths.bldroot()
@@ -91,8 +91,8 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
         if sroot:
             # pretend we're another arch
             # scripts are already never run in this case
-            aarch = pkg.build_profile.arch
-            rootp = rootp / pkg.build_profile.sysroot.relative_to("/")
+            aarch = pkg.profile().arch
+            rootp = rootp / pkg.profile().sysroot.relative_to("/")
         else:
             aarch = None
 
@@ -118,9 +118,9 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
         pkg.error(f"failed to install dependencies")
 
 def _is_available(pkgn, pattern, pkg, host = False):
-    if not host and pkg.build_profile.cross:
-        sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
-        aarch = pkg.build_profile.arch
+    if not host and pkg.profile().cross:
+        sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
+        aarch = pkg.profile().arch
     else:
         sysp = paths.bldroot()
         aarch = None
@@ -144,10 +144,10 @@ def _is_available(pkgn, pattern, pkg, host = False):
     return None
 
 def install_toolchain(pkg, signkey):
-    if not pkg.build_profile.cross:
+    if not pkg.profile().cross:
         return
 
-    archn = pkg.build_profile.arch
+    archn = pkg.profile().arch
 
     if apki.is_installed(f"base-cross-{archn}"):
         return
@@ -173,7 +173,7 @@ def setup_dummy(pkg, rootp):
 
     pkgn = "base-cross-target-meta"
     pkgv = "0.1-r0"
-    archn = pkg.build_profile.arch
+    archn = pkg.profile().arch
     repod = tmpd / archn
     repod.mkdir()
 
@@ -183,7 +183,7 @@ def setup_dummy(pkg, rootp):
 
     try:
         apkc.create(
-            pkgn, pkgv, pkg.build_profile.arch,
+            pkgn, pkgv, pkg.profile().arch,
             epoch, tmpd, tmpd, repod / f"{pkgn}-{pkgv}.apk", None,
             {
                 "pkgdesc": "Target sysroot virtual provider",
@@ -236,24 +236,24 @@ def setup_dummy(pkg, rootp):
         shutil.rmtree(tmpd)
 
 def init_sysroot(pkg):
-    if not pkg.build_profile.cross:
+    if not pkg.profile().cross:
         return
 
-    sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
+    sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
 
     if not (sysp / "etc/apk/world").exists():
-        pkg.log(f"setting up sysroot for {pkg.build_profile.arch}...")
+        pkg.log(f"setting up sysroot for {pkg.profile().arch}...")
         chroot.initdb(sysp)
 
     chroot.setup_keys(sysp)
     setup_dummy(pkg, sysp)
 
 def remove_autocrossdeps(pkg):
-    if not pkg.build_profile.cross:
+    if not pkg.profile().cross:
         return
 
-    sysp = paths.bldroot() / pkg.build_profile.sysroot.relative_to("/")
-    archn = pkg.build_profile.arch
+    sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
+    archn = pkg.profile().arch
 
     if apki.call(
         "info", ["--installed", "autodeps-target"], None, root = sysp,
@@ -277,7 +277,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
 
-    tarch = pkg.build_profile.arch
+    tarch = pkg.profile().arch
 
     if pkg.pkgname != origpkg:
         pkg.log(f"building{style} (dependency of {origpkg}) for {tarch}...")

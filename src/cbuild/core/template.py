@@ -497,7 +497,7 @@ def pkg_profile(pkg, target):
     elif target == "target":
         return profile.get_profile(chroot.target_cpu())
     elif not target:
-        return pkg.build_profile
+        return pkg._current_profile
 
     return profile.get_profile(target)
 
@@ -712,7 +712,7 @@ class Template(Package):
             self.error("lint failed: incorrect variable order")
 
     def validate_arch(self):
-        bprof = self.build_profile
+        bprof = self.profile()
         archn = bprof.arch
         # no archs specified: we match always
         if not self.archs:
@@ -781,8 +781,10 @@ class Template(Package):
         # otherwise we're good
 
     def do(self, cmd, args, env = {}, wrksrc = None):
+        cpf = self.profile()
+
         cenv = {
-            "CBUILD_TARGET_MACHINE": self.build_profile.arch,
+            "CBUILD_TARGET_MACHINE": cpf.arch,
             "CBUILD_HOST_MACHINE": chroot.host_cpu(),
         }
 
@@ -799,8 +801,8 @@ class Template(Package):
 
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
-        if self.build_profile.triplet:
-            cenv["CBUILD_TARGET_TRIPLET"] = self.build_profile.triplet
+        if cpf.triplet:
+            cenv["CBUILD_TARGET_TRIPLET"] = cpf.triplet
 
         if self.use_ccache:
             cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
@@ -817,7 +819,7 @@ class Template(Package):
         cenv["LD"] = self.get_tool("LD")
         cenv["PKG_CONFIG"] = self.get_tool("PKG_CONFIG")
 
-        with self.profile("host"):
+        with self.profile("host") as hpf:
             cenv["BUILD_CC"] = self.get_tool("CC")
             cenv["BUILD_CXX"] = self.get_tool("CXX")
             cenv["BUILD_CPP"] = self.get_tool("CPP")
@@ -828,8 +830,8 @@ class Template(Package):
             for k in self.tool_flags:
                 cenv["BUILD_" + k] = self.get_tool_flags(k, shell = True)
 
-            if self.build_profile.triplet:
-                cenv["CBUILD_HOST_TRIPLET"] = self.build_profile.triplet
+            if hpf.triplet:
+                cenv["CBUILD_HOST_TRIPLET"] = hpf.triplet
 
         cenv.update(self.env)
         cenv.update(env)
@@ -858,7 +860,7 @@ class Template(Package):
 
     def run_step(self, stepn, optional = False, skip_post = False):
         # reinit to make sure we've got up to date info
-        chroot.set_target(self.build_profile.arch)
+        chroot.set_target(self.profile().arch)
 
         call_pkg_hooks(self, "pre_" + stepn)
 
@@ -945,7 +947,7 @@ class Template(Package):
 
     @contextlib.contextmanager
     def _profile(self, target):
-        old_tgt = self.build_profile
+        old_tgt = self._current_profile
 
         if self.bootstrapping and (target == "host" or target == "target"):
             target = "bootstrap"
@@ -955,14 +957,14 @@ class Template(Package):
             target = chroot.target_cpu()
 
         try:
-            self.build_profile = profile.get_profile(target)
-            yield self.build_profile
+            self._current_profile = profile.get_profile(target)
+            yield self._current_profile
         finally:
-            self.build_profile = old_tgt
+            self._current_profile = old_tgt
 
     def profile(self, target = None):
         if target == None:
-            return self.build_profile
+            return self._current_profile
         return self._profile(target)
 
     def install_files(self, path, dest, symlinks = True):
@@ -1236,7 +1238,7 @@ def from_module(m, ret):
         pinfo = cli.call(
             "search", ["-e", ret.pkgname],
             ret.repository, capture_output = True,
-            arch = ret.build_profile.arch,
+            arch = ret.profile().arch,
             allow_untrusted = True, use_altrepo = False
         )
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
@@ -1333,9 +1335,8 @@ def from_module(m, ret):
     ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
 
-    if ret.build_profile.cross:
-        ret.destdir_base = paths.bldroot() / "destdir" / \
-            ret.build_profile.triplet
+    if ret.profile().cross:
+        ret.destdir_base = paths.bldroot() / "destdir" / ret.profile().triplet
     else:
         ret.destdir_base = paths.bldroot() / "destdir"
 
@@ -1352,9 +1353,9 @@ def from_module(m, ret):
             ret.cwd.relative_to(ret.builddir)
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
-        if ret.build_profile.cross:
+        if ret.profile().cross:
             ret.chroot_destdir_base = ret.chroot_destdir_base / \
-                ret.build_profile.triplet
+                ret.profile().triplet
 
     ret.chroot_destdir = ret.chroot_destdir_base \
         / f"{ret.pkgname}-{ret.pkgver}"
@@ -1421,7 +1422,7 @@ def from_module(m, ret):
         ret.error("attempt to bootstrap a non-bootstrap package")
 
     # fill the remaining toolflag lists so it's complete
-    for tf in ret.build_profile._get_supported_tool_flags():
+    for tf in ret.profile()._get_supported_tool_flags():
         if not tf in ret.tool_flags:
             ret.tool_flags[tf] = []
 
@@ -1524,18 +1525,18 @@ def read_pkg(
     ret.setup_reproducible()
 
     if pkgarch:
-        ret.build_profile = profile.get_profile(pkgarch)
+        ret._current_profile = profile.get_profile(pkgarch)
     else:
-        ret.build_profile = profile.get_profile("bootstrap")
+        ret._current_profile = profile.get_profile("bootstrap")
 
-    if ret.build_profile.cross:
+    if ret._current_profile.cross:
         ret.cross_build = pkgarch
     else:
         ret.cross_build = None
 
     ret.run_check = run_check and not ret.cross_build
 
-    chroot.set_target(ret.build_profile.arch)
+    chroot.set_target(ret._current_profile.arch)
 
     def subpkg_deco(spkgname, cond = True):
         def deco(f):

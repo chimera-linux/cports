@@ -113,7 +113,7 @@ def genpkg(
         lockpath.unlink()
 
 def invoke(pkg):
-    arch = pkg.rparent.build_profile.arch
+    arch = pkg.rparent.profile().arch
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
     binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 

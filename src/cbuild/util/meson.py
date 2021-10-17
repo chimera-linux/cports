@@ -1,7 +1,7 @@
 from cbuild.core import paths
 
 def _make_crossfile(pkg, build_dir):
-    if not pkg.build_profile.cross:
+    if not pkg.profile().cross:
         return
 
     cfpath = pkg.cwd / build_dir / "cbuild.cross"
@@ -9,13 +9,13 @@ def _make_crossfile(pkg, build_dir):
     (pkg.cwd / build_dir).mkdir(parents = True, exist_ok = True)
 
     # map known profiles to meson arch
-    match pkg.build_profile.arch:
+    match pkg.profile().arch:
         case "aarch64" | "x86_64" | "riscv64":
-            meson_cpu = pkg.build_profile.arch
+            meson_cpu = pkg.profile().arch
         case "ppc64le" | "ppc64":
             meson_cpu = "ppc64"
         case _:
-            pkg.error(f"unknown architecture: {pkg.build_profile.arch}")
+            pkg.error(f"unknown architecture: {pkg.profile().arch}")
 
     with open(cfpath, "w") as outf:
         outf.write(f"""
@@ -44,8 +44,8 @@ cpp_link_args = {pkg.get_ldflags()}
 [host_machine]
 system = 'linux'
 cpu_family = '{meson_cpu}'
-cpu = '{pkg.build_profile.arch}'
-endian = '{pkg.build_profile.endian}'
+cpu = '{pkg.profile().arch}'
+endian = '{pkg.profile().endian}'
 """)
 
     return cfpath
