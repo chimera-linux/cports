@@ -103,22 +103,34 @@ def _scan_pc(pkg):
     if (pkg.rparent.destdir / "usr/bin/pkg-config").exists():
         return
 
+    # all subpackages must declare their pkg-config path for the scan
+    pcpaths = []
+
+    for sp in pkg.rparent.subpkg_list:
+        if (sp.destdir / "usr/lib/pkgconfig").is_dir():
+            pcpaths.append(str(sp.chroot_destdir / "usr/lib/pkgconfig"))
+        if (sp.destdir / "usr/share/pkgconfig").is_dir():
+            pcpaths.append(str(sp.chroot_destdir / "usr/share/pkgconfig"))
+
+    if (pkg.rparent.destdir / "usr/lib/pkgconfig").is_dir():
+        pcpaths.append(str(pkg.rparent.chroot_destdir / "usr/lib/pkgconfig"))
+    if (pkg.rparent.destdir / "usr/share/pkgconfig").is_dir():
+        pcpaths.append(str(pkg.rparent.chroot_destdir / "usr/share/pkgconfig"))
+
+    pcpaths = ":".join(pcpaths)
+
     def scan_pc(v):
         if not v.exists():
             return
-        sn = v.stem
-        # we will be scanning in-chroot
-        rlp = v.relative_to(pkg.destdir).parent
-        cdv = pkg.chroot_destdir / rlp
         # analyze the .pc file
         pcc = chroot.enter(
             "pkg-config", [
-                "--print-requires", "--print-requires-private", sn
+                "--print-requires", "--print-requires-private", v.stem
             ],
             capture_out = True, bootstrapping = pkg.bootstrapping,
             ro_root = True, ro_build = True, unshare_all = True,
             env = {
-                "PKG_CONFIG_PATH": str(cdv),
+                "PKG_CONFIG_PATH": pcpaths,
             }
         )
         if pcc.returncode != 0:
