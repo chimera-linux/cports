@@ -1096,7 +1096,9 @@ for subpackages separately if needed:
 * `keepempty` *(false)* By default, `cbuild` will prune all empty directories
   from every package. This can be used to override that. It should almost
   never be used. However, there are some cases, notably `base-files`, where
-  keeping empty directories is intended.
+  keeping empty directories is intended. In most cases, when an empty directory
+  is desired, a placeholder file called `.empty` should be created in it, which
+  ensures that users cannot accidentally `rmdir` the directory.
 * `brokenlinks` *(false)* By default, broken symlinks that cannot be resolved
   within any subpackage will result in an error. You can override this behavior
   but usually shouldn't.
