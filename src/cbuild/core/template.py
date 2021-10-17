@@ -670,6 +670,7 @@ class Template(Package):
                 core_fields_map[n] = idx
         # by default assume success
         succ = True
+        precomment = False
         # we must read and parse the file
         with open(self.template_path / "template.py") as f:
             midx = 0
@@ -681,7 +682,10 @@ class Template(Package):
                     break
                 sln = ln.strip()
                 # non-empty or commented line skips the line
-                if (len(sln) == 0) or sln.startswith("#"):
+                if (len(sln) == 0):
+                    continue
+                if sln.startswith("#"):
+                    precomment = True
                     continue
                 # a non-assignment skips the line
                 ass = ln.find("=")
@@ -692,6 +696,14 @@ class Template(Package):
                 # not an actual name or it starts with underscore, so skip it
                 if not vnm.isidentifier() or vnm.startswith("_"):
                     continue
+                # if options has check disabled, a reason must be given
+                if vnm == "options":
+                    if not self.options["check"] and not precomment:
+                        self.error(
+                            "lint failed: check disabled but no reason given"
+                        )
+                # reset comment presence
+                precomment = False
                 # unknown variables must go last, so they get a fallback index
                 cidx = core_fields_map.get(vnm, len(core_fields_priority))
                 if cidx < midx:

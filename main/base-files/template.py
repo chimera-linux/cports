@@ -6,8 +6,8 @@ pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
-
-options = ["bootstrap", "keepempty", "brokenlinks"]
+# no tests
+options = ["!check", "bootstrap", "keepempty", "brokenlinks"]
 
 def do_install(self):
     # base root dirs

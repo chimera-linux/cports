@@ -1077,7 +1077,9 @@ the template including for subpackages:
   you can disable passing of debug options to the compiler, as well as
   prevent generation of debug packages.
 * `check` *(true)* By disabling this you can ensure the `check` phase
-  is never run, even if enabled and enforced in the build system.
+  is never run, even if enabled and enforced in the build system. A
+  reason should always be provided as a comment above the `options`
+  field.
 * `checkroot` *(false)* You can use this to run the `check` stage as
   root. This is useful for some test suites that will not function
   otherwise. Of course, this still uses namespaces, so it does not
