@@ -378,7 +378,9 @@ These variables are mandatory:
   to cover e.g. dual license software with a custom and standard license
   via something like `custom:foo OR BSD-3-Clause`. Metapackages should
   always use license `custom:meta`. Packages with custom licenses should
-  use `custom:packagename`, and properly install the license.
+  use `custom:packagename`, and properly install the license. The license
+  is inherited into all subpackages, and subpackages are allowed to set
+  it themselves.
 * `pkgname` *(str)* The primary package name, must match template name.
 * `pkgver` *(str)* The package version, applies to all subpackages. Must
   follow the correct format for the `apk` package manager.
@@ -1084,8 +1086,6 @@ the template including for subpackages:
   of fields, validation of URL and description strings and other checks.
   It does not check formatting of the template, as that can be handled
   better with external tools.
-* `spdx` *(true)* If enabled, the license name(s) will be validated
-  as SPDX compliant.
 
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:
@@ -1106,8 +1106,11 @@ for subpackages separately if needed:
   `.pc` files.
 * `scancmd` *(true)* If disabled, the package will not be scanned for
   executable commands.
+* `spdx` *(true)* If enabled, the license name(s) will be validated
+  as SPDX compliant. License for subpackages is validated separately,
+  if overridden (if not overridden, validation is skipped).
 * `strip` *(true)* If disabled, ELF files in this package will not be
-  stripped, which means debug symbols will remain where they are and
+  stripped, which means debug symbols will remain where thesy are and
   debug package will not be generated.
 
 <a id="hardening_options"></a>
