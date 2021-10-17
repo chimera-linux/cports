@@ -12,3 +12,7 @@ source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver
 sha256 = "61b24e5573694b28f1266f38bc6859ba72eb35e48dc95bfbe37572ca120f9fe4"
 # no test suite
 options = ["bootstrap", "!check"]
+
+def post_install(self):
+    self.rm(self.destdir / "usr/bin/zless")
+    self.rm(self.destdir / "usr/share/man/man1/zless.1")
