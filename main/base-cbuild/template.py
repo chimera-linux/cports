@@ -9,12 +9,17 @@ url = "https://chimera-linux.org"
 
 depends = [
     "musl-devel", "base-files", "elftoolchain", "llvm", "clang", "lld", "bmake",
-    "bsdutils", "dash", "file", "apk-tools", "awk", "ncurses", "bsdgrep",
+    "bsdutils", "dash", "file", "apk-tools-static", "awk", "ncurses", "bsdgrep",
     "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "chroot-util-linux",
     "tzdata", "mksh-static"
 ]
+provides = ["apk-tools=2.99.0-r0"]
 
-options = ["bootstrap"]
+options = ["bootstrap", "brokenlinks"]
 
 if not current.bootstrapping:
     depends += ["ccache"]
+
+def do_install(self):
+    self.install_dir("usr/bin")
+    self.install_link("apk.static", "usr/bin/apk")
