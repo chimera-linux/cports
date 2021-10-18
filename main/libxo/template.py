@@ -10,6 +10,7 @@ license = "BSD-2-Clause"
 url = "https://github.com/Juniper/libxo"
 source = f"https://github.com/Juniper/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"
+tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["bootstrap"]
 
 if not current.bootstrapping:
@@ -20,6 +21,10 @@ else:
 def post_patch(self):
     self.mkdir("libxo/sys")
     self.cp(self.files_path / "queue.h", "libxo/sys")
+
+# libxo does not respect LDFLAGS, so hack it in
+def init_configure(self):
+    self.tool_flags["CFLAGS"] += self.get_ldflags()
 
 @subpackage("libxo-devel")
 def _devel(self):
