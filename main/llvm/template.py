@@ -60,7 +60,7 @@ tool_flags = {
 if not current.bootstrapping:
     makedepends += [
         "python-devel", "libedit-devel", "elftoolchain-devel",
-        "libexecinfo-devel"
+        "libexecinfo-devel", "kernel-libc-headers"
     ]
     depends += ["libexecinfo-devel"]
 else:

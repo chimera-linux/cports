@@ -9,7 +9,7 @@ configure_args = [
     "--system-liblzma", "--system-zstd",
     f"--parallel={current.conf_jobs}"
 ]
-makedepends = ["libarchive-devel", "ncurses-devel"]
+makedepends = ["libarchive-devel", "ncurses-devel", "kernel-libc-headers"]
 pkgdesc = "Cross-platform, open source build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

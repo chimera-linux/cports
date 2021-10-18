@@ -11,7 +11,7 @@ url = "http://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{_mver}.x/linux-{pkgver}.tar.xz"
 sha256 = "904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"
 # nothing to test
-options = ["bootstrap", "!check"]
+options = ["!check"]
 
 match current.profile().arch:
     case "x86_64": _arch = "x86"

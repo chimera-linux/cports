@@ -21,7 +21,7 @@ make_check_args = [
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
     "libffi-devel", "openssl-devel", "libbz2-devel",
-    "zlib-devel", "liblzma-devel"
+    "zlib-devel", "liblzma-devel", "kernel-libc-headers"
 ]
 depends = ["ca-certificates"]
 pkgdesc = "Python programming language"

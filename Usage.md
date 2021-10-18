@@ -261,6 +261,7 @@ The system must contain an initial toolchain. It consists of these:
 * `flex`
 * `perl`
 * `m4`
+* Linux kernel headers for userland usage
 
 These can all be found in most distributions' package collections.
 

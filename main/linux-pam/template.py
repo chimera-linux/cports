@@ -8,7 +8,7 @@ configure_args = [
     "BUILD_CFLAGS=-Os", "BUILD_LDFLAGS=", "ac_cv_search_crypt=no"
 ]
 hostmakedepends = ["pkgconf", "gettext-tiny"]
-makedepends = ["gettext-tiny-devel", "libfl-devel"]
+makedepends = ["gettext-tiny-devel", "libfl-devel", "kernel-libc-headers"]
 checkdepends = ["linux-pam-base"]
 depends = ["linux-pam-base"]
 pkgdesc = "Pluggable Authentication Modules for Linux"
@@ -17,6 +17,7 @@ license = "BSD-3-Clause"
 url = f"https://github.com/{pkgname}/{pkgname}"
 source = f"{url}/releases/download/v{pkgver}/Linux-PAM-{pkgver}.tar.xz"
 sha256 = "e4ec7131a91da44512574268f493c6d8ca105c87091691b8e9b56ca685d4f94d"
+suid_files = ["usr/bin/unix_chkpwd"]
 
 def post_install(self):
     self.install_license("COPYING")
