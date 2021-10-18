@@ -399,7 +399,6 @@ def do_chroot(tgt):
         chroot.install(chroot.host_cpu())
     paths.prepare()
     chroot.repo_sync(True)
-    chroot.reconfigure()
     chroot.enter(
         "/usr/bin/mksh.static", ["-i"], pretend_uid = 0, pretend_gid = 0,
         mount_binpkgs = True, mount_ccache = True, new_session = False,

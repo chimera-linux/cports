@@ -164,23 +164,6 @@ def repo_sync(genrepos = False):
         logger.get().out_red(f"cbuild: failed to update pkg database")
         raise Exception()
 
-def reconfigure():
-    if not chroot_check():
-        return
-
-    statefile = paths.bldroot() / ".cbuild_chroot_configured"
-
-    if statefile.is_file():
-        return
-
-    logger.get().out("cbuild: reconfiguring base...")
-
-    if enter("update-ca-certificates", ["--fresh"]).returncode != 0:
-        logger.get().out_red(f"cbuild: failed to reconfigure base")
-        raise Exception()
-
-    statefile.touch()
-
 def initdb(path = None):
     # we init the database ourselves
     if not path:
@@ -283,8 +266,6 @@ def remove_autodeps(bootstrapping):
 def update(do_clean = True):
     if not chroot_check():
         return
-
-    reconfigure()
 
     logger.get().out("cbuild: updating software in %s container..." \
         % str(paths.bldroot()))
