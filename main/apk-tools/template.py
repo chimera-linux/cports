@@ -2,10 +2,8 @@ pkgname = "apk-tools"
 pkgver = "2.12.7"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "-Dlua=disabled", "-Ddocs=disabled", "-Dhelp=disabled", "-Dstatic_apk=true"
-]
-hostmakedepends = ["pkgconf", "meson"]
+configure_args = ["-Dlua=disabled", "-Dstatic_apk=true"]
+hostmakedepends = ["pkgconf", "meson", "lua54", "lua54-zlib", "scdoc"]
 makedepends = ["zlib-devel", "openssl-devel"]
 depends = ["ca-certificates"]
 pkgdesc = "Alpine package manager"
@@ -21,6 +19,8 @@ options = ["bootstrap"]
 
 if not current.bootstrapping:
     makedepends += ["linux-headers"]
+else:
+    configure_args += ["-Dhelp=disabled", "-Ddocs=disabled"]
 
 @subpackage("apk-tools-devel")
 def _devel(self):
