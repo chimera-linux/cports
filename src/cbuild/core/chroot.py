@@ -323,7 +323,8 @@ def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, ro_build = False,
           ro_dest = True, unshare_all = False, mount_binpkgs = False,
-          mount_ccache = False, pretend_uid = None, pretend_gid = None):
+          mount_ccache = False, pretend_uid = None, pretend_gid = None,
+          new_session = True):
     defpath = "/usr/bin"
     if bootstrapping:
         defpath = "/usr/bin:" + os.environ["PATH"]
@@ -388,7 +389,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         )
 
     bcmd = [
-        "bwrap", "--new-session", "--die-with-parent",
+        "bwrap",
         root_bind, paths.bldroot(), "/",
         build_bind, paths.bldroot() / "builddir", "/builddir",
         dest_bind, paths.bldroot() / "destdir", "/destdir",
@@ -397,6 +398,9 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "--proc", "/proc",
         "--tmpfs", "/tmp",
     ]
+
+    if new_session:
+        bcmd += ["--new-session", "--die-with-parent"]
 
     if mount_binpkgs:
         bcmd += ["--ro-bind", paths.repository(), "/binpkgs"]

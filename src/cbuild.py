@@ -402,7 +402,7 @@ def do_chroot(tgt):
     chroot.reconfigure()
     chroot.enter(
         "/bin/cbuild-shell", pretend_uid = 0, pretend_gid = 0,
-        mount_binpkgs = True, mount_ccache = True
+        mount_binpkgs = True, mount_ccache = True, new_session = False
     )
 
 def do_clean(tgt):
