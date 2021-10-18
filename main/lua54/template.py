@@ -3,7 +3,9 @@ _mver = "5.4"
 pkgver = f"{_mver}.3"
 pkgrel = 0
 build_style = "makefile"
+make_build_target = "linux-readline"
 make_check_target = "test"
+make_use_env = True
 hostmakedepends = ["pkgconf"]
 makedepends = ["libedit-devel"]
 pkgdesc = "Lua scripting language (5.4.x)"
@@ -12,7 +14,7 @@ license = "MIT"
 url = "https://lua.org"
 source = f"https://www.lua.org/ftp/lua-{pkgver}.tar.gz"
 sha256 = "f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb"
-tool_flags = {"CFLAGS": ["-fPIC", "-DLUA_COMPAT_5_3"]}
+tool_flags = {"CFLAGS": ["-fPIC"]}
 
 def init_configure(self):
     _bins = [
@@ -26,6 +28,8 @@ def init_configure(self):
     ]
 
     self.make_build_args += [
+        "CC=" + self.get_tool("CC"),
+        "AR=" + self.get_tool("AR"),
         "MYCFLAGS=" + self.get_cflags(shell = True),
         "MYLDFLAGS=" + self.get_ldflags(shell = True),
     ]

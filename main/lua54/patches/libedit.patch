@@ -1,5 +1,15 @@
-diff --git a/src/Makefile b/src/Makefile
-index f78c0b8..1665c7f 100644
+--- a/src/lua.c
++++ b/src/lua.c
+@@ -414,8 +414,7 @@ static int handle_luainit (lua_State *L) {
+ 
+ #if defined(LUA_USE_READLINE)	/* { */
+ 
+-#include <readline/readline.h>
+-#include <readline/history.h>
++#include <editline/readline.h>
+ #define lua_initreadline(L)	((void)L, rl_readline_name="lua")
+ #define lua_readline(L,b,p)	((void)L, ((b)=readline(p)) != NULL)
+ #define lua_saveline(L,line)	((void)L, add_history(line))
 --- a/src/Makefile
 +++ b/src/Makefile
 @@ -123,7 +123,7 @@ linux-noreadline:
@@ -7,7 +17,7 @@ index f78c0b8..1665c7f 100644
  
  linux-readline:
 -	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_LINUX -DLUA_USE_READLINE" SYSLIBS="-Wl,-E -ldl -lreadline"
-+	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_LINUX -DLUA_USE_READLINE -I/usr/include/editline" SYSLIBS="-Wl,-E -ldl -ledit"
++	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_LINUX -DLUA_USE_READLINE" SYSLIBS="-Wl,-E -ldl -ledit"
  
  Darwin macos macosx:
  	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_MACOSX -DLUA_USE_READLINE" SYSLIBS="-lreadline"
