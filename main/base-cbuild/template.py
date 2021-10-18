@@ -1,4 +1,4 @@
-pkgname = "base-chroot"
+pkgname = "base-cbuild"
 pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"

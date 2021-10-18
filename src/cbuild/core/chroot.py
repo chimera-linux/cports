@@ -205,7 +205,7 @@ def install(arch = None, stage = 2):
     if chroot_check():
         return
 
-    logger.get().out("cbuild: installing base-chroot...")
+    logger.get().out("cbuild: installing base-cbuild...")
 
     initdb()
 
@@ -217,13 +217,13 @@ def install(arch = None, stage = 2):
     repo_sync()
 
     irun = apki.call(
-        "add", ["--no-scripts", "base-chroot"], "main", arch = arch
+        "add", ["--no-scripts", "base-cbuild"], "main", arch = arch
     )
     if irun.returncode != 0:
-        logger.get().out_red("cbuild: failed to install base-chroot")
+        logger.get().out_red("cbuild: failed to install base-cbuild")
         raise Exception()
 
-    logger.get().out("cbuild: installed base-chroot successfully!")
+    logger.get().out("cbuild: installed base-cbuild successfully!")
 
     paths.prepare()
     _prepare(arch, stage)

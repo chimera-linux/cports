@@ -331,7 +331,7 @@ def bootstrap(tgt):
         rp = None
         try:
             rp = template.read_pkg(
-                "main/base-chroot", None, False, False, opt_makejobs,
+                "main/base-cbuild", None, False, False, opt_makejobs,
                 False, False, None
             )
         except template.SkipPackage:
@@ -356,7 +356,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 1")
         # use stage 0 build root to build, but build into stage 1 repo
         paths.reinit_buildroot(oldmdir, 0)
-        do_pkg("pkg", "main/base-chroot", False, False)
+        do_pkg("pkg", "main/base-cbuild", False, False)
         # go back to stage 1
         paths.reinit_buildroot(oldmdir, 1)
         chroot.install(chroot.host_cpu())
@@ -373,7 +373,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 2")
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 1)
-        do_pkg("pkg", "main/base-chroot", False)
+        do_pkg("pkg", "main/base-cbuild", False)
         # go back to stage 2
         paths.reinit_buildroot(oldmdir, 2)
         chroot.install(chroot.host_cpu())
