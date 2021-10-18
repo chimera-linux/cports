@@ -8,7 +8,7 @@ configure_args = [
     "--without-systemd", "--disable-libuuid", "--disable-libblkid",
     "--disable-libmount", "--disable-mount", "--disable-losetup",
     "--disable-fsck", "--disable-partx", "--disable-uuidd",
-    "--disable-mountpoint", "--disable-fallocate", "--disable-unshare",
+    "--disable-mountpoint", "--disable-fallocate",
     "--disable-nls", "--disable-wall", "--disable-chfn-chsh-password",
     "--disable-su", "--disable-sulogin", "--disable-login",
     "--disable-runuser", "--disable-setpriv", "--disable-libsmartcols",
