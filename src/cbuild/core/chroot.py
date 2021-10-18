@@ -97,17 +97,9 @@ def _prepare(arch, stage):
         logger.get().out_red("cbuild: bootstrap not installed, can't continue")
         raise Exception()
 
-    if pathlib.Path("/usr/share/zoneinfo/UTC").is_file():
-        zpath = paths.bldroot() / "usr" / "share" / "zoneinfo"
-        zpath.mkdir(parents = True, exist_ok = True)
-        shutil.copy("/usr/share/zoneinfo/UTC", zpath)
-        (paths.bldroot() / "etc" / "localtime").symlink_to(
-            "../usr/share/zoneinfo/UTC"
-        )
-    else:
-        logger.get().out(
-            "cbuild: no local timezone configuration file created"
-        )
+    (paths.bldroot() / "etc" / "localtime").symlink_to(
+        "../usr/share/zoneinfo/UTC"
+    )
 
     _prepare_passwd()
 

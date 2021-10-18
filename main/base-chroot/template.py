@@ -11,7 +11,7 @@ depends = [
     "musl-devel", "base-files", "elftoolchain", "llvm", "clang", "lld", "bmake",
     "bsdutils", "dash", "file", "apk-tools", "awk", "ncurses", "bsdgrep",
     "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "chroot-util-linux",
-    "mksh-static"
+    "tzdata", "mksh-static"
 ]
 
 options = ["bootstrap"]
