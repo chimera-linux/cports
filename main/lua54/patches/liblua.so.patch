@@ -33,7 +33,7 @@
  	$(RANLIB) $@
  
 +$(LUA_SO): $(BASE_O)
-+	$(CC) -shared -ldl -Wl,-soname,$(LUA_SO).$(V) -o $@.$(R) $? -lm $(MYLDFLAGS)
++	$(CC) -shared -ldl -Wl,-soname,$(LUA_SO).$(V) -o $@.$(R) $? -lm $(MYCFLAGS) $(MYLDFLAGS)
 +	ln -sf $(LUA_SO).$(R) $(LUA_SO).$(V)
 +	ln -sf $(LUA_SO).$(R) $(LUA_SO)
 +

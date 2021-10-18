@@ -12,7 +12,7 @@ license = "MIT"
 url = "https://lua.org"
 source = f"https://www.lua.org/ftp/lua-{pkgver}.tar.gz"
 sha256 = "f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb"
-tool_flags = {"CFLAGS": ["-fPIC"]}
+tool_flags = {"CFLAGS": ["-fPIC", "-DLUA_COMPAT_5_3"]}
 
 def init_configure(self):
     _bins = [
