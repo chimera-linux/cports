@@ -102,7 +102,7 @@ def _gen_crossp(an):
             f"libcxx-cross-{an}",
             f"libexecinfo-cross-{an}"
         ]
-        self.options = ["!scanshlibs"]
+        self.options = ["!scanshlibs", "!scanrundeps"]
         return [f"usr/lib/clang/{pkgver}/lib/linux/libclang_rt.*{at[0:at.find('-')]}*"]
     depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")
 

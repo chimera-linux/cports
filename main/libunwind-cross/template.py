@@ -97,7 +97,7 @@ def _gen_crossp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"musl-cross-{an}"]
-        self.options = ["!scanshlibs"]
+        self.options = ["!scanshlibs", "!scanrundeps"]
         return [f"usr/{at}"]
     depends.append(f"libunwind-cross-{an}={pkgver}-r{pkgrel}")
 
