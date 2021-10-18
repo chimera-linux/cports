@@ -8,6 +8,7 @@ def do_build(self):
 
     # by default, pass various stuff directly rather than through env
     tool_args = [
+        "PREFIX=/usr",
         "OBJCOPY=" + self.get_tool("OBJCOPY"),
         "RANLIB=" + self.get_tool("RANLIB"),
         "CXX=" + self.get_tool("CXX"),
