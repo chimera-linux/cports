@@ -78,7 +78,7 @@ def _prepare_passwd():
     shutil.copy(bfp / "etc/group", tfp)
 
     with open(tfp / "passwd", "a") as pf:
-        pf.write(f"cbuild:x:1337:1337:cbuild user:/tmp:/bin/cbuild-shell\n")
+        pf.write(f"cbuild:x:1337:1337:cbuild user:/tmp:/bin/nologin\n")
 
     with open(tfp / "group", "a") as pf:
         pf.write(f"cbuild:x:1337:\n")
@@ -86,20 +86,6 @@ def _prepare_passwd():
 def _init():
     xdir = paths.bldroot() / "etc" / "apk"
     xdir.mkdir(parents = True, exist_ok = True)
-
-    shf = open(paths.bldroot() / "bin" / "cbuild-shell", "w")
-    shf.write(f"""#!/bin/sh
-
-PATH=/usr/bin
-
-exec env -i -- SHELL=/bin/sh PATH="$PATH" \
-    CBUILD_ARCH={host_cpu()} \
-    IN_CHROOT=1 LC_COLLATE=C LANG=en_US.UTF-8 TERM=linux HOME="/tmp" \
-    PS1='$PWD$ ' /bin/sh
-""")
-    shf.close()
-
-    (paths.bldroot() / "bin" / "cbuild-shell").chmod(0o755)
 
     shutil.copy("/etc/resolv.conf", paths.bldroot() / "etc")
 
@@ -334,8 +320,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "SHELL": "/bin/sh",
         "HOME": "/tmp",
         "LC_COLLATE": "C",
-        "LANG": "en_US.UTF-8",
-        "PYTHONUNBUFFERED": "1",
+        "LANG": "C.UTF-8",
         **env
     }
     if "NO_PROXY" in os.environ:
@@ -356,6 +341,9 @@ def enter(cmd, args = [], capture_out = False, check = False,
     # if running from template, ensure wrappers are early in executable path
     if "CBUILD_STATEDIR" in envs:
         envs["PATH"] = envs["CBUILD_STATEDIR"] + "/wrappers:" + envs["PATH"]
+
+    if new_session:
+        envs["PYTHONUNBUFFERED"] = "1"
 
     # ccache path is searched first
     #

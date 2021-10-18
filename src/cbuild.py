@@ -401,8 +401,15 @@ def do_chroot(tgt):
     chroot.repo_sync(True)
     chroot.reconfigure()
     chroot.enter(
-        "/bin/cbuild-shell", pretend_uid = 0, pretend_gid = 0,
-        mount_binpkgs = True, mount_ccache = True, new_session = False
+        "/usr/bin/mksh.static", ["-i"], pretend_uid = 0, pretend_gid = 0,
+        mount_binpkgs = True, mount_ccache = True, new_session = False,
+        env = {
+            "HOME": "/tmp",
+            "TERM": "linux",
+            "CBUILD_SHELL": "1",
+            "PS1": "$PWD$ ",
+            "SHELL": "/usr/bin/mksh.static",
+        }
     )
 
 def do_clean(tgt):
