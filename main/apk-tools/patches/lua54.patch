@@ -1,0 +1,10 @@
+diff --git a/src/genhelp.lua b/src/genhelp.lua
+index 06a3590..c146b7b 100644
+--- a/src/genhelp.lua
++++ b/src/genhelp.lua
+@@ -1,4 +1,4 @@
+-#!/usr/bin/lua5.3
++#!/usr/bin/lua5.4
+ 
+ --[[
+ Utility to convert SCDOC manpages to apk-tools help messages

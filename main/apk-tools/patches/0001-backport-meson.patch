@@ -180,7 +180,7 @@ index 0000000..9d803d9
 +option('docs', description: 'Build manpages with scdoc', type: 'feature', value: 'auto')
 +option('help', description: 'Build help into apk binaries, needs lua and lua-zlib', type: 'feature', value: 'auto')
 +option('lua', description: 'Build luaapk (lua bindings)', type: 'feature', value: 'auto')
-+option('lua_version', description: 'Lua version to build against', type: 'string', value: '5.3')
++option('lua_version', description: 'Lua version to build against', type: 'string', value: '5.4')
 +option('static_apk', description: 'Also build apk.static', type: 'boolean', value: false)
 diff --git a/src/meson.build b/src/meson.build
 new file mode 100644

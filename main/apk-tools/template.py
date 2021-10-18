@@ -5,7 +5,6 @@ build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true"]
 hostmakedepends = ["pkgconf", "meson", "lua54", "lua54-zlib", "scdoc"]
 makedepends = ["zlib-devel", "openssl-devel"]
-depends = ["ca-certificates"]
 pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
