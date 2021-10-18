@@ -1,4 +1,4 @@
-pkgname = "kernel-libc-headers"
+pkgname = "linux-headers"
 _mver = "5"
 pkgver = f"{_mver}.10.4"
 pkgrel = 0

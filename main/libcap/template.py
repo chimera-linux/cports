@@ -14,7 +14,7 @@ make_install_args = [
 make_check_target = "test"
 make_use_env = True
 hostmakedepends = ["pkgconf", "gmake", "perl"]
-makedepends = ["attr-devel", "kernel-libc-headers"]
+makedepends = ["attr-devel", "linux-headers"]
 pkgdesc = "POSIX.1e capabilities suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
@@ -32,7 +32,7 @@ def init_configure(self):
 
 @subpackage("libcap-devel")
 def _devel(self):
-    self.depends += ["kernel-libc-headers"]
+    self.depends += ["linux-headers"]
     return self.default_devel(man = True)
 
 @subpackage("libcap-progs")

@@ -190,7 +190,6 @@ def setup_dummy(pkg, rootp):
                 "provides": [
                     "musl=9999-r0",
                     "musl-devel=9999-r0",
-                    "kernel-libc-headers=9999-r0",
                     "libcxx=9999-r0",
                     "libcxx-devel=9999-r0",
                     "libcxxabi=9999-r0",

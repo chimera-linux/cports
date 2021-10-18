@@ -19,7 +19,7 @@ sha256 = "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
 options = ["bootstrap"]
 
 if not current.bootstrapping:
-    makedepends = ["kernel-libc-headers"]
+    makedepends = ["linux-headers"]
 
 match current.profile().arch:
     case "x86_64":

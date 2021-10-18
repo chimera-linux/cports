@@ -1,4 +1,4 @@
-pkgname = "kernel-libc-headers-cross"
+pkgname = "linux-headers-cross"
 _mver = "5"
 pkgver = f"{_mver}.10.4"
 pkgrel = 0
@@ -65,11 +65,11 @@ def do_install(self):
             )
 
 def _gen_crossp(an, at):
-    @subpackage(f"kernel-libc-headers-cross-{an}")
+    @subpackage(f"linux-headers-cross-{an}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         return [f"usr/{at}"]
-    depends.append(f"kernel-libc-headers-cross-{an}={pkgver}-r{pkgrel}")
+    depends.append(f"linux-headers-cross-{an}={pkgver}-r{pkgrel}")
 
 for an, arch in _targets:
     with current.profile(an) as pf:

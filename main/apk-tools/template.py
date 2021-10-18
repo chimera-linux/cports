@@ -20,7 +20,7 @@ tool_flags = {
 options = ["bootstrap"]
 
 if not current.bootstrapping:
-    makedepends += ["kernel-libc-headers"]
+    makedepends += ["linux-headers"]
 
 @subpackage("apk-tools-devel")
 def _devel(self):

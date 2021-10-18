@@ -23,7 +23,7 @@ make_cmd = "gmake"
 make_install_args = ["usrsbin_execdir=/usr/bin"]
 hostmakedepends = ["gmake", "gettext-tiny", "pkgconf"]
 makedepends = [
-    "kernel-libc-headers", "libcap-ng-devel", "linux-pam-devel", "zlib-devel"
+    "linux-headers", "libcap-ng-devel", "linux-pam-devel", "zlib-devel"
 ]
 checkdepends = ["xz", "iproute2", "socat", "procps-ng"]
 depends = [f"util-linux-common={pkgver}-r{pkgrel}"]

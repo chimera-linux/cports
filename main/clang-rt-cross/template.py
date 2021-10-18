@@ -32,7 +32,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "zlib-devel", "libffi-devel", "clang-rt-crt-cross",
-    "libcxx-cross", "libexecinfo-cross", "kernel-libc-headers-cross"
+    "libcxx-cross", "libexecinfo-cross", "linux-headers-cross"
 ]
 depends = ["clang-rt-crt-cross", "libcxx-cross", "libexecinfo-cross"]
 make_cmd = "make"

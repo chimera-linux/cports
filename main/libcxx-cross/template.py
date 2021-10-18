@@ -17,7 +17,7 @@ configure_args = [
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
 ]
 hostmakedepends = ["cmake", "python"]
-makedepends = ["libcxxabi-cross", "kernel-libc-headers-cross"]
+makedepends = ["libcxxabi-cross", "linux-headers-cross"]
 depends = ["libcxxabi-cross"]
 make_cmd = "make"
 pkgdesc = "LLVM libc++ (cross-compiling)"

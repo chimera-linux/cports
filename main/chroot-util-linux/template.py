@@ -28,7 +28,7 @@ options = ["bootstrap", "!check"]
 
 if not current.bootstrapping:
 	hostmakedepends = ["gmake"]
-	makedepends += ["kernel-libc-headers"]
+	makedepends += ["linux-headers"]
 
 def post_install(self):
     # Remove unused stuff
