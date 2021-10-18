@@ -388,7 +388,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         )
 
     bcmd = [
-        "bwrap",
+        "bwrap", "--new-session", "--die-with-parent",
         root_bind, paths.bldroot(), "/",
         build_bind, paths.bldroot() / "builddir", "/builddir",
         dest_bind, paths.bldroot() / "destdir", "/destdir",
