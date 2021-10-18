@@ -10,7 +10,7 @@ url = "https://chimera-linux.org"
 depends = [
     "musl-devel", "base-files", "elftoolchain", "llvm", "clang", "lld", "bmake",
     "bsdutils", "dash", "file", "apk-tools-static", "awk", "ncurses", "bsdgrep",
-    "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "chroot-util-linux",
+    "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "util-linux-cbuild",
     "tzdata", "mksh-static"
 ]
 provides = ["apk-tools=2.99.0-r0"]

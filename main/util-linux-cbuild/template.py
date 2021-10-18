@@ -1,4 +1,4 @@
-pkgname = "chroot-util-linux"
+pkgname = "util-linux-cbuild"
 _mver = "2.32"
 pkgver = f"{_mver}.1"
 pkgrel = 0
