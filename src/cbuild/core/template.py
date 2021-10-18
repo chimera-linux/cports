@@ -1343,6 +1343,7 @@ def from_module(m, ret):
     # paths that can be used by template methods
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
+    ret.sources_path = paths.sources() / f"{ret.pkgname}-{ret.pkgver}"
     ret.builddir = paths.bldroot() / "builddir"
     ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"

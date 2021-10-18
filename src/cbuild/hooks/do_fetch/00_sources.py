@@ -60,8 +60,12 @@ def interp_url(pkg, url):
     return re.sub(r"\$\((\w+)\)", matchf, url)
 
 def get_nameurl(pkg, d):
-    if isinstance(d, tuple) and not isinstance(d[1], bool):
-        return interp_url(pkg, d[0]), d[1]
+    if isinstance(d, tuple):
+        if not isinstance(d[1], bool):
+            return interp_url(pkg, d[0]), d[1]
+        else:
+            return interp_url(pkg, d[0]), d[0][d[0].rfind("/") + 1:]
+
     return interp_url(pkg, d), d[d.rfind("/") + 1:]
 
 def invoke(pkg):

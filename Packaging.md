@@ -1840,6 +1840,10 @@ contains auxiliary files needed for the build, shipped in `cports`.
 The absolute path to the `patches` directory of the template. This directory
 contains patches that are applied in the `patch` phase.
 
+##### self.sources_path
+
+The aboslute path to where the source files for the template are stored.
+
 ##### self.builddir
 
 The absolute path to the `builddir`. This directory is where sources are
