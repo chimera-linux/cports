@@ -1,0 +1,11 @@
+--- a/Build.sh
++++ b/Build.sh
+@@ -596,7 +596,7 @@ if test_n "$last"; then
+ fi
+ 
+ test_n "$tfn" || if test $legacy = 0; then
+-	tfn=mksh
++	tfn=mksh.static
+ else
+ 	tfn=lksh
+ fi
