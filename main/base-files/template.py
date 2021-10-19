@@ -68,6 +68,7 @@ def do_install(self):
     for f in [
         "profile", "hosts", "issue", "subuid", "subgid",
         "fstab", "passwd", "group", "crypttab", "securetty",
+        "nsswitch.conf"
     ]:
         self.install_file(self.files_path / "etc" / f, "etc")
 
