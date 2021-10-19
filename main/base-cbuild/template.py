@@ -13,7 +13,8 @@ depends = [
     "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "util-linux-cbuild",
     "tzdata", "mksh-static"
 ]
-provides = ["apk-tools=2.99.0-r0"]
+# provide a low version so it does not take over
+provides = ["apk-tools=0.0.1-r0"]
 
 options = ["bootstrap", "brokenlinks"]
 
