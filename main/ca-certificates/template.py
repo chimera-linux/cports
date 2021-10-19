@@ -3,6 +3,12 @@ pkgver = "20210119"
 pkgrel = 0
 hostmakedepends = ["openssl"]
 depends = ["openssl<=2.0", "run-parts"]
+triggers = [
+    "/usr/share/ca-certificates",
+    "/usr/local/share/ca-certificates",
+    "/etc/ssl/certs",
+    "/etc/ca-certificates/update.d"
+]
 pkgdesc = "Common CA certificates for SSL/TLS"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND MPL-2.0"
