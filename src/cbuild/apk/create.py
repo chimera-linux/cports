@@ -194,11 +194,11 @@ def create(
         with io.BytesIO(ctrl) as cstream:
             ctar.addfile(cinfo, cstream)
         if "hooks" in metadata:
-            for hook in metadata["hooks"]:
-                ctar.add(hook, hook.name.removeprefix(pkgname), filter = hook_filter)
+            for hook, hookname in metadata["hooks"]:
+                ctar.add(hook, "." + hookname, filter = hook_filter)
         if "trigger" in metadata:
             trigger = metadata["trigger"]
-            ctar.add(trigger, trigger.name.removeprefix(pkgname), filter = hook_filter)
+            ctar.add(trigger, ".trigger", filter = hook_filter)
 
     # concat together
     with open(outfile, "wb") as ffile:

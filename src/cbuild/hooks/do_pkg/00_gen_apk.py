@@ -96,7 +96,7 @@ def genpkg(
             for h in _hooks:
                 hf = pkg.rparent.template_path / (pkg.pkgname + "." + h)
                 if hf.is_file():
-                    mhooks.append(hf)
+                    mhooks.append((hf.resolve(), h))
 
             if len(mhooks) > 0:
                 metadata["hooks"] = mhooks
@@ -111,7 +111,7 @@ def genpkg(
                 if not tp.is_file():
                     pkg.error(f"trigger script does not exist")
                 # finally, write the metadata
-                metadata["trigger"] = tp
+                metadata["trigger"] = tp.resolve()
                 metadata["triggers"] = list(pkg.triggers)
 
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
