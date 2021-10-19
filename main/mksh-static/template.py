@@ -28,3 +28,7 @@ def do_install(self):
     self.install_bin("mksh.static")
 
     self.install_license(self.sources_path / "TaC-mksh.txt")
+
+    # register shell
+    self.install_dir("etc/shells.d")
+    self.install_link("/usr/bin/mksh.static", "etc/shells.d/mksh.static")
