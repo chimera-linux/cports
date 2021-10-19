@@ -12,5 +12,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 
-# TODO: a text editor? (other than ed)
 # TODO: dinit-chimera
