@@ -62,7 +62,7 @@ def create(
 
     def meta_field(fn):
         if fn in metadata:
-            add_field(fn, metadata[fn])
+            add_field(fn, str(metadata[fn]))
             return True
         return False
 
@@ -112,6 +112,8 @@ def create(
     if "provides" in metadata:
         for p in metadata["provides"]:
             add_field("provides", p)
+
+    meta_field("provider_priority")
 
     if "shlib_provides" in metadata:
         for soname, sover in metadata["shlib_provides"]:

@@ -510,6 +510,8 @@ Keep in mind that default values may be overridden by build styles.
   library scanning is automatic; but sometimes libraries provide either a
   non-conforming `SONAME` which the scanner does not pick up, or the
   scanner is disabled explicitly.
+* `provider_priority` *(int)* When resolving virtual packages, the package
+  with higher priority will be considered first. By default `0`.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.

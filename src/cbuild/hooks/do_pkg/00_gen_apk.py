@@ -57,6 +57,9 @@ def genpkg(
             pkg.provides.sort()
             metadata["provides"] = pkg.provides
 
+        if pkg.provider_priority > 0:
+            metadata["provider_priority"] = pkg.provider_priority
+
         mdeps = []
 
         if not dbg:

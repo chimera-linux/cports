@@ -348,6 +348,7 @@ core_fields = [
 
     # other package lists + related
     ("provides", [], list, False, True, False),
+    ("provider_priority", 0, int, False, True, False),
 
     # build systems
     ("configure_args", [], list, False, False, False),
@@ -421,6 +422,7 @@ core_fields_priority = [
     ("depends", True),
 
     ("provides", True),
+    ("provider_priority", True),
     ("triggers", True),
 
     ("pkgdesc", True),
@@ -1296,6 +1298,9 @@ def from_module(m, ret):
     ret.validate_pkgdesc()
     ret.validate_url()
     ret.validate_order()
+
+    if ret.provider_priority < 0:
+        ret.error("provider_priority must be positive")
 
     # validate license if we need to
     if ret.options["spdx"]:
