@@ -125,6 +125,9 @@ def create(
         for pc in metadata["pc_provides"]:
             add_field("provides", "pc:" + pc)
 
+    if "triggers" in metadata:
+        add_field("triggers", " ".join(metadata["triggers"]))
+
     # all archive files need some special attributes
     def ctrl_filter(tinfo):
         tinfo.mtime = int(epoch)
@@ -191,6 +194,9 @@ def create(
         if "hooks" in metadata:
             for hook in metadata["hooks"]:
                 ctar.add(hook, hook.name.removeprefix(pkgname), filter = hook_filter)
+        if "trigger" in metadata:
+            trigger = metadata["trigger"]
+            ctar.add(trigger, trigger.name.removeprefix(pkgname), filter = hook_filter)
 
     # concat together
     with open(outfile, "wb") as ffile:
