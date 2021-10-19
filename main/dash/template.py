@@ -13,3 +13,7 @@ options = ["bootstrap"]
 def post_install(self):
     self.install_license("COPYING")
     self.install_link("dash", "usr/bin/sh")
+    # register shells
+    self.install_dir("etc/shells.d")
+    self.install_link("/usr/bin/dash", "etc/shells.d/dash")
+    self.install_link("/usr/bin/sh", "etc/shells.d/sh")
