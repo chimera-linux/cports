@@ -45,4 +45,4 @@ def _devel(self):
 @subpackage("libkmod")
 def _lib(self):
     self.pkgdesc += " (runtime library)"
-    return ["usr/lib/*.so.*"]
+    return self.default_libs()
