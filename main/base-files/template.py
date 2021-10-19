@@ -67,9 +67,12 @@ def do_install(self):
 
     for f in [
         "profile", "hosts", "issue", "subuid", "subgid",
-        "fstab", "passwd", "group", "crypttab",
+        "fstab", "passwd", "group", "crypttab", "securetty",
     ]:
         self.install_file(self.files_path / "etc" / f, "etc")
+
+    # permissions for securetty
+    (self.destdir / "etc/securetty").chmod(0o600)
 
     self.install_dir("etc/profile.d")
 

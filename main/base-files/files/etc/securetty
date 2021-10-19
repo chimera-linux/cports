@@ -24,3 +24,5 @@ tty11
 ttyS0
 ttyAMA0
 ttyUSB0
+hvc0
+hvsi0
