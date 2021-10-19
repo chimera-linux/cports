@@ -80,6 +80,11 @@ def post_install(self):
         self.files_path / "common.pam", "etc/pam.d", name = "chsh"
     )
 
+    # conflicts with bsdutils
+    self.rm(self.destdir / "usr/bin/hexdump")
+    self.rm(self.destdir / "usr/share/man/man1/hexdump.1")
+    self.rm(self.destdir / "usr/share/bash-completion/completions/hexdump")
+
 @subpackage("util-linux-libs")
 def _libs(self):
     self.build_style = "meta"
