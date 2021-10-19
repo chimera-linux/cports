@@ -33,3 +33,8 @@ def do_install(self):
 
     self.install_link("mksh", "usr/bin/ksh")
     self.install_link("mksh.1", "usr/share/man/man1/ksh.1")
+
+    # register shells
+    self.install_dir("etc/shells.d")
+    self.install_link("/usr/bin/mksh", "etc/shells.d/mksh")
+    self.install_link("/usr/bin/ksh", "etc/shells.d/ksh")
