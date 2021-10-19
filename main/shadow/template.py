@@ -80,7 +80,8 @@ def post_install(self):
 
     for f in (self.destdir / "usr/share/man").rglob("*.[18]"):
         match f.name:
-            case "chsh.1" | "chfn.1" | "login.1" | "newgrp.1" | "su.1":
+            case "chsh.1" | "chfn.1" | "login.1" | "newgrp.1" | "su.1" | \
+                 "groups.1":
                 f.unlink()
             case "logoutd.8" | "nologin.8" | "vigr.8" | "vipw.8":
                 f.unlink()
