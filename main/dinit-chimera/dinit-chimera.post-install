@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# enable core services that are always needed
+#
+
+for f in 1 2; do
+    ln -sf ../agetty-tty${f} /etc/dinit.d/boot.d/agetty-tty${f}
+done
+
+ln -sf ../late-filesystems /etc/dinit.d/boot.d/late-filesystems
+
+exit 0
