@@ -17,3 +17,10 @@ There are two authoritative documents on the system:
 Most people looking to get involved with the project should read both.
 
 To get started, read `Usage.md` first.
+
+## Bootstrapping installations from repositories
+
+Once you have a repository, you might want to set up a `chroot`, or even a
+bootable system. While `cbuild` will not help you with that, we have another
+tool called `chimera-bootstrap` for that. You can find it in another repository,
+specifically [here](https://github.com/chimera-linux/chimera-bootstrap).
