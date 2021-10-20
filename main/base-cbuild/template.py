@@ -9,9 +9,9 @@ url = "https://chimera-linux.org"
 
 depends = [
     "musl-devel", "base-files", "elftoolchain", "llvm", "clang", "lld", "bmake",
-    "bsdutils", "dash", "file", "apk-tools-static", "awk", "ncurses", "bsdgrep",
-    "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff", "util-linux-cbuild",
-    "tzdata", "mksh-static"
+    "bsdutils-extra", "dash", "file", "apk-tools-static", "awk", "ncurses",
+    "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff",
+    "util-linux-cbuild", "tzdata", "mksh-static"
 ]
 # provide a low version so it does not take over
 provides = ["apk-tools=0.0.1-r0"]

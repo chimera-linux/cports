@@ -3,7 +3,7 @@ pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    "base-files", "musl", "apk-tools", "bsdutils", "bsddiff", "bsdgrep",
+    "base-files", "musl", "apk-tools", "bsdutils-extra", "bsddiff", "bsdgrep",
     "bsdsed", "bsded", "bsdgzip", "bsdtar", "dash", "awk", "util-linux",
     "shadow", "procps-ng", "iana-etc", "tzdata",
 ]
