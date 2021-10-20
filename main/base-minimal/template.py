@@ -5,11 +5,9 @@ build_style = "meta"
 depends = [
     "base-files", "musl", "apk-tools", "bsdutils-extra", "bsddiff", "bsdgrep",
     "bsdsed", "bsded", "bsdgzip", "bsdtar", "dash", "awk", "util-linux",
-    "shadow", "procps-ng", "iana-etc", "tzdata",
+    "shadow", "procps-ng", "iana-etc", "tzdata", "dinit-chimera"
 ]
 pkgdesc = "Minimal set of packages for a Chimera system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
-
-# TODO: dinit-chimera
