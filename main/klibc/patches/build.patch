@@ -166,7 +166,7 @@ index 307b48f..d887302 100644
  # in a broken layout with binutils 2.30.  Since there's no
  # architectural page size betwen 4 KB and 2MB, set it to 4 KB.
 -KLIBCSHAREDFLAGS     = $(LD_IMAGE_BASE_OPT) 0x00200000 -z max-page-size=0x1000
-+KLIBCSHAREDFLAGS     = -z max-page-size=0x1000
++KLIBCSHAREDFLAGS     =
  
  # Kernel has never used stack trampolines
  KLIBCEXECSTACK := n
