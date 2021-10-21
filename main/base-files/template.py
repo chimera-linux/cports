@@ -78,7 +78,7 @@ def do_install(self):
 
     self.install_dir("etc/profile.d")
 
-    for f in self.files_path.glob("*.sh"):
+    for f in (self.files_path / "profile.d").glob("*.sh"):
         self.install_file(f, "etc/profile.d")
 
     # modprobe(8) files
@@ -125,3 +125,9 @@ def do_install(self):
 
     for f in self.files_path.glob("udev/*.rules"):
         self.install_file(f, "usr/lib/udev/rules.d")
+
+    # linux-version
+    self.install_file(
+        self.files_path / "linux-version.sh", "usr/bin", mode = 0o755,
+        name = "linux-version"
+    )
