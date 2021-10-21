@@ -1,0 +1,96 @@
+From 493ee8c629f2d089efba2174570b2fc6b2626b2a Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Thu, 21 Oct 2021 03:42:22 +0200
+Subject: [PATCH] enable clang/musl builds
+
+---
+ Makefile                     | 20 ++++++++++----------
+ usr/include/sys/sysinfo.h    |  7 +++----
+ usr/klibc/arch/ppc64/MCONFIG |  7 -------
+ 3 files changed, 13 insertions(+), 21 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index e2c7337..16a4dd7 100644
+--- a/Makefile
++++ b/Makefile
+@@ -18,14 +18,14 @@ include $(srctree)/scripts/Kbuild.include
+ 
+ KLIBCROSS	?= $(CROSS_COMPILE)
+ export KLIBCROSS
+-export CC	:= $(KLIBCROSS)gcc
+-export LD	:= $(KLIBCROSS)ld
+-export AR	:= $(KLIBCROSS)ar
+-export RANLIB	:= $(KLIBCROSS)ranlib
+-export STRIP	:= $(KLIBCROSS)strip
+-export NM	:= $(KLIBCROSS)nm
+-export OBJCOPY  := $(KLIBCROSS)objcopy
+-export OBJDUMP  := $(KLIBCROSS)objdump
++export CC	:= $(KLIBCROSS)clang
++export LD	:= $(KLIBCROSS)ld.lld
++export AR	:= llvm-ar
++export RANLIB	:= llvm-ranlib
++export STRIP	:= llvm-strip
++export NM	:= llvm-nm
++export OBJCOPY  := llvm-objcopy
++export OBJDUMP  := llvm-objdump
+ 
+ NOSTDINC_FLAGS := -nostdlib -nostdinc -isystem $(shell $(CC) -print-file-name=include)
+ 
+@@ -37,7 +37,7 @@ ARCH	          := $(shell uname -m | sed -e s/i.86/i386/ \
+ export KLIBCARCH  ?= $(ARCH)
+ export KLIBCARCHDIR := $(shell echo $(KLIBCARCH) | sed -e s/s390x/s390/)
+ 
+-export HOSTCC     := gcc
++export HOSTCC     := clang
+ export HOSTCFLAGS := -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer
+ export PERL       := perl
+ 
+@@ -45,7 +45,7 @@ export PERL       := perl
+ export prefix      = /usr
+ export bindir      = $(prefix)/bin
+ export libdir      = $(prefix)/lib
+-export mandir      = $(prefix)/man
++export mandir      = $(prefix)/share/man
+ export INSTALLDIR  = $(prefix)/lib/klibc
+ export INSTALLROOT =
+ 
+diff --git a/usr/include/sys/sysinfo.h b/usr/include/sys/sysinfo.h
+index dba68dc..a422949 100644
+--- a/usr/include/sys/sysinfo.h
++++ b/usr/include/sys/sysinfo.h
+@@ -2,11 +2,10 @@
+  * sys/sysinfo.h
+  */
+ 
+-#ifndef _SYS_SYSINFO_H
+-#define _SYS_SYSINFO_H
++#ifndef _SYS_SYSINFO_H_
++#define _SYS_SYSINFO_H_
+ 
++#include </usr/include/sys/sysinfo.h>
+ #include <linux/kernel.h>
+ 
+-extern int sysinfo(struct sysinfo *info);
+-
+ #endif				/* _SYS_SYSINFO_H */
+diff --git a/usr/klibc/arch/ppc64/MCONFIG b/usr/klibc/arch/ppc64/MCONFIG
+index 4326560..b653f1b 100644
+--- a/usr/klibc/arch/ppc64/MCONFIG
++++ b/usr/klibc/arch/ppc64/MCONFIG
+@@ -13,13 +13,6 @@ KLIBCARCHREQFLAGS += $(call cc-option, -mcmodel=small, )
+ KLIBCOPTFLAGS     += -Os
+ KLIBCBITSIZE      = 64
+ 
+-# Extra linkflags when building the shared version of the library
+-# This address needs to be reachable using normal inter-module
+-# calls, and work on the memory models for this architecture
+-# 256-16 MB - normal binaries start at 256 MB, and jumps are limited
+-# to +/- 16 MB
+-KLIBCSHAREDFLAGS     = $(LD_IMAGE_BASE_OPT) 0x0f000000
+-
+ # The asm include files live in asm-powerpc
+ KLIBCASMARCH	= powerpc
+ 
+-- 
+2.33.0
+
