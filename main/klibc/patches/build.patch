@@ -1,13 +1,19 @@
-From 493ee8c629f2d089efba2174570b2fc6b2626b2a Mon Sep 17 00:00:00 2001
+From 43edf6a592ffa27ede0fb83402e872e462b17099 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Thu, 21 Oct 2021 03:42:22 +0200
 Subject: [PATCH] enable clang/musl builds
 
 ---
- Makefile                     | 20 ++++++++++----------
- usr/include/sys/sysinfo.h    |  7 +++----
- usr/klibc/arch/ppc64/MCONFIG |  7 -------
- 3 files changed, 13 insertions(+), 21 deletions(-)
+ Makefile                       | 20 ++++++++++----------
+ usr/include/sys/sysinfo.h      |  7 +++----
+ usr/klibc/arch/arm/MCONFIG     |  2 +-
+ usr/klibc/arch/arm64/MCONFIG   |  2 +-
+ usr/klibc/arch/i386/MCONFIG    |  2 +-
+ usr/klibc/arch/ppc/MCONFIG     |  2 +-
+ usr/klibc/arch/ppc64/MCONFIG   |  2 +-
+ usr/klibc/arch/riscv64/MCONFIG |  2 +-
+ usr/klibc/arch/x86_64/MCONFIG  |  2 +-
+ 9 files changed, 20 insertions(+), 21 deletions(-)
 
 diff --git a/Makefile b/Makefile
 index e2c7337..16a4dd7 100644
@@ -73,24 +79,97 @@ index dba68dc..a422949 100644
 -extern int sysinfo(struct sysinfo *info);
 -
  #endif				/* _SYS_SYSINFO_H */
-diff --git a/usr/klibc/arch/ppc64/MCONFIG b/usr/klibc/arch/ppc64/MCONFIG
-index 4326560..b653f1b 100644
---- a/usr/klibc/arch/ppc64/MCONFIG
-+++ b/usr/klibc/arch/ppc64/MCONFIG
-@@ -13,13 +13,6 @@ KLIBCARCHREQFLAGS += $(call cc-option, -mcmodel=small, )
- KLIBCOPTFLAGS     += -Os
- KLIBCBITSIZE      = 64
+diff --git a/usr/klibc/arch/arm/MCONFIG b/usr/klibc/arch/arm/MCONFIG
+index dabefc5..eabe319 100644
+--- a/usr/klibc/arch/arm/MCONFIG
++++ b/usr/klibc/arch/arm/MCONFIG
+@@ -26,7 +26,7 @@ else
+ # Extra linkflags when building the shared version of the library
+ # This address needs to be reachable using normal inter-module
+ # calls, and work on the memory models for this architecture
+-KLIBCSHAREDFLAGS = $(LD_IMAGE_BASE_OPT) 0x01800000
++KLIBCSHAREDFLAGS =
+ ifeq ($(CONFIG_AEABI),y)
+ KLIBCREQFLAGS += -mabi=aapcs-linux -mno-thumb-interwork
+ else
+diff --git a/usr/klibc/arch/arm64/MCONFIG b/usr/klibc/arch/arm64/MCONFIG
+index f8741ff..da6377a 100644
+--- a/usr/klibc/arch/arm64/MCONFIG
++++ b/usr/klibc/arch/arm64/MCONFIG
+@@ -20,7 +20,7 @@ KLIBCREQFLAGS += -fno-exceptions -mgeneral-regs-only
  
--# Extra linkflags when building the shared version of the library
--# This address needs to be reachable using normal inter-module
--# calls, and work on the memory models for this architecture
--# 256-16 MB - normal binaries start at 256 MB, and jumps are limited
--# to +/- 16 MB
--KLIBCSHAREDFLAGS     = $(LD_IMAGE_BASE_OPT) 0x0f000000
--
+ # On arm64, binaries are normally loaded at 4MB. Place klibc.so
+ # a little before that at 2MB to prevent overlap.
+-KLIBCSHAREDFLAGS = $(LD_IMAGE_BASE_OPT) 0x0200000
++KLIBCSHAREDFLAGS =
+ 
+ # Kernel has never used stack trampolines
+ KLIBCEXECSTACK := n
+diff --git a/usr/klibc/arch/i386/MCONFIG b/usr/klibc/arch/i386/MCONFIG
+index e6f50dd..a32f186 100644
+--- a/usr/klibc/arch/i386/MCONFIG
++++ b/usr/klibc/arch/i386/MCONFIG
+@@ -30,7 +30,7 @@ KLIBCBITSIZE  = 32
+ # This address needs to be reachable using normal inter-module
+ # calls, and work on the memory models for this architecture
+ # 96 MB - normal binaries start at 128 MB
+-KLIBCSHAREDFLAGS	= $(LD_IMAGE_BASE_OPT) 0x06000000
++KLIBCSHAREDFLAGS	=
+ 
+ # Kernel uses dedicated page or vDSO for signal return since 2.5.55
+ KLIBCEXECSTACK := n
+diff --git a/usr/klibc/arch/ppc/MCONFIG b/usr/klibc/arch/ppc/MCONFIG
+index db4806a..fced63f 100644
+--- a/usr/klibc/arch/ppc/MCONFIG
++++ b/usr/klibc/arch/ppc/MCONFIG
+@@ -20,7 +20,7 @@ KLIBCBITSIZE       = 32
+ # calls, and work on the memory models for this architecture
+ # 256-16 MB - normal binaries start at 256 MB, and jumps are limited
+ # to +/- 16 MB
+-KLIBCSHAREDFLAGS     = $(LD_IMAGE_BASE_OPT) 0x0f800000
++KLIBCSHAREDFLAGS     =
+ 
  # The asm include files live in asm-powerpc
  KLIBCASMARCH	= powerpc
+diff --git a/usr/klibc/arch/ppc64/MCONFIG b/usr/klibc/arch/ppc64/MCONFIG
+index 4326560..fcbedb2 100644
+--- a/usr/klibc/arch/ppc64/MCONFIG
++++ b/usr/klibc/arch/ppc64/MCONFIG
+@@ -18,7 +18,7 @@ KLIBCBITSIZE      = 64
+ # calls, and work on the memory models for this architecture
+ # 256-16 MB - normal binaries start at 256 MB, and jumps are limited
+ # to +/- 16 MB
+-KLIBCSHAREDFLAGS     = $(LD_IMAGE_BASE_OPT) 0x0f000000
++KLIBCSHAREDFLAGS     =
  
+ # The asm include files live in asm-powerpc
+ KLIBCASMARCH	= powerpc
+diff --git a/usr/klibc/arch/riscv64/MCONFIG b/usr/klibc/arch/riscv64/MCONFIG
+index 3406108..3a4d9aa 100644
+--- a/usr/klibc/arch/riscv64/MCONFIG
++++ b/usr/klibc/arch/riscv64/MCONFIG
+@@ -14,7 +14,7 @@ endif
+ KLIBCBITSIZE      = 64
+ 
+ # Normal binaries start at 64 KB, so start the libary at 2 MB.
+-KLIBCSHAREDFLAGS  = $(LD_IMAGE_BASE_OPT) 0x00200000
++KLIBCSHAREDFLAGS  =
+ KLIBCSHAREDFLAGS  += --defsym '__global_pointer$$=0'
+ 
+ # Kernel has never used stack trampolines
+diff --git a/usr/klibc/arch/x86_64/MCONFIG b/usr/klibc/arch/x86_64/MCONFIG
+index 307b48f..d887302 100644
+--- a/usr/klibc/arch/x86_64/MCONFIG
++++ b/usr/klibc/arch/x86_64/MCONFIG
+@@ -37,7 +37,7 @@ KLIBCLDFLAGS      = -m elf_x86_64
+ # The old default was max-page-size=0x100000, but that also results
+ # in a broken layout with binutils 2.30.  Since there's no
+ # architectural page size betwen 4 KB and 2MB, set it to 4 KB.
+-KLIBCSHAREDFLAGS     = $(LD_IMAGE_BASE_OPT) 0x00200000 -z max-page-size=0x1000
++KLIBCSHAREDFLAGS     = -z max-page-size=0x1000
+ 
+ # Kernel has never used stack trampolines
+ KLIBCEXECSTACK := n
 -- 
 2.33.0
 
