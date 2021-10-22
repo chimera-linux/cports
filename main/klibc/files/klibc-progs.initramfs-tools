@@ -1,0 +1,18 @@
+#!/bin/sh
+
+[ "$1" = "prereqs" ] && exit 0
+
+for src in /usr/lib/klibc/bin/*; do
+    bin="$(basename "$src")"
+    case "$bin" in
+        gzip|kinit|zcat) ;;
+        *)
+            if [ ! -e "${DESTDIR}/usr/bin/$bin" ]; then
+                cp -pnL "$src" "${DESTDIR}/usr/bin"
+            fi
+            ;;
+    esac
+done
+
+# our klibc is only static right now
+#cp -pL /usr/lib/klibc-*.so "${DESTDIR}/usr/lib"

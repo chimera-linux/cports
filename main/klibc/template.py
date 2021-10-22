@@ -64,6 +64,13 @@ def post_install(self):
     # remove helper symlink
     self.rm(self.destdir / "lib")
 
+    # initramfs-tools
+    self.install_file(
+        self.files_path / "klibc-progs.initramfs-tools",
+        "usr/share/initramfs-tools/hooks",
+        mode = 0o755, name = "klibc-progs"
+    )
+
 @subpackage("klibc-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
@@ -77,4 +84,4 @@ def _devel(self):
 @subpackage("klibc-progs")
 def _progs(self):
     self.depends += [f"klibc={pkgver}-r{pkgrel}"]
-    return ["usr/lib/klibc"]
+    return ["usr/lib/klibc", "usr/share/initramfs-tools"]
