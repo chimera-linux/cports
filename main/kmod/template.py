@@ -37,6 +37,13 @@ def post_install(self):
     for tool in ["lsmod", "insmod", "rmmod", "depmod", "modprobe", "modinfo"]:
         self.install_link("kmod", f"usr/bin/{tool}")
 
+    # initramfs-tools
+    self.install_file(
+        self.files_path / "kmod.initramfs-tools",
+        "usr/share/initramfs-tools/hooks",
+        mode = 0o755, name = "kmod"
+    )
+
 @subpackage("libkmod-devel")
 def _devel(self):
     self.depends += makedepends

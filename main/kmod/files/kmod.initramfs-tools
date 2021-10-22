@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+[ "$1" = "prereqs" ] && exit 0
+
+. /usr/share/initramfs-tools/hook-functions
+
+copy_exec /usr/bin/kmod
+ln -sf kmod "${DESTDIR}/usr/bin/modprobe"
+ln -sf rmmod "${DESTDIR}/usr/bin/rmmod"
+
+mkdir -p "$DESTDIR/usr/lib/modprobe.d/"
+
+if [ "$(echo /usr/lib/modprobe.d/*)" != "/usr/lib/modprobe.d/*" ]; then
+    cp -a /usr/lib/modprobe.d/* "$DESTDIR/usr/lib/modprobe.d/"
+fi
