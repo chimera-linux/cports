@@ -1,0 +1,26 @@
+commit a5d9b3250843ec76be6f1901f69776a31d5e2431
+Author: Vagrant Cascadian <vagrant@debian.org>
+Date:   Sat Jun 5 16:05:24 2021 -0700
+
+    hook-functions: Add pwm-rockchip to "fb" modules for Pinebook PRO LCD
+    display.
+    
+    The Pinebook PRO LCD disply does not show output until after the
+    initramfs is loaded, which is too late to enter an encryption
+    passphrase or debug issues with mounting the rootfs.
+    
+    Add pwm-rockchip to "fb" modules.
+
+diff --git a/hook-functions b/hook-functions
+index 9c82fb2..b01b784 100644
+--- a/hook-functions
++++ b/hook-functions
+@@ -718,7 +718,7 @@ auto_add_modules()
+ 		;;
+ 		fb)
+ 			# For machines that don't have a generic framebuffer device.
+-			modules="$modules rockchipdrm pwm-cros-ec pwm_bl panel-simple"
++			modules="$modules rockchipdrm pwm-cros-ec pwm_bl pwm-rockchip panel-simple"
+ 			modules="$modules analogix-anx6345 pwm-sun4i sun4i-drm sun8i-mixer"
+ 		;;
+ 		esac

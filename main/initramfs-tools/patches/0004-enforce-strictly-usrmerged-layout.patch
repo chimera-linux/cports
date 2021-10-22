@@ -1,0 +1,284 @@
+From 982a7717ee774e828223d9be5c0def0929cf7673 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 22 Oct 2021 02:56:25 +0200
+Subject: [PATCH 4/6] enforce strictly usrmerged layout
+
+---
+ hook-functions                | 29 +++++++++++++++++++++--------
+ hooks/fsck                    |  8 ++++----
+ hooks/keymap                  |  2 +-
+ init                          | 13 +++----------
+ initramfs-tools.7             | 12 ++++++------
+ mkinitramfs                   | 24 +++++++++++++++---------
+ scripts/init-top/keymap       |  4 ++--
+ scripts/local-premount/resume |  4 ++--
+ 8 files changed, 54 insertions(+), 42 deletions(-)
+
+diff --git a/hook-functions b/hook-functions
+index b01b784..4c06ff3 100644
+--- a/hook-functions
++++ b/hook-functions
+@@ -153,6 +153,23 @@ add_builtin_firmware()
+ 	done
+ }
+ 
++_sanitize_target() {
++	local target
++	target=$*
++	case "${target}" in
++	/bin/*) target="/usr/${target}" ;;
++	/sbin/*) target="/usr/bin/${target#/sbin/}" ;;
++	/usr/sbin/*) target="/usr/bin/${target#/usr/sbin/}" ;;
++	/lib/*) target="/usr/${target}" ;;
++	/lib32/*) target="/usr/lib/${target#/lib32/}" ;;
++	/lib64/*) target="/usr/lib/${target#/lib64/}" ;;
++	/usr/lib32/*) target="/usr/lib/${target#/usr/lib32/}" ;;
++	/usr/lib64/*) target="/usr/lib/${target#/usr/lib64/}" ;;
++	/lib*) target="/usr${target}" ;;
++	esac
++	printf "%s" "${target}"
++}
++
+ # $1 = file type (for logging)
+ # $2 = file to copy to initramfs
+ # $3 (optional) Name for the file on the initramfs
+@@ -172,10 +189,8 @@ copy_file() {
+ 		target="${target}/${src##*/}"
+ 	fi
+ 
+-	# Canonicalise usr-merged target directories
+-	case "${target}" in
+-	/bin/* | /lib* | /sbin/*) target="/usr${target}" ;;
+-	esac
++	# Sanitize target directories
++	target="$(_sanitize_target ${target})"
+ 
+ 	# check if already copied
+ 	[ -e "${DESTDIR}/${target}" ] && return 1
+@@ -190,10 +205,8 @@ copy_file() {
+ 		# Update source for the copy
+ 		src="${link_target}"
+ 
+-		# Canonicalise usr-merged target directories
+-		case "${link_target}" in
+-		/bin/* | /lib* | /sbin/*) link_target="/usr${link_target}" ;;
+-		esac
++		# Sanitize target directories
++		link_target="$(_sanitize_target ${link_target})"
+ 
+ 		if [ "${link_target}" != "${target}" ]; then
+ 			[ "${verbose?}" = "y" ] && echo "Adding ${type}-link ${target}"
+diff --git a/hooks/fsck b/hooks/fsck
+index 15127dd..eb6baee 100755
+--- a/hooks/fsck
++++ b/hooks/fsck
+@@ -85,7 +85,7 @@ prereqs)
+ 	;;
+ esac
+ 
+-if [ ! -x /sbin/fsck ]; then
++if [ ! -x /usr/bin/fsck ]; then
+ 	exit 0
+ fi
+ 
+@@ -98,13 +98,13 @@ if [ -z "$fsck_types" ]; then
+ 	exit 0
+ fi
+ 
+-copy_exec /sbin/fsck
+-copy_exec /sbin/logsave
++copy_exec /usr/bin/fsck
++copy_exec /usr/bin/logsave
+ 
+ for type in $fsck_types; do
+ 	if prog="$(command -v "fsck.${type}")"; then
+ 		copy_exec "$prog"
+ 	else
+-		echo "W: /sbin/fsck.${type} doesn't exist, can't install to initramfs" >&2
++		echo "W: /usr/bin/fsck.${type} doesn't exist, can't install to initramfs" >&2
+ 	fi
+ done
+diff --git a/hooks/keymap b/hooks/keymap
+index 64f8e6d..e2d4e55 100755
+--- a/hooks/keymap
++++ b/hooks/keymap
+@@ -20,7 +20,7 @@ if [ "$KEYMAP" != "y" ] && [ "$KEYMAP" != "Y" ]; then
+ 	exit 0
+ fi
+ 
+-if [ ! -x /bin/setupcon ]; then
++if [ ! -x /usr/bin/setupcon ]; then
+ 	echo "setupcon is missing. Please install the 'console-setup' package."
+ 	exit 0
+ fi
+diff --git a/init b/init
+index bb95a51..634d851 100755
+--- a/init
++++ b/init
+@@ -1,8 +1,7 @@
+ #!/bin/sh
+ 
+-# Default PATH differs between shells, and is not automatically exported
+-# by klibc dash.  Make it consistent.
+-export PATH=/sbin:/usr/sbin:/bin:/usr/bin
++# One true path
++export PATH=/usr/bin
+ 
+ [ -d /dev ] || mkdir -m 0755 /dev
+ [ -d /root ] || mkdir -m 0700 /root
+@@ -55,7 +54,7 @@ export BOOT=
+ export BOOTIF=
+ export UBIMTD=
+ export break=
+-export init=/sbin/init
++export init=/usr/bin/init
+ export readonly=y
+ export rootmnt=/root
+ export debug=
+@@ -272,12 +271,6 @@ validate_init() {
+ if ! validate_init "$init"; then
+ 	echo "Target filesystem doesn't have requested ${init}."
+ 	init=
+-	for inittest in /sbin/init /etc/init /bin/init /bin/sh; do
+-		if validate_init "${inittest}"; then
+-			init="$inittest"
+-			break
+-		fi
+-	done
+ fi
+ 
+ # No init on rootmount
+diff --git a/initramfs-tools.7 b/initramfs-tools.7
+index 242541b..c61694f 100644
+--- a/initramfs-tools.7
++++ b/initramfs-tools.7
+@@ -271,7 +271,7 @@ If you need to copy an executable or shared library to the initramfs
+ module, use a command like this:
+ .PP
+ .RS
+-copy_exec /sbin/mdadm /sbin
++copy_exec /usr/bin/mdadm /usr/bin
+ .RE
+ 
+ mkinitramfs will automatically detect which libraries it depends on
+@@ -511,12 +511,12 @@ esac
+ \fR. /usr/share/initramfs-tools/hook-functions
+ # Begin real processing below this line
+ 
+-if [ ! \-x "/sbin/frobnicate" ]; then
++if [ ! \-x "/usr/bin/frobnicate" ]; then
+ 	exit 0
+ fi
+ 
+ force_load frobnicator interval=10
+-copy_exec /sbin/frobnicate /sbin
++copy_exec /usr/bin/frobnicate /usr/bin
+ exit 0
+ .fi
+ .RE
+@@ -544,7 +544,7 @@ esac
+ 
+ \fR. /scripts/functions
+ # Begin real processing below this line
+-if [ ! \-x "/sbin/frobnicate" ]; then
++if [ ! \-x "/usr/bin/frobnicate" ]; then
+ 	panic "Frobnication executable not found"
+ fi
+ 
+@@ -553,7 +553,7 @@ if [ ! \-e "/dev/mapper/frobb" ]; then
+ fi
+ 
+ log_begin_msg "Starting frobnication"
+-/sbin/frobnicate "/dev/mapper/frobb" || panic "Frobnication failed"
++/usr/bin/frobnicate "/dev/mapper/frobb" || panic "Frobnication failed"
+ log_end_msg
+ 
+ exit 0
+@@ -588,7 +588,7 @@ Argument passed to the \fIpanic\fP helper function.  Use to find out why
+ you landed in the initramfs shell.
+ .TP
+ \fB\fI init
+-passes the path to init(8) usually /sbin/init.
++passes the path to init(8) usually /usr/bin/init.
+ .TP
+ \fB\fI readonly
+ is the default for mounting the root corresponds to the ro bootarg.
+diff --git a/mkinitramfs b/mkinitramfs
+index 7c63a6d..c63e5f5 100755
+--- a/mkinitramfs
++++ b/mkinitramfs
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ 
+ umask 0022
+-export PATH='/usr/bin:/sbin:/bin'
++export PATH='/usr/bin'
+ 
+ # Defaults
+ keep="n"
+@@ -260,12 +260,18 @@ export __TMPCPIOGZ
+ # Private, used by 'prepend_earlyinitramfs'.
+ export __TMPEARLYCPIO
+ 
+-# Create usr-merged filesystem layout, to avoid duplicates if the host
+-# filesystem is usr-merged.
+-for d in /bin /lib* /sbin; do
+-	mkdir -p "${DESTDIR}/usr${d}"
+-	ln -s "usr${d}" "${DESTDIR}${d}"
+-done
++# one true layout
++mkdir -p "${DESTDIR}/usr/bin"
++ln -s "usr/bin" "${DESTDIR}/bin"
++ln -s "usr/bin" "${DESTDIR}/sbin"
++ln -s "bin" "${DESTDIR}/usr/sbin"
++mkdir -p "${DESTDIR}/usr/lib"
++ln -s "usr/lib" "${DESTDIR}/lib"
++ln -s "usr/lib" "${DESTDIR}/lib32"
++ln -s "usr/lib" "${DESTDIR}/lib64"
++ln -s "lib" "${DESTDIR}/usr/lib32"
++ln -s "lib" "${DESTDIR}/usr/lib64"
++
+ for d in conf/conf.d etc run scripts ${MODULESDIR}; do
+ 	mkdir -p "${DESTDIR}/${d}"
+ done
+@@ -354,8 +360,8 @@ touch "${DESTDIR}/etc/fstab"
+ ln -s /proc/mounts "${DESTDIR}/etc/mtab"
+ 
+ # module-init-tools
+-copy_exec /sbin/modprobe /sbin
+-copy_exec /sbin/rmmod /sbin
++copy_exec /usr/bin/modprobe /usr/bin
++copy_exec /usr/bin/rmmod /usr/bin
+ mkdir -p "${DESTDIR}/etc/modprobe.d" "${DESTDIR}/lib/modprobe.d"
+ for file in /etc/modprobe.d/*.conf /lib/modprobe.d/*.conf ; do
+ 	if test -e "$file" || test -L "$file" ; then
+diff --git a/scripts/init-top/keymap b/scripts/init-top/keymap
+index 1c6b2dc..160cb61 100755
+--- a/scripts/init-top/keymap
++++ b/scripts/init-top/keymap
+@@ -13,6 +13,6 @@ prereqs)
+ 	;;
+ esac
+ 
+-if [ -x /bin/setupcon ]; then
+-	/bin/setupcon
++if [ -x /usr/bin/setupcon ]; then
++	/usr/bin/setupcon
+ fi
+diff --git a/scripts/local-premount/resume b/scripts/local-premount/resume
+index 63dcc49..b92e3de 100755
+--- a/scripts/local-premount/resume
++++ b/scripts/local-premount/resume
+@@ -40,7 +40,7 @@ fi
+ 
+ # hardcode path, uswsusp ships an resume binary too
+ if [ -n "${resume_offset?}" ]; then
+-	/bin/resume "${DEV}" "${resume_offset}"
++	/usr/bin/resume "${DEV}" "${resume_offset}"
+ else
+-	/bin/resume "${DEV}"
++	/usr/bin/resume "${DEV}"
+ fi
+-- 
+2.33.0
+
