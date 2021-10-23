@@ -1,0 +1,25 @@
+From 595798386db8d8c5b8d7da04505ad16c4634f4e3 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 23 Oct 2021 18:04:42 +0200
+Subject: [PATCH] define SYS_BASHRC
+
+---
+ config-top.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config-top.h b/config-top.h
+index 735f75e..0443aa3 100644
+--- a/config-top.h
++++ b/config-top.h
+@@ -91,7 +91,7 @@
+ #define DEFAULT_BASHRC "~/.bashrc"
+ 
+ /* System-wide .bashrc file for interactive shells. */
+-/* #define SYS_BASHRC "/etc/bash.bashrc" */
++#define SYS_BASHRC "/etc/bash/bashrc"
+ 
+ /* System-wide .bash_logout for login shells. */
+ /* #define SYS_BASH_LOGOUT "/etc/bash.bash_logout" */
+-- 
+2.33.0
+
