@@ -14,5 +14,4 @@ for src in /usr/lib/klibc/bin/*; do
     esac
 done
 
-# our klibc is only static right now
-#cp -pL /usr/lib/klibc-*.so "${DESTDIR}/usr/lib"
+cp -pL /usr/lib/klibc-*.so "${DESTDIR}/usr/lib"
