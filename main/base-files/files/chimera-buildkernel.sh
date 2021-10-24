@@ -33,6 +33,7 @@ Prepare options and their default values:
     OBJDUMP=gobjdump    The objdump binary to use.
     LOCALVERSION=       The CONFIG_LOCALVERSION to use.
     OBJDIR=build        The directory to build in.
+    EPOCH=              The Unix timestamp for reproducible builds.
     JOBS=1              The number of build jobs to use.
 
 Install target takes one argument, the destination directory.
@@ -76,6 +77,7 @@ MAKE=gmake
 OBJDUMP=gobjdump
 LOCALVERSION=
 OBJDIR=build
+EPOCH=
 JOBS=1
 
 case "$ARCH" in
@@ -93,6 +95,15 @@ validate_arch() {
         x86_64|i386|arm|arm64|powerpc|riscv) ;;
         *) die "Unknown kernel architecture '$ARCH'";;
     esac
+}
+
+setup_epoch() {
+    [ -z "$EPOCH" -o "$EPOCH" -eq 0 ] && return 0
+
+    # reproducible builds
+    export KBUILD_BUILD_TIMESTAMP=$(LC_ALL=C date -jur "${EPOCH}")
+    export KBUILD_BUILD_USER=chimera
+    export KBUILD_BUILD_HOST=chimera
 }
 
 read_prepared() {
@@ -115,8 +126,11 @@ read_prepared() {
     OBJDUMP=$(cat "${prepdir}/objdump")
     OBJDIR=$(cat "${prepdir}/objdir")
     JOBS=$(cat "${prepdir}/jobs")
+    [ -r "${prepdir}/epoch" ] && EPOCH=$(cat "${prepdir}/epoch")
 
     export PATH="${prepdir}/wrappers:${PATH}"
+
+    setup_epoch
 }
 
 call_make() {
@@ -176,12 +190,14 @@ do_prepare() {
             OBJDUMP=*) OBJDUMP=${1#OBJDUMP=};;
             LOCALVERSION=*) LOCALVERSION=${1#LOCALVERSION=};;
             OBJDIR=*) OBJDIR=${1#OBJDIR=};;
+            EPOCH=*) EPOCH=${1#EPOCH=};;
             JOBS=*) JOBS=${1#JOBS=};;
         esac
         shift
     done
 
     validate_arch
+    setup_epoch
 
     rm -rf "${OBJDIR}" || die "Failed to remove build directory."
     mkdir -p "${OBJDIR}" || die "Failed to create build directory."
