@@ -5,13 +5,21 @@ def invoke(pkg):
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
     binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
-    repo = paths.repository() / pkg.rparent.repository / arch
+    repo = paths.repository() / pkg.rparent.repository
+
+    if pkg.pkgname.endswith("-dbg"):
+        repo = repo / "debug"
+
+    repo = repo / arch
 
     binpath = repo / binpkg
 
     if binpath.is_file():
         with open(pkg.statedir / f"{pkg.rparent.pkgname}_register_pkg", "a") as f:
             f.write(f"{repo}:{binpkg}\n")
+
+    if pkg.pkgname.endswith("-dbg"):
+        return
 
     repo = paths.repository() / pkg.rparent.repository / "debug" / arch
     binpath = repo / binpkg_dbg

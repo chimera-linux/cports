@@ -133,7 +133,12 @@ def invoke(pkg):
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
     binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
-    repo = paths.repository() / pkg.rparent.repository / arch
+    repo = paths.repository() / pkg.rparent.repository
+
+    if pkg.pkgname.endswith("-dbg"):
+        repo = repo / "debug"
+
+    repo = repo / arch
 
     genpkg(pkg, repo, arch, binpkg)
 
