@@ -29,13 +29,16 @@ def do_configure(self):
 
     self.cp(self.files_path / cfgname, self.cwd)
 
+    epoch = self.source_date_epoch or 0
+
     self.do("chimera-buildkernel", [
         "prepare",
         f"ARCH={_arch}",
         f"CONFIG_FILE={self.chroot_cwd}/{cfgname}",
         f"OBJDIR={self.make_dir}",
         f"JOBS={self.make_jobs}",
-        f"LOCALVERSION=-{pkgrel}-generic"
+        f"LOCALVERSION=-{pkgrel}-generic",
+        f"EPOCH={epoch}"
     ])
 
 def do_build(self):
