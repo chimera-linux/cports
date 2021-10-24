@@ -1579,21 +1579,25 @@ def read_pkg(
     setattr(builtins, "subpackage", subpkg_deco)
     setattr(builtins, "current", ret)
 
-    modh = _tmpl_dict.get(pkgname, None)
+    modh, modspec = _tmpl_dict.get(pkgname, (None, None))
     if modh:
-        # clear all user set fields since reload retains them
+        # found in cache, gonna need to clear the module handle
+        # and then reexec it to populate it with fresh contents
         for fld in dir(modh):
             # don't mess with the internals
             if fld.startswith("__") and fld.endswith("__"):
                 continue
             delattr(modh, fld)
-        # now reload
-        modh = importlib.reload(modh)
     else:
-        # never loaded
-        modh = importlib.import_module(pkgname.replace("/", ".") + ".template")
+        # never loaded, build a fresh spec and handle
+        modspec = importlib.util.spec_from_file_location(
+            pkgname, paths.distdir() / pkgname / "template.py"
+        )
+        modh = importlib.util.module_from_spec(modspec)
+        # cache
+        _tmpl_dict[pkgname] = (modh, modspec)
 
-    _tmpl_dict[pkgname] = modh
+    modspec.loader.exec_module(modh)
 
     delattr(builtins, "current")
     delattr(builtins, "subpackage")
