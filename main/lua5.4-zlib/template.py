@@ -1,10 +1,10 @@
-pkgname = "lua54-zlib"
+pkgname = "lua5.4-zlib"
 pkgver = "1.2"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "linux"
 hostmakedepends = ["pkgconf"]
-makedepends = ["lua54-devel", "zlib-devel"]
+makedepends = ["lua5.4-devel", "zlib-devel"]
 pkgdesc = "Zlib streaming interface for Lua (5.4)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
