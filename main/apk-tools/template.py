@@ -3,7 +3,7 @@ pkgver = "2.12.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true"]
-hostmakedepends = ["pkgconf", "meson", "lua54", "lua54-zlib", "scdoc"]
+hostmakedepends = ["pkgconf", "meson", "lua5.4", "lua5.4-zlib", "scdoc"]
 makedepends = ["zlib-devel", "openssl-devel"]
 pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
