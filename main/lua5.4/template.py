@@ -1,5 +1,5 @@
-pkgname = "lua54"
 _mver = "5.4"
+pkgname = f"lua{_mver}"
 pkgver = f"{_mver}.3"
 pkgrel = 0
 build_style = "makefile"
@@ -66,6 +66,6 @@ def post_install(self):
     self.install_link(f"luac{_mver}", "usr/bin/luac")
     self.install_link(f"lua{_mver}.pc", "usr/lib/pkgconfig/lua.pc")
 
-@subpackage("lua54-devel")
+@subpackage("lua5.4-devel")
 def _devel(self):
     return self.default_devel(man = True)
