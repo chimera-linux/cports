@@ -131,3 +131,9 @@ def do_install(self):
         self.files_path / "linux-version.sh", "usr/bin", mode = 0o755,
         name = "linux-version"
     )
+
+    # chimera-buildkernel
+    self.install_file(
+        self.files_path / "chimera-buildkernel.sh", "usr/bin", mode = 0o755,
+        name = "chimera-buildkernel"
+    )
