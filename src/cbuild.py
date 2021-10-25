@@ -2,6 +2,7 @@
 
 import os
 import sys
+import time
 import shutil
 import shlex
 import argparse
@@ -454,8 +455,48 @@ def do_prune_obsolete(tgt):
         reposet[str(repop)] = True
         apk_cli.prune(repop, opt_arch)
 
+def do_index(tgt):
+    idir = cmdline.command[1] if len(cmdline.command) >= 2 else None
+    # ensure we know what cpu arch we are dealing with
+    chroot.chroot_check()
+    # FIXME: compute from git if possible
+    epoch = int(time.time())
+    # do specific arch only
+    archn = opt_arch
+    if not archn:
+        archn = chroot.target_cpu()
+    # indexer for a single repo
+    def _index(repo):
+        logger.get().out(f"Indexing packages at '{repo}'...")
+        apk_cli.build_index(repo / archn, epoch, opt_signkey)
+    # only a specific path
+    if idir:
+        repo = pathlib.Path(idir)
+        if not (repo / archn).is_dir():
+            logger.get().out_red(f"cbuild: repository '{repo}' does not exist")
+            raise Exception()
+        _index(repo)
+        return
+    # all repos
+    reposd = paths.repository()
+    reposet = {}
+    # find all existing indexes
+    for idx in reposd.rglob("APKINDEX.tar.gz"):
+        repo = idx.parent.parent
+        if not repo.is_relative_to(reposd):
+            continue
+        # only index once
+        if str(repo) in reposet:
+            continue
+        reposet[str(repo)] = True
+        # leave out repos that do not have our arch
+        if not (repo / archn).is_dir():
+            continue
+        # finally index
+        _index(repo)
+
 def do_lint(tgt):
-    pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
+    pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
     # just read it and do nothing else
     # don't let the skip logic kick in
     template.read_pkg(
@@ -501,6 +542,7 @@ try:
         case "clean": do_clean(cmd)
         case "remove-autodeps": do_remove_autodeps(cmd)
         case "prune-obsolete": do_prune_obsolete(cmd)
+        case "index": do_index(cmd)
         case "zap": do_zap(cmd)
         case "lint": do_lint(cmd)
         case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)

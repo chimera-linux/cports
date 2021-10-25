@@ -464,6 +464,10 @@ The following commands are recognized:
 * `zap` Remove the build root.
 * `lint` Read and parse the template, and do lint checks on it. Do nothing
   else. Error on failures.
+* `index` When not given a path, reindex all known repositories. When given
+  a path, reindex a specific repository. Only either the host architecture or
+  the `-a` architecture are indexed, and the path should not include the
+  architecture.
 * `fetch`, `extract`, `patch`, `configure`, `build`, `check`, `install`, `pkg`
   Given an argument of template path (`category/name`) this will invoke the
   build process for the given template up until the given phase. The `pkg`
