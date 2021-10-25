@@ -15,8 +15,9 @@ sha256 = "26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d"
 options = ["!check"]
 
 def init_configure(self):
+    tcflags = self.get_cflags(["-shared"], shell = True)
     eargs = [
-        "LIBS=-lz -llua5.4 -lm",
+        f"LIBS={tcflags} -lz -llua5.4 -lm",
         "INCDIR=-I/usr/include -I/usr/include/lua5.4",
         "LIBDIR=-L/usr/lib",
         "LUACPATH=/usr/lib/lua/5.4",
@@ -26,7 +27,6 @@ def init_configure(self):
     self.make_install_args += eargs
     self.make_check_args += eargs
     self.tools["LD"] = self.get_tool("CC")
-    self.tool_flags["LDFLAGS"] = self.get_cflags(["-shared"])
 
 def do_install(self):
     self.install_license("README")
