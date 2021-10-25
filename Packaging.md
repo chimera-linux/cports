@@ -419,6 +419,10 @@ Keep in mind that default values may be overridden by build styles.
 * `configure_args` *(list)* This list is generally specific to the build
   system the template uses. Generally speaking, it provides the arguments
   passed to some kind of `configure` script.
+* `configure_env` *(dict)* Environment variables to be exported when running
+  the configure script. The way passing them is implemented depends on the
+  build system, but in general any user-provided environment at call site
+  overrides this, while this overrides the global environment (`env`).
 * `configure_script` *(str)* The name of the script relative to current
   working directory used for configuration. Only used by build styles that
   use such scripts. The default value is `configure`.
@@ -454,12 +458,22 @@ Keep in mind that default values may be overridden by build styles.
 * `make_cmd` *(str)* The name of the program used for building. May not
   apply to all templates or build styles. By default this is `bmake` (the
   default Make implementation in Chimera).
+* `make_env` *(dict)* Environment variables to be exported when running
+  some build stage. For `make`, the call site `env` is most significant,
+  followed by phase-specific `make` environment, followed by this, followed
+  by global environment (`env`).
 * `make_build_args` *(list)* A list of custom arguments passed to `make_cmd`
   during the build phase.
+* `make_build_env` *(dict)* Environment variables to be exported when running
+  the `build` phase. For `make`, the call site `env` is most significant,
+  followed by this, followed by the rest.
 * `make_build_target` *(str)* The `make_cmd` target to be used to build.
   Different build systems may use this differently. Empty by default.
 * `make_check_args` *(list)* A list of custom arguments passed to `make_cmd`
   when running tests.
+* `make_check_env` *(dict)* Environment variables to be exported when running
+  the `check` phase. For `make`, the call site `env` is most significant,
+  followed by this, followed by the rest.
 * `make_check_target` *(str)* The `make_cmd` target to be used to run tests.
   Different build systems may use this differently (`check` by default
   unless overridden by the `build_style`).
@@ -471,6 +485,9 @@ Keep in mind that default values may be overridden by build styles.
   `configure` steps as the working directory.
 * `make_install_args` *(list)* A list of custom arguments passed to `make_cmd`
   when installing.
+* `make_install_env` *(dict)* Environment variables to be exported when running
+  the `install` phase. For `make`, the call site `env` is most significant,
+  followed by this, followed by the rest.
 * `make_install_target` *(str)* The `make_cmd` target to be used to install.
   Different build systems may use this differently (`install` by default).
 * `makedepends` *(list)* A list of strings specifying package names to be
@@ -2179,7 +2196,7 @@ they simplify the template logic greatly.
 
 A wrapper for management of CMake projects.
 
-##### def configure(pkg, cmake_dir = None, build_dir = None, extra_args = [], cross_build = None)
+##### def configure(pkg, cmake_dir = None, build_dir = None, extra_args = [], env = {}, cross_build = None)
 
 Executes `cmake`. The directory for build files is `build_dir`, which
 is relative to `chroot_cwd` (when `None`, it is `pkg.make_dir`). The
@@ -2208,6 +2225,9 @@ An appropriate toolchain file is created when bootstrapping and when cross
 compiling. You can prevent the creation of a toolchain file by explicitly
 setting `cross_build` to `False`. That will ensure a native-like build even
 when the profile is set to a cross-compiling one.
+
+The environment from `env` is used, being the most important, followed by
+`pkg.configure_env` and then the rest.
 
 #### cbuild.util.compiler
 
@@ -2310,6 +2330,7 @@ anything else.
 The `pkg.configure_args` are passed after the implicit args, finally followed
 by `extra_args`. Additionally, `env` is exported into the environment, after
 the cache files (so the environment dictionary can override any caches).
+This also uses `pkg.configure_env` (`env` takes precedence over it).
 
 ##### def get_make_env()
 
@@ -2375,10 +2396,16 @@ arguments are passed like this:
   passed, if a string the string is passed.
 * `args`
 
-The environment for the invocation is the combination of `self.env` and
-the passed `env`, further passed to `self.template.do()`. The `wrksrc` is
-either the `wrksrc` argument, `self.wrksrc`, or `self.template.wrksrc` in
-that order (the first that is set is used).
+The environment for the invocation works as follows:
+
+* The most significant is `env`
+* Then followed by `self.template.make_env`
+* Then followed by the rest
+
+The combined environment is passed to `self.template.do()`.
+
+The `wrksrc` is either the `wrksrc` argument, `self.wrksrc`, or
+`self.template.wrksrc` in that order (the first that is set is used).
 
 You can use this method as a completely generic, unspecialized invocation.
 
@@ -2387,6 +2414,13 @@ You can use this method as a completely generic, unspecialized invocation.
 Calls `invoke`. The `targets` is `self.template.make_build_target`, the
 `args` are `self.template.make_build_args` plus any extra `args`. The
 other arguments are passed as is.
+
+The environment for the invocation works as follows:
+
+* The most significant is `env`
+* Then followed by `self.template.make_build_env`
+* Then followed by `self.template.make_env`
+* Then followed by the rest
 
 ###### def install(self, args = [], jobs = None, env = {}, default_args = True, args_use_env = False, wrksrc = None)
 
@@ -2397,6 +2431,14 @@ If `default_args` is `True`, `DESTDIR` is passed implicitly (set to the
 value of `self.chroot_destdir`. The method of passing it depends on the
 value of `args_use_env`. If that is `True`, it is passed in the environment,
 otherwise it is passed on the arguments (as the first argument).
+
+The environment for the invocation works as follows:
+
+* The most significant is `env`
+* Then followed by `self.template.make_install_env`
+* Then followed by `self.template.make_env`
+* Then followed by a potential implicit `DESTDIR`
+* Then followed by the rest
 
 Other arguments that are passed as `self.template.make_install_args` plus
 any extra `args`.
@@ -2411,11 +2453,16 @@ Calls `invoke`. The `targets` is `self.template.make_check_target`, the
 `args` are `self.template.make_check_args` plus any extra `args`. The
 other arguments are passed as is.
 
+* The most significant is `env`
+* Then followed by `self.template.make_check_env`
+* Then followed by `self.template.make_env`
+* Then followed by the rest
+
 #### cbuild.util.meson
 
 A wrapper for management of Meson projects.
 
-##### def configure(pkg, meson_dir = None, build_dir = None, extra_args = [])
+##### def configure(pkg, meson_dir = None, build_dir = None, extra_args = [], env = {})
 
 Executes `meson`. The `meson_dir` is where the root `meson.build` is located,
 assumed to be `.` implicitly, relative to `chroot_cwd`. The `build_dir` is
@@ -2452,6 +2499,9 @@ The arguments passed to `meson` are in this order:
 * `build_dir`
 
 When cross compiling, an appropriate cross file is automatically generated.
+
+The environment from `env` is used, being the most important, followed by
+`pkg.configure_env` and then the rest.
 
 <a id="contributing"></a>
 ## Contributing

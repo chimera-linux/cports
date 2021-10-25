@@ -30,10 +30,11 @@ class Make:
 
         return self.command
 
-    def invoke(
-        self, targets = [], args = [], jobs = None, env = {}, wrksrc = None
-    ):
-        renv = dict(self.env)
+    def _invoke(self, targets, args, jobs, base_env, env, wrksrc):
+        renv = dict(self.template.make_env)
+        if base_env:
+            renv.update(base_env)
+        renv.update(self.env)
         renv.update(env)
 
         if not jobs:
@@ -62,11 +63,16 @@ class Make:
             wrksrc = wrksrc
         )
 
+    def invoke(
+        self, targets = [], args = [], jobs = None, env = {}, wrksrc = None
+    ):
+        return self._invoke(targets, args, jobs, None, env, wrksrc)
+
     def build(self, args = [], jobs = None, env = {}, wrksrc = None):
         pkg = self.template
-        return self.invoke(
+        return self._invoke(
             pkg.make_build_target, pkg.make_build_args + args,
-            jobs, env, wrksrc
+            jobs, pkg.make_build_env, env, wrksrc
         )
 
     def install(
@@ -87,13 +93,14 @@ class Make:
         argsbase += pkg.make_install_args
         argsbase += args
 
-        return self.invoke(
-            pkg.make_install_target, argsbase, jobs, env, wrksrc
+        return self._invoke(
+            pkg.make_install_target, argsbase, jobs,
+            pkg.make_install_env, env, wrksrc
         )
 
     def check(self, args = [], jobs = None, env = {}, wrksrc = None):
         pkg = self.template
-        return self.invoke(
+        return self._invoke(
             pkg.make_check_target, pkg.make_check_args + args,
-            jobs, env, wrksrc
+            jobs, pkg.make_check_env, env, wrksrc
         )

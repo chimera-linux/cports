@@ -354,14 +354,19 @@ core_fields = [
     # build systems
     ("configure_args", [], list, False, False, False),
     ("configure_script", "configure", str, False, False, False),
+    ("configure_env", {}, dict, False, False, False),
     ("make_cmd", "bmake", str, False, False, False),
     ("make_dir", ".", str, False, False, False),
+    ("make_env", {}, dict, False, False, False),
     ("make_build_args", [], list, False, False, False),
     ("make_install_args", [], list, False, False, False),
     ("make_check_args", [], list, False, False, False),
     ("make_build_target", "", str, False, False, False),
     ("make_install_target", "install", str, False, False, False),
     ("make_check_target", "check", str, False, False, False),
+    ("make_build_env", {}, dict, False, False, False),
+    ("make_install_env", {}, dict, False, False, False),
+    ("make_check_env", {}, dict, False, False, False),
 
     # target build related
     ("nostrip_files", [], list, False, True, False),
@@ -403,15 +408,20 @@ core_fields_priority = [
 
     ("configure_script", True),
     ("configure_args", True),
+    ("configure_env", True),
 
     ("make_cmd", True),
     ("make_dir", True),
+    ("make_env", True),
     ("make_build_target", True),
     ("make_build_args", True),
+    ("make_build_env", True),
     ("make_install_target", True),
     ("make_install_args", True),
+    ("make_insatll_env", True),
     ("make_check_target", True),
     ("make_check_args", True),
+    ("make_check_env", True),
 
     ("make_use_env", True),
     ("cmake_dir", False),

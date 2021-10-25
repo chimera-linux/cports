@@ -2,7 +2,7 @@ from cbuild.core import paths
 
 def configure(
     pkg, cmake_dir = None, build_dir = None, extra_args = [],
-    cross_build = None
+    env = {}, cross_build = None
 ):
     if cmake_dir:
         cdir = pkg.chroot_cwd / cmake_dir
@@ -68,6 +68,15 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 """)
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=cross.cmake")
 
+    eenv = {
+        "CMAKE_GENERATOR": (
+            "Ninja" if pkg.make_cmd == "ninja" else "Unix Makefiles"
+        )
+    }
+
+    eenv.update(pkg.configure_env)
+    eenv.update(env)
+
     pkg.do(
         "cmake", cargs + [
             "-DCMAKE_INSTALL_PREFIX=/usr",
@@ -75,9 +84,5 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
             "-DCMAKE_INSTALL_LIBDIR=lib",
             "-DCMAKE_INSTALL_SBINDIR=bin"
         ] + pkg.configure_args + extra_args + [cdir],
-        wrksrc = build_dir, env = {
-            "CMAKE_GENERATOR": (
-                "Ninja" if pkg.make_cmd == "ninja" else "Unix Makefiles"
-            )
-        }
+        wrksrc = build_dir, env = eenv
     )

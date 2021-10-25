@@ -23,14 +23,11 @@ def post_patch(self):
     self.cp(self.files_path / "queue.h", "libxo/sys")
 
 # libxo does not respect LDFLAGS, so hack it in
-def do_configure(self):
-    from cbuild.util import gnu_configure
-
+def init_configure(self):
     tcflags = self.get_cflags(shell = True)
     tlflags = self.get_ldflags(shell = True)
 
-    gnu_configure.replace_guess(self)
-    gnu_configure.configure(self, env = {"CFLAGS": f"{tcflags} {tlflags}"})
+    self.configure_env = {"CFLAGS": f"{tcflags} {tlflags}"}
 
 @subpackage("libxo-devel")
 def _devel(self):

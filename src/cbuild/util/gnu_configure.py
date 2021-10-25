@@ -107,6 +107,7 @@ def configure(
     else:
         _read_cache(cachedir, "musl-linux", eenv)
 
+    eenv.update(pkg.configure_env)
     eenv.update(env)
 
     # http://lists.gnu.org/archive/html/libtool-patches/2004-06/msg00002.html

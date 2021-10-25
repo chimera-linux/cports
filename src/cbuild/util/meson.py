@@ -50,7 +50,9 @@ endian = '{pkg.profile().endian}'
 
     return cfpath
 
-def configure(pkg, meson_dir = None, build_dir = None, extra_args = []):
+def configure(
+    pkg, meson_dir = None, build_dir = None, extra_args = [], env = {}
+):
     if not meson_dir:
         meson_dir = "."
 
@@ -64,6 +66,10 @@ def configure(pkg, meson_dir = None, build_dir = None, extra_args = []):
         cargs = ["--cross-file=" + str(
             pkg.chroot_cwd / cfp.relative_to(pkg.cwd)
         )]
+
+    eenv = {}
+    eenv.update(pkg.configure_env)
+    eenv.update(env)
 
     pkg.do(
         "meson", [
@@ -85,5 +91,6 @@ def configure(pkg, meson_dir = None, build_dir = None, extra_args = []):
             "-Ddefault_library=both",
             "-Db_ndebug=true",
             "-Db_staticpic=true"
-        ] + cargs + pkg.configure_args + extra_args + [meson_dir, build_dir]
+        ] + cargs + pkg.configure_args + extra_args + [meson_dir, build_dir],
+        env = eenv
     )
