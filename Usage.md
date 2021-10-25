@@ -459,6 +459,11 @@ The following commands are recognized:
   current architecture (can be set with `-a`). This works for recursively
   searching for `APKINDEX.tar.gz` within the repository path (`-r` or default)
   and using those paths as repositories.
+* `prune-removed` Prune removed packages within all repositories for the
+  current architecture (can be set with `-a`). This works for recursively
+  searching for `APKINDEX.tar.gz` within the repository path (`-r` or default)
+  and using those paths as repositories. The affected repositories are
+  reindexed afterwards.
 * `remove-autodeps` Remove automatic dependencies possibly installed in the
   build root.
 * `zap` Remove the build root.

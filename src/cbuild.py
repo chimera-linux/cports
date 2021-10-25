@@ -455,6 +455,78 @@ def do_prune_obsolete(tgt):
         reposet[str(repop)] = True
         apk_cli.prune(repop, opt_arch)
 
+def do_prune_removed(tgt):
+    # ensure we know what cpu arch we are dealing with
+    chroot.chroot_check()
+    # FIXME: compute from git if possible
+    epoch = int(time.time())
+    # do specific arch only
+    archn = opt_arch
+    if not archn:
+        archn = chroot.target_cpu()
+    # pruner for a single repo
+    def _prune(repo):
+        logger.get().out(f"Pruning removed packages at '{repo}'...")
+        # find which repo we are looking at
+        repon = repo.name
+        if not (paths.distdir() / repon).is_dir():
+            # this could be a sub-repo
+            repon = repo.parent.name
+        if not (paths.distdir() / repon).is_dir():
+            logger.get().out_red(
+                f"cbuild: repository '{repo}' does not match templates"
+            )
+            raise Exception()
+        tmplp = paths.distdir() / repon
+        for pkg in (repo / archn).glob("*.apk"):
+            pkgn = pkg.stem
+            rd = pkgn.rfind("-")
+            if rd > 0:
+                rd = pkgn.rfind("-", 0, rd)
+            if rd < 0:
+                logger.get().warn(
+                    f"Malformed file name found, skipping: {pkg.name}"
+                )
+                continue
+            pkgn = pkgn[0:rd]
+            # debug packages are special and automatic
+            if pkgn.endswith("-dbg"):
+                pkgn = pkgn[:-4]
+            # if it's ok, just skip
+            if (tmplp / pkgn).exists():
+                continue
+            # not ok, first test if it's a broken symlink
+            broken = True
+            try:
+                (tmplp / pkgn).lstat()
+            except FileNotFoundError:
+                broken = False
+            if broken:
+                logger.get().warn(
+                    f"Broken symlink for package '{pkgn}'"
+                )
+            logger.get().out(f"Pruning package: {pkg.name}")
+            pkg.unlink()
+        # reindex
+        apk_cli.build_index(repo / archn, epoch, opt_signkey)
+
+    reposd = paths.repository()
+    reposet = {}
+    # find all existing indexes
+    for idx in reposd.rglob("APKINDEX.tar.gz"):
+        repo = idx.parent.parent
+        if not repo.is_relative_to(reposd):
+            continue
+        # only index once
+        if str(repo) in reposet:
+            continue
+        reposet[str(repo)] = True
+        # leave out repos that do not have our arch
+        if not (repo / archn).is_dir():
+            continue
+        # finally index
+        _prune(repo)
+
 def do_index(tgt):
     idir = cmdline.command[1] if len(cmdline.command) >= 2 else None
     # ensure we know what cpu arch we are dealing with
@@ -542,6 +614,7 @@ try:
         case "clean": do_clean(cmd)
         case "remove-autodeps": do_remove_autodeps(cmd)
         case "prune-obsolete": do_prune_obsolete(cmd)
+        case "prune-removed": do_prune_removed(cmd)
         case "index": do_index(cmd)
         case "zap": do_zap(cmd)
         case "lint": do_lint(cmd)
