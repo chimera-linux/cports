@@ -2,7 +2,6 @@ pkgname = "debianutils"
 pkgver = "4.11.2"
 pkgrel = 0
 build_style = "gnu_configure"
-depends = ["bsdutils"]
 pkgdesc = "Miscellaneous utilities from Debian"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
