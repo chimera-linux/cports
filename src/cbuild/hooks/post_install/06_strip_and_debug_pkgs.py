@@ -99,7 +99,7 @@ def invoke(pkg):
             print(f"   Stripped static library: {vr}")
             continue
 
-        soname, needed, pname, static = vt
+        soname, needed, pname, static, etype, mtype, interp = vt
 
         # strip static executable
         if static:
@@ -112,40 +112,16 @@ def invoke(pkg):
             print(f"   Stripped static executable: {vr}")
             continue
 
-        # guess what it is
-        scanout = subprocess.run([
-            "scanelf", "--nobanner", "--nocolor",
-            "--format", "%a|%o|%i", v
-        ], capture_output = True)
-
-        if scanout.returncode != 0:
-            pkg.error(f"failed to scan {vr}")
-
-        # strip the filename
-        scanout = scanout.stdout.strip()[:-len(str(v)) - 1]
-
-        # get the type and interpreter
-        splitv = scanout.split(b"|")
-        if len(splitv) != 3:
-            pkg.error(
-                f"invalid scanelf output for {vr}: {scanout.encode()}"
-            )
-        mtype, etype, interp = splitv
-
-        # may just be using ELF as a container format
-        if mtype.strip() == b"EM_NONE":
-            print(f"   Ignoring ELF file with no machine: {vr}")
-
         # pie or nopie?
-        if etype == b"ET_DYN":
+        if etype == "ET_DYN":
             pie = True
-        elif etype == b"ET_EXEC":
+        elif etype == "ET_EXEC":
             pie = False
         else:
-            pkg.error(f"unknown type for {vr}: {etype.encode()}")
+            pkg.error(f"unknown type for {vr}: {etype}")
 
         # executable or library?
-        dynlib = (len(interp.strip()) == 0)
+        dynlib = (len(interp) == 0)
 
         # sanity check
         if not pie and dynlib:

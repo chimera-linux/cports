@@ -8,7 +8,7 @@ def scan(pkg, somap):
     scanout = subprocess.run(
         [
             "scanelf", "--nobanner", "--nocolor", "--recursive", "--symlink",
-            "--format", "%a|%b|%o|%t|%n|%S|", pkg.destdir
+            "--format", "%a|%b|%o|%i|%t|%n|%S|", pkg.destdir
         ],
         capture_output = True
     )
@@ -20,7 +20,7 @@ def scan(pkg, somap):
     elf_textrels = []
 
     for ln in scanout.stdout.splitlines():
-        mtype, bind, stp, textrel, needed, soname, fpath = ln.split(b"|")
+        mtype, bind, stp, interp, textrel, needed, soname, fpath = ln.split(b"|")
         # elf used as container files
         if mtype.strip() == b"EM_NONE":
             continue
@@ -48,7 +48,9 @@ def scan(pkg, somap):
             soname = soname.decode()
         # write
         somap[str(fpath)] = (
-            soname, needed, pkg.pkgname, bind.strip() == b"STATIC"
+            soname, needed, pkg.pkgname, bind.strip() == b"STATIC",
+            stp.strip().decode(), mtype.strip().decode(),
+            interp.strip().decode()
         )
 
     # some linting
