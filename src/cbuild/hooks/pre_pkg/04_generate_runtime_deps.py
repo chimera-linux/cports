@@ -100,7 +100,7 @@ def _scan_pc(pkg):
     log = logger.get()
 
     # ugly hack to get around scanning when building pkgconf itself
-    if (pkg.rparent.destdir / "usr/bin/pkg-config").exists():
+    if (pkg.destdir / "usr/lib/pkgconfig/libpkgconf.pc").exists():
         return
 
     # all subpackages must declare their pkg-config path for the scan
