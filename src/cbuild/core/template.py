@@ -1171,7 +1171,10 @@ class Subpackage(Package):
             )
 
     def take_devel(self, man = False):
-        self.take("usr/bin/*-config", missing_ok = True)
+        if (self.parent.destdir / "usr/bin").is_dir():
+            for f in (self.parent.destdir / "usr/bin").iterdir():
+                if f.name != "pkg-config" and f.name.endswith("-config"):
+                    self.take(f"usr/bin/{f.name}")
         self.take("usr/lib/*.a", missing_ok = True)
         self.take("usr/lib/*.so", missing_ok = True)
         self.take("usr/lib/pkgconfig", missing_ok = True)
@@ -1186,7 +1189,11 @@ class Subpackage(Package):
         self.take("usr/share/gir-[0-9]*", missing_ok = True)
         self.take("usr/share/glade/catalogs", missing_ok = True)
         if man:
-            self.take("usr/share/man/man1/*-config.1", missing_ok = True)
+            mpath = self.parent.destdir / "usr/share/man/man1"
+            if mpath.is_dir():
+                for f in mpath.iterdir():
+                    if f.stem != "pkg-config" and f.stem.endswith("-config"):
+                        self.take(f"usr/share/man/man1/{f.name}")
             self.take("usr/share/man/man[23]", missing_ok = True)
 
     def take_doc(self, man = True):
