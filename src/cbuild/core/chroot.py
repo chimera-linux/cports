@@ -358,6 +358,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "--dev", "/dev",
         "--proc", "/proc",
         "--tmpfs", "/tmp",
+        "--tmpfs", "/var/tmp",
     ]
 
     if new_session:
