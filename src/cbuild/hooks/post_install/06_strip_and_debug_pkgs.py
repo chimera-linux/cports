@@ -99,7 +99,7 @@ def invoke(pkg):
             print(f"   Stripped static library: {vr}")
             continue
 
-        soname, needed, pname, static, etype, mtype, interp = vt
+        soname, needed, pname, static, etype, interp = vt
 
         # strip static executable
         if static:
@@ -120,11 +120,8 @@ def invoke(pkg):
         else:
             pkg.error(f"unknown type for {vr}: {etype}")
 
-        # executable or library?
-        dynlib = (len(interp) == 0)
-
         # sanity check
-        if not pie and dynlib:
+        if not pie and not interp:
             pkg.error(f"dynamic executable without an interpreter: {vr}")
 
         # regardless, sanitize mode
@@ -162,7 +159,7 @@ def invoke(pkg):
         except:
             pkg.error(f"failed to strip {vr}")
 
-        if not dynlib:
+        if interp:
             print(f"   Stripped position-independent executable: {vr}")
         else:
             print(f"   Stripped library: {vr}")

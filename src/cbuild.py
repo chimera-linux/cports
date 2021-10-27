@@ -38,9 +38,7 @@ signal.signal(signal.SIGINT, do_exit)
 signal.signal(signal.SIGTERM, do_exit)
 
 # program checks
-for prog in [
-    "bwrap", "scanelf", "openssl", "apk", "git", "tee"
-]:
+for prog in ["bwrap", "openssl", "apk", "git", "tee"]:
     if not shutil.which(prog):
         sys.exit(f"Required program not found: {prog}")
 
