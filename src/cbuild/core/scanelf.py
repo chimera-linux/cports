@@ -1,5 +1,6 @@
 import struct
 import mmap
+import stat
 import pathlib
 
 _tsizes = "_BH_I___Q"
@@ -204,11 +205,15 @@ def scan(pkg, somap):
     elf_textrels = []
     elf_foreign  = []
 
-    libc = _scan_one(pkg.rparent.profile().sysroot / "usr/lib/libc.so")
+    # only test machine type against libc when not bootstrapping
+    # as otherise we cannot provide guarantees about the host system
+    if not pkg.bootstrapping:
+        libc = _scan_one(pkg.rparent.profile().sysroot / "usr/lib/libc.so")
 
     for fpath in scandir.rglob("*"):
-        # skip links and non-regular-files
-        if fpath.is_symlink() or not fpath.is_file():
+        st = fpath.lstat()
+        # skip empty files, non-regular files
+        if st.st_size == 0 or not stat.S_ISREG(st.st_mode):
             continue
         # try scan
         scanned = _scan_one(fpath)
@@ -225,8 +230,9 @@ def scan(pkg, somap):
             pkg.log_warn(f"ELF file with no machine type (container?): {fpath}")
             continue
         # foreign file
-        if scanned[0] != libc[0] and not pkg.rparent.options["foreignelf"]:
-            elf_foreign.append(fpath)
+        if not pkg.bootstrapping:
+            if scanned[0] != libc[0] and not pkg.rparent.options["foreignelf"]:
+                elf_foreign.append(fpath)
         # deny /usr/share files
         if fpath.is_relative_to("usr/share"):
             elf_usrshare.append(fpath)
