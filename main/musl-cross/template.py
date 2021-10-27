@@ -16,7 +16,7 @@ sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 # segfaults otherwise
 hardening = ["!scp"]
 # crosstoolchain
-options = ["!cross", "!check", "brokenlinks"]
+options = ["!cross", "!check", "brokenlinks", "foreignelf"]
 
 _targets = list(filter(
     lambda p: p != current.profile().arch,

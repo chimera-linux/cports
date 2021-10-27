@@ -11,7 +11,7 @@ url = "http://www.freshports.org/devel/libexecinfo"
 source = f"http://distcache.freebsd.org/local-distfiles/itetcu/libexecinfo-{pkgver}.tar.bz2"
 sha256 = "c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"
 # no test suite
-options = ["!cross", "!check"]
+options = ["!cross", "!check", "foreignelf"]
 
 _targets = list(filter(
     lambda p: p != current.profile().arch,

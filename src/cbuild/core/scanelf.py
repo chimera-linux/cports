@@ -202,6 +202,9 @@ def scan(pkg, somap):
     scandir = pkg.destdir
     elf_usrshare = []
     elf_textrels = []
+    elf_foreign  = []
+
+    libc = _scan_one(pkg.rparent.profile().sysroot / "usr/lib/libc.so")
 
     for fpath in scandir.rglob("*"):
         # skip links and non-regular-files
@@ -212,14 +215,18 @@ def scan(pkg, somap):
         # not suitable
         if not scanned:
             continue
-        # probably a container file
-        if scanned[0] == 0:
-            continue
         # object file?
         if scanned[1] == "ET_REL":
             continue
         # relativize path
         fpath = fpath.relative_to(scandir)
+        # probably a container file
+        if scanned[0] == 0:
+            pkg.log_warn(f"ELF file with no machine type (container?): {fpath}")
+            continue
+        # foreign file
+        if scanned[0] != libc[0] and not pkg.rparent.options["foreignelf"]:
+            elf_foreign.append(fpath)
         # deny /usr/share files
         if fpath.is_relative_to("usr/share"):
             elf_usrshare.append(fpath)
@@ -248,5 +255,13 @@ def scan(pkg, somap):
             pkg.error("found textrels:")
         except:
             for f in elf_textrels:
+                print(f"   {f}")
+            raise
+
+    if len(elf_foreign) > 0:
+        try:
+            pkg.error("found foreign-machine ELF files:")
+        except:
+            for f in elf_foreign:
                 print(f"   {f}")
             raise

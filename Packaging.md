@@ -1088,6 +1088,11 @@ the template including for subpackages:
 * `textrels` *(false)* By default, if `cbuild` finds textrels within any
   ELF files in the packages, it will error. It is possible to override
   this by enabling the option.
+* `foreignelf` *(false)* By default, if `cbuild` finds ELF files that
+  have a foreign machine architecture (checked by matching against the
+  `libc` of the target), it will error. It is possible to override this
+  by enabling this option. Usually this is a wrong thing to do, but for
+  example in case of cross toolchains you might want to enable this.
 * `parallel` *(true)* By disabling this, you can enforce single-threaded
   builds for the template. By default the number of build jobs passed
   by `cbuild` is respected.

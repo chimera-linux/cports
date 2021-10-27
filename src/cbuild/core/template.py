@@ -299,6 +299,7 @@ default_options = {
     "scanpkgconf": (True, False),
     "scancmd": (True, False),
     "textrels": (False, True),
+    "foreignelf": (False, True),
     "parallel": (True, True),
     "debug": (True, True),
     "strip": (True, False),
