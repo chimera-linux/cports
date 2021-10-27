@@ -581,11 +581,12 @@ def do_cycle_check(tgt):
     pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
 
     # broken packages get removed from testing
-    def _read_pkg(pkgn):
+    def _read_pkg(pkgn, resolve):
         try:
             return template.read_pkg(
                 pkgn, chroot.host_cpu(), True,
-                False, 1, False, False, None, target = "lint"
+                False, 1, False, False, None, target = "lint",
+                resolve = resolve
             )
         except PackageError:
             return None
@@ -604,36 +605,44 @@ def do_cycle_check(tgt):
     if pkgn:
         tmpls.append(pkgn)
     else:
-        # FIXME: support other categories
-        for tmpl in (paths.distdir() / "main").glob("*"):
-            if tmpl.is_symlink() or not tmpl.is_dir():
+        for cat in paths.distdir().iterdir():
+            if cat.is_symlink() or not cat.is_dir():
                 continue
-            tmpls.append(f"main/{tmpl.name}")
+            for tmpl in cat.iterdir():
+                if tmpl.is_symlink() or not tmpl.is_dir():
+                    continue
+                pathf = tmpl / "template.py"
+                if pathf.exists() and pathf.is_file():
+                    tmpls.append(f"{cat.name}/{tmpl.name}")
 
     tmpls.sort()
 
-    def _cycle_check(tmpln):
+    def _cycle_check(tmpln, ppkg):
+        bpkgn = tmpln
+        pkgs = bpkgn.find("/")
+        if pkgs > 0:
+            bpkgn = bpkgn[pkgs + 1:]
         nonlocal curpath
         # skip if the cycle is already known
-        if tmpln in cycled:
+        if bpkgn in cycled:
             return
         # second encounter of the dependency in this dependency tree
-        if tmpln in encountered:
-            tidx = curpath.index(tmpln)
-            curpath.append(tmpln)
+        if bpkgn in encountered:
+            tidx = curpath.index(bpkgn)
+            curpath.append(bpkgn)
             logger.get().warn(
                 "cycle encountered: " + " => ".join(curpath[tidx:])
             )
-            cycled[tmpln] = True
+            cycled[bpkgn] = True
             curpath = []
             raise RuntimeError()
         # already tested: pass
-        if tmpln in tested:
+        if bpkgn in tested:
             return
-        pkgr = _read_pkg(tmpln)
+        pkgr = _read_pkg(tmpln, ppkg)
         # probably broken, just skip from testing
         if not pkgr:
-            tested[tmpln] = True
+            tested[bpkgn] = True
             return False
         # when testing dependencies, skip stuff depending on its own subpkgs
         subpkgs = {}
@@ -641,10 +650,10 @@ def do_cycle_check(tgt):
         for sp in pkgr.subpkg_list:
             subpkgs[sp.pkgname] = True
         # mark tested as well as encountered
-        tested[tmpln] = True
-        encountered[tmpln] = True
+        tested[bpkgn] = True
+        encountered[bpkgn] = True
         # save in the informational path
-        curpath.append(tmpln)
+        curpath.append(bpkgn)
         # build a unique set of dependencies without repeated items
         hdeps, tdeps, rdeps = dependencies.setup_depends(pkgr)
         deplist = []
@@ -654,31 +663,35 @@ def do_cycle_check(tgt):
             deplist.append(pkgn)
         # for runtime dependencies, we gotta skip subpackages of self
         for origin, dep in rdeps:
-            pkgn, pkgv, pkgop = autil.split_pkg_name(dep)
-            if not pkgn:
+            spkgn, pkgv, pkgop = autil.split_pkg_name(dep)
+            if not spkgn:
                 pkg.error(f"invalid runtime dependency: {dep}")
-            if not pkgn in subpkgs:
-                deplist.append(pkgn)
+            if not spkgn in subpkgs:
+                # resolve base package
+                for r in pkgr.source_repositories:
+                    pkgp = paths.distdir() / r / spkgn
+                    if (pkgp / "template.py").is_file():
+                        spkgn = pkgp.resolve().name
+                deplist.append(spkgn)
         # convert to set and back to list, that way we make it unique
         deplist = list(set(deplist))
         # check each dep
         for dep in deplist:
-            fulldep = f"main/{dep}"
             # stuff depending on broken packages is itself broken
-            if not _cycle_check(fulldep):
-                tested[fulldep] = True
+            if not _cycle_check(dep, pkgr):
+                tested[dep] = True
                 return False
-            tested[fulldep] = True
+            tested[dep] = True
         # clean up the path/encountered set for correct recursive behavior
         curpath.pop()
-        del encountered[tmpln]
+        del encountered[bpkgn]
         return True
 
     for tmpln in tmpls:
         if tmpln in tested:
             continue
         try:
-            _cycle_check(tmpln)
+            _cycle_check(tmpln, None)
             tested[tmpln] = True
         except RuntimeError:
             # encountered a cycle
