@@ -39,7 +39,7 @@ def _is_rdep(pn):
         return False
     return True
 
-def _setup_depends(pkg):
+def setup_depends(pkg):
     hdeps = []
     tdeps = []
     rdeps = []
@@ -291,7 +291,7 @@ def install(pkg, origpkg, step, depmap, signkey):
 
     log = logger.get()
 
-    ihdeps, itdeps, irdeps = _setup_depends(pkg)
+    ihdeps, itdeps, irdeps = setup_depends(pkg)
 
     if len(ihdeps) == 0 and len(itdeps) == 0 and len(irdeps) == 0:
         return

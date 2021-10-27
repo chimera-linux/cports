@@ -574,6 +574,118 @@ def do_lint(tgt):
         False, 1, False, False, None, target = "lint"
     )
 
+def do_cycle_check(tgt):
+    from cbuild.core import dependencies
+    from cbuild.apk import util as autil
+
+    pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
+
+    # broken packages get removed from testing
+    def _read_pkg(pkgn):
+        try:
+            return template.read_pkg(
+                pkgn, chroot.host_cpu(), True,
+                False, 1, False, False, None, target = "lint"
+            )
+        except PackageError:
+            return None
+
+    # template list, one template or all
+    tmpls = []
+    # saved cycle path for informational purposes
+    curpath = []
+    # this saves all already-tested templates so we can skip them
+    tested = {}
+    # templates encountered during the current run
+    encountered = {}
+    # skip known already-printed cycles
+    cycled = {}
+
+    if pkgn:
+        tmpls.append(pkgn)
+    else:
+        # FIXME: support other categories
+        for tmpl in (paths.distdir() / "main").glob("*"):
+            if tmpl.is_symlink() or not tmpl.is_dir():
+                continue
+            tmpls.append(f"main/{tmpl.name}")
+
+    tmpls.sort()
+
+    def _cycle_check(tmpln):
+        nonlocal curpath
+        # skip if the cycle is already known
+        if tmpln in cycled:
+            return
+        # second encounter of the dependency in this dependency tree
+        if tmpln in encountered:
+            tidx = curpath.index(tmpln)
+            curpath.append(tmpln)
+            logger.get().warn(
+                "cycle encountered: " + " => ".join(curpath[tidx:])
+            )
+            cycled[tmpln] = True
+            curpath = []
+            raise RuntimeError()
+        # already tested: pass
+        if tmpln in tested:
+            return
+        pkgr = _read_pkg(tmpln)
+        # probably broken, just skip from testing
+        if not pkgr:
+            tested[tmpln] = True
+            return False
+        # when testing dependencies, skip stuff depending on its own subpkgs
+        subpkgs = {}
+        subpkgs[pkgr.pkgname] = True
+        for sp in pkgr.subpkg_list:
+            subpkgs[sp.pkgname] = True
+        # mark tested as well as encountered
+        tested[tmpln] = True
+        encountered[tmpln] = True
+        # save in the informational path
+        curpath.append(tmpln)
+        # build a unique set of dependencies without repeated items
+        hdeps, tdeps, rdeps = dependencies.setup_depends(pkgr)
+        deplist = []
+        for sver, pkgn in hdeps:
+            deplist.append(pkgn)
+        for sver, pkgn in tdeps:
+            deplist.append(pkgn)
+        # for runtime dependencies, we gotta skip subpackages of self
+        for origin, dep in rdeps:
+            pkgn, pkgv, pkgop = autil.split_pkg_name(dep)
+            if not pkgn:
+                pkg.error(f"invalid runtime dependency: {dep}")
+            if not pkgn in subpkgs:
+                deplist.append(pkgn)
+        # convert to set and back to list, that way we make it unique
+        deplist = list(set(deplist))
+        # check each dep
+        for dep in deplist:
+            fulldep = f"main/{dep}"
+            # stuff depending on broken packages is itself broken
+            if not _cycle_check(fulldep):
+                tested[fulldep] = True
+                return False
+            tested[fulldep] = True
+        # clean up the path/encountered set for correct recursive behavior
+        curpath.pop()
+        del encountered[tmpln]
+        return True
+
+    for tmpln in tmpls:
+        if tmpln in tested:
+            continue
+        try:
+            _cycle_check(tmpln)
+            tested[tmpln] = True
+        except RuntimeError:
+            # encountered a cycle
+            pass
+        encountered = {}
+        curpath = []
+
 def do_pkg(tgt, pkgn = None, force = None, check = None):
     if force is None:
         force = opt_force
@@ -616,6 +728,7 @@ try:
         case "index": do_index(cmd)
         case "zap": do_zap(cmd)
         case "lint": do_lint(cmd)
+        case "cycle-check": do_cycle_check(cmd)
         case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)
         case "build" | "check" | "install" | "pkg": do_pkg(cmd)
         case _:

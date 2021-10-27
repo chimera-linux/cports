@@ -468,6 +468,8 @@ The following commands are recognized:
 * `zap` Remove the build root.
 * `lint` Read and parse the template, and do lint checks on it. Do nothing
   else. Error on failures.
+* `cycle-check` Scan all templates or a single template for build-time
+  dependency cycles.
 * `index` When not given a path, reindex all known repositories. When given
   a path, reindex a specific repository. Only either the host architecture or
   the `-a` architecture are indexed, and the path should not include the
