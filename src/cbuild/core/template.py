@@ -563,6 +563,52 @@ class Template(Package):
         self.current_sonames = {}
         self.default_hardening = []
 
+    def dump(self):
+        metadata = {}
+        mlist = []
+        subpkgs = []
+
+        dumped = {
+            "pkgname": self.pkgname,
+            "pkgver": self.pkgver,
+            "pkgrel": self.pkgrel,
+            "pkgdesc": self.pkgdesc,
+            "license": self.license,
+            "maintainer": self.maintainer,
+            "url": self.url,
+            "broken": self.broken,
+            "subpackages": subpkgs,
+            "variables": metadata
+        }
+
+        for sp in self.subpkg_list:
+            subpkg = {
+                "pkgname": sp.pkgname,
+            }
+            slist = []
+            for fl, dval, tp, mand, asp, inh in core_fields:
+                if fl in subpkg or not asp:
+                    continue
+                slist.append((fl, getattr(sp, fl)))
+            # append
+            slist.sort(key = lambda v: v[0])
+            for k, v in slist:
+                subpkg[k] = v
+            subpkgs.append(sp.pkgname)
+
+        for fl, dval, tp, mand, sp, inh in core_fields:
+            # skip stuff in the primary dump
+            if fl in dumped:
+                continue
+            mlist.append((fl, getattr(self, fl)))
+
+        mlist.sort(key = lambda v: v[0])
+
+        for k, v in mlist:
+            metadata[k] = v
+
+        return dumped
+
     def setup_reproducible(self):
         self.source_date_epoch = int(time.time())
 
@@ -1311,16 +1357,17 @@ def from_module(m, ret):
     ret.options = ropts
     ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"
 
-    ret.validate_arch()
-    ret.validate_pkgdesc()
-    ret.validate_url()
-    ret.validate_order()
+    if not ret._allow_broken:
+        ret.validate_arch()
+        ret.validate_pkgdesc()
+        ret.validate_url()
+        ret.validate_order()
 
     if ret.provider_priority < 0:
         ret.error("provider_priority must be positive")
 
     # validate license if we need to
-    if ret.options["spdx"]:
+    if ret.options["spdx"] and not ret._allow_broken:
         lerr = None
         try:
             spdx.validate(ret.license)
@@ -1397,7 +1444,7 @@ def from_module(m, ret):
 
     ret.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + ret.pkgname
 
-    if not hasattr(ret, "do_install"):
+    if not hasattr(ret, "do_install") and not ret._allow_broken:
         ret.error("do_install is missing")
 
     spdupes = {}
@@ -1449,7 +1496,8 @@ def from_module(m, ret):
 
         sp.options = ropts
 
-        if sp.options["spdx"] and sp.license != ret.license:
+        if sp.options["spdx"] and sp.license != ret.license \
+          and not ret._allow_broken:
             lerr = None
             try:
                 spdx.validate(sp.license)
@@ -1461,10 +1509,10 @@ def from_module(m, ret):
         # go
         ret.subpkg_list.append(sp)
 
-    if ret.broken:
+    if ret.broken and not ret._allow_broken:
         ret.error(f"cannot be built, it's currently broken: {ret.broken}")
 
-    if ret.cross_build and not ret.options["cross"]:
+    if ret.cross_build and not ret.options["cross"] and not ret._allow_broken:
         ret.error(f"cannot be cross-compiled for {ret.cross_build}")
 
     if ret.bootstrapping and not ret.options["bootstrap"]:
@@ -1536,7 +1584,7 @@ _tmpl_dict = {}
 def read_pkg(
     pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
     origin, resolve = None, ignore_missing = False, ignore_errors = False,
-    target = None, force_check = False
+    target = None, force_check = False, allow_broken = False
 ):
     global _tmpl_dict
 
@@ -1568,6 +1616,7 @@ def read_pkg(
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs
     ret._ignore_errors = ignore_errors
+    ret._allow_broken = allow_broken
     ret._target = target
     ret._force_check = force_check
 

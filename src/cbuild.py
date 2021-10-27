@@ -574,6 +574,26 @@ def do_lint(tgt):
         False, 1, False, False, None, target = "lint"
     )
 
+def _collect_tmpls(pkgn):
+    tmpls = []
+
+    if pkgn:
+        tmpls.append(pkgn)
+    else:
+        for cat in paths.distdir().iterdir():
+            if cat.is_symlink() or not cat.is_dir():
+                continue
+            for tmpl in cat.iterdir():
+                if tmpl.is_symlink() or not tmpl.is_dir():
+                    continue
+                pathf = tmpl / "template.py"
+                if pathf.exists() and pathf.is_file():
+                    tmpls.append(f"{cat.name}/{tmpl.name}")
+
+    tmpls.sort()
+
+    return tmpls
+
 def do_cycle_check(tgt):
     from cbuild.core import dependencies
     from cbuild.apk import util as autil
@@ -592,7 +612,7 @@ def do_cycle_check(tgt):
             return None
 
     # template list, one template or all
-    tmpls = []
+    tmpls = _collect_tmpls(pkgn)
     # saved cycle path for informational purposes
     curpath = []
     # this saves all already-tested templates so we can skip them
@@ -601,21 +621,6 @@ def do_cycle_check(tgt):
     encountered = {}
     # skip known already-printed cycles
     cycled = {}
-
-    if pkgn:
-        tmpls.append(pkgn)
-    else:
-        for cat in paths.distdir().iterdir():
-            if cat.is_symlink() or not cat.is_dir():
-                continue
-            for tmpl in cat.iterdir():
-                if tmpl.is_symlink() or not tmpl.is_dir():
-                    continue
-                pathf = tmpl / "template.py"
-                if pathf.exists() and pathf.is_file():
-                    tmpls.append(f"{cat.name}/{tmpl.name}")
-
-    tmpls.sort()
 
     def _cycle_check(tmpln, ppkg):
         bpkgn = tmpln
@@ -699,6 +704,31 @@ def do_cycle_check(tgt):
         encountered = {}
         curpath = []
 
+def do_dump(tgt):
+    import json
+
+    pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
+
+    tmpls = _collect_tmpls(pkgn)
+
+    def _read_pkg(pkgn):
+        try:
+            return template.read_pkg(
+                pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
+                False, 1, False, False, None, target = "lint",
+                allow_broken = True
+            )
+        except PackageError:
+            return None
+
+    dumps = []
+
+    for tmpln in tmpls:
+        pkgr = _read_pkg(tmpln)
+        dumps.append(pkgr.dump())
+
+    print(json.dumps(dumps, indent = 4))
+
 def do_pkg(tgt, pkgn = None, force = None, check = None):
     if force is None:
         force = opt_force
@@ -742,6 +772,7 @@ try:
         case "zap": do_zap(cmd)
         case "lint": do_lint(cmd)
         case "cycle-check": do_cycle_check(cmd)
+        case "dump": do_dump(cmd)
         case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)
         case "build" | "check" | "install" | "pkg": do_pkg(cmd)
         case _:
