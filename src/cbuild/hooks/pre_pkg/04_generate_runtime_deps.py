@@ -95,6 +95,9 @@ def _scan_so(pkg):
         log.out_plain(f"   SONAME: {dep} <-> {sdep}")
         pkg.so_requires.append(dep)
 
+    if broken:
+        pkg.error("Failed scanning shlib dependencies")
+
 def _scan_pc(pkg):
     pcreq = {}
     log = logger.get()
