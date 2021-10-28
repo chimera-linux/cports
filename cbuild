@@ -1,1 +1,9 @@
-src/cbuild.py
+#!/usr/bin/env python3
+
+import sys
+
+if sys.version_info < (3, 10):
+    sys.exit("Python 3.10 or newer is required")
+
+# fire
+from src import runner

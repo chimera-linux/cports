@@ -13,9 +13,6 @@ import tempfile
 import traceback
 import configparser
 
-if sys.version_info < (3, 10):
-    sys.exit("Python 3.10 or newer is required")
-
 cbpath = os.path.dirname(os.path.realpath(__file__))
 rtpath = os.path.dirname(cbpath)
 
