@@ -47,12 +47,12 @@ def invoke(pkg):
         # sanitize version for apk
         mver = pcc.stdout.decode().strip()
         mver = re.sub("-(alpha|beta|rc|pre)", "_\\1", mver)
-        # test with apk
-        if not cli.check_version(mver):
-            pkg.error(f"invalid pkgconf version {mver}")
         # fallback
         if len(mver) == 0:
             mver = "0"
+        elif not cli.check_version(mver):
+            # test with apk
+            pkg.error(f"invalid pkgconf version {mver}")
         if sn in pcset:
             logger.get().out_plain(
                 f"   pc: {sn}={mver} from {rlp} (skipped)"

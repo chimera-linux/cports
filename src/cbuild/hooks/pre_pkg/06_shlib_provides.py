@@ -1,25 +1,23 @@
 from cbuild.core import logger, chroot
+from cbuild.apk import cli
 
 import os
+import re
 import pathlib
 
-def _matches_lib(sfxs, root):
-    # no .so
-    if len(sfxs) == 0:
+def _matches_lib(soname, root):
+    # no soname: drop from earch
+    if not soname:
         return False
 
-    if len(sfxs) == 1:
+    # versioned or unversioned soname
+    if re.match(r"^\w+(.*)+\.so(\.\d+)*$", soname):
+        # versioned soname: match anywhere
+        if re.search(r"\d+$", soname):
+             return True
+
+        # unversioned soname: only if in libdir
         return str(root) == "usr/lib"
-
-    sfxs = sfxs[1:]
-
-    for sfx in sfxs:
-        try:
-            int(sfx[1:])
-        except ValueError:
-            return False
-
-    return True
 
 def invoke(pkg):
     if not pkg.options["scanshlibs"]:
@@ -58,16 +56,12 @@ def invoke(pkg):
         while len(sfxs) > 0 and sfxs[0] != ".so":
             sfxs = sfxs[1:]
 
-        if _matches_lib(sfxs, fp.parent):
-            if not soname:
-                soname = fp.name
+        if _matches_lib(soname, fp.parent):
+            autosfx = "".join(sfxs[1:])[1:]
+            if len(autosfx) == 0:
                 autosfx = "0"
-            else:
-                autosfx = "".join(sfxs[1:])[1:]
-                if len(autosfx) == 0:
-                    autosfx = soname[soname.rfind(".so") + 4:]
-                if len(autosfx) == 0:
-                    autosfx = "0"
+            elif not cli.check_version(autosfx):
+                pkg.error(f"invalid so version {autosfx}")
 
             if not soname in soset:
                 asonames.append((soname, autosfx))

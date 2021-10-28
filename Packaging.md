@@ -1049,13 +1049,13 @@ not want to handle those). Versioned files (e.g. `.so.1`) can be located
 anywhere. If the version contains anything that is not a number, it is
 skipped.
 
-Eligible files are scanned for `SONAME` information. If they do noz provide
-a `SONAME`, the shared library file name itself is used in its place, and
-`0` is used as a version. Otherwise, the version number part of the file
-name is used as the version. So for example, a `SONAME`-less `libfoo.so`
-will make a `so:libfoo.so=0` while a `libfoo.so.1.2.3` with `libfoo.so.1`
-`SONAME` will make a `so:libfoo.so.1=1.2.3`. This information is saved,
-and things can depend on it then.
+Eligible files are scanned for `SONAME` information. If they do not provide
+one, the library is skipped. If they provide an unversioned `SONAME` (i.e.
+one that ends with `.so`) they are skipped when not directly in `/usr/lib`.
+The filename is scanned for version. For example, `libfoo.so.1.2.3` with
+`SONAME` `libfoo.so.1` will provide a `so:libfoo.so.1=1.2.3`. If no version
+is provided in the filename, `0` is used. If a version is found, it must
+validate as an `apk` version number.
 
 The package is then scanned for `.pc` files to be provided. Only two paths
 are considered, `usr/lib/pkgconfig` and `usr/share/pkgconfig`. IT is an error
