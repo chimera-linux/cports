@@ -147,12 +147,9 @@ def install_toolchain(pkg, signkey):
     if not pkg.profile().cross:
         return
 
+    from cbuild.core import build, chroot
+
     archn = pkg.profile().arch
-
-    if apki.is_installed(f"base-cross-{archn}"):
-        return
-
-    from cbuild.core import build
 
     try:
         build.build("pkg", template.read_pkg(
@@ -162,6 +159,12 @@ def install_toolchain(pkg, signkey):
         ), {}, signkey, chost = True)
     except template.SkipPackage:
         pass
+
+    apki.call_chroot("update", ["-q"], "main", check = True)
+    apki.call_chroot("upgrade", ["--available"], "main", check = True)
+
+    if apki.is_installed(f"base-cross-{archn}"):
+        return
 
     pkg.log(f"installing cross toolchain for {archn}...")
 
