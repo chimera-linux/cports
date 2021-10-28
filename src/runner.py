@@ -34,11 +34,6 @@ def do_exit(signum, stack):
 signal.signal(signal.SIGINT, do_exit)
 signal.signal(signal.SIGTERM, do_exit)
 
-# program checks
-for prog in ["bwrap", "openssl", "apk", "git", "tee"]:
-    if not shutil.which(prog):
-        sys.exit(f"Required program not found: {prog}")
-
 # global options
 
 opt_cflags     = "-O2"
@@ -259,11 +254,6 @@ logger.init(not opt_nocolor)
 
 # check container and while at it perform arch checks
 chroot.chroot_check()
-
-# ensure we don't run as root
-if os.geteuid() == 0:
-    logger.get().out_red("cbuild: please don't run as root")
-    sys.exit(1)
 
 # ensure we've got a signing key
 if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
