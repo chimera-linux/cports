@@ -250,37 +250,6 @@ from cbuild.util import make
 from cbuild.core import chroot, logger, template, build, profile
 from cbuild.apk import sign, cli as apk_cli
 
-logger.init(not opt_nocolor)
-
-# check container and while at it perform arch checks
-chroot.chroot_check()
-
-# ensure we've got a signing key
-if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
-    logger.get().out_red("cbuild: no signing key set")
-    sys.exit(1)
-
-# fix up environment
-os.environ["CBUILD_ARCH"] = chroot.host_cpu()
-os.environ["PATH"] = os.environ["PATH"] + ":" + \
-    str(paths.bldroot() / "usr/bin")
-
-# initialize profiles
-profile.init(global_cfg)
-
-# check target arch validity if provided
-if opt_arch:
-    try:
-        profile.get_profile(opt_arch)
-    except:
-        logger.get().out_red(
-            f"cbuild: unknown target architecture '{opt_arch}'"
-        )
-        sys.exit(1)
-
-# let apk know if we're using network
-apk_cli.set_network(not opt_nonet)
-
 def binary_bootstrap(tgt):
     paths.prepare()
 
@@ -741,36 +710,67 @@ def do_pkg(tgt, pkgn = None, force = None, check = None):
         keep_temp = opt_keeptemp
     )
 
-template.register_hooks()
+def fire():
+    logger.init(not opt_nocolor)
 
-try:
-    cmd = cmdline.command[0]
-    match cmd:
-        case "binary-bootstrap": binary_bootstrap(cmd)
-        case "bootstrap": bootstrap(cmd)
-        case "bootstrap-update": bootstrap_update(cmd)
-        case "keygen": do_keygen(cmd)
-        case "chroot": do_chroot(cmd)
-        case "clean": do_clean(cmd)
-        case "remove-autodeps": do_remove_autodeps(cmd)
-        case "prune-obsolete": do_prune_obsolete(cmd)
-        case "prune-removed": do_prune_removed(cmd)
-        case "index": do_index(cmd)
-        case "zap": do_zap(cmd)
-        case "lint": do_lint(cmd)
-        case "cycle-check": do_cycle_check(cmd)
-        case "dump": do_dump(cmd)
-        case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)
-        case "build" | "check" | "install" | "pkg": do_pkg(cmd)
-        case _:
-            logger.get().out_red(f"cbuild: invalid target {cmd}")
+    # check container and while at it perform arch checks
+    chroot.chroot_check()
+
+    # ensure we've got a signing key
+    if not opt_signkey and not opt_unsigned and cmdline.command[0] != "keygen":
+        logger.get().out_red("cbuild: no signing key set")
+        sys.exit(1)
+
+    # fix up environment
+    os.environ["CBUILD_ARCH"] = chroot.host_cpu()
+    os.environ["PATH"] = os.environ["PATH"] + ":" + \
+        str(paths.bldroot() / "usr/bin")
+
+    # initialize profiles
+    profile.init(global_cfg)
+
+    # check target arch validity if provided
+    if opt_arch:
+        try:
+            profile.get_profile(opt_arch)
+        except:
+            logger.get().out_red(
+                f"cbuild: unknown target architecture '{opt_arch}'"
+            )
             sys.exit(1)
-except template.SkipPackage:
-    pass
-except:
-    logger.get().out_red("A failure has occured!")
-    traceback.print_exc(file = logger.get().estream)
-    sys.exit(1)
-finally:
-    if opt_mdirtemp and not opt_keeptemp:
-        shutil.rmtree(paths.bldroot())
+    # let apk know if we're using network
+    apk_cli.set_network(not opt_nonet)
+
+    template.register_hooks()
+
+    try:
+        cmd = cmdline.command[0]
+        match cmd:
+            case "binary-bootstrap": binary_bootstrap(cmd)
+            case "bootstrap": bootstrap(cmd)
+            case "bootstrap-update": bootstrap_update(cmd)
+            case "keygen": do_keygen(cmd)
+            case "chroot": do_chroot(cmd)
+            case "clean": do_clean(cmd)
+            case "remove-autodeps": do_remove_autodeps(cmd)
+            case "prune-obsolete": do_prune_obsolete(cmd)
+            case "prune-removed": do_prune_removed(cmd)
+            case "index": do_index(cmd)
+            case "zap": do_zap(cmd)
+            case "lint": do_lint(cmd)
+            case "cycle-check": do_cycle_check(cmd)
+            case "dump": do_dump(cmd)
+            case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)
+            case "build" | "check" | "install" | "pkg": do_pkg(cmd)
+            case _:
+                logger.get().out_red(f"cbuild: invalid target {cmd}")
+                sys.exit(1)
+    except template.SkipPackage:
+        pass
+    except:
+        logger.get().out_red("A failure has occured!")
+        traceback.print_exc(file = logger.get().estream)
+        sys.exit(1)
+    finally:
+        if opt_mdirtemp and not opt_keeptemp:
+            shutil.rmtree(paths.bldroot())

@@ -17,5 +17,6 @@ for prog in ["bwrap", "openssl", "apk", "git", "tee"]:
 if os.geteuid() == 0:
     sys.exit("Please don't run cbuild as root")
 
-# fire
 from src import runner
+
+runner.fire()
