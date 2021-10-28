@@ -1,40 +1,12 @@
 #!/usr/bin/env python3
 
-import os
-import sys
-import time
-import shutil
-import shlex
-import argparse
-import signal
-import pathlib
-import importlib
-import tempfile
-import traceback
-import configparser
-
-cbpath = os.path.dirname(os.path.realpath(__file__))
-rtpath = os.path.dirname(cbpath)
-
-# start from a sane directory
-os.chdir(rtpath)
-
-# ensure files are created with sane permissions
-os.umask(0o022)
-
-# we should always be able to import modules from here
-sys.path.append(cbpath)
-# need to be able to import templates
-sys.path.append(rtpath)
-
-def do_exit(signum, stack):
-    raise Exception("cbuild: interrupted!")
-
-# exit handler
-signal.signal(signal.SIGINT, do_exit)
-signal.signal(signal.SIGTERM, do_exit)
+cbpath = None
+rtpath = None
 
 # global options
+
+global_cfg = None
+cmdline = None
 
 opt_cflags     = "-O2"
 opt_cxxflags   = "-O2"
@@ -44,7 +16,7 @@ opt_gen_dbg    = False
 opt_check      = True
 opt_ccache     = False
 opt_makejobs   = 1
-opt_nocolor    = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
+opt_nocolor    = False
 opt_signkey    = None
 opt_unsigned   = False
 opt_force      = False
@@ -59,198 +31,254 @@ opt_pkgpath    = "packages"
 opt_srcpath    = "sources"
 opt_cchpath    = "ccache"
 
-# parse command line arguments
+#
+# INITIALIZATION ROUTINES
+#
 
-parser = argparse.ArgumentParser(description = "Chimera Linux build system.")
+def init_early():
+    import os
+    import sys
+    import signal
 
-parser.add_argument(
-    "-c", "--config", default = "etc/config.ini",
-    help = "The configuration file to use."
-)
-parser.add_argument(
-    "-f", "--force", action = "store_const", const = True, default = opt_force,
-    help = "Force writing a package even when it exists and template is older."
-)
-parser.add_argument(
-    "-L", "--no-color", action = "store_const", const = True,
-    default = opt_nocolor, help = "Force plain output."
-)
-parser.add_argument(
-    "-j", "--jobs", help = "Number of jobs to use.", default = None
-)
-parser.add_argument(
-    "-C", "--skip-check", action = "store_const",
-    const = True, default = not opt_check,
-    help = "Skip running the check stage."
-)
-parser.add_argument(
-    "-g", "--build-dbg", action = "store_const",
-    const = True, default = opt_gen_dbg,
-    help = "Build debug packages."
-)
-parser.add_argument(
-    "-a", "--arch", help = "Target architecture to build for.", default = None
-)
-parser.add_argument(
-    "-b", "--build-root", default = None, help = "The build root path."
-)
-parser.add_argument(
-    "-r", "--repository-path", default = None, help = "Local repository path."
-)
-parser.add_argument(
-    "-R", "--alt-repository", default = None,
-    help = "Alternative repository to use."
-)
-parser.add_argument(
-    "-s", "--sources-path", default = None,
-    help = "Sources storage path."
-)
-parser.add_argument(
-    "-t", "--temporary", action = "store_const",
-    const = True, default = opt_mdirtemp,
-    help = "Use a temporary build root."
-)
-parser.add_argument(
-    "-N", "--no-remote", action = "store_const",
-    const = True, default = opt_nonet,
-    help = "Do not ever use remote repositories."
-)
-parser.add_argument(
-    "-D", "--dirty-build", action = "store_const",
-    const = True, default = opt_dirty,
-    help = "Skip installing (and removing) dependencies."
-)
-parser.add_argument(
-    "-K", "--keep-temporary", action = "store_const",
-    const = True, default = opt_keeptemp,
-    help = "Keep temporary files and build dependencies after build."
-)
-parser.add_argument(
-    "--allow-unsigned", action = "store_const",
-    const = True, default = opt_unsigned,
-    help = "Allow building without a signing key."
-)
-parser.add_argument(
-    "--force-check", action = "store_const",
-    const = True, default = opt_forcecheck,
-    help = "Force running check even if disabled by template."
-)
-parser.add_argument("command", nargs = "+", help = "The command to issue.")
+    global cbpath, rtpath
 
-cmdline = parser.parse_args()
+    cbpath = os.path.dirname(os.path.realpath(__file__))
+    rtpath = os.path.dirname(cbpath)
 
-# parse config file and set the global options from it
+    # start from a sane directory
+    os.chdir(rtpath)
 
-global_cfg = configparser.ConfigParser()
-global_cfg.read(cmdline.config)
+    # ensure files are created with sane permissions
+    os.umask(0o022)
 
-if "build" in global_cfg:
-    bcfg = global_cfg["build"]
+    # we should always be able to import modules from here
+    sys.path.append(cbpath)
+    # need to be able to import templates
+    sys.path.append(rtpath)
 
-    opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
-    opt_ccache    = bcfg.getboolean("ccache", fallback = opt_ccache)
-    opt_check     = bcfg.getboolean("check", fallback = opt_check)
-    opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
-    opt_arch      = bcfg.get("arch", fallback = opt_arch)
-    opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
-    opt_altrepo   = bcfg.get("alt_repository", fallback = opt_altrepo)
-    opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
-    opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
-    opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
+    def do_exit(signum, stack):
+        raise Exception("cbuild: interrupted!")
 
-if not "flags" in global_cfg:
-    global_cfg["flags"] = {}
+    # exit handler
+    signal.signal(signal.SIGINT, do_exit)
+    signal.signal(signal.SIGTERM, do_exit)
 
-if not "CFLAGS" in global_cfg["flags"]:
-    global_cfg["flags"]["CFLAGS"] = opt_cflags
+def handle_options():
+    import os
+    import sys
+    import argparse
+    import pathlib
+    import tempfile
+    import configparser
 
-if not "CXXFLAGS" in global_cfg["flags"]:
-    global_cfg["flags"]["CXXFLAGS"] = opt_cxxflags
+    global global_cfg
+    global cmdline
 
-if not "FFLAGS" in global_cfg["flags"]:
-    global_cfg["flags"]["FFLAGS"] = opt_fflags
+    global opt_cflags, opt_cxxflags, opt_fflags
+    global opt_arch, opt_gen_dbg, opt_check, opt_ccache
+    global opt_makejobs, opt_nocolor, opt_signkey, opt_unsigned
+    global opt_force, opt_mdirtemp, opt_nonet, opt_dirty
+    global opt_keeptemp, opt_forcecheck, opt_altrepo
+    global opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath
 
-if "signing" in global_cfg:
-    signcfg = global_cfg["signing"]
+    # respect NO_COLOR
+    opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
 
-    opt_signkey = signcfg.get("key", fallback = opt_signkey)
-
-# command line args override config file
-
-if cmdline.jobs:
-    opt_makejobs = int(cmdline.jobs)
-
-if cmdline.build_dbg:
-    opt_gen_dbg = True
-
-if cmdline.arch:
-    opt_arch = cmdline.arch
-
-if cmdline.no_color:
-    opt_nocolor = True
-
-if cmdline.force:
-    opt_force = True
-
-if cmdline.skip_check:
-    opt_check = False
-
-if cmdline.build_root:
-    opt_bldroot = cmdline.build_root
-
-if cmdline.repository_path:
-    opt_pkgpath = cmdline.repository_path
-
-if cmdline.alt_repository:
-    opt_altrepo = cmdline.alt_repository
-
-if cmdline.sources_path:
-    opt_srcpath = cmdline.sources_path
-
-if cmdline.no_remote:
-    opt_nonet = True
-
-if cmdline.dirty_build:
-    opt_dirty = True
-
-if cmdline.keep_temporary:
-    opt_keeptemp = True
-
-if cmdline.force_check:
-    opt_forcecheck = True
-
-if cmdline.temporary:
-    mdp = pathlib.Path.cwd() / opt_bldroot
-    # the temporary directory should be in the same location as build root
-    opt_mdirtemp = True
-    opt_bldroot  = tempfile.mkdtemp(
-        prefix = mdp.name + ".", dir = mdp.parent
+    parser = argparse.ArgumentParser(
+        description = "Chimera Linux build system."
     )
 
-# set global config bits as needed
+    parser.add_argument(
+        "-c", "--config", default = "etc/config.ini",
+        help = "The configuration file to use."
+    )
+    parser.add_argument(
+        "-f", "--force", action = "store_const", const = True,
+        default = opt_force,
+        help = "Force writing a package even when it exists and template is older."
+    )
+    parser.add_argument(
+        "-L", "--no-color", action = "store_const", const = True,
+        default = opt_nocolor, help = "Force plain output."
+    )
+    parser.add_argument(
+        "-j", "--jobs", help = "Number of jobs to use.", default = None
+    )
+    parser.add_argument(
+        "-C", "--skip-check", action = "store_const",
+        const = True, default = not opt_check,
+        help = "Skip running the check stage."
+    )
+    parser.add_argument(
+        "-g", "--build-dbg", action = "store_const",
+        const = True, default = opt_gen_dbg,
+        help = "Build debug packages."
+    )
+    parser.add_argument(
+        "-a", "--arch", help = "Target architecture to build for.",
+        default = None
+    )
+    parser.add_argument(
+        "-b", "--build-root", default = None, help = "The build root path."
+    )
+    parser.add_argument(
+        "-r", "--repository-path", default = None,
+        help = "Local repository path."
+    )
+    parser.add_argument(
+        "-R", "--alt-repository", default = None,
+        help = "Alternative repository to use."
+    )
+    parser.add_argument(
+        "-s", "--sources-path", default = None,
+        help = "Sources storage path."
+    )
+    parser.add_argument(
+        "-t", "--temporary", action = "store_const",
+        const = True, default = opt_mdirtemp,
+        help = "Use a temporary build root."
+    )
+    parser.add_argument(
+        "-N", "--no-remote", action = "store_const",
+        const = True, default = opt_nonet,
+        help = "Do not ever use remote repositories."
+    )
+    parser.add_argument(
+        "-D", "--dirty-build", action = "store_const",
+        const = True, default = opt_dirty,
+        help = "Skip installing (and removing) dependencies."
+    )
+    parser.add_argument(
+        "-K", "--keep-temporary", action = "store_const",
+        const = True, default = opt_keeptemp,
+        help = "Keep temporary files and build dependencies after build."
+    )
+    parser.add_argument(
+        "--allow-unsigned", action = "store_const",
+        const = True, default = opt_unsigned,
+        help = "Allow building without a signing key."
+    )
+    parser.add_argument(
+        "--force-check", action = "store_const",
+        const = True, default = opt_forcecheck,
+        help = "Force running check even if disabled by template."
+    )
+    parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
-from cbuild.core import paths, spdx
+    cmdline = parser.parse_args()
 
-# init paths early, modules rely on it
+    # parse config file and set the global options from it
 
-mainrepo = opt_altrepo
-altrepo = opt_pkgpath
-if not mainrepo:
-    mainrepo = opt_pkgpath
-    altrepo = None
+    global_cfg = configparser.ConfigParser()
+    global_cfg.read(cmdline.config)
 
-paths.init(
-    cbpath, rtpath, opt_bldroot, mainrepo, altrepo, opt_srcpath, opt_cchpath
-)
+    if "build" in global_cfg:
+        bcfg = global_cfg["build"]
 
-# init license information
-spdx.init()
+        opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
+        opt_ccache    = bcfg.getboolean("ccache", fallback = opt_ccache)
+        opt_check     = bcfg.getboolean("check", fallback = opt_check)
+        opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
+        opt_arch      = bcfg.get("arch", fallback = opt_arch)
+        opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
+        opt_altrepo   = bcfg.get("alt_repository", fallback = opt_altrepo)
+        opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
+        opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
+        opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
 
-from cbuild.util import make
-from cbuild.core import chroot, logger, template, build, profile
-from cbuild.apk import sign, cli as apk_cli
+    if not "flags" in global_cfg:
+        global_cfg["flags"] = {}
+
+    if not "CFLAGS" in global_cfg["flags"]:
+        global_cfg["flags"]["CFLAGS"] = opt_cflags
+
+    if not "CXXFLAGS" in global_cfg["flags"]:
+        global_cfg["flags"]["CXXFLAGS"] = opt_cxxflags
+
+    if not "FFLAGS" in global_cfg["flags"]:
+        global_cfg["flags"]["FFLAGS"] = opt_fflags
+
+    if "signing" in global_cfg:
+        signcfg = global_cfg["signing"]
+
+        opt_signkey = signcfg.get("key", fallback = opt_signkey)
+
+    # command line args override config file
+
+    if cmdline.jobs:
+        opt_makejobs = int(cmdline.jobs)
+
+    if cmdline.build_dbg:
+        opt_gen_dbg = True
+
+    if cmdline.arch:
+        opt_arch = cmdline.arch
+
+    if cmdline.no_color:
+        opt_nocolor = True
+
+    if cmdline.force:
+        opt_force = True
+
+    if cmdline.skip_check:
+        opt_check = False
+
+    if cmdline.build_root:
+        opt_bldroot = cmdline.build_root
+
+    if cmdline.repository_path:
+        opt_pkgpath = cmdline.repository_path
+
+    if cmdline.alt_repository:
+        opt_altrepo = cmdline.alt_repository
+
+    if cmdline.sources_path:
+        opt_srcpath = cmdline.sources_path
+
+    if cmdline.no_remote:
+        opt_nonet = True
+
+    if cmdline.dirty_build:
+        opt_dirty = True
+
+    if cmdline.keep_temporary:
+        opt_keeptemp = True
+
+    if cmdline.force_check:
+        opt_forcecheck = True
+
+    if cmdline.temporary:
+        mdp = pathlib.Path.cwd() / opt_bldroot
+        # the temporary directory should be in the same location as build root
+        opt_mdirtemp = True
+        opt_bldroot  = tempfile.mkdtemp(
+            prefix = mdp.name + ".", dir = mdp.parent
+        )
+
+def init_late():
+    from cbuild.core import paths, spdx
+
+    mainrepo = opt_altrepo
+    altrepo = opt_pkgpath
+    if not mainrepo:
+        mainrepo = opt_pkgpath
+        altrepo = None
+
+    # init paths early, modules rely on it
+    paths.init(
+        cbpath, rtpath, opt_bldroot, mainrepo, altrepo, opt_srcpath, opt_cchpath
+    )
+
+    # init license information
+    spdx.init()
+
+#
+# ACTIONS
+#
 
 def binary_bootstrap(tgt):
+    from cbuild.core import chroot, paths
+
     paths.prepare()
 
     if len(cmdline.command) <= 1:
@@ -259,6 +287,11 @@ def binary_bootstrap(tgt):
         chroot.install(cmdline.command[1])
 
 def bootstrap(tgt):
+    import sys
+    import shutil
+
+    from cbuild.core import build, chroot, logger, template, paths
+
     max_stage = 2
 
     if len(cmdline.command) > 1:
@@ -334,9 +367,13 @@ def bootstrap(tgt):
         chroot.install(chroot.host_cpu())
 
 def bootstrap_update(tgt):
+    from cbuild.core import chroot
+
     chroot.update()
 
 def do_keygen(tgt):
+    from cbuild.apk import sign
+
     if len(cmdline.command) >= 3:
         keyn, keysize = cmdline.command[1], int(cmdline.command[2])
     elif len(cmdline.command) >= 2:
@@ -350,6 +387,8 @@ def do_keygen(tgt):
     sign.keygen(keyn, keysize, global_cfg, cmdline.config)
 
 def do_chroot(tgt):
+    from cbuild.core import chroot, paths
+
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
     paths.prepare()
@@ -367,6 +406,10 @@ def do_chroot(tgt):
     )
 
 def do_clean(tgt):
+    import shutil
+
+    from cbuild.core import chroot, logger, paths
+
     chroot.remove_autodeps(None)
     dirp = paths.bldroot() / "builddir"
     if dirp.is_dir():
@@ -382,6 +425,10 @@ def do_clean(tgt):
         raise Exception()
 
 def do_zap(tgt):
+    import shutil
+
+    from cbuild.core import logger, paths
+
     if paths.bldroot().is_dir():
         shutil.rmtree(paths.bldroot())
     elif paths.bldroot().exists():
@@ -389,9 +436,14 @@ def do_zap(tgt):
         raise Exception()
 
 def do_remove_autodeps(tgt):
+    from cbuild.core import chroot
+
     chroot.remove_autodeps(None)
 
 def do_prune_obsolete(tgt):
+    from cbuild.core import chroot, logger, paths
+    from cbuild.apk import cli
+
     logger.get().out("cbuild: pruning repositories...")
     # ensure we know what cpu arch we are dealing with
     chroot.chroot_check()
@@ -407,9 +459,14 @@ def do_prune_obsolete(tgt):
         if str(repop) in reposet:
             continue
         reposet[str(repop)] = True
-        apk_cli.prune(repop, opt_arch)
+        cli.prune(repop, opt_arch)
 
 def do_prune_removed(tgt):
+    import time
+
+    from cbuild.core import chroot, logger, paths
+    from cbuild.apk import cli
+
     # ensure we know what cpu arch we are dealing with
     chroot.chroot_check()
     # FIXME: compute from git if possible
@@ -462,7 +519,7 @@ def do_prune_removed(tgt):
             logger.get().out(f"Pruning package: {pkg.name}")
             pkg.unlink()
         # reindex
-        apk_cli.build_index(repo / archn, epoch, opt_signkey)
+        cli.build_index(repo / archn, epoch, opt_signkey)
 
     reposd = paths.repository()
     reposet = {}
@@ -482,6 +539,12 @@ def do_prune_removed(tgt):
         _prune(repo)
 
 def do_index(tgt):
+    import time
+    import pathlib
+
+    from cbuild.core import chroot, logger, paths
+    from cbuild.apk import cli
+
     idir = cmdline.command[1] if len(cmdline.command) >= 2 else None
     # ensure we know what cpu arch we are dealing with
     chroot.chroot_check()
@@ -494,7 +557,7 @@ def do_index(tgt):
     # indexer for a single repo
     def _index(repo):
         logger.get().out(f"Indexing packages at '{repo}'...")
-        apk_cli.build_index(repo / archn, epoch, opt_signkey)
+        cli.build_index(repo / archn, epoch, opt_signkey)
     # only a specific path
     if idir:
         repo = pathlib.Path(idir)
@@ -522,6 +585,8 @@ def do_index(tgt):
         _index(repo)
 
 def do_lint(tgt):
+    from cbuild.core import chroot, template
+
     pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
     # just read it and do nothing else
     # don't let the skip logic kick in
@@ -531,6 +596,8 @@ def do_lint(tgt):
     )
 
 def _collect_tmpls(pkgn):
+    from cbuild.core import paths
+
     tmpls = []
 
     if pkgn:
@@ -551,7 +618,7 @@ def _collect_tmpls(pkgn):
     return tmpls
 
 def do_cycle_check(tgt):
-    from cbuild.core import dependencies
+    from cbuild.core import dependencies, chroot, logger, template, paths
     from cbuild.apk import util as autil
 
     pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
@@ -661,6 +728,8 @@ def do_cycle_check(tgt):
         curpath = []
 
 def do_dump(tgt):
+    from cbuild.core import chroot, template
+
     import json
 
     pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
@@ -686,6 +755,8 @@ def do_dump(tgt):
     print(json.dumps(dumps, indent = 4))
 
 def do_pkg(tgt, pkgn = None, force = None, check = None):
+    from cbuild.core import build, chroot, template, paths
+
     if force is None:
         force = opt_force
     if check is None:
@@ -710,7 +781,19 @@ def do_pkg(tgt, pkgn = None, force = None, check = None):
         keep_temp = opt_keeptemp
     )
 
+#
+# MAIN ENTRYPOINT
+#
+
 def fire():
+    import os
+    import sys
+    import shutil
+    import traceback
+
+    from cbuild.core import chroot, logger, template, profile, paths
+    from cbuild.apk import cli
+
     logger.init(not opt_nocolor)
 
     # check container and while at it perform arch checks
@@ -739,7 +822,7 @@ def fire():
             )
             sys.exit(1)
     # let apk know if we're using network
-    apk_cli.set_network(not opt_nonet)
+    cli.set_network(not opt_nonet)
 
     template.register_hooks()
 

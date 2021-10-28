@@ -19,4 +19,14 @@ if os.geteuid() == 0:
 
 from src import runner
 
+# early init will set up workdir and so on
+runner.init_early()
+
+# depends on early init, and late init depends on this
+runner.handle_options()
+
+# early initialization will set up paths and other
+# stuff needed to import the rest of cbuild correctly
+runner.init_late()
+
 runner.fire()
