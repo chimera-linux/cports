@@ -1812,6 +1812,12 @@ Whether the build was forced (boolean).
 
 Whether we're currently bootstrapping stage 0 (i.e. no sandbox, no container).
 
+##### self.stage
+
+The current bootstrap stage. When it's `0`, `bootstrapping` is also `True`.
+During normal builds, it's `3`. Otherwise it can also be `1` or `2` during
+source bootstrap depending on the stage.
+
 ##### self.run_check
 
 Whether running the `check` phase is enabled by `cbuild`. This is `False` for

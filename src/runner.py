@@ -320,7 +320,7 @@ def bootstrap(tgt):
         try:
             rp = template.read_pkg(
                 "main/base-cbuild", None, False, False, opt_makejobs,
-                False, False, None
+                False, False, None, stage = 0
             )
         except template.SkipPackage:
             pass
@@ -344,7 +344,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 1")
         # use stage 0 build root to build, but build into stage 1 repo
         paths.reinit_buildroot(oldmdir, 0)
-        do_pkg("pkg", "main/base-cbuild", False, False)
+        do_pkg("pkg", "main/base-cbuild", False, False, stage = 1)
         # go back to stage 1
         paths.reinit_buildroot(oldmdir, 1)
         chroot.install(chroot.host_cpu())
@@ -361,7 +361,7 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 2")
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 1)
-        do_pkg("pkg", "main/base-cbuild", False)
+        do_pkg("pkg", "main/base-cbuild", False, stage = 2)
         # go back to stage 2
         paths.reinit_buildroot(oldmdir, 2)
         chroot.install(chroot.host_cpu())
@@ -754,7 +754,7 @@ def do_dump(tgt):
 
     print(json.dumps(dumps, indent = 4))
 
-def do_pkg(tgt, pkgn = None, force = None, check = None):
+def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
     from cbuild.core import build, chroot, template, paths
 
     if force is None:
@@ -767,7 +767,7 @@ def do_pkg(tgt, pkgn = None, force = None, check = None):
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
         check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
         target = tgt if (tgt != "pkg") else None,
-        force_check = opt_forcecheck
+        force_check = opt_forcecheck, stage = stage
     )
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())

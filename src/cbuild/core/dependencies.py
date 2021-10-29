@@ -155,7 +155,8 @@ def install_toolchain(pkg, signkey):
         build.build("pkg", template.read_pkg(
             f"main/base-cross-{archn}", chroot.host_cpu(),
             False, pkg.run_check, pkg.conf_jobs, pkg.build_dbg,
-            pkg.use_ccache, None, force_check = pkg._force_check
+            pkg.use_ccache, None, force_check = pkg._force_check,
+            stage = pkg.stage
         ), {}, signkey, chost = True)
     except template.SkipPackage:
         pass
@@ -395,7 +396,7 @@ def install(pkg, origpkg, step, depmap, signkey):
                 pn, chost if not pkg.bootstrapping else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check
+                force_check = pkg._force_check, stage = pkg.stage
             ), depmap, signkey, chost = not not pkg.cross_build)
         except template.SkipPackage:
             pass
@@ -407,7 +408,7 @@ def install(pkg, origpkg, step, depmap, signkey):
                 pn, tarch if not pkg.bootstrapping else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check
+                force_check = pkg._force_check, stage = pkg.stage
             ), depmap, signkey)
         except template.SkipPackage:
             pass
@@ -419,7 +420,7 @@ def install(pkg, origpkg, step, depmap, signkey):
                 rd, tarch if not pkg.bootstrapping else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check
+                force_check = pkg._force_check, stage = pkg.stage
             ), depmap, signkey)
         except template.SkipPackage:
             pass

@@ -1584,7 +1584,7 @@ _tmpl_dict = {}
 def read_pkg(
     pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
     origin, resolve = None, ignore_missing = False, ignore_errors = False,
-    target = None, force_check = False, allow_broken = False
+    target = None, force_check = False, allow_broken = False, stage = 3
 ):
     global _tmpl_dict
 
@@ -1615,6 +1615,7 @@ def read_pkg(
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs
+    ret.stage = stage
     ret._ignore_errors = ignore_errors
     ret._allow_broken = allow_broken
     ret._target = target
