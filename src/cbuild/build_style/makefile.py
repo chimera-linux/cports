@@ -23,7 +23,7 @@ def do_build(self):
         "CXXFLAGS=" + self.get_cxxflags(shell = True),
     ]
 
-    if pkg.stage > 0:
+    if self.stage > 0:
         tool_args.append("OBJDUMP=" + self.get_tool("OBJDUMP"))
 
     self.make.build(tool_args)
