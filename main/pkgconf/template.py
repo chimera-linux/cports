@@ -26,4 +26,10 @@ def _lib(self):
 
 @subpackage("pkgconf-devel")
 def _devel(self):
-    return self.default_devel()
+    # pkg.m4 must remain in main package
+    return [
+        "usr/include",
+        "usr/lib/pkgconfig",
+        "usr/lib/*.a",
+        "usr/lib/*.so",
+    ]
