@@ -50,6 +50,10 @@ def _get_harden(sharden, tharden):
     hdict = _htodict(tharden, hdict)
     shdict = _htodict(sharden, shdict)
 
+    for k in shdict:
+        if not shdict[k]:
+            hdict[k] = False
+
     return hdict
 
 def _get_hcflags(sharden, tharden):
