@@ -60,7 +60,7 @@ def _scan_so(pkg):
         )
         if info.returncode != 0:
             # when bootstrapping, also check the repository
-            if pkg.bootstrapping:
+            if pkg.stage == 0:
                 info = cli.call(
                     "info", ["--description", "so:" + dep], "main",
                     capture_output = True, allow_untrusted = True
@@ -130,7 +130,7 @@ def _scan_pc(pkg):
             "pkg-config", [
                 "--print-requires", "--print-requires-private", v.stem
             ],
-            capture_out = True, bootstrapping = pkg.bootstrapping,
+            capture_out = True, bootstrapping = pkg.stage == 0,
             ro_root = True, ro_build = True, unshare_all = True,
             env = {
                 "PKG_CONFIG_PATH": pcpaths,

@@ -17,5 +17,5 @@ sha256 = "f17ba35406cc01e635783afe51e10151ca862cfc9ec92c335438bd96f7d7ed8c"
 # no test suite
 options = ["bootstrap", "!check"]
 
-if not current.bootstrapping:
+if current.stage > 0:
     makedepends += ["linux-headers"]

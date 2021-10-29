@@ -207,7 +207,7 @@ def scan(pkg, somap):
 
     # only test machine type against libc when not bootstrapping
     # as otherise we cannot provide guarantees about the host system
-    if not pkg.bootstrapping:
+    if pkg.stage > 0:
         libc = _scan_one(pkg.rparent.profile().sysroot / "usr/lib/libc.so")
 
     for fpath in scandir.rglob("*"):
@@ -230,7 +230,7 @@ def scan(pkg, somap):
             pkg.log_warn(f"ELF file with no machine type (container?): {fpath}")
             continue
         # foreign file
-        if not pkg.bootstrapping:
+        if pkg.stage > 0:
             if scanned[0] != libc[0] and not pkg.rparent.options["foreignelf"]:
                 elf_foreign.append(fpath)
         # deny /usr/share files

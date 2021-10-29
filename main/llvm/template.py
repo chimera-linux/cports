@@ -30,25 +30,23 @@ configure_args = [
     "-DLLVM_ENABLE_LLD=YES",
     "-DLLVM_ENABLE_LIBCXX=YES",
 ]
+make_cmd = "make"
 hostmakedepends = [
     "cmake", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
 ]
 makedepends = ["zlib-devel", "libffi-devel"]
 depends = [
     f"libllvm={pkgver}-r{pkgrel}",
-    f"libomp={pkgver}-r{pkgrel}",
     f"llvm-linker-tools={pkgver}-r{pkgrel}",
     f"llvm-runtime={pkgver}-r{pkgrel}"
 ]
-make_cmd = "make"
 pkgdesc = "Low Level Virtual Machine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
-
-options = ["bootstrap", "!check", "!lint"]
+options = ["bootstrap"]
 
 cmake_dir = "llvm"
 
@@ -58,14 +56,18 @@ tool_flags = {
 }
 
 # not enabling lldb for now, we don't package enough stuff yet
-_enabled_projects = "clang;clang-tools-extra;compiler-rt;libcxx;libcxxabi;libunwind;lld;openmp"
+_enabled_projects = "clang;clang-tools-extra;compiler-rt;libcxx;libcxxabi;libunwind;lld"
 
-if not current.bootstrapping:
+if current.stage > 0:
     makedepends += [
         "python-devel", "libedit-devel", "elftoolchain-devel",
         "libexecinfo-devel", "linux-headers"
     ]
-    depends += ["libexecinfo-devel"]
+    depends += [
+        f"libomp={pkgver}-r{pkgrel}",
+        "libexecinfo-devel"
+    ]
+    _enabled_projects += ";openmp"
 else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",
@@ -198,11 +200,11 @@ def _tools_extra(self):
         "usr/share/clang/*tidy*"
     ]
 
-@subpackage("libomp")
+@subpackage("libomp", current.stage > 0)
 def _libomp(self):
     self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library)"
 
-    if not self.bootstrapping and _arch != "RISCV64":
+    if _arch != "RISCV64":
         extra = ["usr/lib/libomptarget.rtl.*.so"]
     else:
         extra = []
@@ -213,7 +215,7 @@ def _libomp(self):
         "usr/lib/libarcher.so",
     ] + extra
 
-@subpackage("libomp-devel")
+@subpackage("libomp-devel", current.stage > 0)
 def _libomp_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library) (development files)"
     self.depends = [f"libomp={pkgver}-r{pkgrel}"]
@@ -278,7 +280,7 @@ def _clang_devel(self):
 def _clang_analyzer(self):
     self.pkgdesc = f"{pkgdesc} (source code analysis)"
     self.depends = [f"clang={pkgver}-r{pkgrel}"]
-    if not self.bootstrapping:
+    if self.stage > 0:
         self.depends.append("python")
 
     return [

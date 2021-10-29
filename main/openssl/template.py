@@ -18,7 +18,7 @@ source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
 sha256 = "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
 options = ["bootstrap"]
 
-if not current.bootstrapping:
+if current.stage > 0:
     makedepends = ["linux-headers"]
 
 match current.profile().arch:
@@ -60,7 +60,7 @@ def _crehash(self):
     self.pkgdesc = f"{pkgdesc} (c_rehash utility)"
     self.depends = ["openssl"]
 
-    if not self.bootstrapping:
+    if self.stage > 0:
         self.depends.append("perl")
 
     return ["usr/bin/c_rehash"]

@@ -504,7 +504,7 @@ def validate_type(val, tp):
     return True
 
 def pkg_profile(pkg, target):
-    if pkg.bootstrapping and (target == "host" or target == "target"):
+    if pkg.stage == 0 and (target == "host" or target == "target"):
         return profile.get_profile("bootstrap")
     elif target == "host":
         return profile.get_profile(chroot.host_cpu())
@@ -861,7 +861,7 @@ class Template(Package):
         }
 
         fakestrip = self.wrapperdir / "strip"
-        if not self.bootstrapping:
+        if self.stage > 0:
             fakestrip = pathlib.Path("/builddir") / \
                 fakestrip.relative_to(self.builddir)
 
@@ -920,7 +920,7 @@ class Template(Package):
 
         return chroot.enter(
             cmd, args, env = cenv, wrkdir = wdir, check = True,
-            bootstrapping = self.bootstrapping, ro_root = True,
+            bootstrapping = self.stage == 0, ro_root = True,
             ro_build = self.install_done,
             ro_dest = (self.current_phase != "install"),
             mount_ccache = True, unshare_all = (self.current_phase != "fetch"),
@@ -1021,7 +1021,7 @@ class Template(Package):
     def _profile(self, target):
         old_tgt = self._current_profile
 
-        if self.bootstrapping and (target == "host" or target == "target"):
+        if self.stage == 0 and (target == "host" or target == "target"):
             target = "bootstrap"
         elif target == "host":
             target = chroot.host_cpu()
@@ -1197,7 +1197,7 @@ class Subpackage(Package):
         self.depends = ddeps
 
         self.force_mode = parent.force_mode
-        self.bootstrapping = parent.bootstrapping
+        self.stage = parent.stage
 
     def take(self, p, missing_ok = False):
         p = pathlib.Path(p)
@@ -1426,7 +1426,7 @@ def from_module(m, ret):
 
     ret.cwd = ret.builddir / ret.wrksrc / ret.build_wrksrc
 
-    if ret.bootstrapping:
+    if ret.stage == 0:
         ret.chroot_cwd = ret.cwd
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
@@ -1515,7 +1515,7 @@ def from_module(m, ret):
     if ret.cross_build and not ret.options["cross"] and not ret._allow_broken:
         ret.error(f"cannot be cross-compiled for {ret.cross_build}")
 
-    if ret.bootstrapping and not ret.options["bootstrap"]:
+    if ret.stage == 0 and not ret.options["bootstrap"]:
         ret.error("attempt to bootstrap a non-bootstrap package")
 
     # fill the remaining toolflag lists so it's complete
@@ -1529,7 +1529,7 @@ def from_module(m, ret):
     #
     # the llvm tools are only meaningful once we have a full chroot assembled
     # since they provide extras and possibly help in cross-compiling scenarios
-    if ret.bootstrapping:
+    if ret.stage == 0:
         ret.tools["CC"] = "clang"
         ret.tools["CXX"] = "clang++"
         ret.tools["CPP"] = "clang-cpp"
@@ -1611,7 +1611,6 @@ def read_pkg(
     ret = Template(pkgname, origin)
     ret.template_path = paths.distdir() / pkgname
     ret.force_mode = force_mode
-    ret.bootstrapping = not pkgarch
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs

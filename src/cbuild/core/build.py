@@ -27,7 +27,7 @@ def build(
     # always clean up before starting, unless exlpicitly requested not to
     # or unless bootstrapping stage 0 (as resumption is useful by default
     # in there) but not any other stage
-    if not dirty and not pkg.bootstrapping:
+    if not dirty and pkg.stage > 0:
         # clean up old state
         pkgm.remove_pkg_wrksrc(pkg)
         pkgm.remove_pkg(pkg)
@@ -152,7 +152,7 @@ def build(
 
     # cleanup
     if not keep_temp:
-        chroot.remove_autodeps(pkg.bootstrapping)
+        chroot.remove_autodeps(pkg.stage == 0)
         dependencies.remove_autocrossdeps(pkg)
         pkgm.remove_pkg_wrksrc(pkg)
         pkgm.remove_pkg(pkg)

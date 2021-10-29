@@ -64,7 +64,7 @@ def setup_depends(pkg):
     if not pkg.cross_build and (pkg.options["check"] or pkg._force_check):
         cdeps = pkg.checkdepends
 
-    if not pkg.bootstrapping:
+    if pkg.stage > 0:
         for dep in pkg.hostmakedepends + cdeps:
             sver = _srcpkg_ver(dep, pkg)
             if not sver:
@@ -85,7 +85,7 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
     # if installing target deps and we're crossbuilding, target the sysroot
     sroot = cross and pkg.profile().cross
 
-    if pkg.bootstrapping or sroot:
+    if pkg.stage == 0 or sroot:
         rootp = paths.bldroot()
 
         if sroot:
@@ -393,7 +393,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in host_missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, chost if not pkg.bootstrapping else None,
+                pn, chost if pkg.stage > 0 else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                 force_check = pkg._force_check, stage = pkg.stage
@@ -405,7 +405,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for pn in missing_deps:
         try:
             build.build(step, template.read_pkg(
-                pn, tarch if not pkg.bootstrapping else None,
+                pn, tarch if pkg.stage > 0 else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                 force_check = pkg._force_check, stage = pkg.stage
@@ -417,7 +417,7 @@ def install(pkg, origpkg, step, depmap, signkey):
     for rd in missing_rdeps:
         try:
             build.build(step, template.read_pkg(
-                rd, tarch if not pkg.bootstrapping else None,
+                rd, tarch if pkg.stage > 0 else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                 force_check = pkg._force_check, stage = pkg.stage

@@ -16,7 +16,7 @@ class Make:
 
         self.command = self.template.make_cmd
 
-        if self.template.bootstrapping:
+        if self.template.stage == 0:
             # since usual Linux systems have make point to GNU make and bmake
             # point to BSD make, we need to make some adjustments for that:
             if self.command == "gmake":

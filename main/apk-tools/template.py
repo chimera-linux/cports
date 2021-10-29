@@ -16,7 +16,7 @@ tool_flags = {
 }
 options = ["bootstrap"]
 
-if not current.bootstrapping:
+if current.stage > 0:
     makedepends += ["linux-headers"]
 else:
     configure_args += ["-Dhelp=disabled", "-Ddocs=disabled"]

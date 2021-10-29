@@ -18,7 +18,7 @@ provides = ["apk-tools=0.0.1-r0"]
 
 options = ["bootstrap", "brokenlinks"]
 
-if not current.bootstrapping:
+if current.stage > 1:
     depends += ["ccache"]
 
 def do_install(self):

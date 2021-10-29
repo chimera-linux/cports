@@ -1,7 +1,7 @@
 from cbuild.core import paths
 
 def invoke(pkg):
-    if not pkg.bootstrapping:
+    if pkg.stage > 0:
         return
 
     usrdir = paths.bldroot() / "usr"

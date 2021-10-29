@@ -26,7 +26,7 @@ sha256 = "86e6707a379c7ff5489c218cfaf1e3464b0b95acf7817db0bc5f179e356a67b2"
 # test suite needs bash
 options = ["bootstrap", "!check"]
 
-if not current.bootstrapping:
+if current.stage > 0:
 	hostmakedepends = ["gmake"]
 	makedepends += ["linux-headers"]
 

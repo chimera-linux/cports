@@ -18,7 +18,7 @@ options = ["bootstrap", "!check", "brokenlinks"]
 
 def init_configure(self):
     # ensure that even early musl uses compiler-rt
-    if self.bootstrapping:
+    if self.stage == 0:
         self.env["LIBCC_LDFLAGS"] = "--rtlib=compiler-rt"
         return
 

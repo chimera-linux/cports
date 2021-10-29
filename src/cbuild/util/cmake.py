@@ -16,7 +16,7 @@ def configure(
 
     cargs = []
 
-    if pkg.bootstrapping:
+    if pkg.stage == 0:
         with open(
             pkg.cwd / build_dir / "bootstrap.cmake", "w"
         ) as infile:

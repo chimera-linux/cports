@@ -30,14 +30,14 @@ def process_patch(pkg, patchpath, gnupatch):
     if patchsfx == ".gz":
         chroot.enter(
             "gunzip", [pkg.chroot_builddir / pkg.wrksrc / patchfn],
-            check = True, bootstrapping = pkg.bootstrapping, ro_root = True,
+            check = True, bootstrapping = pkg.stage == 0, ro_root = True,
             unshare_all = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".bz2":
         chroot.enter(
             "bunzip2", [pkg.chroot_builddir / pkg.wrksrc / patchfn],
-            check = True, bootstrapping = pkg.bootstrapping, ro_root = True,
+            check = True, bootstrapping = pkg.stage == 0, ro_root = True,
             unshare_all = True
         )
         patchfn = patchpath.stem
@@ -52,7 +52,7 @@ def process_patch(pkg, patchpath, gnupatch):
         "patch", pargs + ["-i", pkg.chroot_cwd / patchfn],
         stderr = subprocess.DEVNULL, check = True,
         wrkdir = pkg.chroot_builddir / pkg.wrksrc,
-        bootstrapping = pkg.bootstrapping,
+        bootstrapping = pkg.stage == 0,
         ro_root = True
     )
 
@@ -64,7 +64,7 @@ def invoke(pkg):
 
     # in bootstrap envs we might be using gnu patch with different args
     gnupatch = False
-    if pkg.bootstrapping:
+    if pkg.stage == 0:
         sr = subprocess.run(
             ["patch", "--version"], capture_output = True
         ).stdout.splitlines()

@@ -21,7 +21,7 @@ sha256 = "9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a"
 # encoding failures on musl; harmless
 options = ["bootstrap", "!check"]
 
-if not current.bootstrapping:
+if current.stage > 0:
     configure_args.append("--with-zstd")
     makedepends.append("libzstd-devel")
 else:

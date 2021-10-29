@@ -30,7 +30,7 @@ suffixes = {
 
 def extract_tar(pkg, fname, dfile, edir, sfx):
     # for bootstrap, use python's native extractor
-    if pkg.bootstrapping:
+    if pkg.stage == 0:
         import tarfile
         with tarfile.open(dfile) as tf:
             tf.extractall(path = edir)
@@ -112,7 +112,7 @@ def invoke(pkg):
             if not suffix:
                 pkg.error(f"unknown source suffix for '{fname}'")
 
-            if pkg.bootstrapping:
+            if pkg.stage == 0:
                 if suffix != "tgz" and suffix != "tbz" and suffix != "txz":
                     pkg.error(f"source not supported for bootstrap: {fname}")
 
@@ -130,7 +130,7 @@ def invoke(pkg):
                 case _:
                     pkg.error(f"cannot guess '{fname}' extract suffix")
 
-            if pkg.bootstrapping:
+            if pkg.stage == 0:
                 srcs_path = paths.sources()
             else:
                 srcs_path = pathlib.Path("/sources")
