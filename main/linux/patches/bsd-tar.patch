@@ -1,10 +1,16 @@
+FIXME: support setting the timestamp
+
 --- a/kernel/gen_kheaders.sh
 +++ b/kernel/gen_kheaders.sh
-@@ -85,7 +85,7 @@
+@@ -83,9 +83,10 @@ find $cpio_dir -type f -print0 |
+ # Create archive and try to normalize metadata for reproducibility.
+ # For compatibility with older versions of tar, files are fed to tar
  # pre-sorted, as --sort=name might not be available.
++# FIXME: support timestamp
  find $cpio_dir -printf "./%P\n" | LC_ALL=C sort | \
-     tar "${KBUILD_BUILD_TIMESTAMP:+--mtime=$KBUILD_BUILD_TIMESTAMP}" \
+-    tar "${KBUILD_BUILD_TIMESTAMP:+--mtime=$KBUILD_BUILD_TIMESTAMP}" \
 -    --owner=0 --group=0 --numeric-owner --no-recursion \
++    tar \
 +    --uid=0 --gid=0 --numeric-owner --no-recursion \
      -I $XZ -cf $tarfile -C $cpio_dir/ -T - > /dev/null
  

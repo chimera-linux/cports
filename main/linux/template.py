@@ -20,6 +20,7 @@ options = [
 
 match current.profile().arch:
     case "ppc64le": _arch = "powerpc"
+    case "aarch64": _arch = "arm64"
     case _:
         broken = f"Unknown CPU architecture: {current.profile().arch}"
 
