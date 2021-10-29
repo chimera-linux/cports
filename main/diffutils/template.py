@@ -1,0 +1,10 @@
+pkgname = "diffutils"
+pkgver = "3.8"
+pkgrel = 0
+build_style = "gnu_configure"
+pkgdesc = "Utilities to use for creating patches"
+maintainer = "ndowens <ndowens@artixlinux.org>"
+license = "GPL-3.0-or-later"
+url = "https://gnu.org/software/diffutils"
+source = [f"https://ftp.gnu.org/gnu/{pkgname}/{pkgname}-{pkgver}.tar.xz"]
+sha256 = ["a6bdd7d1b31266d11c4f4de6c1b748d4607ab0231af5188fc2533d0ae2438fec"]
