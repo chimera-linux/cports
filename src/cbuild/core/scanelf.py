@@ -3,6 +3,8 @@ import mmap
 import stat
 import pathlib
 
+from cbuild.core import paths
+
 _tsizes = "_BH_I___Q"
 
 def _make_struct(l):
@@ -208,7 +210,9 @@ def scan(pkg, somap):
     # only test machine type against libc when not bootstrapping
     # as otherise we cannot provide guarantees about the host system
     if pkg.stage > 0:
-        libc = _scan_one(pkg.rparent.profile().sysroot / "usr/lib/libc.so")
+        rsroot = pkg.rparent.profile().sysroot.relative_to("/")
+        libcp = paths.bldroot() / rsroot / "usr/lib/libc.so"
+        libc = _scan_one(libcp)
 
     for fpath in scandir.rglob("*"):
         st = fpath.lstat()
