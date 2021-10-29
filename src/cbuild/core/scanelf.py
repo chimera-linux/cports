@@ -234,8 +234,10 @@ def scan(pkg, somap):
             pkg.log_warn(f"ELF file with no machine type (container?): {fpath}")
             continue
         # foreign file
+        foreign = False
         if pkg.stage > 0:
-            if scanned[0] != libc[0] and not pkg.rparent.options["foreignelf"]:
+            foreign = scanned[0] != libc[0]
+            if foreign and not pkg.rparent.options["foreignelf"]:
                 elf_foreign.append(fpath)
         # deny /usr/share files
         if fpath.is_relative_to("usr/share"):
@@ -247,7 +249,7 @@ def scan(pkg, somap):
             elf_textrels.append(fpath)
         # store
         somap[str(fpath)] = (
-            soname, needed, pkg.pkgname, is_static, etype, interp
+            soname, needed, pkg.pkgname, is_static, etype, interp, foreign
         )
 
     # some linting

@@ -99,7 +99,7 @@ def invoke(pkg):
             print(f"   Stripped static library: {vr}")
             continue
 
-        soname, needed, pname, static, etype, interp = vt
+        soname, needed, pname, static, etype, interp, foreign = vt
 
         # strip static executable
         if static:

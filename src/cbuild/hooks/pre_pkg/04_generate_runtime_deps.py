@@ -15,7 +15,7 @@ def _scan_so(pkg):
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
 
-        soname, needed, pname, static, etype, interp = finfo
+        soname, needed, pname, static, etype, interp, foreign = finfo
 
         if soname:
             curso[soname] = pname
@@ -23,6 +23,9 @@ def _scan_so(pkg):
             curso[fp.name] = pname
 
         if pname != pkg.pkgname:
+            continue
+
+        if foreign:
             continue
 
         for n in needed:

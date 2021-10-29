@@ -44,10 +44,14 @@ def invoke(pkg):
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
 
-        soname, needed, pname, static, etype, interp = finfo
+        soname, needed, pname, static, etype, interp, foreign = finfo
 
         # we only care about our own
         if pname != pkg.pkgname:
+            continue
+
+        # foreign-machine elfs are not scanned
+        if foreign:
             continue
 
         sfxs = fp.suffixes
