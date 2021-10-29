@@ -46,7 +46,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
+sha256 = "e3e6cc6de6d51b88f2d876b48179aaa5c92049fa091ccd102a435506c3d94e62"
 options = ["bootstrap"]
 
 cmake_dir = "llvm"
