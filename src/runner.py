@@ -344,7 +344,10 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 1")
         # use stage 0 build root to build, but build into stage 1 repo
         paths.reinit_buildroot(oldmdir, 0)
-        do_pkg("pkg", "main/base-cbuild", False, False, stage = 1)
+        try:
+            do_pkg("pkg", "main/base-cbuild", False, False, stage = 1)
+        except template.SkipPackage:
+            pass
         # go back to stage 1
         paths.reinit_buildroot(oldmdir, 1)
         chroot.install(chroot.host_cpu())
@@ -361,7 +364,10 @@ def bootstrap(tgt):
         logger.get().out("cbuild: bootstrapping stage 2")
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 1)
-        do_pkg("pkg", "main/base-cbuild", False, stage = 2)
+        try:
+            do_pkg("pkg", "main/base-cbuild", False, stage = 2)
+        except template.SkipPackage:
+            pass
         # go back to stage 2
         paths.reinit_buildroot(oldmdir, 2)
         chroot.install(chroot.host_cpu())
