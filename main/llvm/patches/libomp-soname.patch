@@ -1,0 +1,14 @@
+Index: llvm-toolchain-snapshot_11~++20200326111000+4673699a470/openmp/runtime/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-snapshot_11~++20200326111000+4673699a470.orig/openmp/runtime/CMakeLists.txt
++++ llvm-toolchain-snapshot_11~++20200326111000+4673699a470/openmp/runtime/CMakeLists.txt
+@@ -341,7 +341,8 @@ else()
+   set(LIBOMP_INSTALL_KIND ARCHIVE)
+ endif()
+ 
+-set(LIBOMP_LIB_FILE ${LIBOMP_LIB_NAME}${LIBOMP_LIBRARY_SUFFIX})
++set(LIBOMP_LIB_FILE ${LIBOMP_LIB_NAME}${CMAKE_SHARED_LIBRARY_SUFFIX}.${LIBOMP_VERSION_MAJOR})
++
+ 
+ # Optional backwards compatibility aliases.
+ set(LIBOMP_INSTALL_ALIASES TRUE CACHE BOOL

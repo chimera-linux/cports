@@ -1,5 +1,5 @@
 pkgname = "clang-rt-cross"
-pkgver = "12.0.0"
+pkgver = "13.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"
+sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
 options = ["!cross", "!check", "!lint", "foreignelf"]
 
 cmake_dir = "compiler-rt"

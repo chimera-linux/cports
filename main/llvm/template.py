@@ -1,5 +1,5 @@
 pkgname = "llvm"
-_mver = "12"
+_mver = "13"
 pkgver = f"{_mver}.0.0"
 pkgrel = 0
 build_style = "cmake"
@@ -17,7 +17,7 @@ configure_args = [
     "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=YES",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
     "-DLIBOMP_ENABLE_SHARED=YES",
-    "-DLIBOMP_INSTALL_ALIASES=NO",
+    "-DLIBOMP_INSTALL_ALIASES=YES",
     "-DLLVM_INSTALL_UTILS=YES",
     "-DLLVM_BUILD_LLVM_DYLIB=YES",
     "-DLLVM_LINK_LLVM_DYLIB=YES",
@@ -46,7 +46,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "9ed1688943a4402d7c904cc4515798cdb20080066efa010fe7e1f2551b423628"
+sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
 
 options = ["bootstrap", "!check", "!lint"]
 
@@ -56,6 +56,9 @@ tool_flags = {
     "CFLAGS": ["-fPIC"],
     "CXXFLAGS": ["-fPIC"],
 }
+
+# not enabling lldb for now, we don't package enough stuff yet
+_enabled_projects = "clang;clang-tools-extra;compiler-rt;libcxx;libcxxabi;libunwind;lld;openmp"
 
 if not current.bootstrapping:
     makedepends += [
@@ -76,6 +79,15 @@ else:
         "-DCOMPILER_RT_BUILD_MEMPROF=NO",
     ]
 
+_enable_flang = False
+
+# not ready yet (no codegen in flang-new)
+#if current.stage >= 2:
+#    _enable_flang = True
+
+if _enable_flang:
+    _enabled_projects += ";flang"
+
 match current.profile().arch:
     case "x86_64": _arch = "X86"
     case "aarch64": _arch = "AArch64"
@@ -83,6 +95,8 @@ match current.profile().arch:
     case "riscv64": _arch = "RISCV64"
     case _:
         broken = f"Unknown CPU architecture: {current.profile().arch}"
+
+configure_args += [f"-DLLVM_ENABLE_PROJECTS={_enabled_projects}"]
 
 def init_configure(self):
     if not self.cross_build:
@@ -150,11 +164,16 @@ def post_install(self):
         "libunwind/include/mach-o/compact_unwind_encoding.h",
         "usr/include/mach-o"
     )
+
     # it's our default toolchain
     self.install_link("clang", "usr/bin/cc")
     self.install_link("clang++", "usr/bin/c++")
     if not (self.destdir / "usr/bin/ld").is_symlink():
         self.install_link("ld.lld", "usr/bin/ld")
+
+    # libomp symlink
+    for f in (self.destdir / "usr/lib").glob("libomp.so.*"):
+        self.install_link(f.name, "usr/lib/libomp.so")
 
 @subpackage("clang-tools-extra")
 def _tools_extra(self):
@@ -189,9 +208,9 @@ def _libomp(self):
         extra = []
 
     return [
-        "usr/lib/libomp.so",
+        "usr/lib/libomp*.so.*",
+        "usr/lib/libomptarget.so",
         "usr/lib/libarcher.so",
-        "usr/lib/libomp*.so.*"
     ] + extra
 
 @subpackage("libomp-devel")
@@ -202,8 +221,12 @@ def _libomp_devel(self):
     return [
         "usr/lib/libomp*.so",
         "usr/lib/libarcher*",
+        "usr/lib/libgomp*",
+        "usr/lib/libiomp*",
+        "usr/lib/libomptarget*",
         "usr/include/omp*.h",
-        f"usr/lib/clang/{pkgver}/include/omp*.h"
+        f"usr/lib/clang/{pkgver}/include/omp*.h",
+        "usr/lib/cmake/openmp",
     ]
 
 @subpackage("clang")
@@ -259,9 +282,16 @@ def _clang_analyzer(self):
         self.depends.append("python")
 
     return [
+        "usr/bin/analyze-build",
+        "usr/bin/intercept-build",
         "usr/bin/scan-*",
-        "usr/share/scan-*",
+        "usr/lib/libear",
+        "usr/lib/libscanbuild",
+        "usr/libexec/analyze-*",
         "usr/libexec/*analyzer",
+        "usr/libexec/intercept-*",
+        "usr/share/scan-*",
+        "usr/share/man/man1/scan-build.1",
     ]
 
 @subpackage("libclang")
@@ -275,6 +305,61 @@ def _libclang_cpp(self):
     self.pkgdesc = f"{pkgdesc} (C frontend runtime library)"
 
     return ["usr/lib/libclang-cpp.so.*"]
+
+@subpackage("flang", _enable_flang)
+def _flang(self):
+    self.pkgdesc = f"{pkgdesc} (Fortran frontend)"
+    self.depends = [
+        f"clang={pkgver}-r{pkgrel}",
+        f"mlir={pkgver}-r{pkgrel}",
+        "bash"
+    ]
+
+    return [
+        "usr/bin/f18*",
+        "usr/bin/fir*",
+        "usr/bin/flang*"
+    ]
+
+@subpackage("flang-devel", _enable_flang)
+def _flang_devel(self):
+    self.pkgdesc = f"{pkgdesc} (Flang development files)"
+
+    return [
+        "usr/include/flang",
+        "usr/lib/libflang*.a",
+        "usr/lib/libFortran*.a",
+        "usr/lib/cmake/flang",
+    ]
+
+@subpackage("mlir", _enable_flang)
+def _mlir(self):
+    self.pkgdesc = f"{pkgdesc} (MLIR)"
+
+    return [
+        "usr/bin/mlir*"
+    ]
+
+@subpackage("mlir-devel", _enable_flang)
+def _mlir(self):
+    self.pkgdesc = f"{pkgdesc} (MLIR development files)"
+
+    return [
+        "usr/include/mlir*",
+        "usr/lib/libMLIR*.a",
+        "usr/lib/libMLIR.so",
+        "usr/lib/libmlir*.so",
+        "usr/lib/cmake/mlir",
+    ]
+
+@subpackage("libmlir", _enable_flang)
+def _mlir(self):
+    self.pkgdesc = f"{pkgdesc} (MLIR runtime library)"
+
+    return [
+        "usr/lib/libMLIR.so.*",
+        "usr/lib/libmlir*.so.*",
+    ]
 
 @subpackage("libunwind")
 def _libunwind(self):
@@ -382,6 +467,7 @@ def _llvm_devel(self):
         "usr/include",
         "usr/lib/*.a",
         "usr/lib/*.so",
+        "usr/lib/libRemarks.so.*",
         "usr/lib/cmake",
     ]
 
