@@ -128,7 +128,7 @@ xbps-install -Syu || exit 1
 
 # install dependencies
 echo ">> Installing cbuild dependencies..."
-xbps-install -y python3 pax-utils apk-tools openssl git bubblewrap || exit 1
+xbps-install -y python3 apk-tools openssl git bubblewrap || exit 1
 echo ">> Installing build tools..."
 xbps-install -y base-devel clang lld libcxx-devel llvm-libunwind-devel \
                 cmake meson pkgconf bmake ninja byacc flex perl m4 || exit 1
