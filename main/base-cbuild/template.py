@@ -8,10 +8,10 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 depends = [
-    "musl-devel", "base-files", "elftoolchain", "llvm", "clang", "lld", "bmake",
-    "bsdutils-extra", "dash", "file", "apk-tools-static", "awk", "ncurses",
-    "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed", "bsdtar", "bsddiff",
-    "util-linux-cbuild", "tzdata", "mksh-static"
+    "base-files", "musl-devel", "elftoolchain", "llvm", "clang", "lld",
+    "apk-tools-static", "bsdutils-extra", "bsdgrep", "bsdgzip", "bsdpatch",
+    "bsdsed", "bsddiff", "bmake", "bsdtar", "dash", "mksh-static", "awk",
+    "ncurses", "util-linux-cbuild", "tzdata",
 ]
 # provide a low version so it does not take over
 provides = ["apk-tools=0.0.1-r0"]
