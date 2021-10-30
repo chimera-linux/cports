@@ -98,10 +98,11 @@ validate_arch() {
 }
 
 setup_epoch() {
-    [ -z "$EPOCH" -o "$EPOCH" -eq 0 ] && return 0
+    [ -z "$EPOCH" ] && return 0
+    [ "$EPOCH" = "0" ] && return 0
 
     # reproducible builds
-    export KBUILD_BUILD_TIMESTAMP=$(LC_ALL=C date -jur "${EPOCH}")
+    export KBUILD_BUILD_TIMESTAMP=$(LC_ALL=C TZ=UTC date -jur "${EPOCH}")
     export KBUILD_BUILD_USER=chimera
     export KBUILD_BUILD_HOST=chimera
 }
@@ -267,6 +268,7 @@ do_prepare() {
     printf "%s" "$OBJDUMP" > "${TEMPDIR}/objdump"
     printf "%s" "$OBJDIR" > "${TEMPDIR}/objdir"
     printf "%s" "$JOBS" > "${TEMPDIR}/jobs"
+    printf "%s" "$EPOCH" > "${TEMPDIR}/epoch"
 
     cat << EOF > ${TEMPDIR}/mv-debug
 #!/bin/sh
