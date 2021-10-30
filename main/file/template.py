@@ -14,7 +14,6 @@ license = "BSD-2-Clause"
 url = "http://www.darwinsys.com/file"
 source = f"https://astron.com/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "167321f43c148a553f68a0ea7f579821ef3b11c27b8cbe158e4df897e4a5dd57"
-options = ["bootstrap"]
 
 if current.cross_build:
     hostmakedepends += ["file"]
