@@ -4,8 +4,8 @@ pkgrel = 0
 make_dir = "build"
 hostmakedepends = [
     "bash", "bc-gh", "binutils", "bison", "findutils", "flex",
-    "elftoolchain-devel", "gmake", "gsed", "kmod", "linux-headers",
-    "openssl-devel", "perl", "python",
+    "elftoolchain-devel", "gmake", "gsed", "gtar", "kmod",
+    "linux-headers", "openssl-devel", "perl", "python",
 ]
 pkgdesc = "Linux kernel (5.14.x)"
 maintainer = "q66 <q66@chimera-linux.org>"
