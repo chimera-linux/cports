@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meta"
 depends = [
     "base-minimal", "ncurses", "mksh", "file", "less", "eudev", "kmod", "kbd",
-    "mandoc",
+    "mandoc", "man-pages",
 ]
 pkgdesc = "Common Chimera packages for most deployments"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -13,7 +13,6 @@ url = "https://chimera-linux.org"
 
 # TODO:
 #
-# - man-pages
 # - filesystem tools (e2fsprogs, xfsprogs, btrfs-progs, f2fs-tools, dosfstools)
 # - pciutils
 # - iproute2, iputils, iw, traceroute, (dhcpcd?)

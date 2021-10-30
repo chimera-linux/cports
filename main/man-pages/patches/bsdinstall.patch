@@ -1,0 +1,34 @@
+From ab8bc307b9024f0c334fa08626294f8c9cafe9f6 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 31 Oct 2021 00:11:45 +0200
+Subject: [PATCH] bsd make compatibility
+
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 0da0328..3797d0b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -170,7 +170,7 @@ uninstall_manX   := $(foreach x,$(MAN_SECTIONS),uninstall-man$(x))
+ .SECONDEXPANSION:
+ $(_manpages): $(DESTDIR)$(mandir)/man%: $(MANDIR)/man% | $$(@D)/.
+ 	$(info -	INSTALL	$@)
+-	$(INSTALL_DATA) -T $< $@
++	$(INSTALL_DATA) $< $@
+ 
+ $(_mandirs): %/.: | $$(dir %). $(_mandir)
+ 
+@@ -231,7 +231,7 @@ install-html: | installdirs-html
+ 	cd $(htmlbuilddir) && \
+ 	find man?/ -type f \
+ 	|while read f; do \
+-		$(INSTALL_DATA) -T "$$f" "$(DESTDIR)$(htmldir_)/$$f" || exit $$?; \
++		$(INSTALL_DATA) "$$f" "$(DESTDIR)$(htmldir_)/$$f" || exit $$?; \
+ 	done;
+ 
+ .PHONY: installdirs-html
+-- 
+2.33.1
+
