@@ -6,6 +6,7 @@ hostmakedepends = [
     "bash", "bc-gh", "binutils", "bison", "findutils", "flex",
     "elftoolchain-devel", "gmake", "gsed", "gtar", "xz", "kmod",
     "linux-headers", "openssl-devel", "perl", "python",
+    "u-boot-tools",
 ]
 pkgdesc = "Linux kernel (5.14.x)"
 maintainer = "q66 <q66@chimera-linux.org>"
