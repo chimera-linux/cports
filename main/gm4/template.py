@@ -7,6 +7,7 @@ configure_args = [
     "ac_cv_lib_error_at_line=no",
     "ac_cv_header_sys_cdefs_h=no",
 ]
+hostmakedepends = ["texinfo"]
 pkgdesc = "GNU version of UNIX m4 macro language processor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
@@ -15,6 +16,3 @@ source = f"$(GNU_SITE)/m4/m4-{pkgver}.tar.xz"
 sha256 = "f2c1e86ca0a404ff281631bdc8377638992744b175afb806e25871a24a934e07"
 # FIXME
 options = ["!check"]
-
-def post_install(self):
-    self.rm(self.destdir / "usr/share/info", recursive = True)

@@ -10,9 +10,8 @@ configure_args = [
     "ac_cv_lib_error_at_line=no",
     "ac_cv_header_sys_cdefs_h=no",
 ]
-make_install_args = ["MAKEINFO=true"]
 make_check_target = "tests"
-hostmakedepends = ["bison"]
+hostmakedepends = ["bison", "texinfo"]
 makedepends = ["ncurses-devel"]
 checkdepends = ["perl"]
 pkgdesc = "GNU Bourne Again Shell"
@@ -30,8 +29,6 @@ def post_install(self):
     self.install_dir("etc/bash/bashrc.d")
     (self.destdir / "etc/bash/bashrc.d/.empty").touch()
     (self.destdir / "etc/bash/bashrc.d/.empty").chmod(0o644)
-
-    self.rm(self.destdir / "usr/share/info", recursive = True)
 
     # register with shells
     self.install_dir("etc/shells.d")

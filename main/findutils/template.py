@@ -7,6 +7,7 @@ configure_args = [
     "ac_cv_lib_error_at_line=no",
     "ac_cv_header_sys_cdefs_h=no",
 ]
+hostmakedepends = ["texinfo"]
 pkgdesc = "GNU find utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
@@ -17,8 +18,6 @@ sha256 = "57127b7e97d91282c6ace556378d5455a9509898297e46e10443016ea1387164"
 options = ["!check"]
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/info", recursive = True)
-
     # we don't want this
     self.rm(self.destdir / "usr/bin/glocate")
     self.rm(self.destdir / "usr/bin/gupdatedb")

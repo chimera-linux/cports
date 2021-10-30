@@ -9,6 +9,7 @@ configure_args = [
     "ac_cv_lib_error_at_line=no",
     "ac_cv_header_sys_cdefs_h=no",
 ]
+hostmakedepends = ["texinfo"]
 makedepends = ["acl-devel"]
 checkdepends = ["perl"]
 pkgdesc = "GNU stream editor"
@@ -19,6 +20,3 @@ source = f"$(GNU_SITE)/sed/sed-{pkgver}.tar.xz"
 sha256 = "f79b0cfea71b37a8eeec8490db6c5f7ae7719c35587f21edb0617f370eeff633"
 # most sed tests need bash
 options = ["!check"]
-
-def post_install(self):
-    self.rm(self.destdir / "usr/share/info", recursive = True)

@@ -26,7 +26,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_install_args = ["tooldir=/usr"]
-hostmakedepends = ["gmake", "flex"]
+hostmakedepends = ["gmake", "flex", "texinfo"]
 makedepends = ["zlib-devel"]
 pkgdesc = "GNU Make build tool"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -65,8 +65,6 @@ def do_configure(self):
     )
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/info", recursive = True)
-
     for m in ["dlltool", "nlmconv", "windres", "windmc"]:
         self.rm(self.destdir / f"usr/share/man/man1/{m}.1", force = True)
 
