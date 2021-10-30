@@ -4,7 +4,7 @@ pkgrel = 0
 make_dir = "build"
 hostmakedepends = [
     "bash", "bc-gh", "binutils", "bison", "findutils", "flex",
-    "elftoolchain-devel", "gmake", "gsed", "gtar", "kmod",
+    "elftoolchain-devel", "gmake", "gsed", "gtar", "xz", "kmod",
     "linux-headers", "openssl-devel", "perl", "python",
 ]
 pkgdesc = "Linux kernel (5.14.x)"
@@ -15,7 +15,8 @@ source = f"https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-{pkgver}.tar.xz"
 sha256 = "4dff4e96d4052195002538027f8a810411ba6116a41bff5575952702d509d06a"
 # no meaningful checking to be done
 options = [
-    "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs", "!cross"
+    "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs", "!cross",
+    "textrels", "foreignelf" # vdso32
 ]
 
 match current.profile().arch:
