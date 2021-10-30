@@ -1,0 +1,48 @@
+From cca871a0eb0066d9b4e3f0673fe94acd5a6bb135 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 30 Oct 2021 23:14:30 +0200
+Subject: [PATCH] fix up timestamp stuff for BSD date
+
+---
+ Makefile | 22 +++++-----------------
+ 1 file changed, 5 insertions(+), 17 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 20c1aa3..fa3df2e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1892,26 +1892,14 @@ define filechk_version.h
+ 	echo \#define LD_VERSION_STRING \"$$(LC_ALL=C $(LD) --version | head -n 1)\"; )
+ endef
+ 
+-# The SOURCE_DATE_EPOCH mechanism requires a date that behaves like GNU date.
+-# The BSD date on the other hand behaves different and would produce errors
+-# with the misused '-d' switch.  Respect that and search a working date with
+-# well known pre- and suffixes for the GNU variant of date.
+ define filechk_timestamp.h
+ 	(if test -n "$${SOURCE_DATE_EPOCH}"; then \
+ 		SOURCE_DATE="@$${SOURCE_DATE_EPOCH}"; \
+-		DATE=""; \
+-		for date in gdate date.gnu date; do \
+-			$${date} -u -d "$${SOURCE_DATE}" >/dev/null 2>&1 && DATE="$${date}"; \
+-		done; \
+-		if test -n "$${DATE}"; then \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_DATE "%b %d %C%y"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_TIME "%T"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_TZ "%z"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_BUILD_DATE 0x%Y%m%d'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_EPOCH %s'; \
+-		else \
+-			return 42; \
+-		fi; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_DATE "%b %d %C%y"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_TIME "%T"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_TZ "%z"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_BUILD_DATE 0x%Y%m%d'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_EPOCH %s'; \
+ 	else \
+ 		LC_ALL=C date +'#define U_BOOT_DATE "%b %d %C%y"'; \
+ 		LC_ALL=C date +'#define U_BOOT_TIME "%T"'; \
+-- 
+2.33.1
+
