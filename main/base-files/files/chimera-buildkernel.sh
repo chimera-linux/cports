@@ -230,6 +230,7 @@ do_prepare() {
     wrap_command dc-gh ${TEMPDIR}/wrappers/dc
     wrap_command gfind ${TEMPDIR}/wrappers/find
     wrap_command gsed ${TEMPDIR}/wrappers/sed
+    wrap_command gtar ${TEMPDIR}/wrappers/tar
     wrap_command ld.${LD} ${TEMPDIR}/wrappers/ld
     wrap_command ${MAKE} ${TEMPDIR}/wrappers/make
     wrap_command ${OBJDUMP} ${TEMPDIR}/wrappers/objdump
