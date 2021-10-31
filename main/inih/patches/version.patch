@@ -1,0 +1,13 @@
+We mainly need this so that meson's pkg-config
+generator does not generate 'Version: undefined'.
+
+--- a/meson.build
++++ b/meson.build
+@@ -1,6 +1,7 @@
+ project('inih',
+     ['c'],
+     license : 'BSD-3-Clause',
++    version : '53',
+ )
+ 
+ #### options ####
