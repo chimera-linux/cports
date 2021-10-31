@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -796,7 +796,7 @@ ifneq ($(libs_build),)
+ 	$(INSTALL) -m755 -d $(DESTDIR)$(libdir)
+ 	$(INSTALL) $(libs_build) $(DESTDIR)$(libdir)
+ ifeq ($(BUILD_SHARED_LIBRARIES),1)
+-	cp -d $(lib_links) $(DESTDIR)$(libdir)
++	cp -R $(lib_links) $(DESTDIR)$(libdir)
+ endif
+ 	$(INSTALL) -m755 -d $(DESTDIR)$(incdir)/btrfs
+ 	$(INSTALL) -m644 $(libbtrfs_headers) $(DESTDIR)$(incdir)/btrfs
