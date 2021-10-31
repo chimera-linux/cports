@@ -1,19 +1,19 @@
 pkgname = "linux"
-pkgver = "5.14.14"
+pkgver = "5.14.15"
 pkgrel = 0
 make_dir = "build"
 hostmakedepends = [
     "bash", "bc-gh", "binutils", "bison", "findutils", "flex",
     "elftoolchain-devel", "gmake", "gsed", "gtar", "xz", "kmod",
     "linux-headers", "openssl-devel", "perl", "python",
-    "u-boot-tools",
+    "u-boot-tools", "zlib-devel",
 ]
 pkgdesc = "Linux kernel (5.14.x)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-{pkgver}.tar.xz"
-sha256 = "4dff4e96d4052195002538027f8a810411ba6116a41bff5575952702d509d06a"
+sha256 = "74f39a0c69e9d7c94d290515645396725e3ce3667b85baf4b3c3f6f303c7a406"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs", "!cross",
@@ -23,6 +23,7 @@ options = [
 match current.profile().arch:
     case "ppc64le": _arch = "powerpc"
     case "aarch64": _arch = "arm64"
+    case "x86_64": _arch = "x86_64"
     case _:
         broken = f"Unknown CPU architecture: {current.profile().arch}"
 
