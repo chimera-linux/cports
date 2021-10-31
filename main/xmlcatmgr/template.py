@@ -35,10 +35,10 @@ def post_build(self):
 def post_install(self):
     self.log("installing XML/SGML catalogs...")
 
-    self.install_file("catalog.sgml", "etc/sgml/auto/catalog")
-    self.install_file("catalog.etc.sgml", "etc/sgml/catalog")
-    self.install_file("catalog.xml", "etc/xml/auto/catalog")
-    self.install_file("catalog.etc.xml", "etc/xml/catalog")
+    self.install_file("catalog.sgml", "etc/sgml/auto", name = "catalog")
+    self.install_file("catalog.etc.sgml", "etc/sgml", name = "catalog")
+    self.install_file("catalog.xml", "etc/xml/auto", name = "catalog")
+    self.install_file("catalog.etc.xml", "etc/xml", name = "catalog")
 
     self.install_dir("usr/share/sgml")
     self.install_dir("usr/share/xml")
