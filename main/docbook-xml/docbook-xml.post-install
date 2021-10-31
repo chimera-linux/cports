@@ -2,7 +2,7 @@
 
 echo "Registering XML catalog entries..."
 
-cmd="xmlcatmgr -sc /etc/xml/auto/catalog add"
+cmd="xmlcatmgr -c /etc/xml/auto/catalog add"
 
 $cmd rewriteSystem http://www.oasis-open.org/docbook/xml/4.2 \
     /usr/share/xml/docbook/4.2
