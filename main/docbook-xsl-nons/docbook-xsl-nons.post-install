@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "Registering XML catalog entries..."
+
+xmlcatmgr -sc /etc/xml/auto/catalog add nextCatalog \
+    /usr/share/xsl/docbook/catalog.xml --
+
+exit 0
