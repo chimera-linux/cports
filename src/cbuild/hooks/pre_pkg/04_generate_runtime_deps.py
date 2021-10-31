@@ -180,11 +180,11 @@ def _scan_pc(pkg):
         pn = pcreq[k]
         # provided by one of ours or by a dependency
         in_subpkg = subpkg_provides_pc(pn)
-        if in_subpkg or cli.is_installed(k, pkg):
+        if in_subpkg or cli.is_installed("pc:" + k, pkg):
             pkg.pc_requires.append(k)
             # locate the explicit provider
             if not in_subpkg:
-                prov = cli.get_provider(k, pkg)
+                prov = cli.get_provider("pc:" + k, pkg)
             else:
                 prov = in_subpkg
             # this should never happen

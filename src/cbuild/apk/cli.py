@@ -23,7 +23,7 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True):
     if isinstance(mrepo, str):
         srepos = [mrepo]
     else:
-        srepos = mrepo.source_repositories
+        srepos = mrepo.rparent.source_repositories
 
     if not arch:
         arch = chroot.host_cpu()
