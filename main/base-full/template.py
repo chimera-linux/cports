@@ -12,6 +12,7 @@ url = "https://chimera-linux.org"
 
 # TODO:
 #
+# - f2fs-tools
 # - usbutils
 # - ethtool
 # - elogind
