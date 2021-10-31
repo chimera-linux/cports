@@ -3,7 +3,6 @@ pkgver = "4.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-guile", "--program-prefix=g"]
-hostmakedepends = ["texinfo"]
 checkdepends = ["perl"]
 pkgdesc = "GNU Make build tool"
 maintainer = "q66 <q66@chimera-linux.org>"
