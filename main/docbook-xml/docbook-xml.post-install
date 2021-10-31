@@ -1,0 +1,23 @@
+#!/bin/sh
+
+echo "Registering XML catalog entries..."
+
+cmd="xmlcatmgr -sc /etc/xml/auto/catalog add"
+
+$cmd rewriteSystem http://www.oasis-open.org/docbook/xml/4.2 \
+    /usr/share/xml/docbook/4.2
+$cmd rewriteSystem http://www.oasis-open.org/docbook/xml/4.3 \
+    /usr/share/xml/docbook/4.3
+$cmd rewriteSystem http://www.oasis-open.org/docbook/xml/4.4 \
+    /usr/share/xml/docbook/4.4
+$cmd rewriteSystem http://www.oasis-open.org/docbook/xml/4.5 \
+    /usr/share/xml/docbook/4.5
+$cmd rewriteSystem http://www.oasis-open.org/docbook/xml/4.1.2 \
+    /usr/share/xml/docbook/4.2
+$cmd nextCatalog /usr/share/xml/docbook/4.2/catalog --
+$cmd nextCatalog /usr/share/xml/docbook/4.3/catalog --
+$cmd nextCatalog /usr/share/xml/docbook/4.4/catalog --
+$cmd nextCatalog /usr/share/xml/docbook/4.5/catalog --
+$cmd nextCatalog /usr/share/xml/docbook/4.2/catalog-4.1.2 --
+
+exit 0
