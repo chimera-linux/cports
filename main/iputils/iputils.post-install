@@ -1,0 +1,3 @@
+#!/bin/sh
+
+setcap CAP_NET_RAW+p /usr/bin/iputils-ping 2>/dev/null || :
