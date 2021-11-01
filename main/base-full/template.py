@@ -3,7 +3,8 @@ pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    "base-core", "nano", "initramfs-tools", "openssh", "opendoas"
+    "base-core", "nano", "initramfs-tools", "openssh", "opendoas",
+    "ethtool",
 ]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -14,7 +15,6 @@ url = "https://chimera-linux.org"
 #
 # - f2fs-tools
 # - usbutils
-# - ethtool
 # - elogind
 # - wpa_supplicant or iwd
 # - firmware (wifi etc)
