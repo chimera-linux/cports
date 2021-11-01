@@ -16,4 +16,3 @@ url = "https://chimera-linux.org"
 #
 # - pciutils
 # - iw, traceroute, (dhcpcd?)
-# - openssh
