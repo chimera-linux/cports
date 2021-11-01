@@ -40,13 +40,15 @@ def _usb(self):
     self.pkgdesc = f"{pkgdesc} (Networking OUIs)"
     return ["usr/share/hwdata/oui.txt", "usr/share/hwdata/iab.txt"]
 
-# TODO: support install_if
 @subpackage("hwids-udev")
 def _usb(self):
-    self.depends = depends = [
+    self.depends = [
         f"hwids-usb={pkgver}-r{pkgrel}",
         f"hwids-pci={pkgver}-r{pkgrel}",
         f"hwids-net={pkgver}-r{pkgrel}",
+    ]
+    self.install_if = [
+        "eudev", f"hwids-pci={pkgver}-r{pkgrel}"
     ]
     self.pkgdesc = f"{pkgdesc} (udev integration)"
     return ["etc", "usr/lib"]
