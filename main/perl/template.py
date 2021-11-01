@@ -1,7 +1,7 @@
 pkgname = "perl"
-pkgver = "5.32.1"
+pkgver = "5.34.0"
 pkgrel = 0
-_perl_cross_ver = "1.3.5"
+_perl_cross_ver = "1.3.6"
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_check_target = "test"
@@ -18,8 +18,8 @@ source = [
     f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_ver}/perl-cross-{_perl_cross_ver}.tar.gz"
 ]
 sha256 = [
-    "03b693901cd8ae807231b1787798cf1f2e0b8a56218d07b7da44f784a7caeb2c",
-    "91c66f6b2b99fccfd4fee14660b677380b0c98f9456359e91449798c2ad2ef25"
+    "551efc818b968b05216024fb0b727ef2ad4c100f8cb6b43fab615fa78ae5be9a",
+    "4010f41870d64e3957b4b8ce70ebba10a7c4a3e86c5551acb4099c3fcbb37ce5"
 ]
 # prevent a massive log dump
 tool_flags = {
@@ -30,7 +30,7 @@ tool_flags = {
     ],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
-# missing checkdepends
+# check is cyclic: depends on perl modules
 options = ["!check"]
 
 def pre_patch(self):
@@ -92,7 +92,8 @@ def do_configure(self):
 
 def do_check(self):
     self.make.check(env = {
-        "TEST_JOBS": str(self.make_jobs)
+        "TEST_JOBS": str(self.make_jobs),
+        "PERL_BUILD_PACKAGING": "1",
     })
 
 def post_install(self):
