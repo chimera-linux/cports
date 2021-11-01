@@ -1,3 +1,5 @@
+# FIXME: cross support
+
 from cbuild.core import chroot
 
 def do_build(self):
