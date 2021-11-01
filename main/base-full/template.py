@@ -18,4 +18,3 @@ url = "https://chimera-linux.org"
 # - elogind
 # - wpa_supplicant or iwd
 # - firmware (wifi etc)
-# - kernel
