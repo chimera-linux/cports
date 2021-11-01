@@ -5,7 +5,7 @@ build_style = "meta"
 depends = [
     "base-minimal", "ncurses", "mksh", "file", "less", "eudev", "kmod",
     "kbd", "mandoc", "man-pages", "e2fsprogs", "xfsprogs", "btrfs-progs",
-    "dosfstools", "iputils", "iproute2",
+    "dosfstools", "iputils", "iproute2", "traceroute",
 ]
 pkgdesc = "Common Chimera packages for most deployments"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,4 +15,4 @@ url = "https://chimera-linux.org"
 # TODO:
 #
 # - pciutils
-# - iw, traceroute, (dhcpcd?)
+# - iw, (dhcpcd?)
