@@ -71,6 +71,8 @@ def genpkg(
         mdeps.sort()
         metadata["depends"] = mdeps
 
+        metadata["install_if"] = list(pkg.install_if)
+
         if not dbg:
             if hasattr(pkg, "aso_provides"):
                 pkg.aso_provides.sort(key = lambda x: x[0])

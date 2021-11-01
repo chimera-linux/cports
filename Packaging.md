@@ -452,6 +452,11 @@ Keep in mind that default values may be overridden by build styles.
   installed in the build container itself rather than target sysroot,
   even if cross compiling. Typically contains runnable tools. This is
   not installed during stage 0 bootstrap, since they come from the host.
+* `install_if` *(list)* A list of package names or version constraints that
+  must be satisfied in order for this package to auto-install (i.e. if
+  all packages in this list are installed, this one will also be installed).
+  This is basically the reverse of a "recommends" feature. You should always
+  include at least one versioned constraint.
 * `maintainer` *(str)* This one is not mandatory but is highly recommended.
   A template with no `maintainer` field is orphaned. No package in the
   `main` section of the `cports` collection must be orphaned.

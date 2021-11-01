@@ -127,6 +127,9 @@ def create(
         for pc in metadata["pc_provides"]:
             add_field("provides", "pc:" + pc)
 
+    if "install_if" in metadata and len(metadata["install_if"]) > 0:
+        add_field("install_if", " ".join(metadata["install_if"]))
+
     if "triggers" in metadata:
         add_field("triggers", " ".join(metadata["triggers"]))
 

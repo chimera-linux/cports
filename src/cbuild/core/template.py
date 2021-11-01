@@ -351,6 +351,7 @@ core_fields = [
     # other package lists + related
     ("provides", [], list, False, True, False),
     ("provider_priority", 0, int, False, True, False),
+    ("install_if", [], list, False, True, False),
 
     # build systems
     ("configure_args", [], list, False, False, False),
@@ -435,6 +436,7 @@ core_fields_priority = [
 
     ("provides", True),
     ("provider_priority", True),
+    ("install_if", True),
     ("triggers", True),
 
     ("pkgdesc", True),
