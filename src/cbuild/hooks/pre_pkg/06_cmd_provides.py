@@ -14,14 +14,18 @@ def invoke(pkg):
         if not p.startswith("cmd:"):
             continue
         cmdname = p[4:]
-        cmdset[cmdname] = True
+        versep = cmdname.find("=")
+        if versep > 0:
+            cmdset[cmdname[:versep]] = True
+        else:
+            cmdset[cmdname] = True
         logger.get().out_plain(f"   cmd: {cmdname} (explicit)")
 
     for f in pkg.destdir.glob("usr/bin/*"):
         if f.name in cmdset:
             continue
         logger.get().out_plain(f"   cmd: {f.name} from usr/bin")
-        cmds.append(f.name)
+        cmds.append(f.name + f"={pkg.pkgver}-r{pkg.pkgrel}")
 
     cmds.sort()
 
