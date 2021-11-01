@@ -16,6 +16,7 @@ url = "https://chimera-linux.org"
 # - f2fs-tools
 # - usbutils
 # - elogind
+# - dhcpcd?
 # - wpa_supplicant or iwd
 # - firmware (wifi etc)
 # - kernel
