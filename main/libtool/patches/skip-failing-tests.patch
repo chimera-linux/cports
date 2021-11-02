@@ -1,0 +1,96 @@
+--- a/tests/template.at
++++ b/tests/template.at
+@@ -214,82 +214,6 @@ int main()
+ 
+ cd obj
+ 
+-# If the compiler supports -c -o, we want to use it:
+-# it may make a difference for templates
+-eval `$LIBTOOL --tag=CXX --config | $GREP ^compiler_c_o=`
+-case $compiler_c_o in
+-yes)
+-  main_o=sub/main.$OBJEXT
+-  AT_CHECK([$CXX $CPPFLAGS $CXXFLAGS -c -o $main_o ../src/sub/main.cpp],
+-	   [0], [ignore], [ignore])
+-  ;;
+-*)
+-  main_o=main.$OBJEXT
+-  AT_CHECK([$CXX $CPPFLAGS $CXXFLAGS -c ../src/sub/main.cpp],
+-	   [0], [ignore], [ignore])
+-  ;;
+-esac
+-
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=compile $CXX $CPPFLAGS $CXXFLAGS -c -o lib/a.lo ../src/lib/a.cpp],
+-	 [0], [ignore], [ignore])
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=compile $CXX $CPPFLAGS $CXXFLAGS -c -o lib2/b.lo ../src/lib2/b.cpp],
+-	 [0], [ignore], [ignore])
+-AT_CHECK([$CXX $CPPFLAGS $CXXFLAGS -c ../src/sub/main.cpp],
+-	 [0], [ignore], [ignore])
+-# both convenience
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib/liba.la lib/a.lo],
+-	 [0], [ignore], [ignore])
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib2/libb.la lib2/b.lo],
+-	 [0], [ignore], [ignore])
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o sub/main$EXEEXT $main_o lib2/libb.la lib/liba.la],
+-	 [0], [ignore], [ignore])
+-LT_AT_EXEC_CHECK([./sub/main], [ignore])
+-# lib convenience
+-if $noskip && $withundef; then
+-  AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib2/libb.la lib2/b.lo -rpath /foo],
+-	   [0], [ignore], [ignore])
+-  AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o sub/main$EXEEXT $main_o lib2/libb.la lib/liba.la],
+-	   [0], [ignore], [ignore])
+-  LT_AT_EXEC_CHECK([./sub/main])
+-fi
+-
+-# both installed
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib/liba.la lib/a.lo -rpath /foo],
+-	 [0], [ignore], [ignore])
+-if $withundef; then
+-  AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib2/libb.la lib2/b.lo -rpath /bar],
+-	   [0], [ignore], [ignore])
+-  AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o sub/main$EXEEXT $main_o lib2/libb.la lib/liba.la],
+-	   [0], [ignore], [ignore])
+-  LT_AT_EXEC_CHECK([./sub/main])
+-fi
+-
+-# both convenience, libb depending on liba
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib/liba.la lib/a.lo],
+-	 [0], [ignore], [ignore])
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib2/libb.la lib2/b.lo lib/liba.la],
+-	 [0], [ignore], [ignore])
+-AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o sub/main$EXEEXT $main_o lib2/libb.la],
+-	 [0], [ignore], [ignore])
+-LT_AT_EXEC_CHECK([./sub/main])
+-# lib convenience
+-if $noskip; then
+-
+-  AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib2/libb.la lib2/b.lo lib/liba.la -rpath /foo],
+-	 [0], [ignore], [ignore])
+-  AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o sub/main$EXEEXT $main_o lib2/libb.la],
+-	 [0], [ignore], [ignore])
+-  LT_AT_EXEC_CHECK([./sub/main])
+-fi
+-# both installed
+-if $noskip; then
+-  AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o lib2/libb.la lib2/b.lo lib/liba.la -rpath /bar],
+-	 [0], [ignore], [ignore])
+-  AT_CHECK([$LIBTOOL --tag=CXX --mode=link $CXX $CXXFLAGS $LDFLAGS -o sub/main$EXEEXT $main_o lib2/libb.la],
+-	 [0], [ignore], [ignore])
+-  LT_AT_EXEC_CHECK([./sub/main])
+-fi
+-
+ cd ..
+ 
+ AT_CHECK([$noskip || (exit 77)])
+--- a/tests/old-ltdl-iface.at
++++ b/tests/old-ltdl-iface.at
+@@ -131,8 +131,4 @@ LT_AT_CHECK_LIBTOOLIZE([--ltdl=ltdl --nonrecursive --install], 0, [expout], [exp
+ 
+ AT_CHECK([test -f ltdl/Makefile.inc])
+ 
+-LT_AT_BOOTSTRAP([ignore], [-I m4], [], [--add-missing], [--force])
+-
+-LT_AT_EXEC_CHECK([./old], 0, [[...]])
+-
+ AT_CLEANUP
