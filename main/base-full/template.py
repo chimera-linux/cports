@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meta"
 depends = [
     "base-core", "nano", "initramfs-tools", "openssh", "opendoas",
-    "ethtool", "dhcpcd",
+    "ethtool", "dhcpcd", "usbutils",
 ]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -14,7 +14,6 @@ url = "https://chimera-linux.org"
 # TODO:
 #
 # - f2fs-tools
-# - usbutils
 # - elogind
 # - wpa_supplicant or iwd
 # - firmware (wifi etc)
