@@ -184,7 +184,12 @@ def _scan_pc(pkg):
             pkg.pc_requires.append(k)
             # locate the explicit provider
             if not in_subpkg:
-                prov = cli.get_provider("pc:" + k, pkg)
+                # apk search needs unconstrained name
+                idx = re.search(r"[<>=]", k)
+                if idx:
+                    prov = cli.get_provider("pc:" + k[:idx.start()], pkg)
+                else:
+                    prov = cli.get_provider("pc:" + k, pkg)
             else:
                 prov = in_subpkg
             # this should never happen
