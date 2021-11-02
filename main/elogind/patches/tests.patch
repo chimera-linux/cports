@@ -1,13 +1,3 @@
-From bc31daf8dce20d8198e6795b8c4ef8e7b1f1a75e Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Tue, 2 Nov 2021 21:57:07 +0100
-Subject: [PATCH] tests workarounds
-
----
- src/test/test-copy.c    | 5 +----
- src/test/test-fs-util.c | 4 ++++
- 2 files changed, 5 insertions(+), 4 deletions(-)
-
 diff --git a/src/test/test-copy.c b/src/test/test-copy.c
 index c97769b..33e3305 100644
 --- a/src/test/test-copy.c
@@ -60,15 +50,6 @@ index 415fad0..790a263 100644
  
          /* Test CHASE_NOFOLLOW */
  
--- 
-2.33.1
-
-commit a3af18c88d37d922258aa1d102711eec0efcbebd
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Tue Nov 2 22:03:32 2021 +0100
-
-    bla
-
 diff --git a/src/libelogind/sd-device/test-sd-device-thread.c b/src/libelogind/sd-device/test-sd-device-thread.c
 index 9f1c023..1c4ecdd 100644
 --- a/src/libelogind/sd-device/test-sd-device-thread.c
