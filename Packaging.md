@@ -442,6 +442,11 @@ Keep in mind that default values may be overridden by build styles.
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.
+* `exec_wrappers` *(list)* A list of 2-tuples specifying extra wrappers to
+  set up for the build. The first element of the tuple is the full path to
+  the program to wrap, while the second element is the wrapper name. You
+  can use this to e.g. use `sed` as `sed` by wrapping `/usr/bin/gsed`, in
+  case it is too much trouble to patch the build system.
 * `hardening` *(list)* Hardening options to be enabled or disabled for the
   template. Refer to the hardening section for more information. This is
   a simple list of strings that works similarly to `options`, with `!`

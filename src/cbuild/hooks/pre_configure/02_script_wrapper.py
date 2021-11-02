@@ -11,6 +11,9 @@ def _enable_wrappers(pkg):
         shutil.copy2(wrapperdir / f, pkg.statedir / "wrappers" / f.stem)
         (pkg.statedir / "wrappers" / f.stem).chmod(0o755)
 
+    for src, name in pkg.exec_wrappers:
+        (pkg.statedir / "wrappers"  / name).symlink_to(src)
+
 def _wrap_cross_cc(pkg):
     wrapperdir = paths.cbuild() / "wrappers"
 

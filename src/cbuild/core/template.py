@@ -383,6 +383,9 @@ core_fields = [
     # packaging
     ("triggers", [], list, False, True, False),
 
+    # wrappers
+    ("exec_wrappers", [], list, False, False, False),
+
     # fields relating to build fields
 
     # cmake
@@ -461,6 +464,7 @@ core_fields_priority = [
 
     ("hardening", True),
     ("options", True),
+    ("exec_wrappers", True),
 
     ("broken", True),
 ]
