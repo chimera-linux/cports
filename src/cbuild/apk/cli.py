@@ -133,7 +133,7 @@ def get_provider(thing, pkg):
         aarch = None
 
     out = call(
-        "search", ["--quiet", thing], pkg, root = sysp,
+        "search", ["-q", "-e", thing], pkg, root = sysp,
         capture_output = True, arch = aarch, allow_untrusted = True
     ).stdout.strip().decode()
 
