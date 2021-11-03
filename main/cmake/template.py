@@ -23,6 +23,14 @@ tool_flags = {
 # checkdepends are missing
 options = ["!check"]
 
+# TODO:
+#  --system-jsoncpp
+#  --system-librhash
+#  --system-libuv
+if current.stage >= 2:
+    makedepends += ["libcurl-devel", "nghttp2-devel", "libexpat-devel"]
+    configure_args += ["--system-curl", "--system-nghttp2", "--system-expat"]
+
 def post_install(self):
     self.install_license("Copyright.txt")
     self.cp("Utilities/KWIML/Copyright.txt", "KWIML-Copyright.txt")
