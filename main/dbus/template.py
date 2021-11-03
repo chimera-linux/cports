@@ -1,0 +1,63 @@
+pkgname = "dbus"
+pkgver = "1.12.20"
+pkgrel = 0
+build_style = "gnu_configure"
+configure_args = [
+    "--disable-selinux",
+    "--disable-asserts",
+    "--disable-systemd",
+    "--disable-user-session",
+    "--disable-doxygen-docs",
+    "--enable-inotify",
+    "--enable-xml-docs",
+    "--enable-epoll",
+    "--enable-elogind",
+    "--with-dbus-user=dbus",
+    "--with-system-socket=/run/dbus/system_bus_socket",
+    "--with-system-pid-file=/run/dbus/pid",
+    "--with-console-auth-dir=/run/console",
+]
+make_cmd = "gmake"
+hostmakedepends = ["gmake", "gperf", "pkgconf", "xmlto"]
+makedepends = [
+    "elogind-devel", "libexpat-devel", "libx11-devel", "libcap-devel"
+]
+pkgdesc = "Message bus system"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "GPL-2.0-or-later"
+url = "https://dbus.freedesktop.org"
+source = f"https://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "f77620140ecb4cdc67f37fb444f8a6bea70b5b6461f12f1cbe2cec60fa7de5fe"
+suid_files = [
+    "usr/libexec/dbus-daemon-launch-helper"
+]
+file_modes = {
+    "usr/libexec/dbus-daemon-launch-helper": (None, "dbus:22", 0o4750)
+}
+
+def post_install(self):
+    # these need to exist
+    self.install_dir("var/lib/dbus")
+    (self.destdir / "var/lib/dbus/.empty").touch(mode = 0o644)
+    self.install_dir("etc/dbus-1/session.d")
+    (self.destdir / "etc/dbus-1/session.d/.empty").touch(mode = 0o644)
+
+@subpackage("dbus-devel")
+def _devel(self):
+    self.depends += ["libexpat-devel"]
+    return self.default_devel(extra = [
+        "usr/lib/dbus-*",
+        "usr/share/doc",
+    ])
+
+@subpackage("dbus-libs")
+def _libs(self):
+    return self.default_libs()
+
+@subpackage("dbus-x11")
+def _x11(self):
+    self.pkgdesc = f"{pkgdesc} (X11 support)"
+    return [
+        "usr/bin/dbus-launch",
+        "usr/share/man/man1/dbus-launch.1",
+    ]
