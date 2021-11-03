@@ -16,5 +16,4 @@ def post_install(self):
 
 @subpackage("libxau-devel")
 def _devel(self):
-    self.depends += ["xorgproto"]
     return self.default_devel()
