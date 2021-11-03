@@ -1,0 +1,19 @@
+commit 7216b9587d7d25bafe72068d5c7442ff1386397e
+Author: q66 <daniel@octaforge.org>
+Date:   Wed Nov 3 05:37:14 2021 +0100
+
+    bla
+
+diff --git a/pkgs/sqlite3.34.0/Makefile.in b/pkgs/sqlite3.34.0/Makefile.in
+index 6b73e35..ac618bc 100644
+--- a/pkgs/sqlite3.34.0/Makefile.in
++++ b/pkgs/sqlite3.34.0/Makefile.in
+@@ -150,7 +150,7 @@ SHARED_BUILD	= @SHARED_BUILD@
+ INCLUDES	= @PKG_INCLUDES@ @TCL_INCLUDES@ -I$(srcdir)/..
+ #INCLUDES	= @PKG_INCLUDES@ @TCL_INCLUDES@ @TK_INCLUDES@ @TK_XINCLUDES@
+ 
+-PKG_CFLAGS	= @PKG_CFLAGS@ -DSQLITE_API=MODULE_SCOPE -DSQLITE_EXTERN=
++PKG_CFLAGS	= @PKG_CFLAGS@ -DSQLITE_EXTERN=
+ 
+ # TCL_DEFS is not strictly need here, but if you remove it, then you
+ # must make sure that configure.in checks for the necessary components
