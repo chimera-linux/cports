@@ -3,7 +3,6 @@ pkgver = "2.13.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
-checkdepends = ["iana-etc"]
 pkgdesc = "Library for encoding, decoding and manipulating JSON data"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
