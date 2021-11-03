@@ -1,4 +1,4 @@
-pkgname = "tcl"
+pkgname = "tk"
 pkgver = "8.6.11"
 pkgrel = 0
 build_wrksrc = "unix"
@@ -7,22 +7,24 @@ configure_args = [
     "--enable-threads",
     "--enable-man-symlinks",
     "--disable-rpath",
-    "--with-system-sqlite",
     "--without-tzdata",
-    "tcl_cv_strstr_unbroken=ok",
-    "tcl_cv_strtoul_unbroken=ok",
+    "tk_cv_strtod_unbroken=ok",
+    "LIBS=-ltcl8.6",
 ]
 hostmakedepends = ["pkgconf"]
-makedepends = ["zlib-devel", "sqlite-devel"]
-provides = ["so:libtcl8.6.so=0"]
-pkgdesc = "TCL scripting language"
+makedepends = [
+    "zlib-devel", "tcl-devel", "libxext-devel", "libxscrnsaver-devel",
+    "libxft-devel"
+]
+provides = ["so:libtk8.6.so=0"]
+pkgdesc = "TK graphical user interface toolkit for TCL"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}{pkgver}-src.tar.gz"
-sha256 = "8c0486668586672c5693d7d95817cb05a18c5ecca2f40e2836b9578064088258"
+source = f"$(SOURCEFORGE_SITE)/tcl/{pkgname}{pkgver}-src.tar.gz"
+sha256 = "5228a8187a7f70fa0791ef0f975270f068ba9557f57456f51eb02d9d4ea31282"
 # no check target
-options = ["!check"]
+options = ["!check", "!cross"]
 
 def init_configure(self):
     self.make_install_args += [
@@ -31,16 +33,16 @@ def init_configure(self):
     ]
 
 def post_install(self):
-    self.install_link("tclsh8.6", "usr/bin/tclsh")
+    self.install_link("wish8.6", "usr/bin/wish")
     self.install_license("../license.terms")
 
-@subpackage("tcl-devel")
+@subpackage("tk-devel")
 def _devel(self):
-    self.depends += [f"tcl={pkgver}-r{pkgrel}"]
     return [
-        "usr/lib/tclConfig.sh",
+        "usr/lib/tkConfig.sh",
         "usr/include",
         "usr/lib/pkgconfig",
         "usr/share/man/man3",
+        "usr/share/man/mann",
         "usr/lib/*.a",
     ]
