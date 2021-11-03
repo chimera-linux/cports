@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "Building fonts cache..."
+
+fc-cache -f > /dev/null || :
