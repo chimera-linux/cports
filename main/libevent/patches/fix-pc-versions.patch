@@ -1,0 +1,26 @@
+From af17f03cb614d3344959a7d73b3f9735250b7f83 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 3 Nov 2021 23:30:51 +0100
+Subject: [PATCH] remove -stable from version
+
+this allows version tracing of .pc files to work
+---
+ configure | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure b/configure
+index f43e2f2..d355e4c 100755
+--- a/configure
++++ b/configure
+@@ -3215,7 +3215,7 @@ fi
+ 
+ # Define the identity of the package.
+  PACKAGE='libevent'
+- VERSION='2.1.12-stable'
++ VERSION='2.1.12'
+ 
+ 
+ cat >>confdefs.h <<_ACEOF
+-- 
+2.33.1
+
