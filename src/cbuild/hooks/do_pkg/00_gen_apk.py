@@ -116,6 +116,8 @@ def genpkg(
                 metadata["trigger"] = tp.resolve()
                 metadata["triggers"] = list(pkg.triggers)
 
+            metadata["file_modes"] = pkg.file_modes
+
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
         pkgname = pkg.pkgname

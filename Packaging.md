@@ -447,6 +447,18 @@ Keep in mind that default values may be overridden by build styles.
   the program to wrap, while the second element is the wrapper name. You
   can use this to e.g. use `sed` as `sed` by wrapping `/usr/bin/gsed`, in
   case it is too much trouble to patch the build system.
+* `file_modes` *(dict)* A dictionary of strings to 3-tuples, where the
+  string keys are file paths (relative to the package, e.g. `usr/foo`)
+  and the 3-tuples contain user definition, group definition and permissions.
+  The user and group definitions have the format `name:id` where `name` is
+  the user/group name and `id` is the explicit numeric id. Other formats
+  are not allowed, as the numbers are not known at build time. The last
+  field is a regular permissions integer. This can be used when the package
+  creates a new group or user and needs to have files that are owned by
+  that (the user/group should be created in a `pre` hook to be available
+  during extraction). Keep in mind that the `suid` checks and so on still
+  happen, so if you make the permissions `suid`, you also need to declare
+  the file in `suid_files`.
 * `hardening` *(list)* Hardening options to be enabled or disabled for the
   template. Refer to the hardening section for more information. This is
   a simple list of strings that works similarly to `options`, with `!`

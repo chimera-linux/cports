@@ -133,13 +133,35 @@ def create(
     if "triggers" in metadata:
         add_field("triggers", " ".join(metadata["triggers"]))
 
+    if "file_modes" in metadata:
+        fmodes = metadata["file_modes"]
+    else:
+        fmodes = {}
+
     # all archive files need some special attributes
     def ctrl_filter(tinfo):
         tinfo.mtime = int(epoch)
-        tinfo.uname = "root"
-        tinfo.gname = "root"
-        tinfo.uid = 0
-        tinfo.gid = 0
+        if tinfo.name in fmodes:
+            uname, gname, fmode = fmodes[tinfo.name]
+            if uname:
+                col = uname.find(":")
+                tinfo.uname = uname[:col]
+                tinfo.uid = int(uname[col + 1:])
+            else:
+                tinfo.uname = "root"
+                tinfo.uid = 0
+            if gname:
+                col = gname.find(":")
+                tinfo.gname = gname[:col]
+                tinfo.gid = int(gname[col + 1:])
+            else:
+                tinfo.gname = "root"
+                tinfo.gid = 0
+        else:
+            tinfo.uname = "root"
+            tinfo.gname = "root"
+            tinfo.uid = 0
+            tinfo.gid = 0
         tinfo.pax_headers["ctime"] = "0"
         tinfo.pax_headers["atime"] = "0"
         return tinfo

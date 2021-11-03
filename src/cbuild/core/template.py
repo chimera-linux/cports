@@ -382,6 +382,7 @@ core_fields = [
 
     # packaging
     ("triggers", [], list, False, True, False),
+    ("file_modes", {}, dict, False, True, False),
 
     # wrappers
     ("exec_wrappers", [], list, False, False, False),
@@ -461,6 +462,7 @@ core_fields_priority = [
     ("nostrip_files", True),
     ("nopie_files", True),
     ("suid_files", True),
+    ("file_modes", True),
 
     ("hardening", True),
     ("options", True),
