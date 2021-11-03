@@ -14,6 +14,7 @@ configure_args = [
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = ["zlib-devel", "sqlite-devel"]
+provides = ["so:libtcl8.6.so=0"]
 pkgdesc = "TCL scripting language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
@@ -35,4 +36,10 @@ def post_install(self):
 
 @subpackage("tcl-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return [
+        "usr/lib/tclConfig.sh",
+        "usr/include",
+        "usr/lib/pkgconfig",
+        "usr/share/man/man3",
+        "usr/lib/*.a",
+    ]

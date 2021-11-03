@@ -36,8 +36,8 @@ def invoke(pkg):
         eq = soname.find("=")
         if eq < 0:
             pkg.error(f"invalid explicit shlib: {soname}")
-        soname = soname[:eq]
         sfx = soname[eq + 1:]
+        soname = soname[:eq]
         soset[soname] = True
         logger.get().out_plain(f"   SONAME {soname}={sfx} (explicit)")
 
