@@ -159,10 +159,20 @@ def _glapi(self):
     return ["usr/lib/libglapi.so.*"]
 
 @subpackage("libgbm")
-def _glapi(self):
+def _gbm(self):
     self.pkgdesc = "Generic Buffer Management (shared library)"
 
     return ["usr/lib/libgbm.so.*"]
+
+@subpackage("libgbm-devel")
+def _gbm_devel(self):
+    self.pkgdesc = "Generic Buffer Management (development files)"
+
+    return [
+        "usr/include/gbm.h",
+        "usr/lib/libgbm.so",
+        "usr/lib/pkgconfig/gbm.pc",
+    ]
 
 @subpackage("libosmesa")
 def _osmesa(self):
@@ -214,57 +224,26 @@ def _opencl(self):
 def _dri(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
-    def _install():
-        self.take("usr/lib/dri/*_drv_video.so")
-
-        for f in (self.destdir / "usr/lib/dri").glob("*.so"):
-            if f.name == "libgallium_drv_video.so":
-                continue
-            self.nostrip_files += [str(f.relative_to(self.destdir))]
-
-    return _install
+    return ["usr/lib/dri/*_drv_video.so"]
 
 @subpackage("mesa-vdpau", _have_hwdec)
 def _dri(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
-    def _install():
-        self.take("usr/lib/vdpau/libvdpau_*")
-
-        for f in (self.destdir / "usr/lib/vdpau").glob("*.so"):
-            if f.name.startswith("libvdpau_gallium.so"):
-                continue
-            self.nostrip_files += [str(f.relative_to(self.destdir))]
-
-    return _install
+    return ["usr/lib/vdpau/libvdpau_*"]
 
 @subpackage("mesa-xvmc", _have_hwdec)
 def _dri(self):
     self.pkgdesc = "MesaXvMC drivers"
 
-    def _install():
-        self.take("usr/lib/libXvMC*")
-
-        for f in (self.destdir / "usr/lib").glob("libXvMC*.so"):
-            if f.name.startswith("libXvMCgallium.so"):
-                continue
-            self.nostrip_files += [str(f.relative_to(self.destdir))]
-
-    return _install
+    return ["usr/lib/libXvMC*"]
 
 @subpackage("mesa-dri")
 def _dri(self):
     self.pkgdesc = "Mesa graphics drivers"
+    self.depends += [f"mesa={pkgver}-r{pkgrel}"]
 
-    def _install():
-        self.take("usr/lib/dri")
-
-        for f in (self.destdir / "usr/lib/dri").glob("*.so"):
-            if f.name == "libgallium_dri.so":
-                continue
-            self.nostrip_files += [str(f.relative_to(self.destdir))]
-
-    return _install
+    return ["usr/lib/dri"]
 
 @subpackage("mesa-vulkan-intel", _have_intel and _have_vulkan)
 def _vulkan_intel(self):
@@ -297,4 +276,6 @@ def _vulkan_intel(self):
 
 @subpackage("mesa-devel")
 def _devel(self):
+    self.depends += ["libgbm-devel"]
+
     return self.default_devel()
