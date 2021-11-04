@@ -20,11 +20,12 @@ configure_args = [
     "-Dcpp_std=gnu++14",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "flex", "llvm", "glslang", "bison",
+    "meson", "pkgconf", "flex", "glslang", "bison",
     "wayland-protocols", "wayland-progs", "python-mako"
 ]
 makedepends = [
     "llvm-devel",
+    "clang-devel",
     # base driver/platform stuff
     "libdrm-devel",
     # wayland
@@ -72,8 +73,8 @@ _have_intel = False
 _have_vmware = False
 _have_nine = False
 _have_arm = False
-_have_opencl = False #_have_amd or _have_intel # libclc not yet packaged
-_have_vulkan = False #_have_amd or _have_intel # vulkan-loader not yet packaged
+_have_opencl = _have_amd or _have_intel
+_have_vulkan = _have_amd or _have_intel
 _have_zink = _have_vulkan
 
 match current.profile().arch:
