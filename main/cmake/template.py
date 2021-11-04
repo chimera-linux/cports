@@ -23,13 +23,19 @@ tool_flags = {
 # checkdepends are missing
 options = ["!check"]
 
-# TODO:
-#  --system-jsoncpp
-#  --system-librhash
-#  --system-libuv
+# need to use bundled jsoncpp (i.e. --system-jsoncpp is not possible) as
+# the two build systems that offers are meson and cmake - cmake cannot be
+# used for obvious reasons, meson can't either as during stage 2 at the
+# point cmake is built, meson is not yet available, but no big deal
 if current.stage >= 2:
-    makedepends += ["libcurl-devel", "nghttp2-devel", "libexpat-devel"]
-    configure_args += ["--system-curl", "--system-nghttp2", "--system-expat"]
+    makedepends += [
+        "libcurl-devel", "nghttp2-devel", "libexpat-devel", "libuv-devel",
+        "rhash-devel",
+    ]
+    configure_args += [
+        "--system-curl", "--system-nghttp2", "--system-expat",
+        "--system-libuv", "--system-librhash",
+    ]
 
 def post_install(self):
     self.install_license("Copyright.txt")
