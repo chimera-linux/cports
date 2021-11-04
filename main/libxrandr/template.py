@@ -15,6 +15,6 @@ sha256 = "8aea0ebe403d62330bb741ed595b53741acf45033d3bda1792f1d4cc3daee023"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxxf86vm-devel")
+@subpackage("libxrandr-devel")
 def _devel(self):
     return self.default_devel(man = True)
