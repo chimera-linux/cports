@@ -1,15 +1,3 @@
-From b120ec8101ff44eae1c381a3141c7c6325b96d27 Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
-Date: Tue, 2 Nov 2021 23:52:18 +0100
-Subject: [PATCH] enable elogind support
-
----
- configure               | 2 +-
- dbus/dbus-userdb-util.c | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/configure b/configure
-index 38db1dd..8e2e9e6 100755
 --- a/configure
 +++ b/configure
 @@ -22407,7 +22407,7 @@ $as_echo "#define WITH_VALGRIND 1" >>confdefs.h
@@ -21,8 +9,39 @@ index 38db1dd..8e2e9e6 100755
  
  
  ### X11 detection
-diff --git a/dbus/dbus-userdb-util.c b/dbus/dbus-userdb-util.c
-index 170d233..8238caf 100644
+--- a/dbus/dbus-spawn.c
++++ b/dbus/dbus-spawn.c
+@@ -24,6 +24,8 @@
+ 
+ #include <config.h>
+ 
++#define HAVE_SYSTEMD 1
++
+ #include "dbus-spawn.h"
+ #include "dbus-sysdeps-unix.h"
+ #include "dbus-internals.h"
+--- a/dbus/dbus-sysdeps-unix.c
++++ b/dbus/dbus-sysdeps-unix.c
+@@ -24,6 +24,8 @@
+ 
+ #include <config.h>
+ 
++#define HAVE_SYSTEMD 1
++
+ #include "dbus-internals.h"
+ #include "dbus-sysdeps.h"
+ #include "dbus-sysdeps-unix.h"
+--- a/dbus/dbus-sysdeps-util-unix.c
++++ b/dbus/dbus-sysdeps-util-unix.c
+@@ -34,6 +34,8 @@
+ #include "dbus-userdb.h"
+ #include "dbus-test.h"
+ 
++#define HAVE_SYSTEMD 1
++
+ #include <sys/types.h>
+ #include <stdlib.h>
+ #include <string.h>
 --- a/dbus/dbus-userdb-util.c
 +++ b/dbus/dbus-userdb-util.c
 @@ -29,6 +29,8 @@
@@ -34,6 +53,3 @@ index 170d233..8238caf 100644
  #ifdef HAVE_SYSTEMD
  #include <systemd/sd-login.h>
  #endif
--- 
-2.33.0
-
