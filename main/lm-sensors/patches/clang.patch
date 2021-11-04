@@ -1,0 +1,19 @@
+commit 831c98439be7ca1120a61728dbc26f042617b6bf
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Nov 4 03:40:02 2021 +0100
+
+    do not force compiler
+
+diff --git a/Makefile b/Makefile
+index 47ffe78..c492d25 100644
+--- a/Makefile
++++ b/Makefile
+@@ -45,7 +45,7 @@ DESTDIR :=
+ PREFIX := /usr/local
+ 
+ # Your C compiler
+-CC := gcc
++CC = gcc
+ 
+ # This is the directory where sensors3.conf will be installed, if no other
+ # configuration file is found
