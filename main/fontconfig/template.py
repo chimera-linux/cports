@@ -8,7 +8,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gperf", "gmake"]
-makedepends = ["libexpat-devel", "freetype-devel", "libuuid-devel"]
+makedepends = ["libexpat-devel", "freetype-bootstrap", "libuuid-devel"]
 pkgdesc = "Library for configuring and customizing font access"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

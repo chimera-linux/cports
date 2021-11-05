@@ -13,7 +13,9 @@ configure_args = [
     "-Ddocs=disabled",
 ]
 hostmakedepends = ["meson", "pkgconf", "glib-devel"]
-makedepends = ["cairo-devel", "graphite2-devel", "icu-devel"]
+makedepends = [
+    "freetype-bootstrap", "cairo-devel", "graphite2-devel", "icu-devel"
+]
 pkgdesc = "Text shaping engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

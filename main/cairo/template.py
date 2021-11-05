@@ -5,7 +5,7 @@ build_style = "meson"
 configure_args = ["-Dtee=enabled", "-Dspectre=disabled", "-Dtests=disabled"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
-    "fontconfig-devel", "freetype-devel", "libglib-devel",
+    "fontconfig-devel", "freetype-bootstrap", "libglib-devel",
     "libpng-devel", "libx11-devel", "libxcb-devel", "libxext-devel",
     "libxrender-devel", "lzo-devel", "zlib-devel", "pixman-devel",
 ]
