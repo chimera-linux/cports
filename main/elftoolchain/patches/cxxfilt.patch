@@ -1,0 +1,14 @@
+Using --as-needed here eliminates the libelf linkage,
+which results in undefined symbols at runtime.
+
+--- a/cxxfilt/Makefile
++++ b/cxxfilt/Makefile
+@@ -8,7 +8,7 @@ SRCS=	cxxfilt.c
+ WARNS?=	6
+ 
+ DPADD=	${LIBELFTC} ${LIBELF}
+-LDADD=	-lelftc -lelf
++LDADD=	-Wl,--no-as-needed -lelftc -lelf
+ 
+ MAN1=	c++filt.1
+ 
