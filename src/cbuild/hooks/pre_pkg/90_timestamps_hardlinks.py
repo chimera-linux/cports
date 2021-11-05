@@ -18,13 +18,15 @@ def invoke(pkg):
 
     pkg.log(f"detecting hardlinks and setting mtimes to {dt}")
 
+    hardlinks = pkg.options["hardlinks"]
+
     # mappings from inode to full path
     hards = {}
     for root, dirs, files in os.walk(pkg.destdir):
         for f in files:
             absp = os.path.join(root, f)
             st = os.lstat(absp)
-            if st.st_nlink > 1:
+            if st.st_nlink > 1 and not hardlinks:
                 if not st.st_ino in hards:
                     # first occurence
                     hards[st.st_ino] = absp

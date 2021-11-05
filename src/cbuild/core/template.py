@@ -294,6 +294,7 @@ default_options = {
     "checkroot": (False, True),
     "keepempty": (False, False),
     "brokenlinks": (False, False),
+    "hardlinks": (False, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),
