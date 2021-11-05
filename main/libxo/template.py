@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-dependency-tracking"]
 hostmakedepends = ["pkgconf", "gettext-tiny"]
+makedepends = ["musl-bsd-headers"]
 pkgdesc = "Library for generating text, XML, JSON, and HTML output"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
@@ -14,13 +15,9 @@ tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["bootstrap"]
 
 if current.stage > 0:
-    makedepends = ["gettext-tiny-devel"]
+    makedepends += ["gettext-tiny-devel"]
 else:
     configure_args += ["--disable-gettext"]
-
-def post_patch(self):
-    self.mkdir("libxo/sys")
-    self.cp(self.files_path / "queue.h", "libxo/sys")
 
 # libxo does not respect LDFLAGS, so hack it in
 def init_configure(self):
