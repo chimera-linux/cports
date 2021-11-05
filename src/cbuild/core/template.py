@@ -351,7 +351,7 @@ core_fields = [
 
     # other package lists + related
     ("provides", [], list, False, True, False),
-    ("provider_priority", 0, int, False, True, False),
+    ("provider_priority", 0, int, False, True, True),
     ("install_if", [], list, False, True, False),
 
     # build systems

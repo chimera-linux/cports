@@ -550,7 +550,9 @@ Keep in mind that default values may be overridden by build styles.
   non-conforming `SONAME` which the scanner does not pick up, or the
   scanner is disabled explicitly.
 * `provider_priority` *(int)* When resolving virtual packages, the package
-  with higher priority will be considered first. By default `0`.
+  with higher priority will be considered first. By default `0`. The primary
+  package's priority is inherited into subpackages. You can still override
+  it manually if you need.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.
