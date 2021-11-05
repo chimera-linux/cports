@@ -1,0 +1,39 @@
+From 974e9f2d745c4c20a6f68b54e7f9c1d38078434c Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 5 Nov 2021 22:21:54 +0100
+Subject: [PATCH] use symlinks for binaries
+
+---
+ ar/Makefile      | 2 +-
+ elfcopy/Makefile | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/ar/Makefile b/ar/Makefile
+index cfbaac3..ae49132 100644
+--- a/ar/Makefile
++++ b/ar/Makefile
+@@ -14,7 +14,7 @@ LDADD=	-larchive -lelftc -lelf -lz
+ 
+ CFLAGS+=-I. -I${.CURDIR}
+ 
+-LINKS=	${BINDIR}/ar ${BINDIR}/ranlib
++SYMLINKS=	${BINDIR}/ar ${BINDIR}/ranlib
+ 
+ EXTRA_TARGETS=	ranlib
+ 
+diff --git a/elfcopy/Makefile b/elfcopy/Makefile
+index a73515a..ca6e03c 100644
+--- a/elfcopy/Makefile
++++ b/elfcopy/Makefile
+@@ -31,7 +31,7 @@ MLINKS=	elfcopy.1 objcopy.1
+ 
+ NO_SHARED?=	yes
+ 
+-LINKS=	${BINDIR}/elfcopy ${BINDIR}/mcs		\
++SYMLINKS=	${BINDIR}/elfcopy ${BINDIR}/mcs		\
+ 	${BINDIR}/elfcopy ${BINDIR}/objcopy 	\
+ 	${BINDIR}/elfcopy ${BINDIR}/strip
+ 
+-- 
+2.33.1
+
