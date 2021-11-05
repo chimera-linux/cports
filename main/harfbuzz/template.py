@@ -1,5 +1,5 @@
 pkgname = "harfbuzz"
-pkgver = "2.9.1"
+pkgver = "3.1.0"
 pkgrel = 0
 build_style = "meson"
 # FIXME: introspection, docs
@@ -8,7 +8,7 @@ configure_args = [
     "-Dfreetype=enabled",
     "-Dcairo=enabled",
     "-Dicu=enabled",
-    "-Dgraphite=enabled",
+    "-Dgraphite2=enabled",
     "-Dintrospection=disabled",
     "-Ddocs=disabled",
 ]
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0edcc980f526a338452180e701d6aba6323aef457b6686976a7d17ccbddc51cf"
+sha256 = "2359390944a74a933d2b1bd214754a5b3f817916a09c6d4ca3d263473cf19b8e"
 
 def post_install(self):
     self.install_license("COPYING")
