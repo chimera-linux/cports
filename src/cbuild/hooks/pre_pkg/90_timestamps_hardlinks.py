@@ -10,15 +10,22 @@ from datetime import datetime
 import os
 
 def invoke(pkg):
-    if not pkg.rparent.source_date_epoch:
+    hardlinks = pkg.options["hardlinks"]
+
+    if not pkg.rparent.source_date_epoch and hardlinks:
         return
 
     ts = pkg.rparent.source_date_epoch
-    dt = datetime.fromtimestamp(ts).ctime()
+    dt = None
+    if ts:
+        dt = datetime.fromtimestamp(ts).ctime()
 
-    pkg.log(f"detecting hardlinks and setting mtimes to {dt}")
-
-    hardlinks = pkg.options["hardlinks"]
+    if ts and not hardlinks:
+        pkg.log(f"detecting hardlinks and setting mtimes to {dt}")
+    elif ts:
+        pkg.log(f"setting mtimes to {dt}")
+    else:
+        pkg.log(f"detecting hardlinks")
 
     # mappings from inode to full path
     hards = {}
@@ -35,4 +42,5 @@ def invoke(pkg):
                     p2 = os.path.relpath(hards[st.st_ino], pkg.destdir)
                     pkg.error(f"hardlink detected ({p1}, previously {p2})")
             # update timestamp
-            os.utime(absp, (ts, ts), follow_symlinks = False)
+            if ts:
+                os.utime(absp, (ts, ts), follow_symlinks = False)
