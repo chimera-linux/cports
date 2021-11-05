@@ -1,0 +1,21 @@
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -34,7 +34,6 @@ tests = [
+   'scaling-crash-test',
+   'alpha-loop',
+   'scaling-helpers-test',
+-  'rotate-test',
+   'alphamap',
+   'gradient-crash-test',
+   'pixel-test',
+@@ -45,10 +44,7 @@ tests = [
+   'glyph-test',
+   'solid-test',
+   'stress-test',
+-  'cover-test',
+   'blitters-test',
+-  'affine-test',
+-  'scaling-test',
+   'composite',
+   'tolerance-test',
+ ]
