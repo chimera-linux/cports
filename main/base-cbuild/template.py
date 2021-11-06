@@ -11,7 +11,7 @@ depends = [
     "base-files", "musl-devel", "elftoolchain", "llvm", "clang", "lld",
     "apk-tools-static", "bsdutils-extra", "bsdgrep", "bsdgzip", "bsdpatch",
     "bsdsed", "bsddiff", "bmake", "bsdtar", "dash", "mksh-static", "awk",
-    "ncurses", "util-linux-cbuild", "tzdata",
+    "ncurses", "util-linux-cbuild", "tzdata", "fakeroot",
 ]
 # provide a low version so it does not take over
 provides = ["apk-tools=0.0.1-r0"]
