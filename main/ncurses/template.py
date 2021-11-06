@@ -101,6 +101,7 @@ def _devel(self):
 @subpackage("ncurses-base")
 def _base(self):
     self.pkgdesc = f"{pkgdesc} (base terminfo files)"
+    self.options = ["hardlinks"]
 
     flist = []
     with (self.rparent.files_path / "base-files").open() as f:
@@ -113,6 +114,7 @@ def _base(self):
 def _term(self):
     self.pkgdesc = f"{pkgdesc} (full terminal descriptions)"
     self.depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
+    self.options = ["hardlinks"]
 
     return [
         "usr/share/tabset",
