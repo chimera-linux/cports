@@ -1,0 +1,15 @@
+pkgname = "fakeroot"
+pkgver = "1.26"
+pkgrel = 0
+build_style = "gnu_configure"
+configure_args = ["--disable-static"]
+make_cmd = "gmake"
+make_check_env = {"VERBOSE": "x"}
+hostmakedepends = ["gmake"]
+makedepends = ["acl-devel", "libcap-devel"]
+pkgdesc = "Tool for simulating superuser privileges"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "GPL-3.0-or-later"
+url = "https://salsa.debian.org/clint/fakeroot"
+source = f"https://ftp.octaforge.org/q66/random/{pkgname}-{pkgver}.tar.gz"
+sha256 = "8af7aa3260445153c11c8fef408460082c4aac428fe440fd8ec4116e1883e9b8"
