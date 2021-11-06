@@ -283,7 +283,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
           bootstrapping = False, ro_root = False, ro_build = False,
           ro_dest = True, unshare_all = False, mount_binpkgs = False,
           mount_ccache = False, pretend_uid = None, pretend_gid = None,
-          new_session = True):
+          fakeroot = False, new_session = True):
     defpath = "/usr/bin"
     if bootstrapping:
         defpath = "/usr/bin:" + os.environ["PATH"]
@@ -372,9 +372,9 @@ def enter(cmd, args = [], capture_out = False, check = False,
     if mount_ccache:
         bcmd += ["--bind", paths.ccache(), "/ccache"]
 
-    if pretend_uid is None:
+    if pretend_uid is None or fakeroot:
         pretend_uid = 1337
-    if pretend_gid is None:
+    if pretend_gid is None or fakeroot:
         pretend_gid = 1337
 
     bcmd += ["--uid", str(pretend_uid)]
@@ -386,6 +386,9 @@ def enter(cmd, args = [], capture_out = False, check = False,
     if wrkdir:
         bcmd.append("--chdir")
         bcmd.append(wrkdir)
+
+    if fakeroot:
+        bcmd += ["--setenv", "FAKEROOTDONTTRYCHOWN", "1", "fakeroot", "--"]
 
     bcmd.append(cmd)
     bcmd += args

@@ -400,8 +400,8 @@ def do_chroot(tgt):
     paths.prepare()
     chroot.repo_sync(True)
     chroot.enter(
-        "/usr/bin/mksh.static", ["-i"], pretend_uid = 0, pretend_gid = 0,
-        mount_binpkgs = True, mount_ccache = True, new_session = False,
+        "/usr/bin/mksh.static", ["-i"], fakeroot = True, new_session = False,
+        mount_binpkgs = True, mount_ccache = True,
         env = {
             "HOME": "/tmp",
             "TERM": "linux",
