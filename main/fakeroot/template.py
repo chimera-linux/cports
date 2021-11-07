@@ -1,5 +1,5 @@
 pkgname = "fakeroot"
-pkgver = "1.26"
+pkgver = "1.25.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
@@ -12,4 +12,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"https://ftp.octaforge.org/q66/random/{pkgname}-{pkgver}.tar.gz"
-sha256 = "8af7aa3260445153c11c8fef408460082c4aac428fe440fd8ec4116e1883e9b8"
+sha256 = "2c8a1443d77009b07f3b9ef3797036fb7d77b16fb648692ae39e8c480fd0e0e9"

@@ -1,0 +1,14 @@
+This test assumes Debian user/group layout.
+
+diff --git a/test/Makefile.in b/test/Makefile.in
+index 5ec2760..9cff0b9 100644
+--- a/test/Makefile.in
++++ b/test/Makefile.in
+@@ -470,7 +470,6 @@ TESTS = \
+   t.no_ld_preload				\
+   t.no_ld_preload_link				\
+   t.option					\
+-  t.tar						\
+   t.touchinstall				\
+   t.truereturn \
+   t.xattr

@@ -106,19 +106,5 @@ index 53c67d3..b511330 100644
  #define SEND_GET_XATTR64(a,b,c) send_get_xattr64(a,b)
  #endif
  
-@@ -128,13 +130,6 @@
- #define INT_SEND_STAT(a,b) SEND_STAT(a,b,_STAT_VER)
- #define INT_SEND_GET_XATTR(a,b) SEND_GET_XATTR(a,b,_STAT_VER)
- #define INT_SEND_GET_STAT(a,b) SEND_GET_STAT(a,b)
--
--/* 10.10 uses id_t in getpriority/setpriority calls, so pretend
--   id_t is used everywhere, just happens to be int on some OSes */
--#ifndef _ID_T
--#define _ID_T
--typedef int id_t;
--#endif
- #endif
- 
- #include <sys/types.h>
 -- 
 2.33.1
