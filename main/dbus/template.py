@@ -22,6 +22,7 @@ hostmakedepends = ["gmake", "gperf", "pkgconf", "xmlto"]
 makedepends = [
     "elogind-devel", "libexpat-devel", "libx11-devel", "libcap-devel"
 ]
+install_if = ["elogind", f"dbus-libs={pkgver}-r{pkgrel}"]
 pkgdesc = "Message bus system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
