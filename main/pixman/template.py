@@ -8,6 +8,8 @@ configure_args = [
     "-Dlibpng=enabled",
     "-Dgtk=disabled",
     "-Dopenmp=disabled",
+    "-Diwmmxt=disabled",
+    "-Dvmx=disabled",
 ]
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = ["linux-headers"]
