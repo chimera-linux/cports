@@ -104,7 +104,7 @@ def call_chroot(
     return chroot.enter(
         "apk", cmd + _collect_repos(mrepo, True, arch) + args,
         capture_out = capture_out, check = check,
-        pretend_uid = 0, pretend_gid = 0, mount_binpkgs = True
+        fakeroot = True, mount_binpkgs = True
     )
 
 def is_installed(pkgn, pkg = None):

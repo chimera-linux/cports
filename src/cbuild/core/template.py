@@ -921,11 +921,11 @@ class Template(Package):
         if wrksrc:
             wdir = wdir / wrksrc
 
-        puid = None
+        fakeroot = False
         if self.current_phase == "install":
-            puid = 0
+            fakeroot = True
         elif self.current_phase == "check" and self.options["checkroot"]:
-            puid = 0
+            fakeroot = True
 
         return chroot.enter(
             cmd, args, env = cenv, wrkdir = wdir, check = True,
@@ -933,7 +933,7 @@ class Template(Package):
             ro_build = self.install_done,
             ro_dest = (self.current_phase != "install"),
             mount_ccache = True, unshare_all = (self.current_phase != "fetch"),
-            pretend_uid = puid, pretend_gid = puid
+            fakeroot = fakeroot,
         )
 
     def stamp(self, name):
