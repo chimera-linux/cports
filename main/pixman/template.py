@@ -9,7 +9,7 @@ configure_args = [
     "-Dgtk=disabled",
     "-Dopenmp=disabled",
     "-Diwmmxt=disabled",
-    "-Dvmx=disabled",
+    "-Dvmx=disabled", # tests fail with vmx on (and things render wrong)
 ]
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = ["linux-headers"]
