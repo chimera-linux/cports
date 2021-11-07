@@ -71,10 +71,12 @@ if current.stage > 0:
     # for stage 2 onwards also enable debugger
     # in stage 1 there is no point in wasting cpu time with it
     if current.stage >= 2:
-        # TODO: needs swig
         configure_args += [
-            "-DLLDB_ENABLE_PYTHON=NO",
+            "-DLLDB_ENABLE_LUA=NO", # maybe later
+            "-DLLDB_ENABLE_PYTHON=YES",
+            "-DLLDB_USE_SYSTEM_SIX=YES",
         ]
+        hostmakedepends += ["swig"]
         _enabled_projects += ["lldb"]
 else:
     configure_args += [
@@ -115,6 +117,9 @@ def init_configure(self):
     self.configure_args.append("-DLLVM_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/llvm-tblgen"))
     self.configure_args.append("-DCLANG_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/clang-tblgen"))
 
+    if self.stage >= 2:
+        self.configure_args.append("-DLLDB_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/lldb-tblgen"))
+
 def pre_configure(self):
     if not self.cross_build:
         return
@@ -138,6 +143,13 @@ def pre_configure(self):
             make.Make(self, wrksrc = "build_host").build([
                 "-C", "tools/clang/utils/TableGen"
             ])
+
+        if self.stage >= 2:
+            with self.stamp("host_lldb_tblgen") as s:
+                s.check()
+                make.Make(self, wrksrc = "build_host").build([
+                    "-C", "tools/lldb/utils/TableGen"
+                ])
 
 def do_configure(self):
     from cbuild.util import cmake
@@ -184,6 +196,14 @@ def post_install(self):
     # libomp symlink
     for f in (self.destdir / "usr/lib").glob("libomp.so.*"):
         self.install_link(f.name, "usr/lib/libomp.so")
+
+    # fix up python liblldb symlink so it points to versioned one
+    # unversioned one is in devel package so we cannot point to it
+    for f in (self.destdir / "usr/lib").glob("python3*"):
+        f = f / "site-packages/lldb/_lldb.so"
+        if f.is_symlink():
+            f.unlink()
+            f.symlink_to(f"../../../liblldb.so.{_mver}")
 
 @subpackage("clang-tools-extra")
 def _tools_extra(self):
@@ -437,10 +457,12 @@ def _libllvm(self):
 @subpackage("lldb", current.stage >= 2)
 def _lldb(self):
     self.pkgdesc = f"{pkgdesc} (debugger)"
+    self.depends += ["python-six"]
 
     return [
         "usr/bin/*lldb*",
         "usr/lib/liblldb*.so.*",
+        "usr/lib/python*",
     ]
 
 @subpackage("lldb-devel", current.stage >= 2)
