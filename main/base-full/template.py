@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meta"
 depends = [
     "base-core", "nano", "initramfs-tools", "openssh", "opendoas",
-    "ethtool", "dhcpcd", "usbutils", "f2fs-tools", "elogind"
+    "ethtool", "dhcpcd", "usbutils", "f2fs-tools", "elogind", "dbus",
 ]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
 maintainer = "q66 <q66@chimera-linux.org>"
