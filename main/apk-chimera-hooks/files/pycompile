@@ -1,0 +1,54 @@
+#!/bin/sh
+
+compile_dir() {
+    echo "Compiling Python code in ${2}..."
+    python${1} -m compileall -f -q "$2" && \
+    python${1} -O -m compileall -f -q "$2"
+}
+
+compile_mod() {
+    echo "Compiling Python code for ${2}..."
+    python${1} -m compileall -f -q "/usr/lib/python${1}/site-packages/$2" && \
+    python${1} -O -m compileall -f -q "/usr/lib/python${1}/site-packages/$2"
+}
+
+remove_dir() {
+    echo "Removing compiled Python code in ${2}..."
+    find "$2" -type f -name \*.py[co] -delete 2>&1 >/dev/null
+    find "$2" -type d -name __pycache__ -delete 2>&1 >/dev/null
+}
+
+remove_mod() {
+    echo "Removing compiled Python code for ${2}..."
+    if [ -d "/usr/lib/python${1}/site-packages/${2}" ]; then
+        find "/usr/lib/python${1}/site-packages/${2}" \
+            -type f -name \*.py[co] -delete 2>&1 >/dev/null
+        find "/usr/lib/python${1}/site-packages/${2}" \
+            -type d -name __pycache__ -delete 2>&1 >/dev/null
+    else
+        rm -f "/usr/lib/python${1}/site-packages/${2%.py}.py[co]"
+    fi
+}
+
+die() {
+    echo "Usage: $0 VERSION (compile|remove)-(module|dir) target" >&2
+    exit 1
+}
+
+if [ $# -ne 3 ]; then
+    die
+fi
+
+pyver="$1"
+target="$2"
+shift 2
+
+case "$target" in
+    compile-dir)    compile_dir "$pyver" "$@";;
+    compile-module) compile_mod "$pyver" "$@";;
+    remove-dir)     remove_dir "$pyver" "$@";;
+    remove-module)  remove_mod "$pyver" "$@";;
+    *) die ;;
+esac
+
+exit 0
