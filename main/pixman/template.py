@@ -12,8 +12,7 @@ configure_args = [
     "-Dvmx=disabled", # tests fail with vmx on (and things render wrong)
 ]
 hostmakedepends = ["meson", "pkgconf", "perl"]
-makedepends = ["linux-headers"]
-checkdepends = ["libpng-devel"]
+makedepends = ["linux-headers", "libpng-devel"]
 pkgdesc = "Library of low-level pixel manipulation routines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
