@@ -14,7 +14,7 @@ sha256 = [
     "2e6b14cfe3ee389f67887c36436cc40ff11266e5c2213295c1528f42a65dc98e"
 ]
 # no tests
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "hardlinks"]
 
 def do_build(self):
     from cbuild.util import compiler
