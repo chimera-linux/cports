@@ -2,7 +2,6 @@ pkgname = "freetype"
 pkgver = "2.11.0"
 pkgrel = 0
 build_style = "meson"
-# FIXME: enable harfbuzz
 configure_args = [
     "-Dbrotli=disabled",
     "-Dharfbuzz=enabled",
