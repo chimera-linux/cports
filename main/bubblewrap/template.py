@@ -2,10 +2,8 @@ pkgname = "bubblewrap"
 pkgver = "0.5.0"
 pkgrel = 0
 build_style = "gnu_configure"
-# FIXME: enable when we have xsltproc
-configure_args = ["--disable-man"]
 make_check_args = ["-j1"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["pkgconf", "xsltproc", "docbook-xsl-nons"]
 makedepends = ["libcap-devel"]
 checkdepends = ["bash", "libcap-progs"]
 pkgdesc = "Unprivileged sandboxing tool"
