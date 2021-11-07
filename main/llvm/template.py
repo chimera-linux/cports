@@ -4,9 +4,6 @@ pkgver = f"{_mver}.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    # don't enable lldb for now, we don't package enough for it
-    "-DLLVM_ENABLE_PROJECTS=clang;clang-tools-extra;compiler-rt;libcxx;libcxxabi;libunwind;lld;openmp",
-    # other stuff
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
     "-DENABLE_LINKER_BUILD_ID=YES",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
@@ -56,8 +53,10 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-# not enabling lldb for now, we don't package enough stuff yet
-_enabled_projects = "clang;clang-tools-extra;compiler-rt;libcxx;libcxxabi;libunwind;lld"
+_enabled_projects = [
+    "clang", "clang-tools-extra", "compiler-rt", "libcxx", "libcxxabi",
+    "libunwind", "lld"
+]
 
 if current.stage > 0:
     makedepends += [
@@ -68,7 +67,15 @@ if current.stage > 0:
         f"libomp={pkgver}-r{pkgrel}",
         "libexecinfo-devel"
     ]
-    _enabled_projects += ";openmp"
+    _enabled_projects += ["openmp"]
+    # for stage 2 onwards also enable debugger
+    # in stage 1 there is no point in wasting cpu time with it
+    if current.stage >= 2:
+        # TODO: needs swig
+        configure_args += [
+            "-DLLDB_ENABLE_PYTHON=NO",
+        ]
+        _enabled_projects += ["lldb"]
 else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",
@@ -89,7 +96,7 @@ _enable_flang = False
 #    _enable_flang = True
 
 if _enable_flang:
-    _enabled_projects += ";flang"
+    _enabled_projects += ["flang"]
 
 match current.profile().arch:
     case "x86_64": _arch = "X86"
@@ -99,7 +106,7 @@ match current.profile().arch:
     case _:
         broken = f"Unknown CPU architecture: {current.profile().arch}"
 
-configure_args += [f"-DLLVM_ENABLE_PROJECTS={_enabled_projects}"]
+configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
 
 def init_configure(self):
     if not self.cross_build:
@@ -426,6 +433,24 @@ def _libllvm(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
     return [f"usr/lib/libLLVM-{_mver}.so"]
+
+@subpackage("lldb", current.stage >= 2)
+def _lldb(self):
+    self.pkgdesc = f"{pkgdesc} (debugger)"
+
+    return [
+        "usr/bin/*lldb*",
+        "usr/lib/liblldb*.so.*",
+    ]
+
+@subpackage("lldb-devel", current.stage >= 2)
+def _lldb_devel(self):
+    self.pkgdesc = f"{pkgdesc} (debugger) (development files)"
+
+    return [
+        "usr/include/lldb",
+        "usr/lib/liblldb*.so"
+    ]
 
 @subpackage("lld")
 def _lld(self):
