@@ -32,6 +32,8 @@ if current.profile().endian == "big":
 else:
     _cflags += ["-DSHA3_BYTEORDER=1234", "-DSQLITE_BYTEORDER=1234"]
 
+tool_flags = {"CFLAGS": _cflags}
+
 @subpackage("sqlite-devel")
 def _devel(self):
     return self.default_devel()
