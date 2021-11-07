@@ -437,7 +437,7 @@ core_fields_priority = [
     ("hostmakedepends", True),
     ("makedepends", True),
     ("checkdepends", True),
-    ("depends", True),
+    ("depends", False),
 
     ("provides", True),
     ("provider_priority", True),
