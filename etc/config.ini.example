@@ -4,7 +4,7 @@
 # options related to building packages
 [build]
 # whether -dbg packages will be generated
-build_dbg = no
+build_dbg = yes
 # default build root path (absolute or relative to cports)
 build_root = bldroot
 # whether ccache will be used in the build

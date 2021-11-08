@@ -12,7 +12,7 @@ opt_cflags     = "-O2"
 opt_cxxflags   = "-O2"
 opt_fflags     = "-O2"
 opt_arch       = None
-opt_gen_dbg    = False
+opt_gen_dbg    = True
 opt_check      = True
 opt_ccache     = False
 opt_makejobs   = 1
@@ -110,9 +110,9 @@ def handle_options():
         help = "Skip running the check stage."
     )
     parser.add_argument(
-        "-g", "--build-dbg", action = "store_const",
-        const = True, default = opt_gen_dbg,
-        help = "Build debug packages."
+        "-G", "--no-dbg", action = "store_const",
+        const = True, default = not opt_gen_dbg,
+        help = "Do not build debug packages."
     )
     parser.add_argument(
         "-a", "--arch", help = "Target architecture to build for.",
@@ -208,8 +208,8 @@ def handle_options():
     if cmdline.jobs:
         opt_makejobs = int(cmdline.jobs)
 
-    if cmdline.build_dbg:
-        opt_gen_dbg = True
+    if cmdline.no_dbg:
+        opt_gen_dbg = False
 
     if cmdline.arch:
         opt_arch = cmdline.arch

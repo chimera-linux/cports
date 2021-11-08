@@ -399,7 +399,7 @@ only have an effect with specific commands.
   and `destdir`. This is mostly useful to continue previous failed builds.
 * `-f`, `--force` Packages will be created and overwritten even if one already
   exists in the local repository.
-* `-g`, `--build-dbg` Always build `-dbg` packages.
+* `-G`, `--no-dbg` Do not build `-dbg` packages.
 * `-j JOBS`, `--jobs JOBS` *(default: 1)* The number of build jobs to use. You
   will usually want to set this to the number of CPU threads you have, unless
   limited by memory.
