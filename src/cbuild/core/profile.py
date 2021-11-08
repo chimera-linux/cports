@@ -68,6 +68,8 @@ def _get_hcflags(sharden, tharden):
 
     if hard["ssp"]:
         hflags.append("-fstack-protector-strong")
+    else:
+        hflags.append("-fno-stack-protector")
 
     if hard["scp"]:
         hflags.append("-fstack-clash-protection")
