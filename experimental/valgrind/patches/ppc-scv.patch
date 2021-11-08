@@ -1,0 +1,13 @@
+--- a/coregrind/m_syswrap/syscall-ppc64le-linux.S
++++ b/coregrind/m_syswrap/syscall-ppc64le-linux.S
+@@ -145,7 +145,10 @@ ML_(do_syscall_for_client_WRK):
+            syswrap-main.c.  */
+ 2:      sc                      /* do the syscall */
+         b       3f              /* jump over scv call */
++        .machine push
++        .machine "power9"
+ 8:      scv     0
++        .machine pop
+ 
+         /* put the result back in the threadstate  */
+ 3:	std     3,OFFSET_ppc64_GPR3(30)     /* gst->GPR3 = sc result */

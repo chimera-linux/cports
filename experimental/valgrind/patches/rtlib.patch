@@ -1,0 +1,34 @@
+--- a/Makefile.tool.am
++++ b/Makefile.tool.am
+@@ -17,7 +17,7 @@ TOOL_DEPENDENCIES_@VGCONF_PLATFORM_SEC_CAPS@ = \
+ endif
+ 
+ 
+-TOOL_LDADD_COMMON = -lgcc \
++TOOL_LDADD_COMMON = @VGCONF_RTLIB@ \
+ 	$(top_builddir)/coregrind/libgcc-sup-@VGCONF_ARCH_PRI@-@VGCONF_OS@.a
+ TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@ = \
+ 	$(TOOL_DEPENDENCIES_@VGCONF_PLATFORM_PRI_CAPS@) $(TOOL_LDADD_COMMON)
+--- a/configure.ac
++++ b/configure.ac
+@@ -329,6 +329,10 @@ fi
+ 
+ #----------------------------------------------------------------------------
+ 
++AC_MSG_CHECKING([for the runtime library])
++VGCONF_RTLIB=`${CC} -print-libgcc-file-name`
++AC_SUBST(VGCONF_RTLIB)
++
+ # VGCONF_OS is the primary build OS, eg. "linux".  It is passed in to
+ # compilation of many C files via -VGO_$(VGCONF_OS) and
+ # -VGP_$(VGCONF_ARCH_PRI)_$(VGCONF_OS).
+--- a/valgrind.pc.in
++++ b/valgrind.pc.in
+@@ -11,6 +11,6 @@ Name: Valgrind
+ Description: A dynamic binary instrumentation framework
+ Version: @VERSION@
+ Requires:
+-Libs: -L${libdir}/valgrind -lcoregrind-@VGCONF_ARCH_PRI@-@VGCONF_OS@ -lvex-@VGCONF_ARCH_PRI@-@VGCONF_OS@ -lgcc
++Libs: -L${libdir}/valgrind -lcoregrind-@VGCONF_ARCH_PRI@-@VGCONF_OS@ -lvex-@VGCONF_ARCH_PRI@-@VGCONF_OS@ @VGCONF_RTLIB@
+ Cflags: -I${includedir}
+ 
