@@ -3,13 +3,15 @@ from cbuild.apk import create as apk_c, sign as apk_s
 
 import glob
 import time
+import shutil
 import pathlib
 import subprocess
 
 _hooks = [
     "pre-install", "post-install",
     "pre-upgrade", "post-upgrade",
-    "pre-deinstall", "post-deinstall"
+    "pre-deinstall", "post-deinstall",
+    "trigger"
 ]
 
 def genpkg(
@@ -94,27 +96,32 @@ def genpkg(
                 pkg.pc_requires.sort()
                 metadata["pc_requires"] = pkg.pc_requires
 
-            mhooks = []
-            for h in _hooks:
-                hf = pkg.rparent.template_path / (pkg.pkgname + "." + h)
-                if hf.is_file():
-                    mhooks.append((hf.resolve(), h))
-
-            if len(mhooks) > 0:
-                metadata["hooks"] = mhooks
-
             if len(pkg.triggers) > 0:
+                # check validity first
                 for t in pkg.triggers:
                     p = pathlib.Path(t)
                     if not p or not p.is_absolute():
                         pkg.error(f"invalid trigger path: {t}")
+                # check existence of scriptlet
                 tp = pkg.rparent.template_path / (pkg.pkgname + ".trigger")
                 # if we have triggers, the script must exist
                 if not tp.is_file():
                     pkg.error(f"trigger script does not exist")
-                # finally, write the metadata
-                metadata["trigger"] = tp.resolve()
+                # finally pass metadata
                 metadata["triggers"] = list(pkg.triggers)
+
+            # copy scriptlets
+            scdir = pkg.statedir / "scriptlets"
+            if scdir.is_dir():
+                shutil.rmtree(scdir)
+            scdir.mkdir()
+
+            for h in _hooks:
+                hf = pkg.rparent.template_path / (pkg.pkgname + "." + h)
+                if hf.is_file():
+                    if h == "trigger" and len(pkg.triggers) == 0:
+                        pkg.error("trigger scriptlet provided but no triggers")
+                    shutil.copy(hf.resolve(), scdir / ("." + h))
 
             metadata["file_modes"] = pkg.file_modes
 

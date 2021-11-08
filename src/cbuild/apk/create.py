@@ -32,6 +32,16 @@ def _hash_file(fp, md):
         md.update(chunk)
     return md.hexdigest()
 
+_scriptlets = {
+    ".pre-install": True,
+    ".pre-upgrade": True,
+    ".pre-deinstall": True,
+    ".post-install": True,
+    ".post-upgrade": True,
+    ".post-deinstall": True,
+    ".trigger": True,
+}
+
 def create(
     pkgname, pkgver, arch, epoch, destdir, tmpdir, outfile, privkey, metadata
 ):
@@ -218,12 +228,14 @@ def create(
         cinfo.size = len(ctrl)
         with io.BytesIO(ctrl) as cstream:
             ctar.addfile(cinfo, cstream)
-        if "hooks" in metadata:
-            for hook, hookname in metadata["hooks"]:
-                ctar.add(hook, "." + hookname, filter = hook_filter)
-        if "trigger" in metadata:
-            trigger = metadata["trigger"]
-            ctar.add(trigger, ".trigger", filter = hook_filter)
+        sclist = []
+        scpath = tmpdir / "scriptlets"
+        for f in scpath.glob(".*"):
+            if f.is_file() and f.name in _scriptlets:
+                sclist.append(f.name)
+        sclist.sort()
+        for f in sclist:
+            ctar.add(scpath / f, f, filter = hook_filter)
 
     # concat together
     with open(outfile, "wb") as ffile:
