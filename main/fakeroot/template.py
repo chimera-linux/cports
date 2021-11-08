@@ -6,10 +6,16 @@ configure_args = ["--disable-static"]
 make_cmd = "gmake"
 make_check_env = {"VERBOSE": "x"}
 hostmakedepends = ["gmake"]
-makedepends = ["acl-devel", "libcap-devel"]
+makedepends = ["acl-devel"]
 pkgdesc = "Tool for simulating superuser privileges"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"https://ftp.octaforge.org/q66/random/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2c8a1443d77009b07f3b9ef3797036fb7d77b16fb648692ae39e8c480fd0e0e9"
+options = ["bootstrap"]
+
+if current.stage > 0:
+    makedepends += ["libcap-devel"]
+else:
+    configure_args += ["ac_cv_func_capset=0"]
