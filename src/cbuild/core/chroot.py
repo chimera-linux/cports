@@ -293,6 +293,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
         "HOME": "/tmp",
         "LC_COLLATE": "C",
         "LANG": "C.UTF-8",
+        "UNAME_m": host_cpu(),
         **env
     }
     if "NO_PROXY" in os.environ:
@@ -350,6 +351,8 @@ def enter(cmd, args = [], capture_out = False, check = False,
 
     bcmd = [
         "bwrap",
+        "--unshare-all",
+        "--hostname", "cbuild",
         root_bind, paths.bldroot(), "/",
         build_bind, paths.bldroot() / "builddir", "/builddir",
         dest_bind, paths.bldroot() / "destdir", "/destdir",
@@ -376,8 +379,8 @@ def enter(cmd, args = [], capture_out = False, check = False,
     bcmd += ["--uid", "1337"]
     bcmd += ["--gid", "1337"]
 
-    if unshare_all:
-        bcmd += ["--unshare-all"]
+    if not unshare_all:
+        bcmd += ["--share-net"]
 
     if wrkdir:
         bcmd.append("--chdir")

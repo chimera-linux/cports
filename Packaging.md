@@ -1401,6 +1401,7 @@ The following environment variables are exported into the sandbox:
 * `HOME` Set to `/tmp`.
 * `LC_COLLATE` Set to `C`.
 * `LANG` Set to `en_US.UTF-8`.
+* `UNAME_m` Set to the preferred host architecture. Read by `uname(1)`.
 * `PYTHONUNBUFFERED` Set to `1`. This disables output buffering on
   Python subprocesses, which allows output to be printed right away,
   since `cbuild` captures it for logging purposes.
