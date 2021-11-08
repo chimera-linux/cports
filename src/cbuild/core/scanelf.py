@@ -133,6 +133,8 @@ def _scan_one(fpath):
             break
         phoff += phents
 
+    strtabs = []
+
     dynsect = None
     for i in range(ehdr["shnum"]):
         shdr = _unpack(hdrdef_sect, hdr_sect[wsi], shoff, endian, mm)
@@ -140,6 +142,8 @@ def _scan_one(fpath):
         if shdr["type"] == 0x6:
             dynsect = shdr
             break
+        elif shdr["type"] == 0x3:
+            strtabs.append(shdr)
         # march on
         shoff += shents
 
@@ -179,6 +183,15 @@ def _scan_one(fpath):
             dynoff += dynsz
 
         if not strtab and (len(needed) > 0 or soname):
+            mm.close()
+            inf.close()
+            return None
+
+        for st in strtabs:
+            if st["addr"] == strtab:
+                strtab = st["offset"]
+                break
+        else:
             mm.close()
             inf.close()
             return None
