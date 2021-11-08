@@ -23,7 +23,7 @@ def post_install(self):
 
 @subpackage("libxml2-devel")
 def _devel(self):
-    self.depends += ["liblzma-devel", "zlib-devel"]
+    self.depends += ["liblzma-devel", "zlib-devel", "icu-devel"]
     return self.default_devel(man = True, extra = [
         "usr/share/gtk-doc", f"usr/share/doc/{pkgname}-{pkgver}"
     ])
