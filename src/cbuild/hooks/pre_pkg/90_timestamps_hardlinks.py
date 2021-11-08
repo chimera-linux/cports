@@ -29,6 +29,7 @@ def invoke(pkg):
 
     # mappings from inode to full path
     hards = {}
+    harderr = False
     for root, dirs, files in os.walk(pkg.destdir):
         for f in files:
             absp = os.path.join(root, f)
@@ -40,7 +41,11 @@ def invoke(pkg):
                 else:
                     p1 = os.path.relpath(absp, pkg.destdir)
                     p2 = os.path.relpath(hards[st.st_ino], pkg.destdir)
-                    pkg.error(f"hardlink detected ({p1}, previously {p2})")
+                    pkg.log_red(f"hardlink detected ({p1}, previously {p2})")
+                    harderr = True
             # update timestamp
             if ts:
                 os.utime(absp, (ts, ts), follow_symlinks = False)
+
+    if harderr:
+        pkg.error("hardlinks were found, cannot proceed")

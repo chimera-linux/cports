@@ -138,3 +138,11 @@ def post_install(self):
     cfpath.unlink()
     os.rename(self.cwd / "Config_heavy.pl.new", cfpath)
     cfpath.chmod(0o644)
+
+    # convert hardlinks
+    hf = self.destdir / "usr/share/man/man1/perlthanks.1p"
+    hf.unlink()
+    hf.symlink_to("perlbug.1p")
+    hf = self.destdir / "usr/bin/perlthanks"
+    hf.unlink()
+    hf.symlink_to("perlbug")
