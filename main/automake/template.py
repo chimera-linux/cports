@@ -12,6 +12,8 @@ license = "GPL-2.0-or-later"
 url = "https://www.gnu.org/software/automake"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "07bd24ad08a64bc17250ce09ec56e921d6343903943e99ccf63bbf0705e34605"
+# flakey, a different set of tests fails every time
+options = ["!check"]
 
 def post_install(self):
     fp = self.destdir / "usr/bin/aclocal"
