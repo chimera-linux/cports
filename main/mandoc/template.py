@@ -43,3 +43,8 @@ def post_install(self):
 manpath /usr/local/share/man
 manpath /usr/share/man
 """)
+
+    # drop hardlinks
+    fp = self.destdir / "usr/share/man/man1/whatis.1"
+    fp.unlink()
+    fp.symlink_to("apropos.1")
