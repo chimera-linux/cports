@@ -45,6 +45,13 @@ manpath /usr/share/man
 """)
 
     # drop hardlinks
+    for b in [
+        "apropos", "whatis", "makewhatis", "man"
+    ]:
+        fp = self.destdir / f"usr/bin/{b}"
+        fp.unlink()
+        fp.symlink_to("mandoc")
+
     fp = self.destdir / "usr/share/man/man1/whatis.1"
     fp.unlink()
     fp.symlink_to("apropos.1")
