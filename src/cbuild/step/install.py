@@ -26,6 +26,8 @@ def invoke(pkg, subpkg_mode):
         if pkg.pkg_install:
             template.call_pkg_hooks(pkg, "pre_install")
             template.run_pkg_func(pkg, "pkg_install", on_subpkg = True)
+        # get own licenses by default
+        pkg.take(f"usr/share/licenses/{pkg.pkgname}", missing_ok = True)
 
     scanelf.scan(pkg, pkg.rparent.current_elfs)
 

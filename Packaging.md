@@ -2133,6 +2133,10 @@ These methods are only available on subpackage objects. You cannot create
 a subpackage object directly, but it can be passed to hooks as well as
 certain user defined functions.
 
+Subpackage contents are taken explicitly from the main package. The only
+contents that are taken implicitly are the potential licenses, i.e. the
+`usr/share/licenses/<subpkgname>` path.
+
 ##### def take(self, p, missing_ok = False)
 
 The subpackage will "steal" path `p`. The argument can be a string or
