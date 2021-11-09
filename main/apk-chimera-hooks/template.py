@@ -6,7 +6,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"
 # no tests
-options = ["!check"]
+options = ["bootstrap", "!check"]
 
 def do_install(self):
     for s in [
