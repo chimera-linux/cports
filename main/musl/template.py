@@ -49,7 +49,9 @@ def do_install(self):
     self.install_dir("usr/bin")
     self.install_link("../lib/libc.so", "usr/bin/ldd")
 
-    self.install_bin("iconv", "getent", "getconf")
+    self.install_bin("iconv")
+    self.install_bin("getent")
+    self.install_bin("getconf")
 
     self.install_man(self.files_path / "getent.1")
     self.install_man(self.files_path / "getconf.1")

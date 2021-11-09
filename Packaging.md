@@ -2058,15 +2058,14 @@ Usage:
 self.install_files("data/foo", "usr/share")
 ```
 
-##### def install_dir(self, *args)
+##### def install_dir(self, dest, mode = 0o755)
 
-For each argument, creates a directory in `destdir`. None of the arguments
-must represent absolute paths.
+Creates a directory `dest` in `destdir`.
 
 Usage:
 
 ```
-self.install_dir("usr/include", "usr/share")
+self.install_dir("usr/include")
 ```
 
 ##### def install_file(self, src, dest, mode = 0o644, name = None)
@@ -2081,39 +2080,30 @@ unless it is `None`, in which case the source file name is kept.
 
 The `dest` is created if non-existent.
 
-##### def install_bin(self, *args)
+##### def install_bin(self, src, mode = 0o755, name = None)
 
-For each argument representing a file relative to `cwd`, install this file
-in `usr/bin` and adjust the permissions. The file will be readable and
-executable to all, and writable to owner only.
+Equivalent to `self.install_file(src, "usr/bin", 0o755, name)`.
 
-The path is created if non-existent.
+##### def install_lib(self, src, mode = 0o755, name = None)
 
-##### def install_lib(self, *args)
+Equivalent to `self.install_file(src, "usr/lib", 0o755, name)`.
 
-For each argument representing a file relative to `cwd`, install this file
-in `usr/lib` and adjust the permissions. The file will be readable and
-executable to all, and writable to owner only. Meant to be used for dynamic
-libraries, static library archives should use `install_file`.
+##### def install_man(self, src, name = None, cat = None)
 
-The path is created if non-existent.
+Install a manpage `src`. That means installing into `usr/share/man` into
+the right category (e.g. `man1`), this is determined from the filename by
+default, but you can specify it as `cat` (e.g. the integer `1`). The manpage
+will retain its name, except whne `name` is specified. This name should not
+include the category (it is automatically appended, either as previously
+determined from the filename, or as specified by `cat`).
 
-##### def install_man(self, *args)
+The permissions will be `644`. All paths are created as necessary.
 
-For each argument representing a file relative to `cwd`, install this file
-as a manpage. That means installing into `usr/share/man` into the right
-section determined by the input file name. For example, if the file is
-`foo.1`, it will be installed into `man1`. The permissions will be `644`.
+##### def install_license(self, src, name = None, pkgname = None)
 
-If the input file does not have a section number or it is invalid, an error
-is raised.
+Equivalent to `self.install_file(src, "usr/share/licenses/" + pkgname, 0o644, name)`.
 
-All paths are created as necessary.
-
-##### def install_license(self, *args)
-
-For each argument representing a path to a license file relative to `cwd`,
-install this into `/usr/share/licenses/{pkgname}` with permissions `644`.
+When `pkgname` is not given, `self.pkgname` is used.
 
 ##### def install_link(self, src, dest)
 

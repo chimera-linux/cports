@@ -12,6 +12,7 @@ sha256 = "d7d31dae72cb973482ef7f975609ae401ccc12ee3fb168b67a69526c60afe43e"
 options = ["bootstrap"]
 
 def post_install(self):
-    self.install_license("README", "LICENSE")
+    self.install_license("README")
+    self.install_license("LICENSE")
     self.install_link("byacc", "usr/bin/yacc")
     self.install_link("byacc.1", "usr/share/man/man1/yacc.1")

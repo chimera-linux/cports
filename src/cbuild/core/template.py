@@ -1073,16 +1073,16 @@ class Template(Package):
 
         shutil.copytree(path, dest, symlinks = symlinks)
 
-    def install_dir(self, *args):
-        for dn in args:
-            dn = pathlib.Path(dn)
-            if dn.is_absolute():
-                self.logger.out_red(f"path '{dn}' must not be absolute")
-                raise PackageError()
-            dirp = self.destdir / dn
-            if not dirp.is_dir():
-                self.log(f"creating path: {dirp}")
-                dirp.mkdir(parents = True)
+    def install_dir(self, dest, mode = 0o755):
+        dest = pathlib.Path(dest)
+        if dest.is_absolute():
+            self.logger.out_red(f"path '{dest}' must not be absolute")
+            raise PackageError()
+        dirp = self.destdir / dest
+        if not dirp.is_dir():
+            dirp.mkdir(parents = True)
+            if mode is not None:
+                dirp.chmod(mode)
 
     def install_file(self, src, dest, mode = 0o644, name = None):
         src = pathlib.Path(src)
@@ -1108,53 +1108,37 @@ class Template(Package):
         if mode is not None:
             dfn.chmod(mode)
 
-    def install_bin(self, *args):
-        self.install_dir("usr/bin")
-        for bn in args:
-            spath = self.cwd / bn
-            dpath = self.destdir / "usr/bin"
-            self.log(f"copying (755): {spath} -> {dpath}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o755)
+    def install_bin(self, src, mode = 0o755, name = None):
+        self.install_file(src, "usr/bin", mode, name)
 
-    def install_lib(self, *args):
-        self.install_dir("usr/lib")
-        for bn in args:
-            spath = self.cwd / bn
-            dpath = self.destdir / "usr/lib"
-            self.log(f"copying (755): {spath} -> {dpath}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o755)
+    def install_lib(self, src, mode = 0o755, name = None):
+        self.install_file(src, "usr/lib", mode, name)
 
-    def install_man(self, *args):
+    def install_man(self, src, name = None, cat = None):
         self.install_dir("usr/share/man")
         manbase = self.destdir / "usr/share/man"
-        for mn in args:
-            absmn = self.cwd / mn
-            mnf = absmn.name
-            mnext = absmn.suffix
-            if len(mnext) == 0:
+        absmn = self.cwd / src
+        mnf = absmn.name
+        if not cat:
+            if len(absmn.suffix) == 0:
                 self.logger.out_red(f"manpage '{mnf}' has no section")
                 raise PackageError()
             try:
-                mnsec = int(mnext[1:])
+                cat = int(absmn.suffix[1:])
             except:
                 self.logger.out_red(f"manpage '{mnf}' has an invalid section")
                 raise PackageError()
-            mandir = manbase / f"man{mnsec}"
-            mandir.mkdir(parents = True, exist_ok = True)
-            self.log(f"copying (644): {absmn} -> {mandir}")
-            shutil.copy2(absmn, mandir)
-            (mandir / mnf).chmod(0o644)
+        mandir = manbase / f"man{cat}"
+        mandir.mkdir(parents = True, exist_ok = True)
+        if name:
+            mnf = f"{name}.{cat}"
+        shutil.copy2(absmn, mandir / mnf)
+        (mandir / mnf).chmod(0o644)
 
-    def install_license(self, *args):
-        self.install_dir("usr/share/licenses/" + self.pkgname)
-        for bn in args:
-            spath = self.cwd / bn
-            dpath = self.destdir / "usr/share/licenses" / self.pkgname
-            self.log(f"copying (644): {spath} -> {dpath}")
-            shutil.copy2(spath, dpath)
-            (dpath / spath.name).chmod(0o644)
+    def install_license(self, src, name = None, pkgname = None):
+        self.install_file(
+            src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name
+        )
 
     def install_link(self, src, dest):
         dest = pathlib.Path(dest)
@@ -1162,7 +1146,6 @@ class Template(Package):
             self.logger.out_red(f"path '{dest}' must not be absolute")
             raise PackageError()
         dest = self.destdir / dest
-        self.log(f"symlinking: {src} -> {dest}")
         dest.symlink_to(src)
 
     def install_shell(self, *args):
