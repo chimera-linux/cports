@@ -14,13 +14,6 @@ VERSION="$4"
 
 export PATH="/usr/bin"
 
-# Determine whether useradd/groupadd/usermod need a prefix argument
-if [ "$(readlink -f . 2>/dev/null || echo .)" != "/" ]; then
-    prefix="-P ."
-else
-    prefix=
-fi
-
 # show_acct_details <username> <description> <homedir> <shell> [groups]
 show_acct_details() {
     echo "   Account: $1"
@@ -31,7 +24,7 @@ show_acct_details() {
 }
 
 group_add() {
-    local _pretty_grname _grname _gid _prefix
+    local _pretty_grname _grname _gid
 
     if ! command -v groupadd >/dev/null 2>&1; then
         echo "WARNING: cannot create $1 system group (missing groupadd)"
@@ -46,7 +39,7 @@ group_add() {
 
     _pretty_grname="${_grname}${_gid:+ (gid: ${_gid})}"
 
-    groupadd ${prefix} -r ${_grname} ${_gid:+-g ${_gid}} >/dev/null 2>&1
+    groupadd -r ${_grname} ${_gid:+-g ${_gid}} >/dev/null 2>&1
 
     case $? in
         0) echo "Created ${_pretty_grname} system group." ;;
@@ -63,11 +56,11 @@ run)
     [ -z "$system_users" -a -z "$system_groups" ] && exit 0
 
     if command -v useradd >/dev/null 2>&1; then
-        USERADD="useradd ${prefix}"
+        USERADD="useradd"
     fi
 
     if command -v usermod >/dev/null 2>&1; then
-        USERMOD="usermod ${prefix}"
+        USERMOD="usermod"
     fi
 
     case "$TARGET" in
