@@ -69,7 +69,8 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True):
 def call(
     subcmd, args, mrepo, cwd = None, env = None,
     capture_output = False, root = None, arch = None,
-    allow_untrusted = False, use_altrepo = True
+    allow_untrusted = False, use_altrepo = True,
+    fakeroot = False
 ):
     cmd = [
         "apk", subcmd, "--root", root if root else paths.bldroot(),
@@ -81,6 +82,14 @@ def call(
         cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
+
+    if fakeroot:
+        if env:
+            env = dict(env)
+        else:
+            env = {}
+        env["FAKEROOTDONTTRYCHOWN"] = "1"
+        cmd = ["fakeroot", "--"] + cmd
 
     return subprocess.run(
         cmd + _collect_repos(mrepo, False, arch, use_altrepo) + args,

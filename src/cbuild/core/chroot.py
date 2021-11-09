@@ -200,7 +200,8 @@ def install(arch = None, stage = 2):
     repo_sync()
 
     irun = apki.call(
-        "add", ["--no-scripts", "base-cbuild"], "main", arch = arch
+        "add", ["--no-scripts", "base-cbuild"], "main", arch = arch,
+        fakeroot = True
     )
     if irun.returncode != 0:
         logger.get().out_red("cbuild: failed to install base-cbuild")
@@ -231,7 +232,7 @@ def remove_autodeps(bootstrapping):
         if bootstrapping:
             del_ret = apki.call("del", [
                 "--no-scripts", "autodeps-host"
-            ], None, capture_output = True)
+            ], None, capture_output = True, fakeroot = True)
         else:
             del_ret = apki.call_chroot(
                 "del", ["autodeps-host"], None, capture_out = True
@@ -248,7 +249,7 @@ def remove_autodeps(bootstrapping):
         if bootstrapping:
             del_ret = apki.call("del", [
                 "--no-scripts", "autodeps-target"
-            ], None, capture_output = True)
+            ], None, capture_output = True, fakeroot = True)
         else:
             del_ret = apki.call_chroot(
                 "del", ["autodeps-target"], None, capture_out = True

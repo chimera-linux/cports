@@ -61,6 +61,7 @@ The userland dependencies are the following:
 * `git` (optional; required for reproducibility)
 * `bwrap` (from `bubblewrap`)
 * `tee`
+* `fakeroot`
 
 You also need Linux kernel 3.8 or newer, with namespaces and cgroups enabled.
 Notably the following options must be enabled:

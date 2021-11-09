@@ -99,7 +99,7 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
         ret = apki.call(
             "add", ["--no-scripts", "--virtual", virtn] + pkglist,
             pkg, root = rootp, capture_output = True, arch = aarch,
-            allow_untrusted = not signkey
+            allow_untrusted = not signkey, fakeroot = True
         )
     else:
         if virtn:
@@ -226,7 +226,7 @@ def setup_dummy(pkg, rootp):
         ret = apki.call(
             acmd, ["--no-scripts", "--repository", tmpd, pkgn], None,
             root = rootp, capture_output = True, arch = archn,
-            allow_untrusted = True
+            allow_untrusted = True, fakeroot = True
         )
 
         if ret.returncode != 0:
@@ -266,9 +266,12 @@ def remove_autocrossdeps(pkg):
 
     pkg.log(f"removing autocrossdeps for {archn}...")
 
-    del_ret = apki.call("del", [
+    del_ret = apki.call(
+        "del", [
         "--no-scripts", "autodeps-target"
-    ], None, root = sysp, capture_output = True, arch = archn)
+        ], None, root = sysp, capture_output = True,
+        arch = archn, fakeroot = True
+    )
 
     if del_ret.returncode != 0:
         log.out_plain(">> stderr (host):")
