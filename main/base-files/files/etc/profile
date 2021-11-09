@@ -11,13 +11,8 @@ appendpath () {
     esac
 }
 
-# Set our default path (/usr/sbin:/sbin:/bin is for non-Chimera chroots)
-appendpath '/usr/local/sbin'
 appendpath '/usr/local/bin'
 appendpath '/usr/bin'
-appendpath '/usr/sbin'
-appendpath '/sbin'
-appendpath '/bin'
 unset appendpath
 
 export PATH
@@ -27,8 +22,8 @@ umask 022
 
 # Load profiles from /etc/profile.d
 if [ -d /etc/profile.d/ ]; then
-	for f in /etc/profile.d/*.sh; do
-		[ -r "$f" ] && . "$f"
-	done
-	unset f
+    for f in /etc/profile.d/*.sh; do
+        [ -r "$f" ] && . "$f"
+    done
+    unset f
 fi
