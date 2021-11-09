@@ -114,8 +114,7 @@ def do_install(self):
     )
 
     # register shells
-    self.install_dir("etc/shells.d")
-    self.install_link("/usr/bin/git-shell", "etc/shells.d/git-shell")
+    self.install_shell("/usr/bin/git-shell")
 
 @subpackage("gitk")
 def _gitk(self):

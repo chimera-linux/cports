@@ -1165,6 +1165,11 @@ class Template(Package):
         self.log(f"symlinking: {src} -> {dest}")
         dest.symlink_to(src)
 
+    def install_shell(self, *args):
+        self.install_dir("etc/shells.d")
+        for s in args:
+            self.install_link(s, f"etc/shells.d/{os.path.basename(s)}")
+
 def _default_take_extra(self, extra):
     if extra is not None:
         if isinstance(extra, list):

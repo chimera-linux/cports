@@ -31,8 +31,7 @@ def post_install(self):
     (self.destdir / "etc/bash/bashrc.d/.empty").chmod(0o644)
 
     # register with shells
-    self.install_dir("etc/shells.d")
-    self.install_link("/usr/bin/bash", "etc/shells.d/bash")
+    self.install_shell("/usr/bin/bash")
 
     self.rm(self.destdir / "usr/share/doc", recursive = True, force = True)
 

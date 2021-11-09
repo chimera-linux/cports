@@ -2125,6 +2125,17 @@ Usage:
 self.install_link("libfoo.so.1", "usr/lib/libfoo.so")
 ```
 
+##### def install_shell(self, *args)
+
+For each argument representing an absolute path to a shell, register it with
+the system.
+
+Usage:
+
+```
+self.install_shell("/usr/bin/bash")
+```
+
 <a id="class_subpackage"></a>
 #### Subpackage Class
 
