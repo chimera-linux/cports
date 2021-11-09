@@ -1,3 +1,0 @@
-#!/bin/sh
-
-groupadd -r -g 22 dbus 2>/dev/null || :

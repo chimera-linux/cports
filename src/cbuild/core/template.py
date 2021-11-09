@@ -388,6 +388,10 @@ core_fields = [
     # wrappers
     ("exec_wrappers", [], list, False, False, False),
 
+    # scriptlet generators
+    ("system_users", [], list, False, True, False),
+    ("system_groups", [], list, False, True, False),
+
     # fields relating to build fields
 
     # cmake
@@ -468,6 +472,10 @@ core_fields_priority = [
     ("hardening", True),
     ("options", True),
     ("exec_wrappers", True),
+
+    # scriptlet-generating stuff comes last
+    ("system_users", True),
+    ("system_groups", True),
 
     ("broken", True),
 ]

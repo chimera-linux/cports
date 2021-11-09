@@ -36,6 +36,8 @@ file_modes = {
     "usr/libexec/dbus-daemon-launch-helper": (None, "dbus:22", 0o4750)
 }
 
+system_users = ["dbus:22"]
+
 def post_install(self):
     # these need to exist
     self.install_dir("var/lib/dbus")
