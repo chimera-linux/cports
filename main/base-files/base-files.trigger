@@ -2,8 +2,6 @@
 #
 # Regenerates /etc/shells based on the contents of /etc/shells.d.
 
-set -e
-
 # remove old shells db
 rm -f /etc/shells
 # none exist

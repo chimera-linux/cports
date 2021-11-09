@@ -4,9 +4,7 @@
 #
 
 for f in 1 2; do
-    ln -sf ../agetty-tty${f} /etc/dinit.d/boot.d/agetty-tty${f}
+    ln -sf ../agetty-tty${f} /etc/dinit.d/boot.d/agetty-tty${f} || :
 done
 
-ln -sf ../late-filesystems /etc/dinit.d/boot.d/late-filesystems
-
-exit 0
+ln -sf ../late-filesystems /etc/dinit.d/boot.d/late-filesystems || :

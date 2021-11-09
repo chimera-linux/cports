@@ -2,7 +2,5 @@
 
 # enable shadow passwd/groups
 if [ -x /usr/bin/pwconv -a -x /usr/bin/grpconv -a "$(id -u)" -eq 0 ]; then
-    pwconv && grpconv
+    pwconv && grpconv || :
 fi
-
-exit 0

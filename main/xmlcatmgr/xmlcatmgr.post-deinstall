@@ -2,5 +2,3 @@
 
 rm -f /etc/xml/auto/catalog
 rm -f /etc/sgml/auto/catalog
-
-exit 0
