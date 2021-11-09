@@ -1,4 +1,8 @@
+from cbuild.core import paths
+
+import shlex
 import shutil
+import subprocess
 
 # every scriptlet starts with this
 _header = """#!/bin/sh
@@ -19,36 +23,26 @@ def invoke(pkg):
         "trigger": ""
     }
 
+    # executable hooks to invoke
+    _reghooks = {}
+
+    def _add_hook(hookn, evars):
+        if hookn in _reghooks:
+            _reghooks[hookn].update(evars)
+        else:
+            _reghooks[hookn] = evars
+
     # handle system groups
     if len(pkg.system_groups) > 0:
-        gadd = ""
-        for g in pkg.system_groups:
-            gt = g.split(":")
-            if len(gt) > 2 or len(gt) == 0:
-                pkg.error(f"group '{g}' has invalid format")
-            if len(gt) == 2:
-                badgid = False
-                try:
-                    int(gt[1])
-                except ValueError:
-                    badgid = True
-                if badgid or str(int(gt[1])) != gt[1]:
-                    pkg.error(f"gid '{gt[1]}' is invalid")
-                # basic validation done
-                gadd += f"groupadd -r -g {gt[1]} '{gt[0]}' 2>/dev/null || :\n"
-            else:
-                gadd += f"groupadd -r '{gt[0]}' 2>/dev/null || :\n"
-        # add
-        if len(gadd) > 0:
-            gadd = f"# add system groups\n{gadd}\n"
-            _hooks["pre-install"] += gadd
-            _hooks["pre-upgrade"] += gadd
+        _add_hook("system-accounts", {
+            "system_groups": " ".join(pkg.system_groups)
+        })
 
     # handle system users: FIXME: only for testing for now
     # the real thing should be made into a utility script
     if len(pkg.system_users) > 0:
-        uadd = ""
-        udel = ""
+        evars = {}
+        usrs = []
         for u in pkg.system_users:
             uname = None
             uid = None
@@ -60,30 +54,49 @@ def invoke(pkg):
             if isinstance(u, dict):
                 uname = u["name"]
                 uid = u["id"]
-                if "desc" in u:
-                    udesc = u["desc"]
+                # the form can be with or without id
+                if uid:
+                    usrs.append(f"{uname}:{uid}")
                 else:
-                    udesc = f"{uname} user"
-                if "shell" in u:
-                    ushell = u["shell"]
-                if "groups" in u:
-                    ugroups = u["groups"]
+                    usrs.append(uname)
+                # optional fields
                 if "home" in u:
-                    uhome = u["home"]
+                    evars[f"{uname}_homedir"] = u["home"]
+                if "shell" in u:
+                    evars[f"{uname}_shell"] = u["shell"]
+                if "desc" in u:
+                    evars[f"{uname}_descr"] = u["desc"]
+                if "groups" in u:
+                    evars[f"{uname}_groups"] = ",".join(u["groups"])
+                if "pgroup" in u:
+                    evars[f"{uname}_pgroup"] = u["pgroup"]
             else:
-                uname, uid = u.split(":")
-                uid = int(uid)
-                udesc = f"{uname} user"
-            # scriptlet bits
-            uadd += f"useradd -r -u {uid} -c '{udesc}' -d '{uhome}' " + \
-                f"-s '{ushell}' -G '{','.join(ugroups)}' {uname}" + \
-                " > /dev/null 2>&1 || :\n"
-            udel += f"usermod -L -d /var/empty -s /bin/false {uname}" + \
-                " > /dev/null 2>&1 || :\n"
-        if len(uadd) > 0:
-            _hooks["pre-install"] += uadd
-            _hooks["pre-upgrade"] += uadd
-            _hooks["post-deinstall"] += udel
+                usrs.append(u)
+            # add the main var
+            evars["system_users"] = " ".join(usrs)
+        # add the hook
+        _add_hook("system-accounts", evars)
+
+    hookpath = paths.distdir() / "main/apk-chimera-hooks/files"
+
+    # add executable scriptlets
+    for h in _reghooks:
+        envs = _reghooks[h]
+        # go through every target
+        for tgt in subprocess.run(
+            ["sh", hookpath / h, "targets"], capture_output = True,
+            check = True
+        ).stdout.decode().strip().split():
+            if not tgt in _hooks:
+                # this should never happen unless we are buggy
+                pkg.error(f"unknown hook: {tgt}")
+            # export env vars for the hook
+            for e in envs:
+                _hooks[tgt] += f"export {e}={shlex.quote(envs[e])}\n"
+            # insert the hook
+            pkg.log(f"added hook '{h}' for scriptlet '{tgt}'")
+            _hooks[tgt] += f"/usr/libexec/apk-chimera-hooks/{h} run {tgt} " + \
+                           f"'{pkg.pkgname}' '{pkg.pkgver}'\n"
 
     # add user scriptlets
     for h in _hooks:
@@ -103,6 +116,8 @@ def invoke(pkg):
             if len(sr) > 0:
                 _hooks[h] += "# package script\n\n"
                 _hooks[h] += sr
+            # log
+            pkg.log(f"added package scriptlet '{h}'")
 
     # set up scriptlet dir
     scdir = pkg.statedir / "scriptlets"
@@ -120,7 +135,7 @@ def invoke(pkg):
         if h == "trigger" and len(pkg.triggers) == 0:
             pkg.error("trigger scriptlet provided but no triggers")
         # create file
-        with open(scdir / f".{h}", "w") as sf:
+        with open(scdir / f"{pkg.pkgname}.{h}", "w") as sf:
             sf.write(_header)
             sf.write(s)
             sf.write("\n")

@@ -230,12 +230,12 @@ def create(
             ctar.addfile(cinfo, cstream)
         sclist = []
         scpath = tmpdir / "scriptlets"
-        for f in scpath.glob(".*"):
-            if f.is_file() and f.name in _scriptlets:
-                sclist.append(f.name)
+        for f in scpath.glob(f"{pkgname}.*"):
+            if f.is_file() and f.suffix in _scriptlets:
+                sclist.append(f.suffix)
         sclist.sort()
         for f in sclist:
-            ctar.add(scpath / f, f, filter = hook_filter)
+            ctar.add(scpath / f"{pkgname}{f}", f, filter = hook_filter)
 
     # concat together
     with open(outfile, "wb") as ffile:

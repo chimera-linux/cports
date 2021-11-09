@@ -589,7 +589,8 @@ These variables generate scriptlets:
 * `system_users` *(list)* A list of users to create. A user can take two
   forms. It can either be a string (in the format `username` or `username:uid`)
   for the simple case, or a `dict` containing at least the fields `name` and
-  `uid` (an integer) and optionally `desc`, `shell`, `groups` and `home`.
+  `uid` (an integer) and optionally `desc`, `shell`, `groups`, `pgroup` and
+  `home`.
 * `system_groups` *(list)* A list of groups to create. It contains strings,
   which can be in the format `gname` or `gname:gid`.
 
