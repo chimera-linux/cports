@@ -393,6 +393,10 @@ core_fields = [
     ("system_groups", [], list, False, True, False),
     ("pycompile_dirs", [], list, False, True, False),
     ("pycompile_modules", [], list, False, True, False),
+    ("sgml_catalogs", [], list, False, True, False),
+    ("sgml_entries", [], list, False, True, False),
+    ("xml_catalogs", [], list, False, True, False),
+    ("xml_entries", [], list, False, True, False),
 
     # fields relating to build fields
 
@@ -480,6 +484,10 @@ core_fields_priority = [
     ("pycompile_modules", True),
     ("system_users", True),
     ("system_groups", True),
+    ("sgml_entries", True),
+    ("sgml_catalogs", True),
+    ("xml_entries", True),
+    ("xml_catalogs", True),
 
     ("broken", True),
 ]

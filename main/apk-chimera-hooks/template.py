@@ -16,7 +16,7 @@ options = ["bootstrap", "!check"]
 
 def do_install(self):
     for s in [
-        "pycompile", "system-accounts"
+        "pycompile", "system-accounts", "xml-catalog",
     ]:
         self.install_file(
             self.files_path / s, "usr/libexec/apk-chimera-hooks", mode = 0o755

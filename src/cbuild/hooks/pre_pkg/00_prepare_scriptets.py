@@ -35,6 +35,39 @@ set -e
 
 """
 
+def _handle_catalogs(pkg, _add_hook):
+    sgml_entries = []
+    xml_entries = []
+    catvars = {}
+
+    for ent in pkg.sgml_entries:
+        if not isinstance(ent, tuple) or len(ent) != 3:
+            pkg.error("invalid SGML catalog entry")
+        sgml_entries.append(ent)
+
+    for ent in pkg.xml_entries:
+        if not isinstance(ent, tuple) or len(ent) != 3:
+            pkg.error("invalid XML catalog entry")
+        xml_entries.append(ent)
+
+    for catalog in pkg.sgml_catalogs:
+        sgml_entries.append(("CATALOG", catalog, "--"))
+
+    for catalog in pkg.xml_catalogs:
+        xml_entries.append(("nextCatalog", catalog, "--"))
+
+    if len(sgml_entries) > 0 or len(xml_entries) > 0:
+        if len(sgml_entries) > 0:
+            catvars["sgml_entries"] = " ".join(
+                map(lambda v: " ".join(v), sgml_entries)
+            )
+        if len(xml_entries) > 0:
+            catvars["xml_entries"] = " ".join(
+                map(lambda v: " ".join(v), xml_entries)
+            )
+        # fire
+        _add_hook("xml-catalog", catvars)
+
 def _handle_accounts(pkg, _add_hook):
     # handle system groups
     if len(pkg.system_groups) > 0:
@@ -169,6 +202,7 @@ def invoke(pkg):
 
     # handle individual hooks
     _handle_accounts(pkg, _add_hook)
+    _handle_catalogs(pkg, _add_hook)
     _handle_python(pkg, _add_hook)
 
     hookpath = paths.distdir() / "main/apk-chimera-hooks/files"

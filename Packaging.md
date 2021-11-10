@@ -598,6 +598,14 @@ These variables generate scriptlets:
 * `pycompile_modules` *(list)* A list of Python modules to compile. If not
   specified, all modules in `/usr/lib/pythonVERSION` will be considered (but
   not recursively).
+* `sgml_entries` *(list)* A list of 3-tuples representing arguments to
+  `xmlcatmgr -sc /etc/sgml/auto/catalog add <args>`, or `remove` (third
+  element is unused then).
+* `sgml_catalogs` *(list)* Like `("CATALOG", v, "--")` in `sgml_entries`.
+* `xml_entries` *(list)* A list of 3-tuples representing arguments to
+  `xmlcatmgr -c /etc/sgml/auto/catalog add <args>`, or `remove` (third
+  element is unused then).
+* `xml_catalogs` *(list)* Like `("nextCatalog", v, "--")` in `xml_entries`.
 
 Additionally, there is a variety of variables that are not generic but rather
 are used by specific build styles. They are listed and described in each
