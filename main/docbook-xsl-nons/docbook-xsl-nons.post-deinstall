@@ -3,4 +3,4 @@
 echo "Unregistering XML catalog entries..."
 
 xmlcatmgr -c /etc/xml/auto/catalog remove nextCatalog \
-    /usr/share/xsl/docbook/catalog.xml 2>/dev/null || :
+    /usr/share/xsl-nons/docbook/catalog.xml 2>/dev/null || :
