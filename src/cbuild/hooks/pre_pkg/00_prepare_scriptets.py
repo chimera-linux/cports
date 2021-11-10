@@ -1,5 +1,6 @@
 from cbuild.core import paths, template
 
+import io
 import re
 import shlex
 import shutil
@@ -28,12 +29,279 @@ def _get_pyver(pkg):
     # should be impossible
     pkg.error(f"invalid python version ({pv})")
 
-# every scriptlet starts with this
-_header = """#!/bin/sh
+# hooks for xml/sgml registration
 
-set -e
+_xml_register_entries = r"""
+local sgml_catalog=/etc/sgml/auto/catalog
+local xml_catalog=/etc/xml/auto/catalog
 
+[ -n "${sgml_entries}" -a ! -f "${sgml_catalog}" ] && return 0
+[ -n "${xml_entries}" -a ! -f "${xml_catalog}" ] && return 0
+
+if [ -n "${sgml_entries}" ]; then
+    echo -n "Registering SGML catalog entries... "
+    set -- ${sgml_entries}
+    while [ $# -gt 0 ]; do
+        /usr/bin/xmlcatmgr -sc ${sgml_catalog} add "$1" "$2" "$3"
+        shift; shift; shift;
+    done
+    echo "done."
+fi
+
+if [ -n "${xml_entries}" ]; then
+    echo -n "Registering XML catalog entries... "
+    set -- ${xml_entries}
+    while [ $# -gt 0 ]; do
+        /usr/bin/xmlcatmgr -c ${xml_catalog} add "$1" "$2" "$3"
+        shift; shift; shift;
+    done
+    echo "done."
+fi
 """
+
+_xml_unregister_entries = r"""
+local sgml_catalog=/etc/sgml/auto/catalog
+local xml_catalog=/etc/xml/auto/catalog
+
+[ -n "${sgml_entries}" -a ! -f "${sgml_catalog}" ] && return 0
+[ -n "${xml_entries}" -a ! -f "${xml_catalog}" ] && return 0
+
+if [ -n "${sgml_entries}" ]; then
+    echo -n "Unregistering SGML catalog entries... "
+    set -- ${sgml_entries}
+    while [ $# -gt 0 ]; do
+        /usr/bin/xmlcatmgr -sc ${sgml_catalog} remove "$1" "$2" \
+            2>/dev/null
+        shift; shift; shift
+    done
+    echo "done."
+fi
+if [ -n "${xml_entries}" ]; then
+    echo -n "Unregistering XML catalog entries... "
+    set -- ${xml_entries}
+    while [ $# -gt 0 ]; do
+        /usr/bin/xmlcatmgr -c ${xml_catalog} remove "$1" "$2" \
+            2>/dev/null
+        shift; shift; shift
+    done
+    echo "done."
+fi
+"""
+
+# hooks for account setup
+
+_acct_setup = r"""
+local USERADD USERMOD
+
+[ -z "$system_users" -a -z "$system_groups" ] && return 0
+
+if command -v useradd >/dev/null 2>&1; then
+    USERADD="useradd"
+fi
+
+if command -v usermod >/dev/null 2>&1; then
+    USERMOD="usermod"
+fi
+
+show_acct_details() {
+    echo "   Account: $1"
+    echo "   Description: '$2'"
+    echo "   Homedir: '$3'"
+    echo "   Shell: '$4'"
+    [ -n "$5" ] && echo "   Additional groups: '$5'"
+}
+
+group_add() {
+    local _pretty_grname _grname _gid
+
+    if ! command -v groupadd >/dev/null 2>&1; then
+        echo "WARNING: cannot create $1 system group (missing groupadd)"
+        echo "The following group must be created manually: $1"
+        return 0
+    fi
+
+    _grname="${1%:*}"
+    _gid="${1##*:}"
+
+    [ "${_grname}" = "${_gid}" ] && _gid=
+
+    _pretty_grname="${_grname}${_gid:+ (gid: ${_gid})}"
+
+    groupadd -r ${_grname} ${_gid:+-g ${_gid}} >/dev/null 2>&1
+
+    case $? in
+        0) echo "Created ${_pretty_grname} system group." ;;
+        9) ;;
+        *) echo "ERROR: failed to create system group ${_pretty_grname}!"; return 1;;
+    esac
+
+    return 0
+}
+
+# System groups required by a package.
+for grp in ${system_groups}; do
+    group_add $grp || return 1
+done
+
+# System user/group required by a package.
+for acct in ${system_users}; do
+    _uname="${acct%:*}"
+    _uid="${acct##*:}"
+
+    [ "${_uname}" = "${_uid}" ] && _uid=
+
+    eval homedir="\$${_uname}_homedir"
+    eval shell="\$${_uname}_shell"
+    eval descr="\$${_uname}_descr"
+    eval groups="\$${_uname}_groups"
+    eval pgroup="\$${_uname}_pgroup"
+
+    [ -z "$homedir" ] && homedir="/var/empty"
+    [ -z "$shell" ] && shell="/usr/bin/nologin"
+    [ -z "$descr" ] && descr="${_uname} user"
+    [ -n "$groups" ] && user_groups="-G $groups"
+
+    if [ -n "${_uid}" ]; then
+        use_id="-u ${_uid} -g ${pgroup:-${_uid}}"
+        _pretty_uname="${_uname} (uid: ${_uid})"
+    else
+        use_id="-g ${pgroup:-${_uname}}"
+        _pretty_uname="${_uname}"
+    fi
+
+    if [ -z "$USERADD" -o -z "$USERMOD" ]; then
+        echo "WARNING: cannot create ${_uname} system account (missing useradd or usermod)"
+        echo "The following system account must be created:"
+        show_acct_details "${_pretty_uname}" "${descr}" "${homedir}" "${shell}" "${groups}"
+        continue
+    fi
+
+    group_add ${pgroup:-${acct}} || return 1
+
+    ${USERADD} -c "${descr}" -d "${homedir}" \
+        ${use_id} ${pgroup:+-N} -s "${shell}" \
+        ${user_groups} -r ${_uname} >/dev/null 2>&1
+
+    case $? in
+        0)
+            echo "Created ${_pretty_uname} system user."
+            ${USERMOD} -L ${_uname} >/dev/null 2>&1
+            if [ $? -ne 0 ]; then
+                echo "WARNING: unable to lock password for ${_uname} system account"
+            fi
+            ;;
+        9)
+            ${USERMOD} -c "${descr}" -d "${homedir}" \
+                -s "${shell}" -g "${pgroup:-${_uname}}" \
+                ${user_groups} ${_uname} >/dev/null 2>&1
+            if [ $? -eq 0 ]; then
+                echo "Updated ${_uname} system user."
+            else
+                echo "WARNING: unable to modify ${_uname} system account"
+                echo "Please verify that account is compatible with these settings:"
+                show_acct_details "${_pretty_uname}" \
+                    "${descr}" "${homedir}" "${shell}" "${groups}"
+                continue
+            fi
+            ;;
+        *)
+            echo "ERROR: failed to create system user ${_pretty_uname}!"
+            return 1
+            ;;
+    esac
+done
+"""
+
+_acct_drop = r"""
+for acct in ${system_users}; do
+    _uname="${acct%:*}"
+
+    comment="$( (getent passwd "${_uname}" | cut -d: -f5 | head -n1) 2>/dev/null )"
+    comment="${comment:-user} - removed package ${1}"
+
+    if [ -z "$USERMOD" ]; then
+        echo "WARNING: cannot disable ${_uname} system user (missing usermod)"
+        continue
+    fi
+
+    ${USERMOD} -L -d /var/empty -s /usr/bin/false \
+        -c "${comment}" ${_uname} >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "Disabled ${_uname} system user."
+    fi
+done
+"""
+
+# python bytecode hooks
+
+_py_compile = r"""
+[ ! -x /usr/bin/python${pycompile_version} ] && return 0
+[ -z "${pycompile_dirs}" -a -z "${pycompile_module}" ] && return 0
+
+for f in ${pycompile_dirs}; do
+    echo "Byte-compiling python code in ${f}..."
+    python${pycompile_version} -m compileall -f -q ./${f} && \
+    python${pycompile_version} -O -m compileall -f -q ./${f}
+done
+for f in ${pycompile_module}; do
+    echo "Byte-compiling python${pycompile_version} code for module ${f}..."
+    if [ -d "usr/lib/python${pycompile_version}/site-packages/${f}" ]; then
+        python${pycompile_version} -m compileall -f -q \
+            usr/lib/python${pycompile_version}/site-packages/${f} && \
+        python${pycompile_version} -O -m compileall -f -q \
+            usr/lib/python${pycompile_version}/site-packages/${f}
+    else
+        python${pycompile_version} -m compileall -f -q \
+            usr/lib/python${pycompile_version}/site-packages/${f} && \
+        python${pycompile_version} -O -m compileall -f -q \
+            usr/lib/python${pycompile_version}/site-packages/${f}
+    fi
+done
+"""
+
+_py_remove = r"""
+[ ! -x /usr/bin/python${pycompile_version} ] && return 0
+[ -z "${pycompile_dirs}" -a -z "${pycompile_module}" ] && return 0
+
+for f in ${pycompile_dirs}; do
+    echo "Removing byte-compiled python${pycompile_version} files in ${f}..."
+    find ./${f} -type f -name \*.py[co] -delete 2>&1 >/dev/null
+    find ./${f} -type d -name __pycache__ -delete 2>&1 >/dev/null
+done
+for f in ${pycompile_module}; do
+    echo "Removing byte-compiled python${pycompile_version} code for module ${f}..."
+    if [ -d usr/lib/python${pycompile_version}/site-packages/${f} ]; then
+        find usr/lib/python${pycompile_version}/site-packages/${f} \
+            -type f -name \*.py[co] -delete 2>&1 >/dev/null
+        find usr/lib/python${pycompile_version}/site-packages/${f} \
+            -type d -name __pycache__ -delete 2>&1 >/dev/null
+    else
+        rm -f usr/lib/python${pycompile_version}/site-packages/${f%.py}.py[co]
+    fi
+done
+"""
+
+# all known hook scriptlets
+
+_hookscripts = {
+    "xml_catalog": {
+        "post-install": _xml_register_entries,
+        "post-upgrade": _xml_register_entries,
+        "pre-deinstall": _xml_unregister_entries,
+        "pre-upgrade": _xml_unregister_entries,
+    },
+    "system_accounts": {
+        "pre-install": _acct_setup,
+        "pre-upgrade": _acct_setup,
+        "post-deinstall": _acct_drop,
+    },
+    "pycompile": {
+        "post-install": _py_compile,
+        "post-upgrade": _py_compile,
+        "pre-upgrade": _py_remove,
+        "pre-deinstall": _py_remove,
+    }
+}
 
 def _handle_catalogs(pkg, _add_hook):
     sgml_entries = []
@@ -66,12 +334,12 @@ def _handle_catalogs(pkg, _add_hook):
                 map(lambda v: " ".join(v), xml_entries)
             )
         # fire
-        _add_hook("xml-catalog", catvars)
+        _add_hook("xml_catalog", catvars)
 
 def _handle_accounts(pkg, _add_hook):
     # handle system groups
     if len(pkg.system_groups) > 0:
-        _add_hook("system-accounts", {
+        _add_hook("system_accounts", {
             "system_groups": " ".join(pkg.system_groups)
         })
 
@@ -111,7 +379,7 @@ def _handle_accounts(pkg, _add_hook):
             # add the main var
             evars["system_users"] = " ".join(usrs)
         # add the hook
-        _add_hook("system-accounts", evars)
+        _add_hook("system_accounts", evars)
 
 def _handle_python(pkg, _add_hook):
     pyver = None
@@ -147,6 +415,8 @@ def _handle_python(pkg, _add_hook):
                     continue
                 elif f.match("*.pth"):
                     continue
+                elif f.name == "README.txt":
+                    continue
                 # should be ok now
                 pymods.append(f.name)
         else:
@@ -172,7 +442,7 @@ def _handle_python(pkg, _add_hook):
                 if not (pkg.destdir / d).is_dir():
                     pkg.error("non-existent pycompile_dirs specified")
             # put into vars
-            pyvars["pycmpile_dirs"] = " ".join(pkg.pycompile_dirs)
+            pyvars["pycompile_dirs"] = " ".join(pkg.pycompile_dirs)
         # modules
         if len(pymods) > 0:
             pyvars["pycompile_module"] = " ".join(pymods)
@@ -211,20 +481,28 @@ def invoke(pkg):
     for h in _reghooks:
         envs = _reghooks[h]
         # go through every target
-        for tgt in subprocess.run(
-            ["sh", hookpath / h, "targets"], capture_output = True,
-            check = True
-        ).stdout.decode().strip().split():
+        for tgt in _hookscripts[h]:
             if not tgt in _hooks:
                 # this should never happen unless we are buggy
                 pkg.error(f"unknown hook: {tgt}")
             # export env vars for the hook
             for e in envs:
-                _hooks[tgt] += f"export {e}={shlex.quote(envs[e])}\n"
+                _hooks[tgt] += f"{e}={shlex.quote(envs[e])}\n"
+            # export the scriptlet as function
+            _hooks[tgt] += f"\n_{h}_invoke() " + "{\n"
+            for l in io.StringIO(_hookscripts[h][tgt]):
+                # empty lines
+                if len(l.strip()) == 0:
+                    _hooks[tgt] += "\n"
+                    continue
+                # add the line, indent as needed
+                _hooks[tgt] += f"    {l.rstrip()}\n"
+            # end the function
+            _hooks[tgt] += "    return 0\n}\n"
             # insert the hook
             pkg.log(f"added hook '{h}' for scriptlet '{tgt}'")
-            _hooks[tgt] += f"/usr/libexec/apk-chimera-hooks/{h} run {tgt} " + \
-                           f"'{pkg.pkgname}' '{pkg.pkgver}'\n"
+            _hooks[tgt] += f"_{h}_invoke '{pkg.pkgname}' '{pkg.pkgver}'" + \
+                " || exit $?\n"
 
     # add user scriptlets
     for h in _hooks:
@@ -242,7 +520,8 @@ def invoke(pkg):
                     sr = sr[nl + 1:].strip()
             # append cleared up scriptlet
             if len(sr) > 0:
-                _hooks[h] += "# package script\n\n"
+                _hooks[h] += "# package script\n"
+                _hooks[h] += "set -e\n\n"
                 _hooks[h] += sr
             # log
             pkg.log(f"added package scriptlet '{h}'")
@@ -267,6 +546,6 @@ def invoke(pkg):
             pkg.error("trigger scriptlet provided but no triggers")
         # create file
         with open(scdir / f"{pkg.pkgname}.{h}", "w") as sf:
-            sf.write(_header)
+            sf.write("#!/bin/sh\n\n")
             sf.write(s)
             sf.write("\n")
