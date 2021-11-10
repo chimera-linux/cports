@@ -9,9 +9,9 @@ import subprocess
 # fallback python version when we cannot determine it
 def _get_pyver(pkg):
     rv = template.read_pkg(
-        "python", pkg.profile().arch,
+        "python", pkg.rparent.profile().arch,
         True, False, 1, False, False, None,
-        resolve = pkg, ignore_missing = True, ignore_errors = True
+        resolve = pkg.rparent, ignore_missing = True, ignore_errors = True
     )
     if not rv:
         pkg.error("failed getting python version")

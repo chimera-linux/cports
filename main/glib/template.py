@@ -16,6 +16,7 @@ makedepends = [
 checkdepends = [
     "desktop-file-utils", "shared-mime-info", "dbus", "python-pytest"
 ]
+triggers = ["/usr/share/glib-2.0/schemas"]
 pkgdesc = "GLib library of C routines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
