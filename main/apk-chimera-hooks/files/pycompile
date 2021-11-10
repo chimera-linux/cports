@@ -23,7 +23,7 @@
 # pycompile_version="3.4"
 #
 # Arguments:    $ACTION = [run/targets]
-#               $TARGET = [post-install/pre-upgrade/post-upgrade/post-deinstall]
+#               $TARGET = [post-install/pre-upgrade/post-upgrade/pre-deinstall]
 #               $PKGNAME
 #               $VERSION
 #
@@ -77,7 +77,7 @@ remove() {
 
 case "$ACTION" in
 targets)
-    echo "post-install pre-upgrade post-upgrade post-deinstall"
+    echo "post-install pre-upgrade post-upgrade pre-deinstall"
     ;;
 run)
     [ ! -x usr/bin/python${pycompile_version} ] && exit 0
@@ -87,7 +87,7 @@ run)
     post-install|post-upgrade)
         compile
         ;;
-    pre-upgrade|post-deinstall)
+    pre-upgrade|pre-deinstall)
         remove
         ;;
     *)
