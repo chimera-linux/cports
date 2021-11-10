@@ -310,6 +310,7 @@ def _clang_analyzer(self):
     self.depends = [f"clang={pkgver}-r{pkgrel}"]
     if self.stage > 0:
         self.depends.append("python")
+        self.pycompile_dirs = ["usr/share/scan-view"]
 
     return [
         "usr/bin/analyze-build",

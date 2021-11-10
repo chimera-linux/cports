@@ -593,6 +593,11 @@ These variables generate scriptlets:
   `home`.
 * `system_groups` *(list)* A list of groups to create. It contains strings,
   which can be in the format `gname` or `gname:gid`.
+* `pycompile_dirs` *(list)* A list of directories containing Python modules
+  to precompile. Should be relative to destdir and must exist in the package.
+* `pycompile_modules` *(list)* A list of Python modules to compile. If not
+  specified, all modules in `/usr/lib/pythonVERSION` will be considered (but
+  not recursively).
 
 Additionally, there is a variety of variables that are not generic but rather
 are used by specific build styles. They are listed and described in each

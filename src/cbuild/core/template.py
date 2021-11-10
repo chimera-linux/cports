@@ -391,6 +391,8 @@ core_fields = [
     # scriptlet generators
     ("system_users", [], list, False, True, False),
     ("system_groups", [], list, False, True, False),
+    ("pycompile_dirs", [], list, False, True, False),
+    ("pycompile_modules", [], list, False, True, False),
 
     # fields relating to build fields
 
@@ -474,6 +476,8 @@ core_fields_priority = [
     ("exec_wrappers", True),
 
     # scriptlet-generating stuff comes last
+    ("pycompile_dirs", True),
+    ("pycompile_modules", True),
     ("system_users", True),
     ("system_groups", True),
 

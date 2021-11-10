@@ -46,6 +46,9 @@ def _libdevel(self):
 @subpackage("glib-devel")
 def _devel(self):
     self.depends += [f"libglib-devel={pkgver}-r{pkgrel}"]
+    self.pycompile_dirs = [
+        "usr/share/glib-2.0/codegen", "usr/share/glib-2.0/gdb"
+    ]
 
     return self.default_devel(extra = [
         "usr/bin/glib-compile-resources",
