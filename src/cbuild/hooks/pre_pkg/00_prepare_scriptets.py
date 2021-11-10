@@ -250,8 +250,11 @@ def invoke(pkg):
     # set up scriptlet dir
     scdir = pkg.statedir / "scriptlets"
     if scdir.is_dir():
-        shutil.rmtree(scdir)
-    scdir.mkdir()
+        # remove potential leftovers for this package
+        for sc in scdir.glob(f"{pkg.pkgname}.*"):
+            sc.unlink()
+    else:
+        scdir.mkdir()
 
     # generate
     for h in _hooks:
