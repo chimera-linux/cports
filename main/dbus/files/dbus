@@ -1,0 +1,8 @@
+# dbus daemon service
+
+type            = process
+command         = /usr/bin/dbus-daemon --system --nofork --nopidfile
+depends-on      = early-rcboot
+logfile         = /var/log/dbus-daemon.log
+smooth-recovery = yes
+socket-listen   = /var/run/dbus/system_bus_socket

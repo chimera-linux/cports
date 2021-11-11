@@ -1152,6 +1152,9 @@ class Template(Package):
             src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name
         )
 
+    def install_service(self, src, name = None):
+        self.install_file(src, "etc/dinit.d", name = name)
+
     def install_link(self, src, dest):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
