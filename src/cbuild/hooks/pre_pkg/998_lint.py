@@ -49,7 +49,7 @@ def invoke(pkg):
     for f in pkg.destdir.glob("*"):
         rf = f.relative_to(pkg.destdir)
         if not f.name in allowpaths:
-            pkg.log_red(f"forbidden dorirectory '{rf}'")
+            pkg.log_red(f"forbidden directory '{rf}'")
             lintfail = True
 
     if dirempty and pkg.build_style != "meta":
