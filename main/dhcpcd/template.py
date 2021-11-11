@@ -21,7 +21,6 @@ url = "https://roy.marples.name/projects/dhcpcd"
 source = f"https://roy.marples.name/downloads/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "819357634efed1ea5cf44ec01b24d3d3f8852fec8b4249925dcc5667c54e376c"
 
-# TODO: add services
-
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_service(self.files_path / "dhcpcd")
