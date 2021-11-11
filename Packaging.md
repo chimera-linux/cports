@@ -895,6 +895,23 @@ The `do_install` executes `setup.py` with `python`, with the `install` target
 and arguments `--prefix=/usr`, `--root={self.chroot_destdir}` plus any
 `self.make_install_args`.
 
+#### python_pep517
+
+A build style for Python modules (PEP517). Requires to have `python-pip` in
+`hostmakedepends`.
+
+Default values:
+
+* `make_build_target` = `.`
+* `make_install_target` = `{self.pkgname.removeprefix('python-')}-{self.pkgver}-*-*-*.whl`
+
+Sets `do_build`, `do_check`, `do_install`.
+
+The `do_build` builds a wheel with `pip`. The `do_install` will install the
+contents of the wheel. The `do_check` will run `pytest` or fail.
+
+The `make_install_target` is used as a glob pattern to match built wheels.
+
 <a id="subpackages"></a>
 ### Subpackages
 

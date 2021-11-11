@@ -3,7 +3,10 @@
 from cbuild.core import chroot
 
 def do_build(self):
-    self.do("python3", ["setup.py", "build"] + self.make_build_args)
+    self.do(
+        "python3", ["setup.py", "build"] + self.make_build_args,
+        env = self.make_build_env
+    )
 
 def do_check(self):
     if chroot.enter(
@@ -12,12 +15,14 @@ def do_check(self):
     ).returncode == 0:
         self.do(
             "python3",
-            ["-m", "pytest"] + self.make_check_args + [self.make_check_target]
+            ["-m", "pytest"] + self.make_check_args + [self.make_check_target],
+            env = self.make_check_env
         )
     else:
         self.do(
             "python3",
-            ["setup.py", self.make_check_target] + self.make_check_args
+            ["setup.py", self.make_check_target] + self.make_check_args,
+            env = self.make_check_env
         )
 
 def do_install(self):
@@ -25,7 +30,8 @@ def do_install(self):
         "python3", [
             "setup.py", "install", "--prefix=/usr",
             "--root=" + str(self.chroot_destdir)
-        ] + self.make_install_args
+        ] + self.make_install_args,
+        env = self.make_install_env
     )
 
 def use(tmpl):
