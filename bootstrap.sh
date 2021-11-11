@@ -120,6 +120,11 @@ if [ -z "${BOOTSTRAP_STAGE}" ]; then
 fi
 
 cat << EOF > "${BOOTSTRAP_ROOT}/bootstrap-inner.sh"
+if [ -n "${BOOTSTRAP_REPO}" ]; then
+    mkdir -p /etc/xbps.d
+    echo "repository=${BOOTSTRAP_REPO}" > /etc/xbps.d/00-repository-main.conf
+fi
+
 # update base
 echo ">> Updating base system..."
 xbps-install -y -S || exit 1
