@@ -13,3 +13,6 @@ source = f"$(PYPI_SITE)/p/pluggy/pluggy-{pkgver}.tar.gz"
 sha256 = "15b2acde666561e1298d71b523007ed7364de07029219b604cf808bfa1c765b0"
 # dependency of pytest
 options = ["!check"]
+
+def post_install(self):
+    self.install_license("LICENSE")

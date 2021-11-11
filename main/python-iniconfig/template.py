@@ -13,3 +13,6 @@ source = f"$(PYPI_SITE)/i/iniconfig/iniconfig-{pkgver}.tar.gz"
 sha256 = "bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"
 # dependency of pytest
 options = ["!check"]
+
+def post_install(self):
+    self.install_license("LICENSE")
