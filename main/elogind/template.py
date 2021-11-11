@@ -28,8 +28,6 @@ url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "c490dc158c8f5bca8d00ecfcc7ad5af24d1c7b9e59990a0b3b1323996221a922"
 
-# TODO: service
-
 def post_install(self):
     # compat symlinks
     self.install_link("libelogind.pc", "usr/lib/pkgconfig/libsystemd.pc")
@@ -40,11 +38,12 @@ def post_install(self):
     # extra includes
     self.install_file("src/systemd/sd-id128.h", "usr/include")
     self.install_file("src/systemd/_sd-common.h", "usr/include")
-    # wrapper
+    # service file
     self.install_file(
         self.files_path / "elogind.wrapper", "usr/libexec/elogind",
         mode = 0o755
     )
+    self.install_service(self.files_path / "elogind")
 
 @subpackage("elogind-devel")
 def _devel(self):
