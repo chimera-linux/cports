@@ -1,0 +1,7 @@
+# generate host keys if not already existing
+
+type       = scripted
+command    = ssh-keygen -A
+restart    = false
+depends-on = early-rcboot
+depends-on = login-ready

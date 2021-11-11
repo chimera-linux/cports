@@ -4,4 +4,4 @@ type            = process
 command         = /usr/libexec/elogind/elogind.wrapper
 depends-on      = dbus
 logfile         = /var/log/elogind.log
-smooth-recovery = yes
+smooth-recovery = true

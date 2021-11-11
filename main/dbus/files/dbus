@@ -4,5 +4,5 @@ type            = process
 command         = /usr/libexec/dbus-daemon.wrapper
 depends-on      = early-rcboot
 logfile         = /var/log/dbus-daemon.log
-smooth-recovery = yes
+smooth-recovery = true
 socket-listen   = /var/run/dbus/system_bus_socket

@@ -37,8 +37,6 @@ suid_files = ["usr/libexec/ssh-keysign"]
 # portable openssh is not very portable
 options = ["!check"]
 
-# FIXME: sshd service
-
 def init_configure(self):
     self.configure_args += [
         "--with-ldns=" + str(self.profile().sysroot / "usr")
@@ -54,3 +52,6 @@ def post_install(self):
 
     self.install_dir("var/chroot/ssh")
     (self.destdir / "var/chroot/ssh/.empty").touch()
+
+    self.install_service(self.files_path / "ssh-keygen")
+    self.install_service(self.files_path / "sshd")

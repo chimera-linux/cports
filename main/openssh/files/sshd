@@ -1,0 +1,6 @@
+# sshd service
+
+type            = process
+command         = /usr/bin/sshd -D
+depends-on      = ssh-keygen
+smooth-recovery = true
