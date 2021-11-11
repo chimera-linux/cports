@@ -45,6 +45,9 @@ def post_install(self):
     self.install_dir("etc/dbus-1/session.d")
     (self.destdir / "etc/dbus-1/session.d/.empty").touch(mode = 0o644)
     # service file
+    self.install_file(
+        self.files_path / "dbus-daemon.wrapper", "usr/libexec", mode = 0o755
+    )
     self.install_service(self.files_path / "dbus")
 
 @subpackage("dbus-devel")

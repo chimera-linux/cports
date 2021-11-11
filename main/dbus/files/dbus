@@ -1,7 +1,7 @@
 # dbus daemon service
 
 type            = process
-command         = /usr/bin/dbus-daemon --system --nofork --nopidfile
+command         = /usr/libexec/dbus-daemon.wrapper
 depends-on      = early-rcboot
 logfile         = /var/log/dbus-daemon.log
 smooth-recovery = yes
