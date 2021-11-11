@@ -1155,6 +1155,11 @@ class Template(Package):
     def install_service(self, src, name = None):
         self.install_file(src, "etc/dinit.d", name = name)
 
+    def install_svscript(self, src, name = None):
+        self.install_file(
+            src, "etc/dinit.d/scripts", mode = 0o755, name = name
+        )
+
     def install_link(self, src, dest):
         dest = pathlib.Path(dest)
         if dest.is_absolute():

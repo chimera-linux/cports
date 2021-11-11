@@ -2117,11 +2117,15 @@ The permissions will be `644`. All paths are created as necessary.
 
 Equivalent to `self.install_file(src, "usr/share/licenses/" + pkgname, 0o644, name)`.
 
+When `pkgname` is not given, `self.pkgname` is used.
+
 ##### def install_service(self, src, name = None)
 
 Equivalent to `self.install_file(src, "etc/dinit.d", 0o644, name)`.
 
-When `pkgname` is not given, `self.pkgname` is used.
+##### def install_svscript(self, src, name = None)
+
+Equivalent to `self.install_file(src, "etc/dinit.d/scripts", 0o755, name)`.
 
 ##### def install_link(self, src, dest)
 
