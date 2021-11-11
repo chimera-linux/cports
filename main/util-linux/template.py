@@ -44,20 +44,23 @@ suid_files = [
     "usr/bin/wall",
     "usr/bin/write",
 ]
+file_modes = {
+    "usr/bin/wall": (None, "tty:5", 0o2755),
+    "usr/bin/write": (None, "tty:5", 0o2755),
+}
 # checkdepends are missing
 options = ["!check"]
 
-# FIXME/TODO:
-# - uuidd service
-# - /usr/bin/{wall, write} should be owned by tty
-# - maybe install libuuid license in its subpackage
+system_users = ["_uuidd"]
 
 def post_extract(self):
     self.rm("tests/ts/lsns/ioctl_ns", force = True)
     self.rm("tests/ts/col/multibyte", force = True)
 
 def post_install(self):
-    self.install_license("Documentation/licenses/COPYING.BSD-3-Clause")
+    self.install_license(
+        "Documentation/licenses/COPYING.BSD-3-Clause", pkgname = "libuuid"
+    )
 
     # fix permissions
     for f in suid_files:
@@ -84,6 +87,10 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin/hexdump")
     self.rm(self.destdir / "usr/share/man/man1/hexdump.1")
     self.rm(self.destdir / "usr/share/bash-completion/completions/hexdump")
+
+    # service
+    self.install_service(self.files_path / "uuidd")
+    self.install_service(self.files_path / "uuidd-dir")
 
 @subpackage("util-linux-libs")
 def _libs(self):
@@ -165,6 +172,16 @@ def _libuuid_devel(self):
         "usr/lib/pkgconfig/*uuid*",
         "usr/include/uuid",
         "usr/share/man/man3/uuid*"
+    ]
+
+@subpackage("libuuid-progs")
+def _uuid(self):
+    self.pkgdecs = "Runtime components for the UUID library"
+    return [
+        "etc/dinit.d",
+        "usr/bin/uuid*",
+        "usr/share/man/man[18]/uuid*",
+        "usr/share/bash-completion/completions/uuid*",
     ]
 
 @subpackage("libsmartcols")
