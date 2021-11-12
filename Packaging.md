@@ -886,6 +886,10 @@ Implemented around `cbuild.util.meson`.
 
 A build style for Python modules (using `setup.py`).
 
+Default values:
+
+* `make_check_target` = `test`
+
 Sets `do_build`, `do_check`, `do_install`.
 
 The `do_build` executes `setup.py` with `python`, with the `build` target

@@ -38,3 +38,7 @@ def use(tmpl):
     tmpl.do_build = do_build
     tmpl.do_check = do_check
     tmpl.do_install = do_install
+
+    tmpl.build_style_defaults = [
+        ("make_check_target", "test"),
+    ]

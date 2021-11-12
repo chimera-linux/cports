@@ -11,7 +11,7 @@ license = "MIT"
 url = "https://www.makotemplates.org"
 source = f"$(PYPI_SITE)/M/Mako/Mako-{pkgver}.tar.gz"
 sha256 = "8195c8c1400ceb53496064314c6736719c6f25e7479cd24c77be3d9361cddc27"
-# pytest not packaged yet
+# tests failing with 3.10 for now, should be harmless
 options = ["!check"]
 
 def post_install(self):
