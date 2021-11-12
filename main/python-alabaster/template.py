@@ -3,6 +3,7 @@ pkgver = "0.7.12"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
+checkdepends = ["python-pygments"]
 depends = ["python"]
 pkgdesc = "Configurable sidebar-enabled Sphinx theme"
 maintainer = "q66 <q66@chimera-linux.org>"

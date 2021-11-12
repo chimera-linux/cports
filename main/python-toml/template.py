@@ -10,6 +10,8 @@ license = "MIT"
 url = "https://github.com/RonnyPfannschmidt/iniconfig"
 source = f"$(PYPI_SITE)/t/toml/toml-{pkgver}.tar.gz"
 sha256 = "b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"
+# needs pytest, is a dependency of pytest
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")

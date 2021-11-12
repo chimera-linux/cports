@@ -14,6 +14,8 @@ env = {
     "SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES": "0",
     "SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT": "1"
 }
+# missing checkdepends
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")
