@@ -1,0 +1,11 @@
+#!/bin/sh
+
+clean_initramfs() {
+    local kernver="$(echo ${1}|sed 's/-r\([0-9]*\)/-\1/')-generic"
+    # may differ based on generator used
+    rm -f /boot/initramfs-${kernver}.img
+    rm -f /boot/initrd.img-${kernver}
+}
+
+[ "$1" != "$2" ] && clean_initramfs "$1"
+[ -n "$2" ] && clean_initramfs "$2"
