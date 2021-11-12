@@ -13,9 +13,13 @@ def do_check(self):
         "python3", ["-c", "import pytest"], capture_out = True,
         ro_root = True, ro_build = True, unshare_all = True
     ).returncode == 0:
+        ctgt = []
+        if len(self.make_check_target) > 0:
+            ctgt = [self.make_check_target]
+
         self.do(
             "python3",
-            ["-m", "pytest"] + self.make_check_args + [self.make_check_target],
+            ["-m", "pytest"] + self.make_check_args + ctgt,
             env = self.make_check_env
         )
     else:
