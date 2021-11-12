@@ -5,7 +5,7 @@ build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
 checkdepends = ["python-pytest", "python-markupsafe"]
 depends = [
-    "python-jinja2", "python-docutils", "python-pygments",
+    "python-jinja2", "python-docutils<0.18", "python-pygments",
     "python-snowballstemmer", "python-babel", "python-alabaster",
     "python-imagesize", "python-requests", "python-packaging",
     "python-sphinxcontrib-applehelp", "python-sphinxcontrib-devhelp",
