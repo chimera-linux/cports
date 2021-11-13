@@ -1,0 +1,87 @@
+From cfab291e4468f30694bffc533d8bcba44d1220c8 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 13 Nov 2021 05:36:43 +0100
+Subject: [PATCH] add opentype target
+
+---
+ Makefile             | 15 +++++++++++++++
+ scripts/ogenerate.pe | 13 +++++++++++++
+ 2 files changed, 28 insertions(+)
+ create mode 100755 scripts/ogenerate.pe
+
+diff --git a/Makefile b/Makefile
+index 53f2ab94..84f20b3d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -39,6 +39,7 @@ BLOCKS      = $(RESOURCEDIR)/Blocks.txt
+ UNICODEDATA = $(RESOURCEDIR)/UnicodeData.txt
+ FC-LANG     = $(RESOURCEDIR)/fc-lang
+ 
++OGENERATE   = $(SCRIPTSDIR)/ogenerate.pe
+ GENERATE    = $(SCRIPTSDIR)/generate.pe
+ TTPOSTPROC  = $(SCRIPTSDIR)/ttpostproc.pl
+ LGC         = $(SCRIPTSDIR)/lgc.pe
+@@ -57,6 +58,7 @@ MATSHSFD := $(wildcard $(SRCDIR)/*Math*.sfd)
+ LGCSRC   := $(filter-out $(MATSHSFD),$(SRC))
+ LGCSFD   := $(patsubst $(SRCDIR)/DejaVu%.sfd, $(TMPDIR)/DejaVuLGC%.sfd, $(LGCSRC))
+ FULLTTF  := $(patsubst $(TMPDIR)/%.sfd, $(BUILDDIR)/%.ttf, $(FULLSFD))
++FULLOTF  := $(patsubst $(TMPDIR)/%.sfd, $(BUILDDIR)/%.otf, $(FULLSFD))
+ LGCTTF   := $(patsubst $(TMPDIR)/%.sfd, $(BUILDDIR)/%.ttf, $(LGCSFD))
+ 
+ FONTCONF     := $(wildcard $(FONTCONFDIR)/*.conf)
+@@ -93,6 +95,9 @@ $(TMPDIR)/DejaVuLGC%.sfd: $(TMPDIR)/DejaVu%.sfd
+ $(BUILDDIR)/DejaVuLGCMathTeXGyre.ttf: $(TMPDIR)/DejaVuLGCMathTeXGyre.sfd
+ 	@echo "[3] skipping $<"
+ 
++$(BUILDDIR)/DejaVuLGCMathTeXGyre.otf: $(TMPDIR)/DejaVuLGCMathTeXGyre.sfd
++	@echo "[3] skipping $<"
++
+ $(BUILDDIR)/%.ttf: $(TMPDIR)/%.sfd
+ 	@echo "[3] $< => $@"
+ 	install -d $(dir $@)
+@@ -102,6 +107,14 @@ $(BUILDDIR)/%.ttf: $(TMPDIR)/%.sfd
+ 	$(RM) $@~
+ 	touch -r $< $@
+ 
++$(BUILDDIR)/%.otf: $(TMPDIR)/%.sfd
++	@echo "[3] $< => $@"
++	install -d $(dir $@)
++	$(OGENERATE) $<
++	mv $<.otf $@
++	$(RM) $@~
++	touch -r $< $@
++
+ $(BUILDDIR)/status.txt: $(FULLSFD)
+ 	@echo "[4] => $@"
+ 	install -d $(dir $@)
+@@ -258,6 +271,8 @@ ttf : full-ttf sans-ttf lgc-ttf
+ 
+ full-ttf : $(FULLTTF)
+ 
++full-otf : $(FULLOTF)
++
+ sans-ttf: $(BUILDDIR)/DejaVuSans.ttf
+ 
+ lgc-ttf : $(LGCTTF)
+diff --git a/scripts/ogenerate.pe b/scripts/ogenerate.pe
+new file mode 100755
+index 00000000..f76b7e96
+--- /dev/null
++++ b/scripts/ogenerate.pe
+@@ -0,0 +1,13 @@
++#!/usr/bin/env fontforge
++
++def_gen_flags = 0x20 + 0x40 + 0x800
++exp_gen_flags = def_gen_flags + 8
++
++SetPref("FoundryName", "DejaVu")
++i = 1
++while ( i < $argc )
++  Open($argv[i], 1)
++  Generate( $curfont + ".otf", "", exp_gen_flags)
++  Close()
++  i++
++endloop
+-- 
+2.33.1
+
