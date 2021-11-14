@@ -1,0 +1,6 @@
+# ead service
+
+type       = process
+command    = /usr/libexec/ead
+depends-on = dbus
+logfile    = /var/log/ead.log
