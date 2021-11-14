@@ -1093,8 +1093,8 @@ class Template(Package):
         dirp = self.destdir / dest
         if not dirp.is_dir():
             dirp.mkdir(parents = True)
-            if mode is not None:
-                dirp.chmod(mode)
+        if mode is not None:
+            dirp.chmod(mode)
 
     def install_file(self, src, dest, mode = 0o644, name = None):
         src = pathlib.Path(src)
