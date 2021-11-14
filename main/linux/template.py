@@ -3,9 +3,9 @@ pkgver = "5.14.15"
 pkgrel = 0
 make_dir = "build"
 hostmakedepends = [
-    "bash", "bc-gh", "binutils", "bison", "findutils", "flex",
-    "elftoolchain-devel", "gmake", "gsed", "gtar", "xz", "kmod",
-    "linux-headers", "openssl-devel", "perl", "python",
+    "bash", "bc-gh", "binutils", f"binutils-{current.profile().arch}", "bison",
+    "findutils", "flex", "elftoolchain-devel", "gmake", "gsed", "gtar", "xz",
+    "kmod", "linux-headers", "openssl-devel", "perl", "python",
     "u-boot-tools", "zlib-devel",
 ]
 pkgdesc = "Linux kernel (5.14.x)"
