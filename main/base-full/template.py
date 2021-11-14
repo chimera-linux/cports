@@ -6,12 +6,18 @@ depends = [
     "base-core", "nano", "initramfs-tools", "openssh", "opendoas",
     "ethtool", "dhcpcd", "usbutils", "f2fs-tools", "elogind", "dbus",
     "iwd",
+    # firmware for all
+    "firmware-linux-amd",
+    "firmware-linux-nvidia",
+    "firmware-linux-network",
+    "firmware-wifi",
 ]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 
-# TODO:
-#
-# - firmware (wifi etc)
+# firmware for some
+match current.profile().arch:
+    case "x86_64":
+        depends += ["firmware-linux-intel"]
