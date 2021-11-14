@@ -39,7 +39,7 @@ def post_install(self):
 @subpackage("fonts-dejavu-common")
 def _common(self):
     self.pkgdesc = "DejaVu family of fonts (common files)"
-    #self.depends = ["mkfontscale"] not packaged yet
+    self.depends = ["mkfontscale"]
     return ["etc/fonts", "usr/share/licenses"]
 
 @subpackage("fonts-dejavu-ttf")
