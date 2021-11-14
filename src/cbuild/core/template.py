@@ -1670,7 +1670,7 @@ def read_pkg(
         return deco
 
     setattr(builtins, "subpackage", subpkg_deco)
-    setattr(builtins, "current", ret)
+    setattr(builtins, "self", ret)
 
     modh, modspec = _tmpl_dict.get(pkgname, (None, None))
     if modh:
@@ -1692,7 +1692,7 @@ def read_pkg(
 
     modspec.loader.exec_module(modh)
 
-    delattr(builtins, "current")
+    delattr(builtins, "self")
     delattr(builtins, "subpackage")
 
     return from_module(modh, ret)

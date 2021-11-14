@@ -5,7 +5,7 @@ pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "test"
-hostmakedepends = ["gmake", "perl", f"binutils-{current.profile().arch}"]
+hostmakedepends = ["gmake", "perl", f"binutils-{self.profile().arch}"]
 makedepends = ["linux-headers"]
 pkgdesc = "Minimal libc subset for use with initramfs"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,13 +16,13 @@ sha256 = "6dcca708913320d26309f05b0c2bf68071bf11b3dadcc4e6c7d923837fc23ee1"
 # symlink to linux-headers
 options = ["brokenlinks"]
 
-match current.profile().arch:
+match self.profile().arch:
     case "x86_64": _arch = "x86_64"
     case "aarch64": _arch = "arm64"
     case "ppc64le" | "ppc64": _arch = "ppc64"
     case "riscv64": _arch = "riscv64"
     case _:
-        broken = f"Unknown CPU architecture: {current.profile().arch}"
+        broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 def init_configure(self):
     eflags = [

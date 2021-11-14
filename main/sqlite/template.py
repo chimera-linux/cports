@@ -27,7 +27,7 @@ _cflags = [
     "-DHAVE_FDATASYNC"
 ]
 
-if current.profile().endian == "big":
+if self.profile().endian == "big":
     _cflags += ["-DSHA3_BYTEORDER=4321", "-DSQLITE_BYTEORDER=4321"]
 else:
     _cflags += ["-DSHA3_BYTEORDER=1234", "-DSQLITE_BYTEORDER=1234"]

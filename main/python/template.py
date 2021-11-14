@@ -45,7 +45,7 @@ sha256 = "5a99f8e7a6a11a7b98b4e75e0d1303d3832cada5534068f69c7b6222a7b1b002"
 
 pycompile_dirs = [f"usr/lib/python{_majver}"]
 
-if current.cross_build:
+if self.cross_build:
     hostmakedepends += ["python"]
 
 def init_configure(self):

@@ -58,7 +58,7 @@ tool_flags = {
 subpackages = []
 
 _targets = list(filter(
-    lambda p: p != current.profile().arch,
+    lambda p: p != self.profile().arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
 
@@ -130,7 +130,7 @@ def _gen_subp(an, at):
     return _subp
 
 for an in _targets:
-    with current.profile(an) as pf:
+    with self.profile(an) as pf:
         at = pf.short_triplet
 
     subpackages.append((f"clang-rt-crt-cross-{an}", _gen_subp(an, at)))

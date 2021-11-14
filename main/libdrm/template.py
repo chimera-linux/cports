@@ -17,7 +17,7 @@ source = f"https://gitlab.freedesktop.org/mesa/drm/-/archive/{pkgname}-{pkgver}/
 sha256 = "16b23932a2b7d41d091cf95662a83f56c680a9bb3456931c0b76fde02ae2d53f"
 
 # stuff like radeon autodetects, most arm stuff is by default false
-match current.profile().arch:
+match self.profile().arch:
     case "aarch64":
         configure_args += [
             "-Dvc4=true", "-Domap=true", "-Dfreedreno=true",

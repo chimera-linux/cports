@@ -14,7 +14,7 @@ sha256 = "9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["bootstrap"]
 
-if current.stage > 0:
+if self.stage > 0:
     makedepends += ["gettext-tiny-devel"]
 else:
     configure_args += ["--disable-gettext"]

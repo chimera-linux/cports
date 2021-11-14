@@ -29,7 +29,7 @@ make_install_args = ["tooldir=/usr"]
 hostmakedepends = ["gmake", "flex", "texinfo"]
 makedepends = ["zlib-devel"]
 # binutils is a metapackage pointing to the current target binutils
-depends = [f"binutils-{current.profile().arch}={pkgver}-r{pkgrel}"]
+depends = [f"binutils-{self.profile().arch}={pkgver}-r{pkgrel}"]
 pkgdesc = "GNU binutils"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
@@ -216,15 +216,15 @@ def _gen_subp(an, at):
 
 for an in _targets:
     # this one must come last
-    if an == current.profile().arch:
+    if an == self.profile().arch:
         continue
 
-    with current.profile(an) as pf:
+    with self.profile(an) as pf:
         at = pf.short_triplet
 
     subpackages.append((f"binutils-{an}", _gen_subp(an, at)))
 
 subpackages.append((
-    f"binutils-{current.profile().arch}",
-    _gen_subp(current.profile().arch, current.profile().short_triplet)
+    f"binutils-{self.profile().arch}",
+    _gen_subp(self.profile().arch, self.profile().short_triplet)
 ))

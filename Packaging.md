@@ -1629,11 +1629,17 @@ to access them from inside functions.
 
 This is a subpackage decorator, see [Subpackages](#subpackages).
 
-#### current
+#### self
 
-Using `current`, you can access the `Template` handle from the global scope.
+Using `self`, you can access the `Template` handle from the global scope.
 Keep in mind that at this point, it is uninitialized - not even things run
 during the `init()` call are set up.
+
+Also, do not rely on it inside functions. Its existence is limited to the
+time when the primary template body is being executed. Of course, functions
+in general take the handle as the first argument, which is by convention
+also called `self`. You can obviously rely on that, just do not rely on it
+being implicitly defined.
 
 <a id="api_handle"></a>
 ### Handle API

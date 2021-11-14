@@ -15,7 +15,7 @@ sha256 = "904e396c26e9992a16cd1cc989460171536bed7739bf36049f6eb020ee5d56ec"
 options = ["!cross", "!check"]
 
 _targets = list(filter(
-    lambda p: p[0] != current.profile().arch,
+    lambda p: p[0] != self.profile().arch,
     [
         ("aarch64", "arm64"),
         ("ppc64le", "powerpc"),
@@ -72,5 +72,5 @@ def _gen_crossp(an, at):
     depends.append(f"linux-headers-cross-{an}={pkgver}-r{pkgrel}")
 
 for an, arch in _targets:
-    with current.profile(an) as pf:
+    with self.profile(an) as pf:
         _gen_crossp(an, pf.short_triplet)

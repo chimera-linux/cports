@@ -5,7 +5,7 @@ build_style = "makefile"
 make_cmd = "gmake"
 make_dir = "."
 make_build_args = [
-    f"HOST={current.profile().arch}-linux", "ZLIB=yes", "SHARED=yes",
+    f"HOST={self.profile().arch}-linux", "ZLIB=yes", "SHARED=yes",
     "SHAREDIR=/usr/share/hwdata", "MANDIR=/usr/share/man"
 ]
 make_install_args = [

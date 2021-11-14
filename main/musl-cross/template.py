@@ -19,7 +19,7 @@ hardening = ["!scp"]
 options = ["!cross", "!check", "brokenlinks", "foreignelf"]
 
 _targets = list(filter(
-    lambda p: p != current.profile().arch,
+    lambda p: p != self.profile().arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
 
@@ -70,5 +70,5 @@ def _gen_crossp(an, at):
     depends.append(f"musl-cross-{an}")
 
 for an in _targets:
-    with current.profile(an) as pf:
+    with self.profile(an) as pf:
         _gen_crossp(an, pf.short_triplet)

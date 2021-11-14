@@ -16,10 +16,10 @@ sha256 = "cde723e19262e646f2670d25e5ec4b1b368490de950d4e26275a988c36df0bd4"
 # weird test suite
 options = ["!check"]
 
-if current.cross_build:
+if self.cross_build:
     make_build_args += [
         "CROSS_BUILD_TOOLS=y",
-        f"CROSS_COMPILE={current.profile().short_triplet}-"
+        f"CROSS_COMPILE={self.profile().short_triplet}-"
     ]
 
 def do_configure(self):

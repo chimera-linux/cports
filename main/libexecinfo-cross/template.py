@@ -14,7 +14,7 @@ sha256 = "c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"
 options = ["!cross", "!check", "foreignelf"]
 
 _targets = list(filter(
-    lambda p: p != current.profile().arch,
+    lambda p: p != self.profile().arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
 
@@ -65,5 +65,5 @@ def _gen_crossp(an, at):
     depends.append(f"libexecinfo-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:
-    with current.profile(an) as pf:
+    with self.profile(an) as pf:
         _gen_crossp(an, pf.short_triplet)

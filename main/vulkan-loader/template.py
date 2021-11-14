@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-Wno-dev",
-    f"-DVULKAN_HEADERS_INSTALL_DIR={current.profile().sysroot / 'usr'}",
+    f"-DVULKAN_HEADERS_INSTALL_DIR={self.profile().sysroot / 'usr'}",
     "-DBUILD_TESTS=OFF" # needs gtest
 ]
 hostmakedepends = ["cmake", "ninja", "python", "pkgconf"]

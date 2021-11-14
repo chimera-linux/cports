@@ -18,6 +18,6 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 # firmware for some
-match current.profile().arch:
+match self.profile().arch:
     case "x86_64":
         depends += ["firmware-linux-intel"]

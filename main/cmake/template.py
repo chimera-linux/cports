@@ -7,7 +7,7 @@ configure_args = [
     "--prefix=/usr", "--mandir=/share/man", "--docdir=/share/doc/cmake",
     "--system-libarchive", "--system-zlib", "--system-bzip2",
     "--system-liblzma", "--system-zstd",
-    f"--parallel={current.conf_jobs}"
+    f"--parallel={self.conf_jobs}"
 ]
 makedepends = ["libarchive-devel", "ncurses-devel", "linux-headers"]
 pkgdesc = "Cross-platform, open source build system"
@@ -27,7 +27,7 @@ options = ["!check"]
 # the two build systems that offers are meson and cmake - cmake cannot be
 # used for obvious reasons, meson can't either as during stage 2 at the
 # point cmake is built, meson is not yet available, but no big deal
-if current.stage >= 2:
+if self.stage >= 2:
     makedepends += [
         "libcurl-devel", "nghttp2-devel", "libexpat-devel", "libuv-devel",
         "rhash-devel",

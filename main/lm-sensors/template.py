@@ -3,7 +3,7 @@ pkgver = "3.6.0"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
-make_build_args = [f"MACHINE={current.profile().arch}"]
+make_build_args = [f"MACHINE={self.profile().arch}"]
 make_install_args = ["SBINDIR=/usr/bin", "MANDIR=/usr/share/man"]
 hostmakedepends = ["gmake", "flex", "bison", "perl"]
 depends = ["perl"]

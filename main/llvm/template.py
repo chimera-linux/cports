@@ -58,7 +58,7 @@ _enabled_projects = [
     "libunwind", "lld"
 ]
 
-if current.stage > 0:
+if self.stage > 0:
     makedepends += [
         "python-devel", "libedit-devel", "elftoolchain-devel",
         "libexecinfo-devel", "linux-headers"
@@ -70,7 +70,7 @@ if current.stage > 0:
     _enabled_projects += ["openmp"]
     # for stage 2 onwards also enable debugger
     # in stage 1 there is no point in wasting cpu time with it
-    if current.stage >= 2:
+    if self.stage >= 2:
         configure_args += [
             "-DLLDB_ENABLE_LUA=NO", # maybe later
             "-DLLDB_ENABLE_PYTHON=YES",
@@ -94,19 +94,19 @@ else:
 _enable_flang = False
 
 # not ready yet (no codegen in flang-new)
-#if current.stage >= 2:
+#if self.stage >= 2:
 #    _enable_flang = True
 
 if _enable_flang:
     _enabled_projects += ["flang"]
 
-match current.profile().arch:
+match self.profile().arch:
     case "x86_64": _arch = "X86"
     case "aarch64": _arch = "AArch64"
     case "ppc64le" | "ppc64": _arch = "PowerPC"
     case "riscv64": _arch = "RISCV64"
     case _:
-        broken = f"Unknown CPU architecture: {current.profile().arch}"
+        broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
 
@@ -228,7 +228,7 @@ def _tools_extra(self):
         "usr/share/clang/*tidy*"
     ]
 
-@subpackage("libomp", current.stage > 0)
+@subpackage("libomp", self.stage > 0)
 def _libomp(self):
     self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library)"
 
@@ -243,7 +243,7 @@ def _libomp(self):
         "usr/lib/libarcher.so",
     ] + extra
 
-@subpackage("libomp-devel", current.stage > 0)
+@subpackage("libomp-devel", self.stage > 0)
 def _libomp_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library) (development files)"
     self.depends = [f"libomp={pkgver}-r{pkgrel}"]
@@ -455,7 +455,7 @@ def _libllvm(self):
 
     return [f"usr/lib/libLLVM-{_mver}.so"]
 
-@subpackage("lldb", current.stage >= 2)
+@subpackage("lldb", self.stage >= 2)
 def _lldb(self):
     self.pkgdesc = f"{pkgdesc} (debugger)"
     self.depends += ["python-six"]
@@ -466,7 +466,7 @@ def _lldb(self):
         "usr/lib/python*",
     ]
 
-@subpackage("lldb-devel", current.stage >= 2)
+@subpackage("lldb-devel", self.stage >= 2)
 def _lldb_devel(self):
     self.pkgdesc = f"{pkgdesc} (debugger) (development files)"
 

@@ -9,7 +9,7 @@ url = "http://xmlcatmgr.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/xmlcatmgr/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ea1142b6aef40fbd624fc3e2130cf10cf081b5fa88e5229c92b8f515779d6fdc"
 
-if current.cross_build:
+if self.cross_build:
     hostmakedepends += ["xmlcatmgr"]
 
 def post_build(self):

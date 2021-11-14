@@ -12,7 +12,7 @@ source = f"https://git.sr.ht/~sircmpwn/scdoc/archive/{pkgver}.tar.gz"
 sha256 = "1098a1ed2e087596fc0b3f657c1c8a5e00412267aa4baf3619e36824306645b1"
 tool_flags = {"CFLAGS": [f"-DVERSION=\"{pkgver}\""]}
 
-if current.cross_build:
+if self.cross_build:
     hostmakedepends = ["scdoc"]
 
 def pre_build(self):

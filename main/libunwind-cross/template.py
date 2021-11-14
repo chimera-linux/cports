@@ -27,7 +27,7 @@ options = ["!cross", "!check", "!lint", "foreignelf"]
 cmake_dir = "libunwind"
 
 _targets = list(filter(
-    lambda p: p != current.profile().arch,
+    lambda p: p != self.profile().arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
 
@@ -102,5 +102,5 @@ def _gen_crossp(an, at):
     depends.append(f"libunwind-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:
-    with current.profile(an) as pf:
+    with self.profile(an) as pf:
         _gen_crossp(an, pf.short_triplet)

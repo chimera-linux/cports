@@ -53,7 +53,7 @@ sha256 = "8e49585fb760d973723dab6435d0c86f7849b8305b1e6d99f475138d896bacbb"
 options = ["!cross"]
 
 # llvmpipe only properly supports a few archs
-match current.profile().arch:
+match self.profile().arch:
     case "x86_64" | "aarch64" | "ppc64le":
         pass
     case _:
@@ -77,7 +77,7 @@ _have_opencl = _have_amd or _have_intel
 _have_vulkan = _have_amd or _have_intel
 _have_zink = _have_vulkan
 
-match current.profile().arch:
+match self.profile().arch:
     case "x86_64":
         _have_intel = True
         _have_vmware = True

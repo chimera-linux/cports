@@ -3,7 +3,7 @@ pkgver = "5.14.15"
 pkgrel = 0
 make_dir = "build"
 hostmakedepends = [
-    "bash", "bc-gh", "binutils", f"binutils-{current.profile().arch}", "bison",
+    "bash", "bc-gh", "binutils", f"binutils-{self.profile().arch}", "bison",
     "findutils", "flex", "elftoolchain-devel", "gmake", "gsed", "gtar", "xz",
     "kmod", "linux-headers", "openssl-devel", "perl", "python",
     "u-boot-tools", "zlib-devel",
@@ -20,12 +20,12 @@ options = [
     "textrels", "foreignelf" # vdso32
 ]
 
-match current.profile().arch:
+match self.profile().arch:
     case "ppc64le": _arch = "powerpc"
     case "aarch64": _arch = "arm64"
     case "x86_64": _arch = "x86_64"
     case _:
-        broken = f"Unknown CPU architecture: {current.profile().arch}"
+        broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 def do_configure(self):
     cfgarch = self.profile().arch
