@@ -37,6 +37,9 @@ def _is_rdep(pn):
         return False
     elif pn.startswith("cmd:"):
         return False
+    elif pn.startswith("virtual:"):
+        return False
+
     return True
 
 def setup_depends(pkg):
@@ -52,8 +55,17 @@ def setup_depends(pkg):
             crdeps.append((sp.pkgname, x))
 
     for orig, dep in crdeps:
-        if dep.startswith("!") or not _is_rdep(dep):
+        # conflicts are not checked at all
+        if dep.startswith("!"):
             continue
+        # virtual dependencies are checked for their specified provider
+        if not _is_rdep(dep):
+            if not dep in pkg.depends_providers:
+                pkg.error(
+                    f"virtual dependency {dep} has no specified provider"
+                )
+            dep = pkg.depends_providers[dep]
+
         pn, pv, pop = autil.split_pkg_name(dep)
         if not pn:
             rdeps.append((orig, dep + ">=0"))

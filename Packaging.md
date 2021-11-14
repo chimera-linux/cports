@@ -435,10 +435,15 @@ Keep in mind that default values may be overridden by build styles.
   constraints (e.g. `foo<=1.0-r1`) and conflicts (`!foo`). You can also
   specify dependencies on `pkgconf` files (`pc:foo`), executable commands
   (`cmd:foo`) and shared libraries (`so:libfoo.so.1`, though this is not
-  recommended). Keep in mind that "virtual" dependencies like that are not
-  checked, since they might have multiple providers. Also, in a lot of cases
-  dependencies are automatic. You should not specify any dependencies that
-  would already be covered by the scanner.
+  recommended), as well as virtual packages (`virtual:foo`). Any virtual
+  dependencies need to be explicitly specified using `depends_providers`
+  so they can be checked. Also, in a lot of cases dependencies are automatic.
+  You should not specify any dependencies that would already be covered by
+  the scanner.
+* `depends_providers` *(dict)* Providers of virtual dependencies to consider.
+  This ensures that when building, at least one provider of a dependency will
+  be available, to ensure the generated package is installable as a dependency
+  by itself.
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.

@@ -348,6 +348,7 @@ core_fields = [
     ("hostmakedepends", [], list, False, False, False),
     ("makedepends", [], list, False, False, False),
     ("depends", [], list, False, True, False),
+    ("depends_providers", {}, dict, False, True, False),
 
     # other package lists + related
     ("provides", [], list, False, True, False),
@@ -448,6 +449,7 @@ core_fields_priority = [
     ("makedepends", True),
     ("checkdepends", True),
     ("depends", False),
+    ("depends_providers", True),
 
     ("provides", True),
     ("provider_priority", True),
