@@ -7,5 +7,5 @@ clean_initramfs() {
     rm -f /boot/initrd.img-${kernver}
 }
 
-[ "$1" != "$2" ] && clean_initramfs "$1"
-[ -n "$2" ] && clean_initramfs "$2"
+[ "$1" != "$2" ] && clean_initramfs "$1" || :
+[ -n "$2" ] && clean_initramfs "$2" || :
