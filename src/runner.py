@@ -733,6 +733,27 @@ def do_cycle_check(tgt):
         encountered = {}
         curpath = []
 
+def do_update_check(tgt):
+    from cbuild.core import update_check, template, chroot, logger
+
+    if len(cmdline.command) < 2:
+        logger.get().out_red(f"cbuild: update-check needs a target package")
+        raise Exception()
+
+    verbose = False
+
+    if len(cmdline.command) > 2:
+        verbose = True
+
+    pkgn = cmdline.command[1]
+    tmpl = template.read_pkg(
+        pkgn, chroot.host_cpu(), True,
+        False, 1, False, False, None, target = "lint",
+        allow_broken = True
+    )
+
+    update_check.update_check(tmpl, verbose)
+
 def do_dump(tgt):
     from cbuild.core import chroot, template
 
@@ -848,6 +869,7 @@ def fire():
             case "zap": do_zap(cmd)
             case "lint": do_lint(cmd)
             case "cycle-check": do_cycle_check(cmd)
+            case "update-check": do_update_check(cmd)
             case "dump": do_dump(cmd)
             case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)
             case "build" | "check" | "install" | "pkg": do_pkg(cmd)

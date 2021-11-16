@@ -1,0 +1,402 @@
+# the logic here is largely adapted from xbps-src, since writing this stuff
+# from scratch is a pain; it is adapted to use less cursed regexes than PCRE
+# (mainly having verbose regex really helps readability) and allows for custom
+# hooks inside update.py files
+
+import importlib
+import importlib.util
+import urllib.request as ureq
+import fnmatch
+import re
+
+from cbuild.apk import cli as apkcli
+
+# a simplistic version sort key func, not accurate but should work for now
+def _ver_conv(s):
+    lr = []
+    for v in s.split("."):
+        try:
+            lr.append(int(v))
+        except ValueError:
+            for i in range(len(v)):
+                if not v[i].isdigit():
+                    if i > 0:
+                        lr.append(int(v[0:i]))
+                    lr.append(-1)
+                    break
+    return lr
+
+class UpdateCheck:
+    def __init__(self, tmpl, verbose):
+        self.verbose = verbose
+        self._urlcache = {}
+        self.template = tmpl
+        self.url = None
+        self.pkgname = tmpl.pkgname
+        self.single_directory = False
+        self.pattern = None
+        self.group = None
+        self.vdprefix = None
+        self.vdsuffix = None
+        self.ignore = []
+
+    def _fetch(self, u):
+        if u in self._urlcache:
+            return False
+
+        req = ureq.Request(u, None, {
+            "User-Agent": "cbuild-update-check/4.20.69"
+        })
+        try:
+            f = ureq.urlopen(req, None, 10)
+        except:
+            return None
+
+        ret = f.read().decode()
+
+        self._urlcache[u] = True
+
+        if len(ret) == 0:
+            return None
+
+        return ret
+
+    def collect_sources(self):
+        if self.url:
+            return [self.url]
+
+        ret = []
+
+        urls = []
+        # collect urls
+        for s in self.template.source:
+            if isinstance(s, str):
+                urls.append(s)
+            else:
+                urls.append(s[0])
+
+        for u in urls:
+            if "ftp.gnome.org" in u:
+                break
+        else:
+            ret.append(self.template.url)
+
+        for u in urls:
+            m = re.match("(.+)/[^/]+", u)
+            if m:
+                u = m[1]
+            ret.append(u + "/")
+
+        return ret
+
+    def expand_source(self, url):
+        ret = [url]
+
+        if self.verbose:
+           print(f"Adding '{url}' for version check...")
+
+        if self.single_directory:
+            return ret
+
+        if "sourceforge.net/sourceforge" in url or \
+           "launchpad.net" in url or \
+           "cpan." in url or \
+           "pythonhosted.org" in url or \
+           "github.com" in url or \
+           "//gitlab." in url or \
+           "bitbucket.org" in url or \
+           "ftp.gnome.org" in url or \
+           "kernel.org/pub/linux/kernel/" in url or \
+           "cran.r-project.org/src/contrib" in url or \
+           "rubygems.org" in url or \
+           "crates.io" in url or \
+           "codeberg.org" in url or \
+           "hg.sr.ht" in url or \
+           "git.sr.ht" in url:
+            return ret
+
+        if self.vdprefix:
+            vdpfx = self.vdprefix
+        else:
+            vdpfx = fr"|v|{re.escape(self.pkgname)}"
+
+        if self.vdsuffix:
+            vdsfx = self.vdsuffix
+        else:
+            vdsfx = r"|\.x"
+
+        rxm = re.compile(fr"""
+            ^[^/]+// # scheme
+            [^/]+(/.+)?/ # path
+            ({vdpfx})
+            (?=
+                [-_.0-9]*[0-9](?<!
+                    {re.escape(self.pkgname)}
+                )({vdsfx})/
+            )
+        """, re.VERBOSE)
+
+        m = re.match(rxm, url)
+        if not m:
+            return ret
+
+        urlpfx = re.match("(.+)/[^/]+", m[0])[1] + "/"
+        dirpfx = re.match(".+/([^/]+)", m[0])
+        urlsfx = re.match(".+/([^/]+)", url[len(urlpfx) + 1:])
+
+        if self.verbose:
+            print(f"Fetching '{urlpfx}' for version expansion...")
+
+        rx = re.compile(fr"""
+            href=[\"']?
+            ({re.escape(urlpfx)})?
+            \.?/?
+            ({re.escape(dirpfx)}[-_.0-9]*[0-9]({vdsfx})[\"'/])
+        """, re.VERBOSE)
+
+        req = self._fetch(urlpfx)
+        if not req:
+            return ret
+
+        reqs = list(set(map(lambda v: v[1], re.findall(rx, req))))
+        if len(reqs) == 0:
+            return ret
+
+        reqs.sort(key = _ver_conv, reverse = True)
+
+        for v in reqs:
+            nurl = f"{urlpfx}{v}{urlsfx}"
+            if nurl == url:
+                break
+            print(f"Adding '{nurl}' for version check...")
+            ret.append(nurl)
+
+        return ret
+
+    def fetch_versions(self, url):
+        rx = None
+        rxg = None
+
+        if not self.url:
+            # TODO: cran, rubygems, crates.io
+            if "sourceforge.net/sourceforge" in url:
+                pn = url.split("/")[4]
+                url = f"https://sourceforge.net/projects/{pn}/rss?limit=200"
+            elif "launchpad.net" in url:
+                pn = url.split("/")[3]
+                url = f"https://launchpad.net/{pn}/+download"
+            elif "pythonhosted.org" in url:
+                url = f"https://pypi.org/simple/{self.pkgname}"
+            elif "github.com" in url:
+                pn = "/".join(url.split("/")[3:5])
+                url = f"https://github.com/{pn}/tags"
+                rx = fr"""
+                    /archive/refs/tags/
+                    (v?|{re.escape(self.pkgname)}-)?
+                    ([\d.]+)(?=\.tar\.gz") # match
+                """
+                rxg = 1
+            elif "//gitlab." in url:
+                pn = "/".join(url.split("/")[0:5])
+                url = f"{pn}/tags"
+                rx = fr"""
+                    /archive/[^/]+/
+                    {re.escape(self.pkgname)}-v?
+                    ([\d.]+)(?=\.tar\.gz") # match
+                """
+                rxg = 1
+            elif "bitbucket.org" in url:
+                pn = "/".join(url.split("/")[3:5])
+                url = f"https://bitbucket.org/{pn}/downloads"
+                rx = fr"""
+                    /(get|downloads)/
+                    (v?|{re.escape(self.pkgname)}-)?
+                    ([\d.]+)(?=\.tar) # match
+                """
+                rxg = 1
+            elif "ftp.gnome.org" in url or "download.gnome.org" in url:
+                rx = fr"""
+                    {re.escape(self.pkgname)}-
+                    ((0|[13]\.[0-9]*[02468]|[4-9][0-9]+)\.[0-9.]*[0-9])(?=)
+                """
+                rxg = 0
+                url = f"https://download.gnome.org/sources/{self.pkgname}/cache.json"
+            elif "kernel.org/pub/linux/kernel/" in url:
+                mver = ".".join(version.split(".")[0:2])
+                rx = fr"{mver}[\d.]+(?=\.tar\.xz)"
+            elif "codeberg.org" in url:
+                pn = "/".join(url.split("/")[3:5])
+                url = f"https://codeberg.org/{pn}/releases"
+                rx = fr"""
+                    /archive/
+                    ([\d.]+)(?=\.tar\.gz) # match
+                """
+                rxg = 1
+            elif "hg.sr.ht" in url:
+                pn = "/".join(url.split("/")[3:5])
+                url = f"https://hg.sr.ht/{pn}/tags"
+                rx = fr"""
+                    /archive/
+                    (v?|{re.escape(self.pkgname)}-)?
+                    ([\d.]+)(?=\.tar\.gz") # match
+                """
+                rxg = 1
+            elif "git.sr.ht" in url:
+                pn = "/".join(url.split("/")[3:5])
+                url = f"https://git.sr.ht/{pn}/refs"
+                rx = fr"""
+                    /archive/
+                    (v?|{re.escape(self.pkgname)}-)?
+                    ([\d.]+)(?=\.tar\.gz") # match
+                """
+                rxg = 1
+            elif "pkgs.fedoraproject.org" in url:
+                url = f"https://pkgs.fedoraproject.org/repo/pkgs/{self.pkgname}"
+
+        if self.pattern:
+            rx = self.pattern
+
+        if self.group:
+            rxg = self.group
+
+        if not rx:
+            rx = fr"""
+                (?<!-)\b
+                {re.escape(self.pkgname)}
+                [-_]?
+                ((src|source)[-_])?v?
+                ([^-/_\s]*?\d[^-/_\s]*?) # match
+                (?=
+                    (?:
+                        [-_.](?:src|source|orig)
+                    )?\.(?:
+                        [jt]ar|shar|t[bglx]z|tbz2|zip
+                    )
+                )\b
+            """
+            rxg = 2
+
+        rx = re.compile(rx, re.VERBOSE)
+
+        if self.verbose:
+            print(f"Fetching '{url}' for version checks...")
+
+        req = self._fetch(url)
+
+        if not req:
+            if req == False and self.verbose:
+                print(f"Already fetched '{url}', skipping...")
+            return []
+
+        reqs = re.findall(rx, req)
+
+        if rxg:
+            return list(map(lambda v: v[rxg].replace("_", "."), reqs))
+
+        return list(map(lambda v: v.replace("_", "."), reqs))
+
+def update_check(pkg, verbose = False):
+    uc = UpdateCheck(pkg, verbose)
+
+    tpath = pkg.template_path
+
+    collect_sources = None
+    expand_source = None
+    fetch_versions = None
+
+    if verbose:
+        print(f"Checking for updates: {pkg.pkgname}")
+
+    if (tpath / "update.py").exists():
+        modspec = importlib.util.spec_from_file_location(
+            pkg.pkgname + ".update", tpath / "update.py"
+        )
+        modh = importlib.util.module_from_spec(modspec)
+        modspec.loader.exec_module(modh)
+
+        if verbose:
+            print(f"Found update.py, using overrides...")
+
+        # hooks
+
+        if hasattr(modh, "collect_sources"):
+            collect_sources = modh.collect_sources
+
+        if hasattr(modh, "expand_source"):
+            expand_source = modh.expand_source
+
+        if hasattr(modh, "fetch_versions"):
+            fetch_versions = modh.fetch_versions
+
+        # variables
+
+        if hasattr(modh, "pattern"):
+            uc.pattern = modh.pattern
+
+        if hasattr(modh, "group"):
+            uc.group = modh.group
+
+        if hasattr(modh, "url"):
+            uc.url = modh.url
+
+        if hasattr(modh, "pkgname"):
+            uc.pkgname = modh.pkgname
+
+        if hasattr(modh, "single_directory"):
+            uc.single_directory = modh.single_directory
+
+        if hasattr(modh, "ignore"):
+            uc.ignore = modh.ignore
+
+        if hasattr(modh, "vdprefix"):
+            uc.vdprefix = modh.vdprefix
+
+        if hasattr(modh, "vdsuffix"):
+            uc.vdsuffix = modh.vdsuffix
+
+    # use hooks if defined
+
+    if collect_sources:
+        ics = collect_sources(uc)
+    else:
+        ics = uc.collect_sources()
+
+    cs = []
+    for u in ics:
+        if expand_source:
+            cs += expand_source(uc, u)
+        else:
+            cs += uc.expand_source(u)
+
+    vers = []
+
+    for src in cs:
+        if fetch_versions:
+            vers += fetch_versions(uc, src)
+        else:
+            vers += uc.fetch_versions(src)
+
+    vers = list(set(vers))
+    vers.sort(key = _ver_conv)
+
+    if len(vers) == 0:
+        print(f"CAUTION: no version found for '{pkg.pkgname}'")
+
+    for v in vers:
+        if verbose:
+            print(f"Checking found version: {v}")
+
+        ignored = False
+
+        for iv in uc.ignore:
+            if fnmatch.fnmatchcase(v, iv):
+                ignored = True
+                print(f"Ignoring version '{v}' (due to '{iv}'")
+                break
+
+        if ignored:
+            continue
+
+        ret = apkcli.compare_version(pkg.pkgver, v.replace("-", "."), False)
+        if ret == -1:
+            print(f"{pkg.pkgname}-{pkg.pkgver} -> {pkg.pkgname}-{v}")

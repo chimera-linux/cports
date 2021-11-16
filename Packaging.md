@@ -35,6 +35,7 @@ you should not rely on them or expect them to be stable.
     * [Template Class](#class_template)
     * [Subpackage Class](#class_subpackage)
   * [Utility API](#api_util)
+* [Update Check](#update_check)
 * [Contributing](#contributing)
 * [Help](#help)
 
@@ -2607,6 +2608,100 @@ When cross compiling, an appropriate cross file is automatically generated.
 
 The environment from `env` is used, being the most important, followed by
 `pkg.configure_env` and then the rest.
+
+<a id="update_check"></a>
+## Update Check
+
+The system offers a way to check templates for updates. In a lot of cases,
+especially for those using common hosting solutions, this is automatic and
+there is no need to do anything.
+
+You can invoke it like this:
+
+```
+$ ./cbuild update-check main/mypkg
+```
+
+This may have output like this, for example:
+
+```
+$ ./cbuild update-check main/llvm
+llvm-12.0.0 -> llvm-12.0.1
+llvm-12.0.0 -> llvm-13.0.0
+```
+
+If you pass an extra argument with any value, it will be verbose, printing
+extra messages along the way.
+
+The update checking can be tweaked by creating the file `update.py` in the
+same directory with the template. This file is a Python source file just
+like the template itself, and likewise it can contain variables and hooks.
+
+The allowed variables are:
+
+* `pkgname` *(str)* This is the package name the default pattern checks
+  for. By default, it is taken from the template. You can override this
+  if the template name does not match the remote project name.
+* `url` *(str)* The URL where the version numbers are mentioned. If unset,
+  the `url` of the template (taken as is) plus the `source` URL(s) (with
+  the filename component stripped) are used. An exception to this is when
+  the `source` URLs contain `ftp.gnome.org`, in which case the `url` of
+  the template is not used and only `source` URLs are.
+* `pattern` *(str)* A Python regular expression (it is considered a verbose
+  regular expression, so you can use multiple lines and comments) that
+  matches the version number in the fetched page. You should match the
+  version as accurately as possible, and use a capture for the version
+  number itself, without the `pkgname` and so on. The `re.findall` API
+  is used to search for it. There is a bunch of defaults that are applied
+  for different known sites.
+* `group` *(int)* The subgroup of the `pattern` match to use. You only
+  need to use this if your pattern contains more than one capture group.
+  If it contains just one, you should never use this.
+* `ignore` *(list)* A list of shell-style glob patterns that match
+  version numbers ignored by the checker. You can use this to ignore
+  for example beta versions.
+* `single_directory` *(bool)* You can set this to `True` if you wish to
+  disable the default URL expansion logic. By default, for every collected
+  URL, this looks for a versioned component in the path and if one is found,
+  parent URL is fetched to figure out adjacent versioned URLs to consider
+  for newer versions. This applies to projects that use source URLs such as
+  `https://my.project/foo/foo-3.14/foo-3.14.tar.gz`. When this is unset,
+  we can check the `foo` directory for versions. There are also various
+  hosting sites that are explicitly blacklisted from the parent directory
+  checks, since their specific URL is known (e.g. GitHub).
+* `vdprefix` *(str)* A Python regular expression matching the part that
+  precedes the numeric part of the version directory in the URL. Used when
+  `single_directory` is disabled. The default is `|v|<pkgname>`.
+* `vdsuffix` *(str)* A Python regular expression matching the part that
+  follows the numeric part of the version directory in the URL. Used when
+  `single_directory` is disabled. The default is `|\.x`.
+
+You can define some functions:
+
+* `collect_sources` A function taking the update check object, which is
+  supposed to collect the initial list of source URLs to be considered.
+  The default simply returns `self.collect_sources()`, which uses either
+  `self.url` or `self.template.url` plus `self.template.source`.
+* `expand_source` A function taking the update check object plus a URL
+  (one for each returned from `collect_sources`). It is a filter function
+  that returns a list (containing the input URL if it does not wish to
+  expand or filter anything, and empty if it wishes to skip the URL). The
+  default behavior is to simply return `self.expand_source(input)`, which
+  returns the input when `single_directory` is set to `True` and does the
+  parent directory expansion otherwise.
+* `fetch_versions` A function taking a single URL and returning a list
+  of version numbers. By default `self.fetch_versions(url)`.
+
+These functions take the update check object. It has the following
+properties:
+
+* `verbose` Whether verbose logging is on.
+* `template` The package template handle.
+* `url`, `pkgname`, `single_directory`, `pattern`, `group`, `ignore`
+  The variables.
+
+It also has methods with the same names as the functions you can define.
+You can call them from your custom functions.
 
 <a id="contributing"></a>
 ## Contributing
