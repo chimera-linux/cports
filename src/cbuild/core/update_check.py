@@ -222,7 +222,7 @@ class UpdateCheck:
                 rxg = 0
                 url = f"https://download.gnome.org/sources/{self.pkgname}/cache.json"
             elif "kernel.org/pub/linux/kernel/" in url:
-                mver = ".".join(version.split(".")[0:2])
+                mver = ".".join(self.template.pkgver.split(".")[0:2])
                 rx = fr"{mver}[\d.]+(?=\.tar\.xz)"
             elif "codeberg.org" in url:
                 pn = "/".join(url.split("/")[3:5])
