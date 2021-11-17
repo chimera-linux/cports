@@ -6,7 +6,7 @@ configure_args = [
     "--enable-ipv6", "--with-libnl", "--with-pcap=linux", "--enable-usb",
 ]
 hostmakedepends = ["pkgconf", "flex"]
-makedepends = ["libnl3-devel", "libusb-devel", "linux-headers"]
+makedepends = ["libnl-devel", "libusb-devel", "linux-headers"]
 pkgdesc = "System-independent interface for user-level packet capture"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -33,7 +33,7 @@ def post_install(self):
 
 @subpackage("libpcap-devel")
 def _devel(self):
-    self.depends += ["libnl3-devel"]
+    self.depends += ["libnl-devel"]
 
     return self.default_devel(man = True, extra = [
         "usr/bin",
