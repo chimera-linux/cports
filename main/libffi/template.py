@@ -1,5 +1,5 @@
 pkgname = "libffi"
-pkgver = "3.3"
+pkgver = "3.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -11,8 +11,8 @@ pkgdesc = "Library supporting Foreign Function Interfaces"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://sourceware.org/libffi"
-source = f"ftp://sourceware.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "72fba7922703ddfa7a028d513ac15a85c8d54c8d67f55fa5a4802885dc652056"
+source = f"https://github.com/{pkgname}/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "540fb721619a6aba3bdeef7d940d8e9e0e6d2c193595bc243241b77ff9e93620"
 # missing checkdepends for now
 options = ["bootstrap", "!check"]
 
