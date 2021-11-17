@@ -1,5 +1,5 @@
 pkgname = "libarchive"
-pkgver = "3.5.1"
+pkgver = "3.5.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,8 +16,8 @@ pkgdesc = "Library to read/write several different streaming archive formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.libarchive.org"
-source = f"https://github.com/libarchive/libarchive/releases/download/{pkgver}/libarchive-{pkgver}.tar.gz"
-sha256 = "9015d109ec00bb9ae1a384b172bf2fc1dff41e2c66e5a9eeddf933af9db37f5a"
+source = f"https://github.com/libarchive/libarchive/releases/download/v{pkgver}/libarchive-{pkgver}.tar.gz"
+sha256 = "5f245bd5176bc5f67428eb0aa497e09979264a153a074d35416521a5b8e86189"
 # encoding failures on musl; harmless
 options = ["bootstrap", "!check"]
 
