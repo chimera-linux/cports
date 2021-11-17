@@ -1,5 +1,5 @@
 pkgname = "libdrm"
-pkgver = "2.4.107"
+pkgver = "2.4.108"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://dri.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/mesa/drm/-/archive/{pkgname}-{pkgver}/drm-{pkgname}-{pkgver}.tar.gz"
-sha256 = "16b23932a2b7d41d091cf95662a83f56c680a9bb3456931c0b76fde02ae2d53f"
+sha256 = "f70e208eb2faab96431f43e397845f8e8c5b543b714d61797d3b7e74845301d2"
 
 # stuff like radeon autodetects, most arm stuff is by default false
 match self.profile().arch:
