@@ -193,10 +193,12 @@ class UpdateCheck:
                 pn = url.split("/")[3]
                 url = f"https://launchpad.net/{pn}/+download"
             elif "pythonhosted.org" in url:
-                pname = pname.removeprefix("python-")
+                if pname == self.template.pkgname:
+                    pname = pname.removeprefix("python-")
                 url = f"https://pypi.org/simple/{pname}"
             elif "cpan." in url:
-                pname = pname.removeprefix("perl-")
+                if pname == self.template.pkgname:
+                    pname = pname.removeprefix("perl-")
             elif "github.com" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://github.com/{pn}/tags"
