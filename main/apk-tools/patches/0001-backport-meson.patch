@@ -140,7 +140,7 @@ index 0000000..3b9f479
 +	'apk-tools',
 +	['c'],
 +	default_options : ['c_std=gnu99', 'optimization=2'],
-+	version: '2.12.5',
++	version: '2.12.8',
 +	meson_version: '>=0.52'
 +)
 +pkgc = import('pkgconfig')
