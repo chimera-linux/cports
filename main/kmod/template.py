@@ -1,5 +1,5 @@
 pkgname = "kmod"
-pkgver = "27"
+pkgver = "29"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -10,13 +10,14 @@ make_cmd = "gmake"
 make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["zlib-devel", "liblzma-devel"]
+checkdepends = ["bash"]
 pkgdesc = "Linux kenrel module handling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git"
 source = f"$(KERNEL_SITE)/utils/kernel/kmod/kmod-{pkgver}.tar.xz"
-sha256 = "c1d3fbf16ca24b95f334c1de1b46f17bbe5a10b0e81e72668bdc922ebffbbc0c"
-# needs bash
+sha256 = "0b80eea7aa184ac6fd20cafa2a1fdf290ffecc70869a797079e2cc5c6225a52a"
+# broken testsuite build system
 options = ["!check"]
 
 def post_install(self):
