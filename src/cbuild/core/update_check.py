@@ -11,20 +11,65 @@ import re
 
 from cbuild.apk import cli as apkcli
 
-# a simplistic version sort key func, not accurate but should work for now
-def _ver_conv(s):
-    lr = []
-    for v in s.split("."):
-        try:
-            lr.append(int(v))
-        except ValueError:
-            for i in range(len(v)):
-                if not v[i].isdigit():
-                    if i > 0:
-                        lr.append(int(v[0:i]))
-                    lr.append(-1)
-                    break
-    return lr
+# implements version sorting as in gnu sort(1) version sort
+def _get_verkey():
+    import functools
+
+    def _digind(s, f):
+        for i, c in enumerate(s):
+            if f(c):
+                return i
+
+        return len(s)
+
+    def _scmp(a, b):
+        clen = min(len(a), len(b))
+        a1, a2 = a[:clen], a[clen:]
+        b1, b2 = b[:clen], b[clen:]
+        # compare the common part
+        for c1, c2 in zip(a[:clen], b[:clen]):
+            if c1 == "~" or (c1.isalpha() and not c2.isalpha()):
+                return -1
+            if c1 != c2:
+                if c1 < c2:
+                    return -1
+                else:
+                    return 1
+        # remainders
+        if a2.startswith("~"):
+            return -1
+        if a2 == b2:
+            return 0
+        elif a2 < b2:
+            return -1
+        else:
+            return 1
+
+    def _getstrs(v):
+        dp = _digind(v, lambda c: c.isdigit())
+        s1 = v[:dp]
+        v = v[dp:]
+        ndp = _digind(v, lambda c: not c.isdigit())
+        d1 = v[:ndp]
+        return s1, int(d1) if len(d1) > 0 else 0, v[ndp:]
+
+    def _vcmp(a, b):
+        while len(a) > 0 or len(b) > 0:
+            nd1, d1, a = _getstrs(a)
+            nd2, d2, b = _getstrs(b)
+            # compare non-digit part
+            if nd1 != nd2:
+                return _scmp(nd1, nd2)
+            # compare digit part
+            dd = d1 - d2
+            if dd:
+                return dd
+        # equal strings
+        return 0
+
+    return functools.cmp_to_key(_vcmp)
+
+_ver_conv = _get_verkey()
 
 class UpdateCheck:
     def __init__(self, tmpl, verbose):
@@ -168,7 +213,7 @@ class UpdateCheck:
         if len(reqs) == 0:
             return ret
 
-        reqs.sort(key = _ver_conv, reverse = True)
+        reqs.sort(key = lambda v: _ver_conv(v.rstrip("/")), reverse = True)
 
         for v in reqs:
             nurl = f"{urlpfx}{v}{urlsfx}"
