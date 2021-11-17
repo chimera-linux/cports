@@ -1,5 +1,5 @@
 pkgname = "file"
-pkgver = "5.40"
+pkgver = "5.41"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.darwinsys.com/file"
 source = f"https://astron.com/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "167321f43c148a553f68a0ea7f579821ef3b11c27b8cbe158e4df897e4a5dd57"
+sha256 = "13e532c7b364f7d57e23dfeea3147103150cb90593a57af86c10e4f6e411603f"
 
 if self.cross_build:
     hostmakedepends += ["file"]
