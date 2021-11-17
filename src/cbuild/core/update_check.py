@@ -187,8 +187,8 @@ class UpdateCheck:
                 pn = url.split("/")[3]
                 url = f"https://launchpad.net/{pn}/+download"
             elif "pythonhosted.org" in url:
-                pn = pname.removeprefix("python-")
-                url = f"https://pypi.org/simple/{pn}"
+                pname = pname.removeprefix("python-")
+                url = f"https://pypi.org/simple/{pname}"
             elif "cpan." in url:
                 pname = pname.removeprefix("perl-")
             elif "github.com" in url:
