@@ -142,7 +142,11 @@ class UpdateCheck:
 
         urlpfx = re.match("(.+)/[^/]+", m[0])[1] + "/"
         dirpfx = re.match(".+/([^/]+)", m[0])[1]
-        urlsfx = re.match(".+/([^/]+)", url[len(urlpfx) + 1:])[1]
+        urlsfx = re.match(".+/([^/]+)", url[len(urlpfx) + 1:])
+        if urlsfx:
+            urlsfx = urlsfx[1]
+        else:
+            urlsfx = ""
 
         if self.verbose:
             print(f"Fetching '{urlpfx}' for version expansion...")
