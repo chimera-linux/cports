@@ -1,1 +1,1 @@
-pattern = "release-([\d.]+)"
+pattern = r"release-([\d.]+)"

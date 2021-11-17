@@ -1,1 +1,1 @@
-pattern = "xz-([\d.]+)(?=\.tar)"
+pattern = r"xz-([\d.]+)(?=\.tar)"
