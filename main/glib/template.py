@@ -4,9 +4,12 @@ pkgver = f"{_mver}.0"
 pkgrel = 0
 build_style = "meson"
 # TODO: gtk-doc
-configure_args = ["-Dfam=false", "-Dman=true", "-Dselinux=disabled"]
+configure_args = [
+    "-Dfam=false", "-Dman=true", "-Dgtk_doc=true", "-Dselinux=disabled",
+]
 hostmakedepends = [
-    "meson", "gettext-tiny", "pkgconf", "docbook-xsl-nons", "xsltproc"
+    "meson", "gettext-tiny", "pkgconf", "docbook-xsl-nons", "xsltproc",
+    "gtk-doc"
 ]
 makedepends = [
     "zlib-devel", "pcre-devel", "libffi-devel", "dbus-devel",
@@ -69,3 +72,7 @@ def _devel(self):
         "usr/share/glib-2.0",
         "usr/share/gdb",
     ])
+
+@subpackage("glib-doc")
+def _doc(self):
+    return self.default_doc()
