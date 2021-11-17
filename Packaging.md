@@ -2637,11 +2637,17 @@ The update checking can be tweaked by creating the file `update.py` in the
 same directory with the template. This file is a Python source file just
 like the template itself, and likewise it can contain variables and hooks.
 
+It can also reference the update check object via `self` at the global
+scope. This can be used to retrieve data to process.
+
 The allowed variables are:
 
 * `pkgname` *(str)* This is the package name the default pattern checks
   for. By default, it is taken from the template. You can override this
   if the template name does not match the remote project name.
+* `pkgver` *(str)* This is the version the fetched versions are compared
+  against. You can use this when the version format of the package does
+  not match and would result in wrong comparisons.
 * `url` *(str)* The URL where the version numbers are mentioned. If unset,
   the `url` of the template (taken as is) plus the `source` URL(s) (with
   the filename component stripped) are used. An exception to this is when

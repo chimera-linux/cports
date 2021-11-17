@@ -3,6 +3,7 @@
 # (mainly having verbose regex really helps readability) and allows for custom
 # hooks inside update.py files
 
+import builtins
 import importlib
 import importlib.util
 import urllib.request as ureq
@@ -78,6 +79,7 @@ class UpdateCheck:
         self.template = tmpl
         self.url = None
         self.pkgname = tmpl.pkgname
+        self.pkgver = tmpl.pkgver
         self.single_directory = False
         self.pattern = None
         self.group = None
@@ -278,7 +280,7 @@ class UpdateCheck:
                 rxg = 0
                 url = f"https://download.gnome.org/sources/{pname}/cache.json"
             elif "kernel.org/pub/linux/kernel/" in url:
-                mver = ".".join(self.template.pkgver.split(".")[0:2])
+                mver = ".".join(self.pkgver.split(".")[0:2])
                 rx = fr"{mver}[\d.]+(?=\.tar\.xz)"
             elif "codeberg.org" in url:
                 pn = "/".join(url.split("/")[3:5])
@@ -369,7 +371,10 @@ def update_check(pkg, verbose = False):
             pkg.pkgname + ".update", tpath / "update.py"
         )
         modh = importlib.util.module_from_spec(modspec)
+
+        setattr(builtins, "self", uc)
         modspec.loader.exec_module(modh)
+        delattr(builtins, "self")
 
         if verbose:
             print(f"Found update.py, using overrides...")
@@ -398,6 +403,9 @@ def update_check(pkg, verbose = False):
 
         if hasattr(modh, "pkgname"):
             uc.pkgname = modh.pkgname
+
+        if hasattr(modh, "pkgver"):
+            uc.pkgver = modh.pkgver
 
         if hasattr(modh, "single_directory"):
             uc.single_directory = modh.single_directory
@@ -457,6 +465,8 @@ def update_check(pkg, verbose = False):
         if ignored:
             continue
 
-        ret = apkcli.compare_version(pkg.pkgver, v.replace("-", "."), False)
+        ret = apkcli.compare_version(
+            uc.pkgver.replace("-", "."), v.replace("-", "."), False
+        )
         if ret == -1:
             print(f"{pkg.pkgname}={pkg.pkgver} -> {pkg.pkgname}={v}")
