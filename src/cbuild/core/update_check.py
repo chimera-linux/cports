@@ -98,7 +98,9 @@ class UpdateCheck:
         if self.single_directory:
             return ret
 
-        if "sourceforge.net/sourceforge" in url or \
+        if "chimera-linux.org" in url or \
+           ".voidlinux." in url or \
+           "sourceforge.net/sourceforge" in url or \
            "launchpad.net" in url or \
            "cpan." in url or \
            "pythonhosted.org" in url or \
