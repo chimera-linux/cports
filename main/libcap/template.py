@@ -1,9 +1,9 @@
 pkgname = "libcap"
-pkgver = "2.49"
+pkgver = "2.60"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
-make_build_args = ["GOLANG=no"]
+make_build_args = ["GOLANG=no", "OBJCOPY=llvm-objcopy", "RANLIB=llvm-ranlib"]
 make_install_args = [
     "PKGCONFIGDIR=/usr/lib/pkgconfig",
     "SBINDIR=/usr/bin",
@@ -13,14 +13,14 @@ make_install_args = [
 ]
 make_check_target = "test"
 make_use_env = True
-hostmakedepends = ["pkgconf", "gmake", "perl"]
+hostmakedepends = ["pkgconf", "gmake", "perl", "bash"]
 makedepends = ["attr-devel", "linux-headers"]
 pkgdesc = "POSIX.1e capabilities suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://sites.google.com/site/fullycapable"
 source = f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e98bc4d93645082ec787730b0fd1a712b38882465c505777de17c338831ee181"
+sha256 = "06a92076ce39a78bd28089e32085f1bde7f3bfa448fad37d895c2358f760b2eb"
 
 def init_configure(self):
     eargs = [
