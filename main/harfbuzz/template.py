@@ -2,17 +2,18 @@ pkgname = "harfbuzz"
 pkgver = "3.1.0"
 pkgrel = 0
 build_style = "meson"
-# FIXME: introspection, docs
 configure_args = [
     "-Dglib=enabled",
     "-Dfreetype=enabled",
     "-Dcairo=enabled",
     "-Dicu=enabled",
     "-Dgraphite2=enabled",
-    "-Dintrospection=disabled",
-    "-Ddocs=disabled",
+    "-Dintrospection=enabled",
+    "-Ddocs=enabled",
 ]
-hostmakedepends = ["meson", "pkgconf", "glib-devel"]
+hostmakedepends = [
+    "meson", "pkgconf", "glib-devel", "gtk-doc", "gobject-introspection"
+]
 makedepends = [
     "freetype-bootstrap", "cairo-devel", "graphite2-devel", "icu-devel"
 ]
@@ -30,8 +31,14 @@ def post_install(self):
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
-    return self.default_libs()
+    return self.default_libs(extra = [
+        "usr/lib/girepository-1.0"
+    ])
 
 @subpackage("harfbuzz-devel")
 def _devel(self):
     return self.default_devel()
+
+@subpackage("harfbuzz-doc")
+def _doc(self):
+    return self.default_doc()

@@ -3,7 +3,6 @@ _mver = "2.70"
 pkgver = f"{_mver}.0"
 pkgrel = 0
 build_style = "meson"
-# TODO: gtk-doc
 configure_args = [
     "-Dfam=false", "-Dman=true", "-Dgtk_doc=true", "-Dselinux=disabled",
 ]
