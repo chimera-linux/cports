@@ -513,6 +513,22 @@ cross_tools = {
     "PKG_CONFIG": True,
 }
 
+sites = {
+    "sourceforge": "https://downloads.sourceforge.net/sourceforge",
+    "freedesktop": "https://freedesktop.org/software",
+    "mozilla": "https://ftp.mozilla.org/pub",
+    "debian": "http://ftp.debian.org/debian/pool",
+    "ubuntu": "http://archive.ubuntu.com/ubuntu/pool",
+    "nongnu": "https://download.savannah.nongnu.org/releases",
+    "kernel": "https://www.kernel.org/pub/linux",
+    "gnome": "https://download.gnome.org/sources",
+    "xorg": "https://www.x.org/releases/individual",
+    "cpan": "https://www.cpan.org/modules/by-module",
+    "pypi": "https://files.pythonhosted.org/packages/source",
+    "gnu": "https://ftp.gnu.org/gnu",
+    "kde": "https://download.kde.org/stable",
+}
+
 # for defaults, always make copies
 def copy_of_dval(val):
     if isinstance(val, list):
@@ -1323,6 +1339,20 @@ def _subpkg_install_list(self, l):
 
     return real_install
 
+def _interp_url(pkg, url):
+    if not url.startswith("$("):
+        return url
+
+    import re
+
+    def matchf(m):
+        mw = m.group(1).removesuffix("_SITE").lower()
+        if not mw in sites:
+            pkg.error(f"malformed source URL '{url}'")
+        return sites[mw]
+
+    return re.sub(r"\$\((\w+)\)", matchf, url)
+
 def from_module(m, ret):
     # fill in mandatory fields
     for fl, dval, tp, mand, sp, inh in core_fields:
@@ -1603,6 +1633,10 @@ def from_module(m, ret):
         ret.source = [ret.source]
     if isinstance(ret.sha256, str):
         ret.sha256 = [ret.sha256]
+
+    # expand source
+    for i in range(len(ret.source)):
+        ret.source[i] = _interp_url(ret, ret.source[i])
 
     return ret
 
