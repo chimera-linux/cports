@@ -216,7 +216,6 @@ class UpdateCheck:
                     {re.escape(pname)}-v?
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
-                rxg = 1
             elif "bitbucket.org" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://bitbucket.org/{pn}/downloads"
