@@ -1,5 +1,5 @@
 pkgname = "iw"
-pkgver = "5.9"
+pkgver = "5.16"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "http://wireless.kernel.org/en/users/Documentation/iw"
 source = f"http://www.kernel.org/pub/software/network/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "293a07109aeb7e36267cf59e3ce52857e9ffae3a6666eb8ac77894b1839fe1f2"
+sha256 = "4c44e42762f903f9094ba5a598998c800a97a62afd6fd31ec1e0a799e308659c"
 
 def post_install(self):
     self.install_license("COPYING")
