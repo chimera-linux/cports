@@ -1,5 +1,5 @@
 pkgname = "tzutils"
-pkgver = "2021d"
+pkgver = "2021e"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["TZDIR=/usr/share/zoneinfo", "KSHELL=/bin/sh"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none AND BSD-3-Clause"
 url = "http://www.iana.org/time-zones"
 source = f"https://github.com/eggert/tz/archive/{pkgver}.tar.gz"
-sha256 = "2e6b14cfe3ee389f67887c36436cc40ff11266e5c2213295c1528f42a65dc98e"
+sha256 = "11908a7f18530ca3013c8458d902a54cdd3382276bdd56891db074b1af4a26b8"
 # missing checkdepends
 options = ["!check"]
 
