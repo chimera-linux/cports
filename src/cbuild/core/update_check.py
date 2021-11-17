@@ -255,6 +255,7 @@ class UpdateCheck:
 
         if self.pattern:
             rx = self.pattern
+            rxg = None
 
         if self.group:
             rxg = self.group
