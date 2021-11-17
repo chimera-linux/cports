@@ -305,7 +305,7 @@ def update_check(pkg, verbose = False):
     fetch_versions = None
 
     if verbose:
-        print(f"Checking for updates: {pkg.pkgname}")
+        print(f"Checking for updates: {pkg.pkgname}={pkg.pkgver}")
 
     if (tpath / "update.py").exists():
         modspec = importlib.util.spec_from_file_location(
@@ -399,4 +399,4 @@ def update_check(pkg, verbose = False):
 
         ret = apkcli.compare_version(pkg.pkgver, v.replace("-", "."), False)
         if ret == -1:
-            print(f"{pkg.pkgname}-{pkg.pkgver} -> {pkg.pkgname}-{v}")
+            print(f"{pkg.pkgname}={pkg.pkgver} -> {pkg.pkgname}={v}")
