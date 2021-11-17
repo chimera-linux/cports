@@ -349,7 +349,7 @@ class UpdateCheck:
 
         reqs = re.findall(rx, req)
 
-        if rxg:
+        if rxg is not None:
             return list(map(lambda v: v[rxg].replace("_", "."), reqs))
 
         return list(map(lambda v: v.replace("_", "."), reqs))
