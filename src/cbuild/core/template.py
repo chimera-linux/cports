@@ -1636,7 +1636,12 @@ def from_module(m, ret):
 
     # expand source
     for i in range(len(ret.source)):
-        ret.source[i] = _interp_url(ret, ret.source[i])
+        if isinstance(ret.source[i], tuple):
+            ret.source[i] = (
+                _interp_url(ret, ret.source[i][0]), *ret.source[i][1:]
+            )
+        else:
+            ret.source[i] = _interp_url(ret, ret.source[i])
 
     return ret
 
