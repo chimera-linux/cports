@@ -3,9 +3,10 @@ _mver = "1.48"
 pkgver = f"{_mver}.10"
 pkgrel = 0
 build_style = "meson"
-# TODO: introspection
-configure_args = ["-Dintrospection=disabled"]
-hostmakedepends = ["meson", "pkgconf", "glib-devel", "help2man"]
+configure_args = ["-Dintrospection=enabled"]
+hostmakedepends = [
+    "meson", "pkgconf", "glib-devel", "help2man", "gobject-introspection",
+]
 makedepends = [
     "fribidi-devel", "harfbuzz-devel", "libxft-devel", "libthai-devel",
     "cairo-devel",
