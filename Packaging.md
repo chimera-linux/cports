@@ -2657,9 +2657,11 @@ The allowed variables are:
 * `group` *(int)* The subgroup of the `pattern` match to use. You only
   need to use this if your pattern contains more than one capture group.
   If it contains just one, you should never use this.
-* `ignore` *(list)* A list of shell-style glob patterns that match
+* `ignore` *(list,bool)* A list of shell-style glob patterns that match
   version numbers ignored by the checker. You can use this to ignore
-  for example beta versions.
+  for example beta versions. You can also set this to `True` to skip
+  the update-check altogether. Packages with `meta` `build_style` are
+  ignored automatically.
 * `single_directory` *(bool)* You can set this to `True` if you wish to
   disable the default URL expansion logic. By default, for every collected
   URL, this looks for a versioned component in the path and if one is found,

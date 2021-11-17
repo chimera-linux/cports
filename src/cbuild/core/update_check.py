@@ -365,6 +365,9 @@ def update_check(pkg, verbose = False):
         if hasattr(modh, "vdsuffix"):
             uc.vdsuffix = modh.vdsuffix
 
+    if uc.ignore is True or pkg.build_style == "meta":
+        return
+
     # use hooks if defined
 
     if collect_sources:
