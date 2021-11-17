@@ -176,6 +176,7 @@ class UpdateCheck:
     def fetch_versions(self, url):
         rx = None
         rxg = None
+        pname = self.pkgname
 
         if not self.url:
             # TODO: cran, rubygems, crates.io
@@ -186,13 +187,16 @@ class UpdateCheck:
                 pn = url.split("/")[3]
                 url = f"https://launchpad.net/{pn}/+download"
             elif "pythonhosted.org" in url:
-                url = f"https://pypi.org/simple/{self.pkgname}"
+                pn = pname.removeprefix("python-")
+                url = f"https://pypi.org/simple/{pn}"
+            elif "cpan." in url:
+                pname = pname.removeprefix("perl-")
             elif "github.com" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://github.com/{pn}/tags"
                 rx = fr"""
                     /archive/refs/tags/
-                    (v?|{re.escape(self.pkgname)}-)?
+                    (v?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
                 rxg = 1
@@ -201,7 +205,7 @@ class UpdateCheck:
                 url = f"{pn}/tags"
                 rx = fr"""
                     /archive/[^/]+/
-                    {re.escape(self.pkgname)}-v?
+                    {re.escape(pname)}-v?
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
                 rxg = 1
@@ -210,17 +214,17 @@ class UpdateCheck:
                 url = f"https://bitbucket.org/{pn}/downloads"
                 rx = fr"""
                     /(get|downloads)/
-                    (v?|{re.escape(self.pkgname)}-)?
+                    (v?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar) # match
                 """
                 rxg = 1
             elif "ftp.gnome.org" in url or "download.gnome.org" in url:
                 rx = fr"""
-                    {re.escape(self.pkgname)}-
+                    {re.escape(pname)}-
                     ((0|[13]\.[0-9]*[02468]|[4-9][0-9]+)\.[0-9.]*[0-9])(?=)
                 """
                 rxg = 0
-                url = f"https://download.gnome.org/sources/{self.pkgname}/cache.json"
+                url = f"https://download.gnome.org/sources/{pname}/cache.json"
             elif "kernel.org/pub/linux/kernel/" in url:
                 mver = ".".join(self.template.pkgver.split(".")[0:2])
                 rx = fr"{mver}[\d.]+(?=\.tar\.xz)"
@@ -237,7 +241,7 @@ class UpdateCheck:
                 url = f"https://hg.sr.ht/{pn}/tags"
                 rx = fr"""
                     /archive/
-                    (v?|{re.escape(self.pkgname)}-)?
+                    (v?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
                 rxg = 1
@@ -246,12 +250,12 @@ class UpdateCheck:
                 url = f"https://git.sr.ht/{pn}/refs"
                 rx = fr"""
                     /archive/
-                    (v?|{re.escape(self.pkgname)}-)?
+                    (v?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
                 rxg = 1
             elif "pkgs.fedoraproject.org" in url:
-                url = f"https://pkgs.fedoraproject.org/repo/pkgs/{self.pkgname}"
+                url = f"https://pkgs.fedoraproject.org/repo/pkgs/{pname}"
 
         if self.pattern:
             rx = self.pattern
@@ -263,7 +267,7 @@ class UpdateCheck:
         if not rx:
             rx = fr"""
                 (?<!-)\b
-                {re.escape(self.pkgname)}
+                {re.escape(pname)}
                 [-_]?
                 ((src|source)[-_])?v?
                 ([^-/_\s]*?\d[^-/_\s]*?) # match
