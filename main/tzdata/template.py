@@ -1,5 +1,5 @@
 pkgname = "tzdata"
-pkgver = "2021d"
+pkgver = "2021e"
 pkgrel = 0
 pkgdesc = "Time zone and daylight-saving time data"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -10,8 +10,8 @@ source = [
     f"https://github.com/eggert/tz/archive/{pkgver}.tar.gz"
 ]
 sha256 = [
-    "d7c188a2b33d4a3c25ee4a9fdc68c1ff462bfdb302cf41343d84ca5942dbddf6",
-    "2e6b14cfe3ee389f67887c36436cc40ff11266e5c2213295c1528f42a65dc98e"
+    "07ec42b737d0d3c6be9c337f8abb5f00554a0f9cc4fcf01a703d69403b6bb2b1",
+    "11908a7f18530ca3013c8458d902a54cdd3382276bdd56891db074b1af4a26b8"
 ]
 # no tests
 options = ["bootstrap", "!check", "hardlinks"]
