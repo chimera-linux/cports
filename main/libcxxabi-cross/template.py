@@ -9,9 +9,9 @@ configure_args = [
     "-DCMAKE_AR=/usr/bin/llvm-ar",
     "-DCMAKE_NM=/usr/bin/llvm-nm",
     "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
-    "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
+    "-DLIBCXXABI_LIBCXX_INCLUDES=/usr/include/c++/v1",
 ]
 hostmakedepends = ["cmake", "python"]
 makedepends = ["libunwind-cross"]
@@ -50,7 +50,6 @@ def do_configure(self):
                 s.check()
                 cmake.configure(self, self.cmake_dir, f"build-{an}", [
                     f"-DCMAKE_SYSROOT=/usr/{at}",
-                    f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                     f"-DCMAKE_CXX_COMPILER_TARGET={at}",
                     f"-DCMAKE_C_COMPILER_TARGET={at}"
                 ], cross_build = False)
