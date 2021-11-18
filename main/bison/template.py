@@ -1,5 +1,5 @@
 pkgname = "bison"
-pkgver = "3.7.6"
+pkgver = "3.8.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-yacc"]
@@ -12,6 +12,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bison"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "67d68ce1e22192050525643fc0a7a22297576682bef6a5c51446903f5aeef3cf"
+sha256 = "9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2"
 # FIXME
 options = ["!check"]
