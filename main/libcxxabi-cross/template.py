@@ -12,6 +12,7 @@ configure_args = [
     "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
+    "-DLIBCXXABI_LIBCXX_INCLUDES=/usr/include/c++/v1",
 ]
 hostmakedepends = ["cmake", "python"]
 makedepends = ["libunwind-cross"]
