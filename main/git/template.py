@@ -1,5 +1,5 @@
 pkgname = "git"
-pkgver = "2.33.1"
+pkgver = "2.34.0"
 pkgrel = 0
 make_cmd = "gmake"
 make_check_target = "test"
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e054a6e6c2b088bd1bff5f61ed9ba5aa91c9a3cd509539a4b41c5ddf02201f2f"
+sha256 = "fd6cb9b26665794c61f9ca917dcf00e7c19b0c02be575ad6ba9354fa6962411f"
 # missing checkdepends
 options = ["!check"]
 
@@ -112,6 +112,11 @@ def do_install(self):
         "contrib/git-jump/README", "usr/share/doc/git",
         name = "git-jump"
     )
+
+    # hardlink
+    p = self.destdir / "usr/libexec/git-core/git-citool"
+    self.rm(p)
+    p.symlink_to("git-gui")
 
     # register shells
     self.install_shell("/usr/bin/git-shell")
