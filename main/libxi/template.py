@@ -1,5 +1,5 @@
 pkgname = "libxi"
-pkgver = "1.7.10"
+pkgver = "1.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXi-{pkgver}.tar.bz2"
-sha256 = "36a30d8f6383a72e7ce060298b4b181fd298bc3a135c8e201b7ca847f5f81061"
+sha256 = "2ed181446a61c7337576467870bc5336fc9e222a281122d96c4d39a3298bba00"
 
 def post_install(self):
     self.install_license("COPYING")
