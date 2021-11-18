@@ -1,0 +1,12 @@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -52,9 +52,7 @@ OBJ = \
+ 	output.${O} pattern.${O} position.${O} prompt.${O} search.${O} signal.${O} \
+ 	tags.${O} ttyin.${O} version.${O} xbuf.${O}  @REGEX_O@
+ 
+-ifneq (@SECURE_COMPILE@,1)
+ OBJ += lesskey_parse.${O}
+-endif
+ 
+ all: less$(EXEEXT) lesskey$(EXEEXT) lessecho$(EXEEXT)
+ 
