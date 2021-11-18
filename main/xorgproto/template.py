@@ -1,5 +1,5 @@
 pkgname = "xorgproto"
-pkgver = "2021.4"
+pkgver = "2021.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-legacy"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/proto/{pkgname}-{pkgver}.tar.gz"
-sha256 = "9de0babd3d8cb16b0c1c47b8389a52f3e1326bb0bc9a9ab34a9500778448a2bd"
+sha256 = "be6ddd6590881452fdfa170c1c9ff87209a98d36155332cbf2ccbc431add86ff"
 # we don't want dependencies on all the pkg-config stuff
 options = ["!scanrundeps"]
 
