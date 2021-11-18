@@ -1,5 +1,5 @@
 pkgname = "jansson"
-pkgver = "2.13.1"
+pkgver = "2.14"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.digip.org/jansson"
 source = f"https://github.com/akheron/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "f22901582138e3203959c9257cf83eba9929ac41d7be4a42557213a22ebcc7a0"
+sha256 = "c739578bf6b764aa0752db9a2fdadcfe921c78f1228c7ec0bb47fa804c55d17b"
 
 def pre_configure(self):
     self.do("autoreconf", ["-if"])
