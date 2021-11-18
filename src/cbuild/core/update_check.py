@@ -459,7 +459,8 @@ def update_check(pkg, verbose = False):
         for iv in uc.ignore:
             if fnmatch.fnmatchcase(v, iv):
                 ignored = True
-                print(f"Ignoring version '{v}' (due to '{iv}')")
+                if verbose:
+                    print(f"Ignoring version '{v}' (due to '{iv}')")
                 break
 
         if ignored:
