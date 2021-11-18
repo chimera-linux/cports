@@ -1,14 +1,14 @@
 pkgname = "awk"
-pkgver = "20210215"
+pkgver = "20211104"
 pkgrel = 0
-_commit="c0f4e97e4561ff42544e92512bbaf3d7d1f6a671"
+_commit="c50ef66d119d87e06a041e5522430265ccdce148"
 hostmakedepends = ["byacc"]
 pkgdesc = "One true awk"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "SMLNJ"
 url = "https://github.com/onetrueawk/awk"
 source = f"https://github.com/onetrueawk/awk/archive/{_commit}.tar.gz"
-sha256 = "8e727fc750fa96898786dc3b5b3206734cc399e4fa9f2d182ab2ad2473f31118"
+sha256 = "ef0fa50b7e7e2e21eafd49bb249f7d80d0b86e9cae291408724dba77484a0c6f"
 # test suite uses local tools that are not present
 options = ["bootstrap", "!check"]
 
