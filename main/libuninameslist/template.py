@@ -1,5 +1,5 @@
 pkgname = "libuninameslist"
-pkgver = "20210917"
+pkgver = "20211114"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/fontforge/libuninameslist"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "7d60ea37813590c9d319d53aaac831fedf8067c980167877bc5daa351b378031"
+sha256 = "c089c6164f2cef361c3419a07408be72d6b58d6ef224ec226724a9fa93c0d46e"
 
 def pre_configure(self):
     self.do("autoreconf", ["-if"])
