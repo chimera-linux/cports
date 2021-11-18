@@ -1,5 +1,5 @@
 pkgname = "vulkan-loader"
-pkgver = "1.2.182"
+pkgver = "1.2.199"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -17,6 +17,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = f"https://github.com/KhronosGroup/Vulkan-Loader/archive/v{pkgver}.tar.gz"
-sha256 = "0d1f9fde9d21642526e9baa55d30364c95035c4fe3c6db96836631991b44dd90"
+sha256 = "cc496f6725c7e088510d1a5e7c6a97b61e356b147dcc3d697233ca775dd768ef"
 # tests disabled
 options = ["!check"]
