@@ -1,5 +1,5 @@
 pkgname = "libevdev"
-pkgver = "1.11.0"
+pkgver = "1.12.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-gcov"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libevdev"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "63f4ea1489858a109080e0b40bd43e4e0903a1e12ea888d581db8c495747c2d0"
+sha256 = "2f729e3480695791f9482e8388bd723402b89f0eaf118057bbdea3cecee9b237"
 
 def post_install(self):
     self.install_license("COPYING")
