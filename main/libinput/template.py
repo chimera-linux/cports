@@ -1,5 +1,5 @@
 pkgname = "libinput"
-pkgver = "1.19.1"
+pkgver = "1.19.2"
 pkgrel = 0
 build_style = "meson"
 # FIXME: libwacom support?
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libinput"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0bdcf5b1783b737854b7af1ca22df67bc36a6fe7c9cfa71f01e9149f9220446d"
+sha256 = "0fc39f0af3ee1a77c60c34bc45391a4d0879169f7c0f7bbbeb5eef590b98b883"
 
 def post_install(self):
     self.install_license("COPYING")
