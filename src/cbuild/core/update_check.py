@@ -99,7 +99,7 @@ class UpdateCheck:
         except:
             return None
 
-        ret = f.read().decode()
+        ret = f.read().decode("utf-8", "ignore")
 
         self._urlcache[u] = True
 
