@@ -1,17 +1,14 @@
 pkgname = "asciidoc"
-pkgver = f"9.1.0"
+pkgver = "10.0.2"
 pkgrel = 0
-build_style = "gnu_configure"
-make_cmd = "gmake"
-make_dir = "."
-make_check_target = "test"
-hostmakedepends = ["gmake", "python", "docbook-xsl-nons", "xsltproc"]
+build_style = "python_module"
+hostmakedepends = ["python-setuptools", "docbook-xsl-nons", "xsltproc"]
 depends = ["python", "docbook-xsl-nons", "xsltproc"]
 pkgdesc = "Text-based document generation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://asciidoc.org"
-source = f"https://github.com/asciidoc-py/asciidoc-py/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "fd499fcf51317b1aaf27336fb5e919c44c1f867f1ae6681ee197365d3065238b"
+source = f"$(PYPI_SITE)/a/asciidoc/asciidoc-{pkgver}.tar.gz"
+sha256 = "1800699c579038bcf68e760e9358304b69a19ef04c9bf0b4faa76b729dcf7dbf"
 # needs source-highlight, FIXME
 options = ["!check"]
