@@ -146,14 +146,20 @@ fully working `main`, but `contrib` packages may be missing in some cases.
 They are not required to fully pass tests in either category; tests are
 run but they may be disabled on per-template basis.
 
-Tier 3 targets will receive packages from `main` only (the goal is to have
-the full set built, but not 100% necessary). Test suites are not required
-to pass and not run. Any `contrib` packages must be built on the user
-machine. Additionally, tier 3 targets do not block updates. Support
-is on fully community basis.
+Tier 3 is like tier 2, but it is not required to be complete in either
+`main` or `contrib`, and is not required to pass tests. Tests are still
+run for informational purposes, but their results are ignored (i.e.
+assuming a pass regardless of the actual outcome). Breakage in tier 3
+targets does not block updating packages, and support is entirely on
+community basis.
 
-Tier 4 targets have profiles but are completely unsupported. Fixes are
-accepted from the community.
+Tier 4 targets receive only `main` packages.
+
+There may also be untiered targets. Those are all that have a profile
+present but are not listed here. Those do not receive any binary packages
+but are still allowed to live in the source repository (and patches are
+accepted for them). The community may provide their own binary repos,
+but the project will not host any such infrastructure.
 
 **Tier 1 targets:**
 
