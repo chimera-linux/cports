@@ -13,6 +13,8 @@ ccache = no
 ccache_path = ccache
 # whether to run check phase
 check = yes
+# whether checks are allowed to fail (by default they will abort build)
+check_fail = no
 # number of jobs to use when building
 jobs = 1
 # default local repository path for packages (absolute or relative to cports)

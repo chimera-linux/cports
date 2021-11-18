@@ -1,6 +1,6 @@
 from cbuild.core import template
 
-def invoke(pkg, step):
+def invoke(pkg, step, allow_fail):
     if pkg.cross_build:
         pkg.log("skipping check (cross build)")
         return
@@ -21,6 +21,13 @@ def invoke(pkg, step):
     if check_done.is_file() and (not pkg.rparent.force_mode or step != "check"):
         return
 
-    pkg.run_step("check", optional = True)
+    try:
+        pkg.run_step("check", optional = True)
+    except Exception as e:
+        if allow_fail:
+            pkg.log("check failed, but proceed anyway:")
+            print(e)
+        else:
+            raise
 
     check_done.touch()

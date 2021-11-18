@@ -25,6 +25,7 @@ opt_nonet      = False
 opt_dirty      = False
 opt_keeptemp   = False
 opt_forcecheck = False
+opt_checkfail  = False
 opt_altrepo    = None
 opt_bldroot    = "bldroot"
 opt_pkgpath    = "packages"
@@ -78,7 +79,7 @@ def handle_options():
     global opt_arch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_nocolor, opt_signkey, opt_unsigned
     global opt_force, opt_mdirtemp, opt_nonet, opt_dirty
-    global opt_keeptemp, opt_forcecheck, opt_altrepo
+    global opt_keeptemp, opt_forcecheck, opt_checkfail, opt_altrepo
     global opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath
 
     # respect NO_COLOR
@@ -108,6 +109,16 @@ def handle_options():
         "-C", "--skip-check", action = "store_const",
         const = True, default = not opt_check,
         help = "Skip running the check stage."
+    )
+    parser.add_argument(
+        "--force-check", action = "store_const",
+        const = True, default = opt_forcecheck,
+        help = "Force running check even if disabled by template."
+    )
+    parser.add_argument(
+        "-X", "--check-fail", action = "store_const",
+        const = True, default = opt_checkfail,
+        help = "Do not abort build if check fails."
     )
     parser.add_argument(
         "-G", "--no-dbg", action = "store_const",
@@ -158,11 +169,6 @@ def handle_options():
         const = True, default = opt_unsigned,
         help = "Allow building without a signing key."
     )
-    parser.add_argument(
-        "--force-check", action = "store_const",
-        const = True, default = opt_forcecheck,
-        help = "Force running check even if disabled by template."
-    )
     parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
     cmdline = parser.parse_args()
@@ -178,6 +184,7 @@ def handle_options():
         opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
         opt_ccache    = bcfg.getboolean("ccache", fallback = opt_ccache)
         opt_check     = bcfg.getboolean("check", fallback = opt_check)
+        opt_checkfail = bcfg.getboolean("check_fail", fallback = opt_checkfail)
         opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
         opt_arch      = bcfg.get("arch", fallback = opt_arch)
         opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
@@ -246,6 +253,9 @@ def handle_options():
 
     if cmdline.force_check:
         opt_forcecheck = True
+
+    if cmdline.check_fail:
+        opt_checkfail = True
 
     if cmdline.temporary:
         mdp = pathlib.Path.cwd() / opt_bldroot
@@ -805,7 +815,7 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
         chroot.update(do_clean = False)
     build.build(
         tgt, rp, {}, opt_signkey, dirty = opt_dirty,
-        keep_temp = opt_keeptemp
+        keep_temp = opt_keeptemp, check_fail = opt_checkfail
     )
 
 #

@@ -9,7 +9,7 @@ import pathlib
 
 def build(
     step, pkg, depmap, signkey, chost = False,
-    dirty = False, keep_temp = False
+    dirty = False, keep_temp = False, check_fail = False
 ):
     if chost:
         depn = "host-" + pkg.pkgname
@@ -85,7 +85,7 @@ def build(
     if step == "build":
         return
     pkg.current_phase = "check"
-    check.invoke(pkg, step)
+    check.invoke(pkg, step, check_fail)
     if step == "check":
         return
 
