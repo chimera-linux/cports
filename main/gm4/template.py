@@ -1,5 +1,5 @@
 pkgname = "gm4"
-pkgver = "1.4.18"
+pkgver = "1.4.19"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -13,6 +13,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/m4"
 source = f"$(GNU_SITE)/m4/m4-{pkgver}.tar.xz"
-sha256 = "f2c1e86ca0a404ff281631bdc8377638992744b175afb806e25871a24a934e07"
+sha256 = "63aede5c6d33b6d9b13511cd0be2cac046f2e70fd0a07aa9573a04a82783af96"
 # FIXME
 options = ["!check"]
