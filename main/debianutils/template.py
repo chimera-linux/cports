@@ -1,13 +1,13 @@
 pkgname = "debianutils"
-pkgver = "4.11.2"
+pkgver = "5.5"
 pkgrel = 0
 build_style = "gnu_configure"
 pkgdesc = "Miscellaneous utilities from Debian"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/debianutils"
-source = f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.tar.xz"
-sha256 = "3b680e81709b740387335fac8f8806d71611dcf60874e1a792e862e48a1650de"
+source = f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.orig.tar.xz"
+sha256 = "2b0fad5c00eb2b8461523b2950e6f06e6ddbb0ac3384c5a3377867d51098d102"
 
 def post_install(self):
     # (add|remove)-shell conflicts with our system
@@ -15,6 +15,7 @@ def post_install(self):
     # which is provided by bsdutils
     self.rm(self.destdir / "usr/bin/add-shell")
     self.rm(self.destdir / "usr/bin/remove-shell")
+    self.rm(self.destdir / "usr/bin/update-shells")
     self.rm(self.destdir / "usr/bin/installkernel")
     self.rm(self.destdir / "usr/bin/which")
     for f in (self.destdir / "usr/share/man").rglob("*.[18]"):
