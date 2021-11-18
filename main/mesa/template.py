@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "21.2.5"
+pkgver = "21.3.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -48,7 +48,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8e49585fb760d973723dab6435d0c86f7849b8305b1e6d99f475138d896bacbb"
+sha256 = "a2753c09deef0ba14d35ae8a2ceff3fe5cd13698928c7bb62c2ec8736eb09ce1"
 # cba to deal with cross patching nonsense
 options = ["!cross"]
 
