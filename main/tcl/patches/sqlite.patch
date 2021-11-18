@@ -1,7 +1,5 @@
-diff --git a/pkgs/sqlite3.34.0/Makefile.in b/pkgs/sqlite3.34.0/Makefile.in
-index 6b73e35..ac618bc 100644
---- a/pkgs/sqlite3.34.0/Makefile.in
-+++ b/pkgs/sqlite3.34.0/Makefile.in
+--- a/pkgs/sqlite3.36.0/Makefile.in
++++ b/pkgs/sqlite3.36.0/Makefile.in
 @@ -150,7 +150,7 @@ SHARED_BUILD	= @SHARED_BUILD@
  INCLUDES	= @PKG_INCLUDES@ @TCL_INCLUDES@ -I$(srcdir)/..
  #INCLUDES	= @PKG_INCLUDES@ @TCL_INCLUDES@ @TK_INCLUDES@ @TK_XINCLUDES@
