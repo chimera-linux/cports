@@ -1,5 +1,5 @@
 pkgname = "python-babel"
-pkgver = "2.8.0"
+pkgver = "2.9.1"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://babel.pocoo.org"
 source = f"$(PYPI_SITE)/B/Babel/Babel-{pkgver}.tar.gz"
-sha256 = "1aac2ae2d0d8ea368fa90906567f5c08463d98ade155c0c4bfedd6a0f7160e38"
+sha256 = "bc0c176f9f6a994582230df350aa6e05ba2ebe4b3ac317eab29d9be5d2768da0"
 # needs pytest, is a dependency of pytest
 options = ["!check"]
 
