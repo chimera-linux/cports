@@ -1,5 +1,5 @@
 pkgname = "ncurses"
-pkgver = "6.2"
+pkgver = "6.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.gnu.org/software/ncurses"
 source = f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"
-sha256 = "30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d"
+sha256 = "97fc51ac2b085d4cde31ef4d2c3122c21abc217e9090a43a30fc5ec21684e059"
 tool_flags = {"CFLAGS": ["-fPIC"],}
 options = ["bootstrap"]
 
