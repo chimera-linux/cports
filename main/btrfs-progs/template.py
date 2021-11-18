@@ -1,5 +1,5 @@
 pkgname = "btrfs-progs"
-pkgver = "5.14.1"
+pkgver = "5.14.91"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -11,7 +11,7 @@ make_dir = "."
 make_check_target = "test"
 hostmakedepends = ["gmake", "asciidoc", "pkgconf", "xmlto", "libxml2-progs"]
 makedepends = [
-    "acl-devel", "libzstd-devel", "lzo-devel", "libblkid-devel",
+    "acl-devel", "eudev-devel", "libzstd-devel", "lzo-devel", "libblkid-devel",
     "libuuid-devel", "e2fsprogs-devel", "zlib-devel", "linux-headers"
 ]
 pkgdesc = "Btrfs file system utilities"
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://btrfs.wiki.kernel.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
-sha256 = "d54a9346545ca46df128e3ccb77d60c097d90c93b7e314990236e28cfaf8c55b"
+sha256 = "b8596493eab6c0107cc7547b1224dc434b39599d63e71e19f9fde33297b551bc"
 # util-linux-cbuild is incomplete
 options = ["!check"]
 
