@@ -1,5 +1,5 @@
 pkgname = "scdoc"
-pkgver = "1.11.1"
+pkgver = "1.11.2"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://git.sr.ht/~sircmpwn/scdoc"
 source = f"https://git.sr.ht/~sircmpwn/scdoc/archive/{pkgver}.tar.gz"
-sha256 = "1098a1ed2e087596fc0b3f657c1c8a5e00412267aa4baf3619e36824306645b1"
+sha256 = "e9ff9981b5854301789a6778ee64ef1f6d1e5f4829a9dd3e58a9a63eacc2e6f0"
 tool_flags = {"CFLAGS": [f"-DVERSION=\"{pkgver}\""]}
 
 if self.cross_build:
