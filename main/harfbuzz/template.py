@@ -1,5 +1,5 @@
 pkgname = "harfbuzz"
-pkgver = "3.1.0"
+pkgver = "3.1.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "2359390944a74a933d2b1bd214754a5b3f817916a09c6d4ca3d263473cf19b8e"
+sha256 = "f3f3247bdeabf36765acc237a5f651e651e4e9706582b9cc2cf6c9b8102dfa93"
 
 def post_install(self):
     self.install_license("COPYING")
