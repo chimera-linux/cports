@@ -271,6 +271,7 @@ def update(do_clean = True):
     logger.get().out("cbuild: updating software in %s container..." \
         % str(paths.bldroot()))
 
+    paths.prepare()
     remove_autodeps(False)
 
     # reinit passwd/group
