@@ -1,5 +1,5 @@
 pkgname = "tk"
-pkgver = "8.6.11"
+pkgver = "8.6.12"
 pkgrel = 0
 build_wrksrc = "unix"
 build_style = "gnu_configure"
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/tcl/{pkgname}{pkgver}-src.tar.gz"
-sha256 = "5228a8187a7f70fa0791ef0f975270f068ba9557f57456f51eb02d9d4ea31282"
+sha256 = "12395c1f3fcb6bed2938689f797ea3cdf41ed5cb6c4766eec8ac949560310630"
 # no check target
 options = ["!check", "!cross"]
 
