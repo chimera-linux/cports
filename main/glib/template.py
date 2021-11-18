@@ -1,6 +1,6 @@
 pkgname = "glib"
 _mver = "2.70"
-pkgver = f"{_mver}.0"
+pkgver = f"{_mver}.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "200d7df811c5ba634afbf109f14bb40ba7fde670e89389885da14e27c0840742"
+sha256 = "f9b7bce7f51753a1f43853bbcaca8bf09e15e994268e29cfd7a76f65636263c0"
 # missing checkdepends
 options = ["!check"]
 
