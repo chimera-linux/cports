@@ -61,6 +61,7 @@ match self.profile().arch:
 
 _gallium_drivers = ["swrast"]
 _vulkan_drivers = []
+_dri_drivers = []
 
 # these are good assumptions on all targets we support for now
 _have_nvidia = True
@@ -91,11 +92,13 @@ match self.profile().arch:
 
 if _have_amd:
     _gallium_drivers += ["r300", "r600", "radeonsi"]
+    _dri_drivers += ["r100", "r200"]
     if _have_vulkan:
         _vulkan_drivers += ["amd"]
 
 if _have_intel:
     _gallium_drivers += ["crocus", "iris"]
+    _dri_drivers += ["i915", "i965"]
     if _have_vulkan:
         _vulkan_drivers += ["intel"]
 
@@ -103,6 +106,8 @@ if _have_nvidia:
     _gallium_drivers += ["nouveau"]
     if _have_arm:
         _gallium_drivers += ["tegra"]
+    else:
+        _dri_drivers += ["nouveau"]
 
 if _have_arm:
     _gallium_drivers += [
@@ -149,6 +154,7 @@ if _have_zink:
 
 configure_args += ["-Dgallium-drivers=" + ",".join(_gallium_drivers)]
 configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
+configure_args += ["-Ddri-drivers=" + ",".join(_dri_drivers)]
 
 def post_install(self):
     self.install_license("docs/license.rst")
