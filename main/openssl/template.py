@@ -1,5 +1,5 @@
 pkgname = "openssl"
-pkgver = "1.1.1k"
+pkgver = "1.1.1l"
 pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "OpenSSL"
 url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
-sha256 = "892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
+sha256 = "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1"
 options = ["bootstrap"]
 
 if self.stage > 0:
