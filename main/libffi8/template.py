@@ -6,6 +6,8 @@ configure_args = [
     "--includedir=/usr/include", "--disable-multi-os-directory", "--with-pic"
 ]
 hostmakedepends = ["pkgconf"]
+# actually only on x86 and arm (tramp.c code) but it does not hurt
+makedepends = ["linux-headers"]
 checkdepends = ["dejagnu"]
 pkgdesc = "Library supporting Foreign Function Interfaces"
 maintainer = "q66 <q66@chimera-linux.org>"
