@@ -10,6 +10,9 @@ configure_args = [
     "--with-pkg-config-libdir=/usr/lib/pkgconfig",
     "ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config",
 ]
+# a hack to disable ncurses's magic detection code
+# see https://ariadne.space/2021/10/25/dont-do-clever-things-in-configure-scripts
+configure_env = {"PKG_CONFIG_LIBDIR": "/usr/lib/pkgconfig"}
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]
 depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
