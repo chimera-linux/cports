@@ -20,7 +20,6 @@ configure_args = [
     "-DLLVM_BUILD_LLVM_DYLIB=YES",
     "-DLLVM_LINK_LLVM_DYLIB=YES",
     "-DLLVM_ENABLE_RTTI=YES",
-    "-DLLVM_ENABLE_FFI=YES",
     "-DCLANG_DEFAULT_RTLIB=compiler-rt",
     "-DCLANG_DEFAULT_UNWINDLIB=libunwind",
     "-DCLANG_DEFAULT_CXX_STDLIB=libc++",
@@ -30,9 +29,9 @@ configure_args = [
 ]
 make_cmd = "make"
 hostmakedepends = [
-    "cmake", "pkgconf", "perl", "python", "zlib-devel", "libffi-devel"
+    "cmake", "pkgconf", "perl", "python", "zlib-devel"
 ]
-makedepends = ["zlib-devel", "libffi-devel"]
+makedepends = ["zlib-devel"]
 depends = [
     f"libllvm={pkgver}-r{pkgrel}",
     f"llvm-linker-tools={pkgver}-r{pkgrel}",
@@ -59,9 +58,11 @@ _enabled_projects = [
 ]
 
 if self.stage > 0:
+    configure_args += ["-DLLVM_ENABLE_FFI=YES"]
+    hostmakedepends += ["libffi-devel"]
     makedepends += [
         "python-devel", "libedit-devel", "elftoolchain-devel",
-        "libexecinfo-devel", "linux-headers"
+        "libexecinfo-devel", "libffi-devel", "linux-headers"
     ]
     depends += [
         f"libomp={pkgver}-r{pkgrel}",
