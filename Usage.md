@@ -421,6 +421,8 @@ only have an effect with specific commands.
   main repo, while still pulling build dependencies from the primary one.
 * `-s SOURCES`, `--sources-path SOURCES` *(default: `sources`)* Set the path to the
   sources cache.
+* `--stage` Keep newly built packages staged. They will get unstaged either with
+  the next build or by explicitly doing so.
 * `-t`, `--temporary` Create a temporary `bldroot` for the build. The `-b` argument
   is used as a base path as well as the name prefix for the temporary root if
   provided. The temporary root is removed at the end (whether the build succeeded
@@ -486,6 +488,9 @@ The following commands are recognized:
   overridden with `-f` or `--force`, when using the "pkg" target. Other
   targets will run always unless already finished in builddir (you can
   make them always run regardless by passing `-f` or `--force`).
+* `unstage` Attempt unstaging the repositories if possible. If conflicts
+  prevent it from doing so (i.e. missing rebuilds and so on) you will get
+  a warning instead, and nothing will happen.
 
 <a id="config_file"></a>
 ### Configuration File

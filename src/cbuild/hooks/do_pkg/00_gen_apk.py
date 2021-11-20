@@ -123,7 +123,7 @@ def invoke(pkg):
     if pkg.pkgname.endswith("-dbg"):
         repo = repo / "debug"
 
-    repo = repo / arch
+    repo = repo / ".stage" / arch
 
     genpkg(pkg, repo, arch, binpkg)
 
@@ -138,6 +138,6 @@ def invoke(pkg):
     if not dbgdest.is_dir():
         return
 
-    repo = paths.repository() / pkg.rparent.repository / "debug" / arch
+    repo = paths.repository() / pkg.rparent.repository / "debug/.stage" / arch
 
     genpkg(pkg, repo, arch, binpkg_dbg, dbgdest, True)

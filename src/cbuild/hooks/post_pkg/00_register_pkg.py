@@ -10,7 +10,7 @@ def invoke(pkg):
     if pkg.pkgname.endswith("-dbg"):
         repo = repo / "debug"
 
-    repo = repo / arch
+    repo = repo / ".stage" / arch
 
     binpath = repo / binpkg
 
@@ -21,7 +21,7 @@ def invoke(pkg):
     if pkg.pkgname.endswith("-dbg"):
         return
 
-    repo = paths.repository() / pkg.rparent.repository / "debug" / arch
+    repo = paths.repository() / pkg.rparent.repository / "debug/.stage" / arch
     binpath = repo / binpkg_dbg
 
     if not binpath.is_file():

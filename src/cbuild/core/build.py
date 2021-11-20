@@ -128,7 +128,7 @@ def build(
 
     pkgsm.invoke(pkg)
 
-    # register binary packages
+    # stage binary packages
 
     genrepos = {}
 
@@ -143,7 +143,7 @@ def build(
             pkgs.append(pkgn.strip())
 
     for repo in genrepos:
-        logger.get().out(f"Registering new packages to {repo}...")
+        logger.get().out(f"Staging new packages to {repo}...")
         if not apk.build_index(repo, pkg.source_date_epoch, signkey):
             logger.get().out_red(f"Indexing apk repositories failed.")
             raise Exception()

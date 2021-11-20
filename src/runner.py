@@ -26,6 +26,7 @@ opt_dirty      = False
 opt_keeptemp   = False
 opt_forcecheck = False
 opt_checkfail  = False
+opt_stage      = False
 opt_altrepo    = None
 opt_bldroot    = "bldroot"
 opt_pkgpath    = "packages"
@@ -79,7 +80,7 @@ def handle_options():
     global opt_arch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_nocolor, opt_signkey, opt_unsigned
     global opt_force, opt_mdirtemp, opt_nonet, opt_dirty
-    global opt_keeptemp, opt_forcecheck, opt_checkfail, opt_altrepo
+    global opt_keeptemp, opt_forcecheck, opt_checkfail, opt_stage, opt_altrepo
     global opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath
 
     # respect NO_COLOR
@@ -169,6 +170,11 @@ def handle_options():
         const = True, default = opt_unsigned,
         help = "Allow building without a signing key."
     )
+    parser.add_argument(
+        "--stage", action = "store_const",
+        const = True, default = opt_stage,
+        help = "Keep built packages staged."
+    )
     parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
     cmdline = parser.parse_args()
@@ -192,6 +198,7 @@ def handle_options():
         opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
         opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
         opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
+        opt_stage     = bcfg.get("keep_stage", fallback = opt_stage)
 
     if not "flags" in global_cfg:
         global_cfg["flags"] = {}
@@ -264,6 +271,9 @@ def handle_options():
         opt_bldroot  = tempfile.mkdtemp(
             prefix = mdp.name + ".", dir = mdp.parent
         )
+
+    if cmdline.stage:
+        opt_stage = True
 
 def init_late():
     from cbuild.core import paths, spdx
@@ -791,6 +801,14 @@ def do_dump(tgt):
 
     print(json.dumps(dumps, indent = 4))
 
+def do_unstage(tgt):
+    from cbuild.core import chroot, stage
+
+    if opt_arch and opt_arch != chroot.host_cpu():
+        stage.clear(opt_arch)
+
+    stage.clear(chroot.host_cpu(), opt_signkey)
+
 def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
     from cbuild.core import build, chroot, template, paths
 
@@ -817,6 +835,8 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
         tgt, rp, {}, opt_signkey, dirty = opt_dirty,
         keep_temp = opt_keeptemp, check_fail = opt_checkfail
     )
+    if not opt_stage:
+        do_unstage(tgt)
 
 #
 # MAIN ENTRYPOINT
@@ -883,6 +903,7 @@ def fire():
             case "dump": do_dump(cmd)
             case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)
             case "build" | "check" | "install" | "pkg": do_pkg(cmd)
+            case "unstage": do_unstage(cmd)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)

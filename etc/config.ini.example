@@ -24,6 +24,8 @@ repository = packages
 #alt_repository = testpkgs
 # default source distfiles path (absolute or relative to cports)
 sources = sources
+# if set to yes, you will always have to explicitly unstage the repos
+keep_stage = no
 
 # flags passed to tools
 [flags]

@@ -38,13 +38,19 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True):
         r = r.lstrip("/")
         for cr in srepos:
             rpath = paths.repository() / cr / r
-            if not (rpath / arch / "APKINDEX.tar.gz").is_file():
-                continue
-            ret.append("--repository")
-            if intree:
-                ret.append(f"/binpkgs/{cr}/{r}")
-            else:
-                ret.append(str(rpath))
+            spath = rpath / ".stage"
+            if (rpath / arch / "APKINDEX.tar.gz").is_file():
+                ret.append("--repository")
+                if intree:
+                    ret.append(f"/binpkgs/{cr}/{r}")
+                else:
+                    ret.append(str(rpath))
+            if (spath / arch / "APKINDEX.tar.gz").is_file():
+                ret.append("--repository")
+                if intree:
+                    ret.append(f"/binpkgs/{cr}/{r}/.stage")
+                else:
+                    ret.append(str(spath))
 
     if not paths.alt_repository() or not use_altrepo:
         return ret
@@ -56,13 +62,19 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True):
         r = r.lstrip("/")
         for cr in srepos:
             rpath = paths.alt_repository() / cr / r
-            if not (rpath / arch / "APKINDEX.tar.gz").is_file():
-                continue
-            ret.append("--repository")
-            if intree:
-                ret.append(f"/altbinpkgs/{cr}/{r}")
-            else:
-                ret.append(str(rpath))
+            spath = rpath / ".stage"
+            if (rpath / arch / "APKINDEX.tar.gz").is_file():
+                ret.append("--repository")
+                if intree:
+                    ret.append(f"/altbinpkgs/{cr}/{r}")
+                else:
+                    ret.append(str(rpath))
+            if (spath / arch / "APKINDEX.tar.gz").is_file():
+                ret.append("--repository")
+                if intree:
+                    ret.append(f"/binpkgs/{cr}/{r}/.stage")
+                else:
+                    ret.append(str(spath))
 
     return ret
 
