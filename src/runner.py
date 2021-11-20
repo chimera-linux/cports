@@ -306,6 +306,14 @@ def binary_bootstrap(tgt):
     else:
         chroot.install(cmdline.command[1])
 
+def do_unstage(tgt):
+    from cbuild.core import chroot, stage
+
+    if opt_arch and opt_arch != chroot.host_cpu():
+        stage.clear(opt_arch)
+
+    stage.clear(chroot.host_cpu(), opt_signkey)
+
 def bootstrap(tgt):
     import sys
     import shutil
@@ -350,6 +358,7 @@ def bootstrap(tgt):
         if rp:
             build.build(tgt, rp, {}, opt_signkey)
         shutil.rmtree(paths.bldroot())
+        do_unstage(tgt)
         chroot.install(chroot.host_cpu())
 
     if max_stage == 0:
@@ -800,14 +809,6 @@ def do_dump(tgt):
         dumps.append(pkgr.dump())
 
     print(json.dumps(dumps, indent = 4))
-
-def do_unstage(tgt):
-    from cbuild.core import chroot, stage
-
-    if opt_arch and opt_arch != chroot.host_cpu():
-        stage.clear(opt_arch)
-
-    stage.clear(chroot.host_cpu(), opt_signkey)
 
 def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
     from cbuild.core import build, chroot, template, paths
