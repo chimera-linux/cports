@@ -277,8 +277,10 @@ def update(do_clean = True):
     # reinit passwd/group
     _prepare_passwd()
 
-    apki.call_chroot("update", ["-q"], "main", check = True)
-    apki.call_chroot("upgrade", ["--available"], "main", check = True)
+    apki.call_chroot("update", ["-q"], "main", check = True, use_stage = False)
+    apki.call_chroot(
+        "upgrade", ["--available"], "main", check = True, use_stage = False
+    )
 
 def enter(cmd, args = [], capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,

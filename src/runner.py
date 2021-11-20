@@ -830,8 +830,6 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
     # don't remove builddir/destdir
     paths.prepare()
     chroot.repo_sync()
-    if not opt_dirty:
-        chroot.update(do_clean = False)
     build.build(
         tgt, rp, {}, opt_signkey, dirty = opt_dirty,
         keep_temp = opt_keeptemp, check_fail = opt_checkfail

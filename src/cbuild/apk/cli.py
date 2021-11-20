@@ -12,7 +12,7 @@ def set_network(use_net):
     global _use_net
     _use_net = use_net
 
-def _collect_repos(mrepo, intree, arch, use_altrepo = True):
+def _collect_repos(mrepo, intree, arch, use_altrepo = True, use_stage = True):
     from cbuild.core import chroot
 
     ret = []
@@ -45,7 +45,7 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True):
                     ret.append(f"/binpkgs/{cr}/{r}")
                 else:
                     ret.append(str(rpath))
-            if (spath / arch / "APKINDEX.tar.gz").is_file():
+            if (spath / arch / "APKINDEX.tar.gz").is_file() and use_stage:
                 ret.append("--repository")
                 if intree:
                     ret.append(f"/binpkgs/{cr}/{r}/.stage")
@@ -69,7 +69,7 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True):
                     ret.append(f"/altbinpkgs/{cr}/{r}")
                 else:
                     ret.append(str(rpath))
-            if (spath / arch / "APKINDEX.tar.gz").is_file():
+            if (spath / arch / "APKINDEX.tar.gz").is_file() and use_stage:
                 ret.append("--repository")
                 if intree:
                     ret.append(f"/binpkgs/{cr}/{r}/.stage")
@@ -82,7 +82,7 @@ def call(
     subcmd, args, mrepo, cwd = None, env = None,
     capture_output = False, root = None, arch = None,
     allow_untrusted = False, use_altrepo = True,
-    fakeroot = False
+    use_stage = True, fakeroot = False
 ):
     cmd = [
         "apk", subcmd, "--root", root if root else paths.bldroot(),
@@ -104,13 +104,13 @@ def call(
         cmd = ["fakeroot", "--"] + cmd
 
     return subprocess.run(
-        cmd + _collect_repos(mrepo, False, arch, use_altrepo) + args,
+        cmd + _collect_repos(mrepo, False, arch, use_altrepo, use_stage) + args,
         cwd = cwd, env = env, capture_output = capture_output
     )
 
 def call_chroot(
     subcmd, args, mrepo, capture_out = False, check = False, arch = None,
-    allow_untrusted = False
+    allow_untrusted = False, use_stage = True
 ):
     from cbuild.core import chroot
 
@@ -123,7 +123,7 @@ def call_chroot(
         cmd.append("--allow-untrusted")
 
     return chroot.enter(
-        "apk", cmd + _collect_repos(mrepo, True, arch) + args,
+        "apk", cmd + _collect_repos(mrepo, True, arch, use_stage) + args,
         capture_out = capture_out, check = check,
         fakeroot = True, mount_binpkgs = True
     )

@@ -37,6 +37,9 @@ def build(
     pkg.wrapperdir.mkdir(parents = True, exist_ok = True)
 
     if not dirty:
+        if pkg.stage > 0:
+            chroot.update()
+
         # doesn't do anything for native builds
         dependencies.install_toolchain(pkg, signkey)
 
