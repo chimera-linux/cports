@@ -29,7 +29,7 @@ sha256 = "f9b7bce7f51753a1f43853bbcaca8bf09e15e994268e29cfd7a76f65636263c0"
 options = ["!check"]
 
 def do_check(self):
-    self.do("dbus-run-session", ["ninja", "-C", "build", "test"])
+    self.do("dbus-run-session", "ninja", "-C", "build", "test")
 
 def post_install(self):
     self.install_license("COPYING")

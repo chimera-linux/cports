@@ -14,7 +14,7 @@ sha256 = "bb918d67b4fc6fc27634de343069a26c9ad05cf0c1c18cf05add5c821717741e"
 def do_configure(self):
     self.do(
         self.chroot_cwd / "configure.sh",
-        ["-GM", "-sbc.banner", "-sdc.tty_mode"],
+        "-GM", "-sbc.banner", "-sdc.tty_mode",
         env = {
             "PREFIX": "/usr",
             "DESTDIR": self.chroot_destdir,

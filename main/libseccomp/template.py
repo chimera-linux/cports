@@ -19,7 +19,7 @@ exec_wrappers = [
 ]
 
 def pre_configure(self):
-    self.do("autoreconf", ["-if"])
+    self.do("autoreconf", "-if")
 
 @subpackage("libseccomp-devel")
 def _devel(self):

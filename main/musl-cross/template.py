@@ -34,7 +34,7 @@ def do_configure(self):
                 s.check()
                 self.do(
                     self.chroot_cwd / "configure",
-                    configure_args + ["--host=" + at],
+                    *configure_args, "--host=" + at,
                     wrksrc = f"build-{an}",
                     env = {
                         "CC": "clang -target " + at

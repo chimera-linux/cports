@@ -13,7 +13,7 @@ source = f"https://gitlab.freedesktop.org/xorg/proto/{pkgname}/-/archive/xcb-pro
 sha256 = "1101be204eecfb6af6b4325c143b3da06a6929753418f161882e86ae1457ca57"
 
 def pre_configure(self):
-    self.do("autoreconf", ["-if"])
+    self.do("autoreconf", "-if")
 
 def post_install(self):
     self.install_license("COPYING")

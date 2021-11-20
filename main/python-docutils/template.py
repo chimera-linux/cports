@@ -14,7 +14,7 @@ source = f"$(PYPI_SITE)/d/docutils/docutils-{pkgver}.tar.gz"
 sha256 = "686577d2e4c32380bb50cbb22f575ed742d58168cee37e99117a854bcd88f125"
 
 def do_check(self):
-    self.do("python", ["alltests.py"], wrksrc = "test")
+    self.do("python", "alltests.py", wrksrc = "test")
 
 def post_install(self):
     self.install_license("COPYING.txt")

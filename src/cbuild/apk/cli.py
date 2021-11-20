@@ -123,7 +123,7 @@ def call_chroot(
         cmd.append("--allow-untrusted")
 
     return chroot.enter(
-        "apk", cmd + _collect_repos(mrepo, True, arch, use_stage) + args,
+        "apk", *cmd, *_collect_repos(mrepo, True, arch, use_stage), *args,
         capture_out = capture_out, check = check,
         fakeroot = True, mount_binpkgs = True
     )

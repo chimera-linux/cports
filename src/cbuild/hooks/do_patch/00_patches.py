@@ -29,14 +29,14 @@ def process_patch(pkg, patchpath, gnupatch):
 
     if patchsfx == ".gz":
         chroot.enter(
-            "gunzip", [pkg.chroot_builddir / pkg.wrksrc / patchfn],
+            "gunzip", pkg.chroot_builddir / pkg.wrksrc / patchfn,
             check = True, bootstrapping = pkg.stage == 0, ro_root = True,
             unshare_all = True
         )
         patchfn = patchpath.stem
     elif patchsfx == ".bz2":
         chroot.enter(
-            "bunzip2", [pkg.chroot_builddir / pkg.wrksrc / patchfn],
+            "bunzip2", pkg.chroot_builddir / pkg.wrksrc / patchfn,
             check = True, bootstrapping = pkg.stage == 0, ro_root = True,
             unshare_all = True
         )
@@ -49,7 +49,7 @@ def process_patch(pkg, patchpath, gnupatch):
     pkg.log(f"patching: {patchfn}")
 
     chroot.enter(
-        "patch", pargs + ["-i", pkg.chroot_cwd / patchfn],
+        "patch", *pargs, "-i", pkg.chroot_cwd / patchfn,
         stderr = subprocess.DEVNULL, check = True,
         wrkdir = pkg.chroot_builddir / pkg.wrksrc,
         bootstrapping = pkg.stage == 0,

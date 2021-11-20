@@ -88,7 +88,7 @@ def do_configure(self):
     cargs.append("-Dperl_static_inline=static __inline__")
     cargs.append("-Dd_static_inline")
 
-    self.do(self.chroot_cwd / "configure", cargs)
+    self.do(self.chroot_cwd / "configure", *cargs)
 
 def do_check(self):
     self.make.check(env = {

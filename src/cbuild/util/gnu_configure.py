@@ -124,7 +124,7 @@ def configure(
     rscript.chmod(0o755)
 
     pkg.do(
-        cscript, cargs + pkg.configure_args + extra_args,
+        cscript, *cargs, *pkg.configure_args, *extra_args,
         wrksrc = build_dir, env = eenv
     )
 

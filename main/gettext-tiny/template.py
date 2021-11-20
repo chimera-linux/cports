@@ -48,9 +48,10 @@ def do_install(self):
 
     # library
     self.install_dir("usr/lib")
-    self.do(self.get_tool("AR"), [
+    self.do(
+        self.get_tool("AR"),
         "rcs", self.chroot_destdir / "usr/lib/libintl.a", "libintl-musl.o"
-    ])
+    )
 
     # m4 scripts
     self.install_dir("usr/share/gettext-tiny/m4")

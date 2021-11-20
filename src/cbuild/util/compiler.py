@@ -33,7 +33,7 @@ class GnuLike:
             logger.get().out_plain(self.cexec + " " + shlex.join(
                 map(lambda v: str(v), argsbase)
             ))
-        return self.template.do(self.cexec, argsbase)
+        return self.template.do(self.cexec, *argsbase)
 
 class C(GnuLike):
     def __init__(self, tmpl, cexec = None):

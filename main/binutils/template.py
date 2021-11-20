@@ -73,7 +73,7 @@ def _configure_tgt(self, tgt):
 
     self.do(
         self.chroot_cwd / "configure",
-        cargs, wrksrc = f"build-{tgt.arch}"
+        *cargs, wrksrc = f"build-{tgt.arch}"
     )
 
 # need to override this as we do not want to supply the default

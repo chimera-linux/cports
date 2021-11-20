@@ -4,13 +4,13 @@ from cbuild.core import chroot
 
 def do_build(self):
     self.do(
-        "python3", ["setup.py", "build"] + self.make_build_args,
+        "python3", "setup.py", "build", *self.make_build_args,
         env = self.make_build_env
     )
 
 def do_check(self):
     if chroot.enter(
-        "python3", ["-c", "import pytest"], capture_out = True,
+        "python3", "-c", "import pytest", capture_out = True,
         ro_root = True, ro_build = True, unshare_all = True
     ).returncode == 0:
         ctgt = []
@@ -18,23 +18,19 @@ def do_check(self):
             ctgt = [self.make_check_target]
 
         self.do(
-            "python3",
-            ["-m", "pytest"] + self.make_check_args + ctgt,
+            "python3", "-m", "pytest", *self.make_check_args, *ctgt,
             env = self.make_check_env
         )
     else:
         self.do(
-            "python3",
-            ["setup.py", self.make_check_target] + self.make_check_args,
-            env = self.make_check_env
+            "python3", "setup.py", self.make_check_target,
+            *self.make_check_args, env = self.make_check_env
         )
 
 def do_install(self):
     self.do(
-        "python3", [
-            "setup.py", "install", "--prefix=/usr",
-            "--root=" + str(self.chroot_destdir)
-        ] + self.make_install_args,
+        "python3", "setup.py", "install", "--prefix=/usr",
+        "--root=" + str(self.chroot_destdir), *self.make_install_args,
         env = self.make_install_env
     )
 

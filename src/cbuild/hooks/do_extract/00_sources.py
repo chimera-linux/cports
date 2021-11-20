@@ -37,10 +37,8 @@ def extract_tar(pkg, fname, dfile, edir, sfx):
         return True
 
     return chroot.enter(
-        "tar", [
-            "-x", "--no-same-permissions", "--no-same-owner",
-            "-f", dfile, "-C", edir
-        ],
+        "tar", "-x", "--no-same-permissions", "--no-same-owner",
+        "-f", dfile, "-C", edir,
         ro_root = True, unshare_all = True,
     ).returncode == 0
 
@@ -55,23 +53,23 @@ def extract_notar(pkg, fname, dfile, edir, sfx):
         pkg.error(f"unknown suffix '{sfx}'")
 
     return chroot.enter(
-        cmd, ["-f", dfile], ro_root = True, unshare_all = True, wrkdir = edir
+        cmd, "-f", dfile, ro_root = True, unshare_all = True, wrkdir = edir
     ).returncode == 0
 
 def extract_alsotar(pkg, fname, dfile, edir, sfx):
-    return chroot.enter("tar", [
-        "-xf", dfile, "-C", edir
-    ], ro_root = True, unshare_all = True).returncode == 0
+    return chroot.enter(
+        "tar", "-xf", dfile, "-C", edir, ro_root = True, unshare_all = True
+    ).returncode == 0
 
 def extract_rpm(pkg, fname, dfile, edir, sfx):
     return chroot.enter(
-        "rpmextract", [dfile], ro_root = True, unshare_all = True,
+        "rpmextract", dfile, ro_root = True, unshare_all = True,
         wrkdir = edir
     ).returncode == 0
 
 def extract_txt(pkg, fname, dfile, edir, sfx):
     return chroot.enter(
-        "cp", ["-f", dfile, edir], ro_root = True, unshare_all = True,
+        "cp", "-f", dfile, edir, ro_root = True, unshare_all = True,
         wrkdir = edir
     ).returncode == 0
 

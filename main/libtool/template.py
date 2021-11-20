@@ -21,7 +21,7 @@ sha256 = "e3bd4d5d3d025a36c21dd6af7ea818a2afcd4dfc1ea5a17b39d7854bcd0c06e3"
 options = ["!cross"]
 
 def pre_configure(self):
-    self.do(self.chroot_cwd / "bootstrap", ["--force"], env = {
+    self.do(self.chroot_cwd / "bootstrap", "--force", env = {
         "MAKE": "gmake"
     })
     # prevent missing from re-running autotools

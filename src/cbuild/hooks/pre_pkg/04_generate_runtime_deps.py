@@ -130,9 +130,8 @@ def _scan_pc(pkg):
             return
         # analyze the .pc file
         pcc = chroot.enter(
-            "pkg-config", [
-                "--print-requires", "--print-requires-private", v.stem
-            ],
+            "pkg-config", "--print-requires", "--print-requires-private",
+            v.stem,
             capture_out = True, bootstrapping = pkg.stage == 0,
             ro_root = True, ro_build = True, unshare_all = True,
             env = {

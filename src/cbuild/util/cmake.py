@@ -78,11 +78,11 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
     eenv.update(env)
 
     pkg.do(
-        "cmake", cargs + [
-            "-DCMAKE_INSTALL_PREFIX=/usr",
-            "-DCMAKE_BUILD_TYPE=None",
-            "-DCMAKE_INSTALL_LIBDIR=lib",
-            "-DCMAKE_INSTALL_SBINDIR=bin"
-        ] + pkg.configure_args + extra_args + [cdir],
+        "cmake", *cargs,
+        "-DCMAKE_INSTALL_PREFIX=/usr",
+        "-DCMAKE_BUILD_TYPE=None",
+        "-DCMAKE_INSTALL_LIBDIR=lib",
+        "-DCMAKE_INSTALL_SBINDIR=bin",
+        *pkg.configure_args, *extra_args, cdir,
         wrksrc = build_dir, env = eenv
     )

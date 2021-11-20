@@ -59,7 +59,7 @@ class Make:
             wrksrc = self.template.make_dir
 
         return self.template.do(
-            self.get_command(), argsbase, env = renv,
+            self.get_command(), *argsbase, env = renv,
             wrksrc = wrksrc
         )
 

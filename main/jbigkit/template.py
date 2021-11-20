@@ -13,7 +13,7 @@ source = f"https://github.com/void-linux/{pkgname}-shared/archive/v{pkgver}.tar.
 sha256 = "5cccbfb3bd7daf224a244ce0578dbcf706e4f39962426ceede873262b29b9931"
 
 def pre_configure(self):
-    self.do(self.chroot_cwd / "bootstrap.sh", [])
+    self.do(self.chroot_cwd / "bootstrap.sh")
 
 def post_insatll(self):
     self.install_file("jbigkit.pc", "usr/lib/pkgconfig")

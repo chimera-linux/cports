@@ -899,7 +899,7 @@ class Template(Package):
             self.error(f"this package cannot be built for {archn}")
         # otherwise we're good
 
-    def do(self, cmd, args, env = {}, wrksrc = None):
+    def do(self, cmd, *args, env = {}, wrksrc = None):
         cpf = self.profile()
 
         cenv = {
@@ -966,7 +966,7 @@ class Template(Package):
             fakeroot = True
 
         return chroot.enter(
-            cmd, args, env = cenv, wrkdir = wdir, check = True,
+            cmd, *args, env = cenv, wrkdir = wdir, check = True,
             bootstrapping = self.stage == 0, ro_root = True,
             ro_build = self.install_done,
             ro_dest = (self.current_phase != "install"),

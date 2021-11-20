@@ -282,7 +282,7 @@ def update(do_clean = True):
         "upgrade", ["--available"], "main", check = True, use_stage = False
     )
 
-def enter(cmd, args = [], capture_out = False, check = False,
+def enter(cmd, *args, capture_out = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, ro_build = False,
           ro_dest = True, unshare_all = False, mount_binpkgs = False,
@@ -347,7 +347,7 @@ def enter(cmd, args = [], capture_out = False, check = False,
 
     if bootstrapping:
         return subprocess.run(
-            [cmd] + args, env = envs,
+            [cmd, *args], env = envs,
             capture_output = capture_out, check = check,
             stdout = stdout, stderr = stderr,
             cwd = os.path.abspath(wrkdir) if wrkdir else None

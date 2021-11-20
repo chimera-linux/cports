@@ -13,9 +13,7 @@ tool_flags = {"CFLAGS": ["-fPIC"]}
 options = ["bootstrap"]
 
 def do_configure(self):
-    self.do(self.chroot_cwd / "configure", [
-        "--prefix=/usr", "--shared"
-    ])
+    self.do(self.chroot_cwd / "configure", "--prefix=/usr", "--shared")
 
 @subpackage("zlib-devel")
 def _devel(self):

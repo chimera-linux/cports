@@ -11,9 +11,10 @@ def make_debug(pkg, f, relf):
 
     dfile.parent.mkdir(parents = True, exist_ok = True)
     try:
-        pkg.rparent.do(pkg.rparent.get_tool("OBJCOPY"), [
+        pkg.rparent.do(
+            pkg.rparent.get_tool("OBJCOPY"),
             "--only-keep-debug", pkg.chroot_destdir / relf, cfile
-        ])
+        )
     except:
         pkg.error(f"failed to create dbg file for {relf}")
 
@@ -25,9 +26,10 @@ def attach_debug(pkg, f, relf):
 
     cfile = pkg.chroot_destdir / "usr/lib/debug" / relf
     try:
-        pkg.rparent.do(pkg.rparent.get_tool("OBJCOPY"), [
+        pkg.rparent.do(
+            pkg.rparent.get_tool("OBJCOPY"),
             f"--add-gnu-debuglink={cfile}", pkg.chroot_destdir / relf
-        ])
+        )
     except:
         pkg.error(f"failed to attach debug link to {relf}")
 
@@ -92,7 +94,7 @@ def invoke(pkg):
         if not vt:
             v.chmod(0o644)
             try:
-                pkg.rparent.do(strip_path, ["--strip-debug", cfile])
+                pkg.rparent.do(strip_path, "--strip-debug", cfile)
             except:
                 pkg.error(f"failed to strip {vr}")
 
@@ -105,7 +107,7 @@ def invoke(pkg):
         if static:
             _sanitize_exemode(v)
             try:
-                pkg.rparent.do(strip_path, [cfile])
+                pkg.rparent.do(strip_path, cfile)
             except:
                 pkg.error(f"failed to strip {vr}")
 
@@ -131,7 +133,7 @@ def invoke(pkg):
         if not pie:
             make_debug(pkg, v, vr)
             try:
-                pkg.rparent.do(strip_path, [cfile])
+                pkg.rparent.do(strip_path, cfile)
             except:
                 pkg.error(f"failed to strip {vr}")
 
@@ -155,7 +157,7 @@ def invoke(pkg):
         # strip pie executable or shared library
         make_debug(pkg, v, vr)
         try:
-            pkg.rparent.do(strip_path, ["--strip-unneeded", cfile])
+            pkg.rparent.do(strip_path, "--strip-unneeded", cfile)
         except:
             pkg.error(f"failed to strip {vr}")
 

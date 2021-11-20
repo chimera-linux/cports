@@ -27,9 +27,10 @@ tool_flags = {"CFLAGS": [
 
 def do_check(self):
     # FIXME: add an executable wrapper to our make functionality
-    self.do("dbus-run-session", [
-        "gmake", "-C", "build", "check", f"-j{self.make_jobs}"
-    ])
+    self.do(
+        "dbus-run-session", "gmake", "-C", "build", "check",
+        f"-j{self.make_jobs}"
+    )
 
 def post_install(self):
     self.install_service(self.files_path / "iwd")

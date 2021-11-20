@@ -19,17 +19,19 @@ def post_build(self):
         xcmgr = self.chroot_cwd / self.make_dir / "xmlcatmgr"
 
     self.log("creating SGML catalogs...")
-    self.do(xcmgr, ["-sc", "catalog.etc.sgml", "create"])
-    self.do(xcmgr, ["-sc", "catalog.sgml", "create"])
-    self.do(xcmgr, [
-        "-sc", "catalog.etc.sgml", "add", "CATALOG", "/etc/sgml/auto/catalog"
-    ])
+    self.do(xcmgr, "-sc", "catalog.etc.sgml", "create")
+    self.do(xcmgr, "-sc", "catalog.sgml", "create")
+    self.do(
+        xcmgr, "-sc", "catalog.etc.sgml", "add", "CATALOG",
+        "/etc/sgml/auto/catalog"
+    )
 
     self.log("creating XML catalogs...")
-    self.do(xcmgr, ["-c", "catalog.etc.xml", "create"])
-    self.do(xcmgr, ["-c", "catalog.xml", "create"])
-    self.do(xcmgr, [
-        "-c", "catalog.etc.xml", "add", "nextCatalog", "/etc/xml/auto/catalog"
+    self.do(xcmgr, "-c", "catalog.etc.xml", "create")
+    self.do(xcmgr, "-c", "catalog.xml", "create")
+    self.do(
+        xcmgr, "-c", "catalog.etc.xml", "add", "nextCatalog",
+        "/etc/xml/auto/catalog"
     ])
 
 def post_install(self):

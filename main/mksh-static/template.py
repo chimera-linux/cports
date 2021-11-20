@@ -18,11 +18,11 @@ tool_flags = {"CFLAGS": ["-static"], "LDFLAGS": ["-static"]}
 options = ["bootstrap"]
 
 def do_build(self):
-    self.do("sh", [self.chroot_cwd / "Build.sh", "-r"])
+    self.do("sh", self.chroot_cwd / "Build.sh", "-r")
 
 def do_check(self):
     # the shebang points to itself
-    self.do(self.chroot_cwd / "test.sh", ["-C", "regress:no-ctty"])
+    self.do(self.chroot_cwd / "test.sh", "-C", "regress:no-ctty")
 
 def do_install(self):
     self.install_bin("mksh.static")

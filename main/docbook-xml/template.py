@@ -51,11 +51,11 @@ def do_install(self):
             paths.sources() / f"{pkgname}-{pkgver}/{fname}",
             self.destdir / tdir
         )
-        self.do("tar", [
-            "xf", self.chroot_destdir / tdir / fname,
+        self.do(
+            "tar", "xf", self.chroot_destdir / tdir / fname,
             "-C", self.chroot_destdir / tdir,
             "--uid", "0", "--gid", "0"
-        ])
+        )
         self.rm(self.destdir / tdir / fname)
         self.mv(
             self.destdir / tdir / "catalog.xml",

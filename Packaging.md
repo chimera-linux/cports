@@ -1987,10 +1987,10 @@ packages will be stored, i.e. for the main package as well as subpackages.
 
 Like `destdir_base`, but when viewed from inside the sandbox.
 
-##### def do(self, cmd, args, env = {}, wrksrc = None)
+##### def do(self, cmd, *args, env = {}, wrksrc = None)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,
-instead directly runs `cmd`, passing it `args`. You can use `env` to provide
+instead directly runs `cmd`, passing it `*args`. You can use `env` to provide
 extra environment variables in addition to the implied ones (see the build
 environment section). The provided env vars override whatever builtin ones
 the system sets up.

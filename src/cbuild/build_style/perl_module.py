@@ -44,9 +44,10 @@ def do_configure(self):
         "LDDLFLAGS": "-shared " + ldflags,
     })
 
-    self.do("perl", [
-        "-I.", "Makefile.PL", "INSTALLDIRS=vendor"
-    ] + self.configure_args, wrksrc = self.make_dir, env = cenv)
+    self.do(
+        "perl", "-I.", "Makefile.PL", "INSTALLDIRS=vendor",
+        *self.configure_args, wrksrc = self.make_dir, env = cenv
+    )
 
 def do_build(self):
     cflags = self.get_cflags(shell = True)

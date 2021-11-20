@@ -78,7 +78,7 @@ def do_configure(self):
                 s.check()
                 self.do(
                     self.chroot_cwd / "musl/configure",
-                    ["--prefix=/usr", "--host=" + at],
+                    "--prefix=/usr", "--host=" + at,
                     wrksrc = f"musl/build-{an}",
                     env = {
                         "CC": "clang -target " + at

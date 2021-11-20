@@ -13,7 +13,7 @@ source = f"$(KERNEL_SITE)/utils/usb/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3a079cfad60560227b67192482d7813bf96326fcbb66c04254839715f276fc69"
 
 def pre_configure(self):
-    self.do("autoreconf", ["-if"])
+    self.do("autoreconf", "-if")
 
 def post_install(self):
     self.rm(self.destdir / "usr/bin/lsusb.py")

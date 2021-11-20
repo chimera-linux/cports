@@ -34,18 +34,21 @@ def do_install(self):
         "northamerica", "southamerica", "etcetera", "backward", "factory"
     ]
 
-    self.do(self.chroot_cwd / "zic", [
-        "-b", "fat", "-d", self.chroot_destdir / "usr/share/zoneinfo"
-    ] + tzs)
+    self.do(
+        self.chroot_cwd / "zic", "-b", "fat", "-d",
+        self.chroot_destdir / "usr/share/zoneinfo", *tzs
+    )
 
-    self.do(self.chroot_cwd / "zic", [
-        "-b", "fat", "-d", self.chroot_destdir / "usr/share/zoneinfo/posix"
-    ] + tzs)
+    self.do(
+        self.chroot_cwd / "zic", "-b", "fat", "-d",
+        self.chroot_destdir / "usr/share/zoneinfo/posix", *tzs
+    )
 
-    self.do(self.chroot_cwd / "zic", [
-        "-b", "fat", "-d", self.chroot_destdir / "usr/share/zoneinfo/right",
-        "-p", "America/New_York"
-    ] + tzs)
+    self.do(
+        self.chroot_cwd / "zic", "-b", "fat", "-d",
+        self.chroot_destdir / "usr/share/zoneinfo/right",
+        "-p", "America/New_York", *tzs
+    )
 
     for f in ["iso3166", "zone1970", "zone"]:
         self.install_file(f"{f}.tab", "usr/share/zoneinfo", mode = 0o444)

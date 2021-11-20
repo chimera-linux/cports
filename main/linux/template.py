@@ -35,7 +35,8 @@ def do_configure(self):
 
     epoch = self.source_date_epoch or 0
 
-    self.do("chimera-buildkernel", [
+    self.do(
+        "chimera-buildkernel",
         "prepare",
         f"ARCH={_arch}",
         f"CONFIG_FILE={self.chroot_cwd}/{cfgname}",
@@ -43,13 +44,13 @@ def do_configure(self):
         f"JOBS={self.make_jobs}",
         f"LOCALVERSION=-{pkgrel}-generic",
         f"EPOCH={epoch}"
-    ])
+    )
 
 def do_build(self):
-    self.do("chimera-buildkernel", ["build"])
+    self.do("chimera-buildkernel", "build")
 
 def do_install(self):
-    self.do("chimera-buildkernel", ["install", self.chroot_destdir])
+    self.do("chimera-buildkernel", "install", self.chroot_destdir)
 
 @subpackage("linux-devel")
 def _devel(self):

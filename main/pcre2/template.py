@@ -23,7 +23,7 @@ source = f"https://github.com/PhilipHazel/{pkgname}/releases/download/{pkgname}-
 sha256 = "0781bd2536ef5279b1943471fdcdbd9961a2845e1d2c9ad849b9bd98ba1a9bd4"
 
 def pre_configure(self):
-    self.do("autoreconf", ["-if"])
+    self.do("autoreconf", "-if")
 
 def post_install(self):
     self.install_license("LICENCE")

@@ -11,7 +11,7 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "00be530b5c0ea9274baadf6c05521f0b192d4c3c1db636ac8b08efd44aaea8f5"
 
 def pre_configure(self):
-    self.do("autoreconf", ["-if"])
+    self.do("autoreconf", "-if")
 
 @subpackage("libspiro-devel")
 def _devel(self):

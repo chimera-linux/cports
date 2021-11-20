@@ -11,7 +11,7 @@ source = f"https://github.com/akheron/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "c739578bf6b764aa0752db9a2fdadcfe921c78f1228c7ec0bb47fa804c55d17b"
 
 def pre_configure(self):
-    self.do("autoreconf", ["-if"])
+    self.do("autoreconf", "-if")
 
 def post_install(self):
     self.install_license("LICENSE")

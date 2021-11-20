@@ -15,8 +15,7 @@ def do_build(self):
     if self.cross_build:
         eargs = ["--host=" + self.profile().short_triplet]
     self.do(
-        self.chroot_cwd / "boot-strap",
-        eargs + ["--prefix=/usr", "op=build"],
+        self.chroot_cwd / "boot-strap", *eargs, "--prefix=/usr", "op=build",
         wrksrc = "build"
     )
 
@@ -25,10 +24,8 @@ def do_install(self):
     if self.cross_build:
         eargs = ["BMAKE=make"]
     self.do(
-        self.chroot_cwd / "boot-strap", [
-            "--prefix=/usr", "--install-destdir=" + str(self.chroot_destdir),
-            "op=install"
-        ] + eargs,
+        self.chroot_cwd / "boot-strap", "--prefix=/usr",
+        "--install-destdir=" + str(self.chroot_destdir), "op=install", *eargs,
         wrksrc = "build"
     )
     self.rm(self.destdir / "usr/share/man", recursive = True)
@@ -39,7 +36,6 @@ def do_install(self):
 
 def do_check(self):
     self.do(
-        self.chroot_cwd / "boot-strap",
-        ["--prefix=/usr", "op=test"],
+        self.chroot_cwd / "boot-strap", "--prefix=/usr", "op=test",
         wrksrc = "build"
     )
