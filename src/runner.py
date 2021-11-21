@@ -306,13 +306,13 @@ def binary_bootstrap(tgt):
     else:
         chroot.install(cmdline.command[1])
 
-def do_unstage(tgt):
+def do_unstage(tgt, force = False):
     from cbuild.core import chroot, stage
 
     if opt_arch and opt_arch != chroot.host_cpu():
         stage.clear(opt_arch)
 
-    stage.clear(chroot.host_cpu(), opt_signkey)
+    stage.clear(chroot.host_cpu(), opt_signkey, force)
 
 def bootstrap(tgt):
     import sys
@@ -358,7 +358,7 @@ def bootstrap(tgt):
         if rp:
             build.build(tgt, rp, {}, opt_signkey)
         shutil.rmtree(paths.bldroot())
-        do_unstage(tgt)
+        do_unstage(tgt, True)
         chroot.install(chroot.host_cpu())
 
     if max_stage == 0:
@@ -834,8 +834,8 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
         tgt, rp, {}, opt_signkey, dirty = opt_dirty,
         keep_temp = opt_keeptemp, check_fail = opt_checkfail
     )
-    if not opt_stage:
-        do_unstage(tgt)
+    if not opt_stage or stage < 3:
+        do_unstage(tgt, stage < 3)
 
 #
 # MAIN ENTRYPOINT

@@ -28,6 +28,26 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True, use_stage = True):
     if not arch:
         arch = chroot.host_cpu()
 
+    # alt repository comes first here, since we want it to be lower priority
+    # this is because when the alt repository option is specified, it actually
+    # takes the role of the primary repository, so the alt_repository() here
+    # is really the one being overlayed
+    #
+    # also, always ignore stage for altrepo, as it should be considered opaque
+    if paths.alt_repository() and use_altrepo:
+        for r in chroot.get_confrepos():
+            if not r.startswith("/"):
+                continue
+            r = r.lstrip("/")
+            for cr in srepos:
+                rpath = paths.alt_repository() / cr / r
+                if (rpath / arch / "APKINDEX.tar.gz").is_file():
+                    ret.append("--repository")
+                    if intree:
+                        ret.append(f"/altbinpkgs/{cr}/{r}")
+                    else:
+                        ret.append(str(rpath))
+
     for r in chroot.get_confrepos():
         if not r.startswith("/"):
             # should be a remote repository, skip outright if we
@@ -43,30 +63,6 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True, use_stage = True):
                 ret.append("--repository")
                 if intree:
                     ret.append(f"/binpkgs/{cr}/{r}")
-                else:
-                    ret.append(str(rpath))
-            if (spath / arch / "APKINDEX.tar.gz").is_file() and use_stage:
-                ret.append("--repository")
-                if intree:
-                    ret.append(f"/binpkgs/{cr}/{r}/.stage")
-                else:
-                    ret.append(str(spath))
-
-    if not paths.alt_repository() or not use_altrepo:
-        return ret
-
-    # append alt repository to the end
-    for r in chroot.get_confrepos():
-        if not r.startswith("/"):
-            continue
-        r = r.lstrip("/")
-        for cr in srepos:
-            rpath = paths.alt_repository() / cr / r
-            spath = rpath / ".stage"
-            if (rpath / arch / "APKINDEX.tar.gz").is_file():
-                ret.append("--repository")
-                if intree:
-                    ret.append(f"/altbinpkgs/{cr}/{r}")
                 else:
                     ret.append(str(rpath))
             if (spath / arch / "APKINDEX.tar.gz").is_file() and use_stage:
