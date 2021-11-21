@@ -191,6 +191,7 @@ def handle_options():
         opt_ccache    = bcfg.getboolean("ccache", fallback = opt_ccache)
         opt_check     = bcfg.getboolean("check", fallback = opt_check)
         opt_checkfail = bcfg.getboolean("check_fail", fallback = opt_checkfail)
+        opt_stage     = bcfg.getboolean("keep_stage", fallback = opt_stage)
         opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
         opt_arch      = bcfg.get("arch", fallback = opt_arch)
         opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
@@ -198,7 +199,6 @@ def handle_options():
         opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
         opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
         opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
-        opt_stage     = bcfg.get("keep_stage", fallback = opt_stage)
 
     if not "flags" in global_cfg:
         global_cfg["flags"] = {}
