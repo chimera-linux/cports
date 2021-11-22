@@ -358,8 +358,8 @@ def bootstrap(tgt):
         chroot.repo_sync()
         if rp:
             build.build(tgt, rp, {}, opt_signkey)
-        shutil.rmtree(paths.bldroot())
         do_unstage(tgt, True)
+        shutil.rmtree(paths.bldroot())
         chroot.install(chroot.host_cpu())
 
     if max_stage == 0:
