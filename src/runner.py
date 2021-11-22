@@ -59,7 +59,8 @@ def init_early():
     sys.path.append(rtpath)
 
     def do_exit(signum, stack):
-        raise Exception("cbuild: interrupted!")
+        from cbuild.core import errors
+        raise errors.CbuildException("interrupted!")
 
     # exit handler
     signal.signal(signal.SIGINT, do_exit)
@@ -450,14 +451,12 @@ def do_clean(tgt):
     if dirp.is_dir():
         shutil.rmtree(dirp)
     elif dirp.exists():
-        logger.get().out_red("cbuild: broken container (builddir invalid)")
-        raise Exception()
+        raise errors.CbuildException("broken container (builddir invalid)")
     dirp = paths.bldroot() / "destdir"
     if dirp.is_dir():
         shutil.rmtree(dirp)
     elif dirp.exists():
-        logger.get().out_red("cbuild: broken container (destdir invalid)")
-        raise Exception()
+        raise errors.CbuildException("broken container (destdir invalid)")
 
 def do_zap(tgt):
     import shutil
@@ -467,8 +466,7 @@ def do_zap(tgt):
     if paths.bldroot().is_dir():
         shutil.rmtree(paths.bldroot())
     elif paths.bldroot().exists():
-        logger.get().out_red("cbuild: broken build container")
-        raise Exception()
+        raise errors.CbuildException("broken build container")
 
 def do_remove_autodeps(tgt):
     from cbuild.core import chroot
@@ -519,10 +517,9 @@ def do_prune_removed(tgt):
             # this could be a sub-repo
             repon = repo.parent.name
         if not (paths.distdir() / repon).is_dir():
-            logger.get().out_red(
-                f"cbuild: repository '{repo}' does not match templates"
+            raise errors.CbuildException(
+                f"repository '{repo}' does not match templates"
             )
-            raise Exception()
         tmplp = paths.distdir() / repon
         for pkg in (repo / archn).glob("*.apk"):
             pkgn = pkg.stem
@@ -597,8 +594,7 @@ def do_index(tgt):
     if idir:
         repo = pathlib.Path(idir)
         if not (repo / archn).is_dir():
-            logger.get().out_red(f"cbuild: repository '{repo}' does not exist")
-            raise Exception()
+            raise errors.CbuildException(f"repository '{repo}' does not exist")
         _index(repo)
         return
     # all repos
@@ -766,8 +762,7 @@ def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot, logger
 
     if len(cmdline.command) < 2:
-        logger.get().out_red(f"cbuild: update-check needs a target package")
-        raise Exception()
+        raise errors.CbuildException(f"update-check needs a target package")
 
     verbose = False
 
@@ -847,7 +842,7 @@ def fire():
     import shutil
     import traceback
 
-    from cbuild.core import chroot, logger, template, profile, paths
+    from cbuild.core import chroot, logger, template, profile, paths, errors
     from cbuild.apk import cli
 
     logger.init(not opt_nocolor)
@@ -908,6 +903,11 @@ def fire():
                 sys.exit(1)
     except template.SkipPackage:
         pass
+    except errors.CbuildException as e:
+        logger.get().out_red(f"cbuild: {str(e)}")
+        if e.extra:
+            logger.get().out_plain(e.extra)
+        sys.exit(1)
     except:
         logger.get().out_red("A failure has occured!")
         traceback.print_exc(file = logger.get().estream)

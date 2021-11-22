@@ -1,4 +1,4 @@
-from cbuild.core import paths, logger, chroot
+from cbuild.core import paths, logger, chroot, errors
 
 import configparser
 import platform
@@ -34,8 +34,7 @@ def _htodict(hlist, hdict):
             fl = fl[1:]
 
         if not fl in hdict:
-            logger.get().out_red(f"Unknown hardening option {fl}")
-            raise Exception()
+            raise errors.CbuildException(f"unknown hardening option {fl}")
 
         hdict[fl] = not neg
 
@@ -168,16 +167,13 @@ class Profile:
         pdata = pdata["profile"]
 
         if not "triplet" in pdata:
-            logger.get().out_red(f"Unknown triplet for {archn}")
-            raise Exception()
+            raise errors.CbuildException(f"unknown triplet for {archn}")
 
         if not "endian" in pdata:
-            logger.get().out_red(f"Unknown endianness for {archn}")
-            raise Exception()
+            raise errors.CbuildException(f"unknown endianness for {archn}")
 
         if not "wordsize" in pdata:
-            logger.get().out_red(f"Unknown wordsize for {archn}")
-            raise Exception()
+            raise errors.CbuildException(f"unknown wordsize for {archn}")
 
         self._arch = archn
         self._triplet = pdata.get("triplet")
@@ -185,16 +181,14 @@ class Profile:
         self._wordsize = pdata.getint("wordsize")
 
         if self._wordsize != 32 and self._wordsize != 64:
-            logger.get().out_red(
-                f"Unknown wordsize for {archn}: {self._wordsize}"
+            raise errors.CbuildException(
+                f"unknown wordsize for {archn}: {self._wordsize}"
             )
-            raise Exception()
 
         if self._endian != "little" and self._endian != "big":
-            logger.get().out_red(
-                f"Unknown endianness for {archn}: {self._endian}"
+            raise errors.CbuildException(
+                f"unknown endianness for {archn}: {self._endian}"
             )
-            raise Exception()
 
         if "hardening" in pdata:
             self._hardening = pdata.get("hardening").split()
@@ -283,8 +277,7 @@ def init(cparser):
             cp.read_file(cf)
 
         if archn != "bootstrap" and not "profile" in cp:
-            logger.get().out_red(f"Malformed profile: {archn}")
-            raise Exception()
+            raise errors.CbuildException(f"malformed profile: {archn}")
 
         _all_profiles[archn] = Profile(archn, cp, cparser)
 

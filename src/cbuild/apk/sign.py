@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths
+from cbuild.core import logger, paths, errors
 
 import io
 import re
@@ -37,8 +37,7 @@ def sign(keypath, data, epoch):
     keypath = _get_keypath(keypath)
 
     if not keypath.is_file():
-        logger.get().out_red(f"Non-existent private key '{keypath}'")
-        raise Exception()
+        raise errors.CbuildException(f"non-existent private key '{keypath}'")
 
     keyname = keypath.name + ".pub"
     signame = ".SIGN.RSA." + keyname
@@ -48,9 +47,9 @@ def sign(keypath, data, epoch):
     ] + inparg, input = inpval, capture_output = True)
 
     if sout.returncode != 0:
-        logger.get().out_red("Signing failed!")
-        logger.get().out_plain(sout.stderr.strip().decode())
-        raise Exception()
+        raise errors.CbuildException(
+            "signing failed!", sout.stderr.strip().decode()
+        )
 
     sigio = io.BytesIO()
     rawdata = sout.stdout
@@ -99,16 +98,14 @@ def keygen(keypath, size, cfgfile, cfgpath):
     keypath.parent.mkdir(parents = True, exist_ok = True)
 
     if keypath.is_file():
-        logger.get().out_red("Attempt to overwrite an existing key, aborting")
-        raise Exception()
+        raise errors.CbuildException("attempt to overwrite an existing key")
 
     kout = subprocess.run([
         "openssl", "genrsa", "-out", keypath, str(size)
     ], umask = 0o007)
 
     if not kout.returncode == 0:
-        logger.get().out_red("Key generation failed")
-        raise Exception()
+        raise errors.CbuildException("key generation failed")
 
     pout = subprocess.run([
         "openssl", "rsa", "-in", keypath,
@@ -116,8 +113,7 @@ def keygen(keypath, size, cfgfile, cfgpath):
     ])
 
     if not pout.returncode == 0:
-        logger.get().out_red("Public key generation failed")
-        raise Exception()
+        raise errors.CbuildException("public key generation failed")
 
     logger.get().out("Key successfully generated.")
 
@@ -152,7 +148,6 @@ def keygen(keypath, size, cfgfile, cfgpath):
             cf.write(f"key = {rkpath}\n")
 
     if not pout.returncode == 0:
-        logger.get().out_red("Public key generation failed")
-        raise Exception()
+        raise errors.CbuildException("public key generation failed")
 
     logger.get().out("Configuration file updated.")

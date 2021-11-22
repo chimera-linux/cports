@@ -8,7 +8,7 @@ import getpass
 import pathlib
 from tempfile import mkstemp
 
-from cbuild.core import logger, paths
+from cbuild.core import logger, paths, errors
 from cbuild.apk import cli as apki
 
 _chroot_checked = False
@@ -94,8 +94,7 @@ def _prepare(arch, stage):
     if sfpath.is_file():
         return
     if not (paths.bldroot() / "usr" / "bin" / "sh").is_file():
-        logger.get().out_red("cbuild: bootstrap not installed, can't continue")
-        raise Exception()
+        raise errors.CbuildException("bootstrap not installed, can't continue")
 
     (paths.bldroot() / "etc" / "localtime").symlink_to(
         "../usr/share/zoneinfo/UTC"
@@ -161,8 +160,7 @@ def repo_sync(genrepos = False):
         return
 
     if apki.call_chroot("update", [], "main").returncode != 0:
-        logger.get().out_red(f"cbuild: failed to update pkg database")
-        raise Exception()
+        raise errors.CbuildException(f"failed to update pkg database")
 
 def initdb(path = None):
     # we init the database ourselves
@@ -204,8 +202,7 @@ def install(arch = None, stage = 2):
         fakeroot = True
     )
     if irun.returncode != 0:
-        logger.get().out_red("cbuild: failed to install base-cbuild")
-        raise Exception()
+        raise errors.CbuildException("failed to install base-cbuild")
 
     logger.get().out("cbuild: installed base-cbuild successfully!")
 
@@ -261,8 +258,7 @@ def remove_autodeps(bootstrapping):
             failed = True
 
     if failed:
-        log.out_red("cbuild: failed to remove autodeps")
-        raise Exception()
+        raise errors.CbuildException("failed to remove autodeps")
 
 def update(do_clean = True):
     if not chroot_check():

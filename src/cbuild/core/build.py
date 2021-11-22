@@ -1,7 +1,7 @@
 from cbuild.step import fetch, extract, patch, configure
 from cbuild.step import build as buildm, check, install, prepkg, pkg as pkgsm
 from cbuild.core import chroot, logger, dependencies
-from cbuild.core import template, pkg as pkgm, paths
+from cbuild.core import template, pkg as pkgm, paths, errors
 from cbuild.apk import cli as apk
 
 import os
@@ -148,8 +148,7 @@ def build(
     for repo in genrepos:
         logger.get().out(f"Staging new packages to {repo}...")
         if not apk.build_index(repo, pkg.source_date_epoch, signkey):
-            logger.get().out_red(f"Indexing apk repositories failed.")
-            raise Exception()
+            raise errors.CbuildException("indexing repositories failed")
 
     pkg.signing_key = None
 

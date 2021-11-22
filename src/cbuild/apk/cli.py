@@ -168,7 +168,9 @@ def check_version(*args):
 
 def compare_version(v1, v2, strict = True):
     if strict and not check_version(v1, v2):
-        raise Exception("invalid version")
+        # this is more like an assertion, in cases where strict checking
+        # is used this should never fire unless something is super wrong
+        raise RuntimeError("invalid version")
 
     v = subprocess.run(
         ["apk", "version", "--quiet", "--test", v1, v2],
