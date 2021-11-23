@@ -829,7 +829,7 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
         tgt, rp, {}, opt_signkey, dirty = opt_dirty,
         keep_temp = opt_keeptemp, check_fail = opt_checkfail
     )
-    if not opt_stage or stage < 3:
+    if tgt == "pkg" and (not opt_stage or stage < 3):
         do_unstage(tgt, stage < 3)
 
 #
