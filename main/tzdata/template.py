@@ -26,7 +26,10 @@ static char const TZVERSION[]="unknown";
 static char const REPORT_BUGS_TO[]="none";
 """)
 
-    compiler.C(self).invoke([f"tz-{pkgver}/zic.c"], "zic", flags = ["-static"])
+    with self.profile("host"):
+        compiler.C(self).invoke(
+            [f"tz-{pkgver}/zic.c"], "zic", flags = ["-static"]
+        )
 
 def do_install(self):
     tzs = [
