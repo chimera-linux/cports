@@ -1998,7 +1998,7 @@ packages will be stored, i.e. for the main package as well as subpackages.
 
 Like `destdir_base`, but when viewed from inside the sandbox.
 
-##### def do(self, cmd, *args, env = {}, wrksrc = None)
+##### def do(self, cmd, *args, env = {}, wrksrc = None, capture_output = False, check = True)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,
 instead directly runs `cmd`, passing it `*args`. You can use `env` to provide
@@ -2019,6 +2019,14 @@ If run during the `install` phase (or during the `check` phase when `checkroot`
 is enabled in `options`), the command will be run masquerading as the `root`
 user. This affects all things that use this API, e.g. `make` invocations.
 This behavior is to better accommodate various build systems.
+
+By default, failed runs will result in an exception being raised. You can
+bypass that by setting `check` to `False`. Also, by default all output is
+printed out without capturing it; using `capture_output` you can override
+that if needed.
+
+The return value is the same as from Python `subprocess.run`. There you can
+access the return code as well as possibly captured `stdout`.
 
 Usage:
 
