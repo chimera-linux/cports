@@ -29,6 +29,7 @@ Prepare options and their default values:
     HOSTCC=clang        The host compiler to use.
     HOSTCFLAGS=         The host CFLAGS to use.
     LLVM=1              Use LLVM.
+    LLVM_IAS=0          Use Clang integrated assembler.
     LD=bfd              The linker to use.
     MAKE=gmake          The make to use.
     OBJDUMP=gobjdump    The objdump binary to use.
@@ -73,6 +74,7 @@ CONFIG_FILE=
 HOSTCC=clang
 HOSTCFLAGS=
 LLVM=1
+LLVM_IAS=0
 LD=bfd
 MAKE=gmake
 OBJDUMP=gobjdump
@@ -124,6 +126,7 @@ read_prepared() {
     HOSTCFLAGS=$(cat "${prepdir}/hostcflags")
     [ -r "${prepdir}/cross" ] && CROSS_COMPILE=$(cat "${prepdir}/cross")
     LLVM=$(cat "${prepdir}/llvm")
+    LLVM_IAS=$(cat "${prepdir}/llvm-ias")
     LD=$(cat "${prepdir}/ld")
     OBJDUMP=$(cat "${prepdir}/objdump")
     OBJDIR=$(cat "${prepdir}/objdir")
@@ -145,7 +148,7 @@ call_make() {
     cmdline="OBJDUMP=objdump LD=ld.${LD}"
 
     if [ $LLVM -ne 0 ]; then
-        cmdline="$cmdline LLVM=1"
+        cmdline="$cmdline LLVM=1 LLVM_IAS=${LLVM_IAS}"
         cc="$cc -Wno-unused-command-line-argument"
         hostcc="$hostcc -Wno-unused-command-line-argument"
     fi
@@ -155,7 +158,7 @@ call_make() {
     fi
 
     env -u ARCH -u CC -u CFLAGS -u HOSTCC -u HOSTCFLAGS -u CROSS_COMPILE \
-        -u LLVM -u LD -u OBJDUMP \
+        -u LLVM -u LLVM_IAS -u LD -u OBJDUMP \
     ${MAKE} -j${JOBS} "O=${OBJDIR}" "$@" $cmdline ARCH=${ARCH} \
         "CC=${cc}" "HOSTCC=${hostcc}" \
         "CFLAGS=${CFLAGS}" \
@@ -187,6 +190,7 @@ do_prepare() {
             HOSTCC=*) HOSTCC=${1#HOSTCC=};;
             HOSTCFLAGS=*) HOSTCFLAGS=${1#HOSTCFLAGS=};;
             LLVM=*) LLVM=${1#LLVM=};;
+            LLVM_IAS=*) LLVM_IAS=${1#LLVM_IAS=};;
             LD=*) LD=${1#LD=};;
             MAKE=*) MAKE=${1#MAKE=};;
             OBJDUMP=*) OBJDUMP=${1#OBJDUMP=};;
@@ -269,6 +273,7 @@ do_prepare() {
         printf "%s" "$CROSS_COMPILE" > "${TEMPDIR}/cross"
     fi
     printf "%s" "$LLVM" > "${TEMPDIR}/llvm"
+    printf "%s" "$LLVM_IAS" > "${TEMPDIR}/llvm-ias"
     printf "%s" "$LD" > "${TEMPDIR}/ld"
     printf "%s" "$OBJDUMP" > "${TEMPDIR}/objdump"
     printf "%s" "$OBJDIR" > "${TEMPDIR}/objdir"
