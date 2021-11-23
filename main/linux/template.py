@@ -1,5 +1,5 @@
 pkgname = "linux"
-pkgver = "5.14.15"
+pkgver = "5.15.4"
 pkgrel = 0
 make_dir = "build"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-{pkgver}.tar.xz"
-sha256 = "74f39a0c69e9d7c94d290515645396725e3ce3667b85baf4b3c3f6f303c7a406"
+sha256 = "549d0fb75e65f6158e6f4becc648f249d386843da0e1211460bde8b1ea99cbca"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs", "!cross",
@@ -21,7 +21,7 @@ options = [
 ]
 
 match self.profile().arch:
-    case "ppc64le": _arch = "powerpc"
+    case "ppc64le": case "ppc64": _arch = "powerpc"
     case "aarch64": _arch = "arm64"
     case "x86_64": _arch = "x86_64"
     case _:
