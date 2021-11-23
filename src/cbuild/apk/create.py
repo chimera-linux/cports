@@ -26,7 +26,7 @@ def _du_k(fl):
 
 def _hash_file(fp, md):
     while True:
-        chunk = fp.read(16 * 1024)
+        chunk = fp.read(2 * 1024 * 1024)
         if not chunk:
             break
         md.update(chunk)
@@ -252,7 +252,7 @@ def create(
         ctario.close()
         # write the data and buffer it because it's potentially huge
         while True:
-            buf = dtarf.read(16 * 1024)
+            buf = dtarf.read(2 * 1024 * 1024)
             if not buf:
                 break
             ffile.write(buf)
