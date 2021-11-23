@@ -32,7 +32,7 @@ def post_build(self):
     self.do(
         xcmgr, "-c", "catalog.etc.xml", "add", "nextCatalog",
         "/etc/xml/auto/catalog"
-    ])
+    )
 
 def post_install(self):
     self.log("installing XML/SGML catalogs...")
