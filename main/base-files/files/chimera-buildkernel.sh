@@ -145,7 +145,7 @@ call_make() {
 
     cc="${CC} -fuse-ld=${LD}"
     hostcc="${HOSTCC} -fuse-ld=${LD}"
-    cmdline="OBJDUMP=objdump LD=ld.${LD}"
+    cmdline="OBJDUMP=${CROSS_COMPILE}objdump LD=${CROSS_COMPILE}ld.${LD}"
 
     if [ $LLVM -ne 0 ]; then
         cmdline="$cmdline LLVM=1 LLVM_IAS=${LLVM_IAS}"
@@ -241,8 +241,16 @@ do_prepare() {
     wrap_command ${MAKE} ${TEMPDIR}/wrappers/make
     wrap_command ${OBJDUMP} ${TEMPDIR}/wrappers/objdump
 
-    if [ -n "$CROSS_COMPILE" -a $LLVM -ne 0 ]; then
-        wrap_command clang ${TEMPDIR}/wrappers/${CROSS_COMPILE}clang
+    if [ -n "$CROSS_COMPILE" ]; then
+        wrap_command ${CROSS_COMPILE}${OBJDUMP} \
+            ${TEMPDIR}/wrappers/${CROSS_COMPILE}objdump
+        if [ "$LD" != "lld" ]; then
+            wrap_command ${CROSS_COMPILE}ld.${LD} \
+                ${TEMPDIR}/wrappers/${CROSS_COMPILE}ld
+        fi
+        if [ $LLVM -ne 0 ]; then
+            wrap_command clang ${TEMPDIR}/wrappers/${CROSS_COMPILE}clang
+        fi
     fi
 
     export PATH="${TEMPDIR}/wrappers:${PATH}"
