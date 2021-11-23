@@ -1723,7 +1723,7 @@ repo for every repository, but the unstaging algorithm considers them all
 a single global stage.
 
 When you invoke a build (`./cbuild pkg category/foo`), it must first finish.
-This includes building potential missing dependencies. Once the enitre
+This includes building potential missing dependencies. Once the entire
 potential batch is built, the unstaging algorithm kicks in and does the
 following:
 
@@ -1754,8 +1754,9 @@ following:
    `dropped` set, the dependency is discarded. Otherwise, it is added into
    a set of dependencies for further checking.
 8) Each revdep dependency that satisfied a `dropped` provider is further
-   checked for providers. This ensures that if there is another provider
-   that can satisfy the dependency, we don't have to worry about it.
+   checked for providers. If a provider that was not `replaced` is found,
+   then the dependency is discarded. This ensures that if there is another
+   provider that can satisfy the dependency, we don't have to worry about it.
 9) If the resulting set of empty, the repository gets unstaged as there
    is nothing else to consider. If it is not empty, the repositories are
    kept staged, and a list of packages depending on each problematic
