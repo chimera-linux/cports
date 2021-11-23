@@ -311,7 +311,7 @@ def do_unstage(tgt, force = False):
     from cbuild.core import chroot, stage
 
     if opt_arch and opt_arch != chroot.host_cpu():
-        stage.clear(opt_arch)
+        stage.clear(opt_arch, opt_signkey, force)
 
     stage.clear(chroot.host_cpu(), opt_signkey, force)
 
