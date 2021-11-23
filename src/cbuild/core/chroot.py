@@ -296,20 +296,22 @@ def enter(cmd, *args, capture_out = False, check = False,
         "UNAME_m": host_cpu(),
         **env
     }
-    if "NO_PROXY" in os.environ:
-        envs["NO_PROXY"] = os.environ["NO_PROXY"]
-    if "FTP_PROXY" in os.environ:
-        envs["FTP_PROXY"] = os.environ["FTP_PROXY"]
-    if "HTTP_PROXY" in os.environ:
-        envs["HTTP_PROXY"] = os.environ["HTTP_PROXY"]
-    if "HTTPS_PROXY" in os.environ:
-        envs["HTTPS_PROXY"] = os.environ["HTTPS_PROXY"]
-    if "SOCKS_PROXY" in os.environ:
-        envs["SOCKS_PROXY"] = os.environ["SOCKS_PROXY"]
-    if "FTP_RETRIES" in os.environ:
-        envs["FTP_RETRIES"] = os.environ["FTP_RETRIES"]
-    if "HTTP_PROXY_AUTH" in os.environ:
-        envs["HTTP_PROXY_AUTH"] = os.environ["HTTP_PROXY_AUTH"]
+
+    if not unshare_all:
+        if "NO_PROXY" in os.environ:
+            envs["NO_PROXY"] = os.environ["NO_PROXY"]
+        if "FTP_PROXY" in os.environ:
+            envs["FTP_PROXY"] = os.environ["FTP_PROXY"]
+        if "HTTP_PROXY" in os.environ:
+            envs["HTTP_PROXY"] = os.environ["HTTP_PROXY"]
+        if "HTTPS_PROXY" in os.environ:
+            envs["HTTPS_PROXY"] = os.environ["HTTPS_PROXY"]
+        if "SOCKS_PROXY" in os.environ:
+            envs["SOCKS_PROXY"] = os.environ["SOCKS_PROXY"]
+        if "FTP_RETRIES" in os.environ:
+            envs["FTP_RETRIES"] = os.environ["FTP_RETRIES"]
+        if "HTTP_PROXY_AUTH" in os.environ:
+            envs["HTTP_PROXY_AUTH"] = os.environ["HTTP_PROXY_AUTH"]
 
     # if running from template, ensure wrappers are early in executable path
     if "CBUILD_STATEDIR" in envs:
