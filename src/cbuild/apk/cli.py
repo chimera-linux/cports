@@ -105,7 +105,7 @@ def call(
     )
 
 def call_chroot(
-    subcmd, args, mrepo, capture_out = False, check = False, arch = None,
+    subcmd, args, mrepo, capture_output = False, check = False, arch = None,
     allow_untrusted = False, use_stage = True
 ):
     from cbuild.core import chroot
@@ -120,7 +120,7 @@ def call_chroot(
 
     return chroot.enter(
         "apk", *cmd, *_collect_repos(mrepo, True, arch, use_stage), *args,
-        capture_out = capture_out, check = check,
+        capture_output = capture_output, check = check,
         fakeroot = True, mount_binpkgs = True
     )
 

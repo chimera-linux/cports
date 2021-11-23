@@ -10,7 +10,7 @@ def do_build(self):
 
 def do_check(self):
     if chroot.enter(
-        "python3", "-c", "import pytest", capture_out = True,
+        "python3", "-c", "import pytest", capture_output = True,
         ro_root = True, ro_build = True, unshare_all = True
     ).returncode == 0:
         ctgt = []

@@ -232,7 +232,7 @@ def remove_autodeps(bootstrapping):
             ], None, capture_output = True, fakeroot = True)
         else:
             del_ret = apki.call_chroot(
-                "del", ["autodeps-host"], None, capture_out = True
+                "del", ["autodeps-host"], None, capture_output = True
             )
 
         if del_ret.returncode != 0:
@@ -249,7 +249,7 @@ def remove_autodeps(bootstrapping):
             ], None, capture_output = True, fakeroot = True)
         else:
             del_ret = apki.call_chroot(
-                "del", ["autodeps-target"], None, capture_out = True
+                "del", ["autodeps-target"], None, capture_output = True
             )
 
         if del_ret.returncode != 0:
@@ -278,7 +278,7 @@ def update(do_clean = True):
         "upgrade", ["--available"], "main", check = True, use_stage = False
     )
 
-def enter(cmd, *args, capture_out = False, check = False,
+def enter(cmd, *args, capture_output = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, ro_build = False,
           ro_dest = True, unshare_all = False, mount_binpkgs = False,
@@ -346,7 +346,7 @@ def enter(cmd, *args, capture_out = False, check = False,
     if bootstrapping:
         return subprocess.run(
             [cmd, *args], env = envs,
-            capture_output = capture_out, check = check,
+            capture_output = capture_output, check = check,
             stdout = stdout, stderr = stderr,
             cwd = os.path.abspath(wrkdir) if wrkdir else None
         )
@@ -395,6 +395,6 @@ def enter(cmd, *args, capture_out = False, check = False,
     bcmd += args
 
     return subprocess.run(
-        bcmd, env = envs, capture_output = capture_out, check = check,
+        bcmd, env = envs, capture_output = capture_output, check = check,
         stdout = stdout, stderr = stderr
     )

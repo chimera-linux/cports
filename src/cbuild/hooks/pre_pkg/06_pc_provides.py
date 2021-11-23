@@ -35,7 +35,7 @@ def invoke(pkg):
         cdv = pkg.chroot_destdir / rlp
         pcc = chroot.enter(
             "pkg-config", "--modversion", sn,
-            capture_out = True, bootstrapping = False,
+            capture_output = True, bootstrapping = False,
             ro_root = True, ro_build = True, unshare_all = True,
             env = {
                 "PKG_CONFIG_PATH": str(cdv),

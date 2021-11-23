@@ -119,7 +119,7 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
         else:
             aopts = pkglist
         ret = apki.call_chroot(
-            "add", aopts, pkg, capture_out = True,
+            "add", aopts, pkg, capture_output = True,
             allow_untrusted = not signkey
         )
     if ret.returncode != 0:

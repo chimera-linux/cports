@@ -132,7 +132,7 @@ def _scan_pc(pkg):
         pcc = chroot.enter(
             "pkg-config", "--print-requires", "--print-requires-private",
             v.stem,
-            capture_out = True, bootstrapping = pkg.stage == 0,
+            capture_output = True, bootstrapping = pkg.stage == 0,
             ro_root = True, ro_build = True, unshare_all = True,
             env = {
                 "PKG_CONFIG_PATH": pcpaths,
