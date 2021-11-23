@@ -25,6 +25,7 @@ you should not rely on them or expect them to be stable.
   * [Template Options](#template_options)
   * [Hardening Options](#hardening_options)
   * [Tools and Tool Flags](#tools)
+  * [Hooks and Triggers](#hooks_triggers)
 * [Build Profiles](#build_profiles)
 * [Build Environment](#build_environment)
 * [Hooks and Invocation](#hooks)
@@ -604,9 +605,10 @@ Keep in mind that default values may be overridden by build styles.
 * `tool_flags` *(dict)* This can be used to override things such as `CFLAGS`
   or `LDFLAGS`. Refer to the section about tools and tool flags for more
   information.
-* `triggers` *(list)* A list of paths the package should trigger on. I.e.
-  if any package changes anything in those paths, the trigger script for
-  this package should run.
+* `triggers` *(list)* A list of directory paths the package should trigger
+  on. That is, if any package changes these monitored directories, the
+  trigger script for this package should run. This can include wildcards
+  (`foo/*` will fire on any directory inside `foo`).
 
 These variables generate scriptlets:
 
@@ -1326,6 +1328,91 @@ compilers. Any differences will be noted in here, if needed.
 
 There are many more variables that are implicitly exported into the
 environment, but those are documented elsewhere.
+
+<a id="hooks_triggers"></a>
+### Hooks and Triggers
+
+The packaging system lets you provide custom hooks as well as triggers.
+
+Hooks are scriptlets (simple shell scripts) that will run at specified
+times during the package installation or removal. Triggers are scriptlets
+that run if something modifies a monitored directory.
+
+The system supports `install`, `upgrade` and `deinstall` hooks, each
+having `pre` and `post` variants differentiating whether the hook is
+run before or after the step.
+
+The `install` hooks are executed if a package is installed, but not
+downgraded or upgraded or reinstalled. Conversely, the `upgrade`
+hooks are run on downgrade or upgrade as well as reinstallation,
+but not clean installation. The `deinstall` hooks are run when you
+uninstall a package, but removal before upgrade or reinstall is not
+counted.
+
+Overall, this makes 6 hooks such as `pre-install` and so on.
+
+Triggers are a different kind of scriptlet. Each package is allowed
+to carry one trigger, and this trigger must have a list of directory
+patterns set up for it. These directory patterns are then monitored
+for changes, potentially by other packages. That means other packages
+can result in invocation of triggers even if the package providing
+the trigger is not modified in any way.
+
+Triggers are fired when the affected directory is modified in any
+way, this includes uninstallation.
+
+The scriptlet is provided as a file in the template's directory,
+named `pkgname.scriptname`, e.g. `foo.trigger` or `foo.post-install`.
+You can use symlinks if you want one scriptlet to be used for multiple
+hooks.
+
+If a trigger script is provided, the `triggers` variable must be set
+appropriately.
+
+All scriptlets are run as if `set -e`. All scriptlets are run with the
+default shell interpreter (`#!/bin/sh`) regardless of their shebang.
+You should still provide a `#!/bin/sh` shebang, but this is just for
+style.
+
+Hooks get passed the new or current package version as the first
+argument, as well as the old version as a second argument where this
+is relevant.
+
+Triggers are passed the directory paths that resulted in the trigger
+being invoked.
+
+#### Automatic hooks
+
+There are certain things that result in a hook being generated
+automatically, without providing an explicit scriptlet for it. If that
+happens, the potential user script is run after the automatic one.
+
+##### User and group hooks
+
+There are automatic hooks for user and group registration. These are
+controlled by the `system_users` and `system_groups` variables that
+you can specify. See the documentation for those.
+
+These hooks will automatically take care of creating necessary users
+and groups as well as deactivating them when needed. The creation is
+done in `pre-install` and `pre-upgrade`, while the deactivation is
+done in `post-deinstall`.
+
+##### Python precompilation
+
+The `pycompile_dirs` and `pycompile_module` variables control these,
+but they can also be added implicitly for all modules inside of
+`usr/lib/python*/site-packages` if nothing is specified and the
+modules exist.
+
+This affects `post-install`, `post-upgrade` for compilation as well
+as `pre-upgrade` and `pre-deinstall` for removal.
+
+##### XML/SGML catalog management
+
+Triggered by the `sgml_entries` and `xml_entries` variables. If these
+are specified, the package should also depend on `xmlcatmgr` or the
+scriptlets will fail.
 
 <a id="build_profiles"></a>
 ## Build Profiles
