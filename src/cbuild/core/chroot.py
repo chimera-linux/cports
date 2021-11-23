@@ -285,7 +285,7 @@ def enter(cmd, *args, capture_out = False, check = False,
           mount_ccache = False, fakeroot = False, new_session = True):
     defpath = "/usr/bin"
     if bootstrapping:
-        defpath = "/usr/bin:" + os.environ["PATH"]
+        defpath = os.environ["PATH"]
 
     envs = {
         "PATH": defpath,

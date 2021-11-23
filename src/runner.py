@@ -855,11 +855,6 @@ def fire():
         logger.get().out_red("cbuild: no signing key set")
         sys.exit(1)
 
-    # fix up environment
-    os.environ["CBUILD_ARCH"] = chroot.host_cpu()
-    os.environ["PATH"] = os.environ["PATH"] + ":" + \
-        str(paths.bldroot() / "usr/bin")
-
     # initialize profiles
     profile.init(global_cfg)
 
