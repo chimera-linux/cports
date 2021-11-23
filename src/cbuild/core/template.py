@@ -21,11 +21,8 @@ import shutil
 import builtins
 import configparser
 
-from cbuild.core import logger, chroot, paths, profile, spdx
+from cbuild.core import logger, chroot, paths, profile, spdx, errors
 from cbuild.apk import cli
-
-class PackageError(Exception):
-    pass
 
 class SkipPackage(Exception):
     pass
@@ -182,8 +179,7 @@ class Package:
         self.logger.warn(self._get_pv() + ": " + msg, end)
 
     def error(self, msg, end = "\n"):
-        self.log_red(msg)
-        raise PackageError()
+        raise errors.PackageException(msg, end, self)
 
     def _get_pv(self):
         if self.pkgname and self.pkgver:
@@ -1090,13 +1086,13 @@ class Template(Package):
         path = pathlib.Path(path)
         dest = pathlib.Path(dest)
         if dest.is_absolute():
-            self.logger.out_red(
+            raise errors.TracebackException(
                 f"install_files: path '{dest}' must not be absolute"
             )
-            raise PackageError()
         if path.is_absolute():
-            self.logger.out_red(f"path '{path}' must not be absolute")
-            raise PackageError()
+            raise errors.TracebackException(
+                f"install_files: path '{path}' must not be absolute"
+            )
 
         path = self.cwd / path
         dest = self.destdir / dest / path.name
@@ -1106,8 +1102,9 @@ class Template(Package):
     def install_dir(self, dest, mode = 0o755):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
-            self.logger.out_red(f"path '{dest}' must not be absolute")
-            raise PackageError()
+            raise errors.TracebackException(
+                f"install_dir: path '{dest}' must not be absolute"
+            )
         dirp = self.destdir / dest
         if not dirp.is_dir():
             dirp.mkdir(parents = True)
@@ -1119,20 +1116,18 @@ class Template(Package):
         dest = pathlib.Path(dest)
         # sanitize destination
         if dest.is_absolute():
-            self.logger.out_red(
+            raise errors.TracebackException(
                 f"install_file: path '{dest}' must not be absolute"
             )
-            raise PackageError()
         # default name
         if not name:
             name = src.name
         # copy
         dfn = self.destdir / dest / name
         if dfn.exists():
-            self.logger.out_red(
+            raise errors.TracebackException(
                 f"install_file: destination file '{dfn}' already exists"
             )
-            raise PackageError()
         self.install_dir(dest)
         shutil.copy2(self.cwd / src, dfn)
         if mode is not None:
@@ -1151,13 +1146,15 @@ class Template(Package):
         mnf = absmn.name
         if not cat:
             if len(absmn.suffix) == 0:
-                self.logger.out_red(f"manpage '{mnf}' has no section")
-                raise PackageError()
+                raise errors.TracebackException(
+                    f"install_man: manpage '{mnf}' has no section"
+                )
             try:
                 cat = int(absmn.suffix[1:])
             except:
-                self.logger.out_red(f"manpage '{mnf}' has an invalid section")
-                raise PackageError()
+                raise errors.TracebackException(
+                    f"install_man: manpage '{mnf}' has an invalid section"
+                )
         mandir = manbase / f"man{cat}"
         mandir.mkdir(parents = True, exist_ok = True)
         if name:
@@ -1181,8 +1178,9 @@ class Template(Package):
     def install_link(self, src, dest):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
-            self.logger.out_red(f"path '{dest}' must not be absolute")
-            raise PackageError()
+            raise errors.TracebackException(
+                f"install_link: path '{dest}' must not be absolute"
+            )
         dest = self.destdir / dest
         dest.symlink_to(src)
 
@@ -1245,13 +1243,11 @@ class Subpackage(Package):
     def take(self, p, missing_ok = False):
         p = pathlib.Path(p)
         if p.is_absolute():
-            self.logger.out_red(f"path '{p}' must not be absolute")
-            raise PackageError()
+            self.error(f"take(): path '{p}' must not be absolute")
         origp = self.parent.destdir / p
         got = glob.glob(str(origp))
         if len(got) == 0 and not missing_ok:
-            self.logger.out_red(f"path '{p}' did not match anything")
-            raise PackageError()
+            self.error(f"take(): path '{p}' did not match anything")
         for fullp in got:
             # relative path to the file/dir in original destdir
             pdest = self.parent.destdir
@@ -1655,8 +1651,7 @@ def read_pkg(
     global _tmpl_dict
 
     if not isinstance(pkgname, str):
-        logger.get().out_red("Missing package name.")
-        raise PackageError()
+        raise errors.CbuildException("missing package name")
 
     if resolve:
         for r in resolve.source_repositories:
@@ -1666,13 +1661,11 @@ def read_pkg(
         else:
             if ignore_missing:
                 return None
-            logger.get().out_red("Missing template for '%s'" % pkgname)
-            raise PackageError()
+            raise errors.CbuildException(f"missing template for '{pkgname}'")
     elif not (paths.distdir() / pkgname / "template.py").is_file():
         if ignore_missing:
             return None
-        logger.get().out_red("Missing template for '%s'" % pkgname)
-        raise PackageError()
+        raise errors.CbuildException(f"missing template for '{pkgname}'")
 
     ret = Template(pkgname, origin)
     ret.template_path = paths.distdir() / pkgname

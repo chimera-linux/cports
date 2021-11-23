@@ -12,6 +12,10 @@ sha256 = "ea1142b6aef40fbd624fc3e2130cf10cf081b5fa88e5229c92b8f515779d6fdc"
 if self.cross_build:
     hostmakedepends += ["xmlcatmgr"]
 
+def do_configure(self):
+    with self.pushd("blabla"):
+        pass
+
 def post_build(self):
     if self.cross_build:
         xcmgr = "/usr/bin/xmlcatmgr"

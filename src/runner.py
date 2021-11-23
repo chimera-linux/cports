@@ -908,6 +908,14 @@ def fire():
         if e.extra:
             logger.get().out_plain(e.extra)
         sys.exit(1)
+    except errors.TracebackException as e:
+        logger.get().out_red(str(e))
+        traceback.print_exc(file = logger.get().estream)
+        sys.exit(1)
+    except errors.PackageException as e:
+        e.pkg.log_red(f"ERROR: {e}", e.end)
+        traceback.print_exc(file = logger.get().estream)
+        sys.exit(1)
     except:
         logger.get().out_red("A failure has occured!")
         traceback.print_exc(file = logger.get().estream)
