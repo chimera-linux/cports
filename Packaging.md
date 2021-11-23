@@ -1757,7 +1757,7 @@ following:
    checked for providers. If a provider that was not `replaced` is found,
    then the dependency is discarded. This ensures that if there is another
    provider that can satisfy the dependency, we don't have to worry about it.
-9) If the resulting set of empty, the repository gets unstaged as there
+9) If the resulting set is empty, the repository gets unstaged as there
    is nothing else to consider. If it is not empty, the repositories are
    kept staged, and a list of packages depending on each problematic
    provider is printed.
