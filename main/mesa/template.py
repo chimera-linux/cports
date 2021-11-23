@@ -73,9 +73,9 @@ _have_intel = False
 _have_vmware = False
 _have_nine = False
 _have_arm = False
-_have_opencl = _have_amd or _have_intel
-_have_vulkan = _have_amd or _have_intel
-_have_zink = _have_vulkan
+_have_opencl = False
+_have_vulkan = False
+_have_zink = False
 
 match self.profile().arch:
     case "x86_64":
@@ -88,6 +88,10 @@ match self.profile().arch:
         configure_args += ["-Dpower8=true"]
     case "ppc64":
         configure_args += ["-Dpower8=false"]
+
+_have_opencl = _have_amd or _have_intel
+_have_vulkan = _have_amd or _have_intel
+_have_zink = _have_vulkan
 
 if _have_amd:
     _gallium_drivers += ["r300", "r600", "radeonsi"]
