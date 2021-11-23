@@ -294,22 +294,26 @@ the package should be called `foo`, not `libfoo`.
 
 However, if a library is a subpackage of a bigger software project,
 there are two things you can do. If the subpackage provides a single
-library, typically coupled with a dedicated development package and
-so on, you should use the `lib` prefix. If a subpackage provides
-a collection of runtime libraries and the development package belongs
-to the main package instead, the `-libs` suffix should be used.
-
-the `lib` prefix should be used. So if project `foo` consists of a
-primary `foo` package and a library subpackage, that subpackage should
-be called `libfoo`.
+library that is usable as a standalone runtime dependency for other
+things, you should use the `lib` prefix. If it provides multiple
+libraries that should be shipped together, the `-libs` suffix should
+be used. Whether to separate the individual libraries into individual
+subpackages or bundle them together or even not separate them at all
+should be decided on per-package basis.
 
 Development packages should use the `-devel` suffix, like `foo-devel`
-for the `foo` template. In general, libraries should always have a
-corresponding `-devel` package, except in some rare cases where this
-does not make sense (primarily development toolchains where the
-primary package is already a development package and the library
-is split out to avoid installing the whole thing in case of runtime
-dependencies).
+for the `foo` template. The convention with library subpackages and
+devel packages is that if you have `foo` and `libfoo`, the development
+files go in `foo-devel`. However, if the library part has its own
+development files that make sense separately from the main `devel`
+package, it is perfectly acceptable to have `libfoo-devel` alongside
+`foo-devel`.
+
+In general, things packaging libraries should always have a `devel`
+package of some sort, except in specific rare cases where this does
+not make sense (e.g. development toolchains, where the primary package
+is already a development package by itself; it may still be a good thing
+to separate the runtime libraries in those cases).
 
 Development packages should contain `.so` symlinks (where not required
 at runtime) as well as include files, `pkg-config` files and any other
@@ -325,6 +329,13 @@ should be called `foo-progs`.
 Subpackages for language bindings should put the language name in the
 suffix, e.g. `foo-python`. However, language modules that are the primary
 package should put that in the prefix, e.g. `python-foo`.
+
+As far as general guidelines on subpackages go, things should be separated
+as little as possible while still ensuring that people do not get useless
+bloat installed. That means separating runtime libraries where they can
+work on their own, always separating development packages, always separating
+language bindings (where they bring a dependency that would otherwise not
+be necessary) and so on.
 
 <a id="filesystem_structure"></a>
 ## Filesystem Structure
