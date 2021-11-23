@@ -21,7 +21,7 @@ options = [
 ]
 
 match self.profile().arch:
-    case "ppc64le": case "ppc64": _arch = "powerpc"
+    case "ppc64le" | "ppc64": _arch = "powerpc"
     case "aarch64": _arch = "arm64"
     case "x86_64": _arch = "x86_64"
     case _:
