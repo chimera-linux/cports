@@ -15,7 +15,6 @@ configure_args = [
     "-Dlmsensors=enabled",
     "-Dshared-glapi=enabled",
     "-Dplatforms=x11,wayland",
-    "-Ddri-drivers=", # disable all non-gallium drivers on all platforms
     "-Dglx=dri",
     "-Dcpp_std=gnu++14",
 ]
