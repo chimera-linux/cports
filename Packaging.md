@@ -28,6 +28,7 @@ you should not rely on them or expect them to be stable.
 * [Build Profiles](#build_profiles)
 * [Build Environment](#build_environment)
 * [Hooks and Invocation](#hooks)
+* [Staging](#staging)
 * [Template API](#template_api)
   * [Builtins](#api_builtins)
   * [Handle API](#api_handle)
@@ -1622,6 +1623,73 @@ subpackage and finally for the main package, `pre_pkg` hooks are called.
 Finally, `do_pkg` and `post_pkg` hooks are called first for each subpackage
 and then for the main package. After this, the build system rebuilds repo
 indexes, removes automatic dependencies, and performs cleanup.
+
+<a id="staging"></a>
+## Staging
+
+The build system implements staging. This means packages do not get registered
+into the actual final repo outright, but instead they first get staged and
+only when ready, they get moved into the repository proper.
+
+Every built package gets staged first. There is a specific staging overlay
+repo for every repository, but the unstaging algorithm considers them all
+a single global stage.
+
+When you invoke a build (`./cbuild pkg category/foo`), it must first finish.
+This includes building potential missing dependencies. Once the enitre
+potential batch is built, the unstaging algorithm kicks in and does the
+following:
+
+1) If the user has explicitly requested that the package remains staged,
+   nothing is done. This can be done via a command line option to `cbuild`
+   or using the configuration file.
+2) The system collects all staging overlays currently present.
+3) Every staging overlay is searched for packages. These packages are
+   collected and each package is checked for its virtual providers. These
+   include shared libraries (`so:libfoo.so=ver`) and others. The system
+   checks both the staged version and a possible previously built version
+   that was already built and not in stage. The providers of both are
+   collected.
+4) Staged version providers are accumulated in the `added` global set.
+   The previous version providers are in the `dropped` global set. This
+   happens only if the providers between the versions differ. If they
+   do, the package is considered `replaced`.
+5) Common entries between `added` and `dropped` are eliminated. These
+   are entries that have the same name as well as version.
+6) Now all `dropped` providers are searched for in both the main repos
+   and the stages. Their reverse dependencies (i.e. things depending on
+   them) are collected, and each reverse dependency is stored in a global
+   set.
+7) Each reverse dependency is searched for and its dependencies are collected.
+   Only the "best" version is considered, which is the potentially staged
+   one. Every dependency is checked if it matches something in the `dropped`
+   set. Version constraints are respected here. If one is not found in the
+   `dropped` set, the dependency is discarded. Otherwise, it is added into
+   a set of dependencies for further checking.
+8) Each revdep dependency that satisfied a `dropped` provider is further
+   checked for providers. This ensures that if there is another provider
+   that can satisfy the dependency, we don't have to worry about it.
+9) If the resulting set of empty, the repository gets unstaged as there
+   is nothing else to consider. If it is not empty, the repositories are
+   kept staged, and a list of packages depending on each problematic
+   provider is printed.
+
+This algorithm is not perfect and will not catch certain edge cases, such as
+when moving a provider from `main` to `contrib` but there still being packages
+that depend on it in `main`. This is an intended tradeoff to keep things
+reasonably simple. You are expected to be careful with such cases and deal
+with them properly.
+
+The main point of the staging system is to handle `soname` updates in a way
+that does not disrupt user workflow. That is, when a `soname` is increased
+for a library, the rebuild will get staged until everything depending on
+it has been rebuilt against the new version too. While the package system
+deals with this gracefully and would not let users update affected packages,
+it is better to make this invisible and keep the old versions until things
+are ready.
+
+Additionally, it is there for convenience, to be notified of potential
+rebuilds to be done, as well as so one does not forget.
 
 <a id="template_api"></a>
 ## Template API
