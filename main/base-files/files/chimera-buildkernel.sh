@@ -5,6 +5,7 @@
 # Usage:
 #
 # $ chimera-buildkernel prepare [opts]
+# $ chimera-buildkernel config [tgt] # tgt is menuconfig by default
 # $ chimera-buildkernel build
 # $ chimera-buildkernel install <destdir>
 # $ chimera-buildkernel clean
@@ -236,6 +237,10 @@ do_prepare() {
     wrap_command ${MAKE} ${TEMPDIR}/wrappers/make
     wrap_command ${OBJDUMP} ${TEMPDIR}/wrappers/objdump
 
+    if [ -n "$CROSS_COMPILE" -a $LLVM -ne 0 ]; then
+        wrap_command clang ${TEMPDIR}/wrappers/${CROSS_COMPILE}clang
+    fi
+
     export PATH="${TEMPDIR}/wrappers:${PATH}"
 
     echo "=> Preparing configuration..."
@@ -287,6 +292,18 @@ EOF
 
     echo ""
     echo "Tree prepared, you can run build now."
+}
+
+do_config() {
+    local tgt="$1"
+
+    read_prepared
+
+    if [ -z "$tgt" ]; then
+        tgt="menuconfig"
+    fi
+
+    call_make "$tgt"
 }
 
 do_build() {
@@ -466,6 +483,7 @@ do_clean() {
 
 case $COMMAND in
     prepare) do_prepare "$@";;
+    config) do_config "$@";;
     build) do_build;;
     install) do_install "$@";;
     clean) do_clean;;
