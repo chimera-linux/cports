@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dgnu-inline-asm=enabled",
-    "-Dtests=enabled",
     "-Dlibpng=enabled",
     "-Dgtk=disabled",
     "-Dopenmp=disabled",
