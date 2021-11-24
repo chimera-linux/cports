@@ -1,0 +1,12 @@
+--- a/build/tools/Makefile
++++ b/build/tools/Makefile
+@@ -1,6 +1,6 @@
+-HOSTCXX ?= $(CXX)
+-HOSTCXXFLAGS ?= $(CXXFLAGS)
+-HOSTLDFLAGS ?= $(LDFLAGS)
++HOSTCXX ?= $(BUILD_CXX)
++HOSTCXXFLAGS ?= $(BUILD_CXXFLAGS)
++HOSTLDFLAGS ?= $(BUILD_LDFLAGS)
+ 
+ mconfig-gen: mconfig-gen.cc
+ 	$(HOSTCXX) $(HOSTCXXOPTS) -o mconfig-gen mconfig-gen.cc $(HOSTLDFLAGS)

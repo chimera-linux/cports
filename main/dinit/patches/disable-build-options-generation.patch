@@ -1,0 +1,27 @@
+disable mconfig file generation in order to control
+compiler flags from packaging.
+
+--- dinit-0.12.0.ORIG/build/Makefile
++++ dinit-0.12.0/build/Makefile
+@@ -5,6 +5,9 @@
+ 
+ # Look for a suitable build config file and use it.
+ ../mconfig:
++	:
++
++../mconfig.DISABLED:
+ 	@UNAME=`uname`;\
+ 	if [ -f "../configs/mconfig.$$UNAME.sh" ]; then \
+ 	    echo "Found auto-configuration script for OS: $$UNAME"; \
+--- dinit-0.12.0.ORIG/src/Makefile
++++ dinit-0.12.0/src/Makefile
+@@ -16,6 +16,9 @@
+ 
+ # Look for a suitable build config file and use it.
+ ../mconfig:
++	:
++
++../mconfig.DISABLED:
+ 	@UNAME=`uname`;\
+ 	if [ -f "../configs/mconfig.$$UNAME.sh" ]; then \
+ 	    echo "Found auto-configuration script for OS: $$UNAME"; \

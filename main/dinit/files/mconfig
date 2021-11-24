@@ -1,0 +1,23 @@
+
+# static mconfig file instead of generated one, in order
+# to use compiler settings from cbuild (passed via environment).
+# commented values comes from dinit generated mconfig for x86_64/musl
+
+#0.12# SBINDIR=/sbin
+SBINDIR=/usr/bin
+
+MANDIR=/usr/share/man
+SYSCONTROLSOCKET=/run/dinitctl
+
+BUILD_SHUTDOWN=yes
+
+#0.12# CXX=clang++
+#0.12# CXXOPTS=-D_GLIBCXX_USE_CXX11_ABI=1 -std=c++11 -Os -Wall -flto -fno-rtti -fno-plt
+#0.12# LDFLAGS=-flto -Os
+
+CXX ?=clang++
+CXXOPTS=$(CXXFLAGS)
+LDFLAGS ?= -flto -Os
+
+# for unit testing
+SANITIZEOPTS=-fsanitize=address,undefined
