@@ -33,6 +33,11 @@ def post_install(self):
         "usr/share/initramfs-tools/scripts/init-bottom",
         mode = 0o755, name = "udev"
     )
+    # service
+    self.install_file(
+        self.files_path / "udevd.wrapper", "usr/libexec", mode = 0o755
+    )
+    self.install_service(self.files_path / "udevd")
 
 @subpackage("eudev-devel")
 def _devel(self):

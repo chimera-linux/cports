@@ -1,0 +1,7 @@
+# udev daemon service
+
+type               = process
+command            = /usr/libexec/udevd.wrapper
+depends-on         = early-rcboot
+logfile            = /var/log/udevd.log
+smooth-recovery    = true
