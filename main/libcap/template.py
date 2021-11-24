@@ -1,5 +1,5 @@
 pkgname = "libcap"
-pkgver = "2.60"
+pkgver = "2.61"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://sites.google.com/site/fullycapable"
 source = f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/{pkgname}-{pkgver}.tar.xz"
-sha256 = "06a92076ce39a78bd28089e32085f1bde7f3bfa448fad37d895c2358f760b2eb"
+sha256 = "c1e29680f8bcc51b172e9a8eb9a7a4d7255a00a14301a7c2cf96d1febf7449a5"
 
 def init_configure(self):
     eargs = [
