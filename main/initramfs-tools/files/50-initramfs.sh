@@ -1,11 +1,6 @@
 #!/bin/sh
 # regenerate initramfs as needed
 
-if [ -n "$TRIGGER_INITRAMFS" ]; then
-    update-initramfs -c -k all
-    exit $?
-fi
-
 KRET=0
 
 for f in /boot/vmlinu[xz]-*; do

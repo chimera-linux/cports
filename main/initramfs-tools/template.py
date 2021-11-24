@@ -3,8 +3,7 @@ pkgver = "0.140"
 pkgrel = 0
 build_style = "makefile"
 depends = ["klibc-progs", "bsdtar", "kmod", "debianutils", "awk"]
-# later we should also have this trigger on kernel modules
-triggers = ["/boot", "/usr/share/initramfs-tools"]
+triggers = ["/boot"]
 pkgdesc = "Generic modular initramfs generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
