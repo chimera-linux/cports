@@ -22,7 +22,7 @@ _libs = [
     "atomic", "chrono", "container", "context", "contract", "coroutine",
     "date_time", "fiber", "filesystem", "graph", "iostreams", "json", "locale",
     "log_setup", "log", "math", "nowide", "prg_exec_monitor", "program_options",
-    "python3", "random", "regex", "serialization", "stacktrace_addr2line",
+    "python", "random", "regex", "serialization", "stacktrace_addr2line",
     "stacktrace_basic", "stacktrace_noop", "system", "thread", "timer",
     "type_erasure", "unit_test_framework", "wave", "wserialization",
 ]
