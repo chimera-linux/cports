@@ -1,0 +1,8 @@
+SBINDIR=/usr/bin
+MANDIR=/usr/share/man
+SYSCONTROLSOCKET=/run/dinitctl
+
+CXXOPTS := $(CXXFLAGS) -fno-rtti
+
+BUILD_SHUTDOWN = yes
+SANITIZEOPTS = -fsanitize=address,undefined
