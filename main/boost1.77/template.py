@@ -2,6 +2,7 @@ _mver = "1.77"
 pkgname = f"boost{_mver}"
 pkgver = f"{_mver}.0"
 pkgrel = 0
+hostmakedepends = ["pkgconf"]
 makedepends = [
     "zlib-devel", "libbz2-devel", "liblzma-devel", "libzstd-devel",
     "icu-devel", "python-devel", "linux-headers"
@@ -38,13 +39,18 @@ match self.profile().arch:
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
+def init_configure(self):
+    self._pyver = self.do(
+        "pkgconf", "--modversion", "python3", capture_output = True
+    ).stdout.decode().strip()
+
 def _call_b2(self, *args):
     self.do(
         self.chroot_cwd / "b2", f"-j{self.make_jobs}",
         f"--user-config={self.chroot_cwd}/user-config.jam",
         f"--prefix={self.chroot_destdir}/usr",
         "release",
-        "python=3.10",
+        f"python={self._pyver}",
         "toolset=clang",
         "threading=multi",
         "debug-symbols=off",
@@ -65,7 +71,7 @@ def do_build(self):
     with open(self.cwd / "user-config.jam", "w") as cf:
         cf.write(f"""
 using clang : : {self.get_tool("CXX")} : <cxxflags>"{self.get_cxxflags(shell = True)}" <linkflags>"{self.get_ldflags(shell = True)}" ;
-using python : 3.10 : /usr/bin/python3 : /usr/include/python3.10 : /usr/lib/python3.10 ;
+using python : {self._pyver} : /usr/bin/python3 : /usr/include/python{self._pyver} : /usr/lib/python{self._pyver} ;
 """)
 
     _call_b2(self)
