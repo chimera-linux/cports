@@ -3,7 +3,6 @@ pkgver = "0.140"
 pkgrel = 0
 build_style = "makefile"
 depends = ["klibc-progs", "bsdtar", "kmod", "debianutils", "awk"]
-triggers = ["/boot"]
 pkgdesc = "Generic modular initramfs generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -16,6 +15,6 @@ options = ["!check"]
 def post_install(self):
     for f in ["50-initramfs"]:
         self.install_file(
-            self.files_path / (f + ".sh"), "etc/initramfs-tools/triggers",
+            self.files_path / (f + ".sh"), "etc/kernel.d",
             mode = 0o755
         )
