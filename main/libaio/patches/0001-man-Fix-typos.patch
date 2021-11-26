@@ -1,0 +1,35 @@
+From d5be842f622eac15b72a5fea7724fe07ee27fc16 Mon Sep 17 00:00:00 2001
+From: Guillem Jover <guillem@hadrons.org>
+Date: Sun, 10 Oct 2021 06:14:51 +0200
+Subject: [PATCH libaio] man: Fix typos
+
+Warned-by: lintian
+---
+ man/io.3 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/man/io.3 b/man/io.3
+index bfa9836..c4554a5 100644
+--- a/man/io.3
++++ b/man/io.3
+@@ -147,7 +147,7 @@ This is experimental.
+  * 3. When write completes decrement counter and free resources
+  *
+  *
+- * Usage: aiocp file(s) desination
++ * Usage: aiocp file(s) destination
+  */
+ 
+ #include <unistd.h>
+@@ -271,7 +271,7 @@ int main(int argc, char *const *argv)
+ 
+     while (tocopy > 0) {
+ 	int i, rc;
+-	/* Submit as many reads as once as possible upto AIO_MAXIO */
++	/* Submit as many reads as once as possible up to AIO_MAXIO */
+ 	int n = MIN(MIN(AIO_MAXIO - busy, AIO_MAXIO / 2),
+ 		    howmany(length - offset, AIO_BLKSIZE));
+ 	if (n > 0) {
+-- 
+2.33.0
+

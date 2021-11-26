@@ -1,0 +1,95 @@
+From a0bd410d67e0632526ba3eb891791c6753b51374 Mon Sep 17 00:00:00 2001
+From: Guillem Jover <guillem@hadrons.org>
+Date: Sun, 12 Apr 2020 04:01:27 +0200
+Subject: [PATCH] build: Honor user build flags
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+CPPFLAGS, CFLAGS and LDFLAGS are user flags, which we need to preserve,
+regardless of the user passing them over the environment or the
+command-line. Any required flag that the build system needs, has to be
+set in some other flag (which we will namespace with «MK_») so that the
+build will use even if the user flags are passed, even though the user
+should be able to override by appending after them. We pass CPPFLAGS to
+any compilation command that missed them.
+
+Signed-off-by: Guillem Jover <guillem@hadrons.org>
+---
+ harness/Makefile |    9 ++++++---
+ src/Makefile     |   18 +++++++++---------
+ 2 files changed, 15 insertions(+), 12 deletions(-)
+
+--- a/harness/Makefile
++++ b/harness/Makefile
+@@ -6,13 +6,16 @@ PROGS:=$(PARTPROGS) $(EXTRAPROGS)
+ HARNESS_SRCS:=main.c
+ # io_queue.c
+ 
+-CFLAGS+=-Wall -I../src -g -O2
++MK_CPPFLAGS = -I../src $(CPPFLAGS)
++CFLAGS ?= -Wall -g -O2
++MK_CFLAGS = $(CFLAGS)
+ #-lpthread -lrt
++MK_LDFLAGS = main.c $(LIBAIO) -lpthread $(LDFLAGS)
+ 
+ # gcc-11 does not like the test case in 3.t that
+ # passes an invalid pointer (-1) to the kernel, so
+ # tell the compiler we do not need a warning here
+-cases/3.p:	CFLAGS+=-Wno-stringop-overflow
++cases/3.p:	MK_CFLAGS+=-Wno-stringop-overflow
+ 
+ # Change this on the build line to run tests against the installed libraries:
+ # make LIBAIO=-laio partcheck
+@@ -21,7 +24,7 @@ LIBAIO?=../src/libaio.a
+ all: $(PROGS)
+ 
+ $(PROGS): %.p: %.t $(HARNESS_SRCS)
+-	$(CC) $(CFLAGS) -DTEST_NAME=\"$<\" -o $@ main.c $(LIBAIO) -lpthread
++	$(CC) $(MK_CPPFLAGS) $(MK_CFLAGS) -DTEST_NAME=\"$<\" -o $@ $(MK_LDFLAGS)
+ 
+ clean:
+ 	rm -f $(PROGS) *.o runtests.out rofile wofile rwfile
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -3,12 +3,12 @@ prefix=/usr
+ includedir=$(prefix)/include
+ libdir=$(prefix)/lib
+ 
+-CFLAGS ?= -g -fomit-frame-pointer -O2
+-CFLAGS += -Wall -I. -fPIC
+-SO_CFLAGS=-shared $(CFLAGS)
+-L_CFLAGS=$(CFLAGS)
+-LINK_FLAGS=
+-LINK_FLAGS+=$(LDFLAGS)
++MK_CPPFLAGS = -I. $(CPPFLAGS)
++CFLAGS ?= -Wall -g -fomit-frame-pointer -O2
++MK_CFLAGS = -fPIC $(CFLAGS)
++SO_CFLAGS = -shared $(MK_CFLAGS)
++L_CFLAGS = $(MK_CFLAGS)
++MK_LDFLAGS = $(LDFLAGS)
+ ENABLE_SHARED ?= 1
+ 
+ soname=libaio.so.1
+@@ -43,10 +43,10 @@ libaio_sobjs := $(patsubst %.c,%.os,$(li
+ $(libaio_objs) $(libaio_sobjs): libaio.h vsys_def.h
+ 
+ %.os: %.c
+-	$(CC) $(SO_CFLAGS) -c -o $@ $<
++	$(CC) $(MK_CPPFLAGS) $(SO_CFLAGS) -c -o $@ $<
+ 
+ %.ol: %.c
+-	$(CC) $(L_CFLAGS) -c -o $@ $<
++	$(CC) $(MK_CPPFLAGS) $(L_CFLAGS) -c -o $@ $<
+ 
+ AR ?= ar
+ RANLIB ?= ranlib
+@@ -56,7 +56,7 @@ libaio.a: $(libaio_objs)
+ 	$(RANLIB) libaio.a
+ 
+ $(libname): $(libaio_sobjs) libaio.map
+-	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $(libaio_sobjs) $(LINK_FLAGS)
++	$(CC) $(SO_CFLAGS) -Wl,--version-script=libaio.map -Wl,-soname=$(soname) -o $@ $(libaio_sobjs) $(MK_LDFLAGS)
+ 
+ install: $(all_targets)
+ 	install -D -m 644 libaio.h $(DESTDIR)$(includedir)/libaio.h
