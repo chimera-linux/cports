@@ -56,7 +56,7 @@ def do_build(self):
 def do_install(self):
     for an, arch in _targets:
         with self.profile(an) as pf:
-            at = pf.short_triplet
+            at = pf.triplet
             self.install_dir(f"usr/{at}/usr")
             self.install_files("inc_" + an, "usr")
             self.mv(
@@ -73,4 +73,4 @@ def _gen_crossp(an, at):
 
 for an, arch in _targets:
     with self.profile(an) as pf:
-        _gen_crossp(an, pf.short_triplet)
+        _gen_crossp(an, pf.triplet)

@@ -20,6 +20,7 @@ configure_args = [
     "-DLLVM_BUILD_LLVM_DYLIB=YES",
     "-DLLVM_LINK_LLVM_DYLIB=YES",
     "-DLLVM_ENABLE_RTTI=YES",
+    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
     "-DCLANG_DEFAULT_RTLIB=compiler-rt",
     "-DCLANG_DEFAULT_UNWINDLIB=libunwind",
     "-DCLANG_DEFAULT_CXX_STDLIB=libc++",
@@ -153,7 +154,7 @@ def do_configure(self):
 
     # when bootstrapping, this will check the actual profile
     with self.profile(self.profile().arch) as pf:
-        trip = pf.short_triplet
+        trip = pf.triplet
 
     cmake.configure(self, self.cmake_dir, "build", [
         "-DLLVM_TARGET_ARCH=" + _arch,

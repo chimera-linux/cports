@@ -19,7 +19,7 @@ options = ["!check"]
 if self.cross_build:
     make_build_args += [
         "CROSS_BUILD_TOOLS=y",
-        f"CROSS_COMPILE={self.profile().short_triplet}-"
+        f"CROSS_COMPILE={self.profile().triplet}-"
     ]
 
 def do_configure(self):

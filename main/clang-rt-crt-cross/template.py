@@ -26,6 +26,8 @@ configure_args = [
     "-DCOMPILER_RT_BUILD_PROFILE=OFF",
     "-DCOMPILER_RT_BUILD_SANITIZERS=OFF",
     "-DCOMPILER_RT_BUILD_XRAY=OFF",
+    # use multiarch style paths
+    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
 ]
 hostmakedepends = [
     "cmake", "gmake", "python", "llvm-devel", "clang-tools-extra"
@@ -70,7 +72,7 @@ def do_configure(self):
 
     for an in _targets:
         with self.profile(an) as pf:
-            at = pf.short_triplet
+            at = pf.triplet
             # musl build dir
             self.mkdir(f"musl/build-{an}", parents = True)
             # configure musl
@@ -125,13 +127,13 @@ def _gen_subp(an, at):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang>={pkgver}"]
         self.options = ["!scanshlibs", "!scanrundeps"]
-        return [f"usr/lib/clang/{pkgver}/lib/linux/*{at[0:at.find('-')]}*"]
+        return [f"usr/lib/clang/{pkgver}/lib/{at}"]
 
     return _subp
 
 for an in _targets:
     with self.profile(an) as pf:
-        at = pf.short_triplet
+        at = pf.triplet
 
     subpackages.append((f"clang-rt-crt-cross-{an}", _gen_subp(an, at)))
     depends.append(f"clang-rt-crt-cross-{an}={pkgver}-r{pkgrel}")

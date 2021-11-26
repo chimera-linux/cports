@@ -83,8 +83,8 @@ def configure(
 
     if pkg.profile().triplet:
         with pkg.profile("host") as pf:
-            cargs.append("--build=" + pf.short_triplet)
-        cargs.append("--host=" + pkg.profile().short_triplet)
+            cargs.append("--build=" + pf.triplet)
+        cargs.append("--host=" + pkg.profile().triplet)
 
     if pkg.profile().cross:
         cargs.append("--with-sysroot=" + str(pkg.profile().sysroot))

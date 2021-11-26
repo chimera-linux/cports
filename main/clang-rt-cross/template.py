@@ -26,6 +26,8 @@ configure_args = [
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=YES",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
+    # use multiarch style paths
+    "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
 ]
 hostmakedepends = [
     "cmake", "gmake", "python", "llvm-devel", "clang-tools-extra"
@@ -61,7 +63,7 @@ def do_configure(self):
 
     for an in _targets:
         with self.profile(an) as pf:
-            at = pf.short_triplet
+            at = pf.triplet
             # configure compiler-rt
             with self.stamp(f"{an}_configure") as s:
                 s.check()
@@ -92,7 +94,7 @@ def do_install(self):
 
 def _gen_crossp(an):
     with self.profile(an) as pf:
-        at = pf.short_triplet
+        at = pf.triplet
 
     @subpackage(f"clang-rt-cross-{an}")
     def _subp(self):
@@ -103,7 +105,7 @@ def _gen_crossp(an):
             f"libexecinfo-cross-{an}"
         ]
         self.options = ["!scanshlibs", "!scanrundeps"]
-        return [f"usr/lib/clang/{pkgver}/lib/linux/libclang_rt.*{at[0:at.find('-')]}*"]
+        return [f"usr/lib/clang/{pkgver}/lib/{at}"]
     depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:

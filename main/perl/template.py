@@ -75,7 +75,7 @@ def do_configure(self):
     ]
 
     if self.cross_build:
-        cargs.append("--target=" + self.profile().short_triplet)
+        cargs.append("--target=" + self.profile().triplet)
 
     cfl = self.get_cflags(shell = True)
     lfl = self.get_ldflags(shell = True)

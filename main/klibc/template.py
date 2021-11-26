@@ -31,7 +31,7 @@ def init_configure(self):
         "CONFIG_DEBUG_INFO=y"
     ]
     if self.cross_build:
-        eflags += ["CROSS_COMPILE={self.profile().short_triplet}-"]
+        eflags += ["CROSS_COMPILE={self.profile().triplet}-"]
 
     self.make_build_args += eflags
     self.make_install_args += eflags

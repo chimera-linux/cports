@@ -46,7 +46,7 @@ def do_configure(self):
 
     for an in _targets:
         with self.profile(an) as pf:
-            at = pf.short_triplet
+            at = pf.triplet
             # configure libcxx
             with self.stamp(f"{an}_configure") as s:
                 s.check()
@@ -70,7 +70,7 @@ def do_install(self):
         with self.profile(an) as pf:
             self.make.install(
                 ["DESTDIR=" + str(
-                    self.chroot_destdir / "usr" / pf.short_triplet
+                    self.chroot_destdir / "usr" / pf.triplet
                 )],
                 wrksrc = f"build-{an}", default_args = False
             )
@@ -86,4 +86,4 @@ def _gen_crossp(an, at):
 
 for an in _targets:
     with self.profile(an) as pf:
-        _gen_crossp(an, pf.short_triplet)
+        _gen_crossp(an, pf.triplet)

@@ -26,7 +26,7 @@ _targets = list(filter(
 def do_configure(self):
     for an in _targets:
         with self.profile(an) as pf:
-            at = pf.short_triplet
+            at = pf.triplet
             # musl build dir
             self.mkdir(f"build-{an}", parents = True)
             # configure musl
@@ -52,7 +52,7 @@ def do_build(self):
 def do_install(self):
     for an in _targets:
         with self.profile(an) as pf:
-            at = pf.short_triplet
+            at = pf.triplet
             self.install_dir(f"usr/{at}/usr/lib")
             self.install_link("usr/lib", f"usr/{at}/lib")
             self.make.install([
@@ -71,4 +71,4 @@ def _gen_crossp(an, at):
 
 for an in _targets:
     with self.profile(an) as pf:
-        _gen_crossp(an, pf.short_triplet)
+        _gen_crossp(an, pf.triplet)

@@ -52,13 +52,13 @@ def _configure_tgt(self, tgt):
 
     if self.cross_build:
         cargs += [
-            f"--host={htgt.short_triplet}",
+            f"--host={htgt.triplet}",
             f"--with-build-sysroot={htgt.sysroot}",
         ]
 
     if tgt.cross:
         cargs += [
-            f"--target={tgt.short_triplet}",
+            f"--target={tgt.triplet}",
         ]
 
     match tgt.arch:
@@ -179,12 +179,12 @@ def do_install(self):
     for p in (self.destdir / "usr/bin").glob("*"):
         if p.name.find("-") > 0:
             continue
-        p.with_name(f"{tgt.short_triplet}-{p.name}").symlink_to(p.name)
+        p.with_name(f"{tgt.triplet}-{p.name}").symlink_to(p.name)
 
     for p in (self.destdir / "usr/share/man/man1").glob("*.1"):
         if p.name.find("-") > 0:
             continue
-        p.with_name(f"{tgt.short_triplet}-{p.name}").symlink_to(p.name)
+        p.with_name(f"{tgt.triplet}-{p.name}").symlink_to(p.name)
 
 def _common(self):
     self.pkgdesc = f"{pkgdesc} (common files)"
@@ -220,11 +220,11 @@ for an in _targets:
         continue
 
     with self.profile(an) as pf:
-        at = pf.short_triplet
+        at = pf.triplet
 
     subpackages.append((f"binutils-{an}", _gen_subp(an, at)))
 
 subpackages.append((
     f"binutils-{self.profile().arch}",
-    _gen_subp(self.profile().arch, self.profile().short_triplet)
+    _gen_subp(self.profile().arch, self.profile().triplet)
 ))

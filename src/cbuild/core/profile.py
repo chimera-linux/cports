@@ -218,18 +218,11 @@ class Profile:
         return self._triplet
 
     @property
-    def short_triplet(self):
-        tpl = self.triplet
-        if not tpl:
-            return None
-        return tpl.replace("-unknown-", "-")
-
-    @property
     def sysroot(self):
         if not self.cross:
             return pathlib.Path("/")
 
-        return pathlib.Path("/usr") / self.short_triplet
+        return pathlib.Path("/usr") / self.triplet
 
     def get_tool_flags(
         self, name, extra_flags = [], debug = -1, hardening = [], shell = False

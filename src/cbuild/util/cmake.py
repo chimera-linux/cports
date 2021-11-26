@@ -52,9 +52,9 @@ SET(CMAKE_SYSTEM_VERSION 1)
 
 SET(CMAKE_C_COMPILER   {pkg.get_tool("CC")})
 SET(CMAKE_CXX_COMPILER {pkg.get_tool("CXX")})
-SET(CMAKE_C_COMPILER_TARGET {pkg.profile().short_triplet})
-SET(CMAKE_CXX_COMPILER_TARGET {pkg.profile().short_triplet})
-SET(CMAKE_ASM_COMPILER_TARGET {pkg.profile().short_triplet})
+SET(CMAKE_C_COMPILER_TARGET {pkg.profile().triplet})
+SET(CMAKE_CXX_COMPILER_TARGET {pkg.profile().triplet})
+SET(CMAKE_ASM_COMPILER_TARGET {pkg.profile().triplet})
 SET(CMAKE_CROSSCOMPILING TRUE)
 SET(CMAKE_SYSROOT "{sroot}")
 

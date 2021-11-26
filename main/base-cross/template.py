@@ -17,7 +17,7 @@ _targets = list(filter(
 def do_install(self):
     for an in _targets:
         with self.profile(an) as pf:
-            at = pf.short_triplet
+            at = pf.triplet
         # convenient cross symlinks
         self.install_dir("usr/bin")
         self.install_link("clang", f"usr/bin/{at}-clang")
@@ -57,5 +57,5 @@ def _gen_crossp(an, at):
 
 for an in _targets:
     with self.profile(an) as pf:
-        at = pf.short_triplet
+        at = pf.triplet
     _gen_crossp(an, at)
