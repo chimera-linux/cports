@@ -64,10 +64,6 @@ if self.stage > 0:
         "python-devel", "libedit-devel", "elftoolchain-devel",
         "libexecinfo-devel", "libffi-devel", "linux-headers"
     ]
-    depends += [
-        f"libomp={pkgver}-r{pkgrel}",
-        "libexecinfo-devel"
-    ]
     _enabled_projects += ["openmp"]
     # for stage 2 onwards also enable debugger
     # in stage 1 there is no point in wasting cpu time with it
@@ -283,6 +279,7 @@ def _clang(self):
 @subpackage("clang-rt-devel")
 def _clang_rt_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang runtime development files)"
+    self.depends = ["libexecinfo-devel"]
 
     return [
         "usr/lib/clang"
