@@ -71,6 +71,14 @@ def configure(
     eenv.update(pkg.configure_env)
     eenv.update(env)
 
+    if pkg.stage >= 2 and pkg.options["lto"]:
+        cargs.append("-Db_lto=true")
+        # mode, thin is default for us
+        if pkg.options["ltofull"]:
+            cargs.append("-Db_lto_mode=default")
+        else:
+            cargs.append("-Db_lto_mode=thin")
+
     pkg.do(
         "meson",
         "--prefix=/usr",

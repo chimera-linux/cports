@@ -77,6 +77,14 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
     eenv.update(pkg.configure_env)
     eenv.update(env)
 
+    # this is necessary for lto to work correctly
+    if pkg.stage >= 2:
+        cargs += [
+            f"-DCMAKE_AR=/usr/bin/{pkg.get_tool('AR')}",
+            f"-DCMAKE_NM=/usr/bin/{pkg.get_tool('NM')}",
+            f"-DCMAKE_RANLIB=/usr/bin/{pkg.get_tool('RANLIB')}",
+        ]
+
     pkg.do(
         "cmake", *cargs,
         "-DCMAKE_INSTALL_PREFIX=/usr",

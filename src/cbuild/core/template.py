@@ -304,6 +304,8 @@ default_options = {
     "cross": (True, True),
     "lint": (True, False),
     "spdx": (True, False),
+    "lto": (False, True),
+    "ltofull": (False, True),
 }
 
 core_fields = [
@@ -997,6 +999,27 @@ class Template(Package):
         if not skip_post:
             call_pkg_hooks(self, "post_" + stepn)
 
+    def _get_lto_flags(self, fn, eflags):
+        # only have it for some
+        match fn:
+            case "CFLAGS" | "CXXFLAGS" | "FFLAGS" | "LDFLAGS":
+                pass
+            case _:
+                return eflags
+        # we never LTO before the final stage
+        # in stage 0 particularly we cannot guarantee that ar/ranlib/nm
+        # is correct, and in stage 1 we don't care for wasting extra time
+        if self.stage < 2 or not self.options["lto"]:
+            return eflags
+        # differentiate for full vs thin LTO
+        # thin LTO is clang-only but use generic syntax for full
+        if self.options["ltofull"]:
+            lflags = ["-flto"]
+        else:
+            lflags = ["-flto=thin"]
+        # just concat, user flags come last
+        return lflags + eflags
+
     def get_tool_flags(
         self, name, extra_flags = [], hardening = [],
         shell = False, target = None
@@ -1004,9 +1027,11 @@ class Template(Package):
         target = pkg_profile(self, target)
 
         if name in self.tool_flags:
-            tfb = self.tool_flags[name] + extra_flags
+            tfb = self._get_lto_flags(
+                name, self.tool_flags[name] + extra_flags
+            )
         else:
-            tfb = extra_flags
+            tfb = self._get_lto_flags(name, extra_flags)
 
         dodbg = self.build_dbg and self.options["debug"]
 
@@ -1585,6 +1610,7 @@ def from_module(m, ret):
     #
     # the llvm tools are only meaningful once we have a full chroot assembled
     # since they provide extras and possibly help in cross-compiling scenarios
+    # as well as with LTO
     if ret.stage == 0:
         ret.tools["CC"] = "clang"
         ret.tools["CXX"] = "clang++"

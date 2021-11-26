@@ -1209,6 +1209,12 @@ the template including for subpackages:
   of fields, validation of URL and description strings and other checks.
   It does not check formatting of the template, as that can be handled
   better with external tools.
+* `lto` *(false)* If enabled, LTO will be used. This will result in the
+  necessary compiled flags being applied. Build styles can alter their
+  behavior to accommodate the flags. The default LTO type is thin LTO,
+  which can be overridden with `ltofull`.
+* `ltofull` *(false)* If you set this together with `lto`, full LTO will
+  be used. It does not activate LTO by itself.
 
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:
