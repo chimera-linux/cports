@@ -1,0 +1,62 @@
+commit d60a4465d106ccd5a1c70a4e31402aa7fe5b06ae
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Nov 26 02:38:51 2021 +0100
+
+    libedit support
+
+diff --git a/cmd.h b/cmd.h
+index 7f68e21..bc641da 100644
+--- a/cmd.h
++++ b/cmd.h
+@@ -25,8 +25,7 @@
+  */
+ 
+ #ifdef HAVE_LIBREADLINE
+-#include <readline/readline.h>
+-#include <readline/history.h>
++#include <editline/readline.h>
+ extern char **command_completion(const char *text, int start, int end);
+ extern void initialize_pager(FILE *fp); /* debug.c */
+ extern NODE *get_function(void);
+diff --git a/configure b/configure
+index fcef4bd..cfb8d3c 100755
+--- a/configure
++++ b/configure
+@@ -12934,7 +12934,7 @@ fi
+ 
+      for _termcap in "" "-ltermcap" "-lcurses" "-lncurses" ; do
+         _readline_save_libs=$LIBS
+-        _combo="-lreadline${_termcap:+ $_termcap}"
++        _combo="-ledit${_termcap:+ $_termcap}"
+         LIBS="$LIBS $_combo"
+ 
+         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether readline via \"$_combo\" is present and sane" >&5
+@@ -12945,8 +12945,7 @@ then :
+   		cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <stdio.h>
+-#include <readline/readline.h>
+-#include <readline/history.h>
++#include <editline/readline.h>
+ int
+ main (void)
+ {
+@@ -12983,8 +12982,7 @@ else $as_nop
+ #include <stdio.h>
+ #include <fcntl.h>
+ #include <unistd.h>
+-#include <readline/readline.h>
+-#include <readline/history.h>
++#include <editline/readline.h>
+ 
+ int main(int argc, char **argv)
+ {
+@@ -13075,7 +13073,7 @@ then :
+   printf %s "(cached) " >&6
+ else $as_nop
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lreadline $_combo $LIBS"
++LIBS="-ledit $_combo $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
