@@ -1,0 +1,7 @@
+# dmeventd service
+
+type               = process
+command            = dmeventd -f
+depends-on         = early-rcboot
+logfile            = /var/log/dmeventd.log
+smooth-recovery    = true

@@ -1,0 +1,6 @@
+ * - define a configuration setting of simple type:
+ *   cfg(id, name, parent, flags, type, default_value, since_version, unconfigured_default_value, deprecated_since_version, deprecation_comment, comment)
+ *
+ * - define a configuration array of one or more types:
+ *   cfg_array(id, name, parent, flags, types, default_value, since_version, unconfigured_default_value, deprecated_since_version, deprecation_comment, comment)
+ *

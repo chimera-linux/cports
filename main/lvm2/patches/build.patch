@@ -1,0 +1,11 @@
+--- a/make.tmpl.in
++++ b/make.tmpl.in
+@@ -81,7 +81,7 @@ M_LIBS = @M_LIBS@
+ AIO_CFLAGS = @AIO_CFLAGS@
+ AIO_LIBS = @AIO_LIBS@
+ BLKID_CFLAGS = @BLKID_CFLAGS@
+-BLKID_LIBS = @BLKID_LIBS@
++BLKID_LIBS = -lblkid -luuid
+ CPG_CFLAGS = @CPG_CFLAGS@
+ CPG_LIBS = @CPG_LIBS@
+ EDITLINE_CFLAGS = @EDITLINE_CFLAGS@
