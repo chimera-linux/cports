@@ -280,7 +280,8 @@ def _clang(self):
 @subpackage("clang-rt-devel")
 def _clang_rt_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang runtime development files)"
-    self.depends = ["libexecinfo-devel"]
+    if self.stage > 0:
+        self.depends = ["libexecinfo-devel"]
 
     return [
         "usr/lib/clang"
