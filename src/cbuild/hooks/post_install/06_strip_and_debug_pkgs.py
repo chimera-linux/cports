@@ -90,15 +90,17 @@ def invoke(pkg):
         # now we've got a file we definitely can strip
         cfile = str(pkg.chroot_destdir / vr)
 
-        # strip static library
+        # strip static library, only if not LTO or when forced
         if not vt:
             v.chmod(0o644)
-            try:
-                pkg.rparent.do(strip_path, "--strip-debug", cfile)
-            except:
-                pkg.error(f"failed to strip {vr}")
+            if not pkg.rparent.options["lto"] or pkg.options["ltostrip"]:
+                try:
+                    pkg.rparent.do(strip_path, "--strip-debug", cfile)
+                except:
+                    pkg.error(f"failed to strip {vr}")
 
-            print(f"   Stripped static library: {vr}")
+                print(f"   Stripped static library: {vr}")
+            # in any case continue
             continue
 
         soname, needed, pname, static, etype, interp, foreign = vt

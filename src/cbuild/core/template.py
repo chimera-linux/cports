@@ -306,6 +306,7 @@ default_options = {
     "spdx": (True, False),
     "lto": (False, True),
     "ltofull": (False, True),
+    "ltostrip": (False, False),
 }
 
 core_fields = [

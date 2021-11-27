@@ -1245,6 +1245,12 @@ for subpackages separately if needed:
 * `strip` *(true)* If disabled, ELF files in this package will not be
   stripped, which means debug symbols will remain where thesy are and
   debug package will not be generated.
+* `ltostrip` *(false)* By default, `lto` being enabled disables stripping
+  of static archives, as LTO archives consist of bitcode and not object
+  files. You can enforce the pass to run with this, which is mainly useful
+  for when there are mixed LTO and non-LTO archives or when something is
+  built with GCC and `-ffat-lto-objects`. Keep in mind that you will have
+  to use `nostrip_files` to filter out bitcode archives with this option.
 
 <a id="hardening_options"></a>
 ### Hardening Options
