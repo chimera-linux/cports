@@ -17,7 +17,7 @@ sha256 = "e9565a301525ac81c142ceb832f9053dd5685e107dbcf753d0de4c58bc98851f"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs", "!cross",
-    "textrels", "foreignelf" # vdso32
+    "!lto", "textrels", "foreignelf" # vdso32
 ]
 
 match self.profile().arch:
