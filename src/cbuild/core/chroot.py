@@ -223,6 +223,8 @@ def remove_autodeps(bootstrapping):
 
     failed = False
 
+    paths.prepare()
+
     if apki.call("info", [
         "--installed", "autodeps-host"
     ], None, capture_output = True, allow_untrusted = True).returncode == 0:

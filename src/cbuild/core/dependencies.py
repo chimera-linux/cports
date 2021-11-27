@@ -290,7 +290,7 @@ def remove_autocrossdeps(pkg):
         log.out_plain(del_ret.stderr.decode())
         pkg.error("failed to remove autocrossdeps for {archn}")
 
-def install(pkg, origpkg, step, depmap, signkey):
+def install(pkg, origpkg, step, depmap, signkey, hostdep):
     style = ""
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
@@ -412,7 +412,7 @@ def install(pkg, origpkg, step, depmap, signkey):
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                 force_check = pkg._force_check, stage = pkg.stage
-            ), depmap, signkey, chost = not not pkg.cross_build)
+            ), depmap, signkey, chost = hostdep or not not pkg.cross_build)
         except template.SkipPackage:
             pass
         host_binpkg_deps.append(pn)
@@ -424,7 +424,7 @@ def install(pkg, origpkg, step, depmap, signkey):
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                 force_check = pkg._force_check, stage = pkg.stage
-            ), depmap, signkey)
+            ), depmap, signkey, chost = hostdep)
         except template.SkipPackage:
             pass
         binpkg_deps.append(pn)
@@ -436,7 +436,7 @@ def install(pkg, origpkg, step, depmap, signkey):
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                 force_check = pkg._force_check, stage = pkg.stage
-            ), depmap, signkey)
+            ), depmap, signkey, chost = hostdep)
         except template.SkipPackage:
             pass
 

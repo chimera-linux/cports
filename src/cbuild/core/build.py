@@ -16,7 +16,7 @@ def build(
     else:
         depn = pkg.pkgname
 
-    if pkg.pkgname in depmap or depn in depmap:
+    if depn in depmap:
         pkg.error(f"build-time dependency cycle encountered for {pkg.pkgname} (dependency of {pkg.origin.pkgname})")
 
     depmap[depn] = True
@@ -50,7 +50,9 @@ def build(
         dependencies.remove_autocrossdeps(pkg)
 
         # check and install dependencies
-        dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, signkey)
+        dependencies.install(
+            pkg, pkg.origin.pkgname, "pkg", depmap, signkey, chost
+        )
 
     oldcwd = pkg.cwd
     oldchd = pkg.chroot_cwd
