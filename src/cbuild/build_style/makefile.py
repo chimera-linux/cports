@@ -9,7 +9,9 @@ def do_build(self):
     # by default, pass various stuff directly rather than through env
     tool_args = [
         "PREFIX=/usr",
+        "PKG_CONFIG=" + self.get_tool("PKG_CONFIG"),
         "OBJCOPY=" + self.get_tool("OBJCOPY"),
+        "READELF=" + self.get_tool("READELF"),
         "RANLIB=" + self.get_tool("RANLIB"),
         "CXX=" + self.get_tool("CXX"),
         "CPP=" + self.get_tool("CPP"),
@@ -17,6 +19,7 @@ def do_build(self):
         "LD=" + self.get_tool("LD"),
         "AR=" + self.get_tool("AR"),
         "AS=" + self.get_tool("AS"),
+        "NM=" + self.get_tool("NM"),
         "CFLAGS=" + self.get_cflags(shell = True),
         "FFLAGS=" + self.get_fflags(shell = True),
         "LDFLAGS=" + self.get_ldflags(shell = True),
