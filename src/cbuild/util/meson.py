@@ -78,6 +78,8 @@ def configure(
             cargs.append("-Db_lto_mode=default")
         else:
             cargs.append("-Db_lto_mode=thin")
+    else:
+        cargs.append("-Db_lto=false")
 
     pkg.do(
         "meson",

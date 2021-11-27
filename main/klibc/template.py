@@ -14,7 +14,7 @@ url = "https://git.kernel.org/cgit/libs/klibc/klibc.git"
 source = f"$(KERNEL_SITE)/libs/klibc/{_mver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6dcca708913320d26309f05b0c2bf68071bf11b3dadcc4e6c7d923837fc23ee1"
 # symlink to linux-headers
-options = ["brokenlinks"]
+options = ["brokenlinks", "!lto"]
 
 match self.profile().arch:
     case "x86_64": _arch = "x86_64"
