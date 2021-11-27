@@ -32,7 +32,6 @@ match self.profile().arch:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 def pre_configure(self):
-    #self.configure_args += self.CPPFLAGS
     self.configure_args += self.get_cflags()
     self.configure_args += self.get_ldflags()
 
