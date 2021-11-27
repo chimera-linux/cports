@@ -870,10 +870,10 @@ Variables:
 * `make_use_env` A boolean (defaults to `False`) specifying whether some of the
   core variables will be provided solely via the environment. If unset, they
   are provided on the command line. These variables are `OBJCOPY`, `RANLIB`,
-  `CXX`, `CPP`, `CC`, `LD`, `AR`, `AS`, `CFLAGS`, `FFLAGS`, `LDFLAGS`, `CXXFLAGS`
-  and `OBJDUMP` (the last one only when not bootstrapping) during `do_build`.
-  All of these inherently exist in the environment, so if this is `True`, they
-  will simply not be passed on the command line arguments.
+  `CXX`, `CPP`, `CC`, `LD`, `AR`, `AS`, `CFLAGS`, `FFLAGS`, `LDFLAGS`, `CXXFLAGS`,
+  `CPPFLAGS` and `OBJDUMP` (the last one only when not bootstrapping) during
+  `do_build`. All of these inherently exist in the environment, so if this is
+  `True`, they will simply not be passed on the command line arguments.
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
 
@@ -1296,6 +1296,7 @@ The following tool flags are defined:
 
 * `CFLAGS` (C)
 * `CXXFLAGS` (C++)
+* `CPPFLAGS` (C/C++ preprocessor, not always used)
 * `FFLAGS` (Fortran)
 * `LDFLAGS` (linker, usually passed together with one of the above)
 
@@ -1438,6 +1439,7 @@ endian   = little
 wordsize = 64
 triplet  = riscv64-unknown-linux-musl
 [flags]
+CPPFLAGS =
 CFLAGS   = -march=rv64gc -mabi=lp64d
 CXXFLAGS = ${CFLAGS}
 FFLAGS   = ${CFLAGS}
@@ -1569,6 +1571,7 @@ The following environment variables are exported into the sandbox:
 * `SOURCE_DATE_EPOCH` The timestamp for reproducible builds.
 * `CBUILD_STATEDIR` Points to where current package build metadata
   is stored, such as stamps for finished phases.
+* `CPPFLAGS` Target C/C++ preprocessor flags.
 * `CFLAGS` Target C compiler flags.
 * `FFLAGS` Target Fortran compiler flags.
 * `CXXFLAGS` Target C++ compiler flags.
@@ -1583,6 +1586,7 @@ The following environment variables are exported into the sandbox:
 * `CBUILD_TARGET_MACHINE` Target `apk` machine architecture.
 * `CBUILD_TARGET_TRIPLET` Full target triplet (as described in profile).
   This is not exported during stage0 bootstrap.
+* `BUILD_CPPFLAGS` Host C/C++ preprocessor flags.
 * `BUILD_CFLAGS` Host C compiler flags.
 * `BUILD_FFLAGS` Host Fortran compiler flags.
 * `BUILD_CXXFLAGS` Host C++ compiler flags.
@@ -2257,6 +2261,10 @@ A shortcut for `get_tool_flags` with `FFLAGS`.
 ##### def get_ldflags(self, extra_flags = [], hardening = [], shell = False, target = None)
 
 A shortcut for `get_tool_flags` with `LDFLAGS`.
+
+##### def get_cppflags(self, extra_flags = [], hardening = [], shell = False, target = None)
+
+A shortcut for `get_tool_flags` with `CPPFLAGS`.
 
 ##### def get_tool(self, name, target = None)
 

@@ -11,6 +11,7 @@ cmdline = None
 opt_cflags     = "-O2"
 opt_cxxflags   = "-O2"
 opt_fflags     = "-O2"
+opt_cppflags   = ""
 opt_arch       = None
 opt_gen_dbg    = True
 opt_check      = True
@@ -77,7 +78,7 @@ def handle_options():
     global global_cfg
     global cmdline
 
-    global opt_cflags, opt_cxxflags, opt_fflags
+    global opt_cflags, opt_cxxflags, opt_fflags, opt_cppflags
     global opt_arch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_nocolor, opt_signkey, opt_unsigned
     global opt_force, opt_mdirtemp, opt_nonet, opt_dirty
@@ -212,6 +213,9 @@ def handle_options():
 
     if not "FFLAGS" in global_cfg["flags"]:
         global_cfg["flags"]["FFLAGS"] = opt_fflags
+
+    if not "CPPFLAGS" in global_cfg["flags"]:
+        global_cfg["flags"]["CPPFLAGS"] = opt_cppflags
 
     if "signing" in global_cfg:
         signcfg = global_cfg["signing"]
