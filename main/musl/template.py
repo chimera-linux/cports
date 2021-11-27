@@ -1,3 +1,4 @@
+# keep in sync with musl-static-nolto
 pkgname = "musl"
 pkgver = "1.2.2"
 pkgrel = 0
@@ -15,7 +16,7 @@ sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 # segfaults otherwise
 hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
-options = ["bootstrap", "!check", "brokenlinks"]
+options = ["bootstrap", "!check", "brokenlinks", "lto"]
 
 def init_configure(self):
     # ensure that even early musl uses compiler-rt
@@ -58,12 +59,17 @@ def do_install(self):
 
     self.install_link("true", "usr/bin/ldconfig")
 
+@subpackage("musl-static", self.stage >= 2)
+def _static_lto(self):
+    self.pkgdesc = f"{pkgdesc} (static with LTO)"
+    self.depends = [f"musl-devel={pkgver}-r{pkgrel}"]
+    # prefer over musl-static-nolto
+    self.provider_priority = 10
+
+    return ["usr/lib/libc.a"]
+
 @subpackage("musl-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return [
-        "usr/include",
-        "usr/lib/*.a",
-        "usr/lib/*.o",
-    ]
+    # the .a files are empty archives
+    return ["usr/include", "usr/lib/*.o", "usr/lib/*.a"]
