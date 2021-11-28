@@ -23,7 +23,7 @@ url = "http://www.gnu.org/software/ncurses"
 source = f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"
 sha256 = "97fc51ac2b085d4cde31ef4d2c3122c21abc217e9090a43a30fc5ec21684e059"
 tool_flags = {"CFLAGS": ["-fPIC"],}
-options = ["bootstrap"]
+options = ["bootstrap", "lto"]
 
 def init_configure(self):
     with self.profile("host"):
@@ -96,6 +96,10 @@ def _tdevel(self):
 @subpackage("ncurses-libs")
 def _libs(self):
     return self.default_libs()
+
+@subpackage("ncurses-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("ncurses-devel")
 def _devel(self):
