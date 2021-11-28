@@ -22,7 +22,7 @@ license = "BSD-3-Clause"
 url = "http://www.pcre.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8"
-options = ["!cross"]
+options = ["!cross", "lto"]
 
 def post_install(self):
     self.install_license("LICENCE")
@@ -36,6 +36,10 @@ def _libpcrecpp(self):
 def _libpcre(self):
     self.pkgdesc = f"{pkgdesc} (shared libraries)"
     return self.default_libs()
+
+@subpackage("pcre-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("pcre-devel")
 def _devel(self):
