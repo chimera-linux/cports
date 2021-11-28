@@ -12,7 +12,11 @@ source = f"https://github.com/libcheck/{pkgname}/releases/download/{pkgver}/{pkg
 sha256 = "a8de4e0bacfb4d76dd1c618ded263523b53b85d92a146d8835eb1a52932fa20a"
 # oh the irony
 # the tests actually pass but the test infra is broken
-options = ["!check"]
+options = ["!check", "lto"]
+
+@subpackage("check-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("check-devel")
 def _devel(self):
