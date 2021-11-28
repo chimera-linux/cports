@@ -11,7 +11,7 @@ url = "https://urllib3.readthedocs.io"
 source = f"$(PYPI_SITE)/u/urllib3/urllib3-{pkgver}.tar.gz"
 sha256 = "4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece"
 # unpackaged dependency
-options = ["!check", "brokenlinks"]
+options = ["!check", "brokenlinks", "lto"]
 
 def post_install(self):
     for f in (self.destdir / "usr/lib").glob(

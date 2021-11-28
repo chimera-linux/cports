@@ -12,7 +12,7 @@ url = "http://sphinx-doc.org"
 source = f"$(PYPI_SITE)/s/sphinxcontrib-qthelp/sphinxcontrib-qthelp-{pkgver}.tar.gz"
 sha256 = "4c33767ee058b70dba89a6fc5c1892c0d57a54be67ddd3e7875a18d14cba5a72"
 # circular checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

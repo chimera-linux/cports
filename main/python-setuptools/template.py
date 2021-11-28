@@ -15,7 +15,7 @@ env = {
     "SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT": "1"
 }
 # missing checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

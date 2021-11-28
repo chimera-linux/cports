@@ -12,7 +12,7 @@ url = "https://github.com/shibukawa/imagesize_py"
 source = f"$(PYPI_SITE)/i/imagesize/imagesize-{pkgver}.tar.gz"
 sha256 = "cd1750d452385ca327479d45b64d9c7729ecf0b3969a58148298c77092261f9d"
 # dependency of pytest
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE.rst")

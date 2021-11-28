@@ -12,7 +12,7 @@ url = "https://charset-normalizer.readthedocs.io"
 source = f"https://github.com/Ousret/charset_normalizer/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "6473e80f73f5918254953073798a367f120cc5717e70c917359e155901c0e2d0"
 # dependency of pytest
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

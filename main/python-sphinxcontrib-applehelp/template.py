@@ -12,7 +12,7 @@ url = "http://sphinx-doc.org"
 source = f"$(PYPI_SITE)/s/sphinxcontrib-applehelp/sphinxcontrib-applehelp-{pkgver}.tar.gz"
 sha256 = "a072735ec80e7675e3f432fcae8610ecf509c5f1869d17e2eecff44389cdbc58"
 # circular checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

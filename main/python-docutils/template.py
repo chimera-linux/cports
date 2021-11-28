@@ -12,6 +12,7 @@ license = "custom:none AND BSD-2-Clause AND GPL-3.0-or-later AND Python-2.0"
 url = "http://docutils.sourceforge.net"
 source = f"$(PYPI_SITE)/d/docutils/docutils-{pkgver}.tar.gz"
 sha256 = "686577d2e4c32380bb50cbb22f575ed742d58168cee37e99117a854bcd88f125"
+options = ["lto"]
 
 def do_check(self):
     self.do("python", "alltests.py", wrksrc = "test")

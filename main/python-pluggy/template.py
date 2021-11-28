@@ -12,7 +12,7 @@ url = "https://github.com/pytest-dev/pluggy"
 source = f"$(PYPI_SITE)/p/pluggy/pluggy-{pkgver}.tar.gz"
 sha256 = "4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"
 # dependency of pytest
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

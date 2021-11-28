@@ -19,7 +19,7 @@ url = "http://sphinx-doc.org"
 source = f"$(PYPI_SITE)/S/Sphinx/Sphinx-{pkgver}.tar.gz"
 sha256 = "6d051ab6e0d06cba786c4656b0fe67ba259fe058410f49e95bee6e49c4052cbf"
 # dependency of pytest, missing other checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

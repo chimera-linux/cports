@@ -11,6 +11,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/Python-Markdown/markdown"
 source = f"$(PYPI_SITE)/M/Markdown/Markdown-{pkgver}.tar.gz"
 sha256 = "76df8ae32294ec39dcf89340382882dfa12975f87f45c3ed1ecdb1e8cefc7006"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("LICENSE.md")

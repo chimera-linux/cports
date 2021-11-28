@@ -12,7 +12,7 @@ url = "http://babel.pocoo.org"
 source = f"$(PYPI_SITE)/B/Babel/Babel-{pkgver}.tar.gz"
 sha256 = "bc0c176f9f6a994582230df350aa6e05ba2ebe4b3ac317eab29d9be5d2768da0"
 # needs pytest, is a dependency of pytest
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

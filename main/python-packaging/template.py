@@ -12,7 +12,7 @@ url = "https://github.com/pypa/packaging"
 source = f"$(PYPI_SITE)/p/packaging/packaging-{pkgver}.tar.gz"
 sha256 = "dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"
 # needs pytest, is a dependency of pytest
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

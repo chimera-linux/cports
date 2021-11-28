@@ -12,7 +12,7 @@ url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
 sha256 = "5a7cef132353fc36de6f6b26dacde07b22217c6b4f8c11ef48e8bf0011f48160"
 # missing checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSES.txt")
