@@ -16,7 +16,7 @@ url = "https://tracker.debian.org/pkg/ca-certificates"
 source = f"$(DEBIAN_SITE)/main/c/{pkgname}/{pkgname}_{pkgver}.tar.xz"
 sha256 = "2ae9b6dc5f40c25d6d7fe55e07b54f12a8967d1955d3b7b2f42ee46266eeef88"
 # no tests
-options = ["!check", "keepempty", "brokenlinks"]
+options = ["!check", "keepempty", "brokenlinks", "lto"]
 
 def post_patch(self):
     from cbuild.util import compiler
