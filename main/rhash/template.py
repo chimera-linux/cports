@@ -18,11 +18,14 @@ license = "0BSD"
 url = "https://github.com/rhash/RHash"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "600d00f5f91ef04194d50903d3c79412099328c42f28ff43a0bdb777b00bec62"
+options = ["lto"]
 
 def init_configure(self):
     self.configure_args += [
         "--cc=" + self.get_tool("CC"),
-        "--ar=" + self.get_tool("AR")
+        "--ar=" + self.get_tool("AR"),
+        "--extra-cflags=" + self.get_cflags(shell = True),
+        "--extra-ldflags=" + self.get_ldflags(shell = True),
     ]
 
 def post_install(self):
@@ -34,6 +37,10 @@ def post_install(self):
     self.install_link("librhash.so.0", "usr/lib/librhash.so")
 
     self.install_license("COPYING")
+
+@subpackage("rhash-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("rhash-devel")
 def _devel(self):
