@@ -12,6 +12,6 @@ url = "https://mesonbuild.com"
 source = f"https://github.com/mesonbuild/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "5add789c953d984b500858b2851ee3d7add0460cf1a6f852f0a721af17384e13"
 # checkdepends not available yet
-options = ["!check"]
+options = ["!check", "lto"]
 
 # FIXME: tests, install completions etc.
