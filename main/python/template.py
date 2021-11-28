@@ -42,6 +42,7 @@ license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
 sha256 = "5a99f8e7a6a11a7b98b4e75e0d1303d3832cada5534068f69c7b6222a7b1b002"
+options = ["lto"]
 
 pycompile_dirs = [f"usr/lib/python{_majver}"]
 
@@ -101,6 +102,10 @@ def do_install(self):
     self.install_link("python" + _majver, "usr/bin/python")
     self.install_link("python" + _majver + ".1", "usr/share/man/man1/python.1")
 
+@subpackage("python-static")
+def _devel(self):
+    return self.default_static()
+
 @subpackage("python-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -110,7 +115,6 @@ def _devel(self):
         self.take("usr/bin/python*-config")
         self.take("usr/lib/pkgconfig")
         self.take("usr/include")
-        self.take("usr/lib/*.a")
         pypath = "usr/include/python" + _majver
         os.makedirs(self.parent.destdir / pypath)
         os.rename(
