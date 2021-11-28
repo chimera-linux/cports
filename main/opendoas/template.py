@@ -14,7 +14,7 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "c9070ae745d0f1bbe68ef0783a3958cd011b409959f65fd100e6b42b8ad6b162"
 suid_files = ["usr/bin/doas"]
 # no test suite
-options = ["!check"]
+options = ["lto", "!check"]
 
 def pre_configure(self):
     self.cp(self.files_path / "doas.pam", "pam.d__doas__linux")
