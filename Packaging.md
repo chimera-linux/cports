@@ -311,6 +311,9 @@ development files that make sense separately from the main `devel`
 package, it is perfectly acceptable to have `libfoo-devel` alongside
 `foo-devel`.
 
+Static libraries should go in `-static` packages in nearly all cases.
+In specific cases, they will go in `-devel`.
+
 In general, things packaging libraries should always have a `devel`
 package of some sort, except in specific rare cases where this does
 not make sense (e.g. development toolchains, where the primary package
