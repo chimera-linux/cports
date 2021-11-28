@@ -15,4 +15,4 @@ url = "http://www.gnu.org/software/tar"
 source = f"$(GNU_SITE)/tar/tar-{pkgver}.tar.xz"
 sha256 = "63bebd26879c5e1eea4352f0d03c991f966aeb3ddeb3c7445c902568d5411d28"
 # FIXME: some tests do not seem to like program-prefix
-options = ["!check"]
+options = ["!check", "lto"]
