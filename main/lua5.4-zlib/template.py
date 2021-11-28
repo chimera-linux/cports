@@ -12,7 +12,7 @@ url = "https://github.com/brimworks/lua-zlib"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d"
 # no test suite
-options = ["!check"]
+options = ["!check", "lto"]
 
 def init_configure(self):
     tcflags = self.get_cflags(["-shared"], shell = True)
