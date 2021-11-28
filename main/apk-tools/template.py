@@ -4,7 +4,10 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true"]
 hostmakedepends = ["pkgconf", "meson", "lua5.4", "lua5.4-zlib", "scdoc"]
-makedepends = ["zlib-devel", "openssl-devel"]
+makedepends = [
+    "zlib-devel", "openssl-devel", "musl-static", "openssl-static",
+    "zlib-static", "libunwind-static"
+]
 pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
@@ -14,20 +17,24 @@ sha256 = "d976d625d5ede5ccdd1bae4a56627c26a11f323475f85d7bc5cb29b04781f7b5"
 tool_flags = {
     "CFLAGS": ["-Wno-error"]
 }
-options = ["bootstrap"]
+options = ["bootstrap", "lto"]
 
 if self.stage > 0:
     makedepends += ["linux-headers"]
 else:
     configure_args += ["-Dhelp=disabled", "-Ddocs=disabled"]
 
+@subpackage("apk-tools-static")
+def _static(self):
+    return self.default_static()
+
 @subpackage("apk-tools-devel")
 def _devel(self):
     return self.default_devel(man = True)
 
-@subpackage("apk-tools-static")
-def _static(self):
-    self.pkgdesc += " (static build)"
+@subpackage("apk-tools-static-bin")
+def _staticbin(self):
+    self.pkgdesc += " (static binary)"
     self.depends = []
 
     return ["usr/bin/apk.static"]
