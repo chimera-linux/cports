@@ -18,7 +18,7 @@ source = f"https://github.com/unicode-org/{pkgname}/releases/download/release-{p
 sha256 = "8d205428c17bf13bb535300669ed28b338a157b1c01ae66d31d0d3e2d47c3fd5"
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
 # cba for now
-options = ["!cross"]
+options = ["!cross", "lto"]
 
 def post_install(self):
     self.install_license(self.builddir / self.wrksrc / "LICENSE")
@@ -28,6 +28,10 @@ def _libs(self):
     return self.default_libs(extra = [
         f"usr/share/icu/{pkgver}/icudt*.dat"
     ])
+
+@subpackage("icu-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("icu-devel")
 def _devel(self):
