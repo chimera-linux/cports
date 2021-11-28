@@ -11,7 +11,7 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/proto/{pkgname}-{pkgver}.tar.gz"
 sha256 = "be6ddd6590881452fdfa170c1c9ff87209a98d36155332cbf2ccbc431add86ff"
 # we don't want dependencies on all the pkg-config stuff
-options = ["!scanrundeps"]
+options = ["!scanrundeps", "lto"]
 
 def post_install(self):
     for f in self.cwd.glob("COPYING-*"):
