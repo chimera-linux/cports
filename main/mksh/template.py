@@ -14,6 +14,7 @@ sha256 = [
     "77ae1665a337f1c48c61d6b961db3e52119b38e58884d1c89684af31f87bc506",
     "8a53fe4d643fb7341e6c94653d63d3d813d8d849fc1d9dfe5dc49ab2fb48aee9"
 ]
+options = ["lto"]
 
 def do_build(self):
     self.do("sh", self.chroot_cwd / "Build.sh", "-r")
