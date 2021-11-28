@@ -13,3 +13,4 @@ url = "https://github.com/containers/bubblewrap"
 source = f"https://github.com/containers/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "16fdaf33799d63104e347e0133f909196fe90d0c50515d010bcb422eb5a00818"
 tool_flags = {"CFLAGS": ["-Wno-error,-Wformat-nonliteral"]}
+options = ["lto"]
