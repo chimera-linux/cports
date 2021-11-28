@@ -10,7 +10,7 @@ url = f"https://salsa.debian.org/kernel-team/initramfs-tools"
 source = f"{url}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
 sha256 = "f46ae0e490a8a46975afd23a09202dee86756ebad1c8b795e862470a47dfac6b"
 # no tests
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     for f in ["50-initramfs"]:
