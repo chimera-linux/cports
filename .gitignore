@@ -2,7 +2,7 @@
 *.o
 __pycache__
 bldroot*
-ccache*
+/ccache*
 sources*
 packages*
 etc/keys
