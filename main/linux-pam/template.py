@@ -18,6 +18,7 @@ url = f"https://github.com/{pkgname}/{pkgname}"
 source = f"{url}/releases/download/v{pkgver}/Linux-PAM-{pkgver}.tar.xz"
 sha256 = "e4ec7131a91da44512574268f493c6d8ca105c87091691b8e9b56ca685d4f94d"
 suid_files = ["usr/bin/unix_chkpwd"]
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
