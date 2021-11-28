@@ -29,9 +29,10 @@ def invoke(pkg):
         if v in badpaths:
             pkg.log_warn(f"{v} should be in the -devel package")
 
-    for v in pkg.destdir.rglob("usr/lib/*.a"):
-        pkg.log_warn("static libraries should be in the -devel package")
-        break
+    if not pkg.pkgname.endswith("-static"):
+        for v in pkg.destdir.rglob("usr/lib/*.a"):
+            pkg.log_warn("static libraries should be in the -static package")
+            break
 
     for v in pkg.destdir.rglob("usr/lib/*.so"):
         pkg.log_warn(".so symlinks should be in the -devel package")
