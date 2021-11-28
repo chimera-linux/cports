@@ -23,7 +23,7 @@ url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4e142d4babe086adf9016d8c606c805829da08e46389a4433f40346204f90cdb"
 # no check target
-options = ["!check"]
+options = ["!check", "lto"]
 
 def init_configure(self):
     self.make_install_args += [
@@ -34,6 +34,10 @@ def init_configure(self):
 
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)
+
+@subpackage("xfsprogs-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("xfsprogs-devel")
 def _devel(self):
