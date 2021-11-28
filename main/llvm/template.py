@@ -44,7 +44,10 @@ license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
-options = ["bootstrap"]
+# reduce size of debug symbols
+debug_level = 1
+# lto does not kick in until stage 2
+options = ["bootstrap", "lto"]
 
 cmake_dir = "llvm"
 
@@ -68,11 +71,13 @@ if self.stage > 0:
     _enabled_projects += ["openmp"]
     # for stage 2 onwards also enable debugger
     # in stage 1 there is no point in wasting cpu time with it
+    # also enable LTO
     if self.stage >= 2:
         configure_args += [
             "-DLLDB_ENABLE_LUA=NO", # maybe later
             "-DLLDB_ENABLE_PYTHON=YES",
             "-DLLDB_USE_SYSTEM_SIX=YES",
+            "-DLLVM_ENABLE_LTO=Thin",
         ]
         hostmakedepends += ["swig"]
         _enabled_projects += ["lldb"]
@@ -230,16 +235,13 @@ def _tools_extra(self):
 def _libomp(self):
     self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library)"
 
-    if _arch != "RISCV64":
-        extra = ["usr/lib/libomptarget.rtl.*.so"]
-    else:
-        extra = []
+    def install():
+        self.take("usr/lib/libomptarget.rtl.*.so", missing_ok = True)
+        self.take("usr/lib/libomp*.so.*")
+        self.take("usr/lib/libomptarget.so")
+        self.take("usr/lib/libarcher.so")
 
-    return [
-        "usr/lib/libomp*.so.*",
-        "usr/lib/libomptarget.so",
-        "usr/lib/libarcher.so",
-    ] + extra
+    return install
 
 @subpackage("libomp-devel", self.stage > 0)
 def _libomp_devel(self):
@@ -280,12 +282,20 @@ def _clang(self):
 @subpackage("clang-rt-devel")
 def _clang_rt_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang runtime development files)"
+    self.options = ["ltostrip"] # these are explicitly -fno-lto
     if self.stage > 0:
         self.depends = ["libexecinfo-devel"]
 
     return [
         "usr/lib/clang"
     ]
+
+@subpackage("clang-static")
+def _clang_static(self):
+    self.pkgdesc = f"{pkgdesc} (Clang static libraries)"
+    self.depends = [f"clang-devel={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/libclang*.a"]
 
 @subpackage("clang-devel")
 def _clang_devel(self):
@@ -300,7 +310,6 @@ def _clang_devel(self):
     return [
         "usr/include/clang",
         "usr/include/clang-c",
-        "usr/lib/libclang*.a",
         "usr/lib/libclang*.so",
     ]
 
@@ -371,13 +380,19 @@ def _mlir(self):
         "usr/bin/mlir*"
     ]
 
+@subpackage("mlir-static", _enable_flang)
+def _mlir_static(self):
+    self.pkgdesc = f"{pkgdesc} (MLIR static libraries)"
+    self.depends = ["mlir-devel={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/libMLIR*.a"]
+
 @subpackage("mlir-devel", _enable_flang)
-def _mlir(self):
+def _mlir_devel(self):
     self.pkgdesc = f"{pkgdesc} (MLIR development files)"
 
     return [
         "usr/include/mlir*",
-        "usr/lib/libMLIR*.a",
         "usr/lib/libMLIR.so",
         "usr/lib/libmlir*.so",
         "usr/lib/cmake/mlir",
@@ -398,6 +413,13 @@ def _libunwind(self):
 
     return ["usr/lib/libunwind.so.*"]
 
+@subpackage("libunwind-static")
+def _libunwind_static(self):
+    self.pkgdesc = f"{pkgdesc} (libunwind) (static library)"
+    self.depends = [f"libunwind-devel={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/libunwind.a"]
+
 @subpackage("libunwind-devel")
 def _libunwind_devel(self):
     self.pkgdesc = f"{pkgdesc} (libunwind) (development files)"
@@ -405,7 +427,6 @@ def _libunwind_devel(self):
 
     return [
         "usr/lib/libunwind.so",
-        "usr/lib/libunwind.a",
         "usr/include/*unwind*",
         "usr/include/mach-o"
     ]
@@ -416,6 +437,13 @@ def _libcxx(self):
 
     return ["usr/lib/libc++.so.*"]
 
+@subpackage("libcxx-static")
+def _libcxx_static(self):
+    self.pkgdesc = f"{pkgdesc} (C++ standard library) (static library)"
+    self.depends = [f"libcxx-devel={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/libc++.a"]
+
 @subpackage("libcxx-devel")
 def _libcxx_devel(self):
     self.pkgdesc = f"{pkgdesc} (C++ standard library) (development files)"
@@ -423,7 +451,6 @@ def _libcxx_devel(self):
 
     return [
         "usr/lib/libc++.so",
-        "usr/lib/libc++.a",
         "usr/lib/libc++experimental.a",
         "usr/include/c++",
     ]
@@ -435,6 +462,13 @@ def _libcxxabi(self):
 
     return ["usr/lib/libc++abi.so.*"]
 
+@subpackage("libcxxabi-static")
+def _libcxxabi_static(self):
+    self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (static library)"
+    self.depends = [f"libcxxabi-devel={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/libc++abi.a"]
+
 @subpackage("libcxxabi-devel")
 def _libcxxabi_devel(self):
     self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (development files)"
@@ -445,7 +479,6 @@ def _libcxxabi_devel(self):
 
     return [
         "usr/lib/libc++abi.so",
-        "usr/lib/libc++abi.a",
         "usr/include/*cxxabi*",
     ]
 
@@ -506,6 +539,13 @@ def _llvm_linker_tools(self):
         "usr/lib/libLTO.so.*"
     ]
 
+@subpackage("llvm-static")
+def _llvm_static(self):
+    self.pkgdesc = "Low Level Virtual Machine (static libraries)"
+    self.depends = [f"llvm-devel={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/*.a"]
+
 @subpackage("llvm-devel")
 def _llvm_devel(self):
     self.depends = [
@@ -516,7 +556,6 @@ def _llvm_devel(self):
 
     return [
         "usr/include",
-        "usr/lib/*.a",
         "usr/lib/*.so",
         "usr/lib/libRemarks.so.*",
         "usr/lib/cmake",
