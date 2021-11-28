@@ -93,7 +93,8 @@ def invoke(pkg):
         # strip static library, only if not LTO or when forced
         if not vt:
             v.chmod(0o644)
-            if not pkg.rparent.options["lto"] or pkg.options["ltostrip"]:
+            if not pkg.rparent.options["lto"] or pkg.options["ltostrip"] \
+                or pkg.stage < 2:
                 try:
                     pkg.rparent.do(strip_path, "--strip-debug", cfile)
                 except:
