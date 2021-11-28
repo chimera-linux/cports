@@ -9,7 +9,7 @@ license = "custom:xz"
 url = "https://tukaani.org/xz"
 source = f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"
 sha256 = "5117f930900b341493827d63aa910ff5e011e0b994197c3b71c08a20228a42df"
-options = ["bootstrap"]
+options = ["bootstrap", "lto"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -28,6 +28,12 @@ def _lib(self):
     self.pkgdesc = "XZ-format compression library"
 
     return self.default_libs()
+
+@subpackage("liblzma-static")
+def _static(self):
+    self.pkgdesc = "XZ-format compression library (static library)"
+
+    return self.default_static()
 
 @subpackage("liblzma-devel")
 def _devel(self):
