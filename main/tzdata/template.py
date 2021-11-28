@@ -1,6 +1,7 @@
 pkgname = "tzdata"
 pkgver = "2021e"
 pkgrel = 0
+makedepends = ["musl-static", "libunwind-static"]
 pkgdesc = "Time zone and daylight-saving time data"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
@@ -14,7 +15,7 @@ sha256 = [
     "11908a7f18530ca3013c8458d902a54cdd3382276bdd56891db074b1af4a26b8"
 ]
 # no tests
-options = ["bootstrap", "!check", "hardlinks"]
+options = ["bootstrap", "!check", "hardlinks", "lto"]
 
 def do_build(self):
     from cbuild.util import compiler
