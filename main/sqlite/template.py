@@ -14,7 +14,7 @@ license = "custom:none"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2021/sqlite-autoconf-{_amalg}.tar.gz"
 sha256 = "bd90c3eb96bee996206b83be7065c9ce19aef38c3f4fb53073ada0d0b69bbce3"
-options = ["!parallel"]
+options = ["!parallel", "lto"]
 
 _cflags = [
     "-DSQLITE_ENABLE_DBSTAT_VTAB", "-DSQLITE_ENABLE_COLUMN_METADATA",
@@ -33,6 +33,10 @@ else:
     _cflags += ["-DSHA3_BYTEORDER=1234", "-DSQLITE_BYTEORDER=1234"]
 
 tool_flags = {"CFLAGS": _cflags}
+
+@subpackage("sqlite-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("sqlite-devel")
 def _devel(self):
