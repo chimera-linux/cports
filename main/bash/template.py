@@ -20,6 +20,7 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "0cfb5c9bb1a29f800a97bd242d19511c997a1013815b805e0fdd32214113d6be"
+options = ["lto"]
 
 def init_configure(self):
     tcap = self.profile().sysroot / "usr/lib/libncursesw.a"
