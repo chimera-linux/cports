@@ -11,7 +11,7 @@ url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
 sha256 = "ef9c7e61822b7cb8356e6e9e1dca58d9556f3200d78acab35e4347e9d4c2bbaf"
 # checkdepends not available yet
-options = ["bootstrap", "!check", "!scanpkgconf"]
+options = ["bootstrap", "!check", "!scanpkgconf", "lto"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -24,12 +24,15 @@ def _lib(self):
     self.pkgdesc += " (runtime library)"
     return self.default_libs()
 
+@subpackage("pkgconf-static")
+def _static(self):
+    return self.default_static()
+
 @subpackage("pkgconf-devel")
 def _devel(self):
     # pkg.m4 must remain in main package
     return [
         "usr/include",
         "usr/lib/pkgconfig",
-        "usr/lib/*.a",
         "usr/lib/*.so",
     ]
