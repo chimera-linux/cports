@@ -13,9 +13,14 @@ license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libevdev"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "2f729e3480695791f9482e8388bd723402b89f0eaf118057bbdea3cecee9b237"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("libevdev-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libevdev-devel")
 def _devel(self):
