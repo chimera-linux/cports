@@ -15,3 +15,4 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/texinfo"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "988403c1542d15ad044600b909997ba3079b10e03224c61188117f3676b02caa"
+options = ["lto"]
