@@ -62,7 +62,6 @@ def do_install(self):
 @subpackage("musl-static", self.stage >= 2)
 def _static_lto(self):
     self.pkgdesc = f"{pkgdesc} (static with LTO)"
-    self.depends = [f"musl-devel={pkgver}-r{pkgrel}"]
     # prefer over musl-static-nolto
     self.provider_priority = 10
 

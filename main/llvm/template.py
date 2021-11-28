@@ -293,7 +293,6 @@ def _clang_rt_devel(self):
 @subpackage("clang-static")
 def _clang_static(self):
     self.pkgdesc = f"{pkgdesc} (Clang static libraries)"
-    self.depends = [f"clang-devel={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libclang*.a"]
 
@@ -383,7 +382,6 @@ def _mlir(self):
 @subpackage("mlir-static", _enable_flang)
 def _mlir_static(self):
     self.pkgdesc = f"{pkgdesc} (MLIR static libraries)"
-    self.depends = ["mlir-devel={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libMLIR*.a"]
 
@@ -416,7 +414,6 @@ def _libunwind(self):
 @subpackage("libunwind-static")
 def _libunwind_static(self):
     self.pkgdesc = f"{pkgdesc} (libunwind) (static library)"
-    self.depends = [f"libunwind-devel={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libunwind.a"]
 
@@ -440,7 +437,6 @@ def _libcxx(self):
 @subpackage("libcxx-static")
 def _libcxx_static(self):
     self.pkgdesc = f"{pkgdesc} (C++ standard library) (static library)"
-    self.depends = [f"libcxx-devel={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libc++.a"]
 
@@ -465,7 +461,6 @@ def _libcxxabi(self):
 @subpackage("libcxxabi-static")
 def _libcxxabi_static(self):
     self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (static library)"
-    self.depends = [f"libcxxabi-devel={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libc++abi.a"]
 
@@ -542,7 +537,6 @@ def _llvm_linker_tools(self):
 @subpackage("llvm-static")
 def _llvm_static(self):
     self.pkgdesc = "Low Level Virtual Machine (static libraries)"
-    self.depends = [f"llvm-devel={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/*.a"]
 

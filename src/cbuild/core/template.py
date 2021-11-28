@@ -1258,6 +1258,7 @@ class Subpackage(Package):
             self.pkgdesc += " (development files)"
         elif name.endswith("-static"):
             self.pkgdesc += " (static libraries)"
+            bdep = name.removesuffix("-static") + "-devel"
         elif name.endswith("-doc"):
             self.pkgdesc += " (documentation)"
             bdep = name.removesuffix("-doc")

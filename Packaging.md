@@ -1062,7 +1062,7 @@ Additionally, `depends` is special for subpackages. If the subpackage is a
 parent (i.e. unprefixed) package automatically. If you want to add more
 dependencies, you can append. If you do not want the parent package
 dependency, e.g. when the package is special and does not have a parent,
-you can just overwrite it.
+you can just overwrite it. For `foo-static`, the base dependency is `foo-devel`.
 
 If any broken symlink in a package or subpackage resolves to another subpackage
 or the main package, a dependency is automatically emitted - see the section

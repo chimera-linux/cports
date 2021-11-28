@@ -28,5 +28,6 @@ def _devel(self):
 @subpackage("apk-tools-static")
 def _static(self):
     self.pkgdesc += " (static build)"
+    self.depends = []
 
     return ["usr/bin/apk.static"]
