@@ -11,7 +11,7 @@ url = "https://github.com/chimera-linux/bsdm4"
 source = f"https://github.com/chimera-linux/bsdm4/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "dbe405f94c3dcfd084b97585b270d4b004a4fae26c3c8cf37670e830354a123b"
 # no test suite
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "lto"]
 
 def post_patch(self):
     # pre-bootstrapped copies to avoid dependency cycle with flex
