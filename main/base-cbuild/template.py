@@ -10,7 +10,7 @@ url = "https://chimera-linux.org"
 depends = [
     "base-files", "musl-devel", "elftoolchain", "llvm", "clang", "lld",
     "apk-tools", "bsdutils-extra", "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed",
-    "bsddiff", "bmake", "bsdtar", "dash", "mksh-static", "awk", "ncurses",
+    "bsddiff", "bmake", "bsdtar", "dash", "mksh-static-bin", "awk", "ncurses",
     "util-linux-cbuild", "tzdata", "fakeroot",
 ]
 

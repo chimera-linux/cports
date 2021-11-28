@@ -1,6 +1,7 @@
-pkgname = "mksh-static"
+pkgname = "mksh-static-bin"
 pkgver = "59c"
 pkgrel = 0
+makedepends = ["musl-static", "libunwind-static"]
 checkdepends = ["perl", "bsded"]
 pkgdesc = "MirBSD Korn Shell (static build)"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -15,7 +16,7 @@ sha256 = [
     "8a53fe4d643fb7341e6c94653d63d3d813d8d849fc1d9dfe5dc49ab2fb48aee9"
 ]
 tool_flags = {"CFLAGS": ["-static"], "LDFLAGS": ["-static"]}
-options = ["bootstrap"]
+options = ["bootstrap", "lto"]
 
 def do_build(self):
     self.do("sh", self.chroot_cwd / "Build.sh", "-r")
