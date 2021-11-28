@@ -5,4 +5,5 @@ SYSCONTROLSOCKET=/run/dinitctl
 CXXOPTS := $(CXXFLAGS) -fno-rtti
 
 BUILD_SHUTDOWN = yes
-SANITIZEOPTS = -fsanitize=address,undefined
+# sanitizers may crash for now
+#SANITIZEOPTS = -fsanitize=address,undefined

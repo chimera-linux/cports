@@ -11,6 +11,7 @@ license = "Apache-2.0"
 url = f"https://davmac.org/projects/dinit"
 source = f"https://github.com/davmac314/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "d5f9afe7005da7c08224dddcf2b63f37a6c4120b7493bed4669ef362cde1b544"
+options = ["lto"]
 
 def post_patch(self):
     self.cp(self.files_path / "mconfig", self.cwd)
