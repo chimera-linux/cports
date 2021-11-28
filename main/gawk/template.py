@@ -10,6 +10,7 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gawk"
 source = f"$(GNU_SITE)/gawk/gawk-{pkgver}.tar.xz"
 sha256 = "d87629386e894bbea11a5e00515fc909dc9b7249529dad9e6a3a2c77085f7ea2"
+options = ["lto"]
 
 def post_install(self):
     # hardlinks + we don't want to conflict with awk
