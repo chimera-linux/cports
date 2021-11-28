@@ -10,9 +10,14 @@ license = "MIT"
 url = "http://bitmath.org/code/mtdev"
 source = f"{url}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "15d7b28da8ac71d8bc8c9287c2045fd174267bc740bec10cfda332dc1204e0e0"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("mtdev-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("mtdev-devel")
 def _devel(self):
