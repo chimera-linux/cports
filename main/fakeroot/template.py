@@ -13,7 +13,7 @@ license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"https://ftp.octaforge.org/q66/random/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2c8a1443d77009b07f3b9ef3797036fb7d77b16fb648692ae39e8c480fd0e0e9"
-options = ["bootstrap"]
+options = ["bootstrap", "lto"]
 
 if self.stage > 0:
     makedepends += ["libcap-devel"]
