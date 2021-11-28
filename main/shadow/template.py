@@ -29,7 +29,7 @@ suid_files = [
     "usr/bin/sg",
 ]
 # messes with filesystem
-options = ["!check"]
+options = ["!check", "lto"]
 
 def pre_install(self):
     # shadow force-installs into sbin regardless of configure
