@@ -23,7 +23,7 @@ url = "https://github.com/gentoo/hwids"
 source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
 sha256 = "e28f1787290e9ea17426aa4090bbf6aca9bbc9e6cd14da232778bfaef4938bc1"
 # no test suite
-options = ["!check"]
+options = ["!check", "lto"]
 
 @subpackage("hwids-usb")
 def _usb(self):
