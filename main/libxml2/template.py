@@ -16,10 +16,14 @@ url = "http://www.xmlsoft.org"
 source = f"{url}/sources/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c8d6681e38c56f172892c85ddc0852e1fd4b53b4209e7f4ebf17f7e2eae71d92"
 # some icu test failures
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("libxml2-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libxml2-devel")
 def _devel(self):
