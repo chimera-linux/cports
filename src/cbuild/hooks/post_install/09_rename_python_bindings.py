@@ -1,8 +1,8 @@
 import stat
 
 def invoke(pkg):
-    for v in (pkg.destdir / "usr/lib").rglob(
-        "python*/site-packages/*/*.cpython*.so"
+    for v in (pkg.destdir / "usr/lib").glob(
+        "python*/site-packages/**/*.cpython*.so"
     ):
         st = v.lstat()
         if not (st.st_mode & stat.S_IXUSR):
