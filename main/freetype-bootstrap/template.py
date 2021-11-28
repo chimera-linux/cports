@@ -13,6 +13,7 @@ configure_args = [
     "-Dpng=disabled",
     "-Dtests=disabled",
     "-Dmmap=enabled",
+    "-Ddefault_library=shared",
 ]
 hostmakedepends = ["meson", "pkgconf"]
 # conflict with the real stuff
@@ -25,6 +26,7 @@ license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(NONGNU_SITE)/freetype/freetype-{pkgver}.tar.xz"
 sha256 = "8bee39bd3968c4804b70614a0a3ad597299ad0e824bc8aad5ce8aaf48067bde7"
+options = ["!lto"]
 
 def post_install(self):
     self.install_license("LICENSE.TXT")
