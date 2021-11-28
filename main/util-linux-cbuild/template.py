@@ -24,7 +24,7 @@ url = "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux"
 source = f"$(KERNEL_SITE)/utils/util-linux/v{_mver}/util-linux-{pkgver}.tar.xz"
 sha256 = "6a0764c1aae7fb607ef8a6dd2c0f6c47d5e5fd27aa08820abaad9ec14e28e9d9"
 # test suite needs bash
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "lto"]
 
 if self.stage > 0:
 	hostmakedepends = ["gmake"]
