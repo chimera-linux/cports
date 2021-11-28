@@ -9,12 +9,17 @@ license = "MIT"
 url = "https://www.digip.org/jansson"
 source = f"https://github.com/akheron/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "c739578bf6b764aa0752db9a2fdadcfe921c78f1228c7ec0bb47fa804c55d17b"
+options = ["lto"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
 
 def post_install(self):
     self.install_license("LICENSE")
+
+@subpackage("jansson-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("jansson-devel")
 def _devel(self):
