@@ -15,6 +15,7 @@ url = "https://lua.org"
 source = f"https://www.lua.org/ftp/lua-{pkgver}.tar.gz"
 sha256 = "f8612276169e3bfcbcfb8f226195bfc6e466fe13042f1076cbde92b7ec96bbfb"
 tool_flags = {"CFLAGS": ["-fPIC"]}
+options = ["lto"]
 
 def init_configure(self):
     _bins = [
@@ -65,6 +66,10 @@ def post_install(self):
     self.install_link(f"lua{_mver}", "usr/bin/lua")
     self.install_link(f"luac{_mver}", "usr/bin/luac")
     self.install_link(f"lua{_mver}.pc", "usr/lib/pkgconfig/lua.pc")
+
+@subpackage("lua5.4-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("lua5.4-devel")
 def _devel(self):
