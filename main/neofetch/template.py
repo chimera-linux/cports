@@ -10,7 +10,7 @@ url = "https://github.com/dylanaraps/neofetch"
 source = f"{url}/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "58a95e6b714e41efc804eca389a223309169b2def35e57fa934482a6b47c27e7"
 # no tests
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE.md")
