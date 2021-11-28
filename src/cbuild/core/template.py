@@ -1256,6 +1256,8 @@ class Subpackage(Package):
         # default suffixes
         if name.endswith("-devel"):
             self.pkgdesc += " (development files)"
+        elif name.endswith("-static"):
+            self.pkgdesc += " (static libraries)"
         elif name.endswith("-doc"):
             self.pkgdesc += " (documentation)"
             bdep = name.removesuffix("-doc")

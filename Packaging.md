@@ -1045,6 +1045,7 @@ files).
 The `pkgdesc` may gain a suffix if the subpackage name has a certain suffix:
 
 * For `-devel`, it will be `(development files)`
+* For `-static`, it will be `(static libraries)`
 * For `-doc`, it will be `(documentation)`
 * For `-libs`, it will be `(libraries)`
 * For `-dbg`, it will be `(debug files)`
