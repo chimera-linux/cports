@@ -7,7 +7,7 @@ license = "BSD-3-Clause"
 url = "http://www.crufty.net/help/sjg/bmake.html"
 source = f"http://www.crufty.net/ftp/pub/sjg/bmake-{pkgver}.tar.gz"
 sha256 = "b5a3305bdb328b1383982125e90785baa30bc2ff024a1b0fda3d5d5beca82ac9"
-options = ["bootstrap"]
+options = ["bootstrap", "lto"]
 
 def do_build(self):
     self.mkdir("build", parents = True)
