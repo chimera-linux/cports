@@ -8,6 +8,7 @@ license = "Apache-2.0"
 url = "https://ninja-build.org"
 source = f"https://github.com/ninja-build/ninja/archive/v{pkgver}.tar.gz"
 sha256 = "ce35865411f0490368a8fc383f29071de6690cbadc27704734978221f25e2bed"
+options = ["lto"]
 
 def do_configure(self):
     self.do("python", "configure.py", "--bootstrap")
