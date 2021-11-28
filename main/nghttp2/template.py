@@ -15,9 +15,14 @@ license = "MIT"
 url = "https://nghttp2.org"
 source = f"https://github.com/tatsuhiro-t/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "1a68cc4a5732afb735baf50aaac3cb3a6771e49f744bd5db6c49ab5042f12a43"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("nghttp2-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("nghttp2-devel")
 def _devel(self):
