@@ -1295,6 +1295,9 @@ class Subpackage(Package):
                 pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
             )
 
+    def take_static(self):
+        self.take("usr/lib/*.a")
+
     def take_devel(self, man = False):
         for f in (self.parent.destdir / "usr/bin").glob("*-config"):
             if f.name != "pkg-config":
@@ -1342,6 +1345,13 @@ class Subpackage(Package):
     def default_devel(self, man = False, extra = None):
         def func():
             self.take_devel(man)
+            _default_take_extra(self, extra)
+
+        return func
+
+    def default_static(self, extra = None):
+        def func():
+            self.take_static()
             _default_take_extra(self, extra)
 
         return func

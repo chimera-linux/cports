@@ -2429,6 +2429,11 @@ for the current coverage.
 
 If `man` is `True`, the package should also contain sections 2 and 3 manpages.
 
+##### def take_static(self)
+
+This function will `take` everything that should usually belong in a
+`-static` package. This is all static libraries in `usr/lib`.
+
 ##### def take_doc(self, man = True)
 
 This function will `take` everything that should usually belong in a
@@ -2460,6 +2465,16 @@ The `man` argument is passed as is to `take_devel`. The `extra` argument
 can specify additional things to take. If `extra` is a `list`, each item
 in the list is passed to `take()` (without any other arguments). Otherwise
 it is considered a callable and called as is without argunents.
+
+##### def default_static(self, extra = None)
+
+A simple lazy wrapper around `take_static` returning a function that you
+should return from a subpackage (e.g. `return self.default_static()`).
+
+The `extra` argument can specify additional things to take. If `extra`
+is a `list`, each item in the list is passed to `take()` (without any
+other arguments). Otherwise it is considered a callable and called as
+is without argunents.
 
 ##### def default_doc(self, man = True, extra = None)
 
