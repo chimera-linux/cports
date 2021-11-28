@@ -12,4 +12,4 @@ url = "https://metacpan.org/release/IO-Socket-SSL"
 source = f"$(CPAN_SITE)/IO/IO-Socket-SSL-{pkgver}.tar.gz"
 sha256 = "b5bee81db3905a9069340a450a48e1e1b32dec4ede0064f5703bafb9a707b89d"
 # missing checkdepends
-options = ["!check"]
+options = ["!check", "lto"]

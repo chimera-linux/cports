@@ -12,4 +12,4 @@ url = "https://metacpan.org/release/URI"
 source = f"$(CPAN_SITE)/URI/URI-{pkgver}.tar.gz"
 sha256 = "16325d5e308c7b7ab623d1bf944e1354c5f2245afcfadb8eed1e2cae9a0bd0b5"
 # missing checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
