@@ -8,6 +8,8 @@ license = "BSD-3-Clause"
 url = "http://xmlcatmgr.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/xmlcatmgr/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ea1142b6aef40fbd624fc3e2130cf10cf081b5fa88e5229c92b8f515779d6fdc"
+# ld: error: undefined symbol: setprogname
+options = ["!lto"]
 
 if self.cross_build:
     hostmakedepends += ["xmlcatmgr"]
