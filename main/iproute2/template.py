@@ -7,7 +7,7 @@ make_cmd = "gmake"
 make_install_args = ["SBINDIR=/usr/bin"]
 hostmakedepends = ["pkgconf", "gmake", "perl", "flex", "bison"]
 # TODO: db implementation for arpd
-makedepends = ["libfl-devel", "libmnl-devel", "linux-headers"]
+makedepends = ["libfl-static", "libmnl-devel", "linux-headers"]
 pkgdesc = "IP routing utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
