@@ -16,7 +16,7 @@ url = "http://www.zstd.net"
 source = f"https://github.com/facebook/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "5194fbfa781fcf45b98c5e849651aa7b3b0a008c6b72d4a0db760f3002291e94"
 # checkdepends not available yet
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -31,6 +31,12 @@ def _lib(self):
     self.pkgdesc = "Fast real-time compression algorithm"
 
     return self.default_libs()
+
+@subpackage("libzstd-static")
+def _static(self):
+    self.pkgdesc = "Fast real-time compression algorithm (static library)"
+
+    return self.default_static()
 
 @subpackage("libzstd-devel")
 def _devel(self):
