@@ -21,7 +21,7 @@ tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
 }
 # checkdepends are missing
-options = ["!check"]
+options = ["!check", "lto"]
 
 # need to use bundled jsoncpp (i.e. --system-jsoncpp is not possible) as
 # the two build systems that offers are meson and cmake - cmake cannot be
@@ -34,7 +34,10 @@ if self.stage >= 2:
     ]
     configure_args += [
         "--system-curl", "--system-nghttp2", "--system-expat",
-        "--system-libuv", "--system-librhash",
+        "--system-libuv", "--system-librhash", "--",
+        # need these for correct linking
+        "-DCMAKE_AR=/usr/bin/llvm-ar", "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
+        "-DCMAKE_NM=/usr/bin/llvm-nm",
     ]
 
 def post_install(self):
