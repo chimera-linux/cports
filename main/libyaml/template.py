@@ -10,12 +10,18 @@ license = "MIT"
 url = "https://pyyaml.org/wiki/LibYAML"
 source = f"https://github.com/yaml/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "fa240dbf262be053f3898006d502d514936c818e422afdcf33921c63bed9bf2e"
+options = ["lto"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
 
 def post_install(self):
     self.install_license("License")
+
+@subpackage("libyaml-static")
+def _static(self):
+    return self.default_static()
+
 
 @subpackage("libyaml-devel")
 def _devel(self):
