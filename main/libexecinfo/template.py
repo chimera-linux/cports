@@ -10,8 +10,8 @@ license = "BSD-2-Clause"
 url = "http://www.freshports.org/devel/libexecinfo"
 source = f"http://distcache.freebsd.org/local-distfiles/itetcu/libexecinfo-{pkgver}.tar.bz2"
 sha256 = "c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"
-# no test suite
-options = ["!check"]
+# no test suite; disable LTO as it's pointless and breaks toolchain compat
+options = ["!check", "!lto"]
 
 def do_install(self):
     self.install_dir("usr/lib/pkgconfig")
