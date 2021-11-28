@@ -8,7 +8,8 @@ license = "BSD-3-Clause"
 url = "http://gondor.apana.org.au/~herbert/dash"
 source = f"http://gondor.apana.org.au/~herbert/dash/files/{pkgname}-{pkgver}.tar.gz"
 sha256 = "db778110891f7937985f29bf23410fe1c5d669502760f584e54e0e7b29e123bd"
-options = ["bootstrap"]
+# enabling LTO results in crash on ctrl-c
+options = ["bootstrap", "!lto"]
 
 def post_install(self):
     self.install_license("COPYING")
