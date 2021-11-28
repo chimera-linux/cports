@@ -49,7 +49,7 @@ file_modes = {
     "usr/bin/write": (None, "tty:5", 0o2755),
 }
 # checkdepends are missing
-options = ["!check"]
+options = ["!check", "lto"]
 
 system_users = ["_uuidd"]
 
@@ -115,6 +115,12 @@ def _libfdisk(self):
     self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
     return ["usr/lib/libfdisk.so.*"]
 
+@subpackage("libfdisk-static")
+def _libfdisk_static(self):
+    self.pkgdesc = "Library for fdisk(8) (static)"
+    self.depends = [f"libfdisk-devel={pkgver}-r{pkgrel}"]
+    return ["usr/lib/libfdisk.a"]
+
 @subpackage("libfdisk-devel")
 def _libfdisk_devel(self):
     self.pkgdesc = "Library for fdisk(8) (development files)"
@@ -130,6 +136,12 @@ def _libmount(self):
     self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
     return ["usr/lib/libmount.so.*"]
 
+@subpackage("libmount-static")
+def _libmount_static(self):
+    self.pkgdesc = "Library for mount(8) (static)"
+    self.depends = [f"libmount-devel={pkgver}-r{pkgrel}"]
+    return ["usr/lib/libmount.a"]
+
 @subpackage("libmount-devel")
 def _libmount_devel(self):
     self.pkgdesc = "Library for mount(8) (development files)"
@@ -144,6 +156,12 @@ def _libblkid(self):
     self.pkgdesc = "Library to handle device identification"
     self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
     return ["usr/lib/libblkid.so.*"]
+
+@subpackage("libblkid-static")
+def _libblkid_static(self):
+    self.pkgdesc = "Library to handle device identification (static)"
+    self.depends += [f"libblkid-devel={pkgver}-r{pkgrel}"]
+    return ["usr/lib/libblkid.a"]
 
 @subpackage("libblkid-devel")
 def _libblkid_devel(self):
@@ -162,6 +180,13 @@ def _libuuid(self):
     self.license = "BSD-3-Clause"
     self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
     return ["usr/lib/libuuid.so.*"]
+
+@subpackage("libuuid-static")
+def _libuuid_static(self):
+    self.pkgdesc = "UUID library from util-linux (static)"
+    self.depends += [f"libuuid-devel={pkgver}-r{pkgrel}"]
+    self.license = "BSD-3-Clause"
+    return ["usr/lib/libuuid.a"]
 
 @subpackage("libuuid-devel")
 def _libuuid_devel(self):
@@ -189,6 +214,12 @@ def _libsmartcols(self):
     self.pkgdesc = "Table or Tree library from util-linux"
     self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
     return ["usr/lib/libsmartcols.so.*"]
+
+@subpackage("libsmartcols-static")
+def _libsmartcols_static(self):
+    self.pkgdesc = "Table or Tree library from util-linux (static)"
+    self.depends += [f"libsmartcols-devel={pkgver}-r{pkgrel}"]
+    return ["usr/lib/libsmartcols.a"]
 
 @subpackage("libsmartcols-devel")
 def _libsmartcols_devel(self):
