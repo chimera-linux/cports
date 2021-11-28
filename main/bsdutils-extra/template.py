@@ -13,4 +13,4 @@ url = "https://github.com/chimera-linux/bsdutils-extra"
 source = f"https://github.com/chimera-linux/bsdutils-extra/archive/{_commit}.tar.gz"
 sha256 = "9d7a9b35e138fbe0cba83dea68da9936c0a8ab304514148dd618ed8b4ebfc637"
 # no test suite
-options = ["bootstrap", "!check"]
+options = ["bootstrap", "!check", "lto"]
