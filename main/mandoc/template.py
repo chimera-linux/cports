@@ -15,6 +15,8 @@ license = "ISC"
 url = "http://mandoc.bsd.lv"
 source = f"{url}/snapshots/{pkgname}-{pkgver}.tar.gz"
 sha256 = "8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c"
+# ld: error: undefined symbol: mchars_alloc
+options = ["!lto"]
 
 def pre_configure(self):
     with open(self.cwd / "configure.local", "w") as cf:
