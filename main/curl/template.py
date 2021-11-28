@@ -27,7 +27,7 @@ url = "https://curl.haxx.se"
 source = f"{url}/download/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "dd0d150e49cd950aff35e16b628edf04927f0289df42883750cf952bb858189c"
 # missing some checkdepends
-options = ["!check", "!cross"]
+options = ["!check", "!cross", "lto"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -37,6 +37,11 @@ def _libcurl(self):
     self.pkgdesc = "Multiprotocol file transfer library"
 
     return self.default_libs()
+
+@subpackage("libcurl-static")
+def _static(self):
+    self.pkgdesc = "Multiprotocol file transfer library (static)"
+    return self.default_static()
 
 @subpackage("libcurl-devel")
 def _devel(self):
