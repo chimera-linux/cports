@@ -11,9 +11,14 @@ license = "BSD-3-Clause"
 url = "https://www.libssh2.org"
 source = f"https://www.libssh2.org/download/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2d64e90f3ded394b91d3a2e774ca203a4179f69aebee03003e5a6fa621e41d51"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("libssh2-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libssh2-devel")
 def _devel(self):
