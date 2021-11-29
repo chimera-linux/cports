@@ -9,7 +9,6 @@ license = "MIT"
 url = "https://libuv.org"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "371e5419708f6aaeb8656671f89400b92a9bba6443369af1bb70bcd6e4b3c764"
-options = ["lto"]
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")

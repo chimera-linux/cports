@@ -11,4 +11,4 @@ url = "http://www.swig.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "d53be9730d8d58a16bf0cbd1f8ac0c0c3e1090573168bfa151b01eb47fa906fc"
 # broken check target?
-options = ["!check", "lto"]
+options = ["!check"]

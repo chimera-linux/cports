@@ -23,7 +23,7 @@ url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4e142d4babe086adf9016d8c606c805829da08e46389a4433f40346204f90cdb"
 # no check target
-options = ["!check", "lto"]
+options = ["!check"]
 
 def init_configure(self):
     self.make_install_args += [

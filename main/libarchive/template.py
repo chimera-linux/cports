@@ -19,7 +19,7 @@ url = "http://www.libarchive.org"
 source = f"https://github.com/libarchive/libarchive/releases/download/v{pkgver}/libarchive-{pkgver}.tar.gz"
 sha256 = "5f245bd5176bc5f67428eb0aa497e09979264a153a074d35416521a5b8e86189"
 # encoding failures on musl; harmless
-options = ["bootstrap", "!check", "lto"]
+options = ["bootstrap", "!check"]
 
 if self.stage > 0:
     configure_args.append("--with-zstd")

@@ -13,7 +13,6 @@ license = "ISC"
 url = "http://wireless.kernel.org/en/users/Documentation/iw"
 source = f"http://www.kernel.org/pub/software/network/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4c44e42762f903f9094ba5a598998c800a97a62afd6fd31ec1e0a799e308659c"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")

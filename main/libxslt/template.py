@@ -15,7 +15,7 @@ url = "http://xmlsoft.org/XSLT"
 source = f"http://xmlsoft.org/sources/{pkgname}-{pkgver}.tar.gz"
 sha256 = "98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f"
 # test code seemingly incompatible with current libxml2
-options = ["!cross", "!check", "lto"]
+options = ["!cross", "!check"]
 
 def post_install(self):
     self.install_license("COPYING")

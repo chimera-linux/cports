@@ -9,7 +9,6 @@ license = "BSD-3-Clause"
 url = "https://github.com/fontforge/libuninameslist"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "c089c6164f2cef361c3419a07408be72d6b58d6ef224ec226724a9fa93c0d46e"
-options = ["lto"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

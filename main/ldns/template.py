@@ -17,7 +17,7 @@ url = "http://www.nlnetlabs.nl/projects/ldns"
 source = f"http://www.nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "8ac84c16bdca60e710eea75782356f3ac3b55680d40e1530d7cea474ac208229"
 # no check target
-options = ["!check", "lto"]
+options = ["!check"]
 
 def init_configure(self):
     self.configure_args += [

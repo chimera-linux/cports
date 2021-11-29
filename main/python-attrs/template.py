@@ -12,7 +12,7 @@ url = "https://attrs.readthedocs.io"
 source = f"$(PYPI_SITE)/a/attrs/attrs-{pkgver}.tar.gz"
 sha256 = "ef6aaac3ca6cd92904cdd0d83f629a15f18053ec84e6432106f7a4d04ae4f5fb"
 # dependency of pytest
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")

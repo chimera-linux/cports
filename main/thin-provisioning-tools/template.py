@@ -16,7 +16,7 @@ url = "https://github.com/jthornber/thin-provisioning-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "a2508d9933ed8a3f6c8d302280d838d416668a1d914a83c4bd0fb01eaf0676e8"
 # needs gtest...
-options = ["!check", "lto"]
+options = ["!check"]
 
 def init_configure(self):
     self.make_install_args += [

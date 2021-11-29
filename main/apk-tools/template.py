@@ -17,7 +17,7 @@ sha256 = "d976d625d5ede5ccdd1bae4a56627c26a11f323475f85d7bc5cb29b04781f7b5"
 tool_flags = {
     "CFLAGS": ["-Wno-error"]
 }
-options = ["bootstrap", "lto"]
+options = ["bootstrap"]
 
 if self.stage > 0:
     makedepends += ["linux-headers", "musl-static"]

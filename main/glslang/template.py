@@ -13,7 +13,7 @@ url = "https://github.com/KhronosGroup/glslang"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "b6c83864c3606678d11675114fa5f358c519fe1dad9a781802bcc87fb8fa32d5"
 # missing checkdepends
-options = ["!check", "lto"]
+options = ["!check"]
 
 @subpackage("glslang-static")
 def _static(self):

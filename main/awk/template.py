@@ -10,7 +10,7 @@ url = "https://github.com/onetrueawk/awk"
 source = f"https://github.com/onetrueawk/awk/archive/{_commit}.tar.gz"
 sha256 = "ef0fa50b7e7e2e21eafd49bb249f7d80d0b86e9cae291408724dba77484a0c6f"
 # test suite uses local tools that are not present
-options = ["bootstrap", "!check", "lto"]
+options = ["bootstrap", "!check"]
 
 def init_configure(self):
     from cbuild.util import make

@@ -13,7 +13,6 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/seccomp/libseccomp"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "1e337ae9d8bab26641b17669a9871eaa10d4f3b474aaa4885d64b691a04614e3"
-options = ["lto"]
 # prevent a bunch of pain
 exec_wrappers = [
     ("/usr/bin/gsed", "sed")

@@ -15,7 +15,6 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/gentoo/eudev"
 source = f"https://dev.gentoo.org/~blueness/eudev/eudev-{pkgver}.tar.gz"
 sha256 = "87bb028d470fd1b85169349b44c55d5b733733dc2d50ddf1196e026725ead034"
-options = ["lto"]
 
 def post_install(self):
     # initramfs-tools

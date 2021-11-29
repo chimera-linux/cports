@@ -11,7 +11,7 @@ url = "https://github.com/pyparsing/pyparsing"
 source = f"{url}/archive/pyparsing_{pkgver}.tar.gz"
 sha256 = "b229816613fb9a05667d49934c60d34b26767666ed7dafe431cacbca22b70457"
 # calls urlopen
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")

@@ -12,7 +12,6 @@ license = "GPL-2.0-only"
 url = "https://git.kernel.org/cgit/linux/kernel/git/jaegeuk/f2fs-tools.git"
 source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
 sha256 = "619263d4e2022152a1472c1d912eaae104f20bd227ce0bb9d41d1d6608094bd1"
-options = ["lto"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

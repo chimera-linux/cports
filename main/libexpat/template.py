@@ -10,7 +10,6 @@ license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"
 sha256 = "cf032d0dba9b928636548e32b327a2d66b1aab63c4f4a13dd132c2d1d2f2fb6a"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")

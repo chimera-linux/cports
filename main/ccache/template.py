@@ -13,7 +13,7 @@ url = "https://ccache.samba.org"
 source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "51186ebe0326365f4e6131e1caa8911de7da4aa6718efc00680322d63a759517"
 # test suite needs bash
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.install_dir("usr/lib/ccache/bin")

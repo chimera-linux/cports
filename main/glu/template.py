@@ -11,7 +11,6 @@ license = "SGI-B-2.0"
 url = "https://gitlab.freedesktop.org/mesa/glu"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "24effdfb952453cc00e275e1c82ca9787506aba0282145fff054498e60e19a65"
-options = ["lto"]
 
 @subpackage("glu-static")
 def _static(self):

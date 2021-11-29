@@ -14,4 +14,4 @@ url = "https://python-requests.org"
 source = f"$(PYPI_SITE)/r/requests/requests-{pkgver}.tar.gz"
 sha256 = "b8aa58f8cf793ffd8782d3d8cb19e66ef36f7aba4353eec859e74678b01b07a7"
 # needs pytest, is a dependency of pytest
-options = ["!check", "lto"]
+options = ["!check"]

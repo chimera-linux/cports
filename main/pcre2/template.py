@@ -21,7 +21,6 @@ license = "BSD-3-Clause"
 url = "http://www.pcre.org"
 source = f"https://github.com/PhilipHazel/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "0781bd2536ef5279b1943471fdcdbd9961a2845e1d2c9ad849b9bd98ba1a9bd4"
-options = ["lto"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

@@ -11,7 +11,7 @@ url = "http://www.iana.org/time-zones"
 source = f"https://github.com/eggert/tz/archive/{pkgver}.tar.gz"
 sha256 = "11908a7f18530ca3013c8458d902a54cdd3382276bdd56891db074b1af4a26b8"
 # missing checkdepends
-options = ["!check", "lto"]
+options = ["!check"]
 
 def do_install(self):
     self.install_bin("zic")

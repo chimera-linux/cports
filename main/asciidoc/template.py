@@ -11,4 +11,4 @@ url = "https://asciidoc.org"
 source = f"$(PYPI_SITE)/a/asciidoc/asciidoc-{pkgver}.tar.gz"
 sha256 = "1800699c579038bcf68e760e9358304b69a19ef04c9bf0b4faa76b729dcf7dbf"
 # needs source-highlight, FIXME
-options = ["!check", "lto"]
+options = ["!check"]

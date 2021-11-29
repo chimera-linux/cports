@@ -35,7 +35,7 @@ url = "https://sourceware.org/lvm2"
 source = f"https://mirrors.kernel.org/sourceware/{pkgname}/releases/LVM2.{pkgver}.tgz"
 sha256 = "4a63bc8a084a8ae3c7bc5e6530cac264139d218575c64416c8b99e3fe039a05c"
 # the tests are full of scary gnuisms + don't work rootless
-options = ["!check", "lto"]
+options = ["!check"]
 # otherwise we're in for a world of pain
 exec_wrappers = [
     ("/usr/bin/gsed", "sed")

@@ -10,7 +10,6 @@ license = "Libpng"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "505e70834d35383537b6491e7ae8641f1a4bed1876dbfe361201fc80868d88ca"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

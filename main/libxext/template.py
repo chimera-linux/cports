@@ -11,7 +11,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXext-{pkgver}.tar.bz2"
 sha256 = "59ad6fcce98deaecc14d39a672cf218ca37aba617c9a0f691cac3bcd28edf82b"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")

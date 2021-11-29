@@ -31,7 +31,7 @@ tool_flags = {
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
 # check is cyclic: depends on perl modules
-options = ["!check", "lto"]
+options = ["!check"]
 
 def pre_patch(self):
     for f in (self.cwd / f"perl-{pkgver}").iterdir():

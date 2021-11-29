@@ -16,7 +16,7 @@ license = "OpenSSL"
 url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
 sha256 = "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1"
-options = ["bootstrap", "lto"]
+options = ["bootstrap"]
 
 if self.stage > 0:
     makedepends = ["linux-headers"]

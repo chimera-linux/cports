@@ -10,4 +10,4 @@ url = "https://github.com/chimera-linux/bsdgrep"
 source = f"https://github.com/chimera-linux/bsdgrep/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "839a505c5d5f6d53069e1863ed264d33120db01df29a606441a67cd40ce032ea"
 # no test suite
-options = ["bootstrap", "!check", "lto"]
+options = ["bootstrap", "!check"]

@@ -8,4 +8,3 @@ license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/bsded"
 source = f"https://github.com/chimera-linux/bsded/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "ae351b0a03519d2ec251f2fb3210eb402e4babd17b9c1e0f3ab2aa307bb3505f"
-options = ["lto"]

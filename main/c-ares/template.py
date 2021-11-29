@@ -11,7 +11,7 @@ url = "https://c-ares.haxx.se"
 source = f"https://c-ares.haxx.se/download/{pkgname}-{pkgver}.tar.gz"
 sha256 = "1a7d52a8a84a9fbffb1be9133c0f6e17217d91ea5a6fa61f6b4729cda78ebbcf"
 # does not like the sandbox
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE.md")

@@ -11,7 +11,7 @@ url = "https://pip.pypa.io"
 source = f"$(PYPI_SITE)/p/pip/pip-{pkgver}.tar.gz"
 sha256 = "fd11ba3d0fdb4c07fbc5ecbba0b1b719809420f25038f8ee3cd913d3faa3033a"
 # unpackaged dependencies
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE.txt")

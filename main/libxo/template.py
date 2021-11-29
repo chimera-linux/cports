@@ -12,7 +12,7 @@ url = "https://github.com/Juniper/libxo"
 source = f"https://github.com/Juniper/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
-options = ["bootstrap", "lto"]
+options = ["bootstrap"]
 
 if self.stage > 0:
     makedepends += ["gettext-tiny-devel"]

@@ -47,7 +47,7 @@ sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
-options = ["bootstrap", "lto"]
+options = ["bootstrap"]
 
 cmake_dir = "llvm"
 

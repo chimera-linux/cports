@@ -10,7 +10,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXau-{pkgver}.tar.bz2"
 sha256 = "ccf8cbf0dbf676faa2ea0a6d64bcc3b6746064722b606c8c52917ed00dcb73ec"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")

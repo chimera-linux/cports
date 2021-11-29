@@ -20,7 +20,6 @@ license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/{pkgname}/archive/xkbcommon-{pkgver}.tar.gz"
 sha256 = "8eda6782c6ed4b83296521f2f7e6bea88aba76d49c39fb4fce0f8d355a9181ce"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("LICENSE")

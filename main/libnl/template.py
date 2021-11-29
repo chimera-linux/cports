@@ -11,7 +11,6 @@ license = "LGPL-2.1-only"
 url = "https://github.com/thom311/libnl"
 source = f"{url}/releases/download/libnl{pkgver.replace('.', '_')}/libnl-{pkgver}.tar.gz"
 sha256 = "352133ec9545da76f77e70ccb48c9d7e5324d67f6474744647a7ed382b5e05fa"
-options = ["lto"]
 
 @subpackage("libnl-static")
 def _static(self):

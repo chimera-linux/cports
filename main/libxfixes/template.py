@@ -10,7 +10,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXfixes-{pkgver}.tar.bz2"
 sha256 = "a7c1a24da53e0b46cac5aea79094b4b2257321c621b258729bc3139149245b4c"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")

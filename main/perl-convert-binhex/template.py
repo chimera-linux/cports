@@ -12,4 +12,4 @@ url = "https://metacpan.org/release/Convert-BinHex"
 source = f"$(CPAN_SITE)/Convert/Convert-BinHex-{pkgver}.tar.gz"
 sha256 = "513591b4be46bd7eb91e83197721b4a045a9753a3dd2f11de82c9d3013226397"
 # missing checkdepends
-options = ["!check", "lto"]
+options = ["!check"]

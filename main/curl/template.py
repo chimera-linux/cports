@@ -27,7 +27,7 @@ url = "https://curl.haxx.se"
 source = f"{url}/download/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "dd0d150e49cd950aff35e16b628edf04927f0289df42883750cf952bb858189c"
 # missing some checkdepends
-options = ["!check", "!cross", "lto"]
+options = ["!check", "!cross"]
 
 def post_install(self):
     self.install_license("COPYING")

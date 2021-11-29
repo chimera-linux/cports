@@ -14,7 +14,7 @@ license = "custom:none"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2021/sqlite-autoconf-{_amalg}.tar.gz"
 sha256 = "bd90c3eb96bee996206b83be7065c9ce19aef38c3f4fb53073ada0d0b69bbce3"
-options = ["!parallel", "lto"]
+options = ["!parallel"]
 
 _cflags = [
     "-DSQLITE_ENABLE_DBSTAT_VTAB", "-DSQLITE_ENABLE_COLUMN_METADATA",

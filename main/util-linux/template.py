@@ -49,7 +49,7 @@ file_modes = {
     "usr/bin/write": (None, "tty:5", 0o2755),
 }
 # checkdepends are missing
-options = ["!check", "lto"]
+options = ["!check"]
 
 system_users = ["_uuidd"]
 

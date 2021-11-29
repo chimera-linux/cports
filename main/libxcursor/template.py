@@ -10,7 +10,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXcursor-{pkgver}.tar.bz2"
 sha256 = "3ad3e9f8251094af6fe8cb4afcf63e28df504d46bfa5a5529db74a505d628782"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")

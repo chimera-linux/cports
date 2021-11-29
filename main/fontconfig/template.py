@@ -17,7 +17,7 @@ url = "https://www.fontconfig.org"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/release/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "f655dd2a986d7aa97e052261b36aa67b0a64989496361eca8d604e6414006741"
 # leaves junk in pc file
-options = ["!cross", "lto"]
+options = ["!cross"]
 
 def post_install(self):
     self.install_license("COPYING")

@@ -11,7 +11,7 @@ url = "https://libevent.org"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/release-{pkgver}-stable/{pkgname}-{pkgver}-stable.tar.gz"
 sha256 = "92e6de1be9ec176428fd2367677e61ceffc2ee1cb119035037a27d346b0403bb"
 # test suite does not like our env
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")

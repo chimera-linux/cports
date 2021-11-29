@@ -18,7 +18,7 @@ source = f"https://github.com/unicode-org/{pkgname}/releases/download/release-{p
 sha256 = "8d205428c17bf13bb535300669ed28b338a157b1c01ae66d31d0d3e2d47c3fd5"
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
 # cba for now
-options = ["!cross", "lto"]
+options = ["!cross"]
 
 def post_install(self):
     self.install_license(self.builddir / self.wrksrc / "LICENSE")

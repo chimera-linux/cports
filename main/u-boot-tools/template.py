@@ -14,7 +14,7 @@ url = "https://www.denx.de/wiki/U-Boot"
 source = f"ftp://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
 sha256 = "cde723e19262e646f2670d25e5ec4b1b368490de950d4e26275a988c36df0bd4"
 # weird test suite
-options = ["!check", "lto"]
+options = ["!check"]
 
 if self.cross_build:
     make_build_args += [

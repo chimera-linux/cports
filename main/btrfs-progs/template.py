@@ -21,7 +21,7 @@ url = "https://btrfs.wiki.kernel.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
 sha256 = "b8596493eab6c0107cc7547b1224dc434b39599d63e71e19f9fde33297b551bc"
 # util-linux-cbuild is incomplete
-options = ["!check", "lto"]
+options = ["!check"]
 
 @subpackage("libbtrfs")
 def _libbtrfs(self):

@@ -15,7 +15,6 @@ url = "https://pagure.io/libaio"
 source = f"https://pagure.io/{pkgname}/archive/{_commit}/{pkgname}-{_commit}.tar.gz"
 sha256 = "a5181b4fb83e7885098a1f1dd20fcad21ec5e7a013f3b5c73613c14c5097b172"
 hardening = ["!ssp"]
-options = ["lto"]
 
 @subpackage("libaio-static")
 def _static(self):

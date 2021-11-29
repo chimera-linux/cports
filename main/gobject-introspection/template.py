@@ -17,7 +17,7 @@ source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "902b4906e3102d17aa2fcb6dad1c19971c70f2a82a159ddc4a94df73a3cafc4a"
 # check creates a dependency cycle
 # cross compiling tons of janky hackery
-options = ["!check", "!cross", "lto"]
+options = ["!check", "!cross"]
 
 pycompile_dirs = [f"usr/lib/{pkgname}/giscanner"]
 

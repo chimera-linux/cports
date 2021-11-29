@@ -11,4 +11,3 @@ license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/IO-String"
 source = f"$(CPAN_SITE)/IO/IO-String-{pkgver}.tar.gz"
 sha256 = "2a3f4ad8442d9070780e58ef43722d19d1ee21a803bf7c8206877a10482de5a0"
-options = ["lto"]

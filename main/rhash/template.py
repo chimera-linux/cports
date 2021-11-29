@@ -18,7 +18,6 @@ license = "0BSD"
 url = "https://github.com/rhash/RHash"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "600d00f5f91ef04194d50903d3c79412099328c42f28ff43a0bdb777b00bec62"
-options = ["lto"]
 
 def init_configure(self):
     self.configure_args += [

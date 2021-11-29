@@ -8,7 +8,6 @@ license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/debianutils"
 source = f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.orig.tar.xz"
 sha256 = "2b0fad5c00eb2b8461523b2950e6f06e6ddbb0ac3384c5a3377867d51098d102"
-options = ["lto"]
 
 def post_install(self):
     # (add|remove)-shell conflicts with our system

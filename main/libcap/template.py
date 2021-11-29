@@ -21,7 +21,6 @@ license = "GPL-2.0-only"
 url = "http://sites.google.com/site/fullycapable"
 source = f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c1e29680f8bcc51b172e9a8eb9a7a4d7255a00a14301a7c2cf96d1febf7449a5"
-options = ["lto"]
 
 def init_configure(self):
     eargs = [

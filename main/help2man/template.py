@@ -12,4 +12,4 @@ url = "https://www.gnu.org/software/help2man"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6739e4caa42e6aed3399be4387ca79399640967334e91728863b8eaa922582be"
 # no test suite
-options = ["!check", "lto"]
+options = ["!check"]

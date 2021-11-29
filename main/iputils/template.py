@@ -20,7 +20,7 @@ url = "https://github.com/iputils/iputils"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "6d1a44b0682d3d4b64586dbaebe61dd61ae16d6e2f4dc0c43336d0e47a9db323"
 # operation not permitted (sandbox, unshared network)
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.install_license("Documentation/LICENSE.BSD3")

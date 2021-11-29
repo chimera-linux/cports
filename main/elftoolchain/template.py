@@ -23,7 +23,7 @@ url = "https://sourceforge.net/projects/elftoolchain"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/{_commit}.tar.gz"
 sha256 = "3d9e0513af4b7cb8ac7944d98057b8d61fcc4ff326b030a7b06006c0abb7922c"
 # missing tet
-options = ["bootstrap", "!check", "lto"]
+options = ["bootstrap", "!check"]
 
 def init_build(self):
     flags = self.get_cflags(shell = True) + " " + \

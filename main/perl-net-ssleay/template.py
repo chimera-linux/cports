@@ -12,4 +12,4 @@ url = "https://metacpan.org/release/Net-SSLeay"
 source = f"$(CPAN_SITE)/Net/Net-SSLeay-{pkgver}.tar.gz"
 sha256 = "f8696cfaca98234679efeedc288a9398fcf77176f1f515dbc589ada7c650dc93"
 # missing checkdepends
-options = ["!check", "lto"]
+options = ["!check"]

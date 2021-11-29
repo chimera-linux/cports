@@ -14,7 +14,7 @@ url = "https://www.tcpdump.org"
 source = f"{url}/release/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ed285f4accaf05344f90975757b3dbfe772ba41d1c401c2648b7fa45b711bdd4"
 # no check target
-options = ["!check", "lto"]
+options = ["!check"]
 
 def init_configure(self):
     incp = self.profile().sysroot / "usr/include/libnl3"

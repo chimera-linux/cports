@@ -15,7 +15,7 @@ url = "https://docs.pytest.org/en/latest"
 source = f"$(PYPI_SITE)/p/pytest/pytest-{pkgver}.tar.gz"
 sha256 = "131b36680866a76e6781d13f101efb86cf674ebb9762eb70d3082b6f29889e89"
 # missing checkdepends
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_build(self):
     from cbuild.util import make

@@ -14,7 +14,7 @@ url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
 sha256 = "5347464af5b14ac54bb945dc68f1dd7c56f0dad7262816b956138fc53bcc0131"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
-options = ["!cross", "lto"] # i don't dare touch this yet
+options = ["!cross"] # i don't dare touch this yet
 
 # libs have semi-auto-generated subpkgs using this array
 # needs to be updated with new libs regularly

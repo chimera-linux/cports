@@ -27,7 +27,6 @@ license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "5cf5d6ce192e0eb15c1fc861a436bf21b5bb3b91dbdabbdebe83e1f83aa098fe"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")

@@ -21,7 +21,7 @@ tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
 }
 # checkdepends are missing
-options = ["!check", "lto"]
+options = ["!check"]
 
 # need to use bundled jsoncpp (i.e. --system-jsoncpp is not possible) as
 # the two build systems that offers are meson and cmake - cmake cannot be

@@ -16,7 +16,7 @@ sha256 = [
     "8a53fe4d643fb7341e6c94653d63d3d813d8d849fc1d9dfe5dc49ab2fb48aee9"
 ]
 tool_flags = {"CFLAGS": ["-static"], "LDFLAGS": ["-static"]}
-options = ["bootstrap", "lto"]
+options = ["bootstrap"]
 
 def do_build(self):
     self.do("sh", self.chroot_cwd / "Build.sh", "-r")

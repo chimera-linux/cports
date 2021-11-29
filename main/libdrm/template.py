@@ -15,7 +15,6 @@ license = "MIT"
 url = "https://dri.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/mesa/drm/-/archive/{pkgname}-{pkgver}/drm-{pkgname}-{pkgver}.tar.gz"
 sha256 = "f70e208eb2faab96431f43e397845f8e8c5b543b714d61797d3b7e74845301d2"
-options = ["lto"]
 
 # stuff like radeon autodetects, most arm stuff is by default false
 match self.profile().arch:

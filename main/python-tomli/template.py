@@ -22,7 +22,7 @@ sha256 = [
     "29468fa2330969167d1f5c23eb9c0661cb6dacfcd46f361a274609a7f4197530"
 ]
 # no tests in archive
-options = ["!check", "lto"]
+options = ["!check"]
 
 def init_build(self):
     # tomli requires importing itself and flit_core to build

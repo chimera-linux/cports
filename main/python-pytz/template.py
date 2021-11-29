@@ -12,7 +12,7 @@ url = "https://pythonhosted.org/pytz"
 source = f"$(PYPI_SITE)/p/pytz/pytz-{pkgver}.tar.gz"
 sha256 = "acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326"
 # dependency of pytest
-options = ["!check", "brokenlinks", "lto"]
+options = ["!check", "brokenlinks"]
 
 def post_install(self):
     for f in (self.destdir / "usr/lib").glob(

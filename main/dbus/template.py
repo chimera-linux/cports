@@ -35,7 +35,6 @@ suid_files = [
 file_modes = {
     "usr/libexec/dbus-daemon-launch-helper": (None, "dbus:22", 0o4750)
 }
-options = ["lto"]
 
 system_users = ["dbus:22"]
 

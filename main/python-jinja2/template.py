@@ -12,7 +12,7 @@ url = "http://jinja.pocoo.org"
 source = f"$(PYPI_SITE)/J/Jinja2/Jinja2-{pkgver}.tar.gz"
 sha256 = "611bb273cd68f3b993fabdc4064fc858c5b47a973cb5aa7999ec1ba405c87cd7"
 # dependency of pytest
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE.rst")

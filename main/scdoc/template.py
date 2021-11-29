@@ -11,7 +11,6 @@ url = "https://git.sr.ht/~sircmpwn/scdoc"
 source = f"https://git.sr.ht/~sircmpwn/scdoc/archive/{pkgver}.tar.gz"
 sha256 = "e9ff9981b5854301789a6778ee64ef1f6d1e5f4829a9dd3e58a9a63eacc2e6f0"
 tool_flags = {"CFLAGS": [f"-DVERSION=\"{pkgver}\""]}
-options = ["lto"]
 
 if self.cross_build:
     hostmakedepends = ["scdoc"]

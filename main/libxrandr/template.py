@@ -11,7 +11,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXrandr-{pkgver}.tar.bz2"
 sha256 = "8aea0ebe403d62330bb741ed595b53741acf45033d3bda1792f1d4cc3daee023"
-options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")

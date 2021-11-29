@@ -12,4 +12,4 @@ url = "https://cython.org"
 source = f"$(PYPI_SITE)/C/Cython/Cython-{pkgver}.tar.gz"
 sha256 = "cdf04d07c3600860e8c2ebaad4e8f52ac3feb212453c1764a49ac08c827e8443"
 # flaky tests
-options = ["!check", "lto"]
+options = ["!check"]

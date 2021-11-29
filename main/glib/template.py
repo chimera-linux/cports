@@ -26,7 +26,7 @@ url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "f9b7bce7f51753a1f43853bbcaca8bf09e15e994268e29cfd7a76f65636263c0"
 # missing checkdepends
-options = ["!check", "lto"]
+options = ["!check"]
 
 def do_check(self):
     self.do("dbus-run-session", "ninja", "-C", "build", "test")

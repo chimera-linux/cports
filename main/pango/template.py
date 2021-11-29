@@ -18,7 +18,7 @@ url = "https://www.pango.org"
 source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "21e1f5798bcdfda75eabc4280514b0896ab56f656d4e7e66030b9a2535ecdc98"
 # FIXME: missing checkdepends
-options = ["!check", "lto"]
+options = ["!check"]
 
 @subpackage("pango-xft")
 def _xft(self):

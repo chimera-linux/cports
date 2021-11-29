@@ -50,7 +50,7 @@ url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
 sha256 = "a2753c09deef0ba14d35ae8a2ceff3fe5cd13698928c7bb62c2ec8736eb09ce1"
 # cba to deal with cross patching nonsense
-options = ["!cross", "lto"]
+options = ["!cross"]
 
 # llvmpipe only properly supports a few archs
 match self.profile().arch:

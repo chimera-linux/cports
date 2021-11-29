@@ -11,7 +11,7 @@ url = "https://github.com/c0fec0de/anytree"
 source = f"$(PYPI_SITE)/a/anytree/anytree-{pkgver}.tar.gz"
 sha256 = "3f0f93f355a91bc3e6245319bf4c1d50e3416cc7a35cc1133c1ff38306bbccab"
 # missing checkdepends
-options = ["!check", "lto"]
+options = ["!check"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/LICENSE")
