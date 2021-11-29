@@ -16,12 +16,17 @@ license = "libtiff"
 url = "http://libtiff.maptools.org"
 source = f"http://download.osgeo.org/{pkgname}/tiff-{pkgver}.tar.gz"
 sha256 = "0e46e5acb087ce7d1ac53cf4f56a09b221537fc86dfc5daaad1c2e89e1b37ac8"
+options = ["lto"]
 
 def post_install(self):
     for f in (self.destdir / "usr/share/man/man3").glob("*.3tiff"):
         self.mv(f, f.with_suffix(".3"))
 
     self.install_license("COPYRIGHT")
+
+@subpackage("libtiff-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libtiff-devel")
 def _devel(self):
