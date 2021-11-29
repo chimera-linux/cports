@@ -12,9 +12,14 @@ license = "BSD-3-Clause"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = f"http://downloads.webmproject.org/releases/webp/{pkgname}-{pkgver}.tar.gz"
 sha256 = "808b98d2f5b84e9b27fdef6c5372dac769c3bda4502febbfa5031bd3c4d7d018"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("libwebp-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libwebp-devel")
 def _devel(self):
