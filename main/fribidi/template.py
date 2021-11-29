@@ -10,6 +10,11 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/fribidi/fribidi"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "0e6d631c184e1012fb3ae86e80adabf26e46b4ffee2332e679eb308edd337398"
+options = ["lto"]
+
+@subpackage("fribidi-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("fribidi-devel")
 def _devel(self):
