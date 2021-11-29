@@ -2,7 +2,9 @@ pkgname = "musl-cross"
 pkgver = "1.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
+configure_args = [
+    "--prefix=/usr", "--disable-gcc-wrapper", "--disable-static"
+]
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
 makedepends = ["clang-rt-crt-cross"]
@@ -16,7 +18,7 @@ sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 # segfaults otherwise
 hardening = ["!scp"]
 # crosstoolchain
-options = ["!cross", "!check", "brokenlinks", "foreignelf"]
+options = ["!cross", "!check", "!lto", "brokenlinks", "foreignelf"]
 
 _targets = list(filter(
     lambda p: p != self.profile().arch,

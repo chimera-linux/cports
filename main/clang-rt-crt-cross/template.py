@@ -2,8 +2,8 @@ pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.2"
 pkgver = "13.0.0"
 pkgrel = 0
-build_style = "cmake"
 build_wrksrc = f"llvm-project-{pkgver}.src"
+build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
     f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver}",
@@ -26,15 +26,16 @@ configure_args = [
     "-DCOMPILER_RT_BUILD_PROFILE=OFF",
     "-DCOMPILER_RT_BUILD_SANITIZERS=OFF",
     "-DCOMPILER_RT_BUILD_XRAY=OFF",
+    "-DCOMPILER_RT_BUILD_ORC=OFF",
     # use multiarch style paths
     "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
 ]
+make_cmd = "make"
 hostmakedepends = [
-    "cmake", "gmake", "python", "llvm-devel", "clang-tools-extra"
+    "cmake", "gmake", "python", "llvm-static", "clang-tools-extra"
 ]
 makedepends = ["zlib-devel", "libffi-devel"]
 depends = []
-make_cmd = "make"
 pkgdesc = "Core cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
@@ -48,7 +49,8 @@ sha256 = [
     "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
-options = ["!cross", "!check", "!lint", "foreignelf"]
+# crosstoolchain
+options = ["!cross", "!check", "!lto", "foreignelf"]
 
 cmake_dir = "compiler-rt"
 

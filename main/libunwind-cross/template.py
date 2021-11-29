@@ -22,7 +22,7 @@ url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
 
-options = ["!cross", "!check", "!lint", "foreignelf"]
+options = ["!cross", "!check", "!lint", "!lto", "foreignelf"]
 
 cmake_dir = "libunwind"
 

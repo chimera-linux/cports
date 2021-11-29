@@ -16,17 +16,18 @@ configure_args = [
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
 ]
+make_cmd = "make"
 hostmakedepends = ["cmake", "python"]
 makedepends = ["libcxxabi-cross", "linux-headers-cross"]
 depends = ["libcxxabi-cross"]
-make_cmd = "make"
 pkgdesc = "LLVM libc++ (cross-compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
-options = ["!cross", "!check", "!lint", "foreignelf"]
+# crosstoolchain
+options = ["!cross", "!check", "!lto", "foreignelf"]
 
 cmake_dir = "libcxx"
 

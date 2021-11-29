@@ -29,6 +29,7 @@ configure_args = [
     # use multiarch style paths
     "-DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=YES",
 ]
+make_cmd = "make"
 hostmakedepends = [
     "cmake", "gmake", "python", "llvm-devel", "clang-tools-extra"
 ]
@@ -37,14 +38,14 @@ makedepends = [
     "libcxx-cross", "libexecinfo-cross", "linux-headers-cross"
 ]
 depends = ["clang-rt-crt-cross", "libcxx-cross", "libexecinfo-cross"]
-make_cmd = "make"
 pkgdesc = "Cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
-options = ["!cross", "!check", "!lint", "foreignelf"]
+# crosstoolchain
+options = ["!cross", "!check", "!lto", "foreignelf"]
 
 cmake_dir = "compiler-rt"
 
