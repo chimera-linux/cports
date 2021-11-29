@@ -19,5 +19,6 @@ license = "GPL-2.0-or-later AND GFDL-1.1-or-later"
 url = "http://www.gtk.org/gtk-doc"
 source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "cc1b709a20eb030a278a1f9842a362e00402b7f834ae1df4c1998a723152bf43"
+options = ["lto"]
 
 pycompile_dirs = ["usr/share/gtk-doc/python/gtkdoc"]
