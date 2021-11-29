@@ -17,7 +17,7 @@ url = "http://www.nlnetlabs.nl/projects/ldns"
 source = f"http://www.nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "8ac84c16bdca60e710eea75782356f3ac3b55680d40e1530d7cea474ac208229"
 # no check target
-options = ["!check"]
+options = ["!check", "lto"]
 
 def init_configure(self):
     self.configure_args += [
@@ -33,6 +33,11 @@ def _lib(self):
     self.pkgdesc = "Modern DNS/DNSSEC library"
 
     return self.default_libs()
+
+@subpackage("libldns-static")
+def _static(self):
+    self.pkgdesc = "Modern DNS/DNSSEC library (static)"
+    return self.default_static()
 
 @subpackage("libldns-devel")
 def _devel(self):
