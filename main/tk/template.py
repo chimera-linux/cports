@@ -24,7 +24,7 @@ url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/tcl/{pkgname}{pkgver}-src.tar.gz"
 sha256 = "12395c1f3fcb6bed2938689f797ea3cdf41ed5cb6c4766eec8ac949560310630"
 # no check target
-options = ["!check", "!cross"]
+options = ["!check", "!cross", "!lto"]
 
 def init_configure(self):
     self.make_install_args += [
