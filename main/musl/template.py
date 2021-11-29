@@ -16,7 +16,7 @@ sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 # segfaults otherwise
 hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
-options = ["bootstrap", "!check", "brokenlinks", "lto"]
+options = ["bootstrap", "!check", "!lto", "brokenlinks"]
 
 def init_configure(self):
     # ensure that even early musl uses compiler-rt
@@ -61,10 +61,6 @@ def do_install(self):
 
 @subpackage("musl-static")
 def _static(self):
-    self.pkgdesc = f"{pkgdesc} (static with LTO)"
-    # prefer over musl-static-nolto
-    self.provider_priority = 10
-
     return ["usr/lib/libc.a"]
 
 @subpackage("musl-devel")
