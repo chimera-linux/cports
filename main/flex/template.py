@@ -24,4 +24,5 @@ def post_install(self):
 
 @subpackage("libfl-static")
 def _static(self):
+    self.depends = []
     return self.default_devel()
