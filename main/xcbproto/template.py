@@ -11,6 +11,7 @@ license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/proto/{pkgname}/-/archive/xcb-proto-{pkgver}/{pkgname}-xcb-proto-{pkgver}.tar.gz"
 sha256 = "1101be204eecfb6af6b4325c143b3da06a6929753418f161882e86ae1457ca57"
+options = ["lto"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
