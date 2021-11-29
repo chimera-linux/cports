@@ -26,13 +26,19 @@ url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "f9b7bce7f51753a1f43853bbcaca8bf09e15e994268e29cfd7a76f65636263c0"
 # missing checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
 
 def do_check(self):
     self.do("dbus-run-session", "ninja", "-C", "build", "test")
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("libglib-static")
+def _static(self):
+    self.pkgdesc = f"{pkgdesc} (static libraries)"
+
+    return self.default_static()
 
 @subpackage("libglib-devel")
 def _libdevel(self):
@@ -43,7 +49,6 @@ def _libdevel(self):
         "usr/lib/glib-2.0",
         "usr/lib/pkgconfig",
         "usr/lib/*.so",
-        "usr/lib/*.a",
     ]
 
 @subpackage("glib-devel")
