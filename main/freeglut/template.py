@@ -12,10 +12,14 @@ source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "d4000e02102acaf259998c870e25214739d1f16f67f99cb35e4f46841399da68"
 tool_flags = {"CFLAGS": ["-fcommon"]}
 # no tests
-options = ["!check"]
+options = ["!check", "lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("freeglut-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("freeglut-devel")
 def _devel(self):
