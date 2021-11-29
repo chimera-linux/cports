@@ -10,11 +10,15 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXdmcp-{pkgver}.tar.bz2"
 sha256 = "20523b44aaa513e17c009e873ad7bbc301507a3224c232610ce2e099011c6529"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
 
+@subpackage("libxdmcp-static")
+def _static(self):
+    return self.default_static()
+
 @subpackage("libxdmcp-devel")
 def _devel(self):
-    self.depends += ["xorgproto"]
     return self.default_devel()
