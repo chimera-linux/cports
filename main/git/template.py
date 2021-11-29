@@ -20,7 +20,7 @@ url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3a0755dd1cfab71a24dd96df3498c29cd0acd13b04f3d08bf933e81286db802c"
 # missing checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
 
 def init_configure(self):
     from cbuild.util import make
