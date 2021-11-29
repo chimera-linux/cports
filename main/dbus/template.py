@@ -35,6 +35,7 @@ suid_files = [
 file_modes = {
     "usr/libexec/dbus-daemon-launch-helper": (None, "dbus:22", 0o4750)
 }
+options = ["lto"]
 
 system_users = ["dbus:22"]
 
@@ -49,6 +50,10 @@ def post_install(self):
         self.files_path / "dbus-daemon.wrapper", "usr/libexec", mode = 0o755
     )
     self.install_service(self.files_path / "dbus")
+
+@subpackage("dbus-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("dbus-devel")
 def _devel(self):
