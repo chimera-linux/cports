@@ -24,6 +24,7 @@ sha256 = "dd65a8795f6127fb1b9e29f2092686b0590a0d3738c2b90c792ccd320deaf966"
 tool_flags = {"CFLAGS": [
     "-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"
 ]}
+options = ["lto"]
 
 def do_check(self):
     # FIXME: add an executable wrapper to our make functionality
