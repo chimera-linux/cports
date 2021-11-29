@@ -18,7 +18,7 @@ url = "https://www.pango.org"
 source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "21e1f5798bcdfda75eabc4280514b0896ab56f656d4e7e66030b9a2535ecdc98"
 # FIXME: missing checkdepends
-options = ["!check"]
+options = ["!check", "lto"]
 
 @subpackage("pango-xft")
 def _xft(self):
@@ -31,6 +31,10 @@ def _view(self):
     self.pkgdesc = f"{pkgdesc} (utility to view pango files)"
 
     return ["usr/bin/pango-view", "usr/share/man/man1/pango-view.1"]
+
+@subpackage("pango-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("pango-devel")
 def _devel(self):
