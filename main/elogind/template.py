@@ -27,6 +27,7 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "c490dc158c8f5bca8d00ecfcc7ad5af24d1c7b9e59990a0b3b1323996221a922"
+options = ["lto"]
 
 def post_install(self):
     # compat symlinks
