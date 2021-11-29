@@ -17,6 +17,7 @@ configure_args = [
     "-Dplatforms=x11,wayland",
     "-Dglx=dri",
     "-Dcpp_std=gnu++14",
+    "-Ddefault_library=shared",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "flex", "glslang", "bison",
@@ -49,7 +50,7 @@ url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
 sha256 = "a2753c09deef0ba14d35ae8a2ceff3fe5cd13698928c7bb62c2ec8736eb09ce1"
 # cba to deal with cross patching nonsense
-options = ["!cross"]
+options = ["!cross", "lto"]
 
 # llvmpipe only properly supports a few archs
 match self.profile().arch:
