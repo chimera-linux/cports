@@ -21,7 +21,8 @@ url = "http://mj.ucw.cz/pciutils.html"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "ea768aa0187ba349391c6c157445ecc2b42e7d671fc1ce8c53ff5ef513f1e2ab"
 # no check target
-options = ["!check"]
+# ld: error: undefined symbol: pci_alloc ... and so on
+options = ["!check", "!lto"]
 
 def pre_build(self):
     self.make.build([
