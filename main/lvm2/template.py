@@ -22,8 +22,8 @@ configure_args = [
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "gsed", "pkgconf", "bash"]
 makedepends = [
-    "eudev-devel", "libblkid-devel", "libaio-devel", "libedit-devel",
-    "linux-headers",
+    "eudev-static", "libblkid-static", "libaio-static", "libedit-devel",
+    "linux-headers", "musl-static", "libunwind-static",
 ]
 # a bunch of the commands are scripts and they need bash
 # TODO: check inside of them for gnuisms and fix them
@@ -35,7 +35,7 @@ url = "https://sourceware.org/lvm2"
 source = f"https://mirrors.kernel.org/sourceware/{pkgname}/releases/LVM2.{pkgver}.tgz"
 sha256 = "4a63bc8a084a8ae3c7bc5e6530cac264139d218575c64416c8b99e3fe039a05c"
 # the tests are full of scary gnuisms + don't work rootless
-options = ["!check"]
+options = ["!check", "lto"]
 # otherwise we're in for a world of pain
 exec_wrappers = [
     ("/usr/bin/gsed", "sed")
@@ -51,6 +51,11 @@ def post_install(self):
 
     self.rm(self.destdir / "usr/sbin")
 
+@subpackage("device-mapper-static")
+def _static(self):
+    self.pkgdesc = "Device Mapper userspace library and tools (static libraries)"
+    return self.default_static()
+
 @subpackage("device-mapper-devel")
 def _dmdev(self):
     self.pkgdesc = "Device Mapper userspace library and tools (development files)"
@@ -64,7 +69,6 @@ def _dmdev(self):
         "usr/lib/libdevmapper.so",
         "usr/lib/libdevmapper-event.so",
         "usr/lib/libdevmapper-event-lvm2.so",
-        "usr/lib/*.a",
     ]
 
 @subpackage("device-mapper")
