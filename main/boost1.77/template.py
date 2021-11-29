@@ -14,7 +14,7 @@ url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
 sha256 = "5347464af5b14ac54bb945dc68f1dd7c56f0dad7262816b956138fc53bcc0131"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
-options = ["!cross"] # i don't dare touch this yet
+options = ["!cross", "lto"] # i don't dare touch this yet
 
 # libs have semi-auto-generated subpkgs using this array
 # needs to be updated with new libs regularly
@@ -131,6 +131,10 @@ def _jam(self):
 
     return ["usr/bin/bjam", "usr/bin/b2"]
 
+@subpackage(f"boost{_mver}-static")
+def _static(self):
+    return self.default_static()
+
 @subpackage(f"boost{_mver}-devel")
 def _devel(self):
     self.depends = [f"boost{_mver}={pkgver}-r{pkgrel}"] + makedepends
@@ -142,6 +146,13 @@ def _devel(self):
 @subpackage("boost-devel")
 def _develmeta(self):
     self.depends = [f"boost{_mver}-devel={pkgver}-r{pkgrel}"]
+    self.build_style = "meta"
+
+    return []
+
+@subpackage("boost-static")
+def _staticmeta(self):
+    self.depends = [f"boost{_mver}-static={pkgver}-r{pkgrel}"]
     self.build_style = "meta"
 
     return []
