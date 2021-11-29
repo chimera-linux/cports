@@ -59,8 +59,8 @@ def do_install(self):
 
     self.install_link("true", "usr/bin/ldconfig")
 
-@subpackage("musl-static", self.stage >= 2)
-def _static_lto(self):
+@subpackage("musl-static")
+def _static(self):
     self.pkgdesc = f"{pkgdesc} (static with LTO)"
     # prefer over musl-static-nolto
     self.provider_priority = 10
