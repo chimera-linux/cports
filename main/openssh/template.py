@@ -35,7 +35,7 @@ source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgve
 sha256 = "4590890ea9bb9ace4f71ae331785a3a5823232435161960ed5fc86588f331fe9"
 suid_files = ["usr/libexec/ssh-keysign"]
 # portable openssh is not very portable
-options = ["!check"]
+options = ["!check", "lto"]
 
 def init_configure(self):
     self.configure_args += [
