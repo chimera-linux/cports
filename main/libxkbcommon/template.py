@@ -20,6 +20,7 @@ license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/{pkgname}/archive/xkbcommon-{pkgver}.tar.gz"
 sha256 = "8eda6782c6ed4b83296521f2f7e6bea88aba76d49c39fb4fce0f8d355a9181ce"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -35,6 +36,10 @@ def _registry(self):
     self.pkgdesc = "XKB API to query keyboard descriptions"
 
     return ["usr/lib/libxkbregistry.so.*"]
+
+@subpackage("libxkbcommon-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libxkbcommon-devel")
 def _devel(self):
