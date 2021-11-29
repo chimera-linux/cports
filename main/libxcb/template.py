@@ -11,9 +11,14 @@ license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/{pkgname}-{pkgver}.tar.xz"
 sha256 = "a55ed6db98d43469801262d81dc2572ed124edc3db31059d4e9916eb9f844c34"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("libxcb-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libxcb-devel")
 def _devel(self):
