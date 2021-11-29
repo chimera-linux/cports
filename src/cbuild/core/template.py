@@ -304,7 +304,7 @@ default_options = {
     "cross": (True, True),
     "lint": (True, False),
     "spdx": (True, False),
-    "lto": (False, True),
+    "lto": (True, True),
     "ltofull": (False, True),
     "ltostrip": (False, False),
 }
@@ -1455,6 +1455,10 @@ def from_module(m, ret):
             if not opt in ropts:
                 ret.error("unknown option: %s" % opt)
             ropts[opt] = not neg
+
+    # FIXME: remove this when the toolchain is fixed
+    if ret.profile().arch == "riscv64":
+        ropts["lto"] = False
 
     ret.options = ropts
     ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"
