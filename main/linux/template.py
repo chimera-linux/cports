@@ -16,7 +16,7 @@ source = f"https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-{pkgver}.tar.xz"
 sha256 = "e9565a301525ac81c142ceb832f9053dd5685e107dbcf753d0de4c58bc98851f"
 # no meaningful checking to be done
 options = [
-    "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs", "!cross",
+    "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
     "!lto", "textrels", "foreignelf" # vdso32
 ]
 
@@ -27,6 +27,9 @@ match self.profile().arch:
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
+if self.cross_build:
+    broken = "linux-devel does not come out right"
+
 def do_configure(self):
     cfgarch = self.profile().arch
     cfgname = f"config-{cfgarch}.generic"
@@ -34,6 +37,10 @@ def do_configure(self):
     self.cp(self.files_path / cfgname, self.cwd)
 
     epoch = self.source_date_epoch or 0
+    args = []
+
+    if self.cross_build:
+        args += [f"CROSS_COMPILE={self.profile().triplet}"]
 
     self.do(
         "chimera-buildkernel",
@@ -43,7 +50,8 @@ def do_configure(self):
         f"OBJDIR={self.make_dir}",
         f"JOBS={self.make_jobs}",
         f"LOCALVERSION=-{pkgrel}-generic",
-        f"EPOCH={epoch}"
+        f"EPOCH={epoch}",
+        *args
     )
 
 def do_build(self):
