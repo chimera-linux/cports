@@ -18,10 +18,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libX11-{pkgver}.tar.bz2"
 sha256 = "1cfa35e37aaabbe4792e9bb690468efefbfbf6b147d9c69d6f90d13c3092ea6c"
 # broken for now
-options = ["!cross"]
+options = ["!cross", "lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+@subpackage("libx11-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libx11-devel")
 def _devel(self):
