@@ -14,7 +14,7 @@ url = "https://libclc.llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/{pkgname}-{pkgver}.src.tar.xz"
 sha256 = "7dc0131f05842a8ed29997362de260c82e188aa0639e482683ece8b47cca21b2"
 # external-calls-clspv broken
-options = ["!check"]
+options = ["!check", "lto"]
 
 # configure with host toolchain
 def do_configure(self):
