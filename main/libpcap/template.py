@@ -14,7 +14,7 @@ url = "https://www.tcpdump.org"
 source = f"{url}/release/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ed285f4accaf05344f90975757b3dbfe772ba41d1c401c2648b7fa45b711bdd4"
 # no check target
-options = ["!check"]
+options = ["!check", "lto"]
 
 def init_configure(self):
     incp = self.profile().sysroot / "usr/include/libnl3"
@@ -30,6 +30,10 @@ def post_install(self):
             self.ln_s(tp.with_name(tp.name.removesuffix("pcap")), ff)
         else:
             self.mv(f, ff)
+
+@subpackage("libpcap-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libpcap-devel")
 def _devel(self):
