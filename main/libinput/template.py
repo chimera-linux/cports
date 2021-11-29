@@ -18,6 +18,7 @@ license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libinput"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "0fc39f0af3ee1a77c60c34bc45391a4d0879169f7c0f7bbbeb5eef590b98b883"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
