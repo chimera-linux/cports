@@ -14,6 +14,7 @@ license = "MIT"
 url = "https://01.org/linuxmedia/vaapi"
 source = f"https://github.com/intel/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "6b7ec7d4fa204dad3f266450981f1f0892400c03afd3e00ac11f8ccade5aaaa1"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
