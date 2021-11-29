@@ -14,6 +14,7 @@ license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "baccd902300d354581cd5ad3cc49daa4921d55fb416a5883e218750fef166d15"
+options = ["lto"]
 
 if self.cross_build:
     hostmakedepends += ["wayland-progs"]
@@ -27,6 +28,10 @@ def _progs(self):
         "usr/share/aclocal/wayland-scanner.m4",
         "usr/share/wayland/wayland-scanner.mk",
     ])
+
+@subpackage("wayland-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("wayland-devel")
 def _devel(self):
