@@ -16,6 +16,7 @@ license = "GPL-3.0-or-later"
 url = "http://fontforge.github.io/en-US"
 source = f"https://github.com/fontforge/fontforge/archive/{pkgver}.tar.gz"
 sha256 = "274f8c8cbd7b6a1c77d2a1c03d4d6cd3c9319db62be8b8c88fabbf597f7e863c"
+options = ["lto"]
 
 def post_install(self):
     for f in (self.cwd / "contrib/cidmap").glob("Adobe-*.cidmap"):
