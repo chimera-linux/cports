@@ -21,12 +21,17 @@ url = "https://btrfs.wiki.kernel.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
 sha256 = "b8596493eab6c0107cc7547b1224dc434b39599d63e71e19f9fde33297b551bc"
 # util-linux-cbuild is incomplete
-options = ["!check"]
+options = ["!check", "lto"]
 
 @subpackage("libbtrfs")
 def _libbtrfs(self):
     self.pkgdesc = f"{pkgdesc} (btrfs library)"
     return ["usr/lib/libbtrfs.so.*"]
+
+@subpackage("libbtrfs-static")
+def _libbtrfs(self):
+    self.pkgdesc = f"{pkgdesc} (libbtrfs static library)"
+    return ["usr/lib/libbtrfs.a"]
 
 @subpackage("libbtrfs-devel")
 def _libbtrfs(self):
@@ -37,6 +42,11 @@ def _libbtrfs(self):
 def _libbtrfsutil(self):
     self.pkgdesc = f"{pkgdesc} (btrfsutil library)"
     return ["usr/lib/libbtrfsutil.so.*"]
+
+@subpackage("libbtrfsutil-static")
+def _libbtrfsutil(self):
+    self.pkgdesc = f"{pkgdesc} (libbtrfsutil static library)"
+    return ["usr/lib/libbtrfsutil.a"]
 
 @subpackage("libbtrfsutil-devel")
 def _libbtrfsutil(self):
