@@ -9,6 +9,7 @@ configure_args = [
     "-Dremoting=false", "-Dbackend-drm-screencast-vaapi=false",
     "-Dbackend-rdp=false", "-Dcolor-management-colord=false",
     "-Dtest-junit-xml=false", "-Db_ndebug=false",
+    "-Ddefault_library=shared",
 ]
 make_check_env = {"XDG_RUNTIME_DIR": "/tmp"}
 hostmakedepends = ["meson", "pkgconf", "wayland-progs", "wayland-protocols"]
@@ -26,6 +27,7 @@ license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "5cf5d6ce192e0eb15c1fc861a436bf21b5bb3b91dbdabbdebe83e1f83aa098fe"
+options = ["lto"]
 
 def post_install(self):
     self.install_license("COPYING")
