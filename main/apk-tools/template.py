@@ -5,7 +5,7 @@ build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true"]
 hostmakedepends = ["pkgconf", "meson", "lua5.4", "lua5.4-zlib", "scdoc"]
 makedepends = [
-    "zlib-devel", "openssl-devel", "musl-static", "openssl-static",
+    "zlib-devel", "openssl-devel", "openssl-static",
     "zlib-static", "libunwind-static"
 ]
 pkgdesc = "Alpine package manager"
@@ -20,7 +20,7 @@ tool_flags = {
 options = ["bootstrap", "lto"]
 
 if self.stage > 0:
-    makedepends += ["linux-headers"]
+    makedepends += ["linux-headers", "musl-static"]
 else:
     configure_args += ["-Dhelp=disabled", "-Ddocs=disabled"]
 
