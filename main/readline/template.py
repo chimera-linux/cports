@@ -8,7 +8,8 @@ pkgver = "8.1.001"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-curses", "--enable-multibyte", "bash_cv_termcap_lib=libncursesw"
+    "--with-curses", "--enable-multibyte", "bash_cv_termcap_lib=libncursesw",
+    "--disable-static",
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = ["ncurses-devel"]
@@ -18,9 +19,9 @@ license = "GPL-3.0-or-later"
 url = "https://tiswww.cwru.edu/php/chet/readline/rltop.html"
 source = f"http://git.savannah.gnu.org/cgit/{pkgname}.git/snapshot/{pkgname}-{_gitrev}.tar.gz"
 sha256 = "a5064095f96eac70e53545525c127f6d39b3ee0b7effcdc7c75ece27960e93e2"
+options = ["lto"]
 
 def post_install(self):
-    self.rm(self.destdir / "usr/share/readline", recursive = True)
     self.rm(self.destdir / "usr/share/doc", recursive = True)
 
 @subpackage("libhistory")
