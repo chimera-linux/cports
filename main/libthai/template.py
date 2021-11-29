@@ -12,9 +12,14 @@ license = "LGPL-2.1-or-later"
 url = "https://linux.thai.net/projects/libthai"
 source = f"https://linux.thai.net/pub/ThaiLinux/software/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ffe0a17b4b5aa11b153c15986800eca19f6c93a4025ffa5cf2cab2dcdf1ae911"
+options = ["lto"]
 
 if self.cross_build:
     hostmakedepends += ["libdatrie"]
+
+@subpackage("libthai-static")
+def _static(self):
+    return self.default_static()
 
 @subpackage("libthai-devel")
 def _devel(self):
