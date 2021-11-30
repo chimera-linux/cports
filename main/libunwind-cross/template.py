@@ -93,6 +93,12 @@ def do_install(self):
             _install_hdrs(self)
 
 def _gen_crossp(an, at):
+    @subpackage(f"libunwind-cross-{an}-static")
+    def _subp(self):
+        self.pkgdesc = f"{pkgdesc} (static {an} support)"
+        self.depends = [f"libunwind-cross-{an}={pkgver}-r{pkgrel}"]
+        return [f"usr/{at}/usr/lib/libunwind.a"]
+
     @subpackage(f"libunwind-cross-{an}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
@@ -104,3 +110,13 @@ def _gen_crossp(an, at):
 for an in _targets:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
+
+@subpackage("libunwind-cross-static")
+def _static(self):
+    self.build_style = "meta"
+    self.pkgdesc = f"{pkgdesc} (static)"
+    self.depends = []
+    for an in _targets:
+        self.depends.append(f"libunwind-cross-{an}-static={pkgver}-r{pkgrel}")
+
+    return []
