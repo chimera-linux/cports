@@ -1,4 +1,25 @@
+def _lint_static(pkg):
+    if pkg.pkgname.endswith("-static"):
+        return True
+
+    for v in pkg.destdir.rglob("usr/lib/*.a"):
+        allow = not pkg.rparent.options["lto"] or pkg.options["ltostrip"]
+        if not allow:
+            pkg.log_red("static libraries should be in the -static package")
+            return False
+        else:
+            pkg.log_warn(
+                "static libraries should usually be in the -static package"
+            )
+            return True
+
+    return True
+
 def invoke(pkg):
+    # lint for LTOed static stuff first, regardless of -devel
+    if not _lint_static(pkg):
+        pkg.error("package lint failed")
+
     if pkg.pkgname.endswith("-devel"):
         return
 
@@ -28,11 +49,6 @@ def invoke(pkg):
         v = str(v.relative_to(pkg.destdir))
         if v in badpaths:
             pkg.log_warn(f"{v} should be in the -devel package")
-
-    if not pkg.pkgname.endswith("-static"):
-        for v in pkg.destdir.rglob("usr/lib/*.a"):
-            pkg.log_warn("static libraries should be in the -static package")
-            break
 
     for v in pkg.destdir.rglob("usr/lib/*.so"):
         pkg.log_warn(".so symlinks should be in the -devel package")
