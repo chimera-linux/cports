@@ -2,9 +2,7 @@ pkgname = "musl-cross"
 pkgver = "1.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = [
-    "--prefix=/usr", "--disable-gcc-wrapper", "--disable-static"
-]
+configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
 makedepends = ["clang-rt-crt-cross"]
@@ -63,14 +61,31 @@ def do_install(self):
             self.rm(self.destdir / f"usr/{at}/lib")
 
 def _gen_crossp(an, at):
+    @subpackage(f"musl-cross-{an}-static")
+    def _subp(self):
+        self.pkgdesc = f"{pkgdesc} (static {an} support)"
+        self.depends = [f"musl-cross-{an}={pkgver}-r{pkgrel}"]
+        return [f"usr/{at}/usr/lib/libc.a"]
+
     @subpackage(f"musl-cross-{an}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang-rt-crt-cross-{an}"]
         self.options = ["!scanshlibs", "!scanrundeps"]
         return [f"usr/{at}"]
+
     depends.append(f"musl-cross-{an}")
 
 for an in _targets:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
+
+@subpackage("musl-cross-static")
+def _static(self):
+    self.build_style = "meta"
+    self.pkgdesc = f"{pkgdesc} (static)"
+    self.depends = []
+    for an in _targets:
+        self.depends.append(f"musl-cross-{an}-static={pkgver}-r{pkgrel}")
+
+    return []
