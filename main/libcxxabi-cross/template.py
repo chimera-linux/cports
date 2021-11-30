@@ -17,7 +17,7 @@ configure_args = [
 ]
 make_cmd = "make"
 hostmakedepends = ["cmake", "python"]
-makedepends = ["libunwind-cross"]
+makedepends = ["libunwind-cross-static"]
 depends = ["libunwind-cross"]
 pkgdesc = "LLVM libcxxabi (cross-compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -85,6 +85,15 @@ def do_install(self):
             _install_hdrs(self)
 
 def _gen_crossp(an, at):
+    @subpackage(f"libcxxabi-cross-{an}-static")
+    def _subp(self):
+        self.pkgdesc = f"{pkgdesc} (static {an} support)"
+        self.depends = [
+            f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}",
+            f"libunwind-cross-{an}"
+        ]
+        return [f"usr/{at}/usr/lib/libc++abi.a"]
+
     @subpackage(f"libcxxabi-cross-{an}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
@@ -96,3 +105,13 @@ def _gen_crossp(an, at):
 for an in _targets:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
+
+@subpackage("libcxxabi-cross-static")
+def _static(self):
+    self.build_style = "meta"
+    self.pkgdesc = f"{pkgdesc} (static)"
+    self.depends = []
+    for an in _targets:
+        self.depends.append(f"libcxxabi-cross-{an}-static={pkgver}-r{pkgrel}")
+
+    return []
