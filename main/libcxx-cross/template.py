@@ -18,7 +18,7 @@ configure_args = [
 ]
 make_cmd = "make"
 hostmakedepends = ["cmake", "python"]
-makedepends = ["libcxxabi-cross", "linux-headers-cross"]
+makedepends = ["libcxxabi-cross-static", "linux-headers-cross"]
 depends = ["libcxxabi-cross"]
 pkgdesc = "LLVM libc++ (cross-compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -77,6 +77,14 @@ def do_install(self):
             )
 
 def _gen_crossp(an, at):
+    @subpackage(f"libcxx-cross-{an}-static")
+    def _subp(self):
+        self.pkgdesc = f"{pkgdesc} (static {an} support)"
+        self.depends = [
+            f"libcxx-cross-{an}={pkgver}-r{pkgrel}",
+        ]
+        return [f"usr/{at}/usr/lib/libc++.a"]
+
     @subpackage(f"libcxx-cross-{an}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
@@ -88,3 +96,13 @@ def _gen_crossp(an, at):
 for an in _targets:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
+
+@subpackage("libcxx-cross-static")
+def _static(self):
+    self.build_style = "meta"
+    self.pkgdesc = f"{pkgdesc} (static)"
+    self.depends = []
+    for an in _targets:
+        self.depends.append(f"libcxx-cross-{an}-static={pkgver}-r{pkgrel}")
+
+    return []
