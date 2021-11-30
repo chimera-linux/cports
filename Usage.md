@@ -284,17 +284,23 @@ To explain what's going on:
 * Stage 1 is software built inside the system assembled from stage 0.
 * Stage 2 is software built inside the system assembled from stage 1.
 
-The stage 2 is considered final. Every stage results in a regular build root
-that can be used to build software. However, since stage 0 is built using your
-host software, it is considered raw and not reproducible, and may be affected
-by toolchain choices made within the host.
+The initial stage is raw and intentionally stripped down. Its purpose is to
+get a minimal environment going, to free further builds of the host system's
+influence and narrow down the dependencies. This stage will likely not be
+reproducible between different systems.
 
-Stage 1 is more refined, as it was built inside a semi-controlled Chimera
-environment. However, since the build root was created using software built
-with a toolchain that is not controlled, it is considered dirty.
+Stage 1 resembles a final container. Unlike stage 0 build, it uses its own
+host tools. The feature set of the packages may not be complete, with some
+subpackages (e.g. LLVM debugger) not being built. LTO is also not applied
+for this stage yet.
 
-Stage 2 is built only using a toolchain that was built with Chimera. It should
-at this point be free of external influences, and considered final.
+Stage 2 is considered final, being built with all of the features of a final
+system within a Chimera container, including full LTO. Once it has finished,
+you can use it to do any other builds.
+
+The build system considers individual package builds made by the user after
+that "stage 3". In general templates should never be making any distinction
+between stage 2 and 3 builds.
 
 You will have the following artifacts:
 
@@ -311,7 +317,7 @@ You will have the following artifacts:
 * `sources` is the sources cache, shared for all.
 
 You can remove all the `*-stage*` directories if you want. They are present
-mostly for inspection.
+mostly for inspection and possibly debugging.
 
 If the bootstrap fails at any point, you can start it again and it will continue
 where it left off. No things already built will be built again.
