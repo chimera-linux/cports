@@ -208,10 +208,24 @@ def post_install(self):
             f.unlink()
             f.symlink_to(f"../../../liblldb.so.{_mver}")
 
+@subpackage("clang-tools-extra-static")
+def _tools_extra_static(self):
+    self.pkgdesc = f"{pkgdesc} (extra Clang tools) (static libraries)"
+    self.depends = []
+
+    return [
+        "usr/lib/libclangApplyReplacements*",
+        "usr/lib/libclangQuery*",
+        "usr/lib/libclangTidy*",
+    ]
+
 @subpackage("clang-tools-extra")
 def _tools_extra(self):
     self.pkgdesc = f"{pkgdesc} (extra Clang tools)"
-    self.depends = [f"clang={pkgver}-r{pkgrel}"]
+    self.depends = [
+        f"clang={pkgver}-r{pkgrel}",
+        f"clang-tools-extra-static={pkgver}-r{pkgrel}"
+    ]
 
     return [
         "usr/include/clang-tidy",
@@ -225,9 +239,6 @@ def _tools_extra(self):
         "usr/bin/modularize",
         "usr/bin/pp-trace",
         "usr/bin/sancov",
-        "usr/lib/libclangApplyReplacements*",
-        "usr/lib/libclangQuery*",
-        "usr/lib/libclangTidy*",
         "usr/share/clang/*tidy*"
     ]
 
@@ -243,14 +254,25 @@ def _libomp(self):
 
     return install
 
+@subpackage("libomp-static", self.stage > 0)
+def _libomp_devel_static(self):
+    self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library) (static libraries)"
+    self.depends = []
+
+    return [
+        "usr/lib/libarcher*",
+    ]
+
 @subpackage("libomp-devel", self.stage > 0)
 def _libomp_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library) (development files)"
-    self.depends = [f"libomp={pkgver}-r{pkgrel}"]
+    self.depends = [
+        f"libomp={pkgver}-r{pkgrel}",
+        f"libomp-static={pkgver}-r{pkgrel}",
+    ]
 
     return [
         "usr/lib/libomp*.so",
-        "usr/lib/libarcher*",
         "usr/lib/libgomp*",
         "usr/lib/libiomp*",
         "usr/lib/libomptarget*",
@@ -293,14 +315,18 @@ def _clang_rt_devel(self):
 @subpackage("clang-static")
 def _clang_static(self):
     self.pkgdesc = f"{pkgdesc} (Clang static libraries)"
+    self.depends = []
 
     return ["usr/lib/libclang*.a"]
 
 @subpackage("clang-devel")
 def _clang_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang development files)"
+    # unfortunately cmake files reference the static libs and force their
+    # installation onto the target system, nothing much we can do about that
     self.depends = [
         f"clang-rt-devel={pkgver}-r{pkgrel}",
+        f"clang-static={pkgver}-r{pkgrel}",
         f"libclang={pkgver}-r{pkgrel}",
         f"libclang-cpp={pkgver}-r{pkgrel}",
         f"libcxx-devel={pkgver}-r{pkgrel}"
@@ -382,12 +408,16 @@ def _mlir(self):
 @subpackage("mlir-static", _enable_flang)
 def _mlir_static(self):
     self.pkgdesc = f"{pkgdesc} (MLIR static libraries)"
+    self.depends = []
 
     return ["usr/lib/libMLIR*.a"]
 
 @subpackage("mlir-devel", _enable_flang)
 def _mlir_devel(self):
     self.pkgdesc = f"{pkgdesc} (MLIR development files)"
+    # unfortunately cmake files reference the static libs and force their
+    # installation onto the target system, nothing much we can do about that
+    self.depends = [f"mlir-static={pkgver}-r{pkgrel}"]
 
     return [
         "usr/include/mlir*",
@@ -414,13 +444,13 @@ def _libunwind(self):
 @subpackage("libunwind-static")
 def _libunwind_static(self):
     self.pkgdesc = f"{pkgdesc} (libunwind) (static library)"
+    self.options = ["ltostrip"]
 
     return ["usr/lib/libunwind.a"]
 
 @subpackage("libunwind-devel")
 def _libunwind_devel(self):
     self.pkgdesc = f"{pkgdesc} (libunwind) (development files)"
-    self.depends = [f"libunwind={pkgver}-r{pkgrel}"]
 
     return [
         "usr/lib/libunwind.so",
@@ -437,13 +467,14 @@ def _libcxx(self):
 @subpackage("libcxx-static")
 def _libcxx_static(self):
     self.pkgdesc = f"{pkgdesc} (C++ standard library) (static library)"
+    self.options = ["ltostrip"]
 
     return ["usr/lib/libc++.a"]
 
 @subpackage("libcxx-devel")
 def _libcxx_devel(self):
     self.pkgdesc = f"{pkgdesc} (C++ standard library) (development files)"
-    self.depends = [f"libcxx={pkgver}-r{pkgrel}"]
+    self.options = ["ltostrip"]
 
     return [
         "usr/lib/libc++.so",
@@ -461,6 +492,10 @@ def _libcxxabi(self):
 @subpackage("libcxxabi-static")
 def _libcxxabi_static(self):
     self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (static library)"
+    self.depends += [
+        f"libunwind-static={pkgver}-r{pkgrel}"
+    ]
+    self.options = ["ltostrip"]
 
     return ["usr/lib/libc++abi.a"]
 
@@ -468,7 +503,6 @@ def _libcxxabi_static(self):
 def _libcxxabi_devel(self):
     self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (development files)"
     self.depends = [
-        f"libcxxabi={pkgver}-r{pkgrel}",
         f"libunwind-devel={pkgver}-r{pkgrel}"
     ]
 
@@ -515,15 +549,25 @@ def _lld(self):
         "usr/bin/ld64.lld*"
     ]
 
+@subpackage("lld-static")
+def _lld_devel(self):
+    self.pkgdesc = f"{pkgdesc} (linker) (static libraries)"
+    self.depends = []
+
+    return [
+        "usr/lib/liblld*.a"
+    ]
+
 @subpackage("lld-devel")
 def _lld_devel(self):
     self.pkgdesc = f"{pkgdesc} (linker) (development files)"
-    self.depends = [f"lld={pkgver}-r{pkgrel}"]
+    self.depends = [
+        f"lld={pkgver}-r{pkgrel}", f"lld-static={pkgver}-r{pkgrel}"
+    ]
 
     return [
         "usr/include/lld",
         "usr/lib/cmake/lld",
-        "usr/lib/liblld*a"
     ]
 
 @subpackage("llvm-linker-tools")
@@ -537,14 +581,18 @@ def _llvm_linker_tools(self):
 @subpackage("llvm-static")
 def _llvm_static(self):
     self.pkgdesc = "Low Level Virtual Machine (static libraries)"
+    self.depends = []
 
     return ["usr/lib/*.a"]
 
 @subpackage("llvm-devel")
 def _llvm_devel(self):
+    # unfortunately cmake files reference the static libs and force their
+    # installation onto the target system, nothing much we can do about that
     self.depends = [
         f"llvm={pkgver}-r{pkgrel}",
         f"llvm-tools={pkgver}-r{pkgrel}",
+        f"llvm-static={pkgver}-r{pkgrel}",
         f"libclang-cpp={pkgver}-r{pkgrel}"
     ]
 
