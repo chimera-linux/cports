@@ -6,4 +6,4 @@ CXXOPTS := $(CXXFLAGS) -fno-rtti
 
 BUILD_SHUTDOWN = yes
 # sanitizers may crash for now
-#SANITIZEOPTS = -fsanitize=address,undefined
+SANITIZEOPTS = -fsanitize=address,undefined
