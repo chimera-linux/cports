@@ -32,7 +32,7 @@ configure_args = [
 ]
 make_cmd = "make"
 hostmakedepends = [
-    "cmake", "gmake", "python", "llvm-static", "clang-tools-extra"
+    "cmake", "gmake", "python", "llvm-devel", "clang-tools-extra"
 ]
 makedepends = ["zlib-devel", "libffi-devel"]
 depends = []

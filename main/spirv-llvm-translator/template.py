@@ -14,7 +14,7 @@ make_build_args = ["llvm-spirv"]
 hostmakedepends = [
     "cmake", "ninja", "pkgconf", "clang-tools-extra", "spirv-headers"
 ]
-makedepends = ["llvm-devel", "llvm-static"]
+makedepends = ["llvm-devel"]
 pkgdesc = "API and commands for processing SPIR-V modules"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "NCSA"
