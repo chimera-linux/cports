@@ -1,0 +1,18 @@
+We don't use a multiarch layout and we don't really care for
+debianisms, so emulate whatever a non-multiarch gcc toolchain
+would do and use an empty thing.
+
+--- a/clang/lib/Driver/ToolChains/Linux.cpp
++++ b/clang/lib/Driver/ToolChains/Linux.cpp
+@@ -46,6 +46,11 @@ std::string Linux::getMultiarchTriple(const Driver &D,
+   bool IsMipsR6 = TargetTriple.getSubArch() == llvm::Triple::MipsSubArch_r6;
+   bool IsMipsN32Abi = TargetTriple.getEnvironment() == llvm::Triple::GNUABIN32;
+ 
++  /* we are not multiarch */
++  if (TargetTriple.isMusl()) {
++    return "";
++  }
++
+   // For most architectures, just use whatever we have rather than trying to be
+   // clever.
+   switch (TargetTriple.getArch()) {
