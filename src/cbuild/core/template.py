@@ -336,7 +336,7 @@ core_fields = [
     ("source", [], (list, str, tuple), False, False, False),
 
     # target support
-    ("archs", None, str, False, False, False),
+    ("archs", None, list, False, False, False),
 
     # build directory and patches
     ("build_wrksrc", "", str, False, False, False),
