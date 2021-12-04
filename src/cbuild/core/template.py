@@ -435,7 +435,7 @@ core_fields_priority = [
     ("make_build_env", True),
     ("make_install_target", True),
     ("make_install_args", True),
-    ("make_insatll_env", True),
+    ("make_install_env", True),
     ("make_check_target", True),
     ("make_check_args", True),
     ("make_check_env", True),
