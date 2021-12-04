@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ -n "$CBUILD_BYPASS_STRIP_WRAPPER" ]; then
+    exec /usr/bin/${0##*/} "$@"
+fi
+
 STRIPOUT=
 
 while getopts ":o:" opt; do
