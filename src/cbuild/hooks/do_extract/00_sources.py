@@ -24,7 +24,7 @@ suffixes = {
     "*.diff":       "txt",
     "*.txt":        "txt",
     "*.sh":         "txt",
-    "*.7z":	        "7z",
+    "*.7z":         "7z",
     "*.crate":      "crate",
 }
 
@@ -43,18 +43,23 @@ def extract_tar(pkg, fname, dfile, edir, sfx):
     ).returncode == 0
 
 def extract_notar(pkg, fname, dfile, edir, sfx):
-    if suffix == "gz":
+    if sfx == "gz":
         cmd = "gunzip"
-    elif suffix == "bz2":
+    elif sfx == "bz2":
         cmd = "bunzip2"
-    elif suffix == "xz":
+    elif sfx == "xz":
         cmd = "unxz"
     else:
         pkg.error(f"unknown suffix '{sfx}'")
 
-    return chroot.enter(
-        cmd, "-f", dfile, ro_root = True, unshare_all = True, wrkdir = edir
-    ).returncode == 0
+    ofn = pathlib.Path(fname).stem
+    opath = pkg.builddir / edir.name / ofn
+
+    with open(opath, "wb") as outf:
+        return chroot.enter(
+            cmd, "-c", "-f", dfile, ro_root = True, unshare_all = True,
+            stdout = outf, wrkdir = edir
+        ).returncode == 0
 
 def extract_alsotar(pkg, fname, dfile, edir, sfx):
     return chroot.enter(
