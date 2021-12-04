@@ -23,10 +23,10 @@ def post_patch(self):
 
 def do_install(self):
     for f in (self.cwd / "build").glob("*.otf"):
-        self.install_file(f, "usr/share/fonts/dejavu-otf")
+        self.install_file(f, "usr/share/fonts/dejavu")
 
     for f in (self.cwd / "build").glob("*.ttf"):
-        self.install_file(f, "usr/share/fonts/dejavu-ttf")
+        self.install_file(f, "usr/share/fonts/dejavu")
 
     for f in (self.cwd / "fontconfig").glob("*.conf"):
         if "lgc" in f.name:
@@ -49,4 +49,4 @@ def _ttf(self):
     self.provides = [f"fonts-dejavu={pkgver}-r{pkgrel}"]
     self.provider_priority = 1
 
-    return ["usr/share/fonts/dejavu-ttf"]
+    return ["usr/share/fonts/dejavu/*.ttf"]
