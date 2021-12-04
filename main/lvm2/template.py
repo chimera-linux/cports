@@ -12,6 +12,7 @@ configure_args = [
     "--enable-udev_rules",
     "--enable-static-link",
     "--disable-selinux",
+    "--with-symvers=no",
     "--with-usrsbindir=/usr/bin",
     "--with-udevdir=/usr/lib/udev/rules.d",
     "--with-default-pid-dir=/run",
