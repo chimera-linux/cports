@@ -222,7 +222,7 @@ Keep conditional stuff to a minimum. This includes:
    example handling of `sysroot` in profiles should be entirely transparent.
 2) Cross-compiled packages should be functionally equal to native ones and
    have comparable contents. If this is not the case, the template is not
-   be eligible for cross-compilation.
+   eligible for cross-compilation.
 3) There is no such thing as a native architecture and a cross architecture.
    Any architecture can be both (i.e. cross-compiling from ARM to x86_64 is
    actually a perfectly valid case and should be handled identically to
@@ -249,11 +249,12 @@ Care should be taken to avoid build-time dependency cycles. Cases where
 building a package requires another package to be already built are always
 wrong. Every package should be buildable with just a `bldroot` and an
 entirely empty repository (i.e. `cbuild` should be able to build the
-entire dependency tree at will). Sometimes this requires disabling tests.
-It is a good idea that even test suites that cannot be run or are somehow
-broken and disabled by default are still set up. That ensures someone can
-either find a solution later, fix it, or at least be able to see which
-parts of the suite run successfully by forcing the test run.
+entire dependency tree at will). Sometimes this requires disabling tests
+in the template (via `!check`). It is a good idea that even test suites
+that cannot be run or are somehow broken and disabled by default are still
+set up. That ensures someone can either find a solution later, fix it, or
+at least be able to see which parts of the suite run successfully by forcing
+the test run (as `cbuild` has an option to bypass `!check`).
 
 The build environment takes care to minimize differences between possible
 hosts the builds may be run in. However, there may always be edge cases,
