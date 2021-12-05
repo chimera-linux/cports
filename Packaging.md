@@ -12,6 +12,7 @@ you should not rely on them or expect them to be stable.
 * [Categories](#categories)
 * [Targets and Tiers](#targets)
 * [Quality Requirements](#quality_requirements)
+  * [Writing Correct Templates](#correct_templates)
 * [Build Phases](#phases)
 * [Package Naming](#naming)
 * [Filesystem Structure](#filesystem_structure)
@@ -205,6 +206,58 @@ rather than arbitrary `git` or similar revisions. Exceptions to this may
 be made for `contrib` (such as when the software is high profile and the
 latest stable release is very old and provides worse user experience) but
 not for `main`.
+
+<a id="correct_templates"></a>
+### Writing Correct Templates
+
+Most importantly, keep it simple. The `cbuild` system is designed to make
+correct things easy and terse, and bad things ugly and complicated. If there
+is any doubt (i.e. something you consider good but it is inconvenient to
+write in `cbuild` templates) feel free to report it in the issue tracker.
+
+Keep conditional stuff to a minimum. This includes:
+
+1) Cross-compiling handling should be generalized to be the same for native
+   in most cases. The system provides facilities to simplify doing that; for
+   example handling of `sysroot` in profiles should be entirely transparent.
+2) Cross-compiled packages should be functionally equal to native ones and
+   have comparable contents. If this is not the case, the template is not
+   be eligible for cross-compilation.
+3) There are no assumptions on which architectures are cross-compiled and
+   which are not. You should always assume that every architecture is both
+   native and cross.
+4) Templates should not perform any contents patching by themselves (e.g. like
+   via `sed`) and especially not conditionally. A generic patch should be
+   written instead.
+
+You should never make any assumptions about the build environment. Things like
+substituting specific default `CFLAGS` for something else is always wrong.
+Instead, assume that the original value can be any, and if you need a specific
+value, override it by passing it after the default.
+
+Build styles should be used when appropriate. When not using build styles,
+standard template variables should still be used, and expanded where necessary.
+
+Build phases should be considered atomic, and builds should be considered
+resumable. Do not store any in-memory state between build phases, as you
+cannot be sure that the build will not be resumed from after the phase
+has run. Use the `init_` template functions to deal with such state, as
+they are guaranteed to run every time.
+
+Care should be taken to avoid build-time dependency cycles. Cases where
+building a package requires another package to be already built are always
+wrong. Every package should be buildable with just a `bldroot` and an
+entirely empty repository (i.e. `cbuild` should be able to build the
+entire dependency tree at will). Sometimes this requires disabling tests.
+It is a good idea that even test suites that cannot be run or are somehow
+broken and disabled by default are still set up. That ensures someone can
+either find a solution later, fix it, or at least be able to see which
+parts of the suite run successfully by forcing the test run.
+
+The build environment takes care to minimize differences between possible
+hosts the builds may be run in. However, there may always be edge cases,
+and tests should not rely on edge cases - they must be reproducible across
+all environments `cbuild` may be run in.
 
 <a id="phases"></a>
 ## Build Phases
