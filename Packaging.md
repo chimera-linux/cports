@@ -223,9 +223,10 @@ Keep conditional stuff to a minimum. This includes:
 2) Cross-compiled packages should be functionally equal to native ones and
    have comparable contents. If this is not the case, the template is not
    be eligible for cross-compilation.
-3) There are no assumptions on which architectures are cross-compiled and
-   which are not. You should always assume that every architecture is both
-   native and cross.
+3) There is no such thing as a native architecture and a cross architecture.
+   Any architecture can be both (i.e. cross-compiling from ARM to x86_64 is
+   actually a perfectly valid case and should be handled identically to
+   doing it the other way around).
 4) Templates should not perform any contents patching by themselves (e.g. like
    via `sed`) and especially not conditionally. A generic patch should be
    written instead.
