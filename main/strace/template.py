@@ -6,6 +6,9 @@ configure_args = [
     "--without-libunwind", "--disable-mpers", "--disable-gcc-Werror",
     "--disable-dependency-tracking",
 ]
+configure_env = {
+    "CPPFLAGS": f"-I{self.profile().sysroot / 'usr/include'}"
+}
 make_cmd = "gmake"
 # there's over a thousand tests and a ~50 of them
 # fail due to various reasons, mostly harmless ones
