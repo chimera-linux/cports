@@ -29,8 +29,6 @@ keep_stage = no
 
 # flags passed to tools
 [flags]
-# default C/C++ preprocessor flags
-CPPFLAGS =
 # default user C compiler flags
 CFLAGS = -O2
 # default user C++ compiler flags

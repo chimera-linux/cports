@@ -24,7 +24,6 @@ def do_build(self):
         "FFLAGS=" + self.get_fflags(shell = True),
         "LDFLAGS=" + self.get_ldflags(shell = True),
         "CXXFLAGS=" + self.get_cxxflags(shell = True),
-        "CPPFLAGS=" + self.get_cppflags(shell = True),
     ]
 
     if self.stage > 0:

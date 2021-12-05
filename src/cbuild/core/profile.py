@@ -88,15 +88,6 @@ def _get_hldflags(sharden, tharden):
 
     return hflags
 
-def _get_hcppflags(sharden, tharden):
-    hflags = []
-    hard = _get_harden(sharden, tharden)
-
-    if hard["fortify"]:
-        hflags.append("-D_FORTIFY_SOURCE=2")
-
-    return hflags
-
 def _flags_ret(it, shell):
     if shell:
         return shlex.join(it)
@@ -139,27 +130,11 @@ def _get_ldflags(self, name, extra_flags, debug, hardening, shell):
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
-def _get_cppflags(self, name, extra_flags, debug, hardening, shell):
-    hflags = _get_hcppflags(self._hardening, hardening)
-
-    # we mainly care about cppflags for things that call c preprocessor
-    # directly for target, we want sysroot passed there so it picks up
-    # the correct headers
-    if self.cross:
-        bflags = ["--sysroot", self.sysroot]
-    else:
-        bflags = []
-
-    ret = hflags + self._flags["CPPFLAGS"] + bflags + extra_flags
-
-    return _flags_ret(map(lambda v: str(v), ret), shell)
-
 _flag_handlers = {
     "CFLAGS": _get_gencflags,
     "CXXFLAGS": _get_gencflags,
     "FFLAGS": _get_gencflags,
     "LDFLAGS": _get_ldflags,
-    "CPPFLAGS": _get_cppflags,
 }
 
 _flag_types = list(_flag_handlers.keys())

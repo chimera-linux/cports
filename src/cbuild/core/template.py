@@ -1071,13 +1071,6 @@ class Template(Package):
             "LDFLAGS", extra_flags, hardening, shell, target
         )
 
-    def get_cppflags(
-        self, extra_flags = [], hardening = [], shell = False, target = None
-    ):
-        return self.get_tool_flags(
-            "CPPFLAGS", extra_flags, hardening, shell, target
-        )
-
     def get_tool(self, name, target = None):
         if not name in self.tools:
             return None
