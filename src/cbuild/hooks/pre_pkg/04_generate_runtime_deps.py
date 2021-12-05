@@ -112,6 +112,14 @@ def _scan_pc(pkg):
     # all subpackages must declare their pkg-config path for the scan
     pcpaths = []
 
+    if pkg.rparent.profile().cross:
+        sr = pkg.rparent.profile().sysroot
+        hsr = paths.bldroot() / sr.relative_to("/")
+        if (hsr / "usr/lib/pkgconfig").is_dir():
+            pcpaths.append(str(sr / "usr/lib/pkgconfig"))
+        if (hsr / "usr/share/pkgconfig").is_dir():
+            pcpaths.append(str(sr / "usr/share/pkgconfig"))
+
     for sp in pkg.rparent.subpkg_list:
         if (sp.destdir / "usr/lib/pkgconfig").is_dir():
             pcpaths.append(str(sp.chroot_destdir / "usr/lib/pkgconfig"))
@@ -125,6 +133,15 @@ def _scan_pc(pkg):
 
     pcpaths = ":".join(pcpaths)
 
+    penv = {
+        "PKG_CONFIG_PATH": pcpaths,
+    }
+    if pkg.rparent.profile().cross:
+        penv["PKG_CONFIG_SYSROOT_DIR"] = str(pkg.rparent.profile().sysroot)
+        penv["PKG_CONFIG_LIBDIR"] = str(
+            pkg.rparent.profile().sysroot / "usr/lib/pkgconfig"
+        )
+
     def scan_pc(v):
         if not v.exists():
             return
@@ -134,9 +151,7 @@ def _scan_pc(pkg):
             v.stem,
             capture_output = True, bootstrapping = pkg.stage == 0,
             ro_root = True, ro_build = True, unshare_all = True,
-            env = {
-                "PKG_CONFIG_PATH": pcpaths,
-            }
+            env = penv
         )
         if pcc.returncode != 0:
             pkg.error("failed scanning .pc files (missing pkgconf?)")
