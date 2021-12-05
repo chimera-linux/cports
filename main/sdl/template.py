@@ -37,9 +37,9 @@ hostmakedepends = ["gmake", "pkgconf", "nasm", "wayland-progs"]
 makedepends = [
     "dbus-devel", "eudev-devel", "libusb-devel", "libsamplerate-devel",
     "glu-devel", "wayland-devel", "wayland-protocols", "libdecor-devel",
-    "libxcursor-devel", "libxinerama-devel", "libxscrnsaver-devel",
-    "libxrandr-devel", "libxi-devel", "libsm-devel", "vulkan-headers",
-    "vulkan-loader", "mesa-devel",
+    "libxkbcommon-devel", "libxcursor-devel", "libxinerama-devel",
+    "libxscrnsaver-devel", "libxrandr-devel", "libxi-devel", "libsm-devel",
+    "vulkan-headers", "vulkan-loader", "mesa-devel",
     #"libpulse-devel",
     #"pipewire-devel",
     #"sndio-devel",
