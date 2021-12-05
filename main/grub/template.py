@@ -178,6 +178,13 @@ def _i386_coreboot(self):
 
     return ["usr/lib/grub/i386-coreboot"]
 
+@subpackage("grub-i386-pc", _have_x86)
+def _i386_pc(self):
+    self.pkgdesc = f"{pkgdesc} (i386 PC/BIOS support)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/grub/i386-pc"]
+
 @subpackage("grub-x86_64-efi", _have_x86)
 def _i386_efi(self):
     self.pkgdesc = f"{pkgdesc} (x86_64 EFI support)"
