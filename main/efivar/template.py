@@ -10,6 +10,7 @@ make_check_target = "test"
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = ["linux-headers"]
 pkgdesc = "Tools and libraries to work with EFI variables"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/rhboot/efivar"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.bz2"

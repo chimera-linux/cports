@@ -16,7 +16,7 @@ index 57cee6e..814b0ef 100644
  	$(if $(findstring ccc-analyzer,$(CC)),$(clang_cflags),) \
  	$(if $(findstring gcc,$(CC)),$(gcc_cflags),) \
  	$(call pkg-config-cflags)
-+cflags_for_build	= $(CFLAGS_FOR_BUILD) -I${TOPDIR}/src/include/ \
++cflags_for_build	= $(BUILD_CFLAGS) -I${TOPDIR}/src/include/ \
 +	$(if $(findstring clang,$(CC_FOR_BUILD)),$(clang_cflags),) \
 +	$(if $(findstring ccc-analyzer,$(CC_FOR_BUILD)),$(clang_cflags),) \
 +	$(if $(findstring gcc,$(CC_FOR_BUILD)),$(gcc_cflags),) \
@@ -28,7 +28,7 @@ index 57cee6e..814b0ef 100644
  	$(if $(findstring ccc-analyzer,$(CCLD)),$(clang_ccldflags),) \
  	$(if $(findstring gcc,$(CCLD)),$(gcc_ccldflags),) \
  	$(call pkg-config-ldflags)
-+ccldflags_for_build = $(cflags_for_build) -L. $(CCLDFLAGS) $(LDFLAGS) \
++ccldflags_for_build = $(cflags_for_build) -L. $(BUILD_CCLDFLAGS) $(BUILD_LDFLAGS) \
 +	-Wl,-z,muldefs \
 +	$(if $(findstring clang,$(CCLD_FOR_BUILD)),$(clang_ccldflags),) \
 +	$(if $(findstring ccc-analyzer,$(CCLD_FOR_BUILD)),$(clang_ccldflags),) \
