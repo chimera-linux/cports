@@ -1608,13 +1608,15 @@ def from_module(m, ret):
         # go
         ret.subpkg_list.append(sp)
 
-    if ret.broken and not ret._allow_broken:
+    ierr = ret._ignore_errors or ret._allow_broken
+
+    if ret.broken and not ierr:
         ret.error(f"cannot be built, it's currently broken: {ret.broken}")
 
-    if ret.cross_build and not ret.options["cross"] and not ret._allow_broken:
+    if ret.cross_build and not ret.options["cross"] and not ierr:
         ret.error(f"cannot be cross-compiled for {ret.cross_build}")
 
-    if ret.stage == 0 and not ret.options["bootstrap"]:
+    if ret.stage == 0 and not ret.options["bootstrap"] and not ierr:
         ret.error("attempt to bootstrap a non-bootstrap package")
 
     # fill the remaining toolflag lists so it's complete
