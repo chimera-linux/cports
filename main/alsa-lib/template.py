@@ -5,16 +5,14 @@ build_style = "gnu_configure"
 # build a stripped down alsa lib; things should never use it directly other
 # than soundservers, and this should be just enough functionality for them
 configure_args = [
-    "--disable-mixer",
     "--disable-rawmidi",
     "--disable-hwdep",
-    "--disable-ucm",
     "--disable-topology",
     "--disable-alisp",
     "--disable-old-symbols",
     "--disable-python",
     "--with-versioned=no",
-    "--with-pcm-plugins=",
+    "--with-pcm-plugins=extplug ioplug",
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = ["linux-headers"]
