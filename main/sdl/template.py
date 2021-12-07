@@ -8,8 +8,7 @@ configure_args = [
     "--disable-esd",
     "--disable-nas",
     "--disable-oss",
-    "--disable-pulseaudio", # TODO: maybe enable later?
-    "--disable-pipewire",   # TODO: enable later
+    "--disable-pulseaudio",
     "--disable-sndio",      # TODO: enable later
     "--disable-altivec",    # breaks C++ otherwise because of public altivec.h
     "--disable-x11-shared",
@@ -19,6 +18,7 @@ configure_args = [
     "--enable-dbus",
     "--enable-libudev",
     "--enable-libdecor",
+    "--enable-pipewire",
     "--enable-video-opengl",
     "--enable-video-opengles",
     "--enable-video-vulkan",
@@ -39,9 +39,7 @@ makedepends = [
     "glu-devel", "wayland-devel", "wayland-protocols", "libdecor-devel",
     "libxkbcommon-devel", "libxcursor-devel", "libxinerama-devel",
     "libxscrnsaver-devel", "libxrandr-devel", "libxi-devel", "libsm-devel",
-    "vulkan-headers", "vulkan-loader", "mesa-devel",
-    #"libpulse-devel",
-    #"pipewire-devel",
+    "vulkan-headers", "vulkan-loader", "mesa-devel", "pipewire-devel",
     #"sndio-devel",
 ]
 depends = [
