@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rmdir /var/lib/pipewire > /dev/null 2>&1 || :

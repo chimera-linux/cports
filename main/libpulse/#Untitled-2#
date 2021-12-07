@@ -1,0 +1,1 @@
+#define fallthrough [[clang::fallthrough]]
