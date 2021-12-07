@@ -1,0 +1,6 @@
+# prepare dbus daemon environment
+
+type       = scripted
+command    = install -d -m 755 -o dbus -g dbus /run/dbus
+restart    = false
+depends-on = early-rcboot

@@ -1,8 +1,8 @@
 # dbus daemon service
 
 type               = process
-command            = /usr/libexec/dbus-daemon.wrapper --print-address=4
-depends-on         = early-rcboot
+command            = /usr/libexec/dbus-daemon.wrapper
+depends-on         = dbus-prepare
 logfile            = /var/log/dbus-daemon.log
 smooth-recovery    = true
-ready-notification = pipefd:4
+socket-listen      = /run/dbus/system_bus_socket
