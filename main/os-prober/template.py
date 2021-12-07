@@ -37,7 +37,7 @@ def do_install(self):
         if not _arch or not (self.cwd / f"{d}/{_arch}").is_dir():
             continue
         for f in (self.cwd / f"{d}/{_arch}").glob("*"):
-            self.install_file(f, f"usr/lib/{d}", mode = 0o755)
+            self.cp(f, self.destdir / f"usr/lib/{d}", recursive = True)
 
     # macos probe
     if _arch == "x86":
