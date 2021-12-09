@@ -174,13 +174,6 @@ def _utils(self):
         "usr/bin/grub-mkfont",
     ]
 
-@subpackage("grub-xen", _have_x86)
-def _xen(self):
-    self.pkgdesc = f"{pkgdesc} (Xen PV support)"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return ["usr/lib/grub/*-xen"]
-
 @subpackage("grub-i386-coreboot", _have_x86)
 def _i386_coreboot(self):
     self.pkgdesc = f"{pkgdesc} (i386 coreboot support)"
@@ -196,13 +189,20 @@ def _i386_pc(self):
     return ["usr/lib/grub/i386-pc"]
 
 @subpackage("grub-x86_64-efi", _have_x86)
-def _i386_efi(self):
+def _x86_64_efi(self):
     self.pkgdesc = f"{pkgdesc} (x86_64 EFI support)"
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}", "dosfstools", "efibootmgr"
     ]
 
     return ["usr/lib/grub/x86_64-efi"]
+
+@subpackage("grub-x86_64-xen", _have_x86)
+def _x86_64_xen(self):
+    self.pkgdesc = f"{pkgdesc} (x86_64 Xen PV support)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/grub/x86_64-xen"]
 
 @subpackage("grub-i386-efi", _have_x86)
 def _i386_efi(self):
