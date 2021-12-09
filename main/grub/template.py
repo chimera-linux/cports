@@ -229,3 +229,12 @@ def _ppc(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "powerpc-utils"]
 
     return ["usr/lib/grub/powerpc-ieee1275"]
+
+@subpackage("grub-riscv64-efi", _have_rv64)
+def _rv64_efi(self):
+    self.pkgdesc = f"{pkgdesc} (RISCV64 EFI support)"
+    self.depends = [
+        f"{pkgname}={pkgver}-r{pkgrel}", "dosfstools", "efibootmgr"
+    ]
+
+    return ["usr/lib/grub/riscv64-efi"]
