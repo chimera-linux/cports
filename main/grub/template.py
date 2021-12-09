@@ -25,9 +25,8 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/grub"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
-# compile with -Os as is grub default, use binutils where we can for max
-# compatibility (we have to anyway), incl. gnu assembler (at least for
-# powerpc it does not like clang's), use CFLAGS to pass this so it makes
+# compile with -Os as is grub default, and use GNU assembler as at least the
+# powerpc target does not like clang's, use CFLAGS to pass this so it makes
 # its way to grubcore (which does not use LDFLAGS)
 #
 # we also need to put -no-pie here since some conftests are compiled
@@ -35,10 +34,9 @@ sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
 # empty macros that break the build later on
 tool_flags = {
     "CFLAGS": [
-        "-Os", "-fuse-ld=bfd", "-Wno-unused-command-line-argument",
+        "-Os", "-Wno-unused-command-line-argument",
         "-no-integrated-as", "-no-pie",
     ],
-    "LDFLAGS": ["-fuse-ld=bfd"],
 }
 # we're compiling a bunch of freestanding crap
 hardening = ["!pie", "!ssp", "!scp"]
@@ -104,9 +102,6 @@ def do_configure(self):
         bdir = f"build_{arch}_{platform}"
         self.mkdir(bdir)
         ldfl = self.get_ldflags(shell = True)
-        # bfd currently fails on the xen build
-        if platform == "xen":
-            ldfl += " -fuse-ld=lld"
         self.do(
             self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
             f"--target={arch}", f"--with-platform={platform}",
