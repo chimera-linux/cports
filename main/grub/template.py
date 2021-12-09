@@ -8,6 +8,8 @@ configure_args = [
     "--enable-grub-mount",
 ]
 make_cmd = "gmake"
+# our strip wrapper prevents correct kernel.img generation
+make_install_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 hostmakedepends = [
     "gmake", "pkgconf", "flex", "bison", "help2man", "python",
     "gettext-tiny", "font-unifont-bdf", f"binutils-{self.profile().arch}",
@@ -48,7 +50,7 @@ exec_wrappers = []
 for tool in ["objcopy", "strip", "ar", "ranlib", "nm"]:
     tpl = self.profile().triplet
     exec_wrappers += [
-        (f"/usr/bin/{tpl}-g{tool}", f"{tpl}-{tool}")
+        (f"/usr/bin/{tpl}-g{tool}", f"{tpl}-{tool}"),
     ]
 
 # we can use this as simple conditions
@@ -101,11 +103,15 @@ def do_configure(self):
     for arch, platform in _extra_targets:
         bdir = f"build_{arch}_{platform}"
         self.mkdir(bdir)
+        ldfl = self.get_ldflags(shell = True)
+        # bfd currently fails on the xen build
+        if platform == "xen":
+            ldfl += " -fuse-ld=lld"
         self.do(
             self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
             f"--target={arch}", f"--with-platform={platform}",
             "--disable-efiemu", *configure_args,
-            wrksrc = bdir
+            wrksrc = bdir, env = {"LDFLAGS": ldfl}
         )
 
 def do_build(self):
