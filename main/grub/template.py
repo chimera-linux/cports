@@ -25,23 +25,10 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/grub"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
-# compile with -Os as is grub default, and use GNU assembler as at least the
-# powerpc target does not like clang's, use CFLAGS to pass this so it makes
-# its way to grubcore (which does not use LDFLAGS)
-#
-# we also need to put -no-pie here since some conftests are compiled
-# without passing LDFLAGS and they subsequently fail but also generate
-# empty macros that break the build later on
-tool_flags = {
-    "CFLAGS": [
-        "-Os", "-Wno-unused-command-line-argument",
-        "-no-integrated-as", "-no-pie",
-    ],
-}
-# we're compiling a bunch of freestanding crap
-hardening = ["!pie", "!ssp", "!scp"]
-# we also use binutils
-options = ["!lto", "foreignelf"]
+# the freestanding bits
+nopie_files = ["usr/lib/grub/*"]
+# we carry low level freestanding stuff
+options = ["foreignelf"]
 
 exec_wrappers = []
 # fool the build system into using binutils for these tools
@@ -55,8 +42,9 @@ for tool in ["objcopy", "strip", "ar", "ranlib", "nm"]:
 _have_x86 = False
 _have_arm64 = False
 _have_ppc = False
-# only x86 has extra targets right now
-_extra_targets = []
+_have_rv64 = False
+# all platforms
+_platforms = []
 
 match self.profile().arch:
     case "x86_64":
@@ -65,23 +53,31 @@ match self.profile().arch:
         _have_ppc = True
     case "aarch64":
         _have_arm64 = True
+    case "rsicv64":
+        _have_rv64 = True
 
 if _have_x86:
-    _platform = "pc"
     # the default build is BIOS, we also want EFI
     # (32 and 64 bit) as well as coreboot and Xen
-    _extra_targets = [
+    _platforms = [
+        ("i386", "pc"),
         ("i386", "efi"),
         ("i386", "coreboot"),
         ("x86_64", "efi"),
         ("x86_64", "xen"),
     ]
 elif _have_ppc:
-    _platform = "ieee1275"
-    # otherwise a bad grub core is compiled
-    tool_flags["CFLAGS"] += ["-mno-altivec"]
+    _platforms = [
+        ("powerpc", "ieee1275"),
+    ]
 elif _have_arm64:
-    _platform = "efi"
+    _platforms = [
+        ("arm64", "efi"),
+    ]
+elif _have_rv64:
+    _platforms = [
+        ("riscv64", "efi"),
+    ]
 else:
     broken = f"Unsupported platform ({self.profile().arch})"
 
@@ -90,42 +86,52 @@ def init_configure(self):
     self.make = make.Make(self)
 
 def do_configure(self):
-    # configure primary build
+    # configure tools build
     self.mkdir("build")
     self.do(
         self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
-        f"--with-platform={_platform}", *configure_args,
+        f"--with-platform=none", *configure_args,
         wrksrc = "build"
     )
-    # configure extra targets
-    for arch, platform in _extra_targets:
+    # platforms build
+    for arch, platform in _platforms:
         bdir = f"build_{arch}_{platform}"
         self.mkdir(bdir)
-        ldfl = self.get_ldflags(shell = True)
+        cfl = "-fno-stack-protector -no-integrated-as"
+        ldfl = ""
+        # otherwise broken grubcore is built
+        if arch == "powerpc":
+            cfl += " -mno-altivec"
+        # configure freestanding
         self.do(
             self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
             f"--target={arch}", f"--with-platform={platform}",
             "--disable-efiemu", *configure_args,
-            wrksrc = bdir, env = {"LDFLAGS": ldfl}
+            wrksrc = bdir, env = {
+                "BUILD_CFLAGS": cfl,
+                "BUILD_LDFLAGS": ldfl,
+                "CFLAGS": cfl,
+                "LDFLAGS": ldfl
+            }
         )
 
 def do_build(self):
     # primary build
     self.make.build(wrksrc = "build")
     # extra targets
-    for arch, platform in _extra_targets:
+    for arch, platform in _platforms:
         self.make.build(wrksrc = f"build_{arch}_{platform}")
 
 def do_install(self):
     # populate extra targets first
-    for arch, platform in _extra_targets:
+    for arch, platform in _platforms:
         bdir = f"build_{arch}_{platform}"
         # full install
         self.make.install(wrksrc = bdir)
         # remove stuff that is not platform specific
         for d in ["etc", "usr/share", "usr/bin"]:
             self.rm(self.destdir / d, recursive = True, force = True)
-    # install primary last
+    # install tools last
     self.make.install(wrksrc = "build")
     # remove fat module files
     for d in (self.destdir / "usr/lib/grub").iterdir():
