@@ -2406,7 +2406,10 @@ When `pkgname` is not given, `self.pkgname` is used.
 
 ##### def install_service(self, src, name = None)
 
-Equivalent to `self.install_file(src, "etc/dinit.d", 0o644, name)`.
+If `src` is a file path that does not have the `.user` extension, it installs
+the file in `etc/dinit.d` with mode `0o644`. Otherwise, it installs the file
+in `etc/dinit.d/user` with its extension removed. If `name` is provided, it
+is used as it is without changes.
 
 ##### def install_svscript(self, src, name = None)
 

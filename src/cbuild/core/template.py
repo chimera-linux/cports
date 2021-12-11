@@ -1197,7 +1197,14 @@ class Template(Package):
         )
 
     def install_service(self, src, name = None):
-        self.install_file(src, "etc/dinit.d", name = name)
+        src = pathlib.Path(src)
+        if src.suffix == ".user":
+            self.install_file(
+                src, "etc/dinit.d/user",
+                name = name or src.with_suffix("").name
+            )
+        else:
+            self.install_file(src, "etc/dinit.d", name = name)
 
     def install_svscript(self, src, name = None):
         self.install_file(
