@@ -15,4 +15,5 @@ session    include    system-auth
 session    optional   pam_motd.so          motd=/etc/motd
 session    optional   pam_mail.so          dir=/var/mail standard quiet
 -session   optional   pam_elogind.so
+-session   optional   pam_dinit_userservd.so
 session    required   pam_env.so
