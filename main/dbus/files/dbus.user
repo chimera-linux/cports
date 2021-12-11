@@ -1,0 +1,6 @@
+# dbus session bus user service
+
+type               = process
+command            = /usr/libexec/dbus-session.wrapper --print-address=4
+smooth-recovery    = true
+ready-notification = pipefd:4

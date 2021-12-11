@@ -48,8 +48,12 @@ def post_install(self):
     self.install_file(
         self.files_path / "dbus-daemon.wrapper", "usr/libexec", mode = 0o755
     )
+    self.install_file(
+        self.files_path / "dbus-session.wrapper", "usr/libexec", mode = 0o755
+    )
     self.install_service(self.files_path / "dbus-prepare")
     self.install_service(self.files_path / "dbus")
+    self.install_service(self.files_path / "dbus.user")
 
 @subpackage("dbus-static")
 def _static(self):
