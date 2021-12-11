@@ -1,0 +1,38 @@
+commit 7b58b2d2dbdd81a04ed924e57c01ecde3778e75c
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Dec 11 22:00:12 2021 +0100
+
+    disable stackprotector sanity check on x86
+    
+    This does not appear to work with cross clang, which means the
+    config that comes out differs when configured via cross build.
+
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 6ce9068..185e932 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -236,7 +236,7 @@ config X86
+ 	select HAVE_RELIABLE_STACKTRACE		if X86_64 && (UNWINDER_FRAME_POINTER || UNWINDER_ORC) && STACK_VALIDATION
+ 	select HAVE_FUNCTION_ARG_ACCESS_API
+ 	select HAVE_SOFTIRQ_ON_OWN_STACK
+-	select HAVE_STACKPROTECTOR		if CC_HAS_SANE_STACKPROTECTOR
++	select HAVE_STACKPROTECTOR
+ 	select HAVE_STACK_VALIDATION		if X86_64
+ 	select HAVE_STATIC_CALL
+ 	select HAVE_STATIC_CALL_INLINE		if HAVE_STACK_VALIDATION
+@@ -386,15 +386,6 @@ config PGTABLE_LEVELS
+ 	default 3 if X86_PAE
+ 	default 2
+ 
+-config CC_HAS_SANE_STACKPROTECTOR
+-	bool
+-	default $(success,$(srctree)/scripts/gcc-x86_64-has-stack-protector.sh $(CC)) if 64BIT
+-	default $(success,$(srctree)/scripts/gcc-x86_32-has-stack-protector.sh $(CC))
+-	help
+-	   We have to make sure stack protector is unconditionally disabled if
+-	   the compiler produces broken code or if it does not let us control
+-	   the segment on 32-bit kernels.
+-
+ menu "Processor type and features"
+ 
+ config SMP
