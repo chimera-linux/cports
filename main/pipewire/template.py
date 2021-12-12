@@ -61,6 +61,8 @@ system_users = ["_pipewire"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_service(self.files_path / "pipewire.user")
+    self.install_service(self.files_path / "pipewire-pulse.user")
 
 @subpackage("libpipewire")
 def _lib(self):
