@@ -57,8 +57,6 @@ url = "https://pipewire.org"
 source = [f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["a2c8176d757a2ac6db445c61a50802ff1c26f49f5a28174f5eb0278609a887cf"]
 
-system_users = ["_pipewire"]
-
 def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "pipewire.user")

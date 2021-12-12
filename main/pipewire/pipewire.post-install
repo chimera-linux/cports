@@ -1,4 +1,0 @@
-#!/bin/sh
-
-mkdir -m 755 -p /var/lib/pipewire
-chown _pipewire:_pipewire /var/lib/pipewire > /dev/null 2>&1 || :
