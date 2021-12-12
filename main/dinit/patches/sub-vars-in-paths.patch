@@ -1,0 +1,108 @@
+From 25e2e08110a6cc48baf6c622f3848ff89f095e11 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 12 Dec 2021 23:37:47 +0100
+Subject: [PATCH] perform some extra substitutions when sub-vars is enabled
+
+This allows socket-path, logfile, env-file, pid-file and
+working-dir to perform environment variable substitutions.
+
+It's not ideal and is kinda limited, but will do the trick as
+a temporary workaround for us so that we can do basic env subst
+in user services. A better solution should be thought up and then
+implemented upstream.
+---
+ src/load-service.cc | 50 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 50 insertions(+)
+
+diff --git a/src/load-service.cc b/src/load-service.cc
+index d182c33..d02a5ca 100644
+--- a/src/load-service.cc
++++ b/src/load-service.cc
+@@ -7,6 +7,7 @@
+ 
+ #include <cstring>
+ #include <cstdlib>
++#include <cctype>
+ 
+ #include <sys/stat.h>
+ #include <sys/types.h>
+@@ -66,6 +67,42 @@ static void do_env_subst(std::string &line, std::list<std::pair<unsigned,unsigne
+     }
+ }
+ 
++static void do_env_subst_path(std::string &line, bool do_sub_vars) {
++    if (!do_sub_vars) {
++        return;
++    }
++    size_t opos = 0;
++    std::string r_line{};
++    for (;;) {
++        auto dlr = line.find('$', opos);
++        if (dlr == line.npos) {
++            r_line += line.substr(opos);
++            break;
++        }
++        // part until before the substitution
++        r_line += line.substr(opos, dlr - opos);
++        if (
++            (dlr != (line.size() - 1)) &&
++            ((line[dlr + 1] == '_') || std::isalpha(line[dlr + 1]))
++        ) {
++            auto vpos = ++dlr;
++            auto epos = vpos;
++            while ((line[epos] == '_') || std::isalnum(line[epos])) {
++                ++epos;
++            }
++            auto ename = line.substr(vpos, epos - vpos);
++            auto *eval = getenv(ename.c_str());
++            if (eval) {
++                r_line += eval;
++            }
++            opos = epos;
++        } else {
++            opos = dlr + 1;
++        }
++    }
++    line = std::move(r_line);
++}
++
+ // Process a dependency directory - filenames contained within correspond to service names which
+ // are loaded and added as a dependency of the given type. Expected use is with a directory
+ // containing symbolic links to other service descriptions, but this isn't required.
+@@ -389,6 +426,10 @@ service_record * dirload_service_set::load_reload_service(const char *name, serv
+ 
+         if (service_type == service_type_t::PROCESS) {
+             do_env_subst(settings.command, settings.command_offsets, settings.do_sub_vars);
++            do_env_subst_path(settings.env_file, settings.do_sub_vars);
++            do_env_subst_path(settings.working_dir, settings.do_sub_vars);
++            do_env_subst_path(settings.logfile, settings.do_sub_vars);
++            do_env_subst_path(settings.socket_path, settings.do_sub_vars);
+             process_service *rvalps;
+             if (create_new_record) {
+                 rvalps = new process_service(this, string(name), std::move(settings.command),
+@@ -418,6 +459,11 @@ service_record * dirload_service_set::load_reload_service(const char *name, serv
+         }
+         else if (service_type == service_type_t::BGPROCESS) {
+             do_env_subst(settings.command, settings.command_offsets, settings.do_sub_vars);
++            do_env_subst_path(settings.env_file, settings.do_sub_vars);
++            do_env_subst_path(settings.pid_file, settings.do_sub_vars);
++            do_env_subst_path(settings.working_dir, settings.do_sub_vars);
++            do_env_subst_path(settings.logfile, settings.do_sub_vars);
++            do_env_subst_path(settings.socket_path, settings.do_sub_vars);
+             bgproc_service *rvalps;
+             if (create_new_record) {
+                 rvalps = new bgproc_service(this, string(name), std::move(settings.command),
+@@ -443,6 +489,10 @@ service_record * dirload_service_set::load_reload_service(const char *name, serv
+         }
+         else if (service_type == service_type_t::SCRIPTED) {
+             do_env_subst(settings.command, settings.command_offsets, settings.do_sub_vars);
++            do_env_subst_path(settings.env_file, settings.do_sub_vars);
++            do_env_subst_path(settings.working_dir, settings.do_sub_vars);
++            do_env_subst_path(settings.logfile, settings.do_sub_vars);
++            do_env_subst_path(settings.socket_path, settings.do_sub_vars);
+             std::vector<const char *> stop_arg_parts = separate_args(settings.stop_command, settings.stop_command_offsets);
+             scripted_service *rvalps;
+             if (create_new_record) {
+-- 
+2.34.1
+
