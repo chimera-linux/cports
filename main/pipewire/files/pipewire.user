@@ -1,5 +1,6 @@
 # pipewire user service
 # FIXME: add socket-listen on /run/user/UID/pipewire-0 for readiness
 
-type    = process
-command = /usr/bin/dinit-run-dbus pipewire
+type       = process
+command    = /usr/bin/dinit-run-dbus pipewire
+depends-on = dbus
