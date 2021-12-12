@@ -19,7 +19,7 @@ def _scan_so(pkg):
 
         if soname:
             curso[soname] = pname
-        elif fp.suffix == ".so" and str(fp.parent) == "usr/lib":
+        elif ".so" in fp.suffixes:
             curso[fp.name] = pname
 
         if pname != pkg.pkgname:
