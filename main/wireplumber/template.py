@@ -23,6 +23,7 @@ sha256 = "73c76c8cd60d3f96e586122a13257586396d7e34b2f9ffad39d27015a1fa0a13"
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_service(self.files_path / "wireplumber.user")
 
 @subpackage("wireplumber-static")
 def _static(self):

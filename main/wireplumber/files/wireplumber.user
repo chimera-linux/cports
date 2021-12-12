@@ -1,0 +1,6 @@
+# wireplumber user service
+
+type            = process
+command         = /usr/bin/dinit-run-dbus wireplumber
+depends-on      = pipewire
+smooth-recovery = true
