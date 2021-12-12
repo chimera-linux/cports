@@ -43,7 +43,8 @@ _have_x86 = False
 _have_arm64 = False
 _have_ppc = False
 _have_rv64 = False
-# all platforms
+# this should be a list of tuples:
+# (arch, platform, cflags, ldflags, platform_name)
 _platforms = []
 
 match self.profile().arch:
@@ -60,23 +61,24 @@ if _have_x86:
     # the default build is BIOS, we also want EFI
     # (32 and 64 bit) as well as coreboot and Xen
     _platforms = [
-        ("i386", "pc"),
-        ("i386", "efi"),
-        ("i386", "coreboot"),
-        ("x86_64", "efi"),
-        ("x86_64", "xen"),
+        # need bfd linker for x86/BIOS to get 512 byte first-stage images
+        ("i386", "pc", "-fuse-ld=bfd", "-fuse-ld=bfd", "x86 PC/BIOS"),
+        ("i386", "efi", "", "", "x86 EFI"),
+        ("i386", "coreboot", "", "", "x86 coreboot"),
+        ("x86_64", "efi", "", "", "x86_64 EFI"),
+        ("x86_64", "xen", "", "", "x86_64 Xen"),
     ]
 elif _have_ppc:
     _platforms = [
-        ("powerpc", "ieee1275"),
+        ("powerpc", "ieee1275", "-mno-altivec", "", "PowerPC OpenFirmware"),
     ]
 elif _have_arm64:
     _platforms = [
-        ("arm64", "efi"),
+        ("arm64", "efi", "", "", "Aarch64 EFI"),
     ]
 elif _have_rv64:
     _platforms = [
-        ("riscv64", "efi"),
+        ("riscv64", "efi", "", "", "64-bit RISC-V EFI"),
     ]
 else:
     broken = f"Unsupported platform ({self.profile().arch})"
@@ -94,14 +96,10 @@ def do_configure(self):
         wrksrc = "build"
     )
     # platforms build
-    for arch, platform in _platforms:
+    for arch, platform, ecfl, ldfl, desc in _platforms:
         bdir = f"build_{arch}_{platform}"
         self.mkdir(bdir)
-        cfl = "-fno-stack-protector -no-integrated-as"
-        ldfl = ""
-        # otherwise broken grubcore is built
-        if arch == "powerpc":
-            cfl += " -mno-altivec"
+        cfl = "-fno-stack-protector -no-integrated-as " + ecfl
         # configure freestanding
         self.do(
             self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
@@ -119,12 +117,12 @@ def do_build(self):
     # primary build
     self.make.build(wrksrc = "build")
     # extra targets
-    for arch, platform in _platforms:
+    for arch, platform, cfl, ldfl, desc in _platforms:
         self.make.build(wrksrc = f"build_{arch}_{platform}")
 
 def do_install(self):
     # populate extra targets first
-    for arch, platform in _platforms:
+    for arch, platform, cfl, ldfl, desc in _platforms:
         bdir = f"build_{arch}_{platform}"
         # full install
         self.make.install(wrksrc = bdir)
@@ -133,10 +131,6 @@ def do_install(self):
             self.rm(self.destdir / d, recursive = True, force = True)
     # install tools last
     self.make.install(wrksrc = "build")
-    # remove fat module files
-    for d in (self.destdir / "usr/lib/grub").iterdir():
-        for f in d.glob("*.module"):
-            f.unlink()
 
 def post_install(self):
     # kernel hook
@@ -175,66 +169,32 @@ def _utils(self):
         "usr/bin/grub-mkfont",
     ]
 
-@subpackage("grub-i386-coreboot", _have_x86)
-def _i386_coreboot(self):
-    self.pkgdesc = f"{pkgdesc} (i386 coreboot support)"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+def _genplatform(arch, platform, desc):
+    @subpackage(f"grub-{arch}-{platform}-dbg")
+    def _platdbg(self):
+        self.pkgdesc = f"{pkgdesc} ({desc} debug files)"
+        self.depends = [f"grub-{arch}-{platform}={pkgver}-r{pkgrel}"]
+        self.options = ["!strip"]
 
-    return ["usr/lib/grub/i386-coreboot"]
+        def _install():
+            self.take(f"usr/lib/grub/{arch}-{platform}/*.module")
+            self.take(
+                f"usr/lib/grub/{arch}-{platform}/*.image", missing_ok = True
+            )
+            self.take(
+                f"usr/lib/grub/{arch}-{platform}/*.exec", missing_ok = True
+            )
 
-@subpackage("grub-i386-pc", _have_x86)
-def _i386_pc(self):
-    self.pkgdesc = f"{pkgdesc} (i386 PC/BIOS support)"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+        return _install
 
-    return ["usr/lib/grub/i386-pc"]
+    @subpackage(f"grub-{arch}-{platform}")
+    def _plat(self):
+        self.pkgdesc = f"{pkgdesc} ({desc} support)"
+        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+        self.options = ["!strip"]
 
-@subpackage("grub-x86_64-efi", _have_x86)
-def _x86_64_efi(self):
-    self.pkgdesc = f"{pkgdesc} (x86_64 EFI support)"
-    self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}", "dosfstools", "efibootmgr"
-    ]
+        return [f"usr/lib/grub/{arch}-{platform}"]
 
-    return ["usr/lib/grub/x86_64-efi"]
-
-@subpackage("grub-x86_64-xen", _have_x86)
-def _x86_64_xen(self):
-    self.pkgdesc = f"{pkgdesc} (x86_64 Xen PV support)"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return ["usr/lib/grub/x86_64-xen"]
-
-@subpackage("grub-i386-efi", _have_x86)
-def _i386_efi(self):
-    self.pkgdesc = f"{pkgdesc} (i386 EFI support)"
-    self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}", "dosfstools", "efibootmgr"
-    ]
-
-    return ["usr/lib/grub/i386-efi"]
-
-@subpackage("grub-arm64-efi", _have_arm64)
-def _arm64_efi(self):
-    self.pkgdesc = f"{pkgdesc} (AArch64 EFI support)"
-    self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}", "dosfstools", "efibootmgr"
-    ]
-
-    return ["usr/lib/grub/arm64-efi"]
-
-@subpackage("grub-powerpc-ieee1275", _have_ppc)
-def _ppc(self):
-    self.pkgdesc = f"{pkgdesc} (PowerPC OpenFirmware support)"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "powerpc-utils"]
-
-    return ["usr/lib/grub/powerpc-ieee1275"]
-
-@subpackage("grub-riscv64-efi", _have_rv64)
-def _rv64_efi(self):
-    self.pkgdesc = f"{pkgdesc} (RISCV64 EFI support)"
-    self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}", "dosfstools", "efibootmgr"
-    ]
-
-    return ["usr/lib/grub/riscv64-efi"]
+# generate platform subpackages
+for arch, platform, cfl, ldfl, desc in _platforms:
+    _genplatform(arch, platform, desc)
