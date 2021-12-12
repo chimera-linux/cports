@@ -8,14 +8,16 @@ configure_args = [
 hostmakedepends = ["pkgconf"]
 # actually only on x86 and arm (tramp.c code) but it does not hurt
 makedepends = ["linux-headers"]
-# FIXME: package this
-#checkdepends = ["dejagnu"]
 pkgdesc = "Library supporting Foreign Function Interfaces"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{pkgver}.tar.gz"
 sha256 = "540fb721619a6aba3bdeef7d940d8e9e0e6d2c193595bc243241b77ff9e93620"
+
+# do not pull dejagnu and thus tcl etc. into early stages
+if self.stage >= 2:
+    checkdepends = ["dejagnu"]
 
 def post_install(self):
     self.install_license("LICENSE")
