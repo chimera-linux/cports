@@ -3,5 +3,5 @@
 type          = process
 command       = /usr/bin/dinit-run-dbus pipewire
 depends-on    = dbus
-socket-listen = /run/user/$UID/pipewire-0
+socket-listen = $XDG_RUNTIME_DIR/pipewire-0
 load-options  = sub-vars
