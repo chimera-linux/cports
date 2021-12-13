@@ -58,7 +58,7 @@ def genpkg(
 
         if not dbg:
             for c in pkg.depends:
-                mdeps.append(c)
+                mdeps.append(c.removeprefix("virtual:"))
         else:
             mdeps.append(f"{pkg.pkgname}={pkg.pkgver}-r{pkg.pkgrel}")
 
