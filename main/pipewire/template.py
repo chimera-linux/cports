@@ -7,7 +7,7 @@ configure_args = [
     "--auto-features=enabled",
     "-Db_ndebug=false",
     "-Dvulkan=disabled",
-    "-Ddocs=disabled", # TODO later
+    "-Ddocs=enabled",
     "-Dsdl2=disabled",
     "-Dsystemd=disabled",
     "-Dlibcamera=disabled",
@@ -24,7 +24,7 @@ configure_args = [
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "python-docutils",
-    #"doxygen", "graphviz", TODO later
+    "doxygen", "graphviz",
 ]
 makedepends = [
     "gst-plugins-base-devel",
@@ -126,6 +126,6 @@ def _alsa(self):
         "usr/share/alsa/alsa.conf.d",
     ]
 
-@subpackage("pipewire-doc", False) # TODO later
+@subpackage("pipewire-doc")
 def _doc(self):
-    return self.default_doc()
+    return self.default_doc(man = False)
