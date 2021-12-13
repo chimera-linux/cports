@@ -128,12 +128,7 @@ def post_install(self):
         self.files_path / "grub.default", "etc/default", name = "grub"
     )
     # update-grub
-    with open(self.destdir / "usr/bin/update-grub", "w") as ug:
-        ug.write("""#!/bin/sh
-
-exec /usr/bin/grub-mkconfig -o /boot/grub/grub.cfg
-""")
-    (self.destdir / "usr/bin/update-grub").chmod(0o755)
+    self.install_bin(self.files_path / "update-grub")
     # move completions
     self.install_dir("usr/share/bash-completion/completions")
     self.mv(
