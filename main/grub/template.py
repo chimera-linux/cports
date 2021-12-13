@@ -38,50 +38,36 @@ for tool in ["objcopy", "strip", "ar", "ranlib", "nm"]:
         (f"/usr/bin/{tpl}-g{tool}", f"{tpl}-{tool}"),
     ]
 
-# we can use this as simple conditions
-_have_x86 = False
-_have_arm64 = False
-_have_ppc = False
-_have_rv64 = False
 # this should be a list of tuples:
 # (arch, platform, cflags, ldflags, platform_name)
 _platforms = []
 
 match self.profile().arch:
     case "x86_64":
-        _have_x86 = True
+        # the default build is BIOS, we also want EFI
+        # (32 and 64 bit) as well as coreboot and Xen
+        _platforms = [
+            # need bfd linker for x86/BIOS to get 512 byte first-stage images
+            ("i386", "pc", "-fuse-ld=bfd", "-fuse-ld=bfd", "x86 PC/BIOS"),
+            ("i386", "efi", "", "", "x86 EFI"),
+            ("i386", "coreboot", "", "", "x86 coreboot"),
+            ("x86_64", "efi", "", "", "x86_64 EFI"),
+            ("x86_64", "xen", "", "", "x86_64 Xen"),
+        ]
     case "ppc64le" | "ppc64":
-        _have_ppc = True
+        _platforms = [
+            ("powerpc", "ieee1275", "-mno-altivec", "", "PowerPC OpenFirmware"),
+        ]
     case "aarch64":
-        _have_arm64 = True
+        _platforms = [
+            ("arm64", "efi", "", "", "Aarch64 EFI"),
+        ]
     case "rsicv64":
-        _have_rv64 = True
-
-if _have_x86:
-    # the default build is BIOS, we also want EFI
-    # (32 and 64 bit) as well as coreboot and Xen
-    _platforms = [
-        # need bfd linker for x86/BIOS to get 512 byte first-stage images
-        ("i386", "pc", "-fuse-ld=bfd", "-fuse-ld=bfd", "x86 PC/BIOS"),
-        ("i386", "efi", "", "", "x86 EFI"),
-        ("i386", "coreboot", "", "", "x86 coreboot"),
-        ("x86_64", "efi", "", "", "x86_64 EFI"),
-        ("x86_64", "xen", "", "", "x86_64 Xen"),
-    ]
-elif _have_ppc:
-    _platforms = [
-        ("powerpc", "ieee1275", "-mno-altivec", "", "PowerPC OpenFirmware"),
-    ]
-elif _have_arm64:
-    _platforms = [
-        ("arm64", "efi", "", "", "Aarch64 EFI"),
-    ]
-elif _have_rv64:
-    _platforms = [
-        ("riscv64", "efi", "", "", "64-bit RISC-V EFI"),
-    ]
-else:
-    broken = f"Unsupported platform ({self.profile().arch})"
+        _platforms = [
+            ("riscv64", "efi", "", "", "64-bit RISC-V EFI"),
+        ]
+    case _:
+        broken = f"Unsupported platform ({self.profile().arch})"
 
 def init_configure(self):
     from cbuild.util import make
