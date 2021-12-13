@@ -2,12 +2,12 @@ pkgname = "wireplumber"
 pkgver = "0.4.5"
 pkgrel = 0
 build_style = "meson"
-# FIXME: enable introspection and docs once we have doxygen
 configure_args = [
-    "-Dsystem-lua=true", "-Ddoc=disabled", "-Dintrospection=disabled"
+    "-Dsystem-lua=true", "-Ddoc=disabled", "-Dintrospection=enabled"
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gobject-introspection", "python-lxml", "glib-devel"
+    "meson", "pkgconf", "gobject-introspection", "python-lxml", "glib-devel",
+    "doxygen"
 ]
 makedepends = [
     "pipewire-devel", "libglib-devel", "lua5.4-devel"
