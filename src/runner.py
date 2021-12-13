@@ -660,7 +660,8 @@ def do_cycle_check(tgt):
             return template.read_pkg(
                 pkgn, chroot.host_cpu(), True,
                 False, 1, False, False, None, target = "lint",
-                resolve = resolve
+                resolve = resolve, allow_broken = True,
+                ignore_errors = True
             )
         except PackageError:
             return None
