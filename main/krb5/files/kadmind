@@ -1,0 +1,5 @@
+# kadmind service
+
+type               = process
+command            = /usr/bin/kadmind -nofork
+depends-on         = login-ready

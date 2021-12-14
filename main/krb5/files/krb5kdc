@@ -1,0 +1,5 @@
+# krb5kdc service
+
+type               = process
+command            = /usr/bin/krb5kdc -n
+depends-on         = login-ready
