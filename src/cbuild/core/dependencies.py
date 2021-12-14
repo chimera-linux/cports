@@ -58,15 +58,18 @@ def setup_depends(pkg):
         # conflicts are not checked at all
         if dep.startswith("!"):
             continue
+
+        pn, pv, pop = autil.split_pkg_name(dep)
+
         # virtual dependencies are checked for their specified provider
         if not _is_rdep(dep):
-            if not dep in pkg.depends_providers:
+            if not (pn or dep) in pkg.depends_providers:
                 pkg.error(
                     f"virtual dependency {dep} has no specified provider"
                 )
-            dep = pkg.depends_providers[dep]
+            dep = pkg.depends_providers[pn or dep]
+            pn, pv, pop = autil.split_pkg_name(dep)
 
-        pn, pv, pop = autil.split_pkg_name(dep)
         if not pn:
             rdeps.append((orig, dep + ">=0"))
         else:
