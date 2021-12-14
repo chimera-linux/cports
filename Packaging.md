@@ -1392,8 +1392,8 @@ are composed of multiple parts, which are generally the following:
 4) The flags as defined in your template, if any.
 5) `-fdebug-prefix-map=/builddir/{wrksrc}=.` to improve ccache behavior
    for `CFLAGS` and `CXXFLAGS`.
-5) Any extra flags from `extra_flags`.
-6) Debug flags as corresponding to the tool according to the current debug
+6) Any extra flags from `extra_flags`.
+7) Debug flags as corresponding to the tool according to the current debug
    level (default or template-specified), if building with debug.
 
 Not all of the above may apply to all tool types, but it tends to apply to
