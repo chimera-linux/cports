@@ -1,0 +1,21 @@
+From: Debian Berkeley DB Group <pkg-db-devel@lists.alioth.debian.org>
+Date: Tue, 22 Dec 2015 09:36:38 +0100
+Subject: Make the build reproducible by turning off HTML_TIMESTAMP in doxygen
+
+---
+ libraries/liblmdb/Doxyfile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libraries/liblmdb/Doxyfile b/libraries/liblmdb/Doxyfile
+index 5ca2cfe..20bc45b 100644
+--- a/libraries/liblmdb/Doxyfile
++++ b/libraries/liblmdb/Doxyfile
+@@ -839,7 +839,7 @@ HTML_COLORSTYLE_GAMMA  = 80
+ # page will contain the date and time when the page was generated. Setting
+ # this to NO can help when comparing the output of multiple runs.
+ 
+-HTML_TIMESTAMP         = YES
++HTML_TIMESTAMP         = NO
+ 
+ # If the HTML_ALIGN_MEMBERS tag is set to YES, the members of classes,
+ # files or namespaces will be aligned in HTML using tables. If set to
