@@ -1036,6 +1036,12 @@ class Template(Package):
 
         dodbg = self.build_dbg and self.options["debug"]
 
+        # stop trashing ccache upon minor version changes
+        if self.stage > 0 and name == "CFLAGS" or name == "CXXFLAGS":
+            tfb = [
+                f"-fdebug-prefix-map={self.chroot_builddir / self.wrksrc}=."
+            ] + tfb
+
         return target.get_tool_flags(
             name, tfb,
             self.debug_level if dodbg else -1,

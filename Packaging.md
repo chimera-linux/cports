@@ -1390,6 +1390,8 @@ are composed of multiple parts, which are generally the following:
 2) The flags as defined in either the current build profile or `target`.
 3) Bootstrapping or cross-compiling flags.
 4) The flags as defined in your template, if any.
+5) `-fdebug-prefix-map=/builddir/{wrksrc}=.` to improve ccache behavior
+   for `CFLAGS` and `CXXFLAGS`.
 5) Any extra flags from `extra_flags`.
 6) Debug flags as corresponding to the tool according to the current debug
    level (default or template-specified), if building with debug.
