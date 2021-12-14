@@ -54,4 +54,6 @@ def _libs(self):
 
 @subpackage("krb5-devel")
 def _devel(self):
+    self.depends += ["e2fsprogs-devel"]
+
     return self.default_devel(man = True)
