@@ -14,7 +14,5 @@ url = "https://github.com/fabiangreffrath/crispy-doom"
 source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
 sha256 = "eef8dc26e8952b23717be3b20239fda4ee59842511328387766d1c8fe8252f6b"
 
-# TODO: handle .desktop files and so on
-
 def pre_configure(self):
     self.do("autoreconf", "-if")
