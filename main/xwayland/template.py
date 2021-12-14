@@ -14,7 +14,7 @@ makedepends = [
     "mesa-devel", "libepoxy-devel", "pixman-devel", "nettle-devel",
     "dbus-devel", "font-util-devel", "xorgproto", "xtrans",
 ]
-depends = ["xserver-common"]
+provides = [f"xserver-common={pkgver}-r{pkgrel}"]
 pkgdesc = "Xwayland X server"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -26,9 +26,3 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("COPYING")
-
-@subpackage("xserver-common")
-def _common(self):
-    self.pkgdesc = f"X11 server from X.org (common files)"
-
-    return ["usr/lib/xorg/protocol.txt"]
