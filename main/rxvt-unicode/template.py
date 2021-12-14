@@ -13,11 +13,8 @@ configure_args = [
     "--enable-transparency",
     "--enable-combining",
     "--enable-unicode3",
+    "--enable-frills",
     "--enable-xim",
-    "--disable-utmp",
-    "--disable-wtmp",
-    "--disable-lastlog",
-    "--disable-frills",
     "--disable-perl",
     "--disable-pixbuf", # TODO: enable later
     "--disable-startup-notification", # TODO: enable later
