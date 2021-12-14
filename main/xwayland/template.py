@@ -14,7 +14,7 @@ makedepends = [
     "mesa-devel", "libepoxy-devel", "pixman-devel", "nettle-devel",
     "dbus-devel", "font-util-devel", "xorgproto", "xtrans",
 ]
-provides = [f"xserver-common={pkgver}-r{pkgrel}"]
+provides = [f"xserver-common=0"]
 pkgdesc = "Xwayland X server"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
