@@ -1,0 +1,1 @@
+pkgname = "libXfont2"
