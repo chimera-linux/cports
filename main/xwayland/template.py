@@ -14,7 +14,8 @@ makedepends = [
     "mesa-devel", "libepoxy-devel", "pixman-devel", "nettle-devel",
     "dbus-devel", "font-util-devel", "xorgproto", "xtrans",
 ]
-provides = [f"xserver-common=0"]
+# check if this needs to be updated when updating
+depends = ["xserver-xorg-protocol>=20180227"]
 pkgdesc = "Xwayland X server"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -27,3 +28,5 @@ options = ["!check"]
 def post_install(self):
     self.install_license("COPYING")
     self.rm(self.destdir / "usr/share/man/man1/Xserver.1")
+    # provided by xserver-xorg-protocol
+    self.rm(self.destdir / "usr/lib/xorg/protocol.txt")
