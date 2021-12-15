@@ -23,7 +23,8 @@ makedepends = [
     "libxcvt-devel",
 ]
 checkdepends = ["xkeyboard-config"]
-depends = ["xserver-common>=0", "xkeyboard-config", "elogind"]
+# check if this needs to be updated when updating
+depends = ["xserver-xorg-protocol>=20180227", "xkeyboard-config", "elogind"]
 provides = [
     "xserver-abi-extension=10.0",
     "xserver-abi-input=24.4",
@@ -64,6 +65,8 @@ def post_install(self):
     self.install_license("COPYING")
 
     self.chmod(self.destdir / "usr/libexec/Xorg.wrap", mode = 0o4755)
+    # provided by xserver-xorg-protocol
+    self.rm(self.destdir / "usr/lib/xorg/protocol.txt")
 
 @subpackage("xserver-xorg-xnest")
 def _xnest(self):
@@ -89,12 +92,6 @@ def _xvfb(self):
     return [
         "usr/bin/Xvfb", "usr/share/man/man1/Xvfb.1"
     ]
-
-@subpackage("xserver-common")
-def _common(self):
-    self.pkgdesc = f"{pkgdesc} (common files)"
-
-    return ["usr/lib/xorg/protocol.txt"]
 
 @subpackage("xserver-xorg-devel")
 def _devel(self):
