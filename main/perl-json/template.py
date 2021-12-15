@@ -1,0 +1,14 @@
+pkgname = "perl-json"
+pkgver = "4.03"
+pkgrel = 0
+build_style = "perl_module"
+hostmakedepends = ["gmake", "perl"]
+makedepends = ["perl"]
+checkdepends = ["perl-test-pod"]
+depends = ["perl"]
+pkgdesc = "JSON encoder/decoder"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
+url = "https://metacpan.org/release/JSON"
+source = f"$(CPAN_SITE)/JSON/JSON-{pkgver}.tar.gz"
+sha256 = "e41f8761a5e7b9b27af26fe5780d44550d7a6a66bf3078e337d676d07a699941"
