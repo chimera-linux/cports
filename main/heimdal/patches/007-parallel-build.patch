@@ -1,0 +1,22 @@
+From: Brian May <bam@debian.org>
+Date: Wed, 26 Apr 2017 06:29:23 +1000
+Subject: Parallel build
+
+---
+ lib/kadm5/Makefile.am | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/lib/kadm5/Makefile.am b/lib/kadm5/Makefile.am
+index d91d4fb..905ac77 100644
+--- a/lib/kadm5/Makefile.am
++++ b/lib/kadm5/Makefile.am
+@@ -159,8 +159,7 @@ iprop_log_LDADD = \
+ iprop-commands.c iprop-commands.h: iprop-commands.in
+ 	$(SLC) $(srcdir)/iprop-commands.in
+ 
+-$(libkadm5srv_la_OBJECTS): kadm5_err.h
+-$(libkadm5clnt_la_OBJECTS): kadm5_err.h
++$(ALL_OBJECTS): kadm5_err.h
+ $(iprop_log_OBJECTS): iprop-commands.h
+ 
+ client_glue.lo server_glue.lo: $(srcdir)/common_glue.c

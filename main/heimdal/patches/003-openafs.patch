@@ -1,0 +1,24 @@
+From: Brian May <bam@debian.org>
+Date: Wed, 26 Apr 2017 06:29:22 +1000
+Subject: OpenAFS
+
+===================================================================
+---
+ lib/krb5/keytab_keyfile.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/krb5/keytab_keyfile.c b/lib/krb5/keytab_keyfile.c
+index cb865a7..0c01032 100644
+--- a/lib/krb5/keytab_keyfile.c
++++ b/lib/krb5/keytab_keyfile.c
+@@ -48,8 +48,8 @@
+  *
+  */
+ 
+-#define AFS_SERVERTHISCELL "/usr/afs/etc/ThisCell"
+-#define AFS_SERVERMAGICKRBCONF "/usr/afs/etc/krb.conf"
++#define AFS_SERVERTHISCELL "/etc/openafs/ThisCell"
++#define AFS_SERVERMAGICKRBCONF "/etc/openafs/etc/krb.conf"
+ 
+ struct akf_data {
+     uint32_t num_entries;

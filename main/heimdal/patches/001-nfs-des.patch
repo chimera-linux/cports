@@ -1,0 +1,23 @@
+From: Brian May <bam@debian.org>
+Date: Wed, 26 Apr 2017 06:29:22 +1000
+Subject: nfs_des
+
+=== modified file 'kdc/kerberos5.c'
+---
+ kdc/kerberos5.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/kdc/kerberos5.c b/kdc/kerberos5.c
+index 9c3e54f..dc40e1b 100644
+--- a/kdc/kerberos5.c
++++ b/kdc/kerberos5.c
+@@ -91,7 +91,8 @@ krb5_boolean
+ _kdc_is_weak_exception(krb5_principal principal, krb5_enctype etype)
+ {
+     if (principal->name.name_string.len > 0 &&
+-	strcmp(principal->name.name_string.val[0], "afs") == 0 &&
++	(strcmp(principal->name.name_string.val[0], "afs") == 0
++	  || strcmp(principal->name.name_string.val[0], "nfs") == 0) &&
+ 	(etype == (krb5_enctype)ETYPE_DES_CBC_CRC
+ 	 || etype == (krb5_enctype)ETYPE_DES_CBC_MD4
+ 	 || etype == (krb5_enctype)ETYPE_DES_CBC_MD5))
