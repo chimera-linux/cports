@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "krb5-devel", "libgssglue-devel", "musl-bsd-headers", "linux-headers"
+    "heimdal-devel", "libgssglue-devel", "musl-bsd-headers", "linux-headers"
 ]
 pkgdesc = "Transport Independent RPC library (SunRPC replacement)"
 maintainer = "q66 <q66@chimera-linux.org>"
