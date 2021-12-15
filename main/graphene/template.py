@@ -4,7 +4,10 @@ pkgver = f"{_mver}.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dinstalled_tests=false", "-Dgcc_vector=false", "-Dintrospection=enabled"
+    "-Dinstalled_tests=false",
+    "-Dgcc_vector=false",
+    "-Dclang_vector=true",
+    "-Dintrospection=enabled"
 ]
 hostmakedepends = ["meson", "pkgconf", "gobject-introspection"]
 makedepends = [

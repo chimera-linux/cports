@@ -1,0 +1,248 @@
+From f6ec1053f00191b44876335d6acb876947efedfa Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 15 Dec 2021 05:59:31 +0100
+Subject: [PATCH] Implement vector intrinsics for clang
+
+---
+ doc/graphene-sections.txt       |  2 ++
+ include/graphene-config.h.meson |  9 ++++++++-
+ include/graphene-simd4f.h       | 36 ++++++++++++++++-----------------
+ include/graphene-simd4x4f.h     |  2 +-
+ meson.build                     | 21 ++++++++++++++++++-
+ meson_options.txt               |  3 +++
+ src/graphene-simd4f.c           |  2 +-
+ src/graphene-simd4x4f.c         |  2 +-
+ 8 files changed, 54 insertions(+), 23 deletions(-)
+
+diff --git a/doc/graphene-sections.txt b/doc/graphene-sections.txt
+index e874bf0..6a6f7ee 100644
+--- a/doc/graphene-sections.txt
++++ b/doc/graphene-sections.txt
+@@ -631,10 +631,12 @@ GRAPHENE_MINOR_VERSION
+ GRAPHENE_MICRO_VERSION
+ <SUBSECTION Standard>
+ GRAPHENE_HAS_GCC
++GRAPHENE_HAS_CLANG
+ GRAPHENE_HAS_SCALAR
+ GRAPHENE_HAS_SSE
+ GRAPHENE_HAS_ARM_NEON
+ GRAPHENE_USE_GCC
++GRAPHENE_USE_CLANG
+ GRAPHENE_USE_SCALAR
+ GRAPHENE_USE_SSE
+ GRAPHENE_USE_ARM_NEON
+diff --git a/include/graphene-config.h.meson b/include/graphene-config.h.meson
+index 96192cc..0b446b9 100644
+--- a/include/graphene-config.h.meson
++++ b/include/graphene-config.h.meson
+@@ -27,6 +27,10 @@ extern "C" {
+ #mesondefine GRAPHENE_HAS_GCC
+ #  endif
+ 
++#  if defined(__clang__)
++#mesondefine GRAPHENE_HAS_CLANG
++#  endif
++
+ #  define GRAPHENE_HAS_SCALAR 1
+ # endif /* GRAPHENE_SIMD_BENCHMARK */
+ 
+@@ -39,6 +43,9 @@ extern "C" {
+ # elif defined(GRAPHENE_HAS_GCC)
+ #  define GRAPHENE_USE_GCC
+ #  define GRAPHENE_SIMD_S "gcc"
++# elif defined(GRAPHENE_HAS_CLANG)
++#  define GRAPHENE_USE_CLANG
++#  define GRAPHENE_SIMD_S "clang"
+ # elif defined(GRAPHENE_HAS_SCALAR)
+ #  define GRAPHENE_USE_SCALAR
+ #  define GRAPHENE_SIMD_S "scalar"
+@@ -65,7 +72,7 @@ typedef __m128 graphene_simd4f_t;
+ # elif defined(GRAPHENE_USE_ARM_NEON)
+ #  include <arm_neon.h>
+ typedef float32x4_t graphene_simd4f_t;
+-# elif defined(GRAPHENE_USE_GCC)
++# elif defined(GRAPHENE_USE_GCC) || defined(GRAPHENE_USE_CLANG)
+ typedef float graphene_simd4f_t __attribute__((vector_size(16)));
+ # elif defined(GRAPHENE_USE_SCALAR)
+ typedef struct {
+diff --git a/include/graphene-simd4f.h b/include/graphene-simd4f.h
+index 038ab50..277e1ef 100644
+--- a/include/graphene-simd4f.h
++++ b/include/graphene-simd4f.h
+@@ -773,12 +773,20 @@ _simd4f_neg (const graphene_simd4f_t s)
+ 
+ # endif /* !__GNUC__ && !_MSC_VER */
+ 
+-#elif !defined(__GI_SCANNER__) && defined(GRAPHENE_USE_GCC)
++#elif !defined(__GI_SCANNER__) && (defined(GRAPHENE_USE_GCC) || defined(GRAPHENE_USE_CLANG))
+ 
+-/* GCC vector intrinsic implementation of SIMD 4f */
++/* GCC/Clang vector intrinsic implementation of SIMD 4f */
+ 
+ typedef int graphene_simd4i_t __attribute__((vector_size (16)));
+ 
++#if defined(__clang__)
++#define __graphene_simd_shuffle1(a, m1, m2, m3, m4) __builtin_shufflevector(a, a, m1, m2, m3, m4)
++#define __graphene_simd_shuffle2(a, b, m1, m2, m3, m4) __builtin_shufflevector(a, b, m1, m2, m3, m4)
++#else
++#define __graphene_simd_shuffle1(a, m1, m2, m3, m4) __builtin_shuffle(a, (const graphene_simd4i_t){m1, m2, m3, m4})
++#define __graphene_simd_shuffle2(a, b, m1, m2, m3, m4) __builtin_shuffle(a, b, (const graphene_simd4i_t){m1, m2, m3, m4})
++#endif
++
+ # define graphene_simd4f_init(x,y,z,w) \
+   (__extension__ ({ \
+     (graphene_simd4f_t) { (x), (y), (z), (w) }; \
+@@ -941,50 +949,42 @@ typedef int graphene_simd4i_t __attribute__((vector_size (16)));
+ 
+ # define graphene_simd4f_shuffle_wxyz(v) \
+   (__extension__ ({ \
+-    const graphene_simd4i_t __mask = { 3, 0, 1, 2 }; \
+-    (graphene_simd4f_t) __builtin_shuffle ((v), __mask); \
++    (graphene_simd4f_t) __graphene_simd_shuffle1((v), 3, 0, 1, 2); \
+   }))
+ 
+ # define graphene_simd4f_shuffle_zwxy(v) \
+   (__extension__ ({ \
+-    const graphene_simd4i_t __mask = { 2, 3, 0, 1 }; \
+-    (graphene_simd4f_t) __builtin_shuffle ((v), __mask); \
++    (graphene_simd4f_t) __graphene_simd_shuffle1((v), 2, 3, 0, 1); \
+   }))
+ 
+ # define graphene_simd4f_shuffle_yzwx(v) \
+   (__extension__ ({ \
+-    const graphene_simd4i_t __mask = { 1, 2, 3, 0 }; \
+-    (graphene_simd4f_t) __builtin_shuffle ((v), __mask); \
++    (graphene_simd4f_t) __graphene_simd_shuffle1((v), 1, 2, 3, 0); \
+   }))
+ 
+ # define graphene_simd4f_zero_w(v) \
+   (__extension__ ({ \
+-    const graphene_simd4i_t __mask = { 0, 1, 2, 4 }; \
+-    (graphene_simd4f_t) __builtin_shuffle ((v), graphene_simd4f_init_zero (), __mask); \
++    (graphene_simd4f_t) __graphene_simd_shuffle2((v), graphene_simd4f_init_zero (), 0, 1, 2, 4); \
+   }))
+ 
+ # define graphene_simd4f_zero_zw(v) \
+   (__extension__ ({ \
+-    const graphene_simd4i_t __mask = { 0, 1, 4, 4 }; \
+-    (graphene_simd4f_t) __builtin_shuffle ((v), graphene_simd4f_init_zero (), __mask); \
++    (graphene_simd4f_t) __graphene_simd_shuffle2((v), graphene_simd4f_init_zero (), 0, 1, 4, 4); \
+   }))
+ 
+ # define graphene_simd4f_merge_w(s,v) \
+   (__extension__ ({ \
+-    const graphene_simd4i_t __mask = { 0, 1, 2, 4 }; \
+-    (graphene_simd4f_t) __builtin_shuffle ((s), graphene_simd4f_splat ((v)), __mask); \
++    (graphene_simd4f_t) __graphene_simd_shuffle2((s), graphene_simd4f_splat ((v)), 0, 1, 2, 4); \
+   }))
+ 
+ # define graphene_simd4f_merge_high(a,b) \
+   (__extension__ ({ \
+-    const graphene_simd4i_t __mask = { 2, 3, 6, 7 }; \
+-    (graphene_simd4f_t) __builtin_shuffle ((a), (b), __mask); \
++    (graphene_simd4f_t) __graphene_simd_shuffle2((a), (b), 2, 3, 6, 7); \
+   }))
+ 
+ # define graphene_simd4f_merge_low(a,b) \
+   (__extension__ ({ \
+-    const graphene_simd4i_t __mask = { 0, 1, 4, 5 }; \
+-    (graphene_simd4f_t) __builtin_shuffle ((a), (b), __mask); \
++    (graphene_simd4f_t) __graphene_simd_shuffle2((a), (b), 0, 1, 4, 5); \
+   }))
+ 
+ # define graphene_simd4f_flip_sign_0101(v) \
+diff --git a/include/graphene-simd4x4f.h b/include/graphene-simd4x4f.h
+index f6e81fd..ac5108d 100644
+--- a/include/graphene-simd4x4f.h
++++ b/include/graphene-simd4x4f.h
+@@ -157,7 +157,7 @@ void    graphene_simd4x4f_transpose_in_place    (graphene_simd4x4f_t *s);
+   _MM_TRANSPOSE4_PS ((s)->x, (s)->y, (s)->z, (s)->w)
+ #endif
+ 
+-#elif defined(GRAPHENE_USE_GCC)
++#elif defined(GRAPHENE_USE_GCC) || defined(GRAPHENE_USE_CLANG)
+ 
+ #define graphene_simd4x4f_transpose_in_place(s) \
+   (__extension__ ({ \
+diff --git a/meson.build b/meson.build
+index 8ed56f1..9411098 100644
+--- a/meson.build
++++ b/meson.build
+@@ -316,7 +316,7 @@ if get_option('gcc_vector')
+ #   error "GCC vector intrinsics are disabled on 32bit"
+ # endif
+ #else
+-# error "Need GCC for GCC vectors intrinsics"
++# error "Need GCC for vector intrinsics"
+ #endif
+ typedef float simd4f __attribute__((vector_size(16)));
+ typedef int simd4i __attribute__((vector_size(16)));
+@@ -332,6 +332,25 @@ int main () {
+   endif
+ endif
+ 
++# Clang vector intrinsics
++if get_option('clang_vector')
++  clang_vector_prog = '''
++#if !defined(__clang__)
++# error "Need Clang for vector intrinsics"
++#endif
++typedef float simd4f __attribute__((vector_size(16)));
++typedef int simd4i __attribute__((vector_size(16)));
++int main () {
++  simd4f s = { 1.f, 2.f, 3.f, 4.f };
++  simd4f r = __builtin_shufflevector (s, s, 0, 1, 1, 3);
++  return 0;
++}'''
++  if cc.compiles(clang_vector_prog, name: 'Clang vector intrinsics')
++    graphene_conf.set('GRAPHENE_HAS_CLANG', 1)
++    graphene_simd += [ 'clang' ]
++  endif
++endif
++
+ # ARM NEON intrinsics
+ neon_cflags = []
+ if get_option('arm_neon')
+diff --git a/meson_options.txt b/meson_options.txt
+index b9a2fb5..77d95be 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -11,6 +11,9 @@ option('introspection', type: 'feature',
+ option('gcc_vector', type: 'boolean',
+        value: true,
+        description: 'Enable GCC vector fast paths (requires GCC)')
++option('clang_vector', type: 'boolean',
++       value: true,
++       description: 'Enable Clang vector fast paths (requires Clang)')
+ option('sse2', type: 'boolean',
+        value: true,
+        description: 'Enable SSE2 fast paths (requires SSE2 or later)')
+diff --git a/src/graphene-simd4f.c b/src/graphene-simd4f.c
+index f3e03c7..e33b2ba 100644
+--- a/src/graphene-simd4f.c
++++ b/src/graphene-simd4f.c
+@@ -58,7 +58,7 @@
+  */
+ 
+ /* fast paths are all defined in the graphene-simd4f.h header */
+-#if defined(GRAPHENE_USE_SSE) || defined(GRAPHENE_USE_GCC) || defined(GRAPHENE_USE_ARM_NEON)
++#if defined(GRAPHENE_USE_SSE) || defined(GRAPHENE_USE_GCC) || defined(GRAPHENE_USE_CLANG) || defined(GRAPHENE_USE_ARM_NEON)
+ 
+ /**
+  * graphene_simd4f_init:
+diff --git a/src/graphene-simd4x4f.c b/src/graphene-simd4x4f.c
+index 8c82626..98c8c51 100644
+--- a/src/graphene-simd4x4f.c
++++ b/src/graphene-simd4x4f.c
+@@ -43,7 +43,7 @@
+ #include <string.h>
+ #include <math.h>
+ 
+-#if defined(GRAPHENE_USE_SSE) || defined(GRAPHENE_USE_GCC) || defined(GRAPHENE_USE_ARM_NEON)
++#if defined(GRAPHENE_USE_SSE) || defined(GRAPHENE_USE_GCC) || defined(GRAPHENE_USE_CLANG) || defined(GRAPHENE_USE_ARM_NEON)
+ 
+ /**
+  * graphene_simd4x4f_transpose_in_place:
+-- 
+2.34.1
+
