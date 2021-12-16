@@ -19,3 +19,4 @@ def post_patch(self):
 def post_install(self):
     # dinit does not install this link by itself right now
     self.install_link("shutdown", "usr/bin/poweroff")
+    self.install_link("shutdown.8", "usr/share/man/man8/poweroff.8")
