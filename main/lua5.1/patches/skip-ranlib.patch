@@ -1,0 +1,21 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -9,7 +9,7 @@ PLAT= none
+ 
+ CC= gcc
+ CFLAGS= -O2 -Wall $(MYCFLAGS)
+-AR= ar rcu
++AR= ar
+ RANLIB= ranlib
+ RM= rm -f
+ LIBS= -lm $(MYLIBS)
+@@ -49,8 +49,7 @@ o:	$(ALL_O)
+ a:	$(ALL_A)
+ 
+ $(LUA_A): $(CORE_O) $(LIB_O)
+-	$(AR) $@ $(CORE_O) $(LIB_O)	# DLL needs all object files
+-	$(RANLIB) $@
++	$(AR) rcs $@ $(CORE_O) $(LIB_O)	# DLL needs all object files
+ 
+ $(LUA_SO): $(CORE_O) $(LIB_O)
+ 	$(CC) -shared -ldl -Wl,-soname,$(LUA_SO).$(V) -o $@.$(R) $? -lm $(MYCFLAGS) $(MYLDFLAGS)

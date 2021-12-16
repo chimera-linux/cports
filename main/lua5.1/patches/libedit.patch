@@ -1,0 +1,23 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -96,7 +96,7 @@ generic:
+ 	$(MAKE) all MYCFLAGS=
+ 
+ linux:
+-	$(MAKE) all MYCFLAGS=-DLUA_USE_LINUX MYLIBS="-Wl,-E -ldl -lreadline -lhistory -lncurses"
++	$(MAKE) all MYCFLAGS=-DLUA_USE_LINUX MYLIBS="-Wl,-E -ldl -ledit -lncurses"
+ 
+ macosx:
+ 	$(MAKE) all MYCFLAGS=-DLUA_USE_LINUX MYLIBS="-lreadline"
+--- a/src/luaconf.h
++++ b/src/luaconf.h
+@@ -272,8 +272,7 @@
+ */
+ #if defined(LUA_USE_READLINE)
+ #include <stdio.h>
+-#include <readline/readline.h>
+-#include <readline/history.h>
++#include <editline/readline.h>
+ #define lua_readline(L,b,p)	((void)L, ((b)=readline(p)) != NULL)
+ #define lua_saveline(L,idx) \
+ 	if (lua_strlen(L,idx) > 0)  /* non-empty line? */ \

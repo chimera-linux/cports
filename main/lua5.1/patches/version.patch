@@ -1,0 +1,25 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -22,18 +22,18 @@ MYLIBS=
+ 
+ PLATS= aix ansi bsd freebsd generic linux macosx mingw posix solaris
+ 
+-LUA_A=	liblua.a
+-LUA_SO= liblua.so
++LUA_A=	liblua5.1.a
++LUA_SO= liblua5.1.so
+ CORE_O=	lapi.o lcode.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o lmem.o \
+ 	lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o ltm.o  \
+ 	lundump.o lvm.o lzio.o
+ LIB_O=	lauxlib.o lbaselib.o ldblib.o liolib.o lmathlib.o loslib.o ltablib.o \
+ 	lstrlib.o loadlib.o linit.o
+ 
+-LUA_T=	lua
++LUA_T=	lua5.1
+ LUA_O=	lua.o
+ 
+-LUAC_T=	luac
++LUAC_T=	luac5.1
+ LUAC_O=	luac.o print.o
+ 
+ ALL_O= $(CORE_O) $(LIB_O) $(LUA_O) $(LUAC_O)
