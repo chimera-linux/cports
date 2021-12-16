@@ -15,3 +15,7 @@ sha256 = "d5f9afe7005da7c08224dddcf2b63f37a6c4120b7493bed4669ef362cde1b544"
 def post_patch(self):
     self.cp(self.files_path / "mconfig", self.cwd)
     (self.cwd / "mconfig").touch() # mtime
+
+def post_install(self):
+    # dinit does not install this link by itself right now
+    self.install_link("shutdown", "usr/bin/poweroff")
