@@ -22,14 +22,16 @@ def do_configure(self):
     eargs = [
         "--enable-shared", "--enable-threads", "--enable-openmp"
     ]
-    sargs = []
+    sseargs = []
+    sse2args = []
     match self.profile().arch:
         case "x86_64":
-            sargs += ["--enable-sse", "--enable-sse2"]
+            sseargs  += ["--enable-sse"]
+            sse2args += ["--enable-sse2"]
 
     gnu_configure.configure(
         self, build_dir = "build-double",
-        extra_args = eargs + sargs
+        extra_args = eargs + sse2args
     )
     gnu_configure.configure(
         self, build_dir = "build-long-double",
@@ -37,7 +39,7 @@ def do_configure(self):
     )
     gnu_configure.configure(
         self, build_dir = "build-float",
-        extra_args = eargs + sargs + ["--enable-float"]
+        extra_args = eargs + ["--enable-float"] + sseargs
     )
 
 def do_build(self):
