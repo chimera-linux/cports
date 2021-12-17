@@ -1,0 +1,47 @@
+commit 3ca5c199e2eb04e6e8329db5d10cda2faee5d61a
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Dec 18 00:22:31 2021 +0100
+
+    fix up makefile
+
+diff --git a/Makefile.sharedlibrary b/Makefile.sharedlibrary
+index e7d365f..9f47ebd 100644
+--- a/Makefile.sharedlibrary
++++ b/Makefile.sharedlibrary
+@@ -52,17 +52,15 @@ INSTALL_PREFIX = /usr/local
+ DUKTAPE_SRCDIR = ./src
+ #DUKTAPE_SRCDIR = ./src-noline
+ 
+-CC = gcc
+-
+ .PHONY: all
+-all: libduktape.$(SO_REALNAME_SUFFIX) libduktaped.$(SO_REALNAME_SUFFIX)
++all: libduktape.$(SO_REALNAME_SUFFIX)
+ 
+ # If the default duk_config.h is not suitable for the distribution, modify it
+ # before compiling the shared library and copy the same, edited duk_config.h
+ # to $INSTALL_PREFIX/include on installation.
+ 
+ libduktape.$(SO_REALNAME_SUFFIX):
+-	$(CC) -shared -fPIC -Wall -Wextra -Os -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) \
++	$(CC) $(CFLAGS) $(LDFLAGS) -fPIC -shared -Wall -Wextra -Wl,$(LD_SONAME_ARG),libduktape.$(SO_SONAME_SUFFIX) \
+ 		-o $@ $(DUKTAPE_SRCDIR)/duktape.c
+ 
+ libduktaped.$(SO_REALNAME_SUFFIX):
+@@ -71,15 +69,12 @@ libduktaped.$(SO_REALNAME_SUFFIX):
+ 
+ # Symlinks depend on platform conventions.
+ .PHONY: install
+-install: libduktape.$(SO_REALNAME_SUFFIX) libduktaped.$(SO_REALNAME_SUFFIX)
++install: libduktape.$(SO_REALNAME_SUFFIX)
+ 	mkdir -p $(INSTALL_PREFIX)/lib/
+ 	cp $+ $(INSTALL_PREFIX)/lib/
+ 	rm -f $(INSTALL_PREFIX)/lib/libduktape.so $(INSTALL_PREFIX)/lib/libduktape.$(SO_SONAME_SUFFIX)
+ 	ln -s libduktape.$(SO_REALNAME_SUFFIX) $(INSTALL_PREFIX)/lib/libduktape.so
+ 	ln -s libduktape.$(SO_REALNAME_SUFFIX) $(INSTALL_PREFIX)/lib/libduktape.$(SO_SONAME_SUFFIX)
+-	rm -f $(INSTALL_PREFIX)/lib/libduktaped.so $(INSTALL_PREFIX)/lib/libduktaped.$(SO_SONAME_SUFFIX)
+-	ln -s libduktaped.$(SO_REALNAME_SUFFIX) $(INSTALL_PREFIX)/lib/libduktaped.so
+-	ln -s libduktaped.$(SO_REALNAME_SUFFIX) $(INSTALL_PREFIX)/lib/libduktaped.$(SO_SONAME_SUFFIX)
+ 	mkdir -p $(INSTALL_PREFIX)/include/
+ 	cp $(DUKTAPE_SRCDIR)/duktape.h $(DUKTAPE_SRCDIR)/duk_config.h $(INSTALL_PREFIX)/include/
+ 
