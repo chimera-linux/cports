@@ -1,0 +1,7 @@
+# rtkit daemon service
+
+type               = process
+command            = /usr/libexec/rtkit-daemon
+depends-on         = polkitd
+logfile            = /var/log/rtkit.log
+smooth-recovery    = true
