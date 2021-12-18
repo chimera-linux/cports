@@ -213,6 +213,14 @@ done
 """
 
 _acct_drop = r"""
+local USERMOD
+
+[ -z "$system_users" ] && return 0
+
+if command -v usermod >/dev/null 2>&1; then
+    USERMOD="usermod"
+fi
+
 for acct in ${system_users}; do
     _uname="${acct%:*}"
 
