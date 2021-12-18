@@ -11,6 +11,7 @@ configure_args = [
     "-Ddefault-hierarchy=unified",
     "-Ddefault-kill-user-processes=false",
     "-Dutmp=false",
+    "-Dpolkit=true",
 ]
 hostmakedepends = [
     "meson", "docbook-xsl-nons", "gettext-tiny", "gperf", "xsltproc",
