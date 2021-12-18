@@ -2,10 +2,11 @@ pkgname = "libgudev"
 pkgver = f"237"
 pkgrel = 0
 build_style = "meson"
-# FIXME: enable vapi? needs vapigen
-configure_args = ["-Dintrospection=enabled", "-Dvapi=disabled"]
-hostmakedepends = ["meson", "pkgconf", "glib-devel", "gobject-introspection"]
-makedepends = ["libglib-devel", "eudev-devel"]
+configure_args = ["-Dintrospection=enabled", "-Dvapi=enabled"]
+hostmakedepends = [
+    "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala"
+]
+makedepends = ["libglib-devel", "eudev-devel", "vala-devel"]
 pkgdesc = "GObject bindings for libudev"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
