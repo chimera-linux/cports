@@ -1,6 +1,5 @@
 pkgname = "graphene"
-_mver = "1.10"
-pkgver = f"{_mver}.6"
+pkgver = "1.10.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,7 +16,7 @@ pkgdesc = "Thin layer of graphic data types"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/ebassi/graphene"
-source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "80ae57723e4608e6875626a88aaa6f56dd25df75024bd16e9d77e718c3560b25"
 
 # TODO: possibly use SSE intrinsics on ppc64(le)

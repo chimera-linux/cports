@@ -1,6 +1,5 @@
 pkgname = "glib"
-_mver = "2.70"
-pkgver = f"{_mver}.1"
+pkgver = "2.70.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -23,7 +22,7 @@ pkgdesc = "GLib library of C routines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
-source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "f9b7bce7f51753a1f43853bbcaca8bf09e15e994268e29cfd7a76f65636263c0"
 # missing checkdepends
 options = ["!check"]

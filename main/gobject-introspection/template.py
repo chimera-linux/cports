@@ -1,6 +1,5 @@
 pkgname = "gobject-introspection"
-_mver = "1.70"
-pkgver = f"{_mver}.0"
+pkgver = "1.70.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "flex", "bison"]
@@ -13,7 +12,7 @@ pkgdesc = "Introspection system for GObject-based libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GObjectIntrospection"
-source = f"$(GNOME_SITE)/{pkgname}/{_mver}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "902b4906e3102d17aa2fcb6dad1c19971c70f2a82a159ddc4a94df73a3cafc4a"
 # check creates a dependency cycle
 # cross compiling tons of janky hackery

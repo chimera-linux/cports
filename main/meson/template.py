@@ -1,6 +1,5 @@
 pkgname = "meson"
-_mver = "0.60"
-pkgver = f"{_mver}.1"
+pkgver = "0.60.1"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-devel", "python-setuptools"]

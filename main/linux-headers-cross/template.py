@@ -1,6 +1,5 @@
 pkgname = "linux-headers-cross"
-_mver = "5"
-pkgver = f"{_mver}.15.5"
+pkgver = "5.15.5"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl"]
@@ -9,7 +8,7 @@ pkgdesc = "Linux API headers (cross-compiling)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://www.kernel.org"
-source = f"$(KERNEL_SITE)/kernel/v{_mver}.x/linux-{pkgver}.tar.xz"
+source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
 sha256 = "e9565a301525ac81c142ceb832f9053dd5685e107dbcf753d0de4c58bc98851f"
 # nothing to test
 options = ["!cross", "!check"]

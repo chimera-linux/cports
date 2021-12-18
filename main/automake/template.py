@@ -1,6 +1,5 @@
 pkgname = "automake"
-_mver = "1.16"
-pkgver = f"{_mver}.5"
+pkgver = "1.16.5"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["perl", "autoconf"]
@@ -18,7 +17,7 @@ options = ["!check"]
 def post_install(self):
     fp = self.destdir / "usr/bin/aclocal"
     fp.unlink()
-    fp.symlink_to(f"aclocal-{_mver}")
+    fp.symlink_to(f"aclocal-{pkgver[:-2]}")
     fp = self.destdir / "usr/bin/automake"
     fp.unlink()
-    fp.symlink_to(f"automake-{_mver}")
+    fp.symlink_to(f"automake-{pkgver[:-2]}")

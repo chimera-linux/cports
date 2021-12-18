@@ -1,6 +1,5 @@
 pkgname = "klibc"
-_mver = "2.0"
-pkgver = f"{_mver}.9"
+pkgver = "2.0.9"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -11,7 +10,7 @@ pkgdesc = "Minimal libc subset for use with initramfs"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND BSD-3-Clause"
 url = "https://git.kernel.org/cgit/libs/klibc/klibc.git"
-source = f"$(KERNEL_SITE)/libs/klibc/{_mver}/{pkgname}-{pkgver}.tar.xz"
+source = f"$(KERNEL_SITE)/libs/klibc/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6dcca708913320d26309f05b0c2bf68071bf11b3dadcc4e6c7d923837fc23ee1"
 # symlink to linux-headers
 options = ["brokenlinks", "!lto"]

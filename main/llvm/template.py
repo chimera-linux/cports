@@ -1,6 +1,5 @@
 pkgname = "llvm"
-_mver = "13"
-pkgver = f"{_mver}.0.0"
+pkgver = "13.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -48,6 +47,8 @@ sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
 debug_level = 1
 # lto does not kick in until stage 2
 options = ["bootstrap"]
+
+_llvmgen = "13"
 
 cmake_dir = "llvm"
 
@@ -206,7 +207,7 @@ def post_install(self):
         f = f / "site-packages/lldb/_lldb.so"
         if f.is_symlink():
             f.unlink()
-            f.symlink_to(f"../../../liblldb.so.{_mver}")
+            f.symlink_to(f"../../../liblldb.so.{_llvmgen}")
 
 @subpackage("clang-tools-extra-static")
 def _tools_extra_static(self):
@@ -515,7 +516,7 @@ def _libcxxabi_devel(self):
 def _libllvm(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
-    return [f"usr/lib/libLLVM-{_mver}.so"]
+    return [f"usr/lib/libLLVM-{_llvmgen}.so"]
 
 @subpackage("lldb", self.stage >= 2)
 def _lldb(self):

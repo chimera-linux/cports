@@ -1,6 +1,5 @@
-_mver = "1.77"
-pkgname = f"boost{_mver}"
-pkgver = f"{_mver}.0"
+pkgname = "boost1.77"
+pkgver = "1.77.0"
 pkgrel = 0
 hostmakedepends = ["pkgconf"]
 makedepends = [
@@ -15,6 +14,8 @@ source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/bo
 sha256 = "5347464af5b14ac54bb945dc68f1dd7c56f0dad7262816b956138fc53bcc0131"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
 options = ["!cross"] # i don't dare touch this yet
+
+_bver = pkgver[:-2]
 
 # libs have semi-auto-generated subpkgs using this array
 # needs to be updated with new libs regularly
@@ -115,29 +116,29 @@ def do_check(self):
         }
     )
 
-@subpackage(f"boost{_mver}-build")
+@subpackage(f"boost{_bver}-build")
 def _jam(self):
     self.pkgdesc = f"{pkgdesc} (Boost.Build framework)"
-    self.depends = [f"boost{_mver}={pkgver}-r{pkgrel}"]
+    self.depends = [f"boost{_bver}={pkgver}-r{pkgrel}"]
     self.provides = [f"boost-build={pkgver}-r{pkgrel}"]
 
     return ["etc/site-config.jam", "usr/share/boost-build"]
 
-@subpackage(f"boost{_mver}-jam")
+@subpackage(f"boost{_bver}-jam")
 def _jam(self):
     self.pkgdesc = f"{pkgdesc} (bjam utility)"
-    self.depends = [f"boost{_mver}-build={pkgver}-r{pkgrel}"]
+    self.depends = [f"boost{_bver}-build={pkgver}-r{pkgrel}"]
     self.provides = [f"boost-jam={pkgver}-r{pkgrel}"]
 
     return ["usr/bin/bjam", "usr/bin/b2"]
 
-@subpackage(f"boost{_mver}-static")
+@subpackage(f"boost{_bver}-static")
 def _static(self):
     return self.default_static()
 
-@subpackage(f"boost{_mver}-devel")
+@subpackage(f"boost{_bver}-devel")
 def _devel(self):
-    self.depends = [f"boost{_mver}={pkgver}-r{pkgrel}"] + makedepends
+    self.depends = [f"boost{_bver}={pkgver}-r{pkgrel}"] + makedepends
 
     return self.default_devel()
 
@@ -145,23 +146,23 @@ def _devel(self):
 # otherwise i would have done a virtual here as well
 @subpackage("boost-devel")
 def _develmeta(self):
-    self.depends = [f"boost{_mver}-devel={pkgver}-r{pkgrel}"]
+    self.depends = [f"boost{_bver}-devel={pkgver}-r{pkgrel}"]
     self.build_style = "meta"
 
     return []
 
 @subpackage("boost-static")
 def _staticmeta(self):
-    self.depends = [f"boost{_mver}-static={pkgver}-r{pkgrel}"]
+    self.depends = [f"boost{_bver}-static={pkgver}-r{pkgrel}"]
     self.build_style = "meta"
 
     return []
 
 def _gen_libp(libname):
-    @subpackage(f"libboost_{libname}{_mver}")
+    @subpackage(f"libboost_{libname}{_bver}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({libname})"
-        self.depends = [f"boost{_mver}={pkgver}-r{pkgrel}"]
+        self.depends = [f"boost{_bver}={pkgver}-r{pkgrel}"]
         self.provides = [f"libboost_{libname}={pkgver}-r{pkgrel}"]
 
         return [f"usr/lib/libboost_{libname}*.so.*"]

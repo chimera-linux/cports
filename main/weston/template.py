@@ -1,6 +1,5 @@
 pkgname = "weston"
-_mver = "9"
-pkgver = f"{_mver}.0.0"
+pkgver = "9.0.0"
 pkgrel = 0
 build_style = "meson"
 # FIXME: colord support, vaapi support
@@ -47,7 +46,7 @@ def _xwayland(self):
 
 @subpackage("weston-libs")
 def _lib(self):
-    return self.default_libs(extra = [f"usr/lib/libweston-{_mver}"])
+    return self.default_libs(extra = [f"usr/lib/libweston-9"])
 
 @subpackage("weston-devel")
 def _devel(self):

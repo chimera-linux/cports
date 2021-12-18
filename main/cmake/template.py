@@ -1,6 +1,5 @@
 pkgname = "cmake"
-_mver = "3.22"
-pkgver = f"{_mver}.0"
+pkgver = "3.22.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -14,7 +13,7 @@ pkgdesc = "Cross-platform, open source build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
-source = f"https://www.cmake.org/files/v{_mver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://www.cmake.org/files/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "998c7ba34778d2dfdb3df8a695469e24b11e2bfa21fbe41b361a3f45e1c9345e"
 # prevent cmake self-bootstrap false positive nonsense
 tool_flags = {
