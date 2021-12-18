@@ -2,11 +2,11 @@ pkgname = "weston"
 pkgver = "9.0.0"
 pkgrel = 0
 build_style = "meson"
-# FIXME: colord support, vaapi support
+# pipewire requires 0.2 in this release
 configure_args = [
     "-Dsystemd=true", "-Dlauncher-logind=true", "-Dpipewire=false",
-    "-Dremoting=false", "-Dbackend-drm-screencast-vaapi=false",
-    "-Dbackend-rdp=false", "-Dcolor-management-colord=false",
+    "-Dremoting=false", "-Dbackend-drm-screencast-vaapi=true",
+    "-Dbackend-rdp=false", "-Dcolor-management-colord=true",
     "-Dtest-junit-xml=false", "-Db_ndebug=false",
     "-Ddefault_library=shared",
 ]
@@ -18,6 +18,7 @@ makedepends = [
     "libinput-devel", "libxcb-devel", "libxcursor-devel", "libxkbcommon-devel",
     "wayland-devel", "wayland-protocols", "libdrm-devel",
     "linux-pam-devel", "eudev-devel", "elogind-devel", "dbus-devel",
+    "colord-devel", "glu-devel", "libva-devel",
 ]
 checkdepends = ["mesa-dri"]
 pkgdesc = "Reference implementation of a Wayland compositor"
@@ -43,6 +44,12 @@ def _xwayland(self):
     self.pkgdecs = f"{pkgdesc} (XWayland plugin)"
 
     return ["usr/lib/libweston*/xwayland.so"]
+
+@subpackage("weston-colord")
+def _colord(self):
+    self.pkgdesc = f"{pkgdesc} (colord plugin)"
+
+    return ["usr/lib/weston/cms-colord.so"]
 
 @subpackage("weston-libs")
 def _lib(self):
