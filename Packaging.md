@@ -1650,6 +1650,7 @@ The following environment variables are exported into the sandbox:
 * `CBUILD_TARGET_MACHINE` Target `apk` machine architecture.
 * `CBUILD_TARGET_TRIPLET` Full target triplet (as described in profile).
   This is not exported during stage0 bootstrap.
+* `CBUILD_TARGET_SYSROOT` Target sysroot path. Host sysroot is always `/`.
 * `BUILD_CFLAGS` Host C compiler flags.
 * `BUILD_FFLAGS` Host Fortran compiler flags.
 * `BUILD_CXXFLAGS` Host C++ compiler flags.

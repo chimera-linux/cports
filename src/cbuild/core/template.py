@@ -906,6 +906,7 @@ class Template(Package):
 
         cenv = {
             "CBUILD_TARGET_MACHINE": cpf.arch,
+            "CBUILD_TARGET_SYSROOT": str(cpf.sysroot),
             "CBUILD_HOST_MACHINE": chroot.host_cpu(),
         }
 
