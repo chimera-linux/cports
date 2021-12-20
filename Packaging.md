@@ -1363,6 +1363,7 @@ The following tool flags are defined:
 * `CXXFLAGS` (C++)
 * `FFLAGS` (Fortran)
 * `LDFLAGS` (linker, usually passed together with one of the above)
+* `RUSTFLAGS` (Rust)
 
 When invoking commands within the sandbox, the build system will export
 the values as environment variables, but before user provided environment
@@ -1501,14 +1502,15 @@ It may look like this:
 
 ```
 [profile]
-endian   = little
-wordsize = 64
-triplet  = riscv64-unknown-linux-musl
+endian    = little
+wordsize  = 64
+triplet   = riscv64-unknown-linux-musl
 [flags]
-CFLAGS   = -march=rv64gc -mabi=lp64d
-CXXFLAGS = ${CFLAGS}
-FFLAGS   = ${CFLAGS}
-LDFLAGS  =
+CFLAGS    = -march=rv64gc -mabi=lp64d
+CXXFLAGS  = ${CFLAGS}
+FFLAGS    = ${CFLAGS}
+LDFLAGS   =
+RUSTFLAGS =
 ```
 
 These are also the fields it has to define. The `triplet` must always
@@ -1640,6 +1642,7 @@ The following environment variables are exported into the sandbox:
 * `FFLAGS` Target Fortran compiler flags.
 * `CXXFLAGS` Target C++ compiler flags.
 * `LDFLAGS` Target linker flags.
+* `RUSTFLAGS` Target Rust compiler flags.
 * `CC` Target C compiler.
 * `CXX` Target C++ compiler.
 * `CPP` Target C preprocessor.
@@ -1655,6 +1658,7 @@ The following environment variables are exported into the sandbox:
 * `BUILD_FFLAGS` Host Fortran compiler flags.
 * `BUILD_CXXFLAGS` Host C++ compiler flags.
 * `BUILD_LDFLAGS` Host linker flags.
+* `BUILD_RUSTFLAGS` Host Rust compiler flags.
 * `BUILD_CC` Host C compiler.
 * `BUILD_CXX` Host C++ compiler.
 * `BUILD_CPP` Host C preprocessor.

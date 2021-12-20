@@ -130,11 +130,22 @@ def _get_ldflags(self, name, extra_flags, debug, hardening, shell):
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
+def _get_rustflags(self, name, extra_flags, debug, hardening, shell):
+    if self.cross:
+        bflags = ["--sysroot", self.sysroot / "usr"]
+    else:
+        bflags = []
+
+    ret = self._flags["RUSTFLAGS"] + bflags + extra_flags
+
+    return _flags_ret(map(lambda v: str(v), ret), shell)
+
 _flag_handlers = {
     "CFLAGS": _get_gencflags,
     "CXXFLAGS": _get_gencflags,
     "FFLAGS": _get_gencflags,
     "LDFLAGS": _get_ldflags,
+    "RUSTFLAGS": _get_rustflags,
 }
 
 _flag_types = list(_flag_handlers.keys())
