@@ -27,10 +27,28 @@ url = "https://curl.haxx.se"
 source = f"{url}/download/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "dd0d150e49cd950aff35e16b628edf04927f0289df42883750cf952bb858189c"
 # missing some checkdepends
-options = ["!check", "!cross"]
+options = ["!check"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+    # patch curl-config for cross
+    if not self.cross_build:
+        return
+
+    with open(self.destdir / "usr/bin/curl-config") as inf:
+        with open(self.destdir / "usr/bin/curl-config.new", "w") as outf:
+            for l in inf:
+                l = l.replace(f"-L{self.profile().sysroot / 'usr/lib'} ", "")
+                l = l.replace(f"{self.profile().triplet}-", "")
+                outf.write(l)
+
+    self.rm(self.destdir / "usr/bin/curl-config")
+    self.mv(
+        self.destdir / "usr/bin/curl-config.new",
+        self.destdir / "usr/bin/curl-config"
+    )
+    self.chmod(self.destdir / "usr/bin/curl-config", 0o755)
 
 @subpackage("libcurl")
 def _libcurl(self):
