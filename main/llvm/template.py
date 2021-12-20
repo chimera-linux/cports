@@ -80,7 +80,7 @@ if self.stage > 0:
             "-DLLDB_USE_SYSTEM_SIX=YES",
             "-DLLVM_ENABLE_LTO=Thin",
         ]
-        hostmakedepends += ["swig"]
+        hostmakedepends += ["swig", "python-devel"]
         _enabled_projects += ["lldb"]
 else:
     configure_args += [
@@ -132,9 +132,16 @@ def pre_configure(self):
 
     self.log("building host tblgen...")
 
+    with self.profile(self.profile().arch) as pf:
+        trip = pf.triplet
+
     with self.profile("host"):
         with self.stamp("host_llvm_configure"):
-            cmake.configure(self, self.cmake_dir, "build_host")
+            # need to pass the triplets so builtins are found
+            cmake.configure(self, self.cmake_dir, "build_host", [
+                "-DLLVM_HOST_TRIPLE=" + trip,
+                "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
+            ])
 
         with self.stamp("host_llvm_tblgen") as s:
             s.check()
