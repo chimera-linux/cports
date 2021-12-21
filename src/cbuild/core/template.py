@@ -900,7 +900,7 @@ class Template(Package):
 
     def do(
         self, cmd, *args, env = {}, wrksrc = None, capture_output = False,
-        check = True
+        check = True, allow_network = False
     ):
         cpf = self.profile()
 
@@ -968,12 +968,17 @@ class Template(Package):
         elif self.current_phase == "check" and self.options["checkroot"]:
             fakeroot = True
 
+        if self.current_phase == "fetch":
+            allow_network = True
+        elif self.current_phase != "extract" and self.current_phase != "patch":
+            allow_network = False
+
         return chroot.enter(
             cmd, *args, capture_output = capture_output, env = cenv,
             wrkdir = wdir, check = check, bootstrapping = self.stage == 0,
             ro_root = True, ro_build = self.install_done,
             ro_dest = (self.current_phase != "install"),
-            mount_ccache = True, unshare_all = (self.current_phase != "fetch"),
+            mount_ccache = True, unshare_all = not allow_network,
             fakeroot = fakeroot,
         )
 

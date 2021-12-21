@@ -2232,7 +2232,7 @@ packages will be stored, i.e. for the main package as well as subpackages.
 
 Like `destdir_base`, but when viewed from inside the sandbox.
 
-##### def do(self, cmd, *args, env = {}, wrksrc = None, capture_output = False, check = True)
+##### def do(self, cmd, *args, env = {}, wrksrc = None, capture_output = False, check = True, allow_network = False)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,
 instead directly runs `cmd`, passing it `*args`. You can use `env` to provide
@@ -2248,6 +2248,9 @@ the root filesystem will be mounted read only, the `builddir` will be mutable
 unless we're after `post_install`, the `destdir` will be immutable unless we
 are at `install` phase, and all namespaces will be unshared (including network
 namespace) unless we're at `fetch`.
+
+The `allow_network` argument can be used to conditionally allow network access
+but only during the `fetch`, `extract` and `patch` phases.
 
 If run during the `install` phase (or during the `check` phase when `checkroot`
 is enabled in `options`), the command will be run masquerading as the `root`
