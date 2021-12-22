@@ -132,7 +132,10 @@ def _get_ldflags(self, name, extra_flags, debug, hardening, shell):
 
 def _get_rustflags(self, name, extra_flags, debug, hardening, shell):
     if self.cross:
-        bflags = ["--sysroot", self.sysroot / "usr"]
+        bflags = [
+            "--sysroot", self.sysroot / "usr",
+            f"-Clink-args=--sysroot={self.sysroot}"
+        ]
     else:
         bflags = []
 
