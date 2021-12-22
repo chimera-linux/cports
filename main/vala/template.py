@@ -60,7 +60,16 @@ def _develdoc(self):
 
 @subpackage("vala-devel")
 def _devel(self):
-    return self.default_devel()
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    # do not pick up vapigen.pc etc
+    return [
+        "usr/lib/libvala-*.so",
+        "usr/lib/pkgconfig/libvala*.pc",
+        "usr/include/vala-*",
+        "usr/share/vala/vapi/libvala-*.*",
+        "usr/share/aclocal",
+    ]
 
 @subpackage("vala-doc")
 def _doc(self):
