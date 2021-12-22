@@ -6,10 +6,6 @@ configure_args = [
     "--enable-introspection", "--enable-vala", "--disable-dependency-tracking"
 ]
 make_cmd = "gmake"
-# crates with hardcoded target lists :|
-make_build_env = {
-    "TARGET": self.profile().triplet.replace("chimera", "unknown")
-}
 hostmakedepends = [
     "gmake", "pkgconf", "cargo", "python", "gobject-introspection",
     "glib-devel", "gdk-pixbuf-devel", "vala"
