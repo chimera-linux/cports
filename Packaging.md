@@ -2579,6 +2579,18 @@ not have to actually use any of these building blocks from technical
 standpoint, but you are highly encouraged to use them in practice, as
 they simplify the template logic greatly.
 
+#### cbuild.util.cargo
+
+Utilities for managing Cargo-based Rust projects.
+
+###### def clear_vendor_checksums(pkg, crate, vendor_dir = "vendor")
+
+Clears the file checksums in `.cargo-checksum.json` of a vendored crate.
+
+You will need to do this for every crate you patch, as Cargo verifies the
+checksums of every file specified in there. Clearing effectively allows
+easy distro patching.
+
 #### cbuild.util.cmake
 
 A wrapper for management of CMake projects.
