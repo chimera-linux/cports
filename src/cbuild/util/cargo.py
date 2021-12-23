@@ -13,7 +13,7 @@ def get_environment(pkg, jobs = None):
     env = {
         "CARGO_BUILD_TARGET": pkg.profile().triplet,
         "CARGO_BUILD_JOBS": str(jobs),
-        "CARGO_HOME": "/tmp/.cargo",
+        "CARGO_HOME": "/cargo",
         # gettext-rs
         "GETTEXT_BIN_DIR": "/usr/bin",
         "GETTEXT_LIB_DIR": str(sroot / "usr/lib/gettext"),
@@ -41,7 +41,7 @@ class Cargo:
         self.env = env
         self.jobs = jobs
 
-    def _invoke(self, command, args, jobs, base_env, env, wrksrc):
+    def _invoke(self, command, args, jobs, offline, base_env, env, wrksrc):
         tmpl = self.template
 
         if not jobs:
@@ -64,24 +64,31 @@ class Cargo:
         if not wrksrc:
             wrksrc = tmpl.make_dir
 
+        bargs = []
+
+        if offline:
+            bargs.append("--offline")
+
         return self.template.do(
             "cargo", command, "--target", tmpl.profile().triplet,
-            *tmpl.configure_args, *args, env = renv, wrksrc = wrksrc
+            *bargs, *tmpl.configure_args, *args, env = renv, wrksrc = wrksrc,
+            allow_network = not offline
         )
 
     def invoke(
-        self, command, args = [], jobs = None, env = {}, wrksrc = None
+        self, command, args = [], jobs = None, offline = True,
+        env = {}, wrksrc = None
     ):
         return self._invoke(command, args, jobs, None, env, wrksrc)
 
     def vendor(self, args = [], env = {}, wrksrc = None):
-        return self._invoke("vendor", args, 1, None, env, wrksrc)
+        return self._invoke("vendor", args, 1, False, None, env, wrksrc)
 
     def build(self, args = [], jobs = None, env = {}, wrksrc = None):
         tmpl = self.template
         return self._invoke(
             "build", "--release", tmpl.make_build_args + args,
-            jobs, tmpl.make_build_env, env, wrksrc
+            jobs, True, tmpl.make_build_env, env, wrksrc
         )
 
     def install(self, args = [], jobs = None, env = {}, wrksrc = None):
@@ -90,13 +97,13 @@ class Cargo:
             "install", [
                 "--root", str(tmpl.chroot_destdir / "usr"), "--path", "."
             ] + tmpl.make_install_args + args,
-            jobs, tmpl.make_install_env, env, wrksrc
+            jobs, True, tmpl.make_install_env, env, wrksrc
         )
 
     def check(self, args = [], jobs = None, env = {}, wrksrc = None):
         tmpl = self.template
         return self._invoke(
             "test", "--release", tmpl.make_check_args + args,
-            jobs, tmpl.make_check_env, env, wrksrc
+            jobs, True, tmpl.make_check_env, env, wrksrc
         )
 

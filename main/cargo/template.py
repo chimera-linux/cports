@@ -13,6 +13,7 @@ source = f"https://github.com/rust-lang/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "e1d6f55414a29906d24b13c687996b5220e08ccce9c682e4c02851138fc7093f"
 # global environment
 env = {
+    "CARGO_HOME": "/cargo",
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
     "OPENSSL_NO_VENDOR": "1",
     "RUST_BACKTRACE": "1",
@@ -71,7 +72,10 @@ linker = "{self.get_tool("CC")}"
 def do_build(self):
     # PKG_CONFIG being in environment mysteriously brings target sysroot
     # into linker sequence for build script, breaking build entirely
-    self.do("env", "-u", "PKG_CONFIG", "cargo", "build", "--release")
+    self.do(
+        "env", "-u", "PKG_CONFIG", "cargo", "build",
+        "--release", "--offline"
+    )
 
 def do_install(self):
 

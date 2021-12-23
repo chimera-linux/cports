@@ -978,7 +978,8 @@ class Template(Package):
             wrkdir = wdir, check = check, bootstrapping = self.stage == 0,
             ro_root = True, ro_build = self.install_done,
             ro_dest = (self.current_phase != "install"),
-            mount_ccache = True, unshare_all = not allow_network,
+            mount_ccache = True, mount_cargo = True,
+            unshare_all = not allow_network,
             fakeroot = fakeroot,
         )
 

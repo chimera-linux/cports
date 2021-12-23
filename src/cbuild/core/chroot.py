@@ -284,7 +284,8 @@ def enter(cmd, *args, capture_output = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, ro_build = False,
           ro_dest = True, unshare_all = False, mount_binpkgs = False,
-          mount_ccache = False, fakeroot = False, new_session = True):
+          mount_ccache = False, mount_cargo = False, fakeroot = False,
+          new_session = True):
     defpath = "/usr/bin"
     if bootstrapping:
         defpath = os.environ["PATH"]
@@ -377,6 +378,9 @@ def enter(cmd, *args, capture_output = False, check = False,
 
     if mount_ccache:
         bcmd += ["--bind", paths.ccache(), "/ccache"]
+
+    if mount_cargo:
+        bcmd += ["--bind", paths.cargo(), "/cargo"]
 
     # always bubblewrap as cbuild user
     # root-needing things are done through fakeroot so we can chown

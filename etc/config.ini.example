@@ -11,6 +11,8 @@ build_root = bldroot
 ccache = no
 # default ccache files path (absolute or relative to cports)
 ccache_path = ccache
+# default cargo cache path (absolute or relative to cports)
+cargo_path = cargo
 # whether to run check phase
 check = yes
 # whether checks are allowed to fail (by default they will abort build)
