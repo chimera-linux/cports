@@ -66,4 +66,4 @@ def _devel(self):
     self.depends += makedepends
     self.pkgdesc = "Multiprotocol file transfer library (development files)"
 
-    return self.default_devel(man = True)
+    return self.default_devel()

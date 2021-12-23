@@ -24,7 +24,7 @@ def _static(self):
 @subpackage("libevdev-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
-    return self.default_devel(man = True)
+    return self.default_devel()
 
 @subpackage("libevdev-progs")
 def _progs(self):

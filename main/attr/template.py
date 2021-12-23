@@ -23,8 +23,8 @@ def _static(self):
 
 @subpackage("attr-devel")
 def _devel(self):
-    return self.default_devel(man = True, extra = ["usr/share/doc"])
+    return self.default_devel(extra = ["usr/share/doc"])
 
 @subpackage("attr-progs")
 def _progs(self):
-    return self.default_progs(man = True, extra = ["usr/share"])
+    return self.default_progs(extra = ["usr/share"])

@@ -47,11 +47,10 @@ def _static(self):
 
 @subpackage("elftoolchain-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()
 
 @subpackage("libelf")
 def _libelf(self):
     self.pkgdesc += " (libelf)"
 
     return self.default_libs()
-

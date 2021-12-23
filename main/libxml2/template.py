@@ -28,7 +28,7 @@ def _static(self):
 @subpackage("libxml2-devel")
 def _devel(self):
     self.depends += ["liblzma-devel", "zlib-devel", "icu-devel"]
-    return self.default_devel(man = True, extra = [
+    return self.default_devel(extra = [
         "usr/share/gtk-doc", f"usr/share/doc/{pkgname}-{pkgver}"
     ])
 
@@ -40,4 +40,4 @@ def _python(self):
 
 @subpackage("libxml2-progs")
 def _progs(self):
-    return self.default_progs(man = True)
+    return self.default_progs()

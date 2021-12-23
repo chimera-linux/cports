@@ -26,4 +26,4 @@ def _devel(self):
 
 @subpackage("lcms2-progs")
 def _progs(self):
-    return self.default_progs(man = True)
+    return self.default_progs()

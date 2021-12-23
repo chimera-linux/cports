@@ -20,4 +20,4 @@ def _static(self):
 
 @subpackage("xcb-util-renderutil-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()

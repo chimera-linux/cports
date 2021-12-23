@@ -35,4 +35,4 @@ def post_install(self):
 def _devel(self):
     self.depends += [f"enlightenment={pkgver}-r{pkgrel}"]
 
-    return self.default_devel(man = True)
+    return self.default_devel()

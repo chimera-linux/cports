@@ -20,9 +20,9 @@ def _static(self):
 
 @subpackage("libexpat-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()
 
 @subpackage("xmlwf")
 def _xmlwf(self):
     self.pkgdesc = f"{pkgdesc} (xmlwf utility)"
-    return self.default_progs(man = True)
+    return self.default_progs()

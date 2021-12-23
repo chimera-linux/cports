@@ -21,4 +21,4 @@ def _static(self):
 
 @subpackage("libxxf86dga-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()

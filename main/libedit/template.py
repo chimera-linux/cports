@@ -25,4 +25,4 @@ def _static(self):
 def _devel(self):
     self.depends += makedepends
 
-    return self.default_devel(man = True)
+    return self.default_devel()

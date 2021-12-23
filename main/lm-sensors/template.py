@@ -34,4 +34,4 @@ def _static(self):
 def _devel(self):
     self.pkgdesc = "Sensor reading library (development files)"
 
-    return self.default_devel(man = True)
+    return self.default_devel()

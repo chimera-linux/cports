@@ -26,7 +26,7 @@ def _static(self):
 def _devel(self):
     self.depends += ["attr-devel"]
 
-    return self.default_devel(extra = ["usr/share/man/man5"])
+    return self.default_devel(man = "5")
 
 @subpackage("acl-progs")
 def _progs(self):

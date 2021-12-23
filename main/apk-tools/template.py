@@ -30,7 +30,7 @@ def _static(self):
 
 @subpackage("apk-tools-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()
 
 @subpackage("apk-tools-static-bin")
 def _staticbin(self):

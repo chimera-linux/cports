@@ -21,4 +21,4 @@ def _static(self):
 
 @subpackage("libsamplerate-devel")
 def _devel(self):
-    return self.default_devel(man = True, extra = ["usr/share/doc"])
+    return self.default_devel(extra = ["usr/share/doc"])

@@ -24,4 +24,4 @@ def _static(self):
 @subpackage("freeglut-devel")
 def _devel(self):
     self.depends += makedepends
-    return self.default_devel(man = True)
+    return self.default_devel()

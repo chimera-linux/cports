@@ -21,4 +21,4 @@ def _static(self):
 
 @subpackage("libxxf86vm-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share"])
+    return self.default_devel()

@@ -2484,27 +2484,28 @@ def _subpkg(self):
     return install
 ```
 
-##### def take_devel(self, man = False)
+##### def take_devel(self, man = "23")
 
 This function will `take` everything that should usually belong in a
 development package. See the implementation in `cbuild/core/template.py`
 for the current coverage.
 
-If `man` is `True`, the package should also contain sections 2 and 3 manpages.
+If `man` is a non-empty string, it represents the manpage categories to take.
 
 ##### def take_static(self)
 
 This function will `take` everything that should usually belong in a
 `-static` package. This is all static libraries in `usr/lib`.
 
-##### def take_doc(self, man = True)
+##### def take_doc(self, man = "")
 
 This function will `take` everything that should usually belong in a
 documentation package. See the implementation in `cbuild/core/template.py`
 for the current coverage.
 
-By default, manual pages are included. You can set `man` to `False` to skip
-those.
+By default, manual pages are not included, but you can include them by either
+setting the `man` argument to a string for specific categories or `True` for
+all categories.
 
 ##### def take_libs(self)
 
@@ -2512,14 +2513,14 @@ This function will `take` everything that should usually belong in a
 `-libs` package. This is all shared libraries in `usr/lib` that start
 with `lib` and follow a regular soname style.
 
-##### def take_progs(self, man = False)
+##### def take_progs(self, man = "18")
 
 This function will `take` everything that should usually belong in a
 `-progs` package, i.e. all binaries in `usr/bin`.
 
-If `man` is `True`, the package should also contain section 1 manpages.
+If `man` is a non-empty string, it represents the manpage categories to take.
 
-##### def default_devel(self, man = False, extra = None)
+##### def default_devel(self, man = "23", extra = None)
 
 A simple lazy wrapper around `take_devel` returning a function that you
 should return from a subpackage (e.g. `return self.default_devel()`).
@@ -2539,7 +2540,7 @@ is a `list`, each item in the list is passed to `take()` (without any
 other arguments). Otherwise it is considered a callable and called as
 is without argunents.
 
-##### def default_doc(self, man = True, extra = None)
+##### def default_doc(self, man = "", extra = None)
 
 A simple lazy wrapper around `take_doc` returning a function that you
 should return from a subpackage (e.g. `return self.default_doc()`).
@@ -2559,7 +2560,7 @@ is a `list`, each item in the list is passed to `take()` (without any
 other arguments). Otherwise it is considered a callable and called as
 is without argunents.
 
-##### def default_progs(self. extra = None)
+##### def default_progs(self, man = "18", extra = None)
 
 A simple lazy wrapper around `take_progs` returning a function that you
 should return from a subpackage (e.g. `return self.default_progs()`).

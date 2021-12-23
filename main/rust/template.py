@@ -262,7 +262,7 @@ def do_install(self):
 
 @subpackage("rust-doc")
 def _doc(self):
-    return self.default_doc(man = False)
+    return self.default_doc()
 
 @subpackage("rust-std")
 def _std(self):

@@ -18,4 +18,4 @@ def post_install(self):
 
 @subpackage("musl-fts-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()

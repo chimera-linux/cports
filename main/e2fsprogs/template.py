@@ -51,7 +51,7 @@ def _static(self):
 def _devel(self):
     self.depends += makedepends
 
-    return self.default_devel(man = True, extra = [
+    return self.default_devel(extra = [
         "usr/bin/compile_et",
         "usr/bin/mk_cmds",
         "usr/share/man/man1/compile_et.1",

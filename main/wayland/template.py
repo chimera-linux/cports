@@ -38,4 +38,4 @@ def _devel(self):
         f"wayland-progs={pkgver}-r{pkgrel}",
         "libffi-devel"
     ]
-    return self.default_devel(extra = ["usr/share"])
+    return self.default_devel(extra = ["usr/share/wayland"])

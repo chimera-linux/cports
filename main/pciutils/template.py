@@ -46,4 +46,4 @@ def do_install(self):
 
 @subpackage("pciutils-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share/man/man7"])
+    return self.default_devel(man = "37")

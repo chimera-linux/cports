@@ -99,4 +99,10 @@ def _libs(self):
 
 @subpackage("avahi-progs")
 def _progs(self):
-    return self.default_progs()
+    # do not take daemon
+    return [
+        "usr/bin/avahi-browse*",
+        "usr/bin/avahi-publish*",
+        "usr/bin/avahi-resolv*",
+        "usr/share/man/man1",
+    ]

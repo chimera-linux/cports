@@ -33,6 +33,6 @@ def _lib(self):
 
 @subpackage("flac-devel")
 def _devel(self):
-    return self.default_devel(man = True, extra = [
+    return self.default_devel(extra = [
         "usr/share/doc"
     ])

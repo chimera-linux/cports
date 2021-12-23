@@ -166,4 +166,4 @@ def _devel(self):
     # lots of small files as hardlinks in man3, too much to resolve all
     self.options = ["hardlinks"]
 
-    return self.default_devel(man = True)
+    return self.default_devel()

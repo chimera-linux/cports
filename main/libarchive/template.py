@@ -39,7 +39,7 @@ def post_install(self):
 def _bsdtar(self):
     self.pkgdesc = "BSD utilities using libarchive"
 
-    return self.default_progs(man = True, extra = ["usr/share/man/man5"])
+    return self.default_progs(man = "15")
 
 @subpackage("libarchive-static")
 def _static(self):
@@ -49,4 +49,4 @@ def _static(self):
 def _devel(self):
     self.depends += makedepends
 
-    return self.default_devel(man = True)
+    return self.default_devel()

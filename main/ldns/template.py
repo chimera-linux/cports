@@ -44,4 +44,4 @@ def _devel(self):
     self.depends += ["openssl-devel"]
     self.pkgdesc = "Modern DNS/DNSSEC library (development files)"
 
-    return self.default_devel(man = True)
+    return self.default_devel()

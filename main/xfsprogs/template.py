@@ -43,4 +43,4 @@ def _static(self):
 def _devel(self):
     self.depends += ["libuuid-devel"]
 
-    return self.default_devel(man = True)
+    return self.default_devel()

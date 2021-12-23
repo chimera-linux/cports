@@ -37,8 +37,8 @@ def _static(self):
 @subpackage("libcap-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
-    return self.default_devel(man = True)
+    return self.default_devel()
 
 @subpackage("libcap-progs")
 def _progs(self):
-    return self.default_progs(extra = ["usr/share"])
+    return self.default_progs()

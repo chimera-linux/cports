@@ -26,4 +26,4 @@ def post_install(self):
 
 @subpackage("duktape-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()

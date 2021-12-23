@@ -44,4 +44,4 @@ def _static(self):
 @subpackage("pcre-devel")
 def _devel(self):
     self.depends += ["zlib-devel", "libbz2-devel"]
-    return self.default_devel(man = True, extra = ["usr/share/doc"])
+    return self.default_devel(extra = ["usr/share/doc"])

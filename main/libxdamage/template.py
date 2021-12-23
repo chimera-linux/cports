@@ -20,4 +20,4 @@ def _static(self):
 
 @subpackage("libxdamage-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share"])
+    return self.default_devel()

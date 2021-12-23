@@ -22,7 +22,6 @@ def _devel(self):
 
 @subpackage("libnl-progs")
 def _progs(self):
-    return self.default_progs(extra = [
-        "usr/share/man/man8",
+    return self.default_progs(man = "18", extra = [
         "usr/lib/libnl",
     ])

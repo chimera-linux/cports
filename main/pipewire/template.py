@@ -128,4 +128,4 @@ def _alsa(self):
 
 @subpackage("pipewire-doc")
 def _doc(self):
-    return self.default_doc(man = False)
+    return self.default_doc()

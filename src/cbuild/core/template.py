@@ -1317,7 +1317,7 @@ class Subpackage(Package):
     def take_static(self):
         self.take("usr/lib/*.a")
 
-    def take_devel(self, man = False):
+    def take_devel(self, man = "23"):
         for f in (self.parent.destdir / "usr/bin").glob("*-config"):
             if f.name != "pkg-config":
                 self.take(f"usr/bin/{f.name}")
@@ -1339,12 +1339,15 @@ class Subpackage(Package):
             for f in mpath.glob("*-config.1"):
                 if f.stem != "pkg-config":
                     self.take(f"usr/share/man/man1/{f.name}")
-            self.take("usr/share/man/man[23]", missing_ok = True)
+            self.take(f"usr/share/man/man[{man}]", missing_ok = True)
 
-    def take_doc(self, man = True):
+    def take_doc(self, man = ""):
         self.take("usr/share/doc", missing_ok = True)
         if man:
-            self.take("usr/share/man", missing_ok = True)
+            if isinstance(man, str):
+                self.take(f"usr/share/man/man[{man}]", missing_ok = True)
+            else:
+                self.take(f"usr/share/man", missing_ok = True)
         self.take("usr/share/info", missing_ok = True)
         self.take("usr/share/html", missing_ok = True)
         self.take("usr/share/licenses", missing_ok = True)
@@ -1356,12 +1359,14 @@ class Subpackage(Package):
     def take_libs(self):
         self.take("usr/lib/lib*.so.[0-9]*")
 
-    def take_progs(self, man = False):
+    def take_progs(self, man = "18"):
         self.take("usr/bin/*")
+        self.take("usr/share/bash-completion", missing_ok = True)
+        self.take("usr/share/zsh", missing_ok = True)
         if man:
-            self.take("usr/share/man/man1", missing_ok = True)
+            self.take(f"usr/share/man/man[{man}]", missing_ok = True)
 
-    def default_devel(self, man = False, extra = None):
+    def default_devel(self, man = "23", extra = None):
         def func():
             self.take_devel(man)
             _default_take_extra(self, extra)
@@ -1375,7 +1380,7 @@ class Subpackage(Package):
 
         return func
 
-    def default_doc(self, man = True, extra = None):
+    def default_doc(self, man = "", extra = None):
         def func():
             self.take_doc(man)
             _default_take_extra(self, extra)
@@ -1389,7 +1394,7 @@ class Subpackage(Package):
 
         return func
 
-    def default_progs(self, man = False, extra = None):
+    def default_progs(self, man = "18", extra = None):
         def func():
             self.take_progs(man)
             _default_take_extra(self, extra)

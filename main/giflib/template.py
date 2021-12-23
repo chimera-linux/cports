@@ -21,8 +21,8 @@ def _static(self):
 
 @subpackage("giflib-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()
 
 @subpackage("giflib-progs")
 def _progs(self):
-    return self.default_progs(man = True)
+    return self.default_progs()

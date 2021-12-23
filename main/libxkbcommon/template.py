@@ -48,4 +48,4 @@ def _devel(self):
 
 @subpackage("libxkbcommon-progs")
 def _progs(self):
-    return self.default_progs(man = True, extra = ["usr/libexec"])
+    return self.default_progs(extra = ["usr/libexec"])

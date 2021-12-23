@@ -21,4 +21,4 @@ def _devel(self):
 
 @subpackage("zlib-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()

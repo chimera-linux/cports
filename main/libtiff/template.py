@@ -30,8 +30,8 @@ def _static(self):
 @subpackage("libtiff-devel")
 def _devel(self):
     self.depends += makedepends
-    return self.default_devel(man = True, extra = ["usr/share/doc"])
+    return self.default_devel(extra = ["usr/share/doc"])
 
 @subpackage("libtiff-progs")
 def _progs(self):
-    return self.default_progs(man = True)
+    return self.default_progs()

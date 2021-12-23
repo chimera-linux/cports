@@ -39,9 +39,4 @@ def _static(self):
 def _devel(self):
     self.depends += ["libnl-devel"]
 
-    return self.default_devel(man = True, extra = [
-        "usr/bin",
-        "usr/share/man/man[15]",
-        "usr/share/man/man7/pcap-linktype.7",
-        "usr/share/man/man7/pcap-tstamp.7",
-    ])
+    return self.default_devel(man = "357")

@@ -72,4 +72,4 @@ def _static(self):
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}",]
 
-    return self.default_devel(man = True)
+    return self.default_devel()

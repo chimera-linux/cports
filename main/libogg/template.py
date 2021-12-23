@@ -19,4 +19,4 @@ def _static(self):
 
 @subpackage("libogg-devel")
 def _devel(self):
-    return self.default_devel(man = True, extra = ["usr/share"])
+    return self.default_devel(extra = ["usr/share/doc"])

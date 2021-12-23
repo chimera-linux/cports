@@ -21,4 +21,4 @@ def _static(self):
 @subpackage("mtdev-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
-    return self.default_devel(man = True)
+    return self.default_devel()

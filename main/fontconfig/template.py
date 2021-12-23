@@ -26,7 +26,7 @@ def _static(self):
 
 @subpackage("fontconfig-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()
 
 @subpackage("fontconfig-doc")
 def _doc(self):

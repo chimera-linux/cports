@@ -22,4 +22,4 @@ def _static(self):
 @subpackage("libxcb-devel")
 def _devel(self):
     self.depends += ["xcbproto"]
-    return self.default_devel(extra = ["usr/share"])
+    return self.default_devel(extra = ["usr/share/doc"])

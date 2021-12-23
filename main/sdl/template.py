@@ -71,4 +71,4 @@ def _static(self):
 def _devel(self):
     self.depends += makedepends
 
-    return self.default_devel(extra = ["usr/share"])
+    return self.default_devel()

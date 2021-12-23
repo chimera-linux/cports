@@ -23,4 +23,4 @@ def _static(self):
 
 @subpackage("popt-devel")
 def _devel(self):
-    return self.default_devel(man = True)
+    return self.default_devel()

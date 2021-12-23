@@ -25,4 +25,4 @@ def _static(self):
 
 @subpackage("orc-devel")
 def _devel(self):
-    return self.default_devel(man = True, extra = ["usr/share/gtk-doc"])
+    return self.default_devel(extra = ["usr/share/gtk-doc"])
