@@ -50,17 +50,13 @@ if _bootstrap:
     # avoid debug cflags and so on for vendor libs
     options += ["!debug"]
 
-# need this to prevent cargo from verifying patched vendor crates
-def _clear_vendor_checksums(self, pkg):
-    import re
-    p = (self.cwd / "vendor" / pkg / ".cargo-checksum.json")
-    p.write_text(re.sub(r"""("files":{)[^}]*""", r"\1", p.read_text()))
-
 def post_patch(self):
+    from cbuild.util import cargo
+
     # we are not using bundled llvm
     self.rm("src/llvm-project", recursive = True)
     # we are patching these
-    _clear_vendor_checksums(self, "libc")
+    cargo.clear_vendor_checksums(self, "libc")
 
 def do_configure(self):
     if _bootstrap:

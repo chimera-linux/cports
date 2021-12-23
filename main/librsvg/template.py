@@ -24,12 +24,9 @@ sha256 = "407cbbab518137ea18a3f3220bea180fbee75f3e5bd6ba10a7a862c1a6f74d82"
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check"]
 
-def _clear_vendor_checksums(self, pkg):
-    import re
-    p = (self.cwd / "vendor" / pkg / ".cargo-checksum.json")
-    p.write_text(re.sub(r"""("files":{)[^}]*""", r"\1", p.read_text()))
-
 def post_patch(self):
+    from cbuild.util import cargo
+
     # needed mainly for cross builds
     with open(self.cwd / ".cargo/config", "a") as cf:
         cf.write(f"""
@@ -37,7 +34,7 @@ def post_patch(self):
 linker = "{self.get_tool("CC")}"
 """)
 
-    _clear_vendor_checksums(self, "system-deps")
+    cargo.clear_vendor_checksums(self, "system-deps")
 
 @subpackage("librsvg-static")
 def _static(self):
