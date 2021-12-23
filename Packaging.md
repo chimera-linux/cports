@@ -2583,7 +2583,7 @@ they simplify the template logic greatly.
 
 Utilities for managing Cargo-based Rust projects.
 
-###### def clear_vendor_checksums(pkg, crate, vendor_dir = "vendor")
+##### def clear_vendor_checksums(pkg, crate, vendor_dir = "vendor")
 
 Clears the file checksums in `.cargo-checksum.json` of a vendored crate.
 
