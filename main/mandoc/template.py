@@ -57,3 +57,11 @@ manpath /usr/share/man
     fp = self.destdir / "usr/share/man/man1/whatis.1"
     fp.unlink()
     fp.symlink_to("apropos.1")
+
+@subpackage("base-man")
+def _base(self):
+    self.pkgdesc = "Base package for manpages"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.build_style = "meta"
+
+    return []
