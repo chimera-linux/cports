@@ -6,7 +6,7 @@ configure_args = [
     "-Dexamples=disabled",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gtk-doc",
+    "meson", "pkgconf", "gtk-doc-tools",
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Optimized Inner Loop Runtime Compiler"

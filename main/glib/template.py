@@ -7,7 +7,7 @@ configure_args = [
 ]
 hostmakedepends = [
     "meson", "gettext-tiny", "pkgconf", "docbook-xsl-nons", "xsltproc",
-    "gtk-doc"
+    "gtk-doc-tools"
 ]
 makedepends = [
     "zlib-devel", "pcre-devel", "libffi-devel", "dbus-devel",

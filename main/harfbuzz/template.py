@@ -12,7 +12,8 @@ configure_args = [
     "-Ddocs=enabled",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gtk-doc", "gobject-introspection"
+    "meson", "pkgconf", "glib-devel", "gtk-doc-tools",
+    "gobject-introspection"
 ]
 makedepends = [
     "freetype-bootstrap", "cairo-devel", "graphite2-devel", "icu-devel"
