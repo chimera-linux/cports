@@ -121,11 +121,8 @@ def build(
     if step == "install":
         return
 
-    # clear list of preregistered packages
-    rp = open(pkg.statedir / f"{pkg.pkgname}_register_pkg", "w")
-    rp.close()
-
     pkg.signing_key = signkey
+    pkg._stage = {}
 
     # generate binary packages
     for sp in pkg.subpkg_list:
@@ -134,20 +131,7 @@ def build(
     pkgsm.invoke(pkg)
 
     # stage binary packages
-
-    genrepos = {}
-
-    with open(pkg.statedir / f"{pkg.pkgname}_register_pkg") as f:
-        for ln in f:
-            repo, pkgn = ln.split(":")
-            if not repo in genrepos:
-                pkgs = []
-                genrepos[repo] = pkgs
-            else:
-                pkgs = genrepos[repo]
-            pkgs.append(pkgn.strip())
-
-    for repo in genrepos:
+    for repo in pkg._stage:
         logger.get().out(f"Staging new packages to {repo}...")
         if not apk.build_index(repo, pkg.source_date_epoch, signkey):
             raise errors.CbuildException("indexing repositories failed")

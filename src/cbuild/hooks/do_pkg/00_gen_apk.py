@@ -113,6 +113,7 @@ def genpkg(
         )
     finally:
         lockpath.unlink()
+        pkg.rparent._stage[repo] = True
 
 def invoke(pkg):
     arch = pkg.rparent.profile().arch
