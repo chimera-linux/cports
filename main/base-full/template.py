@@ -3,9 +3,9 @@ pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    "base-core", "nano", "initramfs-tools", "openssh", "opendoas",
-    "ethtool", "dhcpcd", "usbutils", "f2fs-tools", "elogind", "polkit",
-    "dbus", "iwd",
+    "base-core", "base-locale", "nano", "initramfs-tools", "openssh",
+    "opendoas", "ethtool", "dhcpcd", "usbutils", "f2fs-tools", "elogind",
+    "polkit", "dbus", "iwd",
     # firmware for all
     "firmware-linux-amd",
     "firmware-linux-nvidia",

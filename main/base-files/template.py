@@ -137,3 +137,11 @@ def do_install(self):
         self.files_path / "chimera-buildkernel.sh", "usr/bin", mode = 0o755,
         name = "chimera-buildkernel"
     )
+
+@subpackage("base-locale")
+def _base(self):
+    self.pkgdesc = "Base package for locale data"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.build_style = "meta"
+
+    return []
