@@ -7,7 +7,8 @@ import pathlib
 import subprocess
 
 def genpkg(
-    pkg, repo, arch, binpkg, destdir = None, dbg = False
+    pkg, repo, arch, binpkg, destdir = None, autosplit = None,
+    splitdesc = None
 ):
     if not destdir:
         destdir = pkg.destdir
@@ -32,8 +33,8 @@ def genpkg(
         args = []
 
         pkgdesc = pkg.pkgdesc
-        if dbg:
-            pkgdesc += " (debug files)"
+        if autosplit:
+            pkgdesc += f" ({splitdesc})"
 
         metadata["pkgdesc"] = pkgdesc
         metadata["url"] = pkg.rparent.url
@@ -47,7 +48,7 @@ def genpkg(
                 "-dirty" if pkg.rparent.git_dirty else ""
             )
 
-        if not dbg and len(pkg.provides) > 0:
+        if not autosplit and len(pkg.provides) > 0:
             pkg.provides.sort()
             metadata["provides"] = pkg.provides
 
@@ -56,7 +57,7 @@ def genpkg(
 
         mdeps = []
 
-        if not dbg:
+        if not autosplit:
             for c in pkg.depends:
                 mdeps.append(c.removeprefix("virtual:"))
         else:
@@ -67,7 +68,7 @@ def genpkg(
 
         metadata["install_if"] = list(pkg.install_if)
 
-        if not dbg:
+        if not autosplit:
             if hasattr(pkg, "aso_provides"):
                 pkg.aso_provides.sort(key = lambda x: x[0])
                 metadata["shlib_provides"] = pkg.aso_provides
@@ -102,8 +103,8 @@ def genpkg(
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
         pkgname = pkg.pkgname
-        if dbg:
-            pkgname += "-dbg"
+        if autosplit:
+            pkgname += f"-{autosplit}"
 
         apk_c.create(
             pkgname, f"{pkg.pkgver}-r{pkg.pkgrel}", arch,
@@ -140,4 +141,4 @@ def invoke(pkg):
 
     repo = paths.repository() / pkg.rparent.repository / "debug/.stage" / arch
 
-    genpkg(pkg, repo, arch, binpkg_dbg, dbgdest, True)
+    genpkg(pkg, repo, arch, binpkg_dbg, dbgdest, "dbg", "debug files")
