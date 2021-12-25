@@ -50,3 +50,11 @@ def _devel(self):
 @subpackage("eudev-libs")
 def _libs(self):
     return self.default_libs()
+
+@subpackage("base-udev")
+def _base(self):
+    self.pkgdesc = "Base package for udev configs"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.build_style = "meta"
+
+    return []
