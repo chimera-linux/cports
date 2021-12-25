@@ -1254,8 +1254,11 @@ def _default_take_extra(self, extra):
             extra()
 
 class Subpackage(Package):
-    def __init__(self, name, parent):
+    def __init__(self, name, parent, autoparent = None):
         super().__init__()
+
+        if not autoparent:
+            autoparent = parent
 
         self.pkgname = name
         self.parent = parent
@@ -1292,7 +1295,7 @@ class Subpackage(Package):
 
         # by default some subpackages depeond on their parent package
         if bdep:
-            ddeps.append(f"{bdep}={parent.pkgver}-r{parent.pkgrel}")
+            ddeps.append(f"{bdep}={autoparent.pkgver}-r{autoparent.pkgrel}")
 
         self.depends = ddeps
 
