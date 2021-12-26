@@ -188,6 +188,7 @@ def do_install(self):
 
 def _common(self):
     self.pkgdesc = f"{pkgdesc} (common files)"
+    self.options = ["!autosplit"]
 
     return ["usr/lib/bfd-plugins"]
 
