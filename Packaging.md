@@ -2497,15 +2497,11 @@ If `man` is a non-empty string, it represents the manpage categories to take.
 This function will `take` everything that should usually belong in a
 `-static` package. This is all static libraries in `usr/lib`.
 
-##### def take_doc(self, man = "")
+##### def take_doc(self)
 
 This function will `take` everything that should usually belong in a
 documentation package. See the implementation in `cbuild/core/template.py`
 for the current coverage.
-
-By default, manual pages are not included, but you can include them by either
-setting the `man` argument to a string for specific categories or `True` for
-all categories.
 
 ##### def take_libs(self)
 
@@ -2540,15 +2536,15 @@ is a `list`, each item in the list is passed to `take()` (without any
 other arguments). Otherwise it is considered a callable and called as
 is without argunents.
 
-##### def default_doc(self, man = "", extra = None)
+##### def default_doc(self, extra = None)
 
 A simple lazy wrapper around `take_doc` returning a function that you
 should return from a subpackage (e.g. `return self.default_doc()`).
 
-The `man` argument is passed as is to `take_doc`. The `extra` argument
-can specify additional things to take. If `extra` is a `list`, each item
-in the list is passed to `take()` (without any other arguments). Otherwise
-it is considered a callable and called as is without argunents.
+The `extra` argument can specify additional things to take. If `extra`
+is a `list`, each item in the list is passed to `take()` (without any
+other arguments). Otherwise it is considered a callable and called as
+is without argunents.
 
 ##### def default_libs(self, extra = None)
 

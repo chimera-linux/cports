@@ -1347,13 +1347,8 @@ class Subpackage(Package):
                     self.take(f"usr/share/man/man1/{f.name}")
             self.take(f"usr/share/man/man[{man}]", missing_ok = True)
 
-    def take_doc(self, man = ""):
+    def take_doc(self):
         self.take("usr/share/doc", missing_ok = True)
-        if man:
-            if isinstance(man, str):
-                self.take(f"usr/share/man/man[{man}]", missing_ok = True)
-            else:
-                self.take(f"usr/share/man", missing_ok = True)
         self.take("usr/share/info", missing_ok = True)
         self.take("usr/share/html", missing_ok = True)
         self.take("usr/share/licenses", missing_ok = True)
@@ -1361,6 +1356,7 @@ class Subpackage(Package):
         self.take("usr/share/gtk-doc", missing_ok = True)
         self.take("usr/share/ri", missing_ok = True)
         self.take("usr/share/help", missing_ok = True)
+        self.take("usr/share/devhelp/books", missing_ok = True)
 
     def take_libs(self):
         self.take("usr/lib/lib*.so.[0-9]*")
@@ -1386,9 +1382,9 @@ class Subpackage(Package):
 
         return func
 
-    def default_doc(self, man = "", extra = None):
+    def default_doc(self, extra = None):
         def func():
-            self.take_doc(man)
+            self.take_doc()
             _default_take_extra(self, extra)
 
         return func
