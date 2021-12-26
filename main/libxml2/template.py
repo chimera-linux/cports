@@ -20,6 +20,9 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("COPYING")
+    # we don't want this in the build
+    for f in (self.destdir / "usr/lib").glob("python*"):
+        (f / "site-packages/libxml2mod.a").unlink()
 
 @subpackage("libxml2-static")
 def _static(self):
