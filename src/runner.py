@@ -535,11 +535,12 @@ def do_prune_removed(tgt):
                 )
                 continue
             pkgn = pkgn[0:rd]
-            # debug packages are special and automatic
-            for apkg, adesc, iif, takef, excl in template.autopkgs:
-                if pkgn.endswith(f"-{apkg}"):
-                    pkgn = pkgn[:-len(apkg) - 1]
-                    break
+            # automatic subpackages are special, except when explicit
+            if not (tmplp / pkgn).exists():
+                for apkg, adesc, iif, takef, excl in template.autopkgs:
+                    if pkgn.endswith(f"-{apkg}"):
+                        pkgn = pkgn[:-len(apkg) - 1]
+                        break
             # if it's ok, just skip
             if (tmplp / pkgn).exists():
                 continue
