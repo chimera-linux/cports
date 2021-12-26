@@ -139,9 +139,17 @@ def do_install(self):
     )
 
 @subpackage("base-locale")
-def _base(self):
+def _baseloc(self):
     self.pkgdesc = "Base package for locale data"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = []
+    self.build_style = "meta"
+
+    return []
+
+@subpackage("base-doc")
+def _basedoc(self):
+    self.pkgdesc = "Base package for documentation"
+    self.depends = []
     self.build_style = "meta"
 
     return []
