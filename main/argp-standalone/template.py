@@ -10,7 +10,7 @@ url = "https://github.com/ericonr/argp-standalone"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "879d76374424dce051b812f16f43c6d16de8dbaddd76002f83fd1b6e57d39e0b"
 tool_flags = {"CFLAGS": ["-fPIC"]}
-options = ["!lto"]
+options = ["!lto", "!autosplit"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
