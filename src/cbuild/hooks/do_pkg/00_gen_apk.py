@@ -102,7 +102,6 @@ def genpkg(pkg, repo, arch, binpkg):
 def invoke(pkg):
     arch = pkg.rparent.profile().arch
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
-    binpkg_dbg = f"{pkg.pkgname}-dbg-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
     repobase = paths.repository() / pkg.rparent.repository
 
@@ -115,7 +114,7 @@ def invoke(pkg):
 
     genpkg(pkg, repo, arch, binpkg)
 
-    for apkg in ["dbg"]:
+    for apkg in template.autopkgs:
         binpkg = f"{pkg.pkgname}-{apkg}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
         # explicitly defined, so do not try autosplit

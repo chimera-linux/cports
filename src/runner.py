@@ -500,7 +500,7 @@ def do_prune_obsolete(tgt):
 def do_prune_removed(tgt):
     import time
 
-    from cbuild.core import chroot, logger, paths
+    from cbuild.core import chroot, logger, paths, template
     from cbuild.apk import cli
 
     # ensure we know what cpu arch we are dealing with
@@ -536,8 +536,10 @@ def do_prune_removed(tgt):
                 continue
             pkgn = pkgn[0:rd]
             # debug packages are special and automatic
-            if pkgn.endswith("-dbg"):
-                pkgn = pkgn[:-4]
+            for apkg in template.autopkgs:
+                if pkgn.endswith(f"-{apkg}"):
+                    pkgn = pkgn[:-len(apkg) - 1]
+                    break
             # if it's ok, just skip
             if (tmplp / pkgn).exists():
                 continue

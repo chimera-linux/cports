@@ -1253,6 +1253,8 @@ def _default_take_extra(self, extra):
         else:
             extra()
 
+autopkgs = ["dbg"]
+
 class Subpackage(Package):
     def __init__(self, name, parent, autoparent = None):
         super().__init__()

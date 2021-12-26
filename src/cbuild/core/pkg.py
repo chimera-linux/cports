@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths, chroot
+from cbuild.core import logger, paths, chroot, template
 import os
 import shutil
 import subprocess
@@ -27,10 +27,11 @@ def remove_pkg(pkg):
         if tpath.is_dir():
             spkg.log(f"removing files from destdir...")
             shutil.rmtree(tpath, onerror = _remove_ro)
-        tpath = dbase / f"{spkg.pkgname}-dbg-{pkg.pkgver}"
-        if tpath.is_dir():
-            spkg.log(f"removing dbg files from destdir...")
-            shutil.rmtree(tpath, onerror = _remove_ro)
+        for apkg in template.autopkgs:
+            tpath = dbase / f"{spkg.pkgname}-{apkg}-{pkg.pkgver}"
+            if tpath.is_dir():
+                spkg.log(f"removing {apkg} files from destdir...")
+                shutil.rmtree(tpath, onerror = _remove_ro)
         (pkg.statedir / f"{spkg.pkgname}_{crossb}_subpkg_install_done").unlink(
             missing_ok = True
         )
