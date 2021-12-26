@@ -60,7 +60,9 @@ def _gen_crossp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"musl-cross-{an}"]
-        self.options = ["!scanshlibs", "!scanrundeps", "!scanpkgconf"]
+        self.options = [
+            "!scanshlibs", "!scanrundeps", "!scanpkgconf", "!autosplit"
+        ]
         return [f"usr/{at}"]
     depends.append(f"libexecinfo-cross-{an}={pkgver}-r{pkgrel}")
 
