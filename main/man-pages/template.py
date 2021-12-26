@@ -9,6 +9,7 @@ license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
 source = f"$(KERNEL_SITE)/docs/man-pages/{pkgname}-{pkgver}.tar.xz"
 sha256 = "614dae3efe7dfd480986763a2a2a8179215032a5a4526c0be5e899a25f096b8b"
+options = ["!autosplit"]
 
 def do_install(self):
     from cbuild.util import make
@@ -36,4 +37,6 @@ def do_install(self):
 @subpackage("man-pages-devel")
 def _devel(self):
     self.pkgdesc = f"{pkgdesc} (development pages)"
+    self.options = ["!autosplit"]
+
     return ["usr/share/man/man[23]"]
