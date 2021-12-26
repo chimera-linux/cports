@@ -3,7 +3,9 @@ pkgver = "2.52.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-introspection", "--enable-vala", "--disable-dependency-tracking"
+    "--enable-introspection", "--enable-vala",
+    "--disable-dependency-tracking",
+    "--disable-static",
 ]
 make_cmd = "gmake"
 hostmakedepends = [
@@ -35,10 +37,6 @@ linker = "{self.get_tool("CC")}"
 """)
 
     cargo.clear_vendor_checksums(self, "system-deps")
-
-@subpackage("librsvg-static")
-def _static(self):
-    return self.default_static()
 
 @subpackage("librsvg-devel")
 def _devel(self):
