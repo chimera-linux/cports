@@ -135,7 +135,7 @@ def invoke(pkg):
 
         # create a temporary subpkg instance
         # it's only complete enough to satisfy the generator
-        spkg = template.Subpackage(f"{pkg.pkgname}-{apkg}", pkg.rparent, pkg)
+        spkg = template.Subpackage(f"{pkg.pkgname}-{apkg}", pkg.rparent)
         spkg.destdir = ddest
         spkg.statedir = pkg.statedir
         spkg.pkgver = pkg.pkgver

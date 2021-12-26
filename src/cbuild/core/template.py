@@ -1256,11 +1256,8 @@ def _default_take_extra(self, extra):
 autopkgs = ["dbg"]
 
 class Subpackage(Package):
-    def __init__(self, name, parent, autoparent = None):
+    def __init__(self, name, parent):
         super().__init__()
-
-        if not autoparent:
-            autoparent = parent
 
         self.pkgname = name
         self.parent = parent
@@ -1297,7 +1294,7 @@ class Subpackage(Package):
 
         # by default some subpackages depeond on their parent package
         if bdep:
-            ddeps.append(f"{bdep}={autoparent.pkgver}-r{autoparent.pkgrel}")
+            ddeps.append(f"{bdep}={parent.pkgver}-r{parent.pkgrel}")
 
         self.depends = ddeps
 
