@@ -128,7 +128,7 @@ def _gen_subp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang>={pkgver}"]
-        self.options = ["!scanshlibs", "!scanrundeps"]
+        self.options = ["!scanshlibs", "!scanrundeps", "!autosplit"]
         return [f"usr/lib/clang/{pkgver}/lib/{at}"]
 
     return _subp
