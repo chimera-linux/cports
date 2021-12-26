@@ -1263,6 +1263,15 @@ class Subpackage(Package):
         self.parent = parent
         self.rparent = parent
 
+        self.pkgver = parent.pkgver
+        self.pkgrel = parent.pkgrel
+        self.statedir = parent.statedir
+        self.build_style = parent.build_style
+
+        self.destdir = parent.destdir_base / f"{self.pkgname}-{self.pkgver}"
+        self.chroot_destdir = parent.chroot_destdir_base / \
+            f"{self.pkgname}-{self.pkgver}"
+
         # default subpackage fields
         for fl, dval, tp, mand, sp, inh in core_fields:
             if not sp:
@@ -1583,12 +1592,6 @@ def from_module(m, ret):
             ret.error(f"subpackage '{spn}' already exists")
         spdupes[spn] = True
         sp = Subpackage(spn, ret)
-        sp.pkgver = ret.pkgver
-        sp.pkgrel = ret.pkgrel
-        sp.destdir = ret.destdir_base / f"{sp.pkgname}-{ret.pkgver}"
-        sp.chroot_destdir = ret.chroot_destdir_base / f"{sp.pkgname}-{ret.pkgver}"
-        sp.statedir = ret.statedir
-        sp.build_style = ret.build_style
         pinst = spf(sp)
         if not callable(pinst):
             sp.pkg_install = _subpkg_install_list(sp, pinst)
