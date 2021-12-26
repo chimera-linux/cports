@@ -114,13 +114,21 @@ def invoke(pkg):
 
     genpkg(pkg, repo, arch, binpkg)
 
-    for apkg in template.autopkgs:
+    for apkg, adesc, iif, takef, excl in template.autopkgs:
         binpkg = f"{pkg.pkgname}-{apkg}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
+        # is an explicit package, do not autosplit that
+        if pkg.pkgname.endswith(f"-{apkg}"):
+            continue
+
         # explicitly defined, so do not try autosplit
+        foundpkg = False
         for sp in pkg.rparent.subpkg_list:
             if sp.pkgname == f"{pkg.pkgname}-{apkg}":
-                continue
+                foundpkg = True
+                break
+        if foundpkg:
+            continue
 
         ddest = pkg.rparent.destdir_base / f"{pkg.pkgname}-{apkg}-{pkg.pkgver}"
 

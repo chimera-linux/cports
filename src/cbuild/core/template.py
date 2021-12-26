@@ -291,6 +291,7 @@ default_options = {
     "keepempty": (False, False),
     "brokenlinks": (False, False),
     "hardlinks": (False, False),
+    "autosplit": (True, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),
@@ -1253,7 +1254,42 @@ def _default_take_extra(self, extra):
         else:
             extra()
 
-autopkgs = ["dbg"]
+# TODO: maybe put the exclusions into the packages themselves
+autopkgs = [
+    # dbg is handled by its own hook
+    ("dbg", "debug files", None, None, None),
+    ("doc", "documentation", "base-doc", lambda p: p.take_doc(), []),
+    (
+        "man", "manual pages", "base-man",
+        lambda p: p.take("usr/share/man", missing_ok = True),
+        []
+    ),
+    (
+        "dinit", "service files", "dinit-chimera",
+        lambda p: p.take("etc/dinit.d", missing_ok = True),
+        ["dinit-chimera"]
+    ),
+    (
+        "initramfs-tools", "initramfs scripts", "initramfs-tools",
+        lambda p: p.take("usr/share/initramfs-tools", missing_ok = True),
+        ["initramfs-tools"]
+    ),
+    (
+        "udev", "udev rules", "base-udev",
+        lambda p: p.take("usr/lib/udev", missing_ok = True),
+        ["eudev"]
+    ),
+    (
+        "bashcomp", "bash completions", "bash-completion",
+        lambda p: p.take("usr/share/bash-completion", missing_ok = True),
+        ["bash-completion"]
+    ),
+    (
+        "locale", "locale data", "base-locale",
+        lambda p: p.take("usr/share/locale", missing_ok = True),
+        []
+    ),
+]
 
 class Subpackage(Package):
     def __init__(self, name, parent):
@@ -1268,8 +1304,9 @@ class Subpackage(Package):
         self.statedir = parent.statedir
         self.build_style = parent.build_style
 
-        self.destdir = parent.destdir_base / f"{self.pkgname}-{self.pkgver}"
-        self.chroot_destdir = parent.chroot_destdir_base / \
+        self.destdir = parent.rparent.destdir_base / \
+            f"{self.pkgname}-{self.pkgver}"
+        self.chroot_destdir = parent.rparent.chroot_destdir_base / \
             f"{self.pkgname}-{self.pkgver}"
 
         # default subpackage fields
@@ -1277,12 +1314,13 @@ class Subpackage(Package):
             if not sp:
                 continue
             if inh:
-                setattr(self, fl, copy_of_dval(getattr(parent, fl)))
+                setattr(self, fl, copy_of_dval(getattr(parent.rparent, fl)))
             else:
                 setattr(self, fl, copy_of_dval(dval))
 
         ddeps = []
         bdep = None
+        instif = None
 
         # default suffixes
         if name.endswith("-devel"):
@@ -1290,25 +1328,30 @@ class Subpackage(Package):
         elif name.endswith("-static"):
             self.pkgdesc += " (static libraries)"
             bdep = name.removesuffix("-static") + "-devel"
-        elif name.endswith("-doc"):
-            self.pkgdesc += " (documentation)"
-            bdep = name.removesuffix("-doc")
         elif name.endswith("-libs"):
             self.pkgdesc += " (libraries)"
-        elif name.endswith("-dbg"):
-            self.pkgdesc += " (debug files)"
-            bdep = name.removesuffix("-dbg")
         elif name.endswith("-progs"):
             self.pkgdesc += " (programs)"
+        else:
+            for apkg, adesc, iif, takef, excl in autopkgs:
+                sfx = f"-{apkg}"
+                if name.endswith(sfx):
+                    bdep = name.removesuffix(sfx)
+                    instif = iif
+                    self.pkgdesc += f" ({adesc})"
 
         # by default some subpackages depeond on their parent package
         if bdep:
-            ddeps.append(f"{bdep}={parent.pkgver}-r{parent.pkgrel}")
+            fbdep = f"{bdep}={parent.pkgver}-r{parent.pkgrel}"
+            ddeps.append(fbdep)
+            # they may also get automatically installed
+            if instif:
+                self.install_if = [fbdep, instif]
 
         self.depends = ddeps
 
-        self.force_mode = parent.force_mode
-        self.stage = parent.stage
+        self.force_mode = parent.rparent.force_mode
+        self.stage = parent.rparent.stage
 
     def take(self, p, missing_ok = False):
         p = pathlib.Path(p)

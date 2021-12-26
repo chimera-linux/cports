@@ -1104,10 +1104,12 @@ The `pkgdesc` may gain a suffix if the subpackage name has a certain suffix:
 
 * For `-devel`, it will be `(development files)`
 * For `-static`, it will be `(static libraries)`
-* For `-doc`, it will be `(documentation)`
 * For `-libs`, it will be `(libraries)`
-* For `-dbg`, it will be `(debug files)`
 * For `-progs`, it will be `(programs)`
+
+There are also automatic subpackages, which can be declared explicitly if
+needed, and those have their own descriptions as well. See the later section
+of this document for those.
 
 In general, subpackage descriptions should have suffixes like that. You can
 choose the best suffix for packages not matching standardized names. Sometimes
@@ -1125,6 +1127,46 @@ you can just overwrite it. For `foo-static`, the base dependency is `foo-devel`.
 If any broken symlink in a package or subpackage resolves to another subpackage
 or the main package, a dependency is automatically emitted - see the section
 about automatic dependencies below.
+
+#### Automatic subpackages
+
+There are subpackages that are generated automatically.
+
+These are (with their package description suffixes):
+
+* `dbg` - `(debug files)`
+* `doc` - `(documentation)`
+* `man` - `(manual pages)`
+* `dinit` - `(service files)`
+* `initramfs-tools` - `(initramfs scripts)`
+* `udev` - `(udev rules)`
+* `bashcomp` - `(bash completions)`
+* `locale` - `(locale data)`
+
+These suffixes should be considered reserved, i.e. you should not make a
+package with the reserved suffix unless it's replacing the otherwise
+automatic subpackage, and they themselves should not split off any further
+subpackages.
+
+They are split off based on existence of certain files inside the package,
+except debug packages, which are split off if any debug information could
+be stripped off ELF files within the package.
+
+Automatic subpackages are automatically installed under certain circumstances,
+except for debug packages. For automatic installation to happen, the package
+they were split off needs to be installed, plus the following:
+
+* `base-doc` for `-doc` subpackages
+* `base-man` for `-man` subpackages
+* `base-udev` for `-udev` subpackages
+* `base-locale` for `-locale` subpackages
+* `dinit-chimera` for `-dinit` subpackages
+* `initramfs-tools` for `-initramfs-tools` subpackages
+* `bash-completion` for `-bashcomp` packages
+
+You can turn off automatic splitting with the `!autosplit` option. Some
+templates also have builtin whitelists for split subpackage data, e.g.
+`eudev` will not split off a `-udev` subpackage.
 
 <a id="automatic_deps"></a>
 ### Automatic Dependencies
@@ -1310,6 +1352,8 @@ for subpackages separately if needed:
   for when there are mixed LTO and non-LTO archives or when something is
   built with GCC and `-ffat-lto-objects`. Keep in mind that you will have
   to use `nostrip_files` to filter out bitcode archives with this option.
+* `autosplit` *(true)* If disabled, the build system will not autosplit
+  subpackages (other than `-dbg`, which is controlled with other vars).
 
 <a id="hardening_options"></a>
 ### Hardening Options

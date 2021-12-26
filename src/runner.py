@@ -536,7 +536,7 @@ def do_prune_removed(tgt):
                 continue
             pkgn = pkgn[0:rd]
             # debug packages are special and automatic
-            for apkg in template.autopkgs:
+            for apkg, adesc, iif, takef, excl in template.autopkgs:
                 if pkgn.endswith(f"-{apkg}"):
                     pkgn = pkgn[:-len(apkg) - 1]
                     break
