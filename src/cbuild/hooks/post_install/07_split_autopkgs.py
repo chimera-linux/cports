@@ -24,6 +24,8 @@ def invoke(pkg):
             continue
         if excl and pkg.pkgname in excl:
             continue
+        if pkg.pkgname == iif:
+            continue
         if pkg.pkgname.endswith(f"-{apkg}"):
             continue
 

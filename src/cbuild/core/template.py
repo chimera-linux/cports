@@ -1267,12 +1267,12 @@ autopkgs = [
     (
         "dinit", "service files", "dinit-chimera",
         lambda p: p.take("etc/dinit.d", missing_ok = True),
-        ["dinit-chimera"]
+        []
     ),
     (
         "initramfs-tools", "initramfs scripts", "initramfs-tools",
         lambda p: p.take("usr/share/initramfs-tools", missing_ok = True),
-        ["initramfs-tools"]
+        []
     ),
     (
         "udev", "udev rules", "base-udev",
@@ -1282,7 +1282,7 @@ autopkgs = [
     (
         "bashcomp", "bash completions", "bash-completion",
         lambda p: p.take("usr/share/bash-completion", missing_ok = True),
-        ["bash-completion"]
+        []
     ),
     (
         "locale", "locale data", "base-locale",
