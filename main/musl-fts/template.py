@@ -18,4 +18,5 @@ def post_install(self):
 
 @subpackage("musl-fts-devel")
 def _devel(self):
+    self.options = ["!autosplit"]
     return self.default_devel()
