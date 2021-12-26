@@ -312,7 +312,7 @@ def _clang(self):
 @subpackage("clang-rt-devel")
 def _clang_rt_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang runtime development files)"
-    self.options = ["ltostrip"] # these are explicitly -fno-lto
+    self.options = ["ltostrip", "!autosplit"] # these are explicitly -fno-lto
     if self.stage > 0:
         self.depends = ["libexecinfo-devel"]
 
@@ -397,6 +397,7 @@ def _flang(self):
 @subpackage("flang-devel", _enable_flang)
 def _flang_devel(self):
     self.pkgdesc = f"{pkgdesc} (Flang development files)"
+    self.options = ["!autosplit"]
 
     return [
         "usr/include/flang",
@@ -482,7 +483,7 @@ def _libcxx_static(self):
 @subpackage("libcxx-devel")
 def _libcxx_devel(self):
     self.pkgdesc = f"{pkgdesc} (C++ standard library) (development files)"
-    self.options = ["ltostrip"]
+    self.options = ["ltostrip", "!autosplit"]
 
     return [
         "usr/lib/libc++.so",
