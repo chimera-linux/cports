@@ -74,6 +74,7 @@ def do_install(self):
 @subpackage("gettext-tiny-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.options = ["!autosplit"]
 
     return self.default_devel(extra = [
         "usr/share/gettext-tiny",
