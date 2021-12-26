@@ -2,7 +2,7 @@ pkgname = "libxo"
 pkgver = "1.6.0"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--disable-dependency-tracking"]
+configure_args = ["--disable-dependency-tracking", "--disable-static"]
 hostmakedepends = ["pkgconf", "gettext-tiny"]
 makedepends = ["musl-bsd-headers"]
 pkgdesc = "Library for generating text, XML, JSON, and HTML output"
@@ -25,10 +25,6 @@ def init_configure(self):
     tlflags = self.get_ldflags(shell = True)
 
     self.configure_env = {"CFLAGS": f"{tcflags} {tlflags}"}
-
-@subpackage("libxo-static")
-def _static(self):
-    return self.default_static()
 
 @subpackage("libxo-devel")
 def _devel(self):
