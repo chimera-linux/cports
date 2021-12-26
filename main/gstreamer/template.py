@@ -7,6 +7,7 @@ configure_args = [
     "-Dpackage-origin=https://chimera-linux.org",
     "-Ddbghelp=disabled",
     "-Dintrospection=enabled",
+    "-Ddefault_library=shared",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "flex", "python", "docbook-xsl-nons",
@@ -23,10 +24,6 @@ source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "55862232a63459bbf56abebde3085ca9aec211b478e891dacea4d6df8cafe80a"
 # musl related failures
 options = ["!check"]
-
-@subpackage("gstreamer-static")
-def _static(self):
-    return self.default_static()
 
 @subpackage("gstreamer-devel")
 def _devel(self):
