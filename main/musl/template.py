@@ -66,5 +66,6 @@ def _static(self):
 @subpackage("musl-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.options = ["!autosplit"]
     # the .a files are empty archives
     return ["usr/include", "usr/lib/*.o", "usr/lib/*.a"]
