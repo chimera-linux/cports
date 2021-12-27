@@ -1168,6 +1168,8 @@ You can turn off automatic splitting with the `!autosplit` option. Some
 templates also have builtin whitelists for split subpackage data, e.g.
 `eudev` will not split off a `-udev` subpackage.
 
+You can turn off splitting static libraries only with `!splitstatic`.
+
 <a id="automatic_deps"></a>
 ### Automatic Dependencies
 
@@ -1354,6 +1356,9 @@ for subpackages separately if needed:
   to use `nostrip_files` to filter out bitcode archives with this option.
 * `autosplit` *(true)* If disabled, the build system will not autosplit
   subpackages (other than `-dbg`, which is controlled with other vars).
+* `splitstatic` *(true)* This is like `autosplit`, but only for static
+  libraries. You can use this if you really want to keep static libraries
+  in the `devel` package.
 
 <a id="hardening_options"></a>
 ### Hardening Options

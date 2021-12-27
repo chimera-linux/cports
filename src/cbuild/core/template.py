@@ -292,6 +292,7 @@ default_options = {
     "brokenlinks": (False, False),
     "hardlinks": (False, False),
     "autosplit": (True, False),
+    "splitstatic": (True, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),
