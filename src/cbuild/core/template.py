@@ -1664,6 +1664,14 @@ def from_module(m, ret):
             if not dtup[1]:
                 ropts[dopt] = ret.options[dopt]
 
+        # non-devel subpackages have splitstatic off by default
+        # while static libs in devel packages are expected, in
+        # normal ones it's somewhat of a red flag, and if they
+        # are not split, the final linter will catch it; the
+        # template can then explicitly acknowledge it
+        if not sp.pkgname.endswith("-devel"):
+            ropts["splitstatic"] = False
+
         if sp.options:
             for opt in sp.options:
                 neg = opt.startswith("!")
