@@ -64,10 +64,6 @@ def _crehash(self):
 
     return ["usr/bin/c_rehash"]
 
-@subpackage("openssl-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("openssl-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}",]

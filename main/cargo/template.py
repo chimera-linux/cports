@@ -28,7 +28,7 @@ _bootstrap = False
 
 if _bootstrap:
     hostmakedepends += ["rust-bootstrap"]
-    makedepends += ["rust-bootstrap", "openssl-static"]
+    makedepends += ["rust-bootstrap", "openssl-devel-static"]
     options += ["!debug"]
 else:
     hostmakedepends += ["rust"]
