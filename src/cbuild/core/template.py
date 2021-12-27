@@ -1255,12 +1255,16 @@ def _default_take_extra(self, extra):
         else:
             extra()
 
+def _split_static(pkg):
+    for f in (pkg.parent.destdir / "usr/lib").rglob("*.a"):
+        pkg.take(str(f.relative_to(pkg.parent.destdir)))
+
 # TODO: maybe put the exclusions into the packages themselves
 autopkgs = [
     # dbg is handled by its own hook
     ("dbg", "debug files", None, None, None),
     # static is kinda special
-    ("static", None, None, None, None),
+    ("static", "static libraries", None, _split_static, []),
     ("doc", "documentation", "base-doc", lambda p: p.take_doc(), []),
     (
         "man", "manual pages", "base-man",
@@ -1328,9 +1332,6 @@ class Subpackage(Package):
         # default suffixes
         if name.endswith("-devel"):
             self.pkgdesc += " (development files)"
-        elif name.endswith("-static"):
-            self.pkgdesc += " (static libraries)"
-            bdep = name.removesuffix("-static") + "-devel"
         elif name.endswith("-libs"):
             self.pkgdesc += " (libraries)"
         elif name.endswith("-progs"):

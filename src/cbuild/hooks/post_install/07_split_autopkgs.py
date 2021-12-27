@@ -19,21 +19,6 @@ def invoke(pkg):
     if not pkg.options["autosplit"]:
         return
 
-    # handle static specially
-    if pkg.options["splitstatic"] and pkg.pkgname.endswith("-devel"):
-        foundpkg = False
-        bn = pkg.pkgname.removesuffix("-devel") + "-static"
-        for sp in pkg.rparent.subpkg_list:
-            if sp.pkgname == bn:
-                foundpkg = True
-                break
-        if not foundpkg:
-            sp = template.Subpackage(bn, pkg)
-            sp.destdir.mkdir(parents = True, exist_ok = True)
-            for f in (pkg.destdir / "usr/lib").rglob("*.a"):
-                sp.take(str(f.relative_to(pkg.destdir)))
-            _clean_empty(sp.destdir)
-
     for apkg, adesc, iif, takef, excl in template.autopkgs:
         if not takef:
             continue

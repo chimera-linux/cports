@@ -538,14 +538,9 @@ def do_prune_removed(tgt):
             # automatic subpackages are special, except when explicit
             if not (tmplp / pkgn).exists():
                 for apkg, adesc, iif, takef, excl in template.autopkgs:
-                    if apkg == "static":
-                        continue
                     if pkgn.endswith(f"-{apkg}"):
                         pkgn = pkgn[:-len(apkg) - 1]
                         break
-                else:
-                    if pkgn.endswith("-static"):
-                        pkgn = pkgn.removesuffix("-static") + "-devel"
             # if it's ok, just skip
             if (tmplp / pkgn).exists():
                 continue

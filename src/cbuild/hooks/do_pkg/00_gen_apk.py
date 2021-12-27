@@ -115,13 +115,7 @@ def invoke(pkg):
     genpkg(pkg, repo, arch, binpkg)
 
     for apkg, adesc, iif, takef, excl in template.autopkgs:
-        bpn = pkg.pkgname
-        if apkg == "static":
-            if not bpn.endswith("-devel"):
-                continue
-            bpn = bpn.removesuffix("-devel")
-
-        binpkg = f"{bpn}-{apkg}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
+        binpkg = f"{pkg.pkgname}-{apkg}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
         # is an explicit package, do not autosplit that
         if pkg.pkgname.endswith(f"-{apkg}"):
@@ -130,13 +124,13 @@ def invoke(pkg):
         # explicitly defined, so do not try autosplit
         foundpkg = False
         for sp in pkg.rparent.subpkg_list:
-            if sp.pkgname == f"{bpn}-{apkg}":
+            if sp.pkgname == f"{pkg.pkgname}-{apkg}":
                 foundpkg = True
                 break
         if foundpkg:
             continue
 
-        ddest = pkg.rparent.destdir_base / f"{bpn}-{apkg}-{pkg.pkgver}"
+        ddest = pkg.rparent.destdir_base / f"{pkg.pkgname}-{apkg}-{pkg.pkgver}"
 
         # destdir does not exist, so skip
         if not ddest.is_dir():
@@ -149,6 +143,6 @@ def invoke(pkg):
 
         # create a temporary subpkg instance
         # it's only complete enough to satisfy the generator
-        spkg = template.Subpackage(f"{bpn}-{apkg}", pkg.rparent)
+        spkg = template.Subpackage(f"{pkg.pkgname}-{apkg}", pkg.rparent)
 
         genpkg(spkg, srepo, arch, binpkg)
