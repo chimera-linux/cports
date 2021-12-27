@@ -20,6 +20,8 @@ def invoke(pkg):
         return
 
     for apkg, adesc, iif, takef, excl in template.autopkgs:
+        if apkg == "static" and not pkg.options["splitstatic"]:
+            continue
         if not takef:
             continue
         if excl and pkg.pkgname in excl:
