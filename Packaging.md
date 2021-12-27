@@ -367,7 +367,11 @@ package, it is perfectly acceptable to have `libfoo-devel` alongside
 `foo-devel`.
 
 Static libraries should go in `-static` packages in nearly all cases.
-In specific cases, they will go in `-devel`.
+In specific cases, they will go in `-devel`. Static libraries are
+automatically split from `-devel` (unless overridden with `!autosplit`
+or `!splitstatic`) and are by default forbidden from other packages
+than `-devel` or `-static` ones, so you should not have to declare
+them manually.
 
 In general, things packaging libraries should always have a `devel`
 package of some sort, except in specific rare cases where this does
@@ -381,6 +385,9 @@ files required for development but not required at runtime.
 
 Debug packages have the `-dbg` suffix and are created automatically in
 most cases.
+
+Various other packages are also created automatically. See the section
+about automatic subpackages for more details.
 
 If a primary package (typically a library or some kind of module) has
 auxiliary programs that are separated into a subpackage, the subpackage
@@ -1142,6 +1149,7 @@ These are (with their package description suffixes):
 * `udev` - `(udev rules)`
 * `bashcomp` - `(bash completions)`
 * `locale` - `(locale data)`
+* `static` - `(static libraries)`
 
 These suffixes should be considered reserved, i.e. you should not make a
 package with the reserved suffix unless it's replacing the otherwise
@@ -1153,8 +1161,8 @@ except debug packages, which are split off if any debug information could
 be stripped off ELF files within the package.
 
 Automatic subpackages are automatically installed under certain circumstances,
-except for debug packages. For automatic installation to happen, the package
-they were split off needs to be installed, plus the following:
+except for debug and static packages. For automatic installation to happen,
+the package they were split off needs to be installed, plus the following:
 
 * `base-doc` for `-doc` subpackages
 * `base-man` for `-man` subpackages
