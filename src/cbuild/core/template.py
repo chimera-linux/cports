@@ -1259,6 +1259,8 @@ def _default_take_extra(self, extra):
 autopkgs = [
     # dbg is handled by its own hook
     ("dbg", "debug files", None, None, None),
+    # static is kinda special
+    ("static", None, None, None, None),
     ("doc", "documentation", "base-doc", lambda p: p.take_doc(), []),
     (
         "man", "manual pages", "base-man",

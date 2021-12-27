@@ -71,7 +71,7 @@ def _gen_crossp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang-rt-crt-cross-{an}"]
-        self.options = ["!scanshlibs", "!scanrundeps", "!autosplit"]
+        self.options = ["!scanshlibs", "!scanrundeps", "!splitstatic"]
         return [f"usr/{at}"]
 
     depends.append(f"musl-cross-{an}")

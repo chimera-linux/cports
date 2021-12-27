@@ -28,9 +28,17 @@ def remove_pkg(pkg):
             spkg.log(f"removing files from destdir...")
             shutil.rmtree(tpath, onerror = _remove_ro)
         for apkg, adesc, iif, takef, excl in template.autopkgs:
+            if apkg == "static":
+                continue
             tpath = dbase / f"{spkg.pkgname}-{apkg}-{pkg.pkgver}"
             if tpath.is_dir():
                 spkg.log(f"removing {apkg} files from destdir...")
+                shutil.rmtree(tpath, onerror = _remove_ro)
+        if spkg.pkgname.endswith("-devel"):
+            bn = spkg.pkgname.removesuffix("-devel")
+            tpath = dbase / f"{bn}-static-{pkg.pkgver}"
+            if tpath.is_dir():
+                spkg.log(f"removing static libraries from destdir...")
                 shutil.rmtree(tpath, onerror = _remove_ro)
         (pkg.statedir / f"{spkg.pkgname}_{crossb}_subpkg_install_done").unlink(
             missing_ok = True

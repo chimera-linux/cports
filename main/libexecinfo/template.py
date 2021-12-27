@@ -25,6 +25,6 @@ def do_install(self):
 
 @subpackage("libexecinfo-devel")
 def _devel(self):
-    self.options = ["!autosplit"]
+    self.options = ["!splitstatic"]
 
     return self.default_devel()
