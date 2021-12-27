@@ -15,10 +15,6 @@ options = ["bootstrap"]
 def do_configure(self):
     self.do(self.chroot_cwd / "configure", "--prefix=/usr", "--shared")
 
-@subpackage("zlib-static")
-def _devel(self):
-    return self.default_static()
-
 @subpackage("zlib-devel")
 def _devel(self):
     return self.default_devel()
