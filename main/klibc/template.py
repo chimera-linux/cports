@@ -73,6 +73,7 @@ def post_install(self):
 @subpackage("klibc-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
+    self.options = ["!splitstatic"]
     return [
         "usr/bin",
         "usr/lib/klibc/include",
