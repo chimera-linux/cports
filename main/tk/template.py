@@ -38,6 +38,8 @@ def post_install(self):
 
 @subpackage("tk-devel")
 def _devel(self):
+    self.options = ["!splitstatic"]
+
     return [
         "usr/lib/tkConfig.sh",
         "usr/include",
