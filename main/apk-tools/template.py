@@ -24,10 +24,6 @@ if self.stage > 0:
 else:
     configure_args += ["-Dhelp=disabled", "-Ddocs=disabled"]
 
-@subpackage("apk-tools-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("apk-tools-devel")
 def _devel(self):
     return self.default_devel()
