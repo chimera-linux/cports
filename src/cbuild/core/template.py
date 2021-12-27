@@ -1775,7 +1775,8 @@ _tmpl_dict = {}
 def read_pkg(
     pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
     origin, resolve = None, ignore_missing = False, ignore_errors = False,
-    target = None, force_check = False, allow_broken = False, stage = 3
+    target = None, force_check = False, allow_broken = False,
+    autopkg = False, stage = 3
 ):
     global _tmpl_dict
 
@@ -1783,11 +1784,27 @@ def read_pkg(
         raise errors.CbuildException("missing package name")
 
     if resolve:
+        resolved = False
         for r in resolve.source_repositories:
-            if (paths.distdir() / r / pkgname / "template.py").is_file():
+            rpath = paths.distdir() / r
+            if (rpath / pkgname / "template.py").is_file():
                 pkgname = f"{r}/{pkgname}"
+                resolved = True
                 break
-        else:
+        if not resolved and autopkg:
+            altname = None
+            for apkg, adesc, iif, takef, excl in autopkgs:
+                if pkgname.endswith(f"-{apkg}"):
+                    altname = pkgname.removesuffix(f"-{apkg}")
+                    break
+            if altname:
+                for r in resolve.source_repositories:
+                    rpath = paths.distdir() / r
+                    if (rpath / altname / "template.py").is_file():
+                        pkgname = f"{r}/{altname}"
+                        resolved = True
+                        break
+        if not resolved:
             if ignore_missing:
                 return None
             raise errors.CbuildException(f"missing template for '{pkgname}'")

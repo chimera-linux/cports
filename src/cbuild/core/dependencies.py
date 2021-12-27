@@ -20,7 +20,8 @@ def _srcpkg_ver(pkgn, pkgb):
     rv = template.read_pkg(
         pkgn, pkgb.profile().arch,
         True, False, 1, False, False, None,
-        resolve = pkgb, ignore_missing = True, ignore_errors = True
+        resolve = pkgb, ignore_missing = True, ignore_errors = True,
+        autopkg = True
     )
     if not rv:
         return None
@@ -414,7 +415,8 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                 pn, chost if pkg.stage > 0 else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check, stage = pkg.stage
+                force_check = pkg._force_check, stage = pkg.stage,
+                autopkg = True
             ), depmap, signkey, chost = hostdep or not not pkg.cross_build)
         except template.SkipPackage:
             pass
@@ -426,7 +428,8 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                 pn, tarch if pkg.stage > 0 else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check, stage = pkg.stage
+                force_check = pkg._force_check, stage = pkg.stage,
+                autopkg = True
             ), depmap, signkey, chost = hostdep)
         except template.SkipPackage:
             pass
@@ -438,7 +441,8 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                 rd, tarch if pkg.stage > 0 else None,
                 False, pkg.run_check, pkg.conf_jobs,
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check, stage = pkg.stage
+                force_check = pkg._force_check, stage = pkg.stage,
+                autopkg = True
             ), depmap, signkey, chost = hostdep)
         except template.SkipPackage:
             pass
