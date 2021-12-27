@@ -536,6 +536,7 @@ def do_prune_removed(tgt):
                 continue
             pkgn = pkgn[0:rd]
             # automatic subpackages are special, except when explicit
+            opkgn = pkgn
             if not (tmplp / pkgn).exists():
                 for apkg, adesc, iif, takef, excl in template.autopkgs:
                     if pkgn.endswith(f"-{apkg}"):
@@ -543,7 +544,19 @@ def do_prune_removed(tgt):
                         break
             # if it's ok, just skip
             if (tmplp / pkgn).exists():
-                continue
+                if pkgn != opkgn:
+                    # for autopkgs also check pkgver matches
+                    # autopkg always matches its base no matter what
+                    bppath = pkg.with_name(pkg.name.replace(opkgn, pkgn))
+                    if opkgn.endswith("-dbg"):
+                        # if checking dbg, switch repository too
+                        bparch = bppath.parent.name
+                        bproot = bppath.parent.parent.parent
+                        bppath = bproot / bparch / bppath.name
+                    if bppath.exists():
+                        continue
+                else:
+                    continue
             # not ok, first test if it's a broken symlink
             broken = True
             try:
