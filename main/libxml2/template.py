@@ -24,10 +24,6 @@ def post_install(self):
     for f in (self.destdir / "usr/lib").glob("python*"):
         (f / "site-packages/libxml2mod.a").unlink()
 
-@subpackage("libxml2-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxml2-devel")
 def _devel(self):
     self.depends += ["liblzma-devel", "zlib-devel", "icu-devel"]
