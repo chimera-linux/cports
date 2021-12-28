@@ -67,10 +67,6 @@ def _libs(self):
         f"usr/share/icu/{pkgver}/icudt*.dat"
     ])
 
-@subpackage("icu-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("icu-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/icu", "usr/lib/icu"])
