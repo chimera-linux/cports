@@ -14,10 +14,6 @@ sha256 = "20c23101d63234ee5f6d696dfa069b29c6c58e39eff433bcd7705b50b3ffa214"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxkbui-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxkbui-devel")
 def _devel(self):
     return self.default_devel()
