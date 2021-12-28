@@ -14,10 +14,6 @@ sha256 = "ee8048d20179a2e86156ac842ddb6428732d9cd7a2cfc2eca905165bf24887a2"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libepoxy-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libepoxy-devel")
 def _devel(self):
     return self.default_devel()
