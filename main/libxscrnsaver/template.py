@@ -15,10 +15,6 @@ sha256 = "f917075a1b7b5a38d67a8b0238eaab14acd2557679835b154cf2bca576e89bf8"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxscrnsaver-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxscrnsaver-devel")
 def _devel(self):
     return self.default_devel()
