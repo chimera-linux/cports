@@ -30,11 +30,6 @@ def pre_configure(self):
         (self.cwd / f).touch()
         (self.cwd / "libltdl" / f).touch()
 
-@subpackage("libltdl-static")
-def _devel(self):
-    self.pkgdesc = "GNU libtool dlopen wrapper (static)"
-    return self.default_static()
-
 @subpackage("libltdl-devel")
 def _devel(self):
     self.pkgdesc = "GNU libtool dlopen wrapper (development files)"
@@ -42,6 +37,7 @@ def _devel(self):
     return [
         "usr/include",
         "usr/lib/*.so",
+        "usr/lib/*.a",
         "usr/share/aclocal/ltdl.m4",
         "usr/share/libtool/libltdl",
     ]
