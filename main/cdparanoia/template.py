@@ -27,10 +27,6 @@ def _lib(self):
 
     return self.default_libs()
 
-@subpackage("cdparanoia-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("cdparanoia-devel")
 def _devel(self):
     return self.default_devel()
