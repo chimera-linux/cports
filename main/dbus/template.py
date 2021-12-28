@@ -55,10 +55,6 @@ def post_install(self):
     self.install_service(self.files_path / "dbus")
     self.install_service(self.files_path / "dbus.user")
 
-@subpackage("dbus-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("dbus-devel")
 def _devel(self):
     self.depends += ["libexpat-devel"]
