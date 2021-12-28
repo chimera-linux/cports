@@ -67,10 +67,6 @@ def post_install(self):
     self.install_link(f"luac{_lver}", "usr/bin/luac")
     self.install_link(f"lua{_lver}.pc", "usr/lib/pkgconfig/lua.pc")
 
-@subpackage("lua5.4-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("lua5.4-devel")
 def _devel(self):
     return self.default_devel()
