@@ -16,10 +16,6 @@ sha256 = "57dedaab20914002146bdae0cb0c769ba3f75214c4c91bd2613d6ef79fc9abdd"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxft-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxft-devel")
 def _devel(self):
     return self.default_devel()
