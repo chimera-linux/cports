@@ -15,10 +15,6 @@ sha256 = "b33cc4934322bcbf6efcbacf49e3ca01aadbea4114ec9589d1b1e9d20f72954b"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libvorbis-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libvorbis-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
