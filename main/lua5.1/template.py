@@ -60,10 +60,6 @@ def post_install(self):
     self.install_link(_libf, f"usr/lib/liblua{_lver}.so")
     self.install_link(_libf, f"usr/lib/liblua{_lver}.so.{_lver}")
 
-@subpackage("lua5.1-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("lua5.1-devel")
 def _devel(self):
     return self.default_devel()
