@@ -15,10 +15,6 @@ sha256 = "a89c03e2b0f16239d67a2031b9003f31b5a686106bbdb3c797fb88ae472af380"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxxf86misc-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxxf86misc-devel")
 def _devel(self):
     return self.default_devel()
