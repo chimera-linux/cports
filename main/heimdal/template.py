@@ -155,10 +155,6 @@ def _client(self):
 
     return _install
 
-@subpackage("heimdal-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("heimdal-devel")
 def _devel(self):
     # provides com_err
