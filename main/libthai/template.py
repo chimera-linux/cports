@@ -16,10 +16,6 @@ sha256 = "ffe0a17b4b5aa11b153c15986800eca19f6c93a4025ffa5cf2cab2dcdf1ae911"
 if self.cross_build:
     hostmakedepends += ["libdatrie"]
 
-@subpackage("libthai-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libthai-devel")
 def _devel(self):
     return self.default_devel()
