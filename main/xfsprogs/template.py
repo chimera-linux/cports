@@ -35,10 +35,6 @@ def init_configure(self):
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)
 
-@subpackage("xfsprogs-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("xfsprogs-devel")
 def _devel(self):
     self.depends += ["libuuid-devel"]
