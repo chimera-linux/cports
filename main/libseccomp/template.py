@@ -21,10 +21,6 @@ exec_wrappers = [
 def pre_configure(self):
     self.do("autoreconf", "-if")
 
-@subpackage("libseccomp-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libseccomp-devel")
 def _devel(self):
     return self.default_devel()
