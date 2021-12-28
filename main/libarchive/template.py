@@ -41,10 +41,6 @@ def _bsdtar(self):
 
     return self.default_progs(man = "15")
 
-@subpackage("libarchive-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libarchive-devel")
 def _devel(self):
     self.depends += makedepends
