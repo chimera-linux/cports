@@ -292,7 +292,8 @@ default_options = {
     "brokenlinks": (False, False),
     "hardlinks": (False, False),
     "autosplit": (True, False),
-    "splitstatic": (True, False),
+    # actually true by default for -devel
+    "splitstatic": (False, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),
@@ -1526,6 +1527,9 @@ def from_module(m, ret):
     for dopt, dtup in default_options.items():
         ropts[dopt] = dtup[0]
 
+    if ret.pkgname.endswith("-devel"):
+        ropts["splitstatic"] = True
+
     if ret.options:
         for opt in ret.options:
             neg = opt.startswith("!")
@@ -1664,13 +1668,8 @@ def from_module(m, ret):
             if not dtup[1]:
                 ropts[dopt] = ret.options[dopt]
 
-        # non-devel subpackages have splitstatic off by default
-        # while static libs in devel packages are expected, in
-        # normal ones it's somewhat of a red flag, and if they
-        # are not split, the final linter will catch it; the
-        # template can then explicitly acknowledge it
-        if not sp.pkgname.endswith("-devel"):
-            ropts["splitstatic"] = False
+        if sp.pkgname.endswith("-devel"):
+            ropts["splitstatic"] = True
 
         if sp.options:
             for opt in sp.options:
