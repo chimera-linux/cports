@@ -17,10 +17,6 @@ sha256 = "cfa008a5af822b36ae6287f18182c40c91dd699c55faa38605881ed175ca464f"
 # non-trivial dbus setup
 options = ["!check"]
 
-@subpackage("at-spi2-atk-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("at-spi2-atk-devel")
 def _devel(self):
     return self.default_devel()
