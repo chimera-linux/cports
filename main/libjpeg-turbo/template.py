@@ -25,10 +25,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)
     self.rm(self.destdir / "usr/bin/tjbench")
 
-@subpackage("libjpeg-turbo-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libjpeg-turbo-devel")
 def _devel(self):
     return self.default_devel()
