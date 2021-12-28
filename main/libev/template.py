@@ -14,10 +14,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/include/event.h")
     self.install_license("LICENSE")
 
-@subpackage("libev-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libev-devel")
 def _devel(self):
     return self.default_devel()
