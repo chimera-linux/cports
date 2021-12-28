@@ -18,10 +18,6 @@ sha256 = "a8cfb1c09ea6e90eff4ca87322d4168cdbe5035cb48717b40bf77e751cc02163"
 def _progs(self):
     return self.default_progs()
 
-@subpackage("libsndfile-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libsndfile-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
