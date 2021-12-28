@@ -18,10 +18,6 @@ def _libmagic(self):
 
     return self.default_libs()
 
-@subpackage("sysfsutils-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("sysfsutils-devel")
 def _devel(self):
     return self.default_devel()
