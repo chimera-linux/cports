@@ -14,10 +14,6 @@ sha256 = "cf032d0dba9b928636548e32b327a2d66b1aab63c4f4a13dd132c2d1d2f2fb6a"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libexpat-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libexpat-devel")
 def _devel(self):
     return self.default_devel()
