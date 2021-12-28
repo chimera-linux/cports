@@ -30,12 +30,6 @@ def _libmagic(self):
         "usr/share/man/man4",
     ])
 
-@subpackage("file-static")
-def _static(self):
-    self.pkgdesc = "File type identification library (static library)"
-
-    return self.default_static()
-
 @subpackage("file-devel")
 def _devel(self):
     self.depends += makedepends
