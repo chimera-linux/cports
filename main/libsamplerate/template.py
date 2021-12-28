@@ -15,10 +15,6 @@ tool_flags = {"CFLAGS": ["-fPIC"]}
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libsamplerate-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libsamplerate-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
