@@ -1,0 +1,10 @@
+# syslog-ng daemon service
+#
+# there is no way to signal readiness, so it's bgprocess
+
+type               = bgprocess
+command            = /usr/bin/syslog-ng -p /run/syslog-ng.pid -f /etc/syslog-ng/syslog-ng.conf
+depends-on         = early-rcboot
+pid-file           = /run/syslog-ng.pid
+smooth-recovery    = true
+options            = starts-log
