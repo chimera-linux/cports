@@ -21,10 +21,6 @@ url = "https://wiki.gnome.org/Projects/GdkPixbuf"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c4a6b75b7ed8f58ca48da830b9fa00ed96d668d3ab4b1f723dcf902f78bde77f"
 
-@subpackage("gdk-pixbuf-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("gdk-pixbuf-devel")
 def _devel(self):
     return self.default_devel(extra = [
