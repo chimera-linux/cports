@@ -15,10 +15,6 @@ sha256 = "0008dbd7ecf717e1e507eed1856ab0d9cf946d03201b85d5dcf61489bb02d720"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxinerama-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxinerama-devel")
 def _devel(self):
     return self.default_devel()
