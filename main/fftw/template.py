@@ -58,10 +58,6 @@ def do_check(self):
 def _libs(self):
     return self.default_libs()
 
-@subpackage("fftw-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("fftw-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/info"])
