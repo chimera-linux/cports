@@ -132,10 +132,6 @@ def _jam(self):
 
     return ["usr/bin/bjam", "usr/bin/b2"]
 
-@subpackage(f"boost{_bver}-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage(f"boost{_bver}-devel")
 def _devel(self):
     self.depends = [f"boost{_bver}={pkgver}-r{pkgrel}"] + makedepends
@@ -147,13 +143,6 @@ def _devel(self):
 @subpackage("boost-devel")
 def _develmeta(self):
     self.depends = [f"boost{_bver}-devel={pkgver}-r{pkgrel}"]
-    self.build_style = "meta"
-
-    return []
-
-@subpackage("boost-static")
-def _staticmeta(self):
-    self.depends = [f"boost{_bver}-static={pkgver}-r{pkgrel}"]
     self.build_style = "meta"
 
     return []
