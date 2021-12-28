@@ -22,10 +22,6 @@ options = ["!check"]
 def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd", recursive = True)
 
-@subpackage("at-spi2-core-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("at-spi2-core-devel")
 def _devel(self):
     return self.default_devel()
