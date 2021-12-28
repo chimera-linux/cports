@@ -37,10 +37,6 @@ def post_install(self):
 
     self.install_license("COPYING")
 
-@subpackage("rhash-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("rhash-devel")
 def _devel(self):
     return self.default_devel()
