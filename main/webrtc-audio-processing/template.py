@@ -17,10 +17,6 @@ def pre_configure(self):
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("webrtc-audio-processing-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("webrtc-audio-processing-devel")
 def _devel(self):
     return self.default_devel()
