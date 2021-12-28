@@ -16,10 +16,6 @@ sha256 = "1f51ebe8c91140cffbd1c4d58602c96b884170cae4c74f6f7e302a91d5b7c972"
 # no access to usb in container
 options = ["!check"]
 
-@subpackage("libgusb-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libgusb-devel")
 def _devel(self):
     return self.default_devel()
