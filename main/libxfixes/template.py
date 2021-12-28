@@ -14,10 +14,6 @@ sha256 = "a7c1a24da53e0b46cac5aea79094b4b2257321c621b258729bc3139149245b4c"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxfixes-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxfixes-devel")
 def _devel(self):
     return self.default_devel()
