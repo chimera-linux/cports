@@ -36,10 +36,6 @@ def _lib(self):
         "usr/lib/girepository-1.0"
     ])
 
-@subpackage("harfbuzz-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("harfbuzz-devel")
 def _devel(self):
     return self.default_devel()
