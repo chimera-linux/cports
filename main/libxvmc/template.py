@@ -17,10 +17,6 @@ def post_install(self):
     # in xorgproto
     self.rm(self.destdir / "usr/include/X11/extensions/vldXvMC.h")
 
-@subpackage("libxvmc-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxvmc-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
