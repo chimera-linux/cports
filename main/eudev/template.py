@@ -39,10 +39,6 @@ def post_install(self):
     )
     self.install_service(self.files_path / "udevd")
 
-@subpackage("eudev-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("eudev-devel")
 def _devel(self):
     return self.default_devel()
