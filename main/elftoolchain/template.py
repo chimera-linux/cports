@@ -41,10 +41,6 @@ def post_install(self):
     # install a musl-compatible elfdefinitions.h
     self.install_file(self.files_path / "elfdefinitions.h", "usr/include/sys")
 
-@subpackage("elftoolchain-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("elftoolchain-devel")
 def _devel(self):
     return self.default_devel()
