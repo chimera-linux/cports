@@ -43,10 +43,6 @@ def post_patch(self):
     ]:
         self.rm(f"tests/{test}", recursive = True)
 
-@subpackage("e2fsprogs-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("e2fsprogs-devel")
 def _devel(self):
     self.depends += makedepends
