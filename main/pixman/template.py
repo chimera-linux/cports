@@ -23,10 +23,6 @@ tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("pixman-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("pixman-devel")
 def _devel(self):
     return self.default_devel()
