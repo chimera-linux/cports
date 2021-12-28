@@ -23,10 +23,6 @@ def post_install(self):
 
     self.install_license("COPYRIGHT")
 
-@subpackage("libtiff-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libtiff-devel")
 def _devel(self):
     self.depends += makedepends
