@@ -97,10 +97,6 @@ def _tdevel(self):
 def _libs(self):
     return self.default_libs()
 
-@subpackage("ncurses-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("ncurses-devel")
 def _devel(self):
     return self.default_devel()
