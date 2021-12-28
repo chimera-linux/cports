@@ -14,10 +14,6 @@ sha256 = "c0f892943208266f9b6543b3ae308fab6284c5c90e627931446fb49b4221a072"
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)
 
-@subpackage("lzo-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("lzo-devel")
 def _devel(self):
     return self.default_devel()
