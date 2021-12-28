@@ -17,10 +17,6 @@ options = ["bootstrap"]
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libedit-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libedit-devel")
 def _devel(self):
     self.depends += makedepends
