@@ -53,11 +53,6 @@ def post_install(self):
 
     self.rm(self.destdir / "usr/sbin")
 
-@subpackage("device-mapper-static")
-def _static(self):
-    self.pkgdesc = "Device Mapper userspace library and tools (static libraries)"
-    return self.default_static()
-
 @subpackage("device-mapper-devel")
 def _dmdev(self):
     self.pkgdesc = "Device Mapper userspace library and tools (development files)"
