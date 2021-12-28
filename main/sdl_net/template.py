@@ -17,10 +17,6 @@ options = ["!check"]
 def post_install(self):
     self.install_license("COPYING.txt")
 
-@subpackage("sdl_net-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("sdl_net-devel")
 def _devel(self):
     return self.default_devel()
