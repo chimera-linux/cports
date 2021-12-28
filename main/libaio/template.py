@@ -16,10 +16,6 @@ source = f"https://pagure.io/{pkgname}/archive/{_commit}/{pkgname}-{_commit}.tar
 sha256 = "a5181b4fb83e7885098a1f1dd20fcad21ec5e7a013f3b5c73613c14c5097b172"
 hardening = ["!ssp"]
 
-@subpackage("libaio-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libaio-devel")
 def _devel(self):
     return self.default_devel()
