@@ -16,10 +16,6 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE.md")
 
-@subpackage("c-ares-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("c-ares-devel")
 def _devel(self):
     return self.default_devel()
