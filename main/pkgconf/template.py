@@ -24,10 +24,6 @@ def _lib(self):
     self.pkgdesc += " (runtime library)"
     return self.default_libs()
 
-@subpackage("pkgconf-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("pkgconf-devel")
 def _devel(self):
     # pkg.m4 must remain in main package
@@ -35,4 +31,5 @@ def _devel(self):
         "usr/include",
         "usr/lib/pkgconfig",
         "usr/lib/*.so",
+        "usr/lib/*.a",
     ]
