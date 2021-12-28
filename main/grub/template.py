@@ -27,8 +27,6 @@ source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
 # the freestanding bits
 nopie_files = ["usr/lib/grub/*"]
-# we carry low level freestanding stuff
-options = ["foreignelf"]
 
 exec_wrappers = []
 # fool the build system into using binutils for these tools
@@ -155,7 +153,7 @@ def _genplatform(arch, platform, desc):
     def _platdbg(self):
         self.pkgdesc = f"{pkgdesc} ({desc} debug files)"
         self.depends = [f"grub-{arch}-{platform}={pkgver}-r{pkgrel}"]
-        self.options = ["!strip"]
+        self.options = ["!strip", "foreignelf"]
 
         def _install():
             self.take(f"usr/lib/grub/{arch}-{platform}/*.module")

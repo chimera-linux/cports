@@ -50,7 +50,7 @@ sha256 = [
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
 # crosstoolchain
-options = ["!cross", "!check", "!lto", "foreignelf"]
+options = ["!cross", "!check", "!lto"]
 
 cmake_dir = "compiler-rt"
 
@@ -128,7 +128,9 @@ def _gen_subp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang>={pkgver}"]
-        self.options = ["!scanshlibs", "!scanrundeps", "!splitstatic"]
+        self.options = [
+            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+        ]
         return [f"usr/lib/clang/{pkgver}/lib/{at}"]
 
     return _subp

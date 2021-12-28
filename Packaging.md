@@ -1295,14 +1295,6 @@ the template including for subpackages:
 * `bootstrap` *(false)* This option specifies that the template is built
   during bootstrapping. Other templates will fail to build unless a build
   container is available.
-* `textrels` *(false)* By default, if `cbuild` finds textrels within any
-  ELF files in the packages, it will error. It is possible to override
-  this by enabling the option.
-* `foreignelf` *(false)* By default, if `cbuild` finds ELF files that
-  have a foreign machine architecture (checked by matching against the
-  `libc` of the target), it will error. It is possible to override this
-  by enabling this option. Usually this is a wrong thing to do, but for
-  example in case of cross toolchains you might want to enable this.
 * `parallel` *(true)* By disabling this, you can enforce single-threaded
   builds for the template. By default the number of build jobs passed
   by `cbuild` is respected.
@@ -1335,6 +1327,14 @@ the template including for subpackages:
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:
 
+* `textrels` *(false)* By default, if `cbuild` finds textrels within any
+  ELF files in the packages, it will error. It is possible to override
+  this by enabling the option.
+* `foreignelf` *(false)* By default, if `cbuild` finds ELF files that
+  have a foreign machine architecture (checked by matching against the
+  `libc` of the target), it will error. It is possible to override this
+  by enabling this option. Usually this is a wrong thing to do, but for
+  example in case of cross toolchains you might want to enable this.
 * `keepempty` *(false)* By default, `cbuild` will prune all empty directories
   from every package. This can be used to override that. It should almost
   never be used. However, there are some cases, notably `base-files`, where

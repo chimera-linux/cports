@@ -298,14 +298,14 @@ default_options = {
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),
     "scancmd": (True, False),
-    "textrels": (False, True),
-    "foreignelf": (False, True),
+    "textrels": (False, False),
+    "foreignelf": (False, False),
     "parallel": (True, True),
     "debug": (True, True),
     "strip": (True, False),
     "check": (True, True),
     "cross": (True, True),
-    "lint": (True, False),
+    "lint": (True, True),
     "spdx": (True, False),
     "lto": (True, True),
     "ltofull": (False, True),
@@ -1670,9 +1670,12 @@ def from_module(m, ret):
         ropts = {}
 
         for dopt, dtup in default_options.items():
-            # only write options supported in subpackages
-            if not dtup[1]:
+            if dtup[1]:
+                # global opt: inherit value
                 ropts[dopt] = ret.options[dopt]
+            else:
+                # per-package opt: set default
+                ropts[dopt] = dtup[0]
 
         if sp.pkgname.endswith("-devel"):
             ropts["splitstatic"] = True

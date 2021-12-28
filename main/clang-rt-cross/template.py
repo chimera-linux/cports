@@ -45,7 +45,7 @@ url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
 # crosstoolchain
-options = ["!cross", "!check", "!lto", "foreignelf"]
+options = ["!cross", "!check", "!lto"]
 
 cmake_dir = "compiler-rt"
 
@@ -105,8 +105,11 @@ def _gen_crossp(an):
             f"libcxx-cross-{an}",
             f"libexecinfo-cross-{an}"
         ]
-        self.options = ["!scanshlibs", "!scanrundeps", "!splitstatic"]
+        self.options = [
+            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+        ]
         return [f"usr/lib/clang/{pkgver}/lib/{at}"]
+
     depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:

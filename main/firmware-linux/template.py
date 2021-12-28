@@ -27,7 +27,7 @@ def do_install(self):
 @subpackage("firmware-linux-amd")
 def _amd(self):
     self.pkgdesc = f"{pkgdesc} (AMD)"
-    self.options = ["!strip"]
+    self.options = ["!strip", "foreignelf"]
 
     return [
         "usr/lib/firmware/amd*",
@@ -40,7 +40,7 @@ def _amd(self):
 @subpackage("firmware-linux-broadcom")
 def _bcm(self):
     self.pkgdesc = f"{pkgdesc} (Broadcom)"
-    self.options = ["!strip"]
+    self.options = ["!strip", "foreignelf"]
 
     return [
         "usr/lib/firmware/brcm",
@@ -52,7 +52,7 @@ def _bcm(self):
 @subpackage("firmware-linux-intel")
 def _intel(self):
     self.pkgdesc = f"{pkgdesc} (Intel)"
-    self.options = ["!strip"]
+    self.options = ["!strip", "foreignelf"]
 
     return [
         "usr/lib/firmware/i915",
@@ -62,7 +62,7 @@ def _intel(self):
 @subpackage("firmware-linux-nvidia")
 def _nvidia(self):
     self.pkgdesc = f"{pkgdesc} (Nvidia)"
-    self.options = ["!strip"]
+    self.options = ["!strip", "foreignelf"]
 
     return [
         "usr/lib/firmware/nvidia",
@@ -72,7 +72,7 @@ def _nvidia(self):
 @subpackage("firmware-linux-network")
 def _network(self):
     self.pkgdesc = f"{pkgdesc} (network)"
-    self.options = ["!strip"]
+    self.options = ["!strip", "foreignelf"]
 
     match self.rparent.profile().arch:
         case "aarch64":
@@ -102,7 +102,7 @@ def _network(self):
 @subpackage("firmware-linux-qualcomm")
 def _nvidia(self):
     self.pkgdesc = f"{pkgdesc} (Qualcomm SoC)"
-    self.options = ["!strip", "brokenlinks"]
+    self.options = ["!strip", "brokenlinks", "foreignelf"]
     self.depends = [f"firmware-linux-network={pkgver}-r{pkgrel}"]
 
     return [

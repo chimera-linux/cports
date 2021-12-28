@@ -21,8 +21,7 @@ license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
-
-options = ["!cross", "!check", "!lint", "!lto", "foreignelf"]
+options = ["!cross", "!check", "!lint", "!lto"]
 
 cmake_dir = "libunwind"
 
@@ -103,7 +102,7 @@ def _gen_crossp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"musl-cross-{an}"]
-        self.options = ["!scanshlibs", "!scanrundeps"]
+        self.options = ["!scanshlibs", "!scanrundeps", "foreignelf"]
         return [f"usr/{at}"]
     depends.append(f"libunwind-cross-{an}={pkgver}-r{pkgrel}")
 

@@ -250,7 +250,7 @@ def scan(pkg, somap):
         foreign = False
         if pkg.stage > 0:
             foreign = scanned[0] != libc[0]
-            if foreign and not pkg.rparent.options["foreignelf"]:
+            if foreign and not pkg.options["foreignelf"]:
                 elf_foreign.append(fpath)
         # deny /usr/share files
         if fpath.is_relative_to("usr/share"):
@@ -258,7 +258,7 @@ def scan(pkg, somap):
         # expand
         mtype, etype, is_static, interp, textrel, needed, soname = scanned
         # has textrels
-        if textrel and not pkg.rparent.options["textrels"]:
+        if textrel and not pkg.options["textrels"]:
             elf_textrels.append(fpath)
         # store
         somap[str(fpath)] = (

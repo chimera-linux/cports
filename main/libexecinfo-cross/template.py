@@ -11,7 +11,7 @@ url = "http://www.freshports.org/devel/libexecinfo"
 source = f"http://distcache.freebsd.org/local-distfiles/itetcu/libexecinfo-{pkgver}.tar.bz2"
 sha256 = "c9a21913e7fdac8ef6b33250b167aa1fc0a7b8a175145e26913a4c19d8a59b1f"
 # no test suite
-options = ["!cross", "!check", "!lto", "foreignelf"]
+options = ["!cross", "!check", "!lto"]
 
 _targets = list(filter(
     lambda p: p != self.profile().arch,
@@ -61,7 +61,8 @@ def _gen_crossp(an, at):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"musl-cross-{an}"]
         self.options = [
-            "!scanshlibs", "!scanrundeps", "!scanpkgconf", "!splitstatic"
+            "foreignelf", "!scanshlibs", "!scanrundeps",
+            "!scanpkgconf", "!splitstatic"
         ]
         return [f"usr/{at}"]
     depends.append(f"libexecinfo-cross-{an}={pkgver}-r{pkgrel}")

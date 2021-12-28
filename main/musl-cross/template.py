@@ -16,7 +16,7 @@ sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
 # segfaults otherwise
 hardening = ["!scp"]
 # crosstoolchain
-options = ["!cross", "!check", "!lto", "brokenlinks", "foreignelf"]
+options = ["!cross", "!check", "!lto", "brokenlinks"]
 
 _targets = list(filter(
     lambda p: p != self.profile().arch,
@@ -71,7 +71,9 @@ def _gen_crossp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang-rt-crt-cross-{an}"]
-        self.options = ["!scanshlibs", "!scanrundeps", "!splitstatic"]
+        self.options = [
+            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+        ]
         return [f"usr/{at}"]
 
     depends.append(f"musl-cross-{an}")
