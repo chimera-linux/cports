@@ -5,7 +5,7 @@ build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true"]
 hostmakedepends = ["pkgconf", "meson", "lua5.4", "lua5.4-zlib", "scdoc"]
 makedepends = [
-    "openssl-devel-static", "zlib-devel-static", "libunwind-static"
+    "openssl-devel-static", "zlib-devel-static", "libunwind-devel-static"
 ]
 pkgdesc = "Alpine package manager"
 maintainer = "q66 <q66@chimera-linux.org>"

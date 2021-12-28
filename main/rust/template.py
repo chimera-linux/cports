@@ -45,8 +45,8 @@ if _bootstrap:
     #
     # since there is just one static switch, we need static llvm
     # for both host and target rustc builds
-    hostmakedepends += ["llvm-static"]
-    makedepends += ["llvm-static"]
+    hostmakedepends += ["llvm-devel-static"]
+    makedepends += ["llvm-devel-static"]
     # avoid debug cflags and so on for vendor libs
     options += ["!debug"]
 
