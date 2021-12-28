@@ -56,11 +56,6 @@ def _libcurl(self):
 
     return self.default_libs()
 
-@subpackage("libcurl-static")
-def _static(self):
-    self.pkgdesc = "Multiprotocol file transfer library (static)"
-    return self.default_static()
-
 @subpackage("libcurl-devel")
 def _devel(self):
     self.depends += makedepends
