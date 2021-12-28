@@ -256,10 +256,6 @@ def do_install(self):
         self.mv(f, rlibf)
         f.symlink_to(rlibf.relative_to(f.parent))
 
-@subpackage("rust-doc")
-def _doc(self):
-    return self.default_doc()
-
 @subpackage("rust-std")
 def _std(self):
     self.pkgdesc = f"{pkgdesc} (static rlibs)"
