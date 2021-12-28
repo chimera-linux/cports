@@ -16,10 +16,6 @@ sha256 = "aa7c6f211cf7215c0ab4819ed893dc98034363d7b930b844bb43603c2e10b53e"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxfont2-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxfont2-devel")
 def _devel(self):
     return self.default_devel()
