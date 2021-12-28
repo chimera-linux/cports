@@ -28,11 +28,6 @@ def _libbtrfs(self):
     self.pkgdesc = f"{pkgdesc} (btrfs library)"
     return ["usr/lib/libbtrfs.so.*"]
 
-@subpackage("libbtrfs-static")
-def _libbtrfs(self):
-    self.pkgdesc = f"{pkgdesc} (libbtrfs static library)"
-    return ["usr/lib/libbtrfs.a"]
-
 @subpackage("libbtrfs-devel")
 def _libbtrfs(self):
     self.pkgdesc = f"{pkgdesc} (libbtrfs development files)"
@@ -42,11 +37,6 @@ def _libbtrfs(self):
 def _libbtrfsutil(self):
     self.pkgdesc = f"{pkgdesc} (btrfsutil library)"
     return ["usr/lib/libbtrfsutil.so.*"]
-
-@subpackage("libbtrfsutil-static")
-def _libbtrfsutil(self):
-    self.pkgdesc = f"{pkgdesc} (libbtrfsutil static library)"
-    return ["usr/lib/libbtrfsutil.a"]
 
 @subpackage("libbtrfsutil-devel")
 def _libbtrfsutil(self):
