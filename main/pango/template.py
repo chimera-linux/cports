@@ -31,10 +31,6 @@ def _view(self):
 
     return ["usr/bin/pango-view", "usr/share/man/man1/pango-view.1"]
 
-@subpackage("pango-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("pango-devel")
 def _devel(self):
     return self.default_devel()
