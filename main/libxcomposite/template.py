@@ -14,10 +14,6 @@ sha256 = "b3218a2c15bab8035d16810df5b8251ffc7132ff3aa70651a1fba0bfe9634e8f"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxcomposite-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxcomposite-devel")
 def _devel(self):
     return self.default_devel()
