@@ -33,10 +33,6 @@ def _libpcre2(self):
     self.pkgdesc = f"{pkgdesc} (shared libraries)"
     return self.default_libs()
 
-@subpackage("pcre2-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("pcre2-devel")
 def _devel(self):
     self.depends += ["zlib-devel", "libbz2-devel"]
