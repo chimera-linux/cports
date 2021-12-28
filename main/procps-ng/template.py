@@ -20,10 +20,6 @@ sha256 = "4518b3e7aafd34ec07d0063d250fd474999b20b200218c3ae56f5d2113f141b4"
 def post_install(self):
     self.install_file(self.files_path / "sysctl.conf", "etc")
 
-@subpackage("procps-ng-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("procps-ng-devel")
 def _devel(self):
     return self.default_devel()
