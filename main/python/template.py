@@ -101,10 +101,6 @@ def do_install(self):
     self.install_link("python" + _majver, "usr/bin/python")
     self.install_link("python" + _majver + ".1", "usr/share/man/man1/python.1")
 
-@subpackage("python-static")
-def _devel(self):
-    return self.default_static()
-
 @subpackage("python-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
@@ -113,6 +109,7 @@ def _devel(self):
         import os
         self.take("usr/bin/python*-config")
         self.take("usr/lib/pkgconfig")
+        self.take("usr/lib/*.a")
         self.take("usr/include")
         pypath = "usr/include/python" + _majver
         os.makedirs(self.parent.destdir / pypath)
