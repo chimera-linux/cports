@@ -27,10 +27,6 @@ def _lib(self):
 
     return self.default_libs()
 
-@subpackage("libnuma-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libnuma-devel")
 def _devel(self):
     return self.default_devel()
