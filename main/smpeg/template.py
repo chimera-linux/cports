@@ -14,10 +14,6 @@ sha256 = "979a65b211744a44fa641a9b6e4d64e64a12ff703ae776bafe3c4c4cd85494b3"
 # no check target
 options = ["!check"]
 
-@subpackage("smpeg-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("smpeg-devel")
 def _devel(self):
     return self.default_devel()
