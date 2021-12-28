@@ -17,10 +17,6 @@ def pre_configure(self):
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("popt-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("popt-devel")
 def _devel(self):
     return self.default_devel()
