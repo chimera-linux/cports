@@ -17,10 +17,6 @@ options = ["!check"]
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("freeglut-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("freeglut-devel")
 def _devel(self):
     self.depends += makedepends
