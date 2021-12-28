@@ -23,10 +23,6 @@ options = ["!cross"]
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libx11-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libx11-devel")
 def _devel(self):
     return self.default_devel()
