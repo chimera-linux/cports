@@ -16,10 +16,6 @@ sha256 = "01b0366fdfdf6363efc070c2f856f1afa33e7a6546548bada5456ad94a516241"
 def post_install(self):
     self.install_license("LICENSE.txt")
 
-@subpackage("inih-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("inih-devel")
 def _devel(self):
     return self.default_devel()
