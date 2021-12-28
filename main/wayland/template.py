@@ -28,10 +28,6 @@ def _progs(self):
         "usr/share/wayland/wayland-scanner.mk",
     ])
 
-@subpackage("wayland-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("wayland-devel")
 def _devel(self):
     self.depends += [
