@@ -12,10 +12,6 @@ url = "https://linux.thai.net/projects/datrie"
 source = f"https://linux.thai.net/pub/ThaiLinux/software/libthai/{pkgname}-{pkgver}.tar.xz"
 sha256 = "12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be"
 
-@subpackage("libdatrie-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libdatrie-devel")
 def _devel(self):
     return self.default_devel()
