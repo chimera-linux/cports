@@ -39,7 +39,3 @@ def _lib(self):
 @subpackage("harfbuzz-devel")
 def _devel(self):
     return self.default_devel()
-
-@subpackage("harfbuzz-doc")
-def _doc(self):
-    return self.default_doc()
