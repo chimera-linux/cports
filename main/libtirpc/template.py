@@ -16,10 +16,6 @@ sha256 = "e24eb88b8ce7db3b7ca6eb80115dd1284abc5ec32a8deccfed2224fc2532b9fd"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libtirpc-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libtirpc-devel")
 def _devel(self):
     return self.default_devel()
