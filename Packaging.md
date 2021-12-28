@@ -331,6 +331,7 @@ the `builddir` and is created automatically.
   their metadata and so on).
 
 * `pkg` Create binary packages and register them into your local repo.
+  During this point, `destdir` is also read-only for the sandbox.
 
 * `clean` Clean up the `builddir` and `destdir`.
 
@@ -1839,8 +1840,14 @@ Finally, `post_install` hooks are called for the main package.
 For both subpackages and main package, the system scans for shared libraries
 in the package, before `post_install` hooks are called.
 
+The whole `install` step is treated atomically, i.e. if anything in it fails
+and the build is restarted, it runs again from `install`.
+
 Once done, `init_pkg` hooks are called for the main package. Then, for each
 subpackage and finally for the main package, `pre_pkg` hooks are called.
+
+The `pre_pkg` hooks should not alter anything in the resulting `destdir`.
+From this point onwards, it should be considered read only.
 
 Finally, `do_pkg` and `post_pkg` hooks are called first for each subpackage
 and then for the main package. After this, the build system rebuilds repo

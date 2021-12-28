@@ -96,19 +96,9 @@ def build(
 
     # invoke install for main package
     pkg.current_phase = "install"
-    install.invoke(pkg, False)
-
-    pkg.install_done = True
-    # scan for ELF information after subpackages are split up
-    # but before post_install hooks (done by the install step)
-    pkg.current_elfs = {}
-
-    # handle subpackages
-    for sp in pkg.subpkg_list:
-        install.invoke(sp, True)
-
-    # after subpackages are done, do the same for main package in subpkg mode
-    install.invoke(pkg, True)
+    install.invoke(pkg, step)
+    if step == "install":
+        return
 
     pkg.current_phase = "pkg"
     template.call_pkg_hooks(pkg, "init_pkg")
@@ -117,9 +107,6 @@ def build(
         prepkg.invoke(sp)
 
     prepkg.invoke(pkg)
-
-    if step == "install":
-        return
 
     pkg.signing_key = signkey
     pkg._stage = {}
