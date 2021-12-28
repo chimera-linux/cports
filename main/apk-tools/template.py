@@ -19,7 +19,7 @@ tool_flags = {
 options = ["bootstrap"]
 
 if self.stage > 0:
-    makedepends += ["linux-headers", "musl-static"]
+    makedepends += ["linux-headers", "musl-devel-static"]
 else:
     configure_args += ["-Dhelp=disabled", "-Ddocs=disabled"]
 

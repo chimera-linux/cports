@@ -1,4 +1,3 @@
-# keep in sync with musl-static-nolto
 pkgname = "musl"
 pkgver = "1.2.2"
 pkgrel = 0
@@ -59,7 +58,7 @@ def do_install(self):
 
     self.install_link("true", "usr/bin/ldconfig")
 
-@subpackage("musl-static")
+@subpackage("musl-devel-static")
 def _static(self):
     return ["usr/lib/libc.a"]
 

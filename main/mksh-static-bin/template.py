@@ -1,7 +1,7 @@
 pkgname = "mksh-static-bin"
 pkgver = "59c"
 pkgrel = 0
-makedepends = ["musl-static", "libunwind-static"]
+makedepends = ["musl-devel-static", "libunwind-static"]
 checkdepends = ["perl", "bsded"]
 pkgdesc = "MirBSD Korn Shell (static build)"
 maintainer = "q66 <q66@chimera-linux.org>"

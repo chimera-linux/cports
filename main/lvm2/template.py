@@ -25,7 +25,7 @@ hostmakedepends = ["gmake", "gsed", "pkgconf", "bash"]
 makedepends = [
     "eudev-devel-static", "libblkid-devel-static",
     "libaio-devel-static", "libedit-devel-static",
-    "linux-headers", "musl-static", "libunwind-static",
+    "linux-headers", "musl-devel-static", "libunwind-static",
 ]
 # a bunch of the commands are scripts and they need bash
 # TODO: check inside of them for gnuisms and fix them

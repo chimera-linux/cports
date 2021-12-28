@@ -1,7 +1,7 @@
 pkgname = "tzdata"
 pkgver = "2021e"
 pkgrel = 0
-makedepends = ["musl-static", "libunwind-static"]
+makedepends = ["musl-devel-static", "libunwind-static"]
 pkgdesc = "Time zone and daylight-saving time data"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
