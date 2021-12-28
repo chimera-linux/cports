@@ -23,10 +23,6 @@ def post_install(self):
     self.chmod(self.destdir / "usr/bin/fusermount3", 0o4755)
     self.rm(self.destdir / "etc/init.d/fuse3")
 
-@subpackage("fuse-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("fuse-devel")
 def _devel(self):
     return self.default_devel()
