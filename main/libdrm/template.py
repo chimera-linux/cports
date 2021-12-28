@@ -24,10 +24,6 @@ match self.profile().arch:
             "-Dtegra=true", "-Detnaviv=true", "-Dexynos=true"
         ]
 
-@subpackage("libdrm-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libdrm-devel")
 def _devel(self):
     self.depends += makedepends
