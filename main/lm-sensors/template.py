@@ -24,12 +24,6 @@ def _libsensors(self):
 
     return self.default_libs()
 
-@subpackage("libsensors-static")
-def _static(self):
-    self.pkgdesc = "Sensor reading library (static)"
-
-    return self.default_static()
-
 @subpackage("libsensors-devel")
 def _devel(self):
     self.pkgdesc = "Sensor reading library (development files)"
