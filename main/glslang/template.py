@@ -15,15 +15,12 @@ sha256 = "b6c83864c3606678d11675114fa5f358c519fe1dad9a781802bcc87fb8fa32d5"
 # missing checkdepends
 options = ["!check"]
 
-@subpackage("glslang-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("glslang-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     return [
         "usr/include",
         "usr/lib/libglslang.so",
+        "usr/lib/*.a",
         "usr/lib/cmake",
     ]
