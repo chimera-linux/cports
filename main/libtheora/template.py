@@ -18,10 +18,6 @@ sha256 = "f36da409947aa2b3dcc6af0a8c2e3144bc19db2ed547d64e9171c59c66561c61"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libtheora-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libtheora-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
