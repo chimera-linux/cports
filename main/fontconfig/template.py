@@ -20,10 +20,6 @@ sha256 = "f655dd2a986d7aa97e052261b36aa67b0a64989496361eca8d604e6414006741"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("fontconfig-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("fontconfig-devel")
 def _devel(self):
     return self.default_devel()
