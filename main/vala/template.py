@@ -70,7 +70,3 @@ def _devel(self):
         "usr/share/vala/vapi/libvala-*.*",
         "usr/share/aclocal",
     ]
-
-@subpackage("vala-doc")
-def _doc(self):
-    return ["usr/share/devhelp"]
