@@ -66,6 +66,7 @@ def _dmdev(self):
         "usr/lib/libdevmapper.so",
         "usr/lib/libdevmapper-event.so",
         "usr/lib/libdevmapper-event-lvm2.so",
+        "usr/lib/*.a",
     ]
 
 @subpackage("device-mapper")
