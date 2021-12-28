@@ -28,10 +28,6 @@ def post_install(self):
     self.install_license("LICENSE.TXT")
     self.install_license("docs/FTL.TXT")
 
-@subpackage("freetype-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("freetype-devel")
 def _devel(self):
     return self.default_devel()
