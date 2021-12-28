@@ -6,7 +6,7 @@ build_style = "meson"
 configure_args = ["-Ddocumentation=false", "-Db_ndebug=false"]
 hostmakedepends = ["meson", "pkgconf", "flex"]
 makedepends = [
-    "libexpat-devel", "libffi-devel", "libfl-static", "libxml2-devel"
+    "libexpat-devel", "libffi-devel", "libfl-devel-static", "libxml2-devel"
 ]
 pkgdesc = "Wayland compositor infrastructure"
 maintainer = "q66 <q66@chimera-linux.org>"

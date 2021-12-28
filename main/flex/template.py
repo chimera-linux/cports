@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
 hostmakedepends = ["byacc", "bsdm4"]
 makedepends = ["byacc", "bsdm4"]
-depends = ["byacc", f"libfl-static={pkgver}-r{pkgrel}", "bsdm4"]
+depends = ["byacc", f"libfl-devel-static={pkgver}-r{pkgrel}", "bsdm4"]
 pkgdesc = "Fast Lexical Analyzer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:flex"
@@ -21,7 +21,7 @@ def post_install(self):
     self.install_link("flex", "usr/bin/lex")
     self.install_license("COPYING")
 
-@subpackage("libfl-static")
+@subpackage("libfl-devel-static")
 def _static(self):
     self.depends = []
     return self.default_devel()
