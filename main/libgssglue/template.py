@@ -14,10 +14,6 @@ def post_install(self):
     self.install_file(self.files_path / "gssapi_mech.conf", "etc")
     self.install_license("COPYING")
 
-@subpackage("libgssglue-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libgssglue-devel")
 def _devel(self):
     return self.default_devel()
