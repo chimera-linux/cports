@@ -14,10 +14,6 @@ sha256 = "4655498a1b8e844e3d6f21f3b2c4e2b571effb5fd83199d428a6ba7ea4bf5204"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxtst-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxtst-devel")
 def _devel(self):
     return self.default_devel()
