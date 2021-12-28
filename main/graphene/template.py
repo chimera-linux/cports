@@ -32,10 +32,6 @@ match self.profile().arch:
 def post_install(self):
     self.install_license("LICENSE.txt")
 
-@subpackage("graphene-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("graphene-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/lib/graphene-1.0"])
