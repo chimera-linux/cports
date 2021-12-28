@@ -125,7 +125,3 @@ def _alsa(self):
         "usr/lib/alsa-lib",
         "usr/share/alsa/alsa.conf.d",
     ]
-
-@subpackage("pipewire-doc")
-def _doc(self):
-    return self.default_doc()
