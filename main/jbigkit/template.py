@@ -19,10 +19,6 @@ def post_install(self):
     self.install_file("jbigkit.pc", "usr/lib/pkgconfig")
     self.install_file("jbigkit85.pc", "usr/lib/pkgconfig")
 
-@subpackage("jbigkit-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("jbigkit-devel")
 def _devel(self):
     return self.default_devel()
