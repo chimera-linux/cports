@@ -29,7 +29,7 @@ checkdepends = ["xvfb-run", "dbus"] + depends
 depends_providers = {
     "virtual:gdk-pixbuf-loader-svg": "gdk-pixbuf-loader-lunasvg"
 }
-pkgdesc = "Gimp Toolkit (3.x)"
+pkgdesc = "Gimp Toolkit version 3"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"

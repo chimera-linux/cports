@@ -9,7 +9,7 @@ hostmakedepends = ["gmake", "fontforge-cli", "perl-font-ttf"]
 depends = ["fonts-dejavu-common"]
 provides = [f"fonts-dejavu={pkgver}-r{pkgrel}"]
 provider_priority = 2
-pkgdesc = "DejaVu family of fonts (OpenType)"
+pkgdesc = "DejaVu family of fonts - OpenType"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:Bitstream-Vera AND custom:Arev-Fonts AND custom:none"
 url = "https://github.com/dejavu-fonts/dejavu-fonts"
@@ -44,7 +44,7 @@ def _common(self):
 
 @subpackage("fonts-dejavu-ttf")
 def _ttf(self):
-    self.pkgdesc = "DejaVu family of fonts (TrueType)"
+    self.pkgdesc = "DejaVu family of fonts - TrueType"
     self.depends = ["fonts-dejavu-common"]
     self.provides = [f"fonts-dejavu={pkgver}-r{pkgrel}"]
     self.provider_priority = 1

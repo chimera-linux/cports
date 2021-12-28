@@ -8,7 +8,7 @@ depends = ["!rust"]
 # cargo-bootstrap can depend on this
 provides = [f"rust-bootstrap-virtual={pkgver}-r{pkgrel}"]
 provider_priority = 0
-pkgdesc = "Rust programming language (bootstrap toolchain)"
+pkgdesc = "Rust programming language bootstrap toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"

@@ -1300,7 +1300,7 @@ autopkgs = [
 ]
 
 class Subpackage(Package):
-    def __init__(self, name, parent):
+    def __init__(self, name, parent, basedesc = None):
         super().__init__()
 
         self.pkgname = name
@@ -1330,20 +1330,26 @@ class Subpackage(Package):
         bdep = None
         instif = None
 
+        if not basedesc:
+            basedesc = self.pkgdesc
+
+        # strip the old suffix first
+        oldesc = re.sub(r" \(.+\)$", "", basedesc)
+
         # default suffixes
         if name.endswith("-devel"):
-            self.pkgdesc += " (development files)"
+            self.pkgdesc = oldesc + " (development files)"
         elif name.endswith("-libs"):
-            self.pkgdesc += " (libraries)"
+            self.pkgdesc = oldesc + " (libraries)"
         elif name.endswith("-progs"):
-            self.pkgdesc += " (programs)"
+            self.pkgdesc = oldesc + " (programs)"
         else:
             for apkg, adesc, iif, takef, excl in autopkgs:
                 sfx = f"-{apkg}"
                 if name.endswith(sfx):
                     bdep = name.removesuffix(sfx)
                     instif = iif
-                    self.pkgdesc += f" ({adesc})"
+                    self.pkgdesc = oldesc + f" ({adesc})"
 
         # by default some subpackages depeond on their parent package
         if bdep:

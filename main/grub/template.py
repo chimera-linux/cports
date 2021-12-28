@@ -19,7 +19,7 @@ makedepends = [
     "device-mapper-devel", "fuse-devel",
 ]
 depends = ["os-prober"]
-pkgdesc = "GNU GRUB (version 2)"
+pkgdesc = "GRand Unified Bootloader version 2"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/grub"

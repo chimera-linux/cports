@@ -1119,6 +1119,10 @@ There are also automatic subpackages, which can be declared explicitly if
 needed, and those have their own descriptions as well. See the later section
 of this document for those.
 
+Any old suffix is removed first before an automatic suffix is appended. You
+should never use `(suffixes)` as a regular part of the package description.
+They are reserved for subpackages to describe the subpackage kind.
+
 In general, subpackage descriptions should have suffixes like that. You can
 choose the best suffix for packages not matching standardized names. Sometimes
 it may also be the case a `-devel` subpackage corresponds to another subpackage

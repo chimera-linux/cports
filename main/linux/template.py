@@ -8,7 +8,7 @@ hostmakedepends = [
     "kmod", "linux-headers", "openssl-devel", "perl", "python",
     "u-boot-tools", "zlib-devel",
 ]
-pkgdesc = "Linux kernel (5.14.x)"
+pkgdesc = "Linux kernel 5.15.x"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"

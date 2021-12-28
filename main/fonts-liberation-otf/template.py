@@ -7,7 +7,7 @@ hostmakedepends = ["gmake", "fontforge-cli", "python-fonttools"]
 depends = ["fonts-liberation-common"]
 provides = [f"fonts-liberation={pkgver}-r{pkgrel}"]
 provider_priority = 2
-pkgdesc = "Liberation family of fonts (OpenType)"
+pkgdesc = "Liberation family of fonts - OpenType"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "OFL-1.1"
 url = "https://github.com/liberationfonts/liberation-fonts"
@@ -37,7 +37,7 @@ def _common(self):
 
 @subpackage("fonts-liberation-ttf")
 def _ttf(self):
-    self.pkgdesc = "Liberation family of fonts (TrueType)"
+    self.pkgdesc = "Liberation family of fonts - TrueType"
     self.depends = ["fonts-liberation-common"]
     self.provides = [f"fonts-liberation={pkgver}-r{pkgrel}"]
     self.provider_priority = 1

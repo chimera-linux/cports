@@ -8,7 +8,7 @@ depends = ["virtual:rust-bootstrap-virtual", "!cargo"]
 depends_providers = {
     "virtual:rust-bootstrap-virtual": "rust-bootstrap"
 }
-pkgdesc = "Rust package manager (bootstrap toolchain)"
+pkgdesc = "Bootstrap binaries of Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"

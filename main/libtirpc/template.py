@@ -6,7 +6,7 @@ hostmakedepends = ["pkgconf"]
 makedepends = [
     "heimdal-devel", "libgssglue-devel", "musl-bsd-headers", "linux-headers"
 ]
-pkgdesc = "Transport Independent RPC library (SunRPC replacement)"
+pkgdesc = "Transport Independent RPC library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://sourceforge.net/projects/libtirpc"
