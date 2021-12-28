@@ -14,10 +14,6 @@ sha256 = "20523b44aaa513e17c009e873ad7bbc301507a3224c232610ce2e099011c6529"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxdmcp-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxdmcp-devel")
 def _devel(self):
     return self.default_devel()
