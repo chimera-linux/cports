@@ -34,10 +34,6 @@ else:
 
 tool_flags = {"CFLAGS": _cflags}
 
-@subpackage("sqlite-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("sqlite-devel")
 def _devel(self):
     return self.default_devel()
