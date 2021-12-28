@@ -14,10 +14,6 @@ sha256 = "46e49469cb3b594af1d33176cd7565def2be3fa8be4371d62271fabb5eae50e9"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("xcb-util-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("xcb-util-devel")
 def _devel(self):
     return self.default_devel()
