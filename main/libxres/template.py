@@ -15,10 +15,6 @@ sha256 = "b6e6fb1ebb61610e56017edd928fb89a5f53b3f4f990078309877468663b2b11"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxres-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxres-devel")
 def _devel(self):
     return self.default_devel()
