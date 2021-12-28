@@ -21,10 +21,6 @@ sha256 = "478a047084e0d89b83616e4c2cf3c9438175fb0cc55d8c8967f06e0427f7d7fb"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libgd-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libgd-devel")
 def _devel(self):
     return self.default_devel()
