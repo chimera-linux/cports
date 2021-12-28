@@ -31,10 +31,6 @@ def post_install(self):
         else:
             self.mv(f, ff)
 
-@subpackage("libpcap-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libpcap-devel")
 def _devel(self):
     self.depends += ["libnl-devel"]
