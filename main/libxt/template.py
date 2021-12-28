@@ -15,10 +15,6 @@ sha256 = "679cc08f1646dbd27f5e48ffe8dd49406102937109130caab02ca32c083a3d60"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxt-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxt-devel")
 def _devel(self):
     return self.default_devel()
