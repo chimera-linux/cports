@@ -33,12 +33,6 @@ def do_check(self):
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libglib-static")
-def _static(self):
-    self.pkgdesc = f"{pkgdesc} (static libraries)"
-
-    return self.default_static()
-
 @subpackage("libglib-devel")
 def _libdevel(self):
     self.pkgdesc = f"{pkgdesc} (library development files)"
@@ -75,7 +69,3 @@ def _devel(self):
         "usr/share/glib-2.0",
         "usr/share/gdb",
     ])
-
-@subpackage("glib-doc")
-def _doc(self):
-    return self.default_doc()
