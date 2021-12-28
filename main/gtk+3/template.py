@@ -48,10 +48,6 @@ def _uic(self):
         "usr/share/man/man1/gtk-update-icon-cache.1",
     ]
 
-@subpackage("gtk+3-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("gtk+3-devel")
 def _devel(self):
     return self.default_devel()
