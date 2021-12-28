@@ -25,10 +25,6 @@ if self.stage > 2:
 def post_install(self):
     self.install_license("LICENSE")
 
-@subpackage("libffi-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libffi-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/info"])
