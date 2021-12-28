@@ -36,10 +36,6 @@ def _registry(self):
 
     return ["usr/lib/libxkbregistry.so.*"]
 
-@subpackage("libxkbcommon-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxkbcommon-devel")
 def _devel(self):
     self.depends += ["libxcb-devel"]
