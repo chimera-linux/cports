@@ -16,10 +16,6 @@ def pre_configure(self):
 def post_install(self):
     self.install_license("LICENSE")
 
-@subpackage("libuv-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libuv-devel")
 def _devel(self):
     return self.default_devel()
