@@ -16,10 +16,6 @@ sha256 = "619263d4e2022152a1472c1d912eaae104f20bd227ce0bb9d41d1d6608094bd1"
 def pre_configure(self):
     self.do("autoreconf", "-if")
 
-@subpackage("f2fs-tools-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("f2fs-tools-devel")
 def _devel(self):
     return self.default_devel()
