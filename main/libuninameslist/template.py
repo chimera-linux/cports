@@ -16,10 +16,6 @@ def pre_configure(self):
 def post_install(self):
     self.install_license("LICENSE")
 
-@subpackage("libuninameslist-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libuninameslist-devel")
 def _devel(self):
     return self.default_devel()
