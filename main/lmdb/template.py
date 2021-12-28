@@ -28,10 +28,6 @@ def post_install(self):
     self.install_license("LICENSE")
     self.install_license("COPYRIGHT")
 
-@subpackage("lmdb-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("lmdb-devel")
 def _devel(self):
     return self.default_devel()
