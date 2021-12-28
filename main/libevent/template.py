@@ -16,10 +16,6 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE")
 
-@subpackage("libevent-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libevent-devel")
 def _devel(self):
     return self.default_devel()
