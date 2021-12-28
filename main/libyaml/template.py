@@ -17,11 +17,6 @@ def pre_configure(self):
 def post_install(self):
     self.install_license("License")
 
-@subpackage("libyaml-static")
-def _static(self):
-    return self.default_static()
-
-
 @subpackage("libyaml-devel")
 def _devel(self):
     return self.default_devel()
