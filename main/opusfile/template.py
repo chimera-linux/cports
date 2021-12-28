@@ -15,10 +15,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/share", recursive = True)
     self.install_license("COPYING")
 
-@subpackage("opusfile-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("opusfile-devel")
 def _devel(self):
     return self.default_devel()
