@@ -29,12 +29,6 @@ def _lib(self):
 
     return self.default_libs()
 
-@subpackage("liblz4-static")
-def _static(self):
-    self.short_decs = "LZ4 compression library (static library)"
-
-    return self.default_static()
-
 @subpackage("liblz4-devel")
 def _devel(self):
     self.short_decs = "LZ4 compression library (development files)"
