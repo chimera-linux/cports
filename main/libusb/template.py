@@ -11,10 +11,6 @@ url = "https://libusb.info"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "7efd2685f7b327326dcfb85cee426d9b871fd70e22caa15bb68d595ce2a2b12a"
 
-@subpackage("libusb-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libusb-devel")
 def _devel(self):
     self.depends = ["eudev-devel"]
