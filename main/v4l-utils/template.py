@@ -27,10 +27,6 @@ tool_flags = {
 def pre_configure(self):
     self.do("autoreconf", "-if")
 
-@subpackage("v4l-utils-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("v4l-utils-devel")
 def _devel(self):
     return self.default_devel()
