@@ -20,10 +20,6 @@ options = ["!cross", "!check"]
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libxslt-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libxslt-devel")
 def _devel(self):
     return self.default_devel()
