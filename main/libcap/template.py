@@ -30,10 +30,6 @@ def init_configure(self):
     self.make_build_args += eargs
     self.make_check_args += eargs
 
-@subpackage("libcap-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libcap-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
