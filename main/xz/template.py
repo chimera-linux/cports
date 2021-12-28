@@ -29,12 +29,6 @@ def _lib(self):
 
     return self.default_libs()
 
-@subpackage("liblzma-static")
-def _static(self):
-    self.pkgdesc = "XZ-format compression library (static library)"
-
-    return self.default_static()
-
 @subpackage("liblzma-devel")
 def _devel(self):
     self.pkgdesc = "XZ-format compression library (development files)"
