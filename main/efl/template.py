@@ -74,10 +74,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd", recursive = True)
     self.rm(self.destdir / "usr/lib/ecore/system/systemd", recursive = True)
 
-@subpackage("efl-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("efl-devel")
 def _devel(self):
     return self.default_devel()
