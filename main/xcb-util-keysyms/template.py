@@ -11,10 +11,6 @@ url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "0ef8490ff1dede52b7de533158547f8b454b241aa3e4dcca369507f66f216dd9"
 
-@subpackage("xcb-util-keysyms-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("xcb-util-keysyms-devel")
 def _devel(self):
     return self.default_devel()
