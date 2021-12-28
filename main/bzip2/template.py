@@ -60,12 +60,6 @@ def _lib(self):
 
     return self.default_libs()
 
-@subpackage("libbz2-static")
-def _static(self):
-    self.pkgdesc = "Bzip2-format compression library (static library)"
-
-    return self.default_static()
-
 @subpackage("libbz2-devel")
 def _devel(self):
     self.pkgdesc = "Bzip2-format compression library (development files)"
