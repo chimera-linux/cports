@@ -63,10 +63,6 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE.txt")
 
-@subpackage("sdl-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("sdl-devel")
 def _devel(self):
     self.depends += makedepends
