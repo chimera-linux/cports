@@ -25,10 +25,6 @@ def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "wireplumber.user")
 
-@subpackage("wireplumber-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("wireplumber-devel")
 def _devel(self):
     return self.default_devel()
