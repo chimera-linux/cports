@@ -15,10 +15,6 @@ sha256 = "2cfcce810ddd48f2e5dc658d28c1808e86dcf303eaff16728b9aa3dbc0092079"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libfontenc-static")
-def _static(self):
-    return self.default_static()
-
 @subpackage("libfontenc-devel")
 def _devel(self):
     return self.default_devel()
