@@ -34,11 +34,6 @@ def _lib(self):
 
     return self.default_libs()
 
-@subpackage("libldns-static")
-def _static(self):
-    self.pkgdesc = "Modern DNS/DNSSEC library (static)"
-    return self.default_static()
-
 @subpackage("libldns-devel")
 def _devel(self):
     self.depends += ["openssl-devel"]
