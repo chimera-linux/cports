@@ -88,9 +88,25 @@ def _get_hldflags(sharden, tharden):
 
     return hflags
 
+# have a custom quote wrapper since at least gnu autotools
+# configure does not understand '-DFOO="bar baz"' and results
+# in the compiler thinking it's an input file
+def _quote(s):
+    sep = s.find("=")
+    # no value set, quote as is
+    if sep < 0:
+        return shlex.quote(s)
+
+    nm = s[0:sep]
+    # name part itself needs quoting, quote entire thing
+    if shlex.quote(nm) != nm:
+        return shlex.quote(s)
+    # otherwise quote just the value
+    return nm + "=" + shlex.quote(s[sep + 1:])
+
 def _flags_ret(it, shell):
     if shell:
-        return shlex.join(it)
+        return " ".join(_quote(x) for x in it)
     else:
         return list(it)
 
