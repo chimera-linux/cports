@@ -12,7 +12,7 @@ configure_args = [
     # enable pdf, ps, raw: libpoppler, libspectre, libraw
     # enable jp2k: libopenjpeg2
     # maybe enable avif
-    "-Devas-loaders-disabler=avif,rsvg,json,pdf,ps,raw,jp2k",
+    "-Devas-loaders-disabler=avif,rsvg,json,pdf,ps,raw",
     "-Dlua-interpreter=lua",
     "-Dbindings=cxx",
     "-Dopengl=es-egl",
@@ -43,8 +43,9 @@ makedepends = [
     "xcb-util-renderutil-devel", "xorgproto", "liblz4-devel", "zlib-devel",
     "fontconfig-devel", "fribidi-devel", "harfbuzz-devel", "freetype-devel",
     "libjpeg-turbo-devel", "libpng-devel", "giflib-devel", "libtiff-devel",
-    "libwebp-devel", "libpulse-devel", "libsndfile-devel", "gstreamer-devel",
-    "gst-plugins-base-devel", "glib-devel", "avahi-devel", "lua5.1-devel",
+    "libwebp-devel", "openjpeg-devel", "libpulse-devel", "libsndfile-devel",
+    "gstreamer-devel", "gst-plugins-base-devel", "glib-devel", "avahi-devel",
+    "lua5.1-devel",
 ]
 checkdepends = ["dbus", "xvfb-run", "check-devel"]
 pkgdesc = "Enlightenment Foundation Libraries"
