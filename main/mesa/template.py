@@ -99,7 +99,7 @@ if _have_amd:
         _vulkan_drivers += ["amd"]
 
 if _have_intel:
-    _gallium_drivers += ["crocus", "iris"]
+    _gallium_drivers += ["crocus", "iris", "i915"]
     if _have_vulkan:
         _vulkan_drivers += ["intel"]
 
