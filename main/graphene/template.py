@@ -4,8 +4,7 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dinstalled_tests=false",
-    "-Dgcc_vector=false",
-    "-Dclang_vector=true",
+    "-Dgcc_vector=true",
     "-Dintrospection=enabled"
 ]
 hostmakedepends = ["meson", "pkgconf", "gobject-introspection"]
@@ -18,10 +17,6 @@ license = "MIT"
 url = "https://github.com/ebassi/graphene"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "80ae57723e4608e6875626a88aaa6f56dd25df75024bd16e9d77e718c3560b25"
-
-# TODO: possibly use SSE intrinsics on ppc64(le)
-# for now we gotta fall back to scalar as clang's vector
-# intrinsics are different from gcc's and not compatible
 
 match self.profile().arch:
     case "x86_64":
