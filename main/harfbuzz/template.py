@@ -28,14 +28,10 @@ sha256 = "f3f3247bdeabf36765acc237a5f651e651e4e9706582b9cc2cf6c9b8102dfa93"
 def post_install(self):
     self.install_license("COPYING")
 
-@subpackage("libharfbuzz")
-def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
-
-    return self.default_libs(extra = [
-        "usr/lib/girepository-1.0"
-    ])
-
 @subpackage("harfbuzz-devel")
 def _devel(self):
     return self.default_devel()
+
+@subpackage("harfbuzz-progs")
+def _progs(self):
+    return self.default_progs()
