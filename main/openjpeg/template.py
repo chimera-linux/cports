@@ -21,7 +21,6 @@ def post_install(self):
 def _devel(self):
     return self.default_devel(extra = ["usr/lib/openjpeg-2.*"])
 
-@subpackage("libopenjpeg")
-def _lib(self):
-    self.pkgdesc = f"{pkgdesc} (runtime library)"
-    return self.default_libs()
+@subpackage("openjpeg-progs")
+def _progs(self):
+    return self.default_progs()
