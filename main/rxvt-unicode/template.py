@@ -13,16 +13,17 @@ configure_args = [
     "--enable-transparency",
     "--enable-combining",
     "--enable-unicode3",
+    "--enable-pixbuf",
     "--enable-frills",
     "--enable-xim",
     "--disable-perl",
-    "--disable-pixbuf", # TODO: enable later
     "--disable-startup-notification", # TODO: enable later
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "xorgproto", "libxrender-devel", "libxft-devel", "libxt-devel",
     "libsm-devel", "libptytty-devel", "fontconfig-devel",
+    "gdk-pixbuf-devel",
 ]
 depends = ["ncurses", f"rxvt-unicode-terminfo={pkgver}-r{pkgrel}"]
 pkgdesc = "Terminal emulator supporting Xft fonts and Unicode"
