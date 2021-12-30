@@ -23,6 +23,6 @@ def post_install(self):
 def _devel(self):
     return self.default_devel()
 
-@subpackage("libjpeg-progs")
+@subpackage("libraw-progs")
 def _progs(self):
     return self.default_progs()
