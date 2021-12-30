@@ -188,7 +188,7 @@ def invoke(pkg):
     try:
         shutil.move(pkg.destdir / "usr/lib/debug", ddest / "usr/lib")
     except:
-        pkg.error("failed to cerate debug package")
+        pkg.error("failed to create debug package")
 
     # try removing the libdir
     for f in (pkg.destdir / "usr/lib").iterdir():
