@@ -15,6 +15,7 @@ configure_args = [
     "--enable-libjack",
     "--enable-libpulse",
     "--enable-libx264",
+    "--enable-libx265",
     "--enable-libdav1d",
     "--enable-libmp3lame",
     "--enable-libmodplug",
@@ -34,21 +35,21 @@ configure_args = [
     "--disable-debug",
     "--disable-stripping",
     "--disable-alsa",
+    "--disable-sndio",
     "--disable-libopencore_amrnb",
     "--disable-libopencore_amrwb",
     "--disable-libcelt",
     "--disable-libspeex",
+
     # TODOs:
     "--disable-libvpx",
     "--disable-libaom",
     "--disable-libbs2b",
     "--disable-librtmp",
-    "--disable-sndio",
     "--disable-libxvid",
     "--disable-libcdio",
     "--disable-libvidstab",
     "--disable-opencl",
-    "--disable-libx265",
 ]
 make_cmd = "gmake"
 make_install_args = ["install-man"]
@@ -58,7 +59,7 @@ makedepends = [
     "zlib-devel", "libbz2-devel", "openssl-devel",
     "freetype-devel", "harfbuzz-devel",
     "libxfixes-devel", "libxext-devel", "libxvmc-devel", "libxcb-devel",
-    "x264-devel", "dav1d-devel",
+    "x264-devel", "x265-devel", "dav1d-devel",
     "libtheora-devel", "libvorbis-devel", "opus-devel",
     "libwebp-devel", "openjpeg-devel",
     "libass-devel",
@@ -68,8 +69,6 @@ makedepends = [
     "vulkan-loader", "vulkan-headers",
     "libdrm-devel", "sdl-devel",
     # TODOs:
-    #"x265-devel",
-    #"sndio-devel", # maybe?
     #"libvpx-devel",
     #"libaom-devel",
     #"ocl-icd-devel",
