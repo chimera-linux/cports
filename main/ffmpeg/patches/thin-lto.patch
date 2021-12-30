@@ -1,0 +1,18 @@
+Just passing -flto=thin in CFLAGS is not enough, as
+--enable-lto is also needed for configure (it alters
+the build to be LTO compatible) but that results in
+ffmpeg passing its own -flto afterwards.
+
+--- a/configure
++++ b/configure
+@@ -6931,8 +6931,8 @@ check_optflags -fno-signed-zeros
+ 
+ if enabled lto; then
+     test "$cc_type" != "$ld_type" && die "LTO requires same compiler and linker"
+-    check_cflags  -flto
+-    check_ldflags -flto $cpuflags
++    check_cflags  -flto=thin
++    check_ldflags -flto=thin $cpuflags
+     disable inline_asm_direct_symbol_refs
+ fi
+ 
