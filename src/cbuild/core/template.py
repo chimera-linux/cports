@@ -294,6 +294,7 @@ default_options = {
     "autosplit": (True, False),
     # actually true by default for -devel
     "splitstatic": (False, False),
+    "splitudev": (True, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),
@@ -1260,42 +1261,35 @@ def _split_static(pkg):
     for f in (pkg.parent.destdir / "usr/lib").rglob("*.a"):
         pkg.take(str(f.relative_to(pkg.parent.destdir)))
 
-# TODO: maybe put the exclusions into the packages themselves
 autopkgs = [
     # dbg is handled by its own hook
-    ("dbg", "debug files", None, None, None),
+    ("dbg", "debug files", None, None),
     # static is kinda special
-    ("static", "static libraries", None, _split_static, []),
-    ("doc", "documentation", "base-doc", lambda p: p.take_doc(), []),
+    ("static", "static libraries", None, _split_static),
+    ("doc", "documentation", "base-doc", lambda p: p.take_doc()),
     (
         "man", "manual pages", "base-man",
-        lambda p: p.take("usr/share/man", missing_ok = True),
-        []
+        lambda p: p.take("usr/share/man", missing_ok = True)
     ),
     (
         "dinit", "service files", "dinit-chimera",
-        lambda p: p.take("etc/dinit.d", missing_ok = True),
-        []
+        lambda p: p.take("etc/dinit.d", missing_ok = True)
     ),
     (
         "initramfs-tools", "initramfs scripts", "initramfs-tools",
-        lambda p: p.take("usr/share/initramfs-tools", missing_ok = True),
-        []
+        lambda p: p.take("usr/share/initramfs-tools", missing_ok = True)
     ),
     (
         "udev", "udev rules", "base-udev",
-        lambda p: p.take("usr/lib/udev", missing_ok = True),
-        ["eudev"]
+        lambda p: p.take("usr/lib/udev", missing_ok = True)
     ),
     (
         "bashcomp", "bash completions", "bash-completion",
-        lambda p: p.take("usr/share/bash-completion", missing_ok = True),
-        []
+        lambda p: p.take("usr/share/bash-completion", missing_ok = True)
     ),
     (
         "locale", "locale data", "base-locale",
-        lambda p: p.take("usr/share/locale", missing_ok = True),
-        []
+        lambda p: p.take("usr/share/locale", missing_ok = True)
     ),
 ]
 
@@ -1344,7 +1338,7 @@ class Subpackage(Package):
         elif name.endswith("-progs"):
             self.pkgdesc = oldesc + " (programs)"
         else:
-            for apkg, adesc, iif, takef, excl in autopkgs:
+            for apkg, adesc, iif, takef in autopkgs:
                 sfx = f"-{apkg}"
                 if name.endswith(sfx):
                     bdep = name.removesuffix(sfx)
@@ -1809,7 +1803,7 @@ def read_pkg(
                 break
         if not resolved and autopkg:
             altname = None
-            for apkg, adesc, iif, takef, excl in autopkgs:
+            for apkg, adesc, iif, takef in autopkgs:
                 if pkgname.endswith(f"-{apkg}"):
                     altname = pkgname.removesuffix(f"-{apkg}")
                     break

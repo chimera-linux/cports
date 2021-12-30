@@ -19,12 +19,12 @@ def invoke(pkg):
     if not pkg.options["autosplit"]:
         return
 
-    for apkg, adesc, iif, takef, excl in template.autopkgs:
+    for apkg, adesc, iif, takef in template.autopkgs:
         if apkg == "static" and not pkg.options["splitstatic"]:
             continue
-        if not takef:
+        if apkg == "udev" and not pkg.options["splitudev"]:
             continue
-        if excl and pkg.pkgname in excl:
+        if not takef:
             continue
         if pkg.pkgname == iif:
             continue

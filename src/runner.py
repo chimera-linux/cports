@@ -538,7 +538,7 @@ def do_prune_removed(tgt):
             # automatic subpackages are special, except when explicit
             opkgn = pkgn
             if not (tmplp / pkgn).exists():
-                for apkg, adesc, iif, takef, excl in template.autopkgs:
+                for apkg, adesc, iif, takef in template.autopkgs:
                     if pkgn.endswith(f"-{apkg}"):
                         pkgn = pkgn[:-len(apkg) - 1]
                         break

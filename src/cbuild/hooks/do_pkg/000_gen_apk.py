@@ -114,7 +114,7 @@ def invoke(pkg):
 
     genpkg(pkg, repo, arch, binpkg)
 
-    for apkg, adesc, iif, takef, excl in template.autopkgs:
+    for apkg, adesc, iif, takef in template.autopkgs:
         binpkg = f"{pkg.pkgname}-{apkg}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
         # is an explicit package, do not autosplit that

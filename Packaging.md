@@ -1372,6 +1372,8 @@ for subpackages separately if needed:
 * `splitstatic` *(false, true)* This is like `autosplit`, but only for
   static libraries. It is on by default for `devel` packages and off
   otherwise. You can change the default by toggling this.
+* `splitudev` *(true)* This is like `autosplit`, but only for udev
+  rules.
 
 <a id="hardening_options"></a>
 ### Hardening Options

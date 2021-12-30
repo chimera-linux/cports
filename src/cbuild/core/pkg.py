@@ -27,7 +27,7 @@ def remove_pkg(pkg):
         if tpath.is_dir():
             spkg.log(f"removing files from destdir...")
             shutil.rmtree(tpath, onerror = _remove_ro)
-        for apkg, adesc, iif, takef, excl in template.autopkgs:
+        for apkg, adesc, iif, takef in template.autopkgs:
             tpath = dbase / f"{spkg.pkgname}-{apkg}-{pkg.pkgver}"
             if tpath.is_dir():
                 spkg.log(f"removing {apkg} files from destdir...")
