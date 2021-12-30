@@ -1,0 +1,24 @@
+This breaks with LTO. We specify it explicitly.
+
+--- a/configure
++++ b/configure
+@@ -1013,19 +1013,6 @@ define SYS_$SYS
+ define STACK_ALIGNMENT $stack_alignment
+ ASFLAGS="$ASFLAGS -DSTACK_ALIGNMENT=$stack_alignment"
+ 
+-# skip endianness check for Intel Compiler and MSVS, as all supported platforms are little. each have flags that will cause the check to fail as well
+-CPU_ENDIAN="little-endian"
+-if [ $compiler = GNU ]; then
+-    echo "int i[2] = {0x42494745,0}; double f[2] = {0x1.0656e6469616ep+102,0};" > conftest.c
+-    $CC $CFLAGS conftest.c -c -o conftest.o 2>/dev/null || die "endian test failed"
+-    if (${STRINGS} -a conftest.o | grep -q BIGE) && (${STRINGS} -a conftest.o | grep -q FPendian) ; then
+-        define WORDS_BIGENDIAN
+-        CPU_ENDIAN="big-endian"
+-    elif !(${STRINGS} -a conftest.o | grep -q EGIB && ${STRINGS} -a conftest.o | grep -q naidnePF) ; then
+-        die "endian test failed"
+-    fi
+-fi
+-
+ if [ "$cli_libx264" = "system" -a "$shared" != "yes" ] ; then
+     [ "$static" = "yes" ] && die "Option --system-libx264 can not be used together with --enable-static"
+     if pkg_check x264 ; then
