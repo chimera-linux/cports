@@ -8,6 +8,7 @@ configure_args = [
     "--enable-256-color",
     "--enable-font-styles",
     "--enable-keepscrolling",
+    "--enable-startup-notification",
     "--enable-selectionscrolling",
     "--enable-smart-resize",
     "--enable-transparency",
@@ -17,13 +18,12 @@ configure_args = [
     "--enable-frills",
     "--enable-xim",
     "--disable-perl",
-    "--disable-startup-notification", # TODO: enable later
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "xorgproto", "libxrender-devel", "libxft-devel", "libxt-devel",
     "libsm-devel", "libptytty-devel", "fontconfig-devel",
-    "gdk-pixbuf-devel",
+    "gdk-pixbuf-devel", "startup-notification-devel",
 ]
 depends = ["ncurses", f"rxvt-unicode-terminfo={pkgver}-r{pkgrel}"]
 pkgdesc = "Terminal emulator supporting Xft fonts and Unicode"
