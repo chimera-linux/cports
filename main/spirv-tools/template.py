@@ -1,3 +1,4 @@
+# update and rebuild shaderc when updating
 pkgname = "spirv-tools"
 pkgver = "2021.4"
 pkgrel = 0

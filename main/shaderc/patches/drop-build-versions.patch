@@ -1,0 +1,34 @@
+From 7cba3e0aecc609661a4260601dbcf83329ee950c Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 31 Dec 2021 17:26:07 +0100
+Subject: [PATCH] kill build version nonsense
+
+---
+ glslc/src/main.cc | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/glslc/src/main.cc b/glslc/src/main.cc
+index 5ca5d61..53e1618 100644
+--- a/glslc/src/main.cc
++++ b/glslc/src/main.cc
+@@ -197,10 +197,6 @@ bool SetResourceLimits(const std::string& str, shaderc::CompileOptions* options,
+   return true;
+ }
+ 
+-const char kBuildVersion[] =
+-#include "build-version.inc"
+-    ;
+-
+ // Gets an optional stage name followed by required offset argument.  Returns
+ // false and emits a message to *errs if any errors occur.  After calling this
+ // function, *index will be the index of the last command line argument
+@@ -286,7 +282,6 @@ int main(int argc, char** argv) {
+ #undef RESOURCE
+       return 0;
+     } else if (arg == "--version") {
+-      std::cout << kBuildVersion << std::endl;
+       std::cout << "Target: " << spvTargetEnvDescription(SPV_ENV_UNIVERSAL_1_0)
+                 << std::endl;
+       return 0;
+-- 
+2.32.0
