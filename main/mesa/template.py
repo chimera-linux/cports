@@ -20,7 +20,7 @@ configure_args = [
     "-Ddefault_library=shared",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "flex", "glslang", "bison",
+    "meson", "pkgconf", "flex", "glslang-progs", "bison",
     "wayland-protocols", "wayland-progs", "python-mako"
 ]
 makedepends = [

@@ -1,4 +1,4 @@
-# note: some libs are unversioned
+# note: some libs are unversioned (rebuild shaderc on updates)
 pkgname = "glslang"
 pkgver = "11.7.0"
 pkgrel = 0
@@ -14,6 +14,10 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "b6c83864c3606678d11675114fa5f358c519fe1dad9a781802bcc87fb8fa32d5"
 # missing checkdepends
 options = ["!check"]
+
+@subpackage("glslang-progs")
+def _progs(self):
+    return self.default_progs()
 
 @subpackage("glslang-devel")
 def _devel(self):
