@@ -15,7 +15,7 @@ configure_args = [
     "--disable-sdl2", "--disable-caca",
 ]
 hostmakedepends = [
-    "pkgconf", "python", "python-docutils", "perl", "wayland-progs"
+    "pkgconf", "python", "python-docutils", "wayland-progs"
 ]
 makedepends = [
     "libarchive-devel", "lua5.1-devel", "libuuid-devel", "mesa-devel",
