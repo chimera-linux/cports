@@ -19,12 +19,19 @@ options = ["!check"]
 def _progs(self):
     return self.default_progs()
 
+@subpackage("glslang-devel-static")
+def _static(self):
+    self.depends = []
+    return ["usr/lib/*.a"]
+
 @subpackage("glslang-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        f"{pkgname}={pkgver}-r{pkgrel}",
+        f"{pkgname}-devel-static={pkgver}-r{pkgrel}",
+    ]
     return [
         "usr/include",
         "usr/lib/libglslang.so",
-        "usr/lib/*.a",
         "usr/lib/cmake",
     ]
