@@ -1,5 +1,5 @@
 pkgname = "efl"
-pkgver = "1.25.1"
+pkgver = "1.26.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -8,11 +8,11 @@ configure_args = [
     "-Dembedded-lz4=false",
     "-Dcrypto=openssl",
     "-Decore-imf-loaders-disabler=ibus,scim",
-    # TODO: maybe enable avif
+    # TODO: maybe enable avif, heif
     # ps needs libspectre and thus ghostscript (AGPL)
     # pdf needs poppler, which is GPL and probably leaks
     # into the EFL distribution so we don't want that
-    "-Devas-loaders-disabler=avif,json,pdf,ps",
+    "-Devas-loaders-disabler=avif,heif,json,pdf,ps",
     "-Dlua-interpreter=lua",
     "-Dbindings=cxx",
     "-Dopengl=es-egl",
@@ -53,7 +53,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "351ca0211ca000234527a503585f039f985607ec9439e34b49d8b8bbf35a7e6b"
+sha256 = "a4a9bce45fd27f8541874e44a130f64550bee1f2f72feaa6c8a758d92eaf204c"
 # xvfb-run is unpackaged for now, and would need a special do_check
 options = ["!check"]
 
