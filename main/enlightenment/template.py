@@ -1,9 +1,10 @@
 pkgname = "enlightenment"
-pkgver = "0.24.2"
+pkgver = "0.25.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dpam=true", "-Dwl=true", "-Dsystemd=false"
+    # TODO: libexif
+    "-Dpam=true", "-Dwl=true", "-Dsystemd=false", "-Dlibexif=false"
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "efl", "xwayland", "wayland-progs"
@@ -21,7 +22,7 @@ pkgdesc = "Enlightenment desktop shell"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org"
 source = f"http://download.enlightenment.org/rel/apps/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "be18e2f18d6c0b058f633e769863d3cbc4c07b629058ae670dec74cd7906dff1"
+sha256 = "7d6e72ceed5aca135b7a49c2a1c1eb9d8fde1318613517401d0418e0e5f6df06"
 suid_files = [
     "usr/lib/enlightenment/utils/enlightenment_ckpasswd",
     "usr/lib/enlightenment/utils/enlightenment_system",
