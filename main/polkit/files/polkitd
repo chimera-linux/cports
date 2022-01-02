@@ -3,5 +3,4 @@
 type               = process
 command            = /usr/lib/polkit-1/polkitd --no-debug
 depends-on         = early-rcboot
-logfile            = /var/log/polkitd.log
 smooth-recovery    = true

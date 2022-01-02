@@ -3,5 +3,4 @@
 type               = process
 command            = lvmetad -f
 depends-on         = early-rcboot
-logfile            = /var/log/lvmetad.log
 smooth-recovery    = true

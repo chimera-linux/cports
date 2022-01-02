@@ -3,6 +3,5 @@
 type               = process
 command            = /usr/libexec/dbus-daemon.wrapper
 depends-on         = dbus-prepare
-logfile            = /var/log/dbus-daemon.log
 smooth-recovery    = true
 socket-listen      = /run/dbus/system_bus_socket

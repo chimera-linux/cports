@@ -4,4 +4,3 @@ type       = process
 command    = /usr/libexec/colord
 depends-on = login-ready
 run-as     = _colord
-logfile    = /var/log/colord.log
