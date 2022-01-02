@@ -1,6 +1,11 @@
 # This is a reference for the cbuild configuration file.
 # Every value specified here is the system's default.
 
+# options related to your host apk
+[apk]
+# the apk command to use
+command = apk
+
 # options related to building packages
 [build]
 # whether -dbg packages will be generated

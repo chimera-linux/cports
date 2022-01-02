@@ -81,7 +81,7 @@ def call(
     use_stage = True, fakeroot = False
 ):
     cmd = [
-        "apk", subcmd, "--root", root if root else paths.bldroot(),
+        paths.apk(), subcmd, "--root", root if root else paths.bldroot(),
         "--repositories-file", "/dev/null",
     ]
     if arch:
@@ -119,8 +119,8 @@ def call_chroot(
         cmd.append("--allow-untrusted")
 
     return chroot.enter(
-        "apk", *cmd, *_collect_repos(mrepo, True, arch, use_stage), *args,
-        capture_output = capture_output, check = check,
+        paths.apk(), *cmd, *_collect_repos(mrepo, True, arch, use_stage),
+        *args, capture_output = capture_output, check = check,
         fakeroot = True, mount_binpkgs = True
     )
 
@@ -161,7 +161,7 @@ def get_provider(thing, pkg):
 
 def check_version(*args):
     v = subprocess.run(
-        ["apk", "version", "--quiet", "--check", *args],
+        [paths.apk(), "version", "--quiet", "--check", *args],
         capture_output = True
     )
     return v.returncode == 0
@@ -173,7 +173,7 @@ def compare_version(v1, v2, strict = True):
         raise RuntimeError("invalid version")
 
     v = subprocess.run(
-        ["apk", "version", "--quiet", "--test", v1, v2],
+        [paths.apk(), "version", "--quiet", "--test", v1, v2],
         capture_output = True, check = True
     ).stdout.strip()
 

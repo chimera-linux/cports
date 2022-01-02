@@ -8,6 +8,7 @@ rtpath = None
 global_cfg = None
 cmdline = None
 
+opt_apkcmd     = "apk"
 opt_cflags     = "-O2"
 opt_cxxflags   = "-O2"
 opt_fflags     = "-O2"
@@ -78,6 +79,7 @@ def handle_options():
     global global_cfg
     global cmdline
 
+    global opt_apkcmd
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_nocolor, opt_signkey, opt_unsigned
@@ -186,6 +188,11 @@ def handle_options():
     global_cfg = configparser.ConfigParser()
     global_cfg.read(cmdline.config)
 
+    if "apk" in global_cfg:
+        apkcfg = global_cfg["apk"]
+
+        opt_apkcmd = apkcfg.get("command", fallback = opt_apkcmd)
+
     if "build" in global_cfg:
         bcfg = global_cfg["build"]
 
@@ -292,6 +299,9 @@ def init_late():
         cbpath, rtpath, opt_bldroot, mainrepo, altrepo, opt_srcpath,
         opt_cchpath, opt_crpath
     )
+
+    # apk command
+    paths.set_apk(opt_apkcmd)
 
     # init license information
     spdx.init()

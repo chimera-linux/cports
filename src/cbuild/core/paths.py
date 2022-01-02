@@ -33,6 +33,13 @@ def set_stage(stage):
     global _stage
     _stage = stage
 
+def set_apk(cmd):
+    global _apkcmd
+    _apkcmd = cmd
+
+def apk():
+    return _apkcmd
+
 def distdir():
     return _ddir
 
