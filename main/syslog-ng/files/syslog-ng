@@ -3,7 +3,7 @@
 type               = process
 command            = /usr/bin/syslog-ng -F -e -f /etc/syslog-ng/syslog-ng.conf
 logfile            = /var/log/syslog-ng.log
-depends-on         = early-rcboot
+depends-on         = init
 smooth-recovery    = true
 ready-notification = pipevar:SYSLOG_NG_READY_FD
 options            = starts-log

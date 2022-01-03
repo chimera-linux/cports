@@ -2,5 +2,5 @@
 
 type               = process
 command            = /usr/lib/polkit-1/polkitd --no-debug
-depends-on         = early-rcboot
+depends-on         = init
 smooth-recovery    = true

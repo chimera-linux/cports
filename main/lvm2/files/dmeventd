@@ -2,5 +2,5 @@
 
 type               = process
 command            = dmeventd -f
-depends-on         = early-rcboot
+depends-on         = early
 smooth-recovery    = true

@@ -2,5 +2,5 @@
 
 type       = process
 command    = /usr/bin/dhcpcd -B -M -j /var/log/dhcpcd-service.log
-depends-on = early-rcboot
+depends-on = init
 logfile    = /var/log/dhcpcd.log
