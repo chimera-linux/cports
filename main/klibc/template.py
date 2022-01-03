@@ -29,7 +29,7 @@ def init_configure(self):
         "INSTALLROOT=" + str(self.chroot_destdir),
         "CONFIG_DEBUG_INFO=y"
     ]
-    if self.cross_build:
+    if self.profile().cross:
         eflags += ["CROSS_COMPILE={self.profile().triplet}-"]
 
     self.make_build_args += eflags

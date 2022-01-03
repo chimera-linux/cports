@@ -13,7 +13,7 @@ url = "https://linux.thai.net/projects/libthai"
 source = f"https://linux.thai.net/pub/ThaiLinux/software/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ffe0a17b4b5aa11b153c15986800eca19f6c93a4025ffa5cf2cab2dcdf1ae911"
 
-if self.cross_build:
+if self.profile().cross:
     hostmakedepends += ["libdatrie"]
 
 @subpackage("libthai-devel")

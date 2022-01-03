@@ -49,7 +49,7 @@ exec /usr/bin/pkg-config "$@"
 def invoke(pkg):
     _enable_wrappers(pkg)
 
-    if not pkg.cross_build:
+    if not pkg.profile().cross:
         return
 
     # wrappers for cross tools as necessary

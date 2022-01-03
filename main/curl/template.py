@@ -33,7 +33,7 @@ def post_install(self):
     self.install_license("COPYING")
 
     # patch curl-config for cross
-    if not self.cross_build:
+    if not self.profile().cross:
         return
 
     with open(self.destdir / "usr/bin/curl-config") as inf:

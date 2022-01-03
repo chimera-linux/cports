@@ -50,7 +50,7 @@ def _configure_tgt(self, tgt):
 
     htgt = self.profile()
 
-    if self.cross_build:
+    if self.profile().cross:
         cargs += [
             f"--host={htgt.triplet}",
             f"--with-build-sysroot={htgt.sysroot}",

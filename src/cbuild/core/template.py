@@ -146,7 +146,8 @@ def run_pkg_func(pkg, func, funcn = None, desc = None, on_subpkg = False):
         func = getattr(pkg, funcn)
     if not desc:
         desc = funcn
-    crossb = pkg.rparent.cross_build if pkg.rparent.cross_build else ""
+    p = pkg.rparent.profile()
+    crossb = p.arch if p.cross else ""
     if pkg.parent:
         logf = pkg.parent.statedir / f"{pkg.pkgname}_{crossb}_{funcn}.log"
     else:
@@ -1703,8 +1704,8 @@ def from_module(m, ret):
     if ret.broken and not ierr:
         ret.error(f"cannot be built, it's currently broken: {ret.broken}")
 
-    if ret.cross_build and not ret.options["cross"] and not ierr:
-        ret.error(f"cannot be cross-compiled for {ret.cross_build}")
+    if ret.profile().cross and not ret.options["cross"] and not ierr:
+        ret.error(f"cannot be cross-compiled for {ret.profile().cross}")
 
     if ret.stage == 0 and not ret.options["bootstrap"] and not ierr:
         ret.error("attempt to bootstrap a non-bootstrap package")
@@ -1842,12 +1843,7 @@ def read_pkg(
     else:
         ret._current_profile = profile.get_profile("bootstrap")
 
-    if ret._current_profile.cross:
-        ret.cross_build = pkgarch
-    else:
-        ret.cross_build = None
-
-    ret.run_check = run_check and not ret.cross_build
+    ret.run_check = run_check and not ret._current_profile.cross
 
     chroot.set_target(ret._current_profile.arch)
 

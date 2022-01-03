@@ -12,7 +12,7 @@ options = ["bootstrap"]
 def do_build(self):
     self.mkdir("build", parents = True)
     eargs = []
-    if self.cross_build:
+    if self.profile().cross:
         eargs = ["--host=" + self.profile().triplet]
     self.do(
         self.chroot_cwd / "boot-strap", *eargs, "--prefix=/usr", "op=build",
@@ -21,7 +21,7 @@ def do_build(self):
 
 def do_install(self):
     eargs = []
-    if self.cross_build:
+    if self.profile().cross:
         eargs = ["BMAKE=make"]
     self.do(
         self.chroot_cwd / "boot-strap", "--prefix=/usr",

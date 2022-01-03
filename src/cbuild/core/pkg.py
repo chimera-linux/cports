@@ -20,7 +20,8 @@ def remove_pkg(pkg):
     if not pkg.destdir.is_dir():
         return
 
-    crossb = pkg.cross_build if pkg.cross_build else ""
+    p = pkg.profile()
+    crossb = p.arch if p.cross else ""
 
     def remove_spkg(spkg, dbase):
         tpath = dbase / f"{spkg.pkgname}-{pkg.pkgver}"

@@ -115,7 +115,7 @@ match self.profile().arch:
 configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
 
 def init_configure(self):
-    if not self.cross_build:
+    if not self.profile().cross:
         return
 
     self.configure_args.append("-DLLVM_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/llvm-tblgen"))
@@ -125,7 +125,7 @@ def init_configure(self):
         self.configure_args.append("-DLLDB_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/lldb-tblgen"))
 
 def pre_configure(self):
-    if not self.cross_build:
+    if not self.profile().cross:
         return
 
     from cbuild.util import make, cmake

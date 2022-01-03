@@ -19,7 +19,7 @@ sha256 = "8d205428c17bf13bb535300669ed28b338a157b1c01ae66d31d0d3e2d47c3fd5"
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
 
 def init_configure(self):
-    if not self.cross_build:
+    if not self.profile().cross:
         return
 
     # we build special host icu for cross
@@ -28,7 +28,7 @@ def init_configure(self):
     )
 
 def pre_configure(self):
-    if not self.cross_build:
+    if not self.profile().cross:
         return
 
     # host build; first clean up potential old stuff

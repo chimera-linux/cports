@@ -77,7 +77,7 @@ def setup_depends(pkg):
             rdeps.append((orig, dep))
 
     cdeps = []
-    if not pkg.cross_build and (pkg.options["check"] or pkg._force_check):
+    if not pkg.profile().cross and (pkg.options["check"] or pkg._force_check):
         cdeps = pkg.checkdepends
 
     if pkg.stage > 0:
@@ -299,7 +299,8 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
 
-    tarch = pkg.profile().arch
+    pprof = pkg.profile()
+    tarch = pprof.arch
 
     if pkg.pkgname != origpkg:
         pkg.log(f"building{style} (dependency of {origpkg}) for {tarch}...")
@@ -339,7 +340,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         # not found
         log.out_plain(f"   [host] {pkgn}: not found")
         # check for loops
-        if not pkg.cross_build and (pkgn == origpkg or pkgn == pkg.pkgname):
+        if not pprof.cross and (pkgn == origpkg or pkgn == pkg.pkgname):
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
         host_missing_deps.append(pkgn)
@@ -417,7 +418,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                 pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                 force_check = pkg._force_check, stage = pkg.stage,
                 autopkg = True
-            ), depmap, signkey, chost = hostdep or not not pkg.cross_build)
+            ), depmap, signkey, chost = hostdep or not not pprof.cross)
         except template.SkipPackage:
             pass
         host_binpkg_deps.append(pn)

@@ -74,7 +74,7 @@ def do_configure(self):
         "-Dd_sockaddr_in6=define",
     ]
 
-    if self.cross_build:
+    if self.profile().cross:
         cargs.append("--target=" + self.profile().triplet)
 
     cfl = self.get_cflags(shell = True)

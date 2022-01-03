@@ -2193,10 +2193,6 @@ for p in self.find("foo", "*.py"):
 
 APIs not available on subpackages.
 
-##### self.cross_build
-
-A boolean specifying whether this is a cross build (to another architecture).
-
 ##### self.conf_jobs
 
 The number of configured jobs to use for building. This is not affected

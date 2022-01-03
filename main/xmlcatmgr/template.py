@@ -11,11 +11,11 @@ sha256 = "ea1142b6aef40fbd624fc3e2130cf10cf081b5fa88e5229c92b8f515779d6fdc"
 # ld: error: undefined symbol: setprogname
 options = ["!lto"]
 
-if self.cross_build:
+if self.profile().cross:
     hostmakedepends += ["xmlcatmgr"]
 
 def post_build(self):
-    if self.cross_build:
+    if self.profile().cross:
         xcmgr = "/usr/bin/xmlcatmgr"
     else:
         xcmgr = self.chroot_cwd / self.make_dir / "xmlcatmgr"

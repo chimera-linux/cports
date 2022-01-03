@@ -3,7 +3,8 @@ from cbuild.core import template
 import os
 
 def invoke(pkg):
-    crossb = pkg.cross_build if pkg.cross_build else ""
+    p = pkg.profile()
+    crossb = p.arch if p.cross else ""
     patch_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_patch_done"
 
     template.call_pkg_hooks(pkg, "init_patch")

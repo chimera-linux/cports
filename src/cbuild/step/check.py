@@ -1,7 +1,7 @@
 from cbuild.core import template
 
 def invoke(pkg, step, allow_fail):
-    if pkg.cross_build:
+    if pkg.profile().cross:
         pkg.log("skipping check (cross build)")
         return
 

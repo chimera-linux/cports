@@ -27,7 +27,7 @@ match self.profile().arch:
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
-if self.cross_build:
+if self.profile().cross:
     broken = "linux-devel does not come out right"
 
 def do_configure(self):
@@ -39,7 +39,7 @@ def do_configure(self):
     epoch = self.source_date_epoch or 0
     args = []
 
-    if self.cross_build:
+    if self.profile().cross:
         args += [f"CROSS_COMPILE={self.profile().triplet}"]
 
     self.do(

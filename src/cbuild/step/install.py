@@ -17,7 +17,8 @@ def _invoke_subpkg(pkg):
     pkg.take(f"usr/share/licenses/{pkg.pkgname}", missing_ok = True)
 
 def invoke(pkg, step):
-    crossb = pkg.rparent.cross_build if pkg.rparent.cross_build else ""
+    p = pkg.profile()
+    crossb = p.arch if p.cross else ""
     install_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_install_done"
 
     # scan for ELF information after subpackages are split up
@@ -27,9 +28,7 @@ def invoke(pkg, step):
     template.call_pkg_hooks(pkg, "init_install")
     template.run_pkg_func(pkg, "init_install")
 
-    if install_done.is_file() and (
-        not pkg.rparent.force_mode or step != "install"
-    ):
+    if install_done.is_file() and (not pkg.force_mode or step != "install"):
         # when repeating, ensure to at least scan the ELF info...
         for sp in pkg.subpkg_list:
             scanelf.scan(sp, pkg.current_elfs)

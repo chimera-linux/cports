@@ -1,7 +1,8 @@
 from cbuild.core import template
 
 def invoke(pkg, step):
-    crossb = pkg.cross_build if pkg.cross_build else ""
+    p = pkg.profile()
+    crossb = p.arch if p.cross else ""
     build_done = pkg.statedir / f"{pkg.pkgname}_{crossb}_build_done"
 
     template.call_pkg_hooks(pkg, "init_build")
