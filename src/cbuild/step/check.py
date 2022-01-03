@@ -18,7 +18,7 @@ def invoke(pkg, step, allow_fail):
     template.call_pkg_hooks(pkg, "init_check")
     template.run_pkg_func(pkg, "init_check")
 
-    if check_done.is_file() and (not pkg.rparent.force_mode or step != "check"):
+    if check_done.is_file() and (not pkg.force_mode or step != "check"):
         return
 
     try:
