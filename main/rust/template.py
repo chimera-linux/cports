@@ -11,8 +11,6 @@ makedepends = [
     "llvm-devel"
 ]
 depends = [f"rust-std={pkgver}-r{pkgrel}", "clang", "musl-devel"]
-provides = [f"rust-bootstrap-virtual={pkgver}-r{pkgrel}"]
-provider_priority = 10
 pkgdesc = "Rust programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
