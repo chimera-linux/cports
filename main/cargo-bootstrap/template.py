@@ -3,11 +3,7 @@ pkgver = "0.58.0"
 pkgrel = 0
 # satisfy runtime dependencies
 hostmakedepends = ["curl"]
-# overlapping files
-depends = ["virtual:rust-bootstrap-virtual", "!cargo"]
-depends_providers = {
-    "virtual:rust-bootstrap-virtual": "rust-bootstrap"
-}
+depends = ["!cargo"]
 pkgdesc = "Bootstrap binaries of Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
