@@ -1,5 +1,5 @@
 pkgname = "efl"
-pkgver = "1.26.0"
+pkgver = "1.26.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -53,7 +53,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a4a9bce45fd27f8541874e44a130f64550bee1f2f72feaa6c8a758d92eaf204c"
+sha256 = "86a9677e3d48dd0c13a399ebb417bd417bd8d150d6b06cc491bc92275c88a642"
 # xvfb-run is unpackaged for now, and would need a special do_check
 options = ["!check"]
 
