@@ -1,5 +1,5 @@
 pkgname = "linux"
-pkgver = "5.15.5"
+pkgver = "5.15.12"
 pkgrel = 0
 make_dir = "build"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "e9565a301525ac81c142ceb832f9053dd5685e107dbcf753d0de4c58bc98851f"
+sha256 = "7de919772b62647591527e904e3b3583783381a29d812404f58a222484e751a0"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
@@ -63,10 +63,13 @@ def do_install(self):
 @subpackage("linux-devel")
 def _devel(self):
     self.depends += ["binutils"]
+    self.options = ["foreignelf", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 
 @subpackage("linux-dbg")
 def _dbg(self):
     self.pkgdesc += " (debug files)"
-    self.options = ["!scanrundeps", "!strip", "!scanshlibs"]
+    self.options = [
+        "!scanrundeps", "!strip", "!scanshlibs", "foreignelf", "textrels"
+    ]
     return ["usr/lib/debug", "boot/System.map-*"]
