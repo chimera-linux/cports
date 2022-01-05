@@ -1,5 +1,5 @@
 pkgname = "apk-tools"
-pkgver = "2.12.8"
+pkgver = "2.12.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"http://git.alpinelinux.org/cgit/{pkgname}/snapshot/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "d976d625d5ede5ccdd1bae4a56627c26a11f323475f85d7bc5cb29b04781f7b5"
+sha256 = "f4ead0a3722bc7c6760634b6c8abfe139b5359c934b7fca8661704828f5f6dd9"
 tool_flags = {
     "CFLAGS": ["-Wno-error"]
 }
