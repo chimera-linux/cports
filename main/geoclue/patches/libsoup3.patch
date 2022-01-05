@@ -1,0 +1,409 @@
+From 294d9a8dafa75e1971bcb265b3bd33b6ac81deca Mon Sep 17 00:00:00 2001
+From: Carlos Garcia Campos <cgarcia@igalia.com>
+Date: Wed, 5 Jan 2022 18:22:07 +0100
+Subject: [PATCH] Add support for building with libsoup3
+
+Add soup2 build option, enabled by default. When disabled, libsoup3 will
+be used instead.
+---
+ meson_options.txt      |   3 +
+ src/gclue-mozilla.c    |  24 ++++-
+ src/gclue-web-source.c | 195 ++++++++++++++++++++++++++++++-----------
+ src/meson.build        |   9 +-
+ 4 files changed, 176 insertions(+), 55 deletions(-)
+
+diff --git a/meson_options.txt b/meson_options.txt
+index 5b8c42d..cfec79d 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -43,3 +43,6 @@ option('dbus-srv-user',
+ option('mozilla-api-key',
+        type: 'string', value: 'geoclue',
+        description: 'Your API key for Mozilla Location Service')
++option('soup2',
++       type: 'boolean', value: true,
++       description: 'Build with libsoup2')
+diff --git a/src/gclue-mozilla.c b/src/gclue-mozilla.c
+index 8e602c1..25bf99a 100644
+--- a/src/gclue-mozilla.c
++++ b/src/gclue-mozilla.c
+@@ -151,6 +151,9 @@ gclue_mozilla_create_query (GList        *bss_list, /* As in Access Points */
+         guint n_non_ignored_bsss;
+         GList *iter;
+         gint64 mcc, mnc;
++#if SOUP_CHECK_VERSION (2, 99, 2)
++        g_autoptr(GBytes) body = NULL;
++#endif
+ 
+         builder = json_builder_new ();
+         json_builder_begin_object (builder);
+@@ -238,11 +241,16 @@ gclue_mozilla_create_query (GList        *bss_list, /* As in Access Points */
+ 
+         uri = get_url ();
+         ret = soup_message_new ("POST", uri);
++#if SOUP_CHECK_VERSION (2, 99, 2)
++        body = g_bytes_new_take (data, data_len);
++        soup_message_set_request_body_from_bytes (ret, "application/json", body);
++#else
+         soup_message_set_request (ret,
+                                   "application/json",
+                                   SOUP_MEMORY_TAKE,
+                                   data,
+                                   data_len);
++#endif
+         g_debug ("Sending following request to '%s':\n%s", uri, data);
+ 
+         return ret;
+@@ -322,6 +330,7 @@ gclue_mozilla_create_submit_query (GClueLocation   *location,
+                                    GError         **error)
+ {
+         SoupMessage *ret = NULL;
++        SoupMessageHeaders *request_headers;
+         JsonBuilder *builder;
+         JsonGenerator *generator;
+         JsonNode *root_node;
+@@ -332,6 +341,9 @@ gclue_mozilla_create_submit_query (GClueLocation   *location,
+         gdouble lat, lon, accuracy, altitude;
+         GDateTime *datetime;
+         gint64 mcc, mnc;
++#if SOUP_CHECK_VERSION (2, 99, 2)
++        g_autoptr(GBytes) body = NULL;
++#endif
+ 
+         url = get_submit_config (&nick);
+         if (url == NULL)
+@@ -448,15 +460,25 @@ gclue_mozilla_create_submit_query (GClueLocation   *location,
+         g_object_unref (generator);
+ 
+         ret = soup_message_new ("POST", url);
++#if SOUP_CHECK_VERSION (2, 99, 2)
++        request_headers = soup_message_get_request_headers (ret);
++#else
++        request_headers = ret->request_headers;
++#endif
+         if (nick != NULL && nick[0] != '\0')
+-                soup_message_headers_append (ret->request_headers,
++                soup_message_headers_append (request_headers,
+                                              "X-Nickname",
+                                              nick);
++#if SOUP_CHECK_VERSION (2, 99, 2)
++        body = g_bytes_new_take (data, data_len);
++        soup_message_set_request_body_from_bytes (ret, "application/json", body);
++#else
+         soup_message_set_request (ret,
+                                   "application/json",
+                                   SOUP_MEMORY_TAKE,
+                                   data,
+                                   data_len);
++#endif
+         g_debug ("Sending following request to '%s':\n%s", url, data);
+ 
+ out:
+diff --git a/src/gclue-web-source.c b/src/gclue-web-source.c
+index bfd70f7..fb2afc9 100644
+--- a/src/gclue-web-source.c
++++ b/src/gclue-web-source.c
+@@ -59,57 +59,54 @@ G_DEFINE_ABSTRACT_TYPE_WITH_CODE (GClueWebSource,
+                                   GCLUE_TYPE_LOCATION_SOURCE,
+                                   G_ADD_PRIVATE (GClueWebSource))
+ 
+-static void refresh_callback (SoupSession *session,
+-                              SoupMessage *query,
+-                              gpointer     user_data);
+-
++#if SOUP_CHECK_VERSION (2, 99, 2)
+ static void
+-gclue_web_source_real_refresh_async (GClueWebSource      *source,
+-                                     GCancellable        *cancellable,
+-                                     GAsyncReadyCallback  callback,
+-                                     gpointer             user_data)
++refresh_callback (SoupSession  *session,
++                  GAsyncResult *result,
++                  gpointer      user_data)
+ {
+-        g_autoptr(GTask) task = NULL;
++        g_autoptr(GTask) task = g_steal_pointer (&user_data);
++        GClueWebSource *web;
++        g_autoptr(SoupMessage) query = NULL;
++        g_autoptr(GBytes) body = NULL;
+         g_autoptr(GError) local_error = NULL;
++        g_autofree char *contents = NULL;
++        g_autofree char *str = NULL;
++        g_autoptr(GClueLocation) location = NULL;
++        GUri *uri;
+ 
+-        task = g_task_new (source, cancellable, callback, user_data);
+-        g_task_set_source_tag (task, gclue_web_source_real_refresh_async);
+-
+-        refresh_accuracy_level (source);
+-
+-        if (!gclue_location_source_get_active (GCLUE_LOCATION_SOURCE (source))) {
+-                g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_NOT_INITIALIZED,
+-                                         "Source is inactive");
+-                return;
+-        }
++        web = GCLUE_WEB_SOURCE (g_task_get_source_object (task));
++        query = g_steal_pointer (&web->priv->query);
+ 
+-        if (!get_internet_available ()) {
+-                g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_NETWORK_UNREACHABLE,
+-                                         "Network unavailable");
++        body = soup_session_send_and_read_finish (session, result, &local_error);
++        if (!body) {
++                g_task_return_error (task, g_steal_pointer (&local_error));
+                 return;
+         }
+-        g_debug ("Network available");
+ 
+-        if (source->priv->query != NULL) {
+-                g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_PENDING,
+-                                         "Refresh already in progress");
++        if (soup_message_get_status (query) != SOUP_STATUS_OK) {
++                g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_FAILED,
++                                         "Failed to query location: %s",
++                                         soup_message_get_reason_phrase (query));
+                 return;
+         }
+ 
+-        source->priv->query = GCLUE_WEB_SOURCE_GET_CLASS (source)->create_query (source, &local_error);
+-
+-        if (source->priv->query == NULL) {
++        contents = g_strndup (g_bytes_get_data (body, NULL), g_bytes_get_size (body));
++        uri = soup_message_get_uri (query);
++        str = g_uri_to_string (uri);
++        g_debug ("Got following response from '%s':\n%s", str, contents);
++        location = GCLUE_WEB_SOURCE_GET_CLASS (web)->parse_response (web, contents, &local_error);
++        if (local_error != NULL) {
+                 g_task_return_error (task, g_steal_pointer (&local_error));
+                 return;
+         }
+ 
+-        /* TODO handle cancellation */
+-        soup_session_queue_message (source->priv->soup_session,
+-                                    source->priv->query,
+-                                    refresh_callback,
+-                                    g_steal_pointer (&task));
+-}
++        gclue_location_source_set_location (GCLUE_LOCATION_SOURCE (web),
++                                            location);
+ 
++        g_task_return_pointer (task, g_steal_pointer (&location), g_object_unref);
++}
++#else
+ static void
+ refresh_callback (SoupSession *session,
+                   SoupMessage *query,
+@@ -130,7 +127,7 @@ refresh_callback (SoupSession *session,
+         }
+ 
+         web = GCLUE_WEB_SOURCE (g_task_get_source_object (task));
+-        web->priv->query = NULL;
++        g_clear_object (&web->priv->query);
+ 
+         if (query->status_code != SOUP_STATUS_OK) {
+                 g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_FAILED,
+@@ -153,7 +150,64 @@ refresh_callback (SoupSession *session,
+ 
+         g_task_return_pointer (task, g_steal_pointer (&location), g_object_unref);
+ }
++#endif
++
++static void
++gclue_web_source_real_refresh_async (GClueWebSource      *source,
++                                     GCancellable        *cancellable,
++                                     GAsyncReadyCallback  callback,
++                                     gpointer             user_data)
++{
++        g_autoptr(GTask) task = NULL;
++        g_autoptr(GError) local_error = NULL;
++
++        task = g_task_new (source, cancellable, callback, user_data);
++        g_task_set_source_tag (task, gclue_web_source_real_refresh_async);
++
++        refresh_accuracy_level (source);
++
++        if (!gclue_location_source_get_active (GCLUE_LOCATION_SOURCE (source))) {
++                g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_NOT_INITIALIZED,
++                                         "Source is inactive");
++                return;
++        }
++
++        if (!get_internet_available ()) {
++                g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_NETWORK_UNREACHABLE,
++                                         "Network unavailable");
++                return;
++        }
++        g_debug ("Network available");
++
++        if (source->priv->query != NULL) {
++                g_task_return_new_error (task, G_IO_ERROR, G_IO_ERROR_PENDING,
++                                         "Refresh already in progress");
++                return;
++        }
++
++        source->priv->query = GCLUE_WEB_SOURCE_GET_CLASS (source)->create_query (source, &local_error);
++
++        if (source->priv->query == NULL) {
++                g_task_return_error (task, g_steal_pointer (&local_error));
++                return;
++        }
+ 
++#if SOUP_CHECK_VERSION (2, 99, 2)
++        soup_session_send_and_read_async (source->priv->soup_session,
++                                          source->priv->query,
++                                          G_PRIORITY_DEFAULT,
++                                          cancellable,
++                                          (GAsyncReadyCallback)refresh_callback,
++                                          g_steal_pointer (&task));
++#else
++        /* TODO handle cancellation */
++        soup_session_queue_message (source->priv->soup_session,
++                                    source->priv->query,
++                                    refresh_callback,
++                                    g_steal_pointer (&task));
++        g_object_ref (source->priv->query);
++#endif
++}
+ 
+ static GClueLocation *
+ gclue_web_source_real_refresh_finish (GClueWebSource  *source,
+@@ -253,15 +307,12 @@ gclue_web_source_finalize (GObject *gsource)
+                 priv->connectivity_changed_id = 0;
+         }
+ 
+-        if (priv->query != NULL) {
+-                g_debug ("Cancelling query");
+-                soup_session_cancel_message (priv->soup_session,
+-                                             priv->query,
+-                                             SOUP_STATUS_CANCELLED);
+-                priv->query = NULL;
+-        }
++        g_clear_object (&priv->query);
+ 
+-        g_clear_object (&priv->soup_session);
++        if (priv->soup_session) {
++                soup_session_abort (priv->soup_session);
++                g_object_unref (priv->soup_session);
++        }
+ 
+         G_OBJECT_CLASS (gclue_web_source_parent_class)->finalize (gsource);
+ }
+@@ -274,10 +325,10 @@ gclue_web_source_constructed (GObject *object)
+ 
+         G_OBJECT_CLASS (gclue_web_source_parent_class)->constructed (object);
+ 
+-        priv->soup_session = soup_session_new_with_options
+-                        (SOUP_SESSION_REMOVE_FEATURE_BY_TYPE,
+-                         SOUP_TYPE_PROXY_RESOLVER_DEFAULT,
+-                         NULL);
++        priv->soup_session = soup_session_new ();
++#if !SOUP_CHECK_VERSION (2, 99, 2)
++        soup_session_remove_feature_by_type (priv->soup_session, SOUP_TYPE_PROXY_RESOLVER_DEFAULT);
++#endif
+ 
+         monitor = g_network_monitor_get_default ();
+         priv->network_changed_id =
+@@ -329,6 +380,37 @@ gclue_web_source_refresh (GClueWebSource *source)
+         GCLUE_WEB_SOURCE_GET_CLASS (source)->refresh_async (source, NULL, query_callback, NULL);
+ }
+ 
++#if SOUP_CHECK_VERSION (2, 99, 2)
++static void
++submit_query_callback (SoupSession  *session,
++                       GAsyncResult *result)
++{
++        g_autoptr(GBytes) body = NULL;
++        g_autoptr(GError) local_error = NULL;
++        SoupMessage *query;
++        g_autofree char *uri_str = NULL;
++        gint status_code;
++
++        query = soup_session_get_async_result_message (session, result);
++        uri_str = g_uri_to_string (soup_message_get_uri (query));
++
++        body = soup_session_send_and_read_finish (session, result, &local_error);
++        if (!body) {
++                g_warning ("Failed to submit location data to '%s': %s",
++                           uri_str, local_error->message);
++                return;
++        }
++
++        status_code = soup_message_get_status (query);
++        if (status_code != SOUP_STATUS_OK && status_code != SOUP_STATUS_NO_CONTENT) {
++                g_warning ("Failed to submit location data to '%s': %s",
++                           uri_str, soup_message_get_reason_phrase (query));
++                return;
++        }
++
++        g_debug ("Successfully submitted location data to '%s'", uri_str);
++}
++#else
+ static void
+ submit_query_callback (SoupSession *session,
+                        SoupMessage *query,
+@@ -350,6 +432,7 @@ submit_query_callback (SoupSession *session,
+         g_debug ("Successfully submitted location data to '%s'",
+                  str);
+ }
++#endif
+ 
+ #define SUBMISSION_ACCURACY_THRESHOLD 100
+ #define SUBMISSION_TIME_THRESHOLD     60  /* seconds */
+@@ -362,8 +445,8 @@ on_submit_source_location_notify (GObject    *source_object,
+         GClueLocationSource *source = GCLUE_LOCATION_SOURCE (source_object);
+         GClueWebSource *web = GCLUE_WEB_SOURCE (user_data);
+         GClueLocation *location;
+-        SoupMessage *query;
+-        GError *error = NULL;
++        g_autoptr(SoupMessage) query = NULL;
++        g_autoptr(GError) error = NULL;
+ 
+         location = gclue_location_source_get_location (source);
+         if (location == NULL ||
+@@ -386,16 +469,24 @@ on_submit_source_location_notify (GObject    *source_object,
+                 if (error != NULL) {
+                         g_warning ("Failed to create submission query: %s",
+                                    error->message);
+-                        g_error_free (error);
+                 }
+ 
+                 return;
+         }
+ 
++#if SOUP_CHECK_VERSION (2, 99, 2)
++        soup_session_send_and_read_async (web->priv->soup_session,
++                                          query,
++                                          G_PRIORITY_DEFAULT,
++                                          NULL,
++                                          (GAsyncReadyCallback)submit_query_callback,
++                                          web);
++#else
+         soup_session_queue_message (web->priv->soup_session,
+-                                    query,
++                                    g_steal_pointer (&query),
+                                     submit_query_callback,
+                                     web);
++#endif
+ }
+ 
+ /**
+diff --git a/src/meson.build b/src/meson.build
+index 13eb1ba..ca5e332 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -1,5 +1,10 @@
+-geoclue_deps = base_deps + [ dependency('json-glib-1.0', version: '>= 0.14.0'),
+-                             dependency('libsoup-2.4', version: '>= 2.42.0') ]
++geoclue_deps = base_deps + [ dependency('json-glib-1.0', version: '>= 0.14.0') ]
++
++if get_option('soup2')
++    geoclue_deps += dependency('libsoup-2.4', version: '>= 2.42.0')
++else
++    geoclue_deps += dependency('libsoup-3.0', version: '>= 2.99.2')
++endif
+ 
+ sources = [ libgeoclue_public_api_gen_sources[1],
+             geoclue_iface_sources,
+-- 
+2.34.1
+
