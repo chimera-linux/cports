@@ -5,6 +5,8 @@ build_style = "gnu_configure"
 configure_args = [
     "--enable-kcm",
     "--disable-otp", # needs ndbm
+    "--without-openssl", # FIXME
+    "--with-hcrypto-default-backend=hcrypto", # FIXME: switch back to ossl
     "--without-berkeley-db",
     "--with-db-type-preference=lmdb sqlite",
     f"--with-sqlite3={self.profile().sysroot / 'usr'}",
@@ -20,8 +22,9 @@ hostmakedepends = [
     "mandoc", "texinfo", "gettext-tiny", "automake", "libtool",
     "e2fsprogs-devel", # for compile_et
 ]
+# TODO: reenable openssl once we've figured out the openssl 3.x regressions
 makedepends = [
-    "sqlite-devel", "openssl-devel", "libedit-devel", "lmdb-devel",
+    "sqlite-devel", "libedit-devel", "lmdb-devel",
     "libcap-ng-devel", "linux-pam-devel", "gettext-tiny-devel",
     "ncurses-devel", "e2fsprogs-devel",
 ]
