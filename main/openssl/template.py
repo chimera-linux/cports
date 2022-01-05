@@ -1,33 +1,33 @@
 pkgname = "openssl"
-pkgver = "1.1.1l"
+pkgver = "3.0.1"
 pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
     "--prefix=/usr", "--openssldir=/etc/ssl", "--libdir=lib",
-    "shared", "no-ssl3-method", "no-asm", "-Wa,--noexecstack"
+    "shared", "no-ssl3-method", "-Wa,--noexecstack"
 ]
 make_install_args = ["MANSUFFIX=ssl"]
 make_check_target = "test"
 hostmakedepends = ["pkgconf", "perl"]
 pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "OpenSSL"
+license = "Apache-2.0"
 url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
-sha256 = "0b7a3e5e59c34827fe0c3a74b7ec8baef302b98fa80088d7f9153aa16fa76bd1"
+sha256 = "c311ad853353bce796edad01a862c50a8a587f62e7e2100ef465ab53ec9b06d1"
 options = ["bootstrap"]
 
 if self.stage > 0:
     makedepends = ["linux-headers"]
+else:
+    configure_args += ["no-asm"]
 
 match self.profile().arch:
     case "x86_64":
         configure_args += ["enable-ec_nistp_64_gcc_128", "linux-x86_64"]
-    case "aarch64" | "ppc64le" | "ppc64":
+    case "aarch64" | "ppc64le" | "ppc64" | "riscv64":
         configure_args += [f"linux-{self.profile().arch}"]
-    case "riscv64":
-        configure_args += ["linux-generic64"] # linux64-riscv64 for openssl 3
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
@@ -39,16 +39,17 @@ def do_build(self):
     self.make.invoke("depend")
     self.make.build(["MAKEDEPPROG=" + self.get_tool("CC")])
 
-@subpackage("libcrypto1.1")
+@subpackage("libcrypto3")
 def _libcrypto(self):
     self.pkgdesc = f"{pkgdesc} (crypto library)"
 
     return [
         "usr/lib/libcrypto.so.*",
-        "usr/lib/engines-1.1",
+        "usr/lib/engines-3",
+        "usr/lib/ossl-modules",
     ]
 
-@subpackage("libssl1.1")
+@subpackage("libssl3")
 def _libssl(self):
     self.pkgdesc = f"{pkgdesc} (SSL/TLS library)"
 
