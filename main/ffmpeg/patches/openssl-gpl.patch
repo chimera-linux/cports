@@ -1,0 +1,32 @@
+From 65077104f258dbffe8ac8d845dd0e44fc33d0939 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 5 Jan 2022 06:18:33 +0100
+Subject: [PATCH] put openssl in version3 (apache 2.0 is gpl3 compatible)
+
+---
+ configure | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure b/configure
+index e127209..63390c6 100755
+--- a/configure
++++ b/configure
+@@ -1735,7 +1735,6 @@ EXTERNAL_LIBRARY_GPL_LIST="
+ EXTERNAL_LIBRARY_NONFREE_LIST="
+     decklink
+     libfdk_aac
+-    openssl
+     libtls
+ "
+ 
+@@ -1747,6 +1746,7 @@ EXTERNAL_LIBRARY_VERSION3_LIST="
+     libopencore_amrwb
+     libvo_amrwbenc
+     mbedtls
++    openssl
+     rkmpp
+ "
+ 
+-- 
+2.34.1
+

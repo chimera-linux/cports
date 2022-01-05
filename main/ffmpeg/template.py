@@ -7,10 +7,10 @@ configure_args = [
     "--enable-shared",
     "--enable-static",
     "--enable-gpl",
-    "--enable-version3", # for openssl compat when we have it
+    "--enable-version3",
     "--enable-runtime-cpudetect",
     "--enable-lto",
-    #"--enable-openssl", # only once we have openssl 3
+    "--enable-openssl",
     "--enable-postproc",
     "--enable-libjack",
     "--enable-libpulse",
@@ -37,6 +37,7 @@ configure_args = [
     "--enable-libxcb",
     "--enable-librubberband",
     "--enable-libxml2",
+    "--enable-opencl",
     "--enable-vaapi",
     "--enable-vdpau",
     "--enable-vulkan",
@@ -52,7 +53,6 @@ configure_args = [
 
     # TODOs:
     "--disable-librtmp",
-    "--disable-opencl",
 ]
 make_cmd = "gmake"
 make_install_args = ["install-man"]
@@ -71,9 +71,8 @@ makedepends = [
     "libpulse-devel", "pipewire-jack-devel",
     "libva-devel", "libvdpau-devel", "v4l-utils-devel",
     "vulkan-loader", "vulkan-headers", "libdrm-devel", "sdl-devel",
-    "rubberband-devel", "libxml2-devel",
+    "rubberband-devel", "libxml2-devel", "ocl-icd-devel",
     # TODOs:
-    #"ocl-icd-devel",
     #"librtmp-devel",
 ]
 depends = [f"ffplay={pkgver}-r{pkgrel}"]
