@@ -1,0 +1,19 @@
+commit 2b9391fe4e00131cc3c7bbb99972fc41874e6c3e
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Wed Jan 5 17:23:25 2022 +0100
+
+    fix tests with openssl3
+
+diff --git a/tests/ssl-test.c b/tests/ssl-test.c
+index ecd0e63..bdc2604 100644
+--- a/tests/ssl-test.c
++++ b/tests/ssl-test.c
+@@ -74,7 +74,7 @@ do_strictness_test (gconstpointer data)
+ 
+         if (test->expected_status == SOUP_STATUS_OK) {
+                 g_assert_cmpuint (soup_message_get_tls_protocol_version (msg), ==, G_TLS_PROTOCOL_VERSION_TLS_1_3);
+-                g_assert_cmpstr (soup_message_get_tls_ciphersuite_name (msg), ==, "TLS_AES-256-GCM_SHA384");
++                g_assert_cmpstr (soup_message_get_tls_ciphersuite_name (msg), ==, "TLS_AES_256_GCM_SHA384");
+         } else {
+                 g_assert_cmpuint (soup_message_get_tls_protocol_version (msg), ==, G_TLS_PROTOCOL_VERSION_UNKNOWN);
+                 g_assert_null (soup_message_get_tls_ciphersuite_name (msg));
