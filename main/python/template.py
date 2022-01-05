@@ -1,6 +1,6 @@
 pkgname = "python"
 _majver = "3.10"
-pkgver = f"{_majver}.0"
+pkgver = f"{_majver}.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "5a99f8e7a6a11a7b98b4e75e0d1303d3832cada5534068f69c7b6222a7b1b002"
+sha256 = "a7f1265b6e1a5de1ec5c3ec7019ab53413469934758311e9d240c46e5ae6e177"
 
 pycompile_dirs = [f"usr/lib/python{_majver}"]
 

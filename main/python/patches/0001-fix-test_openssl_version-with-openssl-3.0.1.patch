@@ -1,0 +1,25 @@
+From 423d2da79c28c107e74e5a802ead3d7df469b6f0 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 5 Jan 2022 03:11:10 +0100
+Subject: [PATCH] fix test_openssl_version with openssl 3.0.1
+
+---
+ Lib/test/test_ssl.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Lib/test/test_ssl.py b/Lib/test/test_ssl.py
+index a485f7d..7b1244a 100644
+--- a/Lib/test/test_ssl.py
++++ b/Lib/test/test_ssl.py
+@@ -539,7 +539,7 @@ class BasicSocketTests(unittest.TestCase):
+         self.assertLessEqual(status, 15)
+ 
+         libressl_ver = f"LibreSSL {major:d}"
+-        openssl_ver = f"OpenSSL {major:d}.{minor:d}.{fix:d}"
++        openssl_ver = f"OpenSSL {major:d}.{minor:d}.{patch:d}"
+         self.assertTrue(
+             s.startswith((openssl_ver, libressl_ver)),
+             (s, t, hex(n))
+-- 
+2.34.1
+
