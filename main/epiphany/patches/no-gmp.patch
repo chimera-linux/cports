@@ -1,0 +1,30 @@
+commit e938fb8d5e524dbbff567983236007fa13747f8f
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Jan 6 06:06:02 2022 +0100
+
+    remove gmp dependency
+
+diff --git a/lib/sync/meson.build b/lib/sync/meson.build
+index c34cba3..bfbd4b7 100644
+--- a/lib/sync/meson.build
++++ b/lib/sync/meson.build
+@@ -17,7 +17,6 @@ libephysync_sources = [
+ libephysync_deps = [
+   ephymisc_dep,
+   glib_dep,
+-  gmp_dep,
+   hogweed_dep,
+   json_glib_dep,
+   libsecret_dep,
+diff --git a/meson.build b/meson.build
+index 357035e..a0940d1 100644
+--- a/meson.build
++++ b/meson.build
+@@ -131,7 +131,6 @@ config_h = declare_dependency(
+ )
+ 
+ cc = meson.get_compiler('c')
+-gmp_dep = cc.find_library('gmp')
+ m_dep = cc.find_library('m', required: false)
+ 
+ cflags = cc.get_supported_arguments(['-Werror=declaration-after-statement',
