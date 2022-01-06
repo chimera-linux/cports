@@ -7,7 +7,7 @@ pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
-options = ["!cross", "brokenlinks"]
+options = ["!cross"]
 
 _targets = list(filter(
     lambda p: p != self.profile().arch,
@@ -52,6 +52,7 @@ def _gen_crossp(an, at):
             f"musl-cross-{an}",
             f"libcxx-cross-{an}",
         ]
+        self.options = ["brokenlinks"]
         return [f"usr/bin/{at}-*", f"usr/lib/ccache/bin/{at}-*"]
     depends.append(f"base-cross-{an}={pkgver}-r{pkgrel}")
 
