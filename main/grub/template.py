@@ -60,7 +60,7 @@ match self.profile().arch:
         _platforms = [
             ("arm64", "efi", "", "", "Aarch64 EFI"),
         ]
-    case "rsicv64":
+    case "riscv64":
         _platforms = [
             ("riscv64", "efi", "", "", "64-bit RISC-V EFI"),
         ]
