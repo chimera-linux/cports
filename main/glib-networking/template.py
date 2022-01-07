@@ -2,17 +2,15 @@ pkgname = "glib-networking"
 pkgver = "2.70.1"
 pkgrel = 0
 build_style = "meson"
-# use gnutls for the time being, as openssl module is broken with 3.x,
-# and i'm not sure why (webkit tls connections do not work)
 configure_args = [
-    "-Dgnutls=enabled", "-Dopenssl=disabled", "-Dlibproxy=enabled",
+    "-Dgnutls=disabled", "-Dopenssl=enabled", "-Dlibproxy=enabled",
     "-Dgnome_proxy=enabled"
 ]
 hostmakedepends = [
     "meson", "pkgconf", "ca-certificates", "gettext-tiny"
 ]
 makedepends = [
-    "gnutls-devel", "gsettings-desktop-schemas-devel",
+    "openssl-devel", "gsettings-desktop-schemas-devel",
     "libglib-devel", "libproxy-devel"
 ]
 depends = ["gsettings-desktop-schemas"]
