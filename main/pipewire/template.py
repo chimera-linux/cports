@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.40"
+pkgver = "0.3.43"
 pkgrel = 0
 _pms_version = "0.4.1"
 build_style = "meson"
@@ -12,6 +12,7 @@ configure_args = [
     "-Dsystemd=disabled",
     "-Dlibcamera=disabled",
     "-Droc=disabled",
+    "-Dlv2=disabled", # TODO later
     "-Dbluez5=disabled", # TODO later
     "-Dbluez5-codec-ldac=disabled", # need ldacbt; little endian only
     "-Dpipewire-jack=enabled", # jack server
@@ -39,6 +40,7 @@ makedepends = [
     "fdk-aac-devel",
     "v4l-utils-devel",
     "avahi-devel",
+    "openssl-devel",
     "webrtc-audio-processing-devel",
     #"libbluetooth-devel", TODO later
     #"libfreeaptx-devel", TODO later
@@ -55,7 +57,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = [f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["a2c8176d757a2ac6db445c61a50802ff1c26f49f5a28174f5eb0278609a887cf"]
+sha256 = ["87f692a2cb5b14ee900e102502b5e078a0cd3f7836f03a2e7cb30690ead37b50"]
 
 def post_install(self):
     self.install_license("LICENSE")
