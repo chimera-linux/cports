@@ -1,10 +1,8 @@
-# a crappy build of gnutls that exists only until we can figure out why
-# glib-networking is broken with openssl 3.x (at least to the point of
-# making webkit not work)
 pkgname = "gnutls"
 pkgver = "3.7.2"
 pkgrel = 0
 build_style = "gnu_configure"
+# FIXME: do not use included libunistring, add libidn2, trousers, unbound
 configure_args = [
     "--with-zlib", "--with-nettle-mini", "--with-included-unistring",
     "--disable-guile", "--disable-static",
