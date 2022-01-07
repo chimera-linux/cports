@@ -1,30 +1,59 @@
-commit e938fb8d5e524dbbff567983236007fa13747f8f
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Thu Jan 6 06:06:02 2022 +0100
+From 0e5be3921831f2b032be101286426b5e28d9f64c Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 7 Jan 2022 17:24:17 +0100
+Subject: [PATCH] meson: check if nettle uses mini-gmp, loosen check
+ accordingly
 
-    remove gmp dependency
+---
+ lib/sync/ephy-sync-crypto.c |  5 +++++
+ meson.build                 | 16 +++++++++++++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/lib/sync/meson.build b/lib/sync/meson.build
-index c34cba3..bfbd4b7 100644
---- a/lib/sync/meson.build
-+++ b/lib/sync/meson.build
-@@ -17,7 +17,6 @@ libephysync_sources = [
- libephysync_deps = [
-   ephymisc_dep,
-   glib_dep,
--  gmp_dep,
-   hogweed_dep,
-   json_glib_dep,
-   libsecret_dep,
+diff --git a/lib/sync/ephy-sync-crypto.c b/lib/sync/ephy-sync-crypto.c
+index a2308e816..8ea85b9a3 100644
+--- a/lib/sync/ephy-sync-crypto.c
++++ b/lib/sync/ephy-sync-crypto.c
+@@ -32,8 +32,13 @@
+ #include <nettle/cbc.h>
+ #include <nettle/hkdf.h>
+ #include <nettle/hmac.h>
++#include <nettle/bignum.h>
+ #include <string.h>
+ 
++#if !NETTLE_USE_MINI_GMP
++#include <gmp.h>
++#endif
++
+ #define HAWK_VERSION  1
+ #define NONCE_LEN     6
+ #define IV_LEN        16
 diff --git a/meson.build b/meson.build
-index 357035e..a0940d1 100644
+index 6e50f83b7..ed3cb57ae 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -131,7 +131,6 @@ config_h = declare_dependency(
+@@ -130,7 +130,21 @@ config_h = declare_dependency(
  )
  
  cc = meson.get_compiler('c')
 -gmp_dep = cc.find_library('gmp')
++
++mini_gmp_test = '''
++#include <nettle/bignum.h>
++
++#if !NETTLE_USE_MINI_GMP
++# error "gmp is needed"
++#endif
++'''
++
++if cc.compiles(mini_gmp_test, dependencies: hogweed_dep)
++  gmp_dep = dependency('', required: false)
++else
++  gmp_dep = cc.find_library('gmp')
++endif
++
  m_dep = cc.find_library('m', required: false)
  
  cflags = cc.get_supported_arguments(['-Werror=declaration-after-statement',
+-- 
+GitLab
+
