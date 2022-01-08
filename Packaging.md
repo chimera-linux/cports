@@ -1374,6 +1374,7 @@ for subpackages separately if needed:
   otherwise. You can change the default by toggling this.
 * `splitudev` *(true)* This is like `autosplit`, but only for udev
   rules.
+* `splitdoc` *(true)* This is like `autosplit`, but only for docs.
 
 <a id="hardening_options"></a>
 ### Hardening Options

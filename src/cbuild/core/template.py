@@ -296,6 +296,7 @@ default_options = {
     # actually true by default for -devel
     "splitstatic": (False, False),
     "splitudev": (True, False),
+    "splitdoc": (True, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),

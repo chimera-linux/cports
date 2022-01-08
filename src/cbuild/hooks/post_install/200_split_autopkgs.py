@@ -24,6 +24,8 @@ def invoke(pkg):
             continue
         if apkg == "udev" and not pkg.options["splitudev"]:
             continue
+        if apkg == "doc" and not pkg.options["splitdoc"]:
+            continue
         if not takef:
             continue
         if pkg.pkgname == iif:
