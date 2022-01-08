@@ -9,7 +9,8 @@ make_build_args = [
     "SHAREDIR=/usr/share/hwdata", "MANDIR=/usr/share/man"
 ]
 make_install_args = [
-    "SHARED=yes", "SHAREDIR=/usr/share/hwdata", "SBINDIR=/usr/bin"
+    "SHARED=yes", "SHAREDIR=/usr/share/hwdata", "SBINDIR=/usr/bin",
+    "MANDIR=/usr/share/man"
 ]
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["zlib-devel", "libkmod-devel", "linux-headers"]
