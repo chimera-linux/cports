@@ -10,12 +10,16 @@ def do_configure(self):
     perlpfx = self.statedir / f"perlprefix-{pf.arch}"
     perlpfx.mkdir(parents = True)
 
-    perlpath = paths.bldroot() / pf.sysroot / "usr/lib/perl5/core_perl"
+    perlpathroot = "usr/lib/perl5/core_perl"
+    perlpath = paths.bldroot() / pf.sysroot.relative_to("/") / perlpathroot
 
-    for f in perlpath.glob("Config*"):
-        self.cp(f, perlpfx)
+    if not perlpath.is_dir():
+        perlpath = paths.bldroot() / perlpathroot
 
-    self.cp(perlpath / "Errno.pm", perlpfx)
+    if perlpath.is_dir():
+        for f in perlpath.glob("Config*"):
+            self.cp(f, perlpfx)
+        self.cp(perlpath / "Errno.pm", perlpfx)
 
     pmkf = self.cwd / "Makefile.PL"
     if not pmkf.exists():
