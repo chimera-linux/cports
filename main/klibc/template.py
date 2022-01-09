@@ -12,8 +12,7 @@ license = "GPL-2.0-or-later AND BSD-3-Clause"
 url = "https://git.kernel.org/cgit/libs/klibc/klibc.git"
 source = f"$(KERNEL_SITE)/libs/klibc/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6dcca708913320d26309f05b0c2bf68071bf11b3dadcc4e6c7d923837fc23ee1"
-# symlink to linux-headers
-options = ["brokenlinks", "!lto"]
+options = ["!lto"]
 
 match self.profile().arch:
     case "x86_64": _arch = "x86_64"
@@ -73,7 +72,8 @@ def post_install(self):
 @subpackage("klibc-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
-    self.options = ["!splitstatic"]
+    # symlink to linux-headers
+    self.options = ["!splitstatic", "brokenlinks"]
     return [
         "usr/bin",
         "usr/lib/klibc/include",
