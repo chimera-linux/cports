@@ -1,0 +1,9 @@
+# bluetoothd service
+#
+# TODO: log output to syslog redirection
+
+type            = process
+command         = /usr/libexec/bluetoooth/bluetoothd -n
+depends-on      = dbus
+smooth-recovery = true
+logfile         = /var/log/bluetoothd.log
