@@ -1,5 +1,5 @@
 pkgname = "bsdutils"
-_commit="a6917da54806fafae5df9f8ec54821a6c847223a"
+_commit="d7050267fbc655a8b1a01bae58f23b304e0daf32"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/bsdutils"
 source = f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"
-sha256 = "55e5a33d9387523a4c24216c187e54ac92d4ca7e38d3cd0fe7793e41af21c4ef"
+sha256 = "30e947783d0a3155231d6fd3f5a3fe5d1576622734c518075e27052c6cfd970c"
 # no test suite
 options = ["bootstrap", "!check"]
 
