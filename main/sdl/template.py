@@ -9,7 +9,7 @@ configure_args = [
     "--disable-nas",
     "--disable-oss",
     "--disable-pulseaudio",
-    "--disable-sndio",      # TODO: enable later
+    "--disable-sndio",
     "--disable-altivec",    # breaks C++ otherwise because of public altivec.h
     "--disable-x11-shared",
     "--disable-pulseaudio-shared",
@@ -40,7 +40,6 @@ makedepends = [
     "libxkbcommon-devel", "libxcursor-devel", "libxinerama-devel",
     "libxscrnsaver-devel", "libxrandr-devel", "libxi-devel", "libsm-devel",
     "vulkan-headers", "vulkan-loader", "mesa-devel", "pipewire-devel",
-    #"sndio-devel",
 ]
 depends = [
     # dynamically loaded
