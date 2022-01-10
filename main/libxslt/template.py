@@ -2,12 +2,8 @@ pkgname = "libxslt"
 pkgver = "1.1.34"
 pkgrel = 0
 build_style = "gnu_configure"
-# FIXME: crypto needs libgcrypt, maybe also enable python?
-configure_args = ["--without-crypto", "--without-python"]
-hostmakedepends = [
-    "docbook-xml", "docbook-xsl-nons", "pkgconf"
-]
-makedepends = ["libxml2-devel"]
+hostmakedepends = ["docbook-xml", "docbook-xsl-nons", "pkgconf"]
+makedepends = ["libxml2-devel", "libgcrypt-devel"]
 pkgdesc = "GNOME XSLT parser library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
