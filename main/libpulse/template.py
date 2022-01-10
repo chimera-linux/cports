@@ -32,7 +32,4 @@ def _devel(self):
 @subpackage("libpulse-progs")
 def _progs(self):
     self.pkgdesc = "PulseAudio utilities"
-    return self.default_progs(extra = [
-        "usr/share/bash-completion",
-        "usr/share/zsh",
-    ])
+    return self.default_progs()
