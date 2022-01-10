@@ -170,7 +170,7 @@ def _genplatform(arch, platform, desc):
     def _plat(self):
         self.pkgdesc = f"{pkgdesc} ({desc} support)"
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-        self.options = ["!strip"]
+        self.options = ["!strip", "foreignelf"]
 
         return [f"usr/lib/grub/{arch}-{platform}"]
 
