@@ -3,8 +3,7 @@ pkgver = "0.25.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    # TODO: libexif
-    "-Dpam=true", "-Dwl=true", "-Dsystemd=false", "-Dlibexif=false"
+    "-Dpam=true", "-Dwl=true", "-Dsystemd=false",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "efl", "xwayland", "wayland-progs"
@@ -13,7 +12,7 @@ hostmakedepends = [
 makedepends = [
     "gettext-tiny-devel", "efl-devel", "mesa-devel", "wayland-devel",
     "wayland-protocols", "libxkbcommon-devel", "linux-pam-devel",
-    "xkeyboard-config"
+    "libexif-devel", "bluez-devel", "xkeyboard-config"
 ]
 depends = [
     "desktop-file-utils", "hicolor-icon-theme", "xkeyboard-config", "elogind"
