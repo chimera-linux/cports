@@ -13,8 +13,8 @@ configure_args = [
     "-Dlibcamera=disabled",
     "-Droc=disabled",
     "-Dlv2=disabled", # TODO later
-    "-Dbluez5=disabled", # TODO later
-    "-Dbluez5-codec-ldac=disabled", # need ldacbt; little endian only
+    "-Dbluez5=enabled",
+    "-Dbluez5-codec-ldac=disabled", # TODO: need ldacbt; little endian only
     "-Dpipewire-jack=enabled", # jack server
     "-Djack-devel=true", # jack development files
     "-Dlibjack-path=/usr/lib",
@@ -42,8 +42,8 @@ makedepends = [
     "avahi-devel",
     "openssl-devel",
     "webrtc-audio-processing-devel",
-    #"libbluetooth-devel", TODO later
-    #"libfreeaptx-devel", TODO later
+    "bluez-devel",
+    "libfreeaptx-devel",
 ]
 depends = [
     f"libspa-alsa={pkgver}-r{pkgrel}",
@@ -109,7 +109,7 @@ def _genspa(spa):
 
 for spa in [
     "alsa", "audioconvert", "audiomixer", "control", "v4l2", "videoconvert",
-    #"bluez5", disabled for now
+    "bluez5",
 ]:
     _genspa(spa)
 
