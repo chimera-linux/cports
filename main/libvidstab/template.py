@@ -2,6 +2,7 @@ pkgname = "libvidstab"
 pkgver = "1.1.0"
 pkgrel = 0
 build_style = "cmake"
+configure_args = []
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["orc-devel", "libomp-devel"]
 pkgdesc = "Video stabilization library"
