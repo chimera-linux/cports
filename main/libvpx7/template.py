@@ -35,6 +35,7 @@ match self.profile().arch:
         _tgt = "ppc64le-linux-gcc"
     case "x86_64":
         _tgt = "x86_64-linux-gcc"
+        tools = {"AS": "yasm"}
     case _:
         _tgt = "generic-gnu"
 
