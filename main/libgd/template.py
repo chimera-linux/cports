@@ -7,8 +7,7 @@ configure_args = ["--without-xpm"]
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "libjpeg-turbo-devel", "libpng-devel", "libwebp-devel",
-    "libtiff-devel", "fontconfig-devel",
-    # TODO: other image formats (heif, avif, ...)
+    "libtiff-devel", "fontconfig-devel", "libavif-devel", "libheif-devel",
 ]
 checkdepends = ["fonts-liberation-otf"]
 pkgdesc = "Graphics library for the dynamic creation of images"
