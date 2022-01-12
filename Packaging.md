@@ -582,6 +582,9 @@ Keep in mind that default values may be overridden by build styles.
   followed by this, followed by the rest.
 * `make_build_target` *(str)* The `make_cmd` target to be used to build.
   Different build systems may use this differently. Empty by default.
+* `make_build_wrapper` *(list)* A list of arguments to prepend before the `make`
+  command during `build`. It is the middle wrapper, i.e. passed after the
+  explicit one, but before `make_wrapper`.
 * `make_check_args` *(list)* A list of custom arguments passed to `make_cmd`
   when running tests.
 * `make_check_env` *(dict)* Environment variables to be exported when running
@@ -590,6 +593,9 @@ Keep in mind that default values may be overridden by build styles.
 * `make_check_target` *(str)* The `make_cmd` target to be used to run tests.
   Different build systems may use this differently (`check` by default
   unless overridden by the `build_style`).
+* `make_check_wrapper` *(list)* A list of arguments to prepend before the `make`
+  command during `check`. It is the middle wrapper, i.e. passed after the
+  explicit one, but before `make_wrapper`.
 * `make_dir` *(str)* The subdirectory of `cwd` that `make_cmd` is invoked in
   by default. This has the default value of `.`, so it normally does not
   impose any directory changes. However, the default may be altered by
@@ -603,6 +609,12 @@ Keep in mind that default values may be overridden by build styles.
   followed by this, followed by the rest.
 * `make_install_target` *(str)* The `make_cmd` target to be used to install.
   Different build systems may use this differently (`install` by default).
+* `make_install_wrapper` *(list)* A list of arguments to prepend before the `make`
+  command during `install`. It is the middle wrapper, i.e. passed after the
+  explicit one, but before `make_wrapper`.
+* `make_wrapper` *(list)* A list of arguments to prepend before the `make`
+  command. It is the least important wrapper, i.e. passed the last out of
+  all wrappers.
 * `makedepends` *(list)* A list of strings specifying package names to be
   installed in the build container. When cross compiling, these are installed
   into the target architecture sysroot. When not cross compiling, this is
@@ -2848,7 +2860,7 @@ This makes it compatible with both Chimera and regular Linux systems
 as the `bmake` alias exists in both and `gmake` is still used when
 requested and exists.
 
-###### def invoke(self, targets = [], args = [], jobs = None, env = {}, wrksrc = None)
+###### def invoke(self, targets = [], args = [], jobs = None, env = {}, wrksrc = None, wrapper = [])
 
 Invoke the tool, whose name is retrieved with `get_command()`. The
 arguments are passed like this:
@@ -2871,7 +2883,10 @@ The `wrksrc` is either the `wrksrc` argument, `self.wrksrc`, or
 
 You can use this method as a completely generic, unspecialized invocation.
 
-###### def build(self, args = [], jobs = None, env = {}, wrksrc = None)
+The `wrapper` is expanded before the command. You can use this to wrap `make`
+invocations with different commands, e.g. when running tests.
+
+###### def build(self, args = [], jobs = None, env = {}, wrksrc = None, wrapper = [])
 
 Calls `invoke`. The `targets` is `self.template.make_build_target`, the
 `args` are `self.template.make_build_args` plus any extra `args`. The
@@ -2884,7 +2899,7 @@ The environment for the invocation works as follows:
 * Then followed by `self.template.make_env`
 * Then followed by the rest
 
-###### def install(self, args = [], jobs = None, env = {}, default_args = True, args_use_env = False, wrksrc = None)
+###### def install(self, args = [], jobs = None, env = {}, default_args = True, args_use_env = False, wrksrc = None, wrapper = [])
 
 Calls `invoke`. The `targets` is `self.template.make_install_target` and
 `jobs`, `wrksrc` are passed as is.
@@ -2909,7 +2924,7 @@ The `env` is passed as is, except when `DESTDIR` is passed via environment,
 then it is passed together with that (user passed environment always takes
 preference).
 
-###### def check(self, args = [], jobs = None, env = {}, wrksrc = None)
+###### def check(self, args = [], jobs = None, env = {}, wrksrc = None, wrapper = [])
 
 Calls `invoke`. The `targets` is `self.template.make_check_target`, the
 `args` are `self.template.make_check_args` plus any extra `args`. The
