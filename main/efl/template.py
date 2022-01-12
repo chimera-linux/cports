@@ -8,11 +8,9 @@ configure_args = [
     "-Dembedded-lz4=false",
     "-Dcrypto=openssl",
     "-Decore-imf-loaders-disabler=ibus,scim",
-    # TODO: maybe enable avif, heif
-    # ps needs libspectre and thus ghostscript (AGPL)
-    # pdf needs poppler, which is GPL and probably leaks
-    # into the EFL distribution so we don't want that
-    "-Devas-loaders-disabler=avif,heif,json,pdf,ps",
+    # TODO: package poppler, libspectre, ghostscript + enable pdf, ps
+    # rlottie (json) is pretty useless and unstable so keep that off
+    "-Devas-loaders-disabler=json,pdf,ps",
     "-Dlua-interpreter=lua",
     "-Dbindings=cxx",
     "-Dopengl=es-egl",
@@ -43,9 +41,10 @@ makedepends = [
     "xcb-util-renderutil-devel", "xorgproto", "liblz4-devel", "zlib-devel",
     "fontconfig-devel", "fribidi-devel", "harfbuzz-devel", "freetype-devel",
     "libjpeg-turbo-devel", "libpng-devel", "giflib-devel", "libtiff-devel",
-    "libwebp-devel", "openjpeg-devel", "libraw-devel", "librsvg-devel",
-    "libpulse-devel", "libsndfile-devel", "gstreamer-devel",
-    "gst-plugins-base-devel", "glib-devel", "avahi-devel", "lua5.1-devel",
+    "libwebp-devel", "openjpeg-devel", "libavif-devel", "libheif-devel",
+    "libraw-devel", "librsvg-devel", "libpulse-devel", "libsndfile-devel",
+    "gstreamer-devel", "gst-plugins-base-devel", "glib-devel", "avahi-devel",
+    "lua5.1-devel",
 ]
 checkdepends = ["dbus", "xvfb-run", "check-devel"]
 pkgdesc = "Enlightenment Foundation Libraries"
