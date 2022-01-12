@@ -9,6 +9,7 @@ configure_args = [
     "--enable-pie",
 ]
 make_cmd = "gmake"
+make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = ["gmake", "pkgconf", "python-docutils"]
 # TODO: look into porting to libedit later
 # iwd's usage of readline is very fucky and we don't wanna break it
@@ -24,13 +25,6 @@ sha256 = "dd65a8795f6127fb1b9e29f2092686b0590a0d3738c2b90c792ccd320deaf966"
 tool_flags = {"CFLAGS": [
     "-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"
 ]}
-
-def do_check(self):
-    # FIXME: add an executable wrapper to our make functionality
-    self.do(
-        "dbus-run-session", "gmake", "-C", "build", "check",
-        f"-j{self.make_jobs}"
-    )
 
 def post_install(self):
     self.install_service(self.files_path / "iwd")
