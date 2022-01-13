@@ -8,9 +8,9 @@ configure_args = [
     "-Dembedded-lz4=false",
     "-Dcrypto=openssl",
     "-Decore-imf-loaders-disabler=ibus,scim",
-    # TODO: package poppler, libspectre, ghostscript + enable pdf, ps
+    # TODO: package libspectre, ghostscript + enable ps
     # rlottie (json) is pretty useless and unstable so keep that off
-    "-Devas-loaders-disabler=json,pdf,ps",
+    "-Devas-loaders-disabler=json,ps",
     "-Dlua-interpreter=lua",
     "-Dbindings=cxx",
     "-Dopengl=es-egl",
@@ -42,9 +42,9 @@ makedepends = [
     "fontconfig-devel", "fribidi-devel", "harfbuzz-devel", "freetype-devel",
     "libjpeg-turbo-devel", "libpng-devel", "giflib-devel", "libtiff-devel",
     "libwebp-devel", "openjpeg-devel", "libavif-devel", "libheif-devel",
-    "libraw-devel", "librsvg-devel", "libpulse-devel", "libsndfile-devel",
-    "gstreamer-devel", "gst-plugins-base-devel", "glib-devel", "avahi-devel",
-    "lua5.1-devel",
+    "libraw-devel", "librsvg-devel", "libpoppler-cpp-devel", "libpulse-devel",
+    "libsndfile-devel", "gstreamer-devel", "gst-plugins-base-devel",
+    "glib-devel", "avahi-devel", "lua5.1-devel",
 ]
 checkdepends = ["dbus", "xvfb-run", "check-devel"]
 pkgdesc = "Enlightenment Foundation Libraries"
