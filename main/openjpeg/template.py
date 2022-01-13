@@ -2,7 +2,8 @@ pkgname = "openjpeg"
 pkgver = "2.4.0"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DBUILD_TESTING=ON"]
+# we skip static libs or they get referenced in cmake devel files
+configure_args = ["-DBUILD_TESTING=ON", "-DBUILD_STATIC_LIBS=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libpng-devel", "libtiff-devel", "lcms2-devel"]
 pkgdesc = "Open-source JPEG 2000 codec written in C"
@@ -19,6 +20,9 @@ def post_install(self):
 
 @subpackage("openjpeg-devel")
 def _devel(self):
+    # because cmake is dumb and references binaries in the find file
+    self.depends += [f"openjpeg-progs={pkgver}-r{pkgrel}"]
+
     return self.default_devel(extra = ["usr/lib/openjpeg-2.*"])
 
 @subpackage("openjpeg-progs")
