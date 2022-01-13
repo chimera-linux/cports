@@ -11,6 +11,7 @@ configure_args = [
     "--enable-runtime-cpudetect",
     "--enable-lto",
     "--enable-openssl",
+    "--enable-librtmp",
     "--enable-postproc",
     "--enable-libjack",
     "--enable-libpulse",
@@ -50,16 +51,13 @@ configure_args = [
     "--disable-libopencore_amrwb",
     "--disable-libcelt",
     "--disable-libspeex",
-
-    # TODOs:
-    "--disable-librtmp",
 ]
 make_cmd = "gmake"
 make_install_args = ["install-man"]
 make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf", "perl", "yasm", "texinfo"]
 makedepends = [
-    "zlib-devel", "libbz2-devel", "openssl-devel",
+    "zlib-devel", "libbz2-devel", "openssl-devel", "librtmp-devel",
     "freetype-devel", "harfbuzz-devel",
     "libxfixes-devel", "libxext-devel", "libxvmc-devel", "libxcb-devel",
     "x264-devel", "x265-devel", "xvidcore-devel", "dav1d-devel",
@@ -72,8 +70,6 @@ makedepends = [
     "libva-devel", "libvdpau-devel", "v4l-utils-devel",
     "vulkan-loader", "vulkan-headers", "libdrm-devel", "sdl-devel",
     "rubberband-devel", "libxml2-devel", "ocl-icd-devel",
-    # TODOs:
-    #"librtmp-devel",
 ]
 depends = [f"ffplay={pkgver}-r{pkgrel}"]
 pkgdesc = "Decoding, encoding and streaming software"
