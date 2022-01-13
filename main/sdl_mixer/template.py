@@ -10,9 +10,7 @@ configure_args = [
     "--disable-music-ogg-shared",
     "--disable-music-flac-shared",
     "--disable-music-opus-shared",
-    "--disable-music-midi-fluidsynth", # FIXME
-    "--disable-music-midi-timidity",   # FIXME
-    "--disable-music-mp3-mpg123",      # FIXME
+    "--disable-music-midi-timidity",
 ]
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
@@ -23,9 +21,9 @@ makedepends = [
     "opusfile-devel",
     "libmikmod-devel",
     "libmodplug-devel",
-    #"fluidsynth-devel",
+    "fluidsynth-devel",
     "smpeg-devel",
-    #"mpg123-devel",
+    "mpg123-devel",
 ]
 pkgdesc = "SDL audio mixer library"
 maintainer = "q66 <q66@chimera-linux.org>"
