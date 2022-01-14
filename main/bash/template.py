@@ -27,9 +27,7 @@ def init_configure(self):
     self.make_build_args += [f"TERMCAP_LIB={tcap}"]
 
 def post_install(self):
-    self.install_dir("etc/bash/bashrc.d")
-    (self.destdir / "etc/bash/bashrc.d/.empty").touch()
-    (self.destdir / "etc/bash/bashrc.d/.empty").chmod(0o644)
+    self.install_dir("etc/bash/bashrc.d", empty = True)
 
     # register with shells
     self.install_shell("/usr/bin/bash")

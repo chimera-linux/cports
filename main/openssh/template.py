@@ -50,8 +50,7 @@ def post_install(self):
     self.install_bin("contrib/ssh-copy-id")
     self.install_man("contrib/ssh-copy-id.1")
 
-    self.install_dir("var/chroot/ssh")
-    (self.destdir / "var/chroot/ssh/.empty").touch()
+    self.install_dir("var/chroot/ssh", empty = True)
 
     self.install_service(self.files_path / "ssh-keygen")
     self.install_service(self.files_path / "sshd")

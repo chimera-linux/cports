@@ -40,10 +40,8 @@ system_users = ["dbus:22"]
 
 def post_install(self):
     # these need to exist
-    self.install_dir("var/lib/dbus")
-    (self.destdir / "var/lib/dbus/.empty").touch(mode = 0o644)
-    self.install_dir("etc/dbus-1/session.d")
-    (self.destdir / "etc/dbus-1/session.d/.empty").touch(mode = 0o644)
+    self.install_dir("var/lib/dbus", empty = True)
+    self.install_dir("etc/dbus-1/session.d", empty = True)
     # service file
     self.install_file(
         self.files_path / "dbus-daemon.wrapper", "usr/libexec", mode = 0o755

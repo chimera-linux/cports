@@ -30,5 +30,4 @@ def post_install(self):
     self.install_service(self.files_path / "iwd")
     self.install_service(self.files_path / "ead")
 
-    self.install_dir("etc/iwd")
-    (self.destdir / "etc/iwd/.empty").touch(mode = 0o644)
+    self.install_dir("etc/iwd", empty = True)

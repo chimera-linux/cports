@@ -27,12 +27,9 @@ def post_install(self):
     )
 
     # empty dirs
-    self.install_dir(f"etc/depmod.d")
-    (self.destdir / f"etc/depmod.d/.empty").touch(mode = 0o644)
-    self.install_dir(f"etc/modprobe.d")
-    (self.destdir / f"etc/modprobe.d/.empty").touch(mode = 0o644)
-    self.install_dir(f"usr/lib/modprobe.d")
-    (self.destdir / f"usr/lib/modprobe.d/.empty").touch(mode = 0o644)
+    self.install_dir(f"etc/depmod.d", empty = True)
+    self.install_dir(f"etc/modprobe.d", empty = True)
+    self.install_dir(f"usr/lib/modprobe.d", empty = True)
 
     # compat
     for tool in ["lsmod", "insmod", "rmmod", "depmod", "modprobe", "modinfo"]:

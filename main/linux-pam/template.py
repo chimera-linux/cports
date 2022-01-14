@@ -26,8 +26,7 @@ def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd", recursive = True)
 
     for f in ["limits.d", "namespace.d"]:
-        self.install_dir(f"etc/security/{f}")
-        (self.destdir / "etc/security" / f / ".empty").touch(mode = 0o644)
+        self.install_dir(f"etc/security/{f}", empty = True)
 
 @subpackage("linux-pam-devel")
 def _devel(self):

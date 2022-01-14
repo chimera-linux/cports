@@ -48,8 +48,7 @@ system_users = [
 def post_install(self):
     self.install_service(self.files_path / "colord")
 
-    self.install_dir("var/lib/colord/icc")
-    (self.destdir / "var/lib/colord/icc/.empty").touch(mode = 0o644)
+    self.install_dir("var/lib/colord/icc", empty = True)
 
 @subpackage("libcolord")
 def _lib(self):

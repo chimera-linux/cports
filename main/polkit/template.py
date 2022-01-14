@@ -44,8 +44,7 @@ def post_install(self):
     self.install_file(
         self.files_path / "polkit-1.pam", "etc/pam.d", name = "polkit-1"
     )
-    self.install_dir("usr/share/polkit-1/rules.d", mode = 0o700)
-    (self.destdir / "usr/share/polkit-1/rules.d/.empty").touch(mode = 0o644)
+    self.install_dir("usr/share/polkit-1/rules.d", mode = 0o700, empty = True)
     self.install_service(self.files_path / "polkitd")
 
 @subpackage("polkit-devel")
