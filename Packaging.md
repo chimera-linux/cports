@@ -2446,7 +2446,7 @@ Usage:
 self.install_files("data/foo", "usr/share")
 ```
 
-##### def install_dir(self, dest, mode = 0o755)
+##### def install_dir(self, dest, mode = 0o755, empty = False)
 
 Creates a directory `dest` in `destdir`.
 
@@ -2455,6 +2455,10 @@ Usage:
 ```
 self.install_dir("usr/include")
 ```
+
+The `empty` argument, if set to `True`, will result in the `.empty`
+file being created inside. This serves as a placeholder to prevent
+the directory's accidental removal.
 
 ##### def install_file(self, src, dest, mode = 0o644, name = None)
 

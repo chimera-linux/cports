@@ -1162,7 +1162,7 @@ class Template(Package):
 
         shutil.copytree(path, dest, symlinks = symlinks)
 
-    def install_dir(self, dest, mode = 0o755):
+    def install_dir(self, dest, mode = 0o755, empty = False):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
             raise errors.TracebackException(
@@ -1173,6 +1173,8 @@ class Template(Package):
             dirp.mkdir(parents = True)
         if mode is not None:
             dirp.chmod(mode)
+        if empty:
+            (dirp / ".empty").touch(mode = 0o644)
 
     def install_file(self, src, dest, mode = 0o644, name = None):
         src = pathlib.Path(src)
