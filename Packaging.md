@@ -365,7 +365,9 @@ devel packages is that if you have `foo` and `libfoo`, the development
 files go in `foo-devel`. However, if the library part has its own
 development files that make sense separately from the main `devel`
 package, it is perfectly acceptable to have `libfoo-devel` alongside
-`foo-devel`.
+`foo-devel`. If the template calls for having multiple `-devel`
+packages related to different individual libraries, you can also
+split them up accordingly.
 
 Static libraries should go in `-static` packages in nearly all cases.
 In specific cases, they will go in `-devel`. Static libraries are
