@@ -1,0 +1,6 @@
+# unbound daemon service
+
+type               = process
+command            = /usr/bin/unbound -dp
+depends-on         = init
+smooth-recovery    = true
