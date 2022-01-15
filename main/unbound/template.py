@@ -40,7 +40,7 @@ def post_install(self):
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
-    return ["usr/lib/libunbound.so.*"]
+    return self.default_libs()
 
 @subpackage("unbound-devel")
 def _devel(self):

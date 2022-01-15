@@ -1,0 +1,8 @@
+# tcsd daemon service
+
+type               = process
+command            = /usr/bin/tcsd -f
+logfile            = /var/log/tcsd.log
+depends-on         = early
+run-as             = tss
+smooth-recovery    = true
