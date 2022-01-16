@@ -3,14 +3,13 @@ pkgver = "1.4.5"
 pkgrel = 0
 build_style = "meson"
 # manpages fail to generate
-# TODO: enable sane
 configure_args = [
     "-Ddaemon_user=_colord",
     "-Dsystemd=false",
     "-Dargyllcms_sensor=false",
     "-Ddocs=false",
     "-Dman=false",
-    "-Dsane=false",
+    "-Dsane=true",
     "-Dvapi=true",
 ]
 hostmakedepends = [
@@ -19,7 +18,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "bash-completion", "lcms2-devel", "libgudev-devel", "libgusb-devel",
-    "polkit-devel", "sqlite-devel",
+    "polkit-devel", "sqlite-devel", "dbus-devel", "sane-backends-devel",
 ]
 pkgdesc = "Color management daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
