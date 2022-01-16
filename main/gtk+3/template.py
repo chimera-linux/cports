@@ -4,8 +4,8 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dx11_backend=true", "-Dwayland_backend=true", "-Dbroadway_backend=true",
-    "-Dprint_backends=file", # TODO: enable cups
-    "-Dcolord=yes", # only affects CUPS actually, pre-enable though
+    "-Dprint_backends=cups,file",
+    "-Dcolord=yes",
     "-Dgtk_doc=false",
     "-Dman=true",
     "-Dintrospection=true",
@@ -19,7 +19,7 @@ makedepends = [
     "colord-devel", "libxkbcommon-devel", "wayland-devel", "wayland-protocols",
     "mesa-devel", "libxcursor-devel", "libxdamage-devel", "libxext-devel",
     "libxinerama-devel", "libxrandr-devel", "libxcomposite-devel",
-    "libxi-devel", "iso-codes",
+    "libxi-devel", "cups-devel", "iso-codes",
 ]
 depends = [
     "gtk-update-icon-cache", "adwaita-icon-theme",
@@ -67,3 +67,10 @@ def _demo(self):
         "usr/share/applications/gtk3-demo.desktop",
         "usr/share/icons",
     ]
+
+@subpackage("gtk+3-cups")
+def _cups(self):
+    self.pkgdesc = f"{pkgdesc} (CUPS print backend)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
+
+    return ["usr/lib/gtk-3.0/3.0.0/printbackends/libprintbackend-cups.so"]
