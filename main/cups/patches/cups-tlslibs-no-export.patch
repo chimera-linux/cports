@@ -1,0 +1,11 @@
+--- a/configure
++++ b/configure
+@@ -9952,7 +9952,7 @@ fi
+ 
+ 
+ 
+-EXPORT_TLSLIBS="$TLSLIBS"
++EXPORT_TLSLIBS=""
+ 
+ 
+ 
