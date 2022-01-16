@@ -115,8 +115,12 @@ class SPDXParser:
             self.token = self.lex()
             if not self.token:
                 raise RuntimeError("token expected")
+            # custom exceptions
+            if self.token.startswith("custom:"):
+                self.token = self.lex()
+                return
             if not self.token in self.edict:
-                raise RuntimeError("exception id expected, got: " + tok)
+                raise RuntimeError("exception id expected, got: " + self.token)
             self.token = self.lex()
 
     def parse_expr(self, mprec = 1):

@@ -469,7 +469,8 @@ These variables are mandatory:
   use `custom:none`. Packages that have some custom license should use
   `custom:packagename`, and properly install the license. The license
   is inherited into all subpackages, and subpackages are allowed to set
-  it themselves.
+  it themselves. License exceptions can be from the standard list or they
+  can be custom as well, e.g. `GPL-2.0-or-later WITH custom:foo-exception`.
 * `pkgname` *(str)* The primary package name, must match template name.
 * `pkgver` *(str)* The package version, applies to all subpackages. Must
   follow the correct format for the `apk` package manager.
