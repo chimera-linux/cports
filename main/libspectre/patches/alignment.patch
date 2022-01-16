@@ -1,0 +1,32 @@
+From 4d34d6cfe9bd8fc7b8355a39502374d9d6426ed0 Mon Sep 17 00:00:00 2001
+From: Marek Kasik <mkasik@redhat.com>
+Date: Mon, 29 Nov 2021 16:27:57 +0100
+Subject: Set alignment for rendering to default
+
+Previous aligning to 32 bytes rendered EPS in wrong way (not always but often).
+Setting default alignment which aligns to size of pointer fixes this issue.
+
+The commit which set it to the 32 was talking about alignment of 4 bytes so I guess
+that there were bits interchanged with bytes.
+
+Fixes #44
+---
+ libspectre/spectre-device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libspectre/spectre-device.c b/libspectre/spectre-device.c
+index 708fcb0..6959db0 100644
+--- a/libspectre/spectre-device.c
++++ b/libspectre/spectre-device.c
+@@ -331,7 +331,7 @@ spectre_device_render (SpectreDevice        *device,
+ 	args[arg++] = dsp_format = _spectre_strdup_printf ("-dDisplayFormat=%d",
+ 							   DISPLAY_COLORS_RGB |
+ 							   DISPLAY_DEPTH_8 |
+-							   DISPLAY_ROW_ALIGN_32 |
++							   DISPLAY_ROW_ALIGN_DEFAULT |
+ #ifdef WORDS_BIGENDIAN
+ 							   DISPLAY_UNUSED_FIRST |
+ 							   DISPLAY_BIGENDIAN |
+-- 
+cgit v1.2.1
+
