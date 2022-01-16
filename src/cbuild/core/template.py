@@ -914,7 +914,7 @@ class Template(Package):
 
     def do(
         self, cmd, *args, env = {}, wrksrc = None, capture_output = False,
-        check = True, allow_network = False
+        stdout = None, stderr = None, check = True, allow_network = False
     ):
         cpf = self.profile()
 
@@ -994,7 +994,7 @@ class Template(Package):
             ro_dest = (self.current_phase != "install"),
             mount_ccache = True, mount_cargo = True,
             unshare_all = not allow_network,
-            fakeroot = fakeroot,
+            fakeroot = fakeroot, stdout = stdout, stderr = stderr,
         )
 
     def stamp(self, name):
