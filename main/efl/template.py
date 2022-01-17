@@ -7,8 +7,7 @@ configure_args = [
     "-Dbuild-examples=false",
     "-Dembedded-lz4=false",
     "-Dcrypto=openssl",
-    # TODO: enable ibus
-    "-Decore-imf-loaders-disabler=ibus,scim",
+    "-Decore-imf-loaders-disabler=scim",
     # rlottie (json) is pretty useless and unstable so keep that off
     "-Devas-loaders-disabler=json",
     "-Dlua-interpreter=lua",
@@ -45,6 +44,7 @@ makedepends = [
     "libpulse-devel", "libraw-devel", "librsvg-devel", "libspectre-devel",
     "libpoppler-cpp-devel", "libsndfile-devel", "gstreamer-devel",
     "gst-plugins-base-devel", "glib-devel", "avahi-devel", "lua5.1-devel",
+    "ibus-devel",
 ]
 checkdepends = ["dbus", "xvfb-run", "check-devel"]
 pkgdesc = "Enlightenment Foundation Libraries"
@@ -73,6 +73,13 @@ def post_install(self):
     # service files: maybe reimplement for dinit later
     self.rm(self.destdir / "usr/lib/systemd", recursive = True)
     self.rm(self.destdir / "usr/lib/ecore/system/systemd", recursive = True)
+
+@subpackage("efl-ibus")
+def _ibus(self):
+    self.pkgdesc = f"{pkgdesc} (IBus support)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "ibus"]
+
+    return ["usr/lib/ecore_imf/modules/ibus"]
 
 @subpackage("efl-devel")
 def _devel(self):
