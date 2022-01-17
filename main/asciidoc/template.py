@@ -12,3 +12,12 @@ source = f"$(PYPI_SITE)/a/asciidoc/asciidoc-{pkgver}.tar.gz"
 sha256 = "1800699c579038bcf68e760e9358304b69a19ef04c9bf0b4faa76b729dcf7dbf"
 # needs source-highlight, FIXME
 options = ["!check"]
+
+def post_install(self):
+    self.install_dir("etc")
+    # compat link
+    for f in (self.destdir / "usr/lib").glob("python*"):
+        adpath = f / "site-packages/asciidoc/resources"
+        self.install_link(
+            f"../{adpath.relative_to(self.destdir)}", "etc/asciidoc"
+        )
