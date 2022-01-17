@@ -1,0 +1,11 @@
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -63,7 +63,7 @@ foreach name: desktops
+     #]
+   endif
+ 
+-  desktop_target = i18n.merge_file(
++  i18n.merge_file(
+     type: 'desktop',
+     input: desktop_in,
+     output: desktop,
