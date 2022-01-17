@@ -1152,15 +1152,14 @@ class Template(Package):
             raise errors.TracebackException(
                 f"install_files: path '{dest}' must not be absolute"
             )
-        if path.is_absolute():
-            raise errors.TracebackException(
-                f"install_files: path '{path}' must not be absolute"
-            )
 
         path = self.cwd / path
         dest = self.destdir / dest / path.name
 
-        shutil.copytree(path, dest, symlinks = symlinks)
+        if path.is_dir():
+            shutil.copytree(path, dest, symlinks = symlinks)
+        else:
+            shutil.copy2(path, dest)
 
     def install_dir(self, dest, mode = 0o755, empty = False):
         dest = pathlib.Path(dest)
