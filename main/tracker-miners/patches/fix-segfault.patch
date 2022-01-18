@@ -1,0 +1,24 @@
+commit c10f56af3f54d994a178b9cad71889c16e10995f
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jan 18 02:44:54 2022 +0100
+
+    drop G_GNUC_CONST from tracker_extract_module_manager_init
+    
+    this function should not be G_GNUC_CONST as it in fact has side
+    effects; compiling it with G_GNUC_CONST results in miscompilation
+    on Clang, which results in the function call being completely
+    optimized out
+
+diff --git a/src/libtracker-extract/tracker-module-manager.h b/src/libtracker-extract/tracker-module-manager.h
+index 0139c11..d82cd68 100644
+--- a/src/libtracker-extract/tracker-module-manager.h
++++ b/src/libtracker-extract/tracker-module-manager.h
+@@ -40,7 +40,7 @@ typedef void     (* TrackerExtractShutdownFunc) (void);
+ typedef gboolean (* TrackerExtractMetadataFunc) (TrackerExtractInfo  *info,
+                                                  GError             **error);
+ 
+-gboolean  tracker_extract_module_manager_init                (void) G_GNUC_CONST;
++gboolean  tracker_extract_module_manager_init                (void);
+ 
+ GStrv tracker_extract_module_manager_get_all_rdf_types (void);
+ 
