@@ -7,6 +7,9 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection"
 ]
 makedepends = ["libglib-devel"]
+depends = [
+    "fonts-cantarell-otf", "fonts-source-code-pro-otf", "adwaita-icon-theme"
+]
 pkgdesc = "Collection of GSettings schemas"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
