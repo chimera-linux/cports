@@ -1,0 +1,14 @@
+nft-rule-add.c:112:7: error: no member named 'dest' in 'tcphdr'
+                    offsetof(struct tcphdr, dest), sizeof(uint16_t));
+
+--- a/examples/nft-rule-add.c
++++ b/examples/nft-rule-add.c
+@@ -9,6 +9,8 @@
+  * This software has been sponsored by Sophos Astaro <http://www.sophos.com>
+  */
+ 
++#define _GNU_SOURCE
++
+ #include <stdlib.h>
+ #include <time.h>
+ #include <string.h>
