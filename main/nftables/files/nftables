@@ -1,0 +1,6 @@
+# nftables service
+
+type               = scripted
+command            = /usr/bin/nft -f /etc/nftables.conf
+stop-command       = /usr/bin/nft flush ruleset
+depends-on         = early

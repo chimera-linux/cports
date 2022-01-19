@@ -14,9 +14,6 @@ url = "https://www.netfilter.org/projects/libnftnl"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "7508a5c414fab13e3cb3ce8262d0ce4f02c1590a8e4f8628ab497b5b4585937c"
 
-def post_install(self):
-    self.install_license("COPYING")
-
 @subpackage("libnftnl-devel")
 def _devel(self):
     return self.default_devel()
