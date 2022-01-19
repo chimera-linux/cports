@@ -2,10 +2,7 @@ pkgname = "kmod"
 pkgver = "29"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = [
-    "--with-zlib", "--with-xz", "--disable-test-modules",
-    "--disable-dependency-tracking"
-]
+configure_args = ["--with-zlib", "--with-xz", "--disable-test-modules"]
 make_cmd = "gmake"
 make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf"]

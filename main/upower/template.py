@@ -6,7 +6,6 @@ configure_args = [
     "--disable-static", "--with-backend=linux", "--enable-introspection",
     "--without-idevice", # FIXME
 ]
-configure_env = {"MAKE": "gmake"}
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake", "pkgconf", "gettext-tiny-devel", "glib-devel", "gtk-doc-tools",

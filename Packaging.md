@@ -2816,7 +2816,7 @@ the cache files (so the environment dictionary can override any caches).
 This also uses `pkg.configure_env` (`env` takes precedence over it).
 
 The environment variable `MAKE` is implicitly set for this run, with the value
-of `pkg.make_cmd`.
+of what the `cbuild.util.make.Make(pkg).get_command()` would be.
 
 ##### def get_make_env()
 

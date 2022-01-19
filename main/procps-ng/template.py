@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-kill", "--enable-watch8bit", "--disable-modern-top",
-    "--without-systemd", "--disable-dependency-tracking"
+    "--without-systemd",
 ]
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]

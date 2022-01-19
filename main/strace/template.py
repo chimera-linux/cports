@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--without-libunwind", "--disable-mpers", "--disable-gcc-Werror",
-    "--disable-dependency-tracking",
 ]
 configure_env = {
     "CPPFLAGS": f"-I{self.profile().sysroot / 'usr/include'}"

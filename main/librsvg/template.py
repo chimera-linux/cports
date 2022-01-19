@@ -3,9 +3,7 @@ pkgver = "2.52.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-introspection", "--enable-vala",
-    "--disable-dependency-tracking",
-    "--disable-static",
+    "--enable-introspection", "--enable-vala", "--disable-static",
 ]
 make_cmd = "gmake"
 hostmakedepends = [

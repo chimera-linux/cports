@@ -27,7 +27,6 @@ configure_args = [
     "--enable-http",
     "--enable-sql",
 ]
-configure_env = {"MAKE": "gmake"}
 make_cmd = "gmake"
 make_install_args = ["-j1"]
 hostmakedepends = [

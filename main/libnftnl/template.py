@@ -2,7 +2,6 @@ pkgname = "libnftnl"
 pkgver = "1.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_env = {"MAKE": "gmake"}
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["gmake", "pkgconf"]

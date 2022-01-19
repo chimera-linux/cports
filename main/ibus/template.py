@@ -8,7 +8,6 @@ configure_args = [
     "--enable-introspection", "--enable-vala", "--enable-setup",
     "--disable-gtk2", "--disable-schemas-compile",
 ]
-configure_env = {"MAKE": "gmake"}
 make_cmd = "gmake"
 make_dir = "." # tests assume this
 hostmakedepends = [
