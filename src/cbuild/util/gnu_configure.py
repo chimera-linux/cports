@@ -77,6 +77,7 @@ def configure(
 
     # autoconf cache
     eenv = dict(benv)
+    eenv["MAKE"] = make.Make(pkg).get_command()
 
     # caches taken from openembedded
     cachedir = paths.cbuild() / "misc/autoconf_cache"

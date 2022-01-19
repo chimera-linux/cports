@@ -2815,6 +2815,9 @@ by `extra_args`. Additionally, `env` is exported into the environment, after
 the cache files (so the environment dictionary can override any caches).
 This also uses `pkg.configure_env` (`env` takes precedence over it).
 
+The environment variable `MAKE` is implicitly set for this run, with the value
+of `pkg.make_cmd`.
+
 ##### def get_make_env()
 
 The Make environment to use when building Autotools-based projects.
