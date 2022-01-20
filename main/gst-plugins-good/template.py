@@ -20,7 +20,6 @@ configure_args = [
     "-Doss4=disabled",
     "-Dwaveform=disabled",
     "-Drpicamsrc=disabled", # proprietary
-    "-Dpulse=disabled", # our pulse is really pipewire which has native support
     "-Dspeex=disabled", # obsolete, replaced by opus
     "-Dximagesrc=disabled", # maybe? probably obsolete
     "-Daalib=disabled", # old and obsolete
@@ -38,7 +37,7 @@ makedepends = [
     "gdk-pixbuf-devel", "libbz2-devel", "libxml2-devel", "libgudev-devel",
     "v4l-utils-devel", "libcaca-devel", "pipewire-jack-devel", "wavpack-devel",
     "taglib-devel", "libvpx-devel", "flac-devel", "mpg123-devel", "lame-devel",
-    "twolame-devel", "orc-devel",
+    "twolame-devel", "libpulse-devel", "orc-devel",
 ]
 checkdepends = ["pipewire"]
 depends = [f"gst-plugins-base>={pkgver}"]
