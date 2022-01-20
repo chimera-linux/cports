@@ -25,7 +25,6 @@ hostmakedepends = [
     "gettext-tiny", "glib-devel", "geoclue", "wayland-progs", "bubblewrap",
     "xdg-dbus-proxy", "gobject-introspection",
 ]
-# TODO: add gst-plugins-bad when we have it for extra multimedia stuff
 makedepends = [
     "libwpe-devel", "wpebackend-fdo-devel", "libpsl-devel", "geoclue-devel",
     "libgcrypt-devel", "libsecret-devel", "at-spi2-core-devel", "icu-devel",
@@ -33,9 +32,10 @@ makedepends = [
     "lcms2-devel",  "libjpeg-turbo-devel", "libpng-devel", "libwebp-devel",
     "openjpeg-devel", "libxml2-devel", "libtasn1-devel", "sqlite-devel",
     "harfbuzz-devel", "freetype-devel", "gtk+3-devel", "libsoup-devel",
-    "gstreamer-devel", "gst-plugins-base-devel", "libxslt-devel", "icu-devel",
-    "enchant-devel", "libseccomp-devel", "libxt-devel", "mesa-devel",
-    "libxkbcommon-devel", "wayland-devel", "wayland-protocols",
+    "gstreamer-devel", "gst-plugins-base-devel", "gst-plugins-bad-devel",
+    "libxslt-devel", "icu-devel", "enchant-devel", "libseccomp-devel",
+    "libxt-devel", "mesa-devel", "libxkbcommon-devel", "wayland-devel",
+    "wayland-protocols",
 ]
 depends = ["bubblewrap", "xdg-dbus-proxy"]
 pkgdesc = "GTK port of the WebKit browser engine"
