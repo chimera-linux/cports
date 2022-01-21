@@ -3,13 +3,12 @@ pkgver = "1.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-json", "--with-mini-gmp", "--with-python-bin=/usr/bin/python3",
-    "--with-cli=editline"
+    "--with-json", "--with-python-bin=/usr/bin/python3", "--with-cli=editline"
 ]
 hostmakedepends = ["pkgconf", "python", "flex", "pkgconf"]
 makedepends = [
     "jansson-devel", "libmnl-devel", "libnftnl-devel", "libedit-devel",
-    "linux-headers"
+    "gmp-devel", "linux-headers"
 ]
 pkgdesc = "Netfilter nftables userspace tools"
 maintainer = "q66 <q66@chimera-linux.org>"

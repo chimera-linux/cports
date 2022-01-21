@@ -9,7 +9,7 @@ makedepends = [
     "libglib-devel", "gsettings-desktop-schemas-devel", "gtk+3-devel",
     "nettle-devel", "json-glib-devel", "libarchive-devel", "libdazzle-devel",
     "libhandy-devel", "libsecret-devel", "libxml2-devel", "libportal-devel",
-    "libsoup-devel", "sqlite-devel", "iso-codes",
+    "libsoup-devel", "sqlite-devel", "gmp-devel", "iso-codes",
 ]
 depends = ["hicolor-icon-theme", "iso-codes"]
 pkgdesc = "GNOME web browser"
