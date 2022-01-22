@@ -1,0 +1,20 @@
+--- a/configure
++++ b/configure
+@@ -15114,7 +15114,7 @@ $as_echo "yes" >&6; }
+ fi
+ 
+              echo -n "Checking header volume_key/libvolume_key.h existence and usability..."
+-temp_file=$(mktemp --tmpdir XXXXX.c)
++temp_file=/tmp/conftest-blockdev.c
+ echo "#include <volume_key/libvolume_key.h>" > $temp_file
+ ${CC} -c $GLIB_CFLAGS $NSS_CFLAGS $temp_file
+ status=$?
+@@ -15232,7 +15232,7 @@ fi
+ 
+ if test "x$with_dm" != "xno" -a "x$with_dmraid" != "xno"; then :
+   echo -n "Checking header dmraid/dmraid.h existence and usability..."
+-temp_file=$(mktemp --tmpdir XXXXX.c)
++temp_file=/tmp/conftest-blockdev.c
+ echo "#include <dmraid/dmraid.h>" > $temp_file
+ ${CC} -c  $temp_file
+ status=$?
