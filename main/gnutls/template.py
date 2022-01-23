@@ -3,15 +3,15 @@ pkgver = "3.7.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-zlib", "--with-nettle-mini", "--disable-guile", "--disable-static",
+    "--with-zlib", "--disable-guile", "--disable-static",
     "--disable-valgrind-tests", "--disable-rpath",
     "--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt",
 ]
 hostmakedepends = ["pkgconf", "gettext-tiny"]
 makedepends = [
-    "nettle-devel", "libtasn1-devel", "libidn2-devel",  "libgcrypt-devel",
-    "libgpg-error-devel", "libunistring-devel", "zlib-devel", "lzo-devel",
-    "p11-kit-devel", "unbound-devel", "trousers-devel",
+    "nettle-devel", "libtasn1-devel", "libidn2-devel", "libgpg-error-devel",
+    "libunistring-devel", "zlib-devel", "lzo-devel", "p11-kit-devel",
+    "unbound-devel", "trousers-devel",
 ]
 # dlopened
 depends = ["libtspi"]
