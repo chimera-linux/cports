@@ -1,0 +1,21 @@
+--- a/meson.build
++++ b/meson.build
+@@ -154,8 +154,8 @@ if enable_wayland
+ endif
+ config_h.set10('HAVE_WAYLAND', enable_wayland)
+ 
+-# wacom (disabled for s390/s390x and non Linux platforms)
+-enable_wacom = host_is_linux_not_s390
++# wacom
++enable_wacom = get_option('wacom')
+ if enable_wacom
+   assert(enable_gudev, 'GUDev support is required for wacom support.')
+   libwacom_dep = dependency('libwacom', version: '>= 0.7')
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -11,4 +11,5 @@ option('smartcard', type: 'boolean', value: true, description: 'build with smart
+ option('usb-protection', type: 'boolean', value: true, description: 'build with usb-protection support')
+ option('wayland', type: 'boolean', value: true, description: 'build with Wayland support')
+ option('wwan', type: 'boolean', value: true, description: 'build with WWAN support')
++option('wacom', type: 'boolean', value: true, description: 'build with libwacom support')
+ option('colord', type: 'boolean', value: true, description: 'build with colord support')
