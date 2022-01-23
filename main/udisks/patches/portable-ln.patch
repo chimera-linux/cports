@@ -1,0 +1,18 @@
+commit f6bd99d8a4652b736141486c2f1359ffd673c0e9
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Jan 23 02:13:37 2022 +0100
+
+    ble
+
+diff --git a/modules/Makefile.uninstalled b/modules/Makefile.uninstalled
+index d48c589..97399c3 100644
+--- a/modules/Makefile.uninstalled
++++ b/modules/Makefile.uninstalled
+@@ -1,6 +1,6 @@
+ # Due to --uninstalled option passed to udisks
+ module_link:
+-	$(AM_V_at) if [ ! -L ../$(MODULE_SO) ]; then ln -r -s .libs/$(MODULE_SO) ..; fi
++	$(AM_V_at) if [ ! -L ../$(MODULE_SO) ]; then ln -s `basename $(CURDIR)`/.libs/$(MODULE_SO) ../$(MODULE_SO); fi
+ 
+ module_unlink:
+ 	$(AM_V_at) if [ -L ../$(MODULE_SO) ]; then rm ../$(MODULE_SO); fi
