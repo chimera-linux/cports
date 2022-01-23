@@ -1703,6 +1703,10 @@ Once the environment is set up and template code runs, the root is
 always mounted as read only. That prevents unintended modifications
 to the container, ensuring that it always remains consistent.
 
+When bootstrapping the build container from binary packages,
+`/etc/machine-id` is generated as a random string. This is mainly
+to allow things that need it to pass tests and so on.
+
 The following environment variables are exported into the sandbox:
 
 * `PATH` The executable path, includes `/usr/bin` plus possible

@@ -6,6 +6,7 @@ import shutil
 import shlex
 import getpass
 import pathlib
+import binascii
 from tempfile import mkstemp
 
 from cbuild.core import logger, paths, errors
@@ -88,6 +89,9 @@ def _init():
     xdir.mkdir(parents = True, exist_ok = True)
 
     shutil.copy("/etc/resolv.conf", paths.bldroot() / "etc")
+    # generate machine-id
+    with open(paths.bldroot() / "etc/machine-id", "wb") as mid:
+        mid.write(b"%s\n" % binascii.b2a_hex(os.urandom(16)))
 
 def _prepare(arch, stage):
     sfpath = paths.bldroot() / ".cbuild_chroot_init"
