@@ -17,7 +17,6 @@ configure_args = [
     "-Diso=disabled", # TODO: libosinfo
     "-Diptc=disabled", # TODO: libiptcdata
     "-Dplaylist=disabled", # TODO: totem-pl-parser
-    "-Dnetwork_manager=disabled", # TODO: nm
     "-Dexif=enabled",
     "-Djpeg=enabled",
     "-Dtiff=enabled",
@@ -34,6 +33,7 @@ makedepends = [
     "gst-plugins-base-devel", "icu-devel", "libexif-devel", "libseccomp-devel",
     "libjpeg-turbo-devel", "libpng-devel", "libtiff-devel", "giflib-devel",
     "libxml2-devel", "libpoppler-glib-devel", "upower-devel",
+    "networkmanager-devel",
     # FIXMEs:
     #"libcue-devel",
     #"libgsf-devel",
@@ -43,7 +43,6 @@ makedepends = [
     #"libosinfo-devel",
     #"libgexiv2-devel",
     #"libiptcdata-devel",
-    #"networkmanager-devel",
 ]
 pkgdesc = "Data miners for tracker"
 maintainer = "q66 <q66@chimera-linux.org>"
