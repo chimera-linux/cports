@@ -1,0 +1,31 @@
+commit 54dba94bbb558e3053c6bd87e02b516e1f15859e
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Jan 23 05:57:11 2022 +0100
+
+    get rid of broken linker check
+    
+    This would result in soname not being applied.
+
+diff --git a/configure b/configure
+index 4142963..664ca52 100755
+--- a/configure
++++ b/configure
+@@ -3742,17 +3742,7 @@ _ACEOF
+ $as_echo_n "checking for GNU ld... " >&6; }
+ LD=`$CC -print-prog-name=ld 2>&5`
+ 
+-if test `$LD -v 2>&1 | $ac_cv_path_GREP -c "GNU ld"` = 0; then
+-  # Not
+-  GNU_LD=""
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-else
+-  GNU_LD="$LD"
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-
+-fi
++GNU_LD="$LD"
+ 
+ for ac_header in sys/select.h alloca.h
+ do :
