@@ -1,0 +1,24 @@
+pkgname = "python-dbus"
+pkgver = "1.2.18"
+pkgrel = 0
+build_style = "gnu_configure"
+make_cmd = "gmake"
+hostmakedepends = ["gmake", "pkgconf", "python-devel"]
+makedepends = ["libglib-devel", "dbus-devel", "python-devel"]
+checkdepends = ["dbus"]
+depends = ["python", "dbus"]
+pkgdesc = "Python bindings for D-Bus"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "MIT"
+url = "https://www.freedesktop.org/wiki/Software/DBusBindings"
+source = f"https://dbus.freedesktop.org/releases/dbus-python/dbus-python-{pkgver}.tar.gz"
+sha256 = "92bdd1e68b45596c833307a5ff4b217ee6929a1502f5341bae28fd120acf7260"
+
+def post_install(self):
+    self.install_license("COPYING")
+
+@subpackage("python-dbus-devel")
+def _devel(self):
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "python-devel"]
+
+    return self.default_devel()
