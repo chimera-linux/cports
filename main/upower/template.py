@@ -14,14 +14,14 @@ hostmakedepends = [
 makedepends = [
     "libusb-devel", "libgudev-devel", "libglib-devel", "linux-headers",
 ]
-checkdepends = ["python-packaging", "python-dbus"]
+checkdepends = ["python-packaging", "python-dbus", "python-gobject"]
 pkgdesc = "Abstraction for enumerating power devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/uploads/177df5b9f9b76f25a2ad9da41aa0c1fa/{pkgname}-{pkgver}.tar.xz"
 sha256 = "5cad70f91540cc7dc121cb17e0ad645e5e663c8682f60a7be42ee38cd7b23d7a"
-# unpackaged python-dbus
+# unpackaged umockdev
 options = ["!check"]
 
 @subpackage("upower-devel")
