@@ -1,0 +1,75 @@
+commit 713a4238df40bb5fe971a8a2835ecf1a119c4bc4
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Jan 23 23:54:11 2022 +0100
+
+    use libedit
+
+diff --git a/gjs/debugger.cpp b/gjs/debugger.cpp
+index 310fa38..3be71dd 100644
+--- a/gjs/debugger.cpp
++++ b/gjs/debugger.cpp
+@@ -8,8 +8,7 @@
+ #include <stdio.h>  // for feof, fflush, fgets, stdin, stdout
+ 
+ #ifdef HAVE_READLINE_READLINE_H
+-#    include <readline/history.h>
+-#    include <readline/readline.h>
++#    include <editline/readline.h>
+ #endif
+ 
+ #include <glib.h>
+diff --git a/gjs/gjs_pch.hh b/gjs/gjs_pch.hh
+index 46bea8a..769c3ae 100644
+--- a/gjs/gjs_pch.hh
++++ b/gjs/gjs_pch.hh
+@@ -113,8 +113,7 @@
+ #include <mozilla/UniquePtr.h>
+ #include <mozilla/Unused.h>
+ #ifdef HAVE_READLINE_READLINE_H
+-#include <readline/history.h>
+-#include <readline/readline.h>
++#include <editline/readline.h>
+ #endif
+ #ifndef _WIN32
+ #include <signal.h>
+diff --git a/meson.build b/meson.build
+index 136e812..55b9fec 100644
+--- a/meson.build
++++ b/meson.build
+@@ -156,11 +156,11 @@ sysprof_capture = dependency('sysprof-capture-4',
+         'help=false',
+     ])
+ 
+-readline = cxx.find_library('readline', required: get_option('readline'))
++readline = cxx.find_library('edit', required: get_option('readline'))
+ # On some systems we need to link readline to a termcap compatible library
+ readline_code = '''
+ #include <cstdio>
+-#include <readline/readline.h>
++#include <editline/readline.h>
+ int main(void) {
+     readline("foo");
+     return 0;
+@@ -329,7 +329,7 @@ header_conf.set('HAVE_PRINTF_ALTERNATIVE_INT', have_printf_alternative_int,
+     description: 'printf() accepts "%Id" for alternative integer output')
+ if build_readline
+     header_conf.set('HAVE_READLINE_READLINE_H',
+-        cxx.check_header('readline/readline.h', prefix: '#include <cstdio>',
++        cxx.check_header('editline/readline.h', prefix: '#include <cstdio>',
+             required: readline.found()))
+ endif
+ header_conf.set('USE_UNITY_BUILD', get_option('unity'))
+diff --git a/modules/console.cpp b/modules/console.cpp
+index e54554b..ab96628 100644
+--- a/modules/console.cpp
++++ b/modules/console.cpp
+@@ -18,8 +18,7 @@
+ #ifdef HAVE_READLINE_READLINE_H
+ #    include <stdio.h>  // include before readline/readline.h
+ 
+-#    include <readline/history.h>
+-#    include <readline/readline.h>
++#    include <editline/readline.h>
+ #endif
+ 
+ #include <string>
