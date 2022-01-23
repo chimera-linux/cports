@@ -1,0 +1,24 @@
+commit 3c2a25e8f2b0a9ad61b3d6e12602d7442cb2f024
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Jan 23 06:23:11 2022 +0100
+
+    drop some gcc-related lto junk
+
+diff --git a/meson.build b/meson.build
+index 1a7dadf..0f9a6d0 100644
+--- a/meson.build
++++ b/meson.build
+@@ -163,13 +163,6 @@ if enable_ld_gc
+ endif
+ 
+ enable_lto = get_option('b_lto')
+-if enable_lto
+-  # meson already adds '-flto'
+-  lto_flag = '-flto-partition=none'
+-  assert(cc.has_argument(lto_flag), '-flto-partition=none not supported. Disable link-time optimization with -Db_lto=false.')
+-  common_flags += lto_flag
+-  common_ldflags += lto_flag
+-endif
+ 
+ common_flags += cc.get_supported_arguments([
+   '-Wall',

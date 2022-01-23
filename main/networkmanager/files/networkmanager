@@ -1,0 +1,5 @@
+# NetworkManager service
+
+type       = process
+command    = /usr/bin/NetworkManager -n
+depends-on = dbus

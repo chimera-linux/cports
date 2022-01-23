@@ -1,0 +1,97 @@
+pkgname = "networkmanager"
+pkgver = "1.34.0"
+pkgrel = 0
+build_style = "meson"
+configure_args = [
+    "-Dsystemd_journal=false", "-Dselinux=false", "-Dovs=false", "-Dqt=false",
+    "-Dsession_tracking_consolekit=false",
+    "-Dmodify_system=true", "-Diwd=true",
+    # we only support dhcpcd here
+    "-Ddhclient=/usr/bin/dhclient", "-Ddhcpcd=/usr/bin/dhcpcd",
+    "-Diptables=/usr/bin/iptables", "-Dnft=/usr/bin/nft",
+    "-Dresolvconf=/usr/bin/resolvconf", "-Ddnsmasq=/usr/bin/dnsmasq",
+    "-Dpppd=/usr/bin/pppd", "-Ddhcpcanon=no",
+    "-Dlibaudit=no", "-Dsystemdsystemunitdir=no",
+    "-Dconfig_logging_backend_default=syslog",
+    "-Dconfig_dhcp_default=internal",
+    "-Dkernel_firmware_dir=/usr/lib/firmware",
+    "-Ddbus_conf_dir=/etc/dbus-1/system.d",
+    "-Dudev_dir=/usr/lib/udev",
+    "-Dpppd_plugin_dir=/usr/lib/pppd/2.4.9",
+    "-Dsession_tracking=elogind", "-Dsuspend_resume=elogind",
+    "-Dvapi=true", "-Dintrospection=true", "-Ddocs=true",
+    # XXX: maybe use nss when we have it?
+    "-Dcrypto=gnutls", "-Dreadline=libedit",
+    # TODOs
+    "-Dmodem_manager=false", # modemmanager, mobile-broadband-provider-info
+    "-Dppp=false", # ppp
+]
+hostmakedepends = [
+    "meson", "pkgconf", "gobject-introspection", "vala", "glib-devel",
+    "gettext-tiny", "xsltproc", "docbook-xsl-nons", "gtk-doc-tools",
+    "python-gobject", "jansson-devel", "perl", "bash",
+]
+makedepends = [
+    "libuuid-devel", "gnutls-devel", "dbus-devel", "libgudev-devel",
+    "libnl-devel", "polkit-devel", "libcurl-devel", "libedit-devel",
+    "jansson-devel", "libpsl-devel", "eudev-devel", "elogind-devel",
+    "libgirepository-devel", "libndp-devel", "newt-devel", "python-gobject",
+    "linux-headers",
+]
+depends = [
+    "dbus", "iwd", "openresolv", "iproute2",
+]
+checkdepends = ["python-dbus"]
+pkgdesc = "Network management daemon"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
+url = "https://wiki.gnome.org/Projects/NetworkManager"
+source = f"$(GNOME_SITE)/NetworkManager/{pkgver[:-2]}/NetworkManager-{pkgver}.tar.xz"
+sha256 = "819795d0899076204f5672421a58f1b1d9e393536ee87bb844b911e6243bf0bd"
+# some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
+options = ["!check", "!cross"]
+
+def post_install(self):
+    self.install_service(self.files_path / "networkmanager")
+    self.install_file(
+        self.files_path / "NetworkManager.conf", "etc/NetworkManager"
+    )
+    self.install_file(
+        self.files_path / "50-org.freedesktop.NetworkManager.rules",
+        "usr/share/polkit-1/rules.d"
+    )
+    # default dirs
+    self.install_dir("etc/NetworkManager/system-connections", empty = True)
+    self.install_dir(
+        "etc/NetworkManager/dispatcher.d/pre-up.d", empty = True,
+        mode = 0o750
+    )
+    self.install_dir(
+        "etc/NetworkManager/dispatcher.d/pre-down.d", empty = True,
+        mode = 0o750
+    )
+    self.install_dir("etc/NetworkManager/VPN", empty = True)
+    self.install_dir("var/lib/NetworkManager", empty = True)
+    # kill hardlinks
+    for f in ["nmtui-connect", "nmtui-hostname", "nmtui-edit"]:
+        self.rm(self.destdir / f"usr/share/man/man1/{f}.1")
+        self.install_link("nmtui.1", f"usr/share/man/man1/{f}.1")
+
+    self.rm(self.destdir / "usr/share/man/man5/nm-settings.5")
+    self.install_link(
+        "nm-settings-nmcli.5", "usr/share/man/man5/nm-settings.5"
+    )
+    self.rm(self.destdir / "usr/share/man/man5/nm-system-settings.conf.5")
+    self.install_link(
+        "NetworkManager.conf.5", "usr/share/man/man5/nm-system-settings.conf.5"
+    )
+
+@subpackage("libnm")
+def _lib(self):
+    self.pkgdesc = f"{pkgdesc} (runtime library)"
+
+    return self.default_libs(extra = ["usr/lib/girepository-1.0"])
+
+@subpackage("networkmanager-devel")
+def _devel(self):
+    return self.default_devel()
