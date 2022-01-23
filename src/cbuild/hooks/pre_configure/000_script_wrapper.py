@@ -12,7 +12,9 @@ def _enable_wrappers(pkg):
         (pkg.statedir / "wrappers" / f.stem).chmod(0o755)
 
     for src, name in pkg.exec_wrappers:
-        (pkg.statedir / "wrappers"  / name).symlink_to(src)
+        wpath = pkg.statedir / "wrappers" / name
+        wpath.unlink(missing_ok = True)
+        wpath.symlink_to(src)
 
 def _wrap_cross_cc(pkg):
     wrapperdir = paths.cbuild() / "wrappers"
