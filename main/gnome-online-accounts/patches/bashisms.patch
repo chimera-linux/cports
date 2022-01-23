@@ -1,0 +1,46 @@
+commit 742a24e25097884c92e0467d34f82bae9196a603
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Jan 23 03:12:47 2022 +0100
+
+    remove bashisms
+
+diff --git a/configure.ac b/configure.ac
+index 0f0f8ac..97c2090 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -191,14 +191,14 @@ AC_SUBST(KRB5_CFLAGS)
+ AC_SUBST(KRB5_LIBS)
+ 
+ if test "$enable_fedora" != "no"; then
+-  if test "$enable_fedora" == "yes" &&
+-     test "$have_fedora" == "no" ; then
++  if test "$enable_fedora" = "yes" &&
++     test "$have_fedora" = "no" ; then
+       AC_MSG_ERROR([Fedora Account System support requested, but not available])
+   fi
+ 
+   enable_fedora=$have_fedora
+ 
+-  if test "$enable_fedora" == "yes"; then
++  if test "$enable_fedora" = "yes"; then
+     AC_DEFINE(GCR_API_SUBJECT_TO_CHANGE, 1, [Define to use the GCR API])
+     AC_DEFINE(GOA_FEDORA_ENABLED, 1, [Enable Fedora Account System provider])
+   fi
+@@ -364,14 +364,14 @@ AC_SUBST(KRB5_CFLAGS)
+ AC_SUBST(KRB5_LIBS)
+ 
+ if test "$enable_kerberos" != "no"; then
+-  if test "$enable_kerberos" == "yes" &&
+-     test "$have_kerberos" == "no" ; then
++  if test "$enable_kerberos" = "yes" &&
++     test "$have_kerberos" = "no" ; then
+       AC_MSG_ERROR([kerberos support requested, but not available])
+   fi
+ 
+   enable_kerberos=$have_kerberos
+ 
+-  if test "$enable_kerberos" == "yes"; then
++  if test "$enable_kerberos" = "yes"; then
+     AC_DEFINE(GCR_API_SUBJECT_TO_CHANGE, 1, [Define to use the GCR API])
+     AC_DEFINE(GOA_KERBEROS_ENABLED, 1, [Enable Enterprise Identity data provider])
+   fi

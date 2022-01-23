@@ -1,0 +1,10 @@
+--- a/src/goabackend/goaoauth2provider.c
++++ b/src/goabackend/goaoauth2provider.c
+@@ -20,7 +20,6 @@
+ #include <glib/gi18n-lib.h>
+ #include <stdlib.h>
+ 
+-#include <rest/oauth2-proxy.h>
+ #include <libsoup/soup.h>
+ #include <json-glib/json-glib.h>
+ #include <webkit2/webkit2.h>
