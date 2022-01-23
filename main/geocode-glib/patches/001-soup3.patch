@@ -1,0 +1,262 @@
+From aab9d79aff2424ad5ee74a86c8b51166cb6dc4dd Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <dkolesa@igalia.com>
+Date: Tue, 23 Mar 2021 17:13:35 +0100
+Subject: [PATCH 1/2] lib: Add support for libsoup3 through a compile-time
+ option
+
+Make it possible to build the library against either libsoup2 or
+libsoup3.
+---
+ geocode-glib/geocode-glib.c                 | 16 +++--
+ geocode-glib/geocode-nominatim.c            | 76 +++++++++++++++++++++
+ geocode-glib/meson.build                    | 12 +++-
+ geocode-glib/tests/geocode-nominatim-test.c | 13 +++-
+ meson_options.txt                           |  3 +
+ 5 files changed, 111 insertions(+), 9 deletions(-)
+
+diff --git a/geocode-glib/geocode-glib.c b/geocode-glib/geocode-glib.c
+index 3b21cd2..8687fec 100644
+--- a/geocode-glib/geocode-glib.c
++++ b/geocode-glib/geocode-glib.c
+@@ -66,7 +66,7 @@ _geocode_glib_build_soup_session (const gchar *user_agent_override)
+ 
+ 	g_debug ("%s: user_agent = %s", G_STRFUNC, user_agent);
+ 
+-	return soup_session_new_with_options (SOUP_SESSION_USER_AGENT,
++	return soup_session_new_with_options ("user-agent",
+ 	                                      user_agent, NULL);
+ }
+ 
+@@ -75,7 +75,11 @@ _geocode_glib_cache_path_for_query (SoupMessage *query)
+ {
+ 	const char *filename;
+ 	char *path;
+-        SoupURI *soup_uri;
++#if SOUP_CHECK_VERSION (2, 99, 2)
++	GUri *muri;
++#else
++	SoupURI *muri;
++#endif
+ 	char *uri;
+ 	GChecksum *sum;
+ 
+@@ -91,8 +95,12 @@ _geocode_glib_cache_path_for_query (SoupMessage *query)
+ 	g_free (path);
+ 
+ 	/* Create path for query */
+-	soup_uri = soup_message_get_uri (query);
+-	uri = soup_uri_to_string (soup_uri, FALSE);
++	muri = soup_message_get_uri (query);
++#if SOUP_CHECK_VERSION (2, 99, 2)
++	uri = g_uri_to_string_partial (muri, G_URI_HIDE_PASSWORD);
++#else
++	uri = soup_uri_to_string (muri, FALSE);
++#endif
+ 
+ 	sum = g_checksum_new (G_CHECKSUM_SHA256);
+ 	g_checksum_update (sum, (const guchar *) uri, strlen (uri));
+diff --git a/geocode-glib/geocode-nominatim.c b/geocode-glib/geocode-nominatim.c
+index fc333dc..344610e 100644
+--- a/geocode-glib/geocode-nominatim.c
++++ b/geocode-glib/geocode-nominatim.c
+@@ -875,6 +875,43 @@ geocode_nominatim_query_finish (GeocodeNominatim  *self,
+ 	return g_task_propagate_pointer (G_TASK (res), error);
+ }
+ 
++#if SOUP_CHECK_VERSION (2, 99, 2)
++static void
++on_query_data_loaded (GObject      *object,
++                      GAsyncResult *result,
++                      gpointer      user_data)
++{
++	SoupSession *session = SOUP_SESSION (object);
++	SoupMessage *query = soup_session_get_async_result_message (session, result);
++	GError *error = NULL;
++	GBytes *body = soup_session_send_and_read_finish (session, result, &error);
++	GTask *task = user_data;
++	char *contents;
++
++	if (!body) {
++		g_task_return_new_error (task,
++		                         G_IO_ERROR,
++		                         G_IO_ERROR_FAILED,
++		                         "%s",
++		                         error->message);
++		g_clear_error (&error);
++	} else if (soup_message_get_status (query) != SOUP_STATUS_OK) {
++		const char *reason_phrase = soup_message_get_reason_phrase (query);
++		g_bytes_unref (body);
++		g_task_return_new_error (task,
++		                         G_IO_ERROR,
++		                         G_IO_ERROR_FAILED,
++		                         "%s",
++		                         reason_phrase ? reason_phrase : "Query failed");
++	} else {
++		contents = g_bytes_unref_to_data (body, NULL);
++		_geocode_glib_cache_save (query, contents);
++		g_task_return_pointer (task, contents, g_free);
++	}
++
++	g_object_unref (task);
++}
++#else
+ static void
+ on_query_data_loaded (SoupSession *session,
+                       SoupMessage *query,
+@@ -896,6 +933,7 @@ on_query_data_loaded (SoupSession *session,
+ 
+ 	g_object_unref (task);
+ }
++#endif
+ 
+ static void
+ on_cache_data_loaded (GFile        *cache,
+@@ -922,10 +960,19 @@ on_cache_data_loaded (GFile        *cache,
+ 	}
+ 
+ 	soup_session = _geocode_glib_build_soup_session (priv->user_agent);
++#if SOUP_CHECK_VERSION (2, 99, 2)
++	soup_session_send_and_read_async (soup_session,
++	                                  g_task_get_task_data (task),
++	                                  G_PRIORITY_DEFAULT,
++	                                  NULL,
++	                                  on_query_data_loaded,
++	                                  task);
++#else
+ 	soup_session_queue_message (soup_session,
+ 	                            g_object_ref (g_task_get_task_data (task)),
+ 	                            (SoupSessionCallback) on_query_data_loaded,
+ 	                            task);
++#endif
+ 	g_object_unref (soup_session);
+ }
+ 
+@@ -966,10 +1013,19 @@ geocode_nominatim_query_async (GeocodeNominatim    *self,
+ 	}
+ 
+ 	soup_session = _geocode_glib_build_soup_session (priv->user_agent);
++#if SOUP_CHECK_VERSION (2, 99, 2)
++	soup_session_send_and_read_async (soup_session,
++	                                  soup_query,
++	                                  G_PRIORITY_DEFAULT,
++	                                  NULL,
++	                                  on_query_data_loaded,
++	                                  task);
++#else
+ 	soup_session_queue_message (soup_session,
+ 	                            g_object_ref (soup_query),
+ 	                            (SoupSessionCallback) on_query_data_loaded,
+ 	                            task);
++#endif
+ 	g_object_unref (soup_session);
+ }
+ 
+@@ -995,6 +1051,25 @@ geocode_nominatim_query (GeocodeNominatim  *self,
+ 	soup_query = soup_message_new (SOUP_METHOD_GET, uri);
+ 
+ 	if (_geocode_glib_cache_load (soup_query, &contents) == FALSE) {
++#if SOUP_CHECK_VERSION (2, 99, 2)
++		GError *serror = NULL;
++		GBytes *body = soup_session_send_and_read (soup_session, soup_query, NULL, &serror);
++		if (!body) {
++			g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
++			                     serror->message);
++			g_clear_error (&serror);
++			contents = NULL;
++		} else if (soup_message_get_status (soup_query) != SOUP_STATUS_OK) {
++			const char *reason_phrase = soup_message_get_reason_phrase (soup_query);
++			g_bytes_unref (body);
++			g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
++			                     reason_phrase ? reason_phrase : "Query failed");
++			contents = NULL;
++		} else {
++			contents = g_bytes_unref_to_data (body, NULL);
++			_geocode_glib_cache_save (soup_query, contents);
++		}
++#else
+ 		if (soup_session_send_message (soup_session, soup_query) != SOUP_STATUS_OK) {
+ 			g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED,
+ 			                     soup_query->reason_phrase ? soup_query->reason_phrase : "Query failed");
+@@ -1003,6 +1078,7 @@ geocode_nominatim_query (GeocodeNominatim  *self,
+ 			contents = g_strndup (soup_query->response_body->data, soup_query->response_body->length);
+ 			_geocode_glib_cache_save (soup_query, contents);
+ 		}
++#endif
+ 	}
+ 
+ 	g_object_unref (soup_query);
+diff --git a/geocode-glib/meson.build b/geocode-glib/meson.build
+index 561da9d..940dc7b 100644
+--- a/geocode-glib/meson.build
++++ b/geocode-glib/meson.build
+@@ -33,9 +33,15 @@ public_sources = [ 'geocode-location.c',
+ 
+ sources = public_sources + [ 'geocode-glib-private.h' ]
+ 
++if get_option('soup2')
++  soup_dep = dependency('libsoup-2.4', version: '>= 2.42')
++else
++  soup_dep = dependency('libsoup-3.0', version: '>= 2.99.2')
++endif
++
+ deps = [ dependency('gio-2.0', version: '>= 2.34'),
+-		 dependency('json-glib-1.0', version: '>= 0.99.2'),
+-		 dependency('libsoup-2.4', version: '>= 2.42') ]
++         dependency('json-glib-1.0', version: '>= 0.99.2'),
++         soup_dep ]
+ libm = cc.find_library('m', required: false)
+ if libm.found()
+     deps += [ libm ]
+@@ -105,7 +111,7 @@ if gir.found() and enable_gir
+                      includes: [ 'GObject-2.0',
+                                  'Gio-2.0',
+                                  'Json-1.0',
+-                                 'Soup-2.4' ],
++                                 get_option('soup2') ? 'Soup-2.4' : 'Soup-3.0' ],
+                      install: true,
+                      extra_args: gir_args)
+ endif
+diff --git a/geocode-glib/tests/geocode-nominatim-test.c b/geocode-glib/tests/geocode-nominatim-test.c
+index d185ff1..698b9f9 100644
+--- a/geocode-glib/tests/geocode-nominatim-test.c
++++ b/geocode-glib/tests/geocode-nominatim-test.c
+@@ -129,15 +129,24 @@ common_get_response (GeocodeNominatim  *self,
+                      GError           **error)
+ {
+ 	CacheItem *item;
+-	SoupURI *parsed_uri = NULL;
+ 	GHashTable *parameters = NULL;
+ 
+ 	/* Parse the URI to get its query parameters. */
+-	parsed_uri = soup_uri_new (uri);
++#if SOUP_CHECK_VERSION (2, 99, 2)
++	GUri *parsed_uri = g_uri_parse (uri, SOUP_HTTP_URI_FLAGS, NULL);
++#else
++	SoupURI *parsed_uri = soup_uri_new (uri);
++#endif
++
+ 	g_assert_nonnull (parsed_uri);
+ 
++#if SOUP_CHECK_VERSION (2, 99, 2)
++	parameters = soup_form_decode (g_uri_get_query (parsed_uri));
++	g_uri_unref (parsed_uri);
++#else
+ 	parameters = soup_form_decode (soup_uri_get_query (parsed_uri));
+ 	soup_uri_free (parsed_uri);
++#endif
+ 
+ 	{
+ 		GHashTableIter iter;
+diff --git a/meson_options.txt b/meson_options.txt
+index 0cb674a..62b713d 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -7,3 +7,6 @@ option('enable-introspection',
+ option('enable-gtk-doc',
+        type: 'boolean', value: true,
+        description: 'Whether to generate the API reference for Geocode-GLib')
++option('soup2',
++       type: 'boolean', value: true,
++       description: 'Whether to build with libsoup2')
+-- 
+GitLab
