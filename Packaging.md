@@ -942,7 +942,7 @@ for the template, with `build` `wrksrc`, and `env` retrieved using the
 All of this means that `gnu_configure` can implicitly deal with cross-compiling
 and other things, while `configure` can't.
 
-#### gnu_makefile
+#### makefile
 
 A simple wrapper around `cbuild.util.make`.
 
