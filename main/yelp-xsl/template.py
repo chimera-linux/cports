@@ -1,0 +1,12 @@
+pkgname = "yelp-xsl"
+pkgver = "41.1"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["pkgconf", "gettext-tiny", "itstool"]
+makedepends = ["libxslt-devel"]
+pkgdesc = "Help browser for GNOME desktop (XSL and misc files)"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "GPL-2.0-or-later"
+url = "https://wiki.gnome.org/Apps/Yelp/Xsl"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "0d6db37ac2ef812483e0104703f1fa9cf032e9e0956a5f1c3afbcc23791f8a54"
