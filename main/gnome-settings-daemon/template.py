@@ -2,9 +2,9 @@ pkgname = "gnome-settings-daemon"
 pkgver = "41.0"
 pkgrel = 0
 build_style = "meson"
-# TODO: libwacom, nss
+# TODO: nss
 configure_args = [
-    "-Dsystemd=false", "-Dsmartcard=false", "-Dwacom=false",
+    "-Dsystemd=false", "-Dsmartcard=false",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "xsltproc", "docbook-xsl-nons", "perl",
@@ -17,7 +17,7 @@ makedepends = [
     "libxfixes-devel", "libgudev-devel", "wayland-devel", "cups-devel",
     "eudev-devel", "networkmanager-devel", "colord-devel", "polkit-devel",
     # actually pulseaudio is used, alsa is only used to query hw info
-    "modemmanager-devel", "gcr-devel", "alsa-lib-devel",
+    "modemmanager-devel", "gcr-devel", "alsa-lib-devel", "libwacom-devel",
 ]
 depends = ["hicolor-icon-theme"]
 checkdepends = [
