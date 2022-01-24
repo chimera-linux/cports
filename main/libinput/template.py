@@ -2,14 +2,13 @@ pkgname = "libinput"
 pkgver = "1.19.2"
 pkgrel = 0
 build_style = "meson"
-# FIXME: libwacom support?
 configure_args = [
-    "-Ddocumentation=false", "-Dtests=true", "-Dlibwacom=false",
+    "-Ddocumentation=false", "-Dtests=true",
     "-Ddebug-gui=false", "-Db_ndebug=false"
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
-    "libevdev-devel", "mtdev-devel", "eudev-devel"
+    "libevdev-devel", "mtdev-devel", "eudev-devel", "libwacom-devel",
 ]
 checkdepends = ["check-devel", "bash"]
 pkgdesc = "Input abstraction library for Wayland and X"
