@@ -22,9 +22,6 @@ configure_args = [
     "-Dvapi=true", "-Dintrospection=true", "-Ddocs=true",
     # XXX: maybe use nss when we have it?
     "-Dcrypto=gnutls", "-Dreadline=libedit",
-    # TODOs
-    "-Dmodem_manager=false", # modemmanager, mobile-broadband-provider-info
-    "-Dppp=false", # ppp
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "vala", "glib-devel",
@@ -36,10 +33,11 @@ makedepends = [
     "libnl-devel", "polkit-devel", "libcurl-devel", "libedit-devel",
     "jansson-devel", "libpsl-devel", "eudev-devel", "elogind-devel",
     "libgirepository-devel", "libndp-devel", "newt-devel", "python-gobject",
-    "linux-headers",
+    "linux-headers", "modemmanager-devel", "ppp-devel",
+    "mobile-broadband-provider-info",
 ]
 depends = [
-    "dbus", "iwd", "openresolv", "iproute2",
+    "dbus", "iwd", "openresolv", "iproute2", "mobile-broadband-provider-info",
 ]
 checkdepends = ["python-dbus"]
 pkgdesc = "Network management daemon"
