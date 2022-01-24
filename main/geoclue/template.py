@@ -11,10 +11,6 @@ configure_args = [
     "-Dvapi=true",
     "-Dsoup2=false",
     "-Ddemo-agent=false", # problematic meson.build
-    # FIXME: these need modemmanager
-    "-D3g-source=false",
-    "-Dcdma-source=false",
-    "-Dmodem-gps-source=false",
     # FIXME: this needs avahi glib libs
     "-Dnmea-source=false",
 ]
@@ -23,6 +19,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "eudev-devel", "json-glib-devel", "libsoup-devel", "libnotify-devel",
+    "modemmanager-devel",
 ]
 pkgdesc = "D-Bus geoinformation service"
 maintainer = "q66 <q66@chimera-linux.org>"
