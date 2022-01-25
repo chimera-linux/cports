@@ -1,0 +1,1124 @@
+commit 1cf5a1ae583fae211981b16677c99b2bb9787dd9
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Mon Jan 24 23:21:44 2022 +0100
+
+    get rid of intltool
+    
+    based on https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/78
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 97a2696..c746ba8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -275,7 +275,8 @@ include(PkgConfigEx)
+ include(SetupBuildFlags)
+ include(UninstallTarget)
+ 
+-include(FindIntltool)
++include(FindGettext)
++include(I18n)
+ include(FindKRB5)
+ include(FindLDAP)
+ include(FindPhonenumber)
+diff --git a/cmake/modules/FindIntltool.cmake b/cmake/modules/FindIntltool.cmake
+deleted file mode 100644
+index c7bad9b..0000000
+--- a/cmake/modules/FindIntltool.cmake
++++ /dev/null
+@@ -1,214 +0,0 @@
+-# FindIntltool.cmake
+-#
+-# Searches for intltool and gettext. It aborts, if anything cannot be found.
+-# Requires GETTEXT_PO_DIR to be set to full path of the po/ directory.
+-#
+-# Output is:
+-#   INTLTOOL_UPDATE  - an intltool-update executable path, as found
+-#   INTLTOOL_EXTRACT  - an intltool-extract executable path, as found
+-#   INTLTOOL_MERGE  - an intltool-merge executable path, as found
+-#
+-# and anything from the FindGettext module.
+-#
+-# The below provided macros require GETTEXT_PACKAGE to be set.
+-#
+-# intltool_add_check_potfiles_target()
+-#    Adds a check-potfiles target, which verifies that all files with translations
+-#    are added in the POTFILES.in file inside GETTEXT_PO_DIR. This macro can be called
+-#    only inside GETTEXT_PO_DIR.
+-#
+-# intltool_add_pot_file_target()
+-#    Creates a new target pot-file, which generates ${GETTEXT_PACKAGE}.pot file into
+-#    the CMAKE_CURERNT_BINARY_DIR. This target is not part of ALL.
+-#    This can be called only inside GETTEXT_PO_DIR.
+-#
+-# intltool_process_po_files()
+-#    Processes all files in the GETTEXT_PO_DIR and generates .gmo files for them
+-#    in CMAKE_CURRENT_BINARY_DIR. These are added into a new target gmo-files.
+-#    It also installs them into proper location under LOCALE_INSTALL_DIR.
+-#    This can be called only inside GETTEXT_PO_DIR.
+-#
+-# intltool_setup_po_dir()
+-#    Shortcut to setup intltool's po/ directory by adding all custom targets
+-#    and such. this can be called only inside GETTEXT_PO_DIR.
+-#
+-# intltool_merge(_in_filename _out_filename ...args)
+-#    Adds rule to call intltool-merge. The args are optional arguments.
+-#    This can be called in any folder, only the GETTEXT_PO_DIR should
+-#    be properly set, otherwise the call will fail.
+-#
+-# add_appdata_file(_infilename _outfilename)
+-#    A shortcut to call intltool-merge() for an appdata file and install it
+-#    to ${SHARE_INSTALL_PREFIX}/metainfo
+-
+-include(FindGettext)
+-
+-if(NOT GETTEXT_FOUND)
+-	message(FATAL_ERROR "gettext not found, please install at least 0.18.3 version")
+-endif(NOT GETTEXT_FOUND)
+-
+-if(GETTEXT_VERSION_STRING VERSION_LESS "0.18.3")
+-	message(FATAL_ERROR "gettext version 0.18.3+ required, but version '${GETTEXT_VERSION_STRING}' found instead. Please update your gettext")
+-endif(GETTEXT_VERSION_STRING VERSION_LESS "0.18.3")
+-
+-find_program(XGETTEXT xgettext)
+-if(NOT XGETTEXT)
+-	message(FATAL_ERROR "xgettext executable not found. Please install or update your gettext to at least 0.18.3 version")
+-endif(NOT XGETTEXT)
+-
+-find_program(INTLTOOL_UPDATE intltool-update)
+-if(NOT INTLTOOL_UPDATE)
+-	message(FATAL_ERROR "intltool-update not found. Please install it (usually part of an 'intltool' package)")
+-endif(NOT INTLTOOL_UPDATE)
+-
+-find_program(INTLTOOL_EXTRACT intltool-extract)
+-if(NOT INTLTOOL_EXTRACT)
+-	message(FATAL_ERROR "intltool-extract not found. Please install it (usually part of an 'intltool' package)")
+-endif(NOT INTLTOOL_EXTRACT)
+-
+-find_program(INTLTOOL_MERGE intltool-merge)
+-if(NOT INTLTOOL_MERGE)
+-	message(FATAL_ERROR "intltool-merge not found. Please install it (usually part of an 'intltool' package)")
+-endif(NOT INTLTOOL_MERGE)
+-
+-macro(intltool_add_check_potfiles_target)
+-	if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+-		message(FATAL_ERROR "intltool_add_pot_file_target() can be called only inside GETTEXT_PO_DIR ('${GETTEXT_PO_DIR}'), but it is called inside '${CMAKE_CURRENT_SOURCE_DIR}' instead")
+-	endif(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+-
+-	add_custom_target(check-potfiles
+-		COMMAND ${INTLTOOL_UPDATE} -m
+-		WORKING_DIRECTORY ${GETTEXT_PO_DIR}
+-	)
+-endmacro(intltool_add_check_potfiles_target)
+-
+-macro(intltool_add_pot_file_target)
+-	if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+-		message(FATAL_ERROR "intltool_add_pot_file_target() can be called only inside GETTEXT_PO_DIR ('${GETTEXT_PO_DIR}'), but it is called inside '${CMAKE_CURRENT_SOURCE_DIR}' instead")
+-	endif(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+-
+-	add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${GETTEXT_PACKAGE}.pot
+-		COMMAND ${CMAKE_COMMAND} -E env INTLTOOL_EXTRACT="${INTLTOOL_EXTRACT}" XGETTEXT="${XGETTEXT}" srcdir=${CMAKE_CURRENT_SOURCE_DIR} ${INTLTOOL_UPDATE} --gettext-package ${GETTEXT_PACKAGE} --pot
+-	)
+-
+-	add_custom_target(pot-file
+-		DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${GETTEXT_PACKAGE}.pot
+-	)
+-endmacro(intltool_add_pot_file_target)
+-
+-macro(intltool_process_po_files)
+-	if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+-		message(FATAL_ERROR "intltool_process_po_files() can be called only inside GETTEXT_PO_DIR ('${GETTEXT_PO_DIR}'), but it is called inside '${CMAKE_CURRENT_SOURCE_DIR}' instead")
+-	endif(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+-
+-	file(GLOB po_files ${GETTEXT_PO_DIR}/*.po)
+-
+-	set(LINGUAS)
+-	set(LINGUAS_GMO)
+-
+-	foreach(file IN LISTS po_files)
+-		get_filename_component(lang ${file} NAME_WE)
+-		list(APPEND LINGUAS ${lang})
+-		list(APPEND LINGUAS_GMO ${lang}.gmo)
+-
+-		add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo
+-			COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo ${CMAKE_CURRENT_SOURCE_DIR}/${lang}.po
+-			DEPENDS ${lang}.po
+-		)
+-
+-		install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo
+-			DESTINATION ${LOCALE_INSTALL_DIR}/${lang}/LC_MESSAGES/
+-			RENAME ${GETTEXT_PACKAGE}.mo
+-		)
+-		if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo.m)
+-			install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo.m
+-				DESTINATION ${LOCALE_INSTALL_DIR}/${lang}/LC_MESSAGES/
+-				RENAME ${GETTEXT_PACKAGE}.mo.m
+-			)
+-		endif(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${lang}.gmo.m)
+-	endforeach(file)
+-
+-	add_custom_target(gmo-files ALL
+-		DEPENDS ${LINGUAS_GMO}
+-	)
+-endmacro(intltool_process_po_files)
+-
+-macro(intltool_setup_po_dir)
+-	if(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+-		message(FATAL_ERROR "intltool_setup_po_dir() can be called only inside GETTEXT_PO_DIR ('${GETTEXT_PO_DIR}'), but it is called inside '${CMAKE_CURRENT_SOURCE_DIR}' instead")
+-	endif(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+-
+-	intltool_add_check_potfiles_target()
+-	intltool_add_pot_file_target()
+-	intltool_process_po_files()
+-endmacro(intltool_setup_po_dir)
+-
+-macro(intltool_merge _in_filename _out_filename)
+-	set(_in ${_in_filename})
+-	set(_out ${_out_filename})
+-
+-	get_filename_component(_path ${_in} DIRECTORY)
+-	if(_path STREQUAL "")
+-		set(_in ${CMAKE_CURRENT_SOURCE_DIR}/${_in})
+-	endif(_path STREQUAL "")
+-
+-	get_filename_component(_path ${_out} DIRECTORY)
+-	if(_path STREQUAL "")
+-		set(_out ${CMAKE_CURRENT_BINARY_DIR}/${_out})
+-	endif(_path STREQUAL "")
+-
+-	set(_has_no_translations OFF)
+-	set(_args)
+-	foreach(_arg ${ARGN})
+-		list(APPEND _args "${_arg}")
+-		if(_arg STREQUAL "--no-translations")
+-			set(_has_no_translations ON)
+-		endif(_arg STREQUAL "--no-translations")
+-	endforeach(_arg)
+-
+-	if(_has_no_translations)
+-		add_custom_command(OUTPUT ${_out}
+-			COMMAND ${INTLTOOL_MERGE} ${_args} --quiet "${_in}" "${_out}"
+-			DEPENDS ${_in}
+-		)
+-	else(_has_no_translations)
+-		if(NOT TARGET intltool-merge-cache)
+-			add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/po/.intltool-merge-cache
+-				COMMAND ${INTLTOOL_MERGE} ${_args} --quiet --cache="${CMAKE_BINARY_DIR}/po/.intltool-merge-cache" "${GETTEXT_PO_DIR}" "${_in}" "${_out}"
+-				DEPENDS ${_in}
+-			)
+-			add_custom_target(intltool-merge-cache ALL
+-				DEPENDS ${CMAKE_BINARY_DIR}/po/.intltool-merge-cache)
+-		endif(NOT TARGET intltool-merge-cache)
+-
+-		add_custom_command(OUTPUT ${_out}
+-			COMMAND ${INTLTOOL_MERGE} ${_args} --quiet --cache="${CMAKE_BINARY_DIR}/po/.intltool-merge-cache" "${GETTEXT_PO_DIR}" "${_in}" "${_out}"
+-			DEPENDS ${_in} intltool-merge-cache
+-		)
+-	endif(_has_no_translations)
+-endmacro(intltool_merge)
+-
+-macro(add_appdata_file _infilename _outfilename)
+-	if(NOT TARGET appdata-files)
+-		add_custom_target(appdata-files ALL)
+-	endif(NOT TARGET appdata-files)
+-
+-	set(_out ${_outfilename})
+-	get_filename_component(_outtarget ${_out} NAME)
+-	get_filename_component(_path ${_out} DIRECTORY)
+-	if(_path STREQUAL "")
+-		set(_out ${CMAKE_CURRENT_BINARY_DIR}/${_out})
+-	endif(_path STREQUAL "")
+-
+-	intltool_merge(${_infilename} ${_out} --xml-style --utf8)
+-
+-	add_custom_target(appdata-${_outtarget}
+-		DEPENDS ${_out}
+-	)
+-
+-	add_dependencies(appdata-files appdata-${_outtarget})
+-
+-	install(FILES ${_out}
+-		DESTINATION ${SHARE_INSTALL_PREFIX}/metainfo
+-	)
+-endmacro(add_appdata_file)
+diff --git a/cmake/modules/I18n.cmake b/cmake/modules/I18n.cmake
+new file mode 100644
+index 0000000..525adaa
+--- /dev/null
++++ b/cmake/modules/I18n.cmake
+@@ -0,0 +1,26 @@
++# I18n.cmake
++#
++# Macros to easily use Gettext translations capabilities
++#
++
++include(FindGettext)
++include(CMakeParseArguments)
++
++macro(i18n_merge_file _source _target _po_dir)
++	cmake_parse_arguments(_I18N "" "TYPE" "EXTRA_ARGS" ${ARGN})
++	if (NOT DEFINED _I18N_TYPE)
++		set(_I18N_TYPE "desktop")
++	elseif(NOT ((${_I18N_TYPE} STREQUAL "desktop") OR (${_I18N_TYPE} STREQUAL "xml")))
++		message(FATAL_ERROR "Wrong type supplied, only 'desktop' and 'xml' are allowed, given: '${_I18N_TYPE}'")
++	endif()
++	add_custom_command(
++		OUTPUT ${_target}
++		DEPENDS ${_source} "${_po_dir}/LINGUAS"
++		COMMAND ${GETTEXT_MSGFMT_EXECUTABLE}
++			--${_I18N_TYPE}
++			--template=${_source}
++			-d ${_po_dir}
++			-o ${_target}
++			${_I18N_EXTRA_ARGS}
++	)
++endmacro(i18n_merge_file)
+diff --git a/data/CMakeLists.txt b/data/CMakeLists.txt
+index a366a95..de24e19 100644
+--- a/data/CMakeLists.txt
++++ b/data/CMakeLists.txt
+@@ -10,7 +10,7 @@ configure_file(org.gnome.Evolution-alarm-notify.desktop.in.in
+ 	@ONLY
+ )
+ 
+-intltool_merge(${CMAKE_CURRENT_BINARY_DIR}/org.gnome.Evolution-alarm-notify.desktop.in org.gnome.Evolution-alarm-notify.desktop --desktop-style --utf8)
++i18n_merge_file(${CMAKE_CURRENT_BINARY_DIR}/org.gnome.Evolution-alarm-notify.desktop.in org.gnome.Evolution-alarm-notify.desktop ${CMAKE_SOURCE_DIR}/po)
+ 
+ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/org.gnome.Evolution-alarm-notify.desktop
+ 	DESTINATION ${autostartdir}
+@@ -36,7 +36,7 @@ set(SCHEMAS
+ 
+ set(BUILT_SCHEMAS)
+ foreach(_schema IN LISTS SCHEMAS)
+-	intltool_merge(${_schema}.in ${_schema} --no-translations --xml-style --utf8)
++	configure_file(${_schema}.in ${_schema} COPYONLY)
+ 	list(APPEND BUILT_SCHEMAS ${CMAKE_CURRENT_BINARY_DIR}/${_schema})
+ endforeach(_schema)
+ 
+diff --git a/data/org.gnome.Evolution-alarm-notify.desktop.in.in b/data/org.gnome.Evolution-alarm-notify.desktop.in.in
+index 6d72d7c..1380c00 100644
+--- a/data/org.gnome.Evolution-alarm-notify.desktop.in.in
++++ b/data/org.gnome.Evolution-alarm-notify.desktop.in.in
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ Type=Application
+-_Name=Evolution Alarm Notify
+-_Comment=Calendar event notifications
++Name=Evolution Alarm Notify
++Comment=Calendar event notifications
+ Icon=appointment-soon
+ Exec=@privlibexecdir@/evolution-alarm-notify
+ Terminal=false
+diff --git a/data/org.gnome.evolution-data-server.addressbook.gschema.xml.in b/data/org.gnome.evolution-data-server.addressbook.gschema.xml.in
+index f010d31..0aa5bb0 100644
+--- a/data/org.gnome.evolution-data-server.addressbook.gschema.xml.in
++++ b/data/org.gnome.evolution-data-server.addressbook.gschema.xml.in
+@@ -2,7 +2,7 @@
+   <schema gettext-domain="evolution-data-server" id="org.gnome.evolution-data-server.addressbook" path="/org/gnome/evolution-data-server/addressbook/">
+     <key name="self-contact-uid" type="s">
+       <default>''</default>
+-      <_summary>Contact UID of a user</_summary>
++      <summary>Contact UID of a user</summary>
+     </key>
+   </schema>
+ </schemalist>
+diff --git a/data/org.gnome.evolution-data-server.calendar.gschema.xml.in b/data/org.gnome.evolution-data-server.calendar.gschema.xml.in
+index f6c9ecd..ee153d5 100644
+--- a/data/org.gnome.evolution-data-server.calendar.gschema.xml.in
++++ b/data/org.gnome.evolution-data-server.calendar.gschema.xml.in
+@@ -10,79 +10,79 @@
+ 
+     <key name="contacts-reminder-enabled" type="b">
+       <default>false</default>
+-      <_summary>Birthday and anniversary reminder</_summary>
+-      <_description>Whether to set a reminder for birthdays and anniversaries</_description>
++      <summary>Birthday and anniversary reminder</summary>
++      <description>Whether to set a reminder for birthdays and anniversaries</description>
+     </key>
+     <key name="contacts-reminder-interval" type="i">
+       <default>15</default>
+-      <_summary>Birthday and anniversary reminder value</_summary>
+-      <_description>Number of units for determining a birthday or anniversary reminder</_description>
++      <summary>Birthday and anniversary reminder value</summary>
++      <description>Number of units for determining a birthday or anniversary reminder</description>
+     </key>
+     <key name="contacts-reminder-units" enum='org.gnome.evolution-data-server.calendar.Duration'>
+       <default>'minutes'</default>
+-      <_summary>Birthday and anniversary reminder units</_summary>
+-      <_description>Units for a birthday or anniversary reminder, “minutes”, “hours” or “days”</_description>
++      <summary>Birthday and anniversary reminder units</summary>
++      <description>Units for a birthday or anniversary reminder, “minutes”, “hours” or “days”</description>
+     </key>
+ 
+     <key name="reminders-past" type="as">
+       <default>['']</default>
+-      <_summary>Past reminders for EReminderWatcher</_summary>
++      <summary>Past reminders for EReminderWatcher</summary>
+     </key>
+     <key name="reminders-snoozed" type="as">
+       <default>['']</default>
+-      <_summary>Snoozed reminders for EReminderWatcher</_summary>
++      <summary>Snoozed reminders for EReminderWatcher</summary>
+     </key>
+ 
+     <key name="notify-programs" type="as">
+       <default>[]</default>
+-      <_summary>Reminder programs</_summary>
+-      <_description>Programs that are allowed to be run by reminders</_description>
++      <summary>Reminder programs</summary>
++      <description>Programs that are allowed to be run by reminders</description>
+     </key>
+     <key name="notify-with-tray" type="b">
+       <default>true</default>
+-      <_summary>Show reminders in notification tray only</_summary>
+-      <_description>When set to true, the reminders are shown only in the notification tray, otherwise the reminders dialog is shown immediately</_description>
++      <summary>Show reminders in notification tray only</summary>
++      <description>When set to true, the reminders are shown only in the notification tray, otherwise the reminders dialog is shown immediately</description>
+     </key>
+     <key name="notify-window-on-top" type="b">
+       <default>true</default>
+-      <_summary>Show reminder notification dialog always on top</_summary>
+-      <_description>Whether or not to show reminder notification dialog always on top. Note this works only as a hint for the window manager, which may or may not obey it.</_description>
++      <summary>Show reminder notification dialog always on top</summary>
++      <description>Whether or not to show reminder notification dialog always on top. Note this works only as a hint for the window manager, which may or may not obey it.</description>
+     </key>
+     <key name="notify-window-x" type="i">
+       <default>-1</default>
+-      <_summary>X position of the reminder notification dialog</_summary>
++      <summary>X position of the reminder notification dialog</summary>
+     </key>
+     <key name="notify-window-y" type="i">
+       <default>-1</default>
+-      <_summary>Y position of the reminder notification dialog</_summary>
++      <summary>Y position of the reminder notification dialog</summary>
+     </key>
+     <key name="notify-window-width" type="i">
+       <default>-1</default>
+-      <_summary>Width of the reminder notification dialog</_summary>
++      <summary>Width of the reminder notification dialog</summary>
+     </key>
+     <key name="notify-window-height" type="i">
+       <default>-1</default>
+-      <_summary>Height of the reminder notification dialog</_summary>
++      <summary>Height of the reminder notification dialog</summary>
+     </key>
+     <key name="notify-window-paned-position" type="i">
+       <default>-1</default>
+-      <_summary>Size in pixels of the event list in the reminder notification dialog</_summary>
++      <summary>Size in pixels of the event list in the reminder notification dialog</summary>
+     </key>
+     <key name="notify-completed-tasks" type="b">
+       <default>true</default>
+-      <_summary>Show reminder notification for completed tasks</_summary>
++      <summary>Show reminder notification for completed tasks</summary>
+     </key>
+     <key name="notify-past-events" type="b">
+       <default>false</default>
+-      <_summary>Show reminder notification for past events</_summary>
++      <summary>Show reminder notification for past events</summary>
+     </key>
+     <key name="notify-last-snooze-minutes" type="i">
+       <default>5</default>
+-      <_summary>The last used snooze time, in minutes</_summary>
++      <summary>The last used snooze time, in minutes</summary>
+     </key>
+     <key name="notify-custom-snooze-minutes" type="ai">
+       <default>[]</default>
+-      <_summary>User-defined snooze times, in minutes</_summary>
++      <summary>User-defined snooze times, in minutes</summary>
+     </key>
+   </schema>
+ </schemalist>
+diff --git a/data/org.gnome.evolution-data-server.gschema.xml.in b/data/org.gnome.evolution-data-server.gschema.xml.in
+index dd0e5f4..332f7dd 100644
+--- a/data/org.gnome.evolution-data-server.gschema.xml.in
++++ b/data/org.gnome.evolution-data-server.gschema.xml.in
+@@ -2,47 +2,47 @@
+   <schema gettext-domain="evolution-data-server" id="org.gnome.evolution-data-server" path="/org/gnome/evolution-data-server/">
+     <key name="migrated" type="b">
+       <default>false</default>
+-      <_summary>Whether the migration of old setting was already done</_summary>
++      <summary>Whether the migration of old setting was already done</summary>
+     </key>
+     <key name="camel-gpg-binary" type="s">
+       <default>''</default>
+-      <_summary>An absolute path where the gpg (or gpg2) binary is</_summary>
+-      <_description>An example is “/usr/bin/gpg”; when it is left empty, or an incorrect value is set, then it will be searched for. Change requires restart of the application.</_description>
++      <summary>An absolute path where the gpg (or gpg2) binary is</summary>
++      <description>An example is “/usr/bin/gpg”; when it is left empty, or an incorrect value is set, then it will be searched for. Change requires restart of the application.</description>
+     </key>
+     <key name="camel-cipher-load-photos" type="b">
+       <default>true</default>
+-      <_summary>Whether to load photos of signers/encrypters</_summary>
+-      <_description>When set to “true”, tries to load also photo of the signers/encrypters, if available in the key/certificate.</_description>
++      <summary>Whether to load photos of signers/encrypters</summary>
++      <description>When set to “true”, tries to load also photo of the signers/encrypters, if available in the key/certificate.</description>
+     </key>
+     <key name="camel-smtp-helo-argument" type="s">
+       <default>''</default>
+-      <_summary>Override SMTP HELO/EHLO argument</_summary>
+-      <_description>When not empty, it's used as the SMTP HELO/EHLO argument, instead of the local host name/IP.</_description>
++      <summary>Override SMTP HELO/EHLO argument</summary>
++      <description>When not empty, it's used as the SMTP HELO/EHLO argument, instead of the local host name/IP.</description>
+     </key>
+     <key name="camel-message-info-user-headers" type="as">
+       <default>[]</default>
+-      <_summary>Array of user header names</_summary>
+-      <_description>These headers can be stored in the folder summary, eventually being visible in the GUI. The value can contain a pipe character ('|'), which delimits the display name from the header name. Example: 'Span Score|X-Spam-Score'</_description>
++      <summary>Array of user header names</summary>
++      <description>These headers can be stored in the folder summary, eventually being visible in the GUI. The value can contain a pipe character ('|'), which delimits the display name from the header name. Example: 'Span Score|X-Spam-Score'</description>
+     </key>
+     <key name="network-monitor-gio-name" type="s">
+       <default>''</default>
+-      <_summary>GIO name of the GNetworkMonitor to use for an ENetworkMonitor instance</_summary>
+-      <_description>When set to an unknown value, then the default GNetworkMonitor is used in the background. A special value “always-online” is used for no network monitoring.</_description>
++      <summary>GIO name of the GNetworkMonitor to use for an ENetworkMonitor instance</summary>
++      <description>When set to an unknown value, then the default GNetworkMonitor is used in the background. A special value “always-online” is used for no network monitoring.</description>
+     </key>
+     <key name="autoconfig-directory" type="s">
+       <default>''</default>
+-      <_summary>A full path to a directory where .source files with preconfigured options can be stored</_summary>
+-      <_description>This directory, if filled with an existing path, is checked additionally to XDG configure directories.</_description>
++      <summary>A full path to a directory where .source files with preconfigured options can be stored</summary>
++      <description>This directory, if filled with an existing path, is checked additionally to XDG configure directories.</description>
+     </key>
+     <key name="autoconfig-variables" type="as">
+       <default>['']</default>
+-      <_summary>A list of variables which can be part of the autoconfig .source files</_summary>
+-      <_description>Each item of the array is expected to be of the form: name=value. These variables are checked before environment variables, but after the predefined USER, REALNAME and HOST variables.</_description>
++      <summary>A list of variables which can be part of the autoconfig .source files</summary>
++      <description>Each item of the array is expected to be of the form: name=value. These variables are checked before environment variables, but after the predefined USER, REALNAME and HOST variables.</description>
+     </key>
+     <key name="oauth2-services-hint" type="as">
+       <default>['']</default>
+-      <_summary>A list of hints for OAuth2 services</_summary>
+-      <_description>Users can extend the list of supported protocols and hostnames for defined OAuth2 services, in addition to those hard-coded.
++      <summary>A list of hints for OAuth2 services</summary>
++      <description>Users can extend the list of supported protocols and hostnames for defined OAuth2 services, in addition to those hard-coded.
+       Each line can be of the form:
+          servicename[-protocol]:hostname1,hostname2,...
+       where “servicename” is the actual service name;
+@@ -54,37 +54,37 @@
+ 
+       Examples:
+          Company:mail.company.com — enables “Company” OAuth2 authentication for “mail.company.com” host
+-	 Company-CalDAV:caldav.company.com — enables “Company” OAuth2 authentication for any “CalDAV” source, which reads data from “caldav.company.com” host</_description>
++	 Company-CalDAV:caldav.company.com — enables “Company” OAuth2 authentication for any “CalDAV” source, which reads data from “caldav.company.com” host</description>
+     </key>
+     <key name="oauth2-google-client-id" type="s">
+       <default>''</default>
+-      <_summary>An OAuth2 client ID to use to connect to Google servers, instead of the one provided during build time</_summary>
+-      <_description>User-specified OAuth2 client ID for Google servers. Empty string means to use the one provided during build time. Change of this requires restart.</_description>
++      <summary>An OAuth2 client ID to use to connect to Google servers, instead of the one provided during build time</summary>
++      <description>User-specified OAuth2 client ID for Google servers. Empty string means to use the one provided during build time. Change of this requires restart.</description>
+     </key>
+     <key name="oauth2-google-client-secret" type="s">
+       <default>''</default>
+-      <_summary>An OAuth2 client secret to use to connect to Google servers, instead of the one provided during build time</_summary>
+-      <_description>User-specified OAuth2 client secret for Google servers. Empty string means to use the one provided during build time. Change of this requires restart.</_description>
++      <summary>An OAuth2 client secret to use to connect to Google servers, instead of the one provided during build time</summary>
++      <description>User-specified OAuth2 client secret for Google servers. Empty string means to use the one provided during build time. Change of this requires restart.</description>
+     </key>
+     <key name="oauth2-outlook-client-id" type="s">
+       <default>''</default>
+-      <_summary>An OAuth2 client ID to use to connect to Outlook servers, instead of the one provided during build time</_summary>
+-      <_description>User-specified OAuth2 client ID for Outlook servers. Empty string means to use the one provided during build time. Change of this requires restart.</_description>
++      <summary>An OAuth2 client ID to use to connect to Outlook servers, instead of the one provided during build time</summary>
++      <description>User-specified OAuth2 client ID for Outlook servers. Empty string means to use the one provided during build time. Change of this requires restart.</description>
+     </key>
+     <key name="oauth2-outlook-client-secret" type="s">
+       <default>''</default>
+-      <_summary>An OAuth2 client secret to use to connect to Outlook servers, instead of the one provided during build time</_summary>
+-      <_description>User-specified OAuth2 client secret for Outlook servers. Empty string means to use the one provided during build time. Change of this requires restart.</_description>
++      <summary>An OAuth2 client secret to use to connect to Outlook servers, instead of the one provided during build time</summary>
++      <description>User-specified OAuth2 client secret for Outlook servers. Empty string means to use the one provided during build time. Change of this requires restart.</description>
+     </key>
+     <key name="oauth2-yahoo-client-id" type="s">
+       <default>''</default>
+-      <_summary>An OAuth2 client ID to use to connect to Yahoo! servers, instead of the one provided during build time</_summary>
+-      <_description>User-specified OAuth2 client ID for Yahoo! servers. Empty string means to use the one provided during build time. Change of this requires restart.</_description>
++      <summary>An OAuth2 client ID to use to connect to Yahoo! servers, instead of the one provided during build time</summary>
++      <description>User-specified OAuth2 client ID for Yahoo! servers. Empty string means to use the one provided during build time. Change of this requires restart.</description>
+     </key>
+     <key name="oauth2-yahoo-client-secret" type="s">
+       <default>''</default>
+-      <_summary>An OAuth2 client secret to use to connect to Yahoo! servers, instead of the one provided during build time</_summary>
+-      <_description>User-specified OAuth2 client secret for Yahoo! servers. Empty string means to use the one provided during build time. Change of this requires restart.</_description>
++      <summary>An OAuth2 client secret to use to connect to Yahoo! servers, instead of the one provided during build time</summary>
++      <description>User-specified OAuth2 client secret for Yahoo! servers. Empty string means to use the one provided during build time. Change of this requires restart.</description>
+     </key>
+   </schema>
+ </schemalist>
+diff --git a/data/org.gnome.evolution.shell.network-config.gschema.xml.in b/data/org.gnome.evolution.shell.network-config.gschema.xml.in
+index 9793cb9..dee81de 100644
+--- a/data/org.gnome.evolution.shell.network-config.gschema.xml.in
++++ b/data/org.gnome.evolution.shell.network-config.gschema.xml.in
+@@ -8,68 +8,68 @@
+ 
+     <key name="proxy-type" type="i">
+       <default>0</default>
+-      <_summary>(Deprecated) Proxy type to use</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Proxy type to use</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="use-http-proxy" type="b">
+       <default>false</default>
+-      <_summary>(Deprecated) Whether to use http-proxy</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Whether to use http-proxy</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="use-authentication" type="b">
+       <default>false</default>
+-      <_summary>(Deprecated) Whether proxy server requires authentication</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Whether proxy server requires authentication</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="http-host" type="s">
+       <default>''</default>
+-      <_summary>(Deprecated) Host name for HTTP requests</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Host name for HTTP requests</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="http-port" type="i">
+       <default>0</default>
+-      <_summary>(Deprecated) Port number for HTTP requests</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Port number for HTTP requests</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="authentication-user" type="s">
+       <default>''</default>
+-      <_summary>(Deprecated) Proxy authentication user name</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Proxy authentication user name</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="authentication-password" type="s">
+       <default>''</default>
+-      <_summary>(Deprecated) Proxy authentication password</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Proxy authentication password</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="ignore-hosts" type="as">
+       <default>[]</default>
+-      <_summary>(Deprecated) List of hosts to connect to without proxy</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) List of hosts to connect to without proxy</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="secure-host" type="s">
+       <default>''</default>
+-      <_summary>(Deprecated) Host name for HTTPS requests</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Host name for HTTPS requests</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="secure-port" type="i">
+       <default>0</default>
+-      <_summary>(Deprecated) Port number for HTTPS requests</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Port number for HTTPS requests</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="socks-host" type="s">
+       <default>''</default>
+-      <_summary>(Deprecated) Host name for SOCKS requests</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Host name for SOCKS requests</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="socks-port" type="i">
+       <default>0</default>
+-      <_summary>(Deprecated) Port number for SOCKS requests</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Port number for SOCKS requests</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+     <key name="autoconfig-url" type="s">
+       <default>''</default>
+-      <_summary>(Deprecated) Automatic proxy configuration URL</_summary>
+-      <_description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</_description>
++      <summary>(Deprecated) Automatic proxy configuration URL</summary>
++      <description>This key was deprecated in version 3.12 and should no longer be used.  Proxy settings are now integrated into Evolution-Data-Server’s account system.  See the ESourceProxy API documentation for details.</description>
+     </key>
+   </schema>
+ </schemalist>
+diff --git a/po/CMakeLists.txt b/po/CMakeLists.txt
+index 9e81642..bf7423e 100644
+--- a/po/CMakeLists.txt
++++ b/po/CMakeLists.txt
+@@ -1 +1,86 @@
+-intltool_setup_po_dir()
++find_program(GETTEXT_XGETTEXT_EXECUTABLE xgettext)
++
++set(DOMAIN ${FULL_PROJECT_NAME})
++set(POT_FILE ${GETTEXT_PACKAGE}.pot)
++
++file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/POTFILES.in TRANSLATED_FILES_1 ENCODING UTF-8 REGEX "^[^#].*")
++file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/POTFILES.source.in TRANSLATED_FILES_2 ENCODING UTF-8 REGEX "^[^#].*")
++set(TRANSLATED_FILES)
++foreach(TRANSLATED_FILE ${TRANSLATED_FILES_1} ${TRANSLATED_FILES_2})
++    list(APPEND TRANSLATED_FILES "../${TRANSLATED_FILE}")
++endforeach(TRANSLATED_FILE)
++
++# Creates the .pot file containing the translations template
++add_custom_command(
++    COMMENT "Generating translation template"
++    COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} -o ${POT_FILE}
++        --directory=${CMAKE_SOURCE_DIR}
++        --package-name=${GETTEXT_PACKAGE}
++        --files-from=${CMAKE_CURRENT_SOURCE_DIR}/POTFILES.in
++        --from-code=UTF-8
++        --add-comments
++        --keyword=_
++        --keyword=N_
++        --keyword=C_:1c,2
++        --keyword=NC_:1c,2
++        --keyword=g_dcgettext:2
++        --keyword=g_dngettext:2,3
++        --keyword=g_dpgettext2:2c,3
++        --flag=N_:1:pass-c-format
++        --flag=C_:2:pass-c-format
++        --flag=NC_:2:pass-c-format
++        --flag=g_dngettext:2:pass-c-format
++        --flag=g_strdup_printf:1:c-format
++        --flag=g_string_printf:2:c-format
++        --flag=g_string_append_printf:2:c-format
++        --flag=g_error_new:3:c-format
++        --flag=g_set_error:4:c-format
++        --flag=g_markup_printf_escaped:1:c-format
++        --flag=g_log:3:c-format
++        --flag=g_print:1:c-format
++        --flag=g_printerr:1:c-format
++        --flag=g_printf:1:c-format
++        --flag=g_fprintf:2:c-format
++        --flag=g_sprintf:2:c-format
++        --flag=g_snprintf:3:c-format
++# .source files are not standard so handle them the best we can
++    COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} -o ${POT_FILE}
++        --directory=${CMAKE_SOURCE_DIR}
++        --package-name=${GETTEXT_PACKAGE}
++        --language=Desktop
++        --join-existing
++        --files-from=${CMAKE_CURRENT_SOURCE_DIR}/POTFILES.source.in
++        --from-code=UTF-8
++        --add-comments
++        --keyword=DisplayName
++    OUTPUT ${POT_FILE}
++    DEPENDS ${TRANSLATED_FILES}
++)
++
++file(GLOB po_files ${CMAKE_CURRENT_SOURCE_DIR}/*.po)
++set(LINGUAS)
++foreach(file IN LISTS po_files)
++    get_filename_component(lang ${file} NAME_WE)
++    list(APPEND LINGUAS ${lang})
++    gettext_process_po_files(${lang} ALL INSTALL_DESTINATION "${LOCALE_INSTALL_DIR}" PO_FILES "${CMAKE_CURRENT_SOURCE_DIR}/${lang}.po")
++endforeach(file)
++
++string (REPLACE ";" "\n" LINGUAS_CONTENT "${LINGUAS}")
++file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/LINGUAS" ${LINGUAS_CONTENT})
++add_custom_target(linguas)
++add_custom_command(TARGET linguas
++    COMMENT "Updating LINGUAS"
++    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/LINGUAS ${CMAKE_CURRENT_SOURCE_DIR}/LINGUAS
++    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/LINGUAS
++)
++
++add_custom_target(${GETTEXT_PACKAGE}-pot DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${POT_FILE})
++
++add_custom_target(${GETTEXT_PACKAGE}-update-po DEPENDS ${GETTEXT_PACKAGE}-pot)
++foreach(LANG ${LINGUAS})
++    add_custom_command(TARGET ${GETTEXT_PACKAGE}-update-po
++        COMMENT "Update ${LANG}.po"
++        COMMAND ${GETTEXT_MSGMERGE_EXECUTABLE} -q --update ${CMAKE_CURRENT_SOURCE_DIR}/${LANG}.po ${CMAKE_CURRENT_BINARY_DIR}/${POT_FILE}
++        DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${POT_FILE}
++    )
++endforeach(LANG)
+diff --git a/po/LINGUAS b/po/LINGUAS
+new file mode 100644
+index 0000000..365c3bc
+--- /dev/null
++++ b/po/LINGUAS
+@@ -0,0 +1,88 @@
++am
++ar
++as
++ast
++az
++be
++bg
++bn
++bn_IN
++bs
++ca
++ca@valencia
++cs
++cy
++da
++de
++dz
++el
++en@shaw
++en_AU
++en_CA
++en_GB
++eo
++es
++et
++eu
++fa
++fi
++fr
++fur
++ga
++gl
++gu
++he
++hi
++hr
++hu
++id
++is
++it
++ja
++ka
++kk
++km
++kn
++ko
++ku
++lt
++lv
++mai
++mk
++ml
++mn
++mr
++ms
++nb
++ne
++nl
++nn
++oc
++or
++pa
++pl
++pt
++pt_BR
++ro
++ru
++rw
++si
++sk
++sl
++sq
++sr
++sr@latin
++sv
++ta
++te
++tg
++th
++tr
++ug
++uk
++vi
++wa
++xh
++zh_CN
++zh_HK
++zh_TW
+\ No newline at end of file
+diff --git a/po/POTFILES.in b/po/POTFILES.in
+index 111edaa..9d96051 100644
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -1,6 +1,5 @@
+ # List of source files containing translatable strings.
+ # Please keep this list in alphabetic order.
+-[encoding: UTF-8]
+ src/addressbook/backends/carddav/e-book-backend-carddav.c
+ src/addressbook/backends/file/e-book-backend-file.c
+ src/addressbook/backends/file/e-book-backend-file-migrate-bdb.c
+@@ -226,24 +225,6 @@ src/modules/yahoo-backend/module-yahoo-backend.c
+ src/services/evolution-addressbook-factory/evolution-addressbook-factory.c
+ src/services/evolution-alarm-notify/e-alarm-notify.c
+ src/services/evolution-calendar-factory/evolution-calendar-factory.c
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/birthdays.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/caldav-stub.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/carddav-stub.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/contacts-stub.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/google-stub.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/ldap-stub.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/local.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/local-stub.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/sendmail.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/system-address-book.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/system-calendar.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/system-memo-list.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/system-proxy.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/system-task-list.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/vfolder.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/weather-stub.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/webcal-stub.source.in
+-[type: gettext/ini]src/services/evolution-source-registry/builtin/webdav-notes-stub.source.in
+ src/services/evolution-source-registry/evolution-source-registry.c
+ src/services/evolution-user-prompter/evolution-user-prompter.c
+ src/services/evolution-user-prompter/prompt-user-gtk.c
+diff --git a/po/POTFILES.source.in b/po/POTFILES.source.in
+new file mode 100644
+index 0000000..d0b666d
+--- /dev/null
++++ b/po/POTFILES.source.in
+@@ -0,0 +1,18 @@
++src/services/evolution-source-registry/builtin/birthdays.source.in
++src/services/evolution-source-registry/builtin/caldav-stub.source.in
++src/services/evolution-source-registry/builtin/carddav-stub.source.in
++src/services/evolution-source-registry/builtin/contacts-stub.source.in
++src/services/evolution-source-registry/builtin/google-stub.source.in
++src/services/evolution-source-registry/builtin/ldap-stub.source.in
++src/services/evolution-source-registry/builtin/local.source.in
++src/services/evolution-source-registry/builtin/local-stub.source.in
++src/services/evolution-source-registry/builtin/sendmail.source.in
++src/services/evolution-source-registry/builtin/system-address-book.source.in
++src/services/evolution-source-registry/builtin/system-calendar.source.in
++src/services/evolution-source-registry/builtin/system-memo-list.source.in
++src/services/evolution-source-registry/builtin/system-proxy.source.in
++src/services/evolution-source-registry/builtin/system-task-list.source.in
++src/services/evolution-source-registry/builtin/vfolder.source.in
++src/services/evolution-source-registry/builtin/weather-stub.source.in
++src/services/evolution-source-registry/builtin/webcal-stub.source.in
++src/services/evolution-source-registry/builtin/webdav-notes-stub.source.in
+diff --git a/src/services/evolution-source-registry/CMakeLists.txt b/src/services/evolution-source-registry/CMakeLists.txt
+index 487f8ae..d463c99 100644
+--- a/src/services/evolution-source-registry/CMakeLists.txt
++++ b/src/services/evolution-source-registry/CMakeLists.txt
+@@ -48,7 +48,12 @@ endif(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/builtin)
+ 
+ set(builtin_sources)
+ foreach(_file ${builtin_sources_files})
+-	intltool_merge(${CMAKE_CURRENT_SOURCE_DIR}/builtin/${_file}.in ${CMAKE_CURRENT_BINARY_DIR}/builtin/${_file} -d -u)
++	i18n_merge_file(
++		${CMAKE_CURRENT_SOURCE_DIR}/builtin/${_file}.in
++		${CMAKE_CURRENT_BINARY_DIR}/builtin/${_file}
++		${CMAKE_SOURCE_DIR}/po
++		EXTRA_ARGS "--keyword=DisplayName"
++	)
+ 	list(APPEND builtin_sources ${CMAKE_CURRENT_BINARY_DIR}/builtin/${_file})
+ endforeach(_file)
+ 
+diff --git a/src/services/evolution-source-registry/builtin/birthdays.source.in b/src/services/evolution-source-registry/builtin/birthdays.source.in
+index 7f90f94..b5606f2 100644
+--- a/src/services/evolution-source-registry/builtin/birthdays.source.in
++++ b/src/services/evolution-source-registry/builtin/birthdays.source.in
+@@ -1,6 +1,6 @@
+ 
+ [Data Source]
+-_DisplayName=Birthdays & Anniversaries
++DisplayName=Birthdays & Anniversaries
+ Enabled=true
+ Parent=contacts-stub
+ 
+diff --git a/src/services/evolution-source-registry/builtin/caldav-stub.source.in b/src/services/evolution-source-registry/builtin/caldav-stub.source.in
+index 90081a3..18e02f6 100644
+--- a/src/services/evolution-source-registry/builtin/caldav-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/caldav-stub.source.in
+@@ -1,5 +1,5 @@
+ 
+ [Data Source]
+-_DisplayName=CalDAV
++DisplayName=CalDAV
+ Enabled=true
+ Parent=
+diff --git a/src/services/evolution-source-registry/builtin/carddav-stub.source.in b/src/services/evolution-source-registry/builtin/carddav-stub.source.in
+index dc77afa..1fc9ac8 100644
+--- a/src/services/evolution-source-registry/builtin/carddav-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/carddav-stub.source.in
+@@ -1,5 +1,5 @@
+ 
+ [Data Source]
+-_DisplayName=CardDAV
++DisplayName=CardDAV
+ Enabled=true
+ Parent=
+diff --git a/src/services/evolution-source-registry/builtin/contacts-stub.source.in b/src/services/evolution-source-registry/builtin/contacts-stub.source.in
+index f2bcb97..f5cd2e2 100644
+--- a/src/services/evolution-source-registry/builtin/contacts-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/contacts-stub.source.in
+@@ -1,5 +1,5 @@
+ 
+ [Data Source]
+-_DisplayName=Contacts
++DisplayName=Contacts
+ Enabled=true
+ Parent=
+diff --git a/src/services/evolution-source-registry/builtin/google-stub.source.in b/src/services/evolution-source-registry/builtin/google-stub.source.in
+index 93de6f1..8914bb6 100644
+--- a/src/services/evolution-source-registry/builtin/google-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/google-stub.source.in
+@@ -1,5 +1,5 @@
+ 
+ [Data Source]
+-_DisplayName=Google
++DisplayName=Google
+ Enabled=true
+ Parent=
+diff --git a/src/services/evolution-source-registry/builtin/ldap-stub.source.in b/src/services/evolution-source-registry/builtin/ldap-stub.source.in
+index 9c5e324..8fbabf2 100644
+--- a/src/services/evolution-source-registry/builtin/ldap-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/ldap-stub.source.in
+@@ -1,5 +1,5 @@
+ 
+ [Data Source]
+-_DisplayName=On LDAP Servers
++DisplayName=On LDAP Servers
+ Enabled=true
+ Parent=
+diff --git a/src/services/evolution-source-registry/builtin/local-stub.source.in b/src/services/evolution-source-registry/builtin/local-stub.source.in
+index bad02f0..32e05e0 100644
+--- a/src/services/evolution-source-registry/builtin/local-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/local-stub.source.in
+@@ -2,6 +2,6 @@
+ # mail store forced the introduction of this "stub" suffix.
+ 
+ [Data Source]
+-_DisplayName=On This Computer
++DisplayName=On This Computer
+ Enabled=true
+ Parent=
+diff --git a/src/services/evolution-source-registry/builtin/local.source.in b/src/services/evolution-source-registry/builtin/local.source.in
+index 1c38384..188737a 100644
+--- a/src/services/evolution-source-registry/builtin/local.source.in
++++ b/src/services/evolution-source-registry/builtin/local.source.in
+@@ -1,7 +1,7 @@
+ # Special built-in mail store.
+ 
+ [Data Source]
+-_DisplayName=On This Computer
++DisplayName=On This Computer
+ Enabled=true
+ Parent=
+ 
+diff --git a/src/services/evolution-source-registry/builtin/sendmail.source.in b/src/services/evolution-source-registry/builtin/sendmail.source.in
+index ce825cb..a76b5f8 100644
+--- a/src/services/evolution-source-registry/builtin/sendmail.source.in
++++ b/src/services/evolution-source-registry/builtin/sendmail.source.in
+@@ -1,6 +1,6 @@
+ 
+ [Data Source]
+-_DisplayName=Sendmail
++DisplayName=Sendmail
+ Enabled=true
+ Parent=
+ 
+diff --git a/src/services/evolution-source-registry/builtin/system-address-book.source.in b/src/services/evolution-source-registry/builtin/system-address-book.source.in
+index 494f11b..38029b2 100644
+--- a/src/services/evolution-source-registry/builtin/system-address-book.source.in
++++ b/src/services/evolution-source-registry/builtin/system-address-book.source.in
+@@ -1,6 +1,6 @@
+ 
+ [Data Source]
+-_DisplayName=Personal
++DisplayName=Personal
+ Enabled=true
+ Parent=local-stub
+ 
+diff --git a/src/services/evolution-source-registry/builtin/system-calendar.source.in b/src/services/evolution-source-registry/builtin/system-calendar.source.in
+index ffbe161..8da0c66 100644
+--- a/src/services/evolution-source-registry/builtin/system-calendar.source.in
++++ b/src/services/evolution-source-registry/builtin/system-calendar.source.in
+@@ -1,6 +1,6 @@
+ 
+ [Data Source]
+-_DisplayName=Personal
++DisplayName=Personal
+ Enabled=true
+ Parent=local-stub
+ 
+diff --git a/src/services/evolution-source-registry/builtin/system-memo-list.source.in b/src/services/evolution-source-registry/builtin/system-memo-list.source.in
+index f53f0f0..091513f 100644
+--- a/src/services/evolution-source-registry/builtin/system-memo-list.source.in
++++ b/src/services/evolution-source-registry/builtin/system-memo-list.source.in
+@@ -1,6 +1,6 @@
+ 
+ [Data Source]
+-_DisplayName=Personal
++DisplayName=Personal
+ Enabled=true
+ Parent=local-stub
+ 
+diff --git a/src/services/evolution-source-registry/builtin/system-proxy.source.in b/src/services/evolution-source-registry/builtin/system-proxy.source.in
+index a7a351f..3ce3679 100644
+--- a/src/services/evolution-source-registry/builtin/system-proxy.source.in
++++ b/src/services/evolution-source-registry/builtin/system-proxy.source.in
+@@ -1,6 +1,6 @@
+ 
+ [Data Source]
+-_DisplayName=Default Proxy Settings
++DisplayName=Default Proxy Settings
+ Enabled=true
+ Parent=
+ 
+diff --git a/src/services/evolution-source-registry/builtin/system-task-list.source.in b/src/services/evolution-source-registry/builtin/system-task-list.source.in
+index 22f40bc..efd39f2 100644
+--- a/src/services/evolution-source-registry/builtin/system-task-list.source.in
++++ b/src/services/evolution-source-registry/builtin/system-task-list.source.in
+@@ -1,6 +1,6 @@
+ 
+ [Data Source]
+-_DisplayName=Personal
++DisplayName=Personal
+ Enabled=true
+ Parent=local-stub
+ 
+diff --git a/src/services/evolution-source-registry/builtin/vfolder.source.in b/src/services/evolution-source-registry/builtin/vfolder.source.in
+index 98a9df4..ee9a2f4 100644
+--- a/src/services/evolution-source-registry/builtin/vfolder.source.in
++++ b/src/services/evolution-source-registry/builtin/vfolder.source.in
+@@ -1,7 +1,7 @@
+ # Special built-in mail store.
+ 
+ [Data Source]
+-_DisplayName=Search Folders
++DisplayName=Search Folders
+ Enabled=true
+ Parent=
+ 
+diff --git a/src/services/evolution-source-registry/builtin/weather-stub.source.in b/src/services/evolution-source-registry/builtin/weather-stub.source.in
+index e1a549d..76b9385 100644
+--- a/src/services/evolution-source-registry/builtin/weather-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/weather-stub.source.in
+@@ -1,5 +1,5 @@
+ 
+ [Data Source]
+-_DisplayName=Weather
++DisplayName=Weather
+ Enabled=true
+ Parent=
+diff --git a/src/services/evolution-source-registry/builtin/webcal-stub.source.in b/src/services/evolution-source-registry/builtin/webcal-stub.source.in
+index 178cec1..dd5f446 100644
+--- a/src/services/evolution-source-registry/builtin/webcal-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/webcal-stub.source.in
+@@ -1,5 +1,5 @@
+ 
+ [Data Source]
+-_DisplayName=On The Web
++DisplayName=On The Web
+ Enabled=true
+ Parent=
+diff --git a/src/services/evolution-source-registry/builtin/webdav-notes-stub.source.in b/src/services/evolution-source-registry/builtin/webdav-notes-stub.source.in
+index 01a3b01..7890606 100644
+--- a/src/services/evolution-source-registry/builtin/webdav-notes-stub.source.in
++++ b/src/services/evolution-source-registry/builtin/webdav-notes-stub.source.in
+@@ -1,5 +1,5 @@
+ 
+ [Data Source]
+-_DisplayName=WebDAV Notes
++DisplayName=WebDAV Notes
+ Enabled=true
+ Parent=
