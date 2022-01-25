@@ -1425,6 +1425,7 @@ class Subpackage(Package):
 
     def take_libs(self):
         self.take("usr/lib/lib*.so.[0-9]*")
+        self.take("usr/lib/girepository-[0-9]*", missing_ok = True)
 
     def take_progs(self, man = "18"):
         self.take("usr/bin/*")

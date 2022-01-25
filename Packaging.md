@@ -2599,7 +2599,9 @@ for the current coverage.
 
 This function will `take` everything that should usually belong in a
 `-libs` package. This is all shared libraries in `usr/lib` that start
-with `lib` and follow a regular soname style.
+with `lib` and follow a regular soname style. It also includes GObject
+typelibs since those in general need to be available with the runtime
+library for access from GI bindings.
 
 ##### def take_progs(self, man = "18")
 
