@@ -10,7 +10,7 @@ configure_args = [
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake", "pkgconf", "glib-devel", "gobject-introspection", "vala",
-    "xsltproc",
+    "xsltproc", "gettext-tiny",
 ]
 makedepends = [
     "libglib-devel", "libgudev-devel", "polkit-devel", "libqmi-devel",
@@ -34,6 +34,4 @@ def _devel(self):
 
 @subpackage("modemmmanager-libs")
 def _lib(self):
-    return self.default_libs(extra = [
-            "usr/lib/girepository-1.0"
-    ])
+    return self.default_libs()
