@@ -1,5 +1,5 @@
 pkgname = "pango"
-pkgver = "1.48.10"
+pkgver = "1.50.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled"]
@@ -14,8 +14,8 @@ pkgdesc = "Text rendering and layout library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.pango.org"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "21e1f5798bcdfda75eabc4280514b0896ab56f656d4e7e66030b9a2535ecdc98"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "4add05edf51c1fb375a1ccde7498914120e23cb280dd7395b1aeb441f1838a4c"
 # FIXME: missing checkdepends
 options = ["!check"]
 
