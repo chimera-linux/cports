@@ -20,8 +20,7 @@ configure_args = [
     "-Dpppd_plugin_dir=/usr/lib/pppd/2.4.9",
     "-Dsession_tracking=elogind", "-Dsuspend_resume=elogind",
     "-Dvapi=true", "-Dintrospection=true", "-Ddocs=true",
-    # XXX: maybe use nss when we have it?
-    "-Dcrypto=gnutls", "-Dreadline=libedit",
+    "-Dcrypto=nss", "-Dreadline=libedit",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "vala", "glib-devel",
@@ -29,7 +28,7 @@ hostmakedepends = [
     "python-gobject", "jansson-devel", "perl", "bash",
 ]
 makedepends = [
-    "libuuid-devel", "gnutls-devel", "dbus-devel", "libgudev-devel",
+    "libuuid-devel", "nss-devel", "dbus-devel", "libgudev-devel",
     "libnl-devel", "polkit-devel", "libcurl-devel", "libedit-devel",
     "jansson-devel", "libpsl-devel", "eudev-devel", "elogind-devel",
     "libgirepository-devel", "libndp-devel", "newt-devel", "python-gobject",
