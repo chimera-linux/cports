@@ -1,7 +1,7 @@
 # dbus daemon service
 
 type               = process
-command            = /usr/libexec/dbus-daemon.wrapper
+command            = /usr/libexec/dbus-daemon.wrapper --print-address=4
 depends-on         = dbus-prepare
 smooth-recovery    = true
-socket-listen      = /run/dbus/system_bus_socket
+ready-notification = pipefd:4
