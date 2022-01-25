@@ -1,0 +1,23 @@
+commit 232dba7d3b5cd7b3537336d63f2a4ae7cf1a568f
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jan 25 00:55:28 2022 +0100
+
+    disable some broken ppc inline asm code
+    
+    This segfaults on both gcc and clang, funnily nss "works" under
+    gcc, because this is guarded by __ppc64__, which is undefined on
+    gcc (but defined on clang)
+
+diff --git a/nss/lib/freebl/mpi/mpcpucache.c b/nss/lib/freebl/mpi/mpcpucache.c
+index a32a1b6..d453d38 100644
+--- a/nss/lib/freebl/mpi/mpcpucache.c
++++ b/nss/lib/freebl/mpi/mpcpucache.c
+@@ -705,7 +705,7 @@ s_mpi_getProcessorLineSize()
+ #define MPI_GET_PROCESSOR_LINE_SIZE_DEFINED 1
+ #endif
+ 
+-#if defined(__ppc64__)
++#if 0
+ /*
+  *  Sigh, The PPC has some really nice features to help us determine cache
+  *  size, since it had lots of direct control functions to do so. The POWER
