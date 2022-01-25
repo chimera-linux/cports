@@ -6,7 +6,8 @@ configure_args = [
     "-Dintrospection=true", "-Dgtk_doc=false",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gobject-introspection", "glib-devel", "libxml2-progs"
+    "meson", "pkgconf", "gobject-introspection", "glib-devel", "libxml2-progs",
+    "gettext-tiny",
 ]
 makedepends = [
     "gtk+3-devel", "libnotify-devel", "libcanberra-devel", "eudev-devel"
