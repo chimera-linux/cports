@@ -24,7 +24,7 @@ makedepends = [
 checkdepends = ["check-devel"]
 depends = [
     "gnome-settings-daemon", "gnome-shell", "gnome-session",
-    "gsettings-desktop-schemas", "xrdb",
+    "gsettings-desktop-schemas", "xrdb", "xwayland",
 ]
 pkgdesc = "GNOME display manager"
 maintainer = "q66 <q66@chimera-linux.org>"
