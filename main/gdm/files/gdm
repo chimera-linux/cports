@@ -1,0 +1,7 @@
+# gdm service
+
+type       = process
+command    = /usr/libexec/gdm-helper
+depends-on = gdm-prepare
+depends-on = login
+depends-on = dbus
