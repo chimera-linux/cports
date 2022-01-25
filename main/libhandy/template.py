@@ -2,16 +2,16 @@ pkgname = "libhandy"
 pkgver = "1.5.0"
 pkgrel = 0
 build_style = "meson"
-# TODO: glade
 configure_args = [
     "-Dexamples=false", "-Dtests=false", "-Dgtk_doc=false", "-Dvapi=true",
-    "-Dglade_catalog=disabled", "-Dintrospection=enabled",
+    "-Dglade_catalog=enabled", "-Dintrospection=enabled",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala",
+    "libxml2-progs", "gettext-tiny",
 ]
 makedepends = [
-    "gtk+3-devel", "libglib-devel"
+    "gtk+3-devel", "libglib-devel", "glade3-devel",
 ]
 pkgdesc = "GTK+3 building blocks for modern adaptive applications"
 maintainer = "q66 <q66@chimera-linux.org>"
