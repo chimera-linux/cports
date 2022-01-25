@@ -16,7 +16,7 @@ configure_args = [
 ]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "xsltproc", "openssh", "polkit-devel",
-    "docbook-xsl-nons",
+    "docbook-xsl-nons", "gettext-tiny",
 ]
 makedepends = [
     "dbus-devel", "libglib-devel", "fuse-devel", "libarchive-devel",
