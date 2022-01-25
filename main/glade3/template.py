@@ -29,7 +29,6 @@ def _lib(self):
     self.depends += ["python-gobject"]
 
     return self.default_libs(extra = [
-        "usr/lib/girepository-1.0",
         "usr/lib/glade/modules",
         "usr/share/glade",
         "usr/share/locale",

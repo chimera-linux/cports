@@ -53,10 +53,7 @@ def post_install(self):
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (shared library)"
 
-    return [
-        "usr/lib/girepository-1.0",
-        "usr/lib/*.so.*",
-    ]
+    return self.default_libs()
 
 @subpackage("colord-devel")
 def _devel(self):

@@ -32,4 +32,4 @@ def _devel(self):
 
 @subpackage("tracker-libs")
 def _libs(self):
-    return self.default_libs(extra = ["usr/lib/girepository-1.0"])
+    return self.default_libs()

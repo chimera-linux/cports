@@ -87,7 +87,7 @@ def post_install(self):
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
-    return self.default_libs(extra = ["usr/lib/girepository-1.0"])
+    return self.default_libs()
 
 @subpackage("networkmanager-devel")
 def _devel(self):
