@@ -5,6 +5,7 @@ build_style = "meson"
 configure_args = ["-Dsystemd=false"]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "xsltproc", "docbook-xsl-nons", "perl",
+    "gettext-tiny",
 ]
 makedepends = [
     "libglib-devel", "geocode-glib-devel", "gnome-desktop-devel",
