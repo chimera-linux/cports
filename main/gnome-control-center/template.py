@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dcheese=false"]
 hostmakedepends = [
-    "meson", "pkgconf", "gobject-introspection",
+    "meson", "pkgconf", "gobject-introspection", "gettext-tiny",
     "glib-devel", "polkit", "python"
 ]
 # TODO: printers panel (package libsmbclient)
