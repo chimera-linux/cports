@@ -3,7 +3,8 @@ pkgver = "41.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dsystemd=false", "-Dtests=false", "-Ddefault_library=shared"
+    "-Dsystemd=false", "-Dtests=false", "-Ddefault_library=shared",
+    "-Dsoup2=false",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "gobject-introspection",
