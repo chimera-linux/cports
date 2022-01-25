@@ -2,17 +2,15 @@ pkgname = "nautilus"
 pkgver = "41.2"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "-Dextensions=false", # TODO: needs libgexiv2
-    "-Dtests=headless",
-]
+configure_args = ["-Dtests=headless"]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gettext-tiny", "gobject-introspection",
+    "cmake",
 ]
 makedepends = [
     "libglib-devel", "gnome-desktop-devel", "gnome-autoar-devel",
     "libhandy-devel", "gtk+3-devel", "libportal-devel", "tracker-devel",
-    "libxml2-devel",
+    "libxml2-devel", "gexiv2-devel", "gst-plugins-base-devel",
 ]
 depends = ["hicolor-icon-theme", "tracker", "tracker-miners"]
 checkdepends = ["dbus", "tracker", "tracker-miners", "python-gobject"]
