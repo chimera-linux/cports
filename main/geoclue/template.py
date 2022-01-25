@@ -16,6 +16,7 @@ configure_args = [
 ]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala",
+    "gettext-tiny",
 ]
 makedepends = [
     "eudev-devel", "json-glib-devel", "libsoup-devel", "libnotify-devel",
