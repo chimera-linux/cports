@@ -10,16 +10,16 @@ configure_args = [
     # features
     "-Dminer_rss=false", # TODO: libgrss
     "-Dxmp=disabled", # TODO: exempi
-    "-Draw=disabled", # TODO: gexiv2
     "-Dcue=disabled", # TODO: libcue
     "-Dgsf=disabled", # TODO: libgsf
-    "-Dxps=disabled", # TODO: libgxps
     "-Diso=disabled", # TODO: libosinfo
     "-Diptc=disabled", # TODO: libiptcdata
     "-Dplaylist=disabled", # TODO: totem-pl-parser
     "-Dexif=enabled",
     "-Djpeg=enabled",
     "-Dtiff=enabled",
+    "-Draw=enabled",
+    "-Dxps=enabled",
     "-Dpng=enabled",
     "-Dgif=enabled",
     "-Dpdf=enabled",
@@ -33,15 +33,13 @@ makedepends = [
     "gst-plugins-base-devel", "icu-devel", "libexif-devel", "libseccomp-devel",
     "libjpeg-turbo-devel", "libpng-devel", "libtiff-devel", "giflib-devel",
     "libxml2-devel", "libpoppler-glib-devel", "upower-devel",
-    "networkmanager-devel",
+    "networkmanager-devel", "gexiv2-devel", "libgxps-devel",
     # FIXMEs:
     #"libcue-devel",
     #"libgsf-devel",
     #"exempi-devel",
     #"libgrss-devel",
-    #"libgxps-devel",
     #"libosinfo-devel",
-    #"libgexiv2-devel",
     #"libiptcdata-devel",
 ]
 pkgdesc = "Data miners for tracker"
