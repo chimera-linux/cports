@@ -24,19 +24,6 @@ index d4fe361..b879160 100644
 -subdir('printers')
 +#subdir('printers')
  subdir('info')
-diff --git a/panels/meson.build b/panels/meson.build
-index 0af5083..6e75b3b 100644
---- a/panels/meson.build
-+++ b/panels/meson.build
-@@ -27,7 +27,7 @@ panels = [
-   'sound',
-   'universal-access',
-   'usage',
--  'user-accounts',
-+ #'user-accounts',
-   'wwan',
- ]
- 
 diff --git a/shell/cc-panel-loader.c b/shell/cc-panel-loader.c
 index 67f3f1b..44d9b9a 100644
 --- a/shell/cc-panel-loader.c
@@ -50,15 +37,6 @@ index 67f3f1b..44d9b9a 100644
  extern GType cc_region_panel_get_type (void);
  extern GType cc_removable_media_panel_get_type (void);
  extern GType cc_search_panel_get_type (void);
-@@ -61,7 +61,7 @@ extern GType cc_sound_panel_get_type (void);
- extern GType cc_bolt_panel_get_type (void);
- #endif /* BUILD_THUNDERBOLT */
- extern GType cc_ua_panel_get_type (void);
--extern GType cc_user_panel_get_type (void);
-+//extern GType cc_user_panel_get_type (void);
- #ifdef BUILD_WACOM
- extern GType cc_wacom_panel_get_type (void);
- #endif /* BUILD_WACOM */
 @@ -122,7 +122,7 @@ static CcPanelLoaderVtable default_panels[] =
    PANEL_TYPE("notifications",    cc_notifications_panel_get_type,        NULL),
    PANEL_TYPE("online-accounts",  cc_goa_panel_get_type,                  NULL),
@@ -68,12 +46,3 @@ index 67f3f1b..44d9b9a 100644
    PANEL_TYPE("region",           cc_region_panel_get_type,               NULL),
    PANEL_TYPE("removable-media",  cc_removable_media_panel_get_type,      NULL),
    PANEL_TYPE("search",           cc_search_panel_get_type,               NULL),
-@@ -133,7 +133,7 @@ static CcPanelLoaderVtable default_panels[] =
- #endif
-   PANEL_TYPE("universal-access", cc_ua_panel_get_type,                   NULL),
-   PANEL_TYPE("usage",            cc_usage_panel_get_type,                NULL),
--  PANEL_TYPE("user-accounts",    cc_user_panel_get_type,                 NULL),
-+  //PANEL_TYPE("user-accounts",    cc_user_panel_get_type,                 NULL),
- #ifdef BUILD_WACOM
-   PANEL_TYPE("wacom",            cc_wacom_panel_get_type,                cc_wacom_panel_static_init_func),
- #endif
