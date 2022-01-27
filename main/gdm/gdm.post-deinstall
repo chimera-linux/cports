@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# does not contain anything worth preserving
+rm -rf /var/lib/gdm > /dev/null 2>&1
