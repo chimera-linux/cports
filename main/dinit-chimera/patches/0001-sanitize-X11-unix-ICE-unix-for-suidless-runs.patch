@@ -1,0 +1,28 @@
+From fb05956e776ff27b5a4a121e2ca2afedaae3ac82 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Thu, 27 Jan 2022 01:41:38 +0100
+Subject: [PATCH] sanitize X11-unix/ICE-unix for suidless runs
+
+---
+ early-scripts/rcboot.sh | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/early-scripts/rcboot.sh b/early-scripts/rcboot.sh
+index 98e0f37..bd35442 100644
+--- a/early-scripts/rcboot.sh
++++ b/early-scripts/rcboot.sh
+@@ -47,6 +47,11 @@ if [ -x /usr/bin/sysctl ]; then
+     sysctl -p /etc/sysctl.conf
+ fi
+ 
++echo "Sanitizing temporary files..."
++
++# ensure X11/xwayland can start rootless
++install -d -m 1777 -o root -g root /tmp/.X11-unix /tmp/.ICE-unix
++
+ echo "Invoking /etc/rc.local..."
+ 
+ [ -x /etc/rc.local ] && /etc/rc.local
+-- 
+2.34.1
+
