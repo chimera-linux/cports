@@ -2,11 +2,11 @@ pkgname = "evince"
 pkgver = "41.3"
 pkgrel = 0
 build_style = "meson"
-# TODO: dvi, gspell, djvu
+# TODO: dvi, djvu
 configure_args = [
     "-Dintrospection=true", "-Dgtk_doc=false",
     "-Dcomics=enabled", "-Dps=enabled", "-Ddvi=disabled",
-    "-Dt1lib=disabled", "-Dgspell=disabled", "-Ddjvu=disabled",
+    "-Dt1lib=disabled", "-Ddjvu=disabled",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "glib-devel", "itstool",
@@ -17,7 +17,7 @@ makedepends = [
     "dbus-devel", "libsecret-devel", "gstreamer-devel", "libspectre-devel",
     "libarchive-devel", "libpoppler-glib-devel", "gst-plugins-base-devel",
     "gsettings-desktop-schemas-devel", "libtiff-devel", "libgxps-devel",
-    "adwaita-icon-theme",
+    "gspell-devel", "adwaita-icon-theme",
 ]
 depends = ["hicolor-icon-theme"]
 pkgdesc = "GNOME document viewer"
