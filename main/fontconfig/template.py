@@ -19,6 +19,11 @@ sha256 = "f655dd2a986d7aa97e052261b36aa67b0a64989496361eca8d604e6414006741"
 
 def post_install(self):
     self.install_license("COPYING")
+    # reject bitmap fonts by default, preventing them from being preferred
+    self.install_link(
+        f"/usr/share/fontconfig/conf.avail/70-no-bitmaps.conf",
+        "etc/fonts/conf.d/70-no-bitmaps.conf"
+    )
 
 @subpackage("fontconfig-devel")
 def _devel(self):
