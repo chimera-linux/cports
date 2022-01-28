@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meta"
 depends = [
     f"gnome-core>={pkgver}",
-    #"baobab",
+    "baobab",
     #"eog",
     "epiphany",
     "evince",
