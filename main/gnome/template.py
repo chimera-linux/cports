@@ -29,7 +29,7 @@ depends = [
     #"gnome-weather",
     #"orca",
     #"phodav",
-    #"simple-scan",
+    "simple-scan",
     "sushi",
     #"totem",
 ]
