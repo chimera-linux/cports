@@ -8,7 +8,7 @@ depends = [
     #"eog",
     "epiphany",
     "evince",
-    #"gedit",
+    "gedit",
     #"gnome-calculator",
     #"gnome-calendar",
     #"gnome-characters",
