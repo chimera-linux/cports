@@ -24,7 +24,7 @@ depends = [
     "gnome-shell-extensions",
     #"gnome-system-monitor",
     "gnome-terminal",
-    #"gnome-user-docs",
+    "gnome-user-docs",
     #"gnome-user-share",
     #"gnome-weather",
     #"orca",
