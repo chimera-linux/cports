@@ -16,7 +16,7 @@ depends = [
     #"gnome-contacts",
     #"gnome-connections",
     #"gnome-disk-utility",
-    #"gnome-font-viewer",
+    "gnome-font-viewer",
     #"gnome-maps",
     #"gnome-music",
     #"gnome-remote-desktop",
