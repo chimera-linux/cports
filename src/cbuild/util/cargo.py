@@ -34,6 +34,8 @@ def get_environment(pkg, jobs = None):
     if pkg.profile().cross:
         env["PKG_CONFIG_ALLOW_CROSS"] = "1"
 
+    return env
+
 class Cargo:
     def __init__(self, tmpl, jobs = None, env = {}, wrksrc = None):
         self.template = tmpl
@@ -65,14 +67,15 @@ class Cargo:
             wrksrc = tmpl.make_dir
 
         bargs = []
+        if command != "vendor":
+            bargs += ["--target", tmpl.profile().triplet]
 
         if offline:
             bargs.append("--offline")
 
         return self.template.do(
-            "cargo", command, "--target", tmpl.profile().triplet,
-            *bargs, *tmpl.configure_args, *args, env = renv, wrksrc = wrksrc,
-            allow_network = not offline
+            "cargo", command, *bargs, *tmpl.configure_args, *args,
+            env = renv, wrksrc = wrksrc, allow_network = not offline
         )
 
     def invoke(
@@ -87,7 +90,7 @@ class Cargo:
     def build(self, args = [], jobs = None, env = {}, wrksrc = None):
         tmpl = self.template
         return self._invoke(
-            "build", "--release", tmpl.make_build_args + args,
+            "build", ["--release"] + tmpl.make_build_args + args,
             jobs, True, tmpl.make_build_env, env, wrksrc
         )
 
