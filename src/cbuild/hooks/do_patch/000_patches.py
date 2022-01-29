@@ -73,7 +73,7 @@ def invoke(pkg):
     if (pkg.patches_path / "series").is_file():
         with open(pkg.patches_path / "series") as f:
             for line in f.readlines():
-                process_patch(pkg, pkg.patches_path / line, gnupatch)
+                process_patch(pkg, pkg.patches_path / line.strip(), gnupatch)
     else:
         for p in sorted(pkg.patches_path.glob("*")):
             if not p.is_file():
