@@ -6,11 +6,7 @@ make_cmd = "gmake"
 hostmakedepends = [
     "gmake", "gm4", "perl", "automake", "help2man", "xz", "texinfo"
 ]
-depends = ["gm4", "cmd:tar", "cmd:sed"]
-depends_providers = {
-    "cmd:tar": "bsdtar",
-    "cmd:sed": "bsdsed",
-}
+depends = ["gm4", "cmd:tar!bsdtar", "cmd:sed!bsdsed"]
 pkgdesc = "Generic library support script"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"

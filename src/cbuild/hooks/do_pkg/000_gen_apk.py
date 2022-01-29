@@ -50,7 +50,11 @@ def genpkg(pkg, repo, arch, binpkg):
         mdeps = []
 
         for c in pkg.depends:
-            mdeps.append(c.removeprefix("virtual:"))
+            ploc = c.find("!")
+            if ploc > 0:
+                mdeps.append(c[0:ploc].removeprefix("virtual:"))
+            else:
+                mdeps.append(c.removeprefix("virtual:"))
 
         mdeps.sort()
         metadata["depends"] = mdeps

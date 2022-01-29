@@ -23,12 +23,9 @@ makedepends = [
 ]
 depends = [
     "gtk-update-icon-cache", "adwaita-icon-theme",
-    "virtual:gdk-pixbuf-loader-svg"
+    "virtual:gdk-pixbuf-loader-svg!gdk-pixbuf-loader-lunasvg"
 ]
 checkdepends = ["xvfb-run", "dbus"] + depends
-depends_providers = {
-    "virtual:gdk-pixbuf-loader-svg": "gdk-pixbuf-loader-lunasvg"
-}
 triggers = ["/usr/lib/gtk-3.0/3.0.0/immodules"]
 pkgdesc = "Gimp Toolkit version 3"
 maintainer = "q66 <q66@chimera-linux.org>"

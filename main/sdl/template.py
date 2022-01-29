@@ -43,13 +43,9 @@ makedepends = [
 ]
 depends = [
     # dynamically loaded
-    "so:libGLESv2.so.2",
-    "so:libGL.so.1",
+    "so:libGLESv2.so.2!libgles2",
+    "so:libGL.so.1!libgl",
 ]
-depends_providers = {
-    "so:libGLESv2.so.2": "libgles2",
-    "so:libGL.so.1": "libgl",
-}
 pkgdesc = "Simple DirectMedia Layer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"

@@ -525,14 +525,12 @@ Keep in mind that default values may be overridden by build styles.
   specify dependencies on `pkgconf` files (`pc:foo`), executable commands
   (`cmd:foo`) and shared libraries (`so:libfoo.so.1`, though this is not
   recommended), as well as virtual packages (`virtual:foo`). Any virtual
-  dependencies need to be explicitly specified using `depends_providers`
-  so they can be checked. Also, in a lot of cases dependencies are automatic.
-  You should not specify any dependencies that would already be covered by
-  the scanner.
-* `depends_providers` *(dict)* Providers of virtual dependencies to consider.
-  This ensures that when building, at least one provider of a dependency will
-  be available, to ensure the generated package is installable as a dependency
-  by itself.
+  dependencies must explicitly specify a non-virtual provider, which is not
+  included in the final package metadata, but is used at build-time to check
+  availability of at least one provider; you can specify that with `!` after
+  the dependency, e.g. `cmd:sed!bsdsed`. In a lot of cases dependencies are
+  automatic, and you should not specify any dependencies that would already
+  be covered by the scanner.
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.

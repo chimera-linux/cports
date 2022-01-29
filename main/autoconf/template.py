@@ -4,10 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_env = {"M4": "/usr/bin/gm4"}
 hostmakedepends = ["perl", "gm4"]
-depends = ["cmd:awk", "gm4", "perl"]
-depends_providers = {
-    "cmd:awk": "awk"
-}
+depends = ["cmd:awk!awk", "gm4", "perl"]
 pkgdesc = "Generates automatic source code configuration scripts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

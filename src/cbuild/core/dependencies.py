@@ -64,11 +64,13 @@ def setup_depends(pkg):
 
         # virtual dependencies are checked for their specified provider
         if not _is_rdep(dep):
-            if not (pn or dep) in pkg.depends_providers:
+            # locate the provider
+            ppos = dep.find("!")
+            if ppos < 0:
                 pkg.error(
                     f"virtual dependency {dep} has no specified provider"
                 )
-            dep = pkg.depends_providers[pn or dep]
+            dep = dep[ppos + 1:]
             pn, pv, pop = autil.split_pkg_name(dep)
 
         if not pn:
