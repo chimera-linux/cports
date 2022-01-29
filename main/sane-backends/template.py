@@ -31,6 +31,9 @@ url = "http://sane-project.org"
 _rhash = "104f09c07d35519cc8e72e604f11643f"
 source = f"https://gitlab.com/sane-project/backends/uploads/{_rhash}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "3a28c237c0a72767086202379f6dc92dbb63ec08dfbab22312cba80e238bb114"
+# otherwise we get conflicting providers because all the
+# plugins provide a libsane.so.1 soname for whatever reason
+options = ["!scanshlibs"]
 system_users = [
     {
         "name": "_saned",
