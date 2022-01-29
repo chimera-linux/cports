@@ -1,0 +1,20 @@
+commit ae176742ff18cd283d21b71a8c844a3ca66974be
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jan 29 15:59:28 2022 +0100
+
+    drop -latomic (none in pure-llvm env)
+
+diff --git a/node.gyp b/node.gyp
+index 2052917..3e7104a 100644
+--- a/node.gyp
++++ b/node.gyp
+@@ -116,9 +116,6 @@
+           '-Wl,-bnoerrmsg',
+         ],
+       }],
+-      ['OS == "linux" and llvm_version != "0.0"', {
+-        'libraries': ['-latomic'],
+-      }],
+     ],
+   },
+ 
