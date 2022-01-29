@@ -28,7 +28,7 @@ def get_environment(pkg, jobs = None):
         "PCRE2_SYS_STATIC": "0",
         # cc-rs: make sure host compiler autoguess behavior is bypassed
         "HOST_CC": "clang",
-        "HOST_CFLAGS": "-02",
+        "HOST_CFLAGS": "-O2",
     }
 
     if pkg.profile().cross:
