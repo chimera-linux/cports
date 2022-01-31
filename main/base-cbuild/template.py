@@ -17,4 +17,4 @@ depends = [
 options = ["bootstrap", "brokenlinks"]
 
 if self.stage > 1:
-    depends += ["ccache"]
+    depends += ["ccache", "ca-certificates"]

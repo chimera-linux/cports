@@ -104,6 +104,11 @@ def _prepare(arch, stage):
         "../usr/share/zoneinfo/UTC"
     )
 
+    apki.call_chroot(
+        "fix", ["-q", "ca-certificates"], "main", check = True,
+        use_stage = False
+    )
+
     _prepare_passwd()
 
     with open(sfpath, "w") as sf:
