@@ -135,7 +135,7 @@ When building a package, the following happens, in simplified terms:
 * All declared sources are fetched, if not already cached. They are subsequently
   verified (the checksums must match what the template declares). If this fails,
   the fetch is re-tried.
-* Sources are extracted and patches are applied if necessary.
+* Sources are extracted, prepared and patches are applied if necessary.
 * The software is configured and built within the sandbox.
 * Files are installed in a special `destdir`. Outside of this, the directory
   where files are extracted, the `/tmp` directory in the sandbox and potential
@@ -483,14 +483,14 @@ The following commands are recognized:
   a path, reindex a specific repository. Only either the host architecture or
   the `-a` architecture are indexed, and the path should not include the
   architecture.
-* `fetch`, `extract`, `patch`, `configure`, `build`, `check`, `install`, `pkg`
-  Given an argument of template path (`category/name`) this will invoke the
-  build process for the given template up until the given phase. The `pkg`
-  phase contains all of the others. For example, `configure` will invoke
-  all of `fetch`, `extract`, `patch` and `configure` phases before stopping
-  there. A complete `pkg` will also take care of automatically cleaning up
-  afterwards, unless overridden. The build will not run if an up to date
-  version of the package already exists in the local repository, unless
+* `fetch`, `extract`, `prepare`, `patch`, `configure`, `build`, `check`,
+  `install`, `pkg` Given an argument of template path (`category/name`) this
+  will invoke the build process for the given template up until the given phase.
+  The `pkg` phase contains all of the others. For example, `configure` will
+  invoke all of `fetch`, `extract`, `prepare`, `patch` and `configure` phases
+  before stopping there. A complete `pkg` will also take care of automatically
+  cleaning up afterwards, unless overridden. The build will not run if an up to
+  date version of the package already exists in the local repository, unless
   overridden with `-f` or `--force`, when using the "pkg" target. Other
   targets will run always unless already finished in builddir (you can
   make them always run regardless by passing `-f` or `--force`).

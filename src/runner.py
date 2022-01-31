@@ -920,8 +920,9 @@ def fire():
             case "cycle-check": do_cycle_check(cmd)
             case "update-check": do_update_check(cmd)
             case "dump": do_dump(cmd)
-            case "fetch" | "extract" | "patch" | "configure": do_pkg(cmd)
-            case "build" | "check" | "install" | "pkg": do_pkg(cmd)
+            case "fetch" | "extract" | "prepare": do_pkg(cmd)
+            case "patch" | "configure" | "build": do_pkg(cmd)
+            case "check" | "install" | "pkg": do_pkg(cmd)
             case "unstage": do_unstage(cmd)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")

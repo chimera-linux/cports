@@ -111,6 +111,10 @@ hooks = {
     "pre_extract": [],
     "do_extract": [],
     "post_extract": [],
+    "init_prepare": [],
+    "pre_prepare": [],
+    "do_prepare": [],
+    "post_prepare": [],
     "init_patch": [],
     "pre_patch": [],
     "do_patch": [],
@@ -982,7 +986,9 @@ class Template(Package):
 
         if self.current_phase == "fetch":
             allow_network = True
-        elif self.current_phase != "extract" and self.current_phase != "patch":
+        elif self.current_phase != "extract" and \
+             self.current_phase != "patch" and \
+             self.current_phase != "prepare":
             allow_network = False
 
         return chroot.enter(
@@ -1597,7 +1603,8 @@ def from_module(m, ret):
 
     # add our own methods
     for phase in [
-        "fetch", "patch", "extract", "configure", "build", "check", "install"
+        "fetch", "extract", "prepare", "patch", "configure",
+        "build", "check", "install"
     ]:
         if hasattr(m, "init_" + phase):
             setattr(ret, "init_" + phase, getattr(m, "init_" + phase))
@@ -1892,7 +1899,7 @@ def read_pkg(
 
 def register_hooks():
     for step in [
-        "fetch", "extract", "patch", "configure",
+        "fetch", "extract", "prepare", "patch", "configure",
         "build", "check", "install", "pkg"
     ]:
         for sstep in ["init", "pre", "do", "post"]:

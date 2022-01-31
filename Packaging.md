@@ -305,6 +305,12 @@ the `builddir` and is created automatically.
   runs inside of the sandbox, except when bootstrapping. It populates
   the `self.wrksrc`.
 
+* `prepare` The source tree is prepared for use. This does not do anything
+  by default for most templates. Its primary use is e.g. with the `cargo`
+  build system for Rust in order to vendor dependencies so they are ready
+  for use by the time patches are applied (and thus they can be patched
+  with the other stuff).
+
 * `patch` This phase applies patches provided in `templatedir/patches`
   to the extracted sources by default. User defined override can perform
   arbitrary actions.
@@ -773,9 +779,9 @@ in it, it will last all the way to the end, so you can use the `init_` hooks
 to initialize data that later phases depend on, even if the phase itself is
 not invoked during this run (e.g. when re-running build after a failure).
 
-The phases for which all this applies are `fetch`, `patch`, `extract`,
-`configure`, `build`, `check` and `install`. They are invoked in this
-order.
+The phases for which all this applies are `fetch`, `extract`, `prepare`,
+`patch`, `configure`, `build`, `check` and `install`. They are invoked
+in this order.
 
 Every other function defined in template scope is not used by `cbuild`.
 However, all regular names are reserved for future expansion. If you want
@@ -1801,8 +1807,8 @@ as sources handling, environment setup, linting, cleanups, and even
 package generation and repo registration.
 
 The section consists of the `init_`, `pre_`, `do_` or `post_` prefix plus
-the phase name (`fetch`, `extract`, `patch`, `configure`, `build`, `check`,
-`install` and `pkg`).
+the phase name (`fetch`, `extract`, `prepare`, `patch`, `configure`, `build`,
+`check`, `install` and `pkg`).
 
 Hooks are stamp-checked, except the `init_` hooks which are run always.
 They are called together with the corresponding phase functions (if such
@@ -1843,11 +1849,12 @@ always has to have it defined in the template.
 6) init: `extract`
 7) `do_extract` OR `do_extract` hooks
 8) post: `extract`
-9) step: `patch`
-10) step: `configure`
-11) step: `build`
-12) step: `check`
-13) step: `install`
+9) step: `prepare`
+10) step: `patch`
+11) step: `configure`
+12) step: `build`
+13) step: `check`
+14) step: `install`
 
 The `install` step is also special in that it does not call `post_install`
 hooks yet (`post_install` function is called though).
@@ -2334,7 +2341,7 @@ are at `install` phase, and all namespaces will be unshared (including network
 namespace) unless we're at `fetch`.
 
 The `allow_network` argument can be used to conditionally allow network access
-but only during the `fetch`, `extract` and `patch` phases.
+but only during the `fetch`, `extract`, `prepare` and `patch` phases.
 
 If run during the `install` phase (or during the `check` phase when `checkroot`
 is enabled in `options`), the command will be run masquerading as the `root`

@@ -1,4 +1,4 @@
-from cbuild.step import fetch, extract, patch, configure
+from cbuild.step import fetch, extract, prepare, patch, configure
 from cbuild.step import build as buildm, check, install, prepkg, pkg as pkgsm
 from cbuild.core import chroot, logger, dependencies
 from cbuild.core import template, pkg as pkgm, paths, errors
@@ -68,9 +68,15 @@ def build(
     fetch.invoke(pkg)
     if step == "fetch":
         return
+
     pkg.current_phase = "extract"
     extract.invoke(pkg)
     if step == "extract":
+        return
+
+    pkg.current_phase = "prepare"
+    prepare.invoke(pkg)
+    if step == "prepare":
         return
 
     pkg.current_phase = "patch"
