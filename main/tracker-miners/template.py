@@ -9,7 +9,6 @@ configure_args = [
     "-Dman=true", "-Dsystemd_user_services=false",
     # features
     "-Dminer_rss=false", # TODO: libgrss
-    "-Dxmp=disabled", # TODO: exempi
     "-Dcue=disabled", # TODO: libcue
     "-Dgsf=disabled", # TODO: libgsf
     "-Diso=disabled", # TODO: libosinfo
@@ -32,7 +31,7 @@ makedepends = [
     "tracker-devel", "libglib-devel", "dbus-devel", "gstreamer-devel",
     "gst-plugins-base-devel", "icu-devel", "libexif-devel", "libseccomp-devel",
     "libjpeg-turbo-devel", "libpng-devel", "libtiff-devel", "giflib-devel",
-    "libxml2-devel", "libpoppler-glib-devel", "upower-devel",
+    "libxml2-devel", "libpoppler-glib-devel", "upower-devel", "exempi-devel",
     "networkmanager-devel", "gexiv2-devel", "libgxps-devel",
     # FIXMEs:
     #"libcue-devel",
