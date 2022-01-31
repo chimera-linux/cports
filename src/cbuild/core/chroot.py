@@ -104,10 +104,11 @@ def _prepare(arch, stage):
         "../usr/share/zoneinfo/UTC"
     )
 
-    apki.call_chroot(
-        "fix", ["-q", "ca-certificates"], "main", check = True,
-        use_stage = False
-    )
+    if (paths.bldroot() / "usr/bin/update-ca-certificates").is_file():
+        apki.call_chroot(
+            "fix", ["-q", "ca-certificates"], "main", check = True,
+            use_stage = False
+        )
 
     _prepare_passwd()
 
