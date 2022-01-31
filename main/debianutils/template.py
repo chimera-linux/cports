@@ -20,6 +20,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin/which")
     for f in (self.destdir / "usr/share/man").rglob("*.[18]"):
         match f.name:
-            case "add-shell.8" | "remove-shell.8" | "installkernel.8" | \
-                 "which.1":
+            case "add-shell.8" | "remove-shell.8" | "update-shells.8" | \
+                 "installkernel.8" | "which.1":
                 f.unlink()
