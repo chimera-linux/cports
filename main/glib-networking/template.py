@@ -6,9 +6,7 @@ configure_args = [
     "-Dgnutls=enabled", "-Dopenssl=enabled", "-Dlibproxy=enabled",
     "-Dgnome_proxy=enabled"
 ]
-hostmakedepends = [
-    "meson", "pkgconf", "ca-certificates", "gettext-tiny"
-]
+hostmakedepends = ["meson", "pkgconf", "gettext-tiny"]
 makedepends = [
     "openssl-devel", "gnutls-devel", "gsettings-desktop-schemas-devel",
     "libglib-devel", "libproxy-devel"
