@@ -2,8 +2,7 @@ pkgname = "cbindgen"
 pkgver = "0.20.0"
 pkgrel = 0
 build_style = "cargo"
-# TODO: maybe cargo should depend on ca-certificates
-hostmakedepends = ["cargo", "ca-certificates"]
+hostmakedepends = ["cargo"]
 makedepends = ["rust"]
 pkgdesc = "Tool to generate C bindings for Rust code"
 maintainer = "q66 <q66@chimera-linux.org>"
