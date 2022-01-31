@@ -36,6 +36,18 @@ def get_environment(pkg, jobs = None):
 
     return env
 
+# very preliminary, no error checking, etc
+def setup_vendor(pkg, vendor_path = "vendor"):
+    pkg.mkdir(".cargo")
+    with open(pkg.cwd / ".cargo/config.toml", "w") as cf:
+        cf.write(f"""
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "{vendor_path}"
+""")
+
 class Cargo:
     def __init__(self, tmpl, jobs = None, env = {}, wrksrc = None):
         self.template = tmpl
