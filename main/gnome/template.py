@@ -5,7 +5,7 @@ build_style = "meta"
 depends = [
     f"gnome-core>={pkgver}",
     "baobab",
-    #"eog",
+    "eog",
     "epiphany",
     "evince",
     "gedit",
