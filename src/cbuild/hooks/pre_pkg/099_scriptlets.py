@@ -7,28 +7,6 @@ import shutil
 import pathlib
 import subprocess
 
-# fallback python version when we cannot determine it
-def _get_pyver(pkg):
-    rv = template.read_pkg(
-        "python", pkg.rparent.profile().arch,
-        True, False, 1, False, False, None,
-        resolve = pkg.rparent, ignore_missing = True, ignore_errors = True
-    )
-    if not rv:
-        pkg.error("failed getting python version")
-    # the full version
-    pv = rv.pkgver
-    # reduce to just major/minor
-    ld = pv.rfind(".")
-    if ld > 0:
-        spv = pv[0:ld]
-        if spv.find(".") < 0:
-            return ld
-        else:
-            return spv
-    # should be impossible
-    pkg.error(f"invalid python version ({pv})")
-
 # hooks for xml/sgml registration
 
 _xml_register_entries = r"""
@@ -240,55 +218,6 @@ for acct in ${system_users}; do
 done
 """
 
-# python bytecode hooks
-
-_py_compile = r"""
-[ ! -x /usr/bin/python${pycompile_version} ] && return 0
-[ -z "${pycompile_dirs}" -a -z "${pycompile_module}" ] && return 0
-
-for f in ${pycompile_dirs}; do
-    echo "Byte-compiling python code in ${f}..."
-    python${pycompile_version} -m compileall -f -q ./${f} && \
-    python${pycompile_version} -O -m compileall -f -q ./${f}
-done
-for f in ${pycompile_module}; do
-    echo "Byte-compiling python${pycompile_version} code for module ${f}..."
-    if [ -d "usr/lib/python${pycompile_version}/site-packages/${f}" ]; then
-        python${pycompile_version} -m compileall -f -q \
-            usr/lib/python${pycompile_version}/site-packages/${f} && \
-        python${pycompile_version} -O -m compileall -f -q \
-            usr/lib/python${pycompile_version}/site-packages/${f}
-    else
-        python${pycompile_version} -m compileall -f -q \
-            usr/lib/python${pycompile_version}/site-packages/${f} && \
-        python${pycompile_version} -O -m compileall -f -q \
-            usr/lib/python${pycompile_version}/site-packages/${f}
-    fi
-done
-"""
-
-_py_remove = r"""
-[ ! -x /usr/bin/python${pycompile_version} ] && return 0
-[ -z "${pycompile_dirs}" -a -z "${pycompile_module}" ] && return 0
-
-for f in ${pycompile_dirs}; do
-    echo "Removing byte-compiled python${pycompile_version} files in ${f}..."
-    find ./${f} -type f -name \*.py[co] -delete 2>&1 >/dev/null
-    find ./${f} -type d -name __pycache__ -delete 2>&1 >/dev/null
-done
-for f in ${pycompile_module}; do
-    echo "Removing byte-compiled python${pycompile_version} code for module ${f}..."
-    if [ -d usr/lib/python${pycompile_version}/site-packages/${f} ]; then
-        find usr/lib/python${pycompile_version}/site-packages/${f} \
-            -type f -name \*.py[co] -delete 2>&1 >/dev/null
-        find usr/lib/python${pycompile_version}/site-packages/${f} \
-            -type d -name __pycache__ -delete 2>&1 >/dev/null
-    else
-        rm -f usr/lib/python${pycompile_version}/site-packages/${f%.py}.py[co]
-    fi
-done
-"""
-
 # all known hook scriptlets
 
 _hookscripts = {
@@ -303,12 +232,6 @@ _hookscripts = {
         "pre-upgrade": _acct_setup,
         "post-deinstall": _acct_drop,
     },
-    "pycompile": {
-        "post-install": _py_compile,
-        "post-upgrade": _py_compile,
-        "pre-upgrade": _py_remove,
-        "pre-deinstall": _py_remove,
-    }
 }
 
 def _handle_catalogs(pkg, _add_hook):
@@ -389,74 +312,6 @@ def _handle_accounts(pkg, _add_hook):
         # add the hook
         _add_hook("system_accounts", evars)
 
-def _handle_python(pkg, _add_hook):
-    pyver = None
-    pymods = []
-
-    # python modules
-    for d in (pkg.destdir / "usr/lib").glob("python*"):
-        # weird?
-        if not d.is_dir():
-            continue
-        # dig up python version from the dir
-        vn = d.name[len("python"):]
-        # also weird, but skip
-        if not re.match(r"^[0-9]\.[0-9]+$", vn):
-            continue
-        # no site-packages, skip
-        d = d / "site-packages"
-        if not d.is_dir():
-            continue
-        # we know a version, make sure there are no multiples
-        if pyver:
-            pkg.error(f"multiple Python versions found ({pyver} and {vn})")
-        pyver = vn
-        if len(pkg.pycompile_modules) == 0:
-            # generate implicit
-            for f in d.iterdir():
-                # eliminate whatever we don't want
-                if f.match("*.egg-info"):
-                    continue
-                elif f.match("*.dist-info"):
-                    continue
-                elif f.match("*.so"):
-                    continue
-                elif f.match("*.pth"):
-                    continue
-                elif f.name == "README.txt":
-                    continue
-                # should be ok now
-                pymods.append(f.name)
-        else:
-            pymods = pkg.pycompile_modules
-
-    if len(pymods) > 0 or len(pkg.pycompile_dirs) > 0:
-        # version may not be obvious, in those cases figure it out
-        if not pyver:
-            pyver = _get_pyver(pkg)
-        # export vars
-        pyvars = {
-            "pycompile_version": pyver
-        }
-        # dirs
-        if len(pkg.pycompile_dirs) > 0:
-            # validate first
-            for d in pkg.pycompile_dirs:
-                d = pathlib.Path(d)
-                # must not be absolute
-                if d.is_absolute():
-                    pkg.error("absolute pycompile_dirs specified")
-                # must exist
-                if not (pkg.destdir / d).is_dir():
-                    pkg.error("non-existent pycompile_dirs specified")
-            # put into vars
-            pyvars["pycompile_dirs"] = " ".join(pkg.pycompile_dirs)
-        # modules
-        if len(pymods) > 0:
-            pyvars["pycompile_module"] = " ".join(pymods)
-        # add the hook
-        _add_hook("pycompile", pyvars)
-
 def invoke(pkg):
     # base
     _hooks = {
@@ -481,7 +336,6 @@ def invoke(pkg):
     # handle individual hooks
     _handle_accounts(pkg, _add_hook)
     _handle_catalogs(pkg, _add_hook)
-    _handle_python(pkg, _add_hook)
 
     hookpath = paths.distdir() / "main/apk-chimera-hooks/files"
 

@@ -20,4 +20,7 @@ source = f"$(GNOME_SITE)/gtk-doc/{pkgver[:-2]}/gtk-doc-{pkgver}.tar.xz"
 sha256 = "cc1b709a20eb030a278a1f9842a362e00402b7f834ae1df4c1998a723152bf43"
 options = ["!splitdoc"]
 
-pycompile_dirs = ["usr/share/gtk-doc/python/gtkdoc"]
+def post_install(self):
+    from cbuild.util import python
+
+    python.precompile(self, "usr/share/gtk-doc/python/gtkdoc")

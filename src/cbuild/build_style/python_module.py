@@ -29,7 +29,7 @@ def do_check(self):
 
 def do_install(self):
     self.do(
-        "python3", "setup.py", "install", "--prefix=/usr",
+        "python3", "setup.py", "install", "--optimize=1", "--prefix=/usr",
         "--root=" + str(self.chroot_destdir), *self.make_install_args,
         env = self.make_install_env
     )

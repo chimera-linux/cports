@@ -31,7 +31,12 @@ def do_check(self):
     self.do("dbus-run-session", "ninja", "-C", "build", "test")
 
 def post_install(self):
+    from cbuild.util import python
+
     self.install_license("COPYING")
+
+    python.precompile(self, "usr/share/glib-2.0/codegen")
+    python.precompile(self, "usr/share/glib-2.0/gdb")
 
 @subpackage("libglib-devel")
 def _libdevel(self):
@@ -47,9 +52,6 @@ def _libdevel(self):
 @subpackage("glib-devel")
 def _devel(self):
     self.depends += [f"libglib-devel={pkgver}-r{pkgrel}"]
-    self.pycompile_dirs = [
-        "usr/share/glib-2.0/codegen", "usr/share/glib-2.0/gdb"
-    ]
 
     return self.default_devel(extra = [
         "usr/bin/glib-compile-resources",

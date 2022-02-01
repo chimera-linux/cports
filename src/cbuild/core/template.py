@@ -404,8 +404,6 @@ core_fields = [
     # scriptlet generators
     ("system_users", [], list, False, True, False),
     ("system_groups", [], list, False, True, False),
-    ("pycompile_dirs", [], list, False, True, False),
-    ("pycompile_modules", [], list, False, True, False),
     ("sgml_catalogs", [], list, False, True, False),
     ("sgml_entries", [], list, False, True, False),
     ("xml_catalogs", [], list, False, True, False),
@@ -497,8 +495,6 @@ core_fields_priority = [
     ("exec_wrappers", True),
 
     # scriptlet-generating stuff comes last
-    ("pycompile_dirs", True),
-    ("pycompile_modules", True),
     ("system_users", True),
     ("system_groups", True),
     ("sgml_entries", True),
@@ -1276,6 +1272,11 @@ def _split_static(pkg):
     for f in (pkg.parent.destdir / "usr/lib").rglob("*.a"):
         pkg.take(str(f.relative_to(pkg.parent.destdir)))
 
+def _split_pycache(pkg):
+    for f in pkg.parent.destdir.rglob("__pycache__"):
+        if f.is_dir():
+            pkg.take(str(f.relative_to(pkg.parent.destdir)))
+
 autopkgs = [
     # dbg is handled by its own hook
     ("dbg", "debug files", None, None),
@@ -1306,6 +1307,7 @@ autopkgs = [
         "locale", "locale data", "base-locale",
         lambda p: p.take("usr/share/locale", missing_ok = True)
     ),
+    ("pycache", "Python bytecode", "python-pycache", _split_pycache),
 ]
 
 class Subpackage(Package):
@@ -1366,7 +1368,10 @@ class Subpackage(Package):
             ddeps.append(fbdep)
             # they may also get automatically installed
             if instif:
-                self.install_if = [fbdep, instif]
+                if instif == name:
+                    self.install_if = [fbdep]
+                else:
+                    self.install_if = [fbdep, instif]
 
         self.depends = ddeps
 

@@ -18,13 +18,15 @@ sha256 = "902b4906e3102d17aa2fcb6dad1c19971c70f2a82a159ddc4a94df73a3cafc4a"
 # cross compiling tons of janky hackery
 options = ["!check", "!cross"]
 
-pycompile_dirs = [f"usr/lib/{pkgname}/giscanner"]
-
 def post_install(self):
+    from cbuild.util import python
+
     for f in (
         self.destdir / f"usr/lib/{pkgname}/giscanner"
     ).glob("_giscanner*.so"):
         self.mv(f, f.with_name("_giscanner.so"))
+
+    python.precompile(f"usr/lib/{pkgname}/giscanner")
 
 @subpackage("gir-freedesktop")
 def _girfdo(self):

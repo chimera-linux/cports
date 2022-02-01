@@ -43,8 +43,6 @@ url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
 sha256 = "a7f1265b6e1a5de1ec5c3ec7019ab53413469934758311e9d240c46e5ae6e177"
 
-pycompile_dirs = [f"usr/lib/python{_majver}"]
-
 if self.profile().cross:
     hostmakedepends += ["python"]
 

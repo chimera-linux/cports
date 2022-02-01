@@ -18,7 +18,11 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Gedit"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "55e394a82cb65678b1ab49526cf5bd43f00d8fba21476a4849051a8e137d3691"
-pycompile_dirs = ["usr/lib/gedit/plugins"]
+
+def post_install(self):
+    from cbuild.util import python
+
+    python.precompile(self, "usr/lib/gedit/plugins")
 
 @subpackage("gedit-devel")
 def _devel(self):

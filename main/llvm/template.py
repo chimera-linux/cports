@@ -176,6 +176,8 @@ def do_configure(self):
     ])
 
 def post_install(self):
+    from cbuild.util import python
+
     self.install_file(
         "libcxxabi/include/__cxxabi_config.h", "usr/include"
     )
@@ -215,6 +217,10 @@ def post_install(self):
         if f.is_symlink():
             f.unlink()
             f.symlink_to(f"../../../liblldb.so.{_llvmgen}")
+
+    # python bytecode cache
+    if self.stage > 0:
+        python.precompile(self, "usr/share/scan-view")
 
 @subpackage("clang-tools-extra-static")
 def _tools_extra_static(self):
@@ -352,7 +358,6 @@ def _clang_analyzer(self):
     self.depends = [f"clang={pkgver}-r{pkgrel}"]
     if self.stage > 0:
         self.depends.append("python")
-        self.pycompile_dirs = ["usr/share/scan-view"]
 
     return [
         "usr/bin/analyze-build",

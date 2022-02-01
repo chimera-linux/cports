@@ -704,11 +704,6 @@ These variables generate scriptlets:
   `home`.
 * `system_groups` *(list)* A list of groups to create. It contains strings,
   which can be in the format `gname` or `gname:gid`.
-* `pycompile_dirs` *(list)* A list of directories containing Python modules
-  to precompile. Should be relative to destdir and must exist in the package.
-* `pycompile_modules` *(list)* A list of Python modules to compile. If not
-  specified, all modules in `/usr/lib/pythonVERSION` will be considered (but
-  not recursively).
 * `sgml_entries` *(list)* A list of 3-tuples representing arguments to
   `xmlcatmgr -sc /etc/sgml/auto/catalog add <args>`, or `remove` (third
   element is unused then).
@@ -1174,6 +1169,7 @@ These are (with their package description suffixes):
 * `bashcomp` - `(bash completions)`
 * `locale` - `(locale data)`
 * `static` - `(static libraries)`
+* `pycache` - `(Python bytecode)`
 
 These suffixes should be considered reserved, i.e. you should not make a
 package with the reserved suffix unless it's replacing the otherwise
@@ -1195,6 +1191,7 @@ the package they were split off needs to be installed, plus the following:
 * `dinit-chimera` for `-dinit` subpackages
 * `initramfs-tools` for `-initramfs-tools` subpackages
 * `bash-completion` for `-bashcomp` packages
+* `python-pycache` for `-pycache` packages (except `python-pycache` itself)
 
 You can turn off automatic splitting with the `!autosplit` option. Some
 templates also have builtin whitelists for split subpackage data, e.g.
@@ -1555,16 +1552,6 @@ These hooks will automatically take care of creating necessary users
 and groups as well as deactivating them when needed. The creation is
 done in `pre-install` and `pre-upgrade`, while the deactivation is
 done in `post-deinstall`.
-
-##### Python precompilation
-
-The `pycompile_dirs` and `pycompile_module` variables control these,
-but they can also be added implicitly for all modules inside of
-`usr/lib/python*/site-packages` if nothing is specified and the
-modules exist.
-
-This affects `post-install`, `post-upgrade` for compilation as well
-as `pre-upgrade` and `pre-deinstall` for removal.
 
 ##### XML/SGML catalog management
 
