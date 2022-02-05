@@ -1,6 +1,6 @@
 --- a/src/useradd.c
 +++ b/src/useradd.c
-@@ -101,12 +101,12 @@ FILE *shadow_logfd = NULL;
+@@ -79,12 +79,12 @@ const char *Prog;
  /*
   * These defaults are used if there is no defaults file.
   */
@@ -13,6 +13,6 @@
  static const char *def_template = SKEL_DIR;
 -static const char *def_create_mail_spool = "yes";
 +static const char *def_create_mail_spool = "no";
+ static const char *def_log_init = "yes";
  
  static long def_inactive = -1;
- static const char *def_expire = "";
