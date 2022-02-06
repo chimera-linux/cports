@@ -41,7 +41,9 @@ def do_install(self):
         self.install_link(
             "../../../bin/ccache", f"usr/lib/ccache/bin/{at}-c++"
         )
-    pass
+        # arch config file
+        with open(self.destdir / f"usr/bin/{at}.cfg", "w") as cf:
+            cf.write(f"--sysroot /usr/{at}\n")
 
 def _gen_crossp(an, at):
     @subpackage(f"base-cross-{an}")
@@ -53,7 +55,11 @@ def _gen_crossp(an, at):
             f"libcxx-cross-{an}",
         ]
         self.options = ["brokenlinks"]
-        return [f"usr/bin/{at}-*", f"usr/lib/ccache/bin/{at}-*"]
+        return [
+            f"usr/bin/{at}.cfg",
+            f"usr/bin/{at}-*",
+            f"usr/lib/ccache/bin/{at}-*"
+        ]
     depends.append(f"base-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:

@@ -116,8 +116,6 @@ def _get_gencflags(self, name, extra_flags, debug, hardening, shell):
     # bootstrap
     if not self._triplet:
         bflags = ["-isystem", paths.bldroot() / "usr/include"]
-    elif self.cross:
-        bflags = ["--sysroot", self.sysroot]
     else:
         bflags = []
 
@@ -137,8 +135,6 @@ def _get_ldflags(self, name, extra_flags, debug, hardening, shell):
             "-L" + str(paths.bldroot() / "usr/lib"),
             "-Wl,-rpath-link=" + str(paths.bldroot() / "usr/lib")
         ]
-    elif self.cross:
-        bflags = ["--sysroot", self.sysroot]
     else:
         bflags = []
 
@@ -150,7 +146,6 @@ def _get_rustflags(self, name, extra_flags, debug, hardening, shell):
     if self.cross:
         bflags = [
             "--sysroot", self.sysroot / "usr",
-            f"-Clink-args=--sysroot={self.sysroot}"
         ]
     else:
         bflags = []
