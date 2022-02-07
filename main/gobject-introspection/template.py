@@ -26,7 +26,7 @@ def post_install(self):
     ).glob("_giscanner*.so"):
         self.mv(f, f.with_name("_giscanner.so"))
 
-    python.precompile(f"usr/lib/{pkgname}/giscanner")
+    python.precompile(self, f"usr/lib/{pkgname}/giscanner")
 
 @subpackage("gir-freedesktop")
 def _girfdo(self):
