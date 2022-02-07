@@ -8,19 +8,16 @@ configure_args = [
 hostmakedepends = ["pkgconf"]
 # actually only on x86 and arm (tramp.c code) but it does not hurt
 makedepends = ["linux-headers"]
+checkdepends = ["dejagnu"]
 pkgdesc = "Library supporting Foreign Function Interfaces"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{pkgver}.tar.gz"
 sha256 = "540fb721619a6aba3bdeef7d940d8e9e0e6d2c193595bc243241b77ff9e93620"
-
-# early bootstrap loop: elftoolchain -> libarchive -> zstd -> meson ->
-# python -> libffi -> dejagnu -> expect -> libtool -> libarchive
-#
-# but a non-bootstrap check should work just fine
-if self.stage > 2:
-    checkdepends = ["dejagnu"]
+# loop: elftoolchain -> libarchive -> zstd -> meson -> python ->
+# libffi -> dejagnu -> expect -> libtool -> libarchive
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")
