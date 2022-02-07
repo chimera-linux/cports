@@ -9,7 +9,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 # our strip wrapper prevents correct kernel.img generation
-make_install_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
+make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 hostmakedepends = [
     "gmake", "pkgconf", "flex", "bison", "help2man", "python",
     "gettext-tiny", "font-unifont-bdf", f"binutils-{self.profile().arch}",
