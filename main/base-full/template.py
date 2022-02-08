@@ -6,6 +6,7 @@ depends = [
     "base-core", "base-locale", "nano", "initramfs-tools", "openssh",
     "syslog-ng", "opendoas", "ethtool", "dhcpcd", "usbutils",
     "f2fs-tools", "elogind", "polkit", "dbus", "iwd",
+    "dinit-userservd",
     # firmware for all
     "firmware-linux-amd",
     "firmware-linux-nvidia",
