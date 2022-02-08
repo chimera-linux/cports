@@ -51,6 +51,7 @@ depends = [
     f"libspa-audiomixer={pkgver}-r{pkgrel}",
     f"libspa-control={pkgver}-r{pkgrel}",
     f"libspa-v4l2={pkgver}-r{pkgrel}",
+    "rtkit",
 ]
 pkgdesc = "Server and user space API to deal with multimedia pipelines"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -116,12 +117,14 @@ for spa in [
 @subpackage("gstreamer-pipewire")
 def _gst(self):
     self.pkgdesc = f"{pkgdesc} (gstreamer plugin)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gst-plugins-base"]
 
     return ["usr/lib/gstreamer-1.0"]
 
 @subpackage("alsa-pipewire")
 def _alsa(self):
     self.pkgdesc = f"{pkgdesc} (ALSA client library)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "alsa-lib"]
 
     return [
         "usr/lib/alsa-lib",
