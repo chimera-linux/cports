@@ -30,7 +30,7 @@ configure_args = [
     "-Dsoup=disabled", # TODO for gst 1.20 where libsoup3 is stable
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "glib-devel", "orc",
+    "meson", "pkgconf", "gettext-tiny", "glib-devel", "orc", "nasm",
 ]
 makedepends = [
     "gstreamer-devel", "gst-plugins-base-devel", "libpng-devel", "gtk+3-devel",
