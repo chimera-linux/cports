@@ -55,6 +55,16 @@ def post_extract(self):
         self.files_path / "stab.h", "toolkit/crashreporter/google-breakpad/src"
     )
 
+def post_patch(self):
+    from cbuild.util import cargo
+
+    cargo.clear_vendor_checksums(
+        self, "target-lexicon", vendor_dir = "third_party/rust"
+    )
+    cargo.clear_vendor_checksums(
+        self, "target-lexicon-0.9.0", vendor_dir = "third_party/rust"
+    )
+
 def init_configure(self):
     from cbuild.util import cargo
 
