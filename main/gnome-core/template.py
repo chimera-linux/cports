@@ -7,6 +7,7 @@ build_style = "meta"
 depends = [
     "adwaita-icon-theme",
     "dconf",
+    "desktop-file-utils",
     "fonts-cantarell-otf",
     "fonts-source-code-pro-otf",
     "gdm",
