@@ -13,7 +13,7 @@ pkgdesc = "Image metadata manipulation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.exiv2.org"
-source = f"{url}/builds/{pkgname}-{pkgver}-Source.tar.gz"
+source = f"https://github.com/Exiv2/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}-Source.tar.gz"
 sha256 = "35a58618ab236a901ca4928b0ad8b31007ebdc0386d904409d825024e45ea6e2"
 # needs gtest
 options = ["!check"]
