@@ -3,7 +3,11 @@ pkgver = "3.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--includedir=/usr/include", "--disable-multi-os-directory", "--with-pic"
+    "--includedir=/usr/include", "--disable-multi-os-directory", "--with-pic",
+    # https://github.com/libffi/libffi/pull/647
+    # some stuff (notably gobject-introspection) uses
+    # libffi incorrectly, prevent them from being broken for now
+    "--disable-exec-static-tramp",
 ]
 hostmakedepends = ["pkgconf"]
 # actually only on x86 and arm (tramp.c code) but it does not hurt
