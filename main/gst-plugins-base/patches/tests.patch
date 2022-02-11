@@ -1,47 +1,19 @@
-From cef1fcdd6bc829093c9547ab165ce1784fa4d3eb Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Mon, 6 Dec 2021 05:06:12 +0100
-Subject: [PATCH] disable gl tests (they do not work in sandbox)
+commit b4a032ef448025b6ae7994a3292b7a6567d5d082
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Feb 11 04:59:17 2022 +0100
 
----
- tests/check/meson.build | 24 ------------------------
- 1 file changed, 24 deletions(-)
+    disable tests that don't work in sandbox
 
 diff --git a/tests/check/meson.build b/tests/check/meson.build
-index c2702f3..ec8859f 100644
+index f135c1f..f593ab9 100644
 --- a/tests/check/meson.build
 +++ b/tests/check/meson.build
-@@ -83,30 +83,6 @@ if host_machine.system() != 'windows'
-   ]
+@@ -85,7 +85,7 @@ if host_machine.system() != 'windows'
  endif
  
--# FIXME: Unstable on Windows
+ # FIXME: Unstable on Windows
 -if build_gstgl and host_machine.system() != 'windows'
--  base_tests += [
--    [ 'libs/gstglcolorconvert.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglcontext.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglfeature.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglformat.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglheaders.c', not build_gstgl, [gstgl_dep]],
--    [ 'libs/gstglmatrix.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglmemory.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglquery.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglshader.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglsl.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglslstage.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'libs/gstglupload.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'elements/glimagesink.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'elements/glbin.c', not build_gstgl ],
--    [ 'pipelines/gl-launch-lines.c', not build_gstgl ],
--    [ 'elements/glfilter.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'elements/glstereo.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--    [ 'elements/glmixer.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
--  ]
--endif
--
- # Make sure our headers are C++ clean
- if have_cxx
++if build_gstgl and host_machine.system() != 'linux'
    base_tests += [
--- 
-2.34.1
-
+     [ 'libs/gstglapi.c', not build_gstgl, [gstgl_dep]],
+     [ 'libs/gstglcolorconvert.c', not build_gstgl, [gstgl_dep, gstglproto_dep]],
