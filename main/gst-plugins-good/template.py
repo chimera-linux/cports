@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-good"
-pkgver = "1.18.5"
+pkgver = "1.20.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,7 +27,6 @@ configure_args = [
     "-Ddv1394=disabled", # maybe?
     "-Dqt5=disabled", # no qt5 in main, maybe package separately?
     "-Dshout2=disabled", # TODO
-    "-Dsoup=disabled", # TODO for gst 1.20 where libsoup3 is stable
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "glib-devel", "orc", "nasm",
@@ -37,8 +36,9 @@ makedepends = [
     "gdk-pixbuf-devel", "libbz2-devel", "libxml2-devel", "libgudev-devel",
     "v4l-utils-devel", "libcaca-devel", "pipewire-jack-devel", "wavpack-devel",
     "taglib-devel", "libvpx-devel", "flac-devel", "mpg123-devel", "lame-devel",
-    "twolame-devel", "libpulse-devel", "orc-devel",
+    "twolame-devel", "libpulse-devel", "orc-devel", "libsoup-devel",
 ]
+depends = ["libsoup"] # dynamically loaded
 checkdepends = ["pipewire"]
 depends = [f"gst-plugins-base>={pkgver}"]
 pkgdesc = "GStreamer good plugins"
@@ -46,6 +46,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "3aaeeea7765fbf8801acce4a503a9b05f73f04e8a35352e9d00232cfd555796b"
-# 4 out of 105 tests currently fail, one is qtmux (just disable), debug others
+sha256 = "2d119c15ab8c9e79f8cd3c6bf582ff7a050b28ccae52ab4865e1a1464991659c"
+# 4 out of 105 tests currently fail (qtmux, splitmux, pipelines_tagschecking)
 options = ["!check"]
