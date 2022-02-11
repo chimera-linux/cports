@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-bad"
-pkgver = "1.18.5"
+pkgver = "1.20.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,7 +29,6 @@ configure_args = [
     "-Dmusepack=disabled",
     "-Dneon=disabled",
     "-Dnvcodec=disabled",
-    "-Dofa=disabled",
     "-Dopenexr=disabled",
     "-Dopenh264=disabled",
     "-Dopenmpt=disabled",
@@ -57,15 +56,19 @@ configure_args = [
     "-Dfaad=disabled", # GPL
     "-Dflite=disabled", # TODO
     "-Dgme=disabled", # TODO
+    "-Dgs=disabled", # TODO
     "-Dgsm=disabled", # TODO
     "-Diqa=disabled", # AGPL
+    "-Disac=disabled", # TODO
     "-Dladspa=disabled", # TODO
-    "-Dlibmms=disabled", # TODO
+    "-Dldac=disabled", # TODO
     "-Dlv2=disabled", # TODO
     "-Dmicrodns=disabled", # TODO
     "-Dmpeg2enc=disabled", # GPL
     "-Dmplex=disabled", # GPL
+    "-Donnx=disabled", # TODO
     "-Dopenal=disabled", # TODO
+    "-Dqroverlay=disabled", # TODO
     "-Dresindvd=disabled", # GPL
     "-Dsoundtouch=disabled", # TODO
     "-Dspandsp=disabled", # TODO
@@ -90,7 +93,7 @@ makedepends = [
     "vulkan-loader", "vulkan-headers", "libwebp-devel", "libgudev-devel",
     "wayland-devel", "wayland-protocols", "libxkbcommon-devel",
     "webrtc-audio-processing-devel", "v4l-utils-devel", "libusb-devel",
-    "linux-headers",
+    "libfreeaptx-devel", "linux-headers",
 ]
 depends = [f"gst-plugins-base>={pkgver}"]
 pkgdesc = "GStreamer bad plugins"
@@ -98,7 +101,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a164923b94f0d08578a6fcaeaac6e0c05da788a46903a1086870e9ca45ad678e"
+sha256 = "015b8d4d9a395ebf444d40876867a2034dd3304b3ad48bc3a0dd0c1ee71dc11d"
 # TODO: a few fails, debug later
 options = ["!check"]
 
