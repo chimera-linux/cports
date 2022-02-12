@@ -31,7 +31,7 @@ depends = [
     #"phodav",
     "simple-scan",
     "sushi",
-    #"totem",
+    "totem",
 ]
 pkgdesc = "GNOME desktop environment (session and apps)"
 maintainer = "q66 <q66@chimera-linux.org>"
