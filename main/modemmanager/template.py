@@ -32,6 +32,6 @@ options = ["!check"]
 def _devel(self):
     return self.default_devel()
 
-@subpackage("modemmmanager-libs")
+@subpackage("modemmanager-libs")
 def _lib(self):
     return self.default_libs()
