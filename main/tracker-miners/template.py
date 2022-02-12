@@ -13,7 +13,7 @@ configure_args = [
     "-Dgsf=disabled", # TODO: libgsf
     "-Diso=disabled", # TODO: libosinfo
     "-Diptc=disabled", # TODO: libiptcdata
-    "-Dplaylist=disabled", # TODO: totem-pl-parser
+    "-Dplaylist=enabled",
     "-Dexif=enabled",
     "-Djpeg=enabled",
     "-Dtiff=enabled",
@@ -32,11 +32,11 @@ makedepends = [
     "gst-plugins-base-devel", "icu-devel", "libexif-devel", "libseccomp-devel",
     "libjpeg-turbo-devel", "libpng-devel", "libtiff-devel", "giflib-devel",
     "libxml2-devel", "libpoppler-glib-devel", "upower-devel", "exempi-devel",
-    "networkmanager-devel", "gexiv2-devel", "libgxps-devel",
+    "networkmanager-devel", "gexiv2-devel", "totem-pl-parser-devel",
+    "libgxps-devel",
     # FIXMEs:
     #"libcue-devel",
     #"libgsf-devel",
-    #"exempi-devel",
     #"libgrss-devel",
     #"libosinfo-devel",
     #"libiptcdata-devel",
