@@ -1,5 +1,5 @@
 pkgname = "linux"
-pkgver = "5.15.12"
+pkgver = "5.15.23"
 pkgrel = 0
 make_dir = "build"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "7de919772b62647591527e904e3b3583783381a29d812404f58a222484e751a0"
+sha256 = "e839c6fe4db9327178ecccc7fb14035000496bb8028a32735213675eefa97a1c"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
