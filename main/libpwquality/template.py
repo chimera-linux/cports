@@ -9,6 +9,7 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["gmake", "pkgconf", "gettext-tiny-devel", "python-devel"]
 makedepends = ["cracklib-devel", "linux-pam-devel", "python-devel"]
+depends = ["cracklib-words"]
 pkgdesc = "Library for password quality checking"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause OR GPL-2.0-or-later"
