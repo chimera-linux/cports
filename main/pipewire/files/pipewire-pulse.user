@@ -1,6 +1,6 @@
 # pipewire-pulse user service
 
 type            = process
-command         = /usr/bin/dinit-run-dbus pipewire-pulse
+command         = /usr/bin/pipewire-pulse
 depends-on      = pipewire
 smooth-recovery = true
