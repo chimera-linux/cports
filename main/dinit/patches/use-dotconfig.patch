@@ -51,7 +51,7 @@ index 4829c0e..0829300 100644
  
 -If not specified, the default is \fI$HOME/dinit.d\fR or, for the
 +If not specified, the default is \fI$HOME/.config/dinit.d\fR or, for the
- system service manager, each of \fI/etc/dinit.d/fR, \fI/usr/local/lib/dinit.d\fR,
+ system service manager, each of \fI/etc/dinit.d\fR, \fI/usr/local/lib/dinit.d\fR,
  and \fI/lib/dinit.d\fR (searched in that order).
  .TP
 @@ -110,7 +110,7 @@ subsequent service names.
@@ -93,7 +93,7 @@ index 4369562..56f353f 100644
 +                std::memcpy(service_dir_w + user_home_len, "/.config/dinit.d", dinit_d_len);
                  service_dir_w[full_len - 1] = 0;
  
-                 service_dir_paths.add_dir(service_dir_w, /*dyn_allocd=*/true);
+                 service_dir_paths.emplace_back(service_dir_w, /*dyn_allocd=*/true);
 -- 
 2.34.1
 
