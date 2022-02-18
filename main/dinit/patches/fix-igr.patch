@@ -1,0 +1,27 @@
+From 3f8970675fdb3cc7890e880b4006fab6dc2ee5ee Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 18 Feb 2022 13:36:07 +0100
+Subject: [PATCH] Fix integration tests without dinit installed
+
+---
+ src/igr-tests/environ/setenv.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/igr-tests/environ/setenv.sh b/src/igr-tests/environ/setenv.sh
+index 418f086..f07f7c7 100755
+--- a/src/igr-tests/environ/setenv.sh
++++ b/src/igr-tests/environ/setenv.sh
+@@ -10,11 +10,11 @@ case "$1" in
+         if [ "$FOO" = "foo" ]; then
+             echo 2 >> ./env-record
+             export BAR=bar
+-            dinitctl -p socket setenv BAR BAZ=baz
++            ../../dinitctl -p socket setenv BAR BAZ=baz
+         fi
+         ;;
+     setenv3)
+-        dinitctl -p socket setenv FOO=foo
++        ../../dinitctl -p socket setenv FOO=foo
+         echo 3 >> ./env-record
+         ;;
+     *) ;;
