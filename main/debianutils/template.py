@@ -18,8 +18,9 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin/update-shells")
     self.rm(self.destdir / "usr/bin/installkernel")
     self.rm(self.destdir / "usr/bin/which")
+    self.rm(self.destdir / "usr/bin/tempfile")
     for f in (self.destdir / "usr/share/man").rglob("*.[18]"):
         match f.name:
             case "add-shell.8" | "remove-shell.8" | "update-shells.8" | \
-                 "installkernel.8" | "which.1":
+                 "installkernel.8" | "which.1" | "tempfile.1":
                 f.unlink()
