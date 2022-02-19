@@ -1,13 +1,13 @@
 pkgname = "debianutils"
-pkgver = "5.5"
+pkgver = "5.7"
 pkgrel = 0
 build_style = "gnu_configure"
 pkgdesc = "Miscellaneous utilities from Debian"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://tracker.debian.org/pkg/debianutils"
-source = f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.orig.tar.xz"
-sha256 = "2b0fad5c00eb2b8461523b2950e6f06e6ddbb0ac3384c5a3377867d51098d102"
+source = f"$(DEBIAN_SITE)/main/d/debianutils/debianutils_{pkgver}.orig.tar.gz"
+sha256 = "27ec9e0e7e44dc8ab611aa576330471bacb07e4491ffecf0d3aa6909c92f9022"
 
 def post_install(self):
     # (add|remove)-shell conflicts with our system
