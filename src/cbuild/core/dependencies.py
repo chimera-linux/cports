@@ -130,9 +130,13 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
         )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()
+        outx = ret.stdout.strip().decode()
         if len(outl) > 0:
             pkg.logger.out_plain(">> stderr:")
             pkg.logger.out_plain(outl)
+        if len(outx) > 0:
+            pkg.logger.out_plain(">> stdout:")
+            pkg.logger.out_plain(outx)
         pkg.error(f"failed to install dependencies")
 
 def _is_available(pkgn, pattern, pkg, host = False):
