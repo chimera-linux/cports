@@ -943,7 +943,7 @@ def fire():
         traceback.print_exc(file = logger.get().estream)
         sys.exit(1)
     except:
-        logger.get().out_red("A failure has occured!")
+        logger.get().out_red("A failure has occurred!")
         traceback.print_exc(file = logger.get().estream)
         sys.exit(1)
     finally:
