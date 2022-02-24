@@ -1,26 +1,26 @@
-From eeade327df035c9f617d469c3c6da677c875b99a Mon Sep 17 00:00:00 2001
+From e8ae179a103992413deb813a46f8aa6602ff1598 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Mon, 20 Dec 2021 01:01:23 +0100
-Subject: [PATCH 5/9] get rid of wrong linkage
+Date: Fri, 25 Feb 2022 00:36:43 +0100
+Subject: [PATCH 05/11] get rid of wrong linkage
 
 There is no good way to compute the clang builtins library
 path from inside the rust code, but there should be no harm
 in just disabling nodefaultlibs for our platform.
 ---
- vendor/libc-0.2.98/src/unix/mod.rs | 7 +------
- vendor/libc/src/unix/mod.rs        | 7 +------
+ vendor/libc-0.2.108/src/unix/mod.rs | 7 +------
+ vendor/libc/src/unix/mod.rs         | 7 +------
  2 files changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/vendor/libc-0.2.98/src/unix/mod.rs b/vendor/libc-0.2.98/src/unix/mod.rs
-index be7b6e73e..5131bdb7c 100644
---- a/vendor/libc-0.2.98/src/unix/mod.rs
-+++ b/vendor/libc-0.2.98/src/unix/mod.rs
+diff --git a/vendor/libc-0.2.108/src/unix/mod.rs b/vendor/libc-0.2.108/src/unix/mod.rs
+index 52f875218..51837c6b1 100644
+--- a/vendor/libc-0.2.108/src/unix/mod.rs
++++ b/vendor/libc-0.2.108/src/unix/mod.rs
 @@ -329,12 +329,7 @@ cfg_if! {
          #[link(name = "c", cfg(not(target_feature = "crt-static")))]
          extern {}
      } else if #[cfg(target_env = "musl")] {
 -        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", kind = "static",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
 -                        cfg(target_feature = "crt-static")))]
 -        #[cfg_attr(feature = "rustc-dep-of-std",
 -                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
@@ -30,7 +30,7 @@ index be7b6e73e..5131bdb7c 100644
          #[link(name = "c")]
          extern {}
 diff --git a/vendor/libc/src/unix/mod.rs b/vendor/libc/src/unix/mod.rs
-index 3ac1669b9..f9bdc57c5 100644
+index 5ff2294e7..ca4bf46c9 100644
 --- a/vendor/libc/src/unix/mod.rs
 +++ b/vendor/libc/src/unix/mod.rs
 @@ -329,12 +329,7 @@ cfg_if! {
@@ -38,7 +38,7 @@ index 3ac1669b9..f9bdc57c5 100644
          extern {}
      } else if #[cfg(target_env = "musl")] {
 -        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", kind = "static",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
 -                        cfg(target_feature = "crt-static")))]
 -        #[cfg_attr(feature = "rustc-dep-of-std",
 -                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
@@ -48,5 +48,5 @@ index 3ac1669b9..f9bdc57c5 100644
          #[link(name = "c")]
          extern {}
 -- 
-2.34.1
+2.35.1
 

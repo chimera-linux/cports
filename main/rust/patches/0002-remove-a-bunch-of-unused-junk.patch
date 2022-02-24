@@ -1,7 +1,7 @@
-From d2d5c9dbd967ac0642053eaaddd0f8ba5d359818 Mon Sep 17 00:00:00 2001
+From 22d0f1522953bd9990dd665788d40003de99364b Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Mon, 20 Dec 2021 02:03:44 +0100
-Subject: [PATCH 2/9] remove a bunch of unused junk
+Date: Fri, 25 Feb 2022 00:34:12 +0100
+Subject: [PATCH 02/11] remove a bunch of unused junk
 
 ---
  compiler/rustc_target/src/spec/crt_objects.rs | 22 ----------
@@ -104,14 +104,14 @@ index e750c2963..f6ba3032b 100644
      }
  }
 diff --git a/src/bootstrap/compile.rs b/src/bootstrap/compile.rs
-index e9cc7662e..8ec880017 100644
+index 043b38ece..d5d4ab61b 100644
 --- a/src/bootstrap/compile.rs
 +++ b/src/bootstrap/compile.rs
-@@ -197,38 +197,7 @@ fn copy_self_contained_objects(
+@@ -198,38 +198,7 @@ fn copy_self_contained_objects(
      t!(fs::create_dir_all(&libdir_self_contained));
      let mut target_deps = vec![];
  
--    // Copies the CRT objects.
+-    // Copies the libc and CRT objects.
 -    //
 -    // rustc historically provides a more self-contained installation for musl targets
 -    // not requiring the presence of a native musl toolchain. For example, it can fall back
@@ -122,7 +122,7 @@ index e9cc7662e..8ec880017 100644
 -        let srcdir = builder.musl_libdir(target).unwrap_or_else(|| {
 -            panic!("Target {:?} does not have a \"musl-libdir\" key", target.triple)
 -        });
--        for &obj in &["crt1.o", "Scrt1.o", "rcrt1.o", "crti.o", "crtn.o"] {
+-        for &obj in &["libc.a", "crt1.o", "Scrt1.o", "rcrt1.o", "crti.o", "crtn.o"] {
 -            copy_and_stamp(
 -                builder,
 -                &libdir_self_contained,
@@ -147,7 +147,7 @@ index e9cc7662e..8ec880017 100644
          let srcdir = builder
              .wasi_root(target)
              .unwrap_or_else(|| {
-@@ -312,15 +281,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
+@@ -313,15 +282,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
              .arg("--manifest-path")
              .arg(builder.src.join("library/test/Cargo.toml"));
  
@@ -164,7 +164,7 @@ index e9cc7662e..8ec880017 100644
              if let Some(p) = builder.wasi_root(target) {
                  let root = format!("native={}/lib/wasm32-wasi", p.to_str().unwrap());
 diff --git a/src/bootstrap/config.rs b/src/bootstrap/config.rs
-index e658d958d..06b7a8c55 100644
+index 5af924858..cdf7f48a0 100644
 --- a/src/bootstrap/config.rs
 +++ b/src/bootstrap/config.rs
 @@ -171,8 +171,6 @@ pub struct Config {
@@ -176,7 +176,7 @@ index e658d958d..06b7a8c55 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -298,8 +296,6 @@ pub struct Target {
+@@ -299,8 +297,6 @@ pub struct Target {
      pub sanitizers: Option<bool>,
      pub profiler: Option<bool>,
      pub crt_static: Option<bool>,
@@ -185,24 +185,24 @@ index e658d958d..06b7a8c55 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub no_std: bool,
-@@ -493,7 +489,6 @@ struct Rust {
-     default_linker: Option<String>,
-     channel: Option<String>,
-     description: Option<String>,
--    musl_root: Option<String>,
-     rpath: Option<bool>,
-     verbose_tests: Option<bool>,
-     optimize_tests: Option<bool>,
-@@ -536,8 +531,6 @@ struct TomlTarget {
-     sanitizers: Option<bool>,
-     profiler: Option<bool>,
-     crt_static: Option<bool>,
--    musl_root: Option<String>,
--    musl_libdir: Option<String>,
-     wasi_root: Option<String>,
-     qemu_rootfs: Option<String>,
-     no_std: Option<bool>,
-@@ -872,7 +865,6 @@ impl Config {
+@@ -531,7 +527,6 @@ derive_merge! {
+         default_linker: Option<String>,
+         channel: Option<String>,
+         description: Option<String>,
+-        musl_root: Option<String>,
+         rpath: Option<bool>,
+         verbose_tests: Option<bool>,
+         optimize_tests: Option<bool>,
+@@ -577,8 +572,6 @@ derive_merge! {
+         sanitizers: Option<bool>,
+         profiler: Option<bool>,
+         crt_static: Option<bool>,
+-        musl_root: Option<String>,
+-        musl_libdir: Option<String>,
+         wasi_root: Option<String>,
+         qemu_rootfs: Option<String>,
+         no_std: Option<bool>,
+@@ -938,7 +931,6 @@ impl Config {
              set(&mut config.llvm_tools_enabled, rust.llvm_tools);
              config.rustc_parallel = rust.parallel_compiler.unwrap_or(false);
              config.rustc_default_linker = rust.default_linker;
@@ -210,7 +210,7 @@ index e658d958d..06b7a8c55 100644
              config.save_toolstates = rust.save_toolstates.map(PathBuf::from);
              set(&mut config.deny_warnings, flags.deny_warnings.or(rust.deny_warnings));
              set(&mut config.backtrace_on_ice, rust.backtrace_on_ice);
-@@ -918,8 +910,6 @@ impl Config {
+@@ -984,8 +976,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -259,10 +259,10 @@ index 94424cb45..9ae0cc053 100755
    "rootfs in qemu testing, you probably don't want to use this")
  v("qemu-aarch64-rootfs", "target.aarch64-unknown-linux-gnu.qemu-rootfs",
 diff --git a/src/bootstrap/lib.rs b/src/bootstrap/lib.rs
-index 2d4e15278..b930f3cd7 100644
+index 8569089f7..1b0738bdf 100644
 --- a/src/bootstrap/lib.rs
 +++ b/src/bootstrap/lib.rs
-@@ -1056,25 +1056,6 @@ impl Build {
+@@ -1050,25 +1050,6 @@ impl Build {
          }
      }
  
@@ -322,5 +322,5 @@ index d7db2cef2..e0c78ec87 100644
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
 -- 
-2.34.1
+2.35.1
 
