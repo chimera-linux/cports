@@ -1,5 +1,5 @@
 pkgname = "cargo"
-pkgver = "0.58.0"
+pkgver = "1.59.0"
 pkgrel = 0
 hostmakedepends = [
     "cargo-bootstrap", "python", "curl", "cmake", "pkgconf", "zlib-devel"
@@ -9,8 +9,8 @@ pkgdesc = "Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
-source = f"https://github.com/rust-lang/{pkgname}/archive/{pkgver}.tar.gz"
-sha256 = "e1d6f55414a29906d24b13c687996b5220e08ccce9c682e4c02851138fc7093f"
+source = f"https://github.com/rust-lang/{pkgname}/archive/rust-{pkgver}.tar.gz"
+sha256 = "e3bcc26be1a07ecd6eaa07a46a6343558924c39db862ffe1adffca90feb9371f"
 # global environment
 env = {
     "CARGO_HOME": "/cargo",
