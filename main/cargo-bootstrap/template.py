@@ -1,5 +1,5 @@
 pkgname = "cargo-bootstrap"
-pkgver = "0.58.0"
+pkgver = "1.59.0"
 pkgrel = 0
 # satisfy runtime dependencies
 hostmakedepends = ["curl"]
@@ -8,16 +8,16 @@ pkgdesc = "Bootstrap binaries of Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
-source = f"https://ftp.octaforge.org/q66/random/rust-chimera/cargo-{pkgver}-{self.profile().triplet}.tar.xz"
+source = f"https://ftp.octaforge.org/chimera/distfiles/cargo-{pkgver}-{self.profile().triplet}.tar.xz"
 options = ["!strip"]
 
 match self.profile().arch:
     case "aarch64":
-        sha256 = "3957fb1298df0d1bf8bb0e9fd6e315167747f4c79838252845028898b81c15fc"
+        sha256 = "e5a30356352af17b8a4588e7aad0ba2237666938d62dbfec9d397e8029707e92"
     case "ppc64le":
-        sha256 = "927f494ae2b2bac9ebb17f15d3714287169be9d1bd9b4143f5669764d4cd10ac"
+        sha256 = "f5497ec82de8dd7c66d5583699697d9a940d55e765eedc7c19fe73dfd017dabd"
     case "x86_64":
-        sha256 = "b1ea49fb1ec67057686e0959df55de1c16bddfb0b9340271d45ca7845017198b"
+        sha256 = "e2663267ceb8fa9df9c2c23333c60caadb027f59398c07eef7e94d812415f107"
     case _:
         broken = f"not yet built for {self.profile().arch}"
 
