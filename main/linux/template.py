@@ -62,7 +62,7 @@ def do_install(self):
 
 @subpackage("linux-devel")
 def _devel(self):
-    self.depends += ["binutils"]
+    self.depends += ["binutils", "clang"]
     self.options = ["foreignelf", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 
