@@ -1,0 +1,26 @@
+From 0c6a2bbc9e927cf348fed9c1a0279082b94f24c2 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 27 Feb 2022 05:18:48 +0100
+Subject: [PATCH] explicitly use gmake for configure test to accommodate our
+ env
+
+---
+ config/kernel.m4 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config/kernel.m4 b/config/kernel.m4
+index bdd3cae..374595a 100644
+--- a/config/kernel.m4
++++ b/config/kernel.m4
+@@ -599,7 +599,7 @@ dnl #
+ AC_DEFUN([ZFS_LINUX_COMPILE], [
+ 	AC_TRY_COMMAND([
+ 	    KBUILD_MODPOST_NOFINAL="$5" KBUILD_MODPOST_WARN="$6"
+-	    make modules -k -j$TEST_JOBS -C $LINUX_OBJ $ARCH_UM
++	    gmake modules -k -j$TEST_JOBS -C $LINUX_OBJ $ARCH_UM
+ 	    M=$PWD/$1 >$1/build.log 2>&1])
+ 	AS_IF([AC_TRY_COMMAND([$2])], [$3], [$4])
+ ])
+-- 
+2.35.1
+
