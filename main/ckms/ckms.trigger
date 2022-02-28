@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export CKMS_APK_DEFER_INITRAMFS=1
+
 # prune modules that are no longer installed
 
 for mod in /var/lib/ckms/*; do
@@ -55,4 +57,15 @@ for kern in /usr/lib/modules/*; do
                     echo "FAILED: install ${modn}=${modv} for ${kernv}"
             fi
         done || :
+done
+
+# deal with deferred initramfs
+
+for f in /boot/initrd.img-*.ckms-defer; do
+    [ -f "$f" ] || continue
+    kernver=${f#initrd.img-}
+    kernver=${kernver%.ckms-defer}
+    update-initramfs -u -k "${kernver}" || \
+        echo "FAILED: update-initramfs for ${kernver}"
+    rm -f "$f"
 done
