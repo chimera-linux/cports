@@ -1304,6 +1304,10 @@ autopkgs = [
         lambda p: p.take("usr/share/bash-completion", missing_ok = True)
     ),
     (
+        "zshcomp", "zsh completions", "zsh",
+        lambda p: p.take("usr/share/zsh/site-functions", missing_ok = True)
+    ),
+    (
         "locale", "locale data", "base-locale",
         lambda p: p.take("usr/share/locale", missing_ok = True)
     ),

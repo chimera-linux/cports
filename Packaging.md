@@ -1167,6 +1167,7 @@ These are (with their package description suffixes):
 * `initramfs-tools` - `(initramfs scripts)`
 * `udev` - `(udev rules)`
 * `bashcomp` - `(bash completions)`
+* `zshcomp` - `(zsh completions)`
 * `locale` - `(locale data)`
 * `static` - `(static libraries)`
 * `pycache` - `(Python bytecode)`
@@ -1191,6 +1192,7 @@ the package they were split off needs to be installed, plus the following:
 * `dinit-chimera` for `-dinit` subpackages
 * `initramfs-tools` for `-initramfs-tools` subpackages
 * `bash-completion` for `-bashcomp` packages
+* `zsh` for `-zshcomp` packages
 * `python-pycache` for `-pycache` packages (except `python-pycache` itself)
 
 You can turn off automatic splitting with the `!autosplit` option. Some
