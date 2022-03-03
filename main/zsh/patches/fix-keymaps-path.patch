@@ -1,0 +1,11 @@
+--- a/Completion/Unix/Command/_loadkeys
++++ b/Completion/Unix/Command/_loadkeys
+@@ -9,7 +9,7 @@ case $OSTYPE in
+       '(--mktable -m)'{--mktable,-m}'[output a "defkeymap.c" to stdout]' \
+       '(--clearstrings)'{--clearstrings,-s}'[clear kernel string table]' \
+       '*'{--verbose,-v}'[print more details]' \
+-      ':keymap:_files -W /usr/share/keymaps'
++      ':keymap:_files -W /usr/share/kbd/keymaps'
+   ;;
+   solaris*)
+     _files -W /usr/share/lib/keytables
