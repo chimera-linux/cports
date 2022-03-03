@@ -1,6 +1,10 @@
 pkgname = "cargo"
 pkgver = "1.59.0"
 pkgrel = 0
+build_style = "cargo"
+# PKG_CONFIG being in environment mysteriously brings target sysroot
+# into linker sequence for build script, breaking build entirely
+make_build_wrapper = ["env", "-u", "PKG_CONFIG"]
 hostmakedepends = [
     "cargo-bootstrap", "python", "curl", "cmake", "pkgconf", "zlib-devel"
 ]
@@ -13,9 +17,7 @@ source = f"https://github.com/rust-lang/{pkgname}/archive/rust-{pkgver}.tar.gz"
 sha256 = "e3bcc26be1a07ecd6eaa07a46a6343558924c39db862ffe1adffca90feb9371f"
 # global environment
 env = {
-    "CARGO_HOME": "/cargo",
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
-    "OPENSSL_NO_VENDOR": "1",
     "RUST_BACKTRACE": "1",
 }
 # disable check at least for now
@@ -35,50 +37,13 @@ else:
     makedepends += ["rust"]
     depends = ["rust"]
 
-if self.profile().cross:
-    env["PKG_CONFIG_ALLOW_CROSS"] = "1"
-
-def init_patch(self):
+def init_prepare(self):
     if _bootstrap:
         self.env["OPENSSL_STATIC"] = "1"
         self.env["OPENSSL_NO_PKG_CONFIG"] = "1"
         self.env["OPENSSL_DIR"] = str(self.profile().sysroot / "usr")
 
-# TODO: replace with a helper in another place
-def pre_patch(self):
-    self.do("cargo", "vendor", allow_network = True)
-
-    self.mkdir(".cargo")
-    with open(self.cwd / ".cargo/config.toml", "w") as cf:
-        cf.write("""
-[source.crates-io]
-replace-with = "vendored-sources"
-
-[source.vendored-sources]
-directory = "vendor"
-""")
-        if self.profile().cross:
-            sroot = self.profile().sysroot
-            trip = self.profile().triplet
-
-            cf.write(f"""
-[build]
-target = "{trip}"
-
-[target.{trip}]
-linker = "{self.get_tool("CC")}"
-""")
-
-def do_build(self):
-    # PKG_CONFIG being in environment mysteriously brings target sysroot
-    # into linker sequence for build script, breaking build entirely
-    self.do(
-        "env", "-u", "PKG_CONFIG", "cargo", "build",
-        "--release", "--offline"
-    )
-
 def do_install(self):
-
     if self.profile().cross:
         _binp = f"target/{self.profile().triplet}/release/cargo"
     else:
