@@ -58,7 +58,10 @@ class Cargo:
         self.env = env
         self.jobs = jobs
 
-    def _invoke(self, command, args, jobs, offline, base_env, env, wrksrc):
+    def _invoke(
+        self, command, args, jobs, offline, base_env, env, wrksrc, ewrapper,
+        wrapper
+    ):
         tmpl = self.template
 
         if not jobs:
@@ -89,42 +92,56 @@ class Cargo:
             bargs.append("--offline")
 
         return self.template.do(
-            "cargo", command, *bargs, *tmpl.configure_args, *args,
+            *wrapper, *ewrapper, "cargo", command, *bargs,
+            *tmpl.configure_args, *args,
             env = renv, wrksrc = wrksrc, allow_network = not offline
         )
 
     def invoke(
         self, command, args = [], jobs = None, offline = True,
-        env = {}, wrksrc = None
+        env = {}, wrksrc = None, wrapper = []
     ):
-        return self._invoke(command, args, jobs, None, env, wrksrc)
+        return self._invoke(
+            command, args, jobs, None, env, wrksrc, [], wrapper
+        )
 
-    def vendor(self, args = [], env = {}, wrksrc = None):
-        return self._invoke("vendor", args, 1, False, None, env, wrksrc)
+    def vendor(self, args = [], env = {}, wrksrc = None, wrapper = []):
+        return self._invoke(
+            "vendor", args, 1, False, None, env, wrksrc, [], wrapper
+        )
 
-    def build(self, args = [], jobs = None, env = {}, wrksrc = None):
+    def build(
+        self, args = [], jobs = None, env = {}, wrksrc = None, wrapper = []
+    ):
         tmpl = self.template
         return self._invoke(
             "build", ["--release"] + tmpl.make_build_args + args,
-            jobs, True, tmpl.make_build_env, env, wrksrc
+            jobs, True, tmpl.make_build_env, env, wrksrc,
+            tmpl.make_build_wrapper, wrapper
         )
 
-    def install(self, args = [], jobs = None, env = {}, wrksrc = None):
+    def install(
+        self, args = [], jobs = None, env = {}, wrksrc = None, wrapper = []
+    ):
         tmpl = self.template
         retv = self._invoke(
             "install", [
                 "--root", str(tmpl.chroot_destdir / "usr"), "--path", "."
             ] + tmpl.make_install_args + args,
-            jobs, True, tmpl.make_install_env, env, wrksrc
+            jobs, True, tmpl.make_install_env, env, wrksrc,
+            tmpl.make_install_wrapper, wrapper
         )
         (tmpl.destdir / "usr/.crates.toml").unlink(missing_ok = True)
         (tmpl.destdir / "usr/.crates2.json").unlink(missing_ok = True)
         return retv
 
-    def check(self, args = [], jobs = None, env = {}, wrksrc = None):
+    def check(
+        self, args = [], jobs = None, env = {}, wrksrc = None, wrapper = []
+    ):
         tmpl = self.template
         return self._invoke(
             "test", "--release", tmpl.make_check_args + args,
-            jobs, True, tmpl.make_check_env, env, wrksrc
+            jobs, True, tmpl.make_check_env, env, wrksrc,
+            tmpl.make_check_wrapper, wrapper
         )
 
