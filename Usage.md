@@ -404,6 +404,8 @@ only have an effect with specific commands.
   as well as removal of automatic dependencies after successful build, and
   do not clean the remains of a previous build of the template from `builddir`
   and `destdir`. This is mostly useful to continue previous failed builds.
+* `--dry-run` Do not perform any changes on the file system. This applies to only
+  specific commands, notably the `prune-` commands.
 * `-f`, `--force` Packages will be created and overwritten even if one already
   exists in the local repository.
 * `-G`, `--no-dbg` Do not build `-dbg` packages.

@@ -235,7 +235,7 @@ def summarize_repo(repopath, olist, quiet = False):
 
     return obsolete
 
-def prune(repopath, arch = None):
+def prune(repopath, arch = None, dry = False):
     from cbuild.core import chroot
 
     if not arch:
@@ -253,7 +253,8 @@ def prune(repopath, arch = None):
 
     for pkg in olist:
         print(f"pruning: {pkg}")
-        (repopath / pkg).unlink()
+        if not dry:
+            (repopath / pkg).unlink()
 
     logger.get().out("repo cleanup complete")
 

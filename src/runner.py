@@ -28,6 +28,7 @@ opt_keeptemp   = False
 opt_forcecheck = False
 opt_checkfail  = False
 opt_stage      = False
+opt_dryrun     = False
 opt_altrepo    = None
 opt_bldroot    = "bldroot"
 opt_pkgpath    = "packages"
@@ -79,7 +80,7 @@ def handle_options():
     global global_cfg
     global cmdline
 
-    global opt_apkcmd
+    global opt_apkcmd, opt_dryrun
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_nocolor, opt_signkey, opt_unsigned
@@ -178,6 +179,11 @@ def handle_options():
         "--stage", action = "store_const",
         const = True, default = opt_stage,
         help = "Keep built packages staged."
+    )
+    parser.add_argument(
+        "--dry-run", action = "store_const",
+        const = True, default = opt_dryrun,
+        help = "Do not perform changes to file system (only some commands)"
     )
     parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
@@ -284,6 +290,9 @@ def handle_options():
 
     if cmdline.stage:
         opt_stage = True
+
+    if cmdline.dry_run:
+        opt_dryrun = True
 
 def init_late():
     from cbuild.core import paths, spdx
@@ -505,7 +514,7 @@ def do_prune_obsolete(tgt):
         if str(repop) in reposet:
             continue
         reposet[str(repop)] = True
-        cli.prune(repop, opt_arch)
+        cli.prune(repop, opt_arch, opt_dryrun)
 
 def do_prune_removed(tgt):
     import time
@@ -578,7 +587,8 @@ def do_prune_removed(tgt):
                     f"Broken symlink for package '{pkgn}'"
                 )
             logger.get().out(f"Pruning package: {pkg.name}")
-            pkg.unlink()
+            if not opt_dryrun:
+                pkg.unlink()
         # reindex
         cli.build_index(repo / archn, epoch, opt_signkey)
 
