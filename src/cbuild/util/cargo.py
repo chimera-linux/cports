@@ -9,9 +9,12 @@ def get_environment(pkg, jobs = None):
         jobs = pkg.make_jobs
 
     sroot = pkg.profile().sysroot
+    trip = pkg.profile().triplet
+    utrip = trip.replace("-", "_").upper()
 
     env = {
-        "CARGO_BUILD_TARGET": pkg.profile().triplet,
+        "CARGO_BUILD_TARGET": trip,
+        f"CARGO_TARGET_{utrip}_LINKER": pkg.get_tool("CC"),
         "CARGO_BUILD_JOBS": str(jobs),
         "CARGO_HOME": "/cargo",
         # gettext-rs
