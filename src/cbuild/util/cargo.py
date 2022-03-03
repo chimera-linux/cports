@@ -108,12 +108,15 @@ class Cargo:
 
     def install(self, args = [], jobs = None, env = {}, wrksrc = None):
         tmpl = self.template
-        return self._invoke(
+        retv = self._invoke(
             "install", [
                 "--root", str(tmpl.chroot_destdir / "usr"), "--path", "."
             ] + tmpl.make_install_args + args,
             jobs, True, tmpl.make_install_env, env, wrksrc
         )
+        (tmpl.destdir / "usr/.crates.toml").unlink(missing_ok = True)
+        (tmpl.destdir / "usr/.crates2.json").unlink(missing_ok = True)
+        return retv
 
     def check(self, args = [], jobs = None, env = {}, wrksrc = None):
         tmpl = self.template
