@@ -44,18 +44,18 @@ tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
 }
 file_modes = {
-    "var/cache/cups/rss": ("_cups:0", "lp:10", 0o750),
-    "var/spool/cups": ("_cups:0", "lp:10", 0o755),
-    "etc/cups/ssl": ("_cups:0", "lp:10", 0o700),
-    "etc/cups/classes.conf": ("root:0", "lp:10", 0o644),
-    "etc/cups/printers.conf": ("root:0", "lp:10", 0o644),
-    "etc/cups/subscriptions.conf": ("root:0", "lp:10", 0o644),
-    "etc/cups/cups-files.conf": ("root:0", "lp:10", 0o640),
-    "etc/cups/cups-files.conf.default": ("root:0", "lp:10", 0o640),
-    "etc/cups/cupsd.conf": ("root:0", "lp:10", 0o640),
-    "etc/cups/cupsd.conf.default": ("root:0", "lp:10", 0o640),
-    "etc/cups/snmp.conf": ("root:0", "lp:10", 0o640),
-    "etc/cups/snmp.conf.default": ("root:0", "lp:10", 0o640),
+    "var/cache/cups/rss": ("_cups", "lp", 0o750),
+    "var/spool/cups": ("_cups", "lp", 0o755),
+    "etc/cups/ssl": ("_cups", "lp", 0o700),
+    "etc/cups/classes.conf": ("root", "lp", 0o644),
+    "etc/cups/printers.conf": ("root", "lp", 0o644),
+    "etc/cups/subscriptions.conf": ("root", "lp", 0o644),
+    "etc/cups/cups-files.conf": ("root", "lp", 0o640),
+    "etc/cups/cups-files.conf.default": ("root", "lp", 0o640),
+    "etc/cups/cupsd.conf": ("root", "lp", 0o640),
+    "etc/cups/cupsd.conf.default": ("root", "lp", 0o640),
+    "etc/cups/snmp.conf": ("root", "lp", 0o640),
+    "etc/cups/snmp.conf.default": ("root", "lp", 0o640),
 }
 # undefined references everywhere
 options = ["!lto"]
@@ -95,7 +95,7 @@ def post_install(self):
 
 @subpackage("cups-libs")
 def _libs(self):
-    self.file_modes = {"etc/cups/client.conf": ("root:0", "lp:10", 0o644)}
+    self.file_modes = {"etc/cups/client.conf": ("root", "lp", 0o644)}
 
     return self.default_libs(extra = [
         "etc/cups/client.conf",

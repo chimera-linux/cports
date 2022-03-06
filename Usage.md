@@ -63,6 +63,15 @@ The userland dependencies are the following:
 * `tee`
 * `fakeroot`
 
+**Your `apk` must be dynamically linked.** This is because it is used together
+with `fakeroot` (e.g. for `binary-bootstrap`) and a statically linked copy
+prevents `LD_PRELOAD` from working, which would result in permission issues.
+
+**You need a recent Git snapshot of `apk-tools` at this point.** It is your
+responsibility to ensure that your `apk` is new enough (`cbuild` does some
+rudimentary testing that it's 3.x and non-static though) and compatible with
+`cbuild`. Your best bet is to use the same version as is packaged.
+
 You also need Linux kernel 3.8 or newer, with namespaces and cgroups enabled.
 Notably the following options must be enabled:
 

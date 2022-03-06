@@ -17,5 +17,16 @@ sha256 = "30e947783d0a3155231d6fd3f5a3fe5d1576622734c518075e27052c6cfd970c"
 # no test suite
 options = ["bootstrap", "!check"]
 
+def init_configure(self):
+    if self.stage > 0:
+        return
+
+    from cbuild.core import paths
+
+    # since meson translates all `-lfoo` into absolute paths to libraries,
+    # and pkg-config's libdir is set to /usr/lib in this case, fool it
+    # into giving out the correct paths to make meson happy
+    self.env["PKG_CONFIG_LIBCRYPTO_LIBDIR"] = str(paths.bldroot() / "usr/lib")
+
 if self.stage > 0:
     makedepends += ["linux-headers"]

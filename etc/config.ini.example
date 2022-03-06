@@ -4,6 +4,8 @@
 # options related to your host apk
 [apk]
 # the apk command to use
+# must not be a static binary
+# also overridden by environment variable CBUILD_APK_PATH
 command = apk
 
 # options related to building packages

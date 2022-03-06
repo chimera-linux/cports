@@ -33,7 +33,7 @@ suid_files = [
     "usr/libexec/dbus-daemon-launch-helper"
 ]
 file_modes = {
-    "usr/libexec/dbus-daemon-launch-helper": (None, "dbus:22", 0o4750)
+    "usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)
 }
 
 system_users = ["dbus:22"]

@@ -11,7 +11,10 @@ import subprocess
 
 from . import util
 
-def _get_keypath(keypath):
+def get_keypath(keypath):
+    if not keypath:
+        return None
+
     keypath = pathlib.Path(keypath)
 
     if keypath.is_absolute():
@@ -34,7 +37,7 @@ def sign(keypath, data, epoch):
         inparg = [data]
         inpval = None
 
-    keypath = _get_keypath(keypath)
+    keypath = get_keypath(keypath)
 
     if not keypath.is_file():
         raise errors.CbuildException(f"non-existent private key '{keypath}'")
@@ -93,7 +96,7 @@ def keygen(keypath, size, cfgfile, cfgpath):
         keypath = keyn + "-" + hex(int(time.time()))[2:] + ".rsa"
         logger.get().warn(f"No key path provided, using '{keypath}'")
 
-    keypath = _get_keypath(keypath)
+    keypath = get_keypath(keypath)
 
     keypath.parent.mkdir(parents = True, exist_ok = True)
 

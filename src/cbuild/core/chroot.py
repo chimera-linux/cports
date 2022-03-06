@@ -169,7 +169,7 @@ def repo_sync(genrepos = False):
     if not (paths.bldroot() / ".cbuild_chroot_init").is_file():
         return
 
-    if apki.call_chroot("update", [], "main").returncode != 0:
+    if apki.call_chroot("update", ["-q"], "main").returncode != 0:
         raise errors.CbuildException(f"failed to update pkg database")
 
 def initdb(path = None):
@@ -294,8 +294,9 @@ def enter(cmd, *args, capture_output = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, ro_build = False,
           ro_dest = True, unshare_all = False, mount_binpkgs = False,
-          mount_ccache = False, mount_cargo = False, fakeroot = False,
-          new_session = True):
+          mount_ccache = False, mount_cargo = False, mount_cports = False,
+          fakeroot = False, new_session = True, binpkgs_rw = False,
+          signkey = None, wrapper = None):
     defpath = "/usr/bin"
     if bootstrapping:
         defpath = os.environ["PATH"]
@@ -357,8 +358,11 @@ def enter(cmd, *args, capture_output = False, check = False,
         dest_bind = "--bind"
 
     if bootstrapping:
+        bcmd = []
+        if fakeroot:
+            bcmd = ["fakeroot", "--"]
         return subprocess.run(
-            [cmd, *args], env = envs,
+            [*bcmd, cmd, *args], env = envs,
             capture_output = capture_output, check = check,
             stdout = stdout, stderr = stderr,
             cwd = os.path.abspath(wrkdir) if wrkdir else None
@@ -382,7 +386,10 @@ def enter(cmd, *args, capture_output = False, check = False,
         bcmd += ["--new-session", "--die-with-parent"]
 
     if mount_binpkgs:
-        bcmd += ["--ro-bind", paths.repository(), "/binpkgs"]
+        bcmd += [
+            "--ro-bind" if not binpkgs_rw else "--bind", paths.repository(),
+            "/binpkgs"
+        ]
         if paths.alt_repository():
             bcmd += ["--ro-bind", paths.alt_repository(), "/altbinpkgs"]
 
@@ -404,13 +411,36 @@ def enter(cmd, *args, capture_output = False, check = False,
         bcmd.append("--chdir")
         bcmd.append(wrkdir)
 
+    # extra file descriptors to pass to sandbox and bind to a file
+    fdlist = []
+
+    if signkey:
+        # reopen as file descriptor to pass
+        signkey = os.open(signkey, os.O_RDONLY)
+        fdlist.append(signkey)
+        bcmd += ["--ro-bind-data", str(signkey), "/tmp/key.priv"]
+
+    if wrapper:
+        rfd, wfd = os.pipe()
+        os.write(wfd, wrapper.encode())
+        os.close(wfd)
+        fdlist.append(rfd)
+        bcmd += ["--ro-bind-data", str(rfd), "/tmp/wrapper.sh"]
+
     if fakeroot:
         bcmd += ["--setenv", "FAKEROOTDONTTRYCHOWN", "1", "fakeroot", "--"]
+
+    if wrapper:
+        bcmd += ["sh", "/tmp/wrapper.sh"]
 
     bcmd.append(cmd)
     bcmd += args
 
-    return subprocess.run(
-        bcmd, env = envs, capture_output = capture_output, check = check,
-        stdout = stdout, stderr = stderr
-    )
+    try:
+        return subprocess.run(
+            bcmd, env = envs, capture_output = capture_output, check = check,
+            stdout = stdout, stderr = stderr, pass_fds = tuple(fdlist)
+        )
+    finally:
+        for fd in fdlist:
+            os.close(fd)

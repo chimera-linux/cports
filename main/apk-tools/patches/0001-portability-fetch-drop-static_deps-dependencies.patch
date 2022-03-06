@@ -1,0 +1,40 @@
+From 895a668448bc0342809739a45887482fcd1920a2 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 6 Mar 2022 05:34:30 +0100
+Subject: [PATCH 1/2] portability, fetch: drop static_deps dependencies
+
+This is not actually needed, and it results in both static and
+shared versions of zlib and openssl linked into libapk otherwise,
+which is bad.
+---
+ libfetch/meson.build    | 1 -
+ portability/meson.build | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/libfetch/meson.build b/libfetch/meson.build
+index 18124f7..90e133b 100644
+--- a/libfetch/meson.build
++++ b/libfetch/meson.build
+@@ -38,7 +38,6 @@ libfetch = static_library(
+ 	'fetch',
+ 	libfetch_src,
+ 	c_args: libfetch_cargs,
+-	dependencies: static_deps,
+ )
+ 
+ libfetch_dep = declare_dependency(
+diff --git a/portability/meson.build b/portability/meson.build
+index a16cc77..ae8f6bc 100644
+--- a/portability/meson.build
++++ b/portability/meson.build
+@@ -24,7 +24,6 @@ if libportability_src.length() > 0
+ 	libportability = static_library(
+ 		'portability',
+ 		libportability_src,
+-		dependencies: static_deps,
+ 	)
+ 
+ 	libportability_dep = declare_dependency(
+-- 
+2.35.1
+

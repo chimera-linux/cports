@@ -43,8 +43,8 @@ suid_files = [
     "usr/bin/write",
 ]
 file_modes = {
-    "usr/bin/wall": (None, "tty:5", 0o2755),
-    "usr/bin/write": (None, "tty:5", 0o2755),
+    "usr/bin/wall": ("root", "tty", 0o2755),
+    "usr/bin/write": ("root", "tty", 0o2755),
 }
 # checkdepends are missing
 options = ["!check"]

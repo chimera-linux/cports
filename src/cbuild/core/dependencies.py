@@ -1,6 +1,6 @@
 from cbuild.core import logger, template, paths, chroot
 from cbuild.step import build as do_build
-from cbuild.apk import create as apkc, util as autil, cli as apki
+from cbuild.apk import util as autil, cli as apki
 from os import makedirs
 import tempfile
 import pathlib
@@ -207,36 +207,49 @@ def setup_dummy(pkg, rootp):
 
     pkg.log(f"updating virtual provider for {archn}...")
 
+    provides = [
+        "musl=9999-r0",
+        "musl-devel=9999-r0",
+        "libcxx=9999-r0",
+        "libcxx-devel=9999-r0",
+        "libcxxabi=9999-r0",
+        "libcxxabi-devel=9999-r0",
+        "libunwind=9999-r0",
+        "libunwind-devel=9999-r0",
+        "libexecinfo=9999-r0",
+        "libexecinfo-devel=9999-r0",
+        "pc:libexecinfo=9999",
+        "so:libc.so=0",
+        "so:libc++abi.so.1=1.0",
+        "so:libc++.so.1=1.0",
+        "so:libunwind.so.1=1.0",
+        "so:libexecinfo.so.1=1",
+    ]
+
     try:
-        apkc.create(
-            pkgn, pkgv, pkg.profile().arch,
-            epoch, tmpd, tmpd, repod / f"{pkgn}-{pkgv}.apk", None,
-            {
-                "pkgdesc": "Target sysroot virtual provider",
-                "provides": [
-                    "musl=9999-r0",
-                    "musl-devel=9999-r0",
-                    "libcxx=9999-r0",
-                    "libcxx-devel=9999-r0",
-                    "libcxxabi=9999-r0",
-                    "libcxxabi-devel=9999-r0",
-                    "libunwind=9999-r0",
-                    "libunwind-devel=9999-r0",
-                    "libexecinfo=9999-r0",
-                    "libexecinfo-devel=9999-r0",
-                ],
-                "pc_provides": [
-                    "libexecinfo=9999",
-                ],
-                "shlib_provides": [
-                    ("libc.so", "0"),
-                    ("libc++abi.so.1", "1.0"),
-                    ("libc++.so.1", "1.0"),
-                    ("libunwind.so.1", "1.0"),
-                    ("libexecinfo.so.1", "1"),
-                ]
-            }
+        ret = apki.call(
+            "mkpkg",
+            [
+                "--output", repod / f"{pkgn}-{pkgv}.apk",
+                "--info", f"name:{pkgn}",
+                "--info", f"version:{pkgv}",
+                "--info", f"description:Target sysroot virtual provider",
+                "--info", f"arch:{archn}",
+                "--info", f"origin:{pkgn}",
+                "--info", f"url:https://chimera-linux.org",
+                "--info", f"build-time:{int(epoch)}",
+                "--info", f"provides:{' '.join(provides)}",
+            ],
+            root = rootp, capture_output = True, arch = archn,
+            allow_untrusted = True, fakeroot = True
         )
+        if ret.returncode != 0:
+            outl = ret.stderr.strip().decode()
+            if len(outl) > 0:
+                pkg.logger.out_plain(">> stderr:")
+                pkg.logger.out_plain(outl)
+            pkg.error(f"failed to create virtual provider for {archn}")
+
         if not apki.build_index(repod, epoch, None):
             pkg.error(f"failed to index virtual provider for {archn}")
 

@@ -14,3 +14,14 @@ source = f"https://github.com/chimera-linux/bsdutils-extra/archive/{_commit}.tar
 sha256 = "45d4a7711d2af55c9542886c6077fbe1989705f3997accb14a56b794318870e4"
 # no test suite
 options = ["bootstrap", "!check"]
+
+def init_configure(self):
+    if self.stage > 0:
+        return
+
+    from cbuild.core import paths
+
+    # since meson translates all `-lfoo` into absolute paths to libraries,
+    # and pkg-config's libdir is set to /usr/lib in this case, fool it
+    # into giving out the correct paths to make meson happy
+    self.env["PKG_CONFIG_LIBCRYPTO_LIBDIR"] = str(paths.bldroot() / "usr/lib")

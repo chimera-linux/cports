@@ -11,8 +11,8 @@ url = "http://trousers.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "1e5be93e518372acf1d92d2f567d01a46fdb0b730487e544e6fb896c59cac77f"
 file_modes = {
-    "etc/tcsd.conf": ("tss:0", "tss:0", 0o600),
-    "var/lib/tpm": ("tss:0", "tss:0", 0o700),
+    "etc/tcsd.conf": ("tss", "tss", 0o600),
+    "var/lib/tpm": ("tss", "tss", 0o700),
 }
 system_users = [
     {

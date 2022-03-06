@@ -214,6 +214,10 @@ def _scan_one(fpath):
         not dynsect, interp, textrel, needed, soname
     )
 
+def is_static(path):
+    einfo = _scan_one(path)
+    return einfo and einfo[2]
+
 def scan(pkg, somap):
     scandir = pkg.destdir
     elf_usrshare = []

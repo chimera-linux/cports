@@ -1,6 +1,8 @@
 # this runs early so that proper permissions can get applied
 # otherwise we would not get validation by e.g. the suid scanner
 
+import os
+
 def invoke(pkg):
     for k in pkg.file_modes:
         p = pkg.destdir / k
@@ -11,32 +13,26 @@ def invoke(pkg):
         if len(pkg.file_modes[k]) != 3:
             pkg.error(f"invalid file_modes value for {k}")
 
-        uname, gname, fmode = pkg.file_modes[k]
+        recursive = False
+        if len(pkg.file_modes[k]) == 4:
+            uname, gname, fmode, recursive = pkg.file_modes[k]
+        else:
+            uname, gname, fmode = pkg.file_modes[k]
 
-        def _validate_name(n):
-            # skip
-            if n is None:
-                return
-            # check if a valid string
-            if not isinstance(n, str):
-                pkg.error("file_modes owner/group value must be a string")
-            # valid format
-            col = n.find(":")
-            if col <= 0 or len(n[col + 1:]) == 0:
-                pkg.error("file_modes owner/group value has invalid format")
-            # uid/gid converts to an integer
-            mint = True
-            try:
-                int(n[col + 1:])
-            except ValueError:
-                mint = False
-            if not mint:
-                pkg.error("file_modes owner/group must have a numeric ID")
-
-        _validate_name(uname)
-        _validate_name(gname)
-
+        if not isinstance(uname, str):
+            pkg.error("file_modes owner value must be a user name")
+        if not isinstance(uname, str):
+            pkg.error("file_modes group value must be a group name")
         if not isinstance(fmode, int):
             pkg.error("file_modes mode must be an integer")
+        if not isinstance(recursive, bool):
+            pkg.error("file_mods recursive flag must be a boolean")
 
-        p.chmod(fmode)
+        if recursive:
+            for root, dirs, files in os.walk(p):
+                for d in dirs:
+                    os.chmod(d, fmode)
+                for f in files:
+                    os.chmod(f, fmode)
+        else:
+            os.chmod(p, fmode)

@@ -1,6 +1,6 @@
 from cbuild.core import logger, paths
 
-from . import sign
+from . import sign as asign
 
 import os
 import pathlib
@@ -261,48 +261,24 @@ def prune(repopath, arch = None, dry = False):
 def build_index(repopath, epoch, keypath):
     repopath = pathlib.Path(repopath)
 
-    aargs = ["--quiet"]
+    aargs = ["--quiet", "--output", "APKINDEX.tar.gz"]
 
-    if (repopath / "APKINDEX.tar.gz").is_file():
+    if (repopath / "packages.adb").is_file():
         aargs += ["--index", "APKINDEX.tar.gz"]
 
-    # if no key is given, just use the final index name
-    if not keypath:
-        aargs += ["--output", "APKINDEX.tar.gz"]
-    else:
-        aargs += ["--output", "APKINDEX.unsigned.tar.gz"]
+    keypath = asign.get_keypath(keypath)
+    if keypath:
+        aargs += ["--sign-key", keypath]
 
     summarize_repo(repopath, aargs)
 
     # create unsigned index
-    signr = call("index", aargs, None, cwd = repopath, env = {
+    signr = call("mkndx", aargs, None, cwd = repopath, env = {
         "PATH": os.environ["PATH"],
         "SOURCE_DATE_EPOCH": str(epoch)
     }, allow_untrusted = not keypath)
     if signr.returncode != 0:
         logger.get().out_red("Indexing failed!")
         return False
-
-    # we're done if no key is given
-    if not keypath:
-        return True
-
-    try:
-        signhdr = sign.sign(
-            keypath, repopath / "APKINDEX.unsigned.tar.gz", epoch
-        )
-    except:
-        return False
-
-    # write signed index
-    with open(repopath / "APKINDEX.tar.gz", "wb") as outf:
-        outf.write(signhdr)
-        with open(repopath / "APKINDEX.unsigned.tar.gz", "rb") as inf:
-            while True:
-                buf = inf.read(16 * 1024)
-                if not buf:
-                    break
-                outf.write(buf)
-        (repopath / "APKINDEX.unsigned.tar.gz").unlink()
 
     return True

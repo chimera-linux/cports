@@ -1,10 +1,21 @@
-from cbuild.core import logger, paths, template
-from cbuild.apk import create as apk_c, sign as apk_s
+from cbuild.core import logger, paths, template, chroot
+from cbuild.apk import sign as asign
 
 import glob
 import time
+import shlex
 import pathlib
 import subprocess
+
+_scriptlets = {
+    ".pre-install": True,
+    ".pre-upgrade": True,
+    ".pre-deinstall": True,
+    ".post-install": True,
+    ".post-upgrade": True,
+    ".post-deinstall": True,
+    ".trigger": True,
+}
 
 def genpkg(pkg, repo, arch, binpkg):
     if not pkg.destdir.is_dir():
@@ -20,85 +31,180 @@ def genpkg(pkg, repo, arch, binpkg):
         pkg.log_warn(f"binary package being created, waiting...")
         time.sleep(1)
 
+    pargs = [
+        "--info", f"name:{pkg.pkgname}",
+        "--info", f"version:{pkg.pkgver}-r{pkg.pkgrel}",
+        "--info", f"description:{pkg.pkgdesc}",
+        "--info", f"arch:{arch}",
+        "--info", f"license:{pkg.license}",
+        "--info", f"origin:{pkg.rparent.pkgname}",
+        "--info", f"maintainer:{pkg.rparent.maintainer}",
+        "--info", f"url:{pkg.rparent.url}",
+        "--info", f"build-time:{int(pkg.rparent.source_date_epoch)}"
+    ]
+
+    # only record commits in non-dirty repos
+    if pkg.rparent.git_revision and not pkg.rparent.git_dirty:
+        pargs += ["--info", f"repo-commit:{pkg.rparent.git_revision}"]
+
+    # dependencies of any sort
+    deps = []
+
+    # explicit package depends
+    for c in pkg.depends:
+        ploc = c.find("!")
+        if ploc > 0:
+            deps.append(c[0:ploc].removeprefix("virtual:"))
+        else:
+            deps.append(c.removeprefix("virtual:"))
+
+    # sort before adding more
+    deps.sort()
+
+    # shlib requires
+    if hasattr(pkg, "so_requires"):
+        pkg.so_requires.sort()
+        deps += map(lambda v: f"so:{v}", sorted(pkg.so_requires))
+
+    # .pc file requires
+    if hasattr(pkg, "pc_requires"):
+        deps += map(lambda v: f"pc:{v}", sorted(pkg.pc_requires))
+
+    if len(deps) > 0:
+        pargs += ["--info", f"depends:{' '.join(deps)}"]
+
+    # install-if
+    if len(pkg.install_if) > 0:
+        pargs += ["--info", f"install-if:{' '.join(pkg.install_if)}"]
+
+    # providers
+    provides = []
+
+    # explicit provides
+    provides += sorted(pkg.provides)
+
+    # shlib provides
+    if hasattr(pkg, "aso_provides"):
+        provides += map(
+            lambda x: f"so:{x[0]}={x[1]}",
+            sorted(pkg.aso_provides, key = lambda x: x[0])
+        )
+
+    # .pc file provides
+    if hasattr(pkg, "pc_provides"):
+        provides += map(
+            lambda x: f"pc:{x}", sorted(pkg.pc_provides)
+        )
+
+    # command provides
+    if hasattr(pkg, "cmd_provides"):
+        provides += map(
+            lambda x: f"cmd:{x}", sorted(pkg.cmd_provides)
+        )
+
+    if len(provides) > 0:
+        pargs += ["--info", f"provides:{' '.join(provides)}"]
+
+    if pkg.provider_priority > 0:
+        pargs += ["--info", f"priority:{pkg.provider_priority}"]
+
+    # scripts including trigger scripts
+    sclist = []
+
+    for f in (pkg.statedir / "scriptlets").glob(f"{pkg.pkgname}.*"):
+        if f.is_file() and f.suffix in _scriptlets:
+            sclist.append(f.suffix[1:])
+
+    sclist.sort()
+
+    for f in sclist:
+        # get in-chroot path to that
+        scp = pkg.chroot_builddir / (
+            pkg.statedir.relative_to(pkg.builddir)
+        ) / f"scriptlets/{pkg.pkgname}.{f}"
+        # pass it
+        pargs += ["--script", f"{f}:{scp}"]
+
+    # trigger paths
+    for t in pkg.triggers:
+        p = pathlib.Path(t)
+        if not p or not p.is_absolute():
+            pkg.error(f"invalid trigger path: {t}")
+        pargs += ["--trigger", t]
+
+    # signing key
+    signkey = asign.get_keypath(pkg.rparent.signing_key)
+    if signkey:
+        if pkg.rparent.stage > 0:
+            pargs += ["--sign-key", "/tmp/key.priv"]
+        else:
+            pargs += ["--sign-key", signkey]
+
+    # generate a wrapper script for fakeroot ownership
+    wscript = """
+#!/bin/sh
+set -e
+"""
+
+    needscript = False
+
+    # at this point permissions are already applied, we just need owners
+    for f in pkg.file_modes:
+        fpath = pkg.chroot_destdir / f
+        recursive = False
+        if len(pkg.file_modes[f]) == 4:
+            uname, gname, fmode, recursive = pkg.file_modes[f]
+        else:
+            uname, gname, fmode = pkg.file_modes[f]
+        # avoid noops
+        if (uname == "root" or uname == 0) and (gname == "root" or gname == 0):
+            continue
+        # now we know it's needed
+        needscript = True
+        # handle recursive owner
+        if recursive:
+            chcmd = "chown -R"
+        else:
+            chcmd = "chown"
+        wscript += f"""{chcmd} {uname}:{gname} {shlex.quote(str(fpath))}\n"""
+
+    # execute what we were wrapping
+    wscript += """exec "$@"\n"""
+
+    # TODO: replaces, recommends (once implemented in apk)
+
+    if pkg.rparent.stage == 0:
+        # disable wrapper script unless we have a real chroot
+        needscript = False
+        cbpath = binpath
+    else:
+        cbpath = pathlib.Path("/binpkgs") / binpath.relative_to(
+            paths.repository()
+        )
+
     try:
         lockpath.touch()
 
-        metadata = {}
-        args = []
-
-        pkgdesc = pkg.pkgdesc
-
-        metadata["pkgdesc"] = pkgdesc
-        metadata["url"] = pkg.rparent.url
-        metadata["maintainer"] = pkg.rparent.maintainer
-        #metadata["packager"] = pkg.rparent.maintainer
-        metadata["origin"] = pkg.rparent.pkgname
-        metadata["license"] = pkg.license
-
-        if pkg.rparent.git_revision:
-            metadata["commit"] = pkg.rparent.git_revision + (
-                "-dirty" if pkg.rparent.git_dirty else ""
-            )
-
-        if len(pkg.provides) > 0:
-            pkg.provides.sort()
-            metadata["provides"] = pkg.provides
-
-        if pkg.provider_priority > 0:
-            metadata["provider_priority"] = pkg.provider_priority
-
-        mdeps = []
-
-        for c in pkg.depends:
-            ploc = c.find("!")
-            if ploc > 0:
-                mdeps.append(c[0:ploc].removeprefix("virtual:"))
-            else:
-                mdeps.append(c.removeprefix("virtual:"))
-
-        mdeps.sort()
-        metadata["depends"] = mdeps
-
-        metadata["install_if"] = list(pkg.install_if)
-
-        if hasattr(pkg, "aso_provides"):
-            pkg.aso_provides.sort(key = lambda x: x[0])
-            metadata["shlib_provides"] = pkg.aso_provides
-
-        if hasattr(pkg, "so_requires"):
-            pkg.so_requires.sort()
-            metadata["shlib_requires"] = pkg.so_requires
-
-        if hasattr(pkg, "pc_provides"):
-            pkg.pc_provides.sort()
-            metadata["pc_provides"] = pkg.pc_provides
-
-        if hasattr(pkg, "cmd_provides"):
-            pkg.cmd_provides.sort()
-            metadata["cmd_provides"] = pkg.cmd_provides
-
-        if hasattr(pkg, "pc_requires"):
-            pkg.pc_requires.sort()
-            metadata["pc_requires"] = pkg.pc_requires
-
-        if len(pkg.triggers) > 0:
-            # check validity first
-            for t in pkg.triggers:
-                p = pathlib.Path(t)
-                if not p or not p.is_absolute():
-                    pkg.error(f"invalid trigger path: {t}")
-            # finally pass metadata
-            metadata["triggers"] = list(pkg.triggers)
-
-        metadata["file_modes"] = pkg.file_modes
-
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
-        apk_c.create(
-            pkg.pkgname, f"{pkg.pkgver}-r{pkg.pkgrel}", arch,
-            pkg.rparent.source_date_epoch, pkg.destdir, pkg.statedir, binpath,
-            pkg.rparent.signing_key, metadata
+        ret = chroot.enter(
+            paths.apk(), "mkpkg",
+            "--files", pkg.chroot_destdir,
+            "--output", cbpath,
+            *pargs,
+            capture_output = True,
+            bootstrapping = (pkg.rparent.stage == 0),
+            ro_root = True, ro_build = True, ro_dest = False,
+            unshare_all = True, mount_binpkgs = True,
+            fakeroot = True, binpkgs_rw = True,
+            signkey = signkey, wrapper = wscript if needscript else None
         )
+
+        if ret.returncode != 0:
+            log.out_plain(">> stderr:")
+            log.out_plain(ret.stderr.decode())
+            pkg.error(f"failed to generate package")
+
     finally:
         lockpath.unlink()
         pkg.rparent._stage[repo] = True

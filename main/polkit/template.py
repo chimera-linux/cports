@@ -30,8 +30,8 @@ suid_files = [
     "usr/bin/pkexec",
 ]
 file_modes = {
-    "etc/polkit-1/rules.d": ("_polkitd:0", "_polkitd:0", 0o700),
-    "usr/share/polkit-1/rules.d": ("_polkitd:0", "_polkitd:0", 0o700),
+    "etc/polkit-1/rules.d": ("_polkitd", "_polkitd", 0o700),
+    "usr/share/polkit-1/rules.d": ("_polkitd", "_polkitd", 0o700),
 }
 # tests are broken on musl
 options = ["!check"]

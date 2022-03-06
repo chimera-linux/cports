@@ -27,8 +27,8 @@ url = "https://www.freedesktop.org/software/colord"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b774ea443d239f4a2ee1853bd678426e669ddeda413dcb71cea1638c4d6c5e17"
 file_modes = {
-    "var/lib/colord": ("_colord:0", "_colord:0", 0o755),
-    "var/lib/colord/icc": ("_colord:0", "_colord:0", 0o755),
+    "var/lib/colord": ("_colord", "_colord", 0o755),
+    "var/lib/colord/icc": ("_colord", "_colord", 0o755),
 }
 # assertion failed (cd_edid_get_vendor_name (edid) == "LG"): (NULL == "LG")
 options = ["!check"]

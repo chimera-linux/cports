@@ -295,6 +295,8 @@ def handle_options():
         opt_dryrun = True
 
 def init_late():
+    import os
+
     from cbuild.core import paths, spdx
 
     mainrepo = opt_altrepo
@@ -310,7 +312,10 @@ def init_late():
     )
 
     # apk command
-    paths.set_apk(opt_apkcmd)
+    if "CBUILD_APK_PATH" in os.environ:
+        paths.set_apk(os.environ["CBUILD_APK_PATH"])
+    else:
+        paths.set_apk(opt_apkcmd)
 
     # init license information
     spdx.init()
@@ -881,8 +886,10 @@ def fire():
     import sys
     import shutil
     import traceback
+    import subprocess
 
-    from cbuild.core import chroot, logger, template, profile, paths, errors
+    from cbuild.core import chroot, logger, template, profile
+    from cbuild.core import scanelf, paths, errors
     from cbuild.apk import cli
 
     logger.init(not opt_nocolor)
@@ -909,6 +916,24 @@ def fire():
             sys.exit(1)
     # let apk know if we're using network
     cli.set_network(not opt_nonet)
+
+    try:
+        aret = subprocess.run(
+            [paths.apk(), "--version"], capture_output = True
+        )
+    except FileNotFoundError:
+        logger.get().out_red(f"cbuild: apk not found ({paths.apk()}")
+        sys.exit(1)
+
+    if not aret.stdout.startswith(b"apk-tools 3"):
+        logger.get().out_red("cbuild: apk-tools 3.x is required")
+        sys.exit(1)
+
+    apath = shutil.which(paths.apk())
+
+    if scanelf.is_static(apath):
+        logger.get().out_red("cbuild: static apk-tools is not supported")
+        sys.exit(1)
 
     template.register_hooks()
 
