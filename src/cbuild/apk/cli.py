@@ -272,7 +272,6 @@ def build_index(repopath, epoch, keypath):
 
     summarize_repo(repopath, aargs)
 
-    # create unsigned index
     signr = call("mkndx", aargs, None, cwd = repopath, env = {
         "PATH": os.environ["PATH"],
         "SOURCE_DATE_EPOCH": str(epoch)
