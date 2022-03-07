@@ -263,7 +263,7 @@ def build_index(repopath, epoch, keypath):
 
     aargs = ["--quiet", "--output", "APKINDEX.tar.gz"]
 
-    if (repopath / "packages.adb").is_file():
+    if (repopath / "APKINDEX.tar.gz").is_file():
         aargs += ["--index", "APKINDEX.tar.gz"]
 
     keypath = asign.get_keypath(keypath)
