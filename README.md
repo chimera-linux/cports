@@ -20,7 +20,6 @@ To get started, read `Usage.md` first.
 
 ## Bootstrapping installations from repositories
 
-Once you have a repository, you might want to set up a `chroot`, or even a
-bootable system. While `cbuild` will not help you with that, we have another
-tool called `chimera-bootstrap` for that. You can find it in another repository,
-specifically [here](https://github.com/chimera-linux/chimera-bootstrap).
+For instructions on how to bootstrap the system into a target root as well as
+some more advanced tooling for e.g. creation of actual images, check out the
+[chimera-live](https://github.com/chimera-linux/chimera-live) repository.
