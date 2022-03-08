@@ -444,7 +444,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                     autopkg = True
                 ),
                 depmap, signkey, chost = hostdep or not not pprof.cross,
-                no_update = True
+                no_update = not missing
             )
             missing = True
         except template.SkipPackage:
@@ -462,7 +462,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                     force_check = pkg._force_check, stage = pkg.stage,
                     autopkg = True
                 ),
-                depmap, signkey, chost = hostdep, no_update = True
+                depmap, signkey, chost = hostdep, no_update = not missing
             )
             missing = True
         except template.SkipPackage:
@@ -480,7 +480,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                     force_check = pkg._force_check, stage = pkg.stage,
                     autopkg = True
                 ),
-                depmap, signkey, chost = hostdep, no_update = True
+                depmap, signkey, chost = hostdep, no_update = not missing
             )
             missing = True
         except template.SkipPackage:
