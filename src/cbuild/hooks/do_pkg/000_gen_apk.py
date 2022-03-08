@@ -119,8 +119,8 @@ def genpkg(pkg, repo, arch, binpkg):
 
     for f in sclist:
         # get in-chroot path to that
-        scp = pkg.chroot_builddir / (
-            pkg.statedir.relative_to(pkg.builddir)
+        scp = pkg.rparent.chroot_builddir / (
+            pkg.statedir.relative_to(pkg.rparent.builddir)
         ) / f"scriptlets/{pkg.pkgname}.{f}"
         # pass it
         pargs += ["--script", f"{f}:{scp}"]
@@ -136,7 +136,7 @@ def genpkg(pkg, repo, arch, binpkg):
     signkey = asign.get_keypath(pkg.rparent.signing_key)
     if signkey:
         if pkg.rparent.stage > 0:
-            pargs += ["--sign-key", "/tmp/key.priv"]
+            pargs += ["--sign-key", f"/tmp/{signkey.name}"]
         else:
             pargs += ["--sign-key", signkey]
 

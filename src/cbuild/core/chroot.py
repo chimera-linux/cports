@@ -417,22 +417,22 @@ def enter(cmd, *args, capture_output = False, check = False,
 
     if signkey:
         # reopen as file descriptor to pass
-        signkey = os.open(signkey, os.O_RDONLY)
-        fdlist.append(signkey)
-        bcmd += ["--ro-bind-data", str(signkey), "/tmp/key.priv"]
+        signfd = os.open(signkey, os.O_RDONLY)
+        fdlist.append(signfd)
+        bcmd += ["--ro-bind-data", str(signfd), f"/tmp/{signkey.name}"]
 
     if wrapper:
         rfd, wfd = os.pipe()
         os.write(wfd, wrapper.encode())
         os.close(wfd)
         fdlist.append(rfd)
-        bcmd += ["--ro-bind-data", str(rfd), "/tmp/wrapper.sh"]
+        bcmd += ["--ro-bind-data", str(rfd), "/tmp/cbuild-chroot-wrapper.sh"]
 
     if fakeroot:
         bcmd += ["--setenv", "FAKEROOTDONTTRYCHOWN", "1", "fakeroot", "--"]
 
     if wrapper:
-        bcmd += ["sh", "/tmp/wrapper.sh"]
+        bcmd += ["sh", "/tmp/cbuild-chroot-wrapper.sh"]
 
     bcmd.append(cmd)
     bcmd += args

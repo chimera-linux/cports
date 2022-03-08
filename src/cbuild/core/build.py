@@ -41,6 +41,8 @@ def build(
         # no_update is set when this is a build triggered by a missing dep;
         # in this case chroot.update() was already performed by its parent
         # call and there is no point in doing it again
+        #
+        # an exception is when building a second or further missing dependency
         if pkg.stage > 0 and not no_update:
             chroot.update()
 
