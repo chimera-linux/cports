@@ -44,10 +44,7 @@ def init_prepare(self):
         self.env["OPENSSL_DIR"] = str(self.profile().sysroot / "usr")
 
 def do_install(self):
-    if self.profile().cross:
-        _binp = f"target/{self.profile().triplet}/release/cargo"
-    else:
-        _binp = "target/release/cargo"
+    _binp = f"target/{self.profile().triplet}/release/cargo"
 
     if _bootstrap:
         bdirn = f"cargo-{pkgver}-{self.profile().triplet}"
