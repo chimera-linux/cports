@@ -272,7 +272,7 @@ def remove_autodeps(bootstrapping):
     if failed:
         raise errors.CbuildException("failed to remove autodeps")
 
-def update(do_clean = True):
+def update(clean_autodeps = True):
     if not chroot_check():
         return
 
@@ -280,7 +280,8 @@ def update(do_clean = True):
         % str(paths.bldroot()))
 
     paths.prepare()
-    remove_autodeps(False)
+    if clean_autodeps:
+        remove_autodeps(False)
 
     # reinit passwd/group
     _prepare_passwd()

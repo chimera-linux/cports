@@ -37,6 +37,12 @@ def invoke(pkg):
             userset[int(uid)] = usrn
             ulist.append(usl)
 
+    # adjust the start ids according to existing stuff
+    while startuid in userset:
+        startuid += 1
+    while startgid in groupset:
+        startgid -= 1
+
     ulen = len(ulist)
     glen = len(glist)
 

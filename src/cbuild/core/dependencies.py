@@ -337,7 +337,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
     ihdeps, itdeps, irdeps = setup_depends(pkg)
 
     if len(ihdeps) == 0 and len(itdeps) == 0 and len(irdeps) == 0:
-        return
+        return False
 
     for sver, pkgn in ihdeps:
         # check if already installed
@@ -429,41 +429,60 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
 
     chost = chroot.host_cpu()
 
+    # if this triggers any build of its own, it will return true
+    missing = False
+
     for pn in host_missing_deps:
         try:
-            build.build(step, template.read_pkg(
-                pn, chost if pkg.stage > 0 else None,
-                False, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check, stage = pkg.stage,
-                autopkg = True
-            ), depmap, signkey, chost = hostdep or not not pprof.cross)
+            build.build(
+                step,
+                template.read_pkg(
+                    pn, chost if pkg.stage > 0 else None,
+                    False, pkg.run_check, pkg.conf_jobs,
+                    pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
+                    force_check = pkg._force_check, stage = pkg.stage,
+                    autopkg = True
+                ),
+                depmap, signkey, chost = hostdep or not not pprof.cross,
+                no_update = True
+            )
+            missing = True
         except template.SkipPackage:
             pass
         host_binpkg_deps.append(pn)
 
     for pn in missing_deps:
         try:
-            build.build(step, template.read_pkg(
-                pn, tarch if pkg.stage > 0 else None,
-                False, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check, stage = pkg.stage,
-                autopkg = True
-            ), depmap, signkey, chost = hostdep)
+            build.build(
+                step,
+                template.read_pkg(
+                    pn, tarch if pkg.stage > 0 else None,
+                    False, pkg.run_check, pkg.conf_jobs,
+                    pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
+                    force_check = pkg._force_check, stage = pkg.stage,
+                    autopkg = True
+                ),
+                depmap, signkey, chost = hostdep, no_update = True
+            )
+            missing = True
         except template.SkipPackage:
             pass
         binpkg_deps.append(pn)
 
     for rd in missing_rdeps:
         try:
-            build.build(step, template.read_pkg(
-                rd, tarch if pkg.stage > 0 else None,
-                False, pkg.run_check, pkg.conf_jobs,
-                pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                force_check = pkg._force_check, stage = pkg.stage,
-                autopkg = True
-            ), depmap, signkey, chost = hostdep)
+            build.build(
+                step,
+                template.read_pkg(
+                    rd, tarch if pkg.stage > 0 else None,
+                    False, pkg.run_check, pkg.conf_jobs,
+                    pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
+                    force_check = pkg._force_check, stage = pkg.stage,
+                    autopkg = True
+                ),
+                depmap, signkey, chost = hostdep, no_update = True
+            )
+            missing = True
         except template.SkipPackage:
             pass
 
@@ -477,3 +496,5 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
     if len(binpkg_deps) > 0:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
         _install_from_repo(pkg, binpkg_deps, "autodeps-target", signkey, True)
+
+    return missing
