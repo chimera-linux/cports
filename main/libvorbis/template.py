@@ -3,6 +3,7 @@ pkgver = "1.3.7"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
+make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["libogg-devel"]
 pkgdesc = "Vorbis general audio compression codec"
