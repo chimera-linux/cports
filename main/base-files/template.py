@@ -2,7 +2,6 @@ pkgname = "base-files"
 pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
-triggers = ["/etc/shells.d", "/boot"]
 pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
@@ -32,6 +31,9 @@ def do_install(self):
     ]:
         self.install_dir("usr/share/" + d)
         self.install_dir("usr/local/share/" + d)
+
+    # apk exec dir
+    self.install_dir("usr/lib/apk/exec")
 
     # mandirs
     for i in range(1, 9):
@@ -81,34 +83,6 @@ def do_install(self):
     for f in (self.files_path / "profile.d").glob("*.sh"):
         self.install_file(f, "etc/profile.d")
 
-    # modprobe(8) files
-    self.install_dir("usr/lib/modprobe.d")
-
-    self.install_file(
-        self.files_path / "modprobe.d/usb-load-ehci-first",
-        "usr/lib/modprobe.d",
-        name = "usb-load-ehci-first.conf"
-    )
-    self.install_file(
-        self.files_path / "modprobe.d/blacklist.conf", "usr/lib/modprobe.d"
-    )
-
-    # sysctl(8) files
-    self.install_dir("usr/lib/sysctl.d")
-
-    self.install_file(
-        self.files_path / "sysctl.d/sysctl.conf", "usr/lib/sysctl.d",
-        name = "10-chimera.conf"
-    )
-    self.install_file(
-        self.files_path / "sysctl.d/sysctl-user.conf", "usr/lib/sysctl.d",
-        name = "10-chimera-user.conf"
-    )
-    self.install_file(
-        self.files_path / "sysctl.d/bpf.conf",
-        "usr/lib/sysctl.d", name = "20-bpf.conf"
-    )
-
     # Install common licenses
     self.install_dir("usr/share/licenses")
 
@@ -119,24 +93,6 @@ def do_install(self):
 
     # Create /proc/self/mounts -> /etc/mtab symlink
     self.install_link("/proc/self/mounts", "etc/mtab")
-
-    # udev rules
-    self.install_dir("usr/lib/udev/rules.d")
-
-    for f in self.files_path.glob("udev/*.rules"):
-        self.install_file(f, "usr/lib/udev/rules.d")
-
-    # linux-version
-    self.install_file(
-        self.files_path / "linux-version.sh", "usr/bin", mode = 0o755,
-        name = "linux-version"
-    )
-
-    # chimera-buildkernel
-    self.install_file(
-        self.files_path / "chimera-buildkernel.sh", "usr/bin", mode = 0o755,
-        name = "chimera-buildkernel"
-    )
 
 @subpackage("base-locale")
 def _baseloc(self):

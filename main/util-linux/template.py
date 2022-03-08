@@ -25,6 +25,8 @@ makedepends = [
     "linux-headers", "libcap-ng-devel", "linux-pam-devel", "zlib-devel"
 ]
 checkdepends = ["xz", "iproute2", "socat", "procps-ng"]
+# useradd for the system_users hook; this is installed early so enforce order
+depends = ["shadow"]
 pkgdesc = "Miscellaneous Linux utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

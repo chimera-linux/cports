@@ -8,10 +8,10 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 
 depends = [
-    "base-files", "musl-devel", "elftoolchain", "llvm", "clang", "lld",
-    "apk-tools", "bsdutils-extra", "bsdgrep", "bsdgzip", "bsdpatch", "bsdsed",
-    "bsddiff", "bmake", "bsdtar", "dash", "mksh-static-bin", "awk", "ncurses",
-    "util-linux-cbuild", "tzdata", "fakeroot",
+    "base-bootstrap", "musl-devel", "elftoolchain", "llvm", "clang", "lld",
+    "apk-tools", "bsdutils-extra", "bsdgzip", "bsdpatch", "bsddiff", "bmake",
+    "bsdtar", "mksh-static-bin", "ncurses", "util-linux-cbuild", "tzdata",
+    "fakeroot",
 ]
 
 options = ["bootstrap", "brokenlinks"]
