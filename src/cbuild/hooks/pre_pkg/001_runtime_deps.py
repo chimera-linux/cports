@@ -101,6 +101,14 @@ def _scan_so(pkg):
     if broken:
         pkg.error("Failed scanning shlib dependencies")
 
+_pc_ops = {
+    "=": True,
+    "<": True,
+    ">": True,
+    "<=": True,
+    ">=": True,
+}
+
 def _scan_pc(pkg):
     pcreq = {}
     log = logger.get()
@@ -161,9 +169,14 @@ def _scan_pc(pkg):
             # turn into an apk-compatible format
             ln = re.sub(r"\s*([<>=]+)\s*", r"\1", ln)
             # find where the version constraint begins
-            idx = re.search(r"[<>=]", ln)
+            idx = re.search(r"[<>=]+", ln)
             if idx:
                 pname = ln[:idx.start()]
+                # validate so we don't fail at apk creation stage
+                if ln[idx.start():idx.end()] not in _pc_ops:
+                    pkg.error(f"invalid operator in constraint '{ln}'")
+                if not cli.check_version(ln[idx.end():]):
+                    pkg.error(f"invalid version in constraint '{ln}'")
             else:
                 pname = ln
             # if self-provided, skip
