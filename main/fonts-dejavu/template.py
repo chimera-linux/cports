@@ -1,4 +1,4 @@
-pkgname = "fonts-dejavu-otf"
+pkgname = "fonts-dejavu"
 pkgver = "2.37"
 pkgrel = 0
 build_style = "makefile"
@@ -6,10 +6,8 @@ make_cmd = "gmake"
 make_build_target = "full-otf"
 make_build_args = ["full-ttf"]
 hostmakedepends = ["gmake", "fontforge-cli", "perl-font-ttf"]
-depends = ["fonts-dejavu-common"]
-provides = [f"fonts-dejavu={pkgver}-r{pkgrel}"]
-provider_priority = 2
-pkgdesc = "DejaVu family of fonts - OpenType"
+depends = ["mkfontscale"]
+pkgdesc = "DejaVu family of fonts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:Bitstream-Vera AND custom:Arev-Fonts AND custom:none"
 url = "https://github.com/dejavu-fonts/dejavu-fonts"
@@ -34,19 +32,19 @@ def do_install(self):
         self.install_file(f, "etc/fonts/conf.avail")
 
 def post_install(self):
-    self.install_license("LICENSE", pkgname = "fonts-dejavu-common")
+    self.install_license("LICENSE")
 
-@subpackage("fonts-dejavu-common")
-def _common(self):
-    self.pkgdesc = "DejaVu family of fonts (common files)"
-    self.depends = ["mkfontscale"]
-    return ["etc/fonts", "usr/share/licenses"]
+@subpackage("fonts-dejavu-otf")
+def _otf(self):
+    self.pkgdesc = "DejaVu family of fonts - OpenType"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "!fonts-dejavu-ttf"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return ["usr/share/fonts/dejavu/*.otf"]
 
 @subpackage("fonts-dejavu-ttf")
 def _ttf(self):
     self.pkgdesc = "DejaVu family of fonts - TrueType"
-    self.depends = ["fonts-dejavu-common"]
-    self.provides = [f"fonts-dejavu={pkgver}-r{pkgrel}"]
-    self.provider_priority = 1
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "!fonts-dejavu-otf"]
 
     return ["usr/share/fonts/dejavu/*.ttf"]

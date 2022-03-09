@@ -11,7 +11,7 @@ depends = [
     "gst-libav",
     "mesa-dri",
     "xdg-utils",
-    "virtual:fonts-dejavu!fonts-dejavu-otf",
+    "fonts-dejavu",
 ]
 pkgdesc = "Chimera default desktop session"
 maintainer = "q66 <q66@chimera-linux.org>"
