@@ -657,10 +657,15 @@ Keep in mind that default values may be overridden by build styles.
   library scanning is automatic; but sometimes libraries provide either a
   non-conforming `SONAME` which the scanner does not pick up, or the
   scanner is disabled explicitly.
-* `provider_priority` *(int)* When resolving virtual packages, the package
-  with higher priority will be considered first. By default `0`. The primary
-  package's priority is inherited into subpackages. You can still override
-  it manually if you need.
+* `priority` *(int)* When used with `replaces`, this specifies which of
+  the packages gets to keep the files (i.e. the higher-priority package
+  will keep them).
+* `replaces` *(list)* A list of packages we are replacing, in the same
+  constraint format as `provides`. This allows the current package to
+  replace files of the listed packages, without complaining about file
+  conflicts. The files from the current package will simply take over the
+  conflicting files. This is primarily useful for moving files from one
+  package to another, or together with `priority`, for "policy packages".
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.

@@ -105,8 +105,15 @@ def genpkg(pkg, repo, arch, binpkg):
     if len(provides) > 0:
         pargs += ["--info", f"provides:{' '.join(provides)}"]
 
-    if pkg.provider_priority > 0:
-        pargs += ["--info", f"priority:{pkg.provider_priority}"]
+    # replaces
+    replaces = sorted(pkg.replaces)
+
+    if len(replaces) > 0:
+        pargs += ["--info", f"replaces:{' '.join(replaces)}"]
+
+    # priority
+    if pkg.priority > 0:
+        pargs += ["--info", f"priority:{pkg.priority}"]
 
     # scripts including trigger scripts
     sclist = []
@@ -171,7 +178,7 @@ set -e
     # execute what we were wrapping
     wscript += """exec "$@"\n"""
 
-    # TODO: replaces, recommends (once implemented in apk)
+    # TODO: recommends (once implemented in apk)
 
     if pkg.rparent.stage == 0:
         # disable wrapper script unless we have a real chroot
