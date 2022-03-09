@@ -19,7 +19,7 @@ makedepends = [
     "pango-devel", "freetype-devel",
 ]
 checkdepends = ["fonts-liberation-otf"]
-depends = ["virtual:fonts-liberation!fonts-liberation-otf"]
+depends = ["fonts-liberation"]
 triggers = ["/usr/lib/graphviz"]
 pkgdesc = "Graph visualization software"
 maintainer = "q66 <q66@chimera-linux.org>"
