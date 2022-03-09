@@ -13,8 +13,6 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["harfbuzz-devel", "zlib-devel", "libpng-devel", "libbz2-devel"]
-# higher than freetype-bootstrap, since it's the same version
-provider_priority = 10
 pkgdesc = "Font rendering engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "FTL OR GPL-2.0-or-later"
