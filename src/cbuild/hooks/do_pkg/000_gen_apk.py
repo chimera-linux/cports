@@ -201,8 +201,8 @@ set -e
         )
 
         if ret.returncode != 0:
-            log.out_plain(">> stderr:")
-            log.out_plain(ret.stderr.decode())
+            logger.get().out_plain(">> stderr:")
+            logger.get().out_plain(ret.stderr.decode())
             pkg.error(f"failed to generate package")
 
     finally:
