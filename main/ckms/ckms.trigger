@@ -63,7 +63,7 @@ done
 
 for f in /boot/initrd.img-*.ckms-defer; do
     [ -f "$f" ] || continue
-    kernver=${f#initrd.img-}
+    kernver=${f#/boot/initrd.img-}
     kernver=${kernver%.ckms-defer}
     update-initramfs -u -k "${kernver}" || \
         echo "FAILED: update-initramfs for ${kernver}"
