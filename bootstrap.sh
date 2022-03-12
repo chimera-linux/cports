@@ -178,8 +178,8 @@ xbps-install -y base-devel clang lld libcxx-devel llvm-libunwind-devel \
                 zlib-devel openssl-devel || exit 1
 
 # build apk-tools
-cd /apk-tools-${APK_REV}
-mkdir build && cd build && meson .. -Dprefix=/usr || exit 1
+cd /apk-tools-${APK_REV} || exit 1
+rm -rf build && mkdir build && cd build && meson .. --prefix=/usr || exit 1
 ninja all && ninja install || exit 1
 
 # these were only needed to build apk
