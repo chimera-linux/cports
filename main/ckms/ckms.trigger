@@ -8,6 +8,8 @@ for mod in /var/lib/ckms/*; do
     [ -d "$mod" ] || continue
     for ver in "${mod}"/*; do
         [ -d "${ver}" ] || continue
+        # skip the symlinks indicating installed modules
+        [ -L "${ver}" ] && continue
         # if the module is invalid, just kill it
         if [ ! -f "${ver}/ckms.ini" ]; then
             rm -rf "${ver}"

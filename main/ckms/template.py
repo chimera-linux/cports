@@ -1,6 +1,6 @@
 pkgname = "ckms"
-pkgver = "0.0.1_git2022028"
-_commit = "b9de0bd47a6e35cdb01c0c5ff50d7d5c34f4c938"
+pkgver = "0.0.1_git20220312"
+_commit = "e3d4c61094f79de913721b0347527febc2879f51"
 pkgrel = 0
 depends = ["python"]
 triggers = ["/usr/src"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/ckms"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "45d908885e07f415425e475e486ae1fc4ddd20879c429801e77e70533eebbcea"
+sha256 = "ffe0d1430618f8623d778a03224f89c39738e853efb53040e80f03fa2e9b33a0"
 # no tests
 options = ["!check"]
 system_users = ["_ckms"]
