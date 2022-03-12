@@ -26,3 +26,7 @@ def do_install(self):
     self.install_file(
         self.files_path / "refresh-initramfs.sh", "etc/ckms", mode = 0o755
     )
+    # helpers
+    self.install_file(
+        self.files_path / "ckms-install-all", "usr/libexec", mode = 0o755
+    )

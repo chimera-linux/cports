@@ -28,46 +28,10 @@ for mod in /var/lib/ckms/*; do
 done
 
 # add new modules
-
 for mod in /usr/src/*; do
     [ -d "${mod}" ] || continue
     [ -f "${mod}/ckms.ini" ] || continue
     ckms -q add "${mod}" > /dev/null 2>&1 || :
 done
 
-# build and install whatever is left
-
-for kern in /usr/lib/modules/*; do
-    [ -d "${kern}" ] || continue
-    kernver=${kern#/usr/lib/modules/}
-    # skip early
-    if [ ! -d "${kern}/build" ]; then
-        echo "kernel headers not installed for ${kernver}, skipping..."
-        continue
-    fi
-    ckms -q -k "${kernver}" status | sed 's/[:,]//g' | \
-        while read modn modv kernv karch status; do
-            # only added; build it
-            if [ "$status" = "added" ]; then
-                ckms -k "${kernv}" build "${modn}=${modv}" || \
-                    echo "FAILED: build ${modn}=${modv} for ${kernv}"
-                status="built"
-            fi
-            # only built; install it
-            if [ "$status" = "built" ]; then
-                ckms -k "${kernv}" install "${modn}=${modv}" || \
-                    echo "FAILED: install ${modn}=${modv} for ${kernv}"
-            fi
-        done || :
-done
-
-# deal with deferred initramfs
-
-for f in /boot/initrd.img-*.ckms-defer; do
-    [ -f "$f" ] || continue
-    kernver=${f#/boot/initrd.img-}
-    kernver=${kernver%.ckms-defer}
-    update-initramfs -u -k "${kernver}" || \
-        echo "FAILED: update-initramfs for ${kernver}"
-    rm -f "$f"
-done
+exec /usr/libexec/ckms-install-all
