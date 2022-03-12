@@ -7,8 +7,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 
+# musl must be built first to provide shlibs for later packages during stage 0
 depends = [
-    "base-bootstrap", "musl-devel", "elftoolchain", "llvm", "clang", "lld",
+    "musl-devel", "base-bootstrap", "elftoolchain", "llvm", "clang", "lld",
     "apk-tools", "bsdutils-extra", "bsdgzip", "bsdpatch", "bsddiff", "bmake",
     "bsdtar", "mksh-static-bin", "ncurses", "util-linux-cbuild", "tzdata",
     "fakeroot",
