@@ -361,6 +361,7 @@ def enter(cmd, *args, capture_output = False, check = False,
     if bootstrapping:
         bcmd = []
         if fakeroot:
+            envs["FAKEROOTDONTTRYCHOWN"] = "1"
             bcmd = ["fakeroot", "--"]
         return subprocess.run(
             [*bcmd, cmd, *args], env = envs,
