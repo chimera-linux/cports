@@ -595,7 +595,8 @@ def do_prune_removed(tgt):
             if not opt_dryrun:
                 pkg.unlink()
         # reindex
-        cli.build_index(repo / archn, epoch, opt_signkey)
+        if not opt_dryrun:
+            cli.build_index(repo / archn, epoch, opt_signkey)
 
     reposd = paths.repository()
     reposet = {}
