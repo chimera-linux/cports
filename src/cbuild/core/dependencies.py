@@ -43,7 +43,7 @@ def _is_rdep(pn):
 
     return True
 
-def setup_depends(pkg):
+def setup_depends(pkg, only_names = False):
     hdeps = []
     tdeps = []
     rdeps = []
@@ -73,7 +73,12 @@ def setup_depends(pkg):
             dep = dep[ppos + 1:]
             pn, pv, pop = autil.split_pkg_name(dep)
 
-        if not pn:
+        if only_names:
+            if pn:
+                rdeps.append(pn)
+            else:
+                rdeps.append(dep)
+        elif not pn:
             rdeps.append((orig, dep + ">=0"))
         else:
             rdeps.append((orig, dep))
@@ -82,20 +87,25 @@ def setup_depends(pkg):
     if not pkg.profile().cross and (pkg.options["check"] or pkg._force_check):
         cdeps = pkg.checkdepends
 
-    if pkg.stage > 0:
+    if pkg.stage > 0 and not only_names:
         for dep in pkg.hostmakedepends + cdeps:
             sver = _srcpkg_ver(dep, pkg)
             if not sver:
                 hdeps.append((None, dep))
                 continue
             hdeps.append((sver, dep))
+    elif only_names:
+        hdeps = pkg.hostmakedepends + cdeps
 
-    for dep in pkg.makedepends:
-        sver = _srcpkg_ver(dep, pkg)
-        if not sver:
-            tdeps.append((None, dep))
-            continue
-        tdeps.append((sver, dep))
+    if not only_names:
+        for dep in pkg.makedepends:
+            sver = _srcpkg_ver(dep, pkg)
+            if not sver:
+                tdeps.append((None, dep))
+                continue
+            tdeps.append((sver, dep))
+    else:
+        tdeps = pkg.makedepends
 
     return hdeps, tdeps, rdeps
 

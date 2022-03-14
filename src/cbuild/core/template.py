@@ -22,7 +22,7 @@ import builtins
 import configparser
 
 from cbuild.core import logger, chroot, paths, profile, spdx, errors
-from cbuild.apk import cli
+from cbuild.apk import cli, util as autil
 
 class SkipPackage(Exception):
     pass
@@ -622,6 +622,30 @@ class Template(Package):
         self.git_dirty = False
         self.current_sonames = {}
         self.default_hardening = []
+
+    def get_build_deps(self):
+        from cbuild.core import dependencies
+
+        def _resolve_bdep(opkg, depn):
+            for sr in opkg.source_repositories:
+                rp = paths.distdir() / sr
+                tp = rp / depn / "template.py"
+                if tp.is_file():
+                    return tp.resolve().parent.name
+            return None
+        bdeps = {}
+        visited = {}
+        hds, tds, rds = dependencies.setup_depends(self, True)
+        for bd in hds + tds + rds:
+            if bd in visited:
+                continue
+            visited[bd] = True
+            rd = _resolve_bdep(self, bd)
+            # just ignore unresolved stuff here, it's ok for now
+            if rd:
+                bdeps[rd] = True
+        # pre-sort it just in case
+        return sorted(bdeps.keys())
 
     def dump(self):
         metadata = {}

@@ -35,6 +35,8 @@ opt_pkgpath    = "packages"
 opt_srcpath    = "sources"
 opt_cchpath    = "ccache"
 opt_crpath     = "cargo"
+opt_statusfd   = None
+opt_bulkfail   = False
 
 #
 # INITIALIZATION ROUTINES
@@ -80,11 +82,11 @@ def handle_options():
     global global_cfg
     global cmdline
 
-    global opt_apkcmd, opt_dryrun
+    global opt_apkcmd, opt_dryrun, opt_bulkfail
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_nocolor, opt_signkey, opt_unsigned
-    global opt_force, opt_mdirtemp, opt_nonet, opt_dirty
+    global opt_force, opt_mdirtemp, opt_nonet, opt_dirty, opt_statusfd
     global opt_keeptemp, opt_forcecheck, opt_checkfail, opt_stage, opt_altrepo
     global opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath, opt_crpath
 
@@ -184,6 +186,15 @@ def handle_options():
         "--dry-run", action = "store_const",
         const = True, default = opt_dryrun,
         help = "Do not perform changes to file system (only some commands)"
+    )
+    parser.add_argument(
+        "--status-fd", default = None,
+        help = "File descriptor for bulk build status (must be open)."
+    )
+    parser.add_argument(
+        "--bulk-fail", action = "store_const",
+        const = True, default = opt_bulkfail,
+        help = "Skip remaining packages after first failure for bulk builds."
     )
     parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
@@ -293,6 +304,12 @@ def handle_options():
 
     if cmdline.dry_run:
         opt_dryrun = True
+
+    if cmdline.status_fd:
+        opt_statusfd = int(cmdline.status_fd)
+
+    if cmdline.bulk_fail:
+        opt_bulkfail = True
 
 def init_late():
     import os
@@ -859,7 +876,11 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
     if check is None:
         check = opt_check
     if not pkgn:
-        pkgn = cmdline.command[1] if len(cmdline.command) >= 1 else None
+        if len(cmdline.command) <= 1:
+            raise errors.CbuildException(f"{tgt} needs a package name")
+        elif len(cmdline.command) > 2:
+            raise errors.CbuildException(f"{tgt} needs only one package")
+        pkgn = cmdline.command[1]
     rp = template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
         check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
@@ -877,6 +898,152 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
     )
     if tgt == "pkg" and (not opt_stage or stage < 3):
         do_unstage(tgt, stage < 3)
+
+def _bulkpkg(pkgs, statusf):
+    import pathlib
+    import graphlib
+    import traceback
+
+    from cbuild.core import logger, template, paths, chroot, errors, build
+
+    # we will use this for correct dependency ordering
+    depg = graphlib.TopologicalSorter()
+    visited = {}
+    templates = {}
+    failed = False
+    log = logger.get()
+
+    if opt_mdirtemp:
+        chroot.install(chroot.host_cpu())
+    paths.prepare()
+    chroot.repo_sync()
+
+    def _do_with_exc(f):
+        # we are setting this
+        nonlocal failed
+        try:
+            retv = f()
+            if retv:
+                return retv
+        except template.SkipPackage:
+            return False
+        except errors.CbuildException as e:
+            log.out_red(f"cbuild: {str(e)}")
+            if e.extra:
+                log.out_plain(e.extra)
+            failed = True
+            return False
+        except errors.TracebackException as e:
+            log.out_red(str(e))
+            traceback.print_exc(file = log.estream)
+            failed = True
+            return False
+        except errors.PackageException as e:
+            e.pkg.log_red(f"ERROR: {e}", e.end)
+            traceback.print_exc(file = log.estream)
+            failed = True
+            return False
+        except Exception:
+            logger.get().out_red("A failure has occurred!")
+            traceback.print_exc(file = log.estream)
+            failed = True
+            return False
+        # signal we're continuing
+        return True
+
+    # parse out all the templates first and grab their build deps
+    for pn in pkgs:
+        if pn in visited:
+            continue
+        # also mark visited under original name to skip further occurences
+        visited[pn] = True
+        # skip if previously failed and set that way
+        if failed and opt_bulkfail:
+            statusf.write(f"{pn} skipped\n")
+            continue
+        pp = pathlib.Path(pn)
+        # resolve
+        if pp.is_symlink():
+            # resolve to the main package
+            ln = pp.readlink()
+            pp = pathlib.Path(f"{pl}/{ln}")
+        # mark visited under a validated name just in case it differs
+        visited[str(pp)] = True
+        # validate
+        pl = pp.parts
+        if len(pl) != 2 or len(pl[0]) == 0 or \
+           len(pl[1]) == 0 or pp.is_symlink():
+            statusf.write(f"{pn} invalid\n")
+            log.out_red(f"cbuild: invalid package '{pn}'")
+            failed = True
+            continue
+        # check if it's points to final template
+        if not pp.is_dir() or not (pp / "template.py").is_file():
+            statusf.write(f"{pn} missing\n")
+            log.out_red(f"cbuild: missing package '{pn}'")
+            failed = True
+            continue
+        # parse, handle any exceptions so that we can march on
+        tp = _do_with_exc(lambda: template.read_pkg(
+            str(pp), opt_arch if opt_arch else chroot.host_cpu(),
+            opt_force, opt_check, opt_makejobs, opt_gen_dbg, opt_ccache,
+            None, target = None, force_check = opt_forcecheck, stage = 3
+        ))
+        if not tp:
+            continue
+        # record the template for later use
+        templates[tp.pkgname] = tp
+        # add it into t graph with all its build deps
+        bdl = tp.get_build_deps()
+        depg.add(tp.pkgname, *bdl)
+
+    # try building in sorted order
+    if not failed or not opt_bulkfail:
+        for pn in depg.static_order():
+            # skip things that were not in the initial set
+            if not pn in templates:
+                continue
+            # if we previously failed and want it this way, skip the rest
+            if failed and opt_bulkfail:
+                statusf.write(f"{pn} skipped\n")
+                continue
+            # ensure to write the status
+            if _do_with_exc(lambda: build.build(
+                "pkg", templates[pn], {}, opt_signkey, dirty = False,
+                keep_temp = False, check_fail = opt_checkfail
+            )):
+                statusf.write(f"{pn} ok\n")
+            else:
+                statusf.write(f"{pn} failed\n")
+
+    if failed:
+        raise errors.CbuildException(f"at least one bulk-pkg package failed")
+    elif not opt_stage:
+        do_unstage("pkg", False)
+
+def do_bulkpkg(tgt):
+    import os
+
+    if len(cmdline.command) <= 1:
+        raise errors.CbuildException(f"bulk-pkg needs at least one package")
+    pkgs = cmdline.command[1:]
+
+    if opt_statusfd:
+        try:
+            sout = os.fdopen(opt_statusfd, "w")
+        except OSError:
+            raise errors.CbuildException(
+                f"bad status file descriptor ({opt_statusfd})"
+            )
+    else:
+        # fallback so we always have an object
+        sout = open(os.devnull, "w")
+
+    try:
+        _bulkpkg(pkgs, sout)
+    except:
+        sout.close()
+        raise
 
 #
 # MAIN ENTRYPOINT
@@ -960,6 +1127,7 @@ def fire():
             case "patch" | "configure" | "build": do_pkg(cmd)
             case "check" | "install" | "pkg": do_pkg(cmd)
             case "unstage": do_unstage(cmd)
+            case "bulk-pkg": do_bulkpkg(cmd)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)
