@@ -984,13 +984,20 @@ def _bulkpkg(pkgs, statusf):
             failed = True
             continue
         # parse, handle any exceptions so that we can march on
+        ofailed = failed
+        failed = False
         tp = _do_with_exc(lambda: template.read_pkg(
             str(pp), opt_arch if opt_arch else chroot.host_cpu(),
             opt_force, opt_check, opt_makejobs, opt_gen_dbg, opt_ccache,
             None, target = None, force_check = opt_forcecheck, stage = 3
         ))
         if not tp:
+            if failed:
+                statusf.write(f"{pn} parse\n")
+            else:
+                failed = ofailed
             continue
+        failed = ofailed
         # record the template for later use
         templates[tp.pkgname] = tp
         # add it into t graph with all its build deps
@@ -1030,7 +1037,7 @@ def do_bulkpkg(tgt):
 
     if opt_statusfd:
         try:
-            sout = os.fdopen(opt_statusfd, "w")
+            sout = os.fdopen(opt_statusfd, "w", 1)
         except OSError:
             raise errors.CbuildException(
                 f"bad status file descriptor ({opt_statusfd})"
