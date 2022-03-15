@@ -27,54 +27,6 @@ def get_keypath(keypath):
         # otherwise a path relative to distdir
         return paths.distdir() / keypath
 
-# returns the compressed signature data given
-# either an input file path or raw input bytes
-def sign(keypath, data, epoch):
-    if isinstance(data, bytes):
-        inparg = []
-        inpval = data
-    else:
-        inparg = [data]
-        inpval = None
-
-    keypath = get_keypath(keypath)
-
-    if not keypath.is_file():
-        raise errors.CbuildException(f"non-existent private key '{keypath}'")
-
-    keyname = keypath.name + ".pub"
-    signame = ".SIGN.RSA." + keyname
-
-    sout = subprocess.run([
-        "openssl", "dgst", "-sha1", "-sign", keypath, "-out", "-"
-    ] + inparg, input = inpval, capture_output = True)
-
-    if sout.returncode != 0:
-        raise errors.CbuildException(
-            "signing failed!", sout.stderr.strip().decode()
-        )
-
-    sigio = io.BytesIO()
-    rawdata = sout.stdout
-
-    with tarfile.open(None, "w", fileobj = sigio) as sigtar:
-        tinfo = tarfile.TarInfo(signame)
-        tinfo.size = len(rawdata)
-        tinfo.mtime = int(epoch)
-        tinfo.uname = "root"
-        tinfo.gname = "root"
-        tinfo.uid = 0
-        tinfo.gid = 0
-        with io.BytesIO(rawdata) as sigstream:
-            sigtar.addfile(tinfo, sigstream)
-
-    cval = gzip.compress(
-        util.strip_tar_endhdr(sigio.getvalue()), mtime = int(epoch)
-    )
-
-    sigio.close()
-    return cval
-
 def keygen(keypath, size, cfgfile, cfgpath):
     pass
 
