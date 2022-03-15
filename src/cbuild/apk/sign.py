@@ -4,6 +4,7 @@ import io
 import re
 import gzip
 import time
+import shutil
 import getpass
 import pathlib
 import tarfile
@@ -28,7 +29,8 @@ def get_keypath(keypath):
         return paths.distdir() / keypath
 
 def keygen(keypath, size, cfgfile, cfgpath):
-    pass
+    if not shutil.which("openssl"):
+        raise errors.CbuildException("openssl is missing")
 
     if not keypath:
         # does not have to succeed, e.g. there may not even be git at all

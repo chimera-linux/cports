@@ -57,7 +57,7 @@ The userland dependencies are the following:
 
 * Python 3.10 or newer
 * `apk` (from `apk-tools`)
-* `openssl`
+* `openssl` (key generation only; not needed otherwise)
 * `git` (optional; required for reproducibility)
 * `bwrap` (from `bubblewrap`)
 * `tee`
