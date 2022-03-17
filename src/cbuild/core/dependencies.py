@@ -250,7 +250,7 @@ def setup_dummy(pkg, rootp):
                 "--info", f"build-time:{int(epoch)}",
                 "--info", f"provides:{' '.join(provides)}",
             ],
-            root = rootp, capture_output = True, arch = archn,
+            None, root = rootp, capture_output = True, arch = archn,
             allow_untrusted = True, fakeroot = True
         )
         if ret.returncode != 0:
