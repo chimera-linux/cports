@@ -1,0 +1,11 @@
+--- a/rpcgen/rpc_main.c
++++ b/rpcgen/rpc_main.c
+@@ -89,7 +89,7 @@ static const char *cmdname;
+ 
+ static const char *svcclosetime = "120";
+ static int cppDefined;	/* explicit path for C preprocessor */
+-static const char *CPP = "/lib/cpp";
++static const char *CPP = "/usr/bin/clang-cpp";
+ static const char CPPFLAGS[] = "-C";
+ static char *pathbuf;
+ static int cpp_pid;
