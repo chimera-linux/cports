@@ -1,0 +1,6 @@
+# nscd service
+
+type               = process
+command            = /usr/bin/nscd -F
+depends-on         = nscd-prepare
+smooth-recovery    = true
