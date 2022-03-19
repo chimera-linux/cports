@@ -1,0 +1,32 @@
+diff --git a/servers/slapd/slapd.conf b/servers/slapd/slapd.conf
+index 2fcab71..61f8cd9 100644
+--- a/servers/slapd/slapd.conf
++++ b/servers/slapd/slapd.conf
+@@ -15,8 +15,8 @@ argsfile	%LOCALSTATEDIR%/run/slapd.args
+ 
+ # Load dynamic backend modules:
+ modulepath	%MODULEDIR%
+-moduleload	back_mdb.la
+-# moduleload	back_ldap.la
++moduleload	back_mdb.so
++# moduleload	back_ldap.so
+ 
+ # Sample security restrictions
+ #	Require integrity protection (prevent hijacking)
+diff --git a/servers/slapd/slapd.ldif b/servers/slapd/slapd.ldif
+index 99e53de..94bb15d 100644
+--- a/servers/slapd/slapd.ldif
++++ b/servers/slapd/slapd.ldif
+@@ -30,9 +30,9 @@ dn: cn=module,cn=config
+ objectClass: olcModuleList
+ cn: module
+ olcModulepath:	%MODULEDIR%
+-olcModuleload:	back_mdb.la
+-#olcModuleload:	back_ldap.la
+-#olcModuleload:	back_passwd.la
++olcModuleload:	back_mdb.so
++#olcModuleload:	back_ldap.so
++#olcModuleload:	back_passwd.so
+ 
+ dn: cn=schema,cn=config
+ objectClass: olcSchemaConfig
