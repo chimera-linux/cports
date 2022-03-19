@@ -2,9 +2,9 @@ pkgname = "evolution-data-server"
 pkgver = "3.42.3"
 pkgrel = 0
 build_style = "cmake"
-# TODO: libgdata, ldap, smime (nss)
+# TODO: libgdata
 configure_args = [
-    "-DENABLE_GOOGLE=OFF", "-DWITH_OPENLDAP=OFF", "-DWITH_LIBDB=OFF",
+    "-DENABLE_GOOGLE=OFF", "-DWITH_LIBDB=OFF",
     "-DSYSCONF_INSTALL_DIR=/etc", "-DENABLE_INTROSPECTION=ON",
     "-DENABLE_VALA_BINDINGS=ON",
 ]
@@ -17,6 +17,7 @@ makedepends = [
     "webkitgtk-devel", "libsecret-devel", "gnome-online-accounts-devel",
     "gcr-devel", "sqlite-devel", "libgweather-devel", "libsoup-devel",
     "json-glib-devel", "nss-devel", "nspr-devel", "vala-devel",
+    "openldap-devel",
 ]
 checkdepends = ["dbus"]
 pkgdesc = "Centralized access to appointments and contacts"
