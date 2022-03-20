@@ -7,7 +7,6 @@ hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "gettext-tiny",
     "glib-devel", "polkit", "python"
 ]
-# TODO: printers panel (package libsmbclient)
 makedepends = [
     "libhandy-devel", "accountsservice-devel", "colord-devel",
     "colord-gtk-devel", "libglib-devel", "gnome-desktop-devel",
@@ -18,7 +17,7 @@ makedepends = [
     "ibus-devel", "networkmanager-devel", "modemmanager-devel",
     "gnome-bluetooth-devel", "libwacom-devel", "gcr-devel", "libnma-devel",
     "libsecret-devel", "udisks-devel", "gsound-devel", "libsoup-devel",
-    "libgtop-devel", "heimdal-devel", "libpwquality-devel",
+    "libgtop-devel", "heimdal-devel", "libpwquality-devel", "samba-devel",
 ]
 depends = [
     "cups-pk-helper", "gsettings-desktop-schemas", "sound-theme-freedesktop", 
