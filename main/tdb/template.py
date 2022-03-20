@@ -8,7 +8,7 @@ configure_args = [
     "--builtin-libraries=replace", "--bundled-libraries=NONE",
 ]
 hostmakedepends = [
-    "pkgconf", "python", "gettext-tiny", "docbook-xsl-nons"
+    "pkgconf", "python", "gettext-tiny", "docbook-xsl-nons", "xsltproc",
 ]
 makedepends = [
     "python-devel", "gettext-tiny-devel"

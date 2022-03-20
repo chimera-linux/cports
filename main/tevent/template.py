@@ -1,5 +1,5 @@
-pkgname = "talloc"
-pkgver = "2.3.3"
+pkgname = "tevent"
+pkgver = "0.11.0"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -11,28 +11,22 @@ hostmakedepends = [
     "pkgconf", "python", "gettext-tiny", "docbook-xsl-nons", "xsltproc",
 ]
 makedepends = [
-    "python-devel", "gettext-tiny-devel",
+    "python-devel", "talloc-devel", "cmocka-devel", "gettext-tiny-devel",
 ]
-pkgdesc = "Hierarchical pool based memory allocator with destructors"
+pkgdesc = "Event system based on talloc"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
-url = "https://talloc.samba.org"
+url = "https://tevent.samba.org"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "6be95b2368bd0af1c4cd7a88146eb6ceea18e46c3ffc9330bf6262b40d1d8aaa"
+sha256 = "ee9a86c8e808aac2fe1e924eaa139ff7f0269d0e8e4fafa850ae5c7489bc82ba"
 # FIXME check
 options = ["!cross", "!check"]
 
-@subpackage("talloc-devel")
+@subpackage("tevent-devel")
 def _devel(self):
     return self.default_devel()
 
-@subpackage("libpytalloc-util")
-def _devel(self):
-    self.pkgdesc = f"{pkgdesc} (Python utility library)"
-
-    return ["usr/lib/libpytalloc-util.so.*"]
-
-@subpackage("talloc-python")
+@subpackage("tevent-python")
 def _devel(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
 
