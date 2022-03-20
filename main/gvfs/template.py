@@ -12,7 +12,6 @@ configure_args = [
     "-Dhttp=false", # libsoup2
     "-Dmtp=false", # libmtp
     "-Dnfs=false", # libnfs
-    "-Dsmb=false", # smbclient
 ]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "xsltproc", "openssh", "polkit-devel",
@@ -24,7 +23,7 @@ makedepends = [
     "libcdio-paranoia-devel", "libgcrypt-devel", "libgphoto2-devel",
     "libgudev-devel", "libsecret-devel", "libxml2-devel", "polkit-devel",
     "udisks-devel", "gsettings-desktop-schemas-devel", "elogind-devel",
-    "libusb-devel", "gnome-online-accounts-devel",
+    "libusb-devel", "gnome-online-accounts-devel", "samba-devel",
 ]
 # some shared libs that modules depend on
 provides = ["so:libgvfscommon.so=0", "so:libgvfsdaemon.so=0"]
@@ -83,4 +82,16 @@ def _afp(self):
         "usr/libexec/gvfs*-gphoto*",
         "usr/share/dbus-1/services/org.gtk.vfs.GPhoto2VolumeMonitor.service",
         "usr/share/gvfs/remote-volume-monitors/gphoto2.monitor",
+    ]
+
+@subpackage("gvfs-smb")
+def _smb(self):
+    self.pkgdesc = f"{pkgdesc} (SMB/CIFS backend)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return [
+        "usr/libexec/gvfs*-smb*",
+        "usr/share/GConf/gsettings/gvfs-smb.convert",
+        "usr/share/glib-2.0/schemas/org.gnome.system.smb.gschema.xml",
+        "usr/share/gvfs/mounts/smb*.mount",
     ]
