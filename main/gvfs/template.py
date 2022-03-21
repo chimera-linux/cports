@@ -7,7 +7,6 @@ configure_args = [
     "-Dman=true",
     # TODOs
     "-Dafc=false", # libplist, libimobiledevice
-    "-Ddnssd=false", # avahi-glib
     "-Dgoogle=false", # libgdata
     "-Dhttp=false", # libsoup2
     "-Dmtp=false", # libmtp
@@ -24,6 +23,7 @@ makedepends = [
     "libgudev-devel", "libsecret-devel", "libxml2-devel", "polkit-devel",
     "udisks-devel", "gsettings-desktop-schemas-devel", "elogind-devel",
     "libusb-devel", "gnome-online-accounts-devel", "samba-devel",
+    "avahi-glib-devel",
 ]
 # some shared libs that modules depend on
 provides = ["so:libgvfscommon.so=0", "so:libgvfsdaemon.so=0"]
