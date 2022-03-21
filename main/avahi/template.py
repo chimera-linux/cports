@@ -58,7 +58,6 @@ def post_install(self):
 
 @subpackage("avahi-autoipd")
 def _autoipd(self):
-    #self.depends += ["net-tools"] FIXME
     self.pkgdesc = "Avahi IPv4LL network address configuration daemon"
 
     return [
