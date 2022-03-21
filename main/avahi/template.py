@@ -1,3 +1,4 @@
+# this must be synchronized with avahi-ui-progs
 pkgname = "avahi"
 pkgver = "0.8"
 pkgrel = 0
@@ -36,7 +37,7 @@ configure_args = [
     "ssp_cv_lib=no",
 ]
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "python", "gmake"]
+hostmakedepends = ["pkgconf", "python", "gmake", "gettext-tiny"]
 makedepends = ["dbus-devel", "libcap-devel", "libdaemon-devel"]
 pkgdesc = "Multicast DNS Service Discovery"
 maintainer = "q66 <q66@chimera-linux.org>"
