@@ -552,8 +552,9 @@ The builds will transparently use `ccache` to speed things up if enabled. This
 does not apply to `bootstrap`, which never uses the cache.
 
 You can enable this in your `config.ini`, simply by setting `ccache = yes` in
-the `build` section. You can also alter the path where the cache files are
-stored with `ccache_path = PATH`. See `config.ini.example` for reference.
+the `build` section. The cache will be stored in the `ccache` subdirectory of
+the cbuild caches path (by default `cbuild_cache`, see `config.ini.example`
+for how to change it).
 
 <a id="help"></a>
 ## Help

@@ -966,7 +966,7 @@ class Template(Package):
 
         if self.use_ccache:
             cenv["CCACHEPATH"] = "/usr/lib/ccache/bin"
-            cenv["CCACHE_DIR"] = "/ccache"
+            cenv["CCACHE_DIR"] = "/cbuild_cache/ccache"
             cenv["CCACHE_COMPILERCHECK"] = "content"
             cenv["CCACHE_COMPRESS"] = "1"
             cenv["CCACHE_BASEDIR"] = str(self.chroot_cwd)
@@ -1018,8 +1018,7 @@ class Template(Package):
             wrkdir = wdir, check = check, bootstrapping = self.stage == 0,
             ro_root = True, ro_build = self.install_done,
             ro_dest = (self.current_phase != "install"),
-            mount_ccache = True, mount_cargo = True,
-            unshare_all = not allow_network,
+            mount_cbuild_cache = True, unshare_all = not allow_network,
             fakeroot = fakeroot, stdout = stdout, stderr = stderr,
         )
 

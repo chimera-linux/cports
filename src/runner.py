@@ -33,8 +33,7 @@ opt_altrepo    = None
 opt_bldroot    = "bldroot"
 opt_pkgpath    = "packages"
 opt_srcpath    = "sources"
-opt_cchpath    = "ccache"
-opt_crpath     = "cargo"
+opt_cchpath    = "cbuild_cache"
 opt_statusfd   = None
 opt_bulkfail   = False
 
@@ -88,7 +87,7 @@ def handle_options():
     global opt_makejobs, opt_nocolor, opt_signkey, opt_unsigned
     global opt_force, opt_mdirtemp, opt_nonet, opt_dirty, opt_statusfd
     global opt_keeptemp, opt_forcecheck, opt_checkfail, opt_stage, opt_altrepo
-    global opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath, opt_crpath
+    global opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -224,8 +223,7 @@ def handle_options():
         opt_altrepo   = bcfg.get("alt_repository", fallback = opt_altrepo)
         opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
         opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
-        opt_cchpath   = bcfg.get("ccache_path", fallback = opt_cchpath)
-        opt_crpath    = bcfg.get("cargo_path", fallback = opt_crpath)
+        opt_cchpath   = bcfg.get("cbuild_cache_path", fallback = opt_cchpath)
 
     if not "flags" in global_cfg:
         global_cfg["flags"] = {}
@@ -325,7 +323,7 @@ def init_late():
     # init paths early, modules rely on it
     paths.init(
         cbpath, rtpath, opt_bldroot, mainrepo, altrepo, opt_srcpath,
-        opt_cchpath, opt_crpath
+        opt_cchpath
     )
 
     # apk command
@@ -475,7 +473,7 @@ def do_chroot(tgt):
     chroot.repo_sync(True)
     chroot.enter(
         "/usr/bin/mksh.static", "-i", fakeroot = True, new_session = False,
-        mount_binpkgs = True, mount_ccache = True, mount_cargo = True,
+        mount_binpkgs = True, mount_cbuild_cache = True,
         env = {
             "HOME": "/tmp",
             "TERM": "linux",

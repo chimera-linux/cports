@@ -16,10 +16,8 @@ build_dbg = yes
 build_root = bldroot
 # whether ccache will be used in the build
 ccache = no
-# default ccache files path (absolute or relative to cports)
-ccache_path = ccache
-# default cargo cache path (absolute or relative to cports)
-cargo_path = cargo
+# default path where all caches are stored (absolute or relative to cports)
+cbuild_cache_path = cbuild_cache
 # whether to run check phase
 check = yes
 # whether checks are allowed to fail (by default they will abort build)

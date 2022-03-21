@@ -16,7 +16,7 @@ def get_environment(pkg, jobs = None):
         "CARGO_BUILD_TARGET": trip,
         f"CARGO_TARGET_{utrip}_LINKER": pkg.get_tool("CC"),
         "CARGO_BUILD_JOBS": str(jobs),
-        "CARGO_HOME": "/cargo",
+        "CARGO_HOME": "/cbuild_cache/cargo",
         # gettext-rs
         "GETTEXT_BIN_DIR": "/usr/bin",
         "GETTEXT_LIB_DIR": str(sroot / "usr/lib/gettext"),

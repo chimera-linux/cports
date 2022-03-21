@@ -1,8 +1,8 @@
 *~
 *.o
 __pycache__
-bldroot*
-/ccache*
+/bldroot*
+/cbuild_cache
 sources*
 packages*
 etc/keys

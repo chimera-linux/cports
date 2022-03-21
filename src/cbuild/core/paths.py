@@ -4,8 +4,8 @@ import pathlib
 
 _stage = 2
 
-def init(cbuildir, distdir, rootdir, rdir, ardir, sdir, cdir, crdir):
-    global _ddir, _bdir, _rdir, _ardir, _srcs, _cbdir, _ccdir, _crdir
+def init(cbuildir, distdir, rootdir, rdir, ardir, sdir, cdir):
+    global _ddir, _bdir, _rdir, _ardir, _srcs, _cbdir, _ccdir
 
     cwd = pathlib.Path.cwd()
     _ddir = pathlib.Path(distdir)
@@ -17,7 +17,6 @@ def init(cbuildir, distdir, rootdir, rdir, ardir, sdir, cdir, crdir):
         _ardir = None
     _srcs = (cwd / sdir).resolve()
     _ccdir = (cwd / cdir).resolve()
-    _crdir = (cwd / crdir).resolve()
 
     _cbdir = pathlib.Path(cbuildir) / "cbuild"
 
@@ -58,26 +57,22 @@ def repository():
 def sources():
     return _srcs
 
-def ccache():
+def cbuild_cache():
     return _ccdir
-
-def cargo():
-    return _crdir
 
 def cbuild():
     return _cbdir
 
 def prepare():
     sources().mkdir(parents = True, exist_ok = True)
-    ccache().mkdir(parents = True, exist_ok = True)
-    cargo().mkdir(parents = True, exist_ok = True)
+    cbuild_cache().mkdir(parents = True, exist_ok = True)
     (bldroot() / "builddir").mkdir(parents = True, exist_ok = True)
     (bldroot() / "destdir").mkdir(parents = True, exist_ok = True)
     repository().mkdir(parents = True, exist_ok = True)
 
     # prepare build root
     for f in [
-        "builddir", "destdir", "binpkgs", "altbinpkgs", "sources", "ccache",
-        "cargo", "dev", "sys", "tmp", "proc", "host", "boot",
+        "builddir", "destdir", "binpkgs", "altbinpkgs", "sources",
+        "cbuild_cache", "dev", "sys", "tmp", "proc", "host", "boot",
     ]:
         (bldroot() / f).mkdir(parents = True, exist_ok = True)

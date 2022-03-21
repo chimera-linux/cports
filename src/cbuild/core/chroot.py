@@ -295,7 +295,7 @@ def enter(cmd, *args, capture_output = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,
           bootstrapping = False, ro_root = False, ro_build = False,
           ro_dest = True, unshare_all = False, mount_binpkgs = False,
-          mount_ccache = False, mount_cargo = False, mount_cports = False,
+          mount_cbuild_cache = False, mount_cports = False,
           fakeroot = False, new_session = True, binpkgs_rw = False,
           signkey = None, wrapper = None):
     defpath = "/usr/bin"
@@ -395,11 +395,8 @@ def enter(cmd, *args, capture_output = False, check = False,
         if paths.alt_repository():
             bcmd += ["--ro-bind", paths.alt_repository(), "/altbinpkgs"]
 
-    if mount_ccache:
-        bcmd += ["--bind", paths.ccache(), "/ccache"]
-
-    if mount_cargo:
-        bcmd += ["--bind", paths.cargo(), "/cargo"]
+    if mount_cbuild_cache:
+        bcmd += ["--bind", paths.cbuild_cache(), "/cbuild_cache"]
 
     # always bubblewrap as cbuild user
     # root-needing things are done through fakeroot so we can chown
