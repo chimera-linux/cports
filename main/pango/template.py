@@ -10,14 +10,15 @@ makedepends = [
     "fribidi-devel", "harfbuzz-devel", "libxft-devel", "libthai-devel",
     "cairo-devel",
 ]
+checkdepends = [
+    "fonts-dejavu-ttf", "fonts-liberation-ttf", "fonts-cantarell-otf"
+]
 pkgdesc = "Text rendering and layout library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.pango.org"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4add05edf51c1fb375a1ccde7498914120e23cb280dd7395b1aeb441f1838a4c"
-# FIXME: missing checkdepends
-options = ["!check"]
 
 @subpackage("pango-xft")
 def _xft(self):
