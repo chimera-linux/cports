@@ -75,8 +75,6 @@ def post_install(self):
     # remove broken symlink
     self.rm(self.destdir / "usr/lib/terminfo", force = True)
 
-    # FIXME for cross remove cross base from /usr/bin/ncursesw6-config
-
 @subpackage("ncurses-libtinfo-libs")
 def _tinfo(self):
     self.pkgdesc = f"{pkgdesc} (libtinfo.so symlink)"
