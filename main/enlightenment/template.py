@@ -8,7 +8,6 @@ configure_args = [
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "efl", "xwayland", "wayland-progs"
 ]
-# TODO: bluetooth support
 makedepends = [
     "gettext-tiny-devel", "efl-devel", "mesa-devel", "wayland-devel",
     "wayland-protocols", "libxkbcommon-devel", "linux-pam-devel",
