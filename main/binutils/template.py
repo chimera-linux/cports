@@ -36,7 +36,7 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/make"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "820d9724f020a3e69cb337893a0b63c2db161dadcb0e06fc11dc29eb1e84a32c"
-# FIXME maybe?
+# resistance is futile
 options = ["!check", "!lto"]
 
 subpackages = []
