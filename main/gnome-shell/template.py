@@ -6,6 +6,7 @@ configure_args = [
     "-Dsystemd=false", "-Dtests=false", "-Ddefault_library=shared",
     "-Dsoup2=false",
 ]
+make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "gobject-introspection",
     "xsltproc", "asciidoc", "sassc", "gjs-devel", "glib-devel", "perl",
@@ -23,11 +24,12 @@ makedepends = [
 depends = [
     "elogind", "gnome-control-center", "gsettings-desktop-schemas", "upower"
 ]
+checkdepends = ["xserver-xorg-xvfb"]
 pkgdesc = "Core user interface for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "1e3dfa2a0be49454182b4ace77f11d10d3f5b988ef0fcb732b7313573949ded1"
-# would need xvfb-run
+# tests need libmutter-test
 options = ["!check"]
