@@ -7,7 +7,6 @@ configure_args = [
     "--disable-experimental",
     "--disable-deprecated",
     "--disable-mesh",
-    "--disable-obex", # FIXME: needs libical
     "--disable-nfc",
     "--enable-cups",
     "--enable-sixaxis",
@@ -23,7 +22,7 @@ hostmakedepends = [
 # same story as iwd, really crappy usage of readline API
 makedepends = [
     "eudev-devel", "dbus-devel", "cups-devel", "libglib-devel",
-    "readline-devel", "linux-headers", "musl-bsd-headers",
+    "libical-devel", "readline-devel", "linux-headers", "musl-bsd-headers",
 ]
 pkgdesc = "Linux Bluetooth stack"
 maintainer = "q66 <q66@chimera-linux.org>"
