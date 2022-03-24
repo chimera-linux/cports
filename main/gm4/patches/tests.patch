@@ -1,0 +1,58 @@
+--- a/checks/198.sysval
++++ b/checks/198.sysval
+@@ -1,32 +1 @@
+-dnl @ ../doc/m4.texi:6751: Origin of test
+-dnl @ expected status: 0
+-dnl @ extra options: 
+-dnl @ Copyright (C) 2006, 2007, 2008, 2009 Free Software
+-dnl @ Foundation, Inc.
+-dnl @ This file is free software; the Free Software Foundation
+-dnl @ gives unlimited permission to copy and/or distribute it
+-dnl @ with or without modifications, as long as this notice
+-dnl @ is preserved.
+-dnl This test assumes kill is a shell builtin, and that signals are
+-dnl recognizable.
+-ifdef(`__unix__', ,
+-      `errprint(` skipping: syscmd does not have unix semantics
+-')m4exit(`77')')dnl
+-changequote(`[', `]')
+-dnl @result{}
+-syscmd([/bin/sh -c 'kill -9 $$'; st=$?; test $st = 137 || test $st = 265])
+-dnl @result{}
+-ifelse(sysval, [0], , [errprint([ skipping: shell does not send signal 9
+-])m4exit([77])])dnl
+-syscmd([kill -9 $$])
+-dnl @result{}
+-sysval
+-dnl @result{}2304
+-syscmd()
+-dnl @result{}
+-sysval
+-dnl @result{}0
+-esyscmd([kill -9 $$])
+-dnl @result{}
+-sysval
+-dnl @result{}2304
++m4exit(`77')
+--- a/tests/test-malloc-gnu.c
++++ b/tests/test-malloc-gnu.c
+@@ -27,19 +27,5 @@
+ int
+ main (int argc, char **argv)
+ {
+-  /* Check that malloc (0) is not a NULL pointer.  */
+-  void *volatile p = malloc (0);
+-  ASSERT (p != NULL);
+-  free (p);
+-
+-  /* Check that malloc (n) fails when n exceeds PTRDIFF_MAX.  */
+-  if (PTRDIFF_MAX < SIZE_MAX)
+-    {
+-      size_t one = argc != 12345;
+-      p = malloc (PTRDIFF_MAX + one);
+-      ASSERT (p == NULL);
+-      ASSERT (errno == ENOMEM);
+-    }
+-
+   return 0;
+ }
