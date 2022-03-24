@@ -23,7 +23,7 @@ makedepends = [
 ]
 depends = [
     "gtk-update-icon-cache", "adwaita-icon-theme",
-    "virtual:gdk-pixbuf-loader-svg!gdk-pixbuf-loader-lunasvg"
+    "virtual:gdk-pixbuf-loader-svg!librsvg"
 ]
 pkgdesc = "Gimp Toolkit version 4"
 maintainer = "q66 <q66@chimera-linux.org>"
