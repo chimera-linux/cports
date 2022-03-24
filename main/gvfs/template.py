@@ -1,14 +1,12 @@
 pkgname = "gvfs"
-pkgver = "1.48.1"
+pkgver = "1.50.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no", "-Dtmpfilesdir=no", "-Dlogind=true",
     "-Dman=true",
     # TODOs
-    "-Dafc=false", # libplist, libimobiledevice
     "-Dgoogle=false", # libgdata
-    "-Dhttp=false", # libsoup2
     "-Dmtp=false", # libmtp
     "-Dnfs=false", # libnfs
 ]
@@ -23,7 +21,8 @@ makedepends = [
     "libgudev-devel", "libsecret-devel", "libxml2-devel", "polkit-devel",
     "udisks-devel", "gsettings-desktop-schemas-devel", "elogind-devel",
     "libusb-devel", "gnome-online-accounts-devel", "samba-devel",
-    "avahi-glib-devel",
+    "avahi-glib-devel", "libplist-devel", "libimobiledevice-devel",
+    "libsoup-devel",
 ]
 # some shared libs that modules depend on
 provides = ["so:libgvfscommon.so=0", "so:libgvfsdaemon.so=0"]
@@ -32,13 +31,25 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gvfs"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b2ea4f271aad2711f16b43c03151e2ec5a9874ff1a21142ef6d6406486a19dc2"
+sha256 = "cbc2f564d2e9f00c760673f42d6803bce3e081ab7ffb4456deffffba9339b4dd"
 
 @subpackage("gvfs-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return self.default_devel()
+
+@subpackage("gvfs-afc")
+def _afc(self):
+    self.pkgdesc = f"{pkgdesc} (Apple mobile device backend)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return [
+        "usr/libexec/gvfsd-afc*",
+        "usr/libexec/gvfs-afc-volume-monitor",
+        "usr/share/dbus-1/services/org.gtk.vfs.AfcVolumeMonitor.service",
+        "usr/share/gvfs/remote-volume-monitors/afc.monitor",
+    ]
 
 @subpackage("gvfs-afp")
 def _afp(self):
