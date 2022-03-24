@@ -1,0 +1,36 @@
+commit 7fb11553fa03da3c78638897a66b995817f0c549
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Mar 24 05:04:24 2022 +0100
+
+    these tests do pass in our environment
+
+diff --git a/testsuite/reftests/meson.build b/testsuite/reftests/meson.build
+index 9bfe1bb..11f2375 100644
+--- a/testsuite/reftests/meson.build
++++ b/testsuite/reftests/meson.build
+@@ -427,17 +427,6 @@ test_data = [
+   'window-show-contents-on-map.ui',
+ ]
+ 
+-# Depending on the environment these fail, feel free to fix them
+-somehow_broken = [
+-  'button-wrapping.ui',
+-  'cellrenderer-pixbuf-stock-rtl.ui',
+-  'label-sizing.ui',
+-  'label-wrap-justify.ui',
+-  'quit-mnemonic.ui',
+-  'symbolic-icon-translucent-color.ui',
+-  'window-height-for-width.ui',
+-]
+-
+ foreach testname : test_data
+   if testname.endswith('.ui') and not testname.endswith('.ref.ui')
+     # reftests fail when multiple windows open at the same time stealing the focus,
+@@ -460,7 +449,6 @@ foreach testname : test_data
+                 'REFTEST_MODULE_DIR=@0@'.format(meson.current_build_dir()),
+               ],
+          suite: 'reftest',
+-         should_fail: somehow_broken.contains(testname),
+          is_parallel: false)
+   endif
+ endforeach

@@ -10,6 +10,7 @@ configure_args = [
     "-Dman=true",
     "-Dintrospection=true",
 ]
+make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "perl", "glib-devel",
     "gettext-tiny-devel", "wayland-progs", "xsltproc", "docbook-xsl-nons",
@@ -23,9 +24,12 @@ makedepends = [
 ]
 depends = [
     "gtk-update-icon-cache", "adwaita-icon-theme",
-    "virtual:gdk-pixbuf-loader-svg!gdk-pixbuf-loader-lunasvg"
+    "virtual:gdk-pixbuf-loader-svg!librsvg"
 ]
-checkdepends = ["xvfb-run", "dbus"] + depends
+checkdepends = [
+    "xserver-xorg-xvfb", "dbus", "adwaita-icon-theme", "hicolor-icon-theme",
+    "librsvg", "fonts-dejavu-otf",
+]
 triggers = ["/usr/lib/gtk-3.0/3.0.0/immodules"]
 pkgdesc = "Gimp Toolkit version 3"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -33,8 +37,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
 sha256 = "ba75bfff320ad1f4cfbee92ba813ec336322cc3c660d406aad014b07087a3ba9"
-# a bunch of tests fail, plus unpackaged checkdepends + needs do_check
-options = ["!check"]
 
 @subpackage("gtk-update-icon-cache")
 def _uic(self):
