@@ -14,8 +14,6 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/findutils"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "57127b7e97d91282c6ace556378d5455a9509898297e46e10443016ea1387164"
-# FIXME
-options = ["!check"]
 
 def post_install(self):
     # we don't want this
