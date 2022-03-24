@@ -3,7 +3,7 @@ pkgver = "1.26.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dbuild-tests=false",
+    "-Dbuild-tests=false", # enable if enabling tests
     "-Dbuild-examples=false",
     "-Dembedded-lz4=false",
     "-Dcrypto=openssl",
@@ -28,6 +28,7 @@ configure_args = [
     "-Dharfbuzz=true",
     "-Dglib=true",
 ]
+make_check_wrapper = ["xvfb-run"]
 hostmakedepends = ["meson", "pkgconf", "gettext-tiny-devel"]
 makedepends = [
     "gettext-tiny-devel", "openssl-devel", "eudev-devel", "elogind-devel",
@@ -46,14 +47,17 @@ makedepends = [
     "gst-plugins-base-devel", "glib-devel", "avahi-devel", "lua5.1-devel",
     "ibus-devel",
 ]
-checkdepends = ["dbus", "xvfb-run", "check-devel"]
+checkdepends = [
+    "dbus-x11", "xserver-xorg-xvfb", "mesa-dri",
+    "fonts-dejavu-otf", "check-devel"
+]
 pkgdesc = "Enlightenment Foundation Libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "86a9677e3d48dd0c13a399ebb417bd417bd8d150d6b06cc491bc92275c88a642"
-# xvfb-run is unpackaged for now, and would need a special do_check
+# some suites are in a bad shape
 options = ["!check"]
 
 match self.profile().arch:
