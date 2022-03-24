@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static", "--with-backend=linux", "--enable-introspection",
-    "--without-idevice", # FIXME
 ]
 make_cmd = "gmake"
 hostmakedepends = [
@@ -12,7 +11,8 @@ hostmakedepends = [
     "gobject-introspection", "xsltproc",
 ]
 makedepends = [
-    "libusb-devel", "libgudev-devel", "libglib-devel", "linux-headers",
+    "libusb-devel", "libgudev-devel", "libglib-devel",
+    "libimobiledevice-devel", "linux-headers",
 ]
 checkdepends = ["python-packaging", "python-dbus", "python-gobject"]
 pkgdesc = "Abstraction for enumerating power devices"
