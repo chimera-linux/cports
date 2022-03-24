@@ -10,6 +10,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_dir = "." # tests assume this
+make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
     "gmake", "pkgconf", "dconf", "python", "vala", "gtk-doc-tools",
     "gobject-introspection", "glib-devel", "gettext-tiny-devel",
@@ -21,6 +22,7 @@ makedepends = [
     "libx11-devel", "libxtst-devel", "libxkbcommon-devel", "wayland-devel",
     "iso-codes",
 ]
+checkdepends = ["xserver-xorg-xvfb", "fonts-dejavu-otf"]
 depends = ["python-gobject", "iso-codes", "dbus-x11"]
 pkgdesc = "Intelligent Input Bus"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -28,8 +30,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "dea4f663c485267cc3313e40a0bc89b977c397e19644f8ab41df0e6eaec34330"
-# TODO: verify cross; check needs a graphical environment (use xvfb?)
-options = ["!cross", "!check"]
+options = ["!cross"]
 
 @subpackage("libibus")
 def _lib(self):
