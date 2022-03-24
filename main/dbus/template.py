@@ -68,6 +68,7 @@ def _libs(self):
 @subpackage("dbus-x11")
 def _x11(self):
     self.pkgdesc = f"{pkgdesc} (X11 support)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xserver-xorg-core"]
     return [
         "usr/bin/dbus-launch",
