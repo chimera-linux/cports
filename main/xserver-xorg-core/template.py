@@ -67,6 +67,11 @@ def post_install(self):
     self.chmod(self.destdir / "usr/libexec/Xorg.wrap", mode = 0o4755)
     # provided by xserver-xorg-protocol
     self.rm(self.destdir / "usr/lib/xorg/protocol.txt")
+    # from debian: https://salsa.debian.org/xorg-team/xserver/xorg-server
+    # check debian/local/xvfb-run for updates as needed
+    # note ours is slightly patched (non-GNU fmt(1))
+    self.install_bin(self.files_path / "xvfb-run")
+    self.install_man(self.files_path / "xvfb-run.1")
 
 @subpackage("xserver-xorg-xnest")
 def _xnest(self):
@@ -87,10 +92,11 @@ def _xephyr(self):
 @subpackage("xserver-xorg-xvfb")
 def _xvfb(self):
     self.pkgdesc = "Virtual framebuffer X server"
-    self.depends += ["xkeyboard-config"]
+    self.depends += ["xkeyboard-config", "xauth"]
 
     return [
-        "usr/bin/Xvfb", "usr/share/man/man1/Xvfb.1"
+        "usr/bin/Xvfb", "usr/bin/xvfb-run",
+        "usr/share/man/man1/Xvfb.1", "usr/share/man/man1/xvfb-run.1",
     ]
 
 @subpackage("xserver-xorg-devel")
