@@ -3,8 +3,7 @@ pkgver = "2.0.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    # tests TODO: need python-libevdev, python-pyudev
-    "-Ddocumentation=disabled", "-Dtests=disabled"
+    "-Ddocumentation=disabled", "-Dtests=enabled"
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libgudev-devel", "libglib-devel", "libxml2-devel"]
