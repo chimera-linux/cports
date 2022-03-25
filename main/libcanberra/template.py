@@ -6,14 +6,14 @@ configure_args = [
     "--enable-null", "--enable-pulse", "--enable-gstreamer",
     "--enable-gtk3", "--disable-gtk", "--disable-alsa", "--disable-oss",
     # TODO: enable tdb?
-    "--disable-tdb", "--disable-lynx", "--with-builtin=dso",
+    "--disable-lynx", "--with-builtin=dso",
 ]
 make_cmd = "gmake"
 make_install_args = ["-j1"] # racey install
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
     "gtk+3-devel", "gstreamer-devel", "libvorbis-devel", "libpulse-devel",
-    "eudev-devel", "libltdl-devel",
+    "eudev-devel", "libltdl-devel", "tdb-devel",
 ]
 pkgdesc = "Portable sound event API"
 maintainer = "q66 <q66@chimera-linux.org>"
