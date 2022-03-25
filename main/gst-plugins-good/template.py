@@ -26,7 +26,7 @@ configure_args = [
     "-Ddv=disabled", # maybe?
     "-Ddv1394=disabled", # maybe?
     "-Dqt5=disabled", # no qt5 in main, maybe package separately?
-    "-Dshout2=disabled", # TODO
+    "-Dshout2=disabled", # libshout needs speex which we don't package
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "glib-devel", "orc", "nasm",
