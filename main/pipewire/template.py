@@ -14,7 +14,6 @@ configure_args = [
     "-Droc=disabled",
     "-Dlv2=disabled", # TODO later
     "-Dbluez5=enabled",
-    "-Dbluez5-codec-ldac=disabled", # TODO: need ldacbt; little endian only
     "-Dpipewire-jack=enabled", # jack server
     "-Djack-devel=true", # jack development files
     "-Dlibjack-path=/usr/lib",
@@ -59,6 +58,11 @@ license = "MIT"
 url = "https://pipewire.org"
 source = [f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["87f692a2cb5b14ee900e102502b5e078a0cd3f7836f03a2e7cb30690ead37b50"]
+
+if self.profile().endian == "big":
+    configure_args += ["-Dbluez5-codec-ldac=disabled"]
+else:
+    makedepends += ["ldacbt-devel"]
 
 def post_install(self):
     self.install_license("LICENSE")
