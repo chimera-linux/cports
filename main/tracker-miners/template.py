@@ -9,20 +9,20 @@ configure_args = [
     "-Dman=true", "-Dsystemd_user_services=false",
     # features
     "-Dminer_rss=false", # TODO: libgrss
-    "-Dcue=disabled", # TODO: libcue
-    "-Dgsf=disabled", # TODO: libgsf
     "-Diso=disabled", # TODO: libosinfo
-    "-Diptc=disabled", # TODO: libiptcdata
     "-Dplaylist=enabled",
     "-Dexif=enabled",
     "-Djpeg=enabled",
     "-Dtiff=enabled",
+    "-Diptc=enabled",
     "-Draw=enabled",
     "-Dxps=enabled",
     "-Dpng=enabled",
     "-Dgif=enabled",
     "-Dpdf=enabled",
     "-Dxml=enabled",
+    "-Dcue=enabled",
+    "-Dgsf=enabled",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gettext-tiny", "asciidoc", "xsltproc",
@@ -33,13 +33,10 @@ makedepends = [
     "libjpeg-turbo-devel", "libpng-devel", "libtiff-devel", "giflib-devel",
     "libxml2-devel", "libpoppler-glib-devel", "upower-devel", "exempi-devel",
     "networkmanager-devel", "gexiv2-devel", "totem-pl-parser-devel",
-    "libgxps-devel",
+    "libgxps-devel", "libcue-devel", "libgsf-devel", "libiptcdata-devel",
     # FIXMEs:
-    #"libcue-devel",
-    #"libgsf-devel",
     #"libgrss-devel",
     #"libosinfo-devel",
-    #"libiptcdata-devel",
 ]
 pkgdesc = "Data miners for tracker"
 maintainer = "q66 <q66@chimera-linux.org>"
