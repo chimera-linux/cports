@@ -536,7 +536,9 @@ Keep in mind that default values may be overridden by build styles.
   availability of at least one provider; you can specify that with `!` after
   the dependency, e.g. `cmd:sed!bsdsed`. In a lot of cases dependencies are
   automatic, and you should not specify any dependencies that would already
-  be covered by the scanner.
+  be covered by the scanner. When using version constraints, any apk-style
+  version pattern is allowed, such as `N<V`, `N<=V`, `N=V`, `N>V`, `N>=V`
+  as well as fuzzy patterns `N~V` (e.g. `foo~3.0` will match `3.0.1`).
 * `env` *(dict)* Environment variables to be exported when running commands
   within the sandbox. This is considered last, so it overrides any possible
   values that may be exported by other means. Use sparingly.

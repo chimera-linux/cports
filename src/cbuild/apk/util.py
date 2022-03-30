@@ -64,13 +64,15 @@ class Operator(Enum):
     GE = 2
     GT = 3
     EQ = 4
+    EF = 5
 
 _ops = {
     "<=": Operator.LE,
     "<":  Operator.LT,
     ">=": Operator.GE,
     ">":  Operator.GT,
-    "=":  Operator.EQ
+    "=":  Operator.EQ,
+    "~":  Operator.EF,
 }
 
 def _op_find(pat):
@@ -87,7 +89,7 @@ def pkg_match(ver, pattern):
     sepidx = -1
 
     for i, c in enumerate(pattern):
-        if c == "<" or c == ">" or c == "=":
+        if c == "<" or c == ">" or c == "~" or c == "=":
             sepidx = i
             break
     else:
@@ -128,6 +130,17 @@ def pkg_match(ver, pattern):
 
     # lower limit comparison
     cmpv = cli.compare_version(ver, pattern)
+
+    # fuzzy compare
+    if sep1 == Operator.EF:
+        # first, the prefix has to be the same
+        if not ver.startswith(pattern):
+            return False
+        ver = ver[len(pattern):]
+        # second, what follows must be a new token
+        # both versions are already guaranteed to be
+        # in valid format thanks to compare_version
+        return (len(ver) == 0) or (ver[0] in "-._")
 
     if sep1 == Operator.LE and cmpv > 0:
         return False
