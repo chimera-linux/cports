@@ -2,7 +2,7 @@ pkgname = "ca-certificates"
 pkgver = "20211016"
 pkgrel = 0
 hostmakedepends = ["openssl"]
-depends = ["openssl<=4.0", "debianutils"]
+depends = ["openssl", "debianutils"]
 triggers = [
     "/usr/share/ca-certificates",
     "/usr/local/share/ca-certificates",
