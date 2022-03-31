@@ -40,7 +40,7 @@ makedepends = [
 ]
 depends = ["libsoup"] # dynamically loaded
 checkdepends = ["pipewire"]
-depends = [f"gst-plugins-base>={pkgver}"]
+depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer good plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
