@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
 makedepends = ["xserver-xorg-devel", "libinput-devel"]
-depends = ["virtual:xserver-abi-input>=24.4!xserver-xorg-core"]
+depends = ["virtual:xserver-abi-input~24!xserver-xorg-core"]
 pkgdesc = "Generic input driver for X.org server based on libinput"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
