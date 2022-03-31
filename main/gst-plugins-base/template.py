@@ -26,7 +26,7 @@ makedepends = [
     "wayland-protocols",
 ]
 checkdepends = ["mesa-dri"]
-depends = ["orc", f"gstreamer>={pkgver}"]
+depends = ["orc", f"gstreamer~{pkgver}"]
 pkgdesc = "GStreamer base plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
@@ -36,5 +36,4 @@ sha256 = "4cb66fccf730b1037e6533862c2128990912a6db4e5bbd14e0ef914450eb4c7c"
 
 @subpackage("gst-plugins-base-devel")
 def _devel(self):
-    self.depends += ["orc-devel"]
     return self.default_devel()
