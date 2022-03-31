@@ -7,7 +7,7 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "gstreamer-devel", "gst-plugins-base-devel", "orc-devel", "ffmpeg-devel"
 ]
-depends = ["orc", f"gst-plugins-base>={pkgver}"]
+depends = ["orc", f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer FFmpeg plugin"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
