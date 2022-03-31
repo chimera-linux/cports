@@ -43,7 +43,7 @@ makedepends = [
     "dbus-devel", "libcap-devel", "libdaemon-devel", "libevent-devel",
     "gtk+3-devel", "python-gobject-devel", "avahi-devel",
 ]
-depends = [f"avahi>={pkgver}"]
+depends = [f"avahi~{pkgver}"]
 pkgdesc = "Avahi Gtk+ utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
@@ -121,7 +121,7 @@ def _pyprogs(self):
 @subpackage("avahi-glib-devel")
 def _gdevel(self):
     self.pkgdesc = f"Avahi glib libraries (development files)"
-    self.depends = [f"avahi-devel>={pkgver}"]
+    self.depends = [f"avahi-devel~{pkgver}"]
 
     return [
         "usr/include/avahi-g*",
@@ -145,7 +145,7 @@ def _glibs(self):
 @subpackage("avahi-ui-devel")
 def _udevel(self):
     self.pkgdesc = f"Avahi UI libraries (development files)"
-    self.depends = [f"avahi-devel>={pkgver}"]
+    self.depends = [f"avahi-devel~{pkgver}"]
 
     return [
         "usr/include/avahi-ui",
@@ -164,7 +164,7 @@ def _ulibs(self):
 @subpackage("avahi-libevent-devel")
 def _edevel(self):
     self.pkgdesc = f"Avahi libevent libraries (development files)"
-    self.depends = [f"avahi-devel>={pkgver}"]
+    self.depends = [f"avahi-devel~{pkgver}"]
 
     return [
         "usr/include/avahi-libevent*",
