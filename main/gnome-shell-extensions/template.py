@@ -3,7 +3,7 @@ pkgver = "41.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext-tiny"]
-depends = [f"gnome-shell>={pkgver}", "nautilus", "gnome-menus"]
+depends = [f"gnome-shell~{pkgver}", "nautilus", "gnome-menus"]
 pkgdesc = "Optional extensions for GNOME shell"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
