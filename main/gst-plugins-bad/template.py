@@ -95,7 +95,7 @@ makedepends = [
     "webrtc-audio-processing-devel", "v4l-utils-devel", "libusb-devel",
     "libfreeaptx-devel", "linux-headers",
 ]
-depends = [f"gst-plugins-base>={pkgver}"]
+depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer bad plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
@@ -107,6 +107,6 @@ options = ["!check"]
 
 @subpackage("gst-plugins-bad-devel")
 def _devel(self):
-    self.depends += [f"gst-plugins-base-devel>={pkgver}"]
+    self.depends += [f"gst-plugins-base-devel~{pkgver}"]
 
     return self.default_devel()
