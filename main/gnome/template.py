@@ -3,7 +3,7 @@ pkgver = "41"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    f"gnome-core>={pkgver}",
+    f"gnome-core~{pkgver}",
     "baobab",
     "eog",
     "epiphany",
