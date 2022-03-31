@@ -36,10 +36,11 @@ _valid_ops = {
     ">=": True,
     ">":  True,
     "=":  True,
+    "~":  True,
 }
 
 def split_pkg_name(s):
-    found = re.search(r"[><=]", s)
+    found = re.search(r"[><=~]", s)
     if not found:
         return None, None, None
 
