@@ -22,6 +22,12 @@ def do_check(self):
         "--gtest_filter=-SubprocessTest.SetWithLots"
     )
 
-# FIXME: docs, completions
 def do_install(self):
     self.install_bin("ninja")
+    self.install_file(
+        "misc/bash-completion", "usr/share/bash-completion/completions",
+        name = "ninja"
+    )
+    self.install_file(
+        "misc/zsh-completion", "usr/share/zsh/site-functions", name = "_ninja"
+    )
