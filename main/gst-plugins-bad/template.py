@@ -61,8 +61,6 @@ configure_args = [
     "-Diqa=disabled", # AGPL
     "-Disac=disabled", # TODO
     "-Dladspa=disabled", # TODO
-    "-Dldac=disabled", # TODO
-    "-Dlv2=disabled", # TODO
     "-Dmicrodns=disabled", # TODO
     "-Dmpeg2enc=disabled", # GPL
     "-Dmplex=disabled", # GPL
@@ -93,7 +91,7 @@ makedepends = [
     "vulkan-loader", "vulkan-headers", "libwebp-devel", "libgudev-devel",
     "wayland-devel", "wayland-protocols", "libxkbcommon-devel",
     "webrtc-audio-processing-devel", "v4l-utils-devel", "libusb-devel",
-    "libfreeaptx-devel", "linux-headers",
+    "libfreeaptx-devel", "lilv-devel", "linux-headers",
 ]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer bad plugins"
@@ -104,6 +102,11 @@ source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "015b8d4d9a395ebf444d40876867a2034dd3304b3ad48bc3a0dd0c1ee71dc11d"
 # TODO: a few fails, debug later
 options = ["!check"]
+
+if self.profile().endian == "big":
+    configure_args += ["-Dldac=disabled"]
+else:
+    makedepends += ["ldacbt-devel"]
 
 @subpackage("gst-plugins-bad-devel")
 def _devel(self):
