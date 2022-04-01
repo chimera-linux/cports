@@ -12,7 +12,7 @@ configure_args = [
     "-Dsystemd=disabled",
     "-Dlibcamera=disabled",
     "-Droc=disabled",
-    "-Dlv2=disabled", # TODO later
+    "-Dlv2=enabled",
     "-Dbluez5=enabled",
     "-Dpipewire-jack=enabled", # jack server
     "-Djack-devel=true", # jack development files
@@ -43,6 +43,7 @@ makedepends = [
     "webrtc-audio-processing-devel",
     "bluez-devel",
     "libfreeaptx-devel",
+    "lilv-devel",
 ]
 depends = [
     f"libspa-alsa={pkgver}-r{pkgrel}",
