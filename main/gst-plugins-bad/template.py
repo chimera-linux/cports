@@ -60,7 +60,6 @@ configure_args = [
     "-Dgsm=disabled", # TODO
     "-Diqa=disabled", # AGPL
     "-Disac=disabled", # TODO
-    "-Dladspa=disabled", # TODO
     "-Dmicrodns=disabled", # TODO
     "-Dmpeg2enc=disabled", # GPL
     "-Dmplex=disabled", # GPL
@@ -91,7 +90,8 @@ makedepends = [
     "vulkan-loader", "vulkan-headers", "libwebp-devel", "libgudev-devel",
     "wayland-devel", "wayland-protocols", "libxkbcommon-devel",
     "webrtc-audio-processing-devel", "v4l-utils-devel", "libusb-devel",
-    "libfreeaptx-devel", "lilv-devel", "linux-headers",
+    "libfreeaptx-devel", "lilv-devel", "ladspa-sdk", "lrdf-devel",
+    "linux-headers",
 ]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer bad plugins"
