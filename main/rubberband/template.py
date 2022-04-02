@@ -6,9 +6,9 @@ configure_args = [
     "-Dfft=fftw", "-Dresampler=libsamplerate",
 ]
 hostmakedepends = ["meson", "pkgconf"]
-# TODO: ladspa-sdk, vamp-sdk
 makedepends = [
     "libsamplerate-devel", "libsndfile-devel", "fftw-devel",
+    "ladspa-sdk", "vamp-plugin-sdk-devel",
 ]
 pkgdesc = "Time-stretching and pitch-shifting audio library"
 maintainer = "q66 <q66@chimera-linux.org>"
