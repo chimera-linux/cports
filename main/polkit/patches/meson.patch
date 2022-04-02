@@ -1,0 +1,40 @@
+positional argument are not allowed starting with meson 0.6.0
+see https://gitlab.freedesktop.org/polkit/polkit/-/merge_requests/99
+
+From b5415812524a73fe106d4611cee29bb17546042b Mon Sep 17 00:00:00 2001
+From: Simon McVittie <smcv@collabora.com>
+Date: Tue, 22 Mar 2022 12:40:25 +0000
+Subject: [PATCH] Don't pass positional parameters to i18n.merge_file
+
+---
+ actions/meson.build      | 1 -
+ src/examples/meson.build | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/actions/meson.build b/actions/meson.build
+index 2abaaf3..1e3f370 100644
+--- a/actions/meson.build
++++ b/actions/meson.build
+@@ -1,7 +1,6 @@
+ policy = 'org.freedesktop.policykit.policy'
+ 
+ i18n.merge_file(
+-  policy,
+   input: policy + '.in',
+   output: '@BASENAME@',
+   po_dir: po_dir,
+diff --git a/src/examples/meson.build b/src/examples/meson.build
+index c6305ab..8c18de5 100644
+--- a/src/examples/meson.build
++++ b/src/examples/meson.build
+@@ -1,7 +1,6 @@
+ policy = 'org.freedesktop.policykit.examples.pkexec.policy'
+ 
+ i18n.merge_file(
+-  policy,
+   input: policy + '.in',
+   output: '@BASENAME@',
+   po_dir: po_dir,
+-- 
+GitLab
+
