@@ -1,0 +1,22 @@
+commit d892fc189f2dc97c8b89e990414bbb7d43db06f6
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Apr 3 19:28:37 2022 +0200
+
+    drop usage of symbols file
+    
+    Exempi should already be using the symbol visibility annotations
+    and the symbols file here is actually very old and limited.
+
+diff --git a/exempi/Makefile.in b/exempi/Makefile.in
+index 4545c64..a5e5428 100644
+--- a/exempi/Makefile.in
++++ b/exempi/Makefile.in
+@@ -129,7 +129,7 @@ build_triplet = @build@
+ host_triplet = @host@
+ bin_PROGRAMS = exempi$(EXEEXT)
+ @UNIX_ENV_TRUE@am__append_1 = -lrt
+-@HAVE_SYMBOLS_FILE_TRUE@am__append_2 = -Wl,--retain-symbols-file=$(srcdir)/libexempi.sym
++@HAVE_SYMBOLS_FILE_TRUE@am__append_2 =
+ @WITH_UNIT_TEST_TRUE@check_PROGRAMS = testexempicore$(EXEEXT) \
+ @WITH_UNIT_TEST_TRUE@	testserialise$(EXEEXT) \
+ @WITH_UNIT_TEST_TRUE@	testwritenewprop$(EXEEXT) \
