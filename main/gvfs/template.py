@@ -5,10 +5,7 @@ build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no", "-Dtmpfilesdir=no", "-Dlogind=true",
     "-Dman=true",
-    # TODOs
-    "-Dgoogle=false", # libgdata
-    "-Dmtp=false", # libmtp
-    "-Dnfs=false", # libnfs
+    "-Dgoogle=false", # TODO libgdata
 ]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "xsltproc", "openssh", "polkit-devel",
@@ -22,7 +19,7 @@ makedepends = [
     "udisks-devel", "gsettings-desktop-schemas-devel", "elogind-devel",
     "libusb-devel", "gnome-online-accounts-devel", "samba-devel",
     "avahi-glib-devel", "libplist-devel", "libimobiledevice-devel",
-    "libsoup-devel",
+    "libsoup-devel", "libmtp-devel", "libnfs-devel",
 ]
 # some shared libs that modules depend on
 provides = ["so:libgvfscommon.so=0", "so:libgvfsdaemon.so=0"]
@@ -93,6 +90,18 @@ def _afp(self):
         "usr/libexec/gvfs*-gphoto*",
         "usr/share/dbus-1/services/org.gtk.vfs.GPhoto2VolumeMonitor.service",
         "usr/share/gvfs/remote-volume-monitors/gphoto2.monitor",
+    ]
+
+@subpackage("gvfs-mtp")
+def _mtp(self):
+    self.pkgdesc = f"{pkgdesc} (MTP backend)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return [
+        "usr/libexec/gvfs*-mtp*",
+        "usr/share/dbus-1/services/org.gtk.vfs.MTPVolumeMonitor.service",
+        "usr/share/gvfs/remote-volume-monitors/mtp.monitor",
+        "usr/share/gvfs/mounts/mtp.mount",
     ]
 
 @subpackage("gvfs-smb")
