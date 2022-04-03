@@ -33,6 +33,7 @@ configure_args = [
     "--enable-libfreetype",
     "--enable-libopenjpeg",
     "--enable-libwebp",
+    "--enable-libzimg",
     "--enable-libass",
     "--enable-libv4l2",
     "--enable-libxcb",
@@ -41,6 +42,7 @@ configure_args = [
     "--enable-opencl",
     "--enable-vaapi",
     "--enable-vdpau",
+    "--enable-vapoursynth",
     "--enable-vulkan",
     "--enable-libdrm",
     "--disable-debug",
@@ -58,7 +60,7 @@ make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf", "perl", "yasm", "texinfo"]
 makedepends = [
     "zlib-devel", "libbz2-devel", "openssl-devel", "librtmp-devel",
-    "freetype-devel", "harfbuzz-devel",
+    "freetype-devel", "harfbuzz-devel", "zimg-devel",
     "libxfixes-devel", "libxext-devel", "libxvmc-devel", "libxcb-devel",
     "x264-devel", "x265-devel", "xvidcore-devel", "dav1d-devel",
     "libvpx-devel", "libaom-devel", "libvidstab-devel",
@@ -66,7 +68,7 @@ makedepends = [
     "libwebp-devel", "openjpeg-devel", "libbluray-devel",
     "libass-devel", "libcdio-devel", "libcdio-paranoia-devel",
     "libmodplug-devel", "lame-devel", "libbs2b-devel",
-    "libpulse-devel", "pipewire-jack-devel",
+    "libpulse-devel", "pipewire-jack-devel", "vapoursynth-devel",
     "libva-devel", "libvdpau-devel", "v4l-utils-devel",
     "vulkan-loader", "vulkan-headers", "libdrm-devel", "sdl-devel",
     "rubberband-devel", "libxml2-devel", "ocl-icd-devel",
