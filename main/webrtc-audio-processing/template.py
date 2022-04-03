@@ -1,18 +1,15 @@
 pkgname = "webrtc-audio-processing"
-pkgver = "0.3.1"
+pkgver = "1.0"
 pkgrel = 0
-build_style = "gnu_configure"
-hostmakedepends = ["automake", "libtool", "pkgconf"]
-makedepends = ["linux-headers"]
+build_style = "meson"
+hostmakedepends = ["meson", "pkgconf", "cmake"]
+makedepends = ["abseil-cpp-devel", "linux-headers"]
 pkgdesc = "Packaging-friendly copy of WebRTC AudioProcessing"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://freedesktop.org/software/pulseaudio/webrtc-audio-processing"
-source = f"{url}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a0fdd938fd85272d67e81572c5a4d9e200a0c104753cb3c209ded175ce3c5dbf"
-
-def pre_configure(self):
-    self.do("autoreconf", "-if")
+source = f"{url}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "441a30d2717b2eb4145c6eb96c2d5a270fe0b4bc71aebf76716750c47be1936f"
 
 def post_install(self):
     self.install_license("COPYING")

@@ -1,20 +1,18 @@
-From: Than <than@redhat.com>
-Date: Wed, 8 Jun 2016 19:10:08 -0400
-Subject: Add generic byte order and pointer size detection
+commit 5379eb4bb3338201c35c4e5f22931fc31ec857a6
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Apr 3 03:17:25 2022 +0200
 
----
- webrtc/typedefs.h | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+    unfuck handling of endianness and wordsize
 
-diff --git a/webrtc/typedefs.h b/webrtc/typedefs.h
-index d875490..dc074f1 100644
---- a/webrtc/typedefs.h
-+++ b/webrtc/typedefs.h
-@@ -48,7 +48,19 @@
+diff --git a/webrtc/rtc_base/system/arch.h b/webrtc/rtc_base/system/arch.h
+index ed216e6..ed6f423 100644
+--- a/webrtc/rtc_base/system/arch.h
++++ b/webrtc/rtc_base/system/arch.h
+@@ -51,7 +51,19 @@
  #define WEBRTC_ARCH_32_BITS
  #define WEBRTC_ARCH_LITTLE_ENDIAN
  #else
--#error Please add support for your architecture in typedefs.h
+-#error Please add support for your architecture in rtc_base/system/arch.h
 +/* instead of failing, use typical unix defines... */
 +#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 +#define WEBRTC_ARCH_LITTLE_ENDIAN
