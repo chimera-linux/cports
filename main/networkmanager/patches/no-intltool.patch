@@ -8,13 +8,13 @@ diff --git a/data/meson.build b/data/meson.build
 index 35e3de5..19310bb 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -59,11 +59,11 @@ if enable_polkit
+@@ -59,11 +59,10 @@ if enable_polkit
      configuration: data_conf,
    )
  
 -  custom_target(
+-    policy,
 +  i18n.merge_file(
-     policy,
      input: policy_in,
      output: '@BASENAME@',
 -    command: intltool_xml_cmd,
