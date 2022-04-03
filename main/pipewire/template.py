@@ -40,7 +40,7 @@ makedepends = [
     "v4l-utils-devel",
     "avahi-devel",
     "openssl-devel",
-    "webrtc-audio-processing-devel",
+    "webrtc-audio-processing-0.3-devel",
     "bluez-devel",
     "libfreeaptx-devel",
     "lilv-devel",
