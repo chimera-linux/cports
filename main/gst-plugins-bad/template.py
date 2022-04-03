@@ -63,9 +63,6 @@ configure_args = [
     "-Donnx=disabled", # TODO
     "-Dresindvd=disabled", # GPL
     "-Dsoundtouch=disabled", # TODO
-    "-Dspandsp=disabled", # TODO
-    "-Dsrtp=disabled", # TODO
-    "-Dwebrtc=disabled", # TODO: missing libnice
     "-Dx265=disabled", # GPL
     "-Dzbar=disabled", # maybe?
     "-Dzxing=disabled", # maybe?
@@ -88,7 +85,7 @@ makedepends = [
     "v4l-utils-devel", "libusb-devel", "libfreeaptx-devel", "lilv-devel",
     "ladspa-sdk", "lrdf-devel", "chromaprint-devel", "flite-devel",
     "openal-soft-devel", "qrencode-devel", "json-glib-devel",
-    "linux-headers",
+    "libnice-devel", "libsrtp-devel", "spandsp-devel", "linux-headers",
 ]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer bad plugins"
