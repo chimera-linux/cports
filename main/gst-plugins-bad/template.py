@@ -29,6 +29,7 @@ configure_args = [
     "-Dmusepack=disabled",
     "-Dneon=disabled",
     "-Dnvcodec=disabled",
+    "-Donnx=disabled",
     "-Dopenexr=disabled",
     "-Dopenh264=disabled",
     "-Dopenmpt=disabled",
@@ -57,12 +58,9 @@ configure_args = [
     "-Dgs=disabled", # does anybody need this?
     "-Dgsm=disabled", # TODO
     "-Diqa=disabled", # AGPL
-    "-Dmicrodns=disabled", # TODO
     "-Dmpeg2enc=disabled", # GPL
     "-Dmplex=disabled", # GPL
-    "-Donnx=disabled", # TODO
     "-Dresindvd=disabled", # GPL
-    "-Dsoundtouch=disabled", # TODO
     "-Dx265=disabled", # GPL
     "-Dzbar=disabled", # maybe?
     "-Dzxing=disabled", # maybe?
@@ -85,7 +83,8 @@ makedepends = [
     "v4l-utils-devel", "libusb-devel", "libfreeaptx-devel", "lilv-devel",
     "ladspa-sdk", "lrdf-devel", "chromaprint-devel", "flite-devel",
     "openal-soft-devel", "qrencode-devel", "json-glib-devel",
-    "libnice-devel", "libsrtp-devel", "spandsp-devel", "linux-headers",
+    "libnice-devel", "libsrtp-devel", "spandsp-devel", "soundtouch-devel",
+    "libmicrodns-devel", "linux-headers",
 ]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer bad plugins"
