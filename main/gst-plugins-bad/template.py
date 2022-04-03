@@ -50,22 +50,17 @@ configure_args = [
     "-Dwpe=disabled",
     "-Dmagicleap=disabled",
     "-Davtp=disabled",
-    "-Dchromaprint=disabled", # TODO
     "-Ddc1394=disabled", # maybe?
     "-Ddts=disabled", # GPL
     "-Dfaad=disabled", # GPL
-    "-Dflite=disabled", # TODO
     "-Dgme=disabled", # TODO
-    "-Dgs=disabled", # TODO
+    "-Dgs=disabled", # does anybody need this?
     "-Dgsm=disabled", # TODO
     "-Diqa=disabled", # AGPL
-    "-Disac=disabled", # TODO
     "-Dmicrodns=disabled", # TODO
     "-Dmpeg2enc=disabled", # GPL
     "-Dmplex=disabled", # GPL
     "-Donnx=disabled", # TODO
-    "-Dopenal=disabled", # TODO
-    "-Dqroverlay=disabled", # TODO
     "-Dresindvd=disabled", # GPL
     "-Dsoundtouch=disabled", # TODO
     "-Dspandsp=disabled", # TODO
@@ -89,8 +84,10 @@ makedepends = [
     "librsvg-devel", "librtmp-devel", "libsndfile-devel", "libva-devel",
     "vulkan-loader", "vulkan-headers", "libwebp-devel", "libgudev-devel",
     "wayland-devel", "wayland-protocols", "libxkbcommon-devel",
-    "webrtc-audio-processing-devel", "v4l-utils-devel", "libusb-devel",
-    "libfreeaptx-devel", "lilv-devel", "ladspa-sdk", "lrdf-devel",
+    "webrtc-audio-processing-devel", "webrtc-audio-processing-0.3-devel",
+    "v4l-utils-devel", "libusb-devel", "libfreeaptx-devel", "lilv-devel",
+    "ladspa-sdk", "lrdf-devel", "chromaprint-devel", "flite-devel",
+    "openal-soft-devel", "qrencode-devel", "json-glib-devel",
     "linux-headers",
 ]
 depends = [f"gst-plugins-base~{pkgver}"]
