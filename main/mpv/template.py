@@ -9,10 +9,9 @@ configure_args = [
     "--enable-dvdnav", "--enable-libarchive", "--enable-pulse",
     "--enable-jack", "--enable-lcms2", "--enable-lua", "--enable-vdpau",
     "--enable-vulkan", "--enable-shaderc", "--enable-wayland",
-    "--enable-x11", "--enable-caca",
-    # TODO: vapoursynth enable
-    "--disable-alsa", "--disable-vapoursynth", "--disable-openal",
-    "--disable-sdl2",
+    "--enable-x11", "--enable-caca", "--enable-vapoursynth",
+    "--enable-zimg",
+    "--disable-alsa", "--disable-openal", "--disable-sdl2",
 ]
 hostmakedepends = [
     "pkgconf", "python", "python-docutils", "wayland-progs"
@@ -25,7 +24,8 @@ makedepends = [
     "wayland-protocols", "libvdpau-devel", "libva-devel", "libpulse-devel",
     "pipewire-jack-devel", "lcms2-devel", "libass-devel", "libbluray-devel",
     "libdvdnav-devel", "libcdio-paranoia-devel", "rubberband-devel",
-    "uchardet-devel", "harfbuzz-devel", "libcaca-devel",
+    "uchardet-devel", "harfbuzz-devel", "libcaca-devel", "zimg-devel",
+    "vapoursynth-devel",
 ]
 depends = ["hicolor-icon-theme"]
 pkgdesc = "Video player based on mplayer2"
