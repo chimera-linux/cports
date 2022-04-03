@@ -1,0 +1,27 @@
+From 90c8790f994db1d80706e4472b12faa773a62e15 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 3 Apr 2022 20:44:44 +0200
+Subject: [PATCH] mkpkg: use correct script counter when writing scripts to adb
+
+Previously this would result in post-upgrade scripts not being
+written at all.
+---
+ src/app_mkpkg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/app_mkpkg.c b/src/app_mkpkg.c
+index e085090..43bee56 100644
+--- a/src/app_mkpkg.c
++++ b/src/app_mkpkg.c
+@@ -286,7 +286,7 @@ static int mkpkg_main(void *pctx, struct apk_ctx *ac, struct apk_string_array *a
+ 	if (ctx->has_scripts) {
+ 		struct adb_obj scripts;
+ 		adb_wo_alloca(&scripts, &schema_scripts, &ctx->db);
+-		for (i = ADBI_FIRST; i < APK_SCRIPT_MAX; i++)
++		for (i = ADBI_FIRST; i < ADBI_SCRPT_MAX; i++)
+ 			adb_wo_blob(&scripts, i, ctx->script[i]);
+ 		adb_wo_obj(&pkg, ADBI_PKG_SCRIPTS, &scripts);
+ 	}
+-- 
+GitLab
+
