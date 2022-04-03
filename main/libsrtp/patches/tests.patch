@@ -1,0 +1,19 @@
+commit f16b75f2f2ccdda706bd5f9d1bee6357f0f31abe
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Apr 3 04:37:27 2022 +0200
+
+    disable rtpw tests (broken with our userland)
+
+diff --git a/test/meson.build b/test/meson.build
+index 4a67912..f1425d0 100644
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -34,7 +34,7 @@ foreach t : test_apps
+ endforeach
+ 
+ # rtpw test needs to be run using shell scripts
+-can_run_rtpw = find_program('sh', 'bash', required: false).found()
++can_run_rtpw = false
+ 
+ # Meson only passes the exe_wrapper to shell scripts starting 0.55
+ if meson.is_cross_build() and meson.version().version_compare('<0.55')
