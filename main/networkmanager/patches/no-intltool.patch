@@ -1,3 +1,5 @@
+update: meson 0.60+ forbid positional arguments
+
 commit caa351a28aae8535ea9c38396df4ba017598d0e3
 Author: Daniel Kolesa <daniel@octaforge.org>
 Date:   Sun Jan 23 06:16:59 2022 +0100
@@ -8,13 +10,13 @@ diff --git a/data/meson.build b/data/meson.build
 index 35e3de5..19310bb 100644
 --- a/data/meson.build
 +++ b/data/meson.build
-@@ -59,11 +59,11 @@ if enable_polkit
+@@ -59,11 +59,10 @@ if enable_polkit
      configuration: data_conf,
    )
  
 -  custom_target(
+-    policy,
 +  i18n.merge_file(
-     policy,
      input: policy_in,
      output: '@BASENAME@',
 -    command: intltool_xml_cmd,
