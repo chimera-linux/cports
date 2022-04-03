@@ -11,11 +11,12 @@ diff --git src/privsep-linux.c src/privsep-linux.c
 index e588ecd..9d335ca 100644
 --- a/src/privsep-linux.c
 +++ b/src/privsep-linux.c
-@@ -42,6 +42,7 @@
+@@ -42,6 +42,8 @@
  #include <stdlib.h>
  #include <string.h>
  #include <unistd.h>
 +#include <termios.h>
++#include <signal.h>
  
  #include "common.h"
  #include "if.h"
