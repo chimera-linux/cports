@@ -54,9 +54,7 @@ configure_args = [
     "-Ddc1394=disabled", # maybe?
     "-Ddts=disabled", # GPL
     "-Dfaad=disabled", # GPL
-    "-Dgme=disabled", # TODO
     "-Dgs=disabled", # does anybody need this?
-    "-Dgsm=disabled", # TODO
     "-Diqa=disabled", # AGPL
     "-Dmpeg2enc=disabled", # GPL
     "-Dmplex=disabled", # GPL
@@ -84,7 +82,7 @@ makedepends = [
     "ladspa-sdk", "lrdf-devel", "chromaprint-devel", "flite-devel",
     "openal-soft-devel", "qrencode-devel", "json-glib-devel",
     "libnice-devel", "libsrtp-devel", "spandsp-devel", "soundtouch-devel",
-    "libmicrodns-devel", "linux-headers",
+    "libmicrodns-devel", "gsm-devel", "libgme-devel", "linux-headers",
 ]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer bad plugins"
