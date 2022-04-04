@@ -34,6 +34,8 @@ license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "f654fb6275e5178f57e055d20918d7d34e19949bc98ebbf4a7371902e88ce309"
+# no test suite
+options = ["!check"]
 
 def post_patch(self):
     self.do("python", "bootstrap.py", allow_network = True)
