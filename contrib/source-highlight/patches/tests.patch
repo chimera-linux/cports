@@ -1,0 +1,29 @@
+Fix up an ambiguous parse and don't print a collection that is
+not printable (list of pairs of strings).
+
+diff --git a/lib/tests/stdboosterror.h b/lib/tests/stdboosterror.h
+index 568545b..030050e 100644
+--- a/lib/tests/stdboosterror.h
++++ b/lib/tests/stdboosterror.h
+@@ -4,7 +4,7 @@
+ #include <boost/regex/pattern_except.hpp>
+ 
+ static boost::regex_error
+-        std_boost_exception(boost::regex_error(boost::regex_constants::error_bad_pattern));
++        std_boost_exception(boost::regex_error{boost::regex_constants::error_bad_pattern});
+ 
+ /**
+  * returns the string representing a standard exception (which
+diff --git a/lib/tests/test_wordtokenizer_main.cpp b/lib/tests/test_wordtokenizer_main.cpp
+index 40e23b1..fee46ab 100644
+--- a/lib/tests/test_wordtokenizer_main.cpp
++++ b/lib/tests/test_wordtokenizer_main.cpp
+@@ -28,7 +28,7 @@ int main() {
+ 
+     WordTokenizer::tokenize(" Here  are\t \t some_words!", tokens);
+ 
+-    cout << "tokens: " << collectionToString(&tokens) << endl;
++    //cout << "tokens: " << collectionToString(&tokens) << endl;
+ 
+     WordTokenizer::WordTokenizerResults::const_iterator tok = tokens.begin();
+ 
