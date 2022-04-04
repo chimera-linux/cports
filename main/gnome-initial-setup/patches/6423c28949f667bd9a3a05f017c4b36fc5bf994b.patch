@@ -1,0 +1,40 @@
+From 6423c28949f667bd9a3a05f017c4b36fc5bf994b Mon Sep 17 00:00:00 2001
+From: Will Thompson <will@willthompson.co.uk>
+Date: Fri, 17 Dec 2021 11:40:53 +0000
+Subject: [PATCH] build: Fix Meson deprecation warning
+
+    Configuring gnome-initial-setup-copy-worker.desktop.in using configuration
+    DEPRECATION: i18n.merge_file does not take any positional arguments. This will become a hard error in the next Meson release.
+    Configuring gnome-initial-setup-first-login.desktop.in using configuration
+    DEPRECATION: i18n.merge_file does not take any positional arguments. This will become a hard error in the next Meson release.
+    Configuring gnome-initial-setup.desktop.in using configuration
+    DEPRECATION: i18n.merge_file does not take any positional arguments. This will become a hard error in the next Meson release.
+
+These invocations both correctly specify the 'type' keyword argument.
+---
+ data/meson.build | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index ae8d9f95..31fa2f93 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -31,7 +31,6 @@ desktop_conf.set('systemd_hidden', enable_systemd ? 'true' : 'false')
+ 
+ foreach desktop_file: autostart_files
+     i18n.merge_file(
+-        'desktop',
+         input: configure_file(
+             input: files(desktop_file + '.in.in'),
+             output: desktop_file + '.in',
+@@ -46,7 +45,6 @@ foreach desktop_file: autostart_files
+ endforeach
+ 
+ i18n.merge_file(
+-    'desktop',
+     input: configure_file(
+         input: files('gnome-initial-setup.desktop.in.in'),
+         output: 'gnome-initial-setup.desktop.in',
+-- 
+GitLab
+
