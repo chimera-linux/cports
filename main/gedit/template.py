@@ -1,5 +1,5 @@
 pkgname = "gedit"
-pkgver = "40.1"
+pkgver = "42.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -11,13 +11,13 @@ makedepends = [
     "gspell-devel", "libxml2-devel", "python-gobject-devel",
 ]
 depends = ["gsettings-desktop-schemas", "iso-codes", "python-gobject"]
-provides = ["so:libgedit-40.0.so=0"]
+provides = ["so:libgedit-41.0.so=0"]
 pkgdesc = "GNOME text editor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Gedit"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "55e394a82cb65678b1ab49526cf5bd43f00d8fba21476a4849051a8e137d3691"
+sha256 = "a87991f42961eb4f6abcdbaabb784760c23aeaeefae6363d3e21a61e9c458437"
 
 def post_install(self):
     from cbuild.util import python
