@@ -44,7 +44,7 @@ license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
 sha256 = "0575b999a9048445820428dc540ba8a9527ce596fa66af02ea2ba1ea9578bcb4"
-# FIXME check
+# check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check"]
 
 _idmap_modules = ["ad", "rid", "adex", "hash", "tdb2"]
