@@ -22,8 +22,7 @@ license = "LGPL-3.0-or-later"
 url = "https://www.samba.org/ldb"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "756268c40a11c1f277c6e666d6c22fce67a3547502337dbd142bdc0b4d901fd5"
-# FIXME check
-options = ["!cross", "!check"]
+options = ["!cross"]
 
 @subpackage("ldb-devel")
 def _devel(self):
