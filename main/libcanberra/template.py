@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 configure_args = [
     "--enable-null", "--enable-pulse", "--enable-gstreamer",
     "--enable-gtk3", "--disable-gtk", "--disable-alsa", "--disable-oss",
-    # TODO: enable tdb?
     "--disable-lynx", "--with-builtin=dso",
 ]
 make_cmd = "gmake"
