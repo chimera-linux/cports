@@ -11,7 +11,8 @@ def do_configure(self):
 
 def do_build(self):
     self.do(
-        "python3", self.configure_script, "build", f"-j{self.make_jobs}",
+        "python3", self.configure_script, self.make_build_target,
+        f"-j{self.make_jobs}",
         *self.make_build_args,
         env = self.make_build_env
     )
@@ -26,7 +27,7 @@ def do_check(self):
 
 def do_install(self):
     self.do(
-        "python3", self.configure_script, "install",
+        "python3", self.configure_script, self.make_install_target,
         "--destdir=" + str(self.chroot_destdir),
         *self.make_install_args,
         env = self.make_install_env
@@ -40,5 +41,7 @@ def use(tmpl):
 
     tmpl.build_style_defaults = [
         ("configure_script", "waf"),
+        ("make_build_target", "build"),
+        ("make_install_target", "install"),
         ("make_check_target", "test"),
     ]
