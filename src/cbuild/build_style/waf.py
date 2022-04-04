@@ -17,7 +17,12 @@ def do_build(self):
     )
 
 def do_check(self):
-    pass
+    self.do(
+        "python3", self.configure_script, self.make_check_target,
+        f"-j{self.make_jobs}",
+        *self.make_check_args,
+        env = self.make_check_env
+    )
 
 def do_install(self):
     self.do(
@@ -35,4 +40,5 @@ def use(tmpl):
 
     tmpl.build_style_defaults = [
         ("configure_script", "waf"),
+        ("make_check_target", "test"),
     ]
