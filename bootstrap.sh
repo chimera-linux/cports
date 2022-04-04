@@ -68,9 +68,9 @@ TARNAME="void-${CARCH}-musl-ROOTFS-${BASE_DATE}.tar.xz"
 
 # apk-tools
 
-APK_REV="a0bfa074f8fa59d7d650125b97fac31f64fc4759"
+APK_REV="55e20d3e5b48eea29523b633492a167118dcc3bd"
 APK_URL="https://gitlab.alpinelinux.org/alpine/apk-tools/-/archive/${APK_REV}.tar.gz"
-APK_SHA256="0f3cd6999f2e2b02bfaebdb9d3e1c7869256d1a2978234c2e382ff37746c7fb0"
+APK_SHA256="ffbada7c314ccc9b3ea263e4c79ce334ae1afa3ec5c3841be996bca12bd7442d"
 
 APK_TARNAME="apk-tools-${APK_REV}.tar.gz"
 
