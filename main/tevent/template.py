@@ -19,8 +19,7 @@ license = "LGPL-3.0-or-later"
 url = "https://tevent.samba.org"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ee9a86c8e808aac2fe1e924eaa139ff7f0269d0e8e4fafa850ae5c7489bc82ba"
-# FIXME check
-options = ["!cross", "!check"]
+options = ["!cross"]
 
 @subpackage("tevent-devel")
 def _devel(self):
