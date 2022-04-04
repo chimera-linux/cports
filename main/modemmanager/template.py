@@ -1,5 +1,5 @@
 pkgname = "modemmanager"
-pkgver = "1.18.4"
+pkgver = "1.18.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -24,9 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/ModemManager"
 source = f"$(FREEDESKTOP_SITE)/ModemManager/ModemManager-{pkgver}.tar.xz"
-sha256 = "11fb970f63e2da88df4b6d8759e4ee649944c515244b979bf50a7a6df1d7f199"
-# some tests expect it to be installed? (possible FIXME)
-options = ["!check"]
+sha256 = "d4f804b31cf504239c5f1d4973c62095c00cba1ee9abb503718dac6d146a470a"
 
 @subpackage("modemmanager-devel")
 def _devel(self):
