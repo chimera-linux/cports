@@ -1,5 +1,5 @@
 pkgname = "dbus"
-pkgver = "1.12.20"
+pkgver = "1.14.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,6 +12,7 @@ configure_args = [
     "--enable-xml-docs",
     "--enable-epoll",
     "--enable-elogind",
+    "--enable-traditional-activation",
     "--with-dbus-user=dbus",
     "--with-system-socket=/run/dbus/system_bus_socket",
     "--with-system-pid-file=/run/dbus/pid",
@@ -27,8 +28,8 @@ pkgdesc = "Message bus system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
-source = f"https://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "f77620140ecb4cdc67f37fb444f8a6bea70b5b6461f12f1cbe2cec60fa7de5fe"
+source = f"https://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "ccd7cce37596e0a19558fd6648d1272ab43f011d80c8635aea8fd0bad58aebd4"
 suid_files = [
     "usr/libexec/dbus-daemon-launch-helper"
 ]
