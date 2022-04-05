@@ -1,0 +1,39 @@
+From f4e93ab82a7aefb226a220686f3f0b780b660f5f Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 6 Apr 2022 01:11:23 +0200
+Subject: [PATCH 22/22] HACK: force link sanitizers with libexecinfo
+
+---
+ compiler-rt/CMakeLists.txt                      | 2 ++
+ compiler-rt/lib/scudo/standalone/CMakeLists.txt | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
+index 3a41aa43e..e22adfc86 100644
+--- a/compiler-rt/CMakeLists.txt
++++ b/compiler-rt/CMakeLists.txt
+@@ -456,6 +456,8 @@ append_list_if(COMPILER_RT_HAS_WD4800_FLAG /wd4800 SANITIZER_COMMON_CFLAGS)
+ 
+ append_list_if(MINGW -fms-extensions SANITIZER_COMMON_CFLAGS)
+ 
++list(APPEND SANITIZER_COMMON_LINK_LIBS execinfo)
++
+ # Set common link flags.
+ append_list_if(COMPILER_RT_HAS_NODEFAULTLIBS_FLAG -nodefaultlibs SANITIZER_COMMON_LINK_FLAGS)
+ append_list_if(COMPILER_RT_HAS_Z_TEXT -Wl,-z,text SANITIZER_COMMON_LINK_FLAGS)
+diff --git a/compiler-rt/lib/scudo/standalone/CMakeLists.txt b/compiler-rt/lib/scudo/standalone/CMakeLists.txt
+index 739f131bd..e786614cd 100644
+--- a/compiler-rt/lib/scudo/standalone/CMakeLists.txt
++++ b/compiler-rt/lib/scudo/standalone/CMakeLists.txt
+@@ -137,6 +137,8 @@ append_list_if(COMPILER_RT_HAS_LIBPTHREAD -pthread SCUDO_LINK_FLAGS)
+ 
+ append_list_if(FUCHSIA zircon SCUDO_LINK_LIBS)
+ 
++list(APPEND SCUDO_LINK_LIBS execinfo)
++
+ if(COMPILER_RT_HAS_SCUDO_STANDALONE)
+   add_compiler_rt_object_libraries(RTScudoStandalone
+     ARCHS ${SCUDO_STANDALONE_SUPPORTED_ARCH}
+-- 
+2.35.1
+

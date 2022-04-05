@@ -1,0 +1,48 @@
+commit 0d3cb0139682c51dd60bb620696528f05d6b3bb7
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Apr 7 03:19:06 2022 +0200
+
+    HACK: depend on cxx-headers for openmp
+    
+    This prevents a race in runtimes build when openmp is being
+    built in parallel with libcxx and the headers are not yet copied,
+    which results in failed includes.
+
+diff --git a/openmp/libompd/src/CMakeLists.txt b/openmp/libompd/src/CMakeLists.txt
+index 25a850ed4..991a55030 100644
+--- a/openmp/libompd/src/CMakeLists.txt
++++ b/openmp/libompd/src/CMakeLists.txt
+@@ -13,6 +13,7 @@ cmake_minimum_required(VERSION 3.13.4)
+ 
+ add_library (ompd SHARED TargetValue.cpp omp-debug.cpp omp-state.cpp omp-icv.cpp)
+ 
++add_dependencies(ompd cxx-headers) # ensure headers are copied first
+ add_dependencies(ompd omp) # ensure generated import library is created first
+ 
+ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+diff --git a/openmp/libomptarget/src/CMakeLists.txt b/openmp/libomptarget/src/CMakeLists.txt
+index ff85d7e71..d3c76c634 100644
+--- a/openmp/libomptarget/src/CMakeLists.txt
++++ b/openmp/libomptarget/src/CMakeLists.txt
+@@ -27,6 +27,9 @@ include_directories(${LIBOMPTARGET_LLVM_INCLUDE_DIRS})
+ 
+ # Build libomptarget library with libdl dependency.
+ add_library(omptarget SHARED ${LIBOMPTARGET_SRC_FILES})
++
++add_dependencies(omptarget cxx-headers) # ensure headers are copied first
++
+ set_target_properties(omptarget PROPERTIES INSTALL_RPATH "$ORIGIN" BUILD_RPATH "$ORIGIN")
+ if (OPENMP_ENABLE_LIBOMPTARGET_PROFILING)
+   # Add LLVMSupport dependency if profiling is enabled.
+diff --git a/openmp/runtime/src/CMakeLists.txt b/openmp/runtime/src/CMakeLists.txt
+index e795032fe..8eeaa8400 100644
+--- a/openmp/runtime/src/CMakeLists.txt
++++ b/openmp/runtime/src/CMakeLists.txt
+@@ -216,6 +216,7 @@ set(LIBOMP_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR} PARENT_SCOPE)
+ # objects depend on : .inc files
+ add_custom_target(libomp-needed-headers DEPENDS kmp_i18n_id.inc kmp_i18n_default.inc)
+ add_dependencies(omp libomp-needed-headers)
++add_dependencies(omp cxx-headers) # ensure headers are copied first
+ 
+ # Windows specific build rules
+ if(WIN32)

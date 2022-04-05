@@ -1,0 +1,68 @@
+From 6896acbacdb9c27456b9d82c65e0fc08c8fbd8c9 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 6 Apr 2022 00:51:53 +0200
+Subject: [PATCH 04/22] default to elfv2 ABI on all ppc64 targets
+
+---
+ clang/lib/Basic/Targets/PPC.h         | 3 +--
+ clang/lib/CodeGen/TargetInfo.cpp      | 6 +++---
+ clang/lib/Driver/ToolChains/Clang.cpp | 9 +--------
+ 3 files changed, 5 insertions(+), 13 deletions(-)
+
+diff --git a/clang/lib/Basic/Targets/PPC.h b/clang/lib/Basic/Targets/PPC.h
+index ac52eb219..8cf7f8f77 100644
+--- a/clang/lib/Basic/Targets/PPC.h
++++ b/clang/lib/Basic/Targets/PPC.h
+@@ -424,11 +424,10 @@ public:
+       LongDoubleFormat = &llvm::APFloat::IEEEdouble();
+     } else if ((Triple.getArch() == llvm::Triple::ppc64le)) {
+       DataLayout = "e-m:e-i64:64-n32:64";
+-      ABI = "elfv2";
+     } else {
+       DataLayout = "E-m:e-i64:64-n32:64";
+-      ABI = "elfv1";
+     }
++    ABI = "elfv2";
+ 
+     if (Triple.isOSFreeBSD() || Triple.isOSOpenBSD() || Triple.isMusl()) {
+       LongDoubleWidth = LongDoubleAlign = 64;
+diff --git a/clang/lib/CodeGen/TargetInfo.cpp b/clang/lib/CodeGen/TargetInfo.cpp
+index 9af3004eb..2b71c282c 100644
+--- a/clang/lib/CodeGen/TargetInfo.cpp
++++ b/clang/lib/CodeGen/TargetInfo.cpp
+@@ -11342,9 +11342,9 @@ const TargetCodeGenInfo &CodeGenModule::getTargetCodeGenInfo() {
+       return SetCGInfo(new AIXTargetCodeGenInfo(Types, /*Is64Bit*/ true));
+ 
+     if (Triple.isOSBinFormatELF()) {
+-      PPC64_SVR4_ABIInfo::ABIKind Kind = PPC64_SVR4_ABIInfo::ELFv1;
+-      if (getTarget().getABI() == "elfv2")
+-        Kind = PPC64_SVR4_ABIInfo::ELFv2;
++      PPC64_SVR4_ABIInfo::ABIKind Kind = PPC64_SVR4_ABIInfo::ELFv2;
++      if (getTarget().getABI() == "elfv1")
++        Kind = PPC64_SVR4_ABIInfo::ELFv1;
+       bool IsSoftFloat = CodeGenOpts.FloatABI == "soft";
+ 
+       return SetCGInfo(
+diff --git a/clang/lib/Driver/ToolChains/Clang.cpp b/clang/lib/Driver/ToolChains/Clang.cpp
+index f2f18e901..be72fe4de 100644
+--- a/clang/lib/Driver/ToolChains/Clang.cpp
++++ b/clang/lib/Driver/ToolChains/Clang.cpp
+@@ -2050,14 +2050,7 @@ void Clang::AddPPCTargetArgs(const ArgList &Args,
+   const llvm::Triple &T = getToolChain().getTriple();
+   if (T.isOSBinFormatELF()) {
+     switch (getToolChain().getArch()) {
+-    case llvm::Triple::ppc64: {
+-      if ((T.isOSFreeBSD() && T.getOSMajorVersion() >= 13) ||
+-          T.isOSOpenBSD() || T.isMusl())
+-        ABIName = "elfv2";
+-      else
+-        ABIName = "elfv1";
+-      break;
+-    }
++    case llvm::Triple::ppc64:
+     case llvm::Triple::ppc64le:
+       ABIName = "elfv2";
+       break;
+-- 
+2.35.1
+

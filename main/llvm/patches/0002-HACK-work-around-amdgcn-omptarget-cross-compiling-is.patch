@@ -1,0 +1,30 @@
+From 0dd4565f4e6253fe098f7161ba259f75ee81c48a Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 6 Apr 2022 00:50:18 +0200
+Subject: [PATCH 02/22] HACK: work around amdgcn omptarget cross-compiling
+ issues
+
+---
+ openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt b/openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt
+index 406013073..1e2415d87 100644
+--- a/openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt
++++ b/openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt
+@@ -36,7 +36,11 @@ else()
+   return()
+ endif()
+ 
+-if (LLVM_DIR)
++if (CMAKE_CROSSCOMPILING)
++  set(CLANG_TOOL /usr/bin/clang)
++  set(LINK_TOOL /usr/bin/llvm-link)
++  set(OPT_TOOL /usr/bin/opt)
++elseif (LLVM_DIR)
+   # Builds that use pre-installed LLVM have LLVM_DIR set.
+   find_program(CLANG_TOOL clang PATHS ${LLVM_TOOLS_BINARY_DIR} NO_DEFAULT_PATH)
+   find_program(LINK_TOOL llvm-link PATHS ${LLVM_TOOLS_BINARY_DIR} NO_DEFAULT_PATH)
+-- 
+2.35.1
+

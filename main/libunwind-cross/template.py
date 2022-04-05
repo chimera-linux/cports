@@ -1,5 +1,5 @@
 pkgname = "libunwind-cross"
-pkgver = "13.0.0"
+pkgver = "14.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
+sha256 = "35ce9edbc8f774fe07c8f4acdf89ec8ac695c8016c165dd86b8d10e7cba07e23"
 options = ["!cross", "!check", "!lint", "!lto"]
 
 cmake_dir = "libunwind"
@@ -73,6 +73,11 @@ def _install_hdrs(self):
     )
     self.install_file(
         "libunwind/include/unwind.h",
+        f"usr/{at}/usr/include"
+    )
+    # XXX: 32-bit ARM needs unwind_ehabi.h
+    self.install_file(
+        "libunwind/include/unwind_itanium.h",
         f"usr/{at}/usr/include"
     )
     self.install_file(

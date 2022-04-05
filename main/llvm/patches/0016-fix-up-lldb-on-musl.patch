@@ -1,0 +1,45 @@
+From 1b7de078f7630528822a4ce6bf95362b7bdc287a Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 6 Apr 2022 01:03:16 +0200
+Subject: [PATCH 16/22] fix up lldb on musl
+
+---
+ lldb/source/Plugins/Process/Linux/Procfs.h | 23 +++++++---------------
+ 1 file changed, 7 insertions(+), 16 deletions(-)
+
+diff --git a/lldb/source/Plugins/Process/Linux/Procfs.h b/lldb/source/Plugins/Process/Linux/Procfs.h
+index 59dd76a25..ecb6f8d96 100644
+--- a/lldb/source/Plugins/Process/Linux/Procfs.h
++++ b/lldb/source/Plugins/Process/Linux/Procfs.h
+@@ -10,21 +10,12 @@
+ // sys/procfs.h on Android/Linux for all supported architectures.
+ 
+ #include <sys/ptrace.h>
++#include <asm/ptrace.h>
+ 
+-#ifdef __ANDROID__
+-#if defined(__arm64__) || defined(__aarch64__)
+-typedef unsigned long elf_greg_t;
+-typedef elf_greg_t
+-    elf_gregset_t[(sizeof(struct user_pt_regs) / sizeof(elf_greg_t))];
+-typedef struct user_fpsimd_state elf_fpregset_t;
+-#ifndef NT_FPREGSET
+-#define NT_FPREGSET NT_PRFPREG
+-#endif // NT_FPREGSET
+-#elif defined(__mips__)
+-#ifndef NT_FPREGSET
+-#define NT_FPREGSET NT_PRFPREG
+-#endif // NT_FPREGSET
+-#endif
+-#else // __ANDROID__
++#if !defined(__GLIBC__) && defined(__powerpc__)
++#define pt_regs musl_pt_regs
++#include <sys/procfs.h>
++#undef pt_regs
++#else
+ #include <sys/procfs.h>
+-#endif // __ANDROID__
++#endif
+-- 
+2.35.1
+

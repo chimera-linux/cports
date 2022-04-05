@@ -1,0 +1,19 @@
+commit 6e8ae4f4cc1c0027728d4acc345fa00d50862146
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Apr 7 00:22:11 2022 +0200
+
+    HACK: force -fno-lto for builtins
+
+diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
+index b6eefbd4c..14673ceae 100644
+--- a/compiler-rt/lib/builtins/CMakeLists.txt
++++ b/compiler-rt/lib/builtins/CMakeLists.txt
+@@ -647,7 +647,7 @@ if (APPLE)
+   add_subdirectory(macho_embedded)
+   darwin_add_builtin_libraries(${BUILTIN_SUPPORTED_OS})
+ else ()
+-  set(BUILTIN_CFLAGS "")
++  set(BUILTIN_CFLAGS "-fno-lto")
+ 
+   if (COMPILER_RT_HAS_FCF_PROTECTION_FLAG)
+     append_list_if(COMPILER_RT_ENABLE_CET -fcf-protection=full BUILTIN_CFLAGS)

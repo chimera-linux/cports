@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "13.0.0"
+pkgver = "14.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -42,13 +42,13 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "6075ad30f1ac0e15f07c1bf062c1e1268c241d674f11bd32cdf0e040c71f2bf3"
+sha256 = "35ce9edbc8f774fe07c8f4acdf89ec8ac695c8016c165dd86b8d10e7cba07e23"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
 options = ["bootstrap"]
 
-_llvmgen = "13"
+_llvmgen = pkgver[0:pkgver.find(".")]
 
 cmake_dir = "llvm"
 
@@ -57,10 +57,8 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-_enabled_projects = [
-    "clang", "clang-tools-extra", "compiler-rt", "libcxx", "libcxxabi",
-    "libunwind", "lld"
-]
+_enabled_projects = ["clang", "clang-tools-extra", "lld"]
+_enabled_runtimes = ["compiler-rt", "libcxx", "libcxxabi", "libunwind"]
 
 if self.stage > 0:
     configure_args += ["-DLLVM_ENABLE_FFI=YES"]
@@ -69,7 +67,7 @@ if self.stage > 0:
         "python-devel", "libedit-devel", "elftoolchain-devel",
         "libexecinfo-devel", "libffi-devel", "linux-headers"
     ]
-    _enabled_projects += ["openmp"]
+    _enabled_runtimes += ["openmp"]
     # for stage 2 onwards also enable debugger
     # in stage 1 there is no point in wasting cpu time with it
     # also enable LTO
@@ -113,6 +111,7 @@ match self.profile().arch:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
+configure_args += [f"-DLLVM_ENABLE_RUNTIMES={';'.join(_enabled_runtimes)}"]
 
 def init_configure(self):
     if not self.profile().cross:
@@ -195,6 +194,10 @@ def post_install(self):
     self.install_file(
         "libunwind/include/unwind.h", "usr/include"
     )
+    # XXX: 32-bit ARM needs unwind_ehabi.h
+    self.install_file(
+        "libunwind/include/unwind_itanium.h", "usr/include"
+    )
     self.install_file(
         "libunwind/include/mach-o/compact_unwind_encoding.h",
         "usr/include/mach-o"
@@ -213,10 +216,12 @@ def post_install(self):
     # fix up python liblldb symlink so it points to versioned one
     # unversioned one is in devel package so we cannot point to it
     for f in (self.destdir / "usr/lib").glob("python3*"):
-        f = f / "site-packages/lldb/_lldb.so"
-        if f.is_symlink():
-            f.unlink()
-            f.symlink_to(f"../../../liblldb.so.{_llvmgen}")
+        for s in (f / "site-packages/lldb").glob("_lldb.*.so"):
+            if s.is_symlink():
+                s.unlink()
+                s.with_name("_lldb.so").symlink_to(
+                    f"../../../liblldb.so.{_llvmgen}"
+                )
 
     # python bytecode cache
     if self.stage > 0:
@@ -529,7 +534,7 @@ def _libcxxabi_devel(self):
 def _libllvm(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
-    return [f"usr/lib/libLLVM-{_llvmgen}.so"]
+    return [f"usr/lib/libLLVM-{_llvmgen}*.so"]
 
 @subpackage("lldb", self.stage >= 2)
 def _lldb(self):

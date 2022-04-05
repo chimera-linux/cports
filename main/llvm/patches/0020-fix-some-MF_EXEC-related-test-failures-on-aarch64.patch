@@ -1,0 +1,26 @@
+From 01303b36d8fbe2e69288bcf593589145a8c40ee0 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 6 Apr 2022 01:05:59 +0200
+Subject: [PATCH 20/22] fix some MF_EXEC related test failures on aarch64
+
+https://bugs.llvm.org/show_bug.cgi?id=14278#c10
+---
+ llvm/lib/Support/Unix/Memory.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/llvm/lib/Support/Unix/Memory.inc b/llvm/lib/Support/Unix/Memory.inc
+index b83477e0e..8b6a537a1 100644
+--- a/llvm/lib/Support/Unix/Memory.inc
++++ b/llvm/lib/Support/Unix/Memory.inc
+@@ -50,7 +50,7 @@ static int getPosixProtectionFlags(unsigned Flags) {
+     return PROT_READ | PROT_WRITE | PROT_EXEC;
+   case llvm::sys::Memory::MF_EXEC:
+ #if (defined(__FreeBSD__) || defined(__POWERPC__) || defined (__ppc__) || \
+-     defined(_POWER) || defined(_ARCH_PPC))
++     defined(_POWER) || defined(_ARCH_PPC) || (defined(__linux__) && defined(__aarch64__)))
+     // On PowerPC, having an executable page that has no read permission
+     // can have unintended consequences.  The function InvalidateInstruction-
+     // Cache uses instructions dcbf and icbi, both of which are treated by
+-- 
+2.35.1
+

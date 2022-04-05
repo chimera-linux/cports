@@ -1,0 +1,18 @@
+Doing this in our cross-toolchain case results
+in /usr/include getting included directly, which
+we do not want as it breaks cross.
+
+--- a/compiler-rt/lib/orc/CMakeLists.txt
++++ b/compiler-rt/lib/orc/CMakeLists.txt
+@@ -50,11 +50,6 @@ include_directories(../../include)
+ 
+ set(ORC_CFLAGS ${COMPILER_RT_COMMON_CFLAGS})
+ 
+-# Allow the ORC runtime to reference LLVM headers.
+-foreach (DIR ${LLVM_INCLUDE_DIR} ${LLVM_MAIN_INCLUDE_DIR})
+-  list(APPEND ORC_CFLAGS -I${DIR})
+-endforeach()
+-
+ add_compiler_rt_component(orc)
+ 
+ # ORC uses C++ standard library headers.
