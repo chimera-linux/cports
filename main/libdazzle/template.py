@@ -1,5 +1,5 @@
 pkgname = "libdazzle"
-pkgver = "3.42.0"
+pkgver = "3.44.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -16,9 +16,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/libdazzle"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "eae67a3b3d9cce408ee9ec0ab6adecb83e52eb53f9bc93713f4df1e84da16925"
+sha256 = "3cd3e45eb6e2680cb05d52e1e80dd8f9d59d4765212f0e28f78e6c1783d18eae"
 # needs x11
-options = ["!check"]
+options = ["!check", "!cross"]
 
 @subpackage("libdazzle-devel")
 def _devel(self):
