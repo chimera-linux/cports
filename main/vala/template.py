@@ -1,5 +1,5 @@
 pkgname = "vala"
-pkgver = "0.54.5"
+pkgver = "0.56.0"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Vala"
 source = f"$(GNOME_SITE)/vala/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0028da1685dedca993792bfb5f460db5ba548c9aa44323b1899f733a89121587"
+sha256 = "d92bd13c5630905eeb6a983dcb702204da9731460c2a6e4e39f867996f371040"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
