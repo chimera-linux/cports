@@ -1,5 +1,5 @@
 pkgname = "vte3"
-pkgver = "0.66.2"
+pkgver = "0.68.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,9 +19,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal/VTE"
 source = f"$(GNOME_SITE)/vte/{pkgver[:-2]}/vte-{pkgver}.tar.xz"
-sha256 = "e89974673a72a0a06edac6d17830b82bb124decf0cb3b52cebc92ec3ff04d976"
+sha256 = "13e7d4789ca216a33780030d246c9b13ddbfd04094c6316eea7ff92284dd1749"
 # assert in meson
-options = ["!lto"]
+options = ["!lto", "!cross"]
 
 @subpackage("vte3-devel")
 def _devel(self):
