@@ -1,5 +1,5 @@
 pkgname = "colord"
-pkgver = "1.4.5"
+pkgver = "1.4.6"
 pkgrel = 0
 build_style = "meson"
 # manpages fail to generate
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.freedesktop.org/software/colord"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b774ea443d239f4a2ee1853bd678426e669ddeda413dcb71cea1638c4d6c5e17"
+sha256 = "7407631a27bfe5d1b672e7ae42777001c105d860b7b7392283c8c6300de88e6f"
 file_modes = {
     "var/lib/colord": ("_colord", "_colord", 0o755),
     "var/lib/colord/icc": ("_colord", "_colord", 0o755),
