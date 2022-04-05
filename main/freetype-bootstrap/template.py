@@ -2,7 +2,7 @@
 # needs); after that we can build real freetype with harfbuzz support and get
 # better hinting - do not actually use this package in a regular system
 pkgname = "freetype-bootstrap"
-pkgver = "2.11.0"
+pkgver = "2.12.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(NONGNU_SITE)/freetype/freetype-{pkgver}.tar.xz"
-sha256 = "8bee39bd3968c4804b70614a0a3ad597299ad0e824bc8aad5ce8aaf48067bde7"
+sha256 = "ef5c336aacc1a079ff9262d6308d6c2a066dd4d2a905301c4adda9b354399033"
 options = ["!lto", "!scanshlibs"]
 
 def post_install(self):
