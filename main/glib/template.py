@@ -1,19 +1,17 @@
 pkgname = "glib"
-pkgver = "2.70.1"
+pkgver = "2.72.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dfam=false", "-Dman=true", "-Dgtk_doc=true", "-Dselinux=disabled",
+    "-Dfam=false", "-Dgtk_doc=false", "-Dman=true", "-Dselinux=disabled",
 ]
 hostmakedepends = [
     "meson", "gettext-tiny", "pkgconf", "docbook-xsl-nons", "xsltproc",
-    "gtk-doc-tools"
 ]
 makedepends = [
     "zlib-devel", "pcre-devel", "libffi-devel", "dbus-devel",
     "elftoolchain-devel", "libmount-devel",
 ]
-# not yet all available
 checkdepends = [
     "desktop-file-utils", "shared-mime-info", "dbus", "python-pytest"
 ]
@@ -23,9 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f9b7bce7f51753a1f43853bbcaca8bf09e15e994268e29cfd7a76f65636263c0"
-# missing checkdepends
-options = ["!check"]
+sha256 = "d7bef0d4c4e7a62e08efb8e5f252a01357007b9588a87ff2b463a3857011f79d"
 
 def do_check(self):
     self.do("dbus-run-session", "ninja", "-C", "build", "test")
