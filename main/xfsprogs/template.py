@@ -1,5 +1,5 @@
 pkgname = "xfsprogs"
-pkgver = "5.13.0"
+pkgver = "5.14.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -14,14 +14,14 @@ make_install_args = ["-j1", "install-dev"]
 hostmakedepends = ["gettext-tiny", "libuuid-devel", "pkgconf", "gmake"]
 makedepends = [
     "gettext-tiny-devel", "libblkid-devel", "libedit-devel", "inih-devel",
-    "linux-headers",
+    "userspace-rcu-devel", "linux-headers",
 ]
 pkgdesc = "XFS file system utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4e142d4babe086adf9016d8c606c805829da08e46389a4433f40346204f90cdb"
+sha256 = "01ccd3ef9df2837753a5d876b8da84ea957d13d7a461b8c46e8afa4eb09aabc8"
 # no check target
 options = ["!check"]
 
