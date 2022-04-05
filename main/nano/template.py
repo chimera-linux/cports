@@ -1,5 +1,5 @@
 pkgname = "nano"
-pkgver = "5.9"
+pkgver = "6.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-utf8"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.nano-editor.org"
 source = f"https://www.nano-editor.org/dist/v{pkgver[0]}/nano-{pkgver}.tar.xz"
-sha256 = "757db8cda4bb2873599e47783af463e3b547a627b0cabb30ea7bf71fb4c24937"
+sha256 = "2bca1804bead6aaf4ad791f756e4749bb55ed860eec105a97fba864bc6a77cb3"
 
 def post_install(self):
     self.install_file("syntax/nanorc.nanorc", "usr/share/examples/nano")
