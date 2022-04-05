@@ -1,5 +1,5 @@
 pkgname = "adwaita-icon-theme"
-pkgver = "41.0"
+pkgver = "42.0"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -9,4 +9,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later OR CC-BY-SA-3.0"
 url = f"https://gitlab.gnome.org/GNOME/adwaita-icon-theme"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ef5339d8c35fcad5d10481b70480803f0fa20b3d3cbc339238fcaceeaee01eba"
+sha256 = "5e85b5adc8dee666900fcaf271ba717f7dcb9d0a03d96dae08f9cbd27e18b1e0"
