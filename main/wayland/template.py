@@ -1,5 +1,5 @@
 pkgname = "wayland"
-pkgver = "1.19.0"
+pkgver = "1.20.0"
 pkgrel = 0
 build_style = "meson"
 # "Tests must not be built with NDEBUG defined, they rely on assert()."
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "baccd902300d354581cd5ad3cc49daa4921d55fb416a5883e218750fef166d15"
+sha256 = "b8a034154c7059772e0fdbd27dbfcda6c732df29cae56a82274f6ec5d7cd8725"
 
 if self.profile().cross:
     hostmakedepends += ["wayland-progs"]
