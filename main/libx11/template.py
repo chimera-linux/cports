@@ -1,5 +1,5 @@
 pkgname = "libx11"
-pkgver = "1.7.2"
+pkgver = "1.7.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,8 +15,8 @@ pkgdesc = "Base X libraries from Xorg"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libX11-{pkgver}.tar.bz2"
-sha256 = "1cfa35e37aaabbe4792e9bb690468efefbfbf6b147d9c69d6f90d13c3092ea6c"
+source = f"$(XORG_SITE)/lib/libX11-{pkgver}.tar.gz"
+sha256 = "78992abcd2bfdebe657699203ad8914e7ae77025175460e04a1045387192a978"
 # broken for now
 options = ["!cross"]
 
