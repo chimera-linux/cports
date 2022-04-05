@@ -1,5 +1,5 @@
 pkgname = "alsa-lib"
-pkgver = "1.2.6"
+pkgver = "1.2.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
 # build a stripped down alsa lib; things should never use it directly other
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
 source = f"{url}/files/pub/lib/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "7fe3057894ec319118abfd042ef84632a1dcd911806ec9fff6daaa68d15a8c52"
+sha256 = "ad582993d52cdb5fb159a0beab60a6ac57eab0cc1bdf85dc4db6d6197f02333f"
 # tests require stuff we disable
 options = ["!check"]
 
