@@ -1,5 +1,5 @@
 pkgname = "opendoas"
-pkgver = "6.8.1"
+pkgver = "6.8.2"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--with-pam", "--with-timestamp", "--prefix=/usr"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC AND BSD-3-Clause"
 url = "https://github.com/Duncaen/OpenDoas"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "c9070ae745d0f1bbe68ef0783a3958cd011b409959f65fd100e6b42b8ad6b162"
+sha256 = "6da058a0e70b7543bc60624389b0b00b686189ec933828c522bf8b2600495a67"
 suid_files = ["usr/bin/doas"]
 # no test suite
 options = ["!check"]
