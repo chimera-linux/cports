@@ -1,5 +1,5 @@
 pkgname = "libepoxy"
-pkgver = "1.5.9"
+pkgver = "1.5.10"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "xorg-util-macros"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/anholt/libepoxy"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "ee8048d20179a2e86156ac842ddb6428732d9cd7a2cfc2eca905165bf24887a2"
+sha256 = "a7ced37f4102b745ac86d6a70a9da399cc139ff168ba6b8002b4d8d43c900c15"
 
 def post_install(self):
     self.install_license("COPYING")
