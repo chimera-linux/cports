@@ -1,5 +1,5 @@
 pkgname = "libbluray"
-pkgver = "1.3.0"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-optimizations", "--disable-bdjava-jar"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.videolan.org/developers/libbluray.html"
 source = f"https://download.videolan.org/pub/videolan/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "e2dbaf99e84e0a9725f4985bcb85d41e52c2261cc651d8884b1b790b5ef016f9"
+sha256 = "c24b0f41c5b737bbb65c544fe63495637a771c10a519dfc802e769f112b43b75"
 
 @subpackage("libbluray-devel")
 def _devel(self):
