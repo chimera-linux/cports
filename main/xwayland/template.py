@@ -1,5 +1,5 @@
 pkgname = "xwayland"
-pkgver = "21.1.4"
+pkgver = "22.1.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -10,9 +10,9 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
 makedepends = [
     "libxfont2-devel", "libxkbfile-devel", "libxshmfence-devel",
-    "libxcb-devel", "wayland-devel", "wayland-protocols", "libtirpc-devel",
-    "mesa-devel", "libepoxy-devel", "pixman-devel", "nettle-devel",
-    "dbus-devel", "font-util-devel", "xorgproto", "xtrans",
+    "libxcb-devel", "libxcvt-devel", "wayland-devel", "wayland-protocols",
+    "libtirpc-devel", "mesa-devel", "libepoxy-devel", "pixman-devel",
+    "nettle-devel", "dbus-devel", "font-util-devel", "xorgproto", "xtrans",
 ]
 # check if this needs to be updated when updating
 depends = ["xserver-xorg-protocol>=20180227"]
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/{pkgname}-{pkgver}/xserver-{pkgname}-{pkgver}.tar.gz"
-sha256 = "4ab75ed551d5eb66beabe91c29e9a6b75dc828ac20c205983cd0dcbce0fd6348"
+sha256 = "42837e7b90e0d92aff4d7846f0609f8d3c0c6641bdd6add6e4e0c5c214371149"
 # needs xtest repository
 options = ["!check"]
 
