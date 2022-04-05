@@ -1,5 +1,5 @@
 pkgname = "gtk+3"
-pkgver = "3.24.30"
+pkgver = "3.24.33"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -36,7 +36,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
-sha256 = "ba75bfff320ad1f4cfbee92ba813ec336322cc3c660d406aad014b07087a3ba9"
+sha256 = "588b06522e25d1579e989b6f9d8a1bdbf2fe13cde01a04e904ff346a225e7801"
+options = ["!cross"]
 
 @subpackage("gtk-update-icon-cache")
 def _uic(self):
