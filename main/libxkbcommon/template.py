@@ -1,5 +1,5 @@
 pkgname = "libxkbcommon"
-pkgver = "1.3.1"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/{pkgname}/archive/xkbcommon-{pkgver}.tar.gz"
-sha256 = "8eda6782c6ed4b83296521f2f7e6bea88aba76d49c39fb4fce0f8d355a9181ce"
+sha256 = "51b5a732d6d6976da9d52b8f136850c193c68a31a9bdf28965a81cf8e62e919e"
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -38,8 +38,6 @@ def _registry(self):
 
 @subpackage("libxkbcommon-devel")
 def _devel(self):
-    self.depends += ["libxcb-devel"]
-
     return self.default_devel()
 
 @subpackage("libxkbcommon-progs")
