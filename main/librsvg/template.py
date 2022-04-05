@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.52.5"
+pkgver = "2.54.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,7 +8,7 @@ configure_args = [
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake", "pkgconf", "cargo", "python", "gobject-introspection",
-    "glib-devel", "gdk-pixbuf-devel", "vala"
+    "glib-devel", "gdk-pixbuf-devel", "vala", "python-docutils",
 ]
 makedepends = [
     "rust", "vala-devel", "cairo-devel", "pango-devel", "freetype-devel",
@@ -20,9 +20,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "407cbbab518137ea18a3f3220bea180fbee75f3e5bd6ba10a7a862c1a6f74d82"
+sha256 = "baf8ebc147f146b4261bb3d0cd0fac944bf8dbb4b1f2347d23341f974dcc3085"
 # sample files may differ based on pango/freetype/harfbuzz version
-options = ["!check"]
+options = ["!check", "!cross"]
 
 def post_patch(self):
     from cbuild.util import cargo

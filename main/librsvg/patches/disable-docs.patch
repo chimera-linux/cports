@@ -1,0 +1,35 @@
+commit 2c4eb297abea31d152d60abea414eb1e89995d9d
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Apr 5 05:02:41 2022 +0200
+
+    i don't care
+
+diff --git a/Makefile.in b/Makefile.in
+index 36d4d4e..156a35f 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -483,7 +483,7 @@ target_alias = @target_alias@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-SUBDIRS = . gdk-pixbuf-loader tests doc win32
++SUBDIRS = . gdk-pixbuf-loader tests win32
+ NULL = 
+ lib_LTLIBRARIES = librsvg-@RSVG_API_MAJOR_VERSION@.la
+ noinst_LTLIBRARIES = librsvg_c_api.la
+diff --git a/configure b/configure
+index 3e1955b..f9216d4 100755
+--- a/configure
++++ b/configure
+@@ -13607,11 +13607,6 @@ else
+   GI_DOCGEN="$ac_cv_prog_GI_DOCGEN"
+ fi
+ 
+-if test x$GI_DOCGEN = xno; then :
+-  as_fn_error $? "gi-docgen is required.  Please install it." "$LINENO" 5
+-
+-fi
+-
+ 
+ #AC_CANONICAL_HOST
+ 
