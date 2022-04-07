@@ -1,5 +1,5 @@
 pkgname = "musl-cross"
-pkgver = "1.2.2"
+pkgver = "1.2.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
 source = f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz"
-sha256 = "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
+sha256 = "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4"
 # segfaults otherwise
 hardening = ["!scp"]
 # crosstoolchain

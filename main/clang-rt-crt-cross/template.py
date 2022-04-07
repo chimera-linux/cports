@@ -1,5 +1,5 @@
 pkgname = "clang-rt-crt-cross"
-_musl_ver = "1.2.2"
+_musl_ver = "1.2.3"
 pkgver = "14.0.0"
 pkgrel = 0
 build_wrksrc = f"llvm-project-{pkgver}.src"
@@ -46,7 +46,7 @@ source = [
 ]
 sha256 = [
     "35ce9edbc8f774fe07c8f4acdf89ec8ac695c8016c165dd86b8d10e7cba07e23",
-    "9b969322012d796dc23dda27a35866034fa67d8fb67e0e2c45c913c3d43219dd"
+    "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4"
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
 # crosstoolchain
