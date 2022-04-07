@@ -11,11 +11,11 @@ diff --git a/meson.build b/meson.build
 index bd54e78..eafdfad 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -1339,11 +1339,6 @@ elif host_machine.cpu_family() == 'sparc64'
+@@ -1346,11 +1346,6 @@ elif host_machine.cpu_family() == 'sparc64'
      with_asm_arch = 'sparc'
      pre_args += ['-DUSE_SPARC_ASM']
    endif
--elif host_machine.cpu_family().startswith('ppc64') and host_machine.endian() == 'little'
+-elif host_machine.cpu_family() == 'ppc64' and host_machine.endian() == 'little'
 -  if system_has_kms_drm
 -    with_asm_arch = 'ppc64le'
 -    pre_args += ['-DUSE_PPC64LE_ASM']

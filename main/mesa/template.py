@@ -1,11 +1,10 @@
 pkgname = "mesa"
-pkgver = "21.3.0"
+pkgver = "22.0.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
     "-Dosmesa=true",
-    "-Duse-elf-tls=false",
     "-Dgbm=enabled",
     "-Degl=enabled",
     "-Dgles1=enabled",
@@ -48,7 +47,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a2753c09deef0ba14d35ae8a2ceff3fe5cd13698928c7bb62c2ec8736eb09ce1"
+sha256 = "c05f9682c54560b36e0afa70896233fc73f1ed715e10d1a028b0eb84fd04426f"
 # cba to deal with cross patching nonsense
 options = ["!cross"]
 
@@ -90,7 +89,7 @@ match self.profile().arch:
         configure_args += ["-Dpower8=false"]
 
 _have_opencl = _have_amd or _have_intel
-_have_vulkan = _have_amd or _have_intel
+_have_vulkan = _have_amd or _have_intel or _have_arm
 _have_zink = _have_vulkan
 
 if _have_amd:
@@ -112,6 +111,8 @@ if _have_arm:
     _gallium_drivers += [
         "kmsro", "v3d", "vc4", "freedreno", "etnaviv", "lima", "panfrost"
     ]
+    if _have_vulkan:
+        _vulkan_drivers += ["broadcom"]
 
 if _have_virgl:
     _gallium_drivers += ["virgl"]
@@ -153,7 +154,6 @@ if _have_zink:
 
 configure_args += ["-Dgallium-drivers=" + ",".join(_gallium_drivers)]
 configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
-configure_args += ["-Ddri-drivers="]
 
 def post_install(self):
     self.install_license("docs/license.rst")
