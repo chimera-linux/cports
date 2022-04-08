@@ -1,19 +1,22 @@
-From d29ca67d88249c5375c4c1fa6419ebf596cc85a5 Mon Sep 17 00:00:00 2001
+Updated to work against the release.
+
+From 0219a94d8914c54ec524820d15f0f08c21e9e17d Mon Sep 17 00:00:00 2001
 From: Milan Crha <mcrha@redhat.com>
 Date: Tue, 9 Nov 2021 17:48:03 +0100
 Subject: [PATCH] M!85 - Port to libsoup3
 
 Closes https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/85
 ---
- CMakeLists.txt                                |   61 +-
- config.h.in                                   |    3 -
+ CMakeLists.txt                                |   68 +-
+ config.h.in                                   |    6 -
  .../evolution-data-server-docs.sgml.in        |    1 -
  .../backends/carddav/e-book-backend-carddav.c |  151 +--
  .../libedata-book/e-book-meta-backend.c       |   22 +-
  .../backends/caldav/e-cal-backend-caldav.c    |  189 ++-
  .../contacts/e-cal-backend-contacts.c         |    2 +-
  .../backends/http/e-cal-backend-http.c        |  132 +-
- .../backends/weather/e-weather-source.c       |   32 +-
+ .../backends/weather/e-cal-backend-weather.c  |    8 -
+ .../backends/weather/e-weather-source.c       |   46 +-
  .../webdav-notes/e-cal-backend-webdav-notes.c |   81 +-
  src/calendar/libecal/CMakeLists.txt           |    2 +-
  src/calendar/libedata-cal/CMakeLists.txt      |    2 +-
@@ -43,7 +46,7 @@ Closes https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/85
  src/libedataserver/e-source-webdav.h          |    6 +-
  src/libedataserver/e-source.c                 |    2 +-
  src/libedataserver/e-webdav-discover.c        |   65 +-
- src/libedataserver/e-webdav-session.c         |  846 +++++--------
+ src/libedataserver/e-webdav-session.c         |  853 +++++--------
  src/libedataserver/e-webdav-session.h         |   36 +-
  src/libedataserver/libedataserver.h           |    2 -
  src/libedataserver/libedataserver.pc.in       |    2 +-
@@ -56,17 +59,17 @@ Closes https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/85
  .../module-gnome-online-accounts.c            |    8 +-
  ...volution-source-registry-migrate-sources.c |  120 +-
  src/vala/CMakeLists.txt                       |   16 +-
- 51 files changed, 1866 insertions(+), 3023 deletions(-)
+ 52 files changed, 1870 insertions(+), 3058 deletions(-)
  delete mode 100644 src/libedataserver/e-proxy.c
  delete mode 100644 src/libedataserver/e-proxy.h
  delete mode 100644 src/libedataserver/e-soup-logger.c
  delete mode 100644 src/libedataserver/e-soup-logger.h
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 73f76f8c2..c7a57a1e8 100644
+index f84bcb455..5d4cea8c0 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -52,49 +52,49 @@ set(LIBCAMEL_CURRENT 63)
+@@ -52,49 +52,49 @@ set(LIBCAMEL_CURRENT 64)
  set(LIBCAMEL_REVISION 0)
  set(LIBCAMEL_AGE 0)
  
@@ -128,12 +131,13 @@ index 73f76f8c2..c7a57a1e8 100644
  
  # Warn about API usage that violates our minimum requirements.
  add_definitions(-DGLIB_VERSION_MAX_ALLOWED=${glib_encoded_version})
-@@ -118,11 +118,11 @@ set(sqlite_minimum_version 3.7.17)
+@@ -118,12 +118,11 @@ set(sqlite_minimum_version 3.7.17)
  
  # Optional Packages
  set(goa_minimum_version 3.8)
 -set(gweather_minimum_version 3.10)
-+set(gweather_minimum_version 3.90)
+-set(gweather4_minimum_version 3.91.0)
++set(gweather_minimum_version 3.91)
  set(libaccounts_glib_minimum_version 1.4)
  set(libsignon_glib_minimum_version 1.8)
  set(json_glib_minimum_version 1.0.4)
@@ -142,7 +146,7 @@ index 73f76f8c2..c7a57a1e8 100644
  set(libcanberra_gtk_minimum_version 0.25)
  
  # Load modules from the source tree
-@@ -341,7 +341,7 @@ pkg_check_modules(GNOME_PLATFORM REQUIRED
+@@ -342,7 +341,7 @@ pkg_check_modules(GNOME_PLATFORM REQUIRED
  	gio-2.0>=${glib_minimum_version}
  	gmodule-2.0>=${glib_minimum_version}
  	libxml-2.0>=${libxml_minimum_version}
@@ -151,7 +155,7 @@ index 73f76f8c2..c7a57a1e8 100644
  )
  
  if(WIN32)
-@@ -403,7 +403,7 @@ if(ENABLE_OAUTH2)
+@@ -404,7 +404,7 @@ if(ENABLE_OAUTH2)
  	)
  
  	pkg_check_modules_for_option(ENABLE_OAUTH2 "OAuth2 authentication support" OAUTH2_WEBKIT2GTK
@@ -160,13 +164,19 @@ index 73f76f8c2..c7a57a1e8 100644
  	)
  
  	add_printable_variable(WITH_GOOGLE_CLIENT_ID "Google OAuth 2.0 client id" "")
-@@ -755,20 +755,13 @@ endif(NOT have_addrinfo)
+@@ -754,26 +753,13 @@ endif(NOT have_addrinfo)
  add_printable_option(ENABLE_WEATHER "Build the weather calendar backend" ON)
  
  if(ENABLE_WEATHER)
--	pkg_check_modules_for_option(ENABLE_WEATHER "weather calendar backend" LIBGWEATHER gweather-3.0>=${gweather_minimum_version})
+-	add_printable_variable(WITH_GWEATHER4 "Use GWeather 4 instead of 3" OFF)
 +	pkg_check_modules_for_option(ENABLE_WEATHER "weather calendar backend" LIBGWEATHER gweather4>=${gweather_minimum_version})
  
+-	if(WITH_GWEATHER4)
+-		pkg_check_modules_for_option(ENABLE_WEATHER "weather calendar backend" LIBGWEATHER gweather4>=${gweather4_minimum_version})
+-	else(WITH_GWEATHER4)
+-		pkg_check_modules_for_option(ENABLE_WEATHER "weather calendar backend" LIBGWEATHER gweather-3.0>=${gweather_minimum_version})
+-	endif(WITH_GWEATHER4)
+-
 -	set(CMAKE_REQUIRED_INCLUDES ${LIBGWEATHER_INCLUDE_DIRS})
 -	set(CMAKE_REQUIRED_LIBRARIES ${LIBGWEATHER_LDFLAGS})
 -	CHECK_C_SOURCE_COMPILES("#define GWEATHER_I_KNOW_THIS_IS_UNSTABLE
@@ -187,7 +197,7 @@ index 73f76f8c2..c7a57a1e8 100644
  endif(ENABLE_WEATHER)
  
  # ************************************************
-@@ -930,14 +923,14 @@ unset(CMAKE_REQUIRED_LIBRARIES)
+@@ -935,14 +921,14 @@ unset(CMAKE_REQUIRED_LIBRARIES)
  # subparts flags
  # ******************************
  
@@ -208,15 +218,18 @@ index 73f76f8c2..c7a57a1e8 100644
  set(ADDRESSBOOK_INCLUDE_DIRS ${ADDRESSBOOK_INCLUDE_DIRS} ${PHONENUMBER_INCLUDE_DIRS})
  set(ADDRESSBOOK_LDFLAGS ${ADDRESSBOOK_LDFLAGS} ${PHONENUMBER_LDFLAGS})
 diff --git a/config.h.in b/config.h.in
-index 4e79549ab..0060789ee 100644
+index 0ec3eaa71..62743fb23 100644
 --- a/config.h.in
 +++ b/config.h.in
-@@ -194,9 +194,6 @@
+@@ -194,12 +194,6 @@
  #define O_LARGEFILE 0
  #endif /* HAVE_O_LARGEFILE */
  
 -/* gweather_info_new() has only one argument */
 -#cmakedefine HAVE_ONE_ARG_GWEATHER_INFO_NEW 1
+-
+-/* Defined when linking against gweather4. Cannot just use GWEATHER_CHECK_VERSION because 40.0 made the versions non-monotonic. */
+-#cmakedefine WITH_GWEATHER4 1
 -
  /* evolution-alarm-notify - Define if using Canberra-GTK for sound */
  #cmakedefine HAVE_CANBERRA 1
@@ -627,7 +640,7 @@ index 05e9c1b5c..d9c5253ad 100644
  
  		/* Pretend success when using the serer version on conflict,
 diff --git a/src/addressbook/libedata-book/e-book-meta-backend.c b/src/addressbook/libedata-book/e-book-meta-backend.c
-index a8029ab41..059acaa9e 100644
+index fee3aa92d..cfd21d18d 100644
 --- a/src/addressbook/libedata-book/e-book-meta-backend.c
 +++ b/src/addressbook/libedata-book/e-book-meta-backend.c
 @@ -90,7 +90,7 @@ struct _EBookMetaBackendPrivate {
@@ -692,7 +705,7 @@ index a8029ab41..059acaa9e 100644
  	g_mutex_clear (&meta_backend->priv->connect_lock);
  	g_mutex_clear (&meta_backend->priv->property_lock);
 diff --git a/src/calendar/backends/caldav/e-cal-backend-caldav.c b/src/calendar/backends/caldav/e-cal-backend-caldav.c
-index 4861476ff..bcd83cda7 100644
+index c8aeb8205..cd3969d67 100644
 --- a/src/calendar/backends/caldav/e-cal-backend-caldav.c
 +++ b/src/calendar/backends/caldav/e-cal-backend-caldav.c
 @@ -85,7 +85,7 @@ static void
@@ -755,8 +768,8 @@ index 4861476ff..bcd83cda7 100644
 +		parsed_uri = e_source_webdav_dup_uri (webdav_extension);
  
  		cbdav->priv->calendar_schedule = e_cal_backend_get_kind (E_CAL_BACKEND (cbdav)) != I_CAL_VJOURNAL_COMPONENT &&
- 			capabilities && g_hash_table_contains (capabilities, E_WEBDAV_CAPABILITY_CALENDAR_SCHEDULE);
-@@ -211,7 +211,7 @@ ecb_caldav_connect_sync (ECalMetaBackend *meta_backend,
+ 			(!capabilities || g_hash_table_contains (capabilities, E_WEBDAV_CAPABILITY_CALENDAR_AUTO_SCHEDULE) ||
+@@ -212,7 +212,7 @@ ecb_caldav_connect_sync (ECalMetaBackend *meta_backend,
  		} else {
  			gchar *uri;
  
@@ -765,7 +778,7 @@ index 4861476ff..bcd83cda7 100644
  
  			success = FALSE;
  			g_set_error (&local_error, G_IO_ERROR, G_IO_ERROR_INVALID_DATA,
-@@ -222,7 +222,7 @@ ecb_caldav_connect_sync (ECalMetaBackend *meta_backend,
+@@ -223,7 +223,7 @@ ecb_caldav_connect_sync (ECalMetaBackend *meta_backend,
  			e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_DISCONNECTED);
  		}
  
@@ -774,7 +787,7 @@ index 4861476ff..bcd83cda7 100644
  	}
  
  	if (success) {
-@@ -235,33 +235,28 @@ ecb_caldav_connect_sync (ECalMetaBackend *meta_backend,
+@@ -236,33 +236,28 @@ ecb_caldav_connect_sync (ECalMetaBackend *meta_backend,
  		   The 'getctag' extension is not required, thus check
  		   for unauthorized error only. */
  		if (!e_webdav_session_getctag_sync (webdav, NULL, &ctag, cancellable, &local_error) &&
@@ -813,7 +826,7 @@ index 4861476ff..bcd83cda7 100644
  			if (credentials_empty)
  				*out_auth_result = E_SOURCE_AUTHENTICATION_REQUIRED;
  			else
-@@ -280,7 +275,7 @@ ecb_caldav_connect_sync (ECalMetaBackend *meta_backend,
+@@ -281,7 +276,7 @@ ecb_caldav_connect_sync (ECalMetaBackend *meta_backend,
  			local_error = NULL;
  		}
  
@@ -822,7 +835,7 @@ index 4861476ff..bcd83cda7 100644
  			*out_auth_result = E_SOURCE_AUTHENTICATION_ERROR_SSL_FAILED;
  
  			e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_SSL_FAILED);
-@@ -417,7 +412,7 @@ typedef struct _MultigetData {
+@@ -418,7 +413,7 @@ typedef struct _MultigetData {
  static gboolean
  ecb_caldav_multiget_response_cb (EWebDAVSession *webdav,
  				 xmlNodePtr prop_node,
@@ -831,7 +844,7 @@ index 4861476ff..bcd83cda7 100644
  				 const gchar *href,
  				 guint status_code,
  				 gpointer user_data)
-@@ -568,49 +563,33 @@ ecb_caldav_multiget_from_sets_sync (ECalBackendCalDAV *cbdav,
+@@ -569,49 +564,33 @@ ecb_caldav_multiget_from_sets_sync (ECalBackendCalDAV *cbdav,
  			/* iCloud returns '@' escaped as "%40", but it doesn't accept it in GET,
  			   thus try to unescape it, together with some other characters */
  			if (nfo->extra && strchr (nfo->extra, '%')) {
@@ -895,7 +908,7 @@ index 4861476ff..bcd83cda7 100644
  
  					if (success) {
  						/* Remember the corrected URI */
-@@ -626,9 +605,9 @@ ecb_caldav_multiget_from_sets_sync (ECalBackendCalDAV *cbdav,
+@@ -627,9 +606,9 @@ ecb_caldav_multiget_from_sets_sync (ECalBackendCalDAV *cbdav,
  			if (!success) {
  				GError *local_error = NULL;
  
@@ -907,7 +920,7 @@ index 4861476ff..bcd83cda7 100644
  					if (out_removed_objects)
  						*out_removed_objects = g_slist_prepend (*out_removed_objects, nfo);
  					else
-@@ -658,13 +637,24 @@ ecb_caldav_multiget_from_sets_sync (ECalBackendCalDAV *cbdav,
+@@ -659,13 +638,24 @@ ecb_caldav_multiget_from_sets_sync (ECalBackendCalDAV *cbdav,
  			if (!success)
  				break;
  		} else {
@@ -936,7 +949,7 @@ index 4861476ff..bcd83cda7 100644
  			}
  
  			e_xml_document_start_element (xml, E_WEBDAV_NS_DAV, "href");
-@@ -696,7 +686,7 @@ ecb_caldav_multiget_from_sets_sync (ECalBackendCalDAV *cbdav,
+@@ -697,7 +687,7 @@ ecb_caldav_multiget_from_sets_sync (ECalBackendCalDAV *cbdav,
  static gboolean
  ecb_caldav_get_calendar_items_cb (EWebDAVSession *webdav,
  				  xmlNodePtr prop_node,
@@ -945,7 +958,7 @@ index 4861476ff..bcd83cda7 100644
  				  const gchar *href,
  				  guint status_code,
  				  gpointer user_data)
-@@ -715,7 +705,7 @@ ecb_caldav_get_calendar_items_cb (EWebDAVSession *webdav,
+@@ -716,7 +706,7 @@ ecb_caldav_get_calendar_items_cb (EWebDAVSession *webdav,
  
  	/* Skip collection resource, if returned by the server (like iCloud.com does) */
  	if (g_str_has_suffix (href, "/") ||
@@ -954,7 +967,7 @@ index 4861476ff..bcd83cda7 100644
  		return TRUE;
  
  	etag = e_webdav_session_util_maybe_dequote (g_strdup ((const gchar *) e_xml_find_child_and_get_text (prop_node, E_WEBDAV_NS_DAV, "getetag")));
-@@ -791,12 +781,12 @@ ecb_caldav_check_credentials_error (ECalBackendCalDAV *cbdav,
+@@ -792,12 +782,12 @@ ecb_caldav_check_credentials_error (ECalBackendCalDAV *cbdav,
  {
  	g_return_if_fail (E_IS_CAL_BACKEND_CALDAV (cbdav));
  
@@ -971,7 +984,7 @@ index 4861476ff..bcd83cda7 100644
  
  		op_error->domain = E_CLIENT_ERROR;
  		op_error->code = E_CLIENT_ERROR_AUTHENTICATION_REQUIRED;
-@@ -1035,7 +1025,7 @@ ecb_caldav_get_changes_sync (ECalMetaBackend *meta_backend,
+@@ -1036,7 +1026,7 @@ ecb_caldav_get_changes_sync (ECalMetaBackend *meta_backend,
  static gboolean
  ecb_caldav_extract_existing_cb (EWebDAVSession *webdav,
  				xmlNodePtr prop_node,
@@ -980,7 +993,7 @@ index 4861476ff..bcd83cda7 100644
  				const gchar *href,
  				guint status_code,
  				gpointer user_data)
-@@ -1174,15 +1164,15 @@ ecb_caldav_uid_to_uri (ECalBackendCalDAV *cbdav,
+@@ -1175,15 +1165,15 @@ ecb_caldav_uid_to_uri (ECalBackendCalDAV *cbdav,
  		       const gchar *extension)
  {
  	ESourceWebdav *webdav_extension;
@@ -999,7 +1012,7 @@ index 4861476ff..bcd83cda7 100644
  
  	/* UIDs with forward slashes can cause trouble, because the destination server can
  	   consider them as a path delimiter. Double-encode the URL doesn't always work,
-@@ -1196,29 +1186,28 @@ ecb_caldav_uid_to_uri (ECalBackendCalDAV *cbdav,
+@@ -1197,29 +1187,28 @@ ecb_caldav_uid_to_uri (ECalBackendCalDAV *cbdav,
  
  	if (extension) {
  		tmp = g_strconcat (uid, extension, NULL);
@@ -1038,7 +1051,7 @@ index 4861476ff..bcd83cda7 100644
  	g_free (filename);
  	g_free (uid_hash);
  
-@@ -1297,7 +1286,7 @@ ecb_caldav_load_component_sync (ECalMetaBackend *meta_backend,
+@@ -1298,7 +1287,7 @@ ecb_caldav_load_component_sync (ECalMetaBackend *meta_backend,
  	if (extra && *extra) {
  		uri = g_strdup (extra);
  
@@ -1047,7 +1060,7 @@ index 4861476ff..bcd83cda7 100644
  
  		if (!success) {
  			g_free (uri);
-@@ -1337,19 +1326,19 @@ ecb_caldav_load_component_sync (ECalMetaBackend *meta_backend,
+@@ -1338,19 +1327,19 @@ ecb_caldav_load_component_sync (ECalMetaBackend *meta_backend,
  
  		g_clear_error (&local_error);
  
@@ -1070,7 +1083,7 @@ index 4861476ff..bcd83cda7 100644
  			}
  		}
  	}
-@@ -1391,7 +1380,7 @@ ecb_caldav_load_component_sync (ECalMetaBackend *meta_backend,
+@@ -1392,7 +1381,7 @@ ecb_caldav_load_component_sync (ECalMetaBackend *meta_backend,
  	if (local_error) {
  		ecb_caldav_check_credentials_error (cbdav, webdav, local_error);
  
@@ -1079,7 +1092,7 @@ index 4861476ff..bcd83cda7 100644
  			local_error->domain = E_CAL_CLIENT_ERROR;
  			local_error->code = E_CAL_CLIENT_ERROR_OBJECT_NOT_FOUND;
  		}
-@@ -1477,7 +1466,7 @@ ecb_caldav_save_component_sync (ECalMetaBackend *meta_backend,
+@@ -1478,7 +1467,7 @@ ecb_caldav_save_component_sync (ECalMetaBackend *meta_backend,
  
  		success = e_webdav_session_put_data_sync (webdav, (extra && *extra) ? extra : href,
  			force_write ? "" : overwrite_existing ? etag : NULL, E_WEBDAV_CONTENT_TYPE_CALENDAR,
@@ -1088,7 +1101,7 @@ index 4861476ff..bcd83cda7 100644
  
  		if (success) {
  			/* Only if both are returned and it's not a weak ETag */
-@@ -1522,7 +1511,7 @@ ecb_caldav_save_component_sync (ECalMetaBackend *meta_backend,
+@@ -1523,7 +1512,7 @@ ecb_caldav_save_component_sync (ECalMetaBackend *meta_backend,
  	g_free (etag);
  	g_free (uid);
  
@@ -1097,7 +1110,7 @@ index 4861476ff..bcd83cda7 100644
  		g_clear_error (&local_error);
  
  		/* Pretend success when using the serer version on conflict,
-@@ -1585,7 +1574,7 @@ ecb_caldav_remove_component_sync (ECalMetaBackend *meta_backend,
+@@ -1586,7 +1575,7 @@ ecb_caldav_remove_component_sync (ECalMetaBackend *meta_backend,
  	success = e_webdav_session_delete_sync (webdav, extra,
  		NULL, etag, cancellable, &local_error);
  
@@ -1106,7 +1119,7 @@ index 4861476ff..bcd83cda7 100644
  		gchar *href;
  
  		href = ecb_caldav_uid_to_uri (cbdav, uid, ".ics");
-@@ -1597,7 +1586,7 @@ ecb_caldav_remove_component_sync (ECalMetaBackend *meta_backend,
+@@ -1598,7 +1587,7 @@ ecb_caldav_remove_component_sync (ECalMetaBackend *meta_backend,
  			g_free (href);
  		}
  
@@ -1115,7 +1128,7 @@ index 4861476ff..bcd83cda7 100644
  			href = ecb_caldav_uid_to_uri (cbdav, uid, NULL);
  			if (href) {
  				g_clear_error (&local_error);
-@@ -1614,10 +1603,10 @@ ecb_caldav_remove_component_sync (ECalMetaBackend *meta_backend,
+@@ -1615,10 +1604,10 @@ ecb_caldav_remove_component_sync (ECalMetaBackend *meta_backend,
  
  	/* Ignore not found errors, this was a delete and the resource is gone.
  	   It can be that it had been deleted on the server by other application. */
@@ -1128,7 +1141,7 @@ index 4861476ff..bcd83cda7 100644
  		g_clear_error (&local_error);
  
  		/* Pretend success when using the serer version on conflict,
-@@ -1664,7 +1653,7 @@ ecb_caldav_get_ssl_error_details (ECalMetaBackend *meta_backend,
+@@ -1665,7 +1654,7 @@ ecb_caldav_get_ssl_error_details (ECalMetaBackend *meta_backend,
  
  static gboolean
  ecb_caldav_dup_href_node_value (EWebDAVSession *webdav,
@@ -1137,7 +1150,7 @@ index 4861476ff..bcd83cda7 100644
  				xmlNodePtr from_node,
  				const gchar *parent_ns_href,
  				const gchar *parent_name,
-@@ -1697,7 +1686,7 @@ ecb_caldav_dup_href_node_value (EWebDAVSession *webdav,
+@@ -1698,7 +1687,7 @@ ecb_caldav_dup_href_node_value (EWebDAVSession *webdav,
  static gboolean
  ecb_caldav_propfind_get_owner_cb (EWebDAVSession *webdav,
  				  xmlNodePtr prop_node,
@@ -1146,7 +1159,7 @@ index 4861476ff..bcd83cda7 100644
  				  const gchar *href,
  				  guint status_code,
  				  gpointer user_data)
-@@ -1718,7 +1707,7 @@ ecb_caldav_propfind_get_owner_cb (EWebDAVSession *webdav,
+@@ -1719,7 +1708,7 @@ ecb_caldav_propfind_get_owner_cb (EWebDAVSession *webdav,
  static gboolean
  ecb_caldav_propfind_get_schedule_outbox_url_cb (EWebDAVSession *webdav,
  						xmlNodePtr prop_node,
@@ -1155,7 +1168,7 @@ index 4861476ff..bcd83cda7 100644
  						const gchar *href,
  						guint status_code,
  						gpointer user_data)
-@@ -2011,8 +2000,8 @@ ecb_caldav_get_free_busy_from_schedule_outbox_sync (ECalBackendCalDAV *cbdav,
+@@ -2012,8 +2001,8 @@ ecb_caldav_get_free_busy_from_schedule_outbox_sync (ECalBackendCalDAV *cbdav,
  
  	webdav = ecb_caldav_ref_session (cbdav);
  
@@ -1500,11 +1513,51 @@ index bfe9b4554..34ba531e5 100644
  	g_clear_object (&cbhttp->priv->input_stream);
  
  	if (cbhttp->priv->session)
+diff --git a/src/calendar/backends/weather/e-cal-backend-weather.c b/src/calendar/backends/weather/e-cal-backend-weather.c
+index c4999671f..abab67fd9 100644
+--- a/src/calendar/backends/weather/e-cal-backend-weather.c
++++ b/src/calendar/backends/weather/e-cal-backend-weather.c
+@@ -464,11 +464,7 @@ create_weather (ECalBackendWeather *cbw,
+ 	time_t			   update_time;
+ 	ICalTimezone		  *update_zone = NULL;
+ 	const GWeatherLocation    *location;
+-	#ifdef WITH_GWEATHER4
+ 	GTimeZone                 *w_timezone;
+-	#else
+-	const GWeatherTimezone    *w_timezone;
+-	#endif
+ 	gdouble tmin = 0.0, tmax = 0.0, temp = 0.0;
+ 
+ 	g_return_val_if_fail (E_IS_CAL_BACKEND_WEATHER (cbw), NULL);
+@@ -488,11 +484,7 @@ create_weather (ECalBackendWeather *cbw,
+ 	/* use timezone of the location to determine date for which this is set */
+ 	location = gweather_info_get_location (report);
+ 	if (location && (w_timezone = gweather_location_get_timezone ((GWeatherLocation *) location)))
+-		#ifdef WITH_GWEATHER4
+ 		update_zone = i_cal_timezone_get_builtin_timezone (g_time_zone_get_identifier (w_timezone));
+-		#else
+-		update_zone = i_cal_timezone_get_builtin_timezone (gweather_timezone_get_tzid ((GWeatherTimezone *) w_timezone));
+-		#endif
+ 
+ 	if (!update_zone)
+ 		update_zone = i_cal_timezone_get_utc_timezone ();
 diff --git a/src/calendar/backends/weather/e-weather-source.c b/src/calendar/backends/weather/e-weather-source.c
-index 3052d034c..6cb645408 100644
+index 7aff1f6ac..23df3a0f9 100644
 --- a/src/calendar/backends/weather/e-weather-source.c
 +++ b/src/calendar/backends/weather/e-weather-source.c
-@@ -68,12 +68,7 @@ weather_source_find_location_by_coords (GWeatherLocation *start,
+@@ -39,11 +39,7 @@ weather_source_dispose (GObject *object)
+ 	EWeatherSourcePrivate *priv;
+ 
+ 	priv = E_WEATHER_SOURCE (object)->priv;
+-	#ifdef WITH_GWEATHER4
+ 	g_clear_object (&priv->location);
+-	#else
+-	g_clear_pointer (&priv->location, gweather_location_unref);
+-	#endif
+ 
+ 	g_clear_object (&priv->info);
+ 
+@@ -72,12 +68,7 @@ weather_source_find_location_by_coords (GWeatherLocation *start,
                                          gdouble longitude)
  {
  	GWeatherLocation *location;
@@ -1517,7 +1570,16 @@ index 3052d034c..6cb645408 100644
  
  	if (!start)
  		return NULL;
-@@ -90,7 +85,6 @@ weather_source_find_location_by_coords (GWeatherLocation *start,
+@@ -89,39 +80,20 @@ weather_source_find_location_by_coords (GWeatherLocation *start,
+ 		gweather_location_get_coords (location, &lat, &lon);
+ 
+ 		if (lat == latitude && lon == longitude) {
+-			#ifdef WITH_GWEATHER4
+ 			g_object_ref (location);
+-			#else
+-			gweather_location_ref (location);
+-			#endif
+ 			return location;
  		}
  	}
  
@@ -1525,7 +1587,13 @@ index 3052d034c..6cb645408 100644
  	while (child = gweather_location_next_child (location, child), child) {
  		GWeatherLocation *result;
  
-@@ -100,16 +94,6 @@ weather_source_find_location_by_coords (GWeatherLocation *start,
+ 		result = weather_source_find_location_by_coords (child, latitude, longitude);
+ 		if (result) {
+-			#ifdef WITH_GWEATHER4
+ 			g_object_unref (child);
+-			#else
+-			gweather_location_unref (child);
+-			#endif
  			return result;
  		}
  	}
@@ -1542,7 +1610,7 @@ index 3052d034c..6cb645408 100644
  
  	return NULL;
  }
-@@ -143,11 +127,6 @@ e_weather_source_new (const gchar *location)
+@@ -155,11 +127,6 @@ e_weather_source_new (const gchar *location)
  
  	glocation = gweather_location_find_by_station_code (world, tokens[0]);
  
@@ -1554,17 +1622,19 @@ index 3052d034c..6cb645408 100644
  	if (!glocation) {
  		gdouble latitude, longitude;
  		gchar *endptr = NULL;
-@@ -159,9 +138,7 @@ e_weather_source_new (const gchar *location)
+@@ -171,11 +138,7 @@ e_weather_source_new (const gchar *location)
  		}
  	}
  
--#if GWEATHER_CHECK_VERSION(3, 39, 0)
- 	gweather_location_unref (world);
+-#ifdef WITH_GWEATHER4
+ 	g_object_unref (world);
+-#elif GWEATHER_CHECK_VERSION(3, 39, 0)
+-	gweather_location_unref (world);
 -#endif
  	g_strfreev (tokens);
  
  	if (glocation == NULL)
-@@ -202,16 +179,9 @@ e_weather_source_parse (EWeatherSource *source,
+@@ -216,16 +179,9 @@ e_weather_source_parse (EWeatherSource *source,
  	source->priv->done = done;
  
  	if (source->priv->info == NULL) {
@@ -2048,7 +2118,7 @@ index b99f17504..78e383ab8 100644
  		g_propagate_error (error, local_error);
  	} else {
 diff --git a/src/libedataserver/CMakeLists.txt b/src/libedataserver/CMakeLists.txt
-index 1412cb1d9..e2423bc59 100644
+index 32fcb543a..93ab4be3a 100644
 --- a/src/libedataserver/CMakeLists.txt
 +++ b/src/libedataserver/CMakeLists.txt
 @@ -71,11 +71,9 @@ set(SOURCES
@@ -2085,7 +2155,7 @@ index 1412cb1d9..e2423bc59 100644
  	-DLIBEDATASERVER_COMPILATION
  )
 diff --git a/src/libedataserver/e-data-server-util.c b/src/libedataserver/e-data-server-util.c
-index d52809bd7..912a13e65 100644
+index c1a792019..9fa497859 100644
 --- a/src/libedataserver/e-data-server-util.c
 +++ b/src/libedataserver/e-data-server-util.c
 @@ -31,6 +31,7 @@
@@ -2096,7 +2166,7 @@ index d52809bd7..912a13e65 100644
  
  #include "e-source.h"
  #include "e-source-address-book.h"
-@@ -3443,3 +3444,61 @@ e_util_get_directory_variants (const gchar *main_path,
+@@ -3444,3 +3445,61 @@ e_util_get_directory_variants (const gchar *main_path,
  
  	return camel_util_get_directory_variants (main_path, replace_prefix, with_modules_dir);
  }
@@ -2183,7 +2253,7 @@ index 797760012..33acbd6b6 100644
  G_END_DECLS
  
 diff --git a/src/libedataserver/e-gdata-oauth2-authorizer.c b/src/libedataserver/e-gdata-oauth2-authorizer.c
-index 6b379eee2..e2c65ea3c 100644
+index 038ca86db..8eec022ba 100644
 --- a/src/libedataserver/e-gdata-oauth2-authorizer.c
 +++ b/src/libedataserver/e-gdata-oauth2-authorizer.c
 @@ -218,7 +218,7 @@ e_gdata_oauth2_authorizer_process_request (GDataAuthorizer *authorizer,
@@ -2196,10 +2266,10 @@ index 6b379eee2..e2c65ea3c 100644
  
  	g_free (authorization);
 diff --git a/src/libedataserver/e-oauth2-service-google.c b/src/libedataserver/e-oauth2-service-google.c
-index f0c6f2cbf..1aa46d54f 100644
+index 4d262d32f..126aa4f8f 100644
 --- a/src/libedataserver/e-oauth2-service-google.c
 +++ b/src/libedataserver/e-oauth2-service-google.c
-@@ -177,11 +177,11 @@ eos_google_extract_authorization_code (EOAuth2Service *service,
+@@ -179,11 +179,11 @@ eos_google_extract_authorization_code (EOAuth2Service *service,
  	}
  
  	if (page_uri && *page_uri) {
@@ -2214,7 +2284,7 @@ index f0c6f2cbf..1aa46d54f 100644
  			gboolean known = FALSE;
  
  			if (query && *query) {
-@@ -203,7 +203,7 @@ eos_google_extract_authorization_code (EOAuth2Service *service,
+@@ -205,7 +205,7 @@ eos_google_extract_authorization_code (EOAuth2Service *service,
  				}
  			}
  
@@ -2262,10 +2332,10 @@ index 687c10d3b..758aa7dd8 100644
  	return known;
  }
 diff --git a/src/libedataserver/e-oauth2-service-yahoo.c b/src/libedataserver/e-oauth2-service-yahoo.c
-index 329a38c41..f7885cd53 100644
+index b16e6b18a..cd750fa7e 100644
 --- a/src/libedataserver/e-oauth2-service-yahoo.c
 +++ b/src/libedataserver/e-oauth2-service-yahoo.c
-@@ -173,11 +173,11 @@ eos_yahoo_extract_authorization_code (EOAuth2Service *service,
+@@ -175,11 +175,11 @@ eos_yahoo_extract_authorization_code (EOAuth2Service *service,
  	*out_authorization_code = NULL;
  
  	if (page_uri && *page_uri) {
@@ -2280,7 +2350,7 @@ index 329a38c41..f7885cd53 100644
  			gboolean known = FALSE;
  
  			if (query && *query) {
-@@ -197,7 +197,7 @@ eos_yahoo_extract_authorization_code (EOAuth2Service *service,
+@@ -199,7 +199,7 @@ eos_yahoo_extract_authorization_code (EOAuth2Service *service,
  				}
  			}
  
@@ -2290,18 +2360,18 @@ index 329a38c41..f7885cd53 100644
  			if (known)
  				return TRUE;
 diff --git a/src/libedataserver/e-oauth2-service.c b/src/libedataserver/e-oauth2-service.c
-index 979095b74..83747d6e3 100644
+index 25c8483cf..8f6990f95 100644
 --- a/src/libedataserver/e-oauth2-service.c
 +++ b/src/libedataserver/e-oauth2-service.c
-@@ -36,6 +36,7 @@
- #endif
+@@ -35,6 +35,7 @@
+ #include <json-glib/json-glib.h>
  
  #include "e-secret-store.h"
 +#include "e-soup-session.h"
  #include "e-soup-ssl-trust.h"
  #include "e-source-authentication.h"
  
-@@ -806,16 +807,14 @@ eos_create_soup_session (EOAuth2ServiceRefSourceFunc ref_source,
+@@ -805,16 +806,14 @@ eos_create_soup_session (EOAuth2ServiceRefSourceFunc ref_source,
  	session = soup_session_new ();
  	g_object_set (
  		session,
@@ -2321,7 +2391,7 @@ index 979095b74..83747d6e3 100644
  		soup_session_add_feature (session, SOUP_SESSION_FEATURE (logger));
  		g_object_unref (logger);
  	}
-@@ -836,7 +835,7 @@ eos_create_soup_session (EOAuth2ServiceRefSourceFunc ref_source,
+@@ -835,7 +834,7 @@ eos_create_soup_session (EOAuth2ServiceRefSourceFunc ref_source,
  
  		proxy_resolver = G_PROXY_RESOLVER (proxy_source);
  		if (g_proxy_resolver_is_supported (proxy_resolver))
@@ -2330,7 +2400,7 @@ index 979095b74..83747d6e3 100644
  
  		g_object_unref (proxy_source);
  	}
-@@ -867,12 +866,10 @@ eos_create_soup_message (ESource *source,
+@@ -866,12 +865,10 @@ eos_create_soup_message (ESource *source,
  		return NULL;
  	}
  
@@ -2345,7 +2415,7 @@ index 979095b74..83747d6e3 100644
  
  	return message;
  }
-@@ -887,11 +884,12 @@ eos_abort_session_cb (GCancellable *cancellable,
+@@ -886,11 +883,12 @@ eos_abort_session_cb (GCancellable *cancellable,
  static gboolean
  eos_send_message (SoupSession *session,
  		  SoupMessage *message,
@@ -2360,7 +2430,7 @@ index 979095b74..83747d6e3 100644
  	gboolean success = FALSE;
  
  	g_return_val_if_fail (SOUP_IS_SESSION (session), FALSE);
-@@ -904,35 +902,39 @@ eos_send_message (SoupSession *session,
+@@ -903,35 +901,39 @@ eos_send_message (SoupSession *session,
  		if (cancellable)
  			cancel_handler_id = g_cancellable_connect (cancellable, G_CALLBACK (eos_abort_session_cb), session, NULL);
  
@@ -2410,7 +2480,7 @@ index 979095b74..83747d6e3 100644
  	return success;
  }
  
-@@ -1039,12 +1041,14 @@ eos_encode_to_secret (gchar **out_secret,
+@@ -1034,12 +1036,14 @@ eos_encode_to_secret (gchar **out_secret,
  
  static gboolean
  eos_decode_from_secret (const gchar *secret,
@@ -2425,7 +2495,7 @@ index 979095b74..83747d6e3 100644
  			const gchar *key1_name,
  			gchar **out_value1,
  			...)
-@@ -1064,7 +1068,7 @@ eos_decode_from_secret (const gchar *secret,
+@@ -1058,7 +1062,7 @@ eos_decode_from_secret (const gchar *secret,
  		return FALSE;
  
  	parser = json_parser_new ();
@@ -2434,7 +2504,7 @@ index 979095b74..83747d6e3 100644
  		g_object_unref (parser);
  
  		g_debug ("%s: Failed to parse secret '%s': %s", G_STRFUNC, secret, error ? error->message : "Unknown error");
-@@ -1219,7 +1223,7 @@ eos_lookup_token_sync (EOAuth2Service *service,
+@@ -1210,7 +1214,7 @@ eos_lookup_token_sync (EOAuth2Service *service,
  		return FALSE;
  	}
  
@@ -2443,7 +2513,7 @@ index 979095b74..83747d6e3 100644
  		E_OAUTH2_SECRET_REFRESH_TOKEN, out_refresh_token,
  		E_OAUTH2_SECRET_ACCESS_TOKEN, out_access_token,
  		E_OAUTH2_SECRET_EXPIRES_AFTER, &expires_after,
-@@ -1278,7 +1282,7 @@ e_oauth2_service_receive_and_store_token_sync (EOAuth2Service *service,
+@@ -1269,7 +1273,7 @@ e_oauth2_service_receive_and_store_token_sync (EOAuth2Service *service,
  	SoupSession *session;
  	SoupMessage *message;
  	GHashTable *post_form;
@@ -2452,7 +2522,7 @@ index 979095b74..83747d6e3 100644
  	gboolean success;
  
  	g_return_val_if_fail (E_IS_OAUTH2_SERVICE (service), FALSE);
-@@ -1309,7 +1313,7 @@ e_oauth2_service_receive_and_store_token_sync (EOAuth2Service *service,
+@@ -1300,7 +1304,7 @@ e_oauth2_service_receive_and_store_token_sync (EOAuth2Service *service,
  	if (success) {
  		gchar *access_token = NULL, *refresh_token = NULL, *expires_in = NULL, *token_type = NULL;
  
@@ -2461,7 +2531,7 @@ index 979095b74..83747d6e3 100644
  			"access_token", &access_token,
  			"refresh_token", &refresh_token,
  			"expires_in", &expires_in,
-@@ -1332,7 +1336,8 @@ e_oauth2_service_receive_and_store_token_sync (EOAuth2Service *service,
+@@ -1323,7 +1327,8 @@ e_oauth2_service_receive_and_store_token_sync (EOAuth2Service *service,
  
  	g_object_unref (message);
  	g_object_unref (session);
@@ -2471,7 +2541,7 @@ index 979095b74..83747d6e3 100644
  
  	return success;
  }
-@@ -1367,7 +1372,7 @@ e_oauth2_service_refresh_and_store_token_sync (EOAuth2Service *service,
+@@ -1358,7 +1363,7 @@ e_oauth2_service_refresh_and_store_token_sync (EOAuth2Service *service,
  	SoupSession *session;
  	SoupMessage *message;
  	GHashTable *post_form;
@@ -2480,7 +2550,7 @@ index 979095b74..83747d6e3 100644
  	gboolean success;
  	GError *local_error = NULL;
  
-@@ -1396,10 +1401,11 @@ e_oauth2_service_refresh_and_store_token_sync (EOAuth2Service *service,
+@@ -1387,10 +1392,11 @@ e_oauth2_service_refresh_and_store_token_sync (EOAuth2Service *service,
  	e_oauth2_service_prepare_refresh_token_message (service, source, message);
  
  	success = eos_send_message (session, message, &response_json, cancellable, &local_error);
@@ -2493,7 +2563,7 @@ index 979095b74..83747d6e3 100644
  			"access_token", &access_token,
  			"expires_in", &expires_in,
  			"refresh_token", &new_refresh_token,
-@@ -1417,7 +1423,7 @@ e_oauth2_service_refresh_and_store_token_sync (EOAuth2Service *service,
+@@ -1408,7 +1414,7 @@ e_oauth2_service_refresh_and_store_token_sync (EOAuth2Service *service,
  		e_util_safe_free_string (access_token);
  		g_free (new_refresh_token);
  		g_free (expires_in);
@@ -2502,7 +2572,7 @@ index 979095b74..83747d6e3 100644
  		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_CONNECTION_REFUSED,
  			_("Failed to refresh access token. Sign to the server again, please."));
  		g_clear_error (&local_error);
-@@ -1428,7 +1434,8 @@ e_oauth2_service_refresh_and_store_token_sync (EOAuth2Service *service,
+@@ -1419,7 +1425,8 @@ e_oauth2_service_refresh_and_store_token_sync (EOAuth2Service *service,
  
  	g_object_unref (message);
  	g_object_unref (session);
@@ -5978,7 +6048,7 @@ index b2fb6102d..9490e420c 100644
  
  static void
 diff --git a/src/libedataserver/e-webdav-discover.c b/src/libedataserver/e-webdav-discover.c
-index 50633b219..59fbfabae 100644
+index 79980200b..d1f31b033 100644
 --- a/src/libedataserver/e-webdav-discover.c
 +++ b/src/libedataserver/e-webdav-discover.c
 @@ -114,7 +114,7 @@ e_webdav_discover_propfind_uri_sync (EWebDAVSession *webdav,
@@ -6201,7 +6271,7 @@ index 50633b219..59fbfabae 100644
  
  	return success;
 diff --git a/src/libedataserver/e-webdav-session.c b/src/libedataserver/e-webdav-session.c
-index 83c89f517..5e334a5d4 100644
+index 57e75f3d1..94464d54e 100644
 --- a/src/libedataserver/e-webdav-session.c
 +++ b/src/libedataserver/e-webdav-session.c
 @@ -692,27 +692,27 @@ e_webdav_session_get_last_dav_error_is_permission (EWebDAVSession *webdav)
@@ -7085,25 +7155,27 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -2016,22 +1923,22 @@ e_webdav_session_extract_href_and_etag (SoupMessage *message,
+@@ -2016,20 +1923,21 @@ e_webdav_session_extract_href_and_etag (SoupMessage *message,
  
  		*out_href = NULL;
  
 -		header = soup_message_headers_get_list (message->response_headers, "Location");
-+		header = soup_message_headers_get_list (soup_message_get_response_headers (message), "Location");
++		header = soup_message_headers_get_one (soup_message_get_response_headers (message), "Location");
  		if (header) {
- 			gchar *file = strrchr (header, '/');
+-			SoupURI *uri;
++			GUri *uri;
++
++			uri = g_uri_parse_relative (soup_message_get_uri (message), header, SOUP_HTTP_URI_FLAGS, NULL);
  
- 			if (file) {
- 				gchar *decoded;
+-			uri = soup_uri_new_with_base (soup_message_get_uri (message), header);
+-			if (uri && uri->host)
+-				*out_href = soup_uri_to_string (uri, FALSE);
++			if (uri && g_uri_get_host (uri))
++				*out_href = g_uri_to_string_partial (uri, G_URI_HIDE_PASSWORD);
  
--				decoded = soup_uri_decode (file + 1);
--				*out_href = soup_uri_encode (decoded ? decoded : (file + 1), NULL);
-+				decoded = g_filename_from_uri (file + 1, NULL, NULL);
-+				*out_href = g_filename_to_uri (decoded ? decoded : (file + 1), NULL, NULL);
- 
- 				g_free (decoded);
- 			}
+ 			if (uri)
+-				soup_uri_free (uri);
++				g_uri_unref (uri);
  		}
  
  		if (!*out_href)
@@ -7112,7 +7184,7 @@ index 83c89f517..5e334a5d4 100644
  	}
  
  	if (out_etag) {
-@@ -2039,7 +1946,7 @@ e_webdav_session_extract_href_and_etag (SoupMessage *message,
+@@ -2037,7 +1945,7 @@ e_webdav_session_extract_href_and_etag (SoupMessage *message,
  
  		*out_etag = NULL;
  
@@ -7121,7 +7193,7 @@ index 83c89f517..5e334a5d4 100644
  		if (header)
  			*out_etag = e_webdav_session_util_maybe_dequote (g_strdup (header));
  	}
-@@ -2051,6 +1958,7 @@ e_webdav_session_extract_href_and_etag (SoupMessage *message,
+@@ -2049,6 +1957,7 @@ e_webdav_session_extract_href_and_etag (SoupMessage *message,
   * @uri: URI of the resource to read
   * @out_href: (out) (nullable) (transfer full): optional return location for href of the resource, or %NULL
   * @out_etag: (out) (nullable) (transfer full): optional return location for etag of the resource, or %NULL
@@ -7129,7 +7201,7 @@ index 83c89f517..5e334a5d4 100644
   * @out_stream: (out caller-allocates): a #GOutputStream to write data to
   * @cancellable: optional #GCancellable object, or %NULL
   * @error: return location for a #GError, or %NULL
-@@ -2061,6 +1969,9 @@ e_webdav_session_extract_href_and_etag (SoupMessage *message,
+@@ -2059,6 +1968,9 @@ e_webdav_session_extract_href_and_etag (SoupMessage *message,
   * Free returned pointer of @out_href and @out_etag, if not %NULL, with g_free(),
   * when no longer needed.
   *
@@ -7139,7 +7211,7 @@ index 83c89f517..5e334a5d4 100644
   * The e_webdav_session_get_data_sync() can be used to read the resource data
   * directly to memory.
   *
-@@ -2073,11 +1984,11 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
+@@ -2071,11 +1983,11 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
  			   const gchar *uri,
  			   gchar **out_href,
  			   gchar **out_etag,
@@ -7152,7 +7224,7 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GInputStream *input_stream;
  	gboolean success;
-@@ -2088,19 +1999,14 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
+@@ -2086,19 +1998,14 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
  
  	g_clear_pointer (&webdav->priv->last_dav_error_code, g_free);
  
@@ -7177,7 +7249,7 @@ index 83c89f517..5e334a5d4 100644
  
  	success = input_stream != NULL;
  
-@@ -2121,7 +2027,7 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
+@@ -2119,7 +2026,7 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
  				tmp_bytes.data = buffer;
  				tmp_bytes.len = nread;
  
@@ -7186,7 +7258,7 @@ index 83c89f517..5e334a5d4 100644
  				if (!success)
  					break;
  			}
-@@ -2132,18 +2038,21 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
+@@ -2130,18 +2037,21 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
  		}
  
  		if (success && first_chunk) {
@@ -7211,7 +7283,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -2154,6 +2063,7 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
+@@ -2152,6 +2062,7 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
   * @uri: URI of the resource to read
   * @out_href: (out) (nullable) (transfer full): optional return location for href of the resource, or %NULL
   * @out_etag: (out) (nullable) (transfer full): optional return location for etag of the resource, or %NULL
@@ -7219,7 +7291,7 @@ index 83c89f517..5e334a5d4 100644
   * @out_bytes: (out) (transfer full): return location for bytes being read
   * @out_length: (out) (nullable): option return location for length of bytes being read, or %NULL
   * @cancellable: optional #GCancellable object, or %NULL
-@@ -2170,6 +2080,9 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
+@@ -2168,6 +2079,9 @@ e_webdav_session_get_sync (EWebDAVSession *webdav,
   * Free returned pointer of @out_href and @out_etag, if not %NULL, with g_free(),
   * when no longer needed.
   *
@@ -7229,7 +7301,7 @@ index 83c89f517..5e334a5d4 100644
   * To read large data use e_webdav_session_get_sync() instead.
   *
   * Returns: Whether succeeded.
-@@ -2181,6 +2094,7 @@ e_webdav_session_get_data_sync (EWebDAVSession *webdav,
+@@ -2179,6 +2093,7 @@ e_webdav_session_get_data_sync (EWebDAVSession *webdav,
  				const gchar *uri,
  				gchar **out_href,
  				gchar **out_etag,
@@ -7237,7 +7309,7 @@ index 83c89f517..5e334a5d4 100644
  				gchar **out_bytes,
  				gsize *out_length,
  				GCancellable *cancellable,
-@@ -2195,12 +2109,16 @@ e_webdav_session_get_data_sync (EWebDAVSession *webdav,
+@@ -2193,12 +2108,16 @@ e_webdav_session_get_data_sync (EWebDAVSession *webdav,
  	g_return_val_if_fail (out_bytes != NULL, FALSE);
  
  	*out_bytes = NULL;
@@ -7255,7 +7327,7 @@ index 83c89f517..5e334a5d4 100644
  		g_output_stream_write_all (output_stream, "", 1, &bytes_written, cancellable, error) &&
  		g_output_stream_close (output_stream, cancellable, error);
  
-@@ -2216,71 +2134,6 @@ e_webdav_session_get_data_sync (EWebDAVSession *webdav,
+@@ -2214,71 +2133,6 @@ e_webdav_session_get_data_sync (EWebDAVSession *webdav,
  	return success;
  }
  
@@ -7327,7 +7399,7 @@ index 83c89f517..5e334a5d4 100644
  static void
  e_webdav_session_set_if_match_header (SoupMessage *message,
  				      const gchar *etag)
-@@ -2293,12 +2146,12 @@ e_webdav_session_set_if_match_header (SoupMessage *message,
+@@ -2291,12 +2145,12 @@ e_webdav_session_set_if_match_header (SoupMessage *message,
  	len = strlen (etag);
  
  	if ((*etag == '\"' && len > 2 && etag[len - 1] == '\"') || strchr (etag, '\"')) {
@@ -7342,7 +7414,7 @@ index 83c89f517..5e334a5d4 100644
  		g_free (quoted);
  	}
  }
-@@ -2309,9 +2162,12 @@ e_webdav_session_set_if_match_header (SoupMessage *message,
+@@ -2307,9 +2161,12 @@ e_webdav_session_set_if_match_header (SoupMessage *message,
   * @uri: URI of the resource to write
   * @etag: (nullable): an ETag of the resource, if it's an existing resource, or %NULL
   * @content_type: Content-Type of the @bytes to be written
@@ -7355,7 +7427,7 @@ index 83c89f517..5e334a5d4 100644
   * @cancellable: optional #GCancellable object, or %NULL
   * @error: return location for a #GError, or %NULL
   *
-@@ -2327,12 +2183,18 @@ e_webdav_session_set_if_match_header (SoupMessage *message,
+@@ -2325,12 +2182,18 @@ e_webdav_session_set_if_match_header (SoupMessage *message,
   * Note that the actual behaviour is also influenced by #ESourceWebdav:avoid-ifmatch
   * property of the associated #ESource.
   *
@@ -7374,7 +7446,7 @@ index 83c89f517..5e334a5d4 100644
   * The @stream should support also #GSeekable interface, because the data
   * send can require restart of the send due to redirect or other reasons.
   *
-@@ -2349,17 +2211,17 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
+@@ -2347,17 +2210,17 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
  			   const gchar *uri,
  			   const gchar *etag,
  			   const gchar *content_type,
@@ -7395,7 +7467,7 @@ index 83c89f517..5e334a5d4 100644
  	gboolean success;
  
  	g_return_val_if_fail (E_IS_WEBDAV_SESSION (webdav), FALSE);
-@@ -2371,20 +2233,16 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
+@@ -2369,20 +2232,16 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
  		*out_href = NULL;
  	if (out_etag)
  		*out_etag = NULL;
@@ -7421,7 +7493,7 @@ index 83c89f517..5e334a5d4 100644
  
  	if (!etag || *etag) {
  		ESource *source;
-@@ -2402,67 +2260,43 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
+@@ -2400,67 +2259,43 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
  			if (etag) {
  				e_webdav_session_set_if_match_header (message, etag);
  			} else {
@@ -7446,24 +7518,24 @@ index 83c89f517..5e334a5d4 100644
  
  	if (content_type && *content_type)
 -		soup_message_headers_replace (message->request_headers, "Content-Type", content_type);
-+		soup_message_headers_replace (soup_message_get_request_headers (message), "Content-Type", content_type);
- 
+-
 -	soup_message_headers_set_encoding (message->request_headers, SOUP_ENCODING_CHUNKED);
 -	soup_message_body_set_accumulate (message->request_body, FALSE);
 -	soup_message_set_flags (message, SOUP_MESSAGE_CAN_REBUILD);
-+	soup_message_headers_set_encoding (soup_message_get_request_headers (message), SOUP_ENCODING_CHUNKED);
- 
+-
 -	restarted_id = g_signal_connect (message, "restarted", G_CALLBACK (e_webdav_session_write_restarted), &cwd);
 -	wrote_headers_id = g_signal_connect (message, "wrote-headers", G_CALLBACK (e_webdav_session_write_next_chunk), &cwd);
 -	wrote_chunk_id = g_signal_connect (message, "wrote-chunk", G_CALLBACK (e_webdav_session_write_next_chunk), &cwd);
-+	bytes = e_soup_session_send_message_simple_sync (E_SOUP_SESSION (webdav), message, cancellable, error);
++		soup_message_headers_replace (soup_message_get_request_headers (message), "Content-Type", content_type);
  
 -	bytes = e_soup_session_send_request_simple_sync (E_SOUP_SESSION (webdav), request, cancellable, error);
--
++	soup_message_headers_set_encoding (soup_message_get_request_headers (message), SOUP_ENCODING_CHUNKED);
+ 
 -	g_signal_handler_disconnect (message, restarted_id);
 -	g_signal_handler_disconnect (message, wrote_headers_id);
 -	g_signal_handler_disconnect (message, wrote_chunk_id);
--
++	bytes = e_soup_session_send_message_simple_sync (E_SOUP_SESSION (webdav), message, cancellable, error);
+ 
 -	success = !e_webdav_session_replace_with_detailed_error_internal (webdav, request, bytes, FALSE, _("Failed to put data"), error, TRUE, TRUE) &&
 +	success = !e_webdav_session_replace_with_detailed_error_internal (webdav, message, bytes, FALSE, _("Failed to put data"), error, TRUE, TRUE) &&
  		bytes != NULL;
@@ -7504,7 +7576,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -2473,10 +2307,12 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
+@@ -2471,10 +2306,12 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
   * @uri: URI of the resource to write
   * @etag: (nullable): an ETag of the resource, if it's an existing resource, or %NULL
   * @content_type: Content-Type of the @bytes to be written
@@ -7517,7 +7589,7 @@ index 83c89f517..5e334a5d4 100644
   * @cancellable: optional #GCancellable object, or %NULL
   * @error: return location for a #GError, or %NULL
   *
-@@ -2492,12 +2328,18 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
+@@ -2490,12 +2327,18 @@ e_webdav_session_put_sync (EWebDAVSession *webdav,
   * Note that the actual usage of @etag is also influenced by #ESourceWebdav:avoid-ifmatch
   * property of the associated #ESource.
   *
@@ -7536,7 +7608,7 @@ index 83c89f517..5e334a5d4 100644
   * To write large data use e_webdav_session_put_sync() instead.
   *
   * Returns: Whether succeeded.
-@@ -2509,14 +2351,15 @@ e_webdav_session_put_data_sync (EWebDAVSession *webdav,
+@@ -2507,14 +2350,15 @@ e_webdav_session_put_data_sync (EWebDAVSession *webdav,
  				const gchar *uri,
  				const gchar *etag,
  				const gchar *content_type,
@@ -7553,7 +7625,7 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GByteArray *ret_bytes;
  	gboolean success;
-@@ -2532,20 +2375,16 @@ e_webdav_session_put_data_sync (EWebDAVSession *webdav,
+@@ -2530,20 +2374,16 @@ e_webdav_session_put_data_sync (EWebDAVSession *webdav,
  		*out_href = NULL;
  	if (out_etag)
  		*out_etag = NULL;
@@ -7579,7 +7651,7 @@ index 83c89f517..5e334a5d4 100644
  
  	if (!etag || *etag) {
  		ESource *source;
-@@ -2563,40 +2402,43 @@ e_webdav_session_put_data_sync (EWebDAVSession *webdav,
+@@ -2561,40 +2401,43 @@ e_webdav_session_put_data_sync (EWebDAVSession *webdav,
  			if (etag) {
  				e_webdav_session_set_if_match_header (message, etag);
  			} else {
@@ -7635,7 +7707,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -2635,7 +2477,6 @@ e_webdav_session_delete_sync (EWebDAVSession *webdav,
+@@ -2633,7 +2476,6 @@ e_webdav_session_delete_sync (EWebDAVSession *webdav,
  			      GCancellable *cancellable,
  			      GError **error)
  {
@@ -7643,7 +7715,7 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GByteArray *bytes;
  	gboolean success;
-@@ -2645,17 +2486,9 @@ e_webdav_session_delete_sync (EWebDAVSession *webdav,
+@@ -2643,17 +2485,9 @@ e_webdav_session_delete_sync (EWebDAVSession *webdav,
  
  	g_clear_pointer (&webdav->priv->last_dav_error_code, g_free);
  
@@ -7663,7 +7735,7 @@ index 83c89f517..5e334a5d4 100644
  
  	if (etag) {
  		ESource *source;
-@@ -2675,17 +2508,16 @@ e_webdav_session_delete_sync (EWebDAVSession *webdav,
+@@ -2673,17 +2507,16 @@ e_webdav_session_delete_sync (EWebDAVSession *webdav,
  	}
  
  	if (depth)
@@ -7684,7 +7756,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -2718,7 +2550,6 @@ e_webdav_session_copy_sync (EWebDAVSession *webdav,
+@@ -2716,7 +2549,6 @@ e_webdav_session_copy_sync (EWebDAVSession *webdav,
  			    GCancellable *cancellable,
  			    GError **error)
  {
@@ -7692,34 +7764,34 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GByteArray *bytes;
  	gboolean success;
-@@ -2730,31 +2561,22 @@ e_webdav_session_copy_sync (EWebDAVSession *webdav,
+@@ -2728,31 +2560,22 @@ e_webdav_session_copy_sync (EWebDAVSession *webdav,
  
  	g_clear_pointer (&webdav->priv->last_dav_error_code, g_free);
  
 -	request = e_webdav_session_new_request (webdav, SOUP_METHOD_COPY, source_uri, error);
 -	if (!request)
-+	message = e_webdav_session_new_message (webdav, SOUP_METHOD_COPY, source_uri, error);
-+	if (!message)
- 		return FALSE;
- 
+-		return FALSE;
+-
 -	message = soup_request_http_get_message (request);
 -	if (!message) {
 -		g_warn_if_fail (message != NULL);
 -		g_object_unref (request);
 -
--		return FALSE;
++	message = e_webdav_session_new_message (webdav, SOUP_METHOD_COPY, source_uri, error);
++	if (!message)
+ 		return FALSE;
 -	}
-+	soup_message_headers_replace (soup_message_get_request_headers (message), "Depth", depth);
-+	soup_message_headers_replace (soup_message_get_request_headers (message), "Destination", destination_uri);
-+	soup_message_headers_replace (soup_message_get_request_headers (message), "Overwrite", can_overwrite ? "T" : "F");
  
 -	soup_message_headers_replace (message->request_headers, "Depth", depth);
 -	soup_message_headers_replace (message->request_headers, "Destination", destination_uri);
 -	soup_message_headers_replace (message->request_headers, "Overwrite", can_overwrite ? "T" : "F");
-+	bytes = e_soup_session_send_message_simple_sync (E_SOUP_SESSION (webdav), message, cancellable, error);
++	soup_message_headers_replace (soup_message_get_request_headers (message), "Depth", depth);
++	soup_message_headers_replace (soup_message_get_request_headers (message), "Destination", destination_uri);
++	soup_message_headers_replace (soup_message_get_request_headers (message), "Overwrite", can_overwrite ? "T" : "F");
  
 -	bytes = e_soup_session_send_request_simple_sync (E_SOUP_SESSION (webdav), request, cancellable, error);
--
++	bytes = e_soup_session_send_message_simple_sync (E_SOUP_SESSION (webdav), message, cancellable, error);
+ 
 -	success = !e_webdav_session_replace_with_detailed_error_internal (webdav, request, bytes, FALSE, _("Failed to copy resource"), error, TRUE, FALSE) &&
 +	success = !e_webdav_session_replace_with_detailed_error_internal (webdav, message, bytes, FALSE, _("Failed to copy resource"), error, TRUE, FALSE) &&
  		bytes != NULL;
@@ -7731,7 +7803,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -2783,7 +2605,6 @@ e_webdav_session_move_sync (EWebDAVSession *webdav,
+@@ -2781,7 +2604,6 @@ e_webdav_session_move_sync (EWebDAVSession *webdav,
  			    GCancellable *cancellable,
  			    GError **error)
  {
@@ -7739,7 +7811,7 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GByteArray *bytes;
  	gboolean success;
-@@ -2794,31 +2615,22 @@ e_webdav_session_move_sync (EWebDAVSession *webdav,
+@@ -2792,31 +2614,22 @@ e_webdav_session_move_sync (EWebDAVSession *webdav,
  
  	g_clear_pointer (&webdav->priv->last_dav_error_code, g_free);
  
@@ -7778,7 +7850,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -2860,7 +2672,6 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
+@@ -2858,7 +2671,6 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
  			    GCancellable *cancellable,
  			    GError **error)
  {
@@ -7786,24 +7858,24 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GByteArray *bytes;
  	gboolean success;
-@@ -2874,29 +2685,21 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
+@@ -2872,29 +2684,21 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
  
  	g_clear_pointer (&webdav->priv->last_dav_error_code, g_free);
  
 -	request = e_webdav_session_new_request (webdav, SOUP_METHOD_LOCK, uri, error);
 -	if (!request)
--		return FALSE;
--
++	message = e_webdav_session_new_message (webdav, SOUP_METHOD_LOCK, uri, error);
++	if (!message)
+ 		return FALSE;
+ 
 -	message = soup_request_http_get_message (request);
 -	if (!message) {
 -		g_warn_if_fail (message != NULL);
 -		g_object_unref (request);
 -
-+	message = e_webdav_session_new_message (webdav, SOUP_METHOD_LOCK, uri, error);
-+	if (!message)
- 		return FALSE;
+-		return FALSE;
 -	}
- 
+-
  	if (depth)
 -		soup_message_headers_replace (message->request_headers, "Depth", depth);
 +		soup_message_headers_replace (soup_message_get_request_headers (message), "Depth", depth);
@@ -7821,7 +7893,7 @@ index 83c89f517..5e334a5d4 100644
  	}
  
  	if (xml) {
-@@ -2906,20 +2709,19 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
+@@ -2904,20 +2708,19 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
  		content = e_xml_document_get_content (xml, &content_length);
  		if (!content) {
  			g_object_unref (message);
@@ -7846,7 +7918,7 @@ index 83c89f517..5e334a5d4 100644
  		bytes != NULL;
  
  	if (success && out_xml_response) {
-@@ -2927,7 +2729,7 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
+@@ -2925,7 +2728,7 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
  
  		*out_xml_response = NULL;
  
@@ -7855,7 +7927,7 @@ index 83c89f517..5e334a5d4 100644
  		if (!content_type ||
  		    (g_ascii_strcasecmp (content_type, "application/xml") != 0 &&
  		     g_ascii_strcasecmp (content_type, "text/xml") != 0)) {
-@@ -2958,12 +2760,11 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
+@@ -2956,12 +2759,11 @@ e_webdav_session_lock_sync (EWebDAVSession *webdav,
  	}
  
  	if (success)
@@ -7869,7 +7941,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -2994,7 +2795,6 @@ e_webdav_session_refresh_lock_sync (EWebDAVSession *webdav,
+@@ -2992,7 +2794,6 @@ e_webdav_session_refresh_lock_sync (EWebDAVSession *webdav,
  				    GCancellable *cancellable,
  				    GError **error)
  {
@@ -7877,7 +7949,7 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GByteArray *bytes;
  	gchar *value;
-@@ -3005,37 +2805,28 @@ e_webdav_session_refresh_lock_sync (EWebDAVSession *webdav,
+@@ -3003,37 +2804,28 @@ e_webdav_session_refresh_lock_sync (EWebDAVSession *webdav,
  
  	g_clear_pointer (&webdav->priv->last_dav_error_code, g_free);
  
@@ -7922,7 +7994,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -3064,7 +2855,6 @@ e_webdav_session_unlock_sync (EWebDAVSession *webdav,
+@@ -3062,7 +2854,6 @@ e_webdav_session_unlock_sync (EWebDAVSession *webdav,
  			      GCancellable *cancellable,
  			      GError **error)
  {
@@ -7930,7 +8002,7 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GByteArray *bytes;
  	gboolean success;
-@@ -3074,36 +2864,27 @@ e_webdav_session_unlock_sync (EWebDAVSession *webdav,
+@@ -3072,36 +2863,27 @@ e_webdav_session_unlock_sync (EWebDAVSession *webdav,
  
  	g_clear_pointer (&webdav->priv->last_dav_error_code, g_free);
  
@@ -7973,7 +8045,7 @@ index 83c89f517..5e334a5d4 100644
  					     const GByteArray *xml_data,
  					     gboolean require_multistatus,
  					     const gchar *top_path_ns_href1,
-@@ -3114,7 +2895,7 @@ e_webdav_session_traverse_propstat_response (EWebDAVSession *webdav,
+@@ -3112,7 +2894,7 @@ e_webdav_session_traverse_propstat_response (EWebDAVSession *webdav,
  					     gpointer func_user_data,
  					     GError **error)
  {
@@ -7982,7 +8054,7 @@ index 83c89f517..5e334a5d4 100644
  	xmlDocPtr doc;
  	xmlNodePtr top_node, node;
  	gboolean do_stop = FALSE;
-@@ -3127,15 +2908,15 @@ e_webdav_session_traverse_propstat_response (EWebDAVSession *webdav,
+@@ -3125,15 +2907,15 @@ e_webdav_session_traverse_propstat_response (EWebDAVSession *webdav,
  	if (message) {
  		const gchar *content_type;
  
@@ -8003,7 +8075,7 @@ index 83c89f517..5e334a5d4 100644
  		if (!content_type ||
  		    (g_ascii_strcasecmp (content_type, "application/xml") != 0 &&
  		     g_ascii_strcasecmp (content_type, "text/xml") != 0)) {
-@@ -3267,7 +3048,7 @@ e_webdav_session_traverse_propstat_response (EWebDAVSession *webdav,
+@@ -3265,7 +3047,7 @@ e_webdav_session_traverse_propstat_response (EWebDAVSession *webdav,
   **/
  gboolean
  e_webdav_session_traverse_multistatus_response (EWebDAVSession *webdav,
@@ -8012,7 +8084,7 @@ index 83c89f517..5e334a5d4 100644
  						const GByteArray *xml_data,
  						EWebDAVPropstatTraverseFunc func,
  						gpointer func_user_data,
-@@ -3303,7 +3084,7 @@ e_webdav_session_traverse_multistatus_response (EWebDAVSession *webdav,
+@@ -3301,7 +3083,7 @@ e_webdav_session_traverse_multistatus_response (EWebDAVSession *webdav,
   **/
  gboolean
  e_webdav_session_traverse_mkcol_response (EWebDAVSession *webdav,
@@ -8021,7 +8093,7 @@ index 83c89f517..5e334a5d4 100644
  					  const GByteArray *xml_data,
  					  EWebDAVPropstatTraverseFunc func,
  					  gpointer func_user_data,
-@@ -3339,7 +3120,7 @@ e_webdav_session_traverse_mkcol_response (EWebDAVSession *webdav,
+@@ -3337,7 +3119,7 @@ e_webdav_session_traverse_mkcol_response (EWebDAVSession *webdav,
   **/
  gboolean
  e_webdav_session_traverse_mkcalendar_response (EWebDAVSession *webdav,
@@ -8030,7 +8102,7 @@ index 83c89f517..5e334a5d4 100644
  					       const GByteArray *xml_data,
  					       EWebDAVPropstatTraverseFunc func,
  					       gpointer func_user_data,
-@@ -3358,7 +3139,7 @@ e_webdav_session_traverse_mkcalendar_response (EWebDAVSession *webdav,
+@@ -3356,7 +3138,7 @@ e_webdav_session_traverse_mkcalendar_response (EWebDAVSession *webdav,
  static gboolean
  e_webdav_session_getctag_cb (EWebDAVSession *webdav,
  			     xmlNodePtr prop_node,
@@ -8039,7 +8111,7 @@ index 83c89f517..5e334a5d4 100644
  			     const gchar *href,
  			     guint status_code,
  			     gpointer user_data)
-@@ -3627,7 +3408,7 @@ e_webdav_session_extract_datetime (xmlNodePtr parent,
+@@ -3625,7 +3407,7 @@ e_webdav_session_extract_datetime (xmlNodePtr parent,
  static gboolean
  e_webdav_session_list_cb (EWebDAVSession *webdav,
  			  xmlNodePtr prop_node,
@@ -8048,7 +8120,7 @@ index 83c89f517..5e334a5d4 100644
  			  const gchar *href,
  			  guint status_code,
  			  gpointer user_data)
-@@ -3847,7 +3628,7 @@ e_webdav_session_list_sync (EWebDAVSession *webdav,
+@@ -3845,7 +3627,7 @@ e_webdav_session_list_sync (EWebDAVSession *webdav,
  			EWebDAVResource *resource = link->data;
  
  			if (resource && !resource->display_name && resource->href) {
@@ -8057,7 +8129,7 @@ index 83c89f517..5e334a5d4 100644
  
  				if (href_decoded) {
  					gchar *cp;
-@@ -4107,7 +3888,7 @@ e_webdav_session_traverse_privilege_level (xmlNodePtr parent_node,
+@@ -4105,7 +3887,7 @@ e_webdav_session_traverse_privilege_level (xmlNodePtr parent_node,
  static gboolean
  e_webdav_session_supported_privilege_set_cb (EWebDAVSession *webdav,
  					     xmlNodePtr prop_node,
@@ -8066,7 +8138,7 @@ index 83c89f517..5e334a5d4 100644
  					     const gchar *href,
  					     guint status_code,
  					     gpointer user_data)
-@@ -4152,7 +3933,6 @@ e_webdav_session_acl_sync (EWebDAVSession *webdav,
+@@ -4150,7 +3932,6 @@ e_webdav_session_acl_sync (EWebDAVSession *webdav,
  			   GCancellable *cancellable,
  			   GError **error)
  {
@@ -8074,7 +8146,7 @@ index 83c89f517..5e334a5d4 100644
  	SoupMessage *message;
  	GByteArray *bytes;
  	gchar *content;
-@@ -4164,40 +3944,30 @@ e_webdav_session_acl_sync (EWebDAVSession *webdav,
+@@ -4162,40 +3943,30 @@ e_webdav_session_acl_sync (EWebDAVSession *webdav,
  
  	g_clear_pointer (&webdav->priv->last_dav_error_code, g_free);
  
@@ -8121,7 +8193,7 @@ index 83c89f517..5e334a5d4 100644
  
  	return success;
  }
-@@ -4283,7 +4053,7 @@ typedef struct _PrivilegeSetData {
+@@ -4281,7 +4052,7 @@ typedef struct _PrivilegeSetData {
  static gboolean
  e_webdav_session_current_user_privilege_set_cb (EWebDAVSession *webdav,
  						xmlNodePtr prop_node,
@@ -8130,7 +8202,7 @@ index 83c89f517..5e334a5d4 100644
  						const gchar *href,
  						guint status_code,
  						gpointer user_data)
-@@ -4366,7 +4136,7 @@ e_webdav_session_get_current_user_privilege_set_sync (EWebDAVSession *webdav,
+@@ -4364,7 +4135,7 @@ e_webdav_session_get_current_user_privilege_set_sync (EWebDAVSession *webdav,
  
  	if (success && !psd.any_found) {
  		success = FALSE;
@@ -8139,7 +8211,7 @@ index 83c89f517..5e334a5d4 100644
  	} else if (success) {
  		*out_privileges = g_slist_reverse (*out_privileges);
  	}
-@@ -4469,7 +4239,7 @@ e_webdav_session_extract_acl_principal (xmlNodePtr principal_node,
+@@ -4467,7 +4238,7 @@ e_webdav_session_extract_acl_principal (xmlNodePtr principal_node,
  static gboolean
  e_webdav_session_acl_cb (EWebDAVSession *webdav,
  			 xmlNodePtr prop_node,
@@ -8148,7 +8220,7 @@ index 83c89f517..5e334a5d4 100644
  			 const gchar *href,
  			 guint status_code,
  			 gpointer user_data)
-@@ -4619,7 +4389,7 @@ typedef struct _ACLRestrictionsData {
+@@ -4617,7 +4388,7 @@ typedef struct _ACLRestrictionsData {
  static gboolean
  e_webdav_session_acl_restrictions_cb (EWebDAVSession *webdav,
  				      xmlNodePtr prop_node,
@@ -8157,7 +8229,7 @@ index 83c89f517..5e334a5d4 100644
  				      const gchar *href,
  				      guint status_code,
  				      gpointer user_data)
-@@ -4726,7 +4496,7 @@ e_webdav_session_get_acl_restrictions_sync (EWebDAVSession *webdav,
+@@ -4724,7 +4495,7 @@ e_webdav_session_get_acl_restrictions_sync (EWebDAVSession *webdav,
  static gboolean
  e_webdav_session_principal_collection_set_cb (EWebDAVSession *webdav,
  					      xmlNodePtr prop_node,
@@ -8166,7 +8238,7 @@ index 83c89f517..5e334a5d4 100644
  					      const gchar *href,
  					      guint status_code,
  					      gpointer user_data)
-@@ -4988,7 +4758,7 @@ e_webdav_session_set_acl_sync (EWebDAVSession *webdav,
+@@ -4986,7 +4757,7 @@ e_webdav_session_set_acl_sync (EWebDAVSession *webdav,
  static gboolean
  e_webdav_session_principal_property_search_cb (EWebDAVSession *webdav,
  					       xmlNodePtr prop_node,
@@ -8341,7 +8413,7 @@ index f34d5a6f5..911cd319d 100644
  Libs: -L${libdir} -ledataserver-@API_VERSION@
  Cflags: -I${privincludedir}
 diff --git a/src/libedataserverui/CMakeLists.txt b/src/libedataserverui/CMakeLists.txt
-index d7b6735f2..4c471fde3 100644
+index def120959..11757c172 100644
 --- a/src/libedataserverui/CMakeLists.txt
 +++ b/src/libedataserverui/CMakeLists.txt
 @@ -107,7 +107,7 @@ install(FILES ${HEADERS}
@@ -8354,10 +8426,10 @@ index d7b6735f2..4c471fde3 100644
  	-DLIBEDATASERVERUI_COMPILATION
  	-I${CMAKE_BINARY_DIR}/src/calendar
 diff --git a/src/libedataserverui/e-credentials-prompter-impl-oauth2.c b/src/libedataserverui/e-credentials-prompter-impl-oauth2.c
-index dc605df67..1499535fe 100644
+index 60e053027..2d0aa8d96 100644
 --- a/src/libedataserverui/e-credentials-prompter-impl-oauth2.c
 +++ b/src/libedataserverui/e-credentials-prompter-impl-oauth2.c
-@@ -73,24 +73,25 @@ cpi_oauth2_create_auth_uri (EOAuth2Service *service,
+@@ -74,24 +74,25 @@ cpi_oauth2_create_auth_uri (EOAuth2Service *service,
  			    ESource *source)
  {
  	GHashTable *uri_query;
@@ -8390,7 +8462,7 @@ index dc605df67..1499535fe 100644
  	g_hash_table_destroy (uri_query);
  
  	return uri;
-@@ -589,7 +590,7 @@ credentials_prompter_impl_oauth2_set_proxy (WebKitWebContext *web_context,
+@@ -611,7 +612,7 @@ credentials_prompter_impl_oauth2_set_proxy (WebKitWebContext *web_context,
  		ESourceProxy *proxy;
  		WebKitWebsiteDataManager *data_manager;
  		WebKitNetworkProxySettings *proxy_settings = NULL;
@@ -8399,7 +8471,7 @@ index dc605df67..1499535fe 100644
  		gchar **ignore_hosts = NULL;
  		gchar *tmp;
  		guint16 port;
-@@ -606,18 +607,13 @@ credentials_prompter_impl_oauth2_set_proxy (WebKitWebContext *web_context,
+@@ -628,18 +629,13 @@ credentials_prompter_impl_oauth2_set_proxy (WebKitWebContext *web_context,
  
  			tmp = e_source_proxy_dup_socks_host (proxy);
  			if (tmp && *tmp) {
@@ -8421,7 +8493,7 @@ index dc605df67..1499535fe 100644
  			} else {
  				proxy_settings = webkit_network_proxy_settings_new (NULL, (const gchar * const *) ignore_hosts);
  			}
-@@ -625,44 +621,36 @@ credentials_prompter_impl_oauth2_set_proxy (WebKitWebContext *web_context,
+@@ -647,44 +643,36 @@ credentials_prompter_impl_oauth2_set_proxy (WebKitWebContext *web_context,
  
  			tmp = e_source_proxy_dup_http_host (proxy);
  			if (tmp && *tmp) {
@@ -8519,7 +8591,7 @@ index 4604c33ad..ecbe63e7b 100644
  	return host;
  }
 diff --git a/src/libedataserverui/e-webdav-discover-widget.c b/src/libedataserverui/e-webdav-discover-widget.c
-index 812a2f513..7ab4ca9b3 100644
+index c1679630a..dadc793d9 100644
 --- a/src/libedataserverui/e-webdav-discover-widget.c
 +++ b/src/libedataserverui/e-webdav-discover-widget.c
 @@ -744,7 +744,7 @@ e_webdav_discover_content_refresh_done_cb (GObject *source_object,
