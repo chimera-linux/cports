@@ -1,5 +1,5 @@
 pkgname = "ffmpeg"
-pkgver = "4.4.1"
+pkgver = "5.0.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -70,8 +70,9 @@ makedepends = [
     "libmodplug-devel", "lame-devel", "libbs2b-devel",
     "libpulse-devel", "pipewire-jack-devel", "vapoursynth-devel",
     "libva-devel", "libvdpau-devel", "v4l-utils-devel",
-    "vulkan-loader", "vulkan-headers", "libdrm-devel", "sdl-devel",
-    "rubberband-devel", "libxml2-devel", "ocl-icd-devel",
+    "vulkan-loader", "vulkan-headers", "vulkan-validationlayers-devel",
+    "libdrm-devel", "sdl-devel", "rubberband-devel", "libxml2-devel",
+    "ocl-icd-devel",
 ]
 depends = [f"ffplay={pkgver}-r{pkgrel}"]
 pkgdesc = "Decoding, encoding and streaming software"
@@ -80,7 +81,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "eadbad9e9ab30b25f5520fbfde99fae4a92a1ae3c0257a8d68569a4651e30e02"
+sha256 = "ef2efae259ce80a240de48ec85ecb062cecca26e4352ffb3fda562c21a93007b"
 # seems to need rpath?
 options = ["!check"]
 
