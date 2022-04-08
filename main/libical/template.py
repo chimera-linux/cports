@@ -1,5 +1,5 @@
 pkgname = "libical"
-pkgver = "3.0.13"
+pkgver = "3.0.14"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,7 +19,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-only"
 url = "https://libical.github.io/libical"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "02543b08897f3b75c76c360a335900ccfb027d2f5120176c777340e67e763ad4"
+sha256 = "4284b780356f1dc6a01f16083e7b836e63d3815e27ed0eaaad684712357ccc8f"
+options = ["!cross"]
 
 @subpackage("libical-devel")
 def _devel(self):
