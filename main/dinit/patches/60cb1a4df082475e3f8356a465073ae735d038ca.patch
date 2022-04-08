@@ -1,0 +1,25 @@
+From 60cb1a4df082475e3f8356a465073ae735d038ca Mon Sep 17 00:00:00 2001
+From: Davin McCall <davmac@davmac.org>
+Date: Sun, 3 Apr 2022 20:15:08 +1000
+Subject: [PATCH] Fix off-by-one in handling STATUS requests
+
+The handle value was loaded from an incorrect offset in the buffer,
+leading to occasional invalid handle and resulting in "protocol error"
+reports from dinitctl
+---
+ src/control.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/control.cc b/src/control.cc
+index 0734fbb..b54a4c6 100644
+--- a/src/control.cc
++++ b/src/control.cc
+@@ -602,7 +602,7 @@ bool control_conn_t::process_service_status()
+     }
+ 
+     handle_t handle;
+-    rbuf.extract(&handle, 2, sizeof(handle));
++    rbuf.extract(&handle, 1, sizeof(handle));
+     rbuf.consume(pkt_size);
+     chklen = 0;
+ 

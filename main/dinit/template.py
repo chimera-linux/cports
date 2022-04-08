@@ -1,8 +1,6 @@
 pkgname = "dinit"
-pkgver = "0.12.0_git20220221"
+pkgver = "0.13.0"
 pkgrel = 0
-# pin to a git commit for the time being
-_commit = "d975e76d20730d6e7ceb68bb500d51053faf199b"
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_args = ["check-igr"] # additional target
@@ -11,8 +9,8 @@ pkgdesc = "Service manager and init system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = f"https://davmac.org/projects/dinit"
-source = f"https://github.com/davmac314/{pkgname}/archive/{_commit}.tar.gz"
-sha256 = "418c9bd732af23af9ed3a3184704f4cf770d64a3224138552c3a5c5a491f11e8"
+source = f"https://github.com/davmac314/{pkgname}/archive/v{pkgver}.tar.gz"
+sha256 = "bdf23a69c6778aee323b73a67e0d5b3f2871608df9815857b9ff1ac63208a267"
 
 def init_configure(self):
     self.make_build_args += [
