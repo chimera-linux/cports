@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.43"
+pkgver = "0.3.49"
 pkgrel = 0
 _pms_version = "0.4.1"
 build_style = "meson"
@@ -43,6 +43,7 @@ makedepends = [
     "webrtc-audio-processing-0.3-devel",
     "bluez-devel",
     "libfreeaptx-devel",
+    "libcanberra-devel",
     "lilv-devel",
 ]
 depends = [
@@ -58,7 +59,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = [f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["87f692a2cb5b14ee900e102502b5e078a0cd3f7836f03a2e7cb30690ead37b50"]
+sha256 = ["0400b422eb96eaa84229dfe121810281594561b22d69c17af95f7fea1f6edb5e"]
 
 if self.profile().endian == "big":
     configure_args += ["-Dbluez5-codec-ldac=disabled"]
