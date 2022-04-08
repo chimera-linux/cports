@@ -1,5 +1,5 @@
 pkgname = "libvdpau"
-pkgver = "1.4"
+pkgver = "1.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://freedesktop.org/wiki/Software/VDPAU"
 source = f"https://gitlab.freedesktop.org/vdpau/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "240dd8f9ec08de707529917677827ba12e13b9fc299eeb3af13ea05e7fc74aba"
+sha256 = "66490802f30426d30ff9e8af35263bbbbaa23b52d0a2d797d06959c3d19638fd"
 
 def post_install(self):
     self.install_license("COPYING")
