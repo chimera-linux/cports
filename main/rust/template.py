@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.59.0"
+pkgver = "1.60.0"
 pkgrel = 0
 hostmakedepends = [
     "cmake", "curl", "pkgconf", "python", "llvm-devel", "llvm-tools",
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "375996ead731cab2203ec10a66a3c4568ab6997d7e5d3ae597658164fe27be3d"
+sha256 = "a025876deccbcb3f288d8e02623ea321f94623f31305d3c5c6f17855bb9685db"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -55,7 +55,8 @@ def post_patch(self):
     self.rm("src/llvm-project", recursive = True)
     # we are patching these
     cargo.clear_vendor_checksums(self, "libc")
-    cargo.clear_vendor_checksums(self, "libc-0.2.108")
+    cargo.clear_vendor_checksums(self, "libc-0.2.112")
+    cargo.clear_vendor_checksums(self, "libc-0.2.116")
 
 def do_configure(self):
     if _bootstrap:

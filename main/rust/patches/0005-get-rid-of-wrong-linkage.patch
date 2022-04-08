@@ -7,14 +7,33 @@ There is no good way to compute the clang builtins library
 path from inside the rust code, but there should be no harm
 in just disabling nodefaultlibs for our platform.
 ---
- vendor/libc-0.2.108/src/unix/mod.rs | 7 +------
+ vendor/libc-0.2.112/src/unix/mod.rs | 7 +------
+ vendor/libc-0.2.116/src/unix/mod.rs | 7 +------
  vendor/libc/src/unix/mod.rs         | 7 +------
  2 files changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/vendor/libc-0.2.108/src/unix/mod.rs b/vendor/libc-0.2.108/src/unix/mod.rs
-index 52f875218..51837c6b1 100644
---- a/vendor/libc-0.2.108/src/unix/mod.rs
-+++ b/vendor/libc-0.2.108/src/unix/mod.rs
+diff --git a/vendor/libc-0.2.112/src/unix/mod.rs b/vendor/libc-0.2.112/src/unix/mod.rs
+index 5ff2294e7..ca4bf46c9 100644
+--- a/vendor/libc-0.2.112/src/unix/mod.rs
++++ b/vendor/libc-0.2.112/src/unix/mod.rs
+@@ -329,12 +329,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern {}
+     } else if #[cfg(target_env = "musl")] {
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
+-                        cfg(target_feature = "crt-static")))]
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
+-        extern {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         #[link(name = "c")]
+         extern {}
+diff --git a/vendor/libc-0.2.116/src/unix/mod.rs b/vendor/libc-0.2.116/src/unix/mod.rs
+index 5ff2294e7..ca4bf46c9 100644
+--- a/vendor/libc-0.2.116/src/unix/mod.rs
++++ b/vendor/libc-0.2.116/src/unix/mod.rs
 @@ -329,12 +329,7 @@ cfg_if! {
          #[link(name = "c", cfg(not(target_feature = "crt-static")))]
          extern {}
@@ -47,6 +66,3 @@ index 5ff2294e7..ca4bf46c9 100644
      } else if #[cfg(target_os = "emscripten")] {
          #[link(name = "c")]
          extern {}
--- 
-2.35.1
-
