@@ -1,5 +1,5 @@
 pkgname = "bash"
-pkgver = "5.1.8"
+pkgver = "5.1.16"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "0cfb5c9bb1a29f800a97bd242d19511c997a1013815b805e0fdd32214113d6be"
+sha256 = "5bac17218d3911834520dad13cd1f85ab944e1c09ae1aba55906be1f8192f558"
 tool_flags = {"CFLAGS": ["-DSYS_BASHRC=\"/etc/bash/bashrc\""]}
 
 def init_configure(self):
