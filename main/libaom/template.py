@@ -1,5 +1,5 @@
 pkgname = "libaom"
-pkgver = "3.2.0"
+pkgver = "3.3.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DENABLE_TESTS=OFF"]
@@ -13,7 +13,7 @@ license = "BSD-2-Clause"
 url = "https://aomedia.org"
 # there are no official tarballs and no deterministic autotarballs
 source = [f"https://ftp.octaforge.org/q66/random/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["5d1919c6ccd8811f344a89150a89234404e8273734cb0bd91e48b045d3226439"]
+sha256 = ["2538d6f82074f44a1c9d97a2b3984a6c62481b61b06fd4edf959a5a65f88a434"]
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
 # requires a testdata download, tests take long
 options = ["!check"]
