@@ -1,5 +1,5 @@
 pkgname = "libva"
-pkgver = "2.13.0"
+pkgver = "2.14.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dwith_glx=no", "-Dwith_wayland=yes"]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://01.org/linuxmedia/vaapi"
 source = f"https://github.com/intel/{pkgname}/archive/{pkgver}.tar.gz"
-sha256 = "6b7ec7d4fa204dad3f266450981f1f0892400c03afd3e00ac11f8ccade5aaaa1"
+sha256 = "f21152a2170edda9d1c4dd463d52eaf62b553e83e553c0a946654523cca86d5e"
 
 def post_install(self):
     self.install_license("COPYING")
