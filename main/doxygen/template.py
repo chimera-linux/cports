@@ -1,5 +1,5 @@
 pkgname = "doxygen"
-pkgver = "1.9.2"
+pkgver = "1.9.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "perl", "python", "flex", "bison"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://doxygen.nl"
 source = f"{url}/files/{pkgname}-{pkgver}.src.tar.gz"
-sha256 = "060f254bcef48673cc7ccf542736b7455b67c110b30fdaa33512a5b09bbecee5"
+sha256 = "f352dbc3221af7012b7b00935f2dfdc9fb67a97d43287d2f6c81c50449d254e0"
 
 def post_extract(self):
     # needs texlive stuff
