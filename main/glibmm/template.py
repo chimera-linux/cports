@@ -1,5 +1,5 @@
 pkgname = "glibmm"
-pkgver = "2.70.0"
+pkgver = "2.72.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "glib-devel", "perl", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8008fd8aeddcc867a3f97f113de625f6e96ef98cf7860379813a9c0feffdb520"
+sha256 = "782924bf136496f3878fdc2a0aa9ef40f0c515e2c3e054caffa5d2e52380c71e"
 
 @subpackage("glibmm-devel")
 def _devel(self):
