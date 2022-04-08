@@ -1,5 +1,5 @@
 pkgname = "byacc"
-pkgver = "20210808"
+pkgver = "20220128"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--program-transform=s,^,b,"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license="custom:byacc"
 url = "http://invisible-island.net/byacc"
 source = f"ftp://ftp.invisible-island.net/{pkgname}/{pkgname}-{pkgver}.tgz"
-sha256 = "f158529be9d0594263c7f11a87616a49ea23e55ac63691252a2304fbbc7d3a83"
+sha256 = "42c1805cc529314e6a76326fe1b33e80c70862a44b01474da362e2f7db2d749c"
 options = ["bootstrap"]
 
 def post_install(self):
