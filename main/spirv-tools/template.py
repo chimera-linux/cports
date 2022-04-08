@@ -1,6 +1,6 @@
 # update and rebuild shaderc when updating
 pkgname = "spirv-tools"
-pkgver = "2021.4"
+pkgver = "2022.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/SPIRV-Tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "d68de260708dda785d109ff1ceeecde2d2ab71142fa5bf59061bb9f47dd3bb2c"
+sha256 = "909fc7e68049dca611ca2d57828883a86f503b0353ff78bc594eddc65eb882b9"
 # needs gtest
 options = ["!check"]
 
