@@ -1,5 +1,5 @@
 pkgname = "libwebp"
-pkgver = "1.2.1"
+pkgver = "1.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = f"http://downloads.webmproject.org/releases/webp/{pkgname}-{pkgver}.tar.gz"
-sha256 = "808b98d2f5b84e9b27fdef6c5372dac769c3bda4502febbfa5031bd3c4d7d018"
+sha256 = "7656532f837af5f4cec3ff6bafe552c044dc39bf453587bd5b77450802f4aee6"
 
 def post_install(self):
     self.install_license("COPYING")
