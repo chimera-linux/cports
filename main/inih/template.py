@@ -1,5 +1,5 @@
 pkgname = "inih"
-pkgver = "53"
+pkgver = "55"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/benhoyt/inih"
 source = f"{url}/archive/r{pkgver}.tar.gz"
-sha256 = "01b0366fdfdf6363efc070c2f856f1afa33e7a6546548bada5456ad94a516241"
+sha256 = "ba55f8ae2a8caf0653f30f48567241e14ea916acfc13481f502d8a9c8f507f68"
 
 def post_install(self):
     self.install_license("LICENSE.txt")
