@@ -1,5 +1,5 @@
 pkgname = "bubblewrap"
-pkgver = "0.5.0"
+pkgver = "0.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_check_args = ["-j1"]
@@ -11,5 +11,5 @@ maintainer = "q66 <daniel@octaforge.org>"
 license = "LGPL-2.0-or-later"
 url = "https://github.com/containers/bubblewrap"
 source = f"https://github.com/containers/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "16fdaf33799d63104e347e0133f909196fe90d0c50515d010bcb422eb5a00818"
+sha256 = "9609c7dc162bc68abc29abfab566934fdca37520a15ed01b675adcf3a4303282"
 tool_flags = {"CFLAGS": ["-Wno-error,-Wformat-nonliteral"]}
