@@ -1,5 +1,5 @@
 pkgname = "sane-backends"
-pkgver = "1.0.32"
+pkgver = "1.1.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,9 +28,9 @@ pkgdesc = "Scanner Access Now Easy"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later WITH custom:sane-exception"
 url = "http://sane-project.org"
-_rhash = "104f09c07d35519cc8e72e604f11643f"
+_rhash = "7d30fab4e115029d91027b6a58d64b43"
 source = f"https://gitlab.com/sane-project/backends/uploads/{_rhash}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3a28c237c0a72767086202379f6dc92dbb63ec08dfbab22312cba80e238bb114"
+sha256 = "dd4b04c37a42f14c4619e8eea6a957f4c7c617fe59e32ae2872b373940a8b603"
 # otherwise we get conflicting providers because all the
 # plugins provide a libsane.so.1 soname for whatever reason
 options = ["!scanshlibs"]
