@@ -7,7 +7,7 @@ for kern in /usr/lib/modules/*; do
     [ -d "${kern}" ] || continue
     kernver=${kern#/usr/lib/modules/}
     # only consider removed kernels
-    [ -f "${kern}/modules.dep" ] || continue
+    [ -f "${kern}/modules.dep" ] && continue
     # uninstall everything installed for that kernel
     ckms -q -k "${kernver}" status | sed 's/[:,]//g' | \
         while read modn modv kernv karch status; do
