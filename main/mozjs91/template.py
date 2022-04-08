@@ -1,5 +1,5 @@
 pkgname = "mozjs91"
-pkgver = "91.5.0"
+pkgver = "91.8.0"
 pkgrel = 0
 build_wrksrc = "js/src"
 build_style = "gnu_configure"
@@ -27,7 +27,7 @@ url = "https://www.mozilla.org/firefox"
 # can't include ppc jit yet, interactive interpreter segfaults
 # (i guess because of lack of ion?)
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "f45cd9c96227e3e6eabe37962ce924b7a7ca86b6c191326c1bab18e082b4c813"
+sha256 = "d483a853cbf5c7f93621093432e3dc0b7ed847f2a5318b964828d19f9f087f3a"
 debug_level = 1 # make the debug size not explode
 tool_flags = {
     "LDFLAGS": ["-Wl,-z,stack-size=1048576"]
