@@ -1,12 +1,14 @@
 pkgname = "webkitgtk"
-pkgver = "2.34.3"
+pkgver = "2.36.0"
 pkgrel = 0
 build_style = "cmake"
+# TODO: ENABLE_GLES2 and USE_ANGLE_WEBGL; these do not compile right now
+# and after patching that they crash on startup, but we can reevaluate
+# for 2.38 perhaps, or one of the patch releases
 configure_args = [
     "-DPORT=GTK", "-DCMAKE_SKIP_RPATH=ON",
     f"-DCMAKE_LINKER={self.profile().triplet}-clang",
     # -DUSE_*
-    "-DUSE_SYSTEMD=OFF",
     "-DUSE_SOUP2=OFF",
     "-DUSE_LD_LLD=ON",
     "-DUSE_WOFF2=ON",
@@ -35,7 +37,7 @@ makedepends = [
     "gstreamer-devel", "gst-plugins-base-devel", "gst-plugins-bad-devel",
     "libxslt-devel", "icu-devel", "enchant-devel", "libseccomp-devel",
     "libxt-devel", "mesa-devel", "libxkbcommon-devel", "wayland-devel",
-    "wayland-protocols",
+    "elogind-devel", "wayland-protocols",
 ]
 depends = ["bubblewrap", "xdg-dbus-proxy"]
 pkgdesc = "GTK port of the WebKit browser engine"
@@ -43,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0d2f37aa32e21a36e4dd5a5ce7ae5ce27435c29d6803b962b8c90cb0cc49c52d"
+sha256 = "b877cca1f105235f5dd57c7ac2b2c2be3c6b691ff444f93925c7254cf156c64d"
 debug_level = 1 # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],

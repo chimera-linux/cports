@@ -66,28 +66,6 @@ index be5a5d51..becb2b2f 100644
              push(@$outputArray, " | " . $structureFlag);
          }
          push(@$outputArray, ";\n");
-diff --git a/Source/WebCore/css/makeprop.pl b/Source/WebCore/css/makeprop.pl
-index 565e3dc7..0be601e8 100755
---- a/Source/WebCore/css/makeprop.pl
-+++ b/Source/WebCore/css/makeprop.pl
-@@ -470,7 +470,7 @@ bool isEnabledCSSProperty(const CSSPropertyID id)
- {
-     switch (id) {
- EOF
--  foreach my $name (keys %runtimeFlags) {
-+  foreach my $name (sort keys %runtimeFlags) {
-     print GPERF "    case CSSPropertyID::CSSProperty" . $nameToId{$name} . ":\n";
-     print GPERF "        return RuntimeEnabledFeatures::sharedFeatures()." . $runtimeFlags{$name} . "Enabled();\n";
-   }
-@@ -498,7 +498,7 @@ bool isCSSPropertyEnabledBySettings(const CSSPropertyID id, const Settings* sett
-     switch (id) {
- EOF
- 
--foreach my $name (keys %settingsFlags) {
-+foreach my $name (sort keys %settingsFlags) {
-   print GPERF "    case CSSPropertyID::CSSProperty" . $nameToId{$name} . ":\n";
-   print GPERF "        return settings->" . $settingsFlags{$name} . "Enabled();\n";
- }
 diff --git a/Source/cmake/tools/scripts/version-stamp.pl b/Source/cmake/tools/scripts/version-stamp.pl
 index 888a4502..57ab9b16 100644
 --- a/Source/cmake/tools/scripts/version-stamp.pl
