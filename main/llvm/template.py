@@ -26,6 +26,7 @@ configure_args = [
     "-DLLVM_ENABLE_LIBXML2=NO",
     "-DLLVM_ENABLE_LLD=YES",
     "-DLLVM_ENABLE_LIBCXX=YES",
+    "-DLIBUNWIND_USE_COMPILER_RT=YES",
 ]
 make_cmd = "make"
 hostmakedepends = [

@@ -10,6 +10,7 @@ configure_args = [
     "-DCMAKE_NM=/usr/bin/llvm-nm",
     "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
     "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
+    "-DLIBUNWIND_USE_COMPILER_RT=YES",
 ]
 hostmakedepends = ["cmake"]
 makedepends = ["musl-cross"]
