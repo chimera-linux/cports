@@ -1,5 +1,5 @@
 pkgname = "strace"
-pkgver = "5.14"
+pkgver = "5.17"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -22,4 +22,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://strace.io"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "901bee6db5e17debad4530dd9ffb4dc9a96c4a656edbe1c3141b7cb307b11e73"
+sha256 = "5fb298dbd1331fd1e1bc94c5c32395860d376101b87c6cd3d1ba9f9aa15c161f"
