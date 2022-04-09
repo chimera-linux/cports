@@ -1,5 +1,5 @@
 pkgname = "libmnl"
-pkgver = "1.0.4"
+pkgver = "1.0.5"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.netfilter.org/projects/libmnl"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "171f89699f286a5854b72b91d06e8f8e3683064c5901fb09d954a9ab6f551f81"
+sha256 = "274b9b919ef3152bfb3da3a13c950dd60d6e2bcd54230ffeca298d03b40d0525"
 
 @subpackage("libmnl-devel")
 def _devel(self):
