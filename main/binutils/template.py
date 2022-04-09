@@ -1,5 +1,5 @@
 pkgname = "binutils"
-pkgver = "2.37"
+pkgver = "2.38"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/binutils"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "820d9724f020a3e69cb337893a0b63c2db161dadcb0e06fc11dc29eb1e84a32c"
+sha256 = "e316477a914f567eccc34d5d29785b8b0f5a10208d36bbacedcc39048ecfe024"
 # resistance is futile
 options = ["!check", "!lto"]
 
