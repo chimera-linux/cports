@@ -1,14 +1,14 @@
 pkgname = "upower"
-pkgver = "0.99.13"
+pkgver = "0.99.17"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 configure_args = [
-    "--disable-static", "--with-backend=linux", "--enable-introspection",
+    "-Ddefault_library=shared", "-Dos_backend=linux",
+    "-Dsystemdsystemunitdir=no", "-Dintrospection=enabled", "-Dgtk-doc=false"
 ]
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "pkgconf", "gettext-tiny-devel", "glib-devel", "gtk-doc-tools",
-    "gobject-introspection", "xsltproc",
+    "meson", "pkgconf", "gettext-tiny-devel", "glib-devel",
+    "gobject-introspection", "docbook-xsl-nons", "xsltproc",
 ]
 makedepends = [
     "libusb-devel", "libgudev-devel", "libglib-devel",
@@ -19,8 +19,8 @@ pkgdesc = "Abstraction for enumerating power devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
-source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/uploads/177df5b9f9b76f25a2ad9da41aa0c1fa/{pkgname}-{pkgver}.tar.xz"
-sha256 = "5cad70f91540cc7dc121cb17e0ad645e5e663c8682f60a7be42ee38cd7b23d7a"
+source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
+sha256 = "14d91e98aa3a8c298e314b2df371c3dbe3ed9a0dab74b43678c38b27a67d555d"
 # unpackaged umockdev
 options = ["!check"]
 
