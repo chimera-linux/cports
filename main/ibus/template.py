@@ -1,5 +1,5 @@
 pkgname = "ibus"
-pkgver = "1.5.25"
+pkgver = "1.5.26"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -7,6 +7,7 @@ configure_args = [
     "--enable-wayland", "--enable-emoji-dict", "--enable-unicode-dict",
     "--enable-introspection", "--enable-vala", "--enable-setup",
     "--disable-gtk2", "--disable-schemas-compile",
+    "--disable-systemd-services",
 ]
 make_cmd = "gmake"
 make_dir = "." # tests assume this
@@ -29,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "dea4f663c485267cc3313e40a0bc89b977c397e19644f8ab41df0e6eaec34330"
+sha256 = "5c2fd118e7bfd4e9a42c3a20e6175a263426c90b6256f94989ed3d0384f4c9fc"
 options = ["!cross"]
 
 @subpackage("libibus")
