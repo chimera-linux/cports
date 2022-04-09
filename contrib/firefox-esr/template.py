@@ -1,5 +1,5 @@
 pkgname = "firefox-esr"
-pkgver = "91.5.0"
+pkgver = "91.8.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -27,9 +27,11 @@ license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "f45cd9c96227e3e6eabe37962ce924b7a7ca86b6c191326c1bab18e082b4c813"
+sha256 = "d483a853cbf5c7f93621093432e3dc0b7ed847f2a5318b964828d19f9f087f3a"
 debug_level = 1 # defatten, especially with LTO
 tool_flags = {
+    # because the system_wrappers stuff is garbage
+    "CXXFLAGS": ["-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS"],
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
 }
 env = {
