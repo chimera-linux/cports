@@ -3,7 +3,7 @@ The pytest tests depend on a systemd environment
 
 --- a/meson.build
 +++ b/meson.build
-@@ -284,14 +284,6 @@ if get_option('tests').enabled()
+@@ -285,14 +285,6 @@ if get_option('tests').enabled()
  	else
  		message('valgrind not found, disabling valgrind test suite')
  	endif
@@ -12,8 +12,8 @@ The pytest tests depend on a systemd environment
 -	pytest = find_program('pytest-3', 'pytest')
 -	test('pytest',
 -	     pytest,
--	     args: [meson.source_root()],
--	     env: ['MESON_SOURCE_ROOT=@0@'.format(meson.source_root())],
+-	     args: [meson.current_source_dir()],
+-	     env: ['MESON_SOURCE_ROOT=@0@'.format(meson.current_source_dir())],
 -	     suite: ['all'])
  endif
  
