@@ -1,5 +1,5 @@
 pkgname = "libexpat"
-pkgver = "2.4.1"
+pkgver = "2.4.8"
 pkgrel = 0
 build_style = "gnu_configure"
 make_check_args = ["-j1"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"
-sha256 = "cf032d0dba9b928636548e32b327a2d66b1aab63c4f4a13dd132c2d1d2f2fb6a"
+sha256 = "f79b8f904b749e3e0d20afeadecf8249c55b2e32d4ebb089ae378df479dcaf25"
 
 def post_install(self):
     self.install_license("COPYING")
