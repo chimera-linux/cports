@@ -1,5 +1,5 @@
 pkgname = "libusb"
-pkgver = "1.0.24"
+pkgver = "1.0.25"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libusb.info"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "7efd2685f7b327326dcfb85cee426d9b871fd70e22caa15bb68d595ce2a2b12a"
+sha256 = "8a28ef197a797ebac2702f095e81975e2b02b2eeff2774fa909c78a74ef50849"
 
 @subpackage("libusb-devel")
 def _devel(self):
