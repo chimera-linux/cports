@@ -30,8 +30,6 @@ source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}e
 sha256 = "d483a853cbf5c7f93621093432e3dc0b7ed847f2a5318b964828d19f9f087f3a"
 debug_level = 1 # defatten, especially with LTO
 tool_flags = {
-    # because the system_wrappers stuff is garbage
-    "CXXFLAGS": ["-D_LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS"],
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
 }
 env = {
