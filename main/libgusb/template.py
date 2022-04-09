@@ -1,5 +1,5 @@
 pkgname = "libgusb"
-pkgver = f"0.3.9"
+pkgver = "0.3.10"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false", "-Dintrospection=true"]
@@ -12,9 +12,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libgusb"
 source = f"http://people.freedesktop.org/~hughsient/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "1f51ebe8c91140cffbd1c4d58602c96b884170cae4c74f6f7e302a91d5b7c972"
+sha256 = "0eb0b9ab0f8bba0c59631c809c37b616ef34eb3c8e000b0b9b71cf11e4931bdc"
 # no access to usb in container
-options = ["!check"]
+options = ["!check", "!cross"]
 
 @subpackage("libgusb-devel")
 def _devel(self):
