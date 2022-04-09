@@ -83,14 +83,3 @@
  cd ..
  
  AT_CHECK([$noskip || (exit 77)])
---- a/tests/old-ltdl-iface.at
-+++ b/tests/old-ltdl-iface.at
-@@ -131,8 +131,4 @@ LT_AT_CHECK_LIBTOOLIZE([--ltdl=ltdl --nonrecursive --install], 0, [expout], [exp
- 
- AT_CHECK([test -f ltdl/Makefile.inc])
- 
--LT_AT_BOOTSTRAP([ignore], [-I m4], [], [--add-missing], [--force])
--
--LT_AT_EXEC_CHECK([./old], 0, [[...]])
--
- AT_CLEANUP

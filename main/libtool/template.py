@@ -1,5 +1,5 @@
 pkgname = "libtool"
-pkgver = "2.4.6"
+pkgver = "2.4.7"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -12,10 +12,11 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://www.gnu.org/software/libtool"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "e3bd4d5d3d025a36c21dd6af7ea818a2afcd4dfc1ea5a17b39d7854bcd0c06e3"
+sha256 = "04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8"
 # FIXME: need to clear out sysroot from usr/bin/libtool for cross
 # also keep libtool static compat intact
-options = ["!cross", "!lto"]
+# tests interminable and endless
+options = ["!cross", "!lto", "!check"]
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "bootstrap", "--force", env = {
