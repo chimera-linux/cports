@@ -1,5 +1,5 @@
 pkgname = "lcms2"
-pkgver = "2.12"
+pkgver = "2.13.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://littlecms.com"
 source = f"$(SOURCEFORGE_SITE)/lcms/{pkgname}-{pkgver}.tar.gz"
-sha256 = "18663985e864100455ac3e507625c438c3710354d85e5cbb7cd4043e11fe10f5"
+sha256 = "d473e796e7b27c5af01bd6d1552d42b45b43457e7182ce9903f38bb748203b88"
 
 def post_install(self):
     self.install_license("COPYING")
