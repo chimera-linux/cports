@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-bad"
-pkgver = "1.20.0"
+pkgver = "1.20.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -90,9 +90,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "015b8d4d9a395ebf444d40876867a2034dd3304b3ad48bc3a0dd0c1ee71dc11d"
+sha256 = "09d3c2cf5911f0bc7da6bf557a55251779243d3de216b6a26cc90c445b423848"
 # TODO: a few fails, debug later
-options = ["!check"]
+options = ["!check", "!cross"]
 
 if self.profile().endian == "big":
     configure_args += ["-Dldac=disabled"]
