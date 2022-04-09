@@ -1,5 +1,5 @@
 pkgname = "libuv"
-pkgver = "1.42.0"
+pkgver = "1.44.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libuv.org"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "371e5419708f6aaeb8656671f89400b92a9bba6443369af1bb70bcd6e4b3c764"
+sha256 = "e91614e6dc2dd0bfdd140ceace49438882206b7a6fb00b8750914e67a9ed6d6b"
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
