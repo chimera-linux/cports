@@ -1,9 +1,10 @@
 pkgname = "libsecret"
-pkgver = "0.20.4"
+pkgver = "0.20.5"
 pkgrel = 0
 build_style = "meson"
+configure_args = ["-Dgtk_doc=false"]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gtk-doc-tools", "xsltproc",
+    "meson", "pkgconf", "glib-devel", "xsltproc", "docbook-xsl-nons",
     "gobject-introspection", "vala"
 ]
 makedepends = ["libglib-devel", "libgcrypt-devel", "vala"]
@@ -12,13 +13,13 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libsecret"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "325a4c54db320c406711bf2b55e5cb5b6c29823426aa82596a907595abb39d28"
+sha256 = "3fb3ce340fcd7db54d87c893e69bfc2b1f6e4d4b279065ffe66dac9f0fd12b4d"
 # does not work in container
-options = ["!check"]
+options = ["!check", "!cross"]
 
 @subpackage("libsecret-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share/gtk-doc"])
+    return self.default_devel()
 
 @subpackage("libsecret-progs")
 def _progs(self):
