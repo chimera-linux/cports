@@ -2,7 +2,7 @@ From 9177cce4cc7a8da5a524d5add1e055a6b9d863c2 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Wed, 6 Apr 2022 00:59:22 +0200
 Subject: [PATCH 11/22] HACK: always disable LTO for libunwind, libc++,
- libc++abi
+ libc++abi, force compiler-rt for libc++, libc++abi
 
 ---
  libcxx/CMakeLists.txt        | 3 +++
@@ -14,13 +14,14 @@ diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
 index 19f423bf0..cfb5b4480 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -841,6 +841,9 @@ function(cxx_link_system_libraries target)
+@@ -841,6 +841,10 @@ function(cxx_link_system_libraries target)
    if (ANDROID AND ANDROID_PLATFORM_LEVEL LESS 21)
      target_link_libraries(${target} PUBLIC android_support)
    endif()
 +
 +  target_add_compile_flags_if_supported(${target} PRIVATE "-fno-lto")
 +  target_add_link_flags_if_supported(${target} PRIVATE "-fno-lto")
++  target_add_link_flags_if_supported(${target} PRIVATE "-rtlib=compiler-rt")
  endfunction()
  
  # Windows-related flags =======================================================
@@ -28,12 +29,13 @@ diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
 index 94e625f44..dc8ae6760 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -383,6 +383,9 @@ else()
+@@ -383,6 +383,10 @@ else()
    add_compile_flags_if_supported(-EHa-)
  endif()
  
 +add_compile_flags("-fno-lto")
 +add_link_flags("-fno-lto")
++add_link_flags("-rtlib=compiler-rt")
 +
  # Assert
  string(TOUPPER "${CMAKE_BUILD_TYPE}" uppercase_CMAKE_BUILD_TYPE)
