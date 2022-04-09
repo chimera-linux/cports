@@ -1,5 +1,5 @@
 pkgname = "tzdata"
-pkgver = "2021e"
+pkgver = "2022a"
 pkgrel = 0
 makedepends = ["musl-devel-static", "libunwind-devel-static"]
 pkgdesc = "Time zone and daylight-saving time data"
@@ -11,8 +11,8 @@ source = [
     f"https://github.com/eggert/tz/archive/{pkgver}.tar.gz"
 ]
 sha256 = [
-    "07ec42b737d0d3c6be9c337f8abb5f00554a0f9cc4fcf01a703d69403b6bb2b1",
-    "11908a7f18530ca3013c8458d902a54cdd3382276bdd56891db074b1af4a26b8"
+    "ef7fffd9f4f50f4f58328b35022a32a5a056b245c5cb3d6791dddb342f871664",
+    "e9d82a851a15bb5db2cbaae2c3fc633743ad9edc069e3738c5e8908978064ed8"
 ]
 # no tests
 options = ["bootstrap", "!check", "hardlinks"]
