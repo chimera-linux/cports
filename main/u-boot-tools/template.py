@@ -1,18 +1,23 @@
 pkgname = "u-boot-tools"
-pkgver = "2021.10"
+pkgver = "2022.04"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
-make_build_target = "tools"
-make_build_args = ["envtools", "HOSTSTRIP=:", "STRIP=:", "NO_SDL=1"]
-hostmakedepends = ["gmake", "bison", "flex", "linux-headers"]
-makedepends = ["openssl-devel", "linux-headers"]
+make_build_target = "tools-all"
+make_build_args = [
+    "tools-only", "envtools", "HOSTSTRIP=:", "STRIP=:", "NO_SDL=1"
+]
+hostmakedepends = ["gmake", "bison", "flex"]
+makedepends = [
+    "openssl-devel", "linux-headers", "libuuid-devel", "gnutls-devel",
+    "ncurses-libtinfo-devel"
+]
 pkgdesc = "Das U-Boot tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"ftp://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "cde723e19262e646f2670d25e5ec4b1b368490de950d4e26275a988c36df0bd4"
+sha256 = "68e065413926778e276ec3abd28bb32fa82abaa4a6898d570c1f48fbdb08bcd0"
 # weird test suite
 options = ["!check"]
 
@@ -45,9 +50,9 @@ def post_build(self):
 
 def do_install(self):
     for t in [
-        "dumpimage", "fdtgrep", "fit_check_sign", "fit_info",
+        "bmp_logo", "dumpimage", "fdtgrep", "fit_check_sign", "fit_info",
         "gen_eth_addr", "gen_ethaddr_crc", "ifwitool", "img2srec",
-        "mkenvimage", "mkimage", "proftool", "spl_size_limit",
-        "env/fw_printenv", "env/fw_setenv",
+        "kwboot", "mkeficapsule", "mkenvimage", "mkimage", "proftool",
+        "spl_size_limit", "env/fw_printenv", "env/fw_setenv",
     ]:
         self.install_bin(f"tools/{t}")
