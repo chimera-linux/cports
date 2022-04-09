@@ -1,5 +1,5 @@
 pkgname = "libgpg-error"
-pkgver = "1.43"
+pkgver = "1.45"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
 source = f"{url}/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "a9ab83ca7acc442a5bd846a75b920285ff79bdb4e3d34aa382be88ed2c3aebaf"
+sha256 = "570f8ee4fb4bff7b7495cff920c275002aea2147e9a1d220c068213267f80a26"
 # needs qemu and patching
 options = ["!cross"]
 
