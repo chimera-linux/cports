@@ -1,5 +1,5 @@
 pkgname = "perl-net-ssleay"
-pkgver = "1.90"
+pkgver = "1.92"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["gmake", "perl", "openssl"]
@@ -10,6 +10,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-2.0"
 url = "https://metacpan.org/release/Net-SSLeay"
 source = f"$(CPAN_SITE)/Net/Net-SSLeay-{pkgver}.tar.gz"
-sha256 = "f8696cfaca98234679efeedc288a9398fcf77176f1f515dbc589ada7c650dc93"
+sha256 = "47c2f2b300f2e7162d71d699f633dd6a35b0625a00cbda8c50ac01144a9396a9"
 # missing checkdepends
 options = ["!check"]
