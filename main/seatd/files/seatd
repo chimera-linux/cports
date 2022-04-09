@@ -1,0 +1,6 @@
+# seatd service
+
+type            = process
+command         = /usr/bin/seatd -g _seatd
+depends-on      = init
+smooth-recovery = true
