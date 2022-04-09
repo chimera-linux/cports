@@ -1,5 +1,5 @@
 pkgname = "findutils"
-pkgver = "4.8.0"
+pkgver = "4.9.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/findutils"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "57127b7e97d91282c6ace556378d5455a9509898297e46e10443016ea1387164"
+sha256 = "a2bfb8c09d436770edc59f50fa483e785b161a3b7b9d547573cb08065fd462fe"
 
 def post_install(self):
     # we don't want this
