@@ -1,0 +1,37 @@
+From 7ab1ab0db40158e6f0794637054c98376e236a6d Mon Sep 17 00:00:00 2001
+From: Dimitry Andric <dimitry@andric.com>
+Date: Mon, 14 Mar 2022 22:05:35 +0100
+Subject: [PATCH] [libc++] Make __dir_stream visibility declaration consistent
+
+The class `__dir_stream` is currently declared in two places: as a
+top-level forward declaration in `directory_iterator.h`, and as a friend
+declaration in class `directory_entry`, in `directory_entry.h`.
+
+The former has a `_LIBCPP_HIDDEN` attribute, but the latter does not,
+causing the Firefox build to complain about the visibility not matching
+the previous declaration. This is because Firefox plays games with
+pushing and popping visibility.
+
+Work around this by making both `__dir_stream` declarations consistently
+use `_LIBCPP_HIDDEN`.
+
+Reviewed By: ldionne, philnik, #libc
+
+Differential Revision: https://reviews.llvm.org/D121639
+---
+ libcxx/include/__filesystem/directory_entry.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libcxx/include/__filesystem/directory_entry.h b/libcxx/include/__filesystem/directory_entry.h
+index 3db244556cfd8..5ba3ef96de481 100644
+--- a/libcxx/include/__filesystem/directory_entry.h
++++ b/libcxx/include/__filesystem/directory_entry.h
+@@ -254,7 +254,7 @@ class directory_entry {
+ private:
+   friend class directory_iterator;
+   friend class recursive_directory_iterator;
+-  friend class __dir_stream;
++  friend class _LIBCPP_HIDDEN __dir_stream;
+ 
+   enum _CacheType : unsigned char {
+     _Empty,
