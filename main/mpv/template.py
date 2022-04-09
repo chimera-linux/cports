@@ -1,5 +1,5 @@
 pkgname = "mpv"
-pkgver = "0.34.0"
+pkgver = "0.34.1"
 pkgrel = 0
 build_style = "waf"
 configure_args = [
@@ -33,7 +33,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "f654fb6275e5178f57e055d20918d7d34e19949bc98ebbf4a7371902e88ce309"
+sha256 = "32ded8c13b6398310fa27767378193dc1db6d78b006b70dbcbd3123a1445e746"
 # no test suite
 options = ["!check"]
 
