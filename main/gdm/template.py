@@ -1,5 +1,5 @@
 pkgname = "gdm"
-pkgver = "41.3"
+pkgver = "42.0"
 pkgrel = 0
 build_style = "meson"
 # TODO: plymouth
@@ -19,7 +19,7 @@ hostmakedepends = [
 makedepends = [
     "elogind-devel", "gettext-tiny-devel", "accountsservice-devel",
     "glib-devel", "libx11-devel", "libxau-devel", "libcanberra-devel",
-    "gtk+3-devel", "xserver-xorg-devel", "linux-pam-devel",
+    "libgudev-devel", "gtk+3-devel", "xserver-xorg-devel", "linux-pam-devel",
 ]
 checkdepends = ["check-devel"]
 depends = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "bb0b650a7cea90f09a33284fbd02975315407efc18e814009852d1bcad3437d4"
+sha256 = "a328ac976937bec179971ff07829a1246b98ce724181c128ae32a0ba47ad3855"
 system_users = [
     {
         "name": "_gdm",
