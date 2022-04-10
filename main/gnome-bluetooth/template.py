@@ -1,5 +1,5 @@
 pkgname = "gnome-bluetooth"
-pkgver = "3.34.5"
+pkgver = "42.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -10,7 +10,8 @@ hostmakedepends = [
     "gettext-tiny",
 ]
 makedepends = [
-    "gtk+3-devel", "libnotify-devel", "libcanberra-devel", "eudev-devel"
+    "gtk4-devel", "libadwaita-devel", "libnotify-devel", "libcanberra-devel",
+    "eudev-devel", "gsound-devel", "upower-devel",
 ]
 checkdepends = ["python-dbus"]
 depends = ["bluez"]
@@ -19,7 +20,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeBluetooth"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "6c949e52c8becc2054daacd604901f66ce5cf709a5fa91c4bb7cacc939b53ea9"
+sha256 = "3d1e2720673bc9a242619dc5d231fd6e776c18a49da29f43cdc433055adb0170"
+options = ["!cross"]
 
 @subpackage("gnome-bluetooth-devel")
 def _devel(self):
