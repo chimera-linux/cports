@@ -1,15 +1,16 @@
 pkgname = "dinit-chimera"
-_commit = "8a186bcdece86e787a5a7019894d96347bd06416"
+_commit = "13422e51eabea830856f7412f88e4488d8fbf443"
 pkgver = "0.1"
 pkgrel = 0
 build_style = "makefile"
+makedepends = ["linux-headers"]
 depends = ["dinit", "util-linux", "eudev"]
 pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
-sha256 = "b384b9111b081c90fdeb2303092a8a40fad80e68903c78c270b18916474fab0a"
+sha256 = "6c19299c939a88e85eb0f09a54b1508a513c69b43bfadc6c5de6c18b7bbabf09"
 # no tests
 options = ["!check", "brokenlinks"]
 
