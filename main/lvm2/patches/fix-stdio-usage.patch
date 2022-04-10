@@ -12,9 +12,9 @@ index 95fb343..5baea40 100644
  	if (set_buffering
  #ifdef SYS_gettid
 @@ -2274,7 +2274,7 @@ void destroy_toolcontext(struct cmd_context *cmd)
+ 		dm_hash_destroy(cmd->cft_def_hash);
  
- 	if (cmd->pending_delete_mem)
- 		dm_pool_destroy(cmd->pending_delete_mem);
+ 	dm_device_list_destroy(&cmd->cache_dm_devs);
 -#ifndef VALGRIND_POOL
 +#if !defined(VALGRIND_POOL) && defined(__GLIBC__)
  	if (cmd->linebuffer) {
