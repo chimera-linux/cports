@@ -7,6 +7,7 @@ depends = [
     "syslog-ng", "opendoas", "ethtool", "dhcpcd", "usbutils",
     "f2fs-tools", "elogind", "polkit", "dbus", "iwd",
     "dinit-userservd",
+    "chimera-artwork",
     # firmware for all
     "firmware-linux-amd",
     "firmware-linux-nvidia",
