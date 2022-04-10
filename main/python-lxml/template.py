@@ -1,5 +1,5 @@
 pkgname = "python-lxml"
-pkgver = "4.6.4"
+pkgver = "4.8.0"
 pkgrel = 0
 build_style = "python_module"
 make_build_args = ["--with-cython"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND custom:ElementTree"
 url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
-sha256 = "5a7cef132353fc36de6f6b26dacde07b22217c6b4f8c11ef48e8bf0011f48160"
+sha256 = "8d2b999f5c8a8a70a28a3875e5d1bf27c0555c922bfa0af34dc46e07913f2a47"
 # missing checkdepends
 options = ["!check"]
 
