@@ -1,6 +1,6 @@
-From ce6652fffc3fa97a33f5e8e8ac36c72036b0d50f Mon Sep 17 00:00:00 2001
+From 1a16b79fce8f61fc7d6664ba241971ad41a04bb3 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sun, 14 Nov 2021 03:19:36 +0100
+Date: Sun, 10 Apr 2022 01:59:32 +0200
 Subject: [PATCH] disable atomic modesetting by default
 
 atomic modesetting still causes issues on musl; disable it by
@@ -10,18 +10,18 @@ default (it can still be forced with WESTON_FORCE_ATOMIC)
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/libweston/backend-drm/kms.c b/libweston/backend-drm/kms.c
-index c91e381..556ec58 100644
+index 780d007..24ca48d 100644
 --- a/libweston/backend-drm/kms.c
 +++ b/libweston/backend-drm/kms.c
-@@ -1468,7 +1468,7 @@ init_kms_caps(struct drm_backend *b)
- 		b->universal_planes = (ret == 0);
+@@ -1461,7 +1461,7 @@ init_kms_caps(struct drm_backend *b)
+ 		return -1;
  	}
  
--	if (b->universal_planes && !getenv("WESTON_DISABLE_ATOMIC")) {
-+	if (b->universal_planes && getenv("WESTON_FORCE_ATOMIC")) {
+-	if (!getenv("WESTON_DISABLE_ATOMIC")) {
++	if (getenv("WESTON_FORCE_ATOMIC")) {
  		ret = drmGetCap(b->drm.fd, DRM_CAP_CRTC_IN_VBLANK_EVENT, &cap);
  		if (ret != 0)
  			cap = 0;
 -- 
-2.33.1
+2.35.1
 
