@@ -1,8 +1,6 @@
 pkgname = "geoclue"
-pkgver = "2.5.7.99"
+pkgver = "2.6.0"
 pkgrel = 0
-# we use a recent commit since it would be a pain to rebase the soup3 patch
-_commit = "df071a060190de925628afd0aa2e9ec739bf90d8"
 build_style = "meson"
 configure_args = [
     "-Ddbus-srv-user=_geoclue",
@@ -24,8 +22,8 @@ pkgdesc = "D-Bus geoinformation service"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home"
-source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{_commit}.tar.bz2"
-sha256 = "489db5383cf384549e57df257150dc7a69ff76aa0aa4e28b6a0f2ed13a8dd865"
+source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
+sha256 = "cdc9efcb98ce81284d7a6c3c899330481ffdca44bba3c18b9e530618298aa4a0"
 
 system_users = ["_geoclue"]
 
