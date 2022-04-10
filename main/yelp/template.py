@@ -1,5 +1,5 @@
 pkgname = "yelp"
-pkgver = "41.2"
+pkgver = "42.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Yelp"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b00bf033f02dd79b6d3f255031c71df8d6ed38e552c870b8f391a374724c43c5"
+sha256 = "25b1146ab8549888a5a8da067f63b470b0f0f800b6ae889cacd114d01d713b41"
 
 @subpackage("yelp-devel")
 def _devel(self):
