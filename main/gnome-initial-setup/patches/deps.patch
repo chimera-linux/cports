@@ -8,15 +8,6 @@ diff --git a/gnome-initial-setup/meson.build b/gnome-initial-setup/meson.build
 index 1d2388b..c1804ee 100644
 --- a/gnome-initial-setup/meson.build
 +++ b/gnome-initial-setup/meson.build
-@@ -35,7 +35,7 @@ dependencies = [
-     dependency ('gnome-desktop-3.0', version: '>= 3.7.5'),
-     dependency ('gsettings-desktop-schemas', version: '>= 3.37.1'),
-     dependency ('fontconfig'),
--    dependency ('gweather-3.0'),
-+    dependency ('gweather4'),
-     dependency ('goa-1.0'),
-     dependency ('goa-backend-1.0'),
-     dependency ('gtk+-3.0', version: '>= 3.11.3'),
 @@ -46,7 +46,7 @@ dependencies = [
      dependency ('libgeoclue-2.0', version: '>= 2.3.1'),
      cc.find_library('m', required: false),
