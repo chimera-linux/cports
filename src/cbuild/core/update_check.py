@@ -221,7 +221,8 @@ class UpdateCheck:
             nurl = f"{urlpfx}{v}{urlsfx}"
             if nurl == url:
                 break
-            print(f"Adding '{nurl}' for version check...")
+            if self.verbose:
+                print(f"Adding '{nurl}' for version check...")
             ret.append(nurl)
 
         return ret
