@@ -1,5 +1,5 @@
 pkgname = "gnome-online-accounts"
-pkgver = "3.40.1"
+pkgver = "3.44.0"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO: figure out if we can make it work with heimdal
@@ -27,7 +27,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "955a03128d0e87855d34d7c534e088f6286ed7ac01baa4ef824ef42a2cb39aad"
+sha256 = "381d5d4106f435b6f87786aa049be784774e15996adcc02789807afc87ea7342"
+options = ["!cross"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
