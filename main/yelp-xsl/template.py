@@ -1,5 +1,5 @@
 pkgname = "yelp-xsl"
-pkgver = "41.1"
+pkgver = "42.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "gettext-tiny", "itstool"]
@@ -9,4 +9,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Yelp/Xsl"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0d6db37ac2ef812483e0104703f1fa9cf032e9e0956a5f1c3afbcc23791f8a54"
+sha256 = "29b273cc0bd16efb6e983443803f1e9fdc03511e5c4ff6348fd30a604d4dc846"
