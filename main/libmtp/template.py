@@ -2,7 +2,7 @@ pkgname = "libmtp"
 pkgver = "1.1.19"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-udev=/usr/lib/udev"]
+configure_args = ["--with-udev=/usr/lib/udev", "--with-udev-group=plugdev"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["libgcrypt-devel", "libusb-devel"]
 pkgdesc = "Media Transfer Protocol (MTP) library"
