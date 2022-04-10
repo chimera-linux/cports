@@ -1,5 +1,5 @@
 pkgname = "nss"
-pkgver = "3.74"
+pkgver = "3.77"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 source = f"$(MOZILLA_SITE)/security/nss/releases/NSS_{pkgver.replace('.', '_')}_RTM/src/{pkgname}-{pkgver}.tar.gz"
-sha256 = "88928811f9f40f87d42e2eaccdf6e454562e51486067f2ddbe90aa47ea6cd056"
+sha256 = "825edf5a2fd35b788a23ff80face591f82919ae3ad2b8f77d424a450d618dedd"
 # some of the assembly does not like clang's assembler
 tool_flags = {
     "CFLAGS": ["-no-integrated-as"]
