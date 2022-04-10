@@ -1,5 +1,5 @@
 pkgname = "python-tomli"
-pkgver = "1.2.2"
+pkgver = "2.0.1"
 pkgrel = 0
 build_wrksrc = f"tomli-{pkgver}"
 build_style = "python_pep517"
@@ -12,14 +12,14 @@ url = "https://github.com/hukkin/tomli"
 # dependency cycle, so we need to download our own flit_core:
 #  https://github.com/hukkin/tomli/issues/130
 #  https://github.com/takluyver/flit/issues/451
-_flit_version = "3.4.0"
+_flit_version = "3.6.0"
 source = [
     f"$(PYPI_SITE)/t/tomli/tomli-{pkgver}.tar.gz",
     f"$(PYPI_SITE)/f/flit_core/flit_core-{_flit_version}.tar.gz",
 ]
 sha256 = [
-    "c6ce0015eb38820eaf32b5db832dbc26deb3dd427bd5f6556cf0acac2c214fee",
-    "29468fa2330969167d1f5c23eb9c0661cb6dacfcd46f361a274609a7f4197530"
+    "de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f",
+    "5892962ab8b8ea945835b3a288fe9dd69316f1903d5288c3f5cafdcdd04756ad"
 ]
 # no tests in archive
 options = ["!check"]
