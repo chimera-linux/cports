@@ -1,5 +1,5 @@
 pkgname = "gnome-session"
-pkgver = "41.3"
+pkgver = "42.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,4 +19,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-session"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ee4a229053f522624054889609335b885287cf67bbde0dc9fd882b01ec9b5b39"
+sha256 = "3cca06053ab682926920951a7da95f8cc6d72da74c682c46d0a0653332969caa"
