@@ -22,7 +22,7 @@ def post_build(self):
     make.Make(self).invoke(None, ["-C", "doc/en", "man"], env = {
         "PYTHONPATH": str(self.chroot_cwd / "build/lib")
     })
-    self.install_man("doc/en/_build/man/pytest.1")
 
 def post_install(self):
+    self.install_man("doc/en/_build/man/pytest.1")
     self.install_license("LICENSE")
