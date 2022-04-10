@@ -1,5 +1,5 @@
 pkgname = "crispy-doom"
-pkgver = "5.10.3"
+pkgver = "5.11.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/fabiangreffrath/crispy-doom"
 source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
-sha256 = "eef8dc26e8952b23717be3b20239fda4ee59842511328387766d1c8fe8252f6b"
+sha256 = "7c5bb36393dec39b9732e53963dadd6bcc3bd193370c4ec5b1c0121df3b38faa"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
