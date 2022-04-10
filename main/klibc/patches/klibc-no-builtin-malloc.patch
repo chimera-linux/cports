@@ -1,0 +1,15 @@
+A hack to get around infinite recursion with Clang 14.
+
+diff --git a/scripts/Kbuild.klibc b/scripts/Kbuild.klibc
+index e88bc00..f145fbc 100644
+--- a/scripts/Kbuild.klibc
++++ b/scripts/Kbuild.klibc
+@@ -109,7 +109,7 @@ KLIBCOBJCOPY     := $(OBJCOPY)
+ KLIBCOBJDUMP     := $(OBJDUMP)
+ 
+ # klibc include paths
+-KLIBCCPPFLAGS    := -nostdinc -iwithprefix include \
++KLIBCCPPFLAGS    := -fno-builtin-malloc -nostdinc -iwithprefix include \
+                     -I$(KLIBCINC)/arch/$(KLIBCARCHDIR)	\
+                     -I$(KLIBCINC)/bits$(KLIBCBITSIZE)	\
+                     -I$(KLIBCOBJ)/../include		\

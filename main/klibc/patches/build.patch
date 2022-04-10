@@ -1,15 +1,15 @@
-From 43edf6a592ffa27ede0fb83402e872e462b17099 Mon Sep 17 00:00:00 2001
+From a4b8913b5166bf403feaf73c9f6f9e77f0f42892 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Thu, 21 Oct 2021 03:42:22 +0200
+Date: Sun, 10 Apr 2022 02:23:14 +0200
 Subject: [PATCH] enable clang/musl builds
 
 ---
- Makefile                       | 20 ++++++++++----------
- usr/include/sys/sysinfo.h      |  7 +++----
+ Makefile                  | 20 ++++++++++----------
+ usr/include/sys/sysinfo.h |  7 +++----
  2 files changed, 13 insertions(+), 14 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index e2c7337..16a4dd7 100644
+index c99b962..586884a 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -18,14 +18,14 @@ include $(srctree)/scripts/Kbuild.include
@@ -54,10 +54,10 @@ index e2c7337..16a4dd7 100644
  export INSTALLROOT =
  
 diff --git a/usr/include/sys/sysinfo.h b/usr/include/sys/sysinfo.h
-index dba68dc..a422949 100644
+index 8469ba0..574a27f 100644
 --- a/usr/include/sys/sysinfo.h
 +++ b/usr/include/sys/sysinfo.h
-@@ -2,11 +2,10 @@
+@@ -2,12 +2,11 @@
   * sys/sysinfo.h
   */
  
@@ -67,11 +67,12 @@ index dba68dc..a422949 100644
 +#define _SYS_SYSINFO_H_
  
 +#include </usr/include/sys/sysinfo.h>
+ #include <sys/types.h>
  #include <linux/kernel.h>
  
 -extern int sysinfo(struct sysinfo *info);
 -
  #endif				/* _SYS_SYSINFO_H */
 -- 
-2.33.0
+2.35.1
 
