@@ -1,5 +1,5 @@
 pkgname = "gnome-desktop"
-pkgver = "41.3"
+pkgver = "42.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -14,7 +14,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "eudev-devel", "gsettings-desktop-schemas-devel", "gtk+3-devel",
-    "gdk-pixbuf-devel", "libglib-devel", "fontconfig-devel",
+    "gtk4-devel", "gdk-pixbuf-devel", "libglib-devel", "fontconfig-devel",
     "libseccomp-devel", "libxkbcommon-devel", "iso-codes", "xkeyboard-config",
 ]
 depends = [
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-desktop"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8cd1caab9311828c0452468c6a5067a9bc4463835b23a14be44e8fd9b03001c6"
+sha256 = "f3caa293a5e86f6ccad18f817273db1c67061e680d79d839aa8a7528e5bb26d6"
 # needs graphical environment
 options = ["!check"]
 
