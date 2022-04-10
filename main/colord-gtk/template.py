@@ -1,5 +1,5 @@
 pkgname = "colord-gtk"
-pkgver = "0.2.0"
+pkgver = "0.3.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -10,13 +10,14 @@ hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "vala-devel", "glib-devel",
     "xsltproc", "docbook-xsl",
 ]
-makedepends = ["colord-devel", "gtk+3-devel"]
+makedepends = ["colord-devel", "gtk4-devel", "gtk+3-devel"]
 pkgdesc = "Gtk+ support library for colord"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/colord-gtk"
 source = f"$(FREEDESKTOP_SITE)/colord/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "2a4cfae08bc69f000f40374934cd26f4ae86d286ce7de89f1622abc59644c717"
+sha256 = "b9466656d66d9a6ffbc2dd04fa91c8f6af516bf9efaacb69744eec0f56f3c1d0"
+options = ["!cross"]
 
 @subpackage("colord-gtk-devel")
 def _devel(self):
