@@ -1,8 +1,7 @@
 pkgname = "gnome-control-center"
-pkgver = "41.2"
+pkgver = "42.0"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dcheese=false"]
 hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "gettext-tiny",
     "glib-devel", "polkit", "python"
@@ -13,11 +12,11 @@ makedepends = [
     "gnome-settings-daemon-devel", "gnome-online-accounts-devel",
     "gsettings-desktop-schemas-devel", "libxml2-devel", "polkit-devel",
     "libpulse-devel", "upower-devel", "libgudev-devel", "libx11-devel",
-    "libxi-devel", "libepoxy-devel", "gtk+3-devel", "cups-devel",
+    "libxi-devel", "libepoxy-devel", "gtk4-devel", "cups-devel",
     "ibus-devel", "networkmanager-devel", "modemmanager-devel",
     "gnome-bluetooth-devel", "libwacom-devel", "gcr-devel", "libnma-devel",
-    "libsecret-devel", "udisks-devel", "gsound-devel", "libsoup-devel",
-    "libgtop-devel", "heimdal-devel", "libpwquality-devel", "samba-devel",
+    "libsecret-devel", "udisks-devel", "gsound-devel", "libgtop-devel",
+    "heimdal-devel", "libpwquality-devel", "samba-devel",
 ]
 depends = [
     "cups-pk-helper", "gsettings-desktop-schemas", "sound-theme-freedesktop", 
@@ -27,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8271fc6b33ec2418a578304dd3e57d665f0d7cc706a99a97be419848618fe248"
+sha256 = "0732efa7c4171ce0a0ed4106580b4ce35a57b10152c0ea36d239134913777eda"
 # needs graphical environment
 options = ["!check"]
 
