@@ -1,6 +1,6 @@
 # don't forget to update files/ckms.ini when bumping
 pkgname = "zfs"
-pkgver = "2.1.2"
+pkgver = "2.1.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 source = f"https://github.com/openzfs/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "258cf1d17a1f668a3b99b61eaf14be06c614df42503db0319bef1b9fc4c8b9e7"
+sha256 = "3b52c0d493f806f638dca87dde809f53861cd318c1ebb0e60daeaa061cf1acf6"
 
 def post_patch(self):
     # clean up for ckms

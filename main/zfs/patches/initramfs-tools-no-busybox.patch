@@ -1,6 +1,6 @@
-From e3b7f6db1556010f79cc6cd7c764f83ae8c5820d Mon Sep 17 00:00:00 2001
+From 6e4e93bda2b4b1a02d21527733a3a005801a23bd Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Mon, 28 Feb 2022 02:46:54 +0100
+Date: Sun, 10 Apr 2022 23:35:49 +0200
 Subject: [PATCH] prevent inclusion of busybox in initramfs
 
 ---
@@ -20,7 +20,7 @@ index b86d362..679fcae 100644
  KEYMAP=y
  
 diff --git a/contrib/initramfs/hooks/zfs.in b/contrib/initramfs/hooks/zfs.in
-index 32331b2..5f9f3f7 100755
+index 546841e..6cbfbed 100755
 --- a/contrib/initramfs/hooks/zfs.in
 +++ b/contrib/initramfs/hooks/zfs.in
 @@ -10,6 +10,10 @@ fi
@@ -44,9 +44,9 @@ index 32331b2..5f9f3f7 100755
 -	copy_exec "$libgcc"
 -done
 -
- copy_file config "/etc/hostid"
- copy_file cache  "@sysconfdir@/zfs/zpool.cache"
- copy_file config "@initconfdir@/zfs"
+ # shellcheck disable=SC2050
+ if [ @LIBFETCH_DYNAMIC@ -gt 0 ]; then
+ 	find /lib/ -name "@LIBFETCH_SONAME@" | while read -r libfetch; do
 -- 
 2.35.1
 
