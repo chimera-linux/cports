@@ -267,6 +267,7 @@ def _libomp(self):
     self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library)"
 
     def install():
+        self.take("usr/bin/llvm-omp-device-info")
         self.take("usr/lib/libomptarget.rtl.*.so", missing_ok = True)
         self.take("usr/lib/libomp*.so.*")
         self.take("usr/lib/libomptarget.so")
