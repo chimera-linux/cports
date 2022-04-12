@@ -447,6 +447,7 @@ def bootstrap(tgt):
 def bootstrap_update(tgt):
     from cbuild.core import chroot
 
+    chroot.remove_autodeps(False)
     chroot.update()
 
 def do_keygen(tgt):

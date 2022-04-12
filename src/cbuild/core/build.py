@@ -46,6 +46,8 @@ def build(
         if pkg.stage > 0 and not no_update:
             chroot.update()
 
+        chroot.remove_autodeps(pkg.stage == 0)
+
         # doesn't do anything for native builds
         dependencies.install_toolchain(pkg, signkey)
 
@@ -61,7 +63,7 @@ def build(
         if dependencies.install(
             pkg, pkg.origin.pkgname, "pkg", depmap, signkey, chost
         ):
-            chroot.update(clean_autodeps = False)
+            chroot.update()
 
     oldcwd = pkg.cwd
     oldchd = pkg.chroot_cwd
