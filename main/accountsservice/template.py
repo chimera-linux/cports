@@ -10,13 +10,15 @@ hostmakedepends = [
     "gettext-tiny", "vala",
 ]
 makedepends = ["polkit-devel", "elogind-devel", "dbus-devel"]
+checkdepends = ["python-dbus"]
 pkgdesc = "D-Bus service for accessing user accounts"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/AccountsService"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "909997a76919fe7dc138a9a01cea70bd622d5a932dbc9fb13010113023a7a391"
-options = ["!cross"]
+# does not like the dbusmock for some reason
+options = ["!cross", "!check"]
 
 def post_install(self):
     self.install_dir("var/lib/AccountsService/users", empty = True)
