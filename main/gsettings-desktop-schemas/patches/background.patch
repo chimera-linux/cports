@@ -1,0 +1,28 @@
+commit 9aababf45c6ae58a9b7b5bac460912425a836fdd
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Apr 12 19:32:46 2022 +0200
+
+    change default background
+
+diff --git a/schemas/org.gnome.desktop.background.gschema.xml.in b/schemas/org.gnome.desktop.background.gschema.xml.in
+index f8386e0..bda2ede 100644
+--- a/schemas/org.gnome.desktop.background.gschema.xml.in
++++ b/schemas/org.gnome.desktop.background.gschema.xml.in
+@@ -11,7 +11,7 @@
+       </description>
+     </key>
+     <key name="picture-uri" type="s">
+-      <default>'file://@datadir@/backgrounds/gnome/adwaita-l.jpg'</default>
++      <default>'file://@datadir@/backgrounds/gnome/blobs-l.jpg'</default>
+       <summary>Picture URI</summary>
+       <description>
+         URI to use for the background image. Note that the backend only supports
+@@ -19,7 +19,7 @@
+       </description>
+     </key>
+     <key name="picture-uri-dark" type="s">
+-      <default>'file://@datadir@/backgrounds/gnome/adwaita-d.jpg'</default>
++      <default>'file://@datadir@/backgrounds/gnome/blobs-d.jpg'</default>
+       <summary>Picture URI (dark)</summary>
+       <description>
+         URI to use for the background image. Note that the backend only supports
