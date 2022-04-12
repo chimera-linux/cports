@@ -35,10 +35,10 @@ def _check_stage(sroot, stlist, arch, signkey):
             rr.append(p)
     rr.sort()
     rs.sort()
-    for r in rr:
-        rlist += ["--repository", str(r)]
-    # stage repos are last in the list
     for r in rs:
+        rlist += ["--repository", str(r)]
+    # regular repos are last in the list
+    for r in rr:
         rlist += ["--repository", str(r)]
 
     for d, ad in stlist:
@@ -51,7 +51,7 @@ def _check_stage(sroot, stlist, arch, signkey):
         for p in ret.stdout.strip().decode().split():
             # get providers of both
             pr = _call_apk(
-                "--repository", str(ad.parent), "--repository", str(d.parent),
+                "--repository", str(d.parent), "--repository", str(ad.parent),
                 "info", "--provides", p
             )
             prout = pr.stdout.decode().split("\n\n")
