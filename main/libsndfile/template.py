@@ -3,9 +3,10 @@ pkgver = "1.1.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "python"]
+# FIXME: mpg123 is cyclic (pipewire->sbc->sndfile)
 makedepends = [
     "libvorbis-devel", "flac-devel", "opus-devel", "sqlite-devel",
-    "mpg123-devel", "lame-devel", "linux-headers",
+    "lame-devel", "linux-headers",
 ]
 pkgdesc = "C library for reading and writing files containing sampled sound"
 maintainer = "q66 <q66@chimera-linux.org>"
