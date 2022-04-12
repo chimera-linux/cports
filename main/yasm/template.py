@@ -9,6 +9,8 @@ license = "BSD-2-Clause AND BSD-3-Clause AND (Artistic-1.0 OR GPL-2.0-or-later O
 url = "http://www.tortall.net/projects/yasm"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "3dce6601b495f5b3d45b59f7d2492a340ee7e84b5beca17e48f862502bd5603f"
+# relies on gas
+options = ["!check"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib", recursive = True)
