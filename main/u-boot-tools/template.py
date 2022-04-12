@@ -52,7 +52,7 @@ def do_install(self):
     for t in [
         "bmp_logo", "dumpimage", "fdtgrep", "fit_check_sign", "fit_info",
         "gen_eth_addr", "gen_ethaddr_crc", "ifwitool", "img2srec",
-        "kwboot", "mkeficapsule", "mkenvimage", "mkimage", "proftool",
+        "mkeficapsule", "mkenvimage", "mkimage", "proftool",
         "spl_size_limit", "env/fw_printenv", "env/fw_setenv",
     ]:
         self.install_bin(f"tools/{t}")
