@@ -22,6 +22,8 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "d7bef0d4c4e7a62e08efb8e5f252a01357007b9588a87ff2b463a3857011f79d"
+# cyclic with desktop-file-utils
+options = ["!check"]
 
 def do_check(self):
     self.do("dbus-run-session", "ninja", "-C", "build", "test")
