@@ -44,3 +44,7 @@ source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "8b387debb774061c06adfb267a0e0e0f3d21799371bf01d056495ab9b8dd9417"
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]
+
+# build race
+def pre_build(self):
+    self.make.invoke("src/libtracker-miner/tracker-miner-enum-types.h")
