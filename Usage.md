@@ -63,6 +63,9 @@ The userland dependencies are the following:
 * `tee`
 * `fakeroot`
 
+If running a Chimera system, these tools can all be installed with the
+`base-cbuild-host` metpackage.
+
 **Your `apk` must be dynamically linked.** This is because it is used together
 with `fakeroot` (e.g. for `binary-bootstrap`) and a statically linked copy
 prevents `LD_PRELOAD` from working, which would result in permission issues.
@@ -272,7 +275,9 @@ The system must contain an initial toolchain. It consists of these:
 * `m4`
 * Linux kernel headers for userland usage
 
-These can all be found in most distributions' package collections.
+These can all be found in most distributions' package collections. If running
+a Chimera system, these tools can all be installed with the `base-cbuild-bootstrap`
+metpackage.
 
 <a id="bootstrap_process"></a>
 ### Bootstrap Process
