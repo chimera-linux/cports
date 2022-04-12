@@ -13,7 +13,7 @@ index f8386e0..bda2ede 100644
      </key>
      <key name="picture-uri" type="s">
 -      <default>'file://@datadir@/backgrounds/gnome/adwaita-l.jpg'</default>
-+      <default>'file://@datadir@/backgrounds/gnome/blobs-l.jpg'</default>
++      <default>'file://@datadir@/backgrounds/gnome/blobs-l.svg'</default>
        <summary>Picture URI</summary>
        <description>
          URI to use for the background image. Note that the backend only supports
@@ -22,7 +22,7 @@ index f8386e0..bda2ede 100644
      </key>
      <key name="picture-uri-dark" type="s">
 -      <default>'file://@datadir@/backgrounds/gnome/adwaita-d.jpg'</default>
-+      <default>'file://@datadir@/backgrounds/gnome/blobs-d.jpg'</default>
++      <default>'file://@datadir@/backgrounds/gnome/blobs-d.svg'</default>
        <summary>Picture URI (dark)</summary>
        <description>
          URI to use for the background image. Note that the backend only supports
