@@ -353,6 +353,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         # check if already installed
         if apki.is_installed(pkgn):
             log.out_plain(f"   [host] {pkgn}: installed")
+            host_binpkg_deps.append(pkgn)
             continue
         # check if available in repository
         aver = _is_available(
@@ -378,6 +379,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         # check if already installed
         if apki.is_installed(pkgn, pkg):
             log.out_plain(f"   [target] {pkgn}: installed")
+            binpkg_deps.append(pkgn)
             continue
         # check if available in repository
         aver = _is_available(
