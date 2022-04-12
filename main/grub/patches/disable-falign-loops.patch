@@ -1,0 +1,19 @@
+commit b7dfb88b90155374bc904f471ddd96c01b79d410
+Author: Daniel Kolesa <dkolesa@igalia.com>
+Date:   Tue Apr 12 17:55:08 2022 +0200
+
+    disable falign-loops which is not supported on clang
+
+diff --git a/configure b/configure
+index 25c11ea..798f249 100755
+--- a/configure
++++ b/configure
+@@ -31186,7 +31186,7 @@ main (void)
+ }
+ _ACEOF
+ if ac_fn_c_try_compile "$LINENO"; then :
+-  grub_cv_cc_falign_loop=yes
++  grub_cv_cc_falign_loop=no
+ else
+   grub_cv_cc_falign_loop=no
+ fi
