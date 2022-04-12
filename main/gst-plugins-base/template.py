@@ -25,7 +25,7 @@ makedepends = [
     "libxv-devel", "libxext-devel", "libsm-devel", "wayland-devel",
     "wayland-protocols",
 ]
-checkdepends = ["mesa-dri"]
+checkdepends = ["mesa-dri", "fonts-liberation-otf"]
 depends = ["orc", f"gstreamer~{pkgver}"]
 pkgdesc = "GStreamer base plugins"
 maintainer = "q66 <q66@chimera-linux.org>"
