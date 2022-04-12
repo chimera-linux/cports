@@ -1,0 +1,26 @@
+commit 975e8ee276a1c0983fe54b5fd1c90ce05c2af51a
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Apr 12 04:19:10 2022 +0200
+
+    build llvm-omp-device-info standalone
+
+diff --git a/openmp/libomptarget/tools/deviceinfo/CMakeLists.txt b/openmp/libomptarget/tools/deviceinfo/CMakeLists.txt
+index 4073ad9fe..51178b4ba 100644
+--- a/openmp/libomptarget/tools/deviceinfo/CMakeLists.txt
++++ b/openmp/libomptarget/tools/deviceinfo/CMakeLists.txt
+@@ -12,12 +12,12 @@
+ 
+ libomptarget_say("Building the llvm-omp-device-info tool")
+ 
+-add_llvm_tool(llvm-omp-device-info llvm-omp-device-info.cpp)
+-
+-llvm_update_compile_flags(llvm-omp-device-info)
++add_executable(llvm-omp-device-info llvm-omp-device-info.cpp)
+ 
+ target_link_libraries(llvm-omp-device-info PRIVATE
+   omp
+   omptarget
+   ${LIBOMPTARGET_TESTED_PLUGINS}
+ )
++
++install(TARGETS llvm-omp-device-info DESTINATION bin)

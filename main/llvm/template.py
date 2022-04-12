@@ -13,8 +13,6 @@ configure_args = [
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=YES",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
-    "-DLIBOMP_ENABLE_SHARED=YES",
-    "-DLIBOMP_INSTALL_ALIASES=YES",
     "-DLLVM_INSTALL_UTILS=YES",
     "-DLLVM_BUILD_LLVM_DYLIB=YES",
     "-DLLVM_LINK_LLVM_DYLIB=YES",
@@ -68,7 +66,6 @@ if self.stage > 0:
         "python-devel", "libedit-devel", "elftoolchain-devel",
         "libexecinfo-devel", "libffi-devel", "linux-headers"
     ]
-    _enabled_runtimes += ["openmp"]
     # for stage 2 onwards also enable debugger
     # in stage 1 there is no point in wasting cpu time with it
     # also enable LTO
@@ -210,10 +207,6 @@ def post_install(self):
     if not (self.destdir / "usr/bin/ld").is_symlink():
         self.install_link("ld.lld", "usr/bin/ld")
 
-    # libomp symlink
-    for f in (self.destdir / "usr/lib").glob("libomp.so.*"):
-        self.install_link(f.name, "usr/lib/libomp.so")
-
     # fix up python liblldb symlink so it points to versioned one
     # unversioned one is in devel package so we cannot point to it
     for f in (self.destdir / "usr/lib").glob("python3*"):
@@ -260,46 +253,6 @@ def _tools_extra(self):
         "usr/bin/pp-trace",
         "usr/bin/sancov",
         "usr/share/clang/*tidy*"
-    ]
-
-@subpackage("libomp", self.stage > 0)
-def _libomp(self):
-    self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library)"
-
-    def install():
-        self.take("usr/bin/llvm-omp-device-info")
-        self.take("usr/lib/libomptarget.rtl.*.so", missing_ok = True)
-        self.take("usr/lib/libomp*.so.*")
-        self.take("usr/lib/libomptarget.so")
-        self.take("usr/lib/libarcher.so")
-
-    return install
-
-@subpackage("libomp-devel-static", self.stage > 0)
-def _libomp_devel_static(self):
-    self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library) (static libraries)"
-    self.depends = []
-
-    return [
-        "usr/lib/libarcher*",
-    ]
-
-@subpackage("libomp-devel", self.stage > 0)
-def _libomp_devel(self):
-    self.pkgdesc = f"{pkgdesc} (Clang OpenMP support library) (development files)"
-    self.depends = [
-        f"libomp={pkgver}-r{pkgrel}",
-        f"libomp-devel-static={pkgver}-r{pkgrel}",
-    ]
-
-    return [
-        "usr/lib/libomp*.so",
-        "usr/lib/libgomp*",
-        "usr/lib/libiomp*",
-        "usr/lib/libomptarget*",
-        "usr/include/omp*.h",
-        f"usr/lib/clang/{pkgver}/include/omp*.h",
-        "usr/lib/cmake/openmp",
     ]
 
 @subpackage("clang")
