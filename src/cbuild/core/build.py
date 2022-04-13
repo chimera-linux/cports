@@ -38,18 +38,19 @@ def build(
     pkg.wrapperdir.mkdir(parents = True, exist_ok = True)
 
     if not dirty:
+        carch = None
+        if pkg.profile().cross:
+            carch = pkg.profile().arch
+
         # no_update is set when this is a build triggered by a missing dep;
         # in this case chroot.update() was already performed by its parent
         # call and there is no point in doing it again
         #
         # an exception is when building a second or further missing dependency
         if pkg.stage > 0 and not no_update:
-            chroot.update()
+            chroot.update(carch)
 
         chroot.remove_autodeps(pkg.stage == 0)
-
-        # doesn't do anything for native builds
-        dependencies.install_toolchain(pkg, signkey)
 
         # we treat the sysroot as a chimera root
         dependencies.init_sysroot(pkg)
@@ -63,7 +64,7 @@ def build(
         if dependencies.install(
             pkg, pkg.origin.pkgname, "pkg", depmap, signkey, chost
         ):
-            chroot.update()
+            chroot.update(carch)
 
     oldcwd = pkg.cwd
     oldchd = pkg.chroot_cwd

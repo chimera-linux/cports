@@ -175,24 +175,6 @@ def _is_available(pkgn, pattern, pkg, host = False):
 
     return None
 
-def install_toolchain(pkg, signkey):
-    if not pkg.profile().cross:
-        return
-
-    from cbuild.core import build, chroot
-
-    archn = pkg.profile().arch
-
-    if apki.is_installed(f"base-cross-{archn}"):
-        return
-
-    if not _is_available(f"base-cross-{archn}", None, pkg, host = True):
-        pkg.error(f"cross-toolchain for {archn} is not available")
-
-    pkg.log(f"installing cross toolchain for {archn}...")
-
-    _install_from_repo(pkg, [f"base-cross-{archn}"], None, signkey)
-
 def setup_dummy(pkg, rootp):
     tmpd = tempfile.mkdtemp()
     tmpd = pathlib.Path(tmpd)
