@@ -1,5 +1,5 @@
 pkgname = "libclc"
-pkgver = "14.0.0"
+pkgver = "14.0.1"
 pkgrel = 0
 build_wrksrc = f"{pkgname}-{pkgver}.src"
 build_style = "cmake"
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://libclc.llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/{pkgname}-{pkgver}.src.tar.xz"
-sha256 = "39fe8fbc112d335b483023c7e9dec2eac7e0be7062c5b088774de935d7c7cdb8"
+sha256 = "3ba87c063b0b5b5feebd55621d26aee8a8a54b2c5953ceaa5355e0c1d792dfaa"
 # external-calls-clspv broken
 options = ["!check"]
 
