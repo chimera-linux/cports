@@ -10,17 +10,24 @@ configure_args = [
     "-DCMAKE_NM=/usr/bin/llvm-nm",
     "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
     "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
+    "-DCMAKE_C_COMPILER_WORKS=ON",
+    "-DCMAKE_CXX_COMPILER_WORKS=ON",
+    "-DCMAKE_ASM_COMPILER_WORKS=ON",
+    "-DLIBUNWIND_USE_COMPILER_RT=YES",
+    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=YES",
+    "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
+    "-DLIBCXXABI_USE_COMPILER_RT=YES",
     "-DLIBCXX_CXX_ABI=libcxxabi",
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
-    "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
+    "-DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx",
 ]
 make_cmd = "make"
 hostmakedepends = ["cmake", "python"]
-makedepends = ["libcxxabi-cross-static", "linux-headers-cross"]
-depends = ["libcxxabi-cross"]
-pkgdesc = "Cross-toolchain version of LLVM libc++"
+makedepends = ["clang-rt-crt-cross", "musl-cross", "linux-headers-cross"]
+depends = [f"libcxxabi-cross={pkgver}-r{pkgrel}"]
+pkgdesc = "Cross-toolchain LLVM libc++"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
@@ -29,14 +36,13 @@ sha256 = "35ce9edbc8f774fe07c8f4acdf89ec8ac695c8016c165dd86b8d10e7cba07e23"
 # crosstoolchain
 options = ["!cross", "!check", "!lto"]
 
-cmake_dir = "libcxx"
+cmake_dir = "runtimes"
 
 _targets = list(filter(
     lambda p: p != self.profile().arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 ))
 
-# not available yet, prevent cmake checks
 tool_flags = {
     "CFLAGS": ["-fPIC"],
     "CXXFLAGS": ["-fPIC", "-nostdlib"],
@@ -66,6 +72,36 @@ def do_build(self):
                 s.check()
                 self.make.build(wrksrc = f"build-{an}")
 
+def _install_hdrs(self):
+    at = self.profile().triplet
+    self.install_dir(f"usr/{at}/usr/include/mach-o")
+    self.install_file(
+        "libunwind/include/__libunwind_config.h",
+        f"usr/{at}/usr/include"
+    )
+    self.install_file(
+        "libunwind/include/libunwind.h",
+        f"usr/{at}/usr/include"
+    )
+    self.install_file(
+        "libunwind/include/unwind.h",
+        f"usr/{at}/usr/include"
+    )
+    # XXX: 32-bit ARM needs unwind_ehabi.h
+    self.install_file(
+        "libunwind/include/unwind_itanium.h",
+        f"usr/{at}/usr/include"
+    )
+    self.install_file(
+        "libunwind/include/mach-o/compact_unwind_encoding.h",
+        f"usr/{at}/usr/include/mach-o"
+    )
+
+    self.install_file(
+        "libcxxabi/include/__cxxabi_config.h", f"usr/{at}/usr/include"
+    )
+    self.install_file("libcxxabi/include/cxxabi.h", f"usr/{at}/usr/include")
+
 def do_install(self):
     for an in _targets:
         with self.profile(an) as pf:
@@ -75,11 +111,55 @@ def do_install(self):
                 )],
                 wrksrc = f"build-{an}", default_args = False
             )
+            _install_hdrs(self)
 
 def _gen_crossp(an, at):
+    # libunwind subpackages
+
+    @subpackage(f"libunwind-cross-{an}-static")
+    def _unwst(self):
+        self.pkgdesc = f"Cross-toolchain LLVM libunwind ({an} static library)"
+        self.depends = [f"libunwind-cross-{an}={pkgver}-r{pkgrel}"]
+        return [f"usr/{at}/usr/lib/libunwind.a"]
+
+    @subpackage(f"libunwind-cross-{an}")
+    def _unw(self):
+        self.pkgdesc = f"Cross-toolchain LLVM libunwind ({an})"
+        self.depends = [f"musl-cross-{an}"]
+        self.options = [
+            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+        ]
+        return [
+            f"usr/{at}/usr/lib/libunwind.*",
+            f"usr/{at}/usr/include/*unwind*",
+            f"usr/{at}/usr/include/mach-o",
+        ]
+
+    # libc++abi subpackages
+
+    @subpackage(f"libcxxabi-cross-{an}-static")
+    def _abist(self):
+        self.pkgdesc = f"Cross-toolchain LLVM libc++abi ({an} static library)"
+        self.depends = [f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}"]
+        return [f"usr/{at}/usr/lib/libc++abi.a"]
+
+    @subpackage(f"libcxxabi-cross-{an}")
+    def _abi(self):
+        self.pkgdesc = f"Cross-toolchain LLVM libc++abi ({an})"
+        self.depends = [f"libunwind-cross-{an}={pkgver}-r{pkgrel}"]
+        self.options = [
+            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+        ]
+        return [
+            f"usr/{at}/usr/lib/libc++abi*",
+            f"usr/{at}/usr/include/*cxxabi*.h",
+        ]
+
+    # libc++ subpackages
+
     @subpackage(f"libcxx-cross-{an}-static")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} (static {an} support)"
+        self.pkgdesc = f"{pkgdesc} ({an} static library)"
         self.depends = [
             f"libcxx-cross-{an}={pkgver}-r{pkgrel}",
         ]
@@ -87,24 +167,65 @@ def _gen_crossp(an, at):
 
     @subpackage(f"libcxx-cross-{an}")
     def _subp(self):
-        self.pkgdesc = f"{pkgdesc} ({an} support)"
-        self.depends = [f"libcxxabi-cross-{an}"]
+        self.pkgdesc = f"{pkgdesc} ({an})"
+        self.depends = [f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}"]
         self.options = [
             "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
         ]
         return [f"usr/{at}"]
+
     depends.append(f"libcxx-cross-{an}={pkgver}-r{pkgrel}")
 
 for an in _targets:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
 
+@subpackage("libunwind-cross-static")
+def _static(self):
+    self.pkgdesc = f"Cross-toolchain LLVM libunwind (static)"
+    self.depends = []
+    self.build_style = "meta"
+    for an in _targets:
+        self.depends.append(f"libunwind-cross-{an}-static={pkgver}-r{pkgrel}")
+
+    return []
+
+@subpackage("libcxxabi-cross-static")
+def _static(self):
+    self.pkgdesc = f"Cross-toolchain LLVM libc++abi (static)"
+    self.depends = []
+    self.build_style = "meta"
+    for an in _targets:
+        self.depends.append(f"libcxxabi-cross-{an}-static={pkgver}-r{pkgrel}")
+
+    return []
+
 @subpackage("libcxx-cross-static")
 def _static(self):
-    self.build_style = "meta"
     self.pkgdesc = f"{pkgdesc} (static)"
     self.depends = []
+    self.build_style = "meta"
     for an in _targets:
         self.depends.append(f"libcxx-cross-{an}-static={pkgver}-r{pkgrel}")
+
+    return []
+
+@subpackage("libunwind-cross")
+def _unw_cross(self):
+    self.pkgdesc = "Cross-toolchain LLVM libunwind"
+    self.depends = ["musl-cross"]
+    self.build_style = "meta"
+    for an in _targets:
+        self.depends.append(f"libunwind-cross-{an}={pkgver}-r{pkgrel}")
+
+    return []
+
+@subpackage("libcxxabi-cross")
+def _cxxabi_cross(self):
+    self.pkgdesc = "Cross-toolchain LLVM libcxxabi"
+    self.depends = [f"libunwind-cross={pkgver}-r{pkgrel}"]
+    self.build_style = "meta"
+    for an in _targets:
+        self.depends.append(f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}")
 
     return []
