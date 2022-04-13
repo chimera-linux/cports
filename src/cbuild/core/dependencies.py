@@ -183,21 +183,11 @@ def install_toolchain(pkg, signkey):
 
     archn = pkg.profile().arch
 
-    try:
-        build.build("pkg", template.read_pkg(
-            f"main/base-cross-{archn}", chroot.host_cpu(),
-            False, pkg.run_check, pkg.conf_jobs, pkg.build_dbg,
-            pkg.use_ccache, None, force_check = pkg._force_check,
-            stage = pkg.stage
-        ), {}, signkey, chost = True)
-    except template.SkipPackage:
-        pass
-
-    apki.call_chroot("update", ["-q"], "main", check = True)
-    apki.call_chroot("upgrade", ["--available"], "main", check = True)
-
     if apki.is_installed(f"base-cross-{archn}"):
         return
+
+    if not _is_available(f"base-cross-{archn}", None, pkg, host = True):
+        pkg.error(f"cross-toolchain for {archn} is not available")
 
     pkg.log(f"installing cross toolchain for {archn}...")
 
