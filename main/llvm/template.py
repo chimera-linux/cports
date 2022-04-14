@@ -26,9 +26,8 @@ configure_args = [
     "-DLLVM_ENABLE_LIBCXX=YES",
     "-DLIBUNWIND_USE_COMPILER_RT=YES",
 ]
-make_cmd = "make"
 hostmakedepends = [
-    "cmake", "pkgconf", "perl", "python", "zlib-devel"
+    "cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel"
 ]
 makedepends = ["zlib-devel"]
 depends = [
@@ -45,7 +44,8 @@ sha256 = "1a3c2e57916c5a70153aaf0a0e6f1230d6368b9e0f4d04dcb9e039a31b1cd4e6"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
-options = ["bootstrap"]
+# tests are not enabled
+options = ["bootstrap", "!check"]
 
 _llvmgen = pkgver[0:pkgver.find(".")]
 
