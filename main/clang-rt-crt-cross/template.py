@@ -127,7 +127,7 @@ def do_install(self):
 def _gen_subp(an, at):
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
-        self.depends = [f"clang~{pkgver}"]
+        self.depends = [f"clang"]
         self.options = [
             "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
         ]
