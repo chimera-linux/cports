@@ -173,7 +173,7 @@ def _genplatform(arch, platform, desc):
         self.options = ["!strip", "foreignelf"]
 
         if platform == "efi":
-            self.depends += ["efibootmgr"]
+            self.depends += ["efibootmgr", "dosfstools"]
 
         return [f"usr/lib/grub/{arch}-{platform}"]
 
