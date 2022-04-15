@@ -172,6 +172,9 @@ def _genplatform(arch, platform, desc):
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
         self.options = ["!strip", "foreignelf"]
 
+        if platform == "efi":
+            self.depends += ["efibootmgr"]
+
         return [f"usr/lib/grub/{arch}-{platform}"]
 
 # generate platform subpackages
