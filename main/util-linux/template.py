@@ -88,6 +88,8 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin/hexdump")
     self.rm(self.destdir / "usr/share/man/man1/hexdump.1")
     self.rm(self.destdir / "usr/share/bash-completion/completions/hexdump")
+    # conflicts with less
+    self.rm(self.destdir / "usr/bin/more")
 
     # service
     self.install_service(self.files_path / "uuidd")
