@@ -2,12 +2,7 @@ pkgname = "linux"
 pkgver = "5.15.34"
 pkgrel = 0
 make_dir = "build"
-hostmakedepends = [
-    "bash", "bc-gh", "binutils", f"binutils-{self.profile().arch}", "bison",
-    "findutils", "flex", "elftoolchain-devel", "gmake", "gsed", "gtar", "xz",
-    "kmod", "linux-headers", "openssl-devel", "perl", "python",
-    "u-boot-tools", "zlib-devel", "base-kernel-devel",
-]
+hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 pkgdesc = "Linux kernel 5.15.x"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -20,6 +15,9 @@ options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
     "!lto", "textrels", "foreignelf" # vdso32
 ]
+
+# we don't use LLVM_IAS for the time being, as ppc is not compatible with it
+hostmakedepends += ["binutils", f"binutils-{self.profile().arch}"]
 
 match self.profile().arch:
     case "ppc64le" | "ppc64": _arch = "powerpc"
