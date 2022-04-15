@@ -7,6 +7,7 @@ configure_args = [
     "--sbindir=/usr/bin",
     "--sysconfdir=/etc",
     "--rundir=/run/dhcpcd",
+    "--dbdir=/var/lib/dhcpcd",
     "--privsepuser=_dhcpcd",
     "--enable-privsep",
 ]
