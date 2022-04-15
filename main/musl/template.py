@@ -5,6 +5,8 @@ build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
+# have it extract first
+depends = ["base-files"]
 provides = ["so:libc.so=0"]
 pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
