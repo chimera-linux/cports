@@ -22,7 +22,8 @@ make_cmd = "gmake"
 make_install_args = ["usrsbin_execdir=/usr/bin"]
 hostmakedepends = ["gmake", "gettext-tiny", "pkgconf"]
 makedepends = [
-    "linux-headers", "libcap-ng-devel", "linux-pam-devel", "zlib-devel"
+    "linux-headers", "libcap-ng-devel", "linux-pam-devel", "zlib-devel",
+    "ncurses-devel",
 ]
 checkdepends = ["xz", "iproute2", "socat", "procps-ng"]
 # useradd for the system_users hook; this is installed early so enforce order
