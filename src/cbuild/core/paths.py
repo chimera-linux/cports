@@ -2,7 +2,7 @@
 
 import pathlib
 
-_stage = 2
+_stage = 3
 
 def init(cbuildir, distdir, rootdir, rdir, ardir, sdir, cdir):
     global _ddir, _bdir, _rdir, _ardir, _srcs, _cbdir, _ccdir
@@ -22,7 +22,7 @@ def init(cbuildir, distdir, rootdir, rdir, ardir, sdir, cdir):
 
 def reinit_buildroot(rootdir, stage):
     global _bdir
-    if stage == 2:
+    if stage == 3:
         _bdir = rootdir
     else:
         oname = rootdir.name
@@ -49,7 +49,7 @@ def alt_repository():
     return _ardir
 
 def repository():
-    if _stage == 2:
+    if _stage == 3:
         return _rdir
     else:
         return _rdir.with_name(f"{_rdir.name}-stage{_stage}")

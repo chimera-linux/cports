@@ -282,7 +282,7 @@ metpackage.
 <a id="bootstrap_process"></a>
 ### Bootstrap Process
 
-Chimera uses a 3-stage bootstrap process. It is largely automatic and hidden
+Chimera uses a 4-stage bootstrap process. It is largely automatic and hidden
 from you. You can invoke it like:
 
 ```
@@ -297,6 +297,7 @@ To explain what's going on:
 * Stage 0 is software built inside the system you are running.
 * Stage 1 is software built inside the system assembled from stage 0.
 * Stage 2 is software built inside the system assembled from stage 1.
+* Stage 3 is software built inside the system assembled from stage 2.
 
 The initial stage is raw and intentionally stripped down. Its purpose is to
 get a minimal environment going, to free further builds of the host system's
@@ -308,24 +309,31 @@ host tools. The feature set of the packages may not be complete, with some
 subpackages (e.g. LLVM debugger) not being built. LTO is also not applied
 for this stage yet.
 
-Stage 2 is considered final, being built with all of the features of a final
-system within a Chimera container, including full LTO. Once it has finished,
-you can use it to do any other builds.
+Stage 2 is considered almost final, being built with all of the features of
+a final system within a Chimera container, including full LTO. Unit tests
+are not run yet as they are not considered reliable.
 
-The build system considers individual package builds made by the user after
-that "stage 3". In general templates should never be making any distinction
-between stage 2 and 3 builds.
+Stage 3 is the final stage, which is a clean rebuild of every bootstrap
+package using a "good" toolchain. There is no distinction from regular
+package builds (these are considered stage 3 as well) and unit tests and
+so on are run normally.
+
+Templates should in general not make any distinction between stage 2 and 3
+builds, as they are to be considered feature-equivalent.
 
 You will have the following artifacts:
 
 * `bldroot-stage0` is the build root that was assembled from packages originally
   built on the host system.
 * `bldroot-stage1` is the build root assembled from stage 1 packages.
+* `bldroot-stage2` is the build root assembled from stage 2 packages.
 * `bldroot` is the final build root; if you remove it and `binary-bootstrap`,
   you will get the same thing.
 * `packages-stage0` is the repository of packages `bldroot-stage0` is created
   from.
 * `packages-stage1` is the repository of packages `bldroot-stage1` is created
+  from.
+* `packages-stage2` is the repository of packages `bldroot-stage2` is created
   from.
 * `packages` is the final repository.
 * `sources` is the sources cache, shared for all.
