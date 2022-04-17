@@ -78,6 +78,17 @@ if self.stage > 0:
         ]
         hostmakedepends += ["swig", "python-devel"]
         _enabled_projects += ["lldb"]
+        # also use llvm-bootstrap
+        if not self.profile().cross:
+            hostmakedepends += ["llvm-bootstrap"]
+            # set all the stuff that matters
+            configure_args += [
+                "-DCMAKE_C_COMPILER=/usr/lib/llvm-bootstrap/bin/clang",
+                "-DCMAKE_CXX_COMPILER=/usr/lib/llvm-bootstrap/bin/clang++",
+                "-DCMAKE_AR=/usr/lib/llvm-bootstrap/bin/llvm-ar",
+                "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
+                "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
+            ]
 else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",
