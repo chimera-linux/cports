@@ -293,6 +293,7 @@ default_options = {
     #           default inherit
     "bootstrap": (False, True),
     "checkroot": (False, True),
+    "installroot": (True, True),
     "keepempty": (False, False),
     "brokenlinks": (False, False),
     "hardlinks": (False, False),
@@ -1001,7 +1002,7 @@ class Template(Package):
             wdir = wdir / wrksrc
 
         fakeroot = False
-        if self.current_phase == "install":
+        if self.current_phase == "install" and self.options["installroot"]:
             fakeroot = True
         elif self.current_phase == "check" and self.options["checkroot"]:
             fakeroot = True

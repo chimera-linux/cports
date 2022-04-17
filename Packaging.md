@@ -1333,6 +1333,10 @@ the template including for subpackages:
   root. This is useful for some test suites that will not function
   otherwise. Of course, this still uses namespaces, so it does not
   actually run as your host system root (as it can't).
+* `installroot` *(true)* By default, install phase is run as `root`.
+  This is done with `fakeroot`, which may interfere with rpath if
+  such binary is invoked during installation. You may disable this
+  in those cases.
 * `cross` *(true)* If disabled, the template will error early when
   attempting cross compilation.
 * `lint` *(true)* If enabled, the template contents will be checked

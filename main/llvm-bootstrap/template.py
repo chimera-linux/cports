@@ -53,8 +53,10 @@ debug_level = 0
 # bootstrap; LTO would just slow it down, cross is unnecessary (not used
 # in cross builds), debug info is unnecessary, and dependency/shlib scan
 # would be actually harmful
+# runtimes build may invoke built clang during install, which has
+# rpath and fakeroot effectively overrides rpath, so disable that
 options = [
-    "!lto", "!cross", "!check", "!debug",
+    "!lto", "!cross", "!check", "!debug", "!installroot",
     "!scanshlibs", "!scanrundeps", "!autosplit",
 ]
 

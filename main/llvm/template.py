@@ -45,7 +45,9 @@ sha256 = "1a3c2e57916c5a70153aaf0a0e6f1230d6368b9e0f4d04dcb9e039a31b1cd4e6"
 debug_level = 1
 # lto does not kick in until stage 2
 # tests are not enabled
-options = ["bootstrap", "!check"]
+# runtimes build may invoke built clang during install, which has
+# rpath and fakeroot effectively overrides rpath, so disable that
+options = ["bootstrap", "!check", "!installroot"]
 
 _llvmgen = pkgver[0:pkgver.find(".")]
 
