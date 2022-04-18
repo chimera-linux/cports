@@ -1,6 +1,6 @@
 pkgname = "dinit-userservd"
-pkgver = "0.1.0"
-_commit = "0c8198d51076b7f32eff601efbccd71279b9eacc"
+pkgver = "0.1.0_git20220418"
+_commit = "d502428457f6fd84fc83c0bea2ac97e90aa56669"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -10,7 +10,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-userservd"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
-sha256 = "dfc9d24a15db9b0a159a6c79c78df93480708995f1b289fd503829295c9ba555"
-
-def post_install(self):
-    (self.destdir / "usr/bin/dinit-run-dbus").unlink()
+sha256 = "d811f810d1bb4adec1a2a70be80babf322fd83e21e3cf9bb88b2dc2cab49c307"
