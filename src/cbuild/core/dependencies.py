@@ -190,6 +190,7 @@ def setup_dummy(pkg, rootp):
     pkg.log(f"updating virtual provider for {archn}...")
 
     provides = [
+        "base-files=9999-r0",
         "musl=9999-r0",
         "musl-devel=9999-r0",
         "libcxx=9999-r0",
