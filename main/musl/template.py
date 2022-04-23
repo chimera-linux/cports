@@ -5,8 +5,6 @@ build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
-# have it extract first
-depends = ["base-files"]
 provides = ["so:libc.so=0"]
 pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -18,6 +16,20 @@ sha256 = "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4"
 hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
 options = ["bootstrap", "!check", "!lto", "brokenlinks"]
+
+if self.stage > 0:
+    # have base-files extract first in normal installations
+    #
+    # don't do this for stage 0 though, because otherwise base-files will
+    # get installed as a makedepend and subsequently removed as an autodep,
+    # which will nuke the base symlinks handled by initial initdb, as the
+    # stage0 bldroot is not a complete chroot and relies on the external
+    # state we give it during first setup
+    #
+    # but this only really matters for "real" systems, so in stage 0 we can
+    # just avoid the dependency and work around the whole issue
+    #
+    depends = ["base-files"]
 
 def init_configure(self):
     # ensure that even early musl uses compiler-rt
