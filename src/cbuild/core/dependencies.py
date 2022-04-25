@@ -187,7 +187,7 @@ def setup_dummy(pkg, rootp):
 
     epoch = int(time.time())
 
-    pkg.log(f"updating virtual provider for {archn}...")
+    pkg.log(f"installing virtual provider for {archn}...")
 
     provides = [
         "base-files=9999-r0",
@@ -236,13 +236,8 @@ def setup_dummy(pkg, rootp):
         if not apki.build_index(repod, epoch, None):
             pkg.error(f"failed to index virtual provider for {archn}")
 
-        if apki.is_installed(pkgn, pkg):
-            acmd = "fix"
-        else:
-            acmd = "add"
-
         ret = apki.call(
-            acmd, ["--no-scripts", "--repository", tmpd, pkgn], None,
+            "add", ["--no-scripts", "--repository", tmpd, pkgn], None,
             root = rootp, capture_output = True, arch = archn,
             allow_untrusted = True, fakeroot = True
         )
@@ -255,46 +250,6 @@ def setup_dummy(pkg, rootp):
             pkg.error(f"failed to install virtual provider for {archn}")
     finally:
         shutil.rmtree(tmpd)
-
-def init_sysroot(pkg):
-    if not pkg.profile().cross:
-        return
-
-    sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
-
-    if not (sysp / "etc/apk/world").exists():
-        pkg.log(f"setting up sysroot for {pkg.profile().arch}...")
-        chroot.initdb(sysp)
-
-    chroot.setup_keys(sysp)
-    setup_dummy(pkg, sysp)
-
-def remove_autocrossdeps(pkg):
-    if not pkg.profile().cross:
-        return
-
-    sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
-    archn = pkg.profile().arch
-
-    if apki.call(
-        "info", ["--installed", "autodeps-target"], None, root = sysp,
-        capture_output = True, arch = archn, allow_untrusted = True
-    ).returncode != 0:
-        return
-
-    pkg.log(f"removing autocrossdeps for {archn}...")
-
-    del_ret = apki.call(
-        "del", [
-        "--no-scripts", "autodeps-target"
-        ], None, root = sysp, capture_output = True,
-        arch = archn, fakeroot = True
-    )
-
-    if del_ret.returncode != 0:
-        log.out_plain(">> stderr (host):")
-        log.out_plain(del_ret.stderr.decode())
-        pkg.error("failed to remove autocrossdeps for {archn}")
 
 def install(pkg, origpkg, step, depmap, signkey, hostdep):
     style = ""
@@ -318,6 +273,10 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
     log = logger.get()
 
     ihdeps, itdeps, irdeps = setup_depends(pkg)
+
+    # ensure cross-toolchain is included in hostdeps
+    if pprof.cross:
+        ihdeps.append((None, f"base-cross-{pprof.arch}"))
 
     if len(ihdeps) == 0 and len(itdeps) == 0 and len(irdeps) == 0:
         return False
@@ -350,7 +309,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
 
     for sver, pkgn in itdeps:
         # check if already installed
-        if apki.is_installed(pkgn, pkg):
+        if not pprof.cross and apki.is_installed(pkgn, pkg):
             log.out_plain(f"   [target] {pkgn}: installed")
             binpkg_deps.append(pkgn)
             continue
@@ -474,9 +433,25 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
     # reinit after parsings
     chroot.set_target(tarch)
 
+    # clear sysroot first
+    rootp = None
+    if pprof.cross:
+        rootp = paths.bldroot() / pprof.sysroot.relative_to("/")
+        # drop the whole thing
+        if rootp.exists():
+            pkg.log(f"clearing sysroot for {pprof.arch}...")
+            shutil.rmtree(rootp)
+
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
         _install_from_repo(pkg, host_binpkg_deps, "autodeps-host", signkey)
+
+    # set up sysroot if needed
+    if rootp:
+        pkg.log(f"setting up sysroot for {pprof.arch}...")
+        chroot.initdb(rootp)
+        chroot.setup_keys(rootp)
+        setup_dummy(pkg, rootp)
 
     if len(binpkg_deps) > 0:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")

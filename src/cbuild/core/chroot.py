@@ -272,7 +272,7 @@ def remove_autodeps(bootstrapping):
     if failed:
         raise errors.CbuildException("failed to remove autodeps")
 
-def update(tarch = None):
+def update():
     if not chroot_check():
         return
 
@@ -288,26 +288,6 @@ def update(tarch = None):
     apki.call_chroot(
         "upgrade", ["--available"], "main", check = True, use_stage = False
     )
-
-    if not tarch:
-        return
-
-    tn = f"base-cross-{tarch}"
-
-    if apki.is_installed(tn):
-        return
-
-    cfound = False
-    inst = apki.call_chroot(
-        "search", ["-e", tn], "main", use_stage = False, capture_output = True
-    )
-
-    if inst.returncode != 0 or len(inst.stdout.strip()) == 0:
-        raise errors.CbuildException(
-            f"cross-toolchain for {tarch} is not available"
-        )
-
-    apki.call_chroot("add", [tn], "main", check = True)
 
 def enter(cmd, *args, capture_output = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,

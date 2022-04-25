@@ -6,6 +6,7 @@ from cbuild.apk import cli as apk
 
 import os
 import pathlib
+import shutil
 
 def build(
     step, pkg, depmap, signkey, chost = False,
@@ -38,25 +39,15 @@ def build(
     pkg.wrapperdir.mkdir(parents = True, exist_ok = True)
 
     if not dirty:
-        carch = None
-        if pkg.profile().cross:
-            carch = pkg.profile().arch
-
         # no_update is set when this is a build triggered by a missing dep;
         # in this case chroot.update() was already performed by its parent
         # call and there is no point in doing it again
         #
         # an exception is when building a second or further missing dependency
         if pkg.stage > 0 and not no_update:
-            chroot.update(carch)
+            chroot.update()
 
         chroot.remove_autodeps(pkg.stage == 0)
-
-        # we treat the sysroot as a chimera root
-        dependencies.init_sysroot(pkg)
-
-        # remove automatic crossdeps from last time
-        dependencies.remove_autocrossdeps(pkg)
 
         # check and install dependencies
         # if a missing dependency has triggered a build, update the chroot
@@ -64,7 +55,7 @@ def build(
         if dependencies.install(
             pkg, pkg.origin.pkgname, "pkg", depmap, signkey, chost
         ):
-            chroot.update(carch)
+            chroot.update()
 
     oldcwd = pkg.cwd
     oldchd = pkg.chroot_cwd
@@ -146,7 +137,10 @@ def build(
     # cleanup
     if not keep_temp:
         chroot.remove_autodeps(pkg.stage == 0)
-        dependencies.remove_autocrossdeps(pkg)
+        if pkg.profile().cross:
+            rootp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
+            if rootp.exists():
+                shutil.rmtree(rootp)
         pkgm.remove_pkg_wrksrc(pkg)
         pkgm.remove_pkg(pkg)
         pkgm.remove_pkg_statedir(pkg)
