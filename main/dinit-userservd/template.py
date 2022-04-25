@@ -1,6 +1,6 @@
 pkgname = "dinit-userservd"
-pkgver = "0.1.0_git20220418"
-_commit = "d502428457f6fd84fc83c0bea2ac97e90aa56669"
+pkgver = "0.1.0_git20220426"
+_commit = "bad877d90fd31838cf8232424848e87c52b122ef"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -10,4 +10,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-userservd"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
-sha256 = "d811f810d1bb4adec1a2a70be80babf322fd83e21e3cf9bb88b2dc2cab49c307"
+sha256 = "5aac870c702427ad7edcf4fe894b4605eb2fc5ccf276e30a83298a2d0d7c5a49"
