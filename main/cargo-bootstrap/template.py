@@ -1,5 +1,5 @@
 pkgname = "cargo-bootstrap"
-pkgver = "1.59.0"
+pkgver = "1.60.0"
 pkgrel = 0
 # satisfy runtime dependencies
 hostmakedepends = ["curl"]
@@ -12,12 +12,10 @@ source = f"https://ftp.octaforge.org/chimera/distfiles/cargo-{pkgver}-{self.prof
 options = ["!strip"]
 
 match self.profile().arch:
-    case "aarch64":
-        sha256 = "e5a30356352af17b8a4588e7aad0ba2237666938d62dbfec9d397e8029707e92"
     case "ppc64le":
-        sha256 = "f5497ec82de8dd7c66d5583699697d9a940d55e765eedc7c19fe73dfd017dabd"
+        sha256 = "29d19c5015d97c862af365cda33339619fb23ae9a2ae2ea5290765604f99e47d"
     case "x86_64":
-        sha256 = "e2663267ceb8fa9df9c2c23333c60caadb027f59398c07eef7e94d812415f107"
+        sha256 = "07ab0bdeaf14f31fe07e40f2b3a9a6ae18a4b61579c8b6fa22ecd684054a81af"
     case _:
         broken = f"not yet built for {self.profile().arch}"
 
