@@ -431,9 +431,11 @@ only have an effect with specific commands.
 * `-f`, `--force` Packages will be created and overwritten even if one already
   exists in the local repository.
 * `-G`, `--no-dbg` Do not build `-dbg` packages.
-* `-j JOBS`, `--jobs JOBS` *(default: 1)* The number of build jobs to use. You
-  will usually want to set this to the number of CPU threads you have, unless
-  limited by memory.
+* `-j JOBS`, `--jobs JOBS` *(default: thread count)* The number of build jobs to
+  use. By default uses the number of CPUs the cbuild run is restricted to (which
+  is usually the number of CPU threads you have). If you have insufficient RAM
+  (at least 2GB per thread is recommended), you will want to lower this. Setting
+  to 0 just uses the default.
 * `-K`, `--keep-temporary` Keep temporary build files after a successful build,
   this includes the `builddir` and `destdir`. If using a temporary build root,
   it will not be removed.

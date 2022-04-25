@@ -16,7 +16,7 @@ opt_arch       = None
 opt_gen_dbg    = True
 opt_check      = True
 opt_ccache     = False
-opt_makejobs   = 1
+opt_makejobs   = 0
 opt_nocolor    = False
 opt_signkey    = None
 opt_unsigned   = False
@@ -308,6 +308,9 @@ def handle_options():
 
     if cmdline.bulk_fail:
         opt_bulkfail = True
+
+    if opt_makejobs == 0:
+        opt_makejobs = len(os.sched_getaffinity(0))
 
 def init_late():
     import os
