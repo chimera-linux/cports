@@ -1,5 +1,6 @@
 pkgname = "cargo"
 pkgver = "1.60.0"
+_cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
 pkgrel = 0
 build_style = "cargo"
 # PKG_CONFIG being in environment mysteriously brings target sysroot
@@ -13,8 +14,8 @@ pkgdesc = "Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
-source = f"https://github.com/rust-lang/{pkgname}/archive/rust-{pkgver}.tar.gz"
-sha256 = "c6a52bada76477e3c3ff7e08f2a19bf655a05415b5670c3ebffd3ed5f6b89cfb"
+source = f"https://github.com/rust-lang/{pkgname}/archive/{_cargover}.tar.gz"
+sha256 = "bf32925fa30a1014a789cdbcc40dc663b36b1f183dcd8150e7cb524e5f367709"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
