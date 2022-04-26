@@ -22,7 +22,7 @@ def do_build(self):
         "HOSTCC=" + self.get_tool("CC"),
         "CFLAGS=" + self.get_cflags(shell = True) + " " + \
                     self.get_ldflags(shell = True) + " -DHAS_ISBLANK",
-        "YACC=byacc -H awkgram.tab.h -o awkgram.tab.c",
+        "YACC=yacc -H awkgram.tab.h -o awkgram.tab.c",
     ])
 
 def do_check(self):
