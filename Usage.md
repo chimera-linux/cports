@@ -269,7 +269,7 @@ The system must contain an initial toolchain. It consists of these:
 * NetBSD `make` (called `bmake` or `make`)
 * `ninja`
 * `strip`
-* `byacc`
+* `byacc` or `bison` (either with `yacc` symlink)
 * `flex`
 * `perl`
 * `m4`
