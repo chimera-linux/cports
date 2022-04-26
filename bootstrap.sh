@@ -108,7 +108,7 @@ if [ -z "${BOOTSTRAP_ROOT}" -o ! -d "${BOOTSTRAP_ROOT}" ]; then
         exit 1
     fi
 
-    echo "${APK_SHA256} ${APK_TARNAME}" | sha256sum --check
+    echo "${APK_SHA256} ${APK_TARNAME}" | sha256sum -c
 
     if [ $? -ne 0 ]; then
         echo "Failed to verify apk-tools tarball"

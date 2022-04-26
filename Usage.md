@@ -256,7 +256,10 @@ Bootstrapping has more requirements than simply using the system.
 
 The base requirements of `cbuild` still apply. You also need to be running a
 system based on the `musl` C library. This can be for example Void Linux or
-Alpine Linux. Void Linux is most widely tested. You can also use Chimera itself.
+Chimera itself. Alpine Linux is not supported for direct bootstrapping because
+of its patched musl SONAME (which would be more effort to work around) and
+lack of `libc++` in repositories. When bootstrapping from Alpine, follow the
+"Using Incompatible Hosts" section below.
 
 The system must contain an initial toolchain. It consists of these:
 
@@ -348,8 +351,8 @@ where it left off. No things already built will be built again.
 ### Using Incompatible Hosts
 
 If you do not have a suitable system for bootstrapping (for example a `glibc`
-based system), you do not need to go out of your way to set one up. The `cports`
-tree provides the `bootstrap.sh` script for this purpose.
+based system, or Alpine Linux), you do not need to go out of your way to set
+one up. The `cports` tree provides the `bootstrap.sh` script for this purpose.
 
 This works by fetching a compatible `rootfs` (Void Linux with `musl`) and then
 running regular bootstrap within. It uses `bwrap` for this, so you should never
