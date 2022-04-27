@@ -38,6 +38,8 @@ def build(
     pkg.statedir.mkdir(parents = True, exist_ok = True)
     pkg.wrapperdir.mkdir(parents = True, exist_ok = True)
 
+    pkg.setup_reproducible()
+
     if not dirty:
         # no_update is set when this is a build triggered by a missing dep;
         # in this case chroot.update() was already performed by its parent

@@ -695,6 +695,9 @@ class Template(Package):
         return dumped
 
     def setup_reproducible(self):
+        if self.source_date_epoch:
+            return
+
         self.source_date_epoch = int(time.time())
 
         if not shutil.which("git"):
@@ -1886,8 +1889,6 @@ def read_pkg(
     ret._allow_broken = allow_broken
     ret._target = target
     ret._force_check = force_check
-
-    ret.setup_reproducible()
 
     if pkgarch:
         ret._current_profile = profile.get_profile(pkgarch)
