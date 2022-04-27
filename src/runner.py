@@ -382,7 +382,7 @@ def bootstrap(tgt):
         # extra program checks
         for prog in [
             "clang", "lld", "cmake", "meson", "patch", "pkg-config",
-            "make", "ninja", "strip", "byacc", "flex", "perl", "m4"
+            "make", "ninja", "strip", "yacc", "flex", "perl", "m4"
         ]:
             if not shutil.which(prog):
                 sys.exit(f"Required bootstrap program not found: {prog}")
