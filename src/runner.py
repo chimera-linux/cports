@@ -970,6 +970,8 @@ def _bulkpkg(pkgs, statusf):
         # signal we're continuing
         return True
 
+    tarch = opt_arch if opt_arch else chroot.host_cpu()
+
     # parse out all the templates first and grab their build deps
     for pn in pkgs:
         if pn in visited:
@@ -1007,9 +1009,8 @@ def _bulkpkg(pkgs, statusf):
         ofailed = failed
         failed = False
         tp = _do_with_exc(lambda: template.read_pkg(
-            spp, opt_arch if opt_arch else chroot.host_cpu(),
-            opt_force, opt_check, opt_makejobs, opt_gen_dbg, opt_ccache,
-            None, target = None, force_check = opt_forcecheck, stage = 3
+            spp, tarch, opt_force, opt_check, opt_makejobs, opt_gen_dbg,
+            opt_ccache, None, force_check = opt_forcecheck
         ))
         if not tp:
             if failed:
