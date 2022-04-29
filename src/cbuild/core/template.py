@@ -632,7 +632,8 @@ class Template(Package):
                 rp = paths.distdir() / sr
                 tp = rp / depn / "template.py"
                 if tp.is_file():
-                    return tp.resolve().parent.name
+                    pn = tp.resolve().parent.name
+                    return f"{sr}/{pn}"
             return None
         bdeps = {}
         visited = {}

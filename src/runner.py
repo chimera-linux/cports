@@ -986,27 +986,28 @@ def _bulkpkg(pkgs, statusf):
             # resolve to the main package
             ln = pp.readlink()
             pp = pathlib.Path(f"{pl}/{ln}")
+        spp = str(pp)
         # mark visited under a validated name just in case it differs
-        visited[str(pp)] = True
+        visited[spp] = True
         # validate
         pl = pp.parts
         if len(pl) != 2 or len(pl[0]) == 0 or \
            len(pl[1]) == 0 or pp.is_symlink():
-            statusf.write(f"{pn} invalid\n")
-            log.out_red(f"cbuild: invalid package '{pn}'")
+            statusf.write(f"{spp} invalid\n")
+            log.out_red(f"cbuild: invalid package '{spp}'")
             failed = True
             continue
         # check if it's points to final template
         if not pp.is_dir() or not (pp / "template.py").is_file():
-            statusf.write(f"{pn} missing\n")
-            log.out_red(f"cbuild: missing package '{pn}'")
+            statusf.write(f"{spp} missing\n")
+            log.out_red(f"cbuild: missing package '{spp}'")
             failed = True
             continue
         # parse, handle any exceptions so that we can march on
         ofailed = failed
         failed = False
         tp = _do_with_exc(lambda: template.read_pkg(
-            str(pp), opt_arch if opt_arch else chroot.host_cpu(),
+            spp, opt_arch if opt_arch else chroot.host_cpu(),
             opt_force, opt_check, opt_makejobs, opt_gen_dbg, opt_ccache,
             None, target = None, force_check = opt_forcecheck, stage = 3
         ))
@@ -1018,10 +1019,10 @@ def _bulkpkg(pkgs, statusf):
             continue
         failed = ofailed
         # record the template for later use
-        templates[tp.pkgname] = tp
+        templates[spp] = tp
         # add it into t graph with all its build deps
         bdl = tp.get_build_deps()
-        depg.add(tp.pkgname, *bdl)
+        depg.add(spp, *bdl)
 
     # try building in sorted order
     if not failed or not opt_bulkfail:
