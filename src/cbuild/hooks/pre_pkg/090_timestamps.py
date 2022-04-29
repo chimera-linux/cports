@@ -13,6 +13,11 @@ def invoke(pkg):
     pkg.log(f"setting mtimes to {dt}")
 
     for root, dirs, files in os.walk(pkg.destdir):
+        for d in dirs:
+            absp = os.path.join(root, d)
+            # update timestamp
+            os.utime(absp, (ts, ts), follow_symlinks = False)
+
         for f in files:
             absp = os.path.join(root, f)
             # update timestamp
