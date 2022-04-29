@@ -1049,10 +1049,16 @@ def _bulkpkg(pkgs, statusf):
 
 def do_bulkpkg(tgt):
     import os
+    import sys
 
     if len(cmdline.command) <= 1:
         raise errors.CbuildException(f"bulk-pkg needs at least one package")
     pkgs = cmdline.command[1:]
+
+    if len(pkgs) == 1 and pkgs[0] == "-":
+        pkgs = []
+        for l in sys.stdin:
+            pkgs.append(l.strip())
 
     if opt_statusfd:
         try:
