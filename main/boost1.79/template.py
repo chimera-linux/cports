@@ -1,5 +1,5 @@
 pkgname = "boost1.79"
-pkgver = "1.79.0_beta1"
+pkgver = "1.79.0"
 pkgrel = 0
 hostmakedepends = ["pkgconf"]
 makedepends = [
@@ -10,8 +10,8 @@ pkgdesc = "Free peer-reviewed portable C++ source libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://boost.org"
-source = f"https://boostorg.jfrog.io/artifactory/main/beta/{pkgver.replace('_', '.')}/source/boost_{pkgver.replace('.', '_').replace('beta', 'b')}.tar.gz"
-sha256 = "4b58e4d3b6ff1176b3c6cb9eec496c1f6d2535270e97ec140da533d68766ca39"
+source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
+sha256 = "273f1be93238a068aba4f9735a4a2b003019af067b9c183ed227780b8f36062c"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
 options = ["!cross"] # i don't dare touch this yet
 
@@ -104,24 +104,6 @@ def do_install(self):
 
 using clang ;
 """)
-
-    # HACK: these are not installed for some reason?
-    for f in [
-        "fiber", "stacktrace_noop", "stacktrace_addr2line", "stacktrace_basic"
-    ]:
-        sf = f
-        if "_" in sf:
-            sf = sf[0:sf.find("_")]
-        sn = f"libboost_{f}.so.{pkgver[0:pkgver.find('_')]}"
-        lr = "threading-multi/visibility-hidden"
-        for clp in (self.cwd / f"bin.v2/libs/{sf}/build").glob("clang-linux*"):
-            clp = clp / "release"
-            self.install_file(clp / lr / sn, "usr/lib", mode = 0o755)
-            self.install_file(
-                clp / "link-static" / lr / f"libboost_{f}.a",
-                "usr/lib", mode = 0o644
-            )
-            self.install_link(sn, f"usr/lib/libboost_{f}.so")
 
     self.install_license("LICENSE_1_0.txt")
 
