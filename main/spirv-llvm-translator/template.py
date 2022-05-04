@@ -1,7 +1,6 @@
 pkgname = "spirv-llvm-translator"
-pkgver = "14.0.0_pre0"
+pkgver = "14.0.0"
 pkgrel = 0
-_commit = "e95eb30ace4954a3a7e8e17a3cc22f7382d4a47e"
 build_style = "cmake"
 configure_args = [
     "-Wno-dev",
@@ -20,8 +19,8 @@ pkgdesc = "API and commands for processing SPIR-V modules"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "NCSA"
 url = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
-source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "00ef6119686965c224317aa26c2c4efa8d72907399e852d69b009cfb993fb861"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "1afc52bb4e39aeb9b5b69324a201c81bd986364f347b559995eff6fd6f013318"
 # tests disabled
 options = ["!check"]
 
