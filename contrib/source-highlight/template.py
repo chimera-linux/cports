@@ -3,6 +3,7 @@ pkgver = "3.1.9"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-bash-completion=/usr/share/bash-completion/completions"]
+make_check_args = ["-j1"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["boost-devel"]
 pkgdesc = "Convert source code to syntax highlighted document"
