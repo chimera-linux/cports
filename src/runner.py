@@ -457,7 +457,7 @@ def bootstrap(tgt):
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 2)
         try:
-            do_pkg("pkg", "main/base-cbuild", False)
+            do_pkg("pkg", "main/base-cbuild", False, stage = 3)
         except template.SkipPackage:
             pass
         # go back to stage 3
@@ -887,13 +887,17 @@ def do_dump(tgt):
 
     print(json.dumps(dumps, indent = 4))
 
-def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
+def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
     from cbuild.core import build, chroot, template, paths, errors
 
     if force is None:
         force = opt_force
     if check is None:
         check = opt_check
+    if stage is None:
+        bstage = 3
+    else:
+        bstage = stage
     if not pkgn:
         if len(cmdline.command) <= 1:
             raise errors.CbuildException(f"{tgt} needs a package name")
@@ -904,11 +908,11 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
         check, opt_makejobs, opt_gen_dbg, opt_ccache, None,
         target = tgt if (tgt != "pkg") else None,
-        force_check = opt_forcecheck, stage = stage
+        force_check = opt_forcecheck, stage = bstage
     )
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
-    elif not chroot.chroot_check():
+    elif not stage and not chroot.chroot_check():
         raise errors.CbuildException(
             f"build root not found (have you boootstrapped?)"
         )
@@ -919,8 +923,8 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
         tgt, rp, {}, opt_signkey, dirty = opt_dirty,
         keep_temp = opt_keeptemp, check_fail = opt_checkfail
     )
-    if tgt == "pkg" and (not opt_stage or stage < 3):
-        do_unstage(tgt, stage < 3)
+    if tgt == "pkg" and (not opt_stage or bstage < 3):
+        do_unstage(tgt, bstage < 3)
 
 def _bulkpkg(pkgs, statusf):
     import pathlib
