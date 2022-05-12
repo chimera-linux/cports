@@ -507,7 +507,7 @@ def do_chroot(tgt):
 def do_clean(tgt):
     import shutil
 
-    from cbuild.core import chroot, logger, paths
+    from cbuild.core import chroot, logger, paths, errors
 
     chroot.remove_autodeps(None)
     dirp = paths.bldroot() / "builddir"
@@ -524,7 +524,7 @@ def do_clean(tgt):
 def do_zap(tgt):
     import shutil
 
-    from cbuild.core import logger, paths
+    from cbuild.core import logger, paths, errors
 
     if paths.bldroot().is_dir():
         shutil.rmtree(paths.bldroot())
@@ -560,7 +560,7 @@ def do_prune_obsolete(tgt):
 def do_prune_removed(tgt):
     import time
 
-    from cbuild.core import chroot, logger, paths, template
+    from cbuild.core import chroot, logger, paths, template, errors
     from cbuild.apk import cli
 
     # ensure we know what cpu arch we are dealing with
@@ -655,7 +655,7 @@ def do_index(tgt):
     import time
     import pathlib
 
-    from cbuild.core import chroot, logger, paths
+    from cbuild.core import chroot, logger, paths, errors
     from cbuild.apk import cli
 
     idir = cmdline.command[1] if len(cmdline.command) >= 2 else None
@@ -841,7 +841,7 @@ def do_cycle_check(tgt):
         curpath = []
 
 def do_update_check(tgt):
-    from cbuild.core import update_check, template, chroot, logger
+    from cbuild.core import update_check, template, chroot, logger, errors
 
     if len(cmdline.command) < 2:
         raise errors.CbuildException(f"update-check needs a target package")
@@ -888,7 +888,7 @@ def do_dump(tgt):
     print(json.dumps(dumps, indent = 4))
 
 def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
-    from cbuild.core import build, chroot, template, paths
+    from cbuild.core import build, chroot, template, paths, errors
 
     if force is None:
         force = opt_force
@@ -908,6 +908,10 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = 3):
     )
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
+    elif not chroot.chroot_check():
+        raise errors.CbuildException(
+            f"build root not found (have you boootstrapped?)"
+        )
     # don't remove builddir/destdir
     paths.prepare()
     chroot.repo_sync()
