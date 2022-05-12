@@ -1,6 +1,7 @@
 pkgname = "elftoolchain"
-_commit = "3983"
-pkgver = "0.7.1_svn20220503"
+# r3984
+_commit = "f27fcce314b91b3dece6bee90949183f7a1e18b3"
+pkgver = "0.7.1_svn20220506"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = [
@@ -20,8 +21,8 @@ pkgdesc = "BSD licensed ELF toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://sourceforge.net/projects/elftoolchain"
-source = f"https://sourceforge.net/code-snapshots/svn/e/el/{pkgname}/code/{pkgname}-code-r{_commit}-trunk.zip"
-sha256 = "40a61464eb3aeed70f89c90d0d0c39d551f133410825bc3d9fd781fdec640123"
+source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
+sha256 = "f7017a5869c3dd7906010255ce199f3cdc0f220c10970cf23bf4c336fd724ed0"
 # missing tet
 options = ["bootstrap", "!check"]
 
