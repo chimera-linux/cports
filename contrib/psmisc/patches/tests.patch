@@ -1,0 +1,11 @@
+--- a/testsuite/fuser.test/fuser.exp
++++ b/testsuite/fuser.test/fuser.exp
+@@ -42,7 +42,7 @@ expect_pass "$test" "^(\[A-Z12\]+\\s*)+$"
+ # Create test process to make named unix socket
+ # Needs a sleep otherwise the socket won't be
+ # available before the file exists comes along
+-set testsocket_path [ exec mktemp -u -p /tmp ]
++set testsocket_path [ exec mktemp -u ]
+ make_socketproc ${testsocket_path}
+ sleep 1
+ 
