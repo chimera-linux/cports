@@ -15,7 +15,7 @@ diff --git a/src/bootstrap/builder.rs b/src/bootstrap/builder.rs
 index 195b2eda7..bdeafd1c7 100644
 --- a/src/bootstrap/builder.rs
 +++ b/src/bootstrap/builder.rs
-@@ -1195,6 +1195,10 @@ impl<'a> Builder<'a> {
+@@ -1313,6 +1313,10 @@ impl<'a> Builder<'a> {
              }
          }
  
@@ -38,15 +38,15 @@ index cdf7f48a0..9bbd345c7 100644
      pub ndk: Option<PathBuf>,
      pub sanitizers: Option<bool>,
      pub profiler: Option<bool>,
-@@ -566,6 +567,7 @@ derive_merge! {
-         ranlib: Option<String>,
-         default_linker: Option<PathBuf>,
-         linker: Option<String>,
-+        sysroot: Option<String>,
-         llvm_config: Option<String>,
-         llvm_filecheck: Option<String>,
-         android_ndk: Option<String>,
-@@ -975,6 +977,7 @@ impl Config {
+@@ -620,6 +620,7 @@ define_config! {
+         ranlib: Option<String> = "ranlib",
+         default_linker: Option<PathBuf> = "default-linker",
+         linker: Option<String> = "linker",
++        sysroot: Option<String> = "sysroot",
+         llvm_config: Option<String> = "llvm-config",
+         llvm_filecheck: Option<String> = "llvm-filecheck",
+         android_ndk: Option<String> = "android-ndk",
+@@ -1050,6 +1052,7 @@ impl Config {
                  target.ar = cfg.ar.map(PathBuf::from);
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
@@ -58,7 +58,7 @@ diff --git a/src/bootstrap/lib.rs b/src/bootstrap/lib.rs
 index 1b0738bdf..db9bbe57b 100644
 --- a/src/bootstrap/lib.rs
 +++ b/src/bootstrap/lib.rs
-@@ -1050,6 +1050,10 @@ impl Build {
+@@ -1125,6 +1125,10 @@ impl Build {
          }
      }
  

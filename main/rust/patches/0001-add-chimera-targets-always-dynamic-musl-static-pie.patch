@@ -30,8 +30,8 @@ index 000000000..4c8d81abd
 +pub fn target() -> Target {
 +    let mut base = super::aarch64_unknown_linux_musl::target();
 +
-+    base.llvm_target = "aarch64-chimera-linux-musl".to_string();
-+    base.options.vendor = "chimera".to_string();
++    base.llvm_target = "aarch64-chimera-linux-musl".into();
++    base.options.vendor = "chimera".into();
 +
 +    base
 +}
@@ -42,7 +42,7 @@ index 5038a967d..4797e80c3 100644
 @@ -5,12 +5,15 @@ pub fn opts() -> TargetOptions {
      let mut base = super::linux_base::opts();
  
-     base.env = "musl".to_string();
+     base.env = "musl".into();
 -    base.pre_link_objects_fallback = crt_objects::pre_musl_fallback();
 -    base.post_link_objects_fallback = crt_objects::post_musl_fallback();
 -    base.crt_objects_fallback = Some(CrtObjectsFallback::Musl);
@@ -87,8 +87,8 @@ index 000000000..6f34c6509
 +pub fn target() -> Target {
 +    let mut base = super::powerpc64_unknown_linux_musl::target();
 +
-+    base.llvm_target = "powerpc64-chimera-linux-musl".to_string();
-+    base.options.vendor = "chimera".to_string();
++    base.llvm_target = "powerpc64-chimera-linux-musl".into();
++    base.options.vendor = "chimera".into();
 +
 +    base
 +}
@@ -103,8 +103,8 @@ index 000000000..f6ecfcb56
 +pub fn target() -> Target {
 +    let mut base = super::powerpc64le_unknown_linux_musl::target();
 +
-+    base.llvm_target = "powerpc64le-chimera-linux-musl".to_string();
-+    base.options.vendor = "chimera".to_string();
++    base.llvm_target = "powerpc64le-chimera-linux-musl".into();
++    base.options.vendor = "chimera".into();
 +
 +    base
 +}
@@ -119,8 +119,8 @@ index 000000000..362bada89
 +pub fn target() -> Target {
 +    let mut base = super::riscv64gc_unknown_linux_musl::target();
 +
-+    base.llvm_target = "riscv64-chimera-linux-musl".to_string();
-+    base.options.vendor = "chimera".to_string();
++    base.llvm_target = "riscv64-chimera-linux-musl".into();
++    base.options.vendor = "chimera".into();
 +
 +    base
 +}
@@ -135,8 +135,8 @@ index 000000000..3e5debbb7
 +pub fn target() -> Target {
 +    let mut base = super::x86_64_unknown_linux_musl::target();
 +
-+    base.llvm_target = "x86_64-chimera-linux-musl".to_string();
-+    base.options.vendor = "chimera".to_string();
++    base.llvm_target = "x86_64-chimera-linux-musl".into();
++    base.options.vendor = "chimera".into();
 +
 +    base
 +}
