@@ -47,7 +47,8 @@ assuming you have bootstrapped the system.
 **TL;DR:** You need a handful of tools, mainly Python and a few binaries mentioned
 in the list below. You need a 3.8+ kernel with support for namespaces, including
 user namespaces, and cgroups. You need to run as a regular user, and not in a
-`chroot`.
+`chroot`. At least 2GB of RAM per each CPU thread is recommended (all threads are
+used by default).
 
 The `cbuild` tool has relatively few dependencies. You can usually find all of
 them in any Linux distribution. Additionally, it imposes some requirements on
@@ -103,6 +104,10 @@ would be something like the following:
 ```
 $ bwrap --unshare-user --bind /path/to/my/root / --dev /dev --proc /proc --tmpfs /tmp /bin/sh
 ```
+
+You will also want to ensure you have sufficient RAM available. The `cbuild`
+system will by default use all CPU threads it can, unless you manually restrict
+it.
 
 If you satisfy all this, you should be good to go.
 
