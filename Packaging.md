@@ -1320,7 +1320,8 @@ the template including for subpackages:
   container is available.
 * `parallel` *(true)* By disabling this, you can enforce single-threaded
   builds for the template. By default the number of build jobs passed
-  by `cbuild` is respected.
+  by `cbuild` is respected. Note that this does not influence LTO linker
+  threads.
 * `debug` *(true)* By default, debug packages (`-dbg`) are generated if
   there are any strippable debug symbols. By setting this to `false`,
   you can disable passing of debug options to the compiler, as well as
@@ -1350,6 +1351,8 @@ the template including for subpackages:
   which can be overridden with `ltofull`.
 * `ltofull` *(false)* If you set this together with `lto`, full LTO will
   be used. It does not activate LTO by itself.
+* `ltoparallel` *(true)* Similarly to `parallel`, this can be used to
+  disable LTO threads.
 
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:
@@ -2222,10 +2225,20 @@ The number of configured jobs to use for building. This is not affected
 by whether parallel builds are disabled via options, always referring
 to the number provided by `cbuild`.
 
+##### self.conf_lto_jobs
+
+The number of configured jobs to use for LTO linking. This is usually the
+same as `conf_jobs` unless set separately.
+
 ##### self.make_jobs
 
 The number of jobs to use for building. Unlike `conf_jobs`, this will always
 be 1 if `parallel` option is disabled.
+
+##### self.lto_jobs
+
+The number of jobs to use for LTO linking. Unlike `conf_lto_jobs`, this will
+always be 1 if `ltoparallel` option is disabled.
 
 ##### self.force_mode
 

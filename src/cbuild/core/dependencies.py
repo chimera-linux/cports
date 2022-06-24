@@ -19,7 +19,7 @@ def _srcpkg_ver(pkgn, pkgb):
 
     rv = template.read_pkg(
         pkgn, pkgb.profile().arch,
-        True, False, 1, False, False, None,
+        True, False, (1, 1), False, False, None,
         resolve = pkgb, ignore_missing = True, ignore_errors = True,
         autopkg = True
     )
@@ -382,7 +382,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                 step,
                 template.read_pkg(
                     pn, chost if pkg.stage > 0 else None,
-                    False, pkg.run_check, pkg.conf_jobs,
+                    False, pkg.run_check, (pkg.conf_jobs, pkg.conf_lto_jobs),
                     pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                     force_check = pkg._force_check, stage = pkg.stage,
                     autopkg = True
@@ -401,7 +401,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                 step,
                 template.read_pkg(
                     pn, tarch if pkg.stage > 0 else None,
-                    False, pkg.run_check, pkg.conf_jobs,
+                    False, pkg.run_check, (pkg.conf_jobs, pkg.conf_lto_jobs),
                     pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                     force_check = pkg._force_check, stage = pkg.stage,
                     autopkg = True
@@ -419,7 +419,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                 step,
                 template.read_pkg(
                     rd, tarch if pkg.stage > 0 else None,
-                    False, pkg.run_check, pkg.conf_jobs,
+                    False, pkg.run_check, (pkg.conf_jobs, pkg.conf_lto_jobs),
                     pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
                     force_check = pkg._force_check, stage = pkg.stage,
                     autopkg = True

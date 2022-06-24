@@ -318,6 +318,7 @@ default_options = {
     "lto": (True, True),
     "ltofull": (False, True),
     "ltostrip": (False, False),
+    "ltoparallel": (True, True),
 }
 
 core_fields = [
@@ -1071,7 +1072,7 @@ class Template(Package):
             lflags = ["-flto=thin"]
         # restrict number of LTO jobs if necessary
         if fn == "LDFLAGS":
-            lflags += [f"-flto-jobs={self.make_jobs}"]
+            lflags += [f"-flto-jobs={self.lto_jobs}"]
         # just concat, user flags come last
         return lflags + eflags
 
@@ -1629,6 +1630,11 @@ def from_module(m, ret):
     else:
         ret.make_jobs = ret.conf_jobs
 
+    if not ret.options["ltoparallel"]:
+        ret.lto_jobs = 1
+    else:
+        ret.lto_jobs = ret.conf_lto_jobs
+
     ret.build_style_defaults = []
 
     if ret.build_style:
@@ -1887,7 +1893,8 @@ def read_pkg(
     ret.force_mode = force_mode
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
-    ret.conf_jobs = jobs
+    ret.conf_jobs = jobs[0]
+    ret.conf_lto_jobs = jobs[1]
     ret.stage = stage
     ret._ignore_errors = ignore_errors
     ret._allow_broken = allow_broken
