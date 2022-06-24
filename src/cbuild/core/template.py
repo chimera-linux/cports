@@ -1069,6 +1069,9 @@ class Template(Package):
             lflags = ["-flto"]
         else:
             lflags = ["-flto=thin"]
+        # restrict number of LTO jobs if necessary
+        if fn == "LDFLAGS":
+            lflags += [f"-flto-jobs={self.make_jobs}"]
         # just concat, user flags come last
         return lflags + eflags
 
