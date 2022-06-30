@@ -710,7 +710,7 @@ def do_lint(tgt):
     # don't let the skip logic kick in
     template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
-        False, 1, False, False, None, target = "lint"
+        False, (1, 1), False, False, None, target = "lint"
     )
 
 def _collect_tmpls(pkgn):
@@ -746,7 +746,7 @@ def do_cycle_check(tgt):
         try:
             return template.read_pkg(
                 pkgn, chroot.host_cpu(), True,
-                False, 1, False, False, None, target = "lint",
+                False, (1, 1), False, False, None, target = "lint",
                 resolve = resolve, allow_broken = True,
                 ignore_errors = True
             )
@@ -860,7 +860,7 @@ def do_update_check(tgt):
     pkgn = cmdline.command[1]
     tmpl = template.read_pkg(
         pkgn, chroot.host_cpu(), True,
-        False, 1, False, False, None, target = "lint",
+        False, (1, 1), False, False, None, target = "lint",
         allow_broken = True
     )
 
@@ -879,7 +879,7 @@ def do_dump(tgt):
         try:
             return template.read_pkg(
                 pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
-                False, 1, False, False, None, target = "lint",
+                False, (1, 1), False, False, None, target = "lint",
                 allow_broken = True
             )
         except PackageError:
