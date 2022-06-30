@@ -1,5 +1,7 @@
 pkgname = "cargo"
-pkgver = "1.61.0"
+pkgver = "1.62.0"
+# cargo is late tagging releases, this is the rust-1.62.0 branch tip
+_commit = "a748cf5a3e666bc2dcdf54f37adef8ef22196452"
 _cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
 pkgrel = 0
 build_style = "cargo"
@@ -14,8 +16,8 @@ pkgdesc = "Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
-source = f"https://github.com/rust-lang/{pkgname}/archive/{_cargover}.tar.gz"
-sha256 = "afa5cd07b818fe781c639217e0694692439f3da25b363c332c460f0d438017ad"
+source = f"https://github.com/rust-lang/{pkgname}/archive/{_commit}.tar.gz"
+sha256 = "ca4f43ac2b03de75a27b0ddf4c8aae2319bf4139cfed4dd0c7d7372569dbfa3c"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
