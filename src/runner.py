@@ -986,45 +986,78 @@ def _bulkpkg(pkgs, statusf):
 
     tarch = opt_arch if opt_arch else chroot.host_cpu()
 
-    # parse out all the templates first and grab their build deps
+    pcw = pathlib.Path.cwd()
+
+    # resolve every package first
+    # the result is a set of unambiguous, basic template names
+    rpkgs = set()
+    badpkgs = set()
     for pn in pkgs:
-        if pn in visited:
+        # skip what's already handled
+        if pn in rpkgs or pn in badpkgs:
             continue
-        # also mark visited under original name to skip further occurences
-        visited[pn] = True
-        # skip if previously failed and set that way
+        # skip if previously failed
         if failed and opt_bulkfail:
             statusf.write(f"{pn} skipped\n")
             continue
         pp = pathlib.Path(pn)
         # resolve
         if pp.is_symlink():
-            # resolve to the main package
-            ln = pp.readlink()
-            pp = pathlib.Path(f"{pl}/{ln}")
-        spp = str(pp)
-        # mark visited under a validated name just in case it differs
-        visited[spp] = True
+            badpkgs.add(pn)
+            ln = pp.resolve().relative_to(pcw)
+            if ln.is_absolute() or ln.is_symlink() or not ln.is_dir():
+                statusf.write(f"{pn} invalid\n")
+                log.out_red(f"cbuild: invalid package '{pn}'")
+                failed = True
+                continue
+            pp = ln
+            pn = str(ln)
         # validate
         pl = pp.parts
-        if len(pl) != 2 or len(pl[0]) == 0 or \
-           len(pl[1]) == 0 or pp.is_symlink():
-            statusf.write(f"{spp} invalid\n")
-            log.out_red(f"cbuild: invalid package '{spp}'")
+        if len(pl) != 2 or len(pl[0]) == 0 or len(pl[1]) == 0:
+            statusf.write(f"{pn} invalid\n")
+            log.out_red(f"cbuild: invalid package '{pn}'")
             failed = True
-            continue
-        # check if it's points to final template
         if not pp.is_dir() or not (pp / "template.py").is_file():
-            statusf.write(f"{spp} missing\n")
-            log.out_red(f"cbuild: missing package '{spp}'")
+            statusf.write(f"{pn} missing\n")
+            log.out_red(f"cbuild: missing package '{pn}'")
             failed = True
+        # finally add to set
+        rpkgs.add(pn)
+
+    # visited "intermediate" templates, includes stuff that is "to be done"
+    pvisit = set(rpkgs)
+    def handle_recdeps(pn, tp):
+        bdl = tp.get_build_deps()
+        depg.add(pn, *bdl)
+        # recursively eval and add deps
+        for d in bdl:
+            if d in pvisit:
+                continue
+            # make sure that everything is parsed only once
+            pvisit.add(d)
+            dtp = _do_with_exc(lambda: template.read_pkg(
+                d, tarch, True, False, (1, 1), False, False, None,
+                ignore_missing = True, ignore_errors = True
+            ))
+            if dtp:
+                handle_recdeps(d, dtp)
+
+    rpkgs = sorted(list(rpkgs))
+
+    # parse out all the templates first and grab their build deps
+    for pn in rpkgs:
+        # skip if previously failed and set that way
+        if failed and opt_bulkfail:
+            statusf.write(f"{pn} skipped\n")
             continue
         # parse, handle any exceptions so that we can march on
         ofailed = failed
         failed = False
         tp = _do_with_exc(lambda: template.read_pkg(
-            spp, tarch, opt_force, opt_check, (opt_makejobs, opt_ltojobs),
-            opt_gen_dbg, opt_ccache, None, force_check = opt_forcecheck
+            pn, tarch, opt_force, opt_check, (opt_makejobs, opt_ltojobs),
+            opt_gen_dbg, opt_ccache, None, force_check = opt_forcecheck,
+            bulk_mode = True
         ))
         if not tp:
             if failed:
@@ -1034,10 +1067,9 @@ def _bulkpkg(pkgs, statusf):
             continue
         failed = ofailed
         # record the template for later use
-        templates[spp] = tp
-        # add it into t graph with all its build deps
-        bdl = tp.get_build_deps()
-        depg.add(spp, *bdl)
+        templates[pn] = tp
+        # add it into the graph with all its build deps
+        handle_recdeps(pn, tp)
 
     # try building in sorted order
     if not failed or not opt_bulkfail:
@@ -1045,8 +1077,9 @@ def _bulkpkg(pkgs, statusf):
             # skip things that were not in the initial set
             if not pn in templates:
                 continue
+            tp = templates[pn]
             # if we previously failed and want it this way, skip the rest
-            if failed and opt_bulkfail:
+            if failed and opt_bulkfail or (not opt_force and tp.is_built()):
                 statusf.write(f"{pn} skipped\n")
                 continue
             # ensure to write the status

@@ -591,6 +591,7 @@ class Template(Package):
             setattr(self, fl, copy_of_dval(dval))
 
         # make this available early
+        self.fullname = pkgname
         self.repository, self.pkgname = pkgname.split("/")
 
         # resolve all source repos available to this package
@@ -645,7 +646,7 @@ class Template(Package):
             visited[bd] = True
             rd = _resolve_bdep(self, bd)
             # just ignore unresolved stuff here, it's ok for now
-            if rd:
+            if rd and rd != self.fullname:
                 bdeps[rd] = True
         # pre-sort it just in case
         return sorted(bdeps.keys())
@@ -941,6 +942,22 @@ class Template(Package):
         if not prevmatch or prevneg:
             self.error(f"this package cannot be built for {archn}")
         # otherwise we're good
+
+    def is_built(self):
+        pinfo = cli.call(
+            "search", ["-e", self.pkgname],
+            self.repository, capture_output = True,
+            arch = self.profile().arch,
+            allow_untrusted = True, use_altrepo = False
+        )
+        if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
+            foundp = pinfo.stdout.strip().decode()
+            if foundp == f"{self.pkgname}-{self.pkgver}-r{self.pkgrel}":
+                if self.origin == self:
+                    # TODO: print the repo somehow
+                    self.log(f"found ({pinfo.stdout.strip().decode()})")
+                return True
+        return False
 
     def do(
         self, cmd, *args, env = {}, wrksrc = None, capture_output = False,
@@ -1552,20 +1569,9 @@ def from_module(m, ret):
     ret.validate_pkgver()
 
     # possibly skip very early once we have the bare minimum info
-    if not ret.force_mode and not ret._target:
-        pinfo = cli.call(
-            "search", ["-e", ret.pkgname],
-            ret.repository, capture_output = True,
-            arch = ret.profile().arch,
-            allow_untrusted = True, use_altrepo = False
-        )
-        if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
-            foundp = pinfo.stdout.strip().decode()
-            if foundp == f"{ret.pkgname}-{ret.pkgver}-r{ret.pkgrel}":
-                if ret.origin == ret:
-                    # TODO: print the repo somehow
-                    ret.log(f"found ({pinfo.stdout.strip().decode()})")
-                raise SkipPackage()
+    if not ret.force_mode and not ret.bulk_mode \
+       and not ret._target and ret.is_built():
+        raise SkipPackage()
 
     # fill in core non-mandatory fields
     for fl, dval, tp, mand, sp, inh in core_fields:
@@ -1851,7 +1857,7 @@ def read_pkg(
     pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
     origin, resolve = None, ignore_missing = False, ignore_errors = False,
     target = None, force_check = False, allow_broken = False,
-    autopkg = False, stage = 3
+    autopkg = False, stage = 3, bulk_mode = False
 ):
     global _tmpl_dict
 
@@ -1891,6 +1897,7 @@ def read_pkg(
     ret = Template(pkgname, origin)
     ret.template_path = paths.distdir() / pkgname
     ret.force_mode = force_mode
+    ret.bulk_mode = bulk_mode
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs[0]
