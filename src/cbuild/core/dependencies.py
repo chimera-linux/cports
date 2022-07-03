@@ -75,9 +75,9 @@ def setup_depends(pkg, only_names = False):
 
         if only_names:
             if pn:
-                rdeps.append(pn)
+                rdeps.append((orig, pn))
             else:
-                rdeps.append(dep)
+                rdeps.append((orig, dep))
         elif not pn:
             rdeps.append((orig, dep + ">=0"))
         else:

@@ -735,116 +735,63 @@ def _collect_tmpls(pkgn):
 
     return tmpls
 
+def _add_deps_graph(pn, tp, pvisit, rpkg, depg):
+    bdl = tp.get_build_deps()
+    depg.add(pn, *bdl)
+    # recursively eval and add deps
+    succ = True
+    for d in bdl:
+        if d in pvisit:
+            continue
+        # make sure that everything is parsed only once
+        pvisit.add(d)
+        dtp = rpkg(d)
+        if dtp:
+            if not _add_deps_graph(d, dtp, pvisit, rpkg, depg):
+                succ = False
+        else:
+            succ = False
+    return succ
+
 def do_cycle_check(tgt):
-    from cbuild.core import dependencies, chroot, logger, template, paths
-    from cbuild.apk import util as autil
+    import graphlib
+
+    from cbuild.core import dependencies, chroot, logger, template, errors
 
     pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
 
-    # broken packages get removed from testing
-    def _read_pkg(pkgn, resolve):
+    rtmpls = {}
+    def _read_pkg(pkgn):
+        if pkgn in rtmpls:
+            return rtmpls[pkgn]
         try:
-            return template.read_pkg(
+            tp = template.read_pkg(
                 pkgn, chroot.host_cpu(), True,
                 False, (1, 1), False, False, None, target = "lint",
-                resolve = resolve, allow_broken = True,
-                ignore_errors = True
+                allow_broken = True, ignore_errors = True
             )
+            rtmpls[pkgn] = tp
+            return tp
         except PackageError:
             return None
 
-    # template list, one template or all
+    tg = graphlib.TopologicalSorter()
     tmpls = _collect_tmpls(pkgn)
-    # saved cycle path for informational purposes
-    curpath = []
-    # this saves all already-tested templates so we can skip them
-    tested = {}
-    # templates encountered during the current run
-    encountered = {}
-    # skip known already-printed cycles
-    cycled = {}
-
-    def _cycle_check(tmpln, ppkg):
-        bpkgn = tmpln
-        pkgs = bpkgn.find("/")
-        if pkgs > 0:
-            bpkgn = bpkgn[pkgs + 1:]
-        nonlocal curpath
-        # skip if the cycle is already known
-        if bpkgn in cycled:
-            return
-        # second encounter of the dependency in this dependency tree
-        if bpkgn in encountered:
-            tidx = curpath.index(bpkgn)
-            curpath.append(bpkgn)
-            logger.get().warn(
-                "cycle encountered: " + " => ".join(curpath[tidx:])
-            )
-            cycled[bpkgn] = True
-            curpath = []
-            raise RuntimeError()
-        # already tested: pass
-        if bpkgn in tested:
-            return
-        pkgr = _read_pkg(tmpln, ppkg)
-        # probably broken, just skip from testing
-        if not pkgr:
-            tested[bpkgn] = True
-            return False
-        # when testing dependencies, skip stuff depending on its own subpkgs
-        subpkgs = {}
-        subpkgs[pkgr.pkgname] = True
-        for sp in pkgr.subpkg_list:
-            subpkgs[sp.pkgname] = True
-        # mark tested as well as encountered
-        tested[bpkgn] = True
-        encountered[bpkgn] = True
-        # save in the informational path
-        curpath.append(bpkgn)
-        # build a unique set of dependencies without repeated items
-        hdeps, tdeps, rdeps = dependencies.setup_depends(pkgr)
-        deplist = []
-        for sver, pkgn in hdeps:
-            deplist.append(pkgn)
-        for sver, pkgn in tdeps:
-            deplist.append(pkgn)
-        # for runtime dependencies, we gotta skip subpackages of self
-        for origin, dep in rdeps:
-            spkgn, pkgv, pkgop = autil.split_pkg_name(dep)
-            if not spkgn:
-                pkg.error(f"invalid runtime dependency: {dep}")
-            if not spkgn in subpkgs:
-                # resolve base package
-                for r in pkgr.source_repositories:
-                    pkgp = paths.distdir() / r / spkgn
-                    if (pkgp / "template.py").is_file():
-                        spkgn = pkgp.resolve().name
-                deplist.append(spkgn)
-        # convert to set and back to list, that way we make it unique
-        deplist = list(set(deplist))
-        # check each dep
-        for dep in deplist:
-            # stuff depending on broken packages is itself broken
-            if not _cycle_check(dep, pkgr):
-                tested[dep] = True
-                return False
-            tested[dep] = True
-        # clean up the path/encountered set for correct recursive behavior
-        curpath.pop()
-        del encountered[bpkgn]
-        return True
-
+    pvisit = set()
     for tmpln in tmpls:
-        if tmpln in tested:
+        # already added in another graph
+        if tmpln in pvisit:
             continue
-        try:
-            _cycle_check(tmpln, None)
-            tested[tmpln] = True
-        except RuntimeError:
-            # encountered a cycle
-            pass
-        encountered = {}
-        curpath = []
+        tp = _read_pkg(tmpln)
+        if not tp:
+            continue
+        _add_deps_graph(tmpln, tp, pvisit, _read_pkg, tg)
+    try:
+        tg.prepare()
+    except graphlib.CycleError as ce:
+        raise errors.CbuildException(
+            "cycle encountered: " + " => ".join(ce.args[1])
+        )
 
 def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot, logger, errors
@@ -1028,25 +975,10 @@ def _bulkpkg(pkgs, statusf):
     # visited "intermediate" templates, includes stuff that is "to be done"
     pvisit = set(rpkgs)
     def handle_recdeps(pn, tp):
-        bdl = tp.get_build_deps()
-        depg.add(pn, *bdl)
-        # recursively eval and add deps
-        succ = True
-        for d in bdl:
-            if d in pvisit:
-                continue
-            # make sure that everything is parsed only once
-            pvisit.add(d)
-            dtp = _do_with_exc(lambda: template.read_pkg(
-                d, tarch, True, False, (1, 1), False, False, None,
-                ignore_missing = True, ignore_errors = True
-            ))
-            if dtp:
-                if not handle_recdeps(d, dtp):
-                    succ = False
-            else:
-                succ = False
-        return succ
+        return _add_deps_graph(pn, tp, pvisit, lambda d: template.read_pkg(
+            d, tarch, True, False, (1, 1), False, False, None,
+            ignore_missing = True, ignore_errors = True
+        ), depg)
 
     rpkgs = sorted(list(rpkgs))
 

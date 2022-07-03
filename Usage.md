@@ -512,7 +512,9 @@ The following commands are recognized:
 * `lint` Read and parse the template, and do lint checks on it. Do nothing
   else. Error on failures.
 * `cycle-check` Scan all templates or a single template for build-time
-  dependency cycles.
+  dependency cycles. Only one cycle at a time is printed. The goal is to
+  keep the tree free of cycles at all times. Therefore, if you encounter
+  a cycle, resolve it and check again.
 * `index` When not given a path, reindex all known repositories. When given
   a path, reindex a specific repository. Only either the host architecture or
   the `-a` architecture are indexed, and the path should not include the

@@ -591,7 +591,6 @@ class Template(Package):
             setattr(self, fl, copy_of_dval(dval))
 
         # make this available early
-        self.fullname = pkgname
         self.repository, self.pkgname = pkgname.split("/")
 
         # resolve all source repos available to this package
@@ -635,19 +634,27 @@ class Template(Package):
                 tp = rp / depn / "template.py"
                 if tp.is_file():
                     pn = tp.resolve().parent.name
-                    return f"{sr}/{pn}"
-            return None
+                    return sr, pn
+            return None, None
         bdeps = {}
         visited = {}
         hds, tds, rds = dependencies.setup_depends(self, True)
-        for bd in hds + tds + rds:
+        for bd in hds + tds:
             if bd in visited:
                 continue
             visited[bd] = True
-            rd = _resolve_bdep(self, bd)
+            sr, pn = _resolve_bdep(self, bd)
             # just ignore unresolved stuff here, it's ok for now
-            if rd and rd != self.fullname:
-                bdeps[rd] = True
+            if sr:
+                bdeps[f"{sr}/{pn}"] = True
+        for orig, bd in rds:
+            if bd in visited:
+                continue
+            visited[bd] = True
+            sr, pn = _resolve_bdep(self, bd)
+            # we need to ignore subpackages depending on their neighbors
+            if sr and ((bd == orig) or (pn != self.pkgname)):
+                bdeps[f"{sr}/{pn}"] = True
         # pre-sort it just in case
         return sorted(bdeps.keys())
 
