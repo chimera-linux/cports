@@ -713,23 +713,32 @@ def do_lint(tgt):
         False, (1, 1), False, False, None, target = "lint"
     )
 
-def _collect_tmpls(pkgn):
+def _collect_tmpls(pkgn, catn = None):
     from cbuild.core import paths
 
     tmpls = []
 
-    if pkgn:
+    def _scan_cat(cat):
+        for tmpl in cat.iterdir():
+            if tmpl.is_symlink() or not tmpl.is_dir():
+                continue
+            pathf = tmpl / "template.py"
+            if pathf.exists() and pathf.is_file():
+                tmpls.append(f"{cat.name}/{tmpl.name}")
+
+    if catn:
+        cat = paths.distdir() / catn
+        # recursively scan categories
+        while cat.is_dir():
+            _scan_cat(cat)
+            cat = (cat / ".parent").resolve()
+    elif pkgn:
         tmpls.append(pkgn)
     else:
         for cat in paths.distdir().iterdir():
             if cat.is_symlink() or not cat.is_dir():
                 continue
-            for tmpl in cat.iterdir():
-                if tmpl.is_symlink() or not tmpl.is_dir():
-                    continue
-                pathf = tmpl / "template.py"
-                if pathf.exists() and pathf.is_file():
-                    tmpls.append(f"{cat.name}/{tmpl.name}")
+            _scan_cat(cat)
 
     tmpls.sort()
 
@@ -891,6 +900,7 @@ def _bulkpkg(pkgs, statusf):
     visited = {}
     templates = {}
     failed = False
+    broken = False
     log = logger.get()
 
     if opt_mdirtemp:
@@ -920,8 +930,11 @@ def _bulkpkg(pkgs, statusf):
             return False
         except errors.PackageException as e:
             e.pkg.log_red(f"ERROR: {e}", e.end)
-            traceback.print_exc(file = log.estream)
-            failed = True
+            if not e.broken:
+                traceback.print_exc(file = log.estream)
+                failed = True
+            else:
+                broken = True
             return False
         except Exception:
             logger.get().out_red("A failure has occurred!")
@@ -991,13 +1004,16 @@ def _bulkpkg(pkgs, statusf):
         # parse, handle any exceptions so that we can march on
         ofailed = failed
         failed = False
+        broken = False
         tp = _do_with_exc(lambda: template.read_pkg(
             pn, tarch, opt_force, opt_check, (opt_makejobs, opt_ltojobs),
             opt_gen_dbg, opt_ccache, None, force_check = opt_forcecheck,
             bulk_mode = True
         ))
         if not tp:
-            if failed:
+            if broken:
+                statusf.write(f"{pn} broken\n")
+            elif failed:
                 statusf.write(f"{pn} parse\n")
             else:
                 failed = ofailed
@@ -1044,13 +1060,17 @@ def do_bulkpkg(tgt):
     import sys
 
     if len(cmdline.command) <= 1:
-        raise errors.CbuildException(f"bulk-pkg needs at least one package")
-    pkgs = cmdline.command[1:]
+        pkgs = _collect_tmpls(None)
+    else:
+        pkgs = cmdline.command[1:]
 
-    if len(pkgs) == 1 and pkgs[0] == "-":
-        pkgs = []
-        for l in sys.stdin:
-            pkgs.append(l.strip())
+    if len(pkgs) == 1:
+        if pkgs[0] == "-":
+            pkgs = []
+            for l in sys.stdin:
+                pkgs.append(l.strip())
+        elif "/" not in pkgs[0]:
+            pkgs = _collect_tmpls(None, pkgs[0])
 
     if opt_statusfd:
         try:

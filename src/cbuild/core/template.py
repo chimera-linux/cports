@@ -183,8 +183,8 @@ class Package:
     def log_warn(self, msg, end = "\n"):
         self.logger.warn(self._get_pv() + ": " + msg, end)
 
-    def error(self, msg, end = "\n"):
-        raise errors.PackageException(msg, end, self)
+    def error(self, msg, end = "\n", broken = False):
+        raise errors.PackageException(msg, end, self, broken)
 
     def _get_pv(self):
         if self.pkgname and self.pkgver:
@@ -1779,10 +1779,16 @@ def from_module(m, ret):
     ierr = ret._ignore_errors or ret._allow_broken
 
     if ret.broken and not ierr:
-        ret.error(f"cannot be built, it's currently broken: {ret.broken}")
+        ret.error(
+            f"cannot be built, it's currently broken: {ret.broken}",
+            broken = True
+        )
 
     if ret.profile().cross and not ret.options["cross"] and not ierr:
-        ret.error(f"cannot be cross-compiled for {ret.profile().cross}")
+        ret.error(
+            f"cannot be cross-compiled for {ret.profile().cross}",
+            broken = True
+        )
 
     if ret.stage == 0 and not ret.options["bootstrap"] and not ierr:
         ret.error("attempt to bootstrap a non-bootstrap package")
