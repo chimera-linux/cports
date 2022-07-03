@@ -1031,6 +1031,7 @@ def _bulkpkg(pkgs, statusf):
         bdl = tp.get_build_deps()
         depg.add(pn, *bdl)
         # recursively eval and add deps
+        succ = True
         for d in bdl:
             if d in pvisit:
                 continue
@@ -1041,7 +1042,11 @@ def _bulkpkg(pkgs, statusf):
                 ignore_missing = True, ignore_errors = True
             ))
             if dtp:
-                handle_recdeps(d, dtp)
+                if not handle_recdeps(d, dtp):
+                    succ = False
+            else:
+                succ = False
+        return succ
 
     rpkgs = sorted(list(rpkgs))
 
@@ -1066,10 +1071,16 @@ def _bulkpkg(pkgs, statusf):
                 failed = ofailed
             continue
         failed = ofailed
+        # add it into the graph with all its build deps
+        # if some dependency in its graph fails to parse, we skip building
+        # it because it could mean things building out of order (because
+        # the failing template cuts the graph)
+        if not handle_recdeps(pn, tp):
+            statusf.write(f"{pn} deps\n")
+            failed = True
+            continue
         # record the template for later use
         templates[pn] = tp
-        # add it into the graph with all its build deps
-        handle_recdeps(pn, tp)
 
     # try building in sorted order
     if not failed or not opt_bulkfail:
