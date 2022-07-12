@@ -1,5 +1,5 @@
 pkgname = "dinit"
-pkgver = "0.13.0"
+pkgver = "0.15.1"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = f"https://davmac.org/projects/dinit"
 source = f"https://github.com/davmac314/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "bdf23a69c6778aee323b73a67e0d5b3f2871608df9815857b9ff1ac63208a267"
+sha256 = "b6cc489079a6600ae5f89cbc52b6046bd522e8e91da60c6a3006c4224cba83b4"
 
 def init_configure(self):
     self.make_build_args += [
