@@ -762,10 +762,10 @@ def _add_deps_graph(pn, tp, pvisit, rpkg, depg):
             succ = False
     return succ
 
-def do_cycle_check(tgt):
+def _graph_prepare():
     import graphlib
 
-    from cbuild.core import dependencies, chroot, logger, template, errors
+    from cbuild.core import chroot, template, errors
 
     pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
 
@@ -781,7 +781,7 @@ def do_cycle_check(tgt):
             )
             rtmpls[pkgn] = tp
             return tp
-        except PackageError:
+        except errors.PackageException:
             return None
 
     tg = graphlib.TopologicalSorter()
@@ -795,12 +795,58 @@ def do_cycle_check(tgt):
         if not tp:
             continue
         _add_deps_graph(tmpln, tp, pvisit, _read_pkg, tg)
+
+    return tg
+
+def do_cycle_check(tgt):
+    import graphlib
+
+    from cbuild.core import errors
+
+    tg = _graph_prepare()
+
     try:
         tg.prepare()
     except graphlib.CycleError as ce:
         raise errors.CbuildException(
             "cycle encountered: " + " => ".join(ce.args[1])
         )
+
+def do_print_build_graph(tgt):
+    from cbuild.core import chroot, template, errors
+
+    if len(cmdline.command) < 2:
+        raise errors.CbuildException(f"print-build-graph needs a package name")
+
+    rtmpls = {}
+    def _read_pkg(pkgn):
+        if pkgn in rtmpls:
+            return rtmpls[pkgn]
+        try:
+            tp = template.read_pkg(
+                pkgn, chroot.host_cpu(), True,
+                False, (1, 1), False, False, None, target = "lint",
+                allow_broken = True, ignore_errors = True
+            )
+            rtmpls[pkgn] = tp
+            return tp
+        except errors.PackageException:
+            return None
+
+    root = _read_pkg(cmdline.command[1])
+
+    built = set()
+    def _print_deps(tp, level = 0):
+        for i in range(level):
+            print(end = " ")
+        print(f"{tp.pkgname}")
+        for dep in tp.get_build_deps():
+            if dep in built:
+                continue
+            built.add(dep)
+            _print_deps(_read_pkg(dep), level + 1)
+
+    _print_deps(root)
 
 def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot, logger, errors
@@ -823,7 +869,7 @@ def do_update_check(tgt):
     update_check.update_check(tmpl, verbose)
 
 def do_dump(tgt):
-    from cbuild.core import chroot, template
+    from cbuild.core import chroot, template, errors
 
     import json
 
@@ -838,7 +884,7 @@ def do_dump(tgt):
                 False, (1, 1), False, False, None, target = "lint",
                 allow_broken = True
             )
-        except PackageError:
+        except errors.PackageException:
             return None
 
     dumps = []
@@ -1167,6 +1213,7 @@ def fire():
             case "cycle-check": do_cycle_check(cmd)
             case "update-check": do_update_check(cmd)
             case "dump": do_dump(cmd)
+            case "print-build-graph": do_print_build_graph(cmd)
             case "fetch" | "extract" | "prepare": do_pkg(cmd)
             case "patch" | "configure" | "build": do_pkg(cmd)
             case "check" | "install" | "pkg": do_pkg(cmd)
