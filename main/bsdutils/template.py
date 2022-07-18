@@ -6,7 +6,7 @@ build_style = "meson"
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
 makedepends = [
     "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",
-    "musl-fts-devel", "musl-rpmatch-devel", "libxo-devel"
+    "musl-fts-devel", "musl-rpmatch-devel"
 ]
 pkgdesc = "FreeBSD userland utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,6 +16,11 @@ source = f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"
 sha256 = "dea57d715d98e7206a113dc1039542b3c330d3ead6dc8e49d2ece50e604a3c86"
 # no test suite
 options = ["bootstrap", "!check"]
+
+if self.stage > 0:
+    makedepends += ["libxo-devel"]
+else:
+    makedepends += ["libxo-tiny-devel"]
 
 def init_configure(self):
     if self.stage > 0:
