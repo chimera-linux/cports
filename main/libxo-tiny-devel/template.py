@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-dependency-tracking",
+    "--disable-libxo-options",
     "--disable-gettext",
     "--disable-shared",
     "--enable-text-only",
