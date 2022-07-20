@@ -1,0 +1,38 @@
+#!/bin/sh
+
+[ "$1" = "prereqs" ] && exit 0
+
+# provided by bsdutils-tiny
+BSD_TOOLS="
+ [ cat chroot dd false ln ls mkdir mkfifo mknod
+ mv readlink stat sleep sync test true uname
+"
+
+# provided by klibc-kinit-standalone
+KINIT_TOOLS="fstype ipconfig nfsmount resume run-init"
+
+# provided by klibc-utils-standalone
+KLIBC_TOOLS="
+ cpio dmesg halt kill losetup minips mount
+ nuke pivot_root poweroff reboot umount
+"
+
+# copy musl first, it's the only dependency
+LDSO_ARCH=$(/usr/lib/libc.so 2>&1 | head -n1 | sed 's/musl libc (\(.*\))/\1/')
+cp -an /usr/lib/libc.so "${DESTDIR}/usr/lib"
+ln -sf /usr/lib/libc.so "${DESTDIR}/usr/lib/ld-musl-${LDSO_ARCH}.so.1"
+
+# shell
+cp -an /usr/bin/dash "${DESTDIR}/usr/bin/sh"
+
+for kt in ${KINIT_TOOLS}; do
+    cp -an /usr/libexec/kinit-standalone/${kt} "${DESTDIR}/usr/bin"
+done
+
+for kt in ${KLIBC_TOOLS}; do
+    cp -an /usr/libexec/klibc-utils-standalone/${kt} "${DESTDIR}/usr/bin"
+done
+
+for bt in ${BSD_TOOLS}; do
+    cp -an /usr/libexec/bsdutils-tiny/${bt} "${DESTDIR}/usr/bin"
+done

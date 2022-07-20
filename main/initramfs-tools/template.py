@@ -2,7 +2,10 @@ pkgname = "initramfs-tools"
 pkgver = "0.140"
 pkgrel = 0
 build_style = "makefile"
-depends = ["base-kernel", "klibc-progs", "bsdtar", "debianutils", "awk"]
+depends = [
+    "base-kernel", "klibc-kinit-standalone", "klibc-utils-standalone",
+    "bsdutils-tiny", "dash", "bsdtar", "debianutils", "awk"
+]
 pkgdesc = "Generic modular initramfs generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -18,3 +21,10 @@ def post_install(self):
             self.files_path / (f + ".sh"), "etc/kernel.d",
             mode = 0o755
         )
+
+    # hook for core userland
+    self.install_file(
+        self.files_path / "bsdutils.initramfs-tools",
+        "usr/share/initramfs-tools/hooks",
+        mode = 0o755, name = "bsdutils"
+    )

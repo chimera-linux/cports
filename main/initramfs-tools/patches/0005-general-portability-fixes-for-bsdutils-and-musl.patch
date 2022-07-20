@@ -1,4 +1,4 @@
-From 17ce2894abf118383efef92579d23e0fa5c00d66 Mon Sep 17 00:00:00 2001
+From 07a0ef3fe965cc1c17fc04ed11def0e6028147bb Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 05:07:48 +0200
 Subject: [PATCH 5/5] general portability fixes for bsdutils and musl
@@ -6,7 +6,8 @@ Subject: [PATCH 5/5] general portability fixes for bsdutils and musl
 ---
  hook-functions | 49 +++++++++++++++++++++----------------------------
  mkinitramfs    | 21 ++++-----------------
- 2 files changed, 25 insertions(+), 45 deletions(-)
+ unmkinitramfs  |  2 +-
+ 3 files changed, 26 insertions(+), 46 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
 index 1ed86e5..d0f45bb 100644
@@ -148,6 +149,19 @@ index c63e5f5..daafedb 100755
  # Apply DSDT to initramfs
  if [ -e "${CONFDIR}/DSDT.aml" ]; then
  	copy_file DSDT "${CONFDIR}/DSDT.aml"
+diff --git a/unmkinitramfs b/unmkinitramfs
+index d1226c3..889e4b8 100755
+--- a/unmkinitramfs
++++ b/unmkinitramfs
+@@ -136,7 +136,7 @@ splitinitramfs()
+ 
+ OPTIONS=$(getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
+ 
+-cpio_opts="--preserve-modification-time --no-absolute-filenames --quiet"
++cpio_opts="--preserve-modification-time --quiet"
+ expected_args=2
+ eval set -- "$OPTIONS"
+ 
 -- 
 2.37.1
 
