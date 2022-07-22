@@ -1,14 +1,14 @@
-From 35dcec27dc5a4ae7a2d4199abd2b35a6bb986e49 Mon Sep 17 00:00:00 2001
+From 3361ce6b4b54fd1935278f44778fc8a46d8ee988 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 01:54:10 +0200
-Subject: [PATCH 3/6] remove all references to busybox
+Subject: [PATCH 3/7] remove all references to busybox
 
 ---
  conf/initramfs.conf | 10 ----------
  initramfs-tools.7   | 13 +++----------
  initramfs.conf.5    |  8 --------
- mkinitramfs         | 10 ----------
- 4 files changed, 3 insertions(+), 38 deletions(-)
+ mkinitramfs         |  8 ++------
+ 4 files changed, 5 insertions(+), 34 deletions(-)
 
 diff --git a/conf/initramfs.conf b/conf/initramfs.conf
 index 01bdd85..4639974 100644
@@ -90,7 +90,7 @@ index 4615892..5c21f90 100644
  \fB KEYMAP
  If set to 'y', the console keymap will be loaded during the initramfs stage.
 diff --git a/mkinitramfs b/mkinitramfs
-index 0b2f124..39e749f 100755
+index 0b2f124..56d67a6 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -7,9 +7,6 @@ export PATH='/usr/bin:/sbin:/bin'
@@ -103,20 +103,18 @@ index 0b2f124..39e749f 100755
  
  usage()
  {
-@@ -123,12 +120,6 @@ for i in /usr/share/initramfs-tools/conf-hooks.d/*; do
- 	fi
+@@ -124,8 +121,8 @@ for i in /usr/share/initramfs-tools/conf-hooks.d/*; do
  done
  
--# Check busybox dependency
+ # Check busybox dependency
 -if [ "${BUSYBOX}" = "y" ] && [ -z "${BUSYBOXDIR}" ]; then
 -	echo >&2 "E: @BUSYBOX_PACKAGES@, version @BUSYBOX_MIN_VERSION@ or later, is required but not installed"
--	exit 1
--fi
--
- if [ -n "${UMASK:-}" ]; then
- 	umask "${UMASK}"
++if [ "${BUSYBOX}" = "y" ]; then
++	echo >&2 "E: busybox assumed but not supported (patch your hooks/scripts)"
+ 	exit 1
  fi
-@@ -250,7 +241,6 @@ export MACHINE_ARCH
+ 
+@@ -250,7 +247,6 @@ export MACHINE_ARCH
  export verbose
  export KEYMAP
  export MODULES
