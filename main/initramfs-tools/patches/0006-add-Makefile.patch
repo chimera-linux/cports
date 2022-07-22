@@ -1,7 +1,7 @@
-From a53e44e634a78031e3294fc74a33c480fdcb88c8 Mon Sep 17 00:00:00 2001
+From 8424b7c0c9368dfbd97a014dbeb9d8c13e716f83 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 02:59:12 +0200
-Subject: [PATCH 6/6] add Makefile
+Subject: [PATCH 6/7] add Makefile
 
 ---
  Makefile | 103 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -118,5 +118,5 @@ index 0000000..fee205c
 +	install -m 755 scripts/local-premount/resume \
 +		$(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts/local-premount
 -- 
-2.33.0
+2.37.1
 

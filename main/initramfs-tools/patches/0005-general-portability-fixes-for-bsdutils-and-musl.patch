@@ -1,7 +1,7 @@
-From 07a0ef3fe965cc1c17fc04ed11def0e6028147bb Mon Sep 17 00:00:00 2001
+From d8650e7fb8196e09da3ba591cb2e1cee975f16bb Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 05:07:48 +0200
-Subject: [PATCH 5/5] general portability fixes for bsdutils and musl
+Subject: [PATCH 5/7] general portability fixes for bsdutils and musl
 
 ---
  hook-functions | 49 +++++++++++++++++++++----------------------------
@@ -10,7 +10,7 @@ Subject: [PATCH 5/5] general portability fixes for bsdutils and musl
  3 files changed, 26 insertions(+), 46 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index 1ed86e5..d0f45bb 100644
+index af6dec4..4944f05 100644
 --- a/hook-functions
 +++ b/hook-functions
 @@ -170,6 +170,19 @@ _sanitize_target() {
@@ -105,10 +105,10 @@ index 1ed86e5..d0f45bb 100644
  	# Look up device in sysfs
  	dev_sys_path="/sys/dev/block/$dev_num"
 diff --git a/mkinitramfs b/mkinitramfs
-index c63e5f5..daafedb 100755
+index 8152558..d9b8e39 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
-@@ -324,16 +324,16 @@ add_builtin_firmware
+@@ -366,16 +366,16 @@ add_builtin_firmware
  cp -p /usr/share/initramfs-tools/init "${DESTDIR}/init"
  
  # add existant boot scripts
@@ -129,7 +129,7 @@ index c63e5f5..daafedb 100755
  	[ -d "${DESTDIR}/scripts/$(dirname "${b}")" ] \
  		|| mkdir -p "${DESTDIR}/scripts/$(dirname "${b}")"
  	cp -p "${CONFDIR}/scripts/${b}" "${DESTDIR}/scripts/$(dirname "${b}")/"
-@@ -381,19 +381,6 @@ done
+@@ -441,19 +441,6 @@ done
  depmod -a -b "${DESTDIR}" "${version}"
  rm -f "${DESTDIR}/lib/modules/${version}"/modules.*map
  

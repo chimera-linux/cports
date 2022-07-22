@@ -1,7 +1,7 @@
-From 1749fa63719b885a030c790ab11efea18649f150 Mon Sep 17 00:00:00 2001
+From 7a4a7ca8f645e437fceab2f868ca4e18e0202f74 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 01:52:09 +0200
-Subject: [PATCH 2/6] remove remaining dpkg references
+Subject: [PATCH 2/7] remove remaining dpkg references
 
 ---
  mkinitramfs      |  2 +-
@@ -9,10 +9,10 @@ Subject: [PATCH 2/6] remove remaining dpkg references
  2 files changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/mkinitramfs b/mkinitramfs
-index 42fd8aa..0b2f124 100755
+index 0f7b81e..6be2173 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
-@@ -95,7 +95,7 @@ maybe_add_conf() {
+@@ -100,7 +100,7 @@ maybe_add_conf() {
  	if [ -e "$1" ] && \
  	   basename "$1" \
  	   | grep '^[[:alnum:]][[:alnum:]\._-]*$' \
@@ -22,14 +22,14 @@ index 42fd8aa..0b2f124 100755
  			echo "W: $1 is a directory instead of file" >&2
  		else
 diff --git a/update-initramfs b/update-initramfs
-index dbd7ed6..4f8922c 100755
+index 746a6c1..4f8922c 100755
 --- a/update-initramfs
 +++ b/update-initramfs
 @@ -11,13 +11,6 @@ set -e
  
  [ -r ${CONF} ] && . ${CONF}
  
--if [ -n "$DPKG_MAINTSCRIPT_PACKAGE" ] && [ $# = 1 ] && [ x"$1" = x-u ]; then
+-if [ -n "$DPKG_MAINTSCRIPT_PACKAGE" ] && [ $# = 1 ] && [ "$1" = -u ]; then
 -	if dpkg-trigger --no-await update-initramfs; then
 -		echo "update-initramfs: deferring update (trigger activated)"
 -		exit 0
@@ -58,5 +58,5 @@ index dbd7ed6..4f8922c 100755
  	# first time run thus no backup
  	[ ! -r "${initramfs_bak}" ] && return 0
 -- 
-2.33.0
+2.37.1
 

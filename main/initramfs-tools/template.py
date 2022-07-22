@@ -1,17 +1,17 @@
 pkgname = "initramfs-tools"
-pkgver = "0.140"
+pkgver = "0.142"
 pkgrel = 0
 build_style = "makefile"
 depends = [
     "base-kernel", "klibc-kinit-standalone", "klibc-utils-standalone",
-    "bsdutils-tiny", "dash", "bsdtar", "debianutils", "awk"
+    "bsdutils-tiny", "dash", "bsdtar", "zstd", "debianutils", "awk"
 ]
 pkgdesc = "Generic modular initramfs generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = f"https://salsa.debian.org/kernel-team/initramfs-tools"
 source = f"{url}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
-sha256 = "f46ae0e490a8a46975afd23a09202dee86756ebad1c8b795e862470a47dfac6b"
+sha256 = "27a78cc25acc3ca3d9c78deca165bf001b09b260ce25a3f3756e47a0e7bc0554"
 # no tests
 options = ["!check"]
 

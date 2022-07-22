@@ -1,4 +1,4 @@
-From 3361ce6b4b54fd1935278f44778fc8a46d8ee988 Mon Sep 17 00:00:00 2001
+From e82838b195896404c5418ad5acc7a7b892973c47 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 01:54:10 +0200
 Subject: [PATCH 3/7] remove all references to busybox
@@ -11,7 +11,7 @@ Subject: [PATCH 3/7] remove all references to busybox
  4 files changed, 5 insertions(+), 34 deletions(-)
 
 diff --git a/conf/initramfs.conf b/conf/initramfs.conf
-index 01bdd85..4639974 100644
+index aa561bd..5e1a319 100644
 --- a/conf/initramfs.conf
 +++ b/conf/initramfs.conf
 @@ -19,16 +19,6 @@
@@ -71,7 +71,7 @@ index 242541b..e25e455 100644
  
  .SH BOOT SCRIPTS
 diff --git a/initramfs.conf.5 b/initramfs.conf.5
-index 4615892..5c21f90 100644
+index 76e4010..aff04c0 100644
 --- a/initramfs.conf.5
 +++ b/initramfs.conf.5
 @@ -41,14 +41,6 @@ only adds those modules.
@@ -90,7 +90,7 @@ index 4615892..5c21f90 100644
  \fB KEYMAP
  If set to 'y', the console keymap will be loaded during the initramfs stage.
 diff --git a/mkinitramfs b/mkinitramfs
-index 0b2f124..56d67a6 100755
+index 6be2173..551d564 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -7,9 +7,6 @@ export PATH='/usr/bin:/sbin:/bin'
@@ -103,7 +103,7 @@ index 0b2f124..56d67a6 100755
  
  usage()
  {
-@@ -124,8 +121,8 @@ for i in /usr/share/initramfs-tools/conf-hooks.d/*; do
+@@ -129,8 +126,8 @@ for i in /usr/share/initramfs-tools/conf-hooks.d/*; do
  done
  
  # Check busybox dependency
@@ -114,7 +114,7 @@ index 0b2f124..56d67a6 100755
  	exit 1
  fi
  
-@@ -250,7 +247,6 @@ export MACHINE_ARCH
+@@ -296,7 +293,6 @@ export MACHINE_ARCH
  export verbose
  export KEYMAP
  export MODULES

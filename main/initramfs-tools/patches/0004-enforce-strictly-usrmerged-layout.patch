@@ -1,23 +1,64 @@
-From 982a7717ee774e828223d9be5c0def0929cf7673 Mon Sep 17 00:00:00 2001
+From bd28f46e537255f328b34164184b85223f05e686 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 02:56:25 +0200
-Subject: [PATCH 4/6] enforce strictly usrmerged layout
+Subject: [PATCH 4/7] enforce strictly usrmerged layout
 
 ---
- hook-functions                | 29 +++++++++++++++++++++--------
- hooks/fsck                    |  8 ++++----
- hooks/keymap                  |  2 +-
- init                          | 13 +++----------
- initramfs-tools.7             | 12 ++++++------
- mkinitramfs                   | 24 +++++++++++++++---------
- scripts/init-top/keymap       |  4 ++--
- scripts/local-premount/resume |  4 ++--
- 8 files changed, 54 insertions(+), 42 deletions(-)
+ docs/framebuffer                 |  6 +++---
+ hook-functions                   | 33 ++++++++++++++++++++++----------
+ hooks/fsck                       |  8 ++++----
+ hooks/keymap                     |  2 +-
+ init                             | 15 ++++-----------
+ initramfs-tools.7                | 12 ++++++------
+ mkinitramfs                      | 24 ++++++++++++++---------
+ scripts/functions                |  6 +++---
+ scripts/init-top/all_generic_ide |  4 ++--
+ scripts/init-top/keymap          |  4 ++--
+ scripts/local                    |  2 +-
+ scripts/local-premount/resume    |  4 ++--
+ scripts/nfs                      |  4 ++--
+ 13 files changed, 68 insertions(+), 56 deletions(-)
 
+diff --git a/docs/framebuffer b/docs/framebuffer
+index 453ac8f..5c75e23 100644
+--- a/docs/framebuffer
++++ b/docs/framebuffer
+@@ -86,7 +86,7 @@ matroxfb)
+ 	;;
+ intelfb|i810fb|i915)
+ 	# Needs AGP driver loaded
+-	/sbin/modprobe intel-agp
++	/usr/bin/modprobe intel-agp
+ 	;;
+ uvesafb)
+ 	# v86d requires /dev/zero and dev/mem, but udev haven't been started yet
+@@ -99,9 +99,9 @@ esac
+ 
+ if [ -n "${FB}" ]; then
+ 	unset MODPROBE_OPTIONS
+-	/sbin/modprobe -q fbcon
++	/usr/bin/modprobe -q fbcon
+ 	# shellcheck disable=SC2086
+-	/sbin/modprobe -q ${FB} ${OPTS}
++	/usr/bin/modprobe -q ${FB} ${OPTS}
+ fi
+ 
+ if [ -e /proc/fb ]; then
 diff --git a/hook-functions b/hook-functions
-index b01b784..4c06ff3 100644
+index 95bd584..af6dec4 100644
 --- a/hook-functions
 +++ b/hook-functions
+@@ -97,8 +97,8 @@ manual_add_modules()
+ 	# configuration lines and embedded softdep information is not
+ 	# processed.  So we run twice, with and without this option.
+ 	# shellcheck disable=SC2034
+-	{ /sbin/modprobe --all --set-version="${version?}" --ignore-install --quiet --show-depends "$@";
+-	  /sbin/modprobe --all --set-version="${version}" --quiet --show-depends "$@"; } |
++	{ /usr/bin/modprobe --all --set-version="${version?}" --ignore-install --quiet --show-depends "$@";
++	  /usr/bin/modprobe --all --set-version="${version}" --quiet --show-depends "$@"; } |
+ 	while read -r prefix kmod options ; do
+ 		if [ "${prefix}" != "insmod" ]; then
+ 			continue
 @@ -153,6 +153,23 @@ add_builtin_firmware()
  	done
  }
@@ -69,7 +110,7 @@ index b01b784..4c06ff3 100644
  		if [ "${link_target}" != "${target}" ]; then
  			[ "${verbose?}" = "y" ] && echo "Adding ${type}-link ${target}"
 diff --git a/hooks/fsck b/hooks/fsck
-index 15127dd..eb6baee 100755
+index 000ce4e..01e47cc 100755
 --- a/hooks/fsck
 +++ b/hooks/fsck
 @@ -85,7 +85,7 @@ prereqs)
@@ -112,7 +153,7 @@ index 64f8e6d..e2d4e55 100755
  	exit 0
  fi
 diff --git a/init b/init
-index bb95a51..634d851 100755
+index 99c842f..b46f2e7 100755
 --- a/init
 +++ b/init
 @@ -1,8 +1,7 @@
@@ -126,7 +167,7 @@ index bb95a51..634d851 100755
  
  [ -d /dev ] || mkdir -m 0755 /dev
  [ -d /root ] || mkdir -m 0700 /root
-@@ -55,7 +54,7 @@ export BOOT=
+@@ -62,7 +61,7 @@ export BOOT=
  export BOOTIF=
  export UBIMTD=
  export break=
@@ -135,7 +176,16 @@ index bb95a51..634d851 100755
  export readonly=y
  export rootmnt=/root
  export debug=
-@@ -272,12 +271,6 @@ validate_init() {
+@@ -220,7 +219,7 @@ run_scripts /scripts/init-top
+ 
+ maybe_break modules
+ [ "$quiet" != "y" ] && log_begin_msg "Loading essential drivers"
+-[ -n "${netconsole}" ] && /sbin/modprobe netconsole netconsole="${netconsole}"
++[ -n "${netconsole}" ] && /usr/bin/modprobe netconsole netconsole="${netconsole}"
+ load_modules
+ [ "$quiet" != "y" ] && log_end_msg
+ 
+@@ -279,12 +278,6 @@ validate_init() {
  if ! validate_init "$init"; then
  	echo "Target filesystem doesn't have requested ${init}."
  	init=
@@ -149,10 +199,10 @@ index bb95a51..634d851 100755
  
  # No init on rootmount
 diff --git a/initramfs-tools.7 b/initramfs-tools.7
-index 242541b..c61694f 100644
+index e25e455..4958df2 100644
 --- a/initramfs-tools.7
 +++ b/initramfs-tools.7
-@@ -271,7 +271,7 @@ If you need to copy an executable or shared library to the initramfs
+@@ -268,7 +268,7 @@ If you need to copy an executable or shared library to the initramfs
  module, use a command like this:
  .PP
  .RS
@@ -161,7 +211,7 @@ index 242541b..c61694f 100644
  .RE
  
  mkinitramfs will automatically detect which libraries it depends on
-@@ -511,12 +511,12 @@ esac
+@@ -504,12 +504,12 @@ esac
  \fR. /usr/share/initramfs-tools/hook-functions
  # Begin real processing below this line
  
@@ -176,7 +226,7 @@ index 242541b..c61694f 100644
  exit 0
  .fi
  .RE
-@@ -544,7 +544,7 @@ esac
+@@ -537,7 +537,7 @@ esac
  
  \fR. /scripts/functions
  # Begin real processing below this line
@@ -185,7 +235,7 @@ index 242541b..c61694f 100644
  	panic "Frobnication executable not found"
  fi
  
-@@ -553,7 +553,7 @@ if [ ! \-e "/dev/mapper/frobb" ]; then
+@@ -546,7 +546,7 @@ if [ ! \-e "/dev/mapper/frobb" ]; then
  fi
  
  log_begin_msg "Starting frobnication"
@@ -194,7 +244,7 @@ index 242541b..c61694f 100644
  log_end_msg
  
  exit 0
-@@ -588,7 +588,7 @@ Argument passed to the \fIpanic\fP helper function.  Use to find out why
+@@ -581,7 +581,7 @@ Argument passed to the \fIpanic\fP helper function.  Use to find out why
  you landed in the initramfs shell.
  .TP
  \fB\fI init
@@ -204,7 +254,7 @@ index 242541b..c61694f 100644
  \fB\fI readonly
  is the default for mounting the root corresponds to the ro bootarg.
 diff --git a/mkinitramfs b/mkinitramfs
-index 7c63a6d..c63e5f5 100755
+index 551d564..8152558 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -1,7 +1,7 @@
@@ -216,7 +266,7 @@ index 7c63a6d..c63e5f5 100755
  
  # Defaults
  keep="n"
-@@ -260,12 +260,18 @@ export __TMPCPIOGZ
+@@ -302,12 +302,18 @@ export __TMPCPIOGZ
  # Private, used by 'prepend_earlyinitramfs'.
  export __TMPEARLYCPIO
  
@@ -241,7 +291,7 @@ index 7c63a6d..c63e5f5 100755
  for d in conf/conf.d etc run scripts ${MODULESDIR}; do
  	mkdir -p "${DESTDIR}/${d}"
  done
-@@ -354,8 +360,8 @@ touch "${DESTDIR}/etc/fstab"
+@@ -396,8 +402,8 @@ touch "${DESTDIR}/etc/fstab"
  ln -s /proc/mounts "${DESTDIR}/etc/mtab"
  
  # module-init-tools
@@ -252,6 +302,53 @@ index 7c63a6d..c63e5f5 100755
  mkdir -p "${DESTDIR}/etc/modprobe.d" "${DESTDIR}/lib/modprobe.d"
  for file in /etc/modprobe.d/*.conf /lib/modprobe.d/*.conf ; do
  	if test -e "$file" || test -L "$file" ; then
+diff --git a/scripts/functions b/scripts/functions
+index ae11b96..ebd4b14 100644
+--- a/scripts/functions
++++ b/scripts/functions
+@@ -99,13 +99,13 @@ maybe_break()
+ 			else
+ 				opts="-v"
+ 			fi
+-			/sbin/modprobe ${opts} -a i8042 atkbd ehci-pci ehci-orion \
++			/usr/bin/modprobe ${opts} -a i8042 atkbd ehci-pci ehci-orion \
+ 				 ehci-hcd ohci-hcd ohci-pci uhci-hcd usbhid xhci \
+ 				 xhci-pci xhci-hcd
+ 			sleep 2
+ 			for modalias in /sys/bus/hid/devices/*/modalias; do
+ 				if [ -f "${modalias}" ]; then
+-					/sbin/modprobe ${opts} -b "$(cat "${modalias}")"
++					/usr/bin/modprobe ${opts} -b "$(cat "${modalias}")"
+ 				fi
+ 			done
+ 		fi
+@@ -139,7 +139,7 @@ load_modules()
+ 				continue
+ 			fi
+ 			# shellcheck disable=SC2086
+-			/sbin/modprobe $m
++			/usr/bin/modprobe $m
+ 		done < /conf/modules
+ 	fi
+ }
+diff --git a/scripts/init-top/all_generic_ide b/scripts/init-top/all_generic_ide
+index cdf69cc..4f1bd4e 100755
+--- a/scripts/init-top/all_generic_ide
++++ b/scripts/init-top/all_generic_ide
+@@ -17,11 +17,11 @@ esac
+ for x in $(cat /proc/cmdline); do
+ 	case ${x} in
+ 	all_generic_ide)
+-		/sbin/modprobe ata_generic all_generic_ide=1
++		/usr/bin/modprobe ata_generic all_generic_ide=1
+ 		;;
+ 	all_generic_ide=*)
+ 		if [ -n "${x#all_generic_ide=}" ]; then
+-			/sbin/modprobe ata_generic all_generic_ide=1
++			/usr/bin/modprobe ata_generic all_generic_ide=1
+ 		fi
+ 		;;
+ 	esac
 diff --git a/scripts/init-top/keymap b/scripts/init-top/keymap
 index 1c6b2dc..160cb61 100755
 --- a/scripts/init-top/keymap
@@ -265,6 +362,19 @@ index 1c6b2dc..160cb61 100755
 +if [ -x /usr/bin/setupcon ]; then
 +	/usr/bin/setupcon
  fi
+diff --git a/scripts/local b/scripts/local
+index 8f9597f..8e45206 100644
+--- a/scripts/local
++++ b/scripts/local
+@@ -56,7 +56,7 @@ local_device_setup()
+ 	# Load ubi with the correct MTD partition and return since fstype
+ 	# doesn't work with a char device like ubi.
+ 	if [ -n "$UBIMTD" ]; then
+-		/sbin/modprobe ubi "mtd=$UBIMTD"
++		/usr/bin/modprobe ubi "mtd=$UBIMTD"
+ 		DEV="${dev_id}"
+ 		return
+ 	fi
 diff --git a/scripts/local-premount/resume b/scripts/local-premount/resume
 index 63dcc49..b92e3de 100755
 --- a/scripts/local-premount/resume
@@ -279,6 +389,28 @@ index 63dcc49..b92e3de 100755
 -	/bin/resume "${DEV}"
 +	/usr/bin/resume "${DEV}"
  fi
+diff --git a/scripts/nfs b/scripts/nfs
+index 26a969b..4608cd7 100644
+--- a/scripts/nfs
++++ b/scripts/nfs
+@@ -81,7 +81,7 @@ nfs_mount_root()
+ 	nfs_top
+ 
+ 	# For DHCP
+-	/sbin/modprobe af_packet
++	/usr/bin/modprobe af_packet
+ 
+ 	wait_for_udev 10
+ 
+@@ -130,7 +130,7 @@ nfs_mount_fs()
+ 	nfs_top
+ 
+ 	# For DHCP
+-	/sbin/modprobe af_packet
++	/usr/bin/modprobe af_packet
+ 
+ 	wait_for_udev 10
+ 
 -- 
-2.33.0
+2.37.1
 
