@@ -15,7 +15,7 @@ configure_args = [
 ]
 hostmakedepends = [
     "meson", "docbook-xsl-nons", "gettext-tiny", "gperf", "xsltproc",
-    "bsdm4", "pkgconf", "shadow"
+    "pkgconf", "shadow"
 ]
 makedepends = [
     "acl-devel", "eudev-devel", "gettext-tiny-devel", "libcap-devel",

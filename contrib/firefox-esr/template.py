@@ -5,7 +5,7 @@ make_cmd = "gmake"
 hostmakedepends = [
     "pkgconf", "zip", "nasm", "yasm", "cargo", "rust", "python", "cbindgen",
     "llvm-devel", "clang-devel", "nodejs", "gettext-tiny", "automake",
-    "libtool", "bsdm4", "gmake",
+    "libtool", "gmake",
     # some xptcall bits are compiled with -no-integrated-as
     f"binutils-{self.profile().arch}"
 ]

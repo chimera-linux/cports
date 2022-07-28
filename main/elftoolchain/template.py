@@ -14,7 +14,7 @@ make_install_args = make_build_args + [
 ]
 make_check_target = "run-tests"
 make_use_env = True
-hostmakedepends = ["bsdm4", "byacc", "flex"]
+hostmakedepends = ["byacc", "flex"]
 makedepends = ["libarchive-devel", "musl-bsd-headers"]
 depends = [f"libelf={pkgver}-r{pkgrel}"]
 pkgdesc = "BSD licensed ELF toolchain"

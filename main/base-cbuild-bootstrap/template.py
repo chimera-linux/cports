@@ -7,7 +7,7 @@ depends = [
     # toolchain base
     "clang", "lld", "elftoolchain", "linux-headers",
     # stage 0 tooling
-    "bsdpatch", "bsdm4", "pkgconf", "byacc", "flex", "perl",
+    "pkgconf", "byacc", "flex", "perl",
     # stage 0 build systems
     "cmake", "meson", "bmake", "gmake", "ninja",
 ]

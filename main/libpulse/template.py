@@ -11,7 +11,7 @@ configure_args = [
     "-Dbashcompletiondir=/usr/share/bash-completion/completions",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "cmake", "perl", "perl-xml-parser", "bsdm4"
+    "meson", "pkgconf", "cmake", "perl", "perl-xml-parser",
 ]
 makedepends = [
     "dbus-devel", "eudev-devel", "libglib-devel", "libsndfile-devel",
