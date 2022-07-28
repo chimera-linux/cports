@@ -10,6 +10,7 @@ makedepends = [
     "zlib-devel", "libbz2-devel",
     "musl-bsd-headers" # temporary
 ]
+depends = ["base-files"]
 pkgdesc = "FreeBSD userland utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"

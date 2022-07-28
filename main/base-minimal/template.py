@@ -3,7 +3,7 @@ pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    "base-bootstrap", "base-shells", "apk-tools", "bsdutils-extra",
+    "bsdutils", "base-shells", "apk-tools", "awk", "bsdutils-extra",
     "bsdtar", "util-linux", "shadow", "procps-ng",
     "iana-etc", "tzdata", "dinit-chimera"
 ]
