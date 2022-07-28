@@ -1,7 +1,7 @@
 pkgname = "mksh"
 pkgver = "59c"
 pkgrel = 0
-checkdepends = ["perl", "bsded"]
+checkdepends = ["perl"]
 pkgdesc = "MirBSD Korn Shell"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MirOS"
