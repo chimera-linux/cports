@@ -42,13 +42,7 @@ suid_files = [
     "usr/bin/newgrp",
     "usr/bin/su",
     "usr/bin/umount",
-    "usr/bin/wall",
-    "usr/bin/write",
 ]
-file_modes = {
-    "usr/bin/wall": ("root", "tty", 0o2755),
-    "usr/bin/write": ("root", "tty", 0o2755),
-}
 # checkdepends are missing
 options = ["!check"]
 
@@ -85,9 +79,17 @@ def post_install(self):
     )
 
     # conflicts with bsdutils
-    self.rm(self.destdir / "usr/bin/hexdump")
-    self.rm(self.destdir / "usr/share/man/man1/hexdump.1")
-    self.rm(self.destdir / "usr/share/bash-completion/completions/hexdump")
+    for f in [
+        "col", "colrm", "column", "hexdump", "kill", "look",
+        "mesg", "renice", "rev", "ul", "wall", "write",
+    ]:
+        self.rm(self.destdir / f"usr/bin/{f}")
+        self.rm(self.destdir / f"usr/share/man/man1/{f}.1", force = True)
+        self.rm(self.destdir / f"usr/share/man/man8/{f}.8", force = True)
+        self.rm(
+            self.destdir / f"usr/share/bash-completion/completions/{f}",
+            force = True
+        )
     # conflicts with less
     self.rm(self.destdir / "usr/bin/more")
     self.rm(self.destdir / "usr/share/man/man1/more.1")
