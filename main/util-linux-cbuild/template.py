@@ -36,4 +36,11 @@ def post_install(self):
         self.rm("usr/share/man", recursive = True)
         self.rm("usr/share/bash-completion", recursive = True)
         # Conflicts with bsdutils
+        self.rm("usr/bin/col")
+        self.rm("usr/bin/colrm")
         self.rm("usr/bin/hexdump")
+        self.rm("usr/bin/kill")
+        self.rm("usr/bin/look")
+        self.rm("usr/bin/mesg")
+        self.rm("usr/bin/renice")
+        self.rm("usr/bin/rev")
