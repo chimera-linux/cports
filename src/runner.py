@@ -499,14 +499,14 @@ def do_chroot(tgt):
     paths.prepare()
     chroot.repo_sync(True)
     chroot.enter(
-        "/usr/bin/mksh.static", "-i", fakeroot = True, new_session = False,
+        "/usr/bin/sh", "-i", fakeroot = True, new_session = False,
         mount_binpkgs = True, mount_cbuild_cache = True,
         env = {
             "HOME": "/tmp",
             "TERM": "linux",
             "CBUILD_SHELL": "1",
-            "PS1": "$PWD$ ",
-            "SHELL": "/usr/bin/mksh.static",
+            "PS1": "\\u@\\h: \\w$ ",
+            "SHELL": "/bin/sh",
         }
     )
 
