@@ -7,7 +7,7 @@ configure_args = [
 ]
 hostmakedepends = ["perl", "ncurses-devel"]
 makedepends = ["ncurses-devel"]
-depends = ["bsdgzip", "perl"]
+depends = ["perl"]
 triggers = ["/usr/share/info"]
 pkgdesc = "GNU Documentation System"
 maintainer = "q66 <q66@chimera-linux.org>"
