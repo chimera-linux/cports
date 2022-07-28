@@ -1,19 +1,21 @@
 pkgname = "bsdutils"
-_commit="d4182ca7a0afd33a199f433af049800a944c93a6"
+_commit="309e666117edfbad300181a3c298233420e99ece"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
 makedepends = [
     "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",
-    "musl-fts-devel", "musl-rpmatch-devel"
+    "musl-fts-devel", "musl-rpmatch-devel", "liblzma-devel",
+    "zlib-devel", "libbz2-devel",
+    "musl-bsd-headers" # temporary
 ]
 pkgdesc = "FreeBSD userland utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/bsdutils"
 source = f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"
-sha256 = "5a4f7be8fca0139f2b58eb7c2ed8fb15426c60598368af7449c7611502d35e60"
+sha256 = "49c1e9fe032ea3684b4097a4a501b310f8fe0663f36e6ee56278537636cbcaf4"
 # no test suite
 options = ["bootstrap", "!check"]
 
@@ -37,6 +39,16 @@ def init_configure(self):
     self.configure_args += [
         f"-Dfts_path={spath}", f"-Drpmatch_path={spath}"
     ]
+
+def post_install(self):
+    # util-linux
+    self.rm(self.destdir / "usr/bin/getopt")
+    self.rm(self.destdir / "usr/share/man/man1/getopt.1")
+    # less
+    self.rm(self.destdir / "usr/bin/zless")
+    self.rm(self.destdir / "usr/share/man/man1/zless.1")
+    # base shell
+    self.install_shell("/usr/bin/sh")
 
 if self.stage > 0:
     makedepends += ["linux-headers"]
