@@ -90,6 +90,14 @@ def post_install(self):
             self.destdir / f"usr/share/bash-completion/completions/{f}",
             force = True
         )
+    # conflicts with bsdutils but we want it
+    with self.pushd(self.destdir / "usr"):
+        self.mv("bin/getopt", "bin/util-linux-getopt")
+        self.mv("share/man/man1/getopt.1", "share/man/man1/util-linux-getopt.1")
+        self.mv(
+            "share/bash-completion/completions/getopt",
+            "share/bash-completion/completions/util-linux-getopt"
+        )
     # conflicts with less
     self.rm(self.destdir / "usr/bin/more")
     self.rm(self.destdir / "usr/share/man/man1/more.1")
