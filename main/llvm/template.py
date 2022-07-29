@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "14.0.1"
+pkgver = "14.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -40,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "1a3c2e57916c5a70153aaf0a0e6f1230d6368b9e0f4d04dcb9e039a31b1cd4e6"
+sha256 = "8b3cfd7bc695bd6cea0f37f53f0981f34f87496e79e2529874fd03a2f9dd3a8a"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
