@@ -42,9 +42,6 @@ def init_configure(self):
     ]
 
 def post_install(self):
-    # util-linux
-    self.rm(self.destdir / "usr/bin/getopt")
-    self.rm(self.destdir / "usr/share/man/man1/getopt.1")
     # less
     self.rm(self.destdir / "usr/bin/zless")
     self.rm(self.destdir / "usr/share/man/man1/zless.1")
