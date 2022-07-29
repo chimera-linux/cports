@@ -11,7 +11,7 @@ url = "https://chimera-linux.org"
 depends = [
     "musl-devel", "elftoolchain", "llvm", "clang", "lld", "bsdutils", "awk",
     "apk-tools", "bsdutils-extra", "bmake", "bsdtar", "ncurses",
-    "util-linux-cbuild", "tzdata", "fakeroot",
+    "tzdata", "fakeroot",
 ]
 
 options = ["bootstrap", "brokenlinks"]
