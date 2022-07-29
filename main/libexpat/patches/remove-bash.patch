@@ -17,7 +17,7 @@ index 164ea4e..ca5b64c 100755
 +++ b/fix-xmltest-log.sh
 @@ -1,4 +1,4 @@
 -#! /usr/bin/env bash
-+#!/usr/bin/mksh.static
++#!/usr/bin/mksh
  #                          __  __            _
  #                       ___\ \/ /_ __   __ _| |_
  #                      / _ \\  /| '_ \ / _` | __|
@@ -27,7 +27,7 @@ index 9b7730d..b76a58f 100644
 +++ b/run.sh.in
 @@ -1,4 +1,4 @@
 -#! /usr/bin/env bash
-+#!/usr/bin/mksh.static
++#!/usr/bin/mksh
  #                          __  __            _
  #                       ___\ \/ /_ __   __ _| |_
  #                      / _ \\  /| '_ \ / _` | __|
@@ -37,7 +37,7 @@ index 305c6f5..ced8f7a 100755
 +++ b/test-driver-wrapper.sh
 @@ -1,4 +1,4 @@
 -#! /usr/bin/env bash
-+#!/usr/bin/mksh.static
++#!/usr/bin/mksh
  #                          __  __            _
  #                       ___\ \/ /_ __   __ _| |_
  #                      / _ \\  /| '_ \ / _` | __|
@@ -56,7 +56,7 @@ index dc409d0..4c0d79a 100755
 +++ b/tests/xmltest.sh
 @@ -1,4 +1,4 @@
 -#! /usr/bin/env bash
-+#!/usr/bin/mksh.static
++#!/usr/bin/mksh
  # EXPAT TEST SCRIPT FOR W3C XML TEST SUITE
  #
  # This script can be used to exercise Expat against the
@@ -66,7 +66,7 @@ index 864e470..2fcbc4e 100755
 +++ b/xmlwf/xmlwf_helpgen.sh
 @@ -1,4 +1,4 @@
 -#! /usr/bin/env bash
-+#!/usr/bin/mksh.static
++#!/usr/bin/mksh
  #                          __  __            _
  #                       ___\ \/ /_ __   __ _| |_
  #                      / _ \\  /| '_ \ / _` | __|
