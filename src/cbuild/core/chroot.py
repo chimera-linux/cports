@@ -223,6 +223,22 @@ def install(arch = None, stage = 2):
     chroot_check()
     _init()
 
+def get_fakeroot(bootstrap):
+    inp = paths.cbuild() / "misc/fakeroot.sh"
+
+    if bootstrap:
+        return inp
+
+    rp = paths.bldroot() / ".cbuild_fakeroot.sh"
+
+    if rp.is_file():
+        return "/.cbuild_fakeroot.sh"
+
+    rp.unlink(missing_ok = True)
+    shutil.copyfile(inp, rp)
+
+    return "/.cbuild_fakeroot.sh"
+
 def remove_autodeps(bootstrapping):
     if bootstrapping is None:
         bootstrapping = not (paths.bldroot() / ".cbuild_chroot_init").is_file()
@@ -360,7 +376,7 @@ def enter(cmd, *args, capture_output = False, check = False,
         bcmd = []
         if fakeroot:
             envs["FAKEROOTDONTTRYCHOWN"] = "1"
-            bcmd = ["fakeroot", "--"]
+            bcmd = ["sh", get_fakeroot(True)]
         return subprocess.run(
             [*bcmd, cmd, *args], env = envs,
             capture_output = capture_output, check = check,
@@ -425,7 +441,10 @@ def enter(cmd, *args, capture_output = False, check = False,
         bcmd += ["--ro-bind-data", str(rfd), "/tmp/cbuild-chroot-wrapper.sh"]
 
     if fakeroot:
-        bcmd += ["--setenv", "FAKEROOTDONTTRYCHOWN", "1", "fakeroot", "--"]
+        bcmd += [
+            "--setenv", "FAKEROOTDONTTRYCHOWN", "1", "--", "sh",
+            get_fakeroot(False)
+        ]
 
     if wrapper:
         bcmd += ["sh", "/tmp/cbuild-chroot-wrapper.sh"]

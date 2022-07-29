@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths
+from cbuild.core import logger, paths, chroot
 
 from . import sign as asign
 
@@ -97,7 +97,7 @@ def call(
         else:
             env = {}
         env["FAKEROOTDONTTRYCHOWN"] = "1"
-        cmd = ["fakeroot", "--"] + cmd
+        cmd = ["sh", chroot.get_fakeroot(True)] + cmd
 
     return subprocess.run(
         cmd + _collect_repos(mrepo, False, arch, use_altrepo, use_stage) + args,
