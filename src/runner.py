@@ -285,6 +285,9 @@ def handle_options():
     if cmdline.keep_temporary:
         opt_keeptemp = True
 
+    if cmdline.allow_unsigned:
+        opt_unsigned = True
+
     if cmdline.force_check:
         opt_forcecheck = True
 
