@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--disable-bootstrap", "--disable-shared"]
 hostmakedepends = ["byacc"]
 makedepends = ["byacc"]
-depends = ["byacc", "cmd:m4!bsdutils", f"libfl-devel-static={pkgver}-r{pkgrel}"]
+depends = ["byacc", f"libfl-devel-static={pkgver}-r{pkgrel}"]
 pkgdesc = "Fast Lexical Analyzer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:flex"
