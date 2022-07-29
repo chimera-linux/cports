@@ -3,8 +3,9 @@ pkgver = f"0.0.28"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["ac_cv_path_BASH=/usr/bin/bash"]
-hostmakedepends = ["bash", "xsltproc", "docbook-xsl-nons"]
-depends = ["bash", "xsltproc", "docbook-xsl-nons"]
+configure_env = {"GETOPT": "util-linux-getopt"}
+hostmakedepends = ["bash", "xsltproc", "docbook-xsl-nons", "util-linux"]
+depends = ["bash", "util-linux", "xsltproc", "docbook-xsl-nons"]
 pkgdesc = "Tool to help transform XML documents into other formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
