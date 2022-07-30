@@ -1,5 +1,5 @@
 pkgname = "bsdutils-tiny"
-_commit="7ad373fe2b60f33cd2a49f23746bb0ac53cbe743"
+_commit="c182dc42a3592c06a7bc8ec7d0caed065afd09ef"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/bsdutils"
 source = f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"
-sha256 = "689045a08ac0bb141a23bd42e23464d6e480772da1c76597aed0b5853365a197"
+sha256 = "5a91da716875be12140d59dad4ba0990eb9bfca39bc8f8a9326ecc242de203ee"
 
 def post_install(self):
     # drop manpages
