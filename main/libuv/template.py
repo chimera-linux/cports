@@ -1,17 +1,15 @@
 pkgname = "libuv"
-pkgver = "1.44.1"
+pkgver = "1.44.2"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf", "automake", "libtool"]
+hostmakedepends = ["pkgconf"]
 pkgdesc = "Multi-platform support library with focus on asynchronous I/O"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libuv.org"
-source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "e91614e6dc2dd0bfdd140ceace49438882206b7a6fb00b8750914e67a9ed6d6b"
-
-def pre_configure(self):
-    self.do(self.chroot_cwd / "autogen.sh")
+# autogen.sh && make && make dist
+source = f"https://ftp.octaforge.org/chimera/distfiles/{pkgname}-{pkgver}.tar.gz"
+sha256 = "751a1ccdb74197593d68ab04f34aa2cfa23832614d8f8161f4ecc7f179d51bc3"
 
 def post_install(self):
     self.install_license("LICENSE")
