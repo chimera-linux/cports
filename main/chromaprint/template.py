@@ -2,12 +2,10 @@ pkgname = "chromaprint"
 pkgver = "1.5.1"
 pkgrel = 0
 build_style = "cmake"
-# set to ON once ffmpeg is enabled
-configure_args = ["-DBUILD_TOOLS=OFF"]
+configure_args = ["-DBUILD_TOOLS=ON"]
 make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-# FIXME: add back ffmpeg once compatible with 5.0
-makedepends = ["fftw-devel"]
+makedepends = ["fftw-devel", "ffmpeg-devel"]
 pkgdesc = "Library that extracts fingerprints from any audio source"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND LGPL-2.1-only"
