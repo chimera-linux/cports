@@ -1,0 +1,212 @@
+From 364684d498f1679b12db03e1baa954b30e2640ad Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 30 Jul 2022 03:37:01 +0200
+Subject: [PATCH] ditch bash were possible
+
+---
+ contrib/sucap/su.c  |  2 +-
+ distcheck.sh        |  4 ++--
+ doc/capsh.1         |  2 +-
+ doc/mkmd.sh         |  4 +++-
+ go/cgo-required.sh  |  2 +-
+ gomods.sh           |  6 +++---
+ progs/capsh.c       |  2 +-
+ progs/mkcapshdoc.sh | 10 +++++-----
+ progs/quicktest.sh  |  6 +++---
+ tests/uns_test.c    |  4 ++--
+ 10 files changed, 22 insertions(+), 20 deletions(-)
+
+diff --git a/contrib/sucap/su.c b/contrib/sucap/su.c
+index c8cc05f..41062fc 100644
+--- a/contrib/sucap/su.c
++++ b/contrib/sucap/su.c
+@@ -22,7 +22,7 @@
+ #endif /* ndef PAM_APP_NAME */
+ 
+ #define DEFAULT_HOME              "/"
+-#define DEFAULT_SHELL             "/bin/bash"
++#define DEFAULT_SHELL             "/bin/sh"
+ #define SLEEP_TO_KILL_CHILDREN    3  /* seconds to wait after SIGTERM before
+ 					SIGKILL */
+ #define SU_FAIL_DELAY     2000000    /* usec on authentication failure */
+diff --git a/distcheck.sh b/distcheck.sh
+index 3360e31..bfb8b9e 100755
+--- a/distcheck.sh
++++ b/distcheck.sh
+@@ -1,9 +1,9 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ actual=$(wget -o/dev/null -O/dev/stdout https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/plain/include/uapi/linux/capability.h | grep "#define.CAP_LAST_CAP"|awk '{print $3}')
+ working=$(grep "#define.CAP_LAST_CAP" libcap/include/uapi/linux/capability.h|awk '{print $3}')
+ 
+-if [[ ${actual} = ${working} ]]; then
++if [ "${actual}" = "${working}" ]; then
+     echo "up to date with officially named caps"
+     exit 0
+ fi
+diff --git a/doc/capsh.1 b/doc/capsh.1
+index 4f3aaae..117fd76 100644
+--- a/doc/capsh.1
++++ b/doc/capsh.1
+@@ -26,7 +26,7 @@ Display prevailing capability state, 1e capabilities and IAB vector.
+ .TP
+ .BI \-\- " [args]"
+ Execute
+-.B /bin/bash
++.B /bin/sh
+ with trailing arguments. Note, you can use
+ .B \-c 'command to execute'
+ for specific commands.
+diff --git a/doc/mkmd.sh b/doc/mkmd.sh
+index 39beac9..11b8dc6 100755
+--- a/doc/mkmd.sh
++++ b/doc/mkmd.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ #
+ # Handy script to rebuild the markdown version of the man pages.
+ # This uses pandoc if it is installed.
+@@ -7,6 +7,8 @@
+ #
+ #   cd md; for x in *.md ; do pandoc -s $x --metadata pagetitle="${x%.md}" -o ${x%.md}.html --lua-filter=../md2html.lua ; done
+ 
++exit 0
++
+ if [[ -z "$(which pandoc)" ]]; then
+     echo "pandoc not found - skipping conversion"
+     exit 0
+diff --git a/go/cgo-required.sh b/go/cgo-required.sh
+index f9afa52..00e7328 100755
+--- a/go/cgo-required.sh
++++ b/go/cgo-required.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ #
+ # Runtime check for whether or not syscall.AllThreadsSyscall is
+ # available to the working go runtime or not. If it isn't we always
+diff --git a/gomods.sh b/gomods.sh
+index 890cccd..392c9eb 100755
+--- a/gomods.sh
++++ b/gomods.sh
+@@ -1,11 +1,11 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ version="${1}"
+-if [[ -z "${version}" ]]; then
++if [ -z "${version}" ]; then
+     echo "usage: supply a cap/psx module version to target"
+     exit 1
+ fi
+ 
+ for x in $(find . -name 'go.mod'); do
+-    sed -i -e 's@kernel.org/\([^ ]*\) v.*$@kernel.org/\1 '"${version}@" "${x}"
++    sed -i '' -e 's@kernel.org/\([^ ]*\) v.*$@kernel.org/\1 '"${version}@" "${x}"
+ done
+diff --git a/progs/capsh.c b/progs/capsh.c
+index f753291..31909d1 100644
+--- a/progs/capsh.c
++++ b/progs/capsh.c
+@@ -33,7 +33,7 @@
+ #include <unistd.h>
+ 
+ #ifndef SHELL
+-#define SHELL "/bin/bash"
++#define SHELL "/bin/sh"
+ #endif /* ndef SHELL */
+ 
+ #include "./capshdoc.h"
+diff --git a/progs/mkcapshdoc.sh b/progs/mkcapshdoc.sh
+index 8421685..47303b8 100755
+--- a/progs/mkcapshdoc.sh
++++ b/progs/mkcapshdoc.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ # This script generates some C code for inclusion in the capsh binary.
+ # The Makefile generally only generates the .c code and compares it
+ # with the checked in code in the progs directory.
+@@ -13,12 +13,12 @@ cat<<EOF
+  */
+ EOF
+ 
+-let x=0
++x=0
+ while [ -f "../doc/values/${x}.txt" ]; do
+     name=$(fgrep ",${x}}" ../libcap/cap_names.list.h|sed -e 's/{"//' -e 's/",/ = /' -e 's/},//')
+     echo "static const char *explanation${x}[] = {  /* ${name} */"
+     sed -e 's/"/\\"/g' -e 's/^/    "/' -e 's/$/",/' "../doc/values/${x}.txt"
+-    let x=1+${x}
++    x=$(($x+1))
+     echo "    NULL"
+     echo "};"
+ done
+@@ -26,10 +26,10 @@ done
+ cat<<EOF
+ const char **explanations[] = {
+ EOF
+-let y=0
++y=0
+ while [ "${y}" -lt "${x}" ]; do
+     echo "    explanation${y},"
+-    let y=1+${y}
++    y=$(($y+1))
+ done
+ cat<<EOF
+ };
+diff --git a/progs/quicktest.sh b/progs/quicktest.sh
+index 776b175..cf6838e 100755
+--- a/progs/quicktest.sh
++++ b/progs/quicktest.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ #
+ # Run through a series of tests to try out the various capability
+ # manipulations possible through exec.
+@@ -157,7 +157,7 @@ pass_capsh --secbits=47 --inh=cap_setuid,cap_setgid --drop=cap_setuid \
+ 
+ # test that we do not support capabilities on setuid shell-scripts
+ /bin/cat > hack.sh <<EOF
+-#!/bin/bash
++#!/bin/sh
+ /usr/bin/id
+ mypid=\$\$
+ caps=\$(./getpcaps \$mypid 2>&1 | /usr/bin/cut -d: -f2)
+@@ -201,7 +201,7 @@ if [ $? -eq 0 ]; then
+ 
+     # test that shell scripts can inherit through ambient capabilities
+     /bin/cat > hack.sh <<EOF
+-#!/bin/bash
++#!/bin/sh
+ /usr/bin/id
+ mypid=\$\$
+ caps=\$(./getpcaps \$mypid 2>&1 | /usr/bin/cut -d: -f2)
+diff --git a/tests/uns_test.c b/tests/uns_test.c
+index 3fe73af..603daf9 100644
+--- a/tests/uns_test.c
++++ b/tests/uns_test.c
+@@ -25,7 +25,7 @@ struct my_pipe {
+ 
+ static int child(void *data) {
+     struct my_pipe *fdsp = data;
+-    static const char * const args[] = {"bash", NULL};
++    static const char * const args[] = {"sh", NULL};
+ 
+     close(fdsp->to[1]);
+     close(fdsp->from[0]);
+@@ -48,7 +48,7 @@ static int child(void *data) {
+ 
+     setsid();
+ 
+-    execv("/bin/bash", (const void *) args);
++    execv("/bin/sh", (const void *) args);
+     perror("execv failed");
+     exit(1);
+ }
+-- 
+2.37.1
+
