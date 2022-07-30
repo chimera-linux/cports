@@ -7,7 +7,7 @@ pkgdesc = "Multi-platform support library with focus on asynchronous I/O"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libuv.org"
-# autogen.sh && make && make dist
+# autogen.sh && configure && make dist
 source = f"https://ftp.octaforge.org/chimera/distfiles/{pkgname}-{pkgver}.tar.gz"
 sha256 = "751a1ccdb74197593d68ab04f34aa2cfa23832614d8f8161f4ecc7f179d51bc3"
 
