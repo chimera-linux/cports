@@ -42,7 +42,7 @@ def chroot_check(force = False):
         cpun = (paths.bldroot() / ".cbuild_chroot_init").read_text().strip()
     else:
         _chroot_ready = False
-        cpun = cli.get_arch()
+        cpun = apki.get_arch()
 
     set_host(cpun)
     set_target(cpun)

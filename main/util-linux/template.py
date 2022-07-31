@@ -78,7 +78,7 @@ def post_install(self):
         self.files_path / "common.pam", "etc/pam.d", name = "chsh"
     )
 
-    # conflicts with bsdutils
+    # conflicts with chimerautils
     for f in [
         "col", "colrm", "column", "hexdump", "kill", "look",
         "mesg", "renice", "rev", "ul", "wall", "write",
@@ -90,7 +90,7 @@ def post_install(self):
             self.destdir / f"usr/share/bash-completion/completions/{f}",
             force = True
         )
-    # conflicts with bsdutils but we want it
+    # conflicts with chimerautils but we want it
     with self.pushd(self.destdir / "usr"):
         self.mv("bin/getopt", "bin/util-linux-getopt")
         self.mv("share/man/man1/getopt.1", "share/man/man1/util-linux-getopt.1")

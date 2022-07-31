@@ -2,7 +2,7 @@
 
 [ "$1" = "prereqs" ] && exit 0
 
-# provided by bsdutils-tiny
+# provided by chimerautils-tiny
 BSD_TOOLS="
  [ cat chroot dd false kill ln ls mkdir mkfifo mknod
  mv readlink sh stat sleep sync test true uname
@@ -30,5 +30,5 @@ for kt in ${KLIBC_TOOLS}; do
 done
 
 for bt in ${BSD_TOOLS}; do
-    cp -an /usr/libexec/bsdutils-tiny/${bt} "${DESTDIR}/usr/bin"
+    cp -an /usr/libexec/chimerautils-tiny/${bt} "${DESTDIR}/usr/bin"
 done

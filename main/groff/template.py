@@ -15,7 +15,7 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/groff"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "e78e7b4cb7dec310849004fa88847c44701e8d133b5d4c13057d876c1bad0293"
-# incompatible with bsdutils
+# incompatible with chimerautils
 options = ["!check"]
 
 if self.profile().cross:

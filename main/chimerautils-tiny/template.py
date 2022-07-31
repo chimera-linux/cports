@@ -1,12 +1,12 @@
-pkgname = "bsdutils-tiny"
-_commit="c182dc42a3592c06a7bc8ec7d0caed065afd09ef"
+pkgname = "chimerautils-tiny"
+_commit="670908b6c79f60c7e48d682b3e03996994513cbb"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "--bindir=libexec/bsdutils-tiny",
-    "--sbindir=libexec/bsdutils-tiny",
-    "--libexecdir=libexec/bsdutils-tiny/libexec",
+    "--bindir=libexec/chimerautils-tiny",
+    "--sbindir=libexec/chimerautils-tiny",
+    "--libexecdir=libexec/chimerautils-tiny/libexec",
     "-Dstatic_fts=true",
     "-Dstatic_rpmatch=true",
     "-Dcolor_ls=false",
@@ -24,9 +24,9 @@ makedepends = [
 pkgdesc = "FreeBSD userland utilities (tiny version)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
-url = "https://github.com/chimera-linux/bsdutils"
-source = f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"
-sha256 = "5a91da716875be12140d59dad4ba0990eb9bfca39bc8f8a9326ecc242de203ee"
+url = "https://github.com/chimera-linux/chimerautils"
+source = f"https://github.com/chimera-linux/chimerautils/archive/{_commit}.tar.gz"
+sha256 = "dbdfd753b22bd19fc3f214f9aead12c603b114636466b3c3aff09b93c485bc18"
 
 def post_install(self):
     # drop manpages

@@ -6,7 +6,7 @@
 #
 # We don't really need most of its functionality in any case.
 
-if [ ! -f "/.cbuild_chroot_init" ]; then
+if [ ! -f "/.cbuild_fakeroot.sh" ]; then
     exec fakeroot "$@"
 fi
 

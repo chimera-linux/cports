@@ -1,5 +1,5 @@
-pkgname = "bsdutils"
-_commit="c182dc42a3592c06a7bc8ec7d0caed065afd09ef"
+pkgname = "chimerautils"
+_commit="670908b6c79f60c7e48d682b3e03996994513cbb"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"
@@ -11,12 +11,12 @@ makedepends = [
     "musl-bsd-headers" # temporary
 ]
 depends = ["base-files"]
-pkgdesc = "FreeBSD userland utilities"
+pkgdesc = "Chimera Linux userland"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
-url = "https://github.com/chimera-linux/bsdutils"
-source = f"https://github.com/chimera-linux/bsdutils/archive/{_commit}.tar.gz"
-sha256 = "5a91da716875be12140d59dad4ba0990eb9bfca39bc8f8a9326ecc242de203ee"
+url = "https://github.com/chimera-linux/chimerautils"
+source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
+sha256 = "dbdfd753b22bd19fc3f214f9aead12c603b114636466b3c3aff09b93c485bc18"
 # no test suite
 options = ["bootstrap", "!check"]
 

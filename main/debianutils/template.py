@@ -12,7 +12,7 @@ sha256 = "27ec9e0e7e44dc8ab611aa576330471bacb07e4491ffecf0d3aa6909c92f9022"
 def post_install(self):
     # (add|remove)-shell conflicts with our system
     # installkernel is not something we want either
-    # which is provided by bsdutils
+    # which is provided by chimerautils
     self.rm(self.destdir / "usr/bin/add-shell")
     self.rm(self.destdir / "usr/bin/remove-shell")
     self.rm(self.destdir / "usr/bin/update-shells")

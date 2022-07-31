@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "makefile"
 depends = [
     "base-kernel", "klibc-kinit-standalone", "klibc-utils-standalone",
-    "bsdutils-tiny", "bsdtar", "zstd", "debianutils", "util-linux", "awk"
+    "chimerautils-tiny", "bsdtar", "zstd", "debianutils", "util-linux", "awk"
 ]
 pkgdesc = "Generic modular initramfs generator"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -24,7 +24,7 @@ def post_install(self):
 
     # hook for core userland
     self.install_file(
-        self.files_path / "bsdutils.initramfs-tools",
+        self.files_path / "chimerautils.initramfs-tools",
         "usr/share/initramfs-tools/hooks",
-        mode = 0o755, name = "bsdutils"
+        mode = 0o755, name = "chimerautils"
     )
