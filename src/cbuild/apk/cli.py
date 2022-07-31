@@ -281,3 +281,12 @@ def build_index(repopath, epoch, keypath):
         return False
 
     return True
+
+def get_arch():
+    sr = subprocess.run([paths.apk(), "--print-arch"], capture_output = True)
+    if sr.returncode != 0:
+        return None
+    rs = sr.stdout.strip().decode()
+    if not rs or len(rs) == 0:
+        return None
+    return rs

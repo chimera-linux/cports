@@ -1,4 +1,5 @@
 from cbuild.core import paths, logger, chroot, errors
+from cbuild.apk import cli as acli
 
 import configparser
 import platform
@@ -177,7 +178,7 @@ class Profile:
         # bootstrap is a simplfied case
         if archn == "bootstrap":
             # initialize with arch data of the host system
-            self._arch = os.uname().machine
+            self._arch = acli.get_arch()
             self._triplet = None
             self._endian = sys.byteorder
             self._wordsize = int(platform.architecture()[0][:-3])
