@@ -1,5 +1,5 @@
 pkgname = "iso-codes"
-pkgver = "4.9.0"
+pkgver = "4.11.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["gettext-tiny", "python", "pkgconf"]
@@ -8,4 +8,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = f"https://salsa.debian.org/iso-codes-team/iso-codes"
 source = f"$(DEBIAN_SITE)/main/i/{pkgname}/{pkgname}_{pkgver}.orig.tar.xz"
-sha256 = "d090112a529dbe37a0a1b46b8246cc1cfca92e0281ba27239426a2b693e28967"
+sha256 = "de556503c7cfd33e08b5c1ced4902e82bb3c5137a076930a9c9da687d9146938"
