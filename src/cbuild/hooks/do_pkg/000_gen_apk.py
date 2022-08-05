@@ -224,21 +224,19 @@ def invoke(pkg):
     arch = pkg.rparent.profile().arch
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
-    repobase = paths.repository() / pkg.rparent.repository
     stagebase = paths.stage_repository()
-    if stagebase:
-        stagebase = stagebase / pkg.rparent.repository
+    if not stagebase:
+        repobase = paths.repository() / pkg.rparent.repository
+    else:
+        repobase = stagebase / pkg.rparent.repository
 
     if pkg.pkgname.endswith("-dbg"):
         repo = repobase / "debug"
-        if stagebase:
-            stage = stagebase / "debug"
     else:
         repo = repobase
-        stage = stagebase
 
-    if stage:
-        repo = stage / arch
+    if stagebase:
+        repo = repo / arch
     else:
         repo = repo / ".stage" / arch
 
@@ -269,8 +267,8 @@ def invoke(pkg):
         # subpkg repository
         srepo = repo
         if apkg == "dbg":
-            if stage:
-                srepo = stagebase / "debug" / arch
+            if stagebase:
+                srepo = repobase / "debug" / arch
             else:
                 srepo = repobase / "debug/.stage" / arch
 

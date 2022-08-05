@@ -79,6 +79,9 @@ def prepare():
     (bldroot() / "builddir").mkdir(parents = True, exist_ok = True)
     (bldroot() / "destdir").mkdir(parents = True, exist_ok = True)
     repository().mkdir(parents = True, exist_ok = True)
+    sroot = stage_repository()
+    if sroot:
+        sroot.mkdir(parents = True, exist_ok = True)
 
     # prepare build root
     for f in [
