@@ -185,9 +185,13 @@ set -e
         needscript = False
         cbpath = binpath
     else:
-        cbpath = pathlib.Path("/binpkgs") / binpath.relative_to(
-            paths.repository()
-        )
+        srepo = paths.stage_repository()
+        if srepo:
+            cbpath = pathlib.Path("/stagepkgs") / binpath.relative_to(srepo)
+        else:
+            cbpath = pathlib.Path("/binpkgs") / binpath.relative_to(
+                paths.repository()
+            )
 
     try:
         lockpath.touch()
@@ -221,13 +225,22 @@ def invoke(pkg):
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
     repobase = paths.repository() / pkg.rparent.repository
+    stagebase = paths.stage_repository()
+    if stagebase:
+        stagebase = stagebase / pkg.rparent.repository
 
     if pkg.pkgname.endswith("-dbg"):
         repo = repobase / "debug"
+        if stagebase:
+            stage = stagebase / "debug"
     else:
         repo = repobase
+        stage = stagebase
 
-    repo = repo / ".stage" / arch
+    if stage:
+        repo = stage / arch
+    else:
+        repo = repo / ".stage" / arch
 
     genpkg(pkg, repo, arch, binpkg)
 
@@ -256,7 +269,10 @@ def invoke(pkg):
         # subpkg repository
         srepo = repo
         if apkg == "dbg":
-            srepo = repobase / "debug/.stage" / arch
+            if stage:
+                srepo = stagebase / "debug" / arch
+            else:
+                srepo = repobase / "debug/.stage" / arch
 
         # create a temporary subpkg instance
         # it's only complete enough to satisfy the generator

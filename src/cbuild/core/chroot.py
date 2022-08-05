@@ -408,6 +408,12 @@ def enter(cmd, *args, capture_output = False, check = False,
         ]
         if paths.alt_repository():
             bcmd += ["--ro-bind", paths.alt_repository(), "/altbinpkgs"]
+        srepo = paths.stage_repository()
+        if srepo:
+            bcmd += [
+                "--ro-bind" if not binpkgs_rw else "--bind",
+                srepo, "/stagepkgs"
+            ]
 
     if mount_cbuild_cache:
         bcmd += ["--bind", paths.cbuild_cache(), "/cbuild_cache"]

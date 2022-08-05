@@ -31,6 +31,9 @@ repository = packages
 # alternative repository path, will be used instead of repository but deps
 # will be found in both the main repository and the alternative repo path
 #alt_repository = testpkgs
+# if set, packages will be staged to this root, mirroring the actual repository
+# instead of creating intermediate .stage directories within the actual repo
+#stage_repository = pkgstage
 # default source distfiles path (absolute or relative to cports)
 sources = sources
 # if set to yes, you will always have to explicitly unstage the repos

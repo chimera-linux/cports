@@ -29,6 +29,7 @@ opt_keeptemp   = False
 opt_forcecheck = False
 opt_checkfail  = False
 opt_stage      = False
+opt_stagepath  = None
 opt_dryrun     = False
 opt_altrepo    = None
 opt_bldroot    = "bldroot"
@@ -88,7 +89,7 @@ def handle_options():
     global opt_makejobs, opt_ltojobs, opt_nocolor, opt_signkey, opt_unsigned
     global opt_force, opt_mdirtemp, opt_nonet, opt_dirty, opt_statusfd
     global opt_keeptemp, opt_forcecheck, opt_checkfail, opt_stage, opt_altrepo
-    global opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath
+    global opt_stagepath, opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -183,6 +184,9 @@ def handle_options():
         help = "Keep built packages staged."
     )
     parser.add_argument(
+        "--stage-path", default = None, help = "Root path for staged packages."
+    )
+    parser.add_argument(
         "--dry-run", action = "store_const",
         const = True, default = opt_dryrun,
         help = "Do not perform changes to file system (only some commands)"
@@ -222,6 +226,7 @@ def handle_options():
         opt_ltojobs   = bcfg.getint("lto_jobs", fallback = opt_ltojobs)
         opt_arch      = bcfg.get("arch", fallback = opt_arch)
         opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
+        opt_stagepath = bcfg.get("stage_repository", fallback = opt_stagepath)
         opt_altrepo   = bcfg.get("alt_repository", fallback = opt_altrepo)
         opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
         opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
@@ -305,6 +310,9 @@ def handle_options():
     if cmdline.stage:
         opt_stage = True
 
+    if cmdline.stage_path:
+        opt_stagepath = cmdline.stage_path
+
     if cmdline.dry_run:
         opt_dryrun = True
 
@@ -334,7 +342,7 @@ def init_late():
     # init paths early, modules rely on it
     paths.init(
         cbpath, rtpath, opt_bldroot, mainrepo, altrepo, opt_srcpath,
-        opt_cchpath
+        opt_cchpath, opt_stagepath
     )
 
     # apk command

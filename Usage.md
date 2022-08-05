@@ -463,6 +463,13 @@ only have an effect with specific commands.
   sources cache.
 * `--stage` Keep newly built packages staged. They will get unstaged either with
   the next build or by explicitly doing so.
+* `--stage-path REPO` *(default: None)* By default, packages are staged into the
+  target repo, in special `.stage` subrepos, so e.g. for `repo/main/arch/foo.apk`
+  you would have `repo/main/.stage/arch/foo.apk`. If this is specified, packages
+  are staged into a completely separate location that does not use `.stage` dirs
+  but instead mirrors the primary repository's layout. This is useful if you are
+  for example publishing packages on a remote server and want a simpler layout
+  where the repo is served and the stage is not.
 * `-t`, `--temporary` Create a temporary `bldroot` for the build. The `-b` argument
   is used as a base path as well as the name prefix for the temporary root if
   provided. The temporary root is removed at the end (whether the build succeeded

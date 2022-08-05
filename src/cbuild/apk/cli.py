@@ -58,17 +58,25 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True, use_stage = True):
         r = r.lstrip("/")
         for cr in srepos:
             rpath = paths.repository() / cr / r
-            spath = rpath / ".stage"
+            spath = paths.stage_repository()
+            if spath:
+                spath = spath / cr / r
+                ispath = f"/stagepkgs/{cr}/{r}"
+            else:
+                spath = rpath / ".stage"
+                ispath = f"/binpkgs/{cr}/{r}/.stage"
+            # regular repo
             if (rpath / arch / "APKINDEX.tar.gz").is_file():
                 ret.append("--repository")
                 if intree:
                     ret.append(f"/binpkgs/{cr}/{r}")
                 else:
                     ret.append(str(rpath))
+            # stage repo
             if (spath / arch / "APKINDEX.tar.gz").is_file() and use_stage:
                 ret.append("--repository")
                 if intree:
-                    ret.append(f"/binpkgs/{cr}/{r}/.stage")
+                    ret.append(ispath)
                 else:
                     ret.append(str(spath))
 

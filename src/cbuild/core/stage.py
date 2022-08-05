@@ -22,6 +22,7 @@ def _check_stage(sroot, stlist, arch, signkey):
     rlist = []
 
     repop = paths.repository()
+    stagep = paths.stage_repository()
     rr = [] # regular repos
     rs = [] # stage repos
     for f in repop.rglob("APKINDEX.tar.gz"):
@@ -30,9 +31,17 @@ def _check_stage(sroot, stlist, arch, signkey):
             continue
         p = p.parent
         if p.name == ".stage":
-            rs.append(p)
+            # ignore regular stages if staging from separate root
+            if not stagep:
+                rs.append(p)
         else:
             rr.append(p)
+    if stagep:
+        for f in stagep.rglob("APKINDEX.tar.gz"):
+            p = f.parent
+            if p.name != arch:
+                continue
+            rs.append(p.parent)
     rr.sort()
     rs.sort()
     for r in rs:
@@ -222,6 +231,7 @@ def check_stage(stagelist, arch, signkey):
 
 def clear(arch, signkey, force = False):
     repop = paths.repository()
+    sroot = paths.stage_repository()
     log = logger.get()
 
     log.out(f"Clearing staged {arch} repos for {repop}...")
@@ -229,12 +239,17 @@ def clear(arch, signkey, force = False):
     # a list of all stage repos that we have
     stagelist = []
 
-    # fetch all stages
-    for d in repop.rglob(".stage"):
-        if (d / arch / "APKINDEX.tar.gz").is_file():
-            # its matching actual repo
-            ad = d.parent / arch
-            stagelist.append((d / arch, ad))
+    # fetch all pairs of stage repos + actual repos
+    if sroot:
+        for ri in sroot.rglob("APKINDEX.tar.gz"):
+            ri = ri.parent
+            if ri.name != arch:
+                continue
+            stagelist.append((ri, repop / ri.relative_to(sroot)))
+    else:
+        for d in repop.rglob(".stage"):
+            if (d / arch / "APKINDEX.tar.gz").is_file():
+                stagelist.append((d / arch, d.parent / arch))
 
     if not force and not check_stage(stagelist, arch, signkey):
         return
