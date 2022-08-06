@@ -1,6 +1,7 @@
 pkgname = "dinit"
 pkgver = "0.15.1"
 pkgrel = 0
+_gitrev = "f3557a59a98479f1926aaa0c0f2c33b2211f63ef"
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_args = ["check-igr"] # additional target
@@ -9,8 +10,8 @@ pkgdesc = "Service manager and init system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = f"https://davmac.org/projects/dinit"
-source = f"https://github.com/davmac314/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "b6cc489079a6600ae5f89cbc52b6046bd522e8e91da60c6a3006c4224cba83b4"
+source = f"https://github.com/davmac314/{pkgname}/archive/{_gitrev}.tar.gz"
+sha256 = "802a9aafba4a117bd1670a55c471eee0e1958a95a8a82a9070554dbeffe5d902"
 
 def init_configure(self):
     self.make_build_args += [

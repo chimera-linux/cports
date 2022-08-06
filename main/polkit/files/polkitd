@@ -1,6 +1,7 @@
 # polkitd daemon service
 
-type               = process
-command            = /usr/lib/polkit-1/polkitd --no-debug
-depends-on         = init
-smooth-recovery    = true
+type            = process
+command         = /usr/lib/polkit-1/polkitd --no-debug
+before          = login.target
+depends-on      = init.target
+smooth-recovery = true

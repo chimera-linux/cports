@@ -2,5 +2,6 @@
 
 type       = process
 command    = /usr/bin/dhcpcd -B -M -j /var/log/dhcpcd-service.log
-depends-on = init
+before     = network.target
+depends-on = init.target
 logfile    = /var/log/dhcpcd.log

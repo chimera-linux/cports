@@ -2,5 +2,6 @@
 
 type               = process
 command            = /usr/libexec/udevd.wrapper
-depends-on         = early
+before             = init.target
+depends-on         = early.target
 smooth-recovery    = true

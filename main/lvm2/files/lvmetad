@@ -1,6 +1,7 @@
 # lvmetad service
 
-type               = process
-command            = lvmetad -f
-depends-on         = early
-smooth-recovery    = true
+type            = process
+command         = lvmetad -f
+before          = init.target
+depends-on      = early.target
+smooth-recovery = true

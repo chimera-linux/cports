@@ -2,5 +2,5 @@
 
 type       = process
 command    = /usr/libexec/colord
-depends-on = login
+depends-on = login.target
 run-as     = _colord

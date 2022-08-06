@@ -1,6 +1,7 @@
 # rtkit daemon service
 
-type               = process
-command            = /usr/libexec/rtkit-daemon
-depends-on         = polkitd
-smooth-recovery    = true
+type            = process
+command         = /usr/libexec/rtkit-daemon
+before          = login.target
+waits-for       = polkitd
+smooth-recovery = true

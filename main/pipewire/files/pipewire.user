@@ -2,5 +2,5 @@
 
 type          = process
 command       = /usr/bin/pipewire
-depends-on    = dbus
+waits-for     = dbus
 socket-listen = $XDG_RUNTIME_DIR/pipewire-0

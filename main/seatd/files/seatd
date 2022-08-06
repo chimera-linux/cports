@@ -2,5 +2,6 @@
 
 type            = process
 command         = /usr/bin/seatd -g _seatd
-depends-on      = init
+before          = login.target
+depends-on      = init.target
 smooth-recovery = true

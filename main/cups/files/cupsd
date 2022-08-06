@@ -1,6 +1,6 @@
 # cupsd daemon service
 
-type               = process
-command            = /usr/bin/cupsd -f
-depends-on         = init
-smooth-recovery    = true
+type            = process
+command         = /usr/bin/cupsd -f
+depends-on      = init.target
+smooth-recovery = true

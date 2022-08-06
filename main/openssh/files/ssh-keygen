@@ -3,4 +3,4 @@
 type       = scripted
 command    = ssh-keygen -A
 restart    = false
-depends-on = init
+depends-on = init.target

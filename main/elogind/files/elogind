@@ -2,5 +2,6 @@
 
 type            = process
 command         = /usr/libexec/elogind/elogind.wrapper
-depends-on      = dbus
+before          = login.target
+waits-for       = dbus
 smooth-recovery = true

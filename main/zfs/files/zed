@@ -2,5 +2,6 @@
 
 type            = process
 command         = /usr/bin/zed -F
-depends-on      = early
+before          = init.target
+depends-on      = early.target
 smooth-recovery = true

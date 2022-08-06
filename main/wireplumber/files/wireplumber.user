@@ -2,5 +2,5 @@
 
 type            = process
 command         = /usr/bin/wireplumber
-depends-on      = pipewire
+waits-for       = pipewire
 smooth-recovery = true

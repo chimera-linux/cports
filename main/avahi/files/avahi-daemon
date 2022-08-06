@@ -2,5 +2,6 @@
 
 type            = process
 command         = /usr/bin/avahi-daemon -s
-depends-on      = dbus
+before          = login.target
+waits-for       = dbus
 smooth-recovery = true

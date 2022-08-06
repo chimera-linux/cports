@@ -3,5 +3,5 @@
 type            = process
 command         = /usr/bin/sshd -D
 depends-on      = ssh-keygen
-depends-on      = network
+depends-on      = network.target
 smooth-recovery = true
