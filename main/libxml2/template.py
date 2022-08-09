@@ -7,7 +7,7 @@ make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake", "python-devel"]
 makedepends = [
     "python-devel", "zlib-devel", "ncurses-devel", "liblzma-devel",
-    "icu-devel", "libedit-devel"
+    "icu-devel", "libedit-readline-devel"
 ]
 pkgdesc = "XML parsing library"
 maintainer = "q66 <q66@chimera-linux.org>"
