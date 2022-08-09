@@ -12,7 +12,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "dbus-devel", "libglib-devel", "mozjs91-devel", "cairo-devel",
-    "libedit-devel",
+    "libedit-readline-devel",
 ]
 checkdepends = ["gir-freedesktop", "gtk+3"]
 pkgdesc = "JavaScript bindings for GNOME"
