@@ -1,7 +1,7 @@
 pkgname = "libedit"
 pkgver = f"20220411"
 pkgrel = 0
-_gitrev = "167194266af260f623021284184511b598c50f87"
+_gitrev = "bf6203bf7a6894bd8dc3496d1cffb48ab05b0e18"
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]
@@ -11,11 +11,30 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/libedit-chimera"
 source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "f7dc1e03ed0c0abf6d839950deff01555c10320c8fb59d6273e8bfedebff461c"
+sha256 = "80f9ee8011d94cb5b356f632af2c06d8e6b4db4716570df2e266f3d3c14f2a74"
 options = ["bootstrap"]
 
 def post_install(self):
     self.install_license("COPYING")
+    # readline compat
+    self.install_file(self.files_path / "readline.h", "usr/include/readline")
+    self.install_file(self.files_path / "history.h", "usr/include/readline")
+    self.install_file(self.files_path / "libhistory.so", "usr/lib")
+    self.install_file(self.files_path / "libreadline.so", "usr/lib")
+    self.install_link("libedit.a", "usr/lib/libreadline.a")
+    self.install_link("libedit.a", "usr/lib/libhistory.a")
+    self.install_link("libedit.pc", "usr/lib/pkgconfig/readline.pc")
+
+@subpackage("libedit-readline-devel")
+def _rldevel(self):
+    self.pkgdesc = f"{pkgdesc} (readline compatibility)"
+    self.depends = ["!readline-devel"]
+    return [
+        "usr/include/readline",
+        "usr/lib/libhistory.*",
+        "usr/lib/libreadline.*",
+        "usr/lib/pkgconfig/readline.pc",
+    ]
 
 @subpackage("libedit-devel")
 def _devel(self):
