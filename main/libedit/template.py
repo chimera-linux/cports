@@ -1,17 +1,17 @@
 pkgname = "libedit"
-_datever = "20210910"
-_distver = 3.1
-pkgver = f"{_datever}.{_distver}"
+pkgver = f"20220411"
 pkgrel = 0
-build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+_gitrev = "167194266af260f623021284184511b598c50f87"
+build_style = "makefile"
+make_cmd = "gmake"
+hostmakedepends = ["pkgconf", "gmake"]
 makedepends = ["ncurses-devel"]
 pkgdesc = "Port of the NetBSD command line editing library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
-url = "http://www.thrysoee.dk/editline"
-source = f"http://thrysoee.dk/editline/{pkgname}-{_datever}-{_distver}.tar.gz"
-sha256 = "6792a6a992050762edcca28ff3318cdb7de37dccf7bc30db59fcd7017eed13c5"
+url = "https://github.com/chimera-linux/libedit-chimera"
+source = f"{url}/archive/{_gitrev}.tar.gz"
+sha256 = "f7dc1e03ed0c0abf6d839950deff01555c10320c8fb59d6273e8bfedebff461c"
 options = ["bootstrap"]
 
 def post_install(self):
@@ -19,6 +19,4 @@ def post_install(self):
 
 @subpackage("libedit-devel")
 def _devel(self):
-    self.depends += makedepends
-
     return self.default_devel()

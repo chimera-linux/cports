@@ -26,7 +26,7 @@ makedepends = [
     "eudev-devel-static", "libblkid-devel-static",
     "libaio-devel-static", "libedit-devel-static",
     "musl-devel-static", "libunwind-devel-static",
-    "linux-headers",
+    "ncurses-devel-static", "linux-headers",
 ]
 # a bunch of the commands are scripts and they need bash
 # TODO: check inside of them for gnuisms and fix them
