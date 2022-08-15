@@ -37,6 +37,7 @@ def init_configure(self):
     # and pkg-config's libdir is set to /usr/lib in this case, fool it
     # into giving out the correct paths to make meson happy
     self.env["PKG_CONFIG_LIBCRYPTO_LIBDIR"] = spath
+    self.env["PKG_CONFIG_LIBEDIT_LIBDIR"] = spath
     self.configure_args += [
         f"-Dfts_path={spath}", f"-Drpmatch_path={spath}"
     ]
