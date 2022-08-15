@@ -38,4 +38,8 @@ def _rldevel(self):
 
 @subpackage("libedit-devel")
 def _devel(self):
+    # ncurses apk's do not provide any .pc files during stage 0
+    if self.stage == 0:
+        self.options = ["!scanrundeps"]
+        self.depends = ["ncurses-devel"]
     return self.default_devel()
