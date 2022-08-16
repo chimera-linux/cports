@@ -12,7 +12,7 @@ diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
 index 3b6808d69..c2c8cf4c6 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -230,9 +230,11 @@ fn main() {
+@@ -291,9 +291,11 @@ fn main() {
      for lib in output(&mut cmd).split_whitespace() {
          if is_crossed {
              if let Some(stripped) = lib.strip_prefix("-LIBPATH:") {

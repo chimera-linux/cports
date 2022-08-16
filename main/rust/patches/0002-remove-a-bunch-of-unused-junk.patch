@@ -17,7 +17,7 @@ diff --git a/compiler/rustc_target/src/spec/crt_objects.rs b/compiler/rustc_targ
 index 2fc9ab29f..276736159 100644
 --- a/compiler/rustc_target/src/spec/crt_objects.rs
 +++ b/compiler/rustc_target/src/spec/crt_objects.rs
-@@ -62,28 +62,6 @@ pub(super) fn all(obj: &str) -> CrtObjects {
+@@ -63,28 +63,6 @@ pub(super) fn all(obj: &str) -> CrtObjects {
      ])
  }
  
@@ -50,7 +50,7 @@ diff --git a/src/bootstrap/cc_detect.rs b/src/bootstrap/cc_detect.rs
 index 8c47f625d..a87feef88 100644
 --- a/src/bootstrap/cc_detect.rs
 +++ b/src/bootstrap/cc_detect.rs
-@@ -98,7 +98,7 @@ pub fn find(build: &mut Build) {
+@@ -97,7 +97,7 @@ pub fn find(build: &mut Build) {
          if let Some(cc) = config.and_then(|c| c.cc.as_ref()) {
              cfg.compiler(cc);
          } else {
@@ -59,7 +59,7 @@ index 8c47f625d..a87feef88 100644
          }
  
          let compiler = cfg.get_compiler();
-@@ -126,7 +126,7 @@ pub fn find(build: &mut Build) {
+@@ -125,7 +125,7 @@ pub fn find(build: &mut Build) {
              cfg.compiler(cxx);
              true
          } else if build.hosts.contains(&target) || build.build == target {
@@ -68,7 +68,7 @@ index 8c47f625d..a87feef88 100644
              true
          } else {
              // Use an auto-detected compiler (or one configured via `CXX_target_triple` env vars).
-@@ -158,7 +158,6 @@ fn set_compiler(
+@@ -161,7 +161,6 @@ fn set_compiler(
      compiler: Language,
      target: TargetSelection,
      config: Option<&Target>,
@@ -76,7 +76,7 @@ index 8c47f625d..a87feef88 100644
  ) {
      match &*target.triple {
          // When compiling for android we may have the NDK configured in the
-@@ -201,26 +200,6 @@ fn set_compiler(
+@@ -204,26 +203,6 @@ fn set_compiler(
              }
          }
  
@@ -107,7 +107,7 @@ diff --git a/src/bootstrap/compile.rs b/src/bootstrap/compile.rs
 index f05d1dcf4..781cfcc96 100644
 --- a/src/bootstrap/compile.rs
 +++ b/src/bootstrap/compile.rs
-@@ -198,40 +198,7 @@ fn copy_self_contained_objects(
+@@ -199,40 +199,7 @@ fn copy_self_contained_objects(
      t!(fs::create_dir_all(&libdir_self_contained));
      let mut target_deps = vec![];
  
@@ -149,7 +149,7 @@ index f05d1dcf4..781cfcc96 100644
          let srcdir = builder
              .wasi_root(target)
              .unwrap_or_else(|| {
-@@ -315,15 +282,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
+@@ -316,15 +283,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
              .arg("--manifest-path")
              .arg(builder.src.join("library/test/Cargo.toml"));
  
@@ -169,7 +169,7 @@ diff --git a/src/bootstrap/config.rs b/src/bootstrap/config.rs
 index d6f77fe6c..a2be14e5d 100644
 --- a/src/bootstrap/config.rs
 +++ b/src/bootstrap/config.rs
-@@ -171,8 +171,6 @@ pub struct Config {
+@@ -185,8 +185,6 @@ pub struct Config {
      pub print_step_rusage: bool,
      pub missing_tools: bool,
  
@@ -178,7 +178,7 @@ index d6f77fe6c..a2be14e5d 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -299,8 +297,6 @@ pub struct Target {
+@@ -400,8 +398,6 @@ pub struct Target {
      pub sanitizers: Option<bool>,
      pub profiler: Option<bool>,
      pub crt_static: Option<bool>,
@@ -187,7 +187,7 @@ index d6f77fe6c..a2be14e5d 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub no_std: bool,
-@@ -587,7 +583,6 @@ define_config! {
+@@ -689,7 +685,6 @@ define_config! {
          default_linker: Option<String> = "default-linker",
          channel: Option<String> = "channel",
          description: Option<String> = "description",
@@ -195,7 +195,7 @@ index d6f77fe6c..a2be14e5d 100644
          rpath: Option<bool> = "rpath",
          verbose_tests: Option<bool> = "verbose-tests",
          optimize_tests: Option<bool> = "optimize-tests",
-@@ -631,8 +626,6 @@ define_config! {
+@@ -734,8 +729,6 @@ define_config! {
          sanitizers: Option<bool> = "sanitizers",
          profiler: Option<bool> = "profiler",
          crt_static: Option<bool> = "crt-static",
@@ -204,7 +204,7 @@ index d6f77fe6c..a2be14e5d 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1013,7 +1006,6 @@ impl Config {
+@@ -1107,7 +1099,6 @@ impl Config {
              set(&mut config.llvm_tools_enabled, rust.llvm_tools);
              config.rustc_parallel = rust.parallel_compiler.unwrap_or(false);
              config.rustc_default_linker = rust.default_linker;
@@ -212,7 +212,7 @@ index d6f77fe6c..a2be14e5d 100644
              config.save_toolstates = rust.save_toolstates.map(PathBuf::from);
              set(&mut config.deny_warnings, flags.deny_warnings.or(rust.deny_warnings));
              set(&mut config.backtrace_on_ice, rust.backtrace_on_ice);
-@@ -1059,8 +1051,6 @@ impl Config {
+@@ -1164,8 +1156,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -264,7 +264,7 @@ diff --git a/src/bootstrap/lib.rs b/src/bootstrap/lib.rs
 index 3130dcc27..369212c20 100644
 --- a/src/bootstrap/lib.rs
 +++ b/src/bootstrap/lib.rs
-@@ -1059,25 +1059,6 @@ impl Build {
+@@ -1152,25 +1152,6 @@ impl Build {
          }
      }
  
@@ -294,7 +294,7 @@ diff --git a/src/bootstrap/sanity.rs b/src/bootstrap/sanity.rs
 index d7db2cef2..e0c78ec87 100644
 --- a/src/bootstrap/sanity.rs
 +++ b/src/bootstrap/sanity.rs
-@@ -178,28 +178,6 @@ pub fn check(build: &mut Build) {
+@@ -190,28 +190,6 @@ pub fn check(build: &mut Build) {
              }
          }
  

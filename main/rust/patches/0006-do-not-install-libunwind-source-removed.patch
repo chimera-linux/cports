@@ -11,7 +11,7 @@ diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
 index ba03f6583..2c9308e24 100644
 --- a/src/bootstrap/dist.rs
 +++ b/src/bootstrap/dist.rs
-@@ -843,7 +843,7 @@ impl Step for Src {
+@@ -804,7 +804,7 @@ impl Step for Src {
          copy_src_dirs(
              builder,
              &builder.src,

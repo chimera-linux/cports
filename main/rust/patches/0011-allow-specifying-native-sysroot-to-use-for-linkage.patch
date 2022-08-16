@@ -15,7 +15,7 @@ diff --git a/src/bootstrap/builder.rs b/src/bootstrap/builder.rs
 index 195b2eda7..bdeafd1c7 100644
 --- a/src/bootstrap/builder.rs
 +++ b/src/bootstrap/builder.rs
-@@ -1313,6 +1313,10 @@ impl<'a> Builder<'a> {
+@@ -1708,6 +1708,10 @@ impl<'a> Builder<'a> {
              }
          }
  
@@ -30,7 +30,7 @@ diff --git a/src/bootstrap/config.rs b/src/bootstrap/config.rs
 index cdf7f48a0..9bbd345c7 100644
 --- a/src/bootstrap/config.rs
 +++ b/src/bootstrap/config.rs
-@@ -293,6 +293,7 @@ pub struct Target {
+@@ -394,6 +394,7 @@ pub struct Target {
      pub ranlib: Option<PathBuf>,
      pub default_linker: Option<PathBuf>,
      pub linker: Option<PathBuf>,
@@ -38,15 +38,15 @@ index cdf7f48a0..9bbd345c7 100644
      pub ndk: Option<PathBuf>,
      pub sanitizers: Option<bool>,
      pub profiler: Option<bool>,
-@@ -620,6 +620,7 @@ define_config! {
+@@ -722,6 +722,7 @@ define_config! {
          ranlib: Option<String> = "ranlib",
          default_linker: Option<PathBuf> = "default-linker",
          linker: Option<String> = "linker",
 +        sysroot: Option<String> = "sysroot",
          llvm_config: Option<String> = "llvm-config",
          llvm_filecheck: Option<String> = "llvm-filecheck",
-         android_ndk: Option<String> = "android-ndk",
-@@ -1050,6 +1052,7 @@ impl Config {
+         llvm_libunwind: Option<String> = "llvm-libunwind",
+@@ -1155,6 +1157,7 @@ impl Config {
                  target.ar = cfg.ar.map(PathBuf::from);
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
@@ -58,7 +58,7 @@ diff --git a/src/bootstrap/lib.rs b/src/bootstrap/lib.rs
 index 1b0738bdf..db9bbe57b 100644
 --- a/src/bootstrap/lib.rs
 +++ b/src/bootstrap/lib.rs
-@@ -1125,6 +1125,10 @@ impl Build {
+@@ -1152,6 +1152,10 @@ impl Build {
          }
      }
  
