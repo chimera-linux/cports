@@ -98,6 +98,8 @@ def call(
         cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
+    if subcmd == "add" or subcmd == "del" or subcmd == "fix":
+        cmd.append("--clean-protected")
 
     if fakeroot:
         if env:
@@ -125,6 +127,8 @@ def call_chroot(
         cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
+    if subcmd == "add" or subcmd == "del" or subcmd == "fix":
+        cmd.append("--clean-protected")
 
     return chroot.enter(
         paths.apk(), *cmd, *_collect_repos(mrepo, True, arch, use_stage),
