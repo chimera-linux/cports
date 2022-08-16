@@ -388,6 +388,7 @@ core_fields = [
     ("make_check_wrapper", [], list, False, False, False),
 
     # target build related
+    ("protected_paths", [], list, False, True, False),
     ("nostrip_files", [], list, False, True, False),
     ("hardening", [], list, False, True, False),
     ("nopie_files", [], list, False, True, False),
@@ -489,6 +490,7 @@ core_fields_priority = [
     ("tool_flags", True),
     ("env", True),
 
+    ("protected_paths", True),
     ("nostrip_files", True),
     ("nopie_files", True),
     ("suid_files", True),

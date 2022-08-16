@@ -8,11 +8,8 @@ pkgdesc = "Trigger to manage /etc/shells"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
+protected_paths = [
+    "-etc/shells.d"
+]
 # no tests
 options = ["!check"]
-
-def post_install(self):
-    self.install_dir("etc/apk/protected_paths.d")
-    # unprotect /etc/shells.d to prevent apk-new files being created
-    with open(self.destdir / "etc/apk/protected_paths.d/shells.list", "w") as sf:
-        sf.write("-etc/shells.d\n")
