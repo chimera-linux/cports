@@ -1,12 +1,12 @@
 pkgname = "nss"
-pkgver = "3.77"
+pkgver = "3.82"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "all"
 make_build_args = []
 hostmakedepends = [
-    "gmake", "pkgconf", "perl", f"binutils-{self.profile().arch}"
+    "gmake", "pkgconf", "perl"
 ]
 makedepends = ["nspr-devel", "sqlite-devel", "zlib-devel", "linux-headers"]
 checkdepends = ["bash"]
@@ -15,11 +15,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 source = f"$(MOZILLA_SITE)/security/nss/releases/NSS_{pkgver.replace('.', '_')}_RTM/src/{pkgname}-{pkgver}.tar.gz"
-sha256 = "825edf5a2fd35b788a23ff80face591f82919ae3ad2b8f77d424a450d618dedd"
-# some of the assembly does not like clang's assembler
-tool_flags = {
-    "CFLAGS": ["-no-integrated-as"]
-}
+sha256 = "32bf673b72c2f9953ed3b4c7033abf5a6cad302854a24ae588c575a6567c1573"
+tool_flags = {"CFLAGS": []}
 env = {
     "MAKE": "gmake",
     "LIBRUNPATH": "",
@@ -66,6 +63,7 @@ def do_build(self):
         "CCC=" + self.get_tool("CXX"),
         "NATIVE_CC=" + self.get_tool("CC", target = "host"),
         "NATIVE_FLAGS=" + self.get_cflags(target = "host", shell = True),
+        "NATIVE_LDFLAGS=" + self.get_ldflags(target = "host", shell = True),
     ], env = {
         "XCFLAGS": self.get_cflags(shell = True)
     })

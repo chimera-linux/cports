@@ -39,7 +39,7 @@ sed -e "s,@prefix@,/usr,g" \
 chmod 755 ${DESTDIR}/usr/bin/nss-config
 
 for f in libsoftokn3.so libfreebl3.so libnss3.so libnssutil3.so \
-    libssl3.so libsmime3.so libnssckbi.so libnssdbm3.so; do
+    libssl3.so libsmime3.so libnssckbi.so libnssdbm3.so libnsssysinit.so; do
     install -m755 dist/*.OBJ/lib/${f} ${DESTDIR}/usr/lib
 done
 
