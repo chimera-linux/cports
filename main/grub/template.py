@@ -12,7 +12,7 @@ make_cmd = "gmake"
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 hostmakedepends = [
     "gmake", "pkgconf", "flex", "bison", "help2man", "python",
-    "gettext-tiny", "font-unifont-bdf", f"binutils-{self.profile().arch}",
+    "gettext-tiny", "font-unifont-bdf",
 ]
 makedepends = [
     "gettext-tiny-devel", "freetype-devel", "ncurses-devel", "liblzma-devel",
@@ -29,11 +29,11 @@ sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
 nopie_files = ["usr/lib/grub/*"]
 
 exec_wrappers = []
-# fool the build system into using binutils for these tools
+# fool the build system into using llvm for these tools
 for tool in ["objcopy", "strip", "ar", "ranlib", "nm"]:
     tpl = self.profile().triplet
     exec_wrappers += [
-        (f"/usr/bin/{tpl}-g{tool}", f"{tpl}-{tool}"),
+        (f"/usr/bin/llvm-{tool}", f"{tpl}-{tool}"),
     ]
 
 # this should be a list of tuples:
@@ -42,6 +42,7 @@ _platforms = []
 
 match self.profile().arch:
     case "x86_64":
+        makedepends += [f"binutils-{self.profile().arch}"]
         # the default build is BIOS, we also want EFI
         # (32 and 64 bit) as well as coreboot and Xen
         _platforms = [
@@ -83,7 +84,7 @@ def do_configure(self):
     for arch, platform, ecfl, ldfl, desc in _platforms:
         bdir = f"build_{arch}_{platform}"
         self.mkdir(bdir)
-        cfl = "-fno-stack-protector -no-integrated-as " + ecfl
+        cfl = "-fno-stack-protector " + ecfl
         # configure freestanding
         self.do(
             self.chroot_cwd / "configure", f"--host={self.profile().triplet}",

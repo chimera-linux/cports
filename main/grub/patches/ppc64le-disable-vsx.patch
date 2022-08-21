@@ -37,7 +37,7 @@ index 21c884b43..de9a9601a 100644
  	.globl	start, _start
  start:
  _start:
-+ _start:
++
 +
 +    /* Disable VSX instruction */
 +	mfmsr  0
