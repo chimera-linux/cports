@@ -60,8 +60,7 @@ def _baseloc(self):
     self.pkgdesc = f"{pkgdesc} (development files)"
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}",
-        # all the tooling one needs to build linux kernels with the
-        # chimera-buildkernel script, except binutils (as that is optional)
+        # all the tooling one needs to use chimera-buildkernel
         "bash", "gmake", "gsed", "gtar", "xz", "flex", "bison", "findutils",
         "bc-gh", "kmod", "perl", "python", "u-boot-tools", "linux-headers",
         "elftoolchain-devel", "openssl-devel", "zlib-devel",
