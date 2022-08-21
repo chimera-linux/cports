@@ -45,7 +45,6 @@ match self.profile().arch:
         # the default build is BIOS, we also want EFI
         # (32 and 64 bit) as well as coreboot and Xen
         _platforms = [
-            # need bfd linker for x86/BIOS to get 512 byte first-stage images
             ("i386", "pc", "", "", "x86 PC/BIOS"),
             ("i386", "efi", "", "", "x86 EFI"),
             ("i386", "coreboot", "", "", "x86 coreboot"),
