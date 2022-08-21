@@ -1,0 +1,52 @@
+We don't want the .interp section in freestanding code when linking with
+lld. Especially on the x86 BIOS platform this causes the stage0 MBR image
+to be larger than 512 bytes, which prevents the bootloader from working.
+
+diff --git a/Makefile.in b/Makefile.in
+index 13f2eef..e21228f 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -2588,16 +2588,16 @@ CPPFLAGS_DEFAULT = -DGRUB_FILE=\"$(subst $(srcdir)/,,$<)\" \
+ 	-I$(top_srcdir)/grub-core/lib/libgcrypt-grub/src/
+ CCASFLAGS_DEFAULT = $(CPPFLAGS_DEFAULT) -DASM_FILE=1
+ CFLAGS_KERNEL = $(CFLAGS_PLATFORM) -ffreestanding
+-LDFLAGS_KERNEL = $(LDFLAGS_PLATFORM) -nostdlib $(TARGET_LDFLAGS_OLDMAGIC)
++LDFLAGS_KERNEL = $(LDFLAGS_PLATFORM) -Wl,--no-dynamic-linker -nostdlib $(TARGET_LDFLAGS_OLDMAGIC)
+ CPPFLAGS_KERNEL = $(CPPFLAGS_CPU) $(CPPFLAGS_PLATFORM) -DGRUB_KERNEL=1
+ CCASFLAGS_KERNEL = $(CCASFLAGS_CPU) $(CCASFLAGS_PLATFORM)
+ STRIPFLAGS_KERNEL = -R .rel.dyn -R .reginfo -R .note -R .comment -R .drectve -R .note.gnu.gold-version -R .MIPS.abiflags -R .ARM.exidx
+ CFLAGS_MODULE = $(CFLAGS_PLATFORM) -ffreestanding
+-LDFLAGS_MODULE = $(LDFLAGS_PLATFORM) -nostdlib $(TARGET_LDFLAGS_OLDMAGIC) -Wl,-r,-d
++LDFLAGS_MODULE = $(LDFLAGS_PLATFORM) -Wl,--no-dynamic-linker -nostdlib $(TARGET_LDFLAGS_OLDMAGIC) -Wl,-r,-d
+ CPPFLAGS_MODULE = $(CPPFLAGS_CPU) $(CPPFLAGS_PLATFORM)
+ CCASFLAGS_MODULE = $(CCASFLAGS_CPU) $(CCASFLAGS_PLATFORM)
+ CFLAGS_IMAGE = $(CFLAGS_PLATFORM) -fno-builtin
+-LDFLAGS_IMAGE = $(LDFLAGS_PLATFORM) -nostdlib $(TARGET_LDFLAGS_OLDMAGIC) -Wl,-S
++LDFLAGS_IMAGE = $(LDFLAGS_PLATFORM) -Wl,--no-dynamic-linker -nostdlib $(TARGET_LDFLAGS_OLDMAGIC) -Wl,-S
+ CPPFLAGS_IMAGE = $(CPPFLAGS_CPU) $(CPPFLAGS_PLATFORM)
+ CCASFLAGS_IMAGE = $(CCASFLAGS_CPU) $(CCASFLAGS_PLATFORM)
+ CFLAGS_PROGRAM = $(CFLAGS_GNULIB)
+diff --git a/grub-core/Makefile.in b/grub-core/Makefile.in
+index 37a32dd..580159c 100644
+--- a/grub-core/Makefile.in
++++ b/grub-core/Makefile.in
+@@ -15622,16 +15622,16 @@ CPPFLAGS_DEFAULT = -DGRUB_FILE=\"$(subst $(srcdir)/,,$<)\" \
+ 	-I$(top_srcdir)/grub-core/lib/libgcrypt-grub/src/
+ CCASFLAGS_DEFAULT = $(CPPFLAGS_DEFAULT) -DASM_FILE=1
+ CFLAGS_KERNEL = $(CFLAGS_PLATFORM) -ffreestanding
+-LDFLAGS_KERNEL = $(LDFLAGS_PLATFORM) -nostdlib $(TARGET_LDFLAGS_OLDMAGIC)
++LDFLAGS_KERNEL = $(LDFLAGS_PLATFORM) -Wl,--no-dynamic-linker -nostdlib $(TARGET_LDFLAGS_OLDMAGIC)
+ CPPFLAGS_KERNEL = $(CPPFLAGS_CPU) $(CPPFLAGS_PLATFORM) -DGRUB_KERNEL=1
+ CCASFLAGS_KERNEL = $(CCASFLAGS_CPU) $(CCASFLAGS_PLATFORM)
+ STRIPFLAGS_KERNEL = -R .rel.dyn -R .reginfo -R .note -R .comment -R .drectve -R .note.gnu.gold-version -R .MIPS.abiflags -R .ARM.exidx
+ CFLAGS_MODULE = $(CFLAGS_PLATFORM) -ffreestanding
+-LDFLAGS_MODULE = $(LDFLAGS_PLATFORM) -nostdlib $(TARGET_LDFLAGS_OLDMAGIC) -Wl,-r,-d
++LDFLAGS_MODULE = $(LDFLAGS_PLATFORM) -Wl,--no-dynamic-linker -nostdlib $(TARGET_LDFLAGS_OLDMAGIC) -Wl,-r,-d
+ CPPFLAGS_MODULE = $(CPPFLAGS_CPU) $(CPPFLAGS_PLATFORM)
+ CCASFLAGS_MODULE = $(CCASFLAGS_CPU) $(CCASFLAGS_PLATFORM)
+ CFLAGS_IMAGE = $(CFLAGS_PLATFORM) -fno-builtin
+-LDFLAGS_IMAGE = $(LDFLAGS_PLATFORM) -nostdlib $(TARGET_LDFLAGS_OLDMAGIC) -Wl,-S
++LDFLAGS_IMAGE = $(LDFLAGS_PLATFORM) -Wl,--no-dynamic-linker -nostdlib $(TARGET_LDFLAGS_OLDMAGIC) -Wl,-S
+ CPPFLAGS_IMAGE = $(CPPFLAGS_CPU) $(CPPFLAGS_PLATFORM)
+ CCASFLAGS_IMAGE = $(CCASFLAGS_CPU) $(CCASFLAGS_PLATFORM)
+ CFLAGS_PROGRAM = $(CFLAGS_PLATFORM)
