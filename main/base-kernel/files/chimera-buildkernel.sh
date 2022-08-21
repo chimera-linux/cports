@@ -21,22 +21,22 @@ Usage: $0 prepare|build|install|clean [opts]
 
 Prepare options and their default values:
 
-    ARCH=               The architecture to build for.
-    CC=clang            The target compiler to use.
-    CFLAGS=             The target CFLAGS to use.
-    CROSS_COMPILE=      The cross triplet to use.
-    CONFIG_FILE=        The config file to copy if not present.
-    HOSTCC=clang        The host compiler to use.
-    HOSTCFLAGS=         The host CFLAGS to use.
-    LLVM=1              Use LLVM.
-    LLVM_IAS=0          Use Clang integrated assembler.
-    LD=bfd              The linker to use.
-    MAKE=gmake          The make to use.
-    OBJDUMP=gobjdump    The objdump binary to use.
-    LOCALVERSION=       The CONFIG_LOCALVERSION to use.
-    OBJDIR=build        The directory to build in.
-    EPOCH=              The Unix timestamp for reproducible builds.
-    JOBS=1              The number of build jobs to use.
+    ARCH=                The architecture to build for.
+    CC=clang             The target compiler to use.
+    CFLAGS=              The target CFLAGS to use.
+    CROSS_COMPILE=       The cross triplet to use.
+    CONFIG_FILE=         The config file to copy if not present.
+    HOSTCC=clang         The host compiler to use.
+    HOSTCFLAGS=          The host CFLAGS to use.
+    LLVM=1               Use LLVM.
+    LLVM_IAS=1           Use Clang integrated assembler.
+    LD=lld               The linker to use.
+    MAKE=gmake           The make to use.
+    OBJDUMP=llvm-objdump The objdump binary to use.
+    LOCALVERSION=        The CONFIG_LOCALVERSION to use.
+    OBJDIR=build         The directory to build in.
+    EPOCH=               The Unix timestamp for reproducible builds.
+    JOBS=1               The number of build jobs to use.
 
 Install target takes one argument, the destination directory.
 
@@ -74,10 +74,10 @@ CONFIG_FILE=
 HOSTCC=clang
 HOSTCFLAGS=
 LLVM=1
-LLVM_IAS=0
-LD=bfd
+LLVM_IAS=1
+LD=lld
 MAKE=gmake
-OBJDUMP=gobjdump
+OBJDUMP=llvm-objdump
 LOCALVERSION=
 OBJDIR=build
 EPOCH=
@@ -145,7 +145,11 @@ call_make() {
 
     cc="${CC} -fuse-ld=${LD}"
     hostcc="${HOSTCC} -fuse-ld=${LD}"
-    cmdline="OBJDUMP=${CROSS_COMPILE}objdump LD=${CROSS_COMPILE}ld.${LD}"
+    objdump="$OBJDUMP"
+    if [ "$objdump" != "llvm-objdump" ]; then
+        objdump="${CROSS_COMPILE}${objdump}"
+    fi
+    cmdline="OBJDUMP=${objdump} LD=${CROSS_COMPILE}ld.${LD}"
 
     if [ $LLVM -ne 0 ]; then
         cmdline="$cmdline LLVM=1 LLVM_IAS=${LLVM_IAS}"
@@ -242,8 +246,10 @@ do_prepare() {
     wrap_command ${OBJDUMP} ${TEMPDIR}/wrappers/objdump
 
     if [ -n "$CROSS_COMPILE" ]; then
-        wrap_command ${CROSS_COMPILE}${OBJDUMP} \
-            ${TEMPDIR}/wrappers/${CROSS_COMPILE}objdump
+        if [ "$OBJDUMP" != "llvm-objdump" ]; then
+            wrap_command ${CROSS_COMPILE}${OBJDUMP} \
+                ${TEMPDIR}/wrappers/${CROSS_COMPILE}objdump
+        fi
         if [ "$LD" != "lld" ]; then
             wrap_command ${CROSS_COMPILE}ld.${LD} \
                 ${TEMPDIR}/wrappers/${CROSS_COMPILE}ld
@@ -292,11 +298,11 @@ do_prepare() {
 #!/bin/sh
 mod=\$1
 mkdir -p usr/lib/debug/\${mod%/*}
-${CROSS_COMPILE}gobjcopy --only-keep-debug --compress-debug-sections \\
+/usr/bin/llvm-objcopy --only-keep-debug --compress-debug-sections \\
     \$mod usr/lib/debug/\$mod
-${CROSS_COMPILE}gobjcopy --add-gnu-debuglink=\${DESTDIR}/usr/lib/debug/\$mod \\
+/usr/bin/llvm-objcopy --add-gnu-debuglink=\${DESTDIR}/usr/lib/debug/\$mod \\
     \$mod
-${CROSS_COMPILE}gstrip --strip-debug \$mod
+/usr/bin/llvm-strip --strip-debug \$mod
 gzip -9 \$mod
 EOF
     chmod +x "${TEMPDIR}/mv-debug"
@@ -413,7 +419,7 @@ do_install() {
         powerpc)
             install -m 644 "${OBJDIR}/vmlinux" \
                 "${DESTDIR}/boot/vmlinux-${kernver}"
-            ${CROSS_COMPILE}gstrip "${DESTDIR}/boot/vmlinux-${kernver}"
+            /usr/bin/llvm-strip "${DESTDIR}/boot/vmlinux-${kernver}"
             ;;
     esac
 
@@ -457,6 +463,12 @@ do_install() {
         | cpio -pdm "${hdrdest}"
 
     install -m644 "${OBJDIR}/Module.symvers" "${hdrdest}"
+
+    # crtsavres.o on powerpc with lld, needed for out of tree modules
+    if [ -f "${OBJDIR}/arch/powerpc/lib/crtsavres.o" ]; then
+        cp "${OBJDIR}/arch/powerpc/lib/crtsavres.o" \
+            "${hdrdest}/arch/powerpc/lib"
+    fi
 
     # extract debug symbols and compress modules
     echo "=> Extracting debug info and compressing modules..."
