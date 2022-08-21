@@ -1,23 +1,20 @@
 pkgname = "linux"
-pkgver = "5.15.34"
+pkgver = "5.19.2"
 pkgrel = 0
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
-pkgdesc = "Linux kernel 5.15.x"
+pkgdesc = "Linux kernel 5.19.x"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "a7514685392f0f89b337fa252a10a004c6a97d23e8d1126059c8e373398fdb69"
+sha256 = "48e40a1f5501ec6c40e3c86d3d5319200b688f2d9360f72833084d74801fe63d"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
     "!lto", "textrels", "foreignelf" # vdso32
 ]
-
-# we don't use LLVM_IAS for the time being, as ppc is not compatible with it
-hostmakedepends += ["binutils", f"binutils-{self.profile().arch}"]
 
 match self.profile().arch:
     case "ppc64le" | "ppc64": _arch = "powerpc"
@@ -61,7 +58,7 @@ def do_install(self):
 
 @subpackage("linux-devel")
 def _devel(self):
-    self.depends += ["binutils", "clang"]
+    self.depends += ["clang"]
     self.options = ["foreignelf", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 

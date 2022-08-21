@@ -1,0 +1,46 @@
+From 39030016228243fd2a58f8817b337018715fc869 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 21 Aug 2022 17:22:29 +0200
+Subject: [PATCH] fix gelf_update_symshndx with elftoolchain
+
+See https://github.com/oasislinux/linux/commit/942bf657922a405b0fd10a4158f6261e581a95ed
+---
+ tools/objtool/elf.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/tools/objtool/elf.c b/tools/objtool/elf.c
+index c25e957..b40db9c 100644
+--- a/tools/objtool/elf.c
++++ b/tools/objtool/elf.c
+@@ -706,8 +706,6 @@ static int elf_update_symbol(struct elf *elf, struct section *symtab,
+ 	/* setup extended section index magic and write the symbol */
+ 	if (shndx >= SHN_UNDEF && shndx < SHN_LORESERVE) {
+ 		sym->sym.st_shndx = shndx;
+-		if (!shndx_data)
+-			shndx = 0;
+ 	} else {
+ 		sym->sym.st_shndx = SHN_XINDEX;
+ 		if (!shndx_data) {
+@@ -716,9 +714,16 @@ static int elf_update_symbol(struct elf *elf, struct section *symtab,
+ 		}
+ 	}
+ 
+-	if (!gelf_update_symshndx(symtab_data, shndx_data, idx, &sym->sym, shndx)) {
+-		WARN_ELF("gelf_update_symshndx");
+-		return -1;
++	if (shndx_data) {
++		if (!gelf_update_symshndx(symtab_data, shndx_data, idx, &sym->sym, shndx)) {
++			WARN_ELF("gelf_update_symshndx");
++			return -1;
++		}
++	} else {
++		if (!gelf_update_sym(symtab_data, idx, &sym->sym)) {
++			WARN_ELF("gelf_update_sym");
++			return -1;
++		}
+ 	}
+ 
+ 	return 0;
+-- 
+2.37.1
+

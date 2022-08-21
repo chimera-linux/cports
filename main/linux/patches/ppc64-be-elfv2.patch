@@ -8,79 +8,30 @@ have.
 
 Ping q66 if it does not apply.
 
---- a/arch/powerpc/Makefile	2020-01-05 14:40:50.395763093 +0100
-+++ b/arch/powerpc/Makefile	2020-01-05 14:48:39.025251092 +0100
-@@ -92,10 +92,8 @@
+--- a/drivers/crypto/vmx/Makefile
++++ b/drivers/crypto/vmx/Makefile
+@@ -3,7 +3,7 @@ obj-$(CONFIG_CRYPTO_DEV_VMX_ENCRYPT) +=
+ vmx-crypto-objs := vmx.o aesp8-ppc.o ghashp8-ppc.o aes.o aes_cbc.o aes_ctr.o aes_xts.o ghash.o
  
- ifdef CONFIG_PPC64
- ifndef CONFIG_CC_IS_CLANG
--cflags-$(CONFIG_CPU_BIG_ENDIAN)		+= $(call cc-option,-mabi=elfv1)
--cflags-$(CONFIG_CPU_BIG_ENDIAN)		+= $(call cc-option,-mcall-aixdesc)
--aflags-$(CONFIG_CPU_BIG_ENDIAN)		+= $(call cc-option,-mabi=elfv1)
--aflags-$(CONFIG_CPU_LITTLE_ENDIAN)	+= -mabi=elfv2
-+cflags-y    += $(call cc-option,-mabi=elfv2,$(call cc-option,-mcall-aixdesc))
-+aflags-y    += $(call cc-option,-mabi=elfv2,$(call cc-option,-mabi=elfv1))
- endif
- endif
+ quiet_cmd_perl = PERL    $@
+-      cmd_perl = $(PERL) $< $(if $(CONFIG_CPU_LITTLE_ENDIAN), linux-ppc64le, linux-ppc64) > $@
++      cmd_perl = $(PERL) $< $(if $(CONFIG_CPU_LITTLE_ENDIAN), linux-ppc64le, linux-ppc64v2) > $@
  
-@@ -144,14 +142,8 @@
+ targets += aesp8-ppc.S ghashp8-ppc.S
  
- CFLAGS-$(CONFIG_PPC64)	:= $(call cc-option,-mtraceback=no)
- ifndef CONFIG_CC_IS_CLANG
--ifdef CONFIG_CPU_LITTLE_ENDIAN
- CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mabi=elfv2,$(call cc-option,-mcall-aixdesc))
--AFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mabi=elfv2)
--else
--CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mabi=elfv1)
--CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mcall-aixdesc)
--AFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mabi=elfv1)
--endif
-+AFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mabi=elfv2,$(call cc-option,-mabi=elfv1))
- endif
- CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mcmodel=medium,$(call cc-option,-mminimal-toc))
- CFLAGS-$(CONFIG_PPC64)	+= $(call cc-option,-mno-pointers-to-nested-functions)
-
---- a/arch/powerpc/boot/Makefile
-+++ b/arch/powerpc/boot/Makefile
-@@ -48,8 +48,8 @@ ifdef CONFIG_CPU_BIG_ENDIAN
- BOOTCFLAGS	+= -mbig-endian
- else
- BOOTCFLAGS	+= -mlittle-endian
--BOOTCFLAGS	+= $(call cc-option,-mabi=elfv2)
- endif
-+BOOTCFLAGS	+= $(call cc-option,-mabi=elfv2)
+--- a/arch/powerpc/platforms/Kconfig.cputype
++++ b/arch/powerpc/platforms/Kconfig.cputype
+@@ -554,10 +554,11 @@ config CPU_LITTLE_ENDIAN
+ endchoice
  
- BOOTAFLAGS	:= -D__ASSEMBLY__ $(BOOTCFLAGS) -traditional -nostdinc
+ config PPC64_ELF_ABI_V1
+-	def_bool PPC64 && CPU_BIG_ENDIAN
++	def_bool n
++	depends on PPC64 && CPU_BIG_ENDIAN
  
---- a/drivers/crypto/vmx/Makefile	2020-01-01 10:56:10.560965046 +0100
-+++ b/drivers/crypto/vmx/Makefile	2020-01-01 10:57:05.189968856 +0100
-@@ -5,7 +5,7 @@
- ifeq ($(CONFIG_CPU_LITTLE_ENDIAN),y)
- override flavour := linux-ppc64le
- else
--override flavour := linux-ppc64
-+override flavour := linux-ppc64v2
- endif
+ config PPC64_ELF_ABI_V2
+-	def_bool PPC64 && CPU_LITTLE_ENDIAN
++	def_bool PPC64
  
- quiet_cmd_perl = PERL $@
-
---- a/drivers/crypto/vmx/ppc-xlate.pl
-+++ b/drivers/crypto/vmx/ppc-xlate.pl
-@@ -40,7 +40,7 @@ my $globl = sub {
- };
- my $text = sub {
-     my $ret = ($flavour =~ /aix/) ? ".csect\t.text[PR],7" : ".text";
--    $ret = ".abiversion	2\n".$ret	if ($flavour =~ /linux.*64le/);
-+    $ret = ".abiversion	2\n".$ret	if ($flavour =~ /linux.*64(le|v2)/);
-     $ret;
- };
- my $machine = sub {
-@@ -142,7 +142,7 @@ my $vmr = sub {
- 
- # Some ABIs specify vrsave, special-purpose register #256, as reserved
- # for system use.
--my $no_vrsave = ($flavour =~ /linux-ppc64le/);
-+my $no_vrsave = ($flavour =~ /linux-ppc64(le|v2)/);
- my $mtspr = sub {
-     my ($f,$idx,$ra) = @_;
-     if ($idx == 256 && $no_vrsave) {
+ config PPC64_BOOT_WRAPPER
+ 	def_bool n
