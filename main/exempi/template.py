@@ -1,5 +1,5 @@
 pkgname = "exempi"
-pkgver = "2.6.1"
+pkgver = "2.6.2"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libopenraw.freedesktop.org/exempi"
 source = f"https://libopenraw.freedesktop.org/download/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "072451ac1e0dc97ed69a2e5bfc235fd94fe093d837f65584d0e3581af5db18cd"
+sha256 = "4d17d4c93df2a95da3e3172c45b7a5bf317dd31dafd1c7a340169728c7089d1d"
 
 def post_install(self):
     self.install_license("COPYING")
