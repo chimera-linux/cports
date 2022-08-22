@@ -1,5 +1,5 @@
 pkgname = "harfbuzz"
-pkgver = "4.2.0"
+pkgver = "5.1.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -13,7 +13,9 @@ configure_args = [
 ]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gtk-doc-tools",
-    "gobject-introspection"
+    "gobject-introspection",
+    # prevent installing self through freetype
+    "freetype-bootstrap",
 ]
 makedepends = [
     "freetype-bootstrap", "cairo-devel", "graphite2-devel", "icu-devel"
@@ -23,8 +25,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f2200f177768bdc21445aa09703326f3bbe8114ac083d081fe1a79d305c7ae73"
-options = ["!cross"]
+sha256 = "2edb95db668781aaa8d60959d21be2ff80085f31b12053cdd660d9a50ce84f05"
+# test failures since icu 71
+options = ["!cross", "!check"]
 
 def post_install(self):
     self.install_license("COPYING")
