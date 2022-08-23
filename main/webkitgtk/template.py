@@ -1,5 +1,5 @@
 pkgname = "webkitgtk"
-pkgver = "2.36.0"
+pkgver = "2.36.6"
 pkgrel = 0
 build_style = "cmake"
 # TODO: ENABLE_GLES2 and USE_ANGLE_WEBGL; these do not compile right now
@@ -45,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b877cca1f105235f5dd57c7ac2b2c2be3c6b691ff444f93925c7254cf156c64d"
+sha256 = "1193bc821946336776f0dfa5e0dca5651f1e57157eda12da4721d2441f24a61a"
 debug_level = 1 # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
