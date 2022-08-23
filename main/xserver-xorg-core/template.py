@@ -92,7 +92,8 @@ def _xephyr(self):
 @subpackage("xserver-xorg-xvfb")
 def _xvfb(self):
     self.pkgdesc = "Virtual framebuffer X server"
-    self.depends += ["xkeyboard-config", "xauth"]
+    # util-linux-getopt
+    self.depends += ["xkeyboard-config", "xauth", "util-linux"]
 
     return [
         "usr/bin/Xvfb", "usr/bin/xvfb-run",
