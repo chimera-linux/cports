@@ -73,3 +73,15 @@ index a6dd513..75e3b91 100644
  
      # This is a temporary solution for doing combined architecture builds on macOS.
      toolset.flags $(toolset)
+diff --git a/tools/build/test/test_all.py b/tools/build/test/test_all.py
+index 3965735..d29313d 100644
+--- a/tools/build/test/test_all.py
++++ b/tools/build/test/test_all.py
+@@ -312,7 +312,6 @@ tests = ["abs_workdir",
+          "testing",
+          "timedata",
+          "toolset_clang_darwin",
+-         "toolset_clang_linux",
+          "toolset_clang_vxworks",
+          "toolset_darwin",
+          "toolset_defaults",
