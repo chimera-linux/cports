@@ -1,9 +1,9 @@
 pkgname = "freetype"
-pkgver = "2.12.0"
+pkgver = "2.12.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dbrotli=disabled",
+    "-Dbrotli=enabled",
     "-Dharfbuzz=enabled",
     "-Dbzip2=enabled",
     "-Dmmap=enabled",
@@ -12,13 +12,16 @@ configure_args = [
     "-Dtests=enabled",
 ]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["harfbuzz-devel", "zlib-devel", "libpng-devel", "libbz2-devel"]
+makedepends = [
+    "harfbuzz-devel", "zlib-devel", "libpng-devel",
+    "libbz2-devel", "brotli-devel"
+]
 pkgdesc = "Font rendering engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(NONGNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ef5c336aacc1a079ff9262d6308d6c2a066dd4d2a905301c4adda9b354399033"
+sha256 = "4766f20157cc4cf0cd292f80bf917f92d1c439b243ac3018debf6b9140c41a7f"
 # data files missing
 options = ["!check"]
 
