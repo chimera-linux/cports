@@ -30,27 +30,27 @@ diff --git a/third_party/rust/target-lexicon/src/targets.rs b/third_party/rust/t
 index 87c237a..48fd041 100644
 --- a/third_party/rust/target-lexicon/src/targets.rs
 +++ b/third_party/rust/target-lexicon/src/targets.rs
-@@ -393,6 +393,7 @@ pub enum Vendor {
+@@ -397,6 +397,7 @@ pub enum Vendor {
      Unknown,
      Amd,
      Apple,
 +    Chimera,
+     Espressif,
      Experimental,
      Fortanix,
-     Nvidia,
-@@ -953,6 +954,7 @@ impl fmt::Display for Vendor {
+@@ -984,6 +985,7 @@ impl fmt::Display for Vendor {
              Unknown => "unknown",
              Amd => "amd",
              Apple => "apple",
 +            Chimera => "chimera",
+             Espressif => "espressif",
              Experimental => "experimental",
              Fortanix => "fortanix",
-             Nvidia => "nvidia",
-@@ -977,6 +979,7 @@ impl FromStr for Vendor {
+@@ -1011,6 +1013,7 @@ impl FromStr for Vendor {
              "unknown" => Unknown,
              "amd" => Amd,
              "apple" => Apple,
 +            "chimera" => Chimera,
+             "espressif" => Espressif,
              "experimental" => Experimental,
              "fortanix" => Fortanix,
-             "nvidia" => Nvidia,

@@ -1,13 +1,11 @@
 pkgname = "firefox-esr"
-pkgver = "91.8.0"
+pkgver = "102.2.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
     "pkgconf", "zip", "nasm", "yasm", "cargo", "rust", "python", "cbindgen",
     "llvm-devel", "clang-devel", "nodejs", "gettext-tiny", "automake",
     "libtool", "gmake",
-    # some xptcall bits are compiled with -no-integrated-as
-    f"binutils-{self.profile().arch}"
 ]
 makedepends = [
     "rust-std", "nss-devel", "nspr-devel", "gtk+3-devel", "icu-devel",
@@ -16,7 +14,7 @@ makedepends = [
     "libevent-devel", "libnotify-devel", "libvpx-devel", "libvorbis-devel",
     "libogg-devel", "libtheora-devel", "libxt-devel", "libxcomposite-devel",
     "libxscrnsaver-devel", "pipewire-jack-devel", "ffmpeg-devel",
-    "mesa-devel", "libffi-devel", "zlib-devel",
+    "alsa-lib-devel", "mesa-devel", "libffi-devel", "zlib-devel",
     # XXX: https://bugzilla.mozilla.org/show_bug.cgi?id=1532281
     "dbus-glib-devel",
 ]
@@ -27,7 +25,7 @@ license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "d483a853cbf5c7f93621093432e3dc0b7ed847f2a5318b964828d19f9f087f3a"
+sha256 = "014d91d14ab4f53e93728273b45ac6022813d5ade35f842e722bf87b747c97ff"
 debug_level = 1 # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -38,7 +36,11 @@ env = {
     "BUILD_OFFICIAL": "1",
     "MOZILLA_OFFICIAL": "1",
     "USE_SHORT_LIBNAME": "1",
-    "MACH_USE_SYSTEM_PYTHON": "1",
+    "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
+    "MOZ_APP_REMOTINGNAME": "Firefox",
+    "MOZBUILD_STATE_PATH": f"/builddir/{pkgname}-{pkgver}/.mozbuild",
+    # firefox checks for it by calling --help
+    "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
 # needs to be investigated
 options = ["!lto", "!cross"]
@@ -64,6 +66,9 @@ def post_patch(self):
     cargo.clear_vendor_checksums(
         self, "target-lexicon-0.9.0", vendor_dir = "third_party/rust"
     )
+    cargo.clear_vendor_checksums(
+        self, "packed_simd_2", vendor_dir = "third_party/rust"
+    )
 
 def init_configure(self):
     from cbuild.util import cargo
@@ -81,10 +86,10 @@ def do_configure(self):
     extra_opts = []
 
     match self.profile().arch:
-        case "x86_64":
+        case "x86_64" | "aarch64":
             extra_opts += ["--disable-elf-hack", "--enable-rust-simd"]
-        case "aarch64":
-            extra_opts += ["--enable-rust-simd"]
+        case "ppc64le":
+            extra_opts += ["--disable-webrtc"]
 
     self.do(
         self.chroot_cwd / "mach", "configure",
@@ -109,6 +114,8 @@ def do_configure(self):
         "--with-system-icu",
         # no apng support
         "--without-system-png",
+        # wasi currently not ready
+        "--without-wasm-sandboxed-libraries",
         # features
         "--enable-dbus",
         "--enable-jack",
@@ -116,6 +123,7 @@ def do_configure(self):
         "--enable-pulseaudio",
         "--enable-necko-wifi",
         "--enable-default-toolkit=cairo-gtk3-wayland",
+        "--enable-audio-backends=pulseaudio",
         # disabled features
         "--disable-crashreporter",
         "--disable-profiling",
