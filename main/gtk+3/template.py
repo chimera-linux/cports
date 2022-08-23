@@ -37,7 +37,8 @@ license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
 sha256 = "588b06522e25d1579e989b6f9d8a1bdbf2fe13cde01a04e904ff346a225e7801"
-options = ["!cross"]
+# FIXME getopt compatibility
+options = ["!cross", "!check"]
 
 @subpackage("gtk-update-icon-cache")
 def _uic(self):
