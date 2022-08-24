@@ -1,6 +1,6 @@
-commit 29921847200f93487037bda405500b276d0c35be
+commit 1fbfea71fb42b2e79f9e342c1843bd26a8703536
 Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Sun Apr 3 03:03:37 2022 +0200
+Date:   Thu Aug 25 01:20:58 2022 +0200
 
     An all-in-one patch that fixes several issues:
     
@@ -10,7 +10,7 @@ Date:   Sun Apr 3 03:03:37 2022 +0200
     4) examine_stack.cpp makes glibc assumptions on powerpc (fixed)
 
 diff --git a/absl/base/internal/unscaledcycleclock.cc b/absl/base/internal/unscaledcycleclock.cc
-index 4d352bd..49d64d9 100644
+index b1c396c..d62bfd6 100644
 --- a/absl/base/internal/unscaledcycleclock.cc
 +++ b/absl/base/internal/unscaledcycleclock.cc
 @@ -20,7 +20,7 @@
@@ -22,7 +22,7 @@ index 4d352bd..49d64d9 100644
  #ifdef __GLIBC__
  #include <sys/platform/ppc.h>
  #elif defined(__FreeBSD__)
-@@ -59,7 +59,7 @@ double UnscaledCycleClock::Frequency() {
+@@ -58,7 +58,7 @@ double UnscaledCycleClock::Frequency() {
    return base_internal::NominalCPUFrequency();
  }
  
@@ -32,7 +32,7 @@ index 4d352bd..49d64d9 100644
  int64_t UnscaledCycleClock::Now() {
  #ifdef __GLIBC__
 diff --git a/absl/base/internal/unscaledcycleclock.h b/absl/base/internal/unscaledcycleclock.h
-index 681ff8f..efaba6e 100644
+index 2cbeae3..83d8c98 100644
 --- a/absl/base/internal/unscaledcycleclock.h
 +++ b/absl/base/internal/unscaledcycleclock.h
 @@ -46,8 +46,8 @@
@@ -40,17 +40,17 @@ index 681ff8f..efaba6e 100644
  // The following platforms have an implementation of a hardware counter.
  #if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__) || \
 -    defined(__powerpc__) || defined(__ppc__) || defined(__riscv) ||     \
--    defined(_M_IX86) || defined(_M_X64)
+-    defined(_M_IX86) || (defined(_M_X64) && !defined(_M_ARM64EC))
 +    ((defined(__powerpc__) || defined(__ppc__)) && defined(__GLIBC__)) || \
-+    defined(__riscv) || defined(_M_IX86) || defined(_M_X64)
++    defined(__riscv) || defined(_M_IX86) || (defined(_M_X64) && !defined(_M_ARM64EC))
  #define ABSL_HAVE_UNSCALED_CYCLECLOCK_IMPLEMENTATION 1
  #else
  #define ABSL_HAVE_UNSCALED_CYCLECLOCK_IMPLEMENTATION 0
 diff --git a/absl/debugging/internal/examine_stack.cc b/absl/debugging/internal/examine_stack.cc
-index 589a3ef..fa894cd 100644
+index 5bdd341..a42a3c4 100644
 --- a/absl/debugging/internal/examine_stack.cc
 +++ b/absl/debugging/internal/examine_stack.cc
-@@ -63,8 +63,10 @@ void* GetProgramCounter(void* vuc) {
+@@ -174,8 +174,10 @@ void* GetProgramCounter(void* const vuc) {
      return reinterpret_cast<void*>(context->uc_mcontext.pc);
  #elif defined(__powerpc64__)
      return reinterpret_cast<void*>(context->uc_mcontext.gp_regs[32]);
@@ -63,10 +63,10 @@ index 589a3ef..fa894cd 100644
      return reinterpret_cast<void*>(context->uc_mcontext.__gregs[REG_PC]);
  #elif defined(__s390__) && !defined(__s390x__)
 diff --git a/absl/debugging/internal/stacktrace_config.h b/absl/debugging/internal/stacktrace_config.h
-index ff21b71..0b4e1ef 100644
+index 3929b1b..23d5e50 100644
 --- a/absl/debugging/internal/stacktrace_config.h
 +++ b/absl/debugging/internal/stacktrace_config.h
-@@ -59,7 +59,7 @@
+@@ -60,7 +60,7 @@
  #elif defined(__i386__) || defined(__x86_64__)
  #define ABSL_STACKTRACE_INL_HEADER \
    "absl/debugging/internal/stacktrace_x86-inl.inc"
