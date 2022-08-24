@@ -1,5 +1,5 @@
 pkgname = "cups"
-pkgver = "2.4.1"
+pkgver = "2.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -9,7 +9,7 @@ configure_args = [
 
     "--disable-gssapi", "--without-rcdir", "--without-systemd",
 
-    "--with-tls=gnutls",
+    "--with-tls=openssl",
     "--with-dnssd=avahi",
     "--with-rundir=/run/cups",
     "--with-logdir=/var/log/cups",
@@ -24,10 +24,10 @@ configure_args = [
 make_dir = "."
 make_check_args = ["-j1"]
 hostmakedepends = [
-    "pkgconf", "avahi-devel", "gnutls-devel", "poppler", "xdg-utils",
+    "pkgconf", "avahi-devel", "openssl-devel", "poppler", "xdg-utils",
 ]
 makedepends = [
-    "acl-devel", "gnutls-devel", "libpaper-devel", "libpng-devel",
+    "acl-devel", "openssl-devel", "libpaper-devel", "libpng-devel",
     "libtiff-devel", "libpoppler-devel", "libusb-devel", "linux-pam-devel",
     "avahi-devel", "linux-headers",
 ]
@@ -37,7 +37,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/OpenPrinting/cups"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}-source.tar.gz"
-sha256 = "c7339f75f8d4f2dec50c673341a45fc06b6885bb6d4366d6bf59a4e6c10ae178"
+sha256 = "f03ccb40b087d1e30940a40e0141dcbba263f39974c20eb9f2521066c9c6c908"
 # build system is bad
 tool_flags = {
     "CFLAGS": ["-Wno-unused-command-line-argument"],
