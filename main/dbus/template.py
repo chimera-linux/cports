@@ -53,6 +53,11 @@ def post_install(self):
     self.install_service(self.files_path / "dbus-prepare")
     self.install_service(self.files_path / "dbus")
     self.install_service(self.files_path / "dbus.user")
+    # x11 support
+    self.install_dir("etc/X11/Xsession.d")
+    self.install_file(
+        self.files_path / "01dbus-env", "etc/X11/Xsession.d", mode = 0o755
+    )
 
 @subpackage("dbus-devel")
 def _devel(self):
@@ -70,8 +75,9 @@ def _libs(self):
 def _x11(self):
     self.pkgdesc = f"{pkgdesc} (X11 support)"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xserver-xorg-core"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xinit"]
     return [
+        "etc/X11/Xsession.d",
         "usr/bin/dbus-launch",
         "usr/share/man/man1/dbus-launch.1",
     ]
