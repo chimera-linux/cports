@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# we always start on the current tty
+TTY=$(tty)
+TTY=${TTY#/dev/tty}
+
+if [ -z "$TTY" -o "$TTY" -ne "$TTY" ] 2> /dev/null; then
+    echo "$0: must run from a tty"
+fi
+
+# determine the lowest unused DISPLAY
+d=0
+while :; do
+    [ -e "/tmp/.X$d-lock" -o -S "/tmp/.X11-unix/X$d" ] || break
+    d=$(($d + 1))
+done
+display=":$d"
+unset d
+
+if [ -z "$XAUTHORITY" ]; then
+    # get it away from the homedir if we can
+    if [ -n "$XDG_RUNTIME_DIR" ]; then
+        export XAUTHORITY="${XDG_RUNTIME_DIR}/xauthority"
+    else
+        export XAUTHORITY="${HOME}/.Xauthority"
+    fi
+fi
+
+# ensure it exists
+touch "$XAUTHORITY"
+
+xauth add "$display" . `/usr/bin/mcookie`
+
+rcfile="${HOME}/.xinitrc"
+
+if [ ! -f "$rcfile" ]; then
+    rcfile="/usr/bin/true"
+fi
+
+env -u display -u rcfile -u TTY -- \
+    xinit /etc/X11/Xsession "$rcfile" "$@" -- \
+        /usr/bin/X -nolisten tcp "$display" vt$TTY -keeptty -noreset -auth "$XAUTHORITY"
+
+ret=$?
+
+xauth remove "$display"
+
+exit $ret
