@@ -1,8 +1,8 @@
 diff --git a/tests/bitlk-compat-test b/tests/bitlk-compat-test
-index 54cc6bf..7b68972 100755
+index ff4d890..b93ee77 100755
 --- a/tests/bitlk-compat-test
 +++ b/tests/bitlk-compat-test
-@@ -101,8 +101,9 @@ export LANG=C
+@@ -110,8 +110,9 @@ export LANG=C
  echo "HEADER CHECK"
  for file in $(ls $TST_DIR/bitlk-*) ; do
  	echo -n " $file"
@@ -14,20 +14,20 @@ index 54cc6bf..7b68972 100755
  	echo " [OK]"
  done
  
-diff --git a/tests/blockwise-compat b/tests/blockwise-compat
-index f08f983..79dbc24 100755
---- a/tests/blockwise-compat
-+++ b/tests/blockwise-compat
-@@ -92,7 +92,7 @@ run_all_in_fs() {
- 	    rm -rf $MNT_DIR/* 2>/dev/null
- 	    local tfile=$MNT_DIR/bwunit_tstfile
- 	    falloc $DEVSIZEMB $tfile || fail "enospc?"
--	    local iobsize=$(stat -c "%o" $tfile)
-+	    local iobsize=$(stat -f "%k" $tfile)
- 	    test -n "$iobsize" -a $iobsize -gt 0 || fail
- 	    local oldbsize=$BSIZE
- 	    BSIZE=$iobsize
-@@ -118,7 +118,7 @@ RUN() {
+diff --git a/tests/blockwise-compat-test b/tests/blockwise-compat-test
+index 11db493..416f6c0 100755
+--- a/tests/blockwise-compat-test
++++ b/tests/blockwise-compat-test
+@@ -91,7 +91,7 @@ run_all_in_fs() {
+ 		rm -rf $MNT_DIR/* 2>/dev/null
+ 		local tfile=$MNT_DIR/bwunit_tstfile
+ 		falloc $DEVSIZEMB $tfile || fail "enospc?"
+-		local iobsize=$(stat -c "%o" $tfile)
++		local iobsize=$(stat -f "%k" $tfile)
+ 		test -n "$iobsize" -a $iobsize -gt 0 || fail
+ 		local oldbsize=$BSIZE
+ 		BSIZE=$iobsize
+@@ -117,7 +117,7 @@ RUN() {
  
  	test -b $_dev || {
  		_type="file"
@@ -36,7 +36,7 @@ index f08f983..79dbc24 100755
  	}
  
  	case "$_res" in
-@@ -324,7 +324,7 @@ echo "System PAGE_SIZE=$PAGE_SIZE"
+@@ -321,7 +321,7 @@ echo "System PAGE_SIZE=$PAGE_SIZE"
  
  echo "Run tests in local filesystem"
  falloc $DEVSIZEMB $LOCAL_FILE || fail "Failed to create file in local filesystem."

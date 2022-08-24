@@ -1,10 +1,11 @@
 pkgname = "cryptsetup"
-pkgver = "2.4.3"
+pkgver = "2.5.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-crypto_backend=openssl", "--enable-cryptsetup-reencrypt",
     "--enable-libargon2", "--enable-static-cryptsetup", "--disable-ssh-token",
+    "--disable-asciidoc",
 ]
 hostmakedepends = ["pkgconf", "bash"]
 makedepends = [
@@ -18,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/cryptsetup/cryptsetup"
 source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "fc0df945188172264ec5bf1d0bda08264fadc8a3f856d47eba91f31fe354b507"
+sha256 = "9184a6ebbd9ce7eb211152e7f741a6c82f2d1cc0e24a84ec9c52939eee0f0542"
 
 @subpackage("cryptsetup-static-bin")
 def _sbin(self):
