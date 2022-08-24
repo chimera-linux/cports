@@ -1,11 +1,16 @@
 #!/bin/sh
 
 # we always start on the current tty
-TTY=$(tty)
-TTY=${TTY#/dev/tty}
+TTY=$XDG_VTNR
+
+if [ -z "$TTY" ]; then
+    TTY=$(tty)
+    TTY=${TTY#/dev/tty}
+fi
 
 if [ -z "$TTY" -o "$TTY" -ne "$TTY" ] 2> /dev/null; then
     echo "$0: must run from a tty"
+    exit 1
 fi
 
 # determine the lowest unused DISPLAY
@@ -16,6 +21,14 @@ while :; do
 done
 display=":$d"
 unset d
+
+rcfile=${XDG_CONFIG_HOME:-$HOME/.config}/xinitrc
+[ -x "$rcfile" ] || rcfile=${HOME}/.xinitrc
+
+if [ ! -x "$rcfile" ]; then
+    echo "$0: $rcfile does not exist or is not executable"
+    exit 1
+fi
 
 if [ -z "$XAUTHORITY" ]; then
     # get it away from the homedir if we can
@@ -31,15 +44,8 @@ touch "$XAUTHORITY"
 
 xauth add "$display" . `/usr/bin/mcookie`
 
-rcfile="${HOME}/.xinitrc"
-
-if [ ! -f "$rcfile" ]; then
-    rcfile="/usr/bin/true"
-fi
-
-env -u display -u rcfile -u TTY -- \
-    xinit /etc/X11/Xsession "$rcfile" "$@" -- \
-        /usr/bin/X -nolisten tcp "$display" vt$TTY -keeptty -noreset -auth "$XAUTHORITY"
+xinit /etc/X11/Xsession "$rcfile" "$@" -- \
+    /usr/bin/X -nolisten tcp "$display" vt$TTY -keeptty -noreset -auth "$XAUTHORITY"
 
 ret=$?
 
