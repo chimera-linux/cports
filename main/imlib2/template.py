@@ -1,5 +1,5 @@
 pkgname = "imlib2"
-pkgver = "1.8.1"
+pkgver = "1.9.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Imlib2"
 url = "https://www.enlightenment.org"
 source = f"$(SOURCEFORGE_SITE)/enlightenment/{pkgname}-src/{pkgname}-{pkgver}.tar.gz"
-sha256 = "aa26a3fb0468639f9aacb03ac189fe7f703c80f2bfae76e9647889b0bc664c90"
+sha256 = "c319292f5bcab33b91bffaa6f7b0842f9e2d1b90df6c9a2a39db4f24d538b35b"
 
 def post_install(self):
     self.install_license("COPYING")
