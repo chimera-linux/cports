@@ -1,5 +1,5 @@
 pkgname = "libhandy"
-pkgver = "1.6.1"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libhandy"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "6eab0384404d56bd1b1fa059d9a081177778f6ae080ffc2120f28656ca7462a4"
+sha256 = "8c92c06a57b26af16a25ad0b5c375a7db7f09b57012abde6e168b62978770cf7"
 # needs x11
 options = ["!check"]
 
