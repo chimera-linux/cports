@@ -1,6 +1,6 @@
 pkgname = "python"
 _majver = "3.10"
-pkgver = f"{_majver}.4"
+pkgver = f"{_majver}.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "80bf925f571da436b35210886cf79f6eb5fa5d6c571316b73568343451f77a19"
+sha256 = "f795ff87d11d4b0c7c33bc8851b0c28648d8a4583aa2100a98c22b4326b6d3f3"
 
 if self.profile().cross:
     hostmakedepends += ["python"]
