@@ -1,5 +1,5 @@
 pkgname = "glade3"
-pkgver = "3.38.2"
+pkgver = "3.40.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://glade.gnome.org"
 source = f"$(GNOME_SITE)/glade/{pkgver[:-2]}/glade-{pkgver}.tar.xz"
-sha256 = "98fc87647d88505c97dd2f30f2db2d3e9527515b3af11694787d62a8d28fbab7"
+sha256 = "31c9adaea849972ab9517b564e19ac19977ca97758b109edc3167008f53e3d9c"
 # needs a graphical environment
 options = ["!check"]
 
