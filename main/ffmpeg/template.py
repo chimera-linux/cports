@@ -1,5 +1,5 @@
 pkgname = "ffmpeg"
-pkgver = "5.0.1"
+pkgver = "5.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -81,7 +81,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ef2efae259ce80a240de48ec85ecb062cecca26e4352ffb3fda562c21a93007b"
+sha256 = "55eb6aab5ee235550fa54a33eaf8bf1b4ec66c01453182b12f6a993d75698b03"
 # seems to need rpath?
 options = ["!check"]
 
