@@ -1,5 +1,5 @@
 pkgname = "gnome-initial-setup"
-pkgver = "42.1"
+pkgver = "42.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -22,4 +22,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Design/OS/InitialSetup"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "866136ca32922f7cc424d3adc6b1dba7cebe07aa96a19f97c80770e3f2eea71b"
+sha256 = "4d83d98b249abe15bb2b3e7e7aead9c47f848bca7b6a091abc908b76541abe7b"
