@@ -1,5 +1,5 @@
 pkgname = "graphviz"
-pkgver = "3.0.0"
+pkgver = "5.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "EPL-1.0"
 url = "https://graphviz.org"
 source = f"https://gitlab.com/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "59931082a3638139e06c296b96e860a9d338432af06f7f57a6ad8da5cbf465c7"
+sha256 = "6c704a3ffeaf2f7ae63f7d0da453cd624d93a9306a2e5dbda07e5ec38343d2b8"
 # expects already installed graphviz
 # testing is via pytest
 options = ["!check"]
@@ -39,10 +39,6 @@ def pre_configure(self):
 
 def post_install(self):
     self.install_license("epl-v10.txt")
-
-    self.rm(self.destdir / "usr/share/graphviz/doc", recursive = True)
-    # not built
-    self.rm(self.destdir / "usr/share/man/man1/mingle.1")
     # useless
     self.rm(self.destdir / "usr/bin/dot_builtins")
 
