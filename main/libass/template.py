@@ -1,5 +1,5 @@
 pkgname = "libass"
-pkgver = "0.15.2"
+pkgver = "0.16.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "yasm"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/libass/libass"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "1b2a54dda819ef84fa2dee3069cf99748a886363d2adb630fde87fe046e2d1d5"
+sha256 = "fea8019b1887cab9ab00c1e58614b4ec2b1cee339b3f7e446f5fab01b032d430"
 
 def post_install(self):
     self.install_license("COPYING")
