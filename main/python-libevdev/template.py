@@ -1,5 +1,5 @@
 pkgname = "python-libevdev"
-pkgver = "0.10"
+pkgver = "0.11"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/libevdev/python-libevdev"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "8deaad5ca7450d9dac9a491382eb829801194410555fadfa13a6991c7cba594b"
+sha256 = "60eebb58ff20be2d8443d716c3c299392720aac89db269fdb4b9de14fe313c24"
 
 def post_install(self):
     self.install_license("COPYING")
