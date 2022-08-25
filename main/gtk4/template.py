@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.6.2"
+pkgver = "4.6.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "ff263af609a50eb76056653592d929459aef4819a444c436f6d52c6f63c1faec"
+sha256 = "effd2e7c4b5e2a5c7fad43e0f24adea68baa4092abb0b752caff278e6bb010e8"
 
 def post_install(self):
     # we don't really need it (provided by gtk3)
