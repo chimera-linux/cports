@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-good"
-pkgver = "1.20.1"
+pkgver = "1.20.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -46,6 +46,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "3c66876f821d507bcdbebffb08b4f31a322727d6753f65a0f02c905ecb7084aa"
+sha256 = "f8f3c206bf5cdabc00953920b47b3575af0ef15e9f871c0b6966f6d0aa5868b7"
 # 4 out of 105 tests currently fail (qtmux, splitmux, pipelines_tagschecking)
 options = ["!check"]
