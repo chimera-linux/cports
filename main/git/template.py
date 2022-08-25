@@ -1,5 +1,5 @@
 pkgname = "git"
-pkgver = "2.35.1"
+pkgver = "2.37.2"
 pkgrel = 0
 make_cmd = "gmake"
 make_check_target = "test"
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d768528e6443f65a203036266f1ca50f9d127ba89751e32ead37117ed9191080"
+sha256 = "1c3d9c821c4538e7a6dac30a4af8bd8dcfe4f651f95474c526b52f83406db003"
 # missing checkdepends
 options = ["!check"]
 
