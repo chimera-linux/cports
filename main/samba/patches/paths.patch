@@ -18,14 +18,3 @@
     browseable = no
  # Set public = yes to allow user 'guest account' to print
     guest ok = no
---- a/third_party/waf/waflib/Tools/python.py
-+++ b/third_party/waf/waflib/Tools/python.py
-@@ -328,7 +328,7 @@ def check_python_headers(conf, features='pyembed pyext'):
- 	x = 'MACOSX_DEPLOYMENT_TARGET'
- 	if dct[x]:
- 		env[x] = conf.environ[x] = dct[x]
--	env.pyext_PATTERN = '%s' + dct['SO'] # not a mistake
-+	env.pyext_PATTERN = '%s' + '.so' # not a mistake
- 
- 
- 	# Try to get pythonX.Y-config

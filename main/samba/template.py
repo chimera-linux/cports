@@ -1,7 +1,7 @@
 # TODO: service files, also probably needs overall cleanup/fixup
 # for now it's enough to get us libsmbclient
 pkgname = "samba"
-pkgver = "4.15.6"
+pkgver = "4.15.9"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -36,14 +36,16 @@ makedepends = [
     "musl-bsd-headers", "linux-pam-devel", "heimdal-devel", "acl-devel",
     "attr-devel", "cups-devel", "jansson-devel", "avahi-devel",
     "dbus-devel", "openldap-devel", "tdb-devel", "talloc-devel",
-    "tevent-devel", "ldb-devel", "cmocka-devel", "musl-nscd",
+    "tevent-devel", "ldb-devel", "gnutls-devel", "cmocka-devel", "musl-nscd",
 ]
 pkgdesc = "SMB/CIFS file, print, and login server for Unix"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
-sha256 = "0575b999a9048445820428dc540ba8a9527ce596fa66af02ea2ba1ea9578bcb4"
+sha256 = "9682a2c71c2ff253aa27cbb01260eac897ff625cf39db20ee32073e5386fe219"
+# we don't want their makefile
+env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check"]
 
