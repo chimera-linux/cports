@@ -1,5 +1,5 @@
 pkgname = "python-fonttools"
-pkgver = "4.32.0"
+pkgver = "4.37.1"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND OFL-1.1 AND BSD-3-Clause AND Apache-2.0"
 url = "https://github.com/fonttools/fonttools"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "d3ac2454bb9b99dd0bd48f13765830d33dc2eabf3ba5232feb962620ebbde536"
+sha256 = "9a94f852b602540b11aa520952245ddebc22a490f74d838dbb88f82710a4db20"
 # unpackaged deps
 options = ["!check"]
 
