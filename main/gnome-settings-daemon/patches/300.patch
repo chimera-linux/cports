@@ -1,0 +1,33 @@
+From 03739474621e579e10b72577960ff94b4001e7ff Mon Sep 17 00:00:00 2001
+From: Bastien Nocera <hadess@hadess.net>
+Date: Thu, 30 Jun 2022 20:15:53 +0200
+Subject: [PATCH] datetime: Update geocode-glib libsoup3 dependency
+
+geocode-glib 3.26.3 was released today, with optional soup3 support.
+When built against soup3, it generates a geocode-glib-2.0 pkg-config
+file rather than geocode-glib-1.0.
+
+Support both versions, with a preference for the libsoup3 version.
+---
+ meson.build | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 434211a0..f820f4f9 100644
+--- a/meson.build
++++ b/meson.build
+@@ -89,7 +89,10 @@ endif
+ add_project_arguments(common_flags + compiler_flags, language: 'c')
+ 
+ glib_dep = dependency('glib-2.0', version: '>=' + glib_min_version)
+-geocode_glib_dep = dependency('geocode-glib-1.0', version: '>= 3.10.0')
++geocode_glib_dep = dependency('geocode-glib-2.0', version: '>= 3.26.3', required: false)
++if not geocode_glib_dep.found()
++  geocode_glib_dep = dependency('geocode-glib-1.0', version: '>= 3.10.0')
++endif
+ gio_dep = dependency('gio-2.0', version: '>= 2.53.0')
+ gio_unix_dep = dependency('gio-unix-2.0')
+ gnome_desktop_dep = dependency('gnome-desktop-3.0', version: '>= 3.37.1')
+-- 
+GitLab
+
