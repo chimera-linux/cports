@@ -1,10 +1,10 @@
 --- a/setup.py
 +++ b/setup.py
-@@ -46,7 +46,6 @@ requires = [
-     'idna>=2.5,<3; python_version < "3"',
-     'idna>=2.5,<4; python_version >= "3"',
-     'urllib3>=1.21.1,<1.27',
--    'certifi>=2017.4.17'
- 
+@@ -62,7 +62,6 @@ requires = [
+     "charset_normalizer>=2,<3",
+     "idna>=2.5,<4",
+     "urllib3>=1.21.1,<1.27",
+-    "certifi>=2017.4.17",
  ]
  test_requirements = [
+     "pytest-httpbin==0.0.7",
