@@ -1,5 +1,5 @@
 pkgname = "ldb"
-pkgver = "2.4.2"
+pkgver = "2.4.4"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -21,7 +21,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://www.samba.org/ldb"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "756268c40a11c1f277c6e666d6c22fce67a3547502337dbd142bdc0b4d901fd5"
+sha256 = "59ee9697b51a33cae3486ae148613a924ebca30b81ab810dbfacadfeecd01018"
+# we don't want their makefile
+env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 options = ["!cross"]
 
 @subpackage("ldb-devel")
