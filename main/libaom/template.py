@@ -1,5 +1,5 @@
 pkgname = "libaom"
-pkgver = "3.3.0"
+pkgver = "3.4.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DENABLE_TESTS=OFF"]
@@ -11,9 +11,8 @@ pkgdesc = "Reference implementation of the AV1 codec"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://aomedia.org"
-# there are no official tarballs and no deterministic autotarballs
-source = [f"https://ftp.octaforge.org/q66/random/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["2538d6f82074f44a1c9d97a2b3984a6c62481b61b06fd4edf959a5a65f88a434"]
+source = [f"https://storage.googleapis.com/aom-releases/{pkgname}-{pkgver}.tar.gz"]
+sha256 = ["bd754b58c3fa69f3ffd29da77de591bd9c26970e3b18537951336d6c0252e354"]
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
 # requires a testdata download, tests take long
 options = ["!check"]
