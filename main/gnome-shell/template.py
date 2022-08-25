@@ -1,5 +1,5 @@
 pkgname = "gnome-shell"
-pkgver = "42.0"
+pkgver = "42.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,6 +30,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "33d404fb3c93b9de42984f0110a2969d6a4a7247c27fe7f5e24c67ecfec75094"
+sha256 = "875ff2970ea9fb7a05506e32a0d50dc917f41b4ca37134b41377f9c82873c54e"
 # tests need libmutter-test
 options = ["!check"]
