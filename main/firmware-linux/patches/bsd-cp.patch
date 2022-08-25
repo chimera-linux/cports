@@ -1,6 +1,6 @@
-From f4a644795c3180a158ba6f65b2e45bddd4af3ac2 Mon Sep 17 00:00:00 2001
+From 9a82dacaea13ca8998c64ca4828e21373dfad846 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sun, 14 Nov 2021 02:34:16 +0100
+Date: Thu, 25 Aug 2022 02:34:00 +0200
 Subject: [PATCH] portability fixes
 
 ---
@@ -8,13 +8,13 @@ Subject: [PATCH] portability fixes
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/copy-firmware.sh b/copy-firmware.sh
-index 9b46b63..b516093 100755
+index bbacb92..7be2258 100755
 --- a/copy-firmware.sh
 +++ b/copy-firmware.sh
 @@ -35,7 +35,7 @@ grep '^File:' WHENCE | sed -e's/^File: *//g' -e's/"//g' | while read f; do
      test -f "$f" || continue
      $verbose "copying file $f"
-     mkdir -p $destdir/$(dirname "$f")
+     install -d $destdir/$(dirname "$f")
 -    cp -d "$f" $destdir/"$f"
 +    cp -R "$f" $destdir/"$f"
  done
@@ -23,12 +23,12 @@ index 9b46b63..b516093 100755
 @@ -43,7 +43,7 @@ grep -E '^Link:' WHENCE | sed -e's/^Link: *//g' -e's/-> //g' | while read f d; d
          test -f "$destdir/$f" && continue
          $verbose "copying link $f"
-         mkdir -p $destdir/$(dirname "$f")
+         install -d $destdir/$(dirname "$f")
 -        cp -d "$f" $destdir/"$f"
 +        cp -R "$f" $destdir/"$f"
  
          if test "x$d" != "x"; then
              target=`readlink "$f"`
 -- 
-2.33.1
+2.37.1
 
