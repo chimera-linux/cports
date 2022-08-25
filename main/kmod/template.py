@@ -1,5 +1,5 @@
 pkgname = "kmod"
-pkgver = "29"
+pkgver = "30"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-zlib", "--with-xz", "--disable-test-modules"]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git"
 source = f"$(KERNEL_SITE)/utils/kernel/kmod/kmod-{pkgver}.tar.xz"
-sha256 = "0b80eea7aa184ac6fd20cafa2a1fdf290ffecc70869a797079e2cc5c6225a52a"
+sha256 = "f897dd72698dc6ac1ef03255cd0a5734ad932318e4adbaebc7338ef2f5202f9f"
 # broken testsuite build system
 options = ["!check"]
 
