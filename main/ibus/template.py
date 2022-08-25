@@ -1,5 +1,5 @@
 pkgname = "ibus"
-pkgver = "1.5.26"
+pkgver = "1.5.27"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -23,14 +23,14 @@ makedepends = [
     "libx11-devel", "libxtst-devel", "libxkbcommon-devel", "wayland-devel",
     "iso-codes",
 ]
-checkdepends = ["xserver-xorg-xvfb", "fonts-dejavu-otf"]
+checkdepends = ["xserver-xorg-xvfb", "fonts-dejavu-otf", "setxkbmap", "bash"]
 depends = ["python-gobject", "iso-codes", "dbus-x11"]
 pkgdesc = "Intelligent Input Bus"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "5c2fd118e7bfd4e9a42c3a20e6175a263426c90b6256f94989ed3d0384f4c9fc"
+sha256 = "6efbda5adb96f607cf7108d1e270962c0729a59c9ea6d58eea2dde0e3cbb97df"
 options = ["!cross"]
 
 @subpackage("libibus")
