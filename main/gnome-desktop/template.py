@@ -1,5 +1,5 @@
 pkgname = "gnome-desktop"
-pkgver = "42.0"
+pkgver = "42.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-desktop"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f3caa293a5e86f6ccad18f817273db1c67061e680d79d839aa8a7528e5bb26d6"
+sha256 = "1ce2c9d5067969dbe0b282ea5a9acfb8698751f03cd07e2c730240f85dc9ad25"
 # needs graphical environment
 options = ["!check"]
 
