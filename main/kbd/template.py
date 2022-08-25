@@ -1,5 +1,5 @@
 pkgname = "kbd"
-pkgver = "2.4.0"
+pkgver = "2.5.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://www.kbd-project.org"
 source = f"$(KERNEL_SITE)/utils/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "55f0740458cfd3a84e775e50d7e8b92dc01846db1edad8e2411ccc293ece9b9f"
+sha256 = "ccdf452387a6380973d2927363e9cbb939fa2068915a6f937ff9d24522024683"
 
 def post_patch(self):
     # Rename keymap files with the same names
