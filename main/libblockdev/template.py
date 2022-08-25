@@ -1,5 +1,5 @@
 pkgname = "libblockdev"
-pkgver = "2.26"
+pkgver = "2.27"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libblockdev"
 source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgver}-1/{pkgname}-{pkgver}.tar.gz"
-sha256 = "c4c0e10b35ac632bda8ce6d200b5601184984dec387fe59185921eb42432e069"
+sha256 = "6dcce12707377ea803e5e75b585635e195655c349cc94244862a83b1114c3517"
 
 @subpackage("libblockdev-devel")
 def _devel(self):
