@@ -1,5 +1,5 @@
 pkgname = "python-pytz"
-pkgver = "2022.1"
+pkgver = "2022.2.1"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pythonhosted.org/pytz"
 source = f"$(PYPI_SITE)/p/pytz/pytz-{pkgver}.tar.gz"
-sha256 = "1e760e2fe6a8163bc0b3d9a19c4f84342afa0a2affebfaa84b01b978a02ecaa7"
+sha256 = "cea221417204f2d1a2aa03ddae3e867921971d0d76f14d87abb4414415bbdcf5"
 # dependency of pytest
 options = ["!check", "brokenlinks"]
 
