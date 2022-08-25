@@ -1,5 +1,5 @@
 pkgname = "geocode-glib"
-pkgver = "3.26.2"
+pkgver = "3.26.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://developer.gnome.org/geocode-glib"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "01fe84cfa0be50c6e401147a2bc5e2f1574326e2293b55c69879be3e82030fd1"
+sha256 = "2d9a6826d158470449a173871221596da0f83ebdcff98b90c7049089056a37aa"
 
 @subpackage("geocode-glib-devel")
 def _devel(self):
