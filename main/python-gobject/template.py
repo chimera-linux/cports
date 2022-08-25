@@ -1,5 +1,5 @@
 pkgname = "python-gobject"
-pkgver = "3.42.0"
+pkgver = "3.42.2"
 pkgrel = 0
 build_style = "meson"
 make_check_env = {"PYGI_TEST_VERBOSE": "1"}
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://pygobject.readthedocs.io"
 source = f"$(GNOME_SITE)/pygobject/{pkgver[:-2]}/pygobject-{pkgver}.tar.xz"
-sha256 = "9b12616e32cfc792f9dc841d9c472a41a35b85ba67d3a6eb427e307a6fe4367b"
+sha256 = "ade8695e2a7073849dd0316d31d8728e15e1e0bc71d9ff6d1c09e86be52bc957"
 
 @subpackage("python-gobject-devel")
 def _devel(self):
