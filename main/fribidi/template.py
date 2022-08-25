@@ -1,5 +1,5 @@
 pkgname = "fribidi"
-pkgver = "1.0.11"
+pkgver = "1.0.12"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fribidi/fribidi"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "0e6d631c184e1012fb3ae86e80adabf26e46b4ffee2332e679eb308edd337398"
+sha256 = "2e9e859876571f03567ac91e5ed3b5308791f31cda083408c2b60fa1fe00a39d"
 
 @subpackage("fribidi-devel")
 def _devel(self):
