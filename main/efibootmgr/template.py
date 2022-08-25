@@ -1,7 +1,6 @@
 pkgname = "efibootmgr"
-pkgver = "17"
+pkgver = "18"
 pkgrel = 0
-_commit = "b9fedd6b6f57055164bc361bc5cf16a602843c6e"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["efivar-devel", "popt-devel", "linux-headers"]
@@ -9,8 +8,8 @@ pkgdesc = "Tool to modify the UEFI Boot Manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rhboot/efibootmgr"
-source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "06061ebf96d28522f5a20b592305e71b91d3fb479ddcce41dadb5180da16d8d8"
+source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
+sha256 = "2b195f912aa353f0d11f21f207684c91460fbc37f9a4f2673e63e5e32d108b10"
 
 # TODO: kernel hook?
 
