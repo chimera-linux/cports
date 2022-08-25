@@ -1,15 +1,15 @@
 --- a/src/efibootmgr.c
 +++ b/src/efibootmgr.c
-@@ -1402,7 +1402,7 @@ usage()
- 	printf("\t-g | --gpt            force disk with invalid PMBR to be treated as GPT\n");
- 	printf("\t-i | --iface name     create a netboot entry for the named interface\n");
- 	printf("\t-l | --loader name     (defaults to \""DEFAULT_LOADER"\")\n");
--	printf("\t-L | --label label     boot manager display label (defaults to \"Linux\")\n");
-+	printf("\t-L | --label label     boot manager display label (defaults to \"Chimera Linux (GRUB2)\")\n");
- 	printf("\t-m | --mirror-below-4G t|f mirror memory below 4GB\n");
- 	printf("\t-M | --mirror-above-4G X percentage memory to mirror above 4GB\n");
- 	printf("\t-n | --bootnext XXXX   set BootNext to XXXX (hex)\n");
-@@ -1434,7 +1434,7 @@ set_default_opts()
+@@ -1412,7 +1412,7 @@ usage()
+ 	printf("\t-i | --iface name     Create a netboot entry for the named interface.\n");
+ 	printf("\t-I | --index number   When creating an entry, insert it in bootorder at specified position (default: 0).\n");
+ 	printf("\t-l | --loader name     (Defaults to \""DEFAULT_LOADER"\").\n");
+-	printf("\t-L | --label label     Boot manager display label (defaults to \"Linux\").\n");
++	printf("\t-L | --label label     Boot manager display label (defaults to \"Chimera Linux (GRUB2)\").\n");
+ 	printf("\t-m | --mirror-below-4G t|f Mirror memory below 4GB.\n");
+ 	printf("\t-M | --mirror-above-4G X Percentage memory to mirror above 4GB.\n");
+ 	printf("\t-n | --bootnext XXXX   Set BootNext to XXXX (hex).\n");
+@@ -1444,7 +1444,7 @@ set_default_opts()
  	opts.timeout         = -1;   /* Don't set it */
  	opts.edd10_devicenum = 0x80;
  	opts.loader          = DEFAULT_LOADER;
