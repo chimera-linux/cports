@@ -140,14 +140,14 @@
 @@ -357,11 +357,11 @@ $(TOAST_INSTALL_BIN)/toast:	$(TOAST)
  
  $(TOAST_INSTALL_BIN)/untoast:	$(TOAST_INSTALL_BIN)/toast
- 		-rm $@
--		ln $? $@
-+		ln -s toast $@
+ 		-rm $(RMFLAGS) $@
+-		$(LN) $? $@
++		$(LN) -s toast $@
  
  $(TOAST_INSTALL_BIN)/tcat:	$(TOAST_INSTALL_BIN)/toast
- 		-rm $@
--		ln $? $@
-+		ln -s toast $@
+ 		-rm $(RMFLAGS) $@
+-		$(LN) $? $@
++		$(LN) -s toast $@
  
  $(TOAST_INSTALL_MAN)/toast.1:	$(MAN)/toast.1
- 		-rm $@
+ 		-rm $(RMFLAGS) $@

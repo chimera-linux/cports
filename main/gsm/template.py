@@ -1,5 +1,5 @@
 pkgname = "gsm"
-pkgver = "1.0.19"
+pkgver = "1.0.22"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "TU-Berlin-2.0"
 url = "http://www.quut.com/gsm"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "4903652f68a8c04d0041f0d19b1eb713ddcd2aa011c5e595b3b8bca2755270f6"
+sha256 = "f0072e91f6bb85a878b2f6dbf4a0b7c850c4deb8049d554c65340b3bf69df0ac"
 # racey mess of a build system
 options = ["!parallel", "!lto"]
 
