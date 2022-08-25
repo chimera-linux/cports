@@ -1,5 +1,5 @@
 pkgname = "ldns"
-pkgver = "1.8.1"
+pkgver = "1.8.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.nlnetlabs.nl/projects/ldns"
 source = f"http://www.nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "958229abce4d3aaa19a75c0d127666564b17216902186e952ca4aef47c6d7fa3"
+sha256 = "c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860"
 # no check target
 options = ["!check"]
 
