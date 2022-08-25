@@ -1,5 +1,5 @@
 pkgname = "fluidsynth"
-pkgver = "2.2.6"
+pkgver = "2.2.8"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.fluidsynth.org"
 source = f"https://github.com/FluidSynth/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "ca90fe675cacd9a7b442662783c4e7fa0e1fd638b28d64105a4e3fe0f618d20f"
+sha256 = "7c29a5cb7a2755c8012d941d1335da7bda957bbb0a86b7c59215d26773bb51fe"
 
 @subpackage("libfluidsynth")
 def _lib(self):
