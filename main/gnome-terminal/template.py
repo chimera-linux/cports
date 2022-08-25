@@ -1,5 +1,5 @@
 pkgname = "gnome-terminal"
-pkgver = "3.44.0"
+pkgver = "3.44.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "aa967189eeb609459e6c0a468a01ea70cb8c4530da1d500b2d3f4fc438b8fe2a"
+sha256 = "fb6f20ee1ff231a9aaedab13d5dc6e5a64c955711224848b790086e88959d37b"
 options = ["!cross"]
 
 @subpackage("nautilus-gnome-terminal-extension")
