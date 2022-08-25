@@ -1,5 +1,5 @@
 pkgname = "gdk-pixbuf"
-pkgver = "2.42.8"
+pkgver = "2.42.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -7,7 +7,7 @@ configure_args = [
 ]
 hostmakedepends = [
     "meson", "gettext-tiny", "pkgconf", "docbook-xsl-nons", "xsltproc",
-    "glib-devel", "gobject-introspection",
+    "glib-devel", "gobject-introspection", "python-docutils",
 ]
 makedepends = [
     "libglib-devel", "libpng-devel", "libtiff-devel", "shared-mime-info",
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GdkPixbuf"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "84acea3acb2411b29134b32015a5b1aaa62844b19c4b1ef8b8971c6b0759f4c6"
+sha256 = "28f7958e7bf29a32d4e963556d241d0a41a6786582ff6a5ad11665e0347fc962"
 
 @subpackage("gdk-pixbuf-devel")
 def _devel(self):
