@@ -26,12 +26,12 @@ index d19e66b..cf3d2e3 100644
 --- a/src/tools/pw-cli.c
 +++ b/src/tools/pw-cli.c
 @@ -33,8 +33,7 @@
- #endif
  #include <getopt.h>
  #include <fnmatch.h>
+ #ifdef HAVE_READLINE
 -#include <readline/readline.h>
 -#include <readline/history.h>
 +#include <editline/readline.h>
+ #endif
  #include <locale.h>
  
- #if !defined(FNM_EXTMATCH)

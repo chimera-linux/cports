@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.49"
+pkgver = "0.3.56"
 pkgrel = 0
 _pms_version = "0.4.1"
 build_style = "meson"
@@ -14,6 +14,7 @@ configure_args = [
     "-Droc=disabled",
     "-Dlv2=enabled",
     "-Dbluez5=enabled",
+    "-Dbluez5-codec-lc3plus=disabled",
     "-Dpipewire-jack=enabled", # jack server
     "-Djack-devel=true", # jack development files
     "-Dlibjack-path=/usr/lib",
@@ -59,7 +60,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = [f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["0400b422eb96eaa84229dfe121810281594561b22d69c17af95f7fea1f6edb5e"]
+sha256 = ["e73d8897daac8f9e61a23193ed71971682715a5997cb553d809bc61a349ef03c"]
 
 if self.profile().endian == "big":
     configure_args += ["-Dbluez5-codec-ldac=disabled"]
