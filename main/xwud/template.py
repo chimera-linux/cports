@@ -1,5 +1,5 @@
 pkgname = "xwud"
-pkgver = "1.0.5"
+pkgver = "1.0.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "X image displayer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "99997051f8a892313f22edf41dab45864e86e7062ee9012d5dbb6a40fc6b10a9"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "262171b0c434966ddbbe8a54afb9615567ad74d4cc2e823e14e51e099ec3ab0d"
 
 def post_install(self):
     self.install_license("COPYING")
