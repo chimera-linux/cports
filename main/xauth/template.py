@@ -1,5 +1,5 @@
 pkgname = "xauth"
-pkgver = "1.1.1"
+pkgver = "1.1.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "X authentication utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "164ea0a29137b284a47b886ef2affcb0a74733bf3aad04f9b106b1a6c82ebd92"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "84d27a1023d8da524c134f424b312e53cb96e08871f96868aa20316bfcbbc054"
 # needs cmdtest
 options = ["!check"]
 
