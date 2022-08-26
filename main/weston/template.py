@@ -1,5 +1,5 @@
 pkgname = "weston"
-pkgver = "10.0.0"
+pkgver = "10.0.2"
 pkgrel = 0
 build_style = "meson"
 # pipewire requires 0.2 in this release
@@ -25,8 +25,8 @@ pkgdesc = "Reference implementation of a Wayland compositor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
-source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "5c23964112b90238bed39e5dd1e41cd71a79398813cdc3bbb15a9fdc94e547ae"
+source = f"https://gitlab.freedesktop.org/wayland/{pkgname}/-/releases/{pkgver}/downloads/{pkgname}-{pkgver}.tar.xz"
+sha256 = "89646ca0d9f8d413c2767e5c3828eaa3fa149c2a105b3729a6894fa7cf1549e7"
 
 def post_install(self):
     self.install_license("COPYING")
