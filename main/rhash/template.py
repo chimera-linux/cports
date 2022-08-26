@@ -1,5 +1,5 @@
 pkgname = "rhash"
-pkgver = "1.4.2"
+pkgver = "1.4.3"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
 url = "https://github.com/rhash/RHash"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "600d00f5f91ef04194d50903d3c79412099328c42f28ff43a0bdb777b00bec62"
+sha256 = "1e40fa66966306920f043866cbe8612f4b939b033ba5e2708c3f41be257c8a3e"
 
 def init_configure(self):
     self.configure_args += [
