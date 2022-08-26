@@ -122,6 +122,9 @@ def setup_keys(rootp):
     shutil.rmtree(keydir, ignore_errors = True)
     keydir.mkdir(parents = True, exist_ok = True)
 
+    for f in (paths.distdir() / "etc/apk/keys").glob("*.pub"):
+        shutil.copy2(f, keydir)
+
     for f in (paths.distdir() / "etc/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
 
