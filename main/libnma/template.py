@@ -1,5 +1,5 @@
 pkgname = "libnma"
-pkgver = "1.8.38"
+pkgver = "1.8.40"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libnma"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "241c7202c88af3a83331830c210958866b15c858fab3733bf663837d14d40640"
+sha256 = "ff205dca5cfde13d7b749cff041b3764ae7c6195a4bc68fc9d28d168baf698e2"
 options = ["!cross"]
 
 @subpackage("libnma-devel")
