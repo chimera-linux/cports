@@ -1,5 +1,5 @@
 pkgname = "sdl"
-pkgver = "2.0.20"
+pkgver = "2.24.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -23,13 +23,6 @@ configure_args = [
     "--enable-video-opengles",
     "--enable-video-vulkan",
     "--enable-video-wayland",
-    "--enable-video-x11-xinput",
-    "--enable-video-x11-xcursor",
-    "--enable-video-x11-xrandr",
-    "--enable-video-x11-xinerama",
-    "--enable-video-x11-scrnsaver",
-    "--enable-video-x11-xshape",
-    "--enable-video-x11-vm",
     "--enable-clock_gettime",
 ]
 make_cmd = "gmake"
@@ -51,7 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org"
 source = f"https://www.libsdl.org/release/SDL2-{pkgver}.tar.gz"
-sha256 = "c56aba1d7b5b0e7e999e4a7698c70b63a3394ff9704b5f6e1c57e0c16f04dd06"
+sha256 = "91e4c34b1768f92d399b078e171448c6af18cafda743987ed2064a28954d6d97"
 # no check target
 options = ["!check"]
 
