@@ -1,5 +1,5 @@
 pkgname = "ninja"
-pkgver = "1.10.2"
+pkgver = "1.11.0"
 pkgrel = 0
 hostmakedepends = ["python"]
 pkgdesc = "Small build system with a focus on speed"
@@ -7,7 +7,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://ninja-build.org"
 source = f"https://github.com/ninja-build/ninja/archive/v{pkgver}.tar.gz"
-sha256 = "ce35865411f0490368a8fc383f29071de6690cbadc27704734978221f25e2bed"
+sha256 = "3c6ba2e66400fe3f1ae83deb4b235faf3137ec20bd5b08c29bfc368db143e4c6"
 
 def do_configure(self):
     self.do("python", "configure.py", "--bootstrap")
