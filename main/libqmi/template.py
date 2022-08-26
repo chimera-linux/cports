@@ -1,5 +1,5 @@
 pkgname = "libqmi"
-pkgver = "1.30.4"
+pkgver = "1.30.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/libqmi"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "00d7da30a4f8d1185f37cba289cfaf1dfcd04a58f2f76d6acfdf5b85312d6ed6"
+sha256 = "862482ce9e3ad0bd65d264334ee311cdb94b9df2863b5b7136309b41b8ac1990"
 
 @subpackage("libqmi-devel")
 def _devel(self):
