@@ -1,5 +1,5 @@
 pkgname = "pcre2"
-pkgver = "10.39"
+pkgver = "10.40"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.pcre.org"
 source = f"https://github.com/PhilipHazel/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "0781bd2536ef5279b1943471fdcdbd9961a2845e1d2c9ad849b9bd98ba1a9bd4"
+sha256 = "ded42661cab30ada2e72ebff9e725e745b4b16ce831993635136f2ef86177724"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
