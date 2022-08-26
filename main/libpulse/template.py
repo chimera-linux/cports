@@ -1,5 +1,5 @@
 pkgname = "libpulse"
-pkgver = "15.0"
+pkgver = "16.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/PulseAudio"
 source = f"$(FREEDESKTOP_SITE)/pulseaudio/releases/pulseaudio-{pkgver}.tar.xz"
-sha256 = "a40b887a3ba98cc26976eb11bdb6613988f145b19024d1b6555c6a03c9cba1a0"
+sha256 = "8eef32ce91d47979f95fd9a935e738cd7eb7463430dabc72863251751e504ae4"
 
 @subpackage("libpulse-devel")
 def _devel(self):
