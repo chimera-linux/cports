@@ -1,1 +1,2 @@
-pattern = r"/refs/tags/R_(\d+_\d+_\d+)\.tar\.gz"
+url = "https://github.com/ArtifexSoftware/jbig2dec/tags"
+pattern = r'/ArtifexSoftware/jbig2dec/releases/tag/([\d.]+)">'
