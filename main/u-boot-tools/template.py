@@ -1,5 +1,5 @@
 pkgname = "u-boot-tools"
-pkgver = "2022.04"
+pkgver = "2022.07"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -7,17 +7,17 @@ make_build_target = "tools-all"
 make_build_args = [
     "tools-only", "envtools", "HOSTSTRIP=:", "STRIP=:", "NO_SDL=1"
 ]
-hostmakedepends = ["gmake", "bison", "flex"]
+hostmakedepends = ["gmake", "bison", "flex", "python", "swig"]
 makedepends = [
     "openssl-devel", "linux-headers", "libuuid-devel", "gnutls-devel",
-    "ncurses-libtinfo-devel"
+    "ncurses-libtinfo-devel", "python-devel",
 ]
 pkgdesc = "Das U-Boot tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"ftp://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "68e065413926778e276ec3abd28bb32fa82abaa4a6898d570c1f48fbdb08bcd0"
+sha256 = "92b08eb49c24da14c1adbf70a71ae8f37cc53eeb4230e859ad8b6733d13dcf5e"
 # weird test suite
 options = ["!check"]
 
