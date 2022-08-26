@@ -1,5 +1,5 @@
 pkgname = "util-linux"
-pkgver = "2.38"
+pkgver = "2.38.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -32,8 +32,8 @@ pkgdesc = "Miscellaneous Linux utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.kernel.org/pub/linux/utils/util-linux"
-source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "6d111cbe4d55b336db2f1fbeffbc65b89908704c01136371d32aa9bec373eb64"
+source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "60492a19b44e6cf9a3ddff68325b333b8b52b6c59ce3ebd6a0ecaa4c5117e84f"
 tool_flags = {"CFLAGS": ["-D_DIRENT_HAVE_D_TYPE"]}
 suid_files = [
     "usr/bin/chfn",
