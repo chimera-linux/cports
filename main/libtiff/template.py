@@ -1,5 +1,5 @@
 pkgname = "libtiff"
-pkgver = "4.3.0"
+pkgver = "4.4.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx", "--without-x"]
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "libtiff"
 url = "http://libtiff.maptools.org"
 source = f"http://download.osgeo.org/{pkgname}/tiff-{pkgver}.tar.gz"
-sha256 = "0e46e5acb087ce7d1ac53cf4f56a09b221537fc86dfc5daaad1c2e89e1b37ac8"
+sha256 = "917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed"
 
 def post_install(self):
     for f in (self.destdir / "usr/share/man/man3").glob("*.3tiff"):
