@@ -1,5 +1,5 @@
 pkgname = "perl-json"
-pkgver = "4.05"
+pkgver = "4.09"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["gmake", "perl"]
@@ -11,4 +11,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/JSON"
 source = f"$(CPAN_SITE)/JSON/JSON-{pkgver}.tar.gz"
-sha256 = "53839373210bebea0b24fe459d0a8232446b62015c8dc42dc36051da67336bf0"
+sha256 = "6780a51f438c0932eec0534fc9cd2b1ad0d64817eda4add8ede5ec77d6d2c991"
