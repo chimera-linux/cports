@@ -1,5 +1,5 @@
 pkgname = "wireplumber"
-pkgver = "0.4.9"
+pkgver = "0.4.11"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.pages.freedesktop.org/wireplumber"
 source = f"https://gitlab.freedesktop.org/pipewire/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "0b25774a2821286a1fa31afb7db8db0573f493b35c40a7031b6e5a30cec0bbe3"
+sha256 = "cf5df4e4d2ab5402b4ede3bfa8931ff758359a46b6676541faebf3055d5a1fc6"
 
 def post_install(self):
     self.install_license("LICENSE")
