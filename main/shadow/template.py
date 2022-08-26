@@ -1,5 +1,5 @@
 pkgname = "shadow"
-pkgver = "4.11.1"
+pkgver = "4.12.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -17,8 +17,8 @@ pkgdesc = "Shadow password file utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/shadow-maint/shadow"
-source = f"{url}/releases/download/v{pkgver}/shadow-{pkgver}.tar.xz"
-sha256 = "41f093ce58b2ae5f389a1c5553e0c18bc73e6fe27f66273891991198a7707c95"
+source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"
+sha256 = "3d3ec447cfdd11ab5f0486ebc47d15718349d13fea41fc8584568bc118083ccd"
 suid_files = [
     "usr/bin/chage",
     "usr/bin/expiry",

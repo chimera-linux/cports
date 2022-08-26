@@ -2,10 +2,11 @@ Patch-Source: https://src.fedoraproject.org/rpms/shadow-utils/blob/f35/f/shadow-
 
 Handle /etc/passwd corruption
 
-diff -up shadow-4.8/lib/defines.h.long-entry shadow-4.8/lib/defines.h
---- shadow-4.8/lib/defines.h.long-entry	2020-01-13 10:29:45.288957339 +0100
-+++ shadow-4.8/lib/defines.h	2020-01-13 10:30:47.482902954 +0100
-@@ -388,6 +388,9 @@ extern char *strerror ();
+diff --git a/lib/defines.h b/lib/defines.h
+index ee33aa0..b1385bc 100644
+--- a/lib/defines.h
++++ b/lib/defines.h
+@@ -335,6 +335,9 @@ extern char *strerror ();
  # endif
  #endif
  
@@ -15,10 +16,11 @@ diff -up shadow-4.8/lib/defines.h.long-entry shadow-4.8/lib/defines.h
  #ifdef HAVE_SECURE_GETENV
  #  define shadow_getenv(name) secure_getenv(name)
  # else
-diff -up shadow-4.8/lib/pwio.c.long-entry shadow-4.8/lib/pwio.c
---- shadow-4.8/lib/pwio.c.long-entry	2019-07-23 17:26:08.000000000 +0200
-+++ shadow-4.8/lib/pwio.c	2020-01-13 10:29:45.288957339 +0100
-@@ -79,7 +79,10 @@ static int passwd_put (const void *ent,
+diff --git a/lib/pwio.c b/lib/pwio.c
+index 2efecfb..e59b473 100644
+--- a/lib/pwio.c
++++ b/lib/pwio.c
+@@ -56,7 +56,10 @@ static int passwd_put (const void *ent, FILE * file)
  	    || (pw->pw_gid == (gid_t)-1)
  	    || (valid_field (pw->pw_gecos, ":\n") == -1)
  	    || (valid_field (pw->pw_dir, ":\n") == -1)
@@ -30,19 +32,20 @@ diff -up shadow-4.8/lib/pwio.c.long-entry shadow-4.8/lib/pwio.c
  		return -1;
  	}
  
-diff -up shadow-4.8/lib/sgetpwent.c.long-entry shadow-4.8/lib/sgetpwent.c
---- shadow-4.8/lib/sgetpwent.c.long-entry	2019-10-05 03:23:58.000000000 +0200
-+++ shadow-4.8/lib/sgetpwent.c	2020-01-13 10:29:45.288957339 +0100
-@@ -57,7 +57,7 @@
+diff --git a/lib/sgetpwent.c b/lib/sgetpwent.c
+index c6e5944..c36bb40 100644
+--- a/lib/sgetpwent.c
++++ b/lib/sgetpwent.c
+@@ -34,7 +34,7 @@
  struct passwd *sgetpwent (const char *buf)
  {
  	static struct passwd pwent;
 -	static char pwdbuf[1024];
 +	static char pwdbuf[PASSWD_ENTRY_MAX_LENGTH];
- 	register int i;
- 	register char *cp;
+ 	int i;
+ 	char *cp;
  	char *fields[NFIELDS];
-@@ -67,8 +67,10 @@ struct passwd *sgetpwent (const char *bu
+@@ -44,8 +44,10 @@ struct passwd *sgetpwent (const char *buf)
  	 * the password structure remain valid.
  	 */
  
@@ -54,10 +57,11 @@ diff -up shadow-4.8/lib/sgetpwent.c.long-entry shadow-4.8/lib/sgetpwent.c
  	strcpy (pwdbuf, buf);
  
  	/*
-diff -up shadow-4.8/lib/sgetspent.c.long-entry shadow-4.8/lib/sgetspent.c
---- shadow-4.8/lib/sgetspent.c.long-entry	2019-07-23 17:26:08.000000000 +0200
-+++ shadow-4.8/lib/sgetspent.c	2020-01-13 10:29:45.289957322 +0100
-@@ -48,7 +48,7 @@
+diff --git a/lib/sgetspent.c b/lib/sgetspent.c
+index cbadb7e..4f74726 100644
+--- a/lib/sgetspent.c
++++ b/lib/sgetspent.c
+@@ -25,7 +25,7 @@
   */
  struct spwd *sgetspent (const char *string)
  {
@@ -66,7 +70,7 @@ diff -up shadow-4.8/lib/sgetspent.c.long-entry shadow-4.8/lib/sgetspent.c
  	static struct spwd spwd;
  	char *fields[FIELDS];
  	char *cp;
-@@ -61,6 +61,7 @@ struct spwd *sgetspent (const char *stri
+@@ -37,6 +37,7 @@ struct spwd *sgetspent (const char *string)
  	 */
  
  	if (strlen (string) >= sizeof spwbuf) {
@@ -74,10 +78,11 @@ diff -up shadow-4.8/lib/sgetspent.c.long-entry shadow-4.8/lib/sgetspent.c
  		return 0;	/* fail if too long */
  	}
  	strcpy (spwbuf, string);
-diff -up shadow-4.8/lib/shadowio.c.long-entry shadow-4.8/lib/shadowio.c
---- shadow-4.8/lib/shadowio.c.long-entry	2019-07-23 17:26:08.000000000 +0200
-+++ shadow-4.8/lib/shadowio.c	2020-01-13 10:29:45.289957322 +0100
-@@ -79,7 +79,9 @@ static int shadow_put (const void *ent,
+diff --git a/lib/shadowio.c b/lib/shadowio.c
+index 3407604..683b6c8 100644
+--- a/lib/shadowio.c
++++ b/lib/shadowio.c
+@@ -56,7 +56,9 @@ static int shadow_put (const void *ent, FILE * file)
  
  	if (   (NULL == sp)
  	    || (valid_field (sp->sp_namp, ":\n") == -1)

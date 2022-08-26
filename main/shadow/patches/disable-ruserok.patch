@@ -1,11 +1,11 @@
 --- a/configure
 +++ b/configure
-@@ -15193,9 +15193,6 @@ if test "$ac_cv_func_ruserok" = "yes"; then
+@@ -15825,9 +15825,6 @@ if test "$ac_cv_func_ruserok" = "yes"; then
  
- $as_echo "#define RLOGIN 1" >>confdefs.h
+ printf "%s\n" "#define RLOGIN 1" >>confdefs.h
  
 -
--$as_echo "#define RUSEROK 0" >>confdefs.h
+-printf "%s\n" "#define RUSEROK 0" >>confdefs.h
 -
  fi
  
