@@ -1,5 +1,5 @@
 pkgname = "libplacebo"
-pkgver = "4.192.1"
+pkgver = "4.208.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://code.videolan.org/videolan/libplacebo"
 source = f"{url}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
-sha256 = "e6c5805cf4d955b5941dd12b00fe157b61e77995bc1786b9a86df0ca99a0edc4"
+sha256 = "7b3c857934ee3d30f743e43d7f0606e10950806661ea0ea385f8a1f06cbab854"
 
 @subpackage("libplacebo-devel")
 def _devel(self):
