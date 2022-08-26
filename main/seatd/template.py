@@ -1,5 +1,5 @@
 pkgname = "seatd"
-pkgver = "0.6.4"
+pkgver = "0.7.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://kl.wtf/projects/seatd"
 source = f"https://git.sr.ht/~kennylevinsen/{pkgname}/archive/{pkgver}.tar.gz"
-sha256 = "3d4ac288114219ba7721239cafee7bfbeb7cf8e1e7fd653602a369e4ad050bd8"
+sha256 = "210ddf8efa1149cde4dd35908bef8e9e63c2edaa0cdb5435f2e6db277fafff3c"
 
 system_groups = ["_seatd"]
 
