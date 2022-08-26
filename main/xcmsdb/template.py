@@ -1,5 +1,5 @@
 pkgname = "xcmsdb"
-pkgver = "1.0.5"
+pkgver = "1.0.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "Device Color Characterization utility for X"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "e5585361bb8b6a05bb814a8d0e444ee93e0f00180881d3070aff4571e97f67c6"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "640b42c746eb34bdd71ca2850f2bc9fb0ade194c9f152a8d002425a0684df077"
 
 def post_install(self):
     self.install_license("COPYING")
