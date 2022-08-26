@@ -1,5 +1,5 @@
 pkgname = "xz"
-pkgver = "5.2.5"
+pkgver = "5.2.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:xz"
 url = "https://tukaani.org/xz"
 source = f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"
-sha256 = "5117f930900b341493827d63aa910ff5e011e0b994197c3b71c08a20228a42df"
+sha256 = "13e3402e301b6018f6a71ef0e497f714c6d11e214ae82dab156b81c2a64acb25"
 options = ["bootstrap"]
 
 def post_install(self):
@@ -21,7 +21,10 @@ def post_install(self):
     ]:
         self.rm(self.destdir / "usr/bin" / tool)
         self.rm(self.destdir / "usr/share/man/man1" / (tool + ".1"))
-        self.rm(self.destdir / "usr/share/man/de/man1" / (tool + ".1"))
+        for lang in (self.destdir / "usr/share/man").iterdir():
+            if lang.name == "man1":
+                continue
+            self.rm(lang / "man1" / (tool + ".1"), force = True)
 
 @subpackage("liblzma")
 def _lib(self):
