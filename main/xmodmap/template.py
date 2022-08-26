@@ -1,5 +1,5 @@
 pkgname = "xmodmap"
-pkgver = "1.0.10"
+pkgver = "1.0.11"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "Modify X keymaps and pointer button mappings"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "473f0941d7439d501bb895ff358832b936ec34c749b9704c37a15e11c318487c"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "c4fac9df448b98ac5a1620f364e74ed5f7084baae0d09123700f34d4b63cb5d8"
 
 def post_install(self):
     self.install_license("COPYING")
