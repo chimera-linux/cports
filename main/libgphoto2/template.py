@@ -1,5 +1,5 @@
 pkgname = "libgphoto2"
-pkgver = "2.5.29"
+pkgver = "2.5.30"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.gphoto.org"
 source = f"https://github.com/gphoto/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4b439ec10af3ae4d7696d4a75655a1fe259dea5c1ccc692af58a0cc5024e7754"
+sha256 = "4d50e71d771ca78e33f10308e7f15ad00a2268d1b5af4a19cd4c5512a1b62a62"
 
 if self.profile().cross:
     hostmakedepends += ["libgphoto2"]
