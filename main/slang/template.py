@@ -1,5 +1,5 @@
 pkgname = "slang"
-pkgver = "2.3.2"
+pkgver = "2.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.jedsoft.org/slang"
 source = f"https://www.jedsoft.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "fc9e3b0fc4f67c3c1f6d43c90c16a5c42d117b8e28457c5b46831b8b5d3ae31a"
+sha256 = "f9145054ae131973c61208ea82486d5dd10e3c5cdad23b7c4a0617743c8f5a18"
 # racey
 options = ["!parallel"]
 
