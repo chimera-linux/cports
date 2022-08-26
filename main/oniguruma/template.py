@@ -1,5 +1,5 @@
 pkgname = "oniguruma"
-pkgver = "6.9.7.1"
+pkgver = "6.9.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-posix-api=yes"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/kkos/oniguruma"
 source = f"{url}/releases/download/v{pkgver}/onig-{pkgver}.tar.gz"
-sha256 = "6444204b9c34e6eb6c0b23021ce89a0370dad2b2f5c00cd44c342753e0b204d9"
+sha256 = "28cd62c1464623c7910565fb1ccaaa0104b2fe8b12bcd646e81f73b47535213e"
 
 def post_install(self):
     self.install_license("COPYING")
