@@ -1,12 +1,12 @@
 pkgname = "opencl-headers"
-pkgver = "2022.01.04"
+pkgver = "2022.05.18"
 pkgrel = 0
 pkgdesc = "OpenCL header files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/OpenCL-Headers"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "6e716e2b13fc8d363b40a165ca75021b102f9328e2b38f8054d7db5884de29c9"
+sha256 = "88a1177853b279eaf574e2aafad26a84be1a6f615ab1b00c20d5af2ace95c42e"
 # no test suite
 options = ["!check"]
 
