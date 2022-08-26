@@ -1,5 +1,5 @@
 pkgname = "pkgconf"
-pkgver = "1.8.0"
+pkgver = "1.9.3"
 pkgrel = 0
 build_style = "gnu_configure"
 checkdepends = ["kyua"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
-sha256 = "ef9c7e61822b7cb8356e6e9e1dca58d9556f3200d78acab35e4347e9d4c2bbaf"
+sha256 = "5fb355b487d54fb6d341e4f18d4e2f7e813a6622cf03a9e87affa6a40565699d"
 # checkdepends not available yet
 options = ["bootstrap", "!check"]
 
