@@ -1,5 +1,5 @@
 pkgname = "polkit"
-pkgver = "0.120"
+pkgver = "121"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -24,7 +24,7 @@ pkgdesc = "Toolkit for defining and handling authorizations"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/polkit"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "ee7a599a853117bf273548725719fa92fabd2f136915c7a4906cee98567aee03"
+sha256 = "9dc7ae341a797c994a5a36da21963f0c5c8e3e5a1780ccc2a5f52e7be01affaa"
 suid_files = [
     "usr/lib/polkit-1/polkit-agent-helper-1",
     "usr/bin/pkexec",
