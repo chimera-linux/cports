@@ -1,5 +1,5 @@
 pkgname = "zsh"
-pkgver = "5.8.1"
+pkgver = "5.9"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -33,7 +33,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://www.zsh.org"
 source = f"{url}/pub/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b6973520bace600b4779200269b1e5d79e5f505ac4952058c11ad5bbf0dd9919"
+sha256 = "9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5"
 
 def post_patch(self):
     self.rm("Completion/Linux/Command/_pkgtool")
