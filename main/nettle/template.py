@@ -1,5 +1,5 @@
 pkgname = "nettle"
-pkgver = "3.7.3"
+pkgver = "3.8.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later OR LGPL-3.0-or-later"
 url = "https://www.lysator.liu.se/~nisse/nettle"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "661f5eb03f048a3b924c3a8ad2515d4068e40f67e774e8a26827658007e3bcf0"
+sha256 = "364f3e2b77cd7dcde83fd7c45219c834e54b0c75e428b6f894a23d12dd41cbfe"
 
 @subpackage("nettle-devel")
 def _devel(self):
