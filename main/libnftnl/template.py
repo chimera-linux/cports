@@ -1,5 +1,5 @@
 pkgname = "libnftnl"
-pkgver = "1.2.1"
+pkgver = "1.2.3"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.netfilter.org/projects/libnftnl"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "7508a5c414fab13e3cb3ce8262d0ce4f02c1590a8e4f8628ab497b5b4585937c"
+sha256 = "e916ea9b79f9518560b9a187251a7c042442a9ecbce7f36be7908888605d0255"
 
 @subpackage("libnftnl-devel")
 def _devel(self):
