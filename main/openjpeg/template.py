@@ -1,5 +1,5 @@
 pkgname = "openjpeg"
-pkgver = "2.4.0"
+pkgver = "2.5.0"
 pkgrel = 0
 build_style = "cmake"
 # we skip static libs or they get referenced in cmake devel files
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://www.openjpeg.org"
 source = f"https://github.com/uclouvain/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "8702ba68b442657f11aaeb2b338443ca8d5fb95b0d845757968a7be31ef7f16d"
+sha256 = "0333806d6adecc6f7a91243b2b839ff4d2053823634d4f6ed7a59bc87409122a"
 # missing test data
 options = ["!check"]
 
