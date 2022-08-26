@@ -1,5 +1,5 @@
 pkgname = "libidn2"
-pkgver = "2.3.2"
+pkgver = "2.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["gettext-tiny-devel", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libidn#libidn2"
 source = f"$(GNU_SITE)/libidn/{pkgname}-{pkgver}.tar.gz"
-sha256 = "76940cd4e778e8093579a9d195b25fff5e936e9dc6242068528b437a76764f91"
+sha256 = "f3ac987522c00d33d44b323cae424e2cffcb4c63c6aa6cd1376edacbf1c36eb0"
 
 @subpackage("libidn2-devel")
 def _devel(self):
