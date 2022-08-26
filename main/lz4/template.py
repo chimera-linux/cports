@@ -1,5 +1,5 @@
 pkgname = "lz4"
-pkgver = "1.9.3"
+pkgver = "1.9.4"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND GPL-2.0-or-later"
 url = "https://lz4.github.io/lz4"
 source = f"https://github.com/lz4/lz4/archive/v{pkgver}.tar.gz"
-sha256 = "030644df4611007ff7dc962d981f390361e6c97a34e5cbc393ddfbe019ffe2c1"
+sha256 = "0b0e3aa07c8c063ddf40b082bdf7e37a1562bda40a0ff5272957f3e987e0e54b"
 options = ["bootstrap"]
 
 def init_configure(self):
