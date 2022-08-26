@@ -9,7 +9,7 @@ pkgdesc = "Rust programming language bootstrap toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
-_urlb = "https://ftp.octaforge.org/chimera/distfiles"
+_urlb = "https://repo.chimera-linux.org/distfiles"
 source = [
     f"{_urlb}/rustc-{pkgver}-{self.profile().triplet}.tar.xz",
     f"{_urlb}/rust-std-{pkgver}-{self.profile().triplet}.tar.xz"
