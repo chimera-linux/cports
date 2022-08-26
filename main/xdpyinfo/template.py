@@ -1,5 +1,5 @@
 pkgname = "xdpyinfo"
-pkgver = "1.3.2"
+pkgver = "1.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-dmx"]
@@ -12,8 +12,8 @@ pkgdesc = "X display information utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "30238ed915619e06ceb41721e5f747d67320555cc38d459e954839c189ccaf51"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "2ae7b8213ea839b8376843477496276e8d69550c48bff081e16376539fc27c5a"
 
 def post_install(self):
     self.install_license("COPYING")
