@@ -1,5 +1,5 @@
 pkgname = "unicode-emoji"
-pkgver = "14.0"
+pkgver = "15.0"
 pkgrel = 0
 pkgdesc = "Unicode Emoji data files"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -11,9 +11,9 @@ source = [
     f"https://www.unicode.org/Public/emoji/{pkgver}/emoji-zwj-sequences.txt",
 ]
 sha256 = [
-    "5432b76b57de3f6458ce0ffb91256c7427b3985ab3bc2398a5ae8c2a8bbc9d26",
-    "ec474be073670aa7ce6dc1de9025b9fbb9b875fc63df815c254a5d1686fc6109",
-    "bd2a7bd4ad4d50104054923ed406c5904fe587177295a84c67ec665d80921a68",
+    "5c2222d8a432d896a031a68c2f54b04fbf47b0fce2e69853f1eb8a3e945eb56d",
+    "8445f23ac8388e096be19d0262e14fceff856ff52093f2356dc89485f1a853db",
+    "fe357f9117b7746676063765d587137edf9b25903a792bd54935bf0856791182",
 ]
 
 def do_install(self):
