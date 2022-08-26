@@ -1,5 +1,5 @@
 pkgname = "pciutils"
-pkgver = "3.7.0"
+pkgver = "3.8.0"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://mj.ucw.cz/pciutils.html"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "ea768aa0187ba349391c6c157445ecc2b42e7d671fc1ce8c53ff5ef513f1e2ab"
+sha256 = "71189a1297e39d2638dd5691a102d2aecd7db8083e6de376c115e8996eeda027"
 # no check target
 # ld: error: undefined symbol: pci_alloc ... and so on
 options = ["!check", "!lto"]
