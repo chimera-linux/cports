@@ -1,5 +1,5 @@
 pkgname = "xdg-dbus-proxy"
-pkgver = "0.1.3"
+pkgver = "0.1.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-man"]
@@ -11,4 +11,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/flatpak/xdg-dbus-proxy"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "03b5d28ca879253ddbbce31098909becca1495ea811a6377a492e28f16c09b9b"
+sha256 = "1ec0eab53d1e49966d722352bcfd51ac402dce5190baedc749a8541e761670ab"
