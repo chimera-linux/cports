@@ -1,6 +1,6 @@
 # TODO: slapd service
 pkgname = "openldap"
-pkgver = "2.6.1"
+pkgver = "2.6.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "OLDAP-2.0"
 url = "https://www.openldap.org"
 source = f"{url}/software/download/OpenLDAP/openldap-release/{pkgname}-{pkgver}.tgz"
-sha256 = "9d576ea6962d7db8a2e2808574e8c257c15aef55f403a1fb5a0faf35de70e6f3"
+sha256 = "d2a2a1d71df3d77396b1c16ad7502e674df446e06072b0e5a4e941c3d06c0d46"
 file_modes = {
     "etc/openldap/slapd.conf": ("root", "ldap", 0o640),
     "etc/openldap/slapd.ldif": ("root", "ldap", 0o640),
