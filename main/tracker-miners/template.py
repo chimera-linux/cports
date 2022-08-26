@@ -1,5 +1,5 @@
 pkgname = "tracker-miners"
-pkgver = "3.3.0"
+pkgver = "3.3.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tracker"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8b387debb774061c06adfb267a0e0e0f3d21799371bf01d056495ab9b8dd9417"
+sha256 = "3eddc6d272c02969fa4c2c15dfad0c49d76d021f1a27ec708b69be8025353c94"
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]
 
