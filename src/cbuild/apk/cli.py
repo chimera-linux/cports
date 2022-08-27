@@ -119,26 +119,33 @@ def call(
 
 def call_chroot(
     subcmd, args, mrepo, capture_output = False, check = False, arch = None,
-    allow_untrusted = False, use_stage = True
+    allow_untrusted = False, use_stage = True, full_chroot = False,
+    allow_network = True
 ):
     from cbuild.core import chroot
 
-    cmd = [subcmd, "--repositories-file", "/dev/null"]
+    if allow_network:
+        allow_network = _use_net
+
+    if full_chroot:
+        cmd = [subcmd]
+    else:
+        cmd = [subcmd, "--repositories-file", "/dev/null"]
     if arch:
         cmd += ["--arch", arch]
-    if not _use_net:
+    if not allow_network:
         cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
     if subcmd == "add" or subcmd == "del" or subcmd == "fix":
         cmd.append("--clean-protected")
 
+    if not full_chroot:
+        cmd += _collect_repos(mrepo, True, arch, True, use_stage, use_network)
+
     return chroot.enter(
-        paths.apk(), *cmd, *_collect_repos(
-            mrepo, True, arch, True, use_stage, _use_net
-        ),
-        *args, capture_output = capture_output, check = check,
-        fakeroot = True, mount_binpkgs = True
+        paths.apk(), *cmd, *args, capture_output = capture_output,
+        check = check, fakeroot = True, mount_binpkgs = True
     )
 
 def is_installed(pkgn, pkg = None):

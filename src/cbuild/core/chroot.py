@@ -181,7 +181,13 @@ def repo_sync(genrepos = False, rnet = True):
     if not (paths.bldroot() / ".cbuild_chroot_init").is_file():
         return
 
-    if apki.call_chroot("update", ["-q"], "main").returncode != 0:
+    chflags = []
+    if not genrepos:
+        chflags = ["-q"]
+
+    if apki.call_chroot(
+        "update", chflags, "main", full_chroot = genrepos, allow_network = rnet
+    ).returncode != 0:
         raise errors.CbuildException(f"failed to update pkg database")
 
 def initdb(path = None):
