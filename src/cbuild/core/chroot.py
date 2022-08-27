@@ -170,11 +170,13 @@ def repo_sync(genrepos = False, rnet = True):
                             rfh.write(f"/altbinpkgs/{rd.name}/{cr}\n")
             # remote repos come last
             if rnet:
-                for rd in paths.repository().iterdir():
+                # FIXME: do not hardcode, but for now we have no way to
+                # determine which sections should be available here
+                for rd in ["main", "contrib"]:
                     for cr in get_confrepos():
                         if cr.startswith("/"):
                             continue
-                        rfh.write(cr.replace("@section@", rd.name))
+                        rfh.write(cr.replace("@section@", rd))
                         rfh.write("\n")
 
     # do not refresh if chroot is not initialized
@@ -184,6 +186,11 @@ def repo_sync(genrepos = False, rnet = True):
     chflags = []
     if not genrepos:
         chflags = ["-q"]
+    else:
+        # ensure any local apk commands can write into cache
+        cpath = paths.bldroot() / "etc/apk/cache"
+        cpath.unlink(missing_ok = True)
+        cpath.symlink_to("/cbuild_cache/apk")
 
     if apki.call_chroot(
         "update", chflags, "main", full_chroot = genrepos, allow_network = rnet

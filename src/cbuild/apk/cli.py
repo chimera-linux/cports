@@ -28,6 +28,8 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
     if not arch:
         arch = chroot.host_cpu()
 
+    use_cache = False
+
     for r in chroot.get_confrepos():
         if not r.startswith("/"):
             # should be a remote repository, skip outright if we
@@ -37,6 +39,7 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
             for cr in srepos:
                 ret.append("--repository")
                 ret.append(r.replace("@section@", cr))
+                use_cache = True
             continue
         r = r.lstrip("/")
         for cr in srepos:
@@ -78,6 +81,13 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
                         ret.append(f"/altbinpkgs/{cr}/{r}")
                     else:
                         ret.append(str(rpath))
+
+    if use_cache:
+        ret.append("--cache-dir")
+        if intree:
+            ret.append("/cbuild_cache/apk")
+        else:
+            ret.append(str(paths.cbuild_cache() / "apk"))
 
     return ret
 
@@ -126,6 +136,7 @@ def call_chroot(
 
     if allow_network:
         allow_network = _use_net
+    mount_cache = False
 
     if full_chroot:
         cmd = [subcmd]
@@ -139,13 +150,18 @@ def call_chroot(
         cmd.append("--allow-untrusted")
     if subcmd == "add" or subcmd == "del" or subcmd == "fix":
         cmd.append("--clean-protected")
+        # we want to be able to cache apk's
+        mount_cache = True
 
     if not full_chroot:
-        cmd += _collect_repos(mrepo, True, arch, True, use_stage, use_network)
+        cmd += _collect_repos(
+            mrepo, True, arch, True, use_stage, allow_network
+        )
 
     return chroot.enter(
         paths.apk(), *cmd, *args, capture_output = capture_output,
-        check = check, fakeroot = True, mount_binpkgs = True
+        check = check, fakeroot = True, mount_binpkgs = True,
+        mount_cbuild_cache = mount_cache
     )
 
 def is_installed(pkgn, pkg = None):

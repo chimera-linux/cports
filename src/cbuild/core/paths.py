@@ -75,7 +75,7 @@ def cbuild():
 
 def prepare():
     sources().mkdir(parents = True, exist_ok = True)
-    cbuild_cache().mkdir(parents = True, exist_ok = True)
+    (cbuild_cache() / "apk").mkdir(parents = True, exist_ok = True)
     (bldroot() / "builddir").mkdir(parents = True, exist_ok = True)
     (bldroot() / "destdir").mkdir(parents = True, exist_ok = True)
     repository().mkdir(parents = True, exist_ok = True)
