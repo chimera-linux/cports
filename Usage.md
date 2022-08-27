@@ -217,11 +217,8 @@ is not recommended to do that.
 <a id="root_setup"></a>
 ### Build Root Setup
 
-Since Chimera currently does not provide any binary packages, if you are using
-the system for the first time, you first need to bootstrap it from source. In
-order to do that, please refer to the [bootstrapping](#bootstrapping) section.
-
-To create a build root:
+The easiest way to bring up a build container is from binary packages, like
+this:
 
 ```
 $ ./cbuild binary-bootstrap
@@ -250,9 +247,9 @@ That's it!
 <a id="bootstrapping"></a>
 ## Bootstrapping
 
-By this, it is meant bootstrapping from source. Since the distribution currently
-does not provide any binary packages, this is something you will always need
-to do.
+By this, it is meant bootstrapping from source. This is an alternative to binary
+bootstrap, if you wish to compile the whole system from source. Keep in mind that
+this takes a long time, because it has to rebuild the whole bootstrap path 4 times.
 
 Bootstrapping has more requirements than simply using the system.
 
