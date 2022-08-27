@@ -8,7 +8,8 @@ hostmakedepends = [
 ]
 makedepends = ["libglib-devel"]
 depends = [
-    "fonts-cantarell-otf", "fonts-source-code-pro-otf", "adwaita-icon-theme"
+    "fonts-cantarell-otf", "fonts-source-code-pro-otf", "adwaita-icon-theme",
+    "chimera-artwork",
 ]
 pkgdesc = "Collection of GSettings schemas"
 maintainer = "q66 <q66@chimera-linux.org>"
