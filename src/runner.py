@@ -381,6 +381,10 @@ def bootstrap(tgt):
     import shutil
 
     from cbuild.core import build, chroot, logger, template, paths
+    from cbuild.apk import cli
+
+    # source bootstrap is always networkless
+    cli.set_network(False)
 
     max_stage = 2
 
