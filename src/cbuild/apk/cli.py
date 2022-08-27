@@ -43,14 +43,15 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
             continue
         r = r.lstrip("/")
         for cr in srepos:
-            rpath = paths.repository() / cr / r
+            rl = r.replace("@section@", cr)
+            rpath = paths.repository() / rl
             spath = paths.stage_repository()
             if spath:
-                spath = spath / cr / r
-                ispath = f"/stagepkgs/{cr}/{r}"
+                spath = spath / rl
+                ispath = f"/stagepkgs/{rl}"
             else:
                 spath = rpath / ".stage"
-                ispath = f"/binpkgs/{cr}/{r}/.stage"
+                ispath = f"/binpkgs/{rl}/.stage"
             # stage repo
             if (spath / arch / "APKINDEX.tar.gz").is_file() and use_stage:
                 ret.append("--repository")
@@ -62,7 +63,7 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
             if (rpath / arch / "APKINDEX.tar.gz").is_file():
                 ret.append("--repository")
                 if intree:
-                    ret.append(f"/binpkgs/{cr}/{r}")
+                    ret.append(f"/binpkgs/{rl}")
                 else:
                     ret.append(str(rpath))
 
@@ -74,11 +75,12 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
                 continue
             r = r.lstrip("/")
             for cr in srepos:
-                rpath = paths.alt_repository() / cr / r
+                rl = r.replace("@section@", cr)
+                rpath = paths.alt_repository() / rl
                 if (rpath / arch / "APKINDEX.tar.gz").is_file():
                     ret.append("--repository")
                     if intree:
-                        ret.append(f"/altbinpkgs/{cr}/{r}")
+                        ret.append(f"/altbinpkgs/{rl}")
                     else:
                         ret.append(str(rpath))
 

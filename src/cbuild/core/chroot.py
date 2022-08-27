@@ -155,19 +155,19 @@ def repo_sync(genrepos = False, rnet = True):
                 for cr in get_confrepos():
                     if not cr.startswith("/"):
                         continue
-                    cr = cr.lstrip("/")
-                    idxp = rd / cr / host_cpu() / "APKINDEX.tar.gz"
+                    cr = cr.lstrip("/").replace("@section@", rd.name)
+                    idxp = rd.parent / cr / host_cpu() / "APKINDEX.tar.gz"
                     if idxp.is_file():
-                        rfh.write(f"/binpkgs/{rd.name}/{cr}\n")
+                        rfh.write(f"/binpkgs/{cr}\n")
             if paths.alt_repository():
                 for rd in paths.alt_repository().iterdir():
                     for cr in get_confrepos():
                         if not cr.startswith("/"):
                             continue
-                        cr = cr.lstrip("/")
-                        idxp = rd / cr / host_cpu() / "APKINDEX.tar.gz"
+                        cr = cr.lstrip("/").replace("@section@", rd.name)
+                        idxp = rd.parent / cr / host_cpu() / "APKINDEX.tar.gz"
                         if idxp.is_file():
-                            rfh.write(f"/altbinpkgs/{rd.name}/{cr}\n")
+                            rfh.write(f"/altbinpkgs/{cr}\n")
             # remote repos come last
             if rnet:
                 # FIXME: do not hardcode, but for now we have no way to
