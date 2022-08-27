@@ -12,7 +12,7 @@ def set_network(use_net):
     global _use_net
     _use_net = use_net
 
-def _collect_repos(mrepo, intree, arch, use_altrepo = True, use_stage = True):
+def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
     from cbuild.core import chroot
 
     ret = []
@@ -32,8 +32,11 @@ def _collect_repos(mrepo, intree, arch, use_altrepo = True, use_stage = True):
         if not r.startswith("/"):
             # should be a remote repository, skip outright if we
             # know that remote repos will not be used during this run
-            if _use_net:
-                ret.append(r)
+            if not use_net:
+                continue
+            for cr in srepos:
+                ret.append("--repository")
+                ret.append(r.replace("@section@", cr))
             continue
         r = r.lstrip("/")
         for cr in srepos:
@@ -82,15 +85,17 @@ def call(
     subcmd, args, mrepo, cwd = None, env = None,
     capture_output = False, root = None, arch = None,
     allow_untrusted = False, use_altrepo = True,
-    use_stage = True, fakeroot = False
+    use_stage = True, fakeroot = False, allow_network = True,
 ):
+    if allow_network:
+        allow_network = _use_net
     cmd = [
         paths.apk(), subcmd, "--root", root if root else paths.bldroot(),
         "--repositories-file", "/dev/null",
     ]
     if arch:
         cmd += ["--arch", arch]
-    if not _use_net:
+    if not allow_network:
         cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
@@ -106,7 +111,9 @@ def call(
         cmd = ["sh", chroot.get_fakeroot(True)] + cmd
 
     return subprocess.run(
-        cmd + _collect_repos(mrepo, False, arch, use_altrepo, use_stage) + args,
+        cmd + _collect_repos(
+            mrepo, False, arch, use_altrepo, use_stage, allow_network
+        ) + args,
         cwd = cwd, env = env, capture_output = capture_output
     )
 
@@ -127,7 +134,9 @@ def call_chroot(
         cmd.append("--clean-protected")
 
     return chroot.enter(
-        paths.apk(), *cmd, *_collect_repos(mrepo, True, arch, use_stage),
+        paths.apk(), *cmd, *_collect_repos(
+            mrepo, True, arch, True, use_stage, _use_net
+        ),
         *args, capture_output = capture_output, check = check,
         fakeroot = True, mount_binpkgs = True
     )

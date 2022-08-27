@@ -957,7 +957,7 @@ class Template(Package):
             "search", ["-e", self.pkgname],
             self.repository, capture_output = True,
             arch = self.profile().arch,
-            allow_untrusted = True, use_altrepo = False
+            allow_untrusted = True, allow_network = False, use_altrepo = False
         )
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
             foundp = pinfo.stdout.strip().decode()

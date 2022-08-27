@@ -105,10 +105,7 @@ def _prepare(arch, stage):
     )
 
     if (paths.bldroot() / "usr/bin/update-ca-certificates").is_file():
-        apki.call_chroot(
-            "fix", ["-q", "ca-certificates"], "main", check = True,
-            use_stage = False
-        )
+        enter("update-ca-certificates", "--fresh")
 
     _prepare_passwd()
 
@@ -144,7 +141,7 @@ def get_confrepos():
 
     return _crepos
 
-def repo_sync(genrepos = False):
+def repo_sync(genrepos = False, rnet = True):
     setup_keys(paths.bldroot())
 
     # generate a repositories file for chroots
@@ -156,6 +153,8 @@ def repo_sync(genrepos = False):
         with rfile.open("w") as rfh:
             for rd in paths.repository().iterdir():
                 for cr in get_confrepos():
+                    if not cr.startswith("/"):
+                        continue
                     cr = cr.lstrip("/")
                     idxp = rd / cr / host_cpu() / "APKINDEX.tar.gz"
                     if idxp.is_file():
@@ -163,10 +162,20 @@ def repo_sync(genrepos = False):
             if paths.alt_repository():
                 for rd in paths.alt_repository().iterdir():
                     for cr in get_confrepos():
+                        if not cr.startswith("/"):
+                            continue
                         cr = cr.lstrip("/")
                         idxp = rd / cr / host_cpu() / "APKINDEX.tar.gz"
                         if idxp.is_file():
                             rfh.write(f"/altbinpkgs/{rd.name}/{cr}\n")
+            # remote repos come last
+            if rnet:
+                for rd in paths.repository().iterdir():
+                    for cr in get_confrepos():
+                        if cr.startswith("/"):
+                            continue
+                        rfh.write(cr.replace("@section@", rd.name))
+                        rfh.write("\n")
 
     # do not refresh if chroot is not initialized
     if not (paths.bldroot() / ".cbuild_chroot_init").is_file():

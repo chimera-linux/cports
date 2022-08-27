@@ -508,7 +508,7 @@ def do_chroot(tgt):
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
     paths.prepare()
-    chroot.repo_sync(True)
+    chroot.repo_sync(True, not opt_nonet)
     chroot.enter(
         "/usr/bin/sh", "-i", fakeroot = True, new_session = False,
         mount_binpkgs = True, mount_cbuild_cache = True,
