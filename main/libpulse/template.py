@@ -18,6 +18,8 @@ makedepends = [
     "libsamplerate-devel", "orc-devel", "libcap-devel", "libcap-progs",
     "linux-headers"
 ]
+# not in a standard path and therefore not picked up by shlib scanner
+provides = [f"so:libpulsecommon-{pkgver}.so=0"]
 pkgdesc = "PulseAudio library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
