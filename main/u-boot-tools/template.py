@@ -16,7 +16,7 @@ pkgdesc = "Das U-Boot tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
-source = f"ftp://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
+source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
 sha256 = "92b08eb49c24da14c1adbf70a71ae8f37cc53eeb4230e859ad8b6733d13dcf5e"
 # weird test suite
 options = ["!check"]
