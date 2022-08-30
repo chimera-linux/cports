@@ -7,7 +7,7 @@ pkgdesc = "Berkeley yacc, a LALR(1) parser generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:byacc"
 url = "http://invisible-island.net/byacc"
-source = f"ftp://ftp.invisible-island.net/{pkgname}/{pkgname}-{pkgver}.tgz"
+source = f"https://invisible-island.net/archives/{pkgname}/{pkgname}-{pkgver}.tgz"
 sha256 = "42c1805cc529314e6a76326fe1b33e80c70862a44b01474da362e2f7db2d749c"
 
 def post_install(self):
