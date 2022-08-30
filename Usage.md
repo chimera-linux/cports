@@ -356,9 +356,15 @@ If you do not have a suitable system for bootstrapping (for example a `glibc`
 based system, or Alpine Linux), you do not need to go out of your way to set
 one up. The `cports` tree provides the `bootstrap.sh` script for this purpose.
 
-This works by fetching a compatible `rootfs` (Void Linux with `musl`) and then
-running regular bootstrap within. It uses `bwrap` for this, so you should never
-run it as `root`.
+This works by fetching a compatible `rootfs` (Chimera for architectures we have
+repos for and Void with `musl` for the others) and then running regular bootstrap
+within. It uses `bwrap` for this, so you should never run it as `root`.
+
+For architectures Chimera is used for, you will need a properly set up dynamically
+linked `apk` of the right version in your host system at this stage (you will need
+it for building packages later anyway). If you don't have it in your `PATH` (e.g.
+when you are setting the path in your `cbuild` `config.ini`), you can set the
+environment variable `BOOTSTRAP_APK`. By default, this is just `apk`.
 
 Any arguments passed to the script are passed to `cbuild`. This is most useful
 for passing the number of build jobs (e.g. `-j16` to use 16 threads). You can not

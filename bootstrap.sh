@@ -33,21 +33,30 @@ fi
 
 CARCH=$(uname -m)
 
-# void container
+# container
 
-BASE_DATE="20210930"
-BASE_URL="https://a-hel-fi.m.voidlinux.org/live/${BASE_DATE}"
+BASE_DATE="20220827"
+BASE_URL="https://repo.chimera-linux.org/live/${BASE_DATE}"
+CONTAINER_TYPE="chimera"
+BOOTSTRAP_APK="apk"
 
+# some archs still use void because we're not packaging them for now
 case "$CARCH" in
-    ppc*)
+    aarch64)
+        BASE_DATE="20210930"
+        BASE_URL="https://a-hel-fi.m.voidlinux.org/live/${BASE_DATE}"
+        CONTAINER_TYPE="void"
+        ;;
+    ppc64)
         BASE_DATE="20210825"
         BASE_URL="https://repo.voidlinux-ppc.org/live/${BASE_DATE}"
+        CONTAINER_TYPE="void"
         ;;
 esac
 
 case "$CARCH" in
     ppc64le)
-        BASE_SHA256="262b98a97348bd846112cce9d3f6b32f92916dfcd1aa9e50820f02e94fe43866"
+        BASE_SHA256="93e5f9bab8de0634f91665fbc8780e173d359f4462333caed18ad044098fe5a0"
         ;;
     ppc64)
         BASE_SHA256="cb92d61622beba5e1006925b717a3f713995cb09959d488e783b56e37db0bab7"
@@ -56,7 +65,7 @@ case "$CARCH" in
         BASE_SHA256="933f4ef034419b9164f882dabf75de5e08886185b9ec70ce26dd22d3c19526cb"
         ;;
     x86_64)
-        BASE_SHA256="d322171b39e3c670faa2835f6c6bba27951a9710f018410e090247b651f9251a"
+        BASE_SHA256="cc587308d4662aa8a1cd34e0ecd493f364c7a438ab9bae8a84dc3f67aba57abd"
         ;;
     *)
         echo "Unsupported architecture: $CARCH"
@@ -64,9 +73,13 @@ case "$CARCH" in
         ;;
 esac
 
-TARNAME="void-${CARCH}-musl-ROOTFS-${BASE_DATE}.tar.xz"
+if [ "$CONTAINER_TYPE" = "chimera" ]; then
+    TARNAME="chimera-linux-${CARCH}-ROOTFS-${BASE_DATE}.tar.gz"
+else
+    TARNAME="void-${CARCH}-musl-ROOTFS-${BASE_DATE}.tar.xz"
+fi
 
-# apk-tools
+# apk-tools, only for void
 
 APK_REV="44994a46d4a353bf4596b40a8720e22afe12699e"
 APK_URL="https://gitlab.alpinelinux.org/alpine/apk-tools/-/archive/${APK_REV}.tar.gz"
@@ -74,7 +87,7 @@ APK_SHA256="2a98320df594f1bf01d6d9e2a0f0ef9aadedacda3c687f9c5fb2d6929d4d73cd"
 
 APK_TARNAME="apk-tools-${APK_REV}.tar.gz"
 
-# fetch void container
+# fetch container
 
 if [ ! -f "${TARNAME}" ]; then
     echo "Fetching base tarball..."
@@ -89,7 +102,7 @@ fi
 
 # fetch apk-tools
 
-if [ ! -f "${APK_TARNAME}" ]; then
+if [ ! -f "${APK_TARNAME}" -a "${CONTAINER_TYPE}" = "void" ]; then
     echo "Fetching apk-tools..."
 
     ! test -f "${APK_TARNAME}" && curl "${APK_URL}" -o "${APK_TARNAME}"
@@ -108,7 +121,8 @@ if [ -z "${BOOTSTRAP_ROOT}" -o ! -d "${BOOTSTRAP_ROOT}" ]; then
         exit 1
     fi
 
-    echo "${APK_SHA256} ${APK_TARNAME}" | sha256sum -c
+    [ "${CONTAINER_TYPE}" = "void" ] && \
+        echo "${APK_SHA256} ${APK_TARNAME}" | sha256sum -c || :
 
     if [ $? -ne 0 ]; then
         echo "Failed to verify apk-tools tarball"
@@ -139,7 +153,7 @@ if [ -z "${BOOTSTRAP_ROOT}" -o ! -d "${BOOTSTRAP_ROOT}" ]; then
         exit 1
     fi
 
-    tar xf "../${APK_TARNAME}"
+    [ "${CONTAINER_TYPE}" = "void" ] && tar xf "../${APK_TARNAME}" || :
 
     if [ $? -ne 0 ]; then
         echo "Failed to extract apk-tools"
@@ -156,13 +170,29 @@ if [ -z "${BOOTSTRAP_STAGE}" ]; then
     BOOTSTRAP_STAGE="2"
 fi
 
-if [ -n "${BOOTSTRAP_REPO}" ]; then
-    mkdir -p "${BOOTSTRAP_ROOT}/etc/xbps.d"
-    echo "repository=${BOOTSTRAP_REPO}" > \
-        "${BOOTSTRAP_ROOT}/etc/xbps.d/00-repository-main.conf"
-fi
-
-cat << EOF > "${BOOTSTRAP_ROOT}/bootstrap-inner.sh"
+if [ "${CONTAINER_TYPE}" = "chimera" ]; then
+    do_apk() {
+        FAKEROOTDONTTRYCHOWN=1 fakeroot -- ${BOOTSTRAP_APK} \
+            --root "${BOOTSTRAP_ROOT}" "$@"
+        if [ "$?" -ne 0 ]; then
+            echo "Command failed: apk $@"
+            exit 1
+        fi
+    }
+    echo ">> Updating base system..."
+    do_apk update
+    do_apk upgrade --available
+    echo ">> Installing cbuild bootstrap tools..."
+    do_apk add --no-scripts base-cbuild-bootstrap
+    # generate inner script
+    cat << EOF > "${BOOTSTRAP_ROOT}/bootstrap-inner.sh"
+cd /cports
+CBUILD_APK_PATH=/usr/bin/apk ./cbuild "\$@" bootstrap ${BOOTSTRAP_STAGE}
+EOF
+else
+    # the void setup is considerably more complicated
+    # hopefully we can drop it soon
+    cat << EOF > "${BOOTSTRAP_ROOT}/bootstrap-inner.sh"
 # update base
 echo ">> Updating base system..."
 xbps-install -y -S || exit 1
@@ -189,6 +219,7 @@ xbps-remove -oy || exit 1
 cd /cports
 CBUILD_APK_PATH=/usr/bin/apk ./cbuild "\$@" bootstrap ${BOOTSTRAP_STAGE}
 EOF
+fi
 
 bwrap --unshare-user \
     --bind "${BOOTSTRAP_ROOT}" "/" \
