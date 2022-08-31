@@ -198,9 +198,14 @@ def do_build(self):
         benv["CFLAGS_" + pf.triplet] = self.get_cflags(shell = True)
         benv["CXXFLAGS_" + pf.triplet] = self.get_cxxflags(shell = True)
     # and hope it does not fail
+    #
+    # we also need to ensure PKG_CONFIG is unset because otherwise the
+    # target pkg-config will leak into some host build stuff and will
+    # affect the sysroot used (which will result in link failures)
+    #
     self.do(
-        "python", "x.py", "dist", "-v", "--jobs", str(self.make_jobs),
-        env = benv
+        "env", "-u", "PKG_CONFIG", "--", "python", "x.py", "dist", "-v",
+        "--jobs", str(self.make_jobs), env = benv
     )
 
 def do_check(self):
