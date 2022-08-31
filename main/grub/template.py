@@ -83,7 +83,9 @@ def do_configure(self):
         bdir = f"build_{arch}_{platform}"
         self.mkdir(bdir)
         cfl = "-fno-stack-protector " + ecfl
-        # configure freestanding
+        # configure freestanding; rename arm64 as a special case
+        if arch == "arm64":
+            arch = "aarch64"
         self.do(
             self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
             f"--target={arch}", f"--with-platform={platform}",
@@ -92,7 +94,11 @@ def do_configure(self):
                 "BUILD_CFLAGS": cfl,
                 "BUILD_LDFLAGS": ldfl,
                 "CFLAGS": cfl,
-                "LDFLAGS": ldfl
+                "LDFLAGS": ldfl,
+                "TARGET_OBJCOPY": "llvm-objcopy",
+                "TARGET_RANLIB": "llvm-ranlib",
+                "TARGET_STRIP": "llvm-strip",
+                "TARGET_NM": "llvm-nm",
             }
         )
 
