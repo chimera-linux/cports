@@ -1,5 +1,5 @@
 /* a lightweight cc wrapper that takes care to ignore
- * linker path args would otherwise break cross compilation
+ * linker/include path args would otherwise break cross compilation
  *
  * this file is a part of Chimera Linux, and provided under
  * the same license as the overall cports tree (BSD-2-Clause)
@@ -16,9 +16,14 @@ int main(int argc, char **argv) {
     char abuf[PATH_MAX];
 
     for (int i = 1; i < argc; ++i) {
+        const char *ignpath = "/usr/lib";
         if (strncmp(argv[i], "-L", 2)) {
-            /* not a linker search path arg */
-            continue;
+            /* not a linker or include search path arg */
+            if (strncmp(argv[i], "-I", 2)) {
+                continue;
+            } else {
+                ignpath = "/usr/include";
+            }
         }
         const char *apath = argv[i] + 2;
         int nskip = 1;
@@ -32,9 +37,9 @@ int main(int argc, char **argv) {
             /* does not resolve, pass verbatim */
             continue;
         }
-        if (!strcmp(rp, "/usr/lib")) {
+        if (!strcmp(rp, ignpath)) {
             /* skip */
-            printf("ignoring linker search path: %s\n", apath);
+            printf("ignoring search path: %s\n", argv[i]);
             argc -= nskip;
             /* shift all args afterwards back */
             memmove(&argv[i], &argv[i + nskip], sizeof(char *) * (argc - i));
