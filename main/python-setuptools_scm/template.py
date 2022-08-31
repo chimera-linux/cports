@@ -3,7 +3,10 @@ pkgver = "7.0.5"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools", "python-tomli", "python-packaging"]
-depends = ["python-setuptools", "python-tomli", "python-packaging"]
+depends = [
+    "python-setuptools", "python-tomli", "python-packaging",
+    "python-typing_extensions"
+]
 pkgdesc = "Manage Python package versions with SCM tags"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
