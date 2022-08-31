@@ -76,7 +76,7 @@ def _network(self):
 
     match self.rparent.profile().arch:
         case "aarch64":
-            self.depends += [f"linux-firmware-qualcomm={pkgver}-r{pkgrel}"]
+            self.depends += [f"firmware-linux-qualcomm={pkgver}-r{pkgrel}"]
 
     return [
         "usr/lib/firmware/3com",
