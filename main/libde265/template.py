@@ -11,6 +11,14 @@ url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "c5ab61185f283f46388c700c43dc08606b0e260cd53f06b967ec0ad7a809ff11"
 
+if self.profile().arch == "aarch64":
+    # fails to resolve some symbols from compiler-rt builtins
+    # e.g. __aarch64_ldadd8_acq_rel
+    tool_flags = {
+        "CFLAGS": ["-mno-outline-atomics"],
+        "CXXFLAGS": ["-mno-outline-atomics"]
+    }
+
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
 
