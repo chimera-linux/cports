@@ -17,6 +17,11 @@ source = [
 options = ["!strip"]
 
 match self.profile().arch:
+    case "aarch64":
+        sha256 = [
+            "96bc34cbb405b06918255c03e1aef3cf68308156747364012477bb783860213f",
+            "f9fb9d0ad89237e8371e3e6d4a1ea0583461ebe8ef97800c2971f7e609ff7606",
+        ]
     case "ppc64le":
         sha256 = [
             "586ef746994b1c6a9b737abca23da42b021106c402cf6b0c2f0711c076f3ec1a",
