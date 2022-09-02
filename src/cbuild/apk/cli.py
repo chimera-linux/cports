@@ -86,10 +86,12 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
 
     if use_cache:
         ret.append("--cache-dir")
+        cdir = paths.cbuild_cache() / "apk" / arch
+        cdir.mkdir(exist_ok = True)
         if intree:
-            ret.append("/cbuild_cache/apk")
+            ret.append(f"/cbuild_cache/apk/{arch}")
         else:
-            ret.append(str(paths.cbuild_cache() / "apk"))
+            ret.append(str(cdir))
 
     return ret
 
