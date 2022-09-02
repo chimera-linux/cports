@@ -12,6 +12,8 @@ source = f"https://repo.chimera-linux.org/distfiles/cargo-{pkgver}-{self.profile
 options = ["!strip"]
 
 match self.profile().arch:
+    case "aarch64":
+        sha256 = "4bb96de4082ea2a0123c0961f12c44ceacd098e7e4cae07faa2a0bb52f725c56"
     case "ppc64le":
         sha256 = "f6893f739872c21d56fc7517911617870f2ebfb6dc6d785cadaffe07c1035415"
     case "x86_64":
