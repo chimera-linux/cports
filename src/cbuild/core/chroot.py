@@ -2,12 +2,13 @@ import subprocess
 import os
 import re
 import glob
+import time
 import shutil
 import shlex
 import getpass
 import pathlib
 import binascii
-from tempfile import mkstemp
+from tempfile import mkstemp, mkdtemp
 
 from cbuild.core import logger, paths, errors
 from cbuild.apk import cli as apki
@@ -264,7 +265,113 @@ def get_fakeroot(bootstrap):
 
     return "/.cbuild_fakeroot.sh"
 
-def remove_autodeps(bootstrapping):
+def _setup_dummy(rootp, archn):
+    tmpd = mkdtemp()
+    tmpd = pathlib.Path(tmpd)
+
+    pkgn = "base-cross-target-meta"
+    pkgv = "0.1-r0"
+    repod = tmpd / archn
+    repod.mkdir()
+
+    epoch = int(time.time())
+
+    logger.get().out(f"cbuild: installing virtual provider for {archn}...")
+
+    provides = [
+        "base-files=9999-r0",
+        "musl=9999-r0",
+        "musl-devel=9999-r0",
+        "libcxx=9999-r0",
+        "libcxx-devel=9999-r0",
+        "libcxxabi=9999-r0",
+        "libcxxabi-devel=9999-r0",
+        "libunwind=9999-r0",
+        "libunwind-devel=9999-r0",
+        "libexecinfo=9999-r0",
+        "libexecinfo-devel=9999-r0",
+        "pc:libexecinfo=9999",
+        "so:libc.so=0",
+        "so:libc++abi.so.1=1.0",
+        "so:libc++.so.1=1.0",
+        "so:libunwind.so.1=1.0",
+        "so:libexecinfo.so.1=1",
+    ]
+
+    try:
+        ret = apki.call(
+            "mkpkg",
+            [
+                "--output", repod / f"{pkgn}-{pkgv}.apk",
+                "--info", f"name:{pkgn}",
+                "--info", f"version:{pkgv}",
+                "--info", f"description:Target sysroot virtual provider",
+                "--info", f"arch:{archn}",
+                "--info", f"origin:{pkgn}",
+                "--info", f"url:https://chimera-linux.org",
+                "--info", f"build-time:{int(epoch)}",
+                "--info", f"provides:{' '.join(provides)}",
+            ],
+            None, root = rootp, capture_output = True, arch = archn,
+            allow_untrusted = True, fakeroot = True
+        )
+        if ret.returncode != 0:
+            outl = ret.stderr.strip().decode()
+            if len(outl) > 0:
+                logger.get().out_plain(">> stderr:")
+                logger.get().out_plain(outl)
+            raise errors.CbuildException(f"failed to create virtual provider for {archn}")
+
+        if not apki.build_index(repod, epoch, None):
+            raise errors.CbuildException(f"failed to index virtual provider for {archn}")
+
+        ret = apki.call(
+            "add", ["--no-scripts", "--repository", tmpd, pkgn], None,
+            root = rootp, capture_output = True, arch = archn,
+            allow_untrusted = True, fakeroot = True
+        )
+
+        if ret.returncode != 0:
+            outl = ret.stderr.strip().decode()
+            if len(outl) > 0:
+                logger.get().out_plain(">> stderr:")
+                logger.get().out_plain(outl)
+            raise errors.CbuildException(f"failed to install virtual provider for {archn}")
+    finally:
+        shutil.rmtree(tmpd)
+
+    if apki.call(
+        "update", ["-q"], "main", root = rootp, capture_output = True,
+        arch = archn
+    ).returncode != 0:
+        raise errors.CbuildException(f"failed to update cross pkg database")
+
+def _prepare_arch(prof):
+    rootp = paths.bldroot() / prof.sysroot.relative_to("/")
+    # drop the whole thing
+    if rootp.exists():
+        logger.get().out(f"cbuild: clearing sysroot for {prof.arch}...")
+        shutil.rmtree(rootp)
+
+    logger.get().out(f"setting up sysroot for {prof.arch}...")
+    initdb(rootp)
+    setup_keys(rootp)
+    _setup_dummy(rootp, prof.arch)
+
+def prepare_arch(arch):
+    if not arch:
+        return
+
+    from cbuild.core import profile
+
+    prof = profile.get_profile(arch)
+
+    if not prof.cross:
+        return
+
+    _prepare_arch(prof)
+
+def remove_autodeps(bootstrapping, prof = None):
     if bootstrapping is None:
         bootstrapping = not (paths.bldroot() / ".cbuild_chroot_init").is_file()
 
@@ -309,6 +416,9 @@ def remove_autodeps(bootstrapping):
             log.out_plain(">> stderr (target):")
             log.out_plain(del_ret.stderr.decode())
             failed = True
+
+    if prof.cross:
+        _prepare_arch(prof)
 
     if failed:
         raise errors.CbuildException("failed to remove autodeps")

@@ -942,6 +942,7 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
     # don't remove builddir/destdir
     paths.prepare()
     chroot.repo_sync()
+    chroot.prepare_arch(opt_arch)
     build.build(
         tgt, rp, {}, opt_signkey, dirty = opt_dirty,
         keep_temp = opt_keeptemp, check_fail = opt_checkfail
@@ -968,6 +969,7 @@ def _bulkpkg(pkgs, statusf):
         chroot.install(chroot.host_cpu())
     paths.prepare()
     chroot.repo_sync()
+    chroot.prepare_arch(opt_arch)
 
     def _do_with_exc(f):
         # we are setting this

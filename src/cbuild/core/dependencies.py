@@ -5,7 +5,6 @@ from os import makedirs
 import tempfile
 import pathlib
 import shutil
-import time
 
 # avoid re-parsing same templates every time; the pkgver will
 # never be conditional and that is the only thing we care about
@@ -174,82 +173,6 @@ def _is_available(pkgn, pattern, pkg, host = False):
         return pn[len(pkgn) + 1:]
 
     return None
-
-def setup_dummy(pkg, rootp):
-    tmpd = tempfile.mkdtemp()
-    tmpd = pathlib.Path(tmpd)
-
-    pkgn = "base-cross-target-meta"
-    pkgv = "0.1-r0"
-    archn = pkg.profile().arch
-    repod = tmpd / archn
-    repod.mkdir()
-
-    epoch = int(time.time())
-
-    pkg.log(f"installing virtual provider for {archn}...")
-
-    provides = [
-        "base-files=9999-r0",
-        "musl=9999-r0",
-        "musl-devel=9999-r0",
-        "libcxx=9999-r0",
-        "libcxx-devel=9999-r0",
-        "libcxxabi=9999-r0",
-        "libcxxabi-devel=9999-r0",
-        "libunwind=9999-r0",
-        "libunwind-devel=9999-r0",
-        "libexecinfo=9999-r0",
-        "libexecinfo-devel=9999-r0",
-        "pc:libexecinfo=9999",
-        "so:libc.so=0",
-        "so:libc++abi.so.1=1.0",
-        "so:libc++.so.1=1.0",
-        "so:libunwind.so.1=1.0",
-        "so:libexecinfo.so.1=1",
-    ]
-
-    try:
-        ret = apki.call(
-            "mkpkg",
-            [
-                "--output", repod / f"{pkgn}-{pkgv}.apk",
-                "--info", f"name:{pkgn}",
-                "--info", f"version:{pkgv}",
-                "--info", f"description:Target sysroot virtual provider",
-                "--info", f"arch:{archn}",
-                "--info", f"origin:{pkgn}",
-                "--info", f"url:https://chimera-linux.org",
-                "--info", f"build-time:{int(epoch)}",
-                "--info", f"provides:{' '.join(provides)}",
-            ],
-            None, root = rootp, capture_output = True, arch = archn,
-            allow_untrusted = True, fakeroot = True
-        )
-        if ret.returncode != 0:
-            outl = ret.stderr.strip().decode()
-            if len(outl) > 0:
-                pkg.logger.out_plain(">> stderr:")
-                pkg.logger.out_plain(outl)
-            pkg.error(f"failed to create virtual provider for {archn}")
-
-        if not apki.build_index(repod, epoch, None):
-            pkg.error(f"failed to index virtual provider for {archn}")
-
-        ret = apki.call(
-            "add", ["--no-scripts", "--repository", tmpd, pkgn], None,
-            root = rootp, capture_output = True, arch = archn,
-            allow_untrusted = True, fakeroot = True
-        )
-
-        if ret.returncode != 0:
-            outl = ret.stderr.strip().decode()
-            if len(outl) > 0:
-                pkg.logger.out_plain(">> stderr:")
-                pkg.logger.out_plain(outl)
-            pkg.error(f"failed to install virtual provider for {archn}")
-    finally:
-        shutil.rmtree(tmpd)
 
 def install(pkg, origpkg, step, depmap, signkey, hostdep):
     style = ""
@@ -433,25 +356,9 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
     # reinit after parsings
     chroot.set_target(tarch)
 
-    # clear sysroot first
-    rootp = None
-    if pprof.cross:
-        rootp = paths.bldroot() / pprof.sysroot.relative_to("/")
-        # drop the whole thing
-        if rootp.exists():
-            pkg.log(f"clearing sysroot for {pprof.arch}...")
-            shutil.rmtree(rootp)
-
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
         _install_from_repo(pkg, host_binpkg_deps, "autodeps-host", signkey)
-
-    # set up sysroot if needed
-    if rootp:
-        pkg.log(f"setting up sysroot for {pprof.arch}...")
-        chroot.initdb(rootp)
-        chroot.setup_keys(rootp)
-        setup_dummy(pkg, rootp)
 
     if len(binpkg_deps) > 0:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")

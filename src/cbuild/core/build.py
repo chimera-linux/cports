@@ -49,7 +49,7 @@ def build(
         if pkg.stage > 0 and not no_update:
             chroot.update()
 
-        chroot.remove_autodeps(pkg.stage == 0)
+        chroot.remove_autodeps(pkg.stage == 0, pkg.profile())
 
         # check and install dependencies
         # if a missing dependency has triggered a build, update the chroot
@@ -138,11 +138,7 @@ def build(
 
     # cleanup
     if not keep_temp:
-        chroot.remove_autodeps(pkg.stage == 0)
-        if pkg.profile().cross:
-            rootp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
-            if rootp.exists():
-                shutil.rmtree(rootp)
+        chroot.remove_autodeps(pkg.stage == 0, pkg.profile())
         pkgm.remove_pkg_wrksrc(pkg)
         pkgm.remove_pkg(pkg)
         pkgm.remove_pkg_statedir(pkg)
