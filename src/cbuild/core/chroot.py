@@ -417,7 +417,7 @@ def remove_autodeps(bootstrapping, prof = None):
             log.out_plain(del_ret.stderr.decode())
             failed = True
 
-    if prof.cross:
+    if prof and prof.cross:
         _prepare_arch(prof)
 
     if failed:
