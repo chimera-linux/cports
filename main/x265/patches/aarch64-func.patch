@@ -1,0 +1,56 @@
+commit 9d09c55a3c5db876280ca2c68b7e3babb2acd551
+Author: q66 <daniel@octaforge.org>
+Date:   Fri Sep 2 21:13:48 2022 +0000
+
+    drop unsupported .func
+
+diff --git a/source/common/aarch64/asm.S b/source/common/aarch64/asm.S
+index 5f020a1..07eb814 100644
+--- a/source/common/aarch64/asm.S
++++ b/source/common/aarch64/asm.S
+@@ -46,7 +46,6 @@
+ .macro function name, export=1
+     .macro endfunc
+ ELF     .size   \name, . - \name
+-FUNC    .endfunc
+         .purgem endfunc
+     .endm
+         .align  2
+@@ -54,12 +53,10 @@ FUNC    .endfunc
+         .global EXTERN_ASM\name
+ ELF     .hidden EXTERN_ASM\name
+ ELF     .type   EXTERN_ASM\name, %function
+-FUNC    .func   EXTERN_ASM\name
+ EXTERN_ASM\name:
+ .else
+ ELF     .hidden \name
+ ELF     .type   \name, %function
+-FUNC    .func   \name
+ \name:
+ .endif
+ .endm
+diff --git a/source/common/arm/asm.S b/source/common/arm/asm.S
+index 2098a7b..f158a01 100644
+--- a/source/common/arm/asm.S
++++ b/source/common/arm/asm.S
+@@ -66,7 +66,6 @@ ELF     .eabi_attribute 25, \val
+ .macro function name, export=1
+     .macro endfunc
+ ELF     .size   \name, . - \name
+-FUNC    .endfunc
+         .purgem endfunc
+     .endm
+         .align  2
+@@ -74,12 +73,10 @@ FUNC    .endfunc
+         .global EXTERN_ASM\name
+ ELF     .hidden EXTERN_ASM\name
+ ELF     .type   EXTERN_ASM\name, %function
+-FUNC    .func   EXTERN_ASM\name
+ EXTERN_ASM\name:
+ .else
+ ELF     .hidden \name
+ ELF     .type   \name, %function
+-FUNC    .func   \name
+ \name:
+ .endif
+ .endm
