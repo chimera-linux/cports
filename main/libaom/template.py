@@ -20,6 +20,9 @@ options = ["!check"]
 match self.profile().arch:
     case "ppc64":
         configure_args += ["-DENABLE_VSX=0"]
+    case "aarch64":
+        # requires an explicit assembler
+        configure_args += ["-DAS_EXECUTABLE=clang"]
 
 def post_install(self):
     self.install_license("LICENSE")
