@@ -3,6 +3,7 @@ pkgver = "3.0.4"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
+makedepends = ["linux-headers"] # hwcap on arm etc.
 pkgdesc = "Image processing library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "WTFPL"
