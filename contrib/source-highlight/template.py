@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-bash-completion=/usr/share/bash-completion/completions"]
 make_check_args = ["-j1"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["boost-devel"]
 pkgdesc = "Convert source code to syntax highlighted document"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -13,6 +13,10 @@ url = "http://www.gnu.org/software/src-highlite"
 source = f"$(GNU_SITE)/src-highlite/{pkgname}-{pkgver}.tar.gz"
 sha256 = "3a7fd28378cb5416f8de2c9e77196ec915145d44e30ff4e0ee8beb3fe6211c91"
 options = ["!cross"]
+
+# aarch64 libtool fix
+def pre_configure(self):
+    self.do("autoreconf", "-if")
 
 def post_install(self):
     self.install_license("COPYING")
