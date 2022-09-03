@@ -1,0 +1,34 @@
+From e7bb538b80e80a7a3ba713dc95073f5b2c472cc3 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 21 Aug 2022 12:27:37 +0200
+Subject: [PATCH] remove CC check
+
+The CC variable is allowed to contain arguments, but the way it
+is checked here does not guarantee that. The FreeBSD shell is
+POSIX compliant here - the command builtin is not expected to
+take any additional arguments when used with -v. That breaks the
+check when CC actually contains them. As we control the build
+environment and there doesn't seem to be a simple way to split
+off just the command part, just remove the check.
+
+Ref https://pubs.opengroup.org/onlinepubs/9699919799/utilities/command.html
+---
+ scripts/Kconfig.include | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/scripts/Kconfig.include b/scripts/Kconfig.include
+index 0496efd..9fd1202 100644
+--- a/scripts/Kconfig.include
++++ b/scripts/Kconfig.include
+@@ -35,8 +35,6 @@ ld-option = $(success,$(LD) -v $(1))
+ # Return y if the assembler supports <instr>, n otherwise
+ as-instr = $(success,printf "%b\n" "$(1)" | $(CC) $(CLANG_FLAGS) -c -x assembler -o /dev/null -)
+ 
+-# check if $(CC) and $(LD) exist
+-$(error-if,$(failure,command -v $(CC)),compiler '$(CC)' not found)
+ $(error-if,$(failure,command -v $(LD)),linker '$(LD)' not found)
+ 
+ # Get the compiler name, version, and error out if it is not supported.
+-- 
+2.37.1
+
