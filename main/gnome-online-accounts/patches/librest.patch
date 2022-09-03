@@ -1,0 +1,125 @@
+commit c5cb67d65f692ad05cdee1c6e50593094ff913f0
+Author: q66 <daniel@octaforge.org>
+Date:   Sat Sep 3 11:12:38 2022 +0000
+
+    drop oauth1, fix build with newer librest
+
+diff --git a/src/goabackend/Makefile.am b/src/goabackend/Makefile.am
+index 8385237..20d7ed5 100644
+--- a/src/goabackend/Makefile.am
++++ b/src/goabackend/Makefile.am
+@@ -79,7 +79,6 @@ libgoa_backend_1_0_la_SOURCES =						\
+ 	goasouplogger.h			goasouplogger.c			\
+ 	goamailclient.h			goamailclient.c			\
+ 	goaexchangeprovider.h		goaexchangeprovider.c		\
+-	goaoauthprovider.h		goaoauthprovider.c		\
+ 	goaoauth2provider.h		goaoauth2provider-priv.h	\
+ 	goaoauth2provider-web-extension.h				\
+ 	goaoauth2provider-web-view.h					\
+@@ -89,7 +88,6 @@ libgoa_backend_1_0_la_SOURCES =						\
+ 	goaimapsmtpprovider.h		goaimapsmtpprovider.c		\
+ 	goamediaserverprovider.h	goamediaserverprovider.c	\
+ 	goaowncloudprovider.h		goaowncloudprovider.c		\
+-	goaflickrprovider.h		goaflickrprovider.c		\
+ 	goafoursquareprovider.h		goafoursquareprovider.c		\
+ 	goawindowsliveprovider.h	goawindowsliveprovider.c	\
+ 	goalastfmprovider.h		goalastfmprovider.c		\
+diff --git a/src/goabackend/goaflickrprovider.c b/src/goabackend/goaflickrprovider.c
+index 702ed1e..4eb8c11 100644
+--- a/src/goabackend/goaflickrprovider.c
++++ b/src/goabackend/goaflickrprovider.c
+@@ -20,7 +20,7 @@
+ #include "config.h"
+ #include <glib/gi18n-lib.h>
+ 
+-#include <rest/oauth-proxy.h>
++#include <rest/rest.h>
+ #include <json-glib/json-glib.h>
+ 
+ #include "goaprovider.h"
+diff --git a/src/goabackend/goagoogleprovider.c b/src/goabackend/goagoogleprovider.c
+index d8abf1c..7d4cd30 100644
+--- a/src/goabackend/goagoogleprovider.c
++++ b/src/goabackend/goagoogleprovider.c
+@@ -19,7 +19,7 @@
+ #include "config.h"
+ #include <glib/gi18n-lib.h>
+ 
+-#include <rest/oauth-proxy.h>
++#include <rest/rest.h>
+ #include <json-glib/json-glib.h>
+ 
+ #include "goaprovider.h"
+diff --git a/src/goabackend/goaoauthprovider.c b/src/goabackend/goaoauthprovider.c
+index 0bfab6b..79159ab 100644
+--- a/src/goabackend/goaoauthprovider.c
++++ b/src/goabackend/goaoauthprovider.c
+@@ -20,7 +20,7 @@
+ #include <glib/gi18n-lib.h>
+ #include <stdlib.h>
+ 
+-#include <rest/oauth-proxy.h>
++#include <rest/rest.h>
+ #include <libsoup/soup.h>
+ #include <json-glib/json-glib.h>
+ #include <webkit2/webkit2.h>
+diff --git a/src/goabackend/goaprovider.c b/src/goabackend/goaprovider.c
+index 9e5bd45..b8adfdc 100644
+--- a/src/goabackend/goaprovider.c
++++ b/src/goabackend/goaprovider.c
+@@ -27,7 +27,6 @@
+ #include "goafacebookprovider.h"
+ #include "goaimapsmtpprovider.h"
+ #include "goaowncloudprovider.h"
+-#include "goaflickrprovider.h"
+ #include "goafoursquareprovider.h"
+ #include "goawindowsliveprovider.h"
+ #include "goamediaserverprovider.h"
+diff --git a/src/goabackend/goawebextension.c b/src/goabackend/goawebextension.c
+index a17edf2..8fa76f9 100644
+--- a/src/goabackend/goawebextension.c
++++ b/src/goabackend/goawebextension.c
+@@ -86,10 +86,8 @@ web_extension_document_loaded_cb (WebKitWebPage *web_page, gpointer user_data)
+     {
+       WebKitDOMNode *element = webkit_dom_html_collection_item (elements, i);
+ 
+-      if ((GOA_IS_OAUTH_PROVIDER (self->provider)
+-           && goa_oauth_provider_is_deny_node (GOA_OAUTH_PROVIDER (self->provider), element))
+-          || (GOA_IS_OAUTH2_PROVIDER (self->provider)
+-              && goa_oauth2_provider_is_deny_node (GOA_OAUTH2_PROVIDER (self->provider), element)))
++      if (GOA_IS_OAUTH2_PROVIDER (self->provider)
++          && goa_oauth2_provider_is_deny_node (GOA_OAUTH2_PROVIDER (self->provider), element))
+         {
+           webkit_dom_event_target_add_event_listener (WEBKIT_DOM_EVENT_TARGET (element),
+                                                       "click",
+@@ -100,24 +98,18 @@ web_extension_document_loaded_cb (WebKitWebPage *web_page, gpointer user_data)
+       else if (self->existing_identity != NULL
+                && self->existing_identity[0] != '\0'
+                && WEBKIT_DOM_IS_HTML_INPUT_ELEMENT (element)
+-               && ((GOA_IS_OAUTH_PROVIDER (self->provider)
+-                    && goa_oauth_provider_is_identity_node (GOA_OAUTH_PROVIDER (self->provider),
+-                                                            WEBKIT_DOM_HTML_INPUT_ELEMENT (element)))
+-                   || (GOA_IS_OAUTH2_PROVIDER (self->provider)
+-                       && goa_oauth2_provider_is_identity_node (GOA_OAUTH2_PROVIDER (self->provider),
+-                                                                WEBKIT_DOM_HTML_INPUT_ELEMENT (element)))))
++               && ((GOA_IS_OAUTH2_PROVIDER (self->provider)
++                   && goa_oauth2_provider_is_identity_node (GOA_OAUTH2_PROVIDER (self->provider),
++                                                            WEBKIT_DOM_HTML_INPUT_ELEMENT (element)))))
+         {
+           webkit_dom_html_input_element_set_value (WEBKIT_DOM_HTML_INPUT_ELEMENT (element),
+                                                    self->existing_identity);
+           webkit_dom_html_input_element_set_read_only (WEBKIT_DOM_HTML_INPUT_ELEMENT (element), TRUE);
+         }
+       else if (WEBKIT_DOM_IS_HTML_INPUT_ELEMENT (element)
+-               && ((GOA_IS_OAUTH_PROVIDER (self->provider)
+-                   && goa_oauth_provider_is_password_node (GOA_OAUTH_PROVIDER (self->provider),
+-                                                           WEBKIT_DOM_HTML_INPUT_ELEMENT (element)))
+-                   || (GOA_IS_OAUTH2_PROVIDER (self->provider)
+-                       && goa_oauth2_provider_is_password_node (GOA_OAUTH2_PROVIDER (self->provider),
+-                                                                WEBKIT_DOM_HTML_INPUT_ELEMENT (element)))))
++               && (GOA_IS_OAUTH2_PROVIDER (self->provider)
++                   && goa_oauth2_provider_is_password_node (GOA_OAUTH2_PROVIDER (self->provider),
++                                                            WEBKIT_DOM_HTML_INPUT_ELEMENT (element))))
+         {
+           WebKitDOMHTMLFormElement *form;
+ 

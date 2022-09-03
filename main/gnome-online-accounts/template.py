@@ -5,11 +5,11 @@ build_style = "gnu_configure"
 # TODO: figure out if we can make it work with heimdal
 configure_args = [
     "--enable-documentation", "--enable-backend", "--enable-google",
-    "--enable-flickr", "--enable-facebook", "--enable-exchange",
-    "--enable-imap-smtp", "--enable-owncloud", "--enable-windows-live",
-    "--enable-pocket", "--enable-lastfm", "--enable-media-server",
-    "--enable-introspection",
-    "--disable-fedora", "--disable-kerberos", "--disable-static",
+    "--enable-facebook", "--enable-exchange", "--enable-imap-smtp",
+    "--enable-owncloud", "--enable-windows-live", "--enable-pocket",
+    "--enable-lastfm", "--enable-media-server", "--enable-introspection",
+    "--disable-fedora", "--disable-kerberos", "--disable-flickr",
+    "--disable-static",
 ]
 make_cmd = "gmake"
 hostmakedepends = [
