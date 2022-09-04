@@ -668,6 +668,8 @@ Keep in mind that default values may be overridden by build styles.
   conflicts. The files from the current package will simply take over the
   conflicting files. This is primarily useful for moving files from one
   package to another, or together with `priority`, for "policy packages".
+* `scriptlets` *(dict)* A dictionary of strings that are the scriptlets for
+  this package. These take precedence over file scriptlets.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.
@@ -1542,6 +1544,10 @@ All scriptlets are run as if `set -e`. All scriptlets are run with the
 default shell interpreter (`#!/bin/sh`) regardless of their shebang.
 You should still provide a `#!/bin/sh` shebang, but this is just for
 style.
+
+Alternatively, scriptlets may be provided as a part of the template
+using the `scriptlets` field. If both file and in-template scriptlet
+are provided, the in-template one takes precedence.
 
 Hooks get passed the new or current package version as the first
 argument, as well as the old version as a second argument where this

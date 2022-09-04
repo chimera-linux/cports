@@ -400,6 +400,7 @@ core_fields = [
 
     # packaging
     ("triggers", [], list, False, True, False),
+    ("scriptlets", {}, dict, False, True, False),
     ("file_modes", {}, dict, False, True, False),
 
     # wrappers
@@ -473,6 +474,7 @@ core_fields_priority = [
     ("priority", True),
     ("install_if", True),
     ("triggers", True),
+    ("scriptlets", True),
 
     ("pkgdesc", True),
     ("maintainer", True),

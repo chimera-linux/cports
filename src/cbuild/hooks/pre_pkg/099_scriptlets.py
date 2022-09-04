@@ -369,9 +369,15 @@ def invoke(pkg):
     # add user scriptlets
     for h in _hooks:
         up = pkg.rparent.template_path / f"{pkg.pkgname}.{h}"
-        if up.is_file():
+        # scriptlets can be generated or can be files
+        if h in pkg.scriptlets:
+            sr = pkg.scriptlets[h]
+        elif up.is_file():
             # read entire thing into the buffer
             sr = up.read_text()
+        else:
+            sr = None
+        if sr:
             # strip shebang
             if sr.startswith("#!"):
                 nl = sr.find("\n")
