@@ -1,3 +1,4 @@
+# update linux-modules-zfs when bumping
 pkgname = "linux"
 pkgver = "5.19.4"
 pkgrel = 0
