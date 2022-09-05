@@ -3,8 +3,8 @@
 <wallpapers>
   <wallpaper deleted="false">
     <name>Chimera</name>
-    <filename>/usr/share/backgrounds/chimera/bg-l.png</filename>
-    <filename-dark>/usr/share/backgrounds/chimera/bg-d.png</filename-dark>
+    <filename>/usr/share/backgrounds/chimera/bg-l.svg</filename>
+    <filename-dark>/usr/share/backgrounds/chimera/bg-d.svg</filename-dark>
     <options>zoom</options>
     <shade_type>solid</shade_type>
     <pcolor>#3465a4</pcolor>
