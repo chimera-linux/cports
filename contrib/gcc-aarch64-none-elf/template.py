@@ -64,7 +64,7 @@ env = {
 nostrip_files = ["libgcc.a"]
 hardening = ["!pie"]
 # no tests to run
-options = ["!check", "!lto", "!cross"]
+options = ["!check", "!lto", "!cross", "!scanshlibs"]
 exec_wrappers = [
     ("/usr/bin/llvm-objdump", "objdump"),
     ("/usr/bin/llvm-readelf", "readelf"),
