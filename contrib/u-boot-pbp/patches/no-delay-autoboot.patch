@@ -1,0 +1,38 @@
+commit 9c82ed5dff0bf9f1e3c1837e1e23d84a5b667c68
+Author: q66 <daniel@octaforge.org>
+Date:   Wed Sep 7 22:22:35 2022 +0000
+
+    do not delay autoboot + use a sane default baudrate
+    
+    Based on a patch by Cameron Nemo <cnemo@tutanota.com>.
+
+diff --git a/configs/pinebook-pro-rk3399_defconfig b/configs/pinebook-pro-rk3399_defconfig
+index aaa52c6e..a04777a0 100644
+--- a/configs/pinebook-pro-rk3399_defconfig
++++ b/configs/pinebook-pro-rk3399_defconfig
+@@ -15,7 +15,7 @@ CONFIG_SPL_SPI_FLASH_SUPPORT=y
+ CONFIG_SPL_SPI=y
+ CONFIG_SYS_LOAD_ADDR=0x800800
+ CONFIG_DEBUG_UART=y
+-CONFIG_BOOTDELAY=3
++CONFIG_BOOTDELAY=0
+ CONFIG_USE_PREBOOT=y
+ CONFIG_DEFAULT_FDT_FILE="rockchip/rk3399-pinebook-pro.dtb"
+ CONFIG_DISPLAY_BOARDINFO_LATE=y
+@@ -70,7 +70,7 @@ CONFIG_RAM_RK3399_LPDDR4=y
+ CONFIG_DM_RESET=y
+ CONFIG_DM_RNG=y
+ CONFIG_RNG_ROCKCHIP=y
+-CONFIG_BAUDRATE=1500000
++CONFIG_BAUDRATE=115200
+ CONFIG_DEBUG_UART_SHIFT=2
+ CONFIG_ROCKCHIP_SPI=y
+ CONFIG_SYSRESET=y
+@@ -94,3 +94,7 @@ CONFIG_VIDEO_ROCKCHIP=y
+ CONFIG_DISPLAY_ROCKCHIP_EDP=y
+ CONFIG_SPL_TINY_MEMSET=y
+ CONFIG_ERRNO_STR=y
++CONFIG_AUTOBOOT_PROMPT="Autobooting in %d seconds... press q or Ctrl-C to interrupt\n"
++CONFIG_AUTOBOOT_KEYED=y
++CONFIG_AUTOBOOT_STOP_STR="q"
++CONFIG_AUTOBOOT_KEYED_CTRLC=y
