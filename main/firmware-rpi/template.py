@@ -29,6 +29,12 @@ source = [
     # rpi4/400 bluetooth
     ("https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM4345C5.hcd", False),
     ("https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM43430B0.hcd", False),
+    # rpi zero 2w wifi
+    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.bin", False),
+    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.txt", False),
+    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.clm_blob", False),
+    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436s-sdio.bin", False),
+    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436s-sdio.txt", False),
 ]
 sha256 = [
     "2a972125f8fbf9e7022a6f0be1e0b176c740c58a895ff2b06a63566efac97d66",
@@ -51,6 +57,12 @@ sha256 = [
     # rpi4/400 bluetooth
     "dde785c4fa1351b52bda9c74554ae55bc74ecbe44935b9c3d83c7fe282cf17cf",
     "338c2c6631131f516bfc7e64ef0872bd0402e1f98ef9d0c900eef0c814d90a25",
+    # rpi zero 2w wifi
+    "6dc7b3b53a1b69637a9e10e675e73ef56ca689d5bd279b78bd2f2719970cb80b",
+    "67b0e325bf76d096ce06044d2a442b95626f274096ce5724daaa8bcdd179b599",
+    "fce7cbb62ffa6a5a65ca97b13f6fbf28d06c02d986c2072d65bf72164755fc34",
+    "bdc4fc14ca428130f474bb2f8bcb34c0684b0f9a0f31b05b4da39d64a2e1a333",
+    "0441797884bbbd40a86e4579ff0e1c84ce69bb41f7bcf902a5c867ebb79b6ac3",
 ]
 options = ["!strip", "foreignelf"]
 
@@ -92,3 +104,9 @@ def do_install(self):
     # rpi4/400 bluetooth
     self.install_file(inp / "BCM4345C5.hcd", "usr/lib/firmware/brcm")
     self.install_file(inp / "BCM43430B0.hcd", "usr/lib/firmware/brcm")
+    # rpi zero 2w wifi
+    self.install_file(inp / "brcmfmac43436-sdio.bin", "usr/lib/firmware/brcm")
+    self.install_file(inp / "brcmfmac43436-sdio.txt", "usr/lib/firmware/brcm")
+    self.install_file(inp / "brcmfmac43436-sdio.clm_blob", "usr/lib/firmware/brcm")
+    self.install_file(inp / "brcmfmac43436s-sdio.bin", "usr/lib/firmware/brcm")
+    self.install_file(inp / "brcmfmac43436s-sdio.txt", "usr/lib/firmware/brcm")
