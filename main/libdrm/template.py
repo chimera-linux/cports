@@ -19,8 +19,8 @@ sha256 = "f2969eaca119766485ce7e274ffab73a3d30d74bd98ce7855d7478c6fba765ec"
 match self.profile().arch:
     case "aarch64":
         configure_args += [
-            "-Dvc4=true", "-Domap=true", "-Dfreedreno=true",
-            "-Dtegra=true", "-Detnaviv=true", "-Dexynos=true"
+            "-Dvc4=enabled", "-Domap=enabled", "-Dfreedreno=enabled",
+            "-Dtegra=enabled", "-Detnaviv=enabled", "-Dexynos=enabled"
         ]
 
 @subpackage("libdrm-devel")
