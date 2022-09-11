@@ -1,5 +1,5 @@
 pkgname = "python-dbus"
-pkgver = "1.2.18"
+pkgver = "1.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/DBusBindings"
 source = f"https://dbus.freedesktop.org/releases/dbus-python/dbus-python-{pkgver}.tar.gz"
-sha256 = "92bdd1e68b45596c833307a5ff4b217ee6929a1502f5341bae28fd120acf7260"
+sha256 = "ad67819308618b5069537be237f8e68ca1c7fcc95ee4a121fe6845b1418248f8"
 
 def post_install(self):
     self.install_license("COPYING")
