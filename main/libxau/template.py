@@ -1,5 +1,5 @@
 pkgname = "libxau"
-pkgver = "1.0.9"
+pkgver = "1.0.10"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "Authorization Protocol for X"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXau-{pkgver}.tar.bz2"
-sha256 = "ccf8cbf0dbf676faa2ea0a6d64bcc3b6746064722b606c8c52917ed00dcb73ec"
+source = f"$(XORG_SITE)/lib/libXau-{pkgver}.tar.gz"
+sha256 = "51a54da42475d4572a0b59979ec107c27dacf6c687c2b7b04e5cf989a7c7e60c"
 
 def post_install(self):
     self.install_license("COPYING")
