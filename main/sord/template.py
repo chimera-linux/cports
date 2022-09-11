@@ -1,5 +1,5 @@
 pkgname = "sord"
-pkgver = "0.16.12"
+pkgver = "0.16.14"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/sord.html"
 source = f"https://download.drobilla.net/{pkgname}-{pkgver}.tar.xz"
-sha256 = "fde269893cb24b2ab7b75708d7a349c6e760c47a0d967aeca5b1c651294ff9f2"
+sha256 = "220fd97d5fcb216e7b85db66f685bfdaad7dc58a50d1f96dfb2558dbc6c4731b"
 
 def post_install(self):
     self.install_license("COPYING")
