@@ -7217,8 +7217,8 @@ iconp            3972/tcp
 iconp            3972/udp
 progistics       3973/tcp
 progistics       3973/udp
-citysearch       3974/tcp
-citysearch       3974/udp
+xk22             3974/tcp
+xk22             3974/udp
 airshot          3975/tcp
 airshot          3975/udp
 opswagent        3976/tcp
