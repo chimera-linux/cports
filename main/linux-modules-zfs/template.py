@@ -1,5 +1,5 @@
 pkgname = "linux-modules-zfs"
-_kernver = "5.19.4"
+_kernver = "5.19.8"
 _zfsver = "2.1.5"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
