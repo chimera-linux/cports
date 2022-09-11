@@ -20,7 +20,7 @@ if load \${devtype} \${devnum}:\${bootpart} \${kernel_addr_r} vmlinux-${KERNVER}
     fdt addr \${fdt_addr_r}
     fdt resize
     fdt set /ethernet@fe300000 local-mac-address "[\${macaddr}]"
-    if load \${devtype} \${devnum}:\${bootpart} \${ramdisk_addr_r} initrd.img-${KERNVER}.img; then
+    if load \${devtype} \${devnum}:\${bootpart} \${ramdisk_addr_r} initrd.img-${KERNVER}; then
       booti \${kernel_addr_r} \${ramdisk_addr_r}:\${filesize} \${fdt_addr_r};
     else
       booti \${kernel_addr_r} - \${fdt_addr_r};
