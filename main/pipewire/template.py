@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.56"
+pkgver = "0.3.57"
 pkgrel = 0
 _pms_version = "0.4.1"
 build_style = "meson"
@@ -59,8 +59,8 @@ pkgdesc = "Server and user space API to deal with multimedia pipelines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
-source = [f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"]
-sha256 = ["e73d8897daac8f9e61a23193ed71971682715a5997cb553d809bc61a349ef03c"]
+source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "2cda522dffb26d806e073c5c2631884bec102f9227f23ac8e2bf06d0d8a97522"
 
 if self.profile().endian == "big":
     configure_args += ["-Dbluez5-codec-ldac=disabled"]
