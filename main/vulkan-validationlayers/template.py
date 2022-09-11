@@ -1,5 +1,5 @@
 pkgname = "vulkan-validationlayers"
-pkgver = "1.3.225"
+pkgver = "1.3.227"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = f"https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/v{pkgver}.tar.gz"
-sha256 = "36831d17b2d7bd0e8b75e9e6f935687e7820d23be0abc89099b21e3b15cf9c20"
+sha256 = "3ee89f5f697658b3d5889089b26c4d9de1a7f2bd2acef4304f61a200835421f7"
 # no test suite
 options = ["!cross"]
 
