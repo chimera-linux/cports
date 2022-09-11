@@ -1,5 +1,5 @@
 pkgname = "libxfont2"
-pkgver = "2.0.5"
+pkgver = "2.0.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -10,8 +10,8 @@ pkgdesc = "X font 2 library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXfont2-{pkgver}.tar.bz2"
-sha256 = "aa7c6f211cf7215c0ab4819ed893dc98034363d7b930b844bb43603c2e10b53e"
+source = f"$(XORG_SITE)/lib/libXfont2-{pkgver}.tar.gz"
+sha256 = "a944df7b6837c8fa2067f6a5fc25d89b0acc4011cd0bc085106a03557fb502fc"
 
 def post_install(self):
     self.install_license("COPYING")
