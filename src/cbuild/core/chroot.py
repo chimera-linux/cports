@@ -423,7 +423,7 @@ def remove_autodeps(bootstrapping, prof = None):
     if failed:
         raise errors.CbuildException("failed to remove autodeps")
 
-def update():
+def update(pkg = "main"):
     if not chroot_check():
         return
 
@@ -435,9 +435,9 @@ def update():
     # reinit passwd/group
     _prepare_passwd()
 
-    apki.call_chroot("update", ["-q"], "main", check = True, use_stage = True)
+    apki.call_chroot("update", ["-q"], pkg, check = True, use_stage = True)
     apki.call_chroot(
-        "upgrade", ["--available"], "main", check = True, use_stage = True
+        "upgrade", ["--available"], pkg, check = True, use_stage = True
     )
 
 def enter(cmd, *args, capture_output = False, check = False,

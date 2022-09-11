@@ -47,7 +47,7 @@ def build(
         #
         # an exception is when building a second or further missing dependency
         if pkg.stage > 0 and not no_update:
-            chroot.update()
+            chroot.update(pkg)
 
         chroot.remove_autodeps(pkg.stage == 0, pkg.profile())
 
@@ -57,7 +57,7 @@ def build(
         if dependencies.install(
             pkg, pkg.origin.pkgname, "pkg", depmap, signkey, chost
         ):
-            chroot.update()
+            chroot.update(pkg)
 
     oldcwd = pkg.cwd
     oldchd = pkg.chroot_cwd
