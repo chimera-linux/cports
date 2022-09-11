@@ -1,5 +1,5 @@
 pkgname = "numactl"
-pkgver = "2.0.14"
+pkgver = "2.0.15"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://github.com/numactl/numactl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "1ee27abd07ff6ba140aaf9bc6379b37825e54496e01d6f7343330cf1a4487035"
+sha256 = "1508bb02f56f1b9376243980ba96291856ba083e7a3480fdcb0fbf11ff01d6fa"
 # some tests fail because of gnuisms in testsuite
 options = ["!check"]
 
