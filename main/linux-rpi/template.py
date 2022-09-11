@@ -1,9 +1,9 @@
 pkgname = "linux-rpi"
-pkgver = "5.15.61"
+pkgver = "5.15.65"
 pkgrel = 0
 archs = ["aarch64"]
 make_dir = "build"
-_commit = "c9921a3fcc60cd657047d540e3706eb51f3bede5"
+_commit = "12d9473354500ef4c0edc3c763e7dcf107802bf9"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 pkgdesc = "Linux kernel for Raspberry Pi 3 and 4 (5.15.x)"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "740c5f9bf23f22481733f83907e62b882cffd1d0a7fc13cd2fb61daddafcdef5"
+sha256 = "0e9114fe955c1106d0b760f7461610ddc6b612011b36a1fbbce24e7136629f2b"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
