@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.6.7"
+pkgver = "4.8.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "effd2e7c4b5e2a5c7fad43e0f24adea68baa4092abb0b752caff278e6bb010e8"
+sha256 = "c8d6203437d1e359d83124dc591546d403f67e3b00544e53dd50a9baacdcbd7f"
 
 def post_install(self):
     # we don't really need it (provided by gtk3)
@@ -41,7 +41,15 @@ def post_install(self):
 def _devel(self):
     self.depends += ["vulkan-headers"]
 
-    return self.default_devel()
+    return self.default_devel(extra = [
+        "usr/bin/gtk4-builder-tool",
+        "usr/share/man/man1/gtk4-builder-tool.1",
+        "usr/bin/gtk4-encode-symbolic-svg",
+        "usr/share/man/man1/gtk4-encode-symbolic-svg.1",
+        "usr/bin/gtk4-query-settings",
+        "usr/share/man/man1/gtk4-query-settings.1",
+        "usr/share/gtk-4.0/valgrind",
+    ])
 
 @subpackage("gtk4-demo")
 def _demo(self):
@@ -51,14 +59,21 @@ def _demo(self):
         "usr/bin/gtk4-demo",
         "usr/bin/gtk4-widget-factory",
         "usr/bin/gtk4-demo-application",
+        "usr/bin/gtk4-print-editor",
+        "usr/bin/gtk4-node-editor",
         "usr/share/man/man1/gtk4-demo.1",
         "usr/share/man/man1/gtk4-widget-factory.1",
         "usr/share/man/man1/gtk4-demo-application.1",
+        "usr/share/man/man1/gtk4-node-editor.1",
+        "usr/share/metainfo/org.gtk.Demo4.appdata.xml",
+        "usr/share/metainfo/org.gtk.WidgetFactory4.appdata.xml",
+        "usr/share/metainfo/org.gtk.gtk4.NodeEditor.appdata.xml",
         "usr/share/gtk-4.0/gtk4builder.rng",
         "usr/share/glib-2.0/schemas/org.gtk.Demo4.gschema.xml",
         "usr/share/applications/org.gtk.Demo4.desktop",
         "usr/share/applications/org.gtk.PrintEditor4.desktop",
         "usr/share/applications/org.gtk.WidgetFactory4.desktop",
+        "usr/share/applications/org.gtk.gtk4.NodeEditor.desktop",
         "usr/share/icons/hicolor/scalable/apps/org.gtk.Demo4.svg",
         "usr/share/icons/hicolor/symbolic/apps/org.gtk.Demo4-symbolic.svg",
         "usr/share/icons/hicolor/scalable/apps/org.gtk.PrintEditor4.svg",
@@ -66,6 +81,9 @@ def _demo(self):
         "usr/share/icons/hicolor/scalable/apps/org.gtk.PrintEditor4.Devel.svg",
         "usr/share/icons/hicolor/scalable/apps/org.gtk.WidgetFactory4.svg",
         "usr/share/icons/hicolor/symbolic/apps/org.gtk.WidgetFactory4-symbolic.svg",
+        "usr/share/icons/hicolor/scalable/apps/org.gtk.gtk4.NodeEditor.Devel.svg",
+        "usr/share/icons/hicolor/scalable/apps/org.gtk.gtk4.NodeEditor.svg",
+        "usr/share/icons/hicolor/symbolic/apps/org.gtk.gtk4.NodeEditor-symbolic.svg",
     ]
 
 @subpackage("gtk4-cups")
