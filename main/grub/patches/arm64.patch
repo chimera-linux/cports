@@ -1,0 +1,157 @@
+From a450a59db4a2203346eb6abece958ab12c783a64 Mon Sep 17 00:00:00 2001
+From: q66 <daniel@octaforge.org>
+Date: Mon, 12 Sep 2022 17:06:10 +0000
+Subject: [PATCH] arm64: add missing relocations for clang
+
+also disable -mcmodel=large, which brings in more unknown relocs
+---
+ grub-core/Makefile.in            |  2 +-
+ grub-core/kern/arm64/dl.c        |  7 +++++++
+ grub-core/kern/arm64/dl_helper.c | 18 ++++++++++++++++++
+ include/grub/arm64/reloc.h       |  4 ++++
+ include/grub/elf.h               |  3 +++
+ util/grub-mkimagexx.c            | 12 ++++++++++++
+ util/grub-module-verifier.c      |  3 +++
+ 7 files changed, 48 insertions(+), 1 deletion(-)
+
+diff --git a/grub-core/Makefile.in b/grub-core/Makefile.in
+index 37a32dd..a303074 100644
+--- a/grub-core/Makefile.in
++++ b/grub-core/Makefile.in
+@@ -94,7 +94,7 @@ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+ target_triplet = @target@
+-@COND_arm64_TRUE@am__append_1 = -mcmodel=large
++@COND_arm64_TRUE@am__append_1 =
+ @COND_powerpc_ieee1275_TRUE@am__append_2 = -mcpu=powerpc
+ bin_PROGRAMS = $(am__EXEEXT_1)
+ sbin_PROGRAMS =
+diff --git a/grub-core/kern/arm64/dl.c b/grub-core/kern/arm64/dl.c
+index 512e5a8..cef5727 100644
+--- a/grub-core/kern/arm64/dl.c
++++ b/grub-core/kern/arm64/dl.c
+@@ -93,8 +93,15 @@ grub_arch_dl_relocate_symbols (grub_dl_t mod, void *ehdr,
+ 	  }
+ 	  break;
+ 	case R_AARCH64_ADD_ABS_LO12_NC:
++	case R_AARCH64_LDST8_ABS_LO12_NC:
+ 	  grub_arm64_set_abs_lo12 (place, sym_addr);
+ 	  break;
++	case R_AARCH64_LDST16_ABS_LO12_NC:
++	  grub_arm64_set_abs_lo12_ldst16 (place, sym_addr);
++	  break;
++	case R_AARCH64_LDST32_ABS_LO12_NC:
++	  grub_arm64_set_abs_lo12_ldst32 (place, sym_addr);
++	  break;
+ 	case R_AARCH64_LDST64_ABS_LO12_NC:
+ 	  grub_arm64_set_abs_lo12_ldst64 (place, sym_addr);
+ 	  break;
+diff --git a/grub-core/kern/arm64/dl_helper.c b/grub-core/kern/arm64/dl_helper.c
+index e00c198..c1d26ca 100644
+--- a/grub-core/kern/arm64/dl_helper.c
++++ b/grub-core/kern/arm64/dl_helper.c
+@@ -94,6 +94,24 @@ grub_arm64_set_abs_lo12_ldst64 (grub_uint32_t *place, grub_int64_t target)
+   *place |= grub_cpu_to_le32 (target << 7) & ~insmask;
+ }
+ 
++void
++grub_arm64_set_abs_lo12_ldst32 (grub_uint32_t *place, grub_int64_t target)
++{
++  const grub_uint32_t insmask = grub_cpu_to_le32_compile_time (0xfff003ff);
++
++  *place &= insmask;
++  *place |= grub_cpu_to_le32 (target << 8) & ~insmask;
++}
++
++void
++grub_arm64_set_abs_lo12_ldst16 (grub_uint32_t *place, grub_int64_t target)
++{
++  const grub_uint32_t insmask = grub_cpu_to_le32_compile_time (0xffe003ff);
++
++  *place &= insmask;
++  *place |= grub_cpu_to_le32 (target << 9) & ~insmask;
++}
++
+ #pragma GCC diagnostic ignored "-Wcast-align"
+ 
+ grub_err_t
+diff --git a/include/grub/arm64/reloc.h b/include/grub/arm64/reloc.h
+index c8765de..dfa7cb8 100644
+--- a/include/grub/arm64/reloc.h
++++ b/include/grub/arm64/reloc.h
+@@ -36,6 +36,10 @@ grub_arm64_set_hi21 (grub_uint32_t *place, grub_int64_t offset);
+ void
+ grub_arm64_set_abs_lo12 (grub_uint32_t *place, grub_int64_t target);
+ void
++grub_arm64_set_abs_lo12_ldst16 (grub_uint32_t *place, grub_int64_t target);
++void
++grub_arm64_set_abs_lo12_ldst32 (grub_uint32_t *place, grub_int64_t target);
++void
+ grub_arm64_set_abs_lo12_ldst64 (grub_uint32_t *place, grub_int64_t target);
+ 
+ #endif
+diff --git a/include/grub/elf.h b/include/grub/elf.h
+index c478933..390767d 100644
+--- a/include/grub/elf.h
++++ b/include/grub/elf.h
+@@ -2072,6 +2072,9 @@ typedef Elf32_Addr Elf32_Conflict;
+ #define R_AARCH64_PREL32		261
+ #define R_AARCH64_ADR_PREL_PG_HI21	275
+ #define R_AARCH64_ADD_ABS_LO12_NC	277
++#define R_AARCH64_LDST8_ABS_LO12_NC	278
++#define R_AARCH64_LDST16_ABS_LO12_NC	284
++#define R_AARCH64_LDST32_ABS_LO12_NC	285
+ #define R_AARCH64_LDST64_ABS_LO12_NC	286
+ #define R_AARCH64_JUMP26		282	/* 26-bit relative. */
+ #define R_AARCH64_CALL26		283	/* 26-bit relative. */
+diff --git a/util/grub-mkimagexx.c b/util/grub-mkimagexx.c
+index d78fa3e..50c33bd 100644
+--- a/util/grub-mkimagexx.c
++++ b/util/grub-mkimagexx.c
+@@ -1051,9 +1051,18 @@ SUFFIX (relocate_addrs) (Elf_Ehdr *e, struct section_metadata *smd,
+ 		       break;
+ 		     }
+ 		   case R_AARCH64_ADD_ABS_LO12_NC:
++		   case R_AARCH64_LDST8_ABS_LO12_NC:
+ 		     grub_arm64_set_abs_lo12 ((grub_uint32_t *) target,
+ 					      sym_addr);
+ 		     break;
++		   case R_AARCH64_LDST16_ABS_LO12_NC:
++		     grub_arm64_set_abs_lo12_ldst16 ((grub_uint32_t *) target,
++						     sym_addr);
++		     break;
++		   case R_AARCH64_LDST32_ABS_LO12_NC:
++		     grub_arm64_set_abs_lo12_ldst32 ((grub_uint32_t *) target,
++						     sym_addr);
++		     break;
+ 		   case R_AARCH64_LDST64_ABS_LO12_NC:
+ 		     grub_arm64_set_abs_lo12_ldst64 ((grub_uint32_t *) target,
+ 						     sym_addr);
+@@ -1653,6 +1662,9 @@ translate_relocation_pe (struct translate_context *ctx,
+ 	     for fixup entries.
+ 	  */
+ 	case R_AARCH64_ADD_ABS_LO12_NC:
++	case R_AARCH64_LDST8_ABS_LO12_NC:
++	case R_AARCH64_LDST16_ABS_LO12_NC:
++	case R_AARCH64_LDST32_ABS_LO12_NC:
+ 	case R_AARCH64_LDST64_ABS_LO12_NC:
+ 	  break;
+ 
+diff --git a/util/grub-module-verifier.c b/util/grub-module-verifier.c
+index 163529c..385675e 100644
+--- a/util/grub-module-verifier.c
++++ b/util/grub-module-verifier.c
+@@ -115,6 +115,9 @@ struct grub_module_verifier_arch archs[] = {
+     }, (int[]){
+       R_AARCH64_ADR_PREL_PG_HI21,
+       R_AARCH64_ADD_ABS_LO12_NC,
++      R_AARCH64_LDST8_ABS_LO12_NC,
++      R_AARCH64_LDST16_ABS_LO12_NC,
++      R_AARCH64_LDST32_ABS_LO12_NC,
+       R_AARCH64_LDST64_ABS_LO12_NC,
+       R_AARCH64_PREL32,
+       -1
+-- 
+2.34.1
+
