@@ -41,7 +41,7 @@ BOOTSTRAP_APK="apk"
 
 case "$CARCH" in
     ppc64le)
-        BASE_SHA256="f5cb3512184ec540e98e8bbb4add69eecd8454ad791396fd3b88654d5a7cf22c""
+        BASE_SHA256="f5cb3512184ec540e98e8bbb4add69eecd8454ad791396fd3b88654d5a7cf22c"
         ;;
     aarch64)
         BASE_SHA256="3331b1b139f6501c38da7f9e1ba693c5c981612e701806f3c4266caaf610dfde"
