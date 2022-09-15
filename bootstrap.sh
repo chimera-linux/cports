@@ -41,13 +41,13 @@ BOOTSTRAP_APK="apk"
 
 case "$CARCH" in
     ppc64le)
-        BASE_SHA256="21d68ebc6affbe0365698f212568ef9e3f26f80fe181dd011a06387310810e5b"
+        BASE_SHA256="f5cb3512184ec540e98e8bbb4add69eecd8454ad791396fd3b88654d5a7cf22c""
         ;;
     aarch64)
-        BASE_SHA256="10c3115446909f50124e5547c7f25ec300db21708fb53210365090cc36b60e47"
+        BASE_SHA256="3331b1b139f6501c38da7f9e1ba693c5c981612e701806f3c4266caaf610dfde"
         ;;
     x86_64)
-        BASE_SHA256="c6c36233f7677c7352e61abfc1ba9a5c7fb30bc5c335e43a5c808fa12da3cbe3"
+        BASE_SHA256="7c5e511b6e6053a4b2b8ed1e978bb87c27a3e01c4c10e1a4b83f4e0f7e86af7f"
         ;;
     *)
         echo "Unsupported architecture: $CARCH"
