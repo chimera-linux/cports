@@ -219,11 +219,6 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         return False
 
     for sver, pkgn in ihdeps:
-        # check if already installed
-        if apki.is_installed(pkgn):
-            log.out_plain(f"   [host] {pkgn}: installed")
-            host_binpkg_deps.append(pkgn)
-            continue
         # check if available in repository
         aver = _is_available(
             pkgn, (pkgn + "=" + sver) if sver else None, pkg, host = True
@@ -245,11 +240,6 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         host_missing_deps.append(pkgn)
 
     for sver, pkgn in itdeps:
-        # check if already installed
-        if not pprof.cross and apki.is_installed(pkgn, pkg):
-            log.out_plain(f"   [target] {pkgn}: installed")
-            binpkg_deps.append(pkgn)
-            continue
         # check if available in repository
         aver = _is_available(
             pkgn, (pkgn + "=" + sver) if sver else None, pkg
