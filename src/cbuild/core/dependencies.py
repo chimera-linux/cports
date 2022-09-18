@@ -152,12 +152,14 @@ def _is_available(pkgn, pattern, pkg, host = False):
     if not host and pkg.profile().cross:
         sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
         aarch = pkg.profile().arch
+        crossp = True
     else:
         sysp = paths.bldroot()
         aarch = None
+        crossp = False
 
     aout = apki.call(
-        "search", ["-e", pkgn], pkg, root = sysp, capture_output = True,
+        "search", ["-e", "-a", pkgn], pkg, root = sysp, capture_output = True,
         arch = aarch, allow_untrusted = True
     )
 
@@ -168,6 +170,18 @@ def _is_available(pkgn, pattern, pkg, host = False):
 
     if len(pn) == 0:
         return None
+
+    pn = pn.split("\n")
+
+    if len(pn) > 1:
+        if crossp and pn[0].startswith("base-cross-target-meta"):
+            # FIXME: find a way to ignore "installed" packages
+            # maybe coordinate this with upstream and add an option
+            pn = pn[1]
+        else:
+            pn = pn[0]
+    else:
+        pn = pn[0]
 
     if not pattern or autil.pkg_match(pn, pattern):
         return pn[len(pkgn) + 1:]
