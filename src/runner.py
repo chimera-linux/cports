@@ -231,6 +231,7 @@ def handle_options():
         opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
         opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
         opt_cchpath   = bcfg.get("cbuild_cache_path", fallback = opt_cchpath)
+        opt_nonet     = not bcfg.getboolean("remote", fallback = not opt_nonet)
 
     if not "flags" in global_cfg:
         global_cfg["flags"] = {}

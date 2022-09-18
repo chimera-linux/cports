@@ -38,6 +38,8 @@ repository = packages
 sources = sources
 # if set to yes, you will always have to explicitly unstage the repos
 keep_stage = no
+# whether to attempt using remote repositories (if available)
+remote = yes
 
 # flags passed to tools
 [flags]
