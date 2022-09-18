@@ -142,59 +142,54 @@ def get_confrepos():
 
     return _crepos
 
-def repo_sync(genrepos = False, rnet = True):
+def repo_init():
     setup_keys(paths.bldroot())
 
-    # generate a repositories file for chroots
-    rfile = paths.bldroot() / "etc/apk/repositories"
-    # erase first in any case
+    apkpath = paths.bldroot() / "etc/apk"
+
+    rfile = apkpath / "repositories"
     rfile.unlink(missing_ok = True)
-    # generate only if needed (for explicit chroots)
-    if genrepos:
-        with rfile.open("w") as rfh:
-            for rd in paths.repository().iterdir():
+
+    cfile = apkpath / "cache"
+    cfile.unlink(missing_ok = True)
+
+    return rfile, cfile
+
+def shell_update(rnet):
+    rfile, cfile = repo_init()
+    with rfile.open("w") as rfh:
+        for rd in paths.repository().iterdir():
+            for cr in get_confrepos():
+                if not cr.startswith("/"):
+                    continue
+                cr = cr.lstrip("/").replace("@section@", rd.name)
+                idxp = rd.parent / cr / host_cpu() / "APKINDEX.tar.gz"
+                if idxp.is_file():
+                    rfh.write(f"/binpkgs/{cr}\n")
+        if paths.alt_repository():
+            for rd in paths.alt_repository().iterdir():
                 for cr in get_confrepos():
                     if not cr.startswith("/"):
                         continue
                     cr = cr.lstrip("/").replace("@section@", rd.name)
                     idxp = rd.parent / cr / host_cpu() / "APKINDEX.tar.gz"
                     if idxp.is_file():
-                        rfh.write(f"/binpkgs/{cr}\n")
-            if paths.alt_repository():
-                for rd in paths.alt_repository().iterdir():
-                    for cr in get_confrepos():
-                        if not cr.startswith("/"):
-                            continue
-                        cr = cr.lstrip("/").replace("@section@", rd.name)
-                        idxp = rd.parent / cr / host_cpu() / "APKINDEX.tar.gz"
-                        if idxp.is_file():
-                            rfh.write(f"/altbinpkgs/{cr}\n")
-            # remote repos come last
-            if rnet:
-                # FIXME: do not hardcode, but for now we have no way to
-                # determine which sections should be available here
-                for rd in ["main", "contrib"]:
-                    for cr in get_confrepos():
-                        if cr.startswith("/"):
-                            continue
-                        rfh.write(cr.replace("@section@", rd))
-                        rfh.write("\n")
+                        rfh.write(f"/altbinpkgs/{cr}\n")
+        # remote repos come last
+        if rnet:
+            from cbuild.core import profile
+            for rd in profile.get_profile(host_cpu()).repos:
+                for cr in get_confrepos():
+                    if cr.startswith("/"):
+                        continue
+                    rfh.write(cr.replace("@section@", rd))
+                    rfh.write("\n")
 
-    # do not refresh if chroot is not initialized
-    if not (paths.bldroot() / ".cbuild_chroot_init").is_file():
-        return
-
-    chflags = []
-    if not genrepos:
-        chflags = ["-q"]
-    else:
-        # ensure any local apk commands can write into cache
-        cpath = paths.bldroot() / "etc/apk/cache"
-        cpath.unlink(missing_ok = True)
-        cpath.symlink_to("/cbuild_cache/apk")
+    # ensure any local apk commands can write into cache
+    cfile.symlink_to("/cbuild_cache/apk")
 
     if apki.call_chroot(
-        "update", chflags, "main", full_chroot = genrepos, allow_network = rnet
+        "update", [], None, full_chroot = True, allow_network = rnet
     ).returncode != 0:
         raise errors.CbuildException(f"failed to update pkg database")
 
@@ -231,7 +226,7 @@ def install(arch = None, stage = 2):
 
     set_host(arch)
     set_target(arch)
-    repo_sync()
+    setup_keys(paths.bldroot())
 
     irun = apki.call(
         "add", ["--no-scripts", "base-cbuild"], "main", arch = arch,
@@ -340,13 +335,8 @@ def _setup_dummy(rootp, archn):
     finally:
         shutil.rmtree(tmpd)
 
-    if apki.call(
-        "update", ["-q"], "main", root = rootp, capture_output = True,
-        arch = archn
-    ).returncode != 0:
-        raise errors.CbuildException(f"failed to update cross pkg database")
-
 def _prepare_arch(prof):
+    paths.prepare()
     rootp = paths.bldroot() / prof.sysroot.relative_to("/")
     # drop the whole thing
     if rootp.exists():
@@ -423,7 +413,7 @@ def remove_autodeps(bootstrapping, prof = None):
     if failed:
         raise errors.CbuildException("failed to remove autodeps")
 
-def update(pkg = "main"):
+def update(pkg):
     if not chroot_check():
         return
 
@@ -431,6 +421,7 @@ def update(pkg = "main"):
         % str(paths.bldroot()))
 
     paths.prepare()
+    repo_init()
 
     # reinit passwd/group
     _prepare_passwd()
@@ -439,6 +430,24 @@ def update(pkg = "main"):
     apki.call_chroot(
         "upgrade", ["--available"], pkg, check = True, use_stage = True
     )
+
+    # this is bootstrap-update
+    if isinstance(pkg, str):
+        return
+
+    prof = pkg.profile()
+
+    # not cross, so we don't care
+    if not prof.cross:
+        return
+
+    rootp = paths.bldroot() / prof.sysroot.relative_to("/")
+
+    # otherwise also update indexes in cross root
+    if apki.call(
+        "update", ["-q"], pkg, root = rootp, arch = prof.arch
+    ).returncode != 0:
+        raise errors.CbuildException(f"failed to update cross pkg database")
 
 def enter(cmd, *args, capture_output = False, check = False,
           env = {}, stdout = None, stderr = None, wrkdir = None,

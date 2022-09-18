@@ -183,6 +183,7 @@ class Profile:
             self._endian = sys.byteorder
             self._wordsize = int(platform.architecture()[0][:-3])
             self._hardening = []
+            self._repos = []
             # account for arch specific bootstrap flags
             if f"flags.{self._arch}" in pdata:
                 pd = pdata[f"flags.{self._arch}"]
@@ -220,6 +221,15 @@ class Profile:
             self._hardening = pdata.get("hardening").split()
         else:
             self._hardening = []
+
+        if "repos" in pdata:
+            ra = pdata.get("repos").split(" ")
+            if len(ra) == 0 or len(ra[0]) == 0:
+                self._repos = []
+            else:
+                self._repos = ra
+        else:
+            self._repos = []
 
         def get_gflag(fn):
             if f"flags.{archn}" in gdata:
@@ -278,6 +288,10 @@ class Profile:
     @property
     def cross(self):
         return self._arch != chroot.host_cpu()
+
+    @property
+    def repos(self):
+        return self._repos
 
 _all_profiles = {}
 

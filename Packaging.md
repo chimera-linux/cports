@@ -1596,6 +1596,7 @@ It may look like this:
 endian    = little
 wordsize  = 64
 triplet   = riscv64-unknown-linux-musl
+repos     = main contrib
 [flags]
 CFLAGS    = -march=rv64gc -mabi=lp64d
 CXXFLAGS  = ${CFLAGS}
@@ -1619,6 +1620,13 @@ It does not actually enable or disable the options directly; the defaults
 for all hardening options are shared between all targets. However, by
 declaring some hardening option supported or unsupported, this can alter
 the defaults. Disabling is done by prefixing the name with `!`.
+
+The `repos` field specifies which categories are provided by remote
+repositories. As different architecture tiers may provide different
+package sets and some architectures don't have remote repositories
+at all, this is specified in the profile as we have no way to check
+it (and assuming all repos exist would just lead to needless failures
+when updating the package indexes).
 
 There is also the special `bootstrap` profile used when bootstrapping.
 It differs from normal profiles in that the `profile` section is not
@@ -1647,6 +1655,7 @@ class Profile:
     wordsize = ...
     endian = ...
     cross = ...
+    repos = ...
 
     def get_tool_flags(self, name, extra_flags = [], debug = -1, hardening = [], shell = False)
 

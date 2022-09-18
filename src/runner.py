@@ -421,7 +421,7 @@ def bootstrap(tgt):
             pass
         paths.prepare()
         chroot.initdb()
-        chroot.repo_sync()
+        chroot.repo_init()
         if rp:
             build.build(tgt, rp, {}, opt_signkey)
         do_unstage(tgt, True)
@@ -489,7 +489,7 @@ def bootstrap_update(tgt):
     from cbuild.core import chroot
 
     chroot.remove_autodeps(False)
-    chroot.update()
+    chroot.update("main")
 
 def do_keygen(tgt):
     from cbuild.apk import sign
@@ -512,7 +512,7 @@ def do_chroot(tgt):
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
     paths.prepare()
-    chroot.repo_sync(True, not opt_nonet)
+    chroot.shell_update(not opt_nonet)
     chroot.enter(
         "/usr/bin/sh", "-i", fakeroot = True, new_session = False,
         mount_binpkgs = True, mount_cbuild_cache = True,
@@ -940,8 +940,6 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
             f"build root not found (have you boootstrapped?)"
         )
     # don't remove builddir/destdir
-    paths.prepare()
-    chroot.repo_sync()
     chroot.prepare_arch(opt_arch)
     build.build(
         tgt, rp, {}, opt_signkey, dirty = opt_dirty,
@@ -967,8 +965,7 @@ def _bulkpkg(pkgs, statusf):
 
     if opt_mdirtemp:
         chroot.install(chroot.host_cpu())
-    paths.prepare()
-    chroot.repo_sync()
+    chroot.repo_init()
     chroot.prepare_arch(opt_arch)
 
     def _do_with_exc(f):
