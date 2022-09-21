@@ -273,18 +273,38 @@ def _setup_dummy(rootp, archn):
 
     logger.get().out(f"cbuild: installing virtual provider for {archn}...")
 
+    # generate exact provided versions
+    #
+    # this is necessary because if any other versions are provided, it will
+    # cause problems with some makedepends (e.g. static libraries for musl,
+    # libunwind and so on depend on exact versions of their devel packages)
+
+    from cbuild.core import template
+
+    def _get_ver(pkgn):
+        tobj = template.read_pkg(
+            f"main/{pkgn}", archn, True, False, (1, 1), False, False, None,
+            ignore_missing = True, ignore_errors = True
+        )
+        return f"{tobj.pkgver}-r{tobj.pkgrel}"
+
+    files_ver = _get_ver("base-files")
+    musl_ver = _get_ver("musl")
+    llvm_ver = _get_ver("llvm")
+    exec_ver = _get_ver("libexecinfo")
+
     provides = [
-        "base-files=9999-r0",
-        "musl=9999-r0",
-        "musl-devel=9999-r0",
-        "libcxx=9999-r0",
-        "libcxx-devel=9999-r0",
-        "libcxxabi=9999-r0",
-        "libcxxabi-devel=9999-r0",
-        "libunwind=9999-r0",
-        "libunwind-devel=9999-r0",
-        "libexecinfo=9999-r0",
-        "libexecinfo-devel=9999-r0",
+        f"base-files={files_ver}",
+        f"musl={musl_ver}",
+        f"musl-devel={musl_ver}",
+        f"libcxx={llvm_ver}",
+        f"libcxx-devel={llvm_ver}",
+        f"libcxxabi={llvm_ver}",
+        f"libcxxabi-devel={llvm_ver}",
+        f"libunwind={llvm_ver}",
+        f"libunwind-devel={llvm_ver}",
+        f"libexecinfo={exec_ver}",
+        f"libexecinfo-devel={exec_ver}",
         "pc:libexecinfo=9999",
         "so:libc.so=0",
         "so:libc++abi.so.1=1.0",
