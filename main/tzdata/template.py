@@ -1,7 +1,7 @@
 pkgname = "tzdata"
 pkgver = "2022c"
 pkgrel = 0
-makedepends = ["musl-devel-static", "libunwind-devel-static"]
+hostmakedepends = ["musl-devel-static", "libunwind-devel-static"]
 pkgdesc = "Time zone and daylight-saving time data"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
@@ -16,6 +16,9 @@ sha256 = [
 ]
 # no tests
 options = ["bootstrap", "!check", "hardlinks"]
+
+if self.stage == 0:
+    makedepends = list(hostmakedepends)
 
 def do_build(self):
     from cbuild.util import compiler
