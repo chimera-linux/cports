@@ -1,5 +1,6 @@
 pkgname = "crispy-doom"
-pkgver = "5.12.0"
+# CAUTION: 5.12 hangs when starting new game (at least on ppc64le)
+pkgver = "5.11.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf"]
@@ -12,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/fabiangreffrath/crispy-doom"
 source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
-sha256 = "d85d6e76aa949385458b7702e6fb594996745b94032ffb13e1790376eeecb462"
+sha256 = "7c5bb36393dec39b9732e53963dadd6bcc3bd193370c4ec5b1c0121df3b38faa"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
