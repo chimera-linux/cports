@@ -1,0 +1,21 @@
+commit 6a677b050c91000d7a196dd764a9aca5dda0f98f
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Sep 23 02:43:48 2022 +0200
+
+    disable probably broken function that is only built with clang
+    
+    The __ppc macro is never defined on ppc gcc.
+
+diff --git a/sqlite3.c b/sqlite3.c
+index 451ca8e..5b31d31 100644
+--- a/sqlite3.c
++++ b/sqlite3.c
+@@ -20860,7 +20860,7 @@ SQLITE_PRIVATE const char **sqlite3CompileOptions(int *pnOpt);
+       return val;
+   }
+ 
+-#elif !defined(__STRICT_ANSI__) && (defined(__GNUC__) && defined(__ppc__))
++#elif 0
+ 
+   __inline__ sqlite_uint64 sqlite3Hwtime(void){
+       unsigned long long retval;
