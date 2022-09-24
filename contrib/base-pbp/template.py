@@ -23,5 +23,7 @@ def do_install(self):
     self.install_file(
         self.files_path / "99-pbp-kernel.sh", "etc/kernel.d", mode = 0o755
     )
+    # cmdline
+    self.install_file(self.files_path / "pbp-cmdline", "etc/default")
     # agetty service
     self.install_service(self.files_path / "agetty-ttyS2")
