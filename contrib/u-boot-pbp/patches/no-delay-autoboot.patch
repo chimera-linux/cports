@@ -2,7 +2,7 @@ commit a9e02ab80ab66ed7559b662b018f1dff8892116a
 Author: q66 <daniel@octaforge.org>
 Date:   Sun Sep 11 16:32:47 2022 +0000
 
-    do not delay autoboot + use a sane default baudrate
+    do not delay autoboot
     
     Based on a patch by Cameron Nemo <cnemo@tutanota.com>.
 
@@ -19,15 +19,6 @@ index d7378f5..fff139e 100644
  CONFIG_USE_PREBOOT=y
  CONFIG_DEFAULT_FDT_FILE="rockchip/rk3399-pinebook-pro.dtb"
  CONFIG_DISPLAY_BOARDINFO_LATE=y
-@@ -69,7 +69,7 @@ CONFIG_RAM_RK3399_LPDDR4=y
- CONFIG_DM_RESET=y
- CONFIG_DM_RNG=y
- CONFIG_RNG_ROCKCHIP=y
--CONFIG_BAUDRATE=1500000
-+CONFIG_BAUDRATE=115200
- CONFIG_DEBUG_UART_SHIFT=2
- CONFIG_ROCKCHIP_SPI=y
- CONFIG_SYSRESET=y
 @@ -93,3 +93,7 @@ CONFIG_VIDEO_ROCKCHIP=y
  CONFIG_DISPLAY_ROCKCHIP_EDP=y
  CONFIG_SPL_TINY_MEMSET=y
