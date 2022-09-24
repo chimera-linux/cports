@@ -1,11 +1,4 @@
-From 7c8dd0dc212cd9c1106b4e39b55765383343edb1 Mon Sep 17 00:00:00 2001
-From: Andrea Brancaleoni <miwaxe@gmail.com>
-Date: Wed, 6 Apr 2022 00:51:06 +0200
-Subject: [PATCH 03/22] fix unwind chain inclusion
-
----
- clang/lib/Headers/unwind.h | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+This fixes the compiler complaining about the __has_include_next.
 
 diff --git a/clang/lib/Headers/unwind.h b/clang/lib/Headers/unwind.h
 index 6e069798f..3a24920d1 100644
@@ -31,7 +24,7 @@ index 6e069798f..3a24920d1 100644
  #include <stdint.h>
  
  #ifdef __cplusplus
-@@ -323,6 +323,7 @@ _Unwind_Ptr _Unwind_GetTextRelBase(struct _Unwind_Context *);
+@@ -326,6 +326,7 @@ _Unwind_Ptr _Unwind_GetTextRelBase(struct _Unwind_Context *);
  }
  #endif
  

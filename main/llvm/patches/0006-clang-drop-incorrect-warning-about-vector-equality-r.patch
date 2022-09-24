@@ -1,7 +1,8 @@
-From b854d507d5433141dc82e35c8a4c4768403ceab1 Mon Sep 17 00:00:00 2001
+From 4a7806316052bb53231800af0ee7d7f03601f473 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Wed, 6 Apr 2022 00:49:10 +0200
-Subject: [PATCH 01/22] drop incorrect warning about vector equality results
+Subject: [PATCH 06/19] clang: drop incorrect warning about vector equality
+ results
 
 See https://reviews.llvm.org/D106120#3203310
 ---
@@ -9,10 +10,10 @@ See https://reviews.llvm.org/D106120#3203310
  1 file changed, 2 deletions(-)
 
 diff --git a/clang/lib/Sema/SemaExpr.cpp b/clang/lib/Sema/SemaExpr.cpp
-index 85553eccd..7bc08afc7 100644
+index 83081bbf0..267696035 100644
 --- a/clang/lib/Sema/SemaExpr.cpp
 +++ b/clang/lib/Sema/SemaExpr.cpp
-@@ -12366,8 +12366,6 @@ QualType Sema::CheckVectorCompareOperands(ExprResult &LHS, ExprResult &RHS,
+@@ -12915,8 +12915,6 @@ QualType Sema::CheckVectorCompareOperands(ExprResult &LHS, ExprResult &RHS,
        if (vType->castAs<VectorType>()->getVectorKind() ==
            VectorType::AltiVecVector)
          return Context.getLogicalOperationType();
@@ -22,5 +23,5 @@ index 85553eccd..7bc08afc7 100644
      case LangOptions::AltivecSrcCompatKind::GCC:
        // For GCC we always return the vector type.
 -- 
-2.35.1
+2.37.3
 

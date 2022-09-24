@@ -1,0 +1,25 @@
+From 6bbe807f67e5cab3ef5c7401d61afb7c43c12bee Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 25 Sep 2022 02:31:54 +0200
+Subject: [PATCH 08/19] compiler-rt: default to libc++ for sanitizers
+
+---
+ compiler-rt/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
+index 627377356..d9e422030 100644
+--- a/compiler-rt/CMakeLists.txt
++++ b/compiler-rt/CMakeLists.txt
+@@ -188,7 +188,7 @@ macro(handle_default_cxx_lib var)
+       set(${var}_LIBNAME "libc++")
+       set(${var}_INTREE 1)
+     else()
+-      set(${var}_LIBNAME "libstdc++")
++      set(${var}_LIBNAME "libc++")
+       set(${var}_SYSTEM 1)
+     endif()
+   else()
+-- 
+2.37.3
+

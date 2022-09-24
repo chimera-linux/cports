@@ -1,17 +1,17 @@
-From 874f303e357a30291d7ab3b084ef265cd2f23f16 Mon Sep 17 00:00:00 2001
+From 3dbb40baaa72eebd01169996bd30cbf73b06e7ee Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Wed, 6 Apr 2022 01:00:04 +0200
-Subject: [PATCH 12/22] libc++ musl locale workarounds
+Subject: [PATCH 15/18] libc++: musl locale workarounds
 
 ---
  libcxx/include/locale | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/libcxx/include/locale b/libcxx/include/locale
-index 7c2d2361f..c0c3d260e 100644
+index b01c66d04..a7ca65c92 100644
 --- a/libcxx/include/locale
 +++ b/libcxx/include/locale
-@@ -749,7 +749,11 @@ __num_get_signed_integral(const char* __a, const char* __a_end,
+@@ -760,7 +760,11 @@ __num_get_signed_integral(const char* __a, const char* __a_end,
          typename remove_reference<decltype(errno)>::type __save_errno = errno;
          errno = 0;
          char *__p2;
@@ -23,7 +23,7 @@ index 7c2d2361f..c0c3d260e 100644
          typename remove_reference<decltype(errno)>::type __current_errno = errno;
          if (__current_errno == 0)
              errno = __save_errno;
-@@ -789,7 +793,11 @@ __num_get_unsigned_integral(const char* __a, const char* __a_end,
+@@ -800,7 +804,11 @@ __num_get_unsigned_integral(const char* __a, const char* __a_end,
          typename remove_reference<decltype(errno)>::type __save_errno = errno;
          errno = 0;
          char *__p2;
@@ -36,5 +36,5 @@ index 7c2d2361f..c0c3d260e 100644
          if (__current_errno == 0)
              errno = __save_errno;
 -- 
-2.35.1
+2.37.3
 

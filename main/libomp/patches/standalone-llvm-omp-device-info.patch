@@ -8,19 +8,20 @@ diff --git a/openmp/libomptarget/tools/deviceinfo/CMakeLists.txt b/openmp/libomp
 index 4073ad9fe..51178b4ba 100644
 --- a/openmp/libomptarget/tools/deviceinfo/CMakeLists.txt
 +++ b/openmp/libomptarget/tools/deviceinfo/CMakeLists.txt
-@@ -12,12 +12,12 @@
+@@ -12,9 +12,7 @@
  
  libomptarget_say("Building the llvm-omp-device-info tool")
  
--add_llvm_tool(llvm-omp-device-info llvm-omp-device-info.cpp)
+-add_openmp_tool(llvm-omp-device-info llvm-omp-device-info.cpp)
 -
 -llvm_update_compile_flags(llvm-omp-device-info)
 +add_executable(llvm-omp-device-info llvm-omp-device-info.cpp)
  
- target_link_libraries(llvm-omp-device-info PRIVATE
+ target_include_directories(llvm-omp-device-info PRIVATE
+   ${LIBOMPTARGET_INCLUDE_DIR}
+@@ -23,3 +21,5 @@ target_link_libraries(llvm-omp-device-info PRIVATE
    omp
    omptarget
-   ${LIBOMPTARGET_TESTED_PLUGINS}
  )
 +
 +install(TARGETS llvm-omp-device-info DESTINATION bin)

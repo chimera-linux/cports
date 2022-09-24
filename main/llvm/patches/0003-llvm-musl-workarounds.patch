@@ -1,7 +1,7 @@
-From 0bbead026575fe5545b8f31b1d007875933dcc76 Mon Sep 17 00:00:00 2001
+From c00c76705c14c35aa43f663743827e511968fd12 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Wed, 6 Apr 2022 01:03:43 +0200
-Subject: [PATCH 17/22] musl llvm workarounds
+Subject: [PATCH 03/19] llvm: musl workarounds
 
 ---
  llvm/include/llvm/Analysis/TargetLibraryInfo.h | 9 +++++++++
@@ -10,10 +10,10 @@ Subject: [PATCH 17/22] musl llvm workarounds
  3 files changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/llvm/include/llvm/Analysis/TargetLibraryInfo.h b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
-index 17d1e3f77..6ec99592a 100644
+index 7bfda0124..8c0bc6054 100644
 --- a/llvm/include/llvm/Analysis/TargetLibraryInfo.h
 +++ b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
-@@ -18,6 +18,15 @@
+@@ -16,6 +16,15 @@
  #include "llvm/IR/PassManager.h"
  #include "llvm/Pass.h"
  
@@ -27,8 +27,8 @@ index 17d1e3f77..6ec99592a 100644
 +#undef tmpfile64
 +
  namespace llvm {
+ 
  template <typename T> class ArrayRef;
- class Triple;
 diff --git a/llvm/lib/Support/Unix/DynamicLibrary.inc b/llvm/lib/Support/Unix/DynamicLibrary.inc
 index a2a379963..2f86c470c 100644
 --- a/llvm/lib/Support/Unix/DynamicLibrary.inc
@@ -55,5 +55,5 @@ index a5b4e5ac7..b2235448c 100644
  # include <sys/socket.h>  // NOLINT
  # include <sys/types.h>  // NOLINT
 -- 
-2.35.1
+2.37.3
 

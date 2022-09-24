@@ -1,17 +1,17 @@
-From 4fc586e2de124bf427f65596201c4b55e604b572 Mon Sep 17 00:00:00 2001
+From 586b701dbb70df02005151d490338b7d85f18653 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Wed, 6 Apr 2022 01:00:46 +0200
-Subject: [PATCH 13/22] treat long doubles as IEEE754 on musl/ppc
+Subject: [PATCH 17/19] libc++: treat long doubles as IEEE754 on musl/ppc
 
 ---
  libcxx/include/limits | 8 +++++++-
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/libcxx/include/limits b/libcxx/include/limits
-index 245c84eea..9fbbffb72 100644
+index 1fa3a8228..b02c0fa5a 100644
 --- a/libcxx/include/limits
 +++ b/libcxx/include/limits
-@@ -426,8 +426,14 @@ protected:
+@@ -432,8 +432,14 @@ protected:
      _LIBCPP_INLINE_VISIBILITY static _LIBCPP_CONSTEXPR type signaling_NaN() _NOEXCEPT {return __builtin_nansl("");}
      _LIBCPP_INLINE_VISIBILITY static _LIBCPP_CONSTEXPR type denorm_min() _NOEXCEPT {return __LDBL_DENORM_MIN__;}
  
@@ -28,5 +28,5 @@ index 245c84eea..9fbbffb72 100644
      static _LIBCPP_CONSTEXPR const bool is_iec559 = true;
  #endif
 -- 
-2.35.1
+2.37.3
 

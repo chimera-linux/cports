@@ -1,19 +1,22 @@
-commit ec6a82cf9f8869f0c4e42842f36e0f5c6517c8aa
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Tue Apr 12 16:12:12 2022 +0200
+From 511ff14d91d5e2c88d94ed773a586de401d758ba Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 24 Sep 2022 23:24:05 +0200
+Subject: [PATCH 13/19] compiler-rt: HACK: always compile in gcc_personality_v0
 
-    HACK: unconditionally compile in gcc_personality_v0
-    
-    Looks like HAVE_UNWIND_H is not accounted for when doing the
-    runtimes build, but this is the only place where it's checked.
-    
-    Unconditionally compile it in because some things use it.
+Looks like HAVE_UNWIND_H is not accounted for when doing the
+runtimes build, but this is the only place where it's checked.
+
+Unconditionally compile it in because some things use it.
+---
+ compiler-rt/lib/builtins/CMakeLists.txt       | 10 ++++------
+ compiler-rt/lib/builtins/gcc_personality_v0.c |  2 +-
+ 2 files changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index 14673ceae..b1f27ee95 100644
+index d1aeb5392..5e568af84 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -215,12 +215,10 @@ if(APPLE)
+@@ -224,12 +224,10 @@ if(APPLE)
    )
  endif()
  
@@ -31,7 +34,7 @@ index 14673ceae..b1f27ee95 100644
  if (NOT FUCHSIA)
    set(GENERIC_SOURCES
 diff --git a/compiler-rt/lib/builtins/gcc_personality_v0.c b/compiler-rt/lib/builtins/gcc_personality_v0.c
-index afb9e2e11..136460448 100644
+index 58fd7ceb5..ce5f0d277 100644
 --- a/compiler-rt/lib/builtins/gcc_personality_v0.c
 +++ b/compiler-rt/lib/builtins/gcc_personality_v0.c
 @@ -9,7 +9,7 @@
@@ -43,3 +46,6 @@ index afb9e2e11..136460448 100644
  #if defined(__arm__) && !defined(__ARM_DWARF_EH__) &&                          \
      !defined(__USING_SJLJ_EXCEPTIONS__)
  // When building with older compilers (e.g. clang <3.9), it is possible that we
+-- 
+2.37.3
+

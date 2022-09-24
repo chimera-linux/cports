@@ -5,14 +5,14 @@ Subject: [PATCH 02/22] HACK: work around amdgcn omptarget cross-compiling
  issues
 
 ---
- openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt | 6 +++++-
+ openmp/libomptarget/DeviceRTL/CMakeLists.txt | 6 +++++-
  1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt b/openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt
-index 406013073..1e2415d87 100644
---- a/openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt
-+++ b/openmp/libomptarget/deviceRTLs/amdgcn/CMakeLists.txt
-@@ -36,7 +36,11 @@ else()
+diff --git a/openmp/libomptarget/DeviceRTL/CMakeLists.txt b/openmp/libomptarget/DeviceRTL/CMakeLists.txt
+index ce6621482..c41617dea 100644
+--- a/openmp/libomptarget/DeviceRTL/CMakeLists.txt
++++ b/openmp/libomptarget/DeviceRTL/CMakeLists.txt
+@@ -24,7 +24,11 @@ if(NOT ${CMAKE_SIZEOF_VOID_P} EQUAL "8")
    return()
  endif()
  
@@ -23,8 +23,8 @@ index 406013073..1e2415d87 100644
 +  set(OPT_TOOL /usr/bin/opt)
 +elseif (LLVM_DIR)
    # Builds that use pre-installed LLVM have LLVM_DIR set.
+   # A standalone or LLVM_ENABLE_RUNTIMES=openmp build takes this route
    find_program(CLANG_TOOL clang PATHS ${LLVM_TOOLS_BINARY_DIR} NO_DEFAULT_PATH)
-   find_program(LINK_TOOL llvm-link PATHS ${LLVM_TOOLS_BINARY_DIR} NO_DEFAULT_PATH)
 -- 
 2.35.1
 

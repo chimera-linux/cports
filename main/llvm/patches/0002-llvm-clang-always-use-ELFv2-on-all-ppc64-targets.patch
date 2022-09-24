@@ -1,0 +1,96 @@
+From d1916fb582ec6a61af81a0979f95d40762b65bda Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 6 Apr 2022 00:51:53 +0200
+Subject: [PATCH 02/19] llvm+clang: always use ELFv2 on all ppc64 targets
+
+---
+ clang/lib/Basic/Targets/PPC.h                | 3 +--
+ clang/lib/CodeGen/TargetInfo.cpp             | 6 +++---
+ clang/lib/Driver/ToolChains/Clang.cpp        | 9 +--------
+ llvm/lib/Target/PowerPC/PPCTargetMachine.cpp | 3 +--
+ llvm/test/CodeGen/PowerPC/ppc64-elf-abi.ll   | 3 ++-
+ 5 files changed, 8 insertions(+), 16 deletions(-)
+
+diff --git a/clang/lib/Basic/Targets/PPC.h b/clang/lib/Basic/Targets/PPC.h
+index 8148762f4..e621347df 100644
+--- a/clang/lib/Basic/Targets/PPC.h
++++ b/clang/lib/Basic/Targets/PPC.h
+@@ -426,11 +426,10 @@ public:
+       LongDoubleFormat = &llvm::APFloat::IEEEdouble();
+     } else if ((Triple.getArch() == llvm::Triple::ppc64le)) {
+       DataLayout = "e-m:e-i64:64-n32:64";
+-      ABI = "elfv2";
+     } else {
+       DataLayout = "E-m:e-i64:64-n32:64";
+-      ABI = "elfv1";
+     }
++    ABI = "elfv2";
+ 
+     if (Triple.isOSFreeBSD() || Triple.isOSOpenBSD() || Triple.isMusl()) {
+       LongDoubleWidth = LongDoubleAlign = 64;
+diff --git a/clang/lib/CodeGen/TargetInfo.cpp b/clang/lib/CodeGen/TargetInfo.cpp
+index 36e10e4df..a718816aa 100644
+--- a/clang/lib/CodeGen/TargetInfo.cpp
++++ b/clang/lib/CodeGen/TargetInfo.cpp
+@@ -11650,9 +11650,9 @@ const TargetCodeGenInfo &CodeGenModule::getTargetCodeGenInfo() {
+       return SetCGInfo(new AIXTargetCodeGenInfo(Types, /*Is64Bit*/ true));
+ 
+     if (Triple.isOSBinFormatELF()) {
+-      PPC64_SVR4_ABIInfo::ABIKind Kind = PPC64_SVR4_ABIInfo::ELFv1;
+-      if (getTarget().getABI() == "elfv2")
+-        Kind = PPC64_SVR4_ABIInfo::ELFv2;
++      PPC64_SVR4_ABIInfo::ABIKind Kind = PPC64_SVR4_ABIInfo::ELFv2;
++      if (getTarget().getABI() == "elfv1")
++        Kind = PPC64_SVR4_ABIInfo::ELFv1;
+       bool IsSoftFloat = CodeGenOpts.FloatABI == "soft";
+ 
+       return SetCGInfo(
+diff --git a/clang/lib/Driver/ToolChains/Clang.cpp b/clang/lib/Driver/ToolChains/Clang.cpp
+index 3704ed858..dd7e7af0f 100644
+--- a/clang/lib/Driver/ToolChains/Clang.cpp
++++ b/clang/lib/Driver/ToolChains/Clang.cpp
+@@ -2088,14 +2088,7 @@ void Clang::AddPPCTargetArgs(const ArgList &Args,
+   const llvm::Triple &T = getToolChain().getTriple();
+   if (T.isOSBinFormatELF()) {
+     switch (getToolChain().getArch()) {
+-    case llvm::Triple::ppc64: {
+-      if ((T.isOSFreeBSD() && T.getOSMajorVersion() >= 13) ||
+-          T.isOSOpenBSD() || T.isMusl())
+-        ABIName = "elfv2";
+-      else
+-        ABIName = "elfv1";
+-      break;
+-    }
++    case llvm::Triple::ppc64:
+     case llvm::Triple::ppc64le:
+       ABIName = "elfv2";
+       break;
+diff --git a/llvm/lib/Target/PowerPC/PPCTargetMachine.cpp b/llvm/lib/Target/PowerPC/PPCTargetMachine.cpp
+index fe396cbfc..78bd0aeb9 100644
+--- a/llvm/lib/Target/PowerPC/PPCTargetMachine.cpp
++++ b/llvm/lib/Target/PowerPC/PPCTargetMachine.cpp
+@@ -236,9 +236,8 @@ static PPCTargetMachine::PPCABI computeTargetABI(const Triple &TT,
+ 
+   switch (TT.getArch()) {
+   case Triple::ppc64le:
+-    return PPCTargetMachine::PPC_ABI_ELFv2;
+   case Triple::ppc64:
+-    return PPCTargetMachine::PPC_ABI_ELFv1;
++    return PPCTargetMachine::PPC_ABI_ELFv2;
+   default:
+     return PPCTargetMachine::PPC_ABI_UNKNOWN;
+   }
+diff --git a/llvm/test/CodeGen/PowerPC/ppc64-elf-abi.ll b/llvm/test/CodeGen/PowerPC/ppc64-elf-abi.ll
+index 8b1cf6b58..296a2afa6 100644
+--- a/llvm/test/CodeGen/PowerPC/ppc64-elf-abi.ll
++++ b/llvm/test/CodeGen/PowerPC/ppc64-elf-abi.ll
+@@ -1,4 +1,5 @@
+-; RUN: llc -verify-machineinstrs -mtriple=powerpc64-unknown-linux-gnu < %s | FileCheck %s -check-prefix=CHECK-ELFv1
++; RUN: llc -verify-machineinstrs -mtriple=powerpc64-unknown-linux-gnu < %s | FileCheck %s -check-prefix=CHECK-ELFv2
++; RUN: llc -verify-machineinstrs -mtriple=powerpc64-unknown-linux-musl < %s | FileCheck %s -check-prefix=CHECK-ELFv2
+ ; RUN: llc -verify-machineinstrs -mtriple=powerpc64-unknown-linux-gnu -target-abi elfv1 < %s | FileCheck %s -check-prefix=CHECK-ELFv1
+ ; RUN: llc -verify-machineinstrs -mtriple=powerpc64-unknown-linux-gnu -target-abi elfv2 < %s | FileCheck %s -check-prefix=CHECK-ELFv2
+ ; RUN: llc -verify-machineinstrs -mtriple=powerpc64le-unknown-linux-gnu < %s | FileCheck %s -check-prefix=CHECK-ELFv2
+-- 
+2.37.3
+

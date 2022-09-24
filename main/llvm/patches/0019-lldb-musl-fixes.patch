@@ -1,21 +1,19 @@
-From 1b7de078f7630528822a4ce6bf95362b7bdc287a Mon Sep 17 00:00:00 2001
+From 095a9d8ca4c984b1a88ede18fb7a06d19eaae718 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Wed, 6 Apr 2022 01:03:16 +0200
-Subject: [PATCH 16/22] fix up lldb on musl
+Date: Sat, 24 Sep 2022 20:43:44 +0200
+Subject: [PATCH 19/19] lldb: musl fixes
 
 ---
- lldb/source/Plugins/Process/Linux/Procfs.h | 23 +++++++---------------
- 1 file changed, 7 insertions(+), 16 deletions(-)
+ lldb/source/Plugins/Process/Linux/Procfs.h | 22 ++++++----------------
+ 1 file changed, 6 insertions(+), 16 deletions(-)
 
 diff --git a/lldb/source/Plugins/Process/Linux/Procfs.h b/lldb/source/Plugins/Process/Linux/Procfs.h
-index 59dd76a25..ecb6f8d96 100644
+index 3a0684320..933fb111e 100644
 --- a/lldb/source/Plugins/Process/Linux/Procfs.h
 +++ b/lldb/source/Plugins/Process/Linux/Procfs.h
-@@ -10,21 +10,12 @@
- // sys/procfs.h on Android/Linux for all supported architectures.
+@@ -17,23 +17,13 @@
  
- #include <sys/ptrace.h>
-+#include <asm/ptrace.h>
+ #include <vector>
  
 -#ifdef __ANDROID__
 -#if defined(__arm64__) || defined(__aarch64__)
@@ -40,6 +38,9 @@ index 59dd76a25..ecb6f8d96 100644
  #include <sys/procfs.h>
 -#endif // __ANDROID__
 +#endif
+ 
+ namespace lldb_private {
+ namespace process_linux {
 -- 
-2.35.1
+2.37.3
 

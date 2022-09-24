@@ -1,8 +1,7 @@
-From 92a3b73dfec9c85a536ed99c5570231c333ad1e8 Mon Sep 17 00:00:00 2001
+From 7ce71e381ab31a05f1c675b43df919475ce0d6f9 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Wed, 6 Apr 2022 00:57:58 +0200
-Subject: [PATCH 08/22] disable multiarch locations for
- libunwind/libc++/libc++abi
+Subject: [PATCH 14/19] libc++,libc++abi,libunwind: disable multiarch locations
 
 ---
  libcxx/CMakeLists.txt            | 2 +-
@@ -12,10 +11,10 @@ Subject: [PATCH 08/22] disable multiarch locations for
  4 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index 35c2ce515..19f423bf0 100644
+index 74eff2002..0cc0e56ab 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -432,7 +432,7 @@ set(LIBCXX_INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/c++/v1" CACHE PATH
+@@ -415,7 +415,7 @@ set(LIBCXX_INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/c++/v1" CACHE PATH
  set(LIBCXX_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE PATH
      "Path where built libc++ runtime libraries should be installed.")
  
@@ -25,10 +24,10 @@ index 35c2ce515..19f423bf0 100644
    set(LIBCXX_GENERATED_INCLUDE_DIR "${LLVM_BINARY_DIR}/include/c++/v1")
    set(LIBCXX_GENERATED_INCLUDE_TARGET_DIR "${LLVM_BINARY_DIR}/include/${LLVM_DEFAULT_TARGET_TRIPLE}/c++/v1")
 diff --git a/libcxx/benchmarks/CMakeLists.txt b/libcxx/benchmarks/CMakeLists.txt
-index 95e28618b..906abdb4e 100644
+index b9034ecbf..19ef7c750 100644
 --- a/libcxx/benchmarks/CMakeLists.txt
 +++ b/libcxx/benchmarks/CMakeLists.txt
-@@ -26,7 +26,7 @@ set(BENCHMARK_LIBCXX_COMPILE_FLAGS
+@@ -20,7 +20,7 @@ set(BENCHMARK_LIBCXX_COMPILE_FLAGS
      -Wl,-rpath,${LIBCXX_LIBRARY_DIR}
      ${SANITIZER_FLAGS}
      )
@@ -38,10 +37,10 @@ index 95e28618b..906abdb4e 100644
      -isystem "${LIBCXX_GENERATED_INCLUDE_TARGET_DIR}")
  endif()
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index 8e8cdf8ad..94e625f44 100644
+index b8326d08d..e93fed3c2 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -226,7 +226,7 @@ set(CMAKE_MODULE_PATH
+@@ -184,7 +184,7 @@ set(CMAKE_MODULE_PATH
  set(LIBCXXABI_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE PATH
      "Path where built libc++abi runtime libraries should be installed.")
  
@@ -51,10 +50,10 @@ index 8e8cdf8ad..94e625f44 100644
    set(LIBCXXABI_LIBRARY_DIR ${LLVM_LIBRARY_OUTPUT_INTDIR}/${LLVM_DEFAULT_TARGET_TRIPLE})
    set(LIBCXXABI_INSTALL_LIBRARY_DIR lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE} CACHE PATH
 diff --git a/libunwind/CMakeLists.txt b/libunwind/CMakeLists.txt
-index 6523fb0d3..a63b88f31 100644
+index 5a06805f0..9055f8697 100644
 --- a/libunwind/CMakeLists.txt
 +++ b/libunwind/CMakeLists.txt
-@@ -158,7 +158,7 @@ set(LIBUNWIND_INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}" CACHE PATH
+@@ -115,7 +115,7 @@ set(LIBUNWIND_INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}" CACHE PATH
  set(LIBUNWIND_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE PATH
      "Path where built libunwind runtime libraries should be installed.")
  
@@ -64,5 +63,5 @@ index 6523fb0d3..a63b88f31 100644
    set(LIBUNWIND_INSTALL_LIBRARY_DIR lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE} CACHE PATH
        "Path where built libunwind libraries should be installed.")
 -- 
-2.35.1
+2.37.3
 

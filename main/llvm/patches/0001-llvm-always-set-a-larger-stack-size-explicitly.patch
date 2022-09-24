@@ -1,7 +1,7 @@
-From 18e09846d9333b554e3dfbbd768ada6643bf92c0 Mon Sep 17 00:00:00 2001
+From 27db72556d9a00bb24c9aad9a7ae6447bbc50a71 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 27 Nov 2021 01:03:28 +0100
-Subject: [PATCH 10/22] always set a larger stack size explicitly
+Subject: [PATCH 01/19] llvm: always set a larger stack size explicitly
 
 ---
  llvm/lib/Support/Threading.cpp | 9 ---------
@@ -29,5 +29,5 @@ index 04a1a9e19..776badaad 100644
  #endif
  
 -- 
-2.35.1
+2.37.3
 

@@ -1,20 +1,20 @@
-From 9177cce4cc7a8da5a524d5add1e055a6b9d863c2 Mon Sep 17 00:00:00 2001
+From 173e85bd165d8e7b2ec7ef02e5e728797e49ef8d Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Wed, 6 Apr 2022 00:59:22 +0200
-Subject: [PATCH 11/22] HACK: always disable LTO for libunwind, libc++,
- libc++abi, force compiler-rt for libc++, libc++abi
+Subject: [PATCH 15/19] libc++,libc++abi,libunwind: HACK: always disable LTO,
+ force compiler-rt for libc++(abi)
 
 ---
- libcxx/CMakeLists.txt        | 3 +++
- libcxxabi/CMakeLists.txt     | 3 +++
+ libcxx/CMakeLists.txt        | 4 ++++
+ libcxxabi/CMakeLists.txt     | 4 ++++
  libunwind/src/CMakeLists.txt | 3 +++
- 3 files changed, 9 insertions(+)
+ 3 files changed, 11 insertions(+)
 
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index 19f423bf0..cfb5b4480 100644
+index 0cc0e56ab..34e49ebde 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -841,6 +841,10 @@ function(cxx_link_system_libraries target)
+@@ -805,6 +805,10 @@ function(cxx_link_system_libraries target)
    if (ANDROID AND ANDROID_PLATFORM_LEVEL LESS 21)
      target_link_libraries(${target} PUBLIC android_support)
    endif()
@@ -26,10 +26,10 @@ index 19f423bf0..cfb5b4480 100644
  
  # Windows-related flags =======================================================
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index 94e625f44..dc8ae6760 100644
+index e93fed3c2..6a0c09c04 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -383,6 +383,10 @@ else()
+@@ -324,6 +324,10 @@ else()
    add_compile_flags_if_supported(-EHa-)
  endif()
  
@@ -41,10 +41,10 @@ index 94e625f44..dc8ae6760 100644
  string(TOUPPER "${CMAKE_BUILD_TYPE}" uppercase_CMAKE_BUILD_TYPE)
  if (LIBCXXABI_ENABLE_ASSERTIONS)
 diff --git a/libunwind/src/CMakeLists.txt b/libunwind/src/CMakeLists.txt
-index 710198550..e610abf84 100644
+index 61df2737b..bb3e8193d 100644
 --- a/libunwind/src/CMakeLists.txt
 +++ b/libunwind/src/CMakeLists.txt
-@@ -111,6 +111,9 @@ if (APPLE)
+@@ -121,6 +121,9 @@ if (APPLE)
    endif ()
  endif ()
  
@@ -55,5 +55,5 @@ index 710198550..e610abf84 100644
  string(REPLACE ";" " " LIBUNWIND_CXX_FLAGS "${LIBUNWIND_CXX_FLAGS}")
  string(REPLACE ";" " " LIBUNWIND_C_FLAGS "${LIBUNWIND_C_FLAGS}")
 -- 
-2.35.1
+2.37.3
 
