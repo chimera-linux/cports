@@ -1,5 +1,5 @@
 pkgname = "spirv-llvm-translator"
-pkgver = "14.0.0"
+pkgver = "15.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,13 +20,12 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "NCSA"
 url = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "1afc52bb4e39aeb9b5b69324a201c81bd986364f347b559995eff6fd6f013318"
+sha256 = "b1bebd77f72988758c00852e78c2ddc545815a612169a0cb377d021e2f846d88"
 # tests disabled
 options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE.TXT")
-    self.install_bin("build/tools/llvm-spirv/llvm-spirv")
 
 @subpackage("spirv-llvm-translator-devel")
 def _devel(self):
