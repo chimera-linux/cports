@@ -1,4 +1,4 @@
-From d07f8b66ff540edea068d85aab82ef7646a97a48 Mon Sep 17 00:00:00 2001
+From 68d9815c6f862b3caaf276c9689ddd6ddc84529b Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:40:20 +0100
 Subject: [PATCH 11/11] allow specifying native sysroot to use for linkage
@@ -12,10 +12,10 @@ incompatible libs.
  3 files changed, 11 insertions(+)
 
 diff --git a/src/bootstrap/builder.rs b/src/bootstrap/builder.rs
-index 195b2eda7..bdeafd1c7 100644
+index 5fccf2e60..d13e004a6 100644
 --- a/src/bootstrap/builder.rs
 +++ b/src/bootstrap/builder.rs
-@@ -1708,6 +1708,10 @@ impl<'a> Builder<'a> {
+@@ -1711,6 +1711,10 @@ impl<'a> Builder<'a> {
              }
          }
  
@@ -27,10 +27,10 @@ index 195b2eda7..bdeafd1c7 100644
              cargo.env("RUSTC_HOST_LINKER", host_linker);
          }
 diff --git a/src/bootstrap/config.rs b/src/bootstrap/config.rs
-index cdf7f48a0..9bbd345c7 100644
+index e6a2af595..5236450f1 100644
 --- a/src/bootstrap/config.rs
 +++ b/src/bootstrap/config.rs
-@@ -394,6 +394,7 @@ pub struct Target {
+@@ -395,6 +395,7 @@ pub struct Target {
      pub ranlib: Option<PathBuf>,
      pub default_linker: Option<PathBuf>,
      pub linker: Option<PathBuf>,
@@ -38,7 +38,7 @@ index cdf7f48a0..9bbd345c7 100644
      pub ndk: Option<PathBuf>,
      pub sanitizers: Option<bool>,
      pub profiler: Option<bool>,
-@@ -722,6 +722,7 @@ define_config! {
+@@ -727,6 +728,7 @@ define_config! {
          ranlib: Option<String> = "ranlib",
          default_linker: Option<PathBuf> = "default-linker",
          linker: Option<String> = "linker",
@@ -46,7 +46,7 @@ index cdf7f48a0..9bbd345c7 100644
          llvm_config: Option<String> = "llvm-config",
          llvm_filecheck: Option<String> = "llvm-filecheck",
          llvm_libunwind: Option<String> = "llvm-libunwind",
-@@ -1155,6 +1157,7 @@ impl Config {
+@@ -1154,6 +1156,7 @@ impl Config {
                  target.ar = cfg.ar.map(PathBuf::from);
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
@@ -55,10 +55,10 @@ index cdf7f48a0..9bbd345c7 100644
                  target.wasi_root = cfg.wasi_root.map(PathBuf::from);
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
 diff --git a/src/bootstrap/lib.rs b/src/bootstrap/lib.rs
-index 1b0738bdf..db9bbe57b 100644
+index a97f31e26..e33e63376 100644
 --- a/src/bootstrap/lib.rs
 +++ b/src/bootstrap/lib.rs
-@@ -1152,6 +1152,10 @@ impl Build {
+@@ -1151,6 +1151,10 @@ impl Build {
          }
      }
  
@@ -70,5 +70,5 @@ index 1b0738bdf..db9bbe57b 100644
      fn wasi_root(&self, target: TargetSelection) -> Option<&Path> {
          self.config.target_config.get(&target).and_then(|t| t.wasi_root.as_ref()).map(|p| &**p)
 -- 
-2.35.1
+2.37.3
 

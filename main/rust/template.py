@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.63.0"
+pkgver = "1.64.0"
 pkgrel = 0
 hostmakedepends = [
     "cmake", "curl", "pkgconf", "python", "llvm-devel", "llvm-tools",
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "8f44af6dc44cc4146634a4dd5e4cc5470b3052a2337019b870c0e025e8987e0c"
+sha256 = "e8170d318fac9d2fc17d5c3e648e7068f56e8db8d233d864aeffbef7c6542eac"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -46,7 +46,7 @@ if _bootstrap:
     hostmakedepends += ["llvm-devel-static"]
     makedepends += ["llvm-devel-static"]
     # avoid debug cflags and so on for vendor libs
-    options += ["!debug"]
+    options += ["!debug", "!lto"]
 
 def post_patch(self):
     from cbuild.util import cargo
@@ -55,7 +55,6 @@ def post_patch(self):
     self.rm("src/llvm-project", recursive = True)
     # we are patching these
     cargo.clear_vendor_checksums(self, "libc")
-    cargo.clear_vendor_checksums(self, "libc-0.2.119")
 
 def do_configure(self):
     if _bootstrap:

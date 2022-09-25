@@ -1,4 +1,4 @@
-From e8ae179a103992413deb813a46f8aa6602ff1598 Mon Sep 17 00:00:00 2001
+From 416b2f4886229dfeea442d5a3276114d57fb92c2 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:36:43 +0100
 Subject: [PATCH 05/11] get rid of wrong linkage
@@ -7,30 +7,11 @@ There is no good way to compute the clang builtins library
 path from inside the rust code, but there should be no harm
 in just disabling nodefaultlibs for our platform.
 ---
- vendor/libc-0.2.119/src/unix/mod.rs | 7 +------
- vendor/libc/src/unix/mod.rs         | 7 +------
- 2 files changed, 2 insertions(+), 12 deletions(-)
+ vendor/libc/src/unix/mod.rs | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/vendor/libc-0.2.119/src/unix/mod.rs b/vendor/libc-0.2.119/src/unix/mod.rs
-index 5ff2294e7..ca4bf46c9 100644
---- a/vendor/libc-0.2.119/src/unix/mod.rs
-+++ b/vendor/libc-0.2.119/src/unix/mod.rs
-@@ -329,12 +329,7 @@ cfg_if! {
-         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
-         extern {}
-     } else if #[cfg(target_env = "musl")] {
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", kind = "static", modifiers = "-bundle",
--                        cfg(target_feature = "crt-static")))]
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
--        extern {}
-+        // we don't set -nodefaultlibs, so no need to link anything
-     } else if #[cfg(target_os = "emscripten")] {
-         #[link(name = "c")]
-         extern {}
 diff --git a/vendor/libc/src/unix/mod.rs b/vendor/libc/src/unix/mod.rs
-index 5ff2294e7..ca4bf46c9 100644
+index ecee44411..00f4b14a0 100644
 --- a/vendor/libc/src/unix/mod.rs
 +++ b/vendor/libc/src/unix/mod.rs
 @@ -337,12 +337,7 @@ cfg_if! {
@@ -47,3 +28,6 @@ index 5ff2294e7..ca4bf46c9 100644
      } else if #[cfg(target_os = "emscripten")] {
          #[link(name = "c")]
          extern {}
+-- 
+2.37.3
+
