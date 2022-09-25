@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "22.1.7"
+pkgver = "22.2.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -47,7 +47,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "da838eb2cf11d0e08d0e9944f6bd4d96987fdc59ea2856f8c70a31a82b355d89"
+sha256 = "b1f9c8fd08f2cae3adf83355bef4d2398e8025f44947332880f2d0066bdafa8c"
 # cba to deal with cross patching nonsense
 options = ["!cross"]
 
@@ -59,7 +59,7 @@ match self.profile().arch:
         configure_args += ["-Ddraw-use-llvm=false"]
 
 _gallium_drivers = ["swrast"]
-_vulkan_drivers = []
+_vulkan_drivers = ["swrast"]
 
 # these are good assumptions on all targets we support for now
 _have_nvidia = True
@@ -112,7 +112,7 @@ if _have_arm:
         "kmsro", "v3d", "vc4", "freedreno", "etnaviv", "lima", "panfrost"
     ]
     if _have_vulkan:
-        _vulkan_drivers += ["broadcom"]
+        _vulkan_drivers += ["broadcom", "freedreno", "panfrost"]
 
 if _have_virgl:
     _gallium_drivers += ["virgl"]
@@ -251,33 +251,19 @@ def _dri(self):
 
     return ["usr/lib/dri"]
 
-@subpackage("mesa-vulkan-intel", _have_intel and _have_vulkan)
-def _vulkan_intel(self):
-    self.pkgdesc = "Mesa Intel Vulkan driver"
+@subpackage("mesa-vulkan")
+def _vulkan(self):
+    self.pkgdesc = "Mesa Vulkan drivers"
+    self.depends += [f"mesa={pkgver}-r{pkgrel}"]
+    self.install_if = [f"mesa-dri={pkgver}-r{pkgrel}", "vulkan-loader"]
 
     return [
-        "usr/share/vulkan/icd.d/intel_icd*.json",
-        "usr/lib/libvulkan_intel.so"
-    ]
-
-@subpackage("mesa-vulkan-radeon", _have_amd and _have_vulkan)
-def _vulkan_intel(self):
-    self.pkgdesc = "Mesa Radeon Vulkan driver"
-
-    return [
-        "usr/share/vulkan/icd.d/radeon_icd*.json",
-        "usr/lib/libvulkan_radeon.so"
-    ]
-
-@subpackage("mesa-vulkan-overlay-layer", _have_vulkan)
-def _vulkan_intel(self):
-    self.pkgdesc = "Vulkan layer to display information about the application"
-
-    return [
+        "usr/bin/mesa-overlay-control.py",
+        "usr/lib/libvulkan_*.so",
+        "usr/lib/libVkLayer_*.so",
         "usr/share/vulkan/explicit_layer.d/VkLayer_*.json",
         "usr/share/vulkan/implicit_layer.d/VkLayer_*.json",
-        "usr/bin/mesa-overlay-control.py",
-        "usr/lib/libVkLayer_*.so",
+        "usr/share/vulkan/icd.d/*_icd*.json",
     ]
 
 @subpackage("mesa-devel")

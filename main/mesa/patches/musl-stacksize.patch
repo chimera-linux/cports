@@ -1,8 +1,6 @@
-diff --git ./include/c11/threads_posix.h ./include/c11/threads_posix.h
-index 45cb6075e6..1a2ea1a450 100644
---- a/include/c11/threads_posix.h
-+++ b/include/c11/threads_posix.h
-@@ -281,15 +281,29 @@ static inline int
+--- a/src/c11/impl/threads_posix.c
++++ b/src/c11/impl/threads_posix.c
+@@ -255,15 +255,29 @@ static inline int
  thrd_create(thrd_t *thr, thrd_start_t func, void *arg)
  {
      struct impl_thrd_param *pack;
