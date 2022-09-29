@@ -21,3 +21,5 @@ def do_install(self):
     for f in ["dynamic", "jump"]:
         self.install_file(f"{instp}/fw_{f}.bin", destp)
         self.install_file(f"{instp}/fw_{f}.elf", destp)
+
+    self.install_license("COPYING.BSD")
