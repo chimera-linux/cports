@@ -123,8 +123,12 @@ match self.profile().arch:
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
-configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
-configure_args += [f"-DLLVM_ENABLE_RUNTIMES={';'.join(_enabled_runtimes)}"]
+# do not use bootstrapping build for cross as it does not really work for now
+if self.profile().cross:
+    configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects + _enabled_runtimes)}"]
+else:
+    configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
+    configure_args += [f"-DLLVM_ENABLE_RUNTIMES={';'.join(_enabled_runtimes)}"]
 
 def init_configure(self):
     if not self.profile().cross:
@@ -132,9 +136,9 @@ def init_configure(self):
 
     self.configure_args.append("-DLLVM_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/llvm-tblgen"))
     self.configure_args.append("-DCLANG_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/clang-tblgen"))
-
-    if self.stage >= 2:
-        self.configure_args.append("-DLLDB_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/lldb-tblgen"))
+    self.configure_args.append("-DLLDB_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/lldb-tblgen"))
+    self.configure_args.append("-DCLANG_PSEUDO_GEN=" + str(self.chroot_cwd / "build_host/bin/clang-pseudo-gen"))
+    self.configure_args.append("-DCLANG_TIDY_CONFUSABLE_CHARS_GEN=" + str(self.chroot_cwd / "build_host/bin/clang-tidy-confusable-chars-gen"))
 
 def pre_configure(self):
     if not self.profile().cross:
@@ -163,12 +167,21 @@ def pre_configure(self):
             s.check()
             make.Make(self, wrksrc = "build_host").invoke(["bin/clang-tblgen"])
 
-        if self.stage >= 2:
-            with self.stamp("host_lldb_tblgen") as s:
-                s.check()
-                make.Make(self, wrksrc = "build_host").invoke([
-                    "bin/lldb-tblgen"
-                ])
+        with self.stamp("host_lldb_tblgen") as s:
+            s.check()
+            make.Make(self, wrksrc = "build_host").invoke(["bin/lldb-tblgen"])
+
+        with self.stamp("host_confusable_gen") as s:
+            s.check()
+            make.Make(self, wrksrc = "build_host").invoke([
+                "bin/clang-tidy-confusable-chars-gen"
+            ])
+
+        with self.stamp("host_clang_pseudo_gen") as s:
+            s.check()
+            make.Make(self, wrksrc = "build_host").invoke([
+                "bin/clang-pseudo-gen"
+            ])
 
 def do_configure(self):
     from cbuild.util import cmake
