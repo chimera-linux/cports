@@ -76,8 +76,10 @@ if self.stage > 0:
             "-DLLDB_ENABLE_LUA=NO", # maybe later
             "-DLLDB_ENABLE_PYTHON=YES",
             "-DLLDB_USE_SYSTEM_SIX=YES",
-            "-DLLVM_ENABLE_LTO=Thin",
         ]
+        # LTO broken on riscv for now
+        if self.profile().arch != "riscv64":
+            configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
         hostmakedepends += ["swig", "python-devel"]
         _enabled_projects += ["lldb"]
         # also use llvm-bootstrap
