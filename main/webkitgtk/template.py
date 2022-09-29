@@ -67,9 +67,9 @@ match self.profile().arch:
     case _:
         configure_args += ["-DENABLE_JIT=OFF", "-DENABLE_C_LOOP=ON"]
 
-# LTO broken on aarch64 (JIT segfault)
+# LTO broken on aarch64 (JIT segfault) and on riscv64 (broken in LLVM)
 match self.profile().arch:
-    case "aarch64":
+    case "aarch64" | "riscv64":
         options += ["!lto"]
     case _:
         configure_args += ["-DLTO_MODE=thin"]
