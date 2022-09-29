@@ -158,11 +158,10 @@ community basis.
 
 Tier 4 targets receive only `main` packages.
 
-There may also be untiered targets. Those are all that have a profile
-present but are not listed here. Those do not receive any binary packages
-but are still allowed to live in the source repository (and patches are
-accepted for them). The community may provide their own binary repos,
-but the project will not host any such infrastructure.
+There may also be untiered targets. Those have profiles but do not have
+any packages at the moment. It typically means this target is not ready
+to be supported, either by us or by software we rely on. Some untiered
+targets may be promoted at a later point.
 
 **Tier 1 targets:**
 
@@ -172,15 +171,20 @@ but the project will not host any such infrastructure.
 
 **Tier 2 targets:**
 
-* `riscv64`
+* Currently none.
 
 **Tier 3 targets:**
 
-* `ppc64`
+* `riscv64`
 
 **Tier4 targets:**
 
 * Currently none.
+
+** Untiered targets:**
+
+* `ppc64`
+* `ppc``
 
 <a id="quality_requirements"></a>
 ## Quality Requirements
