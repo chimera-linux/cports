@@ -24,6 +24,10 @@ source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}/{pkgver}/{pkgname}-{pkgver}.t
 sha256 = "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8"
 options = ["!cross"]
 
+match self.profile().arch:
+    case "riscv64":
+        configure_args += ["--disable-jit"]
+
 def post_install(self):
     self.install_license("LICENCE")
 
