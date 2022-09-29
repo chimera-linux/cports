@@ -26,8 +26,10 @@ else:
 match self.profile().arch:
     case "x86_64":
         configure_args += ["enable-ec_nistp_64_gcc_128", "linux-x86_64"]
-    case "aarch64" | "ppc64le" | "ppc64" | "riscv64":
+    case "aarch64" | "ppc64le" | "ppc64":
         configure_args += [f"linux-{self.profile().arch}"]
+    case "riscv64":
+        configure_args += [f"linux64-riscv64"]
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
