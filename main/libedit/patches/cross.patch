@@ -1,0 +1,37 @@
+From 13b68c559b0c66b523a448c2717acf219afcf232 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <dkolesa@igalia.com>
+Date: Thu, 29 Sep 2022 05:15:16 +0200
+Subject: [PATCH] fix cross build
+
+---
+ Makefile | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 30766a9..9703200 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,6 +3,7 @@ VERSION = 20220411
+ CC ?= cc
+ AR ?= ar
+ CFLAGS ?= -O2
++PKG_CONFIG ?= pkg-config
+ 
+ PREFIX ?= /usr/local
+ INCDIR ?= include
+@@ -10,9 +11,9 @@ LIBDIR ?= lib
+ MANDIR ?= share/man
+ 
+ REQUIRES = ncursesw
+-REQ_LIBS = `pkg-config --libs $(REQUIRES)`
+-REQ_CFLAGS = `pkg-config --cflags $(REQUIRES)`
+-REQ_LLIBS = `pkg-config --libs-only-l $(REQUIRES)`
++REQ_LIBS = `$(PKG_CONFIG) --libs $(REQUIRES)`
++REQ_CFLAGS = `$(PKG_CONFIG) --cflags $(REQUIRES)`
++REQ_LLIBS = `$(PKG_CONFIG) --libs-only-l $(REQUIRES)`
+ 
+ EXTRA_CFLAGS = -I. -Wall -Wextra -fPIC
+ 
+-- 
+2.25.1
+
