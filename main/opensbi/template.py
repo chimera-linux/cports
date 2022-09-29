@@ -3,7 +3,7 @@ pkgver = "1.1"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
-make_build_args = ["PLATFORM=generic", "LLVM=1"]
+make_build_args = ["PLATFORM=generic", "PLATFORM_RISCV_XLEN=64", "LLVM=1"]
 make_use_env = True
 hostmakedepends = ["gmake", "bash"]
 pkgdesc = "RISC-V Open Source Supervisor Binary Interface"
