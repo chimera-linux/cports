@@ -155,21 +155,17 @@ def pre_configure(self):
 
         with self.stamp("host_llvm_tblgen") as s:
             s.check()
-            make.Make(self, wrksrc = "build_host").build([
-                "-C", "utils/TableGen"
-            ])
+            make.Make(self, wrksrc = "build_host").invoke(["bin/llvm-tblgen"])
 
         with self.stamp("host_clang_tblgen") as s:
             s.check()
-            make.Make(self, wrksrc = "build_host").build([
-                "-C", "tools/clang/utils/TableGen"
-            ])
+            make.Make(self, wrksrc = "build_host").invoke(["bin/clang-tblgen"])
 
         if self.stage >= 2:
             with self.stamp("host_lldb_tblgen") as s:
                 s.check()
-                make.Make(self, wrksrc = "build_host").build([
-                    "-C", "tools/lldb/utils/TableGen"
+                make.Make(self, wrksrc = "build_host").invoke([
+                    "bin/lldb-tblgen"
                 ])
 
 def do_configure(self):
