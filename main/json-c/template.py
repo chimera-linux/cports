@@ -2,7 +2,9 @@ pkgname = "json-c"
 pkgver = "0.16"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DENABLE_THREADING=ON", "-DBUILD_STATIC_LIBS=ON"]
+configure_args = [
+    "-DENABLE_THREADING=ON", "-DBUILD_STATIC_LIBS=ON", "-DDISABLE_WERROR=ON"
+]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "doxygen"]
 pkgdesc = "JSON implementation in C"
 maintainer = "q66 <q66@chimera-linux.org>"
