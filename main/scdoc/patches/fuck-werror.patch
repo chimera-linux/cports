@@ -1,0 +1,10 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ VERSION=1.11.2
+ CFLAGS?=-g
+-MAINFLAGS:=-DVERSION='"$(VERSION)"' -Wall -Wextra -Werror -Wno-unused-parameter
++MAINFLAGS:=-DVERSION='"$(VERSION)"' -Wall -Wextra -Wno-unused-parameter
+ LDFLAGS+=-static
+ INCLUDE+=-Iinclude
+ PREFIX?=/usr/local
