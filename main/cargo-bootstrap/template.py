@@ -3,6 +3,8 @@ pkgver = "1.64.0"
 pkgrel = 0
 # satisfy runtime dependencies
 hostmakedepends = ["curl"]
+# satisfy revdeps
+makedepends = ["zlib"]
 depends = ["!cargo"]
 pkgdesc = "Bootstrap binaries of Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,6 +18,8 @@ match self.profile().arch:
         sha256 = "72942b54d0fc4191b75da9539ead0a2eba7e11fe9fe8e15e9477168fc0225ccf"
     case "ppc64le":
         sha256 = "c80c1c516fddac73555478d10c3fa2515c0240a000faad00cedae2cf5f185617"
+    case "riscv64":
+        sha256 = "9cfd5e18f44f5c69eaaaee1ab174163fbc0d699be31e99d0f3c37962bba51ec6"
     case "x86_64":
         sha256 = "61de253f797919bd96f01b0e69206ec6b9748557e8907d0333734d8c8338ce74"
     case _:
