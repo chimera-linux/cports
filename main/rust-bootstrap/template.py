@@ -27,6 +27,11 @@ match self.profile().arch:
             "b10c3531937b1bd7be66ce1f1afcd7d96c5476321f12a7fe906cfd0f718fdd18",
             "ef5063ea486034be5a977e88bf7172d99e7e1832ca978022f18b46238dd626fd",
         ]
+    case "riscv64":
+        sha256 = [
+            "b7e8c9daf71a0094a7eb2579e5732241ef81245bc2c4bf9eff41befa5b3d8b89",
+            "1f8baf180a20627853b9526668cfd5624d3dfbfcfc239326d891e7588f018e04",
+        ]
     case "x86_64":
         sha256 = [
             "a65afc2029b6feb3262b7354c50d936e545c0e15accce00869495aeeeb676e77",
