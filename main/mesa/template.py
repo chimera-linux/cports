@@ -51,15 +51,20 @@ sha256 = "b1f9c8fd08f2cae3adf83355bef4d2398e8025f44947332880f2d0066bdafa8c"
 # cba to deal with cross patching nonsense
 options = ["!cross"]
 
+_have_llvm = False
+
 # llvmpipe only properly supports a few archs
 match self.profile().arch:
     case "x86_64" | "aarch64" | "ppc64le":
-        pass
+        _have_llvm = True
     case _:
         configure_args += ["-Ddraw-use-llvm=false"]
 
 _gallium_drivers = ["swrast"]
-_vulkan_drivers = ["swrast"]
+_vulkan_drivers = []
+
+if _have_llvm:
+    _vulkan_drivers += ["swrast"]
 
 # these are good assumptions on all targets we support for now
 _have_nvidia = True
