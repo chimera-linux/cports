@@ -18,6 +18,8 @@ match self.profile().arch:
         _loader = "grubx64.efi"
     case "aarch64":
         _loader = "grubaa64.efi"
+    case "riscv64":
+        _loader = "grubriscv64.efi"
     case _:
         broken = f"Unsupported architecture: {self.profile().arch}"
 
