@@ -1,0 +1,74 @@
+From d7270166756ac2fb7f32d88f740defaa41432244 Mon Sep 17 00:00:00 2001
+From: Ruinland Tsai <ruinland.tsai@sifive.com>
+Date: Mon, 11 Apr 2022 16:16:10 +0800
+Subject: [PATCH 1/2] riscv: sifive: unmatched: define PWM LEDs
+
+Add D2 (RGB) and D12 (green) LEDs for SiFive Unmatched board.
+
+Signed-off-by: Ruinland Tsai <ruinland.tsai@sifive.com>
+---
+ .../boot/dts/sifive/hifive-unmatched-a00.dts  | 41 +++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+
+diff --git a/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts b/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts
+index c4ed9efdff03..df5d1c98dcd2 100644
+--- a/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts
++++ b/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts
+@@ -4,6 +4,8 @@
+ #include "fu740-c000.dtsi"
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/pwm/pwm.h>
+ 
+ /* Clock frequency (in Hz) of the PCB crystal for rtcclk */
+ #define RTCCLK_FREQ		1000000
+@@ -26,6 +28,45 @@ memory@80000000 {
+ 		reg = <0x0 0x80000000 0x4 0x00000000>;
+ 	};
+ 
++	pwmleds {
++		compatible = "pwm-leds";
++		green-d12 {
++			label = "green:d12";
++			color = <LED_COLOR_ID_GREEN>;
++			pwms = <&pwm0 0 7812500 PWM_POLARITY_INVERTED>;
++			active-low = <1>;
++			max-brightness = <255>;
++			linux,default-trigger = "none";
++		};
++
++		green-d2 {
++			label = "green:d2";
++			color = <LED_COLOR_ID_GREEN>;
++			pwms = <&pwm0 1 7812500 PWM_POLARITY_INVERTED>;
++			active-low = <1>;
++			max-brightness = <255>;
++			linux,default-trigger = "none";
++		};
++
++		red-d2 {
++			label = "red:d2";
++			color = <LED_COLOR_ID_RED>;
++			pwms = <&pwm0 2 7812500 PWM_POLARITY_INVERTED>;
++			active-low = <1>;
++			max-brightness = <255>;
++			linux,default-trigger = "none";
++		};
++
++		blue-d2 {
++			label = "blue:d2";
++			color = <LED_COLOR_ID_BLUE>;
++			pwms = <&pwm0 3 7812500 PWM_POLARITY_INVERTED>;
++			active-low = <1>;
++			max-brightness = <255>;
++			linux,default-trigger = "none";
++		};
++	};
++
+ 	hfclk: hfclk {
+ 		#clock-cells = <0>;
+ 		compatible = "fixed-clock";
+-- 
+2.35.1
+
