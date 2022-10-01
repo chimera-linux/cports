@@ -1,0 +1,34 @@
+commit 8fcaace161969c2efb05d608447fa4124b7ea723
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Oct 1 19:13:04 2022 +0200
+
+    disable threaded linking for kernel
+    
+    This drastically reduces memory usage in some environments.
+
+diff --git a/Makefile b/Makefile
+index e361c62..ab1d062 100644
+--- a/Makefile
++++ b/Makefile
+@@ -499,7 +499,7 @@ AFLAGS_MODULE   =
+ LDFLAGS_MODULE  =
+ CFLAGS_KERNEL  =
+ AFLAGS_KERNEL  =
+-LDFLAGS_vmlinux =
++LDFLAGS_vmlinux = --threads=1
+ 
+ # Use USERINCLUDE when you must reference the UAPI directories only.
+ USERINCLUDE    := \
+diff --git a/arch/riscv/Makefile b/arch/riscv/Makefile
+index 81029d4..c6133d1 100644
+--- a/arch/riscv/Makefile
++++ b/arch/riscv/Makefile
+@@ -14,6 +14,8 @@ ifeq ($(CONFIG_DYNAMIC_FTRACE),y)
+        CC_FLAGS_FTRACE := -fpatchable-function-entry=8
+ endif
+ 
++LDFLAGS_vmlinux += --threads=1
++
+ ifeq ($(CONFIG_CMODEL_MEDLOW),y)
+ KBUILD_CFLAGS_MODULE += -mcmodel=medany
+ endif
