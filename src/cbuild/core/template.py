@@ -298,6 +298,7 @@ default_options = {
     "brokenlinks": (False, False),
     "hardlinks": (False, False),
     "autosplit": (True, False),
+    "lintstatic": (True, False),
     # actually true by default for -devel
     "splitstatic": (False, False),
     "splitudev": (True, False),

@@ -1382,6 +1382,8 @@ for subpackages separately if needed:
   but usually shouldn't.
 * `hardlinks` *(false)* Normally, multiple hardlinks are detected and errored
   on. By enabling this, you allow packages with hardlinks to build.
+* `lintstatic` *(true)* Normally, static libraries are not allowed to be in
+  the main package. In specific rare cases, this may be overridden.
 * `scanrundeps` *(true)* This specifies whether automatic runtime dependencies
   are scanned for the package. By default, ELF files are scanned for their
   dependencies, which is usually desirable, but not always.

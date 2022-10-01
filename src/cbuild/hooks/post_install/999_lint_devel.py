@@ -17,7 +17,7 @@ def _lint_static(pkg):
 
 def invoke(pkg):
     # lint for LTOed static stuff first, regardless of -devel
-    if not _lint_static(pkg):
+    if pkg.options["lintstatic"] and not _lint_static(pkg):
         pkg.error("package lint failed")
 
     if pkg.pkgname.endswith("-devel"):
