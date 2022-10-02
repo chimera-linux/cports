@@ -49,6 +49,10 @@ env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check"]
 
+if self.profile().arch == "riscv64":
+    # ld: error: section size decrease is too large
+    tool_flags = {"CFLAGS": ["-mno-relax"], "LDFLAGS": ["-mno-relax"]}
+
 _idmap_modules = ["ad", "rid", "adex", "hash", "tdb2"]
 _pdb_modules = ["tdbsam", "ldap", "ads", "smbpasswd", "wbc_sam", "samba4"]
 _auth_modules = ["unix", "wbc", "server", "netlogond", "script", "samba4"]
