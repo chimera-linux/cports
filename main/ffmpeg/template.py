@@ -9,7 +9,6 @@ configure_args = [
     "--enable-gpl",
     "--enable-version3",
     "--enable-runtime-cpudetect",
-    "--enable-lto",
     "--enable-openssl",
     "--enable-librtmp",
     "--enable-postproc",
@@ -85,13 +84,17 @@ sha256 = "95bf3ff8c496511e71e958fb249e663c8c9c3de583c5bebc0f5a9745abbc0435"
 # seems to need rpath?
 options = ["!check"]
 
+if self.profile().arch != "riscv64":
+    configure_args += ["--enable-lto"]
+
 if self.profile().cross:
     _archmap = {
         "aarch64": "aarch64",
         "riscv64": "riscv64",
         "ppc64le": "ppc64",
         "ppc64": "ppc64",
-        "x86_64": "x8_64",
+        "riscv64": "riscv",
+        "x86_64": "x86_64",
     }
     if self.profile().arch not in archmap:
         broken = f"unknown architecture: {self.profile().arch}"
