@@ -20,6 +20,8 @@ license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gcr"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "bb7128a3c2febbfee9c03b90d77d498d0ceb237b0789802d60185c71c4bea24f"
+# getpass
+tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # needs x11
 options = ["!check"]
 
