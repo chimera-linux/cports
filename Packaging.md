@@ -1662,6 +1662,7 @@ class Profile:
     endian = ...
     cross = ...
     repos = ...
+    goarch = ...
 
     def get_tool_flags(self, name, extra_flags = [], debug = -1, hardening = [], shell = False)
 
@@ -1680,6 +1681,8 @@ The properties have the following meanings:
 * `endian` The endianness of the target (`little` or `big`).
 * `cross` A boolean that is `True` for cross compiling targets and
   `False` otherwise.
+* `goarch` The architecture name for the Go programming language. Optional
+  and only present when supported by the toolchain.
 
 For the `bootstrap` profile, `triplet` and `short_triplet` are `None`.
 

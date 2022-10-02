@@ -184,6 +184,7 @@ class Profile:
             self._wordsize = int(platform.architecture()[0][:-3])
             self._hardening = []
             self._repos = []
+            self._goarch = None
             # account for arch specific bootstrap flags
             if f"flags.{self._arch}" in pdata:
                 pd = pdata[f"flags.{self._arch}"]
@@ -221,6 +222,11 @@ class Profile:
             self._hardening = pdata.get("hardening").split()
         else:
             self._hardening = []
+
+        if "goarch" in pdata:
+            self._goarch = pdata.get("goarch")
+        else:
+            self._goarch = None
 
         if "repos" in pdata:
             ra = pdata.get("repos").split(" ")
@@ -288,6 +294,10 @@ class Profile:
     @property
     def cross(self):
         return self._arch != chroot.host_cpu()
+
+    @property
+    def goarch(self):
+        return self._goarch
 
     @property
     def repos(self):

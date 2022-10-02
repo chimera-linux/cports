@@ -33,15 +33,10 @@ else:
     hostmakedepends += ["go-bootstrap"]
     env["GOROOT_BOOTSTRAP"] = "/usr/lib/go-bootstrap"
 
-match self.profile().arch:
-    case "aarch64":
-        env["GOARCH"] = "arm64"
-    case "x86_64":
-        env["GOARCH"] = "amd64"
-    case "ppc64le" | "riscv64":
-        env["GOARCH"] = self.profile().arch
-    case _:
-        broken = f"Unsupported platform ({self.profile().arch})"
+if self.profile().goarch:
+    env["GOARCH"] = self.profile().goarch
+else:
+    broken = f"Unsupported platform ({self.profile().arch})"
 
 def post_extract(self):
     # https://github.com/golang/go/issues/39905
@@ -63,23 +58,22 @@ def do_install(self):
 
     _binpath = "bin"
     if self.profile().cross:
-        _binpath = f"bin/linux_{env['GOARCH']}"
+        _binpath = f"bin/linux_{self.profile().goarch}"
+        with self.profile("host") as hpf:
+            _hostarch = hpf.goarch
+    else:
+        _hostarch = None
 
     def _clear_pkg(ppath):
         self.rm(ppath / "obj", recursive = True)
+        if _hostarch:
+            self.rm(ppath / f"tool/linux_{_hostarch}", recursive = True)
+            self.rm(ppath / f"linux_{_hostarch}", recursive = True)
         for f in (ppath / "tool").iterdir():
             self.rm(f / "api", force = True)
-            if f.name.startswith("linux_"):
-                if f.name == f"linux_{env['GOARCH']}":
-                    continue
-                self.rm(f, recursive = True)
-        for f in ppath.glob("linux_*"):
-            if f.name == f"linux_{env['GOARCH']}":
-                continue
-            self.rm(f, recursive = True)
 
     if _bootstrap:
-        bdirn = f"go-bootstrap-{pkgver}-{env['GOARCH']}"
+        bdirn = f"go-bootstrap-{pkgver}-{self.profile().goarch}"
         self.mkdir(bdirn)
         self.cp(_binpath, f"{bdirn}/bin", recursive = True)
         self.cp("src", bdirn, recursive = True)
