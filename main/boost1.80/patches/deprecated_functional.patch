@@ -1,0 +1,116 @@
+From a8d182fe8f8427d95c4b6de884e5bdefcaf36d25 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 2 Oct 2022 15:06:07 +0200
+Subject: [PATCH] drop unary_function and binary_function usage
+
+These were dropped from libc++ by default.
+---
+ boost/container_hash/hash.hpp      |  5 -----
+ boost/functional.hpp               |  7 -------
+ boost/integer/common_factor_rt.hpp | 10 ----------
+ boost/typeof/std/functional.hpp    |  4 ----
+ 4 files changed, 26 deletions(-)
+
+diff --git a/boost/container_hash/hash.hpp b/boost/container_hash/hash.hpp
+index 5ce09d4..ac9932d 100644
+--- a/boost/container_hash/hash.hpp
++++ b/boost/container_hash/hash.hpp
+@@ -120,17 +120,12 @@ namespace boost
+ {
+     namespace hash_detail
+     {
+-#if defined(BOOST_NO_CXX98_FUNCTION_BASE)
+         template <typename T>
+         struct hash_base
+         {
+             typedef T argument_type;
+             typedef std::size_t result_type;
+         };
+-#else
+-        template <typename T>
+-        struct hash_base : std::unary_function<T, std::size_t> {};
+-#endif
+ 
+         struct enable_hash_value { typedef std::size_t type; };
+ 
+diff --git a/boost/functional.hpp b/boost/functional.hpp
+index 6443078..6c63146 100644
+--- a/boost/functional.hpp
++++ b/boost/functional.hpp
+@@ -21,7 +21,6 @@ namespace boost
+     namespace functional
+     {
+         namespace detail {
+-#if defined(_HAS_AUTO_PTR_ETC) && !_HAS_AUTO_PTR_ETC
+             // std::unary_function and std::binary_function were both removed
+             // in C++17.
+ 
+@@ -39,12 +38,6 @@ namespace boost
+                 typedef Arg2 second_argument_type;
+                 typedef Result result_type;
+             };
+-#else
+-            // Use the standard objects when we have them.
+-
+-            using std::unary_function;
+-            using std::binary_function;
+-#endif
+         }
+     }
+ 
+diff --git a/boost/integer/common_factor_rt.hpp b/boost/integer/common_factor_rt.hpp
+index b8339c7..2f7f0f3 100644
+--- a/boost/integer/common_factor_rt.hpp
++++ b/boost/integer/common_factor_rt.hpp
+@@ -536,16 +536,11 @@ lcm_range(I first, I last) BOOST_GCD_NOEXCEPT(I)
+ 
+ template < typename IntegerType >
+ class gcd_evaluator
+-#ifdef BOOST_NO_CXX11_HDR_FUNCTIONAL
+-   : public std::binary_function<IntegerType, IntegerType, IntegerType>
+-#endif
+ {
+ public:
+-#ifndef BOOST_NO_CXX11_HDR_FUNCTIONAL
+    typedef IntegerType first_argument_type;
+    typedef IntegerType second_argument_type;
+    typedef IntegerType result_type;
+-#endif
+    IntegerType operator()(IntegerType const &a, IntegerType const &b) const
+    {
+       return boost::integer::gcd(a, b);
+@@ -554,16 +549,11 @@ public:
+ 
+ template < typename IntegerType >
+ class lcm_evaluator
+-#ifdef BOOST_NO_CXX11_HDR_FUNCTIONAL
+-   : public std::binary_function<IntegerType, IntegerType, IntegerType>
+-#endif
+ {
+ public:
+-#ifndef BOOST_NO_CXX11_HDR_FUNCTIONAL
+    typedef IntegerType first_argument_type;
+    typedef IntegerType second_argument_type;
+    typedef IntegerType result_type;
+-#endif
+    IntegerType operator()(IntegerType const &a, IntegerType const &b)const
+    {
+       return boost::integer::lcm(a, b);
+diff --git a/boost/typeof/std/functional.hpp b/boost/typeof/std/functional.hpp
+index 6d3d00d..01deb66 100644
+--- a/boost/typeof/std/functional.hpp
++++ b/boost/typeof/std/functional.hpp
+@@ -10,10 +10,6 @@
+ 
+ #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
+ 
+-#ifndef BOOST_NO_CXX98_FUNCTION_BASE
+-BOOST_TYPEOF_REGISTER_TEMPLATE(std::unary_function, 2)
+-BOOST_TYPEOF_REGISTER_TEMPLATE(std::binary_function, 3)
+-#endif//BOOST_NO_CXX98_FUNCTION_BASE
+ BOOST_TYPEOF_REGISTER_TEMPLATE(std::plus, 1)
+ BOOST_TYPEOF_REGISTER_TEMPLATE(std::minus, 1)
+ BOOST_TYPEOF_REGISTER_TEMPLATE(std::multiplies, 1)
+-- 
+2.25.1
+
