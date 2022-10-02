@@ -16,6 +16,8 @@ sha256 = "8515baba9f82c723e07252747e9b0e166a16091ba72f2017387641724baec02d"
 # no check target
 options = ["!check"]
 
+tool_flags = {"CFLAGS": ["-fPIC"]}
+
 match self.profile().arch:
     case "x86_64":
         tools = {"AS": "nasm"}
