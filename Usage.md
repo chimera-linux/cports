@@ -477,6 +477,8 @@ only have an effect with specific commands.
   is used as a base path as well as the name prefix for the temporary root if
   provided. The temporary root is removed at the end (whether the build succeeded
   or failed) unless `--keep-temporary` is passed.
+* `-T ARCH`, `--temporary-arch ARCH` Same as `-t`, but with a changed architecture.
+  We do not use `-a` because that is ambiguous with cross-compiling.
 
 <a id="commands"></a>
 ### Commands

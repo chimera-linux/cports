@@ -24,6 +24,7 @@ opt_signkey    = None
 opt_unsigned   = False
 opt_force      = False
 opt_mdirtemp   = False
+opt_mdirtarch  = None
 opt_nonet      = False
 opt_dirty      = False
 opt_keeptemp   = False
@@ -88,10 +89,10 @@ def handle_options():
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_lthreads, opt_ltojobs, opt_nocolor, opt_signkey
-    global opt_unsigned, opt_force, opt_mdirtemp, opt_nonet, opt_dirty
-    global opt_statusfd, opt_keeptemp, opt_forcecheck, opt_checkfail
-    global opt_stage, opt_altrepo, opt_stagepath, opt_bldroot, opt_pkgpath
-    global opt_srcpath, opt_cchpath
+    global opt_unsigned, opt_force, opt_mdirtemp, opt_mdirtarch
+    global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
+    global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
+    global opt_pkgpath, opt_srcpath, opt_cchpath
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -159,6 +160,10 @@ def handle_options():
         "-t", "--temporary", action = "store_const",
         const = True, default = opt_mdirtemp,
         help = "Use a temporary build root."
+    )
+    parser.add_argument(
+        "-T", "--temporary-arch", default = None, metavar = "ARCH",
+        help = "Use a temporary build root with the given architecture."
     )
     parser.add_argument(
         "-N", "--no-remote", action = "store_const",
@@ -303,10 +308,11 @@ def handle_options():
     if cmdline.check_fail:
         opt_checkfail = True
 
-    if cmdline.temporary:
+    if cmdline.temporary or cmdline.temporary_arch:
         mdp = pathlib.Path.cwd() / opt_bldroot
         # the temporary directory should be in the same location as build root
         opt_mdirtemp = True
+        opt_mdirtarch = cmdline.temporary_arch
         opt_bldroot  = tempfile.mkdtemp(
             prefix = mdp.name + ".", dir = mdp.parent
         )
@@ -511,7 +517,7 @@ def do_chroot(tgt):
     from cbuild.core import chroot, paths
 
     if opt_mdirtemp:
-        chroot.install(chroot.host_cpu())
+        chroot.install(opt_mdirtarch or chroot.host_cpu())
     paths.prepare()
     chroot.shell_update(not opt_nonet)
     chroot.enter(
@@ -935,7 +941,7 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
         force_check = opt_forcecheck, stage = bstage
     )
     if opt_mdirtemp:
-        chroot.install(chroot.host_cpu())
+        chroot.install(opt_mdirtarch or chroot.host_cpu())
     elif not stage and not chroot.chroot_check():
         raise errors.CbuildException(
             f"build root not found (have you boootstrapped?)"
@@ -965,7 +971,7 @@ def _bulkpkg(pkgs, statusf):
     log = logger.get()
 
     if opt_mdirtemp:
-        chroot.install(chroot.host_cpu())
+        chroot.install(opt_mdirtarch or chroot.host_cpu())
     chroot.repo_init()
     chroot.prepare_arch(opt_arch)
 
