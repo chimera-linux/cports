@@ -8,6 +8,7 @@ configure_args = [
     "-DGLSLANG_INSTALL_DIR=/usr",
     "-DBUILD_LAYER_SUPPORT_FILES=ON",
     "-DUSE_ROBIN_HOOD_HASHING=OFF",
+    "-DBUILD_WERROR=OFF",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
