@@ -16,7 +16,7 @@ match self.profile().goarch:
         sha256 = "0edbe77b7ed3d85c1f03864bb2ad85f92af739014ad1fc9fb011173c0607eb3d"
     case "riscv64":
         sha256 = "bac78ae4493652c8df18fff4151304d907fe1c033f1b08888ecf1dbed93df7bb"
-    case "x86_64":
+    case "amd64":
         sha256 = "cb2aed391ab73c579d0d0bef9900a90d4526c2197d6aa0c1f22df05084adf090"
     case _:
         broken = f"not yet built for {self.profile().arch}"
