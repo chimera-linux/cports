@@ -320,6 +320,7 @@ default_options = {
     "ltofull": (False, True),
     "ltostrip": (False, False),
     "ltoparallel": (True, True),
+    "linkparallel": (True, True),
 }
 
 core_fields = [
@@ -1100,7 +1101,7 @@ class Template(Package):
         else:
             lflags = ["-flto=thin"]
         # restrict number of LTO jobs if necessary
-        if fn == "LDFLAGS":
+        if fn == "LDFLAGS" and self.lto_jobs > 0:
             lflags += [f"-flto-jobs={self.lto_jobs}"]
         # just concat, user flags come last
         return lflags + eflags
@@ -1125,6 +1126,8 @@ class Template(Package):
             tfb = [
                 f"-fdebug-prefix-map={self.chroot_builddir / self.wrksrc}=."
             ] + tfb
+        elif name == "LDFLAGS" and self.link_threads > 0:
+            tfb = [f"-Wl,--threads={self.link_threads}"] + tfb
 
         return target.get_tool_flags(
             name, tfb,
@@ -1648,6 +1651,11 @@ def from_module(m, ret):
     else:
         ret.make_jobs = ret.conf_jobs
 
+    if not ret.options["linkparallel"]:
+        ret.link_threads = 1
+    else:
+        ret.link_threads = ret.conf_link_threads
+
     if not ret.options["ltoparallel"]:
         ret.lto_jobs = 1
     else:
@@ -1919,7 +1927,8 @@ def read_pkg(
     ret.build_dbg = build_dbg
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs[0]
-    ret.conf_lto_jobs = jobs[1]
+    ret.conf_link_threads = jobs[1]
+    ret.conf_lto_jobs = jobs[2]
     ret.stage = stage
     ret._ignore_errors = ignore_errors
     ret._allow_broken = allow_broken

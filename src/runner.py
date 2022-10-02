@@ -17,6 +17,7 @@ opt_gen_dbg    = True
 opt_check      = True
 opt_ccache     = False
 opt_makejobs   = 0
+opt_lthreads   = 0
 opt_ltojobs    = 0
 opt_nocolor    = False
 opt_signkey    = None
@@ -86,10 +87,11 @@ def handle_options():
     global opt_apkcmd, opt_dryrun, opt_bulkfail
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_gen_dbg, opt_check, opt_ccache
-    global opt_makejobs, opt_ltojobs, opt_nocolor, opt_signkey, opt_unsigned
-    global opt_force, opt_mdirtemp, opt_nonet, opt_dirty, opt_statusfd
-    global opt_keeptemp, opt_forcecheck, opt_checkfail, opt_stage, opt_altrepo
-    global opt_stagepath, opt_bldroot, opt_pkgpath, opt_srcpath, opt_cchpath
+    global opt_makejobs, opt_lthreads, opt_ltojobs, opt_nocolor, opt_signkey
+    global opt_unsigned, opt_force, opt_mdirtemp, opt_nonet, opt_dirty
+    global opt_statusfd, opt_keeptemp, opt_forcecheck, opt_checkfail
+    global opt_stage, opt_altrepo, opt_stagepath, opt_bldroot, opt_pkgpath
+    global opt_srcpath, opt_cchpath
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -223,6 +225,7 @@ def handle_options():
         opt_checkfail = bcfg.getboolean("check_fail", fallback = opt_checkfail)
         opt_stage     = bcfg.getboolean("keep_stage", fallback = opt_stage)
         opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
+        opt_lthreads  = bcfg.getint("link_threads", fallback = opt_lthreads)
         opt_ltojobs   = bcfg.getint("lto_jobs", fallback = opt_ltojobs)
         opt_arch      = bcfg.get("arch", fallback = opt_arch)
         opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
@@ -326,9 +329,6 @@ def handle_options():
     if opt_makejobs == 0:
         opt_makejobs = len(os.sched_getaffinity(0))
 
-    if opt_ltojobs == 0:
-        opt_ltojobs = opt_makejobs
-
 def init_late():
     import os
 
@@ -415,7 +415,7 @@ def bootstrap(tgt):
         try:
             rp = template.read_pkg(
                 "main/base-cbuild", None, False, False,
-                (opt_makejobs, opt_ltojobs),
+                (opt_makejobs, opt_lthreads, opt_ltojobs),
                 False, False, None, stage = 0
             )
         except template.SkipPackage:
@@ -726,7 +726,7 @@ def do_lint(tgt):
     # don't let the skip logic kick in
     template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
-        False, (1, 1), False, False, None, target = "lint"
+        False, (1, 1, 1), False, False, None, target = "lint"
     )
 
 def _collect_tmpls(pkgn, catn = None):
@@ -792,7 +792,7 @@ def _graph_prepare():
         try:
             tp = template.read_pkg(
                 pkgn, chroot.host_cpu(), True,
-                False, (1, 1), False, False, None, target = "lint",
+                False, (1, 1, 1), False, False, None, target = "lint",
                 allow_broken = True, ignore_errors = True
             )
             rtmpls[pkgn] = tp
@@ -841,7 +841,7 @@ def do_print_build_graph(tgt):
         try:
             tp = template.read_pkg(
                 pkgn, chroot.host_cpu(), True,
-                False, (1, 1), False, False, None, target = "lint",
+                False, (1, 1, 1), False, False, None, target = "lint",
                 allow_broken = True, ignore_errors = True
             )
             rtmpls[pkgn] = tp
@@ -878,7 +878,7 @@ def do_update_check(tgt):
     pkgn = cmdline.command[1]
     tmpl = template.read_pkg(
         pkgn, chroot.host_cpu(), True,
-        False, (1, 1), False, False, None, target = "lint",
+        False, (1, 1, 1), False, False, None, target = "lint",
         allow_broken = True
     )
 
@@ -897,7 +897,7 @@ def do_dump(tgt):
         try:
             return template.read_pkg(
                 pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
-                False, (1, 1), False, False, None, target = "lint",
+                False, (1, 1, 1), False, False, None, target = "lint",
                 allow_broken = True
             )
         except errors.PackageException:
@@ -930,8 +930,8 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
         pkgn = cmdline.command[1]
     rp = template.read_pkg(
         pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
-        check, (opt_makejobs, opt_ltojobs), opt_gen_dbg, opt_ccache, None,
-        target = tgt if (tgt != "pkg") else None,
+        check, (opt_makejobs, opt_lthreads, opt_ltojobs), opt_gen_dbg,
+        opt_ccache, None, target = tgt if (tgt != "pkg") else None,
         force_check = opt_forcecheck, stage = bstage
     )
     if opt_mdirtemp:
@@ -1050,7 +1050,7 @@ def _bulkpkg(pkgs, statusf):
     pvisit = set(rpkgs)
     def handle_recdeps(pn, tp):
         return _add_deps_graph(pn, tp, pvisit, lambda d: template.read_pkg(
-            d, tarch, True, False, (1, 1), False, False, None,
+            d, tarch, True, False, (1, 1, 1), False, False, None,
             ignore_missing = True, ignore_errors = True
         ), depg)
 
@@ -1067,7 +1067,8 @@ def _bulkpkg(pkgs, statusf):
         failed = False
         broken = False
         tp = _do_with_exc(lambda: template.read_pkg(
-            pn, tarch, opt_force, opt_check, (opt_makejobs, opt_ltojobs),
+            pn, tarch, opt_force, opt_check,
+            (opt_makejobs, opt_lthreads, opt_ltojobs),
             opt_gen_dbg, opt_ccache, None, force_check = opt_forcecheck,
             bulk_mode = True
         ))

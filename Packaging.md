@@ -2249,15 +2249,26 @@ The number of configured jobs to use for building. This is not affected
 by whether parallel builds are disabled via options, always referring
 to the number provided by `cbuild`.
 
+##### self.conf_link_threads
+
+The number of linker threads to use. By default this is 0, which means to
+leave it at linker defaults (typically the number of CPUs). Setting it to 1
+disables threaded linking.
+
 ##### self.conf_lto_jobs
 
-The number of configured jobs to use for LTO linking. This is usually the
-same as `conf_jobs` unless set separately.
+The number of configured jobs to use for LTO linking. By default this is 0,
+which means to leave it at linker defaults (typically the number of CPUs).
 
 ##### self.make_jobs
 
 The number of jobs to use for building. Unlike `conf_jobs`, this will always
 be 1 if `parallel` option is disabled.
+
+##### self.link_threads
+
+The number of linker threads to use. Unlike `conf_link_threads`, this will
+always be 1 if `linkparallel` option is disabled.
 
 ##### self.lto_jobs
 
