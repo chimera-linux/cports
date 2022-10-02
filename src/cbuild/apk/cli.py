@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths, chroot
+from cbuild.core import logger, paths, chroot, profile
 
 from . import sign as asign
 
@@ -28,7 +28,10 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
     if not arch:
         arch = chroot.host_cpu()
 
+    prof = profile.get_profile(arch)
     use_cache = False
+
+    rrepos = set(prof.repos)
 
     for r in chroot.get_confrepos():
         if not r.startswith("/"):
@@ -37,6 +40,8 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
             if not use_net:
                 continue
             for cr in srepos:
+                if cr not in rrepos:
+                    continue
                 ret.append("--repository")
                 ret.append(r.replace("@section@", cr))
                 use_cache = True
