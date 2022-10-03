@@ -18,3 +18,21 @@ index 2052917..3e7104a 100644
      ],
    },
  
+diff --git a/tools/v8_gypfiles/v8.gyp b/tools/v8_gypfiles/v8.gyp
+index 73099a0..b172812 100644
+--- a/tools/v8_gypfiles/v8.gyp
++++ b/tools/v8_gypfiles/v8.gyp
+@@ -945,13 +945,6 @@
+         ['v8_enable_third_party_heap', {
+           # TODO(targos): add values from v8_third_party_heap_libs to link_settings.libraries
+         }],
+-        # Platforms that don't have Compare-And-Swap (CAS) support need to link atomic library
+-        # to implement atomic memory access
+-        ['v8_current_cpu in ["mips", "mipsel", "mips64", "mips64el", "ppc", "arm", "riscv64"]', {
+-          'link_settings': {
+-            'libraries': ['-latomic', ],
+-          },
+-        }],
+       ],
+     },  # v8_base_without_compiler
+     {
