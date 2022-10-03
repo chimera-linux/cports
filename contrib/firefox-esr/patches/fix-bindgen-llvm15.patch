@@ -1,0 +1,212 @@
+From a04acc684e136505f926739a0a89d797309857eb Mon Sep 17 00:00:00 2001
+From: Collin Baker <collinbaker@chromium.org>
+Date: Wed, 20 Jul 2022 11:57:16 -0400
+Subject: [PATCH] Generate opaque type for template param dependent bit field
+ width
+
+libclang's API does not provide a straightforward way to check for
+this, and calling clang_getFieldDeclBitWidth is actively unsafe in
+this case. See https://github.com/llvm/llvm-project/issues/56644
+
+We probably can't generate reasonable bindings for such a type, so
+make the binding opaque.
+
+Ideally libclang would report if the bit width could not be
+evaluated. Unfortunately making such a change would mean bumping the
+minimum libclang version from 6.0 to 15.0.
+
+Instead, add logic to traverse the AST subtree starting from the
+field's bit width specifier looking for template parameters. If we
+find one, we make the resulting type opaque.
+---
+ src/clang.rs                                  | 96 ++++++++++++++++++-
+ src/ir/comp.rs                                | 26 ++++-
+ ...issue-2239-template-dependent-bit-width.rs | 19 ++++
+ ...ssue-2239-template-dependent-bit-width.hpp | 10 ++
+ 4 files changed, 147 insertions(+), 4 deletions(-)
+ create mode 100644 tests/expectations/tests/issue-2239-template-dependent-bit-width.rs
+ create mode 100644 tests/headers/issue-2239-template-dependent-bit-width.hpp
+
+diff --git a/src/clang.rs b/src/clang.rs
+index 587cc0ba7..00716a1bd 100644
+--- a/third_party/rust/bindgen/src/clang.rs
++++ b/third_party/rust/bindgen/src/clang.rs
+@@ -276,6 +276,56 @@ impl Cursor {
+         true
+     }
+ 
++    /// Is the referent any kind of template parameter?
++    pub fn is_template_parameter(&self) -> bool {
++        match self.kind() {
++            CXCursor_TemplateTemplateParameter |
++            CXCursor_TemplateTypeParameter |
++            CXCursor_NonTypeTemplateParameter => true,
++            _ => false,
++        }
++    }
++
++    /// Does the referent's type or value depend on a template parameter?
++    pub fn is_dependent_on_template_parameter(&self) -> bool {
++        fn visitor(
++            found_template_parameter: &mut bool,
++            cur: Cursor,
++        ) -> CXChildVisitResult {
++            // If we found a template parameter, it is dependent.
++            if cur.is_template_parameter() {
++                *found_template_parameter = true;
++                return CXChildVisit_Break;
++            }
++
++            // Get the referent and traverse it as well.
++            if let Some(referenced) = cur.referenced() {
++                if referenced.is_template_parameter() {
++                    *found_template_parameter = true;
++                    return CXChildVisit_Break;
++                }
++
++                referenced
++                    .visit(|next| visitor(found_template_parameter, next));
++                if *found_template_parameter {
++                    return CXChildVisit_Break;
++                }
++            }
++
++            // Continue traversing the AST at the original cursor.
++            CXChildVisit_Recurse
++        }
++
++        if self.is_template_parameter() {
++            return true;
++        }
++
++        let mut found_template_parameter = false;
++        self.visit(|next| visitor(&mut found_template_parameter, next));
++
++        found_template_parameter
++    }
++
+     /// Is this cursor pointing a valid referent?
+     pub fn is_valid(&self) -> bool {
+         unsafe { clang_isInvalid(self.kind()) == 0 }
+@@ -485,9 +535,45 @@ impl Cursor {
+             !self.is_defaulted_function()
+     }
+ 
++    /// Is the referent a bit field declaration?
++    pub fn is_bit_field(&self) -> bool {
++        unsafe { clang_Cursor_isBitField(self.x) != 0 }
++    }
++
++    /// Get a cursor to the bit field's width expression, or `None` if it's not
++    /// a bit field.
++    pub fn bit_width_expr(&self) -> Option<Cursor> {
++        if !self.is_bit_field() {
++            return None;
++        }
++
++        let mut result = None;
++        self.visit(|cur| {
++            // The first child may or may not be a TypeRef, depending on whether
++            // the field's type is builtin. Skip it.
++            if cur.kind() == CXCursor_TypeRef {
++                return CXChildVisit_Continue;
++            }
++
++            // The next expression or literal is the bit width.
++            result = Some(cur);
++
++            CXChildVisit_Break
++        });
++
++        result
++    }
++
+     /// Get the width of this cursor's referent bit field, or `None` if the
+-    /// referent is not a bit field.
++    /// referent is not a bit field or if the width could not be evaluated.
+     pub fn bit_width(&self) -> Option<u32> {
++        // It is not safe to check the bit width without ensuring it doesn't
++        // depend on a template parameter. See
++        // https://github.com/rust-lang/rust-bindgen/issues/2239
++        if self.bit_width_expr()?.is_dependent_on_template_parameter() {
++            return None;
++        }
++
+         unsafe {
+             let w = clang_getFieldDeclBitWidth(self.x);
+             if w == -1 {
+@@ -1789,9 +1875,15 @@ pub fn ast_dump(c: &Cursor, depth: isize) -> CXChildVisitResult {
+                 format!(" {}number-of-template-args = {}", prefix, num),
+             );
+         }
+-        if let Some(width) = c.bit_width() {
++
++        if c.is_bit_field() {
++            let width = match c.bit_width() {
++                Some(w) => w.to_string(),
++                None => "<unevaluable>".to_string(),
++            };
+             print_indent(depth, format!(" {}bit-width = {}", prefix, width));
+         }
++
+         if let Some(ty) = c.enum_type() {
+             print_indent(
+                 depth,
+diff --git a/src/ir/comp.rs b/src/ir/comp.rs
+index a221e5207..9808d5986 100644
+--- a/third_party/rust/bindgen/src/ir/comp.rs
++++ b/third_party/rust/bindgen/src/ir/comp.rs
+@@ -1045,6 +1045,11 @@ pub struct CompInfo {
+     /// size_t)
+     has_non_type_template_params: bool,
+ 
++    /// Whether this type has a bit field member whose width couldn't be
++    /// evaluated (e.g. if it depends on a template parameter). We generate an
++    /// opaque type in this case.
++    has_unevaluable_bit_field_width: bool,
++
+     /// Whether we saw `__attribute__((packed))` on or within this type.
+     packed_attr: bool,
+ 
+@@ -1078,6 +1083,7 @@ impl CompInfo {
+             has_destructor: false,
+             has_nonempty_base: false,
+             has_non_type_template_params: false,
++            has_unevaluable_bit_field_width: false,
+             packed_attr: false,
+             found_unknown_attr: false,
+             is_forward_declaration: false,
+@@ -1317,7 +1323,21 @@ impl CompInfo {
+                         }
+                     }
+ 
+-                    let bit_width = cur.bit_width();
++                    let bit_width = if cur.is_bit_field() {
++                        let width = cur.bit_width();
++
++                        // Make opaque type if the bit width couldn't be
++                        // evaluated.
++                        if width.is_none() {
++                            ci.has_unevaluable_bit_field_width = true;
++                            return CXChildVisit_Break;
++                        }
++
++                        width
++                    } else {
++                        None
++                    };
++
+                     let field_type = Item::from_ty_or_ref(
+                         cur.cur_type(),
+                         cur,
+@@ -1753,7 +1773,9 @@ impl IsOpaque for CompInfo {
+     type Extra = Option<Layout>;
+ 
+     fn is_opaque(&self, ctx: &BindgenContext, layout: &Option<Layout>) -> bool {
+-        if self.has_non_type_template_params {
++        if self.has_non_type_template_params ||
++            self.has_unevaluable_bit_field_width
++        {
+             return true;
+         }
+ 

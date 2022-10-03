@@ -60,15 +60,13 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    cargo.clear_vendor_checksums(
-        self, "target-lexicon", vendor_dir = "third_party/rust"
-    )
-    cargo.clear_vendor_checksums(
-        self, "target-lexicon-0.9.0", vendor_dir = "third_party/rust"
-    )
-    cargo.clear_vendor_checksums(
-        self, "packed_simd_2", vendor_dir = "third_party/rust"
-    )
+    for crate in [
+        "target-lexicon", "target-lexicon-0.9.0", "packed_simd_2",
+        "authenticator", "bindgen", "nix",
+    ]:
+        cargo.clear_vendor_checksums(
+            self, crate, vendor_dir = "third_party/rust"
+        )
 
 def init_configure(self):
     from cbuild.util import cargo
