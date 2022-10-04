@@ -5,7 +5,6 @@ build_style = "gnu_configure"
 # build a stripped down alsa lib; things should never use it directly other
 # than soundservers, and this should be just enough functionality for them
 configure_args = [
-    "--disable-rawmidi",
     "--disable-hwdep",
     "--disable-topology",
     "--disable-alisp",
