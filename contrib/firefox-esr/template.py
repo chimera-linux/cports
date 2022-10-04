@@ -86,8 +86,6 @@ def do_configure(self):
     match self.profile().arch:
         case "x86_64" | "aarch64":
             extra_opts += ["--disable-elf-hack", "--enable-rust-simd"]
-        case "ppc64le":
-            extra_opts += ["--disable-webrtc"]
 
     self.do(
         self.chroot_cwd / "mach", "configure",
