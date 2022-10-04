@@ -1,0 +1,913 @@
+From 38dad1729472aff0a6cee8077e9fa3874fe9e516 Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Sun, 7 Aug 2022 14:32:49 +0800
+Subject: [PATCH 1/9] util: Remove unused rtasm_cpu_has_sse2
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Alyssa Rosenzweig <alyssa@collabora.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/gallium/auxiliary/rtasm/rtasm_cpu.c | 11 -----------
+ src/gallium/auxiliary/rtasm/rtasm_cpu.h |  2 --
+ 2 files changed, 13 deletions(-)
+
+diff --git a/src/gallium/auxiliary/rtasm/rtasm_cpu.c b/src/gallium/auxiliary/rtasm/rtasm_cpu.c
+index 272650314121..d1af30f06ad3 100644
+--- a/src/gallium/auxiliary/rtasm/rtasm_cpu.c
++++ b/src/gallium/auxiliary/rtasm/rtasm_cpu.c
+@@ -45,12 +45,6 @@ int rtasm_cpu_has_sse(void)
+    return !debug_get_option_nosse() && get_cpu_caps()->has_sse;
+ }
+ 
+-int rtasm_cpu_has_sse2(void) 
+-{
+-   return !debug_get_option_nosse() && get_cpu_caps()->has_sse2;
+-}
+-
+-
+ #else
+ 
+ int rtasm_cpu_has_sse(void)
+@@ -58,9 +52,4 @@ int rtasm_cpu_has_sse(void)
+    return 0;
+ }
+ 
+-int rtasm_cpu_has_sse2(void)
+-{
+-   return 0;
+-}
+-
+ #endif
+diff --git a/src/gallium/auxiliary/rtasm/rtasm_cpu.h b/src/gallium/auxiliary/rtasm/rtasm_cpu.h
+index fdec7a2e00ef..cfce8f7d45d3 100644
+--- a/src/gallium/auxiliary/rtasm/rtasm_cpu.h
++++ b/src/gallium/auxiliary/rtasm/rtasm_cpu.h
+@@ -36,7 +36,5 @@
+ 
+ int rtasm_cpu_has_sse(void);
+ 
+-int rtasm_cpu_has_sse2(void);
+-
+ 
+ #endif /* _RTASM_CPU_H_ */
+-- 
+GitLab
+
+
+From e51fa10f536fe38fdaf23268dd980e83e93ab9ad Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Sat, 30 Jul 2022 12:36:45 +0800
+Subject: [PATCH 2/9] util: Rename util_cpu_detect to _util_cpu_detect_local
+
+Add comment about _util_cpu_detect_local that it's can only be called by util_get_cpu_caps
+Add comment about util_cpu_caps that it's can only by accessed by util_get_cpu_caps
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Alyssa Rosenzweig <alyssa@collabora.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/panfrost/bifrost/valhall/test/test-add-imm.cpp | 3 ---
+ src/util/u_cpu_detect.c                            | 7 +++++--
+ src/util/u_cpu_detect.h                            | 5 ++---
+ 3 files changed, 7 insertions(+), 8 deletions(-)
+
+diff --git a/src/panfrost/bifrost/valhall/test/test-add-imm.cpp b/src/panfrost/bifrost/valhall/test/test-add-imm.cpp
+index 53b394b8b592..f5e121df1b96 100644
+--- a/src/panfrost/bifrost/valhall/test/test-add-imm.cpp
++++ b/src/panfrost/bifrost/valhall/test/test-add-imm.cpp
+@@ -43,9 +43,6 @@ class AddImm : public testing::Test {
+ protected:
+    AddImm() {
+       mem_ctx = ralloc_context(NULL);
+-
+-      /* For bi_imm_f16 */
+-      util_cpu_detect();
+    }
+ 
+    ~AddImm() {
+diff --git a/src/util/u_cpu_detect.c b/src/util/u_cpu_detect.c
+index 83321a108597..9e13d5ac61a8 100644
+--- a/src/util/u_cpu_detect.c
++++ b/src/util/u_cpu_detect.c
+@@ -92,7 +92,7 @@
+ 
+ DEBUG_GET_ONCE_BOOL_OPTION(dump_cpu, "GALLIUM_DUMP_CPU", false)
+ 
+-
++/* Do not try to access util_cpu_caps directly, call to util_get_cpu_caps instead */
+ struct util_cpu_caps_t util_cpu_caps;
+ 
+ #if defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)
+@@ -867,8 +867,11 @@ util_cpu_detect_once(void)
+ 
+ static once_flag cpu_once_flag = ONCE_FLAG_INIT;
+ 
++void _util_cpu_detect_local(void);
++
++/* Do not call to this function directly, using util_get_cpu_caps instead */
+ void
+-util_cpu_detect(void)
++_util_cpu_detect_local(void)
+ {
+    call_once(&cpu_once_flag, util_cpu_detect_once);
+ }
+diff --git a/src/util/u_cpu_detect.h b/src/util/u_cpu_detect.h
+index 715d9cecf2e4..646b5d0c4700 100644
+--- a/src/util/u_cpu_detect.h
++++ b/src/util/u_cpu_detect.h
+@@ -134,11 +134,10 @@ struct util_cpu_caps_t {
+ 
+ #define U_CPU_INVALID_L3 0xffff
+ 
+-void util_cpu_detect(void);
+-
+ static inline ATTRIBUTE_CONST const struct util_cpu_caps_t *
+ util_get_cpu_caps(void)
+ {
++   extern void _util_cpu_detect_local(void);
+    extern struct util_cpu_caps_t util_cpu_caps;
+ 
+    /* On most CPU architectures, an atomic read is simply a regular memory
+@@ -165,7 +164,7 @@ util_get_cpu_caps(void)
+     * value with the same internal data every time.
+     */
+    if (unlikely(!p_atomic_read(&util_cpu_caps.detect_done)))
+-      util_cpu_detect();
++      _util_cpu_detect_local();
+ 
+    return &util_cpu_caps;
+ }
+-- 
+GitLab
+
+
+From e8ac138c83a39e3dd869e1cfed593f6207cfbe61 Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Sun, 7 Aug 2022 15:20:43 +0800
+Subject: [PATCH 3/9] util: Improve has_sse has_sse2 has_sse3 has_sse4_1
+ has_avx disable handling
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This is the prepare for following changes：
+
+* Handling GALLIUM_NOSSE in u_cpu_detect.c
+* Handling LP_FORCE_SSE2 and LP_NATIVE_VECTOR_WIDTH in u_cpu_detect.c
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/util/u_cpu_detect.c | 38 ++++++++++++++++++++++++++++++++------
+ 1 file changed, 32 insertions(+), 6 deletions(-)
+
+diff --git a/src/util/u_cpu_detect.c b/src/util/u_cpu_detect.c
+index 9e13d5ac61a8..9e6ac9d0a591 100644
+--- a/src/util/u_cpu_detect.c
++++ b/src/util/u_cpu_detect.c
+@@ -793,13 +793,39 @@ util_cpu_detect_once(void)
+          if (cacheline > 0)
+             util_cpu_caps.cacheline = cacheline;
+       }
++   }
++#endif /* PIPE_ARCH_X86 || PIPE_ARCH_X86_64 */
+ 
+-      if (!util_cpu_caps.has_sse) {
+-         util_cpu_caps.has_sse2 = 0;
+-         util_cpu_caps.has_sse3 = 0;
+-         util_cpu_caps.has_ssse3 = 0;
+-         util_cpu_caps.has_sse4_1 = 0;
+-      }
++#if defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)
++   if (!util_cpu_caps.has_sse) {
++      util_cpu_caps.has_sse2 = 0;
++   }
++   if (!util_cpu_caps.has_sse2) {
++      util_cpu_caps.has_sse3 = 0;
++   }
++   if (!util_cpu_caps.has_sse3) {
++      util_cpu_caps.has_ssse3 = 0;
++      util_cpu_caps.has_sse4_1 = 0;
++   }
++   if (!util_cpu_caps.has_sse4_1) {
++      util_cpu_caps.has_sse4_2 = 0;
++      util_cpu_caps.has_avx = 0;
++   }
++   if (!util_cpu_caps.has_avx) {
++      util_cpu_caps.has_avx2 = 0;
++      util_cpu_caps.has_f16c = 0;
++      util_cpu_caps.has_fma = 0;
++
++      /* avx512 are cleared */
++      util_cpu_caps.has_avx512f    = 0;
++      util_cpu_caps.has_avx512dq   = 0;
++      util_cpu_caps.has_avx512ifma = 0;
++      util_cpu_caps.has_avx512pf   = 0;
++      util_cpu_caps.has_avx512er   = 0;
++      util_cpu_caps.has_avx512cd   = 0;
++      util_cpu_caps.has_avx512bw   = 0;
++      util_cpu_caps.has_avx512vl   = 0;
++      util_cpu_caps.has_avx512vbmi = 0;
+    }
+ #endif /* PIPE_ARCH_X86 || PIPE_ARCH_X86_64 */
+ 
+-- 
+GitLab
+
+
+From d80c5a7c7134859adf87579e7139e86c9e83c1b0 Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Sun, 7 Aug 2022 15:31:33 +0800
+Subject: [PATCH 4/9] util: Handling GALLIUM_NOSSE in u_cpu_detect.c
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Alyssa Rosenzweig <alyssa@collabora.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/gallium/auxiliary/meson.build             |  2 -
+ src/gallium/auxiliary/rtasm/rtasm_cpu.c       | 55 -------------------
+ src/gallium/auxiliary/rtasm/rtasm_cpu.h       | 40 --------------
+ .../auxiliary/translate/translate_sse.c       |  5 +-
+ src/gallium/tests/unit/translate_test.c       |  9 ++-
+ src/util/u_cpu_detect.c                       |  3 +
+ 6 files changed, 9 insertions(+), 105 deletions(-)
+ delete mode 100644 src/gallium/auxiliary/rtasm/rtasm_cpu.c
+ delete mode 100644 src/gallium/auxiliary/rtasm/rtasm_cpu.h
+
+diff --git a/src/gallium/auxiliary/meson.build b/src/gallium/auxiliary/meson.build
+index 184e1c87f34f..437b98e6b2c5 100644
+--- a/src/gallium/auxiliary/meson.build
++++ b/src/gallium/auxiliary/meson.build
+@@ -166,8 +166,6 @@ files_libgallium = files(
+   'rbug/rbug_shader.h',
+   'rbug/rbug_texture.c',
+   'rbug/rbug_texture.h',
+-  'rtasm/rtasm_cpu.c',
+-  'rtasm/rtasm_cpu.h',
+   'rtasm/rtasm_execmem.c',
+   'rtasm/rtasm_execmem.h',
+   'rtasm/rtasm_x86sse.c',
+diff --git a/src/gallium/auxiliary/rtasm/rtasm_cpu.c b/src/gallium/auxiliary/rtasm/rtasm_cpu.c
+deleted file mode 100644
+index d1af30f06ad3..000000000000
+--- a/src/gallium/auxiliary/rtasm/rtasm_cpu.c
++++ /dev/null
+@@ -1,55 +0,0 @@
+-/**************************************************************************
+- *
+- * Copyright 2008 VMware, Inc.
+- * All Rights Reserved.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the
+- * "Software"), to deal in the Software without restriction, including
+- * without limitation the rights to use, copy, modify, merge, publish,
+- * distribute, sub license, and/or sell copies of the Software, and to
+- * permit persons to whom the Software is furnished to do so, subject to
+- * the following conditions:
+- *
+- * The above copyright notice and this permission notice (including the
+- * next paragraph) shall be included in all copies or substantial portions
+- * of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+- * IN NO EVENT SHALL VMWARE AND/OR ITS SUPPLIERS BE LIABLE FOR
+- * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- *
+- **************************************************************************/
+-
+-#include "pipe/p_config.h"
+-#include "rtasm_cpu.h"
+-
+-#if defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)
+-
+-#include "util/u_debug.h"
+-#include "util/u_cpu_detect.h"
+-
+-DEBUG_GET_ONCE_BOOL_OPTION(nosse, "GALLIUM_NOSSE", false);
+-
+-static const struct util_cpu_caps_t *get_cpu_caps(void)
+-{
+-   return util_get_cpu_caps();
+-}
+-
+-int rtasm_cpu_has_sse(void)
+-{
+-   return !debug_get_option_nosse() && get_cpu_caps()->has_sse;
+-}
+-
+-#else
+-
+-int rtasm_cpu_has_sse(void)
+-{
+-   return 0;
+-}
+-
+-#endif
+diff --git a/src/gallium/auxiliary/rtasm/rtasm_cpu.h b/src/gallium/auxiliary/rtasm/rtasm_cpu.h
+deleted file mode 100644
+index cfce8f7d45d3..000000000000
+--- a/src/gallium/auxiliary/rtasm/rtasm_cpu.h
++++ /dev/null
+@@ -1,40 +0,0 @@
+-/**************************************************************************
+- *
+- * Copyright 2008 VMware, Inc.
+- * All Rights Reserved.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the
+- * "Software"), to deal in the Software without restriction, including
+- * without limitation the rights to use, copy, modify, merge, publish,
+- * distribute, sub license, and/or sell copies of the Software, and to
+- * permit persons to whom the Software is furnished to do so, subject to
+- * the following conditions:
+- *
+- * The above copyright notice and this permission notice (including the
+- * next paragraph) shall be included in all copies or substantial portions
+- * of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+- * IN NO EVENT SHALL VMWARE AND/OR ITS SUPPLIERS BE LIABLE FOR
+- * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+- *
+- **************************************************************************/
+-
+-/**
+- * @file
+- * Runtime detection of CPU capabilities.
+- */
+-
+-#ifndef _RTASM_CPU_H_
+-#define _RTASM_CPU_H_
+-
+-
+-int rtasm_cpu_has_sse(void);
+-
+-
+-#endif /* _RTASM_CPU_H_ */
+diff --git a/src/gallium/auxiliary/translate/translate_sse.c b/src/gallium/auxiliary/translate/translate_sse.c
+index 0ab79e4a3617..582bce161780 100644
+--- a/src/gallium/auxiliary/translate/translate_sse.c
++++ b/src/gallium/auxiliary/translate/translate_sse.c
+@@ -29,6 +29,7 @@
+ #include "pipe/p_config.h"
+ #include "pipe/p_compiler.h"
+ #include "util/u_memory.h"
++#include "util/u_cpu_detect.h"
+ #include "util/u_math.h"
+ #include "util/format/u_format.h"
+ 
+@@ -37,7 +38,6 @@
+ 
+ #if (defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)) && !defined(EMBEDDED_DEVICE)
+ 
+-#include "rtasm/rtasm_cpu.h"
+ #include "rtasm/rtasm_x86sse.h"
+ 
+ 
+@@ -1509,8 +1509,7 @@ translate_sse2_create(const struct translate_key *key)
+    struct translate_sse *p = NULL;
+    unsigned i;
+ 
+-   /* this is misnamed, it actually refers to whether rtasm is enabled or not */
+-   if (!rtasm_cpu_has_sse())
++   if (!util_get_cpu_caps()->has_sse)
+       goto fail;
+ 
+    p = os_malloc_aligned(sizeof(struct translate_sse), 16);
+diff --git a/src/gallium/tests/unit/translate_test.c b/src/gallium/tests/unit/translate_test.c
+index 215136b423ef..8b320efbdb6d 100644
+--- a/src/gallium/tests/unit/translate_test.c
++++ b/src/gallium/tests/unit/translate_test.c
+@@ -29,7 +29,6 @@
+ #include "util/format/u_format.h"
+ #include "util/half_float.h"
+ #include "util/u_cpu_detect.h"
+-#include "rtasm/rtasm_cpu.h"
+ 
+ /* don't use this for serious use */
+ static double rand_double()
+@@ -86,7 +85,7 @@ int main(int argc, char** argv)
+    }
+    else if (!strcmp(argv[1], "sse"))
+    {
+-      if(!util_get_cpu_caps()->has_sse || !rtasm_cpu_has_sse())
++      if(!util_get_cpu_caps()->has_sse)
+       {
+          printf("Error: CPU doesn't support SSE (test with qemu)\n");
+          return 2;
+@@ -98,7 +97,7 @@ int main(int argc, char** argv)
+    }
+    else if (!strcmp(argv[1], "sse2"))
+    {
+-      if(!util_get_cpu_caps()->has_sse2 || !rtasm_cpu_has_sse())
++      if(!util_get_cpu_caps()->has_sse2)
+       {
+          printf("Error: CPU doesn't support SSE2 (test with qemu)\n");
+          return 2;
+@@ -109,7 +108,7 @@ int main(int argc, char** argv)
+    }
+    else if (!strcmp(argv[1], "sse3"))
+    {
+-      if(!util_get_cpu_caps()->has_sse3 || !rtasm_cpu_has_sse())
++      if(!util_get_cpu_caps()->has_sse3)
+       {
+          printf("Error: CPU doesn't support SSE3 (test with qemu)\n");
+          return 2;
+@@ -119,7 +118,7 @@ int main(int argc, char** argv)
+    }
+    else if (!strcmp(argv[1], "sse4.1"))
+    {
+-      if(!util_get_cpu_caps()->has_sse4_1 || !rtasm_cpu_has_sse())
++      if(!util_get_cpu_caps()->has_sse4_1)
+       {
+          printf("Error: CPU doesn't support SSE4.1 (test with qemu)\n");
+          return 2;
+diff --git a/src/util/u_cpu_detect.c b/src/util/u_cpu_detect.c
+index 9e6ac9d0a591..1bd78bace1df 100644
+--- a/src/util/u_cpu_detect.c
++++ b/src/util/u_cpu_detect.c
+@@ -794,6 +794,9 @@ util_cpu_detect_once(void)
+             util_cpu_caps.cacheline = cacheline;
+       }
+    }
++   if (debug_get_bool_option("GALLIUM_NOSSE", false)) {
++      util_cpu_caps.has_sse = 0;
++   }
+ #endif /* PIPE_ARCH_X86 || PIPE_ARCH_X86_64 */
+ 
+ #if defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)
+-- 
+GitLab
+
+
+From 9546a09901f56df8abac9fe606d070e21f1f75ed Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Wed, 24 Aug 2022 00:20:52 +0800
+Subject: [PATCH 5/9] util: Handling LP_FORCE_SSE2 in u_cpu_detect.c
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/gallium/auxiliary/gallivm/lp_bld_init.c | 16 ----------------
+ src/util/u_cpu_detect.c                     |  6 ++++++
+ 2 files changed, 6 insertions(+), 16 deletions(-)
+
+diff --git a/src/gallium/auxiliary/gallivm/lp_bld_init.c b/src/gallium/auxiliary/gallivm/lp_bld_init.c
+index 9e28256ac53b..c1a8a72f13df 100644
+--- a/src/gallium/auxiliary/gallivm/lp_bld_init.c
++++ b/src/gallium/auxiliary/gallivm/lp_bld_init.c
+@@ -438,22 +438,6 @@ lp_build_init(void)
+ 
+    lp_set_target_options();
+ 
+-   /* For simulating less capable machines */
+-#ifdef DEBUG
+-   if (debug_get_bool_option("LP_FORCE_SSE2", FALSE)) {
+-      extern struct util_cpu_caps_t util_cpu_caps;
+-      assert(util_cpu_caps.has_sse2);
+-      util_cpu_caps.has_sse3 = 0;
+-      util_cpu_caps.has_ssse3 = 0;
+-      util_cpu_caps.has_sse4_1 = 0;
+-      util_cpu_caps.has_sse4_2 = 0;
+-      util_cpu_caps.has_avx = 0;
+-      util_cpu_caps.has_avx2 = 0;
+-      util_cpu_caps.has_f16c = 0;
+-      util_cpu_caps.has_fma = 0;
+-   }
+-#endif
+-
+    if (util_get_cpu_caps()->has_avx2 || util_get_cpu_caps()->has_avx) {
+       lp_native_vector_width = 256;
+    } else {
+diff --git a/src/util/u_cpu_detect.c b/src/util/u_cpu_detect.c
+index 1bd78bace1df..e89dc1568763 100644
+--- a/src/util/u_cpu_detect.c
++++ b/src/util/u_cpu_detect.c
+@@ -797,6 +797,12 @@ util_cpu_detect_once(void)
+    if (debug_get_bool_option("GALLIUM_NOSSE", false)) {
+       util_cpu_caps.has_sse = 0;
+    }
++#ifdef DEBUG
++   /* For simulating less capable machines */
++   if (debug_get_bool_option("LP_FORCE_SSE2", false)) {
++      util_cpu_caps.has_sse3 = 0;
++   }
++#endif
+ #endif /* PIPE_ARCH_X86 || PIPE_ARCH_X86_64 */
+ 
+ #if defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)
+-- 
+GitLab
+
+
+From c763b1cae854ea212e55149f5e877dd016209af4 Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Wed, 24 Aug 2022 00:20:02 +0800
+Subject: [PATCH 6/9] llvmpipe: Remove the hack for LLVM4 in lp_bld_init.c
+
+The main intention is remove usage of extern struct util_cpu_caps_t util_cpu_caps
+so we can mark util_cpu_caps to be static latter
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/gallium/auxiliary/gallivm/lp_bld_init.c | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+diff --git a/src/gallium/auxiliary/gallivm/lp_bld_init.c b/src/gallium/auxiliary/gallivm/lp_bld_init.c
+index c1a8a72f13df..4683126f93e8 100644
+--- a/src/gallium/auxiliary/gallivm/lp_bld_init.c
++++ b/src/gallium/auxiliary/gallivm/lp_bld_init.c
+@@ -450,22 +450,6 @@ lp_build_init(void)
+    lp_native_vector_width = debug_get_num_option("LP_NATIVE_VECTOR_WIDTH",
+                                                  lp_native_vector_width);
+ 
+-#if LLVM_VERSION_MAJOR < 4
+-   if (lp_native_vector_width <= 128) {
+-      /* Hide AVX support, as often LLVM AVX intrinsics are only guarded by
+-       * "util_get_cpu_caps()->has_avx" predicate, and lack the
+-       * "lp_native_vector_width > 128" predicate. And also to ensure a more
+-       * consistent behavior, allowing one to test SSE2 on AVX machines.
+-       * XXX: should not play games with util_cpu_caps directly as it might
+-       * get used for other things outside llvm too.
+-       */
+-      util_get_cpu_caps()->has_avx = 0;
+-      util_get_cpu_caps()->has_avx2 = 0;
+-      util_get_cpu_caps()->has_f16c = 0;
+-      util_get_cpu_caps()->has_fma = 0;
+-   }
+-#endif
+-
+ #ifdef PIPE_ARCH_PPC_64
+    /* Set the NJ bit in VSCR to 0 so denormalized values are handled as
+     * specified by IEEE standard (PowerISA 2.06 - Section 6.3). This guarantees
+-- 
+GitLab
+
+
+From 2ff4a4dd98735d01ffc051d0ff49ce2a78d0593b Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Thu, 25 Aug 2022 23:04:59 +0800
+Subject: [PATCH 7/9] gallium: Fixes memory leak of translate_test.c
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/gallium/tests/unit/translate_test.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/src/gallium/tests/unit/translate_test.c b/src/gallium/tests/unit/translate_test.c
+index 8b320efbdb6d..f4be84138a4c 100644
+--- a/src/gallium/tests/unit/translate_test.c
++++ b/src/gallium/tests/unit/translate_test.c
+@@ -323,5 +323,14 @@ int main(int argc, char** argv)
+    }
+ 
+    printf("%u/%u tests passed for translate_%s\n", passed, total, argv[1]);
++
++   for (i = 1; i < ARRAY_SIZE(buffer); ++i)
++      align_free(buffer[i]);
++
++   align_free(byte_buffer);
++   align_free(float_buffer);
++   align_free(double_buffer);
++   align_free(half_buffer);
++   align_free(elts);
+    return passed != total;
+ }
+-- 
+GitLab
+
+
+From 0993361ea776c9d256a97a43587f9498723eca5c Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Thu, 25 Aug 2022 09:49:21 +0800
+Subject: [PATCH 8/9] util: Use environment variable GALLIUM_OVERRIDE_CPU_CAPS
+ to remove usage of util_cpu_caps in translate_test.c
+
+It's use extern struct util_cpu_caps_t util_cpu_caps that's violate the
+restriction that we can not directly access util_cpu_caps
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/gallium/tests/unit/meson.build      | 12 ++++-
+ src/gallium/tests/unit/translate_test.c | 63 +++++++------------------
+ src/util/u_cpu_detect.c                 | 17 +++++++
+ 3 files changed, 44 insertions(+), 48 deletions(-)
+
+diff --git a/src/gallium/tests/unit/meson.build b/src/gallium/tests/unit/meson.build
+index f94e1058d2cd..1e0e6d45835c 100644
+--- a/src/gallium/tests/unit/meson.build
++++ b/src/gallium/tests/unit/meson.build
+@@ -28,8 +28,16 @@ foreach t : ['pipe_barrier_test', 'u_cache_test', 'u_half_test',
+     dependencies : idep_mesautil,
+     install : false,
+   )
+-  # u_cache_test is slow, and translate_test fails.
+-  if not ['u_cache_test', 'translate_test'].contains(t)
++  if (t == 'translate_test') # translate_test have parameters.
++    # FIXME: translate_test default|generic are failing
++    # test('translate_test default', exe, args : [ 'default' ])
++    # test('translate_test generic', exe, args : [ 'generic' ])
++    if ['x86', 'x86_64'].contains(host_machine.cpu_family())
++      foreach arg : ['x86', 'nosse', 'sse', 'sse2', 'sse3', 'sse4.1']
++        test('translate_test ' + arg, exe, args : [ arg ])
++      endforeach
++    endif
++  elif t != 'u_cache_test' # u_cache_test is slow
+     test(t, exe, suite: 'gallium',
+          should_fail : meson.get_cross_property('xfail', '').contains(t),
+     )
+diff --git a/src/gallium/tests/unit/translate_test.c b/src/gallium/tests/unit/translate_test.c
+index f4be84138a4c..823aa6846982 100644
+--- a/src/gallium/tests/unit/translate_test.c
++++ b/src/gallium/tests/unit/translate_test.c
+@@ -45,11 +45,12 @@ static double rand_double()
+    return v;
+ }
+ 
++char cpu_caps_override_env[128];
++
+ int main(int argc, char** argv)
+ {
+    struct translate *(*create_fn)(const struct translate_key *key) = 0;
+ 
+-   extern struct util_cpu_caps_t util_cpu_caps;
+    struct translate_key key;
+    unsigned output_format;
+    unsigned input_format;
+@@ -75,55 +76,25 @@ int main(int argc, char** argv)
+       create_fn = translate_generic_create;
+    else if (!strcmp(argv[1], "x86"))
+       create_fn = translate_sse2_create;
+-   else if (!strcmp(argv[1], "nosse"))
+-   {
+-      util_cpu_caps.has_sse = 0;
+-      util_cpu_caps.has_sse2 = 0;
+-      util_cpu_caps.has_sse3 = 0;
+-      util_cpu_caps.has_sse4_1 = 0;
+-      create_fn = translate_sse2_create;
+-   }
+-   else if (!strcmp(argv[1], "sse"))
++   else
+    {
+-      if(!util_get_cpu_caps()->has_sse)
++      const char *translate_options[] = {
++         "nosse", "sse", "sse2", "sse3", "sse4.1",
++         NULL
++      };
++      const char **option;
++      for (option = translate_options; *option; ++option)
+       {
+-         printf("Error: CPU doesn't support SSE (test with qemu)\n");
+-         return 2;
+-      }
+-      util_cpu_caps.has_sse2 = 0;
+-      util_cpu_caps.has_sse3 = 0;
+-      util_cpu_caps.has_sse4_1 = 0;
+-      create_fn = translate_sse2_create;
+-   }
+-   else if (!strcmp(argv[1], "sse2"))
+-   {
+-      if(!util_get_cpu_caps()->has_sse2)
+-      {
+-         printf("Error: CPU doesn't support SSE2 (test with qemu)\n");
+-         return 2;
+-      }
+-      util_cpu_caps.has_sse3 = 0;
+-      util_cpu_caps.has_sse4_1 = 0;
+-      create_fn = translate_sse2_create;
+-   }
+-   else if (!strcmp(argv[1], "sse3"))
+-   {
+-      if(!util_get_cpu_caps()->has_sse3)
+-      {
+-         printf("Error: CPU doesn't support SSE3 (test with qemu)\n");
+-         return 2;
++         if (!strcmp(argv[1], *option))
++         {
++            create_fn = translate_sse2_create;
++            break;
++         }
+       }
+-      util_cpu_caps.has_sse4_1 = 0;
+-      create_fn = translate_sse2_create;
+-   }
+-   else if (!strcmp(argv[1], "sse4.1"))
+-   {
+-      if(!util_get_cpu_caps()->has_sse4_1)
+-      {
+-         printf("Error: CPU doesn't support SSE4.1 (test with qemu)\n");
+-         return 2;
++      if (create_fn) {
++         snprintf(cpu_caps_override_env, sizeof(cpu_caps_override_env), "GALLIUM_OVERRIDE_CPU_CAPS=%s", argv[1]);
++         putenv(cpu_caps_override_env);
+       }
+-      create_fn = translate_sse2_create;
+    }
+ 
+    if (!create_fn)
+diff --git a/src/util/u_cpu_detect.c b/src/util/u_cpu_detect.c
+index e89dc1568763..13405a6e3589 100644
+--- a/src/util/u_cpu_detect.c
++++ b/src/util/u_cpu_detect.c
+@@ -589,6 +589,7 @@ util_cpu_detect_once(void)
+ {
+    int available_cpus = 0;
+    int total_cpus = 0;
++   const char *override_cpu_caps = debug_get_option("GALLIUM_OVERRIDE_CPU_CAPS", NULL);
+ 
+    memset(&util_cpu_caps, 0, sizeof util_cpu_caps);
+ 
+@@ -805,6 +806,22 @@ util_cpu_detect_once(void)
+ #endif
+ #endif /* PIPE_ARCH_X86 || PIPE_ARCH_X86_64 */
+ 
++   if (override_cpu_caps != NULL) {
++#if defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)
++      if (!strcmp(override_cpu_caps, "nosse")) {
++         util_cpu_caps.has_sse = 0;
++      } else if (!strcmp(override_cpu_caps, "sse")) {
++         util_cpu_caps.has_sse2 = 0;
++      } else if (!strcmp(override_cpu_caps, "sse2")) {
++         util_cpu_caps.has_sse3 = 0;
++      } else if (!strcmp(override_cpu_caps, "sse3")) {
++         util_cpu_caps.has_sse4_1 = 0;
++      } else if (!strcmp(override_cpu_caps, "sse4.1")) {
++         util_cpu_caps.has_avx = 0;
++      }
++#endif /* PIPE_ARCH_X86 || PIPE_ARCH_X86_64 */
++   }
++
+ #if defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)
+    if (!util_cpu_caps.has_sse) {
+       util_cpu_caps.has_sse2 = 0;
+-- 
+GitLab
+
+
+From b660c0eff3132299ec50475dc77a3847c7bb3c5d Mon Sep 17 00:00:00 2001
+From: Yonggang Luo <luoyonggang@gmail.com>
+Date: Sat, 30 Jul 2022 12:40:55 +0800
+Subject: [PATCH 9/9] util: Move detect_done out of struct util_cpu_caps_t
+
+Also util_cpu_caps are hided, not accessed directly now
+
+Signed-off-by: Yonggang Luo <luoyonggang@gmail.com>
+Reviewed-by: Jose Fonseca <jfonseca@vmware.com>
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/17803>
+---
+ src/gallium/drivers/llvmpipe/lp_screen.c |  4 ++--
+ src/util/u_cpu_detect.c                  | 28 +++++++++++-------------
+ src/util/u_cpu_detect.h                  | 26 ++++++++++++----------
+ 3 files changed, 30 insertions(+), 28 deletions(-)
+
+diff --git a/src/gallium/drivers/llvmpipe/lp_screen.c b/src/gallium/drivers/llvmpipe/lp_screen.c
+index ba307ee6fc7a..333d7695ee77 100644
+--- a/src/gallium/drivers/llvmpipe/lp_screen.c
++++ b/src/gallium/drivers/llvmpipe/lp_screen.c
+@@ -921,8 +921,8 @@ static void update_cache_sha1_cpu(struct mesa_sha1 *ctx)
+     * Don't need the cpu cache affinity stuff. The rest
+     * is contained in first 5 dwords.
+     */
+-   STATIC_ASSERT(offsetof(struct util_cpu_caps_t, num_L3_caches) == 6 * sizeof(uint32_t));
+-   _mesa_sha1_update(ctx, cpu_caps, 6 * sizeof(uint32_t));
++   STATIC_ASSERT(offsetof(struct util_cpu_caps_t, num_L3_caches) == 5 * sizeof(uint32_t));
++   _mesa_sha1_update(ctx, cpu_caps, 5 * sizeof(uint32_t));
+ }
+ 
+ static void lp_disk_cache_create(struct llvmpipe_screen *screen)
+diff --git a/src/util/u_cpu_detect.c b/src/util/u_cpu_detect.c
+index 13405a6e3589..564c5e4d0011 100644
+--- a/src/util/u_cpu_detect.c
++++ b/src/util/u_cpu_detect.c
+@@ -92,9 +92,15 @@
+ 
+ DEBUG_GET_ONCE_BOOL_OPTION(dump_cpu, "GALLIUM_DUMP_CPU", false)
+ 
+-/* Do not try to access util_cpu_caps directly, call to util_get_cpu_caps instead */
++static
+ struct util_cpu_caps_t util_cpu_caps;
+ 
++/* Do not try to access _util_cpu_caps_state directly, call to util_get_cpu_caps instead */
++struct _util_cpu_caps_state_t _util_cpu_caps_state = {
++   .once_flag = ONCE_FLAG_INIT,
++   .detect_done = 0,
++};
++
+ #if defined(PIPE_ARCH_X86) || defined(PIPE_ARCH_X86_64)
+ static int has_cpuid(void);
+ #endif
+@@ -584,8 +590,10 @@ get_cpu_topology(void)
+ #endif
+ }
+ 
+-static void
+-util_cpu_detect_once(void)
++void _util_cpu_detect_once(void);
++
++void
++_util_cpu_detect_once(void)
+ {
+    int available_cpus = 0;
+    int total_cpus = 0;
+@@ -912,18 +920,8 @@ util_cpu_detect_once(void)
+       printf("util_cpu_caps.num_L3_caches = %u\n", util_cpu_caps.num_L3_caches);
+       printf("util_cpu_caps.num_cpu_mask_bits = %u\n", util_cpu_caps.num_cpu_mask_bits);
+    }
++   _util_cpu_caps_state.caps = util_cpu_caps;
+ 
+    /* This must happen at the end as it's used to guard everything else */
+-   p_atomic_set(&util_cpu_caps.detect_done, 1);
+-}
+-
+-static once_flag cpu_once_flag = ONCE_FLAG_INIT;
+-
+-void _util_cpu_detect_local(void);
+-
+-/* Do not call to this function directly, using util_get_cpu_caps instead */
+-void
+-_util_cpu_detect_local(void)
+-{
+-   call_once(&cpu_once_flag, util_cpu_detect_once);
++   p_atomic_set(&_util_cpu_caps_state.detect_done, 1);
+ }
+diff --git a/src/util/u_cpu_detect.h b/src/util/u_cpu_detect.h
+index 646b5d0c4700..974e35dc8062 100644
+--- a/src/util/u_cpu_detect.h
++++ b/src/util/u_cpu_detect.h
+@@ -61,12 +61,6 @@ enum cpu_family {
+ typedef uint32_t util_affinity_mask[UTIL_MAX_CPUS / 32];
+ 
+ struct util_cpu_caps_t {
+-   /**
+-    * Initialized to 0 and set to non-zero with an atomic after the entire
+-    * struct has been initialized.
+-    */
+-   uint32_t detect_done;
+-
+    /**
+     * Number of CPUs available to the process.
+     *
+@@ -132,13 +126,23 @@ struct util_cpu_caps_t {
+    util_affinity_mask *L3_affinity_mask;
+ };
+ 
++struct _util_cpu_caps_state_t {
++   once_flag once_flag;
++   /**
++    * Initialized to 0 and set to non-zero with an atomic after the entire
++    * struct has been initialized.
++    */
++   uint32_t detect_done;
++   struct util_cpu_caps_t caps;
++};
++
+ #define U_CPU_INVALID_L3 0xffff
+ 
+ static inline ATTRIBUTE_CONST const struct util_cpu_caps_t *
+ util_get_cpu_caps(void)
+ {
+-   extern void _util_cpu_detect_local(void);
+-   extern struct util_cpu_caps_t util_cpu_caps;
++   extern void _util_cpu_detect_once(void);
++   extern struct _util_cpu_caps_state_t _util_cpu_caps_state;
+ 
+    /* On most CPU architectures, an atomic read is simply a regular memory
+     * load instruction with some extra compiler magic to prevent code
+@@ -163,10 +167,10 @@ util_get_cpu_caps(void)
+     * sure, but that state is such that it appears to return exactly the same
+     * value with the same internal data every time.
+     */
+-   if (unlikely(!p_atomic_read(&util_cpu_caps.detect_done)))
+-      _util_cpu_detect_local();
++   if (unlikely(!p_atomic_read(&_util_cpu_caps_state.detect_done)))
++      call_once(&_util_cpu_caps_state.once_flag, _util_cpu_detect_once);
+ 
+-   return &util_cpu_caps;
++   return &_util_cpu_caps_state.caps;
+ }
+ 
+ #ifdef __cplusplus
+-- 
+GitLab
+
