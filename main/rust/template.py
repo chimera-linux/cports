@@ -90,8 +90,6 @@ extern {}
 extern {}
 #[link(name = "ncursesw")]
 extern {}
-#[link(name = "execinfo")]
-extern {}
 """)
 
     with self.profile("host") as hpf:

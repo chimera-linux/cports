@@ -1,5 +1,5 @@
 pkgname = "clang-rt-cross"
-pkgver = "15.0.1"
+pkgver = "15.0.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -8,6 +8,8 @@ configure_args = [
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
+    # disable execinfo
+    "-DCOMPILER_RT_BUILD_GWP_ASAN=OFF",
     # tools
     "-DCMAKE_C_COMPILER=/usr/bin/clang",
     "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
@@ -35,15 +37,15 @@ hostmakedepends = [
 ]
 makedepends = [
     "zlib-devel", "libffi-devel", "clang-rt-crt-cross",
-    "libcxx-cross", "libexecinfo-cross", "linux-headers-cross"
+    "libcxx-cross", "linux-headers-cross"
 ]
-depends = ["clang-rt-crt-cross", "libcxx-cross", "libexecinfo-cross"]
+depends = ["clang-rt-crt-cross", "libcxx-cross"]
 pkgdesc = "Cross-compiling runtime for LLVM"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "f25ce2d4243bebf527284eb7be7f6f56ef454fca8b3de9523f7eb4efb8d26218"
+sha256 = "7877cd67714728556a79e5ec0cc72d66b6926448cf73b12b2cb901b268f7a872"
 # crosstoolchain
 options = ["!cross", "!check", "!lto"]
 
@@ -103,7 +105,6 @@ def _gen_crossp(an):
         self.depends = [
             f"clang-rt-crt-cross-{an}",
             f"libcxx-cross-{an}",
-            f"libexecinfo-cross-{an}"
         ]
         self.options = [
             "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"

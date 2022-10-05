@@ -1,6 +1,6 @@
 pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.3"
-pkgver = "15.0.1"
+pkgver = "15.0.2"
 pkgrel = 0
 build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
@@ -11,6 +11,8 @@ configure_args = [
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
+    # we don't have libatomic
+    "-DCOMPILER_RT_EXCLUDE_ATOMIC_BUILTIN=OFF",
     # tools
     "-DCMAKE_C_COMPILER=/usr/bin/clang",
     "-DCMAKE_AR=/usr/bin/llvm-ar",
@@ -45,7 +47,7 @@ source = [
     f"http://www.musl-libc.org/releases/musl-{_musl_ver}.tar.gz"
 ]
 sha256 = [
-    "f25ce2d4243bebf527284eb7be7f6f56ef454fca8b3de9523f7eb4efb8d26218",
+    "7877cd67714728556a79e5ec0cc72d66b6926448cf73b12b2cb901b268f7a872",
     "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4"
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]

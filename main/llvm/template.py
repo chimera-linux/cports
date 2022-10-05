@@ -1,11 +1,15 @@
 pkgname = "llvm"
-pkgver = "15.0.1"
+pkgver = "15.0.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
     "-DENABLE_LINKER_BUILD_ID=YES",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
+    # we rely solely on compiler-rt, no libatomic
+    "-DCOMPILER_RT_EXCLUDE_ATOMIC_BUILTIN=NO",
+    # avoid execinfo
+    "-DCOMPILER_RT_BUILD_GWP_ASAN=NO",
     "-DLIBCXX_CXX_ABI=libcxxabi",
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
@@ -40,7 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "f25ce2d4243bebf527284eb7be7f6f56ef454fca8b3de9523f7eb4efb8d26218"
+sha256 = "7877cd67714728556a79e5ec0cc72d66b6926448cf73b12b2cb901b268f7a872"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -66,7 +70,7 @@ if self.stage > 0:
     hostmakedepends += ["libffi-devel"]
     makedepends += [
         "python-devel", "libedit-devel", "elftoolchain-devel",
-        "libexecinfo-devel", "libffi-devel", "linux-headers"
+        "libffi-devel", "linux-headers"
     ]
     # for stage 2 onwards also enable debugger
     # in stage 1 there is no point in wasting cpu time with it
@@ -303,8 +307,6 @@ def _clang(self):
 def _clang_rt_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang runtime development files)"
     self.options = ["ltostrip", "!splitstatic"] # these are explicitly -fno-lto
-    if self.stage > 0:
-        self.depends = ["libexecinfo-devel"]
 
     return [
         "usr/lib/clang"

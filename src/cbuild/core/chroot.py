@@ -291,7 +291,6 @@ def _setup_dummy(rootp, archn):
     files_ver = _get_ver("base-files")
     musl_ver = _get_ver("musl")
     llvm_ver = _get_ver("llvm")
-    exec_ver = _get_ver("libexecinfo")
 
     provides = [
         f"base-files={files_ver}",
@@ -303,14 +302,10 @@ def _setup_dummy(rootp, archn):
         f"libcxxabi-devel={llvm_ver}",
         f"libunwind={llvm_ver}",
         f"libunwind-devel={llvm_ver}",
-        f"libexecinfo={exec_ver}",
-        f"libexecinfo-devel={exec_ver}",
-        "pc:libexecinfo=9999",
         "so:libc.so=0",
         "so:libc++abi.so.1=1.0",
         "so:libc++.so.1=1.0",
         "so:libunwind.so.1=1.0",
-        "so:libexecinfo.so.1=1",
     ]
 
     try:
