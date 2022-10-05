@@ -3,7 +3,7 @@ pkgver = "0.1"
 pkgrel = 0
 archs = ["aarch64"]
 depends = [
-    "firmware-ap6256", "linux-pbp", "u-boot-pbp",
+    "firmware-ap6256", "linux-pbp", "u-boot-pinebook-pro-rk3399",
     "u-boot-tools", "util-linux", "base-kernel"
 ]
 pkgdesc = "Chimera base package for Pinebook Pro"
