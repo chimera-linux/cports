@@ -1,4 +1,4 @@
-pkgname = "u-boot-sifive-unmatched"
+pkgname = "u-boot-sifive_unmatched"
 pkgver = "2022.10"
 pkgrel = 0
 archs = ["riscv64"]
