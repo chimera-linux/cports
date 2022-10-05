@@ -1,7 +1,8 @@
 pkgname = "libwpe"
-pkgver = "1.12.3"
+pkgver = "1.14.0"
 pkgrel = 0
 build_style = "meson"
+configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["mesa-devel", "libxkbcommon-devel"]
 pkgdesc = "General-purpose library for WPE WebKit"
@@ -9,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b84fdbfbc849ce4fdf084bb28b58e5463b1b4b6cc8f200dc77b41f8545d5329d"
+sha256 = "c073305bbac5f4402cc1c8a4753bfa3d63a408901f86182051eaa5a75dd89c00"
 
 def post_install(self):
     self.install_license("COPYING")
