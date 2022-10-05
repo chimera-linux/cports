@@ -1,10 +1,7 @@
 pkgname = "webkitgtk"
-pkgver = "2.36.7"
+pkgver = "2.38.0"
 pkgrel = 0
 build_style = "cmake"
-# TODO: ENABLE_GLES2 and USE_ANGLE_WEBGL; these do not compile right now
-# and after patching that they crash on startup, but we can reevaluate
-# for 2.38 perhaps, or one of the patch releases
 configure_args = [
     "-DPORT=GTK", "-DCMAKE_SKIP_RPATH=ON",
     f"-DCMAKE_LINKER={self.profile().triplet}-clang",
@@ -14,7 +11,7 @@ configure_args = [
     "-DUSE_WOFF2=ON",
     "-DUSE_WPE_RENDERER=ON",
     # -DENABLE_*
-    "-DENABLE_GTKDOC=OFF",
+    "-DENABLE_DOCUMENTATION=OFF",
     "-DENABLE_SAMPLING_PROFILER=OFF", # unavailable on musl
     "-DENABLE_MINIBROWSER=ON",
     "-DENABLE_INTROSPECTION=ON",
@@ -45,7 +42,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0c260cf2b32f0481d017670dfed1b61e554967cd067195606c9f9eb5fe731743"
+sha256 = "f9ce6375a3b6e1329b0b609f46921e2627dc7ad6224b37b967ab2ea643bc0fbd"
 debug_level = 1 # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
@@ -61,9 +58,12 @@ env = {
 # huge testsuite
 options = ["!check"]
 
+# riscv64 uses llint but no jit yet
 match self.profile().arch:
     case "x86_64" | "aarch64":
         configure_args += ["-DENABLE_JIT=ON", "-DENABLE_C_LOOP=OFF"]
+    case "riscv64":
+        configure_args += ["-DENABLE_JIT=OFF", "-DENABLE_C_LOOP=OFF"]
     case _:
         configure_args += ["-DENABLE_JIT=OFF", "-DENABLE_C_LOOP=ON"]
 

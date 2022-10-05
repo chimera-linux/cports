@@ -1,0 +1,35 @@
+From bf06122e215d6719341efdb1801a551705f85e2e Mon Sep 17 00:00:00 2001
+From: Yijia Huang <hyjorc1@gmail.com>
+Date: Wed, 14 Sep 2022 11:57:35 -0700
+Subject: [PATCH] Remove const for SegmentedVectorIterator::pointer and
+ ::reference https://bugs.webkit.org/show_bug.cgi?id=245183 rdar://99841894
+
+Reviewed by Justin Michaud.
+
+SegmentedVectorIterator::pointer and ::reference shouldn't be constant.
+Add symbols for some libc++ implementations.
+
+* Source/JavaScriptCore/Configurations/JavaScriptCore.xcconfig:
+* Source/WTF/wtf/SegmentedVector.h:
+
+Canonical link: https://commits.webkit.org/254487@main
+---
+ Source/JavaScriptCore/Configurations/JavaScriptCore.xcconfig | 2 +-
+ Source/WTF/wtf/SegmentedVector.h                             | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Source/WTF/wtf/SegmentedVector.h b/Source/WTF/wtf/SegmentedVector.h
+index c5b9e8a1ecdd..83b2dc120548 100644
+--- a/Source/WTF/wtf/SegmentedVector.h
++++ b/Source/WTF/wtf/SegmentedVector.h
+@@ -47,8 +47,8 @@ namespace WTF {
+         using iterator_category = std::forward_iterator_tag;
+         using value_type = T;
+         using difference_type = ptrdiff_t;
+-        using pointer = const T*;
+-        using reference = const T&;
++        using pointer = T*;
++        using reference = T&;
+ 
+         ~SegmentedVectorIterator() { }
+ 
