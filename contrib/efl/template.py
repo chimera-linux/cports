@@ -1,5 +1,5 @@
 pkgname = "efl"
-pkgver = "1.26.2"
+pkgver = "1.26.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -56,7 +56,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "2979cfbc728a1a1f72ad86c2467d861ed91e664d3f17ef03190fb5c5f405301c"
+sha256 = "d9f83aa0fd9334f44deeb4e4952dc0e5144683afac786feebce6030951617d15"
 # some suites are in a bad shape
 options = ["!check"]
 
