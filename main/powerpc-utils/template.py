@@ -6,12 +6,10 @@ build_style = "gnu_configure"
 configure_args = [
     "--disable-werror", "--with-librtas",
     "ac_cv_lib_rtasevent_parse_rtas_event=yes",
-    "LIBS=-lexecinfo",
 ]
 hostmakedepends = ["automake", "libtool"]
 makedepends = [
-    "librtas-devel", "zlib-devel", "libexecinfo-devel", "libnuma-devel",
-    "linux-headers",
+    "librtas-devel", "zlib-devel", "libnuma-devel", "linux-headers",
 ]
 pkgdesc = "Suite of utilities for Linux on Power systems"
 maintainer = "q66 <q66@chimera-linux.org>"
