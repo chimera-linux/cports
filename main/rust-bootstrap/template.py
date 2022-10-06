@@ -29,8 +29,8 @@ match self.profile().arch:
         ]
     case "riscv64":
         sha256 = [
-            "b7e8c9daf71a0094a7eb2579e5732241ef81245bc2c4bf9eff41befa5b3d8b89",
-            "1f8baf180a20627853b9526668cfd5624d3dfbfcfc239326d891e7588f018e04",
+            "1d1c34c07b2faa6b4f8b1ac0925edced665d53629bb407b3dcfa10b67ba8e684",
+            "3362565a7f46825f9e761d2bc7b40f15fd65b056eff93801785629f3cbb698dc",
         ]
     case "x86_64":
         sha256 = [
