@@ -1,0 +1,13 @@
+We need this to locate asn1_compile.
+
+--- a/wscript_configure_system_heimdal
++++ b/wscript_configure_system_heimdal
+@@ -40,7 +40,7 @@ def check_system_heimdal_lib(name, functions='', headers='', onlyif=None):
+ def check_system_heimdal_binary(name):
+     if conf.LIB_MAY_BE_BUNDLED(name):
+         return False
+-    if not conf.find_program(name, var=name.upper()):
++    if not conf.find_program(name, var=name.upper(), path_list=['/usr/bin', '/usr/libexec/heimdal']):
+         return False
+     conf.define('USING_SYSTEM_%s' % name.upper(), 1)
+     return True

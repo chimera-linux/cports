@@ -1,0 +1,181 @@
+diff --git a/bootstrap/config.py b/bootstrap/config.py
+index a00b253ae77..84330a2106a 100644
+--- a/bootstrap/config.py
++++ b/bootstrap/config.py
+@@ -127,5 +127,5 @@ PKGS = [
+     ('pkg-config', 'pkgconfig'),
+     ('procps', 'procps-ng'),  # required for the free cmd in tests
+-    ('lsb-release', 'lsb-release'),  # we need lsb_relase to show info
++    ('lsb-release', 'lsb-release'),  # we need lsb_release to show info
+     ('', 'rpcgen'),  # required for test
+     # refer: https://fedoraproject.org/wiki/Changes/SunRPCRemoval
+diff --git a/ctdb/common/system.c b/ctdb/common/system.c
+index 08dc68284fd..05a95647233 100644
+--- a/ctdb/common/system.c
++++ b/ctdb/common/system.c
+@@ -158,5 +158,5 @@ bool ctdb_sys_check_iface_exists(const char *iface)
+ 	ifnis = if_nameindex();
+ 	if (ifnis == NULL) {
+-		DBG_ERR("Failed to retrieve inteface list\n");
++		DBG_ERR("Failed to retrieve interface list\n");
+ 		return false;
+ 	}
+diff --git a/source3/smbd/msdfs.c b/source3/smbd/msdfs.c
+index 4819df35837..c30326234ae 100644
+--- a/source3/smbd/msdfs.c
++++ b/source3/smbd/msdfs.c
+@@ -950,5 +950,5 @@ static NTSTATUS dfs_path_lookup(TALLOC_CTX *ctx,
+ 		removed_components--;
+ 		if (p == NULL && removed_components != 0) {
+-			DBG_ERR("Component missmatch. path = %s, "
++			DBG_ERR("Component mismatch. path = %s, "
+ 				"%zu components left\n",
+ 				canon_dfspath,
+diff --git a/source3/smbd/smbXsrv_client.c b/source3/smbd/smbXsrv_client.c
+index d7a6fa35bf0..14d00f4aca1 100644
+--- a/source3/smbd/smbXsrv_client.c
++++ b/source3/smbd/smbXsrv_client.c
+@@ -1243,5 +1243,5 @@ static void smbXsrv_client_connection_drop_loop(struct tevent_req *subreq)
+ 		struct GUID_txt_buf buf1, buf2;
+ 
+-		DBG_WARNING("client's client_guid [%s] != droped guid [%s]\n",
++		DBG_WARNING("client's client_guid [%s] != dropped guid [%s]\n",
+ 			    GUID_buf_string(&client->global->client_guid,
+ 					    &buf1),
+@@ -1258,5 +1258,5 @@ static void smbXsrv_client_connection_drop_loop(struct tevent_req *subreq)
+ 	{
+ 		DBG_WARNING("client's initial connect time [%s] (%llu) != "
+-			"droped initial connect time [%s] (%llu)\n",
++			"dropped initial connect time [%s] (%llu)\n",
+ 			nt_time_string(talloc_tos(),
+ 				       client->global->initial_connect_time),
+diff --git a/source3/winbindd/wb_sids2xids.c b/source3/winbindd/wb_sids2xids.c
+index 179a51f81e4..9a3507ba702 100644
+--- a/source3/winbindd/wb_sids2xids.c
++++ b/source3/winbindd/wb_sids2xids.c
+@@ -234,5 +234,5 @@ static void wb_sids2xids_idmap_setup_done(struct tevent_req *subreq)
+ 		sid_copy(&domain_sid, &state->sids[i]);
+ 		sid_split_rid(&domain_sid, &rid);
+-		D_DEBUG("%"PRIu32": Splitted SID %s into domain SID %s and RID %"PRIu32"\n",
++		D_DEBUG("%"PRIu32": Split SID %s into domain SID %s and RID %"PRIu32"\n",
+ 			i,
+ 			dom_sid_str_buf(&state->sids[i], &buf0),
+diff --git a/source4/torture/smb2/ea.c b/source4/torture/smb2/ea.c
+index becacaed77e..2467610f688 100644
+--- a/source4/torture/smb2/ea.c
++++ b/source4/torture/smb2/ea.c
+@@ -92,5 +92,5 @@ static bool torture_smb2_acl_xattr(struct torture_context *tctx,
+ 	status = smb2_setinfo_file(tree, &sfinfo);
+ 	torture_assert_ntstatus_ok_goto(tctx, status, ret, done,
+-					"Setting EA should faild\n");
++					"Setting EA should fail\n");
+ 
+ 	/*
+diff --git a/source4/torture/smb2/session.c b/source4/torture/smb2/session.c
+index 92f9e638ff4..fe2beafbe9b 100644
+--- a/source4/torture/smb2/session.c
++++ b/source4/torture/smb2/session.c
+@@ -2755,5 +2755,5 @@ static bool test_session_bind_negative_smb210s(struct torture_context *tctx, str
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -2786,5 +2786,5 @@ static bool test_session_bind_negative_smb210d(struct torture_context *tctx, str
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -2818,5 +2818,5 @@ static bool test_session_bind_negative_smb2to3s(struct torture_context *tctx, st
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -2863,5 +2863,5 @@ static bool test_session_bind_negative_smb2to3d(struct torture_context *tctx, st
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -2909,5 +2909,5 @@ static bool test_session_bind_negative_smb3to2s(struct torture_context *tctx, st
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -2960,5 +2960,5 @@ static bool test_session_bind_negative_smb3to2d(struct torture_context *tctx, st
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -4549,5 +4549,5 @@ static bool test_session_bind_negative_smb3signH2XtoGs(struct torture_context *t
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -4609,5 +4609,5 @@ static bool test_session_bind_negative_smb3signH2XtoGd(struct torture_context *t
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -4789,5 +4789,5 @@ static bool test_session_bind_negative_smb3signGtoH2Xs(struct torture_context *t
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -4855,5 +4855,5 @@ static bool test_session_bind_negative_smb3signGtoH2Xd(struct torture_context *t
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test SMB 2.10 if encrytion is required");
++			     "Can't test SMB 2.10 if encryption is required");
+ 	}
+ 
+@@ -5067,5 +5067,5 @@ static bool test_session_signing_hmac_sha_256(struct torture_context *tctx, stru
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test signing only if encrytion is required");
++			     "Can't test signing only if encryption is required");
+ 	}
+ 
+@@ -5111,5 +5111,5 @@ static bool test_session_signing_aes_128_cmac(struct torture_context *tctx, stru
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test signing only if encrytion is required");
++			     "Can't test signing only if encryption is required");
+ 	}
+ 
+@@ -5155,5 +5155,5 @@ static bool test_session_signing_aes_128_gmac(struct torture_context *tctx, stru
+ 	if (encrypted) {
+ 		torture_skip(tctx,
+-			     "Can't test signing only if encrytion is required");
++			     "Can't test signing only if encryption is required");
+ 	}
+ 
+diff --git a/docs-xml/manpages/vfs_fruit.8.xml b/docs-xml/manpages/vfs_fruit.8.xml
+index 4caf308a612..6950898a7d1 100644
+--- a/docs-xml/manpages/vfs_fruit.8.xml
++++ b/docs-xml/manpages/vfs_fruit.8.xml
+@@ -399,7 +399,7 @@
+ 	      on-disk file identifier to have the semantics of HFS+ Catalog Node
+ 	      Identifier (CNID). Samba provides File-IDs based on a file's inode
+ 	      number which gets recycled across file creation and deletion and
+-	      can therefor not be used for Mac client. Returning a file identifier of
++	      can therefore not be used for Mac client. Returning a file identifier of
+ 	      zero causes the Mac client to stop using and trusting the file id
+ 	      returned from the server.</para>
+ 	      <para>The default is <emphasis>yes</emphasis>.</para>

@@ -1,0 +1,31 @@
+Subject: silence uselib_local warning produced by waf
+From: Michael Tokarev <mjt@tls.msk.ru>
+Date: Sun, 03 Apr 2022 07:57:38 +0300
+
+During config/build process in verbose mode, waf produces
+about 2k repetitions of this warning:
+
+  compat: "uselib_local" is deprecated, replace by "use"
+
+which clutters the build log.
+
+Comment this warning out for now until it will be
+fixed properly.
+
+diff --git a/buildtools/wafsamba/samba_waf18.py b/buildtools/wafsamba/samba_waf18.py
+index e2a078bd3a0..dfd53a012d1 100644
+--- a/buildtools/wafsamba/samba_waf18.py
++++ b/buildtools/wafsamba/samba_waf18.py
+@@ -314,9 +314,9 @@ def apply_uselib_local(self):
+     seen = set()
+     seen_uselib = set()
+     tmp = Utils.deque(names) # consume a copy of the list of names
+-    if tmp:
+-        if Logs.verbose:
+-            Logs.warn('compat: "uselib_local" is deprecated, replace by "use"')
++    #if tmp:
++    #    if Logs.verbose:
++    #        Logs.warn('compat: "uselib_local" is deprecated, replace by "use"')
+     while tmp:
+         lib_name = tmp.popleft()
+         # visit dependencies only once
