@@ -17,7 +17,7 @@ makedepends = [
     "libcdio-paranoia-devel", "libgcrypt-devel", "libgphoto2-devel",
     "libgudev-devel", "libsecret-devel", "libxml2-devel", "polkit-devel",
     "udisks-devel", "gsettings-desktop-schemas-devel", "elogind-devel",
-    "libusb-devel", "gnome-online-accounts-devel", "samba-devel",
+    "libusb-devel", "gnome-online-accounts-devel", "libsmbclient-devel",
     "avahi-glib-devel", "libplist-devel", "libimobiledevice-devel",
     "libsoup-devel", "libmtp-devel", "libnfs-devel",
 ]
