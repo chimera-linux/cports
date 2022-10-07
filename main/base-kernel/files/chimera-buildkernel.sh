@@ -402,23 +402,29 @@ do_install() {
     case "$ARCH" in
         x86_64|i386)
             install -m 644 "${OBJDIR}/arch/x86/boot/bzImage" \
-                "${DESTDIR}/boot/vmlinuz-${kernver}"
+                "${DESTDIR}/boot/vmlinuz-${kernver}" \
+                || die "failed to install kernel"
             ;;
         arm)
             install -m 644 "${OBJDIR}/arch/arm/boot/zImage" \
-                "${DESTDIR}/boot/zImage-${kernver}"
+                "${DESTDIR}/boot/zImage-${kernver}" \
+                || die "failed to install kernel"
             call_make dtbs_install \
-                INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}"
+                INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}" \
+                || die "failed to install dtbs"
             ;;
         arm64|riscv)
-            install -m 644 "${OBJDIR}/arch/arm64/boot/Image" \
-                "${DESTDIR}/boot/vmlinux-${kernver}"
+            install -m 644 "${OBJDIR}/arch/${ARCH}/boot/Image" \
+                "${DESTDIR}/boot/vmlinux-${kernver}" \
+                || die "failed to install kernel"
             call_make dtbs_install \
-                INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}"
+                INSTALL_DTBS_PATH="${DESTDIR}/boot/dtbs/dtbs-${kernver}" \
+                || die "failed to install dtbs"
             ;;
         powerpc)
             install -m 644 "${OBJDIR}/vmlinux" \
-                "${DESTDIR}/boot/vmlinux-${kernver}"
+                "${DESTDIR}/boot/vmlinux-${kernver}" \
+                || die "failed to install kernel"
             /usr/bin/llvm-strip "${DESTDIR}/boot/vmlinux-${kernver}"
             ;;
     esac
