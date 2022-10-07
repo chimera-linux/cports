@@ -16,7 +16,7 @@ makedepends = [
     "ibus-devel", "networkmanager-devel", "modemmanager-devel",
     "gnome-bluetooth-devel", "libwacom-devel", "gcr-devel", "libnma-devel",
     "libsecret-devel", "udisks-devel", "gsound-devel", "libgtop-devel",
-    "heimdal-devel", "libpwquality-devel", "samba-devel", "gnutls-devel",
+    "heimdal-devel", "libpwquality-devel", "libsmbclient-devel", "gnutls-devel",
 ]
 depends = [
     "cups-pk-helper", "gsettings-desktop-schemas", "sound-theme-freedesktop", 
