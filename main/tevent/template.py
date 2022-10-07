@@ -1,5 +1,5 @@
 pkgname = "tevent"
-pkgver = "0.11.0"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -18,7 +18,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://tevent.samba.org"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "ee9a86c8e808aac2fe1e924eaa139ff7f0269d0e8e4fafa850ae5c7489bc82ba"
+sha256 = "b9437a917fa55344361beb64ec9e0042e99cae8879882a62dd38f6abe2371d0c"
+# we don't want their makefile
+env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 options = ["!cross"]
 
 @subpackage("tevent-devel")
