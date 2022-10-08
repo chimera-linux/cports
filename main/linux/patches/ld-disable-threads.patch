@@ -12,8 +12,8 @@ index e361c62..ab1d062 100644
 +++ b/Makefile
 @@ -499,7 +499,7 @@ AFLAGS_MODULE   =
  LDFLAGS_MODULE  =
- CFLAGS_KERNEL  =
- AFLAGS_KERNEL  =
+ CFLAGS_KERNEL	=
+ AFLAGS_KERNEL	=
 -LDFLAGS_vmlinux =
 +LDFLAGS_vmlinux = --threads=1
  
