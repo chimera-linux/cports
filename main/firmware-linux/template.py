@@ -1,5 +1,5 @@
 pkgname = "firmware-linux"
-pkgver = "20220815"
+pkgver = "20220913"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "5b053102645d23e5f070f0d3f3b1a538eb26b14778564c42dc6112e419233d2b"
+sha256 = "9cdc48bd2763f1a2d908a2860670658cf669544a270cb0928d6f9a6201584617"
 options = ["!strip", "foreignelf"]
 
 def do_install(self):
@@ -82,6 +82,7 @@ def _network(self):
         "usr/lib/firmware/3com",
         "usr/lib/firmware/RTL8192E",
         "usr/lib/firmware/rt*",
+        "usr/lib/firmware/adaptec",
         "usr/lib/firmware/ath*",
         "usr/lib/firmware/ar*",
         "usr/lib/firmware/bnx2*",
@@ -91,10 +92,16 @@ def _network(self):
         "usr/lib/firmware/intel*",
         "usr/lib/firmware/kaweth",
         "usr/lib/firmware/libertas",
+        "usr/lib/firmware/mellanox",
         "usr/lib/firmware/mrvl",
         "usr/lib/firmware/mt*.bin",
+        "usr/lib/firmware/netronome",
+        "usr/lib/firmware/qed",
+        "usr/lib/firmware/rsi",
+        "usr/lib/firmware/slicoss",
         "usr/lib/firmware/ueagle-atm",
         "usr/lib/firmware/ti-connectivity",
+        "usr/lib/firmware/tigon",
         "usr/lib/firmware/dpaa2",
         "usr/lib/firmware/qca",
     ]
@@ -106,5 +113,6 @@ def _nvidia(self):
     self.depends = [f"firmware-linux-network={pkgver}-r{pkgrel}"]
 
     return [
+        "usr/lib/firmware/a300_*.fw",
         "usr/lib/firmware/qcom",
     ]
