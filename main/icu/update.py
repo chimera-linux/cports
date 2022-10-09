@@ -1,2 +1,3 @@
-url = "https://github.com/unicode-org/icu/releases/latest"
-pattern = r"release-([\d\-]+)\.tar\.gz"
+# github broke stuff recently and there is no way to fetch
+# the latest release cleanly anywhere, so just ignore this
+ignore = True
