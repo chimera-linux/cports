@@ -1,11 +1,11 @@
-commit a4cc3a398c358e88a3ce0920705585a07ac8bacd
+commit 4999580deb17a006f49b319e5e0d6c5ed46b4794
 Author: Daniel Kolesa <daniel@octaforge.org>
 Date:   Sun Oct 9 14:11:28 2022 +0200
 
     clean up makefile
 
 diff --git a/Makefile b/Makefile
-index 801ea04..4eb7222 100644
+index 801ea04..1c050d1 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,9 +1,9 @@
@@ -33,8 +33,9 @@ index 801ea04..4eb7222 100644
  BSD_CFLAGS  = -O2 -fPIC $(WARN) $(INCDIR) $(DEFS)
  BSD_LDFLAGS = -O -shared -fPIC $(LIBDIR)
  
- LNX_CFLAGS  = -O2 -fPIC $(WARN) $(INCDIR) $(DEFS)
+-LNX_CFLAGS  = -O2 -fPIC $(WARN) $(INCDIR) $(DEFS)
 -LNX_LDFLAGS = -O -shared -fPIC $(LIBDIR)
++LNX_CFLAGS  = -fPIC $(WARN) $(INCDIR) $(DEFS)
 +LNX_LDFLAGS = -shared $(LIBDIR)
  
  MAC_ENV     = env MACOSX_DEPLOYMENT_TARGET='$(MACVER)'
