@@ -1,5 +1,5 @@
 pkgname = "nspr"
-pkgver = "4.34.1"
+pkgver = "4.35"
 pkgrel = 0
 build_wrksrc = "nspr"
 build_style = "gnu_configure"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/projects/nspr"
 source = f"$(MOZILLA_SITE)/{pkgname}/releases/v{pkgver}/src/{pkgname}-{pkgver}.tar.gz"
-sha256 = "c5b8354c48b632b8f4c1970628146c0e0c0ca8f32c7315d7d5736c002e03774f"
+sha256 = "7ea3297ea5969b5d25a5dd8d47f2443cda88e9ee746301f6e1e1426f8a6abc8f"
 tool_flags = {
     "CFLAGS": [
         "-D_PR_POLL_AVAILABLE", "-D_PR_HAVE_OFF64_T", "-D_PR_INET6",
