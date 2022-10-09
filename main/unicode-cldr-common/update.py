@@ -1,2 +1,2 @@
-pkgname = "cldr-common"
-url = "https://github.com/unicode-org/cldr/releases"
+url = "https://raw.githubusercontent.com/unicode-org/cldr/main/README.md"
+pattern = r"\[v([\d.]+)\]"
