@@ -3,6 +3,7 @@ pkgver = "1.2"
 pkgrel = 0
 build_style = "makefile"
 make_build_target = "linux"
+make_build_args = ["LUA_VER=5.4"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["lua5.4-devel", "zlib-devel"]
 pkgdesc = "Zlib streaming interface for Lua 5.4"
@@ -13,20 +14,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "26b813ad39c94fc930b168c3418e2e746af3b2e80b92f94f306f6f954cc31e7d"
 # no test suite
 options = ["!check"]
-
-def init_configure(self):
-    tcflags = self.get_cflags(["-shared"], shell = True)
-    eargs = [
-        f"LIBS={tcflags} -lz -llua5.4 -lm",
-        "INCDIR=-I/usr/include -I/usr/include/lua5.4",
-        "LIBDIR=-L/usr/lib",
-        "LUACPATH=/usr/lib/lua/5.4",
-        "LUAPATH=/usr/share/lua/5.4",
-    ]
-    self.make_build_args += eargs
-    self.make_install_args += eargs
-    self.make_check_args += eargs
-    self.tools["LD"] = self.get_tool("CC")
 
 def do_install(self):
     self.install_license("README")
