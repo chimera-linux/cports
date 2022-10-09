@@ -351,7 +351,6 @@ def _setup_dummy(rootp, archn):
         shutil.rmtree(tmpd)
 
 def _prepare_arch(prof):
-    paths.prepare()
     rootp = paths.bldroot() / prof.sysroot.relative_to("/")
     # drop the whole thing
     if rootp.exists():
@@ -364,6 +363,8 @@ def _prepare_arch(prof):
     _setup_dummy(rootp, prof.arch)
 
 def prepare_arch(arch):
+    paths.prepare()
+
     if not arch:
         return
 
