@@ -1,5 +1,5 @@
 pkgname = "nss"
-pkgver = "3.82"
+pkgver = "3.83"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"
 source = f"$(MOZILLA_SITE)/security/nss/releases/NSS_{pkgver.replace('.', '_')}_RTM/src/{pkgname}-{pkgver}.tar.gz"
-sha256 = "32bf673b72c2f9953ed3b4c7033abf5a6cad302854a24ae588c575a6567c1573"
+sha256 = "ab23ea67f964090b8b73c80a674082571c36e5f4eba92057ac648c9c1def0128"
 tool_flags = {"CFLAGS": []}
 env = {
     "MAKE": "gmake",
