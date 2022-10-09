@@ -1,8 +1,8 @@
 pkgname = "python-sphinx"
-pkgver = "5.1.1"
+pkgver = "5.2.3"
 pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+build_style = "python_pep517"
+hostmakedepends = ["python-setuptools", "python-flit_core", "python-pip"]
 checkdepends = ["python-pytest", "python-markupsafe"]
 depends = [
     "python-jinja2", "python-docutils", "python-pygments",
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://sphinx-doc.org"
 source = f"$(PYPI_SITE)/S/Sphinx/Sphinx-{pkgver}.tar.gz"
-sha256 = "ba3224a4e206e1fbdecf98a4fae4992ef9b24b85ebf7b584bb340156eaf08d89"
+sha256 = "5b10cb1022dac8c035f75767799c39217a05fc0fe2d6fe5597560d38e44f0363"
 # dependency of pytest, missing other checkdepends
 options = ["!check"]
 
