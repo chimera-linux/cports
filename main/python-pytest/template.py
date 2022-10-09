@@ -1,19 +1,22 @@
 pkgname = "python-pytest"
-pkgver = "6.2.5"
+pkgver = "7.1.3"
 pkgrel = 0
 build_style = "python_module"
 make_cmd = "gmake"
-hostmakedepends = ["gmake", "python-setuptools_scm", "python-sphinx"]
+hostmakedepends = [
+    "gmake", "python-setuptools_scm", "python-sphinx", "python-attrs",
+    "python-iniconfig", "python-py", "python-pluggy", "python-wheel",
+]
 depends = [
-    "python-py", "python-packaging", "python-attrs", "python-pluggy",
-    "python-iniconfig", "python-toml", "python-setuptools"
+    "python-packaging", "python-tomli", "python-attrs", "python-iniconfig",
+    "python-py", "python-pluggy",
 ]
 pkgdesc = "Python unit testing framework"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://docs.pytest.org/en/latest"
 source = f"$(PYPI_SITE)/p/pytest/pytest-{pkgver}.tar.gz"
-sha256 = "131b36680866a76e6781d13f101efb86cf674ebb9762eb70d3082b6f29889e89"
+sha256 = "4f365fec2dff9c1162f834d9f18af1ba13062db0c708bf7b946f8a5c76180c39"
 # missing checkdepends
 options = ["!check"]
 
