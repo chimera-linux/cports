@@ -1,12 +1,12 @@
 pkgname = "glib-networking"
-pkgver = "2.72.2"
+pkgver = "2.74.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dgnutls=enabled", "-Dopenssl=enabled", "-Dlibproxy=enabled",
-    "-Dgnome_proxy=enabled"
+    "-Dgnome_proxy=enabled", "-Ddefault_library=shared",
 ]
-hostmakedepends = ["meson", "pkgconf", "gettext-tiny"]
+hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext-tiny"]
 makedepends = [
     "openssl-devel", "gnutls-devel", "gsettings-desktop-schemas-devel",
     "libglib-devel", "libproxy-devel"
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glib-networking"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "cd2a084c7bb91d78e849fb55d40e472f6d8f6862cddc9f12c39149359ba18268"
+sha256 = "1f185aaef094123f8e25d8fa55661b3fd71020163a0174adb35a37685cda613b"
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd", recursive = True)
