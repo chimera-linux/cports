@@ -14,7 +14,7 @@ hostmakedepends = [
 makedepends = [
     "gnome-control-center-devel", "evolution-data-server-devel",
     "gsettings-desktop-schemas-devel", "startup-notification-devel",
-    "mutter-devel", "at-spi2-atk-devel", "mutter-devel", "gjs-devel",
+    "mutter-devel", "at-spi2-core-devel", "mutter-devel", "gjs-devel",
     "gcr-devel", "gtk4-devel", "libxml2-devel", "ibus-devel",
     "gnome-bluetooth-devel", "gstreamer-devel", "pipewire-devel",
     "libpulse-devel", "gnome-desktop-devel", "elogind-devel",

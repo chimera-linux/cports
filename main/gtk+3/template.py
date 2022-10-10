@@ -16,7 +16,7 @@ hostmakedepends = [
     "gettext-tiny-devel", "wayland-progs", "xsltproc", "docbook-xsl-nons",
 ]
 makedepends = [
-    "at-spi2-atk-devel", "gdk-pixbuf-devel", "libepoxy-devel", "pango-devel",
+    "at-spi2-core-devel", "gdk-pixbuf-devel", "libepoxy-devel", "pango-devel",
     "colord-devel", "libxkbcommon-devel", "wayland-devel", "wayland-protocols",
     "mesa-devel", "libxcursor-devel", "libxdamage-devel", "libxext-devel",
     "libxinerama-devel", "libxrandr-devel", "libxcomposite-devel",
