@@ -16,15 +16,15 @@ diff --git a/conftools/test-driver b/conftools/test-driver
 index 9759384..84adea1 100755
 --- a/conftools/test-driver
 +++ b/conftools/test-driver
-@@ -106,7 +106,11 @@ trap "st=141; $do_exit" 13
- trap "st=143; $do_exit" 15
- 
- # Test script is run here.
--"$@" >$log_file 2>&1
+@@ -109,7 +109,11 @@ trap "st=143; $do_exit" 15
+ # to ameliorate tests themselves also writing to the log file. Our tests
+ # don't, but others can (automake bug#35762).
+ : >"$log_file"
+-"$@" >>"$log_file" 2>&1
 +if [ -n "$TEST_SCRIPT" ]; then
-+    "$TEST_SCRIPT" "$@" >$log_file 2>&1
++    "$TEST_SCRIPT" "$@" >>$log_file 2>&1
 +else
-+    "$@" >$log_file 2>&1
++    "$@" >>$log_file 2>&1
 +fi
  estatus=$?
  
