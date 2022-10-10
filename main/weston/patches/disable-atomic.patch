@@ -13,15 +13,14 @@ diff --git a/libweston/backend-drm/kms.c b/libweston/backend-drm/kms.c
 index 780d007..24ca48d 100644
 --- a/libweston/backend-drm/kms.c
 +++ b/libweston/backend-drm/kms.c
-@@ -1461,7 +1461,7 @@ init_kms_caps(struct drm_backend *b)
+@@ -1490,7 +1490,7 @@ init_kms_caps(struct drm_device *device)
  		return -1;
  	}
  
 -	if (!getenv("WESTON_DISABLE_ATOMIC")) {
 +	if (getenv("WESTON_FORCE_ATOMIC")) {
- 		ret = drmGetCap(b->drm.fd, DRM_CAP_CRTC_IN_VBLANK_EVENT, &cap);
+ 		ret = drmGetCap(device->drm.fd, DRM_CAP_CRTC_IN_VBLANK_EVENT, &cap);
  		if (ret != 0)
  			cap = 0;
 -- 
 2.35.1
-

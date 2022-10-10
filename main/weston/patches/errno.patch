@@ -1,0 +1,37 @@
+commit e9655532b22a81f01aaf73b2118a3c2b5078c89a
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Mon Oct 10 22:29:49 2022 +0200
+
+    reset errnos before returning in config parser
+    
+    The musl strto* functions will set EINVAL on none input, which
+    is unexpected here and makes tests fail.
+
+diff --git a/shared/config-parser.c b/shared/config-parser.c
+index c19baa0..a8d7c27 100644
+--- a/shared/config-parser.c
++++ b/shared/config-parser.c
+@@ -204,6 +204,7 @@ weston_config_section_get_uint(struct weston_config_section *section,
+ 		return -1;
+ 	}
+ 
++	errno = 0;
+ 	*value = ret;
+ 
+ 	return 0;
+@@ -243,6 +244,7 @@ weston_config_section_get_color(struct weston_config_section *section,
+ 		return -1;
+ 	}
+ 
++	errno = 0;
+ 	return 0;
+ }
+ 
+@@ -268,6 +270,7 @@ weston_config_section_get_double(struct weston_config_section *section,
+ 		return -1;
+ 	}
+ 
++	errno = 0;
+ 	return 0;
+ }
+ 
