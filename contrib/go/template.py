@@ -1,5 +1,5 @@
 pkgname = "go"
-pkgver = "1.19.1"
+pkgver = "1.19.2"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = ["iana-etc", "libunwind-devel-static", "musl-devel-static"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "27871baa490f3401414ad793fba49086f6c855b1c584385ed7771e1204c7e179"
+sha256 = "2ce930d70a931de660fdaf271d70192793b1b240272645bf0275779f6704df6b"
 env = {}
 # a bunch of tests fail for now, so FIXME
 options = [
