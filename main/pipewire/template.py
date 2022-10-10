@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.57"
+pkgver = "0.3.59"
 pkgrel = 0
 _pms_version = "0.4.1"
 build_style = "meson"
@@ -60,7 +60,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "2cda522dffb26d806e073c5c2631884bec102f9227f23ac8e2bf06d0d8a97522"
+sha256 = "fd07b7cb8f509da3b5d2730be6748509454b3ec0b17282b9bc594e571b144920"
 
 if self.profile().endian == "big":
     configure_args += ["-Dbluez5-codec-ldac=disabled"]
