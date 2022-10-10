@@ -2,11 +2,11 @@ pkgname = "libportal"
 pkgver = "0.6"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Ddocs=false", "-Dbackends=gtk3"]
+configure_args = ["-Ddocs=false", "-Dbackends=gtk3,gtk4"]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala"
 ]
-makedepends = ["libglib-devel", "gtk+3-devel"]
+makedepends = ["libglib-devel", "gtk+3-devel", "gtk4-devel"]
 pkgdesc = "Flatpak portal library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"
@@ -19,6 +19,12 @@ def _gtk3(self):
     self.pkgdesc = f"{pkgdesc} (Gtk+3 backend)"
 
     return ["usr/lib/girepository-1.0/XdpGtk3*", "usr/lib/libportal-gtk3.so.*"]
+
+@subpackage("libportal-gtk4")
+def _gtk4(self):
+    self.pkgdesc = f"{pkgdesc} (Gtk4 backend)"
+
+    return ["usr/lib/girepository-1.0/XdpGtk4*", "usr/lib/libportal-gtk4.so.*"]
 
 @subpackage("libportal-devel")
 def _devel(self):
