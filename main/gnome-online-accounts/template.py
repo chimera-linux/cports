@@ -1,21 +1,15 @@
 pkgname = "gnome-online-accounts"
-pkgver = "3.44.0"
+pkgver = "3.46.0"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 # TODO: figure out if we can make it work with heimdal
 configure_args = [
-    "--enable-documentation", "--enable-backend", "--enable-google",
-    "--enable-facebook", "--enable-exchange", "--enable-imap-smtp",
-    "--enable-owncloud", "--enable-windows-live", "--enable-pocket",
-    "--enable-lastfm", "--enable-media-server", "--enable-introspection",
-    "--disable-fedora", "--disable-kerberos", "--disable-flickr",
-    "--disable-static",
+    "-Dintrospection=true", "-Dvapi=true", "-Dmedia_server=true", "-Dman=true",
+    "-Dkerberos=false",
 ]
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "pkgconf", "gettext-tiny-devel", "docbook-xsl-nons", "glib-devel",
-    "xsltproc", "gobject-introspection", "vala", "automake", "libtool",
-    "gtk-doc-tools",
+    "meson", "pkgconf", "gettext-tiny-devel", "docbook-xsl-nons", "glib-devel",
+    "xsltproc", "gobject-introspection", "vala",
 ]
 makedepends = [
     "libglib-devel", "dbus-devel", "gtk+3-devel", "webkitgtk-devel",
@@ -27,11 +21,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "381d5d4106f435b6f87786aa049be784774e15996adcc02789807afc87ea7342"
+sha256 = "5e7859ce4858a6b99d3995ed70527d66e297bb90bbf75ec8780fe9da22c1fcaa"
 options = ["!cross"]
-
-def pre_configure(self):
-    self.do("autoreconf", "-if")
 
 @subpackage("gnome-online-accounts-devel")
 def _devel(self):
