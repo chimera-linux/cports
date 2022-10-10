@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.8.0"
+pkgver = "4.8.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -14,7 +14,7 @@ hostmakedepends = [
     "docbook-xsl-nons", "python-docutils", "sassc", "gtk-update-icon-cache",
 ]
 makedepends = [
-    "at-spi2-atk-devel", "gdk-pixbuf-devel", "libepoxy-devel", "pango-devel",
+    "at-spi2-core-devel", "gdk-pixbuf-devel", "libepoxy-devel", "pango-devel",
     "colord-devel", "libxkbcommon-devel", "wayland-devel", "wayland-protocols",
     "mesa-devel", "libxcursor-devel", "libxdamage-devel", "libxext-devel",
     "libxinerama-devel", "libxrandr-devel", "libxcomposite-devel",
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "c8d6203437d1e359d83124dc591546d403f67e3b00544e53dd50a9baacdcbd7f"
+sha256 = "5ce8d8de98a23bd0c8eca1a61094e1c009b5f009dcbd60b45e990a8db1b742fd"
 
 def post_install(self):
     # we don't really need it (provided by gtk3)
