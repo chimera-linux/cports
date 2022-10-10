@@ -1,5 +1,6 @@
+# drop spirv headers patch and rebuild once those are updated
 pkgname = "vulkan-validationlayers"
-pkgver = "1.3.225"
+pkgver = "1.3.230"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -8,7 +9,6 @@ configure_args = [
     "-DGLSLANG_INSTALL_DIR=/usr",
     "-DBUILD_LAYER_SUPPORT_FILES=ON",
     "-DUSE_ROBIN_HOOD_HASHING=OFF",
-    "-DBUILD_WERROR=OFF",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = f"https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/v{pkgver}.tar.gz"
-sha256 = "36831d17b2d7bd0e8b75e9e6f935687e7820d23be0abc89099b21e3b15cf9c20"
+sha256 = "88adf35d0db8facf0bdb858b308bfed61eb845c63b7f06f753b8f5f111a0afcf"
 # no test suite
 options = ["!cross"]
 
