@@ -1,5 +1,5 @@
 pkgname = "ethtool"
-pkgver = "5.19"
+pkgver = "6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -9,4 +9,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://www.kernel.org/pub/software/network/ethtool"
 source = f"{url}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "3b752a3329827907ac3812f2831dfecf51c8c41c55d2d69cfb9c53ca06449fc6"
+sha256 = "d5446c93de570ce68f3b1ea69dbfa12fcfd67fc19897f655d3f18231e2b818d6"
