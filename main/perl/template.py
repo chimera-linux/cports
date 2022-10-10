@@ -1,7 +1,7 @@
 pkgname = "perl"
-pkgver = "5.34.1"
+pkgver = "5.36.0"
 pkgrel = 0
-_perl_cross_ver = "1.3.7"
+_perl_cross_ver = "1.4"
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_check_target = "test"
@@ -18,8 +18,8 @@ source = [
     f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_ver}/perl-cross-{_perl_cross_ver}.tar.gz"
 ]
 sha256 = [
-    "357951a491b0ba1ce3611263922feec78ccd581dddc24a446b033e25acf242a1",
-    "77f13ca84a63025053852331b72d4046c1f90ded98bd45ccedea738621907335"
+    "e26085af8ac396f62add8a533c3a0ea8c8497d836f0689347ac5abd7b7a4e00a",
+    "be9d9f9f7148edff7a2f9695ba3cb7e3975eff6b25a9a81dd311725fd757aa91"
 ]
 # prevent a massive log dump
 tool_flags = {
