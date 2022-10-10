@@ -1,6 +1,6 @@
 # AGPL: forbidden from being a dependency except in special unambiguous cases
 pkgname = "ghostscript"
-pkgver = "9.56.1"
+pkgver = "10.0.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "AGPL-3.0-or-later"
 url = "https://www.ghostscript.com"
 source = f"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs{pkgver.replace('.', '')}/ghostscript-{pkgver}.tar.xz"
-sha256 = "d43406805650009b42c3d5f6dc535233454533c1e27c13a77dd1d462a056b8e4"
+sha256 = "f1fa585f7c7d32adfa81ab389388100ac9df83444eb64db1fb92737141ef9f61"
 # busted; undefined references
 options = ["!lto"]
 
