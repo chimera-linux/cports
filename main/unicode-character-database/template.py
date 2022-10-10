@@ -1,5 +1,5 @@
 pkgname = "unicode-character-database"
-pkgver = "14.0.0"
+pkgver = "15.0.0"
 pkgrel = 0
 pkgdesc = "Unicode Character Database"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -10,8 +10,8 @@ source = [
     f"https://www.unicode.org/Public/zipped/{pkgver}/Unihan.zip",
 ]
 sha256 = [
-    "033a5276b5d7af8844589f8e3482f3977a8385e71d107d375055465178c23600",
-    "2ae4519b2b82cd4d15379c17e57bfb12c33c0f54da4977de03b2b04bcf11852d",
+    "5fbde400f3e687d25cc9b0a8d30d7619e76cb2f4c3e85ba9df8ec1312cb6718c",
+    "24b154691fc97cb44267b925d62064297086b3f896b57a8181c7b6d42702a026",
 ]
 
 def do_install(self):
