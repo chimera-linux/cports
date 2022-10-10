@@ -1,5 +1,5 @@
 pkgname = "openssh"
-pkgver = "9.0p1"
+pkgver = "9.1p1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND ISC"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgver}.tar.gz"
-sha256 = "03974302161e9ecce32153cfa10012f1e65c8f3750f573a73ab1befd5972a28a"
+sha256 = "19f85009c7e3e23787f0236fbb1578392ab4d4bf9f8ec5fe6bc1cd7e8bfdd288"
 suid_files = ["usr/libexec/ssh-keysign"]
 # portable openssh is not very portable
 options = ["!check"]
