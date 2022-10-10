@@ -1,5 +1,5 @@
 pkgname = "freeglut"
-pkgver = "3.2.2"
+pkgver = "3.4.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -9,8 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://freeglut.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "c5944a082df0bba96b5756dddb1f75d0cd72ce27b5395c6c1dde85c2ff297a50"
-tool_flags = {"CFLAGS": ["-fcommon"]}
+sha256 = "3c0bcb915d9b180a97edaebd011b7a1de54583a838644dcd42bb0ea0c6f3eaec"
 # no tests
 options = ["!check"]
 
