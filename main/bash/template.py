@@ -1,5 +1,5 @@
 pkgname = "bash"
-pkgver = "5.1.16"
+pkgver = "5.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,8 +19,11 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "5bac17218d3911834520dad13cd1f85ab944e1c09ae1aba55906be1f8192f558"
-tool_flags = {"CFLAGS": ["-DSYS_BASHRC=\"/etc/bash/bashrc\""]}
+sha256 = "a139c166df7ff4471c5e0733051642ee5556c1cc8a4a78f145583c5c81ab32fb"
+tool_flags = {"CFLAGS": [
+    "-DSYS_BASHRC=\"/etc/bash/bashrc\"",
+    "-DNON_INTERACTIVE_LOGIN_SHELLS",
+]}
 
 def init_configure(self):
     tcap = self.profile().sysroot / "usr/lib/libncursesw.a"
