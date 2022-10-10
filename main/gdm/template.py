@@ -1,5 +1,5 @@
 pkgname = "gdm"
-pkgver = "42.0"
+pkgver = "43.0"
 pkgrel = 0
 build_style = "meson"
 # TODO: plymouth
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a328ac976937bec179971ff07829a1246b98ce724181c128ae32a0ba47ad3855"
+sha256 = "94d70d6ed7df59fa7fde4fd02fed1168593a8adce10fcee113c148d52b392294"
 system_users = [
     {
         "name": "_gdm",
