@@ -1,5 +1,5 @@
 pkgname = "flac"
-pkgver = "1.4.0"
+pkgver = "1.4.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "http://flac.sourceforge.net"
 source = f"https://downloads.xiph.org/releases/flac/{pkgname}-{pkgver}.tar.xz"
-sha256 = "af41c0733c93c237c3e52f64dd87e3b0d9af38259f1c7d11e8cbf583c48c2506"
+sha256 = "91303c3e5dfde52c3e94e75976c0ab3ee14ced278ab8f60033a3a12db9209ae6"
 
 match self.profile().arch:
     case "ppc64le":
