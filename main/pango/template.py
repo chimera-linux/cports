@@ -1,5 +1,5 @@
 pkgname = "pango"
-pkgver = "1.50.9"
+pkgver = "1.50.11"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled"]
@@ -17,8 +17,8 @@ pkgdesc = "Text rendering and layout library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.pango.org"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "1b636aabf905130d806372136f5e137b6a27f26d47defd9240bf444f6a4fe610"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "8800f812d89ee61388188703203f3a7878963c22f8695aaf1fa0a1a1428d17ae"
 
 @subpackage("pango-xft")
 def _xft(self):

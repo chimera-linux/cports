@@ -8,7 +8,7 @@ diff --git a/tests/meson.build b/tests/meson.build
 index 955dbc9..befb707 100644
 --- a/tests/meson.build
 +++ b/tests/meson.build
-@@ -58,13 +58,6 @@ if cairo_dep.found()
+@@ -58,14 +58,6 @@ if cairo_dep.found()
        [ 'testmisc', [ 'testmisc.c' ], [ libpangocairo_dep, libpangoft2_dep, glib_dep, harfbuzz_dep ] ],
        [ 'testserialize', [ 'testserialize.c' ], [ libpangocairo_dep, libpangoft2_dep ] ],
      ]
@@ -17,8 +17,9 @@ index 955dbc9..befb707 100644
 -      tests += [
 -        [ 'test-layout', [ 'test-layout.c', 'test-common.c' ], [ libpangocairo_dep, libpangoft2_dep ] ],
 -        [ 'test-fonts', [ 'test-fonts.c', 'test-common.c' ], [ libpangocairo_dep, libpangoft2_dep ] ],
+-        [ 'test-no-fonts', [ 'test-no-fonts.c' ], [ libpangocairo_dep, libpangoft2_dep ] ],
 -      ]
 -    endif
    endif
  
-   if host_system != 'darwin'
+   if false and host_system != 'darwin'
