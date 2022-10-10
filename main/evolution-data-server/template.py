@@ -1,5 +1,5 @@
 pkgname = "evolution-data-server"
-pkgver = "3.44.4"
+pkgver = "3.46.0"
 pkgrel = 0
 build_style = "cmake"
 # TODO: libgdata
@@ -14,10 +14,10 @@ hostmakedepends = [
 ]
 makedepends = [
     "libglib-devel", "libcanberra-devel", "libical-devel", "heimdal-devel",
-    "webkitgtk-devel", "libsecret-devel", "gnome-online-accounts-devel",
-    "gcr-devel", "sqlite-devel", "libgweather-devel", "libsoup-devel",
-    "json-glib-devel", "nss-devel", "nspr-devel", "vala-devel",
-    "openldap-devel",
+    "webkitgtk-devel", "webkitgtk4-devel", "libsecret-devel", "nss-devel",
+    "nspr-devel", "gnome-online-accounts-devel", "sqlite-devel",
+    "libgweather-devel", "libsoup-devel", "json-glib-devel",
+    "vala-devel", "openldap-devel",
 ]
 checkdepends = ["dbus"]
 pkgdesc = "Centralized access to appointments and contacts"
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/evolution-data-server"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c0c6658838d58ba46042a4b9e50a3bb1129691e4cdb84b5eba0bf330b2ccb2eb"
+sha256 = "e5fa28095a183f7ab5a928e35a828379b481ddef83ed4c7b51a2e3c4aef5cdab"
 # internally passes some stuff that only goes to linker
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 # fail test-book-client-custom-summary
