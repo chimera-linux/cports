@@ -1,5 +1,5 @@
 pkgname = "gnome-settings-daemon"
-pkgver = "42.2"
+pkgver = "43.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dsystemd=false"]
@@ -15,7 +15,7 @@ makedepends = [
     "libxfixes-devel", "libgudev-devel", "wayland-devel", "cups-devel",
     "eudev-devel", "networkmanager-devel", "colord-devel", "polkit-devel",
     # actually pulseaudio is used, alsa is only used to query hw info
-    "modemmanager-devel", "gcr-devel", "alsa-lib-devel", "libwacom-devel",
+    "modemmanager-devel", "gcr4-devel", "alsa-lib-devel", "libwacom-devel",
     "nss-devel",
 ]
 depends = ["hicolor-icon-theme"]
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "9c449714aa8ec1271c0db5137df3458195943f05ccd0ac8935d93397770bab00"
+sha256 = "3513bb24fc6f8181667223a64a067534fdccf3bf66326a9403d38b0f0d6013d0"
 tool_flags = {"CFLAGS": ["-UG_DISABLE_ASSERT"]}
 # unpackaged checkdepends
 options = ["!check"]
