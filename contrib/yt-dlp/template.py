@@ -1,5 +1,5 @@
 pkgname = "yt-dlp"
-pkgver = "2022.09.01"
+pkgver = "2022.10.04"
 pkgrel = 0
 build_style = "python_module"
 make_check_args = ["-k", "not download"]
@@ -11,6 +11,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unlicense"
 url = "https://github.com/yt-dlp/yt-dlp"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "5a479b31a838ecf62a69b7880d069013528d2944a5e4088b84ae4105bc07d6c1"
+sha256 = "5042c335ca642390fafead903937bcbfa52431217e8d3366624af37d63ec1796"
 # missing checkdepends
 options = ["!check"]
