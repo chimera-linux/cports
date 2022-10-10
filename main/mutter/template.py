@@ -1,5 +1,5 @@
 pkgname = "mutter"
-pkgver = "42.4"
+pkgver = "43.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,10 +19,11 @@ makedepends = [
     "libx11-devel", "libxcomposite-devel", "libxcursor-devel", "libxtst-devel",
     "libxdamage-devel", "libxext-devel", "libxfixes-devel", "libxrender-devel",
     "libxi-devel", "libxkbfile-devel", "libxrandr-devel", "libxinerama-devel",
-    "libxau-devel", "libice-devel", "libsm-devel", "libxcb-devel", "atk-devel",
+    "libxau-devel", "libice-devel", "libsm-devel", "libxcb-devel",
     "libcanberra-devel", "dbus-devel", "mesa-devel", "wayland-protocols",
     "wayland-devel", "eudev-devel", "elogind-devel", "libwacom-devel",
     "pipewire-devel", "libinput-devel", "startup-notification-devel",
+    "colord-devel", "lcms2-devel", "at-spi2-core-devel",
 ]
 depends = ["gsettings-desktop-schemas", "zenity"]
 pkgdesc = "GNOME X11 window manager, Wayland display server and compositor"
@@ -30,10 +31,10 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/Mutter"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c22c7fa3d187061dbf280c3850e118b7b5009065d01de31616acd500c4982a40"
+sha256 = "8d9ba528ed99ef6799642e147b3fe9f2bcbeca9beced2845c1cadb331cd3e525"
 # needs graphical environment
 options = ["!check", "!cross"]
 
 @subpackage("mutter-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/lib/mutter-10/*.gir"])
+    return self.default_devel(extra = ["usr/lib/mutter-11/*.gir"])
