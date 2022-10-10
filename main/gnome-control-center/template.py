@@ -1,5 +1,5 @@
 pkgname = "gnome-control-center"
-pkgver = "42.3"
+pkgver = "43.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -19,14 +19,15 @@ makedepends = [
     "heimdal-devel", "libpwquality-devel", "libsmbclient-devel", "gnutls-devel",
 ]
 depends = [
-    "cups-pk-helper", "gsettings-desktop-schemas", "sound-theme-freedesktop", 
+    "udisks", "cups-pk-helper", "gsettings-desktop-schemas",
+    "sound-theme-freedesktop",
 ]
 pkgdesc = "GNOME control center"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ce0ae3650de2af7ebcb0a7e1fc9912eddb6eff8d257f3fe50ff8b29c19341c7e"
+sha256 = "988c933592cbdc4e7f0dba9a93262e617b739e25927aa16e177960c754e31c48"
 # needs graphical environment
 options = ["!check"]
 
