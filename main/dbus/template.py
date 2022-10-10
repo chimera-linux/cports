@@ -1,5 +1,5 @@
 pkgname = "dbus"
-pkgver = "1.14.0"
+pkgver = "1.14.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
 source = f"https://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ccd7cce37596e0a19558fd6648d1272ab43f011d80c8635aea8fd0bad58aebd4"
+sha256 = "7c0f9b8e5ec0ff2479383e62c0084a3a29af99edf1514e9f659b81b30d4e353e"
 suid_files = [
     "usr/libexec/dbus-daemon-launch-helper"
 ]
