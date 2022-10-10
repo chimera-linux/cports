@@ -1,0 +1,28 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1476,20 +1476,11 @@ endef
+ # well known pre- and suffixes for the GNU variant of date.
+ define filechk_timestamp.h
+ 	(if test -n "$${SOURCE_DATE_EPOCH}"; then \
+-		SOURCE_DATE="@$${SOURCE_DATE_EPOCH}"; \
+-		DATE=""; \
+-		for date in gdate date.gnu date; do \
+-			$${date} -u -d "$${SOURCE_DATE}" >/dev/null 2>&1 && DATE="$${date}"; \
+-		done; \
+-		if test -n "$${DATE}"; then \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_DATE "%b %d %C%y"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_TIME "%T"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_TZ "%z"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_DMI_DATE "%m/%d/%Y"'; \
+-			LC_ALL=C $${DATE} -u -d "$${SOURCE_DATE}" +'#define U_BOOT_BUILD_DATE 0x%Y%m%d'; \
+-		else \
+-			return 42; \
+-		fi; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_DATE "%b %d %C%y"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_TIME "%T"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_TZ "%z"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_DMI_DATE "%m/%d/%Y"'; \
++		LC_ALL=C date -j -r "$${SOURCE_DATE_EPOCH}" +'#define U_BOOT_BUILD_DATE 0x%Y%m%d'; \
+ 	else \
+ 		LC_ALL=C date +'#define U_BOOT_DATE "%b %d %C%y"'; \
+ 		LC_ALL=C date +'#define U_BOOT_TIME "%T"'; \
