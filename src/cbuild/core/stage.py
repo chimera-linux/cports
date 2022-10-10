@@ -15,7 +15,8 @@ def _check_stage(sroot, stlist, arch, signkey):
 
     def _call_apk(*args):
         return subprocess.run([
-            paths.apk(), "--quiet", "--allow-untrusted", "--root", sroot, *args
+            paths.apk(), "--quiet", "--arch", arch, "--allow-untrusted",
+            "--root", sroot, *args
         ], capture_output = True)
 
     # full repo list for revdep search
