@@ -1,5 +1,5 @@
 pkgname = "gnome"
-pkgver = "42"
+pkgver = "43"
 pkgrel = 0
 build_style = "meta"
 depends = [
