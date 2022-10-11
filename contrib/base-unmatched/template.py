@@ -2,9 +2,7 @@ pkgname = "base-unmatched"
 pkgver = "0.1"
 pkgrel = 0
 archs = ["riscv64"]
-depends = [
-    "linux", "u-boot-sifive_unmatched", "util-linux", "base-kernel"
-]
+depends = ["linux", "u-boot-sifive_unmatched"]
 pkgdesc = "Chimera base package for HiFive Unmatched"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
