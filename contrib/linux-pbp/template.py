@@ -1,5 +1,5 @@
 pkgname = "linux-pbp"
-pkgver = "5.15.67"
+pkgver = "5.15.72"
 pkgrel = 0
 archs = ["aarch64"]
 make_dir = "build"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "da47d9a80b694548835ccb553b6eb1a1f3f5d5cddd9e2bd6f4886b99ca14f940"
+sha256 = "6090323b5b471ae9d3bbc0058966113609f5bbd22fa19a76df32a8abc52f07ab"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
