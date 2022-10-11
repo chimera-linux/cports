@@ -1,8 +1,10 @@
 # update linux-modules-zfs when bumping
 pkgname = "linux"
-pkgver = "5.19.8"
+pkgver = "6.0"
 pkgrel = 0
 make_dir = "build"
+# necessary for efistub
+make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 pkgdesc = "Linux kernel 5.19.x"
@@ -10,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "616308795a952a6a39b4c74807c33916850eb7166d8ed7c9a87a1ba55d7487ce"
+sha256 = "5c2443a5538de52688efb55c27ab0539c1f5eb58c0cfd16a2b9fbb08fd81788e"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
@@ -53,7 +55,7 @@ def do_configure(self):
     )
 
 def do_build(self):
-    self.do("chimera-buildkernel", "build")
+    self.do("chimera-buildkernel", "build", env = make_env)
 
 def do_install(self):
     self.do("chimera-buildkernel", "install", self.chroot_destdir)
