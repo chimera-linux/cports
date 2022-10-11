@@ -1,6 +1,6 @@
 pkgname = "linux-modules-zfs"
-_kernver = "5.19.8"
-_zfsver = "2.1.5"
+_kernver = "6.0"
+_zfsver = "2.1.6"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
 build_style = "gnu_configure"
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 source = f"https://github.com/openzfs/zfs/releases/download/zfs-{_zfsver}/zfs-{_zfsver}.tar.gz"
-sha256 = "1913041e5c44ff07ca384346ad8145aeedf77e77cd1cea9ec5d533246691e10c"
+sha256 = "15339014f8d2131348eb937bf8893849806b6d2645ea607a18c7f117749dbd7a"
 env = {
     "LLVM": "1",
     "LLVM_IAS": "1",
