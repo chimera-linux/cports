@@ -1,5 +1,5 @@
 pkgname = "simple-scan"
-pkgver = "42.1"
+pkgver = "42.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -16,4 +16,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/simple-scan"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "859bc0611c1769b5bdaba9639deed359f50474c2eecf58bbbfd7ce21911b2226"
+sha256 = "05f5dfa4e9e206efa9d404c9861dd7c442091793e734c41719739917250e4050"
