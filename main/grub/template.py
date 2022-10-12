@@ -61,7 +61,7 @@ match self.profile().arch:
         ]
     case "riscv64":
         _platforms = [
-            ("riscv64", "efi", "", "", "64-bit RISC-V EFI"),
+            ("riscv64", "efi", "-mno-relax", "-mno-relax", "64-bit RISC-V EFI"),
         ]
         # otherwise crashes llvm backend (unsupported code model for lowering)
         configure_args += ["grub_cv_cc_mcmodel=no"]
