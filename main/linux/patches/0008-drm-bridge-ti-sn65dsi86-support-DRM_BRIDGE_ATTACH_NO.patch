@@ -1,0 +1,59 @@
+From 5aa715d0d2911c5ed59926dc418fb698f58c48ea Mon Sep 17 00:00:00 2001
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Date: Mon, 11 Jul 2022 12:21:17 +0300
+Subject: [PATCH 8/9] drm/bridge: ti-sn65dsi86: support
+ DRM_BRIDGE_ATTACH_NO_CONNECTOR
+
+Now as the driver does not depend on pdata->connector, add support for
+attaching the bridge with DRM_BRIDGE_ATTACH_NO_CONNECTOR.
+
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+---
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+index 526e0904c..36fcbdc2f 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+@@ -698,11 +698,6 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
+ 	struct ti_sn65dsi86 *pdata = bridge_to_ti_sn65dsi86(bridge);
+ 	int ret;
+ 
+-	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
+-		DRM_ERROR("Fix bridge driver to make connector optional!");
+-		return -EINVAL;
+-	}
+-
+ 	pdata->aux.drm_dev = bridge->dev;
+ 	ret = drm_dp_aux_register(&pdata->aux);
+ 	if (ret < 0) {
+@@ -710,15 +705,18 @@ static int ti_sn_bridge_attach(struct drm_bridge *bridge,
+ 		return ret;
+ 	}
+ 
+-	/* We never want the next bridge to *also* create a connector: */
+-	flags |= DRM_BRIDGE_ATTACH_NO_CONNECTOR;
+-
+-	/* Attach the next bridge */
++	/*
++	 * Attach the next bridge.
++	 * We never want the next bridge to *also* create a connector.
++	 */
+ 	ret = drm_bridge_attach(bridge->encoder, pdata->next_bridge,
+-				&pdata->bridge, flags);
++				&pdata->bridge, flags | DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 	if (ret < 0)
+ 		goto err_initted_aux;
+ 
++	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
++		return 0;
++
+ 	pdata->connector = drm_bridge_connector_init(pdata->bridge.dev,
+ 						     pdata->bridge.encoder);
+ 	if (IS_ERR(pdata->connector)) {
+-- 
+2.36.1
+
