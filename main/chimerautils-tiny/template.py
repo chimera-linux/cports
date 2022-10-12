@@ -1,5 +1,5 @@
 pkgname = "chimerautils-tiny"
-_commit="a1310e9f9c0345875ef7c8bccafe278e16becefc"
+_commit="f5e7bc7ba541b46ff6ff8fe73b3b27a599e898b1"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"https://github.com/chimera-linux/chimerautils/archive/{_commit}.tar.gz"
-sha256 = "1b13f1f8f02983b5c58739228cf4c1c8e04cfd12ed0fdceb281aaa81a1d25bb8"
+sha256 = "956250245473544f06b247fffa9a01060957ab858e6b9551ecc1ef25f76bd136"
 
 def post_install(self):
     # drop manpages
