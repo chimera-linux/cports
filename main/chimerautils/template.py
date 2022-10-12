@@ -1,5 +1,5 @@
 pkgname = "chimerautils"
-_commit="2681c713aa771e7252032cf1648f92cae853fb55"
+_commit="f5e7bc7ba541b46ff6ff8fe73b3b27a599e898b1"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
-sha256 = "62c9e8ddc931dc5b7a204e0369fe101d85d2c7e170252e44e16372cea06fe5b0"
+sha256 = "956250245473544f06b247fffa9a01060957ab858e6b9551ecc1ef25f76bd136"
 # no test suite
 options = ["bootstrap", "!check"]
 
