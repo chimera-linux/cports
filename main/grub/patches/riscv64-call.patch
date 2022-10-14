@@ -1,0 +1,57 @@
+From 9847526178d9963eb32f7c2dd3898a2b613d2f0d Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 14 Oct 2022 02:00:13 +0200
+Subject: [PATCH] handle R_RISCV_CALL_PLT
+
+---
+ grub-core/kern/riscv/dl.c   | 1 +
+ util/grub-mkimagexx.c       | 2 ++
+ util/grub-module-verifier.c | 1 -
+ 3 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/grub-core/kern/riscv/dl.c b/grub-core/kern/riscv/dl.c
+index f26b12a..896653b 100644
+--- a/grub-core/kern/riscv/dl.c
++++ b/grub-core/kern/riscv/dl.c
+@@ -188,6 +188,7 @@ grub_arch_dl_relocate_symbols (grub_dl_t mod, void *ehdr,
+ 	  break;
+ 
+ 	case R_RISCV_CALL:
++	case R_RISCV_CALL_PLT:
+ 	  {
+ 	    grub_uint32_t *abs_place = place;
+ 	    grub_ssize_t off = sym_addr - (grub_addr_t) place;
+diff --git a/util/grub-mkimagexx.c b/util/grub-mkimagexx.c
+index d78fa3e..7926710 100644
+--- a/util/grub-mkimagexx.c
++++ b/util/grub-mkimagexx.c
+@@ -1294,6 +1294,7 @@ SUFFIX (relocate_addrs) (Elf_Ehdr *e, struct section_metadata *smd,
+ 		     }
+ 		     break;
+ 		   case R_RISCV_CALL:
++		   case R_RISCV_CALL_PLT:
+ 		     {
+ 		       grub_uint32_t hi20, lo12;
+ 
+@@ -1725,6 +1726,7 @@ translate_relocation_pe (struct translate_context *ctx,
+ 	case R_RISCV_BRANCH:
+ 	case R_RISCV_JAL:
+ 	case R_RISCV_CALL:
++	case R_RISCV_CALL_PLT:
+ 	case R_RISCV_PCREL_HI20:
+ 	case R_RISCV_PCREL_LO12_I:
+ 	case R_RISCV_PCREL_LO12_S:
+diff --git a/util/grub-module-verifier.c b/util/grub-module-verifier.c
+index 163529c..198a325 100644
+--- a/util/grub-module-verifier.c
++++ b/util/grub-module-verifier.c
+@@ -130,7 +130,6 @@ struct grub_module_verifier_arch archs[] = {
+       R_RISCV_SUB16,
+       R_RISCV_SUB32,
+       R_RISCV_SUB64,
+-      R_RISCV_ALIGN,
+       R_RISCV_BRANCH,
+       R_RISCV_CALL,
+       R_RISCV_CALL_PLT,
+-- 
+2.37.3

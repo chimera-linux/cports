@@ -60,6 +60,7 @@ match self.profile().arch:
             ("arm64", "efi", "", "", "Aarch64 EFI"),
         ]
     case "riscv64":
+        # relaxation causes R_RISCV_ALIGN
         _platforms = [
             ("riscv64", "efi", "-mno-relax", "-mno-relax", "64-bit RISC-V EFI"),
         ]
