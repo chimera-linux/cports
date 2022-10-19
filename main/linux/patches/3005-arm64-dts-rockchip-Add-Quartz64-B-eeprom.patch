@@ -1,0 +1,31 @@
+From 625da4655560842b82c955957fb0d01b438cb750 Mon Sep 17 00:00:00 2001
+From: Peter Geis <pgwipeout@gmail.com>
+Date: Tue, 7 Jun 2022 17:21:21 -0400
+Subject: [PATCH 20/39] arm64: dts: rockchip: Add Quartz64-B eeprom
+
+Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts
+index 1f70befef1c9..8d05d8a44699 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-b.dts
+@@ -437,6 +437,13 @@ vcc3v3_sd: SWITCH_REG2 {
+ 			};
+ 		};
+ 	};
++
++	eeprom@50 {
++		compatible = "belling,bl24c16a", "atmel,24c16";
++		reg = <0x50>;
++		num-addresses = <8>;
++		pagesize = <16>;
++	};
+ };
+ 
+ /* i2c2_m1 exposed on csi port, pulled up to vcc_3v3 */
+-- 
+2.33.1
+

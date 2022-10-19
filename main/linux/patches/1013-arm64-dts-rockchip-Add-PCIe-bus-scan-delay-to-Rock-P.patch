@@ -1,0 +1,24 @@
+From 7f394fae4969e83f12ec4739e83d788f13793a14 Mon Sep 17 00:00:00 2001
+From: Dragan Simic <dragan.simic@gmail.com>
+Date: Thu, 3 Mar 2022 17:42:14 +0100
+Subject: [PATCH] arm64: dts: rockchip: Add PCIe bus scan delay to Rock Pi 4
+
+---
+ arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
+index b28888ea9262..29ce4bb12947 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4.dtsi
+@@ -480,6 +480,7 @@ &pcie0 {
+ 	vpcie0v9-supply = <&vcc_0v9>;
+ 	vpcie1v8-supply = <&vcc_1v8>;
+ 	vpcie3v3-supply = <&vcc3v3_pcie>;
++	bus-scan-delay-ms = <1000>;
+ 	status = "okay";
+ };
+ 
+-- 
+2.33.1
+

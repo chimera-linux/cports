@@ -1,0 +1,56 @@
+From 9a77ffd03db13742a71d2f8a4f017d1204436e2f Mon Sep 17 00:00:00 2001
+From: Peter Geis <pgwipeout@gmail.com>
+Date: Fri, 10 Jun 2022 14:10:04 -0400
+Subject: [PATCH 35/39] arm64: dts: rockchip: Add Quartz64-A battery node
+
+Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+---
+ .../boot/dts/rockchip/rk3566-quartz64-a.dts   | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
+index e8ee34db998b..f5135600ad77 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
+@@ -21,6 +21,24 @@ chosen: chosen {
+ 		stdout-path = "serial2:1500000n8";
+ 	};
+ 
++	battery_cell: battery-cell {
++		compatible = "simple-battery";
++		charge-full-design-microamp-hours = <2500000>;
++		charge-term-current-microamp = <300000>;
++		constant-charge-current-max-microamp = <2000000>;
++		constant-charge-voltage-max-microvolt = <4200000>;
++		factory-internal-resistance-micro-ohms = <180000>;
++		voltage-max-design-microvolt = <4106000>;
++		voltage-min-design-microvolt = <3625000>;
++
++		ocv-capacity-celsius = <20>;
++		ocv-capacity-table-0 =	<4106000 100>, <4071000 95>, <4018000 90>, <3975000 85>,
++					<3946000 80>, <3908000 75>, <3877000 70>, <3853000 65>,
++					<3834000 60>, <3816000 55>, <3802000 50>, <3788000 45>,
++					<3774000 40>, <3760000 35>, <3748000 30>, <3735000 25>,
++					<3718000 20>, <3697000 15>, <3685000 10>, <3625000 0>;
++	};
++
+ 	gmac1_clkin: external-gmac1-clock {
+ 		compatible = "fixed-clock";
+ 		clock-frequency = <125000000>;
+@@ -525,6 +543,13 @@ regulator-state-mem {
+ 				};
+ 			};
+ 		};
++
++		rk817_charger: charger {
++			monitored-battery = <&battery_cell>;
++			rockchip,resistor-sense-micro-ohms = <10000>;
++			rockchip,sleep-enter-current-microamp = <300000>;
++			rockchip,sleep-filter-current-microamp = <100000>;
++		};
+ 	};
+ };
+ 
+-- 
+2.33.1
+

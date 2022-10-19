@@ -1,0 +1,32 @@
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi-neo-plus2.dts	2020-06-22 02:12:27.186651478 +0300
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-nanopi-neo-plus2.dts	2020-06-22 02:43:34.362938364 +0300
+@@ -87,6 +87,14 @@
+ 	status = "okay";
+ };
+ 
++&ehci1 {
++	status = "okay";
++};
++
++&ehci2 {
++	status = "okay";
++};
++
+ &ehci3 {
+ 	status = "okay";
+ };
+@@ -142,6 +150,14 @@
+ 	status = "okay";
+ };
+ 
++&ohci1 {
++	status = "okay";
++};
++
++&ohci2 {
++	status = "okay";
++};
++
+ &ohci3 {
+ 	status = "okay";
+ };
