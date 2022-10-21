@@ -243,7 +243,7 @@ def _scan_symlinks(pkg):
     # symlink will be checked separately)
     def _exists_link(p):
         try:
-            p.lstat()
+            os.lstat(os.path.normpath(p))
         except FileNotFoundError:
             return False
         return True
