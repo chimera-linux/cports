@@ -230,7 +230,7 @@ def _soc(self):
 
 @subpackage("base-firmware-linux")
 def _base(self):
-    self.pkgdesc = f"{pkgdesc} (misc)"
+    self.pkgdesc = f"{pkgdesc} (base metapackage)"
     self.build_style = "meta"
     self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
 
