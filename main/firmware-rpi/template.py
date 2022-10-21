@@ -3,7 +3,8 @@ pkgver = "20220905"
 pkgrel = 0
 archs = ["aarch64"]
 _gitrev = "19cb38273dba54fb228be23b3fa9b0f5ed968dee"
-provides = [f"firmware-linux-broadcom=0"]
+replaces = [f"firmware-linux-brcm"]
+priority = 100 # always overrides files of firmware-linux-brcm
 pkgdesc = "Firmware for Raspberry Pi"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND custom:Cypress"
