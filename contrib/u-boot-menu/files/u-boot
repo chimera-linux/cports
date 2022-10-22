@@ -1,0 +1,30 @@
+# The configuration file for u-boot menu generator.
+# Commented out lines are just defaults.
+#
+
+# The file device-specific additional cmdline is sourced from.
+#U_BOOT_CMDLINE_FILE=/etc/default/u-boot-cmdline
+
+# The file fdt path is sourced from when no U_BOOT_FDT is set.
+#U_BOOT_FDT_FILE=/etc/default/u-boot-fdt
+
+# The additional cmdline to use always.
+U_BOOT_CMDLINE=
+
+# The additional cmdline to use in normal (non-recovery) boot only.
+U_BOOT_CMDLINE_DEFAULT="loglevel=4"
+
+# If set, recovery mode entries will be disabled.
+#U_BOOT_DISABLE_RECOVERY=
+
+# The device tree blob to use, relative to kernel's dtbs dir (or absolute).
+#U_BOOT_FDT=
+
+# The menu timeout.
+#U_BOOT_TIMEOUT=3
+
+# The menu title.
+#U_BOOT_MENU_TITLE="Chimera Linux"
+
+# The OS name used in menu items.
+#U_BOOT_OS_TITLE="Chimera Linux"
