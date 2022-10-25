@@ -1124,7 +1124,7 @@ class Template(Package):
         # stop trashing ccache upon minor version changes
         if self.stage > 0 and name == "CFLAGS" or name == "CXXFLAGS":
             tfb = [
-                f"-fdebug-prefix-map={self.chroot_builddir / self.wrksrc}=."
+                f"-ffile-prefix-map={self.chroot_builddir / self.wrksrc}=."
             ] + tfb
         elif name == "LDFLAGS" and self.link_threads > 0:
             tfb = [f"-Wl,--threads={self.link_threads}"] + tfb
