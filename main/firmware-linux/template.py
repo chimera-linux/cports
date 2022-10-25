@@ -39,7 +39,7 @@ _pkgs = [
     ("bnx2", "BNX2 1Gb Ethernet", None, "network", ["bnx2"]),
     ("bnx2x", "BNX2 10Gb Ethernet", None, "network", ["bnx2x"]),
     ("brcm", "Broadcom WLAN/Bluetooth", None, "network", ["brcm", "cypress"]),
-    ("ca0132", "Creative CA0132 HD Audio codec", None, "misc", [
+    ("ca0132", "Creative CA0132 HD Audio codec", None, "audio", [
         "ctefx.bin", "ctspeq.bin",
     ]),
     ("cassini", "Sun Cassini Ethernet", None, "network", ["sun/cassini*"]),
@@ -57,12 +57,12 @@ _pkgs = [
     ("edgeport", "Edgeport USB Serial Converter", None, "misc", ["edgeport"]),
     ("emi", "Emagic EMI audo interfaces", None, "misc", ["emi26", "emi62"]),
     ("ene-ub6250", "ENE UB6250 SD card reader", None, "misc", ["ene-ub6250"]),
-    ("ess", "ESS audio controllers", None, "misc", ["ess"]),
+    ("ess", "ESS audio controllers", None, "audio", ["ess"]),
     ("go7007", "WIS GO7007 MPEG encoder", None, "misc", ["go7007"]),
     ("hermes", "Orinoco Hermes WLAN", None, "network", ["agere*"]),
     ("hfi1", "Intel OPA hfi1", _arch_x86, "network", ["hfi1_*.fw"]),
     ("i915", "Intel GPUs", _arch_x86, "gpu", ["i915"]),
-    ("intel-audio", "Intel audio", _arch_x86, "misc", [
+    ("intel-audio", "Intel audio", _arch_x86, "audio", [
         "intel/IntcSST2.bin", "intel/dsp_fw_*.bin", "intel/fw_sst_*.bin*",
     ]),
     ("intel-bt", "Intel Bluetooth", _arch_x86, "network", ["intel/ibt*"]),
@@ -75,7 +75,7 @@ _pkgs = [
     ("iwlwifi", "Intel WLAN", _arch_x86, "network", ["iwlwifi*"]),
     ("kaweth", "KL5KUSB101 Ethernet", None, "network", ["kaweth"]),
     ("keyspan", "Keyspan serial converters", None, "misc", ["keyspan*"]),
-    ("korg", "Korg audio interfaces", None, "korg", ["korg"]),
+    ("korg", "Korg audio interfaces", None, "audio", ["korg"]),
     ("lgs8g75", "Legend Silicon LGS8GXX", None, "misc", ["lgs8g75.fw"]),
     ("liquidio", "Cavium LiquidIO NICs", None, "network", ["liquidio"]),
     ("lt9611uxc", "LT9611UXC DSI to HDMI", None, "misc", ["lt9611uxc_fw.bin"]),
@@ -138,7 +138,7 @@ _pkgs = [
     ("whiteheat", "WhiteHEAT USB-Serial", None, "misc", ["whiteheat*"]),
     ("wil6210", "Qualcomm wil6210 60GHz WLAN", None, "network", ["wil6210*"]),
     ("wfx", "Silicon Laboratories WFx WLAN", None, "network", ["wfx"]),
-    ("yamaha", "Yamaha audio drivers", None, "misc", ["yamaha"]),
+    ("yamaha", "Yamaha audio drivers", None, "audio", ["yamaha"]),
 ]
 
 def do_install(self):
