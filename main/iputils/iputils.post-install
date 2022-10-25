@@ -1,3 +1,4 @@
 #!/bin/sh
 
-setcap CAP_NET_RAW+p /usr/bin/iputils-ping 2>/dev/null || :
+setcap cap_net_raw+p /usr/bin/ping 2>/dev/null || :
+setcap cap_net_raw+p /usr/bin/clockdiff 2>/dev/null || :
