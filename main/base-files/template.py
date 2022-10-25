@@ -90,6 +90,7 @@ def do_install(self):
         self.install_file(f, "usr/share/licenses")
 
     self.install_bin(self.files_path / "lsb_release")
+    self.install_file(self.files_path / "os-release", "etc")
 
     # Create /proc/self/mounts -> /etc/mtab symlink
     self.install_link("/proc/self/mounts", "etc/mtab")

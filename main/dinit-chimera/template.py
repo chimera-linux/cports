@@ -16,7 +16,6 @@ options = ["!check", "brokenlinks"]
 
 def post_install(self):
     self.install_file(self.files_path / "hostname", "etc")
-    self.install_file(self.files_path / "os-release", "etc")
     self.install_file(self.files_path / "locale.conf", "etc")
     # init symlink
     self.install_link("dinit", "usr/bin/init")
