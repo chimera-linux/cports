@@ -625,13 +625,13 @@ def do_prune_removed(tgt):
             pkgn = pkgn[0:rd]
             # automatic subpackages are special, except when explicit
             opkgn = pkgn
-            if not (tmplp / pkgn).exists():
+            if not (tmplp / pkgn / "template.py").exists():
                 for apkg, adesc, iif, takef in template.autopkgs:
                     if pkgn.endswith(f"-{apkg}"):
                         pkgn = pkgn[:-len(apkg) - 1]
                         break
             # if it's ok, just skip
-            if (tmplp / pkgn).exists():
+            if (tmplp / pkgn / "template.py").exists():
                 if pkgn != opkgn:
                     # for autopkgs also check pkgver matches
                     # autopkg always matches its base no matter what
