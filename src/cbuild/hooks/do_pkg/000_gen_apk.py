@@ -199,7 +199,7 @@ set -e
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
         ret = chroot.enter(
-            paths.apk(), "mkpkg",
+            paths.chroot_apk(), "mkpkg",
             "--files", pkg.chroot_destdir,
             "--output", cbpath,
             *pargs,

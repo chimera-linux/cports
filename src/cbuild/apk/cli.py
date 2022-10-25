@@ -168,7 +168,7 @@ def call_chroot(
         )
 
     return chroot.enter(
-        paths.apk(), *cmd, *args, capture_output = capture_output,
+        paths.chroot_apk(), *cmd, *args, capture_output = capture_output,
         check = check, fakeroot = True, mount_binpkgs = True,
         mount_cbuild_cache = mount_cache
     )
