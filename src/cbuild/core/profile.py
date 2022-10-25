@@ -10,7 +10,6 @@ import sys
 
 # recognized hardening options
 hardening_fields = {
-    "fortify": True,
     "pie": True,
     "relro": True,
     "ssp": True, # this should really be compiler default
@@ -21,7 +20,6 @@ hardening_fields = {
 # declared by the target as supported, on other systems
 # they become noop
 supported_hardening = {
-    "fortify": True,
     "pie": True,
     "relro": True,
     "ssp": True,
@@ -59,9 +57,6 @@ def _get_harden(sharden, tharden):
 def _get_hcflags(sharden, tharden):
     hflags = []
     hard = _get_harden(sharden, tharden)
-
-    if hard["fortify"]:
-        hflags.append("-D_FORTIFY_SOURCE=2")
 
     if not hard["pie"]:
         hflags.append("-fno-PIE")

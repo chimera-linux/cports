@@ -518,14 +518,6 @@ core_fields_priority = [
 # this will map field names to numerical indexes
 core_fields_map = None
 
-# recognized hardening options
-hardening_fields = {
-    "fortify": True,
-    "pie": True,
-    "ssp": True, # this should really be compiler default
-    "scp": False, # stack-clash-protection
-}
-
 cross_tools = {
     "CC": True,
     "CXX": True,
