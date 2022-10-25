@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "22.2.1"
+pkgver = "22.2.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -15,6 +15,7 @@ configure_args = [
     "-Dshared-glapi=enabled",
     "-Dplatforms=x11,wayland",
     "-Dglx=dri",
+    "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec",
     "-Dcpp_std=gnu++14",
     "-Ddefault_library=shared",
 ]
@@ -47,7 +48,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0079beac0a33f45e7e0aec59e6913eafbc4268a3f1e2e330017440494f91b13c"
+sha256 = "2de11fb74fc5cc671b818e49fe203cea0cd1d8b69756e97cdb06a2f4e78948f9"
 # cba to deal with cross patching nonsense
 options = ["!cross"]
 
