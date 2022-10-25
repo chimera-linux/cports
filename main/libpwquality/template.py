@@ -7,7 +7,10 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["gmake", "pkgconf", "gettext-tiny-devel", "python-devel"]
+hostmakedepends = [
+    "gmake", "pkgconf", "automake", "libtool",
+    "gettext-tiny-devel", "python-devel"
+]
 makedepends = ["cracklib-devel", "linux-pam-devel", "python-devel"]
 depends = ["cracklib-words"]
 pkgdesc = "Library for password quality checking"
@@ -17,6 +20,9 @@ url = "https://github.com/libpwquality/libpwquality"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "d43baf23dc6887fe8f8e9b75cabaabc5f4bbbaa0f9eff44278d276141752a545"
 options = ["!cross"]
+
+def pre_configure(self):
+    self.do("autoreconf", "-if")
 
 def post_install(self):
     self.install_license("COPYING")
