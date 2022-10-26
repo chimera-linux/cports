@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "15.0.2"
+pkgver = "15.0.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -44,7 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "7877cd67714728556a79e5ec0cc72d66b6926448cf73b12b2cb901b268f7a872"
+sha256 = "dd07bdab557866344d85ae21bbeca5259d37b4b0e2ebf6e0481f42d1ba0fee88"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -291,6 +291,7 @@ def _clang(self):
         f"libcxxabi-devel={pkgver}-r{pkgrel}",
         f"clang-rt-devel={pkgver}-r{pkgrel}",
         "elftoolchain",
+        "fortify-headers",
         "musl-devel",
     ]
 

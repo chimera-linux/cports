@@ -1,0 +1,40 @@
+From 5be62eb55475f1f65cb62aa28a4895875c47d236 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 23 Oct 2022 01:43:35 +0200
+Subject: [PATCH 4/4] clang: switch on default now/relro and hash-style=gnu
+
+---
+ clang/lib/Driver/ToolChains/Linux.cpp | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
+index d5df4a240..f4a2f649a 100644
+--- a/clang/lib/Driver/ToolChains/Linux.cpp
++++ b/clang/lib/Driver/ToolChains/Linux.cpp
+@@ -195,12 +195,12 @@ Linux::Linux(const Driver &D, const llvm::Triple &Triple, const ArgList &Args)
+ 
+   Distro Distro(D.getVFS(), Triple);
+ 
+-  if (Distro.IsAlpineLinux() || Triple.isAndroid()) {
++  if (Triple.isMusl() || Triple.isAndroid()) {
+     ExtraOpts.push_back("-z");
+     ExtraOpts.push_back("now");
+   }
+ 
+-  if (Distro.IsOpenSUSE() || Distro.IsUbuntu() || Distro.IsAlpineLinux() ||
++  if (Distro.IsOpenSUSE() || Distro.IsUbuntu() || Triple.isMusl() ||
+       Triple.isAndroid()) {
+     ExtraOpts.push_back("-z");
+     ExtraOpts.push_back("relro");
+@@ -243,7 +243,7 @@ Linux::Linux(const Driver &D, const llvm::Triple &Triple, const ArgList &Args)
+   // Android loader does not support .gnu.hash until API 23.
+   // Hexagon linker/loader does not support .gnu.hash
+   if (!IsMips && !IsHexagon) {
+-    if (Distro.IsRedhat() || Distro.IsOpenSUSE() || Distro.IsAlpineLinux() ||
++    if (Distro.IsRedhat() || Distro.IsOpenSUSE() || Triple.isMusl() ||
+         (Distro.IsUbuntu() && Distro >= Distro::UbuntuMaverick) ||
+         (IsAndroid && !Triple.isAndroidVersionLT(23)))
+       ExtraOpts.push_back("--hash-style=gnu");
+-- 
+2.38.0
+

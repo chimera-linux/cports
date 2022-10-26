@@ -2,7 +2,7 @@ pkgname = "base-cross"
 pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
-depends = ["clang-rt-cross", "musl-cross", "libcxx-cross"]
+depends = ["clang-rt-cross", "musl-cross", "libcxx-cross", "fortify-headers"]
 pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
@@ -44,6 +44,11 @@ def do_install(self):
         # arch config file
         with open(self.destdir / f"usr/bin/{at}.cfg", "w") as cf:
             cf.write(f"--sysroot /usr/{at}\n")
+        # symlink fortify headers
+        self.install_dir(f"usr/{at}/usr/include")
+        self.install_link(
+            "../../../include/fortify", f"usr/{at}/usr/include/fortify"
+        )
 
 def _gen_crossp(an, at):
     @subpackage(f"base-cross-{an}")
@@ -58,7 +63,8 @@ def _gen_crossp(an, at):
         return [
             f"usr/bin/{at}.cfg",
             f"usr/bin/{at}-*",
-            f"usr/lib/ccache/bin/{at}-*"
+            f"usr/lib/ccache/bin/{at}-*",
+            f"usr/{at}",
         ]
     depends.append(f"base-cross-{an}={pkgver}-r{pkgrel}")
 

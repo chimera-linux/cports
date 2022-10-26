@@ -288,12 +288,14 @@ def _setup_dummy(rootp, archn):
         )
         return f"{tobj.pkgver}-r{tobj.pkgrel}"
 
+    fortify_ver = _get_ver("fortify-headers")
     files_ver = _get_ver("base-files")
     musl_ver = _get_ver("musl")
     llvm_ver = _get_ver("llvm")
 
     provides = [
         f"base-files={files_ver}",
+        f"fortify-headers={fortify_ver}",
         f"musl={musl_ver}",
         f"musl-devel={musl_ver}",
         f"libcxx={llvm_ver}",
