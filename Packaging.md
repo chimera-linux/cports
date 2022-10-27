@@ -1418,13 +1418,13 @@ for subpackages separately if needed:
 ### Hardening Options
 
 The `cbuild` system implements an automatic way to deal with toggling
-different hardening options.
+different hardening options. Several hardening options are implicit
+as a part of our toolchain and do not have toggleable options; those
+include FORTIFY and RELRO.
 
 Currently the following options are always enabled by default:
 
-* `fortify` Toggles `-D_FORTIFY_SOURCE=2`.
 * `pie` Position-independent executables.
-* `relro` Full RELRO.
 * `ssp` Enables `-fstack-protector-strong`.
 
 The following options are only enabled on targets where the toolchain

@@ -111,17 +111,6 @@ def configure(
     eenv.update(pkg.configure_env)
     eenv.update(env)
 
-    # http://lists.gnu.org/archive/html/libtool-patches/2004-06/msg00002.html
-    with open(rscript) as f:
-        with open(rscript.with_suffix(".tmp"), "w") as tf:
-            for ln in f:
-                tf.write(re.sub(
-                    r"^([ \t]*tmp_sharedflag)='-shared'",
-                    r"\1='-shared -Wl,--as-needed'", ln
-                ))
-
-    rscript.unlink()
-    rscript.with_suffix(".tmp").rename(rscript)
     rscript.chmod(0o755)
 
     pkg.do(
