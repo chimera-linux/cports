@@ -198,23 +198,24 @@ set -e
 
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
-        apkc = "apk"
-        boot = (pkg.rparent.stage == 0)
-        # in stage 0 we need to use the host apk
-        if boot:
-            apkc = paths.apk()
-
-        ret = chroot.enter(
-            apkc, "mkpkg",
-            "--files", pkg.chroot_destdir,
-            "--output", cbpath,
-            *pargs,
-            capture_output = True, bootstrapping = boot,
-            ro_root = True, ro_build = True, ro_dest = False,
-            unshare_all = True, mount_binpkgs = True,
-            fakeroot = True, binpkgs_rw = True,
-            signkey = signkey, wrapper = wscript if needscript else None
-        )
+        # in stage 0 we need to use the host apk, avoid fakeroot while at it
+        # we just use bwrap to pretend we're root and that's all we need
+        if pkg.rparent.stage == 0:
+            ret = subprocess.run([
+                "bwrap", "--bind", "/", "/", "--uid", "0", "--gid", "0", "--",
+                paths.apk(), "mkpkg", "--files", pkg.chroot_destdir,
+                "--output", cbpath, *pargs
+            ], capture_output = True)
+        else:
+            ret = chroot.enter(
+                "apk", "mkpkg", "--files", pkg.chroot_destdir,
+                "--output", cbpath, *pargs,
+                capture_output = True, bootstrapping = False,
+                ro_root = True, ro_build = True, ro_dest = False,
+                unshare_all = True, mount_binpkgs = True,
+                fakeroot = True, binpkgs_rw = True,
+                signkey = signkey, wrapper = wscript if needscript else None
+            )
 
         if ret.returncode != 0:
             logger.get().out_plain(">> stderr:")
