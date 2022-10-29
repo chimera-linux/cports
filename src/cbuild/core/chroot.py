@@ -325,7 +325,7 @@ def _setup_dummy(rootp, archn):
                 "--info", f"provides:{' '.join(provides)}",
             ],
             None, root = rootp, capture_output = True, arch = archn,
-            allow_untrusted = True, fakeroot = True
+            allow_untrusted = True
         )
         if ret.returncode != 0:
             outl = ret.stderr.strip().decode()
@@ -338,9 +338,9 @@ def _setup_dummy(rootp, archn):
             raise errors.CbuildException(f"failed to index virtual provider for {archn}")
 
         ret = apki.call(
-            "add", ["--no-scripts", "--repository", tmpd, pkgn], None,
-            root = rootp, capture_output = True, arch = archn,
-            allow_untrusted = True, fakeroot = True
+            "add", ["--no-scripts", "--no-chown", "--repository", tmpd, pkgn],
+            None, root = rootp, capture_output = True, arch = archn,
+            allow_untrusted = True
         )
 
         if ret.returncode != 0:
