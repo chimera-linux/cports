@@ -1034,6 +1034,10 @@ class Template(Package):
         elif self.current_phase == "check" and self.options["checkroot"]:
             fakeroot = True
 
+        # to avoid host fakeroot dependency
+        if self.stage == 0:
+            fakeroot = False
+
         if self.current_phase == "fetch":
             allow_network = True
         elif self.current_phase != "extract" and \

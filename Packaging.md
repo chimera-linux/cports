@@ -1343,7 +1343,7 @@ the template including for subpackages:
 * `installroot` *(true)* By default, install phase is run as `root`.
   This is done with `fakeroot`, which may interfere with rpath if
   such binary is invoked during installation. You may disable this
-  in those cases.
+  in those cases. For stage 0 builds, it is always disabled.
 * `cross` *(true)* If disabled, the template will error early when
   attempting cross compilation.
 * `lint` *(true)* If enabled, the template contents will be checked

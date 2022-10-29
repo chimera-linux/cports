@@ -541,12 +541,8 @@ def enter(cmd, *args, capture_output = False, check = False,
         dest_bind = "--bind"
 
     if bootstrapping:
-        bcmd = []
-        if fakeroot:
-            envs["FAKEROOTDONTTRYCHOWN"] = "1"
-            bcmd = ["sh", get_fakeroot(True)]
         return subprocess.run(
-            [*bcmd, cmd, *args], env = envs,
+            [cmd, *args], env = envs,
             capture_output = capture_output, check = check,
             stdout = stdout, stderr = stderr,
             cwd = os.path.abspath(wrkdir) if wrkdir else None
