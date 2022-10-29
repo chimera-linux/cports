@@ -389,10 +389,25 @@ def remove_autodeps(bootstrapping, prof = None):
 
     failed = False
 
+    # best way to ensure everything is clean in stage 0
+    if bootstrapping:
+        # we need to keep builddir as that holds our state (logs etc)
+        # everything else is handled by paths.prepare() and others
+        for d in paths.bldroot().iterdir():
+            if d.name == "builddir":
+                continue
+            if d.is_dir() and not d.is_symlink():
+                shutil.rmtree(d)
+            else:
+                d.unlink()
+        paths.prepare()
+        initdb()
+        repo_init()
+        return
+
     paths.prepare()
 
-    # there is no such thing as stage 0 hostdeps
-    if not bootstrapping and apki.call("info", [
+    if  apki.call("info", [
         "--installed", "autodeps-host"
     ], None, capture_output = True, allow_untrusted = True).returncode == 0:
         del_ret = apki.call_chroot(
@@ -407,14 +422,9 @@ def remove_autodeps(bootstrapping, prof = None):
     if apki.call("info", [
         "--installed", "autodeps-target"
     ], None, capture_output = True, allow_untrusted = True).returncode == 0:
-        if bootstrapping:
-            del_ret = apki.call("del", [
-                "--no-scripts", "autodeps-target"
-            ], None, capture_output = True)
-        else:
-            del_ret = apki.call_chroot(
-                "del", ["autodeps-target"], None, capture_output = True
-            )
+        del_ret = apki.call_chroot(
+            "del", ["autodeps-target"], None, capture_output = True
+        )
 
         if del_ret.returncode != 0:
             log.out_plain(">> stderr (target):")
