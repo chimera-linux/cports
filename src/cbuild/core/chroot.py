@@ -391,17 +391,13 @@ def remove_autodeps(bootstrapping, prof = None):
 
     paths.prepare()
 
-    if apki.call("info", [
+    # there is no such thing as stage 0 hostdeps
+    if not bootstrapping and apki.call("info", [
         "--installed", "autodeps-host"
     ], None, capture_output = True, allow_untrusted = True).returncode == 0:
-        if bootstrapping:
-            del_ret = apki.call("del", [
-                "--no-scripts", "autodeps-host"
-            ], None, capture_output = True, fakeroot = True)
-        else:
-            del_ret = apki.call_chroot(
-                "del", ["autodeps-host"], None, capture_output = True
-            )
+        del_ret = apki.call_chroot(
+            "del", ["autodeps-host"], None, capture_output = True
+        )
 
         if del_ret.returncode != 0:
             log.out_plain(">> stderr (host):")
@@ -414,7 +410,7 @@ def remove_autodeps(bootstrapping, prof = None):
         if bootstrapping:
             del_ret = apki.call("del", [
                 "--no-scripts", "autodeps-target"
-            ], None, capture_output = True, fakeroot = True)
+            ], None, capture_output = True)
         else:
             del_ret = apki.call_chroot(
                 "del", ["autodeps-target"], None, capture_output = True
