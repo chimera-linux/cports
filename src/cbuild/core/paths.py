@@ -43,12 +43,6 @@ def set_apk(cmd):
 def apk():
     return _apkcmd
 
-def chroot_apk():
-    if _stage == 0:
-        return _apkcmd
-    else:
-        return "apk"
-
 def distdir():
     return _ddir
 

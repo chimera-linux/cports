@@ -136,6 +136,7 @@ def call(
         cwd = cwd, env = env, capture_output = capture_output
     )
 
+# should never be called during stage 0 builds, only with a real chroot
 def call_chroot(
     subcmd, args, mrepo, capture_output = False, check = False, arch = None,
     allow_untrusted = False, use_stage = True, full_chroot = False,
@@ -168,7 +169,7 @@ def call_chroot(
         )
 
     return chroot.enter(
-        paths.chroot_apk(), *cmd, *args, capture_output = capture_output,
+        "apk", *cmd, *args, capture_output = capture_output,
         check = check, fakeroot = True, mount_binpkgs = True,
         mount_cbuild_cache = mount_cache
     )

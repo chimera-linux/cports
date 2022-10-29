@@ -198,13 +198,18 @@ set -e
 
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
+        apkc = "apk"
+        boot = (pkg.rparent.stage == 0)
+        # in stage 0 we need to use the host apk
+        if boot:
+            apkc = paths.apk()
+
         ret = chroot.enter(
-            paths.chroot_apk(), "mkpkg",
+            apkc, "mkpkg",
             "--files", pkg.chroot_destdir,
             "--output", cbpath,
             *pargs,
-            capture_output = True,
-            bootstrapping = (pkg.rparent.stage == 0),
+            capture_output = True, bootstrapping = boot,
             ro_root = True, ro_build = True, ro_dest = False,
             unshare_all = True, mount_binpkgs = True,
             fakeroot = True, binpkgs_rw = True,
