@@ -38,7 +38,7 @@ def post_install(self):
     self.install_file(
         self.files_path / "udevd.wrapper", "usr/libexec", mode = 0o755
     )
-    self.install_service(self.files_path / "udevd")
+    self.install_service(self.files_path / "udevd", enable = True)
 
 @subpackage("eudev-devel")
 def _devel(self):
