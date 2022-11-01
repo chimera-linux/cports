@@ -44,7 +44,7 @@ def post_install(self):
         self.files_path / "elogind.wrapper", "usr/libexec/elogind",
         mode = 0o755
     )
-    self.install_service(self.files_path / "elogind")
+    self.install_service(self.files_path / "elogind", enable = True)
 
 @subpackage("elogind-devel")
 def _devel(self):
