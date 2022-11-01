@@ -302,6 +302,7 @@ default_options = {
     # actually true by default for -devel
     "splitstatic": (False, False),
     "splitudev": (True, False),
+    "splitdinit": (True, False),
     "splitdoc": (True, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
@@ -1293,15 +1294,24 @@ class Template(Package):
             src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name
         )
 
-    def install_service(self, src, name = None):
+    def install_service(self, src, name = None, enable = False):
         src = pathlib.Path(src)
         if src.suffix == ".user":
-            self.install_file(
-                src, "etc/dinit.d/user",
-                name = name or src.with_suffix("").name
-            )
+            svname = name or src.with_suffix("").name
+            self.install_file(src, "etc/dinit.d/user", name = svname)
+            if enable:
+                self.install_dir("usr/lib/dinit.d/user/boot.d")
+                self.install_link(
+                    f"../{svname}", f"usr/lib/dinit.d/user/boot.d/{svname}"
+                )
         else:
-            self.install_file(src, "etc/dinit.d", name = name)
+            svname = name or src.name
+            self.install_file(src, "etc/dinit.d", name = svname)
+            if enable:
+                self.install_dir("usr/lib/dinit.d/boot.d")
+                self.install_link(
+                    f"../{svname}", f"usr/lib/dinit.d/boot.d/{svname}"
+                )
 
     def install_svscript(self, src, name = None):
         self.install_file(
@@ -1339,6 +1349,10 @@ def _split_pycache(pkg):
         if f.is_dir():
             pkg.take(str(f.relative_to(pkg.parent.destdir)))
 
+def _split_dlinks(pkg):
+    pkg.take("usr/lib/dinit.d/boot.d", missing_ok = True)
+    pkg.take("usr/lib/dinit.d/user/boot.d", missing_ok = True)
+
 autopkgs = [
     # dbg is handled by its own hook
     ("dbg", "debug files", None, None),
@@ -1353,6 +1367,8 @@ autopkgs = [
         "dinit", "service files", "dinit-chimera",
         lambda p: p.take("etc/dinit.d", missing_ok = True)
     ),
+    # foo-dinit-links installs if foo-dinit installs
+    ("dinit-links", "service links", "-dinit", _split_dlinks),
     (
         "initramfs-tools", "initramfs scripts", "initramfs-tools",
         lambda p: p.take("usr/share/initramfs-tools", missing_ok = True)
@@ -1425,7 +1441,11 @@ class Subpackage(Package):
                 sfx = f"-{apkg}"
                 if name.endswith(sfx):
                     bdep = name.removesuffix(sfx)
-                    instif = iif
+                    if iif and iif.startswith("-"):
+                        bdep += iif
+                        instif = name
+                    else:
+                        instif = iif
                     self.pkgdesc = oldesc + f" ({adesc})"
 
         # by default some subpackages depeond on their parent package

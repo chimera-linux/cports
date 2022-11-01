@@ -1175,6 +1175,7 @@ These are (with their package description suffixes):
 * `doc` - `(documentation)`
 * `man` - `(manual pages)`
 * `dinit` - `(service files)`
+* `dinit-links` - `(service links)`
 * `initramfs-tools` - `(initramfs scripts)`
 * `udev` - `(udev rules)`
 * `bashcomp` - `(bash completions)`
@@ -1201,6 +1202,7 @@ the package they were split off needs to be installed, plus the following:
 * `base-udev` for `-udev` subpackages
 * `base-locale` for `-locale` subpackages
 * `dinit-chimera` for `-dinit` subpackages
+* the `-dinit` subpackage for `-dinit-links` subpackages
 * `initramfs-tools` for `-initramfs-tools` subpackages
 * `bash-completion` for `-bashcomp` packages
 * `zsh` for `-zshcomp` packages
@@ -1412,6 +1414,8 @@ for subpackages separately if needed:
   otherwise. You can change the default by toggling this.
 * `splitudev` *(true)* This is like `autosplit`, but only for udev
   rules.
+* `splitdinit` *(true)* This is like `autosplit`, but only for dinit
+  service files and links.
 * `splitdoc` *(true)* This is like `autosplit`, but only for docs.
 
 <a id="hardening_options"></a>
@@ -2557,12 +2561,14 @@ Equivalent to `self.install_file(src, "usr/share/licenses/" + pkgname, 0o644, na
 
 When `pkgname` is not given, `self.pkgname` is used.
 
-##### def install_service(self, src, name = None)
+##### def install_service(self, src, name = None, enable = False)
 
 If `src` is a file path that does not have the `.user` extension, it installs
 the file in `etc/dinit.d` with mode `0o644`. Otherwise, it installs the file
 in `etc/dinit.d/user` with its extension removed. If `name` is provided, it
 is used as it is without changes.
+
+If `enable` is `True`, the service will be implicitly enabled as system service.
 
 ##### def install_svscript(self, src, name = None)
 

@@ -26,9 +26,13 @@ def invoke(pkg):
             continue
         if apkg == "doc" and not pkg.options["splitdoc"]:
             continue
+        if apkg.startswith("dinit") and not pkg.options["splitdinit"]:
+            continue
         if not takef:
             continue
         if pkg.pkgname == iif:
+            continue
+        if apkg == "dinit-links" and pkg.rparent.pkgname == "dinit-chimera":
             continue
         if pkg.pkgname.endswith(f"-{apkg}"):
             continue
