@@ -1,5 +1,5 @@
 pkgname = "dinit-chimera"
-_commit = "939a762a9eae38d1e7d383a83ffc2d7dc05917a7"
+_commit = "a375563e670ed884a708d5aaa211c52031895848"
 pkgver = "0.1"
 pkgrel = 0
 build_style = "makefile"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
-sha256 = "9b333586f1431f9e73b237f04e58f38c490202b22e3d95b68f63c11c890a7921"
+sha256 = "8878b2292eb5031dc34748c296d03b6e22453ec894f0fb17403ebf0cdd9b48f0"
 # no tests
 options = ["!check", "brokenlinks"]
 
@@ -32,4 +32,14 @@ def _x11(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xinit"]
     return [
         "etc/X11/Xsession.d",
+    ]
+
+@subpackage("dinit-chimera-links")
+def _def(self):
+    self.pkgdesc = f"{pkgdesc} (service links)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.options = ["brokenlinks"]
+    return [
+        "usr/lib/dinit.d/boot.d/agetty-*"
     ]

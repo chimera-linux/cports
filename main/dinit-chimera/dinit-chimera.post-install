@@ -1,8 +1,0 @@
-#!/bin/sh
-#
-# enable core services that are always needed
-#
-
-for f in 1 2 3 4 5 6; do
-    ln -sf ../agetty-tty${f} /etc/dinit.d/boot.d/agetty-tty${f} || :
-done
