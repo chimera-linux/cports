@@ -1,5 +1,5 @@
 pkgname = "dbus"
-pkgver = "1.14.4"
+pkgver = "1.15.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -11,12 +11,10 @@ configure_args = [
     "--enable-inotify",
     "--enable-xml-docs",
     "--enable-epoll",
-    "--enable-elogind",
     "--enable-traditional-activation",
     "--with-dbus-user=dbus",
     "--with-system-socket=/run/dbus/system_bus_socket",
     "--with-system-pid-file=/run/dbus/pid",
-    "--with-console-auth-dir=/run/console",
 ]
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "gperf", "pkgconf", "xmlto"]
@@ -29,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
 source = f"https://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "7c0f9b8e5ec0ff2479383e62c0084a3a29af99edf1514e9f659b81b30d4e353e"
+sha256 = "7e640803084af59f5e477b7ded11fd888b5380910a895c51ca3aedd63c0626ca"
 suid_files = [
     "usr/libexec/dbus-daemon-launch-helper"
 ]
@@ -51,8 +49,8 @@ def post_install(self):
         self.files_path / "dbus-session.wrapper", "usr/libexec", mode = 0o755
     )
     self.install_service(self.files_path / "dbus-prepare")
-    self.install_service(self.files_path / "dbus")
-    self.install_service(self.files_path / "dbus.user")
+    self.install_service(self.files_path / "dbus", enable = True)
+    self.install_service(self.files_path / "dbus.user", enable = True)
     # x11 support
     self.install_dir("etc/X11/Xsession.d")
     self.install_file(
