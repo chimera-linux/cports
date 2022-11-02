@@ -3,8 +3,6 @@ pkgver = "2.5.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--datadir=/usr/share/kbd",
-    "--localedir=/usr/share/kbd/locale",
     "--disable-tests" # tests force autom4te
 ]
 make_cmd = "gmake"
@@ -18,16 +16,10 @@ source = f"$(KERNEL_SITE)/utils/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ccdf452387a6380973d2927363e9cbb939fa2068915a6f937ff9d24522024683"
 
 def post_patch(self):
-    # Rename keymap files with the same names
-    # this is needed because when only name of keymap is specified
-    # loadkeys loads the first keymap it can find, which is bad
-    # this should be removed when upstream adopts the change
+    # rename conflicting keymaps
     with self.pushd("data/keymaps/i386"):
-        self.mv("qwertz/cz.map", "qwertz/cz-qwertz.map")
-        self.mv("olpc/es.map", "olpc/es-olpc.map")
-        self.mv("olpc/pt.map", "olpc/pt-olpc.map")
+        self.mv("qwerty/cz.map", "qwerty/cz-qwerty.map")
         self.mv("fgGIod/trf.map", "fgGIod/trf-fgGIod.map")
-        self.mv("colemak/en-latin9.map", "colemak/colemak.map")
 
     # fixes from fedora
     # 7-bit maps are obsolete; so are non-euro maps
@@ -41,5 +33,5 @@ def post_patch(self):
         self.cp("fr-latin9.map", "fr-latin0.map") # legacy alias
 
 def post_install(self):
-    for f in ["sun", "amiga", "atari"]:
-        self.rm(self.destdir / f"usr/share/kbd/keymaps/{f}", recursive = True)
+    for f in ["sun", "amiga", "atari", "i386/olpc"]:
+        self.rm(self.destdir / f"usr/share/keymaps/{f}", recursive = True)
