@@ -4,7 +4,8 @@ pkgrel = 0
 build_style = "makefile"
 depends = [
     "base-kernel", "klibc-kinit-standalone", "klibc-utils-standalone",
-    "chimerautils-tiny", "bsdtar", "zstd", "debianutils", "util-linux", "awk"
+    "chimerautils-tiny", "bsdtar", "zstd", "debianutils", "util-linux",
+    "console-setup", "awk"
 ]
 pkgdesc = "Generic modular initramfs generator"
 maintainer = "q66 <q66@chimera-linux.org>"
