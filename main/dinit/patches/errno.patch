@@ -1,0 +1,25 @@
+From 62ee5ca9da5ac5aedc1200760f6e807d32304abd Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 2 Nov 2022 22:58:07 +0100
+Subject: [PATCH] clear errno after trying multiple service dirs
+
+---
+ src/load-service.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/load-service.cc b/src/load-service.cc
+index 7ab83f2..9d2708c 100644
+--- a/src/load-service.cc
++++ b/src/load-service.cc
+@@ -296,6 +296,8 @@ service_record * dirload_service_set::load_reload_service(const char *name, serv
+             fail_load_path = std::move(service_filename);
+         }
+     }
++    // We want to clear errno as the service may have been missing in some paths
++    errno = 0;
+ 
+     if (!service_file) {
+         if (fail_load_errno == 0) {
+-- 
+2.38.1
+
