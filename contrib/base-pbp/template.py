@@ -23,4 +23,4 @@ def do_install(self):
     self.install_file(self.files_path / "u-boot-cmdline", "etc/default")
     self.install_file(self.files_path / "u-boot-fdt", "etc/default")
     # agetty service
-    self.install_service(self.files_path / "agetty-ttyS2")
+    self.install_service(self.files_path / "agetty-ttyS2", enable = True)
