@@ -26,9 +26,11 @@ options = ["bootstrap", "!check", "!lto", "brokenlinks"]
 # adds a single bss mapping)
 #
 # this only the libc (interpreter) so apply the workaround here
-tool_flags = {
-    "LDFLAGS": ["-Wl,-z,lazy"]
-}
+match self.profile().arch:
+    case "ppc64le" | "ppc64":
+        tool_flags = {
+            "LDFLAGS": ["-Wl,-z,lazy"]
+        }
 
 if self.stage > 0:
     # have base-files extract first in normal installations
