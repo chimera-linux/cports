@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools", "python-tomli", "python-packaging"]
 depends = [
-    "python-setuptools", "python-tomli", "python-packaging",
+    "python", "python-setuptools", "python-tomli", "python-packaging",
     "python-typing_extensions"
 ]
 pkgdesc = "Manage Python package versions with SCM tags"
