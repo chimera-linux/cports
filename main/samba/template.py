@@ -1,6 +1,6 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.17.0"
+pkgver = "4.17.2"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -64,7 +64,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
-sha256 = "04868ecda82fcbeda7b8bf519a2461a64d55c6e70efc6f6053b2fbba55f1823a"
+sha256 = "e55ddf4d5178f8c84316abf53c5edd7b35399e3b7d86bcb81b75261c827bb3b8"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
