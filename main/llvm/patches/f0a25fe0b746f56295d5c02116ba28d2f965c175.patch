@@ -1,0 +1,26 @@
+From f0a25fe0b746f56295d5c02116ba28d2f965c175 Mon Sep 17 00:00:00 2001
+From: Jitka Plesnikova <jplesnik@redhat.com>
+Date: Wed, 21 Sep 2022 11:42:46 +0200
+Subject: [PATCH] [lldb] Fix 'error: non-const lvalue...' caused by SWIG 4.1.0
+
+Fix the failure caused by change in SwigValueWraper for C++11 and later
+for improved move semantics in SWIG commit.
+
+https://github.com/swig/swig/commit/d1055f4b3d51cb8060893f8036846ac743302dab
+---
+ lldb/bindings/python/python-typemaps.swig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lldb/bindings/python/python-typemaps.swig b/lldb/bindings/python/python-typemaps.swig
+index 203be803d2ebd..11f68d59ae7be 100644
+--- a/lldb/bindings/python/python-typemaps.swig
++++ b/lldb/bindings/python/python-typemaps.swig
+@@ -435,7 +435,7 @@ template <> bool SetNumberFromPyObject<double>(double &number, PyObject *obj) {
+ 
+ %typemap(out) lldb::FileSP {
+   $result = nullptr;
+-  lldb::FileSP &sp = $1;
++  const lldb::FileSP &sp = $1;
+   if (sp) {
+     PythonFile pyfile = unwrapOrSetPythonException(PythonFile::FromFile(*sp));
+     if (!pyfile.IsValid())
