@@ -34,5 +34,6 @@ def _devel(self):
 @subpackage("tdb-python")
 def _devel(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.depends += ["python"]
 
     return ["usr/lib/python*"]
