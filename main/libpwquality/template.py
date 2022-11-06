@@ -34,6 +34,6 @@ def _devel(self):
 @subpackage("libpwquality-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
-    self.depends += ["cracklib-devel"]
+    self.depends += ["python", "cracklib-devel"]
 
     return ["usr/lib/python*"]
