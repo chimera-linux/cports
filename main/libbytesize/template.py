@@ -23,6 +23,6 @@ def _devel(self):
 @subpackage("libbytesize-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
-    self.depends += ["python-six"]
+    self.depends += ["python", "python-six"]
 
     return ["usr/lib/python*"]
