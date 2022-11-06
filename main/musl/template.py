@@ -17,21 +17,6 @@ hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
 options = ["bootstrap", "!check", "!lto", "brokenlinks"]
 
-# without this, we will get two RW LOAD segments with p_filesz < p_memsz
-# at least on ppc64 where .plt is SHT_NOBITS and therefore does not occupy
-# any file space, while being inserted in the first RW LOAD segment
-#
-# this creates an issue as the linux kernel's interpreter code path does
-# not handle this scenario (it ignores memsz, uses only filesz, and then
-# adds a single bss mapping)
-#
-# this only the libc (interpreter) so apply the workaround here
-match self.profile().arch:
-    case "ppc64le" | "ppc64":
-        tool_flags = {
-            "LDFLAGS": ["-Wl,-z,lazy"]
-        }
-
 if self.stage > 0:
     # have base-files extract first in normal installations
     #
@@ -54,6 +39,7 @@ def init_configure(self):
 
 def post_build(self):
     from cbuild.util import compiler
+
     self.cp(self.files_path / "getent.c", ".")
     self.cp(self.files_path / "getent.c", ".")
     self.cp(self.files_path / "getconf.c", ".")
