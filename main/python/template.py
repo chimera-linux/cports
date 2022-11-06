@@ -1,6 +1,6 @@
 pkgname = "python"
-_majver = "3.10"
-pkgver = f"{_majver}.8"
+_majver = "3.11"
+pkgver = f"{_majver}.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -27,12 +27,13 @@ make_check_args = [
     "-i test_readline "
     "-i test_threading "
     "-i test_unicodedata "
+    "-i test_tools "
 ]
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
     "libffi-devel", "openssl-devel", "libbz2-devel", "libedit-devel",
     "zlib-devel", "liblzma-devel", "libexpat-devel", "sqlite-devel",
-    "linux-headers"
+    "linux-headers", "bluez-headers",
 ]
 checkdepends = ["ca-certificates", "iana-etc"]
 depends = ["ca-certificates"]
@@ -41,14 +42,27 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "6a30ecde59c47048013eb5a658c9b5dec277203d2793667f578df7671f7f03f3"
+sha256 = "a57dc82d77358617ba65b9841cee1e3b441f386c3789ddc0676eca077f2951c3"
+
+env = {
+    # emulate python's configure stuff but with -O2
+    "OPT": "-g -fwrapv -O2 -Wall",
+    "CFLAGS_ALIASING": "-fno-strict-aliasing",
+    # we pass them via NODIST so they do not propagate to modules
+    "CFLAGS": "",
+    "LDFLAGS": "",
+}
 
 if self.profile().cross:
     hostmakedepends += ["python"]
+    configure_args += ["--with-build-python=python3.11"]
 
 def init_configure(self):
     bigend = "yes" if (self.profile().endian == "big") else "no"
     self.configure_args.append("ax_cv_c_float_words_bigendian=" + bigend)
+    # real configure and linker flags here
+    self.env["CFLAGS_NODIST"] = self.get_cflags(shell = True)
+    self.env["LDFLAGS_NODIST"] = self.get_ldflags(shell = True)
 
 def pre_configure(self):
     self.rm("Modules/_ctypes/darwin", recursive = True)
@@ -74,24 +88,7 @@ def do_install(self):
 
     (lbase / "turtle.py").unlink(missing_ok = True)
 
-    # remove references to the install(1) wrapper
-    def subst_wdir(f):
-        import os
-        if not f.is_file():
-            return
-        with open(f) as ifile:
-            with open(f.with_suffix(".new"), "w") as ofile:
-                for ln in ifile:
-                    ln = ln.replace(
-                        self.env["CBUILD_STATEDIR"] + "/wrappers", "/usr/bin"
-                    )
-                    ofile.write(ln)
-        os.rename(f.with_suffix(".new"), f)
-
-    for f in lbase.glob("_sysconfigdata_*_*.py"):
-        subst_wdir(f)
     for f in lbase.glob("config-*"):
-        subst_wdir(f / "Makefile")
         for ff in f.glob("libpython*.a"):
             self.mv(ff, self.destdir / "usr/lib")
 
