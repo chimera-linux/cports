@@ -110,7 +110,7 @@ def do_install(self):
 @subpackage("avahi-python")
 def _pyprogs(self):
     self.pkgdesc = f"Python utility package for Avahi"
-    self.depends = [f"python-dbus"]
+    self.depends = ["python", "python-dbus"]
 
     return [
         "usr/bin/avahi-bookmarks",
