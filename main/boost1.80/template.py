@@ -13,7 +13,8 @@ url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
 sha256 = "4b2136f98bdd1f5857f1c3dea9ac2018effe65286cf251534b6ae20cc45e1847"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
-options = ["!cross"] # i don't dare touch this yet
+# test runner not ready for python 3.11?
+options = ["!cross", "!check"] # i don't dare touch this yet
 
 _bver = pkgver[0:pkgver.rfind(".")]
 
