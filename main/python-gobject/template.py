@@ -11,7 +11,7 @@ makedepends = ["libglib-devel", "python-cairo-devel", "python-devel"]
 checkdepends = [
     "python-pytest", "gtk+3", "xserver-xorg-xvfb", "fonts-dejavu-otf", "bash"
 ]
-depends = ["gir-freedesktop", "python-cairo"]
+depends = ["python", "gir-freedesktop", "python-cairo"]
 pkgdesc = "Python bindings for GObject"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
