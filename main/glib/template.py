@@ -1,5 +1,5 @@
 pkgname = "glib"
-pkgver = "2.74.0"
+pkgver = "2.74.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "3652c7f072d7b031a6b5edd623f77ebc5dcd2ae698598abcc89ff39ca75add30"
+sha256 = "0ab981618d1db47845e56417b0d7c123f81a3427b2b9c93f5a46ff5bbb964964"
 # cyclic with desktop-file-utils
 options = ["!check"]
 
