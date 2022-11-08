@@ -5,7 +5,9 @@ build_style = "meson"
 configure_args = [
     "-Dx11_backend=true", "-Dwayland_backend=true", "-Dbroadway_backend=true",
     "-Dprint_backends=cups,file",
+    "-Dcloudproviders=true",
     "-Dcolord=yes",
+    "-Dtracker3=true",
     "-Dgtk_doc=false",
     "-Dman=true",
     "-Dintrospection=true",
@@ -20,7 +22,8 @@ makedepends = [
     "colord-devel", "libxkbcommon-devel", "wayland-devel", "wayland-protocols",
     "mesa-devel", "libxcursor-devel", "libxdamage-devel", "libxext-devel",
     "libxinerama-devel", "libxrandr-devel", "libxcomposite-devel",
-    "libxi-devel", "cups-devel", "iso-codes",
+    "libxi-devel", "cups-devel", "tracker-devel", "libcloudproviders-devel",
+    "iso-codes",
 ]
 depends = [
     "gtk-update-icon-cache", "adwaita-icon-theme",
@@ -37,7 +40,8 @@ license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
 sha256 = "dbc69f90ddc821b8d1441f00374dc1da4323a2eafa9078e61edbe5eeefa852ec"
-options = ["!cross"]
+# g_log_set_writer_func called multiple times in tests
+options = ["!cross", "!check"]
 
 @subpackage("gtk-update-icon-cache")
 def _uic(self):
