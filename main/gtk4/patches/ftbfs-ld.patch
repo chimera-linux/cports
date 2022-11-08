@@ -42,7 +42,7 @@ index 3a8457a..a5aceda 100644
  
  ld = find_program('ld', required : false)
  
--if not meson.is_cross_build() and build_machine.cpu_family() != 'arm' and build_machine.system() == 'linux' and objcopy.found() and objcopy_supports_add_symbol and ld.found()
+-if not meson.is_cross_build() and build_machine.cpu_family() == 'x86_64' and build_machine.system() == 'linux' and objcopy.found() and objcopy_supports_add_symbol and ld.found()
 +if false
    glib_compile_resources = find_program('glib-compile-resources')
  

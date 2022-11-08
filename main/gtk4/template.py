@@ -1,12 +1,12 @@
 pkgname = "gtk4"
-pkgver = "4.8.1"
+pkgver = "4.8.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true", "-Dbuild-tests=false", "-Dgtk_doc=false",
     "-Dbroadway-backend=true", "-Dx11-backend=true", "-Dwayland-backend=true",
     "-Dintrospection=enabled", "-Dcolord=enabled", "-Dvulkan=enabled",
-    "-Dcloudproviders=disabled",
+    "-Dcloudproviders=enabled", "-Dtracker=enabled",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "perl", "glib-devel",
@@ -19,7 +19,8 @@ makedepends = [
     "mesa-devel", "libxcursor-devel", "libxdamage-devel", "libxext-devel",
     "libxinerama-devel", "libxrandr-devel", "libxcomposite-devel",
     "libxi-devel", "vulkan-loader", "vulkan-headers", "cups-devel",
-    "graphene-devel", "gst-plugins-bad-devel", "ffmpeg-devel", "iso-codes",
+    "graphene-devel", "gst-plugins-bad-devel", "ffmpeg-devel",
+    "tracker-devel", "libcloudproviders-devel", "iso-codes",
 ]
 depends = [
     "gtk-update-icon-cache", "adwaita-icon-theme",
@@ -30,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "5ce8d8de98a23bd0c8eca1a61094e1c009b5f009dcbd60b45e990a8db1b742fd"
+sha256 = "85b7a160b6e02eafa4e7d38f046f8720fab537d3fe73c01c864333a983a692a9"
 
 def post_install(self):
     # we don't really need it (provided by gtk3)
