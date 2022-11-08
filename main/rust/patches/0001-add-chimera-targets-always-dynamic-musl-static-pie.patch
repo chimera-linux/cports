@@ -1,21 +1,23 @@
-From 392d66e18266184906bae257df8fa7c075636cef Mon Sep 17 00:00:00 2001
+From af8ceb4cbea65c3d68a337804af10f3e2d32efd4 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Fri, 25 Feb 2022 00:32:40 +0100
+Date: Tue, 8 Nov 2022 15:13:25 +0100
 Subject: [PATCH 01/11] add chimera targets, always dynamic musl + static pie
 
 Also disable nodefaultlibs.
 ---
- .../src/spec/aarch64_chimera_linux_musl.rs         | 10 ++++++++++
- compiler/rustc_target/src/spec/linux_musl_base.rs  | 14 ++++++++------
- compiler/rustc_target/src/spec/mod.rs              |  5 +++++
- .../src/spec/powerpc64_chimera_linux_musl.rs       | 10 ++++++++++
- .../src/spec/powerpc64le_chimera_linux_musl.rs     | 10 ++++++++++
- .../src/spec/riscv64_chimera_linux_musl.rs         | 10 ++++++++++
- .../src/spec/x86_64_chimera_linux_musl.rs          | 10 ++++++++++
- 7 files changed, 63 insertions(+), 6 deletions(-)
+ .../src/spec/aarch64_chimera_linux_musl.rs          | 10 ++++++++++
+ compiler/rustc_target/src/spec/linux_musl_base.rs   | 13 ++++++++-----
+ compiler/rustc_target/src/spec/mod.rs               |  6 ++++++
+ .../src/spec/powerpc64_chimera_linux_musl.rs        | 10 ++++++++++
+ .../src/spec/powerpc64le_chimera_linux_musl.rs      | 10 ++++++++++
+ .../src/spec/powerpc_chimera_linux_musl.rs          | 10 ++++++++++
+ .../src/spec/riscv64_chimera_linux_musl.rs          | 10 ++++++++++
+ .../src/spec/x86_64_chimera_linux_musl.rs           | 10 ++++++++++
+ 8 files changed, 74 insertions(+), 5 deletions(-)
  create mode 100644 compiler/rustc_target/src/spec/aarch64_chimera_linux_musl.rs
  create mode 100644 compiler/rustc_target/src/spec/powerpc64_chimera_linux_musl.rs
  create mode 100644 compiler/rustc_target/src/spec/powerpc64le_chimera_linux_musl.rs
+ create mode 100644 compiler/rustc_target/src/spec/powerpc_chimera_linux_musl.rs
  create mode 100644 compiler/rustc_target/src/spec/riscv64_chimera_linux_musl.rs
  create mode 100644 compiler/rustc_target/src/spec/x86_64_chimera_linux_musl.rs
 
@@ -36,20 +38,16 @@ index 000000000..ff2c140aa
 +    base
 +}
 diff --git a/compiler/rustc_target/src/spec/linux_musl_base.rs b/compiler/rustc_target/src/spec/linux_musl_base.rs
-index 207a87ab0..5cc28b531 100644
+index 61553e71b..a5ad2a822 100644
 --- a/compiler/rustc_target/src/spec/linux_musl_base.rs
 +++ b/compiler/rustc_target/src/spec/linux_musl_base.rs
-@@ -1,16 +1,18 @@
--use crate::spec::crt_objects::{self, CrtObjectsFallback};
- use crate::spec::TargetOptions;
- 
- pub fn opts() -> TargetOptions {
+@@ -5,12 +5,15 @@ pub fn opts() -> TargetOptions {
      let mut base = super::linux_base::opts();
  
      base.env = "musl".into();
--    base.pre_link_objects_fallback = crt_objects::pre_musl_fallback();
--    base.post_link_objects_fallback = crt_objects::post_musl_fallback();
--    base.crt_objects_fallback = Some(CrtObjectsFallback::Musl);
+-    base.pre_link_objects_self_contained = crt_objects::pre_musl_self_contained();
+-    base.post_link_objects_self_contained = crt_objects::post_musl_self_contained();
+-    base.link_self_contained = LinkSelfContainedDefault::Musl;
  
 -    // These targets statically link libc by default
 -    base.crt_static_default = true;
@@ -65,15 +63,16 @@ index 207a87ab0..5cc28b531 100644
      base
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index f7abeafd3..a2b83c1bc 100644
+index dc16739bd..c94bde86d 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -818,6 +818,11 @@ macro_rules! supported_targets {
+@@ -906,6 +906,12 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {
 +    ("x86_64-chimera-linux-musl", x86_64_chimera_linux_musl),
 +    ("aarch64-chimera-linux-musl", aarch64_chimera_linux_musl),
++    ("powerpc-chimera-linux-musl", powerpc_chimera_linux_musl),
 +    ("powerpc64-chimera-linux-musl", powerpc64_chimera_linux_musl),
 +    ("powerpc64le-chimera-linux-musl", powerpc64le_chimera_linux_musl),
 +    ("riscv64-chimera-linux-musl", riscv64_chimera_linux_musl),
@@ -112,6 +111,22 @@ index 000000000..29a7459b7
 +
 +    base
 +}
+diff --git a/compiler/rustc_target/src/spec/powerpc_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/powerpc_chimera_linux_musl.rs
+new file mode 100644
+index 000000000..65b2d62ba
+--- /dev/null
++++ b/compiler/rustc_target/src/spec/powerpc_chimera_linux_musl.rs
+@@ -0,0 +1,10 @@
++use crate::spec::Target;
++
++pub fn target() -> Target {
++    let mut base = super::powerpc_unknown_linux_musl::target();
++
++    base.llvm_target = "powerpc-chimera-linux-musl".into();
++    base.options.vendor = "chimera".into();
++
++    base
++}
 diff --git a/compiler/rustc_target/src/spec/riscv64_chimera_linux_musl.rs b/compiler/rustc_target/src/spec/riscv64_chimera_linux_musl.rs
 new file mode 100644
 index 000000000..8c26403ce
@@ -145,5 +160,5 @@ index 000000000..9a94dd228
 +    base
 +}
 -- 
-2.37.3
+2.38.1
 

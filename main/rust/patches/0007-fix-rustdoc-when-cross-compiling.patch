@@ -1,4 +1,4 @@
-From e8ab06c96bec43c6fbdb75c1d39857921d5cca6e Mon Sep 17 00:00:00 2001
+From 5675d03982eded8a400bab9c9599ef7830ff549c Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:38:20 +0100
 Subject: [PATCH 07/11] fix rustdoc when cross-compiling
@@ -8,10 +8,10 @@ Subject: [PATCH 07/11] fix rustdoc when cross-compiling
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/bin/rustdoc.rs b/src/bootstrap/bin/rustdoc.rs
-index 87c1d22e7..f87e231b6 100644
+index e69cab956..49b15131d 100644
 --- a/src/bootstrap/bin/rustdoc.rs
 +++ b/src/bootstrap/bin/rustdoc.rs
-@@ -26,9 +26,6 @@ fn main() {
+@@ -27,9 +27,6 @@ fn main() {
          Err(_) => 0,
      };
  
@@ -21,7 +21,7 @@ index 87c1d22e7..f87e231b6 100644
      let mut cmd = Command::new(rustdoc);
  
      if target.is_some() {
-@@ -41,7 +38,7 @@ fn main() {
+@@ -42,7 +39,7 @@ fn main() {
      }
  
      cmd.args(&args);
@@ -30,7 +30,7 @@ index 87c1d22e7..f87e231b6 100644
  
      // Force all crates compiled by this compiler to (a) be unstable and (b)
      // allow the `rustc_private` feature to link to other unstable crates
-@@ -67,7 +64,7 @@ fn main() {
+@@ -78,7 +75,7 @@ fn main() {
          eprintln!(
              "rustdoc command: {:?}={:?} {:?}",
              dylib_path_var(),
@@ -40,5 +40,5 @@ index 87c1d22e7..f87e231b6 100644
          );
          eprintln!("sysroot: {:?}", sysroot);
 -- 
-2.37.3
+2.38.1
 

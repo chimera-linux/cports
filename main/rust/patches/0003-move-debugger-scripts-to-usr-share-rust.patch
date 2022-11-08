@@ -1,4 +1,4 @@
-From 2cdda7d232364043dd24be67ee5d38450bc68512 Mon Sep 17 00:00:00 2001
+From 128b8bf5e694c1e47a0393d56c4b49826b3265b7 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:34:40 +0100
 Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
@@ -11,10 +11,10 @@ Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
-index 6291b204e..9b3fa3f87 100644
+index 1a59b3958..04ebe445e 100644
 --- a/src/bootstrap/dist.rs
 +++ b/src/bootstrap/dist.rs
-@@ -476,7 +476,7 @@ impl Step for DebuggerScripts {
+@@ -479,7 +479,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let host = self.host;
          let sysroot = self.sysroot;
@@ -65,5 +65,5 @@ index bce72f1ba..8abb01245 100755
  # Call LLDB with the commands added to the argument list
  exec "$lldb" --one-line-before-file "$script_import" --source-before-file "$commands_file" "$@"
 -- 
-2.37.3
+2.38.1
 

@@ -1,4 +1,4 @@
-From 3660bee09e8126bf471a9c197d02eed8181443b3 Mon Sep 17 00:00:00 2001
+From f8b66293cac2483837815d749559c2462730986a Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Mon, 20 Dec 2021 00:55:18 +0100
 Subject: [PATCH 04/11] fix shebang on install-template.sh
@@ -18,5 +18,5 @@ index e68be8911..beaa90f7b 100644
  # file at the top-level directory of this distribution and at
  # http://rust-lang.org/COPYRIGHT.
 -- 
-2.37.3
+2.38.1
 

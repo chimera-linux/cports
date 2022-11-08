@@ -1,4 +1,4 @@
-From 416b2f4886229dfeea442d5a3276114d57fb92c2 Mon Sep 17 00:00:00 2001
+From 25869f0aaa6e9b347bd8af8b8022a5eac018d97d Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:36:43 +0100
 Subject: [PATCH 05/11] get rid of wrong linkage
@@ -7,11 +7,68 @@ There is no good way to compute the clang builtins library
 path from inside the rust code, but there should be no harm
 in just disabling nodefaultlibs for our platform.
 ---
- vendor/libc/src/unix/mod.rs | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ vendor/libc-0.2.126/src/unix/mod.rs | 7 +------
+ vendor/libc-0.2.127/src/unix/mod.rs | 7 +------
+ vendor/libc-0.2.131/src/unix/mod.rs | 7 +------
+ vendor/libc/src/unix/mod.rs         | 7 +------
+ 4 files changed, 4 insertions(+), 24 deletions(-)
 
-diff --git a/vendor/libc/src/unix/mod.rs b/vendor/libc/src/unix/mod.rs
+diff --git a/vendor/libc-0.2.126/src/unix/mod.rs b/vendor/libc-0.2.126/src/unix/mod.rs
 index ecee44411..00f4b14a0 100644
+--- a/vendor/libc-0.2.126/src/unix/mod.rs
++++ b/vendor/libc-0.2.126/src/unix/mod.rs
+@@ -337,12 +337,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern {}
+     } else if #[cfg(target_env = "musl")] {
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
+-                        cfg(target_feature = "crt-static")))]
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
+-        extern {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         #[link(name = "c")]
+         extern {}
+diff --git a/vendor/libc-0.2.127/src/unix/mod.rs b/vendor/libc-0.2.127/src/unix/mod.rs
+index 1d57f28b2..ad7c9d91d 100644
+--- a/vendor/libc-0.2.127/src/unix/mod.rs
++++ b/vendor/libc-0.2.127/src/unix/mod.rs
+@@ -337,12 +337,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern {}
+     } else if #[cfg(target_env = "musl")] {
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
+-                        cfg(target_feature = "crt-static")))]
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
+-        extern {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         #[link(name = "c")]
+         extern {}
+diff --git a/vendor/libc-0.2.131/src/unix/mod.rs b/vendor/libc-0.2.131/src/unix/mod.rs
+index ecc693e3d..b3cb2ea0f 100644
+--- a/vendor/libc-0.2.131/src/unix/mod.rs
++++ b/vendor/libc-0.2.131/src/unix/mod.rs
+@@ -337,12 +337,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern {}
+     } else if #[cfg(target_env = "musl")] {
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
+-                        cfg(target_feature = "crt-static")))]
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
+-        extern {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         #[link(name = "c")]
+         extern {}
+diff --git a/vendor/libc/src/unix/mod.rs b/vendor/libc/src/unix/mod.rs
+index ecc693e3d..b3cb2ea0f 100644
 --- a/vendor/libc/src/unix/mod.rs
 +++ b/vendor/libc/src/unix/mod.rs
 @@ -337,12 +337,7 @@ cfg_if! {
@@ -29,5 +86,5 @@ index ecee44411..00f4b14a0 100644
          #[link(name = "c")]
          extern {}
 -- 
-2.37.3
+2.38.1
 

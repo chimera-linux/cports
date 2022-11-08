@@ -1,4 +1,4 @@
-From 3a9c2ce6fa44d15560af64a79227a6264ffec694 Mon Sep 17 00:00:00 2001
+From 46e87ee6630b9599dc5b6619a03396dd0aac0ea6 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:38:49 +0100
 Subject: [PATCH 08/11] link stage 2 tools dynamically to libstd
@@ -11,10 +11,10 @@ about unstable ABI
  1 file changed, 2 insertions(+)
 
 diff --git a/src/bootstrap/builder.rs b/src/bootstrap/builder.rs
-index 0ab4824ac..5fccf2e60 100644
+index 14e8ebd68..dd9c0c850 100644
 --- a/src/bootstrap/builder.rs
 +++ b/src/bootstrap/builder.rs
-@@ -2071,6 +2071,8 @@ impl<'a> Builder<'a> {
+@@ -2073,6 +2073,8 @@ impl<'a> Builder<'a> {
          // linking all deps statically into the dylib.
          if matches!(mode, Mode::Std | Mode::Rustc) {
              rustflags.arg("-Cprefer-dynamic");
@@ -24,5 +24,5 @@ index 0ab4824ac..5fccf2e60 100644
  
          // When building incrementally we default to a lower ThinLTO import limit
 -- 
-2.37.3
+2.38.1
 
