@@ -1,3 +1,4 @@
+# update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
 _majver = "3.11"
 pkgver = f"{_majver}.0"

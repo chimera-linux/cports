@@ -1344,10 +1344,19 @@ def _split_static(pkg):
     for f in (pkg.parent.destdir / "usr/lib").rglob("*.a"):
         pkg.take(str(f.relative_to(pkg.parent.destdir)))
 
+# TODO: centralize
+gpyver = "3.11"
+
 def _split_pycache(pkg):
+    pyver = gpyver.replace(".", "")
+
     for f in pkg.parent.destdir.rglob("__pycache__"):
-        if f.is_dir():
-            pkg.take(str(f.relative_to(pkg.parent.destdir)))
+        if not f.is_dir():
+            continue
+        for ff in f.glob(f"*.cpython-{pyver}.*pyc"):
+            pkg.take(str(ff.relative_to(pkg.parent.destdir)))
+        for ff in f.glob("*.py[co]"):
+            pkg.error(f"illegal pycache: {ff.name}")
 
 def _split_dlinks(pkg):
     pkg.take("usr/lib/dinit.d/boot.d", missing_ok = True)
@@ -1457,6 +1466,8 @@ class Subpackage(Package):
                 if instif == name:
                     self.install_if = [fbdep]
                 else:
+                    if instif == "python-pycache":
+                        instif = f"{instif}~{gpyver}"
                     self.install_if = [fbdep, instif]
 
         self.depends = ddeps
