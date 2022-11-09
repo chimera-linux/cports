@@ -36,7 +36,8 @@ makedepends = [
     "linux-headers", "bluez-headers",
 ]
 checkdepends = ["ca-certificates", "iana-etc"]
-depends = ["ca-certificates"]
+depends = [f"python-version-meta={pkgver}-r{pkgrel}", "ca-certificates"]
+install_if = [f"python-version-meta={pkgver}-r{pkgrel}"]
 pkgdesc = "Python programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
@@ -114,3 +115,10 @@ def _devel(self):
         )
 
     return install
+
+@subpackage("python-version-meta")
+def _ver(self):
+    self.pkgdesc = f"{pkgdesc} (version package)"
+    self.build_style = "meta"
+
+    return []
