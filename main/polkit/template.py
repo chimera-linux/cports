@@ -20,6 +20,7 @@ hostmakedepends = [
     "perl", "xsltproc", "docbook-xsl-nons",
 ]
 makedepends = ["elogind-devel", "duktape-devel", "linux-pam-devel"]
+install_if = ["elogind"]
 pkgdesc = "Toolkit for defining and handling authorizations"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/polkit"
