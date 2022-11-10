@@ -3,7 +3,7 @@
 
 type    = scripted
 logfile = /run/dinit-keyboard-setup.log
-command = /usr/lib/console-setup/keyboard-setup.sh
+command = /usr/bin/setupcon -k
 restart = false
 after   = early-filesystems
 after   = early-udevd

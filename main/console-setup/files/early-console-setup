@@ -3,7 +3,7 @@
 
 type    = scripted
 logfile = /run/dinit-console-setup.log
-command = /usr/lib/console-setup/console-setup.sh
+command = /usr/bin/setupcon
 restart = false
 after   = early-udevd
 after   = early-aux-filesystems

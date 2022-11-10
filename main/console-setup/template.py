@@ -30,14 +30,9 @@ def do_install(self):
 
 def post_install(self):
     self.install_license("debian/copyright")
-    # udev rule
-    self.install_file("init/90-console-setup.rules", "usr/lib/udev/rules.d")
     # service setup
     self.install_dir("usr/lib/dinit.d/boot.d")
     for scr in ["console", "keyboard"]:
-        self.install_file(
-            f"init/{scr}-setup.sh", "usr/lib/console-setup", mode = 0o755
-        )
         self.install_file(
             self.files_path / f"early-{scr}-setup", "usr/lib/dinit.d"
         )
