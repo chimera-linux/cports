@@ -3,12 +3,14 @@ pkgver = "3.2.11"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--disable-hwdb", "--enable-manpages", "--disable-introspection"
+    "--enable-manpages", "--disable-introspection"
 ]
 hostmakedepends = ["pkgconf", "perl", "gperf"]
 makedepends = ["libblkid-devel", "libkmod-devel", "linux-headers"]
 checkdepends = ["xz", "perl"]
-triggers = ["/usr/lib/udev/rules.d"]
+triggers = [
+    "/usr/lib/udev/rules.d", "/usr/lib/udev/hwdb.d", "/etc/udev/hwdb.d"
+]
 pkgdesc = "Standalone implementation of systemd-udev"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -39,6 +41,8 @@ def post_install(self):
         self.files_path / "udevd.wrapper", "usr/libexec", mode = 0o755
     )
     self.install_service(self.files_path / "udevd", enable = True)
+    # move the hwdb files
+    self.mv(self.destdir / "etc/udev/hwdb.d", self.destdir / "usr/lib/udev")
 
 @subpackage("eudev-devel")
 def _devel(self):
@@ -47,6 +51,14 @@ def _devel(self):
 @subpackage("eudev-libs")
 def _libs(self):
     return self.default_libs()
+
+@subpackage("eudev-hwdb")
+def _hwids(self):
+    self.pkgdesc = f"{pkgdesc} (hardware identification databases)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "hwdata"]
+    self.options = ["!splitudev"]
+
+    return ["usr/lib/udev/hwdb.d"]
 
 @subpackage("base-udev")
 def _base(self):

@@ -1,5 +1,15 @@
 #!/bin/sh
 
-if [ -S /run/udev/control ]; then
-        udevadm control --reload || :
-fi
+for x in "$@"; do
+    case "$x" in
+        *rules.d*)
+            if [ -S /run/udev/control ]; then
+                    /usr/bin/udevadm control --reload || :
+            fi
+            ;;
+        *hwdb.d*)
+            echo "Updating udev hwdb..."
+            /usr/bin/udevadm hwdb --update || :
+            ;;
+    esac
+done
