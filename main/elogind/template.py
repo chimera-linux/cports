@@ -22,6 +22,7 @@ makedepends = [
     "libseccomp-devel", "linux-pam-devel"
 ]
 checkdepends = ["bash"]
+install_if = [f"elogind-meta={pkgver}-r{pkgrel}"]
 pkgdesc = "Standalone version of logind"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
@@ -50,7 +51,25 @@ def post_install(self):
 def _devel(self):
     return self.default_devel()
 
+@subpackage("elogind-meta")
+def _meta(self):
+    self.pkgdesc = f"{pkgdesc} (recommends package)"
+    self.build_style = "meta"
+    return []
+
 @subpackage("libelogind")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (library)"
     return self.default_libs()
+
+@subpackage("pam_elogind")
+def _pam(self):
+    self.pkgdesc = f"{pkgdesc} (PAM)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "linux-pam"]
+    return [
+        "etc/pam.d",
+        "usr/lib/security",
+        "usr/share/factory",
+        "usr/share/man/man8/pam_elogind.8",
+    ]
