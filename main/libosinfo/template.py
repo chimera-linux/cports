@@ -14,7 +14,7 @@ hostmakedepends = [
 makedepends = [
     "libxslt-devel", "libxml2-devel", "libglib-devel", "libsoup-devel",
 ]
-depends = ["hwids", "osinfo-db", "gmake"]
+depends = ["hwdata", "osinfo-db", "gmake"]
 checkdepends = list(depends)
 pkgdesc = "GObject API for managing information about operating systems"
 maintainer = "q66 <q66@chimera-linux.org>"
