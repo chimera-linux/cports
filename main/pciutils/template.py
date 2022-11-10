@@ -14,7 +14,7 @@ make_install_args = [
 ]
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["zlib-devel", "libkmod-devel", "linux-headers"]
-depends = ["hwids-pci"]
+depends = ["hwdata-pci"]
 pkgdesc = "PCI bus utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -39,7 +39,7 @@ def do_install(self):
     self.install_file("libpci_a", "usr/lib", name = "libpci.a")
     # fix permissions
     (self.destdir / f"usr/lib/libpci.so.{pkgver}").chmod(0o755)
-    # provided by hwids-pci
+    # provided by hwdata-pci
     self.rm(self.destdir / "usr/share/hwdata", recursive = True)
     # we don't want to touch pci.ids
     self.rm(self.destdir / "usr/bin/update-pciids")
