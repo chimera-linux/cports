@@ -21,7 +21,7 @@ makedepends = [
 depends = ["hicolor-icon-theme"]
 checkdepends = [
     "elogind", "eudev", "libnotify", "python-dbusmock", "python-gobject",
-    "python-pycodestyle", "hwids"
+    "python-pycodestyle", "hwdata"
 ]
 pkgdesc = "GNOME settings daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
