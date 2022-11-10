@@ -24,7 +24,7 @@ makedepends = [
 ]
 checkdepends = ["xkeyboard-config"]
 # check if this needs to be updated when updating
-depends = ["xserver-xorg-protocol>=20180227", "xkeyboard-config", "elogind"]
+depends = ["xserver-xorg-protocol>=20180227", "xkeyboard-config", "elogind-meta"]
 provides = [
     "xserver-abi-extension=10.0",
     "xserver-abi-input=24.4",
