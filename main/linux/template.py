@@ -1,6 +1,6 @@
 # update linux-modules-zfs when bumping
 pkgname = "linux"
-pkgver = "6.0.2"
+pkgver = "6.0.8"
 pkgrel = 0
 make_dir = "build"
 # necessary for efistub
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "a13c26388cacccb684cd9f51109596a280c8186b7e95174d31ee7c5718e95c9d"
+sha256 = "0de4f83996951c6faf9b2225db4f645882c47b1a09198190f97bd46e5f5fa257"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
