@@ -1,14 +1,14 @@
-commit 0065c21018f1f62997c37ddbad686fa2c1ad110b
+commit f8a34c75b770a2e5b4f5cae7122082130f7e14bd
 Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Wed Jan 26 06:13:06 2022 +0100
+Date:   Sat Nov 12 19:17:46 2022 +0100
 
     fix up pam for chimera
 
 diff --git a/data/pam-arch/gdm-launch-environment.pam b/data/pam-arch/gdm-launch-environment.pam
-index 20d1810..1b95f96 100644
+index 20d1810..2dcec7b 100644
 --- a/data/pam-arch/gdm-launch-environment.pam
 +++ b/data/pam-arch/gdm-launch-environment.pam
-@@ -1,17 +1,17 @@
+@@ -1,17 +1,18 @@
  #%PAM-1.0
  
 -auth       required                    pam_succeed_if.so    audit quiet_success user in gdm:gnome-initial-setup
@@ -28,5 +28,6 @@ index 20d1810..1b95f96 100644
 +session    required                    pam_succeed_if.so    audit quiet_success user = _gdm
  session    optional                    pam_permit.so
 --session   optional                    pam_systemd.so
++-session   optional                    pam_dinit_userservd.so
 +-session   optional                    pam_elogind.so
  session    required                    pam_env.so           user_readenv=1
