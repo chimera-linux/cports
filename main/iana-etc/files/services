@@ -10005,6 +10005,7 @@ espeech-rtp      8417/tcp
 espeech-rtp      8417/udp
 aritts           8423/tcp
 pgbackrest       8432/tcp
+aws-as2          8433/udp
 cybro-a-bus      8442/tcp
 cybro-a-bus      8442/udp
 pcsync-https     8443/tcp

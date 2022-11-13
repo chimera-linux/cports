@@ -1,5 +1,5 @@
 pkgname = "iana-etc"
-pkgver = "20221007"
+pkgver = "20221107"
 pkgrel = 0
 pkgdesc = "Unix /etc/services and /etc/protocols files"
 maintainer = "q66 <q66@chimera-linux.org>"
