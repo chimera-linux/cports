@@ -1,5 +1,5 @@
 pkgname = "webkitgtk"
-pkgver = "2.38.0"
+pkgver = "2.38.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -11,6 +11,7 @@ configure_args = [
     "-DUSE_WOFF2=ON",
     "-DUSE_WPE_RENDERER=ON",
     # -DENABLE_*
+    "-DENABLE_JOURNALD_LOG=OFF",
     "-DENABLE_DOCUMENTATION=OFF",
     "-DENABLE_SAMPLING_PROFILER=OFF", # unavailable on musl
     "-DENABLE_MINIBROWSER=ON",
@@ -34,7 +35,7 @@ makedepends = [
     "gstreamer-devel", "gst-plugins-base-devel", "gst-plugins-bad-devel",
     "libxslt-devel", "icu-devel", "enchant-devel", "libseccomp-devel",
     "libxt-devel", "mesa-devel", "libxkbcommon-devel", "wayland-devel",
-    "elogind-devel", "wayland-protocols",
+    "wayland-protocols",
 ]
 depends = ["bubblewrap", "xdg-dbus-proxy"]
 pkgdesc = "GTK port of the WebKit browser engine"
@@ -42,7 +43,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f9ce6375a3b6e1329b0b609f46921e2627dc7ad6224b37b967ab2ea643bc0fbd"
+sha256 = "f3eb82899651f583b4d99cacd16af784a1a7710fce9e7b6807bd6ccde909fe3e"
 debug_level = 1 # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
