@@ -1,11 +1,11 @@
 pkgname = "linux-rpi"
-pkgver = "5.15.72"
+pkgver = "5.15.78"
 pkgrel = 0
 archs = ["aarch64"]
 make_dir = "build"
 # necessary for efistub
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
-_commit = "93fdf5e63517115bafb3fb3f32bdfbf56ce9202d"
+_commit = "46937443a928d407705747a54f6533b013ddbc4d"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 pkgdesc = "Linux kernel for Raspberry Pi 3 and 4 (5.15.x)"
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "cf1ac9af99d16984c8f9000f96fe8e99201182c74a120e1424682c5fd13f5912"
+sha256 = "26dd8cef9f082689b8c8ce25ee4e788d8b616044d3b9776518faf8c4b998a265"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
