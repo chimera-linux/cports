@@ -1,6 +1,6 @@
 # note: some libs are unversioned (rebuild shaderc on updates)
 pkgname = "glslang"
-pkgver = "11.11.0"
+pkgver = "11.12.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/KhronosGroup/glslang"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "26c216c3062512c018cbdd752224b8dad703b7e5bb90bf338ba2dbb5d4f11438"
+sha256 = "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f"
 # missing checkdepends
 options = ["!check"]
 
@@ -19,17 +19,8 @@ options = ["!check"]
 def _progs(self):
     return self.default_progs()
 
-@subpackage("glslang-devel-static")
-def _static(self):
-    self.depends = []
-    return ["usr/lib/*.a"]
-
 @subpackage("glslang-devel")
 def _devel(self):
-    self.depends = [
-        f"{pkgname}={pkgver}-r{pkgrel}",
-        f"{pkgname}-devel-static={pkgver}-r{pkgrel}",
-    ]
     return [
         "usr/include",
         "usr/lib/libglslang.so",
