@@ -1,5 +1,5 @@
 pkgname = "gsed"
-pkgver = "4.8"
+pkgver = "4.9"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -17,6 +17,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/sed"
 source = f"$(GNU_SITE)/sed/sed-{pkgver}.tar.xz"
-sha256 = "f79b0cfea71b37a8eeec8490db6c5f7ae7719c35587f21edb0617f370eeff633"
+sha256 = "6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181"
 # mostly only gnulib tests run as they are
 options = ["!check"]
