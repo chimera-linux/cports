@@ -1,5 +1,5 @@
 pkgname = "libical"
-pkgver = "3.0.15"
+pkgver = "3.0.16"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,9 +19,15 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-only"
 url = "https://libical.github.io/libical"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "019085ba99936f25546d86cb3e34852e5fe2b5a7d5f1cb4423a0cc42e399f629"
+sha256 = "b44705dd71ca4538c86fb16248483ab4b48978524fb1da5097bd76aa2e0f0c33"
 options = ["!cross"]
 
 @subpackage("libical-devel")
 def _devel(self):
     return self.default_devel()
+
+def do_check(self):
+    self.do(
+        "ctest", "-E", "(icalrecurtest|icalrecurtest_r)", wrksrc = "build",
+        env = {"CTEST_OUTPUT_ON_FAILURE": "TRUE"}
+    )
