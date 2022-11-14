@@ -1,5 +1,5 @@
 pkgname = "firmware-linux"
-pkgver = "20221012"
+pkgver = "20221109"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
@@ -8,8 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "dacb1ba79754c1804feb862c4a012a7a33d419f92d4a80e4b5cafee9301a732a"
-options = ["!strip", "foreignelf"]
+sha256 = "c23299426d190986ba6eb52a3b22c4e4383b3a055903ff3967fb17afad3edb9b"
 
 _arch = self.profile().arch
 _arch_x86 = (_arch == "x86_64")
