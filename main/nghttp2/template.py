@@ -1,5 +1,5 @@
 pkgname = "nghttp2"
-pkgver = "1.50.0"
+pkgver = "1.51.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-python-bindings"]
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nghttp2.org"
 source = f"https://github.com/tatsuhiro-t/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "af24007e34c18c782393a1dc3685f8fd5b50283e90a9191d25488eb50aa2c825"
+sha256 = "66aa76d97c143f42295405a31413e5e7d157968dad9f957bb4b015b598882e6b"
 
 def post_install(self):
     self.install_license("COPYING")
