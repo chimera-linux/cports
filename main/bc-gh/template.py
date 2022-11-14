@@ -1,5 +1,5 @@
 pkgname = "bc-gh"
-pkgver = "6.0.4"
+pkgver = "6.1.1"
 pkgrel = 0
 build_style = "makefile"
 make_check_target = "test"
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://git.yzena.com/gavin/bc"
 source = f"https://github.com/gavinhoward/bc/releases/download/{pkgver}/bc-{pkgver}.tar.xz"
-sha256 = "d1d8bd3c2bb4ec0f00aed9c14f2f1a1ed32343f3235bac1822cd18971ad130d3"
+sha256 = "b6de9e2fa4fcb1902c1686760dd90217543128f0298d418951ab1e9a03964097"
 
 def do_configure(self):
     self.do(
