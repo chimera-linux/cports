@@ -1,12 +1,12 @@
-From 2075225ea5409445a9cd86e6eba9902cfc1604a2 Mon Sep 17 00:00:00 2001
+From 35823202d7727718e1ea41fcaa52274143d48195 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sat, 9 Apr 2022 01:27:23 +0200
+Date: Mon, 14 Nov 2022 02:47:47 +0100
 Subject: [PATCH] tests portability
 
 ---
- Makefile.in       |  3 +-
- tests/test-run.sh | 98 ++++++++++++++++++++++-------------------------
- 2 files changed, 46 insertions(+), 55 deletions(-)
+ Makefile.in       |   3 +-
+ tests/test-run.sh | 114 +++++++++++++++++++---------------------------
+ 2 files changed, 48 insertions(+), 69 deletions(-)
 
 diff --git a/Makefile.in b/Makefile.in
 index dbe0e0e..4ab8738 100644
@@ -30,10 +30,10 @@ index dbe0e0e..4ab8738 100644
  	tests/test-specifying-pidns.sh \
  	$(NULL)
 diff --git a/tests/test-run.sh b/tests/test-run.sh
-index f25a9bc..00812da 100755
+index 3e5e9e6..27c0563 100755
 --- a/tests/test-run.sh
 +++ b/tests/test-run.sh
-@@ -77,15 +77,6 @@ assert_file_has_content json-status.json '"child-pid": [0-9]'
+@@ -84,15 +84,6 @@ assert_file_has_content json-status.json '"child-pid": [0-9]'
  assert_file_has_content_literal json-status.json '"exit-code": 42'
  echo "ok info and json-status fd"
  
@@ -48,8 +48,8 @@ index f25a9bc..00812da 100755
 -
  echo "ok namespace id info in info and json-status fd"
  
- if ! which strace >/dev/null 2>/dev/null || ! strace -h | grep -v -e default | grep -e fault >/dev/null; then
-@@ -113,8 +104,9 @@ else
+ if ! command -v strace >/dev/null || ! strace -h | grep -v -e default | grep -e fault >/dev/null; then
+@@ -120,8 +111,9 @@ else
      assert_file_has_content recursive_proc.txt "hello"
      echo "ok - can mount /proc recursively"
  
@@ -61,7 +61,7 @@ index f25a9bc..00812da 100755
      echo "ok - can pivot to new rootfs recursively"
  fi
  
-@@ -185,25 +177,25 @@ for die_with_parent_argv in "--die-with-parent" "--die-with-parent --unshare-pid
+@@ -192,25 +184,25 @@ for die_with_parent_argv in "--die-with-parent" "--die-with-parent --unshare-pid
      # We have to loop here, because bwrap doesn't wait for the lock if
      # another process is holding it. If we're unlucky, lockf-n.py will
      # be holding it.
@@ -101,7 +101,7 @@ index f25a9bc..00812da 100755
      echo "ok die with parent ${die_with_parent_argv}"
  done
  
-@@ -287,9 +279,9 @@ $RUN \
+@@ -294,9 +286,9 @@ $RUN \
      --bind "$(pwd -P)/some-dir" "$(pwd -P)/new-dir-mountpoint" \
      --bind "$(pwd -P)/some-file" "$(pwd -P)/new-file-mountpoint" \
      true
@@ -113,7 +113,7 @@ index f25a9bc..00812da 100755
  assert_file_has_content new-file-permissions 444
  echo "ok - Files and directories created as mount points have expected permissions"
  
-@@ -315,15 +307,15 @@ $RUN \
+@@ -322,15 +314,15 @@ $RUN \
      --chmod 1755 "$(pwd -P)/dir-chmod" \
      --dir "$(pwd -P)/new-dir-default-perms" \
      true
@@ -134,7 +134,7 @@ index f25a9bc..00812da 100755
  assert_file_has_content dir-permissions '^1755$'
  echo "ok - Directories created explicitly have expected permissions"
  
-@@ -355,31 +347,31 @@ $RUN \
+@@ -362,31 +354,31 @@ $RUN \
      --perms 0604 --dir "$(pwd -P)"/parent-of-0604/dir \
      --perms 0000 --dir "$(pwd -P)"/parent-of-0000/dir \
      true
@@ -179,7 +179,7 @@ index f25a9bc..00812da 100755
  assert_file_has_content dir-permissions '^700$'
  chmod -R 0700 parent*
  rm -fr parent*
-@@ -390,37 +382,37 @@ $RUN \
+@@ -397,60 +389,48 @@ $RUN \
      cat /proc/self/mountinfo >&2
  $RUN \
      --perms 01777 --tmpfs "$(pwd -P)" \
@@ -192,6 +192,31 @@ index f25a9bc..00812da 100755
 +    stat -f '%OLp' "$(pwd -P)" > dir-permissions
  assert_file_has_content dir-permissions '^755$'
  echo "ok - tmpfs has expected permissions"
+ 
+ # 1048576 = 1 MiB
+-$RUN \
+-    --size 1048576 --tmpfs "$(pwd -P)" \
+-    df --output=size --block-size=1K "$(pwd -P)" > dir-size
+-assert_file_has_content dir-size '^ *1024$'
+ $RUN \
+     --size 1048576 --perms 01777 --tmpfs "$(pwd -P)" \
+-    stat -c '%a' "$(pwd -P)" > dir-permissions
++    stat -f '%OMp%OLp' "$(pwd -P)" > dir-permissions
+ assert_file_has_content dir-permissions '^1777$'
+-$RUN \
+-    --size 1048576 --perms 01777 --tmpfs "$(pwd -P)" \
+-    df --output=size --block-size=1K "$(pwd -P)" > dir-size
+-assert_file_has_content dir-size '^ *1024$'
+ $RUN \
+     --perms 01777 --size 1048576 --tmpfs "$(pwd -P)" \
+-    stat -c '%a' "$(pwd -P)" > dir-permissions
++    stat -f '%OMp%OLp' "$(pwd -P)" > dir-permissions
+ assert_file_has_content dir-permissions '^1777$'
+-$RUN \
+-    --perms 01777 --size 1048576 --tmpfs "$(pwd -P)" \
+-    df --output=size --block-size=1K "$(pwd -P)" > dir-size
+-assert_file_has_content dir-size '^ *1024$'
+ echo "ok - tmpfs has expected size"
  
  $RUN \
      --file 0 /tmp/file \
@@ -226,5 +251,5 @@ index f25a9bc..00812da 100755
  echo "ok - files have expected permissions"
  
 -- 
-2.35.1
+2.38.1
 
