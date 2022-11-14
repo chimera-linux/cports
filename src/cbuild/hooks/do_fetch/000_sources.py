@@ -82,7 +82,10 @@ def invoke(pkg):
         if not dfile.is_file():
             pkg.log(f"fetching source '{fname}'...")
             try:
-                fname = request.urlretrieve(url, str(dfile))[0]
+                opener = request.URLopener()
+                # some servers block the default user agent, e.g. netfilter
+                opener.addheader("User-Agent", "cbuild-fetch/4.20.69")
+                fname =  opener.retrieve(url, str(dfile))[0]
                 fname = os.path.basename(fname)
             except Exception as e:
                 pkg.log_warn(f"error fetching '{fname}': {e}")
