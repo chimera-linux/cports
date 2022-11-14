@@ -1,5 +1,5 @@
 pkgname = "mtools"
-pkgver = "4.0.41"
+pkgver = "4.0.42"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["texinfo"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/mtools"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "2542152264fb3eff7ed70662abf4f4eef8133bc37d0b7a686c240df2b5f80a13"
+sha256 = "64bfdfde4d82af6b22f3c1c72c3e231cbb618f4c2309cc46f54d16d5502ccf15"
 
 def post_install(self):
     self.install_file("mtools.conf", "etc")
