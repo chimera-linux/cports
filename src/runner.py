@@ -820,6 +820,40 @@ def _graph_prepare():
 
     return tg
 
+def do_prune_sources(tgt):
+    from cbuild.core import chroot, logger, template, errors, paths
+    import shutil
+
+    logger.get().out(f"Collecting templates...")
+    tmpls = _collect_tmpls(None)
+    exist = set()
+
+    def _read_pkg(pkgn):
+        try:
+            tp = template.read_pkg(
+                pkgn, chroot.host_cpu(), True,
+                False, (1, 1, 1), False, False, None, target = "lint",
+                allow_broken = True, ignore_errors = True
+            )
+            exist.add(f"{tp.pkgname}-{tp.pkgver}")
+        except errors.PackageException:
+            return None
+
+    logger.get().out(f"Reading templates...")
+    for tmpln in tmpls:
+        _read_pkg(tmpln)
+
+    logger.get().out(f"Pruning sources...")
+    for f in paths.sources().iterdir():
+        if f.name in exist:
+            continue
+        logger.get().out(f"Prune sources: {f.name}")
+        if not opt_dryrun:
+            if f.is_dir() and not f.is_symlink():
+                shutil.rmtree(f)
+            else:
+                f.unlink()
+
 def do_cycle_check(tgt):
     import graphlib
 
@@ -1229,6 +1263,7 @@ def fire():
             case "remove-autodeps": do_remove_autodeps(cmd)
             case "prune-obsolete": do_prune_obsolete(cmd)
             case "prune-removed": do_prune_removed(cmd)
+            case "prune-sources": do_prune_sources(cmd)
             case "index": do_index(cmd)
             case "zap": do_zap(cmd)
             case "lint": do_lint(cmd)
