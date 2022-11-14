@@ -1,5 +1,5 @@
 pkgname = "libxshmfence"
-pkgver = "1.3"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-shared-memory-dir=/dev/shm"]
@@ -9,8 +9,8 @@ pkgdesc = "X SyncFence synchronization primitive"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libxshmfence-{pkgver}.tar.bz2"
-sha256 = "b884300d26a14961a076fbebc762a39831cb75f92bed5ccf9836345b459220c7"
+source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.gz"
+sha256 = "033fdcb4f5efa95b6ca3979e5ba190948e73c50cd9b0ea0a6a45e934c93c3969"
 
 def post_install(self):
     self.install_license("COPYING")
