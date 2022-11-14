@@ -1,5 +1,5 @@
 pkgname = "libspiro"
-pkgver = "20220722"
+pkgver = "20221101"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
