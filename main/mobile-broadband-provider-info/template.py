@@ -1,5 +1,5 @@
 pkgname = "mobile-broadband-provider-info"
-pkgver = "20220725"
+pkgver = "20221107"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "801a1862b9908177275418c1fd6313d6c9e7c4b55ec99ea0552577d5316f1a38"
+sha256 = "09adf18f60300c6e402102c40d0c51d5b777e8e733b9d395abb2508a42f2dee9"
 # doesn't like our shell
 options = ["!check"]
 
