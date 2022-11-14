@@ -1,5 +1,5 @@
 pkgname = "fontconfig"
-pkgver = "2.14.0"
+pkgver = "2.14.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.fontconfig.org"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/release/{pkgname}-{pkgver}.tar.gz"
-sha256 = "b8f607d556e8257da2f3616b4d704be30fd73bd71e367355ca78963f9a7f0434"
+sha256 = "ae480e9ca34382790312ff062c625ec70df94d6d9a9366e2b2b3d525f7f90387"
 
 def post_install(self):
     self.install_license("COPYING")
