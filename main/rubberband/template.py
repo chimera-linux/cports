@@ -1,5 +1,5 @@
 pkgname = "rubberband"
-pkgver = "3.1.0"
+pkgver = "3.1.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://breakfastquay.com/rubberband"
 source = f"https://breakfastquay.com/files/releases/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "b95a76da5cdb3966770c60115ecd838f84061120f884c3bfdc904f75931ec9aa"
+sha256 = "a442551fe7d26fb4a54dd1c34178733dc9c76ac9ce051a02325f5cb35d154381"
 
 @subpackage("rubberband-progs")
 def _progs(self):
