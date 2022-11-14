@@ -1,5 +1,5 @@
 pkgname = "yelp-tools"
-pkgver = "42.0"
+pkgver = "42.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -13,4 +13,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/yelp-tools"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "2cd43063ffa7262df15dd8d379aa3ea3999d42661f07563f4802daa1149f7df4"
+sha256 = "3e496a4020d4145b99fd508a25fa09336a503a4e8900028421e72c6a4b11f905"
