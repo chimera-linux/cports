@@ -1,5 +1,5 @@
 pkgname = "libde265"
-pkgver = "1.0.8"
+pkgver = "1.0.9"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-option-checking"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "c5ab61185f283f46388c700c43dc08606b0e260cd53f06b967ec0ad7a809ff11"
+sha256 = "153554f407718a75f1e0ae197d35b43147ce282118a54f894554dbe27c32163d"
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
