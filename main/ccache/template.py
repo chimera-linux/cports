@@ -1,5 +1,5 @@
 pkgname = "ccache"
-pkgver = "4.6.3"
+pkgver = "4.7.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTING=OFF", "-DREDIS_STORAGE_BACKEND=OFF"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://ccache.samba.org"
 source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "1e3a251bb112632553b8255a78661fe526c3a16598496d51128c32b218fd8b22"
+sha256 = "65c53e8fd85956238670278854c02574094e61aecb09c4bf8a0d42657f8f0a6d"
 # test suite needs bash
 options = ["!check"]
 
