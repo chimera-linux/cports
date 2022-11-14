@@ -1,5 +1,5 @@
 pkgname = "tzutils"
-pkgver = "2022e"
+pkgver = "2022f"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["TZDIR=/usr/share/zoneinfo", "KSHELL=/bin/sh"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none AND BSD-3-Clause"
 url = "http://www.iana.org/time-zones"
 source = f"https://github.com/eggert/tz/archive/{pkgver}.tar.gz"
-sha256 = "d2f6c92f4a125a5e57008ad58964a1955b99871c7e82817b3031f0b9f7e02d3d"
+sha256 = "ed7329cceb32fcb7b80ebd734b593bffdcb422fa084606d4c60ff36480b38c40"
 # needs network access
 options = ["!check"]
 
