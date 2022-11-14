@@ -8,6 +8,7 @@ configure_args = [
     "-Dgtk=disabled",
     "-Dopenmp=disabled",
     "-Diwmmxt=disabled",
+    "-Da64-neon=disabled", # added with 0.42.x, fails to build on clang
 ]
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = ["linux-headers", "libpng-devel"]
