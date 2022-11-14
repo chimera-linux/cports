@@ -1,5 +1,5 @@
 pkgname = "xlsclients"
-pkgver = "1.1.4"
+pkgver = "1.1.5"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "X client listing utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "773f2af49c7ea2c44fba4213bee64325875c1b3c9bc4bbcd8dac9261751809c1"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "225d75e4c0b0929f16f974e20931ab85204b40098d92a5479b0b9379120637e5"
 
 def post_install(self):
     self.install_license("COPYING")
