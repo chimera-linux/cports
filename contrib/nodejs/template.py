@@ -1,5 +1,5 @@
 pkgname = "nodejs"
-pkgver = "16.17.1"
+pkgver = "18.12.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -22,16 +22,21 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
-sha256 = "e423985f6019b2026f9a191adb56a96ae83ecd56cdf839cf94aa980168b7a90f"
+sha256 = "ba8174dda00d5b90943f37c6a180a1d37c861d91e04a4cb38dc1c0c74981c186"
 debug_level = 1 # allow LTO build to not run out of mem
 options = ["!cross"]
 
 def post_extract(self):
+    self.mv("deps/openssl/nodejs-openssl.cnf", ".")
+
     for f in [
         "deps/brotli", "deps/cares", "deps/openssl", "deps/zlib",
         "deps/v8/third_party/jinja2", "tools/inspector_protocol/jinja2",
     ]:
         self.rm(f, recursive = True)
+
+    self.mkdir("deps/openssl")
+    self.mv("nodejs-openssl.cnf", "deps/openssl")
 
 def post_install(self):
     self.install_license("LICENSE")

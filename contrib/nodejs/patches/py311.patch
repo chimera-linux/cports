@@ -1,0 +1,19 @@
+commit 665f28910f8a2f44fcc67619c130366af2e1f604
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Mon Nov 14 03:28:07 2022 +0100
+
+    accept python 3.11
+
+diff --git a/configure b/configure
+index 6ef2da2e..c83984bd 100755
+--- a/configure
++++ b/configure
+@@ -22,7 +22,7 @@ except ImportError:
+   from distutils.spawn import find_executable as which
+ 
+ print('Node.js configure: Found Python {}.{}.{}...'.format(*sys.version_info))
+-acceptable_pythons = ((3, 10), (3, 9), (3, 8), (3, 7), (3, 6))
++acceptable_pythons = ((3, 11), (3, 10), (3, 9), (3, 8), (3, 7), (3, 6))
+ if sys.version_info[:2] in acceptable_pythons:
+   import configure
+ else:
