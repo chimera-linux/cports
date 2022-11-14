@@ -1,20 +1,20 @@
 pkgname = "man-pages"
-pkgver = "5.13"
+pkgver = "6.01"
 pkgrel = 0
 make_cmd = "gmake"
-hostmakedepends = ["gmake"]
+hostmakedepends = ["gmake", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
 source = f"$(KERNEL_SITE)/docs/man-pages/{pkgname}-{pkgver}.tar.xz"
-sha256 = "614dae3efe7dfd480986763a2a2a8179215032a5a4526c0be5e899a25f096b8b"
+sha256 = "8be5177b2788c480a984517947d602ffaa64edeaed83edf4bd04f35163cb5c0b"
 options = ["!autosplit"]
 
 def do_install(self):
     from cbuild.util import make
 
-    make.Make(self).invoke("all", [
+    make.Make(self).invoke("install", [
         "VERBOSE=1", f"prefix={self.chroot_destdir}/usr"
     ])
 
