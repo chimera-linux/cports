@@ -1,31 +1,31 @@
-commit 173e08fd2eccf3bb4be940a8123d60a161a924b3
+commit 3bf24ff8720907d127170d4f603a296703ea22af
 Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Sat Apr 9 00:32:53 2022 +0200
+Date:   Mon Nov 14 21:48:15 2022 +0100
 
     use libedit in place of readline
 
 diff --git a/meson.build b/meson.build
-index fb15702..06fcf08 100644
+index e55540f..6c2b35a 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -259,11 +259,7 @@ cdata.set('HAVE_DBUS', dbus_dep.found())
+@@ -260,11 +260,7 @@ cdata.set('HAVE_DBUS', dbus_dep.found())
  sdl_dep = dependency('sdl2', required : get_option('sdl2'))
  summary({'SDL2 (video examples)': sdl_dep.found()}, bool_yn: true, section: 'Misc dependencies')
  drm_dep = dependency('libdrm', required : false)
--readline_dep = dependency('readline', required : false)
+-readline_dep = dependency('readline', required : get_option('readline'))
 -
 -if not readline_dep.found()
--  readline_dep = cc.find_library('readline', required: false)
+-  readline_dep = cc.find_library('readline', required : get_option('readline'))
 -endif
 +readline_dep = cc.find_library('edit')
  
  summary({'readline (for pw-cli)': readline_dep.found()}, bool_yn: true, section: 'Misc dependencies')
- ncurses_dep = dependency('ncursesw', required : false)
+ cdata.set('HAVE_READLINE', readline_dep.found())
 diff --git a/src/tools/pw-cli.c b/src/tools/pw-cli.c
-index d19e66b..cf3d2e3 100644
+index bb5ab99..c5f4dd8 100644
 --- a/src/tools/pw-cli.c
 +++ b/src/tools/pw-cli.c
-@@ -33,8 +33,7 @@
+@@ -36,8 +36,7 @@
  #include <getopt.h>
  #include <fnmatch.h>
  #ifdef HAVE_READLINE
