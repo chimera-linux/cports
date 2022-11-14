@@ -1,5 +1,5 @@
 pkgname = "osinfo-db"
-pkgver = "20220830"
+pkgver = "20221018"
 pkgrel = 0
 hostmakedepends = ["osinfo-db-tools"]
 pkgdesc = "Osinfo database of information about operating systems"
@@ -7,7 +7,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://libosinfo.org"
 source = (f"https://releases.pagure.org/libosinfo/{pkgname}-{pkgver}.tar.xz", False)
-sha256 = "8111643d90deab838db7f213f154bef2e057350a9c834245ee01dd64433baafb"
+sha256 = "96736156d40fc8bcaadd4e843fe4ac8189818c06794f3171e9ce2ec21abab886"
 options = ["!cross"]
 
 def do_install(self):
