@@ -1,5 +1,5 @@
 pkgname = "libpciaccess"
-pkgver = "0.16"
+pkgver = "0.17"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -7,8 +7,8 @@ pkgdesc = "X11 PCI access library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "214c9d0d884fdd7375ec8da8dcb91a8d3169f263294c9a90c575bf1938b9f489"
+source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.gz"
+sha256 = "bf6985a77d2ecb00e2c79da3edfb26b909178ffca3f2e9d14ed0620259ab733b"
 
 def post_install(self):
     self.install_license("COPYING")
