@@ -1,5 +1,5 @@
 pkgname = "zlib"
-pkgver = "1.2.12"
+pkgver = "1.2.13"
 pkgrel = 0
 build_style = "configure"
 hostmakedepends = ["pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "http://www.zlib.net"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "91844808532e5ce316b3c010929493c0244f3d37593afd6de04f71821d5136d9"
+sha256 = "b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 options = ["bootstrap"]
 
