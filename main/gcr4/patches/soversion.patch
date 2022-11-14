@@ -20,7 +20,7 @@ index ad41582..403ce9b 100644
 @@ -19,7 +19,7 @@ gcr_micro_version = gcr_version_array[2].to_int()
  
  gck_api_version = '2'
- gck_version = '1.92.0'
+ gck_version = '2.0.0'
 -gck_soversion = '0.0.0'
 +gck_soversion = '0'
  gck_version_array = gck_version.split('.')
