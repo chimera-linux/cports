@@ -1,5 +1,5 @@
 pkgname = "strace"
-pkgver = "5.19"
+pkgver = "6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -22,6 +22,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://strace.io"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "aa3dc1c8e60e4f6ff3d396514aa247f3c7bf719d8a8dc4dd4fa793be786beca3"
+sha256 = "92d720a666855e9f1c6a11512fd6e99674a82bbfe1442557815f2ce8e1293338"
 # something's weird and it gets stuck
 options = ["!check"]
