@@ -1,5 +1,5 @@
 pkgname = "libxpresent"
-pkgver = "1.0.0"
+pkgver = "1.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "XPresent extension library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXpresent-{pkgver}.tar.bz2"
-sha256 = "c11ae015141a9afbe10f4f2b8ee00b11adca6373dc1b9808d7c6c138b2da7b8a"
+source = f"$(XORG_SITE)/lib/libXpresent-{pkgver}.tar.gz"
+sha256 = "8ebf8567a8f6afe5a64275a2ecfd4c84e957970c27299d964350f60be9f3541d"
 
 def post_install(self):
     self.install_license("COPYING")
