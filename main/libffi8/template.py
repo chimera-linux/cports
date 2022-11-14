@@ -1,5 +1,5 @@
 pkgname = "libffi8"
-pkgver = "3.4.3"
+pkgver = "3.4.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{pkgver}.tar.gz"
-sha256 = "4416dd92b6ae8fcb5b10421e711c4d3cb31203d77521a77d85d0102311e6c3b8"
+sha256 = "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
 # loop: elftoolchain -> libarchive -> zstd -> meson -> python ->
 # libffi -> dejagnu -> expect -> libtool -> libarchive
 options = ["!check"]
