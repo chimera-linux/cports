@@ -1,5 +1,5 @@
 pkgname = "gtksourceview4"
-pkgver = "4.8.3"
+pkgver = "4.8.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GtkSourceView"
 source = f"$(GNOME_SITE)/gtksourceview/{pkgver[:-2]}/gtksourceview-{pkgver}.tar.xz"
-sha256 = "c30019506320ca2474d834cced1e2217ea533e00eb2a3f4eb7879007940ec682"
+sha256 = "7ec9d18fb283d1f84a3a3eff3b7a72b09a10c9c006597b3fbabbb5958420a87d"
 # needs graphical environment
 options = ["!check", "!cross"]
 
