@@ -1,5 +1,5 @@
 pkgname = "lvm2"
-pkgver = "2.03.16"
+pkgver = "2.03.17"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -21,6 +21,7 @@ configure_args = [
     "--with-default-locking-dir=/run/lock/lvm",
 ]
 make_cmd = "gmake"
+make_dir = "."
 hostmakedepends = ["gmake", "gsed", "pkgconf", "bash"]
 makedepends = [
     "eudev-devel-static", "libblkid-devel-static",
@@ -36,7 +37,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
 source = f"https://mirrors.kernel.org/sourceware/{pkgname}/releases/LVM2.{pkgver}.tgz"
-sha256 = "e661ece15b5d88d8abe39a4c1e1db2f43e1896f019948bb98b0e15d777680786"
+sha256 = "7286cfa9651828c589389509546333b8da965dfa84a1a4c8ab3e681a47fabae7"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]
 # otherwise we're in for a world of pain

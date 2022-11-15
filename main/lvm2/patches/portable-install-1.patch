@@ -1,29 +1,26 @@
-commit 745a8eb192196e9d819603ddfb51ac6a29db69a0
+commit 071135865bc1c84ec3f87493d30d31e70e798d82
 Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Fri Nov 26 03:41:12 2021 +0100
+Date:   Tue Nov 15 01:22:23 2022 +0100
 
     portable install(1) use
 
 diff --git a/conf/Makefile.in b/conf/Makefile.in
-index ee3b032..7d538f5 100644
+index ee3b032..6954507 100644
 --- a/conf/Makefile.in
 +++ b/conf/Makefile.in
-@@ -38,14 +38,16 @@ generate:
- 
+@@ -39,13 +39,15 @@ generate:
  install_conf: $(CONFSRC)
  	@if [ ! -e $(confdir)/$(CONFDEST) ]; then \
--		echo "$(INSTALL_WDATA) -D $< $(confdir)/$(CONFDEST)"; \
+ 		echo "$(INSTALL_WDATA) -D $< $(confdir)/$(CONFDEST)"; \
 -		$(INSTALL_WDATA) -D $< $(confdir)/$(CONFDEST); \
-+		echo "$(INSTALL_WDATA) $< $(confdir)/$(CONFDEST)"; \
 +		$(INSTALL_DIR) $(confdir); \
 +		$(INSTALL_WDATA) $< $(confdir)/$(CONFDEST); \
  	fi
  
  install_localconf: $(CONFLOCAL)
  	@if [ ! -e $(confdir)/$(CONFLOCAL) ]; then \
--		echo "$(INSTALL_WDATA) -D $< $(confdir)/$(CONFLOCAL)"; \
+ 		echo "$(INSTALL_WDATA) -D $< $(confdir)/$(CONFLOCAL)"; \
 -		$(INSTALL_WDATA) -D $< $(confdir)/$(CONFLOCAL); \
-+		echo "$(INSTALL_WDATA) $< $(confdir)/$(CONFLOCAL)"; \
 +		$(INSTALL_DIR) $(confdir); \
 +		$(INSTALL_WDATA) $< $(confdir)/$(CONFLOCAL); \
  	fi
@@ -186,10 +183,10 @@ index 9ddb3c2..d31af40 100644
  
  .PHONY: install_dmsetup_dynamic install_dmsetup_static
 diff --git a/libdm/make.tmpl.in b/libdm/make.tmpl.in
-index a306101..39e9b23 100644
+index f1c88fa..71c302f 100644
 --- a/libdm/make.tmpl.in
 +++ b/libdm/make.tmpl.in
-@@ -436,7 +436,8 @@ CLEAN_TARGETS += $(LDDEPS) .exported_symbols_generated
+@@ -449,7 +449,8 @@ CLEAN_TARGETS += $(LDDEPS) .exported_symbols_generated
  
  install_lib_shared: $(LIB_SHARED)
  	@echo "    [INSTALL] $<"
@@ -199,7 +196,7 @@ index a306101..39e9b23 100644
  	$(Q) $(INSTALL_DIR) $(usrlibdir)
  	$(Q) $(LN_S) -f $(USRLIB_RELPATH)$(<F).$(LIB_VERSION) $(usrlibdir)/$(<F)
  
-@@ -445,12 +446,14 @@ install_lib_shared: $(LIB_SHARED)
+@@ -458,12 +459,14 @@ install_lib_shared: $(LIB_SHARED)
  #        when the code is fixed links could be removed.
  install_dm_plugin: $(LIB_SHARED)
  	@echo "    [INSTALL] $<"
@@ -217,10 +214,10 @@ index a306101..39e9b23 100644
  	$(Q) $(LN_S) -f $(<F) $(libdir)/$(<F).$(LIB_VERSION)
  endif
 diff --git a/make.tmpl.in b/make.tmpl.in
-index bf0077f..1755408 100644
+index 869b87e..67cf661 100644
 --- a/make.tmpl.in
 +++ b/make.tmpl.in
-@@ -494,7 +494,8 @@ CLEAN_TARGETS += $(LDDEPS) .exported_symbols_generated
+@@ -514,7 +514,8 @@ CLEAN_TARGETS += $(LDDEPS) .exported_symbols_generated
  
  install_lib_shared: $(LIB_SHARED)
  	@echo "    [INSTALL] $<"
@@ -230,7 +227,7 @@ index bf0077f..1755408 100644
  	$(Q) $(INSTALL_DIR) $(usrlibdir)
  	$(Q) $(LN_S) -f $(USRLIB_RELPATH)$(<F).$(LIB_VERSION) $(usrlibdir)/$(<F)
  
-@@ -503,12 +504,14 @@ install_lib_shared: $(LIB_SHARED)
+@@ -523,12 +524,14 @@ install_lib_shared: $(LIB_SHARED)
  #        when the code is fixed links could be removed.
  install_dm_plugin: $(LIB_SHARED)
  	@echo "    [INSTALL] $<"
@@ -270,10 +267,10 @@ index 6201f59..4cc1b36 100644
  	  done; \
  	)
 diff --git a/scripts/Makefile.in b/scripts/Makefile.in
-index 0d7f456..b1c747c 100644
+index 47b24a2..f35b6c6 100644
 --- a/scripts/Makefile.in
 +++ b/scripts/Makefile.in
-@@ -48,7 +48,8 @@ vpath %.sh $(srcdir)
+@@ -45,7 +45,8 @@ vpath %.sh $(srcdir)
  vpath %.ocf $(srcdir)
  
  %_install: %.sh
@@ -284,33 +281,41 @@ index 0d7f456..b1c747c 100644
  %_install: %.ocf
  	$(Q) $(INSTALL_DIR) $(ocf_scriptdir)
 diff --git a/test/Makefile.in b/test/Makefile.in
-index ecb9e42..fc5ee91 100644
+index 1cad634..abd85a3 100644
 --- a/test/Makefile.in
 +++ b/test/Makefile.in
-@@ -51,7 +51,7 @@ S ?= @ # never match anything by default
+@@ -50,7 +50,7 @@ T ?= .
+ S ?= @ # never match anything by default
  VERBOSE ?= 0
- ALL := $(shell find -L $(srcdir) \( -path \*/shell/\*.sh -or -path \*/api/\*.sh -or -path \*/unit/\*.sh \) | $(SORT))
  comma = ,
 -RUN := $(shell find -L $(srcdir) -regextype posix-egrep \( -path \*/shell/\*.sh -or -path \*/api/\*.sh -or -path \*/unit/\*.sh \) -and -regex "$(srcdir)/.*($(subst $(comma),|,$(T))).*" -and -not -regex "$(srcdir)/.*($(subst $(comma),|,$(S))).*" | $(SORT))
 +RUN := $(shell find -E -L $(srcdir) \( -path \*/shell/\*.sh -or -path \*/api/\*.sh -or -path \*/unit/\*.sh \) -and -regex "$(srcdir)/.*($(subst $(comma),|,$(T))).*" -and -not -regex "$(srcdir)/.*($(subst $(comma),|,$(S))).*" | $(SORT))
  RUN_BASE = $(subst $(srcdir)/,,$(RUN))
  
  ifeq ("@BUILD_LVMPOLLD@", "yes")
-@@ -245,7 +245,8 @@ install: .tests-stamp lib/paths-installed
- 	@cd $(EXECDIR) && for i in $(LIB_LINK_NOT); do \
- 		echo "$(LN_S) -f not $$i"; \
- 		$(LN_S) -f not $$i; done
+@@ -237,14 +237,15 @@ install: .tests-stamp lib/paths-installed
+ 	$(Q) cd lib &&\
+ 		$(INSTALL_SCRIPT) $(LIB_SHARED) $(DATADIR)/lib
+ 	$(Q) cd lib &&\
+-		$(INSTALL_PROGRAM) -D $(LIB_EXEC) $(EXECDIR)
++		$(INSTALL_PROGRAM) $(LIB_EXEC) $(EXECDIR)
+ 	$(Q) cd $(abs_top_srcdir)/conf &&\
+ 		$(INSTALL_DATA) $(LVM_PROFILES) $(DATADIR)/lib
+ 	$(Q) cd $(DATADIR)/lib &&\
+ 		$(foreach FILE, $(CMDS), $(LN_S) -f lvm-wrapper $(FILE) $(newline))
+ 	$(Q) cd $(EXECDIR) &&\
+ 		$(foreach FILE, $(LIB_LINK_NOT), $(LN_S) -f $(LIB_NOT) $(FILE) $(newline))
 -	$(Q) $(INSTALL_PROGRAM) -D lib/runner $(bindir)/lvm2-testsuite
 +	$(Q) $(INSTALL_DIR) $(bindir)
 +	$(Q) $(INSTALL_PROGRAM) lib/runner $(bindir)/lvm2-testsuite
  
- lib/should: lib/not
- 	@echo "    [LN] $@"
+ lib/should lib/invalid lib/fail: lib/not
+ 	$(SHOW) "    [LN] $@"
 diff --git a/tools/Makefile.in b/tools/Makefile.in
-index 0cfbf3e..04c764b 100644
+index a6e2291..bae202d 100644
 --- a/tools/Makefile.in
 +++ b/tools/Makefile.in
-@@ -204,21 +204,25 @@ lvm.cflow lvm.xref lvm.tree lvm.xref: command-lines-input.h command-count.h cmds
+@@ -194,21 +194,25 @@ lvm.cflow lvm.xref lvm.tree lvm.xref: command-lines-input.h command-count.h
  
  install_cmdlib_include: $(srcdir)/lvm2cmd.h
  	@echo "    [INSTALL] $(<F)"
@@ -340,7 +345,7 @@ index 0cfbf3e..04c764b 100644
  	@echo Creating symbolic links for individual commands in $(sbindir)
  	@cat .commands | while read v ; do \
  		test -n "$(Q)" || echo "$(LN_S) -f $(<F) $(sbindir)/$$v"; \
-@@ -227,7 +231,8 @@ install_tools_dynamic: lvm .commands
+@@ -217,7 +221,8 @@ install_tools_dynamic: lvm .commands
  
  install_tools_static: lvm.static
  	@echo "    [INSTALL] $<"
