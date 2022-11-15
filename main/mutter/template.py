@@ -1,5 +1,5 @@
 pkgname = "mutter"
-pkgver = "43.0"
+pkgver = "43.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/Mutter"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8d9ba528ed99ef6799642e147b3fe9f2bcbeca9beced2845c1cadb331cd3e525"
+sha256 = "f2f08b252783948a5ecc82f00e9e935a61ebbf8564844bdd92788ab44aa78264"
 # needs graphical environment
 options = ["!check", "!cross"]
 
