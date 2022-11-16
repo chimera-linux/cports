@@ -29,9 +29,7 @@ makedepends = [
     "musl-devel-static", "libunwind-devel-static",
     "ncurses-devel-static", "linux-headers",
 ]
-# a bunch of the commands are scripts and they need bash
-# TODO: check inside of them for gnuisms and fix them
-depends = ["bash", "thin-provisioning-tools"]
+depends = ["bash", "util-linux", "thin-provisioning-tools"]
 pkgdesc = "Logical Volume Manager 2 utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
@@ -52,6 +50,15 @@ def pre_install(self):
 def post_install(self):
     self.install_service(self.files_path / "dmeventd")
     self.install_service(self.files_path / "lvmetad")
+
+    self.install_file(
+        self.files_path / "dmsetup.hook", "usr/share/initramfs-tools/hooks",
+        name = "dmsetup", mode = 0o755
+    )
+    self.install_file(
+        self.files_path / "lvm2.hook", "usr/share/initramfs-tools/hooks",
+        name = "lvm2", mode = 0o755
+    )
 
     self.rm(self.destdir / "usr/sbin")
 
@@ -84,5 +91,6 @@ def _dm(self):
         "usr/lib/udev/rules.d/10-dm.rules",
         "usr/lib/udev/rules.d/13-dm-disk.rules",
         "usr/lib/udev/rules.d/95-dm-notify.rules",
+        "usr/share/initramfs-tools/hooks/dmsetup",
         "usr/share/man/man8/dm*",
     ]

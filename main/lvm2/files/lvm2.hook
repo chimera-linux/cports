@@ -1,0 +1,33 @@
+#!/bin/sh
+
+case $1 in
+    prereqs)
+        echo ""
+        exit 0
+        ;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+
+cp -a /etc/lvm/ "${DESTDIR}/etc/lvm/"
+
+mkdir -p "${DESTDIR}/usr/lib/udev/rules.d"
+
+for rules in 11-dm-lvm.rules 69-dm-lvm.rules; do
+    if   [ -e "/etc/udev/rules.d/${rules}" ]; then
+        cp -p "/etc/udev/rules.d/${rules}" "${DESTDIR}/usr/lib/udev/rules.d"
+    elif [ -e "/usr/lib/udev/rules.d/${rules}" ]; then
+        cp -p "/usr/lib/udev/rules.d/${rules}" "${DESTDIR}/usr/lib/udev/rules.d"
+    else
+        exit 1
+    fi
+done
+
+copy_exec /usr/bin/dmsetup
+copy_exec /usr/bin/lvm
+
+ln -s lvm "${DESTDIR}/usr/bin/vgchange"
+
+for x in dm_mod dm_snapshot dm_mirror dm_raid raid0 raid1 raid10 raid456; do
+    manual_add_modules $x
+done
