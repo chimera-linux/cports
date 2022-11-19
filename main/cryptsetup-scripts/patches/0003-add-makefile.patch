@@ -1,7 +1,7 @@
 From a96044d498ea7fce8a13d9202efa138cd2556bcd Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <q66@chimera-linux.org>
 Date: Sat, 19 Nov 2022 02:52:19 +0100
-Subject: [PATCH 3/3] add makefile
+Subject: [PATCH 3/4] add makefile
 
 ---
  Makefile | 81 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++

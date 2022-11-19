@@ -1,7 +1,7 @@
 From e424e603f5fc92c011023803bf28eb8cbd5da05d Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <q66@chimera-linux.org>
 Date: Sat, 19 Nov 2022 01:58:17 +0100
-Subject: [PATCH 2/3] global replace of path names for usrmerge
+Subject: [PATCH 2/4] global replace of path names for usrmerge
 
 ---
  debian/askpass.c                              | 10 ++++----
