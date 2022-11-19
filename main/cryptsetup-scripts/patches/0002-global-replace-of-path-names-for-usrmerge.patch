@@ -1,4 +1,4 @@
-From 179185beff33b32737dcdd5d94b0bf39567c8400 Mon Sep 17 00:00:00 2001
+From e424e603f5fc92c011023803bf28eb8cbd5da05d Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <q66@chimera-linux.org>
 Date: Sat, 19 Nov 2022 01:58:17 +0100
 Subject: [PATCH 2/3] global replace of path names for usrmerge
@@ -185,7 +185,7 @@ index ce5e6f45..c35b2843 100644
              else
                  log_warning_msg "$target: the check for '$CRYPTTAB_NAME' failed. $CRYPTTAB_NAME contains data: $out"
 diff --git a/debian/functions b/debian/functions
-index b36d934f..f693ce9f 100644
+index 65479ad5..154264a3 100644
 --- a/debian/functions
 +++ b/debian/functions
 @@ -15,7 +15,7 @@ export DM_DEFAULT_NAME_MANGLING_MODE=hex # for dmsetup(8)
@@ -712,5 +712,5 @@ index 845ccae8..5bc28280 100644
  			      /*"ext4,ext3,ext2,vfat,btrfs,reiserfs,xfs,jfs,ntfs,iso9660,udf",*/
  			      "-o", "noatime,nodiratime,nodev,noexec,nosuid,ro",
 -- 
-2.34.1
+2.38.1
 
