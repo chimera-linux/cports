@@ -1,0 +1,10 @@
+--- a/dinit-userservd
++++ b/dinit-userservd
+@@ -2,6 +2,6 @@
+ 
+ type       = process
+ before     = login.target
+-depends-on = init.target
++depends-on = init-local.target
+ command    = /usr/bin/dinit-userservd
+ logfile    = /var/log/dinit-userservd.log
