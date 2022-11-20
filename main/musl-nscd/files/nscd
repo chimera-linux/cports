@@ -2,6 +2,6 @@
 
 type               = process
 command            = /usr/bin/nscd -F
-before             = init.target
+before             = init-local.target
 depends-on         = nscd-prepare
 smooth-recovery    = true
