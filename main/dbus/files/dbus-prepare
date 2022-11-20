@@ -2,5 +2,5 @@
 
 type       = scripted
 command    = /usr/bin/install -d -m 755 -o dbus -g dbus /run/dbus
+depends-on = init-local.target
 restart    = false
-depends-on = init.target
