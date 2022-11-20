@@ -5,6 +5,7 @@
 type            = process
 command         = /usr/libexec/bluetoooth/bluetoothd -n
 before          = login.target
-waits-for       = dbus
+depends-on      = init-local.target
+depends-ms      = dbus
 smooth-recovery = true
 logfile         = /var/log/bluetoothd.log
