@@ -2,6 +2,6 @@
 
 type            = process
 command         = dmeventd -f
-before          = init.target
-depends-on      = early.target
+before          = init-done.target
+depends-on      = init-fs-pre.target
 smooth-recovery = true
