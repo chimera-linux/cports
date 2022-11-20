@@ -3,5 +3,5 @@
 type               = process
 command            = /usr/bin/unbound -dp
 before             = network.target
-depends-on         = init.target
+depends-on         = init-local.target
 smooth-recovery    = true
