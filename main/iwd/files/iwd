@@ -1,7 +1,8 @@
 # iwd service
 
-type      = process
-command   = /usr/libexec/iwd
-before    = network.target
-waits-for = dbus
-logfile   = /var/log/iwd.log
+type       = process
+command    = /usr/libexec/iwd
+before     = network.target
+depends-on = init-local.target
+depends-ms = dbus
+logfile    = /var/log/iwd.log
