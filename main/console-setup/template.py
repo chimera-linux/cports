@@ -30,21 +30,3 @@ def do_install(self):
 
 def post_install(self):
     self.install_license("debian/copyright")
-    # service setup
-    self.install_dir("usr/lib/dinit.d/boot.d")
-    for scr in ["console", "keyboard"]:
-        self.install_file(
-            self.files_path / f"early-{scr}-setup", "usr/lib/dinit.d"
-        )
-        self.install_link(
-            f"../early-{scr}-setup",
-            f"usr/lib/dinit.d/boot.d/early-{scr}-setup"
-        )
-
-@subpackage("console-setup-dinit")
-def _dinit(self):
-    self.pkgdesc = f"{pkgdesc} (service files)"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "dinit-chimera"]
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return ["usr/lib/dinit.d/early-*"]
