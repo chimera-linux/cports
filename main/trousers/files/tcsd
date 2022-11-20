@@ -3,7 +3,7 @@
 type               = process
 command            = /usr/bin/tcsd -f
 logfile            = /var/log/tcsd.log
-before             = init.target
-depends-on         = early.target
+before             = init-local.target
+depends-on         = init-done.target
 run-as             = tss
 smooth-recovery    = true
