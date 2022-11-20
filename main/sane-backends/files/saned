@@ -3,5 +3,5 @@
 
 type               = process
 command            = /usr/bin/saned -l -u _saned
-depends-on         = init.target
+depends-on         = init-local.target
 smooth-recovery    = true
