@@ -1,6 +1,7 @@
 # NetworkManager service
 
-type      = process
-command   = /usr/bin/NetworkManager -n
-before    = network.target
-waits-for = dbus
+type       = process
+command    = /usr/bin/NetworkManager -n
+before     = network.target
+depends-ms = dbus
+depends-on = init-local.target
