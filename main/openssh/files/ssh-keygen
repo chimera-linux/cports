@@ -3,4 +3,4 @@
 type       = scripted
 command    = /usr/bin/ssh-keygen -A
 restart    = false
-depends-on = init.target
+depends-on = init-local.target
