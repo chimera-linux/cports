@@ -3,4 +3,4 @@
 type       = scripted
 command    = /usr/bin/install -d -m 711 -o root -g _gdm /run/gdm
 restart    = false
-depends-on = init.target
+depends-on = init-local.target

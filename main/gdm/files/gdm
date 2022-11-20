@@ -4,4 +4,4 @@ type       = process
 command    = /usr/bin/gdm
 depends-on = gdm-prepare
 depends-on = login.target
-waits-for  = dbus
+depends-ms = dbus
