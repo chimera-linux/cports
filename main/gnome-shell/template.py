@@ -17,11 +17,11 @@ makedepends = [
     "mutter-devel", "at-spi2-core-devel", "mutter-devel", "gjs-devel",
     "gcr4-devel", "gtk4-devel", "libxml2-devel", "ibus-devel",
     "gnome-bluetooth-devel", "gstreamer-devel", "pipewire-devel",
-    "libpulse-devel", "gnome-desktop-devel", "elogind-devel",
-    "polkit-devel", "networkmanager-devel", "gnome-autoar-devel",
+    "libpulse-devel", "gnome-desktop-devel", "polkit-devel",
+    "networkmanager-devel", "gnome-autoar-devel",
 ]
 depends = [
-    "elogind", "gnome-control-center", "gsettings-desktop-schemas", "upower"
+    "gnome-control-center", "gsettings-desktop-schemas", "upower"
 ]
 checkdepends = ["xserver-xorg-xvfb"]
 pkgdesc = "Core user interface for GNOME"
