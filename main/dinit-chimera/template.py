@@ -1,5 +1,5 @@
 pkgname = "dinit-chimera"
-_commit = "3ea3eebeabf1d044dd06d62bc91cb65fd11e25b8"
+_commit = "ce4c79a3ba2210ae4cd07efcf8a43db6e8e9ea7f"
 pkgver = "0.1"
 pkgrel = 0
 build_style = "makefile"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
-sha256 = "7db819a207e1dff55710c5b710efecb2f1f6557982498a2213bd4a8cdda44741"
+sha256 = "df1f08d222e673846f94d2a5ac1939f8f7f09dc6941aa6732c99212d36c935be"
 # no tests
 options = ["!check", "brokenlinks"]
 
@@ -18,6 +18,7 @@ def post_install(self):
     self.install_file(self.files_path / "hostname", "etc")
     self.install_file(self.files_path / "locale.conf", "etc")
     # init symlink
+    self.install_dir("usr/bin")
     self.install_link("dinit", "usr/bin/init")
     # x11 support
     self.install_dir("etc/X11/Xsession.d")
