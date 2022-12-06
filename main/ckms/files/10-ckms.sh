@@ -9,13 +9,20 @@ for kern in /usr/lib/modules/*; do
     # only consider removed kernels
     [ -f "${kern}/modules.dep" ] && continue
     # uninstall everything installed for that kernel
-    ckms -q -k "${kernver}" status | sed 's/[:,]//g' | \
+    ckms -q -k "${kernver}" plain-status | \
         while read modn modv kernv karch status; do
-            # only consider installed modules
-            [ "$status" = "installed" ] || continue
-            # uninstall
-            ckms -k "${kernv}" uninstall "${modn}=${modv}" || \
-                echo "FAILED: uninstall ${modn}=${modv} for ${kernv}"
+            # remove installed modules
+            if [ "$status" = "installed" ]; then
+                # uninstall
+                ckms -k "${kernv}" uninstall "${modn}=${modv}" || \
+                    echo "FAILED: uninstall ${modn}=${modv} for ${kernv}"
+                status="built"
+            fi
+            if [ "$status" = "built" -o "$status" = "built+disabled" ]; then
+                # clean up
+                ckms -k "${kernv}" clean "${modn}=${modv}" || \
+                    echo "FAILED: clean ${modn}=${modv} for ${kernv}"
+            fi
         done || :
 done
 

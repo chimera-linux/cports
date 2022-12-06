@@ -10,26 +10,32 @@ for kern in /usr/lib/modules/*; do
         echo "kernel headers not installed for ${kernver}, skipping..."
         continue
     fi
-    ckms -q -k "${kernver}" status | sed 's/[:,]//g' | \
+    ckms -q -k "${kernver}" plain-status | \
         while read modn modv kernv karch status; do
             # only added; build it
             if [ "$status" = "added" ]; then
-                ckms -k "${kernv}" build "${modn}=${modv}" || \
+                ckms -k "${kernv}" build "${modn}=${modv}"
+                if [ $? -ne 0 ]; then
                     echo "FAILED: build ${modn}=${modv} for ${kernv}"
+                    continue
+                fi
                 status="built"
             fi
             # only built; install it
             if [ "$status" = "built" ]; then
-                ckms -k "${kernv}" install "${modn}=${modv}" || \
+                ckms -k "${kernv}" install "${modn}=${modv}"
+                if [ $? -ne 0 ]; then
                     echo "FAILED: install ${modn}=${modv} for ${kernv}"
+                    continue
+                fi
             fi
         done
 done
 
-for f in /boot/initrd.img-*.ckms-defer; do
+for f in /boot/.ckms-initramfs-defer.*; do
     [ -f "$f" ] || continue
-    kernver=${f#/boot/initrd.img-}
-    kernver=${kernver%.ckms-defer}
+    kernver=$(basename $f)
+    kernver=${kernver#.ckms-initramfs-defer.}
     update-initramfs -u -k "${kernver}" || \
         echo "FAILED: update-initramfs for ${kernver}"
     rm -f "$f"

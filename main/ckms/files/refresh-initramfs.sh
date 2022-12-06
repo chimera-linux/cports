@@ -4,7 +4,7 @@
 
 if [ -n "$CKMS_APK_DEFER_INITRAMFS" ]; then
     echo "Deferring initramfs refresh for ${1}..."
-    touch "/boot/initrd.img-${1}.ckms-defer"
+    touch "/boot/.ckms-initramfs-defer.${1}"
     exit $?
 fi
 
