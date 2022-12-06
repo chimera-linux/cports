@@ -1,6 +1,6 @@
 pkgname = "linux-modules-zfs"
-_kernver = "6.0.8"
-_zfsver = "2.1.6"
+_kernver = "6.0.11"
+_zfsver = "2.1.7"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
 build_style = "gnu_configure"
@@ -13,13 +13,13 @@ hostmakedepends = [
 ]
 makedepends = ["linux-devel"]
 # provides the same thing as the ckms variant
-depends = [f"linux~{_kernver}", f"zfs~{_zfsver}", "!zfs-ckms"]
+depends = [f"linux~{_kernver}", f"zfs~{_zfsver}"]
 pkgdesc = f"OpenZFS modules for kernel {_kernver}"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 source = f"https://github.com/openzfs/zfs/releases/download/zfs-{_zfsver}/zfs-{_zfsver}.tar.gz"
-sha256 = "15339014f8d2131348eb937bf8893849806b6d2645ea607a18c7f117749dbd7a"
+sha256 = "6462e63e185de6ff10c64ffa6ed773201a082f9dd13e603d7e8136fcb4aca71b"
 env = {
     "LLVM": "1",
     "LLVM_IAS": "1",
@@ -30,6 +30,13 @@ options = ["!cross"]
 _script_pre = """
 rm -f /boot/initramfs-@kernver@.img || :
 rm -f /boot/initrd.img-@kernver@ || :
+"""
+
+# remove ckms-installed zfs of this version if necessary
+_script_preinst = _script_pre + f"""
+if [ -x /usr/bin/ckms ]; then
+    ckms -q -k @kernver@ uninstall zfs > /dev/null 2>&1 || :
+fi
 """
 
 _script_post = """
@@ -62,15 +69,16 @@ def init_configure(self):
 
     prescript = _script_pre.replace("@kernver@", kver)
     postscript = _script_post.replace("@kernver@", kver)
+    preinstscript = _script_preinst.replace("@kernver@", kver)
 
     # dynamically generate scriptlets for kernel version
 
+    self.scriptlets["pre-install"] = preinstscript
     self.scriptlets["pre-upgrade"] = prescript
-    self.scriptlets["pre-install"] = prescript
     self.scriptlets["pre-deinstall"] = prescript
 
-    self.scriptlets["post-upgrade"] = postscript
     self.scriptlets["post-install"] = postscript
+    self.scriptlets["post-upgrade"] = postscript
     self.scriptlets["post-deinstall"] = postscript
 
 def pre_configure(self):
@@ -97,6 +105,11 @@ def do_install(self):
         self.install_dir(destmod)
         with open(self.destdir / destmod / f"{modn}.ko.gz", "wb") as outf:
             self.do("gzip", "-9", "-c", srcmod, stdout = outf)
+
+    # prevent ckms from managing it
+    cdpath = f"usr/src/zfs-{_zfsver}/ckms-disable"
+    self.install_dir(cdpath)
+    (self.destdir / cdpath / self._linux_version).touch(0o644)
 
     self.install_license("COPYRIGHT")
     self.install_license("LICENSE")
