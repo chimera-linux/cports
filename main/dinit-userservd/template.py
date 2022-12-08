@@ -9,8 +9,8 @@ pkgdesc = "Dinit user instance manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-userservd"
-source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "af77af35c5d91c4cbfbabdb2dd015ec78a5b9c355501e3aea124e4b14efcd6c2"
+source = f"https://github.com/chimera-linux/turnstile/archive/refs/tags/{pkgname}-{pkgver}.tar.gz"
+sha256 = "c3cfa87a5fe385ecd280dc57d18028158c924ee9f38276c82b06ce208b3b67a2"
 options = ["brokenlinks", "!splitdinit"]
 
 def post_install(self):
