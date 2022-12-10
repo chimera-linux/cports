@@ -1,6 +1,7 @@
 pkgname = "musl"
 pkgver = "1.2.3"
 pkgrel = 0
+_scudo_ver = "15.0.6"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
@@ -10,12 +11,24 @@ pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
-source = f"http://www.musl-libc.org/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4"
+source = [
+    f"http://www.musl-libc.org/releases/{pkgname}-{pkgver}.tar.gz",
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz"
+]
+sha256 = [
+    "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4",
+    "b46f5b5b02402ef3acd92e7adf2d551e0b2a8ed19fce66800472dc0ad2a81fbc"
+]
 # segfaults otherwise
 hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
 options = ["bootstrap", "!check", "!lto", "brokenlinks"]
+
+# whether to use musl's stock allocator instead of scudo
+_use_mng = False
+
+if _use_mng:
+    configure_args += ["--with-malloc=mallocng"]
 
 if self.stage > 0:
     # have base-files extract first in normal installations
@@ -30,6 +43,26 @@ if self.stage > 0:
     # just avoid the dependency and work around the whole issue
     #
     depends = ["base-files"]
+
+def post_extract(self):
+    # move musl where it should be
+    for f in (self.cwd / f"{pkgname}-{pkgver}").iterdir():
+        self.mv(f, ".")
+    # prepare scudo subdir
+    self.mkdir("src/malloc/scudo/scudo", parents = True)
+    # move compiler-rt stuff in there
+    scpath = self.cwd / f"compiler-rt-{_scudo_ver}.src/lib/scudo/standalone"
+    for f in scpath.glob("*.cpp"):
+        self.cp(f, "src/malloc/scudo")
+    for f in scpath.glob("*.h"):
+        self.cp(f, "src/malloc/scudo")
+    for f in scpath.glob("*.inc"):
+        self.cp(f, "src/malloc/scudo")
+    self.cp(scpath / "include/scudo/interface.h", "src/malloc/scudo/scudo")
+    # remove wrappers
+    for f in (self.cwd / "src/malloc/scudo").glob("wrappers_*"):
+        f.unlink()
+    # now we're ready to get patched
 
 def init_configure(self):
     # ensure that even early musl uses compiler-rt
