@@ -1,7 +1,7 @@
 From c704af2d817dba2dca9c46beb353dd42c8b4eb9e Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 9 Dec 2022 00:15:57 +0100
-Subject: [PATCH 2/3] scudo: clean up lingering weak symbols we don't want
+Subject: [PATCH 2/4] scudo: clean up lingering weak symbols we don't want
 
 ---
  src/malloc/scudo/checksum.h   | 2 +-
