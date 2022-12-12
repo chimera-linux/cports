@@ -1,5 +1,5 @@
 pkgname = "llvm-bootstrap"
-pkgver = "15.0.4"
+pkgver = "15.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -25,6 +25,7 @@ configure_args = [
     "-DCLANG_DEFAULT_RTLIB=compiler-rt",
     "-DCLANG_DEFAULT_UNWINDLIB=libunwind",
     "-DCLANG_DEFAULT_CXX_STDLIB=libc++",
+    "-DCLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang",
     "-DLLVM_ENABLE_LLD=YES",
     "-DLLVM_ENABLE_LIBCXX=YES",
     "-DLIBUNWIND_USE_COMPILER_RT=YES",
@@ -42,14 +43,14 @@ configure_args = [
     "-DLLVM_ENABLE_RUNTIMES=compiler-rt;libcxx;libcxxabi;libunwind",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python"]
-makedepends = ["zlib-devel", "linux-headers"]
-depends = ["fortify-headers"]
+makedepends = ["zlib-devel", "libatomic-chimera-devel", "linux-headers"]
+depends = ["fortify-headers", "libatomic-chimera-devel"]
 pkgdesc = "Low Level Virtual Machine (bootstrap)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "a3112dca9bdea4095361829910b74fb6b9da8ae6e3500db67c43c540ad6072da"
+sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
 debug_level = 0
 # bootstrap; LTO would just slow it down, cross is unnecessary (not used
 # in cross builds), debug info is unnecessary, and dependency/shlib scan

@@ -1,0 +1,27 @@
+commit f6acb234cd9b3d9c6924c6c629bc33ae30c5dfa7
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Mon Dec 12 20:34:14 2022 +0100
+
+    implicitly link to libatomic on linux targets
+
+diff --git a/clang/lib/Driver/ToolChains/Gnu.cpp b/clang/lib/Driver/ToolChains/Gnu.cpp
+index c1585edc..01d7b426 100644
+--- a/clang/lib/Driver/ToolChains/Gnu.cpp
++++ b/clang/lib/Driver/ToolChains/Gnu.cpp
+@@ -638,10 +638,12 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
+ 
+       AddRunTimeLibs(ToolChain, D, CmdArgs, Args);
+ 
+-      // LLVM support for atomics on 32-bit SPARC V8+ is incomplete, so
+-      // forcibly link with libatomic as a workaround.
+-      // TODO: Issue #41880 and D118021.
+-      if (getToolChain().getTriple().getArch() == llvm::Triple::sparc) {
++      // implicitly link to libatomic, we don't want to bother with manually
++      // adding this on platforms where libatomic is explicitly necessary,
++      // and the as-needed will ensure it's left out when not needed
++      //
++      // chimera already ships its own version of libatomic, so it's fine
++      if (Triple.isOSLinux()) {
+         CmdArgs.push_back("--push-state");
+         CmdArgs.push_back("--as-needed");
+         CmdArgs.push_back("-latomic");

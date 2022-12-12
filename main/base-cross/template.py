@@ -2,7 +2,10 @@ pkgname = "base-cross"
 pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
-depends = ["clang-rt-cross", "musl-cross", "libcxx-cross", "fortify-headers"]
+depends = [
+    "clang-rt-cross", "musl-cross", "libatomic-chimera-cross",
+    "libcxx-cross", "fortify-headers"
+]
 pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
@@ -57,6 +60,7 @@ def _gen_crossp(an, at):
         self.depends = [
             f"clang-rt-cross-{an}",
             f"musl-cross-{an}",
+            f"libatomic-chimera-cross-{an}",
             f"libcxx-cross-{an}",
         ]
         self.options = ["brokenlinks"]

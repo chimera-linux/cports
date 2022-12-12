@@ -1,13 +1,11 @@
 pkgname = "llvm"
-pkgver = "15.0.4"
+pkgver = "15.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
     "-DENABLE_LINKER_BUILD_ID=YES",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
-    # we rely solely on compiler-rt, no libatomic
-    "-DCOMPILER_RT_EXCLUDE_ATOMIC_BUILTIN=NO",
     # avoid execinfo
     "-DCOMPILER_RT_BUILD_GWP_ASAN=NO",
     "-DLIBCXX_CXX_ABI=libcxxabi",
@@ -25,6 +23,7 @@ configure_args = [
     "-DCLANG_DEFAULT_RTLIB=compiler-rt",
     "-DCLANG_DEFAULT_UNWINDLIB=libunwind",
     "-DCLANG_DEFAULT_CXX_STDLIB=libc++",
+    "-DCLANG_CONFIG_FILE_SYSTEM_DIR=/etc/clang",
     "-DLLVM_ENABLE_LIBXML2=NO",
     "-DLLVM_ENABLE_LLD=YES",
     "-DLLVM_ENABLE_LIBCXX=YES",
@@ -33,7 +32,7 @@ configure_args = [
 hostmakedepends = [
     "cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel"
 ]
-makedepends = ["zlib-devel"]
+makedepends = ["zlib-devel", "libatomic-chimera-devel"]
 depends = [
     f"libllvm={pkgver}-r{pkgrel}",
     f"llvm-linker-tools={pkgver}-r{pkgrel}",
@@ -44,7 +43,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "a3112dca9bdea4095361829910b74fb6b9da8ae6e3500db67c43c540ad6072da"
+sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -235,10 +234,15 @@ def post_install(self):
     if not (self.destdir / "usr/bin/ld").is_symlink():
         self.install_link("ld.lld", "usr/bin/ld")
 
+    pymod = None
     # fix up python liblldb symlink so it points to versioned one
     # unversioned one is in devel package so we cannot point to it
     for f in (self.destdir / "usr/lib").glob("python3*"):
-        for s in (f / "site-packages/lldb").glob("_lldb.*.so"):
+        fp = f / "site-packages/lldb"
+        if not fp.is_dir():
+            continue
+        pymod = str(fp.relative_to(self.destdir))
+        for s in fp.glob("_lldb.*.so"):
             if s.is_symlink():
                 s.unlink()
                 s.with_name("_lldb.so").symlink_to(
@@ -248,6 +252,8 @@ def post_install(self):
     # python bytecode cache
     if self.stage > 0:
         python.precompile(self, "usr/share/scan-view")
+        if pymod:
+            python.precompile(self, pymod)
 
 @subpackage("clang-tools-extra-static")
 def _tools_extra_static(self):
@@ -292,6 +298,7 @@ def _clang(self):
         f"clang-rt-devel={pkgver}-r{pkgrel}",
         "elftoolchain",
         "fortify-headers",
+        "libatomic-chimera-devel",
         "musl-devel",
     ]
 

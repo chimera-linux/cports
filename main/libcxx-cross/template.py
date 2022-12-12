@@ -1,5 +1,5 @@
 pkgname = "libcxx-cross"
-pkgver = "15.0.4"
+pkgver = "15.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -25,14 +25,17 @@ configure_args = [
 ]
 make_cmd = "make"
 hostmakedepends = ["cmake", "python"]
-makedepends = ["clang-rt-crt-cross", "musl-cross", "linux-headers-cross"]
+makedepends = [
+    "clang-rt-crt-cross", "libatomic-chimera-cross", "musl-cross",
+    "linux-headers-cross"
+]
 depends = [f"libcxxabi-cross={pkgver}-r{pkgrel}"]
 pkgdesc = "Cross-toolchain LLVM libc++"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "a3112dca9bdea4095361829910b74fb6b9da8ae6e3500db67c43c540ad6072da"
+sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
 # crosstoolchain
 options = ["!cross", "!check", "!lto"]
 
@@ -125,7 +128,7 @@ def _gen_crossp(an, at):
     @subpackage(f"libunwind-cross-{an}")
     def _unw(self):
         self.pkgdesc = f"Cross-toolchain LLVM libunwind ({an})"
-        self.depends = [f"musl-cross-{an}"]
+        self.depends = [f"musl-cross-{an}", f"libatomic-chimera-cross-{an}"]
         self.options = [
             "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
         ]
@@ -213,7 +216,7 @@ def _static(self):
 @subpackage("libunwind-cross")
 def _unw_cross(self):
     self.pkgdesc = "Cross-toolchain LLVM libunwind"
-    self.depends = ["musl-cross"]
+    self.depends = ["musl-cross", "libatomic-chimera-cross"]
     self.build_style = "meta"
     for an in _targets:
         self.depends.append(f"libunwind-cross-{an}={pkgver}-r{pkgrel}")

@@ -289,6 +289,7 @@ def _setup_dummy(rootp, archn):
         return f"{tobj.pkgver}-r{tobj.pkgrel}"
 
     fortify_ver = _get_ver("fortify-headers")
+    atomic_ver = _get_ver("libatomic-chimera")
     files_ver = _get_ver("base-files")
     musl_ver = _get_ver("musl")
     llvm_ver = _get_ver("llvm")
@@ -296,6 +297,8 @@ def _setup_dummy(rootp, archn):
     provides = [
         f"base-files={files_ver}",
         f"fortify-headers={fortify_ver}",
+        f"libatomic-chimera={atomic_ver}",
+        f"libatomic-chimera-devel={atomic_ver}",
         f"musl={musl_ver}",
         f"musl-devel={musl_ver}",
         f"libcxx={llvm_ver}",
@@ -307,6 +310,7 @@ def _setup_dummy(rootp, archn):
         "so:libc.so=0",
         "so:libc++abi.so.1=1.0",
         "so:libc++.so.1=1.0",
+        "so:libatomic.so.1=1.69.0",
         "so:libunwind.so.1=1.0",
     ]
 

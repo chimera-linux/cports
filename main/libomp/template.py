@@ -1,5 +1,5 @@
 pkgname = "libomp"
-pkgver = "15.0.4"
+pkgver = "15.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "a3112dca9bdea4095361829910b74fb6b9da8ae6e3500db67c43c540ad6072da"
+sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
 # no lit
 options = ["!check"]
 
