@@ -42,8 +42,7 @@ env = {
     # firefox checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
-# needs to be investigated
-options = ["!lto", "!cross"]
+options = ["!cross"]
 exec_wrappers = [
     ("/usr/bin/llvm-objdump", "objdump"),
     ("/usr/bin/llvm-readelf", "readelf"),
@@ -86,6 +85,9 @@ def do_configure(self):
     match self.profile().arch:
         case "x86_64" | "aarch64":
             extra_opts += ["--disable-elf-hack", "--enable-rust-simd"]
+
+    if self.options["lto"]:
+        extra_opts += ["--enable-lto=cross"]
 
     self.do(
         self.chroot_cwd / "mach", "configure",
