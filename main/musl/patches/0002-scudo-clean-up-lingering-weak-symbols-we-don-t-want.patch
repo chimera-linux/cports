@@ -1,4 +1,4 @@
-From 83300a344269bc3698b58141e3c5440fe9b378c3 Mon Sep 17 00:00:00 2001
+From 32803d4ccf70b547e9055844c87c9ab8097c6b07 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 9 Dec 2022 00:15:57 +0100
 Subject: [PATCH 2/3] scudo: clean up lingering weak symbols we don't want
