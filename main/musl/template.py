@@ -69,6 +69,8 @@ def post_extract(self):
     # remove wrappers
     for f in (self.cwd / "src/malloc/scudo").glob("wrappers_*"):
         f.unlink()
+    # copy in our own wrappers
+    self.cp(self.files_path / "wrappers.cpp", "src/malloc/scudo")
     # now we're ready to get patched
 
 def init_configure(self):
