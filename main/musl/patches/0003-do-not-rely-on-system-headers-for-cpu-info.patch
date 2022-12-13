@@ -1,4 +1,4 @@
-From 13c78dece0281235efa11c85de697c3d1d04028c Mon Sep 17 00:00:00 2001
+From a1f05fbafec484de8bdb72e4e25311a6c71fdfa3 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 10 Dec 2022 17:24:17 +0100
 Subject: [PATCH 3/3] do not rely on system headers for cpu info
