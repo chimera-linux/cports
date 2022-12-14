@@ -27,13 +27,6 @@ options = ["bootstrap", "!check", "!lto", "brokenlinks"]
 # whether to use musl's stock allocator instead of scudo
 _use_mng = False
 
-match self.profile().arch:
-    case "riscv64":
-        # causes clang++ to randomly ICE when building other things, may be
-        # some qemu-related jank as it does not happen with anything else;
-        # investigate a fix and then switch to scudo too
-        _use_mng = True
-
 if _use_mng:
     configure_args += ["--with-malloc=mallocng"]
 
