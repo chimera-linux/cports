@@ -1,27 +1,25 @@
-From ec8529e33fa193cd6ea808c829906250cb0f764a Mon Sep 17 00:00:00 2001
+From 8f424d5702e08c919eb029fe20d43bc3f093c9e5 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 9 Dec 2022 00:04:34 +0100
 Subject: [PATCH 1/3] scudo: add necessary plumbing
 
 ---
- Makefile                                   |  31 +-
- configure                                  |  72 ++++-
- src/env/__init_tls.c                       |   1 +
- src/include/errno.h                        |   8 +
- src/include/features.h                     |   2 +
- src/include/pthread.h                      |   4 +
- src/include/time.h                         |   4 +
- src/internal/atomic.h                      |   4 +
- src/internal/linux/futex.h                 |  31 ++
- src/internal/pthread_impl.h                |   3 +
- src/internal/syscall.h                     |   4 +
- src/malloc/calloc.c                        |   4 +
- src/malloc/libc_calloc.c                   |   4 +
- src/malloc/scudo/scudo_platform_tls_slot.h |   7 +
- src/thread/pthread_create.c                |   6 +
- 16 files changed, 179 insertions(+), 6 deletions(-)
+ Makefile                    | 31 ++++++++++++++--
+ configure                   | 72 ++++++++++++++++++++++++++++++++++---
+ src/env/__init_tls.c        |  1 +
+ src/include/errno.h         |  8 +++++
+ src/include/features.h      |  2 ++
+ src/include/pthread.h       |  4 +++
+ src/include/time.h          |  4 +++
+ src/internal/atomic.h       |  4 +++
+ src/internal/linux/futex.h  | 31 ++++++++++++++++
+ src/internal/pthread_impl.h |  3 ++
+ src/internal/syscall.h      |  4 +++
+ src/malloc/calloc.c         |  4 +++
+ src/malloc/libc_calloc.c    |  4 +++
+ src/thread/pthread_create.c |  6 ++++
+ 14 files changed, 172 insertions(+), 6 deletions(-)
  create mode 100644 src/internal/linux/futex.h
- create mode 100644 src/malloc/scudo/scudo_platform_tls_slot.h
 
 diff --git a/Makefile b/Makefile
 index e8cc443..1715810 100644
@@ -545,19 +543,6 @@ index d25eabe..3895c8c 100644
  #include "calloc.c"
 +
 +#endif
-diff --git a/src/malloc/scudo/scudo_platform_tls_slot.h b/src/malloc/scudo/scudo_platform_tls_slot.h
-new file mode 100644
-index 0000000..29d4a7a
---- /dev/null
-+++ b/src/malloc/scudo/scudo_platform_tls_slot.h
-@@ -0,0 +1,7 @@
-+extern "C" {
-+#include "pthread_impl.h"
-+}
-+
-+inline uintptr_t *getPlatformAllocatorTlsSlot() {
-+    return &(reinterpret_cast<struct pthread *>(__pthread_self())->scudo_tsd);
-+}
 diff --git a/src/thread/pthread_create.c b/src/thread/pthread_create.c
 index 6f187ee..2221554 100644
 --- a/src/thread/pthread_create.c
