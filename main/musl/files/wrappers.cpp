@@ -19,7 +19,18 @@ inline void  operator delete (void *, void *) {}
  * this may be as little as 1 page on some systems,
  * and it will hold around 8 TSDs
  */
-#define TSD_CHUNK 65536
+#ifndef MUSL_SCUDO_TSD_CHUNK
+#define MUSL_SCUDO_TSD_CHUNK 65536
+#endif
+
+/* the secondary cache was not found to be not much of a benefit
+ * (typically higher rss and often worse performance) while also
+ * causing some strange jank on qemu-user/riscv builders, so drop
+ * it at least for now
+ */
+#ifndef MUSL_SCUDO_USE_SECONDARY_CACHE
+#define MUSL_SCUDO_USE_SECONDARY_CACHE 0
+#endif
 
 /* tsd registry implementation specific to musl pthreads
  *
@@ -106,11 +117,11 @@ private:
     };
 
     struct chunk {
-        tsdata tsds[(TSD_CHUNK - sizeof(void *)) / sizeof(tsdata)];
+        tsdata tsds[(MUSL_SCUDO_TSD_CHUNK - sizeof(void *)) / sizeof(tsdata)];
         chunk *next;
     };
 
-    static_assert(sizeof(chunk) < TSD_CHUNK, "chunk too large");
+    static_assert(sizeof(chunk) < MUSL_SCUDO_TSD_CHUNK, "chunk too large");
 
     /* chunks are never released, just recycled */
     tsd_t *request() {
@@ -224,6 +235,7 @@ struct MuslConfig {
     static const int32_t PrimaryMinReleaseToOsIntervalMs = INT32_MIN;
     static const int32_t PrimaryMaxReleaseToOsIntervalMs = INT32_MAX;
 
+#if MUSL_SCUDO_USE_SECONDARY_CACHE
     using SecondaryCache = scudo::MapAllocatorCache<MuslConfig>;
 
     static const uint32_t SecondaryCacheEntriesArraySize = 32U;
@@ -232,6 +244,9 @@ struct MuslConfig {
     static const uintptr_t SecondaryCacheDefaultMaxEntrySize = 1UL << 19;
     static const int32_t SecondaryCacheMinReleaseToOsIntervalMs = INT32_MIN;
     static const int32_t SecondaryCacheMaxReleaseToOsIntervalMs = INT32_MAX;
+#else
+    using SecondaryCache = scudo::MapAllocatorNoCache;
+#endif
 
     template<typename A>
     using TSDRegistryT = TSDRegistry<A>;
