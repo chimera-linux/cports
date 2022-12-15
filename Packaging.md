@@ -2829,7 +2829,7 @@ The `flags` are `tmpl.get_cxxflags()`, while `ldflags` are `tmpl.get_ldflags()`.
 
 A wrapper for handling of GNU Autotools and compatible projects.
 
-##### def configure(pkg, configure_dir = None, configure_script = None, build_dir = None, extra_args = [], env = {})
+##### def configure(pkg, configure_dir = None, configure_args = None, configure_script = None, build_dir = None, extra_args = [], env = {})
 
 First, `build_dir` is created if non-existent (relative to `cwd`). If not
 set, it is assumed to be `pkg.make_dir`. Then, the `configure_script` is
@@ -2873,10 +2873,10 @@ exported.
 The result of `get_make_env()` is also exported into the environment, before
 anything else.
 
-The `pkg.configure_args` are passed after the implicit args, finally followed
-by `extra_args`. Additionally, `env` is exported into the environment, after
-the cache files (so the environment dictionary can override any caches).
-This also uses `pkg.configure_env` (`env` takes precedence over it).
+The `configure_args` (`pkg.configure_args` if `None`) are passed after the implicit
+args, finally followed by `extra_args`. Additionally, `env` is exported into the
+environment, after the cache files (so the environment dictionary can override
+any caches). This also uses `pkg.configure_env` (`env` takes precedence over it).
 
 The environment variable `MAKE` is implicitly set for this run, with the value
 of what the `cbuild.util.make.Make(pkg).get_command()` would be.

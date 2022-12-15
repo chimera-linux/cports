@@ -51,7 +51,7 @@ def _read_cache(cpath, cname, eenv):
                 eenv[ln] = "yes"
 
 def configure(
-    pkg, configure_dir = None, configure_script = None,
+    pkg, configure_dir = None, configure_args = None, configure_script = None,
     build_dir = None, extra_args = [], env = {}
 ):
     if not configure_script:
@@ -113,8 +113,11 @@ def configure(
 
     rscript.chmod(0o755)
 
+    if configure_args is None:
+        configure_args = pkg.configure_args
+
     pkg.do(
-        cscript, *cargs, *pkg.configure_args, *extra_args,
+        cscript, *cargs, *configure_args, *extra_args,
         wrksrc = build_dir, env = eenv
     )
 
