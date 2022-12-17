@@ -1,0 +1,37 @@
+#!/bin/sh
+
+run_kernel_scripts() {
+    [ ! -d "/etc/kernel.d" ] && return 0
+
+    echo "Running kernel.d scripts..."
+
+    for f in /etc/kernel.d/*; do
+        [ -f "$f" ] || continue # possibly empty
+        $f || echo "FAILED: $f"
+    done
+}
+
+setup_backup_kernels() {
+    # kernels, can't use symlinks because it may be on vfat
+    for f in /boot/.apk-backup.*; do
+        [ -f "$f" ] || continue # empty or not a file
+        dirn=$(dirname "$f")
+        basen=$(basename "$f")
+        tgtn="${dirn}/${basen#.apk-backup.}"
+        mv "$f" "$tgtn"
+        # keep track of it for pruning
+        ln -sf "$tgtn" "/usr/lib/modules/apk-backup/$tgtn"
+    done
+    # modules, use symlinks for easy tracking
+    for f in /usr/lib/modules/apk-backup/*; do
+        [ -d "$f" ] || continue # empty or a file
+        kver=$(basename "$f")
+        kpath="/usr/lib/modules/${kver}"
+        # may exist as a non-symlink, in that case skip it
+        [ -e "$kpath" -a ! -L "$kpath" ] && continue
+        ln -sf "apk-backup/${kver}" "$kpath"
+    done
+}
+
+run_kernel_scripts
+setup_backup_kernels

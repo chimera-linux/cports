@@ -17,7 +17,7 @@ PROGNAME=$0
 
 usage() {
     cat << EOF
-Usage: $0 prepare|build|install|clean [opts]
+Usage: $PROGNAME prepare|build|install|clean [opts]
 
 Prepare options and their default values:
 
@@ -58,7 +58,7 @@ die() {
 COMMAND=$1
 
 if [ -z "$COMMAND" ]; then
-    usage() 1>&2
+    usage 1>&2
     exit 1
 fi
 
@@ -521,7 +521,7 @@ case $COMMAND in
     *)
         echo "Unknown command: $COMMAND" 1>&2
         echo "" 1>&2
-        usage() 1>&2
+        usage 1>&2
         exit 1
         ;;
 esac

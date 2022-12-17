@@ -11,6 +11,20 @@ url = "https://chimera-linux.org"
 options = ["!check"]
 
 def do_install(self):
+    # kernel.d helpers
+    self.install_dir("usr/libexec/base-kernel")
+
+    for f in [
+        "kernel-clean-initramfs", "kernel-pre-upgrade",
+        "run-kernel-d", "script-funcs", "script-pre-deinstall",
+        "script-pre-install", "script-pre-upgrade",
+        "script-post-install", "script-post-upgrade",
+    ]:
+        self.install_file(
+            self.files_path / "libexec" / f, "usr/libexec/base-kernel",
+            mode = 0o755
+        )
+
     # modprobe(8) files
     self.install_dir("usr/lib/modprobe.d")
 
@@ -53,6 +67,11 @@ def do_install(self):
     self.install_file(
         self.files_path / "chimera-buildkernel.sh", "usr/bin", mode = 0o755,
         name = "chimera-buildkernel"
+    )
+
+    self.install_file(
+        self.files_path / "chimera-prunekernels.sh", "usr/bin", mode = 0o755,
+        name = "chimera-prunekernels"
     )
 
 @subpackage("base-kernel-devel")

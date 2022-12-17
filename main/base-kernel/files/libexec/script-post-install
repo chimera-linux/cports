@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd /usr/libexec/base-kernel
+
+. ./script-funcs
+
+KVER=$(get_kernver "$1" "$2")
+
+copy_modfiles "$KVER"

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+cd /usr/libexec/base-kernel
+
+. ./script-funcs
+
+KVER_NEW=$(get_kernver "$1" "$3")
+KVER_OLD=$(get_kernver "$2" "$3")
+
+if [ "$KVER_OLD" != "$KVER_NEW" ]; then
+    ./kernel-pre-upgrade "$KVER_OLD"
+fi
+
+./kernel-clean-initramfs "$KVER_NEW"
