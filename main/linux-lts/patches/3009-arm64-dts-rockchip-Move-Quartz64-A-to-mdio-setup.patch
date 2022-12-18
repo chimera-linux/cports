@@ -1,0 +1,43 @@
+From c880be1226cbe443b076667cc9540c67627aa1bb Mon Sep 17 00:00:00 2001
+From: Peter Geis <pgwipeout@gmail.com>
+Date: Fri, 10 Jun 2022 14:09:18 -0400
+Subject: [PATCH 34/39] arm64: dts: rockchip: Move Quartz64-A to mdio setup
+
+Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
+index 22ca0243cd44..e8ee34db998b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3566-quartz64-a.dts
+@@ -277,10 +277,6 @@ &gmac1m0_rx_bus2
+ 		     &gmac1m0_rgmii_clk
+ 		     &gmac1m0_clkinout
+ 		     &gmac1m0_rgmii_bus>;
+-	snps,reset-gpio = <&gpio0 RK_PC3 GPIO_ACTIVE_LOW>;
+-	snps,reset-active-low;
+-	/* Reset time is 20ms, 100ms for rtl8211f */
+-	snps,reset-delays-us = <0 20000 100000>;
+ 	tx_delay = <0x30>;
+ 	rx_delay = <0x10>;
+ 	phy-handle = <&rgmii_phy1>;
+@@ -551,9 +547,13 @@ &i2s1m0_sdi0
+ };
+ 
+ &mdio1 {
++	reset-gpios = <&gpio0 RK_PC3 GPIO_ACTIVE_LOW>;
++	reset-delay-us = <20000>;
++	reset-post-delay-us = <100000>;
++
+ 	rgmii_phy1: ethernet-phy@0 {
+ 		compatible = "ethernet-phy-ieee802.3-c22";
+-		reg = <0>;
++		reg = <0x0>;
+ 	};
+ };
+ 
+-- 
+2.33.1
+

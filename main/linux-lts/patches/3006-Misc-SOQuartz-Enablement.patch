@@ -1,0 +1,1128 @@
+From patchwork Sat Nov 12 16:03:58 2022
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+X-Patchwork-Id: 13041302
+Return-Path: 
+ <linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 568A0C4332F
+	for <linux-rockchip@archiver.kernel.org>;
+ Sat, 12 Nov 2022 16:04:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:
+	Content-Transfer-Encoding:Content-Type:List-Subscribe:List-Help:List-Post:
+	List-Archive:List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Owner; bh=Fk6WxTXnvE4zkj7GghC2GBdWtyaFsierF3OPvi+I8dk=; b=4CkEbC6JR8ff6n
+	Tm49F5mLTdbxu5x3+a/iekIts+d/jgR/HaFPkyOZMZoyoUTNLEV5lH58/2qWmh/iUbkFA6sOWcWWY
+	JXl9RxmCksEK5nX9AMJgE8eSXsCFAfaJpv8VZdpHIutOBA8E3n+E+3X3k0sxmaBJmwzWw1cR+8PxI
+	SdgLWEYcqZydOyOLQ40gIKgQULgWUE9x8z3sQ+5vkhs96hW9vl4nuvzvo/RtdxCpktm6QXR0h5X8k
+	GokrKV5DomdlB+LeU9OrtIDgExGSavbfS6RQx8B95Jn86973j4ryAxwrYgkNznN9iM0jY9BarVABv
+	W0m5qLfBzubSGOw9MhxQ==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1otszt-006csQ-J8; Sat, 12 Nov 2022 16:04:45 +0000
+Received: from mail-wm1-x331.google.com ([2a00:1450:4864:20::331])
+	by bombadil.infradead.org with esmtps (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1otsze-006cjt-K4; Sat, 12 Nov 2022 16:04:31 +0000
+Received: by mail-wm1-x331.google.com with SMTP id o30so4588782wms.2;
+        Sat, 12 Nov 2022 08:04:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6vGKGpKWDMzYcbAUuUDkHFy/CbDqDYWCKkXDWqHYnr4=;
+        b=IYzQLachq1UeQWjOp9MP41sPq/3P3dn1wJO8S2uJtaVvKsv+P2kyhjojqOJFWDXvgV
+         BtcfWQHgRiEWQqayeE55fqM5mnUqNHMrUr+CRVvyWDJPK3maDec7v6B8At7M/7/Mx395
+         giiE9mU2YfW1ZRCVpnpM8qyxTWzQucIluHA1L6UuLy8vxda1s3BSCYCcwD3yQPgiyYaQ
+         E7s0he/Uoxs8RRQylD/qEVbKqXW5DnzxTN8cjLNWoTtP5QnwQpaUI5lsgI12vN+Bev08
+         y8+pvPVRH2xOLTMJZ6ErHdQSW+SBYNhoN8gf8Gas+3JtCdBnvuuH10ky7wza2iZjsAfP
+         KhHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6vGKGpKWDMzYcbAUuUDkHFy/CbDqDYWCKkXDWqHYnr4=;
+        b=kDYFGud72F2FRpSkT06JhQSvLWhpT5L+HEiXIMHUPOg0X1UsREplbW1KzsO2gBolUl
+         To9WQYEbyKj+TfMT7MxC2dan09I1oXEvjrstMcTj7utSnKPTdgvSmrpjtWZVXAHL9vwo
+         Ldzl1FyP0IwWVFQ97BO4/wtUu33Hrbd8mcbiWj/GrC2GEKJh/o2GawbiLS7jMmLSsEDC
+         XVdpTQmEpwwSXRwxxXrPInKI/EZ02hcOd621+QpBDyDYjAxKqaS0RSj4AZCBNeZ7pROr
+         78g1ILiSJVdFVaGPOBxysaT9rYbO6+kc5qhV3T6OifbMZqB4GBuqkDG3neL6w1aFT2gt
+         hE2A==
+X-Gm-Message-State: ANoB5plxoyqXGVvX7wDQXVcK4pHy7qLR4mEc5RLEiykCiEM9NhMBNdLn
+	Waiaxlz8/8mg8ubGPQzGdLg=
+X-Google-Smtp-Source: 
+ AA0mqf7jKhJFAniMUxTPxswRa0WCU2lg7yLrMCY5yBd8xY2Xj5I1NFyoKqV/c20KSClTFveEa7svBQ==
+X-Received: by 2002:a7b:c003:0:b0:3b4:abda:8b54 with SMTP id
+ c3-20020a7bc003000000b003b4abda8b54mr4290977wmb.82.1668269067876;
+        Sat, 12 Nov 2022 08:04:27 -0800 (PST)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+        by smtp.gmail.com with ESMTPSA id
+ iv16-20020a05600c549000b003cf87623c16sm14605752wmb.4.2022.11.12.08.04.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Nov 2022 08:04:26 -0800 (PST)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/6] arm64: dts: rockchip: Enable GPU on SOQuartz CM4
+Date: Sat, 12 Nov 2022 17:03:58 +0100
+Message-Id: <20221112160404.70868-2-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+References: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20221112_080430_680523_AEEED71A 
+X-CRM114-Status: UNSURE (   9.93  )
+X-CRM114-Notice: Please train this message.
+X-BeenThere: linux-rockchip@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: Upstream kernel work for Rockchip platforms
+ <linux-rockchip.lists.infradead.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-rockchip/>
+List-Post: <mailto:linux-rockchip@lists.infradead.org>
+List-Help: <mailto:linux-rockchip-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=subscribe>
+Sender: "Linux-rockchip" <linux-rockchip-bounces@lists.infradead.org>
+Errors-To: 
+ linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org
+
+This enables the Mali-G52 GPU on the SOQuartz CM4 module.
+
+Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
+index 5bcd4be32964..6e99f049501c 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
+@@ -143,6 +143,11 @@ &gmac1m0_clkinout
+ 	status = "disabled";
+ };
+ 
++&gpu {
++	mali-supply = <&vdd_gpu>;
++	status = "okay";
++};
++
+ &i2c0 {
+ 	status = "okay";
+ 
+
+From patchwork Sat Nov 12 16:03:59 2022
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+X-Patchwork-Id: 13041304
+Return-Path: 
+ <linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 512B6C4332F
+	for <linux-rockchip@archiver.kernel.org>;
+ Sat, 12 Nov 2022 16:05:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:
+	Content-Transfer-Encoding:Content-Type:List-Subscribe:List-Help:List-Post:
+	List-Archive:List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Owner; bh=dmCYsD9J5OPCDmYSiuq4RcTGXvnwMJ5aqvDt5rIOqDk=; b=OgLAaJFcRrC426
+	BhxQTqtMRUwjoW5oPUXoXKnHva2s4SQsL3ICYuIBtIfr6+qtKQUE8HqkGQfMF87KnjNTmU7FKpe+W
+	UOboT0DjmUg4qmhhOj2/PbawYRNAmjH5mZNWbHLT/by5Ey1KmuQodSF74xp+7wLJiXnLvVu42+w88
+	DYKiWn1p53bmBN0vQ+tkAdTqBMMKUvmzRiYIFXy/bRX0vvMmpJ0BRNxRBXOjq2hvWRlhnjebl/zoB
+	Zbl31myKq5bgCq0Pn5PMcAFH8P89ych8IOHntU0Yq1jUMjT5i1EFLIm2oMzM78xSjTE26Y8Mf3oWz
+	bVzzTFsk9kgCmtKVBRAg==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1ott03-006d0M-75; Sat, 12 Nov 2022 16:04:55 +0000
+Received: from mail-wm1-x32b.google.com ([2a00:1450:4864:20::32b])
+	by bombadil.infradead.org with esmtps (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1otsze-006ckF-SX; Sat, 12 Nov 2022 16:04:32 +0000
+Received: by mail-wm1-x32b.google.com with SMTP id
+ l39-20020a05600c1d2700b003cf93c8156dso4926343wms.4;
+        Sat, 12 Nov 2022 08:04:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ryja4COVOHIl0RDlGLdndcpFHG6CZ7IIZjln1Zob1wI=;
+        b=W2+hFqYRrsHwvKIwFlXxU5UeP4Hn1PIXuemAtrwiCMuoPIps/J5IVBDmvBBC4QGkK4
+         CJ4sb8OTYws5/48bkUAK0jT2+pQLyZFuTR72CQG/j4Byb9OmhHG2NpcmEBdFLbkixVOB
+         2QpBaPlJfxIyTGFSpliQdcGPJLlXE4gSNJAvc3L9qQP2TFgg5ZAF3RG48z+iF4U9dTjD
+         4eOa/JQ09vIXymtES2xkBSZW/FG/EZIXkXDp4a0E9QUeJmYOxODQSS3dIYVmevD4FMT6
+         Tf8mOVHPnr7KkC8NaqFZ2XVn5CJIQWi12qxYvUC2/94qD750jO+OWr6GJgXw2n7i4ZnU
+         GYzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ryja4COVOHIl0RDlGLdndcpFHG6CZ7IIZjln1Zob1wI=;
+        b=slnSjxN7IYrCJnvDiq4KWJUHmyqeCJV2t1BpB47sG9iGnWISkvmZiTsfct4DwebuLm
+         5glxjUirMvL1qmVL1svcQPcrK3lQliITndnn5AchVSn5Ha6TyDtkblvK+RKWdfhnwdz2
+         Jo6kBjC4fvG7FEmYQf5rt/IatWjSxC/crmyOTvZfYcv3dxMYEkgq4RMMk2Ba2+p1oRvx
+         uGEQvQQWpzYQW4wrjSjAhNmKHQP6UQJvqhXkHMLSw1tw07Y7Gktt2wtm7qR4HEBx5dIw
+         n6HrcNbtril6+SrQgIgkJxDJSsRu3aQ8S9mKcEscjmdj4IOPoAd5EO3/0SpvzzoVS2Xi
+         ziLw==
+X-Gm-Message-State: ANoB5pnxMdN+CqiXTsM098AYrHkCWsjrUytU2/SP2MBc7vd1g9mj3gJ3
+	i3U+sYtjbrgcr6be0a5qTms=
+X-Google-Smtp-Source: 
+ AA0mqf7R3EjsE/f2MM3c5yicPRNoufA1vOUCZrRluhmusrV6myk9zahbFvRQoaRlG3nOijvjuvx5mA==
+X-Received: by 2002:a7b:cd0e:0:b0:3cf:ca45:3b19 with SMTP id
+ f14-20020a7bcd0e000000b003cfca453b19mr4057679wmj.179.1668269069370;
+        Sat, 12 Nov 2022 08:04:29 -0800 (PST)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+        by smtp.gmail.com with ESMTPSA id
+ iv16-20020a05600c549000b003cf87623c16sm14605752wmb.4.2022.11.12.08.04.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Nov 2022 08:04:28 -0800 (PST)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/6] arm64: dts: rockchip: Enable video output and HDMI on
+ SOQuartz
+Date: Sat, 12 Nov 2022 17:03:59 +0100
+Message-Id: <20221112160404.70868-3-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+References: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20221112_080430_942666_60164246 
+X-CRM114-Status: GOOD (  12.89  )
+X-BeenThere: linux-rockchip@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: Upstream kernel work for Rockchip platforms
+ <linux-rockchip.lists.infradead.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-rockchip/>
+List-Post: <mailto:linux-rockchip@lists.infradead.org>
+List-Help: <mailto:linux-rockchip-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=subscribe>
+Sender: "Linux-rockchip" <linux-rockchip-bounces@lists.infradead.org>
+Errors-To: 
+ linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org
+
+This patch adds and enables the necessary device tree nodes to
+enable video output and HDMI functionality on the SOQuartz module.
+
+Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+---
+ .../boot/dts/rockchip/rk3566-soquartz.dtsi    | 47 +++++++++++++++++++
+ 1 file changed, 47 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
+index 6e99f049501c..0bfb0cea7d6b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
+@@ -4,6 +4,7 @@
+ 
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/pinctrl/rockchip.h>
++#include <dt-bindings/soc/rockchip,vop2.h>
+ #include "rk3566.dtsi"
+ 
+ / {
+@@ -28,6 +29,17 @@ gmac1_clkin: external-gmac1-clock {
+ 		#clock-cells = <0>;
+ 	};
+ 
++	hdmi-con {
++		compatible = "hdmi-connector";
++		type = "a";
++
++		port {
++			hdmi_con_in: endpoint {
++				remote-endpoint = <&hdmi_out_con>;
++			};
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -148,6 +160,24 @@ &gpu {
+ 	status = "okay";
+ };
+ 
++&hdmi {
++	avdd-0v9-supply = <&vdda0v9_image>;
++	avdd-1v8-supply = <&vcca1v8_image>;
++	status = "okay";
++};
++
++&hdmi_in {
++	hdmi_in_vp0: endpoint {
++		remote-endpoint = <&vp0_out_hdmi>;
++	};
++};
++
++&hdmi_out {
++	hdmi_out_con: endpoint {
++		remote-endpoint = <&hdmi_con_in>;
++	};
++};
++
+ &i2c0 {
+ 	status = "okay";
+ 
+@@ -619,3 +649,20 @@ &usb2phy0_otg {
+ &usb_host0_xhci {
+ 	status = "disabled";
+ };
++
++&vop {
++	assigned-clocks = <&cru DCLK_VOP0>, <&cru DCLK_VOP1>;
++	assigned-clock-parents = <&pmucru PLL_HPLL>, <&cru PLL_VPLL>;
++	status = "okay";
++};
++
++&vop_mmu {
++	status = "okay";
++};
++
++&vp0 {
++	vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
++		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
++		remote-endpoint = <&hdmi_in_vp0>;
++	};
++};
+
+From patchwork Sat Nov 12 16:04:00 2022
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+X-Patchwork-Id: 13041305
+Return-Path: 
+ <linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11C9FC4332F
+	for <linux-rockchip@archiver.kernel.org>;
+ Sat, 12 Nov 2022 16:05:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:
+	Content-Transfer-Encoding:Content-Type:List-Subscribe:List-Help:List-Post:
+	List-Archive:List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Owner; bh=t0ekTSLSpXjTNWnWj6/aloULPBPYn0WXHl8vUmEB9Ks=; b=gKVPE3W1YKS8Tg
+	PwMn5rbkrEYT8uNNjvwXmsJK/Y04o6Pg9VgVAB20AE/P23upr8dMzYnM/re9azen7SZdiZDpGlSUh
+	ecRGiDfR/uhuTUkYTWHyDDbwRW3YnCG9ofZDg6Re6FpSUMM8vQXWNbjR44LTuzLHXJO9Z6OcV2JD0
+	1ycH2Y01pO/pZVuIETOrws4j6EzT9ib3bjBEdrLYXJEPw0bMtXMQilcJecoE4mrQFXMHVV1co8uZd
+	6finLt0qX9i687y1d6738LSQc/vkVF2wHvqcJoL9ZV4aEHmXT2h+q9RNbwHSXO4NS44Oj3K6F9VQg
+	4bl5jRSAeMLR0iRpkMwQ==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1ott0d-006dLL-8D; Sat, 12 Nov 2022 16:05:31 +0000
+Received: from mail-wr1-x434.google.com ([2a00:1450:4864:20::434])
+	by bombadil.infradead.org with esmtps (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1otszi-006ckf-CL; Sat, 12 Nov 2022 16:04:35 +0000
+Received: by mail-wr1-x434.google.com with SMTP id l14so10190799wrw.2;
+        Sat, 12 Nov 2022 08:04:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ijKNfiunV63AFU9RzYinLsQfMGW1tKqr0LKOgrxroKY=;
+        b=HH+eoyr8wWz+PKf3eTxeIrPtgd+VdxvgSfFjHy3RdnzKHzXvFhUscCZ8oBFmTOtyOV
+         +itCm1tI1JznZHo0CX+0nf+J8urzmatqkiF+mF9rKFLNYMjTbheGHW4U/E+CqtFePiWE
+         tqfkb/yWDzao3xg0A+DgJ93jGHsSEiW8dc0Ha1YfwQpTQ+osNVt59Wj53xotk3VATra8
+         6okQ4A1FUnSULA/EW9Inh5ff24nvOqJ8Xw4kbB/b5f1N8lIImEVt3bB9B1BjyZG5a6dA
+         Z+QvMK8IB132LL6pQTOrVLfZBlGmz3MTsmfbWMn7n7ZvgnyasPC5WIgr8IyP7SMX3hbZ
+         6UsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ijKNfiunV63AFU9RzYinLsQfMGW1tKqr0LKOgrxroKY=;
+        b=zGq566joSpcZG4CcmumxhWVZQ4dC7lFa5cb0APq9+DF4kJyYywv/NAiMvGm+ulWYtW
+         UnndSjW5E5VePjVAtSyV+GC7VBeyt6SmibG/NR80iRoZKWDyz7kfz2/RlMK2LoBk9o7z
+         nSc+3sDF64BVyr7hsMHJYJexyjdEMKXuF33J+F6r13Gau87L3AzQjvIVsCAPjjiRoPDP
+         YYclzR3nWZmJHczumKUz6blC+vHcgJgT0fGv3quFqsYPme2A4B+bIFIsFh0K4OGQPjIn
+         VQLrkaUbPU/jlgCa68HrZisBUbEZpSg39vqPxq3gNJ2FsBLfLXwlKTxkKwqntcMWVOIP
+         8sAQ==
+X-Gm-Message-State: ANoB5pkSppSHHayvgTQQT9IgF2df4YAutrNSn9QduWCLef04bD2qrlOL
+	6Et+cX/LUGpEY4NTEYL0Nnc=
+X-Google-Smtp-Source: 
+ AA0mqf5rGZgCxdHJ6sUSJMm0IUngegN+ozLvYpNtMPG23JIot08oGXa88eYC1GzUoEmMHusXvXgh2Q==
+X-Received: by 2002:adf:fbc6:0:b0:22e:3392:fb46 with SMTP id
+ d6-20020adffbc6000000b0022e3392fb46mr3627992wrs.706.1668269070882;
+        Sat, 12 Nov 2022 08:04:30 -0800 (PST)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+        by smtp.gmail.com with ESMTPSA id
+ iv16-20020a05600c549000b003cf87623c16sm14605752wmb.4.2022.11.12.08.04.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Nov 2022 08:04:30 -0800 (PST)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/6] arm64: dts: rockchip: Enable HDMI sound on SOQuartz
+Date: Sat, 12 Nov 2022 17:04:00 +0100
+Message-Id: <20221112160404.70868-4-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+References: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20221112_080434_504845_7E73C63B 
+X-CRM114-Status: GOOD (  11.40  )
+X-BeenThere: linux-rockchip@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: Upstream kernel work for Rockchip platforms
+ <linux-rockchip.lists.infradead.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-rockchip/>
+List-Post: <mailto:linux-rockchip@lists.infradead.org>
+List-Help: <mailto:linux-rockchip-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=subscribe>
+Sender: "Linux-rockchip" <linux-rockchip-bounces@lists.infradead.org>
+Errors-To: 
+ linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org
+
+This patch enables the i2s0 node on SOQuartz, which is responsible
+for hdmi audio, and adds an hdmi-sound node to enable said audio.
+
+Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
+index 0bfb0cea7d6b..1b975822effa 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
+@@ -178,6 +178,10 @@ hdmi_out_con: endpoint {
+ 	};
+ };
+ 
++&hdmi_sound {
++	status = "okay";
++};
++
+ &i2c0 {
+ 	status = "okay";
+ 
+@@ -446,6 +450,10 @@ &i2c4 {
+ 	status = "disabled";
+ };
+ 
++&i2s0_8ch {
++	status = "okay";
++};
++
+ /*
+  * i2s1_8ch is exposed on CM1 / Module1A
+  * pin 24 - i2s1_sdi1_m1
+
+From patchwork Sat Nov 12 16:04:01 2022
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+X-Patchwork-Id: 13041306
+Return-Path: 
+ <linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6DD3C433FE
+	for <linux-rockchip@archiver.kernel.org>;
+ Sat, 12 Nov 2022 16:05:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:
+	Content-Transfer-Encoding:Content-Type:List-Subscribe:List-Help:List-Post:
+	List-Archive:List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Owner; bh=VlJn9AonzfcxBW2lDgmJ4T6iuRphgbs1aY3RNKDPkQw=; b=0yFU1+poawV2YR
+	RI+e2Yp0JzXUFhQiXnAazWGLDX9etgQhY3O4kI3HV9dOyO1Wn338/swsHrfWTzFRkrQoLvkhvLrLs
+	sgDM9aZ+HUyZvMy2GcWJSP6hGQ73rj+XAZnEsMc6ZeHN7h1z7Q42wil3Uoa8n3yO6+pEU4vBa5SPz
+	X0MH6J3n6UJVUQnTn42IM2KhZCeX2g1ydYnNbXWFgJS5oiPeIUhaVQbXguLFseQvzgm19kR2eM7dx
+	zZivXFenpk8PPOmsAw9BgjQ+RTpH2PGxoBCa2LVEHapHLoPEIrlfiMe/StJSh7ImqOGa2yV/gN47u
+	Te2pPYw2W3aPOWD6dqwg==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1ott0f-006dMK-FC; Sat, 12 Nov 2022 16:05:33 +0000
+Received: from mail-wr1-x434.google.com ([2a00:1450:4864:20::434])
+	by bombadil.infradead.org with esmtps (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1otszi-006cl0-CL; Sat, 12 Nov 2022 16:04:35 +0000
+Received: by mail-wr1-x434.google.com with SMTP id y16so10154194wrt.12;
+        Sat, 12 Nov 2022 08:04:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oJ27VAZylslPL3euOsLLalZQXH6wtWYg2Z/Is/uMUw0=;
+        b=HKKk23/nYx4DzhMOBDXtEJ3NKcPfdpwCTM3sBx8NmGDUwGFSQeFAq6goYAq8CgtD2H
+         Woq/th/pi/l9XsIFlLg2yV7Z+aDEQ+4OpMx9Z6Tnbu+QrSqubiPGyo7w3IzX9rsCdC4d
+         TCssYdAC1rlqCk0+DkL9k7x2tFd2PPo4l0/q8nj8AR8oXUWC4VA4lJxTApV1GIHe6IOj
+         /U6oHgDf593VFuHct8gBMk6JoXAeICQSVOLXAM+gu1zOm9BdKPJELZC/hfJ5hHUhTxXO
+         wmVBqSKQtmONK4g5+EVlk/hvJ5x7nab4ZZBs3Nt/bWa+x1o0iXJ2X7RF1RPjsElLf6Nr
+         m8zA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oJ27VAZylslPL3euOsLLalZQXH6wtWYg2Z/Is/uMUw0=;
+        b=1M9fVTjmUkCFD8DBc4eiCcU/pDqClodaZRstjTkbxsbAycR8ZeoVXpJP80W1kKdl29
+         5DjB0xhl/cjo6zon7uR1wcmh5LEsYyr8vemgkMZcxatjegiDZOEf6qS3JSLHNY+SHXM3
+         etjYktP6FdtbmWxqPPB0qIVwns5rp0EykzBO3FnXc9EaAW1J815etMo035WiIVx/XgdT
+         t5VGV04qEEefBNa9+Ai2YZ5C+FQr2sfv6pZ+bO5/657gNBR5pSSjEkL0H7TRj9RBr9bd
+         fZ28L5zGd8LGDntf+96jy9CEdsEWrIglZ24Sh1TjBowbJ/W23zS4OKuRSS8A6EKbncV7
+         xkfw==
+X-Gm-Message-State: ANoB5pnNmtJ70lJZcYpcFW0SfX3DEB/KACAiEFEgYqyTuFCslu5mEQix
+	MsoMsRznwSt+jRuGgSIN1lw=
+X-Google-Smtp-Source: 
+ AA0mqf4LLDY4KIu9pV27y1Mc+ZPFwpD7rdhFe1DVUzoLHJLMxxyOLvmhrL7M3GBqWzoOAhHTrlBGEQ==
+X-Received: by 2002:a5d:4f05:0:b0:241:8103:766d with SMTP id
+ c5-20020a5d4f05000000b002418103766dmr911326wru.386.1668269072512;
+        Sat, 12 Nov 2022 08:04:32 -0800 (PST)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+        by smtp.gmail.com with ESMTPSA id
+ iv16-20020a05600c549000b003cf87623c16sm14605752wmb.4.2022.11.12.08.04.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Nov 2022 08:04:32 -0800 (PST)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 4/6] arm64: dts: rockchip: Enable PCIe 2 on SOQuartz CM4IO
+Date: Sat, 12 Nov 2022 17:04:01 +0100
+Message-Id: <20221112160404.70868-5-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+References: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20221112_080434_476571_7BBAB329 
+X-CRM114-Status: GOOD (  11.60  )
+X-BeenThere: linux-rockchip@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: Upstream kernel work for Rockchip platforms
+ <linux-rockchip.lists.infradead.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-rockchip/>
+List-Post: <mailto:linux-rockchip@lists.infradead.org>
+List-Help: <mailto:linux-rockchip-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=subscribe>
+Sender: "Linux-rockchip" <linux-rockchip-bounces@lists.infradead.org>
+Errors-To: 
+ linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org
+
+This patch enables the PCIe2 on the CM4IO board when paired with
+a SOQuartz CM4 System-on-Module board. combphy2 also needs to be
+enabled in this case to make the PHY work for this.
+
+Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+---
+ .../boot/dts/rockchip/rk3566-soquartz-cm4.dts     | 11 +++++++++++
+ arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi | 15 +++++++++++++++
+ 2 files changed, 26 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-soquartz-cm4.dts b/arch/arm64/boot/dts/rockchip/rk3566-soquartz-cm4.dts
+index e00568a6be5c..263ce40770dd 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-soquartz-cm4.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3566-soquartz-cm4.dts
+@@ -30,6 +30,12 @@ vcc_5v: vcc-5v-regulator {
+ 	};
+ };
+ 
++/* phy for pcie */
++&combphy2 {
++	phy-supply = <&vcc3v3_sys>;
++	status = "okay";
++};
++
+ &gmac1 {
+ 	status = "okay";
+ };
+@@ -105,6 +111,11 @@ &led_work {
+ 	status = "okay";
+ };
+ 
++&pcie2x1 {
++	vpcie3v3-supply = <&vcc_3v3>;
++	status = "okay";
++};
++
+ &rgmii_phy1 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
+index 1b975822effa..ce7165d7f1a1 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3566-soquartz.dtsi
+@@ -487,6 +487,12 @@ rgmii_phy1: ethernet-phy@0 {
+ 	};
+ };
+ 
++&pcie2x1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie_reset_h>;
++	reset-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
++};
++
+ &pinctrl {
+ 	bt {
+ 		bt_enable_h: bt-enable-h {
+@@ -512,6 +518,15 @@ diy_led_enable_h: diy-led-enable-h {
+ 		};
+ 	};
+ 
++	pcie {
++		pcie_clkreq_h: pcie-clkreq-h {
++			rockchip,pins = <1 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++		pcie_reset_h: pcie-reset-h {
++			rockchip,pins = <1 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
+ 	pmic {
+ 		pmic_int_l: pmic-int-l {
+ 			rockchip,pins = <0 RK_PA3 RK_FUNC_GPIO &pcfg_pull_up>;
+
+From patchwork Sat Nov 12 16:04:02 2022
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+X-Patchwork-Id: 13041307
+Return-Path: 
+ <linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC70DC433FE
+	for <linux-rockchip@archiver.kernel.org>;
+ Sat, 12 Nov 2022 16:06:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:
+	Content-Transfer-Encoding:Content-Type:List-Subscribe:List-Help:List-Post:
+	List-Archive:List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Owner; bh=yACekEpTvbQjPaGlNSjZOYKiDdXBxFzBORK+psoJXBI=; b=BenbeNq5ODxLHA
+	zBkFP0IVHYLn2VSGHyL1xqbsUTZeadCyG3uaOfeiecFGXwlHOAPX0258QtciPhMAmWeI3Sn2Cprzy
+	xicn2O+5N3s+c+COwS/JgjhBNkaKFsqSuqC7WIDexzop5khCqOo4StD6mtf+eE9hzOQ5yJnP+BiIO
+	kzcYSWvkeREP13WPE9Zuv6qvMGPW1APiQxsanSdJoM9sMgrS9ITVMs5JP+p7vWJRpRAKD/I4ZC4R9
+	EW+MARuO5OW9gx5o8NoRrj712psA3NegTF2VsC3XwKD4UE9kqhlrWsjJO+EmeV1rdNSokyfhaLfRq
+	QnkrA8wz4TVzpW9Fx80Q==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1ott15-006dh7-S4; Sat, 12 Nov 2022 16:05:59 +0000
+Received: from mail-wm1-x32b.google.com ([2a00:1450:4864:20::32b])
+	by bombadil.infradead.org with esmtps (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1otszj-006clD-73; Sat, 12 Nov 2022 16:04:37 +0000
+Received: by mail-wm1-x32b.google.com with SMTP id 5so4586562wmo.1;
+        Sat, 12 Nov 2022 08:04:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oo1e2pdndrGc6hVcKePpw8O0AQvGqHawFLLzPC17yeY=;
+        b=pP5PuMeTMje8MHtJrs+dShOCpQSTLDpgsZzH09YamX+H1RoikyDCjlk9vvfHT2/aMU
+         FiWuOMH7TsXRfzFC5GfrEoCvF/NRd64KxpbkWtgMVsIyDVgHIh05Fz4jrlvmjswSPeB9
+         AInStLhIx08ygaA4RWh9iPga0eID/dZM9qYqn1zDR4bOKsVX17XcTHGQ7U+Z7SjlSaJ1
+         SGkQQOdqktLJCOWzbuQIe3RjL8hQILzEOr0/mp88mKElGzqKho4yxJZMclHdb/7Urty0
+         2DTGpD2IHN1Z4nZ9838i/YtDtwrhqRU6lRKsHsicqpZva9vwfrUEa2NuPUmGtaUlbwkY
+         5ttA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oo1e2pdndrGc6hVcKePpw8O0AQvGqHawFLLzPC17yeY=;
+        b=olXmm9p+UpufewfgheXOpT0U1+E2mfWgKF8wjk3SqL8psAo3UCQM0uIFoCpfyrLbcF
+         YDYjOi5cwtfA5KOz8LFy621OOSNeFRVNTsc6DnjG5XksayYLzh47zGP4FmRD/Vzggivg
+         MkNqB+BhyELbjV7gHzDHAbvqIg+subYsecIaTdgkfxLn8qqsVyp92FfdPZdqv6uLNVDL
+         VtkgLTdHz81LPDIFFW3HjH5gZQ4IuZ/eGaWzRIsyoJQREBM7wDCrS3UDfGMEzhzqHUgz
+         hNXqa3QWi8PmPhi4pGmJddiV8BxoPv8j4x/NGw1bEsTEiVskgyTnbKaRgIagdiqLu5hz
+         vVOA==
+X-Gm-Message-State: ANoB5pmSt2Ac8Ba7K7YQYluCxNAsGX81hgAWfMtyJb5AgOW9is9w5m42
+	/csFnATJvl+XWpd3S+w1HmE=
+X-Google-Smtp-Source: 
+ AA0mqf6gNkLJsyCFH5GzLpe8VqEmtAK/h1PHEytwQxLYAAuYv407DsjfvhExhFcj2H9GE3FK/R86DA==
+X-Received: by 2002:a05:600c:4b16:b0:3cf:77a6:2c2e with SMTP id
+ i22-20020a05600c4b1600b003cf77a62c2emr4084324wmp.179.1668269074086;
+        Sat, 12 Nov 2022 08:04:34 -0800 (PST)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+        by smtp.gmail.com with ESMTPSA id
+ iv16-20020a05600c549000b003cf87623c16sm14605752wmb.4.2022.11.12.08.04.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Nov 2022 08:04:33 -0800 (PST)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 5/6] dt-bindings: arm: rockchip: Add SOQuartz Blade
+Date: Sat, 12 Nov 2022 17:04:02 +0100
+Message-Id: <20221112160404.70868-6-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+References: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20221112_080435_270683_969F1783 
+X-CRM114-Status: UNSURE (   9.29  )
+X-CRM114-Notice: Please train this message.
+X-BeenThere: linux-rockchip@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: Upstream kernel work for Rockchip platforms
+ <linux-rockchip.lists.infradead.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-rockchip/>
+List-Post: <mailto:linux-rockchip@lists.infradead.org>
+List-Help: <mailto:linux-rockchip-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=subscribe>
+Sender: "Linux-rockchip" <linux-rockchip-bounces@lists.infradead.org>
+Errors-To: 
+ linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org
+
+Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 244c42eaae8c..fc5f14fcd007 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -579,6 +579,7 @@ properties:
+         items:
+           - enum:
+               - pine64,soquartz-cm4io
++              - pine64,soquartz-blade
+           - const: pine64,soquartz
+           - const: rockchip,rk3566
+ 
+
+From patchwork Sat Nov 12 16:04:03 2022
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Patchwork-Submitter: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+X-Patchwork-Id: 13041308
+Return-Path: 
+ <linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42937C433FE
+	for <linux-rockchip@archiver.kernel.org>;
+ Sat, 12 Nov 2022 16:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.infradead.org; s=bombadil.20210309; h=Sender:
+	Content-Transfer-Encoding:Content-Type:List-Subscribe:List-Help:List-Post:
+	List-Archive:List-Unsubscribe:List-Id:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Owner; bh=izcbsqElsAA937nPKBNMnoC+u8G6cAj8XxQ4xdTzzoo=; b=4Z/Cp3hrDx80yj
+	v3QeHddcycNaqKHNxdM1cEPFqoj+efbeTJeqWSomJdsXe8Tm5buMvueNLj8I2UfwK/2JIosuuSOjW
+	FTrR+hPi0uHLHvxXBa1XqtrXnxRpYZ87/bogam6fs29gV2w/jzQ+fhCPY1phC77/JLbddCjNczWz3
+	M9Cn+9ko/vjaAjVoF8T6sgQVsDivJXzjG/BQvfXzD0GC1doKroia0jMSTXzpa0mHUhwUT/PUbzgcE
+	Eidwyevnbd013SRgyV+8KjwM6qapSVuusk/7NB5VnSJHE7C6zqbec/+Uuqzr+g1YNMPia+mt2DQEt
+	xSw2xCqtkzpxq0wINzxQ==;
+Received: from localhost ([::1] helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtp (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1ott1S-006dpN-7R; Sat, 12 Nov 2022 16:06:22 +0000
+Received: from mail-wm1-x331.google.com ([2a00:1450:4864:20::331])
+	by bombadil.infradead.org with esmtps (Exim 4.94.2 #2 (Red Hat Linux))
+	id 1otszk-006cjt-Jo; Sat, 12 Nov 2022 16:04:38 +0000
+Received: by mail-wm1-x331.google.com with SMTP id o30so4588930wms.2;
+        Sat, 12 Nov 2022 08:04:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9FPqSrntXIQJ+cahpoCu9kmTaZguFXQ3wH0XIA4kS/o=;
+        b=mheZ7yHlypaukxwCu2bImvYh8XQskT9PvWpzYzRRjAixOUXWLXHfp8lDZXLW6GXha3
+         iU7XJ6zltMdpL3n+BzR4M9640o5YdhX1nVlqpR2muA7W4EC5Mip9Qsh/wbCywtDEbDeI
+         zqS2fBFZ8Dvob5fh7mtUOHnU23BvEOcbPx0a78CG5A0YE+ZbzVEEQh9WRwqC/XxHtzSc
+         Qwy30QMtqgfESqMg9+BaWSIgMnRsccsPBguSHO7QGIa+myIzYwdTymefb7uYRZMRhOB5
+         GG/L0jBMQ6Jp3Hf2jrMprRtoMADORKafov/DvedutXyXXeXR9BmTdJGKu/avPxmOnrN0
+         5tIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9FPqSrntXIQJ+cahpoCu9kmTaZguFXQ3wH0XIA4kS/o=;
+        b=YbqURCGI7A+wkcNkvytQtX0zpRQjbjq+dj4Xxm90xF4YsIhf7o/vw8EnGCf5Zt3kGU
+         xlRSi73QhsjrAE41ZL1yiwT0IoUstnnbZqiQRfXLRlU7kMAIk73puX/GNS0HlabevYcF
+         AYajdxWYDMMsPL1h9nX580rYNnkcm/yI7RVPnGhB0RVn7Ea23WkjRaDts7RQjk2+Dnpy
+         NGA0WUgXsvsnjfEcQJDVcke93+k+YHuxhBPcOPJFw021gqbeAR0+d4BDLthFCytoLEn2
+         4S2ocbz2WXxwPOJ+4ThrQEsJiar7kJ2o0rRhT45OLXThn/IDb2/MVQtYPC6kp1uxVS+n
+         3Z0g==
+X-Gm-Message-State: ANoB5pnUqwLOYFi4tcEIMjkhQfUR+wIbloMjSrmPhaYNRNsjC3wwAHea
+	OQj1JtfJKY79S3lS10TeZ5A=
+X-Google-Smtp-Source: 
+ AA0mqf57g76RoRF5m02yDFXD3u+BYjAgTRAZxyQWAQQRdUIH0rePDegYsPRl4GnduGxh+7dPTYH+mg==
+X-Received: by 2002:a05:600c:54c1:b0:3c6:e471:7400 with SMTP id
+ iw1-20020a05600c54c100b003c6e4717400mr4201425wmb.98.1668269076198;
+        Sat, 12 Nov 2022 08:04:36 -0800 (PST)
+Received: from localhost.localdomain (84-72-105-84.dclient.hispeed.ch.
+ [84.72.105.84])
+        by smtp.gmail.com with ESMTPSA id
+ iv16-20020a05600c549000b003cf87623c16sm14605752wmb.4.2022.11.12.08.04.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Nov 2022 08:04:35 -0800 (PST)
+From: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Rob Herring <robh+dt@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Andrew Powers-Holmes <aholmes@omnom.net>,
+	Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 6/6] arm64: dts: rockchip: Add SOQuartz blade board
+Date: Sat, 12 Nov 2022 17:04:03 +0100
+Message-Id: <20221112160404.70868-7-frattaroli.nicolas@gmail.com>
+X-Mailer: git-send-email 2.38.1
+In-Reply-To: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+References: <20221112160404.70868-1-frattaroli.nicolas@gmail.com>
+MIME-Version: 1.0
+X-CRM114-Version: 20100106-BlameMichelson ( TRE 0.8.0 (BSD) ) MR-646709E3 
+X-CRM114-CacheID: sfid-20221112_080436_703508_02DFED61 
+X-CRM114-Status: GOOD (  16.98  )
+X-BeenThere: linux-rockchip@lists.infradead.org
+X-Mailman-Version: 2.1.34
+Precedence: list
+List-Id: Upstream kernel work for Rockchip platforms
+ <linux-rockchip.lists.infradead.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-rockchip/>
+List-Post: <mailto:linux-rockchip@lists.infradead.org>
+List-Help: <mailto:linux-rockchip-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-rockchip>,
+ <mailto:linux-rockchip-request@lists.infradead.org?subject=subscribe>
+Sender: "Linux-rockchip" <linux-rockchip-bounces@lists.infradead.org>
+Errors-To: 
+ linux-rockchip-bounces+linux-rockchip=archiver.kernel.org@lists.infradead.org
+
+From: Andrew Powers-Holmes <aholmes@omnom.net>
+
+This adds a device tree for the PINE64 SOQuartz blade baseboard,
+a 1U rack mountable baseboard for the CM4 form factor with PoE
+support designed for the SOQuartz CM4 System-on-Module.
+
+The board takes power from either PoE or a 5V DC input, and allows
+for mounting an M.2 SSD.
+
+The board also features one USB 2.0 host port, one HDMI output,
+a 3.5mm jack for UART, and the aforementioned gigabit networking
+port.
+
+Signed-off-by: Andrew Powers-Holmes <aholmes@omnom.net>
+[rebase, squash, reword, misc fixes]
+Signed-off-by: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3566-soquartz-blade.dts    | 194 ++++++++++++++++++
+ 2 files changed, 195 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3566-soquartz-blade.dts
+
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index 50942086490d..2157f086c59e 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -71,6 +71,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-pinenote-v1.2.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-quartz64-a.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-quartz64-b.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-roc-pc.dtb
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-soquartz-blade.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3566-soquartz-cm4.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-bpi-r2-pro.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3568-evb1-v10.dtb
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-soquartz-blade.dts b/arch/arm64/boot/dts/rockchip/rk3566-soquartz-blade.dts
+new file mode 100644
+index 000000000000..4e49bebf548b
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3566-soquartz-blade.dts
+@@ -0,0 +1,194 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++
++/dts-v1/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++#include <dt-bindings/pinctrl/rockchip.h>
++
++#include "rk3566-soquartz.dtsi"
++
++/ {
++	model = "PINE64 RK3566 SOQuartz on Blade carrier board";
++	compatible = "pine64,soquartz-blade", "pine64,soquartz", "rockchip,rk3566";
++
++	/* labeled VCC3V0_SD in schematic to not conflict with PMIC regulator */
++	vcc3v0_sd: vcc3v0-sd-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc3v0_sd";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		vin-supply = <&vcc3v3_sys>;
++	};
++
++	/* labeled VCC_SSD in schematic */
++	vcc3v3_pcie_p: vcc3v3-pcie-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc3v3_pcie_p";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		vin-supply = <&vbus>;
++	};
++
++	vcc5v_dcin: vcc5v-dcin-regulator {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc5v_dcin";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++	};
++};
++
++&combphy2 {
++	phy-supply = <&vcc3v3_sys>;
++	status = "okay";
++};
++
++&gmac1 {
++	status = "okay";
++};
++
++/*
++ * i2c1 is exposed on CM1 / Module1A
++ * pin 80 - SCL0 - i2c1_scl_m0, pullup to vcc3v3_pmu
++ * pin 82 - SDA0 - i2c1_sda_m0, pullup to vcc3v3_pmu
++ */
++&i2c1 {
++	status = "okay";
++
++};
++
++/*
++ * i2c2 is exposed on CM1 / Module1A - to PI40
++ * pin 56 - GPIO3 - i2c2_scl_m1, pullup to vcc_3v3, shared with i2s1_8ch
++ * pin 58 - GPIO2 - i2c2_sda_m1, pullup to vcc_3v3
++ */
++&i2c2 {
++	status = "disabled";
++};
++
++/*
++ * i2c3 is exposed on CM1 / Module1A - to PI40
++ * pin 35 - ID_SC(GPIO28) - i2c3_scl_m0, pullup to vcc_3v3
++ * pin 36 - ID_SD(GPIO27) - i2c3_sda_m0, pullup to vcc_3v3
++ */
++&i2c3 {
++	status = "disabled";
++};
++
++/*
++ * i2c4 is exposed on CM2 / Module1B - to PI40
++ * pin 45 - GPIO24 - i2c4_scl_m1
++ * pin 47 - GPIO23 - i2c4_sda_m1
++ */
++&i2c4 {
++	status = "disabled";
++};
++
++/*
++ * i2s1_8ch is exposed on CM1 / Module1A - to PI40
++ * pin 24 - GPIO26 - i2s1_sdi1_m1
++ * pin 25 - GPIO21 - i2s1_sdo0_m1
++ * pin 26 - GPIO19 - i2s1_lrck_tx_m1
++ * pin 27 - GPIO20 - i2s1_sdi0_m1
++ * pin 29 - GPIO16 - i2s1_sdi3_m1
++ * pin 30 - GPIO6  - i2s1_sdi2_m1
++ * pin 40 - GPIO9  - i2s1_sdo1_m1, shared with spi3
++ * pin 41 - GPIO25 - i2s1_sdo2_m1
++ * pin 49 - GPIO18 - i2s1_sclk_tx_m1
++ * pin 50 - GPIO17 - i2s1_mclk_m1
++ * pin 56 - GPIO3  - i2s1_sdo3_m1, shared with i2c2
++ */
++&i2s1_8ch {
++	status = "disabled";
++};
++
++&led_diy {
++	color = <LED_COLOR_ID_RED>;
++	function = LED_FUNCTION_DISK_ACTIVITY;
++	linux,default-trigger = "disk-activity";
++	status = "okay";
++};
++
++&led_work {
++	color = <LED_COLOR_ID_GREEN>;
++	function = LED_FUNCTION_STATUS;
++	linux,default-trigger = "heartbeat";
++	status = "okay";
++};
++
++&pcie2x1 {
++	vpcie3v3-supply = <&vcc3v3_pcie_p>;
++	status = "okay";
++};
++
++&rgmii_phy1 {
++	status = "okay";
++};
++
++/*
++ * saradc is exposed on CM1 / Module1A - to J2
++ * pin 94 - AIN1 - saradc_vin3
++ * pin 96 - AIN0 - saradc_vin2
++ */
++&saradc {
++	status = "disabled";
++};
++
++&sdmmc0 {
++	vmmc-supply = <&vcc3v0_sd>;
++	status = "okay";
++};
++
++/*
++ * spi3 is exposed on CM1 / Module1A - to PI40
++ * pin 37 - GPIO7  - spi3_cs1_m0
++ * pin 38 - GPIO11 - spi3_clk_m0
++ * pin 39 - GPIO8  - spi3_cs0_m0
++ * pin 40 - GPIO9  - spi3_miso_m0, shared with i2s1_8ch
++ * pin 44 - GPIO10 - spi3_mosi_m0
++ */
++&spi3 {
++	status = "disabled";
++};
++
++/*
++ * uart2 is exposed on CM1 / Module1A - to PI40
++ * pin 51 - GPIO15 - uart2_rx_m0
++ * pin 55 - GPIO14 - uart2_tx_m0
++ */
++&uart2 {
++	status = "okay";
++};
++
++/*
++ * uart7 is exposed on CM1 / Module1A - to PI40
++ * pin 46 - GPIO22 - uart7_tx_m2
++ * pin 47 - GPIO23 - uart7_rx_m2
++ */
++&uart7 {
++	status = "okay";
++};
++
++&usb2phy0 {
++	status = "okay";
++};
++
++&usb2phy0_otg {
++	phy-supply = <&vbus>;
++	status = "okay";
++};
++
++&usb_host0_xhci {
++	status = "okay";
++};
++
++&vbus {
++	vin-supply = <&vcc5v_dcin>;
++};
