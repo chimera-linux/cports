@@ -8,6 +8,8 @@ for kern in /usr/lib/modules/*; do
     kernver=${kern#/usr/lib/modules/}
     # only consider removed kernels
     [ -f "${kern}/modules.dep" ] && continue
+    # skip early
+    [ "${kernver}" = "apk-backup" ] && continue
     # uninstall everything installed for that kernel
     ckms -q -k "${kernver}" plain-status | \
         while read modn modv kernv karch status; do

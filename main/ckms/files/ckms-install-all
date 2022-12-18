@@ -5,6 +5,8 @@ export CKMS_APK_DEFER_INITRAMFS=1
 for kern in /usr/lib/modules/*; do
     [ -d "${kern}" ] || continue
     kernver=${kern#/usr/lib/modules/}
+    # possibly not a kernel, or at least not modular
+    [ -f "${kern}/modules.dep" ] || continue
     # skip early
     if [ ! -d "${kern}/build" ]; then
         echo "kernel headers not installed for ${kernver}, skipping..."

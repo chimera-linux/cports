@@ -20,7 +20,9 @@ for mod in /var/lib/ckms/*; do
         # found a missing module; uninstall for every kernel
         for kern in /usr/lib/modules/*; do
             [ -d "${kern}" ] || continue
-            ckms -q -k "${kern#/usr/lib/modules/}" uninstall "${ver}" || :
+            kern="${kern#/usr/lib/modules/}"
+            [ "${kern}" = "apk-backup" ] && continue
+            ckms -q -k "${kern}" uninstall "${ver}" || :
         done
         # purge its state
         rm -rf "${ver}"
