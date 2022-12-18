@@ -1,5 +1,5 @@
 # don't forget to update files/ckms.ini when bumping
-# also update linux-modules-zfs
+# also update linux-*-zfs-bin
 pkgname = "zfs"
 pkgver = "2.1.7"
 pkgrel = 0
