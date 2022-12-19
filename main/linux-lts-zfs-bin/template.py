@@ -3,28 +3,16 @@ _kernver = "6.1.0"
 _zfsver = "2.1.7"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = [
-    "--with-config=kernel"
-]
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "pkgconf", "automake", "libtool", "perl", "python", "bash"
+    "gmake", "pkgconf", "automake", "libtool", "perl", "python", "bash", "ckms"
 ]
-makedepends = ["linux-lts-devel"]
+makedepends = ["linux-lts-devel", "zfs-ckms"]
 # provides the same thing as the ckms variant
 depends = [f"linux-lts~{_kernver}", f"zfs~{_zfsver}"]
 pkgdesc = f"OpenZFS modules for kernel {_kernver}"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
-source = f"https://github.com/openzfs/zfs/releases/download/zfs-{_zfsver}/zfs-{_zfsver}.tar.gz"
-sha256 = "6462e63e185de6ff10c64ffa6ed773201a082f9dd13e603d7e8136fcb4aca71b"
-env = {
-    "LLVM": "1",
-    "LLVM_IAS": "1",
-    "LD": "ld.lld",
-}
 options = ["!cross"]
 
 _script_pre = """
@@ -81,37 +69,35 @@ def init_configure(self):
     self.scriptlets["post-upgrade"] = postscript
     self.scriptlets["post-deinstall"] = postscript
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
+def _call_ckms(self, *args):
+    return self.do(
+        "ckms", "-s", self.chroot_cwd, "-k", self._linux_version, *args
+    )
+
+def do_configure(self):
+    _call_ckms(self, "add", f"/usr/src/zfs-{_zfsver}")
+
+def do_build(self):
+    _call_ckms(self, "build", f"zfs={_zfsver}")
 
 def do_install(self):
-    modbase = f"usr/lib/modules/{self._linux_version}"
-    modpath = f"{modbase}/extra"
+    from cbuild.core import paths
 
-    # exactly mimics dkms/ckms
-    for modn, opath, dpath in [
-        ("zavl", "avl", "avl/avl"),
-        ("znvpair", "nvpair", "nvpair/znvpair"),
-        ("zunicode", "unicode", "unicode/zunicode"),
-        ("zcommon", "zcommon", "zcommon/zcommon"),
-        ("zfs", "zfs", "zfs/zfs"),
-        ("icp", "icp", "icp/icp"),
-        ("zlua", "lua", "lua/zlua"),
-        ("spl", "spl", "spl/spl"),
-        ("zzstd", "zstd", "zstd/zzstd"),
-    ]:
-        self.log(f"compressing and installing: {modn}")
-        srcmod = self.chroot_cwd / self.make_dir / "module" / opath / f"{modn}.ko"
-        destmod = f"{modpath}/{dpath}"
-        self.install_dir(destmod)
-        with open(self.destdir / destmod / f"{modn}.ko.gz", "wb") as outf:
-            self.do("gzip", "-9", "-c", srcmod, stdout = outf)
+    modbase = "usr/lib/modules"
+    moddest = f"{modbase}/{self._linux_version}"
+
+    self.install_dir(moddest)
+    _call_ckms(
+        self, "-d", self.chroot_destdir / modbase, "-D", "-x", "gz",
+        "install", f"zfs={_zfsver}"
+    )
 
     # prevent ckms from managing it
-    cdpath = f"{modbase}/ckms-disable/zfs"
+    cdpath = f"{moddest}/ckms-disable/zfs"
     self.install_dir(cdpath)
     (self.destdir / cdpath / _zfsver).touch(0o644)
 
-    self.install_license("COPYRIGHT")
-    self.install_license("LICENSE")
-    self.install_license("NOTICE")
+    srcp = paths.bldroot() / f"usr/src/zfs-{_zfsver}"
+    self.install_license(srcp / "COPYRIGHT")
+    self.install_license(srcp / "LICENSE")
+    self.install_license(srcp / "NOTICE")
