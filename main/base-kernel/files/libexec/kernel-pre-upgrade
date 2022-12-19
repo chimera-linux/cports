@@ -6,23 +6,21 @@
 set -e
 
 do_backup() {
-    [ ! -f "$1" ] && return 0
-    dirn=$(dirname "$1")
-    filen=$(basename "$1")
-    tgtn="${dirn}/.apk-backup.${filen}"
+    [ ! -f "/boot/$1" ] && return 0
+    tgtn="/boot/.apk-backup.$1"
     # if an existing backup already exists, skip it
     [ -f "$tgtn" ] && return 0
-    mv "$1" "${tgtn}"
+    mv "/boot/$1" "${tgtn}"
 }
 
 backup_kernel() {
     # try names that may be worth backing up, not all may exist
-    do_backup "/boot/vmlinux-$1"
-    do_backup "/boot/vmlinuz-$1"
-    do_backup "/boot/initramfs-$1.img"
-    do_backup "/boot/initrd.img-$1"
-    do_backup "/boot/config-$1"
-    do_backup "/boot/System.map-$1"
+    do_backup "vmlinux-$1"
+    do_backup "vmlinuz-$1"
+    do_backup "initramfs-$1.img"
+    do_backup "initrd.img-$1"
+    do_backup "config-$1"
+    do_backup "System.map-$1"
 }
 
 backup_modules() {

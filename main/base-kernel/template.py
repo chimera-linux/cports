@@ -15,7 +15,7 @@ def do_install(self):
     self.install_dir("usr/libexec/base-kernel")
 
     for f in [
-        "kernel-clean-initramfs", "kernel-pre-upgrade",
+        "kernel-clean-initramfs", "kernel-pre-upgrade", "kernel-post-upgrade",
         "run-kernel-d", "script-funcs", "script-pre-deinstall",
         "script-pre-install", "script-pre-upgrade",
         "script-post-install", "script-post-upgrade",
