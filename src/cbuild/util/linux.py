@@ -76,3 +76,66 @@ def install(pkg, flavor, env = None):
     pkg.install_dir(f"{kpath}/apk-dist")
     for f in (pkg.destdir / kpath).glob("modules.*"):
         pkg.mv(f, f.parent / "apk-dist")
+
+# api to manipulate out of tree modules
+
+def get_version(pkg, expected = None):
+    from cbuild.core import paths
+
+    kver = None
+    for f in (paths.bldroot() / "usr/lib/modules").iterdir():
+        if kver:
+            pkg.error(f"kernel version already set: {kver}")
+        kver = f.name
+
+    if expected and expected not in kver:
+        pkg.error(f"kernel mismatch: {kver} (expected {expected})")
+
+    return kver
+
+def get_modsrc(pkg, modname, modver):
+    from cbuild.core import paths
+    return paths.bldroot() / f"usr/src/{modname}-{modver}"
+
+def generate_scriptlets_ckms(pkg, modname, kernver):
+    prescript = f"""rm -f /boot/initramfs-{kernver}.img || :
+rm -f /boot/initrd.img-{kernver} || :"""
+
+    postscript = f"""if [ -f /boot/System.map-{kernver} ]; then
+    depmod -a -F /boot/System.map-{kernver} {kernver} || :
+else
+    depmod -a {kernver} || :
+fi"""
+
+    pkg.scriptlets["pre-install"] = prescript + f"""
+if [ -x /usr/bin/ckms ]; then
+    ckms -q -k {kernver} uninstall {modname} > /dev/null 2>&1 || :
+fi"""
+    pkg.scriptlets["pre-upgrade"] = prescript
+    pkg.scriptlets["pre-deinstall"] = prescript
+    pkg.scriptlets["post-install"] = postscript
+    pkg.scriptlets["post-upgrade"] = postscript
+    pkg.scriptlets["post-deinstall"] = postscript
+
+def _call_ckms(pkg, kver, *args):
+    pkg.do("ckms", "-s", pkg.chroot_cwd, "-k", kver, *args)
+
+def ckms_configure(pkg, modname, modver, kver):
+    _call_ckms(pkg, kver, "add", f"/usr/src/{modname}-{modver}")
+
+def ckms_build(pkg, modname, modver, kver):
+    _call_ckms(pkg, kver, "build", f"{modname}={modver}")
+
+def ckms_install(pkg, modname, modver, kver):
+    modbase = "usr/lib/modules"
+    moddest = f"{modbase}/{kver}"
+
+    pkg.install_dir(moddest)
+    _call_ckms(
+        pkg, kver, "-d", pkg.chroot_destdir / modbase, "-D", "-x", "gz",
+        "install", f"{modname}={modver}"
+    )
+
+    cdpath = f"{moddest}/ckms-disable/{modname}"
+    pkg.install_dir(cdpath)
+    (pkg.destdir / cdpath / modver).touch(0o644)
