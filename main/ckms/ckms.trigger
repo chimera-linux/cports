@@ -2,6 +2,8 @@
 
 export CKMS_APK_DEFER_INITRAMFS=1
 
+[ -f /.cbuild_chroot_init ] && exit 0
+
 # prune modules that are no longer installed
 
 for mod in /var/lib/ckms/*; do
