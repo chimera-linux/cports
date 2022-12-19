@@ -9,7 +9,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "pkgconf", "automake", "libtool","perl",  "python", "bash"
+    "gmake", "pkgconf", "automake", "libtool", "perl", "python", "bash"
 ]
 makedepends = ["linux-lts-devel"]
 # provides the same thing as the ckms variant
@@ -85,7 +85,8 @@ def pre_configure(self):
     self.do("autoreconf", "-if")
 
 def do_install(self):
-    modpath = f"usr/lib/modules/{self._linux_version}/extra"
+    modbase = f"usr/lib/modules/{self._linux_version}"
+    modpath = f"{modbase}/extra"
 
     # exactly mimics dkms/ckms
     for modn, opath, dpath in [
@@ -107,9 +108,9 @@ def do_install(self):
             self.do("gzip", "-9", "-c", srcmod, stdout = outf)
 
     # prevent ckms from managing it
-    cdpath = f"usr/src/zfs-{_zfsver}/ckms-disable"
+    cdpath = f"{modbase}/ckms-disable/zfs"
     self.install_dir(cdpath)
-    (self.destdir / cdpath / self._linux_version).touch(0o644)
+    (self.destdir / cdpath / _zfsver).touch(0o644)
 
     self.install_license("COPYRIGHT")
     self.install_license("LICENSE")
