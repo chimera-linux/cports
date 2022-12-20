@@ -45,7 +45,7 @@ diff --git a/src/bootstrap/native.rs b/src/bootstrap/native.rs
 index fc3bfaf1b..3d44ab8e9 100644
 --- a/src/bootstrap/native.rs
 +++ b/src/bootstrap/native.rs
-@@ -432,19 +432,6 @@ impl Step for Llvm {
+@@ -442,19 +442,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  

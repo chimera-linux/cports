@@ -9,9 +9,8 @@ in just disabling nodefaultlibs for our platform.
 ---
  vendor/libc-0.2.126/src/unix/mod.rs | 7 +------
  vendor/libc-0.2.127/src/unix/mod.rs | 7 +------
- vendor/libc-0.2.131/src/unix/mod.rs | 7 +------
  vendor/libc/src/unix/mod.rs         | 7 +------
- 4 files changed, 4 insertions(+), 24 deletions(-)
+ 3 files changed, 3 insertions(+), 18 deletions(-)
 
 diff --git a/vendor/libc-0.2.126/src/unix/mod.rs b/vendor/libc-0.2.126/src/unix/mod.rs
 index ecee44411..00f4b14a0 100644
@@ -35,24 +34,6 @@ diff --git a/vendor/libc-0.2.127/src/unix/mod.rs b/vendor/libc-0.2.127/src/unix/
 index 1d57f28b2..ad7c9d91d 100644
 --- a/vendor/libc-0.2.127/src/unix/mod.rs
 +++ b/vendor/libc-0.2.127/src/unix/mod.rs
-@@ -337,12 +337,7 @@ cfg_if! {
-         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
-         extern {}
-     } else if #[cfg(target_env = "musl")] {
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", kind = "static", modifiers = "-bundle",
--                        cfg(target_feature = "crt-static")))]
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
--        extern {}
-+        // we don't set -nodefaultlibs, so no need to link anything
-     } else if #[cfg(target_os = "emscripten")] {
-         #[link(name = "c")]
-         extern {}
-diff --git a/vendor/libc-0.2.131/src/unix/mod.rs b/vendor/libc-0.2.131/src/unix/mod.rs
-index ecc693e3d..b3cb2ea0f 100644
---- a/vendor/libc-0.2.131/src/unix/mod.rs
-+++ b/vendor/libc-0.2.131/src/unix/mod.rs
 @@ -337,12 +337,7 @@ cfg_if! {
          #[link(name = "c", cfg(not(target_feature = "crt-static")))]
          extern {}

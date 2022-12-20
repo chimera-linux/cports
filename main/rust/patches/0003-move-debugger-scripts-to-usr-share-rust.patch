@@ -14,7 +14,7 @@ diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
 index 1a59b3958..04ebe445e 100644
 --- a/src/bootstrap/dist.rs
 +++ b/src/bootstrap/dist.rs
-@@ -479,7 +479,7 @@ impl Step for DebuggerScripts {
+@@ -501,7 +501,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let host = self.host;
          let sysroot = self.sysroot;
