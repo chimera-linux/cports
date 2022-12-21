@@ -1,0 +1,22 @@
+commit cec327db38197276944cce31ec84c6963cf1ec1f
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Wed Dec 21 01:55:19 2022 +0100
+
+    default to strong ssp
+
+diff --git a/clang/lib/Driver/ToolChains/Linux.h b/clang/lib/Driver/ToolChains/Linux.h
+index 188cb1f0..207e9f17 100644
+--- a/clang/lib/Driver/ToolChains/Linux.h
++++ b/clang/lib/Driver/ToolChains/Linux.h
+@@ -63,6 +63,11 @@ public:
+       const llvm::opt::ArgList &DriverArgs, const JobAction &JA,
+       const llvm::fltSemantics *FPType = nullptr) const override;
+ 
++  LangOptions::StackProtectorMode
++  GetDefaultStackProtectorLevel(bool KernelOrKext) const override {
++    return LangOptions::SSPStrong;
++  }
++
+ protected:
+   Tool *buildAssembler() const override;
+   Tool *buildLinker() const override;
