@@ -59,9 +59,7 @@ def _get_hcflags(sharden, tharden):
     if not hard["pie"]:
         hflags.append("-fno-PIE")
 
-    if hard["ssp"]:
-        hflags.append("-fstack-protector-strong")
-    else:
+    if not hard["ssp"]:
         hflags.append("-fno-stack-protector")
 
     if hard["scp"]:
