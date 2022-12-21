@@ -1619,18 +1619,6 @@ These are also the fields it has to define. The `triplet` must always
 be the full triplet (`cbuild` will take care of building the short
 triplet from it if needed). The compiler flags are optional.
 
-There may also be an extra field in `profile`:
-
-```
-hardening = ...
-```
-
-This specifies hardening which is supported or unsupported by the target.
-It does not actually enable or disable the options directly; the defaults
-for all hardening options are shared between all targets. However, by
-declaring some hardening option supported or unsupported, this can alter
-the defaults. Disabling is done by prefixing the name with `!`.
-
 The `repos` field specifies which categories are provided by remote
 repositories. As different architecture tiers may provide different
 package sets and some architectures don't have remote repositories
@@ -1661,7 +1649,6 @@ class Profile:
     triplet = ...
     short_triplet = ...
     sysroot = ...
-    hardening = ...
     wordsize = ...
     endian = ...
     cross = ...
@@ -1669,8 +1656,6 @@ class Profile:
     goarch = ...
 
     def get_tool_flags(self, name, extra_flags = [], debug = -1, hardening = [], shell = False)
-
-    def has_hardening(self, hname, hardening = [])
 ```
 
 The properties have the following meanings:
@@ -1679,8 +1664,6 @@ The properties have the following meanings:
 * `triplet` The "long" target triplet (e.g. `aarch64-unknown-linux-musl`)
 * `short_triplet` The "short" target triplet (e.g. `aarch64-linux-musl`)
 * `sysroot` A `pathlib` path representing the sysroot.
-* `hardening` A list of hardening options the profile supports or does not
-  support.
 * `wordsize` The integer word size of the target (typically 64 or 32).
 * `endian` The endianness of the target (`little` or `big`).
 * `cross` A boolean that is `True` for cross compiling targets and

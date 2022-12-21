@@ -1176,10 +1176,8 @@ class Template(Package):
 
         return self.tools[name]
 
-    def has_hardening(self, hname, target = None):
-        target = pkg_profile(self, target)
-
-        return target.has_hardening(hname, self.hardening)
+    def has_hardening(self, hname):
+        return profile.has_hardening(hname, self.hardening)
 
     @contextlib.contextmanager
     def _profile(self, target):

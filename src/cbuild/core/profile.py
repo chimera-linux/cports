@@ -15,16 +15,14 @@ hardening_fields = {
     "scp": True, # stack-clash-protection
 }
 
-# some hardening options are universal while some must be
-# declared by the target as supported, on other systems
-# they become noop
-supported_hardening = {
-    "pie": True,
-    "ssp": True,
-    "scp": False,
+# only some are arch-specific, those are here
+supported_fields = {
+    "scp": set(["x86_64", "ppc64le", "ppc64", "ppc"])
 }
 
-def _htodict(hlist, hdict):
+def _get_harden(hlist):
+    hdict = dict(hardening_fields)
+
     for fl in hlist:
         neg = fl.startswith("!")
         if neg:
@@ -37,24 +35,9 @@ def _htodict(hlist, hdict):
 
     return hdict
 
-def _get_harden(sharden, tharden):
-    # hardening that is declared
-    hdict = dict(hardening_fields)
-    # hardening that is supported
-    shdict = dict(supported_hardening)
-
-    hdict = _htodict(tharden, hdict)
-    shdict = _htodict(sharden, shdict)
-
-    for k in shdict:
-        if not shdict[k]:
-            hdict[k] = False
-
-    return hdict
-
-def _get_hcflags(sharden, tharden):
+def _get_hcflags(prof, tharden):
     hflags = []
-    hard = _get_harden(sharden, tharden)
+    hard = _get_harden(tharden)
 
     if not hard["pie"]:
         hflags.append("-fno-PIE")
@@ -62,14 +45,14 @@ def _get_hcflags(sharden, tharden):
     if not hard["ssp"]:
         hflags.append("-fno-stack-protector")
 
-    if hard["scp"]:
+    if hard["scp"] and prof._arch in supported_fields["scp"]:
         hflags.append("-fstack-clash-protection")
 
     return hflags
 
-def _get_hldflags(sharden, tharden):
+def _get_hldflags(prof, tharden):
     hflags = []
-    hard = _get_harden(sharden, tharden)
+    hard = _get_harden(tharden)
 
     if not hard["pie"]:
         hflags.append("-no-pie")
@@ -99,7 +82,7 @@ def _flags_ret(it, shell):
         return list(it)
 
 def _get_gencflags(self, name, extra_flags, debug, hardening, shell):
-    hflags = _get_hcflags(self._hardening, hardening)
+    hflags = _get_hcflags(self, hardening)
 
     # bootstrap
     if not self._triplet:
@@ -115,7 +98,7 @@ def _get_gencflags(self, name, extra_flags, debug, hardening, shell):
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
 def _get_ldflags(self, name, extra_flags, debug, hardening, shell):
-    hflags = _get_hldflags(self._hardening, hardening)
+    hflags = _get_hldflags(self, hardening)
 
     # bootstrap
     if not self._triplet:
@@ -150,6 +133,9 @@ _flag_handlers = {
     "RUSTFLAGS": _get_rustflags,
 }
 
+def has_hardening(hname, hardening = []):
+    return _get_harden(hardening)[hname]
+
 _flag_types = list(_flag_handlers.keys())
 
 class Profile:
@@ -169,7 +155,6 @@ class Profile:
             self._triplet = None
             self._endian = sys.byteorder
             self._wordsize = int(platform.architecture()[0][:-3])
-            self._hardening = []
             self._repos = []
             self._goarch = None
             # account for arch specific bootstrap flags
@@ -204,11 +189,6 @@ class Profile:
             raise errors.CbuildException(
                 f"unknown endianness for {archn}: {self._endian}"
             )
-
-        if "hardening" in pdata:
-            self._hardening = pdata.get("hardening").split()
-        else:
-            self._hardening = []
 
         if "goarch" in pdata:
             self._goarch = pdata.get("goarch")
@@ -262,13 +242,6 @@ class Profile:
 
     def _get_supported_tool_flags(self):
         return _flag_types
-
-    def has_hardening(self, hname, hardening = []):
-        return _get_harden(self._hardening, hardening)[hname]
-
-    @property
-    def hardening(self):
-        return self._hardening
 
     @property
     def wordsize(self):
