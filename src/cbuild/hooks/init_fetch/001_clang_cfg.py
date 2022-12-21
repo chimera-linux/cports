@@ -11,8 +11,7 @@ def invoke(pkg):
 
     # explicitly handle linker and lto threads
     cfgl.append(f"-Wl,--threads={pkg.link_threads}")
-    if pkg.options["lto"]:
-        cfgl.append(f"-flto-jobs={pkg.lto_jobs}")
+    cfgl.append(f"-flto-jobs={pkg.lto_jobs}")
 
     # write it out
     cp = paths.bldroot() / "etc/clang"
@@ -21,3 +20,7 @@ def invoke(pkg):
         for opt in cfgl:
             outf.write(opt)
             outf.write("\n")
+    # c++ alias
+    cpp = (cp / "clang++.cfg")
+    cpp.unlink(missing_ok = True)
+    cpp.symlink_to("clang.cfg")
