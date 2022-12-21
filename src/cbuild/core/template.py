@@ -1097,9 +1097,6 @@ class Template(Package):
             lflags = ["-flto"]
         else:
             lflags = ["-flto=thin"]
-        # restrict number of LTO jobs if necessary
-        if fn == "LDFLAGS" and self.lto_jobs > 0:
-            lflags += [f"-flto-jobs={self.lto_jobs}"]
         # just concat, user flags come last
         return lflags + eflags
 
@@ -1123,8 +1120,6 @@ class Template(Package):
             tfb = [
                 f"-ffile-prefix-map={self.chroot_builddir / self.wrksrc}=."
             ] + tfb
-        elif name == "LDFLAGS" and self.link_threads > 0:
-            tfb = [f"-Wl,--threads={self.link_threads}"] + tfb
 
         return target.get_tool_flags(
             name, tfb,

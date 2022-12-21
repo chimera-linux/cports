@@ -332,8 +332,16 @@ def handle_options():
     if cmdline.bulk_fail:
         opt_bulkfail = True
 
+    ncores = len(os.sched_getaffinity(0))
+
     if opt_makejobs == 0:
-        opt_makejobs = len(os.sched_getaffinity(0))
+        opt_makejobs = ncores
+
+    if opt_lthreads == 0:
+        opt_lthreads = ncores
+
+    if opt_ltojobs == 0:
+        opt_ltojobs = ncores
 
 def init_late():
     import os
