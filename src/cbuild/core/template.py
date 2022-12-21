@@ -622,7 +622,6 @@ class Template(Package):
         self.git_revision = None
         self.git_dirty = False
         self.current_sonames = {}
-        self.default_hardening = []
 
     def get_build_deps(self):
         from cbuild.core import dependencies
@@ -1642,6 +1641,10 @@ def from_module(m, ret):
     # FIXME: remove this when the toolchain is fixed
     if ret.profile().arch == "riscv64":
         ropts["lto"] = False
+
+    # translate the lto value into hardening as well
+    if ropts["lto"]:
+        ret.hardening.append("lto")
 
     ret.options = ropts
     ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"

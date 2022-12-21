@@ -10,14 +10,24 @@ import sys
 
 # recognized hardening options
 hardening_fields = {
+    "lto": False, # do not use directly, filled in by template
     "pie": True,
     "ssp": True, # this should really be compiler default
     "scp": True, # stack-clash-protection
+    "int": True, # ubsan integer hardening
+    "cet": True, # intel CET on x86
+    "pac": True, # PAC+BTI on aarch64
+    "cfi": False, # control flow integrity
+    "sst": False, # safestack, not for DSOs
 }
 
 # only some are arch-specific, those are here
 supported_fields = {
-    "scp": set(["x86_64", "ppc64le", "ppc64", "ppc"])
+    "scp": set(["x86_64", "ppc64le", "ppc64", "ppc"]),
+    "sst": set(["x86_64", "aarch64"]),
+    "cfi": set(["x86_64", "aarch64"]),
+    "cet": set(["x86_64"]),
+    "pac": set(["aarch64"]),
 }
 
 def _get_harden(hlist):
@@ -35,6 +45,36 @@ def _get_harden(hlist):
 
     return hdict
 
+# stuff that should go in both regular and linker flags, as it
+# involves linking an extra runtime component (from compiler-rt)
+def _get_archflags(prof, hard):
+    sflags = []
+    ubsan = False
+
+    if not hard["ssp"]:
+        sflags.append("-fno-stack-protector")
+
+    if hard["sst"]:
+        sflags.append("-fsanitize=safe-stack")
+
+    # we cannot deploy cross-dso cfi yet, as doing so properly would require
+    # support in the musl ldso, and llvm upstream does not recommend using
+    # the existing compiler-rt implementation (unstable abi and so on)
+    #
+    # that means we stick with local cfi for hidden symbols for now
+    if hard["cfi"] and hard["lto"] and prof._arch in supported_fields["cfi"]:
+        sflags.append("-fsanitize=cfi")
+
+    if hard["int"]:
+        sflags.append("-fsanitize=signed-integer-overflow,shift,integer-divide-by-zero")
+        ubsan = True
+
+    if ubsan:
+        sflags.append("-fsanitize-minimal-runtime")
+        sflags.append("-fno-sanitize-recover")
+
+    return sflags
+
 def _get_hcflags(prof, tharden):
     hflags = []
     hard = _get_harden(tharden)
@@ -42,11 +82,16 @@ def _get_hcflags(prof, tharden):
     if not hard["pie"]:
         hflags.append("-fno-PIE")
 
-    if not hard["ssp"]:
-        hflags.append("-fno-stack-protector")
-
     if hard["scp"] and prof._arch in supported_fields["scp"]:
         hflags.append("-fstack-clash-protection")
+
+    if hard["cet"] and prof._arch in supported_fields["cet"]:
+        sflags.append("-fcf-protection=full")
+
+    if hard["pac"] and prof._arch in supported_fields["pac"]:
+        sflags.append("-mbranch-protection=standard")
+
+    hflags += _get_archflags(prof, hard)
 
     return hflags
 
@@ -56,6 +101,8 @@ def _get_hldflags(prof, tharden):
 
     if not hard["pie"]:
         hflags.append("-no-pie")
+
+    hflags += _get_archflags(prof, hard)
 
     return hflags
 
