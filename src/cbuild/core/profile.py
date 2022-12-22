@@ -30,7 +30,7 @@ supported_fields = {
     "pac": set(["aarch64"]),
 }
 
-def _get_harden(hlist):
+def _get_harden(prof, hlist):
     hdict = dict(hardening_fields)
 
     for fl in hlist:
@@ -42,6 +42,13 @@ def _get_harden(hlist):
             raise errors.CbuildException(f"unknown hardening option {fl}")
 
         hdict[fl] = not neg
+
+    archn = prof._arch
+
+    # ensure unsupported hardenings are never used
+    for k in supported_fields:
+        if archn not in supported_fields[k]:
+            hdict[k] = False
 
     return hdict
 
@@ -62,7 +69,7 @@ def _get_archflags(prof, hard):
     # the existing compiler-rt implementation (unstable abi and so on)
     #
     # that means we stick with local cfi for hidden symbols for now
-    if hard["cfi"] and hard["lto"] and prof._arch in supported_fields["cfi"]:
+    if hard["cfi"] and hard["lto"]:
         sflags.append("-fsanitize=cfi")
 
     if hard["int"]:
@@ -77,18 +84,18 @@ def _get_archflags(prof, hard):
 
 def _get_hcflags(prof, tharden):
     hflags = []
-    hard = _get_harden(tharden)
+    hard = _get_harden(prof, tharden)
 
     if not hard["pie"]:
         hflags.append("-fno-PIE")
 
-    if hard["scp"] and prof._arch in supported_fields["scp"]:
+    if hard["scp"]:
         hflags.append("-fstack-clash-protection")
 
-    if hard["cet"] and prof._arch in supported_fields["cet"]:
+    if hard["cet"]:
         sflags.append("-fcf-protection=full")
 
-    if hard["pac"] and prof._arch in supported_fields["pac"]:
+    if hard["pac"]:
         sflags.append("-mbranch-protection=standard")
 
     hflags += _get_archflags(prof, hard)
@@ -97,7 +104,7 @@ def _get_hcflags(prof, tharden):
 
 def _get_hldflags(prof, tharden):
     hflags = []
-    hard = _get_harden(tharden)
+    hard = _get_harden(prof, tharden)
 
     if not hard["pie"]:
         hflags.append("-no-pie")
@@ -180,8 +187,8 @@ _flag_handlers = {
     "RUSTFLAGS": _get_rustflags,
 }
 
-def has_hardening(hname, hardening = []):
-    return _get_harden(hardening)[hname]
+def has_hardening(prof, hname, hardening = []):
+    return _get_harden(prof, hardening)[hname]
 
 _flag_types = list(_flag_handlers.keys())
 
