@@ -14,7 +14,7 @@ hardening_fields = {
     "pie": True,
     "ssp": True, # this should really be compiler default
     "scp": True, # stack-clash-protection
-    "int": True, # ubsan integer hardening
+    "int": False, # ubsan integer hardening
     "cet": True, # intel CET on x86
     "pac": True, # PAC+BTI on aarch64
     "cfi": False, # control flow integrity
