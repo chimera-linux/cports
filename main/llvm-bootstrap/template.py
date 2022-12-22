@@ -64,6 +64,12 @@ options = [
     "!scanshlibs", "!scanrundeps", "!autosplit",
 ]
 
+if self.profile().arch == "aarch64":
+    # disable ubsan integer checks on aarch64
+    # when lto-linking lld with ubsan'd clang/lld, it causes
+    # that to crash in 'AArch64 Instruction Selection'
+    hardening += ["!int"]
+
 cmake_dir = "llvm"
 
 tool_flags = {

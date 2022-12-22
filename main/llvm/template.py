@@ -54,6 +54,12 @@ hardening = ["!vis"]
 # rpath and fakeroot effectively overrides rpath, so disable that
 options = ["bootstrap", "!check", "!installroot"]
 
+if self.profile().arch == "aarch64":
+    # disable ubsan integer checks on aarch64
+    # when lto-linking lld with ubsan'd clang/lld, it causes
+    # that to crash in 'AArch64 Instruction Selection'
+    hardening += ["!int"]
+
 _llvmgen = pkgver[0:pkgver.find(".")]
 
 cmake_dir = "llvm"
