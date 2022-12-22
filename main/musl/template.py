@@ -19,8 +19,8 @@ sha256 = [
     "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4",
     "b46f5b5b02402ef3acd92e7adf2d551e0b2a8ed19fce66800472dc0ad2a81fbc"
 ]
-# scp makes it segfault; and we cannot drag in ubsan runtime
-hardening = ["!scp", "!int"]
+# scp makes it segfault
+hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
 options = ["bootstrap", "!check", "!lto", "brokenlinks"]
 

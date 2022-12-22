@@ -47,9 +47,6 @@ source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgve
 sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
 # reduce size of debug symbols
 debug_level = 1
-# we don't want to drag in anything that links a runtime
-# because this is the package that actually builds the runtimes
-hardening = ["!cfi", "!int"]
 # lto does not kick in until stage 2
 # tests are not enabled
 # runtimes build may invoke built clang during install, which has
