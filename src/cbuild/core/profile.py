@@ -93,10 +93,10 @@ def _get_hcflags(prof, tharden):
         hflags.append("-fstack-clash-protection")
 
     if hard["cet"]:
-        sflags.append("-fcf-protection=full")
+        hflags.append("-fcf-protection=full")
 
     if hard["pac"]:
-        sflags.append("-mbranch-protection=standard")
+        hflags.append("-mbranch-protection=standard")
 
     hflags += _get_archflags(prof, hard)
 
