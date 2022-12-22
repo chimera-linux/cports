@@ -13,8 +13,8 @@ license = "MIT"
 url = "http://www.musl-libc.org"
 source = f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz"
 sha256 = "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4"
-# segfaults otherwise
-hardening = ["!scp"]
+# mirrors musl
+hardening = ["!scp", "!int"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "brokenlinks"]
 
