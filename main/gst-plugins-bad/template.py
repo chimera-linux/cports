@@ -104,3 +104,6 @@ def _devel(self):
     self.depends += [f"gst-plugins-base-devel~{pkgver}"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

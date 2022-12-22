@@ -70,3 +70,6 @@ def _devel(self):
         "usr/share/vala/vapi/libvala-*.*",
         "usr/share/aclocal",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

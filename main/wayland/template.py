@@ -35,3 +35,6 @@ def _devel(self):
         "libffi-devel"
     ]
     return self.default_devel(extra = ["usr/share/wayland"])
+
+# FIXME visibility
+hardening = ["!vis"]

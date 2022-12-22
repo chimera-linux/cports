@@ -30,3 +30,6 @@ def _devel(self):
 @subpackage("nautilus-libs")
 def _libs(self):
     return self.default_libs()
+
+# FIXME visibility
+hardening = ["!vis"]

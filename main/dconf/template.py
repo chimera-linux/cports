@@ -20,3 +20,6 @@ sha256 = "cf7f22a4c9200421d8d3325c5c1b8b93a36843650c9f95d6451e20f0bcb24533"
 @subpackage("dconf-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

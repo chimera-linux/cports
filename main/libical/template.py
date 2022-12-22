@@ -31,3 +31,6 @@ def do_check(self):
         "ctest", "-E", "(icalrecurtest|icalrecurtest_r)", wrksrc = "build",
         env = {"CTEST_OUTPUT_ON_FAILURE": "TRUE"}
     )
+
+# FIXME visibility
+hardening = ["!vis"]

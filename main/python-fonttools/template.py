@@ -16,3 +16,6 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE")
     self.install_license("LICENSE.external")
+
+# FIXME visibility
+hardening = ["!vis"]

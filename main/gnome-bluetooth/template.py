@@ -26,3 +26,6 @@ options = ["!cross"]
 @subpackage("gnome-bluetooth-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

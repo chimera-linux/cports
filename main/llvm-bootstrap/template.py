@@ -53,6 +53,7 @@ url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
 debug_level = 0
+hardening = ["!vis"]
 # bootstrap; LTO would just slow it down, cross is unnecessary (not used
 # in cross builds), debug info is unnecessary, and dependency/shlib scan
 # would be actually harmful

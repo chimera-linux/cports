@@ -80,3 +80,6 @@ def _devel(self):
         "usr/share/gettext-tiny",
         "usr/bin/autopoint",
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

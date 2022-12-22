@@ -21,3 +21,6 @@ def post_install(self):
     fp = self.destdir / "usr/bin/automake"
     fp.unlink()
     fp.symlink_to(f"automake-{pkgver[:-2]}")
+
+# FIXME visibility
+hardening = ["!vis"]

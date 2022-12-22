@@ -29,3 +29,6 @@ def post_build(self):
 def post_install(self):
     self.install_man("doc/en/_build/man/pytest.1")
     self.install_license("LICENSE")
+
+# FIXME visibility
+hardening = ["!vis"]

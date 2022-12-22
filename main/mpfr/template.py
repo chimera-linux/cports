@@ -18,3 +18,6 @@ def _devel(self):
     self.depends += ["gmp-devel"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

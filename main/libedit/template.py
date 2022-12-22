@@ -43,3 +43,6 @@ def _devel(self):
         self.options = ["!scanrundeps"]
         self.depends = [f"libedit={pkgver}-r{pkgrel}", "ncurses-devel"]
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

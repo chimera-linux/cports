@@ -26,3 +26,6 @@ def _python(self):
     self.depends += ["python", "python-six"]
 
     return ["usr/lib/python*"]
+
+# FIXME visibility
+hardening = ["!vis"]

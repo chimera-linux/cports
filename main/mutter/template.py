@@ -38,3 +38,6 @@ options = ["!check", "!cross"]
 @subpackage("mutter-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/lib/mutter-11/*.gir"])
+
+# FIXME visibility
+hardening = ["!vis"]

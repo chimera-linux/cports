@@ -18,3 +18,6 @@ def _devel(self):
     self.depends += ["libgcrypt-devel"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

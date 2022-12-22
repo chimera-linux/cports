@@ -72,3 +72,6 @@ def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}",]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

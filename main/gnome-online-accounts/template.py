@@ -27,3 +27,6 @@ options = ["!cross"]
 @subpackage("gnome-online-accounts-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

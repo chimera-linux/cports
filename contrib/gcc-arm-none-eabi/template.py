@@ -64,7 +64,7 @@ env = {
     "CXXFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
 }
 nostrip_files = ["libgcc.a"]
-hardening = ["!pie"]
+hardening = ["!pie", "!vis"]
 # no tests to run
 options = ["!check", "!lto", "!cross", "!scanshlibs"]
 exec_wrappers = [

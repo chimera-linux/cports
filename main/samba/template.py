@@ -334,3 +334,6 @@ def _python(self):
 @subpackage("samba-libs")
 def _libs(self):
     return ["usr/lib"]
+
+# FIXME visibility
+hardening = ["!vis"]

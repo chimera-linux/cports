@@ -17,3 +17,6 @@ options = ["!check"]
 if self.profile().arch == "riscv64":
     # ld: error: section size decrease is too large
     tool_flags = {"CFLAGS": ["-mno-relax"]}
+
+# FIXME visibility
+hardening = ["!vis"]

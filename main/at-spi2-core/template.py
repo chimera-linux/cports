@@ -25,3 +25,6 @@ def post_install(self):
 @subpackage("at-spi2-core-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

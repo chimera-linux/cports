@@ -64,3 +64,6 @@ def _lib(self):
 @subpackage("sane-backends-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

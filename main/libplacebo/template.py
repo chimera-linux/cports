@@ -24,3 +24,6 @@ sha256 = "fc021fc68376b92511977b5bd32340fc575dc36af5c471cc095b5b7e3fa581d4"
 @subpackage("libplacebo-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

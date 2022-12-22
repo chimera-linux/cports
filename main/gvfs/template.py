@@ -115,3 +115,6 @@ def _smb(self):
         "usr/share/glib-2.0/schemas/org.gnome.system.smb.gschema.xml",
         "usr/share/gvfs/mounts/smb*.mount",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

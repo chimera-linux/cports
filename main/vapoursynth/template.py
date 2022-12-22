@@ -26,3 +26,6 @@ def _devel(self):
         "usr/lib/*.a",
         "usr/lib/libvapoursynth-script.so",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

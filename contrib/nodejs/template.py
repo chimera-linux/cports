@@ -55,3 +55,6 @@ def do_check(self):
 @subpackage("nodejs-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

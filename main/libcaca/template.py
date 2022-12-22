@@ -34,3 +34,6 @@ def _devel(self):
 @subpackage("libcaca-progs")
 def _devel(self):
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]

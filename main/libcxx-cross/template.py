@@ -233,3 +233,6 @@ def _cxxabi_cross(self):
         self.depends.append(f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}")
 
     return []
+
+# FIXME visibility
+hardening = ["!vis"]

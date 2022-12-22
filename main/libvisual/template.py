@@ -16,3 +16,6 @@ sha256 = "0b4dfdb87125e129567752089e3c8b54cefed601eef169d2533d8659da8dc1d7"
 @subpackage("libvisual-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

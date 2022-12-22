@@ -12,3 +12,6 @@ source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "d6a9a8094e78f7cfb6f80a73cc271e1fe388c8638ed22668622c2c646df5bb3d"
 # broken check target?
 options = ["!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -35,3 +35,6 @@ def _devel(self):
     self.depends += [f"enlightenment={pkgver}-r{pkgrel}"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

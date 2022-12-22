@@ -59,3 +59,6 @@ def _devel(self):
 @subpackage("e2fsprogs-libs")
 def _libs(self):
     return self.default_libs()
+
+# FIXME visibility
+hardening = ["!vis"]

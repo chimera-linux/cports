@@ -41,3 +41,6 @@ def _devel(self):
         "usr/share/aclocal",
         "usr/lib/*.a",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

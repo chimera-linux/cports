@@ -89,3 +89,6 @@ def post_install(self):
                 pass
 
     self.install_license(self.files_path / "LICENSE")
+
+# FIXME visibility
+hardening = ["!vis"]

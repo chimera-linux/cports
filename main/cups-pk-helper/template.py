@@ -12,3 +12,6 @@ source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}
 sha256 = "8571a7d2fe459f340fc4031a374aced254305d09d96092c7951b90b1c493ab8d"
 # needs cupsd running
 options = ["!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

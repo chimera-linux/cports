@@ -24,3 +24,6 @@ def _devel(self):
 @subpackage("attr-progs")
 def _progs(self):
     return self.default_progs(extra = ["usr/share"])
+
+# FIXME visibility
+hardening = ["!vis"]

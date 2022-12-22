@@ -29,3 +29,6 @@ def _devel(self):
     return self.default_devel(extra = [
         "usr/share/gdb", "usr/share/gstreamer-1.0"
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

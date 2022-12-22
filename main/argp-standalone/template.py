@@ -18,3 +18,6 @@ def pre_configure(self):
 def do_install(self):
     self.install_file("build/libargp.a", "usr/lib")
     self.install_file("argp.h", "usr/include")
+
+# FIXME visibility
+hardening = ["!vis"]

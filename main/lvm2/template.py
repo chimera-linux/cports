@@ -94,3 +94,6 @@ def _dm(self):
         "usr/share/initramfs-tools/hooks/dmsetup",
         "usr/share/man/man8/dm*",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

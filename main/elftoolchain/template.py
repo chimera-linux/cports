@@ -51,3 +51,6 @@ def _libelf(self):
     self.pkgdesc += " (libelf)"
 
     return self.default_libs()
+
+# FIXME visibility
+hardening = ["!vis"]

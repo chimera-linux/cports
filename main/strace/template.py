@@ -25,3 +25,6 @@ source = f"https://github.com/{pkgname}/{pkgname}/releases/download/v{pkgver}/{p
 sha256 = "92d720a666855e9f1c6a11512fd6e99674a82bbfe1442557815f2ce8e1293338"
 # something's weird and it gets stuck
 options = ["!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

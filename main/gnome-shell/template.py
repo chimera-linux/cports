@@ -32,3 +32,6 @@ source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "df0444765def1bd0afee9617d2b5919bc79b4db86e7e757ac0e1f73748ec1bdc"
 # tests need libmutter-test
 options = ["!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

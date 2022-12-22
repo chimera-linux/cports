@@ -37,3 +37,6 @@ def _lib(self):
 @subpackage("glade3-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/gtk-doc"])
+
+# FIXME visibility
+hardening = ["!vis"]

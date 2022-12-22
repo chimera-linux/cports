@@ -56,3 +56,6 @@ def post_install(self):
     # hardlink
     self.rm(self.destdir / "usr/bin/zsh")
     self.install_link(f"zsh-{pkgver}", "usr/bin/zsh")
+
+# FIXME visibility
+hardening = ["!vis"]

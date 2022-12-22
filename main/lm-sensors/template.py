@@ -29,3 +29,6 @@ def _devel(self):
     self.pkgdesc = "Sensor reading library (development files)"
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

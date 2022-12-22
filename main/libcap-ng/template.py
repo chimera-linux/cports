@@ -20,3 +20,6 @@ def _devel(self):
 @subpackage("libcap-ng-progs")
 def _progs(self):
     return self.default_progs(man = "178")
+
+# FIXME visibility
+hardening = ["!vis"]

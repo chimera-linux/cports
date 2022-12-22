@@ -115,3 +115,6 @@ def _gen_crossp(an):
 
 for an in _targets:
     _gen_crossp(an)
+
+# FIXME visibility
+hardening = ["!vis"]

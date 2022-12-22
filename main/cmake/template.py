@@ -43,3 +43,6 @@ def post_install(self):
     self.install_license("Copyright.txt")
     self.cp("Utilities/KWIML/Copyright.txt", "KWIML-Copyright.txt")
     self.install_license("KWIML-Copyright.txt")
+
+# FIXME visibility
+hardening = ["!vis"]

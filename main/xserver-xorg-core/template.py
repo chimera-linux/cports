@@ -108,3 +108,6 @@ def _devel(self):
         "libxrandr-devel", "libxi-devel", "libpciaccess-devel",
     ]
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

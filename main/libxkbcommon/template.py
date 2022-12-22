@@ -43,3 +43,6 @@ def _devel(self):
 @subpackage("libxkbcommon-progs")
 def _progs(self):
     return self.default_progs(extra = ["usr/libexec"])
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -12,3 +12,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "5d693ab54acc085b9f2dbafbcf0a1f089737f7e0cb1686fa338c2aaa05dc7705"
 # only expected to work with rust nightly
 options = ["!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

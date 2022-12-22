@@ -29,3 +29,6 @@ def _xmlwf(self):
     self.depends += ["perl"]
 
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -31,3 +31,6 @@ def do_install(self):
         )
 
     self.install_license("COPYING.BSD")
+
+# FIXME visibility
+hardening = ["!vis"]

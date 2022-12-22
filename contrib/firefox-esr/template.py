@@ -168,3 +168,6 @@ def do_install(self):
 def do_check(self):
     # XXX: maybe someday
     pass
+
+# FIXME visibility
+hardening = ["!vis"]

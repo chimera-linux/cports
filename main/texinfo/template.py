@@ -15,3 +15,6 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/texinfo"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "20744b82531ce7a04d8cee34b07143ad59777612c3695d5855f29fba40fbe3e0"
+
+# FIXME visibility
+hardening = ["!vis"]

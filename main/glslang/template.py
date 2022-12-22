@@ -26,3 +26,6 @@ def _devel(self):
         "usr/lib/libglslang.so",
         "usr/lib/cmake",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

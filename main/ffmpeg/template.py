@@ -153,3 +153,6 @@ def _ffplay(self):
     self.pkgdesc = "Simple video player using FFmpeg and SDL"
 
     return ["usr/bin/ffplay", "usr/share/man/man1/ffplay*"]
+
+# FIXME visibility
+hardening = ["!vis"]

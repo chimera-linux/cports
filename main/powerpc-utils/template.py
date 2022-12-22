@@ -22,3 +22,6 @@ tool_flags = {"CFLAGS": ["-DPATH_MAX=4096"]}
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
+
+# FIXME visibility
+hardening = ["!vis"]

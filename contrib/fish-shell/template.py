@@ -14,3 +14,6 @@ sha256 = "a6d45b3dc5a45dd31772e7f8dfdfecabc063986e8f67d60bd7ca60cc81db6928"
 
 def post_install(self):
     self.install_shell("/usr/bin/fish")
+
+# FIXME visibility
+hardening = ["!vis"]

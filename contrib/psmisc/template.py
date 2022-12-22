@@ -17,3 +17,6 @@ tool_flags = {"LDFLAGS": ["-lgnu_getopt"], "CFLAGS": ["-Dgetopt_long_only=gnu_ge
 def pre_check(self):
     # ERROR: global config file /builddir/psmisc-23.5/testsuite/global-conf.exp not found.
     (self.cwd / "testsuite/global-conf.exp").touch()
+
+# FIXME visibility
+hardening = ["!vis"]

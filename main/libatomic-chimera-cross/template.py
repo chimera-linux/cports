@@ -81,3 +81,6 @@ def _static(self):
         self.depends.append(f"libatomic-chimera-cross-{an}-static={pkgver}-r{pkgrel}")
 
     return []
+
+# FIXME visibility
+hardening = ["!vis"]

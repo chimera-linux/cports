@@ -179,3 +179,6 @@ def _elibs(self):
     return [
         "usr/lib/libavahi-libevent*.so.*",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -25,3 +25,6 @@ def _progs(self):
     self.depends += ["python"]
 
     return ["usr/lib/python*"]
+
+# FIXME visibility
+hardening = ["!vis"]

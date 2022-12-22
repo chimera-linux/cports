@@ -70,3 +70,6 @@ def _libs(self):
 @subpackage("icu-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/icu", "usr/lib/icu"])
+
+# FIXME visibility
+hardening = ["!vis"]

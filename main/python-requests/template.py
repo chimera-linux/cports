@@ -15,3 +15,6 @@ source = f"$(PYPI_SITE)/r/requests/requests-{pkgver}.tar.gz"
 sha256 = "7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"
 # needs pytest, is a dependency of pytest
 options = ["!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

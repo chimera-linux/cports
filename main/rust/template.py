@@ -268,3 +268,6 @@ def _std(self):
     self.pkgdesc = f"{pkgdesc} (static rlibs)"
 
     return [f"{_rlib_dir}/lib/*.rlib"]
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -15,3 +15,6 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE.txt")
+
+# FIXME visibility
+hardening = ["!vis"]

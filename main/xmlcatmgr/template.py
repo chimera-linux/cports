@@ -50,3 +50,6 @@ def post_install(self):
     self.install_link("/etc/xml/auto/catalog", "usr/share/xml/catalog")
 
     self.install_license("COPYING")
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -27,3 +27,6 @@ def _devel(self):
     self.depends += ["opencl-headers"]
 
     return self.default_devel(extra = ["usr/share/doc"])
+
+# FIXME visibility
+hardening = ["!vis"]

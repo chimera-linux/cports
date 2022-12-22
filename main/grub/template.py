@@ -188,3 +188,6 @@ def _genplatform(arch, platform, desc):
 # generate platform subpackages
 for arch, platform, cfl, ldfl, desc in _platforms:
     _genplatform(arch, platform, desc)
+
+# FIXME visibility
+hardening = ["!vis"]

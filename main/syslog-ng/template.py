@@ -171,3 +171,6 @@ for modn, modl in [
     ("xml", None),
 ]:
     _genmod(modn, modl)
+
+# FIXME visibility
+hardening = ["!vis"]

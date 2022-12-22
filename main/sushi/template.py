@@ -18,3 +18,6 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/sushi"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "57848526149ab1c784fb92fbc934c3514fe522aba649d5d9fedec7e1b147527b"
+
+# FIXME visibility
+hardening = ["!vis"]

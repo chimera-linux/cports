@@ -277,3 +277,6 @@ def _devel(self):
     self.depends += ["libgbm-devel"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

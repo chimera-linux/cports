@@ -20,3 +20,6 @@ if self.stage > 0:
     makedepends += ["libcap-devel"]
 else:
     configure_args += ["ac_cv_func_capset=0"]
+
+# FIXME visibility
+hardening = ["!vis"]

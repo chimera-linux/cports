@@ -23,3 +23,6 @@ options = ["!check", "!cross"]
 @subpackage("libdazzle-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -20,3 +20,6 @@ sha256 = "58bbc759eb102263be835e6c006b1c16b508ba3d0252acd5389062826764f7a5"
 def post_install(self):
     for f in (self.cwd / "contrib/cidmap").glob("Adobe-*.cidmap"):
         self.install_file(f, "usr/share/fontforge")
+
+# FIXME visibility
+hardening = ["!vis"]

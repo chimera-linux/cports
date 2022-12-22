@@ -24,3 +24,6 @@ options = ["!check", "!cross"]
 @subpackage("gtksourceview4-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -18,3 +18,6 @@ def post_install(self):
 @subpackage("libwpe-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

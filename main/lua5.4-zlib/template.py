@@ -18,3 +18,6 @@ options = ["!check"]
 def do_install(self):
     self.install_license("README")
     self.install_file("zlib.so", "usr/lib/lua/5.4", mode = 0o755)
+
+# FIXME visibility
+hardening = ["!vis"]

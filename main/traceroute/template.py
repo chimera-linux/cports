@@ -16,3 +16,6 @@ sha256 = "3669d22a34d3f38ed50caba18cd525ba55c5c00d5465f2d20d7472e5d81603b6"
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # no tests
 options = ["!cross", "!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

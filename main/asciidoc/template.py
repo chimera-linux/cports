@@ -21,3 +21,6 @@ def post_install(self):
         self.install_link(
             f"../{adpath.relative_to(self.destdir)}", "etc/asciidoc"
         )
+
+# FIXME visibility
+hardening = ["!vis"]

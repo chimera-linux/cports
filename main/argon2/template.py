@@ -24,3 +24,6 @@ def _lib(self):
 @subpackage("argon2-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

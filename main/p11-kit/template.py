@@ -32,3 +32,6 @@ def post_install(self):
 @subpackage("p11-kit-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -22,3 +22,6 @@ def do_configure(self):
 
     with self.profile("host"):
         cmake.configure(self, self.cmake_dir)
+
+# FIXME visibility
+hardening = ["!vis"]

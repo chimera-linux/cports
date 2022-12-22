@@ -17,3 +17,6 @@ def post_extract(self):
 
 def post_install(self):
     self.install_man("doc/doxygen.1")
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -22,3 +22,6 @@ def _devel(self):
 def _xmlwf(self):
     self.pkgdesc = f"{pkgdesc} (xmlwf utility)"
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -30,3 +30,6 @@ def _devel(self):
 @subpackage("imlib2-progs")
 def _devel(self):
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -20,3 +20,6 @@ def post_install(self):
 def _devel(self):
     self.options = ["!splitstatic"]
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -18,3 +18,6 @@ def _devel(self):
     return self.default_devel(extra = [
         "usr/lib/cairomm-1.16",
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

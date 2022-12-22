@@ -30,3 +30,6 @@ def _devel(self):
         "usr/include",
         "usr/share/man/man3",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

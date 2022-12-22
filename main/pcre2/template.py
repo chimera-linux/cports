@@ -41,3 +41,6 @@ def _libpcre2(self):
 def _devel(self):
     self.depends += ["zlib-devel", "libbz2-devel"]
     return self.default_devel(extra = ["usr/share/doc"])
+
+# FIXME visibility
+hardening = ["!vis"]

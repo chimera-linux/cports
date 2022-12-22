@@ -15,3 +15,6 @@ options = ["!check"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/LICENSE")
+
+# FIXME visibility
+hardening = ["!vis"]

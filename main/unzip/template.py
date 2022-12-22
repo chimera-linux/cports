@@ -50,3 +50,6 @@ def do_install(self):
     self.mv(self.destdir / "usr/man", self.destdir / "usr/share")
 
     self.install_license("LICENSE")
+
+# FIXME visibility
+hardening = ["!vis"]

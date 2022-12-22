@@ -16,3 +16,6 @@ def _devel(self):
     return self.default_devel(extra = [
         "usr/lib/pangomm-2.48",
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

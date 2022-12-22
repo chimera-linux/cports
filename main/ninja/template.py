@@ -31,3 +31,6 @@ def do_install(self):
     self.install_file(
         "misc/zsh-completion", "usr/share/zsh/site-functions", name = "_ninja"
     )
+
+# FIXME visibility
+hardening = ["!vis"]

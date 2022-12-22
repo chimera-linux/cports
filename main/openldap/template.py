@@ -64,3 +64,6 @@ def _progs(self):
         "usr/bin/ldap*",
         "usr/share/man/man1/ldap*.1",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

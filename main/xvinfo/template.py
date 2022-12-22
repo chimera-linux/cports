@@ -13,3 +13,6 @@ sha256 = "0353220d6606077ba42363db65f50410759f9815352f77adc799e2adfa76e73f"
 
 def post_install(self):
     self.install_license("COPYING")
+
+# FIXME visibility
+hardening = ["!vis"]

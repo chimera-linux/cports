@@ -21,3 +21,6 @@ def _devel(self):
     return self.default_devel(extra = [
         "usr/lib/gtkmm-4.0",
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -11,3 +11,6 @@ license = "MIT"
 url = "https://github.com/chimera-linux/klibc-utils-standalone"
 source = f"{url}/archive/{_commit}.tar.gz"
 sha256 = "f4ab09ff29cfb360fe004d1235ed248c033888cc5e3a389121568a4c2005f938"
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -19,3 +19,6 @@ def do_check(self):
 
 def post_install(self):
     self.rm(self.destdir / "usr/share/man/man3", recursive = True)
+
+# FIXME visibility
+hardening = ["!vis"]

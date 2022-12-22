@@ -166,3 +166,6 @@ def _devel(self):
     self.options = ["hardlinks"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -25,3 +25,6 @@ env = {
 }
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug"]
+
+# FIXME visibility
+hardening = ["!vis"]

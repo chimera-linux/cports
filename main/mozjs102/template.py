@@ -82,3 +82,6 @@ def do_check(self):
 def _devel(self):
     # include the interactive interpreter
     return self.default_devel(extra = ["usr/bin"])
+
+# FIXME visibility
+hardening = ["!vis"]

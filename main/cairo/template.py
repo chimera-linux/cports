@@ -22,3 +22,6 @@ sha256 = "74b24c1ed436bbe87499179a3b27c43f4143b8676d8ad237a6fa787401959705"
 @subpackage("cairo-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

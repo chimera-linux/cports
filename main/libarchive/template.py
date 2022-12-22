@@ -46,3 +46,6 @@ def _devel(self):
     self.depends += makedepends
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

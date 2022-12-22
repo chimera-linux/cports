@@ -14,3 +14,6 @@ options = ["!cross"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+# FIXME visibility
+hardening = ["!vis"]

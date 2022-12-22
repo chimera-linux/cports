@@ -67,3 +67,6 @@ def _devel(self):
         "usr/share/glib-2.0",
         "usr/share/gdb",
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

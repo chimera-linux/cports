@@ -141,3 +141,6 @@ for an in _targets:
 
     subpackages.append((f"clang-rt-crt-cross-{an}", _gen_subp(an, at)))
     depends.append(f"clang-rt-crt-cross-{an}={pkgver}-r{pkgrel}")
+
+# FIXME visibility
+hardening = ["!vis"]

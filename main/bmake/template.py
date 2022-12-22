@@ -39,3 +39,6 @@ def do_check(self):
         self.chroot_cwd / "boot-strap", "--prefix=/usr", "op=test",
         wrksrc = "build"
     )
+
+# FIXME visibility
+hardening = ["!vis"]

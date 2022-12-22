@@ -26,3 +26,6 @@ def _devel(self):
 @subpackage("vamp-plugin-sdk-progs")
 def _xmlwf(self):
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -48,3 +48,6 @@ def do_install(self):
 @subpackage("pciutils-devel")
 def _devel(self):
     return self.default_devel(man = "37")
+
+# FIXME visibility
+hardening = ["!vis"]

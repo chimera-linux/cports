@@ -26,3 +26,6 @@ def _devel(self):
 @subpackage("jbigkit-libs")
 def _progs(self):
     return self.default_libs()
+
+# FIXME visibility
+hardening = ["!vis"]

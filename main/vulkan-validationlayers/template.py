@@ -35,3 +35,6 @@ def _devel(self):
         f"{pkgname}-devel-static={pkgver}-r{pkgrel}"
     ]
     return ["usr/include"]
+
+# FIXME visibility
+hardening = ["!vis"]

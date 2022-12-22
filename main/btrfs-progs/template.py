@@ -42,3 +42,6 @@ def _libbtrfsutil(self):
 def _libbtrfsutil(self):
     self.pkgdesc = f"{pkgdesc} (libbtrfsutil development files)"
     return ["usr/include/btrfsutil.h", "usr/lib/libbtrfsutil.*"]
+
+# FIXME visibility
+hardening = ["!vis"]

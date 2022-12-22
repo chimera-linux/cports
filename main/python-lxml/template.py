@@ -22,3 +22,6 @@ def post_install(self):
     self.install_license("LICENSES.txt")
     self.install_license("doc/licenses/BSD.txt")
     self.install_license("doc/licenses/elementtree.txt")
+
+# FIXME visibility
+hardening = ["!vis"]

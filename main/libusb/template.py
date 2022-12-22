@@ -15,3 +15,6 @@ sha256 = "12ce7a61fc9854d1d2a1ffe095f7b5fac19ddba095c259e6067a46500381b5a5"
 def _devel(self):
     self.depends = ["eudev-devel"]
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

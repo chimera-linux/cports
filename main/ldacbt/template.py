@@ -18,3 +18,6 @@ if self.profile().endian == "big":
 @subpackage("ldacbt-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

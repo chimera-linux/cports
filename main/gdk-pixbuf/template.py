@@ -27,3 +27,6 @@ def _devel(self):
         "usr/bin/*csource*",
         "usr/share/man/man1/*csource*",
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

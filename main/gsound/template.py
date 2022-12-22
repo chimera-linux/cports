@@ -19,3 +19,6 @@ sha256 = "ca2d039e1ebd148647017a7f548862350bc9af01986d39f10cfdc8e95f07881a"
 @subpackage("gsound-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

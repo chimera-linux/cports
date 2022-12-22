@@ -31,3 +31,6 @@ def do_install(self):
         "usr/lib/trusted-firmware-a/rk3399", mode = 0o755
     )
     self.install_license("docs/license.rst")
+
+# FIXME visibility
+hardening = ["!vis"]

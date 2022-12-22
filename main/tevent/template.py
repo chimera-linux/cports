@@ -32,3 +32,6 @@ def _devel(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
 
     return ["usr/lib/python*"]
+
+# FIXME visibility
+hardening = ["!vis"]

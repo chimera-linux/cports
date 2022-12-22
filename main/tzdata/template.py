@@ -59,3 +59,6 @@ def do_install(self):
 
     for f in ["iso3166", "zone1970", "zone"]:
         self.install_file(f"{f}.tab", "usr/share/zoneinfo", mode = 0o444)
+
+# FIXME visibility
+hardening = ["!vis"]

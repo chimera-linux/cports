@@ -26,3 +26,6 @@ options = ["!lto", "!cross"]
 @subpackage("vte3-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

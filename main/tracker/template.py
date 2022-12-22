@@ -33,3 +33,6 @@ def _devel(self):
 @subpackage("tracker-libs")
 def _libs(self):
     return self.default_libs()
+
+# FIXME visibility
+hardening = ["!vis"]

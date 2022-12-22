@@ -21,3 +21,6 @@ def post_install(self):
     self.install_link("../../../bin/ccache", "usr/lib/ccache/bin/clang++")
     self.install_link("../../../bin/ccache", "usr/lib/ccache/bin/cc")
     self.install_link("../../../bin/ccache", "usr/lib/ccache/bin/c++")
+
+# FIXME visibility
+hardening = ["!vis"]

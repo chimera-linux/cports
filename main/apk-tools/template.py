@@ -48,3 +48,6 @@ def _staticbin(self):
     self.depends = []
 
     return ["usr/bin/apk.static"]
+
+# FIXME visibility
+hardening = ["!vis"]

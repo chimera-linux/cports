@@ -34,3 +34,6 @@ def _devel(self):
     self.short_decs = "LZ4 compression library (development files)"
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

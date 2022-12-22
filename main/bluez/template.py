@@ -62,3 +62,6 @@ def _cups(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
 
     return ["usr/lib/cups/backend/bluetooth"]
+
+# FIXME visibility
+hardening = ["!vis"]

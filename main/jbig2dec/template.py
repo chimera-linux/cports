@@ -23,3 +23,6 @@ def _devel(self):
 @subpackage("jbig2dec-progs")
 def _xmlwf(self):
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -17,3 +17,6 @@ sha256 = "c5cdf5ea91cbd2cf2758b2896064c7b1dfe7156063267df905f957ac69b6b763"
 @subpackage("libqrtr-glib-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

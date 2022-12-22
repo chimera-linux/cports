@@ -25,3 +25,6 @@ def post_install(self):
 def _static(self):
     self.depends = []
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

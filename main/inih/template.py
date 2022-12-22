@@ -19,3 +19,6 @@ def post_install(self):
 @subpackage("inih-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -11,6 +11,7 @@ pkgdesc = f"OpenZFS modules for kernel {_kernver}"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
+hardening = ["!vis"]
 options = ["!cross"]
 
 def init_configure(self):

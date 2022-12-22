@@ -72,3 +72,6 @@ def do_install(self):
     self.install_license("LICENSE-APACHE")
     self.install_license("LICENSE-MIT")
     self.install_license("LICENSE-THIRD-PARTY")
+
+# FIXME visibility
+hardening = ["!vis"]

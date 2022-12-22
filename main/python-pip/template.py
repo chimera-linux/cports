@@ -16,3 +16,6 @@ options = ["!check"]
 def post_install(self):
     self.install_license("LICENSE.txt")
     self.install_link("pip3", "usr/bin/pip")
+
+# FIXME visibility
+hardening = ["!vis"]

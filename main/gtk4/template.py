@@ -93,3 +93,6 @@ def _cups(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
 
     return ["usr/lib/gtk-4.0/4.0.0/printbackends/libprintbackend-cups.so"]
+
+# FIXME visibility
+hardening = ["!vis"]

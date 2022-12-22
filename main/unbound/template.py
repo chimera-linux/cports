@@ -47,3 +47,6 @@ def _devel(self):
     self.depends += ["openssl-devel", "libsodium-devel"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

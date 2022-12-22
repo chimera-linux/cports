@@ -34,3 +34,6 @@ def _devel(self):
         "usr/lib/*.so",
         "usr/lib/*.a",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

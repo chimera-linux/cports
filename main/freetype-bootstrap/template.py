@@ -31,3 +31,6 @@ options = ["!lto", "!scanshlibs"]
 def post_install(self):
     self.install_license("LICENSE.TXT")
     self.install_license("docs/FTL.TXT")
+
+# FIXME visibility
+hardening = ["!vis"]

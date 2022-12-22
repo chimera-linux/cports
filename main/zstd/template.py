@@ -37,3 +37,6 @@ def _devel(self):
     self.pkgdesc = "Fast real-time compression algorithm (development files)"
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

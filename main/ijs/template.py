@@ -28,3 +28,6 @@ def _devel(self):
         "usr/lib/libijs.a",
         "usr/lib/pkgconfig",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

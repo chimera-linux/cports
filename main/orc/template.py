@@ -22,3 +22,6 @@ def post_install(self):
 @subpackage("orc-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/gtk-doc"])
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -137,3 +137,6 @@ def _alsa(self):
         "usr/lib/alsa-lib",
         "usr/share/alsa/alsa.conf.d",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

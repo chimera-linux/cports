@@ -31,3 +31,6 @@ def _lib(self):
     self.pkgdesc = f"{pkgdesc} (totem-plparser-mini library)"
 
     return ["usr/lib/libtotem-plparser-mini.so.*"]
+
+# FIXME visibility
+hardening = ["!vis"]

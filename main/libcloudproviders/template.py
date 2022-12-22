@@ -18,3 +18,6 @@ sha256 = "bd00e7b85d84d201bd36f6e460555d8ba41246d63d5f3607ff7542a257f27236"
 @subpackage("libcloudproviders-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

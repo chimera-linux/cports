@@ -45,3 +45,6 @@ def _devel(self):
         "usr/share/man/man3",
         "usr/lib/*.a",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

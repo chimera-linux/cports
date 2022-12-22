@@ -17,3 +17,6 @@ license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/simple-scan"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "05f5dfa4e9e206efa9d404c9861dd7c442091793e734c41719739917250e4050"
+
+# FIXME visibility
+hardening = ["!vis"]

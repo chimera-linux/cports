@@ -18,3 +18,6 @@ source = f"{url}/-/archive/debian/2%25{_cver}-{_debver}/cryptsetup-debian-2%25{_
 sha256 = "e9c53c79347ee597b8218d7ec505ae5b6175e9fbe9f27c11945da30b1a00a3cc"
 # no test suite
 options = ["!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

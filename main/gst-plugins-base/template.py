@@ -38,3 +38,6 @@ options = ["!cross"]
 @subpackage("gst-plugins-base-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

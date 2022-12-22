@@ -22,3 +22,6 @@ sha256 = "2d9a6826d158470449a173871221596da0f83ebdcff98b90c7049089056a37aa"
 @subpackage("geocode-glib-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

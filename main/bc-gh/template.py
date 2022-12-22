@@ -29,3 +29,6 @@ def post_install(self):
 
     self.install_file("manuals/bc.1", "usr/share/man/man1", name = "bc-gh.1")
     self.install_file("manuals/dc.1", "usr/share/man/man1", name = "dc-gh.1")
+
+# FIXME visibility
+hardening = ["!vis"]

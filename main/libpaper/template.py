@@ -35,3 +35,6 @@ def _devel(self):
 @subpackage("libpaper-progs")
 def _progs(self):
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]

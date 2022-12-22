@@ -15,3 +15,6 @@ sha256 = "24effdfb952453cc00e275e1c82ca9787506aba0282145fff054498e60e19a65"
 @subpackage("glu-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

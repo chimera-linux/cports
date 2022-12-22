@@ -30,3 +30,6 @@ def _lib(self):
 @subpackage("cdparanoia-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

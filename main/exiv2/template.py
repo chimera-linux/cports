@@ -21,3 +21,6 @@ options = ["!check"]
 @subpackage("exiv2-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -40,3 +40,6 @@ def post_install(self):
 @subpackage("rhash-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

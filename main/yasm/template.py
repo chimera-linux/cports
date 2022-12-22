@@ -19,3 +19,6 @@ def post_install(self):
     self.install_license("COPYING")
     self.install_license("BSD.txt")
     self.install_license("Artistic.txt")
+
+# FIXME visibility
+hardening = ["!vis"]

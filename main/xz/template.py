@@ -37,3 +37,6 @@ def _devel(self):
     self.pkgdesc = "XZ-format compression library (development files)"
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

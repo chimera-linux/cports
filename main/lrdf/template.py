@@ -20,3 +20,6 @@ def _devel(self):
     self.depends += ["raptor-devel"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

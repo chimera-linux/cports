@@ -24,3 +24,6 @@ def post_install(self):
 @subpackage("openal-soft-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

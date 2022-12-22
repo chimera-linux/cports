@@ -13,3 +13,6 @@ url = "https://github.com/containers/bubblewrap"
 source = f"https://github.com/containers/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "764ab7100bd037ea53d440d362e099d7a425966bc62d1f00ab26b8fbb882a9dc"
 tool_flags = {"CFLAGS": ["-Wno-error,-Wformat-nonliteral"]}
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -77,3 +77,6 @@ def _devel(self):
         "usr/lib/pkgconfig/poppler-glib.pc",
         "usr/share/gir-1.0",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

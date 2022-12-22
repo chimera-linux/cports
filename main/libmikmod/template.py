@@ -13,3 +13,6 @@ sha256 = "ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19"
 @subpackage("libmikmod-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/info"])
+
+# FIXME visibility
+hardening = ["!vis"]

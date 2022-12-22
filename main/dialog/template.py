@@ -13,3 +13,6 @@ sha256 = "54418973d559a461b00695fafe68df62f2bc73d506b436821d77ca3df454190b"
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib", force = True, recursive = True)
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -35,3 +35,6 @@ def _view(self):
 @subpackage("pango-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

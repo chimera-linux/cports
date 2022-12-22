@@ -42,3 +42,6 @@ def _devel(self):
     self.depends += ["libuuid-devel"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -18,3 +18,6 @@ sha256 = "63653259a821ec7d90d681e52e757e2219d462828c9d74b056a5f53267636bac"
 @subpackage("libmanette-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

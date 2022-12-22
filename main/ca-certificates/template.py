@@ -75,3 +75,6 @@ def do_install(self):
     self.rm(self.destdir / "usr/sbin")
 
     self.install_dir("etc/ca-certificates/update.d")
+
+# FIXME visibility
+hardening = ["!vis"]

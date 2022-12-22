@@ -17,3 +17,6 @@ def pre_configure(self):
 @subpackage("libexif-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

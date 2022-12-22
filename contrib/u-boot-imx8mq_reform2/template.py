@@ -21,3 +21,6 @@ def do_install(self):
         self.install_license(f"Licenses/{f.name}")
     # readme
     self.install_file("README.txt", f"usr/share/doc/{self.pkgname}")
+
+# FIXME visibility
+hardening = ["!vis"]

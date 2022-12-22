@@ -52,3 +52,6 @@ def _devel(self):
         "usr/lib/libomptarget*.bc",
         "usr/lib/cmake/openmp",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -22,3 +22,6 @@ def pre_build(self):
 
 def post_install(self):
     self.install_license("COPYING")
+
+# FIXME visibility
+hardening = ["!vis"]

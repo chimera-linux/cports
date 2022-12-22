@@ -31,3 +31,6 @@ def _dev(self):
     self.pkgdesc = "Universal seat management library (development files)"
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

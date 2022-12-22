@@ -22,3 +22,6 @@ def _progs(self):
 @subpackage("shaderc-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

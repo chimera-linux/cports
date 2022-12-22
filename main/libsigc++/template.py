@@ -19,3 +19,6 @@ def _devel(self):
     return self.default_devel(extra = [
         "usr/lib/sigc++-3.0",
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

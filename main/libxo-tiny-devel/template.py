@@ -33,3 +33,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin", recursive = True)
     self.rm(self.destdir / "usr/lib/libxo", recursive = True)
     self.rm(self.destdir / "usr/share", recursive = True)
+
+# FIXME visibility
+hardening = ["!vis"]

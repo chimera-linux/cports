@@ -20,3 +20,6 @@ def post_install(self):
 @subpackage("libxvmc-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
+
+# FIXME visibility
+hardening = ["!vis"]

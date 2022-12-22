@@ -22,3 +22,6 @@ def _devel(self):
         "usr/include",
         "usr/lib/pkgconfig",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

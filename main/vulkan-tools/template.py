@@ -20,3 +20,6 @@ source = f"https://github.com/KhronosGroup/Vulkan-Tools/archive/v{pkgver}.tar.gz
 sha256 = "ea17052295a831e136a7ebef1191e066a575a35fedab7287f6556f29c2919a40"
 # no test suite
 options = ["!cross", "!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

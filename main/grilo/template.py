@@ -24,3 +24,6 @@ sha256 = "f352acf73665669934270636fede66b52da6801fe20f638c4048ab2678577b2d"
 @subpackage("grilo-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

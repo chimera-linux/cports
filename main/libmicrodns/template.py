@@ -13,3 +13,6 @@ sha256 = "9864a088ffef4d4255d5abf63c6f603d1dc343dfec2809ff0c3f1624045b80fa"
 @subpackage("libmicrodns-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

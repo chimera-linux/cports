@@ -95,3 +95,6 @@ def _devel(self):
         "usr/include",
         "usr/lib/*.a",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

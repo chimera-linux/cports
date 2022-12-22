@@ -31,3 +31,6 @@ def post_install(self):
             self.destdir / f"usr/share/groff/site-tmac/{f}.local", "ab"
         ) as af:
             af.write(atext)
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -19,3 +19,6 @@ def post_install(self):
     self.install_license("COPYRIGHT")
     self.install_service(self.files_path / "nscd-prepare")
     self.install_service(self.files_path / "nscd")
+
+# FIXME visibility
+hardening = ["!vis"]

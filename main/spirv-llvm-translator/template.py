@@ -30,3 +30,6 @@ def post_install(self):
 @subpackage("spirv-llvm-translator-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

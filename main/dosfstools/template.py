@@ -14,3 +14,6 @@ sha256 = "64926eebf90092dca21b14259a5301b7b98e7b1943e8a201c7d726084809b527"
 
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)
+
+# FIXME visibility
+hardening = ["!vis"]

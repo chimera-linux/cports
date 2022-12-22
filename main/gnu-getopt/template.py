@@ -16,3 +16,6 @@ options = ["!lto", "!check"]
 def do_install(self):
     self.install_file("gnu_getopt.h", "usr/include")
     self.install_lib("libgnu_getopt.a")
+
+# FIXME visibility
+hardening = ["!vis"]

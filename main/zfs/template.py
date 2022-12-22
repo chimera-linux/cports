@@ -78,3 +78,6 @@ def _ckms(self):
     ]
 
     return ["usr/src"]
+
+# FIXME visibility
+hardening = ["!vis"]

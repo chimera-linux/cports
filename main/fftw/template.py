@@ -63,3 +63,6 @@ def _libs(self):
 @subpackage("fftw-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/info"])
+
+# FIXME visibility
+hardening = ["!vis"]

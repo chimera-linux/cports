@@ -123,3 +123,6 @@ def _ver(self):
     self.build_style = "meta"
 
     return []
+
+# FIXME visibility
+hardening = ["!vis"]

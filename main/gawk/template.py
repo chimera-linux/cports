@@ -16,3 +16,6 @@ def post_install(self):
     (self.destdir / "usr/bin/awk").unlink()
     (self.destdir / "usr/bin/gawk").unlink()
     self.install_link(f"gawk-{pkgver}", "usr/bin/gawk")
+
+# FIXME visibility
+hardening = ["!vis"]

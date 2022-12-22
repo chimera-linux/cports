@@ -35,3 +35,6 @@ def _python(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "python"]
 
     return ["usr/lib/python*"]
+
+# FIXME visibility
+hardening = ["!vis"]

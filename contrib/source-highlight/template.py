@@ -28,3 +28,6 @@ def _libs(self):
 @subpackage("source-highlight-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

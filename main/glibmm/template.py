@@ -18,3 +18,6 @@ def _devel(self):
         "usr/lib/glibmm-2.68",
         "usr/lib/giomm-2.68",
     ])
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -18,3 +18,6 @@ sha256 = "79d44d65f835c5114592b60355d2fce117bace5c47a62fc63a07f10f133bd49c"
 @subpackage("libspectre-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -20,3 +20,6 @@ sha256 = "6e6c20d0778339069d583c0d63759d297e817ea10d0d897ebbe965f16e2e8e52"
 @subpackage("libgsf-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

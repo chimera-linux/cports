@@ -17,3 +17,6 @@ def pre_configure(self):
 
 def post_install(self):
     self.rm(self.destdir / "usr/bin/lsusb.py")
+
+# FIXME visibility
+hardening = ["!vis"]

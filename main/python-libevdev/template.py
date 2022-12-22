@@ -19,3 +19,6 @@ def do_check(self):
     self.do("pytest", "-v", *map(
         lambda p: f"test/{p.name}", (self.cwd / "test").glob("*.py")
     ))
+
+# FIXME visibility
+hardening = ["!vis"]

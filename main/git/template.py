@@ -140,3 +140,6 @@ def _gui(self):
         "usr/share/man/man1/git-citool.1",
         "usr/share/git-gui"
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

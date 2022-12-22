@@ -18,3 +18,6 @@ def do_configure(self):
 @subpackage("zlib-devel")
 def _devel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

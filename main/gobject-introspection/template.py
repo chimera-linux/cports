@@ -47,3 +47,6 @@ def _devel(self):
     self.depends += ["cairo-devel", "libffi-devel"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

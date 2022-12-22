@@ -38,3 +38,6 @@ def _devel(self):
 @subpackage("udisks-libs")
 def _libs(self):
     return self.default_libs()
+
+# FIXME visibility
+hardening = ["!vis"]

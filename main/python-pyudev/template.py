@@ -13,3 +13,6 @@ source = f"$(PYPI_SITE)/p/pyudev/pyudev-{pkgver}.tar.gz"
 sha256 = "b2a3afe1c99ea751f8296652557eac559874da2a1b1ec0625178706ec5a345f3"
 # needs itself installed
 options = ["!check"]
+
+# FIXME visibility
+hardening = ["!vis"]

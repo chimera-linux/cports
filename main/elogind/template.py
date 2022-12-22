@@ -74,3 +74,6 @@ def _pam(self):
         "usr/share/factory",
         "usr/share/man/man8/pam_elogind.8",
     ]
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -37,3 +37,6 @@ def _python(self):
     self.depends += ["python", "cracklib-devel"]
 
     return ["usr/lib/python*"]
+
+# FIXME visibility
+hardening = ["!vis"]

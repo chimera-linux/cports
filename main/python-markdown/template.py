@@ -14,3 +14,6 @@ sha256 = "3b809086bb6efad416156e00a0da66fe47618a5d6918dd688f53f40c8e4cfeff"
 
 def post_install(self):
     self.install_license("LICENSE.md")
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -20,7 +20,7 @@ sha256 = [
     "b46f5b5b02402ef3acd92e7adf2d551e0b2a8ed19fce66800472dc0ad2a81fbc"
 ]
 # scp makes it segfault
-hardening = ["!scp"]
+hardening = ["!scp", "!vis"]
 # does not ship tests + allow "broken" symlinks to true
 options = ["bootstrap", "!check", "!lto", "brokenlinks"]
 

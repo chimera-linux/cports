@@ -13,3 +13,6 @@ options = ["bootstrap", "!lto"]
 @subpackage("libatomic-chimera-devel")
 def _rldevel(self):
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

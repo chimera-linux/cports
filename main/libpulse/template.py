@@ -35,3 +35,6 @@ def _devel(self):
 def _progs(self):
     self.pkgdesc = "PulseAudio utilities"
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]

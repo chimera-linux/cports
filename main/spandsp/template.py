@@ -17,3 +17,6 @@ def _devel(self):
     self.depends += ["libtiff-devel"]
 
     return self.default_devel()
+
+# FIXME visibility
+hardening = ["!vis"]

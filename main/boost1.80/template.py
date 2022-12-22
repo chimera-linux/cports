@@ -149,3 +149,6 @@ def _gen_libp(libname):
 
 for blib in _libs:
     _gen_libp(blib)
+
+# FIXME visibility
+hardening = ["!vis"]

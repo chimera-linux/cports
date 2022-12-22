@@ -38,3 +38,6 @@ def _gnutls(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gnutls"]
 
     return ["usr/lib/gio/modules/libgiognutls.so"]
+
+# FIXME visibility
+hardening = ["!vis"]

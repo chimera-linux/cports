@@ -203,3 +203,6 @@ def _libsmartcols_devel(self):
         "usr/include/libsmartcols"
     ]
 
+
+# FIXME visibility
+hardening = ["!vis"]

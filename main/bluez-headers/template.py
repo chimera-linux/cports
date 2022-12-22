@@ -15,3 +15,6 @@ def do_install(self):
         "hidp", "l2cap", "rfcomm", "sco", "sdp", "sdp_lib"
     ]:
         self.install_file(f"lib/{f}.h", "usr/include/bluetooth")
+
+# FIXME visibility
+hardening = ["!vis"]

@@ -65,3 +65,6 @@ def _devel(self):
 @subpackage("libvpx-progs")
 def _progs(self):
     return self.default_progs()
+
+# FIXME visibility
+hardening = ["!vis"]
