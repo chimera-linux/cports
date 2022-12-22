@@ -16,7 +16,8 @@ hardening_fields = {
     "scp": True, # stack-clash-protection
     "int": True, # ubsan integer hardening
     "cet": True, # intel CET on x86
-    "pac": True, # PAC+BTI on aarch64
+    "pac": True, # aarch64 pointer authentication
+    "bti": True, # aarch64 branch target identification
     "cfi": False, # control flow integrity
     "sst": False, # safestack, not for DSOs
 }
@@ -28,6 +29,7 @@ supported_fields = {
     "cfi": set(["x86_64", "aarch64"]),
     "cet": set(["x86_64"]),
     "pac": set(["aarch64"]),
+    "bti": set(["aarch64"]),
 }
 
 def _get_harden(prof, hlist):
@@ -97,8 +99,12 @@ def _get_hcflags(prof, tharden):
     if hard["cet"]:
         hflags.append("-fcf-protection=full")
 
-    if hard["pac"]:
+    if hard["pac"] and hard["bti"]:
         hflags.append("-mbranch-protection=standard")
+    elif hard["pac"]:
+        hflags.append("-mbranch-protection=pac-ret")
+    elif hard["bti"]:
+        hflags.append("-mbranch-protection=bti")
 
     hflags += _get_archflags(prof, hard)
 
