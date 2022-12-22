@@ -11,6 +11,7 @@ import sys
 # recognized hardening options
 hardening_fields = {
     "lto": False, # do not use directly, filled in by template
+    "vis": False, # hidden visibility, needed by cfi
     "pie": True,
     "ssp": True, # this should really be compiler default
     "scp": True, # stack-clash-protection
@@ -18,7 +19,7 @@ hardening_fields = {
     "cet": True, # intel CET on x86
     "pac": True, # aarch64 pointer authentication
     "bti": True, # aarch64 branch target identification
-    "cfi": False, # control flow integrity
+    "cfi": True, # control flow integrity
     "sst": False, # safestack, not for DSOs
 }
 
@@ -52,6 +53,9 @@ def _get_harden(prof, hlist):
         if archn not in supported_fields[k]:
             hdict[k] = False
 
+    if not hdict["lto"] or not hdict["vis"]:
+        hdict["cfi"] = False
+
     return hdict
 
 # stuff that should go in both regular and linker flags, as it
@@ -59,6 +63,9 @@ def _get_harden(prof, hlist):
 def _get_archflags(prof, hard):
     sflags = []
     ubsan = False
+
+    if hard["vis"]:
+        sflags.append("-fvisibility=hidden")
 
     if not hard["ssp"]:
         sflags.append("-fno-stack-protector")
@@ -71,7 +78,7 @@ def _get_archflags(prof, hard):
     # the existing compiler-rt implementation (unstable abi and so on)
     #
     # that means we stick with local cfi for hidden symbols for now
-    if hard["cfi"] and hard["lto"]:
+    if hard["cfi"]:
         sflags.append("-fsanitize=cfi")
 
     if hard["int"]:
