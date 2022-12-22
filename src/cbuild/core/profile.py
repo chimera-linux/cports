@@ -14,7 +14,7 @@ hardening_fields = {
     "pie": True,
     "ssp": True, # this should really be compiler default
     "scp": True, # stack-clash-protection
-    "int": False, # ubsan integer hardening
+    "int": True, # ubsan integer hardening
     "cet": True, # intel CET on x86
     "pac": True, # PAC+BTI on aarch64
     "cfi": False, # control flow integrity
@@ -74,6 +74,8 @@ def _get_archflags(prof, hard):
 
     if hard["int"]:
         sflags.append("-fsanitize=signed-integer-overflow,shift,integer-divide-by-zero")
+        # ensure no runtime is relied upon
+        sflags.append("-fsanitize-trap=signed-integer-overflow,shift,integer-divide-by-zero")
         ubsan = True
 
     if ubsan:
