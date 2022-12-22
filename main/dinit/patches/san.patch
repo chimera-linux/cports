@@ -1,0 +1,47 @@
+commit e664da4283aefb0fcaf765bf5d8a63cf9c4ce496
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Dec 22 01:17:10 2022 +0100
+
+    pass SANITIZEOPTS at the end
+    
+    This allows us to use minimal-runtime ubsan for prod while still
+    sanitizing the tests with asan and so on.
+
+diff --git a/src/tests/Makefile b/src/tests/Makefile
+index 1f0c985..4fdadb8 100644
+--- a/src/tests/Makefile
++++ b/src/tests/Makefile
+@@ -23,16 +23,16 @@ prepare-incdir:
+ 	cd includes; ln -f ../test-includes/*.h .
+ 
+ tests: $(parent_objs) tests.o test-dinit.o test-bpsys.o test-run-child-proc.o
+-	$(CXX) $(SANITIZEOPTS) -o tests $(parent_objs) tests.o test-dinit.o test-bpsys.o test-run-child-proc.o $(CXXOPTS) $(LDFLAGS)
++	$(CXX) -o tests $(parent_objs) tests.o test-dinit.o test-bpsys.o test-run-child-proc.o $(CXXOPTS) $(LDFLAGS) $(SANITIZEOPTS)
+ 
+ proctests: $(parent_objs) proctests.o test-dinit.o test-bpsys.o test-run-child-proc.o
+-	$(CXX) $(SANITIZEOPTS) -o proctests $(parent_objs) proctests.o test-dinit.o test-bpsys.o test-run-child-proc.o $(CXXOPTS) $(LDFLAGS)
++	$(CXX) -o proctests $(parent_objs) proctests.o test-dinit.o test-bpsys.o test-run-child-proc.o $(CXXOPTS) $(LDFLAGS) $(SANITIZEOPTS)
+ 	
+ loadtests: $(parent_objs) loadtests.o test-dinit.o test-bpsys.o test-run-child-proc.o
+-	$(CXX) $(SANITIZEOPTS) -o loadtests $(parent_objs) loadtests.o test-dinit.o test-bpsys.o test-run-child-proc.o $(CXXOPTS) $(LDFLAGS)
++	$(CXX) -o loadtests $(parent_objs) loadtests.o test-dinit.o test-bpsys.o test-run-child-proc.o $(CXXOPTS) $(LDFLAGS) $(SANITIZEOPTS)
+ 
+ envtests: $(parent_objs) envtests.o test-dinit.o test-bpsys.o test-run-child-proc.o
+-	$(CXX) $(SANITIZEOPTS) -o envtests $(parent_objs) envtests.o test-dinit.o test-bpsys.o test-run-child-proc.o $(CXXOPTS) $(LDFLAGS)
++	$(CXX) -o envtests $(parent_objs) envtests.o test-dinit.o test-bpsys.o test-run-child-proc.o $(CXXOPTS) $(LDFLAGS) $(SANITIZEOPTS)
+ 
+ $(objects): %.o: %.cc
+ 	$(CXX) $(CXXOPTS) $(SANITIZEOPTS) -MMD -MP -Iincludes -I../../dasynq/include -I../../build/includes -c $< -o $@
+diff --git a/src/tests/cptests/Makefile b/src/tests/cptests/Makefile
+index cdf5096..6b88246 100644
+--- a/src/tests/cptests/Makefile
++++ b/src/tests/cptests/Makefile
+@@ -20,7 +20,7 @@ prepare-incdir:
+ 	cd includes; ln -f ../../test-includes/baseproc-sys.h .
+ 
+ cptests: cptests.o $(parent_objs) $(parent_test_objs)
+-	$(CXX) $(SANITIZEOPTS) -o cptests cptests.o $(parent_test_objects) $(parent_objs) $(CXXOPTS) $(LDFLAGS)
++	$(CXX) -o cptests cptests.o $(parent_test_objects) $(parent_objs) $(CXXOPTS) $(LDFLAGS) $(SANITIZEOPTS)
+ 
+ $(objects): %.o: %.cc
+ 	$(CXX) $(CXXOPTS) $(SANITIZEOPTS) -MMD -MP -Iincludes -I../../../dasynq/include -I../../../build/includes -c $< -o $@

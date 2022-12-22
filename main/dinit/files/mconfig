@@ -6,4 +6,4 @@ CXXOPTS := $(CXXFLAGS) -fno-rtti
 
 BUILD_SHUTDOWN = yes
 # asan crashes with llvm 15.0.3, FIXME later
-SANITIZEOPTS = -fsanitize=address,undefined
+SANITIZEOPTS = -fsanitize=address,undefined -fno-sanitize-minimal-runtime
