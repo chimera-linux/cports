@@ -21,6 +21,7 @@ configure_args = [
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
+    "-DLIBCXX_ENABLE_ASSERTIONS=YES",
     "-DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx",
 ]
 make_cmd = "make"
@@ -36,6 +37,7 @@ license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
+hardening = ["!cfi", "!int"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto"]
 
