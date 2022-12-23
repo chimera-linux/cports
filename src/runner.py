@@ -1251,12 +1251,6 @@ def fire():
         logger.get().out_red("cbuild: apk-tools 3.x is required")
         sys.exit(1)
 
-    apath = shutil.which(paths.apk())
-
-    if scanelf.is_static(apath):
-        logger.get().out_red("cbuild: static apk-tools is not supported")
-        sys.exit(1)
-
     template.register_hooks()
 
     try:

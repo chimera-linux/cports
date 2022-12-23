@@ -124,9 +124,9 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
             aarch = None
 
         ret = apki.call(
-            "add", ["--no-scripts", "--virtual", virtn] + pkglist,
+            "add", ["--no-chown", "--no-scripts", "--virtual", virtn] + pkglist,
             pkg, root = rootp, capture_output = True, arch = aarch,
-            allow_untrusted = not signkey, fakeroot = True
+            allow_untrusted = not signkey
         )
     else:
         if virtn:

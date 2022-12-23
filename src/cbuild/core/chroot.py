@@ -229,8 +229,8 @@ def install(arch = None, stage = 2):
     setup_keys(paths.bldroot())
 
     irun = apki.call(
-        "add", ["--no-scripts", "base-cbuild"], "main", arch = arch,
-        fakeroot = True
+        "add", ["--no-chown", "--no-scripts", "base-cbuild"],
+        "main", arch = arch,
     )
     if irun.returncode != 0:
         raise errors.CbuildException("failed to install base-cbuild")

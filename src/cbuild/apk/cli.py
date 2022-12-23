@@ -104,7 +104,7 @@ def call(
     subcmd, args, mrepo, cwd = None, env = None,
     capture_output = False, root = None, arch = None,
     allow_untrusted = False, use_altrepo = True,
-    use_stage = True, fakeroot = False, allow_network = True,
+    use_stage = True, allow_network = True,
 ):
     if allow_network:
         allow_network = _use_net
@@ -120,14 +120,6 @@ def call(
         cmd.append("--allow-untrusted")
     if subcmd == "add" or subcmd == "del" or subcmd == "fix":
         cmd.append("--clean-protected")
-
-    if fakeroot:
-        if env:
-            env = dict(env)
-        else:
-            env = {}
-        env["FAKEROOTDONTTRYCHOWN"] = "1"
-        cmd = ["sh", chroot.get_fakeroot(True)] + cmd
 
     return subprocess.run(
         cmd + _collect_repos(
