@@ -2,7 +2,10 @@ pkgname = "go"
 pkgver = "1.19.3"
 pkgrel = 0
 hostmakedepends = ["bash"]
-checkdepends = ["iana-etc", "libunwind-devel-static", "musl-devel-static"]
+checkdepends = [
+    "iana-etc", "libunwind-devel-static", "musl-devel-static",
+    "libatomic-chimera-devel-static"
+]
 pkgdesc = "Go programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

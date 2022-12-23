@@ -1,7 +1,10 @@
 pkgname = "tzdata"
 pkgver = "2022f"
 pkgrel = 0
-hostmakedepends = ["musl-devel-static", "libunwind-devel-static"]
+hostmakedepends = [
+    "musl-devel-static", "libunwind-devel-static",
+    "libatomic-chimera-devel-static"
+]
 pkgdesc = "Time zone and daylight-saving time data"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"

@@ -27,6 +27,7 @@ makedepends = [
     "eudev-devel-static", "libblkid-devel-static",
     "libaio-devel-static", "libedit-devel-static",
     "musl-devel-static", "libunwind-devel-static",
+    "libatomic-chimera-devel-static",
     "ncurses-devel-static", "linux-headers",
 ]
 depends = ["bash", "util-linux", "thin-provisioning-tools"]
