@@ -11,7 +11,7 @@ import sys
 # recognized hardening options
 hardening_fields = {
     "lto": False, # do not use directly, filled in by template
-    "vis": False, # hidden visibility, needed by cfi
+    "vis": True, # hidden visibility, needed by cfi
     "pie": True,
     "ssp": True, # this should really be compiler default
     "scp": True, # stack-clash-protection
@@ -56,6 +56,9 @@ def _get_harden(prof, hlist):
     if not hdict["lto"] or not hdict["vis"]:
         hdict["cfi"] = False
 
+    if hdict["cfi"]:
+        hdict["bti"] = False
+
     return hdict
 
 # stuff that should go in both regular and linker flags, as it
@@ -88,7 +91,6 @@ def _get_archflags(prof, hard):
         ubsan = True
 
     if ubsan:
-        sflags.append("-fsanitize-minimal-runtime")
         sflags.append("-fno-sanitize-recover")
 
     return sflags
@@ -104,7 +106,10 @@ def _get_hcflags(prof, tharden):
         hflags.append("-fstack-clash-protection")
 
     if hard["cet"]:
-        hflags.append("-fcf-protection=full")
+        if hard["cfi"]:
+            hflags.append("-fcf-protection=return")
+        else:
+            hflags.append("-fcf-protection=full")
 
     if hard["pac"] and hard["bti"]:
         hflags.append("-mbranch-protection=standard")
