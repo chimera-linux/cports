@@ -51,6 +51,3 @@ def post_install(self):
 
 if self.stage > 0:
     makedepends += ["linux-headers"]
-
-# FIXME visibility
-hardening = ["!vis"]
