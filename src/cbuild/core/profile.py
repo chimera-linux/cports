@@ -21,6 +21,9 @@ hardening_fields = {
     "bti": True, # aarch64 branch target identification
     "cfi": True, # control flow integrity
     "sst": False, # safestack, not for DSOs
+    # options affecting enabled hardening types
+    "cfi-genptr": False, # loosen pointer type checks
+    "cfi-icall": True,   # indirect call checks
 }
 
 # only some are arch-specific, those are here
@@ -56,7 +59,7 @@ def _get_harden(prof, hlist):
     if not hdict["lto"] or not hdict["vis"]:
         hdict["cfi"] = False
 
-    if hdict["cfi"]:
+    if hdict["cfi"] and hdict["cfi-icall"]:
         hdict["bti"] = False
 
     return hdict
@@ -83,6 +86,10 @@ def _get_archflags(prof, hard):
     # that means we stick with local cfi for hidden symbols for now
     if hard["cfi"]:
         sflags.append("-fsanitize=cfi")
+        if not hard["cfi-icall"]:
+            sflags.append("-fno-sanitize=cfi-icall")
+        if hard["cfi-genptr"]:
+            sflags.append("-fsanitize-cfi-icall-generalize-pointers")
 
     if hard["int"]:
         sflags.append("-fsanitize=signed-integer-overflow,shift,integer-divide-by-zero")
@@ -106,7 +113,7 @@ def _get_hcflags(prof, tharden):
         hflags.append("-fstack-clash-protection")
 
     if hard["cet"]:
-        if hard["cfi"]:
+        if hard["cfi"] and hard["cfi-icall"]:
             hflags.append("-fcf-protection=return")
         else:
             hflags.append("-fcf-protection=full")
