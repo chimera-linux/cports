@@ -59,9 +59,6 @@ def _get_harden(prof, hlist):
     if not hdict["lto"] or not hdict["vis"]:
         hdict["cfi"] = False
 
-    if hdict["cfi"] and hdict["cfi-icall"]:
-        hdict["bti"] = False
-
     return hdict
 
 # stuff that should go in both regular and linker flags, as it
@@ -113,10 +110,7 @@ def _get_hcflags(prof, tharden):
         hflags.append("-fstack-clash-protection")
 
     if hard["cet"]:
-        if hard["cfi"] and hard["cfi-icall"]:
-            hflags.append("-fcf-protection=return")
-        else:
-            hflags.append("-fcf-protection=full")
+        hflags.append("-fcf-protection=full")
 
     if hard["pac"] and hard["bti"]:
         hflags.append("-mbranch-protection=standard")
