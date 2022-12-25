@@ -1368,6 +1368,10 @@ for subpackages separately if needed:
 * `textrels` *(false)* By default, if `cbuild` finds textrels within any
   ELF files in the packages, it will error. It is possible to override
   this by enabling the option.
+* `execstack` *(false)* By default, if `cbuild` finds ELF files with
+  executable stack, it will error. It is possible to override this by
+  enabling the option. Any ELF file that either does not have `PT_GNU_STACK`
+  or has the `1 << 0` bit set in its `flags`.
 * `foreignelf` *(false)* By default, if `cbuild` finds ELF files that
   have a foreign machine architecture (checked by matching against the
   `libc` of the target), it will error. It is possible to override this

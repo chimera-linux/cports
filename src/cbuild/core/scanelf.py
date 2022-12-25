@@ -12,6 +12,11 @@ def _make_struct(l):
     v64 = "".join(map(lambda x: _tsizes[x[2]], l))
     return (v32, v64)
 
+def _make_sepstruct(l32, l64):
+    v32 = "".join(map(lambda x: _tsizes[x[1]], l32))
+    v64 = "".join(map(lambda x: _tsizes[x[1]], l64))
+    return (v32, v64)
+
 elf_types = [
     "ET_NONE", "ET_REL", "ET_EXEC", "ET_DYN", "ET_CORE"
 ]
@@ -58,14 +63,32 @@ hdrdef_sect = [
 
 hdr_sect = _make_struct(hdrdef_sect)
 
-# we only scan program headers for presence of PT_INTERP, that means we can
-# skip scanning all the other fields, as that would be a pain (the field
-# order differs between 32-bit and 64-bit ELF files)
-hdrdef_prog = [
-    ("type", 4, 4),
+# we make 32 and 64 separate here as the field order differs
+
+hdr32def_prog = [
+    ("type",   4),
+    ("offset", 4),
+    ("vaddr",  4),
+    ("paddr",  4),
+    ("filesz", 4),
+    ("memsz",  4),
+    ("flags",  4),
+    ("align",  4)
 ]
 
-hdr_prog = _make_struct(hdrdef_prog)
+hdr64def_prog = [
+    ("type",   4),
+    ("flags",  4),
+    ("offset", 8),
+    ("vaddr",  8),
+    ("paddr",  8),
+    ("filesz", 8),
+    ("memsz",  8),
+    ("align",  8)
+]
+
+hdrdef_prog = (hdr32def_prog, hdr64def_prog)
+hdr_prog = _make_sepstruct(*hdrdef_prog)
 
 dyndef = [
     ("tag", 4, 8),
@@ -125,12 +148,22 @@ def _scan_one(fpath):
     phents = ehdr["phentsize"]
 
     interp = False
+    stack = False
+    execstack = True
     for i in range(ehdr["phnum"]):
-        phdr = _unpack(hdrdef_prog, hdr_prog[wsi], phoff, endian, mm)
+        phdr = _unpack(hdrdef_prog[wsi], hdr_prog[wsi], phoff, endian, mm)
         if phdr["type"] == 0x3:
             # PT_INTERP
             interp = True
-            break
+            if stack:
+                break
+        elif phdr["type"] == 0x6474e551:
+            # PT_GNU_STACK
+            # checking flags against PF_X (1 << 0)
+            execstack = ((phdr["flags"] & 1) != 0)
+            stack = True
+            if interp:
+                break
         phoff += phents
 
     strtabs = []
@@ -211,7 +244,7 @@ def _scan_one(fpath):
 
     return (
         ehdr["machine"], elf_types[etype],
-        not dynsect, interp, textrel, needed, soname
+        not dynsect, interp, textrel, execstack, needed, soname
     )
 
 def is_static(path):
@@ -222,6 +255,7 @@ def scan(pkg, somap):
     scandir = pkg.destdir
     elf_usrshare = []
     elf_textrels = []
+    elf_xstack   = []
     elf_foreign  = []
 
     # only test machine type against libc when not bootstrapping
@@ -260,10 +294,13 @@ def scan(pkg, somap):
         if fpath.is_relative_to("usr/share"):
             elf_usrshare.append(fpath)
         # expand
-        mtype, etype, is_static, interp, textrel, needed, soname = scanned
+        mtype, etype, is_static, interp, textrel, xstk, needed, soname = scanned
         # has textrels
         if textrel and not pkg.options["textrels"]:
             elf_textrels.append(fpath)
+        # has executable stack
+        if xstk and not pkg.options["execstack"]:
+            elf_xstack.append(fpath)
         # store
         somap[str(fpath)] = (
             soname, needed, pkg.pkgname, is_static, etype, interp, foreign
@@ -284,6 +321,14 @@ def scan(pkg, somap):
             pkg.error("found textrels:")
         except:
             for f in elf_textrels:
+                print(f"   {f}")
+            raise
+
+    if len(elf_xstack) > 0:
+        try:
+            pkg.error("found executable stack:")
+        except:
+            for f in elf_xstack:
                 print(f"   {f}")
             raise
 

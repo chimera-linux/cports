@@ -20,7 +20,7 @@ hardening = ["!vis"]
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
-    "!lto", "textrels", "foreignelf" # vdso32
+    "!lto", "textrels", "execstack", "foreignelf" # vdso32
 ]
 
 _flavor = "rpi"
@@ -48,13 +48,14 @@ def do_install(self):
 @subpackage("linux-rpi-devel")
 def _devel(self):
     self.depends += ["clang"]
-    self.options = ["foreignelf", "!scanshlibs"]
+    self.options = ["foreignelf", "execstack", "!scanshlibs"]
     return ["usr/src", "usr/lib/modules/*/build"]
 
 @subpackage("linux-rpi-dbg")
 def _dbg(self):
     self.pkgdesc += " (debug files)"
     self.options = [
-        "!scanrundeps", "!strip", "!scanshlibs", "foreignelf", "textrels"
+        "!scanrundeps", "!strip", "!scanshlibs", "foreignelf",
+        "execstack", "textrels"
     ]
     return ["usr/lib/debug", "boot/System.map-*"]

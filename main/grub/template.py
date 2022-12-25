@@ -161,7 +161,7 @@ def _genplatform(arch, platform, desc):
     def _platdbg(self):
         self.pkgdesc = f"{pkgdesc} ({desc} debug files)"
         self.depends = [f"grub-{arch}-{platform}={pkgver}-r{pkgrel}"]
-        self.options = ["!strip", "foreignelf"]
+        self.options = ["!strip", "foreignelf", "execstack"]
 
         def _install():
             self.take(f"usr/lib/grub/{arch}-{platform}/*.module")
@@ -178,7 +178,7 @@ def _genplatform(arch, platform, desc):
     def _plat(self):
         self.pkgdesc = f"{pkgdesc} ({desc} support)"
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-        self.options = ["!strip", "foreignelf"]
+        self.options = ["!strip", "foreignelf", "execstack"]
 
         if platform == "efi":
             self.depends += ["efibootmgr", "dosfstools"]
