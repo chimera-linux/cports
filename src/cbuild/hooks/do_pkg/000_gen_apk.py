@@ -2,7 +2,6 @@ from cbuild.core import logger, paths, template, chroot
 from cbuild.apk import sign as asign
 
 import glob
-import time
 import shlex
 import pathlib
 import subprocess
@@ -23,13 +22,8 @@ def genpkg(pkg, repo, arch, binpkg):
         return
 
     binpath = repo / binpkg
-    lockpath = binpath.with_suffix(binpath.suffix + ".lock")
 
     repo.mkdir(parents = True, exist_ok = True)
-
-    while lockpath.is_file():
-        pkg.log_warn(f"binary package being created, waiting...")
-        time.sleep(1)
 
     pargs = [
         "--info", f"name:{pkg.pkgname}",
@@ -194,8 +188,6 @@ set -e
             )
 
     try:
-        lockpath.touch()
-
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 
         # in stage 0 we need to use the host apk, avoid fakeroot while at it
@@ -223,7 +215,6 @@ set -e
             pkg.error(f"failed to generate package")
 
     finally:
-        lockpath.unlink()
         pkg.rparent._stage[repo] = True
 
 def invoke(pkg):

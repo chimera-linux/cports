@@ -2,6 +2,7 @@ from cbuild.step import fetch, extract, prepare, patch, configure
 from cbuild.step import build as buildm, check, install, prepkg, pkg as pkgsm
 from cbuild.core import chroot, logger, dependencies
 from cbuild.core import template, pkg as pkgm, paths, errors
+from cbuild.util import flock
 from cbuild.apk import cli as apk
 
 import os
@@ -122,17 +123,18 @@ def build(
     pkg.signing_key = signkey
     pkg._stage = {}
 
-    # generate binary packages
-    for sp in pkg.subpkg_list:
-        pkgsm.invoke(sp)
-
-    pkgsm.invoke(pkg)
-
-    # stage binary packages
-    for repo in pkg._stage:
-        logger.get().out(f"Staging new packages to {repo}...")
-        if not apk.build_index(repo, pkg.source_date_epoch, signkey):
-            raise errors.CbuildException("indexing repositories failed")
+    # package gen + staging is a part of the same lock
+    with flock.lock(flock.repolock(pkg), pkg):
+        # generate packages for subpackages
+        for sp in pkg.subpkg_list:
+            pkgsm.invoke(sp)
+        # generate primary packages
+        pkgsm.invoke(pkg)
+        # stage binary packages
+        for repo in pkg._stage:
+            logger.get().out(f"Staging new packages to {repo}...")
+            if not apk.build_index(repo, pkg.source_date_epoch, signkey):
+                raise errors.CbuildException("indexing repositories failed")
 
     pkg.signing_key = None
 

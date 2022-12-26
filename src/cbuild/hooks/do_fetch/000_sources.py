@@ -1,4 +1,6 @@
 from cbuild.core import paths
+from cbuild.util import flock
+
 import os
 import hashlib
 from urllib import request
@@ -12,6 +14,13 @@ def make_link(dfile, cksum):
     if not linkpath.is_file():
         shapath.mkdir(parents = True, exist_ok = True)
         dfile.link_to(linkpath)
+    else:
+        tino = linkpath.stat().st_ino
+        sino = dfile.stat().st_ino
+        # if inodes differ, make sure to sync it
+        if tino != sino:
+            linkpath.unlink()
+            dfile.link_to(linkpath)
 
 def verify_cksum(dfile, cksum, pkg):
     pkg.log(f"verifying sha256sums for source '{dfile.name}'... ", "")
@@ -41,8 +50,9 @@ def get_nameurl(d):
 
     return d, d[d.rfind("/") + 1:]
 
-def invoke(pkg):
+def handle_pkg(pkg):
     srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.pkgver}"
+
     dfcount = 0
     dfgood = 0
     errors = 0
@@ -57,9 +67,6 @@ def invoke(pkg):
     if not srcdir.is_dir():
         pkg.error(f"'{srcdir}' is not a directory")
 
-    if len(pkg.source) != len(pkg.sha256):
-        pkg.error(f"sha256sums do not match sources")
-
     for dc in zip(pkg.source, pkg.sha256):
         d, ck = dc
         url, fname = get_nameurl(d)
@@ -70,9 +77,8 @@ def invoke(pkg):
                 make_link(dfile, filesum)
                 dfgood += 1
             else:
-                ino = dfile.stat().st_ino
                 pkg.log_warn(f"wrong sha256 found for {fname} - purging")
-                # TODO
+                dfile.unlink()
 
     if len(pkg.source) == dfgood:
         return
@@ -101,3 +107,17 @@ def invoke(pkg):
 
     if errors > 0:
         pkg.error(f"couldn't verify sources")
+
+def invoke(pkg):
+    if len(pkg.source) != len(pkg.sha256):
+        pkg.error(f"sha256sums do not match sources")
+
+    srclock = paths.sources() / "cbuild.lock"
+
+    # lock the whole sources dir for the operation
+    #
+    # while a per-template lock may seem enough,
+    # that would still race when sharing sources
+    # between templates (which regularly happens)
+    with flock.lock(srclock, pkg):
+        handle_pkg(pkg)

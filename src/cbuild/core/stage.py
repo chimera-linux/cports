@@ -1,4 +1,5 @@
 from cbuild.core import logger, paths, chroot
+from cbuild.util import flock
 from cbuild.apk import cli
 
 import time
@@ -230,7 +231,7 @@ def check_stage(stagelist, arch, signkey):
         chroot.initdb(stageroot)
         return _check_stage(stageroot, stagelist, arch, signkey)
 
-def clear(arch, signkey, force = False):
+def _do_clear(arch, signkey, force):
     repop = paths.repository()
     sroot = paths.stage_repository()
     log = logger.get()
@@ -283,3 +284,7 @@ def clear(arch, signkey, force = False):
         # finally reindex
         log.out(f"Rebuilding index for {ad}...")
         cli.build_index(ad, epoch, signkey)
+
+def clear(arch, signkey, force = False):
+    with flock.lock(flock.repolock(arch)):
+        _do_clear(arch, signkey, force)
