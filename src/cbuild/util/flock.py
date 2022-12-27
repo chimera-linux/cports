@@ -10,7 +10,7 @@ def lock(path, pkg = None):
     fd = os.open(path, os.O_CREAT | os.O_WRONLY | os.O_TRUNC)
     while True:
         try:
-            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            fcntl.lockf(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except (IOError, OSError):
             pass
         else:
