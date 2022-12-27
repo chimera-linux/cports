@@ -1,5 +1,4 @@
 from cbuild.core import paths
-from cbuild.util import flock
 
 import os
 import hashlib
@@ -50,12 +49,15 @@ def get_nameurl(d):
 
     return d, d[d.rfind("/") + 1:]
 
-def handle_pkg(pkg):
+def invoke(pkg):
     srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.pkgver}"
 
     dfcount = 0
     dfgood = 0
     errors = 0
+
+    if len(pkg.source) != len(pkg.sha256):
+        pkg.error(f"sha256sums do not match sources")
 
     if not srcdir.is_dir():
         try:
@@ -107,17 +109,3 @@ def handle_pkg(pkg):
 
     if errors > 0:
         pkg.error(f"couldn't verify sources")
-
-def invoke(pkg):
-    if len(pkg.source) != len(pkg.sha256):
-        pkg.error(f"sha256sums do not match sources")
-
-    srclock = paths.sources() / "cbuild.lock"
-
-    # lock the whole sources dir for the operation
-    #
-    # while a per-template lock may seem enough,
-    # that would still race when sharing sources
-    # between templates (which regularly happens)
-    with flock.lock(srclock, pkg):
-        handle_pkg(pkg)

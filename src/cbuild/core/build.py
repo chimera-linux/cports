@@ -71,7 +71,17 @@ def build(
 
     # run up to the step we need
     pkg.current_phase = "fetch"
-    fetch.invoke(pkg)
+
+    srclock = paths.sources() / "cbuild.lock"
+
+    # lock the whole sources dir for the operation
+    #
+    # while a per-template lock may seem enough,
+    # that would still race when sharing sources
+    # between templates (which regularly happens)
+    with flock.lock(srclock, pkg):
+        fetch.invoke(pkg)
+
     if step == "fetch":
         return
 
