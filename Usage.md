@@ -15,7 +15,6 @@ more specifically its `cbuild` component.
 * [Bootstrapping](#bootstrapping)
   * [Bootstrap Requirements](#bootstrap_requirements)
   * [Bootstrap Process](#bootstrap_process)
-  * [Using Incompatible Hosts](#incompatible_host)
 * [Cbuild Reference](#cbuild_reference)
   * [Optional Arguments](#optional_arguments)
   * [Commands](#commands)
@@ -255,8 +254,7 @@ The base requirements of `cbuild` still apply. You also need to be running a
 system based on the `musl` C library. This can be for example Void Linux or
 Chimera itself. Alpine Linux is not supported for direct bootstrapping because
 of its patched musl SONAME (which would be more effort to work around) and
-lack of `libc++` in repositories. When bootstrapping from Alpine, follow the
-"Using Incompatible Hosts" section below.
+lack of `libc++` in repositories.
 
 The system must contain an initial toolchain. It consists of these:
 
@@ -278,6 +276,10 @@ The system must contain an initial toolchain. It consists of these:
 These can all be found in most distributions' package collections. If running
 a Chimera system, these tools can all be installed with the `base-cbuild-bootstrap`
 metpackage.
+
+It is possible to do an almost full source bootstrap on an incompatible system,
+provided that Chimera ships binary packages for the given architecture. See
+below for an example.
 
 <a id="bootstrap_process"></a>
 ### Bootstrap Process
@@ -344,56 +346,21 @@ mostly for inspection and possibly debugging.
 If the bootstrap fails at any point, you can start it again and it will continue
 where it left off. No things already built will be built again.
 
-<a id="incompatible_host"></a>
-### Using Incompatible Hosts
+If you have an incompatible system and wish to do a source bootstrap, you can
+run most of the process provided that Chimera already has existing binary
+packages for the architecture. In this case, the host system requirements
+are identical to regular builds without source bootstrap.
 
-If you do not have a suitable system for bootstrapping (for example a `glibc`
-based system, or Alpine Linux), you do not need to go out of your way to set
-one up. The `cports` tree provides the `bootstrap.sh` script for this purpose.
+This is done by pre-bootstrapping a stage 0 environment from binaries:
 
-This works by fetching a compatible `rootfs` (Chimera for architectures we have
-repos for and Void with `musl` for the others) and then running regular bootstrap
-within. It uses `bwrap` for this, so you should never run it as `root`.
+```
+$ ./cbuild -b bldroot-stage0 binary-bootstrap
+```
 
-For architectures Chimera is used for, you will need a properly set up dynamically
-linked `apk` of the right version in your host system at this stage (you will need
-it for building packages later anyway). If you don't have it in your `PATH` (e.g.
-when you are setting the path in your `cbuild` `config.ini`), you can set the
-environment variable `BOOTSTRAP_APK`. By default, this is just `apk`.
-
-Any arguments passed to the script are passed to `cbuild`. This is most useful
-for passing the number of build jobs (e.g. `-j16` to use 16 threads). You can not
-use it to pass the stage number directly like you can pass to `bootstrap`, since
-the positional and optional arguments are order sensitive (positional arguments
-come after optional ones) and these are passed before the `bootstrap` command.
-If you need to override this, you can use the `BOOTSTRAP_STAGE` environment
-variable.
-
-**NOTE:** You still need to prepare as usual. That means generating a signing
-key and setting up the configuration file as necessary. Once the process finishes,
-you will have your packages and build root ready, and you will no longer need to
-use the script.
-
-**NOTE:** You should avoid using absolute paths to artifact directories and the
-build root when using the script, as the whole process is contained in its own
-special root and these absolute paths will not resolve. Only use relative paths
-within the `cports` tree.
-
-If the process fails during stage 0, you will probably want to fix the problem
-and resume it. To prevent the script from starting from scratch, set the variable
-`BOOTSTRAP_ROOT` in your environment to the path to the directory with the root
-you already have. This will make it proceed instead.
-
-If the process fails during any other stage, you no longer need to use the script
-(though there is nothing preventing you from doing so). Once stage 0 is finished,
-you already have a suitable root in place, so you can run `cbuild bootstrap`
-directly in your own system.
-
-If you want to continue a failed build during stage 1 and onwards without doing
-a cleanup, you simply need to use normal `pkg` while pointing `cbuild` to the
-current-stage `bldroot` and `packages`. Using just `bootstrap` to continue will
-try packaging `base-chroot` for the stage, which will result in all the usual
-cleanup being done, so the affected template will restart from scratch.
+After that, you can run the `bootstrap` command as usual. The stage 0 will be
+skipped (but it's largely unnecessary due to the environment already being
+a Chimera environment and not dependent on host toolchain) but every other
+stage will build.
 
 <a id="cbuild_reference"></a>
 ## Cbuild Reference
