@@ -76,7 +76,6 @@ def post_build(self):
     from cbuild.util import compiler
 
     self.cp(self.files_path / "getent.c", ".")
-    self.cp(self.files_path / "getent.c", ".")
     self.cp(self.files_path / "getconf.c", ".")
     self.cp(self.files_path / "iconv.c", ".")
 

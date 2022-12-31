@@ -487,7 +487,7 @@ def enter(cmd, *args, capture_output = False, check = False,
           ro_dest = True, unshare_all = False, mount_binpkgs = False,
           mount_cbuild_cache = False, mount_cports = False,
           fakeroot = False, new_session = True, binpkgs_rw = False,
-          signkey = None, wrapper = None):
+          signkey = None, wrapper = None, lldargs = None):
     defpath = "/usr/bin"
     if bootstrapping:
         defpath = os.environ["PATH"]
@@ -617,6 +617,13 @@ def enter(cmd, *args, capture_output = False, check = False,
         os.close(wfd)
         fdlist.append(rfd)
         bcmd += ["--ro-bind-data", str(rfd), "/tmp/cbuild-chroot-wrapper.sh"]
+
+    if lldargs:
+        rfd, wfd = os.pipe()
+        os.write(wfd, "\n".join(lldargs).encode())
+        os.close(wfd)
+        fdlist.append(rfd)
+        bcmd += ["--ro-bind-data", str(rfd), "/tmp/cbuild-lld-args"]
 
     if fakeroot:
         bcmd += [

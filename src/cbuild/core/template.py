@@ -22,6 +22,7 @@ import builtins
 import configparser
 
 from cbuild.core import logger, chroot, paths, profile, spdx, errors
+from cbuild.util import compiler
 from cbuild.apk import cli, util as autil
 
 class SkipPackage(Exception):
@@ -1053,6 +1054,7 @@ class Template(Package):
             ro_dest = (self.current_phase != "install"),
             mount_cbuild_cache = True, unshare_all = not allow_network,
             fakeroot = fakeroot, stdout = stdout, stderr = stderr,
+            lldargs = compiler._get_lld_cpuargs(self.link_threads, self.lto_jobs)
         )
 
     def stamp(self, name):

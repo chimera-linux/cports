@@ -1,6 +1,12 @@
 from cbuild.core import logger
 import shlex
 
+def _get_lld_cpuargs(lthreads, ltojobs):
+    return [
+        f"--threads={lthreads}",
+        f"--thinlto-jobs={ltojobs}",
+    ]
+
 class GnuLike:
     def __init__(self, tmpl, cexec, default_flags, default_ldflags):
         self.template = tmpl

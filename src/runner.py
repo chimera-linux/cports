@@ -523,6 +523,7 @@ def do_keygen(tgt):
 
 def do_chroot(tgt):
     from cbuild.core import chroot, paths
+    from cbuild.util import compiler
 
     if opt_mdirtemp:
         chroot.install(opt_mdirtarch or chroot.host_cpu())
@@ -537,7 +538,8 @@ def do_chroot(tgt):
             "CBUILD_SHELL": "1",
             "PS1": "\\u@\\h: \\w$ ",
             "SHELL": "/bin/sh",
-        }
+        },
+        lldargs = compiler._get_lld_cpuargs(opt_lthreads, opt_ltojobs)
     )
 
 def do_clean(tgt):

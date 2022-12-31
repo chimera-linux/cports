@@ -11,9 +11,37 @@ url = "https://chimera-linux.org"
 depends = [
     "musl-devel", "elftoolchain", "llvm", "clang", "lld", "chimerautils",
     "awk", "apk-tools", "bmake", "bsdtar", "ncurses", "tzdata", "fakeroot",
+    f"base-cbuild-progs={pkgver}-r{pkgrel}",
 ]
 
 options = ["bootstrap", "brokenlinks"]
 
 if self.stage > 1:
     depends += ["ccache", "ca-certificates"]
+
+def do_build(self):
+    from cbuild.util import compiler
+
+    self.cp(self.files_path / "cbuild-cross-cc.c", ".")
+    self.cp(self.files_path / "cbuild-lld-wrapper.c", ".")
+
+    cc = compiler.C(self)
+    cc.invoke(["cbuild-cross-cc.c"], "cbuild-cross-cc")
+    cc.invoke(["cbuild-lld-wrapper.c"], "cbuild-lld-wrapper")
+
+def do_install(self):
+    self.install_bin("cbuild-cross-cc")
+    self.install_bin("cbuild-lld-wrapper")
+
+    # replace regular ld and ld.lld symlinks
+    self.install_link("cbuild-lld-wrapper", "usr/bin/ld.lld")
+    self.install_link("cbuild-lld-wrapper", "usr/bin/ld64.lld")
+
+@subpackage("base-cbuild-progs")
+def _cprogs(self):
+    # make sure to use our wrapper symlinks
+    self.replaces = ["lld"]
+    self.priority = 100
+    self.options = ["!scancmd"]
+
+    return self.default_progs()
