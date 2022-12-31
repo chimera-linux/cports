@@ -322,7 +322,6 @@ default_options = {
     "lto": (True, True),
     "ltofull": (False, True),
     "ltostrip": (False, False),
-    "ltoparallel": (True, True),
     "linkparallel": (True, True),
 }
 
@@ -1054,7 +1053,7 @@ class Template(Package):
             ro_dest = (self.current_phase != "install"),
             mount_cbuild_cache = True, unshare_all = not allow_network,
             fakeroot = fakeroot, stdout = stdout, stderr = stderr,
-            lldargs = compiler._get_lld_cpuargs(self.link_threads, self.lto_jobs)
+            lldargs = compiler._get_lld_cpuargs(self.link_threads)
         )
 
     def stamp(self, name):
@@ -1684,11 +1683,6 @@ def from_module(m, ret):
     else:
         ret.link_threads = ret.conf_link_threads
 
-    if not ret.options["ltoparallel"]:
-        ret.lto_jobs = 1
-    else:
-        ret.lto_jobs = ret.conf_lto_jobs
-
     ret.build_style_defaults = []
 
     if ret.build_style:
@@ -1956,7 +1950,6 @@ def read_pkg(
     ret.use_ccache = use_ccache
     ret.conf_jobs = jobs[0]
     ret.conf_link_threads = jobs[1]
-    ret.conf_lto_jobs = jobs[2]
     ret.stage = stage
     ret._ignore_errors = ignore_errors
     ret._allow_broken = allow_broken

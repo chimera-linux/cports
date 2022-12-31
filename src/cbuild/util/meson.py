@@ -73,8 +73,6 @@ def configure(
 
     if pkg.stage >= 2 and pkg.options["lto"]:
         cargs.append("-Db_lto=true")
-        if pkg.lto_jobs > 0:
-            cargs.append(f"-Db_lto_threads={pkg.lto_jobs}")
         # mode, thin is default for us
         if pkg.options["ltofull"]:
             cargs.append("-Db_lto_mode=default")

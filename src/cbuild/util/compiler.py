@@ -1,10 +1,10 @@
 from cbuild.core import logger
 import shlex
 
-def _get_lld_cpuargs(lthreads, ltojobs):
+def _get_lld_cpuargs(lthreads):
     return [
         f"--threads={lthreads}",
-        f"--thinlto-jobs={ltojobs}",
+        f"--thinlto-jobs={lthreads}",
     ]
 
 class GnuLike:

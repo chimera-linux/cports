@@ -1359,8 +1359,8 @@ the template including for subpackages:
   which can be overridden with `ltofull`.
 * `ltofull` *(false)* If you set this together with `lto`, full LTO will
   be used. It does not activate LTO by itself.
-* `ltoparallel` *(true)* Similarly to `parallel`, this can be used to
-  disable LTO threads.
+* `linkparallel` *(true)* Similarly to `parallel`, this can be used to
+  disable linker and LTO threads.
 
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:
@@ -2242,15 +2242,9 @@ to the number provided by `cbuild`.
 
 ##### self.conf_link_threads
 
-The number of linker threads to use. This is not affected by whether
-parallel builds are disabled via options, always referring to the
-number provided by `cbuild`.
-
-##### self.conf_lto_jobs
-
-The number of configured jobs to use for LTO. This is not affected
-by whether parallel builds are disabled via options, always referring
-to the number provided by `cbuild`.
+The number of linker threads (and LTO jobs, if enabled) to use. This is
+not affected by whether parallel builds are disabled via options, always
+referring to the number provided by `cbuild`.
 
 ##### self.make_jobs
 
@@ -2259,13 +2253,8 @@ be 1 if `parallel` option is disabled.
 
 ##### self.link_threads
 
-The number of linker threads to use. Unlike `conf_link_threads`, this will
-always be 1 if `linkparallel` option is disabled.
-
-##### self.lto_jobs
-
-The number of jobs to use for LTO linking. Unlike `conf_lto_jobs`, this will
-always be 1 if `ltoparallel` option is disabled.
+The number of linker threads (and LTO jobs, if enabled) to use. Unlike
+`conf_link_threads`, this will always be 1 if `linkparallel` option is disabled.
 
 ##### self.force_mode
 

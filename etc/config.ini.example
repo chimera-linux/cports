@@ -24,9 +24,7 @@ check = yes
 check_fail = no
 # number of jobs to use when building; all available threads by default
 jobs = 0
-# number of jobs to use for LTO linking; all available threads by default
-lto_jobs = 0
-# number of linker threads to use; all available threads by default
+# number of linker threads to use; jobs by default
 link_threads = 0
 # default local repository path for packages (absolute or relative to cports)
 repository = packages
