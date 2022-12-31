@@ -1,0 +1,70 @@
+From 020b51400d894c512d044c860777326c6a04935d Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 31 Dec 2022 14:39:24 +0000
+Subject: [PATCH] sort(1): fix CFI violation in collfunc
+
+This is passed to mergesort, which expects a specific signature.
+---
+ src/coreutils/sort/coll.c | 14 ++++++++++----
+ src/coreutils/sort/coll.h |  2 +-
+ 2 files changed, 11 insertions(+), 5 deletions(-)
+
+diff --git a/src/coreutils/sort/coll.c b/src/coreutils/sort/coll.c
+index 5c4792e..fc4c6a4 100644
+--- a/src/coreutils/sort/coll.c
++++ b/src/coreutils/sort/coll.c
+@@ -616,12 +616,18 @@ list_coll(struct sort_list_item **ss1, struct sort_list_item **ss2)
+ 	return (list_coll_offset(ss1, ss2, 0));
+ }
+ 
++static int
++list_collp(const void *ss1, const void *ss2)
++{
++	return list_coll((struct sort_list_item **)ss1, (struct sort_list_item **)ss2);
++}
++
+ #define	LSCDEF(N)							\
+ static int 								\
+-list_coll_##N(struct sort_list_item **ss1, struct sort_list_item **ss2)	\
++list_coll_##N(const void *ss1, const void *ss2)	\
+ {									\
+ 									\
+-	return (list_coll_offset(ss1, ss2, N));				\
++	return (list_coll_offset((struct sort_list_item **)ss1, (struct sort_list_item **)ss2, N)); \
+ }
+ 
+ LSCDEF(1)
+@@ -648,7 +654,7 @@ LSCDEF(20)
+ listcoll_t
+ get_list_call_func(size_t offset)
+ {
+-	static const listcoll_t lsarray[] = { list_coll, list_coll_1,
++	static const listcoll_t lsarray[] = { list_collp, list_coll_1,
+ 	    list_coll_2, list_coll_3, list_coll_4, list_coll_5,
+ 	    list_coll_6, list_coll_7, list_coll_8, list_coll_9,
+ 	    list_coll_10, list_coll_11, list_coll_12, list_coll_13,
+@@ -658,7 +664,7 @@ get_list_call_func(size_t offset)
+ 	if (offset <= 20)
+ 		return (lsarray[offset]);
+ 
+-	return (list_coll);
++	return (list_collp);
+ }
+ 
+ /*
+diff --git a/src/coreutils/sort/coll.h b/src/coreutils/sort/coll.h
+index ddb9c36..7d5b011 100644
+--- a/src/coreutils/sort/coll.h
++++ b/src/coreutils/sort/coll.h
+@@ -141,7 +141,7 @@ struct sort_list_item
+ /*
+  * Function type, used to compare two list objects
+  */
+-typedef int (*listcoll_t)(struct sort_list_item **ss1, struct sort_list_item **ss2);
++typedef int (*listcoll_t)(const void *ss1, const void *ss2);
+ 
+ extern struct key_specs *keys;
+ extern size_t keys_num;
+-- 
+2.34.1
+
