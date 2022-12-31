@@ -156,6 +156,7 @@ def repo_init():
     return rfile, cfile
 
 def shell_update(rnet):
+    hcpu = host_cpu()
     rfile, cfile = repo_init()
     with rfile.open("w") as rfh:
         for rd in paths.repository().iterdir():
@@ -163,7 +164,7 @@ def shell_update(rnet):
                 if not cr.startswith("/"):
                     continue
                 cr = cr.lstrip("/").replace("@section@", rd.name)
-                idxp = rd.parent / cr / host_cpu() / "APKINDEX.tar.gz"
+                idxp = rd.parent / cr / hcpu / "APKINDEX.tar.gz"
                 if idxp.is_file():
                     rfh.write(f"/binpkgs/{cr}\n")
         if paths.alt_repository():
@@ -172,13 +173,13 @@ def shell_update(rnet):
                     if not cr.startswith("/"):
                         continue
                     cr = cr.lstrip("/").replace("@section@", rd.name)
-                    idxp = rd.parent / cr / host_cpu() / "APKINDEX.tar.gz"
+                    idxp = rd.parent / cr / hcpu / "APKINDEX.tar.gz"
                     if idxp.is_file():
                         rfh.write(f"/altbinpkgs/{cr}\n")
         # remote repos come last
         if rnet:
             from cbuild.core import profile
-            for rd in profile.get_profile(host_cpu()).repos:
+            for rd in profile.get_profile(hcpu).repos:
                 for cr in get_confrepos():
                     if cr.startswith("/"):
                         continue
@@ -186,7 +187,10 @@ def shell_update(rnet):
                     rfh.write("\n")
 
     # ensure any local apk commands can write into cache
-    cfile.symlink_to("/cbuild_cache/apk")
+    (paths.cbuild_cache() / "apk" / hcpu).mkdir(
+        parents = True, exist_ok = True
+    )
+    cfile.symlink_to(f"/cbuild_cache/apk/{hcpu}")
 
     if apki.call_chroot(
         "update", [], None, full_chroot = True, allow_network = rnet
