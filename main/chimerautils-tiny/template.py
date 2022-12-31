@@ -31,6 +31,3 @@ sha256 = "956250245473544f06b247fffa9a01060957ab858e6b9551ecc1ef25f76bd136"
 def post_install(self):
     # drop manpages
     self.rm(self.destdir / "usr/share", recursive = True)
-
-# FIXME visibility
-hardening = ["!vis"]
