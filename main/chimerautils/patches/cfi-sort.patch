@@ -1,28 +1,30 @@
-From 020b51400d894c512d044c860777326c6a04935d Mon Sep 17 00:00:00 2001
+From 229c456583019de5643184b678ffce36bd8f9e72 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 31 Dec 2022 14:39:24 +0000
 Subject: [PATCH] sort(1): fix CFI violation in collfunc
 
 This is passed to mergesort, which expects a specific signature.
 ---
- src/coreutils/sort/coll.c | 14 ++++++++++----
- src/coreutils/sort/coll.h |  2 +-
- 2 files changed, 11 insertions(+), 5 deletions(-)
+ src/coreutils/sort/coll.c | 13 +++++++------
+ src/coreutils/sort/coll.h |  6 +++---
+ 2 files changed, 10 insertions(+), 9 deletions(-)
 
 diff --git a/src/coreutils/sort/coll.c b/src/coreutils/sort/coll.c
-index 5c4792e..fc4c6a4 100644
+index 5c4792e..578cb45 100644
 --- a/src/coreutils/sort/coll.c
 +++ b/src/coreutils/sort/coll.c
-@@ -616,12 +616,18 @@ list_coll(struct sort_list_item **ss1, struct sort_list_item **ss2)
- 	return (list_coll_offset(ss1, ss2, 0));
+@@ -610,18 +610,18 @@ list_coll_offset(struct sort_list_item **ss1, struct sort_list_item **ss2,
+  * Compare two sort list items, according to the sort specs.
+  */
+ int
+-list_coll(struct sort_list_item **ss1, struct sort_list_item **ss2)
++list_coll(const void *ss1, const void *ss2)
+ {
+ 
+-	return (list_coll_offset(ss1, ss2, 0));
++	return (list_coll_offset((struct sort_list_item **)ss1, (struct sort_list_item **)ss2, 0));
  }
  
-+static int
-+list_collp(const void *ss1, const void *ss2)
-+{
-+	return list_coll((struct sort_list_item **)ss1, (struct sort_list_item **)ss2);
-+}
-+
  #define	LSCDEF(N)							\
  static int 								\
 -list_coll_##N(struct sort_list_item **ss1, struct sort_list_item **ss2)	\
@@ -34,26 +36,21 @@ index 5c4792e..fc4c6a4 100644
  }
  
  LSCDEF(1)
-@@ -648,7 +654,7 @@ LSCDEF(20)
- listcoll_t
- get_list_call_func(size_t offset)
+@@ -665,9 +665,10 @@ get_list_call_func(size_t offset)
+  * Compare two sort list items, only by their original string.
+  */
+ int
+-list_coll_by_str_only(struct sort_list_item **ss1, struct sort_list_item **ss2)
++list_coll_by_str_only(const void *a1, const void *a2)
  {
--	static const listcoll_t lsarray[] = { list_coll, list_coll_1,
-+	static const listcoll_t lsarray[] = { list_collp, list_coll_1,
- 	    list_coll_2, list_coll_3, list_coll_4, list_coll_5,
- 	    list_coll_6, list_coll_7, list_coll_8, list_coll_9,
- 	    list_coll_10, list_coll_11, list_coll_12, list_coll_13,
-@@ -658,7 +664,7 @@ get_list_call_func(size_t offset)
- 	if (offset <= 20)
- 		return (lsarray[offset]);
- 
--	return (list_coll);
-+	return (list_collp);
+-
++	struct sort_list_item **ss1 = (struct sort_list_item **)a1;
++	struct sort_list_item **ss2 = (struct sort_list_item **)a2;
+ 	return (top_level_str_coll(((*ss1)->str), ((*ss2)->str)));
  }
  
- /*
 diff --git a/src/coreutils/sort/coll.h b/src/coreutils/sort/coll.h
-index ddb9c36..7d5b011 100644
+index ddb9c36..8915538 100644
 --- a/src/coreutils/sort/coll.h
 +++ b/src/coreutils/sort/coll.h
 @@ -141,7 +141,7 @@ struct sort_list_item
@@ -65,6 +62,17 @@ index ddb9c36..7d5b011 100644
  
  extern struct key_specs *keys;
  extern size_t keys_num;
+@@ -173,8 +173,8 @@ int preproc(struct bwstring *s, struct keys_array *ka);
+ int top_level_str_coll(const struct bwstring *, const struct bwstring *);
+ int key_coll(struct keys_array *ks1, struct keys_array *ks2, size_t offset);
+ int str_list_coll(struct bwstring *str1, struct sort_list_item **ss2);
+-int list_coll_by_str_only(struct sort_list_item **ss1, struct sort_list_item **ss2);
+-int list_coll(struct sort_list_item **ss1, struct sort_list_item **ss2);
++int list_coll_by_str_only(const void *ss1, const void *ss2);
++int list_coll(const void *ss1, const void *ss2);
+ int list_coll_offset(struct sort_list_item **ss1, struct sort_list_item **ss2, size_t offset);
+ 
+ listcoll_t get_list_call_func(size_t offset);
 -- 
 2.34.1
 
