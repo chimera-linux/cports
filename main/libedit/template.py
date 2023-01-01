@@ -12,6 +12,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/libedit-chimera"
 source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "80f9ee8011d94cb5b356f632af2c06d8e6b4db4716570df2e266f3d3c14f2a74"
+# explicit visibility
+hardening = ["!vis"]
 options = ["bootstrap"]
 
 def post_install(self):
@@ -43,6 +45,3 @@ def _devel(self):
         self.options = ["!scanrundeps"]
         self.depends = [f"libedit={pkgver}-r{pkgrel}", "ncurses-devel"]
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

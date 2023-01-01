@@ -108,6 +108,3 @@ def do_install(self):
     self.install_link("../../bin", "usr/lib/go/bin")
 
     _clear_pkg(self.destdir / "usr/lib/go/pkg")
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -19,6 +19,7 @@ url = "https://github.com/Juniper/libxo"
 source = f"https://github.com/Juniper/libxo/releases/download/{pkgver}/libxo-{pkgver}.tar.gz"
 sha256 = "9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
+hardening = ["!vis"]
 options = ["bootstrap", "!lto", "!splitstatic", "!scanpkgconf"]
 
 # libxo does not respect LDFLAGS, so hack it in
@@ -33,6 +34,3 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin", recursive = True)
     self.rm(self.destdir / "usr/lib/libxo", recursive = True)
     self.rm(self.destdir / "usr/share", recursive = True)
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -22,6 +22,3 @@ def post_install(self):
         f.symlink_to("/usr/share/zoneinfo")
 
     self.install_license("LICENSE.txt")
-
-# FIXME visibility
-hardening = ["!vis"]

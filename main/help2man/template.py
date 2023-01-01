@@ -13,6 +13,3 @@ source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "9e2e0e213a7e0a36244eed6204d902b6504602a578b6ecd15268b1454deadd36"
 # no test suite
 options = ["!check"]
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -23,6 +23,7 @@ env = {
     "OPENSSL_NO_VENDOR": "1",
     "RUST_BACKTRACE": "1",
 }
+hardening = ["!vis"]
 # disable check at least for now
 options = ["!check"]
 
@@ -268,6 +269,3 @@ def _std(self):
     self.pkgdesc = f"{pkgdesc} (static rlibs)"
 
     return [f"{_rlib_dir}/lib/*.rlib"]
-
-# FIXME visibility
-hardening = ["!vis"]

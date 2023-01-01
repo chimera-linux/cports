@@ -14,6 +14,3 @@ source = f"$(PYPI_SITE)/c/chardet/chardet-{pkgver}.tar.gz"
 sha256 = "0368df2bfd78b5fc20572bb4e9bb7fb53e2c094f60ae9993339e8671d0afb8aa"
 # dependency of pytest
 options = ["!check"]
-
-# FIXME visibility
-hardening = ["!vis"]

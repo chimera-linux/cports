@@ -16,6 +16,3 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE.rst")
-
-# FIXME visibility
-hardening = ["!vis"]

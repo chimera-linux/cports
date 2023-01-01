@@ -10,6 +10,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/musl-fts"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}-mk2.tar.gz"
 sha256 = "1f65612b523e7040dbd9d5579a2eca97ede79c2ff3f91db7ccc288263e60da50"
+# explicit visibility
+hardening = ["!vis"]
 # no test suite; also no point in LTOing this
 options = ["bootstrap", "!check", "!lto"]
 
@@ -20,6 +22,3 @@ def post_install(self):
 def _devel(self):
     self.options = ["!splitstatic"]
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

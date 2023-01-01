@@ -12,6 +12,3 @@ source = f"$(PYPI_SITE)/t/typing_extensions/typing_extensions-{pkgver}.tar.gz"
 sha256 = "1511434bb92bf8dd198c12b1cc812e800d4181cfcb867674e0f8279cc93087aa"
 # in early path
 options = ["!check"]
-
-# FIXME visibility
-hardening = ["!vis"]

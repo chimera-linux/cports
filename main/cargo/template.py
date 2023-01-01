@@ -21,6 +21,7 @@ env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
     "RUST_BACKTRACE": "1",
 }
+hardening = ["!vis"]
 # disable check at least for now
 options = ["!check"]
 
@@ -72,6 +73,3 @@ def do_install(self):
     self.install_license("LICENSE-APACHE")
     self.install_license("LICENSE-MIT")
     self.install_license("LICENSE-THIRD-PARTY")
-
-# FIXME visibility
-hardening = ["!vis"]

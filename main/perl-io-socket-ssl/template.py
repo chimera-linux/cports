@@ -13,6 +13,3 @@ source = f"$(CPAN_SITE)/IO/IO-Socket-SSL-{pkgver}.tar.gz"
 sha256 = "bdd148d9feaef1220251676d7053698fcf446c9850d706fe2e1c90ff232ed874"
 # missing checkdepends
 options = ["!check"]
-
-# FIXME visibility
-hardening = ["!vis"]

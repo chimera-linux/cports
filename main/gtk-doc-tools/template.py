@@ -24,6 +24,3 @@ def post_install(self):
     from cbuild.util import python
 
     python.precompile(self, "usr/share/gtk-doc/python/gtkdoc")
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -10,6 +10,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/chimera-linux/musl-rpmatch"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}-mk2.tar.gz"
 sha256 = "a7b9649b49a8a59da09cf61228dc812cae6f0aea8be036788a9173c6f15a1a77"
+# explicit visibility
+hardening = ["!vis"]
 # no test suite; also no point in LTOing this
 options = ["bootstrap", "!check", "!lto"]
 
@@ -20,6 +22,3 @@ def post_install(self):
 def _devel(self):
     self.options = ["!splitstatic"]
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

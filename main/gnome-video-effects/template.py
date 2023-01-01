@@ -10,6 +10,3 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-video-effects"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4dc68e9b38fdfc1e8e0414e2d7ee83ace78efdee76f30506cc9dcd07394ad0c8"
-
-# FIXME visibility
-hardening = ["!vis"]

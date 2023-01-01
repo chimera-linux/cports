@@ -28,6 +28,3 @@ def post_install(self):
     self.install_file(
         self.files_path / "ckms-install-all", "usr/libexec", mode = 0o755
     )
-
-# FIXME visibility
-hardening = ["!vis"]

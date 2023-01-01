@@ -21,6 +21,3 @@ def post_install(self):
         f.symlink_to("../../six.py")
 
     self.install_license("LICENSE.txt")
-
-# FIXME visibility
-hardening = ["!vis"]

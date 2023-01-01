@@ -13,6 +13,8 @@ license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/DBusBindings"
 source = f"https://dbus.freedesktop.org/releases/dbus-python/dbus-python-{pkgver}.tar.gz"
 sha256 = "ad67819308618b5069537be237f8e68ca1c7fcc95ee4a121fe6845b1418248f8"
+# explicit visibility, cfi not ready
+hardening = ["!vis", "!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -22,6 +24,3 @@ def _devel(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "python-devel"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

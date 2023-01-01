@@ -11,6 +11,3 @@ license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/Net-SMTP-SSL"
 source = f"$(CPAN_SITE)/Net/Net-SMTP-SSL-{pkgver}.tar.gz"
 sha256 = "7b29c45add19d3d5084b751f7ba89a8e40479a446ce21cfd9cc741e558332a00"
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -18,6 +18,8 @@ license = "LGPL-2.1-or-later"
 url = "https://pygobject.readthedocs.io"
 source = f"$(GNOME_SITE)/pygobject/{pkgver[:-2]}/pygobject-{pkgver}.tar.xz"
 sha256 = "ade8695e2a7073849dd0316d31d8728e15e1e0bc71d9ff6d1c09e86be52bc957"
+# explicit visibility, cfi not ready
+hardening = ["!vis", "!cfi"]
 # cyclic
 options = ["!check"]
 
@@ -29,6 +31,3 @@ def _devel(self):
     ]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]
