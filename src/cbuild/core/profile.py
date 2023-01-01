@@ -16,10 +16,10 @@ hardening_fields = {
     "ssp": True, # this should really be compiler default
     "scp": True, # stack-clash-protection
     "int": True, # ubsan integer hardening
-    "cet": True, # intel CET on x86
     "pac": True, # aarch64 pointer authentication
-    "bti": True, # aarch64 branch target identification
     "cfi": True, # control flow integrity
+    "bti": False, # aarch64 bti, need dynlinker support and world rebuild
+    "cet": False, # intel CET on x86, needs musl support and world rebuild
     "sst": False, # safestack, not for DSOs
     # options affecting enabled hardening types
     "cfi-genptr": False, # loosen pointer type checks
