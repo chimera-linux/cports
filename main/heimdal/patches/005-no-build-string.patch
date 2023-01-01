@@ -11,10 +11,10 @@ Author: Jelmer Vernooij <jelmer@debian.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
-index 838f94f..3425bf8 100644
+index 9d8189f..c95cd9d 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -657,7 +657,7 @@ cat > include/newversion.h.in <<EOF
+@@ -660,7 +660,7 @@ cat > include/newversion.h.in <<EOF
  #ifndef VERSION_HIDDEN
  #define VERSION_HIDDEN
  #endif

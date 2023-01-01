@@ -7,10 +7,10 @@ Subject: Parallel build
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/lib/kadm5/Makefile.am b/lib/kadm5/Makefile.am
-index d91d4fb..905ac77 100644
+index 8ae1d1d..e23e881 100644
 --- a/lib/kadm5/Makefile.am
 +++ b/lib/kadm5/Makefile.am
-@@ -159,8 +159,7 @@ iprop_log_LDADD = \
+@@ -164,8 +164,7 @@ iprop_log_CPPFLAGS = -I$(srcdir)/../krb5
  iprop-commands.c iprop-commands.h: iprop-commands.in
  	$(SLC) $(srcdir)/iprop-commands.in
  

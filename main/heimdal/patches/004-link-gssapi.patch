@@ -87,10 +87,10 @@ index 448b024..74bc107 100644
  	$(LIB_roken) \
  	$(LIB_openldap) \
 diff --git a/lib/kadm5/Makefile.am b/lib/kadm5/Makefile.am
-index de9a208..d91d4fb 100644
+index 9d8aba0..8ae1d1d 100644
 --- a/lib/kadm5/Makefile.am
 +++ b/lib/kadm5/Makefile.am
-@@ -134,6 +134,7 @@ LDADD = \
+@@ -138,6 +138,7 @@ LDADD = \
  	$(top_builddir)/lib/hdb/libhdb.la \
  	$(top_builddir)/lib/krb5/libkrb5.la \
  	$(top_builddir)/lib/asn1/libasn1.la \
@@ -98,7 +98,7 @@ index de9a208..d91d4fb 100644
  	$(LIB_hcrypto) \
  	$(LIB_roken) \
  	$(DB3LIB) $(DB1LIB) $(LMDBLIB) $(NDBMLIB) \
-@@ -145,6 +146,7 @@ iprop_log_LDADD = \
+@@ -149,6 +150,7 @@ iprop_log_LDADD = \
  	$(top_builddir)/lib/hdb/libhdb.la \
  	$(top_builddir)/lib/krb5/libkrb5.la \
  	$(top_builddir)/lib/asn1/libasn1.la \

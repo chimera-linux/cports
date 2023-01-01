@@ -9,10 +9,10 @@ Subject: fix-missing-headers
  2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/lib/hcrypto/Makefile.am b/lib/hcrypto/Makefile.am
-index 469176b..76cd4de 100644
+index a9c688d..e0dccd2 100644
 --- a/lib/hcrypto/Makefile.am
 +++ b/lib/hcrypto/Makefile.am
-@@ -104,6 +104,11 @@ TESTS = $(PROGRAM_TESTS) $(SCRIPT_TESTS)
+@@ -103,6 +103,11 @@ TESTS = $(PROGRAM_TESTS) $(SCRIPT_TESTS)
  LDADD = $(lib_LTLIBRARIES) $(LIB_roken) $(LIB_openssl_crypto)
  test_rand_LDADD = $(LDADD) -lm
  
@@ -25,7 +25,7 @@ index 469176b..76cd4de 100644
  	$(ltmsources)	\
  	aes.c		\
 diff --git a/lib/hx509/Makefile.am b/lib/hx509/Makefile.am
-index c7ef531..527293a 100644
+index b21d852..f982ebc 100644
 --- a/lib/hx509/Makefile.am
 +++ b/lib/hx509/Makefile.am
 @@ -147,8 +147,8 @@ HX509_PROTOS = $(srcdir)/hx509-protos.h $(srcdir)/hx509-private.h

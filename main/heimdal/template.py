@@ -1,5 +1,5 @@
 pkgname = "heimdal"
-pkgver = "7.7.0"
+pkgver = "7.8.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,7 +8,7 @@ configure_args = [
     "--without-openssl", # FIXME
     "--with-hcrypto-default-backend=hcrypto", # FIXME: switch back to ossl
     "--without-berkeley-db",
-    "--with-db-type-preference=lmdb sqlite",
+    "--with-db-type-preference=sqlite",
     f"--with-sqlite3={self.profile().sysroot / 'usr'}",
     f"--with-libedit={self.profile().sysroot / 'usr'}",
     f"--with-libintl={self.profile().sysroot / 'usr'}",
@@ -24,7 +24,7 @@ hostmakedepends = [
 ]
 # TODO: reenable openssl once we've figured out the openssl 3.x regressions
 makedepends = [
-    "sqlite-devel", "libedit-devel", "lmdb-devel",
+    "sqlite-devel", "libedit-devel",
     "libcap-ng-devel", "linux-pam-devel", "gettext-tiny-devel",
     "ncurses-devel", "e2fsprogs-devel",
 ]
@@ -33,7 +33,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://heimdal.software"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "f02d3314d634cc55eb9cf04a1eae0d96b293e45a1f837de9d894e800161b7d1b"
+sha256 = "fd87a207846fa650fd377219adc4b8a8193e55904d8a752c2c3715b4155d8d38"
+# explicit visibility in a bunch of places
+hardening = ["!vis"]
 exec_wrappers = [
     ("/usr/bin/mandoc", "nroff")
 ]
@@ -166,6 +168,3 @@ def _devel(self):
     self.options = ["hardlinks"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]
