@@ -1,6 +1,6 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.17.2"
+pkgver = "4.17.4"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -34,8 +34,9 @@ configure_args = [
     "--with-winbind",
     "--with-syslog",
     "--with-quota",
-    "--with-ldap",
     "--with-pam",
+    "--without-ads", # needs ldap
+    "--without-ldap", # don't depend on shit software
     "--without-gpgme",
     "--without-ad-dc",
 ]
@@ -50,8 +51,8 @@ makedepends = [
     "e2fsprogs-devel", "zlib-devel", "ncurses-devel", "libarchive-devel",
     "musl-bsd-headers", "linux-pam-devel", "heimdal-devel", "acl-devel",
     "attr-devel", "cups-devel", "jansson-devel", "avahi-devel", "fuse-devel",
-    "dbus-devel", "openldap-devel", "tdb-devel", "talloc-devel", "ldb-devel",
-    "tevent-devel", "gnutls-devel", "cmocka-devel", "icu-devel", "musl-nscd",
+    "dbus-devel", "tdb-devel", "talloc-devel", "ldb-devel", "tevent-devel",
+    "gnutls-devel", "cmocka-devel", "icu-devel", "musl-nscd",
     "libglib-devel", "libedit-readline-devel",
 ]
 self.depends = [
@@ -64,14 +65,17 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
-sha256 = "e55ddf4d5178f8c84316abf53c5edd7b35399e3b7d86bcb81b75261c827bb3b8"
+sha256 = "c0512079db4cac707ccea4c18aebbd6b2eb3acf6e90735e7f645a326be1f4537"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
+# we really don't want to mess with visibility here
+hardening = ["!vis"]
 # check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check", "!installroot"]
 
+# idmap_ad should go here if active directory is enabled
 configure_args.append("--with-shared-modules=" + ",".join([
-    "idmap_rid", "idmap_ad", "idmap_adex", "idmap_hash", "idmap_ldap",
+    "idmap_rid", "idmap_adex", "idmap_hash", "idmap_ldap",
     "idmap_tdb2", "vfs_nfs4acl_xattr",
 ]))
 
@@ -106,7 +110,7 @@ def _common(self):
         "usr/bin/net",
         "usr/bin/nmblookup",
         "usr/bin/samba-regedit",
-        "usr/bin/samba-tool",
+        #"usr/bin/samba-tool", not present without AD
         "usr/bin/smbpasswd",
         "usr/bin/testparm",
         "usr/libexec/samba/rpcd_*",
@@ -334,6 +338,3 @@ def _python(self):
 @subpackage("samba-libs")
 def _libs(self):
     return ["usr/lib"]
-
-# FIXME visibility
-hardening = ["!vis"]
