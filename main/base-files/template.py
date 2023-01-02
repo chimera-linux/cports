@@ -95,9 +95,18 @@ def do_install(self):
     self.install_link("/proc/self/mounts", "etc/mtab")
 
 @subpackage("base-devel")
-def _develoc(self):
+def _basedev(self):
     self.pkgdesc = "Base package for development packages"
     self.depends = []
+    self.build_style = "meta"
+
+    return []
+
+@subpackage("base-devel-static")
+def _basedevs(self):
+    self.pkgdesc = "Base package for static development packages"
+    self.depends = []
+    self.install_if = []
     self.build_style = "meta"
 
     return []

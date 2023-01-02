@@ -1363,7 +1363,7 @@ autopkgs = [
     # dbg is handled by its own hook
     ("dbg", "debug files", None, None),
     # static is kinda special
-    ("static", "static libraries", None, _split_static),
+    ("static", "static libraries", "base-devel-static", _split_static),
     ("doc", "documentation", "base-doc", lambda p: p.take_doc()),
     (
         "man", "manual pages", "base-man",

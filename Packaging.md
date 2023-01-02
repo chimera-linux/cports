@@ -1201,6 +1201,7 @@ the package they were split off needs to be installed, plus the following:
 * `base-man` for `-man` subpackages
 * `base-udev` for `-udev` subpackages
 * `base-locale` for `-locale` subpackages
+* `base-devel-static` for `-static` subpackages
 * `dinit-chimera` for `-dinit` subpackages
 * the `-dinit` subpackage for `-dinit-links` subpackages
 * `initramfs-tools` for `-initramfs-tools` subpackages
@@ -1333,6 +1334,14 @@ dependencies are present (i.e. to another subpackage or the main package,
 and fully versioned), this dependency is added to the `install_if`. That
 allows the package to be autoinstalled if enabled by policy *and* if
 the non-development packages are already installed.
+
+For static libraries, the mechanism is a little different, as they are
+usually split off automatically and a hook cannot be used. They get their
+install_if against their base development package, in addition to the
+`base-devel-static` policy package. If this does not work for something,
+for example if the relationship is reversed or the base package does not
+exist, it is possible to set `install_if` to an empty array in the
+subpackage definition.
 
 <a id="template_options"></a>
 ### Template Options

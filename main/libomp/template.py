@@ -35,6 +35,7 @@ def post_install(self):
 def _devel_static(self):
     self.pkgdesc = f"{pkgdesc} (static libraries)"
     self.depends = []
+    self.install_if = []
 
     return ["usr/lib/*.a"]
 

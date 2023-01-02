@@ -26,6 +26,9 @@ options = ["!cross", "!check"]
 
 @subpackage("vulkan-validationlayers-devel-static")
 def _sdevel(self):
+    self.depends = []
+    self.install_if = []
+
     return ["usr/lib/*.a"]
 
 @subpackage("vulkan-validationlayers-devel")

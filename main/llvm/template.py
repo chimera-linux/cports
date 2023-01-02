@@ -267,6 +267,7 @@ def post_install(self):
 def _tools_extra_static(self):
     self.pkgdesc = f"{pkgdesc} (extra Clang tools static libraries)"
     self.depends = []
+    self.install_if = []
 
     return [
         "usr/lib/libclangApplyReplacements*",
@@ -332,6 +333,7 @@ def _clang_rt_devel(self):
 def _clang_static(self):
     self.pkgdesc = f"{pkgdesc} (Clang static libraries)"
     self.depends = []
+    self.install_if = []
 
     return ["usr/lib/libclang*.a"]
 
@@ -425,6 +427,7 @@ def _mlir(self):
 def _mlir_static(self):
     self.pkgdesc = f"{pkgdesc} (MLIR static libraries)"
     self.depends = []
+    self.install_if = []
 
     return ["usr/lib/libMLIR*.a"]
 
@@ -569,6 +572,7 @@ def _lld(self):
 def _lld_devel(self):
     self.pkgdesc = f"{pkgdesc} (linker) (static libraries)"
     self.depends = []
+    self.install_if = []
 
     return [
         "usr/lib/liblld*.a"
@@ -598,6 +602,7 @@ def _llvm_linker_tools(self):
 def _llvm_static(self):
     self.pkgdesc = "Low Level Virtual Machine (static libraries)"
     self.depends = []
+    self.install_if = []
 
     return ["usr/lib/*.a"]
 

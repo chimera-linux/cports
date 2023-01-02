@@ -21,6 +21,7 @@ options = ["!check"]
 @subpackage("spirv-tools-devel-static")
 def _static(self):
     self.depends = []
+    self.install_if = []
 
     return ["usr/lib/*.a"]
 

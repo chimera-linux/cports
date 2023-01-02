@@ -24,6 +24,11 @@ def post_install(self):
 @subpackage("libfl-devel-static")
 def _static(self):
     self.depends = []
+    self.install_if = [
+        f"{pkgname}={pkgver}-r{pkgrel}",
+        "base-devel", "base-devel-static"
+    ]
+
     return self.default_devel()
 
 # FIXME visibility
