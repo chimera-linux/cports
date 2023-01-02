@@ -94,6 +94,14 @@ def do_install(self):
     # Create /proc/self/mounts -> /etc/mtab symlink
     self.install_link("/proc/self/mounts", "etc/mtab")
 
+@subpackage("base-devel")
+def _develoc(self):
+    self.pkgdesc = "Base package for development packages"
+    self.depends = []
+    self.build_style = "meta"
+
+    return []
+
 @subpackage("base-locale")
 def _baseloc(self):
     self.pkgdesc = "Base package for locale data"

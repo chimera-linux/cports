@@ -1208,6 +1208,10 @@ the package they were split off needs to be installed, plus the following:
 * `zsh` for `-zshcomp` packages
 * `python-pycache` for `-pycache` packages (except `python-pycache` itself)
 
+Development packages may be automatically installed if `base-devel` is
+installed and specific other circumstances enable this. Please refer to
+the section about automatic dependencies below.
+
 You can turn off automatic splitting with the `!autosplit` option. Some
 templates also have builtin whitelists for split subpackage data, e.g.
 `eudev` will not split off a `-udev` subpackage.
@@ -1313,6 +1317,23 @@ There are some `options` you can use to control this. With `!scanrundeps`,
 no dependencies will be scanned. As for provides, that can be controlled
 with `scanshlibs`, `scanpkgconf` and `scancmd`.
 
+#### Development packages and install_if
+
+There is a mechanism in place that lets development subpackages (those that
+end with `-devel`) to be automatically installed. In order for that to
+happen, the `base-devel` package needs to be installed in the system,
+in addition to a specific set of packages.
+
+The behavior of this may be overridden by the packager by disabling the
+`scandevelif` subpackage option. Defining a custom non-empty `install_if`
+list will likewise automatically disable this behavior entirely.
+
+The dependencies of the subpackage are scanned, and if any full local
+dependencies are present (i.e. to another subpackage or the main package,
+and fully versioned), this dependency is added to the `install_if`. That
+allows the package to be autoinstalled if enabled by policy *and* if
+the non-development packages are already installed.
+
 <a id="template_options"></a>
 ### Template Options
 
@@ -1397,6 +1418,8 @@ for subpackages separately if needed:
   shared libraries to be provided by the package.
 * `scanpkgconf` *(true)* If disabled, the package will not be scanned for
   `.pc` files.
+* `scandevelif` *(true)* If disabled, `install_if` will not be generated
+  for development packages.
 * `scancmd` *(true)* If disabled, the package will not be scanned for
   executable commands.
 * `spdx` *(true)* If enabled, the license name(s) will be validated
