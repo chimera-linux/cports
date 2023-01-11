@@ -22,6 +22,3 @@ def init_configure(self):
 def post_patch(self):
     self.cp(self.files_path / "mconfig", self.cwd)
     (self.cwd / "mconfig").touch() # mtime
-
-# FIXME visibility
-hardening = ["!vis"]

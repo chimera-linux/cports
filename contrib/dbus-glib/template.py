@@ -16,11 +16,10 @@ license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/DBusBindings"
 source = f"http://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "7d550dccdfcd286e33895501829ed971eeb65c614e73aadb4a08aeef719b143a"
+# unmarked api
+hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("dbus-glib-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

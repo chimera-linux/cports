@@ -12,12 +12,11 @@ license = "LGPL-2.1-or-later"
 url = "https://www.cairographics.org/cairomm"
 source = f"http://cairographics.org/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6a63bf98a97dda2b0f55e34d1b5f3fb909ef8b70f9b8d382cb1ff3978e7dc13f"
+# glib
+hardening = ["!vis"]
 
 @subpackage("cairomm-devel")
 def _devel(self):
     return self.default_devel(extra = [
         "usr/lib/cairomm-1.16",
     ])
-
-# FIXME visibility
-hardening = ["!vis"]

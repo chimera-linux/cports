@@ -11,7 +11,7 @@ hostmakedepends = ["pkgconf", "bash"]
 makedepends = [
     "device-mapper-devel-static", "openssl-devel-static", "popt-devel-static",
     "json-c-devel-static", "libuuid-devel-static", "argon2-devel-static",
-    "linux-headers",
+    "libatomic-chimera-devel-static", "linux-headers",
 ]
 checkdepends = ["procps-ng", "xz"]
 pkgdesc = "Open source Linux disk encryption setup"
@@ -20,6 +20,8 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.com/cryptsetup/cryptsetup"
 source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "9184a6ebbd9ce7eb211152e7f741a6c82f2d1cc0e24a84ec9c52939eee0f0542"
+# missing annotations
+hardening = ["!vis"]
 
 @subpackage("cryptsetup-static-bin")
 def _sbin(self):
@@ -36,6 +38,3 @@ def _lib(self):
 @subpackage("cryptsetup-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

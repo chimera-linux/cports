@@ -10,6 +10,7 @@ license = "MIT"
 url = "https://c-ares.haxx.se"
 source = f"https://c-ares.haxx.se/download/{pkgname}-{pkgver}.tar.gz"
 sha256 = "1a7d52a8a84a9fbffb1be9133c0f6e17217d91ea5a6fa61f6b4729cda78ebbcf"
+hardening = ["!cfi"]
 # does not like the sandbox
 options = ["!check"]
 
@@ -19,6 +20,3 @@ def post_install(self):
 @subpackage("c-ares-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

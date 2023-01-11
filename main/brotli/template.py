@@ -9,6 +9,8 @@ license = "MIT"
 url = "https://github.com/google/brotli"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "f9e8d81d0405ba66d181529af42a3354f838c939095ff99930da6aa9cdf6fe46"
+# needs public visibility for build
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -16,6 +18,3 @@ def post_install(self):
 @subpackage("brotli-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

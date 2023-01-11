@@ -30,6 +30,8 @@ file_modes = {
     "var/lib/colord": ("_colord", "_colord", 0o755),
     "var/lib/colord/icc": ("_colord", "_colord", 0o755),
 }
+# glib + FIXME
+hardening = ["!vis", "!int"]
 # assertion failed (cd_edid_get_vendor_name (edid) == "LG"): (NULL == "LG")
 options = ["!check"]
 
@@ -58,6 +60,3 @@ def _lib(self):
 @subpackage("colord-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -12,16 +12,18 @@ makedepends = [
     "libpng-devel", "libx11-devel", "libxcb-devel", "libxext-devel",
     "libxrender-devel", "lzo-devel", "zlib-devel", "pixman-devel",
 ]
+checkdepends = ["ghostscript", "libpoppler-glib-devel", "librsvg-devel"]
 pkgdesc = "Vector graphics library with cross-device output support"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://cairographics.org"
 source = f"{url}/snapshots/{pkgname}-{pkgver}.tar.xz"
 sha256 = "74b24c1ed436bbe87499179a3b27c43f4143b8676d8ad237a6fa787401959705"
+# glib + FIXME (causes random failures elsewhere)
+hardening = ["!vis", "!int"]
+# cyclic, disabled in configure
+options = ["!check"]
 
 @subpackage("cairo-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

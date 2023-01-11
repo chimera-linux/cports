@@ -24,6 +24,8 @@ tool_flags = {"CFLAGS": [
     "-DSYS_BASHRC=\"/etc/bash/bashrc\"",
     "-DNON_INTERACTIVE_LOGIN_SHELLS",
 ]}
+# FIXME testsuite failures
+hardening = ["!cfi", "!int"]
 
 def init_configure(self):
     tcap = self.profile().sysroot / "usr/lib/libncursesw.a"
@@ -45,6 +47,3 @@ def post_install(self):
     # remove devel files
     self.rm(self.destdir / "usr/lib", recursive = True)
     self.rm(self.destdir / "usr/include", recursive = True)
-
-# FIXME visibility
-hardening = ["!vis"]

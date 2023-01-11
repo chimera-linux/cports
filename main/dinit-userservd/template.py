@@ -23,6 +23,3 @@ def post_install(self):
     self.install_link(
         "../dinit-userservd", "usr/lib/dinit.d/boot.d/dinit-userservd"
     )
-
-# FIXME visibility
-hardening = ["!vis"]

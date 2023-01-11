@@ -24,6 +24,8 @@ url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
 sha256 = "ba8174dda00d5b90943f37c6a180a1d37c861d91e04a4cb38dc1c0c74981c186"
 debug_level = 1 # allow LTO build to not run out of mem
+# FIXME: fails to build
+hardening = ["!vis"]
 options = ["!cross"]
 
 def post_extract(self):
@@ -55,6 +57,3 @@ def do_check(self):
 @subpackage("nodejs-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

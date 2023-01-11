@@ -15,6 +15,7 @@ url = "https://www.xiph.org/paranoia"
 source = f"https://downloads.xiph.org/releases/{pkgname}/{pkgname}-III-{pkgver}.src.tgz"
 sha256 = "005db45ef4ee017f5c32ec124f913a0546e77014266c6a1c50df902a55fe64df"
 tool_flags = {"CFLAGS": ["-Du_int16_t=uint16_t", "-Du_int32_t=uint32_t"]}
+hardening = ["!vis"]
 # missing target in some place?
 options = ["!check", "!parallel"]
 
@@ -30,6 +31,3 @@ def _lib(self):
 @subpackage("cdparanoia-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

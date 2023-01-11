@@ -26,6 +26,8 @@ suid_files = [
     "usr/lib/enlightenment/utils/enlightenment_system",
     "usr/lib/enlightenment/utils/enlightenment_sys",
 ]
+# janky codebase
+hardening = ["!int", "!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -35,6 +37,3 @@ def _devel(self):
     self.depends += [f"enlightenment={pkgver}-r{pkgrel}"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

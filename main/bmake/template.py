@@ -7,6 +7,8 @@ license = "BSD-3-Clause"
 url = "http://www.crufty.net/help/sjg/bmake.html"
 source = f"http://www.crufty.net/ftp/pub/sjg/bmake-{pkgver}.tar.gz"
 sha256 = "c804b77de3feb8e31dee2a4c9fb1e9ec24c5a34764e7a2815c88b4ed01650e90"
+# FIXME failed test
+hardening = ["!int"]
 options = ["bootstrap"]
 
 def do_build(self):
@@ -39,6 +41,3 @@ def do_check(self):
         self.chroot_cwd / "boot-strap", "--prefix=/usr", "op=test",
         wrksrc = "build"
     )
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -17,6 +17,3 @@ sha256 = "7c5bb36393dec39b9732e53963dadd6bcc3bd193370c4ec5b1c0121df3b38faa"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
-
-# FIXME visibility
-hardening = ["!vis"]

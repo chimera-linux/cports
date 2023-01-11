@@ -45,6 +45,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lathiat/avahi"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "060309d7a333d38d951bc27598c677af1796934dbd98e1024e7ad8de798fedda"
+hardening = ["!vis"]
 options = ["!cross"]
 
 system_users = ["_avahi:23"]
@@ -106,6 +107,3 @@ def _progs(self):
         "usr/bin/avahi-resolv*",
         "usr/share/man/man1",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

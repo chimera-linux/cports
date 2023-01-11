@@ -42,6 +42,8 @@ env = {
     # firefox checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
+# cfi known not to work
+hardening = ["!vis", "!cfi"]
 options = ["!cross"]
 exec_wrappers = [
     ("/usr/bin/llvm-objdump", "objdump"),
@@ -168,6 +170,3 @@ def do_install(self):
 def do_check(self):
     # XXX: maybe someday
     pass
-
-# FIXME visibility
-hardening = ["!vis"]

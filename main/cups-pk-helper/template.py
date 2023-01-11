@@ -10,8 +10,7 @@ license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/cups-pk-helper"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "8571a7d2fe459f340fc4031a374aced254305d09d96092c7951b90b1c493ab8d"
+# glib
+hardening = ["!vis"]
 # needs cupsd running
 options = ["!check"]
-
-# FIXME visibility
-hardening = ["!vis"]

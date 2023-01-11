@@ -33,6 +33,3 @@ def do_install(self):
     self.install_bin("awk")
     self.install_man("awk.1")
     self.install_license("LICENSE")
-
-# FIXME visibility
-hardening = ["!vis"]

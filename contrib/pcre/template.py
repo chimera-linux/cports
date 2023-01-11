@@ -22,6 +22,7 @@ license = "BSD-3-Clause"
 url = "http://www.pcre.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8"
+hardening = ["!vis"]
 options = ["!cross"]
 
 match self.profile().arch:
@@ -45,6 +46,3 @@ def _libpcre(self):
 def _devel(self):
     self.depends += ["zlib-devel", "libbz2-devel"]
     return self.default_devel(extra = ["usr/share/doc"])
-
-# FIXME visibility
-hardening = ["!vis"]

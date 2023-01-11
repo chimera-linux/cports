@@ -50,6 +50,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/lathiat/avahi"
 source = f"{url}/releases/download/v{pkgver}/avahi-{pkgver}.tar.gz"
 sha256 = "060309d7a333d38d951bc27598c677af1796934dbd98e1024e7ad8de798fedda"
+hardening = ["!vis"]
 options = ["!cross"]
 
 def do_install(self):
@@ -179,6 +180,3 @@ def _elibs(self):
     return [
         "usr/lib/libavahi-libevent*.so.*",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

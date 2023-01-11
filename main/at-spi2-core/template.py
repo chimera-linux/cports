@@ -16,6 +16,8 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/at-spi2-core"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "aa0c86c79f7a8d67bae49a5b7a5ab08430c608cffe6e33bf47a72f41ab03c3d0"
+# glib
+hardening = ["!vis"]
 # non-trivial dbus setup
 options = ["!check", "!cross"]
 
@@ -25,6 +27,3 @@ def post_install(self):
 @subpackage("at-spi2-core-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

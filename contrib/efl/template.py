@@ -57,6 +57,8 @@ license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "d9f83aa0fd9334f44deeb4e4952dc0e5144683afac786feebce6030951617d15"
+# janky codebase
+hardening = ["!int", "!vis"]
 # some suites are in a bad shape
 options = ["!check"]
 
@@ -88,6 +90,3 @@ def _ibus(self):
 @subpackage("efl-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]
