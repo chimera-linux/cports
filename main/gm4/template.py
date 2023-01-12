@@ -14,6 +14,5 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/m4"
 source = f"$(GNU_SITE)/m4/m4-{pkgver}.tar.xz"
 sha256 = "63aede5c6d33b6d9b13511cd0be2cac046f2e70fd0a07aa9573a04a82783af96"
-
-# FIXME visibility
-hardening = ["!vis"]
+# FIXME cfi - there is something wrong with oset vtable
+hardening = ["!cfi"]

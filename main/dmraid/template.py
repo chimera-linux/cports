@@ -17,6 +17,7 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://people.redhat.com/~heinzm/sw/dmraid"
 source = f"{url}/src/{pkgname}-{_rver}.tar.bz2"
 sha256 = "93421bd169d71ff5e7d2db95b62b030bfa205a12010b6468dcdef80337d6fbd8"
+hardening = ["!vis"]
 # no test suite
 options = ["!parallel", "!check"]
 # :(
@@ -36,6 +37,3 @@ def _lib(self):
 @subpackage("dmraid-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

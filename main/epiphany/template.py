@@ -21,6 +21,5 @@ license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Web"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b66d499f9ee72696d83cf844125377181a954554a4bb3785b73293380ac0c227"
-
-# FIXME visibility
+# glib
 hardening = ["!vis"]

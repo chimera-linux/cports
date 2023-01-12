@@ -30,6 +30,8 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "c490dc158c8f5bca8d00ecfcc7ad5af24d1c7b9e59990a0b3b1323996221a922"
+# explicitly controlled in meson, we don't want to override
+hardening = ["!vis"]
 
 def post_install(self):
     # compat symlinks
@@ -74,6 +76,3 @@ def _pam(self):
         "usr/share/factory",
         "usr/share/man/man8/pam_elogind.8",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

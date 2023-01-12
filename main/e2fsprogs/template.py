@@ -28,6 +28,8 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://e2fsprogs.sourceforge.net"
 source = f"$(KERNEL_SITE)/kernel/people/tytso/{pkgname}/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "2f16c9176704cf645dc69d5b15ff704ae722d665df38b2ed3cfc249757d8d81e"
+# untagged api
+hardening = ["!vis"]
 
 def post_patch(self):
     # failing tests
@@ -59,6 +61,3 @@ def _devel(self):
 @subpackage("e2fsprogs-libs")
 def _libs(self):
     return self.default_libs()
-
-# FIXME visibility
-hardening = ["!vis"]

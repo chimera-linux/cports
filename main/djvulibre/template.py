@@ -11,6 +11,7 @@ license = "GPL-2.0-or-later"
 url = "http://djvu.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/djvu/{pkgname}-{pkgver}.tar.gz"
 sha256 = "fcd009ea7654fde5a83600eb80757bd3a76998e47d13c66b54c8db849f8f2edc"
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
@@ -26,6 +27,3 @@ def _devel(self):
     self.depends += ["libjpeg-turbo-devel"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -15,6 +15,8 @@ sha256 = "49a7da83b0bdd9f46d04a04deec19c7767bb9a323e40c4781f89caf760b92c34"
 tool_flags = {
     "LDFLAGS": [f"-Wl,-rpath=/usr/lib:/usr/lib/{pkgname}{pkgver}"]
 }
+# no visibility handling
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
@@ -30,6 +32,3 @@ def _devel(self):
         "usr/include",
         "usr/share/man/man3",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

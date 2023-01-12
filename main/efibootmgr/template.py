@@ -39,6 +39,3 @@ def do_install(self):
     self.install_man("src/efibootdump.8")
     self.install_bin("src/efibootmgr")
     self.install_man("src/efibootmgr.8")
-
-# FIXME visibility
-hardening = ["!vis"]

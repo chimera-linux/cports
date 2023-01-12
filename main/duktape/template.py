@@ -12,8 +12,11 @@ license = "MIT"
 url = "https://duktape.org"
 source = f"https://github.com/svaarala/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "90f8d2fa8b5567c6899830ddef2c03f3c27960b11aca222fa17aa7ac613c2890"
-# no check target
-options = ["!check"]
+
+# a simple self-test in place of a real testsuite
+def do_check(self):
+    self.make.invoke(None, ["-f", "Makefile.cmdline"])
+    self.do(self.chroot_cwd / "duk", "-e", "print('hello world', 5 + 10)")
 
 def post_install(self):
     self.install_license("LICENSE.txt")
@@ -21,6 +24,3 @@ def post_install(self):
 @subpackage("duktape-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

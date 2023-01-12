@@ -33,6 +33,8 @@ suid_files = [
 file_modes = {
     "usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)
 }
+# FIXME cfi
+hardening = ["!cfi"]
 
 system_users = ["dbus:22"]
 
@@ -78,6 +80,3 @@ def _x11(self):
         "usr/bin/dbus-launch",
         "usr/share/man/man1/dbus-launch.1",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]
