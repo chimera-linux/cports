@@ -1,0 +1,19 @@
+commit 0627ac32d00cafc7d05c4e2af9cfb2ca1a7d4355
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jan 14 04:31:05 2023 +0100
+
+    fix potential multiplication overflow in WIFSTOPPED
+
+diff --git a/include/stdlib.h b/include/stdlib.h
+index b507ca3..ff57b9c 100644
+--- a/include/stdlib.h
++++ b/include/stdlib.h
+@@ -95,7 +95,7 @@ size_t __ctype_get_mb_cur_max(void);
+ #define WTERMSIG(s) ((s) & 0x7f)
+ #define WSTOPSIG(s) WEXITSTATUS(s)
+ #define WIFEXITED(s) (!WTERMSIG(s))
+-#define WIFSTOPPED(s) ((short)((((s)&0xffff)*0x10001)>>8) > 0x7f00)
++#define WIFSTOPPED(s) ((short)((((s)&0xffffu)*0x10001)>>8) > 0x7f00)
+ #define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
+ 
+ int posix_memalign (void **, size_t, size_t);
