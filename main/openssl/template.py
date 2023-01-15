@@ -16,6 +16,8 @@ license = "Apache-2.0"
 url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
 sha256 = "83049d042a260e696f62406ac5c08bf706fd84383f945cf21bd61e9ed95c396e"
+# unmarked api
+hardening = ["!vis"]
 options = ["bootstrap"]
 
 if self.stage > 0:
@@ -72,6 +74,3 @@ def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}",]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

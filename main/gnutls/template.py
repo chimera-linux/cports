@@ -21,6 +21,8 @@ license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
 source = f"https://www.gnupg.org/ftp/gcrypt/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c58ad39af0670efe6a8aee5e3a8b2331a1200418b64b7c51977fb396d4617114"
+# unmarked api
+hardening = ["!vis"]
 # interactive
 options = ["!check"]
 
@@ -33,6 +35,3 @@ def _devel(self):
 @subpackage("gnutls-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

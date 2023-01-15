@@ -11,6 +11,8 @@ license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "2b472696cbac79db8e405724118ec945219c5b9b18af63dc8cfb7f1d89b0f1fa"
+# glib
+hardening = ["!vis"]
 
 @subpackage("glibmm-devel")
 def _devel(self):
@@ -18,6 +20,3 @@ def _devel(self):
         "usr/lib/glibmm-2.68",
         "usr/lib/giomm-2.68",
     ])
-
-# FIXME visibility
-hardening = ["!vis"]

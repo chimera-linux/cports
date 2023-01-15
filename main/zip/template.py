@@ -16,6 +16,8 @@ sha256 = "f0e8bb1f9b7eb0b01285495a2699df3a4b766784c1765a8f1aeedf63c0806369"
 tool_flags = {
     "CFLAGS": ["-DLARGE_FILE_SUPPORT"]
 }
+# FIXME needs testing
+hardening = ["!vis", "!int"]
 # no test suite
 options = ["!check"]
 
@@ -36,6 +38,3 @@ def do_install(self):
     ])
 
     self.install_license("LICENSE")
-
-# FIXME visibility
-hardening = ["!vis"]

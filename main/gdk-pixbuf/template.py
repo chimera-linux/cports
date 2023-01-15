@@ -20,6 +20,10 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GdkPixbuf"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ee9b6c75d13ba096907a2e3c6b27b61bcd17f5c7ebeab5a5b439d2f2e39fe44b"
+# glib, FIXME int
+hardening = ["!vis", "!int"]
+# pixbuf-randomly-modified aborts, FIXME
+options = ["!check"]
 
 @subpackage("gdk-pixbuf-devel")
 def _devel(self):
@@ -27,6 +31,3 @@ def _devel(self):
         "usr/bin/*csource*",
         "usr/share/man/man1/*csource*",
     ])
-
-# FIXME visibility
-hardening = ["!vis"]

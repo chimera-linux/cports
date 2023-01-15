@@ -14,6 +14,3 @@ sha256 = "2e9e859876571f03567ac91e5ed3b5308791f31cda083408c2b60fa1fe00a39d"
 @subpackage("fribidi-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

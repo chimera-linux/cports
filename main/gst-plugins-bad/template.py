@@ -62,6 +62,7 @@ configure_args = [
     "-Dx265=disabled", # GPL
     "-Dzbar=disabled", # maybe?
     "-Dzxing=disabled", # maybe?
+    "-Dflite=disabled", # not packaged, fails with make 4.4
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "glib-devel", "orc",
@@ -79,7 +80,7 @@ makedepends = [
     "wayland-devel", "wayland-protocols", "libxkbcommon-devel",
     "webrtc-audio-processing-devel", "webrtc-audio-processing-0.3-devel",
     "v4l-utils-devel", "libusb-devel", "libfreeaptx-devel", "lilv-devel",
-    "ladspa-sdk", "lrdf-devel", "chromaprint-devel", "flite-devel",
+    "ladspa-sdk", "lrdf-devel", "chromaprint-devel",
     "openal-soft-devel", "qrencode-devel", "json-glib-devel",
     "libnice-devel", "libsrtp-devel", "spandsp-devel", "soundtouch-devel",
     "libmicrodns-devel", "gsm-devel", "libgme-devel", "linux-headers",

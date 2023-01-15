@@ -10,6 +10,7 @@ license = "MIT"
 url = "http://freeglut.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "3c0bcb915d9b180a97edaebd011b7a1de54583a838644dcd42bb0ea0c6f3eaec"
+hardening = ["!vis"]
 # no tests
 options = ["!check"]
 
@@ -20,6 +21,3 @@ def post_install(self):
 def _devel(self):
     self.depends += makedepends
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

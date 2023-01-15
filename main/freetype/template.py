@@ -22,6 +22,8 @@ license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"$(NONGNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4766f20157cc4cf0cd292f80bf917f92d1c439b243ac3018debf6b9140c41a7f"
+# TODO check
+hardening = ["!vis"]
 # data files missing
 options = ["!check"]
 
@@ -32,6 +34,3 @@ def post_install(self):
 @subpackage("freetype-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

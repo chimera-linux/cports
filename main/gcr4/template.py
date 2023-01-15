@@ -22,6 +22,8 @@ source = f"$(GNOME_SITE)/gcr/{pkgver[:-2]}/gcr-{pkgver}.tar.xz"
 sha256 = "c45855924f0ee7bab43e2dd38bfafd2ac815c6e9864341c0161e171173dcec7c"
 # getpass
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
+# glib
+hardening = ["!vis"]
 # needs x11
 options = ["!check"]
 
@@ -32,6 +34,3 @@ def _devel(self):
 @subpackage("gcr4-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

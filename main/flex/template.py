@@ -16,6 +16,7 @@ sha256 = "e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
 }
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_link("flex", "usr/bin/lex")
@@ -30,6 +31,3 @@ def _static(self):
     ]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

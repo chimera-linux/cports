@@ -11,6 +11,8 @@ license = "LGPL-3.0-or-later OR GPL-2.0-or-later"
 url = "https://gmplib.org"
 source = f"{url}/download/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "fd4829912cddd12f84181c3451cc752be224643e87fac497b69edddadc49b4f2"
+# unmarked api
+hardening = ["!vis"]
 
 def post_extract(self):
     # ld: improper alignment for relocation R_AARCH64_LD64_GOT_LO12_NC
@@ -35,6 +37,3 @@ def _cxxdevel(self):
 @subpackage("gmp-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

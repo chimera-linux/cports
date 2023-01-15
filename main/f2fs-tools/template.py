@@ -13,6 +13,8 @@ license = "GPL-2.0-only"
 url = "https://git.kernel.org/cgit/linux/kernel/git/jaegeuk/f2fs-tools.git"
 source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
 sha256 = "147d471040b44900283ce2c935f1d35d13d7f40008e7cb8fab2b69f54da01a4f"
+# untagged api
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
@@ -24,6 +26,3 @@ def _devel(self):
 @subpackage("f2fs-tools-libs")
 def _devel(self):
     return self.default_libs()
-
-# FIXME visibility
-hardening = ["!vis"]
