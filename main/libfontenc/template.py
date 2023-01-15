@@ -11,6 +11,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c103543a47ce5c0200fb1867f32df5e754a7c3ef575bf1fe72187117eac22a53"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -18,6 +20,3 @@ def post_install(self):
 @subpackage("libfontenc-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

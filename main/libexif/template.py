@@ -10,6 +10,8 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/libexif/libexif"
 source = f"{url}/archive/{pkgname}-{pkgver.replace('.', '_')}-release.tar.gz"
 sha256 = "d3fb7c47829ec4d2def39aa38f4c35a0891763448a05dbf216a329a12bf198f9"
+# unmarked api
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
@@ -17,6 +19,3 @@ def pre_configure(self):
 @subpackage("libexif-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

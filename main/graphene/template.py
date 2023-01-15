@@ -17,6 +17,8 @@ license = "MIT"
 url = "https://github.com/ebassi/graphene"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "a37bb0e78a419dcbeaa9c7027bcff52f5ec2367c25ec859da31dfde2928f279a"
+# glib
+hardening = ["!vis"]
 
 match self.profile().arch:
     case "x86_64":
@@ -30,6 +32,3 @@ def post_install(self):
 @subpackage("graphene-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/lib/graphene-1.0"])
-
-# FIXME visibility
-hardening = ["!vis"]

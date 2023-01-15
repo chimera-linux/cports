@@ -11,6 +11,8 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libcdio"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "8550e9589dbd594bfac93b81ecf129b1dc9d0d51e90f9696f1b2f9b2af32712b"
+# unmarked api
+hardening = ["!vis"]
 # tests a cd-rom drive, plus fails realpath test
 options = ["!check"]
 
@@ -21,6 +23,3 @@ def _devel(self):
 @subpackage("libcdio-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

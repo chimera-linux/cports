@@ -14,6 +14,8 @@ license = "custom:none"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2022/sqlite-autoconf-{_amalg}.tar.gz"
 sha256 = "f31d445b48e67e284cf206717cc170ab63cbe4fd7f79a82793b772285e78fdbb"
+# unmarked api
+hardening = ["!vis"]
 options = ["!parallel"]
 
 _cflags = [
@@ -36,6 +38,3 @@ tool_flags = {"CFLAGS": _cflags}
 @subpackage("sqlite-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

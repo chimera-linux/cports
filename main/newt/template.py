@@ -12,6 +12,8 @@ license = "LGPL-2.0-only"
 url = "https://pagure.io/newt"
 source = f"https://pagure.io/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "265eb46b55d7eaeb887fca7a1d51fe115658882dfe148164b6c49fccac5abb31"
+# unmarked api
+hardening = ["!vis"]
 # no proper check target
 options = ["!check"]
 
@@ -25,6 +27,3 @@ def _progs(self):
     self.depends += ["python"]
 
     return ["usr/lib/python*"]
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -19,10 +19,9 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libblockdev"
 source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgver}-1/{pkgname}-{pkgver}.tar.gz"
 sha256 = "82c9c841e28a74fecadedebfae6a772df623cecdf652e5376650fa26da5b7df4"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("libblockdev-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

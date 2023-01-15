@@ -10,10 +10,9 @@ license = "LGPL-2.1-or-later"
 url = "http://0pointer.de/lennart/projects/libdaemon"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "fd23eb5f6f986dcc7e708307355ba3289abe03cc381fc47a80bca4a50aa6b834"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("libdaemon-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

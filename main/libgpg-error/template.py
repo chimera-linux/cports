@@ -9,6 +9,8 @@ license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
 source = f"{url}/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "b7e11a64246bbe5ef37748de43b245abd72cfcd53c9ae5e7fc5ca59f1c81268d"
+# unmarked api
+hardening = ["!vis"]
 # needs qemu and patching
 options = ["!cross"]
 
@@ -22,6 +24,3 @@ def _devel(self):
 @subpackage("libgpg-error-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

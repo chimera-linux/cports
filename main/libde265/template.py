@@ -10,6 +10,8 @@ license = "LGPL-3.0-or-later"
 url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "153554f407718a75f1e0ae197d35b43147ce282118a54f894554dbe27c32163d"
+# TODO check
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
@@ -29,6 +31,3 @@ def _devel(self):
 @subpackage("libde265-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

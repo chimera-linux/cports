@@ -10,6 +10,8 @@ license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"
 sha256 = "ef2420f0232c087801abf705e89ae65f6257df6b7931d37846a193ef2e8cdcbe"
+# FIXME crash reproducible e.g. with graphene build
+hardening = ["!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -22,6 +24,3 @@ def _devel(self):
 def _xmlwf(self):
     self.pkgdesc = f"{pkgdesc} (xmlwf utility)"
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

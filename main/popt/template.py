@@ -10,6 +10,8 @@ license = "MIT"
 url = "https://rpm.org"
 source = f"http://ftp.rpm.org/popt/releases/popt-1.x/popt-{pkgver}.tar.gz"
 sha256 = "c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987fdad3ca2758c63240f9"
+# unmarked api
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
@@ -20,6 +22,3 @@ def post_install(self):
 @subpackage("popt-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

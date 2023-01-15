@@ -17,6 +17,8 @@ url = "https://home.unicode.org"
 source = f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz"
 sha256 = "a2d2d38217092a7ed56635e34467f92f976b370e20182ad325edea6681a71d68"
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
+# FIXME
+hardening = ["!vis", "!int"]
 
 def init_configure(self):
     if not self.profile().cross:
@@ -70,6 +72,3 @@ def _libs(self):
 @subpackage("icu-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/icu", "usr/lib/icu"])
-
-# FIXME visibility
-hardening = ["!vis"]

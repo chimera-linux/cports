@@ -11,6 +11,8 @@ license = "BSD-3-Clause"
 url = "https://www.opus-codec.org"
 source = f"https://archive.mozilla.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "65b58e1e25b2a114157014736a3d9dfeaad8d41be1c8179866f144a2fb44ff9d"
+# FIXME int
+hardening = ["!int"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -18,6 +20,3 @@ def post_install(self):
 @subpackage("opus-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

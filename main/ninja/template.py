@@ -8,6 +8,8 @@ license = "Apache-2.0"
 url = "https://ninja-build.org"
 source = f"https://github.com/ninja-build/ninja/archive/v{pkgver}.tar.gz"
 sha256 = "31747ae633213f1eda3842686f83c2aa1412e0f5691d1c14dbbcc67fe7400cea"
+# FIXME cfi
+hardening = ["!cfi"]
 
 def do_configure(self):
     self.do("python", "configure.py", "--bootstrap")
@@ -31,6 +33,3 @@ def do_install(self):
     self.install_file(
         "misc/zsh-completion", "usr/share/zsh/site-functions", name = "_ninja"
     )
-
-# FIXME visibility
-hardening = ["!vis"]

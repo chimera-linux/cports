@@ -10,6 +10,8 @@ license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
 sha256 = "5fb355b487d54fb6d341e4f18d4e2f7e813a6622cf03a9e87affa6a40565699d"
+# TODO check
+hardening = ["!vis"]
 # checkdepends not available yet
 options = ["bootstrap", "!check"]
 
@@ -34,6 +36,3 @@ def _devel(self):
         "usr/lib/*.so",
         "usr/lib/*.a",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

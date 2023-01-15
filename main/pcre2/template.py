@@ -21,6 +21,8 @@ license = "BSD-3-Clause"
 url = "http://www.pcre.org"
 source = f"https://github.com/PhilipHazel/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ded42661cab30ada2e72ebff9e725e745b4b16ce831993635136f2ef86177724"
+# unmarked api
+hardening = ["!vis"]
 
 match self.profile().arch:
     case "riscv64":
@@ -41,6 +43,3 @@ def _libpcre2(self):
 def _devel(self):
     self.depends += ["zlib-devel", "libbz2-devel"]
     return self.default_devel(extra = ["usr/share/doc"])
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -14,6 +14,8 @@ license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
 source = f"{url}/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "ef14ae546b0084cd84259f61a55e07a38c3b53afc0f546bffcef2f01baffe9de"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("libgcrypt-devel")
 def _devel(self):
@@ -22,6 +24,3 @@ def _devel(self):
 @subpackage("libgcrypt-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]
