@@ -10,6 +10,8 @@ license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/{pkgname}-{pkgver}.tar.gz"
 sha256 = "e04143c48e1644c5e074243fa293d88f99005b3c50d1d54358954404e635128a"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -17,6 +19,3 @@ def post_install(self):
 @subpackage("xcb-util-renderutil-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

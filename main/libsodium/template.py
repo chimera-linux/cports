@@ -10,6 +10,8 @@ license = "ISC"
 url = "https://libsodium.org"
 source = f"https://download.libsodium.org/{pkgname}/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "6f504490b342a4f8a4c4a02fc9b866cbef8622d5df4e5452b46be121e46636c1"
+# FIXME cfi
+hardening = ["!cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -17,6 +19,3 @@ def post_install(self):
 @subpackage("libsodium-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

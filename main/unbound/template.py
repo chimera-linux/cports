@@ -25,6 +25,8 @@ license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "dcbc95d7891d9f910c66e4edc9f1f2fde4dea2eec18e3af9f75aed44a02f1341"
+# unmarked api
+hardening = ["!vis"]
 system_users = ["_unbound"]
 
 def post_install(self):
@@ -47,6 +49,3 @@ def _devel(self):
     self.depends += ["openssl-devel", "libsodium-devel"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

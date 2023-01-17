@@ -13,6 +13,8 @@ license = "GPL-2.0-or-later"
 url = "https://x265.org"
 source = f"https://bitbucket.org/multicoreware/x265_git/get/{pkgver}.tar.gz"
 sha256 = "5ca3403c08de4716719575ec56c686b1eb55b078c0fe50a064dcf1ac20af1618"
+# guilty until proven wrong
+hardening = ["!vis", "!int"]
 # cannot be reliably tested, testing option is conditional
 options = ["!check"]
 
@@ -31,6 +33,3 @@ match self.profile().arch:
 @subpackage("x265-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

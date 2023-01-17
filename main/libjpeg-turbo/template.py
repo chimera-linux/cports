@@ -10,6 +10,8 @@ license = "IJG AND BSD-3-Clause AND Zlib"
 url = "https://libjpeg-turbo.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "d3ed26a1131a13686dfca4935e520eb7c90ae76fbc45d98bb50a8dc86230342b"
+# unmarked api
+hardening = ["!vis"]
 
 # tests segfault with altivec simd
 match self.profile().arch:
@@ -32,6 +34,3 @@ def _devel(self):
 @subpackage("libjpeg-turbo-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

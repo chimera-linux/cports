@@ -43,6 +43,8 @@ tool_flags = {
 suid_files = [
     "usr/libexec/Xorg.wrap"
 ]
+# unmarked api; FIXME int
+hardening = ["!vis", "!int"]
 # test times out
 options = ["!check"]
 
@@ -108,6 +110,3 @@ def _devel(self):
         "libxrandr-devel", "libxi-devel", "libpciaccess-devel",
     ]
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

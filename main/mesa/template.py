@@ -49,6 +49,8 @@ license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ee7d026f7b1991dbae0861d359b671145c3a86f2a731353b885d2ea2d5c098d6"
+# yeah i don't think so
+hardening = ["!vis"]
 # cba to deal with cross patching nonsense
 options = ["!cross"]
 
@@ -277,6 +279,3 @@ def _devel(self):
     self.depends += ["libgbm-devel"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -14,6 +14,3 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/yelp-tools"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3e496a4020d4145b99fd508a25fa09336a503a4e8900028421e72c6a4b11f905"
-
-# FIXME visibility
-hardening = ["!vis"]

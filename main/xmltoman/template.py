@@ -13,6 +13,3 @@ source = f"https://github.com/Distrotech/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "2ab86b74fe364a866d84c14b20cbd42a09fa85c629deeff52376bbf890854feb"
 # no test suite
 options = ["!check"]
-
-# FIXME visibility
-hardening = ["!vis"]

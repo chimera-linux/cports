@@ -10,6 +10,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.gz"
 sha256 = "87faee6d4873c5631e8bb53e85134084b862185da682de8617f08ca18d82e216"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -17,6 +19,3 @@ def post_install(self):
 @subpackage("libxkbfile-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

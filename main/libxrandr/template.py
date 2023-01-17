@@ -11,6 +11,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXrandr-{pkgver}.tar.bz2"
 sha256 = "8aea0ebe403d62330bb741ed595b53741acf45033d3bda1792f1d4cc3daee023"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -18,6 +20,3 @@ def post_install(self):
 @subpackage("libxrandr-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

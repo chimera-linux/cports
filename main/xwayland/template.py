@@ -22,6 +22,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/{pkgname}-{pkgver}/xserver-{pkgname}-{pkgver}.tar.gz"
 sha256 = "0dd02c31510a3306c00b8168ee02ea6daa14b1b85b48e609c5201a8a18077267"
+# FIXME check
+hardening = ["!vis"]
 # needs xtest repository
 options = ["!check"]
 
@@ -30,6 +32,3 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man1/Xserver.1")
     # provided by xserver-xorg-protocol
     self.rm(self.destdir / "usr/lib/xorg/protocol.txt")
-
-# FIXME visibility
-hardening = ["!vis"]

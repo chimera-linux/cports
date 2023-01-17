@@ -9,6 +9,8 @@ license = "custom:xz"
 url = "https://tukaani.org/xz"
 source = f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"
 sha256 = "1f8a43d9fcf325d049a31fe4514dc8c44a6d00ce8860d48c4212d1e349d2a3ed"
+# unmarked api
+hardening = ["!vis"]
 options = ["bootstrap"]
 
 def post_install(self):
@@ -37,6 +39,3 @@ def _devel(self):
     self.pkgdesc = "XZ-format compression library (development files)"
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

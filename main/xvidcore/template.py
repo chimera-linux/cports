@@ -12,12 +12,11 @@ license = "GPL-2.0-or-later"
 url = "https://www.xvid.com"
 source = f"https://downloads.xvid.com/downloads/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "aeeaae952d4db395249839a3bd03841d6844843f5a4f84c271ff88f7aa1acff7"
+# FIXME check
+hardening = ["!vis", "!int"]
 # no check target
 options = ["!check"]
 
 @subpackage("xvidcore-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

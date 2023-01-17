@@ -11,6 +11,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXv-{pkgver}.tar.bz2"
 sha256 = "d26c13eac99ac4504c532e8e76a1c8e4bd526471eb8a0a4ff2a88db60cb0b088"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -18,6 +20,3 @@ def post_install(self):
 @subpackage("libxv-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

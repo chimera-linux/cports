@@ -45,6 +45,8 @@ license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
 sha256 = "a57dc82d77358617ba65b9841cee1e3b441f386c3789ddc0676eca077f2951c3"
+# FIXME int cfi; cfi ftbfs, int fails ctypes test
+hardening = ["!cfi", "!int"]
 
 env = {
     # emulate python's configure stuff but with -O2
@@ -123,6 +125,3 @@ def _ver(self):
     self.build_style = "meta"
 
     return []
-
-# FIXME visibility
-hardening = ["!vis"]

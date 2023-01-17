@@ -15,6 +15,8 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/groff"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "e78e7b4cb7dec310849004fa88847c44701e8d133b5d4c13057d876c1bad0293"
+# FIXME check
+hardening = ["!vis"]
 # incompatible with chimerautils
 options = ["!check"]
 
@@ -31,6 +33,3 @@ def post_install(self):
             self.destdir / f"usr/share/groff/site-tmac/{f}.local", "ab"
         ) as af:
             af.write(atext)
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -11,6 +11,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXi-{pkgver}.tar.bz2"
 sha256 = "2ed181446a61c7337576467870bc5336fc9e222a281122d96c4d39a3298bba00"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -18,6 +20,3 @@ def post_install(self):
 @subpackage("libxi-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

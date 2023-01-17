@@ -11,6 +11,8 @@ license = "GPL-2.0-or-later OR LGPL-3.0-or-later"
 url = "https://www.lysator.liu.se/~nisse/nettle"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "364f3e2b77cd7dcde83fd7c45219c834e54b0c75e428b6f894a23d12dd41cbfe"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("nettle-devel")
 def _devel(self):
@@ -21,6 +23,3 @@ def _devel(self):
 @subpackage("nettle-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

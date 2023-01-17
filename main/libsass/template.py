@@ -10,6 +10,8 @@ license = "MIT"
 url = "https://www.sass-lang.com/libsass"
 source = f"https://github.com/sass/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "89d8f2c46ae2b1b826b58ce7dde966a176bac41975b82e84ad46b01a55080582"
+# unmarked api
+hardening = ["!vis"]
 
 def pre_configure(self):
     # otherwise the .pc file will have 'na' version
@@ -24,6 +26,3 @@ def post_install(self):
 @subpackage("libsass-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

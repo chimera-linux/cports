@@ -23,8 +23,8 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "0ab981618d1db47845e56417b0d7c123f81a3427b2b9c93f5a46ff5bbb964964"
-# glib
-hardening = ["!vis"]
+# glib, FIXME int - e.g. g_ascii_strtoll fails
+hardening = ["!vis", "!int"]
 # cyclic with desktop-file-utils
 options = ["!check"]
 

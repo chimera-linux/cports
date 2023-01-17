@@ -10,6 +10,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXtst-{pkgver}.tar.gz"
 sha256 = "01366506aeb033f6dffca5326af85f670746b0cabbfd092aabefb046cf48c445"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -17,6 +19,3 @@ def post_install(self):
 @subpackage("libxtst-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

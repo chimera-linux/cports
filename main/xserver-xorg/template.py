@@ -39,6 +39,3 @@ pkgdesc = "Default X.org metapackage (with common apps)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://xorg.freedesktop.org"
-
-# FIXME visibility
-hardening = ["!vis"]

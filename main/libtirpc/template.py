@@ -12,6 +12,8 @@ license = "BSD-3-Clause"
 url = "https://sourceforge.net/projects/libtirpc"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "6474e98851d9f6f33871957ddee9714fdcd9d8a5ee9abb5a98d63ea2e60e12f3"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -19,6 +21,3 @@ def post_install(self):
 @subpackage("libtirpc-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]
