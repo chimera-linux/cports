@@ -27,6 +27,8 @@ license = "EPL-1.0"
 url = "https://graphviz.org"
 source = f"https://gitlab.com/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "fbf07c96122902f1dca28dd74677e2e5cd76734b5f7b946e7d0ee5bbe7306af8"
+# unmarked api
+hardening = ["!vis"]
 # expects already installed graphviz
 # testing is via pytest
 options = ["!check"]
@@ -49,6 +51,3 @@ def _libs(self):
 @subpackage("graphviz-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -15,6 +15,8 @@ license = "BSD-2-Clause"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "844e6d7db8086f793f57618d3d4b68d29d99b16034e71430df3c21cfd3c3542a"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -22,6 +24,3 @@ def post_install(self):
 @subpackage("orc-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/gtk-doc"])
-
-# FIXME visibility
-hardening = ["!vis"]

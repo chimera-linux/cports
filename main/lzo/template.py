@@ -10,6 +10,8 @@ license = "GPL-2.0-or-later"
 url = "http://www.oberhumer.com/opensource/lzo"
 source = f"{url}/download/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c0f892943208266f9b6543b3ae308fab6284c5c90e627931446fb49b4221a072"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)
@@ -17,6 +19,3 @@ def post_install(self):
 @subpackage("lzo-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

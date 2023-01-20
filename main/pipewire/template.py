@@ -61,6 +61,8 @@ license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "20e95274393f7dd65b4b51ec06f4f65986112f2bf3c86b1b0467156dd523a35d"
+# glib, FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
+hardening = ["!vis", "!int"]
 
 if self.profile().endian == "big":
     configure_args += ["-Dbluez5-codec-ldac=disabled"]
@@ -137,6 +139,3 @@ def _alsa(self):
         "usr/lib/alsa-lib",
         "usr/share/alsa/alsa.conf.d",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

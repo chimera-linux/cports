@@ -30,6 +30,8 @@ tool_flags = {
     ],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
+# FIXME int; available ubsan patch does not help (e.g. automake fails to run)
+hardening = ["!vis", "!int"]
 # check is cyclic: depends on perl modules
 options = ["!check"]
 
@@ -146,6 +148,3 @@ def post_install(self):
     hf = self.destdir / "usr/bin/perlthanks"
     hf.unlink()
     hf.symlink_to("perlbug")
-
-# FIXME visibility
-hardening = ["!vis"]

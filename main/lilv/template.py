@@ -13,6 +13,8 @@ license = "ISC"
 url = "https://drobilla.net/software/lilv.html"
 source = f"https://download.drobilla.net/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4fb082b9b8b286ea92bbb71bde6b75624cecab6df0cc639ee75a2a096212eebc"
+# FIXME cfi
+hardening = ["!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -29,6 +31,3 @@ def _devel(self):
 @subpackage("lilv-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

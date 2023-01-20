@@ -13,6 +13,3 @@ sha256 = "4199ae8ca78a7796de56de1a41b821dc47912c0307e9816b56cc317df34661c0"
 
 def post_install(self):
     self.install_file("syntax/nanorc.nanorc", "usr/share/examples/nano")
-
-# FIXME visibility
-hardening = ["!vis"]

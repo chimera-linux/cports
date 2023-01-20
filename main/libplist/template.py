@@ -11,6 +11,8 @@ license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
 source = f"https://github.com/libimobiledevice/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "7e654bdd5d8b96f03240227ed09057377f06ebad08e1c37d0cfa2abe6ba0cee2"
+# glib; FIXME int
+hardening = ["!vis", "!int"]
 options = ["!cross"]
 
 def pre_configure(self):
@@ -35,6 +37,3 @@ def _devel(self):
 @subpackage("libplist-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

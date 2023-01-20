@@ -28,6 +28,8 @@ suid_files = [
     "usr/bin/passwd",
     "usr/bin/sg",
 ]
+# FIXME needs careful testing
+hardening = ["!vis"]
 # messes with filesystem
 options = ["!check"]
 
@@ -89,6 +91,3 @@ def post_install(self):
                 pass
 
     self.install_license(self.files_path / "LICENSE")
-
-# FIXME visibility
-hardening = ["!vis"]

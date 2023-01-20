@@ -10,6 +10,8 @@ license = "MIT"
 url = "http://bitmath.org/code/mtdev"
 source = f"{url}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "15d7b28da8ac71d8bc8c9287c2045fd174267bc740bec10cfda332dc1204e0e0"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -18,6 +20,3 @@ def post_install(self):
 def _devel(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

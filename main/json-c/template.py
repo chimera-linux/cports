@@ -13,6 +13,8 @@ url = "https://json-c.github.io/json-c"
 source = f"https://s3.amazonaws.com/json-c_releases/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "8e45ac8f96ec7791eaf3bb7ee50e9c2100bbbc87b8d0f1d030c5ba8a0288d96b"
 tool_flags = {"CFLAGS": ["-Wno-error"]}
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -20,6 +22,3 @@ def post_install(self):
 @subpackage("json-c-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

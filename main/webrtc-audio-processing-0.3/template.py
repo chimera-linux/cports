@@ -10,6 +10,8 @@ license = "BSD-3-Clause"
 url = "https://freedesktop.org/software/pulseaudio/webrtc-audio-processing"
 source = f"{url}/webrtc-audio-processing-{pkgver}.tar.xz"
 sha256 = "a0fdd938fd85272d67e81572c5a4d9e200a0c104753cb3c209ded175ce3c5dbf"
+# unmarked api
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
@@ -20,6 +22,3 @@ def post_install(self):
 @subpackage("webrtc-audio-processing-0.3-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

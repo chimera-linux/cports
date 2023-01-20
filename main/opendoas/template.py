@@ -18,6 +18,3 @@ options = ["!check"]
 
 def pre_configure(self):
     self.cp(self.files_path / "doas.pam", "pam.d__doas__linux")
-
-# FIXME visibility
-hardening = ["!vis"]

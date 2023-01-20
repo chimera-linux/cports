@@ -21,6 +21,3 @@ def do_install(self):
     self.install_man("zdump.8")
     self.install_man("tzselect.8")
     self.install_license("LICENSE")
-
-# FIXME visibility
-hardening = ["!vis"]

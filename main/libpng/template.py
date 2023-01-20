@@ -10,6 +10,8 @@ license = "Libpng"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b3683e8b8111ebf6f1ac004ebb6b0c975cd310ec469d98364388e9cedbfa68be"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -21,6 +23,3 @@ def _devel(self):
 @subpackage("libpng-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

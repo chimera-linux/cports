@@ -12,6 +12,8 @@ license = "LGPL-2.1-only"
 url = "https://github.com/numactl/numactl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "a35c3bdb3efab5c65927e0de5703227760b1101f5e27ab741d8f32b3d5f0a44c"
+# unmarked api
+hardening = ["!vis"]
 # some tests fail because of gnuisms in testsuite
 options = ["!check"]
 
@@ -30,6 +32,3 @@ def _lib(self):
 @subpackage("libnuma-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

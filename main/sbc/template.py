@@ -12,10 +12,9 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/{pkgname}-{pkgver}.tar.xz"
 sha256 = "8f12368e1dbbf55e14536520473cfb338c84b392939cc9b64298360fd4a07992"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("sbc-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

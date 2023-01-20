@@ -13,6 +13,8 @@ license = "BSD-2-Clause"
 url = "https://forge.imag.fr/projects/ocl-icd"
 source = f"https://github.com/OCL-dev/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "a32b67c2d52ffbaf490be9fc18b46428ab807ab11eff7664d7ff75e06cfafd6d"
+# unmarked api
+hardening = ["!vis"]
 # test suite weirdness
 options = ["!check"]
 
@@ -27,6 +29,3 @@ def _devel(self):
     self.depends += ["opencl-headers"]
 
     return self.default_devel(extra = ["usr/share/doc"])
-
-# FIXME visibility
-hardening = ["!vis"]

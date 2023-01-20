@@ -31,6 +31,8 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "6efbda5adb96f607cf7108d1e270962c0729a59c9ea6d58eea2dde0e3cbb97df"
+# glib
+hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("libibus")
@@ -63,6 +65,3 @@ def _wayland(self):
 @subpackage("ibus-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/gtk-doc"])
-
-# FIXME visibility
-hardening = ["!vis"]

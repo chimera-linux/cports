@@ -14,6 +14,8 @@ license = "MIT"
 url = "https://github.com/linuxwacom/libwacom"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "40b69a4c38bbcbc80b1231bc115551107ebbc0ba14d2ad1c3e54355dcd876816"
+# glib
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -21,6 +23,3 @@ def post_install(self):
 @subpackage("libwacom-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

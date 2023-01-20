@@ -19,6 +19,8 @@ license = "LGPL-2.1-or-later"
 url = "https://www.pango.org"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "8800f812d89ee61388188703203f3a7878963c22f8695aaf1fa0a1a1428d17ae"
+# glib
+hardening = ["!vis"]
 
 @subpackage("pango-xft")
 def _xft(self):
@@ -35,6 +37,3 @@ def _view(self):
 @subpackage("pango-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -10,6 +10,8 @@ license = "MIT"
 url = "https://github.com/google/woff2"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "add272bb09e6384a4833ffca4896350fdb16e0ca22df68c0384773c67a175594"
+# unmarked api
+hardening = ["!vis"]
 # no test target
 options = ["!check"]
 
@@ -37,6 +39,3 @@ def _libenc(self):
 @subpackage("woff2-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -16,6 +16,8 @@ license = "libtiff"
 url = "http://libtiff.maptools.org"
 source = f"http://download.osgeo.org/{pkgname}/tiff-{pkgver}.tar.gz"
 sha256 = "917223b37538959aca3b790d2d73aa6e626b688e02dcda272aec24c2f498abed"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     for f in (self.destdir / "usr/share/man/man3").glob("*.3tiff"):
@@ -31,6 +33,3 @@ def _devel(self):
 @subpackage("libtiff-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

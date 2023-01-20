@@ -20,6 +20,8 @@ license = "BSD-2-Clause"
 url = "https://github.com/AOMediaCodec/libavif"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "0eb49965562a0e5e5de58389650d434cff32af84c34185b6c9b7b2fccae06d4e"
+# maybe FIXME this later when we have tests
+hardening = ["!vis"]
 # doesn't pass with current dependencies, needs gtest
 options = ["!check"]
 
@@ -33,6 +35,3 @@ def _devel(self):
 @subpackage("libavif-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

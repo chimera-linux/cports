@@ -17,3 +17,22 @@ index b507ca3..ff57b9c 100644
  #define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
  
  int posix_memalign (void **, size_t, size_t);
+commit aae7357d6270eacb73ec841da22742f70cb0c4e3
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jan 20 00:13:55 2023 +0000
+
+    fix signed overflow in logf
+
+diff --git a/src/math/logf.c b/src/math/logf.c
+index 7ee5d7f..506a9cb 100644
+--- a/src/math/logf.c
++++ b/src/math/logf.c
+@@ -53,7 +53,7 @@ float logf(float x)
+ 	tmp = ix - OFF;
+ 	i = (tmp >> (23 - LOGF_TABLE_BITS)) % N;
+ 	k = (int32_t)tmp >> 23; /* arithmetic shift */
+-	iz = ix - (tmp & 0x1ff << 23);
++	iz = ix - (tmp & 0x1ffu << 23);
+ 	invc = T[i].invc;
+ 	logc = T[i].logc;
+ 	z = (double_t)asfloat(iz);

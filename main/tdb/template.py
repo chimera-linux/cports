@@ -21,6 +21,8 @@ source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "a4fb168def533f31ff2c07f7d9844bb3131e6799f094ebe77d0380adc987c20e"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
+# FIXME cfi
+hardening = ["!cfi"]
 options = ["!cross"]
 
 @subpackage("tdb-devel")
@@ -37,6 +39,3 @@ def _devel(self):
     self.depends += ["python"]
 
     return ["usr/lib/python*"]
-
-# FIXME visibility
-hardening = ["!vis"]

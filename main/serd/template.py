@@ -9,6 +9,8 @@ license = "ISC"
 url = "https://drobilla.net/software/serd.html"
 source = f"https://download.drobilla.net/{pkgname}-{pkgver}.tar.xz"
 sha256 = "f50f486da519cdd8d03b20c9e42414e459133f5a244411d8e63caef8d9ac9146"
+# FIXME cfi
+hardening = ["!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -20,6 +22,3 @@ def _devel(self):
 @subpackage("serd-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

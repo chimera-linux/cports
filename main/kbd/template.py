@@ -35,6 +35,3 @@ def post_patch(self):
 def post_install(self):
     for f in ["sun", "amiga", "atari", "i386/olpc"]:
         self.rm(self.destdir / f"usr/share/keymaps/{f}", recursive = True)
-
-# FIXME visibility
-hardening = ["!vis"]

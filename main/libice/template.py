@@ -12,6 +12,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libICE-{pkgver}.tar.bz2"
 sha256 = "6f86dce12cf4bcaf5c37dddd8b1b64ed2ddf1ef7b218f22b9942595fb747c348"
+# unmarked api
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
@@ -22,6 +24,3 @@ def post_install(self):
 @subpackage("libice-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -10,6 +10,8 @@ license = "ISC"
 url = "https://drobilla.net/software/sord.html"
 source = f"https://download.drobilla.net/{pkgname}-{pkgver}.tar.xz"
 sha256 = "220fd97d5fcb216e7b85db66f685bfdaad7dc58a50d1f96dfb2558dbc6c4731b"
+# FIXME cfi
+hardening = ["!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -21,6 +23,3 @@ def _devel(self):
 @subpackage("sord-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

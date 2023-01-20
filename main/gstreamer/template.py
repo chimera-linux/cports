@@ -22,6 +22,8 @@ license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "67c1edf8c3c339cda5dde85f4f7b953bb9607c2d13ae970e2491c5c4c055ef5f"
+# glib
+hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("gstreamer-devel")
@@ -29,6 +31,3 @@ def _devel(self):
     return self.default_devel(extra = [
         "usr/share/gdb", "usr/share/gstreamer-1.0"
     ])
-
-# FIXME visibility
-hardening = ["!vis"]

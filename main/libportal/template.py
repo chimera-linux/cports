@@ -13,6 +13,8 @@ license = "LGPL-3.0-only"
 url = "https://github.com/flatpak/libportal"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "88a12c3ba71bc31acff7238c280de697d609cebc50830c3766776ec35abc6566"
+# glib
+hardening = ["!vis"]
 
 @subpackage("libportal-gtk3")
 def _gtk3(self):
@@ -29,6 +31,3 @@ def _gtk4(self):
 @subpackage("libportal-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -18,6 +18,8 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Vala"
 source = f"$(GNOME_SITE)/vala/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "e1066221bf7b89cb1fa7327a3888645cb33b604de3bf45aa81132fd040b699bf"
+# glib
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
@@ -70,6 +72,3 @@ def _devel(self):
         "usr/share/vala/vapi/libvala-*.*",
         "usr/share/aclocal",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

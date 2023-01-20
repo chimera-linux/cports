@@ -20,6 +20,8 @@ license = "LGPL-2.1-or-later"
 url = "https://0pointer.de/lennart/projects/libcanberra"
 source = f"{url}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c2b671e67e0c288a69fc33dc1b6f1b534d07882c2aceed37004bf48c601afa72"
+# glib
+hardening = ["!vis"]
 
 @subpackage("libcanberra-devel")
 def _devel(self):
@@ -45,6 +47,3 @@ def _gtk3(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gstreamer"]
 
     return ["usr/lib/libcanberra-*/libcanberra-gstreamer.so"]
-
-# FIXME visibility
-hardening = ["!vis"]

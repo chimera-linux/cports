@@ -14,6 +14,8 @@ license = "BSD-3-Clause"
 url = "https://theora.org"
 source = f"https://downloads.xiph.org/releases/theora/{pkgname}-{pkgver}.tar.xz"
 sha256 = "f36da409947aa2b3dcc6af0a8c2e3144bc19db2ed547d64e9171c59c66561c61"
+# unmarked api; FIXME int
+hardening = ["!vis", "!int"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -21,6 +23,3 @@ def post_install(self):
 @subpackage("libtheora-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
-
-# FIXME visibility
-hardening = ["!vis"]

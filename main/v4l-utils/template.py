@@ -23,6 +23,8 @@ tool_flags = {
     "CFLAGS": ["-D__off_t=off_t", "-D__off64_t=off_t"],
     "LDFLAGS": ["-largp"],
 }
+# ftbfs
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
@@ -30,6 +32,3 @@ def pre_configure(self):
 @subpackage("v4l-utils-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -40,6 +40,8 @@ license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
 sha256 = "dbc69f90ddc821b8d1441f00374dc1da4323a2eafa9078e61edbe5eeefa852ec"
+# glib; FIXME int
+hardening = ["!vis", "!int"]
 # g_log_set_writer_func called multiple times in tests
 options = ["!cross", "!check"]
 
@@ -79,6 +81,3 @@ def _cups(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
 
     return ["usr/lib/gtk-3.0/3.0.0/printbackends/libprintbackend-cups.so"]
-
-# FIXME visibility
-hardening = ["!vis"]
