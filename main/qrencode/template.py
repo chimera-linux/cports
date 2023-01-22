@@ -11,6 +11,8 @@ license = "LGPL-2.1-or-later"
 url = "https://fukuchi.org/works/qrencode/index.html.en"
 source = f"https://fukuchi.org/works/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "e455d9732f8041cf5b9c388e345a641fd15707860f928e94507b1961256a6923"
+# unmarked api, FIXME int
+hardening = ["!vis", "!int"]
 
 @subpackage("qrencode-devel")
 def _devel(self):
@@ -19,6 +21,3 @@ def _devel(self):
 @subpackage("qrencode-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

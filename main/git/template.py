@@ -19,6 +19,8 @@ license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "97ddf8ea58a2b9e0fbc2508e245028ca75911bd38d1551616b148c1aa5740ad9"
+# FIXME check
+hardening = ["!vis"]
 # missing checkdepends
 options = ["!check"]
 
@@ -140,6 +142,3 @@ def _gui(self):
         "usr/share/man/man1/git-citool.1",
         "usr/share/git-gui"
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

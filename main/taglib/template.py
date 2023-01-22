@@ -11,6 +11,8 @@ license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://taglib.github.io"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "58f08b4db3dc31ed152c04896ee9172d22052bc7ef12888028c01d8b1d60ade0"
+# FIXME check
+hardening = ["!vis"]
 # test target does not work with shared libs
 options = ["!check"]
 
@@ -19,6 +21,3 @@ def _devel(self):
     self.depends += ["zlib-devel"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

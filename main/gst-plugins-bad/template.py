@@ -92,6 +92,8 @@ license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "a1a3f53b3604d9a04fdd0bf9a1a616c3d2dab5320489e9ecee1178e81e33a16a"
+# glib; FIXME int
+hardening = ["!vis", "!int"]
 # TODO: a few fails, debug later
 options = ["!check", "!cross"]
 
@@ -105,6 +107,3 @@ def _devel(self):
     self.depends += [f"gst-plugins-base-devel~{pkgver}"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -40,6 +40,8 @@ env = {
     # firefox checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
+# unmarked api; FIXME int (fails basic/hypot-approx.js)
+hardening = ["!vis", "!int"]
 # dependencies are not crossable for now and it's probably tricky
 options = ["!cross"]
 exec_wrappers = [
@@ -82,6 +84,3 @@ def do_check(self):
 def _devel(self):
     # include the interactive interpreter
     return self.default_devel(extra = ["usr/bin"])
-
-# FIXME visibility
-hardening = ["!vis"]

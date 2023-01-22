@@ -12,10 +12,9 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/libgtop"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "78f3274c0c79c434c03655c1b35edf7b95ec0421430897fb1345a98a265ed2d4"
+# glib
+hardening = ["!vis"]
 
 @subpackage("libgtop-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

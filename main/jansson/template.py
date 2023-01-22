@@ -9,6 +9,8 @@ license = "MIT"
 url = "https://www.digip.org/jansson"
 source = f"https://github.com/akheron/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "5798d010e41cf8d76b66236cfb2f2543c8d082181d16bc3085ab49538d4b9929"
+# unmarked api
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -16,6 +18,3 @@ def post_install(self):
 @subpackage("jansson-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

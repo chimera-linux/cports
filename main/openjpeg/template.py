@@ -12,6 +12,8 @@ license = "BSD-2-Clause"
 url = "https://www.openjpeg.org"
 source = f"https://github.com/uclouvain/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "0333806d6adecc6f7a91243b2b839ff4d2053823634d4f6ed7a59bc87409122a"
+# FIXME when we have check
+hardening = ["!vis"]
 # missing test data
 options = ["!check"]
 
@@ -28,6 +30,3 @@ def _devel(self):
 @subpackage("openjpeg-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -43,6 +43,8 @@ suid_files = [
     "usr/bin/su",
     "usr/bin/umount",
 ]
+# unmarked api
+hardening = ["!vis"]
 # checkdepends are missing
 options = ["!check"]
 
@@ -202,7 +204,3 @@ def _libsmartcols_devel(self):
         "usr/lib/pkgconfig/*smartcols*",
         "usr/include/libsmartcols"
     ]
-
-
-# FIXME visibility
-hardening = ["!vis"]

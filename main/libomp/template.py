@@ -17,6 +17,8 @@ license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
+# unmarked api
+hardening = ["!vis"]
 # no lit
 options = ["!check"]
 
@@ -53,6 +55,3 @@ def _devel(self):
         "usr/lib/libomptarget*.bc",
         "usr/lib/cmake/openmp",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

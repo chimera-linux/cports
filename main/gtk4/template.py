@@ -8,6 +8,7 @@ configure_args = [
     "-Dintrospection=enabled", "-Dcolord=enabled", "-Dvulkan=enabled",
     "-Dcloudproviders=enabled", "-Dtracker=enabled",
 ]
+make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "perl", "glib-devel",
     "gettext-tiny-devel", "wayland-progs", "wayland-protocols", "xsltproc",
@@ -26,12 +27,20 @@ depends = [
     "gtk-update-icon-cache", "adwaita-icon-theme",
     "virtual:gdk-pixbuf-loader-svg!librsvg"
 ]
+checkdepends = [
+    "xserver-xorg-xvfb", "dbus", "adwaita-icon-theme", "hicolor-icon-theme",
+    "librsvg", "fonts-dejavu-otf", "python-gobject",
+]
 pkgdesc = "Gimp Toolkit version 4"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
 sha256 = "85b7a160b6e02eafa4e7d38f046f8720fab537d3fe73c01c864333a983a692a9"
+# glib
+hardening = ["!vis"]
+# xvfb doesn't do the trick for some reason?
+options = ["!cross", "!check"]
 
 def post_install(self):
     # we don't really need it (provided by gtk3)
@@ -93,6 +102,3 @@ def _cups(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
 
     return ["usr/lib/gtk-4.0/4.0.0/printbackends/libprintbackend-cups.so"]
-
-# FIXME visibility
-hardening = ["!vis"]

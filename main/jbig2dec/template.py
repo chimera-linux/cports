@@ -12,6 +12,8 @@ license = "AGPL-3.0-or-later"
 url = "https://www.jbig2dec.com"
 source = f"https://github.com/ArtifexSoftware/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "e81b787ad0b147a437a52d9ce7de1a8f429655e8aa030383b6b2dd8919373717"
+# unmarked api, FIXME int
+hardening = ["!vis", "!int"]
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
@@ -23,6 +25,3 @@ def _devel(self):
 @subpackage("jbig2dec-progs")
 def _xmlwf(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

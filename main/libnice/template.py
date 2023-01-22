@@ -19,12 +19,11 @@ license = "LGPL-2.1-or-later"
 url = "https://libnice.freedesktop.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "6747af710998cf708a2e8ceef51cccd181373d94201dd4b8d40797a070ed47cc"
+# glib
+hardening = ["!vis"]
 # tests fail for now
 options = ["!cross", "!check"]
 
 @subpackage("libnice-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

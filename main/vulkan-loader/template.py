@@ -20,6 +20,3 @@ source = f"https://github.com/KhronosGroup/Vulkan-Loader/archive/v{pkgver}.tar.g
 sha256 = "aa4a24b162e8b719c0137b090dadd16970e71e2e3a33e5426607a42142ca4a19"
 # tests disabled
 options = ["!check"]
-
-# FIXME visibility
-hardening = ["!vis"]

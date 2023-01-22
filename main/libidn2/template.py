@@ -20,6 +20,3 @@ def _devel(self):
 @subpackage("libidn2-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

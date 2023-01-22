@@ -21,6 +21,3 @@ def _devel(self):
 @subpackage("libusbmuxd-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

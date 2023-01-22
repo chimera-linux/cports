@@ -12,6 +12,8 @@ license = "LGPL-2.1-only"
 url = "https://github.com/thom311/libnl"
 source = f"{url}/releases/download/libnl{pkgver.replace('.', '_')}/libnl-{pkgver}.tar.gz"
 sha256 = "9fe43ccbeeea72c653bdcf8c93332583135cda46a79507bfd0a483bb57f65939"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("libnl-devel")
 def _devel(self):
@@ -22,6 +24,3 @@ def _progs(self):
     return self.default_progs(man = "18", extra = [
         "usr/lib/libnl",
     ])
-
-# FIXME visibility
-hardening = ["!vis"]

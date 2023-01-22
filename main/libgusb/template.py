@@ -14,12 +14,11 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libgusb"
 source = f"http://people.freedesktop.org/~hughsient/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "02d3a992a0cd16c46a346439334417617cd7cd5b2ccc5fe0fe998e9ffb8d5d8a"
+# glib
+hardening = ["!vis"]
 # no access to usb in container
 options = ["!check", "!cross"]
 
 @subpackage("libgusb-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

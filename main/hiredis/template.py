@@ -13,6 +13,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/redis/hiredis"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "e0ab696e2f07deb4252dda45b703d09854e53b9703c7d52182ce5a22616c3819"
+# unmarked api
+hardening = ["!vis"]
 # needs redis
 options = ["!check"]
 
@@ -31,6 +33,3 @@ def _ssl(self):
 @subpackage("hiredis-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

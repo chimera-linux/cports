@@ -15,6 +15,8 @@ license = "Apache-2.0 OR LGPL-2.1-or-later OR GPL-2.0-or-later"
 url = "https://librdf.org/raptor"
 source = f"https://librdf.org/dist/source/raptor2-{pkgver}.tar.gz"
 sha256 = "ada7f0ba54787b33485d090d3d2680533520cd4426d2f7fb4782dd4a6a1480ed"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("raptor-devel")
 def _devel(self):
@@ -26,6 +28,3 @@ def _devel(self):
 @subpackage("raptor-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

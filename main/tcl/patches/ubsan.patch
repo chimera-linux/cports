@@ -1,0 +1,24 @@
+Index: generic/tclBinary.c
+==================================================================
+--- a/generic/tclBinary.c
++++ b/generic/tclBinary.c
+@@ -2100,16 +2100,16 @@
+     case 'n':
+ 	if (NeedReversing(type)) {
+ 	    value = (long) (buffer[0]
+ 		    + (buffer[1] << 8)
+ 		    + (buffer[2] << 16)
+-		    + (((long)buffer[3]) << 24));
++		    + (((unsigned long)buffer[3]) << 24));
+ 	} else {
+ 	    value = (long) (buffer[3]
+ 		    + (buffer[2] << 8)
+ 		    + (buffer[1] << 16)
+-		    + (((long) buffer[0]) << 24));
++		    + (((unsigned long) buffer[0]) << 24));
+ 	}
+ 
+ 	/*
+ 	 * Check to see if the value was sign extended properly on systems
+ 	 * where an int is more than 32-bits.
+

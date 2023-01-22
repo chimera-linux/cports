@@ -16,10 +16,9 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/libgxps"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6d27867256a35ccf9b69253eb2a88a32baca3b97d5f4ef7f82e3667fa435251c"
+# glib
+hardening = ["!vis"]
 
 @subpackage("libgxps-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -11,6 +11,8 @@ license = "GPL-2.0-only"
 url = "http://www.cl.cam.ac.uk/~mgk25/jbigkit"
 source = f"https://github.com/void-linux/{pkgname}-shared/archive/v{pkgver}.tar.gz"
 sha256 = "5cccbfb3bd7daf224a244ce0578dbcf706e4f39962426ceede873262b29b9931"
+# unmarked api
+hardening = ["!vis"]
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "bootstrap.sh")
@@ -26,6 +28,3 @@ def _devel(self):
 @subpackage("jbigkit-libs")
 def _progs(self):
     return self.default_libs()
-
-# FIXME visibility
-hardening = ["!vis"]

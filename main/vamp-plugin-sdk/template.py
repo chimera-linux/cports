@@ -13,6 +13,8 @@ license = "MIT"
 url = "https://www.vamp-plugins.org"
 source = f"https://code.soundsoftware.ac.uk/attachments/download/2691/{pkgname}-{pkgver}.tar.gz"
 sha256 = "aeaf3762a44b148cebb10cde82f577317ffc9df2720e5445c3df85f3739ff75f"
+# no LTO
+hardening = ["!vis"]
 # fails to link
 options = ["!lto"]
 
@@ -26,6 +28,3 @@ def _devel(self):
 @subpackage("vamp-plugin-sdk-progs")
 def _xmlwf(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

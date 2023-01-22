@@ -19,6 +19,8 @@ tool_flags = {"CFLAGS": [
     "-D__LINUX_NETFILTER_H", "-DOPENSSL_API_COMPAT=0x10100000L",
     "-Wno-unused-const-variable", "-Wno-deprecated-declarations",
 ]}
+# FIXME sus
+hardening = ["!vis", "!int"]
 # no test suite
 options = ["!check"]
 
@@ -43,6 +45,3 @@ def _devel(self):
     self.depends += ["zlib-devel"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

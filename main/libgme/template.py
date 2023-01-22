@@ -11,6 +11,8 @@ license = "LGPL-2.1-or-later"
 url = "https://bitbucket.org/mpyne/game-music-emu/wiki/Home"
 source = f"https://bitbucket.org/mpyne/game-music-emu/downloads/game-music-emu-{pkgver}.tar.xz"
 sha256 = "aba34e53ef0ec6a34b58b84e28bf8cfbccee6585cebca25333604c35db3e051d"
+# FIXME check
+hardening = ["!vis"]
 # no test target
 options = ["!check"]
 
@@ -22,6 +24,3 @@ else:
 @subpackage("libgme-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

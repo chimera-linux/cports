@@ -16,6 +16,3 @@ def post_install(self):
 @subpackage("libuninameslist-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

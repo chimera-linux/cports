@@ -21,6 +21,8 @@ license = "NCSA"
 url = "https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "b1bebd77f72988758c00852e78c2ddc545815a612169a0cb377d021e2f846d88"
+# FIXME int: crashes libclc build
+hardening = ["!vis", "!int"]
 # tests disabled
 options = ["!check"]
 
@@ -30,6 +32,3 @@ def post_install(self):
 @subpackage("spirv-llvm-translator-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

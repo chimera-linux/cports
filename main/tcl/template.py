@@ -21,6 +21,8 @@ license = "TCL"
 url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}{pkgver}-src.tar.gz"
 sha256 = "26c995dd0f167e48b11961d891ee555f680c175f7173ff8cb829f4ebcde4c1a6"
+# no LTO
+hardening = ["!vis"]
 # no check target
 options = ["!check", "!lto", "!splitstatic"]
 
@@ -45,6 +47,3 @@ def _devel(self):
         "usr/share/man/man3",
         "usr/lib/*.a",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

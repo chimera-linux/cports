@@ -19,6 +19,8 @@ license = "Imlib2"
 url = "https://www.enlightenment.org"
 source = f"$(SOURCEFORGE_SITE)/enlightenment/{pkgname}-src/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c319292f5bcab33b91bffaa6f7b0842f9e2d1b90df6c9a2a39db4f24d538b35b"
+# FIXME check
+hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")
@@ -30,6 +32,3 @@ def _devel(self):
 @subpackage("imlib2-progs")
 def _devel(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

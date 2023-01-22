@@ -60,6 +60,8 @@ env = {
     # WebKitCCache.cmake
     "CCACHE_SLOPPINESS": "time_macros,include_file_mtime"
 }
+# glib
+hardening = ["!vis"]
 # huge testsuite
 options = ["!check"]
 
@@ -87,6 +89,3 @@ def post_install(self):
 @subpackage("webkitgtk4-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

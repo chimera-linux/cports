@@ -12,6 +12,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/KhronosGroup/glslang"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f"
+# FIXME probably no good
+hardening = ["!vis"]
 # missing checkdepends
 options = ["!check"]
 
@@ -26,6 +28,3 @@ def _devel(self):
         "usr/lib/libglslang.so",
         "usr/lib/cmake",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

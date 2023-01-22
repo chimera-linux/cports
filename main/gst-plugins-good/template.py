@@ -47,8 +47,7 @@ license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b16130fbe632fa8547c2147a0ef575b0140fb521065c5cb121c72ddbd23b64da"
+# glib; FIXME int (extra tests fail, look for SIGILL)
+hardening = ["!vis", "!int"]
 # 4 out of 105 tests currently fail (qtmux, splitmux, pipelines_tagschecking)
 options = ["!check"]
-
-# FIXME visibility
-hardening = ["!vis"]

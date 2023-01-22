@@ -9,10 +9,9 @@ license = "LGPL-2.0-or-later"
 url = "http://libivykis.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/libivykis/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "6ef8ed255814e5068473356877da55d67493eeafd978884cdecc5a3e58067129"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("ivykis-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

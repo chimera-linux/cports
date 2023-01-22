@@ -30,6 +30,8 @@ license = "AGPL-3.0-or-later"
 url = "https://www.ghostscript.com"
 source = f"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs{pkgver.replace('.', '')}/ghostscript-{pkgver}.tar.xz"
 sha256 = "f1fa585f7c7d32adfa81ab389388100ac9df83444eb64db1fb92737141ef9f61"
+# no LTO
+hardening = ["!vis"]
 # busted; undefined references
 options = ["!lto"]
 
@@ -66,6 +68,3 @@ def _libs(self):
 @subpackage("libgs-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -16,6 +16,8 @@ license = "BSD-3-Clause"
 url = "http://www.nlnetlabs.nl/projects/ldns"
 source = f"http://www.nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860"
+# unmarked api
+hardening = ["!vis"]
 # no check target
 options = ["!check"]
 
@@ -40,6 +42,3 @@ def _devel(self):
     self.pkgdesc = "Modern DNS/DNSSEC library (development files)"
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

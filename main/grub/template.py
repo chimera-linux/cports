@@ -27,6 +27,8 @@ source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
 # the freestanding bits
 nopie_files = ["usr/lib/grub/*"]
+# unlikely to work
+hardening = ["!vis"]
 
 exec_wrappers = []
 # fool the build system into using llvm for these tools
@@ -188,6 +190,3 @@ def _genplatform(arch, platform, desc):
 # generate platform subpackages
 for arch, platform, cfl, ldfl, desc in _platforms:
     _genplatform(arch, platform, desc)
-
-# FIXME visibility
-hardening = ["!vis"]

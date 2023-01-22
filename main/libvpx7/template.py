@@ -16,6 +16,8 @@ license = "BSD-3-Clause"
 url = "http://www.webmproject.org"
 source = [f"https://github.com/webmproject/libvpx/archive/v{pkgver}.tar.gz"]
 sha256 = ["f1acc15d0fd0cb431f4bf6eac32d5e932e40ea1186fe78e074254d6d003957bb"]
+# unmarked api
+hardening = ["!vis"]
 # tests take several hours and require ~a gigabyte of test data
 options = ["!check"]
 
@@ -65,6 +67,3 @@ def _devel(self):
 @subpackage("libvpx-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

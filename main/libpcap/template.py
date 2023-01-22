@@ -13,6 +13,8 @@ license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
 source = f"{url}/release/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ed285f4accaf05344f90975757b3dbfe772ba41d1c401c2648b7fa45b711bdd4"
+# FIXME check
+hardening = ["!vis"]
 # no check target
 options = ["!check"]
 
@@ -36,6 +38,3 @@ def _devel(self):
     self.depends += ["libnl-devel"]
 
     return self.default_devel(man = "357")
-
-# FIXME visibility
-hardening = ["!vis"]

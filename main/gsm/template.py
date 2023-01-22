@@ -12,6 +12,8 @@ license = "TU-Berlin-2.0"
 url = "http://www.quut.com/gsm"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "f0072e91f6bb85a878b2f6dbf4a0b7c850c4deb8049d554c65340b3bf69df0ac"
+# no LTO anyway
+hardening = ["!vis"]
 # racey mess of a build system
 options = ["!parallel", "!lto"]
 
@@ -57,6 +59,3 @@ def do_install(self):
 @subpackage("gsm-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

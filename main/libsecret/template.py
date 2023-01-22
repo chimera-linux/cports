@@ -14,6 +14,8 @@ license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libsecret"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3fb3ce340fcd7db54d87c893e69bfc2b1f6e4d4b279065ffe66dac9f0fd12b4d"
+# glib
+hardening = ["!vis"]
 # does not work in container
 options = ["!check", "!cross"]
 
@@ -24,6 +26,3 @@ def _devel(self):
 @subpackage("libsecret-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

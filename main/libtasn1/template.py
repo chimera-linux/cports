@@ -17,6 +17,3 @@ def _devel(self):
 @subpackage("libtasn1-progs")
 def _progs(self):
     return self.default_progs()
-
-# FIXME visibility
-hardening = ["!vis"]

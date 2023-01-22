@@ -10,6 +10,8 @@ url = "https://libuv.org"
 # autogen.sh && configure && make dist
 source = f"https://repo.chimera-linux.org/distfiles/{pkgname}-{pkgver}.tar.gz"
 sha256 = "751a1ccdb74197593d68ab04f34aa2cfa23832614d8f8161f4ecc7f179d51bc3"
+# FIXME cfi
+hardening = ["!cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -17,6 +19,3 @@ def post_install(self):
 @subpackage("libuv-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

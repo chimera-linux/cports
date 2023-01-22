@@ -23,6 +23,3 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("Documentation/LICENSE.BSD3")
-
-# FIXME visibility
-hardening = ["!vis"]

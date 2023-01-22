@@ -24,12 +24,11 @@ license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "cdc9efcb98ce81284d7a6c3c899330481ffdca44bba3c18b9e530618298aa4a0"
+# glib
+hardening = ["!vis"]
 
 system_users = ["_geoclue"]
 
 @subpackage("geoclue-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

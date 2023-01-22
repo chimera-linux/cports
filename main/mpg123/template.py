@@ -18,6 +18,8 @@ license = "LGPL-2.1-only"
 url = "https://www.mpg123.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "5dcb0936efd44cb583498b6585845206f002a7b19d5066a2683be361954d955a"
+# unmarked api
+hardening = ["!vis"]
 
 def _genlib(libn, descn, iif):
     @subpackage(f"mpg123-output-{libn}")
@@ -46,6 +48,3 @@ def _libs(self):
 @subpackage("mpg123-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]
