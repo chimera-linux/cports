@@ -31,7 +31,7 @@ system provides a way for people to build their own binary packages from
 special templates.
 
 If you are looking for instructions on how to write templates, refer to the
-`Packaging.md` instead.
+[`Packaging.md`](Packaging.md) instead.
 
 <a id="getting_started"></a>
 ## Getting Started
