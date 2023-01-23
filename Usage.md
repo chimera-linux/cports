@@ -63,7 +63,7 @@ The userland dependencies are the following:
 * `tee`
 
 If running a Chimera system, these tools can all be installed with the
-`base-cbuild-host` metpackage.
+`base-cbuild-host` metapackage.
 
 **You need a recent Git snapshot of `apk-tools` at this point.** It is your
 responsibility to ensure that your `apk` is new enough (`cbuild` does some
@@ -275,7 +275,7 @@ The system must contain an initial toolchain. It consists of these:
 
 These can all be found in most distributions' package collections. If running
 a Chimera system, these tools can all be installed with the `base-cbuild-bootstrap`
-metpackage.
+metapackage.
 
 It is possible to do an almost full source bootstrap on an incompatible system,
 provided that Chimera ships binary packages for the given architecture. See
