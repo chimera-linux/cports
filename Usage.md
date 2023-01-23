@@ -6,7 +6,7 @@ more specifically its `cbuild` component.
 *Table of Contents*
 
 * [Introduction](#introduction)
-* [Getting Started](#getting_stated)
+* [Getting Started](#getting_started)
   * [Requirements](#requirements)
   * [How It Works](#how_it_works)
   * [Preparing](#preparing)
