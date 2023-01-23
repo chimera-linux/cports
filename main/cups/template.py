@@ -57,8 +57,8 @@ file_modes = {
     "etc/cups/snmp.conf": ("root", "lp", 0o640),
     "etc/cups/snmp.conf.default": ("root", "lp", 0o640),
 }
-# we couldn't get cfi anyway (lto fails); FIXME int though
-hardening = ["!vis", "!int"]
+# FIXME int
+hardening = ["!int"]
 # undefined references everywhere
 options = ["!lto"]
 

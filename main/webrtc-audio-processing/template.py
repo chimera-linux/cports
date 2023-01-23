@@ -10,8 +10,6 @@ license = "BSD-3-Clause"
 url = "https://freedesktop.org/software/pulseaudio/webrtc-audio-processing"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "441a30d2717b2eb4145c6eb96c2d5a270fe0b4bc71aebf76716750c47be1936f"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

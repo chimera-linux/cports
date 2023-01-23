@@ -19,8 +19,6 @@ license = "GPL-3.0-or-later"
 url = "https://tiswww.cwru.edu/php/chet/readline/rltop.html"
 source = f"http://git.savannah.gnu.org/cgit/{pkgname}.git/snapshot/{pkgname}-{_gitrev}.tar.gz"
 sha256 = "a492621bc1dcf18ee89851942ad1752025ffaae661a5cd9f188f54f892989e77"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/share/doc", recursive = True)

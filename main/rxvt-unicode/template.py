@@ -32,6 +32,7 @@ license = "GPL-3.0-or-later"
 url = "http://software.schmorp.de/pkg/rxvt-unicode.html"
 source = f"http://dist.schmorp.de/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "fe1c93d12f385876457a989fc3ae05c0915d2692efc59289d0f70fabe5b44d2d"
+hardening = ["vis", "cfi"]
 
 def init_configure(self):
     self.make_install_env["TERMINFO"] = \

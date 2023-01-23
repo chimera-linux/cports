@@ -13,8 +13,6 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://www.gnu.org/software/libtool"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8"
-# no lto anyway
-hardening = ["!vis"]
 # FIXME: need to clear out sysroot from usr/bin/libtool for cross
 # also keep libtool static compat intact
 # tests interminable and endless

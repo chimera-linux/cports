@@ -13,6 +13,7 @@ url = "https://gitlab.com/psmisc/psmisc"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "dc37ecc2f7e4a90a94956accc6e1c77adb71316b7c9cbd39b26738db0c3ae58b"
 tool_flags = {"LDFLAGS": ["-lgnu_getopt"], "CFLAGS": ["-Dgetopt_long_only=gnu_getopt_long_only"]}
+hardening = ["vis", "cfi"]
 
 def pre_check(self):
     # ERROR: global config file /builddir/psmisc-23.5/testsuite/global-conf.exp not found.

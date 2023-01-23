@@ -11,16 +11,16 @@ import sys
 # recognized hardening options
 hardening_fields = {
     "lto": False, # do not use directly, filled in by template
-    "vis": True, # hidden visibility, needed by cfi
+    "vis": False, # hidden visibility, needed and implied by cfi
+    "cfi": False, # control flow integrity
+    "bti": False, # aarch64 bti, need dynlinker support and world rebuild
+    "cet": False, # intel CET on x86, needs musl support and world rebuild
+    "sst": False, # safestack, not for DSOs
     "pie": True,
     "ssp": True, # this should really be compiler default
     "scp": True, # stack-clash-protection
     "int": True, # ubsan integer hardening
     "pac": True, # aarch64 pointer authentication
-    "cfi": True, # control flow integrity
-    "bti": False, # aarch64 bti, need dynlinker support and world rebuild
-    "cet": False, # intel CET on x86, needs musl support and world rebuild
-    "sst": False, # safestack, not for DSOs
     # options affecting enabled hardening types
     "cfi-genptr": False, # loosen pointer type checks
     "cfi-icall": True,   # indirect call checks
@@ -51,13 +51,17 @@ def _get_harden(prof, hlist):
 
     archn = prof._arch
 
+    # perform dependency checks *before* disabling hardenings per-arch
+    if hdict["cfi"]:
+        if not hdict["lto"]:
+            raise errors.CbuildException(f"CFI requires LTO")
+        if not hdict["vis"]:
+            raise errors.CbuildException(f"CFI requires hidden visibility")
+
     # ensure unsupported hardenings are never used
     for k in supported_fields:
         if archn not in supported_fields[k]:
             hdict[k] = False
-
-    if not hdict["lto"] or not hdict["vis"]:
-        hdict["cfi"] = False
 
     return hdict
 

@@ -12,8 +12,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXft-{pkgver}.tar.gz"
 sha256 = "b7e59f69e0bbabe9438088775f7e5a7c16a572e58b11f9722519385d38192df5"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

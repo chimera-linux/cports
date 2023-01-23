@@ -17,8 +17,6 @@ license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/libdazzle"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3cd3e45eb6e2680cb05d52e1e80dd8f9d59d4765212f0e28f78e6c1783d18eae"
-# glib
-hardening = ["!vis"]
 # needs x11
 options = ["!check", "!cross"]
 

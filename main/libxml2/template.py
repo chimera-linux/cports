@@ -15,8 +15,6 @@ license = "MIT"
 url = "http://www.xmlsoft.org"
 source = f"{url}/sources/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c8d6681e38c56f172892c85ddc0852e1fd4b53b4209e7f4ebf17f7e2eae71d92"
-# not ready
-hardening = ["!vis"]
 # some icu test failures
 options = ["!check"]
 

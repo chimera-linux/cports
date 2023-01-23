@@ -13,8 +13,6 @@ license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/utils/dtc/dtc.git"
 source = f"https://www.kernel.org/pub/software/utils/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "65cec529893659a49a89740bb362f507a3b94fc8cd791e76a8d6a2b6f3203473"
-# undefined references
-hardening = ["!vis"]
 
 if self.profile().arch == "ppc64le":
     # weird crashes

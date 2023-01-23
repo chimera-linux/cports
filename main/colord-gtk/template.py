@@ -17,8 +17,6 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/colord-gtk"
 source = f"$(FREEDESKTOP_SITE)/colord/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b9466656d66d9a6ffbc2dd04fa91c8f6af516bf9efaacb69744eec0f56f3c1d0"
-# glib
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("colord-gtk-devel")

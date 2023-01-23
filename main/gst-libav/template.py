@@ -14,5 +14,5 @@ license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "04ccbdd58fb31dd94098da599209834a0e7661638c5703381dd0a862c56fc532"
-# glib, FIXME int
-hardening = ["!vis", "!int"]
+# FIXME int
+hardening = ["!int"]

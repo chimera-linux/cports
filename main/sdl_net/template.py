@@ -11,8 +11,6 @@ license = "BSD-3-Clause"
 url = "https://libsdl.org/projects/SDL_net"
 source = f"{url}/release/SDL2_net-{pkgver}.tar.gz"
 sha256 = "4e4a891988316271974ff4e9585ed1ef729a123d22c08bd473129179dc857feb"
-# unmarked api
-hardening = ["!vis"]
 # no check target
 options = ["!check"]
 

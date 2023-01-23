@@ -26,8 +26,6 @@ license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4a6ce097b75a8121facc4ba83b5b083bfec657f45b003cd5a3424f2ae6b4434d"
-# glib
-hardening = ["!vis"]
 # test failures since icu 71
 options = ["!cross", "!check"]
 

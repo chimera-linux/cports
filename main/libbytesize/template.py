@@ -11,8 +11,6 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libbytesize"
 source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "8bae8287af6ef5624c320f70defdcd84ddc0c2057d3b59a5871897f27697811e"
-# unmarked api
-hardening = ["!vis"]
 # cba
 options = ["!check"]
 

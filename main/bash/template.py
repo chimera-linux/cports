@@ -24,8 +24,8 @@ tool_flags = {"CFLAGS": [
     "-DSYS_BASHRC=\"/etc/bash/bashrc\"",
     "-DNON_INTERACTIVE_LOGIN_SHELLS",
 ]}
-# FIXME testsuite failures
-hardening = ["!cfi", "!int"]
+# FIXME cfi, int: testsuite failures
+hardening = ["vis", "!cfi", "!int"]
 
 def init_configure(self):
     tcap = self.profile().sysroot / "usr/lib/libncursesw.a"

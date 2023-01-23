@@ -12,6 +12,7 @@ license = "BSD-3-Clause"
 url = "http://www.libpng.org/pub/png/libpng.html"
 source = f"http://downloads.webmproject.org/releases/webp/{pkgname}-{pkgver}.tar.gz"
 sha256 = "7bf5a8a28cc69bcfa8cb214f2c3095703c6b73ac5fba4d5480c205331d9494df"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")

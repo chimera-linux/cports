@@ -18,6 +18,6 @@ env = {
     "U_BOOT_TRIPLET": "riscv64-unknown-elf",
     "U_BOOT_TARGETS": "spl/u-boot-spl.bin u-boot.itb",
 }
-hardening = ["!vis", "!int"]
+hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug", "foreignelf"]

@@ -13,8 +13,6 @@ url = "https://github.com/libfuse/libfuse"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "33b8a92d6f7a88e6a889f0009206933482f48f3eb85d88cf09ef551313ac7373"
 suid_files = ["usr/bin/fusermount3"]
-# no lto anyway
-hardening = ["!vis"]
 # ld: error: default version symbol fuse_loop_mt@@FUSE_3.2 must be defined
 options = ["!lto"]
 

@@ -27,7 +27,7 @@ url = "https://curl.haxx.se"
 source = f"{url}/download/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "f5ca69db03eea17fa8705bdfb1a9f58d76a46c9010518109bb38f313137e0a28"
 # FIXME cfi
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 # missing some checkdepends
 options = ["!check"]
 

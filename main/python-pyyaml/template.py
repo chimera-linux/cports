@@ -11,8 +11,6 @@ license = "MIT"
 url = "http://pyyaml.org/wiki/PyYAML"
 source = f"$(PYPI_SITE)/P/PyYAML/PyYAML-{pkgver}.tar.gz"
 sha256 = "68fb519c14306fec9720a2a5b45bc9f0c8d1b9c72adf45c37baedfcd949c35a2"
-# explicit visibility, cfi not ready
-hardening = ["!vis", "!cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")

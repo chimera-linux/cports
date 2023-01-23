@@ -21,7 +21,6 @@ license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
 source = f"{url}/files/pub/lib/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "1ab01b74e33425ca99c2e36c0844fd6888273193bd898240fe8f93accbcbf347"
-hardening = ["!vis"]
 # tests require stuff we disable
 options = ["!check"]
 

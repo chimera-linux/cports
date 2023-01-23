@@ -14,8 +14,7 @@ license = "LGPL-3.0-or-later"
 url = "http://www.libheif.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "50def171af4bc8991211d6027f3cee4200a86bbe60fddb537799205bf216ddca"
-# maybe FIXME later
-hardening = ["!vis"]
+hardening = ["!cfi"] # TODO
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")

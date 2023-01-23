@@ -22,7 +22,7 @@ sha256 = "179f9ebe265e67e4ab2c26cad2b7de4b6a77c6c212f966903382869f06be6505"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # FIXME cfi
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 options = ["!cross"]
 
 def do_configure(self):

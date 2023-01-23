@@ -18,8 +18,6 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/libqmi"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "862482ce9e3ad0bd65d264334ee311cdb94b9df2863b5b7136309b41b8ac1990"
-# glib
-hardening = ["!vis"]
 
 @subpackage("libqmi-devel")
 def _devel(self):

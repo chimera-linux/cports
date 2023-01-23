@@ -18,8 +18,6 @@ license = "0BSD"
 url = "https://github.com/rhash/RHash"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "1e40fa66966306920f043866cbe8612f4b939b033ba5e2708c3f41be257c8a3e"
-# unmarked api
-hardening = ["!vis"]
 
 def init_configure(self):
     self.configure_args += [

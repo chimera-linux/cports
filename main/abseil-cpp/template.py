@@ -11,7 +11,6 @@ license = "Apache-2.0"
 url = "https://abseil.io"
 source = f"https://github.com/abseil/{pkgname}/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "91ac87d30cc6d79f9ab974c51874a704de9c2647c40f6932597329a282217ba8"
-hardening = ["!vis"]
 # tests are not built, require gtest
 options = ["!check"]
 

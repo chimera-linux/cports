@@ -12,8 +12,6 @@ license = "WTFPL"
 url = "http://caca.zoy.org/wiki/libcaca"
 source = f"https://github.com/cacalabs/{pkgname}/releases/download/v{pkgver.replace('_', '.')}/{pkgname}-{pkgver.replace('_', '.')}.tar.gz"
 sha256 = "8ad74babc63bf665b0b2378d95b4da65b7493c11bd9f3ac600517085b0c4acf2"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     from cbuild.util import python

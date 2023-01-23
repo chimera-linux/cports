@@ -21,7 +21,7 @@ tool_flags = {
     ]
 }
 # FIXME cfi (crashes nss build)
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 # no check target
 options = ["!cross", "!check"]
 

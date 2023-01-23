@@ -10,6 +10,7 @@ license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://github.com/lipnitsk/libcue"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "f27bc3ebb2e892cd9d32a7bee6d84576a60f955f29f748b9b487b173712f1200"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")

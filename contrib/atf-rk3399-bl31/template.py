@@ -11,7 +11,7 @@ license = "BSD-3-Clause"
 url = "https://developer.trustedfirmware.org/dashboard/view/6"
 source = f"https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-{pkgver}.tar.gz"
 sha256 = "53422dc649153838e03820330ba17cb10afe3e330ecde0db11e4d5f1361a33e6"
-hardening = ["!vis", "!int"]
+hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug"]
 

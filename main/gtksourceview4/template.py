@@ -18,8 +18,6 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GtkSourceView"
 source = f"$(GNOME_SITE)/gtksourceview/{pkgver[:-2]}/gtksourceview-{pkgver}.tar.xz"
 sha256 = "7ec9d18fb283d1f84a3a3eff3b7a72b09a10c9c006597b3fbabbb5958420a87d"
-# glib
-hardening = ["!vis"]
 # needs graphical environment
 options = ["!check", "!cross"]
 

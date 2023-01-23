@@ -24,8 +24,6 @@ license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/udisks"
 source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "b6b60ebab0d5e09624120c5d158882e87d8c2473db60783b63deeba74cb18d1c"
-# glib
-hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

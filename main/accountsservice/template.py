@@ -17,8 +17,6 @@ license = "GPL-3.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/AccountsService"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "909997a76919fe7dc138a9a01cea70bd622d5a932dbc9fb13010113023a7a391"
-# glib
-hardening = ["!vis"]
 # does not like the dbusmock for some reason
 options = ["!cross", "!check"]
 

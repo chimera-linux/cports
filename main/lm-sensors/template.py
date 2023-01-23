@@ -13,8 +13,6 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/lm-sensors/lm-sensors"
 source = f"{url}/archive/V{pkgver.replace('.', '-')}.tar.gz"
 sha256 = "0591f9fa0339f0d15e75326d0365871c2d4e2ed8aa1ff759b3a55d3734b7d197"
-# unmarked api
-hardening = ["!vis"]
 # no test suite
 options = ["!check"]
 

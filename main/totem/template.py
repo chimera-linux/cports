@@ -24,8 +24,6 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Videos"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b36d3655928b5896462a4d39f83b6ad66d37dbc9c99dceb02ea8a2e37394a41e"
-# glib
-hardening = ["!vis"]
 # needs graphical environment
 options = ["!check"]
 

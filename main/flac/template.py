@@ -16,8 +16,8 @@ license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "http://flac.sourceforge.net"
 source = f"https://downloads.xiph.org/releases/flac/{pkgname}-{pkgver}.tar.xz"
 sha256 = "e322d58a1f48d23d9dd38f432672865f6f79e73a6f9cc5a5f57fcaa83eb5a8e4"
-# FIXME: test failures with both
-hardening = ["!cfi", "!int"]
+# FIXME cfi int: test failures with both
+hardening = ["vis", "!cfi", "!int"]
 # stuck on some weird test, but appears harmless
 options = ["!check"]
 

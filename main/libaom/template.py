@@ -14,8 +14,6 @@ url = "https://aomedia.org"
 source = [f"https://storage.googleapis.com/aom-releases/{pkgname}-{pkgver}.tar.gz"]
 sha256 = ["d37dbee372e2430a7efde813984ae6d78bdf1fc4080ebe32457c9115408b0738"]
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
-# unmarked api
-hardening = ["!vis"]
 # requires a testdata download, tests take long
 options = ["!check"]
 

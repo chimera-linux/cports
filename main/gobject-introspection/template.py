@@ -14,8 +14,8 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GObjectIntrospection"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "347b3a719e68ba4c69ff2d57ee2689233ea8c07fc492205e573386779e42d653"
-# glib; FIXME int (fails e.g. gstreamer)
-hardening = ["!vis", "!int"]
+# FIXME int (fails e.g. gstreamer)
+hardening = ["!int"]
 # check creates a dependency cycle
 # cross compiling tons of janky hackery
 options = ["!check", "!cross"]

@@ -11,8 +11,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXxf86dga-{pkgver}.tar.bz2"
 sha256 = "2b98bc5f506c6140d4eddd3990842d30f5dae733b64f198a504f07461bdb7203"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

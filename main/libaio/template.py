@@ -13,7 +13,7 @@ license = "LGPL-2.1-or-later"
 url = "https://pagure.io/libaio"
 source = f"https://pagure.io/{pkgname}/archive/{pkgname}-{pkgver}/{pkgname}-{pkgname}-{pkgver}.tar.gz"
 sha256 = "716c7059703247344eb066b54ecbc3ca2134f0103307192e6c2b7dab5f9528ab"
-hardening = ["!ssp", "!vis"]
+hardening = ["!ssp"]
 
 @subpackage("libaio-devel")
 def _devel(self):

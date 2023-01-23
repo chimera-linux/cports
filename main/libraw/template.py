@@ -12,8 +12,6 @@ license = "LGPL-2.1-only OR CDDL-1.0"
 url = "https://libraw.org"
 source = f"{url}/data/LibRaw-{pkgver}.tar.gz"
 sha256 = "dc1b486c2003435733043e4e05273477326e51c3ea554c6864a4eafaff1004a6"
-# unmarked api
-hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

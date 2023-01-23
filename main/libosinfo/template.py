@@ -22,8 +22,6 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://libosinfo.org"
 source = f"https://gitlab.com/{pkgname}/{pkgname}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
 sha256 = "e709c5f7d006527caea9b128cdae0ee3404217f2edb9a673ad9574b5eec257fc"
-# glib
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("libosinfo-devel")

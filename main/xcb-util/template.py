@@ -10,8 +10,6 @@ license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "46e49469cb3b594af1d33176cd7565def2be3fa8be4371d62271fabb5eae50e9"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

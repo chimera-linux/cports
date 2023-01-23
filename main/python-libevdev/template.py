@@ -11,8 +11,6 @@ license = "MIT"
 url = "https://gitlab.freedesktop.org/libevdev/python-libevdev"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "60eebb58ff20be2d8443d716c3c299392720aac89db269fdb4b9de14fe313c24"
-# explicit visibility, cfi not ready
-hardening = ["!vis", "!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")

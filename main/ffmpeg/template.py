@@ -81,8 +81,6 @@ license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "619e706d662c8420859832ddc259cd4d4096a48a2ce1eefd052db9e440eef3dc"
-# unmarked api
-hardening = ["!vis"]
 # seems to need rpath?
 options = ["!check"]
 

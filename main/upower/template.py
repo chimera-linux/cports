@@ -21,8 +21,6 @@ license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
 sha256 = "cb6028f095824422c59d98b3c9903e2eda2a96fc613f11824f0b6379de7efa2e"
-# glib
-hardening = ["!vis"]
 # unpackaged umockdev
 options = ["!check"]
 

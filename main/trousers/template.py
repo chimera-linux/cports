@@ -14,8 +14,6 @@ file_modes = {
     "etc/tcsd.conf": ("tss", "tss", 0o600),
     "var/lib/tpm": ("tss", "tss", 0o700),
 }
-# unmarked api
-hardening = ["!vis"]
 system_users = [
     {
         "name": "tss",

@@ -14,8 +14,6 @@ license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/releases/{pkgver}/downloads/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6dc64d7fc16837a693a51cfdb2e568db538bfdc9f457d4656285bb9594ef11ac"
-# unmarked api
-hardening = ["!vis"]
 
 if self.profile().cross:
     hostmakedepends += ["wayland-progs"]

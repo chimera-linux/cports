@@ -16,8 +16,6 @@ license = "MIT"
 url = "https://www.fontconfig.org"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/release/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ae480e9ca34382790312ff062c625ec70df94d6d9a9366e2b2b3d525f7f90387"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

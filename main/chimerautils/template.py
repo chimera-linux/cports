@@ -17,6 +17,7 @@ license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
 sha256 = "956250245473544f06b247fffa9a01060957ab858e6b9551ecc1ef25f76bd136"
+hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
 

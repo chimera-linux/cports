@@ -14,7 +14,7 @@ url = "https://libclc.llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/{pkgname}-{pkgver}.src.tar.xz"
 sha256 = "f5eb63103557652f96fd40d2a49a9ccb184e08966ec9d89a2e53440120ad1f4c"
 # should not matter much but FIXME
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 # external-calls-clspv broken
 options = ["!check"]
 

@@ -10,6 +10,7 @@ license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libidn#libidn2"
 source = f"$(GNU_SITE)/libidn/{pkgname}-{pkgver}.tar.gz"
 sha256 = "93caba72b4e051d1f8d4f5a076ab63c99b77faee019b72b9783b267986dbb45f"
+hardening = ["vis", "cfi"]
 
 @subpackage("libidn2-devel")
 def _devel(self):

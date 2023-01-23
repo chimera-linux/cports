@@ -18,5 +18,6 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/sed"
 source = f"$(GNU_SITE)/sed/sed-{pkgver}.tar.xz"
 sha256 = "6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181"
+hardening = ["vis", "cfi"]
 # mostly only gnulib tests run as they are
 options = ["!check"]

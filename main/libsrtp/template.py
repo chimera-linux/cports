@@ -11,8 +11,6 @@ license = "BSD-3-Clause"
 url = "https://github.com/cisco/libsrtp"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "3b1bcb14ebda572b04b9bdf07574a449c84cb924905414e4d94e62837d22b628"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("LICENSE")

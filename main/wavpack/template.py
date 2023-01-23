@@ -9,8 +9,6 @@ license = "BSD-3-Clause"
 url = "https://www.wavpack.com"
 source = f"https://github.com/dbry/WavPack/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ef749d98df46925bc2916993e601cc7ee9114d99653e63e0e304f031ba73b8e6"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

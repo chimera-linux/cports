@@ -14,7 +14,7 @@ url = "https://code.videolan.org/videolan/dav1d"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "047b8229511a82b5718a1d34c86c067b078efd02f602986d2ed09b23182ec136"
 # FIXME cfi, int
-hardening = ["!int", "!cfi"]
+hardening = ["vis", "!cfi", "!int"]
 
 @subpackage("dav1d-devel")
 def _devel(self):

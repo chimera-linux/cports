@@ -23,6 +23,6 @@ env = {
     "U_BOOT_TRIPLET": "aarch64-none-elf",
     "U_BOOT_TARGETS": "idbloader.img u-boot.itb",
 }
-hardening = ["!vis", "!int"]
+hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug"]

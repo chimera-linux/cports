@@ -45,8 +45,6 @@ license = "Zlib"
 url = "https://libsdl.org"
 source = f"https://www.libsdl.org/release/SDL2-{pkgver}.tar.gz"
 sha256 = "b35ef0a802b09d90ed3add0dcac0e95820804202914f5bb7b0feb710f1a1329f"
-# unmarked api
-hardening = ["!vis"]
 # no check target
 options = ["!check"]
 

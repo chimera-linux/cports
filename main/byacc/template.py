@@ -9,6 +9,7 @@ license = "custom:byacc"
 url = "http://invisible-island.net/byacc"
 source = f"https://invisible-island.net/archives/{pkgname}/{pkgname}-{pkgver}.tgz"
 sha256 = "a899be227bbcac9cf7700f7dbb5a8494688f1f9f0617b510762daeace47b9d12"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("README")

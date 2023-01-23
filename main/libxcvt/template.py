@@ -9,8 +9,6 @@ license = "MIT"
 url = "https://xkbcommon.org"
 source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.xz"
 sha256 = "0561690544796e25cfbd71806ba1b0d797ffe464e9796411123e79450f71db38"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

@@ -11,8 +11,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXrender-{pkgver}.tar.gz"
 sha256 = "6aec3ca02e4273a8cbabf811ff22106f641438eb194a12c0ae93c7e08474b667"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

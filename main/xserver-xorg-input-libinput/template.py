@@ -11,8 +11,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/driver/xf86-input-libinput-{pkgver}.tar.gz"
 sha256 = "ac37b3fd4685025d8a1864ee361b3d6c4e50689c9a5b86786ea1fa3eb997f3e5"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

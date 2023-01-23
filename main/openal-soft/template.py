@@ -14,8 +14,6 @@ license = "LGPL-2.1-or-later"
 url = "https://openal-soft.org"
 source = f"{url}/openal-releases/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "ae94cc95cda76b7cc6e92e38c2531af82148e76d3d88ce996e2928a1ea7c3d20"
-# unmarked api
-hardening = ["!vis"]
 # no test target
 options = ["!check"]
 

@@ -19,8 +19,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gspell"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "40d2850f1bb6e8775246fa1e39438b36caafbdbada1d28a19fa1ca07e1ff82ad"
-# glib
-hardening = ["!vis"]
 # needs graphical env
 options = ["!check"]
 

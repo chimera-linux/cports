@@ -19,8 +19,6 @@ license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{pkgver}.tar.gz"
 sha256 = "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
-# unmarked api
-hardening = ["!vis"]
 # loop: elftoolchain -> libarchive -> zstd -> meson -> python ->
 # libffi -> dejagnu -> expect -> libtool -> libarchive
 options = ["!check"]

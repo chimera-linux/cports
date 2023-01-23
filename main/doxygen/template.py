@@ -10,6 +10,7 @@ license = "GPL-2.0-only"
 url = "https://doxygen.nl"
 source = f"{url}/files/{pkgname}-{pkgver}.src.tar.gz"
 sha256 = "55b454b35d998229a96f3d5485d57a0a517ce2b78d025efb79d57b5a2e4b2eec"
+hardening = ["vis", "cfi"]
 
 def post_extract(self):
     # needs texlive stuff

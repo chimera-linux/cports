@@ -9,7 +9,6 @@ license = "GPL-2.0-only"
 url = "http://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
 sha256 = "e9565a301525ac81c142ceb832f9053dd5685e107dbcf753d0de4c58bc98851f"
-hardening = ["!vis"]
 # nothing to test
 options = ["!check"]
 

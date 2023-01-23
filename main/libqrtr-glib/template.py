@@ -13,8 +13,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/mobile-broadband/libqrtr-glib"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c5cdf5ea91cbd2cf2758b2896064c7b1dfe7156063267df905f957ac69b6b763"
-# glib
-hardening = ["!vis"]
 
 @subpackage("libqrtr-glib-devel")
 def _devel(self):

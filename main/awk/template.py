@@ -9,6 +9,7 @@ license = "SMLNJ"
 url = "https://github.com/onetrueawk/awk"
 source = f"https://github.com/onetrueawk/awk/archive/{_commit}.tar.gz"
 sha256 = "d84c93b6b8a7b8ae60866c3a5bbcf55ca415308b5a24544b62546f55453c25fe"
+hardening = ["vis", "cfi"]
 # test suite uses local tools that are not present
 options = ["bootstrap", "!check"]
 

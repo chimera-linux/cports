@@ -14,7 +14,6 @@ license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"https://repo.chimera-linux.org/distfiles/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2c8a1443d77009b07f3b9ef3797036fb7d77b16fb648692ae39e8c480fd0e0e9"
-hardening = ["!vis"]
 # needs util-linux
 options = ["bootstrap", "!check"]
 

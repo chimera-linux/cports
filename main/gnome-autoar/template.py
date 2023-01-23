@@ -16,8 +16,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-autoar"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "7bdf0789553496abddc3c963b0ce7363805c0c02c025feddebcaacc787249e88"
-# glib
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("gnome-autoar-devel")

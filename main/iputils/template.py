@@ -18,6 +18,7 @@ license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "https://github.com/iputils/iputils"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "b6f67fc705490673ff4471d006221b4a2f1b1180b929d9fefd771352621ccedf"
+hardening = ["vis", "cfi"]
 # operation not permitted (sandbox, unshared network)
 options = ["!check"]
 

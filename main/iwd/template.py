@@ -26,7 +26,7 @@ tool_flags = {"CFLAGS": [
     "-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"
 ]}
 # FIXME cfi (tests fail)
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_service(self.files_path / "iwd")

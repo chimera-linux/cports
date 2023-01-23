@@ -11,8 +11,6 @@ license = "BSD-3-Clause AND custom:ElementTree"
 url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
 sha256 = "e46a74cef580e069586b7a98e9a74b49e56b849822130654d28e00826db75095"
-# explicit visibility, cfi not ready
-hardening = ["!vis", "!cfi"]
 # missing checkdepends
 options = ["!check"]
 

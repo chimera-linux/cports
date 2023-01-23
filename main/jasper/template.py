@@ -11,8 +11,6 @@ license = "JasPer-2.0"
 url = "https://ece.engr.uvic.ca/~frodo/jasper"
 source = f"https://github.com/jasper-software/{pkgname}/releases/download/version-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "39514e1b53a5333fcff817e19565371f016ea536c36fd2d13a9c4d8da8f0be0c"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("LICENSE.txt")

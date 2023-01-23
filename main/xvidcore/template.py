@@ -13,7 +13,7 @@ url = "https://www.xvid.com"
 source = f"https://downloads.xvid.com/downloads/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "aeeaae952d4db395249839a3bd03841d6844843f5a4f84c271ff88f7aa1acff7"
 # FIXME check
-hardening = ["!vis", "!int"]
+hardening = ["!int"]
 # no check target
 options = ["!check"]
 

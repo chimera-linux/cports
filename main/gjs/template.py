@@ -21,8 +21,6 @@ license = "MIT OR LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gjs"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c5e0b762a3740424a6ef5802606867f6456c6473118de09a4fa9b5186aa11f43"
-# glib
-hardening = ["!vis"]
 options = ["!cross"]
 
 def post_install(self):

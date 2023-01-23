@@ -21,7 +21,6 @@ env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
     "RUST_BACKTRACE": "1",
 }
-hardening = ["!vis"]
 # disable check at least for now
 options = ["!check"]
 

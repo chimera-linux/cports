@@ -12,8 +12,6 @@ license = "LGPL-2.1-only"
 url = "https://www.surina.net/soundtouch"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "3bde8ddbbc3661f04e151f72cf21ca9d8f8c88e265833b65935b8962d12d6b08"
-# unmarked api
-hardening = ["!vis"]
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "bootstrap")

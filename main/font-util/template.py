@@ -11,6 +11,7 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2094dd4a1ca63a61deb101d2dc618682d6e287cdbe09679502223ac445d277dc"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")

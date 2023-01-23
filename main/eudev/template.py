@@ -17,8 +17,6 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/eudev-project/eudev"
 source = f"https://github.com/eudev-project/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "19847cafec67897da855fde56f9dc7d92e21c50e450aa79068a7e704ed44558b"
-# explicitly controlled
-hardening = ["!vis"]
 options = ["!splitudev"]
 
 def post_install(self):

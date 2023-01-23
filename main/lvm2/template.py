@@ -37,8 +37,6 @@ license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
 source = f"https://mirrors.kernel.org/sourceware/{pkgname}/releases/LVM2.{pkgver}.tgz"
 sha256 = "7286cfa9651828c589389509546333b8da965dfa84a1a4c8ab3e681a47fabae7"
-# unmarked api
-hardening = ["!vis"]
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]
 # otherwise we're in for a world of pain

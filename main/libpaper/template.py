@@ -10,8 +10,6 @@ license = "GPL-2.0-or-later"
 url = "http://packages.debian.org/unstable/source/libpaper"
 source = f"$(DEBIAN_SITE)/main/libp/{pkgname}/{pkgname}_{pkgver}.tar.gz"
 sha256 = "c8bb946ec93d3c2c72bbb1d7257e90172a22a44a07a07fb6b802a5bb2c95fddc"
-# unmarked api
-hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

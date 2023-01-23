@@ -26,8 +26,8 @@ suid_files = [
     "usr/lib/enlightenment/utils/enlightenment_system",
     "usr/lib/enlightenment/utils/enlightenment_sys",
 ]
-# janky codebase
-hardening = ["!int", "!vis"]
+# FIXME int: janky codebase
+hardening = ["!int"]
 
 def post_install(self):
     self.install_license("COPYING")

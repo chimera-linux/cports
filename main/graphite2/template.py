@@ -10,8 +10,8 @@ license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://github.com/silnrsi/graphite"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tgz"
 sha256 = "f99d1c13aa5fa296898a181dff9b82fb25f6cc0933dbaa7a475d8109bd54209d"
-# sus library, FIXME int
-hardening = ["!vis", "!int"]
+# FIXME int
+hardening = ["!int"]
 
 @subpackage("graphite2-devel")
 def _devel(self):

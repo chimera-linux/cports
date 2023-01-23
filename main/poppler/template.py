@@ -20,8 +20,6 @@ license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://poppler.freedesktop.org"
 source = f"{url}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "093ba9844ed774285517361c15e21a31ba4df278a499263d4403cca74f2da828"
-# glib
-hardening = ["!vis"]
 # needs unshipped sample files
 options = ["!check"]
 

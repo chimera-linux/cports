@@ -68,8 +68,6 @@ source = f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz
 sha256 = "c0512079db4cac707ccea4c18aebbd6b2eb3acf6e90735e7f645a326be1f4537"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
-# we really don't want to mess with visibility here
-hardening = ["!vis"]
 # check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check", "!installroot"]
 

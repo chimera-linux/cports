@@ -11,6 +11,7 @@ license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c073305bbac5f4402cc1c8a4753bfa3d63a408901f86182051eaa5a75dd89c00"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")

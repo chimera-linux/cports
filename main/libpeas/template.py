@@ -20,8 +20,6 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Libpeas"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4305f715dab4b5ad3e8007daec316625e7065a94e63e25ef55eb1efb964a7bf0"
-# glib
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("libpeas-devel")

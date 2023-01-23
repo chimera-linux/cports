@@ -20,8 +20,8 @@ source = f"https://www.cairographics.org/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e"
 # needs a lot larger stack than musl default
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
-# unmarked api; FIXME int (test fails)
-hardening = ["!vis", "!int"]
+# FIXME int (test fails)
+hardening = ["!int"]
 
 def post_install(self):
     self.install_license("COPYING")

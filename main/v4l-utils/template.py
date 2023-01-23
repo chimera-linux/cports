@@ -23,8 +23,6 @@ tool_flags = {
     "CFLAGS": ["-D__off_t=off_t", "-D__off64_t=off_t"],
     "LDFLAGS": ["-largp"],
 }
-# ftbfs
-hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

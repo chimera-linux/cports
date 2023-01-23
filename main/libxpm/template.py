@@ -10,8 +10,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXpm-{pkgver}.tar.bz2"
 sha256 = "9cd1da57588b6cb71450eff2273ef6b657537a9ac4d02d0014228845b935ac25"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

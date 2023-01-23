@@ -21,8 +21,6 @@ source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "b9437a917fa55344361beb64ec9e0042e99cae8879882a62dd38f6abe2371d0c"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
-# undefined references
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("tevent-devel")

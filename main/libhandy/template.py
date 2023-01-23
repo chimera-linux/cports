@@ -21,8 +21,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libhandy"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6c2542c0578924b0c29b7ae6cb44eb26df38eb01d6d5ef3d7d0b0825763230e8"
-# glib
-hardening = ["!vis"]
 
 @subpackage("libhandy-devel")
 def _devel(self):

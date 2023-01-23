@@ -15,8 +15,7 @@ license = "BSD-3-Clause"
 url = "http://www.zstd.net"
 source = f"https://github.com/facebook/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "7c42d56fac126929a6a85dbc73ff1db2411d04f104fae9bdea51305663a83fd0"
-# TODO when we have tests
-hardening = ["!vis"]
+hardening = ["!cfi"] # TODO
 # checkdepends not available yet
 options = ["!check"]
 

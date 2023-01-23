@@ -11,8 +11,6 @@ license = "Artistic-2.0"
 url = "https://metacpan.org/release/Net-SSLeay"
 source = f"$(CPAN_SITE)/Net/Net-SSLeay-{pkgver}.tar.gz"
 sha256 = "47c2f2b300f2e7162d71d699f633dd6a35b0625a00cbda8c50ac01144a9396a9"
-# explicit visibility
-hardening = ["!vis"]
 # missing checkdepends
 options = ["!check"]
 

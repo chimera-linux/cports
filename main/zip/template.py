@@ -17,7 +17,7 @@ tool_flags = {
     "CFLAGS": ["-DLARGE_FILE_SUPPORT"]
 }
 # FIXME needs testing
-hardening = ["!vis", "!int"]
+hardening = ["!int"]
 # no test suite
 options = ["!check"]
 

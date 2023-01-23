@@ -11,8 +11,6 @@ license = "LGPL-2.1-or-later"
 url = "https://www.videolan.org/developers/libbluray.html"
 source = f"https://download.videolan.org/pub/videolan/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "58ff52cdcee64c55dcc3c777a1c39fb41abd951b927978e4d2b6811b9193a488"
-# unmarked api
-hardening = ["!vis"]
 
 @subpackage("libbluray-devel")
 def _devel(self):

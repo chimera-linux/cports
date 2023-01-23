@@ -15,7 +15,6 @@ license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"https://gitlab.alpinelinux.org/alpine/{pkgname}/-/archive/{_gitrev}.tar.gz"
 sha256 = "7c475aa40e71b82fba36a0ab8805f545fbf16983ef0a5b8b9968207e5466cfa8"
-hardening = ["!vis"]
 options = ["bootstrap"]
 
 if self.stage > 0:

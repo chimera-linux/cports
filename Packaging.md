@@ -1466,11 +1466,38 @@ Currently the following options are always enabled by default:
 
 * `pie` Position-independent executables.
 * `ssp` Enables `-fstack-protector-strong`.
+* `scp` Enables `-fstack-clash-protection` (`ppc64le`, `ppc64`, `ppc`, `x86_64`)
+* `int` Traps signed integer overflows, excess shift and integer division by zero.
+* `pac` Enables AArch64 pointer authentication (`aarch64`).
 
-The following options are only enabled on targets where the toolchain
-supports it (currently `ppc64le`, `ppc64` and `x86_64`):
+Several others are available that are not on by default:
 
-* `scp` Enables `-fstack-clash-protection`.
+* `vis` Build with `-fvisibility=hidden` in default flags.
+* `cfi` Enables Clang Control Flow Integrity (needs `vis`, `x86_64` and `aarch64`)
+* `sst` Enables Clang SafeStack (`x86_64`, `aarch64`)
+
+CFI has additional options that affect it:
+
+* `cfi-genptr` Relaxed pointer checks (disabled by default).
+* `cfi-icall` Indirect function call checking (enabled by default).
+
+Hardening options that are not supported on a platform are silently disabled,
+but their dependency relationships are always checked.
+
+CFI should be enabled where possible. Our current CFI is not cross-DSO, which
+means calls across shared library boundaries will not be checked, and the whole
+template needs building with hidden visibility. A lot of projects do not like
+being built with hidden visibility, and since Clang CFI is type-based, it is
+rather easy to encounter CFI violations, so it is not something that can just
+be enabled and expected to work. Careful testing should be done for each template
+that enables CFI.
+
+The `int` hardening option is enabled by default, but can likewise result in
+crashes in various programs/libraries. However, such crashes are always bugs
+in those programs/libraries. The best solution is to fix the issues and submit
+patches upstream, but in case of complicated bugs, it is okay to disable it in
+the template and put in a comment for later (with information on how to reproduce
+the crash).
 
 <a id="tools"></a>
 ### Tools and Tool Flags

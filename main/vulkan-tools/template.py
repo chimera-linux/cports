@@ -18,5 +18,6 @@ license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = f"https://github.com/KhronosGroup/Vulkan-Tools/archive/v{pkgver}.tar.gz"
 sha256 = "ea17052295a831e136a7ebef1191e066a575a35fedab7287f6556f29c2919a40"
+hardening = ["vis", "cfi"]
 # no test suite
 options = ["!cross", "!check"]

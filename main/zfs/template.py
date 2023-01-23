@@ -22,8 +22,7 @@ license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 source = f"https://github.com/openzfs/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "6462e63e185de6ff10c64ffa6ed773201a082f9dd13e603d7e8136fcb4aca71b"
-# FIXME check
-hardening = ["!vis"]
+hardening = ["!cfi"] # TODO
 
 def post_patch(self):
     # clean up for ckms

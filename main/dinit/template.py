@@ -11,6 +11,7 @@ license = "Apache-2.0"
 url = f"https://davmac.org/projects/dinit"
 source = f"https://github.com/davmac314/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c7965451ef2f2d56996b1a733585e4476a267d2f932e02bba609fd655f89c8cb"
+hardening = ["vis", "cfi"]
 
 def init_configure(self):
     self.make_build_args += [

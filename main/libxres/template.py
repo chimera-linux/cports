@@ -11,8 +11,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXres-{pkgver}.tar.bz2"
 sha256 = "b6e6fb1ebb61610e56017edd928fb89a5f53b3f4f990078309877468663b2b11"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

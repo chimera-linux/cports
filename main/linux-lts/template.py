@@ -12,7 +12,6 @@ license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver[:-2]}.tar.xz"
 sha256 = "2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb"
-hardening = ["!vis"]
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",

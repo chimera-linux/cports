@@ -16,8 +16,6 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libcdio"
 source = f"$(GNU_SITE)/libcdio/{pkgname}-{_v1}+{_v2}.tar.bz2"
 sha256 = "33b1cf305ccfbfd03b43936975615000ce538b119989c4bec469577570b60e8a"
-# unmarked api
-hardening = ["!vis"]
 
 @subpackage("libcdio-paranoia-devel")
 def _devel(self):

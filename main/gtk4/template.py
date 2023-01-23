@@ -37,8 +37,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
 sha256 = "85b7a160b6e02eafa4e7d38f046f8720fab537d3fe73c01c864333a983a692a9"
-# glib
-hardening = ["!vis"]
 # xvfb doesn't do the trick for some reason?
 options = ["!cross", "!check"]
 

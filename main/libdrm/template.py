@@ -15,7 +15,7 @@ url = "https://dri.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/mesa/drm/-/archive/{pkgname}-{pkgver}/drm-{pkgname}-{pkgver}.tar.gz"
 sha256 = "919ccacc5d9211840b9433d16ee825b1bc7108e7d63e05557969a17c3532d764"
 # FIXME int
-hardening = ["!int"]
+hardening = ["vis", "cfi", "!int"]
 
 # stuff like radeon autodetects, most arm stuff is by default false
 match self.profile().arch:

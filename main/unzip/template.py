@@ -21,6 +21,7 @@ tool_flags = {
         "-DDATE_FORMAT=DF_YMD", "-DUSE_BZIP2", "-DNATIVE",
     ]
 }
+hardening = ["vis", "cfi"]
 
 def do_build(self):
     cfl = self.get_cflags(shell = True)

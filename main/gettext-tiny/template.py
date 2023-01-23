@@ -8,8 +8,6 @@ url = "https://github.com/sabotage-linux/gettext-tiny"
 source = f"https://github.com/sabotage-linux/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "29cc165e27e83d2bb3760118c2368eadab550830d962d758e51bd36eb860f383"
 tool_flags = {"CFLAGS": ["-fPIC"]}
-# unmarked api, no LTO
-hardening = ["!vis"]
 # no test suite; do not LTO (pointless and better not have libintl be bitcode)
 options = ["!check", "!lto"]
 

@@ -14,6 +14,7 @@ license = "GPL-2.0-or-later"
 url = "http://www.kbd-project.org"
 source = f"$(KERNEL_SITE)/utils/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ccdf452387a6380973d2927363e9cbb939fa2068915a6f937ff9d24522024683"
+hardening = ["vis", "cfi"]
 
 def post_patch(self):
     # rename conflicting keymaps

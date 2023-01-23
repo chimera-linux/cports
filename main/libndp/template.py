@@ -9,6 +9,7 @@ license = "LGPL-2.1-or-later"
 url = "http://libndp.org"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.gz"
 sha256 = "88ffb66ee2eb527f146f5c02f5ccbc38ba97d2b0d57eb46bfba488821ab0c02b"
+hardening = ["vis", "cfi"]
 
 @subpackage("libndp-devel")
 def _devel(self):

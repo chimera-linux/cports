@@ -23,8 +23,6 @@ license = "BSD-2-Clause"
 url = "https://sourceforge.net/projects/elftoolchain"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
 sha256 = "f7017a5869c3dd7906010255ce199f3cdc0f220c10970cf23bf4c336fd724ed0"
-# unmarked api
-hardening = ["!vis"]
 # missing tet
 options = ["bootstrap", "!check"]
 

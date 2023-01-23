@@ -8,7 +8,7 @@ license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://source.mnt.re/reform/reform-boundary-uboot"
 source = f"https://repo.chimera-linux.org/distfiles/{pkgname}-{pkgver}.tar.gz"
 sha256 = "d8699b465c8d09549aee622e3a42d4101e765abfe4f3f0be54a45a3d878a152a"
-hardening = ["!vis", "!int"]
+hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug"]
 

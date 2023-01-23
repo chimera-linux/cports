@@ -42,7 +42,5 @@ license = "GPL-2.0-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tracker"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "2fce0ec85fb7617c8b2887c22797740d5dec84ec036db74d6c208bbab5c58c24"
-# glib, plugins
-hardening = ["!vis"]
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]

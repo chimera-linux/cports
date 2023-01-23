@@ -13,8 +13,6 @@ license = "LGPL-2.1-or-later"
 url = "https://www.vapoursynth.com"
 source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"
 sha256 = "d0ff9b7d88d4b944d35dd7743d72ffcea5faa687f6157b160f57be45f4403a30"
-# compiles with explicit -fvisibility=default
-hardening = ["!vis"]
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")

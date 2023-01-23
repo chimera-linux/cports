@@ -34,7 +34,7 @@ file_modes = {
     "usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)
 }
 # FIXME cfi
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 
 system_users = ["dbus:22"]
 

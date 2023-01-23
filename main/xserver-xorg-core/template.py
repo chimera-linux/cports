@@ -43,8 +43,8 @@ tool_flags = {
 suid_files = [
     "usr/libexec/Xorg.wrap"
 ]
-# unmarked api; FIXME int
-hardening = ["!vis", "!int"]
+# FIXME int
+hardening = ["!int"]
 # test times out
 options = ["!check"]
 

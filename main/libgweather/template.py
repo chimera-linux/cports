@@ -21,8 +21,6 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/LibGWeather"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "725b3eb34fc6d21edc80b6e684728b3088b1fa144f0a2a4d3e9605c7a8f3dcf8"
-# glib
-hardening = ["!vis"]
 # needs network access
 options = ["!check"]
 

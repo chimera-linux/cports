@@ -28,8 +28,7 @@ suid_files = [
     "usr/bin/passwd",
     "usr/bin/sg",
 ]
-# FIXME needs careful testing
-hardening = ["!vis"]
+hardening = ["!cfi"] # TODO
 # messes with filesystem
 options = ["!check"]
 

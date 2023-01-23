@@ -31,7 +31,7 @@ tool_flags = {
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
 # FIXME int; available ubsan patch does not help (e.g. automake fails to run)
-hardening = ["!vis", "!int"]
+hardening = ["!int"]
 # check is cyclic: depends on perl modules
 options = ["!check"]
 

@@ -9,7 +9,7 @@ url = "https://ninja-build.org"
 source = f"https://github.com/ninja-build/ninja/archive/v{pkgver}.tar.gz"
 sha256 = "31747ae633213f1eda3842686f83c2aa1412e0f5691d1c14dbbcc67fe7400cea"
 # FIXME cfi
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 
 def do_configure(self):
     self.do("python", "configure.py", "--bootstrap")

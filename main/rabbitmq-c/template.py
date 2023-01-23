@@ -14,6 +14,7 @@ license = "MIT"
 url = "https://github.com/alanxz/rabbitmq-c"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "437d45e0e35c18cf3e59bcfe5dfe37566547eb121e69fca64b98f5d2c1c2d424"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE-MIT")

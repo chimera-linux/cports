@@ -22,8 +22,6 @@ license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4f03190f45324d1fa1f52a79dfcded1f64eaf49b3ae2f88eedab0c07617cae6e"
-# glib
-hardening = ["!vis"]
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check", "!cross"]
 

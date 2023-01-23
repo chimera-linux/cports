@@ -15,4 +15,4 @@ url = "http://www.gnu.org/software/bison"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "9bba0214ccf7f1079c5d59210045227bcf619519840ebfa80cd3849cff5a5bf2"
 # FIXME cfi
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]

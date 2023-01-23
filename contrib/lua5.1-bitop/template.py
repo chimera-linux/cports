@@ -9,8 +9,6 @@ license = "MIT"
 url = "http://bitop.luajit.org"
 source = f"{url}/download/LuaBitOp-{pkgver}.tar.gz"
 sha256 = "1207c9293dcd52eb9dca6538d1b87352bd510f4e760938f5048433f7f272ce99"
-# lua uses explicit visibility
-hardening = ["!vis"]
 
 def do_install(self):
     self.install_license("README")

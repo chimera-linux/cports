@@ -30,8 +30,6 @@ license = "AGPL-3.0-or-later"
 url = "https://www.ghostscript.com"
 source = f"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs{pkgver.replace('.', '')}/ghostscript-{pkgver}.tar.xz"
 sha256 = "f1fa585f7c7d32adfa81ab389388100ac9df83444eb64db1fb92737141ef9f61"
-# no LTO
-hardening = ["!vis"]
 # busted; undefined references
 options = ["!lto"]
 

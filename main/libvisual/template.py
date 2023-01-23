@@ -12,8 +12,6 @@ license = "LGPL-2.1-or-later"
 url = "http://sourceforge.net/projects/libvisual"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "0b4dfdb87125e129567752089e3c8b54cefed601eef169d2533d8659da8dc1d7"
-# unmarked api
-hardening = ["!vis"]
 
 @subpackage("libvisual-devel")
 def _devel(self):

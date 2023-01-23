@@ -11,8 +11,6 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://people.redhat.com/sgrubb/libcap-ng"
 source = f"http://people.redhat.com/sgrubb/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "bed6f6848e22bb2f83b5f764b2aef0ed393054e803a8e3a8711cb2a39e6b492d"
-# unmarked api
-hardening = ["!vis"]
 
 @subpackage("libcap-ng-devel")
 def _devel(self):

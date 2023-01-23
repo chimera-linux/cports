@@ -16,7 +16,7 @@ url = "https://nghttp2.org"
 source = f"https://github.com/tatsuhiro-t/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "66aa76d97c143f42295405a31413e5e7d157968dad9f957bb4b015b598882e6b"
 # FIXME cfi; reproduces in e.g. libsoup
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")

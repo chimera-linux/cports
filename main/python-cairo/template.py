@@ -12,8 +12,6 @@ license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://pycairo.readthedocs.io"
 source = f"https://github.com/pygobject/pycairo/releases/download/v{pkgver}/pycairo-{pkgver}.tar.gz"
 sha256 = "251907f18a552df938aa3386657ff4b5a4937dde70e11aa042bc297957f4b74b"
-# explicit visibility, cfi not ready
-hardening = ["!vis", "!cfi"]
 
 def do_check(self):
     self.do("python", "setup.py", "test")

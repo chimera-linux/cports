@@ -10,8 +10,6 @@ license = "custom:none"
 url = "http://modplug-xmms.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/modplug-xmms/{pkgname}-{pkgver}.tar.gz"
 sha256 = "457ca5a6c179656d66c01505c0d95fafaead4329b9dbaa0f997d00a3508ad9de"
-# undefined references (e.g. sdl_mixer)
-hardening = ["!vis"]
 
 @subpackage("libmodplug-devel")
 def _devel(self):

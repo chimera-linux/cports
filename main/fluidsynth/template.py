@@ -17,6 +17,7 @@ license = "LGPL-2.1-or-later"
 url = "https://www.fluidsynth.org"
 source = f"https://github.com/FluidSynth/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "1df5a1afb91acf3b945b7fdb89ac0d99877622161d9b5155533da59113eaaa20"
+hardening = ["vis", "cfi"]
 
 @subpackage("libfluidsynth")
 def _lib(self):

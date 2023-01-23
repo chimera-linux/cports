@@ -15,4 +15,5 @@ license = "GPL-2.0-or-later"
 url = "https://libosinfo.org"
 source = f"https://gitlab.com/libosinfo/{pkgname}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
 sha256 = "3677ee201cfebcb673b543b9f6fe43d67bc6fb1b55a2540c1af8ce13358c7e6f"
+hardening = ["vis", "cfi"]
 options = ["!cross"]

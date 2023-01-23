@@ -13,6 +13,7 @@ license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/xdg-utils"
 source = f"https://gitlab.freedesktop.org/xdg/{pkgname}/-/archive/{_commit}.tar.gz"
 sha256 = "cc7f8b1292a4c1fa2054594642ff90e3740269033a32d97bcf9bd04322d5555c"
+hardening = ["vis", "cfi"]
 # no check target
 options = ["!check"]
 

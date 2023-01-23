@@ -12,6 +12,7 @@ license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/XKeyboardConfig"
 source = f"$(XORG_SITE)/data/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "eb1383a5ac4b6210d7c7302b9d6fab052abdf51c5d2c9b55f1f779997ba68c6c"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")

@@ -10,6 +10,7 @@ license = "LGPL-2.1-only"
 url = "https://invisible-island.net/dialog"
 source = f"https://invisible-mirror.net/archives/{pkgname}/{pkgname}-{pkgver.replace('.2022', '-2022')}.tgz"
 sha256 = "54418973d559a461b00695fafe68df62f2bc73d506b436821d77ca3df454190b"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib", force = True, recursive = True)

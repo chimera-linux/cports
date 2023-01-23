@@ -9,8 +9,6 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/sahlberg/libnfs"
 source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
 sha256 = "637e56643b19da9fba98f06847788c4dad308b723156a64748041035dcdf9bd3"
-# unmarked api
-hardening = ["!vis"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

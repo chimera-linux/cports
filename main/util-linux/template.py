@@ -43,8 +43,6 @@ suid_files = [
     "usr/bin/su",
     "usr/bin/umount",
 ]
-# unmarked api
-hardening = ["!vis"]
 # checkdepends are missing
 options = ["!check"]
 

@@ -16,7 +16,6 @@ license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
 source = f"{url}/archive/{_commit}.tar.gz"
 sha256 = "be0be442c494005896b8a293b9763ecd85743252cd13ece40c50b82a2f375a2a"
-hardening = ["!vis"]
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",

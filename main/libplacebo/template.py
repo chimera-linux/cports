@@ -20,6 +20,7 @@ license = "LGPL-2.1-or-later"
 url = "https://code.videolan.org/videolan/libplacebo"
 source = f"{url}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
 sha256 = "fc021fc68376b92511977b5bd32340fc575dc36af5c471cc095b5b7e3fa581d4"
+hardening = ["vis", "cfi"]
 
 @subpackage("libplacebo-devel")
 def _devel(self):

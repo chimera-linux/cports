@@ -21,8 +21,6 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-desktop"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3d6e153317486157596aa3802f87676414c570738f450a94a041fe8835420a69"
-# glib
-hardening = ["!vis"]
 # needs graphical environment
 options = ["!check"]
 

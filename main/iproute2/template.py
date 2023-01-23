@@ -13,6 +13,7 @@ license = "GPL-2.0-only"
 url = "https://wiki.linuxfoundation.org/networking/iproute2"
 source = f"$(KERNEL_SITE)/utils/net/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "523139e9e72aec996374fa2de74be4c53d2dd05589488934d21ff97bae19580a"
+hardening = ["vis", "cfi"]
 
 def do_check(self):
     self.make.invoke(None, ["-C", "testsuite"])

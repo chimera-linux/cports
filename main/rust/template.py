@@ -23,7 +23,6 @@ env = {
     "OPENSSL_NO_VENDOR": "1",
     "RUST_BACKTRACE": "1",
 }
-hardening = ["!vis"]
 # disable check at least for now
 options = ["!check"]
 

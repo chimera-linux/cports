@@ -19,8 +19,6 @@ license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glib-networking"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "1f185aaef094123f8e25d8fa55661b3fd71020163a0174adb35a37685cda613b"
-# glib
-hardening = ["!vis"]
 # FIXME fail in connection-gnutls-tls1.2
 options = ["!check"]
 

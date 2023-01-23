@@ -13,6 +13,7 @@ license = "BSD-2-Clause"
 url = "https://www.nasm.us"
 source = f"{url}/pub/{pkgname}/releasebuilds/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3caf6729c1073bf96629b57cee31eeb54f4f8129b01902c73428836550b30a3f"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")

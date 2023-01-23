@@ -16,6 +16,7 @@ license = "GPL-2.0-only"
 url = "http://netfilter.org/projects/nftables"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "8d1b4b18393af43698d10baa25d2b9b6397969beecac7816c35dd0714e4de50a"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_service(self.files_path / "nftables")

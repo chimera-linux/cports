@@ -21,8 +21,7 @@ license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = f"https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/v{pkgver}.tar.gz"
 sha256 = "16a4a722c35ce80bddb04d4f232eb4a3c13e7f335bb8b764cd1f47ed15891988"
-# FIXME: inconsistent lto unit splitting error
-hardening = ["!vis"]
+hardening = ["!cfi"] # FIXME: inconsistent LTO unit splitting error
 # no test suite
 options = ["!cross", "!check"]
 

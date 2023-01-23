@@ -10,6 +10,7 @@ license = "custom:less OR GPL-3.0-or-later"
 url = "http://www.greenwoodsoftware.com/less"
 source = f"http://www.greenwoodsoftware.com/less/less-{pkgver}.tar.gz"
 sha256 = "a69abe2e0a126777e021d3b73aa3222e1b261f10e64624d41ec079685a6ac209"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_file(self.files_path / "lesspipe.sh", "usr/bin", mode = 0o755)

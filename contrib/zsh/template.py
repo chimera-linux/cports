@@ -34,8 +34,8 @@ license = "MIT AND GPL-3.0-or-later"
 url = "https://www.zsh.org"
 source = f"{url}/pub/{pkgname}-{pkgver}.tar.xz"
 sha256 = "9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5"
-# FIXME test failures
-hardening = ["!vis", "!int"]
+# FIXME int: test failures
+hardening = ["!int"]
 
 def post_patch(self):
     self.rm("Completion/Linux/Command/_pkgtool")

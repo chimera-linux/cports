@@ -11,7 +11,7 @@ url = "https://libuv.org"
 source = f"https://repo.chimera-linux.org/distfiles/{pkgname}-{pkgver}.tar.gz"
 sha256 = "751a1ccdb74197593d68ab04f34aa2cfa23832614d8f8161f4ecc7f179d51bc3"
 # FIXME cfi
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")

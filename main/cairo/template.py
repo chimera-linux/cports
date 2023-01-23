@@ -19,8 +19,8 @@ license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://cairographics.org"
 source = f"{url}/snapshots/{pkgname}-{pkgver}.tar.xz"
 sha256 = "74b24c1ed436bbe87499179a3b27c43f4143b8676d8ad237a6fa787401959705"
-# glib + FIXME (causes random failures elsewhere)
-hardening = ["!vis", "!int"]
+# FIXME int (causes random failures elsewhere)
+hardening = ["!int"]
 # cyclic, disabled in configure
 options = ["!check"]
 

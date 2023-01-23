@@ -11,4 +11,4 @@ url = "https://www.gnu.org/software/gperf"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "588546b945bba4b70b6a3a616e80b4ab466e3f33024a352fc2198112cdbb3ae2"
 # FIXME cfi int
-hardening = ["!cfi", "!int"]
+hardening = ["vis", "!cfi", "!int"]

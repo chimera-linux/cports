@@ -11,6 +11,7 @@ license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
 sha256 = "df1f08d222e673846f94d2a5ac1939f8f7f09dc6941aa6732c99212d36c935be"
+hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
 

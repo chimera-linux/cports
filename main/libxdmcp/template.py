@@ -10,8 +10,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXdmcp-{pkgver}.tar.bz2"
 sha256 = "20523b44aaa513e17c009e873ad7bbc301507a3224c232610ce2e099011c6529"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

@@ -15,7 +15,6 @@ license = "LGPL-2.1-or-later"
 url = "https://savannah.nongnu.org/projects/acl"
 source = f"$(NONGNU_SITE)/acl/acl-{pkgver}.tar.gz"
 sha256 = "760c61c68901b37fdd5eefeeaf4c0c7a26bdfdd8ac747a1edff1ce0e243c11af"
-hardening = ["!vis"]
 # test suite makes assumptions about a GNU environment
 options = ["bootstrap", "!check"]
 

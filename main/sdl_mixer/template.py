@@ -36,8 +36,6 @@ license = "Zlib"
 url = "https://libsdl.org/projects/SDL_mixer"
 source = f"{url}/release/SDL2_mixer-{pkgver}.tar.gz"
 sha256 = "8cdea810366decba3c33d32b8071bccd1c309b2499a54946d92b48e6922aa371"
-# unmarked api
-hardening = ["!vis"]
 # no check target
 options = ["!check"]
 

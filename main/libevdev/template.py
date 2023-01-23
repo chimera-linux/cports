@@ -13,8 +13,8 @@ license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libevdev"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "9edf2006cc86a5055279647c38ec923d11a821ee4dc2c3033e8d20e8ee237cd9"
-# unmarked api; FIXME int
-hardening = ["!vis", "!int"]
+# FIXME int
+hardening = ["!int"]
 
 def post_install(self):
     self.install_license("COPYING")

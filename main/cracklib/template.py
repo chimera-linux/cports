@@ -19,8 +19,6 @@ sha256 = [
     "268733f8c5f045a08bf1be2950225efeb3d971e31eb543c002269d1a3d98652d",
     "58b3824c80dd3ba908b0ccad51d6e1671e30a23feed607fb8e63914768bc4f85",
 ]
-# missing annotations
-hardening = ["!vis"]
 
 def post_extract(self):
     self.mv(f"{pkgname}-{pkgver}", f"{pkgname}")

@@ -11,8 +11,6 @@ license = "LGPL-2.1-or-later"
 url = "https://0pointer.de/blog/projects/being-smart.html"
 source = f"https://0pointer.de/public/{pkgname}-{pkgver}.tar.xz"
 sha256 = "61f0ea345f63d28ab2ff0dc352c22271661b66bf09642db3a4049ac9dbdb0f8d"
-# unmarked api
-hardening = ["!vis"]
 
 @subpackage("libatasmart-devel")
 def _devel(self):

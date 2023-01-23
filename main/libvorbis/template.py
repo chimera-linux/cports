@@ -12,8 +12,8 @@ license = "BSD-3-Clause"
 url = "https://www.xiph.org/vorbis"
 source = f"https://downloads.xiph.org/releases/vorbis/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b33cc4934322bcbf6efcbacf49e3ca01aadbea4114ec9589d1b1e9d20f72954b"
-# unmarked api; FIXME int
-hardening = ["!vis", "!int"]
+# FIXME int
+hardening = ["!int"]
 
 def post_install(self):
     self.install_license("COPYING")

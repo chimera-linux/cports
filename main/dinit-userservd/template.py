@@ -11,6 +11,7 @@ license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-userservd"
 source = f"https://github.com/chimera-linux/turnstile/archive/refs/tags/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c3cfa87a5fe385ecd280dc57d18028158c924ee9f38276c82b06ce208b3b67a2"
+hardening = ["vis", "cfi"]
 options = ["brokenlinks", "!splitdinit"]
 
 def post_install(self):

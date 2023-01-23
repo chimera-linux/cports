@@ -20,7 +20,7 @@ tool_flags = {"CFLAGS": [
     "-Wno-unused-const-variable", "-Wno-deprecated-declarations",
 ]}
 # FIXME sus
-hardening = ["!vis", "!int"]
+hardening = ["!int"]
 # no test suite
 options = ["!check"]
 

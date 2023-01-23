@@ -8,8 +8,6 @@ license = "LGPL-3.0-or-later"
 url = "http://www.gnu.org/software/libunistring"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "a2252beeec830ac444b9f68d6b38ad883db19919db35b52222cf827c385bdb6a"
-# ftbfs without
-hardening = ["!vis"]
 
 @subpackage("libunistring-devel")
 def _devel(self):

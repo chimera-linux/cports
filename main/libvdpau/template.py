@@ -10,8 +10,6 @@ license = "MIT"
 url = "https://freedesktop.org/wiki/Software/VDPAU"
 source = f"https://gitlab.freedesktop.org/vdpau/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "66490802f30426d30ff9e8af35263bbbbaa23b52d0a2d797d06959c3d19638fd"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

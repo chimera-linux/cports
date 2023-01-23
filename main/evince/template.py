@@ -26,8 +26,6 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Evince"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6d75ca62b73bfbb600f718a098103dc6b813f9050b9594be929e29b4589d2335"
-# glib
-hardening = ["!vis"]
 
 @subpackage("evince-libs")
 def _libs(self):

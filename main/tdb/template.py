@@ -22,7 +22,7 @@ sha256 = "a4fb168def533f31ff2c07f7d9844bb3131e6799f094ebe77d0380adc987c20e"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # FIXME cfi
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 options = ["!cross"]
 
 @subpackage("tdb-devel")

@@ -28,8 +28,6 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "e98bc6b784afd04f297db5e8e6c59910e2cd090332710774f26dc8de89af4fc7"
-# glib
-hardening = ["!vis"]
 # needs graphical environment
 options = ["!check"]
 

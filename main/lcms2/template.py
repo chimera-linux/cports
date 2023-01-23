@@ -11,7 +11,7 @@ url = "https://littlecms.com"
 source = f"$(SOURCEFORGE_SITE)/lcms/{pkgname}-{pkgver}.tar.gz"
 sha256 = "28474ea6f6591c4d4cee972123587001a4e6e353412a41b3e9e82219818d5740"
 # FIXME cfi
-hardening = ["!cfi"]
+hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_license("COPYING")

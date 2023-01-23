@@ -18,8 +18,6 @@ license = "BSD-2-Clause"
 url = "http://www.libarchive.org"
 source = f"https://github.com/libarchive/libarchive/releases/download/v{pkgver}/libarchive-{pkgver}.tar.gz"
 sha256 = "c676146577d989189940f1959d9e3980d28513d74eedfbc6b7f15ea45fe54ee2"
-# unmarked api
-hardening = ["!vis"]
 # encoding failures on musl; harmless
 options = ["bootstrap", "!check"]
 

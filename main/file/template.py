@@ -14,8 +14,6 @@ license = "BSD-2-Clause"
 url = "http://www.darwinsys.com/file"
 source = f"https://astron.com/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "8c8015e91ae0e8d0321d94c78239892ef9dbc70c4ade0008c0e95894abfb1991"
-# unmarked api
-hardening = ["!vis"]
 
 if self.profile().cross:
     hostmakedepends += ["file"]

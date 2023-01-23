@@ -11,3 +11,4 @@ license = "MIT"
 url = "https://github.com/chimera-linux/klibc-kinit-standalone"
 source = f"{url}/archive/{_commit}.tar.gz"
 sha256 = "b15bb14e33b222299685eb0818274268ea32b4133db834fb038cd0ede08bd926"
+hardening = ["vis", "cfi"]

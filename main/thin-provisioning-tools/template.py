@@ -15,6 +15,7 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/jthornber/thin-provisioning-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "a2508d9933ed8a3f6c8d302280d838d416668a1d914a83c4bd0fb01eaf0676e8"
+hardening = ["vis", "cfi"]
 # needs gtest...
 options = ["!check"]
 

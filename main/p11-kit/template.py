@@ -20,8 +20,6 @@ license = "BSD-3-Clause"
 url = "https://github.com/p11-glue/p11-kit"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "d8be783efd5cd4ae534cee4132338e3f40f182c3205d23b200094ec85faaaef8"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

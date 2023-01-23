@@ -56,8 +56,6 @@ env = {
     # WebKitCCache.cmake
     "CCACHE_SLOPPINESS": "time_macros,include_file_mtime"
 }
-# glib
-hardening = ["!vis"]
 # huge testsuite
 options = ["!check"]
 

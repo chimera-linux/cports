@@ -11,8 +11,6 @@ license = "LGPL-2.1-or-later"
 url = "https://icculus.org/smpeg"
 source = f"https://www.libsdl.org/projects/smpeg/release/smpeg2-{pkgver}.tar.gz"
 sha256 = "979a65b211744a44fa641a9b6e4d64e64a12ff703ae776bafe3c4c4cd85494b3"
-# unmarked api
-hardening = ["!vis"]
 # no check target
 options = ["!check"]
 

@@ -29,8 +29,6 @@ env = {
     "NSPR_INCLUDE_DIR": f"{self.profile().sysroot / 'usr/include/nspr'}",
     "NSPR_LIB_DIR": f"{self.profile().sysroot / 'usr/lib'}"
 }
-# unmarked api
-hardening = ["!vis"]
 
 def post_patch(self):
     self.cp(self.files_path / "install.sh", self.cwd)

@@ -20,8 +20,6 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libnma"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "d74c1819cf2db4652492cb4ccdf9d86bf3f2dc1300bf3c3146c172f6aba9f7f8"
-# glib
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("libnma-devel")

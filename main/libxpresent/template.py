@@ -10,8 +10,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXpresent-{pkgver}.tar.gz"
 sha256 = "8ebf8567a8f6afe5a64275a2ecfd4c84e957970c27299d964350f60be9f3541d"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

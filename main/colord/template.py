@@ -30,8 +30,8 @@ file_modes = {
     "var/lib/colord": ("_colord", "_colord", 0o755),
     "var/lib/colord/icc": ("_colord", "_colord", 0o755),
 }
-# glib + FIXME
-hardening = ["!vis", "!int"]
+# FIXME int
+hardening = ["!int"]
 # assertion failed (cd_edid_get_vendor_name (edid) == "LG"): (NULL == "LG")
 options = ["!check"]
 

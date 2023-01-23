@@ -13,8 +13,6 @@ license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://infraroot.at/projects/squashfs-tools-ng/index.html"
 source = f"https://infraroot.at/pub/squashfs/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6f3f7864f17b250453df31fe3925ce7d1430cf6b1d514112641d734fe3c8f61a"
-# unmarked api
-hardening = ["!vis"]
 
 @subpackage("libsquashfs")
 def _libmagic(self):

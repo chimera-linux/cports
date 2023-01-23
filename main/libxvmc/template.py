@@ -11,8 +11,6 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXvMC-{pkgver}.tar.gz"
 sha256 = "e630b4373af8c67a7c8f07ebe626a1269a613d262d1f737b57231a06f7c34b4e"
-# unmarked api
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("COPYING")

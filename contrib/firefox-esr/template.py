@@ -42,8 +42,6 @@ env = {
     # firefox checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
-# cfi known not to work
-hardening = ["!vis", "!cfi"]
 options = ["!cross"]
 exec_wrappers = [
     ("/usr/bin/llvm-objdump", "objdump"),
@@ -99,7 +97,7 @@ def do_configure(self):
         "--target=" + self.profile().triplet,
         "--enable-linker=lld",
         "--enable-release",
-        "--enable-optimize=" + self.get_cflags(shell = True),
+        "--enable-optimize",
         "--disable-install-strip",
         "--disable-strip",
         # system libs

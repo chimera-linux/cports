@@ -14,8 +14,7 @@ sha256 = "c1dee49535cfdf86994990b21fe129a74bb0d628a647f4aae8905bd61df32607"
 tool_flags = {
     "CXXFLAGS": [f"-I{self.profile().sysroot / 'usr/include/glslang'}"]
 }
-# FIXME probably no good
-hardening = ["!vis"]
+hardening = ["!cfi"] # TODO
 
 @subpackage("shaderc-progs")
 def _progs(self):

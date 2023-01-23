@@ -34,8 +34,6 @@ file_modes = {
     "etc/polkit-1/rules.d": ("_polkitd", "_polkitd", 0o700),
     "usr/share/polkit-1/rules.d": ("_polkitd", "_polkitd", 0o700),
 }
-# glib
-hardening = ["!vis"]
 # tests are broken on musl
 options = ["!check"]
 

@@ -25,8 +25,6 @@ source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "467403f77df86782c3965bb175440baa2ed751a9feb9560194bd8c06bf1736c9"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
-# does not mark api visibility properly
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("ldb-devel")

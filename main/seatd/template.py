@@ -13,8 +13,6 @@ license = "MIT"
 url = "https://kl.wtf/projects/seatd"
 source = f"https://git.sr.ht/~kennylevinsen/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "210ddf8efa1149cde4dd35908bef8e9e63c2edaa0cdb5435f2e6db277fafff3c"
-# unmarked api
-hardening = ["!vis"]
 
 system_groups = ["_seatd"]
 

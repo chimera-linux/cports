@@ -15,8 +15,7 @@ license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/SPIRV-Tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "a156215a2d7c6c5b267933ed691877a9a66f07d75970da33ce9ad627a71389d7"
-# FIXME check?
-hardening = ["!vis"]
+hardening = ["!cfi"] # TODO
 # needs gtest
 options = ["!check"]
 

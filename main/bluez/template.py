@@ -31,8 +31,6 @@ url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/{pkgname}-{pkgver}.tar.xz"
 sha256 = "39fea64b590c9492984a0c27a89fc203e1cdc74866086efb8f4698677ab2b574"
 tool_flags = {"CFLAGS": ["-Wno-deprecated-declarations"]}
-# glib
-hardening = ["!vis"]
 system_groups = ["bluetooth"]
 
 def post_patch(self):

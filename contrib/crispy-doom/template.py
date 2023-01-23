@@ -14,6 +14,7 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/fabiangreffrath/crispy-doom"
 source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
 sha256 = "7c5bb36393dec39b9732e53963dadd6bcc3bd193370c4ec5b1c0121df3b38faa"
+hardening = ["vis", "cfi"]
 
 def pre_configure(self):
     self.do("autoreconf", "-if")

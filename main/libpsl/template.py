@@ -10,6 +10,7 @@ license = "MIT"
 url = "https://rockdaboot.github.io/libpsl"
 source = f"https://github.com/rockdaboot/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ac6ce1e1fbd4d0254c4ddb9d37f1fa99dec83619c1253328155206b896210d4c"
+hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")

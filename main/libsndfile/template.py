@@ -14,8 +14,6 @@ license = "LGPL-2.1-or-later"
 url = "https://libsndfile.github.io/libsndfile"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "0f98e101c0f7c850a71225fb5feaf33b106227b3d331333ddc9bacee190bcf41"
-# unmarked api
-hardening = ["!vis"]
 
 @subpackage("libsndfile-progs")
 def _progs(self):

@@ -18,6 +18,7 @@ license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
 sha256 = "50b4482a505bc281ba8470c399a3c26e145e29b23500bc35c50debd7fa46bdf8"
+hardening = ["vis", "cfi"]
 # weird test suite
 options = ["!check"]
 

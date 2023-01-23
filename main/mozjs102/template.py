@@ -40,8 +40,8 @@ env = {
     # firefox checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
-# unmarked api; FIXME int (fails basic/hypot-approx.js)
-hardening = ["!vis", "!int"]
+# FIXME int (fails basic/hypot-approx.js)
+hardening = ["!int"]
 # dependencies are not crossable for now and it's probably tricky
 options = ["!cross"]
 exec_wrappers = [

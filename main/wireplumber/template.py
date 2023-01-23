@@ -20,8 +20,6 @@ license = "MIT"
 url = "https://pipewire.pages.freedesktop.org/wireplumber"
 source = f"https://gitlab.freedesktop.org/pipewire/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "afece031dd2d1a5f535de29e21ea94a1b261d3da62b5dbb977e19668f4453b27"
-# glib
-hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("LICENSE")

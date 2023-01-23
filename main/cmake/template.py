@@ -19,6 +19,7 @@ sha256 = "b53aa10fa82bff84ccdb59065927b72d3bee49f4d86261249fc0984b3b367291"
 tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
 }
+hardening = ["vis", "cfi"]
 # checkdepends are missing
 options = ["!check"]
 

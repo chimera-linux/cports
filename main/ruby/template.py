@@ -20,8 +20,6 @@ license = "Ruby OR BSD-2-Clause"
 url = "https://www.ruby-lang.org/en"
 source = f"https://cache.ruby-lang.org/pub/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ca10d017f8a1b6d247556622c841fc56b90c03b1803f87198da1e4fd3ec3bf2a"
-# unmarked api
-hardening = ["!vis"]
 # until verified; gonna need removing arch prefix from compiler name
 # tests mostly pass but there are some portability issues in the test
 # suite (stat usage) + chown not working in the sandbox + locale issues

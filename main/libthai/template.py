@@ -12,8 +12,6 @@ license = "LGPL-2.1-or-later"
 url = "https://linux.thai.net/projects/libthai"
 source = f"https://linux.thai.net/pub/ThaiLinux/software/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "fc80cc7dcb50e11302b417cebd24f2d30a8b987292e77e003267b9100d0f4bcd"
-# unmarked api
-hardening = ["!vis"]
 
 if self.profile().cross:
     hostmakedepends += ["libdatrie"]

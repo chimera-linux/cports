@@ -20,8 +20,6 @@ license = "MPL-2.0 OR LGPL-2.1-only"
 url = "https://libical.github.io/libical"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "b44705dd71ca4538c86fb16248483ab4b48978524fb1da5097bd76aa2e0f0c33"
-# glib
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("libical-devel")

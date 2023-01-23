@@ -14,8 +14,6 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/libmbim"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "f688cec4c4586a17575f5e327448ce62f2000ef6a07c9e4589873d4a68568ad9"
-# glib
-hardening = ["!vis"]
 
 @subpackage("libmbim-devel")
 def _devel(self):

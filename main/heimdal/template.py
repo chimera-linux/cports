@@ -34,8 +34,6 @@ license = "BSD-3-Clause"
 url = "https://heimdal.software"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "fd87a207846fa650fd377219adc4b8a8193e55904d8a752c2c3715b4155d8d38"
-# explicit visibility in a bunch of places
-hardening = ["!vis"]
 exec_wrappers = [
     ("/usr/bin/mandoc", "nroff")
 ]

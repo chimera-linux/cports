@@ -21,8 +21,6 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/EyeOfGnome"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "fed79ff3ca19bac62f27155c9bdd69eef875870b971e6dcb0aa38c093d131971"
-# glib
-hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("eog-devel")
