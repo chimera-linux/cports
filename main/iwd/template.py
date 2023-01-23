@@ -25,12 +25,11 @@ sha256 = "9fd13512dc27d83efb8d341f7df98f5488f70131686021fcd0d93fc97af013b8"
 tool_flags = {"CFLAGS": [
     "-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"
 ]}
+# FIXME cfi (tests fail)
+hardening = ["!cfi"]
 
 def post_install(self):
     self.install_service(self.files_path / "iwd")
     self.install_service(self.files_path / "ead")
 
     self.install_dir("etc/iwd", empty = True)
-
-# FIXME visibility
-hardening = ["!vis"]

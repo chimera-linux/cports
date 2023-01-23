@@ -29,6 +29,3 @@ def _devel(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "nautilus"]
 
     return ["usr/lib/nautilus"]
-
-# FIXME visibility
-hardening = ["!vis"]

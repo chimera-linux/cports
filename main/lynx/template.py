@@ -17,6 +17,3 @@ url = "http://lynx.invisible-island.net"
 source = f"http://invisible-mirror.net/archives/{pkgname}/tarballs/{pkgname}{pkgver.replace('_pre', 'dev.')}.tar.bz2"
 sha256 = "898ac82bcfcbd4b20ea39afdf66fd659b8773c7549623b0f8802bf392a41a912"
 options = ["!cross"]
-
-# FIXME visibility
-hardening = ["!vis"]

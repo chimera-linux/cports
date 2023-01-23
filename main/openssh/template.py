@@ -34,6 +34,8 @@ url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgver}.tar.gz"
 sha256 = "19f85009c7e3e23787f0236fbb1578392ab4d4bf9f8ec5fe6bc1cd7e8bfdd288"
 suid_files = ["usr/libexec/ssh-keysign"]
+# FIXME cfi (does not work); maybe make testsuite work first
+hardening = ["!cfi"]
 # portable openssh is not very portable
 options = ["!check"]
 
@@ -54,6 +56,3 @@ def post_install(self):
 
     self.install_service(self.files_path / "ssh-keygen")
     self.install_service(self.files_path / "sshd")
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -20,6 +20,8 @@ license = "LGPL-2.1-or-later"
 url = "http://libproxy.github.io/libproxy"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "69b5856e9ea42c38ac77e6b8c92ffc86a71d341fef74e77bef85f9cc6c47a4b1"
+# glib; FIXME int (glib-networking tests fail)
+hardening = ["!vis", "!int"]
 
 @subpackage("libproxy-devel")
 def _devel(self):
@@ -35,6 +37,3 @@ def _python(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "python"]
 
     return ["usr/lib/python*"]
-
-# FIXME visibility
-hardening = ["!vis"]

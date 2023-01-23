@@ -16,6 +16,8 @@ license = "GPL-2.0-or-later"
 url = "https://breakfastquay.com/rubberband"
 source = f"https://breakfastquay.com/files/releases/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "a442551fe7d26fb4a54dd1c34178733dc9c76ac9ce051a02325f5cb35d154381"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("rubberband-progs")
 def _progs(self):
@@ -24,6 +26,3 @@ def _progs(self):
 @subpackage("rubberband-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

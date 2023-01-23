@@ -15,6 +15,3 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-font-viewer"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "81c6bffb06d5332346e00eaecaec1bdcfd617c51dfd95bcd058d6c76c76dd2b9"
-
-# FIXME visibility
-hardening = ["!vis"]

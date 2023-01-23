@@ -20,10 +20,9 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Grilo"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "f352acf73665669934270636fede66b52da6801fe20f638c4048ab2678577b2d"
+# glib
+hardening = ["!vis"]
 
 @subpackage("grilo-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

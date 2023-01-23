@@ -14,6 +14,8 @@ license = "BSD-3-Clause AND LGPL-2.0-or-later AND GPL-2.0-or-later"
 url = "https://ppp.samba.org"
 source = f"https://ftp.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "f938b35eccde533ea800b15a7445b2f1137da7f88e32a16898d02dee8adc058d"
+# unmarked api
+hardening = ["!vis"]
 # no check target
 options = ["!check"]
 
@@ -77,6 +79,3 @@ def _devel(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "libpcap-devel"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

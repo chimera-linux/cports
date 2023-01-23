@@ -45,6 +45,8 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/NetworkManager"
 source = f"$(GNOME_SITE)/NetworkManager/{pkgver[:-2]}/NetworkManager-{pkgver}.tar.xz"
 sha256 = "b126e75a234936c99c47b259c55120ebdd9bf76ac4efd30c9811e56a0481c273"
+# glib
+hardening = ["!vis"]
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["!check", "!cross"]
 
@@ -92,6 +94,3 @@ def _lib(self):
 @subpackage("networkmanager-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

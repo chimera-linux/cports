@@ -56,6 +56,3 @@ def do_install(self):
         "spl_size_limit", "env/fw_printenv", "env/fw_setenv",
     ]:
         self.install_bin(f"tools/{t}")
-
-# FIXME visibility
-hardening = ["!vis"]

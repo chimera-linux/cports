@@ -34,6 +34,8 @@ file_modes = {
     "etc/polkit-1/rules.d": ("_polkitd", "_polkitd", 0o700),
     "usr/share/polkit-1/rules.d": ("_polkitd", "_polkitd", 0o700),
 }
+# glib
+hardening = ["!vis"]
 # tests are broken on musl
 options = ["!check"]
 
@@ -51,6 +53,3 @@ def post_install(self):
 @subpackage("polkit-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

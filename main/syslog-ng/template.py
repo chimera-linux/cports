@@ -50,6 +50,8 @@ sha256 = [
     "5491f686d0b829b69b2e0fc0d66a62f51991aafaee005475bfa38fab399441f7",
     "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8"
 ]
+# unmarked api
+hardening = ["!vis"]
 # tests need https://github.com/Snaipe/Criterion
 options = ["!check"]
 
@@ -171,6 +173,3 @@ for modn, modl in [
     ("xml", None),
 ]:
     _genmod(modn, modl)
-
-# FIXME visibility
-hardening = ["!vis"]

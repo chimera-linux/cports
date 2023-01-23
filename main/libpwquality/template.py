@@ -19,6 +19,8 @@ license = "BSD-3-Clause OR GPL-2.0-or-later"
 url = "https://github.com/libpwquality/libpwquality"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "d43baf23dc6887fe8f8e9b75cabaabc5f4bbbaa0f9eff44278d276141752a545"
+# unmarked api
+hardening = ["!vis"]
 options = ["!cross"]
 
 def pre_configure(self):
@@ -37,6 +39,3 @@ def _python(self):
     self.depends += ["python", "cracklib-devel"]
 
     return ["usr/lib/python*"]
-
-# FIXME visibility
-hardening = ["!vis"]

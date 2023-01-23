@@ -16,6 +16,8 @@ license = "LGPL-2.1-or-later"
 url = "http://www.gphoto.org"
 source = f"https://github.com/gphoto/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4d50e71d771ca78e33f10308e7f15ad00a2268d1b5af4a19cd4c5512a1b62a62"
+# unmarked api
+hardening = ["!vis"]
 
 if self.profile().cross:
     hostmakedepends += ["libgphoto2"]
@@ -46,6 +48,3 @@ def post_install(self):
 @subpackage("libgphoto2-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
-
-# FIXME visibility
-hardening = ["!vis"]

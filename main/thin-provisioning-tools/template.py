@@ -26,6 +26,3 @@ def init_configure(self):
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
-
-# FIXME visibility
-hardening = ["!vis"]

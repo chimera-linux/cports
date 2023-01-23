@@ -20,6 +20,8 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://glade.gnome.org"
 source = f"$(GNOME_SITE)/glade/{pkgver[:-2]}/glade-{pkgver}.tar.xz"
 sha256 = "31c9adaea849972ab9517b564e19ac19977ca97758b109edc3167008f53e3d9c"
+# glib
+hardening = ["!vis"]
 # needs a graphical environment
 options = ["!check"]
 
@@ -37,6 +39,3 @@ def _lib(self):
 @subpackage("glade3-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/gtk-doc"])
-
-# FIXME visibility
-hardening = ["!vis"]

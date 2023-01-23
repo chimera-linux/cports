@@ -23,6 +23,8 @@ license = "Zlib"
 url = "https://libsdl.org/projects/SDL_image"
 source = f"{url}/release/SDL2_image-{pkgver}.tar.gz"
 sha256 = "48355fb4d8d00bac639cd1c4f4a7661c4afef2c212af60b340e06b7059814777"
+# unmarked api
+hardening = ["!vis"]
 # no check target
 options = ["!check"]
 
@@ -32,6 +34,3 @@ def post_install(self):
 @subpackage("sdl_image-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -20,6 +20,8 @@ tool_flags = {
         "-D_PR_HAVE_GETADDRINFO", "-D_PR_INET6_PROBE"
     ]
 }
+# FIXME cfi (crashes nss build)
+hardening = ["!cfi"]
 # no check target
 options = ["!cross", "!check"]
 
@@ -41,6 +43,3 @@ def _devel(self):
         "usr/share/aclocal",
         "usr/lib/*.a",
     ]
-
-# FIXME visibility
-hardening = ["!vis"]

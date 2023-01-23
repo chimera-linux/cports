@@ -11,12 +11,11 @@ license = "LGPL-3.0-or-later"
 url = "https://www.multiprecision.org/mpc"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "17503d2c395dfcf106b622dc142683c1199431d095367c6aacba6eec30340459"
+# unmarked api
+hardening = ["!vis"]
 
 @subpackage("mpc-devel")
 def _devel(self):
     self.depends += makedepends
 
     return self.default_devel(extra = ["usr/share"])
-
-# FIXME visibility
-hardening = ["!vis"]

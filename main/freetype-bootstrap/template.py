@@ -27,7 +27,7 @@ url = "https://freetype.org"
 source = f"$(NONGNU_SITE)/freetype/freetype-{pkgver}.tar.xz"
 sha256 = "4766f20157cc4cf0cd292f80bf917f92d1c439b243ac3018debf6b9140c41a7f"
 hardening = ["!vis"]
-options = ["!lto", "!scanshlibs"]
+options = ["!lto", "!scanshlibs", "!scanpkgconf"]
 
 def post_install(self):
     self.install_license("LICENSE.TXT")

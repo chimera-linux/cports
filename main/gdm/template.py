@@ -33,6 +33,8 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "94d70d6ed7df59fa7fde4fd02fed1168593a8adce10fcee113c148d52b392294"
+# glib
+hardening = ["!vis"]
 system_users = [
     {
         "name": "_gdm",
@@ -59,6 +61,3 @@ def _lib(self):
 @subpackage("gdm-devel")
 def _devel(self):
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

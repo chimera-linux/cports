@@ -19,6 +19,8 @@ license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/totem-pl-parser"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c0df0f68d5cf9d7da43c81c7f13f11158358368f98c22d47722f3bd04bd3ac1c"
+# glib
+hardening = ["!vis"]
 # needs network access
 options = ["!check"]
 
@@ -31,6 +33,3 @@ def _lib(self):
     self.pkgdesc = f"{pkgdesc} (totem-plparser-mini library)"
 
     return ["usr/lib/libtotem-plparser-mini.so.*"]
-
-# FIXME visibility
-hardening = ["!vis"]

@@ -30,6 +30,8 @@ url = "https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3513bb24fc6f8181667223a64a067534fdccf3bf66326a9403d38b0f0d6013d0"
 tool_flags = {"CFLAGS": ["-UG_DISABLE_ASSERT"]}
+# glib
+hardening = ["!vis"]
 # unpackaged checkdepends
 options = ["!check"]
 
@@ -38,6 +40,3 @@ def _devel(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

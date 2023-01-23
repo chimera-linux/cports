@@ -15,12 +15,11 @@ license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/gtkmm/{pkgver[:-2]}/gtkmm-{pkgver}.tar.xz"
 sha256 = "c82786d46e2b07346b6397ca7f1929d952f4922fa5c9db3dee08498b9a136cf5"
+# glib
+hardening = ["!vis"]
 
 @subpackage("gtkmm-devel")
 def _devel(self):
     return self.default_devel(extra = [
         "usr/lib/gtkmm-4.0",
     ])
-
-# FIXME visibility
-hardening = ["!vis"]

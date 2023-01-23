@@ -18,6 +18,8 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Gedit"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3c6229111f0ac066ae44964920791d1265f5bbb56b0bd949a69b7b1261fc8fca"
+# glib
+hardening = ["!vis"]
 
 def post_install(self):
     from cbuild.util import python
@@ -29,6 +31,3 @@ def _devel(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return self.default_devel()
-
-# FIXME visibility
-hardening = ["!vis"]

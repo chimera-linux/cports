@@ -21,6 +21,8 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3cf54fac0a8abee090e155417f7b16f63ea0ac0c264ef4f54574af345801a911"
+# glib
+hardening = ["!vis"]
 options = ["!cross"]
 
 @subpackage("nautilus-devel")
@@ -30,6 +32,3 @@ def _devel(self):
 @subpackage("nautilus-libs")
 def _libs(self):
     return self.default_libs()
-
-# FIXME visibility
-hardening = ["!vis"]
