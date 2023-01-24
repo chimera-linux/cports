@@ -17,6 +17,8 @@ license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libX11-{pkgver}.tar.gz"
 sha256 = "f1bc56187bee0f830e1179ac5068ac93b78c51ace94eb27702ffb2efd116587b"
+# FIXME int (_XkbReadGetIndicatorMapReply)
+hardening = ["!int"]
 # broken for now
 options = ["!cross"]
 

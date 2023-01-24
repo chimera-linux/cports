@@ -23,6 +23,8 @@ url = "http://www.gnu.org/software/ncurses"
 source = f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"
 sha256 = "97fc51ac2b085d4cde31ef4d2c3122c21abc217e9090a43a30fc5ec21684e059"
 tool_flags = {"CFLAGS": ["-fPIC"],}
+# FIXME int; prevents some chroots from working
+hardening = ["!int"]
 options = ["bootstrap"]
 
 def init_configure(self):

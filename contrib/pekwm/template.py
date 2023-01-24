@@ -13,6 +13,7 @@ license = "GPL-2.0-or-later"
 url = "https://www.pekwm.se"
 source = f"https://github.com/pekdon/{pkgname}/archive/release-{pkgver}.tar.gz"
 sha256 = "62e858015e1a5a54bbddab202a1fb455c821bda62498e9cadfa1d00a5a2575c3"
-hardening = ["vis", "cfi"]
+# FIXME cfi
+hardening = ["vis", "!cfi"]
 # no test target
 options = ["!check"]

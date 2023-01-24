@@ -20,7 +20,8 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "fb6f20ee1ff231a9aaedab13d5dc6e5a64c955711224848b790086e88959d37b"
-hardening = ["vis", "cfi"]
+# FIXME cfi
+hardening = ["vis", "!cfi"]
 options = ["!cross"]
 
 @subpackage("nautilus-gnome-terminal-extension", False)
