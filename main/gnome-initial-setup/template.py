@@ -21,4 +21,5 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Design/OS/InitialSetup"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "8104e7043ef9b98e2b50b2ab38fda05fd0437f8c55569fa16830b7be57be0df6"
-hardening = ["vis", "cfi"]
+# FIXME cfi
+hardening = ["vis", "!cfi"]

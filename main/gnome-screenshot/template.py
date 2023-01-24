@@ -13,4 +13,5 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-screenshot"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "4adb7dec926428f74263d5796673cf142e4720b6e768f5468a8d0933f98c9597"
-hardening = ["vis", "cfi"]
+# FIXME cfi
+hardening = ["vis", "!cfi"]
