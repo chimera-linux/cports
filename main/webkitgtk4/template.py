@@ -60,6 +60,8 @@ env = {
     # WebKitCCache.cmake
     "CCACHE_SLOPPINESS": "time_macros,include_file_mtime"
 }
+# FIXME: crashes in libpas (seems compiler-generated, not code bugs)
+hardening = ["!int"]
 # huge testsuite
 options = ["!check"]
 
