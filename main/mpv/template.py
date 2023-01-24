@@ -65,7 +65,8 @@ license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "dc411c899a64548250c142bf1fa1aa7528f1b4398a24c86b816093999049ec00"
-hardening = ["vis", "cfi"]
+# FIXME cfi
+hardening = ["vis", "!cfi"]
 # development-only
 options = ["!check"]
 
