@@ -13,6 +13,7 @@ you should not rely on them or expect them to be stable.
 * [Targets and Tiers](#targets)
 * [Quality Requirements](#quality_requirements)
   * [Writing Correct Templates](#correct_templates)
+    * [Hardening Templates](#template_hardening)
 * [Build Phases](#phases)
 * [Package Naming](#naming)
 * [Filesystem Structure](#filesystem_structure)
@@ -264,6 +265,166 @@ The build environment takes care to minimize differences between possible
 hosts the builds may be run in. However, there may always be edge cases,
 and tests should not rely on edge cases - they must be reproducible across
 all environments `cbuild` may be run in.
+
+<a id="template_hardening"></a>
+#### Hardening Templates
+
+When writing new templates, care should be taken to use proper hardening
+tags. While most hardening options that one should use are implicitly set
+by default and there is no need to worry about them, there are hardening
+options that cannot be default but should be set of possible anyway.
+
+Hardening tags are specified using the `hardening` list metadata. Just like
+the `options` list metadata, they can be enabled (e.g. like `foo`) or
+disabled (e.g. like `!foo`).
+
+##### Control Flow Integrity (CFI)
+
+The Clang CFI is a particularly notable one. It cannot be enabled by default
+as it breaks on a lot of packages, but those which it does not break with
+can benefit from it. Packages that are broken with it can also be patched
+(and patches upstreamed) in the ideal case.
+
+CFI actually consists of multiple components, which can normally be used
+individually when passing options to Clang, but cbuild groups them together.
+
+CFI requires everything to be compiled with hidden visibility as well as
+with LTO. Many libraries cannot be compiled with hidden visibility, as they
+rely on default visibility of symbols. Programs can usually be compiled with
+hidden visibility as by default they do not export any symbols. This is not
+always the case, however, and it must be checked on case-by-case basis.
+
+If you cannot enable hidden visibility nor LTO, then you cannot enable CFI.
+Otherwise, toggle `vis` as well as `cfi` and test your template. If this
+does not result in a regression (i.e. the package works, its tests pass
+and so on), then it can be enabled on the tree.
+
+The most often breaking component of CFI is the indirect function call
+checker. Clang CFI is type-based, and therefore strict about types being
+matched. That means the following will break, for example:
+
+```
+typedef void (*cb_t)(void *arg);
+
+void foo(void *ptr, cb_t arg) {
+    arg(ptr);
+}
+
+void cb(int *arg) {
+    ...
+}
+
+void bar(void *x) {
+    foo(x, (cb_t)&cb);
+}
+```
+
+The reason this breaks is that we are calling `cb` through a different
+function signature than `cb` is declared with.
+
+Correct, CFI-compliant code in this case would be:
+
+```
+typedef void (*cb_t)(void *arg);
+
+void foo(void *ptr, cb_t arg) {
+    arg(ptr);
+}
+
+void cb(void *argp) {
+    int *varg = argp;
+    ...
+}
+
+void bar(void *x) {
+    foo(x, &cb);
+}
+```
+
+Other types of CFI usually do not break as much as they are either specific
+to C++ (which is more strictly typed, especially in those contexts) or
+overall less prone to such shortcuts.
+
+In case of indirect function call breakage, there are two ways to fix this:
+
+1) Patching the code. This is usually better.
+2) Adding `cfi-genptr` to `hardening`. This enables special CFI mode that
+   relaxes pointer type checks. The first example would work with that,
+   but note that qualifiers (e.g. `const`) still need to match.
+
+It is also possible to disable just indirect function call checks and leave
+the rest enabled by disabling `cfi-icall`.
+
+Note that there are two other caveats to Clang CFI in our case:
+
+1) It is not cross-DSO; checks are performed only within the executable
+   or library and not for any external API. Correct cross-DSO CFI requires
+   support in the C standard library. The `cfi-genptr` method also would
+   not work with cross-DSO CFI.
+2) It is currently only available on the `x86_64` and `aarch64` targets.
+   On other targets it is silently ignored (so you do not need to set
+   it conditionally).
+
+##### Integer subset of UBSan
+
+This one is notable as it has potential to break existing C/C++ code while
+also being the default. The hardening string is `int`. All the cases it
+traps are undefined behavior in C/C++, but codebases still commonly
+violate those.
+
+It enables the following:
+
+* `signed-integer-overflow` Traps signed integer overflows.
+* `shift` Traps out-of-bounds shifts.
+* `integer-divide-by-zero` Traps integer division by zero.
+
+Unsigned overflows are allowed as they are not undefined behavior.
+
+An example of signed overflow:
+
+```
+int x = INT_MAX;
+x += 1000;
+```
+
+The typical visible outcome of this is wrap-around, given the way two's
+complement works. The compiler is allowed to do whatever it wants though,
+and it is allowed to optimize assuming that this will never happen, given
+it is undefined behavior.
+
+Unsigned integers also wrap around, starting from 0 again.
+
+An example of out-of-bounds shift:
+
+```
+unsigned char r, g, b, a;
+...
+unsigned int v = (a << 24) | (r << 16) | (g << 8) | b;
+```
+
+This is actually a common case in various graphics programs/libraries and
+needs to be taken care of, in this case by casting each `unsigned char`
+to an `unsigned int` before shifting it. The problematic shift here is the
+24-bit `a` shift. This is because of C's integer promotion rules, where
+smaller types are promoted to a signed `int`.
+
+Another common case is something like this:
+
+```
+unsigned int v = 1 << 31;
+```
+
+This is excess shift because `1` is a signed `int`, and shifting it by 31
+places would interfere with the sign bit. The correct way to write this
+would be to use an unsigned literal, i.e. `1U`.
+
+Regardless of compiler optimization, integer overflows frequently result
+in security vulnerabilities, which is why we harden this. In cases where
+there are too many instances of the bug and it is not possible to patch
+around it, it may be disabled with `!int` and a comment explaining why
+this is done.
+
+UBSan is available on all targets Chimera currently supports.
 
 <a id="phases"></a>
 ## Build Phases
