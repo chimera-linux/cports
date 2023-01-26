@@ -4,7 +4,7 @@ import pathlib
 
 _stage = 3
 
-def init(cbuildir, distdir, rootdir, rdir, ardir, sdir, cdir, srdir):
+def init(cbuildir, distdir, rootdir, rdir, ardir, srdir, sdir, cdir):
     global _ddir, _bdir, _rdir, _ardir, _srcs, _cbdir, _ccdir, _srdir
 
     cwd = pathlib.Path.cwd()
@@ -59,10 +59,10 @@ def repository():
         return _rdir.with_name(f"{_rdir.name}-stage{_stage}")
 
 def stage_repository():
-    if _srdir and _stage == 3:
+    if _stage == 3:
         return _srdir
     else:
-        return None
+        return _srdir.with_name(f"{_srdir.name}-stage{_stage}")
 
 def sources():
     return _srcs
@@ -79,9 +79,7 @@ def prepare():
     (bldroot() / "builddir").mkdir(parents = True, exist_ok = True)
     (bldroot() / "destdir").mkdir(parents = True, exist_ok = True)
     repository().mkdir(parents = True, exist_ok = True)
-    sroot = stage_repository()
-    if sroot:
-        sroot.mkdir(parents = True, exist_ok = True)
+    stage_repository().mkdir(parents = True, exist_ok = True)
 
     # prepare build root
     for f in [

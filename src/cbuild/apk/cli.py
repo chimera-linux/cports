@@ -50,13 +50,8 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
         for cr in srepos:
             rl = r.replace("@section@", cr)
             rpath = paths.repository() / rl
-            spath = paths.stage_repository()
-            if spath:
-                spath = spath / rl
-                ispath = f"/stagepkgs/{rl}"
-            else:
-                spath = rpath / ".stage"
-                ispath = f"/binpkgs/{rl}/.stage"
+            spath = paths.stage_repository() / rl
+            ispath = f"/stagepkgs/{rl}"
             # stage repo
             if (spath / arch / "APKINDEX.tar.gz").is_file() and use_stage:
                 ret.append("--repository")

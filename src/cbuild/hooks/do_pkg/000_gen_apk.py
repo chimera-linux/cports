@@ -180,12 +180,7 @@ set -e
         cbpath = binpath
     else:
         srepo = paths.stage_repository()
-        if srepo:
-            cbpath = pathlib.Path("/stagepkgs") / binpath.relative_to(srepo)
-        else:
-            cbpath = pathlib.Path("/binpkgs") / binpath.relative_to(
-                paths.repository()
-            )
+        cbpath = pathlib.Path("/stagepkgs") / binpath.relative_to(srepo)
 
     try:
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
@@ -222,20 +217,12 @@ def invoke(pkg):
     binpkg = f"{pkg.pkgname}-{pkg.pkgver}-r{pkg.pkgrel}.apk"
 
     stagebase = paths.stage_repository()
-    if not stagebase:
-        repobase = paths.repository() / pkg.rparent.repository
-    else:
-        repobase = stagebase / pkg.rparent.repository
+    repobase = stagebase / pkg.rparent.repository
 
     if pkg.pkgname.endswith("-dbg"):
-        repo = repobase / "debug"
+        repo = repobase / "debug" / arch
     else:
-        repo = repobase
-
-    if stagebase:
-        repo = repo / arch
-    else:
-        repo = repo / ".stage" / arch
+        repo = repobase / arch
 
     genpkg(pkg, repo, arch, binpkg)
 
@@ -264,10 +251,7 @@ def invoke(pkg):
         # subpkg repository
         srepo = repo
         if apkg == "dbg":
-            if stagebase:
-                srepo = repobase / "debug" / arch
-            else:
-                srepo = repobase / "debug/.stage" / arch
+            srepo = repobase / "debug" / arch
 
         # create a temporary subpkg instance
         # it's only complete enough to satisfy the generator

@@ -30,13 +30,13 @@ opt_keeptemp   = False
 opt_forcecheck = False
 opt_checkfail  = False
 opt_stage      = False
-opt_stagepath  = None
 opt_dryrun     = False
 opt_altrepo    = None
 opt_bldroot    = "bldroot"
 opt_pkgpath    = "packages"
 opt_srcpath    = "sources"
 opt_cchpath    = "cbuild_cache"
+opt_stagepath  = "pkgstage"
 opt_statusfd   = None
 opt_bulkfail   = False
 
@@ -282,6 +282,9 @@ def handle_options():
     if cmdline.repository_path:
         opt_pkgpath = cmdline.repository_path
 
+    if cmdline.stage_path:
+        opt_stagepath = cmdline.stage_path
+
     if cmdline.alt_repository:
         opt_altrepo = cmdline.alt_repository
 
@@ -318,9 +321,6 @@ def handle_options():
     if cmdline.stage:
         opt_stage = True
 
-    if cmdline.stage_path:
-        opt_stagepath = cmdline.stage_path
-
     if cmdline.dry_run:
         opt_dryrun = True
 
@@ -351,8 +351,8 @@ def init_late():
 
     # init paths early, modules rely on it
     paths.init(
-        cbpath, rtpath, opt_bldroot, mainrepo, altrepo, opt_srcpath,
-        opt_cchpath, opt_stagepath
+        cbpath, rtpath, opt_bldroot, mainrepo, altrepo, opt_stagepath,
+        opt_srcpath, opt_cchpath
     )
 
     # apk command

@@ -31,19 +31,12 @@ def _check_stage(sroot, stlist, arch, signkey):
         p = f.parent
         if p.name != arch:
             continue
-        p = p.parent
-        if p.name == ".stage":
-            # ignore regular stages if staging from separate root
-            if not stagep:
-                rs.append(p)
-        else:
-            rr.append(p)
-    if stagep:
-        for f in stagep.rglob("APKINDEX.tar.gz"):
-            p = f.parent
-            if p.name != arch:
-                continue
-            rs.append(p.parent)
+        rr.append(p.parent)
+    for f in stagep.rglob("APKINDEX.tar.gz"):
+        p = f.parent
+        if p.name != arch:
+            continue
+        rs.append(p.parent)
     rr.sort()
     rs.sort()
     for r in rs:
@@ -242,16 +235,11 @@ def _do_clear(arch, signkey, force):
     stagelist = []
 
     # fetch all pairs of stage repos + actual repos
-    if sroot:
-        for ri in sroot.rglob("APKINDEX.tar.gz"):
-            ri = ri.parent
-            if ri.name != arch:
-                continue
-            stagelist.append((ri, repop / ri.relative_to(sroot)))
-    else:
-        for d in repop.rglob(".stage"):
-            if (d / arch / "APKINDEX.tar.gz").is_file():
-                stagelist.append((d / arch, d.parent / arch))
+    for ri in sroot.rglob("APKINDEX.tar.gz"):
+        ri = ri.parent
+        if ri.name != arch:
+            continue
+        stagelist.append((ri, repop / ri.relative_to(sroot)))
 
     if not force and not check_stage(stagelist, arch, signkey):
         return
