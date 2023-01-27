@@ -27,8 +27,13 @@ def lock(path, pkg = None):
         fcntl.flock(fd, fcntl.LOCK_UN)
         os.close(fd)
 
-def repolock(arch):
-    rpath = paths.repository()
+def _archlock(rpath, arch):
     if not isinstance(arch, str):
         arch = arch.rparent.profile().arch
     return rpath / f"cbuild-{arch}.lock"
+
+def repolock(arch):
+    return _archlock(paths.repository(), arch)
+
+def stagelock(arch):
+    return _archlock(paths.stage_repository(), arch)

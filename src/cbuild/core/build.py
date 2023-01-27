@@ -134,7 +134,7 @@ def build(
     pkg._stage = {}
 
     # package gen + staging is a part of the same lock
-    with flock.lock(flock.repolock(pkg), pkg):
+    with flock.lock(flock.stagelock(pkg), pkg):
         # generate packages for subpackages
         for sp in pkg.subpkg_list:
             pkgsm.invoke(sp)

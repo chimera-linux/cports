@@ -275,4 +275,5 @@ def _do_clear(arch, signkey, force):
 
 def clear(arch, signkey, force = False):
     with flock.lock(flock.repolock(arch)):
-        _do_clear(arch, signkey, force)
+        with flock.lock(flock.stagelock(arch)):
+            _do_clear(arch, signkey, force)
