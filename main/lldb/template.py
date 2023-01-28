@@ -17,6 +17,7 @@ makedepends = [
     "libedit-devel", "libxml2-devel", "ncurses-devel", "python-devel",
     "linux-headers",
 ]
+depends = ["python-six"]
 pkgdesc = "LLVM debugger"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
