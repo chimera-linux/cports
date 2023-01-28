@@ -1,4 +1,4 @@
-From 128b8bf5e694c1e47a0393d56c4b49826b3265b7 Mon Sep 17 00:00:00 2001
+From 580d13cb19339eeebbc0b4d91b55377690f85797 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:34:40 +0100
 Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
@@ -11,10 +11,10 @@ Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
-index 1a59b3958..04ebe445e 100644
+index 3cb0eccd3..6ebc5238a 100644
 --- a/src/bootstrap/dist.rs
 +++ b/src/bootstrap/dist.rs
-@@ -501,7 +501,7 @@ impl Step for DebuggerScripts {
+@@ -510,7 +510,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let host = self.host;
          let sysroot = self.sysroot;
@@ -37,7 +37,7 @@ index b950cea79..559bfe3f1 100755
  # Run GDB with the additional arguments that load the pretty printers
  # Set the environment variable `RUST_GDB` to overwrite the call to a
 diff --git a/src/etc/rust-gdbgui b/src/etc/rust-gdbgui
-index 9744913b6..8722acdcc 100755
+index 590e488e6..d8347c7a5 100755
 --- a/src/etc/rust-gdbgui
 +++ b/src/etc/rust-gdbgui
 @@ -41,7 +41,7 @@ fi
@@ -65,5 +65,5 @@ index bce72f1ba..8abb01245 100755
  # Call LLDB with the commands added to the argument list
  exec "$lldb" --one-line-before-file "$script_import" --source-before-file "$commands_file" "$@"
 -- 
-2.38.1
+2.39.0
 

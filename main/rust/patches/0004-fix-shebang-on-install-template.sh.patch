@@ -1,4 +1,4 @@
-From f8b66293cac2483837815d749559c2462730986a Mon Sep 17 00:00:00 2001
+From 0d357ba1e490b14824e7c6c6e2cefe1246816389 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Mon, 20 Dec 2021 00:55:18 +0100
 Subject: [PATCH 04/11] fix shebang on install-template.sh
@@ -8,7 +8,7 @@ Subject: [PATCH 04/11] fix shebang on install-template.sh
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/tools/rust-installer/install-template.sh b/src/tools/rust-installer/install-template.sh
-index e68be8911..beaa90f7b 100644
+index 7790541a4..8b4245f66 100644
 --- a/src/tools/rust-installer/install-template.sh
 +++ b/src/tools/rust-installer/install-template.sh
 @@ -1,4 +1,4 @@
@@ -18,5 +18,5 @@ index e68be8911..beaa90f7b 100644
  # file at the top-level directory of this distribution and at
  # http://rust-lang.org/COPYRIGHT.
 -- 
-2.38.1
+2.39.0
 

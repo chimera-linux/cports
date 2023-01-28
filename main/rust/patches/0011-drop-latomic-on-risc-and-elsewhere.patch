@@ -1,32 +1,34 @@
-From 5d1ae60c70325640bfcac2218187427a5166f590 Mon Sep 17 00:00:00 2001
+From 7959c1d60b6d133b7fd5be8e6fb308ab4a8370e0 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Tue, 8 Nov 2022 15:23:25 +0100
 Subject: [PATCH 11/11] drop -latomic on risc and elsewhere
 
 ---
- compiler/rustc_llvm/build.rs | 15 ---------------
+ compiler/rustc_llvm/build.rs | 17 +----------------
  src/bootstrap/native.rs      | 13 -------------
- 2 files changed, 28 deletions(-)
+ 2 files changed, 1 insertion(+), 29 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 2bc3e6bd8..f075ec3a2 100644
+index 3e1ae2d51..e24de7e71 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -242,13 +242,6 @@ fn main() {
-         println!("cargo:rustc-link-lib=uuid");
-     } else if target.contains("netbsd") || target.contains("haiku") || target.contains("darwin") {
-         println!("cargo:rustc-link-lib=z");
--    } else if target.starts_with("arm")
+@@ -240,14 +240,7 @@ fn main() {
+         cmd.arg("--system-libs");
+     }
+ 
+-    if (target.starts_with("arm") && !target.contains("freebsd"))
 -        || target.starts_with("mips-")
 -        || target.starts_with("mipsel-")
 -        || target.starts_with("powerpc-")
 -    {
 -        // 32-bit targets need to link libatomic.
 -        println!("cargo:rustc-link-lib=atomic");
-     }
-     cmd.args(&components);
- 
-@@ -343,14 +336,6 @@ fn main() {
+-    } else if target.contains("windows-gnu") {
++    if target.contains("windows-gnu") {
+         println!("cargo:rustc-link-lib=shell32");
+         println!("cargo:rustc-link-lib=uuid");
+     } else if target.contains("netbsd") || target.contains("haiku") || target.contains("darwin") {
+@@ -346,14 +339,6 @@ fn main() {
          "stdc++"
      };
  
@@ -42,10 +44,10 @@ index 2bc3e6bd8..f075ec3a2 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/native.rs b/src/bootstrap/native.rs
-index fc3bfaf1b..3d44ab8e9 100644
+index f6c453ebe..8181c5787 100644
 --- a/src/bootstrap/native.rs
 +++ b/src/bootstrap/native.rs
-@@ -442,19 +442,6 @@ impl Step for Llvm {
+@@ -368,19 +368,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  
@@ -66,5 +68,5 @@ index fc3bfaf1b..3d44ab8e9 100644
              cfg.define("LLVM_USE_CRT_DEBUG", "MT");
              cfg.define("LLVM_USE_CRT_RELEASE", "MT");
 -- 
-2.38.1
+2.39.0
 
