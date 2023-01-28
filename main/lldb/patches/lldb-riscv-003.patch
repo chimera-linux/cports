@@ -15,11 +15,11 @@ Differential Revision: https://reviews.llvm.org/D130686
  1 file changed, 132 insertions(+)
  create mode 100644 lldb/source/Utility/RISCV_DWARF_Registers.h
 
-diff --git a/lldb/source/Utility/RISCV_DWARF_Registers.h b/lldb/source/Utility/RISCV_DWARF_Registers.h
+diff --git lldb/source/Utility/RISCV_DWARF_Registers.h lldb/source/Utility/RISCV_DWARF_Registers.h
 new file mode 100644
 index 0000000000000..d543bf0a6b5b1
 --- /dev/null
-+++ b/lldb/source/Utility/RISCV_DWARF_Registers.h
++++ lldb/source/Utility/RISCV_DWARF_Registers.h
 @@ -0,0 +1,132 @@
 +//===-- RISCV_DWARF_Registers.h ---------------------------------*- C++ -*-===//
 +//

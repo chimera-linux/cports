@@ -78,31 +78,9 @@ if self.stage > 0:
         "python-devel", "libedit-devel", "elftoolchain-devel",
         "libffi-devel", "linux-headers"
     ]
-    # for stage 2 onwards also enable debugger
-    # in stage 1 there is no point in wasting cpu time with it
-    # also enable LTO
-    if self.stage >= 2:
-        configure_args += [
-            "-DLLDB_ENABLE_LUA=NO", # maybe later
-            "-DLLDB_ENABLE_PYTHON=YES",
-            "-DLLDB_USE_SYSTEM_SIX=YES",
-        ]
-        # LTO broken on riscv for now
-        if self.profile().arch != "riscv64":
-            configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
-        hostmakedepends += ["swig", "python-devel"]
-        _enabled_projects += ["lldb"]
-        # also use llvm-bootstrap
-        if not self.profile().cross:
-            hostmakedepends += ["llvm-bootstrap"]
-            # set all the stuff that matters
-            configure_args += [
-                "-DCMAKE_C_COMPILER=/usr/lib/llvm-bootstrap/bin/clang",
-                "-DCMAKE_CXX_COMPILER=/usr/lib/llvm-bootstrap/bin/clang++",
-                "-DCMAKE_AR=/usr/lib/llvm-bootstrap/bin/llvm-ar",
-                "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
-                "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
-            ]
+    # enable LTO except on riscv where it's broken
+    if self.stage >= 2 and self.profile().arch != "riscv64":
+        configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
 else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",
@@ -146,7 +124,6 @@ def init_configure(self):
 
     self.configure_args.append("-DLLVM_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/llvm-tblgen"))
     self.configure_args.append("-DCLANG_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/clang-tblgen"))
-    self.configure_args.append("-DLLDB_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/lldb-tblgen"))
     self.configure_args.append("-DCLANG_PSEUDO_GEN=" + str(self.chroot_cwd / "build_host/bin/clang-pseudo-gen"))
     self.configure_args.append("-DCLANG_TIDY_CONFUSABLE_CHARS_GEN=" + str(self.chroot_cwd / "build_host/bin/clang-tidy-confusable-chars-gen"))
 
@@ -176,10 +153,6 @@ def pre_configure(self):
         with self.stamp("host_clang_tblgen") as s:
             s.check()
             make.Make(self, wrksrc = "build_host").invoke(["bin/clang-tblgen"])
-
-        with self.stamp("host_lldb_tblgen") as s:
-            s.check()
-            make.Make(self, wrksrc = "build_host").invoke(["bin/lldb-tblgen"])
 
         with self.stamp("host_confusable_gen") as s:
             s.check()
@@ -241,26 +214,9 @@ def post_install(self):
     if not (self.destdir / "usr/bin/ld").is_symlink():
         self.install_link("ld.lld", "usr/bin/ld")
 
-    pymod = None
-    # fix up python liblldb symlink so it points to versioned one
-    # unversioned one is in devel package so we cannot point to it
-    for f in (self.destdir / "usr/lib").glob("python3*"):
-        fp = f / "site-packages/lldb"
-        if not fp.is_dir():
-            continue
-        pymod = str(fp.relative_to(self.destdir))
-        for s in fp.glob("_lldb.*.so"):
-            if s.is_symlink():
-                s.unlink()
-                s.with_name("_lldb.so").symlink_to(
-                    f"../../../liblldb.so.{_llvmgen}"
-                )
-
     # python bytecode cache
     if self.stage > 0:
         python.precompile(self, "usr/share/scan-view")
-        if pymod:
-            python.precompile(self, pymod)
 
 @subpackage("clang-tools-extra-static")
 def _tools_extra_static(self):
@@ -534,26 +490,6 @@ def _libllvm(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
     return [f"usr/lib/libLLVM-{_llvmgen}*.so"]
-
-@subpackage("lldb", self.stage >= 2)
-def _lldb(self):
-    self.pkgdesc = f"{pkgdesc} (debugger)"
-    self.depends += ["python-six"]
-
-    return [
-        "usr/bin/*lldb*",
-        "usr/lib/liblldb*.so.*",
-        "usr/lib/python*",
-    ]
-
-@subpackage("lldb-devel", self.stage >= 2)
-def _lldb_devel(self):
-    self.pkgdesc = f"{pkgdesc} (debugger) (development files)"
-
-    return [
-        "usr/include/lldb",
-        "usr/lib/liblldb*.so"
-    ]
 
 @subpackage("lld")
 def _lld(self):

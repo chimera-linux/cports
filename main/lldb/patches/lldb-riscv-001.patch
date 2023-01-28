@@ -13,11 +13,11 @@ Differential Revision: https://reviews.llvm.org/D130899
  1 file changed, 139 insertions(+)
  create mode 100644 lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
 
-diff --git a/lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h b/lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
+diff --git lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
 new file mode 100644
 index 0000000000000..9acf181b4a565
 --- /dev/null
-+++ b/lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
++++ lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
 @@ -0,0 +1,139 @@
 +//===-- lldb-riscv-register-enums.h -----------------------------*- C++ -*-===//
 +//

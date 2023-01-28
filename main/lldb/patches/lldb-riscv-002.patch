@@ -33,10 +33,10 @@ Differential Revision: https://reviews.llvm.org/D130342
  create mode 100644 lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.h
  create mode 100644 lldb/source/Plugins/Process/Utility/RegisterInfos_riscv64.h
 
-diff --git a/lldb/source/Host/common/HostInfoBase.cpp b/lldb/source/Host/common/HostInfoBase.cpp
+diff --git lldb/source/Host/common/HostInfoBase.cpp lldb/source/Host/common/HostInfoBase.cpp
 index caed8a35de21e..e8088344422a7 100644
---- a/lldb/source/Host/common/HostInfoBase.cpp
-+++ b/lldb/source/Host/common/HostInfoBase.cpp
+--- lldb/source/Host/common/HostInfoBase.cpp
++++ lldb/source/Host/common/HostInfoBase.cpp
 @@ -339,6 +339,7 @@ void HostInfoBase::ComputeHostArchitectureSupport(ArchSpec &arch_32,
    case llvm::Triple::ppc64:
    case llvm::Triple::ppc64le:
@@ -45,10 +45,10 @@ index caed8a35de21e..e8088344422a7 100644
      arch_64.SetTriple(triple);
      arch_32.SetTriple(triple.get32BitArchVariant());
      break;
-diff --git a/lldb/source/Plugins/Process/Linux/CMakeLists.txt b/lldb/source/Plugins/Process/Linux/CMakeLists.txt
+diff --git lldb/source/Plugins/Process/Linux/CMakeLists.txt lldb/source/Plugins/Process/Linux/CMakeLists.txt
 index 36d5037b04862..b35c7de7c0028 100644
---- a/lldb/source/Plugins/Process/Linux/CMakeLists.txt
-+++ b/lldb/source/Plugins/Process/Linux/CMakeLists.txt
+--- lldb/source/Plugins/Process/Linux/CMakeLists.txt
++++ lldb/source/Plugins/Process/Linux/CMakeLists.txt
 @@ -9,6 +9,7 @@ add_lldb_library(lldbPluginProcessLinux
    NativeRegisterContextLinux_arm.cpp
    NativeRegisterContextLinux_arm64.cpp
@@ -57,11 +57,11 @@ index 36d5037b04862..b35c7de7c0028 100644
    NativeRegisterContextLinux_s390x.cpp
    NativeRegisterContextLinux_x86_64.cpp
    NativeThreadLinux.cpp
-diff --git a/lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.cpp b/lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.cpp
+diff --git lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.cpp lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.cpp
 new file mode 100644
 index 0000000000000..135254962af05
 --- /dev/null
-+++ b/lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.cpp
++++ lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.cpp
 @@ -0,0 +1,343 @@
 +//===-- NativeRegisterContextLinux_riscv64.cpp ----------------------------===//
 +//
@@ -406,11 +406,11 @@ index 0000000000000..135254962af05
 +}
 +
 +#endif // defined (__riscv) && __riscv_xlen == 64
-diff --git a/lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.h b/lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.h
+diff --git lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.h lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.h
 new file mode 100644
 index 0000000000000..41b4e2573add9
 --- /dev/null
-+++ b/lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.h
++++ lldb/source/Plugins/Process/Linux/NativeRegisterContextLinux_riscv64.h
 @@ -0,0 +1,92 @@
 +//===-- NativeRegisterContextLinux_riscv64.h -------------------*- C++ -*-===//
 +//
@@ -504,10 +504,10 @@ index 0000000000000..41b4e2573add9
 +#endif // #ifndef lldb_NativeRegisterContextLinux_riscv64_h
 +
 +#endif // defined(__riscv) && __riscv_xlen == 64
-diff --git a/lldb/source/Plugins/Process/Utility/CMakeLists.txt b/lldb/source/Plugins/Process/Utility/CMakeLists.txt
+diff --git lldb/source/Plugins/Process/Utility/CMakeLists.txt lldb/source/Plugins/Process/Utility/CMakeLists.txt
 index 2a06af008dcec..c300245cf290d 100644
---- a/lldb/source/Plugins/Process/Utility/CMakeLists.txt
-+++ b/lldb/source/Plugins/Process/Utility/CMakeLists.txt
+--- lldb/source/Plugins/Process/Utility/CMakeLists.txt
++++ lldb/source/Plugins/Process/Utility/CMakeLists.txt
 @@ -41,6 +41,7 @@ add_lldb_library(lldbPluginProcessUtility
    RegisterContextPOSIX_mips64.cpp
    RegisterContextPOSIX_powerpc.cpp
@@ -524,11 +524,11 @@ index 2a06af008dcec..c300245cf290d 100644
    StopInfoMachException.cpp
    ThreadMemory.cpp
  
-diff --git a/lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.cpp b/lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.cpp
+diff --git lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.cpp lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.cpp
 new file mode 100644
 index 0000000000000..1834a94dc0260
 --- /dev/null
-+++ b/lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.cpp
++++ lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.cpp
 @@ -0,0 +1,82 @@
 +//===-- RegisterContextPOSIX_riscv64.cpp ------------------------*- C++ -*-===//
 +//
@@ -612,11 +612,11 @@ index 0000000000000..1834a94dc0260
 +  return m_register_info_up->GetRegisterSetFromRegisterIndex(reg) ==
 +         RegisterInfoPOSIX_riscv64::FPRegSet;
 +}
-diff --git a/lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.h b/lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.h
+diff --git lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.h lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.h
 new file mode 100644
 index 0000000000000..2431ed6ab8c6d
 --- /dev/null
-+++ b/lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.h
++++ lldb/source/Plugins/Process/Utility/RegisterContextPOSIX_riscv64.h
 @@ -0,0 +1,63 @@
 +//===-- RegisterContextPOSIX_riscv64.h --------------------------*- C++ -*-===//
 +//
@@ -681,11 +681,11 @@ index 0000000000000..2431ed6ab8c6d
 +};
 +
 +#endif // LLDB_SOURCE_PLUGINS_PROCESS_UTILITY_REGISTERCONTEXTPOSIX_RISCV64_H
-diff --git a/lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.cpp b/lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.cpp
+diff --git lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.cpp lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.cpp
 new file mode 100644
 index 0000000000000..06c4e8ec68537
 --- /dev/null
-+++ b/lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.cpp
++++ lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.cpp
 @@ -0,0 +1,141 @@
 +//===-- RegisterInfoPOSIX_riscv64.cpp -------------------------------------===//
 +//
@@ -828,11 +828,11 @@ index 0000000000000..06c4e8ec68537
 +    return &g_reg_sets_riscv64[set_index];
 +  return nullptr;
 +}
-diff --git a/lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.h b/lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.h
+diff --git lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.h lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.h
 new file mode 100644
 index 0000000000000..0e07b910f8559
 --- /dev/null
-+++ b/lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.h
++++ lldb/source/Plugins/Process/Utility/RegisterInfoPOSIX_riscv64.h
 @@ -0,0 +1,61 @@
 +//===-- RegisterInfoPOSIX_riscv64.h -----------------------------*- C++ -*-===//
 +//
@@ -895,11 +895,11 @@ index 0000000000000..0e07b910f8559
 +};
 +
 +#endif
-diff --git a/lldb/source/Plugins/Process/Utility/RegisterInfos_riscv64.h b/lldb/source/Plugins/Process/Utility/RegisterInfos_riscv64.h
+diff --git lldb/source/Plugins/Process/Utility/RegisterInfos_riscv64.h lldb/source/Plugins/Process/Utility/RegisterInfos_riscv64.h
 new file mode 100644
 index 0000000000000..ac1ec087e3760
 --- /dev/null
-+++ b/lldb/source/Plugins/Process/Utility/RegisterInfos_riscv64.h
++++ lldb/source/Plugins/Process/Utility/RegisterInfos_riscv64.h
 @@ -0,0 +1,135 @@
 +//===-- RegisterInfos_riscv64.h ---------------------------------*- C++ -*-===//
 +//
@@ -1036,10 +1036,10 @@ index 0000000000000..ac1ec087e3760
 +};
 +
 +#endif // DECLARE_REGISTER_INFOS_RISCV64_STRUCT
-diff --git a/lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h b/lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
+diff --git lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
 index 9acf181b4a565..820bf6aaf9888 100644
---- a/lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
-+++ b/lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
+--- lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
++++ lldb/source/Plugins/Process/Utility/lldb-riscv-register-enums.h
 @@ -13,8 +13,10 @@
  
  // Internal codes for all riscv registers.

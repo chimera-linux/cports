@@ -7,10 +7,10 @@ Subject: [PATCH 19/19] lldb: musl fixes
  lldb/source/Plugins/Process/Linux/Procfs.h | 22 ++++++----------------
  1 file changed, 6 insertions(+), 16 deletions(-)
 
-diff --git a/lldb/source/Plugins/Process/Linux/Procfs.h b/lldb/source/Plugins/Process/Linux/Procfs.h
+diff --git lldb/source/Plugins/Process/Linux/Procfs.h lldb/source/Plugins/Process/Linux/Procfs.h
 index 3a0684320..933fb111e 100644
---- a/lldb/source/Plugins/Process/Linux/Procfs.h
-+++ b/lldb/source/Plugins/Process/Linux/Procfs.h
+--- lldb/source/Plugins/Process/Linux/Procfs.h
++++ lldb/source/Plugins/Process/Linux/Procfs.h
 @@ -17,23 +17,13 @@
  
  #include <vector>
