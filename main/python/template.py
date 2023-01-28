@@ -1,7 +1,7 @@
 # update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
 _majver = "3.11"
-pkgver = f"{_majver}.0"
+pkgver = f"{_majver}.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -37,15 +37,18 @@ makedepends = [
     "linux-headers", "bluez-headers",
 ]
 checkdepends = ["ca-certificates", "iana-etc"]
-depends = [f"python-version-meta={pkgver}-r{pkgrel}", "ca-certificates"]
-install_if = [f"python-version-meta={pkgver}-r{pkgrel}"]
+depends = [f"base-python{_majver}={pkgver}-r{pkgrel}", "ca-certificates"]
+provides = [f"python{_majver}={pkgver}-r{pkgrel}"]
+install_if = [f"base-python{_majver}={pkgver}-r{pkgrel}"]
 pkgdesc = "Python programming language"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "a57dc82d77358617ba65b9841cee1e3b441f386c3789ddc0676eca077f2951c3"
+sha256 = "85879192f2cffd56cb16c092905949ebf3e5e394b7f764723529637901dfb58f"
 # FIXME int cfi; cfi ftbfs, int fails ctypes test
+# we cannot enable ubsan stuff because there is known UB where tests
+# are just skipped and so on, so be on the safe side for the time being
 hardening = ["vis", "!cfi", "!int"]
 
 env = {
@@ -59,7 +62,7 @@ env = {
 
 if self.profile().cross:
     hostmakedepends += ["python"]
-    configure_args += ["--with-build-python=python3.11"]
+    configure_args += [f"--with-build-python=python{_majver}"]
 
 def init_configure(self):
     bigend = "yes" if (self.profile().endian == "big") else "no"
@@ -119,9 +122,9 @@ def _devel(self):
 
     return install
 
-@subpackage("python-version-meta")
+@subpackage(f"base-python{_majver}")
 def _ver(self):
-    self.pkgdesc = f"{pkgdesc} (version package)"
+    self.pkgdesc = f"{pkgdesc} (recommends package)"
     self.build_style = "meta"
 
     return []

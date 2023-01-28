@@ -20,7 +20,8 @@ def invoke(pkg):
             pkg.error("multiple python versions in package")
 
         pyver = pver.name.removeprefix("python")
-    else:
+
+    if not pyver:
         return
 
     if pyver != gpyver:
@@ -28,8 +29,8 @@ def invoke(pkg):
 
     for i in range(0, len(pkg.depends)):
         if pkg.depends[i] == "python":
-            pkg.depends[i] = f"python~{pyver}"
+            pkg.depends[i] = f"python{pyver}~{pyver}"
             break
     else:
         # we have python stuff, add implied dependency
-        pkg.depends.append(f"python-version-meta~{pyver}")
+        pkg.depends.append(f"base-python{pyver}~{pyver}")
