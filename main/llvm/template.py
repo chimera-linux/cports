@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "15.0.6"
+pkgver = "15.0.7"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -44,7 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "9d53ad04dc60cb7b30e810faf64c5ab8157dadef46c8766f67f286238256ff92"
+sha256 = "8b5fcb24b4128cf04df1b0b9410ce8b1a729cb3c544e6da885d234280dedeac6"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -79,8 +79,20 @@ if self.stage > 0:
         "libffi-devel", "linux-headers"
     ]
     # enable LTO except on riscv where it's broken
-    if self.stage >= 2 and self.profile().arch != "riscv64":
-        configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
+    if self.stage >= 2:
+        if self.profile().arch != "riscv64":
+            configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
+        # also use llvm-bootstrap
+        if not self.profile().cross:
+            hostmakedepends += ["llvm-bootstrap"]
+            # set all the stuff that matters
+            configure_args += [
+                "-DCMAKE_C_COMPILER=/usr/lib/llvm-bootstrap/bin/clang",
+                "-DCMAKE_CXX_COMPILER=/usr/lib/llvm-bootstrap/bin/clang++",
+                "-DCMAKE_AR=/usr/lib/llvm-bootstrap/bin/llvm-ar",
+                "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
+                "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
+            ]
 else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",

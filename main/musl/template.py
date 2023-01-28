@@ -1,7 +1,7 @@
 pkgname = "musl"
 pkgver = "1.2.3"
 pkgrel = 0
-_scudo_ver = "15.0.6"
+_scudo_ver = "15.0.7"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
@@ -17,7 +17,7 @@ source = [
 ]
 sha256 = [
     "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4",
-    "b46f5b5b02402ef3acd92e7adf2d551e0b2a8ed19fce66800472dc0ad2a81fbc"
+    "353832c66cce60931ea0413b3c071faad59eefa70d02c97daa8978b15e4b25b7"
 ]
 # scp makes it segfault
 hardening = ["!scp"]
