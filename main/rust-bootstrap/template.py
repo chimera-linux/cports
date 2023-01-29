@@ -1,5 +1,5 @@
 pkgname = "rust-bootstrap"
-pkgver = "1.66.0"
+pkgver = "1.67.0"
 pkgrel = 0
 # satisfy revdeps
 makedepends = ["zlib", "ncurses-libs"]
@@ -19,23 +19,23 @@ options = ["!strip"]
 match self.profile().arch:
     case "aarch64":
         sha256 = [
-            "0224bb80495ddb86e77db084c8425e2dd7153d6680709d47666fb41b7dabbbcd",
-            "ac33f13bf08f6165cdbade253096a9d8d41b5d56bac2b6b74cce89111721d79f",
+            "b28df0b866452d92c2b4e0473c4b14485b6135450a5a40ff8d20b59f38a73f2e",
+            "466aa4f5d04f829ad876a01d1a864f75f668bce6f55f3c1321951a3e655f1906",
         ]
     case "ppc64le":
         sha256 = [
-            "7c47dfac7d552c4683ab7cb28975593ca047065cafddc0e3fd97d56e734ac4fc",
-            "2d3eb8b9cd99b768199b2a3bcce471a162860f0ca12e8c24efb9d3b61771e8f4",
+            "7cf7dda7b6a0a7c5c3360a778489257e7e8f0914feb8bd8763f8171dffaa9d9a",
+            "2d7f80a60b9f3a399ba708782019ba2bd3df8e98ea3c846ce57dee172364d432",
         ]
     case "riscv64":
         sha256 = [
-            "919733032cf83153fefa9771edaf2035ac9048fd2d998e3be2862a16b52c174b",
-            "78b0d9db21c0a0118507b142c09e705c2129c1b599a95146d83bc95dd12666c7",
+            "eb7cbf08fdcf5d097983f4449b0f86bd59e503cee2e21cf21a9cb11ee2e8dab1",
+            "35c304e7ba96b8245050ae40b8799d747e30f40c87108004078e71ee4c658006",
         ]
     case "x86_64":
         sha256 = [
-            "069ec95ffca0a7ac671acde54ee34ea83382e7acfa322c1860f67c217017f45b",
-            "076ccd4a1bc1a6d261f51d409da1b4247418b4d10502602ec5361125c4ea9704",
+            "610a6df0d9f23e0cd1fc9cfcdb67479d8518d422527255205c9699240ba8339e",
+            "d010e4bd8c9acc568391ad89e43e14a863ce4a550ff600a96b34f95f6b365adf",
         ]
     case _:
         broken = f"not yet built for {self.profile().arch}"
