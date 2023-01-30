@@ -53,7 +53,7 @@ def _get_harden(prof, hlist):
 
     # perform dependency checks *before* disabling hardenings per-arch
     if hdict["cfi"]:
-        if not hdict["lto"]:
+        if not hdict["lto"] and archn != "riscv64":
             raise errors.CbuildException(f"CFI requires LTO")
         if not hdict["vis"]:
             raise errors.CbuildException(f"CFI requires hidden visibility")
