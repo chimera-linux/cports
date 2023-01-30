@@ -20,7 +20,7 @@ def do_install(self):
 
     # /usr dirs
     for d in [
-        "local", "local/bin", "local/sbin", "local/include", "local/lib",
+        "local", "local/bin", "local/include", "local/lib",
         "bin", "include", "lib", "src"
     ]:
         self.install_dir("usr/" + d)
@@ -67,10 +67,12 @@ def do_install(self):
     # Symlink sbin paths to /usr/bin
     self.install_link("usr/bin", "sbin")
     self.install_link("bin", "usr/sbin")
+    self.install_link("bin", "usr/local/sbin")
 
     for f in [
-        "profile", "hosts", "issue", "subuid", "subgid",
-        "fstab", "passwd", "group", "securetty", "nsswitch.conf"
+        "chimera-release", "profile", "profile.path", "hosts", "issue",
+        "subuid", "subgid", "fstab", "passwd", "group", "securetty",
+        "nsswitch.conf", "os-release",
     ]:
         self.install_file(self.files_path / "etc" / f, "etc")
 
@@ -89,7 +91,6 @@ def do_install(self):
         self.install_file(f, "usr/share/licenses")
 
     self.install_bin(self.files_path / "lsb_release")
-    self.install_file(self.files_path / "os-release", "etc")
 
     # Create /proc/self/mounts -> /etc/mtab symlink
     self.install_link("/proc/self/mounts", "etc/mtab")
