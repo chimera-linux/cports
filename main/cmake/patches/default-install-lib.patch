@@ -1,0 +1,34 @@
+From 377a804a248bfb909a5f9c079781c165c30f9507 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Mon, 30 Jan 2023 23:34:13 +0100
+Subject: [PATCH] use lib instead of lib64 for default install path
+
+---
+ Modules/GNUInstallDirs.cmake | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Modules/GNUInstallDirs.cmake b/Modules/GNUInstallDirs.cmake
+index 9796854..4e9c6e5 100644
+--- a/Modules/GNUInstallDirs.cmake
++++ b/Modules/GNUInstallDirs.cmake
+@@ -266,6 +266,8 @@ if(NOT DEFINED CMAKE_INSTALL_LIBDIR OR (_libdir_set
+     if(NOT __system_type_for_install)
+       if (EXISTS "/etc/alpine-release")
+         set(__system_type_for_install "alpine")
++      elseif (EXISTS "/etc/chimera-release")
++        set(__system_type_for_install "chimera")
+       elseif (EXISTS "/etc/arch-release")
+         set(__system_type_for_install "arch linux")
+       elseif (EXISTS "/etc/debian_version")
+@@ -284,7 +286,7 @@ if(NOT DEFINED CMAKE_INSTALL_LIBDIR OR (_libdir_set
+         endif()
+       endif()
+     elseif(NOT DEFINED __system_type_for_install)
+-      # not debian, alpine, arch, or conda so rely on CMAKE_SIZEOF_VOID_P:
++      # not debian, alpine, arch, chimera or conda so rely on CMAKE_SIZEOF_VOID_P:
+       if("${CMAKE_SIZEOF_VOID_P}" EQUAL "8")
+         set(_LIBDIR_DEFAULT "lib64")
+         if(DEFINED _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX)
+-- 
+2.39.0
+
