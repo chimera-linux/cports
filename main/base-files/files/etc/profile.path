@@ -48,7 +48,11 @@ unset p
 IFS="$_OLD_IFS"
 
 if [ -z "$_HAVE_BIN" ]; then
-    _NEW_PATH="$_NEW_PATH:/usr/local/bin:/usr/bin"
+    if [ -z "$_HAVE_LBIN" ]; then
+        _NEW_PATH="$_NEW_PATH:/usr/local/bin:/usr/bin"
+    else
+        _NEW_PATH="$_NEW_PATH:/usr/bin"
+    fi
 fi
 
 export PATH="${_NEW_PATH#:}"
