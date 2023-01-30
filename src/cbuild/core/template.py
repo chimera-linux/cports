@@ -1646,6 +1646,7 @@ def from_module(m, ret):
     # FIXME: remove this when the toolchain is fixed
     if ret.profile().arch == "riscv64":
         ropts["lto"] = False
+        ropts["cfi"] = False
 
     # translate the lto value into hardening as well
     if ropts["lto"]:
