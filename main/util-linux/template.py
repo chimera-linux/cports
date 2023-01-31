@@ -7,13 +7,15 @@ configure_args = [
     "--enable-libuuid",
     "--enable-libblkid",
     "--enable-fsck",
-    "--enable-vipw",
-    "--enable-newgrp",
-    "--enable-chfn-chsh",
     "--enable-write",
     "--enable-fs-paths-extra=/usr/sbin:/usr/bin",
     "--disable-rpath",
+    "--disable-login",
     "--disable-makeinstall-chown",
+    "--disable-chfn-chsh",
+    "--disable-nologin",
+    "--disable-sulogin",
+    "--disable-su",
     "--with-systemdsystemunitdir=no",
     "--without-udev",
     "--without-python",
@@ -36,11 +38,7 @@ source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.
 sha256 = "60492a19b44e6cf9a3ddff68325b333b8b52b6c59ce3ebd6a0ecaa4c5117e84f"
 tool_flags = {"CFLAGS": ["-D_DIRENT_HAVE_D_TYPE"]}
 suid_files = [
-    "usr/bin/chfn",
-    "usr/bin/chsh",
     "usr/bin/mount",
-    "usr/bin/newgrp",
-    "usr/bin/su",
     "usr/bin/umount",
 ]
 # checkdepends are missing
@@ -60,23 +58,6 @@ def post_install(self):
     # fix permissions
     for f in suid_files:
         (self.destdir / f).chmod(0o4755)
-
-    # these should be setgid and not setuid
-    for f in ["wall", "write"]:
-        (self.destdir / "usr/bin" / f).chmod(0o2755)
-
-    # PAM login utils
-    self.install_file(
-        self.files_path / "login.pam", "etc/pam.d", name = "login"
-    )
-    self.install_file(self.files_path / "su.pam", "etc/pam.d", name = "su")
-    self.install_file(self.files_path / "su.pam", "etc/pam.d", name = "su-l")
-    self.install_file(
-        self.files_path / "common.pam", "etc/pam.d", name = "chfn"
-    )
-    self.install_file(
-        self.files_path / "common.pam", "etc/pam.d", name = "chsh"
-    )
 
     # conflicts with chimerautils
     for f in [

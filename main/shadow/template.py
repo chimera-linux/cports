@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared", "--disable-static", "--with-libpam", "--with-acl",
-    "--with-attr", "--without-su", "--without-selinux", "--disable-nls",
+    "--with-attr", "--without-selinux", "--disable-nls",
     "--enable-subordinate-ids", "--disable-account-tools-setuid"
 ]
 make_cmd = "gmake"
@@ -21,12 +21,16 @@ source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"
 sha256 = "9afe245d79a2e7caac5f1ed62519b17416b057ec89df316df1c3935502f9dd2c"
 suid_files = [
     "usr/bin/chage",
+    "usr/bin/chfn",
+    "usr/bin/chsh",
     "usr/bin/expiry",
     "usr/bin/gpasswd",
     "usr/bin/newgidmap",
     "usr/bin/newuidmap",
+    "usr/bin/newgrp",
     "usr/bin/passwd",
     "usr/bin/sg",
+    "usr/bin/su",
 ]
 hardening = ["!cfi"] # TODO
 # messes with filesystem
@@ -40,11 +44,15 @@ def pre_install(self):
 def post_install(self):
     self.rm(self.destdir / "usr/sbin", force = True)
 
+    # install sulogin which is noinst
+    self.install_bin("src/sulogin")
+    self.install_man("man/man8/sulogin.8")
+
     # do not install pam files supplied with shadow
     self.rm(self.destdir / "etc/pam.d", recursive = True, force = True)
 
     # install our own pam files
-    for f in ["chage", "passwd"]:
+    for f in ["chage", "chfn", "chsh", "login", "su", "passwd"]:
         self.install_file(self.files_path / f"{f}.pam", "etc/pam.d", name = f)
 
     for f in [
@@ -54,10 +62,6 @@ def post_install(self):
         self.install_file(
             self.destdir / "etc/pam.d/chage", f"etc/pam.d", name = f
         )
-
-    # default login.defs
-    self.rm(self.destdir / "etc/login.defs")
-    self.install_file(self.files_path / "login.defs", "etc")
 
     # defaults for useradd
     self.install_file(
@@ -70,23 +74,8 @@ def post_install(self):
         name = "shadow"
     )
 
-    # remove utilities provided by util-linux and others
-    for f in [
-        "groups", "sg", "login", "chsh", "chfn", "nologin", "logoutd",
-        "vipw", "vigr"
-    ]:
-        self.rm(self.destdir / f"usr/bin/{f}")
-
-    self.mv(self.destdir / "usr/bin/newgrp", self.destdir / "usr/bin/sg")
-
-    for f in (self.destdir / "usr/share/man").rglob("*.[18]"):
-        match f.name:
-            case "chsh.1" | "chfn.1" | "login.1" | "newgrp.1" | "su.1" | \
-                 "groups.1":
-                f.unlink()
-            case "logoutd.8" | "nologin.8" | "vigr.8" | "vipw.8":
-                f.unlink()
-            case _:
-                pass
+    # chimerautils
+    self.rm(self.destdir / "usr/bin/groups")
+    self.rm(self.destdir / "usr/share/man/man1/groups.1")
 
     self.install_license(self.files_path / "LICENSE")
