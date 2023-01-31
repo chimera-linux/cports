@@ -16,6 +16,12 @@ configure_args = [
     "--disable-nologin",
     "--disable-sulogin",
     "--disable-su",
+    # chimerautils conflicts
+    "--disable-kill",
+    "--disable-mesg",
+    "--disable-ul",
+    "--disable-wall",
+    "--disable-write",
     "--with-systemdsystemunitdir=no",
     "--without-udev",
     "--without-python",
@@ -61,8 +67,7 @@ def post_install(self):
 
     # conflicts with chimerautils
     for f in [
-        "col", "colrm", "column", "hexdump", "kill", "look",
-        "mesg", "renice", "rev", "ul", "wall", "write",
+        "col", "colrm", "column", "hexdump", "look", "renice", "rev",
     ]:
         self.rm(self.destdir / f"usr/bin/{f}")
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1", force = True)
@@ -79,9 +84,6 @@ def post_install(self):
             "share/bash-completion/completions/getopt",
             "share/bash-completion/completions/util-linux-getopt"
         )
-    # conflicts with less
-    self.rm(self.destdir / "usr/bin/more")
-    self.rm(self.destdir / "usr/share/man/man1/more.1")
 
     # service
     self.install_service(self.files_path / "uuidd")
