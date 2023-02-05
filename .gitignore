@@ -5,6 +5,7 @@ __pycache__
 /cbuild_cache
 sources*
 packages*
+pkgstage*
 etc/keys
 etc/config.ini
 void-*.tar.xz
