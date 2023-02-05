@@ -185,7 +185,7 @@ targets may be promoted at a later point.
 **Untiered targets:**
 
 * `ppc64`
-* `ppc``
+* `ppc`
 
 <a id="quality_requirements"></a>
 ## Quality Requirements
