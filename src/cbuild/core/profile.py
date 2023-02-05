@@ -14,13 +14,13 @@ hardening_fields = {
     "vis": False, # hidden visibility, needed and implied by cfi
     "cfi": False, # control flow integrity
     "bti": False, # aarch64 bti, need dynlinker support and world rebuild
+    "pac": False, # aarch64 pointer authentication, see above
     "cet": False, # intel CET on x86, needs musl support and world rebuild
     "sst": False, # safestack, not for DSOs
     "pie": True,
     "ssp": True, # this should really be compiler default
     "scp": True, # stack-clash-protection
     "int": True, # ubsan integer hardening
-    "pac": True, # aarch64 pointer authentication
     # options affecting enabled hardening types
     "cfi-genptr": False, # loosen pointer type checks
     "cfi-icall": True,   # indirect call checks
