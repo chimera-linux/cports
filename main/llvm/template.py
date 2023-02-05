@@ -507,6 +507,7 @@ def _libllvm(self):
 @subpackage("lld")
 def _lld(self):
     self.pkgdesc = f"{pkgdesc} (linker)"
+    self.install_if = [f"clang={pkgver}-r{pkgrel}"]
 
     return [
         "usr/bin/ld",
