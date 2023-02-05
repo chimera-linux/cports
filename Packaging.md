@@ -178,11 +178,11 @@ targets may be promoted at a later point.
 
 * `riscv64`
 
-**Tier4 targets:**
+**Tier 4 targets:**
 
 * Currently none.
 
-** Untiered targets:**
+**Untiered targets:**
 
 * `ppc64`
 * `ppc``
