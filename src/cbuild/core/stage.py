@@ -255,10 +255,12 @@ def _do_clear(arch, signkey, force):
         # just migrate if possible, easier this way
         if not ad.is_dir():
             log.out(f"Migrating stage from {d} to {ad}...")
+            ad.parent.mkdir(parents = True, exist_ok = True)
             d.rename(ad)
             continue
         # else merge the directories
         log.out(f"Merging stage from {d} to {ad}...")
+        ad.mkdir(parents = True, exist_ok = True)
         for f in d.glob("*.apk"):
             f.rename(ad / f.name)
         # clear the stage index, we won't need it
