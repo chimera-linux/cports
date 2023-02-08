@@ -10,7 +10,6 @@ import sys
 
 # recognized hardening options
 hardening_fields = {
-    "lto": False, # do not use directly, filled in by template
     "vis": False, # hidden visibility, needed and implied by cfi
     "cfi": False, # control flow integrity
     "bti": False, # aarch64 bti, need dynlinker support and world rebuild
@@ -36,7 +35,7 @@ supported_fields = {
     "bti": set(["aarch64"]),
 }
 
-def _get_harden(prof, hlist):
+def _get_harden(prof, hlist, opts, stage):
     hdict = dict(hardening_fields)
 
     for fl in hlist:
@@ -53,7 +52,7 @@ def _get_harden(prof, hlist):
 
     # perform dependency checks *before* disabling hardenings per-arch
     if hdict["cfi"]:
-        if not hdict["lto"] and archn != "riscv64":
+        if not opts["lto"]:
             raise errors.CbuildException(f"CFI requires LTO")
         if not hdict["vis"]:
             raise errors.CbuildException(f"CFI requires hidden visibility")
@@ -67,9 +66,10 @@ def _get_harden(prof, hlist):
 
 # stuff that should go in both regular and linker flags, as it
 # involves linking an extra runtime component (from compiler-rt)
-def _get_archflags(prof, hard):
+def _get_archflags(prof, hard, opts, stage):
     sflags = []
     ubsan = False
+    lto = opts["lto"] and prof._has_lto(stage)
 
     if hard["vis"]:
         sflags.append("-fvisibility=hidden")
@@ -85,7 +85,7 @@ def _get_archflags(prof, hard):
     # the existing compiler-rt implementation (unstable abi and so on)
     #
     # that means we stick with local cfi for hidden symbols for now
-    if hard["cfi"]:
+    if lto and hard["cfi"]:
         sflags.append("-fsanitize=cfi")
         if not hard["cfi-icall"]:
             sflags.append("-fno-sanitize=cfi-icall")
@@ -101,11 +101,17 @@ def _get_archflags(prof, hard):
     if ubsan:
         sflags.append("-fno-sanitize-recover")
 
+    if lto:
+        if opts["ltofull"]:
+            sflags.append("-flto")
+        else:
+            sflags.append("-flto=thin")
+
     return sflags
 
-def _get_hcflags(prof, tharden):
+def _get_hcflags(prof, tharden, opts, stage):
     hflags = []
-    hard = _get_harden(prof, tharden)
+    hard = _get_harden(prof, tharden, opts, stage)
 
     if not hard["pie"]:
         hflags.append("-fno-PIE")
@@ -123,18 +129,18 @@ def _get_hcflags(prof, tharden):
     elif hard["bti"]:
         hflags.append("-mbranch-protection=bti")
 
-    hflags += _get_archflags(prof, hard)
+    hflags += _get_archflags(prof, hard, opts, stage)
 
     return hflags
 
-def _get_hldflags(prof, tharden):
+def _get_hldflags(prof, tharden, opts, stage):
     hflags = []
-    hard = _get_harden(prof, tharden)
+    hard = _get_harden(prof, tharden, opts, stage)
 
     if not hard["pie"]:
         hflags.append("-no-pie")
 
-    hflags += _get_archflags(prof, hard)
+    hflags += _get_archflags(prof, hard, opts, stage)
 
     return hflags
 
@@ -160,8 +166,8 @@ def _flags_ret(it, shell):
     else:
         return list(it)
 
-def _get_gencflags(self, name, extra_flags, debug, hardening, shell):
-    hflags = _get_hcflags(self, hardening)
+def _get_gencflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
+    hflags = _get_hcflags(self, hardening, opts, stage)
 
     # bootstrap
     if not self._triplet:
@@ -176,8 +182,8 @@ def _get_gencflags(self, name, extra_flags, debug, hardening, shell):
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
-def _get_ldflags(self, name, extra_flags, debug, hardening, shell):
-    hflags = _get_hldflags(self, hardening)
+def _get_ldflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
+    hflags = _get_hldflags(self, hardening, opts, stage)
 
     # bootstrap
     if not self._triplet:
@@ -192,7 +198,7 @@ def _get_ldflags(self, name, extra_flags, debug, hardening, shell):
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
-def _get_rustflags(self, name, extra_flags, debug, hardening, shell):
+def _get_rustflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
     if self.cross:
         bflags = [
             "--sysroot", self.sysroot / "usr",
@@ -212,8 +218,8 @@ _flag_handlers = {
     "RUSTFLAGS": _get_rustflags,
 }
 
-def has_hardening(prof, hname, hardening = []):
-    return _get_harden(prof, hardening)[hname]
+def has_hardening(prof, hname, hardening, opts, stage):
+    return _get_harden(prof, hardening, opts, stage)[hname]
 
 _flag_types = list(_flag_handlers.keys())
 
@@ -312,15 +318,24 @@ class Profile:
 
         return pathlib.Path("/usr") / self.triplet
 
-    def get_tool_flags(
-        self, name, extra_flags = [], debug = -1, hardening = [], shell = False
+    def _get_tool_flags(
+        self, name, extra_flags, debug, hardening, opts, stage, shell
     ):
         return _flag_handlers[name](
-            self, name, extra_flags, debug, hardening, shell
+            self, name, extra_flags, debug, hardening, opts, stage, shell
         )
 
     def _get_supported_tool_flags(self):
         return _flag_types
+
+    def _has_lto(self, stage):
+        # FIXME: enable when this is fixed in clang
+        if self._arch == "riscv64":
+            return False
+
+        # it would be problematic to lto stage 0,
+        # and in stage 1 it would just waste time
+        return stage >= 2
 
     @property
     def wordsize(self):

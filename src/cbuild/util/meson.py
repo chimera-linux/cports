@@ -71,7 +71,7 @@ def configure(
     eenv.update(pkg.configure_env)
     eenv.update(env)
 
-    if pkg.stage >= 2 and pkg.options["lto"]:
+    if pkg.has_lto():
         cargs.append("-Db_lto=true")
         # mode, thin is default for us
         if pkg.options["ltofull"]:

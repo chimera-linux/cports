@@ -1878,8 +1878,6 @@ class Profile:
     cross = ...
     repos = ...
     goarch = ...
-
-    def get_tool_flags(self, name, extra_flags = [], debug = -1, hardening = [], shell = False)
 ```
 
 The properties have the following meanings:
@@ -1899,11 +1897,6 @@ For the `bootstrap` profile, `triplet` and `short_triplet` are `None`.
 
 The `sysroot` refers to `/` for native targets and `/usr/<short_triplet>` for
 cross-compiling targets.
-
-The `get_tool_flags` method is used to implement the appropriate methods for
-retrieving `CFLAGS`, `LDFLAGS` and so on on `Template`. They are not influenced
-by the template's configuration. You pass the flags variable name as the name,
-such as the string `CFLAGS`.
 
 In general, you will not want to use the profile's methods, and the member
 variables are strictly read only.
@@ -2691,6 +2684,13 @@ flag enabled. For a hardening flag to be enabled, it must not be disabled
 by the template or defaults, and it must be supported for the target.
 
 The `target` argument is the same as for `profile()`.
+
+##### def has_lto(self, target = None)
+
+Check if the current configuration (i.e. taking into account the template
+as well as the current profile or the `target`) is going to LTO the
+build. This will be `True` if the template does not disable it, and
+if the stage is at least 2 and the profile supports it.
 
 ##### def install_files(self, path, dest, symlinks = True)
 

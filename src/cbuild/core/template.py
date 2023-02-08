@@ -1081,27 +1081,6 @@ class Template(Package):
         if not skip_post:
             call_pkg_hooks(self, "post_" + stepn)
 
-    def _get_lto_flags(self, fn, eflags):
-        # only have it for some
-        match fn:
-            case "CFLAGS" | "CXXFLAGS" | "FFLAGS" | "LDFLAGS":
-                pass
-            case _:
-                return eflags
-        # we never LTO before the final stage
-        # in stage 0 particularly we cannot guarantee that ar/ranlib/nm
-        # is correct, and in stage 1 we don't care for wasting extra time
-        if self.stage < 2 or not self.options["lto"]:
-            return eflags
-        # differentiate for full vs thin LTO
-        # thin LTO is clang-only but use generic syntax for full
-        if self.options["ltofull"]:
-            lflags = ["-flto"]
-        else:
-            lflags = ["-flto=thin"]
-        # just concat, user flags come last
-        return lflags + eflags
-
     def get_tool_flags(
         self, name, extra_flags = [], hardening = [],
         shell = False, target = None
@@ -1109,11 +1088,9 @@ class Template(Package):
         target = pkg_profile(self, target)
 
         if name in self.tool_flags:
-            tfb = self._get_lto_flags(
-                name, self.tool_flags[name] + extra_flags
-            )
+            tfb = self.tool_flags[name] + extra_flags
         else:
-            tfb = self._get_lto_flags(name, extra_flags)
+            tfb = extra_flags
 
         dodbg = self.build_dbg and self.options["debug"]
 
@@ -1123,11 +1100,11 @@ class Template(Package):
                 f"-ffile-prefix-map={self.chroot_builddir / self.wrksrc}=."
             ] + tfb
 
-        return target.get_tool_flags(
+        return target._get_tool_flags(
             name, tfb,
             self.debug_level if dodbg else -1,
             self.hardening + hardening,
-            shell = shell
+            self.options, self.stage, shell
         )
 
     def get_cflags(
@@ -1181,7 +1158,14 @@ class Template(Package):
     def has_hardening(self, hname, target = None):
         target = pkg_profile(self, target)
 
-        return profile.has_hardening(target, hname, self.hardening)
+        return profile.has_hardening(
+            target, hname, self.hardening, self.options, self.stage
+        )
+
+    def has_lto(self, target = None):
+        target = pkg_profile(self, target)
+
+        return self.options["lto"] and target._has_lto(self.stage)
 
     @contextlib.contextmanager
     def _profile(self, target):
@@ -1642,14 +1626,6 @@ def from_module(m, ret):
             if not opt in ropts:
                 ret.error("unknown option: %s" % opt)
             ropts[opt] = not neg
-
-    # FIXME: remove this when the toolchain is fixed
-    if ret.profile().arch == "riscv64":
-        ropts["lto"] = False
-
-    # translate the lto value into hardening as well
-    if ropts["lto"]:
-        ret.hardening.append("lto")
 
     ret.options = ropts
     ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"
