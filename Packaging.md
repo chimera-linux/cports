@@ -375,7 +375,6 @@ violate those.
 It enables the following:
 
 * `signed-integer-overflow` Traps signed integer overflows.
-* `shift` Traps out-of-bounds shifts.
 * `integer-divide-by-zero` Traps integer division by zero.
 
 Unsigned overflows are allowed as they are not undefined behavior.
@@ -393,30 +392,6 @@ and it is allowed to optimize assuming that this will never happen, given
 it is undefined behavior.
 
 Unsigned integers also wrap around, starting from 0 again.
-
-An example of out-of-bounds shift:
-
-```
-unsigned char r, g, b, a;
-...
-unsigned int v = (a << 24) | (r << 16) | (g << 8) | b;
-```
-
-This is actually a common case in various graphics programs/libraries and
-needs to be taken care of, in this case by casting each `unsigned char`
-to an `unsigned int` before shifting it. The problematic shift here is the
-24-bit `a` shift. This is because of C's integer promotion rules, where
-smaller types are promoted to a signed `int`.
-
-Another common case is something like this:
-
-```
-unsigned int v = 1 << 31;
-```
-
-This is excess shift because `1` is a signed `int`, and shifting it by 31
-places would interfere with the sign bit. The correct way to write this
-would be to use an unsigned literal, i.e. `1U`.
 
 Regardless of compiler optimization, integer overflows frequently result
 in security vulnerabilities, which is why we harden this. In cases where
@@ -1628,7 +1603,7 @@ Currently the following options are always enabled by default:
 * `pie` Position-independent executables.
 * `ssp` Enables `-fstack-protector-strong`.
 * `scp` Enables `-fstack-clash-protection` (`ppc64le`, `ppc64`, `ppc`, `x86_64`)
-* `int` Traps signed integer overflows, excess shift and integer division by zero.
+* `int` Traps signed integer overflows and integer division by zero.
 * `pac` Enables AArch64 pointer authentication (`aarch64`).
 
 Several others are available that are not on by default:

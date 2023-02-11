@@ -93,9 +93,9 @@ def _get_archflags(prof, hard, opts, stage):
             sflags.append("-fsanitize-cfi-icall-generalize-pointers")
 
     if hard["int"]:
-        sflags.append("-fsanitize=signed-integer-overflow,shift,integer-divide-by-zero")
+        sflags.append("-fsanitize=signed-integer-overflow,integer-divide-by-zero")
         # ensure no runtime is relied upon
-        sflags.append("-fsanitize-trap=signed-integer-overflow,shift,integer-divide-by-zero")
+        sflags.append("-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero")
         ubsan = True
 
     if ubsan:
