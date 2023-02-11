@@ -17,6 +17,19 @@ index b507ca3..ff57b9c 100644
  #define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
  
  int posix_memalign (void **, size_t, size_t);
+diff --git a/include/sys/wait.h b/include/sys/wait.h
+index d4b1f2e..2efc9d5 100644
+--- a/include/sys/wait.h
++++ b/include/sys/wait.h
+@@ -50,7 +50,7 @@ pid_t wait4 (pid_t, int *, int, struct rusage *);
+ #define WSTOPSIG(s) WEXITSTATUS(s)
+ #define WCOREDUMP(s) ((s) & 0x80)
+ #define WIFEXITED(s) (!WTERMSIG(s))
+-#define WIFSTOPPED(s) ((short)((((s)&0xffff)*0x10001)>>8) > 0x7f00)
++#define WIFSTOPPED(s) ((short)((((s)&0xffffu)*0x10001)>>8) > 0x7f00)
+ #define WIFSIGNALED(s) (((s)&0xffff)-1U < 0xffu)
+ #define WIFCONTINUED(s) ((s) == 0xffff)
+ 
 commit aae7357d6270eacb73ec841da22742f70cb0c4e3
 Author: q66 <q66@chimera-linux.org>
 Date:   Fri Jan 20 00:13:55 2023 +0000
