@@ -13,6 +13,18 @@ configure_args = [
     "--enable-static-link",
     "--disable-selinux",
     "--with-symvers=no",
+    "--with-thin=internal",
+    "--with-thin-check=/usr/bin/thin_check",
+    "--disable-thin_check_needs_check",
+    "--with-thin-dump=/usr/bin/thin_dump",
+    "--with-thin-repair=/usr/bin/thin_repair",
+    "--with-thin-restore=/usr/bin/thin_restore",
+    "--with-cache-check=/usr/bin/cache_check",
+    "--disable-cache_check_needs_check",
+    "--with-cache-dump=/usr/bin/cache_dump",
+    "--with-cache-repair=/usr/bin/cache_repair",
+    "--with-cache-restore=/usr/bin/cache_restore",
+    "--with-dmeventd-path=/usr/bin/dmeventd",
     "--with-usrsbindir=/usr/bin",
     "--with-udevdir=/usr/lib/udev/rules.d",
     "--with-default-pid-dir=/run",
@@ -30,7 +42,6 @@ makedepends = [
     "libatomic-chimera-devel-static",
     "ncurses-devel-static", "linux-headers",
 ]
-depends = ["bash", "util-linux", "thin-provisioning-tools"]
 pkgdesc = "Logical Volume Manager 2 utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
@@ -94,4 +105,15 @@ def _dm(self):
         "usr/lib/udev/rules.d/95-dm-notify.rules",
         "usr/share/initramfs-tools/hooks/dmsetup",
         "usr/share/man/man8/dm*",
+    ]
+
+@subpackage("lvm2-extra")
+def _extra(self):
+    self.pkgdesc = f"{pkgdesc} (extra utilities)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "bash", "util-linux"]
+    return [
+        "usr/bin/blkdeactivate",
+        "usr/bin/fsadm",
+        "usr/bin/lvm_import_vdo",
+        "usr/bin/lvmdump",
     ]
