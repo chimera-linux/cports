@@ -6,7 +6,7 @@ make_cmd = "gmake"
 make_build_target = "build-linux"
 make_install_target = "install-linux"
 hostmakedepends = ["gmake", "perl", "bdfresize", "perl-xml-parser"]
-depends = ["perl", "kbd", "xkeyboard-config"]
+depends = ["kbd"]
 pkgdesc = "Console font and keymap setup program"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND custom:console-setup"
@@ -30,3 +30,14 @@ def do_install(self):
 
 def post_install(self):
     self.install_license("debian/copyright")
+
+@subpackage("console-setup-xkb")
+def _xkb(self):
+    self.pkgdesc = f"{pkgdesc} (optional XKB keymap support)"
+    self.depends = [
+        f"{pkgname}={pkgver}-r{pkgrel}", "xkeyboard-config", "perl"
+    ]
+    self.install_if = [
+        f"{pkgname}={pkgver}-r{pkgrel}", "xkeyboard-config", "perl"
+    ]
+    return ["usr/bin/ckbcomp"]
