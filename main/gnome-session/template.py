@@ -12,9 +12,8 @@ makedepends = [
     "libglib-devel", "gtk+3-devel", "elogind-devel", "gnome-desktop-devel",
     "json-glib-devel", "libice-devel", "libsm-devel", "libx11-devel", "xtrans"
 ]
-# /usr/bin/gnome-session uses bash with exec -l
 depends = [
-    "bash", "dconf", "desktop-file-utils", "gsettings-desktop-schemas",
+    "dconf", "desktop-file-utils", "gsettings-desktop-schemas",
     "hicolor-icon-theme", "polkit"
 ]
 pkgdesc = "GNOME session management utilities"
