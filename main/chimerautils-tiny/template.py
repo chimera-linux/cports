@@ -1,6 +1,5 @@
 pkgname = "chimerautils-tiny"
-_commit="f5e7bc7ba541b46ff6ff8fe73b3b27a599e898b1"
-pkgver = "0.0.1"
+pkgver = "13.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,8 +24,8 @@ pkgdesc = "FreeBSD userland utilities (tiny version)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
-source = f"https://github.com/chimera-linux/chimerautils/archive/{_commit}.tar.gz"
-sha256 = "956250245473544f06b247fffa9a01060957ab858e6b9551ecc1ef25f76bd136"
+source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "fe9b022c430ebbce9022fcb047cf08dc1884ecd2d69cb4081515ab4dbf3a9d09"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
