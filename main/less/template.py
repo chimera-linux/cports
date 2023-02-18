@@ -18,6 +18,7 @@ def post_install(self):
         self.files_path / "zless.sh", "usr/bin", mode = 0o755, name = "zless"
     )
     self.install_link("less", "usr/bin/more")
+    self.install_link("less.1", "usr/share/man/man1/more.1")
     self.install_link("zless", "usr/bin/bzless")
     self.install_link("zless", "usr/bin/xzless")
     self.install_link("zless", "usr/bin/lzless")

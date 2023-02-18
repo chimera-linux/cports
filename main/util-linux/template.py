@@ -65,9 +65,9 @@ def post_install(self):
     for f in suid_files:
         (self.destdir / f).chmod(0o4755)
 
-    # conflicts with chimerautils
+    # conflicts with chimerautils (and more with less)
     for f in [
-        "col", "colrm", "column", "hexdump", "look", "renice", "rev",
+        "col", "colrm", "column", "hexdump", "look", "more", "renice", "rev",
     ]:
         self.rm(self.destdir / f"usr/bin/{f}")
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1", force = True)
