@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 # no tests
-options = ["!check"]
+options = ["!check", "keepempty"]
 
 def do_install(self):
     # kernel.d helpers
@@ -26,6 +26,8 @@ def do_install(self):
         )
 
     # modprobe(8) files
+    self.install_dir("etc/modprobe.d")
+    self.install_dir("etc/modules-load.d")
     self.install_dir("usr/lib/modprobe.d")
 
     self.install_file(

@@ -1,6 +1,6 @@
 def invoke(pkg):
     # does not apply
-    if pkg.pkgname == "base-files":
+    if pkg.pkgname == "base-files" or pkg.pkgname == "base-kernel":
         return
 
     lintfail = False

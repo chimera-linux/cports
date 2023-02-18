@@ -12,33 +12,22 @@ options = ["!check", "bootstrap", "keepempty", "brokenlinks"]
 def do_install(self):
     # base root dirs
     for d in [
-        "boot", "etc", "etc/modprobe.d", "etc/modules-load.d",
-        "home", "dev", "proc", "usr", "mnt", "opt", "sys", "media", "var",
-        "run", "run/lock"
+        "boot", "dev", "etc", "home", "media", "mnt",
+        "proc", "run", "sys", "usr", "var",
     ]:
         self.install_dir(d)
 
     # /usr dirs
-    for d in [
-        "local", "local/bin", "local/include", "local/lib",
-        "bin", "include", "lib", "src"
-    ]:
+    for d in ["bin", "include", "lib", "share", "src"]:
         self.install_dir("usr/" + d)
-
-    # /usr/share and /usr/local/share
-    for d in [
-        "locale", "misc", "terminfo", "zoneinfo", "doc", "info"
-    ]:
-        self.install_dir("usr/share/" + d)
-        self.install_dir("usr/local/share/" + d)
+        self.install_dir("usr/local/" + d)
 
     # apk exec dir
     self.install_dir("usr/lib/apk/exec")
 
     # mandirs
-    for i in range(1, 9):
+    for i in range(1, 8):
         self.install_dir("usr/share/man/man" + str(i))
-        self.install_dir("usr/local/share/man/man" + str(i))
 
     # /var dirs
     for d in ["empty", "log", "opt", "cache", "lib", "mail", "spool"]:
