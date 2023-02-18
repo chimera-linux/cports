@@ -26,6 +26,11 @@ def post_install(self):
     self.install_file(
         self.files_path / "01dinit-env", "etc/X11/Xsession.d", mode = 0o755
     )
+    # to be removed upstream later
+    for f in (self.destdir / "usr/lib/dinit.d/boot.d").glob("agetty-*"):
+        f.unlink()
+    for f in (self.destdir / "etc/dinit.d").glob("agetty-*"):
+        f.unlink()
 
 @subpackage("dinit-chimera-x11")
 def _x11(self):
@@ -34,14 +39,4 @@ def _x11(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xinit"]
     return [
         "etc/X11/Xsession.d",
-    ]
-
-@subpackage("dinit-chimera-links")
-def _def(self):
-    self.pkgdesc = f"{pkgdesc} (service links)"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.options = ["brokenlinks"]
-    return [
-        "usr/lib/dinit.d/boot.d/agetty-*"
     ]
