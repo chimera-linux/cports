@@ -85,9 +85,28 @@ def post_install(self):
             "share/bash-completion/completions/util-linux-getopt"
         )
 
-    # service
-    self.install_service(self.files_path / "uuidd")
-    self.install_service(self.files_path / "uuidd-dir")
+    # agetty dinit helper
+    self.install_file(
+        self.files_path / "dinit-agetty", "usr/libexec", mode = 0o755
+    )
+
+    # services
+    for s in [
+        "agetty", "agetty-console", "agetty-hvc0", "agetty-hvsi0",
+        "agetty-tty1", "agetty-tty2", "agetty-tty3", "agetty-tty4",
+        "agetty-tty5", "agetty-tty6", "agetty-ttyS0", "agetty-ttyUSB0",
+        "uuidd", "uuidd-dir"
+    ]:
+        self.install_service(self.files_path / s, enable = (s == "agetty"))
+
+@subpackage("util-linux-dinit")
+def _dinit(self):
+    self.pkgdesc = f"{pkgdesc} (service files)"
+
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "dinit-chimera"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "dinit-chimera"]
+
+    return ["etc/dinit.d/agetty*", "usr/libexec/dinit-agetty"]
 
 @subpackage("util-linux-libs")
 def _libs(self):
