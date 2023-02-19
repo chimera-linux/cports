@@ -65,9 +65,10 @@ def post_install(self):
     for f in suid_files:
         (self.destdir / f).chmod(0o4755)
 
-    # conflicts with chimerautils (and more with less)
+    # conflicts with chimerautils, less, ugetopt
     for f in [
-        "col", "colrm", "column", "hexdump", "look", "more", "renice", "rev",
+        "col", "colrm", "column", "getopt", "hexdump", "look", "more",
+        "renice", "rev",
     ]:
         self.rm(self.destdir / f"usr/bin/{f}")
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1", force = True)
@@ -75,14 +76,6 @@ def post_install(self):
         self.rm(
             self.destdir / f"usr/share/bash-completion/completions/{f}",
             force = True
-        )
-    # conflicts with chimerautils but we want it
-    with self.pushd(self.destdir / "usr"):
-        self.mv("bin/getopt", "bin/util-linux-getopt")
-        self.mv("share/man/man1/getopt.1", "share/man/man1/util-linux-getopt.1")
-        self.mv(
-            "share/bash-completion/completions/getopt",
-            "share/bash-completion/completions/util-linux-getopt"
         )
 
     # agetty dinit helper
