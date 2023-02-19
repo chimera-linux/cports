@@ -125,7 +125,7 @@ index 031b845..3e42453 100755
  fi
  
 -GETOPT="getopt"
-+GETOPT="util-linux-getopt"
++GETOPT="ugetopt"
  
  OPTIONS=$("$GETOPT" -o h -l help,fsextend,fsreduce,cryptresize,mount,unmount,remount,fsck,fstype:,lvpath:,newsizebytes:,mountdir:,cryptpath: -n "${SCRIPTNAME}" -- "$@")
  eval set -- "$OPTIONS"

@@ -1,0 +1,13 @@
+pkgname = "ugetopt"
+pkgver = "2.38.99"
+pkgrel = 0
+build_style = "meson"
+hostmakedepends = ["meson"]
+pkgdesc = "Chimera Linux userland"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "BSD-2-Clause"
+url = "https://github.com/chimera-linux/ugetopt"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "01900060d4fcb93cfb7b9940abc81a8fdd04ad4dc1e5696d365cc19557243ee2"
+hardening = ["vis", "cfi"]
+options = ["bootstrap"]

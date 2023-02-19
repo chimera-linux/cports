@@ -1,7 +1,7 @@
 From 116c6086a40cb883bbcb1811ff3811d44371079a Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 29 Jul 2022 14:16:30 +0200
-Subject: [PATCH 8/8] force util-linux-getopt
+Subject: [PATCH 8/8] force ugetopt
 
 ---
  lsinitramfs      | 2 +-
@@ -19,7 +19,7 @@ index 5b3315f..7cd1e18 100755
  umi_opts="--list"
  
 -OPTIONS=$(getopt -o hl --long help,long -n "$0" -- "$@") || usage_error
-+OPTIONS=$(util-linux-getopt -o hl --long help,long -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o hl --long help,long -n "$0" -- "$@") || usage_error
  
  eval set -- "$OPTIONS"
  
@@ -32,7 +32,7 @@ index d9b8e39..0e53634 100755
  }
  
 -OPTIONS=$(getopt -o c:d:hl:ko:r:v --long help -n "$0" -- "$@") || usage_error
-+OPTIONS=$(util-linux-getopt -o c:d:hl:ko:r:v --long help -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o c:d:hl:ko:r:v --long help -n "$0" -- "$@") || usage_error
  
  eval set -- "$OPTIONS"
  
@@ -45,7 +45,7 @@ index 889e4b8..b50c018 100755
  }
  
 -OPTIONS=$(getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
-+OPTIONS=$(util-linux-getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
  
  cpio_opts="--preserve-modification-time --quiet"
  expected_args=2
@@ -58,7 +58,7 @@ index 4f8922c..f83ad06 100755
  ##
  
 -OPTIONS=$(getopt -o "k:cudvtb:h?" --long help -n "$0" -- "$@") || usage_error
-+OPTIONS=$(util-linux-getopt -o "k:cudvtb:h?" --long help -n "$0" -- "$@") || usage_error
++OPTIONS=$(ugetopt -o "k:cudvtb:h?" --long help -n "$0" -- "$@") || usage_error
  
  eval set -- "$OPTIONS"
  

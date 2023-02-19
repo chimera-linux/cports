@@ -7,15 +7,15 @@ make_cmd = "gmake"
 make_check_env = {"VERBOSE": "x"}
 hostmakedepends = ["gmake"]
 makedepends = ["acl-devel"]
-checkdepends = ["util-linux"]
+checkdepends = ["ugetopt"]
+depends = ["ugetopt"]
 pkgdesc = "Tool for simulating superuser privileges"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://salsa.debian.org/clint/fakeroot"
 source = f"https://repo.chimera-linux.org/distfiles/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2c8a1443d77009b07f3b9ef3797036fb7d77b16fb648692ae39e8c480fd0e0e9"
-# needs util-linux
-options = ["bootstrap", "!check"]
+options = ["bootstrap"]
 
 if self.stage > 0:
     makedepends += ["libcap-devel"]

@@ -110,7 +110,7 @@ def _dm(self):
 @subpackage("lvm2-extra")
 def _extra(self):
     self.pkgdesc = f"{pkgdesc} (extra utilities)"
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "bash", "util-linux"]
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "bash", "ugetopt"]
     return [
         "usr/bin/blkdeactivate",
         "usr/bin/fsadm",
