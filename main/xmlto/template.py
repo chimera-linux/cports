@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["ac_cv_path_BASH=/usr/bin/bash"]
 configure_env = {"GETOPT": "ugetopt"}
 hostmakedepends = ["bash", "xsltproc", "docbook-xsl-nons", "ugetopt"]
-depends = ["bash", "util-linux", "xsltproc", "docbook-xsl-nons"]
+depends = ["bash", "ugetopt", "xsltproc", "docbook-xsl-nons"]
 pkgdesc = "Tool to help transform XML documents into other formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
