@@ -1,0 +1,22 @@
+commit 8e135cd0a53ed69fec91fc69f87e104b5f3342fb
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Feb 11 00:51:18 2023 +0000
+
+    use unsigned for bitmasks to fix UB
+
+diff --git a/fat.c b/fat.c
+index 21f6130..9f9571a 100644
+--- a/fat.c
++++ b/fat.c
+@@ -24,9 +24,9 @@
+ #include "file_name.h"
+ 
+ #if defined HAVE_LONG_LONG && defined __STDC_VERSION__
+-typedef long long fatBitMask;
++typedef unsigned long long fatBitMask;
+ #else
+-typedef long fatBitMask;
++typedef unsigned long fatBitMask;
+ #endif
+ 
+ typedef struct FatMap_t {
