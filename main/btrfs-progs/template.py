@@ -14,7 +14,7 @@ makedepends = [
     "acl-devel", "eudev-devel", "libzstd-devel", "lzo-devel", "libblkid-devel",
     "libuuid-devel", "e2fsprogs-devel", "zlib-devel", "linux-headers"
 ]
-checkdepends = ["util-linux", "xz"]
+checkdepends = ["xz"]
 pkgdesc = "Btrfs file system utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"

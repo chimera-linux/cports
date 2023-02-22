@@ -25,7 +25,7 @@ makedepends = [
     "libsm-devel", "libptytty-devel", "fontconfig-devel",
     "gdk-pixbuf-devel", "startup-notification-devel",
 ]
-depends = ["ncurses", f"rxvt-unicode-terminfo={pkgver}-r{pkgrel}"]
+depends = [f"rxvt-unicode-terminfo={pkgver}-r{pkgrel}"]
 pkgdesc = "Terminal emulator supporting Xft fonts and Unicode"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

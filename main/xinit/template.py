@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--with-xinitdir=/etc/X11/xinit"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["libx11-devel"]
-depends = ["cmd:mcookie!util-linux"]
+depends = ["cmd:mcookie!chimerautils"]
 pkgdesc = "X init program"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

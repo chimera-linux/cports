@@ -9,7 +9,7 @@ make_build_args = [
     f"VERSION={pkgver}"
 ]
 hostmakedepends = ["perl", "docbook-xsl-nons", "xsltproc"]
-depends = ["cryptsetup", "util-linux"]
+depends = ["cryptsetup", "device-mapper", "mount", "mkfs"]
 pkgdesc = "Supporting infrastructure for cryptsetup from Debian"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

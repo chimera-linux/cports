@@ -6,7 +6,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = f"https://www.iana.org/protocols"
 # no tests
-options = ["!check"]
+options = ["!check", "bootstrap"]
 
 def do_install(self):
     self.install_file(self.files_path / "protocols", "etc")
