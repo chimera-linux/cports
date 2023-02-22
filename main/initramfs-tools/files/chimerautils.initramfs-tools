@@ -7,9 +7,9 @@ BSD_TOOLS="
  [ basename cat chroot cp cut dd dir dirname du echo
  egrep expand expr false fgrep find fmt fold grep
  head kill link ln look ls mkdir mkfifo mknod mv
- pathchk printf pwd readlink realpath rgrep rm rmdir
- sed seq sh sleep sort stat stty sync tail tee test
- touch true uname uniq unlink vdir wc which xargs yes
+ pathchk pivot_root printf pwd readlink realpath rgrep
+ rm rmdir sed seq sh sleep sort stat stty sync tail tee
+ test touch true uname uniq unlink vdir wc which xargs yes
 "
 
 # provided by klibc-kinit-standalone
@@ -17,7 +17,7 @@ KINIT_TOOLS="fstype ipconfig nfsmount resume run-init"
 
 # provided by klibc-utils-standalone
 KLIBC_TOOLS="
- cpio dmesg halt losetup minips mount nuke pivot_root poweroff reboot umount
+ cpio dmesg halt losetup minips mount nuke poweroff reboot umount
 "
 
 # copy musl first, it's the only dependency
