@@ -1,4 +1,4 @@
-From 3dff4294a9f7dd6e88be8211fa39b4c3955ff4c2 Mon Sep 17 00:00:00 2001
+From da72e58736f2e403491684fd3e69fe1c29612813 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Thu, 16 Feb 2023 18:39:50 +0100
 Subject: [PATCH] use standard console keymaps instead of xkb by default
@@ -128,7 +128,7 @@ index 2d692f5..31fbf96 100644
  .B grp:shifts_toggle
  is not supported on the console.
 diff --git a/setupcon b/setupcon
-index 50139a8..61e3ca0 100755
+index 50139a8..4d7bb1e 100755
 --- a/setupcon
 +++ b/setupcon
 @@ -460,6 +460,12 @@ if which uname >/dev/null; then
@@ -191,7 +191,7 @@ index 50139a8..61e3ca0 100755
          if [ "$1" ]; then
              printf "%s" "$1" | {
                  read -r arg args
-+                if [ "$2" = "loadkeys" -a ! -f "$arg" ]; then
++                if [ "$2" = "loadkeys" ]; then
 +                    # save current keymap, load the desired one, dump it
 +                    # so that it can be copied, then restore the old as needed
 +                    dumpkeys >"$setupdir/tmp/old.map"
@@ -234,5 +234,5 @@ index 50139a8..61e3ca0 100755
      sort $TMPFILE | uniq | grep -v 'printf$' >"$setupdir"/morefiles
  fi
 -- 
-2.39.0
+2.34.1
 
