@@ -4,9 +4,9 @@ pkgrel = 0
 build_style = "meta"
 depends = [
     "base-core", "base-locale", "nano", "initramfs-tools", "openssh",
-    "syslog-ng", "opendoas", "ethtool", "dhcpcd", "usbutils",
-    "f2fs-tools", "elogind-meta", "dbus", "iwd", "console-setup",
-    "dinit-userservd", "chimera-artwork",
+    "syslog-ng", "rfkill", "zramctl", "opendoas", "ethtool", "dhcpcd",
+    "usbutils", "f2fs-tools", "fdisk", "elogind-meta", "dbus", "iwd",
+    "console-setup", "dinit-userservd", "chimera-artwork",
     # firmware for all
     "base-firmware-linux",
 ]

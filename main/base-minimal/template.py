@@ -3,11 +3,10 @@ pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    "chimerautils", "base-shells", "apk-tools", "awk",
-    "bsdtar", "util-linux", "shadow", "procps-ng",
-    "iana-etc", "tzdata", "dinit-chimera", "chimera-repo-main",
+    "base-bootstrap", "dinit-chimera", "nyagetty", "bsdtar",
+    "shadow", "procps-ng",
 ]
-pkgdesc = "Minimal set of packages for a Chimera system"
+pkgdesc = "Minimal set of packages for a bootable Chimera system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"

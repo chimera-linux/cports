@@ -10,14 +10,14 @@ url = "https://chimera-linux.org"
 # musl must be built first to provide shlibs for later packages during stage 0
 depends = [
     "musl-devel", "elftoolchain", "llvm", "clang", "lld", "chimerautils",
-    "awk", "apk-tools", "bmake", "bsdtar", "ncurses", "tzdata", "fakeroot",
+    "awk", "apk-tools", "bmake", "bsdtar", "tzdata", "fakeroot-core",
     f"base-cbuild-progs={pkgver}-r{pkgrel}",
 ]
 
 options = ["bootstrap", "brokenlinks"]
 
 if self.stage > 1:
-    depends += ["ccache", "ca-certificates"]
+    depends += ["ccache"]
 
 def do_build(self):
     from cbuild.util import compiler
