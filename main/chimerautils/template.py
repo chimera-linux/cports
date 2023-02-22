@@ -1,21 +1,21 @@
 pkgname = "chimerautils"
-pkgver = "13.1"
+pkgver = "13.1.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
 makedepends = [
     "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",
     "musl-fts-devel", "musl-rpmatch-devel", "liblzma-devel",
-    "zlib-devel", "libbz2-devel",
+    "zlib-devel", "libbz2-devel", "linux-headers",
     "musl-bsd-headers" # temporary
 ]
-depends = ["base-files"]
+depends = ["base-files", "iana-etc"]
 pkgdesc = "Chimera Linux userland"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fe9b022c430ebbce9022fcb047cf08dc1884ecd2d69cb4081515ab4dbf3a9d09"
+sha256 = "29302568bb615d33d5e65ea0de9b9abe31b7ff7aeea870923bc85de53e164fa4"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]

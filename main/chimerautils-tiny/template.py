@@ -1,5 +1,5 @@
 pkgname = "chimerautils-tiny"
-pkgver = "13.1"
+pkgver = "13.1.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -25,9 +25,11 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fe9b022c430ebbce9022fcb047cf08dc1884ecd2d69cb4081515ab4dbf3a9d09"
+sha256 = "29302568bb615d33d5e65ea0de9b9abe31b7ff7aeea870923bc85de53e164fa4"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
     # drop manpages
     self.rm(self.destdir / "usr/share", recursive = True)
+    # drop sysconfdir
+    self.rm(self.destdir / "etc", recursive = True)
