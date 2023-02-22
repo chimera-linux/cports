@@ -16,6 +16,8 @@ configure_env = {"PKG_CONFIG_LIBDIR": "/usr/lib/pkgconfig"}
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]
 depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
+# we generally want this in a proper system as a soft dep
+install_if = [f"ncurses-libs={pkgver}-r{pkgrel}", "chimerautils"]
 pkgdesc = "System V Release 4.0 curses emulation library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
