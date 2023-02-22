@@ -8,7 +8,7 @@ make_check_env = {"VERBOSE": "x"}
 hostmakedepends = ["gmake"]
 makedepends = ["acl-devel"]
 checkdepends = ["ugetopt"]
-depends = ["ugetopt"]
+depends = [f"fakeroot-core={pkgver}-r{pkgrel}"]
 pkgdesc = "Tool for simulating superuser privileges"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
@@ -19,5 +19,12 @@ options = ["bootstrap"]
 
 if self.stage > 0:
     makedepends += ["libcap-devel"]
+    depends += ["ugetopt"]
 else:
     configure_args += ["ac_cv_func_capset=0"]
+
+@subpackage("fakeroot-core")
+def _core(self):
+    self.pkgdesc = f"{pkgdesc} (core)"
+
+    return ["usr/bin/faked", "usr/lib"]
