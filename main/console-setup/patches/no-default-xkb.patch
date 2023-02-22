@@ -1,4 +1,4 @@
-From 1248b5155e54e272942a43fb58db0a723bd70def Mon Sep 17 00:00:00 2001
+From 3dff4294a9f7dd6e88be8211fa39b4c3955ff4c2 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Thu, 16 Feb 2023 18:39:50 +0100
 Subject: [PATCH] use standard console keymaps instead of xkb by default
@@ -8,8 +8,8 @@ it will do.
 ---
  config/keyboard | 12 +++++++-----
  man/keyboard.5  | 45 +++++++++++----------------------------------
- setupcon        | 21 +++++++++++----------
- 3 files changed, 29 insertions(+), 49 deletions(-)
+ setupcon        | 42 +++++++++++++++++++++++++++++++-----------
+ 3 files changed, 49 insertions(+), 50 deletions(-)
 
 diff --git a/config/keyboard b/config/keyboard
 index 16e8da8..c8734ca 100644
@@ -128,7 +128,7 @@ index 2d692f5..31fbf96 100644
  .B grp:shifts_toggle
  is not supported on the console.
 diff --git a/setupcon b/setupcon
-index 50139a8..ab65fcc 100755
+index 50139a8..61e3ca0 100755
 --- a/setupcon
 +++ b/setupcon
 @@ -460,6 +460,12 @@ if which uname >/dev/null; then
@@ -187,6 +187,52 @@ index 50139a8..ab65fcc 100755
      tempfile || { echo setupcon: Can not create temporary file >&2; exit 1; }
      case "$do_kbd" in
          linux)
+@@ -1202,6 +1203,21 @@ if [ "$setupdir" ]; then
+         if [ "$1" ]; then
+             printf "%s" "$1" | {
+                 read -r arg args
++                if [ "$2" = "loadkeys" -a ! -f "$arg" ]; then
++                    # save current keymap, load the desired one, dump it
++                    # so that it can be copied, then restore the old as needed
++                    dumpkeys >"$setupdir/tmp/old.map"
++                    if [ $? -eq 0 ]; then
++                        loadkeys "$arg" > /dev/null 2>&1
++                        if [ $? -eq 0 ]; then
++                            dumpkeys >"$setupdir/tmp/kmap.map"
++                        fi
++                        if [ $? -eq 0 ]; then
++                            arg=$(realpath -q "$setupdir/tmp/kmap.map")
++                        fi
++                        loadkeys "$setupdir/tmp/old.map"
++                    fi
++                fi
+                 case "$arg" in
+                     \>|\<)
+                         echo -n "$arg"
+@@ -1239,6 +1255,7 @@ if [ "$setupdir" ]; then
+     }
+ 
+     mkdir -p "$setupdir"/bin
++    mkdir -p "$setupdir"/tmp
+     mkdir -p "$setupdir"/etc/console-setup
+ 
+     echo '#!/bin/sh' >"$setupdir"/bin/setupcon
+@@ -1249,11 +1266,14 @@ if [ "$setupdir" ]; then
+     while read -r cmd args; do
+         which "$cmd" >>$TMPFILE || true
+         printf "%s " "$cmd"
+-        fileargs "$args"
++        fileargs "$args" "$cmd"
+         echo
+     done >>"$setupdir"/bin/setupcon
+     echo 'mkdir /run/console-setup' >>"$setupdir"/bin/setupcon
+     echo '>/run/console-setup/keymap_loaded' >>"$setupdir"/bin/setupcon
+     echo exit 0 >>"$setupdir"/bin/setupcon
++
++    rm -rf "$setupdir"/tmp
++
+     sort $TMPFILE | uniq | grep -v 'printf$' >"$setupdir"/morefiles
+ fi
 -- 
 2.39.0
 
