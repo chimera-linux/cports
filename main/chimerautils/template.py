@@ -8,7 +8,7 @@ makedepends = [
     "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",
     "musl-fts-devel", "musl-rpmatch-devel", "liblzma-devel",
     "zlib-devel", "libbz2-devel", "linux-headers",
-    "musl-bsd-headers" # temporary
+    "libxo-devel", "musl-bsd-headers"
 ]
 depends = ["base-files", "iana-etc"]
 pkgdesc = "Chimera Linux userland"
@@ -22,10 +22,8 @@ hardening = ["vis", "cfi"]
 options = ["bootstrap", "!check"]
 
 if self.stage > 0:
-    makedepends += ["libxo-devel", "linux-headers"]
+    makedepends += ["linux-headers"]
     configure_args += ["-Dtiny=enabled"]
-else:
-    makedepends += ["libxo-tiny-devel"]
 
 def init_configure(self):
     if self.stage > 0:
