@@ -19,6 +19,8 @@ options = ["bootstrap"]
 
 if self.stage > 0:
     makedepends += ["linux-headers", "musl-devel-static"]
+    if self.stage > 1:
+        depends = ["ca-certificates"]
 else:
     configure_args += [
         "-Dhelp=disabled", "-Ddocs=disabled", "-Dstatic_apk=false"
