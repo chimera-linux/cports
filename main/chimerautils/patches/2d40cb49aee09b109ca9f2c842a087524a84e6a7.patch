@@ -1,0 +1,173 @@
+From 2d40cb49aee09b109ca9f2c842a087524a84e6a7 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 22 Feb 2023 16:17:01 +0100
+Subject: [PATCH] add option to build tiny versions of specific tools
+
+For tools that carry significant dependencies, enabling this
+option also builds an alternative version that has the features
+disabled if possible.
+---
+ meson.build                            |  1 +
+ meson_options.txt                      |  5 ++++
+ src.freebsd/coreutils/ls/meson.build   | 33 +++++++++++++-----------
+ src.freebsd/coreutils/sort/meson.build | 35 +++++++++++++++++---------
+ src.freebsd/sh/meson.build             | 14 ++++++++++-
+ 5 files changed, 61 insertions(+), 27 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 4694d76..a4c1ed1 100644
+--- a/meson.build
++++ b/meson.build
+@@ -12,6 +12,7 @@ bindir = get_option('bindir')
+ sbindir = get_option('sbindir')
+ man1dir = join_paths(get_option('mandir'), 'man1')
+ man8dir = join_paths(get_option('mandir'), 'man8')
++tiny = get_option('tiny')
+ 
+ cc = meson.get_compiler('c')
+ cpp = meson.get_compiler('cpp')
+diff --git a/meson_options.txt b/meson_options.txt
+index 9614a41..59dea93 100644
+--- a/meson_options.txt
++++ b/meson_options.txt
+@@ -47,3 +47,8 @@ option('bzip2',
+     type: 'feature', value: 'enabled',
+     description: 'Use bzip2 for gzip(1)'
+ )
++
++option('tiny',
++    type: 'feature', value: 'disabled',
++    description: 'Also build tiny versions of some of the tools'
++)
+diff --git a/src.freebsd/coreutils/ls/meson.build b/src.freebsd/coreutils/ls/meson.build
+index b583d78..b44448e 100644
+--- a/src.freebsd/coreutils/ls/meson.build
++++ b/src.freebsd/coreutils/ls/meson.build
+@@ -1,23 +1,28 @@
+ ls_cargs = []
+-ls_deps = [ libfts, ]
++ls_deps = [libfts]
+ 
+ if get_option('color_ls')
+-    ls_cargs += [ '-DCOLORLS' ]
+-    ls_deps += [ libtinfo ]
++    ls_cargs += ['-DCOLORLS']
++    ls_deps += [libtinfo]
+ endif
+ 
+ ls_prog = executable(
+-    'ls',
+-    [ 'cmp.c',
+-      'ls.c',
+-      'print.c',
+-      'util.c',
+-    ],
+-    c_args : ls_cargs,
+-    include_directories : inc,
+-    link_with : [ libcompat ],
+-    dependencies : ls_deps,
+-    install : true,
++    'ls', ['cmp.c', 'ls.c', 'print.c', 'util.c'],
++    c_args: ls_cargs,
++    include_directories: inc,
++    link_with: [libcompat],
++    dependencies: ls_deps,
++    install: true,
+ )
+ 
++if tiny.enabled() and get_option('color_ls')
++    lstiny_prog = executable(
++        'ls.tiny', ['cmp.c', 'ls.c', 'print.c', 'util.c'],
++        include_directories: inc,
++        link_with: [libcompat],
++        dependencies: [libfts],
++        install: true
++    )
++endif
++
+ install_man('ls.1')
+diff --git a/src.freebsd/coreutils/sort/meson.build b/src.freebsd/coreutils/sort/meson.build
+index 3a304fd..9da5215 100644
+--- a/src.freebsd/coreutils/sort/meson.build
++++ b/src.freebsd/coreutils/sort/meson.build
+@@ -1,20 +1,31 @@
+-sort_cargs = [ '-DWITHOUT_NLS', '-DSORT_THREADS', ]
++sort_cargs = ['-DWITHOUT_NLS', '-DSORT_THREADS']
+ 
+ if not libcrypto.found()
+-    sort_cargs += [ '-DWITHOUT_LIBCRYPTO' ]
++    sort_cargs += ['-DWITHOUT_LIBCRYPTO']
+ endif
+ 
++sort_srcs = [
++    'bwstring.c', 'coll.c', 'file.c', 'mem.c',
++    'radixsort.c', 'sort.c', 'vsort.c',
++]
++
+ sort_prog = executable(
+-    'sort',
+-    [
+-        'bwstring.c', 'coll.c', 'file.c', 'mem.c',
+-        'radixsort.c', 'sort.c', 'vsort.c',
+-    ],
+-    include_directories : [ inc, ],
+-    dependencies : [ libcrypto, libpthread, ],
+-    link_with : [ libcompat, ],
+-    c_args : sort_cargs,
+-    install : true,
++    'sort', sort_srcs,
++    include_directories: [inc],
++    dependencies: [libcrypto, libpthread],
++    link_with: [libcompat],
++    c_args: sort_cargs,
++    install: true,
+ )
+ 
++if tiny.enabled() and libcrypto.found()
++    sortiny_prog = executable(
++        'sort.tiny', sort_srcs,
++        include_directories: [inc],
++        link_with: [libcompat],
++        c_args: ['-DWITHOUT_NLS', '-DWITHOUT_LIBCRYPTO'],
++        install: true,
++    )
++endif
++
+ install_man('sort.1')
+diff --git a/src.freebsd/sh/meson.build b/src.freebsd/sh/meson.build
+index 060e99c..acd7842 100644
+--- a/src.freebsd/sh/meson.build
++++ b/src.freebsd/sh/meson.build
+@@ -81,6 +81,7 @@ sh_src = [
+ ]
+ 
+ sh_flags = []
++sht_flags = ['-DNO_HISTORY']
+ 
+ if not libedit.found()
+     sh_flags += [ '-DNO_HISTORY' ]
+@@ -89,7 +90,8 @@ elif cc.has_function('fn_complete2', dependencies: libedit)
+ endif
+ 
+ if cc.has_argument('-Wclobbered')
+-    sh_flags += [ '-Wno-clobbered' ]
++    sh_flags += ['-Wno-clobbered']
++    sht_flags += ['-Wno-clobbered']
+ endif
+ 
+ bltins_lib = static_library(
+@@ -110,4 +112,14 @@ sh_prog = executable(
+     install : true,
+ )
+ 
++if tiny.enabled() and libedit.found()
++    shtiny_prog = executable(
++        'sh.tiny', sh_src,
++        c_args: sht_flags,
++        include_directories: [inc],
++        link_with: [bltins_lib, libcompat],
++        install: true,
++    )
++endif
++
+ install_man('sh.1')

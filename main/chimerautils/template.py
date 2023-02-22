@@ -2,6 +2,7 @@ pkgname = "chimerautils"
 pkgver = "13.1.1"
 pkgrel = 0
 build_style = "meson"
+configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
 makedepends = [
     "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",
@@ -21,7 +22,8 @@ hardening = ["vis", "cfi"]
 options = ["bootstrap", "!check"]
 
 if self.stage > 0:
-    makedepends += ["libxo-devel"]
+    makedepends += ["libxo-devel", "linux-headers"]
+    configure_args += ["-Dtiny=enabled"]
 else:
     makedepends += ["libxo-tiny-devel"]
 
@@ -48,6 +50,8 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man1/zless.1")
     # base shell
     self.install_shell("/usr/bin/sh")
-
-if self.stage > 0:
-    makedepends += ["linux-headers"]
+    # tiny tools
+    tdest = "usr/libexec/chimerautils-tiny"
+    self.install_dir(tdest)
+    for f in (self.destdir / "usr/bin").glob("*.tiny"):
+        self.mv(f, self.destdir / tdest / f.stem)
