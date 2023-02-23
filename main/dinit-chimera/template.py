@@ -4,7 +4,9 @@ pkgver = "0.11"
 pkgrel = 0
 build_style = "makefile"
 makedepends = ["linux-headers"]
-depends = ["dinit", "chimerautils", "awk", "kmod", "mount", "eudev", "tzdata"]
+depends = [
+    "dinit", "chimerautils", "awk", "kmod", "mount", "eudev", "procps", "tzdata"
+]
 pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
