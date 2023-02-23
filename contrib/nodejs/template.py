@@ -16,7 +16,7 @@ makedepends = [
     "zlib-devel", "icu-devel", "openssl-devel", "libuv-devel",
     "nghttp2-devel", "c-ares-devel", "brotli-devel", "linux-headers",
 ]
-checkdepends = ["procps-ng", "iana-etc"]
+checkdepends = ["procps", "iana-etc"]
 pkgdesc = "JavaScript runtime based on V8"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
