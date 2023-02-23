@@ -1383,7 +1383,7 @@ autopkgs = [
 ]
 
 class Subpackage(Package):
-    def __init__(self, name, parent, basedesc = None):
+    def __init__(self, name, parent, oldesc = None):
         super().__init__()
 
         self.pkgname = name
@@ -1413,11 +1413,9 @@ class Subpackage(Package):
         bdep = None
         instif = None
 
-        if not basedesc:
-            basedesc = self.pkgdesc
-
-        # strip the old suffix first
-        oldesc = re.sub(r" \(.+\)$", "", basedesc)
+        if not oldesc:
+            # strip the old suffix for non-automatic subpackages, if any
+            oldesc = re.sub(r" \(.+\)$", "", self.pkgdesc)
 
         # default suffixes
         if name.endswith("-devel"):
