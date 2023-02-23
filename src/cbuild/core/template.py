@@ -1436,7 +1436,7 @@ class Subpackage(Package):
                         instif = iif
                     self.pkgdesc = oldesc + f" ({adesc})"
 
-        # by default some subpackages depeond on their parent package
+        # by default some subpackages depend on their parent package
         if bdep:
             fbdep = f"{bdep}={parent.pkgver}-r{parent.pkgrel}"
             ddeps.append(fbdep)
@@ -1448,6 +1448,7 @@ class Subpackage(Package):
                     if instif == "python-pycache":
                         instif = f"{instif}~{gpyver}"
                     self.install_if = [fbdep, instif]
+                    ddeps.append(instif)
 
         self.depends = ddeps
 
