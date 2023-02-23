@@ -29,7 +29,6 @@ configure_args = [
     "--with-systemdsystemunitdir=no",
     "--without-udev",
     "--without-python",
-    
 ]
 make_cmd = "gmake"
 make_install_args = ["usrsbin_execdir=/usr/bin"]
@@ -38,7 +37,7 @@ makedepends = [
     "linux-headers", "libcap-ng-devel", "linux-pam-devel", "zlib-devel",
     "ncurses-devel",
 ]
-checkdepends = ["xz", "iproute2", "socat", "procps-ng"]
+checkdepends = ["xz", "iproute2", "socat", "procps"]
 depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
 pkgdesc = "Miscellaneous Linux utilities"
 maintainer = "q66 <q66@chimera-linux.org>"

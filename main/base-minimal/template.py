@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meta"
 depends = [
     "base-bootstrap", "dinit-chimera", "nyagetty", "bsdtar",
-    "shadow", "procps-ng",
+    "shadow", "procps",
 ]
 pkgdesc = "Minimal set of packages for a bootable Chimera system"
 maintainer = "q66 <q66@chimera-linux.org>"

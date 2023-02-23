@@ -13,7 +13,7 @@ makedepends = [
     "json-c-devel-static", "libuuid-devel-static", "argon2-devel-static",
     "libatomic-chimera-devel-static", "linux-headers",
 ]
-checkdepends = ["procps-ng", "xz"]
+checkdepends = ["procps", "xz"]
 pkgdesc = "Open source Linux disk encryption setup"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
