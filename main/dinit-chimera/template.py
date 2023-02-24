@@ -5,7 +5,21 @@ pkgrel = 0
 build_style = "makefile"
 makedepends = ["linux-headers"]
 depends = [
-    "dinit", "chimerautils", "awk", "kmod", "mount", "eudev", "procps", "tzdata"
+    "dinit", "tzdata",
+    "virtual:cmd:mkdir!chimerautils",
+    "virtual:cmd:grep!chimerautils",
+    "virtual:cmd:sed!chimerautils",
+    "virtual:cmd:install!chimerautils",
+    "virtual:cmd:awk!awk",
+    "virtual:cmd:kmod!kmod",
+    "virtual:cmd:modprobe!kmod",
+    "virtual:cmd:fsck!mount",
+    "virtual:cmd:findmnt!mount",
+    "virtual:cmd:mount!mount",
+    "virtual:cmd:mountpoint!mount",
+    "virtual:cmd:swapon!mount",
+    "virtual:cmd:sysctl!procps",
+    "virtual:cmd:udevadm!udev",
 ]
 pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
