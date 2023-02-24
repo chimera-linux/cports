@@ -7,7 +7,7 @@ configure_args = [
     "-Dvalgrind=disabled"
 ]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["eudev-devel", "libpciaccess-devel", "linux-headers"]
+makedepends = ["udev-devel", "libpciaccess-devel", "linux-headers"]
 pkgdesc = "Userspace interface to kernel DRM services"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

@@ -36,7 +36,7 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["gmake", "gsed", "pkgconf", "bash"]
 makedepends = [
-    "eudev-devel-static", "libblkid-devel-static",
+    "udev-devel-static", "libblkid-devel-static",
     "libaio-devel-static", "libedit-devel-static",
     "musl-devel-static", "libunwind-devel-static",
     "libatomic-chimera-devel-static",

@@ -11,7 +11,7 @@ make_dir = "."
 make_check_target = "test"
 hostmakedepends = ["gmake", "asciidoc", "pkgconf", "xmlto", "libxml2-progs"]
 makedepends = [
-    "acl-devel", "eudev-devel", "libzstd-devel", "lzo-devel", "libblkid-devel",
+    "acl-devel", "udev-devel", "libzstd-devel", "lzo-devel", "libblkid-devel",
     "libuuid-devel", "e2fsprogs-devel", "zlib-devel", "linux-headers"
 ]
 checkdepends = ["xz"]

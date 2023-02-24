@@ -31,7 +31,7 @@ configure_args = [
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = ["meson", "pkgconf", "gettext-tiny-devel"]
 makedepends = [
-    "gettext-tiny-devel", "openssl-devel", "eudev-devel", "elogind-devel",
+    "gettext-tiny-devel", "openssl-devel", "udev-devel", "elogind-devel",
     "libmount-devel", "libdrm-devel", "libinput-devel", "libxkbcommon-devel",
     "mesa-devel", "wayland-protocols", "wayland-devel", "libxrandr-devel",
     "libxscrnsaver-devel", "libxcomposite-devel", "libxcursor-devel",

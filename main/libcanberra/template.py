@@ -12,7 +12,7 @@ make_install_args = ["-j1"] # racey install
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
     "gtk+3-devel", "gstreamer-devel", "libvorbis-devel", "libpulse-devel",
-    "eudev-devel", "libltdl-devel", "tdb-devel",
+    "udev-devel", "libltdl-devel", "tdb-devel",
 ]
 pkgdesc = "Portable sound event API"
 maintainer = "q66 <q66@chimera-linux.org>"

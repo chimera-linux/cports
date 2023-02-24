@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dexamples=false", "-Duseroot=false"]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["linux-headers", "eudev-devel"]
+makedepends = ["linux-headers", "udev-devel"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Filesystem in USErspace"
 maintainer = "q66 <q66@chimera-linux.org>"

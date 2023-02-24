@@ -8,7 +8,7 @@ hostmakedepends = [
     "gettext-tiny", "docbook-xml", "itstool",
 ]
 makedepends = [
-    "eudev-devel", "gsettings-desktop-schemas-devel", "gtk+3-devel",
+    "udev-devel", "gsettings-desktop-schemas-devel", "gtk+3-devel",
     "gtk4-devel", "gdk-pixbuf-devel", "libglib-devel", "fontconfig-devel",
     "libseccomp-devel", "libxkbcommon-devel", "iso-codes", "xkeyboard-config",
 ]

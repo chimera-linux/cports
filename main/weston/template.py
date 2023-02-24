@@ -16,7 +16,7 @@ makedepends = [
     "mesa-devel", "pango-devel", "cairo-devel", "mtdev-devel", "glu-devel",
     "libinput-devel", "libxcb-devel", "libxcursor-devel", "libxkbcommon-devel",
     "wayland-devel", "wayland-protocols", "libdrm-devel", "linux-pam-devel",
-    "eudev-devel", "dbus-devel", "libva-devel", "pipewire-devel",
+    "udev-devel", "dbus-devel", "libva-devel", "pipewire-devel",
     "libseat-devel",
 ]
 checkdepends = ["mesa-dri", "xwayland"]

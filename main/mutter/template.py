@@ -21,7 +21,7 @@ makedepends = [
     "libxi-devel", "libxkbfile-devel", "libxrandr-devel", "libxinerama-devel",
     "libxau-devel", "libice-devel", "libsm-devel", "libxcb-devel",
     "libcanberra-devel", "dbus-devel", "mesa-devel", "wayland-protocols",
-    "wayland-devel", "eudev-devel", "elogind-devel", "libwacom-devel",
+    "wayland-devel", "udev-devel", "elogind-devel", "libwacom-devel",
     "pipewire-devel", "libinput-devel", "startup-notification-devel",
     "colord-devel", "lcms2-devel", "at-spi2-core-devel",
 ]

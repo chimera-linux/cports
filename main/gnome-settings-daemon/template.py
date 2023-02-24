@@ -13,14 +13,14 @@ makedepends = [
     "lcms2-devel", "libcanberra-devel", "geoclue-devel", "libnotify-devel",
     "libpulse-devel", "pango-devel", "upower-devel", "libx11-devel",
     "libxfixes-devel", "libgudev-devel", "wayland-devel", "cups-devel",
-    "eudev-devel", "networkmanager-devel", "colord-devel", "polkit-devel",
+    "udev-devel", "networkmanager-devel", "colord-devel", "polkit-devel",
     # actually pulseaudio is used, alsa is only used to query hw info
     "modemmanager-devel", "gcr4-devel", "alsa-lib-devel", "libwacom-devel",
     "nss-devel",
 ]
 depends = ["hicolor-icon-theme"]
 checkdepends = [
-    "elogind", "eudev", "libnotify", "python-dbusmock", "python-gobject",
+    "elogind", "udev", "libnotify", "python-dbusmock", "python-gobject",
     "python-pycodestyle", "hwdata"
 ]
 pkgdesc = "GNOME settings daemon"

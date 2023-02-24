@@ -30,7 +30,7 @@ hostmakedepends = [
 makedepends = [
     "libuuid-devel", "nss-devel", "dbus-devel", "libgudev-devel",
     "libnl-devel", "polkit-devel", "libcurl-devel", "libedit-devel",
-    "jansson-devel", "libpsl-devel", "eudev-devel", "elogind-devel",
+    "jansson-devel", "libpsl-devel", "udev-devel", "elogind-devel",
     "libgirepository-devel", "libndp-devel", "newt-devel", "python-gobject",
     "linux-headers", "modemmanager-devel", "ppp-devel",
     "mobile-broadband-provider-info",

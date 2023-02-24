@@ -8,7 +8,7 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
-    "libevdev-devel", "mtdev-devel", "eudev-devel", "libwacom-devel",
+    "libevdev-devel", "mtdev-devel", "udev-devel", "libwacom-devel",
 ]
 checkdepends = ["check-devel", "bash"]
 pkgdesc = "Input abstraction library for Wayland and X"

@@ -10,7 +10,7 @@ hostmakedepends = [
     "gmake", "automake", "libtool", "pkgconf", "gettext-tiny-devel"
 ]
 makedepends = [
-    "libjpeg-turbo-devel", "sysfsutils-devel", "eudev-devel",
+    "libjpeg-turbo-devel", "sysfsutils-devel", "udev-devel",
     "libx11-devel", "mesa-devel", "glu-devel", "argp-standalone",
 ]
 pkgdesc = "Userspace tools and libraries for V4L"

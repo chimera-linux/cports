@@ -18,7 +18,7 @@ hostmakedepends = [
     "pkgconf", "shadow"
 ]
 makedepends = [
-    "acl-devel", "eudev-devel", "gettext-tiny-devel", "libcap-devel",
+    "acl-devel", "udev-devel", "gettext-tiny-devel", "libcap-devel",
     "libseccomp-devel", "linux-pam-devel"
 ]
 checkdepends = ["bash"]

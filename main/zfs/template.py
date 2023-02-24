@@ -13,7 +13,7 @@ make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "automake", "libtool", "python"]
 makedepends = [
     "libuuid-devel", "libblkid-devel", "linux-pam-devel", "libtirpc-devel",
-    "attr-devel", "openssl-devel", "eudev-devel", "zlib-devel",
+    "attr-devel", "openssl-devel", "udev-devel", "zlib-devel",
     "linux-headers",
 ]
 pkgdesc = "OpenZFS for Linux"

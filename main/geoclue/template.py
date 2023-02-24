@@ -15,7 +15,7 @@ hostmakedepends = [
     "gettext-tiny",
 ]
 makedepends = [
-    "eudev-devel", "json-glib-devel", "libsoup-devel", "libnotify-devel",
+    "udev-devel", "json-glib-devel", "libsoup-devel", "libnotify-devel",
     "modemmanager-devel", "avahi-glib-devel",
 ]
 pkgdesc = "D-Bus geoinformation service"

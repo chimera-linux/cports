@@ -11,7 +11,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "gtk4-devel", "libadwaita-devel", "libnotify-devel", "libcanberra-devel",
-    "eudev-devel", "gsound-devel", "upower-devel",
+    "udev-devel", "gsound-devel", "upower-devel",
 ]
 checkdepends = ["python-dbus"]
 depends = ["bluez"]
