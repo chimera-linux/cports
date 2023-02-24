@@ -1,7 +1,7 @@
 pkgname = "base-kernel"
 pkgver = "0.1"
 pkgrel = 0
-depends = ["base-udev", "kmod", "procps"]
+depends = ["kmod", "procps"]
 triggers = ["/usr/lib/modules"]
 pkgdesc = "Common data and scripts for Linux kernels in Chimera"
 maintainer = "q66 <q66@chimera-linux.org>"
