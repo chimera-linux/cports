@@ -14,8 +14,8 @@ root_over_the_network() {
 
 . /usr/share/initramfs-tools/hook-functions
 
-copy_exec /usr/libexec/udevd /usr/bin
 copy_exec /usr/bin/udevadm /usr/bin
+ln -sf udevadm "${DESTDIR}/usr/bin/udevd"
 
 mkdir -p "${DESTDIR}/etc/udev/rules.d"
 mkdir -p "${DESTDIR}/usr/lib/udev"
