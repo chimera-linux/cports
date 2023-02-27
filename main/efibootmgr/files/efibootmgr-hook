@@ -14,5 +14,5 @@ EFIBOOTMGR_CMDLINE_DEFAULT="quiet splash"
 # If set, recovery mode entries will be disabled.
 #EFIBOOTMGR_DISABLE_RECOVERY=
 
-# The 
+# The base part of boot entry name.
 #EFIBOOTMGR_ENTRY_TITLE="Chimera Linux"
