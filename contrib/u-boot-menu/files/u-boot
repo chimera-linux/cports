@@ -12,7 +12,7 @@
 U_BOOT_CMDLINE=
 
 # The additional cmdline to use in normal (non-recovery) boot only.
-U_BOOT_CMDLINE_DEFAULT="loglevel=4"
+U_BOOT_CMDLINE_DEFAULT="quiet splash"
 
 # If set, recovery mode entries will be disabled.
 #U_BOOT_DISABLE_RECOVERY=

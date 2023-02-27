@@ -6,7 +6,7 @@ GRUB_DEFAULT=0
 #GRUB_HIDDEN_TIMEOUT_QUIET=false
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Chimera"
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=4"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
 # Uncomment to use basic console
 #GRUB_TERMINAL_INPUT="console"
 # Uncomment to disable graphical terminal
