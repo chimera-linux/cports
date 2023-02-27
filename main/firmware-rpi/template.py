@@ -65,7 +65,7 @@ sha256 = [
     "bdc4fc14ca428130f474bb2f8bcb34c0684b0f9a0f31b05b4da39d64a2e1a333",
     "0441797884bbbd40a86e4579ff0e1c84ce69bb41f7bcf902a5c867ebb79b6ac3",
 ]
-options = ["!strip", "foreignelf"]
+options = ["!strip", "foreignelf", "execstack"]
 
 def do_install(self):
     from cbuild.core import paths
