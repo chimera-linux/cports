@@ -3,8 +3,7 @@
 
 KRET=0
 
-for f in /boot/vmlinu[xz]-*; do
-    KVER=$(echo $f | sed 's/.*vmlinu[xz]-\(.*\)/\1/')
+for KVER in $(linux-version list | linux-version sort --reverse); do
     [ -f "/boot/initrd.img-${KVER}" ] && continue
     update-initramfs -c -k "${KVER}" || KRET=$?
 done
