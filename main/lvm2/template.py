@@ -55,6 +55,11 @@ exec_wrappers = [
     ("/usr/bin/gsed", "sed")
 ]
 
+if self.profile().arch == "riscv64":
+    # udev static library weirdness
+    makedepends += ["libcap-devel-static"]
+    configure_args += ["LIBS=-lcap"]
+
 def pre_install(self):
     self.install_dir("usr/bin")
     self.install_link("bin", "usr/sbin")
