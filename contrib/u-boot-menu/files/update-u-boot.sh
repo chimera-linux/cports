@@ -65,7 +65,8 @@ gen_cmdline() {
     else
         CMDL="$CMDL $DEV_CMDLINE_DEFAULT"
     fi
-    echo "$CMDL" | sed 's/[ ]*$//'
+    CMDL=$(echo "$CMDL" | sed 's/[ ]*$//')
+    /usr/libexec/base-kernel/kernel-root-detect "$CMDL"
 }
 
 write_cfg "TIMEOUT $U_BOOT_TIMEOUT"
