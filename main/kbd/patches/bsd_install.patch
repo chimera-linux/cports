@@ -1,11 +1,11 @@
---- a/src/vlock/Makefile.in
-+++ b/src/vlock/Makefile.in
-@@ -722,7 +722,7 @@ uninstall-am: uninstall-binPROGRAMS uninstall-local
+--- a/src/vlock/Makefile.am
++++ b/src/vlock/Makefile.am
+@@ -9,7 +9,7 @@ if VLOCK
+ bin_PROGRAMS = vlock
  
- 
- @VLOCK_TRUE@install-data-local:
--@VLOCK_TRUE@	install -Dm644 $(srcdir)/vlock.pamd $(DESTDIR)$(sysconfdir)/pam.d/vlock
-+@VLOCK_TRUE@	install -d $(DESTDIR)$(sysconfdir)/pam.d; install -m644 $(srcdir)/vlock.pamd $(DESTDIR)$(sysconfdir)/pam.d/vlock
- @VLOCK_TRUE@uninstall-local:
- @VLOCK_TRUE@	rm $(DESTDIR)$(sysconfdir)/pam.d/vlock
- 
+ install-data-local:
+-	install -Dm644 $(srcdir)/vlock.pamd $(DESTDIR)$(sysconfdir)/pam.d/vlock
++	install -d $(DESTDIR)$(sysconfdir)/pam.d; install -m644 $(srcdir)/vlock.pamd $(DESTDIR)$(sysconfdir)/pam.d/vlock
+ uninstall-local:
+ 	rm $(DESTDIR)$(sysconfdir)/pam.d/vlock
+ endif
