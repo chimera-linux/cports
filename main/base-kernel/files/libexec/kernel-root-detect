@@ -1,0 +1,77 @@
+#!/bin/sh
+
+CMDLINE="$*"
+
+# there might be root= in the original cmdline
+for part in $CMDLINE; do
+    case "$part" in
+        root=*)
+            echo "$CMDLINE"
+            exit 0
+            ;;
+    esac
+done
+
+ROOTDEV=$(mountpoint -d /)
+
+# not a mount point?
+if [ $? -ne 0 ]; then
+    echo "$CMDLINE"
+    exit 1
+fi
+
+EVENTF="/sys/dev/block/${ROOTDEV}/uevent"
+
+# can happen with e.g. zfs mounts
+if [ ! -f "$EVENTF" ]; then
+    echo "$CMDLINE"
+    exit 0
+fi
+
+. "$EVENTF"
+
+if [ -z "$DEVNAME" ]; then
+    echo "$CMDLINE"
+    exit 1
+fi
+
+BDEV=$(realpath -q "/dev/$DEVNAME" 2>/dev/null)
+
+# should not happen
+if [ -z "$BDEV" ]; then
+    echo "$CMDLINE"
+    exit 1
+fi
+
+ROOTDEV=
+
+scan_rootdev() {
+    [ -n "$ROOTDEV" ] && return 0
+
+    for f in "$1"/*; do
+        [ -b "$f" ] || continue
+        MAPNAME=$(realpath -q "$f" 2>/dev/null)
+        [ -n "$MAPNAME" ] || continue
+        if [ "$MAPNAME" = "$BDEV" ]; then
+            ROOTDEV="$f"
+            break
+        fi
+    done
+}
+
+# first try mapper devices
+scan_rootdev /dev/mapper
+
+# try by uuid if that fails
+scan_rootdev /dev/disk/by-uuid
+
+# prepend as necessary
+if [ -n "$CMDLINE" -a -n "$ROOTDEV" ]; then
+    echo "root=$ROOTDEV $CMDLINE"
+elif [ -n "$ROOTDEV" ]; then
+    echo "root=$ROOTDEV"
+else
+    echo "$CMDLINE"
+fi
+
+exit 0

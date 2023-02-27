@@ -7,6 +7,9 @@ pkgdesc = "Common data and scripts for Linux kernels in Chimera"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
+protected_paths = [
+    "-etc/kernel.d"
+]
 # no tests
 options = ["!check", "keepempty"]
 
@@ -15,7 +18,8 @@ def do_install(self):
     self.install_dir("usr/libexec/base-kernel")
 
     for f in [
-        "kernel-clean-initramfs", "kernel-pre-upgrade", "kernel-post-upgrade",
+        "kernel-clean-initramfs", "kernel-root-detect",
+        "kernel-pre-upgrade", "kernel-post-upgrade",
         "run-kernel-d", "script-funcs", "script-pre-deinstall",
         "script-pre-install", "script-pre-upgrade",
         "script-post-install", "script-post-upgrade",
