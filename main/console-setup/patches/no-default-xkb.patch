@@ -1,15 +1,15 @@
-From da72e58736f2e403491684fd3e69fe1c29612813 Mon Sep 17 00:00:00 2001
+From 8c3ff0ae56ae00f970da5bb83b65786def7c1860 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Thu, 16 Feb 2023 18:39:50 +0100
+Date: Mon, 27 Feb 2023 02:18:41 +0100
 Subject: [PATCH] use standard console keymaps instead of xkb by default
 
 This patch will probably be reworked further later, but for now
 it will do.
 ---
- config/keyboard | 12 +++++++-----
- man/keyboard.5  | 45 +++++++++++----------------------------------
- setupcon        | 42 +++++++++++++++++++++++++++++++-----------
- 3 files changed, 49 insertions(+), 50 deletions(-)
+ config/keyboard | 12 +++++-----
+ man/keyboard.5  | 45 ++++++++++----------------------------
+ setupcon        | 58 ++++++++++++++++++++++++++++++++++++++-----------
+ 3 files changed, 63 insertions(+), 52 deletions(-)
 
 diff --git a/config/keyboard b/config/keyboard
 index 16e8da8..c8734ca 100644
@@ -128,7 +128,7 @@ index 2d692f5..31fbf96 100644
  .B grp:shifts_toggle
  is not supported on the console.
 diff --git a/setupcon b/setupcon
-index 50139a8..4d7bb1e 100755
+index e701a9e..b54accd 100755
 --- a/setupcon
 +++ b/setupcon
 @@ -460,6 +460,12 @@ if which uname >/dev/null; then
@@ -144,7 +144,7 @@ index 50139a8..4d7bb1e 100755
  # do_save
  if [ -n "$do_save" ]; then
      if [ ! -d /usr/share ]; then
-@@ -724,7 +730,9 @@ if \
+@@ -689,7 +695,9 @@ if \
      [ -n "$do_kbd$do_save$savekbdfile$setupdir$do_printonly" \
           -a -z "$XKBMODEL" ]
  then
@@ -155,7 +155,7 @@ index 50139a8..4d7bb1e 100755
      XKBMODEL='pc105'
  fi
  [ -n "$XKBMODEL" -o -z "$savekbdfile" ] || exit 1
-@@ -829,13 +837,6 @@ if [ "$kernel" = linux ] && ! which gzip >/dev/null; then
+@@ -794,13 +802,6 @@ if [ "$kernel" = linux ] && ! which gzip >/dev/null; then
      echo setupcon: gzip is not accessible.  Will not save cached keyboard map. >&2
  fi
  
@@ -169,7 +169,7 @@ index 50139a8..4d7bb1e 100755
  ###########################################################################
  ### SAVE THE FILES IN /etc
  ###########################################################################
-@@ -853,7 +854,7 @@ for i in /etc/console-setup $CONSOLE_MAP $FONTFILES $FONTMAPFILE $savekbdfile; d
+@@ -818,7 +819,7 @@ for i in /etc/console-setup $CONSOLE_MAP $FONTFILES $FONTMAPFILE $savekbdfile; d
      fi
  done
  
@@ -178,7 +178,7 @@ index 50139a8..4d7bb1e 100755
      case "$kernel" in
          linux)
              tempfile || { echo setupcon: Can not create temporary file >&2; exit 1; }
-@@ -1131,7 +1132,7 @@ if [ "$KMAP" ]; then
+@@ -1096,7 +1097,7 @@ if [ "$KMAP" ]; then
          linux) run plain NONE loadkeys "$KMAP" ;;
          freebsd) run in '' kbdcontrol -l "$KMAP" ;;
      esac
@@ -187,52 +187,62 @@ index 50139a8..4d7bb1e 100755
      tempfile || { echo setupcon: Can not create temporary file >&2; exit 1; }
      case "$do_kbd" in
          linux)
-@@ -1202,6 +1203,21 @@ if [ "$setupdir" ]; then
-         if [ "$1" ]; then
-             printf "%s" "$1" | {
-                 read -r arg args
-+                if [ "$2" = "loadkeys" ]; then
-+                    # save current keymap, load the desired one, dump it
-+                    # so that it can be copied, then restore the old as needed
-+                    dumpkeys >"$setupdir/tmp/old.map"
-+                    if [ $? -eq 0 ]; then
-+                        loadkeys "$arg" > /dev/null 2>&1
-+                        if [ $? -eq 0 ]; then
-+                            dumpkeys >"$setupdir/tmp/kmap.map"
-+                        fi
-+                        if [ $? -eq 0 ]; then
-+                            arg=$(realpath -q "$setupdir/tmp/kmap.map")
-+                        fi
-+                        loadkeys "$setupdir/tmp/old.map"
-+                    fi
-+                fi
-                 case "$arg" in
-                     \>|\<)
-                         echo -n "$arg"
-@@ -1239,6 +1255,7 @@ if [ "$setupdir" ]; then
+@@ -1203,8 +1204,34 @@ if [ "$setupdir" ]; then
+         fi
      }
  
++    do_loadkeys () {
++        local arg args f
++        read -r arg args
++        # use our loadkeys hack, maybe FIXME upstream in kbd
++        _LOADKEYS_PRINT_FULL_PATHS=1 loadkeys -p -b "$arg" | {
++            first=
++            while read -r line; do
++                f="${line##*/}"
++                f="${f%.gz}"
++                case "$line" in
++                    *.gz) zcat "$line" >"$setupdir/etc/console-setup/kmap/$f" ;;
++                    *) cp -a "$line" "$setupdir/etc/console-setup/kmap/$f" ;;
++                esac
++                if [ -z "$first" ]; then
++                    echo -n "loadkeys '"
++                    printf "%s" "/etc/console-setup/kmap/$f" \
++                        | sed "s/'/\'\\\\\'\'/g"
++                    echo -n "'"
++                    first=1
++                fi
++            done
++            echo -n ' '
++            fileargs "$args"
++        }
++    }
++
      mkdir -p "$setupdir"/bin
-+    mkdir -p "$setupdir"/tmp
-     mkdir -p "$setupdir"/etc/console-setup
+-    mkdir -p "$setupdir"/etc/console-setup
++    mkdir -p "$setupdir"/etc/console-setup/kmap
  
      echo '#!/bin/sh' >"$setupdir"/bin/setupcon
-@@ -1249,11 +1266,14 @@ if [ "$setupdir" ]; then
+     echo '# A micro-version of setupcon with static configuration.' >>"$setupdir"/bin/setupcon
+@@ -1213,12 +1240,17 @@ if [ "$setupdir" ]; then
+     printf "%s" "$SETUP" |
      while read -r cmd args; do
          which "$cmd" >>$TMPFILE || true
-         printf "%s " "$cmd"
+-        printf "%s " "$cmd"
 -        fileargs "$args"
-+        fileargs "$args" "$cmd"
++        if [ "$cmd" = "loadkeys" ]; then
++            printf "%s" "$args" | do_loadkeys
++        else
++            printf "%s " "$cmd"
++            fileargs "$args" "$cmd"
++        fi
          echo
      done >>"$setupdir"/bin/setupcon
      echo 'mkdir /run/console-setup' >>"$setupdir"/bin/setupcon
      echo '>/run/console-setup/keymap_loaded' >>"$setupdir"/bin/setupcon
      echo exit 0 >>"$setupdir"/bin/setupcon
 +
-+    rm -rf "$setupdir"/tmp
-+
      sort $TMPFILE | uniq | grep -v 'printf$' >"$setupdir"/morefiles
  fi
 -- 
-2.34.1
+2.39.0
 
