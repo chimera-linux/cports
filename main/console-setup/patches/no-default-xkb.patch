@@ -194,8 +194,8 @@ index e701a9e..b54accd 100755
 +    do_loadkeys () {
 +        local arg args f
 +        read -r arg args
-+        # use our loadkeys hack, maybe FIXME upstream in kbd
-+        _LOADKEYS_PRINT_FULL_PATHS=1 loadkeys -p -b "$arg" | {
++        # downstream utility
++        /usr/libexec/kbd/findkeys "$arg" | {
 +            first=
 +            while read -r line; do
 +                f="${line##*/}"
