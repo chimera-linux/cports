@@ -1,0 +1,40 @@
+commit e6a6281d64caec8d4c6d1bd6835d2e30f834fa5a
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Mon Feb 27 02:17:21 2023 +0100
+
+    add a way for loadkeys to dump full paths including include files
+    
+    This is currently clunky via an environment variable, in order to
+    avoid conflicts with potential upstream changes. It is supposed
+    to be used by our version of console-setup.
+
+diff --git a/src/libkeymap/analyze.c b/src/libkeymap/analyze.c
+index 76eb888..d32b03b 100644
+--- a/src/libkeymap/analyze.c
++++ b/src/libkeymap/analyze.c
+@@ -1020,6 +1020,10 @@ open_include(struct lk_ctx *ctx, char *s, yyscan_t scanner)
+ 		return -1;
+ 	}
+ 
++	if (getenv("_LOADKEYS_PRINT_FULL_PATHS")) {
++		printf("%s\n", kbdfile_get_pathname(fp));
++	}
++
+ 	free(s);
+ 
+ 	return stack_push(ctx, fp, scanner);
+diff --git a/src/libkeymap/parser.c b/src/libkeymap/parser.c
+index ef4a9d0..8f272f6 100644
+--- a/src/libkeymap/parser.c
++++ b/src/libkeymap/parser.c
+@@ -2274,6 +2274,10 @@ lk_parse_keymap(struct lk_ctx *ctx, struct kbdfile *fp)
+ 
+ 	yylex_init_extra(ctx, &scanner);
+ 
++	if (getenv("_LOADKEYS_PRINT_FULL_PATHS")) {
++		printf("%s\n", kbdfile_get_pathname(fp));
++	}
++
+ 	INFO(ctx, _("Loading %s"), kbdfile_get_pathname(fp));
+ 
+ 	if (stack_push(ctx, fp, scanner) == -1)

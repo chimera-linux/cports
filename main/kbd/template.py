@@ -6,7 +6,7 @@ configure_args = [
     "--disable-tests" # tests force autom4te
 ]
 make_cmd = "gmake"
-hostmakedepends = ["gmake", "flex", "pkgconf"]
+hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["linux-pam-devel", "linux-headers"]
 pkgdesc = "Linux keyboard utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
