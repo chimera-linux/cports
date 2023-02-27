@@ -82,6 +82,7 @@ configure_args = [
     "-Dhwdb=true",
     "-Dman=true",
     "-Dstandalone-binaries=true",
+    "-Dstatic-libudev=true",
 
     "-Dtests=false",
     "-Dlink-boot-shared=false",
