@@ -4,6 +4,7 @@ pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["efivar-devel", "popt-devel", "linux-headers"]
+depends = ["base-kernel"]
 pkgdesc = "Tool to modify the UEFI Boot Manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -40,3 +41,10 @@ def do_install(self):
     self.install_man("src/efibootdump.8")
     self.install_bin("src/efibootmgr")
     self.install_man("src/efibootmgr.8")
+
+    # hook config file
+    self.install_file(self.files_path / "efibootmgr-hook", "etc/default")
+    # kernel hook
+    self.install_file(
+        self.files_path / "99-efibootmgr-hook.sh", "etc/kernel.d", mode = 0o755
+    )
