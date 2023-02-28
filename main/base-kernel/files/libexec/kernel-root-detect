@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ -z "$ROOT_PATH" ]; then
+    ROOT_PATH=/
+fi
+
 CMDLINE="$*"
 
 # there might be root= in the original cmdline
@@ -12,7 +16,7 @@ for part in $CMDLINE; do
     esac
 done
 
-ROOTDEV=$(mountpoint -d /)
+BDEV=$(findmnt -no source "$ROOT_PATH" 2>/dev/null)
 
 # not a mount point?
 if [ $? -ne 0 ]; then
@@ -20,30 +24,43 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-EVENTF="/sys/dev/block/${ROOTDEV}/uevent"
-
-# can happen with e.g. zfs mounts
-if [ ! -f "$EVENTF" ]; then
-    echo "$CMDLINE"
-    exit 0
-fi
-
-. "$EVENTF"
-
-if [ -z "$DEVNAME" ]; then
-    echo "$CMDLINE"
-    exit 1
-fi
-
-BDEV=$(realpath -q "/dev/$DEVNAME" 2>/dev/null)
-
 # should not happen
-if [ -z "$BDEV" -o ! -b "$BDEV" ]; then
+if [ -z "$BDEV" ]; then
     echo "$CMDLINE"
     exit 1
 fi
 
+# root device search starts here
 ROOTDEV=
+ROOTFLAGS=
+
+# pool-based systems
+if [ ! -b "$BDEV" ]; then
+    FSNAME=$(findmnt -no fstype "$ROOT_PATH")
+    case "$FSNAME" in
+        zfs)
+            # origin is what we need
+            ROOTDEV="ZFS=$BDEV"
+            ;;
+        btrfs)
+            # may need rootflags
+            ROOTFLAGS=${BDEV#*[/}
+            ROOTFLAGS=${ROOTFLAGS%]}
+            if [ -z "$ROOTFLAGS" ]; then
+                echo "$CMDLINE"
+                exit 1
+            fi
+            ROOTFLAGS="subvol=$ROOTFLAGS"
+            # resolve normally
+            BDEV=${BDEV%[*}
+            ;;
+        *)
+            # unknown
+            echo "$CMDLINE"
+            exit 0
+            ;;
+    esac
+fi
 
 scan_rootdev() {
     [ -n "$ROOTDEV" ] && return 0
@@ -78,6 +95,10 @@ scan_rootdev /dev/disk/by-uuid UUID
 # fall back to /dev path
 if [ -z "$ROOTDEV" ]; then
     ROOTDEV="$BDEV"
+fi
+
+if [ -n "$ROOTFLAGS" ]; then
+    ROOTDEV="$ROOTDEV rootflags=$ROOTFLAGS"
 fi
 
 # prepend as necessary
