@@ -53,17 +53,27 @@ scan_rootdev() {
         MAPNAME=$(realpath -q "$f" 2>/dev/null)
         [ -n "$MAPNAME" ] || continue
         if [ "$MAPNAME" = "$BDEV" ]; then
-            ROOTDEV="$f"
+            if [ -n "$2" ]; then
+                ROOTDEV="$2=$(basename $f)"
+            else
+                ROOTDEV="$f"
+            fi
             break
         fi
     done
 }
 
-# first try mapper devices
+# first try partuuid, as that can be handled by
+# the kernel (in this format) even without initramfs
+scan_rootdev /dev/disk/by-partuuid PARTUUID
+
+# next try mapper devices, which need an initramfs
+# and are identified by a full path in /dev/mapper
 scan_rootdev /dev/mapper
 
-# try by uuid if that fails
-scan_rootdev /dev/disk/by-uuid
+# last try uuid, which is a part of the filesystem
+# and thus only works when you do have an initramfs
+scan_rootdev /dev/disk/by-uuid UUID
 
 # prepend as necessary
 if [ -n "$CMDLINE" -a -n "$ROOTDEV" ]; then
