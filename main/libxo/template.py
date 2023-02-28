@@ -32,3 +32,11 @@ def init_configure(self):
     tlflags = self.get_ldflags(shell = True)
 
     self.configure_env = {"CFLAGS": f"{tcflags} {tlflags}"}
+
+@subpackage("libxo-devel")
+def _devel(self):
+    return self.default_devel()
+
+@subpackage("libxo-progs")
+def _progs(self):
+    return self.default_progs()
