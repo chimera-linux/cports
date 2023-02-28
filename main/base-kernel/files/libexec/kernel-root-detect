@@ -38,7 +38,7 @@ fi
 BDEV=$(realpath -q "/dev/$DEVNAME" 2>/dev/null)
 
 # should not happen
-if [ -z "$BDEV" ]; then
+if [ -z "$BDEV" -o ! -b "$BDEV" ]; then
     echo "$CMDLINE"
     exit 1
 fi
@@ -75,13 +75,16 @@ scan_rootdev /dev/mapper
 # and thus only works when you do have an initramfs
 scan_rootdev /dev/disk/by-uuid UUID
 
+# fall back to /dev path
+if [ -z "$ROOTDEV" ]; then
+    ROOTDEV="$BDEV"
+fi
+
 # prepend as necessary
-if [ -n "$CMDLINE" -a -n "$ROOTDEV" ]; then
+if [ -n "$CMDLINE" ]; then
     echo "root=$ROOTDEV $CMDLINE"
-elif [ -n "$ROOTDEV" ]; then
-    echo "root=$ROOTDEV"
 else
-    echo "$CMDLINE"
+    echo "root=$ROOTDEV"
 fi
 
 exit 0
