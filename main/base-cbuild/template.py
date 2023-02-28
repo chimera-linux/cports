@@ -9,9 +9,9 @@ url = "https://chimera-linux.org"
 
 # musl must be built first to provide shlibs for later packages during stage 0
 depends = [
-    "musl-devel", "elftoolchain", "llvm", "clang", "lld", "chimerautils",
-    "awk", "apk-tools", "bmake", "bsdtar", "tzdata", "fakeroot-core",
-    f"base-cbuild-progs={pkgver}-r{pkgrel}",
+    "musl-devel", "elftoolchain", "ncurses", "llvm", "clang", "lld",
+    "chimerautils", "awk", "apk-tools", "bmake", "bsdtar", "tzdata",
+    "fakeroot-core", f"base-cbuild-progs={pkgver}-r{pkgrel}",
 ]
 
 options = ["bootstrap", "brokenlinks"]
