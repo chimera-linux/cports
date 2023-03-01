@@ -18,4 +18,4 @@ env = {
 }
 hardening = ["!int"]
 # not relevant
-options = ["!strip", "!check", "!lto", "!debug", "foreignelf"]
+options = ["!strip", "!check", "!lto", "!debug", "foreignelf", "execstack"]
