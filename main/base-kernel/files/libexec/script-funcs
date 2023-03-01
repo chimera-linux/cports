@@ -8,6 +8,6 @@ copy_modfiles() {
         bdirn=$(dirname "$modf")
         tdirn=$(dirname "$bdirn")
         fn=$(basename "$modf")
-        ln "$modf" "${tdirn}/$fn"
+        ln -f "$modf" "${tdirn}/$fn"
     done
 }
