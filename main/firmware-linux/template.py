@@ -239,7 +239,7 @@ def _gen_pkg(name, desc, iifcond, iifpkg, cont):
     @subpackage(f"firmware-linux-{name}")
     def _sub(self):
         self.pkgdesc = f"{pkgdesc} ({desc})"
-        self.options = ["!strip", "foreignelf"]
+        self.options = ["!strip", "foreignelf", "execstack"]
 
         if (iifcond is None or iifcond) and iifpkg:
             self.install_if = [f"firmware-linux-{iifpkg}={pkgver}-r{pkgrel}"]
