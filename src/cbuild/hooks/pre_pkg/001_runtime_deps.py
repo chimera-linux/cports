@@ -264,23 +264,24 @@ def _scan_symlinks(pkg):
             continue
         # otherwise it's a broken symlink, relativize to destdir
         sdest = sdest.relative_to(pkg.destdir)
+        ssrc = f.relative_to(pkg.destdir)
         # check each subpackage for the file
         for sp in pkg.rparent.subpkg_list:
             np = sp.destdir / sdest
             if _exists_link(np):
-                log.out_plain(f"   symlink: {sdest} <-> {sp.pkgname}")
+                log.out_plain(f"   symlink: {ssrc} -> {sdest} <-> {sp.pkgname}")
                 subpkg_deps[sp.pkgname] = True
                 break
         else:
             # could be a main package too
             if _exists_link(pkg.rparent.destdir / sdest):
-                log.out_plain(f"   symlink: {sdest} <-> {pkg.rparent.pkgname}")
+                log.out_plain(f"   symlink: {ssrc} -> {sdest} <-> {pkg.rparent.pkgname}")
                 subpkg_deps[pkg.rparent.pkgname] = True
             else:
                 # nothing found
                 if allow_broken:
                     continue
-                pkg.error(f"   symlink: {sdest} <-> UNKNOWN PACKAGE!")
+                pkg.error(f"   symlink: {ssrc} -> {sdest} <-> UNKNOWN PACKAGE!")
 
     for k in subpkg_deps:
         kv = f"{k}={pkg.rparent.pkgver}-r{pkg.rparent.pkgrel}"
