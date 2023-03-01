@@ -43,7 +43,7 @@ sha256 = "dbc69f90ddc821b8d1441f00374dc1da4323a2eafa9078e61edbe5eeefa852ec"
 # FIXME int
 hardening = ["!int"]
 # g_log_set_writer_func called multiple times in tests
-#options = ["!cross", "!check"]
+options = ["!cross", "!check"]
 
 @subpackage("gtk-update-icon-cache")
 def _uic(self):
