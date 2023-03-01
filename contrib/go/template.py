@@ -16,7 +16,7 @@ env = {}
 # a bunch of tests fail for now, so FIXME
 options = [
     "!strip", "!debug", "!lto", "!check", "!scanrundeps",
-    "!lintstatic", "foreignelf",
+    "!lintstatic", "foreignelf", "execstack",
 ]
 
 # bootstrapping mode generates tarballs for go-bootstrap
