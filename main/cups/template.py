@@ -80,7 +80,6 @@ def init_configure(self):
     ]
 
 def post_install(self):
-    self.install_file(self.files_path / "cups.pam", "etc/pam.d", name = "cups")
     self.install_file(self.files_path / "client.conf", "etc/cups")
 
     self.install_service(self.files_path / "cupsd")
