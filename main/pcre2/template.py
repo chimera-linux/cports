@@ -23,7 +23,8 @@ source = f"https://github.com/PhilipHazel/{pkgname}/releases/download/{pkgname}-
 sha256 = "ded42661cab30ada2e72ebff9e725e745b4b16ce831993635136f2ef86177724"
 
 match self.profile().arch:
-    case "riscv64":
+    # aarch64 FIXME: segfault in pcre2_jit_neon_inc.h during testing
+    case "riscv64" | "aarch64":
         configure_args += ["--disable-jit"]
 
 def pre_configure(self):
