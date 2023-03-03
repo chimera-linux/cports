@@ -21,6 +21,11 @@ url = "https://gitlab.com/cryptsetup/cryptsetup"
 source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "9184a6ebbd9ce7eb211152e7f741a6c82f2d1cc0e24a84ec9c52939eee0f0542"
 
+if self.profile().arch == "riscv64":
+    # udev static library weirdness
+    makedepends += ["libcap-devel-static"]
+    configure_args += ["LIBS=-lcap"]
+
 @subpackage("cryptsetup-static-bin")
 def _sbin(self):
     self.pkgdesc = f"{pkgdesc} (static binaries)"
