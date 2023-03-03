@@ -1292,7 +1292,7 @@ def fire():
         sys.exit(1)
     except errors.PackageException as e:
         e.pkg.log_red(f"ERROR: {e}", e.end)
-        if e.bt:
+        if e.bt and not e.broken:
             traceback.print_exc(file = logger.get().estream)
         sys.exit(1)
     except:
