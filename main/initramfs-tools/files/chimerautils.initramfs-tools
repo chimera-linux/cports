@@ -2,6 +2,8 @@
 
 [ "$1" = "prereqs" ] && exit 0
 
+. /usr/share/initramfs-tools/hook-functions
+
 # provided by chimerautils-tiny
 BSD_TOOLS="
  [ basename cat chroot cp cut dd dir dirname du echo
@@ -11,8 +13,6 @@ BSD_TOOLS="
  rm rmdir sed seq sh sleep sort stat stty sync tail tee
  test touch true uname uniq unlink vdir wc which xargs yes
 "
-# dependencies of core tools
-BSD_DEPS="libfts.so.0 librpmatch.so.0 libxo.so.0"
 
 # provided by klibc-kinit-standalone
 KINIT_TOOLS="fstype ipconfig nfsmount resume run-init"
@@ -26,23 +26,19 @@ KLIBC_TOOLS="
 LDSO_ARCH=$(/usr/lib/libc.so 2>&1 | head -n1 | sed 's/musl libc (\(.*\))/\1/')
 cp -an /usr/lib/libc.so "${DESTDIR}/usr/lib"
 ln -sf /usr/lib/libc.so "${DESTDIR}/usr/lib/ld-musl-${LDSO_ARCH}.so.1"
-# other dependencies, we need their soname so dereference
-for bd in ${BSD_DEPS}; do
-    cp -aLn /usr/lib/${bd} "${DESTDIR}/usr/lib"
-done
 
 for kt in ${KINIT_TOOLS}; do
-    cp -an /usr/libexec/kinit-standalone/${kt} "${DESTDIR}/usr/bin"
+    copy_exec /usr/libexec/kinit-standalone/${kt} /usr/bin/${kt}
 done
 
 for kt in ${KLIBC_TOOLS}; do
-    cp -an /usr/libexec/klibc-utils-standalone/${kt} "${DESTDIR}/usr/bin"
+    copy_exec /usr/libexec/klibc-utils-standalone/${kt} /usr/bin/${kt}
 done
 
 for bt in ${BSD_TOOLS}; do
     if [ -x /usr/libexec/chimerautils-tiny/${bt} ]; then
-        cp -an /usr/libexec/chimerautils-tiny/${bt} "${DESTDIR}/usr/bin"
+        copy_exec /usr/libexec/chimerautils-tiny/${bt} /usr/bin/${bt}
     else
-        cp -an /usr/bin/${bt} "${DESTDIR}/usr/bin"
+        copy_exec /usr/bin/${bt}
     fi
 done

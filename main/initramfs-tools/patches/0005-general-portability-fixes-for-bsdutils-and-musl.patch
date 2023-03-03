@@ -18,7 +18,7 @@ index af6dec4..4944f05 100644
  }
  
 +_relpath() {
-+    local pos="${1%%/}" ref="${2%%/}" down=''
++    local pos="$(dirname $1 | sed -e 's,//*,/,g')" ref="${2%%/}" down=''
 +
 +    while :; do
 +        test "$pos" = '/' && break
@@ -47,7 +47,7 @@ index af6dec4..4944f05 100644
  			# Create a relative link so it always points
  			# to the right place
 -			ln -rs "${DESTDIR}/${link_target}" "${DESTDIR}/${target}"
-+			relp=$(_relpath "${DESTDIR}/${target}" "${DESTDIR}/${link_target}")
++			relp=$(_relpath "${target}" "${link_target}")
 +			ln -sf "${relp}" "${DESTDIR}/${target}"
  		fi
  
