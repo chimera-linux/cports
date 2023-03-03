@@ -27,6 +27,11 @@ debug_level = 1 # allow LTO build to not run out of mem
 hardening = ["!cfi"] # TODO
 options = ["!cross"]
 
+match self.profile().arch:
+    case "ppc64le" | "ppc64":
+        # trap in add_label_offset() in assembler-ppc.cc
+        hardening += ["!int"]
+
 def post_extract(self):
     self.mv("deps/openssl/nodejs-openssl.cnf", ".")
 
