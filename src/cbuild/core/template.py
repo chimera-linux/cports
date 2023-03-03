@@ -184,8 +184,8 @@ class Package:
     def log_warn(self, msg, end = "\n"):
         self.logger.warn(self._get_pv() + ": " + msg, end)
 
-    def error(self, msg, end = "\n", broken = False):
-        raise errors.PackageException(msg, end, self, broken)
+    def error(self, msg, end = "\n", broken = False, bt = True):
+        raise errors.PackageException(msg, end, self, broken, bt)
 
     def _get_pv(self):
         if self.pkgname and self.pkgver:
@@ -947,7 +947,7 @@ class Template(Package):
                 prevneg = curneg
         # no match or negative match
         if not prevmatch or prevneg:
-            self.error(f"this package cannot be built for {archn}")
+            self.error(f"this package cannot be built for {archn}", bt = False)
         # otherwise we're good
 
     def is_built(self):

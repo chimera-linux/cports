@@ -1037,7 +1037,8 @@ def _bulkpkg(pkgs, statusf):
         except errors.PackageException as e:
             e.pkg.log_red(f"ERROR: {e}", e.end)
             if not e.broken:
-                traceback.print_exc(file = log.estream)
+                if e.bt:
+                    traceback.print_exc(file = log.estream)
                 failed = True
             else:
                 broken = True
@@ -1291,7 +1292,8 @@ def fire():
         sys.exit(1)
     except errors.PackageException as e:
         e.pkg.log_red(f"ERROR: {e}", e.end)
-        traceback.print_exc(file = logger.get().estream)
+        if e.bt:
+            traceback.print_exc(file = logger.get().estream)
         sys.exit(1)
     except:
         logger.get().out_red("A failure has occurred!")
