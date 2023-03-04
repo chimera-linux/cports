@@ -18,7 +18,7 @@ makedepends = [
     "gettext-tiny-devel", "freetype-devel", "ncurses-devel", "liblzma-devel",
     "device-mapper-devel", "fuse-devel",
 ]
-depends = ["os-prober"]
+depends = ["os-prober", "virtual:cmd:findmnt!mount"]
 pkgdesc = "GRand Unified Bootloader version 2"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
