@@ -23,13 +23,14 @@ diff --git a/contrib/initramfs/hooks/zfs.in b/contrib/initramfs/hooks/zfs.in
 index 546841e..6cbfbed 100755
 --- a/contrib/initramfs/hooks/zfs.in
 +++ b/contrib/initramfs/hooks/zfs.in
-@@ -10,6 +10,10 @@ fi
+@@ -10,6 +10,11 @@ fi
  
  . /usr/share/initramfs-tools/hook-functions
  
 +copy_exec /usr/bin/grep
 +copy_exec /usr/bin/sed
 +copy_exec /usr/bin/tr
++copy_exec /usr/bin/awk
 +
  for req in "@sbindir@/zpool" "@sbindir@/zfs" "@mounthelperdir@/mount.zfs"; do
  	copy_exec "$req" || {
