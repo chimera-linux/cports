@@ -1,8 +1,0 @@
-type            = process
-command         = /usr/bin/agetty console 38400 linux
-restart         = true
-depends-on      = login.target
-termsignal      = HUP
-smooth-recovery = true
-inittab-id      = console
-inittab-line    = console
