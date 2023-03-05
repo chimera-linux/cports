@@ -16,5 +16,3 @@ def do_install(self):
     self.install_file(
         self.files_path / "99-rpi-kernel.sh", "etc/kernel.d", mode = 0o755
     )
-    # agetty service
-    self.install_service(self.files_path / "agetty-ttyAMA0", enable = True)
