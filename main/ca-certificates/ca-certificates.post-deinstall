@@ -7,4 +7,4 @@ find -L /etc/ssl/certs -maxdepth 1 -type l -exec rm -- {} + || :
 rm -f /etc/ssl/certs/ca-certificates.crt || :
 
 # remove the dir itself
-rmdir /etc/ssl/certs 2>/dev/null || :
+[ -d /etc/ssl/certs ] && rmdir /etc/ssl/certs || :

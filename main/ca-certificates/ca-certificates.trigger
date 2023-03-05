@@ -1,5 +1,5 @@
 #!/bin/sh
 
-/usr/bin/update-ca-certificates --fresh &> /dev/null || :
+/usr/bin/update-ca-certificates --fresh || :
 # spawns some subprocesses, we want to let it finish
 wait
