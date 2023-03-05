@@ -1,8 +1,2 @@
-type            = process
-command         = /usr/bin/agetty -L -8 ttyS2 1500000 vt100
-restart         = true
-depends-on      = login.target
-termsignal      = HUP
-smooth-recovery = true
-inittab-id      = S2
-inittab-line    = ttyS2
+# override default 115200 baud to accommodate rockchip
+GETTY_BAUD=1500000
