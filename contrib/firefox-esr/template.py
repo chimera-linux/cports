@@ -51,6 +51,10 @@ exec_wrappers = [
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."
 
+# crashes compiler in gl.c
+if self.profile().arch == "riscv64":
+    tool_flags["CXXFLAGS"] = ["-U_FORTIFY_SOURCE"]
+
 def post_extract(self):
     self.cp(
         self.files_path / "stab.h", "toolkit/crashreporter/google-breakpad/src"
