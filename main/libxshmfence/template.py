@@ -2,9 +2,9 @@ pkgname = "libxshmfence"
 pkgver = "1.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-shared-memory-dir=/dev/shm"]
+configure_args = ["--enable-futex", "--with-shared-memory-dir=/dev/shm"]
 hostmakedepends = ["pkgconf"]
-makedepends = ["xorgproto"]
+makedepends = ["xorgproto", "linux-headers"]
 pkgdesc = "X SyncFence synchronization primitive"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
