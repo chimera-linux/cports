@@ -8,6 +8,7 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libffi-devel", "libdrm-devel"]
+depends = ["!libva", "!libva-devel"]
 # no provides needed, only for mesa which needs headers
 pkgdesc = "Video Acceleration API (bootstrap)"
 maintainer = "q66 <q66@chimera-linux.org>"
