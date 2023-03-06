@@ -40,7 +40,7 @@ makedepends = [
     "ncurses-devel", "libzstd-devel", "zlib-devel", "lua5.4-devel",
     "libffi-devel", "elftoolchain-devel",
     # video accel
-    "libva-devel",
+    "libva-bootstrap",
     "libvdpau-devel",
 ]
 pkgdesc = "Mesa 3D Graphics Library"
