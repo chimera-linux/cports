@@ -1,5 +1,5 @@
 pkgname = "dinit-chimera"
-_commit = "ae604213621030d99177f5417d10ae07bd9b03a2"
+_commit = "b0de65311590d1668ee899d1301c22165570c341"
 pkgver = "0.11"
 pkgrel = 0
 build_style = "makefile"
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
-sha256 = "8aaa413e9cfd8f7e58db9767bc8a8bd49373eccf9cebf914ebff0995ef89d076"
+sha256 = "18ac7d312f0c33f8d228935ee08a30f004f05e20c34045639ab4a4b1286389d0"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
