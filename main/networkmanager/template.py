@@ -1,5 +1,5 @@
 pkgname = "networkmanager"
-pkgver = "1.40.2"
+pkgver = "1.42.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -13,6 +13,9 @@ configure_args = [
     "-Dpppd=/usr/bin/pppd", "-Ddhcpcanon=no",
     "-Dlibaudit=no", "-Dsystemdsystemunitdir=no",
     "-Dconfig_logging_backend_default=syslog",
+    "-Dconfig_dns_rc_manager_default=resolvconf",
+    # we might want to switch to iwd at some point, but not now
+    "-Dconfig_wifi_backend_default=wpa_supplicant",
     "-Dconfig_dhcp_default=internal",
     "-Dkernel_firmware_dir=/usr/lib/firmware",
     "-Ddbus_conf_dir=/etc/dbus-1/system.d",
@@ -36,7 +39,8 @@ makedepends = [
     "mobile-broadband-provider-info",
 ]
 depends = [
-    "dbus", "iwd", "openresolv", "iproute2", "mobile-broadband-provider-info",
+    "dbus", "wpa_supplicant", "openresolv", "iproute2",
+    "mobile-broadband-provider-info",
 ]
 checkdepends = ["python-dbus"]
 pkgdesc = "Network management daemon"
@@ -44,7 +48,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/NetworkManager"
 source = f"$(GNOME_SITE)/NetworkManager/{pkgver[:-2]}/NetworkManager-{pkgver}.tar.xz"
-sha256 = "b126e75a234936c99c47b259c55120ebdd9bf76ac4efd30c9811e56a0481c273"
+sha256 = "dcfe9c5c909d38c81ae95ccfe895a328a2a14c11dacfb7f507beb405efce0580"
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["!check", "!cross"]
 
