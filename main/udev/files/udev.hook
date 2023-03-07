@@ -1,16 +1,7 @@
 #!/bin/sh -e
-# adapted from devuan
+# adapted from debian
 
 [ "$1" = "prereqs" ] && exit 0
-
-root_over_the_network() {
-    if egrep -qs '^/dev/(nbd|nd[a-z]|etherd/e)[^[:space:]]+[[:space:]]+/[[:space:]]' /etc/fstab; then
-       return 0
-    elif egrep -qs '^[^[:space:]#]+[[:space:]]+/[[:space:]]+nfs[234]?[[:space:]]' /etc/fstab; then
-       return 0
-    fi
-    return 1
-}
 
 . /usr/share/initramfs-tools/hook-functions
 
@@ -24,10 +15,12 @@ cp -p /etc/udev/udev.conf "${DESTDIR}/etc/udev"
 
 for rule in \
     50-udev-default.rules \
+    60-block.rules \
     60-persistent-storage.rules \
-    80-drivers.rules \
-    64-md-raid.rules 60-persistent-storage-lvm.rules \
-    55-dm.rules 60-persistent-storage-dm.rules
+    71-seat.rules \
+    75-net-description.rules \
+    80-net-setup-link.rules \
+    80-drivers.rules
 do
     if [ -e "/etc/udev/rules.d/${rule}" ]; then
         cp -p "/etc/udev/rules.d/${rule}" "${DESTDIR}/etc/udev/rules.d"
@@ -36,23 +29,14 @@ do
     fi
 done
 
-# try to autodetect the value of this configuration option
-if [ -z "$NEED_PERSISTENT_NET" ] && root_over_the_network; then
-    NEED_PERSISTENT_NET="yes"
-fi
-
-# Copy the rules for persistent network interface names for the benefit of
-# systems which need to boot over the network. If this is enabled then the
-# initramfs must be rebuilt every time a new network interface is added.
-# See #414287 for details.
-case "$NEED_PERSISTENT_NET" in
-    YES|yes|Yes|Y|y)
-        if [ -e /etc/udev/rules.d/70-persistent-net.rules ]; then
-            cp -p /etc/udev/rules.d/70-persistent-net.rules \
-                "${DESTDIR}/etc/udev/rules.d"
-        fi
-        ;;
-esac
+# now copy all custom udev rules which don't have an equivalent in /lib (e. g.
+# 70-persistent-net.rules or similar); They might contain network names or
+# other bits which are relevant for the initramfs.
+for rules in /etc/udev/rules.d/*.rules; do
+    if [ -e "$rules" ] && [ ! -e "/usr/lib/${rules#/etc/}" ]; then
+        cp -p "$rules" "$DESTDIR/usr/lib/udev/rules.d/"
+    fi
+done
 
 for prog in ata_id scsi_id; do
     copy_exec "/usr/lib/udev/${prog}" /usr/lib/udev

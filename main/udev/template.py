@@ -137,6 +137,12 @@ def post_install(self):
     ]:
         self.rm(ddir / f, recursive = True)
 
+    # predictable interface names
+    self.install_file(
+        self.files_path / "80-net-name-slot.rules",
+        "usr/lib/udev/rules.d", mode = 0o644
+    )
+
     # initramfs-tools
     self.install_file(
         self.files_path / "udev.hook",
