@@ -1,0 +1,26 @@
+diff --git a/wpa_supplicant/Makefile b/wpa_supplicant/Makefile
+index cb66def..a4b1e95 100644
+--- a/wpa_supplicant/Makefile
++++ b/wpa_supplicant/Makefile
+@@ -30,9 +30,9 @@ LIBS_p := $(LIBS)
+ endif
+ endif
+ 
+-export LIBDIR ?= /usr/local/lib
+-export INCDIR ?= /usr/local/include
+-export BINDIR ?= /usr/local/sbin
++export LIBDIR ?= /usr/lib
++export INCDIR ?= /usr/include
++export BINDIR ?= /usr/bin
+ PKG_CONFIG ?= pkg-config
+ 
+ CFLAGS += $(EXTRA_CFLAGS)
+@@ -64,7 +64,7 @@ mkconfig:
+ 	echo CONFIG_DRIVER_WEXT=y >> .config
+ 
+ $(DESTDIR)$(BINDIR)/%: %
+-	install -D $(<) $(@)
++	install $(<) $(@)
+ 
+ install: $(addprefix $(DESTDIR)$(BINDIR)/,$(BINALL))
+ 	$(MAKE) -C ../src install
