@@ -1,0 +1,15 @@
+diff --git a/config/Makefile.linux-clang b/config/Makefile.linux-clang.new
+index 75a43f8f..4fb191d6 100644
+--- a/config/Makefile.linux-clang
++++ b/config/Makefile.linux-clang.new
+@@ -10,8 +10,8 @@ ifeq (ppc64,${M_ARCH})
+   ARCH64 = true
+ endif
+ ifeq (${ARCH64},true)
+-  LDFLAGS.EXTRA = -L/usr/X11R6/lib64 -L/usr/lib64
+-  LIBDIR = $(GLEW_DEST)/lib64
++  LDFLAGS.EXTRA = -L/usr/X11R6/lib -L/usr/lib
++  LIBDIR = $(GLEW_DEST)/lib
+ else
+   LDFLAGS.EXTRA = -L/usr/X11R6/lib -L/usr/lib
+   LIBDIR = $(GLEW_DEST)/lib
