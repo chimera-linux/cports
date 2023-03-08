@@ -1,0 +1,73 @@
+From d1761dfc3ca6b54bac0ee213389a65f84d2aa9b7 Mon Sep 17 00:00:00 2001
+From: Artem Gindinson <artem.gindinson@intel.com>
+Date: Mon, 28 Nov 2022 14:33:44 +0000
+Subject: [PATCH]  Explicitly cast pointers to `int` in BiFModule (LLVM 15)
+
+Starting from version 15, Clang defaults to
+`-Werror=int-conversion`. Add explicit casts in OpenCL C builtins'
+code where necessary for LLVM 15 buildability.
+---
+ IGC/BiFModule/Implementation/group.cl         | 4 ++--
+ IGC/BiFModule/Languages/OpenCL/IBiF_Images.cl | 8 ++++----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/IGC/BiFModule/Implementation/group.cl b/IGC/BiFModule/Implementation/group.cl
+index dd6cfd6ba26..df9a2f64f4f 100644
+--- a/IGC/BiFModule/Implementation/group.cl
++++ b/IGC/BiFModule/Implementation/group.cl
+@@ -1897,13 +1897,13 @@ void SPIRV_OVERLOADABLE SPIRV_BUILTIN(SubgroupImageBlockWriteINTEL, _img2d_wo_v2
+     global Img2d_wo* image, int2 coord, TYPE data)                                 \
+ {                                                                                  \
+     int id = (int)__builtin_astype(image, __global void*);                         \
+-    INTERNAL_FUNC(image, coord, data);                                             \
++    INTERNAL_FUNC((int)image, coord, data);                                        \
+ }                                                                                  \
+ void SPIRV_OVERLOADABLE SPIRV_BUILTIN(SubgroupImageBlockWriteINTEL, _img2d_rw_v2i32_##TYPE_ABBR, )(    \
+     global Img2d_rw* image, int2 coord, TYPE data)                                 \
+ {                                                                                  \
+     int id = (int)__builtin_astype(image, __global void*);                         \
+-    INTERNAL_FUNC(image, coord, data);                                             \
++    INTERNAL_FUNC((int)image, coord, data);                                        \
+ }
+ 
+ #ifdef cl_intel_subgroups_char
+diff --git a/IGC/BiFModule/Languages/OpenCL/IBiF_Images.cl b/IGC/BiFModule/Languages/OpenCL/IBiF_Images.cl
+index 062b4f3f49f..1d9d158e9c5 100644
+--- a/IGC/BiFModule/Languages/OpenCL/IBiF_Images.cl
++++ b/IGC/BiFModule/Languages/OpenCL/IBiF_Images.cl
+@@ -379,7 +379,7 @@ INLINE int4 OVERLOADABLE read_imagei(read_only image1d_array_t image_array, samp
+ 
+ INLINE uint4 OVERLOADABLE read_imageui(read_only image1d_array_t image_array, sampler_t sampler, int2 coords) {
+     int id = (int)__builtin_astype(image_array, __global void*);
+-    int IDimage_array = __builtin_astype(image_array, __global void*);
++    int IDimage_array = (int)__builtin_astype(image_array, __global void*);
+     int dt = __builtin_IB_get_image_array_size(IDimage_array);
+     float layer = clamp(rint((float)coords.y), 0.0f, (float)(--dt));
+     if ((__builtin_IB_get_address_mode(__builtin_IB_convert_sampler_to_int(sampler)) & 0x07) == CLK_ADDRESS_CLAMP_TO_EDGE)
+@@ -395,7 +395,7 @@ INLINE uint4 OVERLOADABLE read_imageui(read_only image1d_array_t image_array, sa
+ 
+ INLINE uint4 OVERLOADABLE read_imageui(read_only image1d_array_t image_array, sampler_t sampler, float2 coords) {
+     int id = (int)__builtin_astype(image_array, __global void*);
+-    int IDimage_array = __builtin_astype(image_array, __global void*);
++    int IDimage_array = (int)__builtin_astype(image_array, __global void*);
+     int dt = __builtin_IB_get_image_array_size(IDimage_array);
+     float layer = clamp(rint(coords.y), 0.0f, (float)(--dt));
+     if ((__builtin_IB_get_address_mode(__builtin_IB_convert_sampler_to_int(sampler)) & 0x07) == CLK_ADDRESS_CLAMP)
+@@ -581,7 +581,7 @@ INLINE int4 OVERLOADABLE read_imagei(read_only image2d_array_t image_array, samp
+ 
+ INLINE uint4 OVERLOADABLE read_imageui(read_only image2d_array_t image_array, sampler_t sampler, int4 coords) {
+     int id = (int)__builtin_astype(image_array, __global void*);
+-    int IDimage_array = __builtin_astype(image_array, __global void*);
++    int IDimage_array = (int)__builtin_astype(image_array, __global void*);
+     int dt = __builtin_IB_get_image_array_size(IDimage_array);
+     float layer = clamp(rint((float)coords.z), 0.0f, (float)(--dt));
+     if ((__builtin_IB_get_address_mode(__builtin_IB_convert_sampler_to_int(sampler)) & 0x07) == CLK_ADDRESS_CLAMP_TO_EDGE)
+@@ -597,7 +597,7 @@ INLINE uint4 OVERLOADABLE read_imageui(read_only image2d_array_t image_array, sa
+ 
+ INLINE uint4 OVERLOADABLE read_imageui(read_only image2d_array_t image_array, sampler_t sampler, float4 coords) {
+     int id = (int)__builtin_astype(image_array, __global void*);
+-    int IDimage_array = __builtin_astype(image_array, __global void*);
++    int IDimage_array = (int)__builtin_astype(image_array, __global void*);
+     int dt = __builtin_IB_get_image_array_size(IDimage_array);
+     float layer = clamp(rint(coords.z), 0.0f, (float)(--dt));
+     if ((__builtin_IB_get_address_mode(__builtin_IB_convert_sampler_to_int(sampler)) & 0x07) == CLK_ADDRESS_CLAMP)

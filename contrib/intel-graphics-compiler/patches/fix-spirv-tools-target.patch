@@ -1,0 +1,23 @@
+diff --git a/external/SPIRV-Tools/CMakeLists.txt b/external/SPIRV-Tools/CMakeLists.txt.new
+index 076079f7..9833296d 100644
+--- a/external/SPIRV-Tools/CMakeLists.txt
++++ b/external/SPIRV-Tools/CMakeLists.txt.new
+@@ -13,7 +13,7 @@ message(STATUS "============================ SPIRV-Tools project ===============
+ if(IGC_OPTION__SPIRV_TOOLS_MODE STREQUAL PREBUILDS_MODE_NAME)
+ 
+  message(STATUS "[SPIRV-Tools] : IGC_OPTION__SPIRV_TOOLS_MODE set to Prebuilds")
+- OPTION(IGC__OPTION_USE_PREINSTALLED_SPRIV_HEADERS OFF)
++ OPTION(IGC_OPTION__USE_PREINSTALLED_SPRIV_HEADERS OFF)
+ 
+  if(IGC_OPTION__USE_PREINSTALLED_SPRIV_HEADERS)
+   message(STATUS "[SPIRV-Tools] : IGC__OPTION_USE_PREINSTALLED_SPRIV_HEADERS set to ON, using preinstalled SPIRV-Headers")
+@@ -33,7 +33,7 @@ if(IGC_OPTION__SPIRV_TOOLS_MODE STREQUAL PREBUILDS_MODE_NAME)
+  set(IGC_BUILD__SPIRV-Tools_DIR "${SPIRV-Tools_ROOT_DIR}")
+ 
+  set(INCLUDE_DIRS_LIST "${SPIRV-Tools_ROOT_DIR}/include" "${SPIRV-Headers_INCLUDE_DIR}")
+- set_target_properties(SPIRV-Tools PROPERTIES INCLUDE_DIRECTORIES "${INCLUDE_DIRS_LIST}")
+- set(IGC_BUILD__PROJ__SPIRV-Tools SPIRV-Tools)
++ set_target_properties(SPIRV-Tools-shared PROPERTIES INCLUDE_DIRECTORIES "${INCLUDE_DIRS_LIST}")
++ set(IGC_BUILD__PROJ__SPIRV-Tools SPIRV-Tools-shared)
+ 
+ else() #By default use build from sources

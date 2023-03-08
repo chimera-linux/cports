@@ -1,0 +1,140 @@
+From c707d1e2244aec988bdd5d2a7473ef3a32a5bac7 Mon Sep 17 00:00:00 2001
+From: Artem Gindinson <artem.gindinson@intel.com>
+Date: Thu, 17 Nov 2022 18:51:03 +0000
+Subject: [PATCH]  Disable opaque pointers in IGC stack for LLVM 15+
+
+While IGC is a long way from supporting opaque pointers, LLVM 15 has them
+enabled by default. Enforce typed pointers explicitly within all LLVM
+pipelines employed by our stack (unless CMake instructs otherwise).
+---
+ IGC/BiFModule/CMakeLists.txt              |  4 ++--
+ IGC/CMakeLists.txt                        |  4 ++++
+ IGC/Compiler/CodeGenContext.cpp           |  3 +++
+ IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp |  4 ++++
+ IGC/VectorCompiler/lib/BiF/CMakeLists.txt |  4 ++--
+ IGC/cmake/igc_llvm.cmake                  | 24 +++++++++++++++++++++++
+ 6 files changed, 39 insertions(+), 4 deletions(-)
+
+diff --git a/IGC/BiFModule/CMakeLists.txt b/IGC/BiFModule/CMakeLists.txt
+index 60fc5cf8d7d..e87288ca6da 100644
+--- a/IGC/BiFModule/CMakeLists.txt
++++ b/IGC/BiFModule/CMakeLists.txt
+@@ -251,7 +251,7 @@ function(igc_bif_build_bc)
+     add_custom_command(
+         OUTPUT "${_bcTempFilePath}"
+         COMMAND "${CMAKE_COMMAND}" -E compare_files ${BiFModule_PREBUILD_SHA_PATH} ${BiFModule_SRC_SHA_PATH} || "${CMAKE_COMMAND}" -E make_directory "${_outBcFileDir}"
+-        COMMAND "${CMAKE_COMMAND}" -E compare_files ${BiFModule_PREBUILD_SHA_PATH} ${BiFModule_SRC_SHA_PATH} || "$<TARGET_FILE:clang-tool>" -cc1 -x cl -fblocks -fpreserve-vec3-type -opencl-builtins "-triple=${_archTriple}" -w -emit-llvm-bc -o "${_bcTempFilePath}" ${_pchFlags} ${_incFileFlags} ${_includeDirsFlags} ${_defineFlags} ${_options_DEFAULT} ${_options_CL} "${_srcFilePath}"
++        COMMAND "${CMAKE_COMMAND}" -E compare_files ${BiFModule_PREBUILD_SHA_PATH} ${BiFModule_SRC_SHA_PATH} || "$<TARGET_FILE:clang-tool>" -cc1 ${IGC_LLVM_DEPENDENT_CLANG_FLAGS} -x cl -fblocks -fpreserve-vec3-type -opencl-builtins "-triple=${_archTriple}" -w -emit-llvm-bc -o "${_bcTempFilePath}" ${_pchFlags} ${_incFileFlags} ${_includeDirsFlags} ${_defineFlags} ${_options_DEFAULT} ${_options_CL} "${_srcFilePath}"
+         DEPENDS clang-tool ${_pchFilePath} ${_incFilePaths} "${_srcFilePath}" ${_dependencies}
+         COMMENT "BiF: \"${_outBcFileName}\": Compiling OpenCL source: \"${_srcFileName}\""
+       )
+@@ -351,7 +351,7 @@ function(igc_bif_build_bc)
+     add_custom_command(
+         OUTPUT "${_bcTempFilePath}"
+         COMMAND "${CMAKE_COMMAND}" -E compare_files ${BiFModule_PREBUILD_SHA_PATH} ${BiFModule_SRC_SHA_PATH} || "${CMAKE_COMMAND}" -E make_directory "${_outBcFileDir}"
+-        COMMAND "${CMAKE_COMMAND}" -E compare_files ${BiFModule_PREBUILD_SHA_PATH} ${BiFModule_SRC_SHA_PATH} || "${bif-llvm-opt_exe}" -O2 -o "${_bcTempFilePath}" ${_options_DEFAULT} ${_options_OPT} ${_bcFiles}
++        COMMAND "${CMAKE_COMMAND}" -E compare_files ${BiFModule_PREBUILD_SHA_PATH} ${BiFModule_SRC_SHA_PATH} || "${bif-llvm-opt_exe}" -O2 -o "${_bcTempFilePath}" ${IGC_LLVM_DEPENDENT_OPT_ARGS} ${_options_DEFAULT} ${_options_OPT} ${_bcFiles}
+         DEPENDS ${_bcFiles} ${_dependencies}
+         COMMENT "BiF: \"${_outBcFileName}\": Optmizing output .bc."
+       )
+diff --git a/IGC/CMakeLists.txt b/IGC/CMakeLists.txt
+index 930a552121c..66ea2a3b5ca 100644
+--- a/IGC/CMakeLists.txt
++++ b/IGC/CMakeLists.txt
+@@ -275,6 +275,10 @@ endif()
+ # Remove this condition after transition period is over
+ option(IGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_SC "[Experimental] Enable usage of Khronos SPIRV-LLVM-Translator in Scalar Compiler" OFF)
+ 
++# TODO: Change this flag to opt-out or remove completely once
++# opaque pointers are fully supported within the IGC stack.
++option(IGC_OPTION__LLVM_OPAQUE_POINTERS_ENABLED "[Experimental] Allow usage of opaque pointers within LLVM transformations" OFF)
++
+ option(IGC_OPTION__ENABLE_LIT_TESTS "Enable lit testing for IGC compiler. May require additional tools like llvm lit and opt" OFF)
+ 
+ set(IGC_OPTION__BIF_SRC_OCL_DIR "${IGC_SOURCE_DIR}/BiFModule"
+diff --git a/IGC/Compiler/CodeGenContext.cpp b/IGC/Compiler/CodeGenContext.cpp
+index 4abd6e4bf4a..0058571cd27 100644
+--- a/IGC/Compiler/CodeGenContext.cpp
++++ b/IGC/Compiler/CodeGenContext.cpp
+@@ -231,6 +231,9 @@ namespace IGC
+         {
+             CreateResourceDimensionTypes(*this);
+         }
++#ifdef __IGC_OPAQUE_POINTERS_FORCE_DISABLED__
++        this->setOpaquePointers(false);
++#endif
+     }
+ 
+     void LLVMContextWrapper::AddRef()
+diff --git a/IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp b/IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp
+index ef0e5cacd96..c26bfcea74c 100644
+--- a/IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp
++++ b/IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp
+@@ -1494,6 +1494,10 @@ namespace TC
+             optionsEx += " -debug-info-kind=line-tables-only -dwarf-version=4";
+         }
+ 
++#ifdef __IGC_OPAQUE_POINTERS_FORCE_DISABLED__
++        optionsEx += " -no-opaque-pointers";
++#endif
++
+         std::string extensionsFromInternalOptions = GetSubstring(pInternalOptions, "-cl-ext=");
+ 
+         std::string extensions;
+diff --git a/IGC/VectorCompiler/lib/BiF/CMakeLists.txt b/IGC/VectorCompiler/lib/BiF/CMakeLists.txt
+index 3181a13403c..6235fc1d21e 100644
+--- a/IGC/VectorCompiler/lib/BiF/CMakeLists.txt
++++ b/IGC/VectorCompiler/lib/BiF/CMakeLists.txt
+@@ -90,7 +90,7 @@ function(vc_build_bif RES_FILE CMCL_SRC_PATH BIF_NAME PTR_BIT_SIZE)
+ 
+      add_custom_command(OUTPUT "${BIF_CLANG_BC_PATH}"
+       COMMAND clang-tool -cc1 ${CMCL_INCLUDES} ${VC_INCLUDES} ${UTILS_HEADERS}
+-               ${EXTRA_CLANG_INCLUDES} ${EXTRA_CLANG_FLAGS}
++               ${EXTRA_CLANG_INCLUDES} ${IGC_LLVM_DEPENDENT_CLANG_FLAGS} ${EXTRA_CLANG_FLAGS}
+       -x cl -cl-std=clc++ -triple=${SPIR_TARGET}
+       -O2 -disable-llvm-passes -emit-llvm-bc -o "${BIF_CLANG_BC_NAME}" ${CMCL_SRC}
+       COMMENT "vc_build_bif: Compiling CMCL source ${CMCL_SRC} to BC ${BIF_CLANG_BC_NAME}"
+@@ -110,7 +110,7 @@ function(vc_build_bif RES_FILE CMCL_SRC_PATH BIF_NAME PTR_BIT_SIZE)
+     COMMENT "vc_build_bif: Translating CMCL builtins:  ${BIF_CLANG_BC_NAME_FINAL} -> ${BIF_CMCL_BC_NAME}"
+     DEPENDS CMCLTranslatorTool ${BIF_CLANG_BC_PATH_FINAL})
+   add_custom_command(OUTPUT ${BIF_OPT_BC_PATH}
+-    COMMAND ${LLVM_OPT_EXE} --O2 -o ${BIF_OPT_BC_NAME} ${BIF_CMCL_BC_NAME}
++    COMMAND ${LLVM_OPT_EXE} ${IGC_LLVM_DEPENDENT_OPT_FLAGS} --O2 -o ${BIF_OPT_BC_NAME} ${BIF_CMCL_BC_NAME}
+     COMMENT "vc_build_bif: running opt with O2: ${BIF_CMCL_BC_NAME} -> ${BIF_OPT_BC_NAME}"
+     DEPENDS opt ${BIF_CMCL_BC_PATH})
+   set(${RES_FILE} ${BIF_OPT_BC_NAME} PARENT_SCOPE)
+diff --git a/IGC/cmake/igc_llvm.cmake b/IGC/cmake/igc_llvm.cmake
+index c0f74dcea14..96e3b0d1117 100644
+--- a/IGC/cmake/igc_llvm.cmake
++++ b/IGC/cmake/igc_llvm.cmake
+@@ -69,6 +69,30 @@ list(TRANSFORM LLVM_INCLUDE_DIRS PREPEND "-I=" OUTPUT_VARIABLE LLVM_TABLEGEN_FLA
+ # Add major version definition for llvm wrapper.
+ add_compile_definitions(LLVM_VERSION_MAJOR=${LLVM_VERSION_MAJOR})
+ 
++set(IGC_LLVM_DEPENDENT_CLANG_FLAGS "")
++set(IGC_LLVM_DEPENDENT_OPT_FLAGS "")
++
++# Disable the opaque pointers' usage explicitly, unless the block below deems that unnecessary
++set(IGC_OPAQUE_POINTERS_FORCE_DISABLED ON)
++if(IGC_OPTION__LLVM_OPAQUE_POINTERS_ENABLED)
++  if(LLVM_VERSION_MAJOR LESS 14)
++    message(WARNING "IGC_OPTION__LLVM_OPAQUE_POINTERS_ENABLED ignored: opaque pointers are not available prior to LLVM 14")
++  endif()
++  set(IGC_OPAQUE_POINTERS_FORCE_DISABLED OFF)
++elseif(LLVM_VERSION_MAJOR LESS 15)
++  # Opaque pointers are either absent (LLVM <14) or disabled by default. No need to force-disable
++  set(IGC_OPAQUE_POINTERS_FORCE_DISABLED OFF)
++endif(IGC_OPTION__LLVM_OPAQUE_POINTERS_ENABLED)
++
++if(IGC_OPAQUE_POINTERS_FORCE_DISABLED)
++  # Once we've figured out that explicit disabling is needed, propagate
++  # corresponding options to all the in-tree calls of clang/opt tools.
++  list(APPEND IGC_LLVM_DEPENDENT_CLANG_FLAGS "-no-opaque-pointers")
++  list(APPEND IGC_LLVM_DEPENDENT_OPT_FLAGS "-opaque-pointers=0")
++  # Also inform the preprocessor.
++  add_compile_definitions(__IGC_OPAQUE_POINTERS_FORCE_DISABLED__)
++endif()
++
+ # Include LLVM headers as system ones.
+ # This will disable warnings on linux.
+ include_directories(SYSTEM ${LLVM_INCLUDE_DIRS})
