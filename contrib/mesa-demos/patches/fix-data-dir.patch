@@ -1,0 +1,12 @@
+diff -pudr 1/meson.build 2/meson.build
+--- 1/meson.build	2022-06-16 13:22:14.416192318 +0300
++++ 2/meson.build	2022-06-16 13:23:08.790303478 +0300
+@@ -29,7 +29,7 @@ null_dep = dependency('', required : fal
+
+ demos_data_dir = '../data/'
+ if get_option('with-system-data-files')
+-  demos_data_dir = get_option('datadir') / 'mesa-demos'
++  demos_data_dir = get_option('prefix') / get_option('datadir') / 'mesa-demos' / ''
+ endif
+ add_project_arguments(
+   '-DDEMOS_DATA_DIR="@0@"'.format(demos_data_dir),
