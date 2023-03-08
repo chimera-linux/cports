@@ -1,0 +1,13 @@
+diff --git a/shared/source/os_interface/linux/sys_calls_linux.cpp b/shared/source/os_interface/linux/sys_calls_linux.cpp
+index f42d64d0..0376929e 100644
+--- a/shared/source/os_interface/linux/sys_calls_linux.cpp
++++ b/shared/source/os_interface/linux/sys_calls_linux.cpp
+@@ -38,7 +38,7 @@ int open(const char *file, int flags) {
+     return ::open(file, flags);
+ }
+ int ioctl(int fileDescriptor, unsigned long int request, void *arg) {
+-    return ::ioctl(fileDescriptor, request, arg);
++    return ::ioctl(fileDescriptor, (int)request, arg);
+ }
+ 
+ void *dlopen(const char *filename, int flag) {

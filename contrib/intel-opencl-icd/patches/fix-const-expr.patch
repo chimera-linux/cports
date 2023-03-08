@@ -1,0 +1,17 @@
+diff --git a/shared/source/memory_manager/unified_memory_manager.h b/shared/source/memory_manager/unified_memory_manager.h.new
+index fa7276f9..9c21aee3 100644
+--- a/shared/source/memory_manager/unified_memory_manager.h
++++ b/shared/source/memory_manager/unified_memory_manager.h.new
+@@ -130,10 +130,10 @@ class SVMAllocsManager {
+         size_t allocationSize;
+         void *allocation;
+         SvmCacheAllocationInfo(size_t allocationSize, void *allocation) : allocationSize(allocationSize), allocation(allocation) {}
+-        bool operator<(SvmCacheAllocationInfo const &other) {
++        bool operator<(SvmCacheAllocationInfo const &other) const {
+             return allocationSize < other.allocationSize;
+         }
+-        bool operator<(size_t const &size) {
++        bool operator<(size_t const &size) const {
+             return allocationSize < size;
+         }
+     };

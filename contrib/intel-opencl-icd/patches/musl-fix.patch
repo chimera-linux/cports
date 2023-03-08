@@ -1,0 +1,14 @@
+diff --git a/shared/source/os_interface/linux/os_library_helper.cpp b/shared/source/os_interface/linux/os_library_helper.cpp.new
+index 30afe0ed..b4fb1383 100644
+--- a/shared/source/os_interface/linux/os_library_helper.cpp
++++ b/shared/source/os_interface/linux/os_library_helper.cpp.new
+@@ -13,9 +13,6 @@
+ namespace NEO {
+ namespace Linux {
+ void adjustLibraryFlags(int &dlopenFlag) {
+-    if (DebugManager.flags.DisableDeepBind.get()) {
+-        dlopenFlag &= ~RTLD_DEEPBIND;
+-    }
+ }
+ } // namespace Linux
+ } // namespace NEO

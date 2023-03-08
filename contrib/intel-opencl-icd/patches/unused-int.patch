@@ -1,0 +1,20 @@
+diff --git a/shared/source/os_interface/windows/wddm_residency_controller.cpp b/shared/source/os_interface/windows/wddm_residency_controller.cpp.new
+index 4565c884..4e6880b5 100644
+--- a/shared/source/os_interface/windows/wddm_residency_controller.cpp
++++ b/shared/source/os_interface/windows/wddm_residency_controller.cpp.new
+@@ -114,6 +114,7 @@ void WddmResidencyController::removeFromTrimCandidateListIfUsed(WddmAllocation *
+ }
+ 
+ void WddmResidencyController::checkTrimCandidateCount() {
++#ifdef _DEBUG
+     if (DebugManager.flags.ResidencyDebugEnable.get()) {
+         uint32_t sum = 0;
+         for (auto trimCandidate : trimCandidateList) {
+@@ -123,6 +124,7 @@ void WddmResidencyController::checkTrimCandidateCount() {
+         }
+         DEBUG_BREAK_IF(sum != trimCandidatesCount);
+     }
++#endif
+ }
+ 
+ bool WddmResidencyController::checkTrimCandidateListCompaction() {

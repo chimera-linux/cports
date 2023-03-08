@@ -1,0 +1,13 @@
+diff --git a/shared/source/os_interface/linux/os_library_linux.cpp b/shared/source/os_interface/linux/os_library_linux.cpp.new
+index 7c8f2aa9..d1cc0e1c 100644
+--- a/shared/source/os_interface/linux/os_library_linux.cpp
++++ b/shared/source/os_interface/linux/os_library_linux.cpp.new
+@@ -40,7 +40,7 @@ OsLibrary::OsLibrary(const std::string &name, std::string *errorValue) {
+         this->handle = SysCalls::dlopen(0, RTLD_LAZY);
+     } else {
+ #ifdef SANITIZER_BUILD
+-        auto dlopenFlag = RTLD_LAZY;
++        auto dlopenFlag = RTLD_LAZY | RTLD_GLOBAL;
+ #else
+         auto dlopenFlag = RTLD_LAZY | RTLD_DEEPBIND;
+         /* Background: https://github.com/intel/compute-runtime/issues/122 */

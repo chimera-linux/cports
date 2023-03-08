@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt.new
+index 9fad930d..5e20cf09 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt.new
+@@ -847,7 +847,7 @@ set(BUILTINS_VME_LIB_NAME "builtins_vme")
+ if(WIN32)
+   set(NEO_EXTRA_LIBS Ws2_32)
+ else()
+-  set(NEO_EXTRA_LIBS dl pthread rt)
++  set(NEO_EXTRA_LIBS dl pthread rt execinfo)
+ endif()
+ 
+ add_subdirectory_unique(shared)
+diff --git a/shared/offline_compiler/source/CMakeLists.txt b/shared/offline_compiler/source/CMakeLists.txt.new
+index bd31c4ed..003d0e2a 100644
+--- a/shared/offline_compiler/source/CMakeLists.txt
++++ b/shared/offline_compiler/source/CMakeLists.txt.new
+@@ -239,7 +239,7 @@ if(MSVC)
+ endif()
+ 
+ if(UNIX)
+-  target_link_libraries(${OCLOC_NAME}_lib dl pthread)
++  target_link_libraries(${OCLOC_NAME}_lib dl pthread execinfo)
+ endif()
+ 
+ set(CLOC_LIB_SRCS_LIB ${CLOC_LIB_SRCS_LIB} PARENT_SCOPE)
