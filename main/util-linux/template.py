@@ -65,9 +65,9 @@ def post_install(self):
     # conflicts with chimerautils, less, ugetopt
     for f in [
         "addpart", "col", "colrm", "column", "ctrlaltdel", "delpart",
-        "flock", "fsfreeze", "getopt", "ionice", "isosize", "hexdump",
-        "look", "mcookie", "more", "pivot_root", "resizepart", "renice",
-        "rev", "setarch", "setsid", "switch_root", "taskset",
+        "fallocate", "flock", "fsfreeze", "getopt", "ionice", "isosize",
+        "hexdump", "look", "mcookie", "more", "pivot_root", "resizepart",
+        "renice", "rev", "setarch", "setsid", "switch_root", "taskset",
     ]:
         self.rm(self.destdir / f"usr/bin/{f}")
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1", force = True)
@@ -144,6 +144,7 @@ def _mnt(self):
         "usr/share/bash-completion/completions/umount",
         "usr/share/man/man1/eject.1",
         "usr/share/man/man1/mount*.1",
+        "usr/share/man/man5/fstab.5",
         "usr/share/man/man8/blkid.8",
         "usr/share/man/man8/blockdev.8",
         "usr/share/man/man8/findfs.8",
