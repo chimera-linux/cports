@@ -103,7 +103,7 @@ def _check_stage(sroot, stlist, arch, signkey):
     # without a replacement
     for d in revdeps:
         # dependencies of the most significant (maybe staged) provider
-        deps = None
+        deps = []
         # go over each repo separately for robustness, break on first that
         # actually does contain the package (will return at least a '\n')
         for tryr in rlist:
