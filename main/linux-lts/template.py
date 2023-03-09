@@ -1,6 +1,6 @@
 # update linux-lts-zfs-bin when bumping
 pkgname = "linux-lts"
-pkgver = "6.1.0"
+pkgver = "6.1.15"
 pkgrel = 0
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
@@ -10,12 +10,12 @@ pkgdesc = "Linux kernel 6.1.x"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
-source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver[:-2]}.tar.xz"
-sha256 = "2ca1f17051a430f6fed1196e4952717507171acfd97d96577212502703b25deb"
+source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
+sha256 = "2c16dfe2168a2e64ac0d55a12d625ebfb963818bb48b60c1868c7c460644c4fd"
 # no meaningful checking to be done
 options = [
     "!check", "!debug", "!strip", "!scanrundeps", "!scanshlibs",
-    "!lto", "textrels", "execstack", "foreignelf" # vdso32
+    "!linkparallel", "!lto", "textrels", "execstack", "foreignelf", # vdso32
 ]
 
 _flavor = "generic"
