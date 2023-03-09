@@ -53,19 +53,16 @@ def _check_stage(sroot, stlist, arch, signkey):
         ret = _call_apk("--repository", str(d.parent), "search")
         # go over each staged package
         for p in ret.stdout.strip().decode().split():
-            # get providers of both
-            pr = _call_apk(
-                "--repository", str(d.parent), "--repository", str(ad.parent),
-                "info", "--provides", p
-            )
-            prout = pr.stdout.decode().split("\n\n")
-            if len(prout) < 3:
-                # TODO: handle this?
-                continue
             # stage providers
-            stpr = set(prout[0].strip().split())
+            pr = _call_apk(
+                "--repository", str(d.parent), "info", "--provides", p
+            )
+            stpr = set(pr.stdout.strip().decode().split())
             # repo providers
-            rppr = set(prout[1].strip().split())
+            pr = _call_apk(
+                "--repository", str(ad.parent), "info", "--provides", p
+            )
+            rppr = set(pr.stdout.strip().decode().split())
             # if they are the same, just skip
             if stpr == rppr:
                 continue
@@ -105,14 +102,18 @@ def _check_stage(sroot, stlist, arch, signkey):
     # ensure that there is no dependency on a provider that was dropped
     # without a replacement
     for d in revdeps:
-        ret = _call_apk(*rlist, "info", "--depends", d)
-        sout = ret.stdout
-        # highest priority boundary
-        bdr = sout.find(b"\n\n")
-        if bdr < 0:
-            continue
         # dependencies of the most significant (maybe staged) provider
-        deps = sout[0:bdr].strip().decode().split()
+        deps = None
+        # go over each repo separately for robustness, break on first that
+        # actually does contain the package (will return at least a '\n')
+        for tryr in rlist:
+            ret = _call_apk(tryr, "info", "--depends", d)
+            if ret.returncode != 0 or len(ret.stdout) == 0:
+                # does not exist in this repo
+                continue
+            # get a list, which may be empty
+            deps = ret.stdout.strip().decode().split()
+            break
         # verify each dep
         for ad in deps:
             av = None
@@ -189,7 +190,7 @@ def _check_stage(sroot, stlist, arch, signkey):
                 else:
                     checkdeps[ad] = [d]
 
-    # if there were such cases, further narrow thme down to ensure that
+    # if there were such cases, further narrow them down to ensure that
     # we are not dealing with something that still has another suitable
     # provider, as that should not stage us
     for d in list(checkdeps.keys()):
