@@ -13,7 +13,7 @@ source = f"https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/
 sha256 = "53422dc649153838e03820330ba17cb10afe3e330ecde0db11e4d5f1361a33e6"
 hardening = ["!int"]
 # not relevant
-options = ["!strip", "!check", "!lto", "!debug"]
+options = ["!strip", "!check", "!lto", "!debug", "execstack"]
 
 def do_build(self):
     # we undef all the stuff cbuild automatically sets,
