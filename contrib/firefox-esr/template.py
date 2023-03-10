@@ -1,5 +1,5 @@
 pkgname = "firefox-esr"
-pkgver = "102.5.0"
+pkgver = "102.8.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -25,7 +25,7 @@ license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "017dd44b1285913f477074802707a4c76ed1a28270ec5a327bbb76574cc057d8"
+sha256 = "47f8f6243bce8c2ef51adf8c9626bbf643e1c225dcb9ba5653a055ed5e76ca48"
 debug_level = 1 # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -42,6 +42,8 @@ env = {
     # firefox checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
+# FIXME: youtube causes crashes in libxul after some seconds
+hardening = ["!int"]
 options = ["!cross"]
 exec_wrappers = [
     ("/usr/bin/llvm-objdump", "objdump"),
