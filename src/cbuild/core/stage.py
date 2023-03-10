@@ -107,7 +107,9 @@ def _check_stage(sroot, stlist, arch, signkey):
         # go over each repo separately for robustness, break on first that
         # actually does contain the package (will return at least a '\n')
         for tryr in rlist:
-            ret = _call_apk(tryr, "info", "--depends", d)
+            if tryr == "--repository":
+                continue
+            ret = _call_apk("--repository", tryr, "info", "--depends", d)
             if ret.returncode != 0 or len(ret.stdout) == 0:
                 # does not exist in this repo
                 continue
