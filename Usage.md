@@ -481,7 +481,9 @@ The following commands are recognized:
   given any arguments, it will do it for all available templates. Otherwise,
   it will do it for the given template. Invalid symlinks will be deleted
   when the global action is performed, otherwise symlinks will only be
-  created or replaced.
+  created or replaced. For the global action, passing `prune` as an
+  argument will result in the command also removing invalid directories
+  (not containing templates) and files.
 * `remove-autodeps` Remove automatic dependencies possibly installed in the
   build root.
 * `zap` Remove the build root.

@@ -861,6 +861,7 @@ def do_prune_sources(tgt):
 
 def do_relink_subpkgs(tgt):
     from cbuild.core import chroot, paths, logger, errors, template
+    import shutil
 
     ddir = paths.distdir()
     links = {}
@@ -878,9 +879,17 @@ def do_relink_subpkgs(tgt):
         except errors.PackageException:
             return None
 
+    tgt = None
+    prune_bad = False
+
     if len(cmdline.command) >= 2:
-        _read_pkg(cmdline.command[1])
-    else:
+        if cmdline.command[1] == "prune":
+            prune_bad = True
+        else:
+            tgt = cmdline.command[1]
+            _read_pkg(tgt)
+
+    if not tgt:
         logger.get().out(f"Collecting templates...")
         tmpls = _collect_tmpls(None)
         logger.get().out(f"Reading templates...")
@@ -901,8 +910,15 @@ def do_relink_subpkgs(tgt):
                 el.unlink()
             elif el.is_dir():
                 if not (el / "template.py").is_file():
-                    logger.get().warn(f"Bad directory encountered: {el}")
+                    if prune_bad:
+                        logger.get().out(f"Pruning bad directory: {el}")
+                        shutil.rmtree(el)
+                    else:
+                        logger.get().warn(f"Bad directory encountered: {el}")
                 continue
+            elif prune_bad:
+                logger.get().out(f"Pruning bad contents: {el}")
+                el.unlink()
             else:
                 logger.get().warn("Bad contents encountered: {el}")
                 continue
