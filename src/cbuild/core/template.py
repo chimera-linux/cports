@@ -344,7 +344,6 @@ core_fields = [
     ("options", [], list, False, True, False),
 
     # other core-ish fields
-    ("subpackages", [], list, False, False, False),
     ("broken", None, str, False, False, False),
     ("build_style", None, str, False, False, False),
 
@@ -486,8 +485,6 @@ core_fields_priority = [
     ("license", True),
     ("url", True),
 
-    ("subpackages", True),
-
     ("source", True),
     ("sha256", True),
 
@@ -619,6 +616,7 @@ class Template(Package):
         # other fields
         self.parent = None
         self.rparent = self
+        self.subpackages = []
         self.subpkg_list = []
         self.source_date_epoch = None
         self.git_revision = None

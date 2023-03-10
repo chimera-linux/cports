@@ -59,8 +59,6 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-subpackages = []
-
 _targets = list(filter(
     lambda p: p != self.profile().arch,
     ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
@@ -124,7 +122,11 @@ def do_install(self):
         with self.profile(an):
             self.make.install(wrksrc = f"build-{an}")
 
-def _gen_subp(an, at):
+for an in _targets:
+    with self.profile(an) as pf:
+        at = pf.triplet
+
+    @subpackage(f"clang-rt-crt-cross-{an}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang"]
@@ -133,11 +135,4 @@ def _gen_subp(an, at):
         ]
         return [f"usr/lib/clang/{pkgver}/lib/{at}"]
 
-    return _subp
-
-for an in _targets:
-    with self.profile(an) as pf:
-        at = pf.triplet
-
-    subpackages.append((f"clang-rt-crt-cross-{an}", _gen_subp(an, at)))
     depends.append(f"clang-rt-crt-cross-{an}={pkgver}-r{pkgrel}")

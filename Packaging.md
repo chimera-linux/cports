@@ -825,10 +825,6 @@ Keep in mind that default values may be overridden by build styles.
   extracted into `self.wrksrc` in a way so that if extraction yields just a
   single regular directory, the contents of that will go in the `self.wrksrc`,
   otherwise the extracted files/directories are moved into the directory.
-* `subpackages` *(list)* A list of subpackages the template provides. The
-  list must contain two-tuples of subpackage name and a function defining
-  the subpackage. In most cases, you do not need to specify this explicitly.
-  See the section about subpackages for more details.
 * `suid_files` *(list)* A list of glob patterns (strings). The system will
   reject any `setuid` and `setgid` files that do not match at least one
   pattern in this list.
@@ -1179,17 +1175,11 @@ some main package's process, and are created from its files.
 Subpackages are used for a variety of things, such as separating
 development files from the main package, or for plugins.
 
-There are two ways to register a subpackage in a template. These two
-ways are mutually exclusive, with the `subpackages` array taking preference.
-Therefore, when deciding, pick the one better suited for your template.
+You should create a symbolic link named like the subpackage in the respective
+repo category and have it point to the directory with the main package template.
 
-In either case, you should create a symbolic link named like the subpackage
-in the respective repo category and have it point to the directory with the
-main package template.
-
-The simpler way to define a subpackage in the template is through a decorator.
-This decorator is available globally during the time a package is initialized.
-The syntax works like this:
+In the template file, you use a decorator. The decorator is available globally
+during the time a package is initialized. The syntax works like this:
 
 ```
 @subpackage("mysubpackage")
@@ -1207,26 +1197,10 @@ def ...
 
 The subpackage will only be defined if the condition argument is `True`.
 
-The more complicated way is through the `subpackages` template variable.
-This is basically just an array of 2-tuples, where the first field in
-the tuple is the subpackage name and the second field is the function
-reference. The actual function body is identical for both approaches.
+The subpackage body function can look like this:
 
 ```
-def _subpkg(self):
-    ...
-
-subpackages = [("mysubpackage", _subpkg)]
-```
-
-Usually the decorator way is better for most cases, while the array way
-is better if your subpackage set varies a lot conditionally, or if you
-want to ensure different ordering for subpackage population than listed
-in the template.
-
-The subpackage body function can then look like this:
-
-```
+@subpackage("foo-devel")
 def _devel(self):
     self.depends = [...]
     self.options = ["textrels"]
