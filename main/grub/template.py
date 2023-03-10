@@ -38,32 +38,29 @@ for tool in ["objcopy", "strip", "ar", "ranlib", "nm"]:
 
 # this should be a list of tuples:
 # (arch, platform, cflags, ldflags, platform_name)
-_platforms = []
+_platforms = [
+    # the default build is BIOS, we also want EFI
+    # (32 and 64 bit) as well as coreboot and Xen
+    ("i386", "pc", "", "", "x86 PC/BIOS"),
+    ("i386", "efi", "", "", "x86 EFI"),
+    ("i386", "coreboot", "", "", "x86 coreboot"),
+    ("x86_64", "efi", "", "", "x86_64 EFI"),
+    ("x86_64", "xen", "", "", "x86_64 Xen"),
+    ("powerpc", "ieee1275", "-mno-altivec", "", "PowerPC OpenFirmware"),
+    ("arm64", "efi", "", "", "Aarch64 EFI"),
+    # relaxation causes R_RISCV_ALIGN
+    ("riscv64", "efi", "-mno-relax", "-mno-relax", "64-bit RISC-V EFI"),
+]
 
 match self.profile().arch:
     case "x86_64":
-        # the default build is BIOS, we also want EFI
-        # (32 and 64 bit) as well as coreboot and Xen
-        _platforms = [
-            ("i386", "pc", "", "", "x86 PC/BIOS"),
-            ("i386", "efi", "", "", "x86 EFI"),
-            ("i386", "coreboot", "", "", "x86 coreboot"),
-            ("x86_64", "efi", "", "", "x86_64 EFI"),
-            ("x86_64", "xen", "", "", "x86_64 Xen"),
-        ]
+        _archs = ["i386", "x86_64"]
     case "ppc64le" | "ppc64":
-        _platforms = [
-            ("powerpc", "ieee1275", "-mno-altivec", "", "PowerPC OpenFirmware"),
-        ]
+        _archs = ["powerpc"]
     case "aarch64":
-        _platforms = [
-            ("arm64", "efi", "", "", "Aarch64 EFI"),
-        ]
+        _archs = ["arm64"]
     case "riscv64":
-        # relaxation causes R_RISCV_ALIGN
-        _platforms = [
-            ("riscv64", "efi", "-mno-relax", "-mno-relax", "64-bit RISC-V EFI"),
-        ]
+        _archs = ["riscv64"]
         # otherwise crashes llvm backend (unsupported code model for lowering)
         configure_args += ["grub_cv_cc_mcmodel=no"]
     case _:
@@ -83,6 +80,8 @@ def do_configure(self):
     )
     # platforms build
     for arch, platform, ecfl, ldfl, desc in _platforms:
+        if arch not in _archs:
+            continue
         bdir = f"build_{arch}_{platform}"
         self.mkdir(bdir)
         cfl = "-fno-stack-protector " + ecfl
@@ -110,11 +109,15 @@ def do_build(self):
     self.make.build(wrksrc = "build")
     # extra targets
     for arch, platform, cfl, ldfl, desc in _platforms:
+        if arch not in _archs:
+            continue
         self.make.build(wrksrc = f"build_{arch}_{platform}")
 
 def do_install(self):
     # populate extra targets first
     for arch, platform, cfl, ldfl, desc in _platforms:
+        if arch not in _archs:
+            continue
         bdir = f"build_{arch}_{platform}"
         # full install
         self.make.install(wrksrc = bdir)
@@ -157,7 +160,7 @@ def _utils(self):
     ]
 
 def _genplatform(arch, platform, desc):
-    @subpackage(f"grub-{arch}-{platform}-dbg")
+    @subpackage(f"grub-{arch}-{platform}-dbg", arch in _archs)
     def _platdbg(self):
         self.pkgdesc = f"{pkgdesc} ({desc} debug files)"
         self.depends = [f"grub-{arch}-{platform}={pkgver}-r{pkgrel}"]
@@ -174,7 +177,7 @@ def _genplatform(arch, platform, desc):
 
         return _install
 
-    @subpackage(f"grub-{arch}-{platform}")
+    @subpackage(f"grub-{arch}-{platform}", arch in _archs)
     def _plat(self):
         self.pkgdesc = f"{pkgdesc} ({desc} support)"
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]

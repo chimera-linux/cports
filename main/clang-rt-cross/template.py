@@ -56,10 +56,8 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-_targets = list(filter(
-    lambda p: p != self.profile().arch,
-    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-))
+_targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 def do_configure(self):
     from cbuild.util import cmake
@@ -95,11 +93,8 @@ def do_install(self):
         self.rm(f"usr/lib/clang/{pkgver}/include", recursive = True)
         self.rm(f"usr/lib/clang/{pkgver}/bin", recursive = True)
 
-def _gen_crossp(an):
-    with self.profile(an) as pf:
-        at = pf.triplet
-
-    @subpackage(f"clang-rt-cross-{an}")
+for an in _targetlist:
+    @subpackage(f"clang-rt-cross-{an}", an in _targets)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [
@@ -109,9 +104,8 @@ def _gen_crossp(an):
         self.options = [
             "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
         ]
-        return [f"usr/lib/clang/{pkgver}/lib/{at}"]
+        with self.rparent.profile(an) as pf:
+            return [f"usr/lib/clang/{pkgver}/lib/{pf.triplet}"]
 
-    depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")
-
-for an in _targets:
-    _gen_crossp(an)
+    if an in _targets:
+        depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")

@@ -12,10 +12,8 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 options = ["!cross"]
 
-_targets = list(filter(
-    lambda p: p != self.profile().arch,
-    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-))
+_targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 def do_install(self):
     for an in _targets:
@@ -53,7 +51,7 @@ def do_install(self):
             "../../../include/fortify", f"usr/{at}/usr/include/fortify"
         )
 
-def _gen_crossp(an, at):
+for an in _targetlist:
     @subpackage(f"base-cross-{an}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
@@ -64,15 +62,13 @@ def _gen_crossp(an, at):
             f"libcxx-cross-{an}",
         ]
         self.options = ["brokenlinks"]
-        return [
-            f"usr/bin/{at}.cfg",
-            f"usr/bin/{at}-*",
-            f"usr/lib/ccache/bin/{at}-*",
-            f"usr/{at}",
-        ]
-    depends.append(f"base-cross-{an}={pkgver}-r{pkgrel}")
+        with self.rparent.profile(an) as pf:
+            return [
+                f"usr/bin/{pf.triplet}.cfg",
+                f"usr/bin/{pf.triplet}-*",
+                f"usr/lib/ccache/bin/{pf.triplet}-*",
+                f"usr/{pf.triplet}",
+            ]
 
-for an in _targets:
-    with self.profile(an) as pf:
-        at = pf.triplet
-    _gen_crossp(an, at)
+    if an in _targets:
+        depends.append(f"base-cross-{an}={pkgver}-r{pkgrel}")

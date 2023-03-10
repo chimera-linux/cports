@@ -18,10 +18,8 @@ hardening = ["!scp"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "brokenlinks"]
 
-_targets = list(filter(
-    lambda p: p != self.profile().arch,
-    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-))
+_targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 def do_configure(self):
     for an in _targets:
@@ -61,13 +59,15 @@ def do_install(self):
             self.rm(self.destdir / f"usr/{at}/lib")
 
 def _gen_crossp(an, at):
-    @subpackage(f"musl-cross-{an}-static")
+    cond = an in _targets
+
+    @subpackage(f"musl-cross-{an}-static", cond)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} (static {an} support)"
         self.depends = [f"musl-cross-{an}={pkgver}-r{pkgrel}"]
         return [f"usr/{at}/usr/lib/libc.a"]
 
-    @subpackage(f"musl-cross-{an}")
+    @subpackage(f"musl-cross-{an}", cond)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang-rt-crt-cross-{an}"]
@@ -76,9 +76,10 @@ def _gen_crossp(an, at):
         ]
         return [f"usr/{at}"]
 
-    depends.append(f"musl-cross-{an}")
+    if cond:
+        depends.append(f"musl-cross-{an}")
 
-for an in _targets:
+for an in _targetlist:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
 

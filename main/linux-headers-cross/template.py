@@ -13,16 +13,14 @@ sha256 = "e9565a301525ac81c142ceb832f9053dd5685e107dbcf753d0de4c58bc98851f"
 # nothing to test
 options = ["!cross", "!check"]
 
-_targets = list(filter(
-    lambda p: p[0] != self.profile().arch,
-    [
-        ("aarch64", "arm64"),
-        ("ppc64le", "powerpc"),
-        ("ppc64", "powerpc"),
-        ("x86_64", "x86_64"),
-        ("riscv64", "riscv"),
-    ]
-))
+_targetlist = [
+    ("aarch64", "arm64"),
+    ("ppc64le", "powerpc"),
+    ("ppc64", "powerpc"),
+    ("x86_64", "x86_64"),
+    ("riscv64", "riscv"),
+]
+_targets = list(filter(lambda p: p[0] != self.profile().arch, _targetlist))
 
 def do_build(self):
     from cbuild.util import make
@@ -63,13 +61,14 @@ def do_install(self):
                 self.destdir / f"usr/{at}/usr/include"
             )
 
-def _gen_crossp(an, at):
-    @subpackage(f"linux-headers-cross-{an}")
+for an, arch in _targetlist:
+    _cond = (an, arch) in _targets
+
+    @subpackage(f"linux-headers-cross-{an}", _cond)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
-        return [f"usr/{at}"]
-    depends.append(f"linux-headers-cross-{an}={pkgver}-r{pkgrel}")
+        with self.rparent.profile(an) as pf:
+            return [f"usr/{pf.triplet}"]
 
-for an, arch in _targets:
-    with self.profile(an) as pf:
-        _gen_crossp(an, pf.triplet)
+    if _cond:
+        depends.append(f"linux-headers-cross-{an}={pkgver}-r{pkgrel}")

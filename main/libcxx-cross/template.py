@@ -42,10 +42,8 @@ options = ["!cross", "!check", "!lto"]
 
 cmake_dir = "runtimes"
 
-_targets = list(filter(
-    lambda p: p != self.profile().arch,
-    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-))
+_targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 tool_flags = {
     "CFLAGS": ["-fPIC"],
@@ -119,14 +117,15 @@ def do_install(self):
 
 def _gen_crossp(an, at):
     # libunwind subpackages
+    cond = an in _targets
 
-    @subpackage(f"libunwind-cross-{an}-static")
+    @subpackage(f"libunwind-cross-{an}-static", cond)
     def _unwst(self):
         self.pkgdesc = f"Cross-toolchain LLVM libunwind ({an} static library)"
         self.depends = [f"libunwind-cross-{an}={pkgver}-r{pkgrel}"]
         return [f"usr/{at}/usr/lib/libunwind.a"]
 
-    @subpackage(f"libunwind-cross-{an}")
+    @subpackage(f"libunwind-cross-{an}", cond)
     def _unw(self):
         self.pkgdesc = f"Cross-toolchain LLVM libunwind ({an})"
         self.depends = [f"musl-cross-{an}", f"libatomic-chimera-cross-{an}"]
@@ -141,13 +140,13 @@ def _gen_crossp(an, at):
 
     # libc++abi subpackages
 
-    @subpackage(f"libcxxabi-cross-{an}-static")
+    @subpackage(f"libcxxabi-cross-{an}-static", cond)
     def _abist(self):
         self.pkgdesc = f"Cross-toolchain LLVM libc++abi ({an} static library)"
         self.depends = [f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}"]
         return [f"usr/{at}/usr/lib/libc++abi.a"]
 
-    @subpackage(f"libcxxabi-cross-{an}")
+    @subpackage(f"libcxxabi-cross-{an}", cond)
     def _abi(self):
         self.pkgdesc = f"Cross-toolchain LLVM libc++abi ({an})"
         self.depends = [f"libunwind-cross-{an}={pkgver}-r{pkgrel}"]
@@ -161,7 +160,7 @@ def _gen_crossp(an, at):
 
     # libc++ subpackages
 
-    @subpackage(f"libcxx-cross-{an}-static")
+    @subpackage(f"libcxx-cross-{an}-static", cond)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} static library)"
         self.depends = [
@@ -169,7 +168,7 @@ def _gen_crossp(an, at):
         ]
         return [f"usr/{at}/usr/lib/libc++.a"]
 
-    @subpackage(f"libcxx-cross-{an}")
+    @subpackage(f"libcxx-cross-{an}", cond)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an})"
         self.depends = [f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}"]
@@ -178,9 +177,10 @@ def _gen_crossp(an, at):
         ]
         return [f"usr/{at}"]
 
-    depends.append(f"libcxx-cross-{an}={pkgver}-r{pkgrel}")
+    if cond:
+        depends.append(f"libcxx-cross-{an}={pkgver}-r{pkgrel}")
 
-for an in _targets:
+for an in _targetlist:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
 

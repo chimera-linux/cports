@@ -13,10 +13,8 @@ sha256 = "fccbd8c0ef7fd473275f835b3fca9275fb27a0c196cdcdff1f6d14ab12ed3a53"
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "brokenlinks"]
 
-_targets = list(filter(
-    lambda p: p != self.profile().arch,
-    ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-))
+_targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 def post_extract(self):
     self.mkdir("build")
@@ -51,13 +49,15 @@ def do_install(self):
             ], default_args = False, wrksrc = self.chroot_cwd / f"build-{an}")
 
 def _gen_crossp(an, at):
-    @subpackage(f"libatomic-chimera-cross-{an}-static")
+    cond = an in _targets
+
+    @subpackage(f"libatomic-chimera-cross-{an}-static", cond)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} (static {an} support)"
         self.depends = [f"libatomic-chimera-cross-{an}={pkgver}-r{pkgrel}"]
         return [f"usr/{at}/usr/lib/libatomic.a"]
 
-    @subpackage(f"libatomic-chimera-cross-{an}")
+    @subpackage(f"libatomic-chimera-cross-{an}", cond)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang-rt-crt-cross-{an}"]
@@ -66,7 +66,8 @@ def _gen_crossp(an, at):
         ]
         return [f"usr/{at}"]
 
-    depends.append(f"libatomic-chimera-cross-{an}")
+    if cond:
+        depends.append(f"libatomic-chimera-cross-{an}")
 
 for an in _targets:
     with self.profile(an) as pf:

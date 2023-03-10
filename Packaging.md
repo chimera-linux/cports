@@ -1196,6 +1196,12 @@ def ...
 ```
 
 The subpackage will only be defined if the condition argument is `True`.
+**Note that this is the only way subpackages should ever be conditional in.**
+Generally it applies that if the subpackage symlink exists in `cports`, there
+should always be a decorated subpackage function. The reason for this is that
+`cbuild` should be aware of any subpackage the template may generate, without
+regard to whether it will be generated or not. This is useful as it allows
+for better introspection/analysis by tooling.
 
 The subpackage body function can look like this:
 
