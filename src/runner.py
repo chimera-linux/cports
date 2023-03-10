@@ -859,6 +859,65 @@ def do_prune_sources(tgt):
             else:
                 f.unlink()
 
+def do_relink_subpkgs(tgt):
+    from cbuild.core import chroot, paths, logger, errors, template
+
+    ddir = paths.distdir()
+    links = {}
+    cats = {}
+
+    def _read_pkg(pkgn):
+        try:
+            tp = template.read_pkg(
+                pkgn, chroot.host_cpu(), True,
+                False, (1, 1), False, False, None, target = "lint",
+                allow_broken = True, ignore_errors = True
+            )
+            links[f"{tp.repository}/{tp.pkgname}"] = tp.all_subpackages
+            return tp
+        except errors.PackageException:
+            return None
+
+    if len(cmdline.command) >= 2:
+        _read_pkg(cmdline.command[1])
+    else:
+        logger.get().out(f"Collecting templates...")
+        tmpls = _collect_tmpls(None)
+        logger.get().out(f"Reading templates...")
+        for tmpln in tmpls:
+            tp = _read_pkg(tmpln)
+            if tp:
+                cats[tp.repository] = True
+
+    # erase all symlinks first if parsing all
+    for d in cats:
+        for el in (ddir / d).iterdir():
+            if el.name == ".parent" and el.is_symlink():
+                continue
+            if el.is_symlink():
+                if el.name == ".parent":
+                    continue
+                # symlink, erase
+                el.unlink()
+            elif el.is_dir():
+                if not (el / "template.py").is_file():
+                    logger.get().warn(f"Bad directory encountered: {el}")
+                continue
+            else:
+                logger.get().warn("Bad contents encountered: {el}")
+                continue
+
+    # recreate symlinks
+    for pn in links:
+        repo, jpn = pn.split("/")
+        for sn in links[pn]:
+            fp = ddir / repo / sn
+            if fp.exists():
+                if not fp.is_symlink():
+                    logger.get().warn(f"Non-symlink encountered: {fp}")
+                fp.unlink()
+            fp.symlink_to(jpn)
+
 def do_cycle_check(tgt):
     import graphlib
 
@@ -1264,6 +1323,7 @@ def fire():
             case "prune-obsolete": do_prune_obsolete(cmd)
             case "prune-removed": do_prune_removed(cmd)
             case "prune-sources": do_prune_sources(cmd)
+            case "relink-subpkgs": do_relink_subpkgs(cmd)
             case "index": do_index(cmd)
             case "zap": do_zap(cmd)
             case "lint": do_lint(cmd)

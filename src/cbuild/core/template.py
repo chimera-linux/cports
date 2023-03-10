@@ -617,6 +617,7 @@ class Template(Package):
         self.parent = None
         self.rparent = self
         self.subpackages = []
+        self.all_subpackages = []
         self.subpkg_list = []
         self.source_date_epoch = None
         self.git_revision = None
@@ -1941,6 +1942,7 @@ def read_pkg(
 
     def subpkg_deco(spkgname, cond = True):
         def deco(f):
+            ret.all_subpackages.append(spkgname)
             if cond:
                 ret.subpackages.append((spkgname, f))
         return deco

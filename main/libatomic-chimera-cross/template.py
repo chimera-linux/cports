@@ -69,7 +69,7 @@ def _gen_crossp(an, at):
     if cond:
         depends.append(f"libatomic-chimera-cross-{an}")
 
-for an in _targets:
+for an in _targetlist:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
 
