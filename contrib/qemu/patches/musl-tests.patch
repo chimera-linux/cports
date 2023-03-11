@@ -1,0 +1,1960 @@
+error messages differe between musl and glibc
+
+This patch is created by running the following commands on the source directory, and then running `git diff`
+
+   grep -rl 'Operation not supported' tests/qemu-iotests | xargs sed -i '' -e 's:Operation not supported:Not supported:g'
+   grep -rl 'Input/output' tests/qemu-iotests | xargs sed -i '' -e 's:Input/output error:I/O error:g'
+
+diff --git a/tests/qemu-iotests/004.out b/tests/qemu-iotests/004.out
+index fb85932..0681ead 100644
+--- a/tests/qemu-iotests/004.out
++++ b/tests/qemu-iotests/004.out
+@@ -6,36 +6,36 @@ wrote 1048576/1048576 bytes at offset 133169152
+ 1 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ write into image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write at image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write past image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ pwrite past image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ writev past image boundary
+-writev failed: Input/output error
++writev failed: I/O error
+ 
+ read before image boundary
+ read 1048576/1048576 bytes at offset 133169152
+ 1 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ read into image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ read at image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ read past image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ pread past image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ readv past image boundary
+-readv failed: Input/output error
++readv failed: I/O error
+ *** done
+diff --git a/tests/qemu-iotests/026.out b/tests/qemu-iotests/026.out
+index 8398999..9963e4e 100644
+--- a/tests/qemu-iotests/026.out
++++ b/tests/qemu-iotests/026.out
+@@ -4,26 +4,26 @@ Errors while writing 128 kB
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_update; errno: 5; imm: off; once: on; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_update; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_update; errno: 5; imm: off; once: off; write
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_update; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -54,32 +54,32 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ Event: l2_load; errno: 5; imm: off; once: on; write
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
+-read failed: Input/output error
++write failed: I/O error
++read failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_load; errno: 5; imm: off; once: on; write -b
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
+-read failed: Input/output error
++write failed: I/O error
++read failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_load; errno: 5; imm: off; once: off; write
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
+-read failed: Input/output error
++write failed: I/O error
++read failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_load; errno: 5; imm: off; once: off; write -b
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
+-read failed: Input/output error
++write failed: I/O error
++read failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -116,26 +116,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_update; errno: 5; imm: off; once: on; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_update; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_update; errno: 5; imm: off; once: off; write
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_update; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -164,26 +164,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_alloc_write; errno: 5; imm: off; once: on; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_alloc_write; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_alloc_write; errno: 5; imm: off; once: off; write
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_alloc_write; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -212,26 +212,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: write_aio; errno: 5; imm: off; once: on; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: write_aio; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: write_aio; errno: 5; imm: off; once: off; write
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: write_aio; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -260,26 +260,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_load; errno: 5; imm: off; once: on; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_load; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_load; errno: 5; imm: off; once: off; write
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_load; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -308,26 +308,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_update_part; errno: 5; imm: off; once: on; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_update_part; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_update_part; errno: 5; imm: off; once: off; write
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_update_part; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -356,26 +356,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_alloc; errno: 5; imm: off; once: on; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_alloc; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_alloc; errno: 5; imm: off; once: off; write
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: refblock_alloc; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -404,22 +404,22 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: cluster_alloc; errno: 5; imm: off; once: on; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: cluster_alloc; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: cluster_alloc; errno: 5; imm: off; once: off; write
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: cluster_alloc; errno: 5; imm: off; once: off; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -570,12 +570,12 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_grow_alloc_table; errno: 5; imm: off; once: on
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_grow_alloc_table; errno: 5; imm: off; once: off
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -590,14 +590,14 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_grow_write_table; errno: 5; imm: off; once: on
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_grow_write_table; errno: 5; imm: off; once: off
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -614,14 +614,14 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_grow_activate_table; errno: 5; imm: off; once: on
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l1_grow_activate_table; errno: 5; imm: off; once: off
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+@@ -639,7 +639,7 @@ No errors were found on the image.
+ === Avoid cluster leaks after temporary failure ===
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+-write failed: Input/output error
++write failed: I/O error
+ wrote 1048576/1048576 bytes at offset 0
+ 1 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ No errors were found on the image.
+@@ -651,6 +651,6 @@ wrote 1024/1024 bytes at offset 0
+ 1 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ wrote 1024/1024 bytes at offset 0
+ 1 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ *** done
+diff --git a/tests/qemu-iotests/026.out.nocache b/tests/qemu-iotests/026.out.nocache
+index 9359d26..6fc0117 100644
+--- a/tests/qemu-iotests/026.out.nocache
++++ b/tests/qemu-iotests/026.out.nocache
+@@ -4,26 +4,26 @@ Errors while writing 128 kB
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_update; errno: 5; imm: off; once: on; write 
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_update; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_update; errno: 5; imm: off; once: off; write 
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_update; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -54,32 +54,32 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ Event: l2_load; errno: 5; imm: off; once: on; write 
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
+-read failed: Input/output error
++write failed: I/O error
++read failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l2_load; errno: 5; imm: off; once: on; write -b
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
+-read failed: Input/output error
++write failed: I/O error
++read failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l2_load; errno: 5; imm: off; once: off; write 
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
+-read failed: Input/output error
++write failed: I/O error
++read failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l2_load; errno: 5; imm: off; once: off; write -b
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
+-read failed: Input/output error
++write failed: I/O error
++read failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -128,16 +128,16 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ 
+ Event: l2_update; errno: 5; imm: off; once: off; write 
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l2_update; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ No errors were found on the image.
+@@ -172,26 +172,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l2_alloc_write; errno: 5; imm: off; once: on; write 
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l2_alloc_write; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l2_alloc_write; errno: 5; imm: off; once: off; write 
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l2_alloc_write; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -220,26 +220,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: write_aio; errno: 5; imm: off; once: on; write 
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: write_aio; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: write_aio; errno: 5; imm: off; once: off; write 
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: write_aio; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -268,26 +268,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_load; errno: 5; imm: off; once: on; write 
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_load; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_load; errno: 5; imm: off; once: off; write 
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_load; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -316,26 +316,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_update_part; errno: 5; imm: off; once: on; write 
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_update_part; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_update_part; errno: 5; imm: off; once: off; write 
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_update_part; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -364,26 +364,26 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_alloc; errno: 5; imm: off; once: on; write 
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_alloc; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_alloc; errno: 5; imm: off; once: off; write 
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: refblock_alloc; errno: 5; imm: off; once: off; write -b
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -412,22 +412,22 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: cluster_alloc; errno: 5; imm: off; once: on; write 
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: cluster_alloc; errno: 5; imm: off; once: on; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: cluster_alloc; errno: 5; imm: off; once: off; write 
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: cluster_alloc; errno: 5; imm: off; once: off; write -b
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -578,12 +578,12 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_grow_alloc_table; errno: 5; imm: off; once: on
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_grow_alloc_table; errno: 5; imm: off; once: off
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -598,14 +598,14 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_grow_write_table; errno: 5; imm: off; once: on
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_grow_write_table; errno: 5; imm: off; once: off
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -622,14 +622,14 @@ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_grow_activate_table; errno: 5; imm: off; once: on
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+ Event: l1_grow_activate_table; errno: 5; imm: off; once: off
+-qemu-io: Failed to flush the L2 table cache: Input/output error
+-qemu-io: Failed to flush the refcount block cache: Input/output error
+-write failed: Input/output error
++qemu-io: Failed to flush the L2 table cache: I/O error
++qemu-io: Failed to flush the refcount block cache: I/O error
++write failed: I/O error
+ No errors were found on the image.
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824 
+ 
+@@ -647,7 +647,7 @@ No errors were found on the image.
+ === Avoid cluster leaks after temporary failure ===
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+-write failed: Input/output error
++write failed: I/O error
+ wrote 1048576/1048576 bytes at offset 0
+ 1 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ No errors were found on the image.
+@@ -659,6 +659,6 @@ wrote 1024/1024 bytes at offset 0
+ 1 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ wrote 1024/1024 bytes at offset 0
+ 1 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ *** done
+diff --git a/tests/qemu-iotests/030 b/tests/qemu-iotests/030
+index 98595d4..d2e8fe2 100755
+--- a/tests/qemu-iotests/030
++++ b/tests/qemu-iotests/030
+@@ -709,7 +709,7 @@ class TestEIO(TestErrors):
+                     self.assertTrue(error, 'job completed unexpectedly')
+                     self.assert_qmp(event, 'data/type', 'stream')
+                     self.assert_qmp(event, 'data/device', 'drive0')
+-                    self.assert_qmp(event, 'data/error', 'Input/output error')
++                    self.assert_qmp(event, 'data/error', 'I/O error')
+                     self.assert_qmp(event, 'data/offset', self.STREAM_BUFFER_SIZE)
+                     self.assert_qmp(event, 'data/len', self.image_len)
+                     completed = True
+@@ -743,7 +743,7 @@ class TestEIO(TestErrors):
+                     self.assertTrue(error, 'job completed unexpectedly')
+                     self.assert_qmp(event, 'data/type', 'stream')
+                     self.assert_qmp(event, 'data/device', 'drive0')
+-                    self.assert_qmp(event, 'data/error', 'Input/output error')
++                    self.assert_qmp(event, 'data/error', 'I/O error')
+                     self.assert_qmp(event, 'data/offset', self.image_len)
+                     self.assert_qmp(event, 'data/len', self.image_len)
+                     completed = True
+@@ -821,7 +821,7 @@ class TestEIO(TestErrors):
+                     self.assertTrue(error, 'job completed unexpectedly')
+                     self.assert_qmp(event, 'data/type', 'stream')
+                     self.assert_qmp(event, 'data/device', 'drive0')
+-                    self.assert_qmp(event, 'data/error', 'Input/output error')
++                    self.assert_qmp(event, 'data/error', 'I/O error')
+                     self.assert_qmp(event, 'data/offset', self.STREAM_BUFFER_SIZE)
+                     self.assert_qmp(event, 'data/len', self.image_len)
+                     completed = True
+diff --git a/tests/qemu-iotests/040 b/tests/qemu-iotests/040
+index 30eb978..4175fa4 100755
+--- a/tests/qemu-iotests/040
++++ b/tests/qemu-iotests/040
+@@ -604,7 +604,7 @@ class TestErrorHandling(iotests.QMPTestCase):
+         self.prepare_and_start_job('report', top_event='read_aio')
+         self.run_job([
+             self.event_error('read', 'report'),
+-            self.event_completed('Input/output error')
++            self.event_completed('I/O error')
+         ])
+ 
+         self.vm.shutdown()
+@@ -640,7 +640,7 @@ class TestErrorHandling(iotests.QMPTestCase):
+         self.prepare_and_start_job('report', mid_event='write_aio')
+         self.run_job([
+             self.event_error('write', 'report'),
+-            self.event_completed('Input/output error')
++            self.event_completed('I/O error')
+         ])
+ 
+         self.vm.shutdown()
+@@ -676,7 +676,7 @@ class TestErrorHandling(iotests.QMPTestCase):
+         self.prepare_and_start_job('report', active=False, mid_event='read_aio')
+         self.run_job([
+             self.event_error('read', 'report'),
+-            self.event_completed('Input/output error', active=False)
++            self.event_completed('I/O error', active=False)
+         ])
+ 
+         self.vm.shutdown()
+@@ -710,7 +710,7 @@ class TestErrorHandling(iotests.QMPTestCase):
+         self.prepare_and_start_job('report', active=False, base_event='write_aio')
+         self.run_job([
+             self.event_error('write', 'report'),
+-            self.event_completed('Input/output error', active=False)
++            self.event_completed('I/O error', active=False)
+         ])
+ 
+         self.vm.shutdown()
+diff --git a/tests/qemu-iotests/041 b/tests/qemu-iotests/041
+index 8429958..94b3b2e 100755
+--- a/tests/qemu-iotests/041
++++ b/tests/qemu-iotests/041
+@@ -506,7 +506,7 @@ new_state = "1"
+                     self.assertTrue(error, 'job completed unexpectedly')
+                     self.assert_qmp(event, 'data/type', 'mirror')
+                     self.assert_qmp(event, 'data/device', 'drive0')
+-                    self.assert_qmp(event, 'data/error', 'Input/output error')
++                    self.assert_qmp(event, 'data/error', 'I/O error')
+                     completed = True
+                 elif event['event'] == 'JOB_STATUS_CHANGE':
+                     self.assert_qmp(event, 'data/id', 'drive0')
+@@ -674,7 +674,7 @@ new_state = "1"
+                     self.assertTrue(error, 'job completed unexpectedly')
+                     self.assert_qmp(event, 'data/type', 'mirror')
+                     self.assert_qmp(event, 'data/device', 'drive0')
+-                    self.assert_qmp(event, 'data/error', 'Input/output error')
++                    self.assert_qmp(event, 'data/error', 'I/O error')
+                     completed = True
+ 
+         self.assert_no_active_block_jobs()
+diff --git a/tests/qemu-iotests/060.out b/tests/qemu-iotests/060.out
+index 329977d..4a3d2a2 100644
+--- a/tests/qemu-iotests/060.out
++++ b/tests/qemu-iotests/060.out
+@@ -9,7 +9,7 @@ ERROR cluster 3 refcount=1 reference=3
+ Data may be corrupted, or further writes to the image may corrupt it.
+ incompatible_features     []
+ qcow2: Marking image as corrupt: Preventing invalid write on metadata (overlaps with active L1 table); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ incompatible_features     [1]
+ image: TEST_DIR/t.IMGFMT
+ file format: IMGFMT
+@@ -37,7 +37,7 @@ ERROR cluster 2 refcount=1 reference=2
+ Data may be corrupted, or further writes to the image may corrupt it.
+ incompatible_features     []
+ qcow2: Marking image as corrupt: Preventing invalid write on metadata (overlaps with refcount block); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ incompatible_features     [1]
+ ERROR refcount block 0 refcount=2
+ ERROR cluster 2 refcount=1 reference=2
+@@ -73,7 +73,7 @@ Data may be corrupted, or further writes to the image may corrupt it.
+ This means waste of disk space, but no harm to data.
+ incompatible_features     []
+ qcow2: Marking image as corrupt: Preventing invalid write on metadata (overlaps with inactive L2 table); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ incompatible_features     [1]
+ ERROR cluster 4 refcount=1 reference=2
+ Leaked cluster 9 refcount=1 reference=0
+@@ -109,7 +109,7 @@ wrote 65536/65536 bytes at offset 536870912
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: Preventing invalid write on metadata (overlaps with active L2 table); further corruption events will be suppressed
+ blkdebug: Suspended request '0'
+-write failed: Input/output error
++write failed: I/O error
+ blkdebug: Resuming request '0'
+ aio_write failed: No medium found
+ 
+@@ -119,7 +119,7 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: Preventing invalid write on metadata (overlaps with qcow2_header); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ 
+ === Testing unaligned L1 entry ===
+ 
+@@ -127,12 +127,12 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: L2 table offset 0x42a00 unaligned (L1 index: 0); further corruption events will be suppressed
+-read failed: Input/output error
++read failed: I/O error
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: L2 table offset 0x42a00 unaligned (L1 index: 0); further corruption events will be suppressed
+-qemu-img: Failed to turn zero into data clusters: Input/output error
++qemu-img: Failed to turn zero into data clusters: I/O error
+ 
+ === Testing unaligned L2 entry ===
+ 
+@@ -140,7 +140,7 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: Cluster allocation offset 0x52a00 unaligned (L2 offset: 0x40000, L2 index: 0); further corruption events will be suppressed
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Testing unaligned pre-allocated zero cluster ===
+ 
+@@ -148,13 +148,13 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: Cluster allocation offset 0x52a00 unaligned (L2 offset: 0x40000, L2 index: 0); further corruption events will be suppressed
+-qemu-img: Failed to turn zero into data clusters: Input/output error
++qemu-img: Failed to turn zero into data clusters: I/O error
+ 
+ === Testing unaligned reftable entry ===
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ qcow2: Marking image as corrupt: Refblock offset 0x22a00 unaligned (reftable index: 0); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ 
+ === Testing non-fatal corruption on freeing ===
+ 
+@@ -171,8 +171,8 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Image is corrupt: Cluster allocation offset 0x52a00 unaligned (L2 offset: 0x40000, L2 index: 0); further non-fatal corruption events will be suppressed
+-read failed: Input/output error
+-read failed: Input/output error
++read failed: I/O error
++read failed: I/O error
+ 
+ === Testing non-fatal and then fatal corruption report ===
+ 
+@@ -183,13 +183,13 @@ qcow2: Image is corrupt: Cannot free unaligned cluster 0x52a00; further non-fata
+ qcow2: Marking image as corrupt: Cluster allocation offset 0x62a00 unaligned (L2 offset: 0x40000, L2 index: 0x1); further corruption events will be suppressed
+ discard 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Testing empty refcount table ===
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ qcow2: Marking image as corrupt: Preventing invalid write on metadata (overlaps with refcount table); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ ERROR cluster 0 refcount=0 reference=1
+ ERROR cluster 1 refcount=0 reference=1
+ ERROR cluster 3 refcount=0 reference=1
+@@ -209,7 +209,7 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: Preventing invalid allocation of refcount block at offset 0; further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ ERROR cluster 0 refcount=0 reference=1
+ ERROR cluster 1 refcount=0 reference=1
+ ERROR cluster 3 refcount=0 reference=1
+@@ -229,7 +229,7 @@ No errors were found on the image.
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ qcow2: Marking image as corrupt: Preventing invalid allocation of L2 table at offset 0; further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ ERROR cluster 0 refcount=0 reference=1
+ ERROR cluster 1 refcount=0 reference=1
+ ERROR cluster 2 refcount=0 reference=1
+@@ -251,7 +251,7 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 65536/65536 bytes at offset 65536
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: Preventing invalid allocation of compressed cluster at offset 0; further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ ERROR cluster 0 refcount=0 reference=1
+ ERROR cluster 1 refcount=0 reference=1
+ ERROR cluster 2 refcount=0 reference=1
+@@ -286,20 +286,20 @@ No errors were found on the image.
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ qcow2: Marking image as corrupt: Preventing invalid allocation of L2 table at offset 0; further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ 
+ === Testing dirty corrupt image ===
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ ERROR refcount block 0 is not cluster aligned; refcount table entry corrupted
+ IMGFMT: Marking image as corrupt: Refblock offset 0xffff2a00 unaligned (reftable index: 0); further corruption events will be suppressed
+-Can't get refcount for cluster 0: Input/output error
+-Can't get refcount for cluster 1: Input/output error
+-Can't get refcount for cluster 2: Input/output error
+-Can't get refcount for cluster 3: Input/output error
++Can't get refcount for cluster 0: I/O error
++Can't get refcount for cluster 1: I/O error
++Can't get refcount for cluster 2: I/O error
++Can't get refcount for cluster 3: I/O error
+ Rebuilding refcount structure
+ Repairing cluster 1 refcount=1 reference=0
+-qemu-io: can't open device TEST_DIR/t.IMGFMT: Could not repair dirty image: Input/output error
++qemu-io: can't open device TEST_DIR/t.IMGFMT: Could not repair dirty image: I/O error
+ --- Repairing ---
+ Leaked cluster 1 refcount=1 reference=0
+ Repairing cluster 1 refcount=1 reference=0
+@@ -319,7 +319,7 @@ wrote 65536/65536 bytes at offset 0
+ discard 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: Preallocated zero cluster offset 0x2a00 unaligned (guest offset: 0); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ --- Repairing ---
+ Repairing offset=2a00: Preallocated cluster is not properly aligned; L2 entry corrupted.
+ The following inconsistencies were found and repaired:
+@@ -336,18 +336,18 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 131072/131072 bytes at offset 0
+ 128 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ qcow2: Marking image as corrupt: Refblock offset 0x2a00 unaligned (reftable index: 0); further corruption events will be suppressed
+-qcow2_free_clusters failed: Input/output error
++qcow2_free_clusters failed: I/O error
+ discard failed: No medium found
+ --- Repairing ---
+ ERROR refcount block 0 is not cluster aligned; refcount table entry corrupted
+ qcow2: Marking image as corrupt: Refblock offset 0x2a00 unaligned (reftable index: 0); further corruption events will be suppressed
+-Can't get refcount for cluster 0: Input/output error
+-Can't get refcount for cluster 1: Input/output error
+-Can't get refcount for cluster 2: Input/output error
+-Can't get refcount for cluster 3: Input/output error
+-Can't get refcount for cluster 4: Input/output error
+-Can't get refcount for cluster 5: Input/output error
+-Can't get refcount for cluster 6: Input/output error
++Can't get refcount for cluster 0: I/O error
++Can't get refcount for cluster 1: I/O error
++Can't get refcount for cluster 2: I/O error
++Can't get refcount for cluster 3: I/O error
++Can't get refcount for cluster 4: I/O error
++Can't get refcount for cluster 5: I/O error
++Can't get refcount for cluster 6: I/O error
+ Rebuilding refcount structure
+ Repairing cluster 1 refcount=1 reference=0
+ qemu-img: Check failed: No medium found
+@@ -365,7 +365,7 @@ No errors were found on the image.
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ qcow2: Marking image as corrupt: Refblock at 0xffffff00000000 is not covered by the refcount structures; further corruption events will be suppressed
+-qemu-img: Failed to discard unused refblocks: Input/output error
++qemu-img: Failed to discard unused refblocks: I/O error
+ --- Checking and retrying ---
+ virtual size: 64 MiB (67108864 bytes)
+ No errors were found on the image.
+@@ -376,7 +376,7 @@ virtual size: 32 MiB (33554432 bytes)
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ qcow2: Marking image as corrupt: Refblock at 0x1000000000 is not covered by the refcount structures; further corruption events will be suppressed
+-qemu-img: Failed to discard unused refblocks: Input/output error
++qemu-img: Failed to discard unused refblocks: I/O error
+ --- Checking and retrying ---
+ virtual size: 64 MiB (67108864 bytes)
+ No errors were found on the image.
+@@ -387,12 +387,12 @@ virtual size: 32 MiB (33554432 bytes)
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ qcow2: Marking image as corrupt: Cannot get entry from refcount block cache: Offset 0x200 is unaligned; further corruption events will be suppressed
+-qemu-img: Failed to discard unused refblocks: Input/output error
++qemu-img: Failed to discard unused refblocks: I/O error
+ --- Repairing ---
+ Repairing refcount block 1 is outside image
+ ERROR refcount block 2 is not cluster aligned; refcount table entry corrupted
+ qcow2: Marking image as corrupt: Refblock offset 0x200 unaligned (reftable index: 0x2); further corruption events will be suppressed
+-Can't get refcount for cluster 1048576: Input/output error
++Can't get refcount for cluster 1048576: I/O error
+ Rebuilding refcount structure
+ Repairing cluster 1 refcount=1 reference=0
+ Repairing cluster 2 refcount=1 reference=0
+@@ -419,7 +419,7 @@ qcow2: Marking image as corrupt: Preventing invalid write on metadata (overlaps
+ QMP_VERSION
+ {"return": {}}
+ {"timestamp": {"seconds":  TIMESTAMP, "microseconds":  TIMESTAMP}, "event": "BLOCK_IMAGE_CORRUPTED", "data": {"device": "none0", "msg": "Preventing invalid write on metadata (overlaps with refcount table)", "offset": 65536, "node-name": "drive", "fatal": true, "size": 65536}}
+-write failed: Input/output error
++write failed: I/O error
+ {"return": ""}
+ {"return": {}}
+ {"timestamp": {"seconds":  TIMESTAMP, "microseconds":  TIMESTAMP}, "event": "SHUTDOWN", "data": {"guest": false, "reason": "host-qmp-quit"}}
+diff --git a/tests/qemu-iotests/071.out b/tests/qemu-iotests/071.out
+index bca0c02..3e93eb7 100644
+--- a/tests/qemu-iotests/071.out
++++ b/tests/qemu-iotests/071.out
+@@ -30,11 +30,11 @@ blkverify: read offset=0 bytes=512 contents mismatch at offset 0
+ 
+ === Testing blkdebug through filename ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Testing blkdebug through file blockref ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Testing blkdebug on existing block device ===
+ 
+@@ -43,7 +43,7 @@ QMP_VERSION
+ {"return": {}}
+ {"return": {}}
+ {"return": {}}
+-read failed: Input/output error
++read failed: I/O error
+ {"return": ""}
+ {"return": {}}
+ {"timestamp": {"seconds":  TIMESTAMP, "microseconds":  TIMESTAMP}, "event": "SHUTDOWN", "data": {"guest": false, "reason": "host-qmp-quit"}}
+@@ -82,11 +82,11 @@ read 512/512 bytes at offset 0
+ wrote 512/512 bytes at offset 0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ {"return": ""}
+-read failed: Input/output error
++read failed: I/O error
+ {"return": ""}
+ {"return": {}}
+ {"timestamp": {"seconds":  TIMESTAMP, "microseconds":  TIMESTAMP}, "event": "SHUTDOWN", "data": {"guest": false, "reason": "host-qmp-quit"}}
+-QEMU_PROG: Failed to flush the L2 table cache: Input/output error
+-QEMU_PROG: Failed to flush the refcount block cache: Input/output error
++QEMU_PROG: Failed to flush the L2 table cache: I/O error
++QEMU_PROG: Failed to flush the refcount block cache: I/O error
+ 
+ *** done
+diff --git a/tests/qemu-iotests/074.out b/tests/qemu-iotests/074.out
+index ede66c3..a8fb25c 100644
+--- a/tests/qemu-iotests/074.out
++++ b/tests/qemu-iotests/074.out
+@@ -3,14 +3,14 @@ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ === IO: pattern 102
+ wrote 512/512 bytes at offset 512
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-qemu-img: Error while reading offset 0 of blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: Input/output error
++qemu-img: Error while reading offset 0 of blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: I/O error
+ 4
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1073741824
+ Formatting 'TEST_DIR/t.IMGFMT.2', fmt=IMGFMT size=0
+ === IO: pattern 102
+ wrote 512/512 bytes at offset 512
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-qemu-img: Error while reading offset 0 of blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: Input/output error
++qemu-img: Error while reading offset 0 of blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: I/O error
+ Warning: Image size mismatch!
+ 4
+ Cleanup
+diff --git a/tests/qemu-iotests/081.out b/tests/qemu-iotests/081.out
+index 615c083..a9acdae 100644
+--- a/tests/qemu-iotests/081.out
++++ b/tests/qemu-iotests/081.out
+@@ -81,7 +81,7 @@ wrote 10485760/10485760 bytes at offset 0
+ 10 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ == checking that quorum is broken ==
+-read failed: Input/output error
++read failed: I/O error
+ 
+ == checking the blkverify mode with broken content ==
+ quorum: offset=0 bytes=10485760 contents mismatch at offset 0
+diff --git a/tests/qemu-iotests/083.out b/tests/qemu-iotests/083.out
+index 2090ee6..708938e 100644
+--- a/tests/qemu-iotests/083.out
++++ b/tests/qemu-iotests/083.out
+@@ -41,7 +41,7 @@ qemu-io: can't open device nbd+tcp://127.0.0.1:PORT/foo
+ 
+ === Check disconnect after neg2 ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect 8 neg2 ===
+ 
+@@ -53,31 +53,31 @@ qemu-io: can't open device nbd+tcp://127.0.0.1:PORT/foo
+ 
+ === Check disconnect before request ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect after request ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect before reply ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect after reply ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect 4 reply ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect 8 reply ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect before data ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect after data ===
+ 
+@@ -106,7 +106,7 @@ qemu-io: can't open device nbd+tcp://127.0.0.1:PORT/
+ 
+ === Check disconnect after neg-classic ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect before neg1 ===
+ 
+@@ -150,7 +150,7 @@ qemu-io: can't open device nbd+unix:///foo?socket=SOCK_DIR/nbd.sock
+ 
+ === Check disconnect after neg2 ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect 8 neg2 ===
+ 
+@@ -162,31 +162,31 @@ qemu-io: can't open device nbd+unix:///foo?socket=SOCK_DIR/nbd.sock
+ 
+ === Check disconnect before request ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect after request ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect before reply ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect after reply ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect 4 reply ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect 8 reply ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect before data ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Check disconnect after data ===
+ 
+@@ -215,6 +215,6 @@ qemu-io: can't open device nbd+unix:///?socket=SOCK_DIR/nbd.sock
+ 
+ === Check disconnect after neg-classic ===
+ 
+-read failed: Input/output error
++read failed: I/O error
+ 
+ *** done
+diff --git a/tests/qemu-iotests/089.out b/tests/qemu-iotests/089.out
+index c53fc48..7808ffe 100644
+--- a/tests/qemu-iotests/089.out
++++ b/tests/qemu-iotests/089.out
+@@ -33,7 +33,7 @@ read 512/512 bytes at offset 0
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ wrote 512/512 bytes at offset 229376
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-read failed: Input/output error
++read failed: I/O error
+ 
+ === Testing qemu-img info output ===
+ 
+diff --git a/tests/qemu-iotests/098.out b/tests/qemu-iotests/098.out
+index 6c73dd0..f1ca813 100644
+--- a/tests/qemu-iotests/098.out
++++ b/tests/qemu-iotests/098.out
+@@ -6,7 +6,7 @@ Formatting 'TEST_DIR/t.IMGFMT.base', fmt=IMGFMT size=67108864
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864 backing_file=TEST_DIR/t.IMGFMT.base backing_fmt=IMGFMT
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-qemu-img: Failed to empty blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: Input/output error
++qemu-img: Failed to empty blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: I/O error
+ No errors were found on the image.
+ 
+ === empty_image_prepare ===
+@@ -15,7 +15,7 @@ Formatting 'TEST_DIR/t.IMGFMT.base', fmt=IMGFMT size=67108864
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864 backing_file=TEST_DIR/t.IMGFMT.base backing_fmt=IMGFMT
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-qemu-img: Failed to empty blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: Input/output error
++qemu-img: Failed to empty blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: I/O error
+ Leaked cluster 4 refcount=1 reference=0
+ Leaked cluster 5 refcount=1 reference=0
+ Repairing cluster 4 refcount=1 reference=0
+@@ -28,7 +28,7 @@ Formatting 'TEST_DIR/t.IMGFMT.base', fmt=IMGFMT size=67108864
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864 backing_file=TEST_DIR/t.IMGFMT.base backing_fmt=IMGFMT
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-qemu-img: Failed to empty blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: Input/output error
++qemu-img: Failed to empty blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: I/O error
+ ERROR cluster 0 refcount=0 reference=1
+ ERROR cluster 1 refcount=0 reference=1
+ ERROR cluster 3 refcount=0 reference=1
+@@ -42,7 +42,7 @@ Formatting 'TEST_DIR/t.IMGFMT.base', fmt=IMGFMT size=67108864
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864 backing_file=TEST_DIR/t.IMGFMT.base backing_fmt=IMGFMT
+ wrote 65536/65536 bytes at offset 0
+ 64 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-qemu-img: Failed to empty blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: Input/output error
++qemu-img: Failed to empty blkdebug:TEST_DIR/blkdebug.conf:TEST_DIR/t.IMGFMT: I/O error
+ ERROR cluster 0 refcount=0 reference=1
+ ERROR cluster 1 refcount=0 reference=1
+ ERROR cluster 3 refcount=0 reference=1
+diff --git a/tests/qemu-iotests/124 b/tests/qemu-iotests/124
+index 845ab53..0b494f8 100755
+--- a/tests/qemu-iotests/124
++++ b/tests/qemu-iotests/124
+@@ -140,7 +140,7 @@ class TestIncrementalBackupBase(iotests.QMPTestCase):
+         self.files.append(img)
+ 
+ 
+-    def do_qmp_backup(self, error='Input/output error', **kwargs):
++    def do_qmp_backup(self, error='I/O error', **kwargs):
+         res = self.vm.qmp('drive-backup', **kwargs)
+         self.assert_qmp(res, 'return', {})
+         return self.wait_qmp_backup(kwargs['device'], error)
+@@ -152,7 +152,7 @@ class TestIncrementalBackupBase(iotests.QMPTestCase):
+             if e['data']['status'] == 'null':
+                 break
+ 
+-    def wait_qmp_backup(self, device, error='Input/output error'):
++    def wait_qmp_backup(self, device, error='I/O error'):
+         event = self.vm.event_wait(name="BLOCK_JOB_COMPLETED",
+                                    match={'data': {'device': device}})
+         self.assertNotEqual(event, None)
+diff --git a/tests/qemu-iotests/128.out b/tests/qemu-iotests/128.out
+index 4e43f5f..80c6ee5 100644
+--- a/tests/qemu-iotests/128.out
++++ b/tests/qemu-iotests/128.out
+@@ -1,5 +1,5 @@
+ QA output created by 128
+ 
+ == reading from error device ==
+-read failed: Input/output error
++read failed: I/O error
+ *** done
+diff --git a/tests/qemu-iotests/137.out b/tests/qemu-iotests/137.out
+index 86377c8..55a5a2c 100644
+--- a/tests/qemu-iotests/137.out
++++ b/tests/qemu-iotests/137.out
+@@ -40,5 +40,5 @@ OK: Dirty bit not set
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=67108864
+ qemu-io: Parameter 'lazy-refcounts' expects 'on' or 'off'
+ qcow2: Marking image as corrupt: Preventing invalid allocation of L2 table at offset 0; further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ *** done
+diff --git a/tests/qemu-iotests/171.out b/tests/qemu-iotests/171.out
+index ec3363b..5faf106 100644
+--- a/tests/qemu-iotests/171.out
++++ b/tests/qemu-iotests/171.out
+@@ -21,32 +21,32 @@ wrote 1/1 bytes at offset 3583
+ 1 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ write across image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write at image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write after image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ writev before/after image boundary
+-writev failed: Input/output error
++writev failed: I/O error
+ 
+ read before image boundary
+ read 1/1 bytes at offset 3583
+ 1 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ read across image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ read at image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ read after image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ readv before/after image boundary
+-readv failed: Input/output error
++readv failed: I/O error
+ 
+ fill image with pattern
+ wrote 4096/4096 bytes at offset 0
+@@ -60,7 +60,7 @@ read 4/4 bytes at offset 510
+ 4 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ write zeroes across image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write zeroes at image boundary and check
+ wrote 2/2 bytes at offset 3582
+@@ -68,7 +68,7 @@ wrote 2/2 bytes at offset 3582
+ 00000ffe:  00 00  ..
+ read 2/2 bytes at offset 4094
+ 2 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-read failed: Input/output error
++read failed: I/O error
+ 
+ fill image with pattern
+ wrote 4096/4096 bytes at offset 0
+@@ -82,7 +82,7 @@ read 4/4 bytes at offset 510
+ 4 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ discard across image boundary
+-discard failed: Input/output error
++discard failed: I/O error
+ 
+ discard at image boundary and check
+ discard 2/2 bytes at offset 3582
+@@ -90,7 +90,7 @@ discard 2/2 bytes at offset 3582
+ 00000ffe:  00 00  ..
+ read 2/2 bytes at offset 4094
+ 2 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-read failed: Input/output error
++read failed: I/O error
+ 
+ == test 'offset' and 'size' options ==
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=4096
+@@ -113,32 +113,32 @@ wrote 1/1 bytes at offset 2047
+ 1 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ write across image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write at image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write after image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ writev before/after image boundary
+-writev failed: Input/output error
++writev failed: I/O error
+ 
+ read before image boundary
+ read 1/1 bytes at offset 2047
+ 1 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ read across image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ read at image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ read after image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ readv before/after image boundary
+-readv failed: Input/output error
++readv failed: I/O error
+ 
+ fill image with pattern
+ wrote 4096/4096 bytes at offset 0
+@@ -152,7 +152,7 @@ read 4/4 bytes at offset 510
+ 4 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ write zeroes across image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write zeroes at image boundary and check
+ wrote 2/2 bytes at offset 2046
+@@ -176,7 +176,7 @@ read 4/4 bytes at offset 510
+ 4 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ discard across image boundary
+-discard failed: Input/output error
++discard failed: I/O error
+ 
+ discard at image boundary and check
+ discard 2/2 bytes at offset 2046
+@@ -209,32 +209,32 @@ wrote 1/1 bytes at offset 2047
+ 1 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ write across image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write at image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write after image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ writev before/after image boundary
+-writev failed: Input/output error
++writev failed: I/O error
+ 
+ read before image boundary
+ read 1/1 bytes at offset 2047
+ 1 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ read across image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ read at image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ read after image boundary
+-read failed: Input/output error
++read failed: I/O error
+ 
+ readv before/after image boundary
+-readv failed: Input/output error
++readv failed: I/O error
+ 
+ fill image with pattern
+ wrote 4096/4096 bytes at offset 0
+@@ -248,7 +248,7 @@ read 4/4 bytes at offset 8
+ 4 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ write zeroes across image boundary
+-write failed: Input/output error
++write failed: I/O error
+ 
+ write zeroes at image boundary and check
+ wrote 2/2 bytes at offset 2046
+@@ -272,7 +272,7 @@ read 4/4 bytes at offset 8
+ 4 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+ discard across image boundary
+-discard failed: Input/output error
++discard failed: I/O error
+ 
+ discard at image boundary and check
+ discard 2/2 bytes at offset 2046
+@@ -290,12 +290,12 @@ wrote 512/512 bytes at offset 0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ wrote 1/1 bytes at offset 511
+ 1 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
++write failed: I/O error
+ wrote 1024/1024 bytes at offset 0
+ 1 KiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ wrote 1/1 bytes at offset 1023
+ 1 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-write failed: Input/output error
++write failed: I/O error
+ checking boundaries
+ 000001fe:  00 00 0a 0a  ....
+ read 4/4 bytes at offset 510
+diff --git a/tests/qemu-iotests/205 b/tests/qemu-iotests/205
+index 15f7982..e8d2cc1 100755
+--- a/tests/qemu-iotests/205
++++ b/tests/qemu-iotests/205
+@@ -75,7 +75,7 @@ class TestNbdServerRemove(iotests.QMPTestCase):
+ 
+     def assertReadFailed(self, qemu_io_output):
+         self.assertEqual(filter_qemu_io(qemu_io_output).strip(),
+-                         'read failed: Input/output error')
++                         'read failed: I/O error')
+ 
+     def assertConnectFailed(self, qemu_io_output):
+         self.assertEqual(filter_qemu_io(qemu_io_output).strip(),
+diff --git a/tests/qemu-iotests/214.out b/tests/qemu-iotests/214.out
+index 9fc6728..f086bc1 100644
+--- a/tests/qemu-iotests/214.out
++++ b/tests/qemu-iotests/214.out
+@@ -7,7 +7,7 @@ wrote 2097152/2097152 bytes at offset 0
+ 2 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ wrote 2097152/2097152 bytes at offset 2097152
+ 2 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-read failed: Input/output error
++read failed: I/O error
+ No errors were found on the image.
+ read 4194304/4194304 bytes at offset 0
+ 4 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+diff --git a/tests/qemu-iotests/217.out b/tests/qemu-iotests/217.out
+index e3fc40a..c74c709 100644
+--- a/tests/qemu-iotests/217.out
++++ b/tests/qemu-iotests/217.out
+@@ -9,8 +9,8 @@ wrote 65536/65536 bytes at offset 0
+ Snapshot list:
+ (Snapshot filtered)
+ 
+-qcow2_free_clusters failed: Input/output error
+-qemu-img: Could not delete snapshot 'foo': Failed to free the cluster and L1 table: Input/output error
++qcow2_free_clusters failed: I/O error
++qemu-img: Could not delete snapshot 'foo': Failed to free the cluster and L1 table: I/O error
+ 
+ --- Checking test image ---
+ Leaked cluster 4 refcount=2 reference=1
+diff --git a/tests/qemu-iotests/244.out b/tests/qemu-iotests/244.out
+index 5e03add..8cb4fc6 100644
+--- a/tests/qemu-iotests/244.out
++++ b/tests/qemu-iotests/244.out
+@@ -33,15 +33,15 @@ Convert to compressed target with data file:
+ Formatting 'TEST_DIR/t.IMGFMT.src', fmt=IMGFMT size=67108864
+ wrote 1048576/1048576 bytes at offset 0
+ 1 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+-qemu-img: error while writing at byte 0: Operation not supported
++qemu-img: error while writing at byte 0: Not supported
+ 
+ Convert uncompressed, then write compressed data manually:
+ Images are identical.
+-write failed: Operation not supported
++write failed: Not supported
+ No errors were found on the image.
+ 
+ Take an internal snapshot:
+-qemu-img: Could not create snapshot 'test': -95 (Operation not supported)
++qemu-img: Could not create snapshot 'test': -95 (Not supported)
+ No errors were found on the image.
+ 
+ === Standalone image with external data file (efficient) ===
+diff --git a/tests/qemu-iotests/251.out b/tests/qemu-iotests/251.out
+index 75b8796..6d03dca 100644
+--- a/tests/qemu-iotests/251.out
++++ b/tests/qemu-iotests/251.out
+@@ -3,20 +3,20 @@ Formatting 'TEST_DIR/t.IMGFMT.orig', fmt=IMGFMT size=67108864
+ wrote 67108864/67108864 bytes at offset 0
+ 64 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ 
+-qemu-img: warning: error while reading block status at offset status_fail_offset_0: Input/output error
+-qemu-img: warning: error while reading block status at offset status_fail_offset_1: Input/output error
+-qemu-img: warning: error while reading block status at offset status_fail_offset_0: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_0: Input/output error
+-qemu-img: warning: error while reading block status at offset status_fail_offset_1: Input/output error
+-qemu-img: warning: error while reading offset status_fail_offset_1: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_2: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_3: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_4: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_5: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_6: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_7: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_8: Input/output error
+-qemu-img: warning: error while reading offset read_fail_offset_9: Input/output error
++qemu-img: warning: error while reading block status at offset status_fail_offset_0: I/O error
++qemu-img: warning: error while reading block status at offset status_fail_offset_1: I/O error
++qemu-img: warning: error while reading block status at offset status_fail_offset_0: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_0: I/O error
++qemu-img: warning: error while reading block status at offset status_fail_offset_1: I/O error
++qemu-img: warning: error while reading offset status_fail_offset_1: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_2: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_3: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_4: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_5: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_6: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_7: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_8: I/O error
++qemu-img: warning: error while reading offset read_fail_offset_9: I/O error
+ 
+ wrote 512/512 bytes at offset read_fail_offset_0
+ 512 bytes, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+diff --git a/tests/qemu-iotests/257.out b/tests/qemu-iotests/257.out
+index aa76131..ea3691b 100644
+--- a/tests/qemu-iotests/257.out
++++ b/tests/qemu-iotests/257.out
+@@ -365,7 +365,7 @@ expecting 6 dirty sectors; have 6. OK!
+ {"execute": "blockdev-backup", "arguments": {"auto-finalize": false, "bitmap": "bitmap0", "bitmap-mode": "never", "device": "drive0", "filter-node-name": "backup-top", "job-id": "backup_1", "sync": "bitmap", "target": "backup_target_1", "x-perf": {"max-workers": 1}}}
+ {"return": {}}
+ {"data": {"action": "report", "device": "backup_1", "operation": "read"}, "event": "BLOCK_JOB_ERROR", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+-{"data": {"device": "backup_1", "error": "Input/output error", "len": 393216, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
++{"data": {"device": "backup_1", "error": "I/O error", "len": 393216, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+ {
+   "bitmaps": {
+     "drive0": [
+@@ -1110,7 +1110,7 @@ expecting 6 dirty sectors; have 6. OK!
+ {"execute": "blockdev-backup", "arguments": {"auto-finalize": false, "bitmap": "bitmap0", "bitmap-mode": "on-success", "device": "drive0", "filter-node-name": "backup-top", "job-id": "backup_1", "sync": "bitmap", "target": "backup_target_1", "x-perf": {"max-workers": 1}}}
+ {"return": {}}
+ {"data": {"action": "report", "device": "backup_1", "operation": "read"}, "event": "BLOCK_JOB_ERROR", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+-{"data": {"device": "backup_1", "error": "Input/output error", "len": 393216, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
++{"data": {"device": "backup_1", "error": "I/O error", "len": 393216, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+ {
+   "bitmaps": {
+     "drive0": [
+@@ -1855,7 +1855,7 @@ expecting 6 dirty sectors; have 6. OK!
+ {"execute": "blockdev-backup", "arguments": {"auto-finalize": false, "bitmap": "bitmap0", "bitmap-mode": "always", "device": "drive0", "filter-node-name": "backup-top", "job-id": "backup_1", "sync": "bitmap", "target": "backup_target_1", "x-perf": {"max-workers": 1}}}
+ {"return": {}}
+ {"data": {"action": "report", "device": "backup_1", "operation": "read"}, "event": "BLOCK_JOB_ERROR", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+-{"data": {"device": "backup_1", "error": "Input/output error", "len": 393216, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
++{"data": {"device": "backup_1", "error": "I/O error", "len": 393216, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+ {
+   "bitmaps": {
+     "drive0": [
+@@ -2600,7 +2600,7 @@ expecting 6 dirty sectors; have 6. OK!
+ {"execute": "blockdev-backup", "arguments": {"auto-finalize": false, "bitmap": "bitmap0", "bitmap-mode": "on-success", "device": "drive0", "filter-node-name": "backup-top", "job-id": "backup_1", "sync": "full", "target": "backup_target_1", "x-perf": {"max-workers": 1}}}
+ {"return": {}}
+ {"data": {"action": "report", "device": "backup_1", "operation": "read"}, "event": "BLOCK_JOB_ERROR", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+-{"data": {"device": "backup_1", "error": "Input/output error", "len": 67108864, "offset": 983040, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
++{"data": {"device": "backup_1", "error": "I/O error", "len": 67108864, "offset": 983040, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+ {
+   "bitmaps": {
+     "drive0": [
+@@ -3345,7 +3345,7 @@ expecting 6 dirty sectors; have 6. OK!
+ {"execute": "blockdev-backup", "arguments": {"auto-finalize": false, "bitmap": "bitmap0", "bitmap-mode": "always", "device": "drive0", "filter-node-name": "backup-top", "job-id": "backup_1", "sync": "full", "target": "backup_target_1", "x-perf": {"max-workers": 1}}}
+ {"return": {}}
+ {"data": {"action": "report", "device": "backup_1", "operation": "read"}, "event": "BLOCK_JOB_ERROR", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+-{"data": {"device": "backup_1", "error": "Input/output error", "len": 67108864, "offset": 983040, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
++{"data": {"device": "backup_1", "error": "I/O error", "len": 67108864, "offset": 983040, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+ {
+   "bitmaps": {
+     "drive0": [
+@@ -4090,7 +4090,7 @@ expecting 6 dirty sectors; have 6. OK!
+ {"execute": "blockdev-backup", "arguments": {"auto-finalize": false, "bitmap": "bitmap0", "bitmap-mode": "on-success", "device": "drive0", "filter-node-name": "backup-top", "job-id": "backup_1", "sync": "top", "target": "backup_target_1", "x-perf": {"max-workers": 1}}}
+ {"return": {}}
+ {"data": {"action": "report", "device": "backup_1", "operation": "read"}, "event": "BLOCK_JOB_ERROR", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+-{"data": {"device": "backup_1", "error": "Input/output error", "len": 458752, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
++{"data": {"device": "backup_1", "error": "I/O error", "len": 458752, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+ {
+   "bitmaps": {
+     "drive0": [
+@@ -4835,7 +4835,7 @@ expecting 6 dirty sectors; have 6. OK!
+ {"execute": "blockdev-backup", "arguments": {"auto-finalize": false, "bitmap": "bitmap0", "bitmap-mode": "always", "device": "drive0", "filter-node-name": "backup-top", "job-id": "backup_1", "sync": "top", "target": "backup_target_1", "x-perf": {"max-workers": 1}}}
+ {"return": {}}
+ {"data": {"action": "report", "device": "backup_1", "operation": "read"}, "event": "BLOCK_JOB_ERROR", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+-{"data": {"device": "backup_1", "error": "Input/output error", "len": 458752, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
++{"data": {"device": "backup_1", "error": "I/O error", "len": 458752, "offset": 65536, "speed": 0, "type": "backup"}, "event": "BLOCK_JOB_COMPLETED", "timestamp": {"microseconds": "USECS", "seconds": "SECS"}}
+ {
+   "bitmaps": {
+     "drive0": [
+diff --git a/tests/qemu-iotests/271.out b/tests/qemu-iotests/271.out
+index 5be780d..c9a2bd0 100644
+--- a/tests/qemu-iotests/271.out
++++ b/tests/qemu-iotests/271.out
+@@ -456,7 +456,7 @@ L2 entry #0: 0x8000000000050001 0000000000000001
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1048576
+ L2 entry #1: 0x8000000000060000 00000001ffffffff
+ qcow2: Marking image as corrupt: Invalid cluster entry found  (L2 offset: 0x40000, L2 index: 0x1); further corruption events will be suppressed
+-read failed: Input/output error
++read failed: I/O error
+ 
+ ### Corrupted L2 entries - read test (unallocated) ###
+ 
+@@ -471,14 +471,14 @@ L2 entry #0: 0x0000000000000001 0000000000000000
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1048576
+ L2 entry #0: 0x0000000000000000 0000000000000001
+ qcow2: Marking image as corrupt: Invalid cluster entry found  (L2 offset: 0x40000, L2 index: 0); further corruption events will be suppressed
+-read failed: Input/output error
++read failed: I/O error
+ 
+ # Both 'subcluster is zero' and 'subcluster is allocated' bits set
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1048576
+ L2 entry #1: 0x0000000000000000 0000000100000001
+ qcow2: Marking image as corrupt: Invalid cluster entry found  (L2 offset: 0x40000, L2 index: 0x1); further corruption events will be suppressed
+-read failed: Input/output error
++read failed: I/O error
+ 
+ ### Compressed cluster with subcluster bitmap != 0 - read test ###
+ 
+@@ -501,7 +501,7 @@ L2 entry #0: 0x8000000000050001 0000000000000001
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1048576
+ L2 entry #1: 0x8000000000060000 00000001ffffffff
+ qcow2: Marking image as corrupt: Invalid cluster entry found (L2 offset: 0x40000, L2 index: 0x1); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ 
+ ### Corrupted L2 entries - write test (unallocated) ###
+ 
+@@ -516,14 +516,14 @@ L2 entry #0: 0x8000000000060000 0000000000000001
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1048576
+ L2 entry #0: 0x0000000000000000 0000000000000001
+ qcow2: Marking image as corrupt: Invalid cluster entry found (L2 offset: 0x40000, L2 index: 0); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ 
+ # Both 'subcluster is zero' and 'subcluster is allocated' bits set
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=1048576
+ L2 entry #1: 0x0000000000000000 0000000100000001
+ qcow2: Marking image as corrupt: Invalid cluster entry found (L2 offset: 0x40000, L2 index: 0x1); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ 
+ ### Compressed cluster with subcluster bitmap != 0 - write test ###
+ 
+@@ -555,7 +555,7 @@ Double checking the fixed image now...
+ 1 errors were found on the image.
+ Data may be corrupted, or further writes to the image may corrupt it.
+ qcow2: Marking image as corrupt: Cluster allocation offset 0x50200 unaligned (L2 offset: 0x40000, L2 index: 0); further corruption events will be suppressed
+-read failed: Input/output error
++read failed: I/O error
+ # Corrupted L2 entry, no allocated subclusters #
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=131072 backing_file=TEST_DIR/t.IMGFMT.base backing_fmt=raw
+ Repairing offset=50200: Preallocated cluster is not properly aligned; L2 entry corrupted.
+diff --git a/tests/qemu-iotests/289.out b/tests/qemu-iotests/289.out
+index e54e262..f626d7f 100644
+--- a/tests/qemu-iotests/289.out
++++ b/tests/qemu-iotests/289.out
+@@ -3,6 +3,6 @@ QA output created by 289
+ === Avoid freeing external data clusters on failure ===
+ 
+ Formatting 'TEST_DIR/t.IMGFMT', fmt=IMGFMT size=65536 data_file=TEST_DIR/t.IMGFMT.data_file
+-write failed: Input/output error
++write failed: I/O error
+ No errors were found on the image.
+ *** done
+diff --git a/tests/qemu-iotests/305.out b/tests/qemu-iotests/305.out
+index 538019e..758e3d8 100644
+--- a/tests/qemu-iotests/305.out
++++ b/tests/qemu-iotests/305.out
+@@ -12,5 +12,5 @@ discard 1024/1024 bytes at offset 125952
+ ### Corrupt the offset of the second refcount block
+ ### Try to allocate the discarded clusters again
+ qcow2: Marking image as corrupt: Refblock offset 0x20600 unaligned (reftable index: 0x1); further corruption events will be suppressed
+-write failed: Input/output error
++write failed: I/O error
+ *** done
+diff --git a/tests/qemu-iotests/307.out b/tests/qemu-iotests/307.out
+index 390f05d..fb4c951 100644
+--- a/tests/qemu-iotests/307.out
++++ b/tests/qemu-iotests/307.out
+@@ -122,7 +122,7 @@ exports available: 1
+ {"error": {"class": "GenericError", "desc": "export 'export1' still in use"}}
+ {"execute": "block-export-del", "arguments": {"id": "export1", "mode": "hard"}}
+ {"return": {}}
+-read failed: Input/output error
++read failed: I/O error
+ 
+ {"execute": "query-block-exports", "arguments": {}}
+ {"return": []}
+diff --git a/tests/qemu-iotests/308.out b/tests/qemu-iotests/308.out
+index e4467a1..0e2f831 100644
+--- a/tests/qemu-iotests/308.out
++++ b/tests/qemu-iotests/308.out
+@@ -130,7 +130,7 @@ wrote 65536/65536 bytes at offset 1048576
+ 
+ --- Try growing non-growable export ---
+ (OK: Lengths of export and original are the same)
+-dd: error writing 'TEST_DIR/t.IMGFMT.fuse': Input/output error
++dd: error writing 'TEST_DIR/t.IMGFMT.fuse': I/O error
+ 1+0 records in
+ 0+0 records out
+ 
+diff --git a/tests/qemu-iotests/tests/copy-before-write b/tests/qemu-iotests/tests/copy-before-write
+index 2ffe092..365884f 100755
+--- a/tests/qemu-iotests/tests/copy-before-write
++++ b/tests/qemu-iotests/tests/copy-before-write
+@@ -124,7 +124,7 @@ read failed: Permission denied
+         log = self.do_cbw_error('break-guest-write')
+ 
+         self.assertEqual(log, """\
+-write failed: Input/output error
++write failed: I/O error
+ read 1048576/1048576 bytes at offset 0
+ 1 MiB, X ops; XX:XX:XX.X (XXX YYY/sec and XXX ops/sec)
+ """)
