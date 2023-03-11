@@ -1,0 +1,6 @@
+# psscd service
+
+type            = process
+command         = /usr/bin/pcscd --foreground --auto-exit
+depends-on      = init-local.target
+smooth-recovery = true
