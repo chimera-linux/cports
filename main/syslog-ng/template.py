@@ -1,10 +1,11 @@
 pkgname = "syslog-ng"
-pkgver = "3.38.1"
+pkgver = "4.1.1"
 pkgrel = 0
 _pcre_ver = "8.45"
 build_style = "gnu_configure"
 configure_args = [
     "--sysconfdir=/etc/syslog-ng",
+    "--with-python-packages=system",
     "--with-ivykis=system",
     "--with-jsonc=system",
     "--with-librabbitmq-client=system",
@@ -16,6 +17,7 @@ configure_args = [
     "--disable-java",
     "--disable-java-modules",
     "--disable-linux-caps",
+    "--disable-python-modules",
     "--enable-extra-warnings",
     "--enable-manpages",
     "--enable-native",
@@ -47,7 +49,7 @@ source = [
     f"$(SOURCEFORGE_SITE)/pcre/pcre/{_pcre_ver}/pcre-{_pcre_ver}.tar.bz2"
 ]
 sha256 = [
-    "5491f686d0b829b69b2e0fc0d66a62f51991aafaee005475bfa38fab399441f7",
+    "d7df3cfa32d1a750818d94b8ea582dea54c37226e7b55a88c3d2f3a543d8f20e",
     "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8"
 ]
 # tests need https://github.com/Snaipe/Criterion
@@ -72,11 +74,6 @@ def init_configure(self):
 def _build_pcre(self):
     from cbuild.util import gnu_configure
 
-    _jit = "--enable-jit"
-    match self.profile().arch:
-        case "riscv64":
-            _jit = "--disable-jit"
-
     _pfx = self.chroot_cwd / "dest"
 
     gnu_configure.configure(self, configure_args = [
@@ -87,12 +84,11 @@ def _build_pcre(self):
         "--with-pic",
         "--enable-unicode-properties",
         "--enable-newline-is-anycrlf",
-        "--enable-jit",
         "--enable-static",
+        "--disable-jit",
         "--disable-cpp",
         "--disable-shared",
         "--disable-stack-for-recursion",
-        _jit
     ])
     self.make.build()
     self.make.install(default_args = False)
@@ -109,13 +105,6 @@ def post_install(self):
     # taken from Alpine
     self.rm(self.destdir / "etc/syslog-ng/syslog-ng.conf")
     self.install_file(self.files_path / "syslog-ng.conf", "etc/syslog-ng")
-
-    sitepkgs = f"usr/lib/python{self._pyver}/site-packages"
-    self.install_dir(sitepkgs)
-
-    # move python bindings into the correct place
-    for f in (self.destdir / "usr/lib/syslog-ng/python").iterdir():
-        self.mv(f, self.destdir / sitepkgs)
 
     # getent module will not work correctly on musl as musl does
     # not provide reentrant getprotoby(name|number)
@@ -140,7 +129,6 @@ def _python(self):
 
     return [
         "usr/lib/syslog-ng/libmod-python.so",
-        "usr/lib/python*",
     ]
 
 def _genmod(modn, modl):
