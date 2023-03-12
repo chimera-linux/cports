@@ -6,7 +6,7 @@ depends = [
     "base-core", "base-locale", "nano", "initramfs-tools", "openssh",
     "syslog-ng", "rfkill", "zramctl", "opendoas", "ethtool", "dhcpcd",
     "usbutils", "f2fs-tools", "fdisk", "elogind-meta", "dbus", "iwd",
-    "console-setup", "dinit-userservd", "chimera-artwork",
+    "console-setup", "turnstile", "chimera-artwork",
     # firmware for all
     "base-firmware-linux",
 ]

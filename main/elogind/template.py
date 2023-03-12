@@ -22,7 +22,7 @@ makedepends = [
     "libseccomp-devel", "linux-pam-devel"
 ]
 checkdepends = ["bash"]
-depends = ["dbus", "dinit-userservd"]
+depends = ["dbus", "turnstile"]
 install_if = [f"elogind-meta={pkgver}-r{pkgrel}"]
 pkgdesc = "Standalone version of logind"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -3,7 +3,7 @@ From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 12 Nov 2022 03:42:39 +0100
 Subject: [PATCH] do not configure a runtime directory
 
-This is the job of dinit-userservd.
+This is the job of turnstile.
 ---
  src/login/pam_elogind.c      | 2 ++
  src/login/user-runtime-dir.c | 2 ++
