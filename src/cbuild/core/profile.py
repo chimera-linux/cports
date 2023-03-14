@@ -266,13 +266,6 @@ class Profile:
         self._wordsize = pdata.getint("wordsize")
         # optional
         self._machine = pdata.get("machine", fallback = archn)
-        # compatible personalities
-        if "linux32" in pdata:
-            self._linux32 = pdata.get("linux32").split()
-        else:
-            self._linux32 = []
-        # set to true internally if needed
-        self._need_linux32 = False
 
         if self._wordsize != 32 and self._wordsize != 64:
             raise errors.CbuildException(
@@ -319,14 +312,6 @@ class Profile:
     @property
     def machine(self):
         return self._machine
-
-    @property
-    def linux32(self):
-        return self._linux32
-
-    @property
-    def need_linux32(self):
-        return self._need_linux32
 
     @property
     def triplet(self):
