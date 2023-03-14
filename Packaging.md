@@ -1785,6 +1785,8 @@ It may look like this:
 endian    = little
 wordsize  = 64
 triplet   = riscv64-unknown-linux-musl
+machine   = riscv64
+goarch    = riscv64
 repos     = main contrib
 [flags]
 CFLAGS    = -march=rv64gc -mabi=lp64d
@@ -1827,6 +1829,7 @@ class Profile:
     arch = ...
     triplet = ...
     short_triplet = ...
+    machine = ...
     sysroot = ...
     wordsize = ...
     endian = ...
@@ -1840,6 +1843,7 @@ The properties have the following meanings:
 * `arch` The `apk` architecture name of the profile.
 * `triplet` The "long" target triplet (e.g. `aarch64-unknown-linux-musl`)
 * `short_triplet` The "short" target triplet (e.g. `aarch64-linux-musl`)
+* `machine` The `uname` machine of the profile. Matches `arch` if not explicit.
 * `sysroot` A `pathlib` path representing the sysroot.
 * `wordsize` The integer word size of the target (typically 64 or 32).
 * `endian` The endianness of the target (`little` or `big`).

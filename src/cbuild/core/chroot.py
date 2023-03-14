@@ -475,13 +475,15 @@ def enter(cmd, *args, capture_output = False, check = False,
     if bootstrapping:
         defpath = os.environ["PATH"]
 
+    from cbuild.core import profile
+
     envs = {
         "PATH": defpath,
         "SHELL": "/bin/sh",
         "HOME": "/tmp",
         "LC_COLLATE": "C",
         "LANG": "C.UTF-8",
-        "UNAME_m": host_cpu(),
+        "UNAME_m": profile.get_profile(host_cpu()).machine,
         **env
     }
 

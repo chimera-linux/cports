@@ -264,6 +264,8 @@ class Profile:
         self._triplet = pdata.get("triplet")
         self._endian = pdata.get("endian")
         self._wordsize = pdata.getint("wordsize")
+        # optional
+        self._machine = pdata.get("machine", fallback = archn)
 
         if self._wordsize != 32 and self._wordsize != 64:
             raise errors.CbuildException(
@@ -306,6 +308,10 @@ class Profile:
     @property
     def arch(self):
         return self._arch
+
+    @property
+    def machine(self):
+        return self._machine
 
     @property
     def triplet(self):
