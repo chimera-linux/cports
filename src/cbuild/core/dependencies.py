@@ -357,9 +357,6 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         except template.SkipPackage:
             pass
 
-    # reinit after parsings
-    chroot.set_target(tarch)
-
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
         _install_from_repo(pkg, host_binpkg_deps, "autodeps-host", signkey)

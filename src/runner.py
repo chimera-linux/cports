@@ -13,6 +13,7 @@ opt_cflags     = "-O2"
 opt_cxxflags   = "-O2"
 opt_fflags     = "-O2"
 opt_arch       = None
+opt_harch      = None
 opt_gen_dbg    = True
 opt_check      = True
 opt_ccache     = False
@@ -23,7 +24,6 @@ opt_signkey    = None
 opt_unsigned   = False
 opt_force      = False
 opt_mdirtemp   = False
-opt_mdirtarch  = None
 opt_nonet      = False
 opt_dirty      = False
 opt_keeptemp   = False
@@ -87,9 +87,9 @@ def handle_options():
 
     global opt_apkcmd, opt_dryrun, opt_bulkfail
     global opt_cflags, opt_cxxflags, opt_fflags
-    global opt_arch, opt_gen_dbg, opt_check, opt_ccache
+    global opt_arch, opt_harch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
-    global opt_unsigned, opt_force, opt_mdirtemp, opt_mdirtarch
+    global opt_unsigned, opt_force, opt_mdirtemp
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath
@@ -142,6 +142,10 @@ def handle_options():
         default = None
     )
     parser.add_argument(
+        "-A", "--host-arch", help = "Initial host architecture.",
+        default = None
+    )
+    parser.add_argument(
         "-b", "--build-root", default = None, help = "The build root path."
     )
     parser.add_argument(
@@ -163,10 +167,6 @@ def handle_options():
         "-t", "--temporary", action = "store_const",
         const = True, default = opt_mdirtemp,
         help = "Use a temporary build root."
-    )
-    parser.add_argument(
-        "-T", "--temporary-arch", default = None, metavar = "ARCH",
-        help = "Use a temporary build root with the given architecture."
     )
     parser.add_argument(
         "-N", "--no-remote", action = "store_const",
@@ -235,6 +235,7 @@ def handle_options():
         opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
         opt_lthreads  = bcfg.getint("link_threads", fallback = opt_lthreads)
         opt_arch      = bcfg.get("arch", fallback = opt_arch)
+        opt_harch     = bcfg.get("host_arch", fallback = opt_harch)
         opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
         opt_blddir    = bcfg.get("build_dir", fallback = opt_blddir)
         opt_stagepath = bcfg.get("stage_repository", fallback = opt_stagepath)
@@ -271,6 +272,9 @@ def handle_options():
 
     if cmdline.arch:
         opt_arch = cmdline.arch
+
+    if cmdline.host_arch:
+        opt_harch = cmdline.host_arch
 
     if cmdline.no_color:
         opt_nocolor = True
@@ -317,11 +321,10 @@ def handle_options():
     if cmdline.check_fail:
         opt_checkfail = True
 
-    if cmdline.temporary or cmdline.temporary_arch:
+    if cmdline.temporary:
         mdp = pathlib.Path.cwd() / opt_bldroot
         # the temporary directory should be in the same location as build root
         opt_mdirtemp = True
-        opt_mdirtarch = cmdline.temporary_arch
         opt_bldroot  = tempfile.mkdtemp(
             prefix = mdp.name + ".", dir = mdp.parent
         )
@@ -380,11 +383,7 @@ def binary_bootstrap(tgt):
     from cbuild.core import chroot, paths
 
     paths.prepare()
-
-    if len(cmdline.command) <= 1:
-        chroot.install(chroot.host_cpu())
-    else:
-        chroot.install(cmdline.command[1])
+    chroot.install()
 
 def do_unstage(tgt, force = False):
     from cbuild.core import chroot, stage
@@ -444,7 +443,7 @@ def bootstrap(tgt):
             build.build(tgt, rp, {}, opt_signkey)
         do_unstage(tgt, True)
         shutil.rmtree(paths.bldroot())
-        chroot.install(chroot.host_cpu())
+        chroot.install()
 
     if max_stage == 0:
         return
@@ -464,7 +463,7 @@ def bootstrap(tgt):
             pass
         # go back to stage 1
         paths.reinit_buildroot(oldmdir, 1)
-        chroot.install(chroot.host_cpu())
+        chroot.install()
 
     if max_stage == 1:
         return
@@ -484,7 +483,7 @@ def bootstrap(tgt):
             pass
         # go back to stage 2
         paths.reinit_buildroot(oldmdir, 2)
-        chroot.install(chroot.host_cpu())
+        chroot.install()
 
     # change binary repo path
     paths.set_stage(3)
@@ -501,7 +500,7 @@ def bootstrap(tgt):
             pass
         # go back to stage 3
         paths.reinit_buildroot(oldmdir, 3)
-        chroot.install(chroot.host_cpu())
+        chroot.install()
 
 def bootstrap_update(tgt):
     from cbuild.core import chroot
@@ -529,7 +528,7 @@ def do_chroot(tgt):
     from cbuild.util import compiler
 
     if opt_mdirtemp:
-        chroot.install(opt_mdirtarch or chroot.host_cpu())
+        chroot.install()
     paths.prepare()
     chroot.shell_update(not opt_nonet)
     chroot.enter(
@@ -582,8 +581,6 @@ def do_prune_obsolete(tgt):
     from cbuild.apk import cli
 
     logger.get().out("cbuild: pruning repositories...")
-    # ensure we know what cpu arch we are dealing with
-    chroot.chroot_check()
 
     reposd = paths.repository()
     reposet = {}
@@ -604,14 +601,12 @@ def do_prune_removed(tgt):
     from cbuild.core import chroot, logger, paths, template, errors
     from cbuild.apk import cli
 
-    # ensure we know what cpu arch we are dealing with
-    chroot.chroot_check()
     # FIXME: compute from git if possible
     epoch = int(time.time())
     # do specific arch only
     archn = opt_arch
     if not archn:
-        archn = chroot.target_cpu()
+        archn = chroot.host_cpu()
     # pruner for a single repo
     def _prune(repo):
         logger.get().out(f"Pruning removed packages at '{repo}'...")
@@ -700,14 +695,12 @@ def do_index(tgt):
     from cbuild.apk import cli
 
     idir = cmdline.command[1] if len(cmdline.command) >= 2 else None
-    # ensure we know what cpu arch we are dealing with
-    chroot.chroot_check()
     # FIXME: compute from git if possible
     epoch = int(time.time())
     # do specific arch only
     archn = opt_arch
     if not archn:
-        archn = chroot.target_cpu()
+        archn = chroot.host_cpu()
     # indexer for a single repo
     def _index(repo):
         logger.get().out(f"Indexing packages at '{repo}'...")
@@ -1063,7 +1056,7 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
         force_check = opt_forcecheck, stage = bstage
     )
     if opt_mdirtemp:
-        chroot.install(opt_mdirtarch or chroot.host_cpu())
+        chroot.install()
     elif not stage and not chroot.chroot_check():
         raise errors.CbuildException(
             f"build root not found (have you boootstrapped?)"
@@ -1093,7 +1086,7 @@ def _bulkpkg(pkgs, statusf):
     log = logger.get()
 
     if opt_mdirtemp:
-        chroot.install(opt_mdirtarch or chroot.host_cpu())
+        chroot.install()
     chroot.repo_init()
     chroot.prepare_arch(opt_arch)
 
@@ -1296,6 +1289,12 @@ def fire():
     from cbuild.apk import cli
 
     logger.init(not opt_nocolor)
+
+    # set host arch to provide early guarantees
+    if opt_harch:
+        chroot.set_host(opt_harch)
+    else:
+        chroot.set_host(cli.get_arch())
 
     # check container and while at it perform arch checks
     chroot.chroot_check()

@@ -569,7 +569,7 @@ def pkg_profile(pkg, target):
     elif target == "host":
         return profile.get_profile(chroot.host_cpu())
     elif target == "target":
-        return profile.get_profile(chroot.target_cpu())
+        return pkg._target_profile
     elif not target:
         return pkg._current_profile
 
@@ -1060,9 +1060,6 @@ class Template(Package):
         return StampCheck(self, name)
 
     def run_step(self, stepn, optional = False, skip_post = False):
-        # reinit to make sure we've got up to date info
-        chroot.set_target(self.profile().arch)
-
         call_pkg_hooks(self, "pre_" + stepn)
 
         # run pre_* phase
@@ -1175,7 +1172,7 @@ class Template(Package):
         elif target == "host":
             target = chroot.host_cpu()
         elif target == "target":
-            target = chroot.target_cpu()
+            target = self._target_profile.arch
 
         try:
             self._current_profile = profile.get_profile(target)
@@ -1938,7 +1935,7 @@ def read_pkg(
 
     ret.run_check = run_check and not ret._current_profile.cross
 
-    chroot.set_target(ret._current_profile.arch)
+    ret._target_profile = ret._current_profile
 
     def subpkg_deco(spkgname, cond = True):
         def deco(f):

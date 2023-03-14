@@ -389,6 +389,11 @@ only have an effect with specific commands.
 
 * `--allow-unsigned` Do not sign packages and allow building without a signing
   key set up.
+  `-A ARCH`, `--host-arch ARCH` Override the host architecture. The given host
+  arch must be runnable on the current kernel. This is typically useful for e.g.
+  32-bit builds on 64-bit architectures, or for emulated targets. Note that once
+  a build root is bootstrapped, it decides the host architecture exclusively, so
+  this is mostly useful for actions that bootstrap a new root.
 * `-a ARCH`, `--arch ARCH` Build for architecture `ARCH`, possibly cross compiling.
 * `-b ROOT`, `--build-root ROOT` *(default: `bldroot`)* Set the path to the build
   root to use.
@@ -440,20 +445,15 @@ only have an effect with specific commands.
   is used as a base path as well as the name prefix for the temporary root if
   provided. The temporary root is removed at the end (whether the build succeeded
   or failed) unless `--keep-temporary` is passed.
-* `-T ARCH`, `--temporary-arch ARCH` Same as `-t`, but with a changed architecture.
-  We do not use `-a` because that is ambiguous with cross-compiling.
 
 <a id="commands"></a>
 ### Commands
 
 The following commands are recognized:
 
-* `binary-bootstrap [ARCH]` Create a build root from local packages. The local
+* `binary-bootstrap` Create a build root from local packages. The local
   repository must be populated, or a sufficient remote repository must be
-  available. Optionally, you can pass an architecture name to create a build
-  root of. The architecture's binaries must be runnable on the current kernel.
-  This is typically only useful for e.g. using 32-bit build roots on 64-bit
-  hosts with compatible architectures.
+  available.
 * `bootstrap [STAGE]` Bootstrap from source. If `STAGE` is passed, stop at that
   stage (number). By default, that is `2`. Stage 0 bootstrap must be run in a
   compatible host system.

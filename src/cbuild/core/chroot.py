@@ -19,13 +19,6 @@ _chroot_ready = False
 def host_cpu():
     return _host
 
-def target_cpu():
-    return _target
-
-def set_target(tgt):
-    global _target
-    _target = tgt
-
 def set_host(tgt):
     global _host
     _host = tgt
@@ -41,12 +34,9 @@ def chroot_check(force = False):
     if (paths.bldroot() / ".cbuild_chroot_init").is_file():
         _chroot_ready = True
         cpun = (paths.bldroot() / ".cbuild_chroot_init").read_text().strip()
+        set_host(cpun)
     else:
         _chroot_ready = False
-        cpun = apki.get_arch()
-
-    set_host(cpun)
-    set_target(cpun)
 
     return _chroot_ready
 
@@ -94,7 +84,7 @@ def _init():
     with open(paths.bldroot() / "etc/machine-id", "wb") as mid:
         mid.write(b"%s\n" % binascii.b2a_hex(os.urandom(16)))
 
-def _prepare(arch, stage):
+def _prepare():
     sfpath = paths.bldroot() / ".cbuild_chroot_init"
     if sfpath.is_file():
         return
@@ -111,7 +101,7 @@ def _prepare(arch, stage):
     _prepare_passwd()
 
     with open(sfpath, "w") as sf:
-        sf.write(arch + "\n")
+        sf.write(host_cpu() + "\n")
 
 def setup_keys(rootp):
     # copy over apk public keys
@@ -217,7 +207,7 @@ def initdb(path = None):
     (path / "usr/lib/apk/db/installed").touch()
     (path / "etc/apk/world").touch()
 
-def install(arch = None, stage = 2):
+def install():
     if chroot_check():
         return
 
@@ -225,16 +215,11 @@ def install(arch = None, stage = 2):
 
     initdb()
 
-    if not arch or stage < 2:
-        arch = host_cpu()
-
-    set_host(arch)
-    set_target(arch)
     setup_keys(paths.bldroot())
 
     irun = apki.call(
         "add", ["--no-chown", "--no-scripts", "base-cbuild"],
-        "main", arch = arch,
+        "main", arch = host_cpu(),
     )
     if irun.returncode != 0:
         raise errors.CbuildException("failed to install base-cbuild")
@@ -242,10 +227,8 @@ def install(arch = None, stage = 2):
     logger.get().out("cbuild: installed base-cbuild successfully!")
 
     paths.prepare()
-    _prepare(arch, stage)
-    _chroot_checked = False
-    _chroot_ready = False
-    chroot_check()
+    _prepare()
+    chroot_check(True)
     _init()
 
 def get_fakeroot(bootstrap):

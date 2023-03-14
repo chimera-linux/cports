@@ -276,7 +276,7 @@ def prune(repopath, arch = None, dry = False):
     from cbuild.core import chroot
 
     if not arch:
-        arch = chroot.target_cpu()
+        arch = chroot.host_cpu()
 
     repopath = repopath / arch
 
