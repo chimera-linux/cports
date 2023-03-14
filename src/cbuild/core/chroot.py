@@ -477,15 +477,22 @@ def enter(cmd, *args, capture_output = False, check = False,
 
     from cbuild.core import profile
 
+    hprof = profile.get_profile(host_cpu())
+
     envs = {
         "PATH": defpath,
         "SHELL": "/bin/sh",
         "HOME": "/tmp",
         "LC_COLLATE": "C",
         "LANG": "C.UTF-8",
-        "UNAME_m": profile.get_profile(host_cpu()).machine,
+        "UNAME_m": hprof.machine,
         **env
     }
+
+    if hprof.wordsize == 32:
+        kpers = "linux32"
+    else:
+        kpers = "linux64"
 
     if not unshare_all:
         if "NO_PROXY" in os.environ:
@@ -610,9 +617,11 @@ def enter(cmd, *args, capture_output = False, check = False,
 
     if fakeroot:
         bcmd += [
-            "--setenv", "FAKEROOTDONTTRYCHOWN", "1", "--", "sh",
+            "--setenv", "FAKEROOTDONTTRYCHOWN", "1", "--", kpers, "sh",
             get_fakeroot(False)
         ]
+    else:
+        bcmd += [kpers, "--"]
 
     if wrapper:
         bcmd += ["sh", "/tmp/cbuild-chroot-wrapper.sh"]
