@@ -33,6 +33,7 @@ opt_stage      = False
 opt_dryrun     = False
 opt_altrepo    = None
 opt_bldroot    = "bldroot"
+opt_blddir     = ""
 opt_pkgpath    = "packages"
 opt_srcpath    = "sources"
 opt_cchpath    = "cbuild_cache"
@@ -91,7 +92,7 @@ def handle_options():
     global opt_unsigned, opt_force, opt_mdirtemp, opt_mdirtarch
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
-    global opt_pkgpath, opt_srcpath, opt_cchpath
+    global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -142,6 +143,9 @@ def handle_options():
     )
     parser.add_argument(
         "-b", "--build-root", default = None, help = "The build root path."
+    )
+    parser.add_argument(
+        "-B", "--build-dir", default = None, help = "The build dir path."
     )
     parser.add_argument(
         "-r", "--repository-path", default = None,
@@ -232,6 +236,7 @@ def handle_options():
         opt_lthreads  = bcfg.getint("link_threads", fallback = opt_lthreads)
         opt_arch      = bcfg.get("arch", fallback = opt_arch)
         opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
+        opt_blddir    = bcfg.get("build_dir", fallback = opt_blddir)
         opt_stagepath = bcfg.get("stage_repository", fallback = opt_stagepath)
         opt_altrepo   = bcfg.get("alt_repository", fallback = opt_altrepo)
         opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
@@ -278,6 +283,9 @@ def handle_options():
 
     if cmdline.build_root:
         opt_bldroot = cmdline.build_root
+
+    if cmdline.build_dir:
+        opt_blddir = cmdline.build_dir
 
     if cmdline.repository_path:
         opt_pkgpath = cmdline.repository_path
@@ -351,8 +359,8 @@ def init_late():
 
     # init paths early, modules rely on it
     paths.init(
-        cbpath, rtpath, opt_bldroot, mainrepo, altrepo, opt_stagepath,
-        opt_srcpath, opt_cchpath
+        cbpath, rtpath, opt_bldroot, opt_blddir, mainrepo, altrepo,
+        opt_stagepath, opt_srcpath, opt_cchpath
     )
 
     # apk command
@@ -543,7 +551,7 @@ def do_clean(tgt):
     from cbuild.core import chroot, logger, paths, errors
 
     chroot.remove_autodeps(None)
-    dirp = paths.bldroot() / "builddir"
+    dirp = paths.builddir()
     if dirp.is_dir():
         shutil.rmtree(dirp)
     elif dirp.exists():

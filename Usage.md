@@ -392,8 +392,12 @@ only have an effect with specific commands.
 * `-a ARCH`, `--arch ARCH` Build for architecture `ARCH`, possibly cross compiling.
 * `-b ROOT`, `--build-root ROOT` *(default: `bldroot`)* Set the path to the build
   root to use.
+* `-B PATH`, `--build-dir PATH` *(default: empty)* Set the path to the directory
+  where builds will happen. If not set, `builddir` inside the build root will be
+  used as is. Otherwise, it will be bound to the given path (which will be created
+  if necessary).
 * `-c PATH`, `--config PATH` *(default: `etc/config.ini`)* The path to the config
-  file that `cbuild` reads configuration data from.
+  file that `cbuild` reads configuration data from. If relative, it is to cports.
 * `-C`, `--skip-check` Never attempt to run the `check` phase.
 * `-D`, `--dirty-build` Skip installation of dependencies in the `bldroot`,
   as well as removal of automatic dependencies after successful build, and
