@@ -1290,11 +1290,13 @@ def fire():
 
     logger.init(not opt_nocolor)
 
+    cliarch = cli.get_arch()
+
     # set host arch to provide early guarantees
     if opt_harch:
         chroot.set_host(opt_harch)
     else:
-        chroot.set_host(cli.get_arch())
+        chroot.set_host(cliarch)
 
     # check container and while at it perform arch checks
     chroot.chroot_check()
@@ -1316,6 +1318,12 @@ def fire():
                 f"cbuild: unknown target architecture '{opt_arch}'"
             )
             sys.exit(1)
+
+    # mark profile if we are using linux32
+    if cliarch != chroot.host_cpu():
+        for pn in profile.get_profile(cliarch).linux32:
+            profile.get_profile(pn)._need_linux32 = True
+
     # let apk know if we're using network
     cli.set_network(not opt_nonet)
 

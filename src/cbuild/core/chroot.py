@@ -476,6 +476,8 @@ def enter(cmd, *args, capture_output = False, check = False,
         defpath = os.environ["PATH"]
 
     from cbuild.core import profile
+    hprof = profile.get_profile(host_cpu())
+    need_l32 = hprof.need_linux32
 
     envs = {
         "PATH": defpath,
@@ -483,7 +485,7 @@ def enter(cmd, *args, capture_output = False, check = False,
         "HOME": "/tmp",
         "LC_COLLATE": "C",
         "LANG": "C.UTF-8",
-        "UNAME_m": profile.get_profile(host_cpu()).machine,
+        "UNAME_m": hprof.machine,
         **env
     }
 
@@ -613,6 +615,9 @@ def enter(cmd, *args, capture_output = False, check = False,
             "--setenv", "FAKEROOTDONTTRYCHOWN", "1", "--", "sh",
             get_fakeroot(False)
         ]
+
+    if need_l32:
+        bcmd += ["linux32", "--"]
 
     if wrapper:
         bcmd += ["sh", "/tmp/cbuild-chroot-wrapper.sh"]
