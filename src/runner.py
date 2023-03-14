@@ -609,7 +609,7 @@ def do_prune_removed(tgt):
         archn = chroot.host_cpu()
     # pruner for a single repo
     def _prune(repo):
-        logger.get().out(f"Pruning removed packages at '{repo}'...")
+        logger.get().out(f"Pruning removed packages at '{repo}/{archn}'...")
         # find which repo we are looking at
         repon = repo.name
         if not (paths.distdir() / repon).is_dir():
