@@ -4,4 +4,4 @@ type       = process
 command    = /usr/bin/NetworkManager -n
 before     = network.target
 depends-ms = dbus
-depends-on = init-local.target
+depends-on = pre-network.target
