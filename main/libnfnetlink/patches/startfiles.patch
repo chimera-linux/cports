@@ -1,0 +1,11 @@
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -333,7 +333,7 @@ LIBVERSION = 2:0:2
+ AM_CPPFLAGS = -I$(top_srcdir)/include
+ AM_CFLAGS = -Wall -fvisibility=hidden -D'NFNL_EXPORT=__attribute__((visibility("default")))'
+ lib_LTLIBRARIES = libnfnetlink.la
+-libnfnetlink_la_LDFLAGS = -Wc,-nostartfiles	\
++libnfnetlink_la_LDFLAGS = \
+ 			  -version-info $(LIBVERSION) \
+ 			  -Wl,--version-script=$(srcdir)/nfnl.version
+ 
