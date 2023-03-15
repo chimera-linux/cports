@@ -6,7 +6,9 @@ configure_env = {"CC": "clang"}
 make_cmd = "gmake"
 make_install_args = ["SBINDIR=/usr/bin"]
 hostmakedepends = ["pkgconf", "gmake", "perl", "flex", "bison"]
-makedepends = ["libfl-devel-static", "libmnl-devel", "linux-headers"]
+makedepends = [
+    "libfl-devel-static", "libmnl-devel", "libxtables-devel", "linux-headers"
+]
 pkgdesc = "IP routing utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
