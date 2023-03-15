@@ -1,5 +1,5 @@
 pkgname = "turnstile"
-pkgver = "0.1.1"
+pkgver = "0.1.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dmanage_rundir=true"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/turnstile"
 source = f"https://github.com/chimera-linux/turnstile/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "10512f46cf4e5f57f861e5847e09271cfb1bf9a281a99265e925a367c7b7093d"
+sha256 = "04977ae2469a5adae0f44b2b19102d9c56cdf3f2d0b42d60dfcac0a913bd20e2"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks", "!splitdinit"]
 
