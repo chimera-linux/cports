@@ -19,7 +19,9 @@ sha256 = "8d1b4b18393af43698d10baa25d2b9b6397969beecac7816c35dd0714e4de50a"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
-    self.install_service(self.files_path / "nftables")
+    fpath = self.files_path
+    self.install_file(fpath / "nftables-start", "usr/libexec", mode = 0o755)
+    self.install_service(fpath / "nftables")
 
 @subpackage("libnftables")
 def _lib(self):
