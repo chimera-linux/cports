@@ -95,7 +95,8 @@ def invoke(pkg):
             pkg.log(f"fetching source '{fname}'...")
             try:
                 rq = request.Request(url, data = None, headers = {
-                    "User-Agent": "cbuild-fetch/4.20.69"
+                    "User-Agent": "cbuild-fetch/4.20.69",
+                    "Accept": "*/*",
                 })
                 rqf = request.urlopen(rq)
                 with open(dfile, "wb") as df:
