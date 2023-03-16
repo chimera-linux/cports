@@ -1,5 +1,5 @@
 pkgname = "tzdata"
-pkgver = "2022f"
+pkgver = "2022g"
 pkgrel = 0
 hostmakedepends = [
     "musl-devel-static", "libunwind-devel-static",
@@ -14,8 +14,8 @@ source = [
     f"https://github.com/eggert/tz/archive/{pkgver}.tar.gz"
 ]
 sha256 = [
-    "9990d71f675d212567b931fe8aae1cab7027f89fefb8a79d808a6933a67af000",
-    "ed7329cceb32fcb7b80ebd734b593bffdcb422fa084606d4c60ff36480b38c40"
+    "4491db8281ae94a84d939e427bdd83dc389f26764d27d9a5c52d782c16764478",
+    "cc1169a43591201964ba6977ce8a63bb9cbe2d6e6bdcde34cd609f50e9866039"
 ]
 # no tests
 options = ["bootstrap", "!check", "hardlinks"]
