@@ -1,5 +1,5 @@
 pkgname = "xvinfo"
-pkgver = "1.1.4"
+pkgver = "1.1.5"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "X video capabilities query utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "0353220d6606077ba42363db65f50410759f9815352f77adc799e2adfa76e73f"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "76fdc89a4e4207d0069ae3e511b4e30a60fcf86b630d01ef56d32ba5856e76c4"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
