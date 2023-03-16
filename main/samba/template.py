@@ -1,6 +1,6 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.17.4"
+pkgver = "4.18.0"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -65,7 +65,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
 source = f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
-sha256 = "c0512079db4cac707ccea4c18aebbd6b2eb3acf6e90735e7f645a326be1f4537"
+sha256 = "70348656ef807be9c8be4465ca157cef4d99818e234253d2c684cc18b8408149"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
@@ -77,9 +77,15 @@ configure_args.append("--with-shared-modules=" + ",".join([
     "idmap_tdb2", "vfs_nfs4acl_xattr",
 ]))
 
+tool_flags = {
+    "CFLAGS": ["-D_BSD_SOURCE"],
+    "LDFLAGS": []
+}
+
 if self.profile().arch == "riscv64":
     # ld: error: section size decrease is too large
-    tool_flags = {"CFLAGS": ["-mno-relax"], "LDFLAGS": ["-mno-relax"]}
+    tool_flags["CFLAGS"] += ["-mno-relax"]
+    tool_flags["LDFLAGS"] += ["-mno-relax"]
 
 def post_install(self):
     self.install_file(
