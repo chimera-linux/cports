@@ -1,5 +1,5 @@
 pkgname = "xgamma"
-pkgver = "1.0.6"
+pkgver = "1.0.7"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "X gamma utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "0ef1c35b5c18b1b22317f455c8df13c0a471a8efad63c89c98ae3ce8c2b222d3"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "61f5ef02883d65ab464678ad3d8c5445a0ff727fe6255af90b1b842ddf77370d"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
