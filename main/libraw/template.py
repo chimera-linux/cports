@@ -1,5 +1,5 @@
 pkgname = "libraw"
-pkgver = "0.20.2"
+pkgver = "0.21.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only OR CDDL-1.0"
 url = "https://libraw.org"
 source = f"{url}/data/LibRaw-{pkgver}.tar.gz"
-sha256 = "dc1b486c2003435733043e4e05273477326e51c3ea554c6864a4eafaff1004a6"
+sha256 = "630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
