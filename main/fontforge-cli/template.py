@@ -1,5 +1,5 @@
 pkgname = "fontforge-cli"
-pkgver = "20220308"
+pkgver = "20230101"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_GUI=OFF"]
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://fontforge.github.io/en-US"
 source = f"https://github.com/fontforge/fontforge/archive/{pkgver}.tar.gz"
-sha256 = "58bbc759eb102263be835e6c006b1c16b508ba3d0252acd5389062826764f7a5"
+sha256 = "ab0c4be41be15ce46a1be1482430d8e15201846269de89df67db32c7de4343f1"
 # FIXME int: fails checks
 hardening = ["!int"]
 
