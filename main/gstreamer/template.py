@@ -1,5 +1,5 @@
 pkgname = "gstreamer"
-pkgver = "1.20.4"
+pkgver = "1.22.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "67c1edf8c3c339cda5dde85f4f7b953bb9607c2d13ae970e2491c5c4c055ef5f"
+sha256 = "cd3ca759f926763615fdfcea63c9761198c42889bc0615ceec73e22b24fde771"
 options = ["!cross"]
 
 @subpackage("gstreamer-devel")
