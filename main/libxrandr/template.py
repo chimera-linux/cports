@@ -1,5 +1,5 @@
 pkgname = "libxrandr"
-pkgver = "1.5.2"
+pkgver = "1.5.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -9,8 +9,8 @@ pkgdesc = "X RandR Library from X.org"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXrandr-{pkgver}.tar.bz2"
-sha256 = "8aea0ebe403d62330bb741ed595b53741acf45033d3bda1792f1d4cc3daee023"
+source = f"$(XORG_SITE)/lib/libXrandr-{pkgver}.tar.gz"
+sha256 = "3ad316c1781fe2fe22574b819e81f0eff087a8560377f521ba932238b41b251f"
 
 def post_install(self):
     self.install_license("COPYING")
