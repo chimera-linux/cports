@@ -1,5 +1,5 @@
 pkgname = "libxxf86dga"
-pkgver = "1.1.5"
+pkgver = "1.1.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -9,8 +9,8 @@ pkgdesc = "XFree86-DGA X extension library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXxf86dga-{pkgver}.tar.bz2"
-sha256 = "2b98bc5f506c6140d4eddd3990842d30f5dae733b64f198a504f07461bdb7203"
+source = f"$(XORG_SITE)/lib/libXxf86dga-{pkgver}.tar.gz"
+sha256 = "87c7482b1e29b4eeb415815641c4f69c00545a8138e1b73ff1f361f7d9c22ac4"
 
 def post_install(self):
     self.install_license("COPYING")
