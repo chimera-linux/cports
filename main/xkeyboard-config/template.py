@@ -1,5 +1,5 @@
 pkgname = "xkeyboard-config"
-pkgver = "2.37"
+pkgver = "2.38"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dxorg-rules-symlinks=true", "-Dcompat-rules=true"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/XKeyboardConfig"
 source = f"$(XORG_SITE)/data/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "eb1383a5ac4b6210d7c7302b9d6fab052abdf51c5d2c9b55f1f779997ba68c6c"
+sha256 = "0690a91bab86b18868f3eee6d41e9ec4ce6894f655443d490a2184bfac56c872"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
