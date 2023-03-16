@@ -1,5 +1,5 @@
 pkgname = "libheif"
-pkgver = "1.13.0"
+pkgver = "1.15.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-option-checking"]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "http://www.libheif.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "50def171af4bc8991211d6027f3cee4200a86bbe60fddb537799205bf216ddca"
+sha256 = "0333924bf63d2cd09a021d18d02860eb218cf81b8e6f57d490c505207a59285b"
 hardening = ["!cfi"] # TODO
 
 def pre_configure(self):
