@@ -1,21 +1,23 @@
-pkgname = "libvpx7"
-pkgver = "1.12.0"
+pkgname = "libvpx8"
+pkgver = "1.13.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--enable-shared", "--enable-pic", "--enable-vp8", "--enable-vp9",
-    "--enable-experimental", "--enable-runtime-cpu-detect", "--enable-postproc",
-    "--disable-install-srcs",
+    "--enable-multithread", "--enable-postproc", "--enable-vp9-postproc",
+    "--enable-temporal-denoising", "--enable-vp9-temporal-denoising",
+    "--enable-experimental", "--enable-runtime-cpu-detect",
+    "--disable-static", "--disable-install-srcs",
 ]
 make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "perl", "yasm"]
+hostmakedepends = ["gmake", "pkgconf", "perl", "nasm"]
 makedepends = ["linux-headers"]
 pkgdesc = "VP8 and VP9 codec implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.webmproject.org"
 source = [f"https://github.com/webmproject/libvpx/archive/v{pkgver}.tar.gz"]
-sha256 = ["f1acc15d0fd0cb431f4bf6eac32d5e932e40ea1186fe78e074254d6d003957bb"]
+sha256 = ["cb2a393c9c1fae7aba76b950bb0ad393ba105409fe1a147ccd61b0aaa1501066"]
 # tests take several hours and require ~a gigabyte of test data
 options = ["!check"]
 
