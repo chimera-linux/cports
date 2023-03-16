@@ -1,0 +1,4 @@
+#!/usr/sh
+
+# only remove dir when empty
+rmdir /usr/share/binfmts || :

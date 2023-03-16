@@ -1,0 +1,4 @@
+#!/bin/sh
+
+mkdir -p /usr/share/binfmts || :
+mkdir -p /var/lib/binfmts || :

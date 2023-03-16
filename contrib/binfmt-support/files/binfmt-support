@@ -1,0 +1,6 @@
+type = scripted
+command = update-binfmts --enable
+stop-command = update-binfmts --disable
+
+depends-on = init-done.target
+before = login.target
