@@ -1,5 +1,5 @@
 pkgname = "bash"
-pkgver = "5.2.9"
+pkgver = "5.2.15"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "68d978264253bc933d692f1de195e2e5b463a3984dfb4e5504b076865f16b6dd"
+sha256 = "13720965b5f4fc3a0d4b61dd37e7565c741da9a5be24edc2ae00182fc1b3588c"
 tool_flags = {"CFLAGS": [
     "-DSYS_BASHRC=\"/etc/bash/bashrc\"",
     "-DNON_INTERACTIVE_LOGIN_SHELLS",
