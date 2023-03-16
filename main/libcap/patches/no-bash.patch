@@ -136,7 +136,7 @@ index 8421685..47303b8 100755
 -let x=0
 +x=0
  while [ -f "../doc/values/${x}.txt" ]; do
-     name=$(fgrep ",${x}}" ../libcap/cap_names.list.h|sed -e 's/{"//' -e 's/",/ = /' -e 's/},//')
+     name=$(grep -F ",${x}}" ../libcap/cap_names.list.h|sed -e 's/{"//' -e 's/",/ = /' -e 's/},//')
      echo "static const char *explanation${x}[] = {  /* ${name} */"
      sed -e 's/"/\\"/g' -e 's/^/    "/' -e 's/$/",/' "../doc/values/${x}.txt"
 -    let x=1+${x}
