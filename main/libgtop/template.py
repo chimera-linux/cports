@@ -1,5 +1,5 @@
 pkgname = "libgtop"
-pkgver = "2.40.0"
+pkgver = "2.41.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-libgtop-smp", "--enable-introspection"]
@@ -11,7 +11,10 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/libgtop"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "78f3274c0c79c434c03655c1b35edf7b95ec0421430897fb1345a98a265ed2d4"
+sha256 = "43ea9ad13f7caf98303e64172b191be9b96bab340b019deeec72251ee140fe3b"
+suid_files = [
+    "usr/libexec/libgtop_server2",
+]
 
 @subpackage("libgtop-devel")
 def _devel(self):
