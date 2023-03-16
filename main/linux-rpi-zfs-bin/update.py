@@ -1,1 +1,2 @@
-pattern = r"zfs-([\d.]+)\."
+url = "https://github.com/openzfs/zfs/releases"
+pattern = r">zfs-([\d.]+)<"
