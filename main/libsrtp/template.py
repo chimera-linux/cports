@@ -1,5 +1,5 @@
 pkgname = "libsrtp"
-pkgver = "2.4.2"
+pkgver = "2.5.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dcrypto-library=openssl"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/cisco/libsrtp"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "3b1bcb14ebda572b04b9bdf07574a449c84cb924905414e4d94e62837d22b628"
+sha256 = "8a43ef8e9ae2b665292591af62aa1a4ae41e468b6d98d8258f91478735da4e09"
 
 def post_install(self):
     self.install_license("LICENSE")
