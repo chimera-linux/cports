@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-good"
-pkgver = "1.20.4"
+pkgver = "1.22.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -26,6 +26,7 @@ configure_args = [
     "-Ddv=disabled", # maybe?
     "-Ddv1394=disabled", # maybe?
     "-Dqt5=disabled", # no qt5 in main, maybe package separately?
+    "-Dqt6=disabled", # ditto
     "-Dshout2=disabled", # libshout needs speex which we don't package
 ]
 hostmakedepends = [
@@ -46,7 +47,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b16130fbe632fa8547c2147a0ef575b0140fb521065c5cb121c72ddbd23b64da"
+sha256 = "44f9104654b4fd042aebe90932ab92e7ff7d8460fbc05b23dad87dffe70974cc"
 # FIXME int (extra tests fail, look for SIGILL)
 hardening = ["!int"]
 # 4 out of 105 tests currently fail (qtmux, splitmux, pipelines_tagschecking)
