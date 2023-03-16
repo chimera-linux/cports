@@ -31,10 +31,10 @@ index b1c396c..d62bfd6 100644
  
  int64_t UnscaledCycleClock::Now() {
  #ifdef __GLIBC__
-diff --git a/absl/base/internal/unscaledcycleclock.h b/absl/base/internal/unscaledcycleclock.h
+diff --git a/absl/base/internal/unscaledcycleclock_config.h b/absl/base/internal/unscaledcycleclock_config.h
 index 2cbeae3..83d8c98 100644
---- a/absl/base/internal/unscaledcycleclock.h
-+++ b/absl/base/internal/unscaledcycleclock.h
+--- a/absl/base/internal/unscaledcycleclock_config.h
++++ b/absl/base/internal/unscaledcycleclock_config.h
 @@ -46,8 +46,8 @@
  
  // The following platforms have an implementation of a hardware counter.
