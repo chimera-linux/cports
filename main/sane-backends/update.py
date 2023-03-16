@@ -1,1 +1,1 @@
-pattern = r"/sane-project/backends/-/releases/([\d\.]*)"
+pattern = r"/sane-project/backends/-/releases/([\d\.]+)"
