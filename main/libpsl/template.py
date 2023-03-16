@@ -1,5 +1,5 @@
 pkgname = "libpsl"
-pkgver = "0.21.1"
+pkgver = "0.21.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "python"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://rockdaboot.github.io/libpsl"
 source = f"https://github.com/rockdaboot/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "ac6ce1e1fbd4d0254c4ddb9d37f1fa99dec83619c1253328155206b896210d4c"
+sha256 = "e35991b6e17001afa2c0ca3b10c357650602b92596209b7492802f3768a6285f"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
