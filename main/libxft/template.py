@@ -1,5 +1,5 @@
 pkgname = "libxft"
-pkgver = "2.3.6"
+pkgver = "2.3.7"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXft-{pkgver}.tar.gz"
-sha256 = "b7e59f69e0bbabe9438088775f7e5a7c16a572e58b11f9722519385d38192df5"
+sha256 = "75b4378644f5df3a15f684f8f0b5ff1324d37aacd5a381f3b830a2fbe985f660"
 # crashes
 hardening = ["!int"]
 
