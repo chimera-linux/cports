@@ -1,5 +1,5 @@
 pkgname = "libspectre"
-pkgver = "0.2.11"
+pkgver = "0.2.12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/libspectre"
 source = f"http://libspectre.freedesktop.org/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "79d44d65f835c5114592b60355d2fce117bace5c47a62fc63a07f10f133bd49c"
+sha256 = "55a7517cd3572bd2565df0cf450944a04d5273b279ebb369a895391957f0f960"
 hardening = ["vis", "cfi"]
 
 @subpackage("libspectre-devel")
