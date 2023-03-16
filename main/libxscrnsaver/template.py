@@ -1,5 +1,5 @@
 pkgname = "libxscrnsaver"
-pkgver = "1.2.3"
+pkgver = "1.2.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -9,8 +9,8 @@ pkgdesc = "X Screensaver Library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXScrnSaver-{pkgver}.tar.bz2"
-sha256 = "f917075a1b7b5a38d67a8b0238eaab14acd2557679835b154cf2bca576e89bf8"
+source = f"$(XORG_SITE)/lib/libXScrnSaver-{pkgver}.tar.gz"
+sha256 = "0656b2630475104d6df75d91ebb8e0153e61d14e9871ef1f403bcda4a62a838a"
 
 def post_install(self):
     self.install_license("COPYING")
