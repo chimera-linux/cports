@@ -1,5 +1,5 @@
 pkgname = "xprop"
-pkgver = "1.2.5"
+pkgver = "1.2.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "X property displayer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "9b92ed0316bf2486121d8bac88bd1878f16b43bd335f18009b1f941f1eca93a1"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "58ee5ee0c47fa454d3b16312e778c3f549605a8ad0fd0daafc70d2d6174b116d"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
