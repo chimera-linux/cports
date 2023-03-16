@@ -1,5 +1,5 @@
 pkgname = "xinit"
-pkgver = "1.4.1"
+pkgver = "1.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-xinitdir=/etc/X11/xinit"]
@@ -10,8 +10,8 @@ pkgdesc = "X init program"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "de9b8f617b68a70f6caf87da01fcf0ebd2b75690cdcba9c921d0ef54fa54abb9"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "9121c9162f6dedab1229a8c4ed4021c4d605699cb0da580ac2ee1b0c96b3f60e"
 hardening = ["vis", "cfi"]
 
 def post_install(self):

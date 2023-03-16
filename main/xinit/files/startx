@@ -42,6 +42,9 @@ fi
 # ensure it exists
 touch "$XAUTHORITY"
 
+# set session type
+export XDG_SESSION_TYPE=x11
+
 xauth add "$display" . `/usr/bin/mcookie`
 
 xinit /etc/X11/Xsession "$rcfile" "$@" -- \
