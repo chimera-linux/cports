@@ -1,5 +1,5 @@
 pkgname = "libxcomposite"
-pkgver = "0.4.5"
+pkgver = "0.4.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "X Composite library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXcomposite-{pkgver}.tar.bz2"
-sha256 = "b3218a2c15bab8035d16810df5b8251ffc7132ff3aa70651a1fba0bfe9634e8f"
+source = f"$(XORG_SITE)/lib/libXcomposite-{pkgver}.tar.gz"
+sha256 = "3599dfcd96cd48d45e6aeb08578aa27636fa903f480f880c863622c2b352d076"
 
 def post_install(self):
     self.install_license("COPYING")
