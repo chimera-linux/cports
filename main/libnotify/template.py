@@ -1,5 +1,5 @@
 pkgname = "libnotify"
-pkgver = "0.8.1"
+pkgver = "0.8.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libnotify"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d033e6d4d6ccbf46a436c31628a4b661b36dca1f5d4174fe0173e274f4e62557"
+sha256 = "c5f4ed3d1f86e5b118c76415aacb861873ed3e6f0c6b3181b828cf584fc5c616"
 
 @subpackage("libnotify-devel")
 def _devel(self):
