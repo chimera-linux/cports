@@ -1,5 +1,5 @@
 pkgname = "libice"
-pkgver = "1.0.10"
+pkgver = "1.1.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -10,8 +10,8 @@ pkgdesc = "Inter Client Exchange (ICE) library for X"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libICE-{pkgver}.tar.bz2"
-sha256 = "6f86dce12cf4bcaf5c37dddd8b1b64ed2ddf1ef7b218f22b9942595fb747c348"
+source = f"$(XORG_SITE)/lib/libICE-{pkgver}.tar.gz"
+sha256 = "04fbd34a11ba08b9df2e3cdb2055c2e3c1c51b3257f683d7fcf42dabcf8e1210"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
