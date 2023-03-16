@@ -1,5 +1,5 @@
 pkgname = "libxkbfile"
-pkgver = "1.1.1"
+pkgver = "1.1.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.gz"
-sha256 = "87faee6d4873c5631e8bb53e85134084b862185da682de8617f08ca18d82e216"
+sha256 = "d1a7e659bc7ae1aa1fc1ecced261c734df5ad5d86af1ef7a946be0e2d841e51d"
 
 def post_install(self):
     self.install_license("COPYING")
