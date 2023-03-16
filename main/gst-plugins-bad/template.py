@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-bad"
-pkgver = "1.20.4"
+pkgver = "1.22.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -15,11 +15,13 @@ configure_args = [
     # nothing is accidentally disabled and so on, so implicitly enable all,
     # and then disable what's not relevant to us:
     "-Dopencv=disabled",
+    "-Damfcodec=disabled",
     "-Dandroidmedia=disabled",
     "-Dapplemedia=disabled",
     "-Dd3dvideosink=disabled",
     "-Dd3d11=disabled",
     "-Ddirectfb=disabled",
+    "-Ddirectshow=disabled",
     "-Ddirectsound=disabled",
     "-Dfaac=disabled",
     "-Dfbdev=disabled",
@@ -35,6 +37,7 @@ configure_args = [
     "-Dopenmpt=disabled",
     "-Dopenni2=disabled",
     "-Dopensles=disabled",
+    "-Dqsv=disabled",
     "-Dsctp=disabled",
     "-Dsmoothstreaming=disabled",
     "-Dsrt=disabled",
@@ -80,7 +83,7 @@ makedepends = [
     "wayland-devel", "wayland-protocols", "libxkbcommon-devel",
     "webrtc-audio-processing-devel", "webrtc-audio-processing-0.3-devel",
     "v4l-utils-devel", "libusb-devel", "libfreeaptx-devel", "lilv-devel",
-    "ladspa-sdk", "lrdf-devel", "chromaprint-devel",
+    "ladspa-sdk", "lrdf-devel", "chromaprint-devel", "gtk+3-devel",
     "openal-soft-devel", "qrencode-devel", "json-glib-devel",
     "libnice-devel", "libsrtp-devel", "spandsp-devel", "soundtouch-devel",
     "libmicrodns-devel", "gsm-devel", "libgme-devel", "linux-headers",
@@ -91,7 +94,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a1a3f53b3604d9a04fdd0bf9a1a616c3d2dab5320489e9ecee1178e81e33a16a"
+sha256 = "2f39b6f222d98666f9ff420a00233e336949953a846237c2bfafc8805f509f0e"
 # FIXME int
 hardening = ["!int"]
 # TODO: a few fails, debug later
