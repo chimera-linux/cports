@@ -1,5 +1,5 @@
 pkgname = "libxres"
-pkgver = "1.2.1"
+pkgver = "1.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -9,8 +9,8 @@ pkgdesc = "X extension library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXres-{pkgver}.tar.bz2"
-sha256 = "b6e6fb1ebb61610e56017edd928fb89a5f53b3f4f990078309877468663b2b11"
+source = f"$(XORG_SITE)/lib/libXres-{pkgver}.tar.gz"
+sha256 = "8abce597ced4a7ab89032aee91f6f784d9960adc772b2b59f17e515cd4127950"
 
 def post_install(self):
     self.install_license("COPYING")
