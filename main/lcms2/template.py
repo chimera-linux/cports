@@ -1,5 +1,5 @@
 pkgname = "lcms2"
-pkgver = "2.14"
+pkgver = "2.15"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "Small-footprint color management engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://littlecms.com"
-source = f"$(SOURCEFORGE_SITE)/lcms/{pkgname}-{pkgver}.tar.gz"
-sha256 = "28474ea6f6591c4d4cee972123587001a4e6e353412a41b3e9e82219818d5740"
+source = f"https://github.com/mm2/Little-CMS/releases/download/lcms{pkgver}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "b20cbcbd0f503433be2a4e81462106fa61050a35074dc24a4e356792d971ab39"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
