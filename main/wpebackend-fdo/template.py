@@ -1,5 +1,5 @@
 pkgname = "wpebackend-fdo"
-pkgver = "1.14.0"
+pkgver = "1.14.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e75b0cb2c7145448416e8696013d8883f675c66c11ed750e06865efec5809155"
+sha256 = "01938dd93c62b3a47b18dd13c70d50490a8b8a6caec23c8550a3dbdbcc6bbb50"
 
 def post_install(self):
     self.install_license("COPYING")
