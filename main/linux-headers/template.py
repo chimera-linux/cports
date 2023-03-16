@@ -1,5 +1,5 @@
 pkgname = "linux-headers"
-pkgver = "5.15.5"
+pkgver = "6.1.19"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "e9565a301525ac81c142ceb832f9053dd5685e107dbcf753d0de4c58bc98851f"
+sha256 = "9e991c6e5f6c1ca45eea98c55e82ef6ae3dccc73b3e8a655c8665e585f5a8647"
 # nothing to test
 options = ["!check"]
 
