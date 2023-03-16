@@ -1,5 +1,5 @@
 pkgname = "xset"
-pkgver = "1.2.4"
+pkgver = "1.2.5"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -11,8 +11,8 @@ pkgdesc = "X11 user preferences utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "e4fd95280df52a88e9b0abc1fee11dcf0f34fc24041b9f45a247e52df941c957"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "2068d1356d80c29ce283f0fff5895667b38f24ea95df363d3dde7b8c8a92fffe"
 hardening = ["vis", "cfi"]
 # needs cmdtest
 options = ["!check"]
