@@ -1,5 +1,5 @@
 pkgname = "libxdmcp"
-pkgver = "1.1.3"
+pkgver = "1.1.4"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "X Display Manager Control Protocol library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXdmcp-{pkgver}.tar.bz2"
-sha256 = "20523b44aaa513e17c009e873ad7bbc301507a3224c232610ce2e099011c6529"
+source = f"$(XORG_SITE)/lib/libXdmcp-{pkgver}.tar.gz"
+sha256 = "55041a8ff8992ab02777478c4b19c249c0f8399f05a752cb4a1a868a9a0ccb9a"
 
 def post_install(self):
     self.install_license("COPYING")
