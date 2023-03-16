@@ -1,5 +1,5 @@
 pkgname = "sdl_mixer"
-pkgver = "2.6.2"
+pkgver = "2.6.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org/projects/SDL_mixer"
 source = f"{url}/release/SDL2_mixer-{pkgver}.tar.gz"
-sha256 = "8cdea810366decba3c33d32b8071bccd1c309b2499a54946d92b48e6922aa371"
+sha256 = "7a6ba86a478648ce617e3a5e9277181bc67f7ce9876605eea6affd4a0d6eea8f"
 # no check target
 options = ["!check"]
 
