@@ -1,5 +1,5 @@
 pkgname = "firefox-esr"
-pkgver = "102.8.0"
+pkgver = "102.9.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -25,7 +25,7 @@ license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "47f8f6243bce8c2ef51adf8c9626bbf643e1c225dcb9ba5653a055ed5e76ca48"
+sha256 = "31b074623f09ca821a8a7dee0b3d2df1a45f1164264d31c26b4969a4d6a21dd1"
 debug_level = 1 # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
