@@ -1,5 +1,5 @@
 pkgname = "nodejs"
-pkgver = "18.12.1"
+pkgver = "18.15.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
-sha256 = "ba8174dda00d5b90943f37c6a180a1d37c861d91e04a4cb38dc1c0c74981c186"
+sha256 = "d65c4c3ef3c8815bccda9502081a29458c7c80797db0763f8752f270a824ac2b"
 debug_level = 1 # allow LTO build to not run out of mem
 hardening = ["!cfi"] # TODO
 options = ["!cross"]
