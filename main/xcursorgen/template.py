@@ -1,5 +1,5 @@
 pkgname = "xcursorgen"
-pkgver = "1.0.7"
+pkgver = "1.0.8"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -11,8 +11,8 @@ pkgdesc = "X cursor generator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "35b6f844b24f1776e9006c880a745728800764dbe3b327a128772b4610d8eb3d"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "b8bb2756918343b8bc15a4ce875e9efb6c4e7777adba088280e53dd09753b6ac"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
