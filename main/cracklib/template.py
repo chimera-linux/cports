@@ -1,5 +1,5 @@
 pkgname = "cracklib"
-pkgver = "2.9.8"
+pkgver = "2.9.10"
 pkgrel = 0
 build_wrksrc = f"{pkgname}"
 build_style = "gnu_configure"
@@ -16,8 +16,8 @@ source = [
     f"{url}/releases/download/v{pkgver}/{pkgname}-words-{pkgver}.gz"
 ]
 sha256 = [
-    "268733f8c5f045a08bf1be2950225efeb3d971e31eb543c002269d1a3d98652d",
-    "58b3824c80dd3ba908b0ccad51d6e1671e30a23feed607fb8e63914768bc4f85",
+    "6d7726ce2ab9ee35aa46a511f12badb059b3ceb7932c7fe64806d265b898aa63",
+    "7159ced894bebe0eacfad29bc8e6b08a6991ac1b53f5ff90c1d6abd3f36fda54",
 ]
 
 def post_extract(self):
