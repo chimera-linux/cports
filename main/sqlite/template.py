@@ -1,6 +1,6 @@
 pkgname = "sqlite"
-pkgver = "3.39.4"
-_amalg = "3390400"
+pkgver = "3.41.1"
+_amalg = "3410100"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,8 +12,8 @@ pkgdesc = "SQL Database Engine in a C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://sqlite.org"
-source = f"https://sqlite.org/2022/sqlite-autoconf-{_amalg}.tar.gz"
-sha256 = "f31d445b48e67e284cf206717cc170ab63cbe4fd7f79a82793b772285e78fdbb"
+source = f"https://sqlite.org/2023/sqlite-autoconf-{_amalg}.tar.gz"
+sha256 = "4dadfbeab9f8e16c695d4fbbc51c16b2f77fb97ff4c1c3d139919dfc038c9e33"
 options = ["!parallel"]
 
 _cflags = [
