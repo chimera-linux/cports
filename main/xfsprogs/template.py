@@ -1,5 +1,5 @@
 pkgname = "xfsprogs"
-pkgver = "6.0.0"
+pkgver = "6.1.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b77cec2364aab0b8ae8d8c67daac7fdb3801e0979f1d8328d9c3469e57ca9ca0"
+sha256 = "05e8a137870db1d6182df72dda98ab7a7100deb376947e854b9d59c914c2c7bb"
 # no check target
 options = ["!check"]
 
