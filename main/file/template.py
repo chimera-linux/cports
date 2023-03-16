@@ -1,5 +1,5 @@
 pkgname = "file"
-pkgver = "5.43"
+pkgver = "5.44"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.darwinsys.com/file"
 source = f"https://astron.com/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "8c8015e91ae0e8d0321d94c78239892ef9dbc70c4ade0008c0e95894abfb1991"
+sha256 = "3751c7fba8dbc831cb8d7cc8aff21035459b8ce5155ef8b0880a27d028475f3b"
 
 if self.profile().cross:
     hostmakedepends += ["file"]
