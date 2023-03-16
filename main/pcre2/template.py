@@ -1,5 +1,5 @@
 pkgname = "pcre2"
-pkgver = "10.40"
+pkgver = "10.42"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.pcre.org"
 source = f"https://github.com/PhilipHazel/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "ded42661cab30ada2e72ebff9e725e745b4b16ce831993635136f2ef86177724"
+sha256 = "c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f"
 
 match self.profile().arch:
     # aarch64 FIXME: segfault in pcre2_jit_neon_inc.h during testing
