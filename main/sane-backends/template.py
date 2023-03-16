@@ -1,5 +1,5 @@
 pkgname = "sane-backends"
-pkgver = "1.1.1"
+pkgver = "1.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,9 +28,9 @@ pkgdesc = "Scanner Access Now Easy"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later WITH custom:sane-exception"
 url = "http://sane-project.org"
-_rhash = "7d30fab4e115029d91027b6a58d64b43"
+_rhash = "110fc43336d0fb5e514f1fdc7360dd87"
 source = f"https://gitlab.com/sane-project/backends/uploads/{_rhash}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "dd4b04c37a42f14c4619e8eea6a957f4c7c617fe59e32ae2872b373940a8b603"
+sha256 = "f832395efcb90bb5ea8acd367a820c393dda7e0dd578b16f48928b8f5bdd0524"
 # FIXME int (fails tests)
 hardening = ["!int"]
 # otherwise we get conflicting providers because all the
