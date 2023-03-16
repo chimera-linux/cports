@@ -1,5 +1,5 @@
 pkgname = "libpwquality"
-pkgver = "1.4.4"
+pkgver = "1.4.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause OR GPL-2.0-or-later"
 url = "https://github.com/libpwquality/libpwquality"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "d43baf23dc6887fe8f8e9b75cabaabc5f4bbbaa0f9eff44278d276141752a545"
+sha256 = "6fcf18b75d305d99d04d2e42982ed5b787a081af2842220ed63287a2d6a10988"
 options = ["!cross"]
 
 def pre_configure(self):
