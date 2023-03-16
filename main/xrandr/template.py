@@ -1,5 +1,5 @@
 pkgname = "xrandr"
-pkgver = "1.5.1"
+pkgver = "1.5.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.xz"
-sha256 = "7bc76daf9d72f8aff885efad04ce06b90488a1a169d118dea8a2b661832e8762"
+sha256 = "c8bee4790d9058bacc4b6246456c58021db58a87ddda1a9d0139bf5f18f1f240"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
