@@ -1,0 +1,45 @@
+commit 76e7d81ba1c1beb98e43a376e6dcb2839e22d254
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Mar 4 23:47:13 2023 +0000
+
+    remove hardening flags that are a part of our toolchain
+    
+    This is so we can control it better.
+
+diff --git a/build/moz.configure/toolchain.configure b/build/moz.configure/toolchain.configure
+index 826ae54..1a7a054 100755
+--- a/build/moz.configure/toolchain.configure
++++ b/build/moz.configure/toolchain.configure
+@@ -2156,32 +2156,6 @@ def security_hardening_cflags(
+     # ----------------------------------------------------------
+     # If hardening is explicitly enabled, or not explicitly disabled
+     if hardening_flag.origin == "default" or hardening_flag:
+-        # FORTIFY_SOURCE ------------------------------------
+-        # Require optimization for FORTIFY_SOURCE. See Bug 1417452
+-        # Also, undefine it before defining it just in case a distro adds it, see Bug 1418398
+-        if compiler_is_gccish and optimize and not asan:
+-            flags.append("-U_FORTIFY_SOURCE")
+-            flags.append("-D_FORTIFY_SOURCE=2")
+-            if mingw_clang:
+-                # mingw-clang needs to link in ssp which is not done by default
+-                ldflags.append("-lssp")
+-
+-        # fstack-protector ------------------------------------
+-        # Enable only if hardening is not disabled and ASAN is
+-        # not on as ASAN will catch the crashes for us
+-        if compiler_is_gccish and not asan:
+-            flags.append("-fstack-protector-strong")
+-            ldflags.append("-fstack-protector-strong")
+-
+-            if (
+-                c_compiler.type == "clang"
+-                and c_compiler.version >= "11.0.1"
+-                and target.os not in ("WINNT", "OSX")
+-                and target.cpu in ("x86", "x86_64", "ppc64", "s390x")
+-            ):
+-                flags.append("-fstack-clash-protection")
+-                ldflags.append("-fstack-clash-protection")
+-
+         # ftrivial-auto-var-init ------------------------------
+         # Initialize local variables with a 0xAA pattern in clang builds.
+         # Linux32 fails some xpcshell tests with -ftrivial-auto-var-init
