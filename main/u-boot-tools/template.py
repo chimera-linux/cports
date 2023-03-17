@@ -1,5 +1,5 @@
 pkgname = "u-boot-tools"
-pkgver = "2022.10"
+pkgver = "2023.01"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -7,7 +7,9 @@ make_build_target = "tools-all"
 make_build_args = [
     "tools-only", "envtools", "HOSTSTRIP=:", "STRIP=:", "NO_SDL=1"
 ]
-hostmakedepends = ["gmake", "bison", "flex", "python", "swig"]
+hostmakedepends = [
+    "gmake", "bison", "flex", "python", "swig", "python-setuptools"
+]
 makedepends = [
     "openssl-devel", "linux-headers", "libuuid-devel", "gnutls-devel",
     "ncurses-libtinfo-devel", "python-devel",
@@ -17,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "50b4482a505bc281ba8470c399a3c26e145e29b23500bc35c50debd7fa46bdf8"
+sha256 = "69423bad380f89a0916636e89e6dcbd2e4512d584308d922d1039d1e4331950f"
 hardening = ["vis", "cfi"]
 # weird test suite
 options = ["!check"]
