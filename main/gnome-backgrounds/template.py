@@ -1,5 +1,5 @@
 pkgname = "gnome-backgrounds"
-pkgver = "43"
+pkgver = "43.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson"]
@@ -7,5 +7,5 @@ pkgdesc = "Backgrounds for GNOME desktop"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND CC-BY-2.0 AND CC-BY-SA-2.0 AND CC-BY-SA-3.0"
 url = "https://gitlab.gnome.org/GNOME/gnome-backgrounds"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "19f749d8c37f872f155bb69a2bbe7aca381175e6929f1998047d775cbc637244"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "8e459cad38a7574683a55e5e77690e658c6f9feaeec9cb82039ab25ba2bca05d"
