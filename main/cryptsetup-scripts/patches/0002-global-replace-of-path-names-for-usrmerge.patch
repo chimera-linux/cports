@@ -1,6 +1,6 @@
-From e424e603f5fc92c011023803bf28eb8cbd5da05d Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <q66@chimera-linux.org>
-Date: Sat, 19 Nov 2022 01:58:17 +0100
+From ae23de6d8839ae3e743e6ecb8a298e3f68135c26 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 17 Mar 2023 19:53:56 +0100
 Subject: [PATCH 2/4] global replace of path names for usrmerge
 
 ---
@@ -30,7 +30,7 @@ Subject: [PATCH 2/4] global replace of path names for usrmerge
  23 files changed, 87 insertions(+), 85 deletions(-)
 
 diff --git a/debian/askpass.c b/debian/askpass.c
-index 07826de1..7756d596 100644
+index 07826de..7756d59 100644
 --- a/debian/askpass.c
 +++ b/debian/askpass.c
 @@ -140,7 +140,8 @@ reread:
@@ -77,7 +77,7 @@ index 07826de1..7756d596 100644
  	{ "plymouth", plymouth_prepare, plymouth_read, plymouth_finish, true, false, true, -1 },
  	{ "console", console_prepare, console_read, console_finish, false, false, true, -1 }
 diff --git a/debian/checks/blkid b/debian/checks/blkid
-index 27615d36..c7d58e26 100644
+index 27615d3..c7d58e2 100644
 --- a/debian/checks/blkid
 +++ b/debian/checks/blkid
 @@ -1,5 +1,5 @@
@@ -106,7 +106,7 @@ index 27615d36..c7d58e26 100644
  # blkid output is empty if $dev has an unknown filesystem
  if [ -z "$blkid" ] && [ -z "$fs" ]; then
 diff --git a/debian/checks/un_blkid b/debian/checks/un_blkid
-index 572d937e..271999e4 100644
+index 572d937..271999e 100644
 --- a/debian/checks/un_blkid
 +++ b/debian/checks/un_blkid
 @@ -1,5 +1,5 @@
@@ -135,7 +135,7 @@ index 572d937e..271999e4 100644
  # blkid output is empty if $dev has an unknown filesystem
  if [ -n "$blkid" ] && [ -z "$fs" ]; then
 diff --git a/debian/cryptdisks-functions b/debian/cryptdisks-functions
-index ce5e6f45..c35b2843 100644
+index ce5e6f4..c35b284 100644
 --- a/debian/cryptdisks-functions
 +++ b/debian/cryptdisks-functions
 @@ -1,18 +1,18 @@
@@ -185,7 +185,7 @@ index ce5e6f45..c35b2843 100644
              else
                  log_warning_msg "$target: the check for '$CRYPTTAB_NAME' failed. $CRYPTTAB_NAME contains data: $out"
 diff --git a/debian/functions b/debian/functions
-index 65479ad5..154264a3 100644
+index 8758abb..45e6f41 100644
 --- a/debian/functions
 +++ b/debian/functions
 @@ -15,7 +15,7 @@ export DM_DEFAULT_NAME_MANGLING_MODE=hex # for dmsetup(8)
@@ -197,7 +197,7 @@ index 65479ad5..154264a3 100644
          plymouth message --text="cryptsetup: $*"
      elif [ ${#*} -lt 70 ]; then
          echo "cryptsetup: $*" >&2
-@@ -207,7 +207,7 @@ crypttab_validate_option() {
+@@ -208,7 +208,7 @@ crypttab_validate_option() {
                  fi
              fi
              if [ "${VALUE#/}" = "$VALUE" ]; then
@@ -206,7 +206,7 @@ index 65479ad5..154264a3 100644
              fi
              if [ ! -x "$VALUE" ] || [ ! -f "$VALUE" ]; then
                  return 1
-@@ -219,7 +219,7 @@ crypttab_validate_option() {
+@@ -220,7 +220,7 @@ crypttab_validate_option() {
          keyscript)
              [ -n "${VALUE:+x}" ] || return 1 # must have a value
              if [ "${VALUE#/}" = "$VALUE" ]; then
@@ -215,7 +215,7 @@ index 65479ad5..154264a3 100644
              fi
              if [ ! -x "$VALUE" ] || [ ! -f "$VALUE" ]; then
                  return 1
-@@ -271,7 +271,7 @@ crypttab_resolve_source() {
+@@ -273,7 +273,7 @@ crypttab_resolve_source() {
  #   exec()'ute `$CRYPTTAB_OPTION_keyscript "$CRYPTTAB_KEY"`.
  #   If $CRYPTTAB_OPTION_keyscript is unset or null and $CRYPTTAB_KEY is
  #   "none" (meaning the passphrase is to be read interactively from the
@@ -224,7 +224,7 @@ index 65479ad5..154264a3 100644
  #   suitable prompt message instead.
  #   Since the shell process is replaced with the $CRYPTTAB_OPTION_keyscript
  #   program, run_keyscript() must be used on the left-hand side of a
-@@ -283,13 +283,13 @@ run_keyscript() {
+@@ -285,13 +285,13 @@ run_keyscript() {
      export CRYPTTAB_TRIED="$1"
  
      if [ -n "${CRYPTTAB_OPTION_keyscript+x}" ] && \
@@ -240,8 +240,8 @@ index 65479ad5..154264a3 100644
          keyscriptarg="Please unlock disk $CRYPTTAB_NAME: "
      fi
  
-@@ -313,11 +313,11 @@ _get_crypt_type() {
-         t="bitlk"
+@@ -317,11 +317,11 @@ _get_crypt_type() {
+         t="fvault2"
      elif [ -n "${CRYPTTAB_OPTION_header+x}" ]; then
          # detached headers are only supported for LUKS devices
 -        if [ -e "$CRYPTTAB_OPTION_header" ] && /sbin/cryptsetup isLuks -- "$CRYPTTAB_OPTION_header"; then
@@ -254,7 +254,7 @@ index 65479ad5..154264a3 100644
              t="luks"
          elif blk_t="$(blkid -s TYPE -o value -- "$s")" && [ "$blk_t" = "BitLocker" ]; then
              t="bitlk"
-@@ -359,7 +359,7 @@ unlock_mapping() {
+@@ -363,7 +363,7 @@ unlock_mapping() {
          unset -v CRYPTTAB_OPTION_keyslot
      fi
  
@@ -263,7 +263,7 @@ index 65479ad5..154264a3 100644
          ${CRYPTTAB_OPTION_header:+--header="$CRYPTTAB_OPTION_header"} \
          ${CRYPTTAB_OPTION_cipher:+--cipher="$CRYPTTAB_OPTION_cipher"} \
          ${CRYPTTAB_OPTION_size:+--key-size="$CRYPTTAB_OPTION_size"} \
-@@ -389,7 +389,7 @@ unlock_mapping() {
+@@ -393,7 +393,7 @@ unlock_mapping() {
  resume_mapping() {
      local keyfile="${1:--}"
  
@@ -273,7 +273,7 @@ index 65479ad5..154264a3 100644
          ${CRYPTTAB_OPTION_keyslot:+--key-slot="$CRYPTTAB_OPTION_keyslot"} \
          ${CRYPTTAB_OPTION_keyfile_size:+--keyfile-size="$CRYPTTAB_OPTION_keyfile_size"} \
 diff --git a/debian/initramfs/cryptroot-unlock b/debian/initramfs/cryptroot-unlock
-index 1e9cf699..44d531a2 100644
+index 1e9cf69..44d531a 100644
 --- a/debian/initramfs/cryptroot-unlock
 +++ b/debian/initramfs/cryptroot-unlock
 @@ -18,15 +18,15 @@
@@ -316,7 +316,7 @@ index 1e9cf699..44d531a2 100644
  			PID=$pid
  			BIRTH=$(stat -f "%c" "/proc/$PID" 2>/dev/null) || break
 diff --git a/debian/initramfs/hooks/cryptgnupg b/debian/initramfs/hooks/cryptgnupg
-index dcb5248f..6580288b 100644
+index dcb5248..6580288 100644
 --- a/debian/initramfs/hooks/cryptgnupg
 +++ b/debian/initramfs/hooks/cryptgnupg
 @@ -17,9 +17,9 @@ case "$1" in
@@ -349,7 +349,7 @@ index dcb5248f..6580288b 100644
  copy_exec /usr/bin/gpg
  exit $RV
 diff --git a/debian/initramfs/hooks/cryptgnupg-sc b/debian/initramfs/hooks/cryptgnupg-sc
-index 752474a9..29df09a1 100644
+index 9e45000..1b08437 100644
 --- a/debian/initramfs/hooks/cryptgnupg-sc
 +++ b/debian/initramfs/hooks/cryptgnupg-sc
 @@ -17,16 +17,16 @@ case "$1" in
@@ -360,7 +360,7 @@ index 752474a9..29df09a1 100644
 +. /usr/lib/cryptsetup/functions
  
 -if [ ! -x "$DESTDIR/lib/cryptsetup/scripts/decrypt_gnupg-sc" ] || [ ! -f "$TABFILE" ]; then
-+if [ ! -x "${DESTDIR}/usr/lib/cryptsetup/scripts/decrypt_gnupg-sc" ] || [ ! -f "$TABFILE" ]; then
++if [ ! -x "$DESTDIR/usr/lib/cryptsetup/scripts/decrypt_gnupg-sc" ] || [ ! -f "$TABFILE" ]; then
      exit 0
  fi
  
@@ -372,16 +372,17 @@ index 752474a9..29df09a1 100644
          if [ -f "$CRYPTTAB_KEY" ]; then
              [ -f "$DESTDIR$CRYPTTAB_KEY" ] || copy_file keyfile "$CRYPTTAB_KEY" || RV=$?
          else
-@@ -72,6 +72,6 @@ if [ ! -x "$DESTDIR/usr/bin/pinentry" ]; then
-     copy_exec "$pinentry"
-     ln -s "$pinentry" "$DESTDIR/usr/bin/pinentry"
- fi
--[ -f "$DESTDIR/lib/terminfo/l/linux" ] || copy_file terminfo /lib/terminfo/l/linux || RV=$?
-+[ -f "${DESTDIR}/usr/lib/terminfo/l/linux" ] || copy_file terminfo /usr/lib/terminfo/l/linux || RV=$?
+@@ -75,7 +75,7 @@ fi
  
- exit $RV
+ # #1028202: ncurses-base: move terminfo files from /lib/terminfo to
+ # /usr/share/terminfo
+-for d in "/usr/share/terminfo" "/lib/terminfo"; do
++for d in "/usr/share/terminfo" "/usr/lib/terminfo"; do
+     if [ -f "$d/l/linux" ]; then
+         if [ ! -f "$DESTDIR$d/l/linux" ]; then
+             copy_file terminfo "$d/l/linux" || RV=$?
 diff --git a/debian/initramfs/hooks/cryptkeyctl b/debian/initramfs/hooks/cryptkeyctl
-index 5ae6ae84..184da3fa 100644
+index 5ae6ae8..184da3f 100644
 --- a/debian/initramfs/hooks/cryptkeyctl
 +++ b/debian/initramfs/hooks/cryptkeyctl
 @@ -21,10 +21,10 @@ esac
@@ -399,7 +400,7 @@ index 5ae6ae84..184da3fa 100644
 +copy_exec /usr/bin/keyctl
  exit 0
 diff --git a/debian/initramfs/hooks/cryptopensc b/debian/initramfs/hooks/cryptopensc
-index bd49e840..3e86dae2 100644
+index bd49e84..3e86dae 100644
 --- a/debian/initramfs/hooks/cryptopensc
 +++ b/debian/initramfs/hooks/cryptopensc
 @@ -17,16 +17,16 @@ case "$1" in
@@ -432,7 +433,7 @@ index bd49e840..3e86dae2 100644
  cp -R /usr/lib/pcsc/* "${DESTDIR}/usr/lib/pcsc"
  cp /etc/reader.conf "${DESTDIR}/etc" || true
 diff --git a/debian/initramfs/hooks/cryptpassdev b/debian/initramfs/hooks/cryptpassdev
-index 54492f04..24c2613a 100644
+index 54492f0..24c2613 100644
 --- a/debian/initramfs/hooks/cryptpassdev
 +++ b/debian/initramfs/hooks/cryptpassdev
 @@ -22,7 +22,7 @@ esac
@@ -445,7 +446,7 @@ index 54492f04..24c2613a 100644
  fi
  
 diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
-index e5341006..9314ba27 100644
+index 008c0af..052821b 100644
 --- a/debian/initramfs/hooks/cryptroot
 +++ b/debian/initramfs/hooks/cryptroot
 @@ -15,7 +15,7 @@ case "$1" in
@@ -502,7 +503,7 @@ index e5341006..9314ba27 100644
      [ -d "$libcryptodir" ] || return
  
      crypttab_foreach_entry populate_CRYPTO_HASHES
-@@ -336,10 +336,10 @@ fi
+@@ -335,10 +335,10 @@ fi
  manual_add_modules dm_mod
  manual_add_modules dm_crypt
  
@@ -516,14 +517,14 @@ index e5341006..9314ba27 100644
  
  # We need sed. Either via busybox or as standalone binary.
  # chimera: already provided via chimerautils-tiny by default
-@@ -369,4 +369,4 @@ else
+@@ -368,4 +368,4 @@ else
      fi
      add_crypto_modules $(printf '%s' "${CRYPTO_MODULES-}" | tr ' ' '\n' | sort -u)
  fi
 -copy_file library /lib/cryptsetup/functions /lib/cryptsetup/functions
 +copy_file library /usr/lib/cryptsetup/functions /usr/lib/cryptsetup/functions
 diff --git a/debian/initramfs/hooks/cryptroot-unlock b/debian/initramfs/hooks/cryptroot-unlock
-index 06fe9763..cc1b8df4 100644
+index 06fe976..cc1b8df 100644
 --- a/debian/initramfs/hooks/cryptroot-unlock
 +++ b/debian/initramfs/hooks/cryptroot-unlock
 @@ -19,15 +19,15 @@ case "$1" in
@@ -547,7 +548,7 @@ index 06fe9763..cc1b8df4 100644
  fi
  
 diff --git a/debian/initramfs/scripts/local-bottom/cryptopensc b/debian/initramfs/scripts/local-bottom/cryptopensc
-index 4de8f486..22406bc5 100644
+index 4de8f48..22406bc 100644
 --- a/debian/initramfs/scripts/local-bottom/cryptopensc
 +++ b/debian/initramfs/scripts/local-bottom/cryptopensc
 @@ -18,14 +18,14 @@ esac
@@ -568,7 +569,7 @@ index 4de8f486..22406bc5 100644
      kill -TERM "$PID"
      log_end_msg
 diff --git a/debian/initramfs/scripts/local-bottom/cryptroot b/debian/initramfs/scripts/local-bottom/cryptroot
-index 945739f9..3d437764 100644
+index 945739f..3d43776 100644
 --- a/debian/initramfs/scripts/local-bottom/cryptroot
 +++ b/debian/initramfs/scripts/local-bottom/cryptroot
 @@ -16,7 +16,7 @@ esac
@@ -582,7 +583,7 @@ index 945739f9..3d437764 100644
  
  rm -f -- "$CRYPTROOT_COUNT_FILE"
 diff --git a/debian/initramfs/scripts/local-top/cryptopensc b/debian/initramfs/scripts/local-top/cryptopensc
-index 344acc69..445e5f96 100644
+index 344acc6..445e5f9 100644
 --- a/debian/initramfs/scripts/local-top/cryptopensc
 +++ b/debian/initramfs/scripts/local-top/cryptopensc
 @@ -18,7 +18,7 @@ esac
@@ -610,7 +611,7 @@ index 344acc69..445e5f96 100644
 +/usr/bin/pcscd --foreground &
  echo $! >/run/pcscd.pid
 diff --git a/debian/initramfs/scripts/local-top/cryptroot b/debian/initramfs/scripts/local-top/cryptroot
-index 90b521b5..c8147212 100644
+index 90b521b..c814721 100644
 --- a/debian/initramfs/scripts/local-top/cryptroot
 +++ b/debian/initramfs/scripts/local-top/cryptroot
 @@ -26,8 +26,8 @@ esac
@@ -634,7 +635,7 @@ index 90b521b5..c8147212 100644
                  continue
              fi
 diff --git a/debian/scripts/cryptdisks_start b/debian/scripts/cryptdisks_start
-index 623423ff..d857fd90 100644
+index 623423f..d857fd9 100644
 --- a/debian/scripts/cryptdisks_start
 +++ b/debian/scripts/cryptdisks_start
 @@ -9,7 +9,7 @@
@@ -647,7 +648,7 @@ index 623423ff..d857fd90 100644
  INITSTATE="manual"
  DEFAULT_LOUD="yes"
 diff --git a/debian/scripts/cryptdisks_stop b/debian/scripts/cryptdisks_stop
-index ea0faafa..8fb7d684 100644
+index ea0faaf..8fb7d68 100644
 --- a/debian/scripts/cryptdisks_stop
 +++ b/debian/scripts/cryptdisks_stop
 @@ -17,7 +17,7 @@ if [ $# -lt 1 ]; then
@@ -660,7 +661,7 @@ index ea0faafa..8fb7d684 100644
  INITSTATE="manual"
  DEFAULT_LOUD="yes"
 diff --git a/debian/scripts/decrypt_gnupg b/debian/scripts/decrypt_gnupg
-index 18ab575d..d6d572a1 100644
+index 18ab575..d6d572a 100644
 --- a/debian/scripts/decrypt_gnupg
 +++ b/debian/scripts/decrypt_gnupg
 @@ -2,7 +2,7 @@
@@ -673,7 +674,7 @@ index 18ab575d..d6d572a1 100644
  		--no-random-seed-file --no-default-keyring \
  		--keyring /dev/null --secret-keyring /dev/null \
 diff --git a/debian/scripts/decrypt_keyctl b/debian/scripts/decrypt_keyctl
-index 6032db0c..cc82653e 100644
+index 6032db0..cc82653 100644
 --- a/debian/scripts/decrypt_keyctl
 +++ b/debian/scripts/decrypt_keyctl
 @@ -28,7 +28,7 @@ else
@@ -686,7 +687,7 @@ index 6032db0c..cc82653e 100644
  
  
 diff --git a/debian/scripts/decrypt_opensc b/debian/scripts/decrypt_opensc
-index b06fc983..8bb0e8fe 100644
+index b06fc98..8bb0e8f 100644
 --- a/debian/scripts/decrypt_opensc
 +++ b/debian/scripts/decrypt_opensc
 @@ -35,7 +35,7 @@ wait_card() {
@@ -699,7 +700,7 @@ index b06fc983..8bb0e8fe 100644
  	/usr/bin/pkcs15-crypt --decipher --input "$1" --pkcs1 --raw \
  		--pin "$(plymouth ask-for-password --prompt "Enter pin for $CRYPTTAB_NAME: ")"
 diff --git a/debian/scripts/passdev.c b/debian/scripts/passdev.c
-index 845ccae8..5bc28280 100644
+index 845ccae..5bc2828 100644
 --- a/debian/scripts/passdev.c
 +++ b/debian/scripts/passdev.c
 @@ -85,7 +85,7 @@ do_mount(const char *device, const char *dir)
@@ -712,5 +713,5 @@ index 845ccae8..5bc28280 100644
  			      /*"ext4,ext3,ext2,vfat,btrfs,reiserfs,xfs,jfs,ntfs,iso9660,udf",*/
  			      "-o", "noatime,nodiratime,nodev,noexec,nosuid,ro",
 -- 
-2.38.1
+2.39.0
 

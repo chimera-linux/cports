@@ -1,6 +1,6 @@
-From 9fc149272a6768c63c114291b3b0a1e280200f83 Mon Sep 17 00:00:00 2001
+From cbca99fdf1574124dd696d0f1adc48e0b860aec6 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sat, 19 Nov 2022 19:47:34 +0100
+Date: Fri, 17 Mar 2023 19:55:50 +0100
 Subject: [PATCH 4/4] remove lsb script dependency from cryptdisks
 
 ---
@@ -11,7 +11,7 @@ Subject: [PATCH 4/4] remove lsb script dependency from cryptdisks
  4 files changed, 9 insertions(+), 52 deletions(-)
 
 diff --git a/debian/cryptdisks-functions b/debian/cryptdisks-functions
-index c35b2843..bd535bee 100644
+index c35b284..bd535be 100644
 --- a/debian/cryptdisks-functions
 +++ b/debian/cryptdisks-functions
 @@ -11,7 +11,6 @@ CRYPTDISKS_ENABLE="Yes"
@@ -195,10 +195,10 @@ index c35b2843..bd535bee 100644
      fi
  }
 diff --git a/debian/functions b/debian/functions
-index 154264a3..84ec32a2 100644
+index 45e6f41..d6039a6 100644
 --- a/debian/functions
 +++ b/debian/functions
-@@ -448,8 +448,7 @@ crypttab_key_check() {
+@@ -452,8 +452,7 @@ crypttab_key_check() {
  
      local mode="$(stat -L -f "%Mp%Lp" -- "$CRYPTTAB_KEY")"
      if [ $(stat -L -f "%u" -- "$CRYPTTAB_KEY") -ne 0 ] || [ "${mode%00}" = "$mode" ]; then
@@ -209,7 +209,7 @@ index 154264a3..84ec32a2 100644
  }
  
 diff --git a/debian/scripts/cryptdisks_start b/debian/scripts/cryptdisks_start
-index d857fd90..8e3f8526 100644
+index d857fd9..8e3f852 100644
 --- a/debian/scripts/cryptdisks_start
 +++ b/debian/scripts/cryptdisks_start
 @@ -37,11 +37,10 @@ done
@@ -232,7 +232,7 @@ index d857fd90..8e3f8526 100644
 -log_action_end_msg $rv
  exit $rv
 diff --git a/debian/scripts/cryptdisks_stop b/debian/scripts/cryptdisks_stop
-index 8fb7d684..48c7c327 100644
+index 8fb7d68..48c7c32 100644
 --- a/debian/scripts/cryptdisks_stop
 +++ b/debian/scripts/cryptdisks_stop
 @@ -23,16 +23,13 @@ INITSTATE="manual"
@@ -254,5 +254,5 @@ index 8fb7d684..48c7c327 100644
 -log_action_end_msg $rv
  exit $rv
 -- 
-2.38.1
+2.39.0
 

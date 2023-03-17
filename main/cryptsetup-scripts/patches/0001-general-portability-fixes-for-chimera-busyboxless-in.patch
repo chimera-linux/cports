@@ -1,19 +1,19 @@
-From ef749c6d0b528a30ef7b93b39c65e521d4de0744 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <q66@chimera-linux.org>
-Date: Fri, 18 Nov 2022 16:41:44 +0100
+From b15505eee57b82033d7dfad15f3737bd4fa931f4 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 17 Mar 2023 19:51:20 +0100
 Subject: [PATCH 1/4] general portability fixes for chimera/busyboxless
  initramfs
 
 ---
- debian/functions                         | 16 ++++++++--------
- debian/initramfs/conf-hooks.d/cryptsetup |  3 ---
- debian/initramfs/cryptroot-unlock        | 18 ++++++++++--------
- debian/initramfs/hooks/cryptopensc       |  9 +++++----
- debian/initramfs/hooks/cryptroot         | 20 ++++----------------
- 5 files changed, 27 insertions(+), 39 deletions(-)
+ debian/functions                         | 16 ++++-----
+ debian/initramfs/conf-hooks.d/cryptsetup |  3 --
+ debian/initramfs/cryptroot-unlock        | 18 +++++-----
+ debian/initramfs/hooks/cryptopensc       |  9 ++---
+ debian/initramfs/hooks/cryptroot         | 43 +++---------------------
+ 5 files changed, 27 insertions(+), 62 deletions(-)
 
 diff --git a/debian/functions b/debian/functions
-index 371c6445..65479ad5 100644
+index 917abad..8758abb 100644
 --- a/debian/functions
 +++ b/debian/functions
 @@ -20,7 +20,7 @@ cryptsetup_message() {
@@ -25,7 +25,7 @@ index 371c6445..65479ad5 100644
          echo "cryptsetup: $*" | fold -s | sed '1! s/^/    /' >&2
      fi
      return 0
-@@ -446,8 +446,8 @@ crypttab_key_check() {
+@@ -450,8 +450,8 @@ crypttab_key_check() {
          fi
      fi
  
@@ -36,7 +36,7 @@ index 371c6445..65479ad5 100644
          cryptsetup_message "WARNING: $CRYPTTAB_NAME: key file $CRYPTTAB_KEY has" \
              "insecure ownership, see /usr/share/doc/cryptsetup/README.Debian.gz."
      fi
-@@ -581,10 +581,10 @@ _device_uuid() {
+@@ -585,10 +585,10 @@ _device_uuid() {
  _resolve_device() {
      local spec="$1" dev devno maj min
      if dev="$(_resolve_device_spec "$spec")" &&
@@ -51,7 +51,7 @@ index 371c6445..65479ad5 100644
          DEV="$dev"
          MAJ="$maj"
          MIN="$min"
-@@ -666,7 +666,7 @@ _foreach_cryptdev() {
+@@ -670,7 +670,7 @@ _foreach_cryptdev() {
      [ "$reverse" = "y" ] && t="holders" || t="slaves"
      [ -d "$d/$t" ] || return 0
      for d2 in "$d/$t"/*; do
@@ -61,7 +61,7 @@ index 371c6445..65479ad5 100644
          fi
      done
 diff --git a/debian/initramfs/conf-hooks.d/cryptsetup b/debian/initramfs/conf-hooks.d/cryptsetup
-index 883c1bab..f858920b 100644
+index 883c1ba..f858920 100644
 --- a/debian/initramfs/conf-hooks.d/cryptsetup
 +++ b/debian/initramfs/conf-hooks.d/cryptsetup
 @@ -2,8 +2,5 @@
@@ -74,7 +74,7 @@ index 883c1bab..f858920b 100644
  # and for systems using plymouth instead, use the new option
  FRAMEBUFFER=y
 diff --git a/debian/initramfs/cryptroot-unlock b/debian/initramfs/cryptroot-unlock
-index dbc2ad04..1e9cf699 100644
+index dbc2ad0..1e9cf69 100644
 --- a/debian/initramfs/cryptroot-unlock
 +++ b/debian/initramfs/cryptroot-unlock
 @@ -1,4 +1,4 @@
@@ -137,7 +137,7 @@ index dbc2ad04..1e9cf699 100644
  		wait_for_answer || true
  	done
 diff --git a/debian/initramfs/hooks/cryptopensc b/debian/initramfs/hooks/cryptopensc
-index e0c51670..bd49e840 100644
+index e0c5167..bd49e84 100644
 --- a/debian/initramfs/hooks/cryptopensc
 +++ b/debian/initramfs/hooks/cryptopensc
 @@ -46,10 +46,11 @@ mkdir -p -- "$DESTDIR/etc/opensc" "$DESTDIR/usr/lib/pcsc" "$DESTDIR/var/run" "$D
@@ -164,7 +164,7 @@ index e0c51670..bd49e840 100644
  
  exit $RV
 diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
-index defd244b..e5341006 100644
+index 3557786..008c0af 100644
 --- a/debian/initramfs/hooks/cryptroot
 +++ b/debian/initramfs/hooks/cryptroot
 @@ -89,7 +89,7 @@ crypttab_print_entry() {
@@ -203,7 +203,41 @@ index defd244b..e5341006 100644
      [ -d "$libcryptodir" ] || return
  
      crypttab_foreach_entry populate_CRYPTO_HASHES
-@@ -353,9 +342,8 @@ copy_exec /sbin/dmsetup
+@@ -313,28 +302,6 @@ copy_libssl_legacy_library() {
+     fi
+ }
+ 
+-# See #1032221: newer libargon2 are built with glibc ≥2.34 hence no
+-# longer links libpthread.  This in turns means that initramfs-tool's
+-# copy_exec() is no longer able to detect pthread_*() need and thus
+-# doesn't copy libgcc_s.so anymore.  So we need to do it manually
+-# instead.
+-copy_libgcc_argon2() {
+-    local libdir rv=0
+-    libdir="$(env --unset=LD_PRELOAD ldd /sbin/cryptsetup | sed -nr '/.*=>\s*(\S+)\/libargon2\.so\..*/ {s//\1/p;q}')"
+-    copy_libgcc "$libdir" || rv=$?
+-    if [ $rv -ne 0 ]; then
+-        # merged-/usr mismatch, see #1032518
+-        if [ "${libdir#/usr/}" != "$libdir" ]; then
+-            libdir="${libdir#/usr}"
+-        else
+-            libdir="/usr/${libdir#/}"
+-        fi
+-        copy_libgcc "$libdir" && rv=0 || rv=$?
+-    fi
+-    return $rv
+-}
+-
+-
+ #######################################################################
+ # Begin real processing
+ 
+@@ -370,14 +337,12 @@ manual_add_modules dm_crypt
+ 
+ copy_exec /sbin/cryptsetup
+ copy_exec /sbin/dmsetup
+-copy_libgcc_argon2
+ 
  [ "$ASKPASS" = n ] || copy_exec /lib/cryptsetup/askpass
  
  # We need sed. Either via busybox or as standalone binary.
@@ -216,5 +250,5 @@ index defd244b..e5341006 100644
  # detect whether the host CPU has AES-NI support
  if grep -Eq '^flags\s*:(.*\s)?aes(\s.*)?$' /proc/cpuinfo; then
 -- 
-2.38.1
+2.39.0
 
