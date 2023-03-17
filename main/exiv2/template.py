@@ -1,5 +1,5 @@
 pkgname = "exiv2"
-pkgver = "0.27.5"
+pkgver = "0.27.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.exiv2.org"
 source = f"https://github.com/Exiv2/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}-Source.tar.gz"
-sha256 = "35a58618ab236a901ca4928b0ad8b31007ebdc0386d904409d825024e45ea6e2"
+sha256 = "4c192483a1125dc59a3d70b30d30d32edace9e14adf52802d2f853abf72db8a6"
 # needs gtest
 options = ["!check"]
 
