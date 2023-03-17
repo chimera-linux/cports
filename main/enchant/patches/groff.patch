@@ -1,0 +1,32 @@
+commit d01efa991489caa61480dfc96b875c85a00e3a8a
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Mar 17 05:17:27 2023 +0100
+
+    drop groff requirement
+
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 3e5a81b..9fa067b 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -909,7 +909,7 @@ libenchant_include_HEADERS = enchant.h enchant-provider.h enchant++.h
+ noinst_HEADERS = debug.h
+ pkgdata_DATA = enchant.ordering
+ dist_man_MANS = enchant-@ENCHANT_MAJOR_VERSION@.1 enchant-lsmod-@ENCHANT_MAJOR_VERSION@.1 enchant.5
+-nodist_doc_DATA = enchant-@ENCHANT_MAJOR_VERSION@.html enchant-lsmod-@ENCHANT_MAJOR_VERSION@.html enchant.html
++nodist_doc_DATA =
+ edit = sed \
+ 	-e 's|DATADIR|$(datadir)|g'
+ 
+@@ -1496,12 +1496,6 @@ uninstall-man: uninstall-man1 uninstall-man5
+ .PRECIOUS: Makefile
+ 
+ 
+-.1.html:
+-	groff -mandoc -Thtml $< > $@
+-
+-enchant.html: enchant.5
+-	groff -mandoc -Thtml $< > $@
+-
+ enchant-@ENCHANT_MAJOR_VERSION@.1: $(builddir)/enchant.1 Makefile.am $(top_builddir)/config.status
+ 	rm -f $@ $@.tmp
+ 	$(edit) $(abs_builddir)/enchant.1 >$@.tmp
