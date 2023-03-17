@@ -1,5 +1,5 @@
 pkgname = "v4l-utils"
-pkgver = "1.22.1"
+pkgver = "1.24.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://linuxtv.org/wiki/index.php/V4l-utils"
 source = f"http://linuxtv.org/downloads/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "65c6fbe830a44ca105c443b027182c1b2c9053a91d1e72ad849dfab388b94e31"
+sha256 = "cbb7fe8a6307f5ce533a05cded70bb93c3ba06395ab9b6d007eb53b75d805f5b"
 tool_flags = {
     "CFLAGS": ["-D__off_t=off_t", "-D__off64_t=off_t"],
     "LDFLAGS": ["-largp"],
