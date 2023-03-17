@@ -1,5 +1,5 @@
 pkgname = "cryptsetup"
-pkgver = "2.5.0"
+pkgver = "2.6.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/cryptsetup/cryptsetup"
 source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "9184a6ebbd9ce7eb211152e7f741a6c82f2d1cc0e24a84ec9c52939eee0f0542"
+sha256 = "410ded65a1072ab9c8e41added37b9729c087fef4d2db02bb4ef529ad6da4693"
 
 if self.profile().arch == "riscv64":
     # udev static library weirdness
