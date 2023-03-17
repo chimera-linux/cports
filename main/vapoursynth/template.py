@@ -1,5 +1,5 @@
 pkgname = "vapoursynth"
-pkgver = "60"
+pkgver = "61"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.vapoursynth.com"
 source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"
-sha256 = "d0ff9b7d88d4b944d35dd7743d72ffcea5faa687f6157b160f57be45f4403a30"
+sha256 = "a5d4feeb056679dd1204153250d7c1d38e5a639e995d3c4e3a8e2e8fe1425b75"
 
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
