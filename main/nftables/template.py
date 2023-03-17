@@ -1,5 +1,5 @@
 pkgname = "nftables"
-pkgver = "1.0.5"
+pkgver = "1.0.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -14,8 +14,8 @@ pkgdesc = "Netfilter nftables userspace tools"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://netfilter.org/projects/nftables"
-source = f"{url}/files/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "8d1b4b18393af43698d10baa25d2b9b6397969beecac7816c35dd0714e4de50a"
+source = f"{url}/files/{pkgname}-{pkgver}.tar.xz"
+sha256 = "c12ac941fff9adaedf17367d5ce213789b98a0d314277bc22b3d71e10891f412"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
