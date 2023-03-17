@@ -1,5 +1,5 @@
 pkgname = "squashfs-tools-ng"
-pkgver = "1.1.4"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://infraroot.at/projects/squashfs-tools-ng/index.html"
 source = f"https://infraroot.at/pub/squashfs/{pkgname}-{pkgver}.tar.xz"
-sha256 = "6f3f7864f17b250453df31fe3925ce7d1430cf6b1d514112641d734fe3c8f61a"
+sha256 = "d736076095d584975640a78cd1554ce15ccbdebdd73d779b7d1ec8004832b7e7"
 
 @subpackage("libsquashfs")
 def _libmagic(self):
