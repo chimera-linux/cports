@@ -1,5 +1,5 @@
 pkgname = "libwacom"
-pkgver = "2.5.0"
+pkgver = "2.6.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/linuxwacom/libwacom"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "40b69a4c38bbcbc80b1231bc115551107ebbc0ba14d2ad1c3e54355dcd876816"
+sha256 = "2376cca99475235b75053a2cfbc7ed40fd8763d5a516941a664870ff1f3aa98f"
 
 def post_install(self):
     self.install_license("COPYING")
