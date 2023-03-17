@@ -1,5 +1,5 @@
 pkgname = "pango"
-pkgver = "1.50.11"
+pkgver = "1.50.14"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled"]
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.pango.org"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8800f812d89ee61388188703203f3a7878963c22f8695aaf1fa0a1a1428d17ae"
+sha256 = "1d67f205bfc318c27a29cfdfb6828568df566795df0cb51d2189cde7f2d581e8"
 
 @subpackage("pango-xft")
 def _xft(self):
