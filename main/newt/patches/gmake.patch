@@ -1,19 +1,19 @@
-commit 322b3d97a70b98a4a10d5842096793088b4b6526
+commit a363a5b04dbe879e5e82eb9a22036df1a735eef6
 Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Sun Jan 23 05:51:50 2022 +0100
+Date:   Fri Mar 17 06:11:26 2023 +0100
 
     use proper MAKE variable
 
 diff --git a/Makefile.in b/Makefile.in
-index f6df602..27fb2ab 100644
+index 366776f..4ea8874 100644
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -144,7 +144,7 @@ install: $(LIBNEWT) install-sh whiptail
+@@ -141,7 +141,7 @@ install: $(LIBNEWT) install-sh whiptail
  	install -m 644 $(LIBNEWT) $(instroot)/$(libdir)
  	install -m 755 whiptail $(instroot)/$(bindir)
  	install -m 644 whiptail.1 $(instroot)/$(man1dir)
 -	make -C po datadir=$(instroot)/$(datadir) install
 +	$(MAKE) -C po datadir=$(instroot)/$(datadir) install
- 	install -m 644 libnewt.pc $(instroot)/$(pkgconfigdir)
  
  install-sh: sharedlib $(WHIPTCLSO) _snack.$(SOEXT)
+ 	[ -d $(instroot)/$(libdir) ] || install -m 755 -d $(instroot)/$(libdir)
