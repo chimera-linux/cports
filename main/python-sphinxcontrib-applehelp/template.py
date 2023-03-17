@@ -1,8 +1,9 @@
 pkgname = "python-sphinxcontrib-applehelp"
-pkgver = "1.0.2"
+pkgver = "1.0.4"
 pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+build_style = "python_pep517"
+make_install_target = f"sphinxcontrib_applehelp-{pkgver}-*-*-*.whl"
+hostmakedepends = ["python-pip", "python-flit_core"]
 checkdepends = ["python-sphinx"]
 depends = ["python"]
 pkgdesc = "Sphinx extension which outputs Apple help book"
@@ -10,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://sphinx-doc.org"
 source = f"$(PYPI_SITE)/s/sphinxcontrib-applehelp/sphinxcontrib-applehelp-{pkgver}.tar.gz"
-sha256 = "a072735ec80e7675e3f432fcae8610ecf509c5f1869d17e2eecff44389cdbc58"
+sha256 = "828f867945bbe39817c210a1abfd1bc4895c8b73fcaade56d45357a348a07d7e"
 # circular checkdepends
 options = ["!check"]
 
