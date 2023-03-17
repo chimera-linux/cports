@@ -1,5 +1,5 @@
 pkgname = "font-util"
-pkgver = "1.3.3"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "bdftopcf"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
-sha256 = "2094dd4a1ca63a61deb101d2dc618682d6e287cdbe09679502223ac445d277dc"
+sha256 = "30b90fe52347916be9b08f95f717f17c9c1f58bef8cabb49014d0fdd2b0df643"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
