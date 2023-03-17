@@ -1,5 +1,5 @@
 pkgname = "gnome-autoar"
-pkgver = "0.4.3"
+pkgver = "0.4.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-autoar"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "7bdf0789553496abddc3c963b0ce7363805c0c02c025feddebcaacc787249e88"
+sha256 = "c0afbe333bcf3cb1441a1f574cc8ec7b1b8197779145d4edeee2896fdacfc3c2"
 options = ["!cross"]
 
 @subpackage("gnome-autoar-devel")
