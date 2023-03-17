@@ -1,5 +1,5 @@
 pkgname = "epiphany"
-pkgver = "43.0"
+pkgver = "43.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dunit_tests=disabled"]
@@ -20,4 +20,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Web"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b66d499f9ee72696d83cf844125377181a954554a4bb3785b73293380ac0c227"
+sha256 = "e86ead27cb9982815150664de3bf20faf375f77b8065b02b31180c65b6bbebb4"
