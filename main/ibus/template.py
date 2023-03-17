@@ -1,5 +1,5 @@
 pkgname = "ibus"
-pkgver = "1.5.27"
+pkgver = "1.5.28"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "6efbda5adb96f607cf7108d1e270962c0729a59c9ea6d58eea2dde0e3cbb97df"
+sha256 = "6c9ff3a7576c3d61264f386030f47ee467eb7298c8104367002986e008765667"
 options = ["!cross"]
 
 @subpackage("libibus")
