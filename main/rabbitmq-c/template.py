@@ -1,5 +1,5 @@
 pkgname = "rabbitmq-c"
-pkgver = "0.11.0"
+pkgver = "0.13.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,11 +13,11 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/alanxz/rabbitmq-c"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "437d45e0e35c18cf3e59bcfe5dfe37566547eb121e69fca64b98f5d2c1c2d424"
+sha256 = "8b224e41bba504fc52b02f918d8df7e4bf5359d493cbbff36c06078655c676e6"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
-    self.install_license("LICENSE-MIT")
+    self.install_license("LICENSE")
 
 @subpackage("rabbitmq-c-devel")
 def _devel(self):
