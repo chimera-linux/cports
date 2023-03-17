@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.54.5"
+pkgver = "2.56.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -21,20 +21,17 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4f03190f45324d1fa1f52a79dfcded1f64eaf49b3ae2f88eedab0c07617cae6e"
+sha256 = "194b5097d9cd107495f49c291cf0da65ec2b4bb55e5628369751a3f44ba222b3"
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check", "!cross"]
 
+def do_prepare(self):
+    from cbuild.util import cargo
+    cargo.Cargo(self).vendor(wrksrc = ".")
+    cargo.setup_vendor(self)
+
 def post_patch(self):
     from cbuild.util import cargo
-
-    # needed mainly for cross builds
-    with open(self.cwd / ".cargo/config", "a") as cf:
-        cf.write(f"""
-[target.{self.profile().triplet}]
-linker = "{self.get_tool("CC")}"
-""")
-
     cargo.clear_vendor_checksums(self, "system-deps")
 
 @subpackage("librsvg-devel")
