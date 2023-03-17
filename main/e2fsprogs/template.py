@@ -1,5 +1,5 @@
 pkgname = "e2fsprogs"
-pkgver = "1.46.5"
+pkgver = "1.47.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -27,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://e2fsprogs.sourceforge.net"
 source = f"$(KERNEL_SITE)/kernel/people/tytso/{pkgname}/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "2f16c9176704cf645dc69d5b15ff704ae722d665df38b2ed3cfc249757d8d81e"
+sha256 = "144af53f2bbd921cef6f8bea88bb9faddca865da3fbc657cc9b4d2001097d5db"
 # test suite hangs on tr, killing it makes it continue? FIXME
 options = ["!check"]
 
