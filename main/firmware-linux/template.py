@@ -1,5 +1,5 @@
 pkgname = "firmware-linux"
-pkgver = "20221109"
+pkgver = "20230310"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "c23299426d190986ba6eb52a3b22c4e4383b3a055903ff3967fb17afad3edb9b"
+sha256 = "14c472af10f9b566c4f575aeb30d8a274d54b1660007e7426b7e4ea21dff81aa"
 
 _arch = self.profile().arch
 _arch_x86 = (_arch == "x86_64")
@@ -63,6 +63,7 @@ _pkgs = [
     ("i915", "Intel GPUs", _arch_x86, "gpu", ["i915"]),
     ("intel-audio", "Intel audio", _arch_x86, "audio", [
         "intel/IntcSST2.bin", "intel/dsp_fw_*.bin", "intel/fw_sst_*.bin*",
+        "intel/avs", "intel/catpt",
     ]),
     ("intel-bt", "Intel Bluetooth", _arch_x86, "network", ["intel/ibt*"]),
     ("intel-ice", "Intel E800 series", _arch_x86, "network", ["intel/ice"]),
@@ -95,6 +96,7 @@ _pkgs = [
     ("multitech", "Multi-Tech modems", None, "network", ["mts_*.fw"]),
     ("myricom", "Myricom Ethernet NICs", None, "network", ["myri10ge*", "myricom"]),
     ("nfp", "Netronome Flow Processor", None, None, ["netronome"]),
+    ("nxp-uwb", "NXP UWB firmware", None, "network", ["nxp/sr150_fw.bin"]),
     ("nvidia", "Nvidia GPUs", None, "gpu", ["nvidia"]),
     ("qat", "Intel QuickAssist Technology", _arch_x86, "misc", ["qat*"]),
     ("qca", "Qualcomm Atheros WLAN/Bluetooth", None, "network", ["qca"]),
