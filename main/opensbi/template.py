@@ -1,5 +1,5 @@
 pkgname = "opensbi"
-pkgver = "1.1"
+pkgver = "1.2"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -7,13 +7,13 @@ make_build_args = [
     "PLATFORM=generic", "FW_PAYLOAD=n", "PLATFORM_RISCV_XLEN=64", "LLVM=1"
 ]
 make_use_env = True
-hostmakedepends = ["gmake", "bash"]
+hostmakedepends = ["gmake", "bash", "python"]
 pkgdesc = "RISC-V Open Source Supervisor Binary Interface"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/riscv-software-src/opensbi"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "d183cb890130983a4f01e75fc03ee4f7ea0e16a7923b8af9c6dff7deb2fedaec"
+sha256 = "8fcbce598a73acc2c7f7d5607d46b9d5107d3ecbede8f68f42631dcfc25ef2b2"
 hardening = ["!int"]
 # no test suite
 options = ["!check", "!lto", "!strip", "!debug", "foreignelf"]
