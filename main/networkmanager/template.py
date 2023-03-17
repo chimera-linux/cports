@@ -1,5 +1,5 @@
 pkgname = "networkmanager"
-pkgver = "1.42.2"
+pkgver = "1.42.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -48,7 +48,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/NetworkManager"
 source = f"$(GNOME_SITE)/NetworkManager/{pkgver[:-2]}/NetworkManager-{pkgver}.tar.xz"
-sha256 = "dcfe9c5c909d38c81ae95ccfe895a328a2a14c11dacfb7f507beb405efce0580"
+sha256 = "86ee16a2f7f525629133fa0c3dc060caf96ae4f34084eda1c24551951abe5a3c"
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["!check", "!cross"]
 
