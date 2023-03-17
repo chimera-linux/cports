@@ -1,5 +1,5 @@
 pkgname = "python-pygments"
-pkgver = "2.13.0"
+pkgver = "2.14.0"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://pygments.org"
 source = f"$(PYPI_SITE)/P/Pygments/Pygments-{pkgver}.tar.gz"
-sha256 = "56a8508ae95f98e2b9bdf93a6be5ae3f7d8af858b43e02c5a2ff083726be40c1"
+sha256 = "b3ed06a9e8ac9a9aae5a6f5dbe78a8a58655d17b43b93c078f094ddc476ae297"
 # dependency of pytest
 options = ["!check"]
 
