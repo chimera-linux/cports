@@ -1,5 +1,5 @@
 pkgname = "weston"
-pkgver = "11.0.0"
+pkgver = "11.0.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -24,8 +24,9 @@ pkgdesc = "Reference implementation of a Wayland compositor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
-source = f"https://gitlab.freedesktop.org/wayland/{pkgname}/-/releases/{pkgver}/downloads/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a6138d4dc9554560ac304312df456019f4be025ec79130f05fb5f2e41c091e1d"
+_rhash = "f5648c818fba5432edc3ea63c4db4813"
+source = f"https://gitlab.freedesktop.org/wayland/{pkgname}/uploads/{_rhash}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "a413f68c252957fc3191c3650823ec356ae8c124ccc0cb440da5cdc4e2cb9e57"
 
 def post_install(self):
     self.install_license("COPYING")
