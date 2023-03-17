@@ -1,5 +1,5 @@
 pkgname = "strace"
-pkgver = "6.0"
+pkgver = "6.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://strace.io"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "92d720a666855e9f1c6a11512fd6e99674a82bbfe1442557815f2ce8e1293338"
+sha256 = "0c7d38a449416268d3004029a220a15a77c2206a03cc88120f37f46e949177e8"
 # FIXME int (breaks)
 hardening = ["vis", "cfi", "!int"]
 # something's weird and it gets stuck
