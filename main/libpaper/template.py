@@ -1,5 +1,5 @@
 pkgname = "libpaper"
-pkgver = "1.1.28"
+pkgver = "1.1.29"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://packages.debian.org/unstable/source/libpaper"
 source = f"$(DEBIAN_SITE)/main/libp/{pkgname}/{pkgname}_{pkgver}.tar.gz"
-sha256 = "c8bb946ec93d3c2c72bbb1d7257e90172a22a44a07a07fb6b802a5bb2c95fddc"
+sha256 = "26330e21e9a3124658d515fd850b0cde546ff42d89b2596a5264c5f1677f0547"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
