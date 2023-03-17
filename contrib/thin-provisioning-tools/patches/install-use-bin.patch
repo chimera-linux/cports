@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -7,7 +7,7 @@ $(PDATA_TOOLS):
+ 	$(V) cargo build --release
+ 
+ PREFIX:=/usr
+-BINDIR:=$(DESTDIR)$(PREFIX)/sbin
++BINDIR:=$(DESTDIR)$(PREFIX)/bin
+ DATADIR:=$(DESTDIR)$(PREFIX)/share
+ MANPATH:=$(DATADIR)/man
+ 

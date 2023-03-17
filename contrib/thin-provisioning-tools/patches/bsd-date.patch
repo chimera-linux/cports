@@ -1,0 +1,20 @@
+Musl does not have %s for date formatting.
+
+--- a/bin/txt2man
++++ b/bin/txt2man
+@@ -161,13 +161,13 @@ shift $(($OPTIND - 1))
+ 
+ # Compatibility wrapper for BSD/GNU date, for parsing dates
+ if date -j >/dev/null 2>&1; then
+-  pdate() { date -u -j -f '@%s' "$@"; }
++  pdate() { date -u -j -r "$@"; }
+ else
+   pdate() { date -u -d "$@"; }
+ fi
+ 
+ if [ -n "$SOURCE_DATE_EPOCH" ]; then
+-  date=$(LC_ALL=C pdate "@$SOURCE_DATE_EPOCH" +'%d %B %Y')
++  date=$(LC_ALL=C pdate "$SOURCE_DATE_EPOCH" +'%d %B %Y')
+ fi
+ date=${date:-$(LC_ALL=C date -u +'%d %B %Y')}
+ 
