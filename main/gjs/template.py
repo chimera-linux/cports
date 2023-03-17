@@ -1,5 +1,5 @@
 pkgname = "gjs"
-pkgver = "1.74.1"
+pkgver = "1.74.2"
 pkgrel = 0
 build_style = "meson"
 # disable tests that need X/dbus
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gjs"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "c5e0b762a3740424a6ef5802606867f6456c6473118de09a4fa9b5186aa11f43"
+sha256 = "56597b638827ca3c46e1880617398d4a0a70c59781b79a7e04beaec3499a7d7c"
 options = ["!cross"]
 
 def post_install(self):
