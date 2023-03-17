@@ -1,5 +1,5 @@
 pkgname = "u-boot-qemu-riscv64"
-pkgver = "2022.10"
+pkgver = "2023.01"
 pkgrel = 0
 build_style = "u_boot"
 hostmakedepends = [
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "50b4482a505bc281ba8470c399a3c26e145e29b23500bc35c50debd7fa46bdf8"
+sha256 = "69423bad380f89a0916636e89e6dcbd2e4512d584308d922d1039d1e4331950f"
 env = {
     "U_BOOT_TRIPLET": "riscv64-unknown-elf",
     "U_BOOT_TARGETS": "u-boot",
