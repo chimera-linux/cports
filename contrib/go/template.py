@@ -1,5 +1,5 @@
 pkgname = "go"
-pkgver = "1.19.3"
+pkgver = "1.20.2"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "18ac263e39210bcf68d85f4370e97fb1734166995a1f63fb38b4f6e07d90d212"
+sha256 = "4d0e2850d197b4ddad3bdb0196300179d095bb3aefd4dfbc3b36702c3728f8ab"
 env = {}
 # a bunch of tests fail for now, so FIXME
 options = [
@@ -68,7 +68,6 @@ def do_install(self):
         _hostarch = None
 
     def _clear_pkg(ppath):
-        self.rm(ppath / "obj", recursive = True)
         if _hostarch:
             self.rm(ppath / f"tool/linux_{_hostarch}", recursive = True)
             self.rm(ppath / f"linux_{_hostarch}", recursive = True)
