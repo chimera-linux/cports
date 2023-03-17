@@ -1,0 +1,20 @@
+commit d67b219c7921eb2c8b451e7492ab2efae97ccd9e
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Mar 17 19:44:17 2023 +0100
+
+    source unifont.bdf from the system
+
+diff --git a/Fonts/Makefile b/Fonts/Makefile
+index 0c9b6b6..5bbe07f 100644
+--- a/Fonts/Makefile
++++ b/Fonts/Makefile
+@@ -270,6 +270,9 @@ ALL_FULL_FONTS := $(filter $./Full%,$(ALL_FONTS))
+ 
+ ###########################################################################
+ 
++$./bdf/unifont.bdf:
++	cp /usr/share/fonts/misc/unifont.bdf $@
++
+ $./bdf/%.bdf: /usr/share/unifont/%.hex
+ 	hex2bdf < $< > $@
+ 

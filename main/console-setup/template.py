@@ -1,18 +1,20 @@
 pkgname = "console-setup"
-pkgver = "1.210"
+pkgver = "1.218"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "build-linux"
 make_install_target = "install-linux"
-hostmakedepends = ["gmake", "perl", "bdfresize", "perl-xml-parser"]
+hostmakedepends = [
+    "gmake", "perl", "bdfresize", "perl-xml-parser", "font-unifont-bdf"
+]
 depends = ["kbd"]
 pkgdesc = "Console font and keymap setup program"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND custom:console-setup"
 url = "https://salsa.debian.org/installer-team/console-setup"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "6df6c5727efbeb2ba77682236d75210361d7184044aa71609b0698f178686bbb"
+sha256 = "06056b8a9d163e42b53b8b43f8685bad28f7ae6ab6a2e6cb4cce67135fd4d18d"
 # no tests
 options = ["bootstrap", "!check"]
 
