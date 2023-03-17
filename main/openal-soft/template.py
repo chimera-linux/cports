@@ -1,5 +1,5 @@
 pkgname = "openal-soft"
-pkgver = "1.22.2"
+pkgver = "1.23.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DALSOFT_EXAMPLES=OFF"]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://openal-soft.org"
 source = f"{url}/openal-releases/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "ae94cc95cda76b7cc6e92e38c2531af82148e76d3d88ce996e2928a1ea7c3d20"
+sha256 = "057dcf96c3cdfcf40159800a93f57740fe79c2956f76247bee10e436b6657183"
 # no test target
 options = ["!check"]
 
