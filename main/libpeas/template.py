@@ -1,5 +1,5 @@
 pkgname = "libpeas"
-pkgver = "1.34.0"
+pkgver = "1.36.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddemos=false", "-Dvapi=true"]
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Libpeas"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4305f715dab4b5ad3e8007daec316625e7065a94e63e25ef55eb1efb964a7bf0"
+sha256 = "297cb9c2cccd8e8617623d1a3e8415b4530b8e5a893e3527bbfd1edd13237b4c"
 options = ["!cross"]
 
 @subpackage("libpeas-devel")
