@@ -3,12 +3,11 @@ likes since that's not reproducible and broken for packaging.
 
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -5,8 +5,6 @@ SET(CMAKE_BUILTTYPE None)
+@@ -3,7 +3,6 @@ project (vid.stab C)
  
  set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMakeModules/")
  
 -include (FindSSE)
--
- set(MAJOR_VERSION 1)
- set(MINOR_VERSION 1)
- set(PATCH_VERSION 0)
+ include (GNUInstallDirs)
+ find_package(OpenMP)
+ 
