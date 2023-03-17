@@ -1,5 +1,5 @@
 pkgname = "fuse"
-pkgver = "3.12.0"
+pkgver = "3.14.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dexamples=false", "-Duseroot=false"]
@@ -11,10 +11,11 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/libfuse/libfuse"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "33b8a92d6f7a88e6a889f0009206933482f48f3eb85d88cf09ef551313ac7373"
+sha256 = "96115b2a8ff34bd1e0c7b00c5dfd8297571d7e165042b94498c9a26356a9a70a"
 suid_files = ["usr/bin/fusermount3"]
 # ld: error: default version symbol fuse_loop_mt@@FUSE_3.2 must be defined
-options = ["!lto"]
+# tests need examples and are useless in chroot
+options = ["!lto", "!check"]
 
 def do_check(self):
     self.do("python", "-m", "pytest", "test/", wrksrc = self.make_dir)
