@@ -1,5 +1,5 @@
 pkgname = "newt"
-pkgver = "0.52.21"
+pkgver = "0.52.23"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-only"
 url = "https://pagure.io/newt"
 source = f"https://pagure.io/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "265eb46b55d7eaeb887fca7a1d51fe115658882dfe148164b6c49fccac5abb31"
+sha256 = "caa372907b14ececfe298f0d512a62f41d33b290610244a58aed07bbc5ada12a"
 # no proper check target
 options = ["!check"]
 
