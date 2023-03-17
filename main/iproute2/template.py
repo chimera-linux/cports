@@ -1,5 +1,5 @@
 pkgname = "iproute2"
-pkgver = "6.0.0"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "configure"
 configure_env = {"CC": "clang"}
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://wiki.linuxfoundation.org/networking/iproute2"
 source = f"$(KERNEL_SITE)/utils/net/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "523139e9e72aec996374fa2de74be4c53d2dd05589488934d21ff97bae19580a"
+sha256 = "4d72730200ec5b2aabaa1a2f20553c6748292f065d9a154c7d5e22559df9fd62"
 hardening = ["vis", "cfi"]
 
 def do_check(self):
