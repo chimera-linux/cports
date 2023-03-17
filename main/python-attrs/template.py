@@ -1,5 +1,5 @@
 pkgname = "python-attrs"
-pkgver = "22.1.0"
+pkgver = "22.2.0"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://attrs.readthedocs.io"
 source = f"$(PYPI_SITE)/a/attrs/attrs-{pkgver}.tar.gz"
-sha256 = "29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6"
+sha256 = "c9227bfc2f01993c03f68db37d1d15c9690188323c067c641f1a35ca58185f99"
 # dependency of pytest
 options = ["!check"]
 
