@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "22.2.3"
+pkgver = "23.0.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -16,7 +16,6 @@ configure_args = [
     "-Dplatforms=x11,wayland",
     "-Dglx=dri",
     "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec",
-    "-Dcpp_std=gnu++14",
     "-Ddefault_library=shared",
 ]
 hostmakedepends = [
@@ -34,7 +33,7 @@ makedepends = [
     # x11
     "libxshmfence-devel", "libxext-devel", "libxxf86vm-devel",
     "libxdamage-devel", "libxfixes-devel", "libx11-devel",
-    "libxcb-devel", "libxv-devel", "libxvmc-devel", "libxrandr-devel",
+    "libxcb-devel", "libxv-devel", "libxrandr-devel",
     # misc libs
     "libarchive-devel", "libsensors-devel", "libexpat-devel", "libxml2-devel",
     "ncurses-devel", "libzstd-devel", "zlib-devel", "lua5.4-devel",
@@ -48,7 +47,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ee7d026f7b1991dbae0861d359b671145c3a86f2a731353b885d2ea2d5c098d6"
+sha256 = "01f3cff3763f09e0adabcb8011e4aebc6ad48f6a4dd4bae904fe918707d253e4"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -108,7 +107,7 @@ if _have_amd:
 if _have_intel:
     _gallium_drivers += ["crocus", "iris", "i915"]
     if _have_vulkan:
-        _vulkan_drivers += ["intel"]
+        _vulkan_drivers += ["intel", "intel_hasvk"]
 
 if _have_nvidia:
     _gallium_drivers += ["nouveau"]
@@ -135,18 +134,21 @@ else:
     configure_args += ["-Dgallium-xa=disabled"]
 
 if _have_opencl:
-    makedepends += ["libclc"]
-    configure_args += ["-Dgallium-opencl=icd"]
+    hostmakedepends += ["rust-bindgen", "rust"]
+    makedepends += [
+        "libclc", "rust", "spirv-llvm-translator-devel", "spirv-tools-devel"
+    ]
+    configure_args += [
+        "-Dgallium-opencl=icd", "-Dgallium-rusticl=true", "-Drust_std=2021"
+    ]
 
 if _have_hwdec:
     configure_args += [
-        "-Dgallium-vdpau=enabled", "-Dgallium-va=enabled",
-        "-Dgallium-xvmc=enabled"
+        "-Dgallium-vdpau=enabled", "-Dgallium-va=enabled"
     ]
 else:
     configure_args += [
-        "-Dgallium-vdpau=disabled", "-Dgallium-va=disabled",
-        "-Dgallium-xvmc=disabled"
+        "-Dgallium-vdpau=disabled", "-Dgallium-va=disabled"
     ]
 
 if _have_vulkan:
@@ -232,6 +234,7 @@ def _opencl(self):
         "etc/OpenCL",
         "usr/lib/gallium-pipe",
         "usr/lib/libMesaOpenCL.so.*",
+        "usr/lib/libRusticlOpenCL.so.*",
     ]
 
 @subpackage("mesa-vaapi", _have_hwdec)
@@ -246,12 +249,6 @@ def _dri(self):
 
     return ["usr/lib/vdpau/libvdpau_*"]
 
-@subpackage("mesa-xvmc", _have_hwdec)
-def _dri(self):
-    self.pkgdesc = "MesaXvMC drivers"
-
-    return ["usr/lib/libXvMC*"]
-
 @subpackage("mesa-dri")
 def _dri(self):
     self.pkgdesc = "Mesa graphics drivers"
@@ -259,7 +256,7 @@ def _dri(self):
 
     return ["usr/lib/dri"]
 
-@subpackage("mesa-vulkan")
+@subpackage("mesa-vulkan", _have_vulkan)
 def _vulkan(self):
     self.pkgdesc = "Mesa Vulkan drivers"
     self.depends += [f"mesa={pkgver}-r{pkgrel}"]
@@ -269,6 +266,7 @@ def _vulkan(self):
         "usr/bin/mesa-overlay-control.py",
         "usr/lib/libvulkan_*.so",
         "usr/lib/libVkLayer_*.so",
+        "usr/share/drirc.d/00-radv-defaults.conf",
         "usr/share/vulkan/explicit_layer.d/VkLayer_*.json",
         "usr/share/vulkan/implicit_layer.d/VkLayer_*.json",
         "usr/share/vulkan/icd.d/*_icd*.json",
