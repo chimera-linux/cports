@@ -1,5 +1,5 @@
 pkgname = "rxvt-unicode"
-pkgver = "9.30"
+pkgver = "9.31"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://software.schmorp.de/pkg/rxvt-unicode.html"
 source = f"http://dist.schmorp.de/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "fe1c93d12f385876457a989fc3ae05c0915d2692efc59289d0f70fabe5b44d2d"
+sha256 = "aaa13fcbc149fe0f3f391f933279580f74a96fd312d6ed06b8ff03c2d46672e8"
 hardening = ["vis", "!cfi"]
 
 def init_configure(self):
