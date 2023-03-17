@@ -1,6 +1,6 @@
-From 35823202d7727718e1ea41fcaa52274143d48195 Mon Sep 17 00:00:00 2001
+From ac676aac3fa475cf0c65e9a3f6a0aa63485f32b0 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Mon, 14 Nov 2022 02:47:47 +0100
+Date: Fri, 17 Mar 2023 04:39:15 +0100
 Subject: [PATCH] tests portability
 
 ---
@@ -30,7 +30,7 @@ index dbe0e0e..4ab8738 100644
  	tests/test-specifying-pidns.sh \
  	$(NULL)
 diff --git a/tests/test-run.sh b/tests/test-run.sh
-index 3e5e9e6..27c0563 100755
+index 979480e..c801cd2 100755
 --- a/tests/test-run.sh
 +++ b/tests/test-run.sh
 @@ -84,15 +84,6 @@ assert_file_has_content json-status.json '"child-pid": [0-9]'
@@ -49,7 +49,7 @@ index 3e5e9e6..27c0563 100755
  echo "ok namespace id info in info and json-status fd"
  
  if ! command -v strace >/dev/null || ! strace -h | grep -v -e default | grep -e fault >/dev/null; then
-@@ -120,8 +111,9 @@ else
+@@ -121,8 +112,9 @@ else
      assert_file_has_content recursive_proc.txt "hello"
      echo "ok - can mount /proc recursively"
  
@@ -59,9 +59,9 @@ index 3e5e9e6..27c0563 100755
 +    #$BWRAP_RECURSE -- /proc/self/exe --unshare-all ${BWRAP_RO_HOST_ARGS} findmnt > recursive-newroot.txt
 +    #assert_file_has_content recursive-newroot.txt "/usr"
      echo "ok - can pivot to new rootfs recursively"
- fi
  
-@@ -192,25 +184,25 @@ for die_with_parent_argv in "--die-with-parent" "--die-with-parent --unshare-pid
+     $BWRAP --dev-bind / / -- true
+@@ -203,25 +195,25 @@ for die_with_parent_argv in "--die-with-parent" "--die-with-parent --unshare-pid
      # We have to loop here, because bwrap doesn't wait for the lock if
      # another process is holding it. If we're unlucky, lockf-n.py will
      # be holding it.
@@ -101,7 +101,7 @@ index 3e5e9e6..27c0563 100755
      echo "ok die with parent ${die_with_parent_argv}"
  done
  
-@@ -294,9 +286,9 @@ $RUN \
+@@ -305,9 +297,9 @@ $RUN \
      --bind "$(pwd -P)/some-dir" "$(pwd -P)/new-dir-mountpoint" \
      --bind "$(pwd -P)/some-file" "$(pwd -P)/new-file-mountpoint" \
      true
@@ -113,7 +113,7 @@ index 3e5e9e6..27c0563 100755
  assert_file_has_content new-file-permissions 444
  echo "ok - Files and directories created as mount points have expected permissions"
  
-@@ -322,15 +314,15 @@ $RUN \
+@@ -333,15 +325,15 @@ $RUN \
      --chmod 1755 "$(pwd -P)/dir-chmod" \
      --dir "$(pwd -P)/new-dir-default-perms" \
      true
@@ -134,7 +134,7 @@ index 3e5e9e6..27c0563 100755
  assert_file_has_content dir-permissions '^1755$'
  echo "ok - Directories created explicitly have expected permissions"
  
-@@ -362,31 +354,31 @@ $RUN \
+@@ -373,31 +365,31 @@ $RUN \
      --perms 0604 --dir "$(pwd -P)"/parent-of-0604/dir \
      --perms 0000 --dir "$(pwd -P)"/parent-of-0000/dir \
      true
@@ -179,7 +179,7 @@ index 3e5e9e6..27c0563 100755
  assert_file_has_content dir-permissions '^700$'
  chmod -R 0700 parent*
  rm -fr parent*
-@@ -397,60 +389,48 @@ $RUN \
+@@ -408,11 +400,11 @@ $RUN \
      cat /proc/self/mountinfo >&2
  $RUN \
      --perms 01777 --tmpfs "$(pwd -P)" \
@@ -193,30 +193,36 @@ index 3e5e9e6..27c0563 100755
  assert_file_has_content dir-permissions '^755$'
  echo "ok - tmpfs has expected permissions"
  
- # 1048576 = 1 MiB
--$RUN \
--    --size 1048576 --tmpfs "$(pwd -P)" \
--    df --output=size --block-size=1K "$(pwd -P)" > dir-size
--assert_file_has_content dir-size '^ *1024$'
- $RUN \
-     --size 1048576 --perms 01777 --tmpfs "$(pwd -P)" \
--    stat -c '%a' "$(pwd -P)" > dir-permissions
-+    stat -f '%OMp%OLp' "$(pwd -P)" > dir-permissions
- assert_file_has_content dir-permissions '^1777$'
--$RUN \
--    --size 1048576 --perms 01777 --tmpfs "$(pwd -P)" \
--    df --output=size --block-size=1K "$(pwd -P)" > dir-size
--assert_file_has_content dir-size '^ *1024$'
- $RUN \
-     --perms 01777 --size 1048576 --tmpfs "$(pwd -P)" \
--    stat -c '%a' "$(pwd -P)" > dir-permissions
-+    stat -f '%OMp%OLp' "$(pwd -P)" > dir-permissions
- assert_file_has_content dir-permissions '^1777$'
--$RUN \
--    --perms 01777 --size 1048576 --tmpfs "$(pwd -P)" \
--    df --output=size --block-size=1K "$(pwd -P)" > dir-size
--assert_file_has_content dir-size '^ *1024$'
- echo "ok - tmpfs has expected size"
+@@ -423,26 +415,14 @@ if test -n "${bwrap_is_suid:-}"; then
+     fi
+     echo "ok - --size --tmpfs is not allowed when setuid"
+ elif df --output=size --block-size=1K "$(pwd -P)" >/dev/null 2>/dev/null; then
+-    $RUN \
+-        --size 1048576 --tmpfs "$(pwd -P)" \
+-        df --output=size --block-size=1K "$(pwd -P)" > dir-size
+-    assert_file_has_content dir-size '^ *1024$'
+     $RUN \
+         --size 1048576 --perms 01777 --tmpfs "$(pwd -P)" \
+-        stat -c '%a' "$(pwd -P)" > dir-permissions
++        stat -f '%OMp%OLp' "$(pwd -P)" > dir-permissions
+     assert_file_has_content dir-permissions '^1777$'
+-    $RUN \
+-        --size 1048576 --perms 01777 --tmpfs "$(pwd -P)" \
+-        df --output=size --block-size=1K "$(pwd -P)" > dir-size
+-    assert_file_has_content dir-size '^ *1024$'
+     $RUN \
+         --perms 01777 --size 1048576 --tmpfs "$(pwd -P)" \
+-        stat -c '%a' "$(pwd -P)" > dir-permissions
++        stat -f '%OMp%OLp' "$(pwd -P)" > dir-permissions
+     assert_file_has_content dir-permissions '^1777$'
+-    $RUN \
+-        --perms 01777 --size 1048576 --tmpfs "$(pwd -P)" \
+-        df --output=size --block-size=1K "$(pwd -P)" > dir-size
+-    assert_file_has_content dir-size '^ *1024$'
+     echo "ok - tmpfs has expected size"
+ else
+     $RUN --size 1048576 --tmpfs "$(pwd -P)" true
+@@ -453,27 +433,27 @@ fi
  
  $RUN \
      --file 0 /tmp/file \
@@ -251,5 +257,5 @@ index 3e5e9e6..27c0563 100755
  echo "ok - files have expected permissions"
  
 -- 
-2.38.1
+2.39.0
 
