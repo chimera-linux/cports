@@ -1,5 +1,5 @@
 pkgname = "nano"
-pkgver = "6.4"
+pkgver = "7.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-utf8"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.nano-editor.org"
 source = f"https://www.nano-editor.org/dist/v{pkgver[0]}/nano-{pkgver}.tar.xz"
-sha256 = "4199ae8ca78a7796de56de1a41b821dc47912c0307e9816b56cc317df34661c0"
+sha256 = "86f3442768bd2873cec693f83cdf80b4b444ad3cc14760b74361474fc87a4526"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
