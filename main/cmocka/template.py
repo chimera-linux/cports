@@ -1,5 +1,5 @@
 pkgname = "cmocka"
-pkgver = "1.1.5"
+pkgver = "1.1.7"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DUNIT_TESTING=ON"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://cmocka.org"
 source = f"{url}/files/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f0ccd8242d55e2fd74b16ba518359151f6f8383ff8aef4976e48393f77bba8b6"
+sha256 = "810570eb0b8d64804331f82b29ff47c790ce9cd6b163e98d47a4807047ecad82"
 
 @subpackage("cmocka-devel")
 def _devel(self):
