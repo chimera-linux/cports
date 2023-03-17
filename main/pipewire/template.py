@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.60"
+pkgver = "0.3.67"
 pkgrel = 0
 _pms_version = "0.4.1"
 build_style = "meson"
@@ -11,6 +11,7 @@ configure_args = [
     "-Dsdl2=disabled",
     "-Dsystemd=disabled",
     "-Dlibcamera=disabled",
+    "-Dlibmysofa=disabled",
     "-Droc=disabled",
     "-Dlv2=enabled",
     "-Dbluez5=enabled",
@@ -25,7 +26,7 @@ configure_args = [
 ]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "python-docutils",
-    "doxygen", "graphviz",
+    "doxygen", "graphviz", "glib-devel",
 ]
 makedepends = [
     "gst-plugins-base-devel",
@@ -60,7 +61,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "20e95274393f7dd65b4b51ec06f4f65986112f2bf3c86b1b0467156dd523a35d"
+sha256 = "f7edca705353ca247d9f0e5e1ef91287e4b7677d373a39cfb2df78509dde4e84"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
 
