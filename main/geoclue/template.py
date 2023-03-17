@@ -1,5 +1,5 @@
 pkgname = "geoclue"
-pkgver = "2.6.0"
+pkgver = "2.7.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -7,7 +7,6 @@ configure_args = [
     "-Dgtk-doc=false",
     "-Dintrospection=true",
     "-Dvapi=true",
-    "-Dsoup2=false",
     "-Ddemo-agent=false", # problematic meson.build
 ]
 hostmakedepends = [
@@ -23,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "cdc9efcb98ce81284d7a6c3c899330481ffdca44bba3c18b9e530618298aa4a0"
+sha256 = "1dce8e573cd338bc87a5bd725f89a6f543fac838e2a5d832515cb5ea0d86cf40"
 
 system_users = ["_geoclue"]
 
