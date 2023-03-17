@@ -124,10 +124,13 @@ class Cargo:
         self, args = [], jobs = None, env = {}, wrksrc = None, wrapper = []
     ):
         tmpl = self.template
+        iargs = tmpl.make_install_args
+        if len(iargs) == 0:
+            iargs = ["--path", "."]
         retv = self._invoke(
             "install", [
-                "--root", str(tmpl.chroot_destdir / "usr"), "--path", "."
-            ] + tmpl.make_install_args + args,
+                "--root", str(tmpl.chroot_destdir / "usr")
+            ] + iargs + args,
             jobs, True, tmpl.make_install_env, env, wrksrc,
             tmpl.make_install_wrapper, wrapper
         )
