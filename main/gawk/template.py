@@ -1,18 +1,15 @@
 pkgname = "gawk"
-pkgver = "5.2.1"
+pkgver = "5.1.1"
 pkgrel = 0
 build_style = "gnu_configure"
-# pma disables pie
-configure_args = ["--with-readline", "--disable-pma"]
-make_cmd = "gmake"
-hostmakedepends = ["gmake"]
+configure_args = ["--with-readline"]
 makedepends = ["libedit-readline-devel"]
 pkgdesc = "GNU awk utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gawk"
 source = f"$(GNU_SITE)/gawk/gawk-{pkgver}.tar.xz"
-sha256 = "673553b91f9e18cc5792ed51075df8d510c9040f550a6f74e09c9add243a7e4f"
+sha256 = "d87629386e894bbea11a5e00515fc909dc9b7249529dad9e6a3a2c77085f7ea2"
 
 def post_install(self):
     # hardlinks + we don't want to conflict with awk
