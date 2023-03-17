@@ -1,5 +1,5 @@
 pkgname = "cairo"
-pkgver = "1.17.4"
+pkgver = "1.17.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://cairographics.org"
 source = f"{url}/snapshots/{pkgname}-{pkgver}.tar.xz"
-sha256 = "74b24c1ed436bbe87499179a3b27c43f4143b8676d8ad237a6fa787401959705"
+sha256 = "5b10c8892d1b58d70d3f0ba5b47863a061262fa56b9dc7944161f8c8b783bc64"
 # FIXME int (causes random failures elsewhere)
 hardening = ["!int"]
 # cyclic, disabled in configure
