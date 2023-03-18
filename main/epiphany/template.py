@@ -1,5 +1,5 @@
 pkgname = "epiphany"
-pkgver = "43.1"
+pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dunit_tests=disabled"]
@@ -8,10 +8,10 @@ hostmakedepends = [
     "desktop-file-utils",
 ]
 makedepends = [
-    "webkitgtk-devel", "cairo-devel", "gcr-devel", "gdk-pixbuf-devel",
-    "libglib-devel", "gsettings-desktop-schemas-devel", "gtk+3-devel",
-    "nettle-devel", "json-glib-devel", "libarchive-devel", "libdazzle-devel",
-    "libhandy-devel", "libsecret-devel", "libxml2-devel", "libportal-devel",
+    "webkitgtk4-devel", "cairo-devel", "gcr4-devel", "gdk-pixbuf-devel",
+    "libglib-devel", "gsettings-desktop-schemas-devel", "gtk4-devel",
+    "gstreamer-devel", "nettle-devel", "json-glib-devel", "libarchive-devel",
+    "libadwaita-devel", "libsecret-devel", "libxml2-devel", "libportal-devel",
     "libsoup-devel", "sqlite-devel", "gmp-devel", "iso-codes",
 ]
 depends = ["hicolor-icon-theme", "iso-codes"]
@@ -20,4 +20,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Web"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e86ead27cb9982815150664de3bf20faf375f77b8065b02b31180c65b6bbebb4"
+sha256 = "aabdc9de80c409073676e00e15ba97187715e4b84bc776fe86db86d0f8140bb1"
