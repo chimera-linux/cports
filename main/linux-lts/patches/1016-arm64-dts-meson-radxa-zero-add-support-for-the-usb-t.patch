@@ -71,7 +71,7 @@ index e3bb6df42..5e3dc0134 100644
 +		pinctrl-0 = <&fusb302_irq_pins>;
 +		pinctrl-names = "default";
 +		interrupt-parent = <&gpio_intc>;
-+		interrupts = <59 IRQ_TYPE_LEVEL_LOW>;
++		interrupts = <5 IRQ_TYPE_LEVEL_LOW>;
 +
 +		vbus-supply = <&typec2_vbus>;
 +
@@ -82,9 +82,9 @@ index e3bb6df42..5e3dc0134 100644
  &pwm_AO_cd {
  	pinctrl-0 = <&pwm_ao_d_e_pins>;
  	pinctrl-names = "default";
-@@ -403,3 +439,11 @@ &usb {
+@@ -402,3 +438,11 @@ &usb {
+ &usb {
  	status = "okay";
- 	dr_mode = "host";
  };
 +
 +&usb2_phy0 {
