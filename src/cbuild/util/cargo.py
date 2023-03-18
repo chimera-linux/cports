@@ -92,8 +92,7 @@ class Cargo:
             bargs.append("--offline")
 
         return self.template.do(
-            *wrapper, *ewrapper, "cargo", command, *bargs,
-            *tmpl.configure_args, *args,
+            *wrapper, *ewrapper, "cargo", command, *bargs, *args,
             env = renv, wrksrc = wrksrc, allow_network = not offline
         )
 
