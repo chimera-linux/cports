@@ -1,5 +1,5 @@
 pkgname = "webkitgtk"
-pkgver = "2.38.5"
+pkgver = "2.40.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ configure_args = [
 hostmakedepends = [
     "cmake", "ninja", "pkgconf", "perl", "python", "ruby", "gperf", "flex",
     "gettext-tiny", "glib-devel", "geoclue", "wayland-progs", "bubblewrap",
-    "xdg-dbus-proxy", "gobject-introspection",
+    "xdg-dbus-proxy", "gobject-introspection", "unifdef",
 ]
 makedepends = [
     "libwpe-devel", "wpebackend-fdo-devel", "libpsl-devel", "geoclue-devel",
@@ -33,17 +33,19 @@ makedepends = [
     "openjpeg-devel", "libxml2-devel", "libtasn1-devel", "sqlite-devel",
     "harfbuzz-devel", "freetype-devel", "gtk+3-devel", "libsoup-devel",
     "gstreamer-devel", "gst-plugins-base-devel", "gst-plugins-bad-devel",
-    "libxslt-devel", "icu-devel", "enchant-devel", "libseccomp-devel",
-    "libxt-devel", "mesa-devel", "libxkbcommon-devel", "wayland-devel",
-    "wayland-protocols",
+    "libavif-devel", "libxslt-devel", "icu-devel", "enchant-devel",
+    "libseccomp-devel", "libxt-devel", "mesa-devel", "libxkbcommon-devel",
+    "wayland-devel", "wayland-protocols",
 ]
-depends = ["bubblewrap", "xdg-dbus-proxy"]
+depends = [
+    "bubblewrap", "xdg-dbus-proxy", "gst-plugins-good", "gst-plugins-bad"
+]
 pkgdesc = "GTK port of the WebKit browser engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "40c20c43022274df5893f22b1054fa894c3eea057389bb08aee08c5b0bb0c1a7"
+sha256 = "a4607ea1bf89669e89b1cb2c63faaec513f93de09b6ae60cc71d6a8aab7ab393"
 debug_level = 1 # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
@@ -61,12 +63,9 @@ hardening = ["!int"]
 # huge testsuite
 options = ["!check"]
 
-# riscv64 uses llint but no jit yet
 match self.profile().arch:
-    case "x86_64" | "aarch64":
+    case "x86_64" | "aarch64" | "riscv64":
         configure_args += ["-DENABLE_JIT=ON", "-DENABLE_C_LOOP=OFF"]
-    case "riscv64":
-        configure_args += ["-DENABLE_JIT=OFF", "-DENABLE_C_LOOP=OFF"]
     case _:
         configure_args += ["-DENABLE_JIT=OFF", "-DENABLE_C_LOOP=ON"]
 
