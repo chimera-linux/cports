@@ -1,5 +1,5 @@
 pkgname = "atf-rk3399-bl31"
-pkgver = "2.7"
+pkgver = "2.8.1"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "makefile"
@@ -9,8 +9,8 @@ pkgdesc = "ARM Trusted Firmware for Rockchip rk3399 boards (bl31)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://developer.trustedfirmware.org/dashboard/view/6"
-source = f"https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-{pkgver}.tar.gz"
-sha256 = "53422dc649153838e03820330ba17cb10afe3e330ecde0db11e4d5f1361a33e6"
+source = f"https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-lts-v{pkgver}.tar.gz"
+sha256 = "e7472500a392ccf0ab50b9ba5f47f1fdd62d536c5d53fb4709f617c429490434"
 hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug", "execstack"]
