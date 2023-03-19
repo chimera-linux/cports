@@ -1,5 +1,5 @@
 pkgname = "eog"
-pkgver = "43.2"
+pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true"]
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/EyeOfGnome"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "9dcfdce5585a90e2bb1cf57e377cb1eb12d41bd9bcb9bbacdf506bc1b1354ef9"
+sha256 = "41d85fab05c430898dbfd847e48e1f5b4935dc3cbcee546e759a907eda671054"
 options = ["!cross"]
 
 @subpackage("eog-devel")
