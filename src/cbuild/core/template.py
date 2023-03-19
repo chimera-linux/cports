@@ -1423,7 +1423,7 @@ class Subpackage(Package):
         else:
             for apkg, adesc, iif, takef in autopkgs:
                 sfx = f"-{apkg}"
-                if name.endswith(sfx):
+                if name.endswith(sfx) and name != f"base{sfx}":
                     bdep = name.removesuffix(sfx)
                     if iif and iif.startswith("-"):
                         bdep += iif
