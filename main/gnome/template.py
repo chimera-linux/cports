@@ -1,5 +1,5 @@
 pkgname = "gnome"
-pkgver = "43"
+pkgver = "44"
 pkgrel = 0
 build_style = "meta"
 depends = [
@@ -12,6 +12,7 @@ depends = [
     #"gnome-calendar",
     #"gnome-characters",
     #"gnome-clocks",
+    "gnome-console",
     #"gnome-contacts",
     #"gnome-connections",
     "gnome-disk-utility",
@@ -22,7 +23,6 @@ depends = [
     "gnome-screenshot",
     "gnome-shell-extensions",
     #"gnome-system-monitor",
-    "gnome-terminal",
     "gnome-text-editor",
     "gnome-user-docs",
     #"gnome-user-share",
