@@ -1,0 +1,18 @@
+commit 14f2e20ba71c189b6e2bfbd0c8605e0f8a631d33
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Mar 19 18:49:39 2023 +0100
+
+    bla
+
+diff --git a/adwaita-icon-theme.pc.in b/adwaita-icon-theme.pc.in
+index c347ce4..fc0562c 100644
+--- a/adwaita-icon-theme.pc.in
++++ b/adwaita-icon-theme.pc.in
+@@ -1,6 +1,6 @@
+ Name: gnome-icon-theme
+ Description: A collection of icons used as the basis for GNOME themes
+-Version: @VERSION@
++Version: 44
+ Requires:
+ Libs:
+ Cflags:

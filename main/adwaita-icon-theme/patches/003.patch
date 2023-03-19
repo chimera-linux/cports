@@ -1,0 +1,110 @@
+From ea00e436a5c78f9357023b913cdc3a17e135de88 Mon Sep 17 00:00:00 2001
+From: Jakub Steiner <jimmac@gmail.com>
+Date: Thu, 9 Mar 2023 16:30:25 +0100
+Subject: [PATCH] symbolic: clean up the sheet
+
+- remove extra bounding rectangles
+- hide the noexport bits
+---
+ src/symbolic/core.svg | 37 ++++---------------------------------
+ 1 file changed, 4 insertions(+), 33 deletions(-)
+
+diff --git a/src/symbolic/core.svg b/src/symbolic/core.svg
+index a6e6f54a8..e68c8581b 100644
+--- a/src/symbolic/core.svg
++++ b/src/symbolic/core.svg
+@@ -47,7 +47,7 @@
+      inkscape:window-x="0"
+      inkscape:window-y="0"
+      inkscape:window-maximized="1"
+-     inkscape:current-layer="layer17"
++     inkscape:current-layer="layer21"
+      showborder="false"
+      inkscape:snap-nodes="true"
+      inkscape:snap-bbox="true"
+@@ -1241,7 +1241,7 @@
+      inkscape:groupmode="layer"
+      id="layer4"
+      inkscape:label="noexport-bits"
+-     style="display:inline">
++     style="display:none">
+     <g
+        id="g284603"
+        inkscape:label="lock allowed unsecure"
+@@ -6200,14 +6200,14 @@
+          id="rect88579"
+          style="fill:none" />
+       <path
+-         style="fill:#2e3436;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
++         style="fill:#2e3436;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+          d="m 242.9998,999 h -14 a 1,1 0 1 0 0,2 h 14 a 1,1 0 1 0 0,-2 z"
+          id="path88581"
+          sodipodi:nodetypes="cc"
+          inkscape:path-effect="#path-effect88595"
+          inkscape:original-d="m 242.9998,1000 h -14" />
+       <path
+-         style="fill:#2e3436;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
++         style="fill:#2e3436;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+          d="m 239.9998,1000 v -1.5 c 0,-1.38576 -1.11424,-2.5 -2.5,-2.5 h -2.979 c -1.38576,0 -2.5,1.11424 -2.5,2.5 v 1.5 h 2 v -1.5 c 0,-0.2711 0.2289,-0.5 0.5,-0.5 h 2.979 c 0.2711,0 0.5,0.2289 0.5,0.5 v 1.5 z"
+          id="path88583"
+          sodipodi:nodetypes="cccc"
+@@ -6321,13 +6321,6 @@
+          id="path8001"
+          d="m 118.57827,668.06361 c -3.5779,0 -6.5,2.9221 -6.5,6.5 0,3.5779 2.9221,6.49805 6.5,6.49805 1.43002,0 2.75427,-0.4654 3.83007,-1.25391 l 2.97266,2.97266 c 0.95834,0.93804 2.36459,-0.49946 1.40625,-1.4375 l -2.95898,-2.95898 c 0.78481,-1.07378 1.25,-2.39436 1.25,-3.82032 0,-3.5779 -2.9221,-6.5 -6.5,-6.5 z m 0,2 c 2.497,0 4.5,2.003 4.5,4.5 0,2.497 -2.003,4.49805 -4.5,4.49805 -2.497,0 -4.5,-2.00105 -4.5,-4.49805 0,-2.497 2.003,-4.5 4.5,-4.5 z"
+          style="fill:#2e3436;fill-opacity:1" />
+-      <rect
+-         style="opacity:0.706383;fill:none;"
+-         id="rect8017"
+-         width="16.000002"
+-         height="16"
+-         x="112.00605"
+-         y="668" />
+     </g>
+     <g
+        id="g19903"
+@@ -6705,14 +6698,6 @@
+          id="rect3399"
+          transform="rotate(90)"
+          style="fill:none" />
+-      <rect
+-         width="16"
+-         height="16"
+-         x="-11.989941"
+-         y="731.96869"
+-         id="rect3413"
+-         transform="matrix(0,1,1,0,0,0)"
+-         style="fill:none" />
+     </g>
+     <g
+        id="g487152"
+@@ -6729,13 +6714,6 @@
+          width="100%"
+          height="100%"
+          style="fill:none" />
+-      <rect
+-         id="rect487150"
+-         width="16"
+-         height="16"
+-         x="1.9073486e-05"
+-         y="728"
+-         style="fill:none" />
+     </g>
+     <text
+        id="text7032"
+@@ -7074,13 +7052,6 @@
+          width="100%"
+          height="100%"
+          style="fill:none" />
+-      <rect
+-         id="rect227035"
+-         width="16"
+-         height="16"
+-         x="1.9073486e-05"
+-         y="728"
+-         style="fill:none" />
+     </g>
+     <g
+        id="g17868"
+-- 
+GitLab
+
