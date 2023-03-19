@@ -1435,7 +1435,8 @@ class Subpackage(Package):
         # by default some subpackages depend on their parent package
         if bdep:
             fbdep = f"{bdep}={parent.pkgver}-r{parent.pkgrel}"
-            ddeps.append(fbdep)
+            if not name.endswith("-man"):
+                ddeps.append(fbdep)
             # they may also get automatically installed
             if instif:
                 if instif == name:
