@@ -1,6 +1,5 @@
 pkgname = "libgweather"
-# use devel snapshot for now for libsoup3 support
-pkgver = "3.91.0"
+pkgver = "4.2.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -12,7 +11,8 @@ hostmakedepends = [
     "gettext-tiny", "vala", "python-gobject-devel"
 ]
 makedepends = [
-    "geocode-glib-devel", "gtk+3-devel", "libsoup-devel"
+    "geocode-glib-devel", "libsoup-devel", "libxml2-devel",
+    "json-glib-devel",
 ]
 depends = ["tzdata"]
 pkgdesc = "GNOME Weather information access library"
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/LibGWeather"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "725b3eb34fc6d21edc80b6e684728b3088b1fa144f0a2a4d3e9605c7a8f3dcf8"
+sha256 = "af8a812da0d8976a000e1d62572c256086a817323fbf35b066dbfdd8d2ca6203"
 # needs network access
 options = ["!check"]
 
