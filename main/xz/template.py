@@ -1,5 +1,5 @@
 pkgname = "xz"
-pkgver = "5.4.1"
+pkgver = "5.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:xz"
 url = "https://tukaani.org/xz"
 source = f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"
-sha256 = "dd172acb53867a68012f94c17389401b2f274a1aa5ae8f84cbfb8b7e383ea8d3"
+sha256 = "aa49909cbd9028c4666a35fa4975f9a6203ed98154fbb8223ee43ef9ceee97c3"
 options = ["bootstrap"]
 
 def post_install(self):
