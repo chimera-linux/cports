@@ -1,5 +1,5 @@
 pkgname = "gnome-disk-utility"
-pkgver = "43.0"
+pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlogind=libelogind"]
@@ -18,6 +18,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Disks"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "7afca9805a6b92db6933dd7efcec4af8386c01bbc1f871e2dae4def7e192a2c5"
+sha256 = "02031097896cdb37d8717a5823f93e3723d4dfce7fdc4002c9dfcb16b7e7a3ef"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
