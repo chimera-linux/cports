@@ -1,0 +1,92 @@
+From 98e038eed4bed784070637e9925866426848d9b7 Mon Sep 17 00:00:00 2001
+From: faultline <me@ctsk.xyz>
+Date: Sat, 11 Feb 2023 12:47:51 +0100
+Subject: [PATCH] thumbnails: Save original dimensions as metadata
+
+Fixes #250
+---
+ libgnome-desktop/gnome-bg.c          | 21 ++++++++++++++-------
+ libgnome-desktop/gnome-bg/gnome-bg.c | 19 +++++++++++++------
+ 2 files changed, 27 insertions(+), 13 deletions(-)
+
+diff --git a/libgnome-desktop/gnome-bg.c b/libgnome-desktop/gnome-bg.c
+index c890d24c..4f4f8737 100644
+--- a/libgnome-desktop/gnome-bg.c
++++ b/libgnome-desktop/gnome-bg.c
+@@ -2176,6 +2176,7 @@ create_thumbnail_for_filename (GnomeDesktopThumbnailFactory *factory,
+ 		if (orig) {
+ 			int orig_width, orig_height;
+ 			GdkPixbuf *rotated;
++			gchar *orig_height_str, *orig_width_str;
+ 
+ 			rotated = gdk_pixbuf_apply_embedded_orientation (orig);
+ 			if (rotated != NULL) {
+@@ -2185,14 +2186,20 @@ create_thumbnail_for_filename (GnomeDesktopThumbnailFactory *factory,
+ 
+ 			orig_width = gdk_pixbuf_get_width (orig);
+ 			orig_height = gdk_pixbuf_get_height (orig);
+-			
++
+ 			result = pixbuf_scale_to_fit (orig, THUMBNAIL_SIZE, THUMBNAIL_SIZE);
+-			
+-			g_object_set_data_full (G_OBJECT (result), "gnome-thumbnail-height",
+-						g_strdup_printf ("%d", orig_height), g_free);
+-			g_object_set_data_full (G_OBJECT (result), "gnome-thumbnail-width",
+-						g_strdup_printf ("%d", orig_width), g_free);
+-			
++
++			orig_height_str = g_strdup_printf ("%d", orig_height);
++			orig_width_str = g_strdup_printf ("%d", orig_width);
++
++			gdk_pixbuf_set_option (result, "tEXt::Thumb::Image::Height", orig_height_str);
++			gdk_pixbuf_set_option (result, "tEXt::Thumb::Image::Width", orig_width_str);
++
++			g_object_set_data_full (G_OBJECT (result), "gnome-thumbnail-height", 
++			                        g_steal_pointer (&orig_height_str), g_free);
++			g_object_set_data_full (G_OBJECT (result), "gnome-thumbnail-width", 
++	                                        g_steal_pointer (&orig_width_str), g_free);
++
+ 			g_object_unref (orig);
+ 			
+ 			gnome_desktop_thumbnail_factory_save_thumbnail (factory, result, uri, mtime, NULL, &error);
+diff --git a/libgnome-desktop/gnome-bg/gnome-bg.c b/libgnome-desktop/gnome-bg/gnome-bg.c
+index 22b573dd..a95d4379 100644
+--- a/libgnome-desktop/gnome-bg/gnome-bg.c
++++ b/libgnome-desktop/gnome-bg/gnome-bg.c
+@@ -2260,6 +2260,7 @@ create_thumbnail_for_filename (GnomeDesktopThumbnailFactory *factory,
+ 		if (orig) {
+ 			int orig_width, orig_height;
+ 			GdkPixbuf *rotated;
++			gchar *orig_height_str, *orig_width_str;
+ 
+ 			rotated = gdk_pixbuf_apply_embedded_orientation (orig);
+ 			if (rotated != NULL) {
+@@ -2269,13 +2270,19 @@ create_thumbnail_for_filename (GnomeDesktopThumbnailFactory *factory,
+ 
+ 			orig_width = gdk_pixbuf_get_width (orig);
+ 			orig_height = gdk_pixbuf_get_height (orig);
+-			
++
+ 			result = pixbuf_scale_to_fit (orig, THUMBNAIL_SIZE, THUMBNAIL_SIZE);
+-			
+-			g_object_set_data_full (G_OBJECT (result), "gnome-thumbnail-height",
+-						g_strdup_printf ("%d", orig_height), g_free);
+-			g_object_set_data_full (G_OBJECT (result), "gnome-thumbnail-width",
+-						g_strdup_printf ("%d", orig_width), g_free);
++
++			orig_height_str = g_strdup_printf ("%d", orig_height);
++			orig_width_str = g_strdup_printf ("%d", orig_width);
++
++			gdk_pixbuf_set_option (result, "tEXt::Thumb::Image::Height", orig_height_str);
++			gdk_pixbuf_set_option (result, "tEXt::Thumb::Image::Width", orig_width_str);
++
++			g_object_set_data_full (G_OBJECT (result), "gnome-thumbnail-height", 
++			                        g_steal_pointer (&orig_height_str), g_free);
++			g_object_set_data_full (G_OBJECT (result), "gnome-thumbnail-width", 
++	                                        g_steal_pointer (&orig_width_str), g_free);
+ 			
+ 			g_object_unref (orig);
+ 			
+-- 
+GitLab
+

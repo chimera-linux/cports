@@ -1,0 +1,38 @@
+From 2c13b8ccd9078be73a679d716815998de441fcf4 Mon Sep 17 00:00:00 2001
+From: Will Thompson <wjt@endlessos.org>
+Date: Sun, 26 Feb 2023 21:19:29 +0000
+Subject: [PATCH] default-input-sources: Add a default for Turkish
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Sabri Ünal reports that:
+
+> IMHO 98% of keyboards in-use in Turkey are the "Turkish" layout.
+>
+> You may see the "Turkish (F)" keyboard in some government offices. (A
+> historical keyboard layout from typewriter technology). "Turkish (E)"
+> is a very new keyboard, I only heard it, and haven't seen it anywhere.
+
+The layout described simply as "Turkish" is the "tr" layout from xkb.
+
+Fixes https://gitlab.gnome.org/GNOME/gnome-desktop/-/issues/218
+---
+ libgnome-desktop/default-input-sources.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libgnome-desktop/default-input-sources.h b/libgnome-desktop/default-input-sources.h
+index 04ba10be..1e02bce1 100644
+--- a/libgnome-desktop/default-input-sources.h
++++ b/libgnome-desktop/default-input-sources.h
+@@ -53,6 +53,7 @@ static DefaultInputSource default_input_sources[] =
+   { "sk_SK",    "xkb",          "sk" },
+   { "ta_IN",    "ibus",         "m17n:ta:tamil99" },
+   { "te_IN",    "ibus",         "m17n:te:inscript" },
++  { "tr_TR",    "xkb",          "tr" },
+   { "ur_IN",    "ibus",         "m17n:ur:phonetic" },
+   { "zh_CN",    "ibus",         "libpinyin" },
+   { "zh_HK",    "ibus",         "table:cangjie5" },
+-- 
+GitLab
+
