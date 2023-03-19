@@ -10,7 +10,7 @@ hostmakedepends = [
     "docbook-xsl-nons", "itstool",
 ]
 makedepends = [
-    "gtk+3-devel", "vte3-devel", "dconf-devel", "libglib-devel",
+    "gtk+3-devel", "vte-gtk3-devel", "dconf-devel", "libglib-devel",
     "pcre2-devel", "gsettings-desktop-schemas-devel", "libuuid-devel",
     "gnome-shell", #"nautilus-devel",
 ]
