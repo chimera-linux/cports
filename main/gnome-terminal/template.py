@@ -10,9 +10,9 @@ hostmakedepends = [
     "docbook-xsl-nons", "itstool",
 ]
 makedepends = [
-    "gtk+3-devel", "vte3-devel", "dconf-devel", "libglib-devel", "pcre2-devel",
-    "gsettings-desktop-schemas-devel", "libuuid-devel", #"nautilus-devel",
-    "gnome-shell",
+    "gtk+3-devel", "vte3-devel", "dconf-devel", "libglib-devel",
+    "pcre2-devel", "gsettings-desktop-schemas-devel", "libuuid-devel",
+    "gnome-shell", #"nautilus-devel",
 ]
 pkgdesc = "GNOME terminal emulator"
 maintainer = "q66 <q66@chimera-linux.org>"
