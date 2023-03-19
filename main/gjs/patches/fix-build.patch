@@ -1,6 +1,8 @@
 std::uniform_int_distribution needs a valid integer type, and
 char32_t is not considered one.
 
+Also have_gtk4 is checked elsewhere.
+
 --- a/test/gjs-tests.cpp
 +++ b/test/gjs-tests.cpp
 @@ -939,7 +939,7 @@ static void gjstest_test_args_set_get_unset() {
@@ -12,3 +14,14 @@ char32_t is not considered one.
      gjs_arg_set(&arg, random_char32);
      assert_equal(static_cast<char32_t>(arg.v_uint32), random_char32);
      assert_equal(gjs_arg_get<char32_t>(&arg), random_char32);
+--- a/meson.build
++++ b/meson.build
+@@ -681,6 +681,8 @@ endif
+ 
+ if not get_option('skip_gtk_tests')
+     have_gtk4 = dependency('gtk4', required: false).found()
++else
++    have_gtk4 = false
+ endif
+ 
+ subdir('installed-tests')
