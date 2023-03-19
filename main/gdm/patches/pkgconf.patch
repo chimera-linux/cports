@@ -1,0 +1,17 @@
+commit 7b9ad156f6332a613b5cb1b12191cb3c9c109607
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Mar 19 18:40:39 2023 +0100
+
+    fix pkgconf version
+
+diff --git a/meson.build b/meson.build
+index e190ab6..c825546 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('gdm', 'c',
+-  version: '44.rc',
++  version: '44.0',
+   license: 'GPL2+',
+   meson_version: '>= 0.57',
+ )

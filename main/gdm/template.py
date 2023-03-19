@@ -1,5 +1,5 @@
 pkgname = "gdm"
-pkgver = "43.0"
+pkgver = "44.0_rc1"
 pkgrel = 0
 build_style = "meson"
 # TODO: plymouth
@@ -30,8 +30,9 @@ pkgdesc = "GNOME display manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "94d70d6ed7df59fa7fde4fd02fed1168593a8adce10fcee113c148d52b392294"
+#source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://gitlab.gnome.org/GNOME/gdm/-/archive/44.rc-real/gdm-44.rc-real.tar.gz"
+sha256 = "9d21c5fcd0cc940ef7752a8bfd74dd5b911f957e22aaefc2ecfb43d8603db9bd"
 system_users = [
     {
         "name": "_gdm",
