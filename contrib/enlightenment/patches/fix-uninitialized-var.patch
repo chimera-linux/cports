@@ -1,0 +1,35 @@
+From 84256548d9ca3396445211d4780113c347f54171 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Mon, 20 Mar 2023 16:26:00 +0000
+Subject: [PATCH] e_config: fix uninitialized variable use preventing start
+
+The value used to be assigned, but it was dropped probably by
+accident in 027a810e8450a3eaf11fd18b7b423f327cd65d80, resulting
+in err always being uninitialized (it is declared a little before
+that).
+
+That would result in the switch not kicking in properly (as it
+would never become EET_ERROR_NONE) which would result in the return
+status never becoming true. That would result in all sorts of weird
+stuff happening, on my system manifesting as __stack_chk_fail
+(SSP error).
+---
+ src/bin/e_config.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/bin/e_config.c b/src/bin/e_config.c
+index 22c63ef..887f5b3 100644
+--- a/src/bin/e_config.c
++++ b/src/bin/e_config.c
+@@ -190,7 +190,7 @@ _e_config_pending_file_del(const char *path)
+ 
+         eina_hash_del(_e_config_pending_files, path, ef);
+         eina_lock_release(&_e_config_pending_files_lock);
+-        eet_close(ef);
++        err = eet_close(ef);
+         switch (err)
+           {
+            case EET_ERROR_NONE:
+-- 
+2.34.1
+
