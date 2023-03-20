@@ -29,6 +29,9 @@ _use_mng = False
 
 if _use_mng:
     configure_args += ["--with-malloc=mallocng"]
+elif self.profile().arch == "aarch64":
+    # disable aarch64 memory tagging in scudo, as it fucks up qemu-user
+    tool_flags = {"CXXFLAGS": ["-DSCUDO_DISABLE_TBI"]}
 
 if self.stage > 0:
     # have base-files extract first in normal installations
