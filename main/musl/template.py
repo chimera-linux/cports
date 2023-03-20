@@ -94,6 +94,11 @@ def do_install(self):
     # no need for the symlink anymore
     self.rm(self.destdir / "lib")
 
+    # fix up ld-musl-whatever so it does not point to absolute path
+    for f in (self.destdir / "usr/lib").glob("ld-musl-*.so.1"):
+        f.unlink()
+        f.symlink_to("libc.so")
+
     self.install_dir("usr/bin")
     self.install_link("../lib/libc.so", "usr/bin/ldd")
 
