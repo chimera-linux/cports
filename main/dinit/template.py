@@ -1,25 +1,22 @@
 pkgname = "dinit"
-pkgver = "0.16.1"
+pkgver = "0.16.999"
+_commit = "3f70f79e36a6e2a5edf70738eea953497e25aae4"
 pkgrel = 0
-build_style = "makefile"
+build_style = "gnu_configure"
+configure_args = ["--syscontrolsocket=/run/dinitctl"]
 make_cmd = "gmake"
+make_dir = "."
 make_check_args = ["check-igr"] # additional target
 hostmakedepends = ["gmake"]
 pkgdesc = "Service manager and init system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = f"https://davmac.org/projects/dinit"
-source = f"https://github.com/davmac314/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "020da31210322e01c07d30343671f6ba2b1024fab0699a1df49f390d462e8f69"
+#source = f"https://github.com/davmac314/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://github.com/davmac314/{pkgname}/archive/{_commit}.tar.gz"
+sha256 = "65b02ba823584843d2545febb2e121cd9e5184cce59882315293c648d299f4b2"
 hardening = ["vis", "cfi"]
 
-def init_configure(self):
-    self.make_build_args += [
-        "HOSTCXX=" + self.get_tool("CXX", target = "host"),
-        "HOSTCXXOPTS=" + self.get_cxxflags(target = "host", shell = True),
-        "HOSTLDFLAGS=" + self.get_ldflags(target = "host", shell = True),
-    ]
-
-def post_patch(self):
-    self.cp(self.files_path / "mconfig", self.cwd)
-    (self.cwd / "mconfig").touch() # mtime
+tool_flags = {
+    "CXXFLAGS": ["-fno-rtti"]
+}
