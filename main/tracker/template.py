@@ -26,10 +26,6 @@ sha256 = "13294275dbbbad9634b3a8390c08e6f12bebfe84f6ccafb72b27b0c23ba8da2f"
 # lto fails: Invalid GType function: 'tracker_endpoint_http_get_type'
 options = ["!cross", "!lto"]
 
-if self.profile().arch == "aarch64":
-    # FIXME https://gitlab.gnome.org/GNOME/tracker/-/issues/397
-    options += ["!check"]
-
 @subpackage("tracker-devel")
 def _devel(self):
     return self.default_devel()

@@ -1,0 +1,85 @@
+From d06090c19ad982467142df858c91ffd0bacfca29 Mon Sep 17 00:00:00 2001
+From: Carlos Garnacho <carlosg@gnome.org>
+Date: Tue, 21 Mar 2023 20:12:59 +0100
+Subject: [PATCH 1/7] tests: Pass right type/width to varargs TrackerBatch API
+
+We specify G_TYPE_INT64 but pass an unspecified integer that gets
+promoted to 32-bit. This wreaks havoc in the GValue varargs collection
+glib code.
+
+Specify the right type in our tests, so that we don't hit this bug.
+
+Closes: https://gitlab.gnome.org/GNOME/tracker/-/issues/397
+---
+ tests/libtracker-sparql/tracker-batch-test.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/tests/libtracker-sparql/tracker-batch-test.c b/tests/libtracker-sparql/tracker-batch-test.c
+index 9b9f81b8c0..a49eeed8c0 100644
+--- a/tests/libtracker-sparql/tracker-batch-test.c
++++ b/tests/libtracker-sparql/tracker-batch-test.c
+@@ -525,7 +525,7 @@ batch_statement_insert (TestFixture   *test_fixture,
+ 	                             "codec", G_TYPE_STRING, "png",
+ 	                             "interlaced", G_TYPE_BOOLEAN, FALSE,
+ 	                             "exposure", G_TYPE_DOUBLE, 0.12345678901,
+-	                             "resolution", G_TYPE_INT64, 123,
++	                             "resolution", G_TYPE_INT64, (gint64) 123,
+ 	                             "created", G_TYPE_DATE_TIME, date,
+ 	                             NULL);
+ 
+@@ -556,7 +556,7 @@ batch_statement_update (TestFixture   *test_fixture,
+ 	                             "codec", G_TYPE_STRING, "jpeg",
+ 	                             "interlaced", G_TYPE_BOOLEAN, TRUE,
+ 	                             "exposure", G_TYPE_DOUBLE, 1.23456789012,
+-	                             "resolution", G_TYPE_INT64, 234,
++	                             "resolution", G_TYPE_INT64, (gint64) 234,
+ 	                             "created", G_TYPE_DATE_TIME, date,
+ 	                             NULL);
+ 	tracker_batch_execute (batch, NULL, &error);
+@@ -571,7 +571,7 @@ batch_statement_update (TestFixture   *test_fixture,
+ 	                             "codec", G_TYPE_STRING, "png",
+ 	                             "interlaced", G_TYPE_BOOLEAN, FALSE,
+ 	                             "exposure", G_TYPE_DOUBLE, 0.12345678901,
+-	                             "resolution", G_TYPE_INT64, 123,
++	                             "resolution", G_TYPE_INT64, (gint64) 123,
+ 	                             "created", G_TYPE_DATE_TIME, date,
+ 	                             NULL);
+ 	tracker_batch_execute (batch, NULL, &error);
+@@ -601,7 +601,7 @@ batch_statement_update_same_batch (TestFixture   *test_fixture,
+ 	                             "codec", G_TYPE_STRING, "jpeg",
+ 	                             "interlaced", G_TYPE_BOOLEAN, TRUE,
+ 	                             "exposure", G_TYPE_DOUBLE, 1.23456789012,
+-	                             "resolution", G_TYPE_INT64, 234,
++	                             "resolution", G_TYPE_INT64, (gint64) 234,
+ 	                             "created", G_TYPE_DATE_TIME, date,
+ 	                             NULL);
+ 	tracker_batch_add_statement (batch, stmt,
+@@ -609,7 +609,7 @@ batch_statement_update_same_batch (TestFixture   *test_fixture,
+ 	                             "codec", G_TYPE_STRING, "png",
+ 	                             "interlaced", G_TYPE_BOOLEAN, FALSE,
+ 	                             "exposure", G_TYPE_DOUBLE, 0.12345678901,
+-	                             "resolution", G_TYPE_INT64, 123,
++	                             "resolution", G_TYPE_INT64, (gint64) 123,
+ 	                             "created", G_TYPE_DATE_TIME, date,
+ 	                             NULL);
+ 	tracker_batch_execute (batch, NULL, &error);
+@@ -641,7 +641,7 @@ batch_statement_delete (TestFixture   *test_fixture,
+ 	                             "codec", G_TYPE_STRING, "png",
+ 	                             "interlaced", G_TYPE_BOOLEAN, FALSE,
+ 	                             "exposure", G_TYPE_DOUBLE, 0.12345678901,
+-	                             "resolution", G_TYPE_INT64, 123,
++	                             "resolution", G_TYPE_INT64, (gint64) 123,
+ 	                             "created", G_TYPE_DATE_TIME, date,
+ 	                             NULL);
+ 	tracker_batch_execute (batch, NULL, &error);
+@@ -683,7 +683,7 @@ batch_statement_delete_same_batch (TestFixture   *test_fixture,
+ 	                             "codec", G_TYPE_STRING, "png",
+ 	                             "interlaced", G_TYPE_BOOLEAN, FALSE,
+ 	                             "exposure", G_TYPE_DOUBLE, 0.12345678901,
+-	                             "resolution", G_TYPE_INT64, 123,
++	                             "resolution", G_TYPE_INT64, (gint64) 123,
+ 	                             "created", G_TYPE_DATE_TIME, date,
+ 	                             NULL);
+ 	tracker_batch_add_statement (batch, del_stmt,
+-- 
+GitLab
