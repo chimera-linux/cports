@@ -222,6 +222,7 @@ struct MuslConfig {
      * in size class exhaustion; for now use the same value as android
      */
     static const uintptr_t PrimaryRegionSizeLog = 28U;
+    static const uintptr_t PrimaryGroupSizeLog = 20U;
     static const uintptr_t PrimaryCompactPtrScale = SCUDO_MIN_ALIGNMENT_LOG;
     static const uintptr_t PrimaryMapSizeIncrement = 1UL << 18;
     static const bool PrimaryEnableRandomOffset = true;
@@ -230,6 +231,7 @@ struct MuslConfig {
     using PrimaryCompactPtrT = uintptr_t;
 
     static const uintptr_t PrimaryRegionSizeLog = FIRST_32_SECOND_64(18U, 20U);
+    static const uintptr_t PrimaryGroupSizeLog = FIRST_32_SECOND_64(18U, 20U);
 #endif
 
     static const int32_t PrimaryMinReleaseToOsIntervalMs = INT32_MIN;
