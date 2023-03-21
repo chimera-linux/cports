@@ -1,5 +1,5 @@
 pkgname = "gnome-session"
-pkgver = "44.0_rc1"
+pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -21,7 +21,7 @@ pkgdesc = "GNOME session management utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-session"
-source = f"$(GNOME_SITE)/{pkgname}/44/{pkgname}-44.rc.tar.xz"
-sha256 = "03659950be77c97d8effdda838926a5ffdc7d05fdf98136fc0e9787634e71a41"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "ccf829a96526135e9e9f917526515d36a5092bdfa316f3737dd8c5a524dbf2c6"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
