@@ -9,7 +9,7 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf", "gobject-introspection"]
 makedepends = [
-    "libglib-devel"
+    "glib-devel"
 ]
 pkgdesc = "Thin layer of graphic data types"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -6,7 +6,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gettext-tiny", "vala", "itstool"
 ]
 makedepends = [
-    "gtk4-devel", "libglib-devel", "libadwaita-devel",
+    "gtk4-devel", "glib-devel", "libadwaita-devel",
 ]
 depends = ["hicolor-icon-theme", "gsettings-desktop-schemas"]
 pkgdesc = "Graphical directory tree analyzer for GNOME"

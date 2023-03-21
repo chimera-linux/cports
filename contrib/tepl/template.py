@@ -8,7 +8,7 @@ hostmakedepends = [
     "gettext-tiny",
 ]
 makedepends = [
-    "libglib-devel", "gtk+3-devel", "amtk-devel", "gtksourceview4-devel",
+    "glib-devel", "gtk+3-devel", "amtk-devel", "gtksourceview4-devel",
     "libxml2-devel", "uchardet-devel", "gsettings-desktop-schemas-devel",
 ]
 pkgdesc = "Text editor product line"

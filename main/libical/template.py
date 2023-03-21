@@ -7,11 +7,11 @@ configure_args = [
     "-DICAL_GLIB_VAPI=true",
 ]
 hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "gettext-tiny", "libglib-devel",
+    "cmake", "ninja", "pkgconf", "gettext-tiny", "glib-devel",
     "libxml2-devel", "perl", "vala", "gobject-introspection"
 ]
 makedepends = [
-    "libglib-devel", "libxml2-devel", "vala-devel", "icu-devel",
+    "glib-devel", "libxml2-devel", "vala-devel", "icu-devel",
 ]
 checkdepends = ["python-gobject"]
 pkgdesc = "Open source implementation of iCalendar protocols and formats"

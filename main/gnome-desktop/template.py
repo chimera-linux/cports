@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "udev-devel", "gsettings-desktop-schemas-devel", "gtk+3-devel",
-    "gtk4-devel", "gdk-pixbuf-devel", "libglib-devel", "fontconfig-devel",
+    "gtk4-devel", "gdk-pixbuf-devel", "glib-devel", "fontconfig-devel",
     "libseccomp-devel", "libxkbcommon-devel", "iso-codes", "xkeyboard-config",
 ]
 depends = [

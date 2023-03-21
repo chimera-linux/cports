@@ -12,7 +12,7 @@ hostmakedepends = [
     "docbook-xsl-nons", "gettext-tiny",
 ]
 makedepends = [
-    "dbus-devel", "libglib-devel", "fuse-devel", "libarchive-devel",
+    "dbus-devel", "glib-devel", "fuse-devel", "libarchive-devel",
     "bluez-devel", "libbluray-devel", "libcap-devel", "gcr-devel",
     "libcdio-paranoia-devel", "libgcrypt-devel", "libgphoto2-devel",
     "libgudev-devel", "libsecret-devel", "libxml2-devel", "polkit-devel",

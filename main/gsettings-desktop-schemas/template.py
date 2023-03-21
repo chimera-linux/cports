@@ -6,7 +6,7 @@ configure_args = ["-Dintrospection=true"]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection"
 ]
-makedepends = ["libglib-devel"]
+makedepends = ["glib-devel"]
 depends = [
     "fonts-cantarell-otf", "fonts-source-code-pro-otf", "adwaita-icon-theme",
     "chimera-artwork",

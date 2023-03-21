@@ -8,7 +8,7 @@ hostmakedepends = [
     "gobject-introspection", "perl", "itstool",
 ]
 makedepends = [
-    "libglib-devel", "gtk+3-devel", "gtksourceview4-devel", "libpeas-devel",
+    "glib-devel", "gtk+3-devel", "gtksourceview4-devel", "libpeas-devel",
     "gspell-devel", "libxml2-devel", "python-gobject-devel", "tepl-devel",
     "amtk-devel",
 ]

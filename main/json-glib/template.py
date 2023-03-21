@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled"]
 hostmakedepends = ["meson", "pkgconf", "glib-devel", "gobject-introspection"]
-makedepends = ["libglib-devel"]
+makedepends = ["glib-devel"]
 pkgdesc = "JSON parser for glib-based projects"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

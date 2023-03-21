@@ -6,7 +6,7 @@ configure_args = ["-Dgtk_doc=false"]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection"
 ]
-makedepends = ["libglib-devel", "linux-headers"]
+makedepends = ["glib-devel", "linux-headers"]
 pkgdesc = "Qualcomm IPC Router protocol helper library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

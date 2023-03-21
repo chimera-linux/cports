@@ -7,7 +7,7 @@ hostmakedepends = [
     "gobject-introspection", "dbus"
 ]
 makedepends = [
-    "libglib-devel", "libxext-devel", "libxtst-devel",
+    "glib-devel", "libxext-devel", "libxtst-devel",
     "libsm-devel", "dbus-devel", "libxml2-devel",
 ]
 pkgdesc = "Assistive Technology Service Provider Interface"

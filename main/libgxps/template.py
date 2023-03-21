@@ -7,7 +7,7 @@ hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection",
 ]
 makedepends = [
-    "libglib-devel", "cairo-devel", "freetype-devel", "libarchive-devel",
+    "glib-devel", "cairo-devel", "freetype-devel", "libarchive-devel",
     "libpng-devel", "lcms2-devel", "libjpeg-turbo-devel", "libtiff-devel",
 ]
 pkgdesc = "GObject library for XPS documents"

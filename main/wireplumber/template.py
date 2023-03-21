@@ -10,7 +10,7 @@ hostmakedepends = [
     "doxygen"
 ]
 makedepends = [
-    "pipewire-devel", "libglib-devel", "lua5.4-devel"
+    "pipewire-devel", "glib-devel", "lua5.4-devel"
 ]
 checkdepends = ["pipewire", "dbus"]
 install_if = ["pipewire"]

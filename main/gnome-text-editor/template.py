@@ -7,7 +7,7 @@ hostmakedepends = [
     "gettext-tiny", "vala", "itstool", "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel", "libglib-devel", "libadwaita-devel", "pcre2-devel",
+    "gtk4-devel", "glib-devel", "libadwaita-devel", "pcre2-devel",
     "enchant-devel", "gtksourceview-devel", "editorconfig-devel",
     "icu-devel",
 ]

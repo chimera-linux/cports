@@ -7,7 +7,7 @@ hostmakedepends = [
     "gettext-tiny", "gjs"
 ]
 makedepends = [
-    "libglib-devel", "libepoxy-devel", "freetype-devel", "evince-devel",
+    "glib-devel", "libepoxy-devel", "freetype-devel", "evince-devel",
     "gdk-pixbuf-devel", "gstreamer-devel", "gst-plugins-base-devel",
     "gtk+3-devel", "gtksourceview4-devel", "harfbuzz-devel", "webkitgtk-devel",
 ]

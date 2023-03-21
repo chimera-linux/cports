@@ -12,7 +12,7 @@ hostmakedepends = [
     "gettext-tiny",
 ]
 makedepends = [
-    "libxslt-devel", "libxml2-devel", "libglib-devel", "libsoup-devel",
+    "libxslt-devel", "libxml2-devel", "glib-devel", "libsoup-devel",
 ]
 depends = ["hwdata", "osinfo-db", "gmake"]
 checkdepends = list(depends)

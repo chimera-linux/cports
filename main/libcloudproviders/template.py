@@ -7,7 +7,7 @@ hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "glib-devel",
     "vala-devel",
 ]
-makedepends = ["libglib-devel",]
+makedepends = ["glib-devel",]
 pkgdesc = "DBus API for cloud storage sync clients to expose their services"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"

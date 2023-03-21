@@ -10,7 +10,7 @@ hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "glib-devel", "gettext-tiny",
 ]
 makedepends = [
-    "libglib-devel", "libxml2-devel", "uchardet-devel", "libgcrypt-devel",
+    "glib-devel", "libxml2-devel", "uchardet-devel", "libgcrypt-devel",
     "libarchive-devel",
 ]
 pkgdesc = "Totem playlist parser library"

@@ -7,7 +7,7 @@ make_cmd = "gmake"
 hostmakedepends = [
     "gmake", "pkgconf", "gobject-introspection", "glib-devel", "gettext-tiny"
 ]
-makedepends = ["libglib-devel"]
+makedepends = ["glib-devel"]
 pkgdesc = "GNOME menu definitions"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"

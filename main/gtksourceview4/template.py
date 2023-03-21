@@ -10,7 +10,7 @@ hostmakedepends = [
     "gtk+3-devel", "gettext-tiny", "xsltproc"
 ]
 makedepends = [
-    "glade3-devel", "gtk+3-devel", "libglib-devel", "libxml2-devel", "vala"
+    "glade3-devel", "gtk+3-devel", "glib-devel", "libxml2-devel", "vala"
 ]
 pkgdesc = "Advanced Gtk+ text editor widget"
 maintainer = "q66 <q66@chimera-linux.org>"

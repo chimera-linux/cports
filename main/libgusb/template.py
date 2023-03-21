@@ -5,7 +5,7 @@ build_style = "meson"
 configure_args = ["-Ddocs=false", "-Dintrospection=true"]
 hostmakedepends = ["meson", "pkgconf", "vala", "gobject-introspection"]
 makedepends = [
-    "libglib-devel", "libusb-devel", "libgudev-devel", "json-glib-devel",
+    "glib-devel", "libusb-devel", "libgudev-devel", "json-glib-devel",
     "vala-devel", "usbutils"
 ]
 pkgdesc = "GLib wrapper around libusb"

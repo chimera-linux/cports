@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 configure_args = ["--disable-static"] # prevent building python binding .a
 hostmakedepends = ["pkgconf", "automake", "libtool", "python", "python-cython"]
 makedepends = [
-    "python-devel", "libglib-devel", "openssl-devel", "libusb-devel",
+    "python-devel", "glib-devel", "openssl-devel", "libusb-devel",
     "libusbmuxd-devel", "libplist-devel"
 ]
 pkgdesc = "Library to communicate with Apple devices"

@@ -6,7 +6,7 @@ configure_args = ["-Dintrospection=enabled", "-Dvapi=enabled"]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala"
 ]
-makedepends = ["libglib-devel", "udev-devel", "vala-devel"]
+makedepends = ["glib-devel", "udev-devel", "vala-devel"]
 pkgdesc = "GObject bindings for libudev"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

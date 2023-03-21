@@ -8,7 +8,7 @@ hostmakedepends = [
     "docbook-xml",
 ]
 makedepends = [
-    "libfl-devel-static", "libglib-devel", "graphviz-devel"
+    "libfl-devel-static", "glib-devel", "graphviz-devel"
 ]
 checkdepends = ["dbus", "libgirepository-devel", "bash"]
 provides = ["so:libvalaccodegen.so=0"]

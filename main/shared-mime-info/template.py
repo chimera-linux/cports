@@ -6,7 +6,7 @@ configure_args = ["-Dupdate-mimedb=false"]
 hostmakedepends = [
     "meson", "pkgconf", "gettext-tiny", "xmlto", "libxml2-progs"
 ]
-makedepends = ["libglib-devel", "libxml2-devel"]
+makedepends = ["glib-devel", "libxml2-devel"]
 triggers = ["/usr/share/mime"]
 pkgdesc = "Core database of common types"
 maintainer = "q66 <q66@chimera-linux.org>"

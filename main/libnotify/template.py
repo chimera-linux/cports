@@ -10,7 +10,7 @@ hostmakedepends = [
     "gobject-introspection",
 ]
 makedepends = [
-    "libglib-devel", "libpng-devel", "gdk-pixbuf-devel", "gtk+3-devel",
+    "glib-devel", "libpng-devel", "gdk-pixbuf-devel", "gtk+3-devel",
 ]
 pkgdesc = "Desktop notification library"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -36,21 +36,8 @@ def post_install(self):
     python.precompile(self, "usr/share/glib-2.0/codegen")
     python.precompile(self, "usr/share/glib-2.0/gdb")
 
-@subpackage("libglib-devel")
-def _libdevel(self):
-    self.pkgdesc = f"{pkgdesc} (library development files)"
-
-    return [
-        "usr/include",
-        "usr/lib/glib-2.0",
-        "usr/lib/pkgconfig",
-        "usr/lib/*.so",
-    ]
-
 @subpackage("glib-devel")
 def _devel(self):
-    self.depends += [f"libglib-devel={pkgver}-r{pkgrel}"]
-
     return self.default_devel(extra = [
         "usr/bin/glib-compile-resources",
         "usr/bin/glib-genmarshal",
@@ -59,6 +46,7 @@ def _devel(self):
         "usr/bin/gtester",
         "usr/bin/gtester-report",
         "usr/bin/gdbus-codegen",
+        "usr/lib/glib-2.0",
         "usr/share/man/man1/glib-compile-resources.1",
         "usr/share/man/man1/glib-genmarshal.1",
         "usr/share/man/man1/glib-gettextize.1",

@@ -10,7 +10,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "xmlto", "gettext-tiny",
 ]
 makedepends = [
-    "libglib-devel", "gtk+3-devel", "elogind-devel", "gnome-desktop-devel",
+    "glib-devel", "gtk+3-devel", "elogind-devel", "gnome-desktop-devel",
     "json-glib-devel", "libice-devel", "libsm-devel", "libx11-devel", "xtrans"
 ]
 depends = [

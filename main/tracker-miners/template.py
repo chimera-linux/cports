@@ -28,7 +28,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gettext-tiny", "asciidoc", "xsltproc",
 ]
 makedepends = [
-    "tracker-devel", "libglib-devel", "dbus-devel", "gstreamer-devel",
+    "tracker-devel", "glib-devel", "dbus-devel", "gstreamer-devel",
     "gst-plugins-base-devel", "icu-devel", "libexif-devel", "libseccomp-devel",
     "libjpeg-turbo-devel", "libpng-devel", "libtiff-devel", "giflib-devel",
     "libxml2-devel", "libpoppler-glib-devel", "upower-devel", "exempi-devel",

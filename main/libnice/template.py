@@ -11,7 +11,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection"
 ]
 makedepends = [
-    "gstreamer-devel", "openssl-devel", "libglib-devel"
+    "gstreamer-devel", "openssl-devel", "glib-devel"
 ]
 pkgdesc = "Implementation of the IETF's draft ICE"
 maintainer = "q66 <q66@chimera-linux.org>"

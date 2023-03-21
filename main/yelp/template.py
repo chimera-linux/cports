@@ -10,7 +10,7 @@ hostmakedepends = [
     "gmake", "glib-devel", "pkgconf", "gettext-tiny", "itstool",
 ]
 makedepends = [
-    "libglib-devel", "gtk+3-devel", "libhandy-devel", "libxml2-devel",
+    "glib-devel", "gtk+3-devel", "libhandy-devel", "libxml2-devel",
     "libxslt-devel", "sqlite-devel", "webkitgtk-devel", "yelp-xsl"
 ]
 depends = ["dconf", "yelp-xsl", "hicolor-icon-theme"]

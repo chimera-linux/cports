@@ -12,7 +12,7 @@ hostmakedepends = [
     "libxml2-progs", "gettext-tiny",
 ]
 makedepends = [
-    "gtk+3-devel", "libglib-devel", "glade3-devel",
+    "gtk+3-devel", "glib-devel", "glade3-devel",
 ]
 checkdepends = ["xserver-xorg-xvfb"]
 pkgdesc = "GTK+3 building blocks for modern adaptive applications"

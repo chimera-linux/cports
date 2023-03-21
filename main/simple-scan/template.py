@@ -6,7 +6,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gettext-tiny", "vala", "itstool"
 ]
 makedepends = [
-    "gtk+3-devel", "libglib-devel", "libhandy-devel", "cairo-devel",
+    "gtk+3-devel", "glib-devel", "libhandy-devel", "cairo-devel",
     "gdk-pixbuf-devel", "libgusb-devel", "colord-devel", "libwebp-devel",
     "sane-backends-devel", "zlib-devel",
 ]

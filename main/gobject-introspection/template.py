@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "flex", "bison"]
 makedepends = [
-    "libffi-devel", "libglib-devel", "python-devel",
+    "libffi-devel", "glib-devel", "python-devel",
     "python-mako", "python-markdown"
 ]
 depends = ["libgirepository-devel", "python-mako", "python-markdown"]

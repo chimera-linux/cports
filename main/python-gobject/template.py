@@ -7,7 +7,7 @@ make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "python-markupsafe"
 ]
-makedepends = ["libglib-devel", "python-cairo-devel", "python-devel"]
+makedepends = ["glib-devel", "python-cairo-devel", "python-devel"]
 checkdepends = [
     "python-pytest", "gtk+3", "xserver-xorg-xvfb", "fonts-dejavu-otf", "bash"
 ]

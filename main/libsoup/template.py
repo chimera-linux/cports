@@ -11,7 +11,7 @@ hostmakedepends = [
     "gettext-tiny"
 ]
 makedepends = [
-    "libglib-devel", "libxml2-devel", "sqlite-devel", "nghttp2-devel",
+    "glib-devel", "libxml2-devel", "sqlite-devel", "nghttp2-devel",
     "brotli-devel", "libpsl-devel", "vala-devel", "heimdal-devel",
     "glib-networking",
 ]

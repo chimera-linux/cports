@@ -6,7 +6,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala",
 ]
 makedepends = [
-    "libglib-devel", "libevdev-devel", "libgudev-devel"
+    "glib-devel", "libevdev-devel", "libgudev-devel"
 ]
 pkgdesc = "Simple GObject game controller library"
 maintainer = "q66 <q66@chimera-linux.org>"

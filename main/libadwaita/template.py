@@ -12,7 +12,7 @@ hostmakedepends = [
     "gettext-tiny", "sassc",
 ]
 makedepends = [
-    "gtk4-devel", "libglib-devel", "harfbuzz-devel",
+    "gtk4-devel", "glib-devel", "harfbuzz-devel",
 ]
 checkdepends = ["xserver-xorg-xvfb", "fonts-cantarell-otf"]
 pkgdesc = "GTK4 building blocks for modern adaptive applications"

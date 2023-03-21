@@ -53,7 +53,7 @@ makedepends = [
     "attr-devel", "cups-devel", "jansson-devel", "avahi-devel", "fuse-devel",
     "dbus-devel", "tdb-devel", "talloc-devel", "ldb-devel", "tevent-devel",
     "gnutls-devel", "cmocka-devel", "icu-devel", "musl-nscd",
-    "libglib-devel", "libedit-readline-devel",
+    "glib-devel", "libedit-readline-devel",
 ]
 self.depends = [
     f"samba-libs={pkgver}-r{pkgrel}",

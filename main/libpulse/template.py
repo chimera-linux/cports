@@ -14,7 +14,7 @@ hostmakedepends = [
     "meson", "pkgconf", "cmake", "perl", "perl-xml-parser",
 ]
 makedepends = [
-    "dbus-devel", "udev-devel", "libglib-devel", "libsndfile-devel",
+    "dbus-devel", "udev-devel", "glib-devel", "libsndfile-devel",
     "libsamplerate-devel", "orc-devel", "libcap-devel", "libcap-progs",
     "linux-headers"
 ]

@@ -11,7 +11,7 @@ hostmakedepends = [
     "gobject-introspection", "docbook-xsl-nons", "xsltproc",
 ]
 makedepends = [
-    "libusb-devel", "libgudev-devel", "libglib-devel",
+    "libusb-devel", "libgudev-devel", "glib-devel",
     "libimobiledevice-devel", "linux-headers",
 ]
 checkdepends = ["python-packaging", "python-dbus", "python-gobject"]

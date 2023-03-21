@@ -11,7 +11,7 @@ hostmakedepends = [
     "gobject-introspection", "vala", "bash",
 ]
 makedepends = [
-    "libglib-devel", "gnutls-devel", "gtk+3-devel", "gtk4-devel",
+    "glib-devel", "gnutls-devel", "gtk+3-devel", "gtk4-devel",
     "pcre2-devel", "vala-devel", "pango-devel", "fribidi-devel",
     "icu-devel", "zlib-devel", "linux-headers",
 ]

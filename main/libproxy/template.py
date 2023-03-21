@@ -13,7 +13,7 @@ configure_args = [
     "-DWITH_PYTHON3=ON",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "python", "glib-devel"]
-makedepends = ["libglib-devel", "zlib-devel"]
+makedepends = ["glib-devel", "zlib-devel"]
 pkgdesc = "Automatic proxy configuration management library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

@@ -10,7 +10,7 @@ hostmakedepends = [
     "python-gobject", "vala",
 ]
 makedepends = [
-    "libglib-devel", "exiv2-devel"
+    "glib-devel", "exiv2-devel"
 ]
 pkgdesc = "GObject wrapper for exiv2"
 maintainer = "q66 <q66@chimera-linux.org>"

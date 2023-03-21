@@ -6,7 +6,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gettext-tiny",
 ]
 makedepends = [
-    "gtk4-devel", "libadwaita-devel", "libglib-devel", "fontconfig-devel",
+    "gtk4-devel", "libadwaita-devel", "glib-devel", "fontconfig-devel",
     "harfbuzz-devel", "freetype-devel", "gnome-desktop-devel",
 ]
 pkgdesc = "Font viewer for GNOME"

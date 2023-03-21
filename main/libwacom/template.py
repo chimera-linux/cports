@@ -6,7 +6,7 @@ configure_args = [
     "-Ddocumentation=disabled", "-Dtests=enabled"
 ]
 hostmakedepends = ["meson", "pkgconf"]
-makedepends = ["libgudev-devel", "libglib-devel", "libxml2-devel"]
+makedepends = ["libgudev-devel", "glib-devel", "libxml2-devel"]
 checkdepends = ["bash"]
 pkgdesc = "Library to handle Wacom tablets"
 maintainer = "q66 <q66@chimera-linux.org>"

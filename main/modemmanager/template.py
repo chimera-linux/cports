@@ -13,7 +13,7 @@ hostmakedepends = [
     "xsltproc", "gettext-tiny",
 ]
 makedepends = [
-    "libglib-devel", "libgudev-devel", "polkit-devel", "libqmi-devel",
+    "glib-devel", "libgudev-devel", "polkit-devel", "libqmi-devel",
     "libmbim-devel", "libxslt-devel", "vala-devel", "elogind-devel",
     "python-gobject-devel", "python-dbus-devel", "linux-headers", "ppp"
 ]

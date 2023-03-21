@@ -8,7 +8,7 @@ hostmakedepends = [
     "itstool",
 ]
 makedepends = [
-    "libglib-devel", "gtk+3-devel", "libhandy-devel", "libpeas-devel",
+    "glib-devel", "gtk+3-devel", "libhandy-devel", "libpeas-devel",
     "gnome-desktop-devel", "gdk-pixbuf-devel", "libexif-devel",
     "exempi-devel", "lcms2-devel", "libportal-devel", "librsvg-devel",
     "libjpeg-turbo-devel",

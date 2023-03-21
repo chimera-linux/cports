@@ -8,7 +8,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libhandy-devel", "accountsservice-devel", "colord-devel",
-    "colord-gtk-devel", "libglib-devel", "gnome-desktop-devel",
+    "colord-gtk-devel", "glib-devel", "gnome-desktop-devel",
     "gnome-settings-daemon-devel", "gnome-online-accounts-devel",
     "gsettings-desktop-schemas-devel", "libxml2-devel", "polkit-devel",
     "libpulse-devel", "upower-devel", "libgudev-devel", "libx11-devel",

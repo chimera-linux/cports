@@ -8,7 +8,7 @@ hostmakedepends = [
     "gettext-tiny",
 ]
 makedepends = [
-    "libglib-devel", "geocode-glib-devel", "gnome-desktop-devel",
+    "glib-devel", "geocode-glib-devel", "gnome-desktop-devel",
     "gtk+3-devel", "gsettings-desktop-schemas-devel", "libgweather-devel",
     "lcms2-devel", "libcanberra-devel", "geoclue-devel", "libnotify-devel",
     "libpulse-devel", "pango-devel", "upower-devel", "libx11-devel",

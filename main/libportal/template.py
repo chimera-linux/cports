@@ -6,7 +6,7 @@ configure_args = ["-Ddocs=false", "-Dbackends=gtk3,gtk4"]
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala"
 ]
-makedepends = ["libglib-devel", "gtk+3-devel", "gtk4-devel"]
+makedepends = ["glib-devel", "gtk+3-devel", "gtk4-devel"]
 pkgdesc = "Flatpak portal library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-only"

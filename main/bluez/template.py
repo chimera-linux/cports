@@ -21,7 +21,7 @@ hostmakedepends = [
 # TODO: look into porting to libedit later
 # same story as iwd, really crappy usage of readline API
 makedepends = [
-    "udev-devel", "dbus-devel", "cups-devel", "libglib-devel",
+    "udev-devel", "dbus-devel", "cups-devel", "glib-devel",
     "libical-devel", "readline-devel", "linux-headers", "musl-bsd-headers",
 ]
 pkgdesc = "Linux Bluetooth stack"

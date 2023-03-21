@@ -8,7 +8,7 @@ hostmakedepends = [
     "cmake", "desktop-file-utils",
 ]
 makedepends = [
-    "libglib-devel", "gnome-desktop-devel", "gnome-autoar-devel",
+    "glib-devel", "gnome-desktop-devel", "gnome-autoar-devel",
     "libadwaita-devel", "gtk4-devel", "libportal-devel", "tracker-devel",
     "libxml2-devel", "gexiv2-devel", "gst-plugins-base-devel",
     "libcloudproviders-devel",

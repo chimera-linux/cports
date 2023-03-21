@@ -14,7 +14,7 @@ hostmakedepends = [
     "desktop-file-utils",
 ]
 makedepends = [
-    "gtk+3-devel", "libglib-devel", "libhandy-devel", #"nautilus-devel",
+    "gtk+3-devel", "glib-devel", "libhandy-devel", #"nautilus-devel",
     "dbus-devel", "libsecret-devel", "gstreamer-devel", "libspectre-devel",
     "libarchive-devel", "libpoppler-glib-devel", "gst-plugins-base-devel",
     "gsettings-desktop-schemas-devel", "libtiff-devel", "libgxps-devel",

@@ -8,7 +8,7 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
-    "fontconfig-devel", "freetype-bootstrap", "libglib-devel",
+    "fontconfig-devel", "freetype-bootstrap", "glib-devel",
     "libpng-devel", "libx11-devel", "libxcb-devel", "libxext-devel",
     "libxrender-devel", "lzo-devel", "zlib-devel", "pixman-devel",
 ]

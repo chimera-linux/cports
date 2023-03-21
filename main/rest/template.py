@@ -12,7 +12,7 @@ hostmakedepends = [
     "gettext-tiny",
 ]
 makedepends = [
-    "libglib-devel", "libsoup-devel", "json-glib-devel", "libxml2-devel",
+    "glib-devel", "libsoup-devel", "json-glib-devel", "libxml2-devel",
 ]
 pkgdesc = "GNOME RESTful library"
 maintainer = "q66 <q66@chimera-linux.org>"

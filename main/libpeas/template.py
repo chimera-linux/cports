@@ -9,7 +9,7 @@ hostmakedepends = [
     "gobject-introspection", "python"
 ]
 makedepends = [
-    "libglib-devel", "python-devel", "python-gobject-devel", "gtk+3-devel",
+    "glib-devel", "python-devel", "python-gobject-devel", "gtk+3-devel",
     "glade3-devel"
 ]
 depends = ["python-gobject", "hicolor-icon-theme"]

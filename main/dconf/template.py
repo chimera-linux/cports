@@ -6,7 +6,7 @@ hostmakedepends = [
     "meson", "pkgconf", "docbook-xsl-nons", "glib-devel", "xsltproc", "vala"
 ]
 makedepends = [
-    "dbus-devel", "libglib-devel", "gtk+3-devel", "libxml2-devel",
+    "dbus-devel", "glib-devel", "gtk+3-devel", "libxml2-devel",
     "vala-devel", "bash-completion"
 ]
 checkdepends = ["dbus"]

@@ -11,7 +11,7 @@ hostmakedepends = [
     "meson", "pkgconf", "gobject-introspection", "glib-devel",
 ]
 makedepends = [
-    "dbus-devel", "libglib-devel", "mozjs102-devel", "cairo-devel",
+    "dbus-devel", "glib-devel", "mozjs102-devel", "cairo-devel",
     "libedit-readline-devel",
 ]
 checkdepends = ["gir-freedesktop", "gtk+3"]

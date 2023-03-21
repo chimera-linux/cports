@@ -8,7 +8,7 @@ hostmakedepends = [
     "docbook-xsl-nons", "desktop-file-utils",
 ]
 makedepends = [
-    "libdvdread-devel", "libglib-devel", "gtk+3-devel", "libhandy-devel",
+    "libdvdread-devel", "glib-devel", "gtk+3-devel", "libhandy-devel",
     "liblzma-devel", "libnotify-devel", "libsecret-devel", "udisks-devel",
     "libpwquality-devel", "elogind-devel", "libcanberra-devel",
 ]

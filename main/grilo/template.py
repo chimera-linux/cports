@@ -11,7 +11,7 @@ hostmakedepends = [
     "gettext-tiny", "vala",
 ]
 makedepends = [
-    "libglib-devel", "libxml2-devel", "libsoup-devel", "gtk+3-devel",
+    "glib-devel", "libxml2-devel", "libsoup-devel", "gtk+3-devel",
     "liboauth-devel", "totem-pl-parser-devel",
 ]
 pkgdesc = "Framework for media discovery"

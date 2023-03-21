@@ -11,7 +11,7 @@ hostmakedepends = [
     "vala", "glib-devel"
 ]
 makedepends = [
-    "libglib-devel", "enchant-devel", "gtk+3-devel", "icu-devel", "vala"
+    "glib-devel", "enchant-devel", "gtk+3-devel", "icu-devel", "vala"
 ]
 pkgdesc = "Spell-checking library for Gtk+"
 maintainer = "q66 <q66@chimera-linux.org>"

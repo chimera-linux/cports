@@ -13,7 +13,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "rust", "vala-devel", "cairo-devel", "pango-devel", "freetype-devel",
-    "gdk-pixbuf-devel", "libglib-devel", "libxml2-devel",
+    "gdk-pixbuf-devel", "glib-devel", "libxml2-devel",
 ]
 provides = [f"gdk-pixbuf-loader-svg={pkgver}-r{pkgrel}"]
 pkgdesc = "SVG library for GNOME"

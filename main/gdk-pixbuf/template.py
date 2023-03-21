@@ -10,7 +10,7 @@ hostmakedepends = [
     "glib-devel", "gobject-introspection", "python-docutils",
 ]
 makedepends = [
-    "libglib-devel", "libpng-devel", "libtiff-devel", "shared-mime-info",
+    "glib-devel", "libpng-devel", "libtiff-devel", "shared-mime-info",
 ]
 depends = ["shared-mime-info"]
 triggers = ["/usr/lib/gdk-pixbuf-2.0/2.10.0/loaders"]

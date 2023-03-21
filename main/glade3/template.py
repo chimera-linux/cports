@@ -10,7 +10,7 @@ hostmakedepends = [
     "gobject-introspection", "gjs-devel", "yelp-tools", "itstool",
 ]
 makedepends = [
-    "libglib-devel", "gtk+3-devel", "python-gobject-devel", "webkitgtk-devel",
+    "glib-devel", "gtk+3-devel", "python-gobject-devel", "webkitgtk-devel",
     "gjs-devel", "libxml2-devel",
 ]
 depends = ["hicolor-icon-theme"]

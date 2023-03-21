@@ -37,7 +37,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libcurl-devel", "python-devel", "libdbi-devel", "openssl-devel",
-    "eventlog-devel", "libglib-devel", "hiredis-devel", "ivykis-devel",
+    "eventlog-devel", "glib-devel", "hiredis-devel", "ivykis-devel",
     "json-c-devel", "rabbitmq-c-devel"
 ]
 pkgdesc = "Next generation logging daemon"

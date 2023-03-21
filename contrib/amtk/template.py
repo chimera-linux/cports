@@ -8,7 +8,7 @@ hostmakedepends = [
     "gettext-tiny",
 ]
 makedepends = [
-    "libglib-devel", "gtk+3-devel"
+    "glib-devel", "gtk+3-devel"
 ]
 pkgdesc = "Actions, Menus and Toolbars Kit for GTK+ applications"
 maintainer = "q66 <q66@chimera-linux.org>"

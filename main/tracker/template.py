@@ -14,7 +14,7 @@ hostmakedepends = [
     "python-gobject",
 ]
 makedepends = [
-    "libglib-devel", "dbus-devel", "icu-devel", "json-glib-devel",
+    "glib-devel", "dbus-devel", "icu-devel", "json-glib-devel",
     "libxml2-devel", "sqlite-devel", "libsoup-devel", "bash-completion"
 ]
 pkgdesc = "Search engine and triplestore for desktop, embedded and mobile"

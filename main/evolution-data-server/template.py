@@ -14,7 +14,7 @@ hostmakedepends = [
     "gobject-introspection", "gettext-tiny", "vala", "perl",
 ]
 makedepends = [
-    "libglib-devel", "libcanberra-devel", "libical-devel", "heimdal-devel",
+    "glib-devel", "libcanberra-devel", "libical-devel", "heimdal-devel",
     "webkitgtk-devel", "webkitgtk4-devel", "libsecret-devel", "nss-devel",
     "nspr-devel", "gnome-online-accounts-devel", "sqlite-devel",
     "libgweather-devel", "libsoup-devel", "json-glib-devel",

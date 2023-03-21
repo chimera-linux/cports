@@ -11,7 +11,7 @@ hostmakedepends = [
     "gst-plugins-good",
 ]
 makedepends = [
-    "libglib-devel", "gtk+3-devel", "libhandy-devel", "gstreamer-devel",
+    "glib-devel", "gtk+3-devel", "libhandy-devel", "gstreamer-devel",
     "gst-plugins-base-devel", "gst-plugins-good", "libpeas-devel",
     "totem-pl-parser-devel", "gsettings-desktop-schemas-devel",
     "gnome-desktop-devel", "grilo-devel",

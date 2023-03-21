@@ -7,7 +7,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "xsltproc", "docbook-xsl-nons",
     "gobject-introspection", "vala"
 ]
-makedepends = ["libglib-devel", "libgcrypt-devel", "vala"]
+makedepends = ["glib-devel", "libgcrypt-devel", "vala"]
 pkgdesc = "GObject-based library for accessing the Secret Service API"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

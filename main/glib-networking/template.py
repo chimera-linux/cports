@@ -9,7 +9,7 @@ configure_args = [
 hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext-tiny"]
 makedepends = [
     "openssl-devel", "gnutls-devel", "gsettings-desktop-schemas-devel",
-    "libglib-devel", "libproxy-devel"
+    "glib-devel", "libproxy-devel"
 ]
 depends = ["gsettings-desktop-schemas"]
 checkdepends = ["glib"]

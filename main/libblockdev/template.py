@@ -10,7 +10,7 @@ make_cmd = "gmake"
 hostmakedepends = ["gmake", "bash", "pkgconf", "python"]
 makedepends = [
     "cryptsetup-devel", "device-mapper-devel", "dmraid-devel",
-    "libbytesize-devel", "libglib-devel", "libkmod-devel",
+    "libbytesize-devel", "glib-devel", "libkmod-devel",
     "libyaml-devel", "parted-devel", "pcre2-devel", "linux-headers"
 ]
 pkgdesc = "Library for manipulating block devices"

@@ -11,7 +11,7 @@ hostmakedepends = [
     "cmake", "ninja", "pkgconf", "gobject-introspection", "glib-devel"
 ]
 makedepends = [
-    "libglib-devel", "cairo-devel", "lcms2-devel", "libcurl-devel",
+    "glib-devel", "cairo-devel", "lcms2-devel", "libcurl-devel",
     "boost-devel", "libpng-devel", "libtiff-devel", "openjpeg-devel",
 ]
 pkgdesc = "PDF rendering library"

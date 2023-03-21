@@ -9,7 +9,7 @@ hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala",
 ]
 makedepends = [
-    "gtk+3-devel", "libglib-devel"
+    "gtk+3-devel", "glib-devel"
 ]
 pkgdesc = "Library to delight your users with fancy features"
 maintainer = "q66 <q66@chimera-linux.org>"

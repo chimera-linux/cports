@@ -14,7 +14,7 @@ hostmakedepends = [
     "bison", "glib-devel", "libcap-progs", "gobject-introspection",
 ]
 makedepends = [
-    "libxml2-devel", "libglib-devel", "libcap-devel", "bash-completion",
+    "libxml2-devel", "glib-devel", "libcap-devel", "bash-completion",
 ]
 pkgdesc = "Core GStreamer libraries and elements"
 maintainer = "q66 <q66@chimera-linux.org>"

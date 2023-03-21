@@ -13,7 +13,7 @@ hostmakedepends = [
     "gettext-tiny", "libxcvt-progs", "xwayland",
 ]
 makedepends = [
-    "libglib-devel", "graphene-devel", "gtk4-devel", "pango-devel",
+    "glib-devel", "graphene-devel", "gtk4-devel", "pango-devel",
     "cairo-devel", "fribidi-devel", "gsettings-desktop-schemas-devel",
     "gnome-settings-daemon-devel", "gnome-desktop-devel", "json-glib-devel",
     "libx11-devel", "libxcomposite-devel", "libxcursor-devel", "libxtst-devel",

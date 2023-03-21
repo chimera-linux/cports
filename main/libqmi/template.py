@@ -11,7 +11,7 @@ hostmakedepends = [
     "gmake", "pkgconf", "glib-devel", "libgudev-devel", "libmbim-devel",
     "libqrtr-glib-devel", "gobject-introspection"
 ]
-makedepends = ["libglib-devel", "libgudev-devel", "linux-headers"]
+makedepends = ["glib-devel", "libgudev-devel", "linux-headers"]
 pkgdesc = "QMI modem protocol helper library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
