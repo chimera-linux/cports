@@ -1,5 +1,5 @@
 pkgname = "dinit-chimera"
-_commit = "4cbed2b34ef3dbb31c4599314450ce3f063ae14d"
+_commit = "8b853603185db1c1360eb20dc0ef9c5bfcecd14d"
 pkgver = "0.11"
 pkgrel = 0
 build_style = "makefile"
@@ -21,12 +21,13 @@ depends = [
     "virtual:cmd:sysctl!procps",
     "virtual:cmd:udevadm!udev",
 ]
+triggers = ["/usr/lib/binfmt.d"]
 pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
-sha256 = "d99ffd7ff23b1b714c54ea3696292c1fe56f8f1b5f53212acc42e7bfc8e2e47f"
+sha256 = "819fab1341c096a100b3e86b360b29a159806f9997b79373d6380df858bc833c"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
@@ -42,11 +43,6 @@ def post_install(self):
     self.install_file(
         self.files_path / "01dinit-env", "etc/X11/Xsession.d", mode = 0o755
     )
-    # to be removed upstream later
-    for f in (self.destdir / "usr/lib/dinit.d/boot.d").glob("agetty-*"):
-        f.unlink()
-    for f in (self.destdir / "etc/dinit.d").glob("agetty-*"):
-        f.unlink()
 
 @subpackage("dinit-chimera-x11")
 def _x11(self):
