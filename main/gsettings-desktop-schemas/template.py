@@ -1,5 +1,5 @@
 pkgname = "gsettings-desktop-schemas"
-pkgver = "43.0"
+pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true"]
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "5d5568282ab38b95759d425401f7476e56f8cbf2629885587439f43bd0b84bbe"
+sha256 = "eb2de45cad905994849e642a623adeb75d41b21b0626d40d2a07b8ea281fec0e"
 options = ["!cross"]
 
 @subpackage("gsettings-desktop-schemas-devel")
