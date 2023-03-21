@@ -1444,9 +1444,9 @@ class Subpackage(Package):
                 else:
                     if instif == "python-pycache":
                         instif = f"{instif}~{gpyver}"
-                    self.install_if = [fbdep, instif]
-                    if not instif.startswith("base-") and instif != "python-pycache":
+                    elif not instif.startswith("base-"):
                         ddeps.append(instif)
+                    self.install_if = [fbdep, instif]
 
         self.depends = ddeps
 
