@@ -2,6 +2,9 @@
 
 [ -r /etc/default/console-setup ] && . /etc/default/console-setup
 
+export PATH=/usr/bin
+
+# the specified active consoles we want
 ACTIVE_CONSOLES=$(
     for tty in $ACTIVE_CONSOLES; do
         if [ -e $tty ]; then
@@ -10,10 +13,37 @@ ACTIVE_CONSOLES=$(
     done
 )
 
-for tty in $ACTIVE_CONSOLES; do
-    tty=${tty##*/}
-    [ -f /etc/dinit.d/agetty-$tty ] || continue
-    /usr/bin/dinitctl start agetty-$tty > /dev/null &
+# possibly already active console list
+PREV_CONSOLES=
+[ -f /run/agetty-active ] && PREV_CONSOLES=$(cat /run/agetty-active)
+
+# add dependency links for all possible requested consoles
+ACTIVE_SERVICES=$(
+    for tty in $ACTIVE_CONSOLES; do
+        tty=${tty##*/}
+        [ -f /etc/dinit.d/agetty-$tty ] || continue
+        dinitctl add-dep milestone agetty agetty-$tty > /dev/null
+        echo $tty
+    done
+)
+
+# clear dependency links for consoles that were active but should not be
+for otty in $PREV_CONSOLES; do
+    for tty in $ACTIVE_SERVICES; do
+        if [ "$tty" = "$otty" ]; then
+            otty=
+            break
+        fi
+    done
+    [ -n "$otty" ] && dinitctl rm-dep milestone agetty agetty-$otty > /dev/null
+done
+
+rm -f /run/agetty-active
+
+# wake whichever services newly got links and generate a new active list
+for tty in $ACTIVE_SERVICES; do
+    echo $tty >> /run/agetty-active
+    dinitctl wake agetty-$tty > /dev/null &
 done
 
 wait || :
