@@ -1,0 +1,7 @@
+# chrony service
+
+type            = process
+command         = /usr/bin/chronyd -n -u _chrony
+depends-on      = network.target
+depends-on      = chrony-dir
+smooth-recovery = true
