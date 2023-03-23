@@ -8,7 +8,7 @@ import tempfile
 import subprocess
 
 # this one has the dummy root available
-def _check_stage(sroot, stlist, arch, signkey):
+def check_stage(stlist, arch, signkey):
     added = {}
     dropped = {}
     replaced = {}
@@ -17,7 +17,7 @@ def _check_stage(sroot, stlist, arch, signkey):
     def _call_apk(*args):
         return subprocess.run([
             paths.apk(), "--quiet", "--arch", arch, "--allow-untrusted",
-            "--root", sroot, *args
+            "--root", paths.bldroot(), *args
         ], capture_output = True)
 
     # full repo list for revdep search
@@ -50,17 +50,21 @@ def _check_stage(sroot, stlist, arch, signkey):
         if not (ad / "APKINDEX.tar.gz").is_file():
             continue
         # search for all staged packages
-        ret = _call_apk("--repository", str(d.parent), "search")
+        ret = _call_apk(
+            "--from", "none", "--repository", str(d.parent), "search"
+        )
         # go over each staged package
         for p in ret.stdout.strip().decode().split():
             # stage providers
             pr = _call_apk(
-                "--repository", str(d.parent), "info", "--provides", p
+                "--from", "none", "--repository", str(d.parent),
+                "info", "--provides", p
             )
             stpr = set(pr.stdout.strip().decode().split())
             # repo providers
             pr = _call_apk(
-                "--repository", str(ad.parent), "info", "--provides", p
+                "--from", "none", "--repository", str(ad.parent),
+                "info", "--provides", p
             )
             rppr = set(pr.stdout.strip().decode().split())
             # if they are the same, just skip
@@ -91,7 +95,10 @@ def _check_stage(sroot, stlist, arch, signkey):
 
     # for each dropped provider, get known revdeps and accumulate a set
     for d in dropped:
-        ret = _call_apk(*rlist, "search", "--exact", "--all", "--rdepends", d)
+        ret = _call_apk(
+            *rlist, "search", "--from", "none",
+            "--exact", "--all", "--rdepends", d
+        )
         for pn in ret.stdout.strip().decode().split():
             revdeps[pn] = True
 
@@ -109,7 +116,9 @@ def _check_stage(sroot, stlist, arch, signkey):
         for tryr in rlist:
             if tryr == "--repository":
                 continue
-            ret = _call_apk("--repository", tryr, "info", "--depends", d)
+            ret = _call_apk(
+                "--repository", tryr, "info", "--from", "none", "--depends", d
+            )
             if ret.returncode != 0 or len(ret.stdout) == 0:
                 # does not exist in this repo
                 continue
@@ -196,7 +205,9 @@ def _check_stage(sroot, stlist, arch, signkey):
     # we are not dealing with something that still has another suitable
     # provider, as that should not stage us
     for d in list(checkdeps.keys()):
-        ret = _call_apk(*rlist, "search", "--all", "--exact", d)
+        ret = _call_apk(
+            *rlist, "search", "--from", "none", "--all", "--exact", d
+        )
         # for each provider of sketchy dependency, if it's provided
         # using a name that was not deleted, it's probably okay
         for pd in ret.stdout.strip().decode().split():
@@ -217,15 +228,6 @@ def _check_stage(sroot, stlist, arch, signkey):
         print(f" rebuild: {', '.join(checkdeps[d])} ({d})")
 
     return False
-
-def check_stage(stagelist, arch, signkey):
-    # we need a dummy root; since we use apk info to query providers,
-    # and there is no way to prevent that from including installed
-    # stuff in the output, this is the only good way
-    with tempfile.TemporaryDirectory() as stageroot:
-        stageroot = pathlib.Path(stageroot)
-        chroot.initdb(stageroot)
-        return _check_stage(stageroot, stagelist, arch, signkey)
 
 def _do_clear(arch, signkey, force):
     repop = paths.repository()

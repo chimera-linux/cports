@@ -57,16 +57,18 @@ def _scan_so(pkg):
             aarch = None
 
         info = cli.call(
-            "info", ["--installed", "--description", "so:" + dep], None,
-            root = broot, capture_output = True, arch = aarch,
+            "info",
+            ["--from", "installed", "--description", "so:" + dep],
+            None, root = broot, capture_output = True, arch = aarch,
             allow_untrusted = True
         )
         if info.returncode != 0:
             # when bootstrapping, also check the repository
             if pkg.stage == 0:
                 info = cli.call(
-                    "info", ["--description", "so:" + dep], "main",
-                    capture_output = True, allow_untrusted = True
+                    "info",
+                    ["--from", "none", "--description", "so:" + dep],
+                    "main", capture_output = True, allow_untrusted = True
                 )
 
         # either of the commands failed

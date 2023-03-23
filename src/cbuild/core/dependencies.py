@@ -159,8 +159,8 @@ def _is_available(pkgn, pattern, pkg, host = False):
         crossp = False
 
     aout = apki.call(
-        "search", ["-e", "-a", pkgn], pkg, root = sysp, capture_output = True,
-        arch = aarch, allow_untrusted = True
+        "search", ["--from", "none", "-e", "-a", pkgn], pkg, root = sysp,
+        capture_output = True, arch = aarch, allow_untrusted = True
     )
 
     if aout.returncode != 0:
@@ -171,17 +171,7 @@ def _is_available(pkgn, pattern, pkg, host = False):
     if len(pn) == 0:
         return None
 
-    pn = pn.split("\n")
-
-    if len(pn) > 1:
-        if crossp and pn[0].startswith("base-cross-target-meta"):
-            # FIXME: find a way to ignore "installed" packages
-            # maybe coordinate this with upstream and add an option
-            pn = pn[1]
-        else:
-            pn = pn[0]
-    else:
-        pn = pn[0]
+    pn = pn.split("\n")[0]
 
     if not pattern or autil.pkg_match(pn, pattern):
         return pn[len(pkgn) + 1:]

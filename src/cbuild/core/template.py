@@ -951,7 +951,7 @@ class Template(Package):
 
     def is_built(self):
         pinfo = cli.call(
-            "search", ["-e", self.pkgname],
+            "search", ["--from", "none", "-e", self.pkgname],
             self.repository, capture_output = True,
             arch = self.profile().arch,
             allow_untrusted = True, allow_network = False, use_altrepo = False
