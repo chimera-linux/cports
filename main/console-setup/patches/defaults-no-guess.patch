@@ -1,4 +1,4 @@
-From 7f2dfb45a25f206a9f7fb8592d95a5f404e2b891 Mon Sep 17 00:00:00 2001
+From 37dc5d9198e2a423902613a9d800d531ea2ba4e1 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 18 Feb 2023 01:45:34 +0100
 Subject: [PATCH] drop guess behavior for consoles/charmap and specify fixed
@@ -8,17 +8,20 @@ This was never really reliable, as the guess behavior relies on
 stuff that is not present in Chimera. Additionally, we now make
 ACTIVE_CONSOLES the canonical value for default VT getty config,
 so better always set it right.
+
+Also, do not configure the font by default. Leave it to what the
+kernel defaults to, unless the user wants something else.
 ---
- config/console-setup |  4 ++--
+ config/console-setup |  8 ++++----
  man/console-setup.5  | 17 +----------------
  setupcon             | 37 +------------------------------------
- 3 files changed, 4 insertions(+), 54 deletions(-)
+ 3 files changed, 6 insertions(+), 56 deletions(-)
 
 diff --git a/config/console-setup b/config/console-setup
-index d27955c..96e6445 100644
+index d27955c..bd20f61 100644
 --- a/config/console-setup
 +++ b/config/console-setup
-@@ -2,9 +2,9 @@
+@@ -2,13 +2,13 @@
  
  # Consult the console-setup(5) manual page.
  
@@ -29,7 +32,13 @@ index d27955c..96e6445 100644
 +CHARMAP="UTF-8"
  
  CODESET=guess
- FONTFACE=TerminusBold
+-FONTFACE=TerminusBold
+-FONTSIZE=16
++FONTFACE=
++FONTSIZE=
+ 
+ VIDEOMODE=
+ 
 diff --git a/man/console-setup.5 b/man/console-setup.5
 index 8bc515d..3135b8b 100644
 --- a/man/console-setup.5
@@ -66,10 +75,10 @@ index 8bc515d..3135b8b 100644
  .TP
  .B CODESET
 diff --git a/setupcon b/setupcon
-index ab65fcc..51c1401 100755
+index 85de539..05eb761 100755
 --- a/setupcon
 +++ b/setupcon
-@@ -483,46 +483,11 @@ ACTIVE_CONSOLES=$(
+@@ -477,46 +477,11 @@ ACTIVE_CONSOLES=$(
          fi
      done
  )
