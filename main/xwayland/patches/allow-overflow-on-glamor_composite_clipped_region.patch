@@ -3,10 +3,10 @@ Mostly seems benign, and when attaching the actual UBSan runtime they disappear
 
 So just disable it for that function
 
-diff --git a/glamor/glamor_render.c b/glamor/glamor_render.c.new
+diff --git a/glamor/glamor_render.c b/glamor/glamor_render.c
 index 2af65bf9..84042055 100644
 --- a/glamor/glamor_render.c
-+++ b/glamor/glamor_render.c.new
++++ b/glamor/glamor_render.c
 @@ -1386,6 +1386,7 @@ glamor_convert_gradient_picture(ScreenPtr screen,
      return dst;
  }
