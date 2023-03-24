@@ -32,7 +32,6 @@ depends = [
     "tracker",
     "tracker-miners",
     "yelp",
-    "zenity",
 ]
 pkgdesc = "GNOME desktop environment (minimal session)"
 maintainer = "q66 <q66@chimera-linux.org>"
