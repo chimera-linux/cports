@@ -25,7 +25,7 @@ makedepends = [
     "pipewire-devel", "libinput-devel", "startup-notification-devel",
     "colord-devel", "lcms2-devel", "at-spi2-core-devel",
 ]
-depends = ["gsettings-desktop-schemas", "zenity"]
+depends = ["gsettings-desktop-schemas"]
 pkgdesc = "GNOME X11 window manager, Wayland display server and compositor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
