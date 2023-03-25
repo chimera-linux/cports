@@ -16,4 +16,5 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/xorriso"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{_xver}.tar.gz"
 sha256 = "3ec7393d4a9dcbf5f74309c28a415f55227ec62770b95ae993ac8d7a3b152972"
-hardening = ["vis", "cfi"]
+# FIXME fails to generate live
+hardening = ["vis", "!cfi"]
