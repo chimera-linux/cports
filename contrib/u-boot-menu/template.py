@@ -14,6 +14,10 @@ def do_install(self):
     self.install_bin(
         self.files_path / "update-u-boot.sh", name = "update-u-boot"
     )
+    # installer
+    self.install_bin(
+        self.files_path / "install-u-boot.sh", name = "install-u-boot"
+    )
     # config file
     self.install_file(self.files_path / "u-boot", "etc/default")
     # kernel hook

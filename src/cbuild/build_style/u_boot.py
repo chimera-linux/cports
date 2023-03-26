@@ -30,6 +30,9 @@ def do_install(self):
     destp = "usr/lib/u-boot/" + self.pkgname.removeprefix("u-boot-")
     for f in ["u-boot.bin", ".config"] + self.env["U_BOOT_TARGETS"].split():
         self.install_file(f, destp)
+    # flasher
+    if (self.files_path / "flash.sh").is_file():
+        self.install_file(self.files_path / "flash.sh", destp, mode = 0o755)
     # licenses
     for f in (self.cwd / "Licenses").iterdir():
         self.install_license(f"Licenses/{f.name}")

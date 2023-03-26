@@ -1,4 +1,4 @@
-# The configuration file for u-boot menu generator.
+# The configuration file for u-boot manager.
 # Commented out lines are just defaults.
 #
 
@@ -7,6 +7,9 @@
 
 # The file fdt path is sourced from when no U_BOOT_FDT is set.
 #U_BOOT_FDT_FILE=/etc/default/u-boot-fdt
+
+# The file u-boot device name is sourced from when no U_BOOT_DEVICE is set.
+#U_BOOT_DEVICE_FILE=/etc/default/u-boot-device
 
 # The additional cmdline to use always.
 U_BOOT_CMDLINE=
@@ -19,6 +22,9 @@ U_BOOT_CMDLINE_DEFAULT="quiet splash"
 
 # The device tree blob to use, relative to kernel's dtbs dir (or absolute).
 #U_BOOT_FDT=
+
+# The u-boot device name to use.
+#U_BOOT_DEVICE=
 
 # The menu timeout.
 #U_BOOT_TIMEOUT=3

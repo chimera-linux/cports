@@ -17,6 +17,11 @@ def do_install(self):
         if x.is_dir():
             continue
         self.install_file(x, "usr/lib/u-boot/imx8mq_reform2")
+    # flasher
+    self.install_file(
+        self.files_path / "flash.sh",
+        "usr/lib/u-boot/imx8mq_reform2", mode = 0o755
+    )
     # licenses
     for f in (self.cwd / "Licenses").iterdir():
         self.install_license(f"Licenses/{f.name}")
