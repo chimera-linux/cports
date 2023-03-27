@@ -83,6 +83,7 @@ def configure(
 
     pkg.do(
         "meson",
+        "setup",
         "--prefix=/usr",
         "--libdir=/usr/lib",
         "--libexecdir=/usr/libexec",
