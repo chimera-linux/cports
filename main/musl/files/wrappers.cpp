@@ -132,6 +132,10 @@ class TSDAllocator {
          */
         auto *ch = p_freechunk;
         p_freechunk = nullptr;
+        /* update chunks pointer if needed */
+        if (ch == p_chunks) {
+            p_chunks = ch->m.below;
+        }
         /* first unchain */
         if (ch->m.below) {
             ch->m.below->m.above = ch->m.above;
