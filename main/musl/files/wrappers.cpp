@@ -32,6 +32,15 @@ inline void  operator delete (void *, void *) {}
 #define MUSL_SCUDO_USE_SECONDARY_CACHE 0
 #endif
 
+inline constexpr size_t size_round(size_t sz, size_t align) {
+    return ((sz + align - 1) / align) * align;
+}
+
+template<typename T, typename TM>
+inline constexpr size_t tsds_in_chunk() {
+    return (MUSL_SCUDO_TSD_CHUNK - sizeof(TM)) / size_round(sizeof(T), alignof(T));
+}
+
 /* tsd registry implementation specific to musl pthreads
  *
  * we need to use a custom one, because the existing exclusive registry
@@ -40,24 +49,183 @@ inline void  operator delete (void *, void *) {}
  * loaded through ldso, and also uses pthread keys and stuff, which we do
  * not like for libc
  *
- * so instead implement a very simplified version of the tsd registry that
- * integrates with musl's internals and maps tsd objects on-demand, only
- * storing the pointer within the thread structure
+ * so map the tsd object memory manually, and keep track of it using a custom
+ * algorithm, storing only one pointer to the tsd object within the thread
+ * object internally
  *
- * we take the approach of mapping (at most) TSD_CHUNK sized chunks, which
- * contain multiple TSDs - this is managed like a linked list, so that when
- * threads exit, their TSDs are given back to the list to be reused; in case
- * we do run out (which happens when there are more concurrently running
- * threads that do allocation than the existing chunks can satisfy), a new
- * one is mapped and linked to the previous.
+ * we map chunks of MUSL_SCUDO_TSD_CHUNK size, each containing storage for
+ * as many TSD objects as possible (the first chunk is allocated almost
+ * immediately, for the fallback TSD); these are managed like a linked list,
+ * so that when threads exit, their TSDs are given back to the list to be
+ * reused; in case we run out, a new chunk is mapped as needed
  *
- * in the end we only map as many chunks as necessary to satisfy the highest
- * number of concurrently running threads in the process; the 64k value was
- * chosen as it's effectively the maximum size of a single page we have on
- * our supported architectures - in those cases, only 1 page will be mapped
- * at a time, but on most systems this will be 16 pages (but always fitting
- * the same number of TSDs regardless)
+ * to make sure that we don't just map memory and never release any, the
+ * chunks are freed as necessary; the strategy is that there can only ever
+ * be one chunk that is fully empty - that effectively means an empty chunk
+ * is unmapped when another chunk becomes empty
+ *
+ * the 64k value was chosen for the chunk size as it's the maximum size of
+ * a single page one is generally to encounter, which means on these systems
+ * only a single page will be mapped at a time (on other systems, it will be
+ * multiple pages); regardless of page size, the chunk will be able to fit
+ * several TSDs
  */
+
+template<typename TSD>
+class TSDAllocator {
+    struct chunk;
+
+    struct tsdata {
+        TSD tsd;
+        tsdata *next;
+        chunk *parent;
+        uint32_t dirty: 1;
+        uint32_t unused: 1;
+    };
+
+    struct chunk_meta {
+        chunk *below;
+        chunk *above;
+        unsigned short nused;
+    };
+
+    struct chunk {
+        tsdata tsds[tsds_in_chunk<tsdata, chunk_meta>()];
+        chunk_meta m;
+    };
+
+    static_assert(sizeof(chunk) < MUSL_SCUDO_TSD_CHUNK, "chunk too large");
+
+    void init_chunk(chunk *ch) {
+        ch->m.below = p_chunks;
+        ch->m.above = nullptr;
+        ch->m.nused = 0;
+        if (p_chunks) {
+            p_chunks->m.above = ch;
+        }
+        p_chunks = ch;
+        /* init links */
+        auto tsdn = (sizeof(ch->tsds) / sizeof(tsdata));
+        for (size_t i = 0; i < (tsdn - 1); ++i) {
+            ch->tsds[i].parent = ch;
+            ch->tsds[i].next = &ch->tsds[i + 1];
+            ch->tsds[i].dirty = 0;
+            ch->tsds[i].unused = 1;
+        }
+        ch->tsds[tsdn - 1].parent = ch;
+        ch->tsds[tsdn - 1].next = nullptr;
+        ch->tsds[tsdn - 1].dirty = 0;
+        ch->tsds[tsdn - 1].unused = 1;
+        /* init unused */
+        p_unused = ch->tsds;
+    }
+
+    void release_freechunk() {
+        if (!p_freechunk) {
+            return;
+        }
+        /* unmap and unset whatever previous freechunk we may have
+         *
+         * doing this ensures that whenever there may be a newly
+         * gained empty chunk, the previous empty chunk will be
+         * unmapped, so there is always at most one and never more
+         */
+        auto *ch = p_freechunk;
+        p_freechunk = nullptr;
+        /* first unchain */
+        if (ch->m.below) {
+            ch->m.below->m.above = ch->m.above;
+        }
+        if (ch->m.above) {
+            ch->m.above->m.below = ch->m.below;
+        }
+        /* decide based on where our first pointer was positioned */
+        auto *sp = p_unused;
+        if (sp->parent == ch) {
+            /* we were at the beginning */
+            while (sp->parent == ch) {
+                sp = sp->next;
+            }
+            p_unused = sp;
+        } else {
+            /* we were in the middle or at the end */
+            while (sp->next->parent != ch) {
+                sp = sp->next;
+            }
+            auto *ep = sp->next;
+            while (ep && (ep->parent == ch)) {
+                ep = ep->next;
+            }
+            sp->next = ep;
+        }
+        /* then unmap */
+        scudo::unmap(ch, sizeof(chunk));
+    }
+
+    tsdata *p_unused = nullptr;
+    chunk *p_chunks = nullptr;
+    chunk *p_freechunk = nullptr;
+
+public:
+    TSD *request() {
+        if (!p_unused) {
+            auto *ch = static_cast<chunk *>(scudo::map(
+                nullptr, sizeof(chunk), "scudo:tsdchunk"
+            ));
+            new (ch) chunk{};
+            init_chunk(ch);
+        } else if (p_unused->parent == p_freechunk) {
+            /* chunk will be occupied again */
+            p_freechunk = nullptr;
+        }
+        /* yoink */
+        tsdata *tsd = p_unused;
+        p_unused = p_unused->next;
+        tsd->next = nullptr;
+        tsd->unused = 0;
+        ++tsd->parent->m.nused;
+        /* wipe dirty (recycled) tsds first */
+        if (tsd->dirty) {
+            memset(&tsd->tsd, 0, sizeof(tsd->tsd));
+            new (&tsd->tsd) TSD{};
+        }
+        return &tsd->tsd;
+    }
+
+    /* return it to the allocator; the TSD is destroyed but tsdata is not */
+    void release(TSD *tsd) {
+        tsdata *p;
+        /* get original structure */
+        memcpy(&p, &tsd, sizeof(void *));
+        /* get parent chunk */
+        auto *ch = p->parent;
+        /* empty chunk? */
+        if (!--ch->m.nused) {
+            /* drop the previous freechunk if needed */
+            release_freechunk();
+            /* assign new freechunk once empty */
+            p_freechunk = ch;
+        }
+        /* delay memset until it's actually needed */
+        p->dirty = 1;
+        /* try to locate a unused node */
+        for (size_t i = 0; i < (sizeof(ch->tsds) / sizeof(tsdata)); ++i) {
+            if (ch->tsds[i].unused) {
+                auto *pp = &ch->tsds[i];
+                auto *pn = pp->next;
+                pp->next = p;
+                p->next = pn;
+                p->unused = 1;
+                /* we are done here */
+                return;
+            }
+        }
+        /* couldn't locate a unused node, put it in the front */
+        p->unused = 1;
+        p->next = p_unused;
+        p_unused = p;
+    }
+};
 
 template<typename A>
 struct TSDRegistry {
@@ -111,52 +279,14 @@ struct TSDRegistry {
 private:
     friend void ::__malloc_tsd_teardown(void *p);
 
-    struct tsdata {
-        tsd_t tsd;
-        tsdata *next;
-    };
-
-    struct chunk {
-        tsdata tsds[(MUSL_SCUDO_TSD_CHUNK - sizeof(void *)) / sizeof(tsdata)];
-        chunk *next;
-    };
-
-    static_assert(sizeof(chunk) < MUSL_SCUDO_TSD_CHUNK, "chunk too large");
-
-    /* chunks are never released, just recycled */
-    tsd_t *request() {
-        if (!p_unused) {
-            auto *ch = static_cast<chunk *>(scudo::map(
-                nullptr, sizeof(chunk), "scudo:tsdchunk", 0
-            ));
-            new (ch) chunk{};
-            ch->next = p_chunks;
-            p_chunks = ch;
-            auto tsdn = (sizeof(ch->tsds) / sizeof(tsdata));
-            for (size_t i = 0; i < (tsdn - 1); ++i) {
-                ch->tsds[i].next = &ch->tsds[i + 1];
-            }
-            ch->tsds[tsdn - 1].next = p_unused;
-            p_unused = ch->tsds;
-        }
-        auto *tsd = p_unused;
-        p_unused = p_unused->next;
-        return &tsd->tsd;
-    }
-
     /* return it to the allocator */
     void dispose(A *inst, tsd_t *tsd) {
-        tsdata *p;
+        /* commit back and destroy, no need to lock yet */
         tsd->commitBack(inst);
         tsd->~tsd_t();
-        /* zero-fill and reinit */
-        memset(tsd, 0, sizeof(*tsd));
-        memcpy(&p, &tsd, sizeof(void *));
-        new (tsd) tsd_t{};
         {
             scudo::ScopedLock L{p_mtx};
-            p->next = p_unused;
-            p_unused = p;
+            p_talloc.release(tsd);
         }
     }
 
@@ -166,7 +296,7 @@ private:
             return;
         }
         inst->init();
-        p_fallback = request();
+        p_fallback = p_talloc.request();
         p_fallback->init(inst);
         p_init = true;
     }
@@ -176,7 +306,7 @@ private:
         {
             scudo::ScopedLock L{p_mtx};
             init_once_maybe(inst);
-            tsd = request();
+            tsd = p_talloc.request();
         }
         tsd->init(inst);
         self->scudo_tsd = tsd;
@@ -193,8 +323,7 @@ private:
     bool p_init = false;
     scudo::atomic_u8 p_disabled = {};
     tsd_t *p_fallback = nullptr;
-    tsdata *p_unused = nullptr;
-    chunk *p_chunks = nullptr;
+    TSDAllocator<tsd_t> p_talloc;
     scudo::HybridMutex p_mtx;
 };
 
@@ -286,8 +415,7 @@ void __malloc_tsd_teardown(void *p) {
         return;
     }
     *tsdp = nullptr;
-    auto *reg = o_alloc.getTSDRegistry();
-    reg->dispose(&o_alloc, tsd);
+    o_alloc.getTSDRegistry()->dispose(&o_alloc, tsd);
 }
 
 void *__libc_calloc(size_t m, size_t n) {
