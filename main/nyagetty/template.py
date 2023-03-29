@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
+depends = ["virtual:cmd:login!shadow"]
 pkgdesc = "Standalone util-linux agetty"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
