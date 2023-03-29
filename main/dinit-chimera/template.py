@@ -1,8 +1,9 @@
 pkgname = "dinit-chimera"
-_commit = "8b853603185db1c1360eb20dc0ef9c5bfcecd14d"
+_commit = "a8bd0a0d7b3599a7ffe742d5fcbffabda49e95eb"
 pkgver = "0.11"
 pkgrel = 0
-build_style = "makefile"
+build_style = "meson"
+hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
 depends = [
     "dinit", "tzdata",
@@ -19,6 +20,7 @@ depends = [
     "virtual:cmd:mountpoint!mount",
     "virtual:cmd:swapon!mount",
     "virtual:cmd:sysctl!procps",
+    "virtual:cmd:sulogin!shadow",
     "virtual:cmd:udevadm!udev",
 ]
 triggers = ["/usr/lib/binfmt.d"]
@@ -27,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
-sha256 = "819fab1341c096a100b3e86b360b29a159806f9997b79373d6380df858bc833c"
+sha256 = "1310126e3e33e8cf28be07d49d94a1981a5db696a40a3c5385a7e79694400d3a"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
