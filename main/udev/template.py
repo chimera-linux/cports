@@ -65,7 +65,6 @@ configure_args = [
     "-Dsysusers=false",
     "-Dtimedated=false",
     "-Dtimesyncd=false",
-    "-Dtmpfiles=false",
     "-Dtpm=false",
     "-Dqrencode=false",
     "-Dquotacheck=false",
@@ -96,6 +95,9 @@ configure_args = [
     "-Dsysvinit-path=",
     "-Drpmmacrosdir=no",
     "-Dpamconfdir=no",
+
+    # unrelated but we build it while at it
+    "-Dtmpfiles=true",
 ]
 hostmakedepends = [
     "meson", "pkgconf", "perl", "gperf", "bash",
@@ -132,10 +134,19 @@ def post_install(self):
 
     # drop some more systemd bits
     for f in [
-        "usr/include/systemd", "usr/lib/systemd",
+        "usr/include/systemd", "usr/lib/systemd", "usr/lib/tmpfiles.d",
         "usr/share/dbus-1", "usr/share/doc",
     ]:
         self.rm(ddir / f, recursive = True)
+
+    # remove tmpfiles that links to libsystemd
+    self.rm(self.destdir / "usr/bin/systemd-tmpfiles")
+
+    # move standalone in its place
+    self.mv(
+        self.destdir / "usr/bin/systemd-tmpfiles.standalone",
+        self.destdir / "usr/bin/systemd-tmpfiles"
+    )
 
     # predictable interface names
     self.install_file(
@@ -172,6 +183,16 @@ def _devel(self):
 @subpackage("udev-libs")
 def _libs(self):
     return self.default_libs()
+
+@subpackage("systemd-tmpfiles")
+def _tmpfiles(self):
+    self.pkgdesc = "Manage temporary/volatile files/directories"
+
+    return [
+        "usr/bin/systemd-tmpfiles",
+        "usr/share/man/man5/tmpfiles.d.5",
+        "usr/share/man/man8/systemd-tmpfiles.8",
+    ]
 
 @subpackage("base-udev")
 def _base(self):

@@ -206,10 +206,10 @@ index b7725ce..59d7467 100644
  
 -        if condition == '' or conf.get(condition) == 1
 +        do_skip = false
-+        if stem.contains('systemd')
++        if stem.contains('systemd') and not stem.contains('tmpfile')
 +            do_skip = true
 +        endif
-+        if not stem.contains('udev') and stem != 'hwdb'
++        if not stem.contains('udev') and not stem.contains('tmpfile') and stem != 'hwdb'
 +            do_skip = true
 +        endif
 +
@@ -430,19 +430,6 @@ index 142f295..9333d55 100644
              </listitem>
            </varlistentry>
  
-@@ -624,10 +612,8 @@
-                     in the directory
-                     <filename>/run/udev/static_node-tags/<replaceable>tag</replaceable></filename>
-                     pointing at the static device node with the specified name.
--                    Static device node creation is performed by systemd-tmpfiles
--                    before systemd-udevd is started. The static nodes might not
--                    have a corresponding kernel device; they are used to trigger
--                    automatic kernel module loading when they are accessed.</para>
-+                    The static nodes might not have a corresponding kernel device;
-+                    they are used to trigger automatic kernel module loading when they are accessed.</para>
-                   </listitem>
-                 </varlistentry>
-                 <varlistentry>
 @@ -662,7 +648,7 @@
                      level name is specified, the maximum log level is changed to that level. When
                      <literal>reset</literal> is set, then the previously specified log level is
