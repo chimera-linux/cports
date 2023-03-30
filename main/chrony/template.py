@@ -43,4 +43,5 @@ def post_install(self):
     self.install_dir("var/lib/chrony", empty = True)
     # dinit services
     self.install_service(self.files_path / "chrony-dir")
+    self.install_service(self.files_path / "chronyd")
     self.install_service(self.files_path / "chrony")

@@ -1,0 +1,8 @@
+# chronyd service, cannot handle readiness on its own
+
+type            = process
+command         = /usr/bin/chronyd -n -u _chrony
+depends-on      = network.target
+depends-on      = init-local.target
+depends-on      = chrony-dir
+smooth-recovery = true
