@@ -19,7 +19,7 @@ index ddd1a59..a47d112 100755
     ! (echo "$SHELL" | grep -q "nologin"); then
    if [ "$1" != '-l' ]; then
 -    exec bash -c "exec -l '$SHELL' -c '$0 -l $*'"
-+    exec @libexecdir@/gnome-session-exec "$SHELL" "$0" -l "$@"
++    exec @libexecdir@/gnome-session-exec "$SHELL" -c "$0 -l $*"
    else
      shift
    fi
