@@ -3,4 +3,3 @@
 type       = scripted
 command    = /usr/libexec/dinit-agetty
 depends-on = login.target
-restart    = false

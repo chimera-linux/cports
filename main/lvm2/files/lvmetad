@@ -4,4 +4,5 @@ type            = process
 command         = lvmetad -f
 before          = init-done.target
 depends-on      = init-fs-pre.target
+restart         = true
 smooth-recovery = true

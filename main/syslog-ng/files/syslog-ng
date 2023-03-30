@@ -5,6 +5,7 @@ command            = /usr/bin/syslog-ng -F -e -f /etc/syslog-ng/syslog-ng.conf
 logfile            = /var/log/syslog-ng.log
 before             = init-local.target
 depends-on         = init-done.target
+restart            = true
 smooth-recovery    = true
 ready-notification = pipevar:SYSLOG_NG_READY_FD
 options            = starts-log

@@ -4,5 +4,6 @@ type       = process
 command    = /usr/libexec/iwd
 before     = network.target
 depends-on = pre-network.target
-depends-ms = dbus
+depends-on = dbus
+restart    = true
 logfile    = /var/log/iwd.log

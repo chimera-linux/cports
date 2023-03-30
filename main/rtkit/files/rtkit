@@ -3,6 +3,7 @@
 type            = process
 command         = /usr/libexec/rtkit-daemon
 before          = login.target
-depends-ms      = dbus
+depends-on      = dbus
 waits-for       = polkitd
+restart         = true
 smooth-recovery = true

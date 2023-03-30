@@ -4,5 +4,6 @@ type            = process
 command         = /usr/bin/avahi-daemon -s
 before          = login.target
 depends-on      = init-local.target
-depends-ms      = dbus
+depends-on      = dbus
+restart         = true
 smooth-recovery = true

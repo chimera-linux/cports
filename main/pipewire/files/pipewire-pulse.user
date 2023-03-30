@@ -2,5 +2,6 @@
 
 type            = process
 command         = /usr/bin/pipewire-pulse
-depends-ms      = pipewire
+depends-on      = pipewire
+restart         = true
 smooth-recovery = true

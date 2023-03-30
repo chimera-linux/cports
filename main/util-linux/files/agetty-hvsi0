@@ -1,8 +1,0 @@
-type            = process
-command         = /usr/bin/agetty -L -8 hvsi0 19200 vt100
-restart         = true
-depends-on      = login.target
-termsignal      = HUP
-smooth-recovery = true
-inittab-id      = hvsi0
-inittab-line    = hvsi0

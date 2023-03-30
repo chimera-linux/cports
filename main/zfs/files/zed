@@ -4,4 +4,5 @@ type            = process
 command         = /usr/bin/zed -F
 depends-on      = init-fs-local.target
 before          = init-done.target
+restart         = true
 smooth-recovery = true

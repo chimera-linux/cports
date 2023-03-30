@@ -80,6 +80,7 @@ command         = /usr/libexec/{cmd}
 restart         = true
 depends-on      = login.target
 termsignal      = HUP
+restart         = true
 smooth-recovery = true
 inittab-id      = {name.removeprefix('tty')}
 inittab-line    = {name}

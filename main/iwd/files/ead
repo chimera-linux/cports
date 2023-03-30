@@ -4,5 +4,6 @@ type       = process
 command    = /usr/libexec/ead
 before     = network.target
 depends-on = pre-network.target
-depends-ms = dbus
+depends-on = dbus
+restart    = true
 logfile    = /var/log/ead.log

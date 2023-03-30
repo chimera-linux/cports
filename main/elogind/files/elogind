@@ -2,7 +2,8 @@
 
 type            = process
 command         = /usr/libexec/elogind/elogind.wrapper
-depends-ms      = dbus
+depends-on      = dbus
 depends-on      = init-local.target
 before          = login.target
+restart         = true
 smooth-recovery = true

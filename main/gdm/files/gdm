@@ -1,7 +1,9 @@
 # gdm service
 
-type       = process
-command    = /usr/bin/gdm
-depends-on = gdm-prepare
-depends-on = login.target
-depends-ms = dbus
+type            = process
+command         = /usr/bin/gdm
+depends-on      = gdm-prepare
+depends-on      = login.target
+depends-on      = dbus
+restart         = true
+smooth-recovery = true

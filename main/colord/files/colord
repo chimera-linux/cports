@@ -3,4 +3,5 @@
 type       = process
 command    = /usr/libexec/colord
 depends-on = login.target
+depends-on = dbus
 run-as     = _colord

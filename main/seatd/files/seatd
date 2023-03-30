@@ -4,4 +4,5 @@ type            = process
 command         = /usr/bin/seatd -g _seatd
 before          = login.target
 depends-on      = init-local.target
+restart         = true
 smooth-recovery = true

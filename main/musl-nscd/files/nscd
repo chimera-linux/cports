@@ -4,4 +4,5 @@ type               = process
 command            = /usr/bin/nscd -F
 before             = init-local.target
 depends-on         = nscd-prepare
+restart            = true
 smooth-recovery    = true

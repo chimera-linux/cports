@@ -6,4 +6,5 @@ logfile            = /var/log/tcsd.log
 before             = init-local.target
 depends-on         = init-done.target
 run-as             = tss
+restart            = true
 smooth-recovery    = true
