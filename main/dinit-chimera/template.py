@@ -1,5 +1,5 @@
 pkgname = "dinit-chimera"
-_commit = "4087634ed0d67c3ab03d77674949bb483ebfc4bf"
+_commit = "87d38f7dbb30ec7d92a8b69097c42ffbdbdae767"
 pkgver = "0.11"
 pkgrel = 0
 build_style = "meson"
@@ -22,6 +22,7 @@ depends = [
     "virtual:cmd:sysctl!procps",
     "virtual:cmd:sulogin!shadow",
     "virtual:cmd:udevadm!udev",
+    "virtual:cmd:systemd-tmpfiles!systemd-tmpfiles",
 ]
 triggers = ["/usr/lib/binfmt.d"]
 pkgdesc = "Chimera core services suite"
@@ -29,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
-sha256 = "a53aa002704fd0400b81f7ef65922d391b830fe65eb7c9eb1a829966c74e0de8"
+sha256 = "1ef76bfad9986df788207c4ad7454cce40e6113b90c9158145731d820e48ef41"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
