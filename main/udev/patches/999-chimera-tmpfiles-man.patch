@@ -78,8 +78,8 @@ index c2e32f9..bad83e2 100644
 -    executed at runtime. To debug <command>systemd-tmpfiles</command>, it may be useful to invoke it
 -    directly from the command line with increased log level (see <varname>$SYSTEMD_LOG_LEVEL</varname>
 -    below).</para>
-+    <para>To re-apply settings after configuration has been modified, simply restart the cleanup service,
-+    which will apply any settings which can be safely executed at runtime. To debug <command>systemd-tmpfiles</command>,
++    <para>To re-apply settings after configuration has been modified, simply run <command>systemd-tmpfiles</command> with the
++    desired parameters, which will apply any settings which can be safely executed at runtime. To debug <command>systemd-tmpfiles</command>,
 +    it may be useful to invoke it directly from the command line with increased log level
 +    (see <varname>$SYSTEMD_LOG_LEVEL</varname> below).</para>
    </refsect1>

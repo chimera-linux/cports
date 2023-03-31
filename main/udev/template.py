@@ -170,10 +170,14 @@ def post_install(self):
         "usr/share/initramfs-tools/scripts/init-bottom",
         mode = 0o755, name = "udev"
     )
-    # service
+    # services
+    self.install_file(
+        self.files_path / "systemd-tmpfiles-clean", "usr/libexec", mode = 0o755
+    )
     self.install_file(
         self.files_path / "udevd.wrapper", "usr/libexec", mode = 0o755
     )
+    self.install_service(self.files_path / "tmpfiles-clean", enable = True)
     self.install_service(self.files_path / "udevd", enable = True)
 
 @subpackage("udev-devel")
@@ -187,9 +191,13 @@ def _libs(self):
 @subpackage("systemd-tmpfiles")
 def _tmpfiles(self):
     self.pkgdesc = "Manage temporary/volatile files/directories"
+    self.depends = ["virtual:cmd:snooze!snooze"]
 
     return [
+        "etc/dinit.d/tmpfiles-clean",
         "usr/bin/systemd-tmpfiles",
+        "usr/libexec/systemd-tmpfiles-clean",
+        "usr/lib/dinit.d/boot.d/tmpfiles-clean",
         "usr/share/man/man5/tmpfiles.d.5",
         "usr/share/man/man8/systemd-tmpfiles.8",
     ]
