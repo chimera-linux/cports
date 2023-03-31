@@ -1,0 +1,7 @@
+#!/bin/sh
+
+SCRIPT=$1
+shift
+
+mkdir -p /var/cache/snooze
+exec /usr/bin/snooze "$@" -- sh -c "$SCRIPT"

@@ -1,0 +1,8 @@
+# weekly periodic tasks
+
+type = process
+command         = /usr/libexec/dinit-snooze-periodic weekly
+depends-on      = init-local.target
+depends-on      = time-sync.target
+restart         = true
+smooth-recovery = true

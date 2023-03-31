@@ -1,0 +1,8 @@
+# monthly periodic tasks
+
+type = process
+command         = /usr/libexec/dinit-snooze-periodic monthly
+depends-on      = init-local.target
+depends-on      = time-sync.target
+restart         = true
+smooth-recovery = true
