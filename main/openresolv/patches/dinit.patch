@@ -1,0 +1,31 @@
+commit d39d9b91fde3d4883048eadb7aa7bf68ce751c72
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Mon Apr 3 01:53:18 2023 +0200
+
+    add support for dinit
+
+diff --git a/resolvconf.in b/resolvconf.in
+index 198096b..0a126bb 100644
+--- a/resolvconf.in
++++ b/resolvconf.in
+@@ -303,7 +303,19 @@ detect_init()
+ 	# systems we try to detect them first.
+ 	status="@STATUSARG@"
+ 	: ${status:=status}
+-	if [ -x /bin/systemctl ] && [ -S /run/systemd/private ]; then
++	if [ -x /bin/dinitctl ] && [ -S /run/dinitctl ]; then
++		RESTARTCMD='
++			if /bin/dinitctl --quiet is-active $1
++			then
++				/bin/systemctl restart $1
++			fi'
++	elif [ -x /usr/bin/dinitctl ] && [ -S /run/dinitctl ]; then
++		RESTARTCMD='
++			if /usr/bin/dinitctl --quiet is-active $1
++			then
++				/usr/bin/systemctl restart $1
++			fi'
++	elif [ -x /bin/systemctl ] && [ -S /run/systemd/private ]; then
+ 		RESTARTCMD='
+ 			if /bin/systemctl --quiet is-active $1.service
+ 			then
