@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# if it exists in some way, do not mess with it
+if /usr/bin/test ! -e /etc/resolv.conf -a ! -L /etc/resolv.conf; then
+    /usr/bin/ln -sf ../run/resolvconf/resolv.conf /etc/resolv.conf || :
+fi
