@@ -14,6 +14,7 @@ configure_args = [
 make_check_target = "test"
 hostmakedepends = ["pkgconf"]
 makedepends = ["udev-devel", "linux-headers"]
+depends = ["openresolv"]
 pkgdesc = "RFC2131 compliant DHCP client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
