@@ -15,7 +15,7 @@ hostmakedepends = ["gmake", "pkgconf", "python-docutils"]
 # iwd's usage of readline is very fucky and we don't wanna break it
 makedepends = ["readline-devel", "dbus-devel", "linux-headers"]
 checkdepends = ["python", "dbus"]
-depends = ["dbus"]
+depends = ["dbus", "openresolv"]
 pkgdesc = "Wireless daemon that replaces wpa_supplicant"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
