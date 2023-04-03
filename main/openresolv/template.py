@@ -16,12 +16,12 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")
-    # tmpfiles.d
-    self.install_file(self.files_path / "openresolv.conf", "usr/lib/tmpfiles.d")
-
-@subpackage("openresolv-run")
-def _run(self):
-    self.pkgdesc = f"{pkgdesc} (rundir handling)"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
-
-    return ["usr/lib/tmpfiles.d"]
+    # rename
+    self.mv(
+        self.destdir / "usr/bin/resolvconf",
+        self.destdir / "usr/bin/resolvconf-openresolv"
+    )
+    self.mv(
+        self.destdir / "usr/share/man/man8/resolvconf.8",
+        self.destdir / "usr/share/man/man8/resolvconf-openresolv.8"
+    )
