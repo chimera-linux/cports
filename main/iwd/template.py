@@ -1,5 +1,5 @@
 pkgname = "iwd"
-pkgver = "2.3"
+pkgver = "2.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,13 +15,13 @@ hostmakedepends = ["gmake", "pkgconf", "python-docutils"]
 # iwd's usage of readline is very fucky and we don't wanna break it
 makedepends = ["readline-devel", "dbus-devel", "linux-headers"]
 checkdepends = ["python", "dbus"]
-depends = ["dbus", "openresolv"]
+depends = ["dbus", "resolvconf"]
 pkgdesc = "Wireless daemon that replaces wpa_supplicant"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://iwd.wiki.kernel.org"
 source = f"$(KERNEL_SITE)/network/wireless/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b0506d797a8bfb88f3c3eeea5e49dcf4ee8e6cef118f57c118e587eeb377ac64"
+sha256 = "3a9c5e7ade45162e5c78b3d7035a2f4a6e20ba6b5974097c35a8f615493012f9"
 tool_flags = {"CFLAGS": [
     "-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"
 ]}
