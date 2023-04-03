@@ -39,7 +39,7 @@ makedepends = [
     "mobile-broadband-provider-info",
 ]
 depends = [
-    "dbus", "wpa_supplicant", "openresolv", "iproute2",
+    "dbus", "wpa_supplicant", "resolvconf", "iproute2",
     "mobile-broadband-provider-info",
 ]
 checkdepends = ["python-dbus"]
