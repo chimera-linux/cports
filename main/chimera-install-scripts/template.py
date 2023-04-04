@@ -1,7 +1,7 @@
 pkgname = "chimera-install-scripts"
 pkgver = "0.1"
 pkgrel = 0
-_commit = "88a1c7d1dd981f8acb032173d0d2c10216361664"
+_commit = "7ae4b3be8e46c34a2d398dfa87014a82ff261137"
 build_style = "makefile"
 depends = [
     "virtual:cmd:chroot!chimerautils",
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimera-install-scripts"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
-sha256 = "bc019cade71a85d92e2568150d14a7cb1cd277b875cd50fb471d825c9c7ac49a"
+sha256 = "736ab4a920e2d37863fd9c39bc54d129591aae836b92461e31f187f706d39ac0"
 # no test suite
 options = ["!check"]
 
