@@ -12,4 +12,3 @@ def do_install(self):
     # u-boot-menu
     self.install_file(self.files_path / "u-boot-device", "etc/default")
     self.install_file(self.files_path / "u-boot-cmdline", "etc/default")
-    self.install_file(self.files_path / "u-boot-fdt", "etc/default")

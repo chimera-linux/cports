@@ -1,1 +1,1 @@
-root=PARTLABEL=root ro rootwait console=ttySIF0,115200 console=tty1 earlycon=sbi
+root=PARTLABEL=root rootwait console=ttySIF0,115200 console=tty1 earlycon=sbi
