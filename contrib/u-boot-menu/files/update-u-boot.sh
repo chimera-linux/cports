@@ -85,19 +85,24 @@ build_cmdline() {
     if [ -f "/boot/initrd.img-$1" ]; then
         printf "initrd=../initrd.img-%s " "$1"
     fi
-    printf "%s " "$DEV_EXTRA_CMDLINE $DEV_CMDLINE"
+    if [ -z "$2" ]; then
+        printf "ro single "
+    else
+        printf "ro "
+    fi
+    if [ -n "$DEV_EXTRA_CMDLINE" ]; then
+        printf "%s " "$DEV_EXTRA_CMDLINE"
+    fi
+    if [ -n "$DEV_CMDLINE" ]; then
+        printf "%s " "$DEV_CMDLINE"
+    fi
+    if [ -n "$2" -a -n "$DEV_CMDLINE_DEFAULT" ]; then
+        printf "%s " "$DEV_CMDLINE_DEFAULT"
+    fi
 }
 
 gen_cmdline() {
     CMDL=$(build_cmdline "$@" | sed 's/[ ]*$//')
-    if [ -z "$2" ]; then
-        CMDL="ro single $CMDL"
-    else
-        CMDL="ro $CMDL"
-        CMDL=$(echo "$CMDL" | sed 's/[ ]*$//')
-        CMDL="$CMDL $DEV_CMDLINE_DEFAULT"
-    fi
-    CMDL=$(echo "$CMDL" | sed 's/[ ]*$//')
     /usr/libexec/base-kernel/kernel-root-detect "$CMDL"
 }
 
