@@ -10,10 +10,12 @@ U_BOOT_CFG=/etc/default/u-boot
 # overridable defaults
 U_BOOT_CMDLINE_FILE=/etc/default/u-boot-cmdline
 U_BOOT_FDT_FILE=/etc/default/u-boot-fdt
+U_BOOT_FDTDIR_FILE=/etc/default/u-boot-fdtdir
 U_BOOT_TIMEOUT=3
 U_BOOT_MENU_TITLE="Chimera Linux"
 U_BOOT_OS_TITLE="Chimera Linux"
 U_BOOT_DISABLE_RECOVERY=
+U_BOOT_DISABLE_FDT=
 
 # source global config if present
 [ -r $U_BOOT_CFG ] && . $U_BOOT_CFG
@@ -22,6 +24,7 @@ DEV_CMDLINE=$U_BOOT_CMDLINE
 DEV_CMDLINE_DEFAULT=$U_BOOT_CMDLINE_DEFAULT
 DEV_EXTRA_CMDLINE=
 DEV_FDT=$U_BOOT_FDT
+DEV_FDTDIR=$U_BOOT_FDTDIR
 
 if [ -r "$U_BOOT_CMDLINE_FILE" ]; then
     DEV_EXTRA_CMDLINE=$(cat "$U_BOOT_CMDLINE_FILE")
@@ -29,6 +32,10 @@ fi
 
 if [ -r "$U_BOOT_FDT_FILE" -a -z "$DEV_FDT" ]; then
     DEV_FDT=$(cat "$U_BOOT_FDT_FILE")
+fi
+
+if [ -r "$U_BOOT_FDTDIR_FILE" -a -z "$DEV_FDTDIR" ]; then
+    DEV_FDTDIR=$(cat "$U_BOOT_FDTDIR_FILE")
 fi
 
 # silently remove old
@@ -44,10 +51,33 @@ write_cfg() {
 }
 
 write_fdt() {
-    [ -z "$2" ] && return 0
+    # don't write if dsiabled
+    [ -n "$U_BOOT_DISABLE_FDT" ] && return 0
+    # first try writing out FDT, if that's enough we leave it there
     case "$2" in
-        /*) write_cfg "    FDT $2";;
-        *) write_cfg "    FDT ../dtbs/dtbs-$1/$2";;
+        '') ;;
+        /*)
+            write_cfg "    FDT $2"
+            return 0
+            ;;
+        *)
+            write_cfg "    FDT ../dtbs/dtbs-$1/$2"
+            return 0
+            ;;
+    esac
+    # the default implicit behavior is to set FDTDIR to kernel's dtbs dir
+    if [ -z "$3" ]; then
+        write_cfg "    FDTDIR ../dtbs/dtbs-$1"
+        return 0
+    fi
+    # else write out the fdtdir that is requested
+    case "$3" in
+        /*)
+            write_cfg "    FDTDIR $3"
+            ;;
+        *)
+            write_cfg "    FDTDIR ../dtbs/dtbs-$1/$3"
+            ;;
     esac
 }
 
@@ -61,8 +91,10 @@ build_cmdline() {
 gen_cmdline() {
     CMDL=$(build_cmdline "$@" | sed 's/[ ]*$//')
     if [ -z "$2" ]; then
-        CMDL="$CMDL single"
+        CMDL="ro single $CMDL"
     else
+        CMDL="ro $CMDL"
+        CMDL=$(echo "$CMDL" | sed 's/[ ]*$//')
         CMDL="$CMDL $DEV_CMDLINE_DEFAULT"
     fi
     CMDL=$(echo "$CMDL" | sed 's/[ ]*$//')
@@ -90,7 +122,7 @@ for KVER in $(linux-version list | linux-version sort --reverse); do
     fi
     write_cfg "    MENU LABEL $U_BOOT_OS_TITLE ($KVER)"
     write_cfg "    KERNEL ../${KPATH}"
-    write_fdt "$KVER" "$DEV_FDT"
+    write_fdt "$KVER" "$DEV_FDT" "$DEV_FDTDIR"
     write_cfg "    APPEND $(gen_cmdline ${KVER} 1)"
     if [ -z "$U_BOOT_DISABLE_RECOVERY" ]; then
         write_cfg
@@ -101,7 +133,7 @@ for KVER in $(linux-version list | linux-version sort --reverse); do
         fi
         write_cfg "    MENU LABEL $U_BOOT_OS_TITLE ($KVER, recovery)"
         write_cfg "    KERNEL ../${KPATH}"
-        write_fdt "$KVER" "$DEV_FDT"
+        write_fdt "$KVER" "$DEV_FDT" "$DEV_FDTDIR"
         write_cfg "    APPEND $(gen_cmdline ${KVER})"
     fi
     GOT_DEFAULT=1

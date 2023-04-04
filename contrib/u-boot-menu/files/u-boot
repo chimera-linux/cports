@@ -8,6 +8,9 @@
 # The file fdt path is sourced from when no U_BOOT_FDT is set.
 #U_BOOT_FDT_FILE=/etc/default/u-boot-fdt
 
+# The file fdtdir path is sourced from when no U_BOOT_FDTDIR is set.
+#U_BOOT_FDTDIR_FILE=/etc/default/u-boot-fdtdir
+
 # The file u-boot device name is sourced from when no U_BOOT_DEVICE is set.
 #U_BOOT_DEVICE_FILE=/etc/default/u-boot-device
 
@@ -20,8 +23,16 @@ U_BOOT_CMDLINE_DEFAULT="quiet splash"
 # If set, recovery mode entries will be disabled.
 #U_BOOT_DISABLE_RECOVERY=
 
+# If set, neither FDT nor FDTDIR will be emitted.
+#U_BOOT_DISABLE_FDT=
+
 # The device tree blob to use, relative to kernel's dtbs dir (or absolute).
+# When non-empty, FDT field will be emitted, otherwise FDTDIR will be.
 #U_BOOT_FDT=
+
+# The device tree directory to use, relative to kernel's dtbs dir (or absolute).
+# When empty and no fdt is explicitly set, the kernel's dtbs dir will be used.
+#U_BOOT_FDTDIR=
 
 # The u-boot device name to use.
 #U_BOOT_DEVICE=
