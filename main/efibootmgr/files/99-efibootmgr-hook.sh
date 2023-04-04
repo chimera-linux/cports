@@ -98,23 +98,16 @@ add_entry() {
     fi
 
     CMDLINE="$DEV_CMDLINE"
+    CMDLINE_DEFAULT="$DEV_CMDLINE_DEFAULT"
+    [ -n "$CMDLINE" ] && CMDLINE=" $CMDLINE"
+    [ -n "$CMDLINE_DEFAULT" ] && CMDLINE_DEFAULT=" $CMDLINE_DEFAULT"
 
-    if [ -n "$CMDLINE" ]; then
-        CMDLINE_FULL="$CMDLINE $DEV_CMDLINE_DEFAULT"
-    else
-        CMDLINE_FULL="$DEV_CMDLINE_DEFAULT"
-    fi
+    CMDLINE_FULL="ro${CMDLINE}${CMDLINE_DEFAULT}"
+    CMDLINE="ro single${CMDLINE}"
 
-    if [ -n "$CMDLINE" -a -n "$INITRD" ]; then
+    if [ -n "$INITRD" ]; then
         CMDLINE="$CMDLINE $INITRD"
-    elif [ -n "$INITRD" ]; then
-        CMDLINE="$INITRD"
-    fi
-
-    if [ -n "$CMDLINE_FULL" -a -n "$INITRD" ]; then
         CMDLINE_FULL="$CMDLINE_FULL $INITRD"
-    elif [ -n "$INITRD" ]; then
-        CMDLINE_FULL="$INITRD"
     fi
 
     CMDLINE_FULL=$(/usr/libexec/base-kernel/kernel-root-detect "$CMDLINE_FULL")
