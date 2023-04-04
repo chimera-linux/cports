@@ -1,1 +1,1 @@
-root=PARTLABEL=root ro rootwait console=ttyS2,1500000 console=tty1 video=eDP-1:1920x1080@60
+root=PARTLABEL=root rootwait console=ttyS2,1500000 console=tty1 video=eDP-1:1920x1080@60
