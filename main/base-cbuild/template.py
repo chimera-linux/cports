@@ -41,7 +41,7 @@ def do_install(self):
 def _cprogs(self):
     # make sure to use our wrapper symlinks
     self.replaces = ["lld"]
-    self.priority = 100
+    self.replaces_priority = 100
     self.options = ["!scancmd"]
 
     return self.default_progs()

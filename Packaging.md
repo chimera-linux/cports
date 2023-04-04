@@ -781,6 +781,10 @@ Keep in mind that default values may be overridden by build styles.
 * `patch_args` *(list)* Options passed to `patch` when applying patches,
   in addition to the builtin ones (`-sNp1 -V none`). You can use this to
   override the strip count or pass additional options.
+* `provider_priority` *(int)* The final tie-breaker when choosing between
+  two virtual providers to install. When everything else fails (i.e. version
+  is the same and so on), the provider with the higher priority is chosen.
+  Defaults to 0.
 * `provides` *(list)* A list of packages provided virtually, specified
   in the format `foo=1.0-r0`. The package manager will consider these
   alternative names for the package, and automatically have them
@@ -799,15 +803,16 @@ Keep in mind that default values may be overridden by build styles.
   library scanning is automatic; but sometimes libraries provide either a
   non-conforming `SONAME` which the scanner does not pick up, or the
   scanner is disabled explicitly.
-* `priority` *(int)* When used with `replaces`, this specifies which of
-  the packages gets to keep the files (i.e. the higher-priority package
-  will keep them).
+* `replaces_priority` *(int)* When used with `replaces`, this specifies
+  which of the packages gets to keep the files (i.e. the higher-priority
+  package will keep them). Defaults to 0.
 * `replaces` *(list)* A list of packages we are replacing, in the same
   constraint format as `provides`. This allows the current package to
   replace files of the listed packages, without complaining about file
   conflicts. The files from the current package will simply take over the
   conflicting files. This is primarily useful for moving files from one
-  package to another, or together with `priority`, for "policy packages".
+  package to another, or together with `replaces_priority`, for "policy
+  packages".
 * `scriptlets` *(dict)* A dictionary of strings that are the scriptlets for
   this package. These take precedence over file scriptlets.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum

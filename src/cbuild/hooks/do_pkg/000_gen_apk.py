@@ -99,15 +99,19 @@ def genpkg(pkg, repo, arch, binpkg):
     if len(provides) > 0:
         pargs += ["--info", f"provides:{' '.join(provides)}"]
 
+    # provider priority
+    if pkg.provider_priority > 0:
+        pargs += ["--info", f"provider-priority:{pkg.provider_priority}"]
+
     # replaces
     replaces = sorted(pkg.replaces)
 
     if len(replaces) > 0:
         pargs += ["--info", f"replaces:{' '.join(replaces)}"]
 
-    # priority
-    if pkg.priority > 0:
-        pargs += ["--info", f"priority:{pkg.priority}"]
+    # replaces priority
+    if pkg.replaces_priority > 0:
+        pargs += ["--info", f"replaces-priority:{pkg.replaces_priority}"]
 
     # scripts including trigger scripts
     sclist = []

@@ -366,8 +366,9 @@ core_fields = [
 
     # other package lists + related
     ("provides", [], list, False, True, False),
+    ("provider_priority", 0, int, False, True, True),
     ("replaces", [], list, False, True, False),
-    ("priority", 0, int, False, True, True),
+    ("replaces_priority", 0, int, False, True, True),
     ("install_if", [], list, False, True, False),
 
     # build systems
@@ -474,8 +475,9 @@ core_fields_priority = [
     ("depends", False),
 
     ("provides", True),
+    ("provider_priority", True),
     ("replaces", True),
-    ("priority", True),
+    ("replaces_priority", True),
     ("install_if", True),
     ("triggers", True),
     ("scriptlets", True),
@@ -1633,8 +1635,10 @@ def from_module(m, ret):
         ret.validate_url()
         ret.validate_order()
 
-    if ret.priority < 0:
-        ret.error("priority must be positive")
+    if ret.provider_priority < 0:
+        ret.error("provider_priority must be positive")
+    if ret.replaces_priority < 0:
+        ret.error("replaces_priority must be positive")
 
     # validate license if we need to
     if ret.options["spdx"] and not ret._allow_broken:
