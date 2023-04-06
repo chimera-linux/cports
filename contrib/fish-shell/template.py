@@ -1,5 +1,5 @@
 pkgname = "fish-shell"
-pkgver = "3.6.0"
+pkgver = "3.6.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext-tiny"]
@@ -10,7 +10,7 @@ maintainer = "lunamothxyz <mail@lunamoth.xyz>"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/{pkgname}/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
-sha256 = "97044d57773ee7ca15634f693d917ed1c3dc0fa7fde1017f1626d60b83ea6181"
+sha256 = "55402bb47ca6739d8aba25e41780905b5ce1bce0a5e0dd17dca908b5bc0b49b2"
 # FIXME int: test fail
 hardening = ["vis", "cfi", "!int"]
 
