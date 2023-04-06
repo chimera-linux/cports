@@ -1,5 +1,5 @@
 pkgname = "firmware-linux"
-pkgver = "20230310"
+pkgver = "20230404"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "14c472af10f9b566c4f575aeb30d8a274d54b1660007e7426b7e4ea21dff81aa"
+sha256 = "09343acd48cb1e33dd6e1f4c2736ceadaa943c42eb20d04a26a5701d05ddde0d"
 
 _arch = self.profile().arch
 _arch_x86 = (_arch == "x86_64")
@@ -97,6 +97,10 @@ _pkgs = [
     ("myricom", "Myricom Ethernet NICs", None, "network", ["myri10ge*", "myricom"]),
     ("nfp", "Netronome Flow Processor", None, None, ["netronome"]),
     ("nxp-uwb", "NXP UWB firmware", None, "network", ["nxp/sr150_fw.bin"]),
+    ("nxp-bt", "NXP BT chipsets", None, "network", [
+        "nxp/helper_uart*.bin", "nxp/uartiw*.bin",
+        "nxp/uartspi*.se", "nxp/uartuart*"
+    ]),
     ("nvidia", "Nvidia GPUs", None, "gpu", ["nvidia"]),
     ("qat", "Intel QuickAssist Technology", _arch_x86, "misc", ["qat*"]),
     ("qca", "Qualcomm Atheros WLAN/Bluetooth", None, "network", ["qca"]),
