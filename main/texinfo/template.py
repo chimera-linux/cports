@@ -1,5 +1,5 @@
 pkgname = "texinfo"
-pkgver = "7.0.2"
+pkgver = "7.0.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -14,6 +14,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/texinfo"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f211ec3261383e1a89e4555a93b9d017fe807b9c3992fb2dff4871dae6da54ad"
+sha256 = "74b420d09d7f528e84f97aa330f0dd69a98a6053e7a4e01767eed115038807bf"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
