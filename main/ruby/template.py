@@ -1,5 +1,5 @@
 pkgname = "ruby"
-pkgver = "3.2.1"
+pkgver = "3.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Ruby OR BSD-2-Clause"
 url = "https://www.ruby-lang.org/en"
 source = f"https://cache.ruby-lang.org/pub/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "746c8661ae25449cbdc5297d1092702e93e66f365a75fecb740d4f292ced630c"
+sha256 = "4b352d0f7ec384e332e3e44cdbfdcd5ff2d594af3c8296b5636c710975149e23"
 # until verified; gonna need removing arch prefix from compiler name
 # tests mostly pass but there are some portability issues in the test
 # suite (stat usage) + chown not working in the sandbox + locale issues
