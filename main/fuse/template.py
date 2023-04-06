@@ -1,5 +1,5 @@
 pkgname = "fuse"
-pkgver = "3.14.0"
+pkgver = "3.14.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dexamples=false", "-Duseroot=false"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/libfuse/libfuse"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "96115b2a8ff34bd1e0c7b00c5dfd8297571d7e165042b94498c9a26356a9a70a"
+sha256 = "126919d72b46b3e0eb58a9c6933a2a50c36f2ea69f61fe9e78bdba9f463ffa20"
 suid_files = ["usr/bin/fusermount3"]
 # ld: error: default version symbol fuse_loop_mt@@FUSE_3.2 must be defined
 # tests need examples and are useless in chroot
