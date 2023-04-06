@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-pip", "python-flit_core", "python-wheel"]
 checkdepends = ["python-pytest"]
-depends = ["python-setuptools"]
 depends = ["python"]
 pkgdesc = "Universal encoding detector for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
