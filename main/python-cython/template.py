@@ -1,5 +1,5 @@
 pkgname = "python-cython"
-pkgver = "0.29.33"
+pkgver = "0.29.34"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -10,6 +10,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://cython.org"
 source = f"$(PYPI_SITE)/C/Cython/Cython-{pkgver}.tar.gz"
-sha256 = "5040764c4a4d2ce964a395da24f0d1ae58144995dab92c6b96f44c3f4d72286a"
+sha256 = "1909688f5d7b521a60c396d20bba9e47a1b2d2784bfb085401e1e1e7d29a29a8"
 # flaky tests
 options = ["!check"]
