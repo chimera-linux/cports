@@ -1,5 +1,5 @@
 pkgname = "fluidsynth"
-pkgver = "2.3.1"
+pkgver = "2.3.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -9,14 +9,14 @@ make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "glib-devel", "pipewire-devel", "pipewire-jack-devel", "libpulse-devel",
-    "sdl-devel", "libsndfile-devel", "libedit-devel", "linux-headers",
+    "sdl-devel", "libsndfile-devel", "libedit-readline-devel", "linux-headers",
 ]
 pkgdesc = "Software synthesizer based on the SoundFont 2 specifications"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.fluidsynth.org"
 source = f"https://github.com/FluidSynth/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "d734e4cf488be763cf123e5976f3154f0094815093eecdf71e0e9ae148431883"
+sha256 = "cd610810f30566e28fb98c36501f00446a06fa6bae3dc562c8cd3868fe1c0fc7"
 hardening = ["vis", "cfi"]
 
 @subpackage("libfluidsynth")

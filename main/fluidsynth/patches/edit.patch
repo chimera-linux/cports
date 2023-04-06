@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -687,7 +687,7 @@ if ( enable-readline )
+   if ( Readline_FOUND )
+     set ( READLINE_SUPPORT 1 )
+     if ( PC_READLINE_FOUND )
+-      list( APPEND PC_REQUIRES_PRIV "readline")
++      list( APPEND PC_REQUIRES_PRIV "libedit")
+     else ()
+       message ( STATUS "No pkg-config file for readline found - trying to make it work anyway." )
+       list ( APPEND PC_LIBS_PRIV ${Readline_LIBRARY} )
