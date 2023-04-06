@@ -1,5 +1,5 @@
 pkgname = "accountsservice"
-pkgver = "23.11.69"
+pkgver = "23.13.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/AccountsService"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b0576743aebfe6134d9a6950bf0c3f4c56b60c233ed0b68a8e2c80bc3a0ea36f"
+sha256 = "adda4cdeae24fa0992e7df3ffff9effa7090be3ac233a3edfdf69d5a9c9b924f"
 # does not like the dbusmock for some reason
 options = ["!cross", "!check"]
 
