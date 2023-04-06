@@ -1,5 +1,5 @@
 pkgname = "sdl"
-pkgver = "2.26.4"
+pkgver = "2.26.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -44,7 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://libsdl.org"
 source = f"https://www.libsdl.org/release/SDL2-{pkgver}.tar.gz"
-sha256 = "1a0f686498fb768ad9f3f80b39037a7d006eac093aad39cb4ebcc832a8887231"
+sha256 = "ad8fea3da1be64c83c45b1d363a6b4ba8fd60f5bde3b23ec73855709ec5eabf7"
 # no check target
 options = ["!check"]
 
