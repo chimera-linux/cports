@@ -1,5 +1,5 @@
 pkgname = "u-boot-sifive_unmatched"
-pkgver = "2023.01"
+pkgver = "2023.04"
 pkgrel = 0
 archs = ["riscv64"]
 build_style = "u_boot"
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "69423bad380f89a0916636e89e6dcbd2e4512d584308d922d1039d1e4331950f"
+sha256 = "e31cac91545ff41b71cec5d8c22afd695645cd6e2a442ccdacacd60534069341"
 env = {
     "U_BOOT_TRIPLET": "riscv64-unknown-elf",
     "U_BOOT_TARGETS": "spl/u-boot-spl.bin u-boot.itb",
