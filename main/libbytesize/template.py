@@ -1,5 +1,5 @@
 pkgname = "libbytesize"
-pkgver = "2.7"
+pkgver = "2.8"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libbytesize"
 source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "8bae8287af6ef5624c320f70defdcd84ddc0c2057d3b59a5871897f27697811e"
+sha256 = "d87aef5a37e189b1cc827530e0feafa6529331fcbe2aabf330a01ad8ec95e1a0"
 # cba
 options = ["!check"]
 
