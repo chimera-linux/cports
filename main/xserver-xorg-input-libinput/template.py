@@ -1,5 +1,5 @@
 pkgname = "xserver-xorg-input-libinput"
-pkgver = "1.2.1"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/driver/xf86-input-libinput-{pkgver}.tar.gz"
-sha256 = "ac37b3fd4685025d8a1864ee361b3d6c4e50689c9a5b86786ea1fa3eb997f3e5"
+sha256 = "3b4f519b6b3cea852e8c008fb3a3f9f5da8b7e204c31c18d4a6d1e5875ac77f1"
 
 def post_install(self):
     self.install_license("COPYING")
