@@ -1,5 +1,5 @@
 pkgname = "zstd"
-pkgver = "1.5.4"
+pkgver = "1.5.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.zstd.net"
 source = f"https://github.com/facebook/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "0f470992aedad543126d06efab344dc5f3e171893810455787d38347343a4424"
+sha256 = "9c4396cc829cfae319a6e2615202e82aad41372073482fce286fac78646d3ee4"
 hardening = ["!cfi"] # TODO
 # checkdepends not available yet
 options = ["!check"]
