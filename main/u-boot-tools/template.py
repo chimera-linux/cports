@@ -1,5 +1,5 @@
 pkgname = "u-boot-tools"
-pkgver = "2023.01"
+pkgver = "2023.04"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "69423bad380f89a0916636e89e6dcbd2e4512d584308d922d1039d1e4331950f"
+sha256 = "e31cac91545ff41b71cec5d8c22afd695645cd6e2a442ccdacacd60534069341"
 hardening = ["vis", "cfi"]
 # weird test suite
 options = ["!check"]
@@ -53,7 +53,7 @@ def post_build(self):
 
 def do_install(self):
     for t in [
-        "bmp_logo", "dumpimage", "fdtgrep", "fit_check_sign", "fit_info",
+        "dumpimage", "fdtgrep", "fit_check_sign", "fit_info",
         "gen_eth_addr", "gen_ethaddr_crc", "ifwitool", "img2srec",
         "mkeficapsule", "mkenvimage", "mkimage", "proftool",
         "spl_size_limit", "env/fw_printenv", "env/fw_setenv",
