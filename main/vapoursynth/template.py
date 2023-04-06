@@ -14,6 +14,14 @@ url = "https://www.vapoursynth.com"
 source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"
 sha256 = "6f3eb7e2e32a0572b363e08d16092418e99bd9c8f06661645a0995f1f736d438"
 
+if self.profile().arch == "riscv64":
+    # ld: error: section size decrease too large
+    tool_flags = {
+        "CFLAGS": ["-mno-relax"],
+        "CXXFLAGS": ["-mno-relax"],
+        "LDFLAGS": ["-mno-relax"]
+    }
+
 def pre_configure(self):
     self.do(self.chroot_cwd / "autogen.sh")
 
