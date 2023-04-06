@@ -1,5 +1,5 @@
 pkgname = "man-pages"
-pkgver = "6.03"
+pkgver = "6.04"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "bash"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
 source = f"$(KERNEL_SITE)/docs/man-pages/{pkgname}-{pkgver}.tar.xz"
-sha256 = "5f7f289d30b296b78116a08e7703df9375aa846b332b57dca47ddcbb7809fbbd"
+sha256 = "c2c0b9329955df81af45ee80ebc84c47291f95df5157db1fab988199f9371af1"
 options = ["!autosplit"]
 
 def do_install(self):

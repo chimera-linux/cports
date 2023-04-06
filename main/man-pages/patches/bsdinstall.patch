@@ -1,39 +1,41 @@
-From faaf065ad80a6abf04b6e656e807963e61dddee3 Mon Sep 17 00:00:00 2001
+From b94d6aa60069eb4b7310b95c0b23b44069852350 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Mon, 14 Nov 2022 02:01:24 +0100
-Subject: [PATCH] bsd install(1) compatibility
+Date: Thu, 6 Apr 2023 05:38:51 +0200
+Subject: [PATCH] bsd install(1) and sed(1) compatibility
 
 ---
  lib/install-html.mk | 2 +-
- lib/install-man.mk  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ lib/install-man.mk  | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/lib/install-html.mk b/lib/install-html.mk
-index 0ae4df9..0e4e42d 100644
+index 9e0a449..7afda7d 100644
 --- a/lib/install-html.mk
 +++ b/lib/install-html.mk
-@@ -26,7 +26,7 @@ _htmldir_rmdir  := $(addsuffix -rmdir,$(wildcard $(_htmldir)/.))
+@@ -26,7 +26,7 @@ _htmldir_rmdir  := $(addsuffix -rmdir,$(wildcard $(_htmldir)/))
  
- $(_htmlpages): $(_htmldir)/%: $(_HTMLDIR)/% | $$(@D)/.
+ $(_htmlpages): $(_htmldir)/%: $(_HTMLDIR)/% | $$(@D)/
  	$(info INSTALL	$@)
 -	$(INSTALL_DATA) -T $< $@
 +	$(INSTALL_DATA) $< $@
  
- $(_htmldirs): %/.: | $$(dir %). $(_htmldir)/.
+ $(_htmldirs): %/: | $$(dir %) $(_htmldir)/
  
 diff --git a/lib/install-man.mk b/lib/install-man.mk
-index e5b871b..47b0934 100644
+index d4c231c..05ab0b6 100644
 --- a/lib/install-man.mk
 +++ b/lib/install-man.mk
-@@ -103,7 +103,7 @@ uninstall_manX   := $(foreach x,$(MAN_SECTIONS),uninstall-man$(x))
+@@ -150,8 +150,8 @@ $(_man8pages):      $(_man8dir)/%$(Z):      $(MANDIR)/man8/%      | $$(@D)/
  
- $(_manpages): $(_mandir)/man%: $(MANDIR)/man% | $$(@D)/.
+ $(_manpages):
  	$(info INSTALL	$@)
 -	$(INSTALL_DATA) -T $< $@
+-	$(SED) -i \
 +	$(INSTALL_DATA) $< $@
- 
- $(_mandirs): %/.: | $$(dir %). $(_mandir)/.
- 
++	$(SED) -i '' \
+ 		-e '/^\.so /s, man1/\(.*\)\.1$$, $(notdir $(man1dir))/\1$(man1ext),' \
+ 		-e '/^\.so /s, man2/\(.*\)\.2$$, $(notdir $(man2dir))/\1$(man2ext),' \
+ 		-e '/^\.so /s, man2type/\(.*\)\.2type$$, $(notdir $(man2typedir))/\1$(man2typeext),' \
 -- 
-2.38.1
+2.39.0
 
