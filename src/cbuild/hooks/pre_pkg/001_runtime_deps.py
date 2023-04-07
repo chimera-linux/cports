@@ -11,6 +11,7 @@ def _scan_so(pkg):
     pkg.so_requires = []
     curelf = pkg.rparent.current_elfs
     curso = {}
+    subpkg_deps = {}
 
     for fp, finfo in curelf.items():
         fp = pathlib.Path(fp)
@@ -45,7 +46,7 @@ def _scan_so(pkg):
             else:
                 # subpackage: add
                 log.out_plain(f"   SONAME: {dep} <-> {depn}")
-                pkg.so_requires.append(dep)
+                subpkg_deps[depn] = True
             continue
         # otherwise, check if it came from an installed dependency
         bp = pkg.rparent.profile()
@@ -99,6 +100,17 @@ def _scan_so(pkg):
         # we found a package
         log.out_plain(f"   SONAME: {dep} <-> {sdep}")
         pkg.so_requires.append(dep)
+
+    for k in subpkg_deps:
+        kv = f"{k}={pkg.rparent.pkgver}-r{pkg.rparent.pkgrel}"
+        try:
+            # if we have a plain dependency in the list,
+            # replace it with a versioned dependency
+            pkg.depends[pkg.depends.index(k)] = kv
+        except ValueError:
+            # if the exact dependency is already present, skip it
+            if not kv in pkg.depends:
+                pkg.depends.append(kv)
 
     if broken:
         pkg.error("Failed scanning shlib dependencies")
