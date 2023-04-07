@@ -61,7 +61,9 @@ env = {
 # set to True to generate a bootstrap tarball
 _bootstrap = False
 
-if self.profile().arch == "ppc64":
+# we want this on BE too, and on LE the buildsystem skips it for clang
+# skipping it means generating code for ELFv1 ABI and that does not work
+if self.profile().arch == "ppc64" or self.profile().arch == "ppc64le":
     tool_flags = {"CFLAGS": ["-DABI_ELFv2"], "CXXFLAGS": ["-DABI_ELFv2"]}
 
 if self.profile().cross:

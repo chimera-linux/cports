@@ -19,7 +19,7 @@ match self.profile().arch:
     case "aarch64":
         sha256 = "c158dabf44fb211859910f15e97181827e834edb2e1180b30e2bfba95c851c74"
     case "ppc64le":
-        sha256 = "37f5bf35c5b8f95c34710975ec4a2c25677df46a5da9e5e82e643dd5113eca99"
+        sha256 = "d7597f72f4dd745d55c9efdb701f73437bd801eb84e28c91084ceb67b82dbf20"
     case "x86_64":
         sha256 = "b0053f81d28e640ad96488d5b19d753a307643b7f7df0a5801cd0353eeb985bb"
     case _:
