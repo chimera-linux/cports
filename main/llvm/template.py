@@ -53,14 +53,13 @@ debug_level = 1
 # rpath and fakeroot effectively overrides rpath, so disable that
 options = ["bootstrap", "!check", "!installroot"]
 
-if self.profile().arch != "x86_64":
-    # disable ubsan integer checks on aarch64/ppc64/riscv64
-    # when lto-linking lld with ubsan'd clang/lld, it causes
-    # that to crash in 'AArch64 Instruction Selection'
-    # (on ppc64le, 'PowerPC Instruction Selection' e.g.
-    # when building graphviz)
-    # while on riscv it prevents rust from building
-    hardening = ["!int"]
+# disable ubsan integer checks, it breaks aarch64/riscv64/ppc64 targets
+# when lto-linking lld with ubsan'd clang/lld, it causes
+# that to crash in 'AArch64 Instruction Selection'
+# (on ppc64le, 'PowerPC Instruction Selection' e.g.
+# when building graphviz)
+# while on riscv it prevents rust from building
+hardening = ["!int"]
 
 _llvmgen = pkgver[0:pkgver.find(".")]
 
