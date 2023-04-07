@@ -52,7 +52,7 @@ def _read_cache(cpath, cname, eenv):
 
 def configure(
     pkg, configure_dir = None, configure_args = None, configure_script = None,
-    build_dir = None, extra_args = [], env = {}
+    build_dir = None, extra_args = [], env = {}, sysroot = True
 ):
     if not configure_script:
         configure_script = pkg.configure_script
@@ -88,8 +88,9 @@ def configure(
         cargs.append("--host=" + pkg.profile().triplet)
 
     if pkg.profile().cross:
-        cargs.append("--with-sysroot=" + str(pkg.profile().sysroot))
-        cargs.append("--with-libtool-sysroot=" + str(pkg.profile().sysroot))
+        if sysroot:
+            cargs.append("--with-sysroot=" + str(pkg.profile().sysroot))
+            cargs.append("--with-libtool-sysroot=" + str(pkg.profile().sysroot))
         # base cache
         _read_cache(cachedir, "common-linux", eenv)
         _read_cache(cachedir, "musl-linux", eenv)
