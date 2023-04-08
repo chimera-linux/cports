@@ -35,7 +35,7 @@ fi
 DEVNAME=
 . /sys/dev/block/$BDEV/uevent
 
-if [ -z "$DEVNAME" -o -z "$MAJOR" ]; then
+if [ -z "$DEVNAME" -o -z "$MAJOR" -o -z "$MINOR" -o -z "$PARTN" ]; then
     echo "ERROR: could not get /boot device" 1>&2
     exit 1
 fi
@@ -60,7 +60,7 @@ PARTNUM="$PARTN"
 
 # identify the disk itself
 DEVNAME=
-. /sys/dev/block/$MAJOR:0/uevent
+. /sys/dev/block/$MAJOR:$((MINOR - PARTNUM))/uevent
 
 if [ -z "$DEVNAME" -o ! -b "/dev/$DEVNAME" ]; then
     echo "ERROR: could not locate disk for $PARTBLOCK" 1>&2
