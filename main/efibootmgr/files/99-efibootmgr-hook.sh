@@ -94,7 +94,7 @@ add_entry() {
     if [ ! -f "/boot/$INITRD" ]; then
         INITRD=
     else
-        INITRD="initrd=/$INITRD"
+        INITRD="initrd=\\$INITRD"
     fi
 
     CMDLINE="$DEV_CMDLINE"
