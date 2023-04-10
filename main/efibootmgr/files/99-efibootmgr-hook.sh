@@ -72,10 +72,29 @@ DISKBLOCK="/dev/$DEVNAME"
 
 # this is mostly it with sanity checks
 
+# old bootorder that should be preserved best we can
+# include a leading comma for easier/more robust manipulation
+BOOTORDER=,$(/usr/bin/efibootmgr | grep "BootOrder: " | cut -c 12-)
+BOOTORDER_GAP=",+"
+
 del_chimeras() {
    for ent in $(/usr/bin/efibootmgr | grep " $EFIBOOTMGR_ENTRY_TITLE " | cut -c "5-8"); do
        /usr/bin/efibootmgr -Bq -b "$ent"
+       # mark one gap in bootorder
+       BOOTORDER=$(echo "$BOOTORDER" | sed "s/,${ent}/${BOOTORDER_GAP}/")
+       BOOTORDER_GAP=
    done
+   # if no gap was created, create one at the end
+   BOOTORDER="${BOOTORDER}${BOOTORDER_GAP}"
+}
+
+order_chimeras() {
+    # even if the numbers might not be in the right order, the entries in the list should be
+    for ent in $(/usr/bin/efibootmgr | grep " $EFIBOOTMGR_ENTRY_TITLE " | cut -c "5-8"); do
+        BOOTORDER=$(echo "$BOOTORDER" | sed "s/,+/,${ent},+/")
+    done
+    # and drop the gap marker
+    BOOTORDER=$(echo "$BOOTORDER" | sed "s/,+//")
 }
 
 add_entry_raw() {
@@ -119,8 +138,6 @@ add_entry() {
     fi
 }
 
-BOOTORDER=$(/usr/bin/efibootmgr | grep "BootOrder: " | cut -c 12-)
-
 # remove old chimera entries first
 del_chimeras
 
@@ -128,6 +145,10 @@ for KVER in $(linux-version list | linux-version sort --reverse); do
     add_entry "$KVER"
 done
 
-/usr/bin/efibootmgr -qo "$BOOTORDER"
+# set up correct boot order
+order_chimeras
+
+# reset the order but strip the leading comma
+/usr/bin/efibootmgr -qo "${BOOTORDER#,}"
 
 exit 0
