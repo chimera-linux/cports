@@ -119,14 +119,14 @@ add_entry() {
     fi
 }
 
-BOOTORDER=$(/usr/bin/efibootmgr | grep "BootOrder: " | cut -c 12-)
-
 # remove old chimera entries first
 del_chimeras
 
 for KVER in $(linux-version list | linux-version sort --reverse); do
     add_entry "$KVER"
 done
+
+BOOTORDER=$(/usr/bin/efibootmgr | grep "BootOrder: " | cut -c 12-)
 
 /usr/bin/efibootmgr -qo "$BOOTORDER"
 
