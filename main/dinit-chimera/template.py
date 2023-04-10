@@ -11,7 +11,7 @@ depends = [
     "virtual:cmd:grep!chimerautils",
     "virtual:cmd:sed!chimerautils",
     "virtual:cmd:install!chimerautils",
-    "virtual:cmd:awk!awk",
+    "virtual:cmd:awk!chimerautils",
     "virtual:cmd:kmod!kmod",
     "virtual:cmd:modprobe!kmod",
     "virtual:cmd:fsck!mount",

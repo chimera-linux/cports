@@ -10,7 +10,7 @@ depends = [
     "virtual:cmd:cpio!bsdtar",
     "virtual:cmd:ugetopt!ugetopt",
     "virtual:cmd:setupcon!console-setup",
-    "virtual:cmd:awk!awk",
+    "virtual:cmd:awk!chimerautils",
     "virtual:cmd:logsave!e2fsprogs",
 ]
 pkgdesc = "Generic modular initramfs generator"
