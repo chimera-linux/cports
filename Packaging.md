@@ -2321,7 +2321,7 @@ recursively.
 For example:
 
 ```
-with self.pushd("build/*/foo"):
+with self.pushd("build/*/foo", glob = True):
     pass
 ```
 
