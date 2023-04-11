@@ -1292,7 +1292,7 @@ class Template(Package):
 
     def install_license(self, src, name = None, pkgname = None):
         self.install_file(
-            src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name, glob
+            src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name
         )
 
     def install_service(self, src, name = None, enable = False):
