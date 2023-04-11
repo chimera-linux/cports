@@ -1223,60 +1223,76 @@ class Template(Package):
         if empty:
             (dirp / ".empty").touch(mode = 0o644)
 
-    def install_file(self, src, dest, mode = 0o644, name = None):
-        src = pathlib.Path(src)
+    def install_file(self, src, dest, mode = 0o644, name = None, glob = False):
+        if not glob:
+            srcs = [self.cwd / pathlib.Path(src)]
+        else:
+            if name:
+                self.error("cannot specify 'name' and 'glob' together")
+            srcs = list(self.cwd.glob(src))
+            if len(srcs) < 1:
+                self.error(f"path '{src}' does not match any files")
         dest = pathlib.Path(dest)
         # sanitize destination
         if dest.is_absolute():
             raise errors.TracebackException(
                 f"install_file: path '{dest}' must not be absolute"
             )
-        # default name
-        if not name:
-            name = src.name
-        # copy
-        dfn = self.destdir / dest / name
-        if dfn.exists():
-            raise errors.TracebackException(
-                f"install_file: destination file '{dfn}' already exists"
-            )
-        self.install_dir(dest)
-        shutil.copy2(self.cwd / src, dfn)
-        if mode is not None:
-            dfn.chmod(mode)
+        for src in srcs:
+            # copy
+            if name:
+                dfn = self.destdir / dest / name
+            else:
+                dfn = self.destdir / dest / src.name
+            if dfn.exists():
+                raise errors.TracebackException(
+                    f"install_file: destination file '{dfn}' already exists"
+                )
+            self.install_dir(dest)
+            shutil.copy2(self.cwd / src, dfn)
+            if mode is not None:
+                dfn.chmod(mode)
 
-    def install_bin(self, src, mode = 0o755, name = None):
-        self.install_file(src, "usr/bin", mode, name)
+    def install_bin(self, src, mode = 0o755, name = None, glob = False):
+        self.install_file(src, "usr/bin", mode, name, glob)
 
-    def install_lib(self, src, mode = 0o755, name = None):
-        self.install_file(src, "usr/lib", mode, name)
+    def install_lib(self, src, mode = 0o755, name = None, glob = False):
+        self.install_file(src, "usr/lib", mode, name, glob)
 
-    def install_man(self, src, name = None, cat = None):
+    def install_man(self, src, name = None, cat = None, glob = False):
         self.install_dir("usr/share/man")
         manbase = self.destdir / "usr/share/man"
-        absmn = self.cwd / src
-        mnf = absmn.name
-        if not cat:
-            if len(absmn.suffix) == 0:
-                raise errors.TracebackException(
-                    f"install_man: manpage '{mnf}' has no section"
-                )
-            try:
-                cat = int(absmn.suffix[1:])
-            except:
-                raise errors.TracebackException(
-                    f"install_man: manpage '{mnf}' has an invalid section"
-                )
-        mandir = manbase / f"man{cat}"
-        mandir.mkdir(parents = True, exist_ok = True)
-        if name:
-            mnf = f"{name}.{cat}"
-        shutil.copy2(absmn, mandir / mnf)
-        (mandir / mnf).chmod(0o644)
+        if not glob:
+            srcs = [self.cwd / src]
+        else:
+            if name:
+                self.error("cannot specify 'name' and 'glob' together")
+            srcs = list(self.cwd.glob(src))
+            if len(srcs) < 1:
+                self.error(f"path '{src}' does not match any files")
+        for absmn in srcs:
+            mnf = absmn.name
+            if not cat:
+                if len(absmn.suffix) == 0:
+                    raise errors.TracebackException(
+                        f"install_man: manpage '{mnf}' has no section"
+                    )
+                try:
+                    cat = int(absmn.suffix[1:])
+                except:
+                    raise errors.TracebackException(
+                        f"install_man: manpage '{mnf}' has an invalid section"
+                    )
+            mandir = manbase / f"man{cat}"
+            mandir.mkdir(parents = True, exist_ok = True)
+            if name:
+                mnf = f"{name}.{cat}"
+            shutil.copy2(absmn, mandir / mnf)
+            (mandir / mnf).chmod(0o644)
 
     def install_license(self, src, name = None, pkgname = None):
         self.install_file(
-            src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name
+            src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name, glob
         )
 
     def install_service(self, src, name = None, enable = False):

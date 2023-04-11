@@ -2696,7 +2696,7 @@ The `empty` argument, if set to `True`, will result in the `.empty`
 file being created inside. This serves as a placeholder to prevent
 the directory's accidental removal.
 
-##### def install_file(self, src, dest, mode = 0o644, name = None)
+##### def install_file(self, src, dest, mode = 0o644, name = None, glob = False)
 
 Installs `src` into `dest`, where `src` refers to a file (absolute or
 relative to `cwd`) and `dest` refers to a directory (must exist and be
@@ -2708,15 +2708,19 @@ unless it is `None`, in which case the source file name is kept.
 
 The `dest` is created if non-existent.
 
-##### def install_bin(self, src, mode = 0o755, name = None)
+If `glob` is set to `True`, the `src` must be a string specifying a relative
+glob pattern to `self.cwd` and `name` must not be specified. In this case,
+multiple files may be installed, but at least one must be matched.
 
-Equivalent to `self.install_file(src, "usr/bin", 0o755, name)`.
+##### def install_bin(self, src, mode = 0o755, name = None, glob = False)
 
-##### def install_lib(self, src, mode = 0o755, name = None)
+Equivalent to `self.install_file(src, "usr/bin", 0o755, name, glob)`.
 
-Equivalent to `self.install_file(src, "usr/lib", 0o755, name)`.
+##### def install_lib(self, src, mode = 0o755, name = None, glob = False)
 
-##### def install_man(self, src, name = None, cat = None)
+Equivalent to `self.install_file(src, "usr/lib", 0o755, name, glob)`.
+
+##### def install_man(self, src, name = None, cat = None, glob = False)
 
 Install a manpage `src`. That means installing into `usr/share/man` into
 the right category (e.g. `man1`), this is determined from the filename by
@@ -2725,7 +2729,8 @@ will retain its name, except whne `name` is specified. This name should not
 include the category (it is automatically appended, either as previously
 determined from the filename, or as specified by `cat`).
 
-The permissions will be `644`. All paths are created as necessary.
+The permissions will be `644`. All paths are created as necessary. The
+`glob` argument is equivalent to `install_file`.
 
 ##### def install_license(self, src, name = None, pkgname = None)
 

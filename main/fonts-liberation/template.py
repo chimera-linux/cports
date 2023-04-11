@@ -18,12 +18,14 @@ def pre_build(self):
     self.make.invoke("versionupdate")
 
 def do_install(self):
-    for f in (self.cwd / f"liberation-fonts-otf-{pkgver}").glob("*.otf"):
-        self.install_file(f, "usr/share/fonts/liberation")
-
-    for f in (self.cwd / f"liberation-fonts-ttf-{pkgver}").glob("*.ttf"):
-        self.install_file(f, "usr/share/fonts/liberation")
-
+    self.install_file(
+        f"liberation-fonts-otf-{pkgver}/*.otf",
+        "usr/share/fonts/liberation", glob = True
+    )
+    self.install_file(
+        f"liberation-fonts-ttf-{pkgver}/*.ttf",
+        "usr/share/fonts/liberation", glob = True
+    )
     for f in self.files_path.glob("*.conf"):
         self.install_file(f, "etc/fonts/conf.avail")
 
