@@ -195,11 +195,17 @@ class Package:
         return "cbuild"
 
     @contextlib.contextmanager
-    def pushd(self, dirn):
+    def pushd(self, dirn, glob = False):
         old_path = self.rparent.cwd
         old_cpath = self.rparent.chroot_cwd
 
-        new_path = old_path / dirn
+        if glob:
+            new_paths = list(old_path.glob(dirn))
+            if len(new_paths) != 1:
+                self.error(f"path '{dirn}' must match exactly one directory")
+            new_path = new_paths[0]
+        else:
+            new_path = old_path / dirn
 
         if not new_path.is_dir():
             self.error(f"path '{new_path}' is not a directory")

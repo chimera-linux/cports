@@ -2299,7 +2299,7 @@ Like `log`, but using `warn`.
 In addition to logging a message like `log_red`, also raises an error,
 which will abort the build.
 
-##### def pushd(self, dirn)
+##### def pushd(self, dirn, glob = False)
 
 To be used as a context manager. Temporarily changes the `cwd` as well
 as `chroot_cwd` of the template to point to `dirn` (which is treated
@@ -2311,6 +2311,17 @@ Usage:
 
 ```
 with self.pushd("src"):
+    pass
+```
+
+If you set `glob` to `True`, you may use wildcards in the given path.
+The result must match exactly one path. You can use `**` to glob
+recursively.
+
+For example:
+
+```
+with self.pushd("build/*/foo"):
     pass
 ```
 
