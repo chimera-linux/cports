@@ -256,7 +256,8 @@ class UpdateCheck:
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
                 rxg = 1
-            elif "//gitlab." in url:
+            elif "//gitlab." in url or \
+                 "salsa.debian.org" in url:
                 pn = "/".join(url.split("/")[0:5])
                 url = f"{pn}/tags"
                 rx = fr"""
