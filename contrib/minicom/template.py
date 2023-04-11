@@ -1,0 +1,12 @@
+pkgname = "minicom"
+pkgver = "2.8"
+pkgrel = 0
+build_style = "gnu_configure"
+makedepends = ["ncurses-devel", "linux-headers"]
+pkgdesc = "Friendly menu driven serial communication program"
+maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
+license = "GPL-2.0-or-later"
+url = "https://salsa.debian.org/minicom-team/minicom"
+source = f"{url}/-/archive/{pkgver}.tar.gz"
+sha256 = "91f41c0ec1e695d95eaa567be7616abb43e30e823022fe123f245a2b3f50680b"
+hardening = ["vis", "cfi"]
