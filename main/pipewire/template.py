@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.67"
+pkgver = "0.3.69"
 pkgrel = 0
 _pms_version = "0.4.1"
 build_style = "meson"
@@ -61,7 +61,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "f7edca705353ca247d9f0e5e1ef91287e4b7677d373a39cfb2df78509dde4e84"
+sha256 = "75b1d77c4770ae9085b9db4102587d3d176bb67caf0bb2ae3f13ea883f8dee0e"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
 
@@ -140,3 +140,13 @@ def _alsa(self):
         "usr/lib/alsa-lib",
         "usr/share/alsa/alsa.conf.d",
     ]
+
+@subpackage("pipewire-wireplumber")
+def _wp(self):
+    self.pkgdesc = f"{pkgdesc} (WirePlumber session manager)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    # bypass dependency check (break cycle)
+    self.depends = [f"virtual:wireplumber!{pkgname}"]
+    self.build_style = "meta"
+
+    return []
