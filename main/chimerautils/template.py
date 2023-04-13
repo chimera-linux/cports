@@ -1,8 +1,7 @@
 pkgname = "chimerautils"
-pkgver = "13.2.2"
+pkgver = "13.2.3"
 pkgrel = 0
 build_style = "meson"
-_commit = "e9bc60ba87f05df1113cf9e06c7975c04c892826"
 configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
 makedepends = [
@@ -17,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "df4173753dd398ffc1bb9b84d90d7a53421edfcf3d323dbdf108c441d9bcee82"
+sha256 = "ff40e8155b764868f5ab8a03825eeda8855377fc3ba14c3ef142fa205ed4e22d"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
@@ -54,3 +53,53 @@ def post_install(self):
     self.install_dir(tdest)
     for f in (self.destdir / "usr/bin").glob("*.tiny"):
         self.mv(f, self.destdir / tdest / f.stem)
+
+@subpackage("chimerautils-extra")
+def _full(self):
+    self.pkgdesc = f"{pkgdesc} (additional tools)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return [
+        "etc/locate.rc",
+        "usr/bin/bc",
+        "usr/bin/calendar",
+        "usr/bin/cal",
+        "usr/bin/compress",
+        "usr/bin/cu",
+        "usr/bin/dc",
+        "usr/bin/ex",
+        "usr/bin/locate",
+        "usr/bin/m4",
+        "usr/bin/ncal",
+        "usr/bin/nex",
+        "usr/bin/nvi",
+        "usr/bin/nview",
+        "usr/bin/patch",
+        "usr/bin/telnet",
+        "usr/bin/uncompress",
+        "usr/bin/vi",
+        "usr/bin/view",
+        "usr/libexec/locate.*",
+        "usr/share/man/man1/bc.1",
+        "usr/share/man/man1/calendar.1",
+        "usr/share/man/man1/cal.1",
+        "usr/share/man/man1/compress.1",
+        "usr/share/man/man1/cu.1",
+        "usr/share/man/man1/dc.1",
+        "usr/share/man/man1/ex.1",
+        "usr/share/man/man1/locate.1",
+        "usr/share/man/man1/m4.1",
+        "usr/share/man/man1/ncal.1",
+        "usr/share/man/man1/nex.1",
+        "usr/share/man/man1/nvi.1",
+        "usr/share/man/man1/nview.1",
+        "usr/share/man/man1/patch.1",
+        "usr/share/man/man1/telnet.1",
+        "usr/share/man/man1/uncompress.1",
+        "usr/share/man/man1/vi.1",
+        "usr/share/man/man1/view.1",
+        "usr/share/man/man8/locate.updatedb.8",
+        "usr/share/man/man8/updatedb.8",
+        "usr/share/misc/bc.library",
+        "usr/share/vi",
+    ]
