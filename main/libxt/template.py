@@ -1,5 +1,5 @@
 pkgname = "libxt"
-pkgver = "1.2.1"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
@@ -9,8 +9,8 @@ pkgdesc = "X Toolkit Intrinsics library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXt-{pkgver}.tar.bz2"
-sha256 = "679cc08f1646dbd27f5e48ffe8dd49406102937109130caab02ca32c083a3d60"
+source = f"$(XORG_SITE)/lib/libXt-{pkgver}.tar.gz"
+sha256 = "de4a80c4cc7785b9620e572de71026805f68e85a2bf16c386009ef0e50be3f77"
 
 def post_install(self):
     self.install_license("COPYING")
