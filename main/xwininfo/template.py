@@ -1,5 +1,5 @@
 pkgname = "xwininfo"
-pkgver = "1.1.5"
+pkgver = "1.1.6"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
@@ -8,8 +8,8 @@ pkgdesc = "Query information about X windows"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "7a405441dfc476666c744f5fcd1bc8a75abf8b5b1d85db7b88b370982365080e"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "2d52151de9d2808343c715c480e7d37f88958c8b7fcd090178b097436d987c2b"
 hardening = ["vis", "cfi"]
 
 def post_install(self):
