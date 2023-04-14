@@ -1,6 +1,6 @@
 pkgname = "elogind"
 pkgver = "246.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dman=true",
@@ -56,6 +56,16 @@ def _devel(self):
 def _meta(self):
     self.pkgdesc = f"{pkgdesc} (recommends package)"
     self.build_style = "meta"
+    return []
+
+@subpackage("elogind-polkit")
+def _polkit(self):
+    self.pkgdesc = f"{pkgdesc} (polkit)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    # break cycle (polkit depends on elogind)
+    self.depends = [f"virtual:polkit!{pkgname}"]
+    self.build_style = "meta"
+
     return []
 
 @subpackage("libelogind")
