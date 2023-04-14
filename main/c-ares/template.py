@@ -3,7 +3,6 @@ pkgver = "1.19.0"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
-checkdepends = ["iana-etc"]
 pkgdesc = "C library for asynchronous DNS requests"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

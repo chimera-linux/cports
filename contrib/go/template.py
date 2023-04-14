@@ -3,7 +3,7 @@ pkgver = "1.20.3"
 pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
-    "iana-etc", "libunwind-devel-static", "musl-devel-static",
+    "libunwind-devel-static", "musl-devel-static",
     "libatomic-chimera-devel-static"
 ]
 pkgdesc = "Go programming language"

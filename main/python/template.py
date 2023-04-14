@@ -36,7 +36,7 @@ makedepends = [
     "zlib-devel", "liblzma-devel", "libexpat-devel", "sqlite-devel",
     "linux-headers", "bluez-headers",
 ]
-checkdepends = ["ca-certificates", "iana-etc"]
+checkdepends = ["ca-certificates"]
 depends = [f"base-python{_majver}={pkgver}-r{pkgrel}", "ca-certificates"]
 provides = [f"python{_majver}={pkgver}-r{pkgrel}"]
 install_if = [f"base-python{_majver}={pkgver}-r{pkgrel}"]
