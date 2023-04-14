@@ -1,5 +1,5 @@
 pkgname = "vulkan-tools"
-pkgver = "1.3.246"
+pkgver = "1.3.247"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = f"https://github.com/KhronosGroup/Vulkan-Tools/archive/v{pkgver}.tar.gz"
-sha256 = "1aeefae204d5f750d7d46adba53bbfed5ac5b663fdefdcca57ef1bf2b8b07aef"
+sha256 = "3c7f9d81d599a36871cc122501713cd67882be4777872c8c5e17834e2c2047a1"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["!cross", "!check"]
