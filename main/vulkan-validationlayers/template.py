@@ -1,5 +1,5 @@
 pkgname = "vulkan-validationlayers"
-pkgver = "1.3.246"
+pkgver = "1.3.247"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = f"https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/v{pkgver}.tar.gz"
-sha256 = "b6c37484d7e403d93af54e5c364e00537631250d784da2aaf8f85f45077f63ab"
+sha256 = "f24b37ada8545389239b7fb3caa5e2dd93acede96c23a471dc8dd8cbae2bcbf9"
 hardening = ["!cfi"] # FIXME: inconsistent LTO unit splitting error
 # no test suite
 options = ["!cross", "!check"]
