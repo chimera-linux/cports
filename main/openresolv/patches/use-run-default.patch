@@ -1,0 +1,59 @@
+From 239825f7528f5b00f7a5361f9457bfcb903d0ff9 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 14 Apr 2023 18:19:48 +0200
+Subject: [PATCH] default resonv.conf to /run/resolvconf/resolv.conf
+
+We have /etc/resolv.conf be a symlink, so have resolvconf manage
+its resolv.conf in its own place and if things want it, they have
+the symlink point to it.
+
+This used to work as intended before, but upstream changed the
+behavior, see https://github.com/NetworkConfiguration/openresolv/issues/6
+---
+ libc.in              | 2 +-
+ resolvconf.conf      | 2 +-
+ resolvconf.conf.5.in | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/libc.in b/libc.in
+index 89981c5..0c9772e 100644
+--- a/libc.in
++++ b/libc.in
+@@ -93,7 +93,7 @@ elif [ -d "$SYSCONFDIR"/resolvconf ]; then
+ 		resolv_conf_tail="$(cat "$SYSCONFDIR"/resolv.conf.d/tail)"
+ 	fi
+ fi
+-: ${resolv_conf:=/etc/resolv.conf}
++: ${resolv_conf:=/run/resolvconf/resolv.conf}
+ : ${resolv_conf_tmp:="$resolv_conf.$$.openresolv"}
+ : ${libc_service:=nscd}
+ : ${list_resolv:=@SBINDIR@/resolvconf -l}
+diff --git a/resolvconf.conf b/resolvconf.conf
+index 4f5f2e6..c50d73b 100644
+--- a/resolvconf.conf
++++ b/resolvconf.conf
+@@ -1,7 +1,7 @@
+ # Configuration for resolvconf(8)
+ # See resolvconf.conf(5) for details
+ 
+-resolv_conf=/etc/resolv.conf
++#resolv_conf=/run/resolvconf/resolv.conf
+ # If you run a local name server, you should uncomment the below line and
+ # configure your subscribers configuration files below.
+ #name_servers=127.0.0.1
+diff --git a/resolvconf.conf.5.in b/resolvconf.conf.5.in
+index a24d559..c5a4726 100644
+--- a/resolvconf.conf.5.in
++++ b/resolvconf.conf.5.in
+@@ -175,7 +175,7 @@ directly:-
+ .Bl -tag -width indent
+ .It Sy resolv_conf
+ Defaults to
+-.Pa /etc/resolv.conf
++.Pa /run/resolvconf/resolv.conf
+ if not set.
+ .It Sy resolv_conf_options
+ A list of libc resolver options, as specified in
+-- 
+2.39.0
+

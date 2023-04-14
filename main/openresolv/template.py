@@ -1,5 +1,5 @@
 pkgname = "openresolv"
-pkgver = "3.12.0"
+pkgver = "3.13.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--libexecdir=/usr/libexec/resolvconf"]
@@ -8,8 +8,8 @@ pkgdesc = "Management framework for resolv.conf"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://roy.marples.name/projects/openresolv"
-source = f"https://roy.marples.name/downloads/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "42b30508e857a228535c631eaac936862d86eca68c14b5c0bf387ba176b91b97"
+source = f"https://github.com/NetworkConfiguration/{pkgname}/archive/refs/tags/{pkgname}-{pkgver}.tar.gz"
+sha256 = "799d075542185217dcdaec00f32d7b92000d89029d29e50645a5d2a39736921b"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["!check"]

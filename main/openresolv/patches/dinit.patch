@@ -2,7 +2,7 @@ commit d39d9b91fde3d4883048eadb7aa7bf68ce751c72
 Author: Daniel Kolesa <daniel@octaforge.org>
 Date:   Mon Apr 3 01:53:18 2023 +0200
 
-    add support for dinit
+    prefer dinit over everything else
 
 diff --git a/resolvconf.in b/resolvconf.in
 index 198096b..0a126bb 100644
