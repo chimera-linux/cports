@@ -1,6 +1,6 @@
 pkgname = "polkit"
 pkgver = "121"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsession_tracking=libelogind",
@@ -20,7 +20,6 @@ hostmakedepends = [
     "perl", "xsltproc", "docbook-xsl-nons",
 ]
 makedepends = ["elogind-devel", "duktape-devel", "linux-pam-devel"]
-install_if = ["elogind"]
 pkgdesc = "Toolkit for defining and handling authorizations"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/polkit"
