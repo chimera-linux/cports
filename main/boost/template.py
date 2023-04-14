@@ -1,5 +1,5 @@
 pkgname = "boost"
-pkgver = "1.81.0"
+pkgver = "1.82.0"
 pkgrel = 0
 hostmakedepends = ["pkgconf"]
 makedepends = [
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "205666dea9f6a7cfed87c7a6dfbeb52a2c1b9de55712c9c1a87735d7181452b6"
+sha256 = "66a469b6e608a51f8347236f4912e27dc5c60c60d7d53ae9bfe4683316c6f04c"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
 # FIXME: odd failures, but seems test-related
 options = ["!check", "!cross"] # i don't dare touch this yet
