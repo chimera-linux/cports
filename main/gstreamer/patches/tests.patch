@@ -46,3 +46,16 @@ index 9c4228b..529b256 100644
    [ 'gst/gstbus.c', not gst_registry ],
    [ 'gst/gstevent.c', not gst_registry ],
    [ 'pipelines/stress.c', not gst_registry ],
+diff --git a/tests/examples/meson.build b/tests/examples/meson.build
+index d8b795c..8fca38e 100644
+--- a/tests/examples/meson.build
++++ b/tests/examples/meson.build
+@@ -3,7 +3,7 @@ subdir('controller')
+ subdir('helloworld')
+ #subdir('manual') # FIXME
+ subdir('memory')
+-subdir('netclock')
++#subdir('netclock')
+ subdir('ptp')
+ subdir('stepping')
+ subdir('streamiddemux')
