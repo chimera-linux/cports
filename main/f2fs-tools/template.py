@@ -1,5 +1,5 @@
 pkgname = "f2fs-tools"
-pkgver = "1.15.0"
+pkgver = "1.16.0"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "." # bad build system
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/cgit/linux/kernel/git/jaegeuk/f2fs-tools.git"
 source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
-sha256 = "147d471040b44900283ce2c935f1d35d13d7f40008e7cb8fab2b69f54da01a4f"
+sha256 = "208c7a07e95383fbd7b466b5681590789dcb41f41bf197369c41a95383b57c5e"
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
