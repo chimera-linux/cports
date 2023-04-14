@@ -1,5 +1,5 @@
 pkgname = "graphviz"
-pkgver = "8.0.1"
+pkgver = "8.0.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "EPL-1.0"
 url = "https://graphviz.org"
 source = f"https://gitlab.com/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "6698926f671681210a87f425d7b09bd346222f0763a5ef8a2bc6d518361c44c4"
+sha256 = "3d243a7db7b21643c795e4fdad03efaed71313723bf46932d99c17920160bb0d"
 # expects already installed graphviz
 # testing is via pytest
 options = ["!check"]
