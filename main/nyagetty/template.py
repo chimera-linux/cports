@@ -13,6 +13,7 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "7033d6840f839a6ad6d788d92f45efd0bb10c835c0560dba5d15ad8a6b9dff90"
 hardening = ["vis", "cfi"]
 
+# sync securetty in base-files with this when updating
 _ttys = [
     # /dev/console
     ("console", None),

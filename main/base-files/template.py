@@ -1,7 +1,7 @@
 pkgname = "base-files"
-pkgver = "0.1"
+_iana_ver = "20230413"
+pkgver = f"0.1.{_iana_ver}"
 pkgrel = 0
-build_style = "meta"
 pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
@@ -61,7 +61,7 @@ def do_install(self):
     for f in [
         "chimera-release", "profile", "profile.path", "hosts", "issue",
         "subuid", "subgid", "fstab", "passwd", "group", "securetty",
-        "nsswitch.conf", "os-release",
+        "nsswitch.conf", "os-release", "protocols", "services",
     ]:
         self.install_file(self.files_path / "etc" / f, "etc")
 
