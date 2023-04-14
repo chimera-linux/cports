@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
 pkgver = "13.2.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
@@ -10,7 +10,7 @@ makedepends = [
     "zlib-devel", "libbz2-devel", "linux-headers",
     "libxo-devel", "musl-bsd-headers"
 ]
-depends = ["base-files", "iana-etc"]
+depends = ["base-files"]
 pkgdesc = "Chimera Linux userland"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
