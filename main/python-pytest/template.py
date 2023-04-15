@@ -1,5 +1,5 @@
 pkgname = "python-pytest"
-pkgver = "7.3.0"
+pkgver = "7.3.1"
 pkgrel = 0
 build_style = "python_module"
 make_cmd = "gmake"
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://docs.pytest.org/en/latest"
 source = f"$(PYPI_SITE)/p/pytest/pytest-{pkgver}.tar.gz"
-sha256 = "58ecc27ebf0ea643ebfdf7fb1249335da761a00c9f955bcd922349bcb68ee57d"
+sha256 = "434afafd78b1d78ed0addf160ad2b77a30d35d4bdf8af234fe621919d9ed15e3"
 # missing checkdepends
 options = ["!check"]
 
