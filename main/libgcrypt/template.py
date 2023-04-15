@@ -1,5 +1,5 @@
 pkgname = "libgcrypt"
-pkgver = "1.10.1"
+pkgver = "1.10.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gnupg.org"
 source = f"{url}/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "ef14ae546b0084cd84259f61a55e07a38c3b53afc0f546bffcef2f01baffe9de"
+sha256 = "3b9c02a004b68c256add99701de00b383accccf37177e0d6c58289664cce0c03"
 
 @subpackage("libgcrypt-devel")
 def _devel(self):
