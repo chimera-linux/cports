@@ -1,8 +1,12 @@
 pkgname = "abseil-cpp"
 pkgver = "20230125.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DABSL_PROPAGATE_CXX_STD=ON"]
+configure_args = [
+    "-DCMAKE_CXX_STANDARD=17",
+    "-DBUILD_SHARED_LIBS=ON",
+    "-DABSL_PROPAGATE_CXX_STD=ON"
+]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["linux-headers"]
 pkgdesc = "Abseil C++ libraries"
