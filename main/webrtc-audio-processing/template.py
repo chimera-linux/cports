@@ -1,7 +1,8 @@
 pkgname = "webrtc-audio-processing"
 pkgver = "1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
+configure_args = ["-Dcpp_std=c++17"]
 hostmakedepends = ["meson", "pkgconf", "cmake"]
 makedepends = ["abseil-cpp-devel", "linux-headers"]
 pkgdesc = "Packaging-friendly copy of WebRTC AudioProcessing"
