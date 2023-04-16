@@ -1,6 +1,5 @@
 pkgname = "dinit-chimera"
-_commit = "87d38f7dbb30ec7d92a8b69097c42ffbdbdae767"
-pkgver = "0.11"
+pkgver = "0.99.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson"]
@@ -29,8 +28,8 @@ pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = f"https://github.com/chimera-linux/dinit-chimera"
-source = f"https://github.com/chimera-linux/dinit-chimera/archive/{_commit}.tar.gz"
-sha256 = "1ef76bfad9986df788207c4ad7454cce40e6113b90c9158145731d820e48ef41"
+source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
+sha256 = "cb8bfecca98f74970d598ce47a1fdf7fe26aeeac24e971f245f47226b01815a2"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
