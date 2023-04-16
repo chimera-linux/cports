@@ -1,0 +1,2 @@
+# override default 115200 baud to accommodate rockchip
+GETTY_BAUD=1500000
