@@ -1170,6 +1170,49 @@ contents of the wheel. The `do_check` will run `pytest` or fail.
 
 The `make_install_target` is used as a glob pattern to match built wheels.
 
+#### go
+
+A build style for packages written in Go language (golang). Requires to have
+`go` in `hostmakedepends`.
+
+Sets `do_prepare`, `do_build`, `do_check`, `do_install`.
+
+`go.mod` file in source is **required**: other ways to build go package are not
+supported.
+
+Variables:
+
+* `go_mod_dl` (optional): control download of modules. Values: `mod`, `off`.
+* `go_build_tags` (optional): list of Go tags to use on build phase
+* `go_ldflags`    (optional): list of Go ldflags to use on build phase
+* `go_check_tags` (optional): list of Go tags to use on check phase
+
+Download of dependencies are performed using command `go mod download` during
+the `do_prepare` phase. It uses the `go.mod` file and the following rules:
+* if `go_mod_dl` is `off`, download is skipped
+* if `vendor` folder is not present, downloads happens
+* if `vendor` folder is present, no download happens until `go_mod_dl = "mod"`
+  (force download).
+Downloads are stored in a shared download folder for Go pointed by environment
+variable `GOMODCACHE` (see below).
+
+The `do_build` phase builds source code with command `go install`. It builds
+modules as referenced in `go.mod` file, using build tags listed in
+`go_build_tags`, the Go ldflags listed in `go_ldflags` and arguments from
+`make_build_args`.
+
+The `do_check` phase run testing with command `go test`. It uses the Go tags
+listed in `go_check_tags`. The go module list to run on can be
+specified via `make_check_args`.
+
+The `do_install` phase install files present in `<cwd>/build/bin` folder.
+
+The following environment variables are automatically set for Go build style:
+* `GOMODCACHE` : path to common download folder for Go. value:
+  `/cbuild_cache/golang/pkg/mod`
+* `GOPATH`: build folder for Go compiler in source. value: `chroot_cwd/make_dir`
+* `GOARCH`: the target's architecture for go (from `goarch` of profile).
+
 <a id="subpackages"></a>
 ### Subpackages
 

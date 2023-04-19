@@ -435,6 +435,12 @@ core_fields = [
 
     # meson
     ("meson_dir", ".", str, False, False, False),
+
+    # golang
+    ("go_mod_dl", None, str, False, False, False),
+    ("go_build_tags", [], list, False, False, False),
+    ("go_ldflags", [], list, False, False, False),
+    ("go_check_tags", [], list, False, False, False),
 ]
 
 # a field priority list, the second element indicates whether
@@ -479,6 +485,11 @@ core_fields_priority = [
     ("makedepends", True),
     ("checkdepends", True),
     ("depends", False),
+
+    ("go_mod_dl", True),
+    ("go_build_tags", False),
+    ("go_ldflags", False),
+    ("go_check_tags", False),
 
     ("provides", True),
     ("provider_priority", True),
