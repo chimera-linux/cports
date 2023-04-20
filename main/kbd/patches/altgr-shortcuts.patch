@@ -1,0 +1,23 @@
+diff --git a/data/keymaps/i386/include/linux-keys-bare.inc b/data/keymaps/i386/include/linux-keys-bare.inc
+index 64a4ee9..a2acf8c 100644
+--- a/data/keymaps/i386/include/linux-keys-bare.inc
++++ b/data/keymaps/i386/include/linux-keys-bare.inc
+@@ -87,6 +87,18 @@ control alt keycode  67 = Console_9
+ control alt keycode  68 = Console_10
+ control alt keycode  87 = Console_11
+ control alt keycode  88 = Console_12
++control altgr keycode  59 = Console_1
++control altgr keycode  60 = Console_2
++control altgr keycode  61 = Console_3
++control altgr keycode  62 = Console_4
++control altgr keycode  63 = Console_5
++control altgr keycode  64 = Console_6
++control altgr keycode  65 = Console_7
++control altgr keycode  66 = Console_8
++control altgr keycode  67 = Console_9
++control altgr keycode  68 = Console_10
++control altgr keycode  69 = Console_11
++control altgr keycode  70 = Console_12
+ 
+ #
+ # Keypad keys
