@@ -40,6 +40,7 @@ opt_cchpath    = "cbuild_cache"
 opt_stagepath  = "pkgstage"
 opt_statusfd   = None
 opt_bulkcont   = False
+opt_allowcat   = "main contrib"
 
 #
 # INITIALIZATION ROUTINES
@@ -89,7 +90,7 @@ def handle_options():
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_harch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
-    global opt_unsigned, opt_force, opt_mdirtemp
+    global opt_unsigned, opt_force, opt_mdirtemp, opt_allowcat
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath
@@ -243,6 +244,7 @@ def handle_options():
         opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
         opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
         opt_cchpath   = bcfg.get("cbuild_cache_path", fallback = opt_cchpath)
+        opt_allowcat  = bcfg.get("categories", fallback = opt_allowcat)
         opt_nonet     = not bcfg.getboolean("remote", fallback = not opt_nonet)
 
     if not "flags" in global_cfg:
@@ -1285,7 +1287,7 @@ def _resolve_git(pattern):
     # filter out templates
     for f in gout.stdout.strip().split():
         tn = f.removesuffix(b"/template.py")
-        if tn == f or tn.startswith(b"src/"):
+        if tn == f or len(tn.split(b"/")) != 2:
             continue
         pkgs.append(tn.decode())
 
@@ -1404,6 +1406,7 @@ def fire():
         sys.exit(1)
 
     template.register_hooks()
+    template.register_cats(opt_allowcat.strip().split())
 
     try:
         cmd = cmdline.command[0]

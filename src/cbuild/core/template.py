@@ -1822,6 +1822,12 @@ def from_module(m, ret):
             broken = True
         )
 
+    if ret.repository not in _allow_cats and not ierr:
+        ret.error(
+            f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})",
+            broken = True
+        )
+
     if ret.profile().cross and not ret.options["cross"] and not ierr:
         ret.error(
             f"cannot be cross-compiled for {ret.profile().cross}",
@@ -2002,6 +2008,10 @@ def read_pkg(
     delattr(builtins, "subpackage")
 
     return from_module(modh, ret)
+
+def register_cats(cats):
+    global _allow_cats
+    _allow_cats = cats
 
 def register_hooks():
     for step in [

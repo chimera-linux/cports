@@ -42,6 +42,8 @@ sources = sources
 keep_stage = no
 # whether to attempt using remote repositories (if available)
 remote = yes
+# categories that are permitted to build; primarily for bulk builds
+categories = main contrib
 
 # flags passed to tools
 [flags]
