@@ -1092,7 +1092,7 @@ def _bulkpkg(pkgs, statusf):
 
     def _do_with_exc(f):
         # we are setting this
-        nonlocal failed
+        nonlocal failed, broken
         try:
             retv = f()
             if retv:
@@ -1169,11 +1169,14 @@ def _bulkpkg(pkgs, statusf):
         rpkgs.add(pn)
 
     # visited "intermediate" templates, includes stuff that is "to be done"
+    #
+    # ignore minor errors in templates like lint as those do not concern us
+    # do not ignore missing tmpls because that is likely error in main tmpl
     pvisit = set(rpkgs)
     def handle_recdeps(pn, tp):
         return _add_deps_graph(pn, tp, pvisit, lambda d: template.read_pkg(
             d, tarch, True, False, (1, 1), False, False, None,
-            ignore_missing = True, ignore_errors = True
+            ignore_errors = True
         ), depg)
 
     rpkgs = sorted(list(rpkgs))
@@ -1202,15 +1205,25 @@ def _bulkpkg(pkgs, statusf):
             else:
                 failed = ofailed
             continue
-        failed = ofailed
+        failed = False
+        broken = False
         # add it into the graph with all its build deps
         # if some dependency in its graph fails to parse, we skip building
         # it because it could mean things building out of order (because
         # the failing template cuts the graph)
+        #
+        # treat dep failures the same as if it was a failure of the main
+        # package, i.e. broken dep means broken main, unparseable dep
+        # is like unparseable main
         if not handle_recdeps(pn, tp):
-            statusf.write(f"{pn} deps\n")
-            failed = True
+            if broken:
+                statusf.write(f"{pn} broken\n")
+            elif failed:
+                statusf.write(f"{pn} parse\n")
+            else:
+                failed = ofailed
             continue
+        failed = ofailed
         # record the template for later use
         templates[pn] = tp
 
@@ -1226,11 +1239,14 @@ def _bulkpkg(pkgs, statusf):
                 statusf.write(f"{pn} skipped\n")
                 continue
             # ensure to write the status
+            broken = False
             if _do_with_exc(lambda: build.build(
                 "pkg", templates[pn], {}, opt_signkey, dirty = False,
                 keep_temp = False, check_fail = opt_checkfail
             )):
                 statusf.write(f"{pn} ok\n")
+            elif broken:
+                statusf.write(f"{pn} broken\n")
             else:
                 statusf.write(f"{pn} failed\n")
 

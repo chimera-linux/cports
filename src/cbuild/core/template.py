@@ -954,7 +954,10 @@ class Template(Package):
                 prevneg = curneg
         # no match or negative match
         if not prevmatch or prevneg:
-            self.error(f"this package cannot be built for {archn}", bt = False)
+            self.error(
+                f"this package cannot be built for {archn}", bt = False,
+                broken = True
+            )
         # otherwise we're good
 
     def is_built(self):
