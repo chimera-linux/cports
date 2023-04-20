@@ -1234,8 +1234,12 @@ def _bulkpkg(pkgs, statusf):
             if not pn in templates:
                 continue
             tp = templates[pn]
-            # if we previously failed and want it this way, skip the rest
-            if failed and opt_bulkfail or (not opt_force and tp.is_built()):
+            # if already built, mark it specially
+            if not opt_force and tp.is_built():
+                statusf.write(f"{pn} done\n")
+                continue
+            # if we previously failed and want it this way, skip
+            if failed and opt_bulkfail:
                 statusf.write(f"{pn} skipped\n")
                 continue
             # ensure to write the status
@@ -1278,7 +1282,7 @@ def _resolve_git(pattern):
     # filter out templates
     for f in gout.stdout.strip().split():
         tn = f.removesuffix(b"/template.py")
-        if tn == f:
+        if tn == f or tn.startswith(b"src/"):
             continue
         pkgs.append(tn.decode())
 
