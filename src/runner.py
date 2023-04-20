@@ -39,7 +39,7 @@ opt_srcpath    = "sources"
 opt_cchpath    = "cbuild_cache"
 opt_stagepath  = "pkgstage"
 opt_statusfd   = None
-opt_bulkfail   = False
+opt_bulkcont   = False
 
 #
 # INITIALIZATION ROUTINES
@@ -85,7 +85,7 @@ def handle_options():
     global global_cfg
     global cmdline
 
-    global opt_apkcmd, opt_dryrun, opt_bulkfail
+    global opt_apkcmd, opt_dryrun, opt_bulkcont
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_harch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
@@ -206,9 +206,9 @@ def handle_options():
         help = "File descriptor for bulk build status (must be open)."
     )
     parser.add_argument(
-        "--bulk-fail", action = "store_const",
-        const = True, default = opt_bulkfail,
-        help = "Skip remaining packages after first failure for bulk builds."
+        "--bulk-continue", action = "store_const",
+        const = True, default = opt_bulkcont,
+        help = "Try building the remaining packages in case of bulk failures."
     )
     parser.add_argument("command", nargs = "+", help = "The command to issue.")
 
@@ -338,8 +338,8 @@ def handle_options():
     if cmdline.status_fd:
         opt_statusfd = int(cmdline.status_fd)
 
-    if cmdline.bulk_fail:
-        opt_bulkfail = True
+    if cmdline.bulk_continue:
+        opt_bulkcont = True
 
     ncores = len(os.sched_getaffinity(0))
 
@@ -1140,8 +1140,9 @@ def _bulkpkg(pkgs, statusf):
         if pn in rpkgs or pn in badpkgs:
             continue
         # skip if previously failed
-        if failed and opt_bulkfail:
+        if failed and not opt_bulkcont:
             statusf.write(f"{pn} skipped\n")
+            log.out_red(f"cbuild: skipping template '{pn}'")
             continue
         pp = pathlib.Path(pn)
         # resolve
@@ -1184,8 +1185,9 @@ def _bulkpkg(pkgs, statusf):
     # parse out all the templates first and grab their build deps
     for pn in rpkgs:
         # skip if previously failed and set that way
-        if failed and opt_bulkfail:
+        if failed and not opt_bulkcont:
             statusf.write(f"{pn} skipped\n")
+            log.out_red(f"cbuild: skipping template '{pn}'")
             continue
         # parse, handle any exceptions so that we can march on
         ofailed = failed
@@ -1228,7 +1230,7 @@ def _bulkpkg(pkgs, statusf):
         templates[pn] = tp
 
     # try building in sorted order
-    if not failed or not opt_bulkfail:
+    if not failed or opt_bulkcont:
         for pn in depg.static_order():
             # skip things that were not in the initial set
             if not pn in templates:
@@ -1239,8 +1241,9 @@ def _bulkpkg(pkgs, statusf):
                 statusf.write(f"{pn} done\n")
                 continue
             # if we previously failed and want it this way, skip
-            if failed and opt_bulkfail:
+            if failed and not opt_bulkcont:
                 statusf.write(f"{pn} skipped\n")
+                log.out_red(f"cbuild: skipping template '{pn}'")
                 continue
             # ensure to write the status
             broken = False
