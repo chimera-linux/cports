@@ -1235,18 +1235,67 @@ def _bulkpkg(pkgs, statusf):
                 statusf.write(f"{pn} failed\n")
 
     if failed:
-        raise errors.CbuildException(f"at least one bulk-pkg package failed")
+        raise errors.CbuildException(f"at least one bulk package failed")
     elif not opt_stage:
         do_unstage("pkg", False)
 
-def do_bulkpkg(tgt):
+def _resolve_git(pattern):
+    import subprocess
+    from cbuild.core import errors
+
+    pkgs = []
+
+    # if we pass a rev alone, use it as the interval starting point
+    gpat = pattern
+    if ".." not in gpat:
+        gpat += ".."
+
+    gout = subprocess.run([
+        "git", "diff", "--name-only", gpat
+    ], capture_output = True)
+
+    if gout.returncode != 0:
+        raise errors.CbuildException(
+            f"failed to resolve changes for {pattern}"
+        )
+
+    # filter out templates
+    for f in gout.stdout.strip().split():
+        tn = f.removesuffix(b"/template.py")
+        if tn == f:
+            continue
+        pkgs.append(tn.decode())
+
+    return pkgs
+
+def _collect_git(pkgs):
+    rpkgs = []
+    # make up initial list
+    for pkg in pkgs:
+        rpkgs += _resolve_git(pkg)
+    # uniq it
+    return list(set(rpkgs))
+
+def do_bulkpkg(tgt, git = False):
     import os
     import sys
+    import subprocess
+    from cbuild.core import errors
 
     if len(cmdline.command) <= 1:
+        if git:
+            raise errors.CbuildException("bulk-git requires an argument")
         pkgs = _collect_tmpls(None)
     else:
         pkgs = cmdline.command[1:]
+
+    if git:
+        # check if we're in a repository
+        if subprocess.run([
+            "git", "rev-parse", "--is-inside-work-tree"
+        ], capture_output = True).returncode != 0:
+            raise errors.CbuildException("bulk-git must run from a git repository")
+        pkgs = _collect_git(pkgs)
 
     if len(pkgs) == 1:
         if pkgs[0] == "-":
@@ -1359,6 +1408,7 @@ def fire():
             case "check" | "install" | "pkg": do_pkg(cmd)
             case "unstage": do_unstage(cmd)
             case "bulk-pkg": do_bulkpkg(cmd)
+            case "bulk-git": do_bulkpkg(cmd, True)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)
