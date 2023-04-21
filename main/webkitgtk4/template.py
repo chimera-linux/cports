@@ -1,6 +1,6 @@
 # mirrors the gtk3 webkitgtk template
 pkgname = "webkitgtk4"
-pkgver = "2.40.0"
+pkgver = "2.40.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -50,7 +50,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/webkitgtk-{pkgver}.tar.xz"
-sha256 = "a4607ea1bf89669e89b1cb2c63faaec513f93de09b6ae60cc71d6a8aab7ab393"
+sha256 = "64e526984f8cd2161ef03ae949af99c002ff333d615e6386b460164a3c1b7ef6"
 debug_level = 1 # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
