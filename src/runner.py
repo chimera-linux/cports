@@ -1264,71 +1264,133 @@ def _bulkpkg(pkgs, statusf):
     elif not opt_stage:
         do_unstage("pkg", False)
 
-def _resolve_git(pattern):
+_repo_checked = False
+def _repo_check():
+    global _repo_checked
+    if _repo_checked:
+        return
     import subprocess
-    from cbuild.core import errors
+    if subprocess.run([
+        "git", "rev-parse", "--is-inside-work-tree"
+    ], capture_output = True).returncode != 0:
+        raise errors.CbuildException("bulk-git must run from a git repository")
+    _repo_checked = True
 
-    pkgs = []
+def _collect_git(expr):
+    import subprocess
+    # check if we're in a repository, once
+    _repo_check()
+    oexpr = expr
+    # find a grep
+    plus = expr.find("+")
+    if plus >= 0:
+        gexpr = expr[plus + 1:]
+        expr = expr[0:plus]
+    else:
+        gexpr = ""
+    # if not a range, make it a single-commit range
+    if ".." not in expr:
+        expr = f"{expr}^1..{expr}"
+    # make up arguments
+    cmd = ["git", "rev-list"]
+    # add grep if requested
+    if len(gexpr) > 0:
+        nocase = gexpr.startswith("^")
+        if nocase:
+            gexpr = gexpr[1:]
+        inv = gexpr.startswith("!")
+        if inv:
+            gexpr = gexpr[1:]
+        if len(gexpr) > 0:
+            if inv:
+                cmd.append("--invert-grep")
+            if nocase:
+                cmd.append("--regexp-ignore-case")
+            cmd.append("--grep")
+            cmd.append(gexpr)
+    # add commit pattern
+    cmd.append(expr)
+    # locate the commit list
+    subp = subprocess.run(cmd, capture_output = True)
+    if subp.returncode != 0:
+        raise errors.CbuildException(f"failed to resolve commits for '{oexpr}'")
+    # collect changed templates
+    tmpls = set()
+    for commit in subp.stdout.strip().split():
+        subp = subprocess.run([
+            "git", "diff-tree", "--no-commit-id", "--name-only", "-r", commit
+        ], capture_output = True)
+        if subp.returncode != 0:
+            raise errors.CbuildException(
+                f"failed to resolve files for '{commit.decode()}'"
+            )
+        for fname in subp.stdout.strip().split():
+            tn = fname.removesuffix(b"/template.py")
+            if tn == fname or len(tn.split(b"/")) != 2:
+                continue
+            tmpls.add(tn.decode())
+    # and return as a list
+    return list(tmpls)
 
-    # if we pass a rev alone, use it as the interval starting point
-    gpat = pattern
-    if ".." not in gpat:
-        gpat += ".."
-
-    gout = subprocess.run([
-        "git", "diff", "--name-only", gpat
-    ], capture_output = True)
-
-    if gout.returncode != 0:
-        raise errors.CbuildException(
-            f"failed to resolve changes for {pattern}"
-        )
-
-    # filter out templates
-    for f in gout.stdout.strip().split():
-        tn = f.removesuffix(b"/template.py")
-        if tn == f or len(tn.split(b"/")) != 2:
+def _collect_status(inf):
+    pkgs = set()
+    for sline in inf:
+        slist = sline.split()
+        if len(slist) == 0:
             continue
-        pkgs.append(tn.decode())
+        elif len(slist) == 1:
+            pkgs.add(slist[0])
+        else:
+            match slist[1]:
+                case "broken" | "done" | "invalid" | "missing":
+                    continue
+                case _:
+                    pkgs.add(slist[0])
+    # return as a list
+    return list(pkgs)
 
-    return pkgs
-
-def _collect_git(pkgs):
+def _collect_blist(pkgs):
     rpkgs = []
-    # make up initial list
     for pkg in pkgs:
-        rpkgs += _resolve_git(pkg)
-    # uniq it
+        # git expressions
+        if pkg.startswith("git:"):
+            rpkgs += _collect_git(pkg.removeprefix("git:"))
+            continue
+        # status files
+        if pkg.startswith("status:"):
+            with open(pkg.removeprefix("status:"), "r") as inf:
+                rpkgs += _collect_status(inf)
+            continue
+        # files
+        if pkg.startswith("file:"):
+            with open(pkg.removeprefix("file:"), "r") as inf:
+                for l in inf:
+                    rpkgs += _collect_blist(l.strip())
+            continue
+        # stdin
+        if pkg == "-":
+            for l in sys.stdin:
+                rpkgs += _collect_blist(l.strip())
+            continue
+        # full template name
+        if "/" in pkg:
+            rpkgs.append(pkg)
+            continue
+        # otherwise a category
+        rpkgs += _collect_tmpls(None, pkg)
+    # uniq it while at it
     return list(set(rpkgs))
 
-def do_bulkpkg(tgt, git = False):
+def do_bulkpkg(tgt):
     import os
     import sys
     import subprocess
     from cbuild.core import errors
 
     if len(cmdline.command) <= 1:
-        if git:
-            raise errors.CbuildException("bulk-git requires an argument")
         pkgs = _collect_tmpls(None)
     else:
-        pkgs = cmdline.command[1:]
-
-    if git:
-        # check if we're in a repository
-        if subprocess.run([
-            "git", "rev-parse", "--is-inside-work-tree"
-        ], capture_output = True).returncode != 0:
-            raise errors.CbuildException("bulk-git must run from a git repository")
-        pkgs = _collect_git(pkgs)
-
-    if len(pkgs) == 1:
-        if pkgs[0] == "-":
-            pkgs = []
-            for l in sys.stdin:
-                pkgs.append(l.strip())
-        elif "/" not in pkgs[0]:
-            pkgs = _collect_tmpls(None, pkgs[0])
+        pkgs = _collect_blist(cmdline.command[1:])
 
     if opt_statusfd:
         try:
@@ -1434,7 +1496,6 @@ def fire():
             case "check" | "install" | "pkg": do_pkg(cmd)
             case "unstage": do_unstage(cmd)
             case "bulk-pkg": do_bulkpkg(cmd)
-            case "bulk-git": do_bulkpkg(cmd, True)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)
