@@ -2,9 +2,11 @@ pkgname = "libaom"
 pkgver = "3.6.0"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DENABLE_TESTS=OFF"]
+configure_args = [
+    "-DBUILD_SHARED_LIBS=ON", "-DENABLE_TESTS=OFF", "-DENABLE_NASM=ON"
+]
 hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "perl", "python", "yasm", "doxygen"
+    "cmake", "ninja", "pkgconf", "perl", "python", "nasm", "doxygen"
 ]
 makedepends = ["linux-headers"]
 pkgdesc = "Reference implementation of the AV1 codec"
