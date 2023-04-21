@@ -1,0 +1,82 @@
+commit e519e0a91e7909094fd43bb7f65ec0b223dbe813
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Apr 21 18:49:53 2023 +0200
+
+    fix integer overflows in ada
+
+diff --git a/deps/ada/ada.cpp b/deps/ada/ada.cpp
+index 197cb8ed..0ce04986 100644
+--- a/deps/ada/ada.cpp
++++ b/deps/ada/ada.cpp
+@@ -2750,7 +2750,7 @@ uint32_t find_range_index(uint32_t key) {
+ }
+ 
+ bool ascii_has_upper_case(char* input, size_t length) {
+-  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101 * v; };
++  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101ull * v; };
+   uint64_t broadcast_80 = broadcast(0x80);
+   uint64_t broadcast_Ap = broadcast(128 - 'A');
+   uint64_t broadcast_Zp = broadcast(128 - 'Z');
+@@ -2772,7 +2772,7 @@ bool ascii_has_upper_case(char* input, size_t length) {
+ }
+ 
+ void ascii_map(char* input, size_t length) {
+-  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101 * v; };
++  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101ull * v; };
+   uint64_t broadcast_80 = broadcast(0x80);
+   uint64_t broadcast_Ap = broadcast(128 - 'A');
+   uint64_t broadcast_Zp = broadcast(128 - 'Z');
+@@ -9842,7 +9842,7 @@ ADA_POP_DISABLE_WARNINGS
+ namespace ada::unicode {
+ 
+ constexpr bool to_lower_ascii(char* input, size_t length) noexcept {
+-  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101 * v; };
++  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101ull * v; };
+   uint64_t broadcast_80 = broadcast(0x80);
+   uint64_t broadcast_Ap = broadcast(128 - 'A');
+   uint64_t broadcast_Zp = broadcast(128 - 'Z');
+@@ -9873,7 +9873,7 @@ ada_really_inline constexpr bool has_tabs_or_newline(
+   auto has_zero_byte = [](uint64_t v) {
+     return ((v - 0x0101010101010101) & ~(v)&0x8080808080808080);
+   };
+-  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101 * v; };
++  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101ull * v; };
+   size_t i = 0;
+   uint64_t mask1 = broadcast('\r');
+   uint64_t mask2 = broadcast('\n');
+@@ -10589,7 +10589,7 @@ ada_really_inline size_t find_next_host_delimiter_special(
+   auto index_of_first_set_byte = [](uint64_t v) {
+     return ((((v - 1) & 0x101010101010101) * 0x101010101010101) >> 56) - 1;
+   };
+-  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101 * v; };
++  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101ull * v; };
+   size_t i = location;
+   uint64_t mask1 = broadcast(':');
+   uint64_t mask2 = broadcast('/');
+@@ -10652,7 +10652,7 @@ ada_really_inline size_t find_next_host_delimiter(std::string_view view,
+   auto index_of_first_set_byte = [](uint64_t v) {
+     return ((((v - 1) & 0x101010101010101) * 0x101010101010101) >> 56) - 1;
+   };
+-  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101 * v; };
++  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101ull * v; };
+   size_t i = location;
+   uint64_t mask1 = broadcast(':');
+   uint64_t mask2 = broadcast('/');
+@@ -10978,7 +10978,7 @@ find_authority_delimiter_special(std::string_view view) noexcept {
+   auto index_of_first_set_byte = [](uint64_t v) {
+     return ((((v - 1) & 0x101010101010101) * 0x101010101010101) >> 56) - 1;
+   };
+-  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101 * v; };
++  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101ull * v; };
+   size_t i = 0;
+   uint64_t mask1 = broadcast('@');
+   uint64_t mask2 = broadcast('/');
+@@ -11026,7 +11026,7 @@ find_authority_delimiter(std::string_view view) noexcept {
+   auto index_of_first_set_byte = [](uint64_t v) {
+     return ((((v - 1) & 0x101010101010101) * 0x101010101010101) >> 56) - 1;
+   };
+-  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101 * v; };
++  auto broadcast = [](uint8_t v) -> uint64_t { return 0x101010101010101ull * v; };
+   size_t i = 0;
+   uint64_t mask1 = broadcast('@');
+   uint64_t mask2 = broadcast('/');
