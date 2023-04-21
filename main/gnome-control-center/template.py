@@ -1,5 +1,5 @@
 pkgname = "gnome-control-center"
-pkgver = "44.0"
+pkgver = "44.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -27,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "bdbfab4cf23d05734096db1f9f6fac7eed3fcb9da32bf4b1f26ed3a04e5abc66"
+sha256 = "7abd365018e28679def60a5ecd3049db0fb85de6da49a96dadd21fba8db002e7"
 # needs graphical environment
 options = ["!check"]
 
