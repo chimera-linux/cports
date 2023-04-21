@@ -1,5 +1,5 @@
 pkgname = "dhcpcd"
-pkgver = "10.0.0"
+pkgver = "10.0.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -19,8 +19,8 @@ pkgdesc = "RFC2131 compliant DHCP client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://roy.marples.name/projects/dhcpcd"
-source = f"https://github.com/NetworkConfiguration/{pkgname}/archive/refs/tags/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3672496b27cc29ac385c503f23647ed5b00e58b9993db42ddf3b970d1c1bf900"
+source = f"https://github.com/NetworkConfiguration/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "6e9f6a5c47fcd8a763cfa26f1ca6eedf1e534992224a01d6c1ab8abb154af972"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
