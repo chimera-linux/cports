@@ -1174,13 +1174,18 @@ def _bulkpkg(pkgs, statusf):
     # visited "intermediate" templates, includes stuff that is "to be done"
     #
     # ignore minor errors in templates like lint as those do not concern us
+    # allow broken because that does not concern us yet either (handled later)
     # do not ignore missing tmpls because that is likely error in main tmpl
     pvisit = set(rpkgs)
     def handle_recdeps(pn, tp):
-        return _add_deps_graph(pn, tp, pvisit, lambda d: template.read_pkg(
-            d, tarch, True, False, (1, 1), False, False, None,
-            ignore_errors = True
-        ), depg)
+        return _add_deps_graph(
+            pn, tp, pvisit,
+            lambda d: _do_with_exc(lambda: template.read_pkg(
+                d, tarch, True, False, (1, 1), False, False, None,
+                ignore_errors = True, allow_broken = True,
+            )),
+            depg
+        )
 
     rpkgs = sorted(list(rpkgs))
 
