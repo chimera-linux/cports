@@ -3,7 +3,7 @@ pkgver = "112.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
-    "pkgconf", "zip", "nasm", "yasm", "cargo", "rust", "python", "cbindgen",
+    "pkgconf", "zip", "nasm", "cargo", "rust", "python", "cbindgen",
     "llvm-devel", "clang-devel", "nodejs", "gettext-tiny", "automake",
     "libtool", "gmake",
 ]
