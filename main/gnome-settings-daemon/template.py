@@ -1,5 +1,5 @@
 pkgname = "gnome-settings-daemon"
-pkgver = "44.0"
+pkgver = "44.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dsystemd=false"]
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-settings-daemon"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b417ada1c1342a8cf29837ecf2dec9bdcdb754235b1a161b6435c3d11f210999"
+sha256 = "12653b72d81f151300a47d700ac9410ac1bcce38e83f1bdd19cded2932943989"
 tool_flags = {"CFLAGS": ["-UG_DISABLE_ASSERT"]}
 # unpackaged checkdepends
 options = ["!check"]
