@@ -3,7 +3,7 @@ pkgver = "2.1.5.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DWITH_JPEG8=1", "-DCMAKE_INSTALL_LIBDIR=/usr/lib"]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "yasm"]
+hostmakedepends = ["cmake", "ninja", "pkgconf", "nasm"]
 pkgdesc = "Derivative of libjpeg which uses SIMD instructions"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "IJG AND BSD-3-Clause AND Zlib"
