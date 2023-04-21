@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.10.1"
+pkgver = "4.10.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -36,7 +36,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "e8fcac04bc7715b9da667c911a5ee8f262e200d1d6a50adf23645ca8cfcd0311"
+sha256 = "ca6c81029e1db6326be6ab5ddf1c734a39d3aab46e6a4e0fcced20d01a7cd585"
 # xvfb doesn't do the trick for some reason?
 options = ["!cross", "!check"]
 
