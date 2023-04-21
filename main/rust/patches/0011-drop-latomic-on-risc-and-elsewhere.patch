@@ -1,4 +1,4 @@
-From 393d3bab9ef1f6f0243a0c0d0d2c857777956315 Mon Sep 17 00:00:00 2001
+From d8b3affd9571170ff40e5c2e058ffe00188ad3f2 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Tue, 8 Nov 2022 15:23:25 +0100
 Subject: [PATCH 11/11] drop -latomic on risc and elsewhere
@@ -44,7 +44,7 @@ index 230deaeaf..4aaeb1b95 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/native.rs b/src/bootstrap/native.rs
-index e0d1504c9..d1c124abe 100644
+index 5987b641b..c1842662f 100644
 --- a/src/bootstrap/native.rs
 +++ b/src/bootstrap/native.rs
 @@ -386,19 +386,6 @@ impl Step for Llvm {

@@ -1,4 +1,4 @@
-From 76ec7f90419b3d58c0b43891cbda9ef22f7b629e Mon Sep 17 00:00:00 2001
+From 1c5feae7170adb0680f7135ba6f72b8f5abf5be9 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:34:40 +0100
 Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
@@ -11,10 +11,10 @@ Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
-index 6594b23c5..a523ef8cf 100644
+index 9b2b54961..85742a728 100644
 --- a/src/bootstrap/dist.rs
 +++ b/src/bootstrap/dist.rs
-@@ -511,7 +511,7 @@ impl Step for DebuggerScripts {
+@@ -522,7 +522,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let host = self.host;
          let sysroot = self.sysroot;

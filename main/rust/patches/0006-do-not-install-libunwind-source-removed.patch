@@ -1,4 +1,4 @@
-From 29b48d726b827e523078c17aff4c011ee8c5e117 Mon Sep 17 00:00:00 2001
+From 5af73b516301f6462de226062de9dd75a7f76dc4 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:37:07 +0100
 Subject: [PATCH 06/11] do not install libunwind source (removed)
@@ -8,10 +8,10 @@ Subject: [PATCH 06/11] do not install libunwind source (removed)
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
-index a523ef8cf..66ef16ca9 100644
+index 85742a728..310d48536 100644
 --- a/src/bootstrap/dist.rs
 +++ b/src/bootstrap/dist.rs
-@@ -889,7 +889,7 @@ impl Step for Src {
+@@ -906,7 +906,7 @@ impl Step for Src {
          copy_src_dirs(
              builder,
              &builder.src,

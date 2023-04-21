@@ -1,4 +1,4 @@
-From 16b16a75ea23290c250ffb23ee282ca66a204a11 Mon Sep 17 00:00:00 2001
+From 6d7959c5069f36f3fcaa38db462fb4e59eaffb97 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Mon, 20 Dec 2021 00:55:18 +0100
 Subject: [PATCH 04/11] fix shebang on install-template.sh

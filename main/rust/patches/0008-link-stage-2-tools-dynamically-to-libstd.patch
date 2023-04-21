@@ -1,4 +1,4 @@
-From 2149c3820ff0868bedd10f870e78aed77cc9165a Mon Sep 17 00:00:00 2001
+From f5672370c327d0f173b4cf3f83b16079a188d20c Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:38:49 +0100
 Subject: [PATCH 08/11] link stage 2 tools dynamically to libstd
@@ -11,10 +11,10 @@ about unstable ABI
  1 file changed, 2 insertions(+)
 
 diff --git a/src/bootstrap/builder.rs b/src/bootstrap/builder.rs
-index b4fc1d4f2..e1f596ecb 100644
+index b33fc02f4..7f44aea40 100644
 --- a/src/bootstrap/builder.rs
 +++ b/src/bootstrap/builder.rs
-@@ -1906,6 +1906,8 @@ impl<'a> Builder<'a> {
+@@ -1895,6 +1895,8 @@ impl<'a> Builder<'a> {
          // linking all deps statically into the dylib.
          if matches!(mode, Mode::Std | Mode::Rustc) {
              rustflags.arg("-Cprefer-dynamic");
