@@ -1,5 +1,5 @@
 pkgname = "base-files"
-_iana_ver = "20230413"
+_iana_ver = "20230418"
 pkgver = f"0.1.{_iana_ver}"
 pkgrel = 0
 pkgdesc = "Chimera Linux base system files"
