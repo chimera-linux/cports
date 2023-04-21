@@ -56,7 +56,7 @@ configure_args = [
 make_cmd = "gmake"
 make_install_args = ["install-man"]
 make_check_args = ["-j1"]
-hostmakedepends = ["gmake", "pkgconf", "perl", "yasm", "texinfo"]
+hostmakedepends = ["gmake", "pkgconf", "perl", "nasm", "texinfo"]
 makedepends = [
     "zlib-devel", "libbz2-devel", "openssl-devel", "librtmp-devel",
     "freetype-devel", "harfbuzz-devel", "zimg-devel",
