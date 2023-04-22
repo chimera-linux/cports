@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.10.2"
+pkgver = "4.10.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -37,7 +37,7 @@ license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 # release tarball for 4.10.2 is badly broken: https://gitlab.gnome.org/GNOME/gtk/-/issues/5770
 source = f"https://gitlab.gnome.org/GNOME/gtk/-/archive/{pkgver}/gtk-{pkgver}.tar.gz"
-sha256 = "cc1c10d13a6857395181ade6ea600f18b07bd5263500329638c7694a05b53caa"
+sha256 = "7cc98e8d75f5d7a45c2bbfd73ac5ddeac2de3c22adbaaa4c216738241087b729"
 # xvfb doesn't do the trick for some reason?
 options = ["!cross", "!check"]
 
