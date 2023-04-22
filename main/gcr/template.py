@@ -1,5 +1,5 @@
 pkgname = "gcr"
-pkgver = "3.41.1"
+pkgver = "4.1.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -11,7 +11,7 @@ hostmakedepends = [
     "gobject-introspection", "vala", "openssh",
 ]
 makedepends = [
-    "gtk+3-devel", "libgcrypt-devel", "libsecret-devel", "p11-kit-devel",
+    "gtk4-devel", "libgcrypt-devel", "libsecret-devel", "p11-kit-devel",
     "libxslt-devel", "vala"
 ]
 pkgdesc = "GNOME crypto package"
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gcr"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "bb7128a3c2febbfee9c03b90d77d498d0ceb237b0789802d60185c71c4bea24f"
+sha256 = "9ceaad29284ba919b9216e2888c18ec67240c2c93b3a4856bc5488bbc1f3a383"
 # getpass
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # FIXME int (crashes gnome-keyring suite)
