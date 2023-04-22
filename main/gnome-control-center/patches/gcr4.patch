@@ -1,0 +1,45 @@
+commit f98055a6fe2c3fda9f9424d54664d1c651c659b2
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Apr 22 20:32:11 2023 +0200
+
+    use gcr4
+
+diff --git a/meson.build b/meson.build
+index d4bdbb3..72d28a3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -156,7 +156,7 @@ gudev_dep = dependency('gudev-1.0', version: '>= 232')
+ x11_dep = dependency('x11', version: '>= 1.8')
+ xi_dep = dependency('xi', version: '>= 1.2')
+ epoxy_dep = dependency('epoxy')
+-gcr_dep = dependency('gcr-base-3')
++gcr_dep = dependency('gcr-4')
+ pwquality_dep = dependency('pwquality', version: '>= 1.2.2')
+ 
+ m_dep = cc.find_library('m')
+diff --git a/panels/sharing/cc-sharing-panel.c b/panels/sharing/cc-sharing-panel.c
+index 1048cd4..05fd126 100644
+--- a/panels/sharing/cc-sharing-panel.c
++++ b/panels/sharing/cc-sharing-panel.c
+@@ -39,7 +39,7 @@
+ #include <glib/gi18n.h>
+ 
+ #define GCR_API_SUBJECT_TO_CHANGE
+-#include <gcr/gcr-base.h>
++#include <gcr/gcr.h>
+ 
+ #include <pwquality.h>
+ 
+diff --git a/panels/wwan/cc-wwan-device-page.c b/panels/wwan/cc-wwan-device-page.c
+index dd4a3ce..9d07170 100644
+--- a/panels/wwan/cc-wwan-device-page.c
++++ b/panels/wwan/cc-wwan-device-page.c
+@@ -29,7 +29,7 @@
+ #include <glib/gi18n.h>
+ #include <libmm-glib.h>
+ #define GCR_API_SUBJECT_TO_CHANGE
+-#include <gcr/gcr-base.h>
++#include <gcr/gcr.h>
+ 
+ #include "cc-list-row.h"
+ #include "cc-wwan-data.h"
