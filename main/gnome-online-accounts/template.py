@@ -14,7 +14,7 @@ hostmakedepends = [
 makedepends = [
     "glib-devel", "dbus-devel", "gtk+3-devel", "webkitgtk-devel",
     "json-glib-devel", "libsecret-devel", "libsoup-devel", "libxml2-devel",
-    "gcr-devel", "rest-devel",
+    "rest-devel",
 ]
 pkgdesc = "GNOME service to access online accounts"
 maintainer = "q66 <q66@chimera-linux.org>"
