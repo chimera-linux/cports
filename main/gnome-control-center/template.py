@@ -14,7 +14,7 @@ makedepends = [
     "libpulse-devel", "upower-devel", "libgudev-devel", "libx11-devel",
     "libxi-devel", "libepoxy-devel", "gtk4-devel", "cups-devel",
     "ibus-devel", "networkmanager-devel", "modemmanager-devel",
-    "gnome-bluetooth-devel", "libwacom-devel", "gcr4-devel", "libnma-devel",
+    "gnome-bluetooth-devel", "libwacom-devel", "gcr-devel", "libnma-devel",
     "libsecret-devel", "udisks-devel", "gsound-devel", "libgtop-devel",
     "heimdal-devel", "libpwquality-devel", "libsmbclient-devel", "gnutls-devel",
 ]

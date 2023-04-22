@@ -10,7 +10,7 @@ hostmakedepends = [
     "gettext-tiny",
 ]
 makedepends = [
-    "networkmanager-devel", "gcr4-devel", "gtk+3-devel", "gtk4-devel",
+    "networkmanager-devel", "gcr-devel", "gtk+3-devel", "gtk4-devel",
     "mobile-broadband-provider-info", "iso-codes",
 ]
 depends = ["networkmanager", "iso-codes"]

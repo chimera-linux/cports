@@ -8,7 +8,7 @@ hostmakedepends = [
     "desktop-file-utils",
 ]
 makedepends = [
-    "webkitgtk4-devel", "cairo-devel", "gcr4-devel", "gdk-pixbuf-devel",
+    "webkitgtk4-devel", "cairo-devel", "gcr-devel", "gdk-pixbuf-devel",
     "glib-devel", "gsettings-desktop-schemas-devel", "gtk4-devel",
     "gstreamer-devel", "nettle-devel", "json-glib-devel", "libarchive-devel",
     "libadwaita-devel", "libsecret-devel", "libxml2-devel", "libportal-devel",

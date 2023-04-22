@@ -15,7 +15,7 @@ makedepends = [
     "libxfixes-devel", "libgudev-devel", "wayland-devel", "cups-devel",
     "udev-devel", "networkmanager-devel", "colord-devel", "polkit-devel",
     # actually pulseaudio is used, alsa is only used to query hw info
-    "modemmanager-devel", "gcr4-devel", "alsa-lib-devel", "libwacom-devel",
+    "modemmanager-devel", "gcr-devel", "alsa-lib-devel", "libwacom-devel",
     "nss-devel",
 ]
 depends = ["hicolor-icon-theme"]

@@ -14,7 +14,7 @@ hostmakedepends = [
     "gettext-tiny-devel",
 ]
 makedepends = [
-    "gcr4-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"
+    "gcr-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"
 ]
 checkdepends = ["xserver-xorg-xvfb", "dbus-x11"]
 depends = ["dconf"]

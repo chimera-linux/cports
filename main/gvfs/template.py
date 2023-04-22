@@ -13,7 +13,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "dbus-devel", "glib-devel", "fuse-devel", "libarchive-devel",
-    "bluez-devel", "libbluray-devel", "libcap-devel", "gcr4-devel",
+    "bluez-devel", "libbluray-devel", "libcap-devel", "gcr-devel",
     "libcdio-paranoia-devel", "libgcrypt-devel", "libgphoto2-devel",
     "libgudev-devel", "libsecret-devel", "libxml2-devel", "polkit-devel",
     "udisks-devel", "gsettings-desktop-schemas-devel", "elogind-devel",
