@@ -35,8 +35,9 @@ pkgdesc = "Gimp Toolkit version 4"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
-source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "ca6c81029e1db6326be6ab5ddf1c734a39d3aab46e6a4e0fcced20d01a7cd585"
+# release tarball for 4.10.2 is badly broken: https://gitlab.gnome.org/GNOME/gtk/-/issues/5770
+source = f"https://gitlab.gnome.org/GNOME/gtk/-/archive/{pkgver}/gtk-{pkgver}.tar.gz"
+sha256 = "cc1c10d13a6857395181ade6ea600f18b07bd5263500329638c7694a05b53caa"
 # xvfb doesn't do the trick for some reason?
 options = ["!cross", "!check"]
 
