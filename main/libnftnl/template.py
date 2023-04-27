@@ -12,7 +12,8 @@ license = "GPL-2.0-or-later"
 url = "https://www.netfilter.org/projects/libnftnl"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.xz"
 sha256 = "966de0a8120c8a53db859889749368bfb2cba0c4f0b4c1a30d264eccc45f1226"
-hardening = ["vis", "cfi"]
+# FIXME cfi: verify function pointers
+hardening = ["vis", "!cfi"]
 
 @subpackage("libnftnl-devel")
 def _devel(self):
