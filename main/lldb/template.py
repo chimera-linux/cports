@@ -1,9 +1,10 @@
 pkgname = "lldb"
-pkgver = "15.0.7"
+pkgver = "16.0.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
+    "-DLLVM_COMMON_CMAKE_UTILS=cmake",
     "-DLLDB_ENABLE_LUA=NO", # maybe later
     "-DLLDB_ENABLE_PYTHON=YES",
     "-DLLDB_ENABLE_LIBEDIT=YES",
@@ -23,13 +24,15 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/{pkgname}-{pkgver}.src.tar.xz"
-sha256 = "f64d5533661c766a2ff97062af5a0523b9e2cd56aa3d95d9624c418e120d1427"
+sha256 = "0991ebd6d1ca959753364d4727ecf89f26e75a224e36a9e72d580b0c22149bcc"
 # tests are not enabled
 options = ["!check"]
 
 def post_extract(self):
     # not shipped with standalone lldb tarball
+    self.mkdir("cmake/Modules", parents = True)
     self.cp(self.files_path / "FindLibEdit.cmake", self.cwd / "cmake/modules")
+    self.cp(self.files_path / "CMakePolicy.cmake", self.cwd / "cmake/Modules")
 
 def init_configure(self):
     if not self.profile().cross:

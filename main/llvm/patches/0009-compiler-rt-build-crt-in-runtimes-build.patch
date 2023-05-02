@@ -1,26 +1,28 @@
-From 09a2700d55bb65fdf4f820970591db853d9821a9 Mon Sep 17 00:00:00 2001
+From 9cf92002ce8a7a4515fbb916f395e9b53737d8c2 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sat, 24 Sep 2022 23:21:15 +0200
-Subject: [PATCH 09/19] compiler-rt: build crt in runtimes build
+Date: Tue, 2 May 2023 16:12:51 +0200
+Subject: [PATCH 09/27] compiler-rt: build crt in runtimes build
 
 We need this because otherwise the in-tree clang binaries will
 not work, as we don't supply external gcc-style runtime.
 ---
- compiler-rt/CMakeLists.txt              | 91 ++++++++++++++++---------
- compiler-rt/lib/builtins/CMakeLists.txt | 45 +++---------
- llvm/runtimes/CMakeLists.txt            | 14 ++--
- 3 files changed, 75 insertions(+), 75 deletions(-)
+ compiler-rt/CMakeLists.txt              | 107 ++++++++++++++----------
+ compiler-rt/lib/builtins/CMakeLists.txt |  48 ++---------
+ llvm/runtimes/CMakeLists.txt            |  14 +++-
+ 3 files changed, 82 insertions(+), 87 deletions(-)
 
 diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
-index d9e422030..5b4a63eb7 100644
+index 3cd47c8e4..5a7942629 100644
 --- a/compiler-rt/CMakeLists.txt
 +++ b/compiler-rt/CMakeLists.txt
-@@ -33,40 +33,6 @@ include(base-config-ix)
+@@ -40,49 +40,6 @@ include(base-config-ix)
  include(CompilerRTUtils)
  include(CMakeDependentOption)
  
 -option(COMPILER_RT_BUILD_BUILTINS "Build builtins" ON)
 -mark_as_advanced(COMPILER_RT_BUILD_BUILTINS)
+-option(COMPILER_RT_DISABLE_AARCH64_FMV "Disable AArch64 Function Multi Versioning support" OFF)
+-mark_as_advanced(COMPILER_RT_DISABLE_AARCH64_FMV)
 -option(COMPILER_RT_BUILD_CRT "Build crtbegin.o/crtend.o" ON)
 -mark_as_advanced(COMPILER_RT_BUILD_CRT)
 -option(COMPILER_RT_CRT_USE_EH_FRAME_REGISTRY "Use eh_frame in crtbegin.o/crtend.o" ON)
@@ -43,6 +45,13 @@ index d9e422030..5b4a63eb7 100644
 -mark_as_advanced(COMPILER_RT_BUILD_GWP_ASAN)
 -option(COMPILER_RT_ENABLE_CET "Build Compiler RT with CET enabled" OFF)
 -
+-option(COMPILER_RT_SCUDO_STANDALONE_SYSROOT_PATH "Set custom sysroot for building SCUDO standalone" OFF)
+-mark_as_advanced(COMPILER_RT_SCUDO_STANDALONE_SYSROOT_PATH)
+-option(COMPILER_RT_SCUDO_STANDALONE_BUILD_SHARED "Build SCUDO standalone for shared libraries" ON)
+-mark_as_advanced(COMPILER_RT_SCUDO_STANDALONE_BUILD_SHARED)
+-option(COMPILER_RT_BUILD_SCUDO_STANDALONE_WITH_LLVM_LIBC "Build SCUDO standalone with LLVM's libc headers" OFF)
+-mark_as_advanced(COMPILER_RT_BUILD_SCUDO_STANDALONE_WITH_LLVM_LIBC)
+-
 -if(FUCHSIA)
 -  set(COMPILER_RT_HWASAN_WITH_INTERCEPTORS_DEFAULT OFF)
 -else()
@@ -54,18 +63,18 @@ index d9e422030..5b4a63eb7 100644
 -  "Build for a bare-metal target.")
 -
  if (COMPILER_RT_STANDALONE_BUILD)
-   load_llvm_config()
-   if (TARGET intrinsics_gen)
-@@ -118,6 +84,63 @@ if ("${COMPILER_RT_DEFAULT_TARGET_TRIPLE}" MATCHES ".*android.*")
+   set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard to conform to")
+   set(CMAKE_CXX_STANDARD_REQUIRED YES)
+@@ -154,6 +111,70 @@ if ("${COMPILER_RT_DEFAULT_TARGET_TRIPLE}" MATCHES ".*android.*")
  endif()
  pythonize_bool(ANDROID)
  
 +option(COMPILER_RT_BUILD_BUILTINS "Build builtins" ON)
 +mark_as_advanced(COMPILER_RT_BUILD_BUILTINS)
++option(COMPILER_RT_DISABLE_AARCH64_FMV "Disable AArch64 Function Multi Versioning support" OFF)
++mark_as_advanced(COMPILER_RT_DISABLE_AARCH64_FMV)
 +option(COMPILER_RT_BUILD_CRT "Build crtbegin.o/crtend.o" ON)
 +mark_as_advanced(COMPILER_RT_BUILD_CRT)
-+option(COMPILER_RT_BUILTINS_ENABLE_PIC "Use -fPIC for the builtin library" ON)
-+mark_as_advanced(COMPILER_RT_BUILTINS_ENABLE_PIC)
 +option(COMPILER_RT_CRT_USE_EH_FRAME_REGISTRY "Use eh_frame in crtbegin.o/crtend.o" ON)
 +mark_as_advanced(COMPILER_RT_CRT_USE_EH_FRAME_REGISTRY)
 +
@@ -107,6 +116,13 @@ index d9e422030..5b4a63eb7 100644
 +mark_as_advanced(COMPILER_RT_BUILD_GWP_ASAN)
 +option(COMPILER_RT_ENABLE_CET "Build Compiler RT with CET enabled" OFF)
 +
++option(COMPILER_RT_SCUDO_STANDALONE_SYSROOT_PATH "Set custom sysroot for building SCUDO standalone" OFF)
++mark_as_advanced(COMPILER_RT_SCUDO_STANDALONE_SYSROOT_PATH)
++option(COMPILER_RT_SCUDO_STANDALONE_BUILD_SHARED "Build SCUDO standalone for shared libraries" ON)
++mark_as_advanced(COMPILER_RT_SCUDO_STANDALONE_BUILD_SHARED)
++option(COMPILER_RT_BUILD_SCUDO_STANDALONE_WITH_LLVM_LIBC "Build SCUDO standalone with LLVM's libc headers" OFF)
++mark_as_advanced(COMPILER_RT_BUILD_SCUDO_STANDALONE_WITH_LLVM_LIBC)
++
 +if(FUCHSIA)
 +  set(COMPILER_RT_HWASAN_WITH_INTERCEPTORS_DEFAULT OFF)
 +else()
@@ -121,16 +137,16 @@ index d9e422030..5b4a63eb7 100644
  set(COMPILER_RT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
  
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index ec668e294..9b4c9bad7 100644
+index 2fc705228..75d5992cc 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -7,45 +7,16 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+@@ -14,47 +14,15 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
  
    set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
    project(CompilerRTBuiltins C ASM)
 -  set(COMPILER_RT_STANDALONE_BUILD TRUE)
 -  set(COMPILER_RT_BUILTINS_STANDALONE_BUILD TRUE)
- 
+-
 -  set(COMPILER_RT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../..")
 -
 -  set(LLVM_COMMON_CMAKE_UTILS "${COMPILER_RT_SOURCE_DIR}/../cmake")
@@ -146,15 +162,8 @@ index ec668e294..9b4c9bad7 100644
 -  include(base-config-ix)
 -  include(CompilerRTUtils)
 -
--  load_llvm_config()
--  construct_compiler_rt_default_triple()
--
--  include(SetPlatformToolchainTools)
--  if(APPLE)
--    include(CompilerRTDarwinUtils)
--  endif()
--  if(APPLE)
--    include(UseLibtool)
+-  if (NOT LLVM_RUNTIMES_BUILD)
+-    load_llvm_config()
 +  if(NOT _BUILTINS_PROCESSED)
 +    set(COMPILER_RT_BUILD_BUILTINS TRUE)
 +    set(COMPILER_RT_BUILD_CRT FALSE)
@@ -164,6 +173,15 @@ index ec668e294..9b4c9bad7 100644
 +    set(_BUILTINS_PROCESSED TRUE)
 +    return()
    endif()
+-  construct_compiler_rt_default_triple()
+-
+-  include(SetPlatformToolchainTools)
+-  if(APPLE)
+-    include(CompilerRTDarwinUtils)
+-  endif()
+-  if(APPLE)
+-    include(UseLibtool)
+-  endif()
 -  include(AddCompilerRT)
 -endif()
 -
@@ -179,10 +197,10 @@ index ec668e294..9b4c9bad7 100644
  
  include(builtin-config-ix)
 diff --git a/llvm/runtimes/CMakeLists.txt b/llvm/runtimes/CMakeLists.txt
-index 701d35c0a..5939702f8 100644
+index 694f346ee..f501644fa 100644
 --- a/llvm/runtimes/CMakeLists.txt
 +++ b/llvm/runtimes/CMakeLists.txt
-@@ -80,14 +80,16 @@ function(builtin_default_target compiler_rt_path)
+@@ -70,14 +70,16 @@ function(builtin_default_target compiler_rt_path)
    endif()
  
    llvm_ExternalProject_Add(builtins
@@ -200,7 +218,7 @@ index 701d35c0a..5939702f8 100644
                                        ${COMMON_CMAKE_ARGS}
                                        ${BUILTINS_CMAKE_ARGS}
                             PASSTHROUGH_PREFIXES COMPILER_RT
-@@ -114,15 +116,17 @@ function(builtin_register_target compiler_rt_path target)
+@@ -104,15 +106,17 @@ function(builtin_register_target compiler_rt_path target)
    endforeach()
  
    llvm_ExternalProject_Add(builtins-${target}
@@ -219,7 +237,7 @@ index 701d35c0a..5939702f8 100644
                                        ${COMMON_CMAKE_ARGS}
                                        ${${target}_extra_args}
                             USE_TOOLCHAIN
-@@ -233,7 +237,8 @@ function(runtime_default_target)
+@@ -227,7 +231,8 @@ function(runtime_default_target)
                             ${CMAKE_CURRENT_SOURCE_DIR}/../../runtimes
                             DEPENDS ${ARG_DEPENDS}
                             # Builtins were built separately above
@@ -229,7 +247,7 @@ index 701d35c0a..5939702f8 100644
                                        -DLLVM_INCLUDE_TESTS=${LLVM_INCLUDE_TESTS}
                                        -DLLVM_DEFAULT_TARGET_TRIPLE=${LLVM_TARGET_TRIPLE}
                                        -DLLVM_ENABLE_PROJECTS_USED=${LLVM_ENABLE_PROJECTS_USED}
-@@ -338,7 +343,8 @@ function(runtime_register_target name target)
+@@ -352,7 +357,8 @@ function(runtime_register_target name target)
                             ${CMAKE_CURRENT_SOURCE_DIR}/../../runtimes
                             DEPENDS ${${name}_deps}
                             # Builtins were built separately above
@@ -240,5 +258,5 @@ index 701d35c0a..5939702f8 100644
                                        -DLLVM_DEFAULT_TARGET_TRIPLE=${target}
                                        -DLLVM_ENABLE_PROJECTS_USED=${LLVM_ENABLE_PROJECTS_USED}
 -- 
-2.37.3
+2.39.0
 

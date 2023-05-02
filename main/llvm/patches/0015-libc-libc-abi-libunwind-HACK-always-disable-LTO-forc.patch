@@ -1,7 +1,7 @@
-From 173e85bd165d8e7b2ec7ef02e5e728797e49ef8d Mon Sep 17 00:00:00 2001
+From d16b5ca2889d372e63e6df036741c99a9725e925 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Wed, 6 Apr 2022 00:59:22 +0200
-Subject: [PATCH 15/19] libc++,libc++abi,libunwind: HACK: always disable LTO,
+Date: Tue, 2 May 2023 16:15:48 +0200
+Subject: [PATCH 15/27] libc++,libc++abi,libunwind: HACK: always disable LTO,
  force compiler-rt for libc++(abi)
 
 ---
@@ -11,12 +11,12 @@ Subject: [PATCH 15/19] libc++,libc++abi,libunwind: HACK: always disable LTO,
  3 files changed, 11 insertions(+)
 
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index 0cc0e56ab..34e49ebde 100644
+index cbe971de8..cc8717cea 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -805,6 +805,10 @@ function(cxx_link_system_libraries target)
-   if (ANDROID AND ANDROID_PLATFORM_LEVEL LESS 21)
-     target_link_libraries(${target} PUBLIC android_support)
+@@ -830,6 +830,10 @@ function(cxx_add_windows_flags target)
+                                  _LIBCPP_INLINE_FORMAT_ERROR_DTOR)
+     endif()
    endif()
 +
 +  target_add_compile_flags_if_supported(${target} PRIVATE "-fno-lto")
@@ -24,12 +24,12 @@ index 0cc0e56ab..34e49ebde 100644
 +  target_add_link_flags_if_supported(${target} PRIVATE "-rtlib=compiler-rt")
  endfunction()
  
- # Windows-related flags =======================================================
+ # Configuration file flags =====================================================
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index e93fed3c2..6a0c09c04 100644
+index cd5e1a5ac..0142be34a 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -324,6 +324,10 @@ else()
+@@ -333,6 +333,10 @@ else()
    add_compile_flags_if_supported(-EHa-)
  endif()
  
@@ -41,7 +41,7 @@ index e93fed3c2..6a0c09c04 100644
  string(TOUPPER "${CMAKE_BUILD_TYPE}" uppercase_CMAKE_BUILD_TYPE)
  if (LIBCXXABI_ENABLE_ASSERTIONS)
 diff --git a/libunwind/src/CMakeLists.txt b/libunwind/src/CMakeLists.txt
-index 61df2737b..bb3e8193d 100644
+index df32e53d6..f034e8f04 100644
 --- a/libunwind/src/CMakeLists.txt
 +++ b/libunwind/src/CMakeLists.txt
 @@ -121,6 +121,9 @@ if (APPLE)
@@ -55,5 +55,5 @@ index 61df2737b..bb3e8193d 100644
  string(REPLACE ";" " " LIBUNWIND_CXX_FLAGS "${LIBUNWIND_CXX_FLAGS}")
  string(REPLACE ";" " " LIBUNWIND_C_FLAGS "${LIBUNWIND_C_FLAGS}")
 -- 
-2.37.3
+2.39.0
 

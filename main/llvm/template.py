@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "15.0.7"
+pkgver = "16.0.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -44,7 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "8b5fcb24b4128cf04df1b0b9410ce8b1a729cb3c544e6da885d234280dedeac6"
+sha256 = "6d8acae041ccd34abe144cda6eaa76210e1491f286574815b7261b3f2e58734c"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -78,7 +78,7 @@ if self.stage > 0:
     hostmakedepends += ["libffi-devel"]
     makedepends += [
         "python-devel", "libedit-devel", "elftoolchain-devel",
-        "libffi-devel", "linux-headers"
+        "libffi-devel", "libzstd-devel", "linux-headers"
     ]
     # enable LTO except on riscv where it's broken
     if self.stage >= 2:
@@ -201,25 +201,6 @@ def post_install(self):
     )
     self.install_file(
         "libcxxabi/include/cxxabi.h", "usr/include"
-    )
-
-    self.install_dir("usr/include/mach-o")
-    self.install_file(
-        "libunwind/include/__libunwind_config.h", "usr/include"
-    )
-    self.install_file(
-        "libunwind/include/libunwind.h", "usr/include"
-    )
-    self.install_file(
-        "libunwind/include/unwind.h", "usr/include"
-    )
-    # XXX: 32-bit ARM needs unwind_ehabi.h
-    self.install_file(
-        "libunwind/include/unwind_itanium.h", "usr/include"
-    )
-    self.install_file(
-        "libunwind/include/mach-o/compact_unwind_encoding.h",
-        "usr/include/mach-o"
     )
 
     # it's our default toolchain

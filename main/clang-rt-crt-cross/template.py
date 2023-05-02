@@ -1,12 +1,12 @@
 pkgname = "clang-rt-crt-cross"
-_musl_ver = "1.2.3"
-pkgver = "15.0.7"
+_musl_ver = "1.2.4"
+pkgver = "16.0.2"
 pkgrel = 0
 build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
-    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver}",
+    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0:pkgver.find('.')]}",
     # prevent executable checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # only build that target
@@ -45,8 +45,8 @@ source = [
     f"http://www.musl-libc.org/releases/musl-{_musl_ver}.tar.gz"
 ]
 sha256 = [
-    "8b5fcb24b4128cf04df1b0b9410ce8b1a729cb3c544e6da885d234280dedeac6",
-    "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4"
+    "6d8acae041ccd34abe144cda6eaa76210e1491f286574815b7261b3f2e58734c",
+    "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039"
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
 # crosstoolchain
@@ -60,7 +60,7 @@ tool_flags = {
 }
 
 _targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
+_targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 def post_patch(self):
     self.mv(f"musl-{_musl_ver}", f"llvm-project-{pkgver}.src/musl")
@@ -120,7 +120,7 @@ def do_install(self):
         with self.profile(an):
             self.make.install(wrksrc = f"build-{an}")
 
-for an in _targetlist:
+def _gen_subp(an):
     @subpackage(f"clang-rt-crt-cross-{an}", an in _targets)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
@@ -129,7 +129,10 @@ for an in _targetlist:
             "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
         ]
         with self.rparent.profile(an) as pf:
-            return [f"usr/lib/clang/{pkgver}/lib/{pf.triplet}"]
+            return [f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/{pf.triplet}"]
 
     if an in _targets:
         depends.append(f"clang-rt-crt-cross-{an}={pkgver}-r{pkgrel}")
+
+for an in _targetlist:
+    _gen_subp(an)

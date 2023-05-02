@@ -1,7 +1,15 @@
+From ec8dfe9269dcd442b62ce6b5eb72ee3cd60369d6 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Tue, 2 May 2023 16:25:59 +0200
+Subject: [PATCH 26/27] clang: fix unwing chain inclusion
+
 This fixes the compiler complaining about the __has_include_next.
+---
+ clang/lib/Headers/unwind.h | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/clang/lib/Headers/unwind.h b/clang/lib/Headers/unwind.h
-index 6e069798f..3a24920d1 100644
+index 33e1792cd..a32e18cda 100644
 --- a/clang/lib/Headers/unwind.h
 +++ b/clang/lib/Headers/unwind.h
 @@ -9,9 +9,6 @@
@@ -24,7 +32,7 @@ index 6e069798f..3a24920d1 100644
  #include <stdint.h>
  
  #ifdef __cplusplus
-@@ -326,6 +326,7 @@ _Unwind_Ptr _Unwind_GetTextRelBase(struct _Unwind_Context *);
+@@ -327,6 +327,7 @@ _Unwind_Ptr _Unwind_GetTextRelBase(struct _Unwind_Context *);
  }
  #endif
  
@@ -34,5 +42,5 @@ index 6e069798f..3a24920d1 100644
  
 -#endif /* __CLANG_UNWIND_H */
 -- 
-2.35.1
+2.39.0
 

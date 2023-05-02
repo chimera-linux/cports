@@ -1,10 +1,10 @@
 pkgname = "clang-rt-cross"
-pkgver = "15.0.7"
+pkgver = "16.0.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
-    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver}",
+    f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0:pkgver.find('.')]}",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
     # only build that target
     "-DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON",
@@ -45,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "8b5fcb24b4128cf04df1b0b9410ce8b1a729cb3c544e6da885d234280dedeac6"
+sha256 = "6d8acae041ccd34abe144cda6eaa76210e1491f286574815b7261b3f2e58734c"
 # crosstoolchain
 options = ["!cross", "!check", "!lto"]
 
@@ -57,7 +57,7 @@ tool_flags = {
 }
 
 _targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
+_targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 def do_configure(self):
     from cbuild.util import cmake
@@ -89,11 +89,11 @@ def do_install(self):
 
     # we don't need or want these for cross
     with self.pushd(self.destdir):
-        self.rm(f"usr/lib/clang/{pkgver}/share", recursive = True)
-        self.rm(f"usr/lib/clang/{pkgver}/include", recursive = True)
-        self.rm(f"usr/lib/clang/{pkgver}/bin", recursive = True)
+        self.rm(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/share", recursive = True)
+        self.rm(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include", recursive = True)
+        self.rm(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/bin", recursive = True)
 
-for an in _targetlist:
+def _gen_subp(an):
     @subpackage(f"clang-rt-cross-{an}", an in _targets)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
@@ -105,7 +105,11 @@ for an in _targetlist:
             "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
         ]
         with self.rparent.profile(an) as pf:
-            return [f"usr/lib/clang/{pkgver}/lib/{pf.triplet}"]
+            return [f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/{pf.triplet}"]
 
     if an in _targets:
         depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")
+
+
+for an in _targetlist:
+    _gen_subp(an)

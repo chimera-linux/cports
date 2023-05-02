@@ -1,10 +1,20 @@
-Disable dependency on libexecinfo including in autodetected cases.
+From be92c66b268b6be0b5fa5ccc302a659248f2c1c3 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Tue, 2 May 2023 16:24:43 +0200
+Subject: [PATCH 05/27] llvm: disable dependency on libexecinfo everywhere
+
+---
+ compiler-rt/cmake/config-ix.cmake       | 1 -
+ llvm/cmake/config-ix.cmake              | 2 --
+ llvm/include/llvm/Config/config.h.cmake | 5 -----
+ llvm/lib/Support/CMakeLists.txt         | 8 --------
+ 4 files changed, 16 deletions(-)
 
 diff --git a/compiler-rt/cmake/config-ix.cmake b/compiler-rt/cmake/config-ix.cmake
-index cd45176c..5e0f5f57 100644
+index 5f51befc1..5f98fb7df 100644
 --- a/compiler-rt/cmake/config-ix.cmake
 +++ b/compiler-rt/cmake/config-ix.cmake
-@@ -151,7 +151,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
+@@ -170,7 +170,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
  check_library_exists(rt shm_open "" COMPILER_RT_HAS_LIBRT)
  check_library_exists(m pow "" COMPILER_RT_HAS_LIBM)
  check_library_exists(pthread pthread_create "" COMPILER_RT_HAS_LIBPTHREAD)
@@ -13,7 +23,7 @@ index cd45176c..5e0f5f57 100644
  # Look for terminfo library, used in unittests that depend on LLVMSupport.
  if(LLVM_ENABLE_TERMINFO STREQUAL FORCE_ON)
 diff --git a/llvm/cmake/config-ix.cmake b/llvm/cmake/config-ix.cmake
-index 83512760..b7b2950c 100644
+index b78c1b34a..e1096e4df 100644
 --- a/llvm/cmake/config-ix.cmake
 +++ b/llvm/cmake/config-ix.cmake
 @@ -254,8 +254,6 @@ endif()
@@ -26,7 +36,7 @@ index 83512760..b7b2950c 100644
  # Prevent check_symbol_exists from using API that is not supported for a given
  # deployment target.
 diff --git a/llvm/include/llvm/Config/config.h.cmake b/llvm/include/llvm/Config/config.h.cmake
-index 21ce3a94..2d3817c1 100644
+index 29ac536b4..ecfcc4ebe 100644
 --- a/llvm/include/llvm/Config/config.h.cmake
 +++ b/llvm/include/llvm/Config/config.h.cmake
 @@ -23,11 +23,6 @@
@@ -42,10 +52,10 @@ index 21ce3a94..2d3817c1 100644
  #cmakedefine HAVE_CRASHREPORTERCLIENT_H
  
 diff --git a/llvm/lib/Support/CMakeLists.txt b/llvm/lib/Support/CMakeLists.txt
-index 5044b263..c9b3e94f 100644
+index 4cbc3b79f..0817af2c3 100644
 --- a/llvm/lib/Support/CMakeLists.txt
 +++ b/llvm/lib/Support/CMakeLists.txt
-@@ -40,14 +40,6 @@ elseif( CMAKE_HOST_UNIX )
+@@ -48,14 +48,6 @@ elseif( CMAKE_HOST_UNIX )
    if( HAVE_LIBDL )
      set(system_libs ${system_libs} ${CMAKE_DL_LIBS})
    endif()
@@ -60,3 +70,6 @@ index 5044b263..c9b3e94f 100644
    if( LLVM_ENABLE_TERMINFO )
      set(imported_libs ${imported_libs} Terminfo::terminfo)
    endif()
+-- 
+2.39.0
+

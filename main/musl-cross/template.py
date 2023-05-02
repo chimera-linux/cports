@@ -1,6 +1,7 @@
 pkgname = "musl-cross"
 pkgver = "1.2.4"
 pkgrel = 0
+_scudo_ver = "16.0.2"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
@@ -11,15 +12,52 @@ pkgdesc = "Musl C library for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
-source = f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz"
-sha256 = "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039"
+source = [
+    f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz",
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz"
+]
+sha256 = [
+    "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039",
+    "46abe68f006646c15f6d551a2be0ac27e681c5fcc646d712389a5e50ddf69c60"
+]
 # mirrors musl
 hardening = ["!scp"]
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "brokenlinks"]
 
+# whether to use musl's stock allocator instead of scudo
+_use_mng = False
+
 _targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
-_targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
+_targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
+
+if _use_mng:
+    configure_args += ["--with-malloc=mallocng"]
+elif self.profile().arch == "aarch64":
+    # disable aarch64 memory tagging in scudo, as it fucks up qemu-user
+    tool_flags = {"CXXFLAGS": ["-DSCUDO_DISABLE_TBI"]}
+
+def post_extract(self):
+    # move musl where it should be
+    for f in (self.cwd / f"musl-{pkgver}").iterdir():
+        self.mv(f, ".")
+    # prepare scudo subdir
+    self.mkdir("src/malloc/scudo/scudo", parents = True)
+    # move compiler-rt stuff in there
+    scpath = self.cwd / f"compiler-rt-{_scudo_ver}.src/lib/scudo/standalone"
+    for f in scpath.glob("*.cpp"):
+        self.cp(f, "src/malloc/scudo")
+    for f in scpath.glob("*.h"):
+        self.cp(f, "src/malloc/scudo")
+    for f in scpath.glob("*.inc"):
+        self.cp(f, "src/malloc/scudo")
+    self.cp(scpath / "include/scudo/interface.h", "src/malloc/scudo/scudo")
+    # remove wrappers
+    for f in (self.cwd / "src/malloc/scudo").glob("wrappers_*"):
+        f.unlink()
+    # copy in our own wrappers
+    self.cp(self.files_path / "wrappers.cpp", "src/malloc/scudo")
+    # now we're ready to get patched
 
 def do_configure(self):
     for an in _targets:
@@ -35,7 +73,8 @@ def do_configure(self):
                     *configure_args, "--host=" + at,
                     wrksrc = f"build-{an}",
                     env = {
-                        "CC": "clang -target " + at
+                        "CC": "clang -target " + at,
+                        "CXX": "clang++ -target " + at,
                     }
                 )
 

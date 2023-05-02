@@ -1,7 +1,7 @@
-From 20f5aae2487c46aa51a2b304ff229a4d3763e377 Mon Sep 17 00:00:00 2001
+From 4a6b949e75d05aff3510609d6997e32af6c366be Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sat, 24 Sep 2022 23:24:05 +0200
-Subject: [PATCH 12/18] compiler-rt: HACK: always compile in gcc_personality_v0
+Date: Tue, 2 May 2023 16:14:38 +0200
+Subject: [PATCH 13/27] compiler-rt: HACK: always compile in gcc_personality_v0
 
 Looks like HAVE_UNWIND_H is not accounted for when doing the
 runtimes build, but this is the only place where it's checked.
@@ -13,10 +13,10 @@ Unconditionally compile it in because some things use it.
  2 files changed, 5 insertions(+), 7 deletions(-)
 
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index d1aeb5392..5e568af84 100644
+index b32d28d1f..6f37ecaa9 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -224,12 +224,10 @@ if(APPLE)
+@@ -228,12 +228,10 @@ if(APPLE)
    )
  endif()
  
@@ -47,5 +47,5 @@ index 58fd7ceb5..ce5f0d277 100644
      !defined(__USING_SJLJ_EXCEPTIONS__)
  // When building with older compilers (e.g. clang <3.9), it is possible that we
 -- 
-2.37.3
+2.39.0
 

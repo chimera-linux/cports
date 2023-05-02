@@ -24,7 +24,8 @@ env = {
     "RUST_BACKTRACE": "1",
 }
 # disable check at least for now
-options = ["!check"]
+# lto always breaks across major llvm vers because of consumer/reader mismatch
+options = ["!check", "!lto"]
 
 if self.profile().cross:
     hostmakedepends += ["rust"]
@@ -46,7 +47,7 @@ if _bootstrap:
     hostmakedepends += ["llvm-devel-static"]
     makedepends += ["llvm-devel-static"]
     # avoid debug cflags and so on for vendor libs
-    options += ["!debug", "!lto"]
+    options += ["!debug"]
 
 def post_patch(self):
     from cbuild.util import cargo

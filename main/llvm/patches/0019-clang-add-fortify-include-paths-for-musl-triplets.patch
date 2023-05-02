@@ -1,7 +1,7 @@
-From eca9994181dc355cfba61e726c038832d5ff6975 Mon Sep 17 00:00:00 2001
+From 9a7aada926b1492cb9625d96556c955bcb0fa1bc Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sun, 23 Oct 2022 00:47:57 +0200
-Subject: [PATCH 1/4] clang: add fortify include paths for musl triplets
+Date: Tue, 2 May 2023 16:19:21 +0200
+Subject: [PATCH 19/27] clang: add fortify include paths for musl triplets
 
 When we have fortify headers this lets them get included.
 ---
@@ -9,10 +9,10 @@ When we have fortify headers this lets them get included.
  1 file changed, 8 insertions(+), 4 deletions(-)
 
 diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
-index 7fcdcf125..d5df4a240 100644
+index eeb656790..cf2eba4a4 100644
 --- a/clang/lib/Driver/ToolChains/Linux.cpp
 +++ b/clang/lib/Driver/ToolChains/Linux.cpp
-@@ -622,10 +622,14 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
+@@ -632,10 +632,14 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
    if (getTriple().getOS() == llvm::Triple::RTEMS)
      return;
  
@@ -32,5 +32,5 @@ index 7fcdcf125..d5df4a240 100644
    addExternCSystemInclude(DriverArgs, CC1Args, concat(SysRoot, "/usr/include"));
  
 -- 
-2.38.0
+2.39.0
 

@@ -1,18 +1,18 @@
-From 73b8ed17fed2145b29bde40a0c658712e34d48c3 Mon Sep 17 00:00:00 2001
+From d91f567b5c77c91b857e081e345ea008440bd3f9 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Tue, 28 Feb 2023 01:59:26 +0100
-Subject: [PATCH] clang: default to -fno-semantic-interposition on supported
- targets
+Date: Tue, 2 May 2023 16:22:42 +0200
+Subject: [PATCH 23/27] clang: default to -fno-semantic-interposition on
+ supported targets
 
 ---
  clang/lib/Driver/ToolChains/Clang.cpp | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/clang/lib/Driver/ToolChains/Clang.cpp b/clang/lib/Driver/ToolChains/Clang.cpp
-index 3704ed85..d3d67a22 100644
+index 20ccaecd6..4fe05dd09 100644
 --- a/clang/lib/Driver/ToolChains/Clang.cpp
 +++ b/clang/lib/Driver/ToolChains/Clang.cpp
-@@ -5072,9 +5072,7 @@ void Clang::ConstructJob(Compilation &C, const JobAction &JA,
+@@ -5107,9 +5107,7 @@ void Clang::ConstructJob(Compilation &C, const JobAction &JA,
        // The supported targets need to call AsmPrinter::getSymbolPreferLocal.
        bool SupportsLocalAlias =
            Triple.isAArch64() || Triple.isRISCV() || Triple.isX86();

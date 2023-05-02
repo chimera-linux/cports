@@ -1,9 +1,19 @@
+From 08dce42947ec9bc60fd150fea483430e849bcb33 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Tue, 2 May 2023 16:25:12 +0200
+Subject: [PATCH 06/27] llvm: fix powerpc tail call miscompilation
+
 https://github.com/llvm/llvm-project/issues/62294
+---
+ llvm/lib/Target/PowerPC/PPCMIPeephole.cpp    |  5 ++++-
+ llvm/test/CodeGen/PowerPC/cmp_elimination.ll | 23 ++++++++++++++++++++
+ 2 files changed, 27 insertions(+), 1 deletion(-)
 
 diff --git a/llvm/lib/Target/PowerPC/PPCMIPeephole.cpp b/llvm/lib/Target/PowerPC/PPCMIPeephole.cpp
+index 7d3a8b4ca..d058ad3f4 100644
 --- a/llvm/lib/Target/PowerPC/PPCMIPeephole.cpp
 +++ b/llvm/lib/Target/PowerPC/PPCMIPeephole.cpp
-@@ -1315,7 +1315,7 @@
+@@ -1288,7 +1288,7 @@ static bool eligibleForCompareElimination(MachineBasicBlock &MBB,
      if (isEligibleBB(*Pred1MBB) && isEligibleForMoveCmp(*Pred2MBB)) {
        // We assume Pred1MBB is the BB containing the compare to be merged and
        // Pred2MBB is the BB to which we will append a compare instruction.
@@ -12,7 +22,7 @@ diff --git a/llvm/lib/Target/PowerPC/PPCMIPeephole.cpp b/llvm/lib/Target/PowerPC
      }
      else if (isEligibleBB(*Pred2MBB) && isEligibleForMoveCmp(*Pred1MBB)) {
        // We need to swap Pred1MBB and Pred2MBB to canonicalize.
-@@ -1323,6 +1323,9 @@
+@@ -1296,6 +1296,9 @@ static bool eligibleForCompareElimination(MachineBasicBlock &MBB,
      }
      else return false;
  
@@ -23,9 +33,10 @@ diff --git a/llvm/lib/Target/PowerPC/PPCMIPeephole.cpp b/llvm/lib/Target/PowerPC
      // We cannot move the compare instruction if operands are not available
      // in Pred2MBB (i.e. defined in MBB by an instruction other than PHI).
 diff --git a/llvm/test/CodeGen/PowerPC/cmp_elimination.ll b/llvm/test/CodeGen/PowerPC/cmp_elimination.ll
+index 56af49f0c..871cc5df1 100644
 --- a/llvm/test/CodeGen/PowerPC/cmp_elimination.ll
 +++ b/llvm/test/CodeGen/PowerPC/cmp_elimination.ll
-@@ -779,6 +779,29 @@
+@@ -779,6 +779,29 @@ if.end3:
    ret void
  }
  
@@ -55,4 +66,6 @@ diff --git a/llvm/test/CodeGen/PowerPC/cmp_elimination.ll b/llvm/test/CodeGen/Po
  declare void @dummy1()
  declare void @dummy2()
  declare void @dummy3()
+-- 
+2.39.0
 
