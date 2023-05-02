@@ -1,7 +1,7 @@
 pkgname = "musl"
-pkgver = "1.2.3"
+pkgver = "1.2.4"
 pkgrel = 0
-_scudo_ver = "16.0.0"
+_scudo_ver = "16.0.2"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
@@ -16,8 +16,8 @@ source = [
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz"
 ]
 sha256 = [
-    "7d5b0b6062521e4627e099e4c9dc8248d32a30285e959b7eecaa780cf8cfd4a4",
-    "a43610aba06538324f4143626c392d51883042685a33d22b629afd8658ea344e"
+    "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039",
+    "46abe68f006646c15f6d551a2be0ac27e681c5fcc646d712389a5e50ddf69c60"
 ]
 # scp makes it segfault
 hardening = ["!scp"]
