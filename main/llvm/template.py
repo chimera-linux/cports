@@ -68,6 +68,7 @@ cmake_dir = "llvm"
 tool_flags = {
     "CFLAGS": ["-fPIC"],
     "CXXFLAGS": ["-fPIC"],
+    "LDFLAGS": [],
 }
 
 _enabled_projects = ["clang", "clang-tools-extra", "lld"]
@@ -95,6 +96,7 @@ if self.stage > 0:
                 "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
                 "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
             ]
+            tool_flags["LDFLAGS"] += ["-fuse-ld=/usr/lib/llvm-bootstrap/bin/ld.lld"]
 else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",
