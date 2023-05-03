@@ -540,7 +540,8 @@ def _llvm_devel(self):
         f"llvm={pkgver}-r{pkgrel}",
         f"llvm-tools={pkgver}-r{pkgrel}",
         f"llvm-devel-static={pkgver}-r{pkgrel}",
-        f"libclang-cpp={pkgver}-r{pkgrel}"
+        f"libclang-cpp={pkgver}-r{pkgrel}",
+        "libzstd-devel"
     ]
 
     return [
