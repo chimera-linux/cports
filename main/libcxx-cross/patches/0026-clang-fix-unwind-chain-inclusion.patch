@@ -1,7 +1,7 @@
 From ec8dfe9269dcd442b62ce6b5eb72ee3cd60369d6 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Tue, 2 May 2023 16:25:59 +0200
-Subject: [PATCH 26/27] clang: fix unwing chain inclusion
+Subject: [PATCH 26/27] clang: fix unwind chain inclusion
 
 This fixes the compiler complaining about the __has_include_next.
 ---
