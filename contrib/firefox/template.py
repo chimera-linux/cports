@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "112.0.1"
+pkgver = "112.0.2"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -25,7 +25,7 @@ license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "5d2b2886812fe1bc62b7801495d375e3de94ca160a676057d1df92de87efb649"
+sha256 = "e6a4819a3b82b1ca6c45296e50e6c9ab653306eeb540e50ba8683e339565992e"
 debug_level = 1 # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
