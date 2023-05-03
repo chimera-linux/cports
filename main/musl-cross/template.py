@@ -1,7 +1,7 @@
 pkgname = "musl-cross"
 pkgver = "1.2.4"
 pkgrel = 0
-_scudo_ver = "16.0.2"
+_scudo_ver = "16.0.3"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 make_cmd = "gmake"
@@ -18,7 +18,7 @@ source = [
 ]
 sha256 = [
     "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039",
-    "46abe68f006646c15f6d551a2be0ac27e681c5fcc646d712389a5e50ddf69c60"
+    "ef39d0538f2038dc5c09008d5b8b49948beb0e3beecdb4698bc2f35bd577bfb8"
 ]
 # mirrors musl
 hardening = ["!scp"]

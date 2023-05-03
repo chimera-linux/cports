@@ -1,5 +1,5 @@
 pkgname = "llvm-bootstrap"
-pkgver = "16.0.2"
+pkgver = "16.0.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -51,7 +51,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "6d8acae041ccd34abe144cda6eaa76210e1491f286574815b7261b3f2e58734c"
+sha256 = "3b12e35332e10cf650578ae18247b91b04926d5427e1a6ae9a51d170a47cfbb2"
 debug_level = 0
 # bootstrap; LTO would just slow it down, cross is unnecessary (not used
 # in cross builds), debug info is unnecessary, and dependency/shlib scan
