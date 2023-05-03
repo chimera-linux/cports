@@ -433,9 +433,23 @@ def _libcxx_static(self):
 
     return ["usr/lib/libc++.a"]
 
+@subpackage("libcxxabi-devel")
+def _libcxxabi_devel(self):
+    self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (development files)"
+    self.depends = [
+        f"libunwind-devel={pkgver}-r{pkgrel}"
+    ]
+
+    return [
+        "usr/include/c++/v1/cxxabi.h",
+        "usr/include/c++/v1/__cxxabi_config.h",
+        "usr/lib/libc++abi.so",
+    ]
+
 @subpackage("libcxx-devel")
 def _libcxx_devel(self):
     self.pkgdesc = f"{pkgdesc} (C++ standard library) (development files)"
+    self.depends = [f"libcxxabi-devel={pkgver}-r{pkgrel}"]
     self.options = ["ltostrip", "!splitstatic"]
 
     return [
@@ -460,18 +474,6 @@ def _libcxxabi_static(self):
     self.options = ["ltostrip"]
 
     return ["usr/lib/libc++abi.a"]
-
-@subpackage("libcxxabi-devel")
-def _libcxxabi_devel(self):
-    self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (development files)"
-    self.depends = [
-        f"libunwind-devel={pkgver}-r{pkgrel}"
-    ]
-
-    return [
-        "usr/lib/libc++abi.so",
-        "usr/include/*cxxabi*",
-    ]
 
 @subpackage("libllvm")
 def _libllvm(self):

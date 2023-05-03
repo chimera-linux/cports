@@ -124,7 +124,7 @@ def _gen_crossp(an, at):
         ]
         return [
             f"usr/{at}/usr/lib/libc++abi*",
-            f"usr/{at}/usr/include/*cxxabi*.h",
+            f"usr/{at}/usr/include/c++/v1/*cxxabi*.h",
         ]
 
     # libc++ subpackages
