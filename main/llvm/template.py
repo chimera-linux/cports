@@ -541,8 +541,9 @@ def _llvm_devel(self):
         f"llvm-tools={pkgver}-r{pkgrel}",
         f"llvm-devel-static={pkgver}-r{pkgrel}",
         f"libclang-cpp={pkgver}-r{pkgrel}",
-        "libzstd-devel"
     ]
+    if self.stage > 0:
+        self.depends.append("libzstd-devel")
 
     return [
         "usr/include",
