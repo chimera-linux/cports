@@ -9,7 +9,7 @@ configure_args = [
     "--localstatedir=/var",
     "--disable-static",
 ]
-hostmakedepends = ["automake", "libtool", "gtk-doc", "intltool", "pkgconf", "glib-devel"]  # libtool, intltool, gtk-doc seem to not be packaged yet
+hostmakedepends = ["automake", "libtool", "gtk-doc-tools", "intltool", "pkgconf", "glib-devel"]  # intltool seems to not be packaged yet
 makedepends = ["libglib-devel"]
 depends = f"{hostmakedepends}"
 pkgdesc = "Xfce developer tools"
