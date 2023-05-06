@@ -10,14 +10,12 @@ configure_args = [
     "--disable-static",
 ]
 hostmakedepends = ["automake", "libtool", "gtk-doc-tools", "pkgconf", "glib-devel"]
-makedepends = ["libglib-devel"]
-depends = f"{hostmakedepends}"
 pkgdesc = "Xfce developer tools"
 maintainer = "Sachin-Bhat <sachubhat17@gmail.com>"
 license = "GPL-2.0-or-later"
-url = "https://xfce.org/"
+url = "https://xfce.org"
 source = f"https://archive.xfce.org/src/xfce/{pkgname}/{pkgver.rsplit('.', 1)[0]}/{pkgname}-{pkgver}.tar.bz2"
-sha512 = "59f858b633d95585a74c9b9515a0994744f4355ab3813e582e10c776454ac41c86296a9fbd935d5dae88929ec09ec9c30f48629c7addb5729e6bea108d304f7c"
+sha256 = "eedb4fc955f0e3459c46864ff98579295db2b900743e0ff69cad5970ba76be37"
 
 def configure(self):
     self.run("./configure", *configure_args)
@@ -27,7 +25,3 @@ def build(self):
 
 def install(self):
     self.run("make", f"DESTDIR={self.package_dir}", "install")
-
-@subpackage("xfce4-dev-tools-docs")
-def _docs(self):
-    return self.default_docs()
