@@ -224,12 +224,17 @@ def do_check(self):
         "src/test/ui-fulldeps"
     )
 
-def _untar(self, name):
+def _untar(self, name, has_triple = True):
     trip = self.profile().triplet
+
+    fname = f"{name}-{pkgver}"
+    if has_triple:
+        fname += f"-{trip}"
+    fname += ".tar.xz"
 
     self.do(
         "tar", "xf",
-        self.chroot_cwd / f"build/dist/{name}-{pkgver}-{trip}.tar.xz",
+        self.chroot_cwd / f"build/dist/{fname}",
         "-C", self.chroot_destdir / "usr",
         "--strip-components=2", "--exclude=manifest.in", "--no-same-owner"
     )
@@ -250,6 +255,9 @@ def do_install(self):
         self.log(f"unpacking {f}...")
         _untar(self, f)
 
+    self.log(f"unpacking rust-src...")
+    _untar(self, "rust-src", False)
+
     # remove rust copies of llvm tools
     self.log("cleaning up tools...")
     trip = self.profile().triplet
@@ -269,3 +277,10 @@ def _std(self):
     self.pkgdesc = f"{pkgdesc} (static rlibs)"
 
     return [f"{_rlib_dir}/lib/*.rlib"]
+
+@subpackage("rust-src")
+def _src(self):
+    self.pkgdesc = f"{pkgdesc} (source)"
+
+    return ["usr/lib/rustlib/src"]
+
