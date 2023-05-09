@@ -14,3 +14,7 @@ pkgdesc = "Chimera base package for bare metal and virtual machines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
+
+if self.profile().arch == "x86_64":
+    # intel audio firmware
+    depends += ["base-firmware-sof"]
