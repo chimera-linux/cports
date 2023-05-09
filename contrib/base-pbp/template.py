@@ -18,7 +18,6 @@ def do_install(self):
     self.install_file(
         self.files_path / "10-pinebookpro.hwdb", "usr/lib/udev/hwdb.d"
     )
-    self.install_file(self.files_path / "asound.state", "var/lib/alsa")
     # u-boot-menu
     self.install_file(self.files_path / "u-boot-device", "etc/default")
     self.install_file(self.files_path / "u-boot-cmdline", "etc/default")
