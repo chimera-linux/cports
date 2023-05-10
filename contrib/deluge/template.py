@@ -3,9 +3,8 @@ pkgname = "deluge"
 pkgver = "2.1.1"
 pkgrel = 0
 build_style = "python_module"
-# technically intltool should be here but it's b&
 hostmakedepends = [
-    "python-setuptools", "python-wheel"
+    "python-setuptools", "python-wheel", "intltool"
 ]
 depends = [
     "python-setuptools", "python-chardet", "python-mako", "python-openssl",
@@ -41,9 +40,6 @@ def post_install(self):
     # default services
     self.install_service(self.files_path / "deluged")
     self.install_service(self.files_path / "deluge-web")
-    # we don't have intltool so we ship pregenerated files
-    self.install_file(self.files_path / "deluge.desktop", "usr/share/applications")
-    self.install_file(self.files_path / "deluge.appdata.xml", "usr/share/appdata")
 
 @subpackage("deluge-gtk")
 def _gtk(self):
