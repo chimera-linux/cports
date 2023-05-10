@@ -1,0 +1,12 @@
+pkgname = "python-ply"
+pkgver = "3.11"
+pkgrel = 0
+build_style = "python_module"
+hostmakedepends = ["python-setuptools"]
+depends = ["python"]
+pkgdesc = "Lex and Yacc for Python"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "BSD-3-Clause"
+url = "https://www.dabeaz.com/ply"
+source = f"$(PYPI_SITE)/p/ply/ply-{pkgver}.tar.gz"
+sha256 = "00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3"
