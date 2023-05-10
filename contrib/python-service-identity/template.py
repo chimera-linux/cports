@@ -6,7 +6,7 @@ make_check_target = "tests"
 hostmakedepends = ["python-setuptools", "python-wheel"]
 depends = [
     "python-attrs", "python-openssl", "python-pyasn1",
-    "python-pyasn1-modules", "python-six"
+    "python-pyasn1_modules", "python-six"
 ]
 checkdepends = ["python-pytest"] + depends
 pkgdesc = "Service identity verification for Python"
