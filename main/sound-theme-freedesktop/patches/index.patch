@@ -1,0 +1,17 @@
+commit ae79883dd1793b9bd2a087fd5a15bf611eb3fbd5
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Wed May 10 21:54:43 2023 +0200
+
+    fix index.theme
+
+diff --git a/index.theme.in b/index.theme.in
+index dc151c2..8155605 100644
+--- a/index.theme.in
++++ b/index.theme.in
+@@ -1,5 +1,5 @@
+ [Sound Theme]
+-_Name=Default
++Name=Default
+ Directories=stereo
+ 
+ [stereo]
