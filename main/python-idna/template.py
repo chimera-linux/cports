@@ -12,6 +12,8 @@ license = "BSD-3-Clause"
 url = "https://github.com/kjd/idna"
 source = f"$(PYPI_SITE)/i/idna/idna-{pkgver}.tar.gz"
 sha256 = "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+# dep cycle with pytest
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE.md")
