@@ -1,5 +1,5 @@
-pkgname = "python-pyasn1-modules"
-pkgver = "0.2.8"
+pkgname = "python-pyasn1_modules"
+pkgver = "0.3.0"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -8,9 +8,9 @@ checkdepends = ["python-pyasn1"]
 pkgdesc = "Python ASN.1 protocol modules"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
-url = "https://github.com/etingof/pyasn1-modules"
-source = f"$(PYPI_SITE)/p/pyasn1-modules/pyasn1-modules-{pkgver}.tar.gz"
-sha256 = "905f84c712230b2c592c19470d3ca8d552de726050d1d1716282a1f6146be65e"
+url = "https://pyasn1.readthedocs.io/en/latest/contents.html"
+source = f"$(PYPI_SITE)/p/pyasn1_modules/pyasn1_modules-{pkgver}.tar.gz"
+sha256 = "5bd01446b736eb9d31512a30d46c1ac3395d676c6f3cafa4c03eb54b9925631c"
 
 def post_install(self):
     self.install_license("LICENSE.txt")
