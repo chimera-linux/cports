@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>deluge.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <translation type="gettext">deluge</translation>
+  <developer_name>Deluge Team</developer_name>
+  <developer_name xml:lang="ca">Equip del Deluge</developer_name>
+  <developer_name xml:lang="de">Deluge-Team</developer_name>
+  <developer_name xml:lang="fi">Deluge-tiimi</developer_name>
+  <developer_name xml:lang="fr">L'équipe de Deluge</developer_name>
+  <developer_name xml:lang="sv">Deluge arbetsgruppen</developer_name>
+  <developer_name xml:lang="tr">Deluge Takımı</developer_name>
+  <developer_name xml:lang="uk">Команда Deluge</developer_name>
+  <developer_name xml:lang="zh_CN">Deluge Team</developer_name>
+  <summary>Deluge is a lightweight, Free Software, cross-platform BitTorrent client.</summary>
+  <summary xml:lang="ca">El Deluge és un client de BitTorrent lleuger, de progamari lliure i multiplataforma.</summary>
+  <summary xml:lang="fr">Deluge est un client BitTorrent multiplate-forme léger et libre.</summary>
+  <summary xml:lang="sv">Deluge är en lätt, fri, plattformsoberoende BitTorrent-klient.</summary>
+  <summary xml:lang="tr">Deluge, hafiftir, Özgür Yazılımdır, platformlar arası bir BitTorrent istemcisidir.</summary>
+  <summary xml:lang="uk">Deluge - легкий, вільний, багатоплатформовий BitTorrent клієнт.</summary>
+  <summary xml:lang="zh_CN">Deluge 是一个轻量级的免费软件，跨平台的 BitTorrent 客户端。</summary>
+  <url type="homepage">https://www.deluge-torrent.org/</url>
+  <url type="bugtracker">https://dev.deluge-torrent.org</url>
+  <description>
+    <p>Deluge contains the common features to BitTorrent clients such as Protocol Encryption, DHT, Local Peer Discovery (LSD), Peer Exchange (PEX), UPnP, NAT-PMP, Proxy support, Web seeds, global and per-torrent speed limits. As Deluge heavily utilises the libtorrent library it has a comprehensive list of the features provided.</p>
+    <p xml:lang="ca">El Deluge conté les funcions comunes dels clients BitTorrent, com ara el xifratge del protocol, DHT,  descobriment de clients locals (LSD), intercanvi de clients (PEX), UPnP, NAT-PMP, suport per servidors intermediaris, llavors web i límits de velocitat globals i per torrent. El Deluge es basa en la biblioteca libtorrent, i per tant incorpora la llista completa de les funcions que proporciona.</p>
+    <p xml:lang="sv">Deluge innehåller de vanliga funktionerna för BitTorrent-klienter som protokollkryptering, DHT, Local Peer Discovery (LSD), Peer Exchange (PEX), UPnP, NAT-PMP, Proxy-stöd, webbdelning, globala och per torrent hastighetsgränser. Eftersom Deluge utnyttjar biblioteket libtorrent har den en omfattande lista över funktionerna.</p>
+    <p xml:lang="tr">Deluge, Protokol Şifreleme, DHT, Yerel Kişi Bulma (LSD), Kişi Değişimi (PEX), UPnP, NAT-PMP, Vekil sunucu desteği, Web gönderimleri, genel ve torrent başına hız sınırları gibi BitTorrent istemcileri için ortak özellikleri içerir. Deluge, libtorrent kütüphanesini yoğun bir şekilde kullandığından, sağlanan özelliklerin kapsamlı bir listesine sahiptir.</p>
+    <p xml:lang="uk">Deluge містить загальні функції для клієнтів BitTorrent, такі як шифрування протоколів, DHT, локальне розпізнавання пірів(LSD), обмін пірами (PEX), UPnP, NAT-PMP, підтримка проксі, Веб-сід, глобальні обмеження та обмеження швидкості потоку. Оскільки Deluge активно використовує бібліотеку libtorrent, він має вичерпний перелік наданих функцій.</p>
+    <p>Deluge has been designed to run as both a normal standalone desktop application and as a client-server. In Thinclient mode a Deluge daemon handles all the BitTorrent activity and is able to run on headless machines with the user-interfaces connecting remotely from any other platform.</p>
+    <p xml:lang="ca">El Deluge ha estat dissenyat per funcionar com una aplicació normal d'escriptoril i com a client-servidor. En el mode de client lleuger, un dimoni del Deluge gestiona tota l'activitat de BitTorrent i és capaç d'executar-se en màquines sense perifèrics amb les interfícies d'usuari que es connecten de forma remota des de qualsevol altra plataforma.</p>
+    <p xml:lang="sv">Deluge har utformats för att köras som både en vanlig fristående stationär applikation och som en klient-server. I tunt klientläge hanterar en Deluge-demon alla BitTorrent-aktiviteter som kan köras på huvudlösa maskiner med användargränssnitt som fjärransluts från någon annan plattform.</p>
+    <p xml:lang="tr">Deluge, hem normal bir bağımsız masaüstü uygulaması hem de bir istemci-sunucusu olarak çalışmak üzere tasarlanmıştır. İnce istemci kipinde bir Deluge arka plan programı, tüm BitTorrent etkinliğini yönetir ve başka herhangi bir platformdan uzaktan bağlanan kullanıcı arayüzleri ile başında kimse olmayan makinelerde çalışabilir.</p>
+    <p xml:lang="uk">Deluge був розроблений для роботи як звичайної автономної настільної програми, так і як клієнт-сервер. У режимі Thinclient демон Deluge обробляє всю діяльність BitTorrent і може працювати на безголових машинах із користувацькими інтерфейсами, які віддалено підключаються до будь-якої іншої платформи.</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://upload.wikimedia.org/wikipedia/commons/5/50/Deluge-torrent.png</image>
+    </screenshot>
+  </screenshots>
+  <launchable type="desktop-id">deluge.desktop</launchable>
+</component>
