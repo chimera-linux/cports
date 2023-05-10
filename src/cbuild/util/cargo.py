@@ -40,9 +40,12 @@ def get_environment(pkg, jobs = None):
     return env
 
 # very preliminary, no error checking, etc
-def setup_vendor(pkg, vendor_path = "vendor"):
-    pkg.mkdir(".cargo")
-    with open(pkg.cwd / ".cargo/config.toml", "w") as cf:
+def setup_vendor(pkg, vendor_path = "vendor", wrksrc = None):
+    dirn = pkg.cwd
+    if wrksrc is not None:
+        dirn = dirn / wrksrc
+    pkg.mkdir(dirn / ".cargo")
+    with open(dirn / ".cargo/config.toml", "w") as cf:
         cf.write(f"""
 [source.crates-io]
 replace-with = "vendored-sources"

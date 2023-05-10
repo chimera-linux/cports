@@ -73,11 +73,11 @@ def post_patch(self):
 def init_configure(self):
     from cbuild.util import cargo
 
-    env["AS"] = self.get_tool("CC")
-    env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
-    env["RUST_TARGET"] = self.profile().triplet
+    self.env["AS"] = self.get_tool("CC")
+    self.env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
+    self.env["RUST_TARGET"] = self.profile().triplet
     # use all the cargo env vars we enforce
-    env.update(cargo.get_environment(self))
+    self.env.update(cargo.get_environment(self))
 
 def do_configure(self):
     self.rm("objdir", recursive = True, force = True)
