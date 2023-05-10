@@ -20,8 +20,14 @@ sha256 = "09dd399b4477638cf140183f5f85d376abffb9c192bc2910002988e27d69e13e"
 
 # loud build
 tool_flags = {
-    "CXXFLAGS": ["-Wno-unsafe-buffer-usage", "-Wno-deprecated"]
+    "CXXFLAGS": ["-Wno-unsafe-buffer-usage", "-Wno-deprecated"],
+    "LDFLAGS": [],
 }
+
+# ld: error: section size decrease is too large
+if self.profile().arch == "riscv64":
+    tool_flags["CXXFLAGS"] += ["-mno-relax"]
+    tool_flags["LDFLAGS"] += ["-mno-relax"]
 
 def do_check(self):
     self.do(
