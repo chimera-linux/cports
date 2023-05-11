@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "112.0.2"
+pkgver = "113.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -18,14 +18,16 @@ makedepends = [
     # XXX: https://bugzilla.mozilla.org/show_bug.cgi?id=1532281
     "dbus-glib-devel",
 ]
-depends = ["libavcodec", "hicolor-icon-theme"]
+depends = [
+    "libavcodec", "hicolor-icon-theme", "virtual:cmd:firefox!firefox-wayland"
+]
 pkgdesc = "Mozilla Firefox web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "e6a4819a3b82b1ca6c45296e50e6c9ab653306eeb540e50ba8683e339565992e"
+sha256 = "7a266044cb9d0c63079b3453507ea0c80a23389f4cbf6a4f6fd15146c6072627"
 debug_level = 1 # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -168,7 +170,39 @@ def do_install(self):
     # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
     self.rm(self.destdir / "usr/lib/firefox/firefox-bin")
     self.install_link("firefox", "usr/lib/firefox/firefox-bin")
+    # to be provided
+    self.rm(self.destdir / "usr/bin/firefox")
+    # default launcher
+    self.install_link(
+        "/usr/lib/firefox/firefox", "usr/bin/firefox-default"
+    )
+    # wayland launcher
+    self.install_file(
+        self.files_path / "firefox-wayland", "usr/lib/firefox", mode = 0o755
+    )
+    self.install_link(
+        "/usr/lib/firefox/firefox-wayland", "usr/bin/firefox-wayland"
+    )
 
 def do_check(self):
     # XXX: maybe someday
     pass
+
+@subpackage("firefox-wayland")
+def _wl(self):
+    self.pkgdesc = f"{pkgdesc} (prefer Wayland)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"] # prefer
+
+    def inst():
+        self.mkdir(self.destdir / "usr/bin", parents = True)
+        self.ln_s("firefox-wayland", self.destdir / "usr/bin/firefox")
+    return inst
+
+@subpackage("firefox-default")
+def _x11(self):
+    self.pkgdesc = f"{pkgdesc} (no display server preference)"
+
+    def inst():
+        self.mkdir(self.destdir / "usr/bin", parents = True)
+        self.ln_s("firefox-default", self.destdir / "usr/bin/firefox")
+    return inst
