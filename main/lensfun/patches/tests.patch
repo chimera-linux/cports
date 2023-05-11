@@ -1,0 +1,52 @@
+commit 4993dc72463805ea15c72f2b424a78d57e23a046
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri May 12 01:38:45 2023 +0200
+
+    fix test build
+
+diff --git a/tests/test_modifier.cpp b/tests/test_modifier.cpp
+index 5a2ed0d..12ac640 100644
+--- a/tests/test_modifier.cpp
++++ b/tests/test_modifier.cpp
+@@ -1,4 +1,4 @@
+-#include <glib.h>
++ #include <glib.h>
+ #include <locale.h>
+ #ifdef _MSC_VER
+ #define _USE_MATH_DEFINES
+@@ -78,8 +78,8 @@ void test_mod_projection_center(lfFixture* lfFix, gconstpointer data)
+ // check if output becomes NaN when processing geometry conversion
+ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
+ {
+-    float in[2]  = {lfFix->img_width, lfFix->img_height};
+-    float in2[2] = {(lfFix->img_width-1)/2, (lfFix->img_height-1)/2};
++    float in[2]  = {(float)lfFix->img_width, (float)lfFix->img_height};
++    float in2[2] = {(float)(lfFix->img_width-1)/2, (float)(lfFix->img_height-1)/2};
+     float res[2] = {0, 0};
+ 
+     lfLensType geom_types [] = {LF_RECTILINEAR, LF_PANORAMIC, LF_EQUIRECTANGULAR, LF_FISHEYE_STEREOGRAPHIC, LF_FISHEYE, LF_FISHEYE_EQUISOLID, LF_FISHEYE_ORTHOGRAPHIC, LF_FISHEYE_THOBY, LF_UNKNOWN};
+@@ -102,18 +102,18 @@ void test_mod_projection_borders(lfFixture* lfFix, gconstpointer data)
+                 LF_MODIFY_GEOMETRY, false);
+ 
+             if (lfFix->mod->ApplyGeometryDistortion(0,0,1,1,res)) {
+-                g_assert_false(std::isnan(res[0]));
+-                g_assert_false(std::isnan(res[1]));
++                g_assert_false(isnan(res[0]));
++                g_assert_false(isnan(res[1]));
+             }
+ 
+             if (lfFix->mod->ApplyGeometryDistortion(in[0],in[1],1,1,res)) {
+-                g_assert_false(std::isnan(res[0]));
+-                g_assert_false(std::isnan(res[1]));
++                g_assert_false(isnan(res[0]));
++                g_assert_false(isnan(res[1]));
+             }
+ 
+             if (lfFix->mod->ApplyGeometryDistortion(in2[0],in2[1],1,1,res)) {
+-                g_assert_false(std::isnan(res[0]));
+-                g_assert_false(std::isnan(res[1]));
++                g_assert_false(isnan(res[0]));
++                g_assert_false(isnan(res[1]));
+             }
+ 
+             delete lfFix->mod;
