@@ -1,0 +1,22 @@
+commit 2cd9b1151df7693c4fe4e80dbf0bade69f7662d6
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu May 11 23:57:57 2023 +0000
+
+    fix x86 build
+
+diff --git a/libs/lensfun/cpuid.cpp b/libs/lensfun/cpuid.cpp
+index c435f8a..d2d6397 100644
+--- a/libs/lensfun/cpuid.cpp
++++ b/libs/lensfun/cpuid.cpp
+@@ -92,9 +92,9 @@ guint _lf_detect_cpu_features ()
+ {
+ #define cpuid(cmd) \
+     __asm volatile ( \
+-        "push %%"R_BX"\n" \
++        "push %%" R_BX "\n" \
+         "cpuid\n" \
+-        "pop %%"R_BX"\n" \
++        "pop %%" R_BX "\n" \
+        : "=a" (ax), "=c" (cx),  "=d" (dx) \
+        : "0" (cmd))
+ 
