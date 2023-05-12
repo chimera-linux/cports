@@ -1,0 +1,28 @@
+commit 9074a6592c013df3afb5843172b2123a6028ea94
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri May 12 02:06:47 2023 +0200
+
+    fix babl/mypaint brushes lookup
+
+diff --git a/meson.build b/meson.build
+index daae225..7744671 100644
+--- a/meson.build
++++ b/meson.build
+@@ -340,7 +340,7 @@ mscms             = platform_windows ? cc.find_library('mscms') : no_dep
+ atk_minver        = '2.4.0'
+ atk               = dependency('atk',                version: '>='+atk_minver)
+ babl_minver       = '0.1.98'
+-babl              = dependency('babl',               version: '>='+babl_minver)
++babl              = dependency('babl-0.1',               version: '>='+babl_minver)
+ cairo_minver      = '1.12.2'
+ cairo             = dependency('cairo',              version: '>='+cairo_minver)
+ 
+@@ -378,7 +378,7 @@ lcms_minver       = '2.8'
+ lcms              = dependency('lcms2',              version: '>='+lcms_minver)
+ libmypaint_minver = '1.3.0'
+ libmypaint        = dependency('libmypaint',         version: '>='+libmypaint_minver)
+-mypaint_brushes   = dependency('mypaint-brushes-1.0',version: '>='+libmypaint_minver)
++mypaint_brushes   = dependency('mypaint-brushes-2.0',version: '>='+libmypaint_minver)
+ if not libmypaint.version().version_compare('>=1.4.0')
+   libmypaint_warning='''
+ 
