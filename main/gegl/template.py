@@ -32,6 +32,7 @@ def _devel(self):
     return [
         "usr/include/gegl-0.4",
         "usr/lib/libgegl-0.4.so",
+        "usr/lib/*.a",
         "usr/lib/pkgconfig",
         "usr/share/gir-1.0",
         "usr/share/vala/vapi",
