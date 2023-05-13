@@ -1,5 +1,5 @@
-pkgname = "firefox"
-pkgver = "113.0"
+pkgname = "thunderbird"
+pkgver = "114.0_beta1"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -19,18 +19,17 @@ makedepends = [
     "dbus-glib-devel",
 ]
 depends = [
-    "libavcodec", "hicolor-icon-theme", "virtual:cmd:firefox!firefox-wayland"
+    "hicolor-icon-theme", "virtual:cmd:thunderbird!thunderbird-wayland"
 ]
-pkgdesc = "Mozilla Firefox web browser"
+pkgdesc = "Thunderbird mail client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
-url = "https://www.mozilla.org/firefox"
-# TODO: ppc64le JIT
-source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "7a266044cb9d0c63079b3453507ea0c80a23389f4cbf6a4f6fd15146c6072627"
+url = "https://www.thunderbird.net"
+source = f"$(MOZILLA_SITE)/{pkgname}/releases/{pkgver.replace('_beta', 'b')}/source/{pkgname}-{pkgver.replace('_beta', 'b')}.source.tar.xz"
+sha256 = "ecd1559ef6caa60e17b23ed99c26f0907866eac178ae0480495ead7c1494ac38"
 debug_level = 1 # defatten, especially with LTO
 tool_flags = {
-    "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
+    "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
 }
 env = {
     "MAKE": "/usr/bin/gmake",
@@ -39,12 +38,12 @@ env = {
     "MOZILLA_OFFICIAL": "1",
     "USE_SHORT_LIBNAME": "1",
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
-    "MOZ_APP_REMOTINGNAME": "Firefox",
+    "MOZ_APP_REMOTINGNAME": "Thunderbird",
     "MOZBUILD_STATE_PATH": f"/builddir/{pkgname}-{pkgver}/.mozbuild",
-    # firefox checks for it by calling --help
+    # thunderbird checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
-# FIXME: youtube causes crashes in libxul after some seconds
+# FIXME: see firefox
 hardening = ["!int"]
 options = ["!cross"]
 exec_wrappers = [
@@ -135,10 +134,9 @@ def do_configure(self):
         "--disable-tests",
         "--disable-updater",
         "--disable-alsa",
-        "--disable-webrtc",
-        # browser options
+        # mail options
         "--enable-official-branding",
-        "--enable-application=browser",
+        "--enable-application=comm/mail",
         "--allow-addon-sideload",
         # conditional opts
         *extra_opts, wrksrc = "objdir"
@@ -154,56 +152,56 @@ def do_install(self):
 
     self.install_file(
         self.files_path / "vendor.js",
-        "usr/lib/firefox/browser/defaults/preferences"
+        "usr/lib/thunderbird/defaults/preferences"
     )
     self.install_file(
-        "taskcluster/docker/firefox-snap/firefox.desktop",
+        self.files_path / "thunderbird.desktop",
         "usr/share/applications"
     )
 
     # icons
     for sz in [16, 22, 24, 32, 48, 128, 256]:
         self.install_file(
-            f"browser/branding/official/default{sz}.png",
-            f"usr/share/icons/hicolor/{sz}x{sz}/apps", name = "firefox.png"
+            f"comm/mail/branding/thunderbird/default{sz}.png",
+            f"usr/share/icons/hicolor/{sz}x{sz}/apps", name = "thunderbird.png"
         )
 
     # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
-    self.rm(self.destdir / "usr/lib/firefox/firefox-bin")
-    self.install_link("firefox", "usr/lib/firefox/firefox-bin")
+    self.rm(self.destdir / "usr/lib/thunderbird/thunderbird-bin")
+    self.install_link("thunderbird", "usr/lib/thunderbird/thunderbird-bin")
     # to be provided
-    self.rm(self.destdir / "usr/bin/firefox")
+    self.rm(self.destdir / "usr/bin/thunderbird")
     # default launcher
     self.install_link(
-        "/usr/lib/firefox/firefox", "usr/bin/firefox-default"
+        "/usr/lib/thunderbird/thunderbird", "usr/bin/thunderbird-default"
     )
     # wayland launcher
     self.install_file(
-        self.files_path / "firefox-wayland", "usr/lib/firefox", mode = 0o755
+        self.files_path / "thunderbird-wayland", "usr/lib/thunderbird", mode = 0o755
     )
     self.install_link(
-        "/usr/lib/firefox/firefox-wayland", "usr/bin/firefox-wayland"
+        "/usr/lib/thunderbird/thunderbird-wayland", "usr/bin/thunderbird-wayland"
     )
 
 def do_check(self):
     # XXX: maybe someday
     pass
 
-@subpackage("firefox-wayland")
+@subpackage("thunderbird-wayland")
 def _wl(self):
     self.pkgdesc = f"{pkgdesc} (prefer Wayland)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"] # prefer
 
     def inst():
         self.mkdir(self.destdir / "usr/bin", parents = True)
-        self.ln_s("firefox-wayland", self.destdir / "usr/bin/firefox")
+        self.ln_s("thunderbird-wayland", self.destdir / "usr/bin/thunderbird")
     return inst
 
-@subpackage("firefox-default")
+@subpackage("thunderbird-default")
 def _x11(self):
     self.pkgdesc = f"{pkgdesc} (no display server preference)"
 
     def inst():
         self.mkdir(self.destdir / "usr/bin", parents = True)
-        self.ln_s("firefox-default", self.destdir / "usr/bin/firefox")
+        self.ln_s("thunderbird-default", self.destdir / "usr/bin/thunderbird")
     return inst

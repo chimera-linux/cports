@@ -1,0 +1,21 @@
+commit 026a5feb719d69a44f984048cb9cdf296fb15801
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Mon Aug 22 23:42:54 2022 +0200
+
+    use integrated-as on ppc64
+
+diff --git a/xpcom/reflect/xptcall/md/unix/moz.build b/xpcom/reflect/xptcall/md/unix/moz.build
+index 1779c14..cd4595c 100644
+--- a/xpcom/reflect/xptcall/md/unix/moz.build
++++ b/xpcom/reflect/xptcall/md/unix/moz.build
+@@ -187,10 +187,6 @@ if CONFIG["CPU_ARCH"] == "ppc64":
+             "xptcstubs_asm_ppc64_linux.S",
+             "xptcstubs_ppc64_linux.cpp",
+         ]
+-        if CONFIG["CC_TYPE"] == "clang":
+-            ASFLAGS += [
+-                "-fno-integrated-as",
+-            ]
+ 
+ if CONFIG["OS_ARCH"] == "OpenBSD" and CONFIG["CPU_ARCH"] == "ppc":
+     SOURCES += [

@@ -1,0 +1,29 @@
+commit 25c6ca8df905d9abffadf5ba1283876490d68eba
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat May 13 19:51:22 2023 +0000
+
+    disable some stuff borked with icu 72
+    
+    To be worked around once we have newer ICU or don't feel like
+    shipping a beta.
+
+diff --git a/comm/calendar/base/src/TimezoneDatabase.cpp b/comm/calendar/base/src/TimezoneDatabase.cpp
+index d93f78e..9eb2d2d 100644
+--- a/comm/calendar/base/src/TimezoneDatabase.cpp
++++ b/comm/calendar/base/src/TimezoneDatabase.cpp
+@@ -76,6 +76,7 @@ TimezoneDatabase::GetTimezoneDefinition(const nsACString& tzid,
+   icu::UnicodeString icuTzid(convertedTzidPtr,
+                              static_cast<int>(convertedTzid.Length()));
+ 
++#if 0
+   auto* icuTimezone = icu::VTimeZone::createVTimeZoneByID(icuTzid);
+   if (icuTimezone == nullptr) {
+     return NS_OK;
+@@ -109,6 +110,6 @@ TimezoneDatabase::GetTimezoneDefinition(const nsACString& tzid,
+   NS_ConvertUTF16toUTF8 convertedDef(vtimezoneDef.getTerminatedBuffer());
+ 
+   _retval.Assign(convertedDef);
+-
++#endif
+   return NS_OK;
+ }
