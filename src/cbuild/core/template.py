@@ -819,7 +819,7 @@ class Template(Package):
         if len(dstr) > 72:
             self.error("pkgdesc should be no longer than 72 characters")
 
-    def validate_order(self):
+    def validate_order(self, mod):
         global core_fields_map
         # do not validate if not linting
         if self._ignore_errors or not self.options["lint"]:
@@ -886,7 +886,30 @@ class Template(Package):
                 self.log_red(msg)
         # if failed, error out
         if not succ:
-            self.error("lint failed: incorrect variable order")
+            self.error("lint failed: incorrect variable order", bt = False)
+        # validate vars
+        for varn in vars(mod):
+            # custom vars should be underscored
+            if varn.startswith("_"):
+                continue
+            # if it's a known hook/var, skip
+            if callable(getattr(mod, varn)):
+                # skip if it's a function and in hooks
+                if varn in hooks:
+                    continue
+                else:
+                    self.log_red(f"unknown hook: {varn}")
+                    succ = False
+            else:
+                # skip if it's non-function and in fields
+                if varn in core_fields_map:
+                    continue
+                else:
+                    self.log_red(f"unknown variable: {varn}")
+                    succ = False
+        # error if anything failed
+        if not succ:
+            self.error("lint failed: invalid vars/hooks in template", bt = False)
 
     def validate_arch(self):
         bprof = self.profile()
@@ -1658,7 +1681,7 @@ def from_module(m, ret):
         ret.validate_arch()
         ret.validate_pkgdesc()
         ret.validate_url()
-        ret.validate_order()
+        ret.validate_order(m)
 
     if ret.provider_priority < 0:
         ret.error("provider_priority must be positive")

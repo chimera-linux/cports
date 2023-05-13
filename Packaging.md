@@ -593,6 +593,14 @@ custom behavior may also contain functions.
 The template follows the standard Python syntax. Variables are assigned
 like `foo = value`. Functions are defined like `def function(): ...`.
 
+All template-global variables and functions that do not start with an
+underscore must be recognized by `cbuild`, i.e. variables must be one
+of the below, and functions must be one of the known hooks that are
+permitted in templates. If you need to create e.g. custom helper functions
+that are specific to the template or variables that are used in expansion
+of other variables, begin them with a single underscore. This makes the
+linter skip them.
+
 <a id="template_variables"></a>
 ### Template Variables
 
