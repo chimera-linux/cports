@@ -135,7 +135,6 @@ def do_configure(self):
         "--disable-tests",
         "--disable-updater",
         "--disable-alsa",
-        "--disable-webrtc",
         # browser options
         "--enable-official-branding",
         "--enable-application=browser",
