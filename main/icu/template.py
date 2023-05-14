@@ -1,5 +1,5 @@
 pkgname = "icu"
-pkgver = "72.1" # change path in build.patch when updating
+pkgver = "73.1" # change path in build.patch when updating
 pkgrel = 0
 build_wrksrc = "source"
 build_style = "gnu_configure"
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ICU"
 url = "https://home.unicode.org"
 source = f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz"
-sha256 = "a2d2d38217092a7ed56635e34467f92f976b370e20182ad325edea6681a71d68"
+sha256 = "a457431de164b4aa7eca00ed134d00dfbf88a77c6986a10ae7774fc076bb8c45"
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
 # FIXME int
 hardening = ["!int"]
