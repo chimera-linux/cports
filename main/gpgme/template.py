@@ -1,6 +1,6 @@
 pkgname = "gpgme"
 pkgver = "1.20.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "gnupg"]
 makedepends = ["libgpg-error-devel", "libassuan-devel", "glib-devel"]
