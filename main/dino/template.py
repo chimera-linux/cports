@@ -1,11 +1,10 @@
 pkgname = "dino"
 pkgver = "0.4.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # TODO: openpgp maybe
 configure_args = [
     "-DDINO_PLUGIN_ENABLED_notification-sound=ON",
-    "-DDINO_PLUGIN_ENABLED_openpgp=OFF",
     "-DUSE_SOUP3=ON",
     # TODO
     "-DBUILD_TESTS=OFF",
@@ -18,6 +17,7 @@ makedepends = [
     "qrencode-devel", "libgee-devel", "libgcrypt-devel", "sqlite-devel",
     "libcanberra-devel", "gspell-devel", "libsrtp-devel", "libnice-devel",
     "gnutls-devel", "libsignal-protocol-c-devel", "gst-plugins-base-devel",
+    "gpgme-devel",
 ]
 depends = ["desktop-file-utils"]
 pkgdesc = "Modern XMPP client"
