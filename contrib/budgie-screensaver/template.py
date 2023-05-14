@@ -2,6 +2,7 @@ pkgname = "budgie-screensaver"
 pkgver = "5.1.0"
 pkgrel = 0
 build_style = "meson"
+configure_args= [ "-Dwith-systemd=false" ]
 hostmakedepends = ["meson", "pkgconf", "intltool", "glib-devel"]
 makedepends = [
     "gnome-desktop-devel", "dbus-glib-devel", "linux-pam-devel", "elogind-devel", "libxxf86vm-devel", "libgnomekbd-devel"

@@ -1,0 +1,24 @@
+From b4a70b143de106e996bbb2944f53d2230434204c Mon Sep 17 00:00:00 2001
+From: tibequadorian <tibequadorian@posteo.de>
+Date: Sat, 26 Nov 2022 11:30:45 +0100
+Subject: [PATCH] Fix musl build again (#15)
+
+---
+ src/subprocs.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/subprocs.c b/src/subprocs.c
+index cc82047..3af405a 100644
+--- a/src/subprocs.c
++++ b/src/subprocs.c
+@@ -36,6 +36,9 @@
+ # define fork  vfork
+ #endif /* VMS */
+ 
++#ifndef _POSIX_SOURCE
++# define _POSIX_SOURCE
++#endif
+ #include <signal.h>		/* for the signal names */
+ 
+ #include <glib.h>
+

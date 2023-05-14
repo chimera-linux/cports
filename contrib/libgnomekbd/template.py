@@ -2,7 +2,7 @@ pkgname = "libgnomekbd"
 pkgver = "3.28.1"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dintrospection=enabled"]
+configure_args = ["-Dintrospection=false"]
 hostmakedepends = ["meson", "gettext-tiny", "pkgconf", "glib-devel", "gobject-introspection"]
 makedepends = [
     "gtk+3-devel", "libxklavier-devel"
