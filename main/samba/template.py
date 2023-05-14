@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
 pkgver = "4.18.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -37,7 +37,6 @@ configure_args = [
     "--with-pam",
     "--without-ads", # needs ldap
     "--without-ldap", # don't depend on shit software
-    "--without-gpgme",
     "--without-ad-dc",
 ]
 hostmakedepends = [
@@ -53,7 +52,7 @@ makedepends = [
     "attr-devel", "cups-devel", "jansson-devel", "avahi-devel", "fuse-devel",
     "dbus-devel", "tdb-devel", "talloc-devel", "ldb-devel", "tevent-devel",
     "gnutls-devel", "cmocka-devel", "icu-devel", "musl-nscd",
-    "glib-devel", "libedit-readline-devel",
+    "glib-devel", "gpgme-devel", "libedit-readline-devel",
 ]
 self.depends = [
     f"samba-libs={pkgver}-r{pkgrel}",
