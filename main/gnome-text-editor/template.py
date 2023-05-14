@@ -1,6 +1,6 @@
 pkgname = "gnome-text-editor"
 pkgver = "44.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson", "pkgconf", "glib-devel", "gtk-update-icon-cache",
