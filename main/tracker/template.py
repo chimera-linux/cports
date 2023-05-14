@@ -1,5 +1,5 @@
 pkgname = "tracker"
-pkgver = "3.5.0"
+pkgver = "3.5.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tracker"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "13294275dbbbad9634b3a8390c08e6f12bebfe84f6ccafb72b27b0c23ba8da2f"
+sha256 = "e93d40bc76103a0a24693818cdab2b34e76c64e260b3e762784faeec4ba4a8b3"
 # lto fails: Invalid GType function: 'tracker_endpoint_http_get_type'
 options = ["!cross", "!lto"]
 
