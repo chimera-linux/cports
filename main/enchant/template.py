@@ -1,12 +1,12 @@
 pkgname = "enchant"
 pkgver = "2.3.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-relocatable", "--disable-static"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["glib-devel", "nuspell-devel", "icu-devel"]
 checkdepends = ["unittest-cpp"]
-pkgdesc = "Genreic spell checking library"
+pkgdesc = "Generic spell checking library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://abiword.github.io/enchant"
