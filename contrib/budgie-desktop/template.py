@@ -2,7 +2,7 @@ pkgname = "budgie-desktop"
 pkgver = "10.7.2"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dwith-gtk-doc=false", "-Dwith-bluetooth=false", "-Dwith-gnome-screensaver=true"]
+configure_args = ["-Dwith-gtk-doc=false", "-Dwith-bluetooth=false"]
 hostmakedepends = ["meson", "pkgconf", "intltool", "vala", "glib-devel", "gobject-introspection", "sassc", "budgie-screensaver"]
 makedepends = [
     "alsa-lib-devel", "libcanberra-devel", "libgee-devel", "libnotify-devel", "accountsservice-devel", "libpeas-devel", "libwnck-devel", "mutter-devel", "ibus-devel", "gnome-desktop-devel", "libpulse-devel", "upower-devel", "gtk+3-devel", "polkit-devel", "gnome-menus-devel", "gnome-settings-daemon-devel", "vala", "upower-libs", "libuuid-devel"
