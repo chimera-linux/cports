@@ -1,6 +1,6 @@
 pkgname = "raptor"
 pkgver = "2.0.16"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-yajl=no"]
 make_check_args = ["-j1"] # racey tests
