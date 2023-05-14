@@ -1,0 +1,15 @@
+https://bugzilla.mozilla.org/show_bug.cgi?id=1833064
+
+--- a/comm/calendar/base/src/TimezoneDatabase.cpp
++++ b/comm/calendar/base/src/TimezoneDatabase.cpp
+@@ -8,6 +8,10 @@
+ #include "unicode/timezone.h"
+ #include "unicode/ucal.h"
+ #include "unicode/utypes.h"
++
++/* hack: force vtzone.h to export its symbols to avoid link errors */
++#define U_I18N_API U_EXPORT
++
+ #include "unicode/vtzone.h"
+ 
+ #include "TimezoneDatabase.h"
