@@ -1,6 +1,6 @@
 pkgname = "webkitgtk"
 pkgver = "2.40.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DPORT=GTK", "-DCMAKE_SKIP_RPATH=ON",
