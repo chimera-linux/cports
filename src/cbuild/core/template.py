@@ -184,7 +184,7 @@ class Package:
     def log_warn(self, msg, end = "\n"):
         self.logger.warn(self._get_pv() + ": " + msg, end)
 
-    def error(self, msg, end = "\n", broken = False, bt = True):
+    def error(self, msg, end = "\n", broken = False, bt = False):
         raise errors.PackageException(msg, end, self, broken, bt)
 
     def _get_pv(self):
@@ -202,13 +202,16 @@ class Package:
         if glob:
             new_paths = list(old_path.glob(dirn))
             if len(new_paths) != 1:
-                self.error(f"path '{dirn}' must match exactly one directory")
+                self.error(
+                    f"path '{dirn}' must match exactly one directory",
+                    bt = True
+                )
             new_path = new_paths[0]
         else:
             new_path = old_path / dirn
 
         if not new_path.is_dir():
-            self.error(f"path '{new_path}' is not a directory")
+            self.error(f"path '{new_path}' is not a directory", bt = True)
 
         new_path = new_path.resolve()
 
@@ -237,7 +240,10 @@ class Package:
                     srcp, destp, symlinks = symlinks, dirs_exist_ok = True
                 )
         elif srcp.is_dir():
-            self.error(f"'{srcp}' is a directory, but not using 'recursive'")
+            self.error(
+                f"'{srcp}' is a directory, but not using 'recursive'",
+                bt = True
+            )
         else:
             ret = shutil.copy2(srcp, destp, follow_symlinks = symlinks)
 
@@ -257,7 +263,7 @@ class Package:
 
         if not recursive:
             if path.is_dir() and not path.is_symlink():
-                self.error(f"'{path}' is a directory")
+                self.error(f"'{path}' is a directory", bt = True)
             path.unlink(missing_ok = force)
         else:
             def _remove_ro(f, p, _):
@@ -886,7 +892,7 @@ class Template(Package):
                 self.log_red(msg)
         # if failed, error out
         if not succ:
-            self.error("lint failed: incorrect variable order", bt = False)
+            self.error("lint failed: incorrect variable order")
         # validate vars
         for varn in vars(mod):
             # custom vars should be underscored
@@ -909,7 +915,7 @@ class Template(Package):
                     succ = False
         # error if anything failed
         if not succ:
-            self.error("lint failed: invalid vars/hooks in template", bt = False)
+            self.error("lint failed: invalid vars/hooks in template")
 
     def validate_arch(self):
         bprof = self.profile()
@@ -978,7 +984,7 @@ class Template(Package):
         # no match or negative match
         if not prevmatch or prevneg:
             self.error(
-                f"this package cannot be built for {archn}", bt = False,
+                f"this package cannot be built for {archn}",
                 broken = True
             )
         # otherwise we're good
@@ -1254,10 +1260,12 @@ class Template(Package):
             srcs = [self.cwd / pathlib.Path(src)]
         else:
             if name:
-                self.error("cannot specify 'name' and 'glob' together")
+                self.error(
+                    "cannot specify 'name' and 'glob' together", bt = True
+                )
             srcs = list(self.cwd.glob(src))
             if len(srcs) < 1:
-                self.error(f"path '{src}' does not match any files")
+                self.error(f"path '{src}' does not match any files", bt = True)
         dest = pathlib.Path(dest)
         # sanitize destination
         if dest.is_absolute():
@@ -1292,10 +1300,12 @@ class Template(Package):
             srcs = [self.cwd / src]
         else:
             if name:
-                self.error("cannot specify 'name' and 'glob' together")
+                self.error(
+                    "cannot specify 'name' and 'glob' together", bt = True
+                )
             srcs = list(self.cwd.glob(src))
             if len(srcs) < 1:
-                self.error(f"path '{src}' does not match any files")
+                self.error(f"path '{src}' does not match any files", bt = True)
         for absmn in srcs:
             mnf = absmn.name
             if not cat:
@@ -1619,7 +1629,7 @@ def _interp_url(pkg, url):
     def matchf(m):
         mw = m.group(1).removesuffix("_SITE").lower()
         if not mw in sites:
-            pkg.error(f"malformed source URL '{url}'")
+            pkg.error(f"malformed source URL '{url}'", bt = True)
         return sites[mw]
 
     return re.sub(r"\$\((\w+)\)", matchf, url)
@@ -1842,7 +1852,7 @@ def from_module(m, ret):
     if ret.broken and not ierr:
         ret.error(
             f"cannot be built, it's currently broken: {ret.broken}",
-            broken = True
+            broken = True, bt = True
         )
 
     if ret.repository not in _allow_cats and not ierr:
