@@ -1,6 +1,6 @@
 pkgname = "vte-common"
 pkgver = "0.72.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=false", "-D_systemd=false", "-Dgir=true", "-Dvapi=true",
