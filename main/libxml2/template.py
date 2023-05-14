@@ -1,6 +1,6 @@
 pkgname = "libxml2"
 pkgver = "2.9.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-threads", "--with-icu", "--with-history"]
 make_cmd = "gmake"
