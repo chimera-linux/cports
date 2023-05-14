@@ -1,6 +1,6 @@
 pkgname = "boost"
 pkgver = "1.82.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "zlib-devel", "libbz2-devel", "liblzma-devel", "libzstd-devel",
@@ -139,5 +139,5 @@ def _gen_libp(libname):
 
         return [f"usr/lib/libboost_{libname}*.so.*"]
 
-for blib in _libs:
-    _gen_libp(blib)
+for _blib in _libs:
+    _gen_libp(_blib)
