@@ -1,0 +1,14 @@
+diff --git a/./Makefile.in.bck b/./Makefile.in
+index ca07bf71..01352f21 100644
+--- a/./Makefile.in.bck
++++ b/./Makefile.in
+@@ -2765,9 +2765,6 @@ libostree_1_la_LIBADD = libotutil.la libglnx.la libbsdiff.la \
+ 	$(am__append_35) $(am__append_37) $(am__append_39)
+ EXTRA_libostree_1_la_DEPENDENCIES = $(symbol_files)
+ 
+-# XXX: work around clang being passed -fstack-clash-protection which it doesn't understand
+-# See: https://bugzilla.redhat.com/show_bug.cgi?id=1672012
+-INTROSPECTION_SCANNER_ENV = CC=gcc
+ @BUILDOPT_INTROSPECTION_TRUE@OSTree_1_0_gir_EXPORT_PACKAGES = ostree-1
+ @BUILDOPT_INTROSPECTION_TRUE@OSTree_1_0_gir_INCLUDES = Gio-2.0
+ @BUILDOPT_INTROSPECTION_TRUE@OSTree_1_0_gir_CFLAGS = $(libostree_1_la_CFLAGS)
