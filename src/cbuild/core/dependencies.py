@@ -171,7 +171,10 @@ def _is_available(pkgn, pattern, pkg, host = False):
     if len(pn) == 0:
         return None
 
-    pn = pn.split("\n")[0]
+    # FIXME: this list is always sorted alphabetically, ignoring repo
+    # order; ideally we want repo order to be respected (because the
+    # actual available version may be lower, e.g. when downgrading).
+    pn = pn.split("\n")[-1]
 
     if not pattern or autil.pkg_match(pn, pattern):
         return pn[len(pkgn) + 1:]
