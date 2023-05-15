@@ -1,0 +1,35 @@
+From 614e483a8ac9265de6dad04e87e86d66f99fbb16 Mon Sep 17 00:00:00 2001
+From: Gleb Mazovetskiy <glex.spb@gmail.com>
+Date: Tue, 19 Jan 2021 22:28:16 +0000
+Subject: [PATCH] Fix graph_array compilation on modern C++ compilers
+
+`std::mem_fun_ref` has been completely removed in C++17 and is not
+available in certain compilers, such as Android NDK clang, even when
+target C++98.
+---
+ src/osgUtil/tristripper/include/detail/graph_array.h | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/osgUtil/tristripper/include/detail/graph_array.h b/src/osgUtil/tristripper/include/detail/graph_array.h
+index dc1f3802763..c2d2a91e79a 100644
+--- a/src/osgUtil/tristripper/include/detail/graph_array.h
++++ b/src/osgUtil/tristripper/include/detail/graph_array.h
+@@ -1,5 +1,5 @@
+ //
+-// Copyright (C) 2004 Tanguy Fautré.
++// Copyright (C) 2004 Tanguy FautrÃ©.
+ // For conditions of distribution and use,
+ // see copyright notice in tri_stripper.h
+ //
+@@ -446,7 +446,11 @@ inline void graph_array<N>::swap(graph_type & Right)
+ template <class N>
+ inline void unmark_nodes(graph_array<N> & G)
+ {
++#if __cplusplus >= 201103L
++    for (auto &node : G) node.unmark();
++#else
+     std::for_each(G.begin(), G.end(), std::mem_fun_ref(&graph_array<N>::node::unmark));
++#endif
+ }
+ 
+ 
