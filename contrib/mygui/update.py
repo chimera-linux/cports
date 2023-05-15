@@ -1,0 +1,1 @@
+pattern = r"/MyGUI([\d.]+)\."
