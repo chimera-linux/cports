@@ -109,8 +109,10 @@ class UpdateCheck:
         return ret
 
     def collect_sources(self):
-        if self.url:
+        if isinstance(self.url, str):
             return [self.url]
+        elif self.url:
+            return self.url
 
         ret = []
 
