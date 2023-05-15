@@ -21,6 +21,7 @@ depends = [
     #"gnome-music",
     #"gnome-remote-desktop",
     "gnome-screenshot",
+    "gnome-software",
     "gnome-shell-extensions",
     #"gnome-system-monitor",
     "gnome-text-editor",
