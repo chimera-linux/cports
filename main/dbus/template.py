@@ -1,5 +1,5 @@
 pkgname = "dbus"
-pkgver = "1.15.2"
+pkgver = "1.14.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -21,12 +21,13 @@ hostmakedepends = ["gmake", "gperf", "pkgconf", "xmlto"]
 makedepends = [
     "libexpat-devel", "libx11-devel", "libcap-devel"
 ]
+triggers = ["/usr/share/dbus-1/system.d"]
 pkgdesc = "Message bus system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://dbus.freedesktop.org"
 source = f"https://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "7e640803084af59f5e477b7ded11fd888b5380910a895c51ca3aedd63c0626ca"
+sha256 = "fd2bdf1bb89dc365a46531bff631536f22b0d1c6d5ce2c5c5e59b55265b3d66b"
 suid_files = [
     "usr/libexec/dbus-daemon-launch-helper"
 ]
