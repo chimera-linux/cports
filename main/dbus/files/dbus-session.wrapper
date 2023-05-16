@@ -5,4 +5,7 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/`id -u`/bus"
 # export into activation environment to make it visible to other services
 dinitctl setenv DBUS_SESSION_BUS_ADDRESS || :
 
-exec dbus-daemon --session --address="$DBUS_SESSION_BUS_ADDRESS" "$@"
+# we need the redirect here to prevent dbus session from eventually hanging
+# TODO: maybe log to a file later? but that is annoying to manage so instead
+# force everyone to either modify this script or make dbus session use syslog
+exec dbus-daemon --session --address="$DBUS_SESSION_BUS_ADDRESS" "$@" > /dev/null 2>&1
