@@ -18,3 +18,5 @@ license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Calendar"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "30a1b738b670bd124e462468e671187fc0dba5b9ee2af6a8ebd9e7874bf3b77e"
+# FIXME
+hardening = ["!int"]
