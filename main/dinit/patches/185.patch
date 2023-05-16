@@ -1,0 +1,27 @@
+From 537c984e76793f56bad43c42683bed954c11afe5 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Tue, 16 May 2023 23:41:34 +0200
+Subject: [PATCH] baseproc-service: fix default log target for none-logged
+ services
+
+We need to treat NONE (which is the default) the same as LOGFILE,
+so that we get a default /dev/null target. Otherwise, it is treated
+as BUFFER by default, which is undesirable, as processes will
+suddenly start hanging as soon as they run out of buffer space.
+---
+ src/baseproc-service.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/baseproc-service.cc b/src/baseproc-service.cc
+index bbb2424a..577e2bf5 100644
+--- a/src/baseproc-service.cc
++++ b/src/baseproc-service.cc
+@@ -106,7 +106,7 @@ bool base_process_service::start_ps_process(const std::vector<const char *> &cmd
+     }
+ 
+     const char * logfile = this->logfile.c_str();
+-    if (this->log_type == log_type_id::LOGFILE) {
++    if (this->log_type == log_type_id::LOGFILE || this->log_type == log_type_id::NONE) {
+     	if (*logfile == 0) {
+     		logfile = "/dev/null";
+     	}
