@@ -9,7 +9,7 @@ depends = [
     "epiphany",
     "evince",
     "gnome-calculator",
-    #"gnome-calendar",
+    "gnome-calendar",
     "gnome-characters",
     "gnome-clocks",
     "gnome-console",
