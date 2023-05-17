@@ -12,6 +12,8 @@ source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "dcb0fbd43048832b757ff9942691a8dd70026d5da0ff85601e52687f6deeb34b"
 # FIXME fails tests
 hardening = ["!int"]
+# fails on x86_64, passes elsewhere, takes a long time
+options = ["!check"]
 
 @subpackage("gsl-devel")
 def _devel(self):

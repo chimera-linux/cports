@@ -1,8 +1,8 @@
 https://bugzilla.mozilla.org/show_bug.cgi?id=1833064
 
 diff --git a/mail/app-system-headers.mozbuild b/mail/app-system-headers.mozbuild
---- a/mail/app-system-headers.mozbuild
-+++ b/mail/app-system-headers.mozbuild
+--- a/comm/mail/app-system-headers.mozbuild
++++ b/comm/mail/app-system-headers.mozbuild
 @@ -8,5 +8,11 @@
  
  # system_headers += [
