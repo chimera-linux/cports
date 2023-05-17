@@ -62,7 +62,7 @@ def _remove_ro(f, path, _):
     os.chmod(path, stat.S_IWRITE)
     f(path)
 
-def _prepare_passwd():
+def _prepare_etc():
     bfp = paths.distdir() / "main/base-files/files"
     tfp = paths.bldroot() / "etc"
 
@@ -74,6 +74,10 @@ def _prepare_passwd():
 
     with open(tfp / "group", "a") as pf:
         pf.write(f"cbuild:x:1337:\n")
+
+    # machine-id for cbuild
+    with open(tfp / "machine-id", "w") as mf:
+        mf.write("e91d1c901dd8d2509161fd9b548b54f5\n")
 
 def _init():
     xdir = paths.bldroot() / "etc" / "apk"
@@ -98,7 +102,7 @@ def _prepare():
     if (paths.bldroot() / "usr/bin/update-ca-certificates").is_file():
         enter("update-ca-certificates", "--fresh")
 
-    _prepare_passwd()
+    _prepare_etc()
 
     with open(sfpath, "w") as sf:
         sf.write(host_cpu() + "\n")
@@ -439,7 +443,7 @@ def update(pkg):
     repo_init()
 
     # reinit passwd/group
-    _prepare_passwd()
+    _prepare_etc()
 
     apki.call_chroot("update", ["-q"], pkg, check = True, use_stage = True)
     apki.call_chroot(
