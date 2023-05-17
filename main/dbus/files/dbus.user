@@ -2,5 +2,4 @@
 
 type               = process
 command            = /usr/libexec/dbus-session.wrapper --print-address=4
-restart            = true
 ready-notification = pipefd:4

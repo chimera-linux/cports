@@ -58,6 +58,8 @@ def post_install(self):
     self.install_file(
         self.files_path / "01dbus-env", "etc/X11/Xsession.d", mode = 0o755
     )
+    # tmpfiles
+    self.install_file(self.files_path / "dbus.conf", "usr/lib/tmpfiles.d")
 
 @subpackage("dbus-devel")
 def _devel(self):
