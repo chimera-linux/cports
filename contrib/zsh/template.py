@@ -15,7 +15,7 @@ configure_args = [
     "--enable-fndir=/usr/share/zsh/functions",
     "--enable-scriptdir=/usr/share/zsh/scripts",
     "--enable-multibyte", "--enable-pcre",
-    "--enable-cap", "--enable-tcsetpgrp",
+    "--enable-cap",
     "--with-term-lib=ncursesw",
     "--with-tcsetpgrp",
     "zsh_cv_shared_environ=yes",

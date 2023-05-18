@@ -84,7 +84,7 @@ def _genlib(pkgn, desc):
 
         return [f"usr/lib/lib{pkgn}.so.*"]
 
-for libn, ldesc in [
+for _libn, _ldesc in [
     ("asn1", "ASN.1"),
     ("gssapi", "GSSAPI"),
     ("hcrypto", "Crypto"),
@@ -101,7 +101,7 @@ for libn, ldesc in [
     ("sl", "SL"),
     ("wind", "Stringprep implementation"),
 ]:
-    _genlib(libn, ldesc)
+    _genlib(_libn, _ldesc)
 
 # TODO: add service
 @subpackage("heimdal-kcm")

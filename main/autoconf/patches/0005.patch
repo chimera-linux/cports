@@ -1,0 +1,45 @@
+From 3a9802d60156809c139e9b4620bf04917e143ee2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andreas=20K=2E=20H=C3=BCttel?= <dilfridge@gentoo.org>
+Date: Tue, 31 Aug 2021 17:01:47 -0700
+Subject: [PATCH] Fix bug when autom4te updates too quickly
+
+Use stat from Time::HiRes (instead of File::stat).
+
+Problem reported by Ionen Wolkens <https://bugs.gentoo.org/782985>.
+---
+ lib/Autom4te/FileUtils.pm | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/lib/Autom4te/FileUtils.pm b/lib/Autom4te/FileUtils.pm
+index a182031b4..27a5fd911 100644
+--- a/lib/Autom4te/FileUtils.pm
++++ b/lib/Autom4te/FileUtils.pm
+@@ -34,12 +34,12 @@ This perl module provides various general purpose file handling functions.
+ 
+ =cut
+ 
+-use 5.006;
++use 5.008;
+ use strict;
+ use warnings FATAL => 'all';
+ 
+ use Exporter;
+-use File::stat;
++use Time::HiRes qw(stat);
+ use IO::File;
+ 
+ use Autom4te::Channels;
+@@ -115,10 +115,11 @@ sub mtime ($)
+   return 0
+     if $file eq '-' || ! -f $file;
+ 
+-  my $stat = stat ($file)
++  my ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
++    $atime,$mtime,$ctime,$blksize,$blocks) = stat ($file)
+     or fatal "cannot stat $file: $!";
+ 
+-  return $stat->mtime;
++  return $mtime;
+ }
+ 
+ 
