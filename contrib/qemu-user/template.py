@@ -60,8 +60,15 @@ def _upkg(uname):
             # no binfmt support
             return
 
+    do_pkg = True
+    curarch = self.profile().arch
+    if uname == curarch:
+        do_pkg = False
+    elif curarch == "x86_64" and uname == "i386":
+        do_pkg = False
+
     # binfmt package is not generated for current arch
-    @subpackage(f"qemu-user-{uname}-binfmt", uname != self.profile().arch)
+    @subpackage(f"qemu-user-{uname}-binfmt", do_pkg)
     def _binfmt(self):
         self.pkgdesc = f"{pkgdesc} ({uname} binfmt)"
         self.install_if = [f"qemu-user-{uname}={pkgver}-r{pkgrel}"]
