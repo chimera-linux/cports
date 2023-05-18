@@ -34,6 +34,12 @@ sha256 = "bb60f0341531181d6cc3969dd19a013d0427a87f918193970d9adb91131e56d0"
 options = ["!cross", "!check"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
 
+if self.profile().arch == "riscv64":
+    tool_flags = {
+        "CFLAGS": ["-mno-relax"],
+        "LDFLAGS": ["-mno-relax"],
+    }
+
 def post_install(self):
     self.rm(self.destdir / "usr/share", recursive = True)
     self.install_dir("usr/lib/binfmt.d")
@@ -52,6 +58,7 @@ _skip_32bit = {
     "arm": "aarch64",
     "ppc": "ppc64",
     "ppcle": "ppc64le",
+    "riscv32": "riscv64",
 }
 
 def _upkg(uname):
