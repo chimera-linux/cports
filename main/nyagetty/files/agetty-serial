@@ -10,9 +10,11 @@
 #
 
 GETTY="$1"
-GETTY_BAUD="$2"
-GETTY_TERM="$3"
-shift 3
+shift
+GETTY_BAUD="$1"
+shift
+GETTY_TERM="$1"
+shift
 
 [ -n "$GETTY_TERM" ] || GETTY_TERM=vt100
 [ -n "$GETTY_BAUD" ] || GETTY_BAUD=115200

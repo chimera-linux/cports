@@ -8,6 +8,7 @@
 #
 
 GETTY="$1"
+shift
 
 if [ -z "$GETTY" ]; then
     echo "$0: no tty given"
@@ -18,9 +19,9 @@ if [ ! -c "/dev/$GETTY" ]; then
 fi
 
 # defaults
-GETTY_BAUD=$2
+GETTY_BAUD=$1
 shift
-GETTY_TERM=$3
+GETTY_TERM=$1
 shift
 GETTY_ARGS=$*
 
