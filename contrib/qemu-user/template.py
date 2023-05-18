@@ -47,6 +47,13 @@ def post_install(self):
         "--credential", "yes",
     )
 
+_skip_32bit = {
+    "i386": "x86_64",
+    "arm": "aarch64",
+    "ppc": "ppc64",
+    "ppcle": "ppc64le",
+}
+
 def _upkg(uname):
     @subpackage(f"qemu-user-{uname}")
     def _u(self):
@@ -64,7 +71,7 @@ def _upkg(uname):
     curarch = self.profile().arch
     if uname == curarch:
         do_pkg = False
-    elif curarch == "x86_64" and uname == "i386":
+    elif uname in _skip_32bit and _skip_32bit[uname] == curarch:
         do_pkg = False
 
     # binfmt package is not generated for current arch
