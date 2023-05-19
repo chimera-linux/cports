@@ -1,0 +1,42 @@
+commit 69884959a0a09195d86e9e3fb52b0d31888737e1
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri May 19 20:24:53 2023 +0200
+
+    keep wayland enabled on server chipsets
+    
+    This logic does not account for that one may have a separate GPU,
+    as the aspeed or whatever will still show up and the wayland
+    disable will still trigger. There is no harm in letting wayland
+    stay enabled, at most it will result in a little slow login
+    screen because of software rendering. And besides, chimera does
+    not have functional gdm with x11 out of box, because it would
+    need suid needs_root_rights for xwrapper, in order to allow for
+    vt switches.
+    
+    So keep wayland on and let people make the choice via custom.conf.
+
+diff --git a/data/61-gdm.rules.in b/data/61-gdm.rules.in
+index a4f841b..5434e10 100644
+--- a/data/61-gdm.rules.in
++++ b/data/61-gdm.rules.in
+@@ -13,20 +13,6 @@ ATTR{vendor}=="0x1234", ATTR{device}=="0x1111", RUN+="/usr/bin/touch /run/udev/g
+ # disable Wayland on Hi1710 chipsets
+ ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", GOTO="gdm_disable_wayland"
+ 
+-# disable Wayland on Matrox chipsets
+-ATTR{vendor}=="0x102b", ATTR{device}=="0x0522", GOTO="gdm_disable_wayland"
+-ATTR{vendor}=="0x102b", ATTR{device}=="0x0524", GOTO="gdm_disable_wayland"
+-ATTR{vendor}=="0x102b", ATTR{device}=="0x0530", GOTO="gdm_disable_wayland"
+-ATTR{vendor}=="0x102b", ATTR{device}=="0x0532", GOTO="gdm_disable_wayland"
+-ATTR{vendor}=="0x102b", ATTR{device}=="0x0533", GOTO="gdm_disable_wayland"
+-ATTR{vendor}=="0x102b", ATTR{device}=="0x0534", GOTO="gdm_disable_wayland"
+-ATTR{vendor}=="0x102b", ATTR{device}=="0x0536", GOTO="gdm_disable_wayland"
+-ATTR{vendor}=="0x102b", ATTR{device}=="0x0538", GOTO="gdm_disable_wayland"
+-
+-# disable Wayland on aspeed chipsets
+-ATTR{vendor}=="0x1a03", ATTR{device}=="0x2010", GOTO="gdm_disable_wayland"
+-ATTR{vendor}=="0x1a03", ATTR{device}=="0x2000", GOTO="gdm_disable_wayland"
+-
+ LABEL="gdm_pci_device_end"
+ 
+ # disable Wayland if modesetting is disabled
