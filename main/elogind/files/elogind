@@ -2,6 +2,7 @@
 
 type            = process
 command         = /usr/libexec/elogind/elogind.wrapper
+depends-ms      = polkitd
 depends-on      = dbus
 depends-on      = init-local.target
 before          = login.target
