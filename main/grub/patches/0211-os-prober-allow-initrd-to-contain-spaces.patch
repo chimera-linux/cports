@@ -1,0 +1,50 @@
+From 1f982e2a7c35e14d5a92c76db998afafd1bd9e87 Mon Sep 17 00:00:00 2001
+From: General Chaos <debianbugs@toeai.com>
+Date: Tue, 12 Apr 2016 22:28:52 +0000
+Subject: [PATCH] os-prober: Allow initrd to contain spaces
+
+linux-boot-prober produces structured output with newline-terminated rows
+representing kernels, each with colon-delimited columns. We translate
+this into a sequence of space-separated words representing kernels,
+each containing colon-delimited fields where spaces are represented by
+carets.
+
+When we parse each of those words into colon-delimited fields, if the
+field could conceivably contain spaces then we need to translate
+carets back into spaces. We did this for label and parameters, but not
+for the initrd.
+
+In particular, when CPU microcode is installed on Arch Linux or its
+derivatives, they write CPU microcode into one initrd archive and the
+rest of early user-space into another, instead of concatenating the
+archives into a single file like Debian derivatives do. To boot Arch
+successfully from the grub menu, we need to add all of their initrds
+to the grub menu entry (detecting this situation requires an os-prober
+patch, for which see <https://bugs.debian.org/820838>).
+
+[Commit message added by Simon McVittie <smcv@collabora.com>]
+
+Bug: https://savannah.gnu.org/bugs/index.php?47681
+Bug-Debian: https://bugs.debian.org/838177
+Forwarded: https://savannah.gnu.org/bugs/index.php?47681
+Closes: #838177
+---
+ util/grub.d/30_os-prober.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/util/grub.d/30_os-prober.in b/util/grub.d/30_os-prober.in
+index da5f28876..d0609d9a4 100644
+--- a/util/grub.d/30_os-prober.in
++++ b/util/grub.d/30_os-prober.in
+@@ -243,7 +243,7 @@ EOF
+         LBOOT="`echo ${LINUX} | cut -d ':' -f 2`"
+         LLABEL="`echo ${LINUX} | cut -d ':' -f 3 | tr '^' ' '`"
+         LKERNEL="`echo ${LINUX} | cut -d ':' -f 4`"
+-        LINITRD="`echo ${LINUX} | cut -d ':' -f 5`"
++        LINITRD="`echo ${LINUX} | cut -d ':' -f 5 | tr '^' ' '`"
+         LPARAMS="`echo ${LINUX} | cut -d ':' -f 6- | tr '^' ' '`"
+ 
+         if [ -z "${LLABEL}" ] ; then
+-- 
+2.32.0
+

@@ -1,4 +1,4 @@
-From 54b741317568867fc4ad801a65397d05f3ea0f59 Mon Sep 17 00:00:00 2001
+From 791c1034910b5e87ec7ff4166300f0f26b647625 Mon Sep 17 00:00:00 2001
 From: Paulo Flabiano Smorigo <pfsmorigo@linux.vnet.ibm.com>
 Date: Thu, 25 Sep 2014 18:41:29 -0300
 Subject: Include a text attribute reset in the clear command for ppc
@@ -18,7 +18,7 @@ Patch-Name: ieee1275-clear-reset.patch
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/grub-core/term/terminfo.c b/grub-core/term/terminfo.c
-index f0d3e3deb..7cb7909c8 100644
+index 85ecf06b4..e5ec77107 100644
 --- a/grub-core/term/terminfo.c
 +++ b/grub-core/term/terminfo.c
 @@ -151,7 +151,7 @@ grub_terminfo_set_current (struct grub_term_output *term,

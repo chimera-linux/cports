@@ -14,19 +14,20 @@ also disable -mcmodel=large, which brings in more unknown relocs
  util/grub-module-verifier.c      |  3 +++
  7 files changed, 48 insertions(+), 1 deletion(-)
 
-diff --git a/grub-core/Makefile.in b/grub-core/Makefile.in
-index 37a32dd..a303074 100644
---- a/grub-core/Makefile.in
-+++ b/grub-core/Makefile.in
-@@ -94,7 +94,7 @@ POST_UNINSTALL = :
- build_triplet = @build@
- host_triplet = @host@
- target_triplet = @target@
--@COND_arm64_TRUE@am__append_1 = -mcmodel=large
-+@COND_arm64_TRUE@am__append_1 =
- @COND_powerpc_ieee1275_TRUE@am__append_2 = -mcpu=powerpc
- bin_PROGRAMS = $(am__EXEEXT_1)
- sbin_PROGRAMS =
+diff --git a/conf/Makefile.common b/conf/Makefile.common
+index 2a1a886..d259c3a 100644
+--- a/conf/Makefile.common
++++ b/conf/Makefile.common
+@@ -14,9 +14,6 @@ if !COND_emu
+   LDFLAGS_PLATFORM = -Wl,--wrap=__clear_cache
+ endif
+ endif
+-if COND_arm64
+-  CFLAGS_PLATFORM += -mcmodel=large
+-endif
+ if COND_powerpc_ieee1275
+   CFLAGS_PLATFORM += -mcpu=powerpc
+ endif
 diff --git a/grub-core/kern/arm64/dl.c b/grub-core/kern/arm64/dl.c
 index 512e5a8..cef5727 100644
 --- a/grub-core/kern/arm64/dl.c

@@ -1,0 +1,54 @@
+From: Josselin Poiret <dev@jpoiret.xyz>
+Date: Thu, 12 Jan 2023 17:05:08 -0600
+Subject: osdep/devmapper/getroot: Have devmapper recognize LUKS2
+Origin: https://git.savannah.gnu.org/cgit/grub.git/commit/?id=9022a48dd9984fc3e90a5b42c3b5483d6061ccfb
+Bug-Debian: https://bugs.debian.org/1028301
+
+Changes UUID comparisons so that LUKS1 and LUKS2 are both recognized
+as being LUKS cryptodisks.
+
+Signed-off-by: Josselin Poiret <dev@jpoiret.xyz>
+Tested-by: Glenn Washburn <development@efficientek.com>
+Reviewed-by: Patrick Steinhardt <ps@pks.im>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/osdep/devmapper/getroot.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+--- a/grub-core/osdep/devmapper/getroot.c
++++ b/grub-core/osdep/devmapper/getroot.c
+@@ -143,7 +143,8 @@ grub_util_get_dm_abstraction (const char
+       grub_free (uuid);
+       return GRUB_DEV_ABSTRACTION_LVM;
+     }
+-  if (strncmp (uuid, "CRYPT-LUKS1-", 12) == 0)
++  if (strncmp (uuid, "CRYPT-LUKS1-", sizeof ("CRYPT-LUKS1-") - 1) == 0
++      || strncmp (uuid, "CRYPT-LUKS2-", sizeof ("CRYPT-LUKS2-") - 1) == 0)
+     {
+       grub_free (uuid);
+       return GRUB_DEV_ABSTRACTION_LUKS;
+@@ -184,7 +185,9 @@ grub_util_pull_devmapper (const char *os
+ 	  grub_util_pull_device (subdev);
+ 	}
+     }
+-  if (uuid && strncmp (uuid, "CRYPT-LUKS1-", sizeof ("CRYPT-LUKS1-") - 1) == 0
++  if (uuid
++      && (strncmp (uuid, "CRYPT-LUKS1-", sizeof ("CRYPT-LUKS1-") - 1) == 0
++          || strncmp (uuid, "CRYPT-LUKS2-", sizeof ("CRYPT-LUKS2-") - 1) == 0)
+       && lastsubdev)
+     {
+       char *grdev = grub_util_get_grub_dev (lastsubdev);
+@@ -258,11 +261,11 @@ grub_util_get_devmapper_grub_dev (const
+       {
+ 	char *dash;
+ 
+-	dash = grub_strchr (uuid + sizeof ("CRYPT-LUKS1-") - 1, '-');
++	dash = grub_strchr (uuid + sizeof ("CRYPT-LUKS*-") - 1, '-');
+ 	if (dash)
+ 	  *dash = 0;
+ 	grub_dev = grub_xasprintf ("cryptouuid/%s",
+-				   uuid + sizeof ("CRYPT-LUKS1-") - 1);
++				   uuid + sizeof ("CRYPT-LUKS*-") - 1);
+ 	grub_free (uuid);
+ 	return grub_dev;
+       }

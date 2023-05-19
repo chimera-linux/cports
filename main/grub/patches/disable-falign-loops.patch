@@ -4,16 +4,16 @@ Date:   Tue Apr 12 17:55:08 2022 +0200
 
     disable falign-loops which is not supported on clang
 
-diff --git a/configure b/configure
+diff --git a/configure.ac b/configure.ac
 index 25c11ea..798f249 100755
---- a/configure
-+++ b/configure
-@@ -31186,7 +31186,7 @@ main (void)
- }
- _ACEOF
- if ac_fn_c_try_compile "$LINENO"; then :
--  grub_cv_cc_falign_loop=yes
-+  grub_cv_cc_falign_loop=no
- else
-   grub_cv_cc_falign_loop=no
- fi
+--- a/configure.ac
++++ b/configure.ac
+@@ -801,7 +801,7 @@ if test "x$target_cpu" = xi386; then
+   AC_CACHE_CHECK([whether -falign-loops works], [grub_cv_cc_falign_loop], [
+     CFLAGS="$TARGET_CFLAGS -falign-loops=1 -Werror"
+     AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[]])],
+-        [grub_cv_cc_falign_loop=yes],
++        [grub_cv_cc_falign_loop=no],
+ 	[grub_cv_cc_falign_loop=no])
+   ])
+ 

@@ -1,6 +1,6 @@
 pkgname = "grub"
 pkgver = "2.06"
-pkgrel = 0
+pkgrel = 1
 configure_args = [
     "--sysconfdir=/etc", "--prefix=/usr", "--libdir=/usr/lib",
     "--sbindir=/usr/bin", "--disable-werror", "--enable-device-mapper",
@@ -12,7 +12,7 @@ make_cmd = "gmake"
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 hostmakedepends = [
     "gmake", "pkgconf", "flex", "bison", "help2man", "python",
-    "gettext-tiny", "font-unifont-bdf",
+    "gettext-tiny", "font-unifont-bdf", "automake", "libtool",
 ]
 makedepends = [
     "gettext-tiny-devel", "freetype-devel", "ncurses-devel", "liblzma-devel",
@@ -29,11 +29,11 @@ sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
 nopie_files = ["usr/lib/grub/*"]
 
 exec_wrappers = []
+_tpl = self.profile().triplet
 # fool the build system into using llvm for these tools
-for tool in ["objcopy", "strip", "ar", "ranlib", "nm"]:
-    tpl = self.profile().triplet
+for _tool in ["objcopy", "strip", "ar", "ranlib", "nm"]:
     exec_wrappers += [
-        (f"/usr/bin/llvm-{tool}", f"{tpl}-{tool}"),
+        (f"/usr/bin/llvm-{_tool}", f"{_tpl}-{_tool}"),
     ]
 
 # this should be a list of tuples:
@@ -71,12 +71,14 @@ def init_configure(self):
     self.make = make.Make(self)
 
 def do_configure(self):
+    # reconfigure the autotools
+    self.do("autoreconf", "-if")
     # configure tools build
     self.mkdir("build")
     self.do(
         self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
         f"--with-platform=none", *configure_args,
-        wrksrc = "build"
+        wrksrc = "build", env = {"MAKE": "gmake"}
     )
     # platforms build
     for arch, platform, ecfl, ldfl, desc in _platforms:
@@ -101,6 +103,7 @@ def do_configure(self):
                 "TARGET_RANLIB": "llvm-ranlib",
                 "TARGET_STRIP": "llvm-strip",
                 "TARGET_NM": "llvm-nm",
+                "MAKE": "gmake",
             }
         )
 
@@ -189,5 +192,5 @@ def _genplatform(arch, platform, desc):
         return [f"usr/lib/grub/{arch}-{platform}"]
 
 # generate platform subpackages
-for arch, platform, cfl, ldfl, desc in _platforms:
-    _genplatform(arch, platform, desc)
+for _arch, _platform, _cfl, _ldfl, _desc in _platforms:
+    _genplatform(_arch, _platform, _desc)
