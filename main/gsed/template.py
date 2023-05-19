@@ -21,3 +21,5 @@ sha256 = "6e226b732e1cd739464ad6862bd1a1aba42d7982922da7a53519631d24975181"
 hardening = ["vis", "cfi"]
 # mostly only gnulib tests run as they are
 options = ["!check"]
+
+configure_gen = []

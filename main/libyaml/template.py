@@ -11,9 +11,6 @@ url = "https://pyyaml.org/wiki/LibYAML"
 source = f"https://github.com/yaml/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "fa240dbf262be053f3898006d502d514936c818e422afdcf33921c63bed9bf2e"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("License")
 

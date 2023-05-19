@@ -27,9 +27,6 @@ match self.profile().arch:
     case "riscv64" | "aarch64":
         configure_args += ["--disable-jit"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("LICENCE")
 

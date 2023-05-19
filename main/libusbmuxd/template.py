@@ -12,9 +12,6 @@ source = f"https://github.com/libimobiledevice/{pkgname}/archive/{pkgver}.tar.gz
 sha256 = "8ae3e1d9340177f8f3a785be276435869363de79f491d05d8a84a59efc8a8fdc"
 hardening = ["vis", "cfi"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libusbmuxd-devel")
 def _devel(self):
     return self.default_devel()

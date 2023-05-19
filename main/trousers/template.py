@@ -22,9 +22,6 @@ system_users = [
     }
 ]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "tcsd")

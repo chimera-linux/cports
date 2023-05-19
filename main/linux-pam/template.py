@@ -35,3 +35,5 @@ def _devel(self):
 @subpackage("linux-pam-libs")
 def _libs(self):
     return self.default_libs()
+
+configure_gen = []

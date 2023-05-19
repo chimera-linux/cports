@@ -32,3 +32,5 @@ def post_install(self):
 @subpackage("sdl_image-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

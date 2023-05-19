@@ -20,3 +20,5 @@ def _devel(self):
 @subpackage("wavpack-progs")
 def _devel(self):
     return self.default_progs()
+
+configure_gen = []

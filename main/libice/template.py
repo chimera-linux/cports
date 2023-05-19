@@ -13,9 +13,6 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libICE-{pkgver}.tar.gz"
 sha256 = "04fbd34a11ba08b9df2e3cdb2055c2e3c1c51b3257f683d7fcf42dabcf8e1210"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("COPYING")
 

@@ -48,3 +48,5 @@ def _devel(self):
         "usr/share/man/mann",
         "usr/lib/*.a",
     ]
+
+configure_gen = []

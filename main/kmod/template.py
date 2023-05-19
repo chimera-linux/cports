@@ -48,3 +48,5 @@ def _devel(self):
 def _lib(self):
     self.pkgdesc += " (runtime library)"
     return self.default_libs()
+
+configure_gen = []

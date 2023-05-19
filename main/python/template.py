@@ -128,3 +128,5 @@ def _ver(self):
     self.build_style = "meta"
 
     return []
+
+configure_gen = []

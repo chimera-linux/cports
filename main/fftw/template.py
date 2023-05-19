@@ -2,6 +2,7 @@ pkgname = "fftw"
 pkgver = "3.3.10"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["libomp-devel"]
 pkgdesc = "Library for computing the discrete Fourier transform"

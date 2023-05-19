@@ -14,3 +14,5 @@ source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "257dde06159a4c49223d06f1cccbeb68933a4514fc8f1d77c64b54f0d108822a"
 tool_flags = {"LDFLAGS": ["-lgnu_getopt"], "CFLAGS": ["-Dgetopt_long_only=gnu_getopt_long_only"]}
 hardening = ["vis", "cfi"]
+
+configure_gen = []

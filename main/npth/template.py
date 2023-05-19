@@ -13,3 +13,5 @@ sha256 = "1393abd9adcf0762d34798dc34fdcf4d0d22a8410721e76f1e3afcd1daa4e2d1"
 @subpackage("npth-devel")
 def _devel(self):
    return self.default_devel()
+
+configure_gen = []

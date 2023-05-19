@@ -20,3 +20,5 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnupg.org"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "76b71e5aeb443bfd910ce9cbc8281b617c8341687afb67bae455877972b59de8"
+
+configure_gen = []

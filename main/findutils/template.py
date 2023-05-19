@@ -24,3 +24,5 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man1/glocate.1")
     self.rm(self.destdir / "usr/share/man/man1/gupdatedb.1")
     self.rm(self.destdir / "usr/share/man/man5", recursive = True)
+
+configure_gen = []

@@ -14,10 +14,6 @@ sha256 = "b0749db18a9e78cf771737954a838cdcdb1d5415888bac1ba9caf8cba77c656c"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
-# fix up libtool crap for aarch64
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("COPYING")
 

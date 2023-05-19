@@ -21,3 +21,5 @@ options = ["!cross"]
 @subpackage("dbus-glib-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

@@ -24,9 +24,6 @@ tool_flags = {
     "LDFLAGS": ["-largp"],
 }
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("v4l-utils-devel")
 def _devel(self):
     return self.default_devel()

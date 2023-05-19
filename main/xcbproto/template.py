@@ -12,8 +12,5 @@ url = "https://xcb.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/proto/{pkgname}/-/archive/xcb-proto-{pkgver}/{pkgname}-xcb-proto-{pkgver}.tar.gz"
 sha256 = "7b9370eb5b7b42f6ff0b80f7b9091fa3efba5ffe42dc4a461383dc562dcfd5a6"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("COPYING")

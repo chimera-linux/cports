@@ -16,9 +16,6 @@ source = f"https://github.com/libimobiledevice/{pkgname}/archive/{pkgver}.tar.gz
 sha256 = "acbfb73eabee162e64c0d9de207d71c0a5f47c40cd5ad32a5097f734328ce10a"
 options = ["!cross"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libimobiledevice-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"

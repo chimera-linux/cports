@@ -63,3 +63,5 @@ def _wayland(self):
 @subpackage("ibus-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/gtk-doc"])
+
+configure_gen = []

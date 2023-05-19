@@ -33,3 +33,5 @@ def post_install(self):
     self.install_service(self.files_path / "ead")
 
     self.install_dir("etc/iwd", empty = True)
+
+configure_gen = []

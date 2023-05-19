@@ -14,3 +14,5 @@ sha256 = "4d7e4fdef2eca6afe07a2682151cea78781e0a4e8f9622142d9f70c083a2fd4f"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["!check"]
+
+configure_gen = []

@@ -47,3 +47,5 @@ def _ri(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/bin/ri"]
+
+configure_gen = []

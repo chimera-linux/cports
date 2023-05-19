@@ -40,3 +40,5 @@ def _python(self):
 @subpackage("libxml2-progs")
 def _progs(self):
     return self.default_progs()
+
+configure_gen = []

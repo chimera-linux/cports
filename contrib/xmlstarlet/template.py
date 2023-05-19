@@ -19,3 +19,5 @@ tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
 
 def post_install(self):
     self.install_license("COPYING")
+
+configure_gen = []

@@ -36,3 +36,5 @@ def _devel(self):
     self.pkgdesc = "File type identification library (development files)"
 
     return self.default_devel()
+
+configure_gen = []

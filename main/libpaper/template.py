@@ -11,9 +11,6 @@ url = "http://packages.debian.org/unstable/source/libpaper"
 source = f"$(DEBIAN_SITE)/main/libp/{pkgname}/{pkgname}_{pkgver}.tar.gz"
 sha256 = "26330e21e9a3124658d515fd850b0cde546ff42d89b2596a5264c5f1677f0547"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_dir("etc/libpaper.d", empty = True)
     # systemwide default papersize

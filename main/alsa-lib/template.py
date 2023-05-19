@@ -33,3 +33,5 @@ def post_install(self):
 def _devel(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
+
+configure_gen = []

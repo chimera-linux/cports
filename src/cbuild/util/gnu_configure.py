@@ -52,10 +52,13 @@ def _read_cache(cpath, cname, eenv):
 
 def configure(
     pkg, configure_dir = None, configure_args = None, configure_script = None,
-    build_dir = None, extra_args = [], env = {}, sysroot = True
+    build_dir = None, extra_args = [], generator = None, env = {}, sysroot = True
 ):
     if not configure_script:
         configure_script = pkg.configure_script
+
+    if generator is None:
+        generator = pkg.configure_gen
 
     if not build_dir:
         build_dir = pkg.make_dir
@@ -111,6 +114,10 @@ def configure(
 
     eenv.update(pkg.configure_env)
     eenv.update(env)
+
+    # generate configure
+    if generator:
+        pkg.do(*generator, env = eenv)
 
     rscript.chmod(0o755)
 

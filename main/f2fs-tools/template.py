@@ -14,9 +14,6 @@ url = "https://git.kernel.org/cgit/linux/kernel/git/jaegeuk/f2fs-tools.git"
 source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
 sha256 = "208c7a07e95383fbd7b466b5681590789dcb41f41bf197369c41a95383b57c5e"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("f2fs-tools-devel")
 def _devel(self):
     return self.default_devel()

@@ -25,3 +25,5 @@ def post_install(self):
             case "add-shell.8" | "remove-shell.8" | "update-shells.8" | \
                  "installkernel.8" | "which.1" | "tempfile.1":
                 f.unlink()
+
+configure_gen = []

@@ -35,3 +35,5 @@ def post_install(self):
     self.install_bin("support/nameconvert")
     self.install_bin("support/json-rsync-version")
     self.install_bin("support/rsyncstats")
+
+configure_gen = []

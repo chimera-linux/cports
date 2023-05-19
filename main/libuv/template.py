@@ -19,3 +19,5 @@ def post_install(self):
 @subpackage("libuv-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

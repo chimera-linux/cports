@@ -24,3 +24,5 @@ def post_install(self):
 @subpackage("procps-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

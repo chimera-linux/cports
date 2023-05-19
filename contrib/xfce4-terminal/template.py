@@ -14,3 +14,5 @@ license = "GPL-2.0-or-later"
 url = "https://xfce.org"
 source = f"https://archive.xfce.org/src/apps/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "78e55957af7c6fc1f283e90be33988661593a4da98383da1b0b54fdf6554baf4"
+
+configure_gen = []

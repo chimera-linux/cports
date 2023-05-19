@@ -21,3 +21,5 @@ def _libmagic(self):
 @subpackage("sysfsutils-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

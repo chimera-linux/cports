@@ -40,3 +40,5 @@ def _devel(self):
     return self.default_devel(extra = [
         "usr/share/doc"
     ])
+
+configure_gen = []

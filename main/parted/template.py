@@ -26,3 +26,5 @@ def _devel(self):
 @subpackage("parted-libs")
 def _progs(self):
     return self.default_libs()
+
+configure_gen = []

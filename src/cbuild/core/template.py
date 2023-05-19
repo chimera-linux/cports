@@ -387,6 +387,7 @@ core_fields = [
     ("configure_args", [], list, False, False, False),
     ("configure_script", "configure", str, False, False, False),
     ("configure_env", {}, dict, False, False, False),
+    ("configure_gen", [], list, False, False, False),
     ("make_cmd", "bmake", str, False, False, False),
     ("make_dir", ".", str, False, False, False),
     ("make_env", {}, dict, False, False, False),
@@ -459,6 +460,7 @@ core_fields_priority = [
     ("configure_script", True),
     ("configure_args", True),
     ("configure_env", True),
+    ("configure_gen", True),
 
     ("make_cmd", True),
     ("make_dir", True),

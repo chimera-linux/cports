@@ -19,9 +19,6 @@ url = "https://wiki.gnome.org/Projects/Vala"
 source = f"$(GNOME_SITE)/vala/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3d39c7596d5fa9ae8bfeae476669f811f7057b7f7b9308478a27b68443d8b003"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libvala")
 def _lib(self):
     self.pkgdesc = f"{pkgname} (shared library)"

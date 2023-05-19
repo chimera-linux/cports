@@ -13,9 +13,6 @@ url = "https://libraw.org"
 source = f"{url}/data/LibRaw-{pkgver}.tar.gz"
 sha256 = "630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("COPYRIGHT")
 

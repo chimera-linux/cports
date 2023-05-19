@@ -81,3 +81,5 @@ def post_install(self):
     self.rm(self.destdir / f"usr/bin/{_trip}-c++")
     self.install_link(f"{_trip}-gcc-{pkgver}", f"usr/bin/{_trip}-gcc")
     self.install_link(f"{_trip}-g++", f"usr/bin/{_trip}-c++")
+
+configure_gen = []

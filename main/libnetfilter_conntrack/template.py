@@ -14,3 +14,5 @@ sha256 = "67bd9df49fe34e8b82144f6dfb93b320f384a8ea59727e92ff8d18b5f4b579a8"
 @subpackage("libnetfilter_conntrack-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

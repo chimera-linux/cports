@@ -14,3 +14,5 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_file("syntax/nanorc.nanorc", "usr/share/examples/nano")
+
+configure_gen = []

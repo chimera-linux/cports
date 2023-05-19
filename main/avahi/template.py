@@ -106,3 +106,5 @@ def _progs(self):
         "usr/bin/avahi-resolv*",
         "usr/share/man/man1",
     ]
+
+configure_gen = []

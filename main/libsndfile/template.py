@@ -22,3 +22,5 @@ def _progs(self):
 @subpackage("libsndfile-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/doc"])
+
+configure_gen = []

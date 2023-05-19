@@ -28,3 +28,5 @@ def _core(self):
     self.pkgdesc = f"{pkgdesc} (core)"
 
     return ["usr/bin/faked", "usr/lib"]
+
+configure_gen = []

@@ -39,9 +39,6 @@ def post_patch(self):
         "obexd/src/org.bluez.obex.service.in"
     )
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_file("src/main.conf", "etc/bluetooth")
     self.install_service(self.files_path / "bluetoothd")

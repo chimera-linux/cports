@@ -41,3 +41,5 @@ def _lib(self):
 @subpackage("cryptsetup-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

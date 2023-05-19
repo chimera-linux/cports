@@ -9,6 +9,8 @@ configure_args = [
     "--with-udevdir=/usr/lib/udev", "--with-udevruledir=/usr/lib/udev/rules.d",
     "--with-dracutdir=/usr/lib/dracut", "--with-tirpc",
 ]
+# we generate, then create tarball, then configure, so do that manually
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "automake", "libtool", "python"]
 makedepends = [

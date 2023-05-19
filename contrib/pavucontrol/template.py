@@ -15,3 +15,5 @@ license = "GPL-2.0-or-later"
 url = "https://freedesktop.org/software/pulseaudio/pavucontrol"
 source = f"$(FREEDESKTOP_SITE)/pulseaudio/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ce2b72c3b5f1a70ad0df19dd81750f9455bd20870d1d3a36d20536af2e8f4e7a"
+
+configure_gen = []

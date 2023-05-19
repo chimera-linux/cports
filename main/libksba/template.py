@@ -14,3 +14,5 @@ sha256 = "3f72c68db30971ebbf14367527719423f0a4d5f8103fc9f4a1c01a9fa440de5c"
 @subpackage(f"libksba-devel")
 def _devel(self):
    return self.default_devel()
+
+configure_gen = []

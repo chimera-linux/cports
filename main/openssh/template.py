@@ -56,3 +56,5 @@ def post_install(self):
 
     self.install_service(self.files_path / "ssh-keygen")
     self.install_service(self.files_path / "sshd")
+
+configure_gen = []

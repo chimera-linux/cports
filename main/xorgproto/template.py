@@ -34,3 +34,5 @@ def post_install(self):
 
     # provided by libx11-devel
     self.rm(self.destdir / "usr/include/X11/extensions/XKBgeom.h")
+
+configure_gen = []

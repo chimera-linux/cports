@@ -18,9 +18,6 @@ source = f"$(KERNEL_SITE)/utils/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ccdf452387a6380973d2927363e9cbb939fa2068915a6f937ff9d24522024683"
 hardening = ["vis", "cfi"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_patch(self):
     # rename conflicting keymaps
     with self.pushd("data/keymaps/i386"):

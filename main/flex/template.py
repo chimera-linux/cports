@@ -30,3 +30,5 @@ def _static(self):
     ]
 
     return self.default_devel()
+
+configure_gen = []

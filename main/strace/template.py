@@ -27,3 +27,5 @@ sha256 = "0c7d38a449416268d3004029a220a15a77c2206a03cc88120f37f46e949177e8"
 hardening = ["vis", "cfi", "!int"]
 # something's weird and it gets stuck
 options = ["!check"]
+
+configure_gen = []

@@ -10,3 +10,5 @@ license = "GPL-2.0-only"
 url = "https://htop.dev"
 source = f"https://github.com/htop-dev/htop/releases/download/{pkgver}/htop-{pkgver}.tar.xz"
 sha256 = "bac9e9ab7198256b8802d2e3b327a54804dc2a19b77a5f103645b11c12473dc8"
+
+configure_gen = []

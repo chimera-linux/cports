@@ -18,3 +18,5 @@ source = f"http://invisible-mirror.net/archives/{pkgname}/tarballs/{pkgname}{pkg
 sha256 = "a6455b159d00776d8ec1051285c972dc1f0c552d0571a0cff02a23ec146ee8e5"
 hardening = ["vis", "cfi"]
 options = ["!cross"]
+
+configure_gen = []

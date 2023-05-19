@@ -21,9 +21,6 @@ source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.bz2
 sha256 = "6fcf18b75d305d99d04d2e42982ed5b787a081af2842220ed63287a2d6a10988"
 options = ["!cross"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("COPYING")
 

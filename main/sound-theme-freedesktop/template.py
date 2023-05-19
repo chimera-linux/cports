@@ -18,3 +18,5 @@ def pre_build(self):
 
 def post_install(self):
     self.install_license("CREDITS")
+
+configure_gen = []

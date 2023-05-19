@@ -416,3 +416,5 @@ def _libsmartcols_devel(self):
         "usr/lib/pkgconfig/*smartcols*",
         "usr/include/libsmartcols"
     ]
+
+configure_gen = []

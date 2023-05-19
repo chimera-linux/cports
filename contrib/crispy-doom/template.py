@@ -15,6 +15,3 @@ source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2b85649c615efeac7573883370e9434255af301222b323120692cb9649b7f420"
 # FIXME int cfi
 hardening = ["vis", "!cfi", "!int"]
-
-def pre_configure(self):
-    self.do("autoreconf", "-if")

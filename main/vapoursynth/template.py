@@ -2,6 +2,7 @@ pkgname = "vapoursynth"
 pkgver = "62"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake", "pkgconf", "automake", "libtool", "nasm", "python-cython"
@@ -21,9 +22,6 @@ if self.profile().arch == "riscv64":
         "CXXFLAGS": ["-mno-relax"],
         "LDFLAGS": ["-mno-relax"]
     }
-
-def pre_configure(self):
-    self.do(self.chroot_cwd / "autogen.sh")
 
 @subpackage("vapoursynth-devel")
 def _devel(self):

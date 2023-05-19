@@ -18,3 +18,5 @@ sha256 = "f688cec4c4586a17575f5e327448ce62f2000ef6a07c9e4589873d4a68568ad9"
 @subpackage("libmbim-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

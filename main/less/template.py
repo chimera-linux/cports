@@ -27,3 +27,5 @@ def post_install(self):
     self.install_link("zless", "usr/bin/xzless")
     self.install_link("zless", "usr/bin/lzless")
     self.install_link("zless", "usr/bin/zstdless")
+
+configure_gen = []

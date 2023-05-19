@@ -19,3 +19,5 @@ def post_install(self):
 def _devel(self):
     self.depends += ["xcbproto"]
     return self.default_devel(extra = ["usr/share/doc"])
+
+configure_gen = []

@@ -10,9 +10,6 @@ url = "https://www.blake2.net"
 source = f"https://github.com/BLAKE2/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "10053dbc2fa342516b780a6bbf6e7b2a2360b8d49c5ac426936bf3df82526732"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libb2-devel")
 def _devel(self):
     return self.default_devel()

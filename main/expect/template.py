@@ -16,9 +16,6 @@ tool_flags = {
     "LDFLAGS": [f"-Wl,-rpath=/usr/lib:/usr/lib/{pkgname}{pkgver}"]
 }
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.rm(self.destdir / "usr/bin/weather")
 

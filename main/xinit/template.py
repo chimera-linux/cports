@@ -31,3 +31,5 @@ def post_install(self):
     self.install_file(
         self.files_path / "00default", "etc/X11/Xsession.d", mode = 0o755
     )
+
+configure_gen = []

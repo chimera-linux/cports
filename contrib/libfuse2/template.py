@@ -24,3 +24,5 @@ def post_install(self):
         f.unlink()
     for f in (self.destdir / "usr/lib").glob("libulockmgr*"):
         f.unlink()
+
+configure_gen = []

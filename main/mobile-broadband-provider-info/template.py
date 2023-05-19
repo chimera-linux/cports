@@ -14,8 +14,5 @@ sha256 = "36ceb37b0579cefb6da3113e6dc1059a00400bed2402ddbea9cc41f8fb031296"
 # doesn't like our shell
 options = ["!check"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("COPYING")

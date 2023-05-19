@@ -26,3 +26,5 @@ def _python(self):
     self.depends += ["python", "python-six"]
 
     return ["usr/lib/python*"]
+
+configure_gen = []

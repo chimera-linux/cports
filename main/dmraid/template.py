@@ -36,3 +36,5 @@ def _lib(self):
 @subpackage("dmraid-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

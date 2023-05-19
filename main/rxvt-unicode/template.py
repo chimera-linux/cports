@@ -56,3 +56,5 @@ def _tinfo(self):
     self.pkgdesc = f"{pkgdesc} (terminfo data)"
 
     return ["usr/share/terminfo"]
+
+configure_gen = []

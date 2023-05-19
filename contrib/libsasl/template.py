@@ -20,9 +20,6 @@ source = f"https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-
 sha256 = "7ccfc6abd01ed67c1a0924b353e526f1b766b21f42d4562ee635a8ebfc5bb38c"
 options = ["!cross"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     # we only want libsasl
     self.rm(self.destdir / "usr/bin", recursive = True)

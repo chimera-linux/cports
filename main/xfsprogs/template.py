@@ -42,3 +42,5 @@ def _devel(self):
     self.depends += ["libuuid-devel"]
 
     return self.default_devel()
+
+configure_gen = []

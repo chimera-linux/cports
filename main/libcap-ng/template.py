@@ -20,3 +20,5 @@ def _devel(self):
 @subpackage("libcap-ng-progs")
 def _progs(self):
     return self.default_progs(man = "178")
+
+configure_gen = []

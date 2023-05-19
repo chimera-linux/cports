@@ -35,3 +35,5 @@ def _devel(self):
         "usr/lib/*.so",
         "usr/lib/*.a",
     ]
+
+configure_gen = []

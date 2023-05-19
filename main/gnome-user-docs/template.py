@@ -15,3 +15,5 @@ url = "https://gitlab.gnome.org/GNOME/gnome-user-docs"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "cf6cd7eb9c4149dd93966f71fa1b907afc8f651ecc3af54e1085bcf4ad21b1bd"
 options = ["!splitdoc"]
+
+configure_gen = []

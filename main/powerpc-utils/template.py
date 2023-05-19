@@ -7,6 +7,7 @@ configure_args = [
     "--disable-werror", "--with-librtas",
     "ac_cv_lib_rtasevent_parse_rtas_event=yes",
 ]
+configure_gen = ["./autogen.sh"]
 hostmakedepends = ["automake", "libtool"]
 makedepends = [
     "librtas-devel", "zlib-devel", "libnuma-devel", "linux-headers",
@@ -19,6 +20,3 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "6bb16078068d8b889afdd78927d2f061702ef155e57fc548ae573e2b0b90ca13"
 # too many places that use PATH_MAX without limits.h include
 tool_flags = {"CFLAGS": ["-DPATH_MAX=4096"]}
-
-def pre_configure(self):
-    self.do(self.chroot_cwd / "autogen.sh")

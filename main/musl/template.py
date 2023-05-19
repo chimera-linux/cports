@@ -124,3 +124,5 @@ def _devel(self):
     self.options = ["!splitstatic"]
     # the .a files are empty archives
     return ["usr/include", "usr/lib/*.o", "usr/lib/*.a"]
+
+configure_gen = []

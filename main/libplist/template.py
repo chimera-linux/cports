@@ -15,9 +15,6 @@ sha256 = "7e654bdd5d8b96f03240227ed09057377f06ebad08e1c37d0cfa2abe6ba0cee2"
 hardening = ["!int"]
 options = ["!cross"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libplist++")
 def _pp(self):
     self.pkgdesc = f"{pkgdesc} (C++ runtime library)"

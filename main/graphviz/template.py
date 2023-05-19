@@ -5,6 +5,7 @@ build_style = "gnu_configure"
 configure_args = [
     "--disable-lefty"
 ]
+configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 # otherwise y.tab.h is not located
 make_dir = "."
@@ -33,9 +34,6 @@ options = ["!check"]
 
 def init_configure(self):
     self.make_build_args += ["HOSTCC=" + self.get_tool("CC")]
-
-def pre_configure(self):
-    self.do(self.chroot_cwd / "autogen.sh")
 
 def post_install(self):
     self.install_license("epl-v10.txt")

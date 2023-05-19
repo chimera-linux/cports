@@ -27,3 +27,5 @@ def _devel(self):
 @subpackage("acl-progs")
 def _progs(self):
     return self.default_progs(extra = ["usr/share"])
+
+configure_gen = []

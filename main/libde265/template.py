@@ -3,6 +3,7 @@ pkgver = "1.0.11"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-option-checking"]
+configure_gen = ["./autogen.sh"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "Open H.265 codec implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -11,9 +12,6 @@ url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "0bf84eb1896140d6b5f83cd3302fe03c478a5b8c391f26629b9882c509fc7d04"
 hardening = ["!cfi"] # TODO
-
-def pre_configure(self):
-    self.do(self.chroot_cwd / "autogen.sh")
 
 def post_install(self):
     # do not polute /usr/bin with junk

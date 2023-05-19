@@ -23,3 +23,5 @@ sha256 = "82c9c841e28a74fecadedebfae6a772df623cecdf652e5376650fa26da5b7df4"
 @subpackage("libblockdev-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

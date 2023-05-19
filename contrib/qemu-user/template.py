@@ -105,3 +105,5 @@ for _u in [
     "sh4eb", "sparc", "sparc32plus", "sparc64", "x86_64", "xtensa", "xtensaeb",
 ]:
     _upkg(_u)
+
+configure_gen = []

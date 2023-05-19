@@ -43,9 +43,6 @@ if self.profile().endian == "big":
 else:
     configure_args.append("--enable-littleendian")
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("LICENSE")
 

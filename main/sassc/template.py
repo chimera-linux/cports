@@ -13,8 +13,5 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "608dc9002b45a91d11ed59e352469ecc05e4f58fc1259fc9a9f5b8f0f8348a03"
 hardening = ["vis", "cfi"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("LICENSE")

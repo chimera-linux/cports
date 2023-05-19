@@ -47,3 +47,5 @@ def _devel(self):
 def _devel(self):
     self.pkgdesc = "GNU libtool dlopen wrapper"
     return self.default_libs()
+
+configure_gen = []

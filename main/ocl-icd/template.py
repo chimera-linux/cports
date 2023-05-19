@@ -27,3 +27,5 @@ def _devel(self):
     self.depends += ["opencl-headers"]
 
     return self.default_devel(extra = ["usr/share/doc"])
+
+configure_gen = []

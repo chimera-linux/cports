@@ -12,3 +12,5 @@ license = "GPL-2.0-or-later"
 url = "https://edge.launchpad.net/intltool"
 source = f"http://launchpad.net/intltool/trunk/{pkgver}/+download/{pkgname}-{pkgver}.tar.gz"
 sha256 = "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+
+configure_gen = []

@@ -29,3 +29,5 @@ def post_install(self):
 @subpackage("libffi-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/info"])
+
+configure_gen = []

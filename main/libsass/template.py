@@ -15,8 +15,6 @@ def pre_configure(self):
     # otherwise the .pc file will have 'na' version
     with open(self.cwd / "VERSION", "w") as vf:
         vf.write(pkgver)
-    # rebuild configure afterwards
-    self.do("autoreconf", "-if")
 
 def post_install(self):
     self.install_license("LICENSE")

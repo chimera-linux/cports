@@ -83,3 +83,5 @@ def _x11(self):
         "usr/bin/dbus-launch",
         "usr/share/man/man1/dbus-launch.1",
     ]
+
+configure_gen = []

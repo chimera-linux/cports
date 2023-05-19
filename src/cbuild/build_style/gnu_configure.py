@@ -24,4 +24,5 @@ def use(tmpl):
     )
     tmpl.build_style_defaults = [
         ("make_dir", "build"),
+        ("configure_gen", ["autoreconf", "-if"]),
     ]

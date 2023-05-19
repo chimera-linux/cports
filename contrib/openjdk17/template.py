@@ -269,3 +269,5 @@ def _default(self):
     self.build_style = "meta"
 
     return []
+
+configure_gen = []

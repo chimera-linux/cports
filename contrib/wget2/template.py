@@ -33,3 +33,5 @@ def _lib(self):
 @subpackage("libwget-devel")
 def _dev(self):
     return self.default_devel()
+
+configure_gen = []

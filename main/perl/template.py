@@ -148,3 +148,5 @@ def post_install(self):
     hf = self.destdir / "usr/bin/perlthanks"
     hf.unlink()
     hf.symlink_to("perlbug")
+
+configure_gen = []

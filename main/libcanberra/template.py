@@ -45,3 +45,5 @@ def _gtk3(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gstreamer"]
 
     return ["usr/lib/libcanberra-*/libcanberra-gstreamer.so"]
+
+configure_gen = []

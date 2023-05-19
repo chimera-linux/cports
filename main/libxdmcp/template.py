@@ -17,3 +17,5 @@ def post_install(self):
 @subpackage("libxdmcp-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

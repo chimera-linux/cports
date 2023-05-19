@@ -32,3 +32,5 @@ def _history(self):
 @subpackage("readline-devel")
 def _devel(self):
     return self.default_devel(extra = ["usr/share/info"])
+
+configure_gen = []

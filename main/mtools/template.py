@@ -15,3 +15,5 @@ hardening = ["vis", "!cfi"]
 
 def post_install(self):
     self.install_file("mtools.conf", "etc")
+
+configure_gen = []

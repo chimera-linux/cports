@@ -58,3 +58,5 @@ def post_install(self):
     self.install_link("ld.bfd", f"usr/{_trip}/bin/ld")
     # remove unnecessary dupe
     self.rm(self.destdir / "usr/lib", recursive = True)
+
+configure_gen = []

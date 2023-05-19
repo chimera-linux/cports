@@ -20,3 +20,5 @@ hardening = ["vis", "cfi"]
 tool_flags = {
     "CXXFLAGS": ["-fno-rtti"]
 }
+
+configure_gen = []

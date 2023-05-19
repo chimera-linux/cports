@@ -125,3 +125,5 @@ def _term(self):
         "usr/share/tabset",
         "usr/share/terminfo",
     ]
+
+configure_gen = []

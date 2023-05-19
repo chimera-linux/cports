@@ -12,3 +12,5 @@ license = "GPL-3.0-or-later"
 url = "https://github.com/flatpak/xdg-dbus-proxy"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "1ec0eab53d1e49966d722352bcfd51ac402dce5190baedc749a8541e761670ab"
+
+configure_gen = []

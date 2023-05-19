@@ -14,10 +14,6 @@ source = f"$(GNU_SITE)/src-highlite/{pkgname}-{pkgver}.tar.gz"
 sha256 = "3a7fd28378cb5416f8de2c9e77196ec915145d44e30ff4e0ee8beb3fe6211c91"
 options = ["!cross"]
 
-# aarch64 libtool fix
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 def post_install(self):
     self.install_license("COPYING")
 

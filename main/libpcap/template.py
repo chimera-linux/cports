@@ -37,3 +37,5 @@ def _devel(self):
     self.depends += ["libnl-devel"]
 
     return self.default_devel(man = "357")
+
+configure_gen = []

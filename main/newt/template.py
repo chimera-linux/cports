@@ -25,3 +25,5 @@ def _progs(self):
     self.depends += ["python"]
 
     return ["usr/lib/python*"]
+
+configure_gen = []

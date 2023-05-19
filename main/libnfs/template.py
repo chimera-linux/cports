@@ -10,9 +10,6 @@ url = "https://github.com/sahlberg/libnfs"
 source = f"{url}/archive/{pkgname}-{pkgver}.tar.gz"
 sha256 = "637e56643b19da9fba98f06847788c4dad308b723156a64748041035dcdf9bd3"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libnfs-devel")
 def _devel(self):
     return self.default_devel()

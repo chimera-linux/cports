@@ -9,6 +9,7 @@ configure_args = [
     "--enable-fallback-curses",
     "--enable-libsecret"
 ]
+configure_gen = ["./autogen.sh"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-tiny"]
 makedepends = [
     "ncurses-devel", "libassuan-devel", "libgpg-error-devel", "gcr-devel",
@@ -21,9 +22,6 @@ license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "457a185e5a85238fb945a955dc6352ab962dc8b48720b62fc9fa48c7540a4067"
-
-def pre_configure(self):
-    self.do(self.chroot_cwd / "autogen.sh")
 
 def post_install(self):
     # wipe the default symlink, user-chosen (curses is default)

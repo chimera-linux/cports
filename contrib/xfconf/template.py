@@ -20,3 +20,5 @@ sha256 = "d9714751bbcfdc5a59340da6ef8ddfc0807221587b962d907f97dc0a8a002257"
 @subpackage("xfconf-devel")
 def _dev(self):
     return self.default_devel()
+
+configure_gen = []

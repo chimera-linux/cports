@@ -15,3 +15,5 @@ sha256 = "8a52063a5adc66252238cad9ee6997909b59983ed21c77eb83c5e67829d1b01f"
 @subpackage("libxfce4util-devel")
 def _dev(self):
     return self.default_devel()
+
+configure_gen = []

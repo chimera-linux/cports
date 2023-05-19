@@ -14,3 +14,5 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib", force = True, recursive = True)
+
+configure_gen = []

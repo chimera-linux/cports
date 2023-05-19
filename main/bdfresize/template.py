@@ -9,3 +9,5 @@ url = "http://openlab.ring.gr.jp/efont/dist/tools/bdfresize"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "440cfc0620a0237e46352c14a0774caa3f3059759b0a20defefc94e8490897a6"
 hardening = ["vis", "cfi"]
+
+configure_gen = []

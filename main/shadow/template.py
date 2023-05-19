@@ -79,3 +79,5 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man1/groups.1")
 
     self.install_license(self.files_path / "LICENSE")
+
+configure_gen = []

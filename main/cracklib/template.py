@@ -49,3 +49,5 @@ def _words(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/share/cracklib/cracklib-words.gz"]
+
+configure_gen = []

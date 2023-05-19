@@ -12,9 +12,6 @@ url = "http://djvu.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/djvu/{pkgname}-{pkgver}.tar.gz"
 sha256 = "fcd009ea7654fde5a83600eb80757bd3a76998e47d13c66b54c8db849f8f2edc"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libdjvulibre")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"

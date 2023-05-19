@@ -26,3 +26,5 @@ def _devel(self):
 @subpackage("raptor-progs")
 def _progs(self):
     return self.default_progs()
+
+configure_gen = []

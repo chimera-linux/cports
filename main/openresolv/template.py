@@ -25,3 +25,5 @@ def post_install(self):
         self.destdir / "usr/share/man/man8/resolvconf.8",
         self.destdir / "usr/share/man/man8/resolvconf-openresolv.8"
     )
+
+configure_gen = []

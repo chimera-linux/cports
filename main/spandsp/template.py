@@ -18,3 +18,5 @@ def _devel(self):
     self.depends += ["libtiff-devel"]
 
     return self.default_devel()
+
+configure_gen = []

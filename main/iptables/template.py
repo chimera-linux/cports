@@ -99,3 +99,5 @@ def _legacy(self):
             self.ln_s("xtables-legacy-multi", self.destdir / f"usr/bin/ip{f}")
             self.ln_s("xtables-legacy-multi", self.destdir / f"usr/bin/ip6{f}")
     return inst
+
+configure_gen = []

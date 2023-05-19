@@ -18,3 +18,5 @@ def _progs(self):
 @subpackage("tslib-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

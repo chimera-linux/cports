@@ -179,3 +179,5 @@ def _elibs(self):
     return [
         "usr/lib/libavahi-libevent*.so.*",
     ]
+
+configure_gen = []

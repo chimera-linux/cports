@@ -666,6 +666,8 @@ Keep in mind that default values may be overridden by build styles.
   the configure script. The way passing them is implemented depends on the
   build system, but in general any user-provided environment at call site
   overrides this, while this overrides the global environment (`env`).
+* `configure_gen` *(list)* The command used to generate the configure
+  script. Used only by specific build styles.
 * `configure_script` *(str)* The name of the script relative to current
   working directory used for configuration. Only used by build styles that
   use such scripts. The default value is `configure`.
@@ -1084,6 +1086,7 @@ A more comprehensive `build_style`, written around `cbuild.util.gnu_configure`.
 Default values:
 
 * `make_dir` = `build`
+* `configure_gen` = `["autoreconf", "-if"]`
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
 
@@ -3014,12 +3017,20 @@ The `flags` are `tmpl.get_cxxflags()`, while `ldflags` are `tmpl.get_ldflags()`.
 
 A wrapper for handling of GNU Autotools and compatible projects.
 
-##### def configure(pkg, configure_dir = None, configure_args = None, configure_script = None, build_dir = None, extra_args = [], env = {})
+##### def configure(pkg, configure_dir = None, configure_args = None, configure_script = None, build_dir = None, extra_args = [], generator = None, env = {})
 
 First, `build_dir` is created if non-existent (relative to `cwd`). If not
-set, it is assumed to be `pkg.make_dir`. Then, the `configure_script` is
-called (which lives in `configure_dir`, by default `.`, which lives in
-`chroot_cwd`, and its name is by default `pkg.configure_script`).
+set, it is assumed to be `pkg.make_dir`.
+
+If `generator` is `None`, it is taken from `pkg.configure_gen`. If it ends
+up being non-empty, it is used as a command to generate the `configure_script`
+and run in `cwd` with the same environment as the subsequent configure script.
+Generally for `gnu_configure` build-styled templates, this will end up calling
+`autoreconf -if` unless overridden.
+
+Then, the `configure_script` is called (which lives in `configure_dir`, by
+default `.`, which lives in `chroot_cwd`, and its name is by default
+`pkg.configure_script`).
 
 The `pkg` is an instance of `Template`.
 

@@ -234,3 +234,5 @@ for _sys in [
     "xtensa", "xtensaeb"
 ]:
     _spkg(_sys)
+
+configure_gen = []

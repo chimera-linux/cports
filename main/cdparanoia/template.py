@@ -18,9 +18,6 @@ tool_flags = {"CFLAGS": ["-Du_int16_t=uint16_t", "-Du_int32_t=uint32_t"]}
 # missing target in some place?
 options = ["!check", "!parallel"]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libcdparanoia")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"

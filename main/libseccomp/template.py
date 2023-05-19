@@ -18,9 +18,6 @@ exec_wrappers = [
     ("/usr/bin/gsed", "sed")
 ]
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("libseccomp-devel")
 def _devel(self):
     return self.default_devel()

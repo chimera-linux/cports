@@ -15,3 +15,5 @@ source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "73a8894bad94dee83ab468fa09f628daffd567e8bef1a24277f1e9a0daf911ac"
 # missing checkdepends
 options = ["!check"]
+
+configure_gen = []

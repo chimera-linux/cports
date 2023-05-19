@@ -14,3 +14,5 @@ source = f"https://github.com/containers/{pkgname}/releases/download/v{pkgver}/{
 sha256 = "957ad1149db9033db88e988b12bcebe349a445e1efc8a9b59ad2939a113d333a"
 tool_flags = {"CFLAGS": ["-Wno-error,-Wformat-nonliteral"]}
 hardening = ["vis", "cfi"]
+
+configure_gen = []

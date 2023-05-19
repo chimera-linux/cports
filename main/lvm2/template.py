@@ -122,3 +122,5 @@ def _extra(self):
         "usr/bin/lvm_import_vdo",
         "usr/bin/lvmdump",
     ]
+
+configure_gen = []

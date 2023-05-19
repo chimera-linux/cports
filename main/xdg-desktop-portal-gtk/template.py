@@ -18,3 +18,5 @@ sha256 = "3ee2a992187eabb237a76170a7dead2a3bcea2edbf59344647cc0d1c640a5700"
 
 def post_install(self):
     self.rm(self.destdir / 'usr/lib/systemd', recursive = True)
+
+configure_gen = []

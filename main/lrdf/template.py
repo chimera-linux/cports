@@ -12,9 +12,6 @@ url = "https://github.com/swh/LRDF"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "d579417c477ac3635844cd1b94f273ee2529a8c3b6b21f9b09d15f462b89b1ef"
 
-def pre_configure(self):
-    self.do("autoreconf", "-if")
-
 @subpackage("lrdf-devel")
 def _devel(self):
     self.depends += ["raptor-devel"]

@@ -18,3 +18,5 @@ def _devel(self):
 @subpackage("libtasn1-progs")
 def _progs(self):
     return self.default_progs()
+
+configure_gen = []

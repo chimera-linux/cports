@@ -17,3 +17,5 @@ source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "74b420d09d7f528e84f97aa330f0dd69a98a6053e7a4e01767eed115038807bf"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
+
+configure_gen = []

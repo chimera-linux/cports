@@ -131,3 +131,5 @@ def _static(self):
         self.depends.append(f"musl-cross-{an}-static={pkgver}-r{pkgrel}")
 
     return []
+
+configure_gen = []

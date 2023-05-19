@@ -15,3 +15,5 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("COPYING")
+
+configure_gen = []

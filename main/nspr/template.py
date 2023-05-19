@@ -43,3 +43,5 @@ def _devel(self):
         "usr/share/aclocal",
         "usr/lib/*.a",
     ]
+
+configure_gen = []

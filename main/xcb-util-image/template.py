@@ -17,3 +17,5 @@ def post_install(self):
 @subpackage("xcb-util-image-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

@@ -17,3 +17,5 @@ def _devel(self):
     self.depends += makedepends
 
     return self.default_devel(extra = ["usr/share"])
+
+configure_gen = []

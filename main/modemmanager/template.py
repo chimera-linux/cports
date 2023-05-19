@@ -33,3 +33,5 @@ def _devel(self):
 @subpackage("modemmanager-libs")
 def _lib(self):
     return self.default_libs()
+
+configure_gen = []

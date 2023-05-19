@@ -22,3 +22,5 @@ def _progs(self):
     return self.default_progs(man = "18", extra = [
         "usr/lib/libnl",
     ])
+
+configure_gen = []

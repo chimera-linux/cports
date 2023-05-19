@@ -31,3 +31,5 @@ def _xmlwf(self):
     self.depends += ["perl"]
 
     return self.default_progs()
+
+configure_gen = []

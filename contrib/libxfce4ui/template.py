@@ -23,3 +23,5 @@ sha256 = "afa3a46eeed3ab612d2f7e1308edaf5819f6c33ccc16c13080efabd58f010abd"
 @subpackage("libxfce4ui-devel")
 def _dev(self):
     return self.default_devel()
+
+configure_gen = []

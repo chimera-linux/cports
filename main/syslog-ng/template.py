@@ -159,3 +159,5 @@ for modn, modl in [
     ("xml", None),
 ]:
     _genmod(modn, modl)
+
+configure_gen = []

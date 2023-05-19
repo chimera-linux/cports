@@ -24,3 +24,5 @@ def _devel(self):
 def _xsltproc(self):
     self.pkgdesc = "XSLT 1.0 command line processor"
     return self.default_progs()
+
+configure_gen = []

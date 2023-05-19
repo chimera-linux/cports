@@ -47,3 +47,5 @@ def post_install(self):
     # remove devel files
     self.rm(self.destdir / "usr/lib", recursive = True)
     self.rm(self.destdir / "usr/include", recursive = True)
+
+configure_gen = []

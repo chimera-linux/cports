@@ -22,3 +22,5 @@ sha256 = "862482ce9e3ad0bd65d264334ee311cdb94b9df2863b5b7136309b41b8ac1990"
 @subpackage("libqmi-devel")
 def _devel(self):
     return self.default_devel()
+
+configure_gen = []

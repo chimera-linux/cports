@@ -46,3 +46,5 @@ def _devel(self):
     self.depends += makedepends
 
     return self.default_devel()
+
+configure_gen = []
