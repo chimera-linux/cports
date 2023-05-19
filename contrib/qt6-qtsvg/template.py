@@ -5,6 +5,7 @@ build_style = "cmake"
 configure_args = [
     "-DQT_BUILD_TESTS=ON",
 ]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "qt6-qtbase"]
 makedepends = ["qt6-qtbase-devel"]
 pkgdesc = "Qt6 SVG component"
@@ -17,8 +18,6 @@ sha256 = "64ca7e61f44d51e28bcbb4e0509299b53a9a7e38879e00a7fe91643196067a4f"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
-# TODO
-options = ["!check"]
 
 
 def post_install(self):
