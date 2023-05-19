@@ -1,9 +1,10 @@
 # polkitd daemon service
 
-type            = process
-command         = /usr/lib/polkit-1/polkitd --no-debug
-before          = login.target
-depends-on      = init-local.target
-depends-on      = dbus
-restart         = true
-smooth-recovery = true
+type               = process
+command            = /usr/lib/polkit-1/polkitd --no-debug
+before             = login.target
+depends-on         = init-local.target
+depends-on         = dbus
+restart            = true
+smooth-recovery    = true
+ready-notification = pipevar:POLKITD_READY_FD
