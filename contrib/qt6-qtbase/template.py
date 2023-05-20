@@ -255,7 +255,7 @@ def _devel(self):
     return self.default_devel(
         extra=[
             "usr/lib/qt6/metatypes",
-            "usr/lib/qt6/mkspecs/modules",
+            "usr/lib/qt6/mkspecs",
             "usr/lib/qt6/modules",
             "usr/lib/*.prl",
         ]
