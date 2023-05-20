@@ -148,7 +148,28 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
             pkg.logger.out_plain(outx)
         pkg.error(f"failed to install dependencies")
 
-def _is_available(pkgn, pattern, pkg, host = False):
+def _extract_ver(pkgp):
+    # maybe version dash
+    fdash = pkgp.find("-")
+    # invalid ver (ver should be FOO-VER-rREV)
+    if fdash < 0:
+        return None
+    # maybe revision dash
+    sdash = pkgp.find("-", fdash + 1)
+    # invalid ver again
+    if sdash < 0:
+        return None
+    # now get rid of any remaining dashes
+    while True:
+        ndash = pkgp.find("-", sdash + 1)
+        if ndash < 0:
+            break
+        fdash = sdash
+        sdash = ndash
+    # and return ver
+    return pkgp[fdash + 1:]
+
+def _is_available(pkgn, pkgop, pkgv, pkg, host = False):
     if not host and pkg.profile().cross:
         sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
         aarch = pkg.profile().arch
@@ -158,11 +179,14 @@ def _is_available(pkgn, pattern, pkg, host = False):
         aarch = None
         crossp = False
 
-    aout = apki.call(
-        "search", ["--from", "none", "-e", "-a", pkgn], pkg, root = sysp,
-        capture_output = True, arch = aarch, allow_untrusted = True
-    )
+    def _do_search(repo):
+        return apki.call(
+            "search", ["--from", "none", "-e", "-a", pkgn], repo, root = sysp,
+            capture_output = True, arch = aarch, allow_untrusted = True,
+            return_repos = not isinstance(repo, str)
+        )
 
+    aout, crepos = _do_search(pkg)
     if aout.returncode != 0:
         return None
 
@@ -171,14 +195,41 @@ def _is_available(pkgn, pattern, pkg, host = False):
     if len(pn) == 0:
         return None
 
-    # FIXME: this list is always sorted alphabetically, ignoring repo
-    # order; ideally we want repo order to be respected (because the
-    # actual available version may be lower, e.g. when downgrading).
-    pn = pn.split("\n")[-1]
+    # get a list
+    pn = pn.split("\n")
 
-    if not pattern or autil.pkg_match(pn, pattern):
-        return pn[len(pkgn) + 1:]
+    # we don't care about ver so take latest (it's what apk would install)
+    if not pkgv:
+        return _extract_ver(pn[-1])
 
+    ppat = pkgn + pkgop + pkgv
+
+    # first match against every version available
+    for apn in reversed(pn):
+        # matched at least one version
+        if autil.pkg_match(apn, ppat):
+            break
+    else:
+        # matched no version, so build
+        return None
+
+    # only one version, so it's unambiguous
+    if len(pn) == 1:
+        return _extract_ver(pn[-1])
+
+    # now check repos individually in priority order
+    for cr in crepos:
+        if cr == "--repository":
+            continue
+        aout = _do_search(cr)
+        pn = aout.stdout.strip().decode().split("\n")
+        # highest priority repo takes all
+        if len(pn) > 0:
+            if autil.pkg_match(pn[0], ppat):
+                return _extract_ver(pn[0])
+            return None
+
+    # no match in individual repos? this should be unreachable
     return None
 
 def install(pkg, origpkg, step, depmap, signkey, hostdep):
@@ -213,12 +264,10 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
 
     for sver, pkgn in ihdeps:
         # check if available in repository
-        aver = _is_available(
-            pkgn, (pkgn + "=" + sver) if sver else None, pkg, host = True
-        )
+        aver = _is_available(pkgn, "=", sver, pkg, host = True)
         if aver:
             log.out_plain(f"   [host] {pkgn}: found ({aver})")
-            host_binpkg_deps.append(pkgn)
+            host_binpkg_deps.append(f"{pkgn}={aver}")
             continue
         # dep finder did not previously resolve a template
         if not sver:
@@ -230,16 +279,14 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         if not pprof.cross and (pkgn == origpkg or pkgn == pkg.pkgname):
             pkg.error(f"[host] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
-        host_missing_deps.append(pkgn)
+        host_missing_deps.append((pkgn, sver))
 
     for sver, pkgn in itdeps:
         # check if available in repository
-        aver = _is_available(
-            pkgn, (pkgn + "=" + sver) if sver else None, pkg
-        )
+        aver = _is_available(pkgn, "=", sver, pkg)
         if aver:
             log.out_plain(f"   [target] {pkgn}: found ({aver})")
-            binpkg_deps.append(pkgn)
+            binpkg_deps.append(f"{pkgn}={aver}")
             continue
         # dep finder did not previously resolve a template
         if not sver:
@@ -251,7 +298,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         if pkgn == origpkg or pkgn == pkg.pkgname:
             pkg.error(f"[target] build loop detected: {pkgn} <-> {origpkg}")
         # build from source
-        missing_deps.append(pkgn)
+        missing_deps.append((pkgn, sver))
 
     for origin, dep in irdeps:
         pkgn, pkgv, pkgop = autil.split_pkg_name(dep)
@@ -280,14 +327,14 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
         if pkgn == origpkg and pkg.pkgname != origpkg:
             pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # check the repository
-        aver = _is_available(pkgn, dep, pkg)
+        aver = _is_available(pkgn, pkgop, pkgv, pkg)
         if aver:
             log.out_plain(f"   [runtime] {dep}: found ({aver})")
             continue
         # not found
         log.out_plain(f"   [runtime] {dep}: not found")
         # consider missing
-        missing_rdeps.append(pkgn)
+        missing_rdeps.append((pkgn, pkgop, pkgv))
 
     from cbuild.core import build
 
@@ -296,7 +343,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
     # if this triggers any build of its own, it will return true
     missing = False
 
-    for pn in host_missing_deps:
+    for pn, pv in host_missing_deps:
         try:
             build.build(
                 step,
@@ -313,9 +360,9 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
             missing = True
         except template.SkipPackage:
             pass
-        host_binpkg_deps.append(pn)
+        host_binpkg_deps.append(f"{pn}={pv}")
 
-    for pn in missing_deps:
+    for pn, pv in missing_deps:
         try:
             build.build(
                 step,
@@ -331,9 +378,15 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
             missing = True
         except template.SkipPackage:
             pass
-        binpkg_deps.append(pn)
+        binpkg_deps.append(f"{pn}={pv}")
 
-    for rd in missing_rdeps:
+    for rd, rop, rv in missing_rdeps:
+        if rop and rv:
+            rfv = f"{rd}-{_srcpkg_ver(rd, pkg)}"
+            rpt = rd + rop + rv
+            # ensure the build is not futile
+            if not autil.pkg_match(rfv, rpt):
+                pkg.error(f"version {rfv} does not match dependency {rpt}")
         try:
             build.build(
                 step,

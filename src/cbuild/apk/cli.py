@@ -99,7 +99,7 @@ def call(
     subcmd, args, mrepo, cwd = None, env = None,
     capture_output = False, root = None, arch = None,
     allow_untrusted = False, use_altrepo = True,
-    use_stage = True, allow_network = True,
+    use_stage = True, allow_network = True, return_repos = False
 ):
     if allow_network:
         allow_network = _use_net
@@ -116,18 +116,23 @@ def call(
     if subcmd == "add" or subcmd == "del" or subcmd == "fix":
         cmd.append("--clean-protected")
 
-    return subprocess.run(
-        cmd + _collect_repos(
-            mrepo, False, arch, use_altrepo, use_stage, allow_network
-        ) + args,
-        cwd = cwd, env = env, capture_output = capture_output
+    crepos = _collect_repos(
+        mrepo, False, arch, use_altrepo, use_stage, allow_network
     )
+
+    retv = subprocess.run(
+        cmd + crepos + args, cwd = cwd, env = env,
+        capture_output = capture_output
+    )
+    if return_repos:
+        return retv, crepos
+    return retv
 
 # should never be called during stage 0 builds, only with a real chroot
 def call_chroot(
     subcmd, args, mrepo, capture_output = False, check = False, arch = None,
     allow_untrusted = False, use_stage = True, full_chroot = False,
-    allow_network = True
+    allow_network = True, return_repos = False
 ):
     from cbuild.core import chroot
 
@@ -151,15 +156,22 @@ def call_chroot(
         mount_cache = True
 
     if not full_chroot:
-        cmd += _collect_repos(
+        crepos = _collect_repos(
             mrepo, True, arch, True, use_stage, allow_network
         )
+    else:
+        crepos = []
 
-    return chroot.enter(
+    cmd += crepos
+
+    retv = chroot.enter(
         "apk", *cmd, *args, capture_output = capture_output,
         check = check, fakeroot = True, mount_binpkgs = True,
         mount_cbuild_cache = mount_cache
     )
+    if return_repos:
+        return retv, crepos
+    return retv
 
 def is_installed(pkgn, pkg = None):
     cpf = pkg.rparent.profile() if pkg else None
