@@ -1,0 +1,18 @@
+commit 7f928c742e825bd7bfaba5fea4d6ad4fb6dc2c1a
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun May 21 05:29:12 2023 +0200
+
+    let me fuse-ld in peace
+
+diff --git a/scripts/Makefile.clang b/scripts/Makefile.clang
+index 70b354fa1..b185e3b44 100644
+--- a/scripts/Makefile.clang
++++ b/scripts/Makefile.clang
+@@ -37,7 +37,6 @@ endif
+ CLANG_FLAGS	+= -Werror=unknown-warning-option
+ CLANG_FLAGS	+= -Werror=ignored-optimization-argument
+ CLANG_FLAGS	+= -Werror=option-ignored
+-CLANG_FLAGS	+= -Werror=unused-command-line-argument
+ KBUILD_CFLAGS	+= $(CLANG_FLAGS)
+ KBUILD_AFLAGS	+= $(CLANG_FLAGS)
+ export CLANG_FLAGS

@@ -1,0 +1,26 @@
+From cb91ac30c96a5c67342d6c66475ed8bf975e1125 Mon Sep 17 00:00:00 2001
+From: Ruinland Tsai <ruinland.tsai@sifive.com>
+Date: Wed, 13 Apr 2022 17:47:41 +0800
+Subject: [PATCH] Revert "riscv: dts: sifive unmatched: Link the tmp451 with
+ its power supply"
+
+This reverts commit f6f7fbb89bf8dc9132fde55cfe67483138eea880.
+---
+ arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts b/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts
+index c4ed9efdff03..b133ed417cd7 100644
+--- a/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts
++++ b/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dts
+@@ -101,7 +101,6 @@ &i2c0 {
+ 	temperature-sensor@4c {
+ 		compatible = "ti,tmp451";
+ 		reg = <0x4c>;
+-		vcc-supply = <&vdd_bpro>;
+ 		interrupt-parent = <&gpio>;
+ 		interrupts = <6 IRQ_TYPE_LEVEL_LOW>;
+ 	};
+-- 
+2.35.1
+
