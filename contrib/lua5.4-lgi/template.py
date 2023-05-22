@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["LUA_VERSION=5.4", "LUA_CFLAGS=-I/usr/include/lua5.4"]
+make_install_args = ["LUA_VERSION=5.4"]
 make_check_args = ["LUA=lua5.4"]
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = ["pkgconf", "gobject-introspection"]
