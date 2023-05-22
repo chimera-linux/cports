@@ -308,6 +308,7 @@ default_options = {
     "checkroot": (False, True),
     "installroot": (True, True),
     "keepempty": (False, False),
+    "keeplibtool": (False, False),
     "brokenlinks": (False, False),
     "hardlinks": (False, False),
     "autosplit": (True, False),
