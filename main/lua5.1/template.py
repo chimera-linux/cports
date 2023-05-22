@@ -13,6 +13,8 @@ url = "https://lua.org"
 source = f"https://www.lua.org/ftp/lua-{pkgver}.tar.gz"
 sha256 = "2640fc56a795f29d28ef15e13c34a47e223960b0240e8cb0a82d9b0738695333"
 tool_flags = {"CFLAGS": ["-fPIC", "-DLUA_USE_LINUX"]}
+# TODO: contrib/lua5.1-lgi test crash
+hardening = ["!int"]
 # no test suite
 options = ["!check"]
 
