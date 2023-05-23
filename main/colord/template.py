@@ -36,7 +36,7 @@ hardening = ["!int"]
 options = ["!check"]
 
 if self.profile().cross:
-    hostmakdepends.append("colord")
+    hostmakedepends.append("colord")
 
 system_users = [
     {
