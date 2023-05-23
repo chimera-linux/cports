@@ -261,7 +261,7 @@ class UpdateCheck:
             elif "//gitlab." in url or \
                  "salsa.debian.org" in url:
                 pn = "/".join(url.split("/")[0:5])
-                url = f"{pn}/tags"
+                url = f"{pn}/-/tags"
                 rx = fr"""
                     /archive/[^/]+/
                     {re.escape(pname)}-v?
