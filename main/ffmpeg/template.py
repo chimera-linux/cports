@@ -96,7 +96,7 @@ if self.profile().cross:
         "riscv64": "riscv",
         "x86_64": "x86_64",
     }
-    if self.profile().arch not in archmap:
+    if self.profile().arch not in _archmap:
         broken = f"unknown architecture: {self.profile().arch}"
 
     configure_args += [
