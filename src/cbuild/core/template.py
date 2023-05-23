@@ -1003,7 +1003,7 @@ class Template(Package):
             )
         # otherwise we're good
 
-    def is_built(self):
+    def is_built(self, quiet = False):
         pinfo = cli.call(
             "search", ["--from", "none", "-e", self.pkgname],
             self.repository, capture_output = True,
@@ -1013,7 +1013,7 @@ class Template(Package):
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
             foundp = pinfo.stdout.strip().decode()
             if foundp == f"{self.pkgname}-{self.pkgver}-r{self.pkgrel}":
-                if self.origin == self:
+                if self.origin == self and not quiet:
                     # TODO: print the repo somehow
                     self.log(f"found ({pinfo.stdout.strip().decode()})")
                 return True

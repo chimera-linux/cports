@@ -1072,7 +1072,7 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
     if tgt == "pkg" and (not opt_stage or bstage < 3):
         do_unstage(tgt, bstage < 3)
 
-def _bulkpkg(pkgs, statusf):
+def _bulkpkg(pkgs, statusf, do_build):
     import pathlib
     import graphlib
     import traceback
@@ -1236,7 +1236,8 @@ def _bulkpkg(pkgs, statusf):
         # record the template for later use
         templates[pn] = tp
 
-    # try building in sorted order
+    flist = []
+    # generate the final bulk list
     if not failed or opt_bulkcont:
         for pn in depg.static_order():
             # skip things that were not in the initial set
@@ -1244,29 +1245,38 @@ def _bulkpkg(pkgs, statusf):
                 continue
             tp = templates[pn]
             # if already built, mark it specially
-            if not opt_force and tp.is_built():
+            if not opt_force and tp.is_built(not do_build):
                 statusf.write(f"{pn} done\n")
                 continue
-            # if we previously failed and want it this way, skip
-            if failed and not opt_bulkcont:
-                statusf.write(f"{pn} skipped\n")
-                log.out_red(f"cbuild: skipping template '{pn}'")
-                continue
-            # ensure to write the status
-            broken = False
-            if _do_with_exc(lambda: build.build(
-                "pkg", templates[pn], {}, opt_signkey, dirty = False,
-                keep_temp = False, check_fail = opt_checkfail
-            )):
-                statusf.write(f"{pn} ok\n")
-            elif broken:
-                statusf.write(f"{pn} broken\n")
-            else:
-                statusf.write(f"{pn} failed\n")
+            flist.append(pn)
+
+    if not failed or opt_bulkcont:
+        if not do_build:
+            if len(flist) > 0:
+                print(" ".join(flist))
+        else:
+            for pn in flist:
+                tp = templates[pn]
+                # if we previously failed and want it this way, skip
+                if failed and not opt_bulkcont:
+                    statusf.write(f"{pn} skipped\n")
+                    log.out_red(f"cbuild: skipping template '{pn}'")
+                    continue
+                # ensure to write the status
+                broken = False
+                if _do_with_exc(lambda: build.build(
+                    "pkg", templates[pn], {}, opt_signkey, dirty = False,
+                    keep_temp = False, check_fail = opt_checkfail
+                )):
+                    statusf.write(f"{pn} ok\n")
+                elif broken:
+                    statusf.write(f"{pn} broken\n")
+                else:
+                    statusf.write(f"{pn} failed\n")
 
     if failed:
         raise errors.CbuildException(f"at least one bulk package failed")
-    elif not opt_stage:
+    elif not opt_stage and do_build:
         do_unstage("pkg", False)
 
 _repo_checked = False
@@ -1386,7 +1396,7 @@ def _collect_blist(pkgs):
     # uniq it while at it
     return list(set(rpkgs))
 
-def do_bulkpkg(tgt):
+def do_bulkpkg(tgt, do_build = True):
     import os
     import sys
     import subprocess
@@ -1409,7 +1419,7 @@ def do_bulkpkg(tgt):
         sout = open(os.devnull, "w")
 
     try:
-        _bulkpkg(pkgs, sout)
+        _bulkpkg(pkgs, sout, do_build)
     except:
         sout.close()
         raise
@@ -1501,6 +1511,7 @@ def fire():
             case "check" | "install" | "pkg": do_pkg(cmd)
             case "unstage": do_unstage(cmd)
             case "bulk-pkg": do_bulkpkg(cmd)
+            case "bulk-print": do_bulkpkg(cmd, False)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)
