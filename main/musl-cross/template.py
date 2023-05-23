@@ -118,9 +118,9 @@ def _gen_crossp(an, at):
     if cond:
         depends.append(f"musl-cross-{an}")
 
-for an in _targetlist:
-    with self.profile(an) as pf:
-        _gen_crossp(an, pf.triplet)
+for _an in _targetlist:
+    with self.profile(_an) as _pf:
+        _gen_crossp(_an, _pf.triplet)
 
 @subpackage("musl-cross-static")
 def _static(self):
