@@ -1072,7 +1072,7 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
     if tgt == "pkg" and (not opt_stage or bstage < 3):
         do_unstage(tgt, bstage < 3)
 
-def _bulkpkg(pkgs, statusf, do_build):
+def _bulkpkg(pkgs, statusf, do_build, do_raw):
     import pathlib
     import graphlib
     import traceback
@@ -1178,6 +1178,9 @@ def _bulkpkg(pkgs, statusf, do_build):
     # do not ignore missing tmpls because that is likely error in main tmpl
     pvisit = set(rpkgs)
     def handle_recdeps(pn, tp):
+        # in raw mode we don't care about ordering, taking it as is
+        if do_raw:
+            return True
         return _add_deps_graph(
             pn, tp, pvisit,
             lambda d: _do_with_exc(lambda: template.read_pkg(
@@ -1190,6 +1193,8 @@ def _bulkpkg(pkgs, statusf, do_build):
     rpkgs = sorted(list(rpkgs))
 
     # parse out all the templates first and grab their build deps
+    # in raw mode, we still generate the set, we need to parse the
+    # templates (but we won't be sorting it)
     for pn in rpkgs:
         # skip if previously failed and set that way
         if failed and not opt_bulkcont:
@@ -1239,7 +1244,12 @@ def _bulkpkg(pkgs, statusf, do_build):
     flist = []
     # generate the final bulk list
     if not failed or opt_bulkcont:
-        for pn in depg.static_order():
+        if do_raw:
+            ordl = pkgs
+        else:
+            ordl = depg.static_order()
+        # if we're raw, we iterate the input list as is
+        for pn in ordl:
             # skip things that were not in the initial set
             if not pn in templates:
                 continue
@@ -1396,13 +1406,17 @@ def _collect_blist(pkgs):
     # uniq it while at it
     return list(set(rpkgs))
 
-def do_bulkpkg(tgt, do_build = True):
+def do_bulkpkg(tgt, do_build = True, do_raw = False):
     import os
     import sys
     import subprocess
     from cbuild.core import errors
 
-    if len(cmdline.command) <= 1:
+    if do_raw:
+        if len(cmdline.command) <= 1:
+            raise errors.CbuildException(f"need at least one template")
+        pkgs = cmdline.command[1:]
+    elif len(cmdline.command) <= 1:
         pkgs = _collect_tmpls(None)
     else:
         pkgs = _collect_blist(cmdline.command[1:])
@@ -1419,7 +1433,7 @@ def do_bulkpkg(tgt, do_build = True):
         sout = open(os.devnull, "w")
 
     try:
-        _bulkpkg(pkgs, sout, do_build)
+        _bulkpkg(pkgs, sout, do_build, do_raw)
     except:
         sout.close()
         raise
@@ -1512,6 +1526,7 @@ def fire():
             case "unstage": do_unstage(cmd)
             case "bulk-pkg": do_bulkpkg(cmd)
             case "bulk-print": do_bulkpkg(cmd, False)
+            case "bulk-raw": do_bulkpkg(cmd, True, True)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)
