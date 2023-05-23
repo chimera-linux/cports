@@ -757,11 +757,7 @@ def _collect_tmpls(pkgn, catn = None):
                 tmpls.append(f"{cat.name}/{tmpl.name}")
 
     if catn:
-        cat = paths.distdir() / catn
-        # recursively scan categories
-        while cat.is_dir():
-            _scan_cat(cat)
-            cat = (cat / ".parent").resolve()
+        _scan_cat(paths.distdir() / catn)
     elif pkgn:
         tmpls.append(pkgn)
     else:
@@ -986,6 +982,94 @@ def do_print_build_graph(tgt):
             _print_deps(_read_pkg(dep), level + 1)
 
     _print_deps(root)
+
+def do_print_unbuilt(tgt):
+    from cbuild.core import chroot, template, paths, errors
+    from cbuild.apk import cli, util
+    import subprocess
+
+    cats = opt_allowcat.strip().split()
+    tarch = opt_arch if opt_arch else chroot.host_cpu()
+
+    # collect the templates we have
+    tmpls = []
+    for cat in cats:
+        tmpls += _collect_tmpls(None, cat)
+
+    # collect versions into a set
+    repovers = {}
+
+    def _collect_vers(repop):
+        if not (repop / tarch / "APKINDEX.tar.gz").is_file():
+            return
+        outp = subprocess.run([
+            paths.apk(), "--arch", tarch, "--allow-untrusted",
+            "--root", paths.bldroot(), "--repository", repop,
+            "search", "--from", "none", "-e", "-o", "-a"
+        ], capture_output = True)
+        if outp.returncode != 0:
+            return
+        for ver in outp.stdout.strip().split():
+            vers = ver.strip().decode()
+            pn, pv = util.get_namever(vers)
+            if pn in repovers:
+                continue
+            repovers[pn] = pv
+
+    # stage versions come first
+    for cat in cats:
+        _collect_vers(paths.stage_repository() / cat)
+    # actual repo
+    for cat in cats:
+        _collect_vers(paths.repository() / cat)
+
+    vers = []
+    mods = []
+
+    for pn in tmpls:
+        modv, tmplv = template.read_mod(
+            pn, tarch, True, False, (1, 1), False, False, None
+        )
+        # if something is wrong, mark it unbuilt, error on build later
+        if not hasattr(modv, "pkgname") or \
+           not hasattr(modv, "pkgver") or \
+           not hasattr(modv, "pkgrel"):
+            vers.append(pn)
+        # get the metadata we need
+        apn = getattr(modv, "pkgname")
+        apv = getattr(modv, "pkgver")
+        apr = getattr(modv, "pkgrel")
+        if apv is None or apr is None:
+            prv = ""
+        else:
+            prv = f"{apv}-r{apr}"
+        # skip templates that are exact match
+        if apn in repovers and repovers[apn] == prv:
+            continue
+        # otherwise build it
+        vers.append(pn)
+        mods.append((modv, tmplv))
+
+    if not vers:
+        return
+
+    fvers = []
+
+    # filter out stuff that cannot be built
+    for i in range(len(vers)):
+        try:
+            tmpl = template.from_module(*mods[i])
+        except errors.PackageException as e:
+            if e.broken:
+                continue
+        except Exception:
+            pass
+        fvers.append(vers[i])
+
+    if not fvers:
+        return
+
+    print(" ".join(fvers))
 
 def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot, logger, errors
@@ -1520,6 +1604,7 @@ def fire():
             case "update-check": do_update_check(cmd)
             case "dump": do_dump(cmd)
             case "print-build-graph": do_print_build_graph(cmd)
+            case "print-unbuilt": do_print_unbuilt(cmd)
             case "fetch" | "extract" | "prepare": do_pkg(cmd)
             case "patch" | "configure" | "build": do_pkg(cmd)
             case "check" | "install" | "pkg": do_pkg(cmd)

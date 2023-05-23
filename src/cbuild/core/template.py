@@ -1649,6 +1649,9 @@ def _interp_url(pkg, url):
     return re.sub(r"\$\((\w+)\)", matchf, url)
 
 def from_module(m, ret):
+    if not m:
+        return None
+
     # fill in mandatory fields
     for fl, dval, tp, mand, sp, inh in core_fields:
         # mandatory fields are all at the beginning
@@ -1957,7 +1960,7 @@ def from_module(m, ret):
 
 _tmpl_dict = {}
 
-def read_pkg(
+def read_mod(
     pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
     origin, resolve = None, ignore_missing = False, ignore_errors = False,
     target = None, force_check = False, allow_broken = False,
@@ -1991,11 +1994,11 @@ def read_pkg(
                         break
         if not resolved:
             if ignore_missing:
-                return None
+                return None, None
             raise errors.CbuildException(f"missing template for '{pkgname}'")
     elif not (paths.distdir() / pkgname / "template.py").is_file():
         if ignore_missing:
-            return None
+            return None, None
         raise errors.CbuildException(f"missing template for '{pkgname}'")
 
     ret = Template(pkgname, origin)
@@ -2054,6 +2057,19 @@ def read_pkg(
     delattr(builtins, "self")
     delattr(builtins, "subpackage")
 
+    return modh, ret
+
+def read_pkg(
+    pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
+    origin, resolve = None, ignore_missing = False, ignore_errors = False,
+    target = None, force_check = False, allow_broken = False,
+    autopkg = False, stage = 3, bulk_mode = False
+):
+    modh, ret = read_mod(
+        pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
+        origin, resolve, ignore_missing, ignore_errors, target, force_check,
+        allow_broken, autopkg, stage, bulk_mode
+    )
     return from_module(modh, ret)
 
 def register_cats(cats):

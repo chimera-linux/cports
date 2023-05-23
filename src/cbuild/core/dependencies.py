@@ -16,16 +16,21 @@ def _srcpkg_ver(pkgn, pkgb):
     if pkgn in _tcache:
         return _tcache[pkgn]
 
-    rv = template.read_pkg(
+    modv, tmplv = template.read_mod(
         pkgn, pkgb.profile().arch,
         True, False, (1, 1), False, False, None,
         resolve = pkgb, ignore_missing = True, ignore_errors = True,
         autopkg = True
     )
-    if not rv:
+    if not modv or not hasattr(modv, "pkgver") or not hasattr(modv, "pkgrel"):
         return None
 
-    cv = f"{rv.pkgver}-r{rv.pkgrel}"
+    pver = getattr(modv, "pkgver")
+    prel = getattr(modv, "pkgrel")
+    if pver is None or prel is None:
+        return None
+
+    cv = f"{pver}-r{prel}"
     _tcache[pkgn] = cv
 
     return cv
@@ -148,27 +153,6 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
             pkg.logger.out_plain(outx)
         pkg.error(f"failed to install dependencies")
 
-def _extract_ver(pkgp):
-    # maybe version dash
-    fdash = pkgp.find("-")
-    # invalid ver (ver should be FOO-VER-rREV)
-    if fdash < 0:
-        return None
-    # maybe revision dash
-    sdash = pkgp.find("-", fdash + 1)
-    # invalid ver again
-    if sdash < 0:
-        return None
-    # now get rid of any remaining dashes
-    while True:
-        ndash = pkgp.find("-", sdash + 1)
-        if ndash < 0:
-            break
-        fdash = sdash
-        sdash = ndash
-    # and return ver
-    return pkgp[fdash + 1:]
-
 def _is_available(pkgn, pkgop, pkgv, pkg, host = False):
     if not host and pkg.profile().cross:
         sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
@@ -200,7 +184,8 @@ def _is_available(pkgn, pkgop, pkgv, pkg, host = False):
 
     # we don't care about ver so take latest (it's what apk would install)
     if not pkgv:
-        return _extract_ver(pn[-1])
+        nn, nv = autil.get_namever(pn[-1])
+        return nv
 
     ppat = pkgn + pkgop + pkgv
 
@@ -215,7 +200,8 @@ def _is_available(pkgn, pkgop, pkgv, pkg, host = False):
 
     # only one version, so it's unambiguous
     if len(pn) == 1:
-        return _extract_ver(pn[-1])
+        nn, nv = autil.get_namever(pn[-1])
+        return nv
 
     # now check repos individually in priority order
     for cr in crepos:
@@ -226,7 +212,8 @@ def _is_available(pkgn, pkgop, pkgv, pkg, host = False):
         # highest priority repo takes all
         if len(pn) > 0:
             if autil.pkg_match(pn[0], ppat):
-                return _extract_ver(pn[0])
+                nn, nv = autil.get_namever(pn[0])
+                return nv
             return None
 
     # no match in individual repos? this should be unreachable
