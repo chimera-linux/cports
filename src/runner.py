@@ -1024,12 +1024,15 @@ def do_print_unbuilt(tgt):
         _collect_vers(paths.repository() / cat)
 
     vers = []
-    mods = []
+    mods = {}
 
     for pn in tmpls:
         modv, tmplv = template.read_mod(
-            pn, tarch, True, False, (1, 1), False, False, None
+            pn, tarch, True, False, (1, 1), False, False, None,
+            # we don't care about linting etc here
+            ignore_errors = True
         )
+        mods[pn] = (modv, tmplv)
         # if something is wrong, mark it unbuilt, error on build later
         if not hasattr(modv, "pkgname") or \
            not hasattr(modv, "pkgver") or \
@@ -1048,23 +1051,65 @@ def do_print_unbuilt(tgt):
             continue
         # otherwise build it
         vers.append(pn)
-        mods.append((modv, tmplv))
 
     if not vers:
         return
 
     fvers = []
+    tmpls = {}
 
-    # filter out stuff that cannot be built
-    for i in range(len(vers)):
+    def _get_tmpl(pn):
         try:
-            tmpl = template.from_module(*mods[i])
+            tmpls[pn] = template.from_module(*mods[pn])
         except errors.PackageException as e:
             if e.broken:
-                continue
+                # sentinel
+                tmpls[pn] = True
+                return True
+            tmpls[pn] = False
         except Exception:
-            pass
-        fvers.append(vers[i])
+            tmpls[pn] = False
+        return False
+
+    def _check_tmpls(tmpl):
+        # if it's unparseable, attempt it anyway (don't consider it broken)
+        if tmpl is False:
+            return False
+        # if it's in repo, take the fast path (we want to keep track)
+        if tmpl.pkgname in repovers:
+            return False
+        # else go over all the deps and check them individually
+        for dpn in tmpl.get_build_deps():
+            if dpn in tmpls:
+                if tmpls[dpn] is True:
+                    return True
+            else:
+                if _get_tmpl(dpn):
+                    return True
+            # recurse
+            if _check_tmpls(tmpls[dpn]):
+                return True
+        # if we're not explicitly broken anywhere, consider it
+        return False
+
+    # filter out stuff that cannot be built
+    for pn in vers:
+        if _get_tmpl(pn):
+            continue
+        fvers.append(pn)
+
+    if not fvers:
+        return
+
+    vers = fvers
+    fvers = []
+
+    # filter out stuff potentially not recursively buidlable
+    for pn in vers:
+        # recursively check for explicit brokenness
+        if _check_tmpls(tmpls[pn]):
+            continue
+        fvers.append(pn)
 
     if not fvers:
         return

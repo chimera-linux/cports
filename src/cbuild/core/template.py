@@ -1864,7 +1864,7 @@ def from_module(m, ret):
         # go
         ret.subpkg_list.append(sp)
 
-    ierr = ret._ignore_errors or ret._allow_broken
+    ierr = ret._allow_broken
 
     if ret.broken and not ierr:
         ret.error(
@@ -1884,7 +1884,7 @@ def from_module(m, ret):
             broken = True
         )
 
-    if ret.stage == 0 and not ret.options["bootstrap"] and not ierr:
+    if ret.stage == 0 and not ret.options["bootstrap"] and not ret._ignore_errors:
         ret.error("attempt to bootstrap a non-bootstrap package")
 
     # fill the remaining toolflag lists so it's complete
