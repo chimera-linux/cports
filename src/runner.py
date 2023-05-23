@@ -1071,8 +1071,10 @@ def do_print_unbuilt(tgt):
             tmpls[pn] = False
         return False
 
-    def _check_tmpls(tmpl):
+    def _check_tmpls(pn):
+        tmpl = tmpls[pn]
         # if it's unparseable, attempt it anyway (don't consider it broken)
+        # alternatively it may mean we've already gone through it
         if tmpl is False:
             return False
         # if it's in repo, take the fast path (we want to keep track)
@@ -1087,8 +1089,10 @@ def do_print_unbuilt(tgt):
                 if _get_tmpl(dpn):
                     return True
             # recurse
-            if _check_tmpls(tmpls[dpn]):
+            if _check_tmpls(dpn):
                 return True
+        # mark it, don't need to go over it again
+        tmpls[pn] = False
         # if we're not explicitly broken anywhere, consider it
         return False
 
@@ -1107,7 +1111,7 @@ def do_print_unbuilt(tgt):
     # filter out stuff potentially not recursively buidlable
     for pn in vers:
         # recursively check for explicit brokenness
-        if _check_tmpls(tmpls[pn]):
+        if _check_tmpls(pn):
             continue
         fvers.append(pn)
 
