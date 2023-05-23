@@ -3,6 +3,7 @@ _kernver = "6.1.23"
 _zfsver = "2.1.11"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
+archs = ["aarch64"]
 hostmakedepends = ["gmake", "perl", "python", "ckms"]
 makedepends = ["linux-rpi-devel", "zfs-ckms"]
 # provides the same thing as the ckms variant
