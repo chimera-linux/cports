@@ -295,7 +295,7 @@ def do_install(self):
         self.log(f"unpacking {f}...")
         _untar(self, f)
 
-    self.log(f"unpacking rust-src...")
+    self.log("unpacking rust-src...")
     _untar(self, "rust-src", False)
 
     # remove rust copies of llvm tools

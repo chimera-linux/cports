@@ -1,6 +1,3 @@
-from cbuild.core import paths
-
-
 def _make_crossfile(pkg, build_dir):
     if not pkg.profile().cross:
         return

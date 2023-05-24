@@ -106,8 +106,8 @@ def do_build(self):
     self.do(
         self.chroot_cwd / "bootstrap.sh",
         f"--prefix={self.chroot_destdir}/usr",
-        f"--with-python=/usr/bin/python",
-        f"--with-python-root=/usr",
+        "--with-python=/usr/bin/python",
+        "--with-python-root=/usr",
     )
 
     with open(self.cwd / "user-config.jam", "w") as cf:
@@ -162,7 +162,7 @@ def do_check(self):
     )
 
 
-@subpackage(f"boost-build")
+@subpackage("boost-build")
 def _jam(self):
     self.pkgdesc = f"{pkgdesc} (Boost.Build framework)"
     self.depends = [f"boost={pkgver}-r{pkgrel}"]
@@ -171,7 +171,7 @@ def _jam(self):
     return ["usr/bin/b2", "etc/site-config.jam", "usr/share/b2"]
 
 
-@subpackage(f"boost-devel")
+@subpackage("boost-devel")
 def _devel(self):
     self.depends = [f"boost={pkgver}-r{pkgrel}"] + makedepends
     self.provides = [f"boost{pkgver[:-2]}-devel={pkgver}-r{pkgrel}"]

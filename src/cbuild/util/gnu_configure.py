@@ -1,7 +1,6 @@
 from cbuild.core import logger, paths
 from cbuild.util import make
 
-import re
 import shutil
 import shlex
 
@@ -121,8 +120,8 @@ def configure(
             "ppc64": ["powerpc-common", "powerpc-linux", "powerpc64-linux"],
             "x86_64": ["x86_64-linux"],
         }.get(pkg.profile().arch, [])
-        for l in cl:
-            _read_cache(cachedir, l, eenv)
+        for ln in cl:
+            _read_cache(cachedir, ln, eenv)
     else:
         _read_cache(cachedir, "musl-linux", eenv)
 

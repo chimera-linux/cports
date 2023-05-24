@@ -63,7 +63,7 @@ def post_install(self):
     # some packages look for -lcurses during build
     self.rm(self.destdir / "usr/lib/libcursesw.so", force=True)
     with open(self.destdir / "usr/lib/libcursesw.so", "w") as f:
-        f.write(f"INPUT(-lncursesw)\n")
+        f.write("INPUT(-lncursesw)\n")
     (self.destdir / "usr/lib/libcursesw.so").chmod(0o755)
 
     self.rm(self.destdir / "usr/lib/libcurses.so", force=True)

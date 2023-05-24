@@ -1,5 +1,4 @@
 import shutil
-import subprocess
 import stat
 
 
@@ -18,7 +17,7 @@ def make_debug(pkg, f, relf):
             pkg.chroot_destdir / relf,
             cfile,
         )
-    except:
+    except Exception:
         pkg.error(f"failed to create dbg file for {relf}")
 
     dfile.chmod(0o644)
@@ -35,7 +34,7 @@ def attach_debug(pkg, f, relf):
             f"--add-gnu-debuglink={cfile}",
             pkg.chroot_destdir / relf,
         )
-    except:
+    except Exception:
         pkg.error(f"failed to attach debug link to {relf}")
 
 
@@ -103,7 +102,7 @@ def invoke(pkg):
             if not pkg.rparent.has_lto() or pkg.options["ltostrip"]:
                 try:
                     pkg.rparent.do(strip_path, "--strip-debug", cfile)
-                except:
+                except Exception:
                     pkg.error(f"failed to strip {vr}")
 
                 print(f"   Stripped static library: {vr}")
@@ -117,7 +116,7 @@ def invoke(pkg):
             _sanitize_exemode(v)
             try:
                 pkg.rparent.do(strip_path, cfile)
-            except:
+            except Exception:
                 pkg.error(f"failed to strip {vr}")
 
             print(f"   Stripped static executable: {vr}")
@@ -143,7 +142,7 @@ def invoke(pkg):
             make_debug(pkg, v, vr)
             try:
                 pkg.rparent.do(strip_path, cfile)
-            except:
+            except Exception:
                 pkg.error(f"failed to strip {vr}")
 
             print(f"   Stripped executable: {vr}")
@@ -167,7 +166,7 @@ def invoke(pkg):
         make_debug(pkg, v, vr)
         try:
             pkg.rparent.do(strip_path, "--strip-unneeded", cfile)
-        except:
+        except Exception:
             pkg.error(f"failed to strip {vr}")
 
         if interp:
@@ -193,7 +192,7 @@ def invoke(pkg):
     # move debug symbols
     try:
         shutil.move(pkg.destdir / "usr/lib/debug", ddest / "usr/lib")
-    except:
+    except Exception:
         pkg.error("failed to create debug package")
 
     # try removing the libdir

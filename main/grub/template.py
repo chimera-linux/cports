@@ -99,7 +99,7 @@ def do_configure(self):
     self.do(
         self.chroot_cwd / "configure",
         f"--host={self.profile().triplet}",
-        f"--with-platform=none",
+        "--with-platform=none",
         *configure_args,
         wrksrc="build",
         env={"MAKE": "gmake"},

@@ -46,7 +46,7 @@ options = ["!lto", "!cross"]
 
 @subpackage("vte-gtk3")
 def _gtk3(self):
-    self.pkgdesc = f"Gtk+3 terminal widget"
+    self.pkgdesc = "Gtk+3 terminal widget"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     return [
         "usr/bin/vte-2.91",
@@ -57,7 +57,7 @@ def _gtk3(self):
 
 @subpackage("vte-gtk4")
 def _gtk4(self):
-    self.pkgdesc = f"Gtk4 terminal widget"
+    self.pkgdesc = "Gtk4 terminal widget"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     return [
         "usr/bin/vte-2.91-gtk4",
@@ -68,7 +68,7 @@ def _gtk4(self):
 
 @subpackage("vte-gtk3-devel")
 def _gtk3_devel(self):
-    self.pkgdesc = f"Gtk+3 terminal widget (development files)"
+    self.pkgdesc = "Gtk+3 terminal widget (development files)"
     return [
         "usr/include/vte-2.91/vte",
         "usr/lib/libvte-2.91.so",
@@ -80,7 +80,7 @@ def _gtk3_devel(self):
 
 @subpackage("vte-gtk4-devel")
 def _devel(self):
-    self.pkgdesc = f"Gtk4 terminal widget (development files)"
+    self.pkgdesc = "Gtk4 terminal widget (development files)"
     return [
         "usr/include/vte-2.91-gtk4/vte",
         "usr/lib/libvte-2.91-gtk4.so",

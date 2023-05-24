@@ -1,5 +1,5 @@
 pkgname = "gcab"
-pkgver = f"1.5"
+pkgver = "1.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true", "-Ddocs=false"]

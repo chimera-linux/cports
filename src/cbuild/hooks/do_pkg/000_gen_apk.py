@@ -1,7 +1,6 @@
 from cbuild.core import logger, paths, template, chroot
 from cbuild.apk import sign as asign
 
-import glob
 import shlex
 import pathlib
 import subprocess
@@ -19,7 +18,7 @@ _scriptlets = {
 
 def genpkg(pkg, repo, arch, binpkg):
     if not pkg.destdir.is_dir():
-        pkg.log_warn(f"cannot find pkg destdir, skipping...")
+        pkg.log_warn("cannot find pkg destdir, skipping...")
         return
 
     binpath = repo / binpkg
@@ -246,7 +245,7 @@ set -e
         if ret.returncode != 0:
             logger.get().out_plain(">> stderr:")
             logger.get().out_plain(ret.stderr.decode())
-            pkg.error(f"failed to generate package")
+            pkg.error("failed to generate package")
 
     finally:
         pkg.rparent._stage[repo] = True

@@ -56,7 +56,7 @@ def split_pkg_name(s):
     for i in range(len(sv)):
         if sv[i].isdigit():
             op = sv[0:i]
-            if not op in _valid_ops:
+            if op not in _valid_ops:
                 return None, None, None
             return sn, sv[i:], op
 

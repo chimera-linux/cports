@@ -61,14 +61,14 @@ def _devel(self):
 
 
 @subpackage("libpoppler-cpp")
-def _lib(self):
+def _cpp_lib(self):
     self.pkgdesc = f"{pkgdesc} (C++ binding)"
 
     return ["usr/lib/libpoppler-cpp.so.*"]
 
 
 @subpackage("libpoppler-cpp-devel")
-def _devel(self):
+def _cpp_devel(self):
     self.pkgdesc = f"{pkgdesc} (C++ development files)"
     self.depends += [f"libpoppler-devel={pkgver}-r{pkgrel}"]
 
@@ -80,14 +80,14 @@ def _devel(self):
 
 
 @subpackage("libpoppler-glib")
-def _lib(self):
+def _glib(self):
     self.pkgdesc = f"{pkgdesc} (GLib binding)"
 
     return ["usr/lib/libpoppler-glib.so.*", "usr/lib/girepository-1.0"]
 
 
 @subpackage("libpoppler-glib-devel")
-def _devel(self):
+def _glib_devel(self):
     self.pkgdesc = f"{pkgdesc} (GLib development files)"
     self.depends += [f"libpoppler-devel={pkgver}-r{pkgrel}"]
 

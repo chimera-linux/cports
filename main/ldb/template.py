@@ -46,14 +46,14 @@ def _devel(self):
 
 
 @subpackage("libpyldb-util")
-def _devel(self):
+def _util(self):
     self.pkgdesc = f"{pkgdesc} (Python utility library)"
 
     return ["usr/lib/libpyldb-util.so.*"]
 
 
 @subpackage("ldb-python")
-def _devel(self):
+def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
     self.depends += ["python"]
 

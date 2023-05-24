@@ -304,8 +304,8 @@ def do_install(self):
 
     self.install_license("WHENCE")
 
-    for l in self.cwd.glob("LICEN*"):
-        self.install_license(l)
+    for lc in self.cwd.glob("LICEN*"):
+        self.install_license(lc)
 
 
 # remove unused junk
@@ -340,7 +340,7 @@ def post_install(self):
 
 
 @subpackage("firmware-linux-audio")
-def _gpu(self):
+def _audio(self):
     self.pkgdesc = f"{pkgdesc} (audio)"
     self.build_style = "meta"
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
@@ -367,7 +367,7 @@ def _net(self):
 
 
 @subpackage("firmware-linux-storage")
-def _soc(self):
+def _storage(self):
     self.pkgdesc = f"{pkgdesc} (storage devices)"
     self.build_style = "meta"
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]

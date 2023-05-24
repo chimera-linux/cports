@@ -71,7 +71,7 @@ def _devel(self):
 
 @subpackage("bluez-cups")
 def _cups(self):
-    self.pkgdesc = f"CUPS printer backend for Bluetooth printers"
+    self.pkgdesc = "CUPS printer backend for Bluetooth printers"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "cups"]
 
     return ["usr/lib/cups/backend/bluetooth"]

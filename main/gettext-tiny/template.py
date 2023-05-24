@@ -11,6 +11,7 @@ tool_flags = {"CFLAGS": ["-fPIC"]}
 # no test suite; do not LTO (pointless and better not have libintl be bitcode)
 options = ["!check", "!lto"]
 
+
 # build manually as we can't depend on gmake during this point in bootstrap
 def do_build(self):
     from cbuild.util import compiler
@@ -29,8 +30,8 @@ def do_build(self):
     self.cp("src/xgettext.sh", "xgettext")
     with open(self.cwd / "autopoint", "w") as ap:
         with open(self.cwd / "src/autopoint.in") as iap:
-            for l in iap:
-                ap.write(l.replace("@datadir@", "/usr/share/gettext-tiny"))
+            for ln in iap:
+                ap.write(ln.replace("@datadir@", "/usr/share/gettext-tiny"))
 
     # libintl
     cc.invoke(["libintl/libintl-musl.c"], "libintl-musl.o", obj_file=True)

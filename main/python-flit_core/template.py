@@ -1,7 +1,7 @@
 pkgname = "python-flit_core"
 pkgver = "3.8.0"
 pkgrel = 0
-build_wrksrc = f"flit_core"
+build_wrksrc = "flit_core"
 build_style = "python_pep517"
 hostmakedepends = ["python-pip"]
 checkdepends = ["python-pytest", "python-tomli"]

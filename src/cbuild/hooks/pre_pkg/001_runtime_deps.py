@@ -4,7 +4,6 @@ from cbuild.apk import cli
 import re
 import os
 import pathlib
-import subprocess
 
 
 def _scan_so(pkg):
@@ -115,7 +114,7 @@ def _scan_so(pkg):
             pkg.depends[pkg.depends.index(k)] = kv
         except ValueError:
             # if the exact dependency is already present, skip it
-            if not kv in pkg.depends:
+            if kv not in pkg.depends:
                 pkg.depends.append(kv)
 
     if broken:
@@ -321,7 +320,7 @@ def _scan_symlinks(pkg):
             pkg.depends[pkg.depends.index(k)] = kv
         except ValueError:
             # if the exact dependency is already present, skip it
-            if not kv in pkg.depends:
+            if kv not in pkg.depends:
                 pkg.depends.append(kv)
 
 

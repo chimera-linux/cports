@@ -1,11 +1,8 @@
 import subprocess
 import os
 import re
-import glob
 import time
 import shutil
-import shlex
-import getpass
 import pathlib
 import binascii
 from tempfile import mkstemp, mkdtemp
@@ -76,10 +73,10 @@ def _prepare_etc():
     shutil.copy(bfp / "etc/group", tfp)
 
     with open(tfp / "passwd", "a") as pf:
-        pf.write(f"cbuild:x:1337:1337:cbuild user:/tmp:/bin/nologin\n")
+        pf.write("cbuild:x:1337:1337:cbuild user:/tmp:/bin/nologin\n")
 
     with open(tfp / "group", "a") as pf:
-        pf.write(f"cbuild:x:1337:\n")
+        pf.write("cbuild:x:1337:\n")
 
     # machine-id for cbuild
     with open(tfp / "machine-id", "w") as mf:
@@ -204,7 +201,7 @@ def shell_update(rnet):
         ).returncode
         != 0
     ):
-        raise errors.CbuildException(f"failed to update pkg database")
+        raise errors.CbuildException("failed to update pkg database")
 
 
 def initdb(path=None):
@@ -346,13 +343,13 @@ def _setup_dummy(rootp, archn):
                 "--info",
                 f"version:{pkgv}",
                 "--info",
-                f"description:Target sysroot virtual provider",
+                "description:Target sysroot virtual provider",
                 "--info",
                 f"arch:{archn}",
                 "--info",
                 f"origin:{pkgn}",
                 "--info",
-                f"url:https://chimera-linux.org",
+                "url:https://chimera-linux.org",
                 "--info",
                 f"build-time:{int(epoch)}",
                 "--info",
@@ -538,7 +535,7 @@ def update(pkg):
         apki.call("update", ["-q"], pkg, root=rootp, arch=prof.arch).returncode
         != 0
     ):
-        raise errors.CbuildException(f"failed to update cross pkg database")
+        raise errors.CbuildException("failed to update cross pkg database")
 
 
 def enter(

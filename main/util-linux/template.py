@@ -139,7 +139,7 @@ def _dmesg(self):
 
 @subpackage("mount")
 def _mnt(self):
-    self.pkgdesc = f"The mount(8) program and related utilities"
+    self.pkgdesc = "The mount(8) program and related utilities"
     self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
     self.suid_files = [
         "usr/bin/mount",
@@ -210,7 +210,7 @@ def _mnt_devel(self):
 
 @subpackage("fdisk")
 def _fdisk(self):
-    self.pkgdesc = f"The fdisk(8) program and related utilities"
+    self.pkgdesc = "The fdisk(8) program and related utilities"
     self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
 
     return [

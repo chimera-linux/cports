@@ -29,7 +29,7 @@ def do_build(self):
     for an in _targets:
         with self.profile(an) as pf:
             at = pf.triplet
-            with self.stamp(f"{an}_build") as s:
+            with self.stamp(f"{an}_build"):
                 self.cp("build", f"build-{an}", recursive=True)
                 self.make.build(
                     [
@@ -64,7 +64,7 @@ def _gen_crossp(an, at):
     cond = an in _targets
 
     @subpackage(f"libatomic-chimera-cross-{an}-static", cond)
-    def _subp(self):
+    def _subp_static(self):
         self.pkgdesc = f"{pkgdesc} (static {an} support)"
         self.depends = [f"libatomic-chimera-cross-{an}={pkgver}-r{pkgrel}"]
         return [f"usr/{at}/usr/lib/libatomic.a"]
@@ -85,9 +85,9 @@ def _gen_crossp(an, at):
         depends.append(f"libatomic-chimera-cross-{an}")
 
 
-for an in _targetlist:
-    with self.profile(an) as pf:
-        _gen_crossp(an, pf.triplet)
+for _an in _targetlist:
+    with self.profile(_an) as _pf:
+        _gen_crossp(_an, _pf.triplet)
 
 
 @subpackage("libatomic-chimera-cross-static")

@@ -84,7 +84,7 @@ class SPDXParser:
                 self.stream = self.stream[idlen:]
                 return tok
             # this must be a license id
-            if not tok in self.ldict and not tok in self.edict:
+            if tok not in self.ldict and tok not in self.edict:
                 raise RuntimeError("unknown token: " + tok)
             # may be directly followed by a +
             if self.stream[idlen : idlen + 1] == "+":
@@ -114,7 +114,7 @@ class SPDXParser:
             self.token = self.lex()
             return
         # not a custom license
-        if not tok in self.ldict:
+        if tok not in self.ldict:
             raise RuntimeError("license id expected, got: " + tok)
         # check for exception
         self.token = self.lex()
@@ -126,7 +126,7 @@ class SPDXParser:
             if self.token.startswith("custom:"):
                 self.token = self.lex()
                 return
-            if not self.token in self.edict:
+            if self.token not in self.edict:
                 raise RuntimeError("exception id expected, got: " + self.token)
             self.token = self.lex()
 
@@ -140,7 +140,7 @@ class SPDXParser:
                 break
             # we're expecting an operator to be here
             # if it's not one, let the parent call handle it
-            if not self.token in _opprec:
+            if self.token not in _opprec:
                 break
             # deal with precedence
             oprec = _opprec[self.token]

@@ -41,7 +41,7 @@ def _devel(self):
 
 
 @subpackage("imlib2-progs")
-def _devel(self):
+def _progs(self):
     return self.default_progs()
 
 

@@ -1,7 +1,4 @@
-from cbuild.core import chroot, logger
-from cbuild.apk import cli
-
-import re
+from cbuild.core import logger
 
 
 def invoke(pkg):

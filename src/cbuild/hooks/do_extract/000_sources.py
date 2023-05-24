@@ -2,7 +2,6 @@ from cbuild.core import chroot, paths
 from fnmatch import fnmatch
 import pathlib
 import tempfile
-import shutil
 
 suffixes = {
     "*.tar.lzma": "txz",
@@ -117,8 +116,8 @@ def invoke(pkg):
     if wpath.exists():
         try:
             wpath.rmdir()
-        except:
-            pkg.error(f"cannot populate wrksrc (it exists and is dirty)")
+        except Exception:
+            pkg.error("cannot populate wrksrc (it exists and is dirty)")
     # now extract in a temporary place
     with tempfile.TemporaryDirectory(dir=pkg.builddir) as extractdir:
         # need to be able to manipulate it
@@ -133,7 +132,7 @@ def invoke(pkg):
                 elif isinstance(d[1], bool):
                     doext = d[1]
             # specifically False, skip
-            if doext == False:
+            if doext is False:
                 continue
             # tuple-specified filename
             if isinstance(d, tuple) and not isinstance(d[1], bool):

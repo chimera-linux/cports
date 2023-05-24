@@ -62,7 +62,7 @@ def patch(pkg, patch_path, wrksrc=None, patch_args=[]):
 
     try:
         shutil.copy(patch_path, wdir)
-    except:
+    except Exception:
         pkg.error(f"could not copy patch '{patchfn}'")
 
     if patchsfx == ".gz":

@@ -3,10 +3,8 @@
 #
 # It also provides a reference to what is allowed and what is not.
 
-from re import search
 import fnmatch
 import shutil
-import shlex
 import time
 import glob
 import sys
@@ -17,13 +15,11 @@ import importlib.util
 import pathlib
 import contextlib
 import subprocess
-import shutil
 import builtins
-import configparser
 
 from cbuild.core import logger, chroot, paths, profile, spdx, errors
 from cbuild.util import compiler
-from cbuild.apk import cli, util as autil
+from cbuild.apk import cli
 
 
 class SkipPackage(Exception):
@@ -88,7 +84,6 @@ def redir_allout(logpath):
 def _submove(src, dest, root):
     src = pathlib.Path(src)
     dirs = src.parent
-    fname = src.name
     ddirs = dest / dirs
 
     ddirs.mkdir(parents=True, exist_ok=True)
@@ -545,6 +540,7 @@ sites = {
     "kde": "https://download.kde.org/stable",
 }
 
+
 # for defaults, always make copies
 def copy_of_dval(val):
     if isinstance(val, list):
@@ -609,7 +605,7 @@ class Template(Package):
             # try resolving it, if it resolves, consider it
             try:
                 rp = rp.readlink()
-            except:
+            except Exception:
                 break
             # it resolved, consider the name
             crepo = rp.name
@@ -815,7 +811,7 @@ class Template(Package):
 
         try:
             uval = urlparse(self.url)
-        except:
+        except Exception:
             succ = False
 
         if not succ:
@@ -953,6 +949,7 @@ class Template(Package):
         # (i.e. having more non-pattern characters) trumps the previous one
         prevmatch = None
         prevneg = False
+
         # function to find number of exact chars in both patterns
         def _find_exact(s):
             i = 0
@@ -1226,7 +1223,7 @@ class Template(Package):
         )
 
     def get_tool(self, name, target=None):
-        if not name in self.tools:
+        if name not in self.tools:
             return None
 
         target = pkg_profile(self, target)
@@ -1268,7 +1265,7 @@ class Template(Package):
             self._current_profile = old_tgt
 
     def profile(self, target=None):
-        if target == None:
+        if target is None:
             return self._current_profile
         return self._profile(target)
 
@@ -1358,7 +1355,7 @@ class Template(Package):
                     )
                 try:
                     cat = int(absmn.suffix[1:])
-                except:
+                except Exception:
                     raise errors.TracebackException(
                         f"install_man: manpage '{mnf}' has an invalid section"
                     )
@@ -1678,9 +1675,9 @@ class Subpackage(Package):
         return func
 
 
-def _subpkg_install_list(self, l):
+def _subpkg_install_list(self, lst):
     def real_install():
-        for it in l:
+        for it in lst:
             self.take(it)
 
     return real_install
@@ -1694,7 +1691,7 @@ def _interp_url(pkg, url):
 
     def matchf(m):
         mw = m.group(1).removesuffix("_SITE").lower()
-        if not mw in sites:
+        if mw not in sites:
             pkg.error(f"malformed source URL '{url}'", bt=True)
         return sites[mw]
 
@@ -1754,7 +1751,7 @@ def from_module(m, ret):
             neg = opt.startswith("!")
             if neg:
                 opt = opt[1:]
-            if not opt in ropts:
+            if opt not in ropts:
                 ret.error("unknown option: %s" % opt)
             ropts[opt] = not neg
 
@@ -1914,7 +1911,7 @@ def from_module(m, ret):
                 neg = opt.startswith("!")
                 if neg:
                     opt = opt[1:]
-                if not opt in ropts:
+                if opt not in ropts:
                     ret.error("unknown subpackage option: %s" % opt)
                 ropts[opt] = not neg
 
@@ -1965,7 +1962,7 @@ def from_module(m, ret):
 
     # fill the remaining toolflag lists so it's complete
     for tf in ret.profile()._get_supported_tool_flags():
-        if not tf in ret.tool_flags:
+        if tf not in ret.tool_flags:
             ret.tool_flags[tf] = []
 
     # when bootstrapping, use a fixed set of tools; none of the bootstrap
@@ -1990,31 +1987,31 @@ def from_module(m, ret):
         ret.tools["READELF"] = "readelf"
         ret.tools["PKG_CONFIG"] = "pkg-config"
     else:
-        if not "CC" in ret.tools:
+        if "CC" not in ret.tools:
             ret.tools["CC"] = "clang"
-        if not "CXX" in ret.tools:
+        if "CXX" not in ret.tools:
             ret.tools["CXX"] = "clang++"
-        if not "CPP" in ret.tools:
+        if "CPP" not in ret.tools:
             ret.tools["CPP"] = "clang-cpp"
-        if not "LD" in ret.tools:
+        if "LD" not in ret.tools:
             ret.tools["LD"] = "ld"
-        if not "PKG_CONFIG" in ret.tools:
+        if "PKG_CONFIG" not in ret.tools:
             ret.tools["PKG_CONFIG"] = "pkg-config"
-        if not "NM" in ret.tools:
+        if "NM" not in ret.tools:
             ret.tools["NM"] = "llvm-nm"
-        if not "AR" in ret.tools:
+        if "AR" not in ret.tools:
             ret.tools["AR"] = "llvm-ar"
-        if not "AS" in ret.tools:
+        if "AS" not in ret.tools:
             ret.tools["AS"] = "clang"
-        if not "RANLIB" in ret.tools:
+        if "RANLIB" not in ret.tools:
             ret.tools["RANLIB"] = "llvm-ranlib"
-        if not "STRIP" in ret.tools:
+        if "STRIP" not in ret.tools:
             ret.tools["STRIP"] = "llvm-strip"
-        if not "OBJDUMP" in ret.tools:
+        if "OBJDUMP" not in ret.tools:
             ret.tools["OBJDUMP"] = "llvm-objdump"
-        if not "OBJCOPY" in ret.tools:
+        if "OBJCOPY" not in ret.tools:
             ret.tools["OBJCOPY"] = "llvm-objcopy"
-        if not "READELF" in ret.tools:
+        if "READELF" not in ret.tools:
             ret.tools["READELF"] = "llvm-readelf"
 
     # ensure sources and checksums are a list

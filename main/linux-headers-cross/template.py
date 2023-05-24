@@ -25,7 +25,6 @@ _targets = list(filter(lambda p: p[0] != self.profile().arch, _targetlist))
 
 def do_build(self):
     from cbuild.util import make
-    import glob
 
     for an, arch in _targets:
         # already done

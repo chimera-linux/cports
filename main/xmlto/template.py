@@ -1,5 +1,5 @@
 pkgname = "xmlto"
-pkgver = f"0.0.28"
+pkgver = "0.0.28"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["ac_cv_path_BASH=/usr/bin/bash"]

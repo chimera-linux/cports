@@ -5,7 +5,7 @@ build_style = "meson"
 configure_args = ["-Dcrypto-library=openssl"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["openssl-devel"]
-pkgdesc = f"Library for Secure Real-Time Transport Protocol"
+pkgdesc = "Library for Secure Real-Time Transport Protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/cisco/libsrtp"

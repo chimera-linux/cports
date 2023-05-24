@@ -41,13 +41,13 @@ def _usb(self):
 
 
 @subpackage("hwdata-pci")
-def _usb(self):
+def _pci(self):
     self.pkgdesc = f"{pkgdesc} (PCI IDs)"
     return ["usr/share/hwdata/pci.ids"]
 
 
 @subpackage("hwdata-net")
-def _usb(self):
+def _net(self):
     self.pkgdesc = f"{pkgdesc} (Networking OUIs)"
     return ["usr/share/hwdata/oui.txt", "usr/share/hwdata/iab.txt"]
 

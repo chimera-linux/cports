@@ -56,7 +56,7 @@ def invoke(pkg):
     # toplevel must only contain allowed paths
     for f in pkg.destdir.glob("*"):
         rf = f.relative_to(pkg.destdir)
-        if not f.name in allowpaths:
+        if f.name not in allowpaths:
             pkg.log_red(f"forbidden directory '{rf}'")
             lintfail = True
 

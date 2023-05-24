@@ -125,7 +125,7 @@ def do_install(self):
 
 @subpackage("avahi-python")
 def _pyprogs(self):
-    self.pkgdesc = f"Python utility package for Avahi"
+    self.pkgdesc = "Python utility package for Avahi"
     self.depends = ["python", "python-dbus"]
 
     return [
@@ -137,7 +137,7 @@ def _pyprogs(self):
 
 @subpackage("avahi-glib-devel")
 def _gdevel(self):
-    self.pkgdesc = f"Avahi glib libraries (development files)"
+    self.pkgdesc = "Avahi glib libraries (development files)"
     self.depends = [f"avahi-devel~{pkgver}"]
 
     return [
@@ -151,7 +151,7 @@ def _gdevel(self):
 
 @subpackage("avahi-glib-libs")
 def _glibs(self):
-    self.pkgdesc = f"Avahi glib libraries"
+    self.pkgdesc = "Avahi glib libraries"
 
     return [
         "usr/lib/libavahi-glib.so.*",
@@ -162,7 +162,7 @@ def _glibs(self):
 
 @subpackage("avahi-ui-devel")
 def _udevel(self):
-    self.pkgdesc = f"Avahi UI libraries (development files)"
+    self.pkgdesc = "Avahi UI libraries (development files)"
     self.depends = [f"avahi-devel~{pkgver}"]
 
     return [
@@ -174,7 +174,7 @@ def _udevel(self):
 
 @subpackage("avahi-ui-libs")
 def _ulibs(self):
-    self.pkgdesc = f"Avahi UI libraries"
+    self.pkgdesc = "Avahi UI libraries"
 
     return [
         "usr/lib/libavahi-ui*.so.*",
@@ -183,7 +183,7 @@ def _ulibs(self):
 
 @subpackage("avahi-libevent-devel")
 def _edevel(self):
-    self.pkgdesc = f"Avahi libevent libraries (development files)"
+    self.pkgdesc = "Avahi libevent libraries (development files)"
     self.depends = [f"avahi-devel~{pkgver}"]
 
     return [
@@ -195,7 +195,7 @@ def _edevel(self):
 
 @subpackage("avahi-libevent-libs")
 def _elibs(self):
-    self.pkgdesc = f"Avahi libevent libraries"
+    self.pkgdesc = "Avahi libevent libraries"
 
     return [
         "usr/lib/libavahi-libevent*.so.*",

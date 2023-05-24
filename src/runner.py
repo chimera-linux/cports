@@ -287,16 +287,16 @@ def handle_options():
         opt_allowcat = bcfg.get("categories", fallback=opt_allowcat)
         opt_nonet = not bcfg.getboolean("remote", fallback=not opt_nonet)
 
-    if not "flags" in global_cfg:
+    if "flags" not in global_cfg:
         global_cfg["flags"] = {}
 
-    if not "CFLAGS" in global_cfg["flags"]:
+    if "CFLAGS" not in global_cfg["flags"]:
         global_cfg["flags"]["CFLAGS"] = opt_cflags
 
-    if not "CXXFLAGS" in global_cfg["flags"]:
+    if "CXXFLAGS" not in global_cfg["flags"]:
         global_cfg["flags"]["CXXFLAGS"] = opt_cxxflags
 
-    if not "FFLAGS" in global_cfg["flags"]:
+    if "FFLAGS" not in global_cfg["flags"]:
         global_cfg["flags"]["FFLAGS"] = opt_fflags
 
     if "signing" in global_cfg:
@@ -624,7 +624,7 @@ def do_chroot(tgt):
 def do_clean(tgt):
     import shutil
 
-    from cbuild.core import chroot, logger, paths, errors
+    from cbuild.core import paths, errors
 
     chroot.remove_autodeps(None)
     dirp = paths.builddir()
@@ -642,7 +642,7 @@ def do_clean(tgt):
 def do_zap(tgt):
     import shutil
 
-    from cbuild.core import logger, paths, errors
+    from cbuild.core import paths, errors
 
     if paths.bldroot().is_dir():
         shutil.rmtree(paths.bldroot())
@@ -657,7 +657,7 @@ def do_remove_autodeps(tgt):
 
 
 def do_prune_obsolete(tgt):
-    from cbuild.core import chroot, logger, paths
+    from cbuild.core import logger, paths
     from cbuild.apk import cli
 
     logger.get().out("cbuild: pruning repositories...")
@@ -688,6 +688,7 @@ def do_prune_removed(tgt):
     archn = opt_arch
     if not archn:
         archn = chroot.host_cpu()
+
     # pruner for a single repo
     def _prune(repo):
         logger.get().out(f"Pruning removed packages at '{repo}/{archn}'...")
@@ -781,6 +782,7 @@ def do_index(tgt):
     archn = opt_arch
     if not archn:
         archn = chroot.host_cpu()
+
     # indexer for a single repo
     def _index(repo):
         logger.get().out(f"Indexing packages at '{repo}'...")
@@ -928,7 +930,7 @@ def do_prune_sources(tgt):
     from cbuild.core import chroot, logger, template, errors, paths
     import shutil
 
-    logger.get().out(f"Collecting templates...")
+    logger.get().out("Collecting templates...")
     tmpls = _collect_tmpls(None)
     exist = set()
 
@@ -951,11 +953,11 @@ def do_prune_sources(tgt):
         except errors.PackageException:
             return None
 
-    logger.get().out(f"Reading templates...")
+    logger.get().out("Reading templates...")
     for tmpln in tmpls:
         _read_pkg(tmpln)
 
-    logger.get().out(f"Pruning sources...")
+    logger.get().out("Pruning sources...")
     for f in paths.sources().iterdir():
         if f.name in exist:
             continue
@@ -1006,9 +1008,9 @@ def do_relink_subpkgs(tgt):
             _read_pkg(tgt)
 
     if not tgt:
-        logger.get().out(f"Collecting templates...")
+        logger.get().out("Collecting templates...")
         tmpls = _collect_tmpls(None)
-        logger.get().out(f"Reading templates...")
+        logger.get().out("Reading templates...")
         for tmpln in tmpls:
             tp = _read_pkg(tmpln)
             if tp:
@@ -1070,7 +1072,7 @@ def do_print_build_graph(tgt):
     from cbuild.core import chroot, template, errors
 
     if len(cmdline.command) < 2:
-        raise errors.CbuildException(f"print-build-graph needs a package name")
+        raise errors.CbuildException("print-build-graph needs a package name")
 
     rtmpls = {}
 
@@ -1115,7 +1117,7 @@ def do_print_build_graph(tgt):
 
 def do_print_unbuilt(tgt):
     from cbuild.core import chroot, template, paths, errors
-    from cbuild.apk import cli, util
+    from cbuild.apk import util
     import subprocess
 
     cats = opt_allowcat.strip().split()
@@ -1275,10 +1277,10 @@ def do_print_unbuilt(tgt):
 
 
 def do_update_check(tgt):
-    from cbuild.core import update_check, template, chroot, logger, errors
+    from cbuild.core import update_check, template, chroot, errors
 
     if len(cmdline.command) < 2:
-        raise errors.CbuildException(f"update-check needs a target package")
+        raise errors.CbuildException("update-check needs a target package")
 
     verbose = False
 
@@ -1338,7 +1340,7 @@ def do_dump(tgt):
 
 
 def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
-    from cbuild.core import build, chroot, template, paths, errors
+    from cbuild.core import build, chroot, template, errors
 
     if force is None:
         force = opt_force
@@ -1371,7 +1373,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         chroot.install()
     elif not stage and not chroot.chroot_check():
         raise errors.CbuildException(
-            f"build root not found (have you boootstrapped?)"
+            "build root not found (have you boootstrapped?)"
         )
     # don't remove builddir/destdir
     chroot.prepare_arch(opt_arch)
@@ -1393,11 +1395,10 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     import graphlib
     import traceback
 
-    from cbuild.core import logger, template, paths, chroot, errors, build
+    from cbuild.core import logger, template, chroot, errors, build
 
     # we will use this for correct dependency ordering
     depg = graphlib.TopologicalSorter()
-    visited = {}
     templates = {}
     failed = False
     broken = False
@@ -1588,7 +1589,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         # if we're raw, we iterate the input list as is
         for pn in ordl:
             # skip things that were not in the initial set
-            if not pn in templates:
+            if pn not in templates:
                 continue
             tp = templates[pn]
             # if already built, mark it specially
@@ -1629,7 +1630,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                     statusf.write(f"{pn} failed\n")
 
     if failed:
-        raise errors.CbuildException(f"at least one bulk package failed")
+        raise errors.CbuildException("at least one bulk package failed")
     elif not opt_stage and do_build:
         do_unstage("pkg", False)
 
@@ -1745,13 +1746,13 @@ def _collect_blist(pkgs):
         # files
         if pkg.startswith("file:"):
             with open(pkg.removeprefix("file:"), "r") as inf:
-                for l in inf:
-                    rpkgs += _collect_blist(l.strip())
+                for ln in inf:
+                    rpkgs += _collect_blist(ln.strip())
             continue
         # stdin
         if pkg == "-":
-            for l in sys.stdin:
-                rpkgs += _collect_blist(l.strip())
+            for ln in sys.stdin:
+                rpkgs += _collect_blist(ln.strip())
             continue
         # full template name
         if "/" in pkg:
@@ -1765,13 +1766,11 @@ def _collect_blist(pkgs):
 
 def do_bulkpkg(tgt, do_build=True, do_raw=False):
     import os
-    import sys
-    import subprocess
     from cbuild.core import errors
 
     if do_raw:
         if len(cmdline.command) <= 1:
-            raise errors.CbuildException(f"need at least one template")
+            raise errors.CbuildException("need at least one template")
         pkgs = cmdline.command[1:]
     elif len(cmdline.command) <= 1:
         pkgs = _collect_tmpls(None)
@@ -1791,7 +1790,7 @@ def do_bulkpkg(tgt, do_build=True, do_raw=False):
 
     try:
         _bulkpkg(pkgs, sout, do_build, do_raw)
-    except:
+    except Exception:
         sout.close()
         raise
 
@@ -1802,14 +1801,13 @@ def do_bulkpkg(tgt, do_build=True, do_raw=False):
 
 
 def fire():
-    import os
     import sys
     import shutil
     import traceback
     import subprocess
 
     from cbuild.core import chroot, logger, template, profile
-    from cbuild.core import scanelf, paths, errors
+    from cbuild.core import paths, errors
     from cbuild.apk import cli
 
     logger.init(not opt_nocolor)
@@ -1835,7 +1833,7 @@ def fire():
     if opt_arch:
         try:
             profile.get_profile(opt_arch)
-        except:
+        except Exception:
             logger.get().out_red(
                 f"cbuild: unknown target architecture '{opt_arch}'"
             )
@@ -1930,7 +1928,7 @@ def fire():
         if e.bt and not e.broken:
             traceback.print_exc(file=logger.get().estream)
         sys.exit(1)
-    except:
+    except Exception:
         logger.get().out_red("A failure has occurred!")
         traceback.print_exc(file=logger.get().estream)
         sys.exit(1)

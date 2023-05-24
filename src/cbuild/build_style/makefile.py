@@ -1,5 +1,4 @@
 from cbuild.util import make
-import shlex
 
 
 def do_build(self):

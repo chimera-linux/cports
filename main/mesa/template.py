@@ -242,14 +242,14 @@ def _gles2(self):
 
 
 @subpackage("libegl")
-def _gles2(self):
+def egl(self):
     self.pkgdesc = "Free implementation of the EGL API (shared library)"
 
     return ["usr/lib/libEGL.so.*"]
 
 
 @subpackage("libgl")
-def _gles2(self):
+def _libgl(self):
     self.pkgdesc = "Free implementation of the OpenGL API (shared library)"
 
     return ["usr/lib/libGL.so.*"]
@@ -275,14 +275,14 @@ def _opencl(self):
 
 
 @subpackage("mesa-vaapi", _have_hwdec)
-def _dri(self):
+def _vaapi(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
     return ["usr/lib/dri/*_drv_video.so"]
 
 
 @subpackage("mesa-vdpau", _have_hwdec)
-def _dri(self):
+def _vdpau(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
     return ["usr/lib/vdpau/libvdpau_*"]

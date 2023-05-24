@@ -120,7 +120,6 @@ if self.profile().arch != "riscv64":
 if self.profile().cross:
     _archmap = {
         "aarch64": "aarch64",
-        "riscv64": "riscv64",
         "ppc64le": "ppc64",
         "ppc64": "ppc64",
         "riscv64": "riscv",

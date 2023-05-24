@@ -5,10 +5,6 @@ from cbuild.core import template, pkg as pkgm, paths, errors
 from cbuild.util import flock
 from cbuild.apk import cli as apk
 
-import os
-import pathlib
-import shutil
-
 
 def build(
     step,

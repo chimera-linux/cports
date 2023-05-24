@@ -1,10 +1,5 @@
 from cbuild.core import logger, template, paths, chroot
-from cbuild.step import build as do_build
 from cbuild.apk import util as autil, cli as apki
-from os import makedirs
-import tempfile
-import pathlib
-import shutil
 
 # avoid re-parsing same templates every time; the pkgver will
 # never be conditional and that is the only thing we care about
@@ -165,18 +160,16 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross=False):
         if len(outx) > 0:
             pkg.logger.out_plain(">> stdout:")
             pkg.logger.out_plain(outx)
-        pkg.error(f"failed to install dependencies")
+        pkg.error("failed to install dependencies")
 
 
 def _is_available(pkgn, pkgop, pkgv, pkg, host=False):
     if not host and pkg.profile().cross:
         sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
         aarch = pkg.profile().arch
-        crossp = True
     else:
         sysp = paths.bldroot()
         aarch = None
-        crossp = False
 
     def _do_search(repo):
         return apki.call(

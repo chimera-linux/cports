@@ -1,7 +1,5 @@
 from cbuild.core import template
 
-import os
-
 
 def invoke(pkg):
     p = pkg.profile()

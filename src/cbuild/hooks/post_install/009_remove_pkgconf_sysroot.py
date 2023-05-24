@@ -12,8 +12,8 @@ def invoke(pkg):
 
         with open(f) as inf:
             with open(ofp, "w") as outf:
-                for l in inf:
-                    outf.write(l.replace(sr, "/usr"))
+                for ln in inf:
+                    outf.write(ln.replace(sr, "/usr"))
 
         ofp.chmod(0o644)
         ofp.rename(f)

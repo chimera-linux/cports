@@ -58,18 +58,17 @@ def get_nameurl(d):
 def invoke(pkg):
     srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.pkgver}"
 
-    dfcount = 0
     dfgood = 0
     errors = 0
 
     if len(pkg.source) != len(pkg.sha256):
-        pkg.error(f"sha256sums do not match sources")
+        pkg.error("sha256sums do not match sources")
 
     if not srcdir.is_dir():
         try:
             srcdir.mkdir(parents=True)
             os.chown(srcdir, -1, os.getgid(), srcdir)
-        except:
+        except Exception:
             pass
 
     if not srcdir.is_dir():
@@ -119,4 +118,4 @@ def invoke(pkg):
             errors += 1
 
     if errors > 0:
-        pkg.error(f"couldn't verify sources")
+        pkg.error("couldn't verify sources")

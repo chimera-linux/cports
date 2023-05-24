@@ -44,10 +44,10 @@ def post_install(self):
 
     with open(self.destdir / "usr/bin/curl-config") as inf:
         with open(self.destdir / "usr/bin/curl-config.new", "w") as outf:
-            for l in inf:
-                l = l.replace(f"-L{self.profile().sysroot / 'usr/lib'} ", "")
-                l = l.replace(f"{self.profile().triplet}-", "")
-                outf.write(l)
+            for ln in inf:
+                ln = ln.replace(f"-L{self.profile().sysroot / 'usr/lib'} ", "")
+                ln = ln.replace(f"{self.profile().triplet}-", "")
+                outf.write(ln)
 
     self.rm(self.destdir / "usr/bin/curl-config")
     self.mv(

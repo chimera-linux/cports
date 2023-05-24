@@ -436,7 +436,7 @@ def _mlir_devel(self):
 
 
 @subpackage("libmlir", _enable_flang)
-def _mlir(self):
+def _libmlir(self):
     self.pkgdesc = f"{pkgdesc} (MLIR runtime library)"
 
     return [
@@ -550,7 +550,7 @@ def _lld(self):
 
 
 @subpackage("lld-devel-static")
-def _lld_devel(self):
+def _lld_devel_static(self):
     self.pkgdesc = f"{pkgdesc} (linker) (static libraries)"
     self.depends = []
     self.install_if = []

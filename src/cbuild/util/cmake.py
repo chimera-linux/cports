@@ -33,7 +33,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 """
             )
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
-    elif pkg.profile().cross and cross_build != False:
+    elif pkg.profile().cross and cross_build is not False:
         # map known profiles to cmake arch
         match pkg.profile().arch:
             case "aarch64" | "ppc64le" | "ppc64" | "x86_64" | "riscv64":

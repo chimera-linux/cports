@@ -71,5 +71,5 @@ def do_install(self):
     with self.pushd(self.destdir / "usr/share/xml/docbook/4.2"):
         with open(self.cwd / "catalog-4.1.2", "w") as ocat:
             with open(self.cwd / "catalog") as icat:
-                for l in icat:
-                    ocat.write(l.replace("V4.2", "V4.1.2"))
+                for ln in icat:
+                    ocat.write(ln.replace("V4.2", "V4.1.2"))

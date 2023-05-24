@@ -130,7 +130,7 @@ def post_install(self):
 
 @subpackage("qemu-guest-agent")
 def _guest_agent(self):
-    self.pkgdesc = f"QEMU guest agent"
+    self.pkgdesc = "QEMU guest agent"
     self.depends = []
 
     return [
@@ -141,7 +141,7 @@ def _guest_agent(self):
 
 @subpackage("qemu-img")
 def _img(self):
-    self.pkgdesc = f"QEMU command line tools for manipulating disk images"
+    self.pkgdesc = "QEMU command line tools for manipulating disk images"
     self.depends = []
 
     return [
@@ -154,7 +154,7 @@ def _img(self):
 
 @subpackage("qemu-tools")
 def _tools(self):
-    self.pkgdesc = f"QEMU support tools"
+    self.pkgdesc = "QEMU support tools"
     self.depends = []
 
     return [
@@ -166,7 +166,7 @@ def _tools(self):
 
 @subpackage("qemu-pr-helper")
 def _pr_helper(self):
-    self.pkgdesc = f"QEMU pr helper utility"
+    self.pkgdesc = "QEMU pr helper utility"
     self.depends = []
 
     return [
@@ -177,7 +177,7 @@ def _pr_helper(self):
 
 @subpackage("qemu-vhost-user-gpu")
 def _vhost_user_gpu(self):
-    self.pkgdesc = f"QEMU vhost user GPU device"
+    self.pkgdesc = "QEMU vhost user GPU device"
     self.depends = []
 
     return [

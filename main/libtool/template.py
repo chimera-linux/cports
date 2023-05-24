@@ -49,7 +49,7 @@ def _devel(self):
 
 
 @subpackage("libltdl")
-def _devel(self):
+def _ltdl(self):
     self.pkgdesc = "GNU libtool dlopen wrapper"
     return self.default_libs()
 

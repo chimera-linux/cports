@@ -53,7 +53,6 @@ def do_install(self):
     benv = dict(self.make_install_env)
     benv["TMPDIR"] = self.make_dir
 
-    itgt = self.make_install_target
     whl = list(map(lambda p: p.name, self.cwd.glob(self.make_install_target)))
 
     self.do(

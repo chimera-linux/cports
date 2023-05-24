@@ -1,7 +1,6 @@
-from cbuild.core import logger, chroot
+from cbuild.core import logger
 from cbuild.apk import cli
 
-import os
 import re
 import pathlib
 
@@ -69,7 +68,7 @@ def invoke(pkg):
             elif not cli.check_version(autosfx):
                 pkg.error(f"invalid so version {autosfx}")
 
-            if not soname in soset:
+            if soname not in soset:
                 asonames.append((soname, autosfx))
                 logger.get().out_plain(f"   SONAME {soname} from {fp.parent}")
             else:

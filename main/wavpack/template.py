@@ -21,7 +21,7 @@ def _devel(self):
 
 
 @subpackage("wavpack-progs")
-def _devel(self):
+def _progs(self):
     return self.default_progs()
 
 

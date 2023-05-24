@@ -4,7 +4,7 @@ pkgrel = 0
 pkgdesc = "Pluggable Authentication Modules for Linux"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
-url = f"https://chimera-linux.org"
+url = "https://chimera-linux.org"
 # no tests
 options = ["!check"]
 

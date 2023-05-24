@@ -35,7 +35,7 @@ def _devel(self):
 
 
 @subpackage("libcaca-progs")
-def _devel(self):
+def _progs(self):
     return self.default_progs()
 
 

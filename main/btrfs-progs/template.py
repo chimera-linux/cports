@@ -41,7 +41,7 @@ def _libbtrfs(self):
 
 
 @subpackage("libbtrfs-devel")
-def _libbtrfs(self):
+def _libbtrfs_devel(self):
     self.pkgdesc = f"{pkgdesc} (libbtrfs development files)"
     return ["usr/include/btrfs", "usr/lib/libbtrfs.*"]
 
@@ -53,7 +53,7 @@ def _libbtrfsutil(self):
 
 
 @subpackage("libbtrfsutil-devel")
-def _libbtrfsutil(self):
+def _libbtrfsutil_devel(self):
     self.pkgdesc = f"{pkgdesc} (libbtrfsutil development files)"
     return ["usr/include/btrfsutil.h", "usr/lib/libbtrfsutil.*"]
 

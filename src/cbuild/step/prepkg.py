@@ -1,4 +1,4 @@
-from cbuild.core import template, dependencies
+from cbuild.core import template
 
 
 def invoke(pkg):

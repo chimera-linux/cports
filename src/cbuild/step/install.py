@@ -1,4 +1,4 @@
-from cbuild.core import template, dependencies, scanelf
+from cbuild.core import template, scanelf
 
 import shutil
 

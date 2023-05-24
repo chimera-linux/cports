@@ -36,12 +36,12 @@ def _devel(self):
 
 
 @subpackage("tdb-progs")
-def _devel(self):
+def _progs(self):
     return self.default_progs()
 
 
 @subpackage("tdb-python")
-def _devel(self):
+def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
     self.depends += ["python"]
 

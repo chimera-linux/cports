@@ -91,7 +91,7 @@ _fontpaths = []
 for fp in ["misc", "100dpi:unscaled", "75dpi:unscaled", "TTF", "Type1"]:
     _fontpaths.append(f"/usr/share/fonts/{fp}")
 
-configure_args.append(f"-Ddefault_font_path=" + ",".join(_fontpaths))
+configure_args.append("-Ddefault_font_path=" + ",".join(_fontpaths))
 
 
 def post_install(self):

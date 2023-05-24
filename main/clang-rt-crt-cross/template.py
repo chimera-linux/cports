@@ -115,7 +115,7 @@ def do_configure(self):
                         f"-DCMAKE_C_COMPILER_TARGET={at}",
                         f"-DCMAKE_CXX_COMPILER_TARGET={at}",
                         # override the cflags-provided sysroot
-                        f"-DCMAKE_C_FLAGS="
+                        "-DCMAKE_C_FLAGS="
                         + self.get_cflags(
                             [
                                 "--sysroot="
@@ -146,7 +146,7 @@ def _gen_subp(an):
     @subpackage(f"clang-rt-crt-cross-{an}", an in _targets)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
-        self.depends = [f"clang"]
+        self.depends = ["clang"]
         self.options = [
             "!scanshlibs",
             "!scanrundeps",
@@ -162,5 +162,5 @@ def _gen_subp(an):
         depends.append(f"clang-rt-crt-cross-{an}={pkgver}-r{pkgrel}")
 
 
-for an in _targetlist:
-    _gen_subp(an)
+for _an in _targetlist:
+    _gen_subp(_an)

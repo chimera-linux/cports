@@ -15,8 +15,6 @@ def set_network(use_net):
 
 
 def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
-    from cbuild.core import chroot
-
     ret = []
     # sometimes we need no repos
     if not mrepo:
@@ -301,7 +299,7 @@ def summarize_repo(repopath, olist, quiet=False):
             continue
         pn = pf[0:rd]
         mt = f.stat().st_mtime
-        if not pn in rtimes:
+        if pn not in rtimes:
             rtimes[pn] = (mt, f.name)
         else:
             omt, ofn = rtimes[pn]

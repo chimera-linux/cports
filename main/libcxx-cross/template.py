@@ -148,7 +148,7 @@ def _gen_crossp(an, at):
     # libc++ subpackages
 
     @subpackage(f"libcxx-cross-{an}-static", cond)
-    def _subp(self):
+    def _subp_static(self):
         self.pkgdesc = f"{pkgdesc} ({an} static library)"
         self.depends = [
             f"libcxx-cross-{an}={pkgver}-r{pkgrel}",
@@ -177,8 +177,8 @@ for an in _targetlist:
 
 
 @subpackage("libunwind-cross-static")
-def _static(self):
-    self.pkgdesc = f"Cross-toolchain LLVM libunwind (static)"
+def _unw_static(self):
+    self.pkgdesc = "Cross-toolchain LLVM libunwind (static)"
     self.depends = []
     self.build_style = "meta"
     for an in _targets:
@@ -188,8 +188,8 @@ def _static(self):
 
 
 @subpackage("libcxxabi-cross-static")
-def _static(self):
-    self.pkgdesc = f"Cross-toolchain LLVM libc++abi (static)"
+def _abi_static(self):
+    self.pkgdesc = "Cross-toolchain LLVM libc++abi (static)"
     self.depends = []
     self.build_style = "meta"
     for an in _targets:
@@ -199,7 +199,7 @@ def _static(self):
 
 
 @subpackage("libcxx-cross-static")
-def _static(self):
+def _cxx_static(self):
     self.pkgdesc = f"{pkgdesc} (static)"
     self.depends = []
     self.build_style = "meta"

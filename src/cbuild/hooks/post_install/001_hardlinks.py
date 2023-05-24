@@ -11,7 +11,7 @@ def invoke(pkg):
     if pkg.options["hardlinks"]:
         return
 
-    pkg.log(f"detecting hardlinks")
+    pkg.log("detecting hardlinks")
 
     # mappings from inode to full path
     hards = {}
@@ -21,7 +21,7 @@ def invoke(pkg):
             absp = os.path.join(root, f)
             st = os.lstat(absp)
             if st.st_nlink > 1:
-                if not st.st_ino in hards:
+                if st.st_ino not in hards:
                     # first occurence
                     hards[st.st_ino] = absp
                 else:

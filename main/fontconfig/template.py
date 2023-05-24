@@ -23,7 +23,7 @@ def post_install(self):
     self.install_license("COPYING")
     # reject bitmap fonts by default, preventing them from being preferred
     self.install_link(
-        f"/usr/share/fontconfig/conf.avail/70-no-bitmaps.conf",
+        "/usr/share/fontconfig/conf.avail/70-no-bitmaps.conf",
         "etc/fonts/conf.d/70-no-bitmaps.conf",
     )
 

@@ -1,11 +1,10 @@
-from cbuild.core import paths, logger, chroot, errors
+from cbuild.core import paths, chroot, errors
 from cbuild.apk import cli as acli
 
 import configparser
 import platform
 import pathlib
 import shlex
-import os
 import sys
 
 # recognized hardening options
@@ -44,7 +43,7 @@ def _get_harden(prof, hlist, opts, stage):
         if neg:
             fl = fl[1:]
 
-        if not fl in hdict:
+        if fl not in hdict:
             raise errors.CbuildException(f"unknown hardening option {fl}")
 
         hdict[fl] = not neg
@@ -54,9 +53,9 @@ def _get_harden(prof, hlist, opts, stage):
     # perform dependency checks *before* disabling hardenings per-arch
     if hdict["cfi"]:
         if not opts["lto"]:
-            raise errors.CbuildException(f"CFI requires LTO")
+            raise errors.CbuildException("CFI requires LTO")
         if not hdict["vis"]:
-            raise errors.CbuildException(f"CFI requires hidden visibility")
+            raise errors.CbuildException("CFI requires hidden visibility")
 
     # ensure unsupported hardenings are never used
     for k in supported_fields:
@@ -273,13 +272,13 @@ class Profile:
 
         pdata = pdata["profile"]
 
-        if not "triplet" in pdata:
+        if "triplet" not in pdata:
             raise errors.CbuildException(f"unknown triplet for {archn}")
 
-        if not "endian" in pdata:
+        if "endian" not in pdata:
             raise errors.CbuildException(f"unknown endianness for {archn}")
 
-        if not "wordsize" in pdata:
+        if "wordsize" not in pdata:
             raise errors.CbuildException(f"unknown wordsize for {archn}")
 
         self._arch = archn
@@ -403,7 +402,7 @@ def init(cparser):
         with open(pf) as cf:
             cp.read_file(cf)
 
-        if archn != "bootstrap" and not "profile" in cp:
+        if archn != "bootstrap" and "profile" not in cp:
             raise errors.CbuildException(f"malformed profile: {archn}")
 
         _all_profiles[archn] = Profile(archn, cp, cparser)

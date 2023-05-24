@@ -57,13 +57,13 @@ def post_extract(self):
 
 @subpackage("esmtool")
 def _esmtool(self):
-    self.pkgdesc = f"Tool for inspecting and extracitng Morrowind ESM files"
+    self.pkgdesc = "Tool for inspecting and extracitng Morrowind ESM files"
 
     return ["usr/bin/esmtool"]
 
 
 @subpackage("bsatool")
 def _bsatool(self):
-    self.pkgdesc = f"Tool for inspecting Bethesda BSA archives"
+    self.pkgdesc = "Tool for inspecting Bethesda BSA archives"
 
     return ["usr/bin/bsatool"]

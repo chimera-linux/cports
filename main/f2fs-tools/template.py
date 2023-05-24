@@ -24,5 +24,5 @@ def _devel(self):
 
 
 @subpackage("f2fs-tools-libs")
-def _devel(self):
+def _libs(self):
     return self.default_libs()

@@ -265,7 +265,7 @@ def _pam_winbind(self):
 
 @subpackage("libnss_winbind")
 def _nss_winbind(self):
-    self.pkgdesc = f"Samba nameservice integration plugins"
+    self.pkgdesc = "Samba nameservice integration plugins"
     self.depends = [f"samba-winbind={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libnss_win*.so.*"]

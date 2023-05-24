@@ -65,9 +65,6 @@ def pre_configure(self):
 
     self.log("building host tblgen...")
 
-    with self.profile(self.profile().arch) as pf:
-        trip = pf.triplet
-
     with self.profile("host"):
         with self.stamp("host_lldb_configure"):
             # need to pass the triplets so builtins are found
@@ -81,7 +78,6 @@ def pre_configure(self):
 def post_install(self):
     from cbuild.util import python
 
-    pymod = None
     # fix up python liblldb symlink so it points to versioned one
     # unversioned one is in devel package so we cannot point to it
     for f in (self.destdir / "usr/lib").glob("python3*"):

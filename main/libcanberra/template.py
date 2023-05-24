@@ -47,7 +47,7 @@ def _gtk3(self):
 
 
 @subpackage("libcanberra-pulse")
-def _gtk3(self):
+def _pulse(self):
     self.pkgdesc = f"{pkgdesc} (PulseAudio support)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "libpulse"]
 
@@ -55,7 +55,7 @@ def _gtk3(self):
 
 
 @subpackage("libcanberra-gstreamer")
-def _gtk3(self):
+def _gst(self):
     self.pkgdesc = f"{pkgdesc} (GStreamer support)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gstreamer"]
 

@@ -2,7 +2,7 @@ pkgname = "acl"
 pkgver = "2.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = [f"--libdir=/usr/lib", f"--libexecdir=/usr/lib"]
+configure_args = ["--libdir=/usr/lib", "--libexecdir=/usr/lib"]
 hostmakedepends = ["pkgconf"]
 makedepends = ["attr-devel"]
 checkdepends = ["perl"]

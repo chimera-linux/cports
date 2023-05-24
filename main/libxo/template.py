@@ -26,6 +26,7 @@ else:
         "--enable-text-only",
     ]
 
+
 # libxo does not respect LDFLAGS, so hack it in
 def init_configure(self):
     tcflags = self.get_cflags(shell=True)

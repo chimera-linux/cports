@@ -1,7 +1,5 @@
 # FIXME: cross support, check
 
-from cbuild.core import chroot
-
 
 def do_configure(self):
     self.do(

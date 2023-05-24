@@ -1,11 +1,5 @@
-from cbuild.core import paths, template
-
 import io
-import re
 import shlex
-import shutil
-import pathlib
-import subprocess
 
 # hooks for xml/sgml registration
 
@@ -283,10 +277,6 @@ def _handle_accounts(pkg, _add_hook):
         for u in pkg.system_users:
             uname = None
             uid = None
-            uhome = "/var/empty"
-            ushell = "/usr/bin/nologin"
-            udesc = None
-            ugroups = []
             # TODO: validation
             if isinstance(u, dict):
                 uname = u["name"]
@@ -340,14 +330,12 @@ def invoke(pkg):
     _handle_accounts(pkg, _add_hook)
     _handle_catalogs(pkg, _add_hook)
 
-    hookpath = paths.distdir() / "main/apk-chimera-hooks/files"
-
     # add executable scriptlets
     for h in _reghooks:
         envs = _reghooks[h]
         # go through every target
         for tgt in _hookscripts[h]:
-            if not tgt in _hooks:
+            if tgt not in _hooks:
                 # this should never happen unless we are buggy
                 pkg.error(f"unknown hook: {tgt}")
             # export env vars for the hook
@@ -355,13 +343,13 @@ def invoke(pkg):
                 _hooks[tgt] += f"{e}={shlex.quote(envs[e])}\n"
             # export the scriptlet as function
             _hooks[tgt] += f"\n_{h}_invoke() " + "{\n"
-            for l in io.StringIO(_hookscripts[h][tgt]):
+            for ln in io.StringIO(_hookscripts[h][tgt]):
                 # empty lines
-                if len(l.strip()) == 0:
+                if len(ln.strip()) == 0:
                     _hooks[tgt] += "\n"
                     continue
                 # add the line, indent as needed
-                _hooks[tgt] += f"    {l.rstrip()}\n"
+                _hooks[tgt] += f"    {ln.rstrip()}\n"
             # end the function
             _hooks[tgt] += "    return 0\n}\n"
             # insert the hook

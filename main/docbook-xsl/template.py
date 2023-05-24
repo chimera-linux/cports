@@ -1,5 +1,5 @@
 pkgname = "docbook-xsl"
-pkgver = f"1.79.2"
+pkgver = "1.79.2"
 pkgrel = 0
 depends = ["xmlcatmgr", "docbook-xml"]
 pkgdesc = "Docbook XSL modular stylesheet"

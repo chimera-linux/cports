@@ -73,7 +73,7 @@ def _xwayland(self):
 
 @subpackage("weston-libs")
 def _lib(self):
-    return self.default_libs(extra=[f"usr/lib/libweston-11"])
+    return self.default_libs(extra=["usr/lib/libweston-11"])
 
 
 @subpackage("weston-devel")

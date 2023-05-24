@@ -90,7 +90,7 @@ def _afp(self):
 
 
 @subpackage("gvfs-cdda")
-def _afp(self):
+def _cdda(self):
     self.pkgdesc = f"{pkgdesc} (CD-ROM backend)"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
@@ -101,7 +101,7 @@ def _afp(self):
 
 
 @subpackage("gvfs-goa")
-def _afp(self):
+def _goa(self):
     self.pkgdesc = f"{pkgdesc} (Gnome Online Accounts backend)"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
@@ -115,7 +115,7 @@ def _afp(self):
 
 
 @subpackage("gvfs-gphoto2")
-def _afp(self):
+def _gphoto2(self):
     self.pkgdesc = f"{pkgdesc} (gphoto2 backend)"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 

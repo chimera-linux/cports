@@ -114,7 +114,9 @@ def init_configure(self):
         ]
     if self.use_ccache:
         if self.profile().cross:
-            configure_args = ["--with-sysroot=" + str(self.profile().sysroot)]
+            self.configure_args += [
+                "--with-sysroot=" + str(self.profile().sysroot)
+            ]
         self.configure_args += ["--enable-ccache"]
         self.env["CC"] = "/usr/bin/" + self.get_tool("CC")
         self.env["CXX"] = "/usr/bin/" + self.get_tool("CXX")

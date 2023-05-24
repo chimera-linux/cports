@@ -4,7 +4,7 @@ pkgrel = 0
 pkgdesc = "DNSSEC trust anchors for the root zone"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
-url = f"http://data.iana.org/root-anchors"
+url = "http://data.iana.org/root-anchors"
 # no tests
 options = ["!check"]
 

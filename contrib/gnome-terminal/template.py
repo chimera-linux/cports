@@ -38,7 +38,7 @@ options = ["!cross"]
 
 @subpackage("nautilus-gnome-terminal-extension", False)
 def _devel(self):
-    self.pkgdesc = f"GNOME terminal extension for Nautilus"
+    self.pkgdesc = "GNOME terminal extension for Nautilus"
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "nautilus"]
 

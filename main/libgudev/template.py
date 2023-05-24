@@ -1,5 +1,5 @@
 pkgname = "libgudev"
-pkgver = f"237"
+pkgver = "237"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled", "-Dvapi=enabled"]

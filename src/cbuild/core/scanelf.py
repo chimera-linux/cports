@@ -1,16 +1,15 @@
 import struct
 import mmap
 import stat
-import pathlib
 
 from cbuild.core import paths
 
 _tsizes = "_BH_I___Q"
 
 
-def _make_struct(l):
-    v32 = "".join(map(lambda x: _tsizes[x[1]], l))
-    v64 = "".join(map(lambda x: _tsizes[x[2]], l))
+def _make_struct(lst):
+    v32 = "".join(map(lambda x: _tsizes[x[1]], lst))
+    v64 = "".join(map(lambda x: _tsizes[x[2]], lst))
     return (v32, v64)
 
 
@@ -326,7 +325,7 @@ def scan(pkg, somap):
     if len(elf_usrshare) > 0:
         try:
             pkg.error("ELF files in /usr/share:")
-        except:
+        except Exception:
             for f in elf_usrshare:
                 print(f"   {f}")
             raise
@@ -334,7 +333,7 @@ def scan(pkg, somap):
     if len(elf_textrels) > 0:
         try:
             pkg.error("found textrels:")
-        except:
+        except Exception:
             for f in elf_textrels:
                 print(f"   {f}")
             raise
@@ -342,7 +341,7 @@ def scan(pkg, somap):
     if len(elf_xstack) > 0:
         try:
             pkg.error("found executable stack:")
-        except:
+        except Exception:
             for f in elf_xstack:
                 print(f"   {f}")
             raise
@@ -350,7 +349,7 @@ def scan(pkg, somap):
     if len(elf_foreign) > 0:
         try:
             pkg.error("found foreign-machine ELF files:")
-        except:
+        except Exception:
             for f in elf_foreign:
                 print(f"   {f}")
             raise

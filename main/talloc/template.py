@@ -48,14 +48,14 @@ def _devel(self):
 
 
 @subpackage("libpytalloc-util")
-def _devel(self):
+def _util(self):
     self.pkgdesc = f"{pkgdesc} (Python utility library)"
 
     return ["usr/lib/libpytalloc-util.so.*"]
 
 
 @subpackage("talloc-python")
-def _devel(self):
+def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
 
     return ["usr/lib/python*"]

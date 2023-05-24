@@ -39,7 +39,7 @@ def _devel(self):
 
 
 @subpackage("tevent-python")
-def _devel(self):
+def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
 
     return ["usr/lib/python*"]

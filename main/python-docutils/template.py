@@ -35,4 +35,4 @@ def post_install(self):
     ]:
         self.install_link(f"rst2{b}.py", f"usr/bin/rst2{b}")
 
-    self.install_link(f"rstpep2html.py", "usr/bin/rstpep2html")
+    self.install_link("rstpep2html.py", "usr/bin/rstpep2html")

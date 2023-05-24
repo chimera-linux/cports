@@ -12,6 +12,7 @@ import re
 
 from cbuild.apk import cli as apkcli
 
+
 # implements version sorting as in gnu sort(1) version sort
 def _get_verkey():
     import functools
@@ -28,7 +29,7 @@ def _get_verkey():
         a1, a2 = a[:clen], a[clen:]
         b1, b2 = b[:clen], b[clen:]
         # compare the common part
-        for c1, c2 in zip(a[:clen], b[:clen]):
+        for c1, c2 in zip(a1, b1):
             if c1 == "~" or (c1.isalpha() and not c2.isalpha()):
                 return -1
             if c1 != c2:
@@ -98,7 +99,7 @@ class UpdateCheck:
         )
         try:
             f = ureq.urlopen(req, None, 10)
-        except:
+        except Exception:
             return None
 
         ret = f.read().decode("utf-8", "ignore")
@@ -298,7 +299,7 @@ class UpdateCheck:
             elif "codeberg.org" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://codeberg.org/{pn}/releases"
-                rx = rf"""
+                rx = r"""
                     /archive/
                     ([\d.]+)(?=\.tar\.gz) # match
                 """
@@ -356,7 +357,7 @@ class UpdateCheck:
         req = self._fetch(url)
 
         if not req:
-            if req == False and self.verbose:
+            if req is False and self.verbose:
                 print(f"Already fetched '{url}', skipping...")
             return []
 
@@ -391,7 +392,7 @@ def update_check(pkg, verbose=False):
         delattr(builtins, "self")
 
         if verbose:
-            print(f"Found update.py, using overrides...")
+            print("Found update.py, using overrides...")
 
         # hooks
 

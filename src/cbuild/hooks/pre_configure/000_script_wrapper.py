@@ -18,8 +18,6 @@ def _enable_wrappers(pkg):
 
 
 def _wrap_cross_cc(pkg):
-    wrapperdir = paths.cbuild() / "wrappers"
-
     at = pkg.profile().triplet
     for n in ["clang", "clang++", "cc", "c++"]:
         if not (pkg.wrapperdir / f"{at}-{n}").exists():

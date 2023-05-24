@@ -32,7 +32,7 @@ def post_install(self):
 
 
 @subpackage("glib-networking-openssl")
-def _gnutls(self):
+def _openssl(self):
     self.pkgdesc = f"{pkgdesc} (OpenSSL backend)"
     # autoinstall if openssl is installed
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "openssl"]

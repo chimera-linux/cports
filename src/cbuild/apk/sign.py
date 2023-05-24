@@ -1,16 +1,11 @@
 from cbuild.core import logger, paths, errors
 
-import io
 import re
-import gzip
 import time
 import shutil
 import getpass
 import pathlib
-import tarfile
 import subprocess
-
-from . import util
 
 
 def get_keypath(keypath):
@@ -102,9 +97,9 @@ def keygen(keypath, size, cfgfile, cfgpath):
     if "signing" in cfgfile:
         with open(cfgpath, "r") as cf:
             with open(cfgpath + ".new", "w") as ocf:
-                for l in cf:
-                    ocf.write(l)
-                    if re.match(r"^\[signing\]", l):
+                for ln in cf:
+                    ocf.write(ln)
+                    if re.match(r"^\[signing\]", ln):
                         ocf.write(f"key = {rkpath}\n")
 
         pathlib.Path(cfgpath + ".new").rename(cfgpath)

@@ -1,11 +1,10 @@
-from cbuild.core import logger, paths, chroot
+from cbuild.core import logger, paths
 from cbuild.util import flock
 from cbuild.apk import cli
 
 import time
-import pathlib
-import tempfile
 import subprocess
+
 
 # this one has the dummy root available
 def check_stage(stlist, arch, signkey):
@@ -281,7 +280,7 @@ def _do_clear(arch, signkey, force):
     for d, ad in stagelist:
         try:
             ad.rmdir()
-        except:
+        except Exception:
             pass
         # just migrate if possible, easier this way
         if not ad.is_dir():
@@ -300,7 +299,7 @@ def _do_clear(arch, signkey, force):
         try:
             d.rmdir()
             d.parent.rmdir()
-        except:
+        except Exception:
             pass
         # finally reindex
         log.out(f"Rebuilding index for {ad}...")

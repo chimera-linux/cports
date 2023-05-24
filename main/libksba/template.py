@@ -12,7 +12,7 @@ source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "3f72c68db30971ebbf14367527719423f0a4d5f8103fc9f4a1c01a9fa440de5c"
 
 
-@subpackage(f"libksba-devel")
+@subpackage("libksba-devel")
 def _devel(self):
     return self.default_devel()
 

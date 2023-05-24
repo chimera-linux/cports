@@ -1,7 +1,6 @@
-from cbuild.core import logger, paths, chroot, template
+from cbuild.core import template
 import os
 import shutil
-import subprocess
 
 
 def _remove_ro(f, path, _):
@@ -30,7 +29,7 @@ def remove_pkg(pkg):
     def remove_spkg(spkg, dbase):
         tpath = dbase / f"{spkg.pkgname}-{pkg.pkgver}"
         if tpath.is_dir():
-            spkg.log(f"removing files from destdir...")
+            spkg.log("removing files from destdir...")
             shutil.rmtree(tpath, onerror=_remove_ro)
         for apkg, adesc, iif, takef in template.autopkgs:
             tpath = dbase / f"{spkg.pkgname}-{apkg}-{pkg.pkgver}"

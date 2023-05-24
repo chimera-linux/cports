@@ -81,7 +81,7 @@ def _wayland(self):
 
 
 @subpackage("ibus-x11")
-def _wayland(self):
+def _xorg(self):
     self.pkgdesc = f"{pkgdesc} (X11 support)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "libx11"]
 

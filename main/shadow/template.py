@@ -75,9 +75,7 @@ def post_install(self):
         "userdel",
         "usermod",
     ]:
-        self.install_file(
-            self.destdir / "etc/pam.d/chage", f"etc/pam.d", name=f
-        )
+        self.install_file(self.destdir / "etc/pam.d/chage", "etc/pam.d", name=f)
 
     # defaults for useradd
     self.install_file(

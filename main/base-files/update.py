@@ -1,5 +1,5 @@
 url = "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xml"
-pattern = "<updated>([-\d]+)(?=</updated>)"
+pattern = r"<updated>([-\d]+)(?=</updated>)"
 
 
 def fetch_versions(self, src):
