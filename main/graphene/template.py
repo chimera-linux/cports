@@ -5,12 +5,10 @@ build_style = "meson"
 configure_args = [
     "-Dinstalled_tests=false",
     "-Dgcc_vector=true",
-    "-Dintrospection=enabled"
+    "-Dintrospection=enabled",
 ]
 hostmakedepends = ["meson", "pkgconf", "gobject-introspection"]
-makedepends = [
-    "glib-devel"
-]
+makedepends = ["glib-devel"]
 pkgdesc = "Thin layer of graphic data types"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -24,9 +22,11 @@ match self.profile().arch:
     case "aarch64":
         configure_args += ["-Darm_neon=true"]
 
+
 def post_install(self):
     self.install_license("LICENSE.txt")
 
+
 @subpackage("graphene-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/lib/graphene-1.0"])
+    return self.default_devel(extra=["usr/lib/graphene-1.0"])

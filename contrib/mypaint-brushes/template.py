@@ -12,5 +12,6 @@ url = "https://github.com/mypaint/mypaint-brushes"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "01032550dd817bb0f8e85d83a632ed2e50bc16e0735630839e6c508f02f800ac"
 
+
 def post_install(self):
     self.install_license("COPYING")

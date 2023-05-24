@@ -12,7 +12,9 @@ source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "69315e94430f4e79c74d43422f4a36e6259e97e67e2677b2c7d7060436bd99b1"
 options = ["!cross"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 configure_gen = []

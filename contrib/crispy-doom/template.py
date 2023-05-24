@@ -4,8 +4,11 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
-    "sdl-devel", "sdl_mixer-devel", "sdl_net-devel",
-    "libsamplerate-devel", "libpng-devel"
+    "sdl-devel",
+    "sdl_mixer-devel",
+    "sdl_net-devel",
+    "libsamplerate-devel",
+    "libpng-devel",
 ]
 pkgdesc = "Limit-removing enhanced-resolution Doom source port"
 maintainer = "q66 <q66@chimera-linux.org>"

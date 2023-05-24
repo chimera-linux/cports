@@ -23,10 +23,12 @@ if self.stage > 0:
 else:
     configure_args += ["ac_cv_func_capset=0"]
 
+
 @subpackage("fakeroot-core")
 def _core(self):
     self.pkgdesc = f"{pkgdesc} (core)"
 
     return ["usr/bin/faked", "usr/lib"]
+
 
 configure_gen = []

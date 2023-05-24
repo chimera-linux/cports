@@ -4,12 +4,16 @@ pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "flex", "bison", "xsltproc", "pkgconf", "automake", "libtool",
+    "gmake",
+    "flex",
+    "bison",
+    "xsltproc",
+    "pkgconf",
+    "automake",
+    "libtool",
     "docbook-xml",
 ]
-makedepends = [
-    "libfl-devel-static", "glib-devel", "graphviz-devel"
-]
+makedepends = ["libfl-devel-static", "glib-devel", "graphviz-devel"]
 checkdepends = ["dbus", "libgirepository-devel", "bash"]
 provides = ["so:libvalaccodegen.so=0"]
 pkgdesc = "Programming language based on the GObject type system"
@@ -19,11 +23,13 @@ url = "https://wiki.gnome.org/Projects/Vala"
 source = f"$(GNOME_SITE)/vala/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3d39c7596d5fa9ae8bfeae476669f811f7057b7f7b9308478a27b68443d8b003"
 
+
 @subpackage("libvala")
 def _lib(self):
     self.pkgdesc = f"{pkgname} (shared library)"
 
     return ["usr/lib/libvala-*.so.*"]
+
 
 @subpackage("valadoc")
 def _valadoc(self):
@@ -33,6 +39,7 @@ def _valadoc(self):
         "usr/bin/valadoc*",
         "usr/share/man/man1/valadoc.1",
     ]
+
 
 @subpackage("libvaladoc")
 def _libdoc(self):
@@ -44,6 +51,7 @@ def _libdoc(self):
         "usr/share/valadoc-*",
     ]
 
+
 @subpackage("valadoc-devel")
 def _develdoc(self):
     self.pkgdesc = "Vala documentation tool (development files)"
@@ -54,6 +62,7 @@ def _develdoc(self):
         "usr/lib/pkgconfig/valadoc-*.pc",
         "usr/share/vala/vapi/valadoc*",
     ]
+
 
 @subpackage("vala-devel")
 def _devel(self):

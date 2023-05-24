@@ -6,7 +6,7 @@ pkgrel = 0
 build_style = "makefile"
 make_build_args = [
     "DOCBOOK_XSL=/usr/share/xsl-nons/docbook/manpages/docbook.xsl",
-    f"VERSION={pkgver}"
+    f"VERSION={pkgver}",
 ]
 hostmakedepends = ["perl", "docbook-xsl-nons", "xsltproc"]
 depends = ["cryptsetup", "device-mapper", "mount", "mkfs"]

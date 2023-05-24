@@ -6,6 +6,7 @@ import subprocess
 
 _gnupatch = None
 
+
 def _determine_gnupatch(pkg):
     global _gnupatch
 
@@ -17,13 +18,14 @@ def _determine_gnupatch(pkg):
         return _gnupatch
 
     sr = subprocess.run(
-        ["patch", "--version"], capture_output = True
+        ["patch", "--version"], capture_output=True
     ).stdout.splitlines()
 
     _gnupatch = len(sr) > 0 and sr[0].startswith(b"GNU")
     return _gnupatch
 
-def patch(pkg, patch_path, wrksrc = None, patch_args = []):
+
+def patch(pkg, patch_path, wrksrc=None, patch_args=[]):
     patch_path = pathlib.Path(patch_path)
 
     if not patch_path.is_file():
@@ -65,16 +67,22 @@ def patch(pkg, patch_path, wrksrc = None, patch_args = []):
 
     if patchsfx == ".gz":
         chroot.enter(
-            "gunzip", cwdir / patchfn,
-            check = True, bootstrapping = pkg.stage == 0, ro_root = True,
-            unshare_all = True
+            "gunzip",
+            cwdir / patchfn,
+            check=True,
+            bootstrapping=pkg.stage == 0,
+            ro_root=True,
+            unshare_all=True,
         )
         patchfn = patch_path.stem
     elif patchsfx == ".bz2":
         chroot.enter(
-            "bunzip2", cwdir / patchfn,
-            check = True, bootstrapping = pkg.stage == 0, ro_root = True,
-            unshare_all = True
+            "bunzip2",
+            cwdir / patchfn,
+            check=True,
+            bootstrapping=pkg.stage == 0,
+            ro_root=True,
+            unshare_all=True,
         )
         patchfn = patch_path.stem
     elif patchsfx == ".diff" or patchsfx == ".patch":
@@ -85,13 +93,19 @@ def patch(pkg, patch_path, wrksrc = None, patch_args = []):
     pkg.log(f"patching: {patchfn}")
 
     chroot.enter(
-        "patch", *pargs, "-i", cwdir / patchfn,
-        stderr = subprocess.DEVNULL, check = True,
-        wrkdir = cwdir, bootstrapping = pkg.stage == 0,
-        ro_root = True
+        "patch",
+        *pargs,
+        "-i",
+        cwdir / patchfn,
+        stderr=subprocess.DEVNULL,
+        check=True,
+        wrkdir=cwdir,
+        bootstrapping=pkg.stage == 0,
+        ro_root=True,
     )
 
-def patch_dir(pkg, patch_path, wrksrc = None, patch_args = []):
+
+def patch_dir(pkg, patch_path, wrksrc=None, patch_args=[]):
     patch_path = pathlib.Path(patch_path)
 
     if not patch_path.is_dir():

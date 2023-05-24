@@ -2,6 +2,7 @@ from cbuild.core import template
 
 import os
 
+
 def invoke(pkg):
     p = pkg.profile()
     crossb = p.arch if p.cross else ""
@@ -13,6 +14,6 @@ def invoke(pkg):
     if patch_done.is_file():
         return
 
-    pkg.run_step("patch", optional = True)
+    pkg.run_step("patch", optional=True)
 
     patch_done.touch()

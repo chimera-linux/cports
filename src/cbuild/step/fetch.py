@@ -1,5 +1,6 @@
 from cbuild.core import template
 
+
 def invoke(pkg):
     template.call_pkg_hooks(pkg, "init_fetch")
     template.run_pkg_func(pkg, "init_fetch")
@@ -14,7 +15,7 @@ def invoke(pkg):
     template.run_pkg_func(pkg, "pre_fetch")
 
     if hasattr(pkg, "do_fetch"):
-        pkg.cwd.mkdir(parents = True, exist_ok = True)
+        pkg.cwd.mkdir(parents=True, exist_ok=True)
         template.run_pkg_func(pkg, "do_fetch")
     else:
         template.call_pkg_hooks(pkg, "do_fetch")

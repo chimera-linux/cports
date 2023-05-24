@@ -4,6 +4,7 @@ import os
 import sys
 import shutil
 
+
 def fire():
     # we need structural pattern matching in templates and cbuild itself
     if sys.version_info < (3, 10):

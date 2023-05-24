@@ -13,8 +13,10 @@ sha256 = "a7b9649b49a8a59da09cf61228dc812cae6f0aea8be036788a9173c6f15a1a77"
 # no test suite; also no point in LTOing this
 options = ["bootstrap", "!check", "!lto"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("musl-rpmatch-devel")
 def _devel(self):

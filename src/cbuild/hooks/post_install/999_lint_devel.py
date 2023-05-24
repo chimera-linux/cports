@@ -15,6 +15,7 @@ def _lint_static(pkg):
 
     return True
 
+
 def invoke(pkg):
     # lint for LTOed static stuff first, regardless of -devel
     if pkg.options["lintstatic"] and not _lint_static(pkg):

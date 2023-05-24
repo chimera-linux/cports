@@ -3,8 +3,13 @@ pkgver = "1.82.0"
 pkgrel = 1
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "zlib-devel", "libbz2-devel", "liblzma-devel", "libzstd-devel",
-    "icu-devel", "python-devel", "linux-headers"
+    "zlib-devel",
+    "libbz2-devel",
+    "liblzma-devel",
+    "libzstd-devel",
+    "icu-devel",
+    "python-devel",
+    "linux-headers",
 ]
 provides = [f"boost{pkgver[:-2]}={pkgver}-r{pkgrel}"]
 pkgdesc = "Free peer-reviewed portable C++ source libraries"
@@ -15,17 +20,45 @@ source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/bo
 sha256 = "66a469b6e608a51f8347236f4912e27dc5c60c60d7d53ae9bfe4683316c6f04c"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
 # FIXME: odd failures, but seems test-related
-options = ["!check", "!cross"] # i don't dare touch this yet
+options = ["!check", "!cross"]  # i don't dare touch this yet
 
 # libs have semi-auto-generated subpkgs using this array
 # needs to be updated with new libs regularly
 _libs = [
-    "atomic", "chrono", "container", "context", "contract", "coroutine",
-    "date_time", "fiber", "filesystem", "graph", "iostreams", "json", "locale",
-    "log_setup", "log", "math", "nowide", "prg_exec_monitor", "program_options",
-    "python", "random", "regex", "serialization", "stacktrace_addr2line",
-    "stacktrace_basic", "stacktrace_noop", "system", "thread", "timer",
-    "type_erasure", "unit_test_framework", "url", "wave", "wserialization",
+    "atomic",
+    "chrono",
+    "container",
+    "context",
+    "contract",
+    "coroutine",
+    "date_time",
+    "fiber",
+    "filesystem",
+    "graph",
+    "iostreams",
+    "json",
+    "locale",
+    "log_setup",
+    "log",
+    "math",
+    "nowide",
+    "prg_exec_monitor",
+    "program_options",
+    "python",
+    "random",
+    "regex",
+    "serialization",
+    "stacktrace_addr2line",
+    "stacktrace_basic",
+    "stacktrace_noop",
+    "system",
+    "thread",
+    "timer",
+    "type_erasure",
+    "unit_test_framework",
+    "url",
+    "wave",
+    "wserialization",
 ]
 
 match self.profile().arch:
@@ -40,44 +73,53 @@ match self.profile().arch:
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
+
 def init_configure(self):
-    self._pyver = self.do(
-        "pkgconf", "--modversion", "python3", capture_output = True
-    ).stdout.decode().strip()
+    self._pyver = (
+        self.do("pkgconf", "--modversion", "python3", capture_output=True)
+        .stdout.decode()
+        .strip()
+    )
+
 
 def _call_b2(self, *args):
     self.do(
-        self.chroot_cwd / "b2", f"-j{self.make_jobs}",
+        self.chroot_cwd / "b2",
+        f"-j{self.make_jobs}",
         f"--user-config={self.chroot_cwd}/user-config.jam",
         f"--prefix={self.chroot_destdir}/usr",
         "release",
         f"python={self._pyver}",
         "toolset=clang",
-        "cxxflags=" + self.get_cxxflags(shell = True),
-        "linkflags=" + self.get_ldflags(shell = True),
+        "cxxflags=" + self.get_cxxflags(shell=True),
+        "linkflags=" + self.get_ldflags(shell=True),
         "threading=multi",
         "debug-symbols=off",
         "runtime-link=shared",
         "link=shared,static",
         "--layout=system",
-        *args
+        *args,
     )
+
 
 def do_build(self):
     self.do(
         self.chroot_cwd / "bootstrap.sh",
         f"--prefix={self.chroot_destdir}/usr",
         f"--with-python=/usr/bin/python",
-        f"--with-python-root=/usr"
+        f"--with-python-root=/usr",
     )
 
     with open(self.cwd / "user-config.jam", "w") as cf:
-        cf.write(f"""
+        cf.write(
+            f"""
 using clang : : {self.get_tool("CXX")} : <cxxflags>"{self.get_cxxflags(shell = True)}" <linkflags>"{self.get_ldflags(shell = True)}" <warnings-as-errors>"off" ;
 using python : {self._pyver} : /usr/bin/python3 : /usr/include/python{self._pyver} : /usr/lib/python{self._pyver} ;
-""")
+"""
+        )
 
     _call_b2(self)
+
 
 def do_install(self):
     # install b2 globally
@@ -90,7 +132,7 @@ def do_install(self):
     self.install_dir("usr/share/b2")
 
     for f in (self.cwd / "tools/build").glob("*"):
-        self.cp(f, self.destdir / "usr/share/b2", recursive = True)
+        self.cp(f, self.destdir / "usr/share/b2", recursive=True)
 
     for f in (self.destdir / "usr/share/b2").rglob("*.orig"):
         f.unlink()
@@ -100,21 +142,25 @@ def do_install(self):
     self.install_dir("etc")
 
     with open(self.destdir / "etc/site-config.jam", "w") as sc:
-        sc.write("""# System-wide configuration file for Boost.Build.
+        sc.write(
+            """# System-wide configuration file for Boost.Build.
 
 using clang ;
-""")
+"""
+        )
 
     self.install_license("LICENSE_1_0.txt")
 
+
 def do_check(self):
     self.do(
-        "python", "test_all.py", "--default-bjam",
-        wrksrc = "tools/build/test",
-        env = {
-            "PATH": f"{self.chroot_cwd}/tools/build/src/engine:/usr/bin"
-        }
+        "python",
+        "test_all.py",
+        "--default-bjam",
+        wrksrc="tools/build/test",
+        env={"PATH": f"{self.chroot_cwd}/tools/build/src/engine:/usr/bin"},
     )
+
 
 @subpackage(f"boost-build")
 def _jam(self):
@@ -124,12 +170,14 @@ def _jam(self):
 
     return ["usr/bin/b2", "etc/site-config.jam", "usr/share/b2"]
 
+
 @subpackage(f"boost-devel")
 def _devel(self):
     self.depends = [f"boost={pkgver}-r{pkgrel}"] + makedepends
     self.provides = [f"boost{pkgver[:-2]}-devel={pkgver}-r{pkgrel}"]
 
     return self.default_devel()
+
 
 def _gen_libp(libname):
     @subpackage(f"libboost_{libname}")
@@ -138,6 +186,7 @@ def _gen_libp(libname):
         self.depends = [f"boost={pkgver}-r{pkgrel}"]
 
         return [f"usr/lib/libboost_{libname}*.so.*"]
+
 
 for _blib in _libs:
     _gen_libp(_blib)

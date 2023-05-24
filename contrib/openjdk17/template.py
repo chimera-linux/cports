@@ -1,6 +1,6 @@
 pkgname = "openjdk17"
 _majver = "17"
-_fver= f"{_majver}.0.7"
+_fver = f"{_majver}.0.7"
 _bver = "5"
 pkgver = f"{_fver}_p{_bver}"
 pkgrel = 0
@@ -32,15 +32,35 @@ configure_args = [
 make_cmd = "gmake"
 make_build_args = ["jdk-image"]
 hostmakedepends = [
-    "pkgconf", "bash", "gmake", "automake", "libtool", "zip", "openssl",
-    "file", "zlib-devel", "linux-headers",
+    "pkgconf",
+    "bash",
+    "gmake",
+    "automake",
+    "libtool",
+    "zip",
+    "openssl",
+    "file",
+    "zlib-devel",
+    "linux-headers",
 ]
 makedepends = [
-    "libxrender-devel", "libxtst-devel", "libxt-devel", "libxrandr-devel",
-    "giflib-devel", "libjpeg-turbo-devel", "cups-devel", "freetype-devel",
-    "fontconfig-devel", "lcms2-devel", "alsa-lib-devel", "linux-headers",
+    "libxrender-devel",
+    "libxtst-devel",
+    "libxt-devel",
+    "libxrandr-devel",
+    "giflib-devel",
+    "libjpeg-turbo-devel",
+    "cups-devel",
+    "freetype-devel",
+    "fontconfig-devel",
+    "lcms2-devel",
+    "alsa-lib-devel",
+    "linux-headers",
 ]
-depends = [f"{pkgname}-jdk={pkgver}-r{pkgrel}", f"{pkgname}-demos={pkgver}-r{pkgrel}"]
+depends = [
+    f"{pkgname}-jdk={pkgver}-r{pkgrel}",
+    f"{pkgname}-demos={pkgver}-r{pkgrel}",
+]
 pkgdesc = f"Oracle OpenJDK {_majver}"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
@@ -55,7 +75,7 @@ options = ["!parallel", "!check"]
 _java_home = "usr/lib/jvm/java-17-openjdk"
 env = {
     "LD_LIBRARY_PATH": f"/{_java_home}/lib:/{_java_home}/lib/server",
-    "CBUILD_BYPASS_STRIP_WRAPPER": "1"
+    "CBUILD_BYPASS_STRIP_WRAPPER": "1",
 }
 
 # set to True to generate a bootstrap tarball
@@ -71,20 +91,26 @@ if self.profile().cross:
 else:
     hostmakedepends += ["openjdk17-bootstrap"]
 
+
 def init_configure(self):
     self.configure_args += [
         "--prefix=/" + _java_home,
         "--with-boot-jdk=/" + _java_home,
         "--with-jobs=" + str(self.conf_jobs),
-        "--with-extra-cflags=" + self.get_cflags(shell = True),
-        "--with-extra-cxxflags=" + self.get_cxxflags(shell = True),
-        "--with-extra-ldflags=" + self.get_ldflags(shell = True),
-        "READELF=llvm-readelf", "OBJDUMP=llvm-objdump", "OBJCOPY=llvm-objcopy",
-        "STRIP=llvm-strip", "AR=llvm-ar", "NM=llvm-nm",
+        "--with-extra-cflags=" + self.get_cflags(shell=True),
+        "--with-extra-cxxflags=" + self.get_cxxflags(shell=True),
+        "--with-extra-ldflags=" + self.get_ldflags(shell=True),
+        "READELF=llvm-readelf",
+        "OBJDUMP=llvm-objdump",
+        "OBJCOPY=llvm-objcopy",
+        "STRIP=llvm-strip",
+        "AR=llvm-ar",
+        "NM=llvm-nm",
     ]
     if self.profile().cross:
         self.configure_args += [
-            "BUILD_CC=/usr/bin/cc", "BUILD_CXX=/usr/bin/c++",
+            "BUILD_CC=/usr/bin/cc",
+            "BUILD_CXX=/usr/bin/c++",
         ]
     if self.use_ccache:
         if self.profile().cross:
@@ -93,10 +119,13 @@ def init_configure(self):
         self.env["CC"] = "/usr/bin/" + self.get_tool("CC")
         self.env["CXX"] = "/usr/bin/" + self.get_tool("CXX")
 
+
 def do_configure(self):
     from cbuild.util import gnu_configure
+
     gnu_configure.replace_guess(self)
-    gnu_configure.configure(self, sysroot = False)
+    gnu_configure.configure(self, sysroot=False)
+
 
 def do_install(self):
     _jdkp = self.cwd / "build/images/jdk"
@@ -105,7 +134,7 @@ def do_install(self):
         bdirn = f"openjdk-bootstrap-{pkgver}-{self.profile().arch}"
         self.mkdir(bdirn)
         for f in _jdkp.iterdir():
-            self.cp(f, bdirn, recursive = True)
+            self.cp(f, bdirn, recursive=True)
         # remove src, we don't need it
         self.rm(self.cwd / bdirn / "lib/src.zip")
         # strip libs
@@ -140,9 +169,9 @@ def do_install(self):
 
     for f in (self.destdir / _java_home / "man/man1").iterdir():
         self.install_link(
-            f"/{_java_home}/man/man1/{f.name}",
-            f"usr/share/man/man1/{f.name}"
+            f"/{_java_home}/man/man1/{f.name}", f"usr/share/man/man1/{f.name}"
         )
+
 
 @subpackage(f"openjdk{_majver}-demos")
 def _demos(self):
@@ -150,11 +179,13 @@ def _demos(self):
 
     return [f"{_java_home}/demo"]
 
+
 @subpackage(f"openjdk{_majver}-jmods")
 def _jmods(self):
     self.pkgdesc = f"{pkgdesc} (jmods)"
 
     return [f"{_java_home}/jmods"]
+
 
 @subpackage(f"openjdk{_majver}-jre")
 def _jre(self):
@@ -164,12 +195,18 @@ def _jre(self):
 
     _rets = []
     for f in [
-        "awt_xawt", "fontmanager", "javajpeg", "jawt",
-        "jsound", "lcms", "splashscreen"
+        "awt_xawt",
+        "fontmanager",
+        "javajpeg",
+        "jawt",
+        "jsound",
+        "lcms",
+        "splashscreen",
     ]:
         _rets.append(f"{_java_home}/lib/lib{f}.so")
 
     return _rets
+
 
 @subpackage(f"openjdk{_majver}-src")
 def _src(self):
@@ -177,6 +214,7 @@ def _src(self):
     self.depends = [f"openjdk{_majver}-jre-headless={pkgver}-r{pkgrel}"]
 
     return [f"{_java_home}/lib/src.zip"]
+
 
 @subpackage(f"openjdk{_majver}-jre-headless")
 def _jreh(self):
@@ -212,6 +250,7 @@ def _jreh(self):
         f"{_java_home}/README.md",
     ]
 
+
 @subpackage(f"openjdk{_majver}-jre-default")
 def _jredef(self):
     self.pkgdesc = f"{pkgdesc} (JRE default)"
@@ -233,12 +272,13 @@ def _jredef(self):
         "usr/share/man/man1/rmiregistry.1",
     ]
 
+
 @subpackage(f"openjdk{_majver}-jdk")
 def _jdk(self):
     self.pgkdesc = f"{pkgdesc} (JDK)"
     self.depends = [
         f"openjdk{_majver}-jre={pkgver}-r{pkgrel}",
-        f"openjdk{_majver}-jmods={pkgver}-r{pkgrel}"
+        f"openjdk{_majver}-jmods={pkgver}-r{pkgrel}",
     ]
     self.provides = ["java-jdk"]
 
@@ -248,6 +288,7 @@ def _jdk(self):
         f"{_java_home}/man",
         f"{_java_home}/include",
     ]
+
 
 @subpackage(f"openjdk{_majver}-jdk-default")
 def _jdkdef(self):
@@ -262,6 +303,7 @@ def _jdkdef(self):
         "usr/share/man",
     ]
 
+
 @subpackage(f"openjdk{_majver}-default")
 def _default(self):
     self.pkgdesc = f"{pkgdesc} (default)"
@@ -269,5 +311,6 @@ def _default(self):
     self.build_style = "meta"
 
     return []
+
 
 configure_gen = []

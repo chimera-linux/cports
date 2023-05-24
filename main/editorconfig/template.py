@@ -13,6 +13,7 @@ sha256 = "36052a5371731d915b53d9c7a24a11c4032585ccacb392ec9d58656eef4c0edf"
 # test files not available
 options = ["!check"]
 
+
 @subpackage("editorconfig-devel")
 def _devel(self):
     return self.default_devel()

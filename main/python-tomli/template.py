@@ -19,17 +19,17 @@ source = [
 ]
 sha256 = [
     "de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f",
-    "5892962ab8b8ea945835b3a288fe9dd69316f1903d5288c3f5cafdcdd04756ad"
+    "5892962ab8b8ea945835b3a288fe9dd69316f1903d5288c3f5cafdcdd04756ad",
 ]
 # no tests in archive
 options = ["!check"]
 
+
 def init_build(self):
     # tomli requires importing itself and flit_core to build
     fpath = self.chroot_builddir / self.wrksrc / f"flit_core-{_flit_version}"
-    self.make_build_env = {
-        "PYTHONPATH": f"{self.chroot_cwd}:{fpath}"
-    }
+    self.make_build_env = {"PYTHONPATH": f"{self.chroot_cwd}:{fpath}"}
+
 
 def post_install(self):
     self.install_license("LICENSE")

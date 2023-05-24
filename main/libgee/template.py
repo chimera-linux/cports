@@ -12,8 +12,10 @@ url = "https://wiki.gnome.org/Libgee"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "1bf834f5e10d60cc6124d74ed3c1dd38da646787fbf7872220b8b4068e476d4d"
 
+
 @subpackage("libgee-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

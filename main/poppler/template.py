@@ -3,16 +3,30 @@ pkgver = "23.04.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON", "-DENABLE_CPP=ON",
-    "-DENABLE_GLIB=ON", "-DENABLE_GOBJECT_INTROSPECTION=ON",
-    "-DENABLE_UTILS=ON", "-DENABLE_BOOST=ON", "-DENABLE_QT5=OFF",
+    "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
+    "-DENABLE_CPP=ON",
+    "-DENABLE_GLIB=ON",
+    "-DENABLE_GOBJECT_INTROSPECTION=ON",
+    "-DENABLE_UTILS=ON",
+    "-DENABLE_BOOST=ON",
+    "-DENABLE_QT5=OFF",
 ]
 hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "gobject-introspection", "glib-devel"
+    "cmake",
+    "ninja",
+    "pkgconf",
+    "gobject-introspection",
+    "glib-devel",
 ]
 makedepends = [
-    "glib-devel", "cairo-devel", "lcms2-devel", "libcurl-devel",
-    "boost-devel", "libpng-devel", "libtiff-devel", "openjpeg-devel",
+    "glib-devel",
+    "cairo-devel",
+    "lcms2-devel",
+    "libcurl-devel",
+    "boost-devel",
+    "libpng-devel",
+    "libtiff-devel",
+    "openjpeg-devel",
 ]
 pkgdesc = "PDF rendering library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -23,12 +37,14 @@ sha256 = "b6d893dc7dcd4138b9e9df59a13c59695e50e80dc5c2cacee0674670693951a1"
 # needs unshipped sample files
 options = ["!check"]
 
+
 @subpackage("libpoppler")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
     self.depends = ["poppler-data"]
 
     return ["usr/lib/libpoppler.so.*"]
+
 
 @subpackage("libpoppler-devel")
 def _devel(self):
@@ -43,11 +59,13 @@ def _devel(self):
         "usr/lib/pkgconfig/poppler.pc",
     ]
 
+
 @subpackage("libpoppler-cpp")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (C++ binding)"
 
     return ["usr/lib/libpoppler-cpp.so.*"]
+
 
 @subpackage("libpoppler-cpp-devel")
 def _devel(self):
@@ -60,11 +78,13 @@ def _devel(self):
         "usr/lib/pkgconfig/poppler-cpp.pc",
     ]
 
+
 @subpackage("libpoppler-glib")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (GLib binding)"
 
     return ["usr/lib/libpoppler-glib.so.*", "usr/lib/girepository-1.0"]
+
 
 @subpackage("libpoppler-glib-devel")
 def _devel(self):

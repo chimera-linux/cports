@@ -13,12 +13,15 @@ sha256 = "34cd97ff1e6f764436d71676e3d6842dc7bd8e2dd5014068da5c560fe4661f60"
 # runner not integrated
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("unshield-libs")
 def _libs(self):
     return self.default_libs()
+
 
 @subpackage("unshield-devel")
 def _devel(self):

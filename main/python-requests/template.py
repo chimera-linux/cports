@@ -4,8 +4,11 @@ pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
 depends = [
-    "ca-certificates", "python-charset-normalizer",
-    "python-urllib3", "python-idna", "python",
+    "ca-certificates",
+    "python-charset-normalizer",
+    "python-urllib3",
+    "python-idna",
+    "python",
 ]
 pkgdesc = "Python HTTP library for human beings"
 maintainer = "q66 <q66@chimera-linux.org>"

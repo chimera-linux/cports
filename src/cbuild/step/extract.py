@@ -1,5 +1,6 @@
 from cbuild.core import template
 
+
 def invoke(pkg):
     template.call_pkg_hooks(pkg, "init_extract")
     template.run_pkg_func(pkg, "init_extract")
@@ -18,7 +19,7 @@ def invoke(pkg):
     else:
         template.call_pkg_hooks(pkg, "do_extract")
 
-    (pkg.builddir / pkg.wrksrc).mkdir(parents = True, exist_ok = True)
+    (pkg.builddir / pkg.wrksrc).mkdir(parents=True, exist_ok=True)
 
     template.run_pkg_func(pkg, "post_extract")
     template.call_pkg_hooks(pkg, "post_extract")

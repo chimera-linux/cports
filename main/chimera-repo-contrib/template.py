@@ -8,6 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 
+
 def do_install(self):
     self.install_file(
         self.files_path / "01-repo-contrib.list", "etc/apk/repositories.d"
@@ -15,6 +16,7 @@ def do_install(self):
     self.install_file(
         self.files_path / "01-repo-contrib-debug.list", "etc/apk/repositories.d"
     )
+
 
 @subpackage("chimera-repo-contrib-debug")
 def _dbg(self):

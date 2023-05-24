@@ -16,6 +16,7 @@ sha256 = [
     "fe357f9117b7746676063765d587137edf9b25903a792bd54935bf0856791182",
 ]
 
+
 def do_install(self):
     for f in self.cwd.glob("*.txt"):
         self.install_file(f, "usr/share/unicode/emoji")

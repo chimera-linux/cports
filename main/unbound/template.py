@@ -13,10 +13,13 @@ configure_args = [
     f"--with-libevent={self.profile().sysroot / 'usr'}",
     f"--with-libexpat={self.profile().sysroot / 'usr'}",
 ]
-make_dir = "." # fails to build otherwise
+make_dir = "."  # fails to build otherwise
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "libexpat-devel", "libevent-devel", "libsodium-devel", "openssl-devel"
+    "libexpat-devel",
+    "libevent-devel",
+    "libsodium-devel",
+    "openssl-devel",
 ]
 depends = ["dnssec-anchors"]
 pkgdesc = "Validating, recursive, and caching DNS resolver"
@@ -27,6 +30,7 @@ source = f"https://nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ee4085cecce12584e600f3d814a28fa822dfaacec1f94c84bfd67f8a5571a5f4"
 system_users = ["_unbound"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
 
@@ -36,16 +40,19 @@ def post_install(self):
 
     self.install_service(self.files_path / "unbound")
 
+
 @subpackage("libunbound")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
     return self.default_libs()
 
+
 @subpackage("unbound-devel")
 def _devel(self):
     self.depends += ["openssl-devel", "libsodium-devel"]
 
     return self.default_devel()
+
 
 configure_gen = []

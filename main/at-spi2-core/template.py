@@ -3,12 +3,20 @@ pkgver = "2.48.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny",
-    "gobject-introspection", "dbus"
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "gobject-introspection",
+    "dbus",
 ]
 makedepends = [
-    "glib-devel", "libxext-devel", "libxtst-devel",
-    "libsm-devel", "dbus-devel", "libxml2-devel",
+    "glib-devel",
+    "libxext-devel",
+    "libxtst-devel",
+    "libsm-devel",
+    "dbus-devel",
+    "libxml2-devel",
 ]
 pkgdesc = "Assistive Technology Service Provider Interface"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,8 +27,10 @@ sha256 = "905a5b6f1790b68ee803bffa9f5fab4ceb591fb4fae0b2f8c612c54f1d4e8a30"
 # non-trivial dbus setup
 options = ["!check", "!cross"]
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive = True)
+    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+
 
 @subpackage("at-spi2-core-devel")
 def _devel(self):

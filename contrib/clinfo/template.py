@@ -14,6 +14,7 @@ sha256 = "6dcdada6c115873db78c7ffc62b9fc1ee7a2d08854a3bccea396df312e7331e3"
 # no tests available
 options = ["!check"]
 
+
 def do_install(self):
     self.install_bin("clinfo")
     self.install_man("man1/clinfo.1")

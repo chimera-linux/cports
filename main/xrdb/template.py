@@ -13,7 +13,9 @@ source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "4f5d031c214ffb88a42ae7528492abde1178f5146351ceb3c05f3b8d5abee8b4"
 hardening = ["vis", "cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 configure_gen = []

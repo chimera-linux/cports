@@ -3,26 +3,46 @@ pkgver = "0.72.1"
 pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "-Db_ndebug=false", "-D_systemd=false", "-Dgir=true", "-Dvapi=true",
+    "-Db_ndebug=false",
+    "-D_systemd=false",
+    "-Dgir=true",
+    "-Dvapi=true",
     "-Dgtk4=true",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny-devel", "gperf",
-    "gobject-introspection", "vala", "bash",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny-devel",
+    "gperf",
+    "gobject-introspection",
+    "vala",
+    "bash",
 ]
 makedepends = [
-    "glib-devel", "gnutls-devel", "gtk+3-devel", "gtk4-devel",
-    "pcre2-devel", "vala-devel", "pango-devel", "fribidi-devel",
-    "icu-devel", "zlib-devel", "linux-headers",
+    "glib-devel",
+    "gnutls-devel",
+    "gtk+3-devel",
+    "gtk4-devel",
+    "pcre2-devel",
+    "vala-devel",
+    "pango-devel",
+    "fribidi-devel",
+    "icu-devel",
+    "zlib-devel",
+    "linux-headers",
 ]
 pkgdesc = "Gtk terminal widget (common files)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Terminal/VTE"
-source = f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
+source = (
+    f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
+)
 sha256 = "f6bc7d256c8d9174530131b2422105a66d33a1204a3eb3af5559a6b19c9deaae"
 # assert in meson
 options = ["!lto", "!cross"]
+
 
 @subpackage("vte-gtk3")
 def _gtk3(self):
@@ -34,6 +54,7 @@ def _gtk3(self):
         "usr/lib/girepository-1.0/Vte-2.91.typelib",
     ]
 
+
 @subpackage("vte-gtk4")
 def _gtk4(self):
     self.pkgdesc = f"Gtk4 terminal widget"
@@ -43,6 +64,7 @@ def _gtk4(self):
         "usr/lib/libvte-2.91-gtk4.so.*",
         "usr/lib/girepository-1.0/Vte-3.91.typelib",
     ]
+
 
 @subpackage("vte-gtk3-devel")
 def _gtk3_devel(self):
@@ -54,6 +76,7 @@ def _gtk3_devel(self):
         "usr/share/gir-1.0/Vte-2.91.gir",
         "usr/share/vala/vapi/vte-2.91.*",
     ]
+
 
 @subpackage("vte-gtk4-devel")
 def _devel(self):

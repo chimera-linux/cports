@@ -3,9 +3,15 @@ pkgver = "4.13"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-shared", "--disable-static", "--with-libpam", "--with-acl",
-    "--with-attr", "--without-selinux", "--disable-nls",
-    "--enable-subordinate-ids", "--disable-account-tools-setuid"
+    "--enable-shared",
+    "--disable-static",
+    "--with-libpam",
+    "--with-acl",
+    "--with-attr",
+    "--without-selinux",
+    "--disable-nls",
+    "--enable-subordinate-ids",
+    "--disable-account-tools-setuid",
 ]
 make_cmd = "gmake"
 # out of tree is broken with libsubid
@@ -32,46 +38,55 @@ suid_files = [
     "usr/bin/sg",
     "usr/bin/su",
 ]
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
 # messes with filesystem
 options = ["!check"]
+
 
 def pre_install(self):
     # shadow force-installs into sbin regardless of configure
     self.install_dir("usr/bin")
     self.install_link("bin", "usr/sbin")
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/sbin", force = True)
+    self.rm(self.destdir / "usr/sbin", force=True)
 
     # install sulogin which is noinst
     self.install_bin("src/sulogin")
     self.install_man("man/man8/sulogin.8")
 
     # do not install pam files supplied with shadow
-    self.rm(self.destdir / "etc/pam.d", recursive = True, force = True)
+    self.rm(self.destdir / "etc/pam.d", recursive=True, force=True)
 
     # install our own pam files
     for f in ["chage", "chfn", "chsh", "login", "su", "passwd"]:
-        self.install_file(self.files_path / f"{f}.pam", "etc/pam.d", name = f)
+        self.install_file(self.files_path / f"{f}.pam", "etc/pam.d", name=f)
 
     for f in [
-        "chpasswd", "chgpasswd", "groupadd", "groupdel", "groupmems",
-        "groupmod", "newusers", "useradd", "userdel", "usermod"
+        "chpasswd",
+        "chgpasswd",
+        "groupadd",
+        "groupdel",
+        "groupmems",
+        "groupmod",
+        "newusers",
+        "useradd",
+        "userdel",
+        "usermod",
     ]:
         self.install_file(
-            self.destdir / "etc/pam.d/chage", f"etc/pam.d", name = f
+            self.destdir / "etc/pam.d/chage", f"etc/pam.d", name=f
         )
 
     # defaults for useradd
     self.install_file(
-        self.files_path / "default.useradd", "etc/default", name = "useradd"
+        self.files_path / "default.useradd", "etc/default", name="useradd"
     )
 
     # install daily cron job
     self.install_file(
-        self.files_path / "shadow.cron-daily", "etc/cron.daily",
-        name = "shadow"
+        self.files_path / "shadow.cron-daily", "etc/cron.daily", name="shadow"
     )
 
     # chimerautils
@@ -79,5 +94,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man1/groups.1")
 
     self.install_license(self.files_path / "LICENSE")
+
 
 configure_gen = []

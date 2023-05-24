@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 def get_go_env(pkg):
     if not pkg.profile().goarch:
         pkg.error("unknown architecture for golang")
@@ -10,20 +11,27 @@ def get_go_env(pkg):
     env = {
         "GOMODCACHE": "/cbuild_cache/golang/pkg/mod",
         "GOARCH": pkg.profile().goarch,
-        "GOPATH": f"{pkg.chroot_cwd}/{pkg.make_dir}"
+        "GOPATH": f"{pkg.chroot_cwd}/{pkg.make_dir}",
     }
     return env
 
+
 class Golang:
-    def __init__(self, tmpl, jobs = None, env = {}, wrksrc = None):
+    def __init__(self, tmpl, jobs=None, env={}, wrksrc=None):
         self.template = tmpl
         self.wrksrc = wrksrc
         self.env = env
         self.jobs = jobs
 
     def _invoke(
-        self, command = None, args = [], jobs = None, offline = True,
-        base_env = {}, env = {}, wrksrc = None
+        self,
+        command=None,
+        args=[],
+        jobs=None,
+        offline=True,
+        base_env={},
+        env={},
+        wrksrc=None,
     ):
         if not command:
             self.template.error("golang: missing go command argument")
@@ -61,11 +69,16 @@ class Golang:
         self.template.log(f"golang: go {command} {' '.join(args)}")
 
         return self.template.do(
-            "go", command, *self.template.configure_args, *args,
-            env = renv, wrksrc = wrksrc, allow_network = not offline
+            "go",
+            command,
+            *self.template.configure_args,
+            *args,
+            env=renv,
+            wrksrc=wrksrc,
+            allow_network=not offline,
         )
 
-    def mod_download(self, args = [], env = {}, wrksrc = None):
+    def mod_download(self, args=[], env={}, wrksrc=None):
         mode = self.template.go_mod_dl
 
         if mode == "off":
@@ -75,18 +88,20 @@ class Golang:
         vendor_dir = self.template.cwd / "vendor"
 
         if vendor_dir.is_dir() and mode != "mod":
-            self.template.log("golang: vendor/ is present, skip download of modules")
+            self.template.log(
+                "golang: vendor/ is present, skip download of modules"
+            )
             return
 
         return self._invoke("mod", ["download"], 1, False, None, env, wrksrc)
 
-    def build(self, args = [], jobs = None, env = {}, wrksrc = None):
-        myargs = ['-x'] # increase go verbosity
+    def build(self, args=[], jobs=None, env={}, wrksrc=None):
+        myargs = ["-x"]  # increase go verbosity
 
         tags = self.template.go_build_tags
 
         if tags:
-            myargs += ["-tags", (',').join(tags)]
+            myargs += ["-tags", (",").join(tags)]
 
         if self.template.has_hardening("pie"):
             myargs += ["-buildmode=pie"]
@@ -109,7 +124,7 @@ class Golang:
         tags = self.template.go_check_tags
 
         if tags:
-            myargs += ["-tags", (',').join(tags)]
+            myargs += ["-tags", (",").join(tags)]
 
         if self.template.make_check_args:
             myargs += self.template.make_check_args
@@ -125,8 +140,8 @@ class Golang:
 
         # find either "native" files (bin/*)
         # or targeted arch file (bin/linux_<arch>/*)
-        for f in Path(
-            self.template.cwd / f"{self.template.make_dir}/bin"
-        ).glob('**/*'):
+        for f in Path(self.template.cwd / f"{self.template.make_dir}/bin").glob(
+            "**/*"
+        ):
             if f.is_file():
                 self.template.install_bin(f)

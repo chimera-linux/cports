@@ -54,39 +54,85 @@ configure_args = [
     "-Dwpe=disabled",
     "-Dmagicleap=disabled",
     "-Davtp=disabled",
-    "-Ddc1394=disabled", # maybe?
-    "-Ddts=disabled", # GPL
-    "-Dfaad=disabled", # GPL
-    "-Dgs=disabled", # does anybody need this?
-    "-Diqa=disabled", # AGPL
-    "-Dmpeg2enc=disabled", # GPL
-    "-Dmplex=disabled", # GPL
-    "-Dresindvd=disabled", # GPL
-    "-Dx265=disabled", # GPL
-    "-Dzbar=disabled", # maybe?
-    "-Dzxing=disabled", # maybe?
-    "-Dflite=disabled", # not packaged, fails with make 4.4
+    "-Ddc1394=disabled",  # maybe?
+    "-Ddts=disabled",  # GPL
+    "-Dfaad=disabled",  # GPL
+    "-Dgs=disabled",  # does anybody need this?
+    "-Diqa=disabled",  # AGPL
+    "-Dmpeg2enc=disabled",  # GPL
+    "-Dmplex=disabled",  # GPL
+    "-Dresindvd=disabled",  # GPL
+    "-Dx265=disabled",  # GPL
+    "-Dzbar=disabled",  # maybe?
+    "-Dzxing=disabled",  # maybe?
+    "-Dflite=disabled",  # not packaged, fails with make 4.4
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "glib-devel", "orc",
-    "gobject-introspection", "shaderc-progs", "wayland-progs",
+    "meson",
+    "pkgconf",
+    "gettext-tiny",
+    "glib-devel",
+    "orc",
+    "gobject-introspection",
+    "shaderc-progs",
+    "wayland-progs",
 ]
 makedepends = [
-    "gstreamer-devel", "gst-plugins-base-devel", "openssl-devel",
-    "libaom-devel", "libass-devel", "bluez-devel", "libbs2b-devel",
-    "libbz2-devel", "pango-devel", "cairo-devel", "lcms2-devel",
-    "libcurl-devel", "libssh2-devel", "libxml2-devel", "fdk-aac-devel",
-    "fluidsynth-devel", "mesa-devel", "libdrm-devel", "libde265-devel",
-    "libmodplug-devel", "openjpeg-devel", "opus-devel", "sbc-devel",
-    "librsvg-devel", "librtmp-devel", "libsndfile-devel", "libva-devel",
-    "vulkan-loader", "vulkan-headers", "libwebp-devel", "libgudev-devel",
-    "wayland-devel", "wayland-protocols", "libxkbcommon-devel",
-    "webrtc-audio-processing-devel", "webrtc-audio-processing-0.3-devel",
-    "v4l-utils-devel", "libusb-devel", "libfreeaptx-devel", "lilv-devel",
-    "ladspa-sdk", "lrdf-devel", "chromaprint-devel", "gtk+3-devel",
-    "openal-soft-devel", "qrencode-devel", "json-glib-devel",
-    "libnice-devel", "libsrtp-devel", "spandsp-devel", "soundtouch-devel",
-    "libmicrodns-devel", "gsm-devel", "libgme-devel", "linux-headers",
+    "gstreamer-devel",
+    "gst-plugins-base-devel",
+    "openssl-devel",
+    "libaom-devel",
+    "libass-devel",
+    "bluez-devel",
+    "libbs2b-devel",
+    "libbz2-devel",
+    "pango-devel",
+    "cairo-devel",
+    "lcms2-devel",
+    "libcurl-devel",
+    "libssh2-devel",
+    "libxml2-devel",
+    "fdk-aac-devel",
+    "fluidsynth-devel",
+    "mesa-devel",
+    "libdrm-devel",
+    "libde265-devel",
+    "libmodplug-devel",
+    "openjpeg-devel",
+    "opus-devel",
+    "sbc-devel",
+    "librsvg-devel",
+    "librtmp-devel",
+    "libsndfile-devel",
+    "libva-devel",
+    "vulkan-loader",
+    "vulkan-headers",
+    "libwebp-devel",
+    "libgudev-devel",
+    "wayland-devel",
+    "wayland-protocols",
+    "libxkbcommon-devel",
+    "webrtc-audio-processing-devel",
+    "webrtc-audio-processing-0.3-devel",
+    "v4l-utils-devel",
+    "libusb-devel",
+    "libfreeaptx-devel",
+    "lilv-devel",
+    "ladspa-sdk",
+    "lrdf-devel",
+    "chromaprint-devel",
+    "gtk+3-devel",
+    "openal-soft-devel",
+    "qrencode-devel",
+    "json-glib-devel",
+    "libnice-devel",
+    "libsrtp-devel",
+    "spandsp-devel",
+    "soundtouch-devel",
+    "libmicrodns-devel",
+    "gsm-devel",
+    "libgme-devel",
+    "linux-headers",
 ]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer bad plugins"
@@ -104,6 +150,7 @@ if self.profile().endian == "big":
     configure_args += ["-Dldac=disabled"]
 else:
     makedepends += ["ldacbt-devel"]
+
 
 @subpackage("gst-plugins-bad-devel")
 def _devel(self):

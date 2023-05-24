@@ -3,13 +3,19 @@ pkgver = "2.76.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dgnutls=enabled", "-Dopenssl=enabled", "-Dlibproxy=enabled",
-    "-Dgnome_proxy=enabled", "-Ddefault_library=shared",
+    "-Dgnutls=enabled",
+    "-Dopenssl=enabled",
+    "-Dlibproxy=enabled",
+    "-Dgnome_proxy=enabled",
+    "-Ddefault_library=shared",
 ]
 hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext-tiny"]
 makedepends = [
-    "openssl-devel", "gnutls-devel", "gsettings-desktop-schemas-devel",
-    "glib-devel", "libproxy-devel"
+    "openssl-devel",
+    "gnutls-devel",
+    "gsettings-desktop-schemas-devel",
+    "glib-devel",
+    "libproxy-devel",
 ]
 depends = ["gsettings-desktop-schemas"]
 checkdepends = ["glib"]
@@ -20,8 +26,10 @@ url = "https://gitlab.gnome.org/GNOME/glib-networking"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "149a05a179e629a538be25662aa324b499d7c4549c5151db5373e780a1bf1b9a"
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive = True)
+    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+
 
 @subpackage("glib-networking-openssl")
 def _gnutls(self):
@@ -30,6 +38,7 @@ def _gnutls(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "openssl"]
 
     return ["usr/lib/gio/modules/libgioopenssl.so"]
+
 
 @subpackage("glib-networking-gnutls")
 def _gnutls(self):

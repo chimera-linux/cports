@@ -16,13 +16,15 @@ source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "a2bfb8c09d436770edc59f50fa483e785b161a3b7b9d547573cb08065fd462fe"
 hardening = ["vis", "cfi"]
 
+
 def post_install(self):
     # we don't want this
     self.rm(self.destdir / "usr/bin/glocate")
     self.rm(self.destdir / "usr/bin/gupdatedb")
-    self.rm(self.destdir / "usr/libexec", recursive = True)
+    self.rm(self.destdir / "usr/libexec", recursive=True)
     self.rm(self.destdir / "usr/share/man/man1/glocate.1")
     self.rm(self.destdir / "usr/share/man/man1/gupdatedb.1")
-    self.rm(self.destdir / "usr/share/man/man5", recursive = True)
+    self.rm(self.destdir / "usr/share/man/man5", recursive=True)
+
 
 configure_gen = []

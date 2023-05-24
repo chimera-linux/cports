@@ -15,18 +15,27 @@ def check_stage(stlist, arch, signkey):
     revdeps = {}
 
     def _call_apk(*args):
-        return subprocess.run([
-            paths.apk(), "--quiet", "--arch", arch, "--allow-untrusted",
-            "--root", paths.bldroot(), *args
-        ], capture_output = True)
+        return subprocess.run(
+            [
+                paths.apk(),
+                "--quiet",
+                "--arch",
+                arch,
+                "--allow-untrusted",
+                "--root",
+                paths.bldroot(),
+                *args,
+            ],
+            capture_output=True,
+        )
 
     # full repo list for revdep search
     rlist = []
 
     repop = paths.repository()
     stagep = paths.stage_repository()
-    rr = [] # regular repos
-    rs = [] # stage repos
+    rr = []  # regular repos
+    rs = []  # stage repos
     for f in repop.rglob("APKINDEX.tar.gz"):
         p = f.parent
         if p.name != arch:
@@ -57,14 +66,24 @@ def check_stage(stlist, arch, signkey):
         for p in ret.stdout.strip().decode().split():
             # stage providers
             pr = _call_apk(
-                "--from", "none", "--repository", str(d.parent),
-                "info", "--provides", p
+                "--from",
+                "none",
+                "--repository",
+                str(d.parent),
+                "info",
+                "--provides",
+                p,
             )
             stpr = set(pr.stdout.strip().decode().split())
             # repo providers
             pr = _call_apk(
-                "--from", "none", "--repository", str(ad.parent),
-                "info", "--provides", p
+                "--from",
+                "none",
+                "--repository",
+                str(ad.parent),
+                "info",
+                "--provides",
+                p,
             )
             rppr = set(pr.stdout.strip().decode().split())
             # if they are the same, just skip
@@ -74,14 +93,14 @@ def check_stage(stlist, arch, signkey):
             for pr in stpr:
                 vp = pr.find("=")
                 if vp > 0:
-                    added[pr[0:vp]] = pr[vp + 1:]
+                    added[pr[0:vp]] = pr[vp + 1 :]
                 else:
                     added[pr] = True
             # accumulate repo providers
             for pr in rppr:
                 vp = pr.find("=")
                 if vp > 0:
-                    dropped[pr[0:vp]] = pr[vp + 1:]
+                    dropped[pr[0:vp]] = pr[vp + 1 :]
                 else:
                     dropped[pr] = True
             # track as replaced
@@ -96,8 +115,14 @@ def check_stage(stlist, arch, signkey):
     # for each dropped provider, get known revdeps and accumulate a set
     for d in dropped:
         ret = _call_apk(
-            *rlist, "search", "--from", "none",
-            "--exact", "--all", "--rdepends", d
+            *rlist,
+            "search",
+            "--from",
+            "none",
+            "--exact",
+            "--all",
+            "--rdepends",
+            d,
         )
         for pn in ret.stdout.strip().decode().split():
             revdeps[pn] = True
@@ -133,16 +158,16 @@ def check_stage(stlist, arch, signkey):
             for i, c in enumerate(ad):
                 # get the version and operator
                 if c == "=":
-                    av = ad[i + 1:]
+                    av = ad[i + 1 :]
                     ao = c
                     ad = ad[0:i]
                     break
                 elif c == "<" or c == ">":
-                    if ad[i + 1:i + 2] == "=":
-                        av = ad[i + 2:]
+                    if ad[i + 1 : i + 2] == "=":
+                        av = ad[i + 2 :]
                         ao = c + "="
                     else:
-                        av = ad[i + 1:]
+                        av = ad[i + 1 :]
                         ao = c
                     ad = ad[0:i]
                     break
@@ -229,6 +254,7 @@ def check_stage(stlist, arch, signkey):
 
     return False
 
+
 def _do_clear(arch, signkey, force):
     repop = paths.repository()
     sroot = paths.stage_repository()
@@ -260,12 +286,12 @@ def _do_clear(arch, signkey, force):
         # just migrate if possible, easier this way
         if not ad.is_dir():
             log.out(f"Migrating stage from {d} to {ad}...")
-            ad.parent.mkdir(parents = True, exist_ok = True)
+            ad.parent.mkdir(parents=True, exist_ok=True)
             d.rename(ad)
             continue
         # else merge the directories
         log.out(f"Merging stage from {d} to {ad}...")
-        ad.mkdir(parents = True, exist_ok = True)
+        ad.mkdir(parents=True, exist_ok=True)
         for f in d.glob("*.apk"):
             f.rename(ad / f.name)
         # clear the stage index, we won't need it
@@ -280,7 +306,8 @@ def _do_clear(arch, signkey, force):
         log.out(f"Rebuilding index for {ad}...")
         cli.build_index(ad, epoch, signkey)
 
-def clear(arch, signkey, force = False):
+
+def clear(arch, signkey, force=False):
     with flock.lock(flock.repolock(arch)):
         with flock.lock(flock.stagelock(arch)):
             _do_clear(arch, signkey, force)

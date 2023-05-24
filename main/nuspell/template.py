@@ -12,13 +12,15 @@ license = "LGPL-3.0-or-later"
 url = "https://nuspell.github.io"
 source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "82f5f2faa82df30099555dca94b3a908d38fdba408e31e74535c523f7e6ea18d"
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
 # missing checkdepends
 options = ["!check"]
+
 
 @subpackage("nuspell-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("nuspell-progs")
 def _progs(self):

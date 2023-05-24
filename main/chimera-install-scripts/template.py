@@ -22,5 +22,6 @@ sha256 = "736ab4a920e2d37863fd9c39bc54d129591aae836b92461e31f187f706d39ac0"
 # no test suite
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("COPYING.md")

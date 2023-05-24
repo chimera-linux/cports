@@ -13,6 +13,7 @@ sha256 = "408539897ee535dbfb83a153f7bc4d620f990d8bd44a52a986efc0b4d330d34a"
 # unpackaged dependencies
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.txt")
     self.install_link("pip3", "usr/bin/pip")

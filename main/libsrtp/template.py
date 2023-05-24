@@ -12,8 +12,10 @@ url = "https://github.com/cisco/libsrtp"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "8a43ef8e9ae2b665292591af62aa1a4ae41e468b6d98d8258f91478735da4e09"
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("libsrtp-devel")
 def _devel(self):

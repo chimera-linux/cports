@@ -4,6 +4,7 @@ from enum import Enum
 
 import re
 
+
 def strip_tar_endhdr(data):
     tlen = len(data)
     # length of the initial archive without trailing headers
@@ -14,14 +15,14 @@ def strip_tar_endhdr(data):
         if (tlen - dlen) < 512:
             break
         # try if there's a name
-        hname = data[dbeg:dbeg + 100]
+        hname = data[dbeg : dbeg + 100]
         # trailing header
         if hname[0] == 0:
             break
         # header size
         dlen += 512
         # data size, if any
-        szb = data[dbeg + 124:dbeg + 136].rstrip(b"\x00")
+        szb = data[dbeg + 124 : dbeg + 136].rstrip(b"\x00")
         if len(szb) > 0:
             # align to 512
             dlen += (int(szb, 8) + 511) & ~511
@@ -30,22 +31,24 @@ def strip_tar_endhdr(data):
 
     return data[0:dlen]
 
+
 _valid_ops = {
     "<=": True,
-    "<":  True,
+    "<": True,
     ">=": True,
-    ">":  True,
-    "=":  True,
-    "~":  True,
+    ">": True,
+    "=": True,
+    "~": True,
 }
+
 
 def split_pkg_name(s):
     found = re.search(r"[><=~]", s)
     if not found:
         return None, None, None
 
-    sn = s[:found.start()]
-    sv = s[found.start():]
+    sn = s[: found.start()]
+    sv = s[found.start() :]
 
     if len(sn) == 0:
         return None, None, None
@@ -59,6 +62,7 @@ def split_pkg_name(s):
 
     return None, None, None
 
+
 class Operator(Enum):
     LE = 0
     LT = 1
@@ -67,14 +71,16 @@ class Operator(Enum):
     EQ = 4
     EF = 5
 
+
 _ops = {
     "<=": Operator.LE,
-    "<":  Operator.LT,
+    "<": Operator.LT,
     ">=": Operator.GE,
-    ">":  Operator.GT,
-    "=":  Operator.EQ,
-    "~":  Operator.EF,
+    ">": Operator.GT,
+    "=": Operator.EQ,
+    "~": Operator.EF,
 }
+
 
 def _op_find(pat):
     global _ops
@@ -85,6 +91,7 @@ def _op_find(pat):
             return None, -1
         return opid, 1
     return opid, 2
+
 
 def get_namever(pkgp):
     # maybe version dash
@@ -105,7 +112,8 @@ def get_namever(pkgp):
         fdash = sdash
         sdash = ndash
     # and return name/ver
-    return pkgp[0:fdash], pkgp[fdash + 1:]
+    return pkgp[0:fdash], pkgp[fdash + 1 :]
+
 
 def pkg_match(ver, pattern):
     sepidx = -1
@@ -126,7 +134,7 @@ def pkg_match(ver, pattern):
         return False
 
     pattern = pattern[sepidx:]
-    ver = ver[sepidx + 1:]
+    ver = ver[sepidx + 1 :]
 
     sep1, sep1l = _op_find(pattern)
 
@@ -136,7 +144,7 @@ def pkg_match(ver, pattern):
             sep2, sep2l = _op_find(pattern[sidx:])
             if not sep2:
                 return False
-            cmpv = cli.compare_version(ver, pattern[sidx + sep2l:])
+            cmpv = cli.compare_version(ver, pattern[sidx + sep2l :])
             # if version is greater, always return
             if cmpv > 0:
                 return False
@@ -158,7 +166,7 @@ def pkg_match(ver, pattern):
         # first, the prefix has to be the same
         if not ver.startswith(pattern):
             return False
-        ver = ver[len(pattern):]
+        ver = ver[len(pattern) :]
         # second, what follows must be a new token
         # both versions are already guaranteed to be
         # in valid format thanks to compare_version

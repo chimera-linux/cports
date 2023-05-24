@@ -12,11 +12,14 @@ url = "https://xcb.freedesktop.org"
 source = f"{url}/dist/{pkgname}-{pkgver}.tar.gz"
 sha256 = "cc8608ebb695742b6cf84712be29b2b66aa5f6768039528794fca0fa283022bf"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("xcb-util-cursor-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

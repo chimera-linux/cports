@@ -13,8 +13,10 @@ url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/{pkgname}-{pkgver}.tar.xz"
 sha256 = "8f12368e1dbbf55e14536520473cfb338c84b392939cc9b64298360fd4a07992"
 
+
 @subpackage("sbc-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

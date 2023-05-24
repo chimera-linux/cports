@@ -5,8 +5,12 @@ build_style = "meson"
 configure_args = ["-Ddocs=false", "-Dintrospection=true"]
 hostmakedepends = ["meson", "pkgconf", "vala", "gobject-introspection"]
 makedepends = [
-    "glib-devel", "libusb-devel", "libgudev-devel", "json-glib-devel",
-    "vala-devel", "usbutils"
+    "glib-devel",
+    "libusb-devel",
+    "libgudev-devel",
+    "json-glib-devel",
+    "vala-devel",
+    "usbutils",
 ]
 pkgdesc = "GLib wrapper around libusb"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,6 +20,7 @@ source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "bc8c6328289f057c8f73b07c1ba6251de96029787309f2672ca252ca90ace1b2"
 # no access to usb in container
 options = ["!check", "!cross"]
+
 
 @subpackage("libgusb-devel")
 def _devel(self):

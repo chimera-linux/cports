@@ -1,6 +1,7 @@
 import bz2
 import gzip
 
+
 def invoke(pkg):
     for f in (pkg.destdir / "usr/share/man").rglob("*.*"):
         # sanitize

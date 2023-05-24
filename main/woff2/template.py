@@ -13,8 +13,10 @@ sha256 = "add272bb09e6384a4833ffca4896350fdb16e0ca22df68c0384773c67a175594"
 # no test target
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("libwoff2common")
 def _libcommon(self):
@@ -22,17 +24,20 @@ def _libcommon(self):
 
     return ["usr/lib/libwoff2common.so.*"]
 
+
 @subpackage("libwoff2dec")
 def _libdec(self):
     self.pkgdesc = f"{pkgdesc} (decoder library)"
 
     return ["usr/lib/libwoff2dec.so.*"]
 
+
 @subpackage("libwoff2enc")
 def _libenc(self):
     self.pkgdesc = f"{pkgdesc} (encoder library)"
 
     return ["usr/lib/libwoff2enc.so.*"]
+
 
 @subpackage("woff2-devel")
 def _devel(self):

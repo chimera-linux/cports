@@ -1,5 +1,6 @@
 from cbuild.util import patch
 
+
 def invoke(pkg):
     if not (pkg.builddir / pkg.wrksrc).is_dir():
         return

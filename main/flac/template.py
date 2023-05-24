@@ -3,8 +3,10 @@ pkgver = "1.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--disable-rpath", "--disable-doxygen-docs",
-    f"--with-ogg={self.profile().sysroot / 'usr'}", "--disable-thorough-tests"
+    "--disable-rpath",
+    "--disable-doxygen-docs",
+    f"--with-ogg={self.profile().sysroot / 'usr'}",
+    "--disable-thorough-tests",
 ]
 make_cmd = "gmake"
 make_dir = "."
@@ -27,18 +29,20 @@ match self.profile().arch:
     case "ppc64":
         configure_args += ["--enable-altivec", "--disable-vsx"]
 
+
 def post_install(self):
     self.install_license("COPYING.Xiph")
+
 
 @subpackage("libflac")
 def _lib(self):
     self.pkgdesc = f"{pkgname} (runtime library)"
     return self.default_libs()
 
+
 @subpackage("flac-devel")
 def _devel(self):
-    return self.default_devel(extra = [
-        "usr/share/doc"
-    ])
+    return self.default_devel(extra=["usr/share/doc"])
+
 
 configure_gen = []

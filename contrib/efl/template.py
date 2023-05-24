@@ -3,7 +3,7 @@ pkgver = "1.26.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dbuild-tests=false", # enable if enabling tests
+    "-Dbuild-tests=false",  # enable if enabling tests
     "-Dbuild-examples=false",
     "-Dembedded-lz4=false",
     "-Dcrypto=openssl",
@@ -31,25 +31,67 @@ configure_args = [
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = ["meson", "pkgconf", "gettext-tiny-devel"]
 makedepends = [
-    "gettext-tiny-devel", "openssl-devel", "udev-devel", "elogind-devel",
-    "libmount-devel", "libdrm-devel", "libinput-devel", "libxkbcommon-devel",
-    "mesa-devel", "wayland-protocols", "wayland-devel", "libxrandr-devel",
-    "libxscrnsaver-devel", "libxcomposite-devel", "libxcursor-devel",
-    "libxdamage-devel", "libxrender-devel", "libxext-devel", "libxtst-devel",
-    "libxi-devel", "libxinerama-devel", "libxpresent-devel", "xcb-util-devel",
-    "xcb-util-keysyms-devel", "xcb-util-image-devel", "xcb-util-wm-devel",
-    "xcb-util-renderutil-devel", "xorgproto", "liblz4-devel", "zlib-devel",
-    "fontconfig-devel", "fribidi-devel", "harfbuzz-devel", "freetype-devel",
-    "libjpeg-turbo-devel", "libpng-devel", "giflib-devel", "libtiff-devel",
-    "libwebp-devel", "openjpeg-devel", "libavif-devel", "libheif-devel",
-    "libpulse-devel", "libraw-devel", "librsvg-devel", "libspectre-devel",
-    "libpoppler-cpp-devel", "libsndfile-devel", "gstreamer-devel",
-    "gst-plugins-base-devel", "glib-devel", "avahi-devel", "lua5.1-devel",
+    "gettext-tiny-devel",
+    "openssl-devel",
+    "udev-devel",
+    "elogind-devel",
+    "libmount-devel",
+    "libdrm-devel",
+    "libinput-devel",
+    "libxkbcommon-devel",
+    "mesa-devel",
+    "wayland-protocols",
+    "wayland-devel",
+    "libxrandr-devel",
+    "libxscrnsaver-devel",
+    "libxcomposite-devel",
+    "libxcursor-devel",
+    "libxdamage-devel",
+    "libxrender-devel",
+    "libxext-devel",
+    "libxtst-devel",
+    "libxi-devel",
+    "libxinerama-devel",
+    "libxpresent-devel",
+    "xcb-util-devel",
+    "xcb-util-keysyms-devel",
+    "xcb-util-image-devel",
+    "xcb-util-wm-devel",
+    "xcb-util-renderutil-devel",
+    "xorgproto",
+    "liblz4-devel",
+    "zlib-devel",
+    "fontconfig-devel",
+    "fribidi-devel",
+    "harfbuzz-devel",
+    "freetype-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
+    "giflib-devel",
+    "libtiff-devel",
+    "libwebp-devel",
+    "openjpeg-devel",
+    "libavif-devel",
+    "libheif-devel",
+    "libpulse-devel",
+    "libraw-devel",
+    "librsvg-devel",
+    "libspectre-devel",
+    "libpoppler-cpp-devel",
+    "libsndfile-devel",
+    "gstreamer-devel",
+    "gst-plugins-base-devel",
+    "glib-devel",
+    "avahi-devel",
+    "lua5.1-devel",
     "ibus-devel",
 ]
 checkdepends = [
-    "dbus-x11", "xserver-xorg-xvfb", "mesa-dri",
-    "fonts-dejavu-otf", "check-devel"
+    "dbus-x11",
+    "xserver-xorg-xvfb",
+    "mesa-dri",
+    "fonts-dejavu-otf",
+    "check-devel",
 ]
 pkgdesc = "Enlightenment Foundation Libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -63,7 +105,7 @@ hardening = ["!int"]
 options = ["!check"]
 
 match self.profile().arch:
-    case "ppc64le" | "aarch64": # requires SSE3 on x86, so not there
+    case "ppc64le" | "aarch64":  # requires SSE3 on x86, so not there
         configure_args.append("-Dnative-arch-optimization=true")
     case _:
         configure_args.append("-Dnative-arch-optimization=false")
@@ -71,14 +113,16 @@ match self.profile().arch:
 if self.profile().cross:
     hostmakedepends.append("efl-devel")
 
+
 def post_install(self):
     self.install_license("licenses/COPYING.BSD")
     self.install_license("licenses/COPYING.SMALL")
     self.install_license("licenses/COPYING.DNS")
 
     # service files: maybe reimplement for dinit later
-    self.rm(self.destdir / "usr/lib/systemd", recursive = True)
-    self.rm(self.destdir / "usr/lib/ecore/system/systemd", recursive = True)
+    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.rm(self.destdir / "usr/lib/ecore/system/systemd", recursive=True)
+
 
 @subpackage("efl-ibus")
 def _ibus(self):
@@ -86,6 +130,7 @@ def _ibus(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "ibus"]
 
     return ["usr/lib/ecore_imf/modules/ibus"]
+
 
 @subpackage("efl-devel")
 def _devel(self):

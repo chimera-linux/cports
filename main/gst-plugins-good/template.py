@@ -19,27 +19,48 @@ configure_args = [
     "-Doss=disabled",
     "-Doss4=disabled",
     "-Dwaveform=disabled",
-    "-Drpicamsrc=disabled", # proprietary
-    "-Dspeex=disabled", # obsolete, replaced by opus
-    "-Dximagesrc=disabled", # maybe? probably obsolete
-    "-Daalib=disabled", # old and obsolete
-    "-Ddv=disabled", # maybe?
-    "-Ddv1394=disabled", # maybe?
-    "-Dqt5=disabled", # no qt5 in main, maybe package separately?
-    "-Dqt6=disabled", # ditto
-    "-Dshout2=disabled", # libshout needs speex which we don't package
+    "-Drpicamsrc=disabled",  # proprietary
+    "-Dspeex=disabled",  # obsolete, replaced by opus
+    "-Dximagesrc=disabled",  # maybe? probably obsolete
+    "-Daalib=disabled",  # old and obsolete
+    "-Ddv=disabled",  # maybe?
+    "-Ddv1394=disabled",  # maybe?
+    "-Dqt5=disabled",  # no qt5 in main, maybe package separately?
+    "-Dqt6=disabled",  # ditto
+    "-Dshout2=disabled",  # libshout needs speex which we don't package
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "glib-devel", "orc", "nasm",
+    "meson",
+    "pkgconf",
+    "gettext-tiny",
+    "glib-devel",
+    "orc",
+    "nasm",
 ]
 makedepends = [
-    "gstreamer-devel", "gst-plugins-base-devel", "libpng-devel", "gtk+3-devel",
-    "gdk-pixbuf-devel", "libbz2-devel", "libxml2-devel", "libgudev-devel",
-    "v4l-utils-devel", "libcaca-devel", "pipewire-jack-devel", "wavpack-devel",
-    "taglib-devel", "libvpx-devel", "flac-devel", "mpg123-devel", "lame-devel",
-    "twolame-devel", "libpulse-devel", "orc-devel", "libsoup-devel",
+    "gstreamer-devel",
+    "gst-plugins-base-devel",
+    "libpng-devel",
+    "gtk+3-devel",
+    "gdk-pixbuf-devel",
+    "libbz2-devel",
+    "libxml2-devel",
+    "libgudev-devel",
+    "v4l-utils-devel",
+    "libcaca-devel",
+    "pipewire-jack-devel",
+    "wavpack-devel",
+    "taglib-devel",
+    "libvpx-devel",
+    "flac-devel",
+    "mpg123-devel",
+    "lame-devel",
+    "twolame-devel",
+    "libpulse-devel",
+    "orc-devel",
+    "libsoup-devel",
 ]
-depends = ["libsoup"] # dynamically loaded
+depends = ["libsoup"]  # dynamically loaded
 checkdepends = ["pipewire"]
 depends = [f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer good plugins"

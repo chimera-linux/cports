@@ -4,7 +4,9 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
-    "-Dwith_glx=no", "-Dwith_x11=no", "-Dwith_wayland=no",
+    "-Dwith_glx=no",
+    "-Dwith_x11=no",
+    "-Dwith_wayland=no",
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["libffi-devel", "libdrm-devel"]
@@ -17,6 +19,7 @@ url = "https://01.org/linuxmedia/vaapi"
 source = f"https://github.com/intel/libva/archive/{pkgver}.tar.gz"
 sha256 = "9d666c70c12dfefcdd27ae7dea771557f75e24961d0ed4cb050d96fb6136f438"
 options = ["!lto", "!scanshlibs", "!scanpkgconf"]
+
 
 def post_install(self):
     self.install_license("COPYING")

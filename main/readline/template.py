@@ -8,7 +8,9 @@ pkgver = "8.2.001"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-curses", "--enable-multibyte", "bash_cv_termcap_lib=libncursesw",
+    "--with-curses",
+    "--enable-multibyte",
+    "bash_cv_termcap_lib=libncursesw",
     "--disable-static",
 ]
 hostmakedepends = ["pkgconf"]
@@ -20,8 +22,10 @@ url = "https://tiswww.cwru.edu/php/chet/readline/rltop.html"
 source = f"http://git.savannah.gnu.org/cgit/{pkgname}.git/snapshot/{pkgname}-{_gitrev}.tar.gz"
 sha256 = "a492621bc1dcf18ee89851942ad1752025ffaae661a5cd9f188f54f892989e77"
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/share/doc", recursive = True)
+    self.rm(self.destdir / "usr/share/doc", recursive=True)
+
 
 @subpackage("libhistory")
 def _history(self):
@@ -29,8 +33,10 @@ def _history(self):
 
     return ["usr/lib/libhistory.so.*"]
 
+
 @subpackage("readline-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share/info"])
+    return self.default_devel(extra=["usr/share/info"])
+
 
 configure_gen = []

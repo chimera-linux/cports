@@ -14,7 +14,8 @@ configure_args = [
     "--enable-function-subdirs",
     "--enable-fndir=/usr/share/zsh/functions",
     "--enable-scriptdir=/usr/share/zsh/scripts",
-    "--enable-multibyte", "--enable-pcre",
+    "--enable-multibyte",
+    "--enable-pcre",
     "--enable-cap",
     "--with-term-lib=ncursesw",
     "--with-tcsetpgrp",
@@ -23,7 +24,7 @@ configure_args = [
     "zsh_cv_func_dlsym_needs_underscore=no",
 ]
 make_cmd = "gmake"
-make_dir = "." # bad build system
+make_dir = "."  # bad build system
 # https://www.zsh.org/mla/workers/2021/msg00805.html
 make_check_wrapper = ["env", "-u", "LC_COLLATE", "-u", "LANG"]
 hostmakedepends = ["gmake", "pkgconf", "texinfo", "automake"]
@@ -37,19 +38,28 @@ sha256 = "9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5"
 # FIXME int: test failures
 hardening = ["!int"]
 
+
 def post_patch(self):
     self.rm("Completion/Linux/Command/_pkgtool")
 
     for f in [
-        "AIX", "BSD", "Cygwin", "Darwin", "Debian",
-        "Mandriva", "openSUSE", "Redhat", "Solaris"
+        "AIX",
+        "BSD",
+        "Cygwin",
+        "Darwin",
+        "Debian",
+        "Mandriva",
+        "openSUSE",
+        "Redhat",
+        "Solaris",
     ]:
-        self.rm(f"Completion/{f}", recursive = True)
+        self.rm(f"Completion/{f}", recursive=True)
 
     # remove failing tests
     self.rm("Test/D07multibyte.ztst")
     self.rm("Test/V09datetime.ztst")
     self.rm("Test/Y03arguments.ztst")
+
 
 def post_install(self):
     self.install_license("LICENCE")
@@ -58,5 +68,6 @@ def post_install(self):
     # hardlink
     self.rm(self.destdir / "usr/bin/zsh")
     self.install_link(f"zsh-{pkgver}", "usr/bin/zsh")
+
 
 configure_gen = []

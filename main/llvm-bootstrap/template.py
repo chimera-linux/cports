@@ -3,7 +3,8 @@ pkgver = "16.0.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-Wno-dev",
     "-DCMAKE_INSTALL_PREFIX=/usr/lib/llvm-bootstrap",
     # use rpath so the installed tools always use their own libs
     "-DCMAKE_INSTALL_RPATH=/usr/lib/llvm-bootstrap/lib",
@@ -59,8 +60,14 @@ debug_level = 0
 # runtimes build may invoke built clang during install, which has
 # rpath and fakeroot effectively overrides rpath, so disable that
 options = [
-    "!lto", "!cross", "!check", "!debug", "!installroot",
-    "!scanshlibs", "!scanrundeps", "!autosplit",
+    "!lto",
+    "!cross",
+    "!check",
+    "!debug",
+    "!installroot",
+    "!scanshlibs",
+    "!scanrundeps",
+    "!autosplit",
 ]
 
 if self.profile().arch == "aarch64":
@@ -77,10 +84,14 @@ tool_flags = {
 }
 
 match self.profile().arch:
-    case "x86_64": _arch = "X86"
-    case "aarch64": _arch = "AArch64"
-    case "ppc64le" | "ppc64": _arch = "PowerPC"
-    case "riscv64": _arch = "RISCV64"
+    case "x86_64":
+        _arch = "X86"
+    case "aarch64":
+        _arch = "AArch64"
+    case "ppc64le" | "ppc64":
+        _arch = "PowerPC"
+    case "riscv64":
+        _arch = "RISCV64"
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
@@ -89,6 +100,7 @@ configure_args += [
     "-DLLVM_HOST_TRIPLE=" + self.profile().triplet,
     "-DLLVM_DEFAULT_TARGET_TRIPLE=" + self.profile().triplet,
 ]
+
 
 def post_install(self):
     # otherwise it'd use /usr/bin/ld by default

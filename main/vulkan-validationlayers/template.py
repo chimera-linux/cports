@@ -12,8 +12,12 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
-    "vulkan-headers", "spirv-headers", "spirv-tools-devel", "libxrandr-devel",
-    "wayland-devel", "wayland-protocols",
+    "vulkan-headers",
+    "spirv-headers",
+    "spirv-tools-devel",
+    "libxrandr-devel",
+    "wayland-devel",
+    "wayland-protocols",
 ]
 pkgdesc = "Official Vulkan validation layers"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -21,9 +25,10 @@ license = "Apache-2.0"
 url = "https://www.khronos.org/vulkan"
 source = f"https://github.com/KhronosGroup/Vulkan-ValidationLayers/archive/v{pkgver}.tar.gz"
 sha256 = "f24b37ada8545389239b7fb3caa5e2dd93acede96c23a471dc8dd8cbae2bcbf9"
-hardening = ["!cfi"] # FIXME: inconsistent LTO unit splitting error
+hardening = ["!cfi"]  # FIXME: inconsistent LTO unit splitting error
 # no test suite
 options = ["!cross", "!check"]
+
 
 @subpackage("vulkan-validationlayers-devel-static")
 def _sdevel(self):
@@ -32,10 +37,11 @@ def _sdevel(self):
 
     return ["usr/lib/*.a"]
 
+
 @subpackage("vulkan-validationlayers-devel")
 def _devel(self):
     self.depends += [
         f"{pkgname}={pkgver}-r{pkgrel}",
-        f"{pkgname}-devel-static={pkgver}-r{pkgrel}"
+        f"{pkgname}-devel-static={pkgver}-r{pkgrel}",
     ]
     return ["usr/include"]

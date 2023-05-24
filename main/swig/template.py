@@ -10,7 +10,7 @@ license = "GPL-3.0-or-later"
 url = "http://www.swig.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2af08aced8fcd65cdb5cc62426768914bedc735b1c250325203716f78e39ac9b"
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
 # broken check target?
 options = ["!check"]
 

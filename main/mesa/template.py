@@ -19,8 +19,14 @@ configure_args = [
     "-Ddefault_library=shared",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "flex", "glslang-progs", "bison",
-    "wayland-protocols", "wayland-progs", "python-mako"
+    "meson",
+    "pkgconf",
+    "flex",
+    "glslang-progs",
+    "bison",
+    "wayland-protocols",
+    "wayland-progs",
+    "python-mako",
 ]
 makedepends = [
     "llvm-devel",
@@ -31,13 +37,26 @@ makedepends = [
     "wayland-protocols",
     "wayland-devel",
     # x11
-    "libxshmfence-devel", "libxext-devel", "libxxf86vm-devel",
-    "libxdamage-devel", "libxfixes-devel", "libx11-devel",
-    "libxcb-devel", "libxv-devel", "libxrandr-devel",
+    "libxshmfence-devel",
+    "libxext-devel",
+    "libxxf86vm-devel",
+    "libxdamage-devel",
+    "libxfixes-devel",
+    "libx11-devel",
+    "libxcb-devel",
+    "libxv-devel",
+    "libxrandr-devel",
     # misc libs
-    "libarchive-devel", "libsensors-devel", "libexpat-devel", "libxml2-devel",
-    "ncurses-devel", "libzstd-devel", "zlib-devel", "lua5.4-devel",
-    "libffi-devel", "elftoolchain-devel",
+    "libarchive-devel",
+    "libsensors-devel",
+    "libexpat-devel",
+    "libxml2-devel",
+    "ncurses-devel",
+    "libzstd-devel",
+    "zlib-devel",
+    "lua5.4-devel",
+    "libffi-devel",
+    "elftoolchain-devel",
     # video accel
     "libva-bootstrap",
     "libvdpau-devel",
@@ -116,7 +135,13 @@ if _have_nvidia:
 
 if _have_arm:
     _gallium_drivers += [
-        "kmsro", "v3d", "vc4", "freedreno", "etnaviv", "lima", "panfrost"
+        "kmsro",
+        "v3d",
+        "vc4",
+        "freedreno",
+        "etnaviv",
+        "lima",
+        "panfrost",
     ]
     if _have_vulkan:
         _vulkan_drivers += ["broadcom", "freedreno", "panfrost"]
@@ -136,27 +161,27 @@ else:
 if _have_opencl:
     hostmakedepends += ["rust-bindgen", "rust"]
     makedepends += [
-        "libclc", "rust", "spirv-llvm-translator-devel", "spirv-tools-devel"
+        "libclc",
+        "rust",
+        "spirv-llvm-translator-devel",
+        "spirv-tools-devel",
     ]
     configure_args += [
-        "-Dgallium-opencl=icd", "-Dgallium-rusticl=true", "-Drust_std=2021"
+        "-Dgallium-opencl=icd",
+        "-Dgallium-rusticl=true",
+        "-Drust_std=2021",
     ]
 
 if _have_hwdec:
-    configure_args += [
-        "-Dgallium-vdpau=enabled", "-Dgallium-va=enabled"
-    ]
+    configure_args += ["-Dgallium-vdpau=enabled", "-Dgallium-va=enabled"]
 else:
-    configure_args += [
-        "-Dgallium-vdpau=disabled", "-Dgallium-va=disabled"
-    ]
+    configure_args += ["-Dgallium-vdpau=disabled", "-Dgallium-va=disabled"]
 
 if _have_vulkan:
     makedepends += ["vulkan-loader"]
     configure_args += [
-        "-Dvulkan-layers=device-select,overlay" + (
-            ",intel-nullhw" if _have_intel else ""
-        )
+        "-Dvulkan-layers=device-select,overlay"
+        + (",intel-nullhw" if _have_intel else "")
     ]
 
 if _have_zink:
@@ -165,8 +190,10 @@ if _have_zink:
 configure_args += ["-Dgallium-drivers=" + ",".join(_gallium_drivers)]
 configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
 
+
 def post_install(self):
     self.install_license("docs/license.rst")
+
 
 @subpackage("libglapi")
 def _glapi(self):
@@ -174,11 +201,13 @@ def _glapi(self):
 
     return ["usr/lib/libglapi.so.*"]
 
+
 @subpackage("libgbm")
 def _gbm(self):
     self.pkgdesc = "Generic Buffer Management (shared library)"
 
     return ["usr/lib/libgbm.so.*"]
+
 
 @subpackage("libgbm-devel")
 def _gbm_devel(self):
@@ -190,11 +219,13 @@ def _gbm_devel(self):
         "usr/lib/pkgconfig/gbm.pc",
     ]
 
+
 @subpackage("libosmesa")
 def _osmesa(self):
     self.pkgdesc = "Mesa off-screen interface (shared library)"
 
     return ["usr/lib/libOSMesa.so.*"]
+
 
 @subpackage("libgles1")
 def _gles1(self):
@@ -202,11 +233,13 @@ def _gles1(self):
 
     return ["usr/lib/libGLESv1_CM.so.*"]
 
+
 @subpackage("libgles2")
 def _gles2(self):
     self.pkgdesc = "Free implementation of OpenGL ES 2.x API (shared library)"
 
     return ["usr/lib/libGLESv2.so.*"]
+
 
 @subpackage("libegl")
 def _gles2(self):
@@ -214,17 +247,20 @@ def _gles2(self):
 
     return ["usr/lib/libEGL.so.*"]
 
+
 @subpackage("libgl")
 def _gles2(self):
     self.pkgdesc = "Free implementation of the OpenGL API (shared library)"
 
     return ["usr/lib/libGL.so.*"]
 
+
 @subpackage("libxatracker", _have_vmware)
 def _xatracker(self):
     self.pkgdesc = "X acceleration library (shared library)"
 
     return ["usr/lib/libxatracker*.so.*"]
+
 
 @subpackage("mesa-opencl", _have_opencl)
 def _opencl(self):
@@ -237,11 +273,13 @@ def _opencl(self):
         "usr/lib/libRusticlOpenCL.so.*",
     ]
 
+
 @subpackage("mesa-vaapi", _have_hwdec)
 def _dri(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
     return ["usr/lib/dri/*_drv_video.so"]
+
 
 @subpackage("mesa-vdpau", _have_hwdec)
 def _dri(self):
@@ -249,12 +287,14 @@ def _dri(self):
 
     return ["usr/lib/vdpau/libvdpau_*"]
 
+
 @subpackage("mesa-dri")
 def _dri(self):
     self.pkgdesc = "Mesa graphics drivers"
     self.depends += [f"mesa={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/dri"]
+
 
 @subpackage("mesa-vulkan", _have_vulkan)
 def _vulkan(self):
@@ -271,6 +311,7 @@ def _vulkan(self):
         "usr/share/vulkan/implicit_layer.d/VkLayer_*.json",
         "usr/share/vulkan/icd.d/*_icd*.json",
     ]
+
 
 @subpackage("mesa-devel")
 def _devel(self):

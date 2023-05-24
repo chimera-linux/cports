@@ -14,6 +14,7 @@ options = ["!lto"]
 if self.profile().cross:
     hostmakedepends = ["xmlcatmgr"]
 
+
 def post_build(self):
     if self.profile().cross:
         xcmgr = "/usr/bin/xmlcatmgr"
@@ -24,25 +25,34 @@ def post_build(self):
     self.do(xcmgr, "-sc", "catalog.etc.sgml", "create")
     self.do(xcmgr, "-sc", "catalog.sgml", "create")
     self.do(
-        xcmgr, "-sc", "catalog.etc.sgml", "add", "CATALOG",
-        "/etc/sgml/auto/catalog"
+        xcmgr,
+        "-sc",
+        "catalog.etc.sgml",
+        "add",
+        "CATALOG",
+        "/etc/sgml/auto/catalog",
     )
 
     self.log("creating XML catalogs...")
     self.do(xcmgr, "-c", "catalog.etc.xml", "create")
     self.do(xcmgr, "-c", "catalog.xml", "create")
     self.do(
-        xcmgr, "-c", "catalog.etc.xml", "add", "nextCatalog",
-        "/etc/xml/auto/catalog"
+        xcmgr,
+        "-c",
+        "catalog.etc.xml",
+        "add",
+        "nextCatalog",
+        "/etc/xml/auto/catalog",
     )
+
 
 def post_install(self):
     self.log("installing XML/SGML catalogs...")
 
-    self.install_file("catalog.sgml", "etc/sgml/auto", name = "catalog")
-    self.install_file("catalog.etc.sgml", "etc/sgml", name = "catalog")
-    self.install_file("catalog.xml", "etc/xml/auto", name = "catalog")
-    self.install_file("catalog.etc.xml", "etc/xml", name = "catalog")
+    self.install_file("catalog.sgml", "etc/sgml/auto", name="catalog")
+    self.install_file("catalog.etc.sgml", "etc/sgml", name="catalog")
+    self.install_file("catalog.xml", "etc/xml/auto", name="catalog")
+    self.install_file("catalog.etc.xml", "etc/xml", name="catalog")
 
     self.install_dir("usr/share/sgml")
     self.install_dir("usr/share/xml")
@@ -50,5 +60,6 @@ def post_install(self):
     self.install_link("/etc/xml/auto/catalog", "usr/share/xml/catalog")
 
     self.install_license("COPYING")
+
 
 configure_gen = []

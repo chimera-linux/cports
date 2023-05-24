@@ -1,5 +1,6 @@
 from cbuild.core import template, dependencies
 
+
 def invoke(pkg):
     p = pkg.rparent.profile()
     crossb = p.arch if p.cross else ""

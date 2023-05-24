@@ -13,7 +13,9 @@ sha256 = "541e179665dc4e272b9602f2074243591a157da89cc47064da8c5829dbd2b339"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
+
 def post_install(self):
     self.install_file("mtools.conf", "etc")
+
 
 configure_gen = []

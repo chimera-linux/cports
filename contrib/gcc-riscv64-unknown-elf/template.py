@@ -47,7 +47,12 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", f"binutils-{_trip}", "bison", "flex", "perl", "texinfo"
+    "gmake",
+    f"binutils-{_trip}",
+    "bison",
+    "flex",
+    "perl",
+    "texinfo",
 ]
 makedepends = ["zlib-devel", "gmp-devel", "mpfr-devel", "mpc-devel"]
 depends = [f"binutils-{_trip}"]
@@ -71,9 +76,10 @@ exec_wrappers = [
     ("/usr/bin/llvm-readelf", "readelf"),
 ]
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/share/info", recursive = True)
-    self.rm(self.destdir / "usr/share/man/man7", recursive = True)
+    self.rm(self.destdir / "usr/share/info", recursive=True)
+    self.rm(self.destdir / "usr/share/man/man7", recursive=True)
     for f in (self.destdir / "usr/lib").glob("libcc1.*"):
         f.unlink()
     # hardlinks
@@ -81,5 +87,6 @@ def post_install(self):
     self.rm(self.destdir / f"usr/bin/{_trip}-c++")
     self.install_link(f"{_trip}-gcc-{pkgver}", f"usr/bin/{_trip}-gcc")
     self.install_link(f"{_trip}-g++", f"usr/bin/{_trip}-c++")
+
 
 configure_gen = []

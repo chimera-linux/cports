@@ -10,9 +10,10 @@ license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
 sha256 = "daccf1bbe5a30d149b556c7d2ffffeafd76d7b514e249271abdd501533c1d8ae"
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
 # checkdepends not available yet
 options = ["bootstrap", "!check"]
+
 
 def post_install(self):
     self.install_license("COPYING")
@@ -20,10 +21,12 @@ def post_install(self):
     self.install_link("pkgconf", "usr/bin/pkg-config")
     self.install_link("pkgconf.1", "usr/share/man/man1/pkg-config.1")
 
+
 @subpackage("libpkgconf")
 def _lib(self):
     self.pkgdesc += " (runtime library)"
     return self.default_libs()
+
 
 @subpackage("pkgconf-devel")
 def _devel(self):
@@ -35,5 +38,6 @@ def _devel(self):
         "usr/lib/*.so",
         "usr/lib/*.a",
     ]
+
 
 configure_gen = []

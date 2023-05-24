@@ -13,11 +13,14 @@ url = "https://www.surina.net/soundtouch"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "3bde8ddbbc3661f04e151f72cf21ca9d8f8c88e265833b65935b8962d12d6b08"
 
+
 def pre_configure(self):
     self.do(self.chroot_cwd / "bootstrap")
+
 
 @subpackage("soundtouch-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

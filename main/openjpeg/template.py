@@ -12,19 +12,22 @@ license = "BSD-2-Clause"
 url = "https://www.openjpeg.org"
 source = f"https://github.com/uclouvain/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "0333806d6adecc6f7a91243b2b839ff4d2053823634d4f6ed7a59bc87409122a"
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
 # missing test data
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("openjpeg-devel")
 def _devel(self):
     # because cmake is dumb and references binaries in the find file
     self.depends += [f"openjpeg-progs={pkgver}-r{pkgrel}"]
 
-    return self.default_devel(extra = ["usr/lib/openjpeg-2.*"])
+    return self.default_devel(extra=["usr/lib/openjpeg-2.*"])
+
 
 @subpackage("openjpeg-progs")
 def _progs(self):

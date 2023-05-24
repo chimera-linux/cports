@@ -6,7 +6,9 @@ make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake", "intltool"]
 makedepends = ["exo-devel", "libxfce4ui-devel", "vte-gtk3-devel"]
 depends = [
-    "hicolor-icon-theme", "desktop-file-utils", "gsettings-desktop-schemas"
+    "hicolor-icon-theme",
+    "desktop-file-utils",
+    "gsettings-desktop-schemas",
 ]
 pkgdesc = "Xfce terminal emulator"
 maintainer = "q66 <q66@chimera-linux.org>"

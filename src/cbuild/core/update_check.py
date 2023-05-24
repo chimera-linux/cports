@@ -70,7 +70,9 @@ def _get_verkey():
 
     return functools.cmp_to_key(_vcmp)
 
+
 _ver_conv = _get_verkey()
+
 
 class UpdateCheck:
     def __init__(self, tmpl, verbose):
@@ -91,9 +93,9 @@ class UpdateCheck:
         if u in self._urlcache:
             return False
 
-        req = ureq.Request(u, None, {
-            "User-Agent": "cbuild-update-check/4.20.69"
-        })
+        req = ureq.Request(
+            u, None, {"User-Agent": "cbuild-update-check/4.20.69"}
+        )
         try:
             f = ureq.urlopen(req, None, 10)
         except:
@@ -142,41 +144,44 @@ class UpdateCheck:
         ret = [url]
 
         if self.verbose:
-           print(f"Adding '{url}' for version check...")
+            print(f"Adding '{url}' for version check...")
 
         if self.single_directory:
             return ret
 
-        if "chimera-linux.org" in url or \
-           ".voidlinux." in url or \
-           "sourceforge.net/sourceforge" in url or \
-           "launchpad.net" in url or \
-           "cpan." in url or \
-           "pythonhosted.org" in url or \
-           "github.com" in url or \
-           "//gitlab." in url or \
-           "bitbucket.org" in url or \
-           "ftp.gnome.org" in url or \
-           "kernel.org/pub/linux/kernel/" in url or \
-           "cran.r-project.org/src/contrib" in url or \
-           "rubygems.org" in url or \
-           "crates.io" in url or \
-           "codeberg.org" in url or \
-           "hg.sr.ht" in url or \
-           "git.sr.ht" in url:
+        if (
+            "chimera-linux.org" in url
+            or ".voidlinux." in url
+            or "sourceforge.net/sourceforge" in url
+            or "launchpad.net" in url
+            or "cpan." in url
+            or "pythonhosted.org" in url
+            or "github.com" in url
+            or "//gitlab." in url
+            or "bitbucket.org" in url
+            or "ftp.gnome.org" in url
+            or "kernel.org/pub/linux/kernel/" in url
+            or "cran.r-project.org/src/contrib" in url
+            or "rubygems.org" in url
+            or "crates.io" in url
+            or "codeberg.org" in url
+            or "hg.sr.ht" in url
+            or "git.sr.ht" in url
+        ):
             return ret
 
         if self.vdprefix:
             vdpfx = self.vdprefix
         else:
-            vdpfx = fr"|v|{re.escape(self.pkgname)}"
+            vdpfx = rf"|v|{re.escape(self.pkgname)}"
 
         if self.vdsuffix:
             vdsfx = self.vdsuffix
         else:
             vdsfx = r"|\.x"
 
-        rxm = re.compile(fr"""
+        rxm = re.compile(
+            rf"""
             ^[^/]+// # scheme
             [^/]+(/.+)?/ # path
             ({vdpfx})
@@ -185,7 +190,9 @@ class UpdateCheck:
                     {re.escape(self.pkgname)}
                 )({vdsfx})/
             )
-        """, re.VERBOSE)
+        """,
+            re.VERBOSE,
+        )
 
         m = re.match(rxm, url)
         if not m:
@@ -193,7 +200,7 @@ class UpdateCheck:
 
         urlpfx = re.match("(.+)/[^/]+", m[0])[1] + "/"
         dirpfx = re.match(".+/([^/]+)", m[0])[1]
-        urlsfx = re.match(".+/([^/]+)", url[len(urlpfx) + 1:])
+        urlsfx = re.match(".+/([^/]+)", url[len(urlpfx) + 1 :])
         if urlsfx:
             urlsfx = urlsfx[1]
         else:
@@ -202,12 +209,15 @@ class UpdateCheck:
         if self.verbose:
             print(f"Fetching '{urlpfx}' for version expansion...")
 
-        rx = re.compile(fr"""
+        rx = re.compile(
+            rf"""
             href=[\"']?
             ({re.escape(urlpfx)})?
             \.?/?
             ({re.escape(dirpfx)}[-_.0-9]*[0-9]({vdsfx})[\"'/])
-        """, re.VERBOSE)
+        """,
+            re.VERBOSE,
+        )
 
         req = self._fetch(urlpfx)
         if not req:
@@ -217,7 +227,7 @@ class UpdateCheck:
         if len(reqs) == 0:
             return ret
 
-        reqs.sort(key = lambda v: _ver_conv(v.rstrip("/")), reverse = True)
+        reqs.sort(key=lambda v: _ver_conv(v.rstrip("/")), reverse=True)
 
         for v in reqs:
             nurl = f"{urlpfx}{v}{urlsfx}"
@@ -252,17 +262,16 @@ class UpdateCheck:
             elif "github.com" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://github.com/{pn}/tags"
-                rx = fr"""
+                rx = rf"""
                     /archive/refs/tags/
                     (v?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar\.gz") # match
                 """
                 rxg = 1
-            elif "//gitlab." in url or \
-                 "salsa.debian.org" in url:
+            elif "//gitlab." in url or "salsa.debian.org" in url:
                 pn = "/".join(url.split("/")[0:5])
                 url = f"{pn}/-/tags"
-                rx = fr"""
+                rx = rf"""
                     /archive/[^/]+/
                     {re.escape(pname)}-v?
                     ([\d.]+)(?=\.tar\.gz") # match
@@ -270,14 +279,14 @@ class UpdateCheck:
             elif "bitbucket.org" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://bitbucket.org/{pn}/downloads"
-                rx = fr"""
+                rx = rf"""
                     /(get|downloads)/
                     (v?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar) # match
                 """
                 rxg = 1
             elif "ftp.gnome.org" in url or "download.gnome.org" in url:
-                rx = fr"""
+                rx = rf"""
                     {re.escape(pname)}-
                     ((0|[13]\.[0-9]*[02468]|[4-9][0-9]+)\.[0-9.]*[0-9])(?=)
                 """
@@ -285,11 +294,11 @@ class UpdateCheck:
                 url = f"https://download.gnome.org/sources/{pname}/cache.json"
             elif "kernel.org/pub/linux/kernel/" in url:
                 mver = ".".join(self.pkgver.split(".")[0:2])
-                rx = fr"{mver}[\d.]+(?=\.tar\.xz)"
+                rx = rf"{mver}[\d.]+(?=\.tar\.xz)"
             elif "codeberg.org" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://codeberg.org/{pn}/releases"
-                rx = fr"""
+                rx = rf"""
                     /archive/
                     ([\d.]+)(?=\.tar\.gz) # match
                 """
@@ -297,7 +306,7 @@ class UpdateCheck:
             elif "hg.sr.ht" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://hg.sr.ht/{pn}/tags"
-                rx = fr"""
+                rx = rf"""
                     /archive/
                     (v?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar\.gz") # match
@@ -306,7 +315,7 @@ class UpdateCheck:
             elif "git.sr.ht" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://git.sr.ht/{pn}/refs"
-                rx = fr"""
+                rx = rf"""
                     /archive/
                     (v?|{re.escape(pname)}-)?
                     ([\d.]+)(?=\.tar\.gz") # match
@@ -323,7 +332,7 @@ class UpdateCheck:
             rxg = self.group
 
         if not rx:
-            rx = fr"""
+            rx = rf"""
                 (?<!-)\b
                 {re.escape(pname)}
                 [-_]?
@@ -358,7 +367,8 @@ class UpdateCheck:
 
         return list(map(lambda v: v.replace("_", "."), reqs))
 
-def update_check(pkg, verbose = False):
+
+def update_check(pkg, verbose=False):
     uc = UpdateCheck(pkg, verbose)
 
     tpath = pkg.template_path
@@ -449,7 +459,7 @@ def update_check(pkg, verbose = False):
             vers += uc.fetch_versions(src)
 
     vers = list(set(vers))
-    vers.sort(key = _ver_conv)
+    vers.sort(key=_ver_conv)
 
     if len(vers) == 0:
         print(f"CAUTION: no version found for '{pkg.pkgname}'")

@@ -3,7 +3,10 @@ pkgver = "1.10.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-ipv6", "--with-libnl", "--with-pcap=linux", "--enable-usb",
+    "--enable-ipv6",
+    "--with-libnl",
+    "--with-pcap=linux",
+    "--enable-usb",
 ]
 hostmakedepends = ["pkgconf", "flex"]
 makedepends = ["libnl-devel", "libusb-devel", "linux-headers"]
@@ -13,13 +16,15 @@ license = "BSD-3-Clause"
 url = "https://www.tcpdump.org"
 source = f"{url}/release/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ed19a0383fad72e3ad435fd239d7cd80d64916b87269550159d20e47160ebe5f"
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
 # no check target
 options = ["!check"]
+
 
 def init_configure(self):
     incp = self.profile().sysroot / "usr/include/libnl3"
     self.tool_flags["CFLAGS"] = [f"-I{incp}"]
+
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -32,10 +37,12 @@ def post_install(self):
         else:
             self.mv(f, ff)
 
+
 @subpackage("libpcap-devel")
 def _devel(self):
     self.depends += ["libnl-devel"]
 
-    return self.default_devel(man = "357")
+    return self.default_devel(man="357")
+
 
 configure_gen = []

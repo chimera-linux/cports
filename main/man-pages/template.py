@@ -11,12 +11,13 @@ source = f"$(KERNEL_SITE)/docs/man-pages/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c2c0b9329955df81af45ee80ebc84c47291f95df5157db1fab988199f9371af1"
 options = ["!autosplit"]
 
+
 def do_install(self):
     from cbuild.util import make
 
-    make.Make(self).invoke("install", [
-        "VERBOSE=1", f"prefix={self.chroot_destdir}/usr"
-    ])
+    make.Make(self).invoke(
+        "install", ["VERBOSE=1", f"prefix={self.chroot_destdir}/usr"]
+    )
 
     # remove duplicate manpages
     with self.pushd(self.destdir / "usr/share/man"):
@@ -33,6 +34,7 @@ def do_install(self):
         self.rm("man8/tzselect.8")
         self.rm("man8/zdump.8")
         self.rm("man8/zic.8")
+
 
 @subpackage("man-pages-devel")
 def _devel(self):

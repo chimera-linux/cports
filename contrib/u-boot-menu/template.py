@@ -9,18 +9,17 @@ url = "https://chimera-linux.org"
 # no tests
 options = ["!check"]
 
+
 def do_install(self):
     # generator itself
-    self.install_bin(
-        self.files_path / "update-u-boot.sh", name = "update-u-boot"
-    )
+    self.install_bin(self.files_path / "update-u-boot.sh", name="update-u-boot")
     # installer
     self.install_bin(
-        self.files_path / "install-u-boot.sh", name = "install-u-boot"
+        self.files_path / "install-u-boot.sh", name="install-u-boot"
     )
     # config file
     self.install_file(self.files_path / "u-boot", "etc/default")
     # kernel hook
     self.install_file(
-        self.files_path / "99-gen-uboot.sh", "etc/kernel.d", mode = 0o755
+        self.files_path / "99-gen-uboot.sh", "etc/kernel.d", mode=0o755
     )

@@ -3,13 +3,20 @@ pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny",
-    "gobject-introspection", "gtk-update-icon-cache",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "gobject-introspection",
+    "gtk-update-icon-cache",
     "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel", "libadwaita-devel", "vte-gtk4-devel",
-    "libgtop-devel", "gsettings-desktop-schemas-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
+    "vte-gtk4-devel",
+    "libgtop-devel",
+    "gsettings-desktop-schemas-devel",
     "pcre2-devel",
 ]
 pkgdesc = "GNOME console"

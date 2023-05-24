@@ -16,6 +16,7 @@ _scriptlets = {
     ".trigger": True,
 }
 
+
 def genpkg(pkg, repo, arch, binpkg):
     if not pkg.destdir.is_dir():
         pkg.log_warn(f"cannot find pkg destdir, skipping...")
@@ -23,18 +24,27 @@ def genpkg(pkg, repo, arch, binpkg):
 
     binpath = repo / binpkg
 
-    repo.mkdir(parents = True, exist_ok = True)
+    repo.mkdir(parents=True, exist_ok=True)
 
     pargs = [
-        "--info", f"name:{pkg.pkgname}",
-        "--info", f"version:{pkg.pkgver}-r{pkg.pkgrel}",
-        "--info", f"description:{pkg.pkgdesc}",
-        "--info", f"arch:{arch}",
-        "--info", f"license:{pkg.license}",
-        "--info", f"origin:{pkg.rparent.pkgname}",
-        "--info", f"maintainer:{pkg.rparent.maintainer}",
-        "--info", f"url:{pkg.rparent.url}",
-        "--info", f"build-time:{int(pkg.rparent.source_date_epoch)}"
+        "--info",
+        f"name:{pkg.pkgname}",
+        "--info",
+        f"version:{pkg.pkgver}-r{pkg.pkgrel}",
+        "--info",
+        f"description:{pkg.pkgdesc}",
+        "--info",
+        f"arch:{arch}",
+        "--info",
+        f"license:{pkg.license}",
+        "--info",
+        f"origin:{pkg.rparent.pkgname}",
+        "--info",
+        f"maintainer:{pkg.rparent.maintainer}",
+        "--info",
+        f"url:{pkg.rparent.url}",
+        "--info",
+        f"build-time:{int(pkg.rparent.source_date_epoch)}",
     ]
 
     # only record commits in non-dirty repos
@@ -81,20 +91,16 @@ def genpkg(pkg, repo, arch, binpkg):
     if hasattr(pkg, "aso_provides"):
         provides += map(
             lambda x: f"so:{x[0]}={x[1]}",
-            sorted(pkg.aso_provides, key = lambda x: x[0])
+            sorted(pkg.aso_provides, key=lambda x: x[0]),
         )
 
     # .pc file provides
     if hasattr(pkg, "pc_provides"):
-        provides += map(
-            lambda x: f"pc:{x}", sorted(pkg.pc_provides)
-        )
+        provides += map(lambda x: f"pc:{x}", sorted(pkg.pc_provides))
 
     # command provides
     if hasattr(pkg, "cmd_provides"):
-        provides += map(
-            lambda x: f"cmd:{x}", sorted(pkg.cmd_provides)
-        )
+        provides += map(lambda x: f"cmd:{x}", sorted(pkg.cmd_provides))
 
     if len(provides) > 0:
         pargs += ["--info", f"provides:{' '.join(provides)}"]
@@ -124,9 +130,11 @@ def genpkg(pkg, repo, arch, binpkg):
 
     for f in sclist:
         # get in-chroot path to that
-        scp = pkg.rparent.chroot_builddir / (
-            pkg.statedir.relative_to(pkg.rparent.builddir)
-        ) / f"scriptlets/{pkg.pkgname}.{f}"
+        scp = (
+            pkg.rparent.chroot_builddir
+            / (pkg.statedir.relative_to(pkg.rparent.builddir))
+            / f"scriptlets/{pkg.pkgname}.{f}"
+        )
         # pass it
         pargs += ["--script", f"{f}:{scp}"]
 
@@ -192,20 +200,47 @@ set -e
         # in stage 0 we need to use the host apk, avoid fakeroot while at it
         # we just use bwrap to pretend we're root and that's all we need
         if pkg.rparent.stage == 0:
-            ret = subprocess.run([
-                "bwrap", "--bind", "/", "/", "--uid", "0", "--gid", "0", "--",
-                paths.apk(), "mkpkg", "--files", pkg.chroot_destdir,
-                "--output", cbpath, *pargs
-            ], capture_output = True)
+            ret = subprocess.run(
+                [
+                    "bwrap",
+                    "--bind",
+                    "/",
+                    "/",
+                    "--uid",
+                    "0",
+                    "--gid",
+                    "0",
+                    "--",
+                    paths.apk(),
+                    "mkpkg",
+                    "--files",
+                    pkg.chroot_destdir,
+                    "--output",
+                    cbpath,
+                    *pargs,
+                ],
+                capture_output=True,
+            )
         else:
             ret = chroot.enter(
-                "apk", "mkpkg", "--files", pkg.chroot_destdir,
-                "--output", cbpath, *pargs,
-                capture_output = True, bootstrapping = False,
-                ro_root = True, ro_build = True, ro_dest = False,
-                unshare_all = True, mount_binpkgs = True,
-                fakeroot = True, binpkgs_rw = True,
-                signkey = signkey, wrapper = wscript if needscript else None
+                "apk",
+                "mkpkg",
+                "--files",
+                pkg.chroot_destdir,
+                "--output",
+                cbpath,
+                *pargs,
+                capture_output=True,
+                bootstrapping=False,
+                ro_root=True,
+                ro_build=True,
+                ro_dest=False,
+                unshare_all=True,
+                mount_binpkgs=True,
+                fakeroot=True,
+                binpkgs_rw=True,
+                signkey=signkey,
+                wrapper=wscript if needscript else None,
             )
 
         if ret.returncode != 0:
@@ -215,6 +250,7 @@ set -e
 
     finally:
         pkg.rparent._stage[repo] = True
+
 
 def invoke(pkg):
     arch = pkg.rparent.profile().arch

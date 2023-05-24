@@ -14,6 +14,7 @@ sha256 = [
     "24b154691fc97cb44267b925d62064297086b3f896b57a8181c7b6d42702a026",
 ]
 
+
 def do_install(self):
     self.install_dir("usr/share/unicode/ucd")
 

@@ -14,11 +14,12 @@ sha256 = "1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"
 # dependency of pytest
 options = ["!check", "brokenlinks"]
 
+
 def post_install(self):
     for f in (self.destdir / "usr/lib").glob(
         "python*/site-packages/pytz/zoneinfo"
     ):
-        self.rm(f, recursive = True)
+        self.rm(f, recursive=True)
         f.symlink_to("/usr/share/zoneinfo")
 
     self.install_license("LICENSE.txt")

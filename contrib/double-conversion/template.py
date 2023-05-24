@@ -11,8 +11,10 @@ url = "https://github.com/google/double-conversion"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "e40d236343cad807e83d192265f139481c51fc83a1c49e406ac6ce0a0ba7cd35"
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("double-conversion-devel")
 def _devel(self):

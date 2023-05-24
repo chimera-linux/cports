@@ -3,7 +3,10 @@ pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    "base-bootstrap", "dinit-chimera", "bsdtar", "nyagetty",
+    "base-bootstrap",
+    "dinit-chimera",
+    "bsdtar",
+    "nyagetty",
     "chimera-install-scripts",
 ]
 pkgdesc = "Minimal set of packages for a bootable Chimera system"

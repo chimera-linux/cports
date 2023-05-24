@@ -4,8 +4,12 @@ pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
-    "--prefix=/usr", "--openssldir=/etc/ssl", "--libdir=lib",
-    "shared", "no-ssl3-method", "-Wa,--noexecstack"
+    "--prefix=/usr",
+    "--openssldir=/etc/ssl",
+    "--libdir=lib",
+    "shared",
+    "no-ssl3-method",
+    "-Wa,--noexecstack",
 ]
 make_install_args = ["MANSUFFIX=ssl"]
 make_check_target = "test"
@@ -33,13 +37,16 @@ match self.profile().arch:
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
+
 def pre_configure(self):
     self.configure_args += self.get_cflags()
     self.configure_args += self.get_ldflags()
 
+
 def do_build(self):
     self.make.invoke("depend")
     self.make.build(["MAKEDEPPROG=" + self.get_tool("CC")])
+
 
 @subpackage("libcrypto3")
 def _libcrypto(self):
@@ -51,11 +58,13 @@ def _libcrypto(self):
         "usr/lib/ossl-modules",
     ]
 
+
 @subpackage("libssl3")
 def _libssl(self):
     self.pkgdesc = f"{pkgdesc} (SSL/TLS library)"
 
     return ["usr/lib/libssl.so.*"]
+
 
 @subpackage("openssl-c_rehash")
 def _crehash(self):
@@ -67,8 +76,11 @@ def _crehash(self):
 
     return ["usr/bin/c_rehash"]
 
+
 @subpackage("openssl-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}",]
+    self.depends = [
+        f"{pkgname}={pkgver}-r{pkgrel}",
+    ]
 
     return self.default_devel()

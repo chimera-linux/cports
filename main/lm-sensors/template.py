@@ -18,11 +18,13 @@ options = ["!check"]
 
 # TODO: service for fancontrol
 
+
 @subpackage("libsensors")
 def _libsensors(self):
     self.pkgdesc = "Sensor reading library"
 
     return self.default_libs()
+
 
 @subpackage("libsensors-devel")
 def _devel(self):

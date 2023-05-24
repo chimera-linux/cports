@@ -15,20 +15,24 @@ sha256 = "0b0e3aa07c8c063ddf40b082bdf7e37a1562bda40a0ff5272957f3e987e0e54b"
 hardening = ["vis", "cfi"]
 options = ["bootstrap"]
 
+
 def init_configure(self):
     self.make_build_args += [
-        "CFLAGS=" + self.get_cflags(shell = True),
-        "LDFLAGS=" + self.get_ldflags(shell = True),
+        "CFLAGS=" + self.get_cflags(shell=True),
+        "LDFLAGS=" + self.get_ldflags(shell=True),
     ]
+
 
 def post_install(self):
     self.install_license("lib/LICENSE")
+
 
 @subpackage("liblz4")
 def _lib(self):
     self.pkgdesc = "LZ4 compression library"
 
     return self.default_libs()
+
 
 @subpackage("liblz4-devel")
 def _devel(self):

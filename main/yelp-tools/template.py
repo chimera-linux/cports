@@ -3,8 +3,13 @@ pkgver = "42.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "itstool",
-    "python-lxml", "xsltproc", "libxml2-progs"
+    "meson",
+    "pkgconf",
+    "gettext-tiny",
+    "itstool",
+    "python-lxml",
+    "xsltproc",
+    "libxml2-progs",
 ]
 makedepends = ["yelp-xsl"]
 depends = ["xsltproc", "yelp-xsl", "python-lxml"]

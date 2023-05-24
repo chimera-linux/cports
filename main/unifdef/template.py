@@ -12,5 +12,6 @@ url = "https://github.com/fanf2/unifdef"
 source = f"https://dotat.at/prog/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "43ce0f02ecdcdc723b2475575563ddb192e988c886d368260bc0a63aee3ac400"
 
+
 def post_install(self):
     self.install_license("COPYING")

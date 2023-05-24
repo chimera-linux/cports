@@ -2,6 +2,7 @@ import os
 import re
 import tempfile
 
+
 def invoke(pkg):
     default_shebang = b"#!/usr/bin/python3"
 
@@ -18,7 +19,7 @@ def invoke(pkg):
             # match the shebang more specifically against a pattern
             rm = re.match(
                 b"^.*(\s|/)(python([0-9](\.[0-9]+)?)?)(\s+.*|$)",
-                fhandle.readline()
+                fhandle.readline(),
             )
             # no match, skip
             if not rm:
@@ -34,7 +35,7 @@ def invoke(pkg):
                 shebang = b"#!/usr/bin/python" + majver
             # convert
             bfile = v.relative_to(pkg.destdir)
-            with tempfile.NamedTemporaryFile(dir = v.parent) as nf:
+            with tempfile.NamedTemporaryFile(dir=v.parent) as nf:
                 mode = v.stat().st_mode
                 # write new shebang
                 nf.write(shebang)

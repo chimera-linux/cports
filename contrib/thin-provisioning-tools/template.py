@@ -13,8 +13,11 @@ sha256 = "8c912be0f7a1cdc40f37fd4226a1794a91fa31667231d4e88338f32cf84b88b6"
 # too long
 options = ["!check"]
 
+
 def do_install(self):
     self.do(
-        "gmake", "DESTDIR=" + str(self.chroot_destdir),
-        "RUST_TARGET=" + self.profile().triplet, "install"
+        "gmake",
+        "DESTDIR=" + str(self.chroot_destdir),
+        "RUST_TARGET=" + self.profile().triplet,
+        "install",
     )

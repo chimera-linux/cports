@@ -28,17 +28,20 @@ else:
 
 # libxo does not respect LDFLAGS, so hack it in
 def init_configure(self):
-    tcflags = self.get_cflags(shell = True)
-    tlflags = self.get_ldflags(shell = True)
+    tcflags = self.get_cflags(shell=True)
+    tlflags = self.get_ldflags(shell=True)
 
     self.configure_env = {"CFLAGS": f"{tcflags} {tlflags}"}
+
 
 @subpackage("libxo-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("libxo-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

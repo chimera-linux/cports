@@ -9,8 +9,10 @@ url = "https://chimera-linux.org"
 # no tests
 options = ["!check"]
 
+
 def do_install(self):
     self.install_file(
-        self.files_path / "java-cacerts", "etc/ca-certificates/update.d",
-        mode = 0o755
+        self.files_path / "java-cacerts",
+        "etc/ca-certificates/update.d",
+        mode=0o755,
     )

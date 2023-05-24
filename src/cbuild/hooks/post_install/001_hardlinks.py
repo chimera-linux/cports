@@ -6,6 +6,7 @@
 
 import os
 
+
 def invoke(pkg):
     if pkg.options["hardlinks"]:
         return

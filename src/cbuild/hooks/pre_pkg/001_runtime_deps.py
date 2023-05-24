@@ -6,6 +6,7 @@ import os
 import pathlib
 import subprocess
 
+
 def _scan_so(pkg):
     verify_deps = {}
     pkg.so_requires = []
@@ -60,8 +61,11 @@ def _scan_so(pkg):
         info = cli.call(
             "info",
             ["--from", "installed", "--description", "so:" + dep],
-            None, root = broot, capture_output = True, arch = aarch,
-            allow_untrusted = True
+            None,
+            root=broot,
+            capture_output=True,
+            arch=aarch,
+            allow_untrusted=True,
         )
         if info.returncode != 0:
             # when bootstrapping, also check the repository
@@ -69,7 +73,9 @@ def _scan_so(pkg):
                 info = cli.call(
                     "info",
                     ["--from", "none", "--description", "so:" + dep],
-                    "main", capture_output = True, allow_untrusted = True
+                    "main",
+                    capture_output=True,
+                    allow_untrusted=True,
                 )
 
         # either of the commands failed
@@ -115,6 +121,7 @@ def _scan_so(pkg):
     if broken:
         pkg.error("Failed scanning shlib dependencies")
 
+
 _pc_ops = {
     "=": True,
     "<": True,
@@ -122,6 +129,7 @@ _pc_ops = {
     "<=": True,
     ">=": True,
 }
+
 
 def _scan_pc(pkg):
     pcreq = {}
@@ -169,11 +177,16 @@ def _scan_pc(pkg):
             return
         # analyze the .pc file
         pcc = chroot.enter(
-            "pkg-config", "--print-requires", "--print-requires-private",
+            "pkg-config",
+            "--print-requires",
+            "--print-requires-private",
             v.stem,
-            capture_output = True, bootstrapping = pkg.stage == 0,
-            ro_root = True, ro_build = True, unshare_all = True,
-            env = penv
+            capture_output=True,
+            bootstrapping=pkg.stage == 0,
+            ro_root=True,
+            ro_build=True,
+            unshare_all=True,
+            env=penv,
         )
         if pcc.returncode != 0:
             pkg.error("failed scanning .pc files (missing pkgconf?)")
@@ -185,11 +198,11 @@ def _scan_pc(pkg):
             # find where the version constraint begins
             idx = re.search(r"[<>=]+", ln)
             if idx:
-                pname = ln[:idx.start()]
+                pname = ln[: idx.start()]
                 # validate so we don't fail at apk creation stage
-                if ln[idx.start():idx.end()] not in _pc_ops:
+                if ln[idx.start() : idx.end()] not in _pc_ops:
                     pkg.error(f"invalid operator in constraint '{ln}'")
-                if not cli.check_version(ln[idx.end():]):
+                if not cli.check_version(ln[idx.end() :]):
                     pkg.error(f"invalid version in constraint '{ln}'")
             else:
                 pname = ln
@@ -228,7 +241,7 @@ def _scan_pc(pkg):
                 # apk search needs unconstrained name
                 idx = re.search(r"[<>=]", k)
                 if idx:
-                    prov = cli.get_provider("pc:" + k[:idx.start()], pkg)
+                    prov = cli.get_provider("pc:" + k[: idx.start()], pkg)
                 else:
                     prov = cli.get_provider("pc:" + k, pkg)
             else:
@@ -244,6 +257,7 @@ def _scan_pc(pkg):
             continue
         # no provider found
         pkg.error(f"   pc: {k} <-> UNKNOWN PACKAGE!")
+
 
 def _scan_symlinks(pkg):
     allow_broken = pkg.options["brokenlinks"]
@@ -289,7 +303,9 @@ def _scan_symlinks(pkg):
         else:
             # could be a main package too
             if _exists_link(pkg.rparent.destdir / sdest):
-                log.out_plain(f"   symlink: {ssrc} -> {sdest} <-> {pkg.rparent.pkgname}")
+                log.out_plain(
+                    f"   symlink: {ssrc} -> {sdest} <-> {pkg.rparent.pkgname}"
+                )
                 subpkg_deps[pkg.rparent.pkgname] = True
             else:
                 # nothing found
@@ -307,6 +323,7 @@ def _scan_symlinks(pkg):
             # if the exact dependency is already present, skip it
             if not kv in pkg.depends:
                 pkg.depends.append(kv)
+
 
 def invoke(pkg):
     if not pkg.options["scanrundeps"]:

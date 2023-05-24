@@ -3,13 +3,16 @@ pkgver = "0.1"
 pkgrel = 0
 archs = ["aarch64"]
 depends = [
-    "firmware-ap6256", "firmware-linux-rockchip",
-    "u-boot-pinebook-pro-rk3399", "u-boot-menu",
+    "firmware-ap6256",
+    "firmware-linux-rockchip",
+    "u-boot-pinebook-pro-rk3399",
+    "u-boot-menu",
 ]
 pkgdesc = "Chimera base package for Pinebook Pro"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://chimera-linux.org"
+
 
 def do_install(self):
     self.install_file(

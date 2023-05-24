@@ -4,9 +4,9 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-kcm",
-    "--disable-otp", # needs ndbm
-    "--without-openssl", # FIXME
-    "--with-hcrypto-default-backend=hcrypto", # FIXME: switch back to ossl
+    "--disable-otp",  # needs ndbm
+    "--without-openssl",  # FIXME
+    "--with-hcrypto-default-backend=hcrypto",  # FIXME: switch back to ossl
     "--without-berkeley-db",
     "--with-db-type-preference=sqlite",
     f"--with-sqlite3={self.profile().sysroot / 'usr'}",
@@ -18,15 +18,29 @@ make_cmd = "gmake"
 make_install_args = ["-j1"]
 make_check_args = ["-j1"]
 hostmakedepends = [
-    "gmake", "pkgconf", "flex", "byacc", "perl", "perl-json", "python",
-    "mandoc", "texinfo", "gettext-tiny", "automake", "libtool",
-    "e2fsprogs-devel", # for compile_et
+    "gmake",
+    "pkgconf",
+    "flex",
+    "byacc",
+    "perl",
+    "perl-json",
+    "python",
+    "mandoc",
+    "texinfo",
+    "gettext-tiny",
+    "automake",
+    "libtool",
+    "e2fsprogs-devel",  # for compile_et
 ]
 # TODO: reenable openssl once we've figured out the openssl 3.x regressions
 makedepends = [
-    "sqlite-devel", "libedit-devel",
-    "libcap-ng-devel", "linux-pam-devel", "gettext-tiny-devel",
-    "ncurses-devel", "e2fsprogs-devel",
+    "sqlite-devel",
+    "libedit-devel",
+    "libcap-ng-devel",
+    "linux-pam-devel",
+    "gettext-tiny-devel",
+    "ncurses-devel",
+    "e2fsprogs-devel",
 ]
 pkgdesc = "Implementation of the Kerberos authentication protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -34,20 +48,19 @@ license = "BSD-3-Clause"
 url = "https://heimdal.software"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "fd87a207846fa650fd377219adc4b8a8193e55904d8a752c2c3715b4155d8d38"
-exec_wrappers = [
-    ("/usr/bin/mandoc", "nroff")
-]
+exec_wrappers = [("/usr/bin/mandoc", "nroff")]
 
 if self.profile().endian == "big":
     configure_args.append("--enable-bigendian")
 else:
     configure_args.append("--enable-littleendian")
 
+
 def post_install(self):
     self.install_license("LICENSE")
 
     for f in (self.destdir / "usr/share/man").glob("cat*"):
-        self.rm(f, recursive = True)
+        self.rm(f, recursive=True)
     for f in (self.destdir / "usr/lib").glob("windc*"):
         self.rm(f)
 
@@ -59,11 +72,11 @@ def post_install(self):
     self.mv(self.destdir / "usr/bin/pagsh", self.destdir / "usr/bin/kpagsh")
     self.mv(
         self.destdir / "usr/share/man/man1/su.1",
-        self.destdir / "usr/share/man/man1/ksu.1"
+        self.destdir / "usr/share/man/man1/ksu.1",
     )
     self.mv(
         self.destdir / "usr/share/man/man1/pagsh.1",
-        self.destdir / "usr/share/man/man1/kpagsh.1"
+        self.destdir / "usr/share/man/man1/kpagsh.1",
     )
 
     # hardlink resolution
@@ -74,12 +87,14 @@ def post_install(self):
     self.install_link("iprop.8", "usr/share/man/man8/ipropd-slave.8")
     self.install_link("mech.5", "usr/share/man/man5/qop.5")
 
+
 def _genlib(pkgn, desc):
     @subpackage(f"lib{pkgn}")
     def _lib(self):
         self.pkgdesc = f"{desc} library from Heimdal Kerberos"
 
         return [f"usr/lib/lib{pkgn}.so.*"]
+
 
 for _libn, _ldesc in [
     ("asn1", "ASN.1"),
@@ -105,9 +120,8 @@ for _libn, _ldesc in [
 def _kcm(self):
     self.pkgdesc = "Heimdal KCM daemon"
 
-    return [
-        "usr/libexec/kcm", "usr/share/man/man8/kcm.8"
-    ]
+    return ["usr/libexec/kcm", "usr/share/man/man8/kcm.8"]
+
 
 # TODO: add services
 @subpackage("heimdal-kdc")
@@ -132,12 +146,11 @@ def _kdc(self):
         "usr/share/man/man8/kstash.8",
     ]
 
+
 @subpackage("heimdal-clients")
 def _client(self):
     self.pkgdesc = f"{pkgdesc} (clients)"
-    self.suid_files = [
-        "usr/bin/ksu"
-    ]
+    self.suid_files = ["usr/bin/ksu"]
 
     def _install():
         self.take("usr/libexec/kdigest")
@@ -146,14 +159,29 @@ def _client(self):
         self.take("usr/share/man/man8/kimpersonate.8")
 
         for cl in [
-            "afslog", "gsstool", "hxtool", "heimtools", "kadmin", "kdestroy",
-            "kf", "kgetcred", "kinit", "klist", "kpasswd", "kswitch",
-            "kpagsh", "ksu", "ktutil", "string2key", "verify_krb5_conf",
+            "afslog",
+            "gsstool",
+            "hxtool",
+            "heimtools",
+            "kadmin",
+            "kdestroy",
+            "kf",
+            "kgetcred",
+            "kinit",
+            "klist",
+            "kpasswd",
+            "kswitch",
+            "kpagsh",
+            "ksu",
+            "ktutil",
+            "string2key",
+            "verify_krb5_conf",
         ]:
             self.take(f"usr/bin/{cl}")
-            self.take(f"usr/share/man/man*/{cl}.*", missing_ok = True)
+            self.take(f"usr/share/man/man*/{cl}.*", missing_ok=True)
 
     return _install
+
 
 @subpackage("heimdal-devel")
 def _devel(self):

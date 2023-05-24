@@ -3,7 +3,9 @@ pkgver = "1.4.19"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-changeword", "--enable-threads", "--program-prefix=g",
+    "--enable-changeword",
+    "--enable-threads",
+    "--program-prefix=g",
     "ac_cv_lib_error_at_line=no",
     "ac_cv_header_sys_cdefs_h=no",
 ]

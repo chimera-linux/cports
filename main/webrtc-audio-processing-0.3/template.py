@@ -11,8 +11,10 @@ url = "https://freedesktop.org/software/pulseaudio/webrtc-audio-processing"
 source = f"{url}/webrtc-audio-processing-{pkgver}.tar.xz"
 sha256 = "a0fdd938fd85272d67e81572c5a4d9e200a0c104753cb3c209ded175ce3c5dbf"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("webrtc-audio-processing-0.3-devel")
 def _devel(self):

@@ -3,14 +3,21 @@ pkgname = "deluge"
 pkgver = "2.1.1"
 pkgrel = 0
 build_style = "python_module"
-hostmakedepends = [
-    "python-setuptools", "python-wheel", "intltool"
-]
+hostmakedepends = ["python-setuptools", "python-wheel", "intltool"]
 depends = [
-    "python-setuptools", "python-chardet", "python-mako", "python-openssl",
-    "python-pillow", "python-pyasn1", "python-pyxdg", "python-rencode",
-    "python-setproctitle", "python-six", "python-twisted",
-    "python-zope.interface", "libtorrent-rasterbar-python",
+    "python-setuptools",
+    "python-chardet",
+    "python-mako",
+    "python-openssl",
+    "python-pillow",
+    "python-pyasn1",
+    "python-pyxdg",
+    "python-rencode",
+    "python-setproctitle",
+    "python-six",
+    "python-twisted",
+    "python-zope.interface",
+    "libtorrent-rasterbar-python",
 ]
 pkgdesc = "Portable BitTorrent client"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -26,20 +33,16 @@ file_modes = {
 # unpackaged checkdepends
 options = ["!check"]
 
-system_users = [
-    {
-        "name": "_deluge",
-        "id": None,
-        "home": "/var/lib/deluge"
-    }
-]
+system_users = [{"name": "_deluge", "id": None, "home": "/var/lib/deluge"}]
+
 
 def post_install(self):
     # homedir structure, pin it in place
-    self.install_dir("var/lib/deluge/.config/deluge", empty = True)
+    self.install_dir("var/lib/deluge/.config/deluge", empty=True)
     # default services
     self.install_service(self.files_path / "deluged")
     self.install_service(self.files_path / "deluge-web")
+
 
 @subpackage("deluge-gtk")
 def _gtk(self):
@@ -57,6 +60,7 @@ def _gtk(self):
         "usr/share/man/man1/deluge.1",
         "usr/share/man/man1/deluge-gtk.1",
     ]
+
 
 @subpackage("deluge-web")
 def _web(self):

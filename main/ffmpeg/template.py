@@ -58,19 +58,49 @@ make_install_args = ["install-man"]
 make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf", "perl", "nasm", "texinfo"]
 makedepends = [
-    "zlib-devel", "libbz2-devel", "openssl-devel", "librtmp-devel",
-    "freetype-devel", "harfbuzz-devel", "zimg-devel",
-    "libxfixes-devel", "libxext-devel", "libxvmc-devel", "libxcb-devel",
-    "x264-devel", "x265-devel", "xvidcore-devel", "dav1d-devel",
-    "libvpx-devel", "libaom-devel", "libvidstab-devel",
-    "libtheora-devel", "libvorbis-devel", "opus-devel",
-    "libwebp-devel", "openjpeg-devel", "libbluray-devel",
-    "libass-devel", "libcdio-devel", "libcdio-paranoia-devel",
-    "libmodplug-devel", "lame-devel", "libbs2b-devel",
-    "libpulse-devel", "pipewire-jack-devel", "vapoursynth-devel",
-    "libva-devel", "libvdpau-devel", "v4l-utils-devel",
-    "vulkan-loader", "vulkan-headers", "vulkan-validationlayers-devel",
-    "libdrm-devel", "sdl-devel", "rubberband-devel", "libxml2-devel",
+    "zlib-devel",
+    "libbz2-devel",
+    "openssl-devel",
+    "librtmp-devel",
+    "freetype-devel",
+    "harfbuzz-devel",
+    "zimg-devel",
+    "libxfixes-devel",
+    "libxext-devel",
+    "libxvmc-devel",
+    "libxcb-devel",
+    "x264-devel",
+    "x265-devel",
+    "xvidcore-devel",
+    "dav1d-devel",
+    "libvpx-devel",
+    "libaom-devel",
+    "libvidstab-devel",
+    "libtheora-devel",
+    "libvorbis-devel",
+    "opus-devel",
+    "libwebp-devel",
+    "openjpeg-devel",
+    "libbluray-devel",
+    "libass-devel",
+    "libcdio-devel",
+    "libcdio-paranoia-devel",
+    "libmodplug-devel",
+    "lame-devel",
+    "libbs2b-devel",
+    "libpulse-devel",
+    "pipewire-jack-devel",
+    "vapoursynth-devel",
+    "libva-devel",
+    "libvdpau-devel",
+    "v4l-utils-devel",
+    "vulkan-loader",
+    "vulkan-headers",
+    "vulkan-validationlayers-devel",
+    "libdrm-devel",
+    "sdl-devel",
+    "rubberband-devel",
+    "libxml2-devel",
     "ocl-icd-devel",
 ]
 depends = [f"ffplay={pkgver}-r{pkgrel}"]
@@ -106,13 +136,14 @@ if self.profile().cross:
         f"--sysroot={self.profile().sysroot}",
     ]
 
+
 def init_configure(self):
     # host toolchain
     self.configure_args += [
-        "--host-cc=" + self.get_tool("CC", target = "host"),
-        "--host-ld=" + self.get_tool("CC", target = "host"),
-        "--host-cflags=" + self.get_cflags(target = "host", shell = True),
-        "--host-ldflags=" + self.get_ldflags(target = "host", shell = True),
+        "--host-cc=" + self.get_tool("CC", target="host"),
+        "--host-ld=" + self.get_tool("CC", target="host"),
+        "--host-cflags=" + self.get_cflags(target="host", shell=True),
+        "--host-ldflags=" + self.get_ldflags(target="host", shell=True),
     ]
     # target toolchain
     self.configure_args += [
@@ -124,11 +155,13 @@ def init_configure(self):
         "--nm=" + self.get_tool("NM"),
     ]
 
+
 def _genlib(lname, ldesc):
     @subpackage(f"lib{lname}")
     def _lib(self):
         self.pkgdesc = f"FFmpeg {ldesc} library"
         return [f"usr/lib/lib{lname}.so.*"]
+
 
 for lname, ldesc in [
     ("avcodec", "codec"),
@@ -142,11 +175,15 @@ for lname, ldesc in [
 ]:
     _genlib(lname, ldesc)
 
+
 @subpackage("ffmpeg-devel")
 def _devel(self):
-    return self.default_devel(extra = [
-        "usr/share/ffmpeg/examples",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/share/ffmpeg/examples",
+        ]
+    )
+
 
 @subpackage("ffplay")
 def _ffplay(self):

@@ -11,12 +11,14 @@ license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.soft-switch.org"
 source = f"$(DEBIAN_SITE)/main/s/{pkgname}/{pkgname}_{pkgver}+dfsg.orig.tar.xz"
 sha256 = "3dcdc611b8a119f1f26540d05e6279c4c1e5cd576271f6d45df431359fc190f9"
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
+
 
 @subpackage("spandsp-devel")
 def _devel(self):
     self.depends += ["libtiff-devel"]
 
     return self.default_devel()
+
 
 configure_gen = []

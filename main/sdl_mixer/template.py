@@ -39,11 +39,14 @@ sha256 = "7a6ba86a478648ce617e3a5e9277181bc67f7ce9876605eea6affd4a0d6eea8f"
 # no check target
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.txt")
+
 
 @subpackage("sdl_mixer-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

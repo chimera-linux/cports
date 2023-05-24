@@ -6,8 +6,13 @@ build_style = "gnu_configure"
 configure_args = ["--without-xpm"]
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "libjpeg-turbo-devel", "libpng-devel", "libwebp-devel",
-    "libtiff-devel", "fontconfig-devel", "libavif-devel", "libheif-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
+    "libwebp-devel",
+    "libtiff-devel",
+    "fontconfig-devel",
+    "libavif-devel",
+    "libheif-devel",
 ]
 checkdepends = ["fonts-liberation-otf"]
 pkgdesc = "Graphics library for the dynamic creation of images"
@@ -19,17 +24,21 @@ sha256 = "478a047084e0d89b83616e4c2cf3c9438175fb0cc55d8c8967f06e0427f7d7fb"
 # sus codebase, FIXME later (perhaps when investigating newer version)
 hardening = ["!int"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libgd-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("libgd-progs")
 def _xmlwf(self):
     self.depends += ["perl"]
 
     return self.default_progs()
+
 
 configure_gen = []

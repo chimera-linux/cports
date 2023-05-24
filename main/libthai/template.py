@@ -16,8 +16,10 @@ sha256 = "fc80cc7dcb50e11302b417cebd24f2d30a8b987292e77e003267b9100d0f4bcd"
 if self.profile().cross:
     hostmakedepends += ["libdatrie"]
 
+
 @subpackage("libthai-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

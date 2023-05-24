@@ -3,18 +3,35 @@ pkgver = "0.25.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dpam=true", "-Dwl=true", "-Dsystemd=false",
+    "-Dpam=true",
+    "-Dwl=true",
+    "-Dsystemd=false",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "efl", "xwayland", "wayland-progs"
+    "meson",
+    "pkgconf",
+    "gettext-tiny",
+    "efl",
+    "xwayland",
+    "wayland-progs",
 ]
 makedepends = [
-    "gettext-tiny-devel", "efl-devel", "mesa-devel", "wayland-devel",
-    "wayland-protocols", "libxkbcommon-devel", "linux-pam-devel",
-    "libexif-devel", "bluez-devel", "xkeyboard-config"
+    "gettext-tiny-devel",
+    "efl-devel",
+    "mesa-devel",
+    "wayland-devel",
+    "wayland-protocols",
+    "libxkbcommon-devel",
+    "linux-pam-devel",
+    "libexif-devel",
+    "bluez-devel",
+    "xkeyboard-config",
 ]
 depends = [
-    "desktop-file-utils", "hicolor-icon-theme", "xkeyboard-config", "elogind"
+    "desktop-file-utils",
+    "hicolor-icon-theme",
+    "xkeyboard-config",
+    "elogind",
 ]
 pkgdesc = "Enlightenment desktop shell"
 license = "BSD-2-Clause"
@@ -29,8 +46,10 @@ suid_files = [
 # FIXME int: janky codebase
 hardening = ["!int"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("enlightenment-devel")
 def _devel(self):

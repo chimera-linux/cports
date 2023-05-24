@@ -12,10 +12,11 @@ source = f"$(PYPI_SITE)/s/setuptools/setuptools-{pkgver}.tar.gz"
 sha256 = "bb16732e8eb928922eabaa022f881ae2b7cdcfaf9993ef1f5e841a96d32b8e0c"
 env = {
     "SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES": "0",
-    "SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT": "1"
+    "SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT": "1",
 }
 # missing checkdepends
 options = ["!check"]
+
 
 def post_install(self):
     self.install_license("LICENSE")

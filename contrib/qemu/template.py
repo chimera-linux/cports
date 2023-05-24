@@ -41,19 +41,56 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "meson", "ninja", "pkgconf", "gmake", "bash", "perl", "flex", "bison",
-    "bzip2", "gettext-tiny", "python-sphinx", "python-sphinx_rtd_theme",
+    "meson",
+    "ninja",
+    "pkgconf",
+    "gmake",
+    "bash",
+    "perl",
+    "flex",
+    "bison",
+    "bzip2",
+    "gettext-tiny",
+    "python-sphinx",
+    "python-sphinx_rtd_theme",
 ]
 makedepends = [
-    "glib-devel", "libbz2-devel", "zlib-devel", "libzstd-devel", "lzo-devel",
-    "libcap-ng-devel", "nss-devel", "gnutls-devel", "libaio-devel",
-    "libjpeg-turbo-devel", "pixman-devel", "libcurl-devel", "dtc-devel",
-    "snappy-devel", "gtk+3-devel", "vte-gtk3-devel", "sdl-devel",
-    "sdl_image-devel", "libpulse-devel", "jack-devel", "fuse-devel",
-    "libseccomp-devel", "ncurses-devel", "usbredir-devel", "pcsc-lite-devel",
-    "libcacard-devel", "libiscsi-devel", "linux-pam-devel", "libnuma-devel",
-    "libslirp-devel", "virglrenderer-devel", "libusb-devel", "libnfs-devel",
-    "spice-devel", "spice-protocol", "linux-headers",
+    "glib-devel",
+    "libbz2-devel",
+    "zlib-devel",
+    "libzstd-devel",
+    "lzo-devel",
+    "libcap-ng-devel",
+    "nss-devel",
+    "gnutls-devel",
+    "libaio-devel",
+    "libjpeg-turbo-devel",
+    "pixman-devel",
+    "libcurl-devel",
+    "dtc-devel",
+    "snappy-devel",
+    "gtk+3-devel",
+    "vte-gtk3-devel",
+    "sdl-devel",
+    "sdl_image-devel",
+    "libpulse-devel",
+    "jack-devel",
+    "fuse-devel",
+    "libseccomp-devel",
+    "ncurses-devel",
+    "usbredir-devel",
+    "pcsc-lite-devel",
+    "libcacard-devel",
+    "libiscsi-devel",
+    "linux-pam-devel",
+    "libnuma-devel",
+    "libslirp-devel",
+    "virglrenderer-devel",
+    "libusb-devel",
+    "libnfs-devel",
+    "spice-devel",
+    "spice-protocol",
+    "linux-headers",
 ]
 pkgdesc = "Generic machine emulator and virtualizer"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -77,6 +114,7 @@ system_users = [
     }
 ]
 
+
 def post_install(self):
     self.install_service(self.files_path / "qemu-ga")
 
@@ -87,7 +125,8 @@ def post_install(self):
     self.mv(self.destdir / "usr/share/qemu", self.destdir / "usr/lib/qemu")
     self.install_link("../lib/qemu", "usr/share/qemu")
 
-    self.rm(self.destdir / "usr/share/doc", recursive = True)
+    self.rm(self.destdir / "usr/share/doc", recursive=True)
+
 
 @subpackage("qemu-guest-agent")
 def _guest_agent(self):
@@ -98,6 +137,7 @@ def _guest_agent(self):
         "etc/dinit.d/qemu-ga",
         "usr/bin/qemu-ga",
     ]
+
 
 @subpackage("qemu-img")
 def _img(self):
@@ -111,6 +151,7 @@ def _img(self):
         "usr/bin/qemu-storage-daemon",
     ]
 
+
 @subpackage("qemu-tools")
 def _tools(self):
     self.pkgdesc = f"QEMU support tools"
@@ -122,6 +163,7 @@ def _tools(self):
         "usr/bin/elf2dmp",
     ]
 
+
 @subpackage("qemu-pr-helper")
 def _pr_helper(self):
     self.pkgdesc = f"QEMU pr helper utility"
@@ -131,6 +173,7 @@ def _pr_helper(self):
         "usr/bin/qemu-pr-helper",
         "usr/share/man/man8/qemu-pr-helper.8",
     ]
+
 
 @subpackage("qemu-vhost-user-gpu")
 def _vhost_user_gpu(self):
@@ -178,7 +221,7 @@ def _spkg(sname):
                     "usr/lib/qemu/edk2-i386-secure-code.fd",
                     "usr/lib/qemu/edk2-i386-vars.fd",
                     "usr/lib/qemu/firmware/50-edk2-i386-secure.json",
-                            "usr/lib/qemu/firmware/60-edk2-i386.json",
+                    "usr/lib/qemu/firmware/60-edk2-i386.json",
                 ]
             case "ppc":
                 extras = [
@@ -222,16 +265,41 @@ def _spkg(sname):
         # never strip them
         self.nostrip_files = extras
 
-        return [
-            f"usr/bin/qemu-system-{sname}"
-        ] + extras
+        return [f"usr/bin/qemu-system-{sname}"] + extras
+
 
 for _sys in [
-    "aarch64", "alpha", "arm", "avr", "cris", "hppa", "i386", "loongarch64",
-    "m68k", "microblaze", "microblazeel", "mips", "mips64", "mips64el",
-    "mipsel", "nios2", "or1k", "ppc", "ppc64", "riscv32", "riscv64",
-    "rx", "s390x", "sh4", "sh4eb", "sparc", "sparc64", "tricore", "x86_64",
-    "xtensa", "xtensaeb"
+    "aarch64",
+    "alpha",
+    "arm",
+    "avr",
+    "cris",
+    "hppa",
+    "i386",
+    "loongarch64",
+    "m68k",
+    "microblaze",
+    "microblazeel",
+    "mips",
+    "mips64",
+    "mips64el",
+    "mipsel",
+    "nios2",
+    "or1k",
+    "ppc",
+    "ppc64",
+    "riscv32",
+    "riscv64",
+    "rx",
+    "s390x",
+    "sh4",
+    "sh4eb",
+    "sparc",
+    "sparc64",
+    "tricore",
+    "x86_64",
+    "xtensa",
+    "xtensaeb",
 ]:
     _spkg(_sys)
 

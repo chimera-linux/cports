@@ -19,7 +19,10 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     # core deps
-    "libgcrypt-devel", "gnutls-devel", "libzstd-devel", "libcurl-devel",
+    "libgcrypt-devel",
+    "gnutls-devel",
+    "libzstd-devel",
+    "libcurl-devel",
     "ncurses-devel",
     # perl plugin
     "perl",
@@ -43,9 +46,11 @@ url = "https://weechat.org"
 source = f"https://weechat.org/files/src/weechat-{pkgver}.tar.gz"
 sha256 = "d9d27fac127c724564cf28c6179fa6ecc79a61f9dad09a3b251500f2b0755409"
 
+
 @subpackage("weechat-devel")
 def _devel(self):
     return self.default_devel()
+
 
 def _plugin(name):
     @subpackage(f"weechat-{name}")
@@ -54,6 +59,7 @@ def _plugin(name):
         self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
         return [f"usr/lib/weechat/plugins/{name}.so"]
+
 
 for p in ["lua", "python", "ruby", "tcl", "perl"]:
     _plugin(p)

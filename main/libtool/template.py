@@ -4,7 +4,13 @@ pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "gm4", "perl", "automake", "help2man", "xz", "texinfo"
+    "gmake",
+    "gm4",
+    "perl",
+    "automake",
+    "help2man",
+    "xz",
+    "texinfo",
 ]
 depends = ["gm4", "cmd:tar!bsdtar"]
 pkgdesc = "Generic library support script"
@@ -18,18 +24,16 @@ sha256 = "04e96c2404ea70c590c546eba4202a4e12722c640016c12b9b2f1ce3d481e9a8"
 # tests interminable and endless
 options = ["!cross", "!lto", "!check"]
 # because this build system sucks
-exec_wrappers = [
-    ("/usr/bin/gmake", "make")
-]
+exec_wrappers = [("/usr/bin/gmake", "make")]
+
 
 def pre_configure(self):
-    self.do(self.chroot_cwd / "bootstrap", "--force", env = {
-        "MAKE": "gmake"
-    })
+    self.do(self.chroot_cwd / "bootstrap", "--force", env={"MAKE": "gmake"})
     # prevent missing from re-running autotools
     for f in ["aclocal.m4", "Makefile.am", "Makefile.in"]:
         (self.cwd / f).touch()
         (self.cwd / "libltdl" / f).touch()
+
 
 @subpackage("libltdl-devel")
 def _devel(self):
@@ -43,9 +47,11 @@ def _devel(self):
         "usr/share/libtool/libltdl",
     ]
 
+
 @subpackage("libltdl")
 def _devel(self):
     self.pkgdesc = "GNU libtool dlopen wrapper"
     return self.default_libs()
+
 
 configure_gen = []

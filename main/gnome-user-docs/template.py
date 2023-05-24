@@ -4,7 +4,11 @@ pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "pkgconf", "gettext-tiny", "itstool", "libxml2-progs"
+    "gmake",
+    "pkgconf",
+    "gettext-tiny",
+    "itstool",
+    "libxml2-progs",
 ]
 makedepends = ["yelp"]
 depends = ["yelp"]

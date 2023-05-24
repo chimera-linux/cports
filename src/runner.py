@@ -8,43 +8,44 @@ rtpath = None
 global_cfg = None
 cmdline = None
 
-opt_apkcmd     = "apk"
-opt_cflags     = "-O2"
-opt_cxxflags   = "-O2"
-opt_fflags     = "-O2"
-opt_arch       = None
-opt_harch      = None
-opt_gen_dbg    = True
-opt_check      = True
-opt_ccache     = False
-opt_makejobs   = 0
-opt_lthreads   = 0
-opt_nocolor    = False
-opt_signkey    = None
-opt_unsigned   = False
-opt_force      = False
-opt_mdirtemp   = False
-opt_nonet      = False
-opt_dirty      = False
-opt_keeptemp   = False
+opt_apkcmd = "apk"
+opt_cflags = "-O2"
+opt_cxxflags = "-O2"
+opt_fflags = "-O2"
+opt_arch = None
+opt_harch = None
+opt_gen_dbg = True
+opt_check = True
+opt_ccache = False
+opt_makejobs = 0
+opt_lthreads = 0
+opt_nocolor = False
+opt_signkey = None
+opt_unsigned = False
+opt_force = False
+opt_mdirtemp = False
+opt_nonet = False
+opt_dirty = False
+opt_keeptemp = False
 opt_forcecheck = False
-opt_checkfail  = False
-opt_stage      = False
-opt_dryrun     = False
-opt_altrepo    = None
-opt_bldroot    = "bldroot"
-opt_blddir     = ""
-opt_pkgpath    = "packages"
-opt_srcpath    = "sources"
-opt_cchpath    = "cbuild_cache"
-opt_stagepath  = "pkgstage"
-opt_statusfd   = None
-opt_bulkcont   = False
-opt_allowcat   = "main contrib"
+opt_checkfail = False
+opt_stage = False
+opt_dryrun = False
+opt_altrepo = None
+opt_bldroot = "bldroot"
+opt_blddir = ""
+opt_pkgpath = "packages"
+opt_srcpath = "sources"
+opt_cchpath = "cbuild_cache"
+opt_stagepath = "pkgstage"
+opt_statusfd = None
+opt_bulkcont = False
+opt_allowcat = "main contrib"
 
 #
 # INITIALIZATION ROUTINES
 #
+
 
 def init_early():
     import os
@@ -69,11 +70,13 @@ def init_early():
 
     def do_exit(signum, stack):
         from cbuild.core import errors
+
         raise errors.CbuildException("interrupted!")
 
     # exit handler
     signal.signal(signal.SIGINT, do_exit)
     signal.signal(signal.SIGTERM, do_exit)
+
 
 def handle_options():
     import os
@@ -98,120 +101,157 @@ def handle_options():
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
 
-    parser = argparse.ArgumentParser(
-        description = "Chimera Linux build system."
-    )
+    parser = argparse.ArgumentParser(description="Chimera Linux build system.")
 
     parser.add_argument(
-        "-c", "--config", default = "etc/config.ini",
-        help = "The configuration file to use."
+        "-c",
+        "--config",
+        default="etc/config.ini",
+        help="The configuration file to use.",
     )
     parser.add_argument(
-        "-f", "--force", action = "store_const", const = True,
-        default = opt_force,
-        help = "Force writing a package even when it exists and template is older."
+        "-f",
+        "--force",
+        action="store_const",
+        const=True,
+        default=opt_force,
+        help="Force writing a package even when it exists and template is older.",
     )
     parser.add_argument(
-        "-L", "--no-color", action = "store_const", const = True,
-        default = opt_nocolor, help = "Force plain output."
+        "-L",
+        "--no-color",
+        action="store_const",
+        const=True,
+        default=opt_nocolor,
+        help="Force plain output.",
     )
     parser.add_argument(
-        "-j", "--jobs", help = "Number of jobs to use.", default = None
+        "-j", "--jobs", help="Number of jobs to use.", default=None
     )
     parser.add_argument(
-        "-C", "--skip-check", action = "store_const",
-        const = True, default = not opt_check,
-        help = "Skip running the check stage."
+        "-C",
+        "--skip-check",
+        action="store_const",
+        const=True,
+        default=not opt_check,
+        help="Skip running the check stage.",
     )
     parser.add_argument(
-        "--force-check", action = "store_const",
-        const = True, default = opt_forcecheck,
-        help = "Force running check even if disabled by template."
+        "--force-check",
+        action="store_const",
+        const=True,
+        default=opt_forcecheck,
+        help="Force running check even if disabled by template.",
     )
     parser.add_argument(
-        "-X", "--check-fail", action = "store_const",
-        const = True, default = opt_checkfail,
-        help = "Do not abort build if check fails."
+        "-X",
+        "--check-fail",
+        action="store_const",
+        const=True,
+        default=opt_checkfail,
+        help="Do not abort build if check fails.",
     )
     parser.add_argument(
-        "-G", "--no-dbg", action = "store_const",
-        const = True, default = not opt_gen_dbg,
-        help = "Do not build debug packages."
+        "-G",
+        "--no-dbg",
+        action="store_const",
+        const=True,
+        default=not opt_gen_dbg,
+        help="Do not build debug packages.",
     )
     parser.add_argument(
-        "-a", "--arch", help = "Target architecture to build for.",
-        default = None
+        "-a", "--arch", help="Target architecture to build for.", default=None
     )
     parser.add_argument(
-        "-A", "--host-arch", help = "Initial host architecture.",
-        default = None
+        "-A", "--host-arch", help="Initial host architecture.", default=None
     )
     parser.add_argument(
-        "-b", "--build-root", default = None, help = "The build root path."
+        "-b", "--build-root", default=None, help="The build root path."
     )
     parser.add_argument(
-        "-B", "--build-dir", default = None, help = "The build dir path."
+        "-B", "--build-dir", default=None, help="The build dir path."
     )
     parser.add_argument(
-        "-r", "--repository-path", default = None,
-        help = "Local repository path."
+        "-r", "--repository-path", default=None, help="Local repository path."
     )
     parser.add_argument(
-        "-R", "--alt-repository", default = None,
-        help = "Alternative repository to use."
+        "-R",
+        "--alt-repository",
+        default=None,
+        help="Alternative repository to use.",
     )
     parser.add_argument(
-        "-s", "--sources-path", default = None,
-        help = "Sources storage path."
+        "-s", "--sources-path", default=None, help="Sources storage path."
     )
     parser.add_argument(
-        "-t", "--temporary", action = "store_const",
-        const = True, default = opt_mdirtemp,
-        help = "Use a temporary build root."
+        "-t",
+        "--temporary",
+        action="store_const",
+        const=True,
+        default=opt_mdirtemp,
+        help="Use a temporary build root.",
     )
     parser.add_argument(
-        "-N", "--no-remote", action = "store_const",
-        const = True, default = opt_nonet,
-        help = "Do not ever use remote repositories."
+        "-N",
+        "--no-remote",
+        action="store_const",
+        const=True,
+        default=opt_nonet,
+        help="Do not ever use remote repositories.",
     )
     parser.add_argument(
-        "-D", "--dirty-build", action = "store_const",
-        const = True, default = opt_dirty,
-        help = "Skip installing (and removing) dependencies."
+        "-D",
+        "--dirty-build",
+        action="store_const",
+        const=True,
+        default=opt_dirty,
+        help="Skip installing (and removing) dependencies.",
     )
     parser.add_argument(
-        "-K", "--keep-temporary", action = "store_const",
-        const = True, default = opt_keeptemp,
-        help = "Keep temporary files and build dependencies after build."
+        "-K",
+        "--keep-temporary",
+        action="store_const",
+        const=True,
+        default=opt_keeptemp,
+        help="Keep temporary files and build dependencies after build.",
     )
     parser.add_argument(
-        "--allow-unsigned", action = "store_const",
-        const = True, default = opt_unsigned,
-        help = "Allow building without a signing key."
+        "--allow-unsigned",
+        action="store_const",
+        const=True,
+        default=opt_unsigned,
+        help="Allow building without a signing key.",
     )
     parser.add_argument(
-        "--stage", action = "store_const",
-        const = True, default = opt_stage,
-        help = "Keep built packages staged."
+        "--stage",
+        action="store_const",
+        const=True,
+        default=opt_stage,
+        help="Keep built packages staged.",
     )
     parser.add_argument(
-        "--stage-path", default = None, help = "Root path for staged packages."
+        "--stage-path", default=None, help="Root path for staged packages."
     )
     parser.add_argument(
-        "--dry-run", action = "store_const",
-        const = True, default = opt_dryrun,
-        help = "Do not perform changes to file system (only some commands)"
+        "--dry-run",
+        action="store_const",
+        const=True,
+        default=opt_dryrun,
+        help="Do not perform changes to file system (only some commands)",
     )
     parser.add_argument(
-        "--status-fd", default = None,
-        help = "File descriptor for bulk build status (must be open)."
+        "--status-fd",
+        default=None,
+        help="File descriptor for bulk build status (must be open).",
     )
     parser.add_argument(
-        "--bulk-continue", action = "store_const",
-        const = True, default = opt_bulkcont,
-        help = "Try building the remaining packages in case of bulk failures."
+        "--bulk-continue",
+        action="store_const",
+        const=True,
+        default=opt_bulkcont,
+        help="Try building the remaining packages in case of bulk failures.",
     )
-    parser.add_argument("command", nargs = "+", help = "The command to issue.")
+    parser.add_argument("command", nargs="+", help="The command to issue.")
 
     cmdline = parser.parse_args()
 
@@ -223,29 +263,29 @@ def handle_options():
     if "apk" in global_cfg:
         apkcfg = global_cfg["apk"]
 
-        opt_apkcmd = apkcfg.get("command", fallback = opt_apkcmd)
+        opt_apkcmd = apkcfg.get("command", fallback=opt_apkcmd)
 
     if "build" in global_cfg:
         bcfg = global_cfg["build"]
 
-        opt_gen_dbg   = bcfg.getboolean("build_dbg", fallback = opt_gen_dbg)
-        opt_ccache    = bcfg.getboolean("ccache", fallback = opt_ccache)
-        opt_check     = bcfg.getboolean("check", fallback = opt_check)
-        opt_checkfail = bcfg.getboolean("check_fail", fallback = opt_checkfail)
-        opt_stage     = bcfg.getboolean("keep_stage", fallback = opt_stage)
-        opt_makejobs  = bcfg.getint("jobs", fallback = opt_makejobs)
-        opt_lthreads  = bcfg.getint("link_threads", fallback = opt_lthreads)
-        opt_arch      = bcfg.get("arch", fallback = opt_arch)
-        opt_harch     = bcfg.get("host_arch", fallback = opt_harch)
-        opt_bldroot   = bcfg.get("build_root", fallback = opt_bldroot)
-        opt_blddir    = bcfg.get("build_dir", fallback = opt_blddir)
-        opt_stagepath = bcfg.get("stage_repository", fallback = opt_stagepath)
-        opt_altrepo   = bcfg.get("alt_repository", fallback = opt_altrepo)
-        opt_pkgpath   = bcfg.get("repository", fallback = opt_pkgpath)
-        opt_srcpath   = bcfg.get("sources", fallback = opt_srcpath)
-        opt_cchpath   = bcfg.get("cbuild_cache_path", fallback = opt_cchpath)
-        opt_allowcat  = bcfg.get("categories", fallback = opt_allowcat)
-        opt_nonet     = not bcfg.getboolean("remote", fallback = not opt_nonet)
+        opt_gen_dbg = bcfg.getboolean("build_dbg", fallback=opt_gen_dbg)
+        opt_ccache = bcfg.getboolean("ccache", fallback=opt_ccache)
+        opt_check = bcfg.getboolean("check", fallback=opt_check)
+        opt_checkfail = bcfg.getboolean("check_fail", fallback=opt_checkfail)
+        opt_stage = bcfg.getboolean("keep_stage", fallback=opt_stage)
+        opt_makejobs = bcfg.getint("jobs", fallback=opt_makejobs)
+        opt_lthreads = bcfg.getint("link_threads", fallback=opt_lthreads)
+        opt_arch = bcfg.get("arch", fallback=opt_arch)
+        opt_harch = bcfg.get("host_arch", fallback=opt_harch)
+        opt_bldroot = bcfg.get("build_root", fallback=opt_bldroot)
+        opt_blddir = bcfg.get("build_dir", fallback=opt_blddir)
+        opt_stagepath = bcfg.get("stage_repository", fallback=opt_stagepath)
+        opt_altrepo = bcfg.get("alt_repository", fallback=opt_altrepo)
+        opt_pkgpath = bcfg.get("repository", fallback=opt_pkgpath)
+        opt_srcpath = bcfg.get("sources", fallback=opt_srcpath)
+        opt_cchpath = bcfg.get("cbuild_cache_path", fallback=opt_cchpath)
+        opt_allowcat = bcfg.get("categories", fallback=opt_allowcat)
+        opt_nonet = not bcfg.getboolean("remote", fallback=not opt_nonet)
 
     if not "flags" in global_cfg:
         global_cfg["flags"] = {}
@@ -262,7 +302,7 @@ def handle_options():
     if "signing" in global_cfg:
         signcfg = global_cfg["signing"]
 
-        opt_signkey = signcfg.get("key", fallback = opt_signkey)
+        opt_signkey = signcfg.get("key", fallback=opt_signkey)
 
     # command line args override config file
 
@@ -327,9 +367,7 @@ def handle_options():
         mdp = pathlib.Path.cwd() / opt_bldroot
         # the temporary directory should be in the same location as build root
         opt_mdirtemp = True
-        opt_bldroot  = tempfile.mkdtemp(
-            prefix = mdp.name + ".", dir = mdp.parent
-        )
+        opt_bldroot = tempfile.mkdtemp(prefix=mdp.name + ".", dir=mdp.parent)
 
     if cmdline.stage:
         opt_stage = True
@@ -351,6 +389,7 @@ def handle_options():
     if opt_lthreads == 0:
         opt_lthreads = opt_makejobs
 
+
 def init_late():
     import os
 
@@ -364,8 +403,15 @@ def init_late():
 
     # init paths early, modules rely on it
     paths.init(
-        cbpath, rtpath, opt_bldroot, opt_blddir, mainrepo, altrepo,
-        opt_stagepath, opt_srcpath, opt_cchpath
+        cbpath,
+        rtpath,
+        opt_bldroot,
+        opt_blddir,
+        mainrepo,
+        altrepo,
+        opt_stagepath,
+        opt_srcpath,
+        opt_cchpath,
     )
 
     # apk command
@@ -377,9 +423,11 @@ def init_late():
     # init license information
     spdx.init()
 
+
 #
 # ACTIONS
 #
+
 
 def binary_bootstrap(tgt):
     from cbuild.core import chroot, paths
@@ -387,13 +435,15 @@ def binary_bootstrap(tgt):
     paths.prepare()
     chroot.install()
 
-def do_unstage(tgt, force = False):
+
+def do_unstage(tgt, force=False):
     from cbuild.core import chroot, stage
 
     if opt_arch and opt_arch != chroot.host_cpu():
         stage.clear(opt_arch, opt_signkey, force)
 
     stage.clear(chroot.host_cpu(), opt_signkey, force)
+
 
 def bootstrap(tgt):
     import sys
@@ -420,8 +470,19 @@ def bootstrap(tgt):
 
         # extra program checks
         for prog in [
-            "clang", "lld", "cmake", "meson", "patch", "pkg-config",
-            "make", "ninja", "strip", "yacc", "flex", "perl", "m4"
+            "clang",
+            "lld",
+            "cmake",
+            "meson",
+            "patch",
+            "pkg-config",
+            "make",
+            "ninja",
+            "strip",
+            "yacc",
+            "flex",
+            "perl",
+            "m4",
         ]:
             if not shutil.which(prog):
                 sys.exit(f"Required bootstrap program not found: {prog}")
@@ -432,9 +493,15 @@ def bootstrap(tgt):
         rp = None
         try:
             rp = template.read_pkg(
-                "main/base-cbuild", None, False, False,
+                "main/base-cbuild",
+                None,
+                False,
+                False,
                 (opt_makejobs, opt_lthreads),
-                False, False, None, stage = 0
+                False,
+                False,
+                None,
+                stage=0,
             )
         except template.SkipPackage:
             pass
@@ -460,7 +527,7 @@ def bootstrap(tgt):
         # use stage 0 build root to build, but build into stage 1 repo
         paths.reinit_buildroot(oldmdir, 0)
         try:
-            do_pkg("pkg", "main/base-cbuild", False, False, stage = 1)
+            do_pkg("pkg", "main/base-cbuild", False, False, stage=1)
         except template.SkipPackage:
             pass
         # go back to stage 1
@@ -480,7 +547,7 @@ def bootstrap(tgt):
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 1)
         try:
-            do_pkg("pkg", "main/base-cbuild", False, False, stage = 2)
+            do_pkg("pkg", "main/base-cbuild", False, False, stage=2)
         except template.SkipPackage:
             pass
         # go back to stage 2
@@ -497,18 +564,20 @@ def bootstrap(tgt):
         # use stage 1 build root to build, but build into stage 2 repo
         paths.reinit_buildroot(oldmdir, 2)
         try:
-            do_pkg("pkg", "main/base-cbuild", False, stage = 3)
+            do_pkg("pkg", "main/base-cbuild", False, stage=3)
         except template.SkipPackage:
             pass
         # go back to stage 3
         paths.reinit_buildroot(oldmdir, 3)
         chroot.install()
 
+
 def bootstrap_update(tgt):
     from cbuild.core import chroot
 
     chroot.remove_autodeps(False)
     chroot.update("main")
+
 
 def do_keygen(tgt):
     from cbuild.apk import sign
@@ -525,6 +594,7 @@ def do_keygen(tgt):
 
     sign.keygen(keyn, keysize, global_cfg, cmdline.config)
 
+
 def do_chroot(tgt):
     from cbuild.core import chroot, paths
     from cbuild.util import compiler
@@ -534,17 +604,22 @@ def do_chroot(tgt):
     paths.prepare()
     chroot.shell_update(not opt_nonet)
     chroot.enter(
-        "/usr/bin/sh", "-i", fakeroot = True, new_session = False,
-        mount_binpkgs = True, mount_cbuild_cache = True,
-        env = {
+        "/usr/bin/sh",
+        "-i",
+        fakeroot=True,
+        new_session=False,
+        mount_binpkgs=True,
+        mount_cbuild_cache=True,
+        env={
             "HOME": "/tmp",
             "TERM": "linux",
             "CBUILD_SHELL": "1",
             "PS1": "\\u@\\h: \\w$ ",
             "SHELL": "/bin/sh",
         },
-        lldargs = compiler._get_lld_cpuargs(opt_lthreads)
+        lldargs=compiler._get_lld_cpuargs(opt_lthreads),
     )
+
 
 def do_clean(tgt):
     import shutil
@@ -563,6 +638,7 @@ def do_clean(tgt):
     elif dirp.exists():
         raise errors.CbuildException("broken container (destdir invalid)")
 
+
 def do_zap(tgt):
     import shutil
 
@@ -573,10 +649,12 @@ def do_zap(tgt):
     elif paths.bldroot().exists():
         raise errors.CbuildException("broken build container")
 
+
 def do_remove_autodeps(tgt):
     from cbuild.core import chroot
 
     chroot.remove_autodeps(None)
+
 
 def do_prune_obsolete(tgt):
     from cbuild.core import chroot, logger, paths
@@ -596,6 +674,7 @@ def do_prune_obsolete(tgt):
             continue
         reposet[str(repop)] = True
         cli.prune(repop, opt_arch, opt_dryrun)
+
 
 def do_prune_removed(tgt):
     import time
@@ -638,7 +717,7 @@ def do_prune_removed(tgt):
             if not (tmplp / pkgn / "template.py").exists():
                 for apkg, adesc, iif, takef in template.autopkgs:
                     if pkgn.endswith(f"-{apkg}"):
-                        pkgn = pkgn[:-len(apkg) - 1]
+                        pkgn = pkgn[: -len(apkg) - 1]
                         break
             # if it's ok, just skip
             if (tmplp / pkgn / "template.py").exists():
@@ -662,9 +741,7 @@ def do_prune_removed(tgt):
             except FileNotFoundError:
                 broken = False
             if broken:
-                logger.get().warn(
-                    f"Broken symlink for package '{pkgn}'"
-                )
+                logger.get().warn(f"Broken symlink for package '{pkgn}'")
             logger.get().out(f"Pruning package: {pkg.name}")
             if not opt_dryrun:
                 pkg.unlink()
@@ -689,6 +766,7 @@ def do_prune_removed(tgt):
         # finally index
         _prune(repo)
 
+
 def do_index(tgt):
     import time
     import pathlib
@@ -707,6 +785,7 @@ def do_index(tgt):
     def _index(repo):
         logger.get().out(f"Indexing packages at '{repo}'...")
         cli.build_index(repo / archn, epoch, opt_signkey)
+
     # only a specific path
     if idir:
         repo = pathlib.Path(idir)
@@ -732,6 +811,7 @@ def do_index(tgt):
         # finally index
         _index(repo)
 
+
 def do_lint(tgt):
     from cbuild.core import chroot, template
 
@@ -739,11 +819,19 @@ def do_lint(tgt):
     # just read it and do nothing else
     # don't let the skip logic kick in
     template.read_pkg(
-        pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
-        False, (1, 1), False, False, None, target = "lint"
+        pkgn,
+        opt_arch if opt_arch else chroot.host_cpu(),
+        True,
+        False,
+        (1, 1),
+        False,
+        False,
+        None,
+        target="lint",
     )
 
-def _collect_tmpls(pkgn, catn = None):
+
+def _collect_tmpls(pkgn, catn=None):
     from cbuild.core import paths
 
     tmpls = []
@@ -770,6 +858,7 @@ def _collect_tmpls(pkgn, catn = None):
 
     return tmpls
 
+
 def _add_deps_graph(pn, tp, pvisit, rpkg, depg):
     bdl = tp.get_build_deps()
     depg.add(pn, *bdl)
@@ -788,6 +877,7 @@ def _add_deps_graph(pn, tp, pvisit, rpkg, depg):
             succ = False
     return succ
 
+
 def _graph_prepare():
     import graphlib
 
@@ -796,14 +886,23 @@ def _graph_prepare():
     pkgn = cmdline.command[1] if len(cmdline.command) >= 2 else None
 
     rtmpls = {}
+
     def _read_pkg(pkgn):
         if pkgn in rtmpls:
             return rtmpls[pkgn]
         try:
             tp = template.read_pkg(
-                pkgn, chroot.host_cpu(), True,
-                False, (1, 1), False, False, None, target = "lint",
-                allow_broken = True, ignore_errors = True
+                pkgn,
+                chroot.host_cpu(),
+                True,
+                False,
+                (1, 1),
+                False,
+                False,
+                None,
+                target="lint",
+                allow_broken=True,
+                ignore_errors=True,
             )
             rtmpls[pkgn] = tp
             return tp
@@ -824,6 +923,7 @@ def _graph_prepare():
 
     return tg
 
+
 def do_prune_sources(tgt):
     from cbuild.core import chroot, logger, template, errors, paths
     import shutil
@@ -835,9 +935,17 @@ def do_prune_sources(tgt):
     def _read_pkg(pkgn):
         try:
             tp = template.read_pkg(
-                pkgn, chroot.host_cpu(), True,
-                False, (1, 1), False, False, None, target = "lint",
-                allow_broken = True, ignore_errors = True
+                pkgn,
+                chroot.host_cpu(),
+                True,
+                False,
+                (1, 1),
+                False,
+                False,
+                None,
+                target="lint",
+                allow_broken=True,
+                ignore_errors=True,
             )
             exist.add(f"{tp.pkgname}-{tp.pkgver}")
         except errors.PackageException:
@@ -858,6 +966,7 @@ def do_prune_sources(tgt):
             else:
                 f.unlink()
 
+
 def do_relink_subpkgs(tgt):
     from cbuild.core import chroot, paths, logger, errors, template
     import shutil
@@ -869,9 +978,17 @@ def do_relink_subpkgs(tgt):
     def _read_pkg(pkgn):
         try:
             tp = template.read_pkg(
-                pkgn, chroot.host_cpu(), True,
-                False, (1, 1), False, False, None, target = "lint",
-                allow_broken = True, ignore_errors = True
+                pkgn,
+                chroot.host_cpu(),
+                True,
+                False,
+                (1, 1),
+                False,
+                False,
+                None,
+                target="lint",
+                allow_broken=True,
+                ignore_errors=True,
             )
             links[f"{tp.repository}/{tp.pkgname}"] = tp.all_subpackages
             return tp
@@ -933,6 +1050,7 @@ def do_relink_subpkgs(tgt):
                 fp.unlink()
             fp.symlink_to(jpn)
 
+
 def do_cycle_check(tgt):
     import graphlib
 
@@ -947,6 +1065,7 @@ def do_cycle_check(tgt):
             "cycle encountered: " + " => ".join(ce.args[1])
         )
 
+
 def do_print_build_graph(tgt):
     from cbuild.core import chroot, template, errors
 
@@ -954,14 +1073,23 @@ def do_print_build_graph(tgt):
         raise errors.CbuildException(f"print-build-graph needs a package name")
 
     rtmpls = {}
+
     def _read_pkg(pkgn):
         if pkgn in rtmpls:
             return rtmpls[pkgn]
         try:
             tp = template.read_pkg(
-                pkgn, chroot.host_cpu(), True,
-                False, (1, 1), False, False, None, target = "lint",
-                allow_broken = True, ignore_errors = True
+                pkgn,
+                chroot.host_cpu(),
+                True,
+                False,
+                (1, 1),
+                False,
+                False,
+                None,
+                target="lint",
+                allow_broken=True,
+                ignore_errors=True,
             )
             rtmpls[pkgn] = tp
             return tp
@@ -971,9 +1099,10 @@ def do_print_build_graph(tgt):
     root = _read_pkg(cmdline.command[1])
 
     built = set()
-    def _print_deps(tp, level = 0):
+
+    def _print_deps(tp, level=0):
         for i in range(level):
-            print(end = " ")
+            print(end=" ")
         print(f"{tp.pkgname}")
         for dep in tp.get_build_deps():
             if dep in built:
@@ -982,6 +1111,7 @@ def do_print_build_graph(tgt):
             _print_deps(_read_pkg(dep), level + 1)
 
     _print_deps(root)
+
 
 def do_print_unbuilt(tgt):
     from cbuild.core import chroot, template, paths, errors
@@ -1002,11 +1132,25 @@ def do_print_unbuilt(tgt):
     def _collect_vers(repop):
         if not (repop / tarch / "APKINDEX.tar.gz").is_file():
             return
-        outp = subprocess.run([
-            paths.apk(), "--arch", tarch, "--allow-untrusted",
-            "--root", paths.bldroot(), "--repository", repop,
-            "search", "--from", "none", "-e", "-o", "-a"
-        ], capture_output = True)
+        outp = subprocess.run(
+            [
+                paths.apk(),
+                "--arch",
+                tarch,
+                "--allow-untrusted",
+                "--root",
+                paths.bldroot(),
+                "--repository",
+                repop,
+                "search",
+                "--from",
+                "none",
+                "-e",
+                "-o",
+                "-a",
+            ],
+            capture_output=True,
+        )
         if outp.returncode != 0:
             return
         for ver in outp.stdout.strip().split():
@@ -1028,15 +1172,24 @@ def do_print_unbuilt(tgt):
 
     for pn in tmpls:
         modv, tmplv = template.read_mod(
-            pn, tarch, True, False, (1, 1), False, False, None,
+            pn,
+            tarch,
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
             # we don't care about linting etc here
-            ignore_errors = True
+            ignore_errors=True,
         )
         mods[pn] = (modv, tmplv)
         # if something is wrong, mark it unbuilt, error on build later
-        if not hasattr(modv, "pkgname") or \
-           not hasattr(modv, "pkgver") or \
-           not hasattr(modv, "pkgrel"):
+        if (
+            not hasattr(modv, "pkgname")
+            or not hasattr(modv, "pkgver")
+            or not hasattr(modv, "pkgrel")
+        ):
             vers.append(pn)
         # get the metadata we need
         apn = getattr(modv, "pkgname")
@@ -1120,6 +1273,7 @@ def do_print_unbuilt(tgt):
 
     print(" ".join(fvers))
 
+
 def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot, logger, errors
 
@@ -1133,12 +1287,20 @@ def do_update_check(tgt):
 
     pkgn = cmdline.command[1]
     tmpl = template.read_pkg(
-        pkgn, chroot.host_cpu(), True,
-        False, (1, 1), False, False, None, target = "lint",
-        allow_broken = True
+        pkgn,
+        chroot.host_cpu(),
+        True,
+        False,
+        (1, 1),
+        False,
+        False,
+        None,
+        target="lint",
+        allow_broken=True,
     )
 
     update_check.update_check(tmpl, verbose)
+
 
 def do_dump(tgt):
     from cbuild.core import chroot, template, errors
@@ -1152,9 +1314,16 @@ def do_dump(tgt):
     def _read_pkg(pkgn):
         try:
             return template.read_pkg(
-                pkgn, opt_arch if opt_arch else chroot.host_cpu(), True,
-                False, (1, 1), False, False, None, target = "lint",
-                allow_broken = True
+                pkgn,
+                opt_arch if opt_arch else chroot.host_cpu(),
+                True,
+                False,
+                (1, 1),
+                False,
+                False,
+                None,
+                target="lint",
+                allow_broken=True,
             )
         except errors.PackageException:
             return None
@@ -1165,9 +1334,10 @@ def do_dump(tgt):
         pkgr = _read_pkg(tmpln)
         dumps.append(pkgr.dump())
 
-    print(json.dumps(dumps, indent = 4))
+    print(json.dumps(dumps, indent=4))
 
-def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
+
+def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
     from cbuild.core import build, chroot, template, paths, errors
 
     if force is None:
@@ -1185,10 +1355,17 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
             raise errors.CbuildException(f"{tgt} needs only one package")
         pkgn = cmdline.command[1]
     rp = template.read_pkg(
-        pkgn, opt_arch if opt_arch else chroot.host_cpu(), force,
-        check, (opt_makejobs, opt_lthreads), opt_gen_dbg,
-        opt_ccache, None, target = tgt if (tgt != "pkg") else None,
-        force_check = opt_forcecheck, stage = bstage
+        pkgn,
+        opt_arch if opt_arch else chroot.host_cpu(),
+        force,
+        check,
+        (opt_makejobs, opt_lthreads),
+        opt_gen_dbg,
+        opt_ccache,
+        None,
+        target=tgt if (tgt != "pkg") else None,
+        force_check=opt_forcecheck,
+        stage=bstage,
     )
     if opt_mdirtemp:
         chroot.install()
@@ -1199,11 +1376,17 @@ def do_pkg(tgt, pkgn = None, force = None, check = None, stage = None):
     # don't remove builddir/destdir
     chroot.prepare_arch(opt_arch)
     build.build(
-        tgt, rp, {}, opt_signkey, dirty = opt_dirty,
-        keep_temp = opt_keeptemp, check_fail = opt_checkfail
+        tgt,
+        rp,
+        {},
+        opt_signkey,
+        dirty=opt_dirty,
+        keep_temp=opt_keeptemp,
+        check_fail=opt_checkfail,
     )
     if tgt == "pkg" and (not opt_stage or bstage < 3):
         do_unstage(tgt, bstage < 3)
+
 
 def _bulkpkg(pkgs, statusf, do_build, do_raw):
     import pathlib
@@ -1242,21 +1425,21 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             return False
         except errors.TracebackException as e:
             log.out_red(str(e))
-            traceback.print_exc(file = log.estream)
+            traceback.print_exc(file=log.estream)
             failed = True
             return False
         except errors.PackageException as e:
             e.pkg.log_red(f"ERROR: {e}", e.end)
             if not e.broken:
                 if e.bt:
-                    traceback.print_exc(file = log.estream)
+                    traceback.print_exc(file=log.estream)
                 failed = True
             else:
                 broken = True
             return False
         except Exception:
             logger.get().out_red("A failure has occurred!")
-            traceback.print_exc(file = log.estream)
+            traceback.print_exc(file=log.estream)
             failed = True
             return False
         # signal we're continuing
@@ -1310,17 +1493,30 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     # allow broken because that does not concern us yet either (handled later)
     # do not ignore missing tmpls because that is likely error in main tmpl
     pvisit = set(rpkgs)
+
     def handle_recdeps(pn, tp):
         # in raw mode we don't care about ordering, taking it as is
         if do_raw:
             return True
         return _add_deps_graph(
-            pn, tp, pvisit,
-            lambda d: _do_with_exc(lambda: template.read_pkg(
-                d, tarch, True, False, (1, 1), False, False, None,
-                ignore_errors = True, allow_broken = True,
-            )),
-            depg
+            pn,
+            tp,
+            pvisit,
+            lambda d: _do_with_exc(
+                lambda: template.read_pkg(
+                    d,
+                    tarch,
+                    True,
+                    False,
+                    (1, 1),
+                    False,
+                    False,
+                    None,
+                    ignore_errors=True,
+                    allow_broken=True,
+                )
+            ),
+            depg,
         )
 
     rpkgs = sorted(list(rpkgs))
@@ -1338,12 +1534,20 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         ofailed = failed
         failed = False
         broken = False
-        tp = _do_with_exc(lambda: template.read_pkg(
-            pn, tarch, opt_force, opt_check,
-            (opt_makejobs, opt_lthreads),
-            opt_gen_dbg, opt_ccache, None, force_check = opt_forcecheck,
-            bulk_mode = True
-        ))
+        tp = _do_with_exc(
+            lambda: template.read_pkg(
+                pn,
+                tarch,
+                opt_force,
+                opt_check,
+                (opt_makejobs, opt_lthreads),
+                opt_gen_dbg,
+                opt_ccache,
+                None,
+                force_check=opt_forcecheck,
+                bulk_mode=True,
+            )
+        )
         if not tp:
             if broken:
                 statusf.write(f"{pn} broken\n")
@@ -1407,10 +1611,17 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                     continue
                 # ensure to write the status
                 broken = False
-                if _do_with_exc(lambda: build.build(
-                    "pkg", templates[pn], {}, opt_signkey, dirty = False,
-                    keep_temp = False, check_fail = opt_checkfail
-                )):
+                if _do_with_exc(
+                    lambda: build.build(
+                        "pkg",
+                        templates[pn],
+                        {},
+                        opt_signkey,
+                        dirty=False,
+                        keep_temp=False,
+                        check_fail=opt_checkfail,
+                    )
+                ):
                     statusf.write(f"{pn} ok\n")
                 elif broken:
                     statusf.write(f"{pn} broken\n")
@@ -1422,27 +1633,36 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     elif not opt_stage and do_build:
         do_unstage("pkg", False)
 
+
 _repo_checked = False
+
+
 def _repo_check():
     global _repo_checked
     if _repo_checked:
         return
     import subprocess
-    if subprocess.run([
-        "git", "rev-parse", "--is-inside-work-tree"
-    ], capture_output = True).returncode != 0:
+
+    if (
+        subprocess.run(
+            ["git", "rev-parse", "--is-inside-work-tree"], capture_output=True
+        ).returncode
+        != 0
+    ):
         raise errors.CbuildException("bulk-git must run from a git repository")
     _repo_checked = True
 
+
 def _collect_git(expr):
     import subprocess
+
     # check if we're in a repository, once
     _repo_check()
     oexpr = expr
     # find a grep
     plus = expr.find("+")
     if plus >= 0:
-        gexpr = expr[plus + 1:]
+        gexpr = expr[plus + 1 :]
         expr = expr[0:plus]
     else:
         gexpr = ""
@@ -1469,15 +1689,16 @@ def _collect_git(expr):
     # add commit pattern
     cmd.append(expr)
     # locate the commit list
-    subp = subprocess.run(cmd, capture_output = True)
+    subp = subprocess.run(cmd, capture_output=True)
     if subp.returncode != 0:
         raise errors.CbuildException(f"failed to resolve commits for '{oexpr}'")
     # collect changed templates
     tmpls = set()
     for commit in subp.stdout.strip().split():
-        subp = subprocess.run([
-            "git", "diff-tree", "--no-commit-id", "--name-only", "-r", commit
-        ], capture_output = True)
+        subp = subprocess.run(
+            ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", commit],
+            capture_output=True,
+        )
         if subp.returncode != 0:
             raise errors.CbuildException(
                 f"failed to resolve files for '{commit.decode()}'"
@@ -1489,6 +1710,7 @@ def _collect_git(expr):
             tmpls.add(tn.decode())
     # and return as a list
     return list(tmpls)
+
 
 def _collect_status(inf):
     pkgs = set()
@@ -1506,6 +1728,7 @@ def _collect_status(inf):
                     pkgs.add(slist[0])
     # return as a list
     return list(pkgs)
+
 
 def _collect_blist(pkgs):
     rpkgs = []
@@ -1539,7 +1762,8 @@ def _collect_blist(pkgs):
     # uniq it while at it
     return list(set(rpkgs))
 
-def do_bulkpkg(tgt, do_build = True, do_raw = False):
+
+def do_bulkpkg(tgt, do_build=True, do_raw=False):
     import os
     import sys
     import subprocess
@@ -1571,9 +1795,11 @@ def do_bulkpkg(tgt, do_build = True, do_raw = False):
         sout.close()
         raise
 
+
 #
 # MAIN ENTRYPOINT
 #
+
 
 def fire():
     import os
@@ -1618,9 +1844,7 @@ def fire():
     cli.set_network(not opt_nonet)
 
     try:
-        aret = subprocess.run(
-            [paths.apk(), "--version"], capture_output = True
-        )
+        aret = subprocess.run([paths.apk(), "--version"], capture_output=True)
     except FileNotFoundError:
         logger.get().out_red(f"cbuild: apk not found ({paths.apk()}")
         sys.exit(1)
@@ -1635,32 +1859,58 @@ def fire():
     try:
         cmd = cmdline.command[0]
         match cmd:
-            case "binary-bootstrap": binary_bootstrap(cmd)
-            case "bootstrap": bootstrap(cmd)
-            case "bootstrap-update": bootstrap_update(cmd)
-            case "keygen": do_keygen(cmd)
-            case "chroot": do_chroot(cmd)
-            case "clean": do_clean(cmd)
-            case "remove-autodeps": do_remove_autodeps(cmd)
-            case "prune-obsolete": do_prune_obsolete(cmd)
-            case "prune-removed": do_prune_removed(cmd)
-            case "prune-sources": do_prune_sources(cmd)
-            case "relink-subpkgs": do_relink_subpkgs(cmd)
-            case "index": do_index(cmd)
-            case "zap": do_zap(cmd)
-            case "lint": do_lint(cmd)
-            case "cycle-check": do_cycle_check(cmd)
-            case "update-check": do_update_check(cmd)
-            case "dump": do_dump(cmd)
-            case "print-build-graph": do_print_build_graph(cmd)
-            case "print-unbuilt": do_print_unbuilt(cmd)
-            case "fetch" | "extract" | "prepare": do_pkg(cmd)
-            case "patch" | "configure" | "build": do_pkg(cmd)
-            case "check" | "install" | "pkg": do_pkg(cmd)
-            case "unstage": do_unstage(cmd)
-            case "bulk-pkg": do_bulkpkg(cmd)
-            case "bulk-print": do_bulkpkg(cmd, False)
-            case "bulk-raw": do_bulkpkg(cmd, True, True)
+            case "binary-bootstrap":
+                binary_bootstrap(cmd)
+            case "bootstrap":
+                bootstrap(cmd)
+            case "bootstrap-update":
+                bootstrap_update(cmd)
+            case "keygen":
+                do_keygen(cmd)
+            case "chroot":
+                do_chroot(cmd)
+            case "clean":
+                do_clean(cmd)
+            case "remove-autodeps":
+                do_remove_autodeps(cmd)
+            case "prune-obsolete":
+                do_prune_obsolete(cmd)
+            case "prune-removed":
+                do_prune_removed(cmd)
+            case "prune-sources":
+                do_prune_sources(cmd)
+            case "relink-subpkgs":
+                do_relink_subpkgs(cmd)
+            case "index":
+                do_index(cmd)
+            case "zap":
+                do_zap(cmd)
+            case "lint":
+                do_lint(cmd)
+            case "cycle-check":
+                do_cycle_check(cmd)
+            case "update-check":
+                do_update_check(cmd)
+            case "dump":
+                do_dump(cmd)
+            case "print-build-graph":
+                do_print_build_graph(cmd)
+            case "print-unbuilt":
+                do_print_unbuilt(cmd)
+            case "fetch" | "extract" | "prepare":
+                do_pkg(cmd)
+            case "patch" | "configure" | "build":
+                do_pkg(cmd)
+            case "check" | "install" | "pkg":
+                do_pkg(cmd)
+            case "unstage":
+                do_unstage(cmd)
+            case "bulk-pkg":
+                do_bulkpkg(cmd)
+            case "bulk-print":
+                do_bulkpkg(cmd, False)
+            case "bulk-raw":
+                do_bulkpkg(cmd, True, True)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)
@@ -1673,16 +1923,16 @@ def fire():
         sys.exit(1)
     except errors.TracebackException as e:
         logger.get().out_red(str(e))
-        traceback.print_exc(file = logger.get().estream)
+        traceback.print_exc(file=logger.get().estream)
         sys.exit(1)
     except errors.PackageException as e:
         e.pkg.log_red(f"ERROR: {e}", e.end)
         if e.bt and not e.broken:
-            traceback.print_exc(file = logger.get().estream)
+            traceback.print_exc(file=logger.get().estream)
         sys.exit(1)
     except:
         logger.get().out_red("A failure has occurred!")
-        traceback.print_exc(file = logger.get().estream)
+        traceback.print_exc(file=logger.get().estream)
         sys.exit(1)
     finally:
         if opt_mdirtemp and not opt_keeptemp:

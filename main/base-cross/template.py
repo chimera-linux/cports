@@ -3,8 +3,11 @@ pkgver = "0.1"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    "clang-rt-cross", "musl-cross", "libatomic-chimera-cross",
-    "libcxx-cross", "fortify-headers"
+    "clang-rt-cross",
+    "musl-cross",
+    "libatomic-chimera-cross",
+    "libcxx-cross",
+    "fortify-headers",
 ]
 pkgdesc = "Base metapackage for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -14,6 +17,7 @@ options = ["!cross"]
 
 _targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 _targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
+
 
 def do_install(self):
     for an in _targets:
@@ -36,12 +40,8 @@ def do_install(self):
         self.install_link(
             "../../../bin/ccache", f"usr/lib/ccache/bin/{at}-clang++"
         )
-        self.install_link(
-            "../../../bin/ccache", f"usr/lib/ccache/bin/{at}-cc"
-        )
-        self.install_link(
-            "../../../bin/ccache", f"usr/lib/ccache/bin/{at}-c++"
-        )
+        self.install_link("../../../bin/ccache", f"usr/lib/ccache/bin/{at}-cc")
+        self.install_link("../../../bin/ccache", f"usr/lib/ccache/bin/{at}-c++")
         # arch config file
         with open(self.destdir / f"usr/bin/{at}.cfg", "w") as cf:
             cf.write(f"--sysroot /usr/{at}\n")
@@ -51,7 +51,9 @@ def do_install(self):
             "../../../include/fortify", f"usr/{at}/usr/include/fortify"
         )
 
+
 for an in _targetlist:
+
     @subpackage(f"base-cross-{an}")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"

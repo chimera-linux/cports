@@ -5,9 +5,14 @@ pkgver = f"{_majver}.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-shared", "--enable-ipv6", "--enable-loadable-sqlite-extensions",
-    "--with-computed-gotos", "--with-system-ffi", "--with-system-expat",
-    "--with-readline=editline", "--without-ensurepip"
+    "--enable-shared",
+    "--enable-ipv6",
+    "--enable-loadable-sqlite-extensions",
+    "--with-computed-gotos",
+    "--with-system-ffi",
+    "--with-system-expat",
+    "--with-readline=editline",
+    "--without-ensurepip",
 ]
 # bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)
 make_cmd = "gmake"
@@ -32,9 +37,16 @@ make_check_args = [
 ]
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
-    "libffi-devel", "openssl-devel", "libbz2-devel", "libedit-devel",
-    "zlib-devel", "liblzma-devel", "libexpat-devel", "sqlite-devel",
-    "linux-headers", "bluez-headers",
+    "libffi-devel",
+    "openssl-devel",
+    "libbz2-devel",
+    "libedit-devel",
+    "zlib-devel",
+    "liblzma-devel",
+    "libexpat-devel",
+    "sqlite-devel",
+    "linux-headers",
+    "bluez-headers",
 ]
 checkdepends = ["ca-certificates"]
 depends = [f"base-python{_majver}={pkgver}-r{pkgrel}", "ca-certificates"]
@@ -64,16 +76,19 @@ if self.profile().cross:
     hostmakedepends += ["python"]
     configure_args += [f"--with-build-python=python{_majver}"]
 
+
 def init_configure(self):
     bigend = "yes" if (self.profile().endian == "big") else "no"
     self.configure_args.append("ax_cv_c_float_words_bigendian=" + bigend)
     # real configure and linker flags here
-    self.env["CFLAGS_NODIST"] = self.get_cflags(shell = True)
-    self.env["LDFLAGS_NODIST"] = self.get_ldflags(shell = True)
+    self.env["CFLAGS_NODIST"] = self.get_cflags(shell=True)
+    self.env["LDFLAGS_NODIST"] = self.get_ldflags(shell=True)
+
 
 def pre_configure(self):
-    self.rm("Modules/_ctypes/darwin", recursive = True)
-    self.rm("Modules/_ctypes/libffi_osx", recursive = True)
+    self.rm("Modules/_ctypes/darwin", recursive=True)
+    self.rm("Modules/_ctypes/libffi_osx", recursive=True)
+
 
 def do_install(self):
     self.make.invoke(
@@ -81,19 +96,19 @@ def do_install(self):
     )
     self.install_license("LICENSE")
 
-    self.rm(self.destdir / "usr/bin/2to3", force = True)
+    self.rm(self.destdir / "usr/bin/2to3", force=True)
     for f in (self.destdir / "usr/bin").glob("idle*"):
         f.unlink()
 
     lbase = self.destdir / ("usr/lib/python" + _majver)
 
-    self.rm(lbase / "idlelib", recursive = True)
-    self.rm(lbase / "tkinter", recursive = True)
-    self.rm(lbase / "turtledemo", recursive = True)
-    self.rm(lbase / "test", recursive = True)
-    self.rm(lbase / "lib2to3/tests", recursive = True)
+    self.rm(lbase / "idlelib", recursive=True)
+    self.rm(lbase / "tkinter", recursive=True)
+    self.rm(lbase / "turtledemo", recursive=True)
+    self.rm(lbase / "test", recursive=True)
+    self.rm(lbase / "lib2to3/tests", recursive=True)
 
-    (lbase / "turtle.py").unlink(missing_ok = True)
+    (lbase / "turtle.py").unlink(missing_ok=True)
 
     for f in lbase.glob("config-*"):
         for ff in f.glob("libpython*.a"):
@@ -103,12 +118,14 @@ def do_install(self):
     self.install_link("python" + _majver, "usr/bin/python")
     self.install_link("python" + _majver + ".1", "usr/share/man/man1/python.1")
 
+
 @subpackage("python-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     def install():
         import os
+
         self.take("usr/bin/python*-config")
         self.take("usr/lib/pkgconfig")
         self.take("usr/lib/*.a")
@@ -117,10 +134,11 @@ def _devel(self):
         os.makedirs(self.parent.destdir / pypath)
         os.rename(
             self.destdir / pypath / "pyconfig.h",
-            self.parent.destdir / pypath / "pyconfig.h"
+            self.parent.destdir / pypath / "pyconfig.h",
         )
 
     return install
+
 
 @subpackage(f"base-python{_majver}")
 def _ver(self):
@@ -128,5 +146,6 @@ def _ver(self):
     self.build_style = "meta"
 
     return []
+
 
 configure_gen = []

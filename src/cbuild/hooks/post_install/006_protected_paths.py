@@ -9,12 +9,13 @@ _valid_pfx = {
     "!": True,
 }
 
+
 def invoke(pkg):
     if len(pkg.protected_paths) == 0:
         return
 
     ppath = pkg.destdir / "etc/apk/protected_paths.d"
-    ppath.mkdir(exist_ok = True, parents = True, mode = 0o755)
+    ppath.mkdir(exist_ok=True, parents=True, mode=0o755)
 
     with open(ppath / f"apk-{pkg.pkgname}.list", "w") as outf:
         for pp in pkg.protected_paths:

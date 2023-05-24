@@ -4,12 +4,22 @@ pkgrel = 0
 build_style = "meson"
 _commit = "49405db32edd55606d7f19056e425b7c9293119a"
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "glib-devel", "desktop-file-utils",
-    "itstool", "gtk-update-icon-cache"
+    "meson",
+    "pkgconf",
+    "gettext-tiny",
+    "glib-devel",
+    "desktop-file-utils",
+    "itstool",
+    "gtk-update-icon-cache",
 ]
 makedepends = [
-    "gtk4-devel", "glib-devel", "libarchive-devel", "libnotify-devel",
-    "nautilus-devel", "libadwaita-devel", "libportal-devel",
+    "gtk4-devel",
+    "glib-devel",
+    "libarchive-devel",
+    "libnotify-devel",
+    "nautilus-devel",
+    "libadwaita-devel",
+    "libportal-devel",
     "json-glib-devel",
 ]
 depends = ["hicolor-icon-theme", "desktop-file-utils"]

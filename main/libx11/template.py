@@ -22,11 +22,14 @@ hardening = ["!int"]
 # broken for now
 options = ["!cross"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libx11-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

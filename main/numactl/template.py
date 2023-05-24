@@ -15,14 +15,17 @@ sha256 = "a35c3bdb3efab5c65927e0de5703227760b1101f5e27ab741d8f32b3d5f0a44c"
 # some tests fail because of gnuisms in testsuite
 options = ["!check"]
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/share/man/man2", recursive = True)
+    self.rm(self.destdir / "usr/share/man/man2", recursive=True)
+
 
 @subpackage("libnuma")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
     return self.default_libs()
+
 
 @subpackage("libnuma-devel")
 def _devel(self):

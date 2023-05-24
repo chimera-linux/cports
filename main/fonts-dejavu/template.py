@@ -16,8 +16,10 @@ sha256 = "c4d10a1b665db893adc0c0aaee7ecd81b2b47c877d5cea0b40216707cbf327e4"
 # font
 options = ["!check"]
 
+
 def post_patch(self):
     (self.cwd / "scripts/ogenerate.pe").chmod(0o755)
+
 
 def do_install(self):
     for f in (self.cwd / "build").glob("*.otf"):
@@ -31,8 +33,10 @@ def do_install(self):
             continue
         self.install_file(f, "etc/fonts/conf.avail")
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("fonts-dejavu-otf")
 def _otf(self):
@@ -41,6 +45,7 @@ def _otf(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/share/fonts/dejavu/*.otf"]
+
 
 @subpackage("fonts-dejavu-ttf")
 def _ttf(self):

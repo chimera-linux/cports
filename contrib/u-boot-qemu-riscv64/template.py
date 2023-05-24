@@ -3,8 +3,13 @@ pkgver = "2023.04"
 pkgrel = 0
 build_style = "u_boot"
 hostmakedepends = [
-    "gmake", "gcc-riscv64-unknown-elf", "flex", "bison",
-    "dtc", "python-setuptools", "openssl-devel"
+    "gmake",
+    "gcc-riscv64-unknown-elf",
+    "flex",
+    "bison",
+    "dtc",
+    "python-setuptools",
+    "openssl-devel",
 ]
 pkgdesc = "U-Boot for qemu-riscv64"
 maintainer = "q66 <q66@chimera-linux.org>"

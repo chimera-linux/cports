@@ -9,13 +9,16 @@ url = "http://software.schmorp.de/pkg/libev.html"
 source = f"http://dist.schmorp.de/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "507eb7b8d1015fbec5b935f34ebed15bf346bed04a11ab82b8eee848c4205aea"
 
+
 def post_install(self):
     # conflicts with libevent, not necessary
     self.rm(self.destdir / "usr/include/event.h")
     self.install_license("LICENSE")
 
+
 @subpackage("libev-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

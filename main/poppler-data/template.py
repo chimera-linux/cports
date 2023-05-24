@@ -13,6 +13,7 @@ sha256 = "c835b640a40ce357e1b83666aabd95edffa24ddddd49b8daff63adb851cdab74"
 # no test suite
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("COPYING")
     self.install_license("COPYING.adobe")

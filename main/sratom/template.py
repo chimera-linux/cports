@@ -13,8 +13,10 @@ sha256 = "9982faf40db83aedd9b3850e499fecd6852b8b4ba6dede514013655cffaca1e6"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("sratom-devel")
 def _devel(self):

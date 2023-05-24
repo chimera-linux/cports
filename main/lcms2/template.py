@@ -13,8 +13,10 @@ sha256 = "b20cbcbd0f503433be2a4e81462106fa61050a35074dc24a4e356792d971ab39"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("lcms2-devel")
 def _devel(self):
@@ -22,8 +24,10 @@ def _devel(self):
 
     return self.default_devel()
 
+
 @subpackage("lcms2-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

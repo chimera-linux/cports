@@ -2,9 +2,7 @@ pkgname = "groff"
 pkgver = "1.22.4"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = [
-    "--without-x", "--without-doc", "--disable-rpath"
-]
+configure_args = ["--without-x", "--without-doc", "--disable-rpath"]
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["gmake", "texinfo", "perl", "bison", "ghostscript"]
@@ -21,8 +19,9 @@ options = ["!check"]
 if self.profile().cross:
     hostmakedepends.append("groff")
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/lib", recursive = True)
+    self.rm(self.destdir / "usr/lib", recursive=True)
     # fix some issues when encoding to utf8 man pages
     # the output chars don't match keyboard chars
     atext = (self.files_path / "site.tmac").read_bytes()
@@ -31,5 +30,6 @@ def post_install(self):
             self.destdir / f"usr/share/groff/site-tmac/{f}.local", "ab"
         ) as af:
             af.write(atext)
+
 
 configure_gen = []

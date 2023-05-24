@@ -3,13 +3,25 @@ pkgver = "44.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "itstool",
-    "gobject-introspection", "gtk-update-icon-cache", "desktop-file-utils",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "itstool",
+    "gobject-introspection",
+    "gtk-update-icon-cache",
+    "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel", "libadwaita-devel", "evolution-data-server-devel",
-    "gsettings-desktop-schemas-devel", "libgweather-devel", "libical-devel",
-    "geoclue-devel", "libpeas-devel", "libsoup-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
+    "evolution-data-server-devel",
+    "gsettings-desktop-schemas-devel",
+    "libgweather-devel",
+    "libical-devel",
+    "geoclue-devel",
+    "libpeas-devel",
+    "libsoup-devel",
 ]
 depends = ["gsettings-desktop-schemas", "desktop-file-utils"]
 pkgdesc = "GNOME calendar"

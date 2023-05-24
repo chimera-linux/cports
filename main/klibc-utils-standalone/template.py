@@ -1,5 +1,5 @@
 pkgname = "klibc-utils-standalone"
-_commit="ed98c6b24cbe5989d22fda762ad58e29dd5d6592"
+_commit = "ed98c6b24cbe5989d22fda762ad58e29dd5d6592"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"

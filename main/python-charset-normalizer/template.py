@@ -14,5 +14,6 @@ sha256 = "0ca96d2ffef13e7062c53df8619e97b910343d1e14b4b92ee71bc61d2d18ced4"
 # dependency of pytest
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")

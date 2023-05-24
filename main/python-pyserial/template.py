@@ -12,5 +12,6 @@ url = "https://github.com/pyserial/pyserial"
 source = f"$(PYPI_SITE)/p/pyserial/pyserial-{pkgver}.tar.gz"
 sha256 = "3c77e014170dfffbd816e6ffc205e9842efb10be9f58ec16d3e8675b4925cddb"
 
+
 def post_install(self):
     self.install_license("LICENSE.txt")

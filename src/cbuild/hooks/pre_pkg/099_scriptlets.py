@@ -234,6 +234,7 @@ _hookscripts = {
     },
 }
 
+
 def _handle_catalogs(pkg, _add_hook):
     sgml_entries = []
     xml_entries = []
@@ -267,12 +268,13 @@ def _handle_catalogs(pkg, _add_hook):
         # fire
         _add_hook("xml_catalog", catvars)
 
+
 def _handle_accounts(pkg, _add_hook):
     # handle system groups
     if len(pkg.system_groups) > 0:
-        _add_hook("system_accounts", {
-            "system_groups": " ".join(pkg.system_groups)
-        })
+        _add_hook(
+            "system_accounts", {"system_groups": " ".join(pkg.system_groups)}
+        )
 
     # handle system users
     if len(pkg.system_users) > 0:
@@ -312,6 +314,7 @@ def _handle_accounts(pkg, _add_hook):
         # add the hook
         _add_hook("system_accounts", evars)
 
+
 def invoke(pkg):
     # base
     _hooks = {
@@ -321,7 +324,7 @@ def invoke(pkg):
         "post-install": "",
         "post-upgrade": "",
         "post-deinstall": "",
-        "trigger": ""
+        "trigger": "",
     }
 
     # executable hooks to invoke
@@ -363,8 +366,9 @@ def invoke(pkg):
             _hooks[tgt] += "    return 0\n}\n"
             # insert the hook
             pkg.log(f"added hook '{h}' for scriptlet '{tgt}'")
-            _hooks[tgt] += f"_{h}_invoke '{pkg.pkgname}' '{pkg.pkgver}'" + \
-                " || exit $?\n"
+            _hooks[tgt] += (
+                f"_{h}_invoke '{pkg.pkgname}' '{pkg.pkgver}'" + " || exit $?\n"
+            )
 
     # add user scriptlets
     for h in _hooks:
@@ -385,7 +389,7 @@ def invoke(pkg):
                     # no newline found so it was just a comment
                     sr = ""
                 else:
-                    sr = sr[nl + 1:].strip()
+                    sr = sr[nl + 1 :].strip()
             # append cleared up scriptlet
             if len(sr) > 0:
                 _hooks[h] += "# package script\n"

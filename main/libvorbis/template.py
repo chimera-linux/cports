@@ -15,11 +15,14 @@ sha256 = "b33cc4934322bcbf6efcbacf49e3ca01aadbea4114ec9589d1b1e9d20f72954b"
 # FIXME int
 hardening = ["!int"]
 
+
 def post_install(self):
     self.install_license("COPYING")
 
+
 @subpackage("libvorbis-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share/doc"])
+    return self.default_devel(extra=["usr/share/doc"])
+
 
 configure_gen = []

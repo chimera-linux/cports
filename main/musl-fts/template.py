@@ -13,8 +13,10 @@ sha256 = "1f65612b523e7040dbd9d5579a2eca97ede79c2ff3f91db7ccc288263e60da50"
 # no test suite; also no point in LTOing this
 options = ["bootstrap", "!check", "!lto"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("musl-fts-devel")
 def _devel(self):

@@ -22,18 +22,21 @@ url = "http://sites.google.com/site/fullycapable"
 source = f"$(KERNEL_SITE)/libs/security/linux-privs/libcap2/{pkgname}-{pkgver}.tar.xz"
 sha256 = "90be3b6d41be5f81ae4b03ec76012b0d27c829293684f6c05b65d5f9cce724b2"
 
+
 def init_configure(self):
     eargs = [
         "CC=" + self.get_tool("CC"),
-        "BUILD_CC=" + self.get_tool("CC", target = "host"),
+        "BUILD_CC=" + self.get_tool("CC", target="host"),
     ]
     self.make_build_args += eargs
     self.make_check_args += eargs
+
 
 @subpackage("libcap-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
+
 
 @subpackage("libcap-progs")
 def _progs(self):

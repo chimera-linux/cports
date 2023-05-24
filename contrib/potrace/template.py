@@ -12,8 +12,10 @@ url = "https://potrace.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "be8248a17dedd6ccbaab2fcc45835bb0502d062e40fbded3bc56028ce5eb7acc"
 
+
 @subpackage("potrace-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

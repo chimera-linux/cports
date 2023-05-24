@@ -1,5 +1,6 @@
 # linux kernel packaging helpers
 
+
 def get_arch(arch):
     match arch:
         case "ppc64le" | "ppc64":
@@ -14,8 +15,12 @@ def get_arch(arch):
             # unknown, fill in
             return None
 
-def _gen_script(pkg, script, flavor, args = ""):
-    pkg.scriptlets[script] = f'/usr/libexec/base-kernel/script-{script} "$1"{args} "{flavor}"'
+
+def _gen_script(pkg, script, flavor, args=""):
+    pkg.scriptlets[
+        script
+    ] = f'/usr/libexec/base-kernel/script-{script} "$1"{args} "{flavor}"'
+
 
 def generate_scriptlets(pkg, flavor):
     # generate scriptlets for packaging, just hooking to base-kernel helpers
@@ -24,6 +29,7 @@ def generate_scriptlets(pkg, flavor):
     _gen_script(pkg, "pre-deinstall", flavor)
     _gen_script(pkg, "post-install", flavor)
     _gen_script(pkg, "post-upgrade", flavor, ' "$2"')
+
 
 def _build_env(pkg, menv, base_env, env):
     renv = dict(menv)
@@ -35,7 +41,8 @@ def _build_env(pkg, menv, base_env, env):
         renv.update(env)
     return renv
 
-def configure(pkg, flavor, env = None):
+
+def configure(pkg, flavor, env=None):
     cfgarch = pkg.profile().arch
     cfgname = f"config-{cfgarch}.{flavor}"
 
@@ -57,19 +64,24 @@ def configure(pkg, flavor, env = None):
         f"LOCALVERSION=-{pkg.pkgrel}-{flavor}",
         f"EPOCH={epoch}",
         *args,
-        env = _build_env(pkg, pkg.configure_env, None, env)
+        env=_build_env(pkg, pkg.configure_env, None, env),
     )
 
-def build(pkg, flavor, env = None):
+
+def build(pkg, flavor, env=None):
     pkg.do(
-        "chimera-buildkernel", "build",
-        env = _build_env(pkg, pkg.make_env, pkg.make_build_env, env)
+        "chimera-buildkernel",
+        "build",
+        env=_build_env(pkg, pkg.make_env, pkg.make_build_env, env),
     )
 
-def install(pkg, flavor, env = None):
+
+def install(pkg, flavor, env=None):
     pkg.do(
-        "chimera-buildkernel", "install", pkg.chroot_destdir,
-        env = _build_env(pkg, pkg.make_env, pkg.make_install_env, env)
+        "chimera-buildkernel",
+        "install",
+        pkg.chroot_destdir,
+        env=_build_env(pkg, pkg.make_env, pkg.make_install_env, env),
     )
     kpath = f"usr/lib/modules/{pkg.pkgver}-{pkg.pkgrel}-{flavor}"
     # mutable files go to a separate dist directory, to be handled by hooks
@@ -77,9 +89,11 @@ def install(pkg, flavor, env = None):
     for f in (pkg.destdir / kpath).glob("modules.*"):
         pkg.mv(f, f.parent / "apk-dist")
 
+
 # api to manipulate out of tree modules
 
-def get_version(pkg, expected = None):
+
+def get_version(pkg, expected=None):
     from cbuild.core import paths
 
     kver = None
@@ -93,9 +107,12 @@ def get_version(pkg, expected = None):
 
     return kver
 
+
 def get_modsrc(pkg, modname, modver):
     from cbuild.core import paths
+
     return paths.bldroot() / f"usr/src/{modname}-{modver}"
+
 
 def generate_scriptlets_ckms(pkg, modname, kernver):
     prescript = f"""rm -f /boot/initramfs-{kernver}.img || :
@@ -107,24 +124,31 @@ else
     depmod -a {kernver} || :
 fi"""
 
-    pkg.scriptlets["pre-install"] = prescript + f"""
+    pkg.scriptlets["pre-install"] = (
+        prescript
+        + f"""
 if [ -x /usr/bin/ckms ]; then
     ckms -q -k {kernver} uninstall {modname} > /dev/null 2>&1 || :
 fi"""
+    )
     pkg.scriptlets["pre-upgrade"] = prescript
     pkg.scriptlets["pre-deinstall"] = prescript
     pkg.scriptlets["post-install"] = postscript
     pkg.scriptlets["post-upgrade"] = postscript
     pkg.scriptlets["post-deinstall"] = postscript
 
+
 def _call_ckms(pkg, kver, *args):
     pkg.do("ckms", "-s", pkg.chroot_cwd, "-k", kver, *args)
+
 
 def ckms_configure(pkg, modname, modver, kver):
     _call_ckms(pkg, kver, "add", f"/usr/src/{modname}-{modver}")
 
+
 def ckms_build(pkg, modname, modver, kver):
     _call_ckms(pkg, kver, "build", f"{modname}={modver}")
+
 
 def ckms_install(pkg, modname, modver, kver):
     modbase = "usr/lib/modules"
@@ -132,8 +156,15 @@ def ckms_install(pkg, modname, modver, kver):
 
     pkg.install_dir(moddest)
     _call_ckms(
-        pkg, kver, "-d", pkg.chroot_destdir / modbase, "-D", "-x", "gz",
-        "install", f"{modname}={modver}"
+        pkg,
+        kver,
+        "-d",
+        pkg.chroot_destdir / modbase,
+        "-D",
+        "-x",
+        "gz",
+        "install",
+        f"{modname}={modver}",
     )
 
     cdpath = f"{moddest}/ckms-disable/{modname}"

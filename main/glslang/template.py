@@ -15,9 +15,11 @@ sha256 = "1515e840881d1128fb6d831308433f731808f818f2103881162f3ffd47b15cd5"
 # missing checkdepends
 options = ["!check"]
 
+
 @subpackage("glslang-progs")
 def _progs(self):
     return self.default_progs()
+
 
 @subpackage("glslang-devel")
 def _devel(self):

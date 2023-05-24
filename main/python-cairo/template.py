@@ -13,8 +13,10 @@ url = "https://pycairo.readthedocs.io"
 source = f"https://github.com/pygobject/pycairo/releases/download/v{pkgver}/pycairo-{pkgver}.tar.gz"
 sha256 = "9b61ac818723adc04367301317eb2e814a83522f07bbd1f409af0dada463c44c"
 
+
 def do_check(self):
     self.do("python", "setup.py", "test")
+
 
 @subpackage("python-cairo-devel")
 def _devel(self):

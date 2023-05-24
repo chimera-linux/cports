@@ -15,11 +15,11 @@ license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://www.perl.org"
 source = [
     f"https://www.cpan.org/src/5.0/perl-{pkgver}.tar.gz",
-    f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_ver}/perl-cross-{_perl_cross_ver}.tar.gz"
+    f"https://github.com/arsv/perl-cross/releases/download/{_perl_cross_ver}/perl-cross-{_perl_cross_ver}.tar.gz",
 ]
 sha256 = [
     "e26085af8ac396f62add8a533c3a0ea8c8497d836f0689347ac5abd7b7a4e00a",
-    "be9d9f9f7148edff7a2f9695ba3cb7e3975eff6b25a9a81dd311725fd757aa91"
+    "be9d9f9f7148edff7a2f9695ba3cb7e3975eff6b25a9a81dd311725fd757aa91",
 ]
 # prevent a massive log dump
 tool_flags = {
@@ -35,6 +35,7 @@ hardening = ["!int"]
 # check is cyclic: depends on perl modules
 options = ["!check"]
 
+
 def pre_patch(self):
     for f in (self.cwd / f"perl-{pkgver}").iterdir():
         self.mv(f, ".")
@@ -46,10 +47,11 @@ def pre_patch(self):
             continue
         self.mv(f, ".")
 
+
 def init_configure(self):
     from cbuild.util import make
 
-    self.make = make.Make(self, wrksrc = ".")
+    self.make = make.Make(self, wrksrc=".")
 
     self.env["HOSTCFLAGS"] = "-D_GNU_SOURCE"
 
@@ -58,19 +60,27 @@ def init_configure(self):
     # to prevent perl buildsystem from invoking bmake
     self.env["MAKE"] = self.make.get_command()
 
+
 def do_configure(self):
     cargs = [
         "--prefix=/usr",
-        "-Dusethreads", "-Duseshrplib", "-Dusesoname", "-Dusevendorprefix",
-        "-Dprefix=/usr", "-Dvendorprefix=/usr",
+        "-Dusethreads",
+        "-Duseshrplib",
+        "-Dusesoname",
+        "-Dusevendorprefix",
+        "-Dprefix=/usr",
+        "-Dvendorprefix=/usr",
         "-Dprivlib=/usr/share/perl5/core_perl",
         "-Darchlib=/usr/lib/perl5/core_perl",
         "-Dsitelib=/usr/share/perl5/site_perl",
         "-Dsitearch=/usr/lib/perl5/site_perl",
         "-Dvendorlib=/usr/share/perl5/vendor_perl",
         "-Dvendorarch=/usr/lib/perl5/vendor_perl",
-        "-Dscriptdir=/usr/bin", "-Dvendorscript=/usr/bin",
-        "-Dinc_version_list=none", "-Dman1ext=1p", "-Dman3ext=3p",
+        "-Dscriptdir=/usr/bin",
+        "-Dvendorscript=/usr/bin",
+        "-Dinc_version_list=none",
+        "-Dman1ext=1p",
+        "-Dman3ext=3p",
         "-Dman1dir=/usr/share/man/man1",
         "-Dman3dir=/usr/share/man/man3",
         "-Dd_sockaddr_in6=define",
@@ -79,8 +89,8 @@ def do_configure(self):
     if self.profile().cross:
         cargs.append("--target=" + self.profile().triplet)
 
-    cfl = self.get_cflags(shell = True)
-    lfl = self.get_ldflags(shell = True)
+    cfl = self.get_cflags(shell=True)
+    lfl = self.get_ldflags(shell=True)
 
     cargs.append("-Dcccdlflags=-fPIC")
     cargs.append("-Doptimize=-Wall " + cfl)
@@ -92,11 +102,15 @@ def do_configure(self):
 
     self.do(self.chroot_cwd / "configure", *cargs)
 
+
 def do_check(self):
-    self.make.check(env = {
-        "TEST_JOBS": str(self.make_jobs),
-        "PERL_BUILD_PACKAGING": "1",
-    })
+    self.make.check(
+        env={
+            "TEST_JOBS": str(self.make_jobs),
+            "PERL_BUILD_PACKAGING": "1",
+        }
+    )
+
 
 def post_install(self):
     for f in (self.destdir / "usr/share").rglob("*"):
@@ -148,5 +162,6 @@ def post_install(self):
     hf = self.destdir / "usr/bin/perlthanks"
     hf.unlink()
     hf.symlink_to("perlbug")
+
 
 configure_gen = []

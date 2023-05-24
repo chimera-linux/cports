@@ -2,21 +2,39 @@ pkgname = "grub"
 pkgver = "2.06"
 pkgrel = 1
 configure_args = [
-    "--sysconfdir=/etc", "--prefix=/usr", "--libdir=/usr/lib",
-    "--sbindir=/usr/bin", "--disable-werror", "--enable-device-mapper",
-    "--enable-cache-stats", "--enable-nls", "--enable-grub-mkfont",
+    "--sysconfdir=/etc",
+    "--prefix=/usr",
+    "--libdir=/usr/lib",
+    "--sbindir=/usr/bin",
+    "--disable-werror",
+    "--enable-device-mapper",
+    "--enable-cache-stats",
+    "--enable-nls",
+    "--enable-grub-mkfont",
     "--enable-grub-mount",
 ]
 make_cmd = "gmake"
 # our strip wrapper prevents correct kernel.img generation
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 hostmakedepends = [
-    "gmake", "pkgconf", "flex", "bison", "help2man", "python",
-    "gettext-tiny", "font-unifont-bdf", "automake", "libtool",
+    "gmake",
+    "pkgconf",
+    "flex",
+    "bison",
+    "help2man",
+    "python",
+    "gettext-tiny",
+    "font-unifont-bdf",
+    "automake",
+    "libtool",
 ]
 makedepends = [
-    "gettext-tiny-devel", "freetype-devel", "ncurses-devel", "liblzma-devel",
-    "device-mapper-devel", "fuse-devel",
+    "gettext-tiny-devel",
+    "freetype-devel",
+    "ncurses-devel",
+    "liblzma-devel",
+    "device-mapper-devel",
+    "fuse-devel",
 ]
 depends = ["os-prober", "virtual:cmd:findmnt!mount"]
 pkgdesc = "GRand Unified Bootloader version 2"
@@ -66,9 +84,12 @@ match self.profile().arch:
     case _:
         broken = f"Unsupported platform ({self.profile().arch})"
 
+
 def init_configure(self):
     from cbuild.util import make
+
     self.make = make.Make(self)
+
 
 def do_configure(self):
     # reconfigure the autotools
@@ -76,9 +97,12 @@ def do_configure(self):
     # configure tools build
     self.mkdir("build")
     self.do(
-        self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
-        f"--with-platform=none", *configure_args,
-        wrksrc = "build", env = {"MAKE": "gmake"}
+        self.chroot_cwd / "configure",
+        f"--host={self.profile().triplet}",
+        f"--with-platform=none",
+        *configure_args,
+        wrksrc="build",
+        env={"MAKE": "gmake"},
     )
     # platforms build
     for arch, platform, ecfl, ldfl, desc in _platforms:
@@ -91,10 +115,14 @@ def do_configure(self):
         if arch == "arm64":
             arch = "aarch64"
         self.do(
-            self.chroot_cwd / "configure", f"--host={self.profile().triplet}",
-            f"--target={arch}", f"--with-platform={platform}",
-            "--disable-efiemu", *configure_args,
-            wrksrc = bdir, env = {
+            self.chroot_cwd / "configure",
+            f"--host={self.profile().triplet}",
+            f"--target={arch}",
+            f"--with-platform={platform}",
+            "--disable-efiemu",
+            *configure_args,
+            wrksrc=bdir,
+            env={
                 "BUILD_CFLAGS": cfl,
                 "BUILD_LDFLAGS": ldfl,
                 "CFLAGS": cfl,
@@ -104,17 +132,19 @@ def do_configure(self):
                 "TARGET_STRIP": "llvm-strip",
                 "TARGET_NM": "llvm-nm",
                 "MAKE": "gmake",
-            }
+            },
         )
+
 
 def do_build(self):
     # primary build
-    self.make.build(wrksrc = "build")
+    self.make.build(wrksrc="build")
     # extra targets
     for arch, platform, cfl, ldfl, desc in _platforms:
         if arch not in _archs:
             continue
-        self.make.build(wrksrc = f"build_{arch}_{platform}")
+        self.make.build(wrksrc=f"build_{arch}_{platform}")
+
 
 def do_install(self):
     # populate extra targets first
@@ -123,21 +153,22 @@ def do_install(self):
             continue
         bdir = f"build_{arch}_{platform}"
         # full install
-        self.make.install(wrksrc = bdir)
+        self.make.install(wrksrc=bdir)
         # remove stuff that is not platform specific
         for d in ["etc", "usr/share", "usr/bin"]:
-            self.rm(self.destdir / d, recursive = True, force = True)
+            self.rm(self.destdir / d, recursive=True, force=True)
     # install tools last
-    self.make.install(wrksrc = "build")
+    self.make.install(wrksrc="build")
+
 
 def post_install(self):
     # kernel hook
     self.install_file(
-        self.files_path / "99-grub.sh", "etc/kernel.d", mode = 0o755
+        self.files_path / "99-grub.sh", "etc/kernel.d", mode=0o755
     )
     # conf file
     self.install_file(
-        self.files_path / "grub.default", "etc/default", name = "grub"
+        self.files_path / "grub.default", "etc/default", name="grub"
     )
     # update-grub
     self.install_bin(self.files_path / "update-grub")
@@ -145,11 +176,12 @@ def post_install(self):
     self.install_dir("usr/share/bash-completion/completions")
     self.mv(
         self.destdir / "etc/bash_completion.d/grub",
-        self.destdir / "usr/share/bash-completion/completions"
+        self.destdir / "usr/share/bash-completion/completions",
     )
     # unused tools
     self.rm(self.destdir / "usr/bin/grub-ofpathname")
     self.rm(self.destdir / "usr/bin/grub-sparc64-setup")
+
 
 @subpackage("grub-utils")
 def _utils(self):
@@ -162,6 +194,7 @@ def _utils(self):
         "usr/bin/grub-mkfont",
     ]
 
+
 def _genplatform(arch, platform, desc):
     @subpackage(f"grub-{arch}-{platform}-dbg", arch in _archs)
     def _platdbg(self):
@@ -172,11 +205,9 @@ def _genplatform(arch, platform, desc):
         def _install():
             self.take(f"usr/lib/grub/{arch}-{platform}/*.module")
             self.take(
-                f"usr/lib/grub/{arch}-{platform}/*.image", missing_ok = True
+                f"usr/lib/grub/{arch}-{platform}/*.image", missing_ok=True
             )
-            self.take(
-                f"usr/lib/grub/{arch}-{platform}/*.exec", missing_ok = True
-            )
+            self.take(f"usr/lib/grub/{arch}-{platform}/*.exec", missing_ok=True)
 
         return _install
 
@@ -190,6 +221,7 @@ def _genplatform(arch, platform, desc):
             self.depends += ["efibootmgr", "dosfstools"]
 
         return [f"usr/lib/grub/{arch}-{platform}"]
+
 
 # generate platform subpackages
 for _arch, _platform, _cfl, _ldfl, _desc in _platforms:

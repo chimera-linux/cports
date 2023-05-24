@@ -3,15 +3,20 @@ pkgver = "2.4.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-all-tests"]
-make_check_env = {
-    "TESTFLAGS": f"--parallel={self.conf_jobs}"
-}
+make_check_env = {"TESTFLAGS": f"--parallel={self.conf_jobs}"}
 hostmakedepends = ["pkgconf", "libgpg-error-progs"]
 # TODO: switch to libedit once it gains missing features
 makedepends = [
-    "libbz2-devel", "libassuan-devel", "libksba-devel", "npth-devel",
-    "libgpg-error-devel", "libgcrypt-devel", "gnutls-devel", "libusb-devel",
-    "sqlite-devel", "readline-devel"
+    "libbz2-devel",
+    "libassuan-devel",
+    "libksba-devel",
+    "npth-devel",
+    "libgpg-error-devel",
+    "libgcrypt-devel",
+    "gnutls-devel",
+    "libusb-devel",
+    "sqlite-devel",
+    "readline-devel",
 ]
 depends = ["pinentry"]
 pkgdesc = "GNU Privacy Guard (2.x)"

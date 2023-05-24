@@ -10,13 +10,30 @@ configure_args = [
     "-DBUILD_TESTS=OFF",
 ]
 hostmakedepends = [
-    "cmake", "pkgconf", "ninja", "gettext-tiny", "unzip", "vala", "glib-devel",
+    "cmake",
+    "pkgconf",
+    "ninja",
+    "gettext-tiny",
+    "unzip",
+    "vala",
+    "glib-devel",
 ]
 makedepends = [
-    "gtk4-devel", "libadwaita-devel", "glib-devel", "libsoup-devel",
-    "qrencode-devel", "libgee-devel", "libgcrypt-devel", "sqlite-devel",
-    "libcanberra-devel", "gspell-devel", "libsrtp-devel", "libnice-devel",
-    "gnutls-devel", "libsignal-protocol-c-devel", "gst-plugins-base-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
+    "glib-devel",
+    "libsoup-devel",
+    "qrencode-devel",
+    "libgee-devel",
+    "libgcrypt-devel",
+    "sqlite-devel",
+    "libcanberra-devel",
+    "gspell-devel",
+    "libsrtp-devel",
+    "libnice-devel",
+    "gnutls-devel",
+    "libsignal-protocol-c-devel",
+    "gst-plugins-base-devel",
     "gpgme-devel",
 ]
 depends = ["desktop-file-utils"]

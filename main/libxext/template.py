@@ -12,11 +12,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXext-{pkgver}.tar.gz"
 sha256 = "1a3dcda154f803be0285b46c9338515804b874b5ccc7a2b769ab7fd76f1035bd"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libxext-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

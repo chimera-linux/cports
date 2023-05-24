@@ -14,8 +14,10 @@ sha256 = "12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be"
 # FIXME int
 hardening = ["!int"]
 
+
 @subpackage("libdatrie-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

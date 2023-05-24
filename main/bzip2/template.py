@@ -10,23 +10,34 @@ sha256 = "ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 options = ["bootstrap"]
 
+
 def init_build(self):
     from cbuild.util import make
+
     self.make = make.Make(self)
 
+
 def do_build(self):
-    self.make.build([
-        "-f", "Makefile-libbz2_so",
-        "CFLAGS=" + self.get_cflags(shell = True),
-        "LDFLAGS=" + self.get_ldflags(shell = True)
-    ])
-    self.make.invoke(["bzip2recover", "libbz2.a"], [
-        "CFLAGS=" + self.get_cflags(shell = True),
-        "LDFLAGS=" + self.get_ldflags(shell = True)
-    ])
+    self.make.build(
+        [
+            "-f",
+            "Makefile-libbz2_so",
+            "CFLAGS=" + self.get_cflags(shell=True),
+            "LDFLAGS=" + self.get_ldflags(shell=True),
+        ]
+    )
+    self.make.invoke(
+        ["bzip2recover", "libbz2.a"],
+        [
+            "CFLAGS=" + self.get_cflags(shell=True),
+            "LDFLAGS=" + self.get_ldflags(shell=True),
+        ],
+    )
+
 
 def do_check(self):
     self.make.invoke("check")
+
 
 def do_install(self):
     self.cp("bzip2-shared", "bzip2")
@@ -54,11 +65,13 @@ def do_install(self):
 
     self.install_license("LICENSE")
 
+
 @subpackage("libbz2")
 def _lib(self):
     self.pkgdesc = "Bzip2-format compression library"
 
     return self.default_libs()
+
 
 @subpackage("libbz2-devel")
 def _devel(self):

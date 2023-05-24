@@ -2,6 +2,7 @@ import shutil
 import subprocess
 import stat
 
+
 def make_debug(pkg, f, relf):
     if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
         return
@@ -9,16 +10,19 @@ def make_debug(pkg, f, relf):
     dfile = pkg.destdir / "usr/lib/debug" / relf
     cfile = pkg.chroot_destdir / "usr/lib/debug" / relf
 
-    dfile.parent.mkdir(parents = True, exist_ok = True)
+    dfile.parent.mkdir(parents=True, exist_ok=True)
     try:
         pkg.rparent.do(
             pkg.rparent.get_tool("OBJCOPY"),
-            "--only-keep-debug", pkg.chroot_destdir / relf, cfile
+            "--only-keep-debug",
+            pkg.chroot_destdir / relf,
+            cfile,
         )
     except:
         pkg.error(f"failed to create dbg file for {relf}")
 
     dfile.chmod(0o644)
+
 
 def attach_debug(pkg, f, relf):
     if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
@@ -28,19 +32,22 @@ def attach_debug(pkg, f, relf):
     try:
         pkg.rparent.do(
             pkg.rparent.get_tool("OBJCOPY"),
-            f"--add-gnu-debuglink={cfile}", pkg.chroot_destdir / relf
+            f"--add-gnu-debuglink={cfile}",
+            pkg.chroot_destdir / relf,
         )
     except:
         pkg.error(f"failed to attach debug link to {relf}")
 
+
 def _sanitize_exemode(f):
     st = f.lstat()
     mode = 0o755
-    if (st.st_mode & stat.S_ISUID):
+    if st.st_mode & stat.S_ISUID:
         mode |= 0o4000
-    if (st.st_mode & stat.S_ISGID):
+    if st.st_mode & stat.S_ISGID:
         mode |= 0o2000
     f.chmod(mode)
+
 
 def invoke(pkg):
     if not pkg.options["strip"]:
@@ -181,7 +188,7 @@ def invoke(pkg):
         return
 
     ddest = pkg.rparent.destdir_base / f"{pkg.pkgname}-dbg-{pkg.pkgver}"
-    (ddest / "usr/lib").mkdir(parents = True, exist_ok = True)
+    (ddest / "usr/lib").mkdir(parents=True, exist_ok=True)
 
     # move debug symbols
     try:

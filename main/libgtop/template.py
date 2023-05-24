@@ -16,8 +16,10 @@ suid_files = [
     "usr/libexec/libgtop_server2",
 ]
 
+
 @subpackage("libgtop-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

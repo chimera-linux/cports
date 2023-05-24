@@ -15,8 +15,10 @@ sha256 = "966de0a8120c8a53db859889749368bfb2cba0c4f0b4c1a30d264eccc45f1226"
 # FIXME cfi: verify function pointers
 hardening = ["vis", "!cfi"]
 
+
 @subpackage("libnftnl-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

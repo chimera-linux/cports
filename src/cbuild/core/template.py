@@ -25,11 +25,14 @@ from cbuild.core import logger, chroot, paths, profile, spdx, errors
 from cbuild.util import compiler
 from cbuild.apk import cli, util as autil
 
+
 class SkipPackage(Exception):
     pass
 
+
 class StampException(BaseException):
     pass
+
 
 class StampCheck:
     def __init__(self, pkg, name):
@@ -50,6 +53,7 @@ class StampCheck:
         if (self.pkg.cwd / f".stamp_{self.name}_done").exists():
             raise StampException()
 
+
 @contextlib.contextmanager
 def redir_allout(logpath):
     try:
@@ -58,7 +62,7 @@ def redir_allout(logpath):
         olderr = os.dup(sys.stderr.fileno())
         # this will do the logging for us; this way we can get
         # both standard output and file redirection at once
-        tee = subprocess.Popen(["tee", logpath], stdin = subprocess.PIPE)
+        tee = subprocess.Popen(["tee", logpath], stdin=subprocess.PIPE)
         # everything goes into the pipe
         os.dup2(tee.stdin.fileno(), sys.stdout.fileno())
         os.dup2(tee.stdin.fileno(), sys.stderr.fileno())
@@ -76,6 +80,7 @@ def redir_allout(logpath):
         # wait for the tee to finish
         tee.communicate()
 
+
 # relocate "src" from root "root" to root "dest"
 #
 # e.g. _submove("foo/bar", "/a", "/b") will move "/b/foo/bar" to "/a/foo/bar"
@@ -86,7 +91,7 @@ def _submove(src, dest, root):
     fname = src.name
     ddirs = dest / dirs
 
-    ddirs.mkdir(parents = True, exist_ok = True)
+    ddirs.mkdir(parents=True, exist_ok=True)
 
     fsrc = root / src
     fdest = dest / src
@@ -102,6 +107,7 @@ def _submove(src, dest, root):
             fsrc.rmdir()
         else:
             raise FileExistsError(f"'{fsrc}' and '{fdest}' overlap")
+
 
 hooks = {
     "init_fetch": [],
@@ -139,10 +145,11 @@ hooks = {
     "init_pkg": [],
     "pre_pkg": [],
     "do_pkg": [],
-    "post_pkg": []
+    "post_pkg": [],
 }
 
-def run_pkg_func(pkg, func, funcn = None, desc = None, on_subpkg = False):
+
+def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
     if not funcn:
         if not hasattr(pkg, func):
             return False
@@ -165,9 +172,11 @@ def run_pkg_func(pkg, func, funcn = None, desc = None, on_subpkg = False):
             func(pkg)
     return True
 
+
 def call_pkg_hooks(pkg, stepn):
     for f in hooks[stepn]:
         run_pkg_func(pkg, f[0], f"{stepn}_{f[1]}", f"{stepn} hook: {f[1]}")
+
 
 class Package:
     def __init__(self):
@@ -175,16 +184,16 @@ class Package:
         self.pkgname = None
         self.pkgver = None
 
-    def log(self, msg, end = "\n"):
+    def log(self, msg, end="\n"):
         self.logger.out(self._get_pv() + ": " + msg, end)
 
-    def log_red(self, msg, end = "\n"):
+    def log_red(self, msg, end="\n"):
         self.logger.out_red(self._get_pv() + ": " + msg, end)
 
-    def log_warn(self, msg, end = "\n"):
+    def log_warn(self, msg, end="\n"):
         self.logger.warn(self._get_pv() + ": " + msg, end)
 
-    def error(self, msg, end = "\n", broken = False, bt = False):
+    def error(self, msg, end="\n", broken=False, bt=False):
         raise errors.PackageException(msg, end, self, broken, bt)
 
     def _get_pv(self):
@@ -195,7 +204,7 @@ class Package:
         return "cbuild"
 
     @contextlib.contextmanager
-    def pushd(self, dirn, glob = False):
+    def pushd(self, dirn, glob=False):
         old_path = self.rparent.cwd
         old_cpath = self.rparent.chroot_cwd
 
@@ -203,15 +212,14 @@ class Package:
             new_paths = list(old_path.glob(dirn))
             if len(new_paths) != 1:
                 self.error(
-                    f"path '{dirn}' must match exactly one directory",
-                    bt = True
+                    f"path '{dirn}' must match exactly one directory", bt=True
                 )
             new_path = new_paths[0]
         else:
             new_path = old_path / dirn
 
         if not new_path.is_dir():
-            self.error(f"path '{new_path}' is not a directory", bt = True)
+            self.error(f"path '{new_path}' is not a directory", bt=True)
 
         new_path = new_path.resolve()
 
@@ -226,7 +234,7 @@ class Package:
             self.rparent.cwd = old_path
             self.rparent.chroot_cwd = old_cpath
 
-    def cp(self, srcp, destp, recursive = False, symlinks = True):
+    def cp(self, srcp, destp, recursive=False, symlinks=True):
         srcp = self.rparent.cwd / srcp
         destp = self.rparent.cwd / destp
 
@@ -234,18 +242,17 @@ class Package:
             if destp.is_dir():
                 destp = destp / srcp.name
             if srcp.is_symlink():
-                ret = shutil.copy2(srcp, destp, follow_symlinks = False)
+                ret = shutil.copy2(srcp, destp, follow_symlinks=False)
             else:
                 ret = shutil.copytree(
-                    srcp, destp, symlinks = symlinks, dirs_exist_ok = True
+                    srcp, destp, symlinks=symlinks, dirs_exist_ok=True
                 )
         elif srcp.is_dir():
             self.error(
-                f"'{srcp}' is a directory, but not using 'recursive'",
-                bt = True
+                f"'{srcp}' is a directory, but not using 'recursive'", bt=True
             )
         else:
-            ret = shutil.copy2(srcp, destp, follow_symlinks = symlinks)
+            ret = shutil.copy2(srcp, destp, follow_symlinks=symlinks)
 
         return pathlib.Path(ret)
 
@@ -255,17 +262,18 @@ class Package:
 
         return pathlib.Path(shutil.move(srcp, destp))
 
-    def mkdir(self, path, parents = False):
-        (self.rparent.cwd / path).mkdir(parents = parents, exist_ok = parents)
+    def mkdir(self, path, parents=False):
+        (self.rparent.cwd / path).mkdir(parents=parents, exist_ok=parents)
 
-    def rm(self, path, recursive = False, force = False):
+    def rm(self, path, recursive=False, force=False):
         path = self.rparent.cwd / path
 
         if not recursive:
             if path.is_dir() and not path.is_symlink():
-                self.error(f"'{path}' is a directory", bt = True)
-            path.unlink(missing_ok = force)
+                self.error(f"'{path}' is a directory", bt=True)
+            path.unlink(missing_ok=force)
         else:
+
             def _remove_ro(f, p, _):
                 os.chmod(p, stat.S_IWRITE)
                 f(p)
@@ -274,22 +282,22 @@ class Package:
                 return
 
             if not path.is_dir() or path.is_symlink():
-                path.unlink(missing_ok = force)
+                path.unlink(missing_ok=force)
             else:
-                shutil.rmtree(path, onerror = _remove_ro)
+                shutil.rmtree(path, onerror=_remove_ro)
 
-    def ln_s(self, srcp, destp, relative = False):
+    def ln_s(self, srcp, destp, relative=False):
         destp = self.rparent.cwd / destp
         if destp.is_dir():
             destp = destp / pathlib.Path(srcp).name
         if relative:
-            srcp = os.path.relpath(srcp, start = destp)
+            srcp = os.path.relpath(srcp, start=destp)
         destp.symlink_to(srcp)
 
     def chmod(self, path, mode):
         (self.rparent.cwd / path).chmod(mode)
 
-    def find(self, path, pattern, files = False):
+    def find(self, path, pattern, files=False):
         path = pathlib.Path(path)
         if path.is_absolute():
             for fn in path.rglob(pattern):
@@ -301,6 +309,7 @@ class Package:
             for fn in path.rglob(pattern):
                 if not files or fn.is_file():
                     yield fn.relative_to(cwp)
+
 
 default_options = {
     #           default inherit
@@ -341,7 +350,6 @@ default_options = {
 
 core_fields = [
     # name default type mandatory subpkg inherit
-
     # core fields that are set early
     ("license", None, str, True, True, True),
     ("pkgdesc", None, str, True, True, True),
@@ -349,41 +357,32 @@ core_fields = [
     ("pkgrel", None, int, True, False, False),
     ("pkgver", None, str, True, False, False),
     ("url", None, str, True, False, False),
-
     # not mandatory but encouraged
     ("maintainer", None, str, False, False, False),
-
     # various options that can be set for the template
     ("options", [], list, False, True, False),
-
     # other core-ish fields
     ("broken", None, str, False, False, False),
     ("build_style", None, str, False, False, False),
-
     # sources
     ("sha256", [], (list, str), False, False, False),
     ("source", [], (list, str, tuple), False, False, False),
-
     # target support
     ("archs", None, list, False, False, False),
-
     # build directory and patches
     ("build_wrksrc", "", str, False, False, False),
     ("patch_args", [], list, False, False, False),
-
     # dependency lists
     ("checkdepends", [], list, False, False, False),
     ("hostmakedepends", [], list, False, False, False),
     ("makedepends", [], list, False, False, False),
     ("depends", [], list, False, True, False),
-
     # other package lists + related
     ("provides", [], list, False, True, False),
     ("provider_priority", 0, int, False, True, True),
     ("replaces", [], list, False, True, False),
     ("replaces_priority", 0, int, False, True, True),
     ("install_if", [], list, False, True, False),
-
     # build systems
     ("configure_args", [], list, False, False, False),
     ("configure_script", "configure", str, False, False, False),
@@ -405,7 +404,6 @@ core_fields = [
     ("make_build_wrapper", [], list, False, False, False),
     ("make_install_wrapper", [], list, False, False, False),
     ("make_check_wrapper", [], list, False, False, False),
-
     # target build related
     ("protected_paths", [], list, False, True, False),
     ("nostrip_files", [], list, False, True, False),
@@ -416,15 +414,12 @@ core_fields = [
     ("tool_flags", {}, dict, False, False, False),
     ("env", {}, dict, False, False, False),
     ("debug_level", 2, int, False, False, False),
-
     # packaging
     ("triggers", [], list, False, True, False),
     ("scriptlets", {}, dict, False, True, False),
     ("file_modes", {}, dict, False, True, False),
-
     # wrappers
     ("exec_wrappers", [], list, False, False, False),
-
     # scriptlet generators
     ("system_users", [], list, False, True, False),
     ("system_groups", [], list, False, True, False),
@@ -432,18 +427,13 @@ core_fields = [
     ("sgml_entries", [], list, False, True, False),
     ("xml_catalogs", [], list, False, True, False),
     ("xml_entries", [], list, False, True, False),
-
     # fields relating to build fields
-
     # cmake
     ("cmake_dir", None, str, False, False, False),
-
     # makefile
     ("make_use_env", False, bool, False, False, False),
-
     # meson
     ("meson_dir", ".", str, False, False, False),
-
     # golang
     ("go_mod_dl", None, str, False, False, False),
     ("go_build_tags", [], list, False, False, False),
@@ -458,17 +448,13 @@ core_fields_priority = [
     ("pkgname", True),
     ("pkgver", True),
     ("pkgrel", True),
-
     ("archs", True),
-
     ("build_wrksrc", True),
     ("build_style", True),
-
     ("configure_script", True),
     ("configure_args", True),
     ("configure_env", True),
     ("configure_gen", True),
-
     ("make_cmd", True),
     ("make_dir", True),
     ("make_env", True),
@@ -485,21 +471,17 @@ core_fields_priority = [
     ("make_check_args", True),
     ("make_check_env", True),
     ("make_check_wrapper", True),
-
     ("make_use_env", True),
     ("cmake_dir", False),
     ("meson_dir", False),
-
     ("hostmakedepends", True),
     ("makedepends", True),
     ("checkdepends", True),
     ("depends", False),
-
     ("go_mod_dl", True),
     ("go_build_tags", False),
     ("go_ldflags", False),
     ("go_check_tags", False),
-
     ("provides", True),
     ("provider_priority", True),
     ("replaces", True),
@@ -507,31 +489,25 @@ core_fields_priority = [
     ("install_if", True),
     ("triggers", True),
     ("scriptlets", True),
-
     ("pkgdesc", True),
     ("maintainer", True),
     ("license", True),
     ("url", True),
-
     ("source", True),
     ("sha256", True),
-
     ("debug_level", True),
     ("patch_args", True),
     ("tools", True),
     ("tool_flags", True),
     ("env", True),
-
     ("protected_paths", True),
     ("nostrip_files", True),
     ("nopie_files", True),
     ("suid_files", True),
     ("file_modes", True),
-
     ("hardening", True),
     ("options", True),
     ("exec_wrappers", True),
-
     # scriptlet-generating stuff comes last
     ("system_users", True),
     ("system_groups", True),
@@ -539,7 +515,6 @@ core_fields_priority = [
     ("sgml_catalogs", True),
     ("xml_entries", True),
     ("xml_catalogs", True),
-
     ("broken", True),
 ]
 
@@ -578,6 +553,7 @@ def copy_of_dval(val):
         return dict(val)
     return val
 
+
 def validate_type(val, tp):
     if not tp:
         return True
@@ -591,6 +567,7 @@ def validate_type(val, tp):
         return False
     return True
 
+
 def pkg_profile(pkg, target):
     if pkg.stage == 0 and (target == "host" or target == "target"):
         return profile.get_profile("bootstrap")
@@ -602,6 +579,7 @@ def pkg_profile(pkg, target):
         return pkg._current_profile
 
     return profile.get_profile(target)
+
 
 class Template(Package):
     def __init__(self, pkgname, origin):
@@ -663,6 +641,7 @@ class Template(Package):
                     pn = tp.resolve().parent.name
                     return sr, pn
             return None, None
+
         bdeps = {}
         visited = {}
         hds, tds, rds = dependencies.setup_depends(self, True)
@@ -700,7 +679,7 @@ class Template(Package):
             "url": self.url,
             "broken": self.broken,
             "subpackages": subpkgs,
-            "variables": metadata
+            "variables": metadata,
         }
 
         for sp in self.subpkg_list:
@@ -713,7 +692,7 @@ class Template(Package):
                     continue
                 slist.append((fl, getattr(sp, fl)))
             # append
-            slist.sort(key = lambda v: v[0])
+            slist.sort(key=lambda v: v[0])
             for k, v in slist:
                 subpkg[k] = v
             subpkgs.append(sp.pkgname)
@@ -724,7 +703,7 @@ class Template(Package):
                 continue
             mlist.append((fl, getattr(self, fl)))
 
-        mlist.sort(key = lambda v: v[0])
+        mlist.sort(key=lambda v: v[0])
 
         for k, v in mlist:
             metadata[k] = v
@@ -741,21 +720,44 @@ class Template(Package):
             # no git, not reproducible
             return
 
-        if subprocess.run([
-            "git", "rev-parse", "--show-toplevel"
-        ], capture_output = True, cwd = self.template_path).returncode != 0:
+        if (
+            subprocess.run(
+                ["git", "rev-parse", "--show-toplevel"],
+                capture_output=True,
+                cwd=self.template_path,
+            ).returncode
+            != 0
+        ):
             # not in a git repository
             return
 
         # find whether the template dir has local modifications
-        dirty = len(subprocess.run([
-            "git", "status", "-s", "--", self.template_path
-        ], capture_output = True).stdout.strip()) != 0
+        dirty = (
+            len(
+                subprocess.run(
+                    ["git", "status", "-s", "--", self.template_path],
+                    capture_output=True,
+                ).stdout.strip()
+            )
+            != 0
+        )
 
         # find the last revision modifying the template
-        self.git_revision = subprocess.run([
-            "git", "log", "--format=oneline", "-n1", "--", self.template_path
-        ], capture_output = True).stdout.strip()[0:40].decode("ascii")
+        self.git_revision = (
+            subprocess.run(
+                [
+                    "git",
+                    "log",
+                    "--format=oneline",
+                    "-n1",
+                    "--",
+                    self.template_path,
+                ],
+                capture_output=True,
+            )
+            .stdout.strip()[0:40]
+            .decode("ascii")
+        )
 
         if len(self.git_revision) < 40:
             # ???
@@ -769,10 +771,17 @@ class Template(Package):
             return
 
         # get the date of the git revision
-        ts = subprocess.run([
-            "git", "log", "-1", "--format=%cd",
-            "--date=unix", self.git_revision
-        ], capture_output = True).stdout.strip()
+        ts = subprocess.run(
+            [
+                "git",
+                "log",
+                "-1",
+                "--format=%cd",
+                "--date=unix",
+                self.git_revision,
+            ],
+            capture_output=True,
+        ).stdout.strip()
 
         try:
             self.source_date_epoch = int(ts)
@@ -867,7 +876,7 @@ class Template(Package):
                     break
                 sln = ln.strip()
                 # non-empty or commented line skips the line
-                if (len(sln) == 0):
+                if len(sln) == 0:
                     continue
                 if sln.startswith("#"):
                     precomment = True
@@ -962,6 +971,7 @@ class Template(Package):
                 ret += 1
                 i += 1
             return ret
+
         # now match
         for v in self.archs:
             # negative match pattern: acknowledge and get the pattern
@@ -997,18 +1007,19 @@ class Template(Package):
                 prevneg = curneg
         # no match or negative match
         if not prevmatch or prevneg:
-            self.error(
-                f"this package cannot be built for {archn}",
-                broken = True
-            )
+            self.error(f"this package cannot be built for {archn}", broken=True)
         # otherwise we're good
 
-    def is_built(self, quiet = False):
+    def is_built(self, quiet=False):
         pinfo = cli.call(
-            "search", ["--from", "none", "-e", self.pkgname],
-            self.repository, capture_output = True,
-            arch = self.profile().arch,
-            allow_untrusted = True, allow_network = False, use_altrepo = False
+            "search",
+            ["--from", "none", "-e", self.pkgname],
+            self.repository,
+            capture_output=True,
+            arch=self.profile().arch,
+            allow_untrusted=True,
+            allow_network=False,
+            use_altrepo=False,
         )
         if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
             foundp = pinfo.stdout.strip().decode()
@@ -1020,8 +1031,16 @@ class Template(Package):
         return False
 
     def do(
-        self, cmd, *args, env = {}, wrksrc = None, capture_output = False,
-        stdout = None, stderr = None, check = True, allow_network = False
+        self,
+        cmd,
+        *args,
+        env={},
+        wrksrc=None,
+        capture_output=False,
+        stdout=None,
+        stderr=None,
+        check=True,
+        allow_network=False,
     ):
         cpf = self.profile()
 
@@ -1033,14 +1052,15 @@ class Template(Package):
 
         fakestrip = self.wrapperdir / "strip"
         if self.stage > 0:
-            fakestrip = pathlib.Path("/builddir") / \
-                fakestrip.relative_to(self.builddir)
+            fakestrip = pathlib.Path("/builddir") / fakestrip.relative_to(
+                self.builddir
+            )
 
         cenv["STRIPBIN"] = str(fakestrip)
 
         # cflags and so on
         for k in self.tool_flags:
-            cenv[k] = self.get_tool_flags(k, shell = True)
+            cenv[k] = self.get_tool_flags(k, shell=True)
 
         if self.source_date_epoch:
             cenv["SOURCE_DATE_EPOCH"] = str(self.source_date_epoch)
@@ -1071,7 +1091,7 @@ class Template(Package):
 
             # cflags and so on
             for k in self.tool_flags:
-                cenv["BUILD_" + k] = self.get_tool_flags(k, shell = True)
+                cenv["BUILD_" + k] = self.get_tool_flags(k, shell=True)
 
             if hpf.triplet:
                 cenv["CBUILD_HOST_TRIPLET"] = hpf.triplet
@@ -1095,25 +1115,36 @@ class Template(Package):
 
         if self.current_phase == "fetch":
             allow_network = True
-        elif self.current_phase != "extract" and \
-             self.current_phase != "patch" and \
-             self.current_phase != "prepare":
+        elif (
+            self.current_phase != "extract"
+            and self.current_phase != "patch"
+            and self.current_phase != "prepare"
+        ):
             allow_network = False
 
         return chroot.enter(
-            cmd, *args, capture_output = capture_output, env = cenv,
-            wrkdir = wdir, check = check, bootstrapping = self.stage == 0,
-            ro_root = True, ro_build = self.install_done,
-            ro_dest = (self.current_phase != "install"),
-            mount_cbuild_cache = True, unshare_all = not allow_network,
-            fakeroot = fakeroot, stdout = stdout, stderr = stderr,
-            lldargs = compiler._get_lld_cpuargs(self.link_threads)
+            cmd,
+            *args,
+            capture_output=capture_output,
+            env=cenv,
+            wrkdir=wdir,
+            check=check,
+            bootstrapping=self.stage == 0,
+            ro_root=True,
+            ro_build=self.install_done,
+            ro_dest=(self.current_phase != "install"),
+            mount_cbuild_cache=True,
+            unshare_all=not allow_network,
+            fakeroot=fakeroot,
+            stdout=stdout,
+            stderr=stderr,
+            lldargs=compiler._get_lld_cpuargs(self.link_threads),
         )
 
     def stamp(self, name):
         return StampCheck(self, name)
 
-    def run_step(self, stepn, optional = False, skip_post = False):
+    def run_step(self, stepn, optional=False, skip_post=False):
         call_pkg_hooks(self, "pre_" + stepn)
 
         # run pre_* phase
@@ -1132,8 +1163,7 @@ class Template(Package):
             call_pkg_hooks(self, "post_" + stepn)
 
     def get_tool_flags(
-        self, name, extra_flags = [], hardening = [],
-        shell = False, target = None
+        self, name, extra_flags=[], hardening=[], shell=False, target=None
     ):
         target = pkg_profile(self, target)
 
@@ -1151,48 +1181,51 @@ class Template(Package):
             ] + tfb
 
         return target._get_tool_flags(
-            name, tfb,
+            name,
+            tfb,
             self.debug_level if dodbg else -1,
             self.hardening + hardening,
-            self.options, self.stage, shell
+            self.options,
+            self.stage,
+            shell,
         )
 
     def get_cflags(
-        self, extra_flags = [], hardening = [], shell = False, target = None
+        self, extra_flags=[], hardening=[], shell=False, target=None
     ):
         return self.get_tool_flags(
             "CFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_cxxflags(
-        self, extra_flags = [], hardening = [], shell = False, target = None
+        self, extra_flags=[], hardening=[], shell=False, target=None
     ):
         return self.get_tool_flags(
             "CXXFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_fflags(
-        self, extra_flags = [], hardening = [], shell = False, target = None
+        self, extra_flags=[], hardening=[], shell=False, target=None
     ):
         return self.get_tool_flags(
             "FFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_ldflags(
-        self, extra_flags = [], hardening = [], shell = False, target = None
+        self, extra_flags=[], hardening=[], shell=False, target=None
     ):
         return self.get_tool_flags(
             "LDFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_rustflags(
-        self, extra_flags = [], hardening = [], shell = False, target = None
+        self, extra_flags=[], hardening=[], shell=False, target=None
     ):
         return self.get_tool_flags(
             "RUSTFLAGS", extra_flags, hardening, shell, target
         )
 
-    def get_tool(self, name, target = None):
+    def get_tool(self, name, target=None):
         if not name in self.tools:
             return None
 
@@ -1205,14 +1238,14 @@ class Template(Package):
 
         return self.tools[name]
 
-    def has_hardening(self, hname, target = None):
+    def has_hardening(self, hname, target=None):
         target = pkg_profile(self, target)
 
         return profile.has_hardening(
             target, hname, self.hardening, self.options, self.stage
         )
 
-    def has_lto(self, target = None):
+    def has_lto(self, target=None):
         target = pkg_profile(self, target)
 
         return self.options["lto"] and target._has_lto(self.stage)
@@ -1234,12 +1267,12 @@ class Template(Package):
         finally:
             self._current_profile = old_tgt
 
-    def profile(self, target = None):
+    def profile(self, target=None):
         if target == None:
             return self._current_profile
         return self._profile(target)
 
-    def install_files(self, path, dest, symlinks = True):
+    def install_files(self, path, dest, symlinks=True):
         path = pathlib.Path(path)
         dest = pathlib.Path(dest)
         if dest.is_absolute():
@@ -1251,11 +1284,11 @@ class Template(Package):
         dest = self.destdir / dest / path.name
 
         if path.is_dir():
-            shutil.copytree(path, dest, symlinks = symlinks)
+            shutil.copytree(path, dest, symlinks=symlinks)
         else:
             shutil.copy2(path, dest)
 
-    def install_dir(self, dest, mode = 0o755, empty = False):
+    def install_dir(self, dest, mode=0o755, empty=False):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
             raise errors.TracebackException(
@@ -1263,23 +1296,21 @@ class Template(Package):
             )
         dirp = self.destdir / dest
         if not dirp.is_dir():
-            dirp.mkdir(parents = True)
+            dirp.mkdir(parents=True)
         if mode is not None:
             dirp.chmod(mode)
         if empty:
-            (dirp / ".empty").touch(mode = 0o644)
+            (dirp / ".empty").touch(mode=0o644)
 
-    def install_file(self, src, dest, mode = 0o644, name = None, glob = False):
+    def install_file(self, src, dest, mode=0o644, name=None, glob=False):
         if not glob:
             srcs = [self.cwd / pathlib.Path(src)]
         else:
             if name:
-                self.error(
-                    "cannot specify 'name' and 'glob' together", bt = True
-                )
+                self.error("cannot specify 'name' and 'glob' together", bt=True)
             srcs = list(self.cwd.glob(src))
             if len(srcs) < 1:
-                self.error(f"path '{src}' does not match any files", bt = True)
+                self.error(f"path '{src}' does not match any files", bt=True)
         dest = pathlib.Path(dest)
         # sanitize destination
         if dest.is_absolute():
@@ -1301,25 +1332,23 @@ class Template(Package):
             if mode is not None:
                 dfn.chmod(mode)
 
-    def install_bin(self, src, mode = 0o755, name = None, glob = False):
+    def install_bin(self, src, mode=0o755, name=None, glob=False):
         self.install_file(src, "usr/bin", mode, name, glob)
 
-    def install_lib(self, src, mode = 0o755, name = None, glob = False):
+    def install_lib(self, src, mode=0o755, name=None, glob=False):
         self.install_file(src, "usr/lib", mode, name, glob)
 
-    def install_man(self, src, name = None, cat = None, glob = False):
+    def install_man(self, src, name=None, cat=None, glob=False):
         self.install_dir("usr/share/man")
         manbase = self.destdir / "usr/share/man"
         if not glob:
             srcs = [self.cwd / src]
         else:
             if name:
-                self.error(
-                    "cannot specify 'name' and 'glob' together", bt = True
-                )
+                self.error("cannot specify 'name' and 'glob' together", bt=True)
             srcs = list(self.cwd.glob(src))
             if len(srcs) < 1:
-                self.error(f"path '{src}' does not match any files", bt = True)
+                self.error(f"path '{src}' does not match any files", bt=True)
         for absmn in srcs:
             mnf = absmn.name
             if not cat:
@@ -1334,22 +1363,22 @@ class Template(Package):
                         f"install_man: manpage '{mnf}' has an invalid section"
                     )
             mandir = manbase / f"man{cat}"
-            mandir.mkdir(parents = True, exist_ok = True)
+            mandir.mkdir(parents=True, exist_ok=True)
             if name:
                 mnf = f"{name}.{cat}"
             shutil.copy2(absmn, mandir / mnf)
             (mandir / mnf).chmod(0o644)
 
-    def install_license(self, src, name = None, pkgname = None):
+    def install_license(self, src, name=None, pkgname=None):
         self.install_file(
             src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name
         )
 
-    def install_service(self, src, name = None, enable = False):
+    def install_service(self, src, name=None, enable=False):
         src = pathlib.Path(src)
         if src.suffix == ".user":
             svname = name or src.with_suffix("").name
-            self.install_file(src, "etc/dinit.d/user", name = svname)
+            self.install_file(src, "etc/dinit.d/user", name=svname)
             if enable:
                 self.install_dir("usr/lib/dinit.d/user/boot.d")
                 self.install_link(
@@ -1357,17 +1386,15 @@ class Template(Package):
                 )
         else:
             svname = name or src.name
-            self.install_file(src, "etc/dinit.d", name = svname)
+            self.install_file(src, "etc/dinit.d", name=svname)
             if enable:
                 self.install_dir("usr/lib/dinit.d/boot.d")
                 self.install_link(
                     f"../{svname}", f"usr/lib/dinit.d/boot.d/{svname}"
                 )
 
-    def install_svscript(self, src, name = None):
-        self.install_file(
-            src, "etc/dinit.d/scripts", mode = 0o755, name = name
-        )
+    def install_svscript(self, src, name=None):
+        self.install_file(src, "etc/dinit.d/scripts", mode=0o755, name=name)
 
     def install_link(self, src, dest):
         dest = pathlib.Path(dest)
@@ -1383,6 +1410,7 @@ class Template(Package):
         for s in args:
             self.install_link(s, f"etc/shells.d/{os.path.basename(s)}")
 
+
 def _default_take_extra(self, extra):
     if extra is not None:
         if isinstance(extra, list):
@@ -1391,12 +1419,15 @@ def _default_take_extra(self, extra):
         else:
             extra()
 
+
 def _split_static(pkg):
     for f in (pkg.parent.destdir / "usr/lib").rglob("*.a"):
         pkg.take(str(f.relative_to(pkg.parent.destdir)))
 
+
 # TODO: centralize
 gpyver = "3.11"
+
 
 def _split_pycache(pkg):
     pyver = gpyver.replace(".", "")
@@ -1409,9 +1440,11 @@ def _split_pycache(pkg):
         for ff in f.glob("*.py[co]"):
             pkg.error(f"illegal pycache: {ff.name}")
 
+
 def _split_dlinks(pkg):
-    pkg.take("usr/lib/dinit.d/boot.d", missing_ok = True)
-    pkg.take("usr/lib/dinit.d/user/boot.d", missing_ok = True)
+    pkg.take("usr/lib/dinit.d/boot.d", missing_ok=True)
+    pkg.take("usr/lib/dinit.d/user/boot.d", missing_ok=True)
+
 
 autopkgs = [
     # dbg is handled by its own hook
@@ -1420,40 +1453,55 @@ autopkgs = [
     ("static", "static libraries", "base-devel-static", _split_static),
     ("doc", "documentation", "base-doc", lambda p: p.take_doc()),
     (
-        "man", "manual pages", "base-man",
-        lambda p: p.take("usr/share/man", missing_ok = True)
+        "man",
+        "manual pages",
+        "base-man",
+        lambda p: p.take("usr/share/man", missing_ok=True),
     ),
     (
-        "dinit", "service files", "dinit-chimera",
-        lambda p: p.take("etc/dinit.d", missing_ok = True)
+        "dinit",
+        "service files",
+        "dinit-chimera",
+        lambda p: p.take("etc/dinit.d", missing_ok=True),
     ),
     # foo-dinit-links installs if foo-dinit installs
     ("dinit-links", "service links", "-dinit", _split_dlinks),
     (
-        "initramfs-tools", "initramfs scripts", "initramfs-tools",
-        lambda p: p.take("usr/share/initramfs-tools", missing_ok = True)
+        "initramfs-tools",
+        "initramfs scripts",
+        "initramfs-tools",
+        lambda p: p.take("usr/share/initramfs-tools", missing_ok=True),
     ),
     (
-        "udev", "udev rules", "base-udev",
-        lambda p: p.take("usr/lib/udev", missing_ok = True)
+        "udev",
+        "udev rules",
+        "base-udev",
+        lambda p: p.take("usr/lib/udev", missing_ok=True),
     ),
     (
-        "bashcomp", "bash completions", "bash-completion",
-        lambda p: p.take("usr/share/bash-completion", missing_ok = True)
+        "bashcomp",
+        "bash completions",
+        "bash-completion",
+        lambda p: p.take("usr/share/bash-completion", missing_ok=True),
     ),
     (
-        "zshcomp", "zsh completions", "zsh",
-        lambda p: p.take("usr/share/zsh/site-functions", missing_ok = True)
+        "zshcomp",
+        "zsh completions",
+        "zsh",
+        lambda p: p.take("usr/share/zsh/site-functions", missing_ok=True),
     ),
     (
-        "locale", "locale data", "base-locale",
-        lambda p: p.take("usr/share/locale", missing_ok = True)
+        "locale",
+        "locale data",
+        "base-locale",
+        lambda p: p.take("usr/share/locale", missing_ok=True),
     ),
     ("pycache", "Python bytecode", "python-pycache", _split_pycache),
 ]
 
+
 class Subpackage(Package):
-    def __init__(self, name, parent, oldesc = None):
+    def __init__(self, name, parent, oldesc=None):
         super().__init__()
 
         self.pkgname = name
@@ -1465,10 +1513,12 @@ class Subpackage(Package):
         self.statedir = parent.statedir
         self.build_style = parent.build_style
 
-        self.destdir = parent.rparent.destdir_base / \
-            f"{self.pkgname}-{self.pkgver}"
-        self.chroot_destdir = parent.rparent.chroot_destdir_base / \
-            f"{self.pkgname}-{self.pkgver}"
+        self.destdir = (
+            parent.rparent.destdir_base / f"{self.pkgname}-{self.pkgver}"
+        )
+        self.chroot_destdir = (
+            parent.rparent.chroot_destdir_base / f"{self.pkgname}-{self.pkgver}"
+        )
 
         # default subpackage fields
         for fl, dval, tp, mand, sp, inh in core_fields:
@@ -1527,7 +1577,7 @@ class Subpackage(Package):
         self.force_mode = parent.rparent.force_mode
         self.stage = parent.rparent.stage
 
-    def take(self, p, missing_ok = False):
+    def take(self, p, missing_ok=False):
         p = pathlib.Path(p)
         if p.is_absolute():
             self.error(f"take(): path '{p}' must not be absolute")
@@ -1546,86 +1596,87 @@ class Subpackage(Package):
     def take_static(self):
         self.take("usr/lib/*.a")
 
-    def take_devel(self, man = "23"):
+    def take_devel(self, man="23"):
         for f in (self.parent.destdir / "usr/bin").glob("*-config"):
             if f.name != "pkg-config":
                 self.take(f"usr/bin/{f.name}")
-        self.take("usr/lib/*.a", missing_ok = True)
-        self.take("usr/lib/*.so", missing_ok = True)
-        self.take("usr/lib/pkgconfig", missing_ok = True)
-        self.take("usr/lib/cmake", missing_ok = True)
-        self.take("usr/lib/glade/modules", missing_ok = True)
-        self.take("usr/include", missing_ok = True)
-        self.take("usr/share/cmake", missing_ok = True)
-        self.take("usr/share/pkgconfig", missing_ok = True)
-        self.take("usr/share/aclocal", missing_ok = True)
-        self.take("usr/share/gettext", missing_ok = True)
-        self.take("usr/share/vala/vapi", missing_ok = True)
-        self.take("usr/share/gir-[0-9]*", missing_ok = True)
-        self.take("usr/share/glade/catalogs", missing_ok = True)
+        self.take("usr/lib/*.a", missing_ok=True)
+        self.take("usr/lib/*.so", missing_ok=True)
+        self.take("usr/lib/pkgconfig", missing_ok=True)
+        self.take("usr/lib/cmake", missing_ok=True)
+        self.take("usr/lib/glade/modules", missing_ok=True)
+        self.take("usr/include", missing_ok=True)
+        self.take("usr/share/cmake", missing_ok=True)
+        self.take("usr/share/pkgconfig", missing_ok=True)
+        self.take("usr/share/aclocal", missing_ok=True)
+        self.take("usr/share/gettext", missing_ok=True)
+        self.take("usr/share/vala/vapi", missing_ok=True)
+        self.take("usr/share/gir-[0-9]*", missing_ok=True)
+        self.take("usr/share/glade/catalogs", missing_ok=True)
         if man:
             mpath = self.parent.destdir / "usr/share/man/man1"
             for f in mpath.glob("*-config.1"):
                 if f.stem != "pkg-config":
                     self.take(f"usr/share/man/man1/{f.name}")
-            self.take(f"usr/share/man/man[{man}]", missing_ok = True)
+            self.take(f"usr/share/man/man[{man}]", missing_ok=True)
 
     def take_doc(self):
-        self.take("usr/share/doc", missing_ok = True)
-        self.take("usr/share/info", missing_ok = True)
-        self.take("usr/share/html", missing_ok = True)
-        self.take("usr/share/licenses", missing_ok = True)
-        self.take("usr/share/sgml", missing_ok = True)
-        self.take("usr/share/gtk-doc", missing_ok = True)
-        self.take("usr/share/ri", missing_ok = True)
-        self.take("usr/share/help", missing_ok = True)
-        self.take("usr/share/devhelp/books", missing_ok = True)
+        self.take("usr/share/doc", missing_ok=True)
+        self.take("usr/share/info", missing_ok=True)
+        self.take("usr/share/html", missing_ok=True)
+        self.take("usr/share/licenses", missing_ok=True)
+        self.take("usr/share/sgml", missing_ok=True)
+        self.take("usr/share/gtk-doc", missing_ok=True)
+        self.take("usr/share/ri", missing_ok=True)
+        self.take("usr/share/help", missing_ok=True)
+        self.take("usr/share/devhelp/books", missing_ok=True)
 
     def take_libs(self):
         self.take("usr/lib/lib*.so.[0-9]*")
-        self.take("usr/lib/girepository-[0-9]*", missing_ok = True)
+        self.take("usr/lib/girepository-[0-9]*", missing_ok=True)
 
-    def take_progs(self, man = "18"):
+    def take_progs(self, man="18"):
         self.take("usr/bin/*")
-        self.take("usr/share/bash-completion", missing_ok = True)
-        self.take("usr/share/zsh", missing_ok = True)
+        self.take("usr/share/bash-completion", missing_ok=True)
+        self.take("usr/share/zsh", missing_ok=True)
         if man:
-            self.take(f"usr/share/man/man[{man}]", missing_ok = True)
+            self.take(f"usr/share/man/man[{man}]", missing_ok=True)
 
-    def default_devel(self, man = "23", extra = None):
+    def default_devel(self, man="23", extra=None):
         def func():
             self.take_devel(man)
             _default_take_extra(self, extra)
 
         return func
 
-    def default_static(self, extra = None):
+    def default_static(self, extra=None):
         def func():
             self.take_static()
             _default_take_extra(self, extra)
 
         return func
 
-    def default_doc(self, extra = None):
+    def default_doc(self, extra=None):
         def func():
             self.take_doc()
             _default_take_extra(self, extra)
 
         return func
 
-    def default_libs(self, extra = None):
+    def default_libs(self, extra=None):
         def func():
             self.take_libs()
             _default_take_extra(self, extra)
 
         return func
 
-    def default_progs(self, man = "18", extra = None):
+    def default_progs(self, man="18", extra=None):
         def func():
             self.take_progs(man)
             _default_take_extra(self, extra)
 
         return func
+
 
 def _subpkg_install_list(self, l):
     def real_install():
@@ -1633,6 +1684,7 @@ def _subpkg_install_list(self, l):
             self.take(it)
 
     return real_install
+
 
 def _interp_url(pkg, url):
     if not url.startswith("$("):
@@ -1643,10 +1695,11 @@ def _interp_url(pkg, url):
     def matchf(m):
         mw = m.group(1).removesuffix("_SITE").lower()
         if not mw in sites:
-            pkg.error(f"malformed source URL '{url}'", bt = True)
+            pkg.error(f"malformed source URL '{url}'", bt=True)
         return sites[mw]
 
     return re.sub(r"\$\((\w+)\)", matchf, url)
+
 
 def from_module(m, ret):
     if not m:
@@ -1666,8 +1719,12 @@ def from_module(m, ret):
     ret.validate_pkgver()
 
     # possibly skip very early once we have the bare minimum info
-    if not ret.force_mode and not ret.bulk_mode \
-       and not ret._target and ret.is_built():
+    if (
+        not ret.force_mode
+        and not ret.bulk_mode
+        and not ret._target
+        and ret.is_built()
+    ):
         raise SkipPackage()
 
     # fill in core non-mandatory fields
@@ -1739,7 +1796,9 @@ def from_module(m, ret):
     ret.build_style_defaults = []
 
     if ret.build_style:
-        importlib.import_module(f"cbuild.build_style.{ret.build_style}").use(ret)
+        importlib.import_module(f"cbuild.build_style.{ret.build_style}").use(
+            ret
+        )
 
     # perform initialization
     if hasattr(m, "init"):
@@ -1752,8 +1811,14 @@ def from_module(m, ret):
 
     # add our own methods
     for phase in [
-        "fetch", "extract", "prepare", "patch", "configure",
-        "build", "check", "install"
+        "fetch",
+        "extract",
+        "prepare",
+        "patch",
+        "configure",
+        "build",
+        "check",
+        "install",
     ]:
         if hasattr(m, "init_" + phase):
             setattr(ret, "init_" + phase, getattr(m, "init_" + phase))
@@ -1786,16 +1851,17 @@ def from_module(m, ret):
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
     else:
-        ret.chroot_cwd = pathlib.Path("/builddir") / \
-            ret.cwd.relative_to(ret.builddir)
+        ret.chroot_cwd = pathlib.Path("/builddir") / ret.cwd.relative_to(
+            ret.builddir
+        )
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
         if ret.profile().cross:
-            ret.chroot_destdir_base = ret.chroot_destdir_base / \
-                ret.profile().triplet
+            ret.chroot_destdir_base = (
+                ret.chroot_destdir_base / ret.profile().triplet
+            )
 
-    ret.chroot_destdir = ret.chroot_destdir_base \
-        / f"{ret.pkgname}-{ret.pkgver}"
+    ret.chroot_destdir = ret.chroot_destdir_base / f"{ret.pkgname}-{ret.pkgver}"
 
     ret.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + ret.pkgname
 
@@ -1822,8 +1888,11 @@ def from_module(m, ret):
             if not validate_type(flv, tp):
                 ret.error("invalid field value: %s" % fl)
         # build_style is validated specially
-        if sp.build_style and sp.build_style != ret.build_style and \
-           sp.build_style != "meta":
+        if (
+            sp.build_style
+            and sp.build_style != ret.build_style
+            and sp.build_style != "meta"
+        ):
             ret.error("subpackages cannot declare non-meta build_style")
 
         # deal with options
@@ -1851,8 +1920,11 @@ def from_module(m, ret):
 
         sp.options = ropts
 
-        if sp.options["spdx"] and sp.license != ret.license \
-          and not ret._allow_broken:
+        if (
+            sp.options["spdx"]
+            and sp.license != ret.license
+            and not ret._allow_broken
+        ):
             lerr = None
             try:
                 spdx.validate(sp.license)
@@ -1869,22 +1941,26 @@ def from_module(m, ret):
     if ret.broken and not ierr:
         ret.error(
             f"cannot be built, it's currently broken: {ret.broken}",
-            broken = True, bt = True
+            broken=True,
+            bt=True,
         )
 
     if ret.repository not in _allow_cats and not ierr:
         ret.error(
             f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})",
-            broken = True
+            broken=True,
         )
 
     if ret.profile().cross and not ret.options["cross"] and not ierr:
         ret.error(
-            f"cannot be cross-compiled for {ret.profile().cross}",
-            broken = True
+            f"cannot be cross-compiled for {ret.profile().cross}", broken=True
         )
 
-    if ret.stage == 0 and not ret.options["bootstrap"] and not ret._ignore_errors:
+    if (
+        ret.stage == 0
+        and not ret.options["bootstrap"]
+        and not ret._ignore_errors
+    ):
         ret.error("attempt to bootstrap a non-bootstrap package")
 
     # fill the remaining toolflag lists so it's complete
@@ -1951,20 +2027,36 @@ def from_module(m, ret):
     for i in range(len(ret.source)):
         if isinstance(ret.source[i], tuple):
             ret.source[i] = (
-                _interp_url(ret, ret.source[i][0]), *ret.source[i][1:]
+                _interp_url(ret, ret.source[i][0]),
+                *ret.source[i][1:],
             )
         else:
             ret.source[i] = _interp_url(ret, ret.source[i])
 
     return ret
 
+
 _tmpl_dict = {}
 
+
 def read_mod(
-    pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
-    origin, resolve = None, ignore_missing = False, ignore_errors = False,
-    target = None, force_check = False, allow_broken = False,
-    autopkg = False, stage = 3, bulk_mode = False
+    pkgname,
+    pkgarch,
+    force_mode,
+    run_check,
+    jobs,
+    build_dbg,
+    use_ccache,
+    origin,
+    resolve=None,
+    ignore_missing=False,
+    ignore_errors=False,
+    target=None,
+    force_check=False,
+    allow_broken=False,
+    autopkg=False,
+    stage=3,
+    bulk_mode=False,
 ):
     global _tmpl_dict
 
@@ -2024,11 +2116,12 @@ def read_mod(
 
     ret._target_profile = ret._current_profile
 
-    def subpkg_deco(spkgname, cond = True):
+    def subpkg_deco(spkgname, cond=True):
         def deco(f):
             ret.all_subpackages.append(spkgname)
             if cond:
                 ret.subpackages.append((spkgname, f))
+
         return deco
 
     setattr(builtins, "subpackage", subpkg_deco)
@@ -2059,27 +2152,64 @@ def read_mod(
 
     return modh, ret
 
+
 def read_pkg(
-    pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
-    origin, resolve = None, ignore_missing = False, ignore_errors = False,
-    target = None, force_check = False, allow_broken = False,
-    autopkg = False, stage = 3, bulk_mode = False
+    pkgname,
+    pkgarch,
+    force_mode,
+    run_check,
+    jobs,
+    build_dbg,
+    use_ccache,
+    origin,
+    resolve=None,
+    ignore_missing=False,
+    ignore_errors=False,
+    target=None,
+    force_check=False,
+    allow_broken=False,
+    autopkg=False,
+    stage=3,
+    bulk_mode=False,
 ):
     modh, ret = read_mod(
-        pkgname, pkgarch, force_mode, run_check, jobs, build_dbg, use_ccache,
-        origin, resolve, ignore_missing, ignore_errors, target, force_check,
-        allow_broken, autopkg, stage, bulk_mode
+        pkgname,
+        pkgarch,
+        force_mode,
+        run_check,
+        jobs,
+        build_dbg,
+        use_ccache,
+        origin,
+        resolve,
+        ignore_missing,
+        ignore_errors,
+        target,
+        force_check,
+        allow_broken,
+        autopkg,
+        stage,
+        bulk_mode,
     )
     return from_module(modh, ret)
+
 
 def register_cats(cats):
     global _allow_cats
     _allow_cats = cats
 
+
 def register_hooks():
     for step in [
-        "fetch", "extract", "prepare", "patch", "configure",
-        "build", "check", "install", "pkg"
+        "fetch",
+        "extract",
+        "prepare",
+        "patch",
+        "configure",
+        "build",
+        "check",
+        "install",
+        "pkg",
     ]:
         for sstep in ["init", "pre", "do", "post"]:
             stepn = f"{sstep}_{step}"
@@ -2097,4 +2227,4 @@ def register_hooks():
                         )
                         raise Exception()
                     hooks[stepn].append((modh.invoke, f.stem))
-                hooks[stepn].sort(key = lambda v: v[1])
+                hooks[stepn].sort(key=lambda v: v[1])

@@ -3,16 +3,28 @@ pkgver = "4.1.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dgpg_path=/usr/bin/gpg", "-Dsystemd=disabled", "-Dssh_agent=false",
+    "-Dgpg_path=/usr/bin/gpg",
+    "-Dsystemd=disabled",
+    "-Dssh_agent=false",
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gtk-doc-tools", "gettext-tiny-devel",
-    "gobject-introspection", "vala", "openssh",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gtk-doc-tools",
+    "gettext-tiny-devel",
+    "gobject-introspection",
+    "vala",
+    "openssh",
 ]
 makedepends = [
-    "gtk4-devel", "libgcrypt-devel", "libsecret-devel", "p11-kit-devel",
-    "libxslt-devel", "vala"
+    "gtk4-devel",
+    "libgcrypt-devel",
+    "libsecret-devel",
+    "p11-kit-devel",
+    "libxslt-devel",
+    "vala",
 ]
 pkgdesc = "GNOME crypto package"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -27,14 +39,17 @@ hardening = ["!int"]
 # needs x11
 options = ["!check"]
 
+
 def post_install(self):
     self.install_file(
         self.files_path / "10-gcr-memlock.conf", "etc/security/limits.d"
     )
 
+
 @subpackage("gcr-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("gcr-progs")
 def _progs(self):

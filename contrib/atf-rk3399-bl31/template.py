@@ -15,20 +15,34 @@ hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug", "execstack"]
 
+
 def do_build(self):
     # we undef all the stuff cbuild automatically sets,
     # and always "cross compile" with our bare metal toolchain
     self.do(
-        "env", "-u", "CFLAGS", "-u", "LDFLAGS",
-        "-u", "CPPFLAGS", "-u", "CXXFLAGS", "--",
-        "gmake", f"-j{self.make_jobs}", "PLAT=rk3399",
-        "bl31", "CROSS_COMPILE=aarch64-none-elf-",
+        "env",
+        "-u",
+        "CFLAGS",
+        "-u",
+        "LDFLAGS",
+        "-u",
+        "CPPFLAGS",
+        "-u",
+        "CXXFLAGS",
+        "--",
+        "gmake",
+        f"-j{self.make_jobs}",
+        "PLAT=rk3399",
+        "bl31",
+        "CROSS_COMPILE=aarch64-none-elf-",
         "CC=aarch64-none-elf-gcc",
     )
+
 
 def do_install(self):
     self.install_file(
         "build/rk3399/release/bl31/bl31.elf",
-        "usr/lib/trusted-firmware-a/rk3399", mode = 0o755
+        "usr/lib/trusted-firmware-a/rk3399",
+        mode=0o755,
     )
     self.install_license("docs/license.rst")

@@ -3,7 +3,8 @@ pkgver = "0.35.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dlibmpv=true", "-Dbuild-date=false",
+    "-Dlibmpv=true",
+    "-Dbuild-date=false",
     # most of these are autos, force some we really care about
     "-Dcaca=enabled",
     "-Dcdda=enabled",
@@ -44,19 +45,40 @@ configure_args = [
     # misc
     "-Dlua=lua5.1",
 ]
-hostmakedepends = [
-    "meson", "pkgconf", "python-docutils", "wayland-progs"
-]
+hostmakedepends = ["meson", "pkgconf", "python-docutils", "wayland-progs"]
 makedepends = [
-    "libarchive-devel", "lua5.1-devel", "libuuid-devel", "mesa-devel",
-    "vulkan-headers", "vulkan-loader", "libplacebo-devel", "shaderc-devel",
-    "ffmpeg-devel", "libxv-devel", "libxrandr-devel", "libxinerama-devel",
-    "libxscrnsaver-devel", "libxkbcommon-devel", "libxpresent-devel",
-    "wayland-devel", "wayland-protocols", "libvdpau-devel", "libva-devel",
-    "pipewire-devel", "pipewire-jack-devel", "lcms2-devel", "libass-devel",
-    "libbluray-devel", "libdvdnav-devel", "libcdio-paranoia-devel",
-    "rubberband-devel", "uchardet-devel", "harfbuzz-devel", "libcaca-devel",
-    "zimg-devel", "vapoursynth-devel",
+    "libarchive-devel",
+    "lua5.1-devel",
+    "libuuid-devel",
+    "mesa-devel",
+    "vulkan-headers",
+    "vulkan-loader",
+    "libplacebo-devel",
+    "shaderc-devel",
+    "ffmpeg-devel",
+    "libxv-devel",
+    "libxrandr-devel",
+    "libxinerama-devel",
+    "libxscrnsaver-devel",
+    "libxkbcommon-devel",
+    "libxpresent-devel",
+    "wayland-devel",
+    "wayland-protocols",
+    "libvdpau-devel",
+    "libva-devel",
+    "pipewire-devel",
+    "pipewire-jack-devel",
+    "lcms2-devel",
+    "libass-devel",
+    "libbluray-devel",
+    "libdvdnav-devel",
+    "libcdio-paranoia-devel",
+    "rubberband-devel",
+    "uchardet-devel",
+    "harfbuzz-devel",
+    "libcaca-devel",
+    "zimg-devel",
+    "vapoursynth-devel",
 ]
 depends = ["hicolor-icon-theme"]
 pkgdesc = "Video player based on mplayer2"
@@ -69,6 +91,7 @@ sha256 = "41df981b7b84e33a2ef4478aaf81d6f4f5c8b9cd2c0d337ac142fc20b387d1a9"
 hardening = ["vis", "!cfi"]
 # development-only
 options = ["!check"]
+
 
 @subpackage("mpv-devel")
 def _devel(self):

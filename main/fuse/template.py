@@ -17,12 +17,15 @@ suid_files = ["usr/bin/fusermount3"]
 # tests need examples and are useless in chroot
 options = ["!lto", "!check"]
 
+
 def do_check(self):
-    self.do("python", "-m", "pytest", "test/", wrksrc = self.make_dir)
+    self.do("python", "-m", "pytest", "test/", wrksrc=self.make_dir)
+
 
 def post_install(self):
     self.chmod(self.destdir / "usr/bin/fusermount3", 0o4755)
     self.rm(self.destdir / "etc/init.d/fuse3")
+
 
 @subpackage("fuse-devel")
 def _devel(self):

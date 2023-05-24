@@ -1,16 +1,21 @@
 from cbuild.util import golang
 
+
 def do_prepare(self):
     self.golang.mod_download()
+
 
 def do_build(self):
     self.golang.build()
 
+
 def do_check(self):
     self.golang.check()
 
+
 def do_install(self):
     self.golang.install()
+
 
 def use(tmpl):
     tmpl.do_prepare = do_prepare

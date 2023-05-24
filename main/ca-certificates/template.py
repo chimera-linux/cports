@@ -7,7 +7,7 @@ triggers = [
     "/usr/share/ca-certificates",
     "/usr/local/share/ca-certificates",
     "/etc/ssl/certs",
-    "/etc/ca-certificates/update.d"
+    "/etc/ca-certificates/update.d",
 ]
 pkgdesc = "Common CA certificates for SSL/TLS"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -18,6 +18,7 @@ sha256 = "83de934afa186e279d1ed08ea0d73f5cf43a6fbfb5f00874b6db3711c64576f3"
 # no tests
 options = ["!check", "keepempty", "brokenlinks"]
 
+
 def post_patch(self):
     from cbuild.util import compiler
     import re
@@ -25,9 +26,7 @@ def post_patch(self):
     self.cp(self.files_path / "certdata2pem.c", ".")
     with self.profile("host"):
         cc = compiler.C(self)
-        cc.invoke(
-            ["certdata2pem.c"], "mozilla/certdata2pem"
-        )
+        cc.invoke(["certdata2pem.c"], "mozilla/certdata2pem")
 
     self.cp(self.files_path / "remove-expired-certs.sh", "mozilla")
 
@@ -38,18 +37,22 @@ def post_patch(self):
                 ln = re.sub(
                     "(.*)(certdata2pem.*)",
                     "\\1\\2\n\\1./remove-expired-certs.sh",
-                    ln
+                    ln,
                 )
                 ofile.write(ln)
 
     self.mv("mozilla/Makefile.new", "mozilla/Makefile")
 
+
 def init_build(self):
     from cbuild.util import make
+
     self.make = make.Make(self)
+
 
 def do_build(self):
     self.make.build()
+
 
 def do_install(self):
     self.install_dir("usr/share/" + pkgname)
@@ -69,9 +72,7 @@ def do_install(self):
             ofile.write(str(f.relative_to(cpath)))
             ofile.write("\n")
 
-    self.install_link(
-        "/etc/ssl/certs/ca-certificates.crt", "etc/ssl/certs.pem"
-    )
+    self.install_link("/etc/ssl/certs/ca-certificates.crt", "etc/ssl/certs.pem")
     self.rm(self.destdir / "usr/sbin")
 
     self.install_dir("etc/ca-certificates/update.d")

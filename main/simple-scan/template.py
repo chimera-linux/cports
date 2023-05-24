@@ -3,12 +3,24 @@ pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "vala", "itstool"
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "vala",
+    "itstool",
 ]
 makedepends = [
-    "gtk+3-devel", "glib-devel", "libhandy-devel", "cairo-devel",
-    "gdk-pixbuf-devel", "libgusb-devel", "colord-devel", "libwebp-devel",
-    "sane-backends-devel", "zlib-devel",
+    "gtk+3-devel",
+    "glib-devel",
+    "libhandy-devel",
+    "cairo-devel",
+    "gdk-pixbuf-devel",
+    "libgusb-devel",
+    "colord-devel",
+    "libwebp-devel",
+    "sane-backends-devel",
+    "zlib-devel",
 ]
 depends = ["hicolor-icon-theme", "sane-backends"]
 pkgdesc = "GNOME scanning utility"

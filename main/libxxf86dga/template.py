@@ -12,11 +12,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXxf86dga-{pkgver}.tar.gz"
 sha256 = "87c7482b1e29b4eeb415815641c4f69c00545a8138e1b73ff1f361f7d9c22ac4"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libxxf86dga-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

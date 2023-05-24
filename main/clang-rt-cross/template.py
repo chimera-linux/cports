@@ -3,7 +3,8 @@ pkgver = "16.0.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-Wno-dev",
     f"-DCMAKE_INSTALL_PREFIX=/usr/lib/clang/{pkgver[0:pkgver.find('.')]}",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
     # only build that target
@@ -33,11 +34,18 @@ configure_args = [
 ]
 make_cmd = "make"
 hostmakedepends = [
-    "cmake", "gmake", "python", "llvm-devel", "clang-tools-extra"
+    "cmake",
+    "gmake",
+    "python",
+    "llvm-devel",
+    "clang-tools-extra",
 ]
 makedepends = [
-    "zlib-devel", "libffi-devel", "clang-rt-crt-cross",
-    "libcxx-cross", "linux-headers-cross"
+    "zlib-devel",
+    "libffi-devel",
+    "clang-rt-crt-cross",
+    "libcxx-cross",
+    "linux-headers-cross",
 ]
 depends = ["clang-rt-crt-cross", "libcxx-cross"]
 pkgdesc = "Cross-compiling runtime for LLVM"
@@ -59,6 +67,7 @@ tool_flags = {
 _targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
+
 def do_configure(self):
     from cbuild.util import cmake
 
@@ -68,30 +77,46 @@ def do_configure(self):
             # configure compiler-rt
             with self.stamp(f"{an}_configure") as s:
                 s.check()
-                cmake.configure(self, self.cmake_dir, f"build-{an}", [
-                    f"-DCMAKE_SYSROOT=/usr/{at}",
-                    f"-DCMAKE_ASM_COMPILER_TARGET={at}",
-                    f"-DCMAKE_CXX_COMPILER_TARGET={at}",
-                    f"-DCMAKE_C_COMPILER_TARGET={at}"
-                ], cross_build = False)
+                cmake.configure(
+                    self,
+                    self.cmake_dir,
+                    f"build-{an}",
+                    [
+                        f"-DCMAKE_SYSROOT=/usr/{at}",
+                        f"-DCMAKE_ASM_COMPILER_TARGET={at}",
+                        f"-DCMAKE_CXX_COMPILER_TARGET={at}",
+                        f"-DCMAKE_C_COMPILER_TARGET={at}",
+                    ],
+                    cross_build=False,
+                )
+
 
 def do_build(self):
     for an in _targets:
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                self.make.build(wrksrc = f"build-{an}")
+                self.make.build(wrksrc=f"build-{an}")
+
 
 def do_install(self):
     for an in _targets:
         with self.profile(an):
-            self.make.install(wrksrc = f"build-{an}")
+            self.make.install(wrksrc=f"build-{an}")
 
     # we don't need or want these for cross
     with self.pushd(self.destdir):
-        self.rm(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/share", recursive = True)
-        self.rm(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include", recursive = True)
-        self.rm(f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/bin", recursive = True)
+        self.rm(
+            f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/share", recursive=True
+        )
+        self.rm(
+            f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/include",
+            recursive=True,
+        )
+        self.rm(
+            f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/bin", recursive=True
+        )
+
 
 def _gen_subp(an):
     @subpackage(f"clang-rt-cross-{an}", an in _targets)
@@ -102,10 +127,15 @@ def _gen_subp(an):
             f"libcxx-cross-{an}",
         ]
         self.options = [
-            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+            "!scanshlibs",
+            "!scanrundeps",
+            "!splitstatic",
+            "foreignelf",
         ]
         with self.rparent.profile(an) as pf:
-            return [f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/{pf.triplet}"]
+            return [
+                f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/{pf.triplet}"
+            ]
 
     if an in _targets:
         depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")

@@ -4,13 +4,26 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dlogind=libelogind"]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "xsltproc",
-    "docbook-xsl-nons", "desktop-file-utils",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "xsltproc",
+    "docbook-xsl-nons",
+    "desktop-file-utils",
 ]
 makedepends = [
-    "libdvdread-devel", "glib-devel", "gtk+3-devel", "libhandy-devel",
-    "liblzma-devel", "libnotify-devel", "libsecret-devel", "udisks-devel",
-    "libpwquality-devel", "elogind-devel", "libcanberra-devel",
+    "libdvdread-devel",
+    "glib-devel",
+    "gtk+3-devel",
+    "libhandy-devel",
+    "liblzma-devel",
+    "libnotify-devel",
+    "libsecret-devel",
+    "udisks-devel",
+    "libpwquality-devel",
+    "elogind-devel",
+    "libcanberra-devel",
 ]
 depends = ["udisks", "hicolor-icon-theme"]
 pkgdesc = "GNOME disk drive and media management"

@@ -5,8 +5,12 @@ build_style = "meson"
 make_check_env = {"MAKE": "gmake"}
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = [
-    "glib-devel", "json-glib-devel", "libarchive-devel", "libxml2-devel",
-    "libxslt-devel", "libsoup-devel",
+    "glib-devel",
+    "json-glib-devel",
+    "libarchive-devel",
+    "libxml2-devel",
+    "libxslt-devel",
+    "libsoup-devel",
 ]
 checkdepends = ["gmake", "python-pytest", "python-requests"]
 pkgdesc = "Tools for managing osinfo database files"

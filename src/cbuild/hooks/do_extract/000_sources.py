@@ -5,42 +5,55 @@ import tempfile
 import shutil
 
 suffixes = {
-    "*.tar.lzma":   "txz",
-    "*.tar.lz":     "tlz",
-    "*.tlz":        "tlz",
-    "*.tar.xz":     "txz",
-    "*.txz":        "txz",
-    "*.tar.bz2":    "tbz",
-    "*.tbz":        "tbz",
-    "*.tar.gz":     "tgz",
-    "*.tgz":        "tgz",
-    "*.gz":         "gz",
-    "*.xz":         "xz",
-    "*.bz2":        "bz2",
-    "*.tar":        "tar",
-    "*.zip":        "zip",
-    "*.rpm":        "rpm",
-    "*.patch":      "txt",
-    "*.diff":       "txt",
-    "*.txt":        "txt",
-    "*.sh":         "txt",
-    "*.7z":         "7z",
-    "*.crate":      "crate",
+    "*.tar.lzma": "txz",
+    "*.tar.lz": "tlz",
+    "*.tlz": "tlz",
+    "*.tar.xz": "txz",
+    "*.txz": "txz",
+    "*.tar.bz2": "tbz",
+    "*.tbz": "tbz",
+    "*.tar.gz": "tgz",
+    "*.tgz": "tgz",
+    "*.gz": "gz",
+    "*.xz": "xz",
+    "*.bz2": "bz2",
+    "*.tar": "tar",
+    "*.zip": "zip",
+    "*.rpm": "rpm",
+    "*.patch": "txt",
+    "*.diff": "txt",
+    "*.txt": "txt",
+    "*.sh": "txt",
+    "*.7z": "7z",
+    "*.crate": "crate",
 }
+
 
 def extract_tar(pkg, fname, dfile, edir, sfx):
     # for bootstrap, use python's native extractor
     if pkg.stage == 0:
         import tarfile
+
         with tarfile.open(dfile) as tf:
-            tf.extractall(path = edir)
+            tf.extractall(path=edir)
         return True
 
-    return chroot.enter(
-        "tar", "-x", "--no-same-permissions", "--no-same-owner",
-        "-f", dfile, "-C", edir,
-        ro_root = True, unshare_all = True,
-    ).returncode == 0
+    return (
+        chroot.enter(
+            "tar",
+            "-x",
+            "--no-same-permissions",
+            "--no-same-owner",
+            "-f",
+            dfile,
+            "-C",
+            edir,
+            ro_root=True,
+            unshare_all=True,
+        ).returncode
+        == 0
+    )
+
 
 def extract_notar(pkg, fname, dfile, edir, sfx):
     if sfx == "gz":
@@ -56,27 +69,47 @@ def extract_notar(pkg, fname, dfile, edir, sfx):
     opath = pkg.builddir / edir.name / ofn
 
     with open(opath, "wb") as outf:
-        return chroot.enter(
-            cmd, "-c", "-f", dfile, ro_root = True, unshare_all = True,
-            stdout = outf, wrkdir = edir
-        ).returncode == 0
+        return (
+            chroot.enter(
+                cmd,
+                "-c",
+                "-f",
+                dfile,
+                ro_root=True,
+                unshare_all=True,
+                stdout=outf,
+                wrkdir=edir,
+            ).returncode
+            == 0
+        )
+
 
 def extract_alsotar(pkg, fname, dfile, edir, sfx):
-    return chroot.enter(
-        "tar", "-xf", dfile, "-C", edir, ro_root = True, unshare_all = True
-    ).returncode == 0
+    return (
+        chroot.enter(
+            "tar", "-xf", dfile, "-C", edir, ro_root=True, unshare_all=True
+        ).returncode
+        == 0
+    )
+
 
 def extract_rpm(pkg, fname, dfile, edir, sfx):
-    return chroot.enter(
-        "rpmextract", dfile, ro_root = True, unshare_all = True,
-        wrkdir = edir
-    ).returncode == 0
+    return (
+        chroot.enter(
+            "rpmextract", dfile, ro_root=True, unshare_all=True, wrkdir=edir
+        ).returncode
+        == 0
+    )
+
 
 def extract_txt(pkg, fname, dfile, edir, sfx):
-    return chroot.enter(
-        "cp", "-f", dfile, edir, ro_root = True, unshare_all = True,
-        wrkdir = edir
-    ).returncode == 0
+    return (
+        chroot.enter(
+            "cp", "-f", dfile, edir, ro_root=True, unshare_all=True, wrkdir=edir
+        ).returncode
+        == 0
+    )
+
 
 def invoke(pkg):
     wpath = pkg.builddir / pkg.wrksrc
@@ -87,7 +120,7 @@ def invoke(pkg):
         except:
             pkg.error(f"cannot populate wrksrc (it exists and is dirty)")
     # now extract in a temporary place
-    with tempfile.TemporaryDirectory(dir = pkg.builddir) as extractdir:
+    with tempfile.TemporaryDirectory(dir=pkg.builddir) as extractdir:
         # need to be able to manipulate it
         extractdir = pathlib.Path(extractdir)
         # go over each source and ensure extraction in the dir
@@ -106,7 +139,7 @@ def invoke(pkg):
             if isinstance(d, tuple) and not isinstance(d[1], bool):
                 fname = d[1]
             else:
-                fname = d[d.rfind("/") + 1:]
+                fname = d[d.rfind("/") + 1 :]
             suffix = None
             for key in suffixes:
                 if fnmatch(fname, key):
@@ -138,9 +171,11 @@ def invoke(pkg):
             else:
                 srcs_path = pathlib.Path("/sources")
             if not exf(
-                pkg, fname,
+                pkg,
+                fname,
                 srcs_path / f"{pkg.pkgname}-{pkg.pkgver}/{fname}",
-                pkg.chroot_builddir / extractdir.name, suffix
+                pkg.chroot_builddir / extractdir.name,
+                suffix,
             ):
                 pkg.error(f"extracting '{fname}' failed (missing program?)")
         # try iterating it
@@ -157,7 +192,7 @@ def invoke(pkg):
         if not entry:
             return
         # in case wrksrc was declared to be multilevel
-        wpath.parent.mkdir(parents = True, exist_ok = True)
+        wpath.parent.mkdir(parents=True, exist_ok=True)
         # if the extracted contents are a single real directory, use
         # it as wrksrc (rename appropriately); otherwise use a fresh
         # wrksrc and move all the extracted stuff in there
@@ -168,4 +203,4 @@ def invoke(pkg):
             entry.rename(wpath)
     # all done; re-create the wrksrc in case nothing was extracted
     if not wpath.exists():
-        wpath.mkdir(parents = True)
+        wpath.mkdir(parents=True)

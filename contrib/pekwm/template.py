@@ -4,8 +4,13 @@ pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
-    "libjpeg-turbo-devel", "libpng-devel", "libxpm-devel", "libxft-devel",
-    "libxinerama-devel", "libxrandr-devel", "fontconfig-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
+    "libxpm-devel",
+    "libxft-devel",
+    "libxinerama-devel",
+    "libxrandr-devel",
+    "fontconfig-devel",
 ]
 pkgdesc = "Window manager based on aewm++"
 maintainer = "q66 <q66@chimera-linux.org>"

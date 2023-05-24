@@ -13,16 +13,20 @@ sha256 = "98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f"
 # test code seemingly incompatible with current libxml2
 options = ["!cross", "!check"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libxslt-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("xsltproc")
 def _xsltproc(self):
     self.pkgdesc = "XSLT 1.0 command line processor"
     return self.default_progs()
+
 
 configure_gen = []

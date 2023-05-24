@@ -14,11 +14,14 @@ hardening = ["vis", "!cfi"]
 # does not like the sandbox
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.md")
+
 
 @subpackage("c-ares-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

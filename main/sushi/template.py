@@ -3,13 +3,25 @@ pkgver = "43.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gobject-introspection",
-    "gettext-tiny", "gjs"
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gobject-introspection",
+    "gettext-tiny",
+    "gjs",
 ]
 makedepends = [
-    "glib-devel", "libepoxy-devel", "freetype-devel", "evince-devel",
-    "gdk-pixbuf-devel", "gstreamer-devel", "gst-plugins-base-devel",
-    "gtk+3-devel", "gtksourceview4-devel", "harfbuzz-devel", "webkitgtk-devel",
+    "glib-devel",
+    "libepoxy-devel",
+    "freetype-devel",
+    "evince-devel",
+    "gdk-pixbuf-devel",
+    "gstreamer-devel",
+    "gst-plugins-base-devel",
+    "gtk+3-devel",
+    "gtksourceview4-devel",
+    "harfbuzz-devel",
+    "webkitgtk-devel",
 ]
 depends = ["evince", "nautilus"]
 pkgdesc = "File previewer for GNOME"

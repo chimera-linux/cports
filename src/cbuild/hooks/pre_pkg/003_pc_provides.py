@@ -3,6 +3,7 @@ from cbuild.apk import cli
 
 import re
 
+
 def invoke(pkg):
     if not pkg.options["scanpkgconf"] or pkg.stage == 0:
         return
@@ -18,7 +19,7 @@ def invoke(pkg):
         if eq < 0:
             pkg.error(f"invalid explicit .pc file: {soname}")
         pcname = pcname[:eq]
-        sfx = pcname[eq + 1:]
+        sfx = pcname[eq + 1 :]
         pcset[pcname] = True
         logger.get().out_plain(f"   pc: {pcname}={sfx} (explicit)")
 
@@ -34,13 +35,18 @@ def invoke(pkg):
         rlp = v.relative_to(pkg.destdir).parent
         cdv = pkg.chroot_destdir / rlp
         pcc = chroot.enter(
-            "pkg-config", "--modversion", sn,
-            capture_output = True, bootstrapping = False,
-            ro_root = True, ro_build = True, unshare_all = True,
-            env = {
+            "pkg-config",
+            "--modversion",
+            sn,
+            capture_output=True,
+            bootstrapping=False,
+            ro_root=True,
+            ro_build=True,
+            unshare_all=True,
+            env={
                 "PKG_CONFIG_PATH": str(cdv),
                 "PKG_CONFIG_MAXIMUM_TRAVERSE_DEPTH": "1",
-            }
+            },
         )
         if pcc.returncode != 0:
             pkg.error("failed scanning .pc files (missing pkgconf?)")
@@ -54,9 +60,7 @@ def invoke(pkg):
             # test with apk
             pkg.error(f"invalid pkgconf version {mver}")
         if sn in pcset:
-            logger.get().out_plain(
-                f"   pc: {sn}={mver} from {rlp} (skipped)"
-            )
+            logger.get().out_plain(f"   pc: {sn}={mver} from {rlp} (skipped)")
         else:
             pcs[sn] = f"{sn}={mver}"
             logger.get().out_plain(f"   pc: {sn}={mver} from {rlp}")

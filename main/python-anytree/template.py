@@ -13,5 +13,6 @@ sha256 = "3f0f93f355a91bc3e6245319bf4c1d50e3416cc7a35cc1133c1ff38306bbccab"
 # missing checkdepends
 options = ["!check"]
 
+
 def post_install(self):
     self.rm(self.destdir / "usr/LICENSE")

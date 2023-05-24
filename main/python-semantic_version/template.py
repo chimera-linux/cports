@@ -13,5 +13,6 @@ sha256 = "bdabb6d336998cbb378d4b9db3a4b56a1e3235701dc05ea2690d9a997ed5041c"
 # needs django?
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")

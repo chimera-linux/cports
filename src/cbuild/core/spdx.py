@@ -5,6 +5,7 @@ _opprec = {
     "AND": 2,
 }
 
+
 class SPDXParser:
     def __init__(self, spath):
         self.ldict = {}
@@ -25,16 +26,16 @@ class SPDXParser:
                 self.edict[v["licenseExceptionId"]] = v
 
         with open(spath / "licenses.json") as f:
-            json.load(f, object_hook = _license_parse)
+            json.load(f, object_hook=_license_parse)
 
         with open(spath / "exceptions.json") as f:
-            json.load(f, object_hook = _exception_parse)
+            json.load(f, object_hook=_exception_parse)
 
     def lex(self):
         while True:
             # skip whitespace before matching any token
             nsp = 0
-            while self.stream[nsp:nsp + 1].isspace():
+            while self.stream[nsp : nsp + 1].isspace():
                 nsp = nsp + 1
             if nsp:
                 self.stream = self.stream[nsp:]
@@ -69,7 +70,7 @@ class SPDXParser:
                 raise RuntimeError("unknown token: " + self.stream[0])
             tok = self.stream[0:idlen]
             # custom license in an SPDX expression
-            if tok == "custom" and self.stream[idlen:idlen + 1] == ":":
+            if tok == "custom" and self.stream[idlen : idlen + 1] == ":":
                 idlen = idlen + 1
                 ollen = idlen
                 while stlen > idlen:
@@ -86,7 +87,7 @@ class SPDXParser:
             if not tok in self.ldict and not tok in self.edict:
                 raise RuntimeError("unknown token: " + tok)
             # may be directly followed by a +
-            if self.stream[idlen:idlen + 1] == "+":
+            if self.stream[idlen : idlen + 1] == "+":
                 tok = tok + "+"
                 idlen = idlen + 1
             # return the token
@@ -107,7 +108,7 @@ class SPDXParser:
             return
         # license id maybe with exception
         if tok.endswith("+"):
-            tok = tok[0:len(tok) - 1]
+            tok = tok[0 : len(tok) - 1]
         # custom licenses do not allow exceptions etc.
         if tok.startswith("custom:"):
             self.token = self.lex()
@@ -129,7 +130,7 @@ class SPDXParser:
                 raise RuntimeError("exception id expected, got: " + self.token)
             self.token = self.lex()
 
-    def parse_expr(self, mprec = 1):
+    def parse_expr(self, mprec=1):
         # parse lhs
         self.parse_simple()
         # parse the rest
@@ -162,12 +163,16 @@ class SPDXParser:
         if self.token:
             raise RuntimeError("invalid token: " + self.token)
 
+
 _parser = None
+
 
 def init():
     from cbuild.core import paths
+
     global _parser
     _parser = SPDXParser(paths.cbuild() / "spdx")
+
 
 def validate(str):
     _parser.parse(str)

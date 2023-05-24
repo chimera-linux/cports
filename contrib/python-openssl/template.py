@@ -5,7 +5,10 @@ build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
 depends = ["python-cryptography"]
 checkdepends = [
-    "python-pytest", "python-flaky", "python-pretend", "python-cryptography"
+    "python-pytest",
+    "python-flaky",
+    "python-pretend",
+    "python-cryptography",
 ]
 pkgdesc = "Python interface to OpenSSL"
 maintainer = "q66 <q66@chimera-linux.org>"

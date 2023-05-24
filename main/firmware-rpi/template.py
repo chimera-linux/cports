@@ -4,38 +4,92 @@ pkgrel = 0
 archs = ["aarch64"]
 _gitrev = "19cb38273dba54fb228be23b3fa9b0f5ed968dee"
 replaces = [f"firmware-linux-brcm"]
-replaces_priority = 100 # always overrides files of firmware-linux-brcm
+replaces_priority = 100  # always overrides files of firmware-linux-brcm
 pkgdesc = "Firmware for Raspberry Pi"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND custom:Cypress"
 url = "https://github.com/raspberrypi/firmware"
 source = [
     f"{url}/archive/{_gitrev}.tar.gz",
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/LICENCE.cypress", False),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/LICENCE.cypress",
+        False,
+    ),
     # rpi3 b wifi
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43430-sdio.bin", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43430-sdio.txt", False),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43430-sdio.bin",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43430-sdio.txt",
+        False,
+    ),
     # rpi3 b bluetooth
-    ("https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM43430A1.hcd", False),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM43430A1.hcd",
+        False,
+    ),
     # rpi3 b+ wifi
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43455-sdio.bin", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43455-sdio.txt", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43455-sdio.clm_blob", False),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43455-sdio.bin",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43455-sdio.txt",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43455-sdio.clm_blob",
+        False,
+    ),
     # rpi3 b+ bluetooth
-    ("https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM4345C0.hcd", False),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM4345C0.hcd",
+        False,
+    ),
     # rpi4/400 wifi
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43456-sdio.bin", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43456-sdio.txt", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43456-sdio.clm_blob", False),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43456-sdio.bin",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43456-sdio.txt",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43456-sdio.clm_blob",
+        False,
+    ),
     # rpi4/400 bluetooth
-    ("https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM4345C5.hcd", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM43430B0.hcd", False),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM4345C5.hcd",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/bluez-firmware/master/broadcom/BCM43430B0.hcd",
+        False,
+    ),
     # rpi zero 2w wifi
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.bin", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.txt", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.clm_blob", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436s-sdio.bin", False),
-    ("https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436s-sdio.txt", False),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.bin",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.txt",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436-sdio.clm_blob",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436s-sdio.bin",
+        False,
+    ),
+    (
+        "https://raw.githubusercontent.com/RPi-Distro/firmware-nonfree/buster/brcm/brcmfmac43436s-sdio.txt",
+        False,
+    ),
 ]
 sha256 = [
     "2a972125f8fbf9e7022a6f0be1e0b176c740c58a895ff2b06a63566efac97d66",
@@ -67,6 +121,7 @@ sha256 = [
 ]
 options = ["!strip", "foreignelf", "execstack"]
 
+
 def do_install(self):
     from cbuild.core import paths
 
@@ -95,19 +150,25 @@ def do_install(self):
     # rpi3 b+ wifi
     self.install_file(inp / "brcmfmac43455-sdio.bin", "usr/lib/firmware/brcm")
     self.install_file(inp / "brcmfmac43455-sdio.txt", "usr/lib/firmware/brcm")
-    self.install_file(inp / "brcmfmac43455-sdio.clm_blob", "usr/lib/firmware/brcm")
+    self.install_file(
+        inp / "brcmfmac43455-sdio.clm_blob", "usr/lib/firmware/brcm"
+    )
     # rpi3 b+ bluetooth
     self.install_file(inp / "BCM4345C0.hcd", "usr/lib/firmware/brcm")
     # rpi4/400 wifi
     self.install_file(inp / "brcmfmac43456-sdio.bin", "usr/lib/firmware/brcm")
     self.install_file(inp / "brcmfmac43456-sdio.txt", "usr/lib/firmware/brcm")
-    self.install_file(inp / "brcmfmac43456-sdio.clm_blob", "usr/lib/firmware/brcm")
+    self.install_file(
+        inp / "brcmfmac43456-sdio.clm_blob", "usr/lib/firmware/brcm"
+    )
     # rpi4/400 bluetooth
     self.install_file(inp / "BCM4345C5.hcd", "usr/lib/firmware/brcm")
     self.install_file(inp / "BCM43430B0.hcd", "usr/lib/firmware/brcm")
     # rpi zero 2w wifi
     self.install_file(inp / "brcmfmac43436-sdio.bin", "usr/lib/firmware/brcm")
     self.install_file(inp / "brcmfmac43436-sdio.txt", "usr/lib/firmware/brcm")
-    self.install_file(inp / "brcmfmac43436-sdio.clm_blob", "usr/lib/firmware/brcm")
+    self.install_file(
+        inp / "brcmfmac43436-sdio.clm_blob", "usr/lib/firmware/brcm"
+    )
     self.install_file(inp / "brcmfmac43436s-sdio.bin", "usr/lib/firmware/brcm")
     self.install_file(inp / "brcmfmac43436s-sdio.txt", "usr/lib/firmware/brcm")

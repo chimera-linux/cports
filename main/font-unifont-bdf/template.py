@@ -9,8 +9,8 @@ url = "http://unifoundry.com/unifont/index.html"
 source = f"http://unifoundry.com/pub/unifont/unifont-{pkgver}/font-builds/unifont-{pkgver}.bdf.gz"
 sha256 = "1fddba900a36b8a067bf2177b05c4a2482a0f7ca1545cf531c03509f47ce1590"
 
+
 def do_install(self):
     self.install_file(
-        f"unifont-{pkgver}.bdf", "usr/share/fonts/misc",
-        name = "unifont.bdf"
+        f"unifont-{pkgver}.bdf", "usr/share/fonts/misc", name="unifont.bdf"
     )

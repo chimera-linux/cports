@@ -28,22 +28,27 @@ match self.profile().arch:
     case "riscv64":
         configure_args += ["--disable-jit"]
 
+
 def post_install(self):
     self.install_license("LICENCE")
+
 
 @subpackage("libpcrecpp")
 def _libpcrecpp(self):
     self.pkgdesc = f"{pkgdesc} (C++ shared libraries)"
     return ["usr/lib/libpcrecpp.so.*"]
 
+
 @subpackage("libpcre")
 def _libpcre(self):
     self.pkgdesc = f"{pkgdesc} (shared libraries)"
     return self.default_libs()
 
+
 @subpackage("pcre-devel")
 def _devel(self):
     self.depends += ["zlib-devel", "libbz2-devel"]
-    return self.default_devel(extra = ["usr/share/doc"])
+    return self.default_devel(extra=["usr/share/doc"])
+
 
 configure_gen = []

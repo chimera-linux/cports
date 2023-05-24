@@ -3,12 +3,23 @@ pkgver = "44.0"
 pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gtk-update-icon-cache",
-    "gettext-tiny", "vala", "itstool", "desktop-file-utils",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gtk-update-icon-cache",
+    "gettext-tiny",
+    "vala",
+    "itstool",
+    "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel", "glib-devel", "libadwaita-devel", "pcre2-devel",
-    "enchant-devel", "gtksourceview-devel", "editorconfig-devel",
+    "gtk4-devel",
+    "glib-devel",
+    "libadwaita-devel",
+    "pcre2-devel",
+    "enchant-devel",
+    "gtksourceview-devel",
+    "editorconfig-devel",
     "icu-devel",
 ]
 pkgdesc = "GNOME text editor"

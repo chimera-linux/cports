@@ -12,7 +12,7 @@ url = "https://rust-lang.org"
 _urlb = "https://repo.chimera-linux.org/distfiles"
 source = [
     f"{_urlb}/rustc-{pkgver}-{self.profile().triplet}.tar.xz",
-    f"{_urlb}/rust-std-{pkgver}-{self.profile().triplet}.tar.xz"
+    f"{_urlb}/rust-std-{pkgver}-{self.profile().triplet}.tar.xz",
 ]
 options = ["!strip"]
 
@@ -40,12 +40,14 @@ match self.profile().arch:
     case _:
         broken = f"not yet built for {self.profile().arch}"
 
+
 def do_install(self):
     for d in self.cwd.iterdir():
         self.do(
-            self.chroot_cwd / d.name / "install.sh", "--prefix=/usr",
+            self.chroot_cwd / d.name / "install.sh",
+            "--prefix=/usr",
             f"--destdir={self.chroot_destdir}",
-            wrksrc = d.name
+            wrksrc=d.name,
         )
     # remove rust copies of llvm tools
     trip = self.profile().triplet

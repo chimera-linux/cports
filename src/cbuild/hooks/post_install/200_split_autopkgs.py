@@ -1,5 +1,6 @@
 from cbuild.core import template
 
+
 def _clean_empty(dpath):
     empty = True
     for f in dpath.iterdir():
@@ -14,6 +15,7 @@ def _clean_empty(dpath):
         return True
 
     return False
+
 
 def invoke(pkg):
     if not pkg.options["autosplit"]:
@@ -46,7 +48,7 @@ def invoke(pkg):
             continue
 
         sp = template.Subpackage(f"{pkg.pkgname}-{apkg}", pkg)
-        sp.destdir.mkdir(parents = True, exist_ok = True)
+        sp.destdir.mkdir(parents=True, exist_ok=True)
         takef(sp)
         # remove if empty
         _clean_empty(sp.destdir)

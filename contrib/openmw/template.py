@@ -10,9 +10,16 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qttools", "qt6-qtbase"]
 makedepends = [
-    "sdl-devel", "boost-devel", "ffmpeg-devel", "mygui-devel", "liblz4-devel",
-    "openscenegraph-devel", "unshield-devel", "openal-soft-devel",
-    "qt6-qtbase-devel", "libxt-devel",
+    "sdl-devel",
+    "boost-devel",
+    "ffmpeg-devel",
+    "mygui-devel",
+    "liblz4-devel",
+    "openscenegraph-devel",
+    "unshield-devel",
+    "openal-soft-devel",
+    "qt6-qtbase-devel",
+    "libxt-devel",
 ]
 pkgdesc = "Open implementation of Morrowind's engine"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -23,8 +30,14 @@ _recast_hash = "e75adf86f91eb3082220085e42dda62679f9a3ea"
 _bullet_hash = "3.17"
 source = [
     f"https://gitlab.com/OpenMW/{pkgname}/-/archive/{pkgname}-{pkgver}/{pkgname}-{pkgname}-{pkgver}.tar.gz",
-    (f"https://github.com/recastnavigation/recastnavigation/archive/{_recast_hash}.zip", False),
-    (f"https://github.com/bulletphysics/bullet3/archive/refs/tags/{_bullet_hash}.tar.gz", False),
+    (
+        f"https://github.com/recastnavigation/recastnavigation/archive/{_recast_hash}.zip",
+        False,
+    ),
+    (
+        f"https://github.com/bulletphysics/bullet3/archive/refs/tags/{_bullet_hash}.tar.gz",
+        False,
+    ),
 ]
 sha256 = [
     "bd7f77e1527c2180e9b0dfcbe401d6fb48f24dbb37701dac7747697873d6edb4",
@@ -34,16 +47,20 @@ sha256 = [
 # unit tests are off
 options = ["!check"]
 
+
 def post_extract(self):
     from cbuild.core import paths
+
     self.cp(paths.sources() / f"{pkgname}-{pkgver}/{_recast_hash}.zip", ".")
     self.cp(paths.sources() / f"{pkgname}-{pkgver}/{_bullet_hash}.tar.gz", ".")
+
 
 @subpackage("esmtool")
 def _esmtool(self):
     self.pkgdesc = f"Tool for inspecting and extracitng Morrowind ESM files"
 
     return ["usr/bin/esmtool"]
+
 
 @subpackage("bsatool")
 def _bsatool(self):

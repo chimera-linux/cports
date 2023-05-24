@@ -16,6 +16,7 @@ def clean_empty(pkg, dpath):
 
     return False
 
+
 def invoke(pkg):
     if pkg.options["keepempty"]:
         return

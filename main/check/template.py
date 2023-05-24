@@ -14,8 +14,10 @@ sha256 = "a8de4e0bacfb4d76dd1c618ded263523b53b85d92a146d8835eb1a52932fa20a"
 # the tests actually pass but the test infra is broken
 options = ["!check"]
 
+
 @subpackage("check-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

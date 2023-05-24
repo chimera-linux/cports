@@ -25,16 +25,23 @@ match self.profile().arch:
     case _:
         broken = f"Unsupported architecture: {self.profile().arch}"
 
+
 def init_configure(self):
     if self.profile().cross:
         self.make_build_args += [f"CROSS_COMPILE={self.profile().triplet}-"]
 
+
 def do_build(self):
     from cbuild.util import make
-    make.Make(self).build([
-        "EXTRA_CFLAGS=" + self.get_cflags(shell = True),
-        "EFIDIR=chimera", "EFI_LOADER=" + _loader
-    ])
+
+    make.Make(self).build(
+        [
+            "EXTRA_CFLAGS=" + self.get_cflags(shell=True),
+            "EFIDIR=chimera",
+            "EFI_LOADER=" + _loader,
+        ]
+    )
+
 
 def do_install(self):
     self.install_bin("src/efibootdump")
@@ -46,5 +53,5 @@ def do_install(self):
     self.install_file(self.files_path / "efibootmgr-hook", "etc/default")
     # kernel hook
     self.install_file(
-        self.files_path / "99-efibootmgr-hook.sh", "etc/kernel.d", mode = 0o755
+        self.files_path / "99-efibootmgr-hook.sh", "etc/kernel.d", mode=0o755
     )

@@ -2,13 +2,11 @@ pkgname = "dmraid"
 pkgver = "1.0.0_rc16"
 _rver = "1.0.0.rc16-3"
 pkgrel = 0
-build_wrksrc = f"{_rver}/dmraid" # :(
+build_wrksrc = f"{_rver}/dmraid"  # :(
 build_style = "gnu_configure"
-configure_args = [
-    "--enable-led", "--enable-intel_led", "--enable-shared_lib"
-]
+configure_args = ["--enable-led", "--enable-intel_led", "--enable-shared_lib"]
 make_cmd = "gmake"
-make_dir = "." # :(
+make_dir = "."  # :(
 hostmakedepends = ["gmake", "gsed"]
 makedepends = ["device-mapper-devel", "linux-headers"]
 pkgdesc = "Device mapper RAID interface"
@@ -20,21 +18,23 @@ sha256 = "93421bd169d71ff5e7d2db95b62b030bfa205a12010b6468dcdef80337d6fbd8"
 # no test suite
 options = ["!parallel", "!check"]
 # :(
-exec_wrappers = [
-    ("/usr/bin/gsed", "sed")
-]
+exec_wrappers = [("/usr/bin/gsed", "sed")]
+
 
 def pre_configure(self):
-    (self.cwd / "autoconf/install-sh").chmod(0o755) # :(
+    (self.cwd / "autoconf/install-sh").chmod(0o755)  # :(
+
 
 @subpackage("libdmraid")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
-    return self.default_libs(extra = ["usr/lib/device-mapper"])
+    return self.default_libs(extra=["usr/lib/device-mapper"])
+
 
 @subpackage("dmraid-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

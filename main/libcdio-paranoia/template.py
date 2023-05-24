@@ -17,12 +17,15 @@ url = "https://www.gnu.org/software/libcdio"
 source = f"$(GNU_SITE)/libcdio/{pkgname}-{_v1}+{_v2}.tar.bz2"
 sha256 = "33b1cf305ccfbfd03b43936975615000ce538b119989c4bec469577570b60e8a"
 
+
 @subpackage("libcdio-paranoia-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("libcdio-paranoia-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

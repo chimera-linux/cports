@@ -12,6 +12,7 @@ url = "https://git.kernel.org/pub/scm/utils/dtc/dtc.git"
 source = f"https://git.kernel.org/pub/scm/utils/dtc/dtc.git/snapshot/dtc-e8364666d5acc985c434fb574e92c5206d9a8d6b.tar.gz"
 sha256 = "9871d96b26c495561b64256bef17a749856ab1fb78b1d5e99a27ba9fe6d7bfb0"
 
+
 @subpackage("dtc-devel")
 def _devel(self):
     return self.default_devel()

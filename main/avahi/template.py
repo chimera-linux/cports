@@ -49,12 +49,14 @@ options = ["!cross"]
 
 system_users = ["_avahi:23"]
 
+
 def post_install(self):
     # will be in avahi-discover
     for f in (self.destdir / "usr/lib").glob("python*"):
-        self.rm(f, recursive = True)
+        self.rm(f, recursive=True)
     # service
     self.install_service(self.files_path / "avahi-daemon")
+
 
 @subpackage("avahi-autoipd")
 def _autoipd(self):
@@ -65,6 +67,7 @@ def _autoipd(self):
         "usr/bin/avahi-autoipd",
         "usr/share/man/man8/avahi-autoipd*",
     ]
+
 
 @subpackage("avahi-compat-devel")
 def _compat_devel(self):
@@ -78,6 +81,7 @@ def _compat_devel(self):
         "usr/lib/libdns_sd.so",
     ]
 
+
 @subpackage("avahi-compat-libs")
 def _compat_libs(self):
     self.pkgdesc = f"{pkgdesc} (compat libraries)"
@@ -87,15 +91,18 @@ def _compat_libs(self):
         "usr/lib/libdns_sd.so.*",
     ]
 
+
 @subpackage("avahi-devel")
 def _devel(self):
     self.depends += ["dbus-devel"]
 
     return self.default_devel()
 
+
 @subpackage("avahi-libs")
 def _libs(self):
     return self.default_libs()
+
 
 @subpackage("avahi-progs")
 def _progs(self):
@@ -106,5 +113,6 @@ def _progs(self):
         "usr/bin/avahi-resolv*",
         "usr/share/man/man1",
     ]
+
 
 configure_gen = []

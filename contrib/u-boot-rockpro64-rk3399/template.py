@@ -4,11 +4,22 @@ pkgrel = 0
 archs = ["aarch64"]
 build_style = "u_boot"
 make_build_args = [
-    "BL31=" + str(self.profile().sysroot / "usr/lib/trusted-firmware-a/rk3399/bl31.elf"),
+    "BL31="
+    + str(
+        self.profile().sysroot / "usr/lib/trusted-firmware-a/rk3399/bl31.elf"
+    ),
 ]
 hostmakedepends = [
-    "gmake", "gcc-aarch64-none-elf", "flex", "bison", "dtc", "swig",
-    "python-devel", "openssl-devel", "python-setuptools", "python-pyelftools",
+    "gmake",
+    "gcc-aarch64-none-elf",
+    "flex",
+    "bison",
+    "dtc",
+    "swig",
+    "python-devel",
+    "openssl-devel",
+    "python-setuptools",
+    "python-pyelftools",
 ]
 makedepends = ["atf-rk3399-bl31"]
 pkgdesc = "U-Boot for RockPro64"

@@ -8,5 +8,6 @@ url = f"http://data.iana.org/root-anchors"
 # no tests
 options = ["!check"]
 
+
 def do_install(self):
     self.install_file(self.files_path / "root.key", "etc/dns")

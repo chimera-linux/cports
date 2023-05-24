@@ -19,8 +19,10 @@ if self.profile().endian == "big":
 else:
     tool_flags["CFLAGS"] += ["-DBYTE_ORDER=4321"]
 
+
 @subpackage("userspace-rcu-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share/doc"])
+    return self.default_devel(extra=["usr/share/doc"])
+
 
 configure_gen = []

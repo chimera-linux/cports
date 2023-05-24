@@ -2,19 +2,22 @@ from cbuild.core import template, dependencies, scanelf
 
 import shutil
 
+
 def _remove_ro(f, path, _):
     os.chmod(path, stat.S_IWRITE)
     f(path)
 
+
 def _invoke_subpkg(pkg):
     if pkg.destdir.is_dir():
-        shutil.rmtree(pkg.destdir, onerror = _remove_ro)
-    pkg.destdir.mkdir(parents = True, exist_ok = True)
+        shutil.rmtree(pkg.destdir, onerror=_remove_ro)
+    pkg.destdir.mkdir(parents=True, exist_ok=True)
     if pkg.pkg_install:
         template.call_pkg_hooks(pkg, "pre_install")
-        template.run_pkg_func(pkg, "pkg_install", on_subpkg = True)
+        template.run_pkg_func(pkg, "pkg_install", on_subpkg=True)
     # get own licenses by default
-    pkg.take(f"usr/share/licenses/{pkg.pkgname}", missing_ok = True)
+    pkg.take(f"usr/share/licenses/{pkg.pkgname}", missing_ok=True)
+
 
 def invoke(pkg, step):
     p = pkg.profile()
@@ -36,9 +39,9 @@ def invoke(pkg, step):
         return
 
     if pkg.destdir.is_dir():
-        shutil.rmtree(pkg.destdir, onerror = _remove_ro)
-    pkg.destdir.mkdir(parents = True, exist_ok = True)
-    pkg.run_step("install", skip_post = True)
+        shutil.rmtree(pkg.destdir, onerror=_remove_ro)
+    pkg.destdir.mkdir(parents=True, exist_ok=True)
+    pkg.run_step("install", skip_post=True)
 
     pkg.install_done = True
 

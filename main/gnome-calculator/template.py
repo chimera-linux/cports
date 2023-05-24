@@ -6,12 +6,23 @@ build_style = "meson"
 # ERROR: Target 'gcalc-2' has 1 outputs: ['libgcalc-2.a'], but only 4 "install_dir"s were found
 configure_args = ["-Dgcalc=false", "-Dgci=false"]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "vala", "itstool",
-    "gobject-introspection", "gtk-update-icon-cache", "desktop-file-utils",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "vala",
+    "itstool",
+    "gobject-introspection",
+    "gtk-update-icon-cache",
+    "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel", "libadwaita-devel", "gtksourceview-devel",
-    "libgee-devel", "mpc-devel", "libsoup-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
+    "gtksourceview-devel",
+    "libgee-devel",
+    "mpc-devel",
+    "libsoup-devel",
     "gsettings-desktop-schemas-devel",
 ]
 depends = ["gsettings-desktop-schemas", "desktop-file-utils"]

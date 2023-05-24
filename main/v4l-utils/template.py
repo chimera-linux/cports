@@ -2,16 +2,23 @@ pkgname = "v4l-utils"
 pkgver = "1.24.1"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = [
-    "--disable-qv4l2", "--with-udevdir=/usr/lib/udev"
-]
+configure_args = ["--disable-qv4l2", "--with-udevdir=/usr/lib/udev"]
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "automake", "libtool", "pkgconf", "gettext-tiny-devel"
+    "gmake",
+    "automake",
+    "libtool",
+    "pkgconf",
+    "gettext-tiny-devel",
 ]
 makedepends = [
-    "libjpeg-turbo-devel", "sysfsutils-devel", "udev-devel",
-    "libx11-devel", "mesa-devel", "glu-devel", "argp-standalone",
+    "libjpeg-turbo-devel",
+    "sysfsutils-devel",
+    "udev-devel",
+    "libx11-devel",
+    "mesa-devel",
+    "glu-devel",
+    "argp-standalone",
 ]
 pkgdesc = "Userspace tools and libraries for V4L"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -23,6 +30,7 @@ tool_flags = {
     "CFLAGS": ["-D__off_t=off_t", "-D__off64_t=off_t"],
     "LDFLAGS": ["-largp"],
 }
+
 
 @subpackage("v4l-utils-devel")
 def _devel(self):

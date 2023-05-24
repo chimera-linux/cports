@@ -16,10 +16,11 @@ hardening = ["vis", "cfi"]
 # test suite not shipped
 options = ["!check"]
 
+
 def post_install(self):
-    self.install_file(self.files_path / "lesspipe.sh", "usr/bin", mode = 0o755)
+    self.install_file(self.files_path / "lesspipe.sh", "usr/bin", mode=0o755)
     self.install_file(
-        self.files_path / "zless.sh", "usr/bin", mode = 0o755, name = "zless"
+        self.files_path / "zless.sh", "usr/bin", mode=0o755, name="zless"
     )
     self.install_link("less", "usr/bin/more")
     self.install_link("less.1", "usr/share/man/man1/more.1")
@@ -27,5 +28,6 @@ def post_install(self):
     self.install_link("zless", "usr/bin/xzless")
     self.install_link("zless", "usr/bin/lzless")
     self.install_link("zless", "usr/bin/zstdless")
+
 
 configure_gen = []

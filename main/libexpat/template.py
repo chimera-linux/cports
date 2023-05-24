@@ -13,16 +13,20 @@ sha256 = "ef2420f0232c087801abf705e89ae65f6257df6b7931d37846a193ef2e8cdcbe"
 # FIXME crash reproducible e.g. with graphene build
 hardening = ["vis", "!cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libexpat-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("xmlwf")
 def _xmlwf(self):
     self.pkgdesc = f"{pkgdesc} (xmlwf utility)"
     return self.default_progs()
+
 
 configure_gen = []

@@ -15,13 +15,12 @@ sha256 = "cd74dee75f6b0a60cef27872fbb7747a5d07be46200eb4410e2509cb15851045"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks", "!splitdinit"]
 
+
 def post_install(self):
     # just make sure it exists
-    self.install_dir("usr/lib/dinit.d/user/boot.d", empty = True)
+    self.install_dir("usr/lib/dinit.d/user/boot.d", empty=True)
     # linger
-    self.install_dir("var/lib/turnstiled/linger", empty = True)
+    self.install_dir("var/lib/turnstiled/linger", empty=True)
     # also default systemwide link
     self.install_dir("usr/lib/dinit.d/boot.d")
-    self.install_link(
-        "../turnstiled", "usr/lib/dinit.d/boot.d/turnstiled"
-    )
+    self.install_link("../turnstiled", "usr/lib/dinit.d/boot.d/turnstiled")

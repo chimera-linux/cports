@@ -4,11 +4,16 @@ _xver = "1.5.4.pl02"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-libedit", "--disable-libreadline",
-    "MKDIR_P=mkdir -p" # install-sh is buggy
+    "--enable-libedit",
+    "--disable-libreadline",
+    "MKDIR_P=mkdir -p",  # install-sh is buggy
 ]
 makedepends = [
-    "zlib-devel", "libbz2-devel", "libedit-devel", "acl-devel", "linux-headers"
+    "zlib-devel",
+    "libbz2-devel",
+    "libedit-devel",
+    "acl-devel",
+    "linux-headers",
 ]
 pkgdesc = "ISO 9660 Rock Ridge Filesystem Manipulator"
 maintainer = "q66 <q66@chimera-linux.org>"

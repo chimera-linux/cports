@@ -5,10 +5,18 @@ build_style = "meson"
 configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
 makedepends = [
-    "acl-devel", "ncurses-devel", "libedit-devel", "openssl-devel",
-    "musl-fts-devel", "musl-rpmatch-devel", "liblzma-devel",
-    "zlib-devel", "libbz2-devel", "linux-headers",
-    "libxo-devel", "musl-bsd-headers"
+    "acl-devel",
+    "ncurses-devel",
+    "libedit-devel",
+    "openssl-devel",
+    "musl-fts-devel",
+    "musl-rpmatch-devel",
+    "liblzma-devel",
+    "zlib-devel",
+    "libbz2-devel",
+    "linux-headers",
+    "libxo-devel",
+    "musl-bsd-headers",
 ]
 depends = ["base-files"]
 pkgdesc = "Chimera Linux userland"
@@ -25,6 +33,7 @@ if self.stage > 0:
     makedepends += ["linux-headers"]
     configure_args += ["-Dtiny=enabled"]
 
+
 def init_configure(self):
     if self.stage > 0:
         return
@@ -38,9 +47,8 @@ def init_configure(self):
     # into giving out the correct paths to make meson happy
     self.env["PKG_CONFIG_LIBCRYPTO_LIBDIR"] = spath
     self.env["PKG_CONFIG_LIBEDIT_LIBDIR"] = spath
-    self.configure_args += [
-        f"-Dfts_path={spath}", f"-Drpmatch_path={spath}"
-    ]
+    self.configure_args += [f"-Dfts_path={spath}", f"-Drpmatch_path={spath}"]
+
 
 def post_install(self):
     # less
@@ -53,6 +61,7 @@ def post_install(self):
     self.install_dir(tdest)
     for f in (self.destdir / "usr/bin").glob("*.tiny"):
         self.mv(f, self.destdir / tdest / f.stem)
+
 
 @subpackage("chimerautils-extra")
 def _full(self):

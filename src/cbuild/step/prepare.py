@@ -2,6 +2,7 @@ from cbuild.core import template
 
 import os
 
+
 def invoke(pkg):
     p = pkg.profile()
     crossb = p.arch if p.cross else ""
@@ -13,6 +14,6 @@ def invoke(pkg):
     if prepare_done.is_file():
         return
 
-    pkg.run_step("prepare", optional = True)
+    pkg.run_step("prepare", optional=True)
 
     prepare_done.touch()

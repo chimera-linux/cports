@@ -9,10 +9,17 @@ import os
 import pathlib
 import shutil
 
+
 def build(
-    step, pkg, depmap, signkey, chost = False,
-    dirty = False, keep_temp = False, check_fail = False,
-    no_update = False
+    step,
+    pkg,
+    depmap,
+    signkey,
+    chost=False,
+    dirty=False,
+    keep_temp=False,
+    check_fail=False,
+    no_update=False,
 ):
     if chost:
         depn = "host-" + pkg.pkgname
@@ -20,7 +27,9 @@ def build(
         depn = pkg.pkgname
 
     if depn in depmap:
-        pkg.error(f"build-time dependency cycle encountered for {pkg.pkgname} (dependency of {pkg.origin.pkgname})")
+        pkg.error(
+            f"build-time dependency cycle encountered for {pkg.pkgname} (dependency of {pkg.origin.pkgname})"
+        )
 
     depmap[depn] = True
 
@@ -36,8 +45,8 @@ def build(
         pkgm.remove_pkg(pkg)
         pkgm.remove_pkg_statedir(pkg)
 
-    pkg.statedir.mkdir(parents = True, exist_ok = True)
-    pkg.wrapperdir.mkdir(parents = True, exist_ok = True)
+    pkg.statedir.mkdir(parents=True, exist_ok=True)
+    pkg.wrapperdir.mkdir(parents=True, exist_ok=True)
 
     pkg.setup_reproducible()
 
@@ -67,7 +76,7 @@ def build(
     pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
 
     # ensure the wrksrc exists; it will be populated later
-    pkg.cwd.mkdir(exist_ok = True, parents = True)
+    pkg.cwd.mkdir(exist_ok=True, parents=True)
 
     # run up to the step we need
     pkg.current_phase = "fetch"

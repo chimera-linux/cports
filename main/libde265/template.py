@@ -11,19 +11,28 @@ license = "LGPL-3.0-or-later"
 url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "0bf84eb1896140d6b5f83cd3302fe03c478a5b8c391f26629b9882c509fc7d04"
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
+
 
 def post_install(self):
     # do not polute /usr/bin with junk
     for f in [
-        "acceleration_speed", "bjoentegaard", "block-rate-estim",
-        "gen-enc-table", "hdrcopy", "rd-curves", "tests", "yuv-distortion"
+        "acceleration_speed",
+        "bjoentegaard",
+        "block-rate-estim",
+        "gen-enc-table",
+        "hdrcopy",
+        "rd-curves",
+        "tests",
+        "yuv-distortion",
     ]:
         self.rm(self.destdir / "usr/bin" / f)
+
 
 @subpackage("libde265-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("libde265-progs")
 def _progs(self):

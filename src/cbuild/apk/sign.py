@@ -12,6 +12,7 @@ import subprocess
 
 from . import util
 
+
 def get_keypath(keypath):
     if not keypath:
         return None
@@ -28,6 +29,7 @@ def get_keypath(keypath):
         # otherwise a path relative to distdir
         return paths.distdir() / keypath
 
+
 def keygen(keypath, size, cfgfile, cfgpath):
     if not shutil.which("openssl"):
         raise errors.CbuildException("openssl is missing")
@@ -35,7 +37,7 @@ def keygen(keypath, size, cfgfile, cfgpath):
     if not keypath:
         # does not have to succeed, e.g. there may not even be git at all
         eaddr = subprocess.run(
-            ["git", "config", "--get", "user.email"], capture_output = True
+            ["git", "config", "--get", "user.email"], capture_output=True
         )
         if eaddr.returncode == 0:
             eaddr = eaddr.stdout.strip().decode()
@@ -52,22 +54,29 @@ def keygen(keypath, size, cfgfile, cfgpath):
 
     keypath = get_keypath(keypath)
 
-    keypath.parent.mkdir(parents = True, exist_ok = True)
+    keypath.parent.mkdir(parents=True, exist_ok=True)
 
     if keypath.is_file():
         raise errors.CbuildException("attempt to overwrite an existing key")
 
-    kout = subprocess.run([
-        "openssl", "genrsa", "-out", keypath, str(size)
-    ], umask = 0o007)
+    kout = subprocess.run(
+        ["openssl", "genrsa", "-out", keypath, str(size)], umask=0o007
+    )
 
     if not kout.returncode == 0:
         raise errors.CbuildException("key generation failed")
 
-    pout = subprocess.run([
-        "openssl", "rsa", "-in", keypath,
-        "-pubout", "-out", str(keypath) + ".pub"
-    ])
+    pout = subprocess.run(
+        [
+            "openssl",
+            "rsa",
+            "-in",
+            keypath,
+            "-pubout",
+            "-out",
+            str(keypath) + ".pub",
+        ]
+    )
 
     if not pout.returncode == 0:
         raise errors.CbuildException("public key generation failed")

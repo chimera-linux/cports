@@ -2,10 +2,7 @@ pkgname = "libdrm"
 pkgver = "2.4.115"
 pkgrel = 0
 build_style = "meson"
-configure_args = [
-    "-Dudev=true",
-    "-Dvalgrind=disabled"
-]
+configure_args = ["-Dudev=true", "-Dvalgrind=disabled"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["udev-devel", "libpciaccess-devel", "linux-headers"]
 pkgdesc = "Userspace interface to kernel DRM services"
@@ -21,9 +18,14 @@ hardening = ["vis", "!cfi", "!int"]
 match self.profile().arch:
     case "aarch64":
         configure_args += [
-            "-Dvc4=enabled", "-Domap=enabled", "-Dfreedreno=enabled",
-            "-Dtegra=enabled", "-Detnaviv=enabled", "-Dexynos=enabled"
+            "-Dvc4=enabled",
+            "-Domap=enabled",
+            "-Dfreedreno=enabled",
+            "-Dtegra=enabled",
+            "-Detnaviv=enabled",
+            "-Dexynos=enabled",
         ]
+
 
 @subpackage("libdrm-devel")
 def _devel(self):

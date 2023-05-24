@@ -16,17 +16,22 @@ configure_args = [
     "-Dlv2=enabled",
     "-Dbluez5=enabled",
     "-Dbluez5-codec-lc3plus=disabled",
-    "-Dpipewire-jack=enabled", # jack server
-    "-Djack-devel=true", # jack development files
+    "-Dpipewire-jack=enabled",  # jack server
+    "-Djack-devel=true",  # jack development files
     "-Dlibjack-path=/usr/lib",
-    "-Djack=disabled", # spa plugin
+    "-Djack=disabled",  # spa plugin
     "-Dlibv4l2-path=/usr/lib",
     "-Dudevrulesdir=/usr/lib/udev/rules.d",
     "-Dsession-managers=[]",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "python-docutils",
-    "doxygen", "graphviz", "glib-devel",
+    "meson",
+    "pkgconf",
+    "gettext-tiny",
+    "python-docutils",
+    "doxygen",
+    "graphviz",
+    "glib-devel",
 ]
 makedepends = [
     "gst-plugins-base-devel",
@@ -70,10 +75,12 @@ if self.profile().endian == "big":
 else:
     makedepends += ["ldacbt-devel"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "pipewire.user")
     self.install_service(self.files_path / "pipewire-pulse.user")
+
 
 @subpackage("libpipewire")
 def _lib(self):
@@ -83,6 +90,7 @@ def _lib(self):
         "usr/lib/libpipewire-*.so.*",
         "usr/lib/pipewire-*/*.so",
     ]
+
 
 @subpackage("pipewire-jack-devel")
 def _jack_devel(self):
@@ -94,6 +102,7 @@ def _jack_devel(self):
         "usr/lib/pkgconfig/jack.pc",
         "usr/lib/libjack*.so",
     ]
+
 
 @subpackage("pipewire-jack")
 def _jack(self):
@@ -107,9 +116,11 @@ def _jack(self):
         "usr/share/man/man1/pw-jack.1",
     ]
 
+
 @subpackage("pipewire-devel")
 def _devel(self):
     return self.default_devel()
+
 
 def _genspa(spa):
     @subpackage(f"libspa-{spa}")
@@ -118,11 +129,18 @@ def _genspa(spa):
 
         return [f"usr/lib/spa-*/{spa}"]
 
+
 for spa in [
-    "alsa", "audioconvert", "audiomixer", "control", "v4l2", "videoconvert",
+    "alsa",
+    "audioconvert",
+    "audiomixer",
+    "control",
+    "v4l2",
+    "videoconvert",
     "bluez5",
 ]:
     _genspa(spa)
+
 
 @subpackage("gstreamer-pipewire")
 def _gst(self):
@@ -130,6 +148,7 @@ def _gst(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gst-plugins-base"]
 
     return ["usr/lib/gstreamer-1.0"]
+
 
 @subpackage("alsa-pipewire")
 def _alsa(self):
@@ -140,6 +159,7 @@ def _alsa(self):
         "usr/lib/alsa-lib",
         "usr/share/alsa/alsa.conf.d",
     ]
+
 
 @subpackage("pipewire-wireplumber")
 def _wp(self):

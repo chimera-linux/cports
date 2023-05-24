@@ -14,6 +14,7 @@ source = f"{url}/archive/{_gitrev}.tar.gz"
 sha256 = "80f9ee8011d94cb5b356f632af2c06d8e6b4db4716570df2e266f3d3c14f2a74"
 options = ["bootstrap"]
 
+
 def post_install(self):
     self.install_license("COPYING")
     # readline compat
@@ -25,6 +26,7 @@ def post_install(self):
     self.install_link("libedit.a", "usr/lib/libhistory.a")
     self.install_link("libedit.pc", "usr/lib/pkgconfig/readline.pc")
 
+
 @subpackage("libedit-readline-devel")
 def _rldevel(self):
     self.pkgdesc = f"{pkgdesc} (readline compatibility)"
@@ -35,6 +37,7 @@ def _rldevel(self):
         "usr/lib/libreadline.*",
         "usr/lib/pkgconfig/readline.pc",
     ]
+
 
 @subpackage("libedit-devel")
 def _devel(self):

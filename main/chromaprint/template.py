@@ -14,8 +14,10 @@ source = f"https://github.com/acoustid/{pkgname}/releases/download/v{pkgver}/{pk
 sha256 = "a1aad8fa3b8b18b78d3755b3767faff9abb67242e01b478ec9a64e190f335e1c"
 hardening = ["vis", "cfi"]
 
+
 def post_install(self):
     self.install_license("LICENSE.md")
+
 
 @subpackage("chromaprint-devel")
 def _devel(self):

@@ -3,11 +3,20 @@ pkgver = "2.1.28"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-cram", "--enable-digest", "--enable-auth-sasldb",
-    "--enable-plain", "--enable-anon", "--enable-login", "--enable-gssapi",
-    "--enable-ntlm", "--with-configdir=/etc/sasl2:/etc/sasl:/usr/lib/sasl2",
-    "--disable-otp", "--disable-srp", "--disable-srp-setpass",
-    "--disable-krb4", "--with-devrandom=/dev/random",
+    "--enable-cram",
+    "--enable-digest",
+    "--enable-auth-sasldb",
+    "--enable-plain",
+    "--enable-anon",
+    "--enable-login",
+    "--enable-gssapi",
+    "--enable-ntlm",
+    "--with-configdir=/etc/sasl2:/etc/sasl:/usr/lib/sasl2",
+    "--disable-otp",
+    "--disable-srp",
+    "--disable-srp-setpass",
+    "--disable-krb4",
+    "--with-devrandom=/dev/random",
     "--with-dblib=none",
 ]
 make_cmd = "gmake"
@@ -20,12 +29,14 @@ source = f"https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-
 sha256 = "7ccfc6abd01ed67c1a0924b353e526f1b766b21f42d4562ee635a8ebfc5bb38c"
 options = ["!cross"]
 
+
 def post_install(self):
     # we only want libsasl
-    self.rm(self.destdir / "usr/bin", recursive = True)
-    self.rm(self.destdir / "usr/share", recursive = True)
-    self.rm(self.destdir / "usr/lib/sasl2", recursive = True)
+    self.rm(self.destdir / "usr/bin", recursive=True)
+    self.rm(self.destdir / "usr/share", recursive=True)
+    self.rm(self.destdir / "usr/lib/sasl2", recursive=True)
     self.install_license("COPYING")
+
 
 @subpackage("libsasl-devel")
 def _devel(self):

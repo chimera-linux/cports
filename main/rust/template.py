@@ -2,13 +2,24 @@ pkgname = "rust"
 pkgver = "1.69.0"
 pkgrel = 0
 hostmakedepends = [
-    "cmake", "curl", "pkgconf", "python", "llvm-devel", "llvm-tools",
-    "libffi-devel", "ncurses-devel", "libxml2-devel", "zlib-devel",
+    "cmake",
+    "curl",
+    "pkgconf",
+    "python",
+    "llvm-devel",
+    "llvm-tools",
+    "libffi-devel",
+    "ncurses-devel",
+    "libxml2-devel",
+    "zlib-devel",
     "cargo-bootstrap",
 ]
 makedepends = [
-    "libffi-devel", "ncurses-devel", "libxml2-devel", "zlib-devel",
-    "llvm-devel"
+    "libffi-devel",
+    "ncurses-devel",
+    "libxml2-devel",
+    "zlib-devel",
+    "llvm-devel",
 ]
 depends = [f"rust-std={pkgver}-r{pkgrel}", "clang", "musl-devel"]
 pkgdesc = "Rust programming language"
@@ -49,15 +60,17 @@ if _bootstrap:
     # avoid debug cflags and so on for vendor libs
     options += ["!debug"]
 
+
 def post_patch(self):
     from cbuild.util import cargo
 
     # we are not using bundled llvm
-    self.rm("src/llvm-project", recursive = True)
+    self.rm("src/llvm-project", recursive=True)
     # we are patching these
     cargo.clear_vendor_checksums(self, "libc")
     cargo.clear_vendor_checksums(self, "libc-0.2.138")
     cargo.clear_vendor_checksums(self, "libc-0.2.137")
+
 
 def do_configure(self):
     if _bootstrap:
@@ -86,20 +99,23 @@ def do_configure(self):
     # we need to ensure to link to these otherwise we get undefined refs
     if _llvm_shared == "false":
         with open(self.cwd / "compiler/rustc_llvm/src/lib.rs", "a") as f:
-            f.write("""
+            f.write(
+                """
 #[link(name = "ffi")]
 extern {}
 #[link(name = "z")]
 extern {}
 #[link(name = "ncursesw")]
 extern {}
-""")
+"""
+            )
 
     with self.profile("host") as hpf:
         host_profile = hpf
 
     with open(self.cwd / "config.toml", "w") as cfg:
-        cfg.write(f"""
+        cfg.write(
+            f"""
 changelog-seen = 2
 
 [llvm]
@@ -171,10 +187,12 @@ linker = '{self.get_tool("CC", target = "host")}'
 llvm-config = '/usr/bin/llvm-config'
 crt-static = false
 
-""")
+"""
+        )
         # cross-target definition if used
         if tgt_profile.cross:
-            cfg.write(f"""
+            cfg.write(
+                f"""
 [target.{tgt_profile.triplet}]
 
 cc = '{self.get_tool("CC")}'
@@ -184,7 +202,9 @@ ranlib = '/usr/bin/llvm-ranlib'
 linker = '{self.get_tool("CC")}'
 llvm-config = '/usr/bin/llvm-config'
 crt-static = false
-""")
+"""
+            )
+
 
 def do_build(self):
     benv = {}
@@ -193,12 +213,12 @@ def do_build(self):
     benv["RUSTFLAGS"] = ""
     # ensure correct flags are used for host C/C++ code
     with self.profile("host") as pf:
-        benv["CFLAGS_" + pf.triplet] = self.get_cflags(shell = True)
-        benv["CXXFLAGS_" + pf.triplet] = self.get_cxxflags(shell = True)
+        benv["CFLAGS_" + pf.triplet] = self.get_cflags(shell=True)
+        benv["CXXFLAGS_" + pf.triplet] = self.get_cxxflags(shell=True)
     # ensure correct flags are used for target C/C++ code
     with self.profile("target") as pf:
-        benv["CFLAGS_" + pf.triplet] = self.get_cflags(shell = True)
-        benv["CXXFLAGS_" + pf.triplet] = self.get_cxxflags(shell = True)
+        benv["CFLAGS_" + pf.triplet] = self.get_cflags(shell=True)
+        benv["CXXFLAGS_" + pf.triplet] = self.get_cxxflags(shell=True)
     # and hope it does not fail
     #
     # we also need to ensure PKG_CONFIG is unset because otherwise the
@@ -206,13 +226,27 @@ def do_build(self):
     # affect the sysroot used (which will result in link failures)
     #
     self.do(
-        "env", "-u", "PKG_CONFIG", "--", "python", "x.py", "dist", "-v",
-        "--jobs", str(self.make_jobs), env = benv
+        "env",
+        "-u",
+        "PKG_CONFIG",
+        "--",
+        "python",
+        "x.py",
+        "dist",
+        "-v",
+        "--jobs",
+        str(self.make_jobs),
+        env=benv,
     )
+
 
 def do_check(self):
     self.do(
-        "python", "x.py", "test", f"-j{self.make_jobs}", "--no-fail-fast",
+        "python",
+        "x.py",
+        "test",
+        f"-j{self.make_jobs}",
+        "--no-fail-fast",
         "src/test/codegen",
         "src/test/codegen-units",
         "src/test/incremental",
@@ -221,10 +255,11 @@ def do_check(self):
         "src/test/run-make",
         "src/test/run-make-fulldeps",
         "src/test/ui",
-        "src/test/ui-fulldeps"
+        "src/test/ui-fulldeps",
     )
 
-def _untar(self, name, has_triple = True):
+
+def _untar(self, name, has_triple=True):
     trip = self.profile().triplet
 
     fname = f"{name}-{pkgver}"
@@ -233,11 +268,16 @@ def _untar(self, name, has_triple = True):
     fname += ".tar.xz"
 
     self.do(
-        "tar", "xf",
+        "tar",
+        "xf",
         self.chroot_cwd / f"build/dist/{fname}",
-        "-C", self.chroot_destdir / "usr",
-        "--strip-components=2", "--exclude=manifest.in", "--no-same-owner"
+        "-C",
+        self.chroot_destdir / "usr",
+        "--strip-components=2",
+        "--exclude=manifest.in",
+        "--no-same-owner",
     )
+
 
 def do_install(self):
     self.install_license("COPYRIGHT")
@@ -272,15 +312,16 @@ def do_install(self):
         self.mv(f, rlibf)
         f.symlink_to(rlibf.relative_to(f.parent))
 
+
 @subpackage("rust-std")
 def _std(self):
     self.pkgdesc = f"{pkgdesc} (static rlibs)"
 
     return [f"{_rlib_dir}/lib/*.rlib"]
 
+
 @subpackage("rust-src")
 def _src(self):
     self.pkgdesc = f"{pkgdesc} (source)"
 
     return ["usr/lib/rustlib/src"]
-

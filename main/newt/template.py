@@ -15,9 +15,11 @@ sha256 = "caa372907b14ececfe298f0d512a62f41d33b290610244a58aed07bbc5ada12a"
 # no proper check target
 options = ["!check"]
 
+
 @subpackage("newt-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("newt-python")
 def _progs(self):
@@ -25,5 +27,6 @@ def _progs(self):
     self.depends += ["python"]
 
     return ["usr/lib/python*"]
+
 
 configure_gen = []

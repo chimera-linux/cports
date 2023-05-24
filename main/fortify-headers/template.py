@@ -12,5 +12,6 @@ sha256 = "c7eb4e1b442dfcf9f85862851bd5dd3f43b7f879a7755820be4e04560d3ce2c0"
 # no test suite
 options = ["bootstrap", "!check"]
 
+
 def do_build(self):
     pass

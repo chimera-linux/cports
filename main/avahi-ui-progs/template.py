@@ -36,12 +36,23 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "pkgconf", "python", "gmake", "xmltoman", "gobject-introspection",
-    "gettext-tiny-devel", "python-dbus", "glib-devel",
+    "pkgconf",
+    "python",
+    "gmake",
+    "xmltoman",
+    "gobject-introspection",
+    "gettext-tiny-devel",
+    "python-dbus",
+    "glib-devel",
 ]
 makedepends = [
-    "dbus-devel", "libcap-devel", "libdaemon-devel", "libevent-devel",
-    "gtk+3-devel", "python-gobject-devel", "avahi-devel",
+    "dbus-devel",
+    "libcap-devel",
+    "libdaemon-devel",
+    "libevent-devel",
+    "gtk+3-devel",
+    "python-gobject-devel",
+    "avahi-devel",
 ]
 depends = [f"avahi~{pkgver}"]
 pkgdesc = "Avahi Gtk+ utilities"
@@ -52,13 +63,14 @@ source = f"{url}/releases/download/v{pkgver}/avahi-{pkgver}.tar.gz"
 sha256 = "060309d7a333d38d951bc27598c677af1796934dbd98e1024e7ad8de798fedda"
 options = ["!cross"]
 
+
 def do_install(self):
     if (self.cwd / "tinst").is_dir():
-        self.rm("tinst", recursive = True)
+        self.rm("tinst", recursive=True)
     self.mkdir("tinst")
 
     self.make.install(
-        ["DESTDIR=" + str(self.chroot_cwd / "tinst")], default_args = False
+        ["DESTDIR=" + str(self.chroot_cwd / "tinst")], default_args=False
     )
 
     self.install_dir("usr/bin")
@@ -69,7 +81,10 @@ def do_install(self):
     self.install_dir("usr/share/man/man1")
 
     for f in [
-        "bvnc", "bssh", "bshell", "avahi-bookmarks",
+        "bvnc",
+        "bssh",
+        "bshell",
+        "avahi-bookmarks",
         "avahi-discover-standalone",
     ]:
         self.mv(f"tinst/usr/bin/{f}", self.destdir / "usr/bin")
@@ -77,13 +92,13 @@ def do_install(self):
         if (self.cwd / f"tinst/usr/share/man/man1/{f}.1").exists():
             self.mv(
                 f"tinst/usr/share/man/man1/{f}.1",
-                self.destdir / "usr/share/man/man1"
+                self.destdir / "usr/share/man/man1",
             )
         # desktop file if it exists
         if (self.cwd / f"tinst/usr/share/applications/{f}.desktop").exists():
             self.mv(
                 f"tinst/usr/share/applications/{f}.desktop",
-                self.destdir / "usr/share/applications"
+                self.destdir / "usr/share/applications",
             )
 
     def _mv(pattern):
@@ -107,6 +122,7 @@ def do_install(self):
     _mv("usr/lib/girepository-1.0")
     _mv("usr/share/gir-1.0")
 
+
 @subpackage("avahi-python")
 def _pyprogs(self):
     self.pkgdesc = f"Python utility package for Avahi"
@@ -115,8 +131,9 @@ def _pyprogs(self):
     return [
         "usr/bin/avahi-bookmarks",
         "usr/lib/python3*",
-        "usr/share/man/man1/avahi-bookmarks*"
+        "usr/share/man/man1/avahi-bookmarks*",
     ]
+
 
 @subpackage("avahi-glib-devel")
 def _gdevel(self):
@@ -129,8 +146,8 @@ def _gdevel(self):
         "usr/lib/libavahi-gobject.so",
         "usr/lib/pkgconfig/avahi-g*",
         "usr/share/gir-1.0",
-        
     ]
+
 
 @subpackage("avahi-glib-libs")
 def _glibs(self):
@@ -141,6 +158,7 @@ def _glibs(self):
         "usr/lib/libavahi-gobject.so.*",
         "usr/lib/girepository-1.0",
     ]
+
 
 @subpackage("avahi-ui-devel")
 def _udevel(self):
@@ -153,6 +171,7 @@ def _udevel(self):
         "usr/lib/pkgconfig/avahi-ui*",
     ]
 
+
 @subpackage("avahi-ui-libs")
 def _ulibs(self):
     self.pkgdesc = f"Avahi UI libraries"
@@ -160,6 +179,7 @@ def _ulibs(self):
     return [
         "usr/lib/libavahi-ui*.so.*",
     ]
+
 
 @subpackage("avahi-libevent-devel")
 def _edevel(self):
@@ -172,6 +192,7 @@ def _edevel(self):
         "usr/lib/pkgconfig/avahi-libevent*",
     ]
 
+
 @subpackage("avahi-libevent-libs")
 def _elibs(self):
     self.pkgdesc = f"Avahi libevent libraries"
@@ -179,5 +200,6 @@ def _elibs(self):
     return [
         "usr/lib/libavahi-libevent*.so.*",
     ]
+
 
 configure_gen = []

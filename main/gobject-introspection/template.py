@@ -4,8 +4,11 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "flex", "bison"]
 makedepends = [
-    "libffi-devel", "glib-devel", "python-devel",
-    "python-mako", "python-markdown"
+    "libffi-devel",
+    "glib-devel",
+    "python-devel",
+    "python-mako",
+    "python-markdown",
 ]
 depends = ["libgirepository-devel", "python-mako", "python-markdown"]
 pkgdesc = "Introspection system for GObject-based libraries"
@@ -20,15 +23,17 @@ hardening = ["!int"]
 # cross compiling tons of janky hackery
 options = ["!check", "!cross"]
 
+
 def post_install(self):
     from cbuild.util import python
 
-    for f in (
-        self.destdir / f"usr/lib/{pkgname}/giscanner"
-    ).glob("_giscanner*.so"):
+    for f in (self.destdir / f"usr/lib/{pkgname}/giscanner").glob(
+        "_giscanner*.so"
+    ):
         self.mv(f, f.with_name("_giscanner.so"))
 
     python.precompile(self, f"usr/lib/{pkgname}/giscanner")
+
 
 @subpackage("gir-freedesktop")
 def _girfdo(self):
@@ -36,12 +41,14 @@ def _girfdo(self):
 
     return ["usr/lib/girepository-1.0"]
 
+
 @subpackage("libgirepository")
 def _libgir(self):
     self.pkgdesc = "Library for handling gir data (runtime library)"
     self.depends += [f"gir-freedesktop={pkgver}-r{pkgrel}"]
 
     return self.default_libs()
+
 
 @subpackage("libgirepository-devel")
 def _devel(self):

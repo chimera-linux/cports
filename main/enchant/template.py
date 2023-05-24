@@ -15,12 +15,15 @@ sha256 = "1f7e26744db1c9a0fea61d2169f4e5c1ce435cf8c2731c37e3e4054119e994a0"
 # missing checkdepends
 options = ["!check"]
 
+
 @subpackage("enchant-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("enchant-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

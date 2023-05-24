@@ -10,7 +10,7 @@ configure_args = [
     "--disable-oss",
     "--disable-pulseaudio",
     "--disable-sndio",
-    "--disable-altivec",    # breaks C++ otherwise because of public altivec.h
+    "--disable-altivec",  # breaks C++ otherwise because of public altivec.h
     "--disable-x11-shared",
     "--disable-pulseaudio-shared",
     "--disable-pipewire-shared",
@@ -28,11 +28,25 @@ configure_args = [
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "nasm", "wayland-progs"]
 makedepends = [
-    "dbus-devel", "udev-devel", "libusb-devel", "libsamplerate-devel",
-    "glu-devel", "wayland-devel", "wayland-protocols", "libdecor-devel",
-    "libxkbcommon-devel", "libxcursor-devel", "libxinerama-devel",
-    "libxscrnsaver-devel", "libxrandr-devel", "libxi-devel", "libsm-devel",
-    "vulkan-headers", "vulkan-loader", "mesa-devel", "pipewire-devel",
+    "dbus-devel",
+    "udev-devel",
+    "libusb-devel",
+    "libsamplerate-devel",
+    "glu-devel",
+    "wayland-devel",
+    "wayland-protocols",
+    "libdecor-devel",
+    "libxkbcommon-devel",
+    "libxcursor-devel",
+    "libxinerama-devel",
+    "libxscrnsaver-devel",
+    "libxrandr-devel",
+    "libxi-devel",
+    "libsm-devel",
+    "vulkan-headers",
+    "vulkan-loader",
+    "mesa-devel",
+    "pipewire-devel",
 ]
 depends = [
     # dynamically loaded
@@ -48,13 +62,16 @@ sha256 = "ad8fea3da1be64c83c45b1d363a6b4ba8fd60f5bde3b23ec73855709ec5eabf7"
 # no check target
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.txt")
+
 
 @subpackage("sdl-devel")
 def _devel(self):
     self.depends += makedepends
 
     return self.default_devel()
+
 
 configure_gen = []

@@ -5,8 +5,11 @@ build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "intltool"]
 makedepends = [
-    "gtkmm3.0-devel", "libcanberra-devel", "gtk+3-devel",
-    "libpulse-devel", "json-glib-devel"
+    "gtkmm3.0-devel",
+    "libcanberra-devel",
+    "gtk+3-devel",
+    "libpulse-devel",
+    "json-glib-devel",
 ]
 depends = ["desktop-file-utils"]
 pkgdesc = "PulseAudio volume control"

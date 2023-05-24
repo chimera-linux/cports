@@ -50,20 +50,21 @@ _ttys = [
     ("hvsi1", 19200),
 ]
 
+
 def post_install(self):
     # agetty dinit helper
     self.install_file(
-        self.files_path / "dinit-agetty", "usr/libexec", mode = 0o755
+        self.files_path / "dinit-agetty", "usr/libexec", mode=0o755
     )
     # agetty conf wrapper
     self.install_file(
-        self.files_path / "agetty-default", "usr/libexec", mode = 0o755
+        self.files_path / "agetty-default", "usr/libexec", mode=0o755
     )
     self.install_file(
-        self.files_path / "agetty-serial", "usr/libexec", mode = 0o755
+        self.files_path / "agetty-serial", "usr/libexec", mode=0o755
     )
     # core service
-    self.install_service(self.files_path / "agetty", enable = True)
+    self.install_service(self.files_path / "agetty", enable=True)
     # generate services for individual gettys
     for name, baud in _ttys:
         svpath = self.destdir / f"etc/dinit.d/agetty-{name}"
@@ -75,7 +76,7 @@ def post_install(self):
             else:
                 cmd = f"agetty-serial {name} {baud}"
             sv.write(
-f"""# agetty service for {name}
+                f"""# agetty service for {name}
 type            = process
 command         = /usr/libexec/{cmd}
 restart         = true
@@ -85,8 +86,10 @@ restart         = true
 smooth-recovery = true
 inittab-id      = {name.removeprefix('tty')}
 inittab-line    = {name}
-""")
+"""
+            )
         svpath.chmod(0o644)
+
 
 @subpackage("nyagetty-dinit")
 def _dinit(self):

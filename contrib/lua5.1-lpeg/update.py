@@ -1,1 +1,1 @@
-pkgname= "lpeg"
+pkgname = "lpeg"

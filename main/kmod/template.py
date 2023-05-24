@@ -17,16 +17,18 @@ sha256 = "f897dd72698dc6ac1ef03255cd0a5734ad932318e4adbaebc7338ef2f5202f9f"
 # broken testsuite build system
 options = ["!check"]
 
+
 def post_install(self):
     self.install_file(
-        self.files_path / "depmod-search.conf", "usr/lib/depmod.d",
-        name = "search.conf"
+        self.files_path / "depmod-search.conf",
+        "usr/lib/depmod.d",
+        name="search.conf",
     )
 
     # empty dirs
-    self.install_dir(f"etc/depmod.d", empty = True)
-    self.install_dir(f"etc/modprobe.d", empty = True)
-    self.install_dir(f"usr/lib/modprobe.d", empty = True)
+    self.install_dir(f"etc/depmod.d", empty=True)
+    self.install_dir(f"etc/modprobe.d", empty=True)
+    self.install_dir(f"usr/lib/modprobe.d", empty=True)
 
     # compat
     for tool in ["lsmod", "insmod", "rmmod", "depmod", "modprobe", "modinfo"]:
@@ -36,17 +38,21 @@ def post_install(self):
     self.install_file(
         self.files_path / "kmod.initramfs-tools",
         "usr/share/initramfs-tools/hooks",
-        mode = 0o755, name = "kmod"
+        mode=0o755,
+        name="kmod",
     )
+
 
 @subpackage("libkmod-devel")
 def _devel(self):
     self.depends += makedepends
     return self.default_devel()
 
+
 @subpackage("libkmod")
 def _lib(self):
     self.pkgdesc += " (runtime library)"
     return self.default_libs()
+
 
 configure_gen = []

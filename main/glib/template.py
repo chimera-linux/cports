@@ -3,18 +3,31 @@ pkgver = "2.76.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dgtk_doc=false", "-Dman=true", "-Dselinux=disabled",
+    "-Dgtk_doc=false",
+    "-Dman=true",
+    "-Dselinux=disabled",
 ]
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
-    "meson", "gettext-tiny", "pkgconf", "docbook-xsl-nons", "xsltproc",
+    "meson",
+    "gettext-tiny",
+    "pkgconf",
+    "docbook-xsl-nons",
+    "xsltproc",
 ]
 makedepends = [
-    "zlib-devel", "pcre2-devel", "libffi-devel", "dbus-devel",
-    "elftoolchain-devel", "libmount-devel",
+    "zlib-devel",
+    "pcre2-devel",
+    "libffi-devel",
+    "dbus-devel",
+    "elftoolchain-devel",
+    "libmount-devel",
 ]
 checkdepends = [
-    "desktop-file-utils", "shared-mime-info", "dbus", "python-pytest"
+    "desktop-file-utils",
+    "shared-mime-info",
+    "dbus",
+    "python-pytest",
 ]
 triggers = ["/usr/share/glib-2.0/schemas", "/usr/lib/gio/modules"]
 pkgdesc = "GLib library of C routines"
@@ -28,6 +41,7 @@ hardening = ["!int"]
 # cyclic with desktop-file-utils
 options = ["!check"]
 
+
 def post_install(self):
     from cbuild.util import python
 
@@ -36,24 +50,27 @@ def post_install(self):
     python.precompile(self, "usr/share/glib-2.0/codegen")
     python.precompile(self, "usr/share/glib-2.0/gdb")
 
+
 @subpackage("glib-devel")
 def _devel(self):
-    return self.default_devel(extra = [
-        "usr/bin/glib-compile-resources",
-        "usr/bin/glib-genmarshal",
-        "usr/bin/glib-gettextize",
-        "usr/bin/glib-mkenums",
-        "usr/bin/gtester",
-        "usr/bin/gtester-report",
-        "usr/bin/gdbus-codegen",
-        "usr/lib/glib-2.0",
-        "usr/share/man/man1/glib-compile-resources.1",
-        "usr/share/man/man1/glib-genmarshal.1",
-        "usr/share/man/man1/glib-gettextize.1",
-        "usr/share/man/man1/glib-mkenums.1",
-        "usr/share/man/man1/gtester.1",
-        "usr/share/man/man1/gtester-report.1",
-        "usr/share/man/man1/gdbus-codegen.1",
-        "usr/share/glib-2.0",
-        "usr/share/gdb",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/bin/glib-compile-resources",
+            "usr/bin/glib-genmarshal",
+            "usr/bin/glib-gettextize",
+            "usr/bin/glib-mkenums",
+            "usr/bin/gtester",
+            "usr/bin/gtester-report",
+            "usr/bin/gdbus-codegen",
+            "usr/lib/glib-2.0",
+            "usr/share/man/man1/glib-compile-resources.1",
+            "usr/share/man/man1/glib-genmarshal.1",
+            "usr/share/man/man1/glib-gettextize.1",
+            "usr/share/man/man1/glib-mkenums.1",
+            "usr/share/man/man1/gtester.1",
+            "usr/share/man/man1/gtester-report.1",
+            "usr/share/man/man1/gdbus-codegen.1",
+            "usr/share/glib-2.0",
+            "usr/share/gdb",
+        ]
+    )

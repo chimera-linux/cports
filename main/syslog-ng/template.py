@@ -33,12 +33,25 @@ configure_args = [
 make_cmd = "gmake"
 make_install_args = ["-j1"]
 hostmakedepends = [
-    "pkgconf", "gmake", "flex", "bison", "file", "python", "glib-devel",
+    "pkgconf",
+    "gmake",
+    "flex",
+    "bison",
+    "file",
+    "python",
+    "glib-devel",
 ]
 makedepends = [
-    "libcurl-devel", "python-devel", "libdbi-devel", "openssl-devel",
-    "eventlog-devel", "glib-devel", "hiredis-devel", "ivykis-devel",
-    "json-c-devel", "rabbitmq-c-devel"
+    "libcurl-devel",
+    "python-devel",
+    "libdbi-devel",
+    "openssl-devel",
+    "eventlog-devel",
+    "glib-devel",
+    "hiredis-devel",
+    "ivykis-devel",
+    "json-c-devel",
+    "rabbitmq-c-devel",
 ]
 pkgdesc = "Next generation logging daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -46,28 +59,33 @@ license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.syslog-ng.com/products/open-source-log-management"
 source = [
     f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz",
-    f"$(SOURCEFORGE_SITE)/pcre/pcre/{_pcre_ver}/pcre-{_pcre_ver}.tar.bz2"
+    f"$(SOURCEFORGE_SITE)/pcre/pcre/{_pcre_ver}/pcre-{_pcre_ver}.tar.bz2",
 ]
 sha256 = [
     "d7df3cfa32d1a750818d94b8ea582dea54c37226e7b55a88c3d2f3a543d8f20e",
-    "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8"
+    "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8",
 ]
 # tests need https://github.com/Snaipe/Criterion
 options = ["!check"]
+
 
 def post_extract(self):
     # ensure syslog-ng itself is in the right place
     for f in (self.cwd / f"{pkgname}-{pkgver}").iterdir():
         self.mv(f, ".")
 
+
 def init_configure(self):
-    self._pyver = self.do(
-        "pkgconf", "--modversion", "python3", capture_output = True
-    ).stdout.decode().strip()
+    self._pyver = (
+        self.do("pkgconf", "--modversion", "python3", capture_output=True)
+        .stdout.decode()
+        .strip()
+    )
     # allow pcre to be located
     self.configure_env["PKG_CONFIG_PATH"] = str(
         self.chroot_cwd / f"pcre-{_pcre_ver}/dest/lib/pkgconfig"
     )
+
 
 # we temporarily bundle pcre until upstream fixes their shit
 # it's the last thing depending on pcre in main/
@@ -76,27 +94,32 @@ def _build_pcre(self):
 
     _pfx = self.chroot_cwd / "dest"
 
-    gnu_configure.configure(self, configure_args = [
-        "--prefix=" + str(_pfx),
-        "--bindir=" + str(_pfx / "bin"),
-        "--libdir=" + str(_pfx / "lib"),
-        "--mandir=" + str(_pfx / "share/man"),
-        "--with-pic",
-        "--enable-unicode-properties",
-        "--enable-newline-is-anycrlf",
-        "--enable-static",
-        "--disable-jit",
-        "--disable-cpp",
-        "--disable-shared",
-        "--disable-stack-for-recursion",
-    ])
+    gnu_configure.configure(
+        self,
+        configure_args=[
+            "--prefix=" + str(_pfx),
+            "--bindir=" + str(_pfx / "bin"),
+            "--libdir=" + str(_pfx / "lib"),
+            "--mandir=" + str(_pfx / "share/man"),
+            "--with-pic",
+            "--enable-unicode-properties",
+            "--enable-newline-is-anycrlf",
+            "--enable-static",
+            "--disable-jit",
+            "--disable-cpp",
+            "--disable-shared",
+            "--disable-stack-for-recursion",
+        ],
+    )
     self.make.build()
-    self.make.install(default_args = False)
+    self.make.install(default_args=False)
+
 
 def pre_configure(self):
     with self.stamp("pcre_build"):
         with self.pushd(f"pcre-{_pcre_ver}"):
             _build_pcre(self)
+
 
 def post_install(self):
     # service file
@@ -110,18 +133,23 @@ def post_install(self):
     # not provide reentrant getprotoby(name|number)
     self.rm(self.destdir / "usr/lib/syslog-ng/libtfgetent.so")
 
+
 @subpackage("syslog-ng-scl")
 def _scl(self):
     self.pkgdesc = f"{pkgdesc} (configuration library)"
 
     return ["usr/share/syslog-ng/include/scl"]
 
+
 @subpackage("syslog-ng-devel")
 def _devel(self):
-    return self.default_devel(extra = [
-        "usr/share/syslog-ng/tools",
-        "usr/share/syslog-ng/xsd",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/share/syslog-ng/tools",
+            "usr/share/syslog-ng/xsd",
+        ]
+    )
+
 
 @subpackage("syslog-ng-python")
 def _python(self):
@@ -130,6 +158,7 @@ def _python(self):
     return [
         "usr/lib/syslog-ng/libmod-python.so",
     ]
+
 
 def _genmod(modn, modl):
     @subpackage(f"syslog-ng-{modn}_module")
@@ -142,6 +171,7 @@ def _genmod(modn, modl):
             modl = modn
 
         return [f"usr/lib/syslog-ng/lib{modl}.so"]
+
 
 for modn, modl in [
     ("add-contextual-data", None),

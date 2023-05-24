@@ -14,8 +14,11 @@ configure_args = [
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = [
-    "libpng-devel", "libtiff-devel", "libwebp-devel",
-    "libavif-devel", "sdl-devel"
+    "libpng-devel",
+    "libtiff-devel",
+    "libwebp-devel",
+    "libavif-devel",
+    "sdl-devel",
 ]
 pkgdesc = "SDL image loading library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -26,11 +29,14 @@ sha256 = "931c9be5bf1d7c8fae9b7dc157828b7eee874e23c7f24b44ba7eff6b4836312c"
 # no check target
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.txt")
+
 
 @subpackage("sdl_image-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

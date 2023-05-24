@@ -12,15 +12,26 @@ url = "http://docutils.sourceforge.net"
 source = f"$(PYPI_SITE)/d/docutils/docutils-{pkgver}.tar.gz"
 sha256 = "33995a6753c30b7f577febfc2c50411fec6aac7f7ffeb7c4cfe5991072dcf9e6"
 
+
 def do_check(self):
-    self.do("python", "alltests.py", wrksrc = "test")
+    self.do("python", "alltests.py", wrksrc="test")
+
 
 def post_install(self):
     self.install_license("COPYING.txt")
 
     for b in [
-        "html", "html4", "html5", "latex", "man", "odt", "odt_prepstyles",
-        "pseudoxml", "s5", "xetex", "xml"
+        "html",
+        "html4",
+        "html5",
+        "latex",
+        "man",
+        "odt",
+        "odt_prepstyles",
+        "pseudoxml",
+        "s5",
+        "xetex",
+        "xml",
     ]:
         self.install_link(f"rst2{b}.py", f"usr/bin/rst2{b}")
 

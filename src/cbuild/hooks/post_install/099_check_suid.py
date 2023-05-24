@@ -1,5 +1,6 @@
 import stat
 
+
 def invoke(pkg):
     badbins = []
 

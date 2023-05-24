@@ -3,13 +3,14 @@ pkgver = "2.9.0_pre12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-widec", "--enable-ipv6", "--with-zlib", "--with-bzlib",
-    "--with-ssl"
+    "--enable-widec",
+    "--enable-ipv6",
+    "--with-zlib",
+    "--with-bzlib",
+    "--with-ssl",
 ]
 hostmakedepends = ["pkgconf"]
-makedepends = [
-    "zlib-devel", "libbz2-devel", "ncurses-devel", "openssl-devel"
-]
+makedepends = ["zlib-devel", "libbz2-devel", "ncurses-devel", "openssl-devel"]
 pkgdesc = "Text web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

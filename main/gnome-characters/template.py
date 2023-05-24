@@ -3,11 +3,20 @@ pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "itstool",
-    "gobject-introspection", "gtk-update-icon-cache", "desktop-file-utils",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "itstool",
+    "gobject-introspection",
+    "gtk-update-icon-cache",
+    "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel", "libadwaita-devel", "glib-devel", "libunistring-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
+    "glib-devel",
+    "libunistring-devel",
     "gjs-devel",
 ]
 depends = ["gnome-desktop", "gjs", "libadwaita"]

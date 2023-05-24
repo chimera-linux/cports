@@ -14,6 +14,7 @@ sha256 = "07bd24ad08a64bc17250ce09ec56e921d6343903943e99ccf63bbf0705e34605"
 # flakey, a different set of tests fails every time
 options = ["!check"]
 
+
 def post_install(self):
     fp = self.destdir / "usr/bin/aclocal"
     fp.unlink()
@@ -21,5 +22,6 @@ def post_install(self):
     fp = self.destdir / "usr/bin/automake"
     fp.unlink()
     fp.symlink_to(f"automake-{pkgver[:-2]}")
+
 
 configure_gen = []

@@ -1,6 +1,7 @@
 # this hook replaces all occurences of the cross sysroot in .pc files so that
 # cross builds do not differ from native ones (e.g. /usr/ARCH/usr -> /usr)
 
+
 def invoke(pkg):
     sr = str(pkg.rparent.profile().sysroot / "usr")
 

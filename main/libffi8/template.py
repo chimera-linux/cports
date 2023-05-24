@@ -3,7 +3,9 @@ pkgver = "3.4.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--includedir=/usr/include", "--disable-multi-os-directory", "--with-pic",
+    "--includedir=/usr/include",
+    "--disable-multi-os-directory",
+    "--with-pic",
     # https://github.com/libffi/libffi/pull/647
     # some stuff (notably gobject-introspection) uses
     # libffi incorrectly, prevent them from being broken for now
@@ -23,11 +25,14 @@ sha256 = "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
 # libffi -> dejagnu -> expect -> libtool -> libarchive
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
 
+
 @subpackage("libffi-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share/info"])
+    return self.default_devel(extra=["usr/share/info"])
+
 
 configure_gen = []

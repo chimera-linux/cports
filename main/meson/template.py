@@ -13,6 +13,7 @@ sha256 = "d9616c44cd6c53689ff8f05fc6958a693f2e17c3472a8daf83cee55dabff829f"
 # meson is early in our bootstrap path but has a million checkdepends
 options = ["!check"]
 
+
 def post_install(self):
     # vim syntax
     self.install_dir("usr/share/vim/vimfiles")

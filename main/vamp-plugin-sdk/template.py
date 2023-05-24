@@ -16,15 +16,19 @@ sha256 = "aeaf3762a44b148cebb10cde82f577317ffc9df2720e5445c3df85f3739ff75f"
 # fails to link
 options = ["!lto"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("vamp-plugin-sdk-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("vamp-plugin-sdk-progs")
 def _xmlwf(self):
     return self.default_progs()
+
 
 configure_gen = []

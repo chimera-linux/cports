@@ -3,7 +3,8 @@ pkgver = "0.303.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dfontsdir=/usr/share/fonts/cantarell", "-Duseprebuilt=true",
+    "-Dfontsdir=/usr/share/fonts/cantarell",
+    "-Duseprebuilt=true",
     "-Dbuildappstream=false",
 ]
 hostmakedepends = ["meson", "pkgconf"]

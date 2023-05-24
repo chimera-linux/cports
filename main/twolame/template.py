@@ -12,8 +12,10 @@ url = "https://www.twolame.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "cc35424f6019a88c6f52570b63e1baf50f62963a3eac52a03a800bb070d7c87d"
 
+
 @subpackage("twolame-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share/doc"])
+    return self.default_devel(extra=["usr/share/doc"])
+
 
 configure_gen = []

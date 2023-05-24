@@ -10,19 +10,19 @@ import sys
 
 # recognized hardening options
 hardening_fields = {
-    "vis": False, # hidden visibility, needed and implied by cfi
-    "cfi": False, # control flow integrity
-    "bti": False, # aarch64 bti, need dynlinker support and world rebuild
-    "pac": False, # aarch64 pointer authentication, see above
-    "cet": False, # intel CET on x86, needs musl support and world rebuild
-    "sst": False, # safestack, not for DSOs
+    "vis": False,  # hidden visibility, needed and implied by cfi
+    "cfi": False,  # control flow integrity
+    "bti": False,  # aarch64 bti, need dynlinker support and world rebuild
+    "pac": False,  # aarch64 pointer authentication, see above
+    "cet": False,  # intel CET on x86, needs musl support and world rebuild
+    "sst": False,  # safestack, not for DSOs
     "pie": True,
-    "ssp": True, # this should really be compiler default
-    "scp": True, # stack-clash-protection
-    "int": True, # ubsan integer hardening
+    "ssp": True,  # this should really be compiler default
+    "scp": True,  # stack-clash-protection
+    "int": True,  # ubsan integer hardening
     # options affecting enabled hardening types
-    "cfi-genptr": False, # loosen pointer type checks
-    "cfi-icall": True,   # indirect call checks
+    "cfi-genptr": False,  # loosen pointer type checks
+    "cfi-icall": True,  # indirect call checks
 }
 
 # only some are arch-specific, those are here
@@ -34,6 +34,7 @@ supported_fields = {
     "pac": set(["aarch64"]),
     "bti": set(["aarch64"]),
 }
+
 
 def _get_harden(prof, hlist, opts, stage):
     hdict = dict(hardening_fields)
@@ -64,6 +65,7 @@ def _get_harden(prof, hlist, opts, stage):
 
     return hdict
 
+
 # stuff that should go in both regular and linker flags, as it
 # involves linking an extra runtime component (from compiler-rt)
 def _get_archflags(prof, hard, opts, stage):
@@ -93,9 +95,13 @@ def _get_archflags(prof, hard, opts, stage):
             sflags.append("-fsanitize-cfi-icall-generalize-pointers")
 
     if hard["int"]:
-        sflags.append("-fsanitize=signed-integer-overflow,integer-divide-by-zero")
+        sflags.append(
+            "-fsanitize=signed-integer-overflow,integer-divide-by-zero"
+        )
         # ensure no runtime is relied upon
-        sflags.append("-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero")
+        sflags.append(
+            "-fsanitize-trap=signed-integer-overflow,integer-divide-by-zero"
+        )
         ubsan = True
 
     if ubsan:
@@ -108,6 +114,7 @@ def _get_archflags(prof, hard, opts, stage):
             sflags.append("-flto=thin")
 
     return sflags
+
 
 def _get_hcflags(prof, tharden, opts, stage):
     hflags = []
@@ -133,6 +140,7 @@ def _get_hcflags(prof, tharden, opts, stage):
 
     return hflags
 
+
 def _get_hldflags(prof, tharden, opts, stage):
     hflags = []
     hard = _get_harden(prof, tharden, opts, stage)
@@ -143,6 +151,7 @@ def _get_hldflags(prof, tharden, opts, stage):
     hflags += _get_archflags(prof, hard, opts, stage)
 
     return hflags
+
 
 # have a custom quote wrapper since at least gnu autotools
 # configure does not understand '-DFOO="bar baz"' and results
@@ -158,7 +167,8 @@ def _quote(s):
     if shlex.quote(nm) != nm:
         return shlex.quote(s)
     # otherwise quote just the value
-    return nm + "=" + shlex.quote(s[sep + 1:])
+    return nm + "=" + shlex.quote(s[sep + 1 :])
+
 
 def _flags_ret(it, shell):
     if shell:
@@ -166,7 +176,10 @@ def _flags_ret(it, shell):
     else:
         return list(it)
 
-def _get_gencflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
+
+def _get_gencflags(
+    self, name, extra_flags, debug, hardening, opts, stage, shell
+):
     hflags = _get_hcflags(self, hardening, opts, stage)
 
     # bootstrap
@@ -182,6 +195,7 @@ def _get_gencflags(self, name, extra_flags, debug, hardening, opts, stage, shell
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
+
 def _get_ldflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
     hflags = _get_hldflags(self, hardening, opts, stage)
 
@@ -189,7 +203,7 @@ def _get_ldflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
     if not self._triplet:
         bflags = [
             "-L" + str(paths.bldroot() / "usr/lib"),
-            "-Wl,-rpath-link=" + str(paths.bldroot() / "usr/lib")
+            "-Wl,-rpath-link=" + str(paths.bldroot() / "usr/lib"),
         ]
     else:
         bflags = []
@@ -198,10 +212,14 @@ def _get_ldflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
-def _get_rustflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
+
+def _get_rustflags(
+    self, name, extra_flags, debug, hardening, opts, stage, shell
+):
     if self.cross:
         bflags = [
-            "--sysroot", self.sysroot / "usr",
+            "--sysroot",
+            self.sysroot / "usr",
         ]
     else:
         bflags = []
@@ -209,6 +227,7 @@ def _get_rustflags(self, name, extra_flags, debug, hardening, opts, stage, shell
     ret = self._flags["RUSTFLAGS"] + bflags + extra_flags
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
+
 
 _flag_handlers = {
     "CFLAGS": _get_gencflags,
@@ -218,10 +237,13 @@ _flag_handlers = {
     "RUSTFLAGS": _get_rustflags,
 }
 
+
 def has_hardening(prof, hname, hardening, opts, stage):
     return _get_harden(prof, hardening, opts, stage)[hname]
 
+
 _flag_types = list(_flag_handlers.keys())
+
 
 class Profile:
     def __init__(self, archn, pdata, gdata):
@@ -231,7 +253,7 @@ class Profile:
         if "flags" in pdata:
             pd = pdata["flags"]
             for ft in _flag_types:
-                self._flags[ft] = shlex.split(pd.get(ft, fallback = ""))
+                self._flags[ft] = shlex.split(pd.get(ft, fallback=""))
 
         # bootstrap is a simplfied case
         if archn == "bootstrap":
@@ -246,7 +268,7 @@ class Profile:
             if f"flags.{self._arch}" in pdata:
                 pd = pdata[f"flags.{self._arch}"]
                 for ft in _flag_types:
-                    self._flags[ft] += shlex.split(pd.get(ft, fallback = ""))
+                    self._flags[ft] += shlex.split(pd.get(ft, fallback=""))
             return
 
         pdata = pdata["profile"]
@@ -265,7 +287,7 @@ class Profile:
         self._endian = pdata.get("endian")
         self._wordsize = pdata.getint("wordsize")
         # optional
-        self._machine = pdata.get("machine", fallback = archn)
+        self._machine = pdata.get("machine", fallback=archn)
 
         if self._wordsize != 32 and self._wordsize != 64:
             raise errors.CbuildException(
@@ -298,7 +320,7 @@ class Profile:
                 ccat = gdata["flags"]
             else:
                 return []
-            return shlex.split(ccat.get(fn, fallback = ""))
+            return shlex.split(ccat.get(fn, fallback=""))
 
         # user flags may override whatever is in profile
         # it also usually defines what optimization level we're using
@@ -363,7 +385,9 @@ class Profile:
     def repos(self):
         return self._repos
 
+
 _all_profiles = {}
+
 
 def init(cparser):
     global _all_profiles
@@ -374,7 +398,7 @@ def init(cparser):
         archn = pf.with_suffix("").name
 
         cp = configparser.ConfigParser(
-            interpolation = configparser.ExtendedInterpolation()
+            interpolation=configparser.ExtendedInterpolation()
         )
         with open(pf) as cf:
             cp.read_file(cf)
@@ -383,6 +407,7 @@ def init(cparser):
             raise errors.CbuildException(f"malformed profile: {archn}")
 
         _all_profiles[archn] = Profile(archn, cp, cparser)
+
 
 def get_profile(archn):
     return _all_profiles[archn]

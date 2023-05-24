@@ -4,8 +4,12 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext-tiny", "glib-devel"]
 makedepends = [
-    "libcanberra-devel", "glib-devel", "libhandy-devel", "gtk+3-devel",
-    "libxext-devel", "libx11-devel"
+    "libcanberra-devel",
+    "glib-devel",
+    "libhandy-devel",
+    "gtk+3-devel",
+    "libxext-devel",
+    "libx11-devel",
 ]
 pkgdesc = "Optional extensions for GNOME shell"
 maintainer = "q66 <q66@chimera-linux.org>"

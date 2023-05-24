@@ -35,24 +35,57 @@ configure_args = [
     "--with-syslog",
     "--with-quota",
     "--with-pam",
-    "--without-ads", # needs ldap
-    "--without-ldap", # don't depend on shit software
+    "--without-ads",  # needs ldap
+    "--without-ldap",  # don't depend on shit software
     "--without-ad-dc",
 ]
 hostmakedepends = [
-    "pkgconf", "python", "perl", "perl-parse-yapp", "gettext-tiny-devel",
-    "libtasn1-progs", "docbook-xsl-nons", "xsltproc", "rpcsvc-proto",
-    "flex", "bison", "tdb-python", "tevent-python", "ldb-python",
+    "pkgconf",
+    "python",
+    "perl",
+    "perl-parse-yapp",
+    "gettext-tiny-devel",
+    "libtasn1-progs",
+    "docbook-xsl-nons",
+    "xsltproc",
+    "rpcsvc-proto",
+    "flex",
+    "bison",
+    "tdb-python",
+    "tevent-python",
+    "ldb-python",
     "heimdal",
 ]
 makedepends = [
-    "gettext-tiny-devel", "python-devel", "libtirpc-devel", "popt-devel",
-    "e2fsprogs-devel", "zlib-devel", "ncurses-devel", "libarchive-devel",
-    "musl-bsd-headers", "linux-pam-devel", "heimdal-devel", "acl-devel",
-    "attr-devel", "cups-devel", "jansson-devel", "avahi-devel", "fuse-devel",
-    "dbus-devel", "tdb-devel", "talloc-devel", "ldb-devel", "tevent-devel",
-    "gnutls-devel", "cmocka-devel", "icu-devel", "musl-nscd",
-    "glib-devel", "gpgme-devel", "libedit-readline-devel",
+    "gettext-tiny-devel",
+    "python-devel",
+    "libtirpc-devel",
+    "popt-devel",
+    "e2fsprogs-devel",
+    "zlib-devel",
+    "ncurses-devel",
+    "libarchive-devel",
+    "musl-bsd-headers",
+    "linux-pam-devel",
+    "heimdal-devel",
+    "acl-devel",
+    "attr-devel",
+    "cups-devel",
+    "jansson-devel",
+    "avahi-devel",
+    "fuse-devel",
+    "dbus-devel",
+    "tdb-devel",
+    "talloc-devel",
+    "ldb-devel",
+    "tevent-devel",
+    "gnutls-devel",
+    "cmocka-devel",
+    "icu-devel",
+    "musl-nscd",
+    "glib-devel",
+    "gpgme-devel",
+    "libedit-readline-devel",
 ]
 self.depends = [
     f"samba-libs={pkgver}-r{pkgrel}",
@@ -63,7 +96,9 @@ pkgdesc = "SMB/CIFS file, print, and login server for Unix"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
-source = f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
+source = (
+    f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
+)
 sha256 = "5bf87e179616cd12a52d85fb8b26eec709f13709a2b67fe42b1fb0213f7e8106"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
@@ -71,36 +106,40 @@ env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 options = ["!cross", "!check", "!installroot"]
 
 # idmap_ad should go here if active directory is enabled
-configure_args.append("--with-shared-modules=" + ",".join([
-    "idmap_rid", "idmap_adex", "idmap_hash", "idmap_ldap",
-    "idmap_tdb2", "vfs_nfs4acl_xattr",
-]))
+configure_args.append(
+    "--with-shared-modules="
+    + ",".join(
+        [
+            "idmap_rid",
+            "idmap_adex",
+            "idmap_hash",
+            "idmap_ldap",
+            "idmap_tdb2",
+            "vfs_nfs4acl_xattr",
+        ]
+    )
+)
 
-tool_flags = {
-    "CFLAGS": ["-D_BSD_SOURCE"],
-    "LDFLAGS": []
-}
+tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"], "LDFLAGS": []}
 
 if self.profile().arch == "riscv64":
     # ld: error: section size decrease is too large
     tool_flags["CFLAGS"] += ["-mno-relax"]
     tool_flags["LDFLAGS"] += ["-mno-relax"]
 
+
 def post_install(self):
-    self.install_file(
-        "examples/smb.conf.default", "etc/samba", name = "smb.conf"
-    )
-    self.install_file(
-        self.files_path / "samba.pam", "etc/pam.d", name = "samba"
-    )
-    self.rm(self.destdir / "etc/sudoers.d", recursive = True)
+    self.install_file("examples/smb.conf.default", "etc/samba", name="smb.conf")
+    self.install_file(self.files_path / "samba.pam", "etc/pam.d", name="samba")
+    self.rm(self.destdir / "etc/sudoers.d", recursive=True)
     self.rm(self.destdir / "usr/share/man/man7/traffic_learner.7")
     self.rm(self.destdir / "usr/share/man/man7/traffic_replay.7")
     # symlink cups backend
     self.install_dir("usr/lib/cups/backend")
     self.install_link("/usr/bin/smbspool", "usr/lib/cups/backend/smb")
     # private dir
-    self.install_dir("var/lib/samba/private", mode = 0o750, empty = True)
+    self.install_dir("var/lib/samba/private", mode=0o750, empty=True)
+
 
 @subpackage("samba-common")
 def _common(self):
@@ -113,7 +152,7 @@ def _common(self):
         "usr/bin/net",
         "usr/bin/nmblookup",
         "usr/bin/samba-regedit",
-        #"usr/bin/samba-tool", not present without AD
+        # "usr/bin/samba-tool", not present without AD
         "usr/bin/smbpasswd",
         "usr/bin/testparm",
         "usr/libexec/samba/rpcd_*",
@@ -132,6 +171,7 @@ def _common(self):
         "usr/share/man/man8/smbpasswd.8",
     ]
 
+
 @subpackage("samba-registry-progs")
 def _registry(self):
     self.pkgdesc = "Tools for viewing and manipulating the Windows registry"
@@ -141,6 +181,7 @@ def _registry(self):
         "usr/bin/reg*",
         "usr/share/man/man1/reg*.1",
     ]
+
 
 @subpackage("libsmbclient")
 def _clib(self):
@@ -152,6 +193,7 @@ def _clib(self):
         "usr/share/man/man7/libsmbclient.7",
     ]
 
+
 @subpackage("libsmbclient-devel")
 def _clib_dev(self):
     self.pkgdesc = f"{pkgdesc} (client library development files)"
@@ -162,12 +204,14 @@ def _clib_dev(self):
         "usr/lib/pkgconfig/smbclient.pc",
     ]
 
+
 @subpackage("libwbclient")
 def _wlib(self):
     self.pkgdesc = f"{pkgdesc} (winbind client library)"
     self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libwbclient.so.*"]
+
 
 @subpackage("libwbclient-devel")
 def _wlib_dev(self):
@@ -180,13 +224,14 @@ def _wlib_dev(self):
         "usr/lib/pkgconfig/wbclient.pc",
     ]
 
+
 @subpackage("samba-winbind")
 def _winbind(self):
     self.pkgdesc = "Windows user and group information service"
     self.depends = [
         f"samba-libs={pkgver}-r{pkgrel}",
         f"samba-common={pkgver}-r{pkgrel}",
-        f"libwbclient={pkgver}-r{pkgrel}"
+        f"libwbclient={pkgver}-r{pkgrel}",
     ]
     return [
         "usr/bin/ntlm_auth",
@@ -204,6 +249,7 @@ def _winbind(self):
         "usr/share/man/man8/winbindd.8",
     ]
 
+
 @subpackage("pam_winbind")
 def _pam_winbind(self):
     self.pkgdesc = "Windows domain authentication integration plugin"
@@ -216,12 +262,14 @@ def _pam_winbind(self):
         "usr/share/man/man8/pam_winbind.8",
     ]
 
+
 @subpackage("libnss_winbind")
 def _nss_winbind(self):
     self.pkgdesc = f"Samba nameservice integration plugins"
     self.depends = [f"samba-winbind={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libnss_win*.so.*"]
+
 
 @subpackage("samba-client")
 def _smbclient(self):
@@ -258,6 +306,7 @@ def _smbclient(self):
         "usr/share/man/man8/smbspool_krb5_wrapper.8",
     ]
 
+
 @subpackage("samba-vfs-modules")
 def _vfs(self):
     self.pkgdesc = f"{pkgdesc} (virtual filesystem plugins)"
@@ -268,6 +317,7 @@ def _vfs(self):
         "usr/lib/samba/vfs",
         "usr/share/man/man8/vfs_*.8",
     ]
+
 
 @subpackage("samba-testsuite")
 def _test(self):
@@ -293,12 +343,14 @@ def _test(self):
         "usr/share/man/man1/smbtorture.1",
     ]
 
+
 @subpackage("samba-ctdb")
 def _ctdb(self):
     self.pkgdesc = f"{pkgdesc} (clustered TDB support)"
     self.depends = [
         f"samba-libs={pkgver}-r{pkgrel}",
-        "tdb-progs", "iproute2",
+        "tdb-progs",
+        "iproute2",
     ]
 
     return [
@@ -319,6 +371,7 @@ def _ctdb(self):
         "usr/share/man/man7/ctdb*.7",
     ]
 
+
 @subpackage("samba-devel")
 def _devel(self):
     def install():
@@ -331,12 +384,14 @@ def _devel(self):
 
     return install
 
+
 @subpackage("samba-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
     self.depends = [f"samba-libs={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/python3*"]
+
 
 @subpackage("samba-libs")
 def _libs(self):

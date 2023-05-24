@@ -11,7 +11,9 @@ source = f"$(XORG_SITE)/font/{pkgname}-{pkgver}.tar.gz"
 sha256 = "f8e0ca6537003f11fcaf36c598f7de9c0428f8ed587388a8a37ff18ccc597730"
 hardening = ["vis", "cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 configure_gen = []

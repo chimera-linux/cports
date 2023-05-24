@@ -3,10 +3,15 @@ pkgver = "3.26.3"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
-    "--prefix=/usr", "--mandir=/share/man", "--docdir=/share/doc/cmake",
-    "--system-libarchive", "--system-zlib", "--system-bzip2",
-    "--system-liblzma", "--system-zstd",
-    f"--parallel={self.conf_jobs}"
+    "--prefix=/usr",
+    "--mandir=/share/man",
+    "--docdir=/share/doc/cmake",
+    "--system-libarchive",
+    "--system-zlib",
+    "--system-bzip2",
+    "--system-liblzma",
+    "--system-zstd",
+    f"--parallel={self.conf_jobs}",
 ]
 makedepends = ["libarchive-devel", "ncurses-devel", "linux-headers"]
 pkgdesc = "Cross-platform, open source build system"
@@ -29,16 +34,25 @@ options = ["!check"]
 # point cmake is built, meson is not yet available, but no big deal
 if self.stage >= 2:
     makedepends += [
-        "libcurl-devel", "nghttp2-devel", "libexpat-devel", "libuv-devel",
+        "libcurl-devel",
+        "nghttp2-devel",
+        "libexpat-devel",
+        "libuv-devel",
         "rhash-devel",
     ]
     configure_args += [
-        "--system-curl", "--system-nghttp2", "--system-expat",
-        "--system-libuv", "--system-librhash", "--",
+        "--system-curl",
+        "--system-nghttp2",
+        "--system-expat",
+        "--system-libuv",
+        "--system-librhash",
+        "--",
         # need these for correct linking
-        "-DCMAKE_AR=/usr/bin/llvm-ar", "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
+        "-DCMAKE_AR=/usr/bin/llvm-ar",
+        "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
         "-DCMAKE_NM=/usr/bin/llvm-nm",
     ]
+
 
 def post_install(self):
     self.install_license("Copyright.txt")

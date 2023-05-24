@@ -12,12 +12,15 @@ url = "https://www.videolan.org/developers/libbluray.html"
 source = f"https://download.videolan.org/pub/videolan/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "478ffd68a0f5dde8ef6ca989b7f035b5a0a22c599142e5cd3ff7b03bbebe5f2b"
 
+
 @subpackage("libbluray-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("libbluray-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

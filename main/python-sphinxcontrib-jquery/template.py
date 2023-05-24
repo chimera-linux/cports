@@ -4,7 +4,10 @@ pkgrel = 0
 build_style = "python_pep517"
 make_install_target = f"sphinxcontrib_jquery-{pkgver}-*-*-*.whl"
 hostmakedepends = [
-    "python-setuptools", "python-pip", "python-wheel", "python-flit_core"
+    "python-setuptools",
+    "python-pip",
+    "python-wheel",
+    "python-flit_core",
 ]
 depends = ["python", "python-sphinx"]
 pkgdesc = "Extension to include jQuery on newer Sphinx releases"

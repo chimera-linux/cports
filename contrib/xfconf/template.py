@@ -6,7 +6,12 @@ configure_args = ["--enable-gsettings-backend"]
 make_cmd = "gmake"
 make_check_wrapper = ["dbus-run-session", "xvfb-run"]
 hostmakedepends = [
-    "pkgconf", "gmake", "intltool", "vala-devel", "glib-devel", "python"
+    "pkgconf",
+    "gmake",
+    "intltool",
+    "vala-devel",
+    "glib-devel",
+    "python",
 ]
 makedepends = ["glib-devel", "vala-devel", "libxfce4util-devel"]
 checkdepends = ["xserver-xorg-xvfb", "dbus"]
@@ -17,8 +22,10 @@ url = "https://xfce.org"
 source = f"https://archive.xfce.org/src/xfce/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "d9714751bbcfdc5a59340da6ef8ddfc0807221587b962d907f97dc0a8a002257"
 
+
 @subpackage("xfconf-devel")
 def _dev(self):
     return self.default_devel()
+
 
 configure_gen = []

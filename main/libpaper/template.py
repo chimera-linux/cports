@@ -11,8 +11,9 @@ url = "http://packages.debian.org/unstable/source/libpaper"
 source = f"$(DEBIAN_SITE)/main/libp/{pkgname}/{pkgname}_{pkgver}.tar.gz"
 sha256 = "26330e21e9a3124658d515fd850b0cde546ff42d89b2596a5264c5f1677f0547"
 
+
 def post_install(self):
-    self.install_dir("etc/libpaper.d", empty = True)
+    self.install_dir("etc/libpaper.d", empty=True)
     # systemwide default papersize
     with (self.destdir / "etc/papersize").open("w") as ps:
         ps.write("# Write the paper size here, see papersize(5)")
@@ -21,13 +22,17 @@ def post_install(self):
         loc = f"usr/share/locale/{f.stem}/LC_MESSAGES"
         self.install_dir(loc)
         self.do(
-            "msgfmt", "-o", self.chroot_destdir / loc / "libpaper.mo",
-            self.chroot_cwd / "debian/po" / f.name
+            "msgfmt",
+            "-o",
+            self.chroot_destdir / loc / "libpaper.mo",
+            self.chroot_cwd / "debian/po" / f.name,
         )
+
 
 @subpackage("libpaper-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("libpaper-progs")
 def _progs(self):

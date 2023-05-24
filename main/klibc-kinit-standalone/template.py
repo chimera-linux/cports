@@ -1,5 +1,5 @@
 pkgname = "klibc-kinit-standalone"
-_commit="f2f5cb9f87598b27ee0a68bc3e5bbe470e6b8827"
+_commit = "f2f5cb9f87598b27ee0a68bc3e5bbe470e6b8827"
 pkgver = "0.0.1"
 pkgrel = 0
 build_style = "meson"

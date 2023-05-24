@@ -12,7 +12,9 @@ source = f"https://invisible-mirror.net/archives/{pkgname}/{pkgname}-{pkgver.rep
 sha256 = "0c26282305264be2217f335f3798f48b1dce3cf12c5a076bf231cadf77a6d6a8"
 hardening = ["vis", "cfi"]
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/lib", force = True, recursive = True)
+    self.rm(self.destdir / "usr/lib", force=True, recursive=True)
+
 
 configure_gen = []

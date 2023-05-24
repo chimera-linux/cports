@@ -3,14 +3,24 @@ pkgver = "2.42.10"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dintrospection=enabled", "-Dinstalled_tests=false",
+    "-Dintrospection=enabled",
+    "-Dinstalled_tests=false",
 ]
 hostmakedepends = [
-    "meson", "gettext-tiny", "pkgconf", "docbook-xsl-nons", "xsltproc",
-    "glib-devel", "gobject-introspection", "python-docutils",
+    "meson",
+    "gettext-tiny",
+    "pkgconf",
+    "docbook-xsl-nons",
+    "xsltproc",
+    "glib-devel",
+    "gobject-introspection",
+    "python-docutils",
 ]
 makedepends = [
-    "glib-devel", "libpng-devel", "libtiff-devel", "shared-mime-info",
+    "glib-devel",
+    "libpng-devel",
+    "libtiff-devel",
+    "shared-mime-info",
 ]
 depends = ["shared-mime-info"]
 triggers = ["/usr/lib/gdk-pixbuf-2.0/2.10.0/loaders"]
@@ -25,9 +35,12 @@ hardening = ["!int"]
 # pixbuf-randomly-modified aborts, FIXME
 options = ["!check"]
 
+
 @subpackage("gdk-pixbuf-devel")
 def _devel(self):
-    return self.default_devel(extra = [
-        "usr/bin/*csource*",
-        "usr/share/man/man1/*csource*",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/bin/*csource*",
+            "usr/share/man/man1/*csource*",
+        ]
+    )

@@ -11,6 +11,7 @@ source = f"https://github.com/thesofproject/sof-bin/releases/download/v{pkgver}/
 sha256 = "ce8aaeba103aa56a82662552b0f33f33a859aa1008d8bfbc2c22f0ccfc8c6b3a"
 options = ["!strip", "foreignelf"]
 
+
 def do_install(self):
     self.install_files(f"sof-v{pkgver}", "usr/lib/firmware/intel")
     self.install_files(f"sof-tplg-v{pkgver}", "usr/lib/firmware/intel")
@@ -18,6 +19,7 @@ def do_install(self):
     self.install_link(f"sof-tplg-v{pkgver}", "usr/lib/firmware/intel/sof-tplg")
     self.install_license("LICENCE.NXP")
     self.install_license("LICENCE.Intel")
+
 
 @subpackage("base-firmware-sof")
 def _base(self):

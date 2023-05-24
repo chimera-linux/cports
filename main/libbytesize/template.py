@@ -14,11 +14,13 @@ sha256 = "d87aef5a37e189b1cc827530e0feafa6529331fcbe2aabf330a01ad8ec95e1a0"
 # cba
 options = ["!check"]
 
+
 @subpackage("libbytesize-devel")
 def _devel(self):
     self.depends += ["gmp-devel", "mpfr-devel"]
 
     return self.default_devel()
+
 
 @subpackage("libbytesize-python")
 def _python(self):
@@ -26,5 +28,6 @@ def _python(self):
     self.depends += ["python", "python-six"]
 
     return ["usr/lib/python*"]
+
 
 configure_gen = []

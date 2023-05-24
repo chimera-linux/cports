@@ -22,6 +22,7 @@ _targetlist = [
 ]
 _targets = list(filter(lambda p: p[0] != self.profile().arch, _targetlist))
 
+
 def do_build(self):
     from cbuild.util import make
     import glob
@@ -31,24 +32,25 @@ def do_build(self):
         if (self.cwd / ("inc_" + an)).exists():
             continue
 
-        mk = make.Make(self, jobs = 1)
-        mk.invoke("mrproper", [
-            "ARCH=" + arch, "CC=clang", "HOSTCC=clang", "headers"
-        ])
+        mk = make.Make(self, jobs=1)
+        mk.invoke(
+            "mrproper", ["ARCH=" + arch, "CC=clang", "HOSTCC=clang", "headers"]
+        )
 
         # remove extra files and drm headers
-        for fn in self.find(".", ".*", files = True):
+        for fn in self.find(".", ".*", files=True):
             self.rm(fn)
 
         # save the makefile
         self.cp("usr/include/Makefile", "Makefile.usr_include")
         # clean up
         self.rm("usr/include/Makefile")
-        self.rm("usr/include/drm", recursive = True)
+        self.rm("usr/include/drm", recursive=True)
         self.mv("usr/include", "inc_" + an)
         # restore things as they were for next pass
         self.mkdir("usr/include")
         self.mv("Makefile.usr_include", "usr/include/Makefile")
+
 
 def do_install(self):
     for an, arch in _targets:
@@ -58,8 +60,9 @@ def do_install(self):
             self.install_files("inc_" + an, "usr")
             self.mv(
                 self.destdir / "usr" / ("inc_" + an),
-                self.destdir / f"usr/{at}/usr/include"
+                self.destdir / f"usr/{at}/usr/include",
             )
+
 
 for an, arch in _targetlist:
     _cond = (an, arch) in _targets

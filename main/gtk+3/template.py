@@ -3,7 +3,9 @@ pkgver = "3.24.37"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dx11_backend=true", "-Dwayland_backend=true", "-Dbroadway_backend=true",
+    "-Dx11_backend=true",
+    "-Dwayland_backend=true",
+    "-Dbroadway_backend=true",
     "-Dprint_backends=cups,file",
     "-Dcloudproviders=true",
     "-Dcolord=yes",
@@ -14,24 +16,50 @@ configure_args = [
 ]
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
-    "meson", "pkgconf", "gobject-introspection", "perl", "glib-devel",
-    "gettext-tiny-devel", "wayland-progs", "xsltproc", "docbook-xsl-nons",
+    "meson",
+    "pkgconf",
+    "gobject-introspection",
+    "perl",
+    "glib-devel",
+    "gettext-tiny-devel",
+    "wayland-progs",
+    "xsltproc",
+    "docbook-xsl-nons",
 ]
 makedepends = [
-    "at-spi2-core-devel", "gdk-pixbuf-devel", "libepoxy-devel", "pango-devel",
-    "colord-devel", "libxkbcommon-devel", "wayland-devel", "wayland-protocols",
-    "mesa-devel", "libxcursor-devel", "libxdamage-devel", "libxext-devel",
-    "libxinerama-devel", "libxrandr-devel", "libxcomposite-devel",
-    "libxi-devel", "cups-devel", "tracker-devel", "libcloudproviders-devel",
+    "at-spi2-core-devel",
+    "gdk-pixbuf-devel",
+    "libepoxy-devel",
+    "pango-devel",
+    "colord-devel",
+    "libxkbcommon-devel",
+    "wayland-devel",
+    "wayland-protocols",
+    "mesa-devel",
+    "libxcursor-devel",
+    "libxdamage-devel",
+    "libxext-devel",
+    "libxinerama-devel",
+    "libxrandr-devel",
+    "libxcomposite-devel",
+    "libxi-devel",
+    "cups-devel",
+    "tracker-devel",
+    "libcloudproviders-devel",
     "iso-codes",
 ]
 depends = [
-    "gtk-update-icon-cache", "adwaita-icon-theme",
-    "virtual:gdk-pixbuf-loader-svg!librsvg"
+    "gtk-update-icon-cache",
+    "adwaita-icon-theme",
+    "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [
-    "xserver-xorg-xvfb", "dbus", "adwaita-icon-theme", "hicolor-icon-theme",
-    "librsvg", "fonts-dejavu-otf",
+    "xserver-xorg-xvfb",
+    "dbus",
+    "adwaita-icon-theme",
+    "hicolor-icon-theme",
+    "librsvg",
+    "fonts-dejavu-otf",
 ]
 triggers = ["/usr/lib/gtk-3.0/3.0.0/immodules"]
 pkgdesc = "Gimp Toolkit version 3"
@@ -45,6 +73,7 @@ hardening = ["!int"]
 # g_log_set_writer_func called multiple times in tests
 options = ["!cross", "!check"]
 
+
 @subpackage("gtk-update-icon-cache")
 def _uic(self):
     self.pkgdesc = f"{pkgdesc} (icon cache update tool)"
@@ -55,9 +84,11 @@ def _uic(self):
         "usr/share/man/man1/gtk-update-icon-cache.1",
     ]
 
+
 @subpackage("gtk+3-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("gtk+3-demo")
 def _demo(self):
@@ -74,6 +105,7 @@ def _demo(self):
         "usr/share/applications/gtk3-demo.desktop",
         "usr/share/icons",
     ]
+
 
 @subpackage("gtk+3-cups")
 def _cups(self):

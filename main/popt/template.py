@@ -12,8 +12,10 @@ url = "https://rpm.org"
 source = f"http://ftp.rpm.org/popt/releases/popt-1.x/popt-{pkgver}.tar.gz"
 sha256 = "c25a4838fc8e4c1c8aacb8bd620edb3084a3d63bf8987fdad3ca2758c63240f9"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("popt-devel")
 def _devel(self):

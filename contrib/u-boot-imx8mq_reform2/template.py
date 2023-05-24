@@ -12,6 +12,7 @@ hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug"]
 
+
 def do_install(self):
     for x in self.cwd.iterdir():
         if x.is_dir():
@@ -20,7 +21,8 @@ def do_install(self):
     # flasher
     self.install_file(
         self.files_path / "flash.sh",
-        "usr/lib/u-boot/imx8mq_reform2", mode = 0o755
+        "usr/lib/u-boot/imx8mq_reform2",
+        mode=0o755,
     )
     # licenses
     for f in (self.cwd / "Licenses").iterdir():

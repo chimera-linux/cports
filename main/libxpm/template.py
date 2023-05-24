@@ -12,11 +12,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXpm-{pkgver}.tar.gz"
 sha256 = "43a70e6f9b67215fb223ca270d83bdcb868c513948441d5b781ea0765df6bfb4"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libxpm-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

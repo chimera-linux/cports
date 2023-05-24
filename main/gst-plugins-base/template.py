@@ -10,19 +10,37 @@ configure_args = [
     "-Dintrospection=enabled",
     "-Ddefault_library=shared",
 ]
-make_check_env = {
-    "XDG_RUNTIME_DIR": "/etc/xdg"
-}
+make_check_env = {"XDG_RUNTIME_DIR": "/etc/xdg"}
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "glib-devel", "orc",
-    "gobject-introspection", "wayland-progs",
+    "meson",
+    "pkgconf",
+    "gettext-tiny",
+    "glib-devel",
+    "orc",
+    "gobject-introspection",
+    "wayland-progs",
 ]
 makedepends = [
-    "gstreamer-devel", "libxml2-devel", "glib-devel", "pango-devel",
-    "cairo-devel", "graphene-devel", "libgudev-devel", "libvisual-devel",
-    "orc-devel", "cdparanoia-devel","libtheora-devel", "libvorbis-devel",
-    "opus-devel", "libpng-devel", "libjpeg-turbo-devel", "mesa-devel",
-    "libxv-devel", "libxext-devel", "libsm-devel", "wayland-devel",
+    "gstreamer-devel",
+    "libxml2-devel",
+    "glib-devel",
+    "pango-devel",
+    "cairo-devel",
+    "graphene-devel",
+    "libgudev-devel",
+    "libvisual-devel",
+    "orc-devel",
+    "cdparanoia-devel",
+    "libtheora-devel",
+    "libvorbis-devel",
+    "opus-devel",
+    "libpng-devel",
+    "libjpeg-turbo-devel",
+    "mesa-devel",
+    "libxv-devel",
+    "libxext-devel",
+    "libsm-devel",
+    "wayland-devel",
     "wayland-protocols",
 ]
 checkdepends = ["mesa-dri", "fonts-liberation-otf"]
@@ -37,6 +55,7 @@ sha256 = "eb65120c4ee79b7a153c3c1972d5c0158c2151877cc51ec7725bba5749679d49"
 hardening = ["!int"]
 # FIXME libs_allocators fail
 options = ["!cross", "!check"]
+
 
 @subpackage("gst-plugins-base-devel")
 def _devel(self):

@@ -3,23 +3,50 @@ pkgver = "1.50.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dsystemduserunitdir=no", "-Dtmpfilesdir=no", "-Dlogind=true",
+    "-Dsystemduserunitdir=no",
+    "-Dtmpfilesdir=no",
+    "-Dlogind=true",
     "-Dman=true",
-    "-Dgoogle=false", # TODO libgdata
+    "-Dgoogle=false",  # TODO libgdata
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "xsltproc", "openssh", "polkit-devel",
-    "docbook-xsl-nons", "gettext-tiny",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "xsltproc",
+    "openssh",
+    "polkit-devel",
+    "docbook-xsl-nons",
+    "gettext-tiny",
 ]
 makedepends = [
-    "dbus-devel", "glib-devel", "fuse-devel", "libarchive-devel",
-    "bluez-devel", "libbluray-devel", "libcap-devel", "gcr-devel",
-    "libcdio-paranoia-devel", "libgcrypt-devel", "libgphoto2-devel",
-    "libgudev-devel", "libsecret-devel", "libxml2-devel", "polkit-devel",
-    "udisks-devel", "gsettings-desktop-schemas-devel", "elogind-devel",
-    "libusb-devel", "gnome-online-accounts-devel", "libsmbclient-devel",
-    "avahi-glib-devel", "libplist-devel", "libimobiledevice-devel",
-    "libsoup-devel", "libmtp-devel", "libnfs-devel",
+    "dbus-devel",
+    "glib-devel",
+    "fuse-devel",
+    "libarchive-devel",
+    "bluez-devel",
+    "libbluray-devel",
+    "libcap-devel",
+    "gcr-devel",
+    "libcdio-paranoia-devel",
+    "libgcrypt-devel",
+    "libgphoto2-devel",
+    "libgudev-devel",
+    "libsecret-devel",
+    "libxml2-devel",
+    "polkit-devel",
+    "udisks-devel",
+    "gsettings-desktop-schemas-devel",
+    "elogind-devel",
+    "libusb-devel",
+    "gnome-online-accounts-devel",
+    "libsmbclient-devel",
+    "avahi-glib-devel",
+    "libplist-devel",
+    "libimobiledevice-devel",
+    "libsoup-devel",
+    "libmtp-devel",
+    "libnfs-devel",
 ]
 # some shared libs that modules depend on
 provides = ["so:libgvfscommon.so=0", "so:libgvfsdaemon.so=0"]
@@ -30,11 +57,13 @@ url = "https://wiki.gnome.org/Projects/gvfs"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ab9059a676a537edbea21388c2aafe1a7e2c8f1ac2dfdc6d64550233075457fd"
 
+
 @subpackage("gvfs-devel")
 def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return self.default_devel()
+
 
 @subpackage("gvfs-afc")
 def _afc(self):
@@ -48,6 +77,7 @@ def _afc(self):
         "usr/share/gvfs/remote-volume-monitors/afc.monitor",
     ]
 
+
 @subpackage("gvfs-afp")
 def _afp(self):
     self.pkgdesc = f"{pkgdesc} (Apple Filing Protocol backend)"
@@ -57,6 +87,7 @@ def _afp(self):
         "usr/libexec/gvfsd-afp*",
         "usr/share/gvfs/mounts/afp*",
     ]
+
 
 @subpackage("gvfs-cdda")
 def _afp(self):
@@ -68,6 +99,7 @@ def _afp(self):
         "usr/share/gvfs/mounts/cd*",
     ]
 
+
 @subpackage("gvfs-goa")
 def _afp(self):
     self.pkgdesc = f"{pkgdesc} (Gnome Online Accounts backend)"
@@ -75,11 +107,12 @@ def _afp(self):
 
     return [
         "usr/libexec/gvfs-goa*",
-        #"usr/libexec/gvfsd-google", TODO: for libgdata
-        #"usr/share/gvfs/mounts/google.mount",
+        # "usr/libexec/gvfsd-google", TODO: for libgdata
+        # "usr/share/gvfs/mounts/google.mount",
         "usr/share/dbus-1/services/org.gtk.vfs.GoaVolumeMonitor.service",
         "usr/share/gvfs/remote-volume-monitors/goa.monitor",
     ]
+
 
 @subpackage("gvfs-gphoto2")
 def _afp(self):
@@ -92,6 +125,7 @@ def _afp(self):
         "usr/share/gvfs/remote-volume-monitors/gphoto2.monitor",
     ]
 
+
 @subpackage("gvfs-mtp")
 def _mtp(self):
     self.pkgdesc = f"{pkgdesc} (MTP backend)"
@@ -103,6 +137,7 @@ def _mtp(self):
         "usr/share/gvfs/remote-volume-monitors/mtp.monitor",
         "usr/share/gvfs/mounts/mtp.mount",
     ]
+
 
 @subpackage("gvfs-smb")
 def _smb(self):

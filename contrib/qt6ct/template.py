@@ -13,5 +13,6 @@ sha256 = "ca3706770cbdbce769ee4393de9f7469be043810fe40283690612f5f6552018a"
 # no tests
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("COPYING")

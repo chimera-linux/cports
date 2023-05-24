@@ -4,7 +4,8 @@ pkgver = "2.40.1"
 pkgrel = 1
 build_style = "cmake"
 configure_args = [
-    "-DPORT=GTK", "-DCMAKE_SKIP_RPATH=ON",
+    "-DPORT=GTK",
+    "-DCMAKE_SKIP_RPATH=ON",
     f"-DCMAKE_LINKER={self.profile().triplet}-clang",
     # -DUSE_*
     "-DUSE_SOUP2=OFF",
@@ -15,7 +16,7 @@ configure_args = [
     # -DENABLE_*
     "-DENABLE_JOURNALD_LOG=OFF",
     "-DENABLE_DOCUMENTATION=OFF",
-    "-DENABLE_SAMPLING_PROFILER=OFF", # unavailable on musl
+    "-DENABLE_SAMPLING_PROFILER=OFF",  # unavailable on musl
     "-DENABLE_MINIBROWSER=ON",
     "-DENABLE_INTROSPECTION=ON",
     "-DENABLE_WAYLAND_TARGET=ON",
@@ -25,25 +26,70 @@ configure_args = [
     "-DENABLE_WEBDRIVER=OFF",
 ]
 hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "perl", "python", "ruby", "gperf", "flex",
-    "gettext-tiny", "glib-devel", "geoclue", "wayland-progs", "bubblewrap",
-    "xdg-dbus-proxy", "gobject-introspection", "unifdef",
+    "cmake",
+    "ninja",
+    "pkgconf",
+    "perl",
+    "python",
+    "ruby",
+    "gperf",
+    "flex",
+    "gettext-tiny",
+    "glib-devel",
+    "geoclue",
+    "wayland-progs",
+    "bubblewrap",
+    "xdg-dbus-proxy",
+    "gobject-introspection",
+    "unifdef",
 ]
 makedepends = [
-    "libwpe-devel", "wpebackend-fdo-devel", "libpsl-devel", "geoclue-devel",
-    "libgcrypt-devel", "libsecret-devel", "at-spi2-core-devel", "icu-devel",
-    "libnotify-devel", "hyphen-devel", "woff2-devel", "libmanette-devel",
-    "lcms2-devel",  "libjpeg-turbo-devel", "libpng-devel", "libwebp-devel",
-    "openjpeg-devel", "libxml2-devel", "libtasn1-devel", "sqlite-devel",
-    "harfbuzz-devel", "freetype-devel", "gtk4-devel", "libsoup-devel",
-    "gstreamer-devel", "gst-plugins-base-devel", "gst-plugins-bad-devel",
-    "libavif-devel", "libxslt-devel", "icu-devel", "libseccomp-devel",
-    "mesa-devel", "libepoxy-devel", "enchant-devel", "libxt-devel",
-    "libxcomposite-devel", "libxdamage-devel", "libxkbcommon-devel",
-    "wayland-devel", "wayland-protocols",
+    "libwpe-devel",
+    "wpebackend-fdo-devel",
+    "libpsl-devel",
+    "geoclue-devel",
+    "libgcrypt-devel",
+    "libsecret-devel",
+    "at-spi2-core-devel",
+    "icu-devel",
+    "libnotify-devel",
+    "hyphen-devel",
+    "woff2-devel",
+    "libmanette-devel",
+    "lcms2-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
+    "libwebp-devel",
+    "openjpeg-devel",
+    "libxml2-devel",
+    "libtasn1-devel",
+    "sqlite-devel",
+    "harfbuzz-devel",
+    "freetype-devel",
+    "gtk4-devel",
+    "libsoup-devel",
+    "gstreamer-devel",
+    "gst-plugins-base-devel",
+    "gst-plugins-bad-devel",
+    "libavif-devel",
+    "libxslt-devel",
+    "icu-devel",
+    "libseccomp-devel",
+    "mesa-devel",
+    "libepoxy-devel",
+    "enchant-devel",
+    "libxt-devel",
+    "libxcomposite-devel",
+    "libxdamage-devel",
+    "libxkbcommon-devel",
+    "wayland-devel",
+    "wayland-protocols",
 ]
 depends = [
-    "bubblewrap", "xdg-dbus-proxy", "gst-plugins-good", "gst-plugins-bad"
+    "bubblewrap",
+    "xdg-dbus-proxy",
+    "gst-plugins-good",
+    "gst-plugins-bad",
 ]
 pkgdesc = "GTK4 port of the WebKit browser engine"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -51,12 +97,14 @@ license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/webkitgtk-{pkgver}.tar.xz"
 sha256 = "64e526984f8cd2161ef03ae949af99c002ff333d615e6386b460164a3c1b7ef6"
-debug_level = 1 # otherwise LTO link runs out of memory + fat debuginfo
+debug_level = 1  # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
     "CXXFLAGS": [
         # also silence some really loud warnings...
-        "-DNDEBUG", "-Wno-deprecated-declarations", "-Wno-deprecated-copy"
+        "-DNDEBUG",
+        "-Wno-deprecated-declarations",
+        "-Wno-deprecated-copy",
     ],
 }
 env = {
@@ -81,10 +129,12 @@ match self.profile().arch:
     case _:
         configure_args += ["-DLTO_MODE=thin"]
 
+
 def post_install(self):
     self.install_license("Source/WebCore/LICENSE-APPLE")
     self.install_license("Source/WebCore/LICENSE-LGPL-2.1")
     self.install_license("Source/WebCore/LICENSE-LGPL-2")
+
 
 @subpackage("webkitgtk4-devel")
 def _devel(self):

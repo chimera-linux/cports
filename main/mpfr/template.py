@@ -13,10 +13,12 @@ url = "https://www.mpfr.org"
 source = f"{url}/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "06a378df13501248c1b2db5aa977a2c8126ae849a9d9b7be2546fb4a9c26d993"
 
+
 @subpackage("mpfr-devel")
 def _devel(self):
     self.depends += ["gmp-devel"]
 
     return self.default_devel()
+
 
 configure_gen = []

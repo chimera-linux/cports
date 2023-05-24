@@ -12,11 +12,14 @@ url = "https://www.libssh2.org"
 source = f"https://www.libssh2.org/download/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2d64e90f3ded394b91d3a2e774ca203a4179f69aebee03003e5a6fa621e41d51"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libssh2-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

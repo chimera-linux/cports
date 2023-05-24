@@ -14,11 +14,11 @@ license = "MIT"
 url = "http://www.musl-libc.org"
 source = [
     f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz",
-    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz"
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz",
 ]
 sha256 = [
     "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039",
-    "ef39d0538f2038dc5c09008d5b8b49948beb0e3beecdb4698bc2f35bd577bfb8"
+    "ef39d0538f2038dc5c09008d5b8b49948beb0e3beecdb4698bc2f35bd577bfb8",
 ]
 # mirrors musl
 hardening = ["!scp"]
@@ -37,12 +37,13 @@ elif self.profile().arch == "aarch64":
     # disable aarch64 memory tagging in scudo, as it fucks up qemu-user
     tool_flags = {"CXXFLAGS": ["-DSCUDO_DISABLE_TBI"]}
 
+
 def post_extract(self):
     # move musl where it should be
     for f in (self.cwd / f"musl-{pkgver}").iterdir():
         self.mv(f, ".")
     # prepare scudo subdir
-    self.mkdir("src/malloc/scudo/scudo", parents = True)
+    self.mkdir("src/malloc/scudo/scudo", parents=True)
     # move compiler-rt stuff in there
     scpath = self.cwd / f"compiler-rt-{_scudo_ver}.src/lib/scudo/standalone"
     for f in scpath.glob("*.cpp"):
@@ -59,32 +60,36 @@ def post_extract(self):
     self.cp(self.files_path / "wrappers.cpp", "src/malloc/scudo")
     # now we're ready to get patched
 
+
 def do_configure(self):
     for an in _targets:
         with self.profile(an) as pf:
             at = pf.triplet
             # musl build dir
-            self.mkdir(f"build-{an}", parents = True)
+            self.mkdir(f"build-{an}", parents=True)
             # configure musl
             with self.stamp(f"{an}_configure") as s:
                 s.check()
                 self.do(
                     self.chroot_cwd / "configure",
-                    *configure_args, "--host=" + at,
-                    wrksrc = f"build-{an}",
-                    env = {
+                    *configure_args,
+                    "--host=" + at,
+                    wrksrc=f"build-{an}",
+                    env={
                         "CC": "clang -target " + at,
                         "CXX": "clang++ -target " + at,
-                    }
+                    },
                 )
+
 
 def do_build(self):
     for an in _targets:
         with self.profile(an):
-            self.mkdir(f"build-{an}", parents = True)
+            self.mkdir(f"build-{an}", parents=True)
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                self.make.build(wrksrc = self.chroot_cwd / f"build-{an}")
+                self.make.build(wrksrc=self.chroot_cwd / f"build-{an}")
+
 
 def do_install(self):
     for an in _targets:
@@ -92,10 +97,13 @@ def do_install(self):
             at = pf.triplet
             self.install_dir(f"usr/{at}/usr/lib")
             self.install_link("usr/lib", f"usr/{at}/lib")
-            self.make.install([
-                "DESTDIR=" + str(self.chroot_destdir / "usr" / at)
-            ], default_args = False, wrksrc = self.chroot_cwd / f"build-{an}")
+            self.make.install(
+                ["DESTDIR=" + str(self.chroot_destdir / "usr" / at)],
+                default_args=False,
+                wrksrc=self.chroot_cwd / f"build-{an}",
+            )
             self.rm(self.destdir / f"usr/{at}/lib")
+
 
 def _gen_crossp(an, at):
     cond = an in _targets
@@ -111,16 +119,21 @@ def _gen_crossp(an, at):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [f"clang-rt-crt-cross-{an}"]
         self.options = [
-            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+            "!scanshlibs",
+            "!scanrundeps",
+            "!splitstatic",
+            "foreignelf",
         ]
         return [f"usr/{at}"]
 
     if cond:
         depends.append(f"musl-cross-{an}")
 
+
 for _an in _targetlist:
     with self.profile(_an) as _pf:
         _gen_crossp(_an, _pf.triplet)
+
 
 @subpackage("musl-cross-static")
 def _static(self):
@@ -131,5 +144,6 @@ def _static(self):
         self.depends.append(f"musl-cross-{an}-static={pkgver}-r{pkgrel}")
 
     return []
+
 
 configure_gen = []

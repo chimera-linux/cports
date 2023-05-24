@@ -4,20 +4,40 @@ pkgrel = 1
 build_style = "cmake"
 # TODO: libgdata
 configure_args = [
-    "-DENABLE_GOOGLE=OFF", "-DWITH_LIBDB=OFF",
-    "-DSYSCONF_INSTALL_DIR=/etc", "-DENABLE_INTROSPECTION=ON",
+    "-DENABLE_GOOGLE=OFF",
+    "-DWITH_LIBDB=OFF",
+    "-DSYSCONF_INSTALL_DIR=/etc",
+    "-DENABLE_INTROSPECTION=ON",
     "-DENABLE_VALA_BINDINGS=ON",
-    "-DWITH_OPENLDAP=OFF", # don't depend on shit software
+    "-DWITH_OPENLDAP=OFF",  # don't depend on shit software
 ]
 hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "flex", "glib-devel", "gperf",
-    "gobject-introspection", "gettext-tiny", "vala", "perl",
+    "cmake",
+    "ninja",
+    "pkgconf",
+    "flex",
+    "glib-devel",
+    "gperf",
+    "gobject-introspection",
+    "gettext-tiny",
+    "vala",
+    "perl",
 ]
 makedepends = [
-    "glib-devel", "libcanberra-devel", "libical-devel", "heimdal-devel",
-    "webkitgtk-devel", "webkitgtk4-devel", "libsecret-devel", "nss-devel",
-    "nspr-devel", "gnome-online-accounts-devel", "sqlite-devel",
-    "libgweather-devel", "libsoup-devel", "json-glib-devel",
+    "glib-devel",
+    "libcanberra-devel",
+    "libical-devel",
+    "heimdal-devel",
+    "webkitgtk-devel",
+    "webkitgtk4-devel",
+    "libsecret-devel",
+    "nss-devel",
+    "nspr-devel",
+    "gnome-online-accounts-devel",
+    "sqlite-devel",
+    "libgweather-devel",
+    "libsoup-devel",
+    "json-glib-devel",
     "vala-devel",
 ]
 checkdepends = ["dbus"]
@@ -31,8 +51,10 @@ sha256 = "5ce62c1e67f2789342a7f4a035b102f74e62ed85f60e81a5b7f3e04165404dff"
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["!cross"]
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive = True)
+    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+
 
 @subpackage("evolution-data-server-devel")
 def _devel(self):

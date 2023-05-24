@@ -13,14 +13,20 @@ url = "https://github.com/thom311/libnl"
 source = f"{url}/releases/download/libnl{pkgver.replace('.', '_')}/libnl-{pkgver}.tar.gz"
 sha256 = "9fe43ccbeeea72c653bdcf8c93332583135cda46a79507bfd0a483bb57f65939"
 
+
 @subpackage("libnl-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("libnl-progs")
 def _progs(self):
-    return self.default_progs(man = "18", extra = [
-        "usr/lib/libnl",
-    ])
+    return self.default_progs(
+        man="18",
+        extra=[
+            "usr/lib/libnl",
+        ],
+    )
+
 
 configure_gen = []

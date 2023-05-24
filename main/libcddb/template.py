@@ -12,12 +12,15 @@ sha256 = "68e9b53918b9bea727fb2db78936526671c039dcd7396cb82ecd6854e866048c"
 # attempts to contact a cddb server
 options = ["!check"]
 
+
 @subpackage("libcddb-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("libcddb-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

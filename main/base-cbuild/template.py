@@ -9,15 +9,26 @@ url = "https://chimera-linux.org"
 
 # musl must be built first to provide shlibs for later packages during stage 0
 depends = [
-    "musl-devel", "elftoolchain", "ncurses", "llvm", "clang", "lld",
-    "chimerautils-extra", "apk-tools", "bmake", "bsdtar", "tzdata",
-    "fakeroot-core", f"base-cbuild-progs={pkgver}-r{pkgrel}",
+    "musl-devel",
+    "elftoolchain",
+    "ncurses",
+    "llvm",
+    "clang",
+    "lld",
+    "chimerautils-extra",
+    "apk-tools",
+    "bmake",
+    "bsdtar",
+    "tzdata",
+    "fakeroot-core",
+    f"base-cbuild-progs={pkgver}-r{pkgrel}",
 ]
 
 options = ["bootstrap", "brokenlinks"]
 
 if self.stage > 1:
     depends += ["ccache"]
+
 
 def do_build(self):
     from cbuild.util import compiler
@@ -29,6 +40,7 @@ def do_build(self):
     cc.invoke(["cbuild-cross-cc.c"], "cbuild-cross-cc")
     cc.invoke(["cbuild-lld-wrapper.c"], "cbuild-lld-wrapper")
 
+
 def do_install(self):
     self.install_bin("cbuild-cross-cc")
     self.install_bin("cbuild-lld-wrapper")
@@ -36,6 +48,7 @@ def do_install(self):
     # replace regular ld and ld.lld symlinks
     self.install_link("cbuild-lld-wrapper", "usr/bin/ld.lld")
     self.install_link("cbuild-lld-wrapper", "usr/bin/ld64.lld")
+
 
 @subpackage("base-cbuild-progs")
 def _cprogs(self):

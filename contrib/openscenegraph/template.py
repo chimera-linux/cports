@@ -9,9 +9,17 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     # no ffmpeg here, not compatible with ffmpeg 6
-    "mesa-devel", "libcurl-devel", "giflib-devel", "librsvg-devel",
-    "jasper-devel", "libtiff-devel", "sdl-devel", "gst-plugins-base-devel",
-    "libpoppler-glib-devel", "libxrandr-devel", "libxinerama-devel",
+    "mesa-devel",
+    "libcurl-devel",
+    "giflib-devel",
+    "librsvg-devel",
+    "jasper-devel",
+    "libtiff-devel",
+    "sdl-devel",
+    "gst-plugins-base-devel",
+    "libpoppler-glib-devel",
+    "libxrandr-devel",
+    "libxinerama-devel",
 ]
 pkgdesc = "High-performance real-time graphics toolkit"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -22,9 +30,11 @@ sha256 = "aea196550f02974d6d09291c5d83b51ca6a03b3767e234a8c0e21322927d1e12"
 # unit tests are off
 options = ["!check", "!cross"]
 
+
 def post_install(self):
     self.install_file("CMakeModules/FindOSG.cmake", "usr/lib/cmake/OSG")
     self.install_license("LICENSE.txt")
+
 
 @subpackage("openscenegraph-devel")
 def _devel(self):

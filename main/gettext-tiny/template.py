@@ -18,12 +18,12 @@ def do_build(self):
     cc = compiler.C(self)
 
     # main tools
-    cc.invoke([
-        "src/msgfmt.c", "src/poparser.c", "src/StringEscape.c"
-    ], "msgfmt")
-    cc.invoke([
-        "src/msgmerge.c", "src/poparser.c", "src/StringEscape.c"
-    ], "msgmerge")
+    cc.invoke(
+        ["src/msgfmt.c", "src/poparser.c", "src/StringEscape.c"], "msgfmt"
+    )
+    cc.invoke(
+        ["src/msgmerge.c", "src/poparser.c", "src/StringEscape.c"], "msgmerge"
+    )
 
     # other tools
     self.cp("src/xgettext.sh", "xgettext")
@@ -33,7 +33,8 @@ def do_build(self):
                 ap.write(l.replace("@datadir@", "/usr/share/gettext-tiny"))
 
     # libintl
-    cc.invoke(["libintl/libintl-musl.c"], "libintl-musl.o", obj_file = True)
+    cc.invoke(["libintl/libintl-musl.c"], "libintl-musl.o", obj_file=True)
+
 
 def do_install(self):
     self.install_license("LICENSE")
@@ -50,7 +51,9 @@ def do_install(self):
     self.install_dir("usr/lib")
     self.do(
         self.get_tool("AR"),
-        "rcs", self.chroot_destdir / "usr/lib/libintl.a", "libintl-musl.o"
+        "rcs",
+        self.chroot_destdir / "usr/lib/libintl.a",
+        "libintl-musl.o",
     )
 
     # m4 scripts
@@ -76,7 +79,9 @@ def _devel(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.options = ["!splitstatic"]
 
-    return self.default_devel(extra = [
-        "usr/share/gettext-tiny",
-        "usr/bin/autopoint",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/share/gettext-tiny",
+            "usr/bin/autopoint",
+        ]
+    )

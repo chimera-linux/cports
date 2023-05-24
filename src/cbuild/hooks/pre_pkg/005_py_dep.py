@@ -3,6 +3,7 @@
 # TODO: centralize
 gpyver = "3.11"
 
+
 def invoke(pkg):
     if pkg.rparent.pkgname == "python":
         return

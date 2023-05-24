@@ -6,7 +6,9 @@ build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
 hostmakedepends = ["pkgconf", "meson", "lua5.4", "lua5.4-zlib", "scdoc"]
 makedepends = [
-    "openssl-devel-static", "zlib-devel-static", "libunwind-devel-static",
+    "openssl-devel-static",
+    "zlib-devel-static",
+    "libunwind-devel-static",
     "libatomic-chimera-devel-static",
 ]
 pkgdesc = "Alpine package manager"
@@ -23,8 +25,11 @@ if self.stage > 0:
         depends = ["ca-certificates"]
 else:
     configure_args += [
-        "-Dhelp=disabled", "-Ddocs=disabled", "-Dstatic_apk=false"
+        "-Dhelp=disabled",
+        "-Ddocs=disabled",
+        "-Dstatic_apk=false",
     ]
+
 
 def init_configure(self):
     if self.stage > 0:
@@ -41,9 +46,11 @@ def init_configure(self):
     self.env["PKG_CONFIG_LIBCRYPTO_LIBDIR"] = ldir
     self.env["PKG_CONFIG_LIBSSL_LIBDIR"] = ldir
 
+
 @subpackage("apk-tools-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("apk-tools-static-bin", self.stage > 0)
 def _staticbin(self):

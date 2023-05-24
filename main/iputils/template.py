@@ -4,10 +4,15 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-DNO_SETCAP_OR_SUID=true",
-    "-DUSE_IDN=false", 
+    "-DUSE_IDN=false",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "xsltproc", "docbook-xsl", "libcap-progs", "iproute2"
+    "meson",
+    "pkgconf",
+    "xsltproc",
+    "docbook-xsl",
+    "libcap-progs",
+    "iproute2",
 ]
 makedepends = ["libcap-devel"]
 depends = ["libcap-progs"]
@@ -20,6 +25,7 @@ sha256 = "745ea711fe06d5c57d470d21acce3c3ab866eb6afb69379a16c6d60b89bd4311"
 hardening = ["vis", "cfi"]
 # operation not permitted (sandbox, unshared network)
 options = ["!check"]
+
 
 def post_install(self):
     self.install_license("Documentation/LICENSE.BSD3")

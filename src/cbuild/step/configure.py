@@ -1,5 +1,6 @@
 from cbuild.core import template
 
+
 def invoke(pkg, step):
     p = pkg.profile()
     crossb = p.arch if p.cross else ""
@@ -11,6 +12,6 @@ def invoke(pkg, step):
     if cfg_done.is_file() and (not pkg.force_mode or step != "configure"):
         return
 
-    pkg.run_step("configure", optional = True)
+    pkg.run_step("configure", optional=True)
 
     cfg_done.touch()

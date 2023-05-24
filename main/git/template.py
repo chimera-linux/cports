@@ -4,14 +4,20 @@ pkgrel = 0
 make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
-    "gmake", "asciidoc", "gettext-tiny", "perl", "pkgconf", "xmlto", "tk"
+    "gmake",
+    "asciidoc",
+    "gettext-tiny",
+    "perl",
+    "pkgconf",
+    "xmlto",
+    "tk",
 ]
-makedepends = [
-    "libcurl-devel", "pcre2-devel", "tk-devel", "libexpat-devel"
-]
+makedepends = ["libcurl-devel", "pcre2-devel", "tk-devel", "libexpat-devel"]
 depends = [
-    "ca-certificates", "perl-authen-sasl", "perl-mime-tools",
-    "perl-net-smtp-ssl"
+    "ca-certificates",
+    "perl-authen-sasl",
+    "perl-mime-tools",
+    "perl-net-smtp-ssl",
 ]
 pkgdesc = "Fast, distributed version control system"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,18 +25,21 @@ license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b17a598fbf58729ef13b577465eb93b2d484df1201518b708b5044ff623bf46d"
-hardening = ["!cfi"] # TODO
+hardening = ["!cfi"]  # TODO
 # missing checkdepends
 options = ["!check"]
+
 
 def init_configure(self):
     from cbuild.util import make
 
     self.make = make.Make(self)
 
+
 def do_configure(self):
     with open(self.cwd / "config.mak", "w") as cf:
-        cf.write(f"""
+        cf.write(
+            f"""
 prefix = /usr
 CC = {self.get_tool("CC")}
 AR = {self.get_tool("AR")}
@@ -48,7 +57,9 @@ DEFAULT_TEST_TARGET = prove
 GIT_PROVE_OPTS = {self.make_jobs}
 HOST_CPU = {self.profile().arch}
 export GIT_SKIP_TESTS=t9604.2
-""")
+"""
+        )
+
 
 def do_build(self):
     self.make.build()
@@ -57,21 +68,35 @@ def do_build(self):
     self.make.invoke(None, ["-C", "contrib/diff-highlight", "all"])
     self.make.invoke(None, ["-C", "contrib/subtree", "all", "man"])
 
+
 def do_check(self):
     self.make.check()
     self.make.invoke(None, ["-C", "contrib/diff-highlight", "test"])
     self.make.invoke(None, ["-C", "contrib/subtree", "test"])
 
+
 def do_install(self):
     self.make.install(["install-doc"])
-    self.make.invoke(None, [
-        "-C", "contrib/contacts", "DESTDIR=" + str(self.chroot_destdir),
-        "install", "install-man"
-    ])
-    self.make.invoke(None, [
-        "-C", "contrib/subtree", "DESTDIR=" + str(self.chroot_destdir),
-        "install", "install-man"
-    ])
+    self.make.invoke(
+        None,
+        [
+            "-C",
+            "contrib/contacts",
+            "DESTDIR=" + str(self.chroot_destdir),
+            "install",
+            "install-man",
+        ],
+    )
+    self.make.invoke(
+        None,
+        [
+            "-C",
+            "contrib/subtree",
+            "DESTDIR=" + str(self.chroot_destdir),
+            "install",
+            "install-man",
+        ],
+    )
 
     # remove cvs for now
     self.rm(self.destdir / "usr/bin/git-cvsserver")
@@ -86,32 +111,29 @@ def do_install(self):
     self.rm(self.destdir / "usr/libexec/git-core/git-svn")
     self.rm(self.destdir / "usr/share/man/man1/git-svn.1")
     self.rm(
-        self.destdir / "usr/share/perl5/vendor_perl/Git/SVN", recursive = True
+        self.destdir / "usr/share/perl5/vendor_perl/Git/SVN", recursive=True
     )
     self.rm(self.destdir / "usr/share/perl5/vendor_perl/Git/SVN.pm")
 
     self.install_file(
         "contrib/completion/git-completion.bash",
         "usr/share/bash-completion/completions",
-        name = "git"
+        name="git",
     )
-    self.install_file(
-        "contrib/completion/git-prompt.sh",
-        "usr/share/git"
-    )
+    self.install_file("contrib/completion/git-prompt.sh", "usr/share/git")
 
     self.install_bin("contrib/diff-highlight/diff-highlight")
     self.install_file(
-        "contrib/diff-highlight/README", "usr/share/doc/git",
-        name = "diff-highlight"
+        "contrib/diff-highlight/README",
+        "usr/share/doc/git",
+        name="diff-highlight",
     )
 
     self.install_file(
-        "contrib/git-jump/git-jump", "usr/libexec/git-core", mode = 0o755
+        "contrib/git-jump/git-jump", "usr/libexec/git-core", mode=0o755
     )
     self.install_file(
-        "contrib/git-jump/README", "usr/share/doc/git",
-        name = "git-jump"
+        "contrib/git-jump/README", "usr/share/doc/git", name="git-jump"
     )
 
     # hardlink
@@ -122,12 +144,14 @@ def do_install(self):
     # register shells
     self.install_shell("/usr/bin/git-shell")
 
+
 @subpackage("gitk")
 def _gitk(self):
     self.depends += [f"git={pkgver}-r{pkgrel}", "tk"]
     self.pkgdesc = "Git repository browser"
     self.license = "GPL-2.0-or-later"
     return ["usr/bin/gitk", "usr/share/gitk", "usr/share/man/man1/gitk.1"]
+
 
 @subpackage("git-gui")
 def _gui(self):
@@ -139,5 +163,5 @@ def _gui(self):
         "usr/libexec/git-core/git-citool",
         "usr/share/man/man1/git-gui.1",
         "usr/share/man/man1/git-citool.1",
-        "usr/share/git-gui"
+        "usr/share/git-gui",
     ]

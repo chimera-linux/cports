@@ -12,11 +12,14 @@ source = f"https://github.com/rockdaboot/{pkgname}/releases/download/{pkgver}/{p
 sha256 = "e35991b6e17001afa2c0ca3b10c357650602b92596209b7492802f3768a6285f"
 hardening = ["vis", "cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libpsl-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

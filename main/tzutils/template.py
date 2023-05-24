@@ -14,6 +14,7 @@ hardening = ["vis", "cfi"]
 # needs network access
 options = ["!check"]
 
+
 def do_install(self):
     self.install_bin("zic")
     self.install_bin("zdump")

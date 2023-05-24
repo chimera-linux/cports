@@ -13,6 +13,7 @@ sha256 = "7acf514446cae59585d9bc21e4f98f4a3856f4741c3a7a09d06e8ac5bf2f7315"
 # no test suite
 options = ["!check"]
 
+
 @subpackage("libfreeaptx-devel")
 def _devel(self):
     return self.default_devel()

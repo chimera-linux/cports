@@ -12,11 +12,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXrandr-{pkgver}.tar.gz"
 sha256 = "3ad316c1781fe2fe22574b819e81f0eff087a8560377f521ba932238b41b251f"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libxrandr-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

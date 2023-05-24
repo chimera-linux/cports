@@ -3,19 +3,26 @@ pkgver = "42.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--with-pam-dir=/usr/lib/security", "--disable-schemas-compile"
+    "--with-pam-dir=/usr/lib/security",
+    "--disable-schemas-compile",
 ]
 make_cmd = "gmake"
 make_check_args = ["-j1"]
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
-    "gmake", "pkgconf", "docbook-xsl-nons", "glib-devel", "python",
-    "libtasn1-progs", "xsltproc", "openssh", "automake", "libtool",
+    "gmake",
+    "pkgconf",
+    "docbook-xsl-nons",
+    "glib-devel",
+    "python",
+    "libtasn1-progs",
+    "xsltproc",
+    "openssh",
+    "automake",
+    "libtool",
     "gettext-tiny-devel",
 ]
-makedepends = [
-    "gcr-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"
-]
+makedepends = ["gcr-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"]
 checkdepends = ["xserver-xorg-xvfb", "dbus-x11"]
 depends = ["dconf"]
 pkgdesc = "GNOME password and secret manager"

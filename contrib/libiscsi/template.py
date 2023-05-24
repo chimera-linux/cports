@@ -12,7 +12,8 @@ license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://foo.software"
 source = f"https://github.com/sahlberg/libiscsi/archive/{pkgver}.tar.gz"
 sha256 = "c7848ac722c8361d5064654bc6e926c2be61ef11dd3875020a63931836d806df"
-tool_flags = {'CFLAGS': ['-Wno-strict-prototypes']}
+tool_flags = {"CFLAGS": ["-Wno-strict-prototypes"]}
+
 
 @subpackage("libiscsi-devel")
 def _devel(self):

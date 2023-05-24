@@ -18,6 +18,7 @@ if self.profile().arch == "riscv64":
     # ld: error: section size decrease is too large
     tool_flags = {"CFLAGS": ["-mno-relax"]}
 
+
 def post_install(self):
     self.install_license("LICENSES.txt")
     self.install_license("doc/licenses/BSD.txt")

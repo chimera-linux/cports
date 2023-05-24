@@ -2,13 +2,16 @@ pkgname = "gnome-tweaks"
 pkgver = "42_beta"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny"
-]
+hostmakedepends = ["meson", "pkgconf", "gettext-tiny"]
 makedepends = ["libhandy-devel"]
 depends = [
-    "gtk+3", "dconf", "mutter", "gnome-settings-daemon",
-    "libnotify", "libhandy", "python-gobject"
+    "gtk+3",
+    "dconf",
+    "mutter",
+    "gnome-settings-daemon",
+    "libnotify",
+    "libhandy",
+    "python-gobject",
 ]
 pkgdesc = "GNOME tweak tool"
 maintainer = "q66 <q66@chimera-linux.org>"

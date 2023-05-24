@@ -16,14 +16,17 @@ from cbuild.apk import cli as apki
 _chroot_checked = False
 _chroot_ready = False
 
+
 def host_cpu():
     return _host
+
 
 def set_host(tgt):
     global _host
     _host = tgt
 
-def chroot_check(force = False):
+
+def chroot_check(force=False):
     global _chroot_checked, _chroot_ready
 
     if _chroot_checked and not force:
@@ -40,7 +43,8 @@ def chroot_check(force = False):
 
     return _chroot_ready
 
-def _subst_in(pat, rep, src, dest = None):
+
+def _subst_in(pat, rep, src, dest=None):
     inf = open(src, "r")
     if dest:
         outf = open(dest, "w")
@@ -58,9 +62,11 @@ def _subst_in(pat, rep, src, dest = None):
     if not dest:
         shutil.move(nm, src)
 
+
 def _remove_ro(f, path, _):
     os.chmod(path, stat.S_IWRITE)
     f(path)
+
 
 def _prepare_etc():
     bfp = paths.distdir() / "main/base-files/files"
@@ -79,14 +85,16 @@ def _prepare_etc():
     with open(tfp / "machine-id", "w") as mf:
         mf.write("e91d1c901dd8d2509161fd9b548b54f5\n")
 
+
 def _init():
     xdir = paths.bldroot() / "etc" / "apk"
-    xdir.mkdir(parents = True, exist_ok = True)
+    xdir.mkdir(parents=True, exist_ok=True)
 
     shutil.copy("/etc/resolv.conf", paths.bldroot() / "etc")
     # generate machine-id
     with open(paths.bldroot() / "etc/machine-id", "wb") as mid:
         mid.write(b"%s\n" % binascii.b2a_hex(os.urandom(16)))
+
 
 def _prepare():
     sfpath = paths.bldroot() / ".cbuild_chroot_init"
@@ -107,12 +115,13 @@ def _prepare():
     with open(sfpath, "w") as sf:
         sf.write(host_cpu() + "\n")
 
+
 def setup_keys(rootp):
     # copy over apk public keys
     keydir = rootp / "etc/apk/keys"
 
-    shutil.rmtree(keydir, ignore_errors = True)
-    keydir.mkdir(parents = True, exist_ok = True)
+    shutil.rmtree(keydir, ignore_errors=True)
+    keydir.mkdir(parents=True, exist_ok=True)
 
     for f in (paths.distdir() / "etc/apk/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
@@ -120,7 +129,9 @@ def setup_keys(rootp):
     for f in (paths.distdir() / "etc/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
 
+
 _crepos = None
+
 
 def get_confrepos():
     global _crepos
@@ -136,18 +147,20 @@ def get_confrepos():
 
     return _crepos
 
+
 def repo_init():
     setup_keys(paths.bldroot())
 
     apkpath = paths.bldroot() / "etc/apk"
 
     rfile = apkpath / "repositories"
-    rfile.unlink(missing_ok = True)
+    rfile.unlink(missing_ok=True)
 
     cfile = apkpath / "cache"
-    cfile.unlink(missing_ok = True)
+    cfile.unlink(missing_ok=True)
 
     return rfile, cfile
+
 
 def shell_update(rnet):
     hcpu = host_cpu()
@@ -173,6 +186,7 @@ def shell_update(rnet):
         # remote repos come last
         if rnet:
             from cbuild.core import profile
+
             for rd in profile.get_profile(hcpu).repos:
                 for cr in get_confrepos():
                     if cr.startswith("/"):
@@ -181,28 +195,30 @@ def shell_update(rnet):
                     rfh.write("\n")
 
     # ensure any local apk commands can write into cache
-    (paths.cbuild_cache() / "apk" / hcpu).mkdir(
-        parents = True, exist_ok = True
-    )
+    (paths.cbuild_cache() / "apk" / hcpu).mkdir(parents=True, exist_ok=True)
     cfile.symlink_to(f"/cbuild_cache/apk/{hcpu}")
 
-    if apki.call_chroot(
-        "update", [], None, full_chroot = True, allow_network = rnet
-    ).returncode != 0:
+    if (
+        apki.call_chroot(
+            "update", [], None, full_chroot=True, allow_network=rnet
+        ).returncode
+        != 0
+    ):
         raise errors.CbuildException(f"failed to update pkg database")
 
-def initdb(path = None):
+
+def initdb(path=None):
     # we init the database ourselves
     if not path:
         path = paths.bldroot()
 
-    (path / "tmp").mkdir(parents = True, exist_ok = True)
-    (path / "dev").mkdir(parents = True, exist_ok = True)
-    (path / "etc/apk").mkdir(parents = True, exist_ok = True)
-    (path / "usr/lib/apk/db").mkdir(parents = True, exist_ok = True)
-    (path / "var/cache/apk").mkdir(parents = True, exist_ok = True)
-    (path / "var/cache/misc").mkdir(parents = True, exist_ok = True)
-    (path / "var/log").mkdir(parents = True, exist_ok = True)
+    (path / "tmp").mkdir(parents=True, exist_ok=True)
+    (path / "dev").mkdir(parents=True, exist_ok=True)
+    (path / "etc/apk").mkdir(parents=True, exist_ok=True)
+    (path / "usr/lib/apk/db").mkdir(parents=True, exist_ok=True)
+    (path / "var/cache/apk").mkdir(parents=True, exist_ok=True)
+    (path / "var/cache/misc").mkdir(parents=True, exist_ok=True)
+    (path / "var/log").mkdir(parents=True, exist_ok=True)
 
     # largely because of custom usrmerge
     if not (path / "lib").is_symlink():
@@ -210,6 +226,7 @@ def initdb(path = None):
 
     (path / "usr/lib/apk/db/installed").touch()
     (path / "etc/apk/world").touch()
+
 
 def install():
     if chroot_check():
@@ -222,8 +239,10 @@ def install():
     setup_keys(paths.bldroot())
 
     irun = apki.call(
-        "add", ["--no-chown", "--no-scripts", "base-cbuild"],
-        "main", arch = host_cpu(),
+        "add",
+        ["--no-chown", "--no-scripts", "base-cbuild"],
+        "main",
+        arch=host_cpu(),
     )
     if irun.returncode != 0:
         raise errors.CbuildException("failed to install base-cbuild")
@@ -234,6 +253,7 @@ def install():
     _prepare()
     chroot_check(True)
     _init()
+
 
 def get_fakeroot(bootstrap):
     inp = paths.cbuild() / "misc/fakeroot.sh"
@@ -246,10 +266,11 @@ def get_fakeroot(bootstrap):
     if rp.is_file():
         return "/.cbuild_fakeroot.sh"
 
-    rp.unlink(missing_ok = True)
+    rp.unlink(missing_ok=True)
     shutil.copyfile(inp, rp)
 
     return "/.cbuild_fakeroot.sh"
+
 
 def _setup_dummy(rootp, archn):
     tmpd = mkdtemp()
@@ -274,8 +295,17 @@ def _setup_dummy(rootp, archn):
 
     def _get_ver(pkgn):
         tobj = template.read_pkg(
-            f"main/{pkgn}", archn, True, False, (1, 1), False, False, None,
-            ignore_missing = True, ignore_errors = True, allow_broken = True,
+            f"main/{pkgn}",
+            archn,
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
+            ignore_missing=True,
+            ignore_errors=True,
+            allow_broken=True,
         )
         return f"{tobj.pkgver}-r{tobj.pkgrel}"
 
@@ -309,33 +339,53 @@ def _setup_dummy(rootp, archn):
         ret = apki.call(
             "mkpkg",
             [
-                "--output", repod / f"{pkgn}-{pkgv}.apk",
-                "--info", f"name:{pkgn}",
-                "--info", f"version:{pkgv}",
-                "--info", f"description:Target sysroot virtual provider",
-                "--info", f"arch:{archn}",
-                "--info", f"origin:{pkgn}",
-                "--info", f"url:https://chimera-linux.org",
-                "--info", f"build-time:{int(epoch)}",
-                "--info", f"provides:{' '.join(provides)}",
+                "--output",
+                repod / f"{pkgn}-{pkgv}.apk",
+                "--info",
+                f"name:{pkgn}",
+                "--info",
+                f"version:{pkgv}",
+                "--info",
+                f"description:Target sysroot virtual provider",
+                "--info",
+                f"arch:{archn}",
+                "--info",
+                f"origin:{pkgn}",
+                "--info",
+                f"url:https://chimera-linux.org",
+                "--info",
+                f"build-time:{int(epoch)}",
+                "--info",
+                f"provides:{' '.join(provides)}",
             ],
-            None, root = rootp, capture_output = True, arch = archn,
-            allow_untrusted = True
+            None,
+            root=rootp,
+            capture_output=True,
+            arch=archn,
+            allow_untrusted=True,
         )
         if ret.returncode != 0:
             outl = ret.stderr.strip().decode()
             if len(outl) > 0:
                 logger.get().out_plain(">> stderr:")
                 logger.get().out_plain(outl)
-            raise errors.CbuildException(f"failed to create virtual provider for {archn}")
+            raise errors.CbuildException(
+                f"failed to create virtual provider for {archn}"
+            )
 
         if not apki.build_index(repod, epoch, None):
-            raise errors.CbuildException(f"failed to index virtual provider for {archn}")
+            raise errors.CbuildException(
+                f"failed to index virtual provider for {archn}"
+            )
 
         ret = apki.call(
-            "add", ["--no-scripts", "--no-chown", "--repository", tmpd, pkgn],
-            None, root = rootp, capture_output = True, arch = archn,
-            allow_untrusted = True
+            "add",
+            ["--no-scripts", "--no-chown", "--repository", tmpd, pkgn],
+            None,
+            root=rootp,
+            capture_output=True,
+            arch=archn,
+            allow_untrusted=True,
         )
 
         if ret.returncode != 0:
@@ -343,9 +393,12 @@ def _setup_dummy(rootp, archn):
             if len(outl) > 0:
                 logger.get().out_plain(">> stderr:")
                 logger.get().out_plain(outl)
-            raise errors.CbuildException(f"failed to install virtual provider for {archn}")
+            raise errors.CbuildException(
+                f"failed to install virtual provider for {archn}"
+            )
     finally:
         shutil.rmtree(tmpd)
+
 
 def _prepare_arch(prof):
     rootp = paths.bldroot() / prof.sysroot.relative_to("/")
@@ -358,6 +411,7 @@ def _prepare_arch(prof):
     initdb(rootp)
     setup_keys(rootp)
     _setup_dummy(rootp, prof.arch)
+
 
 def prepare_arch(arch):
     paths.prepare()
@@ -374,7 +428,8 @@ def prepare_arch(arch):
 
     _prepare_arch(prof)
 
-def remove_autodeps(bootstrapping, prof = None):
+
+def remove_autodeps(bootstrapping, prof=None):
     if bootstrapping is None:
         bootstrapping = not (paths.bldroot() / ".cbuild_chroot_init").is_file()
 
@@ -402,11 +457,18 @@ def remove_autodeps(bootstrapping, prof = None):
 
     paths.prepare()
 
-    if  apki.call("info", [
-        "--installed", "autodeps-host"
-    ], None, capture_output = True, allow_untrusted = True).returncode == 0:
+    if (
+        apki.call(
+            "info",
+            ["--installed", "autodeps-host"],
+            None,
+            capture_output=True,
+            allow_untrusted=True,
+        ).returncode
+        == 0
+    ):
         del_ret = apki.call_chroot(
-            "del", ["autodeps-host"], None, capture_output = True
+            "del", ["autodeps-host"], None, capture_output=True
         )
 
         if del_ret.returncode != 0:
@@ -414,11 +476,18 @@ def remove_autodeps(bootstrapping, prof = None):
             log.out_plain(del_ret.stderr.decode())
             failed = True
 
-    if apki.call("info", [
-        "--installed", "autodeps-target"
-    ], None, capture_output = True, allow_untrusted = True).returncode == 0:
+    if (
+        apki.call(
+            "info",
+            ["--installed", "autodeps-target"],
+            None,
+            capture_output=True,
+            allow_untrusted=True,
+        ).returncode
+        == 0
+    ):
         del_ret = apki.call_chroot(
-            "del", ["autodeps-target"], None, capture_output = True
+            "del", ["autodeps-target"], None, capture_output=True
         )
 
         if del_ret.returncode != 0:
@@ -432,12 +501,14 @@ def remove_autodeps(bootstrapping, prof = None):
     if failed:
         raise errors.CbuildException("failed to remove autodeps")
 
+
 def update(pkg):
     if not chroot_check():
         return
 
-    logger.get().out("cbuild: updating software in %s container..." \
-        % str(paths.bldroot()))
+    logger.get().out(
+        "cbuild: updating software in %s container..." % str(paths.bldroot())
+    )
 
     paths.prepare()
     repo_init()
@@ -445,9 +516,9 @@ def update(pkg):
     # reinit passwd/group
     _prepare_etc()
 
-    apki.call_chroot("update", ["-q"], pkg, check = True, use_stage = True)
+    apki.call_chroot("update", ["-q"], pkg, check=True, use_stage=True)
     apki.call_chroot(
-        "upgrade", ["--available"], pkg, check = True, use_stage = True
+        "upgrade", ["--available"], pkg, check=True, use_stage=True
     )
 
     # this is bootstrap-update
@@ -463,18 +534,37 @@ def update(pkg):
     rootp = paths.bldroot() / prof.sysroot.relative_to("/")
 
     # otherwise also update indexes in cross root
-    if apki.call(
-        "update", ["-q"], pkg, root = rootp, arch = prof.arch
-    ).returncode != 0:
+    if (
+        apki.call("update", ["-q"], pkg, root=rootp, arch=prof.arch).returncode
+        != 0
+    ):
         raise errors.CbuildException(f"failed to update cross pkg database")
 
-def enter(cmd, *args, capture_output = False, check = False,
-          env = {}, stdout = None, stderr = None, wrkdir = None,
-          bootstrapping = False, ro_root = False, ro_build = False,
-          ro_dest = True, unshare_all = False, mount_binpkgs = False,
-          mount_cbuild_cache = False, mount_cports = False,
-          fakeroot = False, new_session = True, binpkgs_rw = False,
-          signkey = None, wrapper = None, lldargs = None):
+
+def enter(
+    cmd,
+    *args,
+    capture_output=False,
+    check=False,
+    env={},
+    stdout=None,
+    stderr=None,
+    wrkdir=None,
+    bootstrapping=False,
+    ro_root=False,
+    ro_build=False,
+    ro_dest=True,
+    unshare_all=False,
+    mount_binpkgs=False,
+    mount_cbuild_cache=False,
+    mount_cports=False,
+    fakeroot=False,
+    new_session=True,
+    binpkgs_rw=False,
+    signkey=None,
+    wrapper=None,
+    lldargs=None,
+):
     defpath = "/usr/bin"
     if bootstrapping:
         defpath = os.environ["PATH"]
@@ -490,7 +580,7 @@ def enter(cmd, *args, capture_output = False, check = False,
         "LC_COLLATE": "C",
         "LANG": "C.UTF-8",
         "UNAME_m": hprof.machine,
-        **env
+        **env,
     }
 
     if hprof.wordsize == 32:
@@ -546,24 +636,40 @@ def enter(cmd, *args, capture_output = False, check = False,
 
     if bootstrapping:
         return subprocess.run(
-            [cmd, *args], env = envs,
-            capture_output = capture_output, check = check,
-            stdout = stdout, stderr = stderr,
-            cwd = os.path.abspath(wrkdir) if wrkdir else None
+            [cmd, *args],
+            env=envs,
+            capture_output=capture_output,
+            check=check,
+            stdout=stdout,
+            stderr=stderr,
+            cwd=os.path.abspath(wrkdir) if wrkdir else None,
         )
 
     bcmd = [
         "bwrap",
         "--unshare-all",
-        "--hostname", "cbuild",
-        root_bind, paths.bldroot(), "/",
-        build_bind, paths.builddir(), "/builddir",
-        dest_bind, paths.bldroot() / "destdir", "/destdir",
-        "--ro-bind", paths.sources(), "/sources",
-        "--dev", "/dev",
-        "--proc", "/proc",
-        "--tmpfs", "/tmp",
-        "--tmpfs", "/var/tmp",
+        "--hostname",
+        "cbuild",
+        root_bind,
+        paths.bldroot(),
+        "/",
+        build_bind,
+        paths.builddir(),
+        "/builddir",
+        dest_bind,
+        paths.bldroot() / "destdir",
+        "/destdir",
+        "--ro-bind",
+        paths.sources(),
+        "/sources",
+        "--dev",
+        "/dev",
+        "--proc",
+        "/proc",
+        "--tmpfs",
+        "/tmp",
+        "--tmpfs",
+        "/var/tmp",
     ]
 
     if new_session:
@@ -576,7 +682,7 @@ def enter(cmd, *args, capture_output = False, check = False,
             "/binpkgs",
             "--ro-bind" if not binpkgs_rw else "--bind",
             paths.stage_repository(),
-            "/stagepkgs"
+            "/stagepkgs",
         ]
         if paths.alt_repository():
             bcmd += ["--ro-bind", paths.alt_repository(), "/altbinpkgs"]
@@ -621,8 +727,13 @@ def enter(cmd, *args, capture_output = False, check = False,
 
     if fakeroot:
         bcmd += [
-            "--setenv", "FAKEROOTDONTTRYCHOWN", "1", "--", kpers, "sh",
-            get_fakeroot(False)
+            "--setenv",
+            "FAKEROOTDONTTRYCHOWN",
+            "1",
+            "--",
+            kpers,
+            "sh",
+            get_fakeroot(False),
         ]
     else:
         bcmd += [kpers, "--"]
@@ -635,8 +746,13 @@ def enter(cmd, *args, capture_output = False, check = False,
 
     try:
         return subprocess.run(
-            bcmd, env = envs, capture_output = capture_output, check = check,
-            stdout = stdout, stderr = stderr, pass_fds = tuple(fdlist)
+            bcmd,
+            env=envs,
+            capture_output=capture_output,
+            check=check,
+            stdout=stdout,
+            stderr=stderr,
+            pass_fds=tuple(fdlist),
         )
     finally:
         for fd in fdlist:

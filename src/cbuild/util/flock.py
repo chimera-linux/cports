@@ -5,8 +5,9 @@ import time
 import fcntl
 from contextlib import contextmanager
 
+
 @contextmanager
-def lock(path, pkg = None):
+def lock(path, pkg=None):
     fd = os.open(path, os.O_CREAT | os.O_WRONLY | os.O_TRUNC)
     while True:
         try:
@@ -27,13 +28,16 @@ def lock(path, pkg = None):
         fcntl.flock(fd, fcntl.LOCK_UN)
         os.close(fd)
 
+
 def _archlock(rpath, arch):
     if not isinstance(arch, str):
         arch = arch.rparent.profile().arch
     return rpath / f"cbuild-{arch}.lock"
 
+
 def repolock(arch):
     return _archlock(paths.repository(), arch)
+
 
 def stagelock(arch):
     return _archlock(paths.stage_repository(), arch)

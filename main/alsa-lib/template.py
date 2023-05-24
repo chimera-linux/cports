@@ -25,13 +25,16 @@ sha256 = "dc9c643fdc4ccfd0572cc685858dd41e08afb583f30460b317e4188275f615b2"
 # tests require stuff we disable
 options = ["!check"]
 
+
 def post_install(self):
     # disabled
     self.rm(self.destdir / "usr/lib/pkgconfig/alsa-topology.pc")
+
 
 @subpackage("alsa-lib-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
+
 
 configure_gen = []

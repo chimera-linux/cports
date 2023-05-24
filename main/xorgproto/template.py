@@ -13,6 +13,7 @@ sha256 = "da351a403d07a7006d7bdc8dcfc14ddc1b588b38fb81adab9989a8eef605757b"
 # we don't want dependencies on all the pkg-config stuff
 options = ["!scanrundeps"]
 
+
 def post_install(self):
     for f in self.cwd.glob("COPYING-*"):
         self.install_license(f)
@@ -22,9 +23,7 @@ def post_install(self):
     for f in (self.destdir / "usr/include/X11/extensions").glob("windows*"):
         f.unlink()
 
-    self.rm(
-        self.destdir / f"usr/share/licenses/{pkgname}/COPYING-applewmproto"
-    )
+    self.rm(self.destdir / f"usr/share/licenses/{pkgname}/COPYING-applewmproto")
     self.rm(
         self.destdir / f"usr/share/licenses/{pkgname}/COPYING-windowswmproto"
     )
@@ -34,5 +33,6 @@ def post_install(self):
 
     # provided by libx11-devel
     self.rm(self.destdir / "usr/include/X11/extensions/XKBgeom.h")
+
 
 configure_gen = []

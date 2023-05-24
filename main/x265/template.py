@@ -22,13 +22,12 @@ match self.profile().arch:
     case "x86_64":
         configure_args += [
             "-DENABLE_ASSEMBLY=ON",
-            "-DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy"
+            "-DCMAKE_ASM_NASM_FLAGS=-w-macro-params-legacy",
         ]
         hostmakedepends += ["nasm"]
     case "ppc64le":
-        configure_args += [
-            "-DENABLE_ALTIVEC=ON", "-DCPU_POWER8=ON"
-        ]
+        configure_args += ["-DENABLE_ALTIVEC=ON", "-DCPU_POWER8=ON"]
+
 
 @subpackage("x265-devel")
 def _devel(self):

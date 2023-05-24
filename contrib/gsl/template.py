@@ -15,8 +15,10 @@ hardening = ["!int"]
 # fails on x86_64, passes elsewhere, takes a long time
 options = ["!check"]
 
+
 @subpackage("gsl-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

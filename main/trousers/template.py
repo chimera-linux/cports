@@ -22,16 +22,19 @@ system_users = [
     }
 ]
 
+
 def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "tcsd")
-    self.install_dir("var/lib/tpm", mode = 0o700, empty = True)
+    self.install_dir("var/lib/tpm", mode=0o700, empty=True)
+
 
 @subpackage("libtspi")
 def _tspi(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
     return self.default_libs()
+
 
 @subpackage("trousers-devel")
 def _devel(self):

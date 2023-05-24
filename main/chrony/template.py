@@ -12,8 +12,12 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
-    "libcap-devel", "libedit-devel", "libseccomp-devel",
-    "nettle-devel", "gnutls-devel", "linux-headers",
+    "libcap-devel",
+    "libedit-devel",
+    "libseccomp-devel",
+    "nettle-devel",
+    "gnutls-devel",
+    "linux-headers",
 ]
 checkdepends = ["bash"]
 pkgdesc = "NTP client and server"
@@ -35,15 +39,19 @@ system_users = [
     }
 ]
 
+
 def post_install(self):
     # config
-    self.install_file("examples/chrony.conf.example1", "etc", name = "chrony.conf")
+    self.install_file(
+        "examples/chrony.conf.example1", "etc", name="chrony.conf"
+    )
     # default dirs
-    self.install_dir("var/log/chrony", empty = True)
-    self.install_dir("var/lib/chrony", empty = True)
+    self.install_dir("var/log/chrony", empty=True)
+    self.install_dir("var/lib/chrony", empty=True)
     # dinit services
     self.install_service(self.files_path / "chrony-dir")
     self.install_service(self.files_path / "chronyd")
     self.install_service(self.files_path / "chrony")
+
 
 configure_gen = []

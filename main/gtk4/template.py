@@ -3,62 +3,110 @@ pkgver = "4.10.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dman-pages=true", "-Dbuild-tests=false", "-Dgtk_doc=false",
-    "-Dbroadway-backend=true", "-Dx11-backend=true", "-Dwayland-backend=true",
-    "-Dintrospection=enabled", "-Dcolord=enabled", "-Dvulkan=enabled",
-    "-Dcloudproviders=enabled", "-Dtracker=enabled",
+    "-Dman-pages=true",
+    "-Dbuild-tests=false",
+    "-Dgtk_doc=false",
+    "-Dbroadway-backend=true",
+    "-Dx11-backend=true",
+    "-Dwayland-backend=true",
+    "-Dintrospection=enabled",
+    "-Dcolord=enabled",
+    "-Dvulkan=enabled",
+    "-Dcloudproviders=enabled",
+    "-Dtracker=enabled",
 ]
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
-    "meson", "pkgconf", "gobject-introspection", "perl", "glib-devel",
-    "gettext-tiny-devel", "wayland-progs", "wayland-protocols", "xsltproc",
-    "docbook-xsl-nons", "python-docutils", "sassc", "gtk-update-icon-cache",
+    "meson",
+    "pkgconf",
+    "gobject-introspection",
+    "perl",
+    "glib-devel",
+    "gettext-tiny-devel",
+    "wayland-progs",
+    "wayland-protocols",
+    "xsltproc",
+    "docbook-xsl-nons",
+    "python-docutils",
+    "sassc",
+    "gtk-update-icon-cache",
 ]
 makedepends = [
-    "at-spi2-core-devel", "gdk-pixbuf-devel", "libepoxy-devel", "pango-devel",
-    "colord-devel", "libxkbcommon-devel", "wayland-devel", "wayland-protocols",
-    "mesa-devel", "libxcursor-devel", "libxdamage-devel", "libxext-devel",
-    "libxinerama-devel", "libxrandr-devel", "libxcomposite-devel",
-    "libxi-devel", "vulkan-loader", "vulkan-headers", "cups-devel",
-    "graphene-devel", "gst-plugins-bad-devel", "ffmpeg-devel",
-    "tracker-devel", "libcloudproviders-devel", "iso-codes",
+    "at-spi2-core-devel",
+    "gdk-pixbuf-devel",
+    "libepoxy-devel",
+    "pango-devel",
+    "colord-devel",
+    "libxkbcommon-devel",
+    "wayland-devel",
+    "wayland-protocols",
+    "mesa-devel",
+    "libxcursor-devel",
+    "libxdamage-devel",
+    "libxext-devel",
+    "libxinerama-devel",
+    "libxrandr-devel",
+    "libxcomposite-devel",
+    "libxi-devel",
+    "vulkan-loader",
+    "vulkan-headers",
+    "cups-devel",
+    "graphene-devel",
+    "gst-plugins-bad-devel",
+    "ffmpeg-devel",
+    "tracker-devel",
+    "libcloudproviders-devel",
+    "iso-codes",
 ]
 depends = [
-    "gtk-update-icon-cache", "adwaita-icon-theme",
-    "virtual:gdk-pixbuf-loader-svg!librsvg"
+    "gtk-update-icon-cache",
+    "adwaita-icon-theme",
+    "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [
-    "xserver-xorg-xvfb", "dbus", "adwaita-icon-theme", "hicolor-icon-theme",
-    "librsvg", "fonts-dejavu-otf", "python-gobject",
+    "xserver-xorg-xvfb",
+    "dbus",
+    "adwaita-icon-theme",
+    "hicolor-icon-theme",
+    "librsvg",
+    "fonts-dejavu-otf",
+    "python-gobject",
 ]
 pkgdesc = "Gimp Toolkit version 4"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 # release tarball for 4.10.2 is badly broken: https://gitlab.gnome.org/GNOME/gtk/-/issues/5770
-source = f"https://gitlab.gnome.org/GNOME/gtk/-/archive/{pkgver}/gtk-{pkgver}.tar.gz"
+source = (
+    f"https://gitlab.gnome.org/GNOME/gtk/-/archive/{pkgver}/gtk-{pkgver}.tar.gz"
+)
 sha256 = "7cc98e8d75f5d7a45c2bbfd73ac5ddeac2de3c22adbaaa4c216738241087b729"
 # xvfb doesn't do the trick for some reason?
 options = ["!cross", "!check"]
+
 
 def post_install(self):
     # we don't really need it (provided by gtk3)
     self.rm(self.destdir / "usr/bin/gtk4-update-icon-cache")
     self.rm(self.destdir / "usr/share/man/man1/gtk4-update-icon-cache.1")
 
+
 @subpackage("gtk4-devel")
 def _devel(self):
     self.depends += ["vulkan-headers"]
 
-    return self.default_devel(extra = [
-        "usr/bin/gtk4-builder-tool",
-        "usr/share/man/man1/gtk4-builder-tool.1",
-        "usr/bin/gtk4-encode-symbolic-svg",
-        "usr/share/man/man1/gtk4-encode-symbolic-svg.1",
-        "usr/bin/gtk4-query-settings",
-        "usr/share/man/man1/gtk4-query-settings.1",
-        "usr/share/gtk-4.0/valgrind",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/bin/gtk4-builder-tool",
+            "usr/share/man/man1/gtk4-builder-tool.1",
+            "usr/bin/gtk4-encode-symbolic-svg",
+            "usr/share/man/man1/gtk4-encode-symbolic-svg.1",
+            "usr/bin/gtk4-query-settings",
+            "usr/share/man/man1/gtk4-query-settings.1",
+            "usr/share/gtk-4.0/valgrind",
+        ]
+    )
+
 
 @subpackage("gtk4-demo")
 def _demo(self):
@@ -94,6 +142,7 @@ def _demo(self):
         "usr/share/icons/hicolor/scalable/apps/org.gtk.gtk4.NodeEditor.svg",
         "usr/share/icons/hicolor/symbolic/apps/org.gtk.gtk4.NodeEditor-symbolic.svg",
     ]
+
 
 @subpackage("gtk4-cups")
 def _cups(self):

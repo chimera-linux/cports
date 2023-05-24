@@ -11,12 +11,15 @@ source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "1613f0ac1cf484d6ec0ce3b8c06d56263cc7242f1c23b30d82d23de345a63f7a"
 hardening = ["vis", "cfi"]
 
+
 @subpackage("libtasn1-devel")
 def _devel(self):
-    return self.default_devel(extra = ["usr/share/info"])
+    return self.default_devel(extra=["usr/share/info"])
+
 
 @subpackage("libtasn1-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

@@ -11,11 +11,14 @@ url = "https://github.com/kkos/oniguruma"
 source = f"{url}/releases/download/v{pkgver}/onig-{pkgver}.tar.gz"
 sha256 = "28cd62c1464623c7910565fb1ccaaa0104b2fe8b12bcd646e81f73b47535213e"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("oniguruma-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

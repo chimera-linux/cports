@@ -4,7 +4,9 @@ _amalg = "3410200"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-threadsafe", "--enable-dynamic-extensions", "--enable-fts5"
+    "--enable-threadsafe",
+    "--enable-dynamic-extensions",
+    "--enable-fts5",
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = ["libedit-devel", "zlib-devel"]
@@ -17,13 +19,17 @@ sha256 = "e98c100dd1da4e30fa460761dab7c0b91a50b785e167f8c57acc46514fae9499"
 options = ["!parallel"]
 
 _cflags = [
-    "-DSQLITE_ENABLE_DBSTAT_VTAB", "-DSQLITE_ENABLE_COLUMN_METADATA",
-    "-DSQLITE_ENABLE_UNLOCK_NOTIFY", "-DSQLITE_SECURE_DELETE",
-    "-DSQLITE_ENABLE_FTS3", "-DSQLITE_ENABLE_FTS3_PARENTHESIS",
-    "-DSQLITE_ENABLE_FTS4", "-DSQLITE_ENABLE_FTS3_TOKENIZER=1",
-    "-DSQLITE_ENABLE_BATCH_ATOMIC_WRITE=1", "-DSQLITE_ENABLE_DESERIALIZE",
-
-    "-DHAVE_FDATASYNC"
+    "-DSQLITE_ENABLE_DBSTAT_VTAB",
+    "-DSQLITE_ENABLE_COLUMN_METADATA",
+    "-DSQLITE_ENABLE_UNLOCK_NOTIFY",
+    "-DSQLITE_SECURE_DELETE",
+    "-DSQLITE_ENABLE_FTS3",
+    "-DSQLITE_ENABLE_FTS3_PARENTHESIS",
+    "-DSQLITE_ENABLE_FTS4",
+    "-DSQLITE_ENABLE_FTS3_TOKENIZER=1",
+    "-DSQLITE_ENABLE_BATCH_ATOMIC_WRITE=1",
+    "-DSQLITE_ENABLE_DESERIALIZE",
+    "-DHAVE_FDATASYNC",
 ]
 
 if self.profile().endian == "big":
@@ -33,8 +39,10 @@ else:
 
 tool_flags = {"CFLAGS": _cflags}
 
+
 @subpackage("sqlite-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

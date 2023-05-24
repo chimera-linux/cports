@@ -13,12 +13,22 @@ configure_args = [
     "-Dvapi=true",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "glib-devel",
-    "gobject-introspection", "vala"
+    "meson",
+    "pkgconf",
+    "gettext-tiny",
+    "glib-devel",
+    "gobject-introspection",
+    "vala",
 ]
 makedepends = [
-    "bash-completion", "lcms2-devel", "libgudev-devel", "libgusb-devel",
-    "polkit-devel", "sqlite-devel", "dbus-devel", "sane-backends-devel",
+    "bash-completion",
+    "lcms2-devel",
+    "libgudev-devel",
+    "libgusb-devel",
+    "polkit-devel",
+    "sqlite-devel",
+    "dbus-devel",
+    "sane-backends-devel",
 ]
 pkgdesc = "Color management daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -46,16 +56,19 @@ system_users = [
     }
 ]
 
+
 def post_install(self):
     self.install_service(self.files_path / "colord")
 
-    self.install_dir("var/lib/colord/icc", empty = True)
+    self.install_dir("var/lib/colord/icc", empty=True)
+
 
 @subpackage("libcolord")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (shared library)"
 
     return self.default_libs()
+
 
 @subpackage("colord-devel")
 def _devel(self):

@@ -13,6 +13,7 @@ sha256 = "f99d1c13aa5fa296898a181dff9b82fb25f6cc0933dbaa7a475d8109bd54209d"
 # FIXME int
 hardening = ["!int"]
 
+
 @subpackage("graphite2-devel")
 def _devel(self):
     return self.default_devel()

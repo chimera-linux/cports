@@ -12,11 +12,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.gz"
 sha256 = "5e5f210329823f08f97bfe9fd5b4105070c789bc5aef88ce01d86d8203d4aa9f"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libfontenc-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

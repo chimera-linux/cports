@@ -3,6 +3,7 @@
 from datetime import datetime
 import os
 
+
 def invoke(pkg):
     if not pkg.rparent.source_date_epoch:
         return
@@ -16,9 +17,9 @@ def invoke(pkg):
         for d in dirs:
             absp = os.path.join(root, d)
             # update timestamp
-            os.utime(absp, (ts, ts), follow_symlinks = False)
+            os.utime(absp, (ts, ts), follow_symlinks=False)
 
         for f in files:
             absp = os.path.join(root, f)
             # update timestamp
-            os.utime(absp, (ts, ts), follow_symlinks = False)
+            os.utime(absp, (ts, ts), follow_symlinks=False)

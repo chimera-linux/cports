@@ -3,12 +3,15 @@ pkgver = "2.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-relro", "--enable-acl", "--enable-dbus",
-    "--enable-libpaper", "--enable-pam",
+    "--enable-relro",
+    "--enable-acl",
+    "--enable-dbus",
+    "--enable-libpaper",
+    "--enable-pam",
     "--enable-raw-printing",
-
-    "--disable-gssapi", "--without-rcdir", "--without-systemd",
-
+    "--disable-gssapi",
+    "--without-rcdir",
+    "--without-systemd",
     "--with-tls=openssl",
     "--with-dnssd=avahi",
     "--with-rundir=/run/cups",
@@ -24,12 +27,23 @@ configure_args = [
 make_dir = "."
 make_check_args = ["-j1"]
 hostmakedepends = [
-    "pkgconf", "avahi-devel", "openssl-devel", "poppler", "xdg-utils",
+    "pkgconf",
+    "avahi-devel",
+    "openssl-devel",
+    "poppler",
+    "xdg-utils",
 ]
 makedepends = [
-    "acl-devel", "openssl-devel", "libpaper-devel", "libpng-devel",
-    "libtiff-devel", "libpoppler-devel", "libusb-devel", "linux-pam-devel",
-    "avahi-devel", "linux-headers",
+    "acl-devel",
+    "openssl-devel",
+    "libpaper-devel",
+    "libpng-devel",
+    "libtiff-devel",
+    "libpoppler-devel",
+    "libusb-devel",
+    "linux-pam-devel",
+    "avahi-devel",
+    "linux-headers",
 ]
 depends = ["xdg-utils"]
 pkgdesc = "Common Unix Printing System"
@@ -72,12 +86,16 @@ system_users = [
 ]
 system_groups = ["_lpadmin"]
 
+
 def init_configure(self):
     # build system is bad
     self.configure_args += [
-        "--with-optim=" + self.get_cflags(shell = True) + \
-        " " + self.get_ldflags(shell = True)
+        "--with-optim="
+        + self.get_cflags(shell=True)
+        + " "
+        + self.get_ldflags(shell=True)
     ]
+
 
 def post_install(self):
     self.install_file(self.files_path / "client.conf", "etc/cups")
@@ -86,27 +104,32 @@ def post_install(self):
 
     # install some more configuration files that will get filled by cupsd
     for f in ["printers", "classes", "subscriptions"]:
-        (self.destdir / f"etc/cups/{f}.conf").touch(mode = 0o644)
+        (self.destdir / f"etc/cups/{f}.conf").touch(mode=0o644)
 
-    self.install_dir("usr/lib/cups/driver", empty = True)
-    self.install_dir("var/log/cups", mode = 0o750, empty = True)
-    self.install_dir("var/cache/cups/rss", mode = 0o750, empty = True)
-    self.install_dir("var/spool/cups", empty = True)
-    self.install_dir("etc/cups/ssl", mode = 0o700, empty = True)
+    self.install_dir("usr/lib/cups/driver", empty=True)
+    self.install_dir("var/log/cups", mode=0o750, empty=True)
+    self.install_dir("var/cache/cups/rss", mode=0o750, empty=True)
+    self.install_dir("var/spool/cups", empty=True)
+    self.install_dir("etc/cups/ssl", mode=0o700, empty=True)
+
 
 @subpackage("cups-libs")
 def _libs(self):
     self.file_modes = {"etc/cups/client.conf": ("root", "lp", 0o644)}
 
-    return self.default_libs(extra = [
-        "etc/cups/client.conf",
-        "usr/share/man/man5/client.conf.5",
-    ])
+    return self.default_libs(
+        extra=[
+            "etc/cups/client.conf",
+            "usr/share/man/man5/client.conf.5",
+        ]
+    )
+
 
 @subpackage("cups-devel")
 def _devel(self):
     self.depends += ["zlib-devel"]
 
     return self.default_devel()
+
 
 configure_gen = []

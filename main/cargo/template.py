@@ -7,7 +7,12 @@ build_style = "cargo"
 # into linker sequence for build script, breaking build entirely
 make_build_wrapper = ["env", "-u", "PKG_CONFIG"]
 hostmakedepends = [
-    "cargo-bootstrap", "python", "curl", "cmake", "pkgconf", "zlib-devel"
+    "cargo-bootstrap",
+    "python",
+    "curl",
+    "cmake",
+    "pkgconf",
+    "zlib-devel",
 ]
 makedepends = ["libcurl-devel", "openssl-devel"]
 pkgdesc = "Rust package manager"
@@ -38,11 +43,13 @@ else:
     makedepends += ["rust"]
     depends = ["rust"]
 
+
 def init_prepare(self):
     if _bootstrap:
         self.env["OPENSSL_STATIC"] = "1"
         self.env["OPENSSL_NO_PKG_CONFIG"] = "1"
         self.env["OPENSSL_DIR"] = str(self.profile().sysroot / "usr")
+
 
 def do_install(self):
     _binp = f"target/{self.profile().triplet}/release/cargo"
@@ -55,7 +62,7 @@ def do_install(self):
         self.cp("LICENSE-MIT", bdirn)
         self.cp("LICENSE-THIRD-PARTY", bdirn)
         self.do("tar", "cvJf", f"{bdirn}.tar.xz", bdirn)
-        self.rm(bdirn, recursive = True)
+        self.rm(bdirn, recursive=True)
         self.error("build done, collect your tarball in builddir")
     else:
         self.install_bin(_binp)
@@ -64,8 +71,9 @@ def do_install(self):
         self.install_man(f)
 
     self.install_file(
-        "src/etc/cargo.bashcomp.sh", "usr/share/bash-completion/completions",
-        name = "cargo"
+        "src/etc/cargo.bashcomp.sh",
+        "usr/share/bash-completion/completions",
+        name="cargo",
     )
     self.install_file("src/etc/_cargo", "usr/share/zsh/site-functions")
 

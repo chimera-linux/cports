@@ -24,15 +24,18 @@ sha256 = "43a1fae7412f61ff11de2cfd05d28cfc3a73762f354a417c62370a54e2caf066"
 # no check target
 options = ["!check", "!lto", "!splitstatic"]
 
+
 def init_configure(self):
     self.make_install_args += [
         "install-private-headers",
         "DESTDIR=" + str(self.chroot_destdir),
     ]
 
+
 def post_install(self):
     self.install_link("tclsh8.6", "usr/bin/tclsh")
     self.install_license("../license.terms")
+
 
 @subpackage("tcl-devel")
 def _devel(self):
@@ -45,5 +48,6 @@ def _devel(self):
         "usr/share/man/man3",
         "usr/lib/*.a",
     ]
+
 
 configure_gen = []

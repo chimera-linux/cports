@@ -12,9 +12,12 @@ url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/glibmm/{pkgver[:-2]}/glibmm-{pkgver}.tar.xz"
 sha256 = "5358742598181e5351d7bf8da072bf93e6dd5f178d27640d4e462bc8f14e152f"
 
+
 @subpackage("glibmm2.4-devel")
 def _devel(self):
-    return self.default_devel(extra = [
-        "usr/lib/glibmm-2.4",
-        "usr/lib/giomm-2.4",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/lib/glibmm-2.4",
+            "usr/lib/giomm-2.4",
+        ]
+    )

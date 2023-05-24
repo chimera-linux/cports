@@ -2,9 +2,7 @@ pkgname = "texinfo"
 pkgver = "7.0.3"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = [
-    "--disable-static", "--disable-perl-xs"
-]
+configure_args = ["--disable-static", "--disable-perl-xs"]
 hostmakedepends = ["perl", "ncurses-devel"]
 makedepends = ["ncurses-devel"]
 depends = ["perl"]

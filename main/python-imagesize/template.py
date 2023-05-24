@@ -14,5 +14,6 @@ sha256 = "69150444affb9cb0d5cc5a92b3676f0b2fb7cd9ae39e947a5e11a36b4497cd4a"
 # dependency of pytest
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.rst")

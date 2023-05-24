@@ -13,8 +13,11 @@ url = "https://www.cairographics.org/cairomm"
 source = f"http://cairographics.org/releases/cairomm-{pkgver}.tar.xz"
 sha256 = "4749d25a2b2ef67cc0c014caaf5c87fa46792fc4b3ede186fb0fc932d2055158"
 
+
 @subpackage("cairomm1.0-devel")
 def _devel(self):
-    return self.default_devel(extra = [
-        "usr/lib/cairomm-1.0",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/lib/cairomm-1.0",
+        ]
+    )

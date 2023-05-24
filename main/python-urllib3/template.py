@@ -13,6 +13,7 @@ sha256 = "8a388717b9476f934a21484e8c8e61875ab60644d29b9b39e11e4b9dc1c6b305"
 # unpackaged dependency
 options = ["!check", "brokenlinks"]
 
+
 def post_install(self):
     for f in (self.destdir / "usr/lib").glob(
         "python*/site-packages/urllib3/packages/six.py"

@@ -13,8 +13,10 @@ url = "https://github.com/Airblader/xcb-util-xrm"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "0129f74c327ae65e2f4ad4002f300b4f02c9aff78c00997f1f1c5a430f922f34"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("xcb-util-xrm-devel")
 def _devel(self):

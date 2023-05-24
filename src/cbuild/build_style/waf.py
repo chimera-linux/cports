@@ -2,36 +2,51 @@
 
 from cbuild.core import chroot
 
+
 def do_configure(self):
     self.do(
-        "python3", self.configure_script, "configure",
-        "--prefix=/usr", "--libdir=/usr/lib", *self.configure_args,
-        env = self.configure_env
+        "python3",
+        self.configure_script,
+        "configure",
+        "--prefix=/usr",
+        "--libdir=/usr/lib",
+        *self.configure_args,
+        env=self.configure_env,
     )
+
 
 def do_build(self):
     self.do(
-        "python3", self.configure_script, self.make_build_target,
+        "python3",
+        self.configure_script,
+        self.make_build_target,
         f"-j{self.make_jobs}",
         *self.make_build_args,
-        env = self.make_build_env
+        env=self.make_build_env,
     )
+
 
 def do_check(self):
     self.do(
-        "python3", self.configure_script, self.make_check_target,
+        "python3",
+        self.configure_script,
+        self.make_check_target,
         f"-j{self.make_jobs}",
         *self.make_check_args,
-        env = self.make_check_env
+        env=self.make_check_env,
     )
+
 
 def do_install(self):
     self.do(
-        "python3", self.configure_script, self.make_install_target,
+        "python3",
+        self.configure_script,
+        self.make_install_target,
         "--destdir=" + str(self.chroot_destdir),
         *self.make_install_args,
-        env = self.make_install_env
+        env=self.make_install_env,
     )
+
 
 def use(tmpl):
     tmpl.do_configure = do_configure

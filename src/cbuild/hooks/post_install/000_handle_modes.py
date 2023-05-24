@@ -3,6 +3,7 @@
 
 import os
 
+
 def invoke(pkg):
     for k in pkg.file_modes:
         p = pkg.destdir / k

@@ -7,58 +7,59 @@ from cbuild.core import paths
 
 _tsizes = "_BH_I___Q"
 
+
 def _make_struct(l):
     v32 = "".join(map(lambda x: _tsizes[x[1]], l))
     v64 = "".join(map(lambda x: _tsizes[x[2]], l))
     return (v32, v64)
+
 
 def _make_sepstruct(l32, l64):
     v32 = "".join(map(lambda x: _tsizes[x[1]], l32))
     v64 = "".join(map(lambda x: _tsizes[x[1]], l64))
     return (v32, v64)
 
-elf_types = [
-    "ET_NONE", "ET_REL", "ET_EXEC", "ET_DYN", "ET_CORE"
-]
+
+elf_types = ["ET_NONE", "ET_REL", "ET_EXEC", "ET_DYN", "ET_CORE"]
 
 hdrdef_elf = [
-    ("magic",     4, 4),
-    ("wordsize",  1, 1),
-    ("endian",    1, 1),
-    ("version",   1, 1),
-    ("abi",       1, 1),
-    ("abiver",    1, 1),
-    ("pad1",      4, 4),
-    ("pad2",      2, 2),
-    ("pad3",      1, 1),
-    ("type",      2, 2),
-    ("machine",   2, 2),
-    ("oversion",  4, 4),
-    ("entry",     4, 8),
-    ("phoff",     4, 8),
-    ("shoff",     4, 8),
-    ("flags",     4, 4),
-    ("ehsize",    2, 2),
+    ("magic", 4, 4),
+    ("wordsize", 1, 1),
+    ("endian", 1, 1),
+    ("version", 1, 1),
+    ("abi", 1, 1),
+    ("abiver", 1, 1),
+    ("pad1", 4, 4),
+    ("pad2", 2, 2),
+    ("pad3", 1, 1),
+    ("type", 2, 2),
+    ("machine", 2, 2),
+    ("oversion", 4, 4),
+    ("entry", 4, 8),
+    ("phoff", 4, 8),
+    ("shoff", 4, 8),
+    ("flags", 4, 4),
+    ("ehsize", 2, 2),
     ("phentsize", 2, 2),
-    ("phnum",     2, 2),
+    ("phnum", 2, 2),
     ("shentsize", 2, 2),
-    ("shnum",     2, 2),
-    ("shstrndx",  2, 2)
+    ("shnum", 2, 2),
+    ("shstrndx", 2, 2),
 ]
 
 hdr_elf = _make_struct(hdrdef_elf)
 
 hdrdef_sect = [
-    ("name",      4, 4),
-    ("type",      4, 4),
-    ("flags",     4, 8),
-    ("addr",      4, 8),
-    ("offset",    4, 8),
-    ("size",      4, 8),
-    ("link",      4, 4),
-    ("info",      4, 4),
+    ("name", 4, 4),
+    ("type", 4, 4),
+    ("flags", 4, 8),
+    ("addr", 4, 8),
+    ("offset", 4, 8),
+    ("size", 4, 8),
+    ("link", 4, 4),
+    ("info", 4, 4),
     ("addralign", 4, 8),
-    ("entsize",   4, 8)
+    ("entsize", 4, 8),
 ]
 
 hdr_sect = _make_struct(hdrdef_sect)
@@ -66,42 +67,41 @@ hdr_sect = _make_struct(hdrdef_sect)
 # we make 32 and 64 separate here as the field order differs
 
 hdr32def_prog = [
-    ("type",   4),
+    ("type", 4),
     ("offset", 4),
-    ("vaddr",  4),
-    ("paddr",  4),
+    ("vaddr", 4),
+    ("paddr", 4),
     ("filesz", 4),
-    ("memsz",  4),
-    ("flags",  4),
-    ("align",  4)
+    ("memsz", 4),
+    ("flags", 4),
+    ("align", 4),
 ]
 
 hdr64def_prog = [
-    ("type",   4),
-    ("flags",  4),
+    ("type", 4),
+    ("flags", 4),
     ("offset", 8),
-    ("vaddr",  8),
-    ("paddr",  8),
+    ("vaddr", 8),
+    ("paddr", 8),
     ("filesz", 8),
-    ("memsz",  8),
-    ("align",  8)
+    ("memsz", 8),
+    ("align", 8),
 ]
 
 hdrdef_prog = (hdr32def_prog, hdr64def_prog)
 hdr_prog = _make_sepstruct(*hdrdef_prog)
 
-dyndef = [
-    ("tag", 4, 8),
-    ("val", 4, 8)
-]
+dyndef = [("tag", 4, 8), ("val", 4, 8)]
 
 dyn_entry = _make_struct(dyndef)
+
 
 def _unpack(sdef, sstr, offset, endian, mm):
     endian = ("<>")[endian]
     sstr = endian + sstr
-    bytes = mm[offset:offset + struct.calcsize(sstr)]
-    return {sdef[i][0]:v for i, v in enumerate(struct.unpack(sstr, bytes))}
+    bytes = mm[offset : offset + struct.calcsize(sstr)]
+    return {sdef[i][0]: v for i, v in enumerate(struct.unpack(sstr, bytes))}
+
 
 def _get_nullstr(offset, strtab, mm):
     sbeg = strtab + offset
@@ -111,9 +111,10 @@ def _get_nullstr(offset, strtab, mm):
     else:
         return mm[sbeg:send]
 
+
 def _scan_one(fpath):
     inf = open(fpath, "rb")
-    mm = mmap.mmap(inf.fileno(), 0, prot = mmap.PROT_READ)
+    mm = mmap.mmap(inf.fileno(), 0, prot=mmap.PROT_READ)
 
     if mm[0:4] != b"\x7FELF":
         mm.close()
@@ -157,10 +158,10 @@ def _scan_one(fpath):
             interp = True
             if stack:
                 break
-        elif phdr["type"] == 0x6474e551:
+        elif phdr["type"] == 0x6474E551:
             # PT_GNU_STACK
             # checking flags against PF_X (1 << 0)
-            execstack = ((phdr["flags"] & 1) != 0)
+            execstack = (phdr["flags"] & 1) != 0
             stack = True
             if interp:
                 break
@@ -243,20 +244,28 @@ def _scan_one(fpath):
         soname = None
 
     return (
-        ehdr["machine"], elf_types[etype],
-        not dynsect, interp, textrel, execstack, needed, soname
+        ehdr["machine"],
+        elf_types[etype],
+        not dynsect,
+        interp,
+        textrel,
+        execstack,
+        needed,
+        soname,
     )
+
 
 def is_static(path):
     einfo = _scan_one(path)
     return einfo and einfo[2]
 
+
 def scan(pkg, somap):
     scandir = pkg.destdir
     elf_usrshare = []
     elf_textrels = []
-    elf_xstack   = []
-    elf_foreign  = []
+    elf_xstack = []
+    elf_foreign = []
 
     # only test machine type against libc when not bootstrapping
     # as otherise we cannot provide guarantees about the host system
@@ -303,7 +312,13 @@ def scan(pkg, somap):
             elf_xstack.append(fpath)
         # store
         somap[str(fpath)] = (
-            soname, needed, pkg.pkgname, is_static, etype, interp, foreign
+            soname,
+            needed,
+            pkg.pkgname,
+            is_static,
+            etype,
+            interp,
+            foreign,
         )
 
     # some linting

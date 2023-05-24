@@ -14,6 +14,7 @@ source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
 sha256 = "9121c9162f6dedab1229a8c4ed4021c4d605699cb0da580ac2ee1b0c96b3f60e"
 hardening = ["vis", "cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
 
@@ -21,15 +22,16 @@ def post_install(self):
     # also TODO: write a manpage for new startx
     self.rm(self.destdir / "usr/bin/startx")
     self.rm(self.destdir / "usr/share/man/man1/startx.1")
-    self.rm(self.destdir / "etc/X11/xinit", recursive = True)
+    self.rm(self.destdir / "etc/X11/xinit", recursive=True)
 
-    self.install_file(self.files_path / "startx", "usr/bin", mode = 0o755)
-    self.install_file(self.files_path / "Xsession", "etc/X11", mode = 0o755)
+    self.install_file(self.files_path / "startx", "usr/bin", mode=0o755)
+    self.install_file(self.files_path / "Xsession", "etc/X11", mode=0o755)
 
     # default xsession scripts
     self.install_dir("etc/X11/Xsession.d")
     self.install_file(
-        self.files_path / "00default", "etc/X11/Xsession.d", mode = 0o755
+        self.files_path / "00default", "etc/X11/Xsession.d", mode=0o755
     )
+
 
 configure_gen = []

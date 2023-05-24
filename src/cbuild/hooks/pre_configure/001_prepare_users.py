@@ -2,6 +2,7 @@
 
 from cbuild.core import paths
 
+
 def invoke(pkg):
     # don't involve users during bootstrap
     if pkg.stage < 1:

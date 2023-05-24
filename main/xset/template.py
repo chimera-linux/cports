@@ -4,8 +4,10 @@ pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "libxmu-devel", "libxext-devel", "libxxf86misc-devel",
-    "libxfontcache-devel"
+    "libxmu-devel",
+    "libxext-devel",
+    "libxxf86misc-devel",
+    "libxfontcache-devel",
 ]
 pkgdesc = "X11 user preferences utility"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -17,7 +19,9 @@ hardening = ["vis", "cfi"]
 # needs cmdtest
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 configure_gen = []

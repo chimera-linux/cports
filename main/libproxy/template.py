@@ -23,13 +23,16 @@ sha256 = "69b5856e9ea42c38ac77e6b8c92ffc86a71d341fef74e77bef85f9cc6c47a4b1"
 # FIXME int (glib-networking tests fail)
 hardening = ["!int"]
 
+
 @subpackage("libproxy-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("libproxy-progs")
 def _progs(self):
     return self.default_progs()
+
 
 @subpackage("libproxy-python")
 def _python(self):

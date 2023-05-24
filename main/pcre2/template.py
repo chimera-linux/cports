@@ -27,15 +27,18 @@ match self.profile().arch:
     case "riscv64" | "aarch64":
         configure_args += ["--disable-jit"]
 
+
 def post_install(self):
     self.install_license("LICENCE")
+
 
 @subpackage("libpcre2")
 def _libpcre2(self):
     self.pkgdesc = f"{pkgdesc} (shared libraries)"
     return self.default_libs()
 
+
 @subpackage("pcre2-devel")
 def _devel(self):
     self.depends += ["zlib-devel", "libbz2-devel"]
-    return self.default_devel(extra = ["usr/share/doc"])
+    return self.default_devel(extra=["usr/share/doc"])

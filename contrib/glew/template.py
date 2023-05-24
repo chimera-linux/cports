@@ -23,9 +23,10 @@ tool_flags = {
     "CFLAGS": ["-fPIC"],
 }
 
+
 def init_configure(self):
-    cfl = self.get_cflags(shell = True)
-    ldfl = self.get_ldflags(shell = True)
+    cfl = self.get_cflags(shell=True)
+    ldfl = self.get_ldflags(shell=True)
 
     self.make_build_args += [
         "CC=" + self.get_tool("CC"),
@@ -36,6 +37,7 @@ def init_configure(self):
         "CFLAGS.EXTRA=" + cfl,
         "LDFLAGS.EXTRA=" + f"{cfl} {ldfl}",
     ]
+
 
 @subpackage("glew-devel")
 def _devel(self):

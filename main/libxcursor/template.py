@@ -11,11 +11,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXcursor-{pkgver}.tar.gz"
 sha256 = "77f96b9ad0a3c422cfa826afabaf1e02b9bfbfc8908c5fa1a45094faad074b98"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libxcursor-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

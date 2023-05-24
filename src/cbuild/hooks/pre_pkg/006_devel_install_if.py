@@ -19,7 +19,7 @@ def invoke(pkg):
 
     pv = f"{bpkg.pkgver}-r{bpkg.pkgrel}"
 
-    matchdeps = { f"{bpkg.pkgname}={pv}": True }
+    matchdeps = {f"{bpkg.pkgname}={pv}": True}
 
     for sp in pkg.rparent.subpkg_list:
         if sp == pkg:

@@ -3,10 +3,18 @@ pkgver = "0.4.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dintrospection=enabled", "-Dvapi=true", "-Dtests=true", "-Dgtk_doc=true",
+    "-Dintrospection=enabled",
+    "-Dvapi=true",
+    "-Dtests=true",
+    "-Dgtk_doc=true",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "vala", "gtk-doc-tools",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "vala",
+    "gtk-doc-tools",
     "gobject-introspection",
 ]
 makedepends = ["gtk+3-devel", "libarchive-devel"]
@@ -17,6 +25,7 @@ url = "https://gitlab.gnome.org/GNOME/gnome-autoar"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "c0afbe333bcf3cb1441a1f574cc8ec7b1b8197779145d4edeee2896fdacfc3c2"
 options = ["!cross"]
+
 
 @subpackage("gnome-autoar-devel")
 def _devel(self):

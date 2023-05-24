@@ -1,5 +1,6 @@
 import pathlib
 
+
 def precompile(pkg, path):
     path = pathlib.Path(path)
 

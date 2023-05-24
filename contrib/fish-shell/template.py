@@ -14,5 +14,6 @@ sha256 = "55402bb47ca6739d8aba25e41780905b5ce1bce0a5e0dd17dca908b5bc0b49b2"
 # FIXME int: test fail
 hardening = ["vis", "cfi", "!int"]
 
+
 def post_install(self):
     self.install_shell("/usr/bin/fish")

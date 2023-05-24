@@ -3,18 +3,35 @@ pkgver = "20.1.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
-    "--shared-zlib", "--shared-openssl", "--shared-libuv", "--shared-nghttp2",
-    "--shared-cares", "--shared-brotli", "--with-intl=system-icu",
-    "--openssl-use-def-ca-store", "--ninja", "--prefix=/usr",
+    "--shared-zlib",
+    "--shared-openssl",
+    "--shared-libuv",
+    "--shared-nghttp2",
+    "--shared-cares",
+    "--shared-brotli",
+    "--with-intl=system-icu",
+    "--openssl-use-def-ca-store",
+    "--ninja",
+    "--prefix=/usr",
 ]
 make_cmd = "gmake"
 make_check_target = "test-only"
 hostmakedepends = [
-    "pkgconf", "ninja", "python", "gmake", "python-jinja2",
+    "pkgconf",
+    "ninja",
+    "python",
+    "gmake",
+    "python-jinja2",
 ]
 makedepends = [
-    "zlib-devel", "icu-devel", "openssl-devel", "libuv-devel",
-    "nghttp2-devel", "c-ares-devel", "brotli-devel", "linux-headers",
+    "zlib-devel",
+    "icu-devel",
+    "openssl-devel",
+    "libuv-devel",
+    "nghttp2-devel",
+    "c-ares-devel",
+    "brotli-devel",
+    "linux-headers",
 ]
 checkdepends = ["procps"]
 pkgdesc = "JavaScript runtime based on V8"
@@ -23,8 +40,8 @@ license = "MIT"
 url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
 sha256 = "714d59336dc7e3291aebae4f0acd7938cdefb1c04f0a7d46a26aabe2662fe3cf"
-debug_level = 1 # allow LTO build to not run out of mem
-hardening = ["!cfi"] # TODO
+debug_level = 1  # allow LTO build to not run out of mem
+hardening = ["!cfi"]  # TODO
 options = ["!cross"]
 
 match self.profile().arch:
@@ -33,31 +50,40 @@ match self.profile().arch:
         # also crashes on riscv64
         hardening += ["!int"]
 
+
 def post_extract(self):
     self.mv("deps/openssl/nodejs-openssl.cnf", ".")
 
     for f in [
-        "deps/brotli", "deps/cares", "deps/openssl", "deps/zlib",
-        "deps/v8/third_party/jinja2", "tools/inspector_protocol/jinja2",
+        "deps/brotli",
+        "deps/cares",
+        "deps/openssl",
+        "deps/zlib",
+        "deps/v8/third_party/jinja2",
+        "tools/inspector_protocol/jinja2",
     ]:
-        self.rm(f, recursive = True)
+        self.rm(f, recursive=True)
 
     self.mkdir("deps/openssl")
     self.mv("nodejs-openssl.cnf", "deps/openssl")
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 # real test suite requires network acccess
 def do_check(self):
     npath = self.chroot_cwd / "out/Release"
     nexe = npath / "node"
-    self.do(nexe, "-e", "console.log('test')", wrksrc = "out/Release")
+    self.do(nexe, "-e", "console.log('test')", wrksrc="out/Release")
     self.do(
-        nexe, "-e",
+        nexe,
+        "-e",
         f"require('assert').equal(process.versions.node, '{pkgver}')",
-        wrksrc = "out/Release"
+        wrksrc="out/Release",
     )
+
 
 @subpackage("nodejs-devel")
 def _devel(self):

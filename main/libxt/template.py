@@ -12,11 +12,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXt-{pkgver}.tar.gz"
 sha256 = "de4a80c4cc7785b9620e572de71026805f68e85a2bf16c386009ef0e50be3f77"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libxt-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

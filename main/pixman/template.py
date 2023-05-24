@@ -8,7 +8,7 @@ configure_args = [
     "-Dgtk=disabled",
     "-Dopenmp=disabled",
     "-Diwmmxt=disabled",
-    "-Da64-neon=disabled", # added with 0.42.x, fails to build on clang
+    "-Da64-neon=disabled",  # added with 0.42.x, fails to build on clang
 ]
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = ["linux-headers", "libpng-devel"]
@@ -23,8 +23,10 @@ tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
 # FIXME int (test fails)
 hardening = ["!int"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("pixman-devel")
 def _devel(self):

@@ -3,7 +3,8 @@ pkgver = "16.0.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-Wno-dev",
     "-DENABLE_LINKER_BUILD_ID=YES",
     "-DCOMPILER_RT_USE_BUILTINS_LIBRARY=YES",
     # avoid execinfo
@@ -30,14 +31,12 @@ configure_args = [
     "-DLLVM_ENABLE_LIBCXX=YES",
     "-DLIBUNWIND_USE_COMPILER_RT=YES",
 ]
-hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel"
-]
+hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel"]
 makedepends = ["zlib-devel", "libatomic-chimera-devel"]
 depends = [
     f"libllvm={pkgver}-r{pkgrel}",
     f"llvm-linker-tools={pkgver}-r{pkgrel}",
-    f"llvm-runtime={pkgver}-r{pkgrel}"
+    f"llvm-runtime={pkgver}-r{pkgrel}",
 ]
 pkgdesc = "Low Level Virtual Machine"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -61,7 +60,7 @@ options = ["bootstrap", "!check", "!installroot"]
 # while on riscv it prevents rust from building
 hardening = ["!int"]
 
-_llvmgen = pkgver[0:pkgver.find(".")]
+_llvmgen = pkgver[0 : pkgver.find(".")]
 
 cmake_dir = "llvm"
 
@@ -78,8 +77,12 @@ if self.stage > 0:
     configure_args += ["-DLLVM_ENABLE_FFI=YES"]
     hostmakedepends += ["libffi-devel"]
     makedepends += [
-        "python-devel", "libedit-devel", "elftoolchain-devel",
-        "libffi-devel", "libzstd-devel", "linux-headers"
+        "python-devel",
+        "libedit-devel",
+        "elftoolchain-devel",
+        "libffi-devel",
+        "libzstd-devel",
+        "linux-headers",
     ]
     # enable LTO except on riscv where it's broken
     if self.stage >= 2:
@@ -96,7 +99,9 @@ if self.stage > 0:
                 "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
                 "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
             ]
-            tool_flags["LDFLAGS"] += ["-fuse-ld=/usr/lib/llvm-bootstrap/bin/ld.lld"]
+            tool_flags["LDFLAGS"] += [
+                "-fuse-ld=/usr/lib/llvm-bootstrap/bin/ld.lld"
+            ]
 else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",
@@ -113,35 +118,56 @@ else:
 _enable_flang = False
 
 # not ready yet (no codegen in flang-new)
-#if self.stage >= 2:
+# if self.stage >= 2:
 #    _enable_flang = True
 
 if _enable_flang:
     _enabled_projects += ["flang"]
 
 match self.profile().arch:
-    case "x86_64": _arch = "X86"
-    case "aarch64": _arch = "AArch64"
-    case "ppc64le" | "ppc64": _arch = "PowerPC"
-    case "riscv64": _arch = "RISCV64"
+    case "x86_64":
+        _arch = "X86"
+    case "aarch64":
+        _arch = "AArch64"
+    case "ppc64le" | "ppc64":
+        _arch = "PowerPC"
+    case "riscv64":
+        _arch = "RISCV64"
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 # do not use bootstrapping build for cross as it does not really work for now
 if self.profile().cross:
-    configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects + _enabled_runtimes)}"]
+    configure_args += [
+        f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects + _enabled_runtimes)}"
+    ]
 else:
     configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
     configure_args += [f"-DLLVM_ENABLE_RUNTIMES={';'.join(_enabled_runtimes)}"]
+
 
 def init_configure(self):
     if not self.profile().cross:
         return
 
-    self.configure_args.append("-DLLVM_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/llvm-tblgen"))
-    self.configure_args.append("-DCLANG_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/clang-tblgen"))
-    self.configure_args.append("-DCLANG_PSEUDO_GEN=" + str(self.chroot_cwd / "build_host/bin/clang-pseudo-gen"))
-    self.configure_args.append("-DCLANG_TIDY_CONFUSABLE_CHARS_GEN=" + str(self.chroot_cwd / "build_host/bin/clang-tidy-confusable-chars-gen"))
+    self.configure_args.append(
+        "-DLLVM_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/llvm-tblgen")
+    )
+    self.configure_args.append(
+        "-DCLANG_TABLEGEN="
+        + str(self.chroot_cwd / "build_host/bin/clang-tblgen")
+    )
+    self.configure_args.append(
+        "-DCLANG_PSEUDO_GEN="
+        + str(self.chroot_cwd / "build_host/bin/clang-pseudo-gen")
+    )
+    self.configure_args.append(
+        "-DCLANG_TIDY_CONFUSABLE_CHARS_GEN="
+        + str(
+            self.chroot_cwd / "build_host/bin/clang-tidy-confusable-chars-gen"
+        )
+    )
+
 
 def pre_configure(self):
     if not self.profile().cross:
@@ -157,30 +183,36 @@ def pre_configure(self):
     with self.profile("host"):
         with self.stamp("host_llvm_configure"):
             # need to pass the triplets so builtins are found
-            cmake.configure(self, self.cmake_dir, "build_host", [
-                "-DLLVM_HOST_TRIPLE=" + trip,
-                "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
-            ])
+            cmake.configure(
+                self,
+                self.cmake_dir,
+                "build_host",
+                [
+                    "-DLLVM_HOST_TRIPLE=" + trip,
+                    "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
+                ],
+            )
 
         with self.stamp("host_llvm_tblgen") as s:
             s.check()
-            make.Make(self, wrksrc = "build_host").invoke(["bin/llvm-tblgen"])
+            make.Make(self, wrksrc="build_host").invoke(["bin/llvm-tblgen"])
 
         with self.stamp("host_clang_tblgen") as s:
             s.check()
-            make.Make(self, wrksrc = "build_host").invoke(["bin/clang-tblgen"])
+            make.Make(self, wrksrc="build_host").invoke(["bin/clang-tblgen"])
 
         with self.stamp("host_confusable_gen") as s:
             s.check()
-            make.Make(self, wrksrc = "build_host").invoke([
-                "bin/clang-tidy-confusable-chars-gen"
-            ])
+            make.Make(self, wrksrc="build_host").invoke(
+                ["bin/clang-tidy-confusable-chars-gen"]
+            )
 
         with self.stamp("host_clang_pseudo_gen") as s:
             s.check()
-            make.Make(self, wrksrc = "build_host").invoke([
-                "bin/clang-pseudo-gen"
-            ])
+            make.Make(self, wrksrc="build_host").invoke(
+                ["bin/clang-pseudo-gen"]
+            )
+
 
 def do_configure(self):
     from cbuild.util import cmake
@@ -189,11 +221,17 @@ def do_configure(self):
     with self.profile(self.profile().arch) as pf:
         trip = pf.triplet
 
-    cmake.configure(self, self.cmake_dir, "build", [
-        "-DLLVM_TARGET_ARCH=" + _arch,
-        "-DLLVM_HOST_TRIPLE=" + trip,
-        "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
-    ])
+    cmake.configure(
+        self,
+        self.cmake_dir,
+        "build",
+        [
+            "-DLLVM_TARGET_ARCH=" + _arch,
+            "-DLLVM_HOST_TRIPLE=" + trip,
+            "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
+        ],
+    )
+
 
 def post_install(self):
     from cbuild.util import python
@@ -208,6 +246,7 @@ def post_install(self):
     if self.stage > 0:
         python.precompile(self, "usr/share/scan-view")
 
+
 @subpackage("clang-tools-extra-static")
 def _tools_extra_static(self):
     self.pkgdesc = f"{pkgdesc} (extra Clang tools static libraries)"
@@ -220,12 +259,13 @@ def _tools_extra_static(self):
         "usr/lib/libclangTidy*",
     ]
 
+
 @subpackage("clang-tools-extra")
 def _tools_extra(self):
     self.pkgdesc = f"{pkgdesc} (extra Clang tools)"
     self.depends = [
         f"clang={pkgver}-r{pkgrel}",
-        f"clang-tools-extra-static={pkgver}-r{pkgrel}"
+        f"clang-tools-extra-static={pkgver}-r{pkgrel}",
     ]
 
     return [
@@ -240,8 +280,9 @@ def _tools_extra(self):
         "usr/bin/modularize",
         "usr/bin/pp-trace",
         "usr/bin/sancov",
-        "usr/share/clang/*tidy*"
+        "usr/share/clang/*tidy*",
     ]
+
 
 @subpackage("clang")
 def _clang(self):
@@ -262,17 +303,17 @@ def _clang(self):
         "usr/bin/cc",
         "usr/bin/c++",
         "usr/lib/cmake/clang",
-        "usr/share/clang"
+        "usr/share/clang",
     ]
+
 
 @subpackage("clang-rt-devel")
 def _clang_rt_devel(self):
     self.pkgdesc = f"{pkgdesc} (Clang runtime development files)"
-    self.options = ["ltostrip", "!splitstatic"] # these are explicitly -fno-lto
+    self.options = ["ltostrip", "!splitstatic"]  # these are explicitly -fno-lto
 
-    return [
-        "usr/lib/clang"
-    ]
+    return ["usr/lib/clang"]
+
 
 @subpackage("clang-devel-static")
 def _clang_static(self):
@@ -281,6 +322,7 @@ def _clang_static(self):
     self.install_if = []
 
     return ["usr/lib/libclang*.a"]
+
 
 @subpackage("clang-devel")
 def _clang_devel(self):
@@ -292,7 +334,7 @@ def _clang_devel(self):
         f"clang-devel-static={pkgver}-r{pkgrel}",
         f"libclang={pkgver}-r{pkgrel}",
         f"libclang-cpp={pkgver}-r{pkgrel}",
-        f"libcxx-devel={pkgver}-r{pkgrel}"
+        f"libcxx-devel={pkgver}-r{pkgrel}",
     ]
 
     return [
@@ -300,6 +342,7 @@ def _clang_devel(self):
         "usr/include/clang-c",
         "usr/lib/libclang*.so",
     ]
+
 
 @subpackage("clang-analyzer")
 def _clang_analyzer(self):
@@ -321,11 +364,13 @@ def _clang_analyzer(self):
         "usr/share/man/man1/scan-build.1",
     ]
 
+
 @subpackage("libclang")
 def _libclang(self):
     self.pkgdesc = f"{pkgdesc} (C frontend runtime library)"
 
     return ["usr/lib/libclang.so.*"]
+
 
 @subpackage("libclang-cpp")
 def _libclang_cpp(self):
@@ -333,20 +378,18 @@ def _libclang_cpp(self):
 
     return ["usr/lib/libclang-cpp.so.*"]
 
+
 @subpackage("flang", _enable_flang)
 def _flang(self):
     self.pkgdesc = f"{pkgdesc} (Fortran frontend)"
     self.depends = [
         f"clang={pkgver}-r{pkgrel}",
         f"mlir={pkgver}-r{pkgrel}",
-        "bash"
+        "bash",
     ]
 
-    return [
-        "usr/bin/f18*",
-        "usr/bin/fir*",
-        "usr/bin/flang*"
-    ]
+    return ["usr/bin/f18*", "usr/bin/fir*", "usr/bin/flang*"]
+
 
 @subpackage("flang-devel", _enable_flang)
 def _flang_devel(self):
@@ -360,13 +403,13 @@ def _flang_devel(self):
         "usr/lib/cmake/flang",
     ]
 
+
 @subpackage("mlir", _enable_flang)
 def _mlir(self):
     self.pkgdesc = f"{pkgdesc} (MLIR)"
 
-    return [
-        "usr/bin/mlir*"
-    ]
+    return ["usr/bin/mlir*"]
+
 
 @subpackage("mlir-devel-static", _enable_flang)
 def _mlir_static(self):
@@ -375,6 +418,7 @@ def _mlir_static(self):
     self.install_if = []
 
     return ["usr/lib/libMLIR*.a"]
+
 
 @subpackage("mlir-devel", _enable_flang)
 def _mlir_devel(self):
@@ -390,6 +434,7 @@ def _mlir_devel(self):
         "usr/lib/cmake/mlir",
     ]
 
+
 @subpackage("libmlir", _enable_flang)
 def _mlir(self):
     self.pkgdesc = f"{pkgdesc} (MLIR runtime library)"
@@ -399,11 +444,13 @@ def _mlir(self):
         "usr/lib/libmlir*.so.*",
     ]
 
+
 @subpackage("libunwind")
 def _libunwind(self):
     self.pkgdesc = f"{pkgdesc} (libunwind)"
 
     return ["usr/lib/libunwind.so.*"]
+
 
 @subpackage("libunwind-devel-static")
 def _libunwind_static(self):
@@ -412,6 +459,7 @@ def _libunwind_static(self):
 
     return ["usr/lib/libunwind.a"]
 
+
 @subpackage("libunwind-devel")
 def _libunwind_devel(self):
     self.pkgdesc = f"{pkgdesc} (libunwind) (development files)"
@@ -419,14 +467,16 @@ def _libunwind_devel(self):
     return [
         "usr/lib/libunwind.so",
         "usr/include/*unwind*",
-        "usr/include/mach-o"
+        "usr/include/mach-o",
     ]
+
 
 @subpackage("libcxx")
 def _libcxx(self):
     self.pkgdesc = f"{pkgdesc} (C++ standard library)"
 
     return ["usr/lib/libc++.so.*"]
+
 
 @subpackage("libcxx-devel-static")
 def _libcxx_static(self):
@@ -435,18 +485,18 @@ def _libcxx_static(self):
 
     return ["usr/lib/libc++.a"]
 
+
 @subpackage("libcxxabi-devel")
 def _libcxxabi_devel(self):
     self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (development files)"
-    self.depends = [
-        f"libunwind-devel={pkgver}-r{pkgrel}"
-    ]
+    self.depends = [f"libunwind-devel={pkgver}-r{pkgrel}"]
 
     return [
         "usr/include/c++/v1/cxxabi.h",
         "usr/include/c++/v1/__cxxabi_config.h",
         "usr/lib/libc++abi.so",
     ]
+
 
 @subpackage("libcxx-devel")
 def _libcxx_devel(self):
@@ -460,6 +510,7 @@ def _libcxx_devel(self):
         "usr/include/c++",
     ]
 
+
 @subpackage("libcxxabi")
 def _libcxxabi(self):
     self.pkgdesc = f"{pkgdesc} (low level C++ runtime)"
@@ -467,21 +518,22 @@ def _libcxxabi(self):
 
     return ["usr/lib/libc++abi.so.*"]
 
+
 @subpackage("libcxxabi-devel-static")
 def _libcxxabi_static(self):
     self.pkgdesc = f"{pkgdesc} (low level C++ runtime) (static library)"
-    self.depends += [
-        f"libunwind-devel-static={pkgver}-r{pkgrel}"
-    ]
+    self.depends += [f"libunwind-devel-static={pkgver}-r{pkgrel}"]
     self.options = ["ltostrip"]
 
     return ["usr/lib/libc++abi.a"]
+
 
 @subpackage("libllvm")
 def _libllvm(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
     return [f"usr/lib/libLLVM-{_llvmgen}*.so"]
+
 
 @subpackage("lld")
 def _lld(self):
@@ -493,8 +545,9 @@ def _lld(self):
         "usr/bin/lld*",
         "usr/bin/wasm-ld",
         "usr/bin/ld.lld*",
-        "usr/bin/ld64.lld*"
+        "usr/bin/ld64.lld*",
     ]
+
 
 @subpackage("lld-devel-static")
 def _lld_devel(self):
@@ -502,15 +555,15 @@ def _lld_devel(self):
     self.depends = []
     self.install_if = []
 
-    return [
-        "usr/lib/liblld*.a"
-    ]
+    return ["usr/lib/liblld*.a"]
+
 
 @subpackage("lld-devel")
 def _lld_devel(self):
     self.pkgdesc = f"{pkgdesc} (linker) (development files)"
     self.depends = [
-        f"lld={pkgver}-r{pkgrel}", f"lld-devel-static={pkgver}-r{pkgrel}"
+        f"lld={pkgver}-r{pkgrel}",
+        f"lld-devel-static={pkgver}-r{pkgrel}",
     ]
 
     return [
@@ -518,13 +571,13 @@ def _lld_devel(self):
         "usr/lib/cmake/lld",
     ]
 
+
 @subpackage("llvm-linker-tools")
 def _llvm_linker_tools(self):
     self.pkgdesc = f"{pkgdesc} (linker plugins)"
 
-    return [
-        "usr/lib/libLTO.so.*"
-    ]
+    return ["usr/lib/libLTO.so.*"]
+
 
 @subpackage("llvm-devel-static")
 def _llvm_static(self):
@@ -533,6 +586,7 @@ def _llvm_static(self):
     self.install_if = []
 
     return ["usr/lib/*.a"]
+
 
 @subpackage("llvm-devel")
 def _llvm_devel(self):
@@ -554,6 +608,7 @@ def _llvm_devel(self):
         "usr/lib/cmake",
     ]
 
+
 @subpackage("llvm-tools")
 def _llvm_tools(self):
     self.pkgdesc = f"{pkgdesc} (testing tools)"
@@ -566,6 +621,7 @@ def _llvm_tools(self):
         "usr/bin/yaml-bench",
         "usr/share/opt-viewer",
     ]
+
 
 @subpackage("llvm-runtime")
 def _llvm_runtime(self):

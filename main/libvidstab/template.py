@@ -17,6 +17,7 @@ match self.profile().arch:
     case "x86_64":
         configure_args = ["-DSSE2_FOUND=1"]
 
+
 @subpackage("libvidstab-devel")
 def _devel(self):
     self.depends += ["libomp-devel"]

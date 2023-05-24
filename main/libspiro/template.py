@@ -10,8 +10,10 @@ url = "https://github.com/fontforge/libspiro"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-dist-{pkgver}.tar.gz"
 sha256 = "5984fb5af3e4e1f927f3a74850b705a711fb86284802a5e6170b09786440e8be"
 
+
 @subpackage("libspiro-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

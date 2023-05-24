@@ -4,7 +4,11 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-gir=true", "-Dwith-docs=false"]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gobject-introspection", "vala-devel"
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gobject-introspection",
+    "vala-devel",
 ]
 makedepends = ["glib-devel", "lcms2-devel", "vala-devel"]
 pkgdesc = "Dynamic pixel format translation library"
@@ -15,6 +19,7 @@ source = f"https://download.gimp.org/pub/{pkgname}/{pkgver[:-4]}/{pkgname}-{pkgv
 sha256 = "d325135d3304f088c134cc620013acf035de2e5d125a50a2d91054e7377c415f"
 # FIXME all tests fail
 hardening = ["!int"]
+
 
 @subpackage("babl-devel")
 def _devel(self):

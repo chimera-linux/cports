@@ -5,7 +5,9 @@ build_wrksrc = "kpartx"
 build_style = "makefile"
 make_cmd = "gmake"
 make_install_args = [
-    "prefix=/usr", "libudevdir=/usr/lib/udev", "bindir=/usr/bin"
+    "prefix=/usr",
+    "libudevdir=/usr/lib/udev",
+    "bindir=/usr/bin",
 ]
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["device-mapper-devel"]
@@ -18,6 +20,7 @@ sha256 = "e410fdee62ccaaecb79a0feb09c10d075a7254d013cf65543923bccb40c091c6"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["!check"]
+
 
 def do_configure(self):
     self.make.invoke(None, ["-C", "..", "config.mk"])

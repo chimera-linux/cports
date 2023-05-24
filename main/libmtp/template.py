@@ -13,10 +13,12 @@ source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c9191dac2f5744cf402e08641610b271f73ac21a3c802734ec2cedb2c6bc56d0"
 options = ["!cross"]
 
+
 @subpackage("libmtp-devel")
 def _devel(self):
     self.depends += ["libgcrypt-devel"]
 
     return self.default_devel()
+
 
 configure_gen = []

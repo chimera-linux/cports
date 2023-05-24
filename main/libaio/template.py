@@ -3,7 +3,7 @@ pkgver = "0.3.113"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
-make_check_target = "partcheck" # full check needs root, e2fsprogs, mount, etc
+make_check_target = "partcheck"  # full check needs root, e2fsprogs, mount, etc
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["linux-headers"]
 checkdepends = ["bash"]
@@ -14,6 +14,7 @@ url = "https://pagure.io/libaio"
 source = f"https://pagure.io/{pkgname}/archive/{pkgname}-{pkgver}/{pkgname}-{pkgname}-{pkgver}.tar.gz"
 sha256 = "716c7059703247344eb066b54ecbc3ca2134f0103307192e6c2b7dab5f9528ab"
 hardening = ["!ssp"]
+
 
 @subpackage("libaio-devel")
 def _devel(self):

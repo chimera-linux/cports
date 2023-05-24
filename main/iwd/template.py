@@ -22,16 +22,18 @@ license = "LGPL-2.1-or-later"
 url = "https://iwd.wiki.kernel.org"
 source = f"$(KERNEL_SITE)/network/wireless/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3a9c5e7ade45162e5c78b3d7035a2f4a6e20ba6b5974097c35a8f615493012f9"
-tool_flags = {"CFLAGS": [
-    "-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"
-]}
+tool_flags = {
+    "CFLAGS": ["-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"]
+}
 # FIXME cfi (tests fail)
 hardening = ["vis", "!cfi"]
+
 
 def post_install(self):
     self.install_service(self.files_path / "iwd")
     self.install_service(self.files_path / "ead")
 
-    self.install_dir("etc/iwd", empty = True)
+    self.install_dir("etc/iwd", empty=True)
+
 
 configure_gen = []

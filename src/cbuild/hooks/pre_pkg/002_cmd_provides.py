@@ -3,6 +3,7 @@ from cbuild.apk import cli
 
 import re
 
+
 def invoke(pkg):
     if not pkg.options["scancmd"] or pkg.stage == 0:
         return

@@ -3,7 +3,8 @@ pkgver = "16.0.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-Wno-dev",
     "-DCMAKE_C_COMPILER=/usr/bin/clang",
     "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
     "-DCMAKE_AR=/usr/bin/llvm-ar",
@@ -27,8 +28,10 @@ configure_args = [
 make_cmd = "make"
 hostmakedepends = ["cmake", "python"]
 makedepends = [
-    "clang-rt-crt-cross", "libatomic-chimera-cross", "musl-cross",
-    "linux-headers-cross"
+    "clang-rt-crt-cross",
+    "libatomic-chimera-cross",
+    "musl-cross",
+    "linux-headers-cross",
 ]
 depends = [f"libcxxabi-cross={pkgver}-r{pkgrel}"]
 pkgdesc = "Cross-toolchain LLVM libc++"
@@ -50,6 +53,7 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC", "-nostdlib"],
 }
 
+
 def do_configure(self):
     from cbuild.util import cmake
 
@@ -59,30 +63,38 @@ def do_configure(self):
             # configure libcxx
             with self.stamp(f"{an}_configure") as s:
                 s.check()
-                cmake.configure(self, self.cmake_dir, f"build-{an}", [
-                    f"-DCMAKE_SYSROOT=/usr/{at}",
-                    f"-DCMAKE_ASM_COMPILER_TARGET={at}",
-                    f"-DCMAKE_CXX_COMPILER_TARGET={at}",
-                    f"-DCMAKE_C_COMPILER_TARGET={at}",
-                    f"-DLIBCXX_CXX_ABI_LIBRARY_PATH=/usr/{at}/usr/lib"
-                ], cross_build = False)
+                cmake.configure(
+                    self,
+                    self.cmake_dir,
+                    f"build-{an}",
+                    [
+                        f"-DCMAKE_SYSROOT=/usr/{at}",
+                        f"-DCMAKE_ASM_COMPILER_TARGET={at}",
+                        f"-DCMAKE_CXX_COMPILER_TARGET={at}",
+                        f"-DCMAKE_C_COMPILER_TARGET={at}",
+                        f"-DLIBCXX_CXX_ABI_LIBRARY_PATH=/usr/{at}/usr/lib",
+                    ],
+                    cross_build=False,
+                )
+
 
 def do_build(self):
     for an in _targets:
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                self.make.build(wrksrc = f"build-{an}")
+                self.make.build(wrksrc=f"build-{an}")
+
 
 def do_install(self):
     for an in _targets:
         with self.profile(an) as pf:
             self.make.install(
-                ["DESTDIR=" + str(
-                    self.chroot_destdir / "usr" / pf.triplet
-                )],
-                wrksrc = f"build-{an}", default_args = False
+                ["DESTDIR=" + str(self.chroot_destdir / "usr" / pf.triplet)],
+                wrksrc=f"build-{an}",
+                default_args=False,
             )
+
 
 def _gen_crossp(an, at):
     # libunwind subpackages
@@ -99,7 +111,10 @@ def _gen_crossp(an, at):
         self.pkgdesc = f"Cross-toolchain LLVM libunwind ({an})"
         self.depends = [f"musl-cross-{an}", f"libatomic-chimera-cross-{an}"]
         self.options = [
-            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+            "!scanshlibs",
+            "!scanrundeps",
+            "!splitstatic",
+            "foreignelf",
         ]
         return [
             f"usr/{at}/usr/lib/libunwind.*",
@@ -120,7 +135,10 @@ def _gen_crossp(an, at):
         self.pkgdesc = f"Cross-toolchain LLVM libc++abi ({an})"
         self.depends = [f"libunwind-cross-{an}={pkgver}-r{pkgrel}"]
         self.options = [
-            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+            "!scanshlibs",
+            "!scanrundeps",
+            "!splitstatic",
+            "foreignelf",
         ]
         return [
             f"usr/{at}/usr/lib/libc++abi*",
@@ -142,16 +160,21 @@ def _gen_crossp(an, at):
         self.pkgdesc = f"{pkgdesc} ({an})"
         self.depends = [f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}"]
         self.options = [
-            "!scanshlibs", "!scanrundeps", "!splitstatic", "foreignelf"
+            "!scanshlibs",
+            "!scanrundeps",
+            "!splitstatic",
+            "foreignelf",
         ]
         return [f"usr/{at}"]
 
     if cond:
         depends.append(f"libcxx-cross-{an}={pkgver}-r{pkgrel}")
 
+
 for an in _targetlist:
     with self.profile(an) as pf:
         _gen_crossp(an, pf.triplet)
+
 
 @subpackage("libunwind-cross-static")
 def _static(self):
@@ -163,6 +186,7 @@ def _static(self):
 
     return []
 
+
 @subpackage("libcxxabi-cross-static")
 def _static(self):
     self.pkgdesc = f"Cross-toolchain LLVM libc++abi (static)"
@@ -172,6 +196,7 @@ def _static(self):
         self.depends.append(f"libcxxabi-cross-{an}-static={pkgver}-r{pkgrel}")
 
     return []
+
 
 @subpackage("libcxx-cross-static")
 def _static(self):
@@ -183,6 +208,7 @@ def _static(self):
 
     return []
 
+
 @subpackage("libunwind-cross")
 def _unw_cross(self):
     self.pkgdesc = "Cross-toolchain LLVM libunwind"
@@ -192,6 +218,7 @@ def _unw_cross(self):
         self.depends.append(f"libunwind-cross-{an}={pkgver}-r{pkgrel}")
 
     return []
+
 
 @subpackage("libcxxabi-cross")
 def _cxxabi_cross(self):

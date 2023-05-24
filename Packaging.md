@@ -212,6 +212,14 @@ be made for `contrib` (such as when the software is high profile and the
 latest stable release is very old and provides worse user experience) but
 not for `main`.
 
+<a id="correct_style"></a>
+### Correct Style
+
+The `cbuild` system as well as the templates are formatted with
+[Black](https://black.readthedocs.io/en/stable/). Therefore, when writing
+either template or `cbuild` code, make sure the result remains unchanged
+after re-formatting.
+
 <a id="correct_templates"></a>
 ### Writing Correct Templates
 

@@ -19,8 +19,10 @@ def do_check(self):
     self.make.invoke(None, ["-f", "Makefile.cmdline"])
     self.do(self.chroot_cwd / "duk", "-e", "print('hello world', 5 + 10)")
 
+
 def post_install(self):
     self.install_license("LICENSE.txt")
+
 
 @subpackage("duktape-devel")
 def _devel(self):

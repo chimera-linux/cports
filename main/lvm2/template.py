@@ -36,11 +36,15 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["gmake", "gsed", "pkgconf", "bash"]
 makedepends = [
-    "udev-devel-static", "libblkid-devel-static",
-    "libaio-devel-static", "libedit-devel-static",
-    "musl-devel-static", "libunwind-devel-static",
+    "udev-devel-static",
+    "libblkid-devel-static",
+    "libaio-devel-static",
+    "libedit-devel-static",
+    "musl-devel-static",
+    "libunwind-devel-static",
     "libatomic-chimera-devel-static",
-    "ncurses-devel-static", "linux-headers",
+    "ncurses-devel-static",
+    "linux-headers",
 ]
 pkgdesc = "Logical Volume Manager 2 utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -51,37 +55,44 @@ sha256 = "1e261921d621998adc37960c615de784c6145c7f737a80b781f3108fbec67a7e"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]
 # otherwise we're in for a world of pain
-exec_wrappers = [
-    ("/usr/bin/gsed", "sed")
-]
+exec_wrappers = [("/usr/bin/gsed", "sed")]
 
 if self.profile().arch == "riscv64":
     # udev static library weirdness
     makedepends += ["libcap-devel-static"]
     configure_args += ["LIBS=-lcap"]
 
+
 def pre_install(self):
     self.install_dir("usr/bin")
     self.install_link("bin", "usr/sbin")
+
 
 def post_install(self):
     self.install_service(self.files_path / "dmeventd")
     self.install_service(self.files_path / "lvmetad")
 
     self.install_file(
-        self.files_path / "dmsetup.hook", "usr/share/initramfs-tools/hooks",
-        name = "dmsetup", mode = 0o755
+        self.files_path / "dmsetup.hook",
+        "usr/share/initramfs-tools/hooks",
+        name="dmsetup",
+        mode=0o755,
     )
     self.install_file(
-        self.files_path / "lvm2.hook", "usr/share/initramfs-tools/hooks",
-        name = "lvm2", mode = 0o755
+        self.files_path / "lvm2.hook",
+        "usr/share/initramfs-tools/hooks",
+        name="lvm2",
+        mode=0o755,
     )
 
     self.rm(self.destdir / "usr/sbin")
 
+
 @subpackage("device-mapper-devel")
 def _dmdev(self):
-    self.pkgdesc = "Device Mapper userspace library and tools (development files)"
+    self.pkgdesc = (
+        "Device Mapper userspace library and tools (development files)"
+    )
     self.depends += makedepends
 
     return [
@@ -94,6 +105,7 @@ def _dmdev(self):
         "usr/lib/libdevmapper-event-lvm2.so",
         "usr/lib/*.a",
     ]
+
 
 @subpackage("device-mapper")
 def _dm(self):
@@ -112,6 +124,7 @@ def _dm(self):
         "usr/share/man/man8/dm*",
     ]
 
+
 @subpackage("lvm2-extra")
 def _extra(self):
     self.pkgdesc = f"{pkgdesc} (extra utilities)"
@@ -122,5 +135,6 @@ def _extra(self):
         "usr/bin/lvm_import_vdo",
         "usr/bin/lvmdump",
     ]
+
 
 configure_gen = []

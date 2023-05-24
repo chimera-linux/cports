@@ -9,15 +9,21 @@ configure_args = [
     "-Djs_engine=duktape",
     "-Dauthfw=pam",
     "-Dpam_include=dummy",
-    "-Dos_type=redhat", # dummy value
+    "-Dos_type=redhat",  # dummy value
     "-Dman=true",
     "-Dintrospection=true",
-    "-Dtests=false", # tests need mocklibc
+    "-Dtests=false",  # tests need mocklibc
     "-Dgtk_doc=false",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gobject-introspection", "gettext-tiny", "glib-devel",
-    "perl", "xsltproc", "docbook-xsl-nons",
+    "meson",
+    "pkgconf",
+    "gobject-introspection",
+    "gettext-tiny",
+    "glib-devel",
+    "perl",
+    "xsltproc",
+    "docbook-xsl-nons",
 ]
 makedepends = ["elogind-devel", "duktape-devel", "linux-pam-devel"]
 pkgdesc = "Toolkit for defining and handling authorizations"
@@ -38,14 +44,16 @@ options = ["!check"]
 
 system_users = ["_polkitd"]
 
+
 def post_install(self):
-    self.rm(self.destdir / "tmp", recursive = True)
+    self.rm(self.destdir / "tmp", recursive=True)
     self.rm(self.destdir / "etc/pam.d/polkit-1")
     self.install_file(
-        self.files_path / "polkit-1.pam", "etc/pam.d", name = "polkit-1"
+        self.files_path / "polkit-1.pam", "etc/pam.d", name="polkit-1"
     )
-    self.install_dir("usr/share/polkit-1/rules.d", mode = 0o700, empty = True)
+    self.install_dir("usr/share/polkit-1/rules.d", mode=0o700, empty=True)
     self.install_service(self.files_path / "polkitd")
+
 
 @subpackage("polkit-devel")
 def _devel(self):

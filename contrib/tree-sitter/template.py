@@ -12,8 +12,10 @@ sha256 = "6181ede0b7470bfca37e293e7d5dc1d16469b9485d13f13a605baec4a8b1f791"
 # check requires cargo/fixture stuff (from remote repositories)
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("tree-sitter-devel")
 def _devel(self):

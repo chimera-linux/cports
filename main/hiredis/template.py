@@ -16,17 +16,21 @@ sha256 = "fe6d21741ec7f3fc9df409d921f47dfc73a4d8ff64f4ac6f1d95f951bf7f53d6"
 # needs redis
 options = ["!check"]
 
+
 def init_configure(self):
-    self.make_build_args += ["DEBUG=" + self.get_cflags(shell = True)]
+    self.make_build_args += ["DEBUG=" + self.get_cflags(shell=True)]
+
 
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("hiredis-ssl")
 def _ssl(self):
     self.pkgdesc = f"{pkgdesc} (hiredis_ssl library)"
 
     return ["usr/lib/libhiredis_ssl.so.*"]
+
 
 @subpackage("hiredis-devel")
 def _devel(self):

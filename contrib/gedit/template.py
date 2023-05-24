@@ -4,12 +4,24 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false"]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "vala",
-    "gobject-introspection", "perl", "itstool",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "vala",
+    "gobject-introspection",
+    "perl",
+    "itstool",
 ]
 makedepends = [
-    "glib-devel", "gtk+3-devel", "gtksourceview4-devel", "libpeas-devel",
-    "gspell-devel", "libxml2-devel", "python-gobject-devel", "tepl-devel",
+    "glib-devel",
+    "gtk+3-devel",
+    "gtksourceview4-devel",
+    "libpeas-devel",
+    "gspell-devel",
+    "libxml2-devel",
+    "python-gobject-devel",
+    "tepl-devel",
     "amtk-devel",
 ]
 depends = ["gsettings-desktop-schemas", "iso-codes", "python-gobject"]
@@ -21,10 +33,12 @@ url = "https://wiki.gnome.org/Apps/Gedit"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3bbb1b3775d4c277daf54aaab44b0eb83a4eb1f09f0391800041c9e56893ec11"
 
+
 def post_install(self):
     from cbuild.util import python
 
     python.precompile(self, "usr/lib/gedit/plugins")
+
 
 @subpackage("gedit-devel")
 def _devel(self):

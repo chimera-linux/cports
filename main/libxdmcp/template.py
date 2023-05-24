@@ -11,11 +11,14 @@ url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXdmcp-{pkgver}.tar.gz"
 sha256 = "55041a8ff8992ab02777478c4b19c249c0f8399f05a752cb4a1a868a9a0ccb9a"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libxdmcp-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

@@ -17,9 +17,17 @@ def invoke(pkg):
     # certain paths must not exist, they are symlinks or in base-files
     # or just outright forbidden (like wordsize specific lib symlinks)
     for d in [
-        "bin", "lib", "lib32", "lib64", "sbin",
-        "usr/sbin", "usr/lib32", "usr/lib64",
-        "var/run", "usr/local", "usr/lib/locale",
+        "bin",
+        "lib",
+        "lib32",
+        "lib64",
+        "sbin",
+        "usr/sbin",
+        "usr/lib32",
+        "usr/lib64",
+        "var/run",
+        "usr/local",
+        "usr/lib/locale",
         "usr/share/mime/XMLnamespaces",
         "usr/share/mime/aliases",
         "usr/share/mime/generic-icons",
@@ -61,17 +69,13 @@ def invoke(pkg):
             lintfail = True
 
     # stuff in /etc that should go in /usr/share
-    for d in [
-        "bash_completion.d", "X11/xorg.conf.d", "gconf/schemas"
-    ]:
+    for d in ["bash_completion.d", "X11/xorg.conf.d", "gconf/schemas"]:
         if (pkg.destdir / "etc" / d).exists():
             pkg.log_red(f"{d} should go in /usr/share, not /etc")
             lintfail = True
 
     # stuff in /etc that should go in /usr/lib
-    for d in [
-        "modprobe.d", "sysctl.d", "udev/rules.d", "udev/hwdb.d"
-    ]:
+    for d in ["modprobe.d", "sysctl.d", "udev/rules.d", "udev/hwdb.d"]:
         if d == "modprobe.d" and pkg.pkgname == "kmod":
             continue
         if (pkg.destdir / "etc" / d).exists():
@@ -79,9 +83,7 @@ def invoke(pkg):
             lintfail = True
 
     # stuff in /usr that should go in /usr/share
-    for d in [
-        "man", "doc", "dict"
-    ]:
+    for d in ["man", "doc", "dict"]:
         if (pkg.destdir / "usr" / d).exists():
             pkg.log_red(f"{d} should go in /usr/share, not /usr")
             lintfail = True

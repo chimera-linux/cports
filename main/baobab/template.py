@@ -3,11 +3,18 @@ pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "vala", "itstool",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "vala",
+    "itstool",
     "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel", "glib-devel", "libadwaita-devel",
+    "gtk4-devel",
+    "glib-devel",
+    "libadwaita-devel",
 ]
 depends = ["hicolor-icon-theme", "gsettings-desktop-schemas"]
 pkgdesc = "Graphical directory tree analyzer for GNOME"

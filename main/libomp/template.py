@@ -8,8 +8,12 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "python", "perl", "clang-tools-extra"]
 makedepends = [
-    "llvm-devel", "libffi-devel", "zlib-devel", "elftoolchain-devel",
-    "ncurses-devel", "linux-headers"
+    "llvm-devel",
+    "libffi-devel",
+    "zlib-devel",
+    "elftoolchain-devel",
+    "ncurses-devel",
+    "linux-headers",
 ]
 pkgdesc = "LLVM OpenMP runtime"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -27,9 +31,11 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
+
 def post_install(self):
     for f in (self.destdir / "usr/lib").glob("libomp.so.*"):
         self.install_link(f.name, "usr/lib/libomp.so")
+
 
 @subpackage("libomp-devel-static")
 def _devel_static(self):
@@ -39,11 +45,10 @@ def _devel_static(self):
 
     return ["usr/lib/*.a"]
 
+
 @subpackage("libomp-devel")
 def _devel(self):
-    self.depends = [
-        f"libomp-devel-static={pkgver}-r{pkgrel}"
-    ]
+    self.depends = [f"libomp-devel-static={pkgver}-r{pkgrel}"]
 
     return [
         "usr/include",

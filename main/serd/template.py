@@ -12,12 +12,15 @@ sha256 = "f50f486da519cdd8d03b20c9e42414e459133f5a244411d8e63caef8d9ac9146"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("serd-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("serd-progs")
 def _progs(self):

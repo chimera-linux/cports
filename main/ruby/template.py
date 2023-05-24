@@ -3,16 +3,22 @@ pkgver = "3.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-shared", "--disable-rpath", "--disable-install-doc",
-    "ac_cv_func_isnan=yes", "ac_cv_func_isinf=yes"
+    "--enable-shared",
+    "--disable-rpath",
+    "--disable-install-doc",
+    "ac_cv_func_isnan=yes",
+    "ac_cv_func_isinf=yes",
 ]
 make_cmd = "gmake"
 make_build_args = ["all", "capi"]
 make_install_env = {"MAKE": "gmake"}
 hostmakedepends = ["gmake", "pkgconf", "bison", "flex", "mandoc"]
 makedepends = [
-    "zlib-devel", "libedit-devel", "libffi-devel", "openssl-devel",
-    "libyaml-devel"
+    "zlib-devel",
+    "libedit-devel",
+    "libffi-devel",
+    "openssl-devel",
+    "libyaml-devel",
 ]
 pkgdesc = "Ruby scripting language"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -33,19 +39,21 @@ match self.profile().arch:
 if self.profile().cross:
     hostmakedepends += ["ruby"]
 
+
 def post_install(self):
     self.install_license("COPYING")
 
+
 @subpackage("ruby-devel")
 def _devel(self):
-    return self.default_devel(extra = [
-        f"usr/lib/ruby/{pkgver[:-2]}.0/mkmf.rb"
-    ])
+    return self.default_devel(extra=[f"usr/lib/ruby/{pkgver[:-2]}.0/mkmf.rb"])
+
 
 @subpackage("ruby-ri")
 def _ri(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/bin/ri"]
+
 
 configure_gen = []

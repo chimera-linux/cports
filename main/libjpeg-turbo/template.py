@@ -16,18 +16,21 @@ match self.profile().arch:
     case "ppc64le" | "ppc64":
         configure_args += ["-DWITH_SIMD=FALSE"]
 
+
 def post_install(self):
     self.install_license("LICENSE.md")
 
     self.install_file("jpegint.h", "usr/include")
     self.install_file("transupp.h", "usr/include")
 
-    self.rm(self.destdir / "usr/share/doc", recursive = True)
+    self.rm(self.destdir / "usr/share/doc", recursive=True)
     self.rm(self.destdir / "usr/bin/tjbench")
+
 
 @subpackage("libjpeg-turbo-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("libjpeg-turbo-progs")
 def _progs(self):

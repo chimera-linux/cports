@@ -15,16 +15,17 @@ sha256 = "29e19116397cf0a50bb49a87b09d816cf8d233aa7016c4884d1ff88bfbc6ab27"
 options = ["!check"]
 system_users = ["_ckms"]
 
+
 def post_install(self):
     # kernel hook
     self.install_file(
-        self.files_path / "10-ckms.sh", "etc/kernel.d", mode = 0o755
+        self.files_path / "10-ckms.sh", "etc/kernel.d", mode=0o755
     )
     # initramfs refresh hook
     self.install_file(
-        self.files_path / "refresh-initramfs.sh", "etc/ckms", mode = 0o755
+        self.files_path / "refresh-initramfs.sh", "etc/ckms", mode=0o755
     )
     # helpers
     self.install_file(
-        self.files_path / "ckms-install-all", "usr/libexec", mode = 0o755
+        self.files_path / "ckms-install-all", "usr/libexec", mode=0o755
     )

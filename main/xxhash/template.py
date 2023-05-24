@@ -13,8 +13,10 @@ url = "https://cyan4973.github.io/xxHash"
 source = f"https://github.com/Cyan4973/{pkgname}/archive/v{pkgver}.tar.gz"
 sha256 = "3bb6b7d6f30c591dd65aaaff1c8b7a5b94d81687998ca9400082c739a690436c"
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("xxhash-devel")
 def _devel(self):

@@ -5,8 +5,10 @@ build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = [
-    "libatomic-chimera-devel-static", "libunwind-devel-static",
-    "musl-devel-static", "libucontext-devel",
+    "libatomic-chimera-devel-static",
+    "libunwind-devel-static",
+    "musl-devel-static",
+    "libucontext-devel",
 ]
 pkgdesc = "Glibc compatibility shim for musl"
 maintainer = "eater <=@eater.me>"
@@ -43,10 +45,11 @@ make_build_args = [
     f"LOADER_PATH=/usr/lib/{_glibc}",
     f"LINKER_PATH=/usr/lib/{_musl}",
     "LIBGCOMPAT_PATH=/usr/lib/libgcompat.so.0",
-    "WITH_LIBUCONTEXT=1"
+    "WITH_LIBUCONTEXT=1",
 ]
 make_install_args = list(make_build_args)
 
+
 def pre_install(self):
     # make install doesn't create the dirs and dies
-    self.install_dir('usr/lib')
+    self.install_dir("usr/lib")

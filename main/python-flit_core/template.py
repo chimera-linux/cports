@@ -15,5 +15,6 @@ sha256 = "d0f2a8f4bd45dc794befbf5839ecc0fd3830d65a57bd52b5997542fac5d5e937"
 # missing checkdepends
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("../LICENSE")

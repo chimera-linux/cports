@@ -14,12 +14,21 @@ configure_args = [
     "-Dpolkit=true",
 ]
 hostmakedepends = [
-    "meson", "docbook-xsl-nons", "gettext-tiny", "gperf", "xsltproc",
-    "pkgconf", "shadow"
+    "meson",
+    "docbook-xsl-nons",
+    "gettext-tiny",
+    "gperf",
+    "xsltproc",
+    "pkgconf",
+    "shadow",
 ]
 makedepends = [
-    "acl-devel", "udev-devel", "gettext-tiny-devel", "libcap-devel",
-    "libseccomp-devel", "linux-pam-devel"
+    "acl-devel",
+    "udev-devel",
+    "gettext-tiny-devel",
+    "libcap-devel",
+    "libseccomp-devel",
+    "linux-pam-devel",
 ]
 checkdepends = ["bash"]
 depends = ["dbus", "turnstile"]
@@ -31,32 +40,33 @@ url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "c490dc158c8f5bca8d00ecfcc7ad5af24d1c7b9e59990a0b3b1323996221a922"
 
+
 def post_install(self):
     # compat symlinks
     self.install_link("libelogind.pc", "usr/lib/pkgconfig/libsystemd.pc")
-    self.install_link(
-        "libelogind.pc", "usr/lib/pkgconfig/libsystemd-logind.pc"
-    )
+    self.install_link("libelogind.pc", "usr/lib/pkgconfig/libsystemd-logind.pc")
     self.install_link("elogind", "usr/include/systemd")
     # extra includes
     self.install_file("src/systemd/sd-id128.h", "usr/include")
     self.install_file("src/systemd/_sd-common.h", "usr/include")
     # service file
     self.install_file(
-        self.files_path / "elogind.wrapper", "usr/libexec/elogind",
-        mode = 0o755
+        self.files_path / "elogind.wrapper", "usr/libexec/elogind", mode=0o755
     )
-    self.install_service(self.files_path / "elogind", enable = True)
+    self.install_service(self.files_path / "elogind", enable=True)
+
 
 @subpackage("elogind-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("elogind-meta")
 def _meta(self):
     self.pkgdesc = f"{pkgdesc} (recommends package)"
     self.build_style = "meta"
     return []
+
 
 @subpackage("elogind-polkit")
 def _polkit(self):
@@ -68,10 +78,12 @@ def _polkit(self):
 
     return []
 
+
 @subpackage("libelogind")
 def _lib(self):
     self.pkgdesc = f"{pkgdesc} (library)"
     return self.default_libs()
+
 
 @subpackage("pam_elogind")
 def _pam(self):

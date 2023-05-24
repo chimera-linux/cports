@@ -8,8 +8,9 @@ url = f"https://chimera-linux.org"
 # no tests
 options = ["!check"]
 
+
 def do_install(self):
     for f in self.files_path.glob("*"):
         if f.name == "README.md":
             continue
-        self.install_file(f, "etc/pam.d", mode = 0o644)
+        self.install_file(f, "etc/pam.d", mode=0o644)

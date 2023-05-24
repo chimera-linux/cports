@@ -20,24 +20,28 @@ license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/bash"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "13720965b5f4fc3a0d4b61dd37e7565c741da9a5be24edc2ae00182fc1b3588c"
-tool_flags = {"CFLAGS": [
-    "-DSYS_BASHRC=\"/etc/bash/bashrc\"",
-    "-DNON_INTERACTIVE_LOGIN_SHELLS",
-]}
+tool_flags = {
+    "CFLAGS": [
+        '-DSYS_BASHRC="/etc/bash/bashrc"',
+        "-DNON_INTERACTIVE_LOGIN_SHELLS",
+    ]
+}
 # FIXME cfi, int: testsuite failures
 hardening = ["vis", "!cfi", "!int"]
+
 
 def init_configure(self):
     tcap = self.profile().sysroot / "usr/lib/libncursesw.a"
     self.make_build_args += [f"TERMCAP_LIB={tcap}"]
 
+
 def post_install(self):
-    self.install_dir("etc/bash/bashrc.d", empty = True)
+    self.install_dir("etc/bash/bashrc.d", empty=True)
 
     # register with shells
     self.install_shell("/usr/bin/bash")
 
-    self.rm(self.destdir / "usr/share/doc", recursive = True, force = True)
+    self.rm(self.destdir / "usr/share/doc", recursive=True, force=True)
 
     self.install_link("bash", "usr/bin/rbash")
 
@@ -45,7 +49,8 @@ def post_install(self):
     self.install_file(self.files_path / "bash.sh", "etc/profile.d")
 
     # remove devel files
-    self.rm(self.destdir / "usr/lib", recursive = True)
-    self.rm(self.destdir / "usr/include", recursive = True)
+    self.rm(self.destdir / "usr/lib", recursive=True)
+    self.rm(self.destdir / "usr/include", recursive=True)
+
 
 configure_gen = []

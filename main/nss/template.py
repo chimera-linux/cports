@@ -5,9 +5,7 @@ build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "all"
 make_build_args = []
-hostmakedepends = [
-    "gmake", "pkgconf", "perl"
-]
+hostmakedepends = ["gmake", "pkgconf", "perl"]
 makedepends = ["nspr-devel", "sqlite-devel", "zlib-devel", "linux-headers"]
 checkdepends = ["bash"]
 pkgdesc = "Mozilla Network Security Services"
@@ -27,12 +25,14 @@ env = {
     "NSS_DISABLE_GTESTS": "1",
     "FREEBL_NO_DEPEND": "1",
     "NSPR_INCLUDE_DIR": f"{self.profile().sysroot / 'usr/include/nspr'}",
-    "NSPR_LIB_DIR": f"{self.profile().sysroot / 'usr/lib'}"
+    "NSPR_LIB_DIR": f"{self.profile().sysroot / 'usr/lib'}",
 }
+
 
 def post_patch(self):
     self.cp(self.files_path / "install.sh", self.cwd)
     (self.cwd / "install.sh").chmod(0o755)
+
 
 match self.profile().arch:
     case "x86_64":
@@ -58,31 +58,47 @@ match self.profile().arch:
     case _:
         broken = f"OS_TEST unknown for {self.profile().arch}"
 
+
 def do_build(self):
-    self.make.build([
-        "-C", "nss", f"-j{self.make_jobs}", f"OS_TEST={_nssarch}",
-        "CCC=" + self.get_tool("CXX"),
-        "NATIVE_CC=" + self.get_tool("CC", target = "host"),
-        "NATIVE_FLAGS=" + self.get_cflags(target = "host", shell = True),
-        "NATIVE_LDFLAGS=" + self.get_ldflags(target = "host", shell = True),
-    ], env = {
-        "XCFLAGS": self.get_cflags(shell = True)
-    })
+    self.make.build(
+        [
+            "-C",
+            "nss",
+            f"-j{self.make_jobs}",
+            f"OS_TEST={_nssarch}",
+            "CCC=" + self.get_tool("CXX"),
+            "NATIVE_CC=" + self.get_tool("CC", target="host"),
+            "NATIVE_FLAGS=" + self.get_cflags(target="host", shell=True),
+            "NATIVE_LDFLAGS=" + self.get_ldflags(target="host", shell=True),
+        ],
+        env={"XCFLAGS": self.get_cflags(shell=True)},
+    )
+
 
 def do_check(self):
-    self.do(self.chroot_cwd / "nss/tests/all.sh", env = {
-        "HOST": "localhost", "DOMSUF": "localdomain",
-        "XCFLAGS": self.get_cflags(shell = True),
-        # full suite takes like >2 hours to complete
-        "NSS_TESTS": "cipher libpkix",
-        "NSS_CYCLES": "standard",
-    }, wrksrc = "nss/tests")
+    self.do(
+        self.chroot_cwd / "nss/tests/all.sh",
+        env={
+            "HOST": "localhost",
+            "DOMSUF": "localdomain",
+            "XCFLAGS": self.get_cflags(shell=True),
+            # full suite takes like >2 hours to complete
+            "NSS_TESTS": "cipher libpkix",
+            "NSS_CYCLES": "standard",
+        },
+        wrksrc="nss/tests",
+    )
+
 
 def do_install(self):
-    self.do(self.chroot_cwd / "install.sh", env = {
-        "DESTDIR": str(self.chroot_destdir),
-        "NSS_VERSION": pkgver,
-    })
+    self.do(
+        self.chroot_cwd / "install.sh",
+        env={
+            "DESTDIR": str(self.chroot_destdir),
+            "NSS_VERSION": pkgver,
+        },
+    )
+
 
 @subpackage("nss-devel")
 def _devel(self):

@@ -3,23 +3,54 @@ pkgver = "44.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "gobject-introspection", "gettext-tiny",
-    "glib-devel", "polkit", "python"
+    "meson",
+    "pkgconf",
+    "gobject-introspection",
+    "gettext-tiny",
+    "glib-devel",
+    "polkit",
+    "python",
 ]
 makedepends = [
-    "libhandy-devel", "accountsservice-devel", "colord-devel",
-    "colord-gtk-devel", "glib-devel", "gnome-desktop-devel",
-    "gnome-settings-daemon-devel", "gnome-online-accounts-devel",
-    "gsettings-desktop-schemas-devel", "libxml2-devel", "polkit-devel",
-    "libpulse-devel", "upower-devel", "libgudev-devel", "libx11-devel",
-    "libxi-devel", "libepoxy-devel", "gtk4-devel", "cups-devel",
-    "ibus-devel", "networkmanager-devel", "modemmanager-devel",
-    "gnome-bluetooth-devel", "libwacom-devel", "gcr-devel", "libnma-devel",
-    "libsecret-devel", "udisks-devel", "gsound-devel", "libgtop-devel",
-    "heimdal-devel", "libpwquality-devel", "libsmbclient-devel", "gnutls-devel",
+    "libhandy-devel",
+    "accountsservice-devel",
+    "colord-devel",
+    "colord-gtk-devel",
+    "glib-devel",
+    "gnome-desktop-devel",
+    "gnome-settings-daemon-devel",
+    "gnome-online-accounts-devel",
+    "gsettings-desktop-schemas-devel",
+    "libxml2-devel",
+    "polkit-devel",
+    "libpulse-devel",
+    "upower-devel",
+    "libgudev-devel",
+    "libx11-devel",
+    "libxi-devel",
+    "libepoxy-devel",
+    "gtk4-devel",
+    "cups-devel",
+    "ibus-devel",
+    "networkmanager-devel",
+    "modemmanager-devel",
+    "gnome-bluetooth-devel",
+    "libwacom-devel",
+    "gcr-devel",
+    "libnma-devel",
+    "libsecret-devel",
+    "udisks-devel",
+    "gsound-devel",
+    "libgtop-devel",
+    "heimdal-devel",
+    "libpwquality-devel",
+    "libsmbclient-devel",
+    "gnutls-devel",
 ]
 depends = [
-    "udisks", "cups-pk-helper", "gsettings-desktop-schemas",
+    "udisks",
+    "cups-pk-helper",
+    "gsettings-desktop-schemas",
     "sound-theme-freedesktop",
 ]
 pkgdesc = "GNOME control center"
@@ -31,9 +62,11 @@ sha256 = "7abd365018e28679def60a5ecd3049db0fb85de6da49a96dadd21fba8db002e7"
 # needs graphical environment
 options = ["!check"]
 
+
 def pre_build(self):
     # racey, included from elsewhere but not dependencies
     self.make.invoke("panels/network/cc-network-resources.h")
+
 
 @subpackage("gnome-control-center-devel")
 def _devel(self):

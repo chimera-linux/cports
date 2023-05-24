@@ -8,9 +8,11 @@ import subprocess
 
 _use_net = True
 
+
 def set_network(use_net):
     global _use_net
     _use_net = use_net
+
 
 def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
     from cbuild.core import chroot
@@ -87,7 +89,7 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
     if use_cache:
         ret.append("--cache-dir")
         cdir = paths.cbuild_cache() / "apk" / arch
-        cdir.mkdir(exist_ok = True)
+        cdir.mkdir(exist_ok=True)
         if intree:
             ret.append(f"/cbuild_cache/apk/{arch}")
         else:
@@ -95,17 +97,31 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
 
     return ret
 
+
 def call(
-    subcmd, args, mrepo, cwd = None, env = None,
-    capture_output = False, root = None, arch = None,
-    allow_untrusted = False, use_altrepo = True,
-    use_stage = True, allow_network = True, return_repos = False
+    subcmd,
+    args,
+    mrepo,
+    cwd=None,
+    env=None,
+    capture_output=False,
+    root=None,
+    arch=None,
+    allow_untrusted=False,
+    use_altrepo=True,
+    use_stage=True,
+    allow_network=True,
+    return_repos=False,
 ):
     if allow_network:
         allow_network = _use_net
     cmd = [
-        paths.apk(), subcmd, "--root", root if root else paths.bldroot(),
-        "--repositories-file", "/dev/null",
+        paths.apk(),
+        subcmd,
+        "--root",
+        root if root else paths.bldroot(),
+        "--repositories-file",
+        "/dev/null",
     ]
     if arch:
         cmd += ["--arch", arch]
@@ -121,18 +137,26 @@ def call(
     )
 
     retv = subprocess.run(
-        cmd + crepos + args, cwd = cwd, env = env,
-        capture_output = capture_output
+        cmd + crepos + args, cwd=cwd, env=env, capture_output=capture_output
     )
     if return_repos:
         return retv, crepos
     return retv
 
+
 # should never be called during stage 0 builds, only with a real chroot
 def call_chroot(
-    subcmd, args, mrepo, capture_output = False, check = False, arch = None,
-    allow_untrusted = False, use_stage = True, full_chroot = False,
-    allow_network = True, return_repos = False
+    subcmd,
+    args,
+    mrepo,
+    capture_output=False,
+    check=False,
+    arch=None,
+    allow_untrusted=False,
+    use_stage=True,
+    full_chroot=False,
+    allow_network=True,
+    return_repos=False,
 ):
     from cbuild.core import chroot
 
@@ -165,15 +189,21 @@ def call_chroot(
     cmd += crepos
 
     retv = chroot.enter(
-        "apk", *cmd, *args, capture_output = capture_output,
-        check = check, fakeroot = True, mount_binpkgs = True,
-        mount_cbuild_cache = mount_cache
+        "apk",
+        *cmd,
+        *args,
+        capture_output=capture_output,
+        check=check,
+        fakeroot=True,
+        mount_binpkgs=True,
+        mount_cbuild_cache=mount_cache,
     )
     if return_repos:
         return retv, crepos
     return retv
 
-def is_installed(pkgn, pkg = None):
+
+def is_installed(pkgn, pkg=None):
     cpf = pkg.rparent.profile() if pkg else None
 
     if pkg and cpf.cross:
@@ -183,10 +213,19 @@ def is_installed(pkgn, pkg = None):
         sysp = paths.bldroot()
         aarch = None
 
-    return call(
-        "info", ["--installed", pkgn], None, root = sysp,
-        capture_output = True, arch = aarch, allow_untrusted = True
-    ).returncode == 0
+    return (
+        call(
+            "info",
+            ["--installed", pkgn],
+            None,
+            root=sysp,
+            capture_output=True,
+            arch=aarch,
+            allow_untrusted=True,
+        ).returncode
+        == 0
+    )
+
 
 def get_provider(thing, pkg):
     cpf = pkg.rparent.profile() if pkg else None
@@ -198,26 +237,35 @@ def get_provider(thing, pkg):
         sysp = paths.bldroot()
         aarch = None
 
-    out = call(
-        "search",
-        ["--from", "installed", "-q", "-e", thing],
-        pkg, root = sysp,
-        capture_output = True, arch = aarch, allow_untrusted = True
-    ).stdout.strip().decode()
+    out = (
+        call(
+            "search",
+            ["--from", "installed", "-q", "-e", thing],
+            pkg,
+            root=sysp,
+            capture_output=True,
+            arch=aarch,
+            allow_untrusted=True,
+        )
+        .stdout.strip()
+        .decode()
+    )
 
     if len(out) == 0:
         return None
 
     return out
 
+
 def check_version(*args):
     v = subprocess.run(
         [paths.apk(), "version", "--quiet", "--check", *args],
-        capture_output = True
+        capture_output=True,
     )
     return v.returncode == 0
 
-def compare_version(v1, v2, strict = True):
+
+def compare_version(v1, v2, strict=True):
     if strict and not check_version(v1, v2):
         # this is more like an assertion, in cases where strict checking
         # is used this should never fire unless something is super wrong
@@ -225,7 +273,8 @@ def compare_version(v1, v2, strict = True):
 
     v = subprocess.run(
         [paths.apk(), "version", "--quiet", "--test", v1, v2],
-        capture_output = True, check = True
+        capture_output=True,
+        check=True,
     ).stdout.strip()
 
     if v == b"=":
@@ -235,7 +284,8 @@ def compare_version(v1, v2, strict = True):
     else:
         return 1
 
-def summarize_repo(repopath, olist, quiet = False):
+
+def summarize_repo(repopath, olist, quiet=False):
     rtimes = {}
     obsolete = []
 
@@ -258,35 +308,38 @@ def summarize_repo(repopath, olist, quiet = False):
             # this package is newer, so prefer it
             if mt > omt:
                 fromf = ofn
-                fromv = ofn[rd + 1:-4]
+                fromv = ofn[rd + 1 : -4]
                 tof = f.name
-                tov = pf[rd + 1:]
+                tov = pf[rd + 1 :]
                 rtimes[pn] = (mt, f.name)
                 obsolete.append(ofn)
             elif mt < omt:
                 fromf = f.name
-                fromv = pf[rd + 1:]
+                fromv = pf[rd + 1 :]
                 tof = ofn
-                tov = ofn[rd + 1:-4]
+                tov = ofn[rd + 1 : -4]
                 obsolete.append(f.name)
             else:
                 # same timestamp? should pretty much never happen
                 # take the newer version anyway
-                if compare_version(pf[rd + 1:], ofn[rd + 1:-4]) > 0:
+                if compare_version(pf[rd + 1 :], ofn[rd + 1 : -4]) > 0:
                     rtimes[pn] = (mt, f.name)
                     obsolete.append(ofn)
                 else:
                     obsolete.append(f.name)
 
             if compare_version(tov, fromv) < 0 and not quiet:
-                logger.get().warn(f"Using lower version ({fromf} => {tof}): newer timestamp...")
+                logger.get().warn(
+                    f"Using lower version ({fromf} => {tof}): newer timestamp..."
+                )
 
     for k, v in rtimes.items():
         olist.append(v[1])
 
     return obsolete
 
-def prune(repopath, arch = None, dry = False):
+
+def prune(repopath, arch=None, dry=False):
     from cbuild.core import chroot
 
     if not arch:
@@ -309,6 +362,7 @@ def prune(repopath, arch = None, dry = False):
 
     logger.get().out("repo cleanup complete")
 
+
 def build_index(repopath, epoch, keypath):
     repopath = pathlib.Path(repopath)
 
@@ -323,18 +377,23 @@ def build_index(repopath, epoch, keypath):
 
     summarize_repo(repopath, aargs)
 
-    signr = call("mkndx", aargs, None, cwd = repopath, env = {
-        "PATH": os.environ["PATH"],
-        "SOURCE_DATE_EPOCH": str(epoch)
-    }, allow_untrusted = not keypath)
+    signr = call(
+        "mkndx",
+        aargs,
+        None,
+        cwd=repopath,
+        env={"PATH": os.environ["PATH"], "SOURCE_DATE_EPOCH": str(epoch)},
+        allow_untrusted=not keypath,
+    )
     if signr.returncode != 0:
         logger.get().out_red("Indexing failed!")
         return False
 
     return True
 
+
 def get_arch():
-    sr = subprocess.run([paths.apk(), "--print-arch"], capture_output = True)
+    sr = subprocess.run([paths.apk(), "--print-arch"], capture_output=True)
     if sr.returncode != 0:
         return None
     rs = sr.stdout.strip().decode()

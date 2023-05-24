@@ -5,6 +5,7 @@ import os
 import re
 import pathlib
 
+
 def _matches_lib(soname, root):
     # no soname: drop from earch
     if not soname:
@@ -14,10 +15,11 @@ def _matches_lib(soname, root):
     if re.match(r"^\w+(.*)+\.so(\.\d+)*$", soname):
         # versioned soname: match anywhere
         if re.search(r"\d+$", soname):
-             return True
+            return True
 
         # unversioned soname: only if in libdir
         return str(root) == "usr/lib"
+
 
 def invoke(pkg):
     if not pkg.options["scanshlibs"]:
@@ -36,7 +38,7 @@ def invoke(pkg):
         eq = soname.find("=")
         if eq < 0:
             pkg.error(f"invalid explicit shlib: {soname}")
-        sfx = soname[eq + 1:]
+        sfx = soname[eq + 1 :]
         soname = soname[:eq]
         soset[soname] = True
         logger.get().out_plain(f"   SONAME {soname}={sfx} (explicit)")

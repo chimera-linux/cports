@@ -5,7 +5,8 @@ build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
 depends = [
-    "dinit", "tzdata",
+    "dinit",
+    "tzdata",
     "virtual:cmd:mkdir!chimerautils",
     "virtual:cmd:grep!chimerautils",
     "virtual:cmd:sed!chimerautils",
@@ -34,6 +35,7 @@ hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
 
+
 def post_install(self):
     self.install_file(self.files_path / "hostname", "etc")
     self.install_file(self.files_path / "locale.conf", "etc")
@@ -43,8 +45,9 @@ def post_install(self):
     # x11 support
     self.install_dir("etc/X11/Xsession.d")
     self.install_file(
-        self.files_path / "01dinit-env", "etc/X11/Xsession.d", mode = 0o755
+        self.files_path / "01dinit-env", "etc/X11/Xsession.d", mode=0o755
     )
+
 
 @subpackage("dinit-chimera-x11")
 def _x11(self):

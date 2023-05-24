@@ -46,6 +46,7 @@ if self.profile().cross:
         f"--with-build-sysroot={self.profile().sysroot}",
     ]
 
+
 def post_install(self):
     # fix up hardlinks
     for f in (self.destdir / f"usr/{_trip}/bin").iterdir():
@@ -57,6 +58,7 @@ def post_install(self):
     self.rm(self.destdir / f"usr/{_trip}/bin/ld")
     self.install_link("ld.bfd", f"usr/{_trip}/bin/ld")
     # remove unnecessary dupe
-    self.rm(self.destdir / "usr/lib", recursive = True)
+    self.rm(self.destdir / "usr/lib", recursive=True)
+
 
 configure_gen = []

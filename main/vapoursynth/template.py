@@ -5,7 +5,12 @@ build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake", "pkgconf", "automake", "libtool", "nasm", "python-cython"
+    "gmake",
+    "pkgconf",
+    "automake",
+    "libtool",
+    "nasm",
+    "python-cython",
 ]
 makedepends = ["python-devel", "zimg-devel"]
 pkgdesc = "Video processing framework"
@@ -20,8 +25,9 @@ if self.profile().arch == "riscv64":
     tool_flags = {
         "CFLAGS": ["-mno-relax"],
         "CXXFLAGS": ["-mno-relax"],
-        "LDFLAGS": ["-mno-relax"]
+        "LDFLAGS": ["-mno-relax"],
     }
+
 
 @subpackage("vapoursynth-devel")
 def _devel(self):

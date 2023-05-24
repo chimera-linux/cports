@@ -28,6 +28,7 @@ source = f"$(NONGNU_SITE)/freetype/freetype-{pkgver}.tar.xz"
 sha256 = "5ee23abd047636c24b2d43c6625dcafc66661d1aca64dec9e0d05df29592624c"
 options = ["!lto", "!scanshlibs", "!scanpkgconf"]
 
+
 def post_install(self):
     self.install_license("LICENSE.TXT")
     self.install_license("docs/FTL.TXT")

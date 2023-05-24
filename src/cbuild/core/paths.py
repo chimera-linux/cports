@@ -4,6 +4,7 @@ import pathlib
 
 _stage = 3
 
+
 def init(cbuildir, distdir, rootdir, blddir, rdir, ardir, srdir, sdir, cdir):
     global _ddir, _bdir, _bldir, _rdir, _ardir, _srcs, _cbdir, _ccdir, _srdir
 
@@ -28,6 +29,7 @@ def init(cbuildir, distdir, rootdir, blddir, rdir, ardir, srdir, sdir, cdir):
 
     _cbdir = pathlib.Path(cbuildir) / "cbuild"
 
+
 def reinit_buildroot(rootdir, stage):
     global _bdir
     if stage == 3:
@@ -36,22 +38,28 @@ def reinit_buildroot(rootdir, stage):
         oname = rootdir.name
         _bdir = rootdir.with_name(f"{oname}-stage{stage}")
 
+
 def set_stage(stage):
     global _stage
     _stage = stage
+
 
 def set_apk(cmd):
     global _apkcmd
     _apkcmd = cmd
 
+
 def apk():
     return _apkcmd
+
 
 def distdir():
     return _ddir
 
+
 def bldroot():
     return _bdir
+
 
 def builddir():
     if not _bldir:
@@ -59,8 +67,10 @@ def builddir():
     else:
         return _bldir
 
+
 def alt_repository():
     return _ardir
+
 
 def repository():
     if _stage == 3:
@@ -68,31 +78,47 @@ def repository():
     else:
         return _rdir.with_name(f"{_rdir.name}-stage{_stage}")
 
+
 def stage_repository():
     if _stage == 3:
         return _srdir
     else:
         return _srdir.with_name(f"{_srdir.name}-stage{_stage}")
 
+
 def sources():
     return _srcs
+
 
 def cbuild_cache():
     return _ccdir
 
+
 def cbuild():
     return _cbdir
 
+
 def prepare():
-    sources().mkdir(parents = True, exist_ok = True)
-    (cbuild_cache() / "apk").mkdir(parents = True, exist_ok = True)
-    repository().mkdir(parents = True, exist_ok = True)
-    stage_repository().mkdir(parents = True, exist_ok = True)
-    builddir().mkdir(parents = True, exist_ok = True)
+    sources().mkdir(parents=True, exist_ok=True)
+    (cbuild_cache() / "apk").mkdir(parents=True, exist_ok=True)
+    repository().mkdir(parents=True, exist_ok=True)
+    stage_repository().mkdir(parents=True, exist_ok=True)
+    builddir().mkdir(parents=True, exist_ok=True)
 
     # prepare build root
     for f in [
-        "builddir", "destdir", "binpkgs", "altbinpkgs", "stagepkgs", "sources",
-        "cbuild_cache", "dev", "sys", "tmp", "proc", "host", "boot",
+        "builddir",
+        "destdir",
+        "binpkgs",
+        "altbinpkgs",
+        "stagepkgs",
+        "sources",
+        "cbuild_cache",
+        "dev",
+        "sys",
+        "tmp",
+        "proc",
+        "host",
+        "boot",
     ]:
-        (bldroot() / f).mkdir(parents = True, exist_ok = True)
+        (bldroot() / f).mkdir(parents=True, exist_ok=True)

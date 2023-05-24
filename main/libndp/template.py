@@ -12,12 +12,15 @@ sha256 = "88ffb66ee2eb527f146f5c02f5ccbc38ba97d2b0d57eb46bfba488821ab0c02b"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
+
 @subpackage("libndp-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("libndp-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

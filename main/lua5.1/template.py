@@ -20,6 +20,7 @@ options = ["!check"]
 
 _lver = pkgname.removeprefix("lua")
 
+
 def init_configure(self):
     _bins = [
         f"lua{_lver}",
@@ -34,16 +35,17 @@ def init_configure(self):
     self.make_build_args += [
         "CC=" + self.get_tool("CC"),
         "AR=" + self.get_tool("AR"),
-        "MYCFLAGS=" + self.get_cflags(shell = True),
-        "MYLDFLAGS=" + self.get_ldflags(shell = True),
+        "MYCFLAGS=" + self.get_cflags(shell=True),
+        "MYLDFLAGS=" + self.get_ldflags(shell=True),
     ]
     self.make_install_args += [
         "INSTALL_TOP=" + str(self.chroot_destdir / "usr"),
         "TO_BIN=" + " ".join(_bins),
         "TO_LIB=" + " ".join(_libs),
         "INSTALL_INC=" + str(self.chroot_destdir / f"usr/include/lua{_lver}"),
-        "INSTALL_MAN=" + str(self.chroot_destdir / "usr/share/man/man1")
+        "INSTALL_MAN=" + str(self.chroot_destdir / "usr/share/man/man1"),
     ]
+
 
 def post_install(self):
     self.install_file(self.files_path / f"lua{_lver}.pc", "usr/lib/pkgconfig")
@@ -51,16 +53,17 @@ def post_install(self):
 
     self.mv(
         self.destdir / "usr/share/man/man1/lua.1",
-        self.destdir / f"usr/share/man/man1/lua{_lver}.1"
+        self.destdir / f"usr/share/man/man1/lua{_lver}.1",
     )
     self.mv(
         self.destdir / "usr/share/man/man1/luac.1",
-        self.destdir / f"usr/share/man/man1/luac{_lver}.1"
+        self.destdir / f"usr/share/man/man1/luac{_lver}.1",
     )
 
     _libf = f"liblua{_lver}.so.{pkgver}"
     self.install_link(_libf, f"usr/lib/liblua{_lver}.so")
     self.install_link(_libf, f"usr/lib/liblua{_lver}.so.{_lver}")
+
 
 @subpackage("lua5.1-devel")
 def _devel(self):

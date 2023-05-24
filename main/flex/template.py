@@ -17,18 +17,22 @@ tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
 }
 
+
 def post_install(self):
     self.install_link("flex", "usr/bin/lex")
     self.install_license("COPYING")
+
 
 @subpackage("libfl-devel-static")
 def _static(self):
     self.depends = []
     self.install_if = [
         f"{pkgname}={pkgver}-r{pkgrel}",
-        "base-devel", "base-devel-static"
+        "base-devel",
+        "base-devel-static",
     ]
 
     return self.default_devel()
+
 
 configure_gen = []

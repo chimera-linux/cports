@@ -33,10 +33,10 @@ configure_args = [
     "--with-dejavu-font-dir=/usr/share/fonts/dejavu",
     "--with-gs-font-dir=/usr/share/fonts/Type1",
     # TODO later
-    #"--with-jxl",
-    #"--with-raqm",
-    #"--with-wmf",
-    #"--with-openexr",
+    # "--with-jxl",
+    # "--with-raqm",
+    # "--with-wmf",
+    # "--with-openexr",
     # clang 16 implicit decls
     "ac_cv_have_decl_strlcpy=yes",
     "ac_cv_func_strchr=yes",
@@ -47,13 +47,31 @@ make_cmd = "gmake"
 make_install_args = ["MAKE=gmake"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "gmake", "perl"]
 makedepends = [
-    "djvulibre-devel", "fftw-devel", "libgs-devel", "libomp-devel",
-    "librsvg-devel", "lcms2-devel", "libheif-devel", "libpng-devel",
-    "libtiff-devel", "libwebp-devel", "openjpeg-devel", "zlib-devel",
-    "libbz2-devel", "libzstd-devel", "graphviz-devel", "djvulibre-devel",
-    "fontconfig-devel", "freetype-devel", "libjpeg-turbo-devel",
-    "libpng-devel", "libraw-devel", "jbigkit-devel", "pango-devel",
-    "libxml2-devel", "libltdl-devel",
+    "djvulibre-devel",
+    "fftw-devel",
+    "libgs-devel",
+    "libomp-devel",
+    "librsvg-devel",
+    "lcms2-devel",
+    "libheif-devel",
+    "libpng-devel",
+    "libtiff-devel",
+    "libwebp-devel",
+    "openjpeg-devel",
+    "zlib-devel",
+    "libbz2-devel",
+    "libzstd-devel",
+    "graphviz-devel",
+    "djvulibre-devel",
+    "fontconfig-devel",
+    "freetype-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
+    "libraw-devel",
+    "jbigkit-devel",
+    "pango-devel",
+    "libxml2-devel",
+    "libltdl-devel",
 ]
 checkdepends = ["ghostscript"]
 pkgdesc = "Create, edit, compose, or convert digital images"
@@ -68,11 +86,13 @@ options = ["!cross", "!check", "keeplibtool"]
 if self.profile().cross:
     hostmakedepends += ["file"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
     # we need to keep the module ones
     for f in (self.destdir / "usr/lib").glob("*.la"):
         f.unlink()
+
 
 @subpackage("libmagick")
 def _lib(self):
@@ -84,12 +104,14 @@ def _lib(self):
         "usr/share/ImageMagick*",
     ]
 
+
 @subpackage("libmagick-perl")
 def _perl(self):
     return [
         "usr/lib/perl5",
         "usr/share/man/man3/Image::Magick*",
     ]
+
 
 @subpackage("libmagick-devel")
 def _devel(self):

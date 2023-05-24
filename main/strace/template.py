@@ -3,11 +3,11 @@ pkgver = "6.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--without-libunwind", "--disable-mpers", "--disable-gcc-Werror",
+    "--without-libunwind",
+    "--disable-mpers",
+    "--disable-gcc-Werror",
 ]
-configure_env = {
-    "CPPFLAGS": f"-I{self.profile().sysroot / 'usr/include'}"
-}
+configure_env = {"CPPFLAGS": f"-I{self.profile().sysroot / 'usr/include'}"}
 make_cmd = "gmake"
 # there's over a thousand tests and a ~50 of them
 # fail due to various reasons, mostly harmless ones

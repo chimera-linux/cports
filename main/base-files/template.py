@@ -9,11 +9,21 @@ url = "https://chimera-linux.org"
 # no tests
 options = ["!check", "bootstrap", "keepempty", "brokenlinks"]
 
+
 def do_install(self):
     # base root dirs
     for d in [
-        "boot", "dev", "etc", "home", "media", "mnt",
-        "proc", "run", "sys", "usr", "var",
+        "boot",
+        "dev",
+        "etc",
+        "home",
+        "media",
+        "mnt",
+        "proc",
+        "run",
+        "sys",
+        "usr",
+        "var",
     ]:
         self.install_dir(d)
 
@@ -59,9 +69,21 @@ def do_install(self):
     self.install_link("bin", "usr/local/sbin")
 
     for f in [
-        "chimera-release", "profile", "profile.path", "hosts", "issue",
-        "subuid", "subgid", "fstab", "passwd", "group", "securetty",
-        "nsswitch.conf", "os-release", "protocols", "services",
+        "chimera-release",
+        "profile",
+        "profile.path",
+        "hosts",
+        "issue",
+        "subuid",
+        "subgid",
+        "fstab",
+        "passwd",
+        "group",
+        "securetty",
+        "nsswitch.conf",
+        "os-release",
+        "protocols",
+        "services",
     ]:
         self.install_file(self.files_path / "etc" / f, "etc")
 
@@ -84,6 +106,7 @@ def do_install(self):
     # Create /proc/self/mounts -> /etc/mtab symlink
     self.install_link("/proc/self/mounts", "etc/mtab")
 
+
 @subpackage("base-devel")
 def _basedev(self):
     self.pkgdesc = "Base package for development packages"
@@ -91,6 +114,7 @@ def _basedev(self):
     self.build_style = "meta"
 
     return []
+
 
 @subpackage("base-devel-static")
 def _basedevs(self):
@@ -101,6 +125,7 @@ def _basedevs(self):
 
     return []
 
+
 @subpackage("base-locale")
 def _baseloc(self):
     self.pkgdesc = "Base package for locale data"
@@ -108,6 +133,7 @@ def _baseloc(self):
     self.build_style = "meta"
 
     return []
+
 
 @subpackage("base-doc")
 def _basedoc(self):

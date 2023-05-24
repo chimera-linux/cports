@@ -10,6 +10,7 @@ import shutil
 # never be conditional and that is the only thing we care about
 _tcache = {}
 
+
 def _srcpkg_ver(pkgn, pkgb):
     global _tcache
 
@@ -17,10 +18,19 @@ def _srcpkg_ver(pkgn, pkgb):
         return _tcache[pkgn]
 
     modv, tmplv = template.read_mod(
-        pkgn, pkgb.profile().arch,
-        True, False, (1, 1), False, False, None,
-        resolve = pkgb, ignore_missing = True, ignore_errors = True,
-        allow_broken = True, autopkg = True
+        pkgn,
+        pkgb.profile().arch,
+        True,
+        False,
+        (1, 1),
+        False,
+        False,
+        None,
+        resolve=pkgb,
+        ignore_missing=True,
+        ignore_errors=True,
+        allow_broken=True,
+        autopkg=True,
     )
     if not modv or not hasattr(modv, "pkgver") or not hasattr(modv, "pkgrel"):
         return None
@@ -35,6 +45,7 @@ def _srcpkg_ver(pkgn, pkgb):
 
     return cv
 
+
 def _is_rdep(pn):
     if pn.startswith("so:"):
         return False
@@ -47,7 +58,8 @@ def _is_rdep(pn):
 
     return True
 
-def setup_depends(pkg, only_names = False):
+
+def setup_depends(pkg, only_names=False):
     hdeps = []
     tdeps = []
     rdeps = []
@@ -71,10 +83,8 @@ def setup_depends(pkg, only_names = False):
             # locate the provider
             ppos = dep.find("!")
             if ppos < 0:
-                pkg.error(
-                    f"virtual dependency {dep} has no specified provider"
-                )
-            dep = dep[ppos + 1:]
+                pkg.error(f"virtual dependency {dep} has no specified provider")
+            dep = dep[ppos + 1 :]
             pn, pv, pop = autil.split_pkg_name(dep)
 
         if only_names:
@@ -113,7 +123,8 @@ def setup_depends(pkg, only_names = False):
 
     return hdeps, tdeps, rdeps
 
-def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
+
+def _install_from_repo(pkg, pkglist, virtn, signkey, cross=False):
     # if installing target deps and we're crossbuilding, target the sysroot
     sroot = cross and pkg.profile().cross
 
@@ -129,9 +140,13 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
             aarch = None
 
         ret = apki.call(
-            "add", ["--no-chown", "--no-scripts", "--virtual", virtn] + pkglist,
-            pkg, root = rootp, capture_output = True, arch = aarch,
-            allow_untrusted = not signkey
+            "add",
+            ["--no-chown", "--no-scripts", "--virtual", virtn] + pkglist,
+            pkg,
+            root=rootp,
+            capture_output=True,
+            arch=aarch,
+            allow_untrusted=not signkey,
         )
     else:
         if virtn:
@@ -139,8 +154,7 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
         else:
             aopts = pkglist
         ret = apki.call_chroot(
-            "add", aopts, pkg, capture_output = True,
-            allow_untrusted = not signkey
+            "add", aopts, pkg, capture_output=True, allow_untrusted=not signkey
         )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()
@@ -153,7 +167,8 @@ def _install_from_repo(pkg, pkglist, virtn, signkey, cross = False):
             pkg.logger.out_plain(outx)
         pkg.error(f"failed to install dependencies")
 
-def _is_available(pkgn, pkgop, pkgv, pkg, host = False):
+
+def _is_available(pkgn, pkgop, pkgv, pkg, host=False):
     if not host and pkg.profile().cross:
         sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
         aarch = pkg.profile().arch
@@ -165,9 +180,14 @@ def _is_available(pkgn, pkgop, pkgv, pkg, host = False):
 
     def _do_search(repo):
         return apki.call(
-            "search", ["--from", "none", "-e", "-a", pkgn], repo, root = sysp,
-            capture_output = True, arch = aarch, allow_untrusted = True,
-            return_repos = not isinstance(repo, str)
+            "search",
+            ["--from", "none", "-e", "-a", pkgn],
+            repo,
+            root=sysp,
+            capture_output=True,
+            arch=aarch,
+            allow_untrusted=True,
+            return_repos=not isinstance(repo, str),
         )
 
     aout, crepos = _do_search(pkg)
@@ -219,6 +239,7 @@ def _is_available(pkgn, pkgop, pkgv, pkg, host = False):
     # no match in individual repos? this should be unreachable
     return None
 
+
 def install(pkg, origpkg, step, depmap, signkey, hostdep):
     style = ""
     if pkg.build_style:
@@ -251,7 +272,7 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
 
     for sver, pkgn in ihdeps:
         # check if available in repository
-        aver = _is_available(pkgn, "=", sver, pkg, host = True)
+        aver = _is_available(pkgn, "=", sver, pkg, host=True)
         if aver:
             log.out_plain(f"   [host] {pkgn}: found ({aver})")
             host_binpkg_deps.append(f"{pkgn}={aver}")
@@ -335,14 +356,23 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
             build.build(
                 step,
                 template.read_pkg(
-                    pn, chost if pkg.stage > 0 else None, False, pkg.run_check,
+                    pn,
+                    chost if pkg.stage > 0 else None,
+                    False,
+                    pkg.run_check,
                     (pkg.conf_jobs, pkg.conf_link_threads),
-                    pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                    force_check = pkg._force_check, stage = pkg.stage,
-                    autopkg = True
+                    pkg.build_dbg,
+                    pkg.use_ccache,
+                    pkg,
+                    resolve=pkg,
+                    force_check=pkg._force_check,
+                    stage=pkg.stage,
+                    autopkg=True,
                 ),
-                depmap, signkey, chost = hostdep or not not pprof.cross,
-                no_update = not missing
+                depmap,
+                signkey,
+                chost=hostdep or not not pprof.cross,
+                no_update=not missing,
             )
             missing = True
         except template.SkipPackage:
@@ -354,13 +384,23 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
             build.build(
                 step,
                 template.read_pkg(
-                    pn, tarch if pkg.stage > 0 else None, False, pkg.run_check,
+                    pn,
+                    tarch if pkg.stage > 0 else None,
+                    False,
+                    pkg.run_check,
                     (pkg.conf_jobs, pkg.conf_link_threads),
-                    pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                    force_check = pkg._force_check, stage = pkg.stage,
-                    autopkg = True
+                    pkg.build_dbg,
+                    pkg.use_ccache,
+                    pkg,
+                    resolve=pkg,
+                    force_check=pkg._force_check,
+                    stage=pkg.stage,
+                    autopkg=True,
                 ),
-                depmap, signkey, chost = hostdep, no_update = not missing
+                depmap,
+                signkey,
+                chost=hostdep,
+                no_update=not missing,
             )
             missing = True
         except template.SkipPackage:
@@ -378,13 +418,23 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
             build.build(
                 step,
                 template.read_pkg(
-                    rd, tarch if pkg.stage > 0 else None, False, pkg.run_check,
+                    rd,
+                    tarch if pkg.stage > 0 else None,
+                    False,
+                    pkg.run_check,
                     (pkg.conf_jobs, pkg.conf_link_threads),
-                    pkg.build_dbg, pkg.use_ccache, pkg, resolve = pkg,
-                    force_check = pkg._force_check, stage = pkg.stage,
-                    autopkg = True
+                    pkg.build_dbg,
+                    pkg.use_ccache,
+                    pkg,
+                    resolve=pkg,
+                    force_check=pkg._force_check,
+                    stage=pkg.stage,
+                    autopkg=True,
                 ),
-                depmap, signkey, chost = hostdep, no_update = not missing
+                depmap,
+                signkey,
+                chost=hostdep,
+                no_update=not missing,
             )
             missing = True
         except template.SkipPackage:

@@ -1,16 +1,21 @@
 from cbuild.util import cmake, make
 
+
 def do_configure(self):
     cmake.configure(self, self.cmake_dir)
+
 
 def do_build(self):
     self.make.build()
 
+
 def do_check(self):
     self.make.check()
 
+
 def do_install(self):
-    self.make.install(args_use_env = (self.make_cmd == "ninja"))
+    self.make.install(args_use_env=(self.make_cmd == "ninja"))
+
 
 def use(tmpl):
     tmpl.do_configure = do_configure

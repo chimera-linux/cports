@@ -4,8 +4,11 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext-tiny", "itstool"]
 makedepends = [
-    "gtk+3-devel", "glib-devel", "libnotify-devel", "libx11-devel",
-    "webkitgtk-devel"
+    "gtk+3-devel",
+    "glib-devel",
+    "libnotify-devel",
+    "libx11-devel",
+    "webkitgtk-devel",
 ]
 pkgdesc = "Display Gtk+ dialogs from the command line"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -11,8 +11,10 @@ url = "https://www.gnupg.org/related_software/libassuan"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "8e8c2fcc982f9ca67dcbb1d95e2dc746b1739a4668bc20b3a3c5be632edb34e4"
 
+
 @subpackage("libassuan-devel")
 def _devel(self):
-   return self.default_devel()
+    return self.default_devel()
+
 
 configure_gen = []

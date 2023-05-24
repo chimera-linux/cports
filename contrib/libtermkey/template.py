@@ -14,8 +14,10 @@ sha256 = "6945bd3c4aaa83da83d80a045c5563da4edd7d0374c62c0d35aec09eb3014600"
 # crossbuild fails because of libtool
 options = ["!cross"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
+
 
 @subpackage("libtermkey-devel")
 def _devel(self):

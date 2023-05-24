@@ -16,11 +16,9 @@ hardening = ["!int"]
 # no relevant test suite
 options = ["!check", "!debug", "!strip", "!lto", "!splitstatic"]
 
+
 def init_configure(self):
-    eargs = [
-        "PREFIX=/usr",
-        "INSTALLROOT=" + str(self.chroot_destdir)
-    ]
+    eargs = ["PREFIX=/usr", "INSTALLROOT=" + str(self.chroot_destdir)]
     with self.profile("host"):
         eargs += ["HOSTCC=" + self.get_tool("CC")]
     with self.profile("target"):

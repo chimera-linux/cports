@@ -4,8 +4,16 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
 hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "llvm-devel", "python", "libedit-devel",
-    "libffi-devel", "ncurses-devel", "zlib-devel", "spirv-llvm-translator",
+    "cmake",
+    "ninja",
+    "pkgconf",
+    "llvm-devel",
+    "python",
+    "libedit-devel",
+    "libffi-devel",
+    "ncurses-devel",
+    "zlib-devel",
+    "spirv-llvm-translator",
     "clang-tools-extra",
 ]
 pkgdesc = "Open implementation of the OpenCL C programming language"

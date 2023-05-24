@@ -10,7 +10,9 @@ url = "https://gitlab.freedesktop.org/xorg/util/macros"
 source = f"$(XORG_SITE)/util/util-macros-{pkgver}.tar.gz"
 sha256 = "8daf36913d551a90fd1013cb078401375dabae021cb4713b9b256a70f00eeb74"
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 configure_gen = []

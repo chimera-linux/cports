@@ -14,5 +14,6 @@ sha256 = "d60a3903dc3bb01a18ad6a89cdbe2e4eadc69c0bc8ef1e3773ba53d44c3f7a34"
 # tests failing with 3.10 for now, should be harmless
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")

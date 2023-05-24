@@ -5,7 +5,10 @@ build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
-    "gstreamer-devel", "gst-plugins-base-devel", "orc-devel", "ffmpeg-devel"
+    "gstreamer-devel",
+    "gst-plugins-base-devel",
+    "orc-devel",
+    "ffmpeg-devel",
 ]
 depends = ["orc", f"gst-plugins-base~{pkgver}"]
 pkgdesc = "GStreamer FFmpeg plugin"

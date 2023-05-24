@@ -13,12 +13,15 @@ sha256 = "220fd97d5fcb216e7b85db66f685bfdaad7dc58a50d1f96dfb2558dbc6c4731b"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("sord-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("sord-progs")
 def _progs(self):

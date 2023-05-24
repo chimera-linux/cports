@@ -14,12 +14,15 @@ sha256 = "8550e9589dbd594bfac93b81ecf129b1dc9d0d51e90f9696f1b2f9b2af32712b"
 # tests a cd-rom drive, plus fails realpath test
 options = ["!check"]
 
+
 @subpackage("libcdio-devel")
 def _devel(self):
     return self.default_devel()
 
+
 @subpackage("libcdio-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

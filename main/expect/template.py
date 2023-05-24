@@ -10,14 +10,16 @@ pkgdesc = "Programmed dialogue with interactive programs"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "http://www.nist.gov/el/msid/expect.cfm"
-source = f"$(SOURCEFORGE_SITE)/{pkgname}/Expect/{pkgver}/{pkgname}{pkgver}.tar.gz"
+source = (
+    f"$(SOURCEFORGE_SITE)/{pkgname}/Expect/{pkgver}/{pkgname}{pkgver}.tar.gz"
+)
 sha256 = "49a7da83b0bdd9f46d04a04deec19c7767bb9a323e40c4781f89caf760b92c34"
-tool_flags = {
-    "LDFLAGS": [f"-Wl,-rpath=/usr/lib:/usr/lib/{pkgname}{pkgver}"]
-}
+tool_flags = {"LDFLAGS": [f"-Wl,-rpath=/usr/lib:/usr/lib/{pkgname}{pkgver}"]}
+
 
 def post_install(self):
     self.rm(self.destdir / "usr/bin/weather")
+
 
 @subpackage("expect-devel")
 def _devel(self):

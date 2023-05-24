@@ -15,5 +15,6 @@ sha256 = "8bf101198e004dc93e84a12a7395e31aac6a9c9942848ae1d99b9d72cf9b3520"
 # checkdepends missing
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.md")

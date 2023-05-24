@@ -5,8 +5,16 @@ archs = ["riscv64"]
 build_style = "u_boot"
 make_build_args = ["OPENSBI=/usr/lib/opensbi/generic/fw_dynamic.bin"]
 hostmakedepends = [
-    "gmake", "gcc-riscv64-unknown-elf", "flex", "bison", "dtc", "swig",
-    "opensbi", "python-devel", "openssl-devel", "python-setuptools",
+    "gmake",
+    "gcc-riscv64-unknown-elf",
+    "flex",
+    "bison",
+    "dtc",
+    "swig",
+    "opensbi",
+    "python-devel",
+    "openssl-devel",
+    "python-setuptools",
 ]
 pkgdesc = "U-Boot for HiFive Unmatched boards"
 maintainer = "q66 <q66@chimera-linux.org>"

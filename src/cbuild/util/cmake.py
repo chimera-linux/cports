@@ -1,8 +1,8 @@
 from cbuild.core import paths
 
+
 def configure(
-    pkg, cmake_dir = None, build_dir = None, extra_args = [],
-    env = {}, cross_build = None
+    pkg, cmake_dir=None, build_dir=None, extra_args=[], env={}, cross_build=None
 ):
     if cmake_dir:
         cdir = pkg.chroot_cwd / cmake_dir
@@ -12,15 +12,14 @@ def configure(
     if not build_dir:
         build_dir = pkg.make_dir
 
-    (pkg.cwd / build_dir).mkdir(parents = True, exist_ok = True)
+    (pkg.cwd / build_dir).mkdir(parents=True, exist_ok=True)
 
     cargs = []
 
     if pkg.stage == 0:
-        with open(
-            pkg.cwd / build_dir / "bootstrap.cmake", "w"
-        ) as infile:
-            infile.write(f"""
+        with open(pkg.cwd / build_dir / "bootstrap.cmake", "w") as infile:
+            infile.write(
+                f"""
 SET(CMAKE_SYSTEM_NAME Linux)
 SET(CMAKE_SYSTEM_VERSION 1)
 
@@ -31,7 +30,8 @@ SET(CMAKE_FIND_ROOT_PATH  "{paths.bldroot() / 'usr'};{paths.bldroot()}")
 
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-""")
+"""
+            )
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=bootstrap.cmake")
     elif pkg.profile().cross and cross_build != False:
         # map known profiles to cmake arch
@@ -43,10 +43,9 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
         sroot = pkg.profile().sysroot
 
-        with open(
-            pkg.cwd / build_dir / "cross.cmake", "w"
-        ) as infile:
-            infile.write(f"""
+        with open(pkg.cwd / build_dir / "cross.cmake", "w") as infile:
+            infile.write(
+                f"""
 SET(CMAKE_SYSTEM_NAME Linux)
 SET(CMAKE_SYSTEM_VERSION 1)
 
@@ -65,7 +64,8 @@ SET(CMAKE_FIND_ROOT_PATH  "{sroot / 'usr'};{sroot}")
 SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-""")
+"""
+            )
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=cross.cmake")
 
     eenv = {
@@ -86,11 +86,15 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         ]
 
     pkg.do(
-        "cmake", *cargs,
+        "cmake",
+        *cargs,
         "-DCMAKE_INSTALL_PREFIX=/usr",
         "-DCMAKE_BUILD_TYPE=None",
         "-DCMAKE_INSTALL_LIBDIR=lib",
         "-DCMAKE_INSTALL_SBINDIR=bin",
-        *pkg.configure_args, *extra_args, cdir,
-        wrksrc = build_dir, env = eenv
+        *pkg.configure_args,
+        *extra_args,
+        cdir,
+        wrksrc=build_dir,
+        env=eenv,
     )

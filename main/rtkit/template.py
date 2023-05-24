@@ -24,7 +24,8 @@ system_users = [
     }
 ]
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/lib/systemd", recursive = True)
+    self.rm(self.destdir / "usr/lib/systemd", recursive=True)
     self.install_license("LICENSE")
     self.install_service(self.files_path / "rtkit")

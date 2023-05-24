@@ -3,14 +3,23 @@ pkgver = "3.26.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Denable-libarchive=yes", "-Denable-libgcrypt=yes",
-    "-Denable-uchardet=yes", "-Dintrospection=true"
+    "-Denable-libarchive=yes",
+    "-Denable-libgcrypt=yes",
+    "-Denable-uchardet=yes",
+    "-Dintrospection=true",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "gobject-introspection", "glib-devel", "gettext-tiny",
+    "meson",
+    "pkgconf",
+    "gobject-introspection",
+    "glib-devel",
+    "gettext-tiny",
 ]
 makedepends = [
-    "glib-devel", "libxml2-devel", "uchardet-devel", "libgcrypt-devel",
+    "glib-devel",
+    "libxml2-devel",
+    "uchardet-devel",
+    "libgcrypt-devel",
     "libarchive-devel",
 ]
 pkgdesc = "Totem playlist parser library"
@@ -22,9 +31,11 @@ sha256 = "c0df0f68d5cf9d7da43c81c7f13f11158358368f98c22d47722f3bd04bd3ac1c"
 # needs network access
 options = ["!check"]
 
+
 @subpackage("totem-pl-parser-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("libtotem-plparser-mini")
 def _lib(self):

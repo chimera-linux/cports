@@ -12,13 +12,19 @@ configure_args = [
     "-Ddocs=enabled",
 ]
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gtk-doc-tools",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gtk-doc-tools",
     "gobject-introspection",
     # prevent installing self through freetype
     "freetype-bootstrap",
 ]
 makedepends = [
-    "freetype-bootstrap", "cairo-devel", "graphite2-devel", "icu-devel"
+    "freetype-bootstrap",
+    "cairo-devel",
+    "graphite2-devel",
+    "icu-devel",
 ]
 pkgdesc = "Text shaping engine"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -29,12 +35,15 @@ sha256 = "20770789749ac9ba846df33983dbda22db836c70d9f5d050cb9aa5347094a8fb"
 # test failures since icu 71
 options = ["!cross", "!check"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("harfbuzz-devel")
 def _devel(self):
     return self.default_devel()
+
 
 @subpackage("harfbuzz-progs")
 def _progs(self):

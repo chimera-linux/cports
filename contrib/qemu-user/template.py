@@ -16,13 +16,26 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "meson", "ninja", "pkgconf", "gmake", "bash", "perl", "flex", "bison",
-    "bzip2", "ugetopt",
+    "meson",
+    "ninja",
+    "pkgconf",
+    "gmake",
+    "bash",
+    "perl",
+    "flex",
+    "bison",
+    "bzip2",
+    "ugetopt",
 ]
 makedepends = [
-    "glib-devel-static", "zlib-devel-static", "libcxx-devel-static",
-    "pcre2-devel-static", "libunwind-devel-static", "musl-devel-static",
-    "libatomic-chimera-devel-static", "linux-headers",
+    "glib-devel-static",
+    "zlib-devel-static",
+    "libcxx-devel-static",
+    "pcre2-devel-static",
+    "libunwind-devel-static",
+    "musl-devel-static",
+    "libatomic-chimera-devel-static",
+    "linux-headers",
 ]
 pkgdesc = "QEMU user mode emulators"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -40,18 +53,27 @@ if self.profile().arch == "riscv64":
         "LDFLAGS": ["-mno-relax"],
     }
 
+
 def post_install(self):
-    self.rm(self.destdir / "usr/share", recursive = True)
+    self.rm(self.destdir / "usr/share", recursive=True)
     self.install_dir("usr/lib/binfmt.d")
 
     self.do(
-        "scripts/qemu-binfmt-conf.sh", "--systemd", "ALL",
-        "--exportdir", self.chroot_destdir / "usr/lib/binfmt.d",
-        "--qemu-path", "/usr/bin",
-        "--preserve-argv0", "yes",
-        "--persistent", "yes",
-        "--credential", "yes",
+        "scripts/qemu-binfmt-conf.sh",
+        "--systemd",
+        "ALL",
+        "--exportdir",
+        self.chroot_destdir / "usr/lib/binfmt.d",
+        "--qemu-path",
+        "/usr/bin",
+        "--preserve-argv0",
+        "yes",
+        "--persistent",
+        "yes",
+        "--credential",
+        "yes",
     )
+
 
 _skip_32bit = {
     "i386": "x86_64",
@@ -60,6 +82,7 @@ _skip_32bit = {
     "ppcle": "ppc64le",
     "riscv32": "riscv64",
 }
+
 
 def _upkg(uname):
     @subpackage(f"qemu-user-{uname}")
@@ -91,18 +114,47 @@ def _upkg(uname):
 
         match uname:
             case "i386":
-                extra = [
-                    f"usr/lib/binfmt.d/qemu-i486.conf"
-                ]
+                extra = [f"usr/lib/binfmt.d/qemu-i486.conf"]
 
         return [f"usr/lib/binfmt.d/qemu-{uname}.conf"] + extra
 
+
 for _u in [
-    "aarch64", "aarch64_be", "alpha", "arm", "armeb", "cris", "hexagon",
-    "hppa", "i386", "loongarch64", "m68k", "microblaze", "microblazeel",
-    "mips", "mips64", "mips64el", "mipsel", "mipsn32", "mipsn32el", "nios2",
-    "or1k", "ppc", "ppc64", "ppc64le", "riscv32", "riscv64", "s390x", "sh4",
-    "sh4eb", "sparc", "sparc32plus", "sparc64", "x86_64", "xtensa", "xtensaeb",
+    "aarch64",
+    "aarch64_be",
+    "alpha",
+    "arm",
+    "armeb",
+    "cris",
+    "hexagon",
+    "hppa",
+    "i386",
+    "loongarch64",
+    "m68k",
+    "microblaze",
+    "microblazeel",
+    "mips",
+    "mips64",
+    "mips64el",
+    "mipsel",
+    "mipsn32",
+    "mipsn32el",
+    "nios2",
+    "or1k",
+    "ppc",
+    "ppc64",
+    "ppc64le",
+    "riscv32",
+    "riscv64",
+    "s390x",
+    "sh4",
+    "sh4eb",
+    "sparc",
+    "sparc32plus",
+    "sparc64",
+    "x86_64",
+    "xtensa",
+    "xtensaeb",
 ]:
     _upkg(_u)
 

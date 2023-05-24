@@ -12,11 +12,14 @@ url = "https://pcsclite.apdu.fr"
 source = f"https://pcsclite.apdu.fr/files/pcsc-lite-{pkgver}.tar.bz2"
 sha256 = "cbcc3b34c61f53291cecc0d831423c94d437b188eb2b97b7febc08de1c914e8a"
 
+
 def post_install(self):
     self.install_service(self.files_path / "pcscd")
+
 
 @subpackage("pcsc-lite-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

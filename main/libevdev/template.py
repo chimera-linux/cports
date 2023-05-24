@@ -16,16 +16,20 @@ sha256 = "9edf2006cc86a5055279647c38ec923d11a821ee4dc2c3033e8d20e8ee237cd9"
 # FIXME int
 hardening = ["!int"]
 
+
 def post_install(self):
     self.install_license("COPYING")
+
 
 @subpackage("libevdev-devel")
 def _devel(self):
     self.depends += ["linux-headers"]
     return self.default_devel()
 
+
 @subpackage("libevdev-progs")
 def _progs(self):
     return self.default_progs()
+
 
 configure_gen = []

@@ -15,7 +15,7 @@ configure_args = [
     "--disable-libblkid",
     "--with-root-prefix=/usr",
     "e2fsprogs_cv_struct_st_flags=no",
-    "MKDIR_P=mkdir -p", # install-sh is buggy: it only creates one directory
+    "MKDIR_P=mkdir -p",  # install-sh is buggy: it only creates one directory
 ]
 make_cmd = "gmake"
 make_install_args = ["install-libs"]
@@ -31,6 +31,7 @@ sha256 = "144af53f2bbd921cef6f8bea88bb9faddca865da3fbc657cc9b4d2001097d5db"
 # test suite hangs on tr, killing it makes it continue? FIXME
 options = ["!check"]
 
+
 def post_patch(self):
     # failing tests
     for test in [
@@ -43,23 +44,28 @@ def post_patch(self):
         "j_recover_fast_commit",
         "m_offset",
     ]:
-        self.rm(f"tests/{test}", recursive = True)
+        self.rm(f"tests/{test}", recursive=True)
+
 
 @subpackage("e2fsprogs-devel")
 def _devel(self):
     self.depends += makedepends
 
-    return self.default_devel(extra = [
-        "usr/bin/compile_et",
-        "usr/bin/mk_cmds",
-        "usr/share/man/man1/compile_et.1",
-        "usr/share/man/man1/mk_cmds.1",
-        "usr/share/et",
-        "usr/share/ss",
-    ])
+    return self.default_devel(
+        extra=[
+            "usr/bin/compile_et",
+            "usr/bin/mk_cmds",
+            "usr/share/man/man1/compile_et.1",
+            "usr/share/man/man1/mk_cmds.1",
+            "usr/share/et",
+            "usr/share/ss",
+        ]
+    )
+
 
 @subpackage("e2fsprogs-libs")
 def _libs(self):
     return self.default_libs()
+
 
 configure_gen = []

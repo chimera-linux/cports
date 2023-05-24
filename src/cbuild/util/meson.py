@@ -1,12 +1,13 @@
 from cbuild.core import paths
 
+
 def _make_crossfile(pkg, build_dir):
     if not pkg.profile().cross:
         return
 
     cfpath = pkg.cwd / build_dir / "cbuild.cross"
 
-    (pkg.cwd / build_dir).mkdir(parents = True, exist_ok = True)
+    (pkg.cwd / build_dir).mkdir(parents=True, exist_ok=True)
 
     # map known profiles to meson arch
     match pkg.profile().arch:
@@ -18,7 +19,8 @@ def _make_crossfile(pkg, build_dir):
             pkg.error(f"unknown architecture: {pkg.profile().arch}")
 
     with open(cfpath, "w") as outf:
-        outf.write(f"""
+        outf.write(
+            f"""
 [binaries]
 c = '{pkg.get_tool("CC")}'
 cpp = '{pkg.get_tool("CXX")}'
@@ -46,13 +48,13 @@ system = 'linux'
 cpu_family = '{meson_cpu}'
 cpu = '{pkg.profile().arch}'
 endian = '{pkg.profile().endian}'
-""")
+"""
+        )
 
     return cfpath
 
-def configure(
-    pkg, meson_dir = None, build_dir = None, extra_args = [], env = {}
-):
+
+def configure(pkg, meson_dir=None, build_dir=None, extra_args=[], env={}):
     if not meson_dir:
         meson_dir = "."
 
@@ -63,9 +65,9 @@ def configure(
 
     cargs = []
     if cfp:
-        cargs = ["--cross-file=" + str(
-            pkg.chroot_cwd / cfp.relative_to(pkg.cwd)
-        )]
+        cargs = [
+            "--cross-file=" + str(pkg.chroot_cwd / cfp.relative_to(pkg.cwd))
+        ]
 
     eenv = {}
     eenv.update(pkg.configure_env)
@@ -102,6 +104,10 @@ def configure(
         "-Ddefault_library=both",
         "-Db_ndebug=true",
         "-Db_staticpic=true",
-        *cargs, *pkg.configure_args, *extra_args, meson_dir, build_dir,
-        env = eenv
+        *cargs,
+        *pkg.configure_args,
+        *extra_args,
+        meson_dir,
+        build_dir,
+        env=eenv,
     )

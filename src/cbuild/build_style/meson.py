@@ -1,16 +1,21 @@
 from cbuild.util import make, meson
 
+
 def do_configure(self):
     meson.configure(self, self.meson_dir)
+
 
 def do_build(self):
     self.make.build()
 
+
 def do_check(self):
     self.make.check()
 
+
 def do_install(self):
-    self.make.install(args_use_env = True)
+    self.make.install(args_use_env=True)
+
 
 def use(tmpl):
     tmpl.do_configure = do_configure

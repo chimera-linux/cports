@@ -1,6 +1,7 @@
 from cbuild.util import make
 import shlex
 
+
 def do_build(self):
     if self.make_use_env:
         self.make.build()
@@ -20,10 +21,10 @@ def do_build(self):
         "AR=" + self.get_tool("AR"),
         "AS=" + self.get_tool("AS"),
         "NM=" + self.get_tool("NM"),
-        "CFLAGS=" + self.get_cflags(shell = True),
-        "FFLAGS=" + self.get_fflags(shell = True),
-        "LDFLAGS=" + self.get_ldflags(shell = True),
-        "CXXFLAGS=" + self.get_cxxflags(shell = True),
+        "CFLAGS=" + self.get_cflags(shell=True),
+        "FFLAGS=" + self.get_fflags(shell=True),
+        "LDFLAGS=" + self.get_ldflags(shell=True),
+        "CXXFLAGS=" + self.get_cxxflags(shell=True),
     ]
 
     if self.stage > 0:
@@ -31,11 +32,14 @@ def do_build(self):
 
     self.make.build(tool_args)
 
+
 def do_check(self):
     self.make.check()
 
+
 def do_install(self):
     self.make.install(["STRIP=true", "PREFIX=/usr"])
+
 
 def use(tmpl):
     tmpl.do_build = do_build

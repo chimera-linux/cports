@@ -13,13 +13,14 @@ hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
 
+
 def post_install(self):
     # common wrapper
     self.install_file(
-        self.files_path / "dinit-snooze", "usr/libexec", mode = 0o755
+        self.files_path / "dinit-snooze", "usr/libexec", mode=0o755
     )
     self.install_file(
-        self.files_path / "dinit-snooze-periodic", "usr/libexec", mode = 0o755
+        self.files_path / "dinit-snooze-periodic", "usr/libexec", mode=0o755
     )
     for f in ["hourly", "daily", "weekly", "monthly"]:
-        self.install_service(self.files_path / f"snooze-{f}", enable = True)
+        self.install_service(self.files_path / f"snooze-{f}", enable=True)

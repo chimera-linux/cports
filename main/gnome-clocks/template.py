@@ -3,12 +3,25 @@ pkgver = "44.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
-    "meson", "pkgconf", "glib-devel", "gettext-tiny", "vala", "itstool",
-    "gobject-introspection", "gtk-update-icon-cache", "desktop-file-utils",
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gettext-tiny",
+    "vala",
+    "itstool",
+    "gobject-introspection",
+    "gtk-update-icon-cache",
+    "desktop-file-utils",
 ]
 makedepends = [
-    "gtk4-devel", "glib-devel", "gnome-desktop-devel", "libadwaita-devel",
-    "libnotify-devel", "gsound-devel", "libgweather-devel", "geoclue-devel",
+    "gtk4-devel",
+    "glib-devel",
+    "gnome-desktop-devel",
+    "libadwaita-devel",
+    "libnotify-devel",
+    "gsound-devel",
+    "libgweather-devel",
+    "geoclue-devel",
     "geocode-glib-devel",
 ]
 depends = ["gsettings-desktop-schemas", "desktop-file-utils"]

@@ -13,8 +13,11 @@ configure_args = [
 ]
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "zlib-devel", "tcl-devel", "libxext-devel", "libxscrnsaver-devel",
-    "libxft-devel"
+    "zlib-devel",
+    "tcl-devel",
+    "libxext-devel",
+    "libxscrnsaver-devel",
+    "libxft-devel",
 ]
 provides = ["so:libtk8.6.so=0"]
 pkgdesc = "TK graphical user interface toolkit for TCL"
@@ -26,15 +29,18 @@ sha256 = "2e65fa069a23365440a3c56c556b8673b5e32a283800d8d9b257e3f584ce0675"
 # no check target
 options = ["!check", "!cross", "!lto"]
 
+
 def init_configure(self):
     self.make_install_args += [
         "install-private-headers",
         "DESTDIR=" + str(self.chroot_destdir),
     ]
 
+
 def post_install(self):
     self.install_link("wish8.6", "usr/bin/wish")
     self.install_license("../license.terms")
+
 
 @subpackage("tk-devel")
 def _devel(self):
@@ -48,5 +54,6 @@ def _devel(self):
         "usr/share/man/mann",
         "usr/lib/*.a",
     ]
+
 
 configure_gen = []

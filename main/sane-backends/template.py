@@ -4,13 +4,14 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-locking",
-    "--enable-ipv6", "--enable-pthread",
+    "--enable-ipv6",
+    "--enable-pthread",
     "--with-usb",
     "--docdir=/usr/share/doc/sane",
     "ac_cv_func_mmap_fixed_mapped=yes",
 ]
 make_cmd = "gmake"
-make_dir = "." # bad build system
+make_dir = "."  # bad build system
 hostmakedepends = ["gmake", "pkgconf", "python"]
 makedepends = [
     "linux-headers",
@@ -36,13 +37,8 @@ hardening = ["!int"]
 # otherwise we get conflicting providers because all the
 # plugins provide a libsane.so.1 soname for whatever reason
 options = ["!scanshlibs"]
-system_users = [
-    {
-        "name": "_saned",
-        "id": None,
-        "groups": ["lp", "scanner"]
-    }
-]
+system_users = [{"name": "_saned", "id": None, "groups": ["lp", "scanner"]}]
+
 
 def post_install(self):
     self.install_license("LICENSE")
@@ -50,12 +46,12 @@ def post_install(self):
     self.install_service(self.files_path / "saned")
 
     self.install_file(
-        self.files_path / "saned.xinetd", "etc/xinetd.d", name = "saned.conf"
+        self.files_path / "saned.xinetd", "etc/xinetd.d", name="saned.conf"
     )
     self.install_file(
-        "tools/udev/libsane.rules", "usr/lib/udev/rules.d",
-        name = "49-sane.rules"
+        "tools/udev/libsane.rules", "usr/lib/udev/rules.d", name="49-sane.rules"
     )
+
 
 @subpackage("libsane")
 def _lib(self):
@@ -63,8 +59,10 @@ def _lib(self):
 
     return self.default_libs()
 
+
 @subpackage("sane-backends-devel")
 def _devel(self):
     return self.default_devel()
+
 
 configure_gen = []

@@ -4,7 +4,10 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext-tiny", "itstool"]
 makedepends = [
-    "glib-devel", "colord-devel", "lcms2-devel", "gtk+3-devel",
+    "glib-devel",
+    "colord-devel",
+    "lcms2-devel",
+    "gtk+3-devel",
     "libcanberra-devel",
 ]
 depends = ["colord", "shared-color-targets"]

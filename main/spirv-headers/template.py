@@ -12,5 +12,6 @@ sha256 = "16927b1868e7891377d059cd549484e4158912439cf77451ae7e01e2a3bcd28b"
 # no test suite
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")

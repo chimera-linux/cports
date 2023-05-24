@@ -12,7 +12,11 @@ configure_args = [
 ]
 make_build_args = ["llvm-spirv"]
 hostmakedepends = [
-    "cmake", "ninja", "pkgconf", "clang-tools-extra", "spirv-headers",
+    "cmake",
+    "ninja",
+    "pkgconf",
+    "clang-tools-extra",
+    "spirv-headers",
     "spirv-tools-devel",
 ]
 makedepends = ["llvm-devel"]
@@ -27,8 +31,10 @@ hardening = ["!int"]
 # tests disabled
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.TXT")
+
 
 @subpackage("spirv-llvm-translator-devel")
 def _devel(self):

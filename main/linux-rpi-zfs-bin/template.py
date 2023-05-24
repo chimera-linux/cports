@@ -14,21 +14,29 @@ license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 options = ["!cross"]
 
+
 def init_configure(self):
     from cbuild.util import linux
+
     self._linux_version = linux.get_version(self, _kernver)
     linux.generate_scriptlets_ckms(self, "zfs", self._linux_version)
 
+
 def do_configure(self):
     from cbuild.util import linux
+
     linux.ckms_configure(self, "zfs", _zfsver, self._linux_version)
+
 
 def do_build(self):
     from cbuild.util import linux
+
     linux.ckms_build(self, "zfs", _zfsver, self._linux_version)
+
 
 def do_install(self):
     from cbuild.util import linux
+
     linux.ckms_install(self, "zfs", _zfsver, self._linux_version)
 
     srcp = linux.get_modsrc(self, "zfs", _zfsver)

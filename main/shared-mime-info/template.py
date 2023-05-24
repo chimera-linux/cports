@@ -3,9 +3,7 @@ pkgver = "2.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dupdate-mimedb=false"]
-hostmakedepends = [
-    "meson", "pkgconf", "gettext-tiny", "xmlto", "libxml2-progs"
-]
+hostmakedepends = ["meson", "pkgconf", "gettext-tiny", "xmlto", "libxml2-progs"]
 makedepends = ["glib-devel", "libxml2-devel"]
 triggers = ["/usr/share/mime"]
 pkgdesc = "Core database of common types"
