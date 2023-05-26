@@ -48,7 +48,7 @@ export XDG_SESSION_TYPE=x11
 xauth add "$display" . `/usr/bin/mcookie`
 
 xinit /etc/X11/Xsession "$rcfile" "$@" -- \
-    /usr/bin/X -nolisten tcp "$display" vt$TTY -keeptty -noreset -auth "$XAUTHORITY"
+    /usr/bin/X "$display" vt$TTY -nolisten tcp -keeptty -noreset -auth "$XAUTHORITY"
 
 ret=$?
 
