@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.1.29 Kernel Configuration
+# Linux/arm64 6.1.30 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 16.0.3"
 CONFIG_GCC_VERSION=0
@@ -352,6 +352,7 @@ CONFIG_ARCH_ZYNQMP=y
 # ARM errata workarounds via the alternatives framework
 #
 CONFIG_ARM64_WORKAROUND_CLEAN_CACHE=y
+CONFIG_ALTRA_ERRATUM_82288=y
 CONFIG_ARM64_ERRATUM_826319=y
 CONFIG_ARM64_ERRATUM_827319=y
 CONFIG_ARM64_ERRATUM_824069=y
