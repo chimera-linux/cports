@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/riscv 6.3.3 Kernel Configuration
+# Linux/riscv 6.3.4 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 16.0.3"
 CONFIG_GCC_VERSION=0

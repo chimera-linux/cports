@@ -1,0 +1,228 @@
+From ada2b73706eb84efe87f2d13810d6b6800ac9d32 Mon Sep 17 00:00:00 2001
+From: Fuhai Wang <fuhaiwang@tencent.com>
+Date: Fri, 26 May 2023 17:33:10 +0000
+Subject: [PATCH 2/2] ampere/arm64: Work around Ampere Altra erratum #82288
+ PCIE_65
+
+Altra's PCIe controller may generate incorrect addresses when receiving
+writes from the CPU with a discontiguous set of byte enables. Attempt to
+work around this by handing out Device-nGnRE maps instead of Normal
+Non-cacheable maps for PCIe memory areas.
+
+Signed-off-by: D Scott Phillips <scott@os.amperecomputing.com>
+
+----
+
+Notes by q66 <q66@chimera-linux.org>:
+
+Original patch source: https://github.com/Tencent/TencentOS-kernel/commit/f454797b673c06c0eb1b77be20d8a475ad2fbf6f
+
+I have rebased this patch on top of 6.1 kernel, adjusting things
+so that they still apply.
+
+The most notable upstream change is that arm64 now uses generic
+ioremap code. Since we don't want to patch the generic code with
+arm64 bits, add a special hook (similar to ioremap_allowed) to
+map the prot.
+
+The rest is mostly a straightforward rebase.
+---
+ arch/arm64/Kconfig               | 21 +++++++++++++++++++++
+ arch/arm64/include/asm/io.h      |  3 +++
+ arch/arm64/include/asm/pci.h     |  4 ++++
+ arch/arm64/include/asm/pgtable.h | 26 +++++++++++++++++++++-----
+ arch/arm64/mm/ioremap.c          | 25 +++++++++++++++++++++++++
+ drivers/pci/quirks.c             |  9 +++++++++
+ include/asm-generic/io.h         |  4 ++++
+ mm/ioremap.c                     |  2 +-
+ 8 files changed, 88 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 1023e896d..b80bd533b 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -389,6 +389,27 @@ menu "ARM errata workarounds via the alternatives framework"
+ config ARM64_WORKAROUND_CLEAN_CACHE
+ 	bool
+ 
++config ALTRA_ERRATUM_82288
++	bool "Ampere Altra: 82288: PCIE_65: PCIe Root Port outbound write combining issue"
++	default y
++	help
++	  This option adds an alternative code sequence to work around
++	  Ampere Altra erratum 82288.
++
++	  PCIe device drivers may map MMIO space as Normal, non-cacheable
++	  memory attribute (e.g. Linux kernel drivers mapping MMIO
++	  using ioremap_wc). This may be for the purpose of enabling write
++	  combining or unaligned accesses. This can result in data corruption
++	  on the PCIe interface’s outbound MMIO writes due to issues with the
++	  write-combining operation.
++
++	  The workaround modifies software that maps PCIe MMIO space as Normal,
++	  non-cacheable memory (e.g. ioremap_wc) to instead Device,
++	  non-gatheringmemory (e.g. ioremap). And all memory operations on PCIe
++	  MMIO space must be strictly aligned.
++
++	  If unsure, say Y.
++
+ config ARM64_ERRATUM_826319
+ 	bool "Cortex-A53: 826319: System might deadlock if a write cannot complete until read data is accepted"
+ 	default y
+diff --git a/arch/arm64/include/asm/io.h b/arch/arm64/include/asm/io.h
+index 877495a0f..ad4dab85e 100644
+--- a/arch/arm64/include/asm/io.h
++++ b/arch/arm64/include/asm/io.h
+@@ -142,6 +142,9 @@ extern void __memset_io(volatile void __iomem *, int, size_t);
+ bool ioremap_allowed(phys_addr_t phys_addr, size_t size, unsigned long prot);
+ #define ioremap_allowed ioremap_allowed
+ 
++pgprot_t ioremap_map_prot(phys_addr_t phys_addr, size_t size, unsigned long prot);
++#define ioremap_map_prot ioremap_map_prot
++
+ #define _PAGE_IOREMAP PROT_DEVICE_nGnRE
+ 
+ #define ioremap_wc(addr, size)	\
+diff --git a/arch/arm64/include/asm/pci.h b/arch/arm64/include/asm/pci.h
+index 016eb6b46..a99be43ba 100644
+--- a/arch/arm64/include/asm/pci.h
++++ b/arch/arm64/include/asm/pci.h
+@@ -16,6 +16,10 @@
+ #define pcibios_assign_all_busses() \
+ 	(pci_has_flag(PCI_REASSIGN_ALL_BUS))
+ 
++#ifdef CONFIG_ALTRA_ERRATUM_82288
++extern bool __read_mostly have_altra_erratum_82288;
++#endif
++
+ #define arch_can_pci_mmap_wc() 1
+ 
+ /* Generic PCI */
+diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+index b6ba466e2..4e15726d9 100644
+--- a/arch/arm64/include/asm/pgtable.h
++++ b/arch/arm64/include/asm/pgtable.h
+@@ -229,11 +229,6 @@ static inline pte_t pte_mkyoung(pte_t pte)
+ 	return set_pte_bit(pte, __pgprot(PTE_AF));
+ }
+ 
+-static inline pte_t pte_mkspecial(pte_t pte)
+-{
+-	return set_pte_bit(pte, __pgprot(PTE_SPECIAL));
+-}
+-
+ static inline pte_t pte_mkcont(pte_t pte)
+ {
+ 	pte = set_pte_bit(pte, __pgprot(PTE_CONT));
+@@ -581,6 +576,27 @@ static inline void set_pud_at(struct mm_struct *mm, unsigned long addr,
+ 	__pgprot_modify(prot, PTE_ATTRINDX_MASK, \
+ 			PTE_ATTRINDX(MT_NORMAL_NC) | PTE_PXN | PTE_UXN)
+ 
++#ifdef CONFIG_ALTRA_ERRATUM_82288
++extern bool __read_mostly have_altra_erratum_82288;
++#endif
++
++static inline pte_t pte_mkspecial(pte_t pte)
++{
++#ifdef CONFIG_ALTRA_ERRATUM_82288
++	phys_addr_t phys = __pte_to_phys(pte);
++	pgprot_t prot = __pgprot(pte_val(pte) & ~PTE_ADDR_MASK);
++
++	if (unlikely(have_altra_erratum_82288) &&
++	    (phys < 0x80000000 ||
++	     (phys >= 0x200000000000 && phys < 0x400000000000) ||
++	     (phys >= 0x600000000000 && phys < 0x800000000000))) {
++		pte = __pte(__phys_to_pte_val(phys) | pgprot_val(pgprot_device(prot)));
++	}
++#endif
++
++	return set_pte_bit(pte, __pgprot(PTE_SPECIAL));
++}
++
+ #define __HAVE_PHYS_MEM_ACCESS_PROT
+ struct file;
+ extern pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
+diff --git a/arch/arm64/mm/ioremap.c b/arch/arm64/mm/ioremap.c
+index c5af103d4..9e3ce24c3 100644
+--- a/arch/arm64/mm/ioremap.c
++++ b/arch/arm64/mm/ioremap.c
+@@ -3,6 +3,31 @@
+ #include <linux/mm.h>
+ #include <linux/io.h>
+ 
++#ifdef CONFIG_ALTRA_ERRATUM_82288
++bool have_altra_erratum_82288 __read_mostly;
++EXPORT_SYMBOL(have_altra_erratum_82288);
++
++static bool is_altra_pci(phys_addr_t phys_addr, size_t size)
++{
++	phys_addr_t end = phys_addr + size;
++
++	return (phys_addr < 0x80000000 ||
++		(end > 0x200000000000 && phys_addr < 0x400000000000) ||
++		(end > 0x600000000000 && phys_addr < 0x800000000000));
++}
++#endif
++
++pgprot_t ioremap_map_prot(phys_addr_t phys_addr, size_t size,
++                          unsigned long prot_val)
++{
++	pgprot_t prot = __pgprot(prot_val);
++#ifdef CONFIG_ALTRA_ERRATUM_82288
++	if (unlikely(have_altra_erratum_82288 && is_altra_pci(phys_addr, size)))
++		prot = pgprot_device(prot);
++#endif
++	return prot;
++}
++
+ bool ioremap_allowed(phys_addr_t phys_addr, size_t size, unsigned long prot)
+ {
+ 	unsigned long last_addr = phys_addr + size - 1;
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index f4e2a8872..275bf6002 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -6036,3 +6036,12 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x9a2d, dpc_log_size);
+ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x9a2f, dpc_log_size);
+ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x9a31, dpc_log_size);
+ #endif
++
++#ifdef CONFIG_ALTRA_ERRATUM_82288
++static void quirk_altra_erratum_82288(struct pci_dev *dev)
++{
++	pr_info_once("Write combining PCI maps disabled due to hardware erratum\n");
++	have_altra_erratum_82288 = true;
++}
++DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMPERE, 0xe100, quirk_altra_erratum_82288);
++#endif
+diff --git a/include/asm-generic/io.h b/include/asm-generic/io.h
+index 587e7e9b9..f3b820c49 100644
+--- a/include/asm-generic/io.h
++++ b/include/asm-generic/io.h
+@@ -1047,6 +1047,10 @@ static inline void iounmap(volatile void __iomem *addr)
+ #elif defined(CONFIG_GENERIC_IOREMAP)
+ #include <linux/pgtable.h>
+ 
++#ifndef ioremap_map_prot
++#define ioremap_map_prot(phys_addr, size, prot) __pgprot(prot)
++#endif
++
+ /*
+  * Arch code can implement the following two hooks when using GENERIC_IOREMAP
+  * ioremap_allowed() return a bool,
+diff --git a/mm/ioremap.c b/mm/ioremap.c
+index 865242628..60f51bad2 100644
+--- a/mm/ioremap.c
++++ b/mm/ioremap.c
+@@ -39,7 +39,7 @@ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
+ 	area->phys_addr = phys_addr;
+ 
+ 	if (ioremap_page_range(vaddr, vaddr + size, phys_addr,
+-			       __pgprot(prot))) {
++			       ioremap_map_prot(phys_addr, size, prot))) {
+ 		free_vm_area(area);
+ 		return NULL;
+ 	}
+-- 
+2.39.0
+
