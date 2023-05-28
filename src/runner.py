@@ -1115,7 +1115,7 @@ def do_print_build_graph(tgt):
     _print_deps(root)
 
 
-def do_print_unbuilt(tgt):
+def _get_unbuilt():
     from cbuild.core import chroot, template, paths, errors
     from cbuild.apk import util
     import subprocess
@@ -1208,7 +1208,7 @@ def do_print_unbuilt(tgt):
         vers.append(pn)
 
     if not vers:
-        return
+        return []
 
     fvers = []
     tmpls = {}
@@ -1258,7 +1258,7 @@ def do_print_unbuilt(tgt):
         fvers.append(pn)
 
     if not fvers:
-        return
+        return []
 
     vers = fvers
     fvers = []
@@ -1270,11 +1270,12 @@ def do_print_unbuilt(tgt):
             continue
         fvers.append(pn)
 
-    if not fvers:
-        return
+    return fvers
 
-    print(" ".join(fvers))
-
+def do_print_unbuilt(tgt):
+    unb = _get_unbuilt()
+    if unb:
+        print(" ".join(unb))
 
 def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot, errors
@@ -1740,6 +1741,9 @@ def _collect_blist(pkgs):
             continue
         # status files
         if pkg.startswith("status:"):
+            if pkg == "status:unbuilt":
+                rpkgs += _get_unbuilt()
+                continue
             with open(pkg.removeprefix("status:"), "r") as inf:
                 rpkgs += _collect_status(inf)
             continue
