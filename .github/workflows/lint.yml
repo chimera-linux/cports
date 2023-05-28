@@ -1,4 +1,4 @@
-name: Lint/format
+name: Lint tree and check format
 
 on:
   push:
@@ -19,6 +19,7 @@ on:
 
 jobs:
   lint:
+    name: Lint tree and check format
     runs-on: ubuntu-latest
     steps:
       - name: Refresh packages

@@ -19,13 +19,16 @@ jobs:
         run: sudo apt-get update
 
       - name: Install dependencies
-        run: sudo apt-get install python3.11 openssl git bubblewrap
+        run: sudo apt-get install python3.11 openssl git bubblewrap wget
 
       - name: Checkout
         uses: classabbyamp/treeless-checkout-action@v1
 
-      #- name: Generate a key
-      #  run: python3.11 cbuild keygen
+      - name: Set up cbuild configuration
+        run: sh .ci/setup-cbuild.sh
 
-      #- name: Build packages
-      #  run: python3.11 cbuild ...
+      - name: Cycle check
+        run: python3.11 cbuild cycle-check
+
+      - name: Build packages
+        run: python3.11 cbuild -t bulk-pkg 'git:master..+!\[ci skip\]'
