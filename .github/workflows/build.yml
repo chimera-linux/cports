@@ -15,14 +15,20 @@ jobs:
     if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
 
     steps:
-      - name: Refresh packages
-        run: sudo apt-get update
-
       - name: Install dependencies
-        run: sudo apt-get install python3.11 openssl git bubblewrap wget
+        run: sudo apt-get update && sudo apt-get install python3.11 openssl git bubblewrap wget
 
       - name: Checkout
         uses: classabbyamp/treeless-checkout-action@v1
+
+      - name: Cache cbuild data
+        id: cache-cbuild
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-cbuild-data
+        with:
+          path: ./cbuild_cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       - name: Set up cbuild configuration
         run: sh .ci/setup-cbuild.sh
