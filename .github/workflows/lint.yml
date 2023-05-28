@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Refresh packages
-        run: sudo apt-get update
+        run: sudo apt-get update && sudo apt-get install python3-pip
 
       - name: Install dependencies
-        run: sudo apt-get install black flake8
+        run: sudo pip3 install black flake8
 
       - name: Checkout
         uses: classabbyamp/treeless-checkout-action@v1
