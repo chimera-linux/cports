@@ -12,6 +12,7 @@ you should not rely on them or expect them to be stable.
 * [Categories](#categories)
 * [Targets and Tiers](#targets)
 * [Quality Requirements](#quality_requirements)
+  * [Correct Style](#correct_style)
   * [Writing Correct Templates](#correct_templates)
     * [Hardening Templates](#template_hardening)
 * [Build Phases](#phases)
@@ -218,7 +219,8 @@ not for `main`.
 The `cbuild` system as well as the templates are formatted with
 [Black](https://black.readthedocs.io/en/stable/). Therefore, when writing
 either template or `cbuild` code, make sure the result remains unchanged
-after re-formatting.
+after re-formatting. They should also pass [flake8](https://flake8.pycqa.org/en/latest)
+with our configuration.
 
 <a id="correct_templates"></a>
 ### Writing Correct Templates
