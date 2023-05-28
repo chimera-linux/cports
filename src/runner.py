@@ -1272,10 +1272,12 @@ def _get_unbuilt():
 
     return fvers
 
+
 def do_print_unbuilt(tgt):
     unb = _get_unbuilt()
     if unb:
         print(" ".join(unb))
+
 
 def do_update_check(tgt):
     from cbuild.core import update_check, template, chroot, errors
