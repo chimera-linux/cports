@@ -27,7 +27,9 @@ jobs:
         env:
           cache-name: cache-cbuild-data
         with:
-          path: ./cbuild_cache
+          path: |
+            ./cbuild_cache
+            ./sources
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       - name: Set up cbuild configuration
@@ -36,5 +38,5 @@ jobs:
       - name: Cycle check
         run: python3.11 cbuild cycle-check
 
-      - name: Build packages
+      - name: Build and test packages
         run: python3.11 cbuild -t bulk-pkg 'git:master..+!\[ci skip\]'
