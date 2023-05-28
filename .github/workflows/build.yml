@@ -2,6 +2,7 @@ name: Build packages
 
 on:
   pull_request:
+    branches:
       - master
     paths:
       - 'main/**'
