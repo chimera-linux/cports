@@ -1,0 +1,30 @@
+name: Build packages
+
+on:
+  pull_request:
+      - master
+    paths:
+      - 'main/**'
+      - 'contrib/**'
+
+jobs:
+  build:
+    name: Build packages
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
+
+    steps:
+      - name: Refresh packages
+        run: sudo apt-get update
+
+      - name: Install dependencies
+        run: sudo apt-get install python3.11 openssl git bubblewrap
+
+      - name: Checkout
+        uses: classabbyamp/treeless-checkout-action@v1
+
+      #- name: Generate a key
+      #  run: python3.11 cbuild keygen
+
+      #- name: Build packages
+      #  run: python3.11 cbuild ...
