@@ -1,7 +1,7 @@
 pkgname = "dinit"
 pkgver = "0.16.999"
-_commit = "122599a461f3dc90a78f51d9f2c55facc70ee000"
-pkgrel = 0
+_commit = "34736fba7ee2796d565b3bfa2792159d0a5c6d25"
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--syscontrolsocket=/run/dinitctl"]
 make_cmd = "gmake"
@@ -14,7 +14,7 @@ license = "Apache-2.0"
 url = "https://davmac.org/projects/dinit"
 # source = f"https://github.com/davmac314/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 source = f"https://github.com/davmac314/{pkgname}/archive/{_commit}.tar.gz"
-sha256 = "b60f73b5c217c1e7ae22bfad972e25583ad3e5ff1da8c1dd5815d8b95f52df91"
+sha256 = "a45f6ec06cfe900d977c0d4c9b53f0bdadb0b6a514bfdfb7aa5a4433ecedac66"
 hardening = ["vis", "cfi"]
 
 tool_flags = {"CXXFLAGS": ["-fno-rtti"]}
