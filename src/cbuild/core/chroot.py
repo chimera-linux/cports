@@ -8,7 +8,7 @@ import binascii
 from tempfile import mkstemp, mkdtemp
 
 from cbuild.core import logger, paths, errors
-from cbuild.apk import cli as apki
+from cbuild.apk import cli as apki, sign as signi
 
 _chroot_checked = False
 _chroot_ready = False
@@ -125,6 +125,12 @@ def setup_keys(rootp):
 
     for f in (paths.distdir() / "etc/keys").glob("*.pub"):
         shutil.copy2(f, keydir)
+
+    pkey = signi.get_keypath()
+    if pkey:
+        pubkey = pkey.with_suffix(pkey.suffix + ".pub")
+        if pubkey.is_file():
+            shutil.copy2(pubkey, keydir)
 
 
 _crepos = None
