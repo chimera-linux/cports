@@ -822,6 +822,17 @@ class Template(Package):
         self.validate_order()
         self.validate_spdx()
 
+    def ensure_fields(self):
+        for fl, dval, tp, mand, sp, inh in core_fields:
+            # mandatory fields are all at the beginning
+            if not mand:
+                break
+            # basic validation of type
+            if not hasattr(self, fl) or not validate_type(
+                getattr(self, fl), tp
+            ):
+                self.error("missing or invalid field: %s" % fl)
+
     def validate_spdx(self):
         # validate license if we need to
         if self.options["spdx"]:
@@ -846,17 +857,6 @@ class Template(Package):
                     self.error(
                         "failed validating subpackage license: %s" % lerr
                     )
-
-    def ensure_fields(self):
-        for fl, dval, tp, mand, sp, inh in core_fields:
-            # mandatory fields are all at the beginning
-            if not mand:
-                break
-            # basic validation of type
-            if not hasattr(self, fl) or not validate_type(
-                getattr(self, fl), tp
-            ):
-                self.error("missing or invalid field: %s" % fl)
 
     def validate_url(self):
         # do not validate if not linting
