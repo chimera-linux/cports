@@ -1760,6 +1760,10 @@ def _collect_blist(pkgs):
                 for ln in inf:
                     rpkgs += _collect_blist(ln.strip())
             continue
+        # list
+        if pkg.startswith("list:"):
+            rpkgs += pkg[5:].split()
+            continue
         # stdin
         if pkg == "-":
             for ln in sys.stdin:
