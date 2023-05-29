@@ -307,8 +307,6 @@ def _setup_dummy(rootp, archn):
             False,
             None,
             ignore_missing=True,
-            ignore_errors=True,
-            allow_broken=True,
         )
         return f"{tobj.pkgver}-r{tobj.pkgrel}"
 

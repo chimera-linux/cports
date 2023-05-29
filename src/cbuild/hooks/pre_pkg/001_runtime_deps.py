@@ -259,7 +259,7 @@ def _scan_pc(pkg):
 
 
 def _scan_symlinks(pkg):
-    allow_broken = pkg.options["brokenlinks"]
+    brokenlinks = pkg.options["brokenlinks"]
     log = logger.get()
 
     subpkg_deps = {}
@@ -308,7 +308,7 @@ def _scan_symlinks(pkg):
                 subpkg_deps[pkg.rparent.pkgname] = True
             else:
                 # nothing found
-                if allow_broken:
+                if brokenlinks:
                     continue
                 pkg.error(f"   symlink: {ssrc} -> {sdest} <-> UNKNOWN PACKAGE!")
 

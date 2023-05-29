@@ -188,8 +188,8 @@ class Package:
     def log_warn(self, msg, end="\n"):
         self.logger.warn(self._get_pv() + ": " + msg, end)
 
-    def error(self, msg, end="\n", broken=False, bt=False):
-        raise errors.PackageException(msg, end, self, broken, bt)
+    def error(self, msg, end="\n", bt=False):
+        raise errors.PackageException(msg, end, self, bt)
 
     def _get_pv(self):
         if self.pkgname and self.pkgver:
@@ -786,16 +786,66 @@ class Template(Package):
             pass
 
     def build_lint(self):
-        # ensure subpackage symlinks exist
+        if self.broken:
+            self.error(self.broken)
+
+        if self.stage == 0 and not self.options["bootstrap"]:
+            self.error("attempt to bootstrap a non-bootstrap package")
+
+        if not hasattr(self, "do_install"):
+            self.error("do_install is missing")
+
+        # ensure subpackages have correct style and symlinks
         repo = self.repository
         bpn = self.pkgname
         for sp in self.subpkg_list:
+            if (
+                sp.build_style
+                and sp.build_style != self.build_style
+                and sp.build_style != "meta"
+            ):
+                self.error("subpackages cannot declare non-meta build_style")
+
             tlink = f"{repo}/{sp.pkgname}"
             tpath = paths.distdir() / tlink
             if not tpath.is_symlink():
                 self.error(f"subpackage '{sp.pkgname}' is missing a symlink")
             if str(tpath.readlink()) != bpn:
                 self.error(f"subpackage '{sp.pkgname}' has incorrect symlink")
+
+        if not cli.check_version(f"{self.pkgver}-r{self.pkgrel}"):
+            self.error("pkgver has an invalid format")
+
+        # validate other stuff
+        self.validate_pkgdesc()
+        self.validate_url()
+        self.validate_order()
+        self.validate_spdx()
+
+    def validate_spdx(self):
+        # validate license if we need to
+        if self.options["spdx"]:
+            lerr = None
+            try:
+                spdx.validate(self.license)
+            except RuntimeError as e:
+                lerr = str(e)
+            if lerr:
+                self.error("failed validating license: %s" % lerr)
+
+            for sp in self.subpkg_list:
+                if sp.license == self.license:
+                    continue
+
+                lerr = None
+                try:
+                    spdx.validate(sp.license)
+                except RuntimeError as e:
+                    lerr = str(e)
+                if lerr:
+                    self.error(
+                        "failed validating subpackage license: %s" % lerr
+                    )
 
     def ensure_fields(self):
         for fl, dval, tp, mand, sp, inh in core_fields:
@@ -808,13 +858,9 @@ class Template(Package):
             ):
                 self.error("missing or invalid field: %s" % fl)
 
-    def validate_pkgver(self):
-        if not cli.check_version(f"{self.pkgver}-r{self.pkgrel}"):
-            self.error("pkgver has an invalid format")
-
     def validate_url(self):
         # do not validate if not linting
-        if self._ignore_errors or not self.options["lint"]:
+        if not self.options["lint"]:
             return
 
         from urllib.parse import urlparse
@@ -837,7 +883,7 @@ class Template(Package):
 
     def validate_pkgdesc(self):
         # do not validate if not linting
-        if self._ignore_errors or not self.options["lint"]:
+        if not self.options["lint"]:
             return
 
         dstr = self.pkgdesc
@@ -856,10 +902,10 @@ class Template(Package):
         if len(dstr) > 72:
             self.error("pkgdesc should be no longer than 72 characters")
 
-    def validate_order(self, mod):
+    def validate_order(self):
         global core_fields_map
         # do not validate if not linting
-        if self._ignore_errors or not self.options["lint"]:
+        if not self.options["lint"]:
             return
         # otherwise we need a mapping of var names to indexes
         if not core_fields_map:
@@ -925,12 +971,12 @@ class Template(Package):
         if not succ:
             self.error("lint failed: incorrect variable order")
         # validate vars
-        for varn in vars(mod):
+        for varn in vars(self._raw_mod):
             # custom vars should be underscored
             if varn.startswith("_"):
                 continue
             # if it's a known hook/var, skip
-            if callable(getattr(mod, varn)):
+            if callable(getattr(self._raw_mod, varn)):
                 # skip if it's a function and in hooks
                 if varn in hooks:
                     continue
@@ -949,6 +995,9 @@ class Template(Package):
             self.error("lint failed: invalid vars/hooks in template")
 
     def validate_arch(self):
+        # if already broken, skip validating it
+        if self.broken:
+            return
         bprof = self.profile()
         archn = bprof.arch
         # no archs specified: we match always
@@ -956,7 +1005,8 @@ class Template(Package):
             return
         # bad archs type
         if not isinstance(self.archs, list):
-            self.error("malformed archs field")
+            self.broken = "archs field is malformed, cannot build"
+            return
         # find matching patterns; pattern matching the arch name more exactly
         # (i.e. having more non-pattern characters) trumps the previous one
         prevmatch = None
@@ -998,7 +1048,10 @@ class Template(Package):
             # equal patterns: skip
             if v == prevmatch:
                 if prevneg != curneg:
-                    self.error(f"conflicting arch patterns: {v}, !{v}")
+                    self.broken = (
+                        f"conflicting arch patterns: {v}, !{v}, cannot build"
+                    )
+                    return
                 continue
             # find the non-pattern lengths
             nexactprev = _find_exact(prevmatch)
@@ -1009,14 +1062,17 @@ class Template(Package):
                     prevmatch = f"!{prevmatch}"
                 if curneg:
                     v = f"!{v}"
-                self.error(f"ambiguous arch patterns: {prevmatch}, {v}")
+                self.broken = (
+                    f"ambiguous arch patterns: {prevmatch}, {v}, cannot build"
+                )
+                return
             # otherwise consider the one with longer exact match
             if nexactcur > nexactprev:
                 prevmatch = v
                 prevneg = curneg
         # no match or negative match
         if not prevmatch or prevneg:
-            self.error(f"this package cannot be built for {archn}", broken=True)
+            self.broken = f"this package cannot be built for {archn}"
         # otherwise we're good
 
     def is_built(self, quiet=False):
@@ -1725,7 +1781,6 @@ def from_module(m, ret):
 
     # basic validation
     ret.ensure_fields()
-    ret.validate_pkgver()
 
     # possibly skip very early once we have the bare minimum info
     if (
@@ -1770,26 +1825,10 @@ def from_module(m, ret):
     ret.options = ropts
     ret.wrksrc = f"{ret.pkgname}-{ret.pkgver}"
 
-    if not ret._allow_broken:
-        ret.validate_arch()
-        ret.validate_pkgdesc()
-        ret.validate_url()
-        ret.validate_order(m)
-
     if ret.provider_priority < 0:
         ret.error("provider_priority must be positive")
     if ret.replaces_priority < 0:
         ret.error("replaces_priority must be positive")
-
-    # validate license if we need to
-    if ret.options["spdx"] and not ret._allow_broken:
-        lerr = None
-        try:
-            spdx.validate(ret.license)
-        except RuntimeError as e:
-            lerr = str(e)
-        if lerr:
-            ret.error("failed validating license: %s" % lerr)
 
     # the real job count
     if not ret.options["parallel"]:
@@ -1874,9 +1913,6 @@ def from_module(m, ret):
 
     ret.env["CBUILD_STATEDIR"] = "/builddir/.cbuild-" + ret.pkgname
 
-    if not hasattr(ret, "do_install") and not ret._allow_broken:
-        ret.error("do_install is missing")
-
     spdupes = {}
     # link subpackages and fill in their fields
     for spn, spf in ret.subpackages:
@@ -1896,13 +1932,6 @@ def from_module(m, ret):
             flv = getattr(sp, fl)
             if not validate_type(flv, tp):
                 ret.error("invalid field value: %s" % fl)
-        # build_style is validated specially
-        if (
-            sp.build_style
-            and sp.build_style != ret.build_style
-            and sp.build_style != "meta"
-        ):
-            ret.error("subpackages cannot declare non-meta build_style")
 
         # deal with options
         ropts = {}
@@ -1929,48 +1958,19 @@ def from_module(m, ret):
 
         sp.options = ropts
 
-        if (
-            sp.options["spdx"]
-            and sp.license != ret.license
-            and not ret._allow_broken
-        ):
-            lerr = None
-            try:
-                spdx.validate(sp.license)
-            except RuntimeError as e:
-                lerr = str(e)
-            if lerr:
-                ret.error("failed validating subpackage license: %s" % lerr)
-
         # go
         ret.subpkg_list.append(sp)
 
-    ierr = ret._allow_broken
+    # sometimes things need to know if a package is buildable
+    if ret.broken:
+        ret.broken = f"cannot be built, it's currently broken: {ret.broken}"
+    elif ret.repository not in _allow_cats:
+        ret.broken = f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})"
+    elif ret.profile().cross and not ret.options["cross"]:
+        ret.broken = f"cannot be cross-compiled for {ret.profile().cross}"
 
-    if ret.broken and not ierr:
-        ret.error(
-            f"cannot be built, it's currently broken: {ret.broken}",
-            broken=True,
-            bt=True,
-        )
-
-    if ret.repository not in _allow_cats and not ierr:
-        ret.error(
-            f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})",
-            broken=True,
-        )
-
-    if ret.profile().cross and not ret.options["cross"] and not ierr:
-        ret.error(
-            f"cannot be cross-compiled for {ret.profile().cross}", broken=True
-        )
-
-    if (
-        ret.stage == 0
-        and not ret.options["bootstrap"]
-        and not ret._ignore_errors
-    ):
-        ret.error("attempt to bootstrap a non-bootstrap package")
+    # if archs is present, validate it, it may mark the package broken
+    ret.validate_arch()
 
     # fill the remaining toolflag lists so it's complete
     for tf in ret.profile()._get_supported_tool_flags():
@@ -2059,10 +2059,8 @@ def read_mod(
     origin,
     resolve=None,
     ignore_missing=False,
-    ignore_errors=False,
     target=None,
     force_check=False,
-    allow_broken=False,
     autopkg=False,
     stage=3,
     bulk_mode=False,
@@ -2111,8 +2109,6 @@ def read_mod(
     ret.conf_jobs = jobs[0]
     ret.conf_link_threads = jobs[1]
     ret.stage = stage
-    ret._ignore_errors = ignore_errors
-    ret._allow_broken = allow_broken
     ret._target = target
     ret._force_check = force_check
 
@@ -2159,6 +2155,8 @@ def read_mod(
     delattr(builtins, "self")
     delattr(builtins, "subpackage")
 
+    ret._raw_mod = modh
+
     return modh, ret
 
 
@@ -2173,10 +2171,8 @@ def read_pkg(
     origin,
     resolve=None,
     ignore_missing=False,
-    ignore_errors=False,
     target=None,
     force_check=False,
-    allow_broken=False,
     autopkg=False,
     stage=3,
     bulk_mode=False,
@@ -2192,10 +2188,8 @@ def read_pkg(
         origin,
         resolve,
         ignore_missing,
-        ignore_errors,
         target,
         force_check,
-        allow_broken,
         autopkg,
         stage,
         bulk_mode,

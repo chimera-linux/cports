@@ -9,9 +9,8 @@ class TracebackException(Exception):
 
 
 class PackageException(Exception):
-    def __init__(self, msg, end, pkg, broken=False, bt=True):
+    def __init__(self, msg, end, pkg, bt=True):
         super().__init__(msg)
         self.end = end
         self.pkg = pkg
-        self.broken = broken
         self.bt = bt

@@ -910,8 +910,6 @@ def _graph_prepare():
                 False,
                 None,
                 target="lint",
-                allow_broken=True,
-                ignore_errors=True,
             )
             rtmpls[pkgn] = tp
             return tp
@@ -953,8 +951,6 @@ def do_prune_sources(tgt):
                 False,
                 None,
                 target="lint",
-                allow_broken=True,
-                ignore_errors=True,
             )
             exist.add(f"{tp.pkgname}-{tp.pkgver}")
         except errors.PackageException:
@@ -996,8 +992,6 @@ def do_relink_subpkgs(tgt):
                 False,
                 None,
                 target="lint",
-                allow_broken=True,
-                ignore_errors=True,
             )
             links[f"{tp.repository}/{tp.pkgname}"] = tp.all_subpackages
             return tp
@@ -1097,8 +1091,6 @@ def do_print_build_graph(tgt):
                 False,
                 None,
                 target="lint",
-                allow_broken=True,
-                ignore_errors=True,
             )
             rtmpls[pkgn] = tp
             return tp
@@ -1123,7 +1115,7 @@ def do_print_build_graph(tgt):
 
 
 def _get_unbuilt():
-    from cbuild.core import chroot, template, paths, errors
+    from cbuild.core import chroot, template, paths
     from cbuild.apk import util
     import subprocess
 
@@ -1189,8 +1181,6 @@ def _get_unbuilt():
             False,
             False,
             None,
-            # we don't care about linting etc here
-            ignore_errors=True,
         )
         mods[pn] = (modv, tmplv)
         # if something is wrong, mark it unbuilt, error on build later
@@ -1223,12 +1213,10 @@ def _get_unbuilt():
     def _get_tmpl(pn):
         try:
             tmpls[pn] = template.from_module(*mods[pn])
-        except errors.PackageException as e:
-            if e.broken:
-                # sentinel
+            # sentinel
+            if tmpls[pn].broken:
                 tmpls[pn] = True
                 return True
-            tmpls[pn] = False
         except Exception:
             tmpls[pn] = False
         return False
@@ -1308,7 +1296,6 @@ def do_update_check(tgt):
         False,
         None,
         target="lint",
-        allow_broken=True,
     )
 
     update_check.update_check(tmpl, verbose)
@@ -1335,7 +1322,6 @@ def do_dump(tgt):
                 False,
                 None,
                 target="lint",
-                allow_broken=True,
             )
         except errors.PackageException:
             return None
@@ -1410,7 +1396,6 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     depg = graphlib.TopologicalSorter()
     templates = {}
     failed = False
-    broken = False
     log = logger.get()
 
     if opt_mdirtemp:
@@ -1420,7 +1405,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
 
     def _do_with_exc(f):
         # we are setting this
-        nonlocal failed, broken
+        nonlocal failed
         try:
             retv = f()
             if retv:
@@ -1440,12 +1425,9 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             return False
         except errors.PackageException as e:
             e.pkg.log_red(f"ERROR: {e}", e.end)
-            if not e.broken:
-                if e.bt:
-                    traceback.print_exc(file=log.estream)
-                failed = True
-            else:
-                broken = True
+            if e.bt:
+                traceback.print_exc(file=log.estream)
+            failed = True
             return False
         except Exception:
             logger.get().out_red("A failure has occurred!")
@@ -1522,8 +1504,6 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                     False,
                     False,
                     None,
-                    ignore_errors=True,
-                    allow_broken=True,
                 )
             ),
             depg,
@@ -1543,7 +1523,6 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
         # parse, handle any exceptions so that we can march on
         ofailed = failed
         failed = False
-        broken = False
         tp = _do_with_exc(
             lambda: template.read_pkg(
                 pn,
@@ -1559,27 +1538,27 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             )
         )
         if not tp:
-            if broken:
-                statusf.write(f"{pn} broken\n")
-            elif failed:
+            if failed:
                 statusf.write(f"{pn} parse\n")
             else:
                 failed = ofailed
             continue
+        elif tp.broken:
+            tp.log_red(f"ERROR: {tp.broken}")
+            statusf.write(f"{pn} broken\n")
+            continue
         failed = False
-        broken = False
         # add it into the graph with all its build deps
         # if some dependency in its graph fails to parse, we skip building
         # it because it could mean things building out of order (because
         # the failing template cuts the graph)
         #
         # treat dep failures the same as if it was a failure of the main
-        # package, i.e. broken dep means broken main, unparseable dep
-        # is like unparseable main
+        # package, i.e., unparseable dep is like unparseable main, except
+        # broken (but parseable) packages are special (and are considered
+        # for the purposes of ordering)
         if not handle_recdeps(pn, tp):
-            if broken:
-                statusf.write(f"{pn} broken\n")
-            elif failed:
+            if failed:
                 statusf.write(f"{pn} parse\n")
             else:
                 failed = ofailed
@@ -1620,7 +1599,6 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                     log.out_red(f"cbuild: skipping template '{pn}'")
                     continue
                 # ensure to write the status
-                broken = False
                 if _do_with_exc(
                     lambda: build.build(
                         "pkg",
@@ -1632,8 +1610,6 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                     )
                 ):
                     statusf.write(f"{pn} ok\n")
-                elif broken:
-                    statusf.write(f"{pn} broken\n")
                 else:
                     statusf.write(f"{pn} failed\n")
 
@@ -1943,7 +1919,7 @@ def fire():
         sys.exit(1)
     except errors.PackageException as e:
         e.pkg.log_red(f"ERROR: {e}", e.end)
-        if e.bt and not e.broken:
+        if e.bt:
             traceback.print_exc(file=logger.get().estream)
         sys.exit(1)
     except Exception:

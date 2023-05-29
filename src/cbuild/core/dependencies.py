@@ -23,8 +23,6 @@ def _srcpkg_ver(pkgn, pkgb):
         None,
         resolve=pkgb,
         ignore_missing=True,
-        ignore_errors=True,
-        allow_broken=True,
         autopkg=True,
     )
     if not modv or not hasattr(modv, "pkgver") or not hasattr(modv, "pkgrel"):
