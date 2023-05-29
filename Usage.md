@@ -482,6 +482,7 @@ The following commands are recognized:
   searching for `APKINDEX.tar.gz` within the repository path (`-r` or default)
   and using those paths as repositories. The affected repositories are
   reindexed afterwards.
+* `prune-pkgs` Like running `prune-obsolete` followed by `prune-removed`.
 * `relink-subpkgs` Recreate subpackage symlinks for a template. If not
   given any arguments, it will do it for all available templates. Otherwise,
   it will do it for the given template. Invalid symlinks will be deleted

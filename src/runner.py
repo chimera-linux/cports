@@ -1890,6 +1890,9 @@ def fire():
                 do_prune_obsolete(cmd)
             case "prune-removed":
                 do_prune_removed(cmd)
+            case "prune-pkgs":
+                do_prune_obsolete(cmd)
+                do_prune_removed(cmd)
             case "prune-sources":
                 do_prune_sources(cmd)
             case "relink-subpkgs":
