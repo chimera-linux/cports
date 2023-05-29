@@ -458,6 +458,7 @@ The following commands are recognized:
   stage (number). By default, that is `2`. Stage 0 bootstrap must be run in a
   compatible host system.
 * `bootstrap-update` Update the packages in your build root to latest.
+  Acts like `binary-bootstrap` if the `bldroot` does not exist.
 * `chroot` Enter the build root with an interactive shell. In this environment,
   the root is mostly unsandboxed, i.e. writable and with network access. You
   can use this kind of environment for quick testing, as well as entering failed

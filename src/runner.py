@@ -579,6 +579,7 @@ def bootstrap(tgt):
 def bootstrap_update(tgt):
     from cbuild.core import chroot
 
+    chroot.install()
     chroot.remove_autodeps(False)
     chroot.update("main")
 
