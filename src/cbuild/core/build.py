@@ -31,6 +31,8 @@ def build(
     pkg.install_done = False
     pkg.current_phase = "setup"
 
+    pkg.build_lint()
+
     # always clean up before starting, unless exlpicitly requested not to
     # or unless bootstrapping stage 0 (as resumption is useful by default
     # in there) but not any other stage

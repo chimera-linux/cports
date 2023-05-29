@@ -785,6 +785,18 @@ class Template(Package):
             # ???
             pass
 
+    def build_lint(self):
+        # ensure subpackage symlinks exist
+        repo = self.repository
+        bpn = self.pkgname
+        for sp in self.subpkg_list:
+            tlink = f"{repo}/{sp.pkgname}"
+            tpath = paths.distdir() / tlink
+            if not tpath.is_symlink():
+                self.error(f"subpackage '{sp.pkgname}' is missing a symlink")
+            if str(tpath.readlink()) != bpn:
+                self.error(f"subpackage '{sp.pkgname}' has incorrect symlink")
+
     def ensure_fields(self):
         for fl, dval, tp, mand, sp, inh in core_fields:
             # mandatory fields are all at the beginning
