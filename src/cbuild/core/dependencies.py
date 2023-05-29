@@ -119,7 +119,11 @@ def setup_depends(pkg, only_names=False):
     return hdeps, tdeps, rdeps
 
 
-def _install_from_repo(pkg, pkglist, virtn, signkey, cross=False):
+def _install_from_repo(pkg, pkglist, virtn, cross=False):
+    from cbuild.apk import sign
+
+    signkey = sign.get_keypath()
+
     # if installing target deps and we're crossbuilding, target the sysroot
     sroot = cross and pkg.profile().cross
 
@@ -233,7 +237,7 @@ def _is_available(pkgn, pkgop, pkgv, pkg, host=False):
     return None
 
 
-def install(pkg, origpkg, step, depmap, signkey, hostdep):
+def install(pkg, origpkg, step, depmap, hostdep):
     style = ""
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
@@ -363,7 +367,6 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                     autopkg=True,
                 ),
                 depmap,
-                signkey,
                 chost=hostdep or not not pprof.cross,
                 no_update=not missing,
             )
@@ -391,7 +394,6 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                     autopkg=True,
                 ),
                 depmap,
-                signkey,
                 chost=hostdep,
                 no_update=not missing,
             )
@@ -425,7 +427,6 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
                     autopkg=True,
                 ),
                 depmap,
-                signkey,
                 chost=hostdep,
                 no_update=not missing,
             )
@@ -435,10 +436,10 @@ def install(pkg, origpkg, step, depmap, signkey, hostdep):
 
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
-        _install_from_repo(pkg, host_binpkg_deps, "autodeps-host", signkey)
+        _install_from_repo(pkg, host_binpkg_deps, "autodeps-host")
 
     if len(binpkg_deps) > 0:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
-        _install_from_repo(pkg, binpkg_deps, "autodeps-target", signkey, True)
+        _install_from_repo(pkg, binpkg_deps, "autodeps-target", True)
 
     return missing

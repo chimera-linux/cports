@@ -7,27 +7,39 @@ import getpass
 import pathlib
 import subprocess
 
+_keypath = None
 
-def get_keypath(keypath):
+
+def register_key(keypath):
+    global _keypath
+
     if not keypath:
-        return None
+        _keypath = None
+        return
 
     keypath = pathlib.Path(keypath)
 
     if keypath.is_absolute():
-        return keypath
+        _keypath = keypath
+        return
 
     if keypath.parent == pathlib.Path():
         # just a filename
-        return paths.distdir() / "etc" / "keys" / keypath
+        _keypath = paths.distdir() / "etc" / "keys" / keypath
     else:
         # otherwise a path relative to distdir
-        return paths.distdir() / keypath
+        _keypath = paths.distdir() / keypath
 
 
-def keygen(keypath, size, cfgfile, cfgpath):
+def get_keypath():
+    return _keypath
+
+
+def keygen(size, cfgfile, cfgpath):
     if not shutil.which("openssl"):
         raise errors.CbuildException("openssl is missing")
+
+    keypath = get_keypath()
 
     if not keypath:
         # does not have to succeed, e.g. there may not even be git at all
@@ -46,8 +58,6 @@ def keygen(keypath, size, cfgfile, cfgpath):
             keyn = eaddr
         keypath = keyn + "-" + hex(int(time.time()))[2:] + ".rsa"
         logger.get().warn(f"No key path provided, using '{keypath}'")
-
-    keypath = get_keypath(keypath)
 
     keypath.parent.mkdir(parents=True, exist_ok=True)
 

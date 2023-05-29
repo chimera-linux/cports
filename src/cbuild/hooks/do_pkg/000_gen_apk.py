@@ -145,7 +145,7 @@ def genpkg(pkg, repo, arch, binpkg):
         pargs += ["--trigger", t]
 
     # signing key
-    signkey = asign.get_keypath(pkg.rparent.signing_key)
+    signkey = asign.get_keypath()
     if signkey:
         if pkg.rparent.stage > 0:
             pargs += ["--sign-key", f"/tmp/{signkey.name}"]

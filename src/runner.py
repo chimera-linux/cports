@@ -394,6 +394,7 @@ def init_late():
     import os
 
     from cbuild.core import paths, spdx
+    from cbuild.apk import sign
 
     mainrepo = opt_altrepo
     altrepo = opt_pkgpath
@@ -423,6 +424,9 @@ def init_late():
     # init license information
     spdx.init()
 
+    # register signing key
+    sign.register_key(opt_signkey)
+
 
 #
 # ACTIONS
@@ -440,9 +444,9 @@ def do_unstage(tgt, force=False):
     from cbuild.core import chroot, stage
 
     if opt_arch and opt_arch != chroot.host_cpu():
-        stage.clear(opt_arch, opt_signkey, force)
+        stage.clear(opt_arch, force)
 
-    stage.clear(chroot.host_cpu(), opt_signkey, force)
+    stage.clear(chroot.host_cpu(), force)
 
 
 def bootstrap(tgt):
@@ -509,7 +513,7 @@ def bootstrap(tgt):
         chroot.initdb()
         chroot.repo_init()
         if rp:
-            build.build(tgt, rp, {}, opt_signkey)
+            build.build(tgt, rp, {})
         do_unstage(tgt, True)
         shutil.rmtree(paths.bldroot())
         chroot.install()
@@ -592,7 +596,9 @@ def do_keygen(tgt):
     if not keyn or len(keyn) == 0:
         keyn = opt_signkey
 
-    sign.keygen(keyn, keysize, global_cfg, cmdline.config)
+    sign.register_key(keyn)
+
+    sign.keygen(keysize, global_cfg, cmdline.config)
 
 
 def do_chroot(tgt):
@@ -748,7 +754,7 @@ def do_prune_removed(tgt):
                 pkg.unlink()
         # reindex
         if not opt_dryrun:
-            cli.build_index(repo / archn, epoch, opt_signkey)
+            cli.build_index(repo / archn, epoch)
 
     reposd = paths.repository()
     reposet = {}
@@ -786,7 +792,7 @@ def do_index(tgt):
     # indexer for a single repo
     def _index(repo):
         logger.get().out(f"Indexing packages at '{repo}'...")
-        cli.build_index(repo / archn, epoch, opt_signkey)
+        cli.build_index(repo / archn, epoch)
 
     # only a specific path
     if idir:
@@ -1384,7 +1390,6 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         tgt,
         rp,
         {},
-        opt_signkey,
         dirty=opt_dirty,
         keep_temp=opt_keeptemp,
         check_fail=opt_checkfail,
@@ -1620,7 +1625,6 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                         "pkg",
                         templates[pn],
                         {},
-                        opt_signkey,
                         dirty=False,
                         keep_temp=False,
                         check_fail=opt_checkfail,

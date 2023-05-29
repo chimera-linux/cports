@@ -7,7 +7,7 @@ import subprocess
 
 
 # this one has the dummy root available
-def check_stage(stlist, arch, signkey):
+def check_stage(stlist, arch):
     added = {}
     dropped = {}
     replaced = {}
@@ -254,7 +254,7 @@ def check_stage(stlist, arch, signkey):
     return False
 
 
-def _do_clear(arch, signkey, force):
+def _do_clear(arch, force):
     repop = paths.repository()
     sroot = paths.stage_repository()
     log = logger.get()
@@ -271,7 +271,7 @@ def _do_clear(arch, signkey, force):
             continue
         stagelist.append((ri, repop / ri.relative_to(sroot)))
 
-    if not force and not check_stage(stagelist, arch, signkey):
+    if not force and not check_stage(stagelist, arch):
         return
 
     # FIXME: compute from git if possible
@@ -303,10 +303,10 @@ def _do_clear(arch, signkey, force):
             pass
         # finally reindex
         log.out(f"Rebuilding index for {ad}...")
-        cli.build_index(ad, epoch, signkey)
+        cli.build_index(ad, epoch)
 
 
-def clear(arch, signkey, force=False):
+def clear(arch, force=False):
     with flock.lock(flock.repolock(arch)):
         with flock.lock(flock.stagelock(arch)):
-            _do_clear(arch, signkey, force)
+            _do_clear(arch, force)

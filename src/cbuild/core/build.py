@@ -10,7 +10,6 @@ def build(
     step,
     pkg,
     depmap,
-    signkey,
     chost=False,
     dirty=False,
     keep_temp=False,
@@ -60,9 +59,7 @@ def build(
         # check and install dependencies
         # if a missing dependency has triggered a build, update the chroot
         # afterwards to have a clean state with up to date dependencies
-        if dependencies.install(
-            pkg, pkg.origin.pkgname, "pkg", depmap, signkey, chost
-        ):
+        if dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, chost):
             chroot.update(pkg)
 
     oldcwd = pkg.cwd
@@ -135,7 +132,6 @@ def build(
 
     prepkg.invoke(pkg)
 
-    pkg.signing_key = signkey
     pkg._stage = {}
 
     # package gen + staging is a part of the same lock
@@ -148,10 +144,8 @@ def build(
         # stage binary packages
         for repo in pkg._stage:
             logger.get().out(f"Staging new packages to {repo}...")
-            if not apk.build_index(repo, pkg.source_date_epoch, signkey):
+            if not apk.build_index(repo, pkg.source_date_epoch):
                 raise errors.CbuildException("indexing repositories failed")
-
-    pkg.signing_key = None
 
     # cleanup
     if not keep_temp:

@@ -361,7 +361,7 @@ def prune(repopath, arch=None, dry=False):
     logger.get().out("repo cleanup complete")
 
 
-def build_index(repopath, epoch, keypath):
+def build_index(repopath, epoch):
     repopath = pathlib.Path(repopath)
 
     aargs = ["--quiet", "--output", "APKINDEX.tar.gz"]
@@ -369,7 +369,7 @@ def build_index(repopath, epoch, keypath):
     if (repopath / "APKINDEX.tar.gz").is_file():
         aargs += ["--index", "APKINDEX.tar.gz"]
 
-    keypath = asign.get_keypath(keypath)
+    keypath = asign.get_keypath()
     if keypath:
         aargs += ["--sign-key", keypath]
 
