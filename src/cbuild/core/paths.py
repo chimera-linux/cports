@@ -1,8 +1,13 @@
 # Provides current locations of all the global paths.
 
 import pathlib
+import os.path
 
 _stage = 3
+
+
+def _expath(cwd, path):
+    return (cwd / os.path.expanduser(path)).resolve()
 
 
 def init(cbuildir, distdir, rootdir, blddir, rdir, ardir, srdir, sdir, cdir):
@@ -10,20 +15,20 @@ def init(cbuildir, distdir, rootdir, blddir, rdir, ardir, srdir, sdir, cdir):
 
     cwd = pathlib.Path.cwd()
     _ddir = pathlib.Path(distdir)
-    _bdir = (cwd / rootdir).resolve()
+    _bdir = _expath(cwd, rootdir)
     if len(blddir) == 0:
         _bldir = None
     else:
-        _bldir = (cwd / blddir).resolve()
-    _rdir = (cwd / rdir).resolve()
+        _bldir = _expath(cwd, blddir)
+    _rdir = _expath(cwd, rdir)
     if ardir:
-        _ardir = (cwd / ardir).resolve()
+        _ardir = _expath(cwd, ardir)
     else:
         _ardir = None
-    _srcs = (cwd / sdir).resolve()
-    _ccdir = (cwd / cdir).resolve()
+    _srcs = _expath(cwd, sdir)
+    _ccdir = _expath(cwd, cdir)
     if srdir:
-        _srdir = (cwd / srdir).resolve()
+        _srdir = _expath(cwd, srdir)
     else:
         _srdir = None
 
@@ -46,7 +51,7 @@ def set_stage(stage):
 
 def set_apk(cmd):
     global _apkcmd
-    _apkcmd = cmd
+    _apkcmd = os.path.expanduser(cmd)
 
 
 def apk():
