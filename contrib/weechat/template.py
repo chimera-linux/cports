@@ -61,5 +61,5 @@ def _plugin(name):
         return [f"usr/lib/weechat/plugins/{name}.so"]
 
 
-for p in ["lua", "python", "ruby", "tcl", "perl"]:
-    _plugin(p)
+for _p in ["lua", "python", "ruby", "tcl", "perl"]:
+    _plugin(_p)
