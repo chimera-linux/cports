@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "23.1.0"
+pkgver = "23.1.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -66,7 +66,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a9dde3c76571c4806245a05bda1cceee347c3267127e9e549e4f4e225d92e992"
+sha256 = "a2679031ed5b73b29c4f042ac64d96f83b0cfe4858617de32e2efc196c653a40"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -242,7 +242,7 @@ def _gles2(self):
 
 
 @subpackage("libegl")
-def egl(self):
+def _egl(self):
     self.pkgdesc = "Free implementation of the EGL API (shared library)"
 
     return ["usr/lib/libEGL.so.*"]
