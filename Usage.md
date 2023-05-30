@@ -499,6 +499,9 @@ The following commands are recognized:
   dependency cycles. Only one cycle at a time is printed. The goal is to
   keep the tree free of cycles at all times. Therefore, if you encounter
   a cycle, resolve it and check again.
+* `print-unbuilt` Parse all templates and compare the local repository
+  against them. Print a spaces-separated list of templates that are either
+  out of date or missing. Templates that are not buildable are not included.
 * `index` When not given a path, reindex all known repositories. When given
   a path, reindex a specific repository. Only either the host architecture or
   the `-a` architecture are indexed, and the path should not include the
