@@ -17,7 +17,7 @@ def register_key(keypath):
         _keypath = None
         return
 
-    keypath = pathlib.Path(keypath)
+    keypath = pathlib.Path(keypath).expanduser()
 
     if keypath.is_absolute():
         _keypath = keypath
