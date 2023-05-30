@@ -51,6 +51,7 @@ def init_early():
     import os
     import sys
     import signal
+    import os.path
 
     global cbpath, rtpath
 
@@ -81,6 +82,7 @@ def init_early():
 def handle_options():
     import os
     import sys
+    import os.path
     import argparse
     import pathlib
     import tempfile
@@ -258,7 +260,7 @@ def handle_options():
     # parse config file and set the global options from it
 
     global_cfg = configparser.ConfigParser()
-    global_cfg.read(cmdline.config)
+    global_cfg.read(os.path.expanduser(cmdline.config))
 
     if "apk" in global_cfg:
         apkcfg = global_cfg["apk"]
@@ -585,6 +587,8 @@ def bootstrap_update(tgt):
 
 
 def do_keygen(tgt):
+    import os.path
+
     from cbuild.apk import sign
 
     if len(cmdline.command) >= 3:
@@ -599,7 +603,7 @@ def do_keygen(tgt):
 
     sign.register_key(keyn)
 
-    sign.keygen(keysize, global_cfg, cmdline.config)
+    sign.keygen(keysize, global_cfg, os.path.expanduser(cmdline.config))
 
 
 def do_chroot(tgt):
