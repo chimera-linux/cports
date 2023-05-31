@@ -1,5 +1,5 @@
 pkgname = "gtk+3"
-pkgver = "3.24.37"
+pkgver = "3.24.38"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -67,7 +67,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
-sha256 = "6745f0b4c053794151fd0f0e2474b077cccff5f83e9dd1bf3d39fe9fe5fb7f57"
+sha256 = "ce11decf018b25bdd8505544a4f87242854ec88be054d9ade5f3a20444dd8ee7"
 # FIXME int
 hardening = ["!int"]
 # g_log_set_writer_func called multiple times in tests
