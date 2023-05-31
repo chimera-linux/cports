@@ -1,6 +1,6 @@
 # note: some libs are unversioned (rebuild shaderc on updates)
 pkgname = "glslang"
-pkgver = "12.1.0"
+pkgver = "12.2.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/KhronosGroup/glslang"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "1515e840881d1128fb6d831308433f731808f818f2103881162f3ffd47b15cd5"
+sha256 = "870d17030fda7308c1521fb2e01a9e93cbe4b130bc8274e90d00e127432ab6f6"
 # missing checkdepends
 options = ["!check"]
 
