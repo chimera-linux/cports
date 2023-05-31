@@ -1,7 +1,8 @@
 pkgname = "pkgconf"
-pkgver = "1.9.4"
+pkgver = "1.9.5"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = []
 checkdepends = ["kyua"]
 provides = [f"pc:libpkgconf={pkgver}"]
 pkgdesc = "Provides compiler and linker configuration"
@@ -9,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
-sha256 = "daccf1bbe5a30d149b556c7d2ffffeafd76d7b514e249271abdd501533c1d8ae"
+sha256 = "1ac1656debb27497563036f7bffc281490f83f9b8457c0d60bcfb638fb6b6171"
 hardening = ["!cfi"]  # TODO
 # checkdepends not available yet
 options = ["bootstrap", "!check"]
@@ -38,6 +39,3 @@ def _devel(self):
         "usr/lib/*.so",
         "usr/lib/*.a",
     ]
-
-
-configure_gen = []
