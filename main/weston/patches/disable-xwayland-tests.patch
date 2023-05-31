@@ -5,24 +5,15 @@ Date:   Sun Apr 10 02:02:56 2022 +0200
     disable xwayland tests
 
 diff --git a/tests/meson.build b/tests/meson.build
-index d8e96e7..43175f0 100644
+index 1d59a93..ea55f17 100644
 --- a/tests/meson.build
 +++ b/tests/meson.build
-@@ -239,17 +239,6 @@ tests_standalone = [
+@@ -309,7 +309,7 @@ tests_standalone = [
  	],
  ]
  
 -if get_option('xwayland')
--	d = dependency('x11', required: false)
--	if not d.found()
--		error('Xwayland tests require libX11 which was not found. Or, you can use \'-Dxwayland=false\'.')
--	endif
--	tests += {
--		'name': 'xwayland',
--		'dep_objs': d,
--	}
--endif
--
- # Manual test plugin, not used in the automatic suite
- surface_screenshot_test = shared_library(
- 	'test-surface-screenshot',
++if false
+ 	xcb_dep = dependency('xcb', required: false)
+ 	xcb_cursor_dep = dependency('xcb-cursor', required: false)
+ 

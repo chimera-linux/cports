@@ -1,14 +1,14 @@
 pkgname = "weston"
-pkgver = "11.0.1"
+pkgver = "12.0.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
-    "-Dlauncher-logind=false",
     "-Dlauncher-libseat=true",
     "-Dpipewire=true",
     "-Dremoting=false",
     "-Dbackend-rdp=false",
+    "-Dbackend-vnc=false",
     "-Dbackend-drm-screencast-vaapi=true",
     "-Dcolor-management-lcms=true",
     "-Dtest-junit-xml=false",
@@ -46,9 +46,8 @@ pkgdesc = "Reference implementation of a Wayland compositor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
-_rhash = "f5648c818fba5432edc3ea63c4db4813"
-source = f"https://gitlab.freedesktop.org/wayland/{pkgname}/uploads/{_rhash}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a413f68c252957fc3191c3650823ec356ae8c124ccc0cb440da5cdc4e2cb9e57"
+source = f"https://gitlab.freedesktop.org/wayland/{pkgname}/-/releases/{pkgver}/downloads/{pkgname}-{pkgver}.tar.xz"
+sha256 = "b18591eab278bc191720f6c09158040b795e7118af1d5ddca6acd9a8e2039535"
 
 
 def post_install(self):
@@ -73,7 +72,7 @@ def _xwayland(self):
 
 @subpackage("weston-libs")
 def _lib(self):
-    return self.default_libs(extra=["usr/lib/libweston-11"])
+    return self.default_libs(extra=[f"usr/lib/libweston-{pkgver[0:2]}"])
 
 
 @subpackage("weston-devel")

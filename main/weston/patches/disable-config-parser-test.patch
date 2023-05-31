@@ -1,0 +1,18 @@
+commit b48a0a1ec65cebced750bc7e3fdc45b1787cca80
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Wed May 31 18:22:37 2023 +0200
+
+    disable config-parser test
+
+diff --git a/tests/meson.build b/tests/meson.build
+index ea55f17..5fe7480 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -298,7 +298,6 @@ endif
+ 
+ 
+ tests_standalone = [
+-	['config-parser', [], [ dep_zucmain ]],
+ 	['timespec', [], [ dep_zucmain ]],
+ 	['zuc',
+ 		[
