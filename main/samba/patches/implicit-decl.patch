@@ -1,6 +1,6 @@
-commit 1191fdae9ba7192ad26402433c9165b9f176ae9f
+commit 57afdc2d80bff39cf72a261a6d077472c8fdac44
 Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Sun May 14 17:21:40 2023 +0200
+Date:   Wed May 31 23:59:14 2023 +0200
 
     fix implicit function decls
 
@@ -90,13 +90,13 @@ index 35260c2..637c956 100644
  #define ADD_TO_ARRAY(mem_ctx, type, elem, array, num) \
  do { \
 diff --git a/librpc/rpc/dcesrv_core.c b/librpc/rpc/dcesrv_core.c
-index d287004..9932d78 100644
+index d0e68d5..178c56e 100644
 --- a/librpc/rpc/dcesrv_core.c
 +++ b/librpc/rpc/dcesrv_core.c
-@@ -35,6 +35,7 @@
- #include "lib/util/tevent_ntstatus.h"
+@@ -36,6 +36,7 @@
  #include "system/network.h"
  #include "lib/util/idtree_random.h"
+ #include "nsswitch/winbind_client.h"
 +#include <unistd.h>
  
  /**
