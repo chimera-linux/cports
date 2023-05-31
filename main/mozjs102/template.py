@@ -1,5 +1,5 @@
 pkgname = "mozjs102"
-pkgver = "102.11.0"
+pkgver = "102.12.0"
 pkgrel = 0
 build_wrksrc = "js/src"
 build_style = "gnu_configure"
@@ -49,11 +49,12 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "e7f120e7967ea283909c1ec7cfdbf422bba515163842e739bfa1a608808cce33"
+sha256 = "d7296d0e6cf572a5604498d19801faf274ba64b195add5231e90cf8edacd31a1"
 debug_level = 1  # make the debug size not explode
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
     "RUST_TARGET": self.profile().triplet,
+    "RUSTFLAGS": "",  # our -Clink-arg breaks this build
     "PYTHON": "/usr/bin/python",
     "SHELL": "/usr/bin/sh",
     "MAKE": "gmake",
