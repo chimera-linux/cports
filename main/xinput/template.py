@@ -1,7 +1,8 @@
 pkgname = "xinput"
-pkgver = "1.6.3"
+pkgver = "1.6.4"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "libxext-devel",
@@ -13,13 +14,10 @@ pkgdesc = "X input device configuration utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "35a281dd3b9b22ea85e39869bb7670ba78955d5fec17c6ef7165d61e5aeb66ed"
+source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
+sha256 = "64e25434af1309ed0abca1ebebd035f7631bb0bc1bfac5decefe9aa98ccaf611"
 hardening = ["vis", "cfi"]
 
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []
