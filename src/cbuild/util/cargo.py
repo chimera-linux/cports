@@ -18,6 +18,9 @@ def get_environment(pkg, jobs=None):
         "CARGO_BUILD_TARGET": trip,
         f"CARGO_TARGET_{utrip}_LINKER": pkg.get_tool("CC"),
         "CARGO_BUILD_JOBS": str(jobs),
+        "CARGO_PROFILE_RELEASE_PANIC": "abort",
+        "CARGO_PROFILE_RELEASE_CODEGEN_UNITS": "1",
+        "CARGO_REGISTRIES_CRATES_IO_PROTOCOL": "sparse",
         "CARGO_HOME": "/cbuild_cache/cargo",
         # gettext-rs
         "GETTEXT_BIN_DIR": "/usr/bin",
@@ -38,6 +41,12 @@ def get_environment(pkg, jobs=None):
 
     if pkg.profile().cross:
         env["PKG_CONFIG_ALLOW_CROSS"] = "1"
+
+    if pkg.has_lto():
+        if pkg.options["ltofull"]:
+            env["CARGO_PROFILE_RELEASE_LTO"] = "fat"
+        else:
+            env["CARGO_PROFILE_RELEASE_LTO"] = "thin"
 
     return env
 
