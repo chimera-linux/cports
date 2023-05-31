@@ -1,5 +1,5 @@
 pkgname = "zenity"
-pkgver = "3.44.0"
+pkgver = "3.44.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext-tiny", "itstool"]
@@ -15,4 +15,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Zenity"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c15582301ed90b9d42ce521dbccf99a989f22f12041bdd5279c6636da99ebf65"
+sha256 = "d65400aec965411f4c0b3d8e0e0dac54be55d807a29279697537da2dfee93eaa"
