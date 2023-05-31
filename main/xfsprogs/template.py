@@ -1,11 +1,13 @@
 pkgname = "xfsprogs"
-pkgver = "6.2.0"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline=yes",
     "--enable-lib64=no",
 ]
+# regenerated configure breaks the build
+configure_gen = []
 make_cmd = "gmake"
 # build system assumptions that . is the root right off the bat
 make_dir = "."
@@ -25,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://xfs.org/index.php/Main_Page"
 source = f"$(KERNEL_SITE)/utils/fs/xfs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d67dcba5a28e0904b60886b6e5f752bc7c9c3a5c7096153855b5adca9db86c51"
+sha256 = "ec987c9f0bcb2db2991bffb80d353150b389c3a2b79b6830411f7042adf6990c"
 # no check target
 options = ["!check"]
 
@@ -47,6 +49,3 @@ def _devel(self):
     self.depends += ["libuuid-devel"]
 
     return self.default_devel()
-
-
-configure_gen = []
