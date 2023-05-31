@@ -1,5 +1,5 @@
 pkgname = "spirv-headers"
-pkgver = "1.3.243.0"
+pkgver = "1.3.250.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:spirv-headers"
 url = "https://github.com/KhronosGroup/SPIRV-Headers"
 source = f"{url}/archive/refs/tags/sdk-{pkgver}.tar.gz"
-sha256 = "16927b1868e7891377d059cd549484e4158912439cf77451ae7e01e2a3bcd28b"
+sha256 = "9d632a4dddd11f89a74a8c6f19cd29e8b0741d2fbb41ecc4dec26b922d28a2f3"
 # no test suite
 options = ["!check"]
 
