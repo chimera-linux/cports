@@ -1,6 +1,6 @@
 pkgname = "gtk4"
 pkgver = "4.10.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -81,6 +81,8 @@ source = (
     f"https://gitlab.gnome.org/GNOME/gtk/-/archive/{pkgver}/gtk-{pkgver}.tar.gz"
 )
 sha256 = "7cc98e8d75f5d7a45c2bbfd73ac5ddeac2de3c22adbaaa4c216738241087b729"
+# FIXME overflow in gtklabel.c (repro: gnome-text-editor file reload)
+hardening = ["!int"]
 # xvfb doesn't do the trick for some reason?
 options = ["!cross", "!check"]
 
