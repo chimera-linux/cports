@@ -56,7 +56,8 @@ def keygen(size, cfgfile, cfgpath):
             keyn = getpass.getuser()
         else:
             keyn = eaddr
-        keypath = keyn + "-" + hex(int(time.time()))[2:] + ".rsa"
+        register_key(keyn + "-" + hex(int(time.time()))[2:] + ".rsa")
+        keypath = get_keypath()
         logger.get().warn(f"No key path provided, using '{keypath}'")
 
     keypath.parent.mkdir(parents=True, exist_ok=True)
