@@ -371,10 +371,7 @@ class Profile:
         return stage >= 2
 
     def _has_relr(self):
-        match self._arch:
-            case "x86_64" | "ppc64le" | "ppc64":
-                return True
-        return False
+        return True
 
     @property
     def wordsize(self):
