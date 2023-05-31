@@ -1,14 +1,15 @@
 pkgname = "xz"
-pkgver = "5.4.2"
+pkgver = "5.4.3"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 pkgdesc = "XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:xz"
 url = "https://tukaani.org/xz"
 source = f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"
-sha256 = "aa49909cbd9028c4666a35fa4975f9a6203ed98154fbb8223ee43ef9ceee97c3"
+sha256 = "9243a04598d7a70c1f567a0143a255581ac5c64b140fd55fd5cbc1e00b0e6f90"
 options = ["bootstrap"]
 
 
@@ -51,6 +52,3 @@ def _devel(self):
     self.pkgdesc = "XZ-format compression library (development files)"
 
     return self.default_devel()
-
-
-configure_gen = []
