@@ -337,6 +337,7 @@ default_options = {
     "cross": (True, True),
     "lint": (True, True),
     "spdx": (True, False),
+    "relr": (True, True),
     "lto": (True, True),
     "ltofull": (False, True),
     "ltostrip": (False, False),

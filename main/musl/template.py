@@ -22,7 +22,7 @@ sha256 = [
 # scp makes it segfault
 hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
-options = ["bootstrap", "!check", "!lto", "brokenlinks"]
+options = ["bootstrap", "!check", "!lto", "!relr", "brokenlinks"]
 
 # whether to use musl's stock allocator instead of scudo
 _use_mng = False

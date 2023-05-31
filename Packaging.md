@@ -1525,7 +1525,10 @@ the template including for subpackages:
   of fields, validation of URL and description strings and other checks.
   It does not check formatting of the template, as that can be handled
   better with external tools.
-* `lto` *(false)* If enabled, LTO will be used. This will result in the
+* `relr` *(true)* If enabled, DT_RELR will be used for smaller size.
+  This can be safely applied almost everywhere, but e.g. not for the
+  libc. Enabling it means requirement of at least musl 1.2.4.
+* `lto` *(true)* If enabled, LTO will be used. This will result in the
   necessary compiled flags being applied. Build styles can alter their
   behavior to accommodate the flags. The default LTO type is thin LTO,
   which can be overridden with `ltofull`.
