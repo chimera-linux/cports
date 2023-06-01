@@ -1,20 +1,36 @@
 pkgname = "python-flit_core"
-pkgver = "3.8.0"
+pkgver = "3.9.0"
 pkgrel = 0
-build_wrksrc = "flit_core"
-build_style = "python_pep517"
-hostmakedepends = ["python-pip"]
-checkdepends = ["python-pytest", "python-tomli"]
-depends = ["python", "python-tomli"]
+hostmakedepends = ["python"]
+checkdepends = ["python-pytest", "python-testpath"]
+depends = ["python"]
 pkgdesc = "Simplified packaging of Python modules (PEP 517 backend)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
-url = "https://flit.readthedocs.io"
-source = f"$(PYPI_SITE)/f/flit/flit-{pkgver}.tar.gz"
-sha256 = "d0f2a8f4bd45dc794befbf5839ecc0fd3830d65a57bd52b5997542fac5d5e937"
+url = "https://flit.pypa.io"
+source = f"$(PYPI_SITE)/f/flit_core/flit_core-{pkgver}.tar.gz"
+sha256 = "72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba"
 # missing checkdepends
 options = ["!check"]
 
 
-def post_install(self):
-    self.install_license("../LICENSE")
+def do_build(self):
+    self.do("python", "-m", "flit_core.wheel")
+
+
+def do_check(self):
+    self.do("python", "-m", "pytest", "flit_core/tests")
+
+
+def do_install(self):
+    from cbuild.util import python
+
+    self.do(
+        "python",
+        "bootstrap_install.py",
+        "--install-root",
+        self.chroot_destdir,
+        f"dist/flit_core-{pkgver}-py3-none-any.whl",
+    )
+    python.precompile(self, "usr/lib")
+    self.install_license("LICENSE")
