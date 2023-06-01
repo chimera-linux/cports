@@ -1,1 +1,1 @@
-pattern = r"release-([\d.]+)"
+pattern = r"release-([\d.]+)-stable"
