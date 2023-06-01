@@ -1,5 +1,5 @@
 pkgname = "libvterm"
-pkgver = "0.3.1"
+pkgver = "0.3.2"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -9,7 +9,7 @@ pkgdesc = "Abstract VT220/xterm/ECMA-48 emulation library"
 license = "MIT"
 url = "http://www.leonerd.org.uk/code/libvterm"
 source = f"http://www.leonerd.org.uk/code/libvterm/libvterm-{pkgver}.tar.gz"
-sha256 = "25a8ad9c15485368dfd0a8a9dca1aec8fea5c27da3fa74ec518d5d3787f0c397"
+sha256 = "91eb5088069f4e6edab69e14c4212f6da0192e65695956dc048016a0dab8bcf6"
 # crossbuild fails because of libtool
 options = ["!cross"]
 
