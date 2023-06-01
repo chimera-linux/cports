@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.70"
+pkgver = "0.3.71"
 pkgrel = 0
 _pms_version = "0.4.1"
 build_style = "meson"
@@ -23,6 +23,7 @@ configure_args = [
     "-Dlibv4l2-path=/usr/lib",
     "-Dudevrulesdir=/usr/lib/udev/rules.d",
     "-Dsession-managers=[]",
+    "-Drlimits-match=@_pipewire",
 ]
 hostmakedepends = [
     "meson",
@@ -66,9 +67,11 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "e9a86d592dea6ee28c67b82c17bd6ba10afd1c880decfcf4b3e7c5421f146d38"
+sha256 = "070dcf83c514903d603351921c7829014c8d9162c49ae5a043290c920f6a6363"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
+
+system_groups = ["_pipewire"]
 
 if self.profile().endian == "big":
     configure_args += ["-Dbluez5-codec-ldac=disabled"]
@@ -130,7 +133,7 @@ def _genspa(spa):
         return [f"usr/lib/spa-*/{spa}"]
 
 
-for spa in [
+for _spa in [
     "alsa",
     "audioconvert",
     "audiomixer",
@@ -139,7 +142,7 @@ for spa in [
     "videoconvert",
     "bluez5",
 ]:
-    _genspa(spa)
+    _genspa(_spa)
 
 
 @subpackage("gstreamer-pipewire")
