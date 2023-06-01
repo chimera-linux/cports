@@ -1,5 +1,5 @@
 pkgname = "libinput"
-pkgver = "1.19.4"
+pkgver = "1.23.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -15,13 +15,13 @@ makedepends = [
     "udev-devel",
     "libwacom-devel",
 ]
-checkdepends = ["check-devel", "bash"]
+checkdepends = ["check-devel", "python-pytest", "bash"]
 pkgdesc = "Input abstraction library for Wayland and X"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libinput"
-source = f"$(FREEDESKTOP_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ff33a570b5a936c81e6c08389a8581c2665311d026ce3d225c88d09c49f9b440"
+source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "7a7c90fbc59f1f65c781a51fa634e4f79e460bf6e16ad68afbe7965d25d09738"
 
 
 def post_install(self):
