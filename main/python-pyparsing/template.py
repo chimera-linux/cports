@@ -2,7 +2,12 @@ pkgname = "python-pyparsing"
 pkgver = "3.0.9"
 pkgrel = 0
 build_style = "python_pep517"
-hostmakedepends = ["python-setuptools", "python-flit_core", "python-pip"]
+hostmakedepends = [
+    "python-setuptools",
+    "python-flit_core",
+    "python-build",
+    "python-installer",
+]
 depends = ["python"]
 pkgdesc = "Python parsing module"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -2,7 +2,12 @@ pkgname = "python-sphinx"
 pkgver = "6.1.3"
 pkgrel = 0
 build_style = "python_pep517"
-hostmakedepends = ["python-setuptools", "python-flit_core", "python-pip"]
+hostmakedepends = [
+    "python-setuptools",
+    "python-flit_core",
+    "python-build",
+    "python-installer",
+]
 checkdepends = ["python-pytest", "python-markupsafe"]
 depends = [
     "python",

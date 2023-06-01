@@ -2,7 +2,12 @@ pkgname = "python-sphinx_rtd_theme"
 pkgver = "1.2.0"
 pkgrel = 0
 build_style = "python_pep517"
-hostmakedepends = ["python-setuptools", "python-pip", "python-wheel"]
+hostmakedepends = [
+    "python-setuptools",
+    "python-build",
+    "python-installer",
+    "python-wheel",
+]
 depends = ["python", "python-sphinxcontrib-jquery"]
 pkgdesc = "Sphinx theme for readthedocs.org"
 maintainer = "eater <=@eater.me>"

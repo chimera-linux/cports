@@ -2,8 +2,12 @@ pkgname = "python-pygments"
 pkgver = "2.15.1"
 pkgrel = 0
 build_style = "python_pep517"
-make_install_target = f"Pygments-{pkgver}-*-*-*.whl"
-hostmakedepends = ["python-pip", "python-flit_core", "python-wheel"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-flit_core",
+    "python-wheel",
+]
 depends = ["python"]
 pkgdesc = "Generic syntax highlighter written in Python"
 maintainer = "q66 <q66@chimera-linux.org>"

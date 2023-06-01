@@ -3,7 +3,12 @@ pkgver = "3.4"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "tests"
-hostmakedepends = ["python-pip", "python-flit_core", "python-wheel"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-flit_core",
+    "python-wheel",
+]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Internationalized Domain Names in Applications (IDNA) for Python"

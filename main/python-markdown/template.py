@@ -2,8 +2,12 @@ pkgname = "python-markdown"
 pkgver = "3.4.3"
 pkgrel = 0
 build_style = "python_pep517"
-make_install_target = f"Markdown-{pkgver}-*-*-*.whl"
-hostmakedepends = ["python-pip", "python-flit_core", "python-wheel"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-flit_core",
+    "python-wheel",
+]
 checkdepends = ["python-pyyaml", "python-pytest"]
 depends = ["python"]
 pkgdesc = "Python implementation of Markdown"

@@ -1182,7 +1182,7 @@ A build style for Python modules (PEP517). Requires to have `python-pip` in
 Default values:
 
 * `make_build_target` = `.`
-* `make_install_target` = `{self.pkgname.removeprefix('python-')}-{self.pkgver}-*-*-*.whl`
+* `make_install_target` = `dist/*.whl`
 
 Sets `do_build`, `do_check`, `do_install`.
 

@@ -2,10 +2,10 @@ pkgname = "python-sphinxcontrib-jquery"
 pkgver = "4.1"
 pkgrel = 0
 build_style = "python_pep517"
-make_install_target = f"sphinxcontrib_jquery-{pkgver}-*-*-*.whl"
 hostmakedepends = [
     "python-setuptools",
-    "python-pip",
+    "python-build",
+    "python-installer",
     "python-wheel",
     "python-flit_core",
 ]
