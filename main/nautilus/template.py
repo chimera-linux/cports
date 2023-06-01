@@ -1,5 +1,5 @@
 pkgname = "nautilus"
-pkgver = "44.0"
+pkgver = "44.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtests=headless"]
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "57b99ebb8e2b9c1512d381e53096188c087b33410d6c52d87a27bd60ee76ac7f"
+sha256 = "274a065927596d8a8f09537adc91bae98297201dd47ec6ccd878111e0781d3e5"
 options = ["!cross"]
 
 
