@@ -25,5 +25,6 @@ sha256 = "b1244db3f45b4ef5a00106a46612da107cdfaf85f1580b8e1c059fefc98b0930"
 # no tests?
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE.txt")

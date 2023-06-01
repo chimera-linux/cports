@@ -14,8 +14,10 @@ sha256 = "a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"
 # needs pytest, is a dependency of pytest
 options = ["!check"]
 
+
 def do_build(self):
     self.do("python", "-m", "flit_core.wheel")
+
 
 def post_install(self):
     self.install_license("LICENSE")
