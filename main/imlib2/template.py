@@ -1,5 +1,5 @@
 pkgname = "imlib2"
-pkgver = "1.11.0"
+pkgver = "1.11.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -27,7 +27,7 @@ url = "https://www.enlightenment.org"
 source = (
     f"$(SOURCEFORGE_SITE)/enlightenment/{pkgname}-src/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "94b74f7c28d5d05ac936d479f944a71222311b8ced8d012fd57010830faade31"
+sha256 = "4dd94e1f189287fa87e802b765cfc836153687b994412645757d56c139998b7a"
 hardening = ["!cfi"]  # TODO investigate
 
 
