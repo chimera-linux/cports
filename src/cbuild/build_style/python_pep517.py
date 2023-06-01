@@ -28,12 +28,16 @@ def do_check(self):
         ).returncode
         == 0
     ):
+        ctgt = []
+        if len(self.make_check_target) > 0:
+            ctgt = [self.make_check_target]
+
         self.do(
             "python3",
             "-m",
             "pytest",
             *self.make_check_args,
-            self.make_check_target,
+            *ctgt,
             env=self.make_check_env,
         )
     else:
@@ -68,5 +72,6 @@ def use(tmpl):
 
     tmpl.build_style_defaults = [
         ("make_build_target", "."),
+        ("make_check_target", ""),
         ("make_install_target", "dist/*.whl"),
     ]
