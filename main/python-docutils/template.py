@@ -1,5 +1,5 @@
 pkgname = "python-docutils"
-pkgver = "0.19"
+pkgver = "0.20.1"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none AND BSD-2-Clause AND GPL-3.0-or-later AND Python-2.0"
 url = "http://docutils.sourceforge.net"
 source = f"$(PYPI_SITE)/d/docutils/docutils-{pkgver}.tar.gz"
-sha256 = "33995a6753c30b7f577febfc2c50411fec6aac7f7ffeb7c4cfe5991072dcf9e6"
+sha256 = "f08a4e276c3a1583a86dce3e34aba3fe04d02bba2dd51ed16106244e8a923e3b"
 
 
 def do_check(self):
