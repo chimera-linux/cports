@@ -1,16 +1,16 @@
 pkgname = "nettle"
-pkgver = "3.8.1"
+pkgver = "3.9"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake", "texinfo"]
+hostmakedepends = ["pkgconf", "gmake", "texinfo", "automake", "libtool"]
 makedepends = ["gmp-devel", "linux-headers"]
 pkgdesc = "Low-level cryptographic library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later OR LGPL-3.0-or-later"
 url = "https://www.lysator.liu.se/~nisse/nettle"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "364f3e2b77cd7dcde83fd7c45219c834e54b0c75e428b6f894a23d12dd41cbfe"
+sha256 = "0ee7adf5a7201610bb7fe0acbb7c9b3be83be44904dd35ebbcd965cd896bfeaa"
 
 
 @subpackage("nettle-devel")
@@ -23,6 +23,3 @@ def _devel(self):
 @subpackage("nettle-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
