@@ -1,5 +1,5 @@
 pkgname = "poppler"
-pkgver = "23.04.0"
+pkgver = "23.05.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -33,7 +33,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://poppler.freedesktop.org"
 source = f"{url}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b6d893dc7dcd4138b9e9df59a13c59695e50e80dc5c2cacee0674670693951a1"
+sha256 = "38294de7149ebe458191a6e6d0e2837da7dba8683900a635252f6d0ee235f990"
 # needs unshipped sample files
 options = ["!check"]
 
