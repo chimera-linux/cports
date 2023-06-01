@@ -1,5 +1,5 @@
 pkgname = "syslog-ng"
-pkgver = "4.1.1"
+pkgver = "4.2.0"
 pkgrel = 0
 _pcre_ver = "8.45"
 build_style = "gnu_configure"
@@ -30,6 +30,7 @@ configure_args = [
     "--enable-http",
     "--enable-sql",
 ]
+configure_gen = []
 make_cmd = "gmake"
 make_install_args = ["-j1"]
 hostmakedepends = [
@@ -42,6 +43,7 @@ hostmakedepends = [
     "glib-devel",
 ]
 makedepends = [
+    "linux-headers",
     "libcurl-devel",
     "python-devel",
     "libdbi-devel",
@@ -62,7 +64,7 @@ source = [
     f"$(SOURCEFORGE_SITE)/pcre/pcre/{_pcre_ver}/pcre-{_pcre_ver}.tar.bz2",
 ]
 sha256 = [
-    "d7df3cfa32d1a750818d94b8ea582dea54c37226e7b55a88c3d2f3a543d8f20e",
+    "092bd17fd47002c988aebdf81d0ed3f3cfd0e82b388d2453bcaa5e67934f4dda",
     "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8",
 ]
 # tests need https://github.com/Snaipe/Criterion
@@ -173,7 +175,7 @@ def _genmod(modn, modl):
         return [f"usr/lib/syslog-ng/lib{modl}.so"]
 
 
-for modn, modl in [
+for _modn, _modl in [
     ("add-contextual-data", None),
     ("amqp", "afamqp"),
     ("examples", None),
@@ -188,6 +190,4 @@ for modn, modl in [
     ("tags-parser", None),
     ("xml", None),
 ]:
-    _genmod(modn, modl)
-
-configure_gen = []
+    _genmod(_modn, _modl)
