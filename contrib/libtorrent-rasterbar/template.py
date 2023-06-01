@@ -1,5 +1,5 @@
 pkgname = "libtorrent-rasterbar"
-pkgver = "2.0.8"
+pkgver = "2.0.9"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://libtorrent.org"
 source = f"https://github.com/arvidn/libtorrent/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "09dd399b4477638cf140183f5f85d376abffb9c192bc2910002988e27d69e13e"
+sha256 = "90cd92b6061c5b664840c3d5e151d43fedb24f5b2b24e14425ffbb884ef1798e"
 
 # loud build
 tool_flags = {
