@@ -1,5 +1,5 @@
 pkgname = "python-openssl"
-pkgver = "23.1.1"
+pkgver = "23.2.0"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -15,6 +15,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://pyopenssl.org"
 source = f"$(PYPI_SITE)/p/pyOpenSSL/pyOpenSSL-{pkgver}.tar.gz"
-sha256 = "841498b9bec61623b1b6c47ebbc02367c07d60e0e195f19790817f10cc8db0b7"
+sha256 = "276f931f55a452e7dea69c7173e984eb2a4407ce413c918aa34b55f82f9b8bac"
 # unpackaged checkdepends
 options = ["!check"]
