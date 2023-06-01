@@ -1,5 +1,5 @@
 pkgname = "libaom"
-pkgver = "3.6.0"
+pkgver = "3.6.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,10 +24,15 @@ url = "https://aomedia.org"
 source = [
     f"https://storage.googleapis.com/aom-releases/{pkgname}-{pkgver}.tar.gz"
 ]
-sha256 = ["a4a6c0fab685da743b796662a928fcdf7ae60594edc306efb73e78a17ea6cde6"]
-tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
+sha256 = ["42b862f58b3d00bd3902d2dc469526574f5b012e5b178e6a9652845a113d6887"]
 # requires a testdata download, tests take long
 options = ["!check"]
+
+tool_flags = {
+    "CFLAGS": ["-D_GNU_SOURCE"],
+    "CXXFLAGS": ["-D_GNU_SOURCE"],
+    "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
+}
 
 match self.profile().arch:
     case "ppc64":
