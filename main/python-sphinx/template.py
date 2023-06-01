@@ -1,5 +1,5 @@
 pkgname = "python-sphinx"
-pkgver = "6.1.3"
+pkgver = "7.0.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://sphinx-doc.org"
 source = f"$(PYPI_SITE)/S/Sphinx/Sphinx-{pkgver}.tar.gz"
-sha256 = "0dac3b698538ffef41716cf97ba26c1c7788dba73ce6f150c1ff5b4720786dd2"
+sha256 = "61e025f788c5977d9412587e733733a289e2b9fdc2fef8868ddfbfc4ccfe881d"
 # dependency of pytest, missing other checkdepends
 options = ["!check"]
 
