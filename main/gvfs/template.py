@@ -1,6 +1,6 @@
 pkgname = "gvfs"
 pkgver = "1.50.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no",
