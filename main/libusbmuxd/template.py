@@ -1,6 +1,6 @@
 pkgname = "libusbmuxd"
 pkgver = "2.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["libusb-devel", "libplist-devel"]
