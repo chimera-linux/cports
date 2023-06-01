@@ -9,7 +9,9 @@ pkgdesc = "Totally open, royalty-free, highly versatile audio codec"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.opus-codec.org"
-source = f"https://downloads.xiph.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+source = (
+    f"https://downloads.xiph.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+)
 sha256 = "c9b32b4253be5ae63d1ff16eea06b94b5f0f2951b7a02aceef58e3a3ce49c51f"
 # FIXME int
 hardening = ["vis", "cfi", "!int"]
