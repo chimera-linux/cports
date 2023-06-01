@@ -5,7 +5,6 @@ build_style = "python_pep517"
 hostmakedepends = [
     "python-setuptools",
     "python-flit_core",
-    "python-build",
     "python-installer",
 ]
 depends = ["python"]
@@ -18,6 +17,8 @@ sha256 = "7e8ce1684c517f57f945698fd3bbf86b36a2e60cd223f74886d3af04deb06306"
 # calls urlopen
 options = ["!check"]
 
+def do_build(self):
+    self.do("python", "-m", "flit_core.wheel")
 
 def post_install(self):
     self.install_license("LICENSE")

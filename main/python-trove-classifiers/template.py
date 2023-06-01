@@ -17,3 +17,5 @@ license = "Apache-2.0"
 url = "https://github.com/pypa/trove-classifiers"
 source = f"$(PYPI_SITE)/t/trove-classifiers/trove-classifiers-{pkgver}.tar.gz"
 sha256 = "fd5a1546283be941f47540a135bdeae8fb261380a6a204d9c18012f2a1b0ceae"
+# cycle
+options = ["!check"]

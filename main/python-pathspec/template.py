@@ -15,3 +15,5 @@ license = "MPL-2.0"
 url = "https://github.com/cpburnz/python-pathspec"
 source = f"$(PYPI_SITE)/p/pathspec/pathspec-{pkgver}.tar.gz"
 sha256 = "2798de800fa92780e33acca925945e9a19a133b715067cf165b8866c15a31687"
+# cycle
+options = ["!check"]

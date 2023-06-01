@@ -23,7 +23,8 @@ license = "MIT"
 url = "https://github.com/ofek/hatch-vcs"
 source = f"$(PYPI_SITE)/h/hatch_vcs/hatch_vcs-{pkgver}.tar.gz"
 sha256 = "cec5107cfce482c67f8bc96f18bbc320c9aa0d068180e14ad317bbee5a153fee"
-
+# cycle
+options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE.txt")
