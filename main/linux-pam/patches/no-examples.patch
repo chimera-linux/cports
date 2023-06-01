@@ -1,0 +1,19 @@
+commit 2b84bf1ea16ac96ae8e3818e769f0e2c3b9a37a5
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Jun 1 19:29:16 2023 +0200
+
+    disable examples as they don't build
+
+diff --git a/Makefile.am b/Makefile.am
+index deb2526..d4d9713 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -4,7 +4,7 @@
+ 
+ AUTOMAKE_OPTIONS = 1.9 gnu dist-xz no-dist-gzip check-news
+ 
+-SUBDIRS = libpam tests libpamc libpam_misc modules po conf examples xtests
++SUBDIRS = libpam tests libpamc libpam_misc modules po conf xtests
+ 
+ if HAVE_DOC
+ SUBDIRS += doc

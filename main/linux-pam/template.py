@@ -1,5 +1,5 @@
 pkgname = "linux-pam"
-pkgver = "1.5.2"
+pkgver = "1.5.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -13,7 +13,7 @@ configure_args = [
     "BUILD_LDFLAGS=",
     "ac_cv_search_crypt=no",
 ]
-hostmakedepends = ["pkgconf", "gettext-tiny"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-tiny"]
 makedepends = ["gettext-tiny-devel", "libfl-devel-static", "linux-headers"]
 checkdepends = ["linux-pam-base"]
 depends = ["linux-pam-base"]
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = f"https://github.com/{pkgname}/{pkgname}"
 source = f"{url}/releases/download/v{pkgver}/Linux-PAM-{pkgver}.tar.xz"
-sha256 = "e4ec7131a91da44512574268f493c6d8ca105c87091691b8e9b56ca685d4f94d"
+sha256 = "7ac4b50feee004a9fa88f1dfd2d2fa738a82896763050cd773b3c54b0a818283"
 suid_files = ["usr/bin/unix_chkpwd"]
 
 
@@ -44,6 +44,3 @@ def _devel(self):
 @subpackage("linux-pam-libs")
 def _libs(self):
     return self.default_libs()
-
-
-configure_gen = []
