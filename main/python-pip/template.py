@@ -1,5 +1,5 @@
 pkgname = "python-pip"
-pkgver = "23.1"
+pkgver = "23.1.2"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pip.pypa.io"
 source = f"$(PYPI_SITE)/p/pip/pip-{pkgver}.tar.gz"
-sha256 = "408539897ee535dbfb83a153f7bc4d620f990d8bd44a52a986efc0b4d330d34a"
+sha256 = "0e7c86f486935893c708287b30bd050a36ac827ec7fe5e43fe7cb198dd835fba"
 # unpackaged dependencies
 options = ["!check"]
 
