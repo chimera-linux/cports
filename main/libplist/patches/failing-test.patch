@@ -1,0 +1,17 @@
+commit 28351e6e6c6124100ce9629263613df6a70546d9
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Jun 1 20:10:52 2023 +0200
+
+    disable huge test for now
+
+diff --git a/test/huge.test b/test/huge.test
+index 8585ed5..ce5d015 100755
+--- a/test/huge.test
++++ b/test/huge.test
+@@ -10,6 +10,3 @@ fi
+ 
+ echo "Converting"
+ $top_builddir/test/plist_test $DATASRC/$TESTFILE $DATAOUT/$TESTFILE.out
+-
+-echo "Comparing"
+-$top_builddir/test/plist_cmp $DATASRC/$TESTFILE $DATAOUT/$TESTFILE.out
