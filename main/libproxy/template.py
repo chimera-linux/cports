@@ -1,25 +1,36 @@
 pkgname = "libproxy"
-pkgver = "0.4.18"
+pkgver = "0.5.1"
 pkgrel = 0
-build_style = "cmake"
+build_style = "meson"
 configure_args = [
-    "-DWITH_GNOME2=OFF",
-    "-DWITH_MOZJS=OFF",
-    "-DWITH_NM=OFF",
-    "-DWITH_PERL=OFF",
-    "-DWITH_WEBKIT=OFF",
-    "-DWITH_GNOME3=ON",
-    "-DWITH_KDE=ON",
-    "-DWITH_PYTHON3=ON",
+    "-Ddocs=false",
+    "-Dconfig-windows=false",
+    "-Dconfig-osx=false",
+    "-Dconfig-sysconfig=false",
+    "-Dcurl=false",
 ]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "python", "glib-devel"]
-makedepends = ["glib-devel", "zlib-devel"]
+hostmakedepends = [
+    "meson",
+    "pkgconf",
+    "glib-devel",
+    "gobject-introspection",
+    "vala",
+    "bash",
+]
+makedepends = [
+    "glib-devel",
+    "zlib-devel",
+    "gsettings-desktop-schemas-devel",
+    "duktape-devel",
+]
 pkgdesc = "Automatic proxy configuration management library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://libproxy.github.io/libproxy"
-source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "69b5856e9ea42c38ac77e6b8c92ffc86a71d341fef74e77bef85f9cc6c47a4b1"
+source = (
+    f"https://github.com/{pkgname}/{pkgname}/archive/refs/tags/{pkgver}.tar.gz"
+)
+sha256 = "991109f122bffc6023f7f4b587b13cde4d2a416409cdda24cff6cf70dc283e83"
 # FIXME int (glib-networking tests fail)
 hardening = ["!int"]
 
@@ -32,11 +43,3 @@ def _devel(self):
 @subpackage("libproxy-progs")
 def _progs(self):
     return self.default_progs()
-
-
-@subpackage("libproxy-python")
-def _python(self):
-    self.pkgdesc = f"{pkgdesc} (Python bindings)"
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "python"]
-
-    return ["usr/lib/python*"]
