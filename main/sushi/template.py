@@ -1,5 +1,5 @@
 pkgname = "sushi"
-pkgver = "43.0"
+pkgver = "44.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -29,4 +29,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/sushi"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "57848526149ab1c784fb92fbc934c3514fe522aba649d5d9fedec7e1b147527b"
+sha256 = "6c002fe0aea19027ba448b5aec94d5cd753c9752f996ee033152428738ea43e9"
