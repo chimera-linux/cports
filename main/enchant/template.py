@@ -1,17 +1,17 @@
 pkgname = "enchant"
-pkgver = "2.3.4"
-pkgrel = 1
+pkgver = "2.5.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-relocatable", "--disable-static"]
-hostmakedepends = ["pkgconf"]
-makedepends = ["glib-devel", "nuspell-devel", "icu-devel"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
+makedepends = ["glib-devel", "nuspell-devel", "icu-devel", "libltdl-devel"]
 checkdepends = ["unittest-cpp"]
 pkgdesc = "Generic spell checking library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://abiword.github.io/enchant"
 source = f"https://github.com/AbiWord/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "1f7e26744db1c9a0fea61d2169f4e5c1ce435cf8c2731c37e3e4054119e994a0"
+sha256 = "149e224cdd2ca825d874639578b6246e07f37d5b8f3970658a377a1ef46f2e15"
 # missing checkdepends
 options = ["!check"]
 
@@ -24,6 +24,3 @@ def _devel(self):
 @subpackage("enchant-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []

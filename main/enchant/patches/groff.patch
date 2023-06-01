@@ -1,25 +1,24 @@
-commit d01efa991489caa61480dfc96b875c85a00e3a8a
+commit 578d9c84e93786e53f75eceb723d47c5b869e520
 Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Fri Mar 17 05:17:27 2023 +0100
+Date:   Thu Jun 1 23:02:13 2023 +0200
 
     drop groff requirement
 
-diff --git a/src/Makefile.in b/src/Makefile.in
-index 3e5a81b..9fa067b 100644
---- a/src/Makefile.in
-+++ b/src/Makefile.in
-@@ -909,7 +909,7 @@ libenchant_include_HEADERS = enchant.h enchant-provider.h enchant++.h
- noinst_HEADERS = debug.h
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 48fce70..53545b4 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -24,19 +24,13 @@ noinst_HEADERS = debug.h
  pkgdata_DATA = enchant.ordering
+ 
  dist_man_MANS = enchant-@ENCHANT_MAJOR_VERSION@.1 enchant-lsmod-@ENCHANT_MAJOR_VERSION@.1 enchant.5
 -nodist_doc_DATA = enchant-@ENCHANT_MAJOR_VERSION@.html enchant-lsmod-@ENCHANT_MAJOR_VERSION@.html enchant.html
 +nodist_doc_DATA =
+ 
  edit = sed \
  	-e 's|DATADIR|$(datadir)|g'
  
-@@ -1496,12 +1496,6 @@ uninstall-man: uninstall-man1 uninstall-man5
- .PRECIOUS: Makefile
- 
+ DISTCLEANFILES = $(dist_man_MANS) $(nodist_doc_DATA)
  
 -.1.html:
 -	groff -mandoc -Thtml $< > $@
