@@ -1,43 +1,56 @@
 pkgname = "util-linux"
-pkgver = "2.38.1"
+pkgver = "2.39"
 pkgrel = 0
-build_style = "gnu_configure"
+build_style = "meson"
 configure_args = [
-    "--exec-prefix=${prefix}",
-    "--enable-libuuid",
-    "--enable-libblkid",
-    "--enable-fsck",
-    "--enable-write",
-    "--enable-fs-paths-extra=/usr/sbin:/usr/bin",
-    "--disable-rpath",
-    "--disable-agetty",
-    "--disable-cal",
-    "--disable-kill",
-    "--disable-logger",
-    "--disable-login",
-    "--disable-makeinstall-chown",
-    "--disable-mesg",
-    "--disable-chfn-chsh",
-    "--disable-nologin",
-    "--disable-scriptutils",
-    "--disable-sulogin",
-    "--disable-su",
-    "--disable-ul",
-    "--disable-wall",
-    "--disable-whereis",
-    "--disable-write",
-    "--with-systemdsystemunitdir=no",
-    "--without-udev",
-    "--without-python",
+    "--auto-feature=enabled",
+    "-Dtinfo=disabled",
+    "-Dncurses=disabled",
+    "-Deconf=disabled",
+    "-Dselinux=disabled",
+    "-Dslang=disabled",
+    "-Dlibutil=disabled",
+    "-Dlibuser=disabled",
+    "-Dlibutempter=disabled",
+    "-Dreadline=disabled",
+    "-Dbuild-plymouth-support=disabled",
+    "-Dfs-search-path-extra=/usr/sbin:/usr/bin",
+    "-Dbuild-agetty=disabled",
+    "-Dbuild-cal=disabled",
+    "-Dbuild-fallocate=disabled",
+    "-Dbuild-kill=disabled",
+    "-Dbuild-logger=disabled",
+    "-Dbuild-login=disabled",
+    "-Dbuild-mesg=disabled",
+    "-Dbuild-more=disabled",
+    "-Dbuild-chfn-chsh=disabled",
+    "-Dbuild-nologin=disabled",
+    "-Dbuild-pivot_root=disabled",
+    "-Dbuild-switch_root=disabled",
+    "-Dbuild-sulogin=disabled",
+    "-Dbuild-su=disabled",
+    "-Dbuild-ul=disabled",
+    "-Dbuild-wall=disabled",
+    "-Dbuild-write=disabled",
+    "-Dbuild-python=disabled",
+    "-Dsystemd=disabled",
+    "-Dsysvinit=disabled",
 ]
-make_cmd = "gmake"
-make_install_args = ["usrsbin_execdir=/usr/bin"]
-hostmakedepends = ["gmake", "gettext-tiny", "pkgconf"]
+hostmakedepends = [
+    "meson",
+    "ninja",
+    "bison",
+    "flex",
+    "gettext-tiny-devel",
+    "pkgconf",
+    "bash-completion",
+]
 makedepends = [
     "linux-headers",
     "libcap-ng-devel",
     "linux-pam-devel",
     "zlib-devel",
+    "file-devel",
     "ncurses-devel",
 ]
 checkdepends = ["xz", "iproute2", "socat", "procps"]
@@ -46,10 +59,8 @@ pkgdesc = "Miscellaneous Linux utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.kernel.org/pub/linux/utils/util-linux"
-source = (
-    f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-)
-sha256 = "60492a19b44e6cf9a3ddff68325b333b8b52b6c59ce3ebd6a0ecaa4c5117e84f"
+source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "32b30a336cda903182ed61feb3e9b908b762a5e66fe14e43efb88d37162075cb"
 tool_flags = {"CFLAGS": ["-D_DIRENT_HAVE_D_TYPE"]}
 # checkdepends are missing
 options = ["!check"]
@@ -72,29 +83,31 @@ def post_install(self):
     # conflicts with chimerautils, less, ugetopt
     for f in [
         "addpart",
+        "cal",
         "col",
         "colrm",
         "column",
         "ctrlaltdel",
         "delpart",
-        "fallocate",
         "flock",
         "fsfreeze",
         "getopt",
         "ionice",
         "isosize",
         "hexdump",
+        "kill",
         "look",
         "mcookie",
-        "more",
-        "pivot_root",
         "resizepart",
         "renice",
         "rev",
+        "script",
+        "scriptlive",
+        "scriptreplay",
         "setarch",
         "setsid",
-        "switch_root",
         "taskset",
+        "whereis",
     ]:
         self.rm(self.destdir / f"usr/bin/{f}")
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1", force=True)
@@ -103,14 +116,6 @@ def post_install(self):
             self.destdir / f"usr/share/bash-completion/completions/{f}",
             force=True,
         )
-
-    # dynamic aliases that may differ per arch
-    for f in (self.destdir / "usr/bin").iterdir():
-        if f.is_symlink() and f.readlink().name == "setarch":
-            f.unlink()
-    for f in (self.destdir / "usr/share/man/man8").iterdir():
-        if f.is_symlink() and f.readlink().name == "setarch.8":
-            f.unlink()
 
     # services
     for s in ["uuidd", "uuidd-dir"]:
@@ -330,7 +335,7 @@ def _runuser(self):
     return [
         "usr/bin/runuser",
         "usr/bin/setpriv",
-        "usr/share/bash-completion/completions/runuser",
+        # "usr/share/bash-completion/completions/runuser",
         "usr/share/bash-completion/completions/setpriv",
         "usr/share/man/man1/runuser.1",
         "usr/share/man/man1/setpriv.1",
@@ -469,6 +474,3 @@ def _libsmartcols_devel(self):
         "usr/lib/pkgconfig/*smartcols*",
         "usr/include/libsmartcols",
     ]
-
-
-configure_gen = []

@@ -1,0 +1,46 @@
+commit b50e8c5698be34c39b3ab4cdf4b4daef6d8a87e3
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Jun 1 03:13:52 2023 +0200
+
+    use prebuilt manpages
+
+diff --git a/meson.build b/meson.build
+index d7e5352..205db27 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3345,33 +3345,9 @@ if build_libuuid
+   }
+ endif
+ 
+-asciidoctor = find_program('asciidoctor', required : false)
+-if asciidoctor.found()
++if true
+   foreach adoc : manadocs
+-    name = adoc.split('/')[-1]
+-    page = name.split('.adoc')[0]
+-    section = page.split('.')[-1]
+-    mandirn = join_paths(mandir, 'man' + section)
+-    input = adoc
+-
+-    custom_target(
+-      page,
+-      command : [ asciidoctor,
+-	  '-b', 'manpage',
+-	  '-a', 'VERSION=' + meson.project_version(),
+-	  '-a', 'release-version=' + meson.project_version(),
+-	  '-a', 'ADJTIME_PATH=/etc/adjtime',
+-	  '-a', 'package-docdir=' + docdir,
+-	  '--base-dir=' + meson.current_source_dir(),
+-          '--destination-dir=' + meson.current_build_dir(),
+-          '--load-path', '@SOURCE_ROOT@/tools',
+-          '--require', 'asciidoctor-includetracker',
+-	  '@INPUT@'],
+-      input : input,
+-      output : [page],
+-      depfile : page + '.deps',
+-      install: true,
+-      install_dir : mandirn)
++    install_man(adoc.split('.adoc')[0])
+   endforeach
+ 
+   foreach link_name, target : manlinks

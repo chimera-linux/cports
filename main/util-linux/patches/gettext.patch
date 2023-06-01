@@ -1,0 +1,18 @@
+commit a3ad5f0693688fe5a63dfe1934c307a06584e045
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Jun 1 02:56:41 2023 +0200
+
+    patch out junk test
+
+diff --git a/po/meson.build b/po/meson.build
+index c10deaf..fa20ef4 100644
+--- a/po/meson.build
++++ b/po/meson.build
+@@ -1,7 +1,3 @@
+-if not find_program('gettext').found()
+-  subdir_done()
+-endif
+-
+ i18n = import('i18n')
+ i18n.gettext(meson.project_name(),
+              preset : 'glib',

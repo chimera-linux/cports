@@ -1,0 +1,21 @@
+commit 87ffbe566d12baa5636dd99394a3c0dd763840dc
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Jun 1 02:54:54 2023 +0200
+
+    work around missing ln -r
+
+diff --git a/libmount/meson.build b/libmount/meson.build
+index 42b6b75..1c6b38e 100644
+--- a/libmount/meson.build
++++ b/libmount/meson.build
+@@ -140,10 +140,6 @@ foreach libmount_test: libmount_tests
+     dependencies : lib__mount_deps,
+     c_args : ['-DTEST_PROGRAM'],
+   )
+-  # the test-setup expects the helpers in the toplevel build-directory
+-  link = meson.build_root() / test_name
+-  run_command('ln', '-srf', exe.full_path(), link,
+-    check : true)
+ endforeach
+ 
+ subdir('python')
