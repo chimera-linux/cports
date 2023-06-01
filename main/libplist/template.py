@@ -1,5 +1,5 @@
 pkgname = "libplist"
-pkgver = "2.2.0"
+pkgver = "2.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
@@ -9,10 +9,8 @@ pkgdesc = "Apple Property List library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
-source = (
-    f"https://github.com/libimobiledevice/{pkgname}/archive/{pkgver}.tar.gz"
-)
-sha256 = "7e654bdd5d8b96f03240227ed09057377f06ebad08e1c37d0cfa2abe6ba0cee2"
+source = f"https://github.com/libimobiledevice/libplist/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
+sha256 = "4e8580d3f39d3dfa13cefab1a13f39ea85c4b0202e9305c5c8f63818182cac61"
 # FIXME int
 hardening = ["!int"]
 options = ["!cross"]
