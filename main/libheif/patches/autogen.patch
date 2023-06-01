@@ -1,8 +1,0 @@
---- a/autogen.sh
-+++ b/autogen.sh
-@@ -1,4 +1,4 @@
--#!/bin/bash
-+#!/bin/sh
- set -eu
- #
- # HEIF codec.

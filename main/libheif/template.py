@@ -1,10 +1,8 @@
 pkgname = "libheif"
-pkgver = "1.15.2"
+pkgver = "1.16.2"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = ["--disable-option-checking"]
-configure_gen = ["./autogen.sh"]
-hostmakedepends = ["pkgconf", "automake", "libtool"]
+build_style = "cmake"
+hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "libde265-devel",
     "x265-devel",
@@ -18,8 +16,10 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "http://www.libheif.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "30a2736ae0247389aaa43ec70357221500c49a68db39fda94da8d5bdc786fe3b"
+sha256 = "d207f2ff5c86e6af3621c237f186130b985b7a9ff657875944b58ac5d27ba71c"
 hardening = ["!cfi"]  # TODO
+# needs full symbol visibility
+options = ["!check"]
 
 
 @subpackage("libheif-devel")
