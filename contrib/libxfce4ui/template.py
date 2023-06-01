@@ -1,8 +1,9 @@
 pkgname = "libxfce4ui"
-pkgver = "4.18.3"
+pkgver = "4.18.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-tests", "--disable-static"]
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = [
     "pkgconf",
@@ -30,12 +31,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://xfce.org"
 source = f"https://archive.xfce.org/src/xfce/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "afa3a46eeed3ab612d2f7e1308edaf5819f6c33ccc16c13080efabd58f010abd"
+sha256 = "87eefe797c6d26de3f754de48872faf131f1b5fc93fb88e22f5c7886a842cb4c"
 
 
 @subpackage("libxfce4ui-devel")
 def _dev(self):
     return self.default_devel()
-
-
-configure_gen = []
