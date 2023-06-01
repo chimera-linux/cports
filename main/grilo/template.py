@@ -1,5 +1,5 @@
 pkgname = "grilo"
-pkgver = "0.3.15"
+pkgver = "0.3.16"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Grilo"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f352acf73665669934270636fede66b52da6801fe20f638c4048ab2678577b2d"
+sha256 = "884580e8c5ece280df23aa63ff5234b7d48988a404df7d6bfccd1e77b473bd96"
 
 
 @subpackage("grilo-devel")
