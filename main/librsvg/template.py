@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.56.0"
+pkgver = "2.56.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,6 +8,7 @@ configure_args = [
     "--disable-static",
     "--disable-gtk-doc",
 ]
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
@@ -36,7 +37,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "194b5097d9cd107495f49c291cf0da65ec2b4bb55e5628369751a3f44ba222b3"
+sha256 = "1685aeacae9a441dcb12c0c3ec63706172a2f52705dafbefb8e7311d4d5e430b"
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check", "!cross"]
 
@@ -62,6 +63,3 @@ def _devel(self):
 @subpackage("librsvg-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
