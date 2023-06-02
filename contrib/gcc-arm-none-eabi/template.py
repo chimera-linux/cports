@@ -1,6 +1,6 @@
 _trip = "arm-none-eabi"
 pkgname = f"gcc-{_trip}"
-pkgver = "12.2.0"
+pkgver = "12.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -63,7 +63,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
-sha256 = "e549cf9cf3594a00e27b6589d4322d70e0720cdd213f39beb4181e06926230ff"
+sha256 = "949a5d4f99e786421a93b532b22ffab5578de7321369975b91aec97adfda8c3b"
 env = {
     "CFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
     "CXXFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
