@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "113.0.1"
+pkgver = "113.0.2"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -61,7 +61,7 @@ license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "c4f86ecbb3f418cf8f0000a3824c0decb6ef2253f468cf6e005c5fd1de33da4d"
+sha256 = "f132b702836311b6cc40873b69df3ce208d035dbc8ce390c390eebd63d27c7a3"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -103,7 +103,7 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in []:
+    for crate in ["bindgen"]:
         cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
@@ -113,6 +113,7 @@ def init_configure(self):
     self.env["AS"] = self.get_tool("CC")
     self.env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
     self.env["RUST_TARGET"] = self.profile().triplet
+    self.env["RUSTFLAGS"] = ""
     # use all the cargo env vars we enforce
     self.env.update(cargo.get_environment(self))
 
