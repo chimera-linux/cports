@@ -1,9 +1,12 @@
 pkgname = "elogind"
-pkgver = "246.10"
-pkgrel = 1
+pkgver = "252.9"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dman=true",
+    "-Dpamconfdir=/etc/pam.d",
+    "-Dpamlibdir=/usr/lib/security",
+    "-Drootlibdir=/usr/lib",
     "-Drootlibexecdir=/usr/libexec/elogind",
     "-Dhalt-path=/usr/bin/halt",
     "-Dreboot-path=/usr/bin/reboot",
@@ -21,6 +24,7 @@ hostmakedepends = [
     "xsltproc",
     "pkgconf",
     "shadow",
+    "python-jinja2",
 ]
 makedepends = [
     "acl-devel",
@@ -29,6 +33,7 @@ makedepends = [
     "libcap-devel",
     "libseccomp-devel",
     "linux-pam-devel",
+    "libmount-devel",
 ]
 checkdepends = ["bash"]
 depends = ["dbus", "turnstile"]
@@ -38,7 +43,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "c490dc158c8f5bca8d00ecfcc7ad5af24d1c7b9e59990a0b3b1323996221a922"
+sha256 = "7af8caa8225a406e77fb99c9f33dba5e1f0a94f0e1277c9d91dcfc016f116d85"
 
 
 def post_install(self):
@@ -93,6 +98,5 @@ def _pam(self):
     return [
         "etc/pam.d",
         "usr/lib/security",
-        "usr/share/factory",
         "usr/share/man/man8/pam_elogind.8",
     ]

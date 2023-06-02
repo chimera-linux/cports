@@ -1,19 +1,19 @@
-From d7ff568b02b623b263df2d2b1fef8d62024e073c Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sat, 12 Nov 2022 03:42:39 +0100
+From 4fd038cf866872163ba9f6db36e686a381147a06 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Fri, 2 Jun 2023 17:29:35 +0200
 Subject: [PATCH] do not configure a runtime directory
 
 This is the job of turnstile.
 ---
  src/login/pam_elogind.c      | 2 ++
- src/login/user-runtime-dir.c | 2 ++
- 2 files changed, 4 insertions(+)
+ src/login/user-runtime-dir.c | 3 ++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/src/login/pam_elogind.c b/src/login/pam_elogind.c
-index 2c70322..179b2aa 100644
+index f8af7a4..c51c652 100644
 --- a/src/login/pam_elogind.c
 +++ b/src/login/pam_elogind.c
-@@ -909,6 +909,7 @@ _public_ PAM_EXTERN int pam_sm_open_session(
+@@ -932,6 +932,7 @@ _public_ PAM_EXTERN int pam_sm_open_session(
          if (r != PAM_SUCCESS)
                  return r;
  
@@ -21,7 +21,7 @@ index 2c70322..179b2aa 100644
          if (original_uid == ur->uid) {
                  /* Don't set $XDG_RUNTIME_DIR if the user we now authenticated for does not match the
                   * original user of the session. We do this in order not to result in privileged apps
-@@ -918,6 +919,7 @@ _public_ PAM_EXTERN int pam_sm_open_session(
+@@ -941,6 +942,7 @@ _public_ PAM_EXTERN int pam_sm_open_session(
                  if (r != PAM_SUCCESS)
                          return r;
          }
@@ -30,25 +30,26 @@ index 2c70322..179b2aa 100644
          /* Most likely we got the session/type/class from environment variables, but might have gotten the data
           * somewhere else (for example PAM module parameters). Let's now update the environment variables, so that this
 diff --git a/src/login/user-runtime-dir.c b/src/login/user-runtime-dir.c
-index 59b3318..5b6e196 100644
+index ee593c3..3612a92 100644
 --- a/src/login/user-runtime-dir.c
 +++ b/src/login/user-runtime-dir.c
-@@ -233,6 +233,7 @@ int user_runtime_dir(const char *verb, User *u) {
+@@ -236,6 +236,7 @@ int user_runtime_dir(const char *verb, User *u) {
                  return do_umount(argv[2]);
-         assert_not_reached("Unknown verb!");
+         assert_not_reached();
  #else // 0
 +#if 0
          if (streq(verb, "start"))
                  r = do_mount(u->runtime_path, u->manager->runtime_dir_size, u->manager->runtime_dir_inodes,
                               u->user_record->uid, u->user_record->gid);
-@@ -240,6 +241,7 @@ int user_runtime_dir(const char *verb, User *u) {
+@@ -243,7 +244,7 @@ int user_runtime_dir(const char *verb, User *u) {
                  r = do_umount(u->runtime_path);
          else
-                 assert_not_reached("Unknown verb!");
+                 assert_not_reached();
+-
 +#endif
- 
          return r;
  #endif // 0
+ }
 -- 
-2.38.1
+2.41.0
 
