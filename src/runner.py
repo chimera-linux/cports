@@ -713,6 +713,7 @@ def do_prune_removed(tgt):
                 f"repository '{repo}' does not match templates"
             )
         tmplp = paths.distdir() / repon
+        touched = False
         for pkg in (repo / archn).glob("*.apk"):
             pkgn = pkg.stem
             rd = pkgn.rfind("-")
@@ -756,9 +757,10 @@ def do_prune_removed(tgt):
                 logger.get().warn(f"Broken symlink for package '{pkgn}'")
             logger.get().out(f"Pruning package: {pkg.name}")
             if not opt_dryrun:
+                touched = True
                 pkg.unlink()
         # reindex
-        if not opt_dryrun:
+        if touched:
             cli.build_index(repo / archn, epoch)
 
     reposd = paths.repository()
