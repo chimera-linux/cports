@@ -1,6 +1,6 @@
-From 1c5feae7170adb0680f7135ba6f72b8f5abf5be9 Mon Sep 17 00:00:00 2001
+From 730c1ba5ec4132a5a0d18c04053ebdfeaedf36c9 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Fri, 25 Feb 2022 00:34:40 +0100
+Date: Sat, 3 Jun 2023 00:25:21 +0200
 Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
 
 ---
@@ -11,10 +11,10 @@ Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
  4 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
-index 9b2b54961..85742a728 100644
+index 76aad16c1..db53459e8 100644
 --- a/src/bootstrap/dist.rs
 +++ b/src/bootstrap/dist.rs
-@@ -522,7 +522,7 @@ impl Step for DebuggerScripts {
+@@ -528,7 +528,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let host = self.host;
          let sysroot = self.sysroot;
@@ -24,7 +24,7 @@ index 9b2b54961..85742a728 100644
          let cp_debugger_script = |file: &str| {
              builder.install(&builder.src.join("src/etc/").join(file), &dst, 0o644);
 diff --git a/src/etc/rust-gdb b/src/etc/rust-gdb
-index b950cea79..559bfe3f1 100755
+index 9abed30ea..4c7f953ed 100755
 --- a/src/etc/rust-gdb
 +++ b/src/etc/rust-gdb
 @@ -12,7 +12,7 @@ fi
@@ -33,11 +33,11 @@ index b950cea79..559bfe3f1 100755
  RUSTC_SYSROOT="$("$RUSTC" --print=sysroot)"
 -GDB_PYTHON_MODULE_DIRECTORY="$RUSTC_SYSROOT/lib/rustlib/etc"
 +GDB_PYTHON_MODULE_DIRECTORY="$RUSTC_SYSROOT/share/rust"
+ # Get the commit hash for path remapping
+ RUSTC_COMMIT_HASH="$("$RUSTC" -vV | sed -n 's/commit-hash: \([a-zA-Z0-9_]*\)/\1/p')"
  
- # Run GDB with the additional arguments that load the pretty printers
- # Set the environment variable `RUST_GDB` to overwrite the call to a
 diff --git a/src/etc/rust-gdbgui b/src/etc/rust-gdbgui
-index 590e488e6..d8347c7a5 100755
+index 913269316..f444fbc4b 100755
 --- a/src/etc/rust-gdbgui
 +++ b/src/etc/rust-gdbgui
 @@ -41,7 +41,7 @@ fi
@@ -46,9 +46,9 @@ index 590e488e6..d8347c7a5 100755
  RUSTC_SYSROOT="$("$RUSTC" --print=sysroot)"
 -GDB_PYTHON_MODULE_DIRECTORY="$RUSTC_SYSROOT/lib/rustlib/etc"
 +GDB_PYTHON_MODULE_DIRECTORY="$RUSTC_SYSROOT/share/rust"
+ # Get the commit hash for path remapping
+ RUSTC_COMMIT_HASH="$("$RUSTC" -vV | sed -n 's/commit-hash: \([a-zA-Z0-9_]*\)/\1/p')"
  
- # Set the environment variable `RUST_GDB` to overwrite the call to a
- # different/specific command (defaults to `gdb`).
 diff --git a/src/etc/rust-lldb b/src/etc/rust-lldb
 index bce72f1ba..8abb01245 100755
 --- a/src/etc/rust-lldb

@@ -1,18 +1,18 @@
-From d8b3affd9571170ff40e5c2e058ffe00188ad3f2 Mon Sep 17 00:00:00 2001
+From 2b92b7f322bc9cb415a9d58dbed111eac49a1c02 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Tue, 8 Nov 2022 15:23:25 +0100
+Date: Sat, 3 Jun 2023 00:33:09 +0200
 Subject: [PATCH 11/11] drop -latomic on risc and elsewhere
 
 ---
  compiler/rustc_llvm/build.rs | 17 +----------------
- src/bootstrap/native.rs      | 13 -------------
+ src/bootstrap/llvm.rs        | 13 -------------
  2 files changed, 1 insertion(+), 29 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 230deaeaf..4aaeb1b95 100644
+index 254889dc0..de2ee282c 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -240,14 +240,7 @@ fn main() {
+@@ -241,14 +241,7 @@ fn main() {
          cmd.arg("--system-libs");
      }
  
@@ -28,7 +28,7 @@ index 230deaeaf..4aaeb1b95 100644
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
      } else if target.contains("netbsd") || target.contains("haiku") || target.contains("darwin") {
-@@ -346,14 +339,6 @@ fn main() {
+@@ -348,14 +341,6 @@ fn main() {
          "stdc++"
      };
  
@@ -43,11 +43,11 @@ index 230deaeaf..4aaeb1b95 100644
      // C++ runtime library
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
-diff --git a/src/bootstrap/native.rs b/src/bootstrap/native.rs
-index 5987b641b..c1842662f 100644
---- a/src/bootstrap/native.rs
-+++ b/src/bootstrap/native.rs
-@@ -386,19 +386,6 @@ impl Step for Llvm {
+diff --git a/src/bootstrap/llvm.rs b/src/bootstrap/llvm.rs
+index a893c3a47..c29b4a1cf 100644
+--- a/src/bootstrap/llvm.rs
++++ b/src/bootstrap/llvm.rs
+@@ -379,19 +379,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  

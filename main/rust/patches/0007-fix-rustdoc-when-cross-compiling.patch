@@ -1,4 +1,4 @@
-From dcdc8fecc1c26325b4512f231c7afa892f28b60c Mon Sep 17 00:00:00 2001
+From 35d0626e1c6802b7807379bb56a5d061690f7ed7 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:38:20 +0100
 Subject: [PATCH 07/11] fix rustdoc when cross-compiling
