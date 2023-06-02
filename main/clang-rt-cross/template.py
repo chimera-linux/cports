@@ -1,5 +1,5 @@
 pkgname = "clang-rt-cross"
-pkgver = "16.0.3"
+pkgver = "16.0.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -53,7 +53,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "3b12e35332e10cf650578ae18247b91b04926d5427e1a6ae9a51d170a47cfbb2"
+sha256 = "37f540124b9cfd4680666e649f557077f9937c9178489cea285a672e714b2863"
 # crosstoolchain
 options = ["!cross", "!check", "!lto"]
 
@@ -141,5 +141,5 @@ def _gen_subp(an):
         depends.append(f"clang-rt-cross-{an}={pkgver}-r{pkgrel}")
 
 
-for an in _targetlist:
-    _gen_subp(an)
+for _an in _targetlist:
+    _gen_subp(_an)
