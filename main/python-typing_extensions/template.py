@@ -1,5 +1,5 @@
 pkgname = "python-typing_extensions"
-pkgver = "4.6.2"
+pkgver = "4.6.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-flit_core"]
@@ -9,6 +9,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://github.com/python/typing"
 source = f"$(PYPI_SITE)/t/typing_extensions/typing_extensions-{pkgver}.tar.gz"
-sha256 = "06006244c70ac8ee83fa8282cb188f697b8db25bc8b4df07be1873c43897060c"
+sha256 = "d91d5919357fe7f681a9f2b5b4cb2a5f1ef0a1e9f59c4d8ff0d3491e05c0ffd5"
 # in early path
 options = ["!check"]
