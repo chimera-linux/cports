@@ -1,7 +1,8 @@
 pkgname = "ocl-icd"
-pkgver = "2.3.1"
+pkgver = "2.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = ["./bootstrap"]
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
@@ -17,13 +18,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://forge.imag.fr/projects/ocl-icd"
 source = f"https://github.com/OCL-dev/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "a32b67c2d52ffbaf490be9fc18b46428ab807ab11eff7664d7ff75e06cfafd6d"
+sha256 = "ec47d7dcd961ea06695b067e8b7edb82e420ddce03e0081a908c62fd0b8535c5"
 # test suite weirdness
 options = ["!check"]
-
-
-def pre_configure(self):
-    self.do(self.chroot_cwd / "bootstrap")
 
 
 def post_install(self):
@@ -35,6 +32,3 @@ def _devel(self):
     self.depends += ["opencl-headers"]
 
     return self.default_devel(extra=["usr/share/doc"])
-
-
-configure_gen = []
