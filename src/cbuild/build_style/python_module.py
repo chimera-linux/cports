@@ -39,10 +39,14 @@ def do_check(self):
             env=self.make_check_env,
         )
     else:
+        ctgt = "test"
+        if self.make_check_target:
+            ctgt = self.make_check_target
+
         self.do(
             "python3",
             "setup.py",
-            self.make_check_target,
+            ctgt,
             *self.make_check_args,
             env=self.make_check_env,
         )
@@ -67,5 +71,5 @@ def use(tmpl):
     tmpl.do_install = do_install
 
     tmpl.build_style_defaults = [
-        ("make_check_target", "test"),
+        ("make_check_target", ""),
     ]

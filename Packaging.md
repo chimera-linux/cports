@@ -1163,7 +1163,7 @@ A build style for Python modules (using `setup.py`).
 
 Default values:
 
-* `make_check_target` = `test`
+* `make_check_target` =
 
 Sets `do_build`, `do_check`, `do_install`.
 
@@ -1173,6 +1173,10 @@ plus any `self.make_build_args`.
 The `do_install` executes `setup.py` with `python`, with the `install` target
 and arguments `--prefix=/usr`, `--root={self.chroot_destdir}` plus any
 `self.make_install_args`.
+
+The `do_check` will use `pytest` if installed, or `setup.py` with `test`
+target by default, unless `make_check_target` is non-empty. For `pytest`,
+no target is passed by default, unless set to a value.
 
 #### python_pep517
 

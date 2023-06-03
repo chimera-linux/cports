@@ -2,7 +2,6 @@ pkgname = "python-click"
 pkgver = "8.1.3"
 pkgrel = 0
 build_style = "python_module"
-make_check_target = ""
 make_check_env = {"PYTHONPATH": "src"}
 hostmakedepends = ["python-setuptools"]
 depends = ["python"]
