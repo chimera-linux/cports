@@ -1,0 +1,44 @@
+commit 7318e1d8f36ea1197d7fe31356c74b1873984c1b
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 6 00:03:49 2023 +0200
+
+    try to fix up date invocation
+
+diff --git a/test/makekeys.sh b/test/makekeys.sh
+index 88dc7b3..f845a39 100755
+--- a/test/makekeys.sh
++++ b/test/makekeys.sh
+@@ -16,7 +16,7 @@ CADIR=./ca
+ export REQDN STRMASK CADIR
+ 
+ asn1date() {
+-	date -d "$1" "+%y%m%d%H%M%SZ"
++	date -v$1 "+%y%m%d%H%M%SZ"
+ }
+ 
+ openssl version 1>&2
+@@ -75,10 +75,10 @@ csr_fields ExpiredCA | ${REQ} -new -key ca1/key.pem -out ca1/cert.csr
+ 
+ csr_fields NotYetValidCA | ${REQ} -new -key ca3/key.pem -out ca3/cert.csr
+ 
+-CADIR=./ca1 ${CA} -name neoncainit -extensions caExt -startdate `asn1date "2 days ago"` -enddate `asn1date "yesterday"` \
++CADIR=./ca1 ${CA} -name neoncainit -extensions caExt -startdate `asn1date -2d` -enddate `asn1date -1d` \
+   -in ca1/cert.csr -keyfile ca1/key.pem -out ca1/cert.pem -selfsign
+ 
+-CADIR=./ca3 ${CA} -name neoncainit -extensions caExt -startdate `asn1date "1 year"` -enddate `asn1date "2 years"` \
++CADIR=./ca3 ${CA} -name neoncainit -extensions caExt -startdate `asn1date +1y` -enddate `asn1date +2y` \
+   -in ca3/cert.csr -keyfile ca3/key.pem -out ca3/cert.pem -selfsign
+ 
+ csr_fields | ${REQ} -new -key server.key -out server.csr
+@@ -192,9 +192,9 @@ for f in server client clientdsa twocn caseless cnfirst \
+   ${CA} -days 900 -in ${f}.csr -out ${f}.cert
+ done
+ 
+-${CA} -startdate `asn1date "2 days ago"` -enddate `asn1date "yesterday"` -in expired.csr -out expired.cert
++${CA} -startdate `asn1date -2d` -enddate `asn1date -1d` -in expired.csr -out expired.cert
+ 
+-${CA} -startdate `asn1date "tomorrow"` -enddate `asn1date "2 days"` -in notyet.csr -out notyet.cert
++${CA} -startdate `asn1date +1d` -enddate `asn1date +2d` -in notyet.csr -out notyet.cert
+ 
+ for n in 1 2 3 4 5 6 7 8 9; do
+  ${CA} -extensions altExt${n} -days 900 \
