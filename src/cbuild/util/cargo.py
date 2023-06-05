@@ -30,10 +30,15 @@ def get_environment(pkg, jobs=None):
         # sodium-sys
         "SODIUM_LIB_DIR": str(sroot / "usr/lib"),
         "SODIUM_INC_DIR": str(sroot / "usr/include"),
+        "SODIUM_SHARED": "1",
         # openssl-sys
         "OPENSSL_NO_VENDOR": "1",
         # pcre2-sys
         "PCRE2_SYS_STATIC": "0",
+        # rustonig-sys
+        "RUSTONIG_SYSTEM_LIBONIG": "1",
+        # zstd-sys
+        "ZSTD_SYS_USE_PKG_CONFIG": "1",
         # cc-rs: make sure host compiler autoguess behavior is bypassed
         "HOST_CC": "clang",
         "HOST_CFLAGS": "-O2",
