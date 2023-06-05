@@ -1,0 +1,38 @@
+commit 9cda3671e7a1d0c3e39cd96ccc4e0e7ce4879fe4
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 6 01:05:21 2023 +0200
+
+    define copy ctor
+
+diff --git a/src/lib/FHTransform.cpp b/src/lib/FHTransform.cpp
+index bbe534c..e08610b 100644
+--- a/src/lib/FHTransform.cpp
++++ b/src/lib/FHTransform.cpp
+@@ -26,6 +26,15 @@ libfreehand::FHTransform::FHTransform(const FHTransform &trafo)
+   : m_m11(trafo.m_m11), m_m21(trafo.m_m21), m_m12(trafo.m_m12),
+     m_m22(trafo.m_m22), m_m13(trafo.m_m13), m_m23(trafo.m_m23) {}
+ 
++libfreehand::FHTransform &libfreehand::FHTransform::operator=(const FHTransform &trafo) {
++    m_m11 = trafo.m_m11;
++    m_m21 = trafo.m_m21;
++    m_m12 = trafo.m_m12;
++    m_m22 = trafo.m_m22;
++    m_m13 = trafo.m_m13;
++    m_m23 = trafo.m_m23;
++    return *this;
++}
+ 
+ void libfreehand::FHTransform::applyToPoint(double &x, double &y) const
+ {
+diff --git a/src/lib/FHTransform.h b/src/lib/FHTransform.h
+index a53e13a..58a7f6b 100644
+--- a/src/lib/FHTransform.h
++++ b/src/lib/FHTransform.h
+@@ -20,6 +20,7 @@ struct FHTransform
+   FHTransform();
+   FHTransform(double m11, double m21, double m12, double m22, double m13, double m23);
+   FHTransform(const FHTransform &trafo);
++  FHTransform &operator=(const FHTransform &trafo);
+ 
+   void applyToPoint(double &x, double &y) const;
+   void applyToArc(double &rx, double &ry, double &rotation, bool &sweep, double &endx, double &endy) const;
