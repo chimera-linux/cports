@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "0.3.71"
-pkgrel = 0
+pkgrel = 1
 _pms_version = "0.4.1"
 build_style = "meson"
 configure_args = [
@@ -162,6 +162,21 @@ def _alsa(self):
         "usr/lib/alsa-lib",
         "usr/share/alsa/alsa.conf.d",
     ]
+
+
+@subpackage("alsa-pipewire-default")
+def _alsadef(self):
+    self.pkgdesc = f"{pkgdesc} (use for ALSA by default)"
+    self.install_if = [f"alsa-pipewire={pkgver}-r{pkgrel}"]
+
+    def inst():
+        self.mkdir(self.destdir / "etc/alsa/conf.d", parents=True)
+        self.ln_s(
+            "../../../usr/share/alsa/alsa.conf.d/99-pipewire-default.conf",
+            self.destdir / "etc/alsa/conf.d/99-pipewire-default.conf",
+        )
+
+    return inst
 
 
 @subpackage("pipewire-wireplumber")
