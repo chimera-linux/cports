@@ -20,6 +20,7 @@ makedepends = [
     "gspell-devel",
     "lcms2-devel",
     "libcdr-devel",
+    "libwpg-devel",
     "libvisio-devel",
     "librevenge-devel",
     "libjpeg-turbo-devel",
