@@ -1,0 +1,19 @@
+commit 6e89d49421baf3e38986196bc09bc5fd11cf9504
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 6 00:47:41 2023 +0200
+
+    fix build
+
+diff --git a/src/python/root.cpp b/src/python/root.cpp
+index 91e7c18..b86b51f 100644
+--- a/src/python/root.cpp
++++ b/src/python/root.cpp
+@@ -34,7 +34,7 @@ PyObject* detect_format(PyObject* /*module*/, PyObject* args, PyObject* kwargs)
+ 
+     try
+     {
+-        format_t ft = orcus::detect({p, n});
++        format_t ft = orcus::detect({p, size_t(n)});
+ 
+         switch (ft)
+         {
