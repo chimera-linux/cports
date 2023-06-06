@@ -1,0 +1,19 @@
+commit 1960a51971e3dbf2ddebd36b6faacd79a6cc592d
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 6 02:57:17 2023 +0200
+
+    make usleep available
+
+diff --git a/src/test/search/TestIndexSearcher.cpp b/src/test/search/TestIndexSearcher.cpp
+index a5b6122..bdd651c 100644
+--- a/src/test/search/TestIndexSearcher.cpp
++++ b/src/test/search/TestIndexSearcher.cpp
+@@ -6,6 +6,8 @@
+ ------------------------------------------------------------------------------*/
+ #include "test.h"
+ 
++#include <unistd.h>
++
+ DEFINE_MUTEX(searchMutex);
+ DEFINE_CONDITION(searchCondition);
+ 

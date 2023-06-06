@@ -1,0 +1,47 @@
+commit 20fbd06bad37c2b97dd96e70bf1d73ef4f46cf99
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 6 03:03:56 2023 +0200
+
+    fix other tests shit
+
+diff --git a/src/core/CLucene/util/PriorityQueue.h b/src/core/CLucene/util/PriorityQueue.h
+index ac25cde..24e968f 100644
+--- a/src/core/CLucene/util/PriorityQueue.h
++++ b/src/core/CLucene/util/PriorityQueue.h
+@@ -160,7 +160,7 @@ class CLUCENE_INLINE_EXPORT PriorityQueue {
+ 				downHeap();				  // adjust heap
+ 				return result;
+ 			} else
+-				return (_type)NULL;
++				return (_type)0;
+ 		}
+ 
+ 		/**Should be called when the object at top changes values.  Still log(n)
+diff --git a/src/test/contribs-lib/analysis/de/TestGermanStemFilter.cpp b/src/test/contribs-lib/analysis/de/TestGermanStemFilter.cpp
+index 7915587..23d191f 100644
+--- a/src/test/contribs-lib/analysis/de/TestGermanStemFilter.cpp
++++ b/src/test/contribs-lib/analysis/de/TestGermanStemFilter.cpp
+@@ -8,8 +8,8 @@
+ #include "test.h"
+ #include "CLucene/util/CLStreams.h"
+ #include "CLucene/analysis/Analyzers.h"
+-#include "CLucene/analysis/de/GermanStemmer.h"
+-#include "CLucene/analysis/de/GermanStemFilter.h"
++#include "CLucene/../../contribs-lib/CLucene/analysis/de/GermanStemmer.h"
++#include "CLucene/../../contribs-lib/CLucene/analysis/de/GermanStemFilter.h"
+ #include "CLucene/analysis/standard/StandardTokenizer.h"
+ 
+ CL_NS_USE(util)
+diff --git a/src/test/queryParser/TestMultiFieldQueryParser.cpp b/src/test/queryParser/TestMultiFieldQueryParser.cpp
+index ebe1160..24f24df 100644
+--- a/src/test/queryParser/TestMultiFieldQueryParser.cpp
++++ b/src/test/queryParser/TestMultiFieldQueryParser.cpp
+@@ -77,7 +77,7 @@ void assertQueryEquals(CuTest *tc,const TCHAR* result, Query* q) {
+ // verify parsing of query using a stopping analyzer
+ void assertStopQueryEquals(CuTest *tc, const TCHAR* qtxt, const TCHAR* expectedRes) {
+ 	const TCHAR* fields[] = {_T("b"), _T("t"), NULL };
+-	const uint8_t occur[] = {BooleanClause::SHOULD, BooleanClause::SHOULD, NULL};
++	const uint8_t occur[] = {BooleanClause::SHOULD, BooleanClause::SHOULD, 0};
+ 	MQPTestAnalyzer *a = _CLNEW MQPTestAnalyzer();
+ 	MultiFieldQueryParser mfqp(fields, a);
+ 

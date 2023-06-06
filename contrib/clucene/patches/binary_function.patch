@@ -1,0 +1,118 @@
+commit 6ca3a552ed87a592468e1a15825b3ef2a9f1c409
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 6 02:43:17 2023 +0200
+
+    drop binary_function
+
+diff --git a/src/core/CLucene/index/_Term.h b/src/core/CLucene/index/_Term.h
+index 28baf13..071771e 100644
+--- a/src/core/CLucene/index/_Term.h
++++ b/src/core/CLucene/index/_Term.h
+@@ -13,7 +13,7 @@
+ CL_NS_DEF(index)
+ 
+ 
+-class Term_Equals:public CL_NS_STD(binary_function)<const Term*,const Term*,bool>
++class Term_Equals
+ {
+ public:
+ 	bool operator()( const Term* val1, const Term* val2 ) const{
+diff --git a/src/core/CLucene/search/BooleanQuery.cpp b/src/core/CLucene/search/BooleanQuery.cpp
+index 29a1ef7..67fe3a6 100644
+--- a/src/core/CLucene/search/BooleanQuery.cpp
++++ b/src/core/CLucene/search/BooleanQuery.cpp
+@@ -25,7 +25,7 @@ CL_NS_USE(index)
+ CL_NS_USE(util)
+ CL_NS_DEF(search)
+ 
+-	class BooleanClause_Compare:public CL_NS_STD(binary_function)<const BooleanClause*,const BooleanClause*,bool>
++	class BooleanClause_Compare
+ 	{
+ 	public:
+ 		bool operator()( const BooleanClause* val1, const BooleanClause* val2 ) const {
+diff --git a/src/core/CLucene/search/MultiPhraseQuery.cpp b/src/core/CLucene/search/MultiPhraseQuery.cpp
+index 3c50676..56fdf61 100644
+--- a/src/core/CLucene/search/MultiPhraseQuery.cpp
++++ b/src/core/CLucene/search/MultiPhraseQuery.cpp
+@@ -377,7 +377,7 @@ TCHAR* MultiPhraseQuery::toString(const TCHAR* f) const {
+ 	return buffer.giveBuffer();
+ }
+ 
+-class TermArray_Equals:public CL_NS_STD(binary_function)<const Term**,const Term**,bool>
++class TermArray_Equals
+ {
+ public:
+ 	bool operator()( CL_NS(util)::ArrayBase<CL_NS(index)::Term*>* val1, CL_NS(util)::ArrayBase<CL_NS(index)::Term*>* val2 ) const{
+diff --git a/src/core/CLucene/util/Equators.h b/src/core/CLucene/util/Equators.h
+index 8cc85db..ef76ba8 100644
+--- a/src/core/CLucene/util/Equators.h
++++ b/src/core/CLucene/util/Equators.h
+@@ -22,19 +22,19 @@ CL_NS_DEF(util)
+ /** @internal */
+ class CLUCENE_INLINE_EXPORT Equals{
+ public:
+-	class CLUCENE_INLINE_EXPORT Int32:public CL_NS_STD(binary_function)<const int32_t*,const int32_t*,bool>
++	class CLUCENE_INLINE_EXPORT Int32
+ 	{
+ 	public:
+ 		bool operator()( const int32_t val1, const int32_t val2 ) const;
+ 	};
+ 	
+-	class CLUCENE_INLINE_EXPORT Char:public CL_NS_STD(binary_function)<const char*,const char*,bool>
++	class CLUCENE_INLINE_EXPORT Char
+ 	{
+ 	public:
+ 		bool operator()( const char* val1, const char* val2 ) const;
+ 	};
+ #ifdef _UCS2
+-	class CLUCENE_INLINE_EXPORT WChar: public CL_NS_STD(binary_function)<const wchar_t*,const wchar_t*,bool>
++	class CLUCENE_INLINE_EXPORT WChar
+ 	{
+ 	public:
+ 		bool operator()( const wchar_t* val1, const wchar_t* val2 ) const;
+@@ -48,7 +48,7 @@ public:
+ 
+ 
+     template<typename _cl>
+-	class CLUCENE_INLINE_EXPORT Void:public CL_NS_STD(binary_function)<const void*,const void*,bool>
++	class CLUCENE_INLINE_EXPORT Void
+ 	{
+ 	public:
+ 		bool operator()( _cl* val1, _cl* val2 ) const{
+diff --git a/src/core/CLucene/util/_Arrays.h b/src/core/CLucene/util/_Arrays.h
+index cd446bf..f8a178c 100644
+--- a/src/core/CLucene/util/_Arrays.h
++++ b/src/core/CLucene/util/_Arrays.h
+@@ -124,8 +124,7 @@ CL_NS_DEF(util)
+ 	
+ 	template <typename _kt, typename _comparator, 
+ 		typename class1, typename class2>
+-	class CLListEquals:
+-		public CL_NS_STD(binary_function)<class1*,class2*,bool>
++	class CLListEquals
+ 	{
+ 	typedef typename class1::const_iterator _itr1;
+ 	typedef typename class2::const_iterator _itr2;
+diff --git a/src/test/index/TestTermVectorsReader.cpp b/src/test/index/TestTermVectorsReader.cpp
+index e86ea40..ba4aaeb 100644
+--- a/src/test/index/TestTermVectorsReader.cpp
++++ b/src/test/index/TestTermVectorsReader.cpp
+@@ -93,16 +93,14 @@ CL_NS_USE(util);
+     }
+   };
+ 
+-  struct MyTCharCompare :
+-    public std::binary_function<const TCHAR*, const TCHAR*, bool>
++  struct MyTCharCompare
+   {
+     bool operator () (const TCHAR* v1, const TCHAR* v2) const {
+       return _tcscmp(v1, v2) < 0;
+     }
+   };
+ 
+-  struct TestTokenCompare : 
+-    public std::binary_function<const TestToken*, const TestToken*, bool>
++  struct TestTokenCompare
+   {
+     bool operator () (const TestToken* t1, const TestToken* t2) const {
+       return t1->pos < t2->pos;

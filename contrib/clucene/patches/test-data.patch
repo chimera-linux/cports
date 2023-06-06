@@ -1,0 +1,46 @@
+commit fd7808103c77380a48cf0dcfbfe42da1ed426cac
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 6 02:55:49 2023 +0200
+
+    disambiguate data
+
+diff --git a/src/test/search/TestSort.cpp b/src/test/search/TestSort.cpp
+index f32d364..f842863 100644
+--- a/src/test/search/TestSort.cpp
++++ b/src/test/search/TestSort.cpp
+@@ -29,7 +29,7 @@ typedef std::pair<TCHAR*,float_t> scorePair;
+ // the int field to _sort by int
+ // the float field to _sort by float
+ // the string field to _sort by string
+-const TCHAR* data[11][6] = {
++const TCHAR* datap[11][6] = {
+ 	// tracer       contents            int                 float               string      custom
+ 	{   _T("A"),   _T("x a"),           _T("5"),           _T("4f"),           _T("c"),     _T("A-3")   },
+ 	{   _T("B"),   _T("y a"),           _T("5"),           _T("3.4028235E38"), _T("i"),     _T("B-10")  },
+@@ -50,16 +50,16 @@ Searcher* sort_getIndex (bool even, bool odd){
+ 	for (int i=0; i<11; ++i) {
+ 		if (((i%2)==0 && even) || ((i%2)==1 && odd)) {
+ 			Document doc;
+-			doc.add (*_CLNEW Field ( _T("tracer"),   data[i][0], Field::STORE_YES));
+-			doc.add (*_CLNEW Field ( _T("contents"), data[i][1], Field::INDEX_TOKENIZED));
+-			if (data[i][2] != NULL)
+-                doc.add (*_CLNEW Field (_T("int"),   data[i][2], Field::INDEX_UNTOKENIZED));
+-			if (data[i][3] != NULL)
+-                doc.add (*_CLNEW Field (_T("float"),    data[i][3], Field::INDEX_UNTOKENIZED));
+-			if (data[i][4] != NULL)
+-                doc.add (*_CLNEW Field (_T("string"),   data[i][4], Field::INDEX_UNTOKENIZED));
+-			if (data[i][5] != NULL)
+-                doc.add (*_CLNEW Field (_T("custom"),   data[i][5], Field::INDEX_UNTOKENIZED));
++			doc.add (*_CLNEW Field ( _T("tracer"),   datap[i][0], Field::STORE_YES));
++			doc.add (*_CLNEW Field ( _T("contents"), datap[i][1], Field::INDEX_TOKENIZED));
++			if (datap[i][2] != NULL)
++                doc.add (*_CLNEW Field (_T("int"),   datap[i][2], Field::INDEX_UNTOKENIZED));
++			if (datap[i][3] != NULL)
++                doc.add (*_CLNEW Field (_T("float"),    datap[i][3], Field::INDEX_UNTOKENIZED));
++			if (datap[i][4] != NULL)
++                doc.add (*_CLNEW Field (_T("string"),   datap[i][4], Field::INDEX_UNTOKENIZED));
++			if (datap[i][5] != NULL)
++                doc.add (*_CLNEW Field (_T("custom"),   datap[i][5], Field::INDEX_UNTOKENIZED));
+ 			writer.addDocument (&doc);
+ 		}
+ 	}
