@@ -138,6 +138,8 @@ def invoke(pkg):
             if isinstance(d, tuple) and not isinstance(d[1], bool):
                 fname = d[1]
             else:
+                if isinstance(d, tuple) and isinstance(d[1], bool):
+                    d = d[0]
                 fname = d[d.rfind("/") + 1 :]
             suffix = None
             for key in suffixes:
