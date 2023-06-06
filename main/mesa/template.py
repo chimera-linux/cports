@@ -192,6 +192,10 @@ configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
 
 
 def post_install(self):
+    self.install_file(
+        self.files_path / "00-radeonsi-gnome-no-glthread.conf",
+        "usr/share/drirc.d",
+    )
     self.install_license("docs/license.rst")
 
 
