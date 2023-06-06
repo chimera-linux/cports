@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "23.1.1"
-pkgrel = 1
+pkgver = "23.1.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
@@ -66,7 +66,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a2679031ed5b73b29c4f042ac64d96f83b0cfe4858617de32e2efc196c653a40"
+sha256 = "60b1f3adb1561830c158bf3c68508943674fb9d69f384c3c7289694385ab5c7e"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -192,6 +192,10 @@ configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
 
 
 def post_install(self):
+    self.install_file(
+        self.files_path / "00-radeonsi-gnome-no-glthread.conf",
+        "usr/share/drirc.d",
+    )
     self.install_license("docs/license.rst")
 
 
