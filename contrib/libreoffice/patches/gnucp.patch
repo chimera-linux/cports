@@ -1,0 +1,26 @@
+commit 0bc0e6d7143b7301badcd10d90032b8b98a9edd3
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Jun 6 15:30:47 2023 +0200
+
+    patch out gnu cp requirement
+
+diff --git a/configure.ac b/configure.ac
+index ebbe719..c7c9a4f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -11553,14 +11553,11 @@ elif $GNUCP --version 2>/dev/null | grep "GNU fileutils" >/dev/null 2>/dev/null;
+     AC_MSG_RESULT([yes])
+ else
+     case "$build_os" in
+-    darwin*|netbsd*|openbsd*|freebsd*|dragonfly*|aix*)
++    *)
+         x_GNUCP=[\#]
+         GNUCP=''
+         AC_MSG_RESULT([no gnucp found - using the system's cp command])
+         ;;
+-    *)
+-        AC_MSG_ERROR([no, GNU cp needed. install or specify with --with-gnu-cp=/path/to/it])
+-        ;;
+     esac
+ fi
+ 

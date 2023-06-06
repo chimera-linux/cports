@@ -1,0 +1,20 @@
+commit 51c5ffad384ebb99398d234755e27134f78466bc
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Wed Jun 7 01:05:52 2023 +0200
+
+    drop lto plugin nonsense
+
+diff --git a/solenv/gbuild/platform/com_GCC_defs.mk b/solenv/gbuild/platform/com_GCC_defs.mk
+index 6eeda2fc0..25822015d 100644
+--- a/solenv/gbuild/platform/com_GCC_defs.mk
++++ b/solenv/gbuild/platform/com_GCC_defs.mk
+@@ -193,9 +193,6 @@ gb_CFLAGS_COMMON += -std=gnu89
+ ifeq ($(ENABLE_LTO),TRUE)
+ ifeq ($(COM_IS_CLANG),TRUE)
+ gb_LTOFLAGS := -flto=thin
+-ifeq (,$(index,iOS MACOSX,$(OS)))
+-gb_LTOPLUGINFLAGS := --plugin $(if $(LD_PLUGIN),$(LD_PLUGIN),LLVMgold.so)
+-endif
+ else
+ # use parallelism based on make's job handling
+ gb_LTOFLAGS := -flto=jobserver -fuse-linker-plugin -O2
