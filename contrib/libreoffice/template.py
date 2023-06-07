@@ -1,7 +1,9 @@
 pkgname = "libreoffice"
 pkgver = "7.5.3.2"
 pkgrel = 0
-archs = ["x86_64", "aarch64", "ppc64le"]
+# aarch64: segfaults during build (likely uno)
+# riscv64: no handling of libcxxabi + likely too slow
+archs = ["x86_64", "ppc64le"]
 build_style = "gnu_configure"
 configure_args = [
     "--with-vendor=Chimera Linux",
