@@ -19,3 +19,4 @@ def invoke(pkg):
         with open(f.with_suffix(""), "wb") as uf:
             uf.write(gf.read())
         gf.close()
+        f.unlink()
