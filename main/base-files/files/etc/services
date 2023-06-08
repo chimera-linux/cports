@@ -10754,6 +10754,7 @@ dsmcc-download  13821/udp
 dsmcc-ccp       13822/tcp
 dsmcc-ccp       13822/udp
 bmdss           13823/tcp
+a-trust-rpc     13832/tcp
 ucontrol        13894/tcp
 ucontrol        13894/udp
 dta-systems     13929/tcp
