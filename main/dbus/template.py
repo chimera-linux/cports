@@ -1,5 +1,5 @@
 pkgname = "dbus"
-pkgver = "1.14.6"
+pkgver = "1.14.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,6 +16,7 @@ configure_args = [
     "--with-system-socket=/run/dbus/system_bus_socket",
     "--with-system-pid-file=/run/dbus/pid",
 ]
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "gperf", "pkgconf", "xmlto"]
 makedepends = ["libexpat-devel", "libx11-devel", "libcap-devel"]
@@ -27,7 +28,7 @@ url = "https://dbus.freedesktop.org"
 source = (
     f"https://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "fd2bdf1bb89dc365a46531bff631536f22b0d1c6d5ce2c5c5e59b55265b3d66b"
+sha256 = "a6bd5bac5cf19f0c3c594bdae2565a095696980a683a0ef37cb6212e093bde35"
 suid_files = ["usr/libexec/dbus-daemon-launch-helper"]
 file_modes = {"usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
 # FIXME cfi
@@ -85,6 +86,3 @@ def _x11(self):
         "usr/bin/dbus-launch",
         "usr/share/man/man1/dbus-launch.1",
     ]
-
-
-configure_gen = []
