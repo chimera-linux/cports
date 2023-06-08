@@ -1,15 +1,15 @@
 pkgname = "xorgproto"
-pkgver = "2022.2"
+pkgver = "2023.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-legacy"]
-hostmakedepends = ["pkgconf", "xorg-util-macros"]
+hostmakedepends = ["pkgconf", "xorg-util-macros", "automake", "libtool"]
 pkgdesc = "Combined X.Org X11 protocol headers"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/proto/{pkgname}-{pkgver}.tar.gz"
-sha256 = "da351a403d07a7006d7bdc8dcfc14ddc1b588b38fb81adab9989a8eef605757b"
+sha256 = "c9225c6887b1cb16a762f2e14e7fb56328f53bc5d804e760dcddefc97cc52f35"
 # we don't want dependencies on all the pkg-config stuff
 options = ["!scanrundeps"]
 
@@ -33,6 +33,3 @@ def post_install(self):
 
     # provided by libx11-devel
     self.rm(self.destdir / "usr/include/X11/extensions/XKBgeom.h")
-
-
-configure_gen = []
