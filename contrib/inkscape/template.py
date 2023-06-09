@@ -1,6 +1,6 @@
 pkgname = "inkscape"
 pkgver = "1.2.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DBUILD_TESTING=OFF"]
 hostmakedepends = [
