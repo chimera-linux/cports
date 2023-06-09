@@ -1,4 +1,4 @@
-commit 637cf55c147fdae7901a29348e3b526544a2b740
+commit b9ff00f339e65e174d6c2993ca9d5234daef73c4
 Author: Daniel Kolesa <daniel@octaforge.org>
 Date:   Thu Jun 8 23:21:16 2023 +0200
 
@@ -18,12 +18,12 @@ index 5dc92c23c..bdd4f1b27 100644
  else ifeq ($(CPUNAME),S390)
 diff --git a/bridges/source/cpp_uno/gcc3_linux_powerpc64/call.s b/bridges/source/cpp_uno/gcc3_linux_powerpc64/call.s
 new file mode 100644
-index 000000000..54279251b
+index 000000000..f20c598e6
 --- /dev/null
 +++ b/bridges/source/cpp_uno/gcc3_linux_powerpc64/call.s
 @@ -0,0 +1,478 @@
 +	.file	"uno_ppc64_asm.cc"
-+	.machine power8
++	.machine power4
 +	.abiversion 2
 +	.section	".text"
 +	.align 2
@@ -50,16 +50,12 @@ index 000000000..54279251b
 +	std 6,120(31)
 +	std 7,112(31)
 +	std 9,104(31)
++	mr 9,4
++	stw 9,248(31)
++	mr 9,8
++	stw 9,280(31)
 +	mr 9,10
-+	mtvsrwz 0,4
-+	addi 10,31,248
-+	stfiwx 0,0,10
-+	mtvsrwz 0,8
-+	addi 10,31,280
-+	stfiwx 0,0,10
-+	mtvsrwz 0,9
-+	addi 9,31,296
-+	stfiwx 0,0,9
++	stw 9,296(31)
 +	ld 9,304(31)
 +	std 9,96(31)
 +	ld 9,-28688(13)
@@ -74,11 +70,19 @@ index 000000000..54279251b
 +	rlwinm 9,9,0,0,30
 +	stw 9,280(31)
 +.L2:
++#ifdef __LITTLE_ENDIAN__
 +	lwz 9,312(31)
++#else
++	lwz 9,316(31)
++#endif
 +	cmplwi 0,9,13
 +	ble 0,.L3
 +	li 9,13
++#ifdef __LITTLE_ENDIAN__
 +	stw 9,312(31)
++#else
++	stw 9,316(31)
++#endif
 +.L3:
 +	lwz 9,296(31)
 +	cmplwi 0,9,8
@@ -433,15 +437,13 @@ index 000000000..54279251b
 +	mr 31,1
 +	.cfi_def_cfa_register 31
 +	std 3,56(31)
-+	mr 8,4
-+	mr 10,5
-+	mr 9,6
-+	mtvsrwz 0,8
-+	addi 8,31,52
-+	stfiwx 0,0,8
-+	mtvsrwz 0,10
-+	addi 10,31,48
-+	stfiwx 0,0,10
++	mr 9,4
++	mr 8,5
++	mr 10,6
++	stw 9,52(31)
++	mr 9,8
++	stw 9,48(31)
++	mr 9,10
 +	stb 9,47(31)
 +	lwa 9,48(31)
 +	sldi 10,9,32
@@ -497,8 +499,6 @@ index 000000000..54279251b
 +	.cfi_endproc
 +.LFE2:
 +	.size	codeSnippet,.-codeSnippet
-+	.ident	"GCC: (GNU) 10.2.1 20201203"
-+	.gnu_attribute 4, 9
 +	.section	.note.GNU-stack,"",@progbits
 diff --git a/bridges/source/cpp_uno/gcc3_linux_powerpc64/cpp2uno.cxx b/bridges/source/cpp_uno/gcc3_linux_powerpc64/cpp2uno.cxx
 index ab3fbd4c7..c0a207b71 100644
