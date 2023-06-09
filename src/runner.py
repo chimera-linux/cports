@@ -1281,30 +1281,101 @@ def do_print_unbuilt(tgt):
 
 
 def do_update_check(tgt):
-    from cbuild.core import update_check, template, chroot, errors
+    from cbuild.core import update_check, template, chroot
 
-    if len(cmdline.command) < 2:
-        raise errors.CbuildException("update-check needs a target package")
+    namelen = 0
+    verlen = 0
 
+    def _do_readpkg(pkgn):
+        nonlocal namelen, verlen
+
+        tmpl = template.read_pkg(
+            pkgn,
+            chroot.host_cpu(),
+            True,
+            False,
+            (1, 1),
+            False,
+            False,
+            None,
+            target="lint",
+        )
+
+        if len(tmpl.pkgver) > verlen:
+            verlen = len(tmpl.pkgver)
+        if len(tmpl.pkgname) > namelen:
+            namelen = len(tmpl.pkgname)
+
+        return tmpl
+
+    def _print_upd(pn, pv, nv):
+        # align name
+        s = f"{pn}: "
+        s += " " * (namelen - len(pn))
+        # add version
+        vs = f"{pv} -> {nv}"
+        s += vs
+        print(s)
+
+    pkgs = []
     verbose = False
 
-    if len(cmdline.command) > 2:
-        verbose = True
+    if len(cmdline.command) < 2:
+        cats = opt_allowcat.strip().split()
+        # collect the templates we have
+        for cat in cats:
+            pkgs += _collect_tmpls(None, cat)
+    else:
+        pkgs.append(cmdline.command[1])
+        if len(cmdline.command) > 2:
+            verbose = True
 
-    pkgn = cmdline.command[1]
-    tmpl = template.read_pkg(
-        pkgn,
-        chroot.host_cpu(),
-        True,
-        False,
-        (1, 1),
-        False,
-        False,
-        None,
-        target="lint",
+    tmpls = []
+    for pkg in pkgs:
+        tmpls.append(_do_readpkg(pkg))
+
+    if len(tmpls) == 1:
+        cv = update_check.update_check(tmpls[0], verbose)
+        for pn, pv, nv in cv:
+            _print_upd(pn, pv, nv)
+        return
+
+    maint = None
+    pmaint = False
+    first = True
+
+    # sorted by maintainer for convenience (and then by name)
+    # put a placeholder for no maintainer, print orphaned first
+    stmpls = sorted(
+        tmpls,
+        key=lambda tmpl: (
+            tmpl.maintainer if tmpl.maintainer else "!!!",
+            tmpl.pkgname,
+        ),
     )
 
-    update_check.update_check(tmpl, verbose)
+    for tmpl in stmpls:
+        if tmpl.maintainer != maint:
+            maint = tmpl.maintainer
+            pmaint = False
+        # check each package, print maintainer when we find something
+        cv = update_check.update_check(tmpl, verbose)
+        if cv and not pmaint:
+            if first:
+                first = False
+            else:
+                # put an empty line inbetween different maintainers' stuff
+                print()
+            if maint:
+                print(maint)
+                print("-" * len(maint))
+            else:
+                print("ORPHANED PACKAGES")
+                print("-----------------")
+            pmaint = True
+        # now we can actually print the versions
+        for pn, pv, nv in cv:
+            _print_upd(pn, pv, nv)
 
 
 def do_dump(tgt):

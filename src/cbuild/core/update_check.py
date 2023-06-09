@@ -378,6 +378,7 @@ def update_check(pkg, verbose=False):
     collect_sources = None
     expand_source = None
     fetch_versions = None
+    checkvers = []
 
     if verbose:
         print(f"Checking for updates: {pkg.pkgname}={pkg.pkgver}")
@@ -436,7 +437,7 @@ def update_check(pkg, verbose=False):
             uc.vdsuffix = modh.vdsuffix
 
     if uc.ignore is True or pkg.build_style == "meta":
-        return
+        return checkvers
 
     # use hooks if defined
 
@@ -470,7 +471,7 @@ def update_check(pkg, verbose=False):
         time.sleep(vers)
 
         if verbose:
-            print(f"No versions fetched, retrying...")
+            print("No versions fetched, retrying...")
 
     vers = list(set(vers))
     vers.sort(key=_ver_conv)
@@ -498,4 +499,6 @@ def update_check(pkg, verbose=False):
             uc.pkgver.replace("-", "."), v.replace("-", "."), False
         )
         if ret == -1:
-            print(f"{pkg.pkgname}={pkg.pkgver} -> {pkg.pkgname}={v}")
+            checkvers.append((pkg.pkgname, pkg.pkgver, v))
+
+    return checkvers
