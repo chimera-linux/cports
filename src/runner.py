@@ -1214,11 +1214,14 @@ def _get_unbuilt():
         return []
 
     fvers = []
+    tvers = {}
     tmpls = {}
 
     def _get_tmpl(pn):
         try:
-            tmpls[pn] = template.from_module(*mods[pn])
+            tmpl = template.from_module(*mods[pn])
+            tmpls[pn] = tmpl
+            tvers[pn] = f"{tmpl.pkgver}-r{tmpl.pkgrel}"
             # sentinel
             if tmpls[pn].broken:
                 tmpls[pn] = True
@@ -1269,15 +1272,23 @@ def _get_unbuilt():
         # recursively check for explicit brokenness
         if _check_tmpls(pn):
             continue
-        fvers.append(pn)
+        fvers.append((pn, tvers[pn] if pn in tvers else None))
 
     return fvers
 
 
-def do_print_unbuilt(tgt):
+def do_print_unbuilt(tgt, do_list):
     unb = _get_unbuilt()
-    if unb:
-        print(" ".join(unb))
+    if not unb:
+        return
+    if do_list:
+        for pn, pv in sorted(unb, key=lambda t: t[0]):
+            if not pv:
+                print(pn)
+            else:
+                print(f"{pn}={pv}")
+        return
+    print(" ".join(map(lambda tp: tp[0], unb)))
 
 
 def do_update_check(tgt):
@@ -1966,7 +1977,9 @@ def fire():
             case "print-build-graph":
                 do_print_build_graph(cmd)
             case "print-unbuilt":
-                do_print_unbuilt(cmd)
+                do_print_unbuilt(cmd, False)
+            case "list-unbuilt":
+                do_print_unbuilt(cmd, True)
             case "fetch" | "extract" | "prepare":
                 do_pkg(cmd)
             case "patch" | "configure" | "build":
