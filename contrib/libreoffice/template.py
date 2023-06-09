@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
 pkgver = "7.5.3.2"
-pkgrel = 0
+pkgrel = 1
 # aarch64: segfaults during build (likely uno)
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le"]
