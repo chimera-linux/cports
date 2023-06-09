@@ -1,6 +1,6 @@
 pkgname = "firmware-linux"
 pkgver = "20230515"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -135,7 +135,7 @@ _pkgs = [
         _arch_arm64,
         "soc",
         [
-            "mediatek/mt7986*",
+            "mediatek/mt798*",
             "mediatek/mt81*",
             "mediatek/sof",
             "vpu_*.bin",
