@@ -8,6 +8,7 @@ import importlib
 import importlib.util
 import urllib.request as ureq
 import fnmatch
+import time
 import re
 
 from cbuild.apk import cli as apkcli
@@ -451,13 +452,25 @@ def update_check(pkg, verbose=False):
         else:
             cs += uc.expand_source(u)
 
-    vers = []
+    retry_delays = [0, 2, 5, 10]
+    vers = None
 
-    for src in cs:
-        if fetch_versions:
-            vers += fetch_versions(uc, src)
-        else:
-            vers += uc.fetch_versions(src)
+    for d in retry_delays:
+        vers = []
+
+        for src in cs:
+            if fetch_versions:
+                vers += fetch_versions(uc, src)
+            else:
+                vers += uc.fetch_versions(src)
+
+        if len(vers) > 0:
+            break
+
+        time.sleep(vers)
+
+        if verbose:
+            print(f"No versions fetched, retrying...")
 
     vers = list(set(vers))
     vers.sort(key=_ver_conv)
