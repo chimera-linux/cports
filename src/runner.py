@@ -1303,15 +1303,15 @@ def do_update_check(tgt):
 
         if len(tmpl.pkgver) > verlen:
             verlen = len(tmpl.pkgver)
-        if len(tmpl.pkgname) > namelen:
-            namelen = len(tmpl.pkgname)
+        if (len(tmpl.pkgname) + len(tmpl.repository) + 1) > namelen:
+            namelen = len(tmpl.pkgname) + len(tmpl.repository) + 1
 
         return tmpl
 
-    def _print_upd(pn, pv, nv):
+    def _print_upd(rp, pn, pv, nv):
         # align name
-        s = f"{pn}: "
-        s += " " * (namelen - len(pn))
+        s = f"{rp}/{pn}: "
+        s += " " * (namelen - len(pn) - len(rp) - 1)
         # add version
         vs = f"{pv} -> {nv}"
         s += vs
@@ -1336,8 +1336,8 @@ def do_update_check(tgt):
 
     if len(tmpls) == 1:
         cv = update_check.update_check(tmpls[0], verbose)
-        for pn, pv, nv in cv:
-            _print_upd(pn, pv, nv)
+        for pv, nv in cv:
+            _print_upd(tmpls[0].repository, tmpls[0].pkgname, pv, nv)
         return
 
     maint = None
@@ -1350,6 +1350,7 @@ def do_update_check(tgt):
         tmpls,
         key=lambda tmpl: (
             tmpl.maintainer if tmpl.maintainer else "!!!",
+            tmpl.repository,
             tmpl.pkgname,
         ),
     )
@@ -1374,8 +1375,8 @@ def do_update_check(tgt):
                 print("-----------------")
             pmaint = True
         # now we can actually print the versions
-        for pn, pv, nv in cv:
-            _print_upd(pn, pv, nv)
+        for pv, nv in cv:
+            _print_upd(tmpl.repository, tmpl.pkgname, pv, nv)
 
 
 def do_dump(tgt):

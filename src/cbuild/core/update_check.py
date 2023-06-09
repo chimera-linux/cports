@@ -499,6 +499,6 @@ def update_check(pkg, verbose=False):
             uc.pkgver.replace("-", "."), v.replace("-", "."), False
         )
         if ret == -1:
-            checkvers.append((pkg.pkgname, pkg.pkgver, v))
+            checkvers.append((pkg.pkgver, v))
 
     return checkvers
