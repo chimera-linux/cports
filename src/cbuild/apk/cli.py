@@ -129,7 +129,7 @@ def call(
         cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
-    if subcmd == "add" or subcmd == "del" or subcmd == "fix":
+    if subcmd in ["add", "del", "fix", "upgrade"]:
         cmd.append("--clean-protected")
 
     crepos = collect_repos(
@@ -162,7 +162,8 @@ def call_chroot(
 
     if allow_network:
         allow_network = _use_net
-    mount_cache = False
+
+    mount_cache = subcmd in ["add", "del", "fix", "update", "upgrade"]
 
     if full_chroot:
         cmd = [subcmd]
@@ -174,10 +175,8 @@ def call_chroot(
         cmd += ["--no-network"]
     if allow_untrusted:
         cmd.append("--allow-untrusted")
-    if subcmd == "add" or subcmd == "del" or subcmd == "fix":
+    if mount_cache and subcmd != "update":
         cmd.append("--clean-protected")
-        # we want to be able to cache apk's
-        mount_cache = True
 
     if not full_chroot:
         crepos = collect_repos(
