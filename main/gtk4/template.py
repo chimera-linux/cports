@@ -1,6 +1,6 @@
 pkgname = "gtk4"
-pkgver = "4.10.3"
-pkgrel = 1
+pkgver = "4.10.4"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -76,11 +76,8 @@ pkgdesc = "Gimp Toolkit version 4"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
-# release tarball for 4.10.2 is badly broken: https://gitlab.gnome.org/GNOME/gtk/-/issues/5770
-source = (
-    f"https://gitlab.gnome.org/GNOME/gtk/-/archive/{pkgver}/gtk-{pkgver}.tar.gz"
-)
-sha256 = "7cc98e8d75f5d7a45c2bbfd73ac5ddeac2de3c22adbaaa4c216738241087b729"
+source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
+sha256 = "7725400482e0685e28265e226c62847f4e73cfca9e9b416ac5838207f5377a24"
 # FIXME overflow in gtklabel.c (repro: gnome-text-editor file reload)
 hardening = ["!int"]
 # xvfb doesn't do the trick for some reason?
