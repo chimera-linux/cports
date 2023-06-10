@@ -1,5 +1,5 @@
 pkgname = "pcsc-lite"
-pkgver = "1.9.9"
+pkgver = "2.0.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-libsystemd"]
@@ -10,7 +10,7 @@ maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://pcsclite.apdu.fr"
 source = f"https://pcsclite.apdu.fr/files/pcsc-lite-{pkgver}.tar.bz2"
-sha256 = "cbcc3b34c61f53291cecc0d831423c94d437b188eb2b97b7febc08de1c914e8a"
+sha256 = "d6c3e2b64510e5ed6fcd3323febf2cc2a8e5fda5a6588c7671f2d77f9f189356"
 
 
 def post_install(self):
