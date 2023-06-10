@@ -457,7 +457,11 @@ def _gensub(subn, subd):
     @subpackage(f"{pkgname}-{subn}")
     def _sub(self):
         self.pkgdesc = f"{pkgdesc} ({subd})"
-        self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
+        if subn == "writer" or subn == "gnome":
+            self.depends = [f"{pkgname}-common={pkgver}-r{pkgrel}"]
+        else:
+            # the other apps can't launch without writer being present
+            self.depends = [f"{pkgname}-writer={pkgver}-r{pkgrel}"]
 
         # we install gtk integration always by default, to give people
         # a decent UI out of box, but make it a softdep (removable)
