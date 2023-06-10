@@ -1,5 +1,5 @@
 pkgname = "cups"
-pkgver = "2.4.3"
+pkgver = "2.4.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -52,7 +52,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/OpenPrinting/cups"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}-source.tar.gz"
-sha256 = "9ddeb98f20e9c9f4af121c2b1053e7420b79bd6770f1aded2866303d27526f6f"
+sha256 = "209259e8fe8df9112af49f4e5765f50dad6da1f869296de41d6eaab1b98003cb"
 # build system is bad
 tool_flags = {
     "CFLAGS": ["-Wno-unused-command-line-argument"],
