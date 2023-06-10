@@ -520,6 +520,8 @@ The following commands are recognized:
 * `unstage` Attempt unstaging the repositories if possible. If conflicts
   prevent it from doing so (i.e. missing rebuilds and so on) you will get
   a warning instead, and nothing will happen.
+* `unstage-check-remote` Treating the local repository as a stage, check
+  if the local packages would unstage cleanly in the remote repo.
 
 <a id="config_file"></a>
 ### Configuration File

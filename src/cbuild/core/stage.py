@@ -1,4 +1,4 @@
-from cbuild.core import logger, paths
+from cbuild.core import logger, paths, chroot, profile, template
 from cbuild.util import flock
 from cbuild.apk import cli
 
@@ -7,7 +7,7 @@ import subprocess
 
 
 # this one has the dummy root available
-def check_stage(stlist, arch):
+def check_stage(arch, force=False, remote=False):
     added = {}
     dropped = {}
     replaced = {}
@@ -33,34 +33,70 @@ def check_stage(stlist, arch):
 
     repop = paths.repository()
     stagep = paths.stage_repository()
-    rr = []  # regular repos
+
     rs = []  # stage repos
-    for f in repop.rglob("APKINDEX.tar.gz"):
-        p = f.parent
-        if p.name != arch:
-            continue
-        rr.append(p.parent)
-    for f in stagep.rglob("APKINDEX.tar.gz"):
-        p = f.parent
-        if p.name != arch:
-            continue
-        rs.append(p.parent)
-    rr.sort()
+    if remote:
+        # when remote-checking, local repo is our stage, and only select ones
+        stagep = repop
+        for r in chroot.get_confrepos():
+            if not r.startswith("/"):
+                # skip remotes
+                continue
+            # go over allowed repos
+            for sect in template.get_cats():
+                rp = stagep / r.lstrip("/").replace("@section@", sect)
+                if not (rp / arch / "APKINDEX.tar.gz"):
+                    continue
+                rs.append(rp)
+    else:
+        for f in stagep.rglob("APKINDEX.tar.gz"):
+            p = f.parent
+            if p.name != arch:
+                continue
+            rs.append(p.parent)
     rs.sort()
+
+    if force:
+        return rs
+
+    rr = []  # regular repos
+    rrm = {}  # mapping for stage
+    if remote:
+        prof = profile.get_profile(arch)
+        # when remote-checking, remote repo is the regular one, only known ones
+        for r in chroot.get_confrepos():
+            if r.startswith("/"):
+                # skip locals
+                continue
+            # go over known repos
+            for sect in prof.repos:
+                sidx = r.find("@section@")
+                url = r.replace("@section@", sect)
+                rr.append(url)
+                if sidx > 0:
+                    rrm[r[sidx:].replace("@section@", sect)] = url
+    else:
+        for f in repop.rglob("APKINDEX.tar.gz"):
+            p = f.parent
+            if p.name != arch:
+                continue
+            rr.append(p.parent)
+            rrm[str(p.parent.relative_to(repop))] = p.parent
+    rr.sort()
+
     for r in rs:
         rlist += ["--repository", str(r)]
-    # regular repos are last in the list
     for r in rr:
         rlist += ["--repository", str(r)]
 
-    for d, ad in stlist:
+    for d in rs:
+        reld = str(d.relative_to(stagep))
         # only stage exists, so nothing is replacing anything
-        if not (ad / "APKINDEX.tar.gz").is_file():
+        ad = rrm.get(reld, None)
+        if not ad:
             continue
         # search for all staged packages
-        ret = _call_apk(
-            "--from", "none", "--repository", str(d.parent), "search"
-        )
+        ret = _call_apk("--from", "none", "--repository", str(d), "search")
         # go over each staged package
         for p in ret.stdout.strip().decode().split():
             # stage providers
@@ -68,7 +104,7 @@ def check_stage(stlist, arch):
                 "--from",
                 "none",
                 "--repository",
-                str(d.parent),
+                str(d),
                 "info",
                 "--provides",
                 p,
@@ -79,7 +115,7 @@ def check_stage(stlist, arch):
                 "--from",
                 "none",
                 "--repository",
-                str(ad.parent),
+                str(ad),
                 "info",
                 "--provides",
                 p,
@@ -241,7 +277,7 @@ def check_stage(stlist, arch):
 
     # we can safely unstage as there is ntohing left
     if len(checkdeps) == 0:
-        return True
+        return rs
 
     logger.get().out("Cannot unstage repositories:")
 
@@ -251,33 +287,24 @@ def check_stage(stlist, arch):
     for d in checkdeps:
         print(f" rebuild: {', '.join(checkdeps[d])} ({d})")
 
-    return False
+    return []
 
 
 def _do_clear(arch, force):
     repop = paths.repository()
-    sroot = paths.stage_repository()
+    stagep = paths.stage_repository()
     log = logger.get()
 
     log.out(f"Clearing staged {arch} repos for {repop}...")
 
-    # a list of all stage repos that we have
-    stagelist = []
-
-    # fetch all pairs of stage repos + actual repos
-    for ri in sroot.rglob("APKINDEX.tar.gz"):
-        ri = ri.parent
-        if ri.name != arch:
-            continue
-        stagelist.append((ri, repop / ri.relative_to(sroot)))
-
-    if not force and not check_stage(stagelist, arch):
-        return
+    unstage = check_stage(arch, force)
 
     # FIXME: compute from git if possible
     epoch = int(time.time())
 
-    for d, ad in stagelist:
+    for d in unstage:
+        d = d / arch
+        ad = repop / d.relative_to(stagep)
         try:
             ad.rmdir()
         except Exception:

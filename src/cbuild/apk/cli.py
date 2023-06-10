@@ -14,7 +14,7 @@ def set_network(use_net):
     _use_net = use_net
 
 
-def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
+def collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
     ret = []
     # sometimes we need no repos
     if not mrepo:
@@ -22,6 +22,8 @@ def _collect_repos(mrepo, intree, arch, use_altrepo, use_stage, use_net):
 
     if isinstance(mrepo, str):
         srepos = [mrepo]
+    elif isinstance(mrepo, list):
+        srepos = mrepo
     else:
         srepos = mrepo.rparent.source_repositories
 
@@ -130,7 +132,7 @@ def call(
     if subcmd == "add" or subcmd == "del" or subcmd == "fix":
         cmd.append("--clean-protected")
 
-    crepos = _collect_repos(
+    crepos = collect_repos(
         mrepo, False, arch, use_altrepo, use_stage, allow_network
     )
 
@@ -178,7 +180,7 @@ def call_chroot(
         mount_cache = True
 
     if not full_chroot:
-        crepos = _collect_repos(
+        crepos = collect_repos(
             mrepo, True, arch, True, use_stage, allow_network
         )
     else:

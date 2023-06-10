@@ -2203,6 +2203,10 @@ def register_cats(cats):
     _allow_cats = cats
 
 
+def get_cats():
+    return _allow_cats
+
+
 def register_hooks():
     for step in [
         "fetch",

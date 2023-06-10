@@ -451,6 +451,15 @@ def do_unstage(tgt, force=False):
     stage.clear(chroot.host_cpu(), force)
 
 
+def check_unstage(tgt):
+    from cbuild.core import chroot, stage
+
+    if opt_arch and opt_arch != chroot.host_cpu():
+        stage.check_stage(opt_arch, remote=True)
+
+    stage.check_stage(chroot.host_cpu(), remote=True)
+
+
 def bootstrap(tgt):
     import sys
     import shutil
@@ -1988,6 +1997,8 @@ def fire():
                 do_pkg(cmd)
             case "unstage":
                 do_unstage(cmd)
+            case "unstage-check-remote":
+                check_unstage(cmd)
             case "bulk-pkg":
                 do_bulkpkg(cmd)
             case "bulk-print":
