@@ -1,5 +1,5 @@
 pkgname = "gnome-core"
-pkgver = "44"
+pkgver = "44.2"
 pkgrel = 0
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
@@ -33,6 +33,7 @@ depends = [
     "tracker-miners",
     "yelp",
     "xdg-desktop-portal-gnome",
+    "xdg-user-dirs-gtk",
 ]
 pkgdesc = "GNOME desktop environment (minimal session)"
 maintainer = "q66 <q66@chimera-linux.org>"
