@@ -42,7 +42,7 @@ def _build_env(pkg, menv, base_env, env):
     return renv
 
 
-def configure(pkg, flavor, env=None):
+def configure(pkg, flavor, build_dir=None, env=None):
     cfgarch = pkg.profile().arch
     cfgname = f"config-{cfgarch}.{flavor}"
 
@@ -54,18 +54,35 @@ def configure(pkg, flavor, env=None):
     if pkg.profile().cross:
         args += [f"CROSS_COMPILE={pkg.profile().triplet}"]
 
+    bdir = build_dir
+    if not bdir:
+        bdir = pkg.make_dir
+
     pkg.do(
         "chimera-buildkernel",
         "prepare",
         f"ARCH={get_arch(cfgarch)}",
         f"CONFIG_FILE={pkg.chroot_cwd}/{cfgname}",
-        f"OBJDIR={pkg.make_dir}",
+        f"OBJDIR={bdir}",
         f"JOBS={pkg.make_jobs}",
         f"LOCALVERSION=-{pkg.pkgrel}-{flavor}",
         f"EPOCH={epoch}",
         *args,
         env=_build_env(pkg, pkg.configure_env, None, env),
     )
+
+
+def update_configs(pkg, archs, flavor):
+    for a in archs:
+        with pkg.profile(a):
+            with pkg.stamp(f"{a}_config"):
+                pkg.log(f"configuring {a}...")
+                configure(pkg, flavor, f"{pkg.make_dir}-{a}")
+                pkg.cp(
+                    f"{pkg.make_dir}-{a}/.config",
+                    pkg.files_path / f"config-{a}.{flavor}",
+                )
+    pkg.error("kernel configs have been updated")
 
 
 def build(pkg, flavor, env=None):
