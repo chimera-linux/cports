@@ -1,7 +1,8 @@
 # update linux-lts-zfs-bin when bumping
 pkgname = "linux-lts"
-pkgver = "6.1.30"
+pkgver = "6.1.33"
 pkgrel = 0
+archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 make_dir = "build"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
@@ -11,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "1bf254c4ca9ebccb25328296584fb5e87ad635ae0c1cc1deb0b5bb37a4608813"
+sha256 = "b87d6ba8ea7328e8007a7ea9171d1aa0d540d95eacfcab09578e0a3b623dd2cd"
 # no meaningful checking to be done
 options = [
     "!check",
@@ -27,12 +28,11 @@ options = [
 ]
 
 _flavor = "generic"
+# set to True to refresh kernel configs
+_conf = False
 
-match self.profile().arch:
-    case "aarch64" | "ppc64le" | "ppc64" | "riscv64" | "x86_64":
-        pass
-    case _:
-        broken = f"Unknown CPU architecture: {self.profile().arch}"
+if _conf:
+    hostmakedepends += ["base-cross"]
 
 if self.profile().cross:
     broken = "linux-devel does not come out right"
@@ -42,13 +42,17 @@ def init_configure(self):
     # generate scriptlets for packaging, just hooking to base-kernel helpers
     from cbuild.util import linux
 
-    linux.generate_scriptlets(self, _flavor)
+    if not _conf:
+        linux.generate_scriptlets(self, _flavor)
 
 
 def do_configure(self):
     from cbuild.util import linux
 
-    linux.configure(self, _flavor)
+    if _conf:
+        linux.update_configs(self, archs, _flavor)
+    else:
+        linux.configure(self, _flavor)
 
 
 def do_build(self):
