@@ -374,7 +374,7 @@ def _setup_dummy(rootp, archn):
                 f"failed to create virtual provider for {archn}"
             )
 
-        if not apki.build_index(repod, epoch, None):
+        if not apki.build_index(repod, epoch, True):
             raise errors.CbuildException(
                 f"failed to index virtual provider for {archn}"
             )
