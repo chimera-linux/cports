@@ -1,6 +1,6 @@
-From fe06e62ff8771678fdb3a46faaf16f2f93dd09b7 Mon Sep 17 00:00:00 2001
+From b014a08228f9486ae864f171cc8f8e758943ce1a Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sun, 11 Sep 2022 22:00:37 +0200
+Date: Sat, 10 Jun 2023 21:54:29 +0200
 Subject: [PATCH] portable install(1) use
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH] portable install(1) use
  1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/util/install_helper.sh b/util/install_helper.sh
-index 33f4a42..6884c61 100755
+index 76f2b47..414ddf1 100755
 --- a/util/install_helper.sh
 +++ b/util/install_helper.sh
 @@ -24,7 +24,8 @@ else
@@ -21,14 +21,15 @@ index 33f4a42..6884c61 100755
  	"${DESTDIR}${sysconfdir}/fuse.conf"
  
  if $useroot; then
-@@ -37,11 +38,13 @@ if $useroot; then
-     fi
+@@ -38,12 +39,14 @@ if $useroot; then
  fi
  
--install -D -m 644 "${MESON_SOURCE_ROOT}/util/udev.rules" \
-+install -d -m 755 "${DESTDIR}${udevrulesdir}"
-+install -m 644 "${MESON_SOURCE_ROOT}/util/udev.rules" \
+ if [ "${udevrulesdir}" != "" ]; then
+-    install -D -m 644 "${MESON_SOURCE_ROOT}/util/udev.rules" \
++    install -d -m 755 "${DESTDIR}${udevrulesdir}"
++    install -m 644 "${MESON_SOURCE_ROOT}/util/udev.rules" \
          "${DESTDIR}${udevrulesdir}/99-fuse3.rules"
+ fi
  
  if [ "$initscriptdir" != "" ]; then
 -    install -D -m 755 "${MESON_SOURCE_ROOT}/util/init_script" \
@@ -38,5 +39,5 @@ index 33f4a42..6884c61 100755
  
      if test -x /usr/sbin/update-rc.d && test -z "${DESTDIR}"; then
 -- 
-2.37.1
+2.39.0
 
