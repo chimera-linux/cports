@@ -1,7 +1,7 @@
 # update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
 _majver = "3.11"
-pkgver = f"{_majver}.3"
+pkgver = f"{_majver}.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -14,6 +14,7 @@ configure_args = [
     "--with-readline=editline",
     "--without-ensurepip",
 ]
+configure_gen = []
 # bmake has broken cross build (unsupported stuff in PYTHON_FOR_BUILD)
 make_cmd = "gmake"
 make_check_target = "quicktest"
@@ -57,7 +58,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "8a5db99c961a7ecf27c75956189c9602c968751f11dbeae2b900dbff1c085b5e"
+sha256 = "2f0e409df2ab57aa9fc4cbddfb976af44e4e55bf6f619eee6bc5c2297264a7f6"
 # FIXME int cfi; cfi ftbfs, int fails ctypes test
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being
@@ -146,6 +147,3 @@ def _ver(self):
     self.build_style = "meta"
 
     return []
-
-
-configure_gen = []
