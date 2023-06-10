@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "113.0.2"
+pkgver = "114.0.1"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -61,7 +61,7 @@ license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "f132b702836311b6cc40873b69df3ce208d035dbc8ce390c390eebd63d27c7a3"
+sha256 = "7e4ebc13e8c94af06f703af2119cf1641d4186174a3d59b7812f9d28f61b7d18"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -103,7 +103,7 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in ["bindgen"]:
+    for crate in []:
         cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
