@@ -1816,6 +1816,9 @@ def _collect_status(inf):
 def _collect_blist(pkgs):
     rpkgs = []
     for pkg in pkgs:
+        # empty args
+        if not pkg:
+            continue
         # git expressions
         if pkg.startswith("git:"):
             rpkgs += _collect_git(pkg.removeprefix("git:"))
