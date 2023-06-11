@@ -1,6 +1,6 @@
 pkgname = "zsh"
 pkgver = "5.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-gdbm",
@@ -28,7 +28,7 @@ make_dir = "."  # bad build system
 # https://www.zsh.org/mla/workers/2021/msg00805.html
 make_check_wrapper = ["env", "-u", "LC_COLLATE", "-u", "LANG"]
 hostmakedepends = ["gmake", "pkgconf", "texinfo", "automake"]
-makedepends = ["ncurses-devel", "pcre-devel", "libcap-devel"]
+makedepends = ["ncurses-devel", "pcre2-devel", "libcap-devel"]
 pkgdesc = "Z shell"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-3.0-or-later"
