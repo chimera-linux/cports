@@ -468,7 +468,7 @@ def update_check(pkg, verbose=False):
         if len(vers) > 0:
             break
 
-        time.sleep(vers)
+        time.sleep(d)
 
         if verbose:
             print("No versions fetched, retrying...")
