@@ -14,6 +14,10 @@ url = "https://openzfs.github.io/openzfs-docs"
 options = ["!cross"]
 
 
+if self.profile().arch == "riscv64":
+    broken = "https://github.com/openzfs/zfs/issues/14974"
+
+
 def init_configure(self):
     from cbuild.util import linux
 
