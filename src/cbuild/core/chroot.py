@@ -72,6 +72,8 @@ def _prepare_etc():
     shutil.copy(bfp / "etc/passwd", tfp)
     shutil.copy(bfp / "etc/group", tfp)
 
+    shutil.copy("/etc/resolv.conf", paths.bldroot() / "etc")
+
     with open(tfp / "passwd", "a") as pf:
         pf.write("cbuild:x:1337:1337:cbuild user:/tmp:/bin/nologin\n")
 
@@ -87,7 +89,6 @@ def _init():
     xdir = paths.bldroot() / "etc" / "apk"
     xdir.mkdir(parents=True, exist_ok=True)
 
-    shutil.copy("/etc/resolv.conf", paths.bldroot() / "etc")
     # generate machine-id
     with open(paths.bldroot() / "etc/machine-id", "wb") as mid:
         mid.write(b"%s\n" % binascii.b2a_hex(os.urandom(16)))
