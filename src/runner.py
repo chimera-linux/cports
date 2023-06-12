@@ -1738,6 +1738,7 @@ def _repo_check():
 
 def _collect_git(expr):
     import subprocess
+    import pathlib
 
     # check if we're in a repository, once
     _repo_check()
@@ -1786,11 +1787,15 @@ def _collect_git(expr):
             raise errors.CbuildException(
                 f"failed to resolve files for '{commit.decode()}'"
             )
-        for fname in subp.stdout.strip().split():
-            tn = fname.removesuffix(b"/template.py")
-            if tn == fname or len(tn.split(b"/")) != 2:
+        for fname in subp.stdout.strip().split(b"\n"):
+            fname = fname.decode()
+            tn = fname.removesuffix("/template.py")
+            if tn == fname or len(tn.split("/")) != 2:
                 continue
-            tmpls.add(tn.decode())
+            # removed packages
+            if not pathlib.Path(fname).is_file():
+                continue
+            tmpls.add(tn)
     # and return as a list
     return list(tmpls)
 
