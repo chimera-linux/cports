@@ -1,0 +1,11 @@
+pkgname = "autoconf-archive"
+pkgver = "2023.02.20"
+pkgrel = 0
+build_style = "gnu_configure"
+makedepends = ["autoconf", "automake", "texinfo"]
+pkgdesc = "Collection of re-usable Autoconf macros"
+maintainer = "stbk <stbk@elia.garden>"
+license = "GPL-3.0-or-later"
+url = "https://www.gnu.org/software/autoconf-archive"
+source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "71d4048479ae28f1f5794619c3d72df9c01df49b1c628ef85fde37596dc31a33"
