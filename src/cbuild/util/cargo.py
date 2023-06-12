@@ -56,13 +56,16 @@ def get_environment(pkg, jobs=None):
     return env
 
 
-# very preliminary, no error checking, etc
+# Configure cargo to use vendored sources
 def setup_vendor(pkg, vendor_path="vendor", wrksrc=None):
     dirn = pkg.cwd
     if wrksrc is not None:
         dirn = dirn / wrksrc
-    pkg.mkdir(dirn / ".cargo")
-    with open(dirn / ".cargo/config.toml", "w") as cf:
+
+    # Make sure to append in case a config is already present;
+    # `parents` ensures the directory is allowed to exist already
+    pkg.mkdir(dirn / ".cargo", parents=True)
+    with open(dirn / ".cargo/config.toml", "a") as cf:
         cf.write(
             f"""
 [source.crates-io]
