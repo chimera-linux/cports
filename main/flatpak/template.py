@@ -1,6 +1,6 @@
 pkgname = "flatpak"
 pkgver = "1.14.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-system-bubblewrap",
@@ -88,6 +88,11 @@ def post_install(self):
         self.files_path / "modules-load.conf",
         "usr/lib/modules-load.d",
         name="flatpak.conf",
+    )
+
+    self.mv(
+        self.destdir / "usr/share/fish/vendor_completions.d",
+        self.destdir / "usr/share/fish/completions",
     )
 
 
