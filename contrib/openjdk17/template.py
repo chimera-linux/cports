@@ -3,7 +3,7 @@ _majver = "17"
 _fver = f"{_majver}.0.8"
 _bver = "5"
 pkgver = f"{_fver}_p{_bver}"
-pkgrel = 0
+pkgrel = 1
 # we don't attempt zero, it's a waste of time
 archs = ["x86_64", "aarch64", "ppc64le", "ppc64"]
 build_style = "gnu_configure"
@@ -72,7 +72,9 @@ hardening = ["!int"]
 # TODO later
 options = ["!parallel", "!check"]
 
-_java_home = "usr/lib/jvm/java-17-openjdk"
+_java_base = "usr/lib/jvm"
+_java_name = "java-17-openjdk"
+_java_home = f"{_java_base}/{_java_name}"
 env = {
     "LD_LIBRARY_PATH": f"/{_java_home}/lib:/{_java_home}/lib/server",
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
@@ -165,6 +167,7 @@ def do_install(self):
 
     self.install_dir("usr/bin")
     self.install_dir("usr/share/man/man1")
+    self.install_link(_java_name, f"{_java_base}/default")
 
     for f in (self.destdir / _java_home / "bin").iterdir():
         self.install_link(f"/{_java_home}/bin/{f.name}", f"usr/bin/{f.name}")
@@ -221,7 +224,7 @@ def _src(self):
 @subpackage(f"openjdk{_majver}-jre-headless")
 def _jreh(self):
     self.pkgdesc = f"{pkgdesc} (headless runtime)"
-    self.depends = ["java-cacerts"]
+    self.depends = ["java-cacerts", "java-common"]
     self.provides = ["java-jre-headless"]
     self.options = ["brokenlinks"]
 
@@ -267,6 +270,7 @@ def _jredef(self):
         "usr/bin/jrunscript",
         "usr/bin/keytool",
         "usr/bin/rmiregistry",
+        f"{_java_base}/default",
         "usr/share/man/man1/java.1",
         "usr/share/man/man1/jfr.1",
         "usr/share/man/man1/jrunscript.1",
@@ -299,6 +303,7 @@ def _jdkdef(self):
         f"openjdk{_majver}-default={pkgver}-r{pkgrel}",
         f"openjdk{_majver}-jdk={pkgver}-r{pkgrel}",
     ]
+    self.depends = [f"openjdk{_majver}-jre-default={pkgver}-r{pkgrel}"]
 
     return [
         "usr/bin",
