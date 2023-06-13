@@ -1557,6 +1557,12 @@ autopkgs = [
         lambda p: p.take("usr/share/zsh/site-functions", missing_ok=True),
     ),
     (
+        "fishcomp",
+        "fish completions",
+        "fish-shell",
+        lambda p: p.take("usr/share/fish/completions", missing_ok=True),
+    ),
+    (
         "locale",
         "locale data",
         "base-locale",

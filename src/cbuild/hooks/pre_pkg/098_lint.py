@@ -28,6 +28,7 @@ def invoke(pkg):
         "var/run",
         "usr/local",
         "usr/lib/locale",
+        "usr/share/fish/vendor_completions.d",
         "usr/share/mime/XMLnamespaces",
         "usr/share/mime/aliases",
         "usr/share/mime/generic-icons",

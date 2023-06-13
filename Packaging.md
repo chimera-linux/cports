@@ -1327,6 +1327,7 @@ These are (with their package description suffixes):
 * `udev` - `(udev rules)`
 * `bashcomp` - `(bash completions)`
 * `zshcomp` - `(zsh completions)`
+* `fishcomp` - `(fish completions)`
 * `locale` - `(locale data)`
 * `static` - `(static libraries)`
 * `pycache` - `(Python bytecode)`
@@ -1354,6 +1355,7 @@ the package they were split off needs to be installed, plus the following:
 * `initramfs-tools` for `-initramfs-tools` subpackages
 * `bash-completion` for `-bashcomp` packages
 * `zsh` for `-zshcomp` packages
+* `fish-shell` for `-fishcomp` packages
 * `python-pycache` for `-pycache` packages (except `python-pycache` itself)
 
 Development packages may be automatically installed if `base-devel` is
