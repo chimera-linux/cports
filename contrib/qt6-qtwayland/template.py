@@ -14,6 +14,7 @@ hostmakedepends = [
     "qt6-qtdeclarative-devel",
 ]
 makedepends = ["qt6-qtbase-devel", "qt6-qtdeclarative-devel"]
+checkdepends = ["mesa-dri"]
 pkgdesc = "Qt6 Wayland component"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
@@ -25,7 +26,20 @@ debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
 # TODO
-options = ["!check", "!cross"]
+options = ["!cross"]
+
+
+def do_check(self):
+    self.do(
+        "ctest",
+        "-E",
+        "tst_seatv4$",
+        wrksrc=self.make_dir,
+        env={
+            "QT_QPA_PLATFORM": "offscreen",
+            "CTEST_OUTPUT_ON_FAILURE": "True",
+        },
+    )
 
 
 @subpackage("qt6-qtwayland-devel")
