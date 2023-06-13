@@ -173,7 +173,6 @@ def check_stage(arch, force=False, remote=False):
     # ensure that there is no dependency on a provider that was dropped
     # without a replacement
     for d in revdeps:
-        print("D", d)
         # dependencies of the most significant (maybe staged) provider
         deps = []
         # go over each repo separately for robustness, break on first that
