@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "7.5.3.2"
-pkgrel = 3
+pkgver = "7.5.4.2"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "aarch64"]
 build_style = "gnu_configure"
@@ -210,10 +210,10 @@ source = [
     (f"{_aurl}/dragonbox-1.1.3.tar.gz", False),
 ]
 sha256 = [
-    "14367aeed3a8ae01e17438679d93c4905ca7f9d2f2cb99e716ea297b8af2e048",
-    "c558daabf366ab9eb26dcae14b25b7ec725817c4dd06205fced685493793d468",
-    "c9c4edf276c1c024550455b9c98762ab8bfdc1a10df417dd78e469aa8b8baad3",
-    "aef14e7808c10a78bbb6723029ecafb1e6a693e376ac2260ec935d45c098064f",
+    "68bbd1b79ffa4c33ed80f25520b9e6d69e3be23c9b4a0f0c9d859cc9a24865e8",
+    "4f2dbe571e2116ce11df71d72b4ae03f7a3ca82c72578c1724afb3bd26d38d08",
+    "a90f931dd3238eb64e6f65964ea8f90e5accd9ad10925d5a60c7af6aa585c1f1",
+    "7eb264c2cd66f028831535bec0d3fcdfb687fae4deb77d200cfe4034ca3a10ad",
     "1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
