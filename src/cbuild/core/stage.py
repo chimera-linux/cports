@@ -148,18 +148,22 @@ def check_stage(arch, force=False, remote=False):
             del dropped[pk]
 
     # for each dropped provider, get known revdeps and accumulate a set
-    for d in dropped:
-        ret = _call_apk(
-            *rlist,
-            "search",
-            "--from",
-            "none",
-            "--exact",
-            "--all",
-            "--rdepends",
-            d,
-        )
-        for pn in ret.stdout.strip().decode().split():
+    if len(dropped) > 0:
+        for pn in (
+            _call_apk(
+                *rlist,
+                "search",
+                "--from",
+                "none",
+                "--exact",
+                "--all",
+                "--rdepends",
+                *list(dropped.keys()),
+            )
+            .stdout.strip()
+            .decode()
+            .split()
+        ):
             revdeps[pn] = True
 
     # potentially missing deps
@@ -169,6 +173,7 @@ def check_stage(arch, force=False, remote=False):
     # ensure that there is no dependency on a provider that was dropped
     # without a replacement
     for d in revdeps:
+        print("D", d)
         # dependencies of the most significant (maybe staged) provider
         deps = []
         # go over each repo separately for robustness, break on first that

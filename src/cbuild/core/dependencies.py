@@ -165,65 +165,79 @@ def _install_from_repo(pkg, pkglist, virtn, cross=False):
         pkg.error("failed to install dependencies")
 
 
-def _is_available(pkgn, pkgop, pkgv, pkg, host=False):
-    if not host and pkg.profile().cross:
-        sysp = paths.bldroot() / pkg.profile().sysroot.relative_to("/")
-        aarch = pkg.profile().arch
-    else:
-        sysp = paths.bldroot()
-        aarch = None
+def _get_vers(pkgs, pkg, sysp, arch):
+    plist = list(pkgs)
+    if len(plist) == 0:
+        return {}, None
 
-    def _do_search(repo):
-        return apki.call(
-            "search",
-            ["--from", "none", "-e", "-a", pkgn],
-            repo,
-            root=sysp,
-            capture_output=True,
-            arch=aarch,
-            allow_untrusted=True,
-            return_repos=not isinstance(repo, str),
-        )
+    ret = {}
+    out, crepos = apki.call(
+        "search",
+        ["--from", "none", "-e", "-a"] + plist,
+        pkg,
+        root=sysp,
+        capture_output=True,
+        arch=arch,
+        allow_untrusted=True,
+        return_repos=True,
+    )
+    if out.returncode != 0:
+        return None, None
 
-    aout, crepos = _do_search(pkg)
-    if aout.returncode != 0:
+    # map the output to a dict
+    for f in out.stdout.strip().decode().split("\n"):
+        nn, nv = autil.get_namever(f)
+        if nn not in ret:
+            ret[nn] = [nv]
+        else:
+            ret[nn].append(nv)
+
+    return ret, crepos
+
+
+def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
+    if pkgn not in vers:
         return None
 
-    pn = aout.stdout.strip().decode()
-
-    if len(pn) == 0:
-        return None
-
-    # get a list
-    pn = pn.split("\n")
+    pvers = vers[pkgn]
 
     # we don't care about ver so take latest (it's what apk would install)
     if not pkgv:
-        nn, nv = autil.get_namever(pn[-1])
-        return nv
+        return pvers[-1]
 
     ppat = pkgn + pkgop + pkgv
 
     # first match against every version available
-    for apn in reversed(pn):
+    for apn in reversed(pvers):
         # matched at least one version
-        if autil.pkg_match(apn, ppat):
+        if autil.pkg_match(f"{pkgn}-{apn}", ppat):
             break
     else:
         # matched no version, so build
         return None
 
     # only one version, so it's unambiguous
-    if len(pn) == 1:
-        nn, nv = autil.get_namever(pn[-1])
-        return nv
+    if len(pvers) == 1:
+        return pvers[0]
 
     # now check repos individually in priority order
     for cr in crepos:
         if cr == "--repository":
             continue
-        aout = _do_search(cr)
-        pn = aout.stdout.strip().decode().split("\n")
+        pn = (
+            apki.call(
+                "search",
+                ["--from", "none", "-e", "-a", pkgn],
+                cr,
+                root=sysp,
+                capture_output=True,
+                arch=arch,
+                allow_untrusted=True,
+            )
+            .stdout.strip()
+            .decode()
+            .split("\n")
+        )
         # highest priority repo takes all
         if len(pn) > 0:
             if autil.pkg_match(pn[0], ppat):
@@ -265,9 +279,29 @@ def install(pkg, origpkg, step, depmap, hostdep):
     if len(ihdeps) == 0 and len(itdeps) == 0 and len(irdeps) == 0:
         return False
 
+    hsys = paths.bldroot()
+    tsys = hsys
+    if pprof.cross:
+        tsys = tsys / pprof.sysroot.relative_to("/")
+
+    hvers, hrepos = _get_vers(map(lambda v: v[1], ihdeps), pkg, hsys, None)
+    tvers, trepos = _get_vers(map(lambda v: v[1], itdeps), pkg, tsys, tarch)
+    rvers, rrepos = _get_vers(
+        map(
+            lambda v: v[0],
+            filter(
+                lambda v: v[0],
+                [autil.split_pkg_name(dep) for origin, dep in irdeps],
+            ),
+        ),
+        pkg,
+        tsys,
+        tarch,
+    )
+
     for sver, pkgn in ihdeps:
         # check if available in repository
-        aver = _is_available(pkgn, "=", sver, pkg, host=True)
+        aver = _is_available(pkgn, "=", sver, pkg, hvers, hrepos, hsys, None)
         if aver:
             log.out_plain(f"   [host] {pkgn}: found ({aver})")
             host_binpkg_deps.append(f"{pkgn}={aver}")
@@ -286,7 +320,7 @@ def install(pkg, origpkg, step, depmap, hostdep):
 
     for sver, pkgn in itdeps:
         # check if available in repository
-        aver = _is_available(pkgn, "=", sver, pkg)
+        aver = _is_available(pkgn, "=", sver, pkg, tvers, trepos, tsys, tarch)
         if aver:
             log.out_plain(f"   [target] {pkgn}: found ({aver})")
             binpkg_deps.append(f"{pkgn}={aver}")
@@ -330,7 +364,7 @@ def install(pkg, origpkg, step, depmap, hostdep):
         if pkgn == origpkg and pkg.pkgname != origpkg:
             pkg.error(f"[runtime] build loop detected: {pkgn} <-> {pkgn}")
         # check the repository
-        aver = _is_available(pkgn, pkgop, pkgv, pkg)
+        aver = _is_available(pkgn, pkgop, pkgv, pkg, rvers, rrepos, tsys, tarch)
         if aver:
             log.out_plain(f"   [runtime] {dep}: found ({aver})")
             continue
