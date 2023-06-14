@@ -1,6 +1,6 @@
 pkgname = "shadow"
 pkgver = "4.13"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -9,6 +9,7 @@ configure_args = [
     "--with-acl",
     "--with-attr",
     "--without-selinux",
+    "--without-nscd",
     "--disable-nls",
     "--enable-subordinate-ids",
     "--disable-account-tools-setuid",
