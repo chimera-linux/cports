@@ -9,6 +9,7 @@ global_cfg = None
 cmdline = None
 
 opt_apkcmd = "apk"
+opt_bwcmd = "bwrap"
 opt_cflags = "-O2"
 opt_cxxflags = "-O2"
 opt_fflags = "-O2"
@@ -91,7 +92,7 @@ def handle_options():
     global global_cfg
     global cmdline
 
-    global opt_apkcmd, opt_dryrun, opt_bulkcont
+    global opt_apkcmd, opt_bwcmd, opt_dryrun, opt_bulkcont
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_harch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
@@ -277,6 +278,7 @@ def handle_options():
         opt_stage = bcfg.getboolean("keep_stage", fallback=opt_stage)
         opt_makejobs = bcfg.getint("jobs", fallback=opt_makejobs)
         opt_lthreads = bcfg.getint("link_threads", fallback=opt_lthreads)
+        opt_bwcmd = bcfg.get("bwrap", fallback=opt_bwcmd)
         opt_arch = bcfg.get("arch", fallback=opt_arch)
         opt_harch = bcfg.get("host_arch", fallback=opt_harch)
         opt_bldroot = bcfg.get("build_root", fallback=opt_bldroot)
@@ -422,6 +424,12 @@ def init_late():
         paths.set_apk(os.environ["CBUILD_APK_PATH"])
     else:
         paths.set_apk(opt_apkcmd)
+
+    # bwrap command
+    if "CBUILB_BWRAP_PATH" in os.environ:
+        paths.set_bwrap(os.environ["CBUILD_BWRAP_PATH"])
+    else:
+        paths.set_bwrap(opt_bwcmd)
 
     # init license information
     spdx.init()
@@ -1946,6 +1954,12 @@ def fire():
 
     if not aret.stdout.startswith(b"apk-tools 3"):
         logger.get().out_red("cbuild: apk-tools 3.x is required")
+        sys.exit(1)
+
+    try:
+        subprocess.run([paths.bwrap(), "--version"], capture_output=True)
+    except FileNotFoundError:
+        logger.get().out_red(f"cbuild: bwrap not found ({paths.bwrap()}")
         sys.exit(1)
 
     template.register_hooks()

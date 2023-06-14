@@ -58,6 +58,15 @@ def apk():
     return _apkcmd
 
 
+def set_bwrap(cmd):
+    global _bwcmd
+    _bwcmd = os.path.expanduser(cmd)
+
+
+def bwrap():
+    return _bwcmd
+
+
 def distdir():
     return _ddir
 

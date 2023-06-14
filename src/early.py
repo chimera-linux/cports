@@ -11,7 +11,7 @@ def fire():
         sys.exit("Python 3.10 or newer is required")
 
     # required programs in the system
-    for prog in ["bwrap", "git", "tee"]:
+    for prog in ["git", "tee"]:
         if not shutil.which(prog):
             sys.exit(f"Required program not found: {prog}")
 

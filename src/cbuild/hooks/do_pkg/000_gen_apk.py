@@ -201,7 +201,7 @@ set -e
         if pkg.rparent.stage == 0:
             ret = subprocess.run(
                 [
-                    "bwrap",
+                    paths.bwrap(),
                     "--bind",
                     "/",
                     "/",

@@ -648,7 +648,7 @@ def enter(
         )
 
     bcmd = [
-        "bwrap",
+        paths.bwrap(),
         "--unshare-all",
         "--hostname",
         "cbuild",

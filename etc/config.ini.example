@@ -4,12 +4,14 @@
 # options related to your host apk
 [apk]
 # the apk command to use
-# must not be a static binary
 # also overridden by environment variable CBUILD_APK_PATH
 command = apk
 
 # options related to building packages
 [build]
+# the bwrap command to use
+# also overriden by environment variable CBUILD_BWRAP_PATH
+bwrap = bwrap
 # whether -dbg packages will be generated
 build_dbg = yes
 # default build root path (absolute or relative to cports)
