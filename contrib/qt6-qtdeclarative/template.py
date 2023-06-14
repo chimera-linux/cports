@@ -37,7 +37,7 @@ def do_check(self):
         "qmlquery",  # missing /usr/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake
         "qtquickcompiler",  # missing /usr/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake
         "cmake_test_common_import_path",  # missing /usr/lib/cmake/Qt6Qml/Qt6QmlConfig.cmake
-        "tst_qjsengine", # tst_QJSEngine::interrupt(tail call / jit) 'jsEngine.isInterrupted()' returned FALSE. () - maybe ppc64le only
+        "tst_qjsengine",  # tst_QJSEngine::interrupt(tail call / jit) 'jsEngine.isInterrupted()' returned FALSE. () - maybe ppc64le only
         "tst_qqmlapplicationengine",  # tst_qqmlapplicationengine::application(delayed quit) 'QString(testStdErr).endsWith(QString(expectedStdErr))' returned FALSE.
         "tst_qqmljsscope",  # missing builtins.qmltypes, jsroot.qmltypes
         "tst_qdebugmessageservice",  # Could not launch app  "/usr/lib/qt6/bin/qml"
