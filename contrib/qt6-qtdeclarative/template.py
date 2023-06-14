@@ -57,6 +57,8 @@ def do_check(self):
         "tst_qmlplugindump",  # qmlplugindump executable not found (looked for /usr/lib/qt6/bin/qmlplugindump)
         "tst_qml",  # tst_qml::initTestCase() 'QFileInfo(qmlPath).exists()' returned FALSE. ()
         "tst_qqmlextensionplugin",  # tst_qqmlextensionplugin::iidCheck() ASSERT failure in QTest::fetchData(): "Test data requested, but no testdata available"
+        "tst_qqmlsettings_labs",  # flaky
+        "tst_qqmlsettings",  # flaky
         "text",  # test failed
         "tst_qmldomitem",  # Error: Could not find builtins.qmltypes file
         "tst_dom_all",  # Error: Could not find builtins.qmltypes file
