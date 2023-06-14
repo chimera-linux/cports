@@ -8,6 +8,7 @@ configure_args = [
     "-Dlz4=enabled",
     "-Dbin_contrib=true",
 ]
+make_dir = "mbuild"
 meson_dir = "build/meson"
 hostmakedepends = ["pkgconf", "meson"]
 makedepends = ["zlib-devel", "liblzma-devel", "liblz4-devel"]
