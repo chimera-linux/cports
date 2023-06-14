@@ -1,7 +1,7 @@
 # nscd service
 
 type               = process
-command            = /usr/bin/nscd -F
+command            = /usr/bin/nscd
 before             = init-local.target
 depends-on         = nscd-prepare
 restart            = true
