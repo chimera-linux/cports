@@ -1,5 +1,5 @@
 pkgname = "qt6-qttools"
-pkgver = "6.5.0"
+pkgver = "6.5.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -28,12 +28,13 @@ makedepends = [
     "clang-tools-extra",
 ]
 pkgdesc = "Qt6 tools"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = (
     "LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0"
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qttools-everywhere-src-{pkgver}.tar.xz"
-sha256 = "49c33d96b0a44988be954269b8ce3d1a495b439726e03a6be7c0d50a686369c4"
+sha256 = "5744df9e84b2a86f7f932ffc00341c7d7209e741fd1c0679a32b855fcceb2329"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
