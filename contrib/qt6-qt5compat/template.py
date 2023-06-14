@@ -1,5 +1,5 @@
 pkgname = "qt6-qt5compat"
-pkgver = "6.5.0"
+pkgver = "6.5.1"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qtbase"]
@@ -11,7 +11,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qt5compat-everywhere-src-{pkgver}.tar.xz"
-sha256 = "a9e2f53a193fc2e131b01a2f6e7a1fbfe31309c2413fdc213e5a81c558c21261"
+sha256 = "ae992b295fefabef2445beb3a8ec31c40fa0fb2c01603eaf2acfdb4a0054fb83"
 # TODO
 options = ["!check"]
 
