@@ -3,6 +3,7 @@ pkgver = "1.25.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
+configure_gen = []
 make_cmd = "gmake"
 make_check_env = {"VERBOSE": "x"}
 hostmakedepends = ["gmake"]
@@ -29,6 +30,3 @@ def _core(self):
     self.pkgdesc = f"{pkgdesc} (core)"
 
     return ["usr/bin/faked", "usr/lib"]
-
-
-configure_gen = []
