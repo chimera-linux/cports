@@ -86,8 +86,6 @@ if self.stage > 0:
     ]
     # enable LTO except on riscv where it's broken
     if self.stage >= 2:
-        if self.profile().arch != "riscv64":
-            configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
         # also use llvm-bootstrap
         if not self.profile().cross:
             hostmakedepends += ["llvm-bootstrap"]
@@ -141,6 +139,9 @@ configure_args += [f"-DLLVM_ENABLE_RUNTIMES={';'.join(_enabled_runtimes)}"]
 
 
 def init_configure(self):
+    if self.has_lto():
+        self.configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
+
     if not self.profile().cross:
         return
 
