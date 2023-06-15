@@ -35,19 +35,3 @@ index 4756505..5397ee3 100644
  #undef realloc
  
  /* Define to `unsigned int' if <sys/types.h> does not define. */
-diff --git a/src/rpl_malloc.h b/src/rpl_malloc.h
-new file mode 120000
-index 0000000..a8f17b5
---- /dev/null
-+++ b/src/rpl_malloc.h
-@@ -0,0 +1 @@
-+../lib/malloc.h
-\ No newline at end of file
-diff --git a/src/rpl_realloc.h b/src/rpl_realloc.h
-new file mode 120000
-index 0000000..068e456
---- /dev/null
-+++ b/src/rpl_realloc.h
-@@ -0,0 +1 @@
-+../lib/realloc.h
-\ No newline at end of file

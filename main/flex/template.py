@@ -18,6 +18,11 @@ tool_flags = {
 }
 
 
+def post_patch(self):
+    self.ln_s("../lib/malloc.h", "src/rpl_malloc.h")
+    self.ln_s("../lib/realloc.h", "src/rpl_realloc.h")
+
+
 def post_install(self):
     self.install_link("flex", "usr/bin/lex")
     self.install_license("COPYING")
