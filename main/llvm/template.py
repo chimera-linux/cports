@@ -70,15 +70,8 @@ tool_flags = {
     "LDFLAGS": [],
 }
 
-_enabled_projects = [
-    "clang",
-    "clang-tools-extra",
-    "lld",
-    "compiler-rt",
-    "libcxx",
-    "libcxxabi",
-    "libunwind",
-]
+_enabled_projects = ["clang", "clang-tools-extra", "lld"]
+_enabled_runtimes = ["compiler-rt", "libcxx", "libcxxabi", "libunwind"]
 
 if self.stage > 0:
     configure_args += ["-DLLVM_ENABLE_FFI=YES"]
@@ -144,6 +137,7 @@ match self.profile().arch:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
 configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
+configure_args += [f"-DLLVM_ENABLE_RUNTIMES={';'.join(_enabled_runtimes)}"]
 
 
 def init_configure(self):
