@@ -20,7 +20,7 @@ def _enable_wrappers(pkg):
 def _wrap_cross_cc(pkg):
     at = pkg.profile().triplet
     for n in ["clang", "clang++", "cc", "c++"]:
-        if not (pkg.wrapperdir / f"{at}-{n}").exists():
+        if not (pkg.wrapperdir / f"{at}-{n}").is_symlink():
             (pkg.wrapperdir / f"{at}-{n}").symlink_to(
                 "/usr/bin/cbuild-cross-cc"
             )

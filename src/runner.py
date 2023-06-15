@@ -1478,7 +1478,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
             "build root not found (have you boootstrapped?)"
         )
     # don't remove builddir/destdir
-    chroot.prepare_arch(opt_arch)
+    chroot.prepare_arch(opt_arch, opt_dirty)
     build.build(
         tgt,
         rp,
@@ -1507,7 +1507,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
     if opt_mdirtemp:
         chroot.install()
     chroot.repo_init()
-    chroot.prepare_arch(opt_arch)
+    chroot.prepare_arch(opt_arch, False)
 
     def _do_with_exc(f):
         # we are setting this

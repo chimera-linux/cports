@@ -402,20 +402,21 @@ def _setup_dummy(rootp, archn):
         shutil.rmtree(tmpd)
 
 
-def _prepare_arch(prof):
+def _prepare_arch(prof, dirty):
     rootp = paths.bldroot() / prof.sysroot.relative_to("/")
     # drop the whole thing
-    if rootp.exists():
+    if rootp.exists() and not dirty:
         logger.get().out(f"cbuild: clearing sysroot for {prof.arch}...")
         shutil.rmtree(rootp)
 
     logger.get().out(f"setting up sysroot for {prof.arch}...")
     initdb(rootp)
     setup_keys(rootp)
-    _setup_dummy(rootp, prof.arch)
+    if not dirty:
+        _setup_dummy(rootp, prof.arch)
 
 
-def prepare_arch(arch):
+def prepare_arch(arch, dirty):
     paths.prepare()
 
     if not arch:
@@ -428,7 +429,7 @@ def prepare_arch(arch):
     if not prof.cross:
         return
 
-    _prepare_arch(prof)
+    _prepare_arch(prof, dirty)
 
 
 def remove_autodeps(bootstrapping, prof=None):
@@ -498,7 +499,7 @@ def remove_autodeps(bootstrapping, prof=None):
             failed = True
 
     if prof and prof.cross:
-        _prepare_arch(prof)
+        _prepare_arch(prof, False)
 
     if failed:
         raise errors.CbuildException("failed to remove autodeps")
