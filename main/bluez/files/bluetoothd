@@ -3,7 +3,7 @@
 # TODO: log output to syslog redirection
 
 type            = process
-command         = /usr/libexec/bluetoooth/bluetoothd -n
+command         = /usr/libexec/bluetooth/bluetoothd -n
 before          = login.target
 depends-on      = init-local.target
 depends-on      = dbus
