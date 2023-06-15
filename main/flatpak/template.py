@@ -18,6 +18,8 @@ make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
     "pkgconf",
+    "automake",
+    "libtool",
     "xsltproc",
     "docbook-xml",
     "libxml2-progs",
@@ -27,7 +29,8 @@ hostmakedepends = [
     "xdg-dbus-proxy",
     "gobject-introspection",
     "xmlto",
-    "gettext-tiny",
+    "gtk-doc-tools",
+    "gettext-tiny-devel",
 ]
 makedepends = [
     "libcap-devel",
@@ -90,15 +93,7 @@ def post_install(self):
         name="flatpak.conf",
     )
 
-    self.mv(
-        self.destdir / "usr/share/fish/vendor_completions.d",
-        self.destdir / "usr/share/fish/completions",
-    )
-
 
 @subpackage("flatpak-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
