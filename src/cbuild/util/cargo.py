@@ -25,6 +25,8 @@ def get_environment(pkg, jobs=None):
         # gettext-rs
         "GETTEXT_BIN_DIR": "/usr/bin",
         "GETTEXT_LIB_DIR": str(sroot / "usr/lib/gettext"),
+        # libgit2-sys
+        "LIBGIT2_NO_VENDOR": "1",
         # libssh2-sys
         "LIBSSH2_SYS_USE_PKG_CONFIG": "1",
         # sodium-sys
