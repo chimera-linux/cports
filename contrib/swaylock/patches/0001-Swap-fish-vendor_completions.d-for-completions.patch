@@ -1,0 +1,25 @@
+From 6337e6f2cf4831a304363b156bdc5d2d149ed30f Mon Sep 17 00:00:00 2001
+From: "Paul A. Patience" <paul@apatience.com>
+Date: Thu, 15 Jun 2023 00:23:00 -0400
+Subject: [PATCH] Swap fish vendor_completions.d for completions
+
+---
+ completions/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/completions/meson.build b/completions/meson.build
+index e2e913a..6b62e25 100644
+--- a/completions/meson.build
++++ b/completions/meson.build
+@@ -32,7 +32,7 @@ if get_option('fish-completions')
+ 	if fish_comp.found()
+ 		fish_install_dir = fish_comp.get_variable('completionsdir')
+ 	else
+-		fish_install_dir = datadir + '/fish/vendor_completions.d'
++		fish_install_dir = datadir + '/fish/completions'
+ 	endif
+ 
+ 	install_data(fish_files, install_dir: fish_install_dir)
+-- 
+2.40.1
+
