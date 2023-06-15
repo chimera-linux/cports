@@ -365,6 +365,9 @@ class Profile:
         # FIXME: enable when this is fixed in clang
         if self._arch == "riscv64":
             return False
+        # probably not worth it, no scudo makes linking slow
+        if self._arch == "ppc":
+            return False
 
         # it would be problematic to lto stage 0,
         # and in stage 1 it would just waste time

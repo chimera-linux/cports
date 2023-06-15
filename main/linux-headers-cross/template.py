@@ -1,6 +1,6 @@
 pkgname = "linux-headers-cross"
 pkgver = "5.15.5"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl"]
 depends = []
@@ -17,6 +17,7 @@ _targetlist = [
     ("aarch64", "arm64"),
     ("ppc64le", "powerpc"),
     ("ppc64", "powerpc"),
+    ("ppc", "powerpc"),
     ("x86_64", "x86_64"),
     ("riscv64", "riscv"),
 ]
@@ -63,7 +64,7 @@ def do_install(self):
             )
 
 
-for an, arch in _targetlist:
+def _crosshdr(an, arch):
     _cond = (an, arch) in _targets
 
     @subpackage(f"linux-headers-cross-{an}", _cond)
@@ -74,3 +75,7 @@ for an, arch in _targetlist:
 
     if _cond:
         depends.append(f"linux-headers-cross-{an}={pkgver}-r{pkgrel}")
+
+
+for _an, _arch in _targetlist:
+    _crosshdr(_an, _arch)

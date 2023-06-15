@@ -28,6 +28,8 @@ match self.profile().arch:
         configure_args += ["--enable-altivec", "--enable-vsx"]
     case "ppc64":
         configure_args += ["--enable-altivec", "--disable-vsx"]
+    case "ppc":
+        configure_args += ["--disable-altivec", "--disable-vsx"]
 
 
 def post_install(self):

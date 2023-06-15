@@ -26,6 +26,9 @@ match self.profile().arch:
     case "ppc64":
         _glibc = "ld64.so.2"
         _musl = "ld-musl-powerpc64.so.1"
+    case "ppc":
+        _glibc = "ld.so.1"
+        _musl = "ld-musl-powerpc.so.1"
     case "aarch64":
         _glibc = "ld-linux-aarch64.so.1"
         _musl = "ld-musl-aarch64.so.1"

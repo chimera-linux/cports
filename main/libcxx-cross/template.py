@@ -1,6 +1,6 @@
 pkgname = "libcxx-cross"
 pkgver = "16.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -45,7 +45,7 @@ options = ["!cross", "!check", "!lto"]
 
 cmake_dir = "runtimes"
 
-_targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 tool_flags = {

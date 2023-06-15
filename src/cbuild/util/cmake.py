@@ -36,7 +36,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
     elif pkg.profile().cross and cross_build is not False:
         # map known profiles to cmake arch
         match pkg.profile().arch:
-            case "aarch64" | "ppc64le" | "ppc64" | "x86_64" | "riscv64":
+            case "aarch64" | "ppc64le" | "ppc64" | "ppc" | "x86_64" | "riscv64":
                 cmake_cpu = pkg.profile().arch
             case _:
                 pkg.error(f"unknown architecture: {pkg.profile().arch}")

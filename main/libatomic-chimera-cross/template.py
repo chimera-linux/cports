@@ -1,6 +1,6 @@
 pkgname = "libatomic-chimera-cross"
 pkgver = "0.90.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 makedepends = ["musl-cross"]
 depends = ["musl-cross"]
@@ -13,7 +13,7 @@ sha256 = "fccbd8c0ef7fd473275f835b3fca9275fb27a0c196cdcdff1f6d14ab12ed3a53"
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "brokenlinks"]
 
-_targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
 _targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 

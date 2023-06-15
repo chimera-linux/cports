@@ -73,7 +73,7 @@ _platforms = [
 match self.profile().arch:
     case "x86_64":
         _archs = ["i386", "x86_64"]
-    case "ppc64le" | "ppc64":
+    case "ppc64le" | "ppc64" | "ppc":
         _archs = ["powerpc"]
     case "aarch64":
         _archs = ["arm64"]

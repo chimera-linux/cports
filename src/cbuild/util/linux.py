@@ -3,7 +3,7 @@
 
 def get_arch(arch):
     match arch:
-        case "ppc64le" | "ppc64":
+        case "ppc64le" | "ppc64" | "ppc":
             return "powerpc"
         case "aarch64":
             return "arm64"

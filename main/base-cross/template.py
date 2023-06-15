@@ -1,6 +1,6 @@
 pkgname = "base-cross"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "clang-rt-cross",
@@ -15,7 +15,7 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 options = ["!cross"]
 
-_targetlist = ["aarch64", "ppc64le", "ppc64", "x86_64", "riscv64"]
+_targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
 _targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 
@@ -52,9 +52,10 @@ def do_install(self):
         )
 
 
-for an in _targetlist:
+def _gen(an):
+    cond = an in _targets
 
-    @subpackage(f"base-cross-{an}")
+    @subpackage(f"base-cross-{an}", cond)
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({an} support)"
         self.depends = [
@@ -74,3 +75,7 @@ for an in _targetlist:
 
     if an in _targets:
         depends.append(f"base-cross-{an}={pkgver}-r{pkgrel}")
+
+
+for _an in _targetlist:
+    _gen(_an)

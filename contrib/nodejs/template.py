@@ -49,6 +49,8 @@ match self.profile().arch:
         # trap in add_label_offset() (assembler-ppc.cc)
         # also crashes on riscv64
         hardening += ["!int"]
+    case "ppc":
+        broken = "unsupported"
 
 
 def post_extract(self):

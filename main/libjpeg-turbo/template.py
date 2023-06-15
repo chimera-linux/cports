@@ -13,7 +13,7 @@ sha256 = "2fdc3feb6e9deb17adec9bafa3321419aa19f8f4e5dea7bf8486844ca22207bf"
 
 # tests segfault with altivec simd
 match self.profile().arch:
-    case "ppc64le" | "ppc64":
+    case "ppc64le" | "ppc64" | "ppc":
         configure_args += ["-DWITH_SIMD=FALSE"]
 
 

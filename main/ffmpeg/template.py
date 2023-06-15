@@ -122,6 +122,7 @@ if self.profile().cross:
         "aarch64": "aarch64",
         "ppc64le": "ppc64",
         "ppc64": "ppc64",
+        "ppc": "ppc",
         "riscv64": "riscv",
         "x86_64": "x86_64",
     }

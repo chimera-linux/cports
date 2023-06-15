@@ -25,7 +25,7 @@ hardening = ["!scp"]
 options = ["bootstrap", "!check", "!lto", "!relr", "brokenlinks"]
 
 # whether to use musl's stock allocator instead of scudo
-_use_mng = False
+_use_mng = self.profile().arch in ["ppc"]
 
 if _use_mng:
     configure_args += ["--with-malloc=mallocng"]
