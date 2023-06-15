@@ -70,8 +70,15 @@ tool_flags = {
     "LDFLAGS": [],
 }
 
-_enabled_projects = ["clang", "clang-tools-extra", "lld"]
-_enabled_runtimes = ["compiler-rt", "libcxx", "libcxxabi", "libunwind"]
+_enabled_projects = [
+    "clang",
+    "clang-tools-extra",
+    "lld",
+    "compiler-rt",
+    "libcxx",
+    "libcxxabi",
+    "libunwind",
+]
 
 if self.stage > 0:
     configure_args += ["-DLLVM_ENABLE_FFI=YES"]
@@ -136,14 +143,7 @@ match self.profile().arch:
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
-# do not use bootstrapping build for cross as it does not really work for now
-if self.profile().cross:
-    configure_args += [
-        f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects + _enabled_runtimes)}"
-    ]
-else:
-    configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
-    configure_args += [f"-DLLVM_ENABLE_RUNTIMES={';'.join(_enabled_runtimes)}"]
+configure_args += [f"-DLLVM_ENABLE_PROJECTS={';'.join(_enabled_projects)}"]
 
 
 def init_configure(self):
@@ -167,6 +167,10 @@ def init_configure(self):
             self.chroot_cwd / "build_host/bin/clang-tidy-confusable-chars-gen"
         )
     )
+    self.configure_args.append(
+        "-DLLVM_CONFIG_PATH="
+        + str(self.chroot_cwd / "build_host/bin/llvm-config")
+    )
 
 
 def pre_configure(self):
@@ -181,7 +185,8 @@ def pre_configure(self):
         trip = pf.triplet
 
     with self.profile("host"):
-        with self.stamp("host_llvm_configure"):
+        with self.stamp("host_llvm_configure") as s:
+            s.check()
             # need to pass the triplets so builtins are found
             cmake.configure(
                 self,
@@ -212,6 +217,10 @@ def pre_configure(self):
             make.Make(self, wrksrc="build_host").invoke(
                 ["bin/clang-pseudo-gen"]
             )
+
+        with self.stamp("host_llvm_config") as s:
+            s.check()
+            make.Make(self, wrksrc="build_host").invoke(["bin/llvm-config"])
 
 
 def do_configure(self):
