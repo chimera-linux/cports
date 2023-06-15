@@ -4,6 +4,7 @@ pkgrel = 0
 _scudo_ver = "16.0.5"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
 provides = ["so:libc.so=0"]
@@ -130,6 +131,3 @@ def _devel(self):
     self.options = ["!splitstatic"]
     # the .a files are empty archives
     return ["usr/include", "usr/lib/*.o", "usr/lib/*.a"]
-
-
-configure_gen = []

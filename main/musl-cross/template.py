@@ -4,6 +4,7 @@ pkgrel = 1
 _scudo_ver = "16.0.5"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
 makedepends = ["clang-rt-crt-cross"]
@@ -149,6 +150,3 @@ def _static(self):
         self.depends.append(f"musl-cross-{an}-static={pkgver}-r{pkgrel}")
 
     return []
-
-
-configure_gen = []
