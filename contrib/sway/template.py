@@ -27,6 +27,10 @@ sha256 = "73f08fd2cf7948e8af900709efe44eae412ae11c5773960e25c9aa09f73bad41"
 hardening = ["vis", "cfi"]
 
 
+def post_install(self):
+    self.install_license("LICENSE")
+
+
 @subpackage("sway-backgrounds")
 def _backgrounds(self):
     self.pkgdesc = f"{pkgdesc} (backgrounds)"

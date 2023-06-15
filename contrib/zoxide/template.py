@@ -13,6 +13,7 @@ sha256 = "7af5965e0f0779a5ea9135ee03c51b1bb1d84b578af0a7eb2bd13dbf34a342dd"
 
 
 def post_install(self):
+    self.install_license("LICENSE")
     self.install_man("man/man1/*.1", glob=True)
     self.install_file(
         "contrib/completions/zoxide.bash",

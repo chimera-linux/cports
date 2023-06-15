@@ -35,6 +35,10 @@ source = f"https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/{pkgver}/do
 sha256 = "83e9a11605f23d4bf781ab1947089483d9ec3f7e9ba65398e0609593b77d44aa"
 
 
+def post_install(self):
+    self.install_license("LICENSE")
+
+
 @subpackage("wlroots-devel")
 def _devel(self):
     return self.default_devel()
