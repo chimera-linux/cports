@@ -172,7 +172,7 @@ def handle_options():
         "-b", "--build-root", default=None, help="The build root path."
     )
     parser.add_argument(
-        "-B", "--build-dir", default=None, help="The build dir path."
+        "-B", "--build-dir", default=None, help="The path for build/destdir."
     )
     parser.add_argument(
         "-r", "--repository-path", default=None, help="Local repository path."
@@ -655,12 +655,12 @@ def do_clean(tgt):
     from cbuild.core import paths, errors
 
     chroot.remove_autodeps(None)
-    dirp = paths.builddir()
+    dirp = paths.builddir() / "builddir"
     if dirp.is_dir():
         shutil.rmtree(dirp)
     elif dirp.exists():
         raise errors.CbuildException("broken container (builddir invalid)")
-    dirp = paths.bldroot() / "destdir"
+    dirp = paths.builddir() / "destdir"
     if dirp.is_dir():
         shutil.rmtree(dirp)
     elif dirp.exists():

@@ -77,7 +77,7 @@ def bldroot():
 
 def builddir():
     if not _bldir:
-        return bldroot() / "builddir"
+        return bldroot()
     else:
         return _bldir
 
@@ -117,7 +117,8 @@ def prepare():
     (cbuild_cache() / "apk").mkdir(parents=True, exist_ok=True)
     repository().mkdir(parents=True, exist_ok=True)
     stage_repository().mkdir(parents=True, exist_ok=True)
-    builddir().mkdir(parents=True, exist_ok=True)
+    (builddir() / "builddir").mkdir(parents=True, exist_ok=True)
+    (builddir() / "destdir").mkdir(parents=True, exist_ok=True)
 
     # prepare build root
     for f in [

@@ -1888,14 +1888,14 @@ def from_module(m, ret):
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
     ret.sources_path = paths.sources() / f"{ret.pkgname}-{ret.pkgver}"
-    ret.builddir = paths.builddir()
+    ret.builddir = paths.builddir() / "builddir"
     ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
 
     if ret.profile().cross:
-        ret.destdir_base = paths.bldroot() / "destdir" / ret.profile().triplet
+        ret.destdir_base = paths.builddir() / "destdir" / ret.profile().triplet
     else:
-        ret.destdir_base = paths.bldroot() / "destdir"
+        ret.destdir_base = paths.builddir() / "destdir"
 
     ret.destdir = ret.destdir_base / f"{ret.pkgname}-{ret.pkgver}"
 

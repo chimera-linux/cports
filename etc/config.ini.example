@@ -16,8 +16,8 @@ bwrap = bwrap
 build_dbg = yes
 # default build root path (absolute or relative to cports)
 build_root = bldroot
-# default builddir path inside bldroot (absolute or relative to cports)
-# will be the default inside bldroot if empty (no separate directory)
+# default physical path for builddir and destdir (absolute or relative
+# to cports); if empty, they will be directly in bldroot
 build_dir =
 # whether ccache will be used in the build
 ccache = no
