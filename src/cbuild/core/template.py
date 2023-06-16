@@ -1777,6 +1777,8 @@ def from_module(m, ret):
     if not m:
         return None
 
+    prevpkg = ret.pkgname
+
     # fill in mandatory fields
     for fl, dval, tp, mand, sp, inh in core_fields:
         # mandatory fields are all at the beginning
@@ -1788,6 +1790,10 @@ def from_module(m, ret):
 
     # basic validation
     ret.ensure_fields()
+
+    # ensure pkgname is the same
+    if ret.pkgname != prevpkg:
+        ret.error(f"pkgname does not match template ({prevpkg})")
 
     # possibly skip very early once we have the bare minimum info
     if (
@@ -2107,8 +2113,11 @@ def read_mod(
             return None, None
         raise errors.CbuildException(f"missing template for '{pkgname}'")
 
+    tmplp = (paths.distdir() / pkgname).resolve()
+    pkgname = str(tmplp.relative_to(paths.distdir()))
+
     ret = Template(pkgname, origin)
-    ret.template_path = paths.distdir() / pkgname
+    ret.template_path = tmplp
     ret.force_mode = force_mode
     ret.bulk_mode = bulk_mode
     ret.build_dbg = build_dbg
