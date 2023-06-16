@@ -1,8 +1,8 @@
 pkgname = "rust-bootstrap"
-pkgver = "1.69.0"
+pkgver = "1.70.0"
 pkgrel = 0
 # satisfy revdeps
-makedepends = ["zlib", "ncurses-libs"]
+makedepends = ["zlib", "ncurses-libs", "libzstd"]
 # overlapping files
 depends = ["!rust"]
 pkgdesc = "Rust programming language bootstrap toolchain"
@@ -19,13 +19,13 @@ options = ["!strip"]
 match self.profile().arch:
     case "aarch64":
         sha256 = [
-            "da859adf3961b7961945cbb89fb9da5dc7db459d345bdc83cf4630c6e1f479fa",
-            "7c43ff307cedd873bce191606500b917b262e5cf0569a99075ae26b92701cf37",
+            "6812139c5ef6fd0234565ecd74acc91fe59ddf70a44fb9a957fd2c50f9c03f69",
+            "d6f0ab01a22e3905c795072df6a806b2d7b32f5ba57f944e73a6d193e276aa2d",
         ]
     case "ppc64le":
         sha256 = [
-            "52867a8302e2b4e0efc5b37f5dbdec7feb31dfb3fc8255a5cce5fe798726c603",
-            "24f4d55809e84cfe7e1c0fc8168c1d9a4008aef3ed662dc931f3724abd80c242",
+            "99b35e6d8d1b24b54945906554cf9b1b66994f684d29c7976108d33a694320d4",
+            "3bd65fa65164ac67fffcddbe332488c2e40d31c9a2a887d60a01530c54e64dfb",
         ]
     case "ppc64":
         sha256 = [
@@ -34,13 +34,13 @@ match self.profile().arch:
         ]
     case "riscv64":
         sha256 = [
-            "c39d4d175abcfb12f4e7031fb7bfe2f28dfea136343294fd663cb5eb2d199bf1",
-            "5921299e9959fe22634e06fed2ab9420cc939c5a7ab6651149d14e7982874616",
+            "cef35245dd9219e7e34c322007ad577b4f205b19d0b04ed12c855eaf79c6bf1b",
+            "c921123c5655d5ab80389f5c416d2efc487eab83be753f8b0f09f6aa3943a64b",
         ]
     case "x86_64":
         sha256 = [
-            "a44f69f77aa2b6be3d352d3e44c8969bc11ab8b7d284abf97de8a6191bb17a4c",
-            "055c673a73240e3d4c8331c36f8cb563b2e8e583deb8d089c35e619a58e8e844",
+            "ccf7e19e011789b5c22baed9e196c04f9b4c4f835670b0cfba438498a9404957",
+            "2c4fdd53d942037f6286a22850146cf56ed898735a357c9fc6b5b2cf406b0c59",
         ]
     case _:
         broken = f"not yet built for {self.profile().arch}"
