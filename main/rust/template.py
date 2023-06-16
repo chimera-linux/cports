@@ -40,15 +40,18 @@ env = {
 # lto always breaks across major llvm vers because of consumer/reader mismatch
 options = ["!check", "!lto"]
 
+# bootstrapping mode: generates tarballs for rust-bootstrap
+# do not use a temporary directory mode when running this!
+_bootstrap = True
+
 if self.profile().cross:
     hostmakedepends += ["rust"]
     env["PKG_CONFIG_ALLOW_CROSS"] = "1"
+elif _bootstrap:
+    hostmakedepends += ["rust"]
 else:
     hostmakedepends += ["rust-bootstrap"]
 
-# bootstrapping mode: generates tarballs for rust-bootstrap
-# do not use a temporary directory mode when running this!
-_bootstrap = False
 _rlib_dir = f"usr/lib/rustlib/{self.profile().triplet}"
 
 if _bootstrap:
