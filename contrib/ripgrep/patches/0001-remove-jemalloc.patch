@@ -1,0 +1,115 @@
+From 8b0c452ecad84eb5468d1c3422531542730febcf Mon Sep 17 00:00:00 2001
+From: Wesley Moore <wes@wezm.net>
+Date: Fri, 16 Jun 2023 13:05:14 +1000
+Subject: [PATCH] remove jemalloc
+
+---
+ Cargo.lock          | 28 ----------------------------
+ Cargo.toml          |  3 ---
+ crates/core/main.rs | 23 -----------------------
+ 3 files changed, 54 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 76cd146..790340b 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -129,12 +129,6 @@ version = "1.0.7"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
+ 
+-[[package]]
+-name = "fs_extra"
+-version = "1.2.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2022715d62ab30faffd124d40b76f4134a550a87792276512b18d63272333394"
+-
+ [[package]]
+ name = "glob"
+ version = "0.3.0"
+@@ -275,27 +269,6 @@ version = "0.4.7"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "dd25036021b0de88a0aff6b850051563c6516d0bf53f8638938edbb9de732736"
+ 
+-[[package]]
+-name = "jemalloc-sys"
+-version = "0.3.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "0d3b9f3f5c9b31aa0f5ed3260385ac205db665baa41d49bb8338008ae94ede45"
+-dependencies = [
+- "cc",
+- "fs_extra",
+- "libc",
+-]
+-
+-[[package]]
+-name = "jemallocator"
+-version = "0.3.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "43ae63fcfc45e99ab3d1b29a46782ad679e98436c3169d15a167a1108a724b69"
+-dependencies = [
+- "jemalloc-sys",
+- "libc",
+-]
+-
+ [[package]]
+ name = "jobserver"
+ version = "0.1.22"
+@@ -451,7 +424,6 @@ dependencies = [
+  "clap",
+  "grep",
+  "ignore",
+- "jemallocator",
+  "lazy_static",
+  "log",
+  "num_cpus",
+diff --git a/Cargo.toml b/Cargo.toml
+index fb78fcb..37ddd25 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -56,9 +56,6 @@ version = "2.33.0"
+ default-features = false
+ features = ["suggestions"]
+ 
+-[target.'cfg(all(target_env = "musl", target_pointer_width = "64"))'.dependencies.jemallocator]
+-version = "0.3.0"
+-
+ [build-dependencies]
+ lazy_static = "1.1.0"
+ 
+diff --git a/crates/core/main.rs b/crates/core/main.rs
+index 47385de..f479a2b 100644
+--- a/crates/core/main.rs
++++ b/crates/core/main.rs
+@@ -20,29 +20,6 @@ mod path_printer;
+ mod search;
+ mod subject;
+ 
+-// Since Rust no longer uses jemalloc by default, ripgrep will, by default,
+-// use the system allocator. On Linux, this would normally be glibc's
+-// allocator, which is pretty good. In particular, ripgrep does not have a
+-// particularly allocation heavy workload, so there really isn't much
+-// difference (for ripgrep's purposes) between glibc's allocator and jemalloc.
+-//
+-// However, when ripgrep is built with musl, this means ripgrep will use musl's
+-// allocator, which appears to be substantially worse. (musl's goal is not to
+-// have the fastest version of everything. Its goal is to be small and amenable
+-// to static compilation.) Even though ripgrep isn't particularly allocation
+-// heavy, musl's allocator appears to slow down ripgrep quite a bit. Therefore,
+-// when building with musl, we use jemalloc.
+-//
+-// We don't unconditionally use jemalloc because it can be nice to use the
+-// system's default allocator by default. Moreover, jemalloc seems to increase
+-// compilation times by a bit.
+-//
+-// Moreover, we only do this on 64-bit systems since jemalloc doesn't support
+-// i686.
+-#[cfg(all(target_env = "musl", target_pointer_width = "64"))]
+-#[global_allocator]
+-static ALLOC: jemallocator::Jemalloc = jemallocator::Jemalloc;
+-
+ type Result<T> = ::std::result::Result<T, Box<dyn error::Error>>;
+ 
+ fn main() {
+-- 
+2.41.0
+
