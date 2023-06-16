@@ -12,6 +12,7 @@ hostmakedepends = [
     "ncurses-devel",
     "libxml2-devel",
     "zlib-devel",
+    "libzstd-devel",
     "cargo-bootstrap",
 ]
 makedepends = [
@@ -19,6 +20,7 @@ makedepends = [
     "ncurses-devel",
     "libxml2-devel",
     "zlib-devel",
+    "libzstd-devel",
     "llvm-devel",
 ]
 depends = [f"rust-std={pkgver}-r{pkgrel}", "clang", "musl-devel"]
@@ -104,6 +106,8 @@ def do_configure(self):
 #[link(name = "ffi")]
 extern {}
 #[link(name = "z")]
+extern {}
+#[link(name = "zstd")]
 extern {}
 #[link(name = "ncursesw")]
 extern {}
