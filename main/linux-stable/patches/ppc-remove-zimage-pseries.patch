@@ -1,32 +1,59 @@
-commit 714543011f57b6427e16a1be1d9e4cd3e018b241
+commit aa3cbfeaa839621aabcda73fc56f16fdbadbd4a2
 Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Sun Aug 21 17:24:58 2022 +0200
+Date:   Fri Jun 16 22:56:41 2023 +0200
 
-    get rid of zImage.pseries
-    
-    This fails to build and we don't care about any of the wrappers.
+    disable some broken but unused targets
 
 diff --git a/arch/powerpc/boot/Makefile b/arch/powerpc/boot/Makefile
-index a9cd2ea..1e514dd 100644
+index 13fad4f..4df7b16 100644
 --- a/arch/powerpc/boot/Makefile
 +++ b/arch/powerpc/boot/Makefile
-@@ -267,10 +267,7 @@ quiet_cmd_wrap	= WRAP    $@
+@@ -34,7 +34,6 @@ endif
+ 
+ BOOTCFLAGS    := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+ 		 -fno-strict-aliasing -O2 -msoft-float -mno-altivec -mno-vsx \
+-		 $(call cc-option,-mno-prefixed) $(call cc-option,-mno-pcrel) \
+ 		 $(call cc-option,-mno-mma) \
+ 		 $(call cc-option,-mno-spe) $(call cc-option,-mspe=no) \
+ 		 -pipe -fomit-frame-pointer -fno-builtin -fPIC -nostdinc \
+@@ -62,9 +61,7 @@ ifdef CONFIG_CPU_BIG_ENDIAN
+ BOOTCFLAGS	+= -mbig-endian
+ else
+ BOOTCFLAGS	+= -mlittle-endian
+-endif
+-ifdef CONFIG_PPC64_ELF_ABI_V2
+-BOOTCFLAGS	+= $(call cc-option,-mabi=elfv2)
++BOOTCFLAGS	+= $(call cc-option,-mno-prefixed) $(call cc-option,-mno-pcrel)
+ endif
+ 
+ BOOTAFLAGS	:= -D__ASSEMBLY__ $(BOOTCFLAGS) -nostdinc
+@@ -276,18 +273,6 @@ quiet_cmd_wrap	= WRAP    $@
  		$(CROSSWRAP) $(if $3, -s $3)$(if $4, -d $4)$(if $5, -i $5) \
  		vmlinux
  
 -image-$(CONFIG_PPC_PSERIES)		+= zImage.pseries
 -image-$(CONFIG_PPC_POWERNV)		+= zImage.pseries
- image-$(CONFIG_PPC_MAPLE)		+= zImage.maple
+-image-$(CONFIG_PPC_MAPLE)		+= zImage.maple
 -image-$(CONFIG_PPC_IBM_CELL_BLADE)	+= zImage.pseries
- image-$(CONFIG_PPC_PS3)			+= dtbImage.ps3
- image-$(CONFIG_PPC_CHRP)		+= zImage.chrp
- image-$(CONFIG_PPC_EFIKA)		+= zImage.chrp
-@@ -452,7 +449,7 @@ $(obj)/zImage.initrd:	$(addprefix $(obj)/, $(initrd-y))
+-image-$(CONFIG_PPC_PS3)			+= dtbImage.ps3
+-image-$(CONFIG_PPC_CHRP)		+= zImage.chrp
+-image-$(CONFIG_PPC_EFIKA)		+= zImage.chrp
+-image-$(CONFIG_PPC_PMAC)		+= zImage.pmac
+-image-$(CONFIG_PPC_HOLLY)		+= dtbImage.holly
+-image-$(CONFIG_DEFAULT_UIMAGE)		+= uImage
+-image-$(CONFIG_EPAPR_BOOT)		+= zImage.epapr
+-
+ #
+ # Targets which embed a device tree blob
+ #
+@@ -460,9 +445,7 @@ $(obj)/zImage.initrd:	$(addprefix $(obj)/, $(initrd-y))
+ 
  # anything not in $(targets)
  clean-files += $(image-) $(initrd-) cuImage.* dtbImage.* treeImage.* \
- 	zImage zImage.initrd zImage.chrp zImage.coff zImage.holly \
+-	zImage zImage.initrd zImage.chrp zImage.coff zImage.holly \
 -	zImage.miboot zImage.pmac zImage.pseries \
-+	zImage.miboot zImage.pmac \
- 	zImage.maple simpleImage.* otheros.bld
+-	zImage.maple simpleImage.* otheros.bld
++	zImage \
  
  # clean up files cached by wrapper
+ clean-kernel-base := vmlinux.strip vmlinux.bin
