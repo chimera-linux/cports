@@ -220,7 +220,7 @@ class Package:
 
         self.rparent.cwd = new_path
         self.rparent.chroot_cwd = pathlib.Path("/") / new_path.relative_to(
-            paths.bldroot()
+            paths.builddir()
         )
 
         try:
