@@ -1,8 +1,9 @@
 pkgname = "expect"
 pkgver = "5.45.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["expect_cv_wnohang_value=1"]
+make_dir = "."
 make_check_target = "test"
 hostmakedepends = ["automake", "libtool", "tcl-devel"]
 makedepends = ["tcl-devel"]
