@@ -42,7 +42,7 @@ options = ["!check", "!lto"]
 
 # bootstrapping mode: generates tarballs for rust-bootstrap
 # do not use a temporary directory mode when running this!
-_bootstrap = True
+_bootstrap = False
 
 if self.profile().cross:
     hostmakedepends += ["rust"]
