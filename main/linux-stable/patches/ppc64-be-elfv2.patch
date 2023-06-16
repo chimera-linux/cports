@@ -1,0 +1,18 @@
+commit 578185f5b28542ee4fe640c025a7f2e695d8c11b
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 16 16:54:33 2023 -0500
+
+    drop binutils requirement for elfv2
+
+diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+index a6c4407..e0bdec8 100644
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -616,7 +616,6 @@ config PPC64_BIG_ENDIAN_ELF_ABI_V2
+ 	bool "Build big-endian kernel using ELF ABI V2 (EXPERIMENTAL)"
+ 	depends on PPC64 && CPU_BIG_ENDIAN
+ 	depends on CC_HAS_ELFV2
+-	depends on LD_IS_BFD && LD_VERSION >= 22400
+ 	default n
+ 	help
+ 	  This builds the kernel image using the "Power Architecture 64-Bit ELF
