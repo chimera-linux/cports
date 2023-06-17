@@ -25,3 +25,5 @@ source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "845b63bb9123d74568c8126c571bbc74273483ff920179a2cf1eddbbefa1bfc0"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
+
+tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
