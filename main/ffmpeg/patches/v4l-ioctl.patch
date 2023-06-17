@@ -1,0 +1,21 @@
+commit e1502531885ecb68182b3f5385f3a0eef0091dfa
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jun 17 15:33:56 2023 +0200
+
+    fix build with clang 16
+    
+    The v4l2_ioctl wrappers takes an unsigned long request.
+
+diff --git a/libavdevice/v4l2.c b/libavdevice/v4l2.c
+index 5e85d1a..79decbd 100644
+--- a/libavdevice/v4l2.c
++++ b/libavdevice/v4l2.c
+@@ -107,7 +107,7 @@ struct video_data {
+     int (*open_f)(const char *file, int oflag, ...);
+     int (*close_f)(int fd);
+     int (*dup_f)(int fd);
+-#ifdef __GLIBC__
++#if defined(__GLIBC__) || CONFGI_LIBV4L2
+     int (*ioctl_f)(int fd, unsigned long int request, ...);
+ #else
+     int (*ioctl_f)(int fd, int request, ...);
