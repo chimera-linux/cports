@@ -53,5 +53,5 @@ def _frontend(name):
         return inst
 
 
-for frontend in ["curses", "tty", "gnome3"]:
-    _frontend(frontend)
+for _fe in ["curses", "tty", "gnome3"]:
+    _frontend(_fe)
