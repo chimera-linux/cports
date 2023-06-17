@@ -163,7 +163,7 @@ def _genlib(lname, ldesc):
         return [f"usr/lib/lib{lname}.so.*"]
 
 
-for lname, ldesc in [
+for _lname, _ldesc in [
     ("avcodec", "codec"),
     ("avdevice", "device handling"),
     ("avformat", "file format"),
@@ -173,7 +173,7 @@ for lname, ldesc in [
     ("swscale", "video scaling"),
     ("swresample", "video resampling"),
 ]:
-    _genlib(lname, ldesc)
+    _genlib(_lname, _ldesc)
 
 
 @subpackage("ffmpeg-devel")
