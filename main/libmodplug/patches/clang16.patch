@@ -1,0 +1,41 @@
+commit bd5311b8d4398192b74dfe3e1381d6906c21b04b
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jun 17 13:58:38 2023 +0200
+
+    clang 16 fixes
+
+diff --git a/configure.ac b/configure.ac
+index f96a28e..4fb81e0 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -31,7 +31,7 @@ AC_HEADER_STDC
+ AC_CHECK_HEADERS([inttypes.h stdint.h malloc.h])
+ AC_CHECK_FUNCS(setenv sinf)
+ 
+-CXXFLAGS="$CXXFLAGS -fno-exceptions -Wall -ffast-math -fno-common -D_REENTRANT"
++CXXFLAGS="$CXXFLAGS -fno-exceptions -Wall -fno-common -D_REENTRANT"
+ 
+ AC_CANONICAL_HOST
+ case "$host" in
+diff --git a/src/fastmix.cpp b/src/fastmix.cpp
+index d693d20..aa51c4a 100644
+--- a/src/fastmix.cpp
++++ b/src/fastmix.cpp
+@@ -288,7 +288,7 @@ CzWINDOWEDFIR sfir;
+ // MIXING MACROS
+ // ----------------------------------------------------------------------------
+ #define SNDMIX_BEGINSAMPLELOOP8\
+-	register MODCHANNEL * const pChn = pChannel;\
++	MODCHANNEL * const pChn = pChannel;\
+ 	nPos = pChn->nPosLo;\
+ 	const signed char *p = (signed char *)(pChn->pCurrentSample+pChn->nPos);\
+ 	if (pChn->dwFlags & CHN_STEREO) p += pChn->nPos;\
+@@ -296,7 +296,7 @@ CzWINDOWEDFIR sfir;
+ 	do {
+ 
+ #define SNDMIX_BEGINSAMPLELOOP16\
+-	register MODCHANNEL * const pChn = pChannel;\
++	MODCHANNEL * const pChn = pChannel;\
+ 	nPos = pChn->nPosLo;\
+ 	const signed short *p = (signed short *)(pChn->pCurrentSample+(pChn->nPos*2));\
+ 	if (pChn->dwFlags & CHN_STEREO) p += pChn->nPos;\
