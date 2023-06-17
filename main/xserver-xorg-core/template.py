@@ -88,8 +88,8 @@ match self.profile().arch:
 
 _fontpaths = []
 
-for fp in ["misc", "100dpi:unscaled", "75dpi:unscaled", "TTF", "Type1"]:
-    _fontpaths.append(f"/usr/share/fonts/{fp}")
+for _fp in ["misc", "100dpi:unscaled", "75dpi:unscaled", "TTF", "Type1"]:
+    _fontpaths.append(f"/usr/share/fonts/{_fp}")
 
 configure_args.append("-Ddefault_font_path=" + ",".join(_fontpaths))
 
