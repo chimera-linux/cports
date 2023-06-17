@@ -94,9 +94,7 @@ sha256 = "8c388ac3775ac6bceb605fae21be2c3e261cafe6067994a89f0dfa4610ed0279"
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
 options = ["!check", "!cross"]
 
-tool_flags = {
-    "CFLAGS": ["-Wno-incompatible-function-pointer-types"]
-}
+tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
 
 
 def post_install(self):
