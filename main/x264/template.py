@@ -20,7 +20,7 @@ hardening = ["!int"]
 # no check target
 options = ["!check"]
 
-tool_flags = {"CFLAGS": ["-fPIC"]}
+tool_flags = {"CFLAGS": ["-fPIC", "-Wno-incompatible-function-pointer-types"]}
 
 match self.profile().arch:
     case "x86_64":
