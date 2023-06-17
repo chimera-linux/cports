@@ -8,6 +8,7 @@ configure_args = [
     "--enable-pinentry-gnome3",
     "--enable-fallback-curses",
     "--enable-libsecret",
+    "--enable-ncurses",
 ]
 configure_gen = ["./autogen.sh"]
 hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-tiny"]
