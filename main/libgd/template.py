@@ -4,7 +4,7 @@ pkgver = "2.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-xpm"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = [
     "libjpeg-turbo-devel",
     "libpng-devel",
@@ -39,6 +39,3 @@ def _xmlwf(self):
     self.depends += ["perl"]
 
     return self.default_progs()
-
-
-configure_gen = []
