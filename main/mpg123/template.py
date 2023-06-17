@@ -35,14 +35,14 @@ def _genlib(libn, descn, iif):
         return [f"usr/lib/mpg123/output_{libn}.so"]
 
 
-for libn, descn, iif in [
+for _libn, _descn, _iif in [
     ("oss", "OSS", None),
     ("jack", "JACK", "jack"),
     ("pulse", "PulseAudio", "libpulse"),
     ("sdl", "SDL", "sdl"),
     ("dummy", "dummy", None),
 ]:
-    _genlib(libn, descn, iif)
+    _genlib(_libn, _descn, _iif)
 
 
 @subpackage("mpg123-libs")
