@@ -15,7 +15,7 @@ index 5e85d1a..79decbd 100644
      int (*close_f)(int fd);
      int (*dup_f)(int fd);
 -#ifdef __GLIBC__
-+#if defined(__GLIBC__) || CONFGI_LIBV4L2
++#if defined(__GLIBC__) || CONFIG_LIBV4L2
      int (*ioctl_f)(int fd, unsigned long int request, ...);
  #else
      int (*ioctl_f)(int fd, int request, ...);
