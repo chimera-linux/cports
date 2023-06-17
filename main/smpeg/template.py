@@ -1,7 +1,8 @@
 pkgname = "smpeg"
 pkgver = "2.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["sdl-devel"]
@@ -14,10 +15,9 @@ sha256 = "979a65b211744a44fa641a9b6e4d64e64a12ff703ae776bafe3c4c4cd85494b3"
 # no check target
 options = ["!check"]
 
+tool_flags = {"CFLAGS": ["-Wno-register"]}
+
 
 @subpackage("smpeg-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
