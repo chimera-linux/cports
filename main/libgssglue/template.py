@@ -2,7 +2,7 @@ pkgname = "libgssglue"
 pkgver = "0.4"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "Mechanism-switch gssapi library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -19,6 +19,3 @@ def post_install(self):
 @subpackage("libgssglue-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
