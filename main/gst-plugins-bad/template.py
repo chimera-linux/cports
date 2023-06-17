@@ -112,7 +112,6 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
     "libxkbcommon-devel",
-    "webrtc-audio-processing-devel",
     "webrtc-audio-processing-0.3-devel",
     "v4l-utils-devel",
     "libusb-devel",
@@ -147,9 +146,9 @@ hardening = ["!int"]
 options = ["!check", "!cross"]
 
 if self.profile().endian == "big":
-    configure_args += ["-Dldac=disabled"]
+    configure_args += ["-Dldac=disabled", "-Disac=disabled"]
 else:
-    makedepends += ["ldacbt-devel"]
+    makedepends += ["ldacbt-devel", "webrtc-audio-processing-devel"]
 
 
 @subpackage("gst-plugins-bad-devel")
