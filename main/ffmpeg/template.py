@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
