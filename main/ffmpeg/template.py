@@ -96,7 +96,6 @@ makedepends = [
     "v4l-utils-devel",
     "vulkan-loader",
     "vulkan-headers",
-    "vulkan-validationlayers-devel",
     "libdrm-devel",
     "sdl-devel",
     "rubberband-devel",
