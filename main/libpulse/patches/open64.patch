@@ -1,0 +1,18 @@
+commit 7952f51186305553b8c5ab10ce30ee1a61229fc8
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jun 17 03:29:38 2023 +0200
+
+    don't use open64
+
+diff --git a/meson.build b/meson.build
+index d4cdbd6..d31cdad 100644
+--- a/meson.build
++++ b/meson.build
+@@ -319,7 +319,6 @@ check_functions = [
+   'mkfifo',
+   'mlock',
+   'nanosleep',
+-  'open64',
+   'paccept',
+   'pipe',
+   'pipe2',
