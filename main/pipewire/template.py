@@ -1,7 +1,6 @@
 pkgname = "pipewire"
 pkgver = "0.3.71"
-pkgrel = 1
-_pms_version = "0.4.1"
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -60,6 +59,7 @@ depends = [
     f"libspa-audiomixer={pkgver}-r{pkgrel}",
     f"libspa-control={pkgver}-r{pkgrel}",
     f"libspa-v4l2={pkgver}-r{pkgrel}",
+    "virtual:pipewire-session-manager!pipewire-session-manager-none",
     "rtkit",
 ]
 pkgdesc = "Server and user space API to deal with multimedia pipelines"
@@ -179,12 +179,10 @@ def _alsadef(self):
     return inst
 
 
-@subpackage("pipewire-wireplumber")
+@subpackage("pipewire-session-manager-none")
 def _wp(self):
-    self.pkgdesc = f"{pkgdesc} (WirePlumber session manager)"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    # bypass dependency check (break cycle)
-    self.depends = [f"virtual:wireplumber!{pkgname}"]
+    self.pkgdesc = f"{pkgdesc} (no session manager)"
+    self.provides = ["pipewire-session-manager=0"]
     self.build_style = "meta"
 
     return []
