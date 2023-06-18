@@ -64,8 +64,16 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
+_tskip = {"ppc64": "ppc"}
 _targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
+_btargets = list(
+    filter(
+        lambda p: self.profile().arch not in _tskip
+        or _tskip[self.profile().arch] != p,
+        _targets,
+    )
+)
 
 
 def post_patch(self):
@@ -75,7 +83,7 @@ def post_patch(self):
 def do_configure(self):
     from cbuild.util import cmake, make
 
-    for an in _targets:
+    for an in _btargets:
         with self.profile(an) as pf:
             at = pf.triplet
             # musl build dir
@@ -129,7 +137,7 @@ def do_configure(self):
 
 
 def do_build(self):
-    for an in _targets:
+    for an in _btargets:
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
@@ -137,7 +145,7 @@ def do_build(self):
 
 
 def do_install(self):
-    for an in _targets:
+    for an in _btargets:
         with self.profile(an):
             self.make.install(wrksrc=f"build-{an}")
 
@@ -153,6 +161,9 @@ def _gen_subp(an):
             "!splitstatic",
             "foreignelf",
         ]
+        if an not in _btargets:
+            self.build_style = "meta"
+            return []
         with self.rparent.profile(an) as pf:
             return [
                 f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/{pf.triplet}"
