@@ -3,6 +3,7 @@ pkgver = "1.22.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-x", "--without-doc", "--disable-rpath"]
+configure_gen = []
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["gmake", "texinfo", "perl", "bison", "ghostscript"]
@@ -15,6 +16,8 @@ source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "e78e7b4cb7dec310849004fa88847c44701e8d133b5d4c13057d876c1bad0293"
 # incompatible with chimerautils
 options = ["!check"]
+
+tool_flags = {"CXXFLAGS": ["-Wno-register"]}
 
 if self.profile().cross:
     hostmakedepends.append("groff")
@@ -30,6 +33,3 @@ def post_install(self):
             self.destdir / f"usr/share/groff/site-tmac/{f}.local", "ab"
         ) as af:
             af.write(atext)
-
-
-configure_gen = []
