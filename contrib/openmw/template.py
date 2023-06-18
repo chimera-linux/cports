@@ -47,6 +47,9 @@ sha256 = [
 # unit tests are off
 options = ["!check"]
 
+if self.profile().endian == "big":
+    broken = "esm loader is not ready etc."
+
 
 def post_extract(self):
     from cbuild.core import paths
