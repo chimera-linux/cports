@@ -1,7 +1,7 @@
 pkgname = "imagemagick"
 _pver = "7.1.1-11"
 pkgver = _pver.replace("-", ".")
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -81,7 +81,7 @@ url = "https://www.imagemagick.org"
 source = f"https://github.com/ImageMagick/ImageMagick/archive/{_pver}.tar.gz"
 sha256 = "98bb2783da7d5b06e7543529bd07b50d034fba611ff15e8817a0f4f73957d934"
 # runs out of file descriptors
-options = ["!cross", "!check", "keeplibtool"]
+options = ["!cross", "!check"]
 
 if self.profile().cross:
     hostmakedepends += ["file"]
@@ -89,14 +89,12 @@ if self.profile().cross:
 
 def post_install(self):
     self.install_license("LICENSE")
-    # we need to keep the module ones
-    for f in (self.destdir / "usr/lib").glob("*.la"):
-        f.unlink()
 
 
 @subpackage("libmagick")
 def _lib(self):
     self.pkgdesc = "ImageMagick library"
+    self.options = ["keeplibtool"]
 
     return [
         "usr/lib/libMagick*.so.*",
