@@ -1,0 +1,13 @@
+pkgname = "cargo-auditable"
+pkgver = "0.6.1"
+pkgrel = 0
+build_style = "cargo"
+make_install_args = ["--path", "cargo-auditable"]
+hostmakedepends = ["cargo"]
+makedepends = ["rust"]
+pkgdesc = "Cargo wrapper for embedding auditing data"
+maintainer = "nbfritch <nbfritch@gmail.com>"
+license = "MIT OR Apache-2.0"
+url = "https://github.com/rust-secure-code/cargo-auditable"
+source = f"https://github.com/rust-secure-code/cargo-auditable/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "091dc954c09408a9a2bdf1b01fa34f3e4bf7a7621966d2f4c4d5fc689a3baaf4"
