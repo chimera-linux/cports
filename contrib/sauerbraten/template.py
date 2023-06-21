@@ -1,6 +1,6 @@
 pkgname = "sauerbraten"
 pkgver = "2020.12.29"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "src"
 build_style = "makefile"
 make_cmd = "gmake"
