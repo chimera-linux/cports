@@ -1,5 +1,5 @@
 pkgname = "fluidsynth"
-pkgver = "2.3.2"
+pkgver = "2.3.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.fluidsynth.org"
 source = f"https://github.com/FluidSynth/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "cd610810f30566e28fb98c36501f00446a06fa6bae3dc562c8cd3868fe1c0fc7"
+sha256 = "321f7d3f72206b2522f30a1cb8ad1936fd4533ffc4d29dd335b1953c9fb371e6"
 hardening = ["vis", "cfi"]
 
 
