@@ -1,5 +1,5 @@
 pkgname = "xonotic"
-pkgver = "0.8.5"
+pkgver = "0.8.6"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND BSD-3-Clause"
 url = "https://xonotic.org"
 source = f"https://dl.xonotic.org/{pkgname}-{pkgver}-source.zip"
-sha256 = "a1a81ba55ab151bf09758e7f59614b2e5150e84224753e77950bcd07a282ea5d"
+sha256 = "8b92ac781cff4ae89c121a23eacd7dec05a2aabedaccc23a19d1a0958b4012a8"
 hardening = ["!int"]
 # no tests
 options = ["!check", "!cross"]
@@ -83,6 +83,8 @@ def do_install(self):
     )
 
     self.make.install(wrksrc="source/d0_blind_id")
+
+    self.install_license("source/d0_blind_id/COPYING")
 
     self.rm(self.destdir / "usr/include", recursive=True)
     self.rm(self.destdir / "usr/lib/pkgconfig", recursive=True)
