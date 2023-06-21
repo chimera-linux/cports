@@ -8,6 +8,7 @@ hostmakedepends = ["gmake"]
 makedepends = ["sdl-devel", "sdl_image-devel", "sdl_mixer-devel", "zlib-devel"]
 depends = [f"sauerbraten-data={pkgver}-r{pkgrel}"]
 pkgdesc = "Free FPS game, successor to Cube"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "http://sauerbraten.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}_{pkgver.replace('.', '_')}_linux.tar.bz2"

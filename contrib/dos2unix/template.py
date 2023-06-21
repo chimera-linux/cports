@@ -1,11 +1,12 @@
 pkgname = "dos2unix"
 pkgver = "7.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake", "gettext-tiny"]
 checkdepends = ["perl"]
 pkgdesc = "Line ending converter"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://waterlan.home.xs4all.nl/dos2unix.html"
 source = f"https://waterlan.home.xs4all.nl/{pkgname}/{pkgname}-{pkgver}.tar.gz"

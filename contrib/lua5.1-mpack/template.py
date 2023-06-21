@@ -1,6 +1,6 @@
 pkgname = "lua5.1-mpack"
 pkgver = "1.0.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["USE_SYSTEM_MPACK=1"]
@@ -8,6 +8,7 @@ make_check_target = "test"
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["lua5.1-devel", "libmpack-devel"]
 pkgdesc = "Simple implementation of MessagePack for Lua"
+maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://github.com/libmpack/libmpack-lua"
 source = f"https://github.com/libmpack/libmpack-lua/archive/{pkgver}.tar.gz"

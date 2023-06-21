@@ -1,6 +1,6 @@
 pkgname = "polkit"
 pkgver = "121"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dsession_tracking=libelogind",
@@ -27,6 +27,7 @@ hostmakedepends = [
 ]
 makedepends = ["elogind-devel", "duktape-devel", "linux-pam-devel"]
 pkgdesc = "Toolkit for defining and handling authorizations"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/polkit"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/releases/{pkgname}-{pkgver}.tar.gz"

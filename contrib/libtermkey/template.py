@@ -1,12 +1,13 @@
 pkgname = "libtermkey"
 pkgver = "0.22"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = ["gmake", "libtool", "pkgconf", "perl"]
 makedepends = ["unibilium-devel"]
 pkgdesc = "Library for processing keyboard entry from terminal-based programs"
+maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "http://www.leonerd.org.uk/code/libtermkey"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"

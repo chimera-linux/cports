@@ -1,10 +1,11 @@
 pkgname = "tree-sitter"
 pkgver = "0.20.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 pkgdesc = "Parser generator tool and incremental parsing library"
+maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://tree-sitter.github.io"
 source = f"https://github.com/tree-sitter/tree-sitter/archive/v{pkgver}.tar.gz"

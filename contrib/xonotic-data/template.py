@@ -2,6 +2,7 @@ pkgname = "xonotic-data"
 pkgver = "0.8.5"
 pkgrel = 0
 pkgdesc = "Free, fast-paced cross-platform first-person shooter (data files)"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://xonotic.org"
 source = f"https://dl.xonotic.org/xonotic-{pkgver}.zip"

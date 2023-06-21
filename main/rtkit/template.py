@@ -1,6 +1,6 @@
 pkgname = "rtkit"
 pkgver = "0.13"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dlibsystemd=disabled",
@@ -10,6 +10,7 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["dbus-devel", "libcap-devel", "polkit-devel", "zlib-devel"]
 depends = ["dbus", "polkit"]
 pkgdesc = "Realtime policy and watchdog daemon"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND GPL-3.0-or-later"
 url = "https://github.com/heftig/rtkit"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"

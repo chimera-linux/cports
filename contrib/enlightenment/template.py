@@ -1,6 +1,6 @@
 pkgname = "enlightenment"
 pkgver = "0.25.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dpam=true",
@@ -34,6 +34,7 @@ depends = [
     "elogind",
 ]
 pkgdesc = "Enlightenment desktop shell"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org"
 source = f"http://download.enlightenment.org/rel/apps/{pkgname}/{pkgname}-{pkgver}.tar.xz"

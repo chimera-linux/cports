@@ -1,11 +1,12 @@
 pkgname = "qt6ct"
 pkgver = "0.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "qt6-qttools", "qt6-qtbase"]
 makedepends = ["qt6-qtbase-devel", "qt6-qttools-devel"]
 depends = ["qt6-qtsvg"]
 pkgdesc = "Qt6 configuration tool"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/trialuser02/qt6ct"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

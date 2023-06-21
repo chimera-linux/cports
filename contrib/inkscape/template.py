@@ -44,6 +44,7 @@ depends = [
     "python-pillow",
 ]
 pkgdesc = "Vector graphics editor"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://inkscape.org"
 source = (

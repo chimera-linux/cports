@@ -732,9 +732,9 @@ Keep in mind that default values may be overridden by build styles.
   all packages in this list are installed, this one will also be installed).
   This is basically the reverse of a "recommends" feature. You should always
   include at least one versioned constraint.
-* `maintainer` *(str)* This one is not mandatory but is highly recommended.
-  A template with no `maintainer` field is orphaned. No package in the
-  `main` section of the `cports` collection must be orphaned.
+* `maintainer` *(str)* The maintainer of the package, in the same format as
+  Git commits (i.e. `name <email>`). Orphaned packages should use the
+  maintainer `Orphaned <orphaned@chimera-linux.org>`.
 * `make_cmd` *(str)* The name of the program used for building. May not
   apply to all templates or build styles. By default this is `bmake` (the
   default Make implementation in Chimera).

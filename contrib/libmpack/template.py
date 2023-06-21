@@ -1,11 +1,12 @@
 pkgname = "libmpack"
 pkgver = "1.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = ["gmake", "libtool", "pkgconf"]
 pkgdesc = "Simple implementation of msgpack in C"
+maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://github.com/libmpack/libmpack"
 source = f"https://github.com/libmpack/libmpack/archive/{pkgver}.tar.gz"

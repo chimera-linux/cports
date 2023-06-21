@@ -1,11 +1,12 @@
 # nb: requires CXX14+ to use it
 pkgname = "gtest"
 pkgver = "1.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DCMAKE_SKIP_RPATH=ON"]
 hostmakedepends = ["cmake", "ninja", "python", "pkgconf"]
 pkgdesc = "Google's framework for writing C++ tests"
+maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "BSD-3-Clause"
 url = "https://github.com/google/googletest"
 source = (

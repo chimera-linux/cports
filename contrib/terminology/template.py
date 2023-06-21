@@ -1,11 +1,12 @@
 pkgname = "terminology"
 pkgver = "1.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext-tiny"]
 makedepends = ["efl-devel"]
 depends = ["xdg-utils"]
 pkgdesc = "EFL-based terminal emulator"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org"
 source = f"http://download.enlightenment.org/rel/apps/{pkgname}/{pkgname}-{pkgver}.tar.xz"

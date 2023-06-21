@@ -1377,7 +1377,9 @@ def do_update_check(tgt):
     stmpls = sorted(
         tmpls,
         key=lambda tmpl: (
-            tmpl.maintainer if tmpl.maintainer else "!!!",
+            tmpl.maintainer
+            if tmpl.maintainer != "Orphaned <orphaned@chimera-linux.org>"
+            else "!!!",
             tmpl.repository,
             tmpl.pkgname,
         ),
