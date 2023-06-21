@@ -1,5 +1,5 @@
 pkgname = "kbd"
-pkgver = "2.5.1"
+pkgver = "2.6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-tests"]  # tests force autom4te
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://www.kbd-project.org"
 source = f"$(KERNEL_SITE)/utils/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ccdf452387a6380973d2927363e9cbb939fa2068915a6f937ff9d24522024683"
+sha256 = "9c159433db5df8ef31d86b42f5b09d32311bdda2ed35107fb1926243da60b28a"
 hardening = ["vis", "cfi"]
 
 
