@@ -1,0 +1,27 @@
+commit 99638ed9c6f93028ae50fab4e086ec00ff303255
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jun 21 05:46:04 2023 +0200
+
+    do not test for rl_completion_display_matches_hook
+    
+    This is unimplemented in libedit and results in readline module
+    failing to build.
+
+diff --git a/configure b/configure
+index a66a081..ddbdec5 100755
+--- a/configure
++++ b/configure
+@@ -23714,11 +23714,11 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* Override any GCC internal prototype to avoid an error.
+    Use char because int might match the return type of a GCC
+    builtin and then its argument prototype would still apply.  */
+-char rl_completion_display_matches_hook ();
++char rl_completion_display_matches_hook_undef ();
+ int
+ main (void)
+ {
+-return rl_completion_display_matches_hook ();
++return rl_completion_display_matches_hook_undef ();
+   ;
+   return 0;
+ }
