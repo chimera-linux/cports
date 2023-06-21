@@ -1,9 +1,9 @@
 pkgname = "python-service-identity"
-pkgver = "21.1.0"
+pkgver = "23.1.0"
 pkgrel = 0
-build_style = "python_module"
-make_check_target = "tests"
-hostmakedepends = ["python-setuptools", "python-wheel"]
+build_style = "python_pep517"
+make_check_env = {"PYTHONPATH": "src"}
+hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 depends = [
     "python-attrs",
     "python-openssl",
@@ -16,9 +16,9 @@ pkgdesc = "Service identity verification for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pyca/service-identity"
-source = f"$(PYPI_SITE)/s/service-identity/service-identity-{pkgver}.tar.gz"
-sha256 = "6e6c6086ca271dc11b033d17c3a8bea9f24ebff920c587da090afc9519419d34"
-# fails to find itself
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "35c8caebaa66d1f88e1651a9de32e34fd5323561499f01e918f8e25a19020bd8"
+# requires to be installed
 options = ["!check"]
 
 
