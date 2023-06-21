@@ -56,12 +56,6 @@ diff --git a/initramfs-tools.7 b/initramfs-tools.7
 index 2d5d2d2..242541b 100644
 --- a/initramfs-tools.7
 +++ b/initramfs-tools.7
-@@ -1,4 +1,4 @@
--.TH INITRAMFS-TOOLS 7  "2018/07/18" "initramfs\-tools" "Linux Programmer's Manual"
-+W.TH INITRAMFS-TOOLS 7  "2018/07/18" "initramfs\-tools" "Linux Programmer's Manual"
- 
- .SH NAME
- initramfs-tools \- an introduction to writing scripts for mkinitramfs
 @@ -309,7 +309,7 @@ is the path of the used initramfs-tools configurations.
  \fB\fI DESTDIR
  is the root path of the newly build initramfs.
