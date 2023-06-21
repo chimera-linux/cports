@@ -2773,6 +2773,13 @@ The permissions will be `644`. All paths are created as necessary. The
 
 Equivalent to `self.install_file(src, "usr/share/licenses/" + pkgname, 0o644, name)`.
 
+##### def install_completion(self, src, shell, name = None)
+
+Install a shell completion `src`. If not given, `name` will be expanded
+to the package name. The `name` is the root of the completion file name
+that will be adjusted according to the shell. The `shell` must be one of
+`bash`, `zsh`, `fish`.
+
 When `pkgname` is not given, `self.pkgname` is used.
 
 ##### def install_service(self, src, name = None, enable = False)

@@ -1461,6 +1461,27 @@ class Template(Package):
             src, "usr/share/licenses/" + (pkgname or self.pkgname), 0o644, name
         )
 
+    def install_completion(self, src, shell, name=None):
+        if not name:
+            name = self.pkgname
+        match shell:
+            case "bash":
+                self.install_file(
+                    src, "usr/share/bash-completion/completions", name=name
+                )
+            case "zsh":
+                self.install_file(
+                    src, "usr/share/zsh/site-functions", name=f"_{name}"
+                )
+            case "fish":
+                self.install_file(
+                    src,
+                    "usr/share/fish/vendor_completions.d",
+                    name=f"{name}.fish",
+                )
+            case _:
+                self.error(f"unknown shell: {shell}")
+
     def install_service(self, src, name=None, enable=False):
         src = pathlib.Path(src)
         if src.suffix == ".user":
