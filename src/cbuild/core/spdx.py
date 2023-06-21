@@ -131,7 +131,7 @@ class SPDXParser:
             tok = tok[0 : len(tok) - 1]
         # custom licenses do not allow exceptions etc.
         if tok.startswith("custom:"):
-            if tok != "custom:none":
+            if tok != "custom:none" and tok != "custom:meta":
                 self.need_install = True
             self.token = self.lex()
             return

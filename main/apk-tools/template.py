@@ -1,6 +1,6 @@
 pkgname = "apk-tools"
 pkgver = "3.0.0_pre0"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "23be7e321009b5c524ebb06746219760d9b40b6a"
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
@@ -47,6 +47,11 @@ def init_configure(self):
     self.env["PKG_CONFIG_LIBSSL_LIBDIR"] = ldir
 
 
+def post_install(self):
+    self.install_dir("etc/apk")
+    self.ln_s("../../var/cache/apk", self.destdir / "etc/apk/cache")
+
+
 @subpackage("apk-tools-devel")
 def _devel(self):
     return self.default_devel()
@@ -54,7 +59,18 @@ def _devel(self):
 
 @subpackage("apk-tools-static-bin", self.stage > 0)
 def _staticbin(self):
-    self.pkgdesc += " (static binary)"
+    self.pkgdesc = f"{pkgdesc} (static binary)"
     self.depends = []
 
     return ["usr/bin/apk.static"]
+
+
+@subpackage("apk-tools-cache", self.stage > 0)
+def _cache(self):
+    self.pkgdesc = f"{pkgdesc} (default cache)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.provides = [f"apk-tools-cache-link={pkgver}-r{pkgrel}"]
+    self.options = ["brokenlinks"]
+
+    return ["etc/apk/cache"]

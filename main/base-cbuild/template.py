@@ -1,6 +1,6 @@
 pkgname = "base-cbuild"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -23,6 +23,7 @@ depends = [
     "fakeroot-core",
     f"base-cbuild-progs={pkgver}-r{pkgrel}",
 ]
+provides = ["apk-tools-cache-link=9999-r0"]
 
 options = ["bootstrap", "brokenlinks"]
 
