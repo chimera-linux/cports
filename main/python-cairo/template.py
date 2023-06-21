@@ -1,5 +1,5 @@
 pkgname = "python-cairo"
-pkgver = "1.23.0"
+pkgver = "1.24.0"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["pkgconf", "python-setuptools"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://pycairo.readthedocs.io"
 source = f"https://github.com/pygobject/pycairo/releases/download/v{pkgver}/pycairo-{pkgver}.tar.gz"
-sha256 = "9b61ac818723adc04367301317eb2e814a83522f07bbd1f409af0dada463c44c"
+sha256 = "1444d52f1bb4cc79a4a0c0fe2ccec4bd78ff885ab01ebe1c0f637d8392bcafb6"
 
 
 def do_check(self):
