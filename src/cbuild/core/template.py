@@ -317,6 +317,7 @@ default_options = {
     "hardlinks": (False, False),
     "autosplit": (True, False),
     "lintstatic": (True, False),
+    "distlicense": (True, False),
     # actually true by default for -devel
     "splitstatic": (False, False),
     "splitudev": (True, False),
@@ -626,6 +627,7 @@ class Template(Package):
         self.git_revision = None
         self.git_dirty = False
         self.current_sonames = {}
+        self._license_install = False
 
     def get_build_deps(self):
         from cbuild.core import dependencies
@@ -839,7 +841,7 @@ class Template(Package):
         if self.options["spdx"]:
             lerr = None
             try:
-                spdx.validate(self.license)
+                self._license_install = spdx.validate(self.license)
             except RuntimeError as e:
                 lerr = str(e)
             if lerr:
@@ -851,7 +853,7 @@ class Template(Package):
 
                 lerr = None
                 try:
-                    spdx.validate(sp.license)
+                    sp._license_install = spdx.validate(sp.license)
                 except RuntimeError as e:
                     lerr = str(e)
                 if lerr:
@@ -1648,6 +1650,7 @@ class Subpackage(Package):
 
         self.force_mode = parent.rparent.force_mode
         self.stage = parent.rparent.stage
+        self._license_install = False
 
     def take(self, p, missing_ok=False):
         p = pathlib.Path(p)

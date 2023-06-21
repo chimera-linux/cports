@@ -1588,6 +1588,10 @@ for subpackages separately if needed:
 * `spdx` *(true)* If enabled, the license name(s) will be validated
   as SPDX compliant. License for subpackages is validated separately,
   if overridden (if not overridden, validation is skipped).
+* `distlicense` *(true)* If the license of the package needs distribution,
+  verify that the license file is being distributed. Keep in mind that the
+  linter may not be exhaustive as the SPDX license data do not specify
+  whether a license should be distributed or not.
 * `strip` *(true)* If disabled, ELF files in this package will not be
   stripped, which means debug symbols will remain where thesy are and
   debug package will not be generated.

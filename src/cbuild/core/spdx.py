@@ -5,6 +5,26 @@ _opprec = {
     "AND": 2,
 }
 
+_license_inst = {
+    "BSL-1.0": True,
+    "ISC": True,
+    "X11": True,
+    "X11-distribute-modifications-variant": True,
+}
+
+
+# not exhaustive but should catch common cases
+def _license_install(lic):
+    if lic in _license_inst:
+        return True
+    if lic.startswith("AGPL-"):
+        return True
+    if lic.startswith("BSD-"):
+        return True
+    if lic.startswith("MIT"):
+        return True
+    return False
+
 
 class SPDXParser:
     def __init__(self, spath):
@@ -111,11 +131,15 @@ class SPDXParser:
             tok = tok[0 : len(tok) - 1]
         # custom licenses do not allow exceptions etc.
         if tok.startswith("custom:"):
+            if tok != "custom:none":
+                self.need_install = True
             self.token = self.lex()
             return
         # not a custom license
         if tok not in self.ldict:
             raise RuntimeError("license id expected, got: " + tok)
+        if _license_install(tok):
+            self.need_install = True
         # check for exception
         self.token = self.lex()
         if self.token == "WITH":
@@ -159,9 +183,11 @@ class SPDXParser:
     def parse(self, str):
         self.stream = str
         self.token = self.lex()
+        self.need_install = False
         self.parse_expr()
         if self.token:
             raise RuntimeError("invalid token: " + self.token)
+        return self.need_install
 
 
 _parser = None
@@ -175,4 +201,4 @@ def init():
 
 
 def validate(str):
-    _parser.parse(str)
+    return _parser.parse(str)
