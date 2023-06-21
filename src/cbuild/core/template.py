@@ -919,7 +919,7 @@ class Template(Package):
         if grp[0] != " ".join(grp[0].split()):
             self.error("maintainer name has an invalid format")
 
-        addrp = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b"
+        addrp = r"^[A-Za-z0-9._%+=-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}$"
 
         if not re.fullmatch(addrp, grp[1]):
             self.error("maintainer email has an invalid format")
