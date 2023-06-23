@@ -552,6 +552,7 @@ def enter(
     env={},
     stdout=None,
     stderr=None,
+    input=None,
     wrkdir=None,
     bootstrapping=False,
     ro_root=False,
@@ -645,6 +646,7 @@ def enter(
             check=check,
             stdout=stdout,
             stderr=stderr,
+            input=input,
             cwd=os.path.abspath(wrkdir) if wrkdir else None,
         )
 
@@ -755,6 +757,7 @@ def enter(
             check=check,
             stdout=stdout,
             stderr=stderr,
+            input=input,
             pass_fds=tuple(fdlist),
         )
     finally:

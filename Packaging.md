@@ -2575,7 +2575,7 @@ packages will be stored, i.e. for the main package as well as subpackages.
 
 Like `destdir_base`, but when viewed from inside the sandbox.
 
-##### def do(self, cmd, *args, env = {}, wrksrc = None, capture_output = False, stdout = None, stderr = None, check = True, allow_network = False)
+##### def do(self, cmd, *args, env = {}, wrksrc = None, capture_output = False, stdout = None, stderr = None, input = None, check = True, allow_network = False)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,
 instead directly runs `cmd`, passing it `*args`. You can use `env` to provide
@@ -2605,7 +2605,8 @@ bypass that by setting `check` to `False`. Also, by default all output is
 printed out without capturing it; using `capture_output` you can override
 that if needed.
 
-The `stdout` and `stderr` arguments work the same as for Python `subprocess.run`.
+The `stdout` and `stderr` arguments work the same as for Python `subprocess.run`,
+likewise with `input`.
 
 The return value is the same as from Python `subprocess.run`. There you can
 access the return code as well as possibly captured `stdout`.

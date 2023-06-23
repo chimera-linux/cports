@@ -1126,6 +1126,7 @@ class Template(Package):
         capture_output=False,
         stdout=None,
         stderr=None,
+        input=None,
         check=True,
         allow_network=False,
     ):
@@ -1225,6 +1226,7 @@ class Template(Package):
             fakeroot=fakeroot,
             stdout=stdout,
             stderr=stderr,
+            input=input,
             lldargs=compiler._get_lld_cpuargs(self.link_threads),
         )
 
