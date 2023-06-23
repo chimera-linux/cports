@@ -1,0 +1,22 @@
+commit fbe00452e59962940cc42d43f6956cf770e45fea
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 23 16:59:09 2023 +0200
+
+    bump libc to fix riscv
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 790340b..a4a86fc 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -286,9 +286,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
+ 
+ [[package]]
+ name = "libc"
+-version = "0.2.97"
++version = "0.2.144"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "12b8adadd720df158f4d70dfe7ccc6adb0472d7c55ca83445f6a5ab3e36f8fb6"
++checksum = "2b00cc1c228a6782d0f076e7b232802e0c5689d41bb5df366f2a6b6621cfdfe1"
+ 
+ [[package]]
+ name = "libm"
