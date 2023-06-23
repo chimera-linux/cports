@@ -1,7 +1,7 @@
 # keep in sync with firmware-linux
 pkgname = "ucode-amd"
 pkgver = "20230515"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 makedepends = ["firmware-linux-amd-ucode"]
 pkgdesc = "AMD CPU microcode"
@@ -41,6 +41,7 @@ def do_build(self):
 
 def do_install(self):
     self.install_file("amd-ucode.img", "boot")
+    self.install_file("amd-ucode.img", "usr/lib/firmware")
     # initramfs
     self.install_file(
         self.files_path / "ucode_amd",
@@ -48,3 +49,10 @@ def do_install(self):
         mode=0o755,
     )
     self.install_file(self.files_path / "ucode-amd", "etc/default")
+
+
+@subpackage("ucode-amd-full")
+def _full(self):
+    self.pkgdesc = f"{pkgdesc} (full cpio image)"
+
+    return ["boot"]

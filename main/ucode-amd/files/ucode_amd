@@ -6,7 +6,7 @@
 #
 
 AMD64UCODE_CONF="/etc/default/ucode-amd"
-AMD64UCODE_IMG="/boot/amd-ucode.img"
+AMD64UCODE_IMG="/usr/lib/firmware/amd-ucode.img"
 
 [ "$1" = "prereqs" ] && exit 0
 
