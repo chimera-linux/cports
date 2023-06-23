@@ -1,0 +1,15 @@
+# Configuration file for ucode-intel
+
+# Set to "no" to disable initramfs microcode inclusion
+# Set to "auto" to detect if to include the microcode
+# Set to "yes" or "early" to always include the microcode
+# Any other value will use "auto"
+#IUCODE_TOOL_INITRAMFS=auto
+
+# Whether to reduce the initramfs size by using only the
+# microcode the machine needs; setting it to "no" will
+# use the full image (which can be large)
+#IUCODE_TOOL_SCANCPUS=yes
+
+# Any other options to pass to iucode_tool(8)
+#IUCODE_TOOL_EXTRA_OPTIONS=""
