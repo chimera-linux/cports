@@ -1,3 +1,4 @@
+# also update ucode-amd when updating
 pkgname = "firmware-linux"
 pkgver = "20230515"
 pkgrel = 1

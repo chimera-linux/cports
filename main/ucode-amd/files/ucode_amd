@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# AMD microcode initramfs hook
+#
+# Copyright 2023 q66 <q66@chimera-linux.org>
+#
+
+AMD64UCODE_CONF="/etc/default/ucode-amd"
+AMD64UCODE_IMG="/boot/amd-ucode.img"
+
+[ "$1" = "prereqs" ] && exit 0
+
+. /usr/share/initramfs-tools/hook-functions
+
+AMD64UCODE_INITRAMFS=auto
+
+[ -r "$AMD64UCODE_CONF" ] && . "$AMD64UCODE_CONF"
+
+# in case the conf overwrites them
+[ -n "$AMD64UCODE_IMG" -a -n "$DESTDIR" ] || exit 1
+
+# must exist
+[ -r "$AMD64UCODE_IMG" ] || exit 0
+
+case "$AMD64UCODE_INITRAMFS" in
+    no|0)
+        [ "$verbose" = "y" ] && echo "ucode-amd: disabled"
+        exit 0
+        ;;
+    yes|early|auto)
+        ;;
+    *)
+        [ "$verbose" = "y" ] && echo "ucode-amd: invalid value, using auto"
+        AMD64UCODE_INITRAMFS=auto
+        ;;
+esac
+
+if [ "$AMD64UCODE_INITRAMFS" = "auto" ]; then
+    if ! grep -q "^vendor_id[[:blank:]]*:[[:blank:]]*.*AuthenticAMD" /proc/cpuinfo; then
+        [ "$verbose" = "y" ] && echo "ucode-amd: no amd cpu detected"
+        exit 0
+    fi
+fi
+
+[ "$verbose" = "y" ] && echo "ucode-amd: adding microcode..."
+
+if ! prepend_earlyinitramfs "$AMD64UCODE_IMG"; then
+    echo "ucode-amd: failed to prepend initramfs"
+    rm -f "$UCODE"
+    exit 1
+fi
+
+rm -f "$UCODE"
+exit 0
