@@ -292,6 +292,13 @@ class Package:
     def chmod(self, path, mode):
         (self.rparent.cwd / path).chmod(mode)
 
+    def touch_epoch(self, path):
+        ts = self.rparent.source_date_epoch
+        if not ts:
+            return
+        self.log(f"normalizing timestamp for {path}...")
+        os.utime(self.rparent.cwd / path, (ts, ts), follow_symlinks=False)
+
     def find(self, path, pattern, files=False):
         path = pathlib.Path(path)
         if path.is_absolute():
