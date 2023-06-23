@@ -15,5 +15,6 @@ sha256 = "6b412da2d3b206feff86bb3b6456b8dde8e2b0b9ce23dfd4e556ced125c6ac4f"
 # can't find itself
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("LICENSE")
