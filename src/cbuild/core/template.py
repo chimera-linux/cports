@@ -1563,6 +1563,11 @@ def _split_dlinks(pkg):
     pkg.take("usr/lib/dinit.d/user/boot.d", missing_ok=True)
 
 
+def _split_fishcomp(pkg):
+    pkg.take("usr/share/fish/completions", missing_ok=True)
+    pkg.take("usr/share/fish/vendor_completions.d", missing_ok=True)
+
+
 autopkgs = [
     # dbg is handled by its own hook
     ("dbg", "debug files", None, None),
@@ -1611,7 +1616,7 @@ autopkgs = [
         "fishcomp",
         "fish completions",
         "fish-shell",
-        lambda p: p.take("usr/share/fish/completions", missing_ok=True),
+        _split_fishcomp,
     ),
     (
         "locale",
