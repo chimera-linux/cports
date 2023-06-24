@@ -1,8 +1,9 @@
 pkgname = "xcb-util-wm"
 pkgver = "0.4.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+make_cmd = "gmake"
+hostmakedepends = ["pkgconf", "gmake", "xorg-util-macros"]
 makedepends = ["xcb-util-devel"]
 pkgdesc = "XCB utilities library - window manager helpers for ICCCM"
 maintainer = "q66 <q66@chimera-linux.org>"
