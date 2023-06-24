@@ -652,7 +652,7 @@ def do_chroot(tgt):
 def do_clean(tgt):
     import shutil
 
-    from cbuild.core import paths, errors
+    from cbuild.core import paths, errors, chroot
 
     chroot.remove_autodeps(None)
     dirp = paths.builddir() / "builddir"
