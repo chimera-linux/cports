@@ -1,0 +1,11 @@
+--- a/src/wg-quick/linux.bash	2023-07-06 12:34:06.238940919 
++++ b/src/wg-quick/linux.bash	2023-07-06 12:33:43.997941426 
+@@ -44,7 +44,7 @@
+ 	[[ -e $CONFIG_FILE ]] || die "\`$CONFIG_FILE' does not exist"
+ 	[[ $CONFIG_FILE =~ (^|/)([a-zA-Z0-9_=+.-]{1,15})\.conf$ ]] || die "The config file must be a valid interface name, followed by .conf"
+ 	CONFIG_FILE="$(readlink -f "$CONFIG_FILE")"
+-	((($(stat -c '0%#a' "$CONFIG_FILE") & $(stat -c '0%#a' "${CONFIG_FILE%/*}") & 0007) == 0)) || echo "Warning: \`$CONFIG_FILE' is world accessible" >&2
++	((($(stat -f '0%#p' "$CONFIG_FILE") & $(stat -f '0%#p' "${CONFIG_FILE%/*}") & 0007) == 0)) || echo "Warning: \`$CONFIG_FILE' is world accessible" >&2
+ 	INTERFACE="${BASH_REMATCH[2]}"
+ 	shopt -s nocasematch
+ 	while read -r line || [[ -n $line ]]; do
