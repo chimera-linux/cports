@@ -1,0 +1,6 @@
+type            = process
+command         = /usr/bin/acpid -f
+logfile         = /var/log/acpid.log
+depends-on      = init-done.target
+before          = login.target
+smooth-recovery = true
