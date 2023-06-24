@@ -227,8 +227,8 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
         pn = (
             apki.call(
                 "search",
-                ["--from", "none", "-e", "-a", pkgn],
-                cr,
+                ["--from", "none", "--repository", cr, "-e", "-a", pkgn],
+                None,
                 root=sysp,
                 capture_output=True,
                 arch=arch,
