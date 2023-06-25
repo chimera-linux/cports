@@ -1,1 +1,1 @@
-pkgname = "ipw2100-fw"
+pkgname = "microcode"
