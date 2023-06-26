@@ -1,5 +1,5 @@
 pkgname = "turnstile"
-pkgver = "0.1.3"
+pkgver = "0.1.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dmanage_rundir=true"]
@@ -11,12 +11,13 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/turnstile"
 source = f"https://github.com/chimera-linux/turnstile/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cd74dee75f6b0a60cef27872fbb7747a5d07be46200eb4410e2509cb15851045"
+sha256 = "48b7c785a362bec7b29a61e63a0b06748cc7ffceb56f1bdfc025cadd9e9240d0"
 hardening = ["vis", "cfi"]
 options = ["brokenlinks", "!splitdinit"]
 
 
 def post_install(self):
+    self.install_license("COPYING.md")
     # just make sure it exists
     self.install_dir("usr/lib/dinit.d/user/boot.d", empty=True)
     # linger
