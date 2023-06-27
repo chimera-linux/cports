@@ -1,9 +1,10 @@
 # rtkit daemon service
 
-type            = process
-command         = /usr/libexec/rtkit-daemon
-before          = login.target
-depends-on      = dbus
-waits-for       = polkitd
-restart         = true
-smooth-recovery = true
+type               = process
+command            = /usr/libexec/rtkit-daemon
+before             = login.target
+depends-on         = dbus
+waits-for          = polkitd
+restart            = true
+smooth-recovery    = true
+ready-notification = pipevar:RTKIT_DAEMON_READY_FD

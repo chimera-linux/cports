@@ -1,6 +1,6 @@
 pkgname = "rtkit"
 pkgver = "0.13"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dlibsystemd=disabled",
@@ -17,7 +17,13 @@ source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "a157144cd95cf6d25200e74b74a8f01e4fe51fd421bb63c1f00d471394b640ab"
 hardening = ["vis", "cfi"]
 
-system_users = ["rtkit"]
+system_users = [
+    {
+        "name": "rtkit",
+        "id": None,
+        "home": "/proc",
+    }
+]
 
 
 def post_install(self):
