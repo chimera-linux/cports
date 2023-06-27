@@ -19,6 +19,7 @@ hardening = ["vis", "cfi"]
 
 system_users = ["rtkit"]
 
+
 def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd", recursive=True)
     self.install_license("LICENSE")
