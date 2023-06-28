@@ -1,0 +1,95 @@
+commit b660d06c91cbccc8a051d7813657fdfe2ea675ba
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jun 28 21:47:04 2023 +0200
+
+    fix remaining nits
+
+diff --git a/io.c b/io.c
+index e397a3e..6761b2f 100644
+--- a/io.c
++++ b/io.c
+@@ -147,7 +147,7 @@ get_okay(char *prompt, int default_value)
+     int		c;
+ 
+     flush_to_newline(0);
+-    printf(prompt);
++    printf("%s", prompt);
+     fflush(stdout);
+ 
+     for (;;) {
+@@ -166,7 +166,7 @@ get_okay(char *prompt, int default_value)
+ 	    return 0;
+ 	} else {
+ 	    flush_to_newline(0);
+-	    printf(prompt);
++	    printf("%s", prompt);
+ 	    fflush(stdout);
+ 	}
+     }
+@@ -180,7 +180,7 @@ get_command(char *prompt, int promptBeforeGet, int *command)
+     int		c;
+ 
+     if (promptBeforeGet) {
+-	printf(prompt);
++	printf("%s", prompt);
+ 	fflush(stdout);
+     }	
+     for (;;) {
+@@ -191,7 +191,7 @@ get_command(char *prompt, int promptBeforeGet, int *command)
+ 	} else if (c == ' ' || c == '\t') {
+ 	    // skip blanks and tabs
+ 	} else if (c == '\n') {
+-	    printf(prompt);
++	    printf("%s", prompt);
+ 	    fflush(stdout);
+ 	} else {
+ 	    *command = c;
+@@ -217,7 +217,7 @@ get_number_argument(char *prompt, long *number, long default_value)
+ 	    // skip blanks and tabs
+ 	} else if (c == '\n') {
+ 	    if (default_value < 0) {
+-		printf(prompt);
++		printf("%s", prompt);
+ 		fflush(stdout);
+ 	    } else {
+ 		ungetch(c);
+@@ -296,7 +296,7 @@ get_string_argument(char *prompt, char **string, int reprompt)
+ 	    // skip blanks and tabs
+ 	} else if (c == '\n') {
+ 	    if (reprompt) {
+-		printf(prompt);
++		printf("%s", prompt);
+ 		fflush(stdout);
+ 	    } else {
+ 		ungetch(c);
+diff --git a/kernel-defs.h b/kernel-defs.h
+index 4dd4414..f894dcf 100644
+--- a/kernel-defs.h
++++ b/kernel-defs.h
+@@ -44,12 +44,14 @@ struct hd_geometry {
+ #define _IOC_WRITE	1U
+ #endif
+ 
++#if 0
+ #define _IOC(dir,type,nr,size) \
+ 	(((dir)  << _IOC_DIRSHIFT) | \
+ 	 ((type) << _IOC_TYPESHIFT) | \
+ 	 ((nr)   << _IOC_NRSHIFT) | \
+ 	 ((size) << _IOC_SIZESHIFT))
+ #define _IO(type,nr)		_IOC(_IOC_NONE,(type),(nr),0)
++#endif
+ 
+ /* from linux/fs.h */
+ #define BLKRRPART  _IO(0x12,95)      /* re-read partition table */
+diff --git a/partition_map.c b/partition_map.c
+index 4aaf4b0..ce4c9e0 100644
+--- a/partition_map.c
++++ b/partition_map.c
+@@ -436,6 +436,7 @@ create_partition_map(char *name)
+ 
+     number = compute_device_size(fd);
+     printf("size of 'device' is %u blocks: ", (unsigned int)number);
++    fflush(stdout);
+     flush_to_newline(0);
+     get_number_argument("what should be the size? ", (long *)&number, number);
+     if (number < 4) {
