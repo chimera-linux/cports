@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "base-core",
@@ -32,6 +32,10 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
 
-if self.profile().arch == "x86_64":
-    # intel audio firmware
-    depends += ["base-firmware-sof"]
+match self.profile().arch:
+    case "x86_64":
+        # intel audio firmware
+        depends += ["base-firmware-sof"]
+    case "ppc64" | "ppc":
+        # ppc mac disk tools
+        depends += ["hfsutils", "mac-fdisk"]
