@@ -1,5 +1,5 @@
 pkgname = "libclc"
-pkgver = "16.0.5"
+pkgver = "16.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DCMAKE_BUILD_TYPE=Release"]
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://libclc.llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/{pkgname}-{pkgver}.src.tar.xz"
-sha256 = "95ab6e946b8bc85e249ca286affb34c94f49939cfdddc0c544272c9e4132039b"
+sha256 = "61952af79c555d50bc88cb6f134d9abe9278f65dd34c2bc945cc3d324c2af224"
 # should not matter much but FIXME
 hardening = ["vis", "!cfi"]
 # external-calls-clspv broken

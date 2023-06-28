@@ -1,0 +1,576 @@
+From ec15adaa51ff8152d5d7d1245639426225154470 Mon Sep 17 00:00:00 2001
+From: Brad Smith <brad@comstyle.com>
+Date: Wed, 26 Apr 2023 18:50:49 -0400
+Subject: [PATCH 05/10] [SPARC] Lower BR_CC to BPr on 64-bit target whenever
+ possible
+
+On 64-bit target, when doing i64 BR_CC where one of the comparison operands is a
+constant zero, try to fold the compare and BPcc into a BPr instruction.
+
+For all integers, EQ and NE comparison are available, additionally for signed
+integers, GT, GE, LT, and LE is also available.
+
+Reviewed By: arsenm
+
+Differential Revision: https://reviews.llvm.org/D142461
+
+Gentoo-Component: llvm
+---
+ .../Sparc/MCTargetDesc/SparcInstPrinter.cpp   |  4 +
+ llvm/lib/Target/Sparc/SparcISelLowering.cpp   | 15 +++-
+ llvm/lib/Target/Sparc/SparcISelLowering.h     |  1 +
+ llvm/lib/Target/Sparc/SparcInstr64Bit.td      | 33 +++------
+ llvm/lib/Target/Sparc/SparcInstrAliases.td    | 30 ++++++++
+ llvm/lib/Target/Sparc/SparcInstrFormats.td    |  5 +-
+ llvm/lib/Target/Sparc/SparcInstrInfo.cpp      | 41 +++++++++--
+ llvm/lib/Target/Sparc/SparcInstrInfo.td       |  3 +
+ llvm/test/CodeGen/SPARC/branches-relax.ll     | 73 ++++++++++++++++---
+ llvm/test/CodeGen/SPARC/branches-v9.ll        | 66 ++++++++++++++---
+ llvm/test/CodeGen/SPARC/missinglabel.ll       |  3 +-
+ 11 files changed, 219 insertions(+), 55 deletions(-)
+
+diff --git a/llvm/lib/Target/Sparc/MCTargetDesc/SparcInstPrinter.cpp b/llvm/lib/Target/Sparc/MCTargetDesc/SparcInstPrinter.cpp
+index 14c0e276a11b..bcd4da9f8d07 100644
+--- a/llvm/lib/Target/Sparc/MCTargetDesc/SparcInstPrinter.cpp
++++ b/llvm/lib/Target/Sparc/MCTargetDesc/SparcInstPrinter.cpp
+@@ -197,6 +197,10 @@ void SparcInstPrinter::printCCOperand(const MCInst *MI, int opNum,
+     // Make sure CC is a cp conditional flag.
+     CC = (CC < SPCC::CPCC_BEGIN) ? (CC + SPCC::CPCC_BEGIN) : CC;
+     break;
++  case SP::BPR:
++  case SP::BPRA:
++  case SP::BPRNT:
++  case SP::BPRANT:
+   case SP::MOVRri:
+   case SP::MOVRrr:
+   case SP::FMOVRS:
+diff --git a/llvm/lib/Target/Sparc/SparcISelLowering.cpp b/llvm/lib/Target/Sparc/SparcISelLowering.cpp
+index 913f133465b9..872dda4f541d 100644
+--- a/llvm/lib/Target/Sparc/SparcISelLowering.cpp
++++ b/llvm/lib/Target/Sparc/SparcISelLowering.cpp
+@@ -1977,6 +1977,8 @@ const char *SparcTargetLowering::getTargetNodeName(unsigned Opcode) const {
+   case SPISD::BRFCC:           return "SPISD::BRFCC";
+   case SPISD::BRFCC_V9:
+     return "SPISD::BRFCC_V9";
++  case SPISD::BR_REG:
++    return "SPISD::BR_REG";
+   case SPISD::SELECT_ICC:      return "SPISD::SELECT_ICC";
+   case SPISD::SELECT_XCC:      return "SPISD::SELECT_XCC";
+   case SPISD::SELECT_FCC:      return "SPISD::SELECT_FCC";
+@@ -2582,7 +2584,7 @@ static SDValue LowerUINT_TO_FP(SDValue Op, SelectionDAG &DAG,
+ 
+ static SDValue LowerBR_CC(SDValue Op, SelectionDAG &DAG,
+                           const SparcTargetLowering &TLI, bool hasHardQuad,
+-                          bool isV9) {
++                          bool isV9, bool is64Bit) {
+   SDValue Chain = Op.getOperand(0);
+   ISD::CondCode CC = cast<CondCodeSDNode>(Op.getOperand(1))->get();
+   SDValue LHS = Op.getOperand(2);
+@@ -2599,6 +2601,15 @@ static SDValue LowerBR_CC(SDValue Op, SelectionDAG &DAG,
+   // Get the condition flag.
+   SDValue CompareFlag;
+   if (LHS.getValueType().isInteger()) {
++    // On V9 processors running in 64-bit mode, if CC compares two `i64`s
++    // and the RHS is zero we might be able to use a specialized branch.
++    const ConstantSDNode *RHSC = dyn_cast<ConstantSDNode>(RHS);
++    if (is64Bit && isV9 && LHS.getValueType() == MVT::i64 && RHSC &&
++        RHSC->isZero() && !ISD::isUnsignedIntSetCC(CC))
++      return DAG.getNode(SPISD::BR_REG, dl, MVT::Other, Chain, Dest,
++                         DAG.getConstant(intCondCCodeToRcond(CC), dl, MVT::i32),
++                         LHS);
++
+     CompareFlag = DAG.getNode(SPISD::CMPICC, dl, MVT::Glue, LHS, RHS);
+     if (SPCC == ~0U) SPCC = IntCondCCodeToICC(CC);
+     if (isV9)
+@@ -3215,7 +3226,7 @@ LowerOperation(SDValue Op, SelectionDAG &DAG) const {
+   case ISD::UINT_TO_FP:         return LowerUINT_TO_FP(Op, DAG, *this,
+                                                        hasHardQuad);
+   case ISD::BR_CC:
+-    return LowerBR_CC(Op, DAG, *this, hasHardQuad, isV9);
++    return LowerBR_CC(Op, DAG, *this, hasHardQuad, isV9, is64Bit);
+   case ISD::SELECT_CC:
+     return LowerSELECT_CC(Op, DAG, *this, hasHardQuad, isV9, is64Bit);
+   case ISD::VASTART:            return LowerVASTART(Op, DAG, *this);
+diff --git a/llvm/lib/Target/Sparc/SparcISelLowering.h b/llvm/lib/Target/Sparc/SparcISelLowering.h
+index 563a832ee61e..9e55f1e535b2 100644
+--- a/llvm/lib/Target/Sparc/SparcISelLowering.h
++++ b/llvm/lib/Target/Sparc/SparcISelLowering.h
+@@ -31,6 +31,7 @@ namespace llvm {
+     BPXCC,    // Branch to dest on xcc condition, with prediction (64-bit only).
+     BRFCC,    // Branch to dest on fcc condition
+     BRFCC_V9, // Branch to dest on fcc condition (v9 variant).
++    BR_REG,   // Branch to dest using the comparison of a register with zero.
+     SELECT_ICC, // Select between two values using the current ICC flags.
+     SELECT_XCC, // Select between two values using the current XCC flags.
+     SELECT_FCC, // Select between two values using the current FCC flags.
+diff --git a/llvm/lib/Target/Sparc/SparcInstr64Bit.td b/llvm/lib/Target/Sparc/SparcInstr64Bit.td
+index 77f203fd0d68..0a6479487418 100644
+--- a/llvm/lib/Target/Sparc/SparcInstr64Bit.td
++++ b/llvm/lib/Target/Sparc/SparcInstr64Bit.td
+@@ -356,15 +356,15 @@ def FMOVQ_XCC : F4_3<0b110101, 0b000011, (outs QFPRegs:$rd),
+ 
+ // Branch On integer register with Prediction (BPr).
+ let isBranch = 1, isTerminator = 1, hasDelaySlot = 1 in
+-multiclass BranchOnReg<bits<3> cond, string OpcStr> {
+-  def napt : F2_4<cond, 0, 1, (outs), (ins I64Regs:$rs1, bprtarget16:$imm16),
+-             !strconcat(OpcStr, " $rs1, $imm16"), []>;
+-  def apt  : F2_4<cond, 1, 1, (outs), (ins I64Regs:$rs1, bprtarget16:$imm16),
+-             !strconcat(OpcStr, ",a $rs1, $imm16"), []>;
+-  def napn  : F2_4<cond, 0, 0, (outs), (ins I64Regs:$rs1, bprtarget16:$imm16),
+-             !strconcat(OpcStr, ",pn $rs1, $imm16"), []>;
+-  def apn : F2_4<cond, 1, 0, (outs), (ins I64Regs:$rs1, bprtarget16:$imm16),
+-             !strconcat(OpcStr, ",a,pn $rs1, $imm16"), []>;
++multiclass BranchOnReg<list<dag> CCPattern> {
++  def R    : F2_4<0, 1, (outs), (ins bprtarget16:$imm16, RegCCOp:$rcond, I64Regs:$rs1),
++             "br$rcond $rs1, $imm16", CCPattern>;
++  def RA   : F2_4<1, 1, (outs), (ins bprtarget16:$imm16, RegCCOp:$rcond, I64Regs:$rs1),
++             "br$rcond,a $rs1, $imm16", []>;
++  def RNT  : F2_4<0, 0, (outs), (ins bprtarget16:$imm16, RegCCOp:$rcond, I64Regs:$rs1),
++             "br$rcond,pn $rs1, $imm16", []>;
++  def RANT : F2_4<1, 0, (outs), (ins bprtarget16:$imm16, RegCCOp:$rcond, I64Regs:$rs1),
++             "br$rcond,a,pn $rs1, $imm16", []>;
+ }
+ 
+ multiclass bpr_alias<string OpcStr, Instruction NAPT, Instruction APT> {
+@@ -374,19 +374,8 @@ multiclass bpr_alias<string OpcStr, Instruction NAPT, Instruction APT> {
+                   (APT I64Regs:$rs1, bprtarget16:$imm16), 0>;
+ }
+ 
+-defm BPZ   : BranchOnReg<0b001, "brz">;
+-defm BPLEZ : BranchOnReg<0b010, "brlez">;
+-defm BPLZ  : BranchOnReg<0b011, "brlz">;
+-defm BPNZ  : BranchOnReg<0b101, "brnz">;
+-defm BPGZ  : BranchOnReg<0b110, "brgz">;
+-defm BPGEZ : BranchOnReg<0b111, "brgez">;
+-
+-defm : bpr_alias<"brz",   BPZnapt,   BPZapt  >;
+-defm : bpr_alias<"brlez", BPLEZnapt, BPLEZapt>;
+-defm : bpr_alias<"brlz",  BPLZnapt,  BPLZapt >;
+-defm : bpr_alias<"brnz",  BPNZnapt,  BPNZapt >;
+-defm : bpr_alias<"brgz",  BPGZnapt,  BPGZapt >;
+-defm : bpr_alias<"brgez", BPGEZnapt, BPGEZapt>;
++let Predicates = [Is64Bit] in
++  defm BP : BranchOnReg<[(SPbrreg bb:$imm16, imm:$rcond, i64:$rs1)]>;
+ 
+ // Move integer register on register condition (MOVr).
+ let Predicates = [Is64Bit], Constraints = "$f = $rd" in {
+diff --git a/llvm/lib/Target/Sparc/SparcInstrAliases.td b/llvm/lib/Target/Sparc/SparcInstrAliases.td
+index f10021321406..01c3696cc7bc 100644
+--- a/llvm/lib/Target/Sparc/SparcInstrAliases.td
++++ b/llvm/lib/Target/Sparc/SparcInstrAliases.td
+@@ -295,6 +295,36 @@ multiclass cp_cond_alias<string cond, int condVal> {
+ 
+ // Instruction aliases for register conditional branches and moves.
+ multiclass reg_cond_alias<string rcond, int condVal> {
++  // br<rcond> $rs1, $imm
++  def : InstAlias<!strconcat(!strconcat("br", rcond), " $rs1, $imm"),
++                  (BPR bprtarget16:$imm, condVal, I64Regs:$rs1)>,
++                  Requires<[Is64Bit]>;
++
++  // br<rcond>,pt $rs1, $imm
++  def : InstAlias<!strconcat(!strconcat("br", rcond), ",pt $rs1, $imm"),
++                  (BPR bprtarget16:$imm, condVal, I64Regs:$rs1)>,
++                  Requires<[Is64Bit]>;
++
++  // br<rcond>,pn $rs1, $imm
++  def : InstAlias<!strconcat(!strconcat("br", rcond), ",pn $rs1, $imm"),
++                  (BPRNT bprtarget16:$imm, condVal, I64Regs:$rs1)>,
++                  Requires<[Is64Bit]>;
++
++  // br<rcond>,a $rs1, $imm
++  def : InstAlias<!strconcat(!strconcat("br", rcond), ",a $rs1, $imm"),
++                  (BPRA bprtarget16:$imm, condVal, I64Regs:$rs1)>,
++                  Requires<[Is64Bit]>;
++
++  // br<rcond>,a,pt $rs1, $imm
++  def : InstAlias<!strconcat(!strconcat("br", rcond), ",a,pt $rs1, $imm"),
++                  (BPRA bprtarget16:$imm, condVal, I64Regs:$rs1)>,
++                  Requires<[Is64Bit]>;
++
++  // br<rcond>,a,pn $rs1, $imm
++  def : InstAlias<!strconcat(!strconcat("br", rcond), ",a,pn $rs1, $imm"),
++                  (BPRANT bprtarget16:$imm, condVal, I64Regs:$rs1)>,
++                  Requires<[Is64Bit]>;
++
+   defm : regcond_mov_alias<rcond, condVal,
+                             MOVRrr, MOVRri,
+                             FMOVRS, FMOVRD, FMOVRQ>,
+diff --git a/llvm/lib/Target/Sparc/SparcInstrFormats.td b/llvm/lib/Target/Sparc/SparcInstrFormats.td
+index 522dcd96a112..c67b591ab98a 100644
+--- a/llvm/lib/Target/Sparc/SparcInstrFormats.td
++++ b/llvm/lib/Target/Sparc/SparcInstrFormats.td
+@@ -83,17 +83,18 @@ class F2_3<bits<3> op2Val, bit annul, bit pred,
+   let Inst{18-0}  = imm19;
+ }
+ 
+-class F2_4<bits<3> cond, bit annul, bit pred, dag outs, dag ins,
++class F2_4<bit annul, bit pred, dag outs, dag ins,
+            string asmstr, list<dag> pattern, InstrItinClass itin = NoItinerary>
+    : InstSP<outs, ins, asmstr, pattern, itin> {
+   bits<16> imm16;
+   bits<5>  rs1;
++  bits<3>  rcond;
+ 
+   let op          = 0;    // op = 0
+ 
+   let Inst{29}    = annul;
+   let Inst{28}    = 0;
+-  let Inst{27-25} = cond;
++  let Inst{27-25} = rcond;
+   let Inst{24-22} = 0b011;
+   let Inst{21-20} = imm16{15-14};
+   let Inst{19}    = pred;
+diff --git a/llvm/lib/Target/Sparc/SparcInstrInfo.cpp b/llvm/lib/Target/Sparc/SparcInstrInfo.cpp
+index a3a09a36f1dd..90662cd87dcf 100644
+--- a/llvm/lib/Target/Sparc/SparcInstrInfo.cpp
++++ b/llvm/lib/Target/Sparc/SparcInstrInfo.cpp
+@@ -32,6 +32,10 @@ static cl::opt<unsigned> BPccDisplacementBits(
+     "sparc-bpcc-offset-bits", cl::Hidden, cl::init(19),
+     cl::desc("Restrict range of BPcc/FBPfcc instructions (DEBUG)"));
+ 
++static cl::opt<unsigned>
++    BPrDisplacementBits("sparc-bpr-offset-bits", cl::Hidden, cl::init(16),
++                        cl::desc("Restrict range of BPr instructions (DEBUG)"));
++
+ // Pin the vtable to this file.
+ void SparcInstrInfo::anchor() {}
+ 
+@@ -166,6 +170,11 @@ static bool isI64CondBranchOpcode(int Opc) {
+          Opc == SP::BPXCCANT;
+ }
+ 
++static bool isRegCondBranchOpcode(int Opc) {
++  return Opc == SP::BPR || Opc == SP::BPRA || Opc == SP::BPRNT ||
++         Opc == SP::BPRANT;
++}
++
+ static bool isFCondBranchOpcode(int Opc) {
+   return Opc == SP::FBCOND || Opc == SP::FBCONDA || Opc == SP::FBCOND_V9 ||
+          Opc == SP::FBCONDA_V9;
+@@ -173,7 +182,7 @@ static bool isFCondBranchOpcode(int Opc) {
+ 
+ static bool isCondBranchOpcode(int Opc) {
+   return isI32CondBranchOpcode(Opc) || isI64CondBranchOpcode(Opc) ||
+-         isFCondBranchOpcode(Opc);
++         isRegCondBranchOpcode(Opc) || isFCondBranchOpcode(Opc);
+ }
+ 
+ static bool isIndirectBranchOpcode(int Opc) {
+@@ -190,6 +199,13 @@ static void parseCondBranch(MachineInstr *LastInst, MachineBasicBlock *&Target,
+   Cond.push_back(MachineOperand::CreateImm(Opc));
+   Cond.push_back(MachineOperand::CreateImm(CC));
+ 
++  // Branch on register contents need another argument to indicate
++  // the register it branches on.
++  if (isRegCondBranchOpcode(Opc)) {
++      Register Reg = LastInst->getOperand(2).getReg();
++      Cond.push_back(MachineOperand::CreateReg(Reg, false));
++  }
++
+   Target = LastInst->getOperand(0).getMBB();
+ }
+ 
+@@ -217,6 +233,10 @@ SparcInstrInfo::getBranchDestBlock(const MachineInstr &MI) const {
+   case SP::BPFCCANT:
+   case SP::FBCOND_V9:
+   case SP::FBCONDA_V9:
++  case SP::BPR:
++  case SP::BPRA:
++  case SP::BPRNT:
++  case SP::BPRANT:
+       return MI.getOperand(0).getMBB();
+   }
+ }
+@@ -311,8 +331,8 @@ unsigned SparcInstrInfo::insertBranch(MachineBasicBlock &MBB,
+                                       const DebugLoc &DL,
+                                       int *BytesAdded) const {
+   assert(TBB && "insertBranch must not be told to insert a fallthrough");
+-  assert((Cond.size() <= 2) &&
+-         "Sparc branch conditions should have at most two components!");
++  assert((Cond.size() <= 3) &&
++         "Sparc branch conditions should have at most three components!");
+ 
+   if (Cond.empty()) {
+     assert(!FBB && "Unconditional branch with multiple successors!");
+@@ -325,7 +345,12 @@ unsigned SparcInstrInfo::insertBranch(MachineBasicBlock &MBB,
+   // Conditional branch
+   unsigned Opc = Cond[0].getImm();
+   unsigned CC = Cond[1].getImm();
+-  BuildMI(&MBB, DL, get(Opc)).addMBB(TBB).addImm(CC);
++  if (isRegCondBranchOpcode(Opc)) {
++    Register Reg = Cond[2].getReg();
++    BuildMI(&MBB, DL, get(Opc)).addMBB(TBB).addImm(CC).addReg(Reg);
++  } else {
++    BuildMI(&MBB, DL, get(Opc)).addMBB(TBB).addImm(CC);
++  }
+ 
+   if (!FBB) {
+     if (BytesAdded)
+@@ -367,7 +392,7 @@ unsigned SparcInstrInfo::removeBranch(MachineBasicBlock &MBB,
+ 
+ bool SparcInstrInfo::reverseBranchCondition(
+     SmallVectorImpl<MachineOperand> &Cond) const {
+-  assert(Cond.size() <= 2);
++  assert(Cond.size() <= 3);
+   SPCC::CondCodes CC = static_cast<SPCC::CondCodes>(Cond[1].getImm());
+   Cond[1].setImm(GetOppositeBranchCondition(CC));
+   return false;
+@@ -399,6 +424,12 @@ bool SparcInstrInfo::isBranchOffsetInRange(unsigned BranchOpc,
+   case SP::FBCOND_V9:
+   case SP::FBCONDA_V9:
+     return isIntN(BPccDisplacementBits, Offset >> 2);
++
++  case SP::BPR:
++  case SP::BPRA:
++  case SP::BPRNT:
++  case SP::BPRANT:
++    return isIntN(BPrDisplacementBits, Offset >> 2);
+   }
+ 
+   llvm_unreachable("Unknown branch instruction!");
+diff --git a/llvm/lib/Target/Sparc/SparcInstrInfo.td b/llvm/lib/Target/Sparc/SparcInstrInfo.td
+index 2e95bc10337a..6a5f6995bf4e 100644
+--- a/llvm/lib/Target/Sparc/SparcInstrInfo.td
++++ b/llvm/lib/Target/Sparc/SparcInstrInfo.td
+@@ -224,6 +224,8 @@ def SDTSPcmpfcc :
+ SDTypeProfile<0, 2, [SDTCisFP<0>, SDTCisSameAs<0, 1>]>;
+ def SDTSPbrcc :
+ SDTypeProfile<0, 2, [SDTCisVT<0, OtherVT>, SDTCisVT<1, i32>]>;
++def SDTSPbrreg :
++SDTypeProfile<0, 3, [SDTCisVT<0, OtherVT>, SDTCisVT<1, i32>, SDTCisVT<2, i64>]>;
+ def SDTSPselectcc :
+ SDTypeProfile<1, 3, [SDTCisSameAs<0, 1>, SDTCisSameAs<1, 2>, SDTCisVT<3, i32>]>;
+ def SDTSPselectreg :
+@@ -253,6 +255,7 @@ def SPbpicc : SDNode<"SPISD::BPICC", SDTSPbrcc, [SDNPHasChain, SDNPInGlue]>;
+ def SPbpxcc : SDNode<"SPISD::BPXCC", SDTSPbrcc, [SDNPHasChain, SDNPInGlue]>;
+ def SPbrfcc : SDNode<"SPISD::BRFCC", SDTSPbrcc, [SDNPHasChain, SDNPInGlue]>;
+ def SPbrfccv9 : SDNode<"SPISD::BRFCC_V9", SDTSPbrcc, [SDNPHasChain, SDNPInGlue]>;
++def SPbrreg : SDNode<"SPISD::BR_REG", SDTSPbrreg, [SDNPHasChain, SDNPInGlue]>;
+ 
+ def SPhi    : SDNode<"SPISD::Hi", SDTIntUnaryOp>;
+ def SPlo    : SDNode<"SPISD::Lo", SDTIntUnaryOp>;
+diff --git a/llvm/test/CodeGen/SPARC/branches-relax.ll b/llvm/test/CodeGen/SPARC/branches-relax.ll
+index 11324faf1146..334a7ebfb673 100644
+--- a/llvm/test/CodeGen/SPARC/branches-relax.ll
++++ b/llvm/test/CodeGen/SPARC/branches-relax.ll
+@@ -1,5 +1,5 @@
+ ; NOTE: Assertions have been autogenerated by utils/update_llc_test_checks.py
+-; RUN: llc < %s -mtriple=sparc64 -sparc-bpcc-offset-bits=4 | FileCheck --check-prefix=SPARC64 %s
++; RUN: llc < %s -mtriple=sparc64 -sparc-bpcc-offset-bits=4 -sparc-bpr-offset-bits=4 | FileCheck --check-prefix=SPARC64 %s
+ 
+ define i32 @branch_relax_int(i32 %in) {
+ ; SPARC64-LABEL: branch_relax_int:
+@@ -53,6 +53,57 @@ false:
+   ret i32 0
+ }
+ 
++define i64 @branch_relax_reg(i64 %in) {
++; SPARC64-LABEL: branch_relax_reg:
++; SPARC64:         .cfi_startproc
++; SPARC64-NEXT:  ! %bb.0:
++; SPARC64-NEXT:    save %sp, -128, %sp
++; SPARC64-NEXT:    .cfi_def_cfa_register %fp
++; SPARC64-NEXT:    .cfi_window_save
++; SPARC64-NEXT:    .cfi_register %o7, %i7
++; SPARC64-NEXT:    brnz %i0, .LBB1_1
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    ba .LBB1_2
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:  .LBB1_1: ! %false
++; SPARC64-NEXT:    !APP
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    !NO_APP
++; SPARC64-NEXT:    ret
++; SPARC64-NEXT:    restore %g0, %g0, %o0
++; SPARC64-NEXT:  .LBB1_2: ! %true
++; SPARC64-NEXT:    mov 4, %i0
++; SPARC64-NEXT:    !APP
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    nop
++; SPARC64-NEXT:    !NO_APP
++; SPARC64-NEXT:    ret
++; SPARC64-NEXT:    restore
++  %tst = icmp eq i64 %in, 0
++  br i1 %tst, label %true, label %false
++
++true:
++  call void asm sideeffect "nop\0A\09nop\0A\09nop\0A\09nop\0A\09nop\0A\09nop\0A\09nop\0A\09nop", ""()
++  ret i64 4
++
++false:
++  call void asm sideeffect "nop\0A\09nop\0A\09nop\0A\09nop\0A\09nop\0A\09nop\0A\09nop\0A\09nop", ""()
++  ret i64 0
++}
++
+ define float @branch_relax_float(float %in) {
+ ; SPARC64-LABEL: branch_relax_float:
+ ; SPARC64:         .cfi_startproc
+@@ -61,20 +112,20 @@ define float @branch_relax_float(float %in) {
+ ; SPARC64-NEXT:    .cfi_def_cfa_register %fp
+ ; SPARC64-NEXT:    .cfi_window_save
+ ; SPARC64-NEXT:    .cfi_register %o7, %i7
+-; SPARC64-NEXT:    sethi %h44(.LCPI1_0), %i0
+-; SPARC64-NEXT:    add %i0, %m44(.LCPI1_0), %i0
++; SPARC64-NEXT:    sethi %h44(.LCPI2_0), %i0
++; SPARC64-NEXT:    add %i0, %m44(.LCPI2_0), %i0
+ ; SPARC64-NEXT:    sllx %i0, 12, %i0
+-; SPARC64-NEXT:    ld [%i0+%l44(.LCPI1_0)], %f0
++; SPARC64-NEXT:    ld [%i0+%l44(.LCPI2_0)], %f0
+ ; SPARC64-NEXT:    fcmps %fcc0, %f1, %f0
+-; SPARC64-NEXT:    fbe %fcc0, .LBB1_1
++; SPARC64-NEXT:    fbe %fcc0, .LBB2_1
+ ; SPARC64-NEXT:    nop
+-; SPARC64-NEXT:    ba .LBB1_2
++; SPARC64-NEXT:    ba .LBB2_2
+ ; SPARC64-NEXT:    nop
+-; SPARC64-NEXT:  .LBB1_1: ! %true
+-; SPARC64-NEXT:    sethi %h44(.LCPI1_1), %i0
+-; SPARC64-NEXT:    add %i0, %m44(.LCPI1_1), %i0
++; SPARC64-NEXT:  .LBB2_1: ! %true
++; SPARC64-NEXT:    sethi %h44(.LCPI2_1), %i0
++; SPARC64-NEXT:    add %i0, %m44(.LCPI2_1), %i0
+ ; SPARC64-NEXT:    sllx %i0, 12, %i0
+-; SPARC64-NEXT:    ld [%i0+%l44(.LCPI1_1)], %f0
++; SPARC64-NEXT:    ld [%i0+%l44(.LCPI2_1)], %f0
+ ; SPARC64-NEXT:    !APP
+ ; SPARC64-NEXT:    nop
+ ; SPARC64-NEXT:    nop
+@@ -87,7 +138,7 @@ define float @branch_relax_float(float %in) {
+ ; SPARC64-NEXT:    !NO_APP
+ ; SPARC64-NEXT:    ret
+ ; SPARC64-NEXT:    restore
+-; SPARC64-NEXT:  .LBB1_2: ! %false
++; SPARC64-NEXT:  .LBB2_2: ! %false
+ ; SPARC64-NEXT:    !APP
+ ; SPARC64-NEXT:    nop
+ ; SPARC64-NEXT:    nop
+diff --git a/llvm/test/CodeGen/SPARC/branches-v9.ll b/llvm/test/CodeGen/SPARC/branches-v9.ll
+index c1c765d6025c..6b76888df065 100644
+--- a/llvm/test/CodeGen/SPARC/branches-v9.ll
++++ b/llvm/test/CodeGen/SPARC/branches-v9.ll
+@@ -1,13 +1,15 @@
+ ; NOTE: Assertions have been autogenerated by utils/update_llc_test_checks.py
+ ; RUN: llc < %s -mtriple=sparcv9 -disable-sparc-leaf-proc | FileCheck %s
+ 
+-;; 1. When emitting code for v9, branches should always explicitly specify
++;; 1. When emitting code for v9, CCR branches should always explicitly specify
+ ;;    %icc or %xcc.
+-;; 2. There should never be a `ba` that jumps into two instructions immediately
++;; 2. Branches on the result of a 64-bit compare with constant zero should be
++;;    lowered into an instruction in the BPr class (§A.3 in V9 spec).
++;; 3. There should never be a `ba` that jumps into two instructions immediately
+ ;;    following it.
+ 
+-define void @i(i32 signext %sel) {
+-; CHECK-LABEL: i:
++define void @bricc(i32 signext %sel) {
++; CHECK-LABEL: bricc:
+ ; CHECK:         .cfi_startproc
+ ; CHECK-NEXT:  ! %bb.0: ! %entry
+ ; CHECK-NEXT:    save %sp, -176, %sp
+@@ -47,26 +49,68 @@ end:
+   ret void
+ }
+ 
+-define void @l(i64 %sel) {
+-; CHECK-LABEL: l:
++define void @brxcc(i64 %sel) {
++; CHECK-LABEL: brxcc:
+ ; CHECK:         .cfi_startproc
+ ; CHECK-NEXT:  ! %bb.0: ! %entry
+ ; CHECK-NEXT:    save %sp, -176, %sp
+ ; CHECK-NEXT:    .cfi_def_cfa_register %fp
+ ; CHECK-NEXT:    .cfi_window_save
+ ; CHECK-NEXT:    .cfi_register %o7, %i7
+-; CHECK-NEXT:    cmp %i0, 0
+-; CHECK-NEXT:    be %xcc, .LBB1_2
++; CHECK-NEXT:    cmp %i0, 1
++; CHECK-NEXT:    bne %xcc, .LBB1_2
++; CHECK-NEXT:    nop
++; CHECK-NEXT:  ! %bb.1: ! %tbb
++; CHECK-NEXT:    call f1
++; CHECK-NEXT:    nop
++; CHECK-NEXT:    ba .LBB1_3
++; CHECK-NEXT:    nop
++; CHECK-NEXT:  .LBB1_2: ! %fbb
++; CHECK-NEXT:    call f2
++; CHECK-NEXT:    nop
++; CHECK-NEXT:  .LBB1_3: ! %end
++; CHECK-NEXT:    call f3
++; CHECK-NEXT:    nop
++; CHECK-NEXT:    ret
++; CHECK-NEXT:    restore
++entry:
++  ;; Using 1 here because compares with zero
++  ;; will be lowered into a `brz`, not `be`.
++  %cond = icmp eq i64 %sel, 1
++  br i1 %cond, label %tbb, label %fbb
++
++fbb:
++  call void @f2()
++  br label %end
++
++tbb:
++  call void @f1()
++  br label %end
++
++end:
++  call void @f3()
++  ret void
++}
++
++define void @brreg(i64 %sel) {
++; CHECK-LABEL: brreg:
++; CHECK:         .cfi_startproc
++; CHECK-NEXT:  ! %bb.0: ! %entry
++; CHECK-NEXT:    save %sp, -176, %sp
++; CHECK-NEXT:    .cfi_def_cfa_register %fp
++; CHECK-NEXT:    .cfi_window_save
++; CHECK-NEXT:    .cfi_register %o7, %i7
++; CHECK-NEXT:    brz %i0, .LBB2_2
+ ; CHECK-NEXT:    nop
+ ; CHECK-NEXT:  ! %bb.1: ! %fbb
+ ; CHECK-NEXT:    call f2
+ ; CHECK-NEXT:    nop
+-; CHECK-NEXT:    ba .LBB1_3
++; CHECK-NEXT:    ba .LBB2_3
+ ; CHECK-NEXT:    nop
+-; CHECK-NEXT:  .LBB1_2: ! %tbb
++; CHECK-NEXT:  .LBB2_2: ! %tbb
+ ; CHECK-NEXT:    call f1
+ ; CHECK-NEXT:    nop
+-; CHECK-NEXT:  .LBB1_3: ! %end
++; CHECK-NEXT:  .LBB2_3: ! %end
+ ; CHECK-NEXT:    call f3
+ ; CHECK-NEXT:    nop
+ ; CHECK-NEXT:    ret
+diff --git a/llvm/test/CodeGen/SPARC/missinglabel.ll b/llvm/test/CodeGen/SPARC/missinglabel.ll
+index 88b09a859263..e29f5ba34444 100644
+--- a/llvm/test/CodeGen/SPARC/missinglabel.ll
++++ b/llvm/test/CodeGen/SPARC/missinglabel.ll
+@@ -8,8 +8,7 @@ define void @f(i64 %a0) align 2 {
+ ; CHECK-LABEL: f:
+ ; CHECK:         .cfi_startproc
+ ; CHECK-NEXT:  ! %bb.0: ! %entry
+-; CHECK-NEXT:    cmp %o0, 0
+-; CHECK-NEXT:    be %xcc, .LBB0_2
++; CHECK-NEXT:    brz %o0, .LBB0_2
+ ; CHECK-NEXT:    nop
+ ; CHECK-NEXT:  ! %bb.1: ! %cond.false
+ ; CHECK-NEXT:  .LBB0_2: ! %targetblock
+-- 
+2.41.0
+

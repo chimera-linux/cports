@@ -1,0 +1,50 @@
+From 5151ded697760fbcc5828061339d13e23a657dc5 Mon Sep 17 00:00:00 2001
+From: Cordell Bloor <Cordell.Bloor@amd.com>
+Date: Tue, 9 May 2023 09:46:48 -0400
+Subject: [PATCH 07/10] [HIP] Detect HIP for Ubuntu, Mint, Gentoo, etc.
+
+HIP may be installed into /usr or /usr/local on a variety of Linux
+operating systems. It may become unwieldy to list them all.
+
+Reviewed by: Siu Chi Chan, Yaxun Liu
+
+Differential Revision: https://reviews.llvm.org/D149110
+
+Gentoo-Component: clang
+---
+ clang/lib/Driver/ToolChains/AMDGPU.cpp | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/clang/lib/Driver/ToolChains/AMDGPU.cpp b/clang/lib/Driver/ToolChains/AMDGPU.cpp
+index 5849e9cfdb9b..514624735a12 100644
+--- a/clang/lib/Driver/ToolChains/AMDGPU.cpp
++++ b/clang/lib/Driver/ToolChains/AMDGPU.cpp
+@@ -11,7 +11,6 @@
+ #include "clang/Basic/TargetID.h"
+ #include "clang/Config/config.h"
+ #include "clang/Driver/Compilation.h"
+-#include "clang/Driver/Distro.h"
+ #include "clang/Driver/DriverDiagnostic.h"
+ #include "clang/Driver/InputInfo.h"
+ #include "clang/Driver/Options.h"
+@@ -309,13 +308,10 @@ RocmInstallationDetector::getInstallationPathCandidates() {
+     ROCmSearchDirs.emplace_back(D.SysRoot + "/opt/" + LatestROCm,
+                                 /*StrictChecking=*/true);
+ 
+-  Distro Dist(D.getVFS(), llvm::Triple(llvm::sys::getProcessTriple()));
+-  if (Dist.IsDebian() || Dist.IsRedhat()) {
+-    ROCmSearchDirs.emplace_back(D.SysRoot + "/usr/local",
+-                                /*StrictChecking=*/true);
+-    ROCmSearchDirs.emplace_back(D.SysRoot + "/usr",
+-                                /*StrictChecking=*/true);
+-  }
++  ROCmSearchDirs.emplace_back(D.SysRoot + "/usr/local",
++                              /*StrictChecking=*/true);
++  ROCmSearchDirs.emplace_back(D.SysRoot + "/usr",
++                              /*StrictChecking=*/true);
+ 
+   DoPrintROCmSearchDirs();
+   return ROCmSearchDirs;
+-- 
+2.41.0
+
