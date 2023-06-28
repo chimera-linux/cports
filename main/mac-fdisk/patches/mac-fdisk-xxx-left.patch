@@ -1,9 +1,33 @@
-commit b660d06c91cbccc8a051d7813657fdfe2ea675ba
+commit a4bae6d1438869159097fb26c0b80953c1823986
 Author: q66 <q66@chimera-linux.org>
 Date:   Wed Jun 28 21:47:04 2023 +0200
 
     fix remaining nits
 
+diff --git a/fdisklabel.h b/fdisklabel.h
+index 0c2439f..9b20021 100644
+--- a/fdisklabel.h
++++ b/fdisklabel.h
+@@ -36,17 +36,12 @@
+ #define BSD_LINUX_BOOTDIR "/usr/ucb/mdec"
+ 
+ /* Thanks, util-linux! */
+-#if defined (i386) || defined (__sparc__) || defined (__arm__) || defined (__mips__) || defined (__s390__) || defined (__sh__) || defined(__x86_64__)
+-#define BSD_LABELSECTOR   1
+-#define BSD_LABELOFFSET   0
+-#elif defined (__alpha__) || defined (__powerpc__) || defined (__ia64__) || defined (__hppa__)
++#if defined (__alpha__) || defined (__powerpc__) || defined (__ia64__) || defined (__hppa__)
+ #define BSD_LABELSECTOR   0
+ #define BSD_LABELOFFSET   64
+-#elif defined (__s390__) || defined (__s390x__)
++#else
+ #define BSD_LABELSECTOR   1
+ #define BSD_LABELOFFSET   0
+-#else
+-#error unknown architecture
+ #endif
+ 
+ #define	BSD_BBSIZE        8192		/* size of boot area, with label */
 diff --git a/io.c b/io.c
 index e397a3e..6761b2f 100644
 --- a/io.c
