@@ -122,11 +122,6 @@ configure_args.append(
 
 tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"], "LDFLAGS": []}
 
-if self.profile().arch == "riscv64":
-    # ld: error: section size decrease is too large
-    tool_flags["CFLAGS"] += ["-mno-relax"]
-    tool_flags["LDFLAGS"] += ["-mno-relax"]
-
 
 def post_install(self):
     self.install_file("examples/smb.conf.default", "etc/samba", name="smb.conf")

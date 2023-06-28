@@ -47,12 +47,6 @@ sha256 = "f060abd435fbe6794125e2c398568ffc3cfa540042596907a8b18edca34cf6a5"
 options = ["!cross", "!check"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
 
-if self.profile().arch == "riscv64":
-    tool_flags = {
-        "CFLAGS": ["-mno-relax"],
-        "LDFLAGS": ["-mno-relax"],
-    }
-
 
 def post_install(self):
     self.rm(self.destdir / "usr/share", recursive=True)

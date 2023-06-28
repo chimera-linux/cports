@@ -28,11 +28,6 @@ tool_flags = {
     "LDFLAGS": [],
 }
 
-# ld: error: section size decrease is too large
-if self.profile().arch == "riscv64":
-    tool_flags["CXXFLAGS"] += ["-mno-relax"]
-    tool_flags["LDFLAGS"] += ["-mno-relax"]
-
 
 def do_check(self):
     self.do(

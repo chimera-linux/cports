@@ -13,7 +13,3 @@ source = f"$(CPAN_SITE)/Net/Net-SSLeay-{pkgver}.tar.gz"
 sha256 = "47c2f2b300f2e7162d71d699f633dd6a35b0625a00cbda8c50ac01144a9396a9"
 # missing checkdepends
 options = ["!check"]
-
-if self.profile().arch == "riscv64":
-    # ld: error: section size decrease is too large
-    tool_flags = {"CFLAGS": ["-mno-relax"]}

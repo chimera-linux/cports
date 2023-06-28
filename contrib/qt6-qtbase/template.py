@@ -74,13 +74,6 @@ hardening = ["!int"]
 # TODO
 options = ["!cross"]
 
-if self.profile().arch == "riscv64":
-    tool_flags = {
-        "CXXFLAGS": ["-mno-relax"],
-        "CFLAGS": ["-mno-relax"],
-        "LDFLAGS": ["-mno-relax"],
-    }
-
 if self.profile().arch == "aarch64":
     configure_args += ["-DQT_FEATURE_opengles2=ON"]
 

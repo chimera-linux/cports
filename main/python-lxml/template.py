@@ -14,10 +14,6 @@ sha256 = "c057e334efc357fc88eb71b888d2df3a44cf3c7aaac56a8753e92090c5217050"
 # missing checkdepends
 options = ["!check"]
 
-if self.profile().arch == "riscv64":
-    # ld: error: section size decrease is too large
-    tool_flags = {"CFLAGS": ["-mno-relax"]}
-
 
 def post_install(self):
     self.install_license("LICENSES.txt")
