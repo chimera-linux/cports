@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 depends = [
     "base-core",
@@ -21,8 +21,6 @@ depends = [
     "dbus",
     "iwd",
     "chrony",
-    "console-setup",
-    "turnstile",
     "chimera-artwork",
     # firmware for all
     "base-firmware-linux",
