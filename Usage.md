@@ -445,6 +445,8 @@ only have an effect with specific commands.
   is used as a base path as well as the name prefix for the temporary root if
   provided. The temporary root is removed at the end (whether the build succeeded
   or failed) unless `--keep-temporary` is passed.
+* `--update-check` Do not permit a build for a template that has broken update
+  checking or has newer versions available.
 
 <a id="commands"></a>
 ### Commands

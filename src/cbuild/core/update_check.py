@@ -370,7 +370,7 @@ class UpdateCheck:
         return list(map(lambda v: v.replace("_", "."), reqs))
 
 
-def update_check(pkg, verbose=False):
+def update_check(pkg, verbose=False, error=False):
     uc = UpdateCheck(pkg, verbose)
 
     tpath = pkg.template_path
@@ -477,6 +477,9 @@ def update_check(pkg, verbose=False):
     vers.sort(key=_ver_conv)
 
     if len(vers) == 0:
+        if error:
+            return None
+
         print(f"CAUTION: no version found for '{pkg.pkgname}'")
 
     for v in vers:

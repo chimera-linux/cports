@@ -15,6 +15,7 @@ def build(
     keep_temp=False,
     check_fail=False,
     no_update=False,
+    update_check=False,
 ):
     if chost:
         depn = "host-" + pkg.pkgname
@@ -30,6 +31,7 @@ def build(
 
     pkg.install_done = False
     pkg.current_phase = "setup"
+    pkg.update_check = update_check
 
     pkg.build_lint()
 
@@ -61,7 +63,9 @@ def build(
         # check and install dependencies
         # if a missing dependency has triggered a build, update the chroot
         # afterwards to have a clean state with up to date dependencies
-        if dependencies.install(pkg, pkg.origin.pkgname, "pkg", depmap, chost):
+        if dependencies.install(
+            pkg, pkg.origin.pkgname, "pkg", depmap, chost, update_check
+        ):
             chroot.update(pkg)
 
     oldcwd = pkg.cwd

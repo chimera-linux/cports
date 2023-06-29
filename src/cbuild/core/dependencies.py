@@ -249,7 +249,7 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
     return None
 
 
-def install(pkg, origpkg, step, depmap, hostdep):
+def install(pkg, origpkg, step, depmap, hostdep, update_check):
     style = ""
     if pkg.build_style:
         style = f" [{pkg.build_style}]"
@@ -401,6 +401,7 @@ def install(pkg, origpkg, step, depmap, hostdep):
                 depmap,
                 chost=hostdep or not not pprof.cross,
                 no_update=not missing,
+                update_check=update_check,
             )
             missing = True
         except template.SkipPackage:
@@ -428,6 +429,7 @@ def install(pkg, origpkg, step, depmap, hostdep):
                 depmap,
                 chost=hostdep,
                 no_update=not missing,
+                update_check=update_check,
             )
             missing = True
         except template.SkipPackage:
@@ -461,6 +463,7 @@ def install(pkg, origpkg, step, depmap, hostdep):
                 depmap,
                 chost=hostdep,
                 no_update=not missing,
+                update_check=update_check,
             )
             missing = True
         except template.SkipPackage:

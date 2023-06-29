@@ -42,6 +42,7 @@ opt_stagepath = "pkgstage"
 opt_statusfd = None
 opt_bulkcont = False
 opt_allowcat = "main contrib"
+opt_updatecheck = False
 
 #
 # INITIALIZATION ROUTINES
@@ -99,7 +100,7 @@ def handle_options():
     global opt_unsigned, opt_force, opt_mdirtemp, opt_allowcat
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
-    global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath
+    global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -254,6 +255,13 @@ def handle_options():
         default=opt_bulkcont,
         help="Try building the remaining packages in case of bulk failures.",
     )
+    parser.add_argument(
+        "--update-check",
+        action="store_const",
+        const=True,
+        default=opt_updatecheck,
+        help="Perform a update-check before fetching sources.",
+    )
     parser.add_argument("command", nargs="+", help="The command to issue.")
 
     cmdline = parser.parse_args()
@@ -384,6 +392,9 @@ def handle_options():
 
     if cmdline.bulk_continue:
         opt_bulkcont = True
+
+    if cmdline.update_check:
+        opt_updatecheck = True
 
     ncores = len(os.sched_getaffinity(0))
 
@@ -1488,6 +1499,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         dirty=opt_dirty,
         keep_temp=opt_keeptemp,
         check_fail=opt_checkfail,
+        update_check=opt_updatecheck,
     )
     if tgt == "pkg" and (not opt_stage or bstage < 3):
         do_unstage(tgt, bstage < 3)
@@ -1715,6 +1727,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                         dirty=False,
                         keep_temp=False,
                         check_fail=opt_checkfail,
+                        update_check=opt_updatecheck,
                     )
                 ):
                     statusf.write(f"{pn} ok\n")

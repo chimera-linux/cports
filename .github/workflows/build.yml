@@ -39,4 +39,4 @@ jobs:
         run: env PYTHONUNBUFFERED=1 python3.11 cbuild cycle-check
 
       - name: Build and test packages
-        run: env PYTHONUNBUFFERED=1 python3.11 cbuild -t bulk-pkg 'git:master..+!\[ci skip\]'
+        run: env PYTHONUNBUFFERED=1 python3.11 cbuild --update-check -t bulk-pkg 'git:master..+!\[ci skip\]'
