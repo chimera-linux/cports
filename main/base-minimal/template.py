@@ -1,10 +1,11 @@
 pkgname = "base-minimal"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "base-bootstrap",
     "dinit-chimera",
+    "turnstile",
     "bsdtar",
     "nyagetty",
     "chimera-install-scripts",
