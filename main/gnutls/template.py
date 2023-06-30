@@ -1,6 +1,6 @@
 pkgname = "gnutls"
-pkgver = "3.7.9"
-pkgrel = 1
+pkgver = "3.8.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-zlib",
@@ -10,6 +10,7 @@ configure_args = [
     "--disable-rpath",
     "--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt",
 ]
+configure_gen = []
 hostmakedepends = ["pkgconf", "gettext-tiny"]
 makedepends = [
     "nettle-devel",
@@ -30,9 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
 source = f"https://www.gnupg.org/ftp/gcrypt/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "aaa03416cdbd54eb155187b359e3ec3ed52ec73df4df35a0edd49429ff64d844"
-# interactive
-options = ["!check"]
+sha256 = "0ea0d11a1660a1e63f960f157b197abe6d0c8cb3255be24e1fb3815930b9bdc5"
 
 
 @subpackage("gnutls-devel")
@@ -45,6 +44,3 @@ def _devel(self):
 @subpackage("gnutls-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
