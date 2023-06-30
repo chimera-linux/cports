@@ -1,7 +1,8 @@
 pkgname = "parted"
 pkgver = "3.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 # TODO: look into porting to editline properly
 # it compiles if forced, but fails extra tests
@@ -32,6 +33,3 @@ def _devel(self):
 @subpackage("parted-libs")
 def _progs(self):
     return self.default_libs()
-
-
-configure_gen = []
