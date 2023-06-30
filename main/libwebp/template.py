@@ -1,7 +1,8 @@
 pkgname = "libwebp"
-pkgver = "1.3.0"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "giflib-devel",
@@ -16,7 +17,7 @@ url = "http://www.libpng.org/pub/png/libpng.html"
 source = (
     f"http://downloads.webmproject.org/releases/webp/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "64ac4614db292ae8c5aa26de0295bf1623dbb3985054cb656c55e67431def17c"
+sha256 = "b3779627c2dfd31e3d8c4485962c2efe17785ef975e2be5c8c0c9e6cd3c4ef66"
 hardening = ["vis", "cfi"]
 
 
@@ -33,6 +34,3 @@ def _devel(self):
 @subpackage("libwebp-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
