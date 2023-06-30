@@ -1,6 +1,6 @@
 pkgname = "flatpak"
 pkgver = "1.14.4"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--with-system-bubblewrap",
