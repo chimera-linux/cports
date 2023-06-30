@@ -1,5 +1,5 @@
 pkgname = "flac"
-pkgver = "1.4.2"
+pkgver = "1.4.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,6 +8,7 @@ configure_args = [
     f"--with-ogg={self.profile().sysroot / 'usr'}",
     "--disable-thorough-tests",
 ]
+configure_gen = []
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["pkgconf", "nasm", "gmake"]
@@ -17,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "http://flac.sourceforge.net"
 source = f"https://downloads.xiph.org/releases/flac/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e322d58a1f48d23d9dd38f432672865f6f79e73a6f9cc5a5f57fcaa83eb5a8e4"
+sha256 = "6c58e69cd22348f441b861092b825e591d0b822e106de6eb0ee4d05d27205b70"
 # FIXME cfi int: test failures with both
 hardening = ["vis", "!cfi", "!int"]
 # stuck on some weird test, but appears harmless
@@ -45,6 +46,3 @@ def _lib(self):
 @subpackage("flac-devel")
 def _devel(self):
     return self.default_devel(extra=["usr/share/doc"])
-
-
-configure_gen = []
