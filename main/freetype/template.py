@@ -23,7 +23,7 @@ pkgdesc = "Font rendering engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
-source = f"$(NONGNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://de.freedif.org/savannah/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ea67e3b019b1104d1667aa274f5dc307d8cbd606b399bc32df308a77f1a564bf"
 hardening = ["!cfi"]  # TODO
 # data files missing
