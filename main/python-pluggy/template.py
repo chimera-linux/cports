@@ -1,5 +1,5 @@
 pkgname = "python-pluggy"
-pkgver = "1.1.0"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools_scm"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pluggy"
 source = f"$(PYPI_SITE)/p/pluggy/pluggy-{pkgver}.tar.gz"
-sha256 = "c500b592c5512df35622e4faf2135aa0b7e989c7d31344194b4afb9d5e47b1bf"
+sha256 = "d12f0c4b579b15f5e054301bb226ee85eeeba08ffec228092f8defbaa3a4c4b3"
 # dependency of pytest
 options = ["!check"]
 
