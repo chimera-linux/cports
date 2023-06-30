@@ -1,5 +1,5 @@
 pkgname = "mesa"
-pkgver = "23.1.2"
+pkgver = "23.1.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -66,7 +66,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "60b1f3adb1561830c158bf3c68508943674fb9d69f384c3c7289694385ab5c7e"
+sha256 = "2f6d7381bc10fbd2d6263ad1022785b8b511046c1a904162f8f7da18eea8aed9"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
