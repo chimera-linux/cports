@@ -1,34 +1,19 @@
-From 9a82dacaea13ca8998c64ca4828e21373dfad846 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Thu, 25 Aug 2022 02:34:00 +0200
-Subject: [PATCH] portability fixes
+commit 666bb19fbba4d30d0320123ab81cd391eeaa3d33
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 30 15:48:10 2023 +0200
 
----
- copy-firmware.sh | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+    portability fixes
 
 diff --git a/copy-firmware.sh b/copy-firmware.sh
-index bbacb92..7be2258 100755
+index 58eb7e3..0dd3927 100755
 --- a/copy-firmware.sh
 +++ b/copy-firmware.sh
-@@ -35,7 +35,7 @@ grep '^File:' WHENCE | sed -e's/^File: *//g' -e's/"//g' | while read f; do
-     test -f "$f" || continue
-     $verbose "copying file $f"
-     install -d $destdir/$(dirname "$f")
--    cp -d "$f" $destdir/"$f"
-+    cp -R "$f" $destdir/"$f"
- done
- 
- grep -E '^Link:' WHENCE | sed -e's/^Link: *//g' -e's/-> //g' | while read f d; do
-@@ -43,7 +43,7 @@ grep -E '^Link:' WHENCE | sed -e's/^Link: *//g' -e's/-> //g' | while read f d; d
-         test -f "$destdir/$f" && continue
-         $verbose "copying link $f"
-         install -d $destdir/$(dirname "$f")
--        cp -d "$f" $destdir/"$f"
-+        cp -R "$f" $destdir/"$f"
+@@ -75,7 +75,7 @@ grep -E '^Link:' WHENCE | sed -e 's/^Link: *//g;s/-> //g' | while read f d; do
+         test -f "$destdir/$f$compext" && continue
+         $verbose "copying link $f$compext"
+         install -d "$destdir/$(dirname "$f")"
+-        cp -d "$f$compext" "$destdir/$f$compext"
++        cp -R "$f$compext" "$destdir/$f$compext"
  
          if test "x$d" != "x"; then
-             target=`readlink "$f"`
--- 
-2.37.1
-
+             target="$(readlink "$f")"
