@@ -1,6 +1,6 @@
 pkgname = "util-linux"
-pkgver = "2.39"
-pkgrel = 1
+pkgver = "2.39.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-feature=enabled",
@@ -25,11 +25,13 @@ configure_args = [
     "-Dbuild-more=disabled",
     "-Dbuild-chfn-chsh=disabled",
     "-Dbuild-nologin=disabled",
+    "-Dbuild-newgrp=disabled",
     "-Dbuild-pivot_root=disabled",
     "-Dbuild-switch_root=disabled",
     "-Dbuild-sulogin=disabled",
     "-Dbuild-su=disabled",
     "-Dbuild-ul=disabled",
+    "-Dbuild-vipw=disabled",
     "-Dbuild-wall=disabled",
     "-Dbuild-write=disabled",
     "-Dbuild-python=disabled",
@@ -59,8 +61,10 @@ pkgdesc = "Miscellaneous Linux utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.kernel.org/pub/linux/utils/util-linux"
-source = f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "32b30a336cda903182ed61feb3e9b908b762a5e66fe14e43efb88d37162075cb"
+source = (
+    f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+)
+sha256 = "890ae8ff810247bd19e274df76e8371d202cda01ad277681b0ea88eeaa00286b"
 tool_flags = {"CFLAGS": ["-D_DIRENT_HAVE_D_TYPE"]}
 # checkdepends are missing
 options = ["!check"]
@@ -96,6 +100,7 @@ def post_install(self):
         "isosize",
         "hexdump",
         "kill",
+        "login",
         "look",
         "mcookie",
         "resizepart",
@@ -106,10 +111,11 @@ def post_install(self):
         "scriptreplay",
         "setarch",
         "setsid",
+        "sulogin",
         "taskset",
         "whereis",
     ]:
-        self.rm(self.destdir / f"usr/bin/{f}")
+        self.rm(self.destdir / f"usr/bin/{f}", force=True)
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1", force=True)
         self.rm(self.destdir / f"usr/share/man/man8/{f}.8", force=True)
         self.rm(
@@ -434,6 +440,7 @@ def _libuuid(self):
 def _libuuid_devel(self):
     self.pkgdesc = "UUID library from util-linux (development files)"
     self.license = "BSD-3-Clause"
+    self.options = ["!distlicense"]
 
     return [
         "usr/lib/libuuid.*",

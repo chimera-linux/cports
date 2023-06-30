@@ -1,14 +1,14 @@
-commit ed7ef1c54aea6d8ccf88fa961bf7d16d44d00de3
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Thu Jun 1 03:05:32 2023 +0200
+commit 1a306ccdaea7418bd427152da88027c5dc3c0b5b
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 30 04:10:06 2023 +0200
 
     portable handling of symlinks
 
 diff --git a/meson.build b/meson.build
-index 107e54a..c657aca 100644
+index b364194..147f421 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -813,7 +813,6 @@ bison_gen = generator(
+@@ -828,7 +828,6 @@ bison_gen = generator(
  
  
  
@@ -16,7 +16,7 @@ index 107e54a..c657aca 100644
  meson_make_manpage_stub = meson.current_source_dir() + '/tools/meson-make-manpage-stub.sh'
  
  configure_file(
-@@ -941,9 +940,7 @@ exe = executable(
+@@ -958,9 +957,7 @@ exe = executable(
    build_by_default : opt)
  if opt and not is_disabler(exe)
    exes += exe
@@ -27,7 +27,7 @@ index 107e54a..c657aca 100644
    manadocs += ['login-utils/last.1.adoc']
    manlinks += {'lastb.1': 'last.1'}
    bashcompletions += ['last']
-@@ -1048,9 +1045,7 @@ exe = executable(
+@@ -1068,13 +1065,8 @@ exe = executable(
    build_by_default : opt)
  if opt and not is_disabler(exe)
    exes += exe
@@ -36,9 +36,13 @@ index 107e54a..c657aca 100644
 -                           join_paths(usrbin_exec_dir, 'vigr'))
 +  install_symlink('vigr', pointing_to: 'vipw', install_dir: usrbin_exec_dir)
    manadocs += ['login-utils/vipw.8.adoc']
+-  meson.add_install_script(meson_make_symlink,
+-                           'vipw.8',
+-                           join_paths(mandir, 'man8/vigr.8'))
  endif
  
-@@ -1500,26 +1495,6 @@ exes += exe
+ opt = not get_option('build-runuser').disabled()
+@@ -1523,26 +1515,6 @@ exes += exe
  manadocs += ['sys-utils/setarch.8.adoc']
  bashcompletions += ['setarch']
  
@@ -65,7 +69,7 @@ index 107e54a..c657aca 100644
  opt = not get_option('build-eject').disabled()
  exe = executable(
    'eject',
-@@ -3417,8 +3392,6 @@ if bash_completion.found()
+@@ -3451,8 +3423,6 @@ if bash_completion.found()
      )
    endforeach
    foreach link_name, target : bashcompletionslinks
