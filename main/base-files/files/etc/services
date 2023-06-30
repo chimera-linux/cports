@@ -4068,6 +4068,8 @@ service-ctrl     2367/tcp
 service-ctrl     2367/udp
 opentable        2368/tcp
 opentable        2368/udp
+bif-p2p          2369/tcp
+bif-p2p          2369/udp
 l3-hbmon         2370/tcp
 l3-hbmon         2370/udp
 rda              2371/tcp
