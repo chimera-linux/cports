@@ -1,6 +1,6 @@
 pkgname = "gtk-doc-tools"
 pkgver = "1.33.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # glib cyclic dep
 configure_args = ["-Dtests=false"]
@@ -18,7 +18,6 @@ depends = [
     "docbook-xml",
     "docbook-xsl-nons",
     "xsltproc",
-    "python-anytree",
     "python-pygments",
     "python-lxml",
 ]
