@@ -62,6 +62,8 @@ sha256 = "066a65052fc3ecfae860025e85f797e6ab2b87a58c4f8ab9c66ec20718a80c7a"
 # needs graphical environment
 options = ["!check"]
 
+broken = "p11-kit"
+
 
 def pre_build(self):
     # racey, included from elsewhere but not dependencies
