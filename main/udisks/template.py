@@ -1,5 +1,5 @@
 pkgname = "udisks"
-pkgver = "2.9.4"
+pkgver = "2.10.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -42,7 +42,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/udisks"
 source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "b6b60ebab0d5e09624120c5d158882e87d8c2473db60783b63deeba74cb18d1c"
+sha256 = "4f5a7a592526f7f32795a1f2211c67b9a649ab40386752f9a71ebaa2fc2090bc"
 
 
 def post_install(self):
