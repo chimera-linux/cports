@@ -1,5 +1,5 @@
 pkgname = "lua5.1-lpeg"
-pkgver = "1.0.2"
+pkgver = "1.1.0"
 pkgrel = 1
 build_style = "makefile"
 make_build_target = "lpeg.so"
@@ -10,7 +10,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "http://www.inf.puc-rio.br/~roberto/lpeg"
 source = f"{url}/lpeg-{pkgver}.tar.gz"
-sha256 = "48d66576051b6c78388faad09b70493093264588fcd0f258ddaab1cdd4a15ffe"
+sha256 = "4b155d67d2246c1ffa7ad7bc466c1ea899bbc40fef0257cc9c03cecbaed4352a"
 # for check
 exec_wrappers = [("/usr/bin/lua5.1", "lua")]
 
