@@ -1,5 +1,5 @@
 pkgname = "p11-kit"
-pkgver = "0.24.1"
+pkgver = "0.25.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/p11-glue/p11-kit"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d8be783efd5cd4ae534cee4132338e3f40f182c3205d23b200094ec85faaaef8"
+sha256 = "d55583bcdde83d86579cabe3a8f7f2638675fef01d23cace733ff748fc354706"
 
 
 def post_install(self):
