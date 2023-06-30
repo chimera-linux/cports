@@ -1,7 +1,7 @@
 # keep in sync with firmware-linux
 pkgname = "ucode-amd"
-pkgver = "20230515"
-pkgrel = 1
+pkgver = "20230625"
+pkgrel = 0
 archs = ["x86_64"]
 makedepends = ["firmware-linux-amd-ucode"]
 pkgdesc = "AMD CPU microcode"
