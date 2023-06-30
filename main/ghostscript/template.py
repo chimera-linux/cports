@@ -1,6 +1,6 @@
 # AGPL: forbidden from being a dependency except in special unambiguous cases
 pkgname = "ghostscript"
-pkgver = "10.01.1"
+pkgver = "10.01.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -22,6 +22,7 @@ configure_env = {
     "CUPSCONFIG": "/usr/bin/cups-config",
     "CCAUX": "cc",
 }
+configure_gen = []
 make_cmd = "gmake"
 make_dir = "."  # bad build system
 make_build_args = ["all", "so"]
@@ -46,7 +47,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "AGPL-3.0-or-later"
 url = "https://www.ghostscript.com"
 source = f"https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs{pkgver.replace('.', '')}/ghostscript-{pkgver}.tar.xz"
-sha256 = "c91193635aa2578f9508b8ba846106c1e3705fbd3fed5fd9a015f21b55f15d68"
+sha256 = "48d079242a2ca02a2e47a76a52cdfa818b2ad769c2bab00ad0497dd13560e7e7"
 # busted; undefined references
 options = ["!lto"]
 
@@ -85,6 +86,10 @@ def init_install(self):
     ]
 
 
+def post_install(self):
+    self.install_license("LICENSE")
+
+
 @subpackage("libgs")
 def _libs(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
@@ -95,6 +100,3 @@ def _libs(self):
 @subpackage("libgs-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
