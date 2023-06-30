@@ -82,6 +82,12 @@ def invoke(pkg):
             pkg.log_red(f"{d} should go in /usr/lib, not /etc")
             lintfail = True
 
+    # stuff in /etc that should go in /usr/share
+    for d in ["polkit-1/rules.d"]:
+        if (pkg.destdir / "etc" / d).exists():
+            pkg.log_red(f"{d} should go in /usr/share, not /etc")
+            lintfail = True
+
     # stuff in /usr that should go in /usr/share
     for d in ["man", "doc", "dict"]:
         if (pkg.destdir / "usr" / d).exists():

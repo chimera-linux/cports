@@ -1,6 +1,6 @@
 pkgname = "polkit"
 pkgver = "121"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dsession_tracking=libelogind",
@@ -26,6 +26,7 @@ hostmakedepends = [
     "docbook-xsl-nons",
 ]
 makedepends = ["elogind-devel", "duktape-devel", "linux-pam-devel"]
+triggers = ["/usr/share/polkit-1/rules.d"]
 pkgdesc = "Toolkit for defining and handling authorizations"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -37,8 +38,7 @@ suid_files = [
     "usr/bin/pkexec",
 ]
 file_modes = {
-    "etc/polkit-1/rules.d": ("_polkitd", "_polkitd", 0o700),
-    "usr/share/polkit-1/rules.d": ("_polkitd", "_polkitd", 0o700),
+    "usr/share/polkit-1/rules.d": ("root", "_polkitd", 0o750),
 }
 # tests are broken on musl
 options = ["!check"]
@@ -52,8 +52,12 @@ def post_install(self):
     self.install_file(
         self.files_path / "polkit-1.pam", "etc/pam.d", name="polkit-1"
     )
-    self.install_dir("usr/share/polkit-1/rules.d", mode=0o700, empty=True)
     self.install_service(self.files_path / "polkitd")
+    # move defaults
+    self.mv(
+        self.destdir / "etc/polkit-1/rules.d/50-default.rules",
+        self.destdir / "usr/share/polkit-1/rules.d",
+    )
 
 
 @subpackage("polkit-devel")
