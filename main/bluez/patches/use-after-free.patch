@@ -1,0 +1,12 @@
+diff --git a/plugins/admin.c b/plugins/admin.c
+index 68e9237d3f..16b74cfbf0 100644
+--- a/plugins/admin.c
++++ b/plugins/admin.c
+@@ -502,7 +502,6 @@ static int admin_policy_adapter_probe(struct btd_adapter *adapter)
+ 	if (policy_data) {
+ 		btd_warn(policy_data->adapter_id,
+ 						"Policy data already exists");
+-		admin_policy_free(policy_data);
+ 		policy_data = NULL;
+ 	}
+ 
