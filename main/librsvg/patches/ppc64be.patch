@@ -1,0 +1,19 @@
+commit b0da38e6fc48f8b614d37ddbedd5e83b53f48509
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jul 7 18:47:48 2023 +0200
+
+    fix ppc64be build
+
+diff --git a/vendor/rustix/src/backend/libc/termios/syscalls.rs b/vendor/rustix/src/backend/libc/termios/syscalls.rs
+index d4182f4f..ace0fa42 100644
+--- a/vendor/rustix/src/backend/libc/termios/syscalls.rs
++++ b/vendor/rustix/src/backend/libc/termios/syscalls.rs
+@@ -32,7 +32,7 @@ pub(crate) fn tcgetattr(fd: BorrowedFd<'_>) -> io::Result<Termios> {
+ 
+         ret(c::ioctl(
+             borrowed_fd(fd),
+-            c::TCGETS2.into(),
++            c::TCGETS2.try_into().unwrap(),
+             termios2.as_mut_ptr(),
+         ))?;
+ 
