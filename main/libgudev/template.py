@@ -1,5 +1,5 @@
 pkgname = "libgudev"
-pkgver = "237"
+pkgver = "238"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=enabled", "-Dvapi=enabled"]
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://wiki.gnome.org/Projects/libgudev"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0d06b21170d20c93e4f0534dbb9b0a8b4f1119ffb00b4031aaeb5b9148b686aa"
+sha256 = "61266ab1afc9d73dbc60a8b2af73e99d2fdff47d99544d085760e4fa667b5dd1"
 
 
 @subpackage("libgudev-devel")
