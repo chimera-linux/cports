@@ -1,5 +1,5 @@
 pkgname = "gimp"
-pkgver = "2.99.14"
+pkgver = "2.99.16"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -8,7 +8,7 @@ configure_args = [
     "-Dlibbacktrace=false",
     "-Ddefault_library=shared",
     # this needs luajit and prints junk into the console
-    "-Dlua=false",
+    "-Dlua=disabled",
 ]
 hostmakedepends = [
     "meson",
@@ -80,7 +80,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://www.gimp.org"
 source = f"https://download.gimp.org/pub/{pkgname}/v{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "313a205475d1ff03c5c4d9602f09f5c975ba6c1c79d8843e2396f9fe2abdf7a8"
+sha256 = "6b4496edee447339f923276755247eadb64ec40d8aec241d06b62d1a6eb6508d"
 # FIXME: it worksish but crashes often/early
 hardening = ["!int"]
 options = ["!cross"]
