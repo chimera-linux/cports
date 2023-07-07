@@ -1,0 +1,18 @@
+commit b73db6bffa934db8ec1323026fd5da276351b5da
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jul 7 16:38:41 2023 +0200
+
+    fix build
+
+diff --git a/client/gvfsfusedaemon.c b/client/gvfsfusedaemon.c
+index 79081cd..1fcaf61 100644
+--- a/client/gvfsfusedaemon.c
++++ b/client/gvfsfusedaemon.c
+@@ -32,6 +32,7 @@
+ #include <string.h>
+ #include <errno.h>
+ #include <signal.h>
++#include <locale.h>
+ 
+ #include <glib.h>
+ #include <glib/gi18n.h>
