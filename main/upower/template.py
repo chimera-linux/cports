@@ -1,5 +1,5 @@
 pkgname = "upower"
-pkgver = "1.90.0"
+pkgver = "1.90.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
-sha256 = "cb6028f095824422c59d98b3c9903e2eda2a96fc613f11824f0b6379de7efa2e"
+sha256 = "5c4e736648f0c89d2368fbbe1e6fc0598a1565c4b435bade1d65e890259fb759"
 # unpackaged umockdev
 options = ["!check"]
 
