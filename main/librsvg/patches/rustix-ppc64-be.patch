@@ -1,0 +1,28 @@
+commit a45c1060771b1412cc781a16af447a647ca3e833
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jul 7 18:39:00 2023 +0200
+
+    compile out some broken code on ppc64be
+
+diff --git a/vendor/rustix/src/backend/libc/termios/syscalls.rs b/vendor/rustix/src/backend/libc/termios/syscalls.rs
+index d4182f4f..9af32f08 100644
+--- a/vendor/rustix/src/backend/libc/termios/syscalls.rs
++++ b/vendor/rustix/src/backend/libc/termios/syscalls.rs
+@@ -23,7 +23,7 @@ use {
+ pub(crate) fn tcgetattr(fd: BorrowedFd<'_>) -> io::Result<Termios> {
+     // If we have `TCGETS2`, use it, so that we fill in the `c_ispeed` and
+     // `c_ospeed` fields.
+-    #[cfg(linux_kernel)]
++    #[all(cfg(linux_kernel), cfg(target_endian = "little"))]
+     unsafe {
+         use crate::termios::{ControlModes, InputModes, LocalModes, OutputModes, SpecialCodes};
+         use core::mem::zeroed;
+@@ -54,7 +54,7 @@ pub(crate) fn tcgetattr(fd: BorrowedFd<'_>) -> io::Result<Termios> {
+         Ok(result)
+     }
+ 
+-    #[cfg(not(linux_kernel))]
++    #[any(cfg(not(linux_kernel)), cfg(target_endian = "big"))]
+     unsafe {
+         let mut result = MaybeUninit::<Termios>::uninit();
+ 

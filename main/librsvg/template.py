@@ -53,6 +53,7 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.clear_vendor_checksums(self, "system-deps")
+    cargo.clear_vendor_checksums(self, "rustix")
 
 
 @subpackage("librsvg-devel")
