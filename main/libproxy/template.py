@@ -1,5 +1,5 @@
 pkgname = "libproxy"
-pkgver = "0.5.2"
+pkgver = "0.5.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ url = "http://libproxy.github.io/libproxy"
 source = (
     f"https://github.com/{pkgname}/{pkgname}/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "7d75a2cf1c977056eb86f460daab0247d30e6a34e26ec755aab4de40cfd0a06d"
+sha256 = "0d8d8e4dd96239ba173c2b18905c0bb6e161fd5000e1e0aeace16f754e9a9108"
 # FIXME int (glib-networking tests fail)
 hardening = ["!int"]
 
