@@ -1,17 +1,17 @@
-From 9cb229646b8839b5286ec08734b6c98473b892ba Mon Sep 17 00:00:00 2001
-From: q66 <daniel@octaforge.org>
-Date: Sat, 13 Nov 2021 23:51:36 +0100
+From 3d08e4a95b915201d30db03a35e6ef5c099d2c1d Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 8 Jul 2023 16:15:15 +0200
 Subject: [PATCH] portability fixes
 
 ---
- Makefile.in | 4 ++--
+ Makefile.am | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Makefile.in b/Makefile.in
-index 6958f2d..b5a7795 100644
---- a/Makefile.in
-+++ b/Makefile.in
-@@ -3714,7 +3714,7 @@ ell/shared: Makefile
+diff --git a/Makefile.am b/Makefile.am
+index 401d2ac..a755bba 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -693,7 +693,7 @@ ell/shared: Makefile
  	$(AM_V_at)$(MKDIR_P) ell
  	$(AM_V_GEN)for f in $(ell_shared) ; do \
  		if [ ! -f $$f ] ; then \
@@ -20,7 +20,7 @@ index 6958f2d..b5a7795 100644
  		fi \
  	done > $@
  
-@@ -3722,7 +3722,7 @@ ell/internal: Makefile
+@@ -701,7 +701,7 @@ ell/internal: Makefile
  	$(AM_V_at)$(MKDIR_P) ell
  	$(AM_V_GEN)for f in $(ell_headers) $(ell_sources) ; do \
  		if [ ! -f $$f ] ; then \
@@ -30,5 +30,5 @@ index 6958f2d..b5a7795 100644
  	done > $@
  
 -- 
-2.33.0
+2.41.0
 

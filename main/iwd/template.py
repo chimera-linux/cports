@@ -1,5 +1,5 @@
 pkgname = "iwd"
-pkgver = "2.6"
+pkgver = "2.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -10,7 +10,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_check_wrapper = ["dbus-run-session"]
-hostmakedepends = ["gmake", "pkgconf", "python-docutils"]
+hostmakedepends = ["gmake", "pkgconf", "python-docutils", "automake", "libtool"]
 # TODO: look into porting to libedit later
 # iwd's usage of readline is very fucky and we don't wanna break it
 makedepends = ["readline-devel", "dbus-devel", "linux-headers"]
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://iwd.wiki.kernel.org"
 source = f"$(KERNEL_SITE)/network/wireless/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f7ac93aeef672604f5b5194ca038035ae222925be392c4345873c9742f477797"
+sha256 = "289ff47a76fb854e7789c45c5e3e0f15de4adc5fd2e82e47ab08e3564d8961d9"
 tool_flags = {
     "CFLAGS": ["-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"]
 }
@@ -34,6 +34,3 @@ def post_install(self):
     self.install_service(self.files_path / "ead")
 
     self.install_dir("etc/iwd", empty=True)
-
-
-configure_gen = []
