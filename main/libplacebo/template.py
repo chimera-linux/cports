@@ -1,6 +1,6 @@
 pkgname = "libplacebo"
-pkgver = "5.264.1"
-pkgrel = 1
+pkgver = "6.292.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dshaderc=enabled",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://code.videolan.org/videolan/libplacebo"
 source = f"{url}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
-sha256 = "9eb0c198f58d994f1c0d173dd37647d4d07d27972412c48ab758e984503c787b"
+sha256 = "22116cfada2a878407c1da8f60d4b7497137f7fcb625f90e8669422cae8749f0"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
