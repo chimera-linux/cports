@@ -1,6 +1,6 @@
 pkgname = "gpgme"
-pkgver = "1.20.0"
-pkgrel = 2
+pkgver = "1.21.0"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "gnupg", "automake", "libtool"]
 makedepends = ["libgpg-error-devel", "libassuan-devel", "glib-devel"]
@@ -10,7 +10,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://gnupg.org/software/gpgme/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "25a5785a5da356689001440926b94e967d02e13c49eb7743e35ef0cf22e42750"
+sha256 = "416e174e165734d84806253f8c96bda2993fd07f258c3aad5f053a6efd463e88"
 
 
 @subpackage("gpgme-devel")
