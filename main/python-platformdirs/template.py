@@ -1,5 +1,5 @@
 pkgname = "python-platformdirs"
-pkgver = "3.8.0"
+pkgver = "3.8.1"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_env = {"PYTHONPATH": "src"}
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://platformdirs.readthedocs.io"
 source = f"$(PYPI_SITE)/p/platformdirs/platformdirs-{pkgver}.tar.gz"
-sha256 = "b0cabcb11063d21a0b261d557acb0a9d2126350e63b70cdf7db6347baea456dc"
+sha256 = "f87ca4fcff7d2b0f81c6a748a77973d7af0f4d526f98f308477c3c436c74d528"
 # unpackaged checkdepends
 options = ["!check"]
 
