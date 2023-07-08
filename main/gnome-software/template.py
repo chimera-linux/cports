@@ -1,5 +1,5 @@
 pkgname = "gnome-software"
-pkgver = "44.2"
+pkgver = "44.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-software"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c02dce70e52b37cd29c037650b372adb19b27d20fe44bc0921d81a959d35616c"
+sha256 = "325abb722cab20b6aa67f158ea2ff2ea899830ca0a883e24594d9def85fd1622"
 # TODO
 options = ["!check"]
 
