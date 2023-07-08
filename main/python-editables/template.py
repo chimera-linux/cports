@@ -1,11 +1,11 @@
 pkgname = "python-editables"
-pkgver = "0.3"
+pkgver = "0.4"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
-    "python-setuptools",
+    "python-flit_core",
     "python-wheel",
 ]
 checkdepends = ["python-coverage", "python-pytest", "python-pytest-cov"]
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pfmoore/editables"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "42f7240164af1e028ccb7b60e72f54bbd8b639e9409595fbeffac5d3fb610643"
+sha256 = "dab62d96596cfbefb68af4fbf18a7e01579adf8c5760f4868d64b9c4cd67e2a1"
 # checkdepends missing
 options = ["!check"]
 
