@@ -1,0 +1,46 @@
+From dcc9bc5deab932be8b4a743326f48b25ba2cbe84 Mon Sep 17 00:00:00 2001
+From: Niklas Haas <git@haasn.dev>
+Date: Mon, 6 Mar 2023 21:30:29 +0100
+Subject: [PATCH] vo_gpu_next: compatibility with PL_API_VER >= 254
+
+This field was renamed/moved to a different params struct.
+---
+ video/out/vo_gpu_next.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/video/out/vo_gpu_next.c b/video/out/vo_gpu_next.c
+index 94a171a7ab7..7ed01d52165 100644
+--- a/video/out/vo_gpu_next.c
++++ b/video/out/vo_gpu_next.c
+@@ -1015,9 +1015,14 @@ static void draw_frame(struct vo *vo, struct vo_frame *frame)
+     p->params.skip_caching_single_frame = !cache_frame;
+ #endif
+     p->params.preserve_mixing_cache = p->inter_preserve && !frame->still;
+-    p->params.allow_delayed_peak_detect = p->delayed_peak;
+     p->params.frame_mixer = frame->still ? NULL : p->frame_mixer;
+ 
++#if PL_API_VER >= 254
++    p->peak_detect.allow_delayed = p->delayed_peak;
++#else
++    p->params.allow_delayed_peak_detect = p->delayed_peak;
++#endif
++
+     // Render frame
+     if (!pl_render_image_mix(p->rr, &mix, &target, &p->params)) {
+         MP_ERR(vo, "Failed rendering frame!\n");
+@@ -1145,9 +1150,14 @@ static void video_screenshot(struct vo *vo, struct voctrl_screenshot *args)
+     p->params.info_callback = NULL;
+     p->params.skip_caching_single_frame = true;
+     p->params.preserve_mixing_cache = false;
+-    p->params.allow_delayed_peak_detect = false;
+     p->params.frame_mixer = NULL;
+ 
++#if PL_API_VER >= 254
++    p->peak_detect.allow_delayed = false;
++#else
++    p->params.allow_delayed_peak_detect = false;
++#endif
++
+     // Retrieve the current frame from the frame queue
+     struct pl_frame_mix mix;
+     enum pl_queue_status status;
