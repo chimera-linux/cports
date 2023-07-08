@@ -1,5 +1,5 @@
 pkgname = "exempi"
-pkgver = "2.6.3"
+pkgver = "2.6.4"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -12,7 +12,7 @@ url = "https://libopenraw.freedesktop.org/exempi"
 source = (
     f"https://libopenraw.freedesktop.org/download/{pkgname}-{pkgver}.tar.bz2"
 )
-sha256 = "b0749db18a9e78cf771737954a838cdcdb1d5415888bac1ba9caf8cba77c656c"
+sha256 = "a75149c96b61e39cdcb046fd5e56d88cfeeab6e08f894e15ebffd9944092bfd0"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
