@@ -1,5 +1,5 @@
 pkgname = "gcab"
-pkgver = "1.5"
+pkgver = "1.6"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true", "-Ddocs=false"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/msitools"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "46bf7442491faa4148242b9ec2a0786a5f6e9effb1b0566e5290e8cc86f00f0c"
+sha256 = "2f0c9615577c4126909e251f9de0626c3ee7a152376c15b5544df10fc87e560b"
 options = ["!cross"]
 
 
