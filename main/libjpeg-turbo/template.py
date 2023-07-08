@@ -16,6 +16,8 @@ sha256 = "c77c65fcce3d33417b2e90432e7a0eb05f59a7fff884022a9d931775d583bfaa"
 match self.profile().arch:
     case "ppc64le" | "ppc64" | "ppc":
         configure_args += ["-DWITH_SIMD=FALSE", "-DFLOATTEST12="]
+    case "aarch64":
+        configure_args += ["-DFLOATTEST12="]
 
 
 def post_install(self):
