@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.72"
+pkgver = "0.3.73"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -68,7 +68,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "eb11d03e7c700e0d9204624fd3116f165f104c37eff30e93e7ac6df763e93829"
+sha256 = "a4f8ee0577ef1ef72e0b4f1612fd99db3163541d4c36361cb938d5a62fa6d82b"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
 
