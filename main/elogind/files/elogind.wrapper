@@ -1,10 +1,4 @@
 #!/bin/sh
-cgroup=/sys/fs/cgroup/elogind
-
-mkdir -p "$cgroup"
-if ! mountpoint "$cgroup" > /dev/null 2>&1; then
-    mount -t cgroup -o none,name=elogind cgroup $cgroup || exit 1
-fi
 
 for tmpfs in /run/systemd /run/user; do
     mountpoint "$tmpfs" > /dev/null 2>&1 && continue
