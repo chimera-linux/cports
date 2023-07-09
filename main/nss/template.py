@@ -1,6 +1,6 @@
 pkgname = "nss"
 pkgver = "3.91"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "all"
@@ -23,7 +23,6 @@ env = {
     "NSS_ENABLE_WERROR": "0",
     "NSS_ENABLE_ECC": "1",
     "NSS_DISABLE_GTESTS": "1",
-    "FREEBL_NO_DEPEND": "1",
     "NSPR_INCLUDE_DIR": f"{self.profile().sysroot / 'usr/include/nspr'}",
     "NSPR_LIB_DIR": f"{self.profile().sysroot / 'usr/lib'}",
 }
