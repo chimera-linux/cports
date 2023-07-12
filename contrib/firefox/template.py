@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "115.0.1"
+pkgver = "115.0.2"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -61,7 +61,7 @@ license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 # TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "cde9c7e6e4d9d3a0a247ce672009d4dd484d389b533e0181f6428dd104a8a228"
+sha256 = "6b2844124c13b4bd9d97ac7f5840f3e957b7631659591f3bea1ac9a89bee1654"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -80,7 +80,8 @@ env = {
 }
 # FIXME: youtube causes crashes in libxul after some seconds
 hardening = ["!int"]
-options = ["!cross"]
+# FIXME: apk can't handle files over a ~gigabyte for now, disable debug
+options = ["!cross", "!debug"]
 exec_wrappers = [
     ("/usr/bin/llvm-objdump", "objdump"),
     ("/usr/bin/llvm-readelf", "readelf"),
