@@ -1,5 +1,5 @@
 pkgname = "python-black"
-pkgver = "23.3.0"
+pkgver = "23.7.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_env = {"PYTHONPATH": "src"}
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://black.readthedocs.io"
 source = f"$(PYPI_SITE)/b/black/black-{pkgver}.tar.gz"
-sha256 = "1c7b8d606e728a41ea1ccbd7264677e494e87cf630e399262ced92d4a8dac940"
+sha256 = "022a582720b0d9480ed82576c920a8c1dde97cc38ff11d8d8859b3bd6ca9eedb"
 # unpackaged checkdepends
 options = ["!check"]
 
