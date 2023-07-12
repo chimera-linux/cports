@@ -22,5 +22,6 @@ sha256 = "6c7fde74e5d18e6a1a0723371d9c0db70f4a648b81837e0f8cd82b83014624d1"
 # 19 - ecm_add_tests_did_run-multi_tests
 options = ["!check"]
 
+
 def post_install(self):
     self.install_license("COPYING-CMAKE-SCRIPTS")
