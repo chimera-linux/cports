@@ -1,5 +1,5 @@
 pkgname = "python-cryptography"
-pkgver = "41.0.1"
+pkgver = "41.0.2"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-setuptools-rust", "python-cffi", "cargo", "pkgconf"]
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause OR Apache-2.0"
 url = "https://github.com/pyca/cryptography"
 source = f"$(PYPI_SITE)/c/cryptography/cryptography-{pkgver}.tar.gz"
-sha256 = "d34579085401d3f49762d2f7d6634d6b6c2ae1242202e860f4d26b046e3a1006"
+sha256 = "7d230bf856164de164ecb615ccc14c7fc6de6906ddd5b491f3af90d3514c925c"
 # unpackaged checkdepends
 options = ["!check"]
 
