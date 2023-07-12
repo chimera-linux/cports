@@ -1,6 +1,6 @@
 pkgname = "dino"
-pkgver = "0.4.2"
-pkgrel = 1
+pkgver = "0.4.3"
+pkgrel = 0
 build_style = "cmake"
 # TODO: openpgp maybe
 configure_args = [
@@ -42,7 +42,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/dino/dino"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "59cbe1b90f947a38609c48633e32b4090d7da44dfae1bee2a741f65251e1488e"
+sha256 = "432d7c3b5170c595b1b31a8d64d73ded26e32af9f03a2d1a01828c22a8ade3fa"
 # TODO
 options = ["!check"]
 
