@@ -1,5 +1,5 @@
 pkgname = "harfbuzz"
-pkgver = "7.3.0"
+pkgver = "8.0.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "20770789749ac9ba846df33983dbda22db836c70d9f5d050cb9aa5347094a8fb"
+sha256 = "1f98b5e3d06a344fe667d7e8210094ced458791499839bddde98c167ce6a7c79"
 # test failures since icu 71
 options = ["!cross", "!check"]
 
