@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.70.0"
+pkgver = "1.71.0"
 pkgrel = 0
 hostmakedepends = [
     "cmake",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "bb8e9c564566b2d3228d95de9063a9254182446a161353f1d843bfbaf5c34639"
+sha256 = "5814699031aafdcc2e2f71fc9b389678cd7042350d1583da061463d8e88681c7"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -75,17 +75,30 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc")
     cargo.clear_vendor_checksums(self, "libc-0.2.138")
     cargo.clear_vendor_checksums(self, "libc-0.2.139")
+    cargo.clear_vendor_checksums(self, "libc-0.2.140")
+    cargo.clear_vendor_checksums(self, "libc-0.2.143")
 
 
 def do_configure(self):
+    _tools = ["rustdoc"]
     if _bootstrap:
         _llvm_shared = "false"
         _use_docs = "false"
         _use_rpath = "true"
+        _extended = "false"
     else:
         _llvm_shared = "true"
         _use_docs = "true"
         _use_rpath = "false"
+        _extended = "true"
+        # while we'd love to build cargo and rust in one build, this is
+        # unfortunately not possible as rustbuild is junk and breaks rather
+        # hard when trying that
+        _tools += ["clippy", "src", "rustfmt", "rust-demangler"]
+        # for rust-analyzer, only builds on these archs
+        match self.profile().arch:
+            case "aarch64" | "ppc64" | "ppc64le" | "x86_64":
+                _tools += ["rust-analyzer-proc-macro-srv"]
 
     if self.profile().cross:
         _local_rebuild = "true"
@@ -146,9 +159,9 @@ python = 'python'
 locked-deps = true
 vendor = true
 
-# while we'd love to build cargo and rust in one build, this is unfortunately
-# not possible as rustbuild is junk and breaks rather hard when trying that
-extended = false
+extended = {_extended}
+
+tools = [{", ".join(map(lambda v: '"' + v + '"', _tools))}]
 
 local-rebuild = {_local_rebuild}
 
@@ -298,7 +311,7 @@ def do_install(self):
     self.install_dir("usr/src")
 
     # extract the archives
-    for f in ["rustc", "rust-std", "rustc-dev"]:
+    for f in ["rustc", "rust-std", "rustc-dev", "clippy", "rustfmt"]:
         self.log(f"unpacking {f}...")
         _untar(self, f)
 
@@ -318,6 +331,28 @@ def do_install(self):
         rlibf.unlink()
         self.mv(f, rlibf)
         f.symlink_to(rlibf.relative_to(f.parent))
+
+
+@subpackage("rust-clippy")
+def _clippy(self):
+    self.pkgdesc = "Lints to catch common mistakes"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return [
+        "usr/bin/cargo-clippy",
+        "usr/bin/clippy-driver",
+    ]
+
+
+@subpackage("rustfmt")
+def _clippy(self):
+    self.pkgdesc = "Rust code formatter"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return [
+        "usr/bin/rustfmt",
+        "usr/bin/cargo-fmt",
+    ]
 
 
 @subpackage("rust-std")

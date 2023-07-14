@@ -1,4 +1,4 @@
-From 042dff50577d188cb15b9dc19ef66e6e7024fac2 Mon Sep 17 00:00:00 2001
+From 94a46186cb9e4a8a40967a24eb843cdd5d688afa Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 3 Jun 2023 00:29:22 +0200
 Subject: [PATCH 05/11] get rid of wrong linkage
@@ -9,8 +9,10 @@ in just disabling nodefaultlibs for our platform.
 ---
  vendor/libc-0.2.138/src/unix/mod.rs | 7 +------
  vendor/libc-0.2.139/src/unix/mod.rs | 7 +------
+ vendor/libc-0.2.140/src/unix/mod.rs | 7 +------
+ vendor/libc-0.2.143/src/unix/mod.rs | 7 +------
  vendor/libc/src/unix/mod.rs         | 7 +------
- 3 files changed, 3 insertions(+), 18 deletions(-)
+ 5 files changed, 5 insertions(+), 30 deletions(-)
 
 diff --git a/vendor/libc-0.2.138/src/unix/mod.rs b/vendor/libc-0.2.138/src/unix/mod.rs
 index fb9ebf792..cd6968344 100644
@@ -48,8 +50,44 @@ index 826b83518..073217049 100644
      } else if #[cfg(target_os = "emscripten")] {
          #[link(name = "c")]
          extern {}
-diff --git a/vendor/libc/src/unix/mod.rs b/vendor/libc/src/unix/mod.rs
+diff --git a/vendor/libc-0.2.140/src/unix/mod.rs b/vendor/libc-0.2.140/src/unix/mod.rs
 index b005970b9..f3e674ffd 100644
+--- a/vendor/libc-0.2.140/src/unix/mod.rs
++++ b/vendor/libc-0.2.140/src/unix/mod.rs
+@@ -352,12 +352,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern {}
+     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
+-                        cfg(target_feature = "crt-static")))]
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
+-        extern {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         #[link(name = "c")]
+         extern {}
+diff --git a/vendor/libc-0.2.143/src/unix/mod.rs b/vendor/libc-0.2.143/src/unix/mod.rs
+index 75d511e39..cfacf0c73 100644
+--- a/vendor/libc-0.2.143/src/unix/mod.rs
++++ b/vendor/libc-0.2.143/src/unix/mod.rs
+@@ -352,12 +352,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern {}
+     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
+-                        cfg(target_feature = "crt-static")))]
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
+-        extern {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         #[link(name = "c")]
+         extern {}
+diff --git a/vendor/libc/src/unix/mod.rs b/vendor/libc/src/unix/mod.rs
+index 75d511e39..cfacf0c73 100644
 --- a/vendor/libc/src/unix/mod.rs
 +++ b/vendor/libc/src/unix/mod.rs
 @@ -352,12 +352,7 @@ cfg_if! {
@@ -67,5 +105,5 @@ index b005970b9..f3e674ffd 100644
          #[link(name = "c")]
          extern {}
 -- 
-2.39.0
+2.41.0
 

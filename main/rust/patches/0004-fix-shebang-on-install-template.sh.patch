@@ -1,4 +1,4 @@
-From 6321174def764fca41dbed4f7144cbe6abc5beec Mon Sep 17 00:00:00 2001
+From a19958c5ec0c2f9b12812438090792db13b19542 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 3 Jun 2023 00:26:18 +0200
 Subject: [PATCH 04/11] fix shebang on install-template.sh
@@ -18,5 +18,5 @@ index 92a3f1f2c..fca281191 100644
  # No undefined variables
  set -u
 -- 
-2.39.0
+2.41.0
 
