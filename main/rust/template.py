@@ -345,7 +345,7 @@ def _clippy(self):
 
 
 @subpackage("rustfmt")
-def _clippy(self):
+def _fmt(self):
     self.pkgdesc = "Rust code formatter"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
