@@ -51,6 +51,8 @@ def init_configure(self):
 
 
 def post_install(self):
+    # license
+    self.install_license("LICENSE")
     # less
     self.rm(self.destdir / "usr/bin/zless")
     self.rm(self.destdir / "usr/share/man/man1/zless.1")
