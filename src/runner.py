@@ -437,7 +437,7 @@ def init_late():
         paths.set_apk(opt_apkcmd)
 
     # bwrap command
-    if "CBUILB_BWRAP_PATH" in os.environ:
+    if "CBUILD_BWRAP_PATH" in os.environ:
         paths.set_bwrap(os.environ["CBUILD_BWRAP_PATH"])
     else:
         paths.set_bwrap(opt_bwcmd)
