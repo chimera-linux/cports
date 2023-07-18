@@ -21,7 +21,6 @@ configure_args = [
     "--enable-sdl",
     "--enable-seccomp",
     "--enable-snappy",
-    "--enable-spice",
     "--enable-system",
     "--enable-vhost-net",
     "--enable-virtfs",
@@ -88,8 +87,6 @@ makedepends = [
     "virglrenderer-devel",
     "libusb-devel",
     "libnfs-devel",
-    "spice-devel",
-    "spice-protocol",
     "linux-headers",
 ]
 pkgdesc = "Generic machine emulator and virtualizer"
@@ -113,6 +110,12 @@ system_users = [
         "groups": ["kvm"],
     }
 ]
+
+if self.profile().endian == "little":
+    configure_args += ["--enable-spice"]
+    makedepends += ["spice-devel", "spice-protocol"]
+else:
+    configure_args += ["--disable-spice"]
 
 
 def post_install(self):
