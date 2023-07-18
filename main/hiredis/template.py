@@ -1,5 +1,5 @@
 pkgname = "hiredis"
-pkgver = "1.1.0"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/redis/hiredis"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fe6d21741ec7f3fc9df409d921f47dfc73a4d8ff64f4ac6f1d95f951bf7f53d6"
+sha256 = "82ad632d31ee05da13b537c124f819eb88e18851d9cb0c30ae0552084811588c"
 # needs redis
 options = ["!check"]
 
