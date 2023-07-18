@@ -1,5 +1,5 @@
 pkgname = "meson"
-pkgver = "1.1.1"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "python_module"
 hostmakedepends = ["python-devel", "python-setuptools"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://mesonbuild.com"
 source = f"https://github.com/mesonbuild/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "d04b541f97ca439fb82fab7d0d480988be4bd4e62563a5ca35fadb5400727b1c"
+sha256 = "1c0b634fe6b6a7072e398647f1bf392048577068a5c92ae44d04085dab0ded6f"
 # meson is early in our bootstrap path but has a million checkdepends
 options = ["!check"]
 
@@ -22,7 +22,5 @@ def post_install(self):
             f"data/syntax-highlighting/vim/{f}", "usr/share/vim/vimfiles"
         )
     with self.pushd("data/shell-completions"):
-        # bashcomp
-        self.install_file("bash/meson", "usr/share/bash-completion/completions")
-        # zshcomp
-        self.install_file("zsh/_meson", "usr/share/zsh/site-functions")
+        self.install_completion("bash/meson", "bash")
+        self.install_completion("zsh/_meson", "zsh")
