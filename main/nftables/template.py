@@ -1,5 +1,5 @@
 pkgname = "nftables"
-pkgver = "1.0.7"
+pkgver = "1.0.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -7,7 +7,15 @@ configure_args = [
     "--with-python-bin=/usr/bin/python3",
     "--with-cli=editline",
 ]
-hostmakedepends = ["pkgconf", "python", "flex", "pkgconf"]
+hostmakedepends = [
+    "pkgconf",
+    "python",
+    "flex",
+    "pkgconf",
+    "automake",
+    "libtool",
+    "python-setuptools",
+]
 makedepends = [
     "jansson-devel",
     "libmnl-devel",
@@ -21,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://netfilter.org/projects/nftables"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c12ac941fff9adaedf17367d5ce213789b98a0d314277bc22b3d71e10891f412"
+sha256 = "9373740de41a82dbc98818e0a46a073faeb8a8d0689fa4fa1a74399c32bf3d50"
 hardening = ["vis", "cfi"]
 
 
@@ -43,4 +51,9 @@ def _devel(self):
     return self.default_devel()
 
 
-configure_gen = []
+@subpackage("nftables-python")
+def _py(self):
+    self.pkgdesc = f"{pkgdesc} (Python bindings)"
+    self.depends = [f"libnftables={pkgver}-r{pkgrel}"]
+
+    return ["usr/lib/python3*"]
