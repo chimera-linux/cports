@@ -1,5 +1,5 @@
 pkgname = "rhash"
-pkgver = "1.4.3"
+pkgver = "1.4.4"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
 url = "https://github.com/rhash/RHash"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "1e40fa66966306920f043866cbe8612f4b939b033ba5e2708c3f41be257c8a3e"
+sha256 = "8e7d1a8ccac0143c8fe9b68ebac67d485df119ea17a613f4038cda52f84ef52a"
 
 
 def init_configure(self):
@@ -44,7 +44,7 @@ def post_install(self):
         ],
     )
 
-    self.install_link("librhash.so.0", "usr/lib/librhash.so")
+    self.install_link("librhash.so.1", "usr/lib/librhash.so")
 
     self.install_license("COPYING")
 
