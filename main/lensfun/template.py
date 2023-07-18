@@ -1,9 +1,9 @@
 pkgname = "lensfun"
-pkgver = "0.3.3"
+pkgver = "0.3.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DINSTALL_HELPER_SCRIPTS=OFF", "-DBUILD_TESTS=ON"]
-hostmakedepends = ["cmake", "ninja", "pkgconf", "python"]
+hostmakedepends = ["cmake", "ninja", "pkgconf", "python-setuptools"]
 makedepends = ["glib-devel", "libomp-devel"]
 pkgdesc = "Photographic lens distortion library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -12,7 +12,7 @@ url = "https://lensfun.github.io"
 source = (
     f"https://github.com/{pkgname}/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "57ba5a0377f24948972339e18be946af12eda22b7c707eb0ddd26586370f6765"
+sha256 = "dafb39c08ef24a0e2abd00d05d7341b1bf1f0c38bfcd5a4c69cf5f0ecb6db112"
 
 # tests segfault with altivec simd
 match self.profile().arch:
