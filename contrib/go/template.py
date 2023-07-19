@@ -1,6 +1,6 @@
 pkgname = "go"
 pkgver = "1.20.6"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["bash"]
 checkdepends = [
     "libunwind-devel-static",
