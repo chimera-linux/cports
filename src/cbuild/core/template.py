@@ -2037,7 +2037,7 @@ def from_module(m, ret):
     elif ret.repository not in _allow_cats:
         ret.broken = f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})"
     elif ret.profile().cross and not ret.options["cross"]:
-        ret.broken = f"cannot be cross-compiled for {ret.profile().cross}"
+        ret.broken = f"cannot be cross-compiled for {ret.profile().arch}"
 
     # if archs is present, validate it, it may mark the package broken
     ret.validate_arch()
