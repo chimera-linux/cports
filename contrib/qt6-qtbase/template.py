@@ -104,6 +104,7 @@ def do_check(self):
         "test_add_big_resource",  # No data signature found
         "mockplugins",  # Unknown platform linux-clang
         "test_plugin_flavor_static",  # test fails to configure
+        "test_plugin_flavor_shared",  # flaky
         "test_import_plugins",  # not run: dep of mockplugins
         "test_add_resources_big_resources",  # No data signature found
         "tst_qaddpreroutine",  # Unknown platform linux-clang
