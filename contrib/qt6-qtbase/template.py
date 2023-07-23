@@ -1,5 +1,5 @@
 pkgname = "qt6-qtbase"
-pkgver = "6.5.1"
+pkgver = "6.5.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -67,7 +67,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "db56fa1f4303a1189fe33418d25d1924931c7aef237f89eea9de58e858eebfed"
+sha256 = "3db4c729b4d80a9d8fda8dd77128406353baff4755ca619177eda4cddae71269"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
@@ -173,6 +173,9 @@ def post_install(self):
     self.rm(self.destdir / "usr/lib/qt6/bin/crashingServer")
     self.rm(self.destdir / "usr/lib/qt6/bin/copier")
     self.rm(self.destdir / "usr/lib/qt6/bin/clientserver")
+    self.rm(self.destdir / "usr/lib/qt6/bin/nospace")
+    self.rm(self.destdir / "usr/lib/qt6/bin/one space")
+    self.rm(self.destdir / "usr/lib/qt6/bin/two space s")
     self.install_file(self.files_path / "target_qt.conf", "usr/lib/qt6/bin")
     # eliminate hardlinks
     for f in (self.destdir / "usr/lib/qt6/bin").glob("*6"):
@@ -246,7 +249,7 @@ for _sp in [
 
 @subpackage("qt6-qtbase-devel")
 def _devel(self):
-    self.depends += makedepends
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"] + makedepends
     return self.default_devel(
         extra=[
             "usr/lib/qt6/metatypes",
