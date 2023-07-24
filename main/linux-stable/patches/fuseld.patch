@@ -1,18 +1,17 @@
-commit 7f928c742e825bd7bfaba5fea4d6ad4fb6dc2c1a
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Sun May 21 05:29:12 2023 +0200
+commit 6b2001c1b614c7665a6f9fad9e0f2df09a86ef5b
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Jul 24 14:49:24 2023 +0200
 
     let me fuse-ld in peace
 
 diff --git a/scripts/Makefile.clang b/scripts/Makefile.clang
-index 70b354fa1..b185e3b44 100644
+index 058a4c0..0108bbc 100644
 --- a/scripts/Makefile.clang
 +++ b/scripts/Makefile.clang
-@@ -37,7 +37,6 @@ endif
+@@ -33,6 +33,5 @@ endif
  CLANG_FLAGS	+= -Werror=unknown-warning-option
  CLANG_FLAGS	+= -Werror=ignored-optimization-argument
  CLANG_FLAGS	+= -Werror=option-ignored
 -CLANG_FLAGS	+= -Werror=unused-command-line-argument
- KBUILD_CFLAGS	+= $(CLANG_FLAGS)
- KBUILD_AFLAGS	+= $(CLANG_FLAGS)
+ KBUILD_CPPFLAGS	+= $(CLANG_FLAGS)
  export CLANG_FLAGS
