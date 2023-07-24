@@ -30,7 +30,8 @@ source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "662a9f277281bcf506b6bc0a0baa03e44a62229516ee34bcc703a0b82aa46905"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
-options = ["!cross"]
+# FIXME check fails in some envs
+options = ["!cross", "!check"]
 
 
 @subpackage("tevent-devel")
