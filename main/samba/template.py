@@ -1,6 +1,6 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.18.4"
+pkgver = "4.18.5"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -99,7 +99,7 @@ url = "https://www.samba.org"
 source = (
     f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "6ba7b3503cc59c9ff4f6fcb1b510c2c855fff93e0b366ab891a32a4732e88e53"
+sha256 = "095256ac332e1d9fbf9b7ff7823f92a3233d3ed658ce7fc9b33905c2243f447f"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
