@@ -8,8 +8,8 @@
 copy_exec /usr/bin/udevadm /usr/bin
 ln -sf udevadm "${DESTDIR}/usr/bin/udevd"
 
-mkdir -p "${DESTDIR}/etc/udev/rules.d"
-mkdir -p "${DESTDIR}/usr/lib/udev"
+mkdir -p "${DESTDIR}/etc/udev"
+mkdir -p "${DESTDIR}/usr/lib/udev/rules.d"
 
 cp -p /etc/udev/udev.conf "${DESTDIR}/etc/udev"
 
@@ -23,9 +23,9 @@ for rule in \
     80-drivers.rules
 do
     if [ -e "/etc/udev/rules.d/${rule}" ]; then
-        cp -p "/etc/udev/rules.d/${rule}" "${DESTDIR}/etc/udev/rules.d"
+        cp -p "/etc/udev/rules.d/${rule}" "${DESTDIR}/usr/lib/udev/rules.d/"
     elif [ -e "/usr/lib/udev/rules.d/${rule}" ]; then
-        cp -p "/usr/lib/udev/rules.d/${rule}" "${DESTDIR}/etc/udev/rules.d"
+        cp -p "/usr/lib/udev/rules.d/${rule}" "${DESTDIR}/usr/lib/udev/rules.d/"
     fi
 done
 
@@ -34,7 +34,7 @@ done
 # other bits which are relevant for the initramfs.
 for rules in /etc/udev/rules.d/*.rules; do
     if [ -e "$rules" ] && [ ! -e "/usr/lib/${rules#/etc/}" ]; then
-        cp -p "$rules" "$DESTDIR/usr/lib/udev/rules.d/"
+        cp -p "$rules" "${DESTDIR}/usr/lib/udev/rules.d/"
     fi
 done
 
