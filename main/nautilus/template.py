@@ -1,6 +1,6 @@
 pkgname = "nautilus"
 pkgver = "44.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dtests=headless"]
 hostmakedepends = [
@@ -25,7 +25,7 @@ makedepends = [
     "gst-plugins-base-devel",
     "libcloudproviders-devel",
 ]
-depends = ["hicolor-icon-theme", "tracker", "tracker-miners"]
+depends = ["desktop-file-utils", "tracker", "tracker-miners"]
 checkdepends = ["dbus", "tracker", "tracker-miners", "python-gobject"]
 pkgdesc = "GNOME file manager"
 maintainer = "q66 <q66@chimera-linux.org>"
