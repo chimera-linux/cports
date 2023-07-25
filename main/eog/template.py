@@ -1,6 +1,6 @@
 pkgname = "eog"
 pkgver = "44.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dintrospection=true"]
 hostmakedepends = [
@@ -25,7 +25,7 @@ makedepends = [
     "librsvg-devel",
     "libjpeg-turbo-devel",
 ]
-depends = ["hicolor-icon-theme", "shared-mime-info"]
+depends = ["desktop-file-utils", "shared-mime-info"]
 provides = ["so:libeog.so=0"]
 pkgdesc = "GNOME image viewer"
 maintainer = "q66 <q66@chimera-linux.org>"
