@@ -29,7 +29,6 @@ depends = [
     "dconf",
     "desktop-file-utils",
     "gsettings-desktop-schemas",
-    "hicolor-icon-theme",
     "polkit",
 ]
 pkgdesc = "GNOME session management utilities"
