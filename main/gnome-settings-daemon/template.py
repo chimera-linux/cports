@@ -42,7 +42,6 @@ makedepends = [
     "libwacom-devel",
     "nss-devel",
 ]
-depends = ["hicolor-icon-theme"]
 checkdepends = [
     "elogind",
     "udev",
