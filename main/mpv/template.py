@@ -1,6 +1,6 @@
 pkgname = "mpv"
 pkgver = "0.36.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -80,7 +80,7 @@ makedepends = [
     "zimg-devel",
     "vapoursynth-devel",
 ]
-depends = ["hicolor-icon-theme"]
+depends = ["hicolor-icon-theme", "desktop-file-utils"]
 pkgdesc = "Video player based on mplayer2"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
