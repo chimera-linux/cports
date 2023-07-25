@@ -67,7 +67,6 @@ makedepends = [
 ]
 depends = [
     "desktop-file-utils",
-    "hicolor-icon-theme",
     "mypaint-brushes",
     "iso-codes",
     # prevent scripts from crashing (which prints annoying messages)
