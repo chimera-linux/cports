@@ -37,7 +37,6 @@ makedepends = [
     "libedit-readline-devel",
 ]
 depends = [
-    "adwaita-icon-theme",
     "desktop-file-utils",
     "python-scour",
     "python-appdirs",
