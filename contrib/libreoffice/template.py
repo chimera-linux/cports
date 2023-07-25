@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "7.5.4.2"
-pkgrel = 1
+pkgver = "7.5.5.2"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "aarch64"]
 build_style = "gnu_configure"
@@ -168,7 +168,7 @@ source = [
     (f"{_aurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip", False),
     (f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip", False),
     (f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip", False),
-    (f"{_aurl}/language-subtag-registry-2022-08-08.tar.bz2", False),
+    (f"{_aurl}/language-subtag-registry-2023-05-11.tar.bz2", False),
     (f"{_aurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip", False),
     (f"{_aurl}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip", False),
     (f"{_aurl}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip", False),
@@ -176,7 +176,7 @@ source = [
     (f"{_aurl}/libcmis-0.5.2.tar.xz", False),
     (f"{_aurl}/libstaroffice-0.0.7.tar.xz", False),
     (f"{_aurl}/libzmf-0.0.2.tar.xz", False),
-    (f"{_aurl}/pdfium-5408.tar.bz2", False),
+    (f"{_aurl}/pdfium-5778.tar.bz2", False),
     (
         f"{_eurl}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar",
         False,
@@ -210,14 +210,14 @@ source = [
     (f"{_aurl}/dragonbox-1.1.3.tar.gz", False),
 ]
 sha256 = [
-    "68bbd1b79ffa4c33ed80f25520b9e6d69e3be23c9b4a0f0c9d859cc9a24865e8",
-    "4f2dbe571e2116ce11df71d72b4ae03f7a3ca82c72578c1724afb3bd26d38d08",
-    "a90f931dd3238eb64e6f65964ea8f90e5accd9ad10925d5a60c7af6aa585c1f1",
-    "7eb264c2cd66f028831535bec0d3fcdfb687fae4deb77d200cfe4034ca3a10ad",
+    "6628dfd2a21041a7c5bb6d72733e0fd52efa7959c95084fcd4d96cc4a61b0561",
+    "33c023d3e5abe5649350ae1242fcd5d6c069066f283db967b6aab35aa4857504",
+    "1de834979bf25c3c6f368362dd20c95d0bee514a42eee903a32188d40488aa62",
+    "24b5c791a17128361b5f3c8538348002a714d0ba2aab37e3bf10e16b7ac049b7",
     "1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
-    "e2d9224e0e50fc8ad12a3cf47396bbcadf45b2515839d4770432653a88972c00",
+    "9042b64cd473bf36073513b474046f13778107b57c2ac47fb2633104120d69da",
     "d30b13f4ba2e3b6a2d4f020c0dee0a9fb9fc6fbcc2d561f36b78da4bf3802370",
     "1b5b24f7bc543c0362b667692f78db8bab4ed6dafc6172f104d0bd3757d8a133",
     "233f66e8d25c5dd971716d4200203a612a407649686ef3b52075d04b4c9df0dd",
@@ -225,7 +225,7 @@ sha256 = [
     "d7b18d9602190e10d437f8a964a32e983afd57e2db316a07d87477a79f5000a2",
     "f94fb0ad8216f97127bedef163a45886b43c62deac5e5b0f5e628e234220c8db",
     "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
-    "7db59b1e91f2bc0ab4c5e19d1a4f881e6a47dbb0d3b7e980a7358225b12a0f35",
+    "b1052ff24e9ffb11af017c444bb0f6ad508d64c9a0fb88cacb0e8210245dde06",
     "f2443f27561af52324eee03a1892d9f569adc8db9e7bca55614898bc2a13a770",
     "d55495ab3a86544650587de2a72180ddf8bfc6376d14ddfa923992dbc86a06e0",
     "0082d0684f7db6f62361b76c4b7faba19e0c7ce5cb8e36c4b65fea8281e711b4",
