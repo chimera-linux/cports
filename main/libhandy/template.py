@@ -1,13 +1,13 @@
 pkgname = "libhandy"
 pkgver = "1.8.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dexamples=false",
     "-Dtests=true",
     "-Dgtk_doc=false",
     "-Dvapi=true",
-    "-Dglade_catalog=enabled",
+    "-Dglade_catalog=disabled",
     "-Dintrospection=enabled",
 ]
 make_check_wrapper = ["xvfb-run"]
@@ -23,7 +23,6 @@ hostmakedepends = [
 makedepends = [
     "gtk+3-devel",
     "glib-devel",
-    "glade3-devel",
 ]
 checkdepends = ["xserver-xorg-xvfb"]
 pkgdesc = "GTK+3 building blocks for modern adaptive applications"
