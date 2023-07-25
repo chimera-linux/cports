@@ -1,6 +1,6 @@
 pkgname = "baobab"
 pkgver = "44.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -16,7 +16,7 @@ makedepends = [
     "glib-devel",
     "libadwaita-devel",
 ]
-depends = ["hicolor-icon-theme", "gsettings-desktop-schemas"]
+depends = ["desktop-file-utils", "gsettings-desktop-schemas"]
 pkgdesc = "Graphical directory tree analyzer for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
