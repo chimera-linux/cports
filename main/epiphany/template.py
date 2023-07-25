@@ -1,6 +1,6 @@
 pkgname = "epiphany"
 pkgver = "44.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dunit_tests=disabled"]
 hostmakedepends = [
@@ -32,7 +32,7 @@ makedepends = [
     "gmp-devel",
     "iso-codes",
 ]
-depends = ["hicolor-icon-theme", "iso-codes"]
+depends = ["desktop-file-utils", "iso-codes"]
 pkgdesc = "GNOME web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
