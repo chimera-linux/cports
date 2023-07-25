@@ -1,6 +1,6 @@
 pkgname = "simple-scan"
 pkgver = "44.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -22,7 +22,7 @@ makedepends = [
     "sane-backends-devel",
     "zlib-devel",
 ]
-depends = ["hicolor-icon-theme", "sane-backends"]
+depends = ["desktop-file-utils", "sane-backends"]
 pkgdesc = "GNOME scanning utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
