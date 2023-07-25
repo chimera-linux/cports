@@ -1,9 +1,9 @@
 pkgname = "gtksourceview4"
 pkgver = "4.8.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "-Dglade_catalog=true",
+    "-Dglade_catalog=false",
     "-Dgir=true",
     "-Dvapi=true",
     "-Dgtk_doc=false",
@@ -19,7 +19,6 @@ hostmakedepends = [
     "xsltproc",
 ]
 makedepends = [
-    "glade3-devel",
     "gtk+3-devel",
     "glib-devel",
     "libxml2-devel",
