@@ -1,6 +1,6 @@
 pkgname = "libxfce4ui"
 pkgver = "4.18.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-tests", "--disable-static"]
 configure_gen = []
@@ -18,7 +18,6 @@ makedepends = [
     "glib-devel",
     "vala-devel",
     "gtk+3-devel",
-    "glade3-devel",
     "libxfce4util-devel",
     "xfconf-devel",
     "libxml2-devel",
