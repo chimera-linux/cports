@@ -57,7 +57,6 @@ checkdepends = [
     "xserver-xorg-xvfb",
     "dbus",
     "adwaita-icon-theme",
-    "hicolor-icon-theme",
     "librsvg",
     "fonts-dejavu-otf",
 ]
