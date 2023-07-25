@@ -22,7 +22,7 @@ makedepends = [
     "libportal-devel",
     "json-glib-devel",
 ]
-depends = ["hicolor-icon-theme", "desktop-file-utils"]
+depends = ["desktop-file-utils"]
 pkgdesc = "GNOME archiver frontend"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
