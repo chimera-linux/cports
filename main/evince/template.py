@@ -1,6 +1,6 @@
 pkgname = "evince"
 pkgver = "44.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # dvi needs kpathsea, which is in texlive
 # does anyone actually need dvi?
@@ -39,9 +39,8 @@ makedepends = [
     "libgxps-devel",
     "gspell-devel",
     "djvulibre-devel",
-    "adwaita-icon-theme",
 ]
-depends = ["hicolor-icon-theme"]
+depends = ["desktop-file-utils"]
 pkgdesc = "GNOME document viewer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
