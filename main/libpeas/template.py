@@ -1,6 +1,6 @@
 pkgname = "libpeas"
 pkgver = "1.36.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddemos=false", "-Dvapi=true"]
 make_check_wrapper = ["xvfb-run"]
@@ -20,7 +20,7 @@ makedepends = [
     "gtk+3-devel",
     "glade3-devel",
 ]
-depends = ["python-gobject", "hicolor-icon-theme"]
+depends = ["python-gobject"]
 checkdepends = ["xserver-xorg-xvfb"]
 pkgdesc = "G0bject application plugin library"
 maintainer = "q66 <q66@chimera-linux.org>"
