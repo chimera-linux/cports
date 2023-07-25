@@ -1,6 +1,6 @@
 pkgname = "inkscape"
-pkgver = "1.2.2"
-pkgrel = 4
+pkgver = "1.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DBUILD_TESTING=OFF"]
 hostmakedepends = [
@@ -11,7 +11,7 @@ hostmakedepends = [
     "gettext-tiny",
     "glib-devel",
 ]
-# TODO: imagemagick once we have it
+# TODO: graphicsmagick once we have it
 makedepends = [
     "gtk+3-devel",
     "boost-devel",
@@ -37,6 +37,7 @@ makedepends = [
     "libedit-readline-devel",
 ]
 depends = [
+    "adwaita-icon-theme",
     "desktop-file-utils",
     "python-scour",
     "python-appdirs",
@@ -50,7 +51,7 @@ url = "https://inkscape.org"
 source = (
     f"https://media.inkscape.org/dl/resources/file/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "a0c7fd0d03c0a21535e648ef301dcf80dd7cfc1f3545e51065fbf1ba3ee8a5c4"
+sha256 = "bf4f286b025e0169b8948cc14d5199a9b4c204d761c894c4b48496571ec76307"
 # TODO
 hardening = ["!int"]
 # long, heavy, etc
