@@ -1,5 +1,5 @@
 pkgname = "osinfo-db"
-pkgver = "20230518"
+pkgver = "20230719"
 pkgrel = 0
 hostmakedepends = ["osinfo-db-tools"]
 pkgdesc = "Osinfo database of information about operating systems"
@@ -10,7 +10,7 @@ source = (
     f"https://releases.pagure.org/libosinfo/{pkgname}-{pkgver}.tar.xz",
     False,
 )
-sha256 = "caec5bcce4f2f07c7006bb4f72913d12bdab52595011b4b50937fcd74b81cc6d"
+sha256 = "13d1c97fc7d67137935dcc97778c08bb079a4f0fe312d479786cea1411e4845a"
 options = ["!cross"]
 
 
