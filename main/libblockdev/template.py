@@ -1,5 +1,5 @@
 pkgname = "libblockdev"
-pkgver = "3.0.1"
+pkgver = "3.0.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libblockdev"
 source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgver}-1/{pkgname}-{pkgver}.tar.gz"
-sha256 = "569e47eb322acc6dfe2becb0b575ebd19f0df8dab8dc91ea0280f112d2d9e528"
+sha256 = "7aff7c762abe7585fac0ea335ea5eefced6688515cc5a0b9c1a18003246af079"
 
 tool_flags = {
     "CFLAGS": ["-Wno-error=typedef-redefinition", "-Wno-error=unused-variable"]
