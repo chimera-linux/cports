@@ -1,5 +1,5 @@
 pkgname = "xxhash"
-pkgver = "0.8.1"
+pkgver = "0.8.2"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://cyan4973.github.io/xxHash"
 source = f"https://github.com/Cyan4973/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "3bb6b7d6f30c591dd65aaaff1c8b7a5b94d81687998ca9400082c739a690436c"
+sha256 = "baee0c6afd4f03165de7a4e67988d16f0f2b257b51d0e3cb91909302a26a79c4"
 
 
 def post_install(self):
