@@ -1,5 +1,5 @@
 pkgname = "syslog-ng"
-pkgver = "4.2.0"
+pkgver = "4.3.0"
 pkgrel = 0
 _pcre_ver = "8.45"
 build_style = "gnu_configure"
@@ -9,6 +9,7 @@ configure_args = [
     "--with-ivykis=system",
     "--with-jsonc=system",
     "--with-librabbitmq-client=system",
+    "--disable-cpp",
     "--disable-systemd",
     "--disable-mongodb",
     "--disable-riemann",
@@ -39,7 +40,7 @@ hostmakedepends = [
     "flex",
     "bison",
     "file",
-    "python",
+    "python-setuptools",
     "glib-devel",
 ]
 makedepends = [
@@ -50,6 +51,7 @@ makedepends = [
     "openssl-devel",
     "eventlog-devel",
     "glib-devel",
+    "pcre2-devel",
     "hiredis-devel",
     "ivykis-devel",
     "json-c-devel",
@@ -59,68 +61,10 @@ pkgdesc = "Next generation logging daemon"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.syslog-ng.com/products/open-source-log-management"
-source = [
-    f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz",
-    f"$(SOURCEFORGE_SITE)/pcre/pcre/{_pcre_ver}/pcre-{_pcre_ver}.tar.bz2",
-]
-sha256 = [
-    "092bd17fd47002c988aebdf81d0ed3f3cfd0e82b388d2453bcaa5e67934f4dda",
-    "4dae6fdcd2bb0bb6c37b5f97c33c2be954da743985369cddac3546e3218bffb8",
-]
+source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
+sha256 = "9c9747819014cfbd282d5c95e310937dc5122fe7c610d143e01d550e9f2c3869"
 # tests need https://github.com/Snaipe/Criterion
 options = ["!check"]
-
-
-def post_extract(self):
-    # ensure syslog-ng itself is in the right place
-    for f in (self.cwd / f"{pkgname}-{pkgver}").iterdir():
-        self.mv(f, ".")
-
-
-def init_configure(self):
-    self._pyver = (
-        self.do("pkgconf", "--modversion", "python3", capture_output=True)
-        .stdout.decode()
-        .strip()
-    )
-    # allow pcre to be located
-    self.configure_env["PKG_CONFIG_PATH"] = str(
-        self.chroot_cwd / f"pcre-{_pcre_ver}/dest/lib/pkgconfig"
-    )
-
-
-# we temporarily bundle pcre until upstream fixes their shit
-# it's the last thing depending on pcre in main/
-def _build_pcre(self):
-    from cbuild.util import gnu_configure
-
-    _pfx = self.chroot_cwd / "dest"
-
-    gnu_configure.configure(
-        self,
-        configure_args=[
-            "--prefix=" + str(_pfx),
-            "--bindir=" + str(_pfx / "bin"),
-            "--libdir=" + str(_pfx / "lib"),
-            "--mandir=" + str(_pfx / "share/man"),
-            "--with-pic",
-            "--enable-unicode-properties",
-            "--enable-newline-is-anycrlf",
-            "--enable-static",
-            "--disable-jit",
-            "--disable-cpp",
-            "--disable-shared",
-            "--disable-stack-for-recursion",
-        ],
-    )
-    self.make.build()
-    self.make.install(default_args=False)
-
-
-def pre_configure(self):
-    with self.stamp("pcre_build"):
-        with self.pushd(f"pcre-{_pcre_ver}"):
-            _build_pcre(self)
 
 
 def post_install(self):
@@ -134,6 +78,12 @@ def post_install(self):
     # getent module will not work correctly on musl as musl does
     # not provide reentrant getprotoby(name|number)
     self.rm(self.destdir / "usr/lib/syslog-ng/libtfgetent.so")
+
+    # precompile python bytecode
+    from cbuild.util import python
+
+    python.precompile(self, "etc/syslog-ng/python")
+    python.precompile(self, "usr/lib/syslog-ng/python")
 
 
 @subpackage("syslog-ng-scl")
@@ -158,7 +108,9 @@ def _python(self):
     self.pkgdesc = f"{pkgdesc} (python module)"
 
     return [
+        "etc/syslog-ng/python",
         "usr/lib/syslog-ng/libmod-python.so",
+        "usr/lib/syslog-ng/python",
     ]
 
 
