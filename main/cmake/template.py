@@ -1,5 +1,5 @@
 pkgname = "cmake"
-pkgver = "3.26.4"
+pkgver = "3.27.0"
 pkgrel = 1
 build_style = "configure"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
 source = f"https://www.cmake.org/files/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "313b6880c291bd4fe31c0aa51d6e62659282a521e695f30d5cc0d25abbd5c208"
+sha256 = "aaeddb6b28b993d0a6e32c88123d728a17561336ab90e0bf45032383564d3cb8"
 # prevent cmake self-bootstrap false positive nonsense
 tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
