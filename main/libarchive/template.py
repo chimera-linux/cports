@@ -12,6 +12,7 @@ configure_args = [
     "--without-nettle",
     "--disable-rpath",
 ]
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "zlib-devel",
@@ -20,6 +21,7 @@ makedepends = [
     "acl-devel",
     "liblz4-devel",
     "openssl-devel",
+    "musl-bsd-headers",
 ]
 pkgdesc = "Library to read/write several different streaming archive formats"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -58,6 +60,3 @@ def _devel(self):
     self.depends += makedepends
 
     return self.default_devel()
-
-
-configure_gen = []
