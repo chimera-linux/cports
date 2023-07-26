@@ -1,5 +1,5 @@
 pkgname = "python-click"
-pkgver = "8.1.5"
+pkgver = "8.1.6"
 pkgrel = 0
 build_style = "python_module"
 make_check_env = {"PYTHONPATH": "src"}
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://palletsprojects.com/p/click"
 source = f"$(PYPI_SITE)/c/click/click-{pkgver}.tar.gz"
-sha256 = "4be4b1af8d665c6d942909916d31a213a106800c47d0eeba73d34da3cbc11367"
+sha256 = "48ee849951919527a045bfe3bf7baa8a959c423134e1a5b98c05c20ba75a1cbd"
 
 
 def post_install(self):
