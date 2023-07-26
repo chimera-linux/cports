@@ -1,12 +1,12 @@
 pkgname = "unicode-cldr-common"
-pkgver = "42.0"
+pkgver = "43.1"
 pkgrel = 0
 pkgdesc = "Common data from Unicode CLDR"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Unicode-DFS-2016"
 url = "https://cldr.unicode.org"
-source = f"https://github.com/unicode-org/cldr/archive/refs/tags/release-{pkgver[:-2]}.tar.gz"
-sha256 = "a65de26e4595be980142590dbd33f3768e78f8c52cc0b15b45c03f20043d5ea7"
+source = f"https://github.com/unicode-org/cldr/archive/refs/tags/release-{pkgver.replace('.', '-')}.tar.gz"
+sha256 = "0b063164ec434c150ff5f41699081ab0e4d9bf85c15a74f81f4b972b67d26bdb"
 
 
 def do_install(self):
