@@ -1,0 +1,23 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ V=@
+ 
+ PDATA_TOOLS:=\
+-	target/release/pdata_tools
++	target/$(RUST_TARGET)/release/pdata_tools
+ 
+ $(PDATA_TOOLS):
+ 	$(V) cargo build --release
+@@ -56,10 +56,9 @@ TOOLS:=\
+ 
+ MANPAGES:=$(patsubst %,man8/%.8,$(TOOLS))
+ 
+-install: $(PDATA_TOOLS) $(MANPAGES)
++install: $(MANPAGES)
+ 	$(INSTALL_DIR) $(BINDIR)
+ 	$(INSTALL_PROGRAM) $(PDATA_TOOLS) $(BINDIR)
+-	$(STRIP) $(BINDIR)/pdata_tools
+ 	ln -s -f pdata_tools $(BINDIR)/cache_check
+ 	ln -s -f pdata_tools $(BINDIR)/cache_dump
+ 	ln -s -f pdata_tools $(BINDIR)/cache_metadata_size
