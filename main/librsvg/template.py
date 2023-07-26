@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.56.2"
+pkgver = "2.56.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -37,7 +37,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "3ec3c4d8f73e0ba4b9130026969e8371c092b734298d36e2fdb3eb4afcec1200"
+sha256 = "5a328048a02d014645cd27f61140f4e0b11280fb2c7f2a21864fe0c59ac1ce88"
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check", "!cross"]
 
@@ -53,7 +53,6 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.clear_vendor_checksums(self, "system-deps")
-    cargo.clear_vendor_checksums(self, "rustix")
 
 
 @subpackage("librsvg-devel")
