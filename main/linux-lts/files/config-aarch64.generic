@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.1.38 Kernel Configuration
+# Linux/arm64 6.1.41 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 16.0.6"
 CONFIG_GCC_VERSION=0
@@ -2394,6 +2394,7 @@ CONFIG_MTD_TESTS=m
 # Partition parsers
 #
 CONFIG_MTD_AR7_PARTS=m
+CONFIG_MTD_BRCM_U_BOOT=m
 CONFIG_MTD_CMDLINE_PARTS=m
 CONFIG_MTD_OF_PARTS=m
 CONFIG_MTD_OF_PARTS_BCM4908=y
