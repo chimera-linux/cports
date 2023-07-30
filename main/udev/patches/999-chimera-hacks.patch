@@ -222,7 +222,7 @@ index b7725ce..59d7467 100644
  ############################################################
  
 -update_dbus_docs = custom_target(
--        'update-dbus-docs',
+-        'update-dbus-docs-impl',
 -        output : 'update-dbus-docs',
 -        command : [update_dbus_docs_py, '--build-dir', project_build_root, '@INPUT@'],
 -        input : dbus_docs)
@@ -230,13 +230,13 @@ index b7725ce..59d7467 100644
 -if conf.get('BUILD_MODE_DEVELOPER') == 1
 -        test('dbus-docs-fresh',
 -             update_dbus_docs_py,
--             suite : 'dist-check',
+-             suite : 'dist',
 -             args : ['--build-dir', project_build_root, '--test', dbus_docs],
 -             depends : dbus_programs)
 -endif
 -
  update_man_rules = custom_target(
-         'update-man-rules',
+         'update-man-rules-impl',
          output : 'update-man-rules',
 diff --git a/man/rules/meson.build b/man/rules/meson.build
 index c5b457b..fff11a8 100644
@@ -499,8 +499,8 @@ index 0298123..405d4d3 100644
            <listitem>
 -            <para>Before triggering uevents, wait for systemd-udevd daemon to be initialized.
 +            <para>Before triggering uevents, wait for udevd daemon to be initialized.
-             Optionally takes timeout value. Default timeout is 5 seconds. This is equivalent to invoke
-             invoking <command>udevadm control --ping</command> before <command>udevadm trigger</command>.</para>
+             Optionally takes timeout value. Default timeout is 5 seconds. This is equivalent to invoking
+             <command>udevadm control --ping</command> before <command>udevadm trigger</command>.</para>
            </listitem>
 @@ -531,10 +529,6 @@
  
@@ -679,7 +679,7 @@ diff --git a/meson.build b/meson.build
 index 739b2f7..ec9dd35 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -25,10 +25,7 @@ conf.set('PROJECT_VERSION',    meson.project_version(),
+@@ -25,10 +25,7 @@ conf.set('PROJECT_VERSION', meson.project_version(),
  # the wrong result when systemd is being built as a meson subproject
  project_source_root = meson.current_source_dir()
  project_build_root = meson.current_build_dir()
@@ -691,7 +691,7 @@ index 739b2f7..ec9dd35 100644
  conf.set_quoted('RELATIVE_SOURCE_PATH', relative_source_path)
  
  conf.set10('BUILD_MODE_DEVELOPER', get_option('mode') == 'developer',
-@@ -718,10 +715,6 @@ endforeach
+@@ -744,10 +741,6 @@ endforeach
  
  conf.set_quoted('TELINIT', get_option('telinit-path'))
  
@@ -702,17 +702,35 @@ index 739b2f7..ec9dd35 100644
  ############################################################
  
  gperf = find_program('gperf')
-@@ -2042,7 +2035,7 @@ libsystemd = shared_library(
-         dependencies : [threads,
-                         librt],
+@@ -2261,7 +2254,7 @@ libsystemd = shared_library(
+                         threads,
+                         userspace],
          link_depends : libsystemd_sym,
 -        install : true,
 +        install : false,
          install_tag: 'libsystemd',
          install_dir : rootlibdir)
  
-@@ -2348,7 +2341,7 @@ public_programs += executable(
-         dependencies : [threads,
+@@ -2527,7 +2520,7 @@ exe = executable(
+                         userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootlibexecdir)
+ dbus_programs += exe
+ public_programs += exe
+@@ -2571,7 +2564,7 @@ executable(
+                         userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootlibexecdir)
+ 
+ public_programs += executable(
+@@ -2584,7 +2577,7 @@ public_programs += executable(
+                         userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
@@ -720,8 +738,8 @@ index 739b2f7..ec9dd35 100644
  
  if get_option('link-journalctl-shared')
          journalctl_link_with = [libshared]
-@@ -2371,7 +2364,7 @@ public_programs += executable(
-                         libdl,
+@@ -2607,7 +2600,7 @@ public_programs += executable(
+                         userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
@@ -729,26 +747,71 @@ index 739b2f7..ec9dd35 100644
          install_dir : rootbindir)
  
  executable(
-@@ -2465,7 +2458,7 @@ if conf.get('HAVE_BLKID') == 1
-                 link_with : [libshared],
-                 dependencies : libblkid,
+@@ -2617,7 +2610,7 @@ executable(
+         link_with : [libshared],
+         dependencies : userspace,
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : systemgeneratordir)
+ 
+ executable(
+@@ -2627,7 +2620,7 @@ executable(
+         link_with : [libshared],
+         dependencies : userspace,
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : systemgeneratordir)
+ 
+ executable(
+@@ -2637,7 +2630,7 @@ executable(
+         link_with : [libshared],
+         dependencies : userspace,
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : systemgeneratordir)
+ 
+ exe = executable(
+@@ -2647,7 +2640,7 @@ exe = executable(
+         link_with : [libshared],
+         dependencies : userspace,
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : systemgeneratordir)
+ 
+ meson.add_install_script(meson_make_symlink,
+@@ -2710,7 +2703,7 @@ if conf.get('HAVE_BLKID') == 1
+                 dependencies : [libblkid,
+                                 userspace],
                  install_rpath : rootpkglibdir,
 -                install : true,
 +                install : false,
                  install_dir : systemgeneratordir)
  
          public_programs += executable(
-@@ -2475,7 +2468,7 @@ if conf.get('HAVE_BLKID') == 1
-                 link_with : [libshared],
-                 dependencies : [versiondep],
+@@ -2721,7 +2714,7 @@ if conf.get('HAVE_BLKID') == 1
+                 dependencies : [userspace,
+                                 versiondep],
                  install_rpath : rootpkglibdir,
 -                install : true)
 +                install : false)
- endif
  
- if conf.get('ENABLE_RESOLVE') == 1
-@@ -2693,7 +2686,7 @@ public_programs += executable(
-         dependencies : [threads,
+         meson.add_install_script(meson_make_symlink,
+                                  bindir / 'systemd-dissect',
+@@ -2946,7 +2939,7 @@ executable(
+                         userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootlibexecdir)
+ 
+ public_programs += executable(
+@@ -2958,7 +2951,7 @@ public_programs += executable(
+                         userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
@@ -756,8 +819,8 @@ index 739b2f7..ec9dd35 100644
  
  systemctl = executable(
          'systemctl',
-@@ -2708,7 +2701,7 @@ systemctl = executable(
-                         libzstd,
+@@ -2974,7 +2967,7 @@ systemctl = executable(
+                         userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
@@ -765,7 +828,7 @@ index 739b2f7..ec9dd35 100644
          install_dir : rootbindir)
  public_programs += systemctl
  
-@@ -2867,9 +2860,7 @@ foreach alias : (['halt', 'poweroff', 'reboot', 'shutdown'] +
+@@ -3150,9 +3143,7 @@ foreach alias : (['halt', 'poweroff', 'reboot', 'shutdown'] +
                                   rootsbindir / alias)
  endforeach
  
@@ -776,17 +839,66 @@ index 739b2f7..ec9dd35 100644
  
  if conf.get('ENABLE_BACKLIGHT') == 1
          executable(
-@@ -3435,7 +3426,7 @@ executable(
+@@ -3185,7 +3176,7 @@ executable(
          link_with : [libshared],
-         dependencies : [versiondep],
+         dependencies : userspace,
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : systemgeneratordir)
+ 
+ if conf.get('HAVE_LIBCRYPTSETUP') == 1
+@@ -3742,7 +3733,7 @@ executable(
+         dependencies : [userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootlibexecdir)
+ 
+ executable(
+@@ -3753,7 +3744,7 @@ executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootbindir)
  
  executable(
-@@ -3478,11 +3469,6 @@ executable(
-         install : true,
+@@ -3764,7 +3755,7 @@ executable(
+         dependencies : [userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootlibexecdir)
+ 
+ executable(
+@@ -3775,7 +3766,7 @@ executable(
+         dependencies : [userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootlibexecdir)
+ 
+ executable(
+@@ -3786,7 +3777,7 @@ executable(
+         dependencies : [userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootlibexecdir)
+ 
+ executable(
+@@ -3797,14 +3788,9 @@ executable(
+         dependencies : [userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
          install_dir : rootlibexecdir)
  
 -if install_sysconfdir_samples
@@ -797,62 +909,107 @@ index 739b2f7..ec9dd35 100644
  public_programs += executable(
          'systemd-sysctl',
          'src/sysctl/sysctl.c',
-@@ -3490,7 +3476,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -3813,7 +3799,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootlibexecdir)
  
  public_programs += executable(
-@@ -3500,7 +3486,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -3824,7 +3810,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
 +        install : false)
  
  public_programs += executable(
          'systemd-detect-virt',
-@@ -3509,7 +3495,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -3834,7 +3820,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
 +        install : false)
  
  public_programs += executable(
          'systemd-delta',
-@@ -3518,7 +3504,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -3844,7 +3830,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
 +        install : false)
  
  public_programs += executable(
          'systemd-escape',
-@@ -3527,7 +3513,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -3854,7 +3840,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootbindir)
  
  public_programs += executable(
-@@ -3537,7 +3523,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -3865,7 +3851,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootbindir)
  
  public_programs += executable(
-@@ -3549,7 +3535,7 @@ public_programs += executable(
-                         libopenssl,
+@@ -3878,7 +3864,7 @@ public_programs += executable(
+                         userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootbindir)
+ 
+ public_programs += executable(
+@@ -3889,7 +3875,7 @@ public_programs += executable(
+         dependencies : [userspace, versiondep],
+         install_rpath : rootpkglibdir,
+         install_dir : rootlibexecdir,
+-        install : true)
++        install : false)
+ 
+ # Protecting files from the distro in /usr doesn't make sense since they can be trivially accessed otherwise,
+ # so don't restrict the access mode in /usr. That doesn't apply to /etc, so we do restrict the access mode
+@@ -3918,7 +3904,7 @@ executable(
+         link_with : [libshared],
+         dependencies : userspace,
+         install_rpath : rootpkglibdir,
+-        install : true,
++        install : false,
+         install_dir : rootlibexecdir)
+ 
+ systemd_id128 = executable(
+@@ -3929,7 +3915,7 @@ systemd_id128 = executable(
+         dependencies : [userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true)
++        install : false)
+ public_programs += systemd_id128
+ 
+ if want_tests != 'false'
+@@ -3948,7 +3934,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
+         install_rpath : rootpkglibdir,
+-        install : true)
++        install : false)
+ 
+ public_programs += executable(
+         'systemd-ask-password',
+@@ -3958,7 +3944,7 @@ public_programs += executable(
+         dependencies : [userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
@@ -860,80 +1017,44 @@ index 739b2f7..ec9dd35 100644
          install_dir : rootbindir)
  
  executable(
-@@ -3567,7 +3553,7 @@ executable(
-         include_directories : includes,
+@@ -3968,7 +3954,7 @@ executable(
          link_with : [libshared],
-         install_rpath : rootpkglibdir,
--        install : true,
-+        install : false,
-         install_dir : rootlibexecdir)
- 
- systemd_id128 = executable(
-@@ -3577,7 +3563,7 @@ systemd_id128 = executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
-         install_rpath : rootpkglibdir,
--        install : true)
-+        install : false)
- public_programs += systemd_id128
- 
- if want_tests != 'false'
-@@ -3595,7 +3581,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
-         install_rpath : rootpkglibdir,
--        install : true)
-+        install : false)
- 
- public_programs += executable(
-         'systemd-ask-password',
-@@ -3604,7 +3590,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
-         install_rpath : rootpkglibdir,
--        install : true,
-+        install : false,
-         install_dir : rootbindir)
- 
- executable(
-@@ -3613,7 +3599,7 @@ executable(
-         include_directories : includes,
-         link_with : [libshared],
+         dependencies : userspace,
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootlibexecdir)
  
  public_programs += executable(
-@@ -3623,7 +3609,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -3979,7 +3965,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootbindir)
  
  public_programs += executable(
-@@ -3633,7 +3619,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -3990,7 +3976,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
 +        install : false)
  
  public_programs += executable(
          'systemd-cgtop',
-@@ -3642,7 +3628,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -4000,7 +3986,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
 +        install : false)
  
  executable(
          'systemd-initctl',
-@@ -3661,7 +3647,7 @@ public_programs += executable(
-         dependencies: [libmount,
+@@ -4021,7 +4007,7 @@ public_programs += executable(
+                        userspace,
                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
@@ -941,17 +1062,17 @@ index 739b2f7..ec9dd35 100644
  
  meson.add_install_script(meson_make_symlink,
                           'systemd-mount', bindir / 'systemd-umount')
-@@ -3673,7 +3659,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -4034,7 +4020,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
 +        install : false)
  
  public_programs += executable(
          'systemd-stdio-bridge',
-@@ -3683,7 +3669,7 @@ public_programs += executable(
-         dependencies : [versiondep,
+@@ -4044,7 +4030,7 @@ public_programs += executable(
+         dependencies : [userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
@@ -959,16 +1080,25 @@ index 739b2f7..ec9dd35 100644
  
  public_programs += executable(
          'busctl',
-@@ -3692,7 +3678,7 @@ public_programs += executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -4054,7 +4040,7 @@ public_programs += executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
 +        install : false)
  
  if enable_sysusers
          exe = executable(
-@@ -3784,7 +3770,7 @@ endif
+@@ -4112,7 +4098,7 @@ if conf.get('ENABLE_TMPFILES') == 1
+                                 userspace,
+                                 versiondep],
+                 install_rpath : rootpkglibdir,
+-                install : true,
++                install : false,
+                 install_dir : rootbindir)
+         public_programs += exe
+ 
+@@ -4152,7 +4138,7 @@ endif
  
  if conf.get('ENABLE_HWDB') == 1
          systemd_hwdb = executable(
@@ -977,8 +1107,8 @@ index 739b2f7..ec9dd35 100644
                  'src/hwdb/hwdb.c',
                  include_directories : includes,
                  link_with : udev_link_with,
-@@ -3822,7 +3808,7 @@ public_programs += executable(
-         dependencies : [threads,
+@@ -4193,7 +4179,7 @@ public_programs += executable(
+                         userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
@@ -986,44 +1116,26 @@ index 739b2f7..ec9dd35 100644
          install_dir : rootlibexecdir)
  
  udevadm = executable(
-@@ -3889,7 +3875,7 @@ executable(
-         dependencies : [libmount,
+@@ -4272,7 +4258,7 @@ executable(
+                         userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootlibexecdir)
  
- if have_standalone_binaries
-@@ -3904,7 +3890,7 @@ if have_standalone_binaries
-                 dependencies : [libmount,
-                                 versiondep],
-                 install_rpath : rootpkglibdir,
--                install : true,
-+                install : false,
-                 install_dir : rootlibexecdir)
- endif
- 
-@@ -3915,7 +3901,7 @@ executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+ executable(
+@@ -4299,7 +4285,7 @@ executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootlibexecdir)
  
  executable(
-@@ -3938,7 +3924,7 @@ if conf.get('HAVE_KMOD') == 1
-                 dependencies : [libkmod,
-                                 versiondep],
-                 install_rpath : rootpkglibdir,
--                install : true,
-+                install : false,
-                 install_dir : rootlibexecdir)
- 
-         meson.add_install_script('sh', '-c',
-@@ -3959,7 +3945,7 @@ public_programs += executable(
-                         libseccomp,
+@@ -4346,7 +4332,7 @@ public_programs += executable(
+                         userspace,
                          versiondep],
          install_rpath : rootpkglibdir,
 -        install : true)
@@ -1031,25 +1143,25 @@ index 739b2f7..ec9dd35 100644
  
  if conf.get('ENABLE_NETWORKD') == 1
          dbus_programs += executable(
-@@ -4004,7 +3990,7 @@ exe = executable(
-         link_with : [networkd_link_with],
-         dependencies : [versiondep],
+@@ -4395,7 +4381,7 @@ exe = executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootlibexecdir)
  
  if want_tests != 'false'
-@@ -4022,7 +4008,7 @@ executable(
-         link_with : [libshared],
-         dependencies : [versiondep],
+@@ -4414,7 +4400,7 @@ executable(
+         dependencies : [userspace,
+                         versiondep],
          install_rpath : rootpkglibdir,
 -        install : true,
 +        install : false,
          install_dir : rootlibexecdir)
  
- exe = custom_target(
-@@ -4245,24 +4231,16 @@ subdir('docs/sysvinit')
+ kernel_install = executable(
+@@ -4675,24 +4661,14 @@ subdir('docs/sysvinit')
  subdir('docs/var-log')
  subdir('hwdb.d')
  subdir('man')
@@ -1065,8 +1177,8 @@ index 739b2f7..ec9dd35 100644
  
 -install_subdir('factory/etc',
 -               install_dir : factorydir)
- subdir('factory/templates')
- 
+-subdir('factory/templates')
+-
 -if install_sysconfdir
 -        install_data('xorg/50-systemd-user.sh',
 -                     install_dir : xinitrcdir)
@@ -1074,7 +1186,7 @@ index 739b2f7..ec9dd35 100644
  install_data('LICENSE.GPL2',
               'LICENSE.LGPL2.1',
               'NEWS',
-@@ -4419,7 +4397,6 @@ run_target(
+@@ -4857,7 +4835,6 @@ run_target(
          depends : [man, libsystemd, libudev],
          command : [check_api_docs_sh, libsystemd.full_path(), libudev.full_path()])
  
@@ -1082,7 +1194,7 @@ index 739b2f7..ec9dd35 100644
  alias_target('update-man-rules', update_man_rules)
  
  if not meson.is_cross_build()
-@@ -4433,9 +4410,6 @@ endif
+@@ -4871,9 +4848,6 @@ endif
  
  ############################################################
  
@@ -1092,7 +1204,7 @@ index 739b2f7..ec9dd35 100644
  summary({
          'split /usr' :                      split_usr,
          'split bin-sbin' :                  split_bin,
-@@ -4491,8 +4465,7 @@ summary({
+@@ -4929,8 +4903,7 @@ summary({
          'default status unit format' :      status_unit_format_default,
          'default user $PATH' :
                  default_user_path != '' ? default_user_path : '(same as system services)',
@@ -1250,6 +1362,15 @@ index 981b46f..f2886ea 100644
 +                install : false,
                  install_dir : dir)
  endforeach
+ 
+@@ -164,7 +164,7 @@ systemd_pc = custom_target(
+         input : 'systemd.pc.in',
+         output : 'systemd.pc',
+         command : [jinja2_cmdline, '@INPUT@', '@OUTPUT@'],
+-        install : pkgconfigdatadir != 'no',
++        install : false,
+         install_tag : 'devel',
+         install_dir : pkgconfigdatadir)
  
 diff --git a/src/hwdb/hwdb.c b/src/hwdb/hwdb.c
 index edc5dfc..7d6c6b0 100644

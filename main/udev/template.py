@@ -1,6 +1,6 @@
 pkgname = "udev"
-pkgver = "253"
-pkgrel = 1
+pkgver = "254"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dadm-group=false",
@@ -27,7 +27,6 @@ configure_args = [
     "-Dima=false",
     "-Dinitrd=false",
     "-Dfirstboot=false",
-    "-Dgnu-efi=false",
     "-Dkernel-install=false",
     "-Dldconfig=false",
     "-Dlibcryptsetup=false",
@@ -122,7 +121,7 @@ url = "https://github.com/systemd/systemd"
 source = (
     f"https://github.com/systemd/systemd/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "acbd86d42ebc2b443722cb469ad215a140f504689c7a9133ecf91b235275a491"
+sha256 = "244da7605800a358915e4b45d079b0b89364be35da4bc8d849821e67bac0ce62"
 options = ["!splitudev"]
 
 
@@ -150,9 +149,6 @@ def post_install(self):
         "usr/share/doc",
     ]:
         self.rm(ddir / f, recursive=True)
-
-    # remove tmpfiles that links to libsystemd
-    self.rm(self.destdir / "usr/bin/systemd-tmpfiles")
 
     # move standalone in its place
     self.mv(

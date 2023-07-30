@@ -377,9 +377,9 @@ index 9947947..8dc6f93 100644
 --- a/src/libsystemd/sd-journal/sd-journal.c
 +++ b/src/libsystemd/sd-journal/sd-journal.c
 @@ -41,6 +41,7 @@
- #include "string-util.h"
  #include "strv.h"
  #include "syslog-util.h"
+ #include "uid-alloc-range.h"
 +#include "missing_stdlib.h"
  
  #define JOURNAL_FILES_RECHECK_USEC (2 * USEC_PER_SEC)
