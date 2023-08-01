@@ -1,16 +1,16 @@
-commit 76e7d81ba1c1beb98e43a376e6dcb2839e22d254
+commit 5ca768a5da280bc7af79c573a6e07015ae4608a5
 Author: q66 <q66@chimera-linux.org>
-Date:   Sat Mar 4 23:47:13 2023 +0000
+Date:   Wed Aug 2 00:05:16 2023 +0200
 
     remove hardening flags that are a part of our toolchain
     
     This is so we can control it better.
 
 diff --git a/build/moz.configure/toolchain.configure b/build/moz.configure/toolchain.configure
-index 826ae54..1a7a054 100755
+index 6a9933f..ac1d159 100644
 --- a/build/moz.configure/toolchain.configure
 +++ b/build/moz.configure/toolchain.configure
-@@ -2156,32 +2156,6 @@ def security_hardening_cflags(
+@@ -2395,29 +2395,6 @@ def security_hardening_cflags(
      # ----------------------------------------------------------
      # If hardening is explicitly enabled, or not explicitly disabled
      if hardening_flag.origin == "default" or hardening_flag:
@@ -20,9 +20,6 @@ index 826ae54..1a7a054 100755
 -        if compiler_is_gccish and optimize and not asan:
 -            flags.append("-U_FORTIFY_SOURCE")
 -            flags.append("-D_FORTIFY_SOURCE=2")
--            if mingw_clang:
--                # mingw-clang needs to link in ssp which is not done by default
--                ldflags.append("-lssp")
 -
 -        # fstack-protector ------------------------------------
 -        # Enable only if hardening is not disabled and ASAN is

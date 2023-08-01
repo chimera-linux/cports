@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "115.0.2"
+pkgver = "116.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -59,9 +59,8 @@ pkgdesc = "Mozilla Firefox web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
-# TODO: ppc64le JIT
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "6b2844124c13b4bd9d97ac7f5840f3e957b7631659591f3bea1ac9a89bee1654"
+sha256 = "215d076945bf744327a252f498227ab68e9ba4e3b703e058683d9e4ab92cba76"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
