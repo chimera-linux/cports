@@ -1,0 +1,7 @@
+# fnott user service
+
+type               = process
+command            = /usr/bin/fnott --print-pid=4
+depends-on         = dbus
+restart            = true
+ready-notification = pipefd:4
