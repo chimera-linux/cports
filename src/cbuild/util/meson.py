@@ -101,6 +101,7 @@ def configure(pkg, meson_dir=None, build_dir=None, extra_args=[], env={}):
         "--auto-features=auto",
         "--wrap-mode=nodownload",
         "-Ddefault_library=both",
+        "-Dwerror=false",
         "-Db_ndebug=true",
         "-Db_staticpic=true",
         *cargs,
