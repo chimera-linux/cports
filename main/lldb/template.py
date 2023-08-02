@@ -1,6 +1,6 @@
 pkgname = "lldb"
 pkgver = "16.0.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -31,7 +31,6 @@ makedepends = [
     "python-devel",
     "linux-headers",
 ]
-depends = ["python-six"]
 pkgdesc = "LLVM debugger"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
