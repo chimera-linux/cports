@@ -1,6 +1,6 @@
 _trip = "riscv64-unknown-elf"
 pkgname = f"gcc-{_trip}"
-pkgver = "12.3.0"
+pkgver = "13.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -61,7 +61,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gcc.gnu.org"
 source = f"$(GNU_SITE)/gcc/gcc-{pkgver}/gcc-{pkgver}.tar.xz"
-sha256 = "949a5d4f99e786421a93b532b22ffab5578de7321369975b91aec97adfda8c3b"
+sha256 = "e275e76442a6067341a27f04c5c6b83d8613144004c0413528863dc6b5c743da"
 env = {
     "CFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
     "CXXFLAGS_FOR_TARGET": "-g -Os -ffunction-sections -fdata-sections",
