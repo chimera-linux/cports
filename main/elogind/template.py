@@ -1,6 +1,6 @@
 pkgname = "elogind"
 pkgver = "252.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dman=true",
