@@ -25,9 +25,7 @@ sha256 = "b430435a6e8487888b761dc848b7981626eb814884963ffe25eb26a139301e9a"
 
 
 def init_configure(self):
-    from cbuild.core import paths
-
-    for f in (paths.bldroot() / "usr/include").glob("mdds-*"):
+    for f in (self.bldroot_path / "usr/include").glob("mdds-*"):
         self.configure_args += ["--with-mdds=" + f.name.removeprefix("mdds-")]
 
 

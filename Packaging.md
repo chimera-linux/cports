@@ -451,9 +451,24 @@ the `builddir` and is created automatically.
   also overlaps with the `extract` stage as the function is supposed to
   prepare the `builddir` like `extract` would.
 
-* `extract` All defined sources are extracted. The builtin behavior
-  runs inside of the sandbox, except when bootstrapping. It populates
-  the `self.wrksrc`.
+* `extract` All defined sources (which are not marked as skipped) are extracted.
+  The builtin behavior runs inside of the sandbox, except when bootstrapping.
+  It populates the `self.wrksrc`. The `self.wrksrc` is not implied by sources.
+  Instead, it is created automatically, and all sources are extracted in it.
+  When the extraction would result in a single directory being present inside
+  `self.wrksrc`, which is often the case (as the common scenario is having a
+  single source tarball and most tarballs don't have their files directly in
+  the root), the contents of the directory are moved into `self.wrksrc` and
+  the leftover empty directory is removed. When `source_paths` is used and
+  a source has a path that is not an empty string or `.`, it is extracted
+  separately and is only moved into place after the moving logic is applied,
+  while having the moving logic applied to itself as well. This simplifies
+  various scenarios; for instance, one can have one tarball extract as if there
+  was only one source (i.e. its contents become `self.wrksrc`, including moving
+  the contents if it contains a single directory) while having another tarball's
+  contents become a subdirectory in the primary extracted tree, regardless of
+  whether the secondary tarball has its files directly in root or whether it
+  contains a directory.
 
 * `prepare` The source tree is prepared for use. This does not do anything
   by default for most templates. Its primary use is e.g. with the `cargo`
@@ -493,10 +508,7 @@ the `builddir` and is created automatically.
 
 When building packages with `cbuild`, you can invoke only the specific
 phase (from `fetch` to `pkg`). All phases leading up to the specified
-phase are run first, unless already ran.
-
-<a id="naming"></a>
-## Package Naming
+phase are run first, unless already ran.Package Naming
 
 All packages should only use lowercase characters that are in the ASCII,
 never mixed case, regardless of what the software is called.
@@ -838,18 +850,22 @@ Keep in mind that default values may be overridden by build styles.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum
   as a string) specified as digest strings corresponding to each field in
   `source`. Used for verification.
-* `source` *(list or str or tuple)* A list of URLs to download and extract
-  (by default). The items can be either strings (in which case the filename
-  is inferred from the URL itself), 2-tuples or 3-tuples. In case of a single
-  source, the variable itself can be a string or tuple as if it was the item.
-  When a source is a tuple, it can have the filename explicitly specified as
-  the second field, with the first field being the URL. The third field (or
-  second field, in which case the filename is inferred from the URL) can be
-  a boolean. If this is `False`, the source file will not be extracted (using
-  `True` will result in the default behavior). Otherwise, the files will be
-  extracted into `self.wrksrc` in a way so that if extraction yields just a
-  single regular directory, the contents of that will go in the `self.wrksrc`,
-  otherwise the extracted files/directories are moved into the directory.
+* `source` *(list or str)* A list of URLs to download and extract (by default).
+  If there is only one source, this can be one string, which is equivalent to
+  having a list with the string. Prefixing the string with `!` will prevent
+  the extraction of the source. The rest of the string must be a URL. The
+  resulting filename will normally be extracted from the URL by finding the
+  last forward slash (The filename follows the slash). If `>` is present in
+  the string later than a `/`, the filename instead follows the `>` and
+  the `>` with the filename is stripped from the URL before download. This
+  can be useful in cases where the URL does not have an obvious filename,
+  or when the filename is ambiguous.
+* `source_paths` *(list)* This must be a list that has as many entries as
+  there are sources. Each item is a string specifying a path within the
+  `wrksrc` that the source's extracted result will have. Specifying an empty
+  string or `.` implies default behavior. Effectively all sources that have
+  a path that is not the default will be extracted separately and then moved
+  into place.
 * `suid_files` *(list)* A list of glob patterns (strings). The system will
   reject any `setuid` and `setgid` files that do not match at least one
   pattern in this list.
@@ -2549,6 +2565,10 @@ contains patches that are applied in the `patch` phase.
 ##### self.sources_path
 
 The aboslute path to where the source files for the template are stored.
+
+##### self.bldroot_path
+
+The absolute path to the `bldroot`.
 
 ##### self.builddir
 

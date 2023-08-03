@@ -38,9 +38,7 @@ def init_configure(self):
     if self.stage > 0:
         return
 
-    from cbuild.core import paths
-
-    spath = str(paths.bldroot() / "usr/lib")
+    spath = str(self.bldroot_path / "usr/lib")
 
     # since meson translates all `-lfoo` into absolute paths to libraries,
     # and pkg-config's libdir is set to /usr/lib in this case, fool it

@@ -123,10 +123,12 @@ class UpdateCheck:
         urls = []
         # collect urls
         for s in self.template.source:
-            if isinstance(s, str):
-                urls.append(s)
-            else:
-                urls.append(s[0])
+            if s.startswith("!"):
+                s = s[1:]
+            bkt = s.rfind(">")
+            bsl = s.rfind("/")
+            if bkt > bsl:
+                s = s[0:bkt]
 
         for u in urls:
             if "ftp.gnome.org" in u:

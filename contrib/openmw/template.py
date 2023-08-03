@@ -30,14 +30,8 @@ _recast_hash = "e75adf86f91eb3082220085e42dda62679f9a3ea"
 _bullet_hash = "3.17"
 source = [
     f"https://gitlab.com/OpenMW/{pkgname}/-/archive/{pkgname}-{pkgver}/{pkgname}-{pkgname}-{pkgver}.tar.gz",
-    (
-        f"https://github.com/recastnavigation/recastnavigation/archive/{_recast_hash}.zip",
-        False,
-    ),
-    (
-        f"https://github.com/bulletphysics/bullet3/archive/refs/tags/{_bullet_hash}.tar.gz",
-        False,
-    ),
+    f"!https://github.com/recastnavigation/recastnavigation/archive/{_recast_hash}.zip",
+    f"!https://github.com/bulletphysics/bullet3/archive/refs/tags/{_bullet_hash}.tar.gz",
 ]
 sha256 = [
     "bd7f77e1527c2180e9b0dfcbe401d6fb48f24dbb37701dac7747697873d6edb4",
@@ -52,10 +46,8 @@ if self.profile().endian == "big":
 
 
 def post_extract(self):
-    from cbuild.core import paths
-
-    self.cp(paths.sources() / f"{pkgname}-{pkgver}/{_recast_hash}.zip", ".")
-    self.cp(paths.sources() / f"{pkgname}-{pkgver}/{_bullet_hash}.tar.gz", ".")
+    self.cp(self.sources_path / f"{_recast_hash}.zip", ".")
+    self.cp(self.sources_path / f"{_bullet_hash}.tar.gz", ".")
 
 
 @subpackage("esmtool")

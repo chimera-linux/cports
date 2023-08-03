@@ -157,57 +157,42 @@ url = "https://www.libreoffice.org"
 options = ["!cross", "!check"]
 
 _surl = f"https://download.documentfoundation.org/libreoffice/src/{pkgver[:-2]}"
-_aurl = "https://dev-www.libreoffice.org/src"
-_eurl = "https://dev-www.libreoffice.org/extern"
+_aurl = "!https://dev-www.libreoffice.org/src"
+_eurl = "!https://dev-www.libreoffice.org/extern"
 
 source = [
-    (f"{_surl}/{pkgname}-{pkgver}.tar.xz", True),
-    (f"{_surl}/{pkgname}-dictionaries-{pkgver}.tar.xz", True),
-    (f"{_surl}/{pkgname}-help-{pkgver}.tar.xz", True),
-    (f"{_surl}/{pkgname}-translations-{pkgver}.tar.xz", True),
-    (f"{_aurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip", False),
-    (f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip", False),
-    (f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip", False),
-    (f"{_aurl}/language-subtag-registry-2023-05-11.tar.bz2", False),
-    (f"{_aurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip", False),
-    (f"{_aurl}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip", False),
-    (f"{_aurl}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip", False),
-    (f"{_aurl}/box2d-2.4.1.tar.gz", False),
-    (f"{_aurl}/libcmis-0.5.2.tar.xz", False),
-    (f"{_aurl}/libstaroffice-0.0.7.tar.xz", False),
-    (f"{_aurl}/libzmf-0.0.2.tar.xz", False),
-    (f"{_aurl}/pdfium-5778.tar.bz2", False),
-    (
-        f"{_eurl}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar",
-        False,
-    ),
-    (
-        f"{_eurl}/odfvalidator-0.9.0-RC2-SNAPSHOT-jar-with-dependencies-2726ab578664434a545f8379a01a9faffac0ae73.jar",
-        False,
-    ),
-    (f"{_aurl}/dtoa-20180411.tgz", False),
-    (f"{_aurl}/beeca87be45ec87d241ddd0e1bad80c1-bsh-2.0b6-src.zip", False),
-    (f"{_aurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip", False),
-    (f"{_aurl}/b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt", False),
-    (f"{_aurl}/eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip", False),
-    (f"{_aurl}/3bdf40c0d199af31923e900d082ca2dd-libfonts-1.1.6.zip", False),
-    (f"{_aurl}/3404ab6b1792ae5f16bbd603bd1e1d03-libformula-1.1.7.zip", False),
-    (f"{_aurl}/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip", False),
-    (f"{_aurl}/97b2d4dba862397f446b217e2b623e71-libloader-1.1.6.zip", False),
-    (
-        f"{_aurl}/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip",
-        False,
-    ),
-    (
-        f"{_aurl}/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip",
-        False,
-    ),
-    (f"{_aurl}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip", False),
-    (
-        f"{_aurl}/skia-m103-b301ff025004c9cd82816c86c547588e6c24b466.tar.xz",
-        False,
-    ),
-    (f"{_aurl}/dragonbox-1.1.3.tar.gz", False),
+    f"{_surl}/{pkgname}-{pkgver}.tar.xz",
+    f"{_surl}/{pkgname}-dictionaries-{pkgver}.tar.xz",
+    f"{_surl}/{pkgname}-help-{pkgver}.tar.xz",
+    f"{_surl}/{pkgname}-translations-{pkgver}.tar.xz",
+    f"{_aurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip",
+    f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip",
+    f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip",
+    f"{_aurl}/language-subtag-registry-2023-05-11.tar.bz2",
+    f"{_aurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip",
+    f"{_aurl}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip",
+    f"{_aurl}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip",
+    f"{_aurl}/box2d-2.4.1.tar.gz",
+    f"{_aurl}/libcmis-0.5.2.tar.xz",
+    f"{_aurl}/libstaroffice-0.0.7.tar.xz",
+    f"{_aurl}/libzmf-0.0.2.tar.xz",
+    f"{_aurl}/pdfium-5778.tar.bz2",
+    f"{_eurl}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar",
+    f"{_eurl}/odfvalidator-0.9.0-RC2-SNAPSHOT-jar-with-dependencies-2726ab578664434a545f8379a01a9faffac0ae73.jar",
+    f"{_aurl}/dtoa-20180411.tgz",
+    f"{_aurl}/beeca87be45ec87d241ddd0e1bad80c1-bsh-2.0b6-src.zip",
+    f"{_aurl}/35c94d2df8893241173de1d16b6034c0-swingExSrc.zip",
+    f"{_aurl}/b7cae45ad2c23551fd6ccb8ae2c1f59e-numbertext_0.9.5.oxt",
+    f"{_aurl}/eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip",
+    f"{_aurl}/3bdf40c0d199af31923e900d082ca2dd-libfonts-1.1.6.zip",
+    f"{_aurl}/3404ab6b1792ae5f16bbd603bd1e1d03-libformula-1.1.7.zip",
+    f"{_aurl}/db60e4fde8dd6d6807523deb71ee34dc-liblayout-0.2.10.zip",
+    f"{_aurl}/97b2d4dba862397f446b217e2b623e71-libloader-1.1.6.zip",
+    f"{_aurl}/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip",
+    f"{_aurl}/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip",
+    f"{_aurl}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip",
+    f"{_aurl}/skia-m103-b301ff025004c9cd82816c86c547588e6c24b466.tar.xz",
+    f"{_aurl}/dragonbox-1.1.3.tar.gz",
 ]
 sha256 = [
     "6628dfd2a21041a7c5bb6d72733e0fd52efa7959c95084fcd4d96cc4a61b0561",
@@ -253,13 +238,11 @@ _langs = []
 
 
 def post_extract(self):
-    from cbuild.core import paths
-
-    srcp = paths.sources() / f"{pkgname}-{pkgver}"
-
     # copy the files over
-    for s, ext in source[1:]:
-        self.cp(srcp / s[s.rfind("/") + 1 :], self.cwd)
+    for s in source[1:]:
+        if s.startswith("!"):
+            s = s[1:]
+        self.cp(self.sources_path / s[s.rfind("/") + 1 :], self.cwd)
 
     # copy over patches
     self.cp(self.files_path / "skia-no-execinfo.patch.1", "external/skia")

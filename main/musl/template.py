@@ -16,6 +16,7 @@ source = [
     f"http://www.musl-libc.org/releases/{pkgname}-{pkgver}.tar.gz",
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz",
 ]
+source_paths = [".", "compiler-rt"]
 sha256 = [
     "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039",
     "7911a2a9cca10393a17f637c01a6f5555b0a38f64ff47dc9168413a4190bc2db",
@@ -50,13 +51,10 @@ if self.stage > 0:
 
 
 def post_extract(self):
-    # move musl where it should be
-    for f in (self.cwd / f"{pkgname}-{pkgver}").iterdir():
-        self.mv(f, ".")
     # prepare scudo subdir
     self.mkdir("src/malloc/scudo/scudo", parents=True)
     # move compiler-rt stuff in there
-    scpath = self.cwd / f"compiler-rt-{_scudo_ver}.src/lib/scudo/standalone"
+    scpath = self.cwd / "compiler-rt/lib/scudo/standalone"
     for f in scpath.glob("*.cpp"):
         self.cp(f, "src/malloc/scudo")
     for f in scpath.glob("*.h"):

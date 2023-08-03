@@ -6,10 +6,7 @@ pkgdesc = "Osinfo database of information about operating systems"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://libosinfo.org"
-source = (
-    f"https://releases.pagure.org/libosinfo/{pkgname}-{pkgver}.tar.xz",
-    False,
-)
+source = f"!https://releases.pagure.org/libosinfo/{pkgname}-{pkgver}.tar.xz"
 sha256 = "13d1c97fc7d67137935dcc97778c08bb079a4f0fe312d479786cea1411e4845a"
 options = ["!cross"]
 

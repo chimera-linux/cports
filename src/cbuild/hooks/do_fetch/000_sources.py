@@ -45,14 +45,17 @@ def link_cksum(dfile, cksum, pkg):
         pkg.log(f"using known source '{dfile.name}'")
 
 
-def get_nameurl(d):
-    if isinstance(d, tuple):
-        if not isinstance(d[1], bool):
-            return d[0], d[1]
-        else:
-            return d[0], d[0][d[0].rfind("/") + 1 :]
-
-    return d, d[d.rfind("/") + 1 :]
+def get_nameurl(pkg, d):
+    if d.startswith("!"):
+        d = d[1:]
+    bkt = d.rfind(">")
+    bsl = d.rfind("/")
+    if bkt < 0 and bsl < 0:
+        pkg.error(f"source '{d}' has an invalid format")
+    if bkt > bsl:
+        return d[0:bkt], d[bkt + 1 :]
+    else:
+        return d, d[bsl + 1 :]
 
 
 def invoke(pkg):
@@ -76,7 +79,7 @@ def invoke(pkg):
 
     for dc in zip(pkg.source, pkg.sha256):
         d, ck = dc
-        url, fname = get_nameurl(d)
+        url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
         if dfile.is_file():
             filesum = get_cksum(dfile, pkg)
@@ -92,7 +95,7 @@ def invoke(pkg):
 
     for dc in zip(pkg.source, pkg.sha256):
         d, ck = dc
-        url, fname = get_nameurl(d)
+        url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
         if not dfile.is_file():
             link_cksum(dfile, ck, pkg)

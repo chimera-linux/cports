@@ -369,7 +369,8 @@ core_fields = [
     ("build_style", None, str, False, False, False),
     # sources
     ("sha256", [], (list, str), False, False, False),
-    ("source", [], (list, str, tuple), False, False, False),
+    ("source", [], (list, str), False, False, False),
+    ("source_paths", None, list, False, False, False),
     # target support
     ("archs", None, list, False, False, False),
     # build directory and patches
@@ -497,6 +498,7 @@ core_fields_priority = [
     ("license", True),
     ("url", True),
     ("source", True),
+    ("source_paths", True),
     ("sha256", True),
     ("debug_level", True),
     ("patch_args", True),
@@ -1951,6 +1953,7 @@ def from_module(m, ret):
     ret.files_path = ret.template_path / "files"
     ret.patches_path = ret.template_path / "patches"
     ret.sources_path = paths.sources() / f"{ret.pkgname}-{ret.pkgver}"
+    ret.bldroot_path = paths.bldroot()
     ret.builddir = paths.builddir() / "builddir"
     ret.statedir = ret.builddir / (".cbuild-" + ret.pkgname)
     ret.wrapperdir = ret.statedir / "wrappers"
@@ -2104,13 +2107,7 @@ def from_module(m, ret):
 
     # expand source
     for i in range(len(ret.source)):
-        if isinstance(ret.source[i], tuple):
-            ret.source[i] = (
-                _interp_url(ret, ret.source[i][0]),
-                *ret.source[i][1:],
-            )
-        else:
-            ret.source[i] = _interp_url(ret, ret.source[i])
+        ret.source[i] = _interp_url(ret, ret.source[i])
 
     return ret
 

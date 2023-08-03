@@ -41,17 +41,13 @@ def do_extract(self):
 
 
 def do_install(self):
-    from cbuild.core import paths
-
     vers = ["4.2", "4.3", "4.4", "4.5"]
 
     for v in vers:
         tdir = f"usr/share/xml/docbook/{v}"
         fname = f"{pkgname}-{v}.zip"
         self.install_dir(tdir)
-        self.cp(
-            paths.sources() / f"{pkgname}-{pkgver}/{fname}", self.destdir / tdir
-        )
+        self.cp(self.sources_path / fname, self.destdir / tdir)
         self.do(
             "tar",
             "xf",

@@ -1,4 +1,5 @@
 from cbuild.core import chroot, paths
+from contextlib import contextmanager
 from fnmatch import fnmatch
 import pathlib
 import tempfile
@@ -110,6 +111,31 @@ def extract_txt(pkg, fname, dfile, edir, sfx):
     )
 
 
+def rename_edir(extractdir, wpath):
+    it = extractdir.iterdir()
+    entry = None
+    sentry = None
+    try:
+        # try to get two entries from the directory
+        entry = next(it)
+        sentry = next(it)
+    except StopIteration:
+        pass
+    # no contents
+    if not entry:
+        return
+    # in case wrksrc was declared to be multilevel
+    wpath.parent.mkdir(mode=0o755, parents=True, exist_ok=True)
+    # if the extracted contents are a single real directory, use
+    # it as the target (rename appropriately); otherwise use a fresh
+    # target and move all the extracted stuff in there
+    if sentry or not entry.is_dir() or entry.is_symlink():
+        # simply rename
+        extractdir.rename(wpath)
+    else:
+        entry.rename(wpath)
+
+
 def invoke(pkg):
     wpath = pkg.builddir / pkg.wrksrc
     # ensure that we start clean
@@ -118,29 +144,51 @@ def invoke(pkg):
             wpath.rmdir()
         except Exception:
             pkg.error("cannot populate wrksrc (it exists and is dirty)")
+    edirs = None
+
+    @contextmanager
+    def close_edirs():
+        try:
+            yield
+        finally:
+            for sp, tmpd, tmpp in edirs:
+                if not tmpd:
+                    continue
+                try:
+                    rename_edir(tmpp, wpath / sp)
+                finally:
+                    tmpd.cleanup()
+
     # now extract in a temporary place
-    with tempfile.TemporaryDirectory(dir=pkg.builddir) as extractdir:
+    with tempfile.TemporaryDirectory(
+        dir=pkg.builddir
+    ) as extractdir, close_edirs():
         # need to be able to manipulate it
         extractdir = pathlib.Path(extractdir)
+        if not pkg.source_paths:
+            edirs = [("", None, extractdir)] * len(pkg.source)
+        elif len(pkg.source_paths) != len(pkg.source):
+            pkg.error("source_paths must match sources")
+        else:
+            edirs = []
+            for sp in pkg.source_paths:
+                if not sp or sp == ".":
+                    edirs.append(("", None, extractdir))
+                    continue
+                tdir = tempfile.TemporaryDirectory(dir=pkg.builddir)
+                edirs.append((sp, tdir, pkg.builddir / tdir.name))
         # go over each source and ensure extraction in the dir
-        for d in pkg.source:
-            doext = None
-            # check if to skip extraction
-            if isinstance(d, tuple):
-                if len(d) > 2:
-                    doext = d[2]
-                elif isinstance(d[1], bool):
-                    doext = d[1]
-            # specifically False, skip
-            if doext is False:
+        for d, sp in zip(pkg.source, edirs):
+            if d.startswith("!"):
                 continue
-            # tuple-specified filename
-            if isinstance(d, tuple) and not isinstance(d[1], bool):
-                fname = d[1]
+            bkt = d.rfind(">")
+            bsl = d.rfind("/")
+            if bkt < 0 and bsl < 0:
+                pkg.error(f"source '{d}' has an invalid format")
+            if bkt > bsl:
+                fname = d[bkt + 1 :]
             else:
-                if isinstance(d, tuple) and isinstance(d[1], bool):
-                    d = d[0]
-                fname = d[d.rfind("/") + 1 :]
+                fname = d[bsl + 1 :]
             suffix = None
             for key in suffixes:
                 if fnmatch(fname, key):
@@ -175,33 +223,12 @@ def invoke(pkg):
                 pkg,
                 fname,
                 srcs_path / f"{pkg.pkgname}-{pkg.pkgver}/{fname}",
-                pkg.chroot_builddir / extractdir.name,
+                pkg.chroot_builddir / sp[2].name,
                 suffix,
             ):
                 pkg.error(f"extracting '{fname}' failed (missing program?)")
-        # try iterating it
-        it = extractdir.iterdir()
-        entry = None
-        sentry = None
-        try:
-            # try to get two entries from the directory
-            entry = next(it)
-            sentry = next(it)
-        except StopIteration:
-            pass
-        # no contents
-        if not entry:
-            return
-        # in case wrksrc was declared to be multilevel
-        wpath.parent.mkdir(parents=True, exist_ok=True)
-        # if the extracted contents are a single real directory, use
-        # it as wrksrc (rename appropriately); otherwise use a fresh
-        # wrksrc and move all the extracted stuff in there
-        if sentry or not entry.is_dir() or entry.is_symlink():
-            # simply rename
-            extractdir.rename(wpath)
-        else:
-            entry.rename(wpath)
+        # handle the tempdir
+        rename_edir(extractdir, wpath)
     # all done; re-create the wrksrc in case nothing was extracted
     if not wpath.exists():
         wpath.mkdir(parents=True)

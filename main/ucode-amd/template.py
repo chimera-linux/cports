@@ -12,12 +12,10 @@ options = ["!strip", "foreignelf", "!distlicense"]
 
 
 def do_build(self):
-    from cbuild.core import paths
-
     self.rm("kernel", recursive=True, force=True)
     self.mkdir("kernel/x86/microcode", parents=True)
     for f in sorted(
-        (paths.bldroot() / "usr/lib/firmware/amd-ucode").glob(
+        (self.bldroot_path / "usr/lib/firmware/amd-ucode").glob(
             "microcode_amd*.bin"
         )
     ):
