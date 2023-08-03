@@ -58,6 +58,8 @@ def do_install(self):
         "python3",
         "-m",
         "installer",
+        "--compile-bytecode",
+        "0",
         "--destdir",
         str(self.chroot_destdir),
         *self.make_install_args,
