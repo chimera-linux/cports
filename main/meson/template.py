@@ -1,9 +1,9 @@
 pkgname = "meson"
 pkgver = "1.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_module"
 hostmakedepends = ["python-devel", "python-setuptools"]
-depends = ["python", "ninja", "python-setuptools"]
+depends = ["python", "ninja"]
 pkgdesc = "Meson build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
