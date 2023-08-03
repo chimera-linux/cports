@@ -28,9 +28,19 @@ def verify_cksum(dfile, cksum, pkg):
     pkg.log(f"verifying sha256sums for source '{dfile.name}'... ", "")
     filesum = get_cksum(dfile, pkg)
     if cksum != filesum:
-        pkg.logger.out_plain("")
-        pkg.logger.out_red(f"SHA256 mismatch for '{dfile.name}':\n{filesum}")
-        return False
+        if pkg.accept_checksums:
+            pkg.logger.out_plain("")
+            pkg.logger.warn(f"SHA256 UPDATED: {cksum} -> {filesum}")
+            for i in range(len(pkg.sha256)):
+                if pkg.sha256[i] == cksum:
+                    pkg.sha256[i] = filesum
+            return True
+        else:
+            pkg.logger.out_plain("")
+            pkg.logger.out_red(
+                f"SHA256 mismatch for '{dfile.name}':\n{filesum}"
+            )
+            return False
     else:
         make_link(dfile, cksum)
         pkg.logger.out_plain("OK.")

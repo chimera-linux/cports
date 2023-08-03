@@ -16,6 +16,7 @@ def build(
     check_fail=False,
     no_update=False,
     update_check=False,
+    accept_checksums=False,
 ):
     if chost:
         depn = "host-" + pkg.pkgname
@@ -32,6 +33,7 @@ def build(
     pkg.install_done = False
     pkg.current_phase = "setup"
     pkg.update_check = update_check
+    pkg.accept_checksums = accept_checksums
 
     pkg.build_lint()
 

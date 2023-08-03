@@ -43,6 +43,7 @@ opt_statusfd = None
 opt_bulkcont = False
 opt_allowcat = "main contrib"
 opt_updatecheck = False
+opt_acceptsum = False
 
 #
 # INITIALIZATION ROUTINES
@@ -101,6 +102,7 @@ def handle_options():
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
+    global opt_acceptsum
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -262,6 +264,13 @@ def handle_options():
         default=opt_updatecheck,
         help="Perform a update-check before fetching sources.",
     )
+    parser.add_argument(
+        "--accept-checksums",
+        action="store_const",
+        const=True,
+        default=opt_acceptsum,
+        help="Accept mismatched checksums when fetching.",
+    )
     parser.add_argument("command", nargs="+", help="The command to issue.")
 
     cmdline = parser.parse_args()
@@ -395,6 +404,9 @@ def handle_options():
 
     if cmdline.update_check:
         opt_updatecheck = True
+
+    if cmdline.accept_checksums:
+        opt_acceptsum = True
 
     ncores = len(os.sched_getaffinity(0))
 
@@ -1500,6 +1512,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         keep_temp=opt_keeptemp,
         check_fail=opt_checkfail,
         update_check=opt_updatecheck,
+        accept_checksums=opt_acceptsum,
     )
     if tgt == "pkg" and (not opt_stage or bstage < 3):
         do_unstage(tgt, bstage < 3)
@@ -1728,6 +1741,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                         keep_temp=False,
                         check_fail=opt_checkfail,
                         update_check=opt_updatecheck,
+                        accept_checksums=opt_acceptsum,
                     )
                 ):
                     statusf.write(f"{pn} ok\n")
@@ -1915,6 +1929,71 @@ def do_bulkpkg(tgt, do_build=True, do_raw=False):
         raise
 
 
+def do_prepare_upgrade(tgt):
+    from cbuild.core import template, chroot, build
+    import pathlib
+
+    if len(cmdline.command) < 2:
+        raise errors.CbuildException("prepare-upgrade needs a package name")
+
+    pkgn = cmdline.command[1]
+
+    if not chroot.chroot_check():
+        raise errors.CbuildException("prepare-upgrade needs a bldroot")
+
+    tmpl = template.read_pkg(
+        pkgn,
+        opt_arch if opt_arch else chroot.host_cpu(),
+        True,
+        False,
+        (1, 1),
+        False,
+        False,
+        None,
+        target="fetch",
+    )
+    oldsha = list(tmpl.sha256)
+
+    chroot.prepare_arch(opt_arch, opt_dirty)
+    build.build(
+        "fetch",
+        tmpl,
+        {},
+        dirty=opt_dirty,
+        keep_temp=opt_keeptemp,
+        accept_checksums=True,
+    )
+    newsha = list(tmpl.sha256)
+
+    tmplp = f"{pkgn}/template.py"
+
+    tmpl_source = pathlib.Path(tmplp).read_text()
+    found_sha = False
+
+    with open(f"{pkgn}/template.py", "w") as outf:
+        for ln in tmpl_source.splitlines():
+            # update pkgrel
+            if ln.startswith("pkgrel ="):
+                outf.write("pkgrel = 0\n")
+                continue
+            # sha256 encountered
+            if ln.startswith("sha256 ="):
+                found_sha = True
+            elif not found_sha:
+                outf.write(ln)
+                outf.write("\n")
+                continue
+            # update checksums
+            for oldck, newck in zip(oldsha, newsha):
+                if oldck == newck:
+                    continue
+                ln = ln.replace(f'"{oldck}"', f'"{newck}"')
+            outf.write(ln)
+            outf.write("\n")
+
+    tmpl.log("PACKAGE METADATA UPDATED, now verify everything is correct.")
+
+
 #
 # MAIN ENTRYPOINT
 #
@@ -2042,6 +2121,8 @@ def fire():
                 do_bulkpkg(cmd, False)
             case "bulk-raw":
                 do_bulkpkg(cmd, True, True)
+            case "prepare-upgrade":
+                do_prepare_upgrade(cmd)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)

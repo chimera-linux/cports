@@ -129,6 +129,7 @@ class UpdateCheck:
             bsl = s.rfind("/")
             if bkt > bsl:
                 s = s[0:bkt]
+            urls.append(s)
 
         for u in urls:
             if "ftp.gnome.org" in u:
