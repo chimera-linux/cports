@@ -104,6 +104,7 @@ def configure(pkg, meson_dir=None, build_dir=None, extra_args=[], env={}):
         "-Dwerror=false",
         "-Db_ndebug=true",
         "-Db_staticpic=true",
+        "-Dpython.bytecompile=0",
         *cargs,
         *pkg.configure_args,
         *extra_args,
