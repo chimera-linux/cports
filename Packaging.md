@@ -442,14 +442,17 @@ the `builddir` and is created automatically.
 * `setup` The build system prepares the environment. This means creating
   the necessary files and directories for the syndbox and installing the
   build dependencies. When cross-compiling, the cross target environment
-  is prepared and target dependencies are installed in it.
+  is prepared and target dependencies are installed in it. When the template
+  defines a `do_fetch` function, this is run first, as the function may
+  depend on the sandbox being set up. Otherwise, it is run second.
 
 * `fetch` During `fetch`, required files are downloaded as defined by the
   `source` template variable by default (or the `do_fetch` function of
   the template in rare cases). The builtin download behavior runs outside
-  of the sandbox as pure Python code. When overridden with `do_fetch`, it
-  also overlaps with the `extract` stage as the function is supposed to
-  prepare the `builddir` like `extract` would.
+  of the sandbox as pure Python code, which is typically run before `setup`.
+  When overridden with `do_fetch`, it also overlaps with the `extract` stage
+  as the function is supposed to prepare the `builddir` like `extract` would,
+  and runs after `setup`.
 
 * `extract` All defined sources (which are not marked as skipped) are extracted.
   The builtin behavior runs inside of the sandbox, except when bootstrapping.

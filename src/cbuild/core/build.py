@@ -1,7 +1,7 @@
 from cbuild.step import fetch, extract, prepare, patch, configure
 from cbuild.step import build as buildm, check, install, prepkg, pkg as pkgsm
 from cbuild.core import chroot, logger, dependencies
-from cbuild.core import template, pkg as pkgm, paths, errors
+from cbuild.core import template, pkg as pkgm, errors
 from cbuild.util import flock
 from cbuild.apk import cli as apk
 
@@ -49,6 +49,23 @@ def build(
 
     pkg.setup_reproducible()
 
+    oldcwd = pkg.cwd
+    oldchd = pkg.chroot_cwd
+
+    pkg.cwd = pkg.builddir / pkg.wrksrc
+    pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
+
+    # ensure the wrksrc exists; it will be populated later
+    pkg.cwd.mkdir(exist_ok=True, parents=True)
+
+    if not hasattr(pkg, "do_fetch"):
+        pkg.current_phase = "fetch"
+        fetch.invoke(pkg)
+        pkg.current_phase = "setup"
+
+        if step == "fetch":
+            return
+
     if not dirty:
         # no_update is set when this is a build triggered by a missing dep;
         # in this case chroot.update() was already performed by its parent
@@ -68,30 +85,12 @@ def build(
         ):
             chroot.update(pkg)
 
-    oldcwd = pkg.cwd
-    oldchd = pkg.chroot_cwd
-
-    pkg.cwd = pkg.builddir / pkg.wrksrc
-    pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
-
-    # ensure the wrksrc exists; it will be populated later
-    pkg.cwd.mkdir(exist_ok=True, parents=True)
-
-    # run up to the step we need
-    pkg.current_phase = "fetch"
-
-    srclock = paths.sources() / "cbuild.lock"
-
-    # lock the whole sources dir for the operation
-    #
-    # while a per-template lock may seem enough,
-    # that would still race when sharing sources
-    # between templates (which regularly happens)
-    with flock.lock(srclock, pkg):
+    if hasattr(pkg, "do_fetch"):
+        pkg.current_phase = "fetch"
         fetch.invoke(pkg)
 
-    if step == "fetch":
-        return
+        if step == "fetch":
+            return
 
     pkg.current_phase = "extract"
     extract.invoke(pkg)
