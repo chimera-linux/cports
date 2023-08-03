@@ -508,7 +508,10 @@ the `builddir` and is created automatically.
 
 When building packages with `cbuild`, you can invoke only the specific
 phase (from `fetch` to `pkg`). All phases leading up to the specified
-phase are run first, unless already ran.Package Naming
+phase are run first, unless already ran.
+
+<a id="naming"></a>
+## Package Naming
 
 All packages should only use lowercase characters that are in the ASCII,
 never mixed case, regardless of what the software is called.
