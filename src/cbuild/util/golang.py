@@ -7,11 +7,10 @@ def get_go_env(pkg):
 
     # * GOBIN is not suitable for crossbuild:
     #   "go: cannot install cross-compiled binaries when GOBIN is set"
-    # * GOPATH must NOT contain a go.mod file, so cant' be '.'
+    # * GOPATH doesn't need to be set, it's only used for default cache path
     env = {
         "GOMODCACHE": "/cbuild_cache/golang/pkg/mod",
         "GOARCH": pkg.profile().goarch,
-        "GOPATH": f"{pkg.chroot_cwd}/{pkg.make_dir}",
     }
     return env
 
@@ -41,13 +40,6 @@ class Golang:
 
         if not gomod.is_file():
             self.template.error(f"golang: missing file {gomod}")
-
-        # need to recompute GOPATH with regular path (not chrooted),
-        # since do_prepare phase is not chrooted
-        mk_gomod = self.template.cwd / self.template.make_dir / "go.mod"
-
-        if mk_gomod.is_file():
-            self.template.error("golang: GOPATH must not contain a go.mod")
 
         renv = get_go_env(self.template)
         renv.update(self.template.env)
