@@ -57,7 +57,6 @@ def do_install(self):
         "python3",
         "setup.py",
         "install",
-        "--optimize=1",
         "--prefix=/usr",
         "--root=" + str(self.chroot_destdir),
         *self.make_install_args,
