@@ -5,13 +5,9 @@ def get_go_env(pkg):
     if not pkg.profile().goarch:
         pkg.error("unknown architecture for golang")
 
-    # * GOBIN is not suitable for crossbuild:
-    #   "go: cannot install cross-compiled binaries when GOBIN is set"
-    # * GOPATH must be set as that's where binaries are put
     env = {
         "GOMODCACHE": "/cbuild_cache/golang/pkg/mod",
         "GOARCH": pkg.profile().goarch,
-        "GOPATH": f"{pkg.chroot_cwd}/{pkg.make_dir}",
     }
     return env
 
@@ -32,7 +28,6 @@ class Golang:
         base_env={},
         env={},
         wrksrc=None,
-        prepare=False,
     ):
         if not command:
             self.template.error("golang: missing go command argument")
@@ -42,14 +37,6 @@ class Golang:
 
         if not gomod.is_file():
             self.template.error(f"golang: missing file {gomod}")
-
-        if not prepare:
-            # need to recompute GOPATH with regular path (not chrooted),
-            # since do_prepare phase is not chrooted
-            mk_gomod = self.template.cwd / self.template.make_dir / "go.mod"
-
-            if mk_gomod.is_file():
-                self.template.error("golang: GOPATH must not contain a go.mod")
 
         renv = get_go_env(self.template)
         renv.update(self.template.env)
@@ -95,9 +82,7 @@ class Golang:
             )
             return
 
-        return self._invoke(
-            "mod", ["download"], 1, False, None, env, wrksrc, True
-        )
+        return self._invoke("mod", ["download"], 1, False, None, env, wrksrc)
 
     def build(self, args=[], jobs=None, env={}, wrksrc=None):
         myargs = ["-x"]  # increase go verbosity
@@ -110,9 +95,11 @@ class Golang:
         if self.template.make_build_args:
             myargs += self.template.make_build_args
 
+        tmpl = self.template
+        myargs += ["-o", str(tmpl.chroot_cwd / tmpl.make_dir) + "/"]
         myargs += args
 
-        return self._invoke("install", myargs, jobs, True, None, env, wrksrc)
+        return self._invoke("build", myargs, jobs, True, None, env, wrksrc)
 
     def check(self):
         myargs = []
@@ -136,7 +123,7 @@ class Golang:
 
         # find either "native" files (bin/*)
         # or targeted arch file (bin/linux_<arch>/*)
-        for f in Path(self.template.cwd / f"{self.template.make_dir}/bin").glob(
+        for f in Path(self.template.cwd / self.template.make_dir).glob(
             "**/*"
         ):
             if f.is_file():
