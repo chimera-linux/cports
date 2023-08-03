@@ -123,8 +123,6 @@ class Golang:
 
         # find either "native" files (bin/*)
         # or targeted arch file (bin/linux_<arch>/*)
-        for f in Path(self.template.cwd / self.template.make_dir).glob(
-            "**/*"
-        ):
+        for f in Path(self.template.cwd / self.template.make_dir).glob("**/*"):
             if f.is_file():
                 self.template.install_bin(f)
