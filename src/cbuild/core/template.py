@@ -441,7 +441,6 @@ core_fields = [
     # golang
     ("go_mod_dl", None, str, False, False, False),
     ("go_build_tags", [], list, False, False, False),
-    ("go_ldflags", [], list, False, False, False),
     ("go_check_tags", [], list, False, False, False),
 ]
 
@@ -484,7 +483,6 @@ core_fields_priority = [
     ("depends", False),
     ("go_mod_dl", True),
     ("go_build_tags", False),
-    ("go_ldflags", False),
     ("go_check_tags", False),
     ("provides", True),
     ("provider_priority", True),
@@ -1321,6 +1319,13 @@ class Template(Package):
     ):
         return self.get_tool_flags(
             "RUSTFLAGS", extra_flags, hardening, shell, target
+        )
+
+    def get_goflags(
+        self, extra_flags=[], hardening=[], shell=False, target=None
+    ):
+        return self.get_tool_flags(
+            "GOFLAGS", extra_flags, hardening, shell, target
         )
 
     def get_tool(self, name, target=None):

@@ -234,11 +234,24 @@ def _get_rustflags(
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
 
+def _get_goflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
+    hard = _get_harden(self, hardening, opts, stage)
+    bflags = []
+
+    if hard["pie"]:
+        bflags.append("-buildmode=pie")
+
+    ret = self._flags["GOFLAGS"] + bflags + extra_flags
+
+    return _flags_ret(map(lambda v: str(v), ret), shell)
+
+
 _flag_handlers = {
     "CFLAGS": _get_gencflags,
     "CXXFLAGS": _get_gencflags,
     "FFLAGS": _get_gencflags,
     "LDFLAGS": _get_ldflags,
+    "GOFLAGS": _get_goflags,
     "RUSTFLAGS": _get_rustflags,
 }
 

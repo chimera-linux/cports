@@ -7,10 +7,11 @@ def get_go_env(pkg):
 
     # * GOBIN is not suitable for crossbuild:
     #   "go: cannot install cross-compiled binaries when GOBIN is set"
-    # * GOPATH doesn't need to be set, it's only used for default cache path
+    # * GOPATH must be set as that's where binaries are put
     env = {
         "GOMODCACHE": "/cbuild_cache/golang/pkg/mod",
         "GOARCH": pkg.profile().goarch,
+        "GOPATH": f"{pkg.chroot_cwd}/{pkg.make_dir}",
     }
     return env
 
@@ -31,6 +32,7 @@ class Golang:
         base_env={},
         env={},
         wrksrc=None,
+        prepare=False,
     ):
         if not command:
             self.template.error("golang: missing go command argument")
@@ -40,6 +42,14 @@ class Golang:
 
         if not gomod.is_file():
             self.template.error(f"golang: missing file {gomod}")
+
+        if not prepare:
+            # need to recompute GOPATH with regular path (not chrooted),
+            # since do_prepare phase is not chrooted
+            mk_gomod = self.template.cwd / self.template.make_dir / "go.mod"
+
+            if mk_gomod.is_file():
+                self.template.error("golang: GOPATH must not contain a go.mod")
 
         renv = get_go_env(self.template)
         renv.update(self.template.env)
@@ -85,7 +95,9 @@ class Golang:
             )
             return
 
-        return self._invoke("mod", ["download"], 1, False, None, env, wrksrc)
+        return self._invoke(
+            "mod", ["download"], 1, False, None, env, wrksrc, True
+        )
 
     def build(self, args=[], jobs=None, env={}, wrksrc=None):
         myargs = ["-x"]  # increase go verbosity
@@ -94,14 +106,6 @@ class Golang:
 
         if tags:
             myargs += ["-tags", (",").join(tags)]
-
-        if self.template.has_hardening("pie"):
-            myargs += ["-buildmode=pie"]
-
-        ldflags = self.template.go_ldflags
-
-        if ldflags:
-            myargs += ["-ldflags", f"{(' ').join(ldflags)}"]
 
         if self.template.make_build_args:
             myargs += self.template.make_build_args
