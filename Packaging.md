@@ -411,6 +411,75 @@ this is done.
 
 UBSan is available on all targets Chimera currently supports.
 
+##### Identifying hardening traps
+
+Sometimes it is possible to reproduce a crash with a production package in
+Chimera. If you can recompile your program with sanitizer instrumentation,
+it's usually very easy to tell what's going on. However, sometimes this may
+not be possible.
+
+The sanitizer checks in packaged binaries are compiled in trapping mode, i.e.
+without a runtime. That means when you run into a bug, you will get a vague
+crash. On supported architectures, this will typically be a `SIGILL` in the
+better case, but maybe `SIGABRT` elsewhere, where specific code has not been
+implemented.
+
+In either case, you will need debug symbols for the package available (usually
+you can install the `-dbg` package, don't forget about `musl-dbg` as well)
+and a debugger (`lldb`). Then you can run your program in the debugger, or
+you can capture a core dump and open it in the debugger.
+
+On architectures where `SIGILL` is emitted, it is possible to tell what kind
+of sanitizer violation has happened. The instruction on which the program
+aborts encodes this information. You just need to get the current assembly
+instruction in the debugger and you might see something like this (example
+on the `x86_64` architecture):
+
+```
+->  0x5555555b0dc6 <+297814>: ud1l   0xc(%eax), %eax
+```
+
+Note the `ud1l` instruction, specifically the `0xc(%eax)`. The `0xc` encodes
+the identifier of the sanitizer check. The full list is available here:
+
+https://github.com/llvm/llvm-project/blob/main/clang/lib/CodeGen/CodeGenFunction.h#L112
+
+At the time of writing, these were:
+
+0. AddOverflow
+1. BuiltinUnreachable
+2. CFICheckFail
+3. DivremOverflow
+4. DynamicTypeCacheMiss
+5. FloatCastOverflow
+6. FunctionTypeMismatch
+7. ImplicitConversion
+8. InvalidBuiltin
+9. InvalidObjCCast
+10. LoadInvalidValue
+11. MissingReturn
+12. MulOverflow
+13. NegateOverflow
+14. NullabilityArg
+15. NullabilityReturn
+16. NonnullArg
+17. NonnullReturn
+18. OutOfBounds
+19. PointerOverflow
+20. ShiftOutOfBounds
+21. SubOverflow
+22. TypeMismatch
+23. AlignmentAssumption
+24. VLABoundNotPositive
+
+In our case, `0xc` is the value 12. Counting in the list, starting with zero,
+you can see this one is `MulOverflow`, which is a signed integer overflow
+caused in multiplication expression. The backtrace will likely not have a
+line number for the specific crash, as it's compiler-generated code. You can
+however inspect the backtrace as well as disassembly and match it against the
+context of the source code of the project in question, and often the reason
+will be clear.
+
 <a id="phases"></a>
 ## Build Phases
 
