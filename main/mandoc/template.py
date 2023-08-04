@@ -1,6 +1,6 @@
 pkgname = "mandoc"
 pkgver = "1.14.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 make_cmd = "gmake"
 make_check_target = "regress"
@@ -8,7 +8,6 @@ hostmakedepends = ["gmake"]
 makedepends = ["less", "zlib-devel"]
 checkdepends = ["perl"]
 depends = ["less"]
-triggers = ["/usr/share/man"]
 pkgdesc = "UNIX manpage compiler toolset"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
@@ -72,3 +71,16 @@ def _base(self):
     self.build_style = "meta"
 
     return []
+
+
+@subpackage("mandoc-apropos")
+def _apropos(self):
+    self.pkgdesc = f"{pkgdesc} (apropos trigger)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.triggers = ["/usr/share/man"]
+
+    return [
+        "usr/bin/apropos",
+        "usr/bin/makewhatis",
+        "usr/bin/whatis",
+    ]
