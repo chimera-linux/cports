@@ -87,7 +87,7 @@ def init_configure(self):
         self.configure_args += ["-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON"]
 
 
-def do_check(self):
+def init_check(self):
     excl_list = [
         "tst_selftests",  # requires valgrind
         "tst_qmake",  # Could not find qmake spec 'linux-clang'.
@@ -139,18 +139,9 @@ def do_check(self):
         "tst_qopenglwidget",  # execution failed with exit code Segmentation fault.
         "tst_qcomplextext",  # tst_QComplexText::bidiCursorMovement(data46) 'newX <= x' returned FALSE
     ]
-    self.do(
-        "ctest",
-        f"-j{self.make_jobs}",
-        "-E",
-        "(" + "|".join(excl_list) + ")",
-        wrksrc=self.make_dir,
-        env={
-            "QT_QPA_PLATFORM": "offscreen",
-            "CTEST_OUTPUT_ON_FAILURE": "True",
-            "QMAKESPEC": f"{self.chroot_cwd}/mkspecs/linux-clang",
-        },
-    )
+    self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
+    self.make_check_env["QT_QPA_PLATFORM"] = "offscreen"
+    self.make_check_env["QMAKESPEC"] = f"{self.chroot_cwd}/mkspecs/linux-clang"
 
 
 def post_install(self):

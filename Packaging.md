@@ -1152,7 +1152,6 @@ Default values:
 
 * `make_cmd` = `ninja`
 * `make_build_target` = `all`
-* `make_check_target` = `test`
 * `make_dir` = `build`
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
@@ -1162,7 +1161,7 @@ The `cmake` tool is run inside `self.make_dir`.
 Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
 for the template.
 
-Implemented around `cbuild.util.cmake`.
+Implemented around `cbuild.util.cmake` for `configure` and `check`.
 
 #### configure
 
@@ -1241,7 +1240,7 @@ Default values:
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`.
 
-The `cmake` tool is run inside `self.make_dir`.
+The `meson` tool is run inside `self.make_dir`.
 
 Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
 for the template, with `build` `wrksrc`.
@@ -3091,6 +3090,25 @@ when the profile is set to a cross-compiling one.
 
 The environment from `env` is used, being the most important, followed by
 `pkg.configure_env` and then the rest.
+
+##### def ctest(pkg, build_dir = None, extra_args = [], env = {})
+
+Executes `ctest`. The directory for build files is `build_dir`, which is
+relative to `chroot_cwd` (when `None`, it is `pkg.make_dir`).
+
+The `pkg` is an instance of `Template`.
+
+The command order is:
+
+* `pkg.make_check_wrapper`
+* `ctest`
+* `pkg.make_check_args`
+* `extra_args`
+
+The environment is taken from `pkg.make_check_env`, followed by `env`,
+on top of default environment. The `CTEST_PARALLEL_LEVEL` environment
+variable is by default set to the number of jobs, and `CTEST_OUTPUT_ON_FAILURE`
+is set to `1`.
 
 #### cbuild.util.compiler
 

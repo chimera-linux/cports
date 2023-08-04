@@ -28,7 +28,7 @@ hardening = ["!int"]
 options = ["!cross"]
 
 
-def do_check(self):
+def init_check(self):
     excl_list = [
         "test_qml_app_deployment",  # missing /usr/lib/cmake/Qt6Quick/Qt6QuickConfig.cmake
         "module_includes",  # Could NOT find Qt6 (missing: Qt6_DIR)
@@ -71,20 +71,10 @@ def do_check(self):
         "tst_qquickfiledialogimpl",  # XXX
         "tst_qquickfolderdialogimpl",  # test failed
     ]
-    self.do(
-        "ctest",
-        f"-j{self.make_jobs}",
-        "-E",
-        "(" + "|".join(excl_list) + ")",
-        wrksrc=self.make_dir,
-        env={
-            "QT_QPA_PLATFORM": "offscreen",
-            "CTEST_OUTPUT_ON_FAILURE": "True",
-            # qml stuff is not yet installed
-            "QML2_IMPORT_PATH": str(
-                self.chroot_cwd / f"{self.make_dir}/lib/qt6/qml"
-            ),
-        },
+    self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
+    self.make_check_env["QT_QPA_PLATFORM"] = "offscreen"
+    self.make_check_env["QML2_IMPORT_PATH"] = str(
+        self.chroot_cwd / f"{self.make_dir}/lib/qt6/qml"
     )
 
 

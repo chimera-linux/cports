@@ -98,3 +98,24 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
         wrksrc=build_dir,
         env=eenv,
     )
+
+
+def ctest(pkg, build_dir=None, extra_args=[], env={}):
+    if not build_dir:
+        build_dir = pkg.make_dir
+
+    renv = {
+        "CTEST_PARALLEL_LEVEL": str(pkg.make_jobs),
+        "CTEST_OUTPUT_ON_FAILURE": "1",
+    }
+    renv.update(pkg.make_check_env)
+    renv.update(env)
+
+    pkg.do(
+        *pkg.make_check_wrapper,
+        "ctest",
+        *pkg.make_check_args,
+        *extra_args,
+        wrksrc=build_dir,
+        env=renv,
+    )

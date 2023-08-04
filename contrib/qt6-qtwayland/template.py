@@ -3,6 +3,8 @@ pkgver = "6.5.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
+make_check_args = ["-E", "test_seatv4$"]
+make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -26,20 +28,6 @@ debug_level = 1  # defatten, especially with LTO
 hardening = ["!int"]
 # TODO
 options = ["!cross"]
-
-
-def do_check(self):
-    self.do(
-        "ctest",
-        f"-j{self.make_jobs}",
-        "-E",
-        "tst_seatv4$",
-        wrksrc=self.make_dir,
-        env={
-            "QT_QPA_PLATFORM": "offscreen",
-            "CTEST_OUTPUT_ON_FAILURE": "True",
-        },
-    )
 
 
 @subpackage("qt6-qtwayland-devel")

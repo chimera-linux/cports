@@ -10,7 +10,7 @@ def do_build(self):
 
 
 def do_check(self):
-    self.make.check()
+    cmake.ctest(self)
 
 
 def do_install(self):
@@ -28,6 +28,5 @@ def use(tmpl):
     tmpl.build_style_defaults = [
         ("make_cmd", "ninja"),
         ("make_build_target", "all"),
-        ("make_check_target", "test"),
         ("make_dir", "build"),
     ]

@@ -5,6 +5,8 @@ build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
 ]
+# FIXME: random musl issues
+make_check_args = ["-E", "(chrono|format|unicode|xchar)"]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -21,17 +23,6 @@ source = (
 sha256 = "4943cb165f3f587f26da834d3056ee8733c397e024145ca7d2a8a96bb71ac281"
 # FIXME: cfi test failures
 hardening = ["vis"]
-
-
-def do_check(self):
-    self.do(
-        "ctest",
-        f"-j{self.make_jobs}",
-        "-E",
-        # FIXME: random musl issues
-        "(chrono|format|unicode|xchar)",
-        wrksrc=self.make_dir,
-    )
 
 
 def post_install(self):

@@ -7,6 +7,7 @@ configure_args = [
     "-DGOBJECT_INTROSPECTION=true",
     "-DICAL_GLIB_VAPI=true",
 ]
+make_check_args = ["-E", "(icalrecurtest|icalrecurtest_r)"]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -37,13 +38,3 @@ options = ["!cross"]
 @subpackage("libical-devel")
 def _devel(self):
     return self.default_devel()
-
-
-def do_check(self):
-    self.do(
-        "ctest",
-        "-E",
-        "(icalrecurtest|icalrecurtest_r)",
-        wrksrc="build",
-        env={"CTEST_OUTPUT_ON_FAILURE": "TRUE"},
-    )

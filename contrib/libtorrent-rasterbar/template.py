@@ -7,6 +7,11 @@ configure_args = [
     "-Dpython-egg-info=ON",
     "-Dbuild_tests=ON",
 ]
+# known broken/flaky/conditionally broken tests
+make_check_args = [
+    "-E",
+    "(test_upnp|test_flags|test_add_torrent|test_create_torrent|test_remove_torrent|test_privacy|test_copy_file|test_web_seed|test_url_seed|test_transfer|test_ssl)",
+]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -27,19 +32,6 @@ tool_flags = {
     "CXXFLAGS": ["-Wno-unsafe-buffer-usage", "-Wno-deprecated"],
     "LDFLAGS": [],
 }
-
-
-def do_check(self):
-    self.do(
-        "ctest",
-        f"-j{self.make_jobs}",
-        "--output-on-failure",
-        "--test-dir",
-        "build",
-        "--exclude-regex",
-        # known broken/flaky/conditionally broken tests
-        "test_upnp|test_flags|test_add_torrent|test_create_torrent|test_remove_torrent|test_privacy|test_copy_file|test_web_seed|test_url_seed|test_transfer|test_ssl",
-    )
 
 
 def post_install(self):
