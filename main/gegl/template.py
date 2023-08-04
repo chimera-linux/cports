@@ -1,6 +1,6 @@
 pkgname = "gegl"
 pkgver = "0.4.46"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddocs=false",
@@ -9,7 +9,7 @@ configure_args = [
     "-Dlibspiro=disabled",
     "-Dlua=disabled",
     "-Dmrg=disabled",
-    "-Dopenexr=disabled",
+    "-Dopenexr=enabled",
     "-Dsdl2=disabled",
     "-Dlibav=disabled",
     "-Dumfpack=disabled",
@@ -30,6 +30,7 @@ makedepends = [
     "libraw-devel",
     "libwebp-devel",
     "libpoppler-glib-devel",
+    "openexr-devel",
     "pango-devel",
     "lensfun-devel",
     "v4l-utils-devel",
