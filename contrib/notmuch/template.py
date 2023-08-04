@@ -1,12 +1,13 @@
 pkgname = "notmuch"
 pkgver = "0.37"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = ["--prefix=/usr"]
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
     "pkgconf",
+    "python-sphinx",
 ]
 makedepends = [
     "linux-headers",
