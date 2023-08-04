@@ -980,6 +980,7 @@ def _graph_prepare():
 def do_prune_sources(tgt):
     from cbuild.core import chroot, logger, template, errors, paths
     import shutil
+    import re
 
     logger.get().out("Collecting templates...")
     tmpls = _collect_tmpls(None)
@@ -1006,16 +1007,63 @@ def do_prune_sources(tgt):
     for tmpln in tmpls:
         _read_pkg(tmpln)
 
-    logger.get().out("Pruning sources...")
-    for f in paths.sources().iterdir():
-        if f.name in exist:
+    logger.get().out("Collecting checksums...")
+    shaset = set()
+    for tmpln in tmpls:
+        with (paths.distdir() / tmpln / "template.py").open("r") as inf:
+            for ln in inf.readlines():
+                for sha in re.findall('"[0-9a-fA-F]{64}"', ln):
+                    shaset.add(sha.strip('"').lower())
+    shalist = list(shaset)
+    shalist.sort()
+
+    def _prune_path(f):
+        if opt_dryrun:
+            return
+        if f.is_dir() and not f.is_symlink():
+            shutil.rmtree(f)
+        else:
+            f.unlink()
+
+    logger.get().out("Collecting inodes and pruning hardlinks...")
+    inoset = set()
+    for sf in (paths.sources() / "by_sha256").iterdir():
+        cks = sf.name[0:64].lower()
+        if (
+            len(cks) != 64
+            or cks not in shalist
+            or not sf.is_file()
+            or sf.is_symlink()
+        ):
+            logger.get().out(f"Prune hardlink: {sf.name}")
+            _prune_path(sf)
             continue
-        logger.get().out(f"Prune sources: {f.name}")
-        if not opt_dryrun:
-            if f.is_dir() and not f.is_symlink():
-                shutil.rmtree(f)
-            else:
-                f.unlink()
+        inoset.add(sf.lstat().st_ino)
+
+    logger.get().out("Pruning sources...")
+    # first prune versions that are gone
+    for f in paths.sources().iterdir():
+        if f.name == "by_sha256" or f.name == "cbuild.lock":
+            continue
+        # stuff that does not correspond to any template version
+        if f.name not in exist:
+            logger.get().out(f"Prune orphaned: {f.name}")
+            _prune_path(f)
+            continue
+        # non-dirs in toplevel path
+        if not f.is_dir() or f.is_symlink():
+            logger.get().out(f"Prune spurious: {f.name}")
+            _prune_path(f)
+            continue
+        # otherwise iterate and prune untracked
+        for sf in f.iterdir():
+            if sf.lstat().st_ino not in inoset:
+                logger.get().out(f"Prune untracked: {sf.name}")
+                _prune_path(sf)
+        # otherwise we good
+        continue
+
+    logger.get().out("Sources pruning complete.")
 
 
 def do_relink_subpkgs(tgt):
