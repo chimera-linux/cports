@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-bad"
 pkgver = "1.22.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-feature=enabled",
@@ -32,7 +32,7 @@ configure_args = [
     "-Dneon=disabled",
     "-Dnvcodec=disabled",
     "-Donnx=disabled",
-    "-Dopenexr=disabled",
+    "-Dopenexr=enabled",
     "-Dopenh264=disabled",
     "-Dopenmpt=disabled",
     "-Dopenni2=disabled",
@@ -98,6 +98,7 @@ makedepends = [
     "libdrm-devel",
     "libde265-devel",
     "libmodplug-devel",
+    "openexr-devel",
     "openjpeg-devel",
     "opus-devel",
     "sbc-devel",
