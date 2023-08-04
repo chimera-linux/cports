@@ -1,7 +1,7 @@
 # nb: requires CXX14+ to use it
 pkgname = "gtest"
-pkgver = "1.13.0"
-pkgrel = 1
+pkgver = "1.14.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DCMAKE_SKIP_RPATH=ON"]
 hostmakedepends = ["cmake", "ninja", "python", "pkgconf"]
@@ -12,7 +12,7 @@ url = "https://github.com/google/googletest"
 source = (
     f"https://github.com/google/googletest/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "ad7fdba11ea011c1d925b3289cf4af2c66a352e18d4c7264392fead75e919363"
+sha256 = "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7"
 # no tests provided by upstream
 options = ["!check"]
 
