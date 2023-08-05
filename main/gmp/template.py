@@ -13,11 +13,6 @@ source = f"{url}/download/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
 
 
-def post_extract(self):
-    # ld: improper alignment for relocation R_AARCH64_LD64_GOT_LO12_NC
-    self.rm("mpn/arm64/invert_limb.asm")
-
-
 @subpackage("gmpxx")
 def _cxx(self):
     self.pkgdesc = f"{pkgdesc} (C++ support)"
