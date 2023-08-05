@@ -2000,10 +2000,12 @@ def from_module(m, ret):
         spdupes[spn] = True
         sp = Subpackage(spn, ret)
         pinst = spf(sp)
-        if not callable(pinst):
+        if isinstance(pinst, list):
             sp.pkg_install = _subpkg_install_list(sp, pinst)
-        else:
+        elif callable(pinst):
             sp.pkg_install = pinst
+        else:
+            ret.error(f"invalid return for subpackage '{spn}'")
         # validate fields
         for fl, dval, tp, mand, asp, inh in core_fields:
             if not asp:
