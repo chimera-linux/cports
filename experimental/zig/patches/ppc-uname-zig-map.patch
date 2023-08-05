@@ -1,0 +1,15 @@
+ZIG_HOST_TARGET_ARCH is from CMAKE_HOST_SYSTEM_PROCESSOR, which is uname -m
+this does not match the zig arch names, so some have remaps
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -698,6 +698,10 @@
+   set(ZIG_HOST_TARGET_ARCH "arm")
+ elseif(ZIG_HOST_TARGET_ARCH STREQUAL "armv7b")
+   set(ZIG_HOST_TARGET_ARCH "armeb")
++elseif(ZIG_HOST_TARGET_ARCH STREQUAL "ppc64le")
++  set(ZIG_HOST_TARGET_ARCH "powerpc64le")
++elseif(ZIG_HOST_TARGET_ARCH STREQUAL "ppc64")
++  set(ZIG_HOST_TARGET_ARCH "powerpc64")
+ endif()
+ 
+ if(ZIG_HOST_TARGET_ARCH MATCHES "^arm(eb)?$")
