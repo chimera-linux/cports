@@ -1,5 +1,5 @@
 pkgname = "weston"
-pkgver = "12.0.1"
+pkgver = "12.0.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -47,7 +47,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://wayland.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/wayland/{pkgname}/-/releases/{pkgver}/downloads/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b18591eab278bc191720f6c09158040b795e7118af1d5ddca6acd9a8e2039535"
+sha256 = "eb686a7cf00992a23b17f192fca9a887313e92c346ee35d8575196983d656b4a"
 
 
 def post_install(self):
