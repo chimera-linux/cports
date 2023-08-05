@@ -1,31 +1,31 @@
-From b94d6aa60069eb4b7310b95c0b23b44069852350 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Thu, 6 Apr 2023 05:38:51 +0200
+From bcb9beb11c4d0f38564a4a0566415e793b9f5db7 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 5 Aug 2023 14:16:33 +0200
 Subject: [PATCH] bsd install(1) and sed(1) compatibility
 
 ---
- lib/install-html.mk | 2 +-
- lib/install-man.mk  | 4 ++--
+ share/mk/install/html.mk | 2 +-
+ share/mk/install/man.mk  | 4 ++--
  2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/lib/install-html.mk b/lib/install-html.mk
-index 9e0a449..7afda7d 100644
---- a/lib/install-html.mk
-+++ b/lib/install-html.mk
-@@ -26,7 +26,7 @@ _htmldir_rmdir  := $(addsuffix -rmdir,$(wildcard $(_htmldir)/))
+diff --git a/share/mk/install/html.mk b/share/mk/install/html.mk
+index 97e00ce..11dcff5 100644
+--- a/share/mk/install/html.mk
++++ b/share/mk/install/html.mk
+@@ -23,7 +23,7 @@ _htmlpages_rm   := $(addsuffix -rm,$(wildcard $(_htmlpages)))
  
  $(_htmlpages): $(_htmldir)/%: $(_HTMLDIR)/% | $$(@D)/
  	$(info INSTALL	$@)
 -	$(INSTALL_DATA) -T $< $@
 +	$(INSTALL_DATA) $< $@
  
- $(_htmldirs): %/: | $$(dir %) $(_htmldir)/
  
-diff --git a/lib/install-man.mk b/lib/install-man.mk
-index d4c231c..05ab0b6 100644
---- a/lib/install-man.mk
-+++ b/lib/install-man.mk
-@@ -150,8 +150,8 @@ $(_man8pages):      $(_man8dir)/%$(Z):      $(MANDIR)/man8/%      | $$(@D)/
+ .PHONY: install-html
+diff --git a/share/mk/install/man.mk b/share/mk/install/man.mk
+index a135788..06e6b1c 100644
+--- a/share/mk/install/man.mk
++++ b/share/mk/install/man.mk
+@@ -119,8 +119,8 @@ $(_man8pages):      $(_man8dir)/%$(Z):      $(MANDIR)/man8/%      | $$(@D)/
  
  $(_manpages):
  	$(info INSTALL	$@)
@@ -37,5 +37,5 @@ index d4c231c..05ab0b6 100644
  		-e '/^\.so /s, man2/\(.*\)\.2$$, $(notdir $(man2dir))/\1$(man2ext),' \
  		-e '/^\.so /s, man2type/\(.*\)\.2type$$, $(notdir $(man2typedir))/\1$(man2typeext),' \
 -- 
-2.39.0
+2.41.0
 
