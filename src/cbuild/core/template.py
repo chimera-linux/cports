@@ -1384,12 +1384,13 @@ class Template(Package):
             )
 
         path = self.cwd / path
-        dest = self.destdir / dest / path.name
+        dfn = self.destdir / dest / path.name
 
         if path.is_dir():
-            shutil.copytree(path, dest, symlinks=symlinks)
+            shutil.copytree(path, dfn, symlinks=symlinks)
         else:
-            shutil.copy2(path, dest)
+            self.install_dir(dest)
+            shutil.copy2(path, dfn)
 
     def install_dir(self, dest, mode=0o755, empty=False):
         dest = pathlib.Path(dest)
