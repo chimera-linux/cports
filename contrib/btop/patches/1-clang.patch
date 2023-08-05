@@ -1,0 +1,27 @@
+Patch-Source: https://github.com/aristocratos/btop/commit/99c5991c1c8b591694b3fad18e46844fb77f321c
+--
+From 99c5991c1c8b591694b3fad18e46844fb77f321c Mon Sep 17 00:00:00 2001
+From: Steffen <steffen.winter@proton.me>
+Date: Mon, 13 Feb 2023 00:36:10 +0000
+Subject: [PATCH] Replace -ftree-loop-vectorize with -ftree-vectorize.
+
+In preparation for LLVM support use -ftree-vectorize as it is understood
+by clang (unlike -ftree-loop-vectorize) and it is an umbrella for the
+former and -ftree-slp-vectorize. See https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html.
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index c746c004..064397e8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -130,7 +130,7 @@ override GOODFLAGS := $(foreach flag,$(TESTFLAGS),$(strip $(shell echo "int main
+ #? Flags, Libraries and Includes
+ override REQFLAGS   := -std=c++20
+ WARNFLAGS			:= -Wall -Wextra -pedantic
+-OPTFLAGS			:= -O2 -ftree-loop-vectorize -flto=$(THREADS)
++OPTFLAGS			:= -O2 -ftree-vectorize -flto=$(THREADS)
+ LDCXXFLAGS			:= -pthread -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS $(GOODFLAGS) $(ADDFLAGS)
+ override CXXFLAGS	+= $(REQFLAGS) $(LDCXXFLAGS) $(OPTFLAGS) $(WARNFLAGS)
+ override LDFLAGS	+= $(LDCXXFLAGS) $(OPTFLAGS) $(WARNFLAGS)

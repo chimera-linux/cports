@@ -1,0 +1,23 @@
+Patch-Source: https://github.com/aristocratos/btop/commit/7dac8505c4c25ef0e8759e2ef863f3228881cd91
+--
+From 7dac8505c4c25ef0e8759e2ef863f3228881cd91 Mon Sep 17 00:00:00 2001
+From: zackiloco <steffen.winter@proton.me>
+Date: Tue, 23 May 2023 15:20:12 +0200
+Subject: [PATCH] Include <codecvt> required by Clang.
+
+---
+ src/btop_tools.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/btop_tools.cpp b/src/btop_tools.cpp
+index b0a7b604..57897373 100644
+--- a/src/btop_tools.cpp
++++ b/src/btop_tools.cpp
+@@ -17,6 +17,7 @@ tab-size = 4
+ */
+ 
+ #include <cmath>
++#include <codecvt>
+ #include <iostream>
+ #include <fstream>
+ #include <ctime>
