@@ -1,5 +1,5 @@
 pkgname = "python-chardet"
-pkgver = "5.1.0"
+pkgver = "5.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,6 +15,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://github.com/chardet/chardet"
 source = f"$(PYPI_SITE)/c/chardet/chardet-{pkgver}.tar.gz"
-sha256 = "0d62712b956bc154f85fb0a266e2a3c5913c2967e00348701b32411d6def31e5"
+sha256 = "1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7"
 # dependency of pytest
 options = ["!check"]
