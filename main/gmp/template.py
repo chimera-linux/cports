@@ -1,5 +1,5 @@
 pkgname = "gmp"
-pkgver = "6.2.1"
+pkgver = "6.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later OR GPL-2.0-or-later"
 url = "https://gmplib.org"
 source = f"{url}/download/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "fd4829912cddd12f84181c3451cc752be224643e87fac497b69edddadc49b4f2"
+sha256 = "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898"
 
 
 def post_extract(self):
