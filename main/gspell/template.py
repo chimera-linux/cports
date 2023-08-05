@@ -1,5 +1,5 @@
 pkgname = "gspell"
-pkgver = "1.12.1"
+pkgver = "1.12.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static", "--enable-introspection", "--enable-vala"]
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gspell"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8ec44f32052e896fcdd4926eb814a326e39a5047e251eec7b9056fbd9444b0f1"
+sha256 = "b4e993bd827e4ceb6a770b1b5e8950fce3be9c8b2b0cbeb22fdf992808dd2139"
 # needs graphical env
 options = ["!check"]
 
