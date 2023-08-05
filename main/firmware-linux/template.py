@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20230625"
+pkgver = "20230804"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "2f609c503bde5ee6c32336a465c48e939138b8263504d3f7d03ec65ace80b130"
+sha256 = "c09913f675bea9623798eebf8b238cda49b62dfa1729cc7c2c17193b0ab22ff7"
 
 _arch = self.profile().arch
 _arch_x86 = _arch == "x86_64"
