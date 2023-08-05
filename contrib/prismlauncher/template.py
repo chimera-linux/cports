@@ -1,6 +1,6 @@
 pkgname = "prismlauncher"
 pkgver = "7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
 hostmakedepends = [
@@ -14,6 +14,7 @@ makedepends = [
     "qt6-qtbase-devel",
     "qt6-qt5compat-devel",
     "qt6-qtsvg-devel",
+    "quazip-devel",
     "zlib-devel",
 ]
 pkgdesc = "Minecraft launcher with multiple instances support"
