@@ -1,1 +1,1 @@
-pattern = r">jdk-([\d.]+)\+"
+pattern = r">jdk-([\d.]+)-ga"
