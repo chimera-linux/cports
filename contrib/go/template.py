@@ -1,6 +1,6 @@
 pkgname = "go"
-pkgver = "1.20.6"
-pkgrel = 1
+pkgver = "1.20.7"
+pkgrel = 0
 hostmakedepends = ["bash"]
 checkdepends = [
     "libunwind-devel-static",
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://go.dev"
 source = f"{url}/dl/go{pkgver}.src.tar.gz"
-sha256 = "62ee5bc6fb55b8bae8f705e0cb8df86d6453626b4ecf93279e2867092e0b7f70"
+sha256 = "2c5ee9c9ec1e733b0dbbc2bdfed3f62306e51d8172bf38f4f4e542b27520f597"
 env = {}
 # a bunch of tests fail for now, so FIXME
 options = [
