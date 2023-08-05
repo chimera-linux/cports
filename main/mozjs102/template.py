@@ -1,5 +1,5 @@
 pkgname = "mozjs102"
-pkgver = "102.13.0"
+pkgver = "102.14.0"
 pkgrel = 0
 build_wrksrc = "js/src"
 build_style = "gnu_configure"
@@ -49,7 +49,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "fc3fab3de4bf65d1ec7fc30ae776144097b70a35d37c36663e11ffa618c13a2c"
+sha256 = "1ab85081c08a472cfd869873dba0e76ae6d9e83c1b8f23741e4c9d5471a5efee"
 debug_level = 1  # make the debug size not explode
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
