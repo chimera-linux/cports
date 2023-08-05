@@ -1,0 +1,72 @@
+From 1c5c3f499a5144880feba9c24c51b0283a0e43c5 Mon Sep 17 00:00:00 2001
+From: Jacob Young <jacobly0@users.noreply.github.com>
+Date: Sun, 13 Aug 2023 06:23:46 -0400
+Subject: [PATCH] cmake: fix auto-detection of various host targets
+
+Closes #16800
+---
+ CMakeLists.txt               | 13 ++++++++++---
+ src/codegen/llvm/Builder.zig |  4 ++--
+ 2 files changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2c812f2a779..6816e26ff5d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -690,7 +690,9 @@ target_link_libraries(zigcpp LINK_PUBLIC
+ )
+ 
+ string(TOLOWER "${CMAKE_HOST_SYSTEM_PROCESSOR}" ZIG_HOST_TARGET_ARCH)
+-if(ZIG_HOST_TARGET_ARCH STREQUAL "amd64")
++if(ZIG_HOST_TARGET_ARCH MATCHES "^i[3-9]86$")
++  set(ZIG_HOST_TARGET_ARCH "x86")
++elseif(ZIG_HOST_TARGET_ARCH STREQUAL "amd64")
+   set(ZIG_HOST_TARGET_ARCH "x86_64")
+ elseif(ZIG_HOST_TARGET_ARCH STREQUAL "arm64")
+   set(ZIG_HOST_TARGET_ARCH "aarch64")
+@@ -699,14 +701,16 @@ elseif(ZIG_HOST_TARGET_ARCH STREQUAL "armv7l")
+ elseif(ZIG_HOST_TARGET_ARCH STREQUAL "armv7b")
+   set(ZIG_HOST_TARGET_ARCH "armeb")
+ endif()
+-
+-if(ZIG_HOST_TARGET_ARCH MATCHES "^arm(eb)?$")
++string(REGEX REPLACE "^((arm|thumb)(hf?)?)el$" "\\1" ZIG_HOST_TARGET_ARCH "${ZIG_HOST_TARGET_ARCH}")
++if(ZIG_HOST_TARGET_ARCH MATCHES "^arm(hf?)?(eb)?$")
+   include(CheckSymbolExists)
+   check_symbol_exists(__thumb__ "" ZIG_HOST_TARGET_DEFAULTS_TO_THUMB)
+   if(ZIG_HOST_TARGET_DEFAULTS_TO_THUMB)
+     string(REGEX REPLACE "^arm" "thumb" ZIG_HOST_TARGET_ARCH "${ZIG_HOST_TARGET_ARCH}")
+   endif()
+ endif()
++string(REGEX REPLACE "^ppc((64)?(le)?)$" "powerpc\\1" ZIG_HOST_TARGET_ARCH "${ZIG_HOST_TARGET_ARCH}")
++
+ string(TOLOWER "${CMAKE_HOST_SYSTEM_NAME}" ZIG_HOST_TARGET_OS)
+ if(ZIG_HOST_TARGET_OS STREQUAL "darwin")
+   set(ZIG_HOST_TARGET_OS "macos")
+@@ -716,6 +720,9 @@ if(MSVC)
+   set(ZIG_HOST_TARGET_ABI "-msvc")
+ elseif(MINGW)
+   set(ZIG_HOST_TARGET_ABI "-gnu")
++elseif(ZIG_HOST_TARGET_ARCH MATCHES "^(arm|thumb)hf?(eb)?$")
++  string(REGEX REPLACE "^(arm|thumb)hf?((eb)?)$" "\\1\\2" ZIG_HOST_TARGET_ARCH "${ZIG_HOST_TARGET_ARCH}")
++  set(ZIG_HOST_TARGET_ABI "-eabihf")
+ else()
+   set(ZIG_HOST_TARGET_ABI "")
+ endif()
+diff --git a/src/codegen/llvm/Builder.zig b/src/codegen/llvm/Builder.zig
+index 9fe64a9bc6d..9632beef3a0 100644
+--- a/src/codegen/llvm/Builder.zig
++++ b/src/codegen/llvm/Builder.zig
+@@ -10708,10 +10708,10 @@ fn ppc_fp128ConstAssumeCapacity(self: *Builder, val: [2]f64) Constant {
+             }),
+         });
+         if (self.useLibLlvm()) {
+-            const llvm_limbs: *const [2]u64 = @ptrCast(&val);
++            const llvm_limbs: [2]u64 = @bitCast(val);
+             self.llvm.constants.appendAssumeCapacity(
+                 Type.i128.toLlvm(self)
+-                    .constIntOfArbitraryPrecision(@intCast(llvm_limbs.len), llvm_limbs)
++                    .constIntOfArbitraryPrecision(@intCast(llvm_limbs.len), &llvm_limbs)
+                     .constBitCast(Type.ppc_fp128.toLlvm(self)),
+             );
+         }
