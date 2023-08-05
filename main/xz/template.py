@@ -1,5 +1,5 @@
 pkgname = "xz"
-pkgver = "5.4.3"
+pkgver = "5.4.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:xz"
 url = "https://tukaani.org/xz"
 source = f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"
-sha256 = "9243a04598d7a70c1f567a0143a255581ac5c64b140fd55fd5cbc1e00b0e6f90"
+sha256 = "0b6fcde1ac38e90433a2556f500c065950b9bcd2d602006efc334782bdfe6296"
 options = ["bootstrap"]
 
 
