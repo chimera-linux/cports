@@ -1,6 +1,6 @@
 pkgname = "libarchive"
 pkgver = "3.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -15,13 +15,14 @@ configure_args = [
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "zlib-devel",
-    "libbz2-devel",
-    "liblzma-devel",
     "acl-devel",
+    "libbz2-devel",
     "liblz4-devel",
-    "openssl-devel",
+    "liblzma-devel",
+    "libzstd-devel",
     "musl-bsd-headers",
+    "openssl-devel",
+    "zlib-devel",
 ]
 pkgdesc = "Library to read/write several different streaming archive formats"
 maintainer = "q66 <q66@chimera-linux.org>"
