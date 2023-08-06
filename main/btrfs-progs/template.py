@@ -3,6 +3,7 @@ pkgver = "6.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--disable-python"]
+configure_gen = []
 # build system assumes . is the root right off the bat
 make_cmd = "gmake"
 make_dir = "."
@@ -41,6 +42,16 @@ hardening = ["vis", "!cfi"]
 options = ["!check"]
 
 
+# clang only issues a warning about unused compiler arg for -msse2 etc
+if self.profile().arch != "x86_64":
+    configure_args += [
+        "ax_cv_check_cflags___msse2=no",
+        "ax_cv_check_cflags___msse41=no",
+        "ax_cv_check_cflags___mavx2=no",
+        "ax_cv_check_cflags___msha=no",
+    ]
+
+
 @subpackage("libbtrfs")
 def _libbtrfs(self):
     self.pkgdesc = f"{pkgdesc} (btrfs library)"
@@ -67,6 +78,3 @@ def _libbtrfsutil_devel(self):
         "usr/lib/libbtrfsutil.*",
         "usr/lib/pkgconfig/libbtrfsutil.pc",
     ]
-
-
-configure_gen = []
