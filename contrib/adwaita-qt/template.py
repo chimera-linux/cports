@@ -1,6 +1,6 @@
 pkgname = "adwaita-qt"
 pkgver = "1.4.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DUSE_QT6=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qtbase"]
@@ -13,3 +13,8 @@ source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "cd5fd71c46271d70c08ad44562e57c34e787d6a8650071db115910999a335ba8"
 # no tests
 options = ["!check"]
+
+
+@subpackage("adwaita-qt-devel")
+def _devel(self):
+    return self.default_devel()
