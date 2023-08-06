@@ -85,7 +85,7 @@ class Golang:
         return self._invoke("mod", ["download"], 1, False, None, env, wrksrc)
 
     def build(self, args=[], jobs=None, env={}, wrksrc=None):
-        myargs = ["-x"]  # increase go verbosity
+        myargs = ["-v"]  # increase go verbosity
 
         tags = self.template.go_build_tags
 
