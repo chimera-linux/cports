@@ -1,7 +1,8 @@
 pkgname = "libwebp"
 pkgver = "1.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+configure_args = ["--enable-libwebpdecoder"]
 configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = [
