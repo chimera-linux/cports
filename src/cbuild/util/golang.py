@@ -92,11 +92,12 @@ class Golang:
         if tags:
             myargs += ["-tags", (",").join(tags)]
 
+        tmpl = self.template
+        myargs += ["-o", str(tmpl.chroot_cwd / tmpl.make_dir) + "/"]
+
         if self.template.make_build_args:
             myargs += self.template.make_build_args
 
-        tmpl = self.template
-        myargs += ["-o", str(tmpl.chroot_cwd / tmpl.make_dir) + "/"]
         myargs += args
 
         return self._invoke("build", myargs, jobs, True, None, env, wrksrc)
