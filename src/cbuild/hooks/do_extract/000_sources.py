@@ -5,6 +5,7 @@ import pathlib
 import tempfile
 
 suffixes = {
+    "*.tar.zst": "tzst",
     "*.tar.lzma": "txz",
     "*.tar.lz": "tlz",
     "*.tlz": "tlz",
@@ -14,6 +15,7 @@ suffixes = {
     "*.tbz": "tbz",
     "*.tar.gz": "tgz",
     "*.tgz": "tgz",
+    "*.zst": "zst",
     "*.gz": "gz",
     "*.xz": "xz",
     "*.bz2": "bz2",
@@ -62,6 +64,8 @@ def extract_notar(pkg, fname, dfile, edir, sfx):
         cmd = "bunzip2"
     elif sfx == "xz":
         cmd = "unxz"
+    elif sfx == "zst":
+        cmd = "unzstd"
     else:
         pkg.error(f"unknown suffix '{sfx}'")
 
@@ -202,7 +206,7 @@ def invoke(pkg):
                     pkg.error(f"source not supported for bootstrap: {fname}")
 
             match suffix:
-                case "tar" | "txz" | "tbz" | "tlz" | "tgz" | "crate":
+                case "tar" | "txz" | "tbz" | "tlz" | "tzst" | "tgz" | "crate":
                     exf = extract_tar
                 case "gz" | "bz2" | "xz":
                     exf = extract_notar
