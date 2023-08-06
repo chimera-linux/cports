@@ -46,7 +46,7 @@ options = ["!check"]
 if self.profile().arch != "x86_64":
     configure_args += [
         "ax_cv_check_cflags___msse2=no",
-        "ax_cv_check_cflags___msse41=no",
+        "ax_cv_check_cflags___msse4_1=no",
         "ax_cv_check_cflags___mavx2=no",
         "ax_cv_check_cflags___msha=no",
     ]
