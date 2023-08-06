@@ -1,5 +1,5 @@
 pkgname = "btrfs-progs"
-pkgver = "5.14.91"
+pkgver = "6.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--disable-python"]
@@ -7,17 +7,24 @@ configure_args = ["--disable-backtrace", "--disable-python"]
 make_cmd = "gmake"
 make_dir = "."
 make_check_target = "test"
-hostmakedepends = ["gmake", "asciidoc", "pkgconf", "xmlto", "libxml2-progs"]
+hostmakedepends = [
+    "asciidoc",
+    "gmake",
+    "libxml2-progs",
+    "pkgconf",
+    "python-sphinx",
+    "xmlto",
+]
 makedepends = [
     "acl-devel",
-    "udev-devel",
-    "libzstd-devel",
-    "lzo-devel",
+    "e2fsprogs-devel",
     "libblkid-devel",
     "libuuid-devel",
-    "e2fsprogs-devel",
-    "zlib-devel",
+    "libzstd-devel",
     "linux-headers",
+    "lzo-devel",
+    "udev-devel",
+    "zlib-devel",
 ]
 checkdepends = ["xz"]
 pkgdesc = "Btrfs file system utilities"
@@ -27,7 +34,7 @@ url = "https://btrfs.wiki.kernel.org/index.php/Main_Page"
 source = (
     f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
 )
-sha256 = "b8596493eab6c0107cc7547b1224dc434b39599d63e71e19f9fde33297b551bc"
+sha256 = "4be30015760270d081642cc0023a8bfee7cb657a2aa055644e6a56d68695b96e"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
@@ -55,7 +62,11 @@ def _libbtrfsutil(self):
 @subpackage("libbtrfsutil-devel")
 def _libbtrfsutil_devel(self):
     self.pkgdesc = f"{pkgdesc} (libbtrfsutil development files)"
-    return ["usr/include/btrfsutil.h", "usr/lib/libbtrfsutil.*"]
+    return [
+        "usr/include/btrfsutil.h",
+        "usr/lib/libbtrfsutil.*",
+        "usr/lib/pkgconfig/libbtrfsutil.pc",
+    ]
 
 
 configure_gen = []
