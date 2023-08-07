@@ -11,5 +11,5 @@ sha256 = "bfe0af402b1f2df447a3cecb3027a9176f8de0bbe8f09be9f59a15fcd58e22bf"
 
 
 def do_install(self):
-    self.install_file("doasedit", "usr/bin", mode=0o755)
+    self.install_bin("doasedit")
     self.install_license("LICENSE")
