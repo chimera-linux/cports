@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "6.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -26,6 +26,7 @@ configure_args = [
     "--enable-libbs2b",
     "--enable-libtheora",
     "--enable-libvorbis",
+    "--enable-libsoxr",
     "--enable-libopus",
     "--enable-libcdio",
     "--enable-libbluray",
@@ -98,6 +99,7 @@ makedepends = [
     "vulkan-headers",
     "libdrm-devel",
     "sdl-devel",
+    "soxr-devel",
     "rubberband-devel",
     "libxml2-devel",
     "ocl-icd-devel",
