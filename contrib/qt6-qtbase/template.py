@@ -1,6 +1,6 @@
 pkgname = "qt6-qtbase"
 pkgver = "6.5.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_DATADIR=share/qt6",
@@ -178,6 +178,7 @@ def post_install(self):
 
 @subpackage("qt6-qtbase-gui")
 def _gui(self):
+    self.depends += ["hicolor-icon-theme"]
     self.pkgdesc = f"{pkgdesc} (GUI)"
 
     return [
