@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "23.1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
@@ -59,7 +59,6 @@ makedepends = [
     "elftoolchain-devel",
     # video accel
     "libva-bootstrap",
-    "libvdpau-devel",
 ]
 pkgdesc = "Mesa 3D Graphics Library"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -173,7 +172,7 @@ if _have_opencl:
     ]
 
 if _have_hwdec:
-    configure_args += ["-Dgallium-vdpau=enabled", "-Dgallium-va=enabled"]
+    configure_args += ["-Dgallium-vdpau=disabled", "-Dgallium-va=enabled"]
 else:
     configure_args += ["-Dgallium-vdpau=disabled", "-Dgallium-va=disabled"]
 
@@ -283,13 +282,6 @@ def _vaapi(self):
     self.pkgdesc = "Mesa VA-API drivers"
 
     return ["usr/lib/dri/*_drv_video.so"]
-
-
-@subpackage("mesa-vdpau", _have_hwdec)
-def _vdpau(self):
-    self.pkgdesc = "Mesa VA-API drivers"
-
-    return ["usr/lib/vdpau/libvdpau_*"]
 
 
 @subpackage("mesa-dri")
