@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "6.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -42,7 +42,6 @@ configure_args = [
     "--enable-libxml2",
     "--enable-opencl",
     "--enable-vaapi",
-    "--enable-vdpau",
     "--enable-vapoursynth",
     "--enable-vulkan",
     "--enable-libdrm",
@@ -95,7 +94,6 @@ makedepends = [
     "pipewire-jack-devel",
     "vapoursynth-devel",
     "libva-devel",
-    "libvdpau-devel",
     "v4l-utils-devel",
     "vulkan-loader",
     "vulkan-headers",
