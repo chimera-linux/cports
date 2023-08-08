@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.41.0"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
@@ -164,4 +164,15 @@ def _gui(self):
         "usr/share/man/man1/git-gui.1",
         "usr/share/man/man1/git-citool.1",
         "usr/share/git-gui",
+    ]
+
+
+@subpackage("git-scalar")
+def _scalar(self):
+    self.depends += [f"git={pkgver}-r{pkgrel}"]
+    self.pkgdesc = "Git scalar monorepo tool"
+
+    return [
+        "usr/bin/scalar",
+        "usr/libexec/git-core/scalar",
     ]
