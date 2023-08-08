@@ -1,6 +1,6 @@
 pkgname = "mpv"
 pkgver = "0.36.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -26,7 +26,6 @@ configure_args = [
     "-Duchardet=enabled",
     "-Dvapoursynth=enabled",
     "-Dvaapi=enabled",
-    "-Dvdpau=enabled",
     "-Dvulkan=enabled",
     "-Dwayland=enabled",
     "-Dx11=enabled",
@@ -64,7 +63,6 @@ makedepends = [
     "libxpresent-devel",
     "wayland-devel",
     "wayland-protocols",
-    "libvdpau-devel",
     "libva-devel",
     "pipewire-devel",
     "pipewire-jack-devel",
