@@ -1,3 +1,3 @@
-url = "https://nodejs.org/dist"
-pattern = r"v([\d.]+)/"
+url = "https://github.com/nodejs/node/releases"
+pattern = r"releases/tag/v([\d.]+)"
 ignore = ["19.*"]
