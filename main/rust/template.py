@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.71.0"
+pkgver = "1.71.1"
 pkgrel = 0
 hostmakedepends = [
     "cmake",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "5814699031aafdcc2e2f71fc9b389678cd7042350d1583da061463d8e88681c7"
+sha256 = "371af0fbe04051e20a74dbea6d4e4e548f10f15309c49cae2688afb882b6c7f1"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
