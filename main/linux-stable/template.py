@@ -1,6 +1,6 @@
 # update linux-stable-zfs-bin when bumping
 pkgname = "linux-stable"
-pkgver = "6.4.6"
+pkgver = "6.4.9"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 make_dir = "build"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "e1ecc496efc48aaf25a6607a4b8e52d574d6f67a2b0aa1664087d301d3515ea4"
+sha256 = "b8b8a29852b999f337c4e93eff6c91fb7fd2d49a6614cbcbeb6fa171ba55cc9f"
 # no meaningful checking to be done
 options = [
     "!check",
@@ -32,7 +32,7 @@ _flavor = "generic"
 _conf = False
 
 if _conf:
-    hostmakedepends += ["base-cross"]
+    hostmakedepends += ["base-cross", "ncurses-devel"]
 
 if self.profile().cross:
     broken = "linux-devel does not come out right"
