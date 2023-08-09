@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.41.0"
-pkgrel = 1
+pkgrel = 2
 make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
@@ -51,6 +51,7 @@ NO_INSTALL_HARDLINKS = Yes
 ICONV_OMITS_BOM = Yes
 NO_REGEX = Yes
 INSTALLDIRS = vendor
+INSTALL_SYMLINKS = 1
 perllibdir = /usr/share/perl5/vendor_perl
 PYTHON_PATH = /usr/bin/python
 DEFAULT_TEST_TARGET = prove
