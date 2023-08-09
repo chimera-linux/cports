@@ -1,8 +1,9 @@
 pkgname = "intel-gmmlib"
 pkgver = "22.3.9"
 pkgrel = 0
-# supported platforms
-archs = ["aarch64", "x86_64"]
+# aarch64 segfaults in tests
+# only needed for intel-media-driver anyway
+archs = ["x86_64"]
 build_style = "cmake"
 hostmakedepends = [
     "cmake",
