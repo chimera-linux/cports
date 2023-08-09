@@ -1,5 +1,5 @@
 pkgname = "ucode-intel"
-pkgver = "20230613"
+pkgver = "20230808"
 pkgrel = 0
 archs = ["x86_64"]
 makedepends = ["iucode-tool"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:proprietary"
 url = "https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files"
 source = f"{url}/archive/microcode-{pkgver}.tar.gz"
-sha256 = "894d822d2347222a2595d4fc47d358e01d35a54780123100c317dfc31b1b0cc9"
+sha256 = "fe49bb719441f20335ed6004090ab38cdc374134d36d4f5d30be7ed93b820313"
 options = ["!strip", "foreignelf"]
 
 
