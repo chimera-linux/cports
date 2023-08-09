@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.1.41 Kernel Configuration
+# Linux/powerpc 6.1.44 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 16.0.6"
 CONFIG_GCC_VERSION=0
@@ -875,7 +875,7 @@ CONFIG_ARCH_HAS_HUGEPD=y
 CONFIG_ANON_VMA_NAME=y
 CONFIG_USERFAULTFD=y
 CONFIG_LRU_GEN=y
-# CONFIG_LRU_GEN_ENABLED is not set
+CONFIG_LRU_GEN_ENABLED=y
 # CONFIG_LRU_GEN_STATS is not set
 CONFIG_LOCK_MM_AND_FIND_VMA=y
 

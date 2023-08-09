@@ -78,6 +78,8 @@ def update_configs(pkg, archs, flavor):
             with pkg.stamp(f"{a}_config"):
                 pkg.log(f"configuring {a}...")
                 configure(pkg, flavor, f"{pkg.make_dir}-{a}")
+                pkg.log("now perform other config (press enter once done)")
+                input()
                 pkg.cp(
                     f"{pkg.make_dir}-{a}/.config",
                     pkg.files_path / f"config-{a}.{flavor}",
