@@ -175,6 +175,15 @@ def post_install(self):
         f.with_name(nsname).unlink()
         self.install_link(f.name, f"usr/lib/qt6/bin/{nsname}")
 
+    # link publicbindir utils to usr/bin, like qmake6
+    # used outside of cmake
+    self.install_dir("usr/bin")
+    with open(
+        self.cwd / self.make_dir / "user_facing_tool_links.txt", "r"
+    ) as f:
+        for line in f.readlines():
+            self.install_link(*line.split())
+
 
 @subpackage("qt6-qtbase-gui")
 def _gui(self):
@@ -245,6 +254,8 @@ def _devel(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"] + makedepends
     return self.default_devel(
         extra=[
+            "usr/bin/androiddeployqt6",
+            "usr/bin/qmake6",
             "usr/lib/qt6/metatypes",
             "usr/lib/qt6/mkspecs",
             "usr/lib/qt6/modules",
