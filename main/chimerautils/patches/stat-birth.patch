@@ -1,0 +1,32 @@
+commit 6da84ba568ac51062b67831a63997c162a0eda5f
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Aug 10 03:06:56 2023 +0200
+
+    stat(1): do not use %SB in -x print on systems without birth
+
+diff --git a/src.freebsd/coreutils/stat/stat.c b/src.freebsd/coreutils/stat/stat.c
+index f20e4c7..0430fc5 100644
+--- a/src.freebsd/coreutils/stat/stat.c
++++ b/src.freebsd/coreutils/stat/stat.c
+@@ -83,10 +83,12 @@ __FBSDID("$FreeBSD$");
+ #define DEF_B "\"%SB\" "
+ #define RAW_B "%B "
+ #define SHELL_B "st_birthtime=%B "
++#define STR_B "%SB"
+ #else /* HAVE_STRUCT_STAT_ST_BIRTHTIME */
+ #define DEF_B
+ #define RAW_B
+ #define SHELL_B
++#define STR_B "-"
+ #endif /* HAVE_STRUCT_STAT_ST_BIRTHTIME */
+ 
+ #if HAVE_STRUCT_STAT_ST_ATIM
+@@ -115,7 +117,7 @@ __FBSDID("$FreeBSD$");
+ 	"Access: %Sa%n" \
+ 	"Modify: %Sm%n" \
+ 	"Change: %Sc%n"	\
+-	" Birth: %SB"
++	" Birth: " STR_B
+ 
+ #define TIME_FORMAT	"%b %e %T %Y"
+ 
