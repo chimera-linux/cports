@@ -161,7 +161,7 @@ def do_install(self):
 
 @subpackage("gitk")
 def _gitk(self):
-    self.depends += [f"git={pkgver}-r{pkgrel}", "tk"]
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "tk"]
     self.pkgdesc = "Git repository browser"
     self.license = "GPL-2.0-or-later"
     return ["usr/bin/gitk", "usr/share/gitk", "usr/share/man/man1/gitk.1"]
@@ -169,7 +169,7 @@ def _gitk(self):
 
 @subpackage("git-gui")
 def _gui(self):
-    self.depends += [f"git={pkgver}-r{pkgrel}", "tk"]
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "tk"]
     self.pkgdesc = f"{pkgdesc} (GUI tool)"
     self.license = "GPL-2.0-or-later"
     return [
@@ -192,7 +192,7 @@ def _libsecret(self):
 
 @subpackage("git-scalar")
 def _scalar(self):
-    self.depends += [f"git={pkgver}-r{pkgrel}"]
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.pkgdesc = "Git scalar monorepo tool"
 
     return [
