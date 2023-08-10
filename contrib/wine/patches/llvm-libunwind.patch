@@ -1,0 +1,14 @@
+the apple path uses the bare (llvm-) libunwind ucontext_t,
+the non-apple one uses unw_ucontext_t from libunwind proper
+--
+--- a/dlls/ntdll/unix/signal_x86_64.c
++++ b/dlls/ntdll/unix/signal_x86_64.c
+@@ -633,7 +633,7 @@
+     unw_proc_info_t info;
+     int rc;
+ 
+-#ifdef __APPLE__
++#if 1
+     rc = unw_getcontext( &unw_context );
+     if (rc == UNW_ESUCCESS)
+         rc = unw_init_local( &cursor, &unw_context );
