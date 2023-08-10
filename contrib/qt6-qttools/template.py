@@ -1,9 +1,10 @@
 pkgname = "qt6-qttools"
 pkgver = "6.5.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DQT_BUILD_TESTS=OFF",  # downloads gtest
+    "-DINSTALL_PUBLICBINDIR=usr/bin",
     "-DLITEHTML_UTF8=ON",
     "-DQT_BUILD_SHARED_LIBS=ON",
     "-DQT_FEATURE_assistant=ON",
@@ -48,6 +49,15 @@ def post_install(self):
     # hardlink
     self.rm(self.destdir / "usr/lib/qt6/bin/qtdiag")
     self.install_link("qtdiag6", "usr/lib/qt6/bin/qtdiag")
+
+    # link publicbindir utils to usr/bin, like qmake6
+    # used outside of cmake
+    self.install_dir("usr/bin")
+    with open(
+        self.cwd / self.make_dir / "user_facing_tool_links.txt", "r"
+    ) as f:
+        for line in f.readlines():
+            self.install_link(*line.split())
 
 
 @subpackage("qt6-qttools-libs")
