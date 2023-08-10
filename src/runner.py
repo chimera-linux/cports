@@ -1159,7 +1159,7 @@ def do_cycle_check(tgt):
         tg.prepare()
     except graphlib.CycleError as ce:
         raise errors.CbuildException(
-            "cycle encountered: " + " => ".join(ce.args[1])
+            "cycle encountered: " + " <= ".join(ce.args[1])
         )
 
 
