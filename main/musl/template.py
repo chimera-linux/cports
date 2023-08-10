@@ -95,6 +95,8 @@ def do_install(self):
     # ensure all files go in /usr/lib
     self.install_link("usr/lib", "lib")
 
+    self.install_license("COPYRIGHT")
+
     self.make.install()
 
     # no need for the symlink anymore
