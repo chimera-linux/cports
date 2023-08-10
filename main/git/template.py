@@ -12,7 +12,13 @@ hostmakedepends = [
     "xmlto",
     "tk",
 ]
-makedepends = ["libcurl-devel", "pcre2-devel", "tk-devel", "libexpat-devel"]
+makedepends = [
+    "libcurl-devel",
+    "libexpat-devel",
+    "libsecret-devel",
+    "pcre2-devel",
+    "tk-devel",
+]
 depends = [
     "ca-certificates",
     "perl-authen-sasl",
@@ -68,6 +74,7 @@ def do_build(self):
     self.make.invoke(None, ["-C", "contrib/contacts", "all", "git-contacts.1"])
     self.make.invoke(None, ["-C", "contrib/diff-highlight", "all"])
     self.make.invoke(None, ["-C", "contrib/subtree", "all", "man"])
+    self.make.invoke(None, ["-C", "contrib/credential/libsecret", "all"])
 
 
 def do_check(self):
@@ -97,6 +104,12 @@ def do_install(self):
             "install",
             "install-man",
         ],
+    )
+    # no install target
+    self.install_file(
+        "contrib/credential/libsecret/git-credential-libsecret",
+        "usr/libexec/git-core",
+        mode=0o755,
     )
 
     # remove cvs for now
@@ -166,6 +179,15 @@ def _gui(self):
         "usr/share/man/man1/git-citool.1",
         "usr/share/git-gui",
     ]
+
+
+@subpackage("git-credential-libsecret")
+def _libsecret(self):
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "libsecret"]
+    self.pkgdesc = "Git libsecret credential helper"
+
+    return ["usr/libexec/git-core/git-credential-libsecret"]
 
 
 @subpackage("git-scalar")
