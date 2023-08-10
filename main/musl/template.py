@@ -1,6 +1,6 @@
 pkgname = "musl"
 pkgver = "1.2.4"
-pkgrel = 0
+pkgrel = 1
 _scudo_ver = "16.0.6"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
@@ -24,7 +24,7 @@ sha256 = [
 # scp makes it segfault
 hardening = ["!scp"]
 # does not ship tests + allow "broken" symlinks to true
-options = ["bootstrap", "!check", "!lto", "!relr", "brokenlinks"]
+options = ["bootstrap", "!check", "!lto", "brokenlinks"]
 
 # whether to use musl's stock allocator instead of scudo
 _use_mng = self.profile().arch in ["ppc"]
