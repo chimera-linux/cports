@@ -1,4 +1,5 @@
 import sys
+import os
 
 
 class Logger:
@@ -6,6 +7,10 @@ class Logger:
         self.use_colors = colors
         self.ostream = ostream
         self.estream = estream
+        self.fileno = ostream.fileno()
+
+    def out_raw(self, msg):
+        os.write(self.fileno, msg.encode())
 
     def out_plain(self, msg, end="\n"):
         self.ostream.write(msg)

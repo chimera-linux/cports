@@ -1,8 +1,12 @@
 from cbuild.core import paths
 
 import os
+import math
 import hashlib
+import threading
+from time import time as timer
 from urllib import request
+from multiprocessing.pool import ThreadPool
 
 
 def get_cksum(dfile, pkg):
@@ -68,7 +72,52 @@ def get_nameurl(pkg, d):
         return d, d[bsl + 1 :]
 
 
+fmtx = threading.Lock()
+fstatus = []
+flens = []
+
+
+def fetch_url(mv):
+    global fmtx, fstatus, flens
+
+    url, dfile, idx = mv
+    try:
+        rq = request.Request(
+            url,
+            data=None,
+            headers={
+                "User-Agent": "cbuild-fetch/4.20.69",
+                "Accept": "*/*",
+            },
+        )
+        rqf = request.urlopen(rq)
+        clen = rqf.getheader("content-length")
+        if clen:
+            clen = int(clen)
+            with fmtx:
+                flens[idx] = clen
+            bsize = max(65536, clen // 100)
+        else:
+            bsize = 65536
+        with open(dfile, "wb") as df:
+            while True:
+                buf = rqf.read(bsize)
+                if not buf:
+                    break
+                df.write(buf)
+                with fmtx:
+                    fstatus[idx] += len(buf)
+            # done fetching, report 100%
+            with fmtx:
+                flens[idx] = fstatus[idx]
+        return None, None
+    except Exception as e:
+        return dfile, str(e)
+
+
 def invoke(pkg):
+    global fmtx, fstatus, flens
+
     srcdir = paths.sources() / f"{pkg.pkgname}-{pkg.pkgver}"
 
     dfgood = 0
@@ -103,32 +152,90 @@ def invoke(pkg):
     if len(pkg.source) == dfgood:
         return
 
+    tofetch = []
+    dfiles = []
+
     for dc in zip(pkg.source, pkg.sha256):
         d, ck = dc
         url, fname = get_nameurl(pkg, d)
         dfile = srcdir / fname
+        dfiles.append((dfile, ck))
         if not dfile.is_file():
             link_cksum(dfile, ck, pkg)
         if not dfile.is_file():
+            idx = len(tofetch)
+            tofetch.append((url, dfile, idx))
+            fstatus.append(0)
+            flens.append(-1)
             pkg.log(f"fetching source '{fname}'...")
-            try:
-                rq = request.Request(
-                    url,
-                    data=None,
-                    headers={
-                        "User-Agent": "cbuild-fetch/4.20.69",
-                        "Accept": "*/*",
-                    },
-                )
-                rqf = request.urlopen(rq)
-                with open(dfile, "wb") as df:
-                    df.write(rqf.read())
-            except Exception as e:
-                pkg.log_warn(f"error fetching '{dfile.name}': {e}")
+
+    # max 16 connections
+    tpool = ThreadPool(16)
+    dretr = tpool.map_async(fetch_url, tofetch)
+    ferrs = 0
+    # progress while processing
+    start = timer()
+    # wait up to a second first
+    dretr.wait(1)
+    printed = False
+    maxlen = 0
+    # now loop
+    while not dretr.ready():
+        # go up as many lines as we previously printed
+        if printed:
+            for nl in range(len(tofetch)):
+                pkg.logger.out_raw("\033[A")
+        # take a lock and make up status array for all sources
+        with fmtx:
+            for url, dfile, idx in tofetch:
+                dled = fstatus[idx]
+                clen = flens[idx]
+                # compute percetnage if we can (known content-length)
+                if clen < 0:
+                    prog = "unknown%"
+                else:
+                    percent = math.floor((dled / clen) * 100)
+                    prog = f"{percent}%"
+                # we can always compute speed
+                speed = dled / (timer() - start)
+                unit = "B/s"
+                # provide more useful units
+                if speed > 1024:
+                    speed /= 1024
+                    if speed > 1024:
+                        speed /= 1024
+                        unit = "MB/s"
+                    else:
+                        unit = "kB/s"
+                # print with speed up to 1 decimal digit
+                if pkg.logger.use_colors:
+                    if dled == clen:
+                        pstr = f"[done {dfile.name}]"
+                    else:
+                        pstr = f"[{prog} {dfile.name} ({speed:.1f} {unit})]"
+                    if len(pstr) >= maxlen:
+                        maxlen = len(pstr)
+                    else:
+                        pstr += " " * (maxlen - len(pstr))
+                    pkg.logger.out_raw(pstr + "\n")
+        # wait up to a second
+        dretr.wait(1)
+        if pkg.logger.use_colors:
+            printed = True
+    # at this point all tasks have finished, check the results
+    for dfile, err in dretr.get():
+        if dfile:
+            pkg.log_warn(f"error fetching '{dfile.name}': {err}")
+            ferrs += 1
+    # error if something failed to fetch
+    if ferrs > 0:
+        pkg.error(f"failed to fetch {ferrs} sources")
+    # verify the sources
+    for dfile, ck in dfiles:
         if not dfile.is_file():
-            pkg.error(f"failed to fetch '{dfile.name}'")
+            pkg.error(f"source '{dfile}' does not exist")
         if not verify_cksum(dfile, ck, pkg):
             errors += 1
-
+    # error if something failed to verify
     if errors > 0:
-        pkg.error("couldn't verify sources")
+        pkg.error(f"failed to verify {errors} sources")

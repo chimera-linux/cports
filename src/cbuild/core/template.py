@@ -51,11 +51,12 @@ class StampCheck:
 
 
 @contextlib.contextmanager
-def redir_allout(logpath):
+def redir_allout(pkg, logpath):
     try:
         # save old descriptors
         oldout = os.dup(sys.stdout.fileno())
         olderr = os.dup(sys.stderr.fileno())
+        pkg.logger.fileno = oldout
         # this will do the logging for us; this way we can get
         # both standard output and file redirection at once
         tee = subprocess.Popen(["tee", logpath], stdin=subprocess.PIPE)
@@ -68,6 +69,7 @@ def redir_allout(logpath):
         # restore
         os.dup2(oldout, sys.stdout.fileno())
         os.dup2(olderr, sys.stderr.fileno())
+        pkg.logger.fileno = sys.stdout.fileno()
         # close the pipe
         tee.stdin.close()
         # close the old duplicates
@@ -160,7 +162,7 @@ def run_pkg_func(pkg, func, funcn=None, desc=None, on_subpkg=False):
     else:
         logf = pkg.statedir / f"{pkg.pkgname}_{crossb}_{funcn}.log"
     pkg.log(f"running {desc}...")
-    with redir_allout(logf):
+    with redir_allout(pkg, logf):
         if on_subpkg:
             func()
         else:
