@@ -1,5 +1,5 @@
 pkgname = "openssh"
-pkgver = "9.3p2"
+pkgver = "9.4p1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgver}.tar.gz"
-sha256 = "200ebe147f6cb3f101fd0cdf9e02442af7ddca298dffd9f456878e7ccac676e8"
+sha256 = "3608fd9088db2163ceb3e600c85ab79d0de3d221e59192ea1923e23263866a85"
 suid_files = ["usr/libexec/ssh-keysign"]
 # FIXME cfi (does not work); maybe make testsuite work first
 hardening = ["vis", "!cfi"]
