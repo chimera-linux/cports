@@ -32,7 +32,7 @@ makedepends = [
 ]
 pkgdesc = "OpenSSH free Secure Shell (SSH) client and server implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "BSD-2-Clause AND ISC"
+license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgver}.tar.gz"
 sha256 = "200ebe147f6cb3f101fd0cdf9e02442af7ddca298dffd9f456878e7ccac676e8"
