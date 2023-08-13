@@ -4,9 +4,16 @@ pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DMOLD_USE_MIMALLOC=OFF",
+    "-DMOLD_USE_SYSTEM_TBB=ON",
 ]
 hostmakedepends = ["cmake", "ninja"]
-makedepends = ["openssl-devel", "zlib-devel", "libzstd-devel", "linux-headers"]
+makedepends = [
+    "libzstd-devel",
+    "linux-headers",
+    "onetbb-devel",
+    "openssl-devel",
+    "zlib-devel",
+]
 pkgdesc = "High-performance linker"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
