@@ -1,15 +1,15 @@
 pkgname = "boost"
-pkgver = "1.82.0"
-pkgrel = 1
+pkgver = "1.83.0"
+pkgrel = 0
 hostmakedepends = ["pkgconf"]
 makedepends = [
-    "zlib-devel",
+    "icu-devel",
     "libbz2-devel",
     "liblzma-devel",
     "libzstd-devel",
-    "icu-devel",
-    "python-devel",
     "linux-headers",
+    "python-devel",
+    "zlib-devel",
 ]
 provides = [f"boost{pkgver[:-2]}={pkgver}-r{pkgrel}"]
 pkgdesc = "Free peer-reviewed portable C++ source libraries"
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "66a469b6e608a51f8347236f4912e27dc5c60c60d7d53ae9bfe4683316c6f04c"
+sha256 = "c0685b68dd44cc46574cce86c4e17c0f611b15e195be9848dfd0769a0a207628"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
 # FIXME: odd failures, but seems test-related
 options = ["!check", "!cross"]  # i don't dare touch this yet
