@@ -1,0 +1,126 @@
+From 45bd5cc6edf3dd974ca030a1f969fcec1391acac Mon Sep 17 00:00:00 2001
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Fri, 11 Aug 2023 08:42:07 -0700
+Subject: [PATCH] x86/srso: fix "missing return thunk" on non -mno-shared
+ assemblers
+
+A few users have reported observing the following splat from a
+WARN_ONCE:
+
+[    0.086618] ------------[ cut here ]------------
+[    0.086996] missing return thunk: __ret+0x5/0x7e-__ret+0x0/0x7e: e9 f6 ff ff ff
+[    0.087005] WARNING: CPU: 0 PID: 0 at arch/x86/kernel/alternative.c:753 apply_returns+0x2da/0x4
+30
+
+[    0.088328] Modules linked in:
+[    0.088585] CPU: 0 PID: 0 Comm: swapper/0 Not tainted 6.5.0-rc5-00056-gcacc6e22932f #1
+[    0.089216] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Arch Linux 1.16.2-1-1 0
+4/01/2014
+[    0.089329] RIP: 0010:apply_returns+0x2da/0x430
+[    0.089624] Code: ff ff 0f 0b e9 c8 fd ff ff c6 05 60 bd c2 01 01 48 c7 c7 ae 5a 68 bd 4c 89 ee
+ 4c 89 e2 b9 05 00 00 00 4d 89 e8 e8 b6 4d 05 00 <0f> 0b e9 a0 fd ff ff 45 85 e4 0f 84 2e ff ff ff
+ 48 c7 c7 6e 5a 68
+[    0.090328] RSP: 0000:ffffffffbda03e20 EFLAGS: 00010246
+[    0.090740] RAX: cb2b7f056bc62700 RBX: ffffffffbe319188 RCX: ffffffffbda53e80
+[    0.091328] RDX: ffffffffbda03cd8 RSI: 00000000ffffdfff RDI: ffffffffbda84110
+[    0.091891] RBP: ffffffffbda03ef8 R08: 0000000000001fff R09: ffffffffbda54110
+[    0.092328] R10: 0000000000005ffd R11: 0000000000000004 R12: ffffffffbcf60040
+[    0.093328] R13: ffffffffbcf60045 R14: ffffffffbe319180 R15: ffffffffbda03e38
+[    0.093896] FS:  0000000000000000(0000) GS:ffff97db5ee00000(0000) knlGS:0000000000000000
+[    0.094328] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    0.094775] CR2: ffff97db55001000 CR3: 000000001442a001 CR4: 0000000000770ef0
+[    0.095329] PKRU: 55555554
+[    0.095555] Call Trace:
+[    0.095755]  <TASK>
+[    0.095930]  ? __warn+0xc3/0x1c0
+[    0.096328]  ? apply_returns+0x2da/0x430
+[    0.096621]  ? report_bug+0x14e/0x1f0
+[    0.096860]  ? handle_bug+0x3d/0x80
+[    0.097087]  ? exc_invalid_op+0x1a/0x50
+[    0.097328]  ? asm_exc_invalid_op+0x1a/0x20
+[    0.097645]  ? __ret+0x5/0x7e
+[    0.097847]  ? zen_untrain_ret+0x1/0x1
+[    0.098329]  ? apply_returns+0x2da/0x430
+[    0.098586]  ? __ret+0x5/0x7e
+[    0.098781]  ? __ret+0x14/0x7e
+[    0.098981]  ? __ret+0xa/0x7e
+[    0.099175]  alternative_instructions+0x47/0x110
+[    0.099329]  arch_cpu_finalize_init+0x2c/0x50
+[    0.099613]  start_kernel+0x2e4/0x390
+[    0.099853]  x86_64_start_reservations+0x24/0x30
+[    0.100328]  x86_64_start_kernel+0xab/0xb0
+[    0.100595]  secondary_startup_64_no_verify+0x17a/0x17b
+[    0.100957]  </TASK>
+[    0.101101] ---[ end trace 0000000000000000 ]---
+
+It seems that the presence of (or lack thereof) relocations in
+arch/x86/lib/retpoline.o seem to be triggering this.  I'm not certain,
+but I suspect that this code may be checking the return thunk BEFORE
+relocations have been applied.
+
+GNU as ("GAS") has a command line flag pair -mshared/-mno-shared that
+controls this behavior. In binutils 2.25, the implicit default value for
+this flag was changed from -mshared to -mno-shared, but only for x86.[0]
+Building with KAFLAGS=-Wa,-mshared can reproduce the above splat.
+
+While Documentation/process/changes.rst currently lists binutils 2.25 as
+the minimum supported version, the SRSO patches were backported to
+stable's linux-5.4.y where binutils 2.21 is still supported. We could
+add -Wa,-mno-shared to KBUILD_AFLAGS, but Clang's integrated assembler
+doesn't support this flag, and defaults to -mshared for all
+architectures. [1]
+
+Instead, we can simply add a local label that aliases the global label
+__ret, and refer to that within arch/x86/lib/retpoline.S to avoid any
+relocations being generated for any assembler regardless of its implicit
+default behavior with respect to -mshared/-mno-shared.
+
+Cc: stable@vger.kernel.org
+Fixes: fb3bd914b3ec ("x86/srso: Add a Speculative RAS Overflow mitigation")
+Reported-by: Nathan Chancellor <nathan@kernel.org>
+Closes: https://github.com/ClangBuiltLinux/linux/issues/1911
+Link: https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=b084df0b8d1262fb1e969c74bcc5c61e262a6199 [0]
+Link: https://github.com/llvm/llvm-project/issues/64603 [1]
+---
+ arch/x86/lib/retpoline.S | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/arch/x86/lib/retpoline.S b/arch/x86/lib/retpoline.S
+index 5c43684ec982..5acb78da5488 100644
+--- a/arch/x86/lib/retpoline.S
++++ b/arch/x86/lib/retpoline.S
+@@ -184,7 +184,7 @@ SYM_FUNC_END(srso_safe_ret_alias)
+  *    from re-poisioning the BTB prediction.
+  */
+ 	.align 64
+-	.skip 64 - (__ret - zen_untrain_ret), 0xcc
++       .skip 64 - (.L__ret - zen_untrain_ret), 0xcc
+ SYM_START(zen_untrain_ret, SYM_L_GLOBAL, SYM_A_NONE)
+ 	ANNOTATE_NOENDBR
+ 	/*
+@@ -217,6 +217,7 @@ SYM_START(zen_untrain_ret, SYM_L_GLOBAL, SYM_A_NONE)
+ 	 * which will be contained safely by the INT3.
+ 	 */
+ SYM_INNER_LABEL(__ret, SYM_L_GLOBAL)
++SYM_INNER_LABEL(.L__ret, SYM_L_LOCAL)
+ 	ret
+ 	int3
+ SYM_CODE_END(__ret)
+@@ -230,7 +231,7 @@ SYM_CODE_END(__ret)
+ 	 * Jump back and execute the RET in the middle of the TEST instruction.
+ 	 * INT3 is for SLS protection.
+ 	 */
+-	jmp __ret
++       jmp .L__ret
+ 	int3
+ SYM_FUNC_END(zen_untrain_ret)
+ __EXPORT_THUNK(zen_untrain_ret)
+@@ -265,7 +266,7 @@ SYM_FUNC_END(srso_untrain_ret)
+ __EXPORT_THUNK(srso_untrain_ret)
+ 
+ SYM_FUNC_START(__x86_return_thunk)
+-	ALTERNATIVE_2 "jmp __ret", "call srso_safe_ret", X86_FEATURE_SRSO, \
++       ALTERNATIVE_2 "jmp .L__ret", "call srso_safe_ret", X86_FEATURE_SRSO, \
+ 			"call srso_safe_ret_alias", X86_FEATURE_SRSO_ALIAS
+ 	int3
+ SYM_CODE_END(__x86_return_thunk)

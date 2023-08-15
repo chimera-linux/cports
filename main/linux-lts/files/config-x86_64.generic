@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86_64 6.1.44 Kernel Configuration
+# Linux/x86_64 6.1.45 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 16.0.6"
 CONFIG_GCC_VERSION=0
@@ -508,7 +508,7 @@ CONFIG_RETHUNK=y
 CONFIG_CPU_UNRET_ENTRY=y
 CONFIG_CPU_IBPB_ENTRY=y
 CONFIG_CPU_IBRS_ENTRY=y
-# CONFIG_CPU_SRSO is not set
+CONFIG_CPU_SRSO=y
 # CONFIG_SLS is not set
 # CONFIG_GDS_FORCE_MITIGATION is not set
 CONFIG_ARCH_HAS_ADD_PAGES=y
