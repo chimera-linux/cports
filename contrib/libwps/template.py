@@ -1,6 +1,6 @@
 pkgname = "libwps"
 pkgver = "0.4.14"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-werror"]
 make_cmd = "gmake"
