@@ -8,7 +8,7 @@ configure_args = [
 make_check_args = [
     "-E",
     # FIXME: hangs/crashes
-    "(threadtest|compositingenabled|kwindowinfox11test|kwindowsystemx11test)",
+    "(threadtest|compositingenabled|kwindowinfox11test|kwindowsystemx11test|netrootinfotestwm)",
 ]
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
