@@ -1,6 +1,6 @@
 pkgname = "cairomm1.0"
 pkgver = "1.14.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dboost-shared=true"]
 hostmakedepends = ["meson", "pkgconf"]
