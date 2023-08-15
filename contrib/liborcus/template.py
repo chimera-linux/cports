@@ -1,6 +1,6 @@
 pkgname = "liborcus"
 pkgver = "0.18.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "python"]
