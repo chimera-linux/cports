@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.10.4"
+pkgver = "4.12.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,6 +29,7 @@ hostmakedepends = [
     "docbook-xsl-nons",
     "python-docutils",
     "sassc",
+    "shaderc-progs",
     "gtk-update-icon-cache",
 ]
 makedepends = [
@@ -76,7 +77,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "7725400482e0685e28265e226c62847f4e73cfca9e9b416ac5838207f5377a24"
+sha256 = "a6d10829f405b1afc0b65e2a9642c04126a1d1b638d11c6d97426da4f84f1f6f"
 # FIXME overflow in gtklabel.c (repro: gnome-text-editor file reload)
 hardening = ["!int"]
 # xvfb doesn't do the trick for some reason?
