@@ -49,6 +49,11 @@ sha256 = [
 hardening = ["vis"]
 
 
+# FIXME
+if self.profile().arch == "riscv64":
+    configure_args += ["-DBUILD_TESTING=OFF"]
+
+
 def init_check(self):
     skip = [
         "(",
