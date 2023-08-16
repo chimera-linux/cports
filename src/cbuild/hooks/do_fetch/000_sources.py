@@ -110,9 +110,9 @@ def fetch_url(mv):
             # done fetching, report 100%
             with fmtx:
                 flens[idx] = fstatus[idx]
-        return None, None
+        return None, None, None
     except Exception as e:
-        return dfile, str(e)
+        return url, dfile, str(e)
 
 
 def invoke(pkg):
@@ -223,9 +223,9 @@ def invoke(pkg):
         if pkg.logger.use_colors:
             printed = True
     # at this point all tasks have finished, check the results
-    for dfile, err in dretr.get():
-        if dfile:
-            pkg.log_warn(f"error fetching '{dfile.name}': {err}")
+    for url, dfile, err in dretr.get():
+        if url:
+            pkg.log_warn(f"error fetching '{dfile.name}' ({url}): {err}")
             ferrs += 1
     # error if something failed to fetch
     if ferrs > 0:
