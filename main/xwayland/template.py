@@ -1,5 +1,5 @@
 pkgname = "xwayland"
-pkgver = "23.1.2"
+pkgver = "23.2.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -9,12 +9,14 @@ configure_args = [
     "-Dglamor=true",
     "-Dxvfb=false",
     "-Dxdmcp=false",
+    "-Dxwayland_ei=socket",
     "-Dxwayland_eglstream=false",
     "-Dxkb_dir=/usr/share/X11/xkb",
     "-Dxkb_output_dir=/var/lib/xkb",
 ]
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
 makedepends = [
+    "libei-devel",
     "libxfont2-devel",
     "libxkbfile-devel",
     "libxshmfence-devel",
@@ -39,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/{pkgname}-{pkgver}/xserver-{pkgname}-{pkgver}.tar.gz"
-sha256 = "ea63218a4608cf88e98b1437de87f4757acf0d162eae8160559465385e01d391"
+sha256 = "475f5e095a4b47e972fc0a991ae4be1f6ff40d28b621e06d1eed54cdae42fe69"
 hardening = ["!cfi"]  # TODO
 # needs xtest repository
 options = ["!check"]
