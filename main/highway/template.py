@@ -1,6 +1,6 @@
 pkgname = "highway"
 pkgver = "1.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -25,8 +25,7 @@ hardening = ["vis"]
 
 # error: use of undeclared identifier '__RISCV_VXRM_RNU'
 if self.profile().arch == "riscv64":
-    tool_flags = {"CXXFLAGS": ["-DHWY_COMPILE_ONLY_SCALAR"]}
-    configure_args += ["-DHWY_ENABLE_TESTS=OFF"]
+    tool_flags = {"CXXFLAGS": ["-DHWY_RVV_AVOID_VXRM"]}
 
 
 def post_install(self):
