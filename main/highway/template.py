@@ -23,6 +23,11 @@ sha256 = "99b7dad98b8fa088673b720151458fae698ae5df9154016e39de4afdc23bb927"
 hardening = ["vis"]
 
 
+# error: use of undeclared identifier '__RISCV_VXRM_RNU'
+if self.profile().arch == "riscv64":
+    tool_flags = {"CXXFLAGS": ["-DHWY_COMPILE_ONLY_SCALAR"]}
+
+
 def post_install(self):
     self.install_license("LICENSE")
 
