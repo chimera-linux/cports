@@ -1,6 +1,6 @@
 pkgname = "swayimg"
 pkgver = "1.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "bash-completion",
@@ -14,6 +14,7 @@ makedepends = [
     "libexif-devel",
     "libheif-devel",
     "libjpeg-turbo-devel",
+    "libjxl-devel",
     "libpng-devel",
     "librsvg-devel",
     "libtiff-devel",
