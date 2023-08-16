@@ -1,5 +1,5 @@
 pkgname = "qemu"
-pkgver = "8.0.3"
+pkgver = "8.0.4"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde liburing libssh capstone
@@ -94,7 +94,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "ecf4d32cbef9d397bfc8cc50e4d1e92a1b30253bf32e8ee73c7a8dcf9a232b09"
+sha256 = "81c817dda38af958be5bef1a6cf55b658bb2d3fb87c1e6a571de6b7b2c44516c"
 suid_files = ["usr/libexec/qemu-bridge-helper"]
 file_modes = {
     "etc/qemu/bridge.conf": ("root", "_qemu", 0o640),
