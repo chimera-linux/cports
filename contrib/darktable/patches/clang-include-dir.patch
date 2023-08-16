@@ -1,0 +1,15 @@
+clang-16 changed the include dir from 15.x.y/include to just 16/include (majorver)
+--
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 19a1a03..5671614 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -333,7 +333,7 @@ if(TESTBUILD_OPENCL_PROGRAMS)
+ 
+       find_path(CLANG_OPENCL_INCLUDE_DIR opencl-c.h
+         HINTS ${LLVM_INSTALL_PREFIX}/lib/clang ${LLVM_INSTALL_PREFIX}/lib64/clang
+-        PATH_SUFFIXES include ${LLVM_PACKAGE_VERSION}/include
++        PATH_SUFFIXES include ${LLVM_VERSION_MAJOR}/include
+         NO_DEFAULT_PATH
+       )
+ 
