@@ -1,6 +1,6 @@
 pkgname = "xserver-xorg-core"
 pkgver = "21.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 _fontroot = "/usr/share/fonts"
 configure_args = [
@@ -13,12 +13,13 @@ configure_args = [
     "-Ddri3=true",
     "-Dglamor=true",
     "-Dglx=true",
-    "-Dsystemd_logind=true",
+    "-Dseatd_libseat=true",
     "-Dsuid_wrapper=true",
     "-Dlinux_acpi=true",
     "-Dudev=true",
     "-Dlinux_apm=false",
     "-Dhal=false",
+    "-Dsystemd_logind=false",
     "-Dxkb_dir=/usr/share/X11/xkb",
     "-Dxkb_output_dir=/var/lib/xkb",
 ]
@@ -35,6 +36,7 @@ makedepends = [
     "libxxf86dga-devel",
     "libxkbui-devel",
     "libtirpc-devel",
+    "libseat-devel",
     "mesa-devel",
     "libepoxy-devel",
     "pixman-devel",
@@ -57,7 +59,6 @@ checkdepends = ["xkeyboard-config"]
 depends = [
     "xserver-xorg-protocol>=20180227",
     "xkeyboard-config",
-    "elogind-meta",
 ]
 provides = [
     "xserver-abi-extension=10.0",
