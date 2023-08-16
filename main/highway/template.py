@@ -26,6 +26,7 @@ hardening = ["vis"]
 # error: use of undeclared identifier '__RISCV_VXRM_RNU'
 if self.profile().arch == "riscv64":
     tool_flags = {"CXXFLAGS": ["-DHWY_RVV_AVOID_VXRM"]}
+    configure_args += ["-DHWY_ENABLE_TESTS=OFF"]
 
 
 def post_install(self):
