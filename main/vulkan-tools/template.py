@@ -1,6 +1,6 @@
 pkgname = "vulkan-tools"
 pkgver = "1.3.261"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-Wno-dev",
@@ -27,6 +27,7 @@ source = (
     f"https://github.com/KhronosGroup/Vulkan-Tools/archive/v{pkgver}.tar.gz"
 )
 sha256 = "2e9a1b380f4e494934c72e2b2fb77d2c3ae03ba19fd36ffad65529413108db2f"
-hardening = ["vis", "cfi"]
+# FIXME: vkcube etc fail
+hardening = ["vis", "!cfi"]
 # no test suite
 options = ["!cross", "!check"]
