@@ -1,5 +1,5 @@
 pkgname = "gtkmm"
-pkgver = "4.10.0"
+pkgver = "4.12.0"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["xvfb-run"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/gtkmm/{pkgver[:-2]}/gtkmm-{pkgver}.tar.xz"
-sha256 = "e1b109771557ecc53cba915a80b6ede827ffdbd0049c62fdf8bd7fa79afcc6eb"
+sha256 = "fbc3e7618123345c0148ef71abb6548d421f52bb224fbda34875b677dc032c92"
 
 
 @subpackage("gtkmm-devel")
