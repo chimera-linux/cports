@@ -1,5 +1,5 @@
 pkgname = "chrony"
-pkgver = "4.3"
+pkgver = "4.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,12 +12,12 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
+    "gnutls-devel",
     "libcap-devel",
     "libedit-devel",
     "libseccomp-devel",
-    "nettle-devel",
-    "gnutls-devel",
     "linux-headers",
+    "nettle-devel",
 ]
 checkdepends = ["bash"]
 pkgdesc = "NTP client and server"
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://chrony.tuxfamily.org"
 source = f"https://download.tuxfamily.org/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "9d0da889a865f089a5a21610ffb6713e3c9438ce303a63b49c2fb6eaff5b8804"
+sha256 = "eafb07e6daf92b142200f478856dfed6efc9ea2d146eeded5edcb09b93127088"
 file_modes = {
     "var/log/chrony": ("_chrony", "_chrony", 0o755),
     "var/lib/chrony": ("_chrony", "_chrony", 0o755),
