@@ -1,5 +1,5 @@
 pkgname = "libxcb"
-pkgver = "1.15"
+pkgver = "1.16"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-build-docs", "--enable-xinput", "--enable-xkb"]
@@ -9,8 +9,8 @@ pkgdesc = "X protocol C language binding"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
-source = f"{url}/dist/{pkgname}-{pkgver}.tar.xz"
-sha256 = "cc38744f817cf6814c847e2df37fcb8997357d72fa4bcbc228ae0fe47219a059"
+source = f"https://xorg.freedesktop.org/archive/individual/lib/libxcb-{pkgver}.tar.xz"
+sha256 = "4348566aa0fbf196db5e0a576321c65966189210cb51328ea2bb2be39c711d71"
 
 
 def post_install(self):
