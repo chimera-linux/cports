@@ -1,6 +1,6 @@
 pkgname = "go"
 pkgver = "1.21.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["bash"]
 checkdepends = [
     "libunwind-devel-static",
@@ -72,6 +72,7 @@ def do_check(self):
 
 
 def do_install(self):
+    self.install_file("go.env", "usr/lib/go")
     self.install_license("LICENSE")
 
     _binpath = "bin"
