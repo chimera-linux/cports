@@ -1,6 +1,6 @@
 pkgname = "highway"
-pkgver = "1.0.5"
-pkgrel = 1
+pkgver = "1.0.6"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -15,10 +15,10 @@ hostmakedepends = [
 makedepends = ["gtest-devel"]
 pkgdesc = "Google's SIMD library with runtime dispatch"
 maintainer = "psykose <alice@ayaya.dev>"
-license = "Apache-2.0"
+license = "Apache-2.0 OR BSD-3-Clause"
 url = "https://github.com/google/highway"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "99b7dad98b8fa088673b720151458fae698ae5df9154016e39de4afdc23bb927"
+sha256 = "d89664a045a41d822146e787bceeefbf648cc228ce354f347b18f2b419e57207"
 # FIXME: cfi breaks a few tests
 hardening = ["vis"]
 
@@ -30,7 +30,7 @@ if self.profile().arch == "riscv64":
 
 
 def post_install(self):
-    self.install_license("LICENSE")
+    self.install_license("LICENSE-BSD3")
 
 
 @subpackage("highway-devel")
