@@ -1,5 +1,5 @@
 pkgname = "json-c"
-pkgver = "0.16"
+pkgver = "0.17"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://json-c.github.io/json-c"
 source = f"https://s3.amazonaws.com/json-c_releases/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "8e45ac8f96ec7791eaf3bb7ee50e9c2100bbbc87b8d0f1d030c5ba8a0288d96b"
+sha256 = "7550914d58fb63b2c3546f3ccfbe11f1c094147bd31a69dcd23714d7956159e6"
 tool_flags = {"CFLAGS": ["-Wno-error"]}
 
 
