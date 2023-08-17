@@ -1,5 +1,5 @@
 pkgname = "libxmlb"
-pkgver = "0.3.11"
+pkgver = "0.3.12"
 pkgrel = 0
 build_style = "meson"
 # tests require some file to exist in /tmp? so it fails
@@ -11,7 +11,7 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libxmlb"
 source = f"https://github.com/hughsie/libxmlb/releases/download/{pkgver}/libxmlb-{pkgver}.tar.xz"
-sha256 = "0bf704ca040b9ab371a62182d0d6417fe7ae38428e5f48846b87b99e74fe7c23"
+sha256 = "b1e61f64dadc67e458430bb35a9f1b25170aafcf5674a52012ae38a2212227b3"
 options = ["!cross"]
 
 
