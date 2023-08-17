@@ -1,0 +1,28 @@
+ancient chromium submodule, etc
+--
+--- a/plugins/CMakeLists.txt
++++ b/plugins/CMakeLists.txt
+@@ -76,7 +76,6 @@
+      OR OS_LINUX)
+     add_subdirectory(obs-vst)
+   endif()
+-  check_obs_websocket()
+   add_subdirectory(obs-x264)
+   add_subdirectory(rtmp-services)
+   if(OS_LINUX)
+@@ -153,7 +152,6 @@
+   add_subdirectory(sndio)
+   add_subdirectory(obs-vst)
+ 
+-  check_obs_browser()
+ elseif(OS_FREEBSD)
+   add_subdirectory(linux-capture)
+   add_subdirectory(linux-pipewire)
+@@ -176,7 +176,6 @@
+ if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/obs-websocket/CMakeLists.txt)
+   add_subdirectory(obs-websocket)
+ else()
+-  obs_status(FATAL_ERROR "obs-websocket submodule not available.")
+ endif()
+ 
+ add_subdirectory(image-source)
