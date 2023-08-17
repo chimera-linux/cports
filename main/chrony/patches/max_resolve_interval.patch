@@ -9,6 +9,6 @@ to a few minutes
  #define MIN_RESOLVE_INTERVAL 2
 -#define MAX_RESOLVE_INTERVAL 9
 +#define MAX_RESOLVE_INTERVAL 6
- #define MIN_REPLACEMENT_INTERVAL 8
+ #define MAX_REPLACEMENT_INTERVAL 9
  
  static struct UnresolvedSource *unresolved_sources = NULL;
