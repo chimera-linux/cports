@@ -1,6 +1,6 @@
 pkgname = "go"
 pkgver = "1.21.0"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["bash"]
 checkdepends = [
     "libunwind-devel-static",
@@ -72,9 +72,6 @@ def do_check(self):
 
 
 def do_install(self):
-    self.install_file("go.env", "usr/lib/go")
-    self.install_license("LICENSE")
-
     _binpath = "bin"
     if self.profile().cross:
         _binpath = f"bin/linux_{self.profile().goarch}"
@@ -102,24 +99,24 @@ def do_install(self):
         self.rm(bdirn, recursive=True)
         self.error("build done, collect your tarball in builddir")
 
-    self.install_dir("usr/bin")
-    self.install_dir("usr/lib/go")
-    self.install_dir("usr/share/go")
-
-    for f in (self.cwd / _binpath).iterdir():
-        self.install_bin(f)
-
+    self.install_files(_binpath, "usr/lib/go", name="bin")
     self.install_files("lib", "usr/lib/go")
     self.install_files("pkg", "usr/lib/go")
     self.install_files("src", "usr/lib/go")
-
-    self.install_files("doc", "usr/share/go")
-    self.install_files("misc", "usr/share/go")
-
+    self.install_files("doc", "usr/lib/go")
+    self.install_files("misc", "usr/lib/go")
+    self.install_file("go.env", "usr/lib/go")
     self.install_file("VERSION", "usr/lib/go")
 
-    self.install_link("../../share/go/doc", "usr/lib/go/doc")
-    self.install_link("../../share/go/misc", "usr/lib/go/misc")
-    self.install_link("../../bin", "usr/lib/go/bin")
+    self.install_dir("usr/bin")
+
+    for f in (self.destdir / "usr/lib/go/bin").iterdir():
+        self.install_link(f"../lib/go/bin/{f.name}", f"usr/bin/{f.name}")
+
+    self.install_dir("usr/share/go")
+    self.install_link("../../lib/go/doc", "usr/share/go/doc")
+    self.install_link("../../lib/go/misc", "usr/share/go/misc")
+
+    self.install_license("LICENSE")
 
     _clear_pkg(self.destdir / "usr/lib/go/pkg")
