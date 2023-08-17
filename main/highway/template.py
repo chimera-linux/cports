@@ -1,6 +1,6 @@
 pkgname = "highway"
 pkgver = "1.0.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -36,17 +36,3 @@ def post_install(self):
 @subpackage("highway-devel")
 def _devel(self):
     return self.default_devel()
-
-
-@subpackage("libhwy_contrib")
-def _contrib(self):
-    return [
-        "usr/lib/libhwy_contrib.so.*",
-    ]
-
-
-@subpackage("libhwy_test")
-def _test(self):
-    return [
-        "usr/lib/libhwy_test.so.*",
-    ]
