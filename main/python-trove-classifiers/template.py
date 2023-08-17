@@ -1,5 +1,5 @@
 pkgname = "python-trove-classifiers"
-pkgver = "2023.7.6"
+pkgver = "2023.8.7"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,6 +16,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/pypa/trove-classifiers"
 source = f"$(PYPI_SITE)/t/trove-classifiers/trove-classifiers-{pkgver}.tar.gz"
-sha256 = "8a8e168b51d20fed607043831d37632bb50919d1c80a64e0f1393744691a8b22"
+sha256 = "c9f2a0a85d545e5362e967e4f069f56fddfd91215e22ffa48c66fb283521319a"
 # cycle
 options = ["!check"]
