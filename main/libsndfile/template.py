@@ -1,5 +1,5 @@
 pkgname = "libsndfile"
-pkgver = "1.2.0"
+pkgver = "1.2.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "python"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libsndfile.github.io/libsndfile"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0e30e7072f83dc84863e2e55f299175c7e04a5902ae79cfb99d4249ee8f6d60a"
+sha256 = "3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e"
 
 
 @subpackage("libsndfile-progs")
