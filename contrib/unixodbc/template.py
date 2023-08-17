@@ -1,5 +1,5 @@
 pkgname = "unixodbc"
-pkgver = "2.3.11"
+pkgver = "2.3.12"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-or-later"
 url = "https://www.unixodbc.org"
 source = f"{url}/unixODBC-{pkgver}.tar.gz"
-sha256 = "d9e55c8e7118347e3c66c87338856dad1516b490fb7c756c1562a2c267c73b5c"
+sha256 = "f210501445ce21bf607ba51ef8c125e10e22dffdffec377646462df5f01915ec"
 
 
 @subpackage("unixodbc-libs")
