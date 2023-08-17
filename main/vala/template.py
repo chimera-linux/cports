@@ -1,5 +1,5 @@
 pkgname = "vala"
-pkgver = "0.56.9"
+pkgver = "0.56.11"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -20,8 +20,8 @@ pkgdesc = "Programming language based on the GObject type system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Vala"
-source = f"$(GNOME_SITE)/vala/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "55578c7c4f067ace028e541806af240f8084cb6ff0cc554caa8ac08cbf8bce2f"
+source = f"$(GNOME_SITE)/vala/{pkgver[0:pkgver.rfind('.')]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "0cf3baf19f278fbeaf78bab2ee1dd18ce53e0d65bf9c57d5aa000c1832b1de64"
 
 
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
