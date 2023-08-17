@@ -1,5 +1,5 @@
 pkgname = "gtkmm3.0"
-pkgver = "3.24.7"
+pkgver = "3.24.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dbuild-demos=false", "-Dbuild-tests=true"]
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/gtkmm/{pkgver[:-2]}/gtkmm-{pkgver}.tar.xz"
-sha256 = "1d7a35af9c5ceccacb244ee3c2deb9b245720d8510ac5c7e6f4b6f9947e6789c"
+sha256 = "d2940c64922e5b958554b23d4c41d1839ea9e43e0d2e5b3819cfb46824a098c4"
 
 
 @subpackage("gtkmm3.0-devel")
