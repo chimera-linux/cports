@@ -1,6 +1,6 @@
 pkgname = "go"
 pkgver = "1.21.0"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["bash"]
 checkdepends = [
     "libunwind-devel-static",
@@ -72,6 +72,8 @@ def do_check(self):
 
 
 def do_install(self):
+    from os.path import basename
+
     self.install_file("go.env", "usr/lib/go")
     self.install_license("LICENSE")
 
@@ -107,7 +109,11 @@ def do_install(self):
     self.install_dir("usr/share/go")
 
     for f in (self.cwd / _binpath).iterdir():
-        self.install_bin(f)
+        # install binaries inside goroot and link back to them so goroot detection works
+        self.install_file(f, "usr/lib/go/bin", mode=0o755)
+        self.install_link(
+            f"../lib/go/bin/{basename(f)}", f"usr/bin/{basename(f)}"
+        )
 
     self.install_files("lib", "usr/lib/go")
     self.install_files("pkg", "usr/lib/go")
@@ -120,6 +126,5 @@ def do_install(self):
 
     self.install_link("../../share/go/doc", "usr/lib/go/doc")
     self.install_link("../../share/go/misc", "usr/lib/go/misc")
-    self.install_link("../../bin", "usr/lib/go/bin")
 
     _clear_pkg(self.destdir / "usr/lib/go/pkg")
