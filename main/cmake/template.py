@@ -1,11 +1,12 @@
 pkgname = "cmake"
-pkgver = "3.27.1"
+pkgver = "3.27.3"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
     "--mandir=/share/man",
     "--docdir=/share/doc/cmake",
+    "--generator=Ninja",
     "--system-libarchive",
     "--system-zlib",
     "--system-bzip2",
@@ -13,13 +14,19 @@ configure_args = [
     "--system-zstd",
     f"--parallel={self.conf_jobs}",
 ]
-makedepends = ["libarchive-devel", "ncurses-devel", "linux-headers"]
+make_cmd = "ninja"
+hostmakedepends = ["ninja"]
+makedepends = [
+    "libarchive-devel",
+    "linux-headers",
+    "ncurses-devel",
+]
 pkgdesc = "Cross-platform, open source build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://cmake.org"
 source = f"https://www.cmake.org/files/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "b1a6b0135fa11b94476e90f5b32c4c8fad480bf91cf22d0ded98ce22c5132004"
+sha256 = "66afdc0f181461b70b6fedcde9ecc4226c5cd184e7203617c83b7d8e47f49521"
 # prevent cmake self-bootstrap false positive nonsense
 tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
@@ -41,6 +48,8 @@ if self.stage >= 2:
         "rhash-devel",
     ]
     configure_args += [
+        "--bootstrap-system-librhash",
+        "--bootstrap-system-libuv",
         "--system-curl",
         "--system-nghttp2",
         "--system-expat",
@@ -54,7 +63,8 @@ if self.stage >= 2:
     ]
 
 
-def post_install(self):
+def do_install(self):
+    self.make.install(args_use_env=True)
     self.install_license("Copyright.txt")
     self.cp("Utilities/KWIML/Copyright.txt", "KWIML-Copyright.txt")
     self.install_license("KWIML-Copyright.txt")
