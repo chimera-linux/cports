@@ -2799,11 +2799,14 @@ as well as the current profile or the `target`) is going to LTO the
 build. This will be `True` if the template does not disable it, and
 if the stage is at least 2 and the profile supports it.
 
-##### def install_files(self, path, dest, symlinks = True)
+##### def install_files(self, path, dest, symlinks = True, name = None)
 
 Installs `path` (which may be a file or a directory and is relative
 to `cwd` of the template) to `dest` (which must refer to a directory,
 and must not be absolute - it is treated as relative to `destdir`).
+
+If `name` is given, the installed source path will have that name.
+Otherwise, the original name of the source path is preserved.
 
 If `symlinks` is `True` (which is the default), symlinks in `path`
 will also be symlinks in `dest`.

@@ -1377,7 +1377,7 @@ class Template(Package):
             return self._current_profile
         return self._profile(target)
 
-    def install_files(self, path, dest, symlinks=True):
+    def install_files(self, path, dest, symlinks=True, name=None):
         path = pathlib.Path(path)
         dest = pathlib.Path(dest)
         if dest.is_absolute():
@@ -1386,7 +1386,7 @@ class Template(Package):
             )
 
         path = self.cwd / path
-        dfn = self.destdir / dest / path.name
+        dfn = self.destdir / dest / (name or path.name)
 
         if path.is_dir():
             shutil.copytree(path, dfn, symlinks=symlinks)
