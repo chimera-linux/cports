@@ -71,6 +71,8 @@ hardening = []
 # no tests in release tarball
 options = ["!check"]
 
-if self.profile().arch == "ppc64le":
-    # FIXME: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6') ???
-    options += ["!lto"]
+# with lto: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6')
+# without lto: ICE: fatal error: error in backend: Cannot select: 0x3fff9b420de0: ...
+match self.profile().arch:
+    case "ppc64le" | "riscv64":
+        configure_args += ["-DUSE_OPENMP=OFF"]
