@@ -1,6 +1,8 @@
 pkgname = "darktable"
 pkgver = "4.4.2"
 pkgrel = 0
+# only supported archs
+archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
 configure_args = [
     # passes more release args
@@ -68,3 +70,7 @@ sha256 = "c11d28434fdf2e9ce572b9b1f9bc4e64dcebf6148e25080b4c32eb51916cfa98"
 hardening = []
 # no tests in release tarball
 options = ["!check"]
+
+if self.profile().arch == "ppc64le":
+    # FIXME: ld: error: Invalid record (Producer: 'LLVM16.0.6' Reader: 'LLVM 16.0.6') ???
+    options += ["!lto"]
