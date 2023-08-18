@@ -31,6 +31,8 @@ def pre_configure(self):
     # set defines for allowing threads for non-embedded use
     self.do("python3", "scripts/config.py", "set", "MBEDTLS_THREADING_C")
     self.do("python3", "scripts/config.py", "set", "MBEDTLS_THREADING_PTHREAD")
+    # broken unless everything is built with armv8-a+crypto
+    self.do("python3", "scripts/config.py", "unset", "MBEDTLS_AESCE_C")
 
 
 @subpackage("mbedtls-devel")
