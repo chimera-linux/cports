@@ -1,5 +1,5 @@
 pkgname = "extra-cmake-modules"
-pkgver = "5.108.0"
+pkgver = "5.109.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja"]
@@ -8,7 +8,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "BSD-3-Clause"
 url = "https://github.com/KDE/extra-cmake-modules"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "6c7fde74e5d18e6a1a0723371d9c0db70f4a648b81837e0f8cd82b83014624d1"
+sha256 = "f9f9f9463dcd9633387f88b0032f9ce8f86aac85e3fe866f17d7b2fe6c5d578d"
 # 10 out of 83 tests fail? It still seemed to run fine when building with it.
 #  2 - ExecuteKDEModules
 #  3 - KDEFetchTranslations
