@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -34,7 +34,7 @@
+ all:
+ 	-mkdir bin
+ 	cp scripts/keyd-application-mapper bin/
+-	$(CC) $(CFLAGS) -O3 $(COMPAT_FILES) src/*.c src/vkbd/$(VKBD).c -lpthread -o bin/keyd $(LDFLAGS)
++	$(CC) $(CFLAGS) $(COMPAT_FILES) src/*.c src/vkbd/$(VKBD).c -lpthread -o bin/keyd $(LDFLAGS)
+ debug:
+ 	CFLAGS="-g -Wunused" $(MAKE)
+ compose:
