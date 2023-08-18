@@ -14,6 +14,7 @@ hostmakedepends = [
     "pkgconf",
     "python",
 ]
+makedepends = ["linux-headers"]
 pkgdesc = "Light-weight cryptographic and SSL/TLS library"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
