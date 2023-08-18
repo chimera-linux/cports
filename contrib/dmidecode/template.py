@@ -9,7 +9,7 @@ pkgdesc = "Utility for reporting system hardware"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://nongnu.org/dmidecode"
-source = f"https://download.savannah.gnu.org/releases/dmidecode/dmidecode-{pkgver}.tar.xz"
+source = f"https://de.freedif.org/savannah/dmidecode/dmidecode-{pkgver}.tar.xz"
 sha256 = "79d76735ee8e25196e2a722964cf9683f5a09581503537884b256b01389cc073"
 hardening = ["vis", "cfi"]
 # none present
