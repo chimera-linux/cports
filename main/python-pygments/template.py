@@ -1,5 +1,5 @@
 pkgname = "python-pygments"
-pkgver = "2.15.1"
+pkgver = "2.16.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://pygments.org"
 source = f"$(PYPI_SITE)/P/Pygments/Pygments-{pkgver}.tar.gz"
-sha256 = "8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c"
+sha256 = "1daff0494820c69bc8941e407aa20f577374ee88364ee10a98fdbe0aece96e29"
 # dependency of pytest
 options = ["!check"]
 
