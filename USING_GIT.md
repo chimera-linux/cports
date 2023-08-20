@@ -68,7 +68,7 @@ in repository contents over some previous commit, with some additional metadata
 such as the commit message and author name and email, identified by a specific
 hash. A Git history is a chain of commits, all the way to the first one.
 
-Git also spports branches. A branch represents a particular history. The
+Git also supports branches. A branch represents a particular history. The
 `master` branch is the primary one in `cports`. You can have custom branches
 which diverge from the `master` branch in their own ways.
 
@@ -195,6 +195,7 @@ to what they should be, then do the following:
 
 ```
 $ git add conflicting/file
+$ git commit
 $ git rebase --continue
 ```
 
