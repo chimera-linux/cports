@@ -12,6 +12,8 @@ We suggest to avoid using GitHub's web editor for contributions, especially
 for templates, since those need testing. Therefore, if you do not know at
 least the basics of Git, use some of the public resources to get familiar.
 
+Also read `USING_GIT.md` if you are unfamiliar with Git.
+
 Once you have that, clone your fork and prepare the changes.
 
 ## Preparing your changes
