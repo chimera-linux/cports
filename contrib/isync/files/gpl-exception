@@ -1,0 +1,12 @@
+SPDX-Exception-Identifier: LicenseRef-isync-GPL-exception
+SPDX-Licenses: GPL-2.0-or-later
+Usage-Guide:
+  This exception is used together with the above SPDX-License to
+  allow linking the compiled version of code to non GPL compliant code.
+  To use this exception add it with the keyword WITH to one of the
+  identifiers in the SPDX-Licenses tag:
+    SPDX-License-Identifier: <SPDX-License> WITH LicenseRef-isync-GPL-exception
+License-Text:
+
+As a special exception, mbsync may be linked with the OpenSSL library,
+despite that library's more restrictive license.
