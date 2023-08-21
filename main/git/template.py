@@ -1,6 +1,6 @@
 pkgname = "git"
-pkgver = "2.41.0"
-pkgrel = 2
+pkgver = "2.42.0"
+pkgrel = 0
 make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e748bafd424cfe80b212cbc6f1bbccc3a47d4862fb1eb7988877750478568040"
+sha256 = "3278210e9fd2994b8484dd7e3ddd9ea8b940ef52170cdb606daa94d887c93b0d"
 hardening = ["!cfi"]  # TODO
 # missing checkdepends
 options = ["!check"]
