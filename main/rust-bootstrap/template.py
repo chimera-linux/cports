@@ -58,3 +58,5 @@ def do_install(self):
     trip = self.profile().triplet
     for f in (self.destdir / f"usr/lib/rustlib/{trip}/bin").glob("rust-ll*"):
         f.unlink()
+    # licenses
+    self.install_license(f"rustc-{pkgver}-{self.profile().triplet}/LICENSE-MIT")
