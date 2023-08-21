@@ -40,6 +40,5 @@ match self.profile().arch:
 
 def do_install(self):
     self.install_bin("cargo")
-    self.install_license("LICENSE-APACHE")
     self.install_license("LICENSE-MIT")
     self.install_license("LICENSE-THIRD-PARTY")
