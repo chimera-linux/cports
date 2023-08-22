@@ -1,10 +1,10 @@
 pkgname = "intltool"
 pkgver = "0.51.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl-xml-parser"]
-makedepends = ["perl-xml-parser", "gettext-tiny"]
+makedepends = ["perl-xml-parser", "gettext"]
 depends = ["file"] + makedepends
 pkgdesc = "Internationalization tools"
 maintainer = "q66 <q66@chimera-linux.org>"
