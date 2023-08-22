@@ -37,6 +37,10 @@ sha256 = "1fd19d2c75322bdbcb01d190a18d53940a4a79d909bd61a99f9e8e2dbc57a8fe"
 options = ["!debug", "!check"]
 
 
+if self.profile().arch == "riscv64":
+    broken = "cgo runtime stuff"
+
+
 def post_prepare(self):
     from cbuild.util import golang
 
