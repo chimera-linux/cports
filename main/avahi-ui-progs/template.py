@@ -41,7 +41,7 @@ hostmakedepends = [
     "gmake",
     "xmltoman",
     "gobject-introspection",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "python-dbus",
     "glib-devel",
 ]

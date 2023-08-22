@@ -7,7 +7,7 @@ hostmakedepends = [
     "pkgconf",
     "glib-devel",
     "gobject-introspection",
-    "gettext-tiny",
+    "gettext",
     "gjs",
 ]
 makedepends = [

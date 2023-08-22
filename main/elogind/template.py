@@ -19,7 +19,7 @@ configure_args = [
 hostmakedepends = [
     "meson",
     "docbook-xsl-nons",
-    "gettext-tiny",
+    "gettext",
     "gperf",
     "xsltproc",
     "pkgconf",
@@ -29,7 +29,7 @@ hostmakedepends = [
 makedepends = [
     "acl-devel",
     "udev-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "libcap-devel",
     "libseccomp-devel",
     "linux-pam-devel",

@@ -15,7 +15,7 @@ hostmakedepends = [
     "pkgconf",
     "perl",
     "gegl",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "glib-devel",
     "gobject-introspection",
     "xsltproc",

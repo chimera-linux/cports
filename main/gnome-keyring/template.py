@@ -20,7 +20,7 @@ hostmakedepends = [
     "openssh",
     "automake",
     "libtool",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 makedepends = ["gcr-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"]
 checkdepends = ["xserver-xorg-xvfb", "dbus-x11"]

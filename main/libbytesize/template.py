@@ -7,7 +7,7 @@ hostmakedepends = [
     "gmake",
     "pkgconf",
     "python",
-    "gettext-tiny",
+    "gettext",
     "automake",
     "libtool",
 ]

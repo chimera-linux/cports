@@ -12,7 +12,7 @@ hostmakedepends = [
     "xsltproc",
     "pkgconf",
     "python-pygments",
-    "gettext-tiny",
+    "gettext",
 ]
 depends = [
     "docbook-xml",

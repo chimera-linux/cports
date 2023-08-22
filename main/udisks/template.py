@@ -19,7 +19,7 @@ hostmakedepends = [
     "bash",
     "gobject-introspection",
     "docbook-xsl-nons",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "glib-devel",
     "xsltproc",
     "polkit",

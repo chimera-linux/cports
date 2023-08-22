@@ -16,7 +16,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
     "docbook-xsl-nons",
     "xsltproc",
     "appstream",

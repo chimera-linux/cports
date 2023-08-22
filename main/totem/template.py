@@ -10,7 +10,7 @@ hostmakedepends = [
     "pkgconf",
     "gobject-introspection",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
     "itstool",
     "gstreamer",
     "gst-plugins-base",

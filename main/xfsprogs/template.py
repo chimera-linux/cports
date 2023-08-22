@@ -13,9 +13,9 @@ make_cmd = "gmake"
 make_dir = "."
 # libxfs-install-dev shits itself when run in parallel
 make_install_args = ["-j1", "install-dev"]
-hostmakedepends = ["gettext-tiny", "libuuid-devel", "pkgconf", "gmake"]
+hostmakedepends = ["gettext", "libuuid-devel", "pkgconf", "gmake"]
 makedepends = [
-    "gettext-tiny-devel",
+    "gettext-devel",
     "libblkid-devel",
     "libedit-devel",
     "inih-devel",

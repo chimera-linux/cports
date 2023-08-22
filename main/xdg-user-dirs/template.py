@@ -8,7 +8,7 @@ hostmakedepends = [
     "libtool",
     "xsltproc",
     "docbook-xsl-nons",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 pkgdesc = "Tool to help manage user directories"
 maintainer = "q66 <q66@chimera-linux.org>"

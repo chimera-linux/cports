@@ -18,7 +18,7 @@ hostmakedepends = [
     "gobject-introspection",
     "vala",
     "libxml2-progs",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "gtk+3-devel",

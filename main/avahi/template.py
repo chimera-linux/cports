@@ -37,7 +37,7 @@ configure_args = [
     "ssp_cv_lib=no",
 ]
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "python", "gmake", "gettext-tiny"]
+hostmakedepends = ["pkgconf", "python", "gmake", "gettext"]
 makedepends = ["dbus-devel", "libcap-devel", "libdaemon-devel"]
 pkgdesc = "Multicast DNS Service Discovery"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -17,7 +17,7 @@ hostmakedepends = [
     "openssh",
     "polkit-devel",
     "docbook-xsl-nons",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "dbus-devel",

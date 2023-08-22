@@ -15,7 +15,7 @@ hostmakedepends = [
     "gobject-introspection",
     "glib-devel",
     "vala",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "glib-devel",

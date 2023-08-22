@@ -3,7 +3,7 @@ pkgver = "44.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dsystemduserunitdir=/tmp/delete_me"]
-hostmakedepends = ["meson", "pkgconf", "gettext-tiny", "glib-devel"]
+hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
 makedepends = [
     "xdg-desktop-portal-devel",
     "libadwaita-devel",

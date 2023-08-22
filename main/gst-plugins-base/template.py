@@ -14,7 +14,7 @@ make_check_env = {"XDG_RUNTIME_DIR": "/etc/xdg"}
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "glib-devel",
     "orc",
     "gobject-introspection",

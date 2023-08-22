@@ -30,7 +30,7 @@ hostmakedepends = [
     "gobject-introspection",
     "xmlto",
     "gtk-doc-tools",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 makedepends = [
     "libcap-devel",

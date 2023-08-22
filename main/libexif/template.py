@@ -3,7 +3,7 @@ pkgver = "0.6.24"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["ac_cv_path_DOXYGEN=false"]
-hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-tiny-devel"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-devel"]
 pkgdesc = "EXIF metadata library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

@@ -7,7 +7,7 @@ make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "gobject-introspection",
     "vala",
     "glib-devel",

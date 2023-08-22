@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "test/unit"
 hostmakedepends = [
-    "gettext-tiny",
+    "gettext",
     "python-build",
     "python-installer",
     "python-setuptools",

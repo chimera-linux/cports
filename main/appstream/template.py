@@ -7,7 +7,7 @@ hostmakedepends = [
     "pkgconf",
     "meson",
     "gperf",
-    "gettext-tiny",
+    "gettext",
     "itstool",
     "xsltproc",
     "gobject-introspection",

@@ -9,7 +9,7 @@ hostmakedepends = [
     "glib-devel",
     "vala",
     "gobject-introspection",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = ["glib-devel", "vala"]
 pkgdesc = "GObject library to create cabinet files"

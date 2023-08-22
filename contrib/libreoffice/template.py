@@ -62,7 +62,7 @@ hostmakedepends = [
     "gperf",
     "hyphen",
     "icu",
-    "gettext-tiny",
+    "gettext",
     "gnupg",
     "xz",
     "zip",

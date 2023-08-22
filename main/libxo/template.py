@@ -3,7 +3,7 @@ pkgver = "1.6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-dependency-tracking"]
-hostmakedepends = ["pkgconf", "gettext-tiny"]
+hostmakedepends = ["pkgconf", "gettext"]
 makedepends = ["musl-bsd-headers"]
 pkgdesc = "Library for generating text, XML, JSON, and HTML output"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -17,7 +17,7 @@ options = ["bootstrap"]
 if self.stage > 0:
     # otherwise we get .a files for plugins
     configure_args += ["--disable-static"]
-    makedepends += ["gettext-tiny-devel"]
+    makedepends += ["gettext-devel"]
 else:
     configure_args += [
         "--disable-libxo-options",

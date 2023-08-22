@@ -30,7 +30,7 @@ hostmakedepends = [
     "ruby",
     "gperf",
     "flex",
-    "gettext-tiny",
+    "gettext",
     "glib-devel",
     "geoclue",
     "wayland-progs",

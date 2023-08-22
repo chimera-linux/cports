@@ -2,7 +2,7 @@ pkgname = "gnome-tweaks"
 pkgver = "42_beta"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["meson", "pkgconf", "gettext-tiny"]
+hostmakedepends = ["meson", "pkgconf", "gettext"]
 makedepends = ["libhandy-devel"]
 depends = [
     "gtk+3",

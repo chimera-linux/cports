@@ -29,7 +29,7 @@ hostmakedepends = [
     "gtk-doc-tools",
     "gobject-introspection",
     "glib-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "python-gobject-devel",
     "unicode-cldr-common",
     "unicode-emoji",

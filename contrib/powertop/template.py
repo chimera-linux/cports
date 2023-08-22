@@ -7,7 +7,7 @@ configure_gen = ["./autogen.sh"]
 hostmakedepends = ["autoconf", "automake", "libtool", "pkgconf"]
 makedepends = [
     "autoconf-archive",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "libnl-devel",
     "linux-headers",
     "ncurses-devel",

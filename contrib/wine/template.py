@@ -26,7 +26,7 @@ makedepends = [
     "flex",
     "fontconfig-devel",
     "freetype-devel",
-    "gettext-tiny",
+    "gettext",
     "gnutls-devel",
     "gst-plugins-base-devel",
     "libgphoto2-devel",

@@ -11,7 +11,7 @@ configure_args = [
     "--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt",
 ]
 configure_gen = []
-hostmakedepends = ["pkgconf", "gettext-tiny"]
+hostmakedepends = ["pkgconf", "gettext"]
 makedepends = [
     "nettle-devel",
     "libtasn1-devel",

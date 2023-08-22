@@ -12,7 +12,7 @@ hostmakedepends = [
     "cmake",
     "ninja",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "glib-devel",
     "libxml2-devel",
     "perl",

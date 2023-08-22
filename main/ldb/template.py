@@ -14,7 +14,7 @@ configure_args = [
 hostmakedepends = [
     "pkgconf",
     "python",
-    "gettext-tiny",
+    "gettext",
     "docbook-xsl-nons",
     "xsltproc",
     "tevent-python",
@@ -27,7 +27,7 @@ makedepends = [
     "tdb-devel",
     "tevent-devel",
     "popt-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 pkgdesc = "LDAP-like database"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -3,7 +3,7 @@ pkgver = "1.14.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "glib-devel", "gmake", "gettext-tiny"]
+hostmakedepends = ["pkgconf", "glib-devel", "gmake", "gettext"]
 makedepends = [
     "gtk+3-devel",
     "xdg-desktop-portal-devel",

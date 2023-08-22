@@ -3,7 +3,7 @@ pkgver = "20230101"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_GUI=OFF"]
-hostmakedepends = ["cmake", "ninja", "gettext-tiny", "pkgconf"]
+hostmakedepends = ["cmake", "ninja", "gettext", "pkgconf"]
 makedepends = [
     "python-devel",
     "libedit-devel",

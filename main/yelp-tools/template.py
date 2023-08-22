@@ -5,7 +5,7 @@ build_style = "meson"
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "itstool",
     "python-lxml",
     "xsltproc",

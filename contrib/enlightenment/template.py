@@ -10,13 +10,13 @@ configure_args = [
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "efl",
     "xwayland",
     "wayland-progs",
 ]
 makedepends = [
-    "gettext-tiny-devel",
+    "gettext-devel",
     "efl-devel",
     "mesa-devel",
     "wayland-devel",

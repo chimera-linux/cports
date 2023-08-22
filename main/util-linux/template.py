@@ -43,7 +43,7 @@ hostmakedepends = [
     "ninja",
     "bison",
     "flex",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "pkgconf",
     "bash-completion",
 ]

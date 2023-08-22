@@ -13,7 +13,7 @@ hostmakedepends = [
     "gobject-introspection",
     "glib-devel",
     "polkit",
-    "gettext-tiny",
+    "gettext",
     "vala",
 ]
 makedepends = ["polkit-devel", "elogind-devel", "dbus-devel"]

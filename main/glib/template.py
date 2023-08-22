@@ -10,7 +10,7 @@ configure_args = [
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
     "meson",
-    "gettext-tiny",
+    "gettext",
     "pkgconf",
     "docbook-xsl-nons",
     "xsltproc",

@@ -11,7 +11,7 @@ hostmakedepends = [
     "pkgconf",
     "gobject-introspection",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
     "docbook-xml",
     "itstool",
 ]

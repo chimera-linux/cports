@@ -6,7 +6,7 @@ make_check_target = "test"
 hostmakedepends = [
     "gmake",
     "asciidoc",
-    "gettext-tiny",
+    "gettext",
     "perl",
     "pkgconf",
     "xmlto",

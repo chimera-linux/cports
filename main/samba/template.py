@@ -44,7 +44,7 @@ hostmakedepends = [
     "python",
     "perl",
     "perl-parse-yapp",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "libtasn1-progs",
     "docbook-xsl-nons",
     "xsltproc",
@@ -57,7 +57,7 @@ hostmakedepends = [
     "heimdal",
 ]
 makedepends = [
-    "gettext-tiny-devel",
+    "gettext-devel",
     "python-devel",
     "libtirpc-devel",
     "popt-devel",

@@ -12,7 +12,7 @@ hostmakedepends = [
     "gobject-introspection",
     "vala",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "networkmanager-devel",

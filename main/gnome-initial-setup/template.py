@@ -6,7 +6,7 @@ configure_args = [
     "-Dparental_controls=disabled",
     "-Dsystemd=false",
 ]
-hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext-tiny"]
+hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext"]
 makedepends = [
     "ibus-devel",
     "networkmanager-devel",

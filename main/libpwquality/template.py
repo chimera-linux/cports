@@ -14,7 +14,7 @@ hostmakedepends = [
     "pkgconf",
     "automake",
     "libtool",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "python-devel",
 ]
 makedepends = ["cracklib-devel", "linux-pam-devel", "python-devel"]

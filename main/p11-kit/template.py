@@ -17,7 +17,7 @@ configure_args = [
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "gtk-doc-tools",
     "libtasn1-progs",
 ]

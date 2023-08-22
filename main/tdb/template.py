@@ -12,11 +12,11 @@ configure_args = [
 hostmakedepends = [
     "pkgconf",
     "python",
-    "gettext-tiny",
+    "gettext",
     "docbook-xsl-nons",
     "xsltproc",
 ]
-makedepends = ["python-devel", "gettext-tiny-devel"]
+makedepends = ["python-devel", "gettext-devel"]
 pkgdesc = "Simple database API similar to gdbm"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"

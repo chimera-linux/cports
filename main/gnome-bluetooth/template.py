@@ -12,7 +12,7 @@ hostmakedepends = [
     "gobject-introspection",
     "glib-devel",
     "libxml2-progs",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "gtk4-devel",

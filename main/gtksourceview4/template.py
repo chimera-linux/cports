@@ -15,7 +15,7 @@ hostmakedepends = [
     "vala",
     "glib-devel",
     "gtk+3-devel",
-    "gettext-tiny",
+    "gettext",
     "xsltproc",
 ]
 makedepends = [

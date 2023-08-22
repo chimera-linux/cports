@@ -6,7 +6,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "gtk4-devel",

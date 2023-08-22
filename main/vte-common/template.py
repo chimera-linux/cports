@@ -13,7 +13,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "glib-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "gperf",
     "gobject-introspection",
     "vala",

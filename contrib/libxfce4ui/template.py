@@ -11,7 +11,7 @@ hostmakedepends = [
     "intltool",
     "vala-devel",
     "glib-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "python",
 ]
 makedepends = [

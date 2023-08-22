@@ -6,7 +6,7 @@ _commit = "49405db32edd55606d7f19056e425b7c9293119a"
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "glib-devel",
     "desktop-file-utils",
     "itstool",

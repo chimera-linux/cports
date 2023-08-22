@@ -44,7 +44,7 @@ hostmakedepends = [
     "gobject-introspection",
     "vala",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
     "xsltproc",
     "docbook-xsl-nons",
     "gtk-doc-tools",

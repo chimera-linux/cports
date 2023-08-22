@@ -7,7 +7,7 @@ make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "itstool",
     "libxml2-progs",
 ]

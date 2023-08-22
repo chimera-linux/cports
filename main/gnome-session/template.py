@@ -12,7 +12,7 @@ hostmakedepends = [
     "pkgconf",
     "glib-devel",
     "xmlto",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "glib-devel",

@@ -12,7 +12,7 @@ hostmakedepends = [
     "libtool",
     "gobject-introspection",
     "gmake",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = ["gtk+3-devel"]
 pkgdesc = "Library for registering global keyboard shortcuts (GTK+3)"

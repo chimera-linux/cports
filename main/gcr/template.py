@@ -13,7 +13,7 @@ hostmakedepends = [
     "pkgconf",
     "glib-devel",
     "gtk-doc-tools",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "gobject-introspection",
     "vala",
     "openssh",

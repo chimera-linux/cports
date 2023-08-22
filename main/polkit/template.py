@@ -19,7 +19,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "gobject-introspection",
-    "gettext-tiny",
+    "gettext",
     "glib-devel",
     "perl",
     "xsltproc",

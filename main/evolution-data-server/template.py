@@ -19,7 +19,7 @@ hostmakedepends = [
     "glib-devel",
     "gperf",
     "gobject-introspection",
-    "gettext-tiny",
+    "gettext",
     "vala",
     "perl",
 ]

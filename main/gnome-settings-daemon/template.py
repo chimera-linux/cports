@@ -10,7 +10,7 @@ hostmakedepends = [
     "xsltproc",
     "docbook-xsl-nons",
     "perl",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "glib-devel",

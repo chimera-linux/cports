@@ -22,7 +22,7 @@ hostmakedepends = [
     "gobject-introspection",
     "perl",
     "glib-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "wayland-progs",
     "wayland-protocols",
     "xsltproc",

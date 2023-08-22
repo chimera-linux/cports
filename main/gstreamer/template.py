@@ -12,7 +12,7 @@ configure_args = [
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "flex",
     "python",
     "docbook-xsl-nons",

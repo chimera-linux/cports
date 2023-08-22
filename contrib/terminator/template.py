@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-installer",
     "python-flit_core",
     "python-wheel",
-    "gettext-tiny",
+    "gettext",
 ]
 checkdepends = [
     "python-pytest",

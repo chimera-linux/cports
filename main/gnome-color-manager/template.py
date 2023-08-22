@@ -2,7 +2,7 @@ pkgname = "gnome-color-manager"
 pkgver = "3.36.0"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext-tiny", "itstool"]
+hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext", "itstool"]
 makedepends = [
     "glib-devel",
     "colord-devel",

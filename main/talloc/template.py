@@ -12,13 +12,13 @@ configure_args = [
 hostmakedepends = [
     "pkgconf",
     "python",
-    "gettext-tiny",
+    "gettext",
     "docbook-xsl-nons",
     "xsltproc",
 ]
 makedepends = [
     "python-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 pkgdesc = "Hierarchical pool based memory allocator with destructors"
 maintainer = "q66 <q66@chimera-linux.org>"

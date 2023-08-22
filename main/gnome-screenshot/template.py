@@ -2,7 +2,7 @@ pkgname = "gnome-screenshot"
 pkgver = "41.0"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["meson", "pkgconf", "gettext-tiny", "glib-devel"]
+hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
 makedepends = [
     "libcanberra-devel",
     "glib-devel",

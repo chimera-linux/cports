@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
     "gobject-introspection",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = ["glib-devel"]
 pkgdesc = "GNOME menu definitions"

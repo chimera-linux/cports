@@ -25,7 +25,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "dconf",
-    "gettext-tiny",
+    "gettext",
     "gobject-introspection",
     "glib-devel",
     "linux-pam-devel",
@@ -33,7 +33,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "elogind-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "accountsservice-devel",
     "glib-devel",
     "libx11-devel",

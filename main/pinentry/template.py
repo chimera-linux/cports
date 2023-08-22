@@ -11,7 +11,7 @@ configure_args = [
     "--enable-ncurses",
 ]
 configure_gen = ["./autogen.sh"]
-hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-tiny"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "gettext"]
 makedepends = [
     "ncurses-devel",
     "libassuan-devel",
@@ -19,7 +19,7 @@ makedepends = [
     "gcr-devel",
     "libsecret-devel",
     "gtk+3-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 depends = ["cmd:pinentry!pinentry-curses-default"]
 pkgdesc = "PIN or passphrase entry di:alogs for GnuPG"

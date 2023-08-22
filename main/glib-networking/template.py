@@ -9,7 +9,7 @@ configure_args = [
     "-Dgnome_proxy=enabled",
     "-Ddefault_library=shared",
 ]
-hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext-tiny"]
+hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext"]
 makedepends = [
     "openssl-devel",
     "gnutls-devel",

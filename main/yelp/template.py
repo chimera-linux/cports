@@ -12,7 +12,7 @@ hostmakedepends = [
     "gmake",
     "glib-devel",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "itstool",
 ]
 makedepends = [

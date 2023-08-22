@@ -17,7 +17,7 @@ hostmakedepends = [
     "pkgconf",
     "gobject-introspection",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
     "libxcvt-progs",
     "xwayland",
 ]

@@ -2,7 +2,7 @@ pkgname = "zenity"
 pkgver = "3.44.2"
 pkgrel = 0
 build_style = "meson"
-hostmakedepends = ["meson", "pkgconf", "gettext-tiny", "itstool"]
+hostmakedepends = ["meson", "pkgconf", "gettext", "itstool"]
 makedepends = [
     "gtk+3-devel",
     "glib-devel",

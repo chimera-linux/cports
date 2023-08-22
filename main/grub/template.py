@@ -23,13 +23,13 @@ hostmakedepends = [
     "bison",
     "help2man",
     "python",
-    "gettext-tiny",
+    "gettext",
     "font-unifont-bdf",
     "automake",
     "libtool",
 ]
 makedepends = [
-    "gettext-tiny-devel",
+    "gettext-devel",
     "freetype-devel",
     "ncurses-devel",
     "liblzma-devel",

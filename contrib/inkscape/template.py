@@ -8,7 +8,7 @@ hostmakedepends = [
     "ninja",
     "pkgconf",
     "perl",
-    "gettext-tiny",
+    "gettext",
     "glib-devel",
 ]
 # TODO: graphicsmagick once we have it

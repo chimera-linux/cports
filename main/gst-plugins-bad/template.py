@@ -70,7 +70,7 @@ configure_args = [
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "glib-devel",
     "orc",
     "gobject-introspection",

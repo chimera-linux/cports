@@ -13,7 +13,7 @@ hostmakedepends = [
     "llvm-devel",
     "clang-devel",
     "nodejs",
-    "gettext-tiny",
+    "gettext",
     "automake",
     "libtool",
     "gmake",

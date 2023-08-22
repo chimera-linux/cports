@@ -14,7 +14,7 @@ hostmakedepends = [
     "ninja",
     "pkgconf",
     "gperf",
-    "gettext-tiny",
+    "gettext",
     "lua5.1-bitop",
     "lua5.1-lpeg",
     "lua5.1-libluv",

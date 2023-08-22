@@ -12,7 +12,7 @@ configure_args = [
 hostmakedepends = [
     "pkgconf",
     "python",
-    "gettext-tiny",
+    "gettext",
     "docbook-xsl-nons",
     "xsltproc",
 ]
@@ -20,7 +20,7 @@ makedepends = [
     "python-devel",
     "talloc-devel",
     "cmocka-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 pkgdesc = "Event system based on talloc"
 maintainer = "q66 <q66@chimera-linux.org>"

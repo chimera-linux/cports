@@ -29,9 +29,9 @@ configure_args = [
     "-Dglib=true",
 ]
 make_check_wrapper = ["xvfb-run"]
-hostmakedepends = ["meson", "pkgconf", "gettext-tiny-devel"]
+hostmakedepends = ["meson", "pkgconf", "gettext-devel"]
 makedepends = [
-    "gettext-tiny-devel",
+    "gettext-devel",
     "openssl-devel",
     "udev-devel",
     "elogind-devel",

@@ -13,8 +13,8 @@ configure_args = [
     "BUILD_LDFLAGS=",
     "ac_cv_search_crypt=no",
 ]
-hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-tiny"]
-makedepends = ["gettext-tiny-devel", "libfl-devel-static", "linux-headers"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "gettext"]
+makedepends = ["gettext-devel", "libfl-devel-static", "linux-headers"]
 checkdepends = ["linux-pam-base"]
 depends = ["linux-pam-base"]
 pkgdesc = "Pluggable Authentication Modules for Linux"

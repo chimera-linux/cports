@@ -12,7 +12,7 @@ make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "gobject-introspection",
     "xsltproc",
     "asciidoc",

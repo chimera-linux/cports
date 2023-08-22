@@ -15,7 +15,7 @@ hostmakedepends = [
     "gobject-introspection",
     "vala",
     "perl",
-    "gettext-tiny",
+    "gettext",
 ]
 makedepends = [
     "libxslt-devel",

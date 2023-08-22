@@ -7,7 +7,7 @@ hostmakedepends = [
     "meson",
     "pkgconf",
     "glib-devel",
-    "gettext-tiny",
+    "gettext",
     "itstool",
     "desktop-file-utils",
 ]

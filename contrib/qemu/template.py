@@ -49,7 +49,7 @@ hostmakedepends = [
     "flex",
     "bison",
     "bzip2",
-    "gettext-tiny",
+    "gettext",
     "python-sphinx",
     "python-sphinx_rtd_theme",
 ]

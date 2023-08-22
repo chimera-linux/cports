@@ -27,7 +27,7 @@ hostmakedepends = [
     "python",
     "mandoc",
     "texinfo",
-    "gettext-tiny",
+    "gettext",
     "automake",
     "libtool",
     "e2fsprogs-devel",  # for compile_et
@@ -38,7 +38,7 @@ makedepends = [
     "libedit-devel",
     "libcap-ng-devel",
     "linux-pam-devel",
-    "gettext-tiny-devel",
+    "gettext-devel",
     "ncurses-devel",
     "e2fsprogs-devel",
 ]

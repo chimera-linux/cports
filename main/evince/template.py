@@ -18,7 +18,7 @@ hostmakedepends = [
     "gobject-introspection",
     "glib-devel",
     "itstool",
-    "gettext-tiny",
+    "gettext",
     "perl-xml-parser",
     "adwaita-icon-theme",
     "desktop-file-utils",

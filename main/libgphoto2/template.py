@@ -7,7 +7,7 @@ configure_args = [
     "--disable-rpath",
     "udevscriptdir=/usr/lib/udev",
 ]
-hostmakedepends = ["pkgconf", "gettext-tiny-devel"]
+hostmakedepends = ["pkgconf", "gettext-devel"]
 makedepends = [
     "libgd-devel",
     "libexif-devel",

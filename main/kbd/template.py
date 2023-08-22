@@ -9,7 +9,7 @@ hostmakedepends = [
     "pkgconf",
     "automake",
     "libtool",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 makedepends = ["linux-pam-devel", "linux-headers"]
 pkgdesc = "Linux keyboard utilities"

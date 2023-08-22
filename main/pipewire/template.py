@@ -29,7 +29,7 @@ configure_args = [
 hostmakedepends = [
     "meson",
     "pkgconf",
-    "gettext-tiny",
+    "gettext",
     "python-docutils",
     "doxygen",
     "graphviz",

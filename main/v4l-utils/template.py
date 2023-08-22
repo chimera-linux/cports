@@ -9,7 +9,7 @@ hostmakedepends = [
     "automake",
     "libtool",
     "pkgconf",
-    "gettext-tiny-devel",
+    "gettext-devel",
 ]
 makedepends = [
     "libjpeg-turbo-devel",
