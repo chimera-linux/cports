@@ -8,12 +8,13 @@ diff --git a/tests/tsprintf.c b/tests/tsprintf.c
 index c7bd74a..368edf1 100644
 --- a/tests/tsprintf.c
 +++ b/tests/tsprintf.c
-@@ -1751,7 +1751,7 @@ main (int argc, char **argv)
+@@ -1751,8 +1751,8 @@ main (int argc, char **argv)
  
    for (k = 0; k < 40; k++)
      {
 -      native_types ();
 +      /*native_types ();*/
+       special ();
+       decimal ();
        hexadecimal ();
        binary ();
-       decimal ();
