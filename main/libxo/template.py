@@ -3,7 +3,7 @@ pkgver = "1.6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-dependency-tracking"]
-hostmakedepends = ["pkgconf", "gettext"]
+hostmakedepends = ["pkgconf"]
 makedepends = ["musl-bsd-headers"]
 pkgdesc = "Library for generating text, XML, JSON, and HTML output"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,8 +16,7 @@ options = ["bootstrap"]
 
 if self.stage > 0:
     # otherwise we get .a files for plugins
-    configure_args += ["--disable-static"]
-    makedepends += ["gettext-devel"]
+    configure_args += ["--disable-static", "--enable-gettext"]
 else:
     configure_args += [
         "--disable-libxo-options",
@@ -33,6 +32,10 @@ def init_configure(self):
     tlflags = self.get_ldflags(shell=True)
 
     self.configure_env = {"CFLAGS": f"{tcflags} {tlflags}"}
+
+
+def post_install(self):
+    self.install_license("Copyright")
 
 
 @subpackage("libxo-devel")
