@@ -1,15 +1,20 @@
 --- a/cmake/SearchForStuff.cmake
 +++ b/cmake/SearchForStuff.cmake
-@@ -116,8 +116,6 @@
- 	This text being in a compile log in an open issue may cause it to be closed.")
+@@ -115,7 +115,6 @@
  endif()
  
--add_subdirectory(3rdparty/fmt/fmt EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/fmt/fmt EXCLUDE_FROM_ALL)
 -add_subdirectory(3rdparty/rapidyaml/rapidyaml EXCLUDE_FROM_ALL)
  add_subdirectory(3rdparty/lzma EXCLUDE_FROM_ALL)
  add_subdirectory(3rdparty/libchdr EXCLUDE_FROM_ALL)
- add_subdirectory(3rdparty/soundtouch EXCLUDE_FROM_ALL)
-@@ -136,8 +136,13 @@
+ disable_compiler_warnings_for_target(libchdr)
+@@ -130,14 +129,19 @@
+ target_include_directories(fast_float INTERFACE 3rdparty/rapidyaml/rapidyaml/ext/c4core/src/c4/ext/fast_float/include)
+ 
+ add_subdirectory(3rdparty/jpgd EXCLUDE_FROM_ALL)
+-add_subdirectory(3rdparty/libwebp EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/simpleini EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/imgui EXCLUDE_FROM_ALL)
  add_subdirectory(3rdparty/cpuinfo EXCLUDE_FROM_ALL)
  disable_compiler_warnings_for_target(cpuinfo)
  add_subdirectory(3rdparty/zydis EXCLUDE_FROM_ALL)
@@ -18,14 +23,15 @@
 +find_package(PkgConfig REQUIRED)
 +pkg_check_modules(zstd REQUIRED IMPORTED_TARGET libzstd)
 +alias_library(Zstd::Zstd PkgConfig::zstd)
++pkg_check_modules(libwebp REQUIRED IMPORTED_TARGET libwebp)
++alias_library(WebP::libwebp PkgConfig::libwebp)
 +find_package(libzip REQUIRED)
 +find_package(ryml REQUIRED)
-+find_package(fmt REQUIRED)
 +find_package(Vulkan REQUIRED)
- 
- if(USE_OPENGL)
- 	add_subdirectory(3rdparty/glad EXCLUDE_FROM_ALL)
-@@ -151,7 +151,6 @@
+ add_subdirectory(3rdparty/rcheevos EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/rapidjson EXCLUDE_FROM_ALL)
+ add_subdirectory(3rdparty/discord-rpc EXCLUDE_FROM_ALL)
+@@ -148,7 +151,6 @@
  
  if(USE_VULKAN)
  	add_subdirectory(3rdparty/glslang EXCLUDE_FROM_ALL)
@@ -35,7 +41,7 @@
  add_subdirectory(3rdparty/cubeb EXCLUDE_FROM_ALL)
 --- a/pcsx2/CMakeLists.txt
 +++ b/pcsx2/CMakeLists.txt
-@@ -652,7 +652,7 @@
+@@ -648,7 +648,7 @@
  		GS/Renderers/Vulkan/VKStreamBuffer.h
  		GS/Renderers/Vulkan/VKSwapChain.h
  	)

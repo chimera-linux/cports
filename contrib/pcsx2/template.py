@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.4967"
+pkgver = "1.7.5082"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -9,15 +9,13 @@ configure_args = [
     "-DDISABLE_ADVANCE_SIMD=ON",
     "-DDISABLE_BUILD_DATE=ON",
     "-DENABLE_TESTS=ON",
-    "-DUSE_ACHIEVEMENTS=ON",
-    "-DUSE_DISCORD_PRESENCE=OFF",
     "-DUSE_LINKED_FFMPEG=ON",
     "-DUSE_VTUNE=OFF",
     "-DUSE_VULKAN=ON",
     "-DWAYLAND_API=ON",
     "-DX11_API=ON",
 ]
-make_check_target = "unittests"
+make_build_args = ["unittests"]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -27,12 +25,12 @@ makedepends = [
     "boost-devel",
     "extra-cmake-modules",
     "ffmpeg-devel",
-    "fmt-devel",
     "libaio-devel",
     "libcurl-devel",
     "libpcap-devel",
     "libpng-devel",
     "libpulse-devel",
+    "libwebp-devel",
     "libzip-devel",
     "libzip-progs",
     "zstd-devel",
@@ -51,37 +49,37 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "ec2132bbb5bd9f588a983fd8949be3eaa52316a8"
+_patches = "4c2e128a675e567e69a7c69afcb1770097105191"
+_fmt = "9.1.0"
 _glslang = "11.12.0"
 _gtest = "v1.14.0"
-_libchdr = "54bfb871ccae31903b95a8feb7f2bf7121f304be"
-_rcheevos = "v10.7.1"
+_rcheevos = "43f8c2a2a0750561786f17dd35af8755716705aa"
 _fastfloat = "v5.2.0"
 source = [
     f"https://github.com/PCSX2/pcsx2/archive/refs/tags/v{pkgver}.tar.gz",
     f"https://github.com/PCSX2/pcsx2_patches/archive/{_patches}.tar.gz",
+    f"https://github.com/fmtlib/fmt/archive/{_fmt}.tar.gz",
     f"https://github.com/KhronosGroup/glslang/archive/{_glslang}.tar.gz",
     f"https://github.com/google/googletest/archive/refs/tags/{_gtest}.tar.gz",
-    f"https://github.com/rtissera/libchdr/archive/{_libchdr}.tar.gz",
-    f"https://github.com/RetroAchievements/rcheevos/archive/refs/tags/{_rcheevos}.tar.gz",
+    f"https://github.com/RetroAchievements/rcheevos/archive/{_rcheevos}.tar.gz",
     f"https://github.com/fastfloat/fast_float/archive/refs/tags/{_fastfloat}.tar.gz",
 ]
 source_paths = [
     ".",
     "patches",
+    "3rdparty/fmt/fmt",
     "3rdparty/glslang/glslang",
     "3rdparty/gtest",
-    "3rdparty/libchdr/libchdr",
     "3rdparty/rcheevos/rcheevos",
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "5973db25ab029eb63b98e150ab7894d711aeb6444d9ffca3d2c103cad9a8245f",
-    "811b8391f0a2e658102aca30cb4e5418df1ef9f1f1b90f818c18036b941ae87b",
+    "5b9f6748288f5f638f57a93c0cc333a9f1b2589de42ccc7560966188c29ea043",
+    "7cafa594bbfac84d1170e166539ccf1f03562eadea26b9849aa184bcc5c9ea16",
+    "5dea48d1fcddc3ec571ce2058e13910a0d4a6bab4cc09a809d8b1dd1c88ae6f2",
     "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
-    "1ae342dfadd51f7c42b34da44f9eb534fc64ee61c88f96b6bbcbbf9ebe3df636",
-    "ef0c6a93340d02114fbf38cd41f0413591b679f728314f4908851a74f8565d0f",
+    "b526312b9bb8c47c5a581d60b16c3c33d5ce577fb7c674c42fcefd9e119b5adc",
     "72bbfd1914e414c920e39abdc81378adf910a622b62c45b4c61d344039425d18",
 ]
 # FIXME: cfi, int
