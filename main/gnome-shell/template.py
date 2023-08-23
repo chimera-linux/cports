@@ -1,6 +1,6 @@
 pkgname = "gnome-shell"
 pkgver = "44.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
@@ -43,7 +43,12 @@ makedepends = [
     "networkmanager-devel",
     "gnome-autoar-devel",
 ]
-depends = ["gnome-control-center", "gsettings-desktop-schemas", "upower"]
+depends = [
+    "gnome-control-center",
+    "gsettings-desktop-schemas",
+    "upower",
+    "cmd:unzip!unzip",
+]
 checkdepends = ["xserver-xorg-xvfb"]
 pkgdesc = "Core user interface for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
