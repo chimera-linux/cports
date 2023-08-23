@@ -1,0 +1,142 @@
+we have a new enough python version and don't need this
+--
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -32,7 +32,6 @@
+ 	Automat >= 0.8.0
+ 	hyperlink >= 17.1.1
+ 	attrs >= 19.2.0
+-	typing_extensions >= 3.6.5
+ 	twisted-iocpsupport >= 1.0.2, <2; platform_system == "Windows"
+ include_package_data = True
+ zip_safe = False
+--- a/src/twisted/conch/checkers.py
++++ b/src/twisted/conch/checkers.py
+@@ -16,7 +16,7 @@
+ from zope.interface import Interface, implementer, providedBy
+ 
+ from incremental import Version
+-from typing_extensions import Literal, Protocol
++from typing import Literal, Protocol
+ 
+ from twisted.conch import error
+ from twisted.conch.ssh import keys
+--- a/src/twisted/internet/address.py
++++ b/src/twisted/internet/address.py
+@@ -13,7 +13,7 @@
+ from zope.interface import implementer
+ 
+ import attr
+-from typing_extensions import Literal
++from typing import Literal
+ 
+ from twisted.internet.interfaces import IAddress
+ from twisted.python.filepath import _asFilesystemBytes, _coerceToFilesystemEncoding
+--- a/src/twisted/internet/defer.py
++++ b/src/twisted/internet/defer.py
+@@ -39,7 +39,7 @@
+ 
+ import attr
+ from incremental import Version
+-from typing_extensions import Literal, ParamSpec, Protocol
++from typing import Literal, ParamSpec, Protocol
+ 
+ from twisted.internet.interfaces import IDelayedCall, IReactorTime
+ from twisted.logger import Logger
+--- a/src/twisted/internet/tcp.py
++++ b/src/twisted/internet/tcp.py
+@@ -19,7 +19,7 @@
+ from zope.interface import Interface, implementer
+ 
+ import attr
+-import typing_extensions
++import typing
+ 
+ from twisted.internet.interfaces import (
+     IHalfCloseableProtocol,
+@@ -936,7 +936,7 @@
+         """
+ 
+ 
+-class _HasClose(typing_extensions.Protocol):
++class _HasClose(typing.Protocol):
+     def close(self) -> object:
+         ...
+ 
+--- a/src/twisted/protocols/haproxy/_v2parser.py
++++ b/src/twisted/protocols/haproxy/_v2parser.py
+@@ -14,7 +14,7 @@
+ from zope.interface import implementer
+ 
+ from constantly import ValueConstant, Values  # type: ignore[import]
+-from typing_extensions import Literal
++from typing import Literal
+ 
+ from twisted.internet import address
+ from twisted.python import compat
+--- a/src/twisted/trial/_dist/test/matchers.py
++++ b/src/twisted/trial/_dist/test/matchers.py
+@@ -25,7 +25,7 @@
+ from hamcrest.core.core.allof import AllOf
+ from hamcrest.core.description import Description
+ from hamcrest.core.matcher import Matcher
+-from typing_extensions import Protocol
++from typing import Protocol
+ 
+ from twisted.python.failure import Failure
+ 
+--- a/src/twisted/trial/_dist/worker.py
++++ b/src/twisted/trial/_dist/worker.py
+@@ -16,7 +16,7 @@
+ from zope.interface import implementer
+ 
+ from attrs import frozen
+-from typing_extensions import Protocol, TypedDict
++from typing import Protocol, TypedDict
+ 
+ from twisted.internet.defer import Deferred, DeferredList
+ from twisted.internet.error import ProcessDone
+--- a/src/twisted/trial/_dist/workerreporter.py
++++ b/src/twisted/trial/_dist/workerreporter.py
+@@ -14,7 +14,7 @@
+ from unittest import TestCase as PyUnitTestCase
+ 
+ from attrs import Factory, define
+-from typing_extensions import Literal
++from typing import Literal
+ 
+ from twisted.internet.defer import Deferred, maybeDeferred
+ from twisted.protocols.amp import AMP, MAX_VALUE_LENGTH
+--- a/src/twisted/trial/reporter.py
++++ b/src/twisted/trial/reporter.py
+@@ -20,7 +20,7 @@
+ 
+ from zope.interface import implementer
+ 
+-from typing_extensions import TypeAlias
++from typing import TypeAlias
+ 
+ from twisted.python import log, reflect
+ from twisted.python.components import proxyForInterface
+--- a/src/twisted/trial/runner.py
++++ b/src/twisted/trial/runner.py
+@@ -42,7 +42,7 @@
+ from zope.interface import implementer
+ 
+ from attrs import define
+-from typing_extensions import ParamSpec, Protocol, TypeAlias, TypeGuard
++from typing import ParamSpec, Protocol, TypeAlias, TypeGuard
+ 
+ from twisted.internet import defer
+ from twisted.python import failure, filepath, log, modules, reflect
+--- a/src/twisted/trial/util.py
++++ b/src/twisted/trial/util.py
+@@ -20,7 +20,7 @@
+ from random import randrange
+ from typing import Callable, TextIO, TypeVar
+ 
+-from typing_extensions import ParamSpec
++from typing import ParamSpec
+ 
+ from twisted.internet import interfaces, utils
+ from twisted.python.failure import Failure

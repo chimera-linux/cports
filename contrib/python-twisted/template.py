@@ -1,6 +1,6 @@
 pkgname = "python-twisted"
 pkgver = "22.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_module"
 make_check_target = "tests"
 hostmakedepends = ["python-setuptools", "python-incremental"]
@@ -17,7 +17,6 @@ depends = [
     "python-service-identity",
     "python-priority",
     "python-pyserial",
-    "python-typing_extensions",
     "python-zope.interface",
 ]
 checkdepends = [
