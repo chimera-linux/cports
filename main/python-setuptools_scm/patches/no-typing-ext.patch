@@ -1,0 +1,22 @@
+we have a new enough python version and don't need this
+--
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -2,6 +2,5 @@
+ requires = [
+     "setuptools>=45",
+     "packaging>=20.0",
+-    "typing_extensions",
+ ]
+ build-backend = "setuptools.build_meta"
+--- a/src/setuptools_scm/_types.py
++++ b/src/setuptools_scm/_types.py
+@@ -12,7 +12,7 @@
+     from setuptools_scm import version
+     import os
+ 
+-from typing_extensions import ParamSpec, TypeAlias, Protocol
++from typing import ParamSpec, TypeAlias, Protocol
+ 
+ PathT = Union["os.PathLike[str]", str]
+ 
