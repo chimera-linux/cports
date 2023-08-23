@@ -78,3 +78,6 @@ tool_flags = {
         "-Wno-unqualified-std-cast-call",
     ],
 }
+
+if self.profile().endian == "big":
+    broken = "unimplemented bits"
