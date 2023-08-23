@@ -1,0 +1,14 @@
+libc++ 16 doesn't have std::execution support, so this has to be single threaded.
+17 doesn't either.
+--
+--- a/src/convolver_menu_combine.cpp
++++ b/src/convolver_menu_combine.cpp
+@@ -68,7 +68,7 @@
+ 
+   std::iota(indices.begin(), indices.end(), 0U);
+ 
+-  std::for_each(std::execution::par_unseq, indices.begin(), indices.end(), [&](const int n) {
++  std::for_each(indices.begin(), indices.end(), [&](const int n) {
+     c[n] = 0.0F;
+ 
+     // Static cast to avoid gcc signedness warning.

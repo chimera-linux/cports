@@ -1,0 +1,12 @@
+std::iota
+--
+--- a/src/convolver_menu_combine.cpp
++++ b/src/convolver_menu_combine.cpp
+@@ -17,6 +17,7 @@
+  *  along with Easy Effects. If not, see <https://www.gnu.org/licenses/>.
+  */
+ 
++#include <numeric>
+ #include "convolver_menu_combine.hpp"
+ 
+ namespace ui::convolver_menu_combine {

@@ -1,0 +1,82 @@
+From e8636bf9bd39d35872fa148e31eac19e41f77dc4 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 24 Aug 2023 00:22:39 +0200
+Subject: [PATCH] fallback impl for stdlibs without std::from_chars float
+ variant
+
+Use stdtod_l and strtof_l for locale-independent string-to-float
+conversion so that std::from_chars is not used in those cases, as
+it may not be implemented on all standard library impls (notably
+libc++ is currently missing it).
+---
+ include/util.hpp | 28 ++++++++++++++++++++++++++--
+ src/util.cpp     |  1 +
+ 2 files changed, 27 insertions(+), 2 deletions(-)
+
+diff --git a/include/util.hpp b/include/util.hpp
+index f149cf6..c63161c 100644
+--- a/include/util.hpp
++++ b/include/util.hpp
+@@ -25,12 +25,15 @@
+ #include <glib.h>
+ #include <charconv>
+ #include <cmath>
++#include <clocale>
++#include <cstdlib>
+ #include <filesystem>
+ #include <functional>
+ #include <iostream>
+ #include <limits>
+ #include <ranges>
+ #include <source_location>
++#include <type_traits>
+ #include <string>
+ #include <thread>
+ #include <vector>
+@@ -134,9 +137,30 @@ auto str_to_num(const std::string& str, T& num) -> bool {
+     return false;
+   }
+ 
+-  const auto result = std::from_chars(str.data() + first_char, str.data() + str.size(), num);
++  bool ret;
+ 
+-  return (result.ec == std::errc());
++  if constexpr(std::is_floating_point_v<T>) {
++    char *endp = nullptr;
++    /* we're asking for C locale which is preallocated, so no alloc here */
++    auto loc = newlocale(LC_ALL_MASK, "C", nullptr);
++
++    if constexpr(std::is_same_v<T, float>) {
++      num = strtof_l(str.data() + first_char, &endp, loc);
++    } else {
++      num = strtod_l(str.data() + first_char, &endp, loc);
++    }
++
++    /* we gotta "free" it anyway */
++    freelocale(loc);
++
++    ret = (endp && !*endp && (endp != (str.data() + first_char)));
++  } else {
++    const auto result = std::from_chars(str.data() + first_char, str.data() + str.size(), num);
++
++    ret = (result.ec == std::errc());
++  }
++
++  return ret;
+ }
+ 
+ template <typename T>
+diff --git a/src/util.cpp b/src/util.cpp
+index 3e7200a..f648eff 100644
+--- a/src/util.cpp
++++ b/src/util.cpp
+@@ -20,6 +20,7 @@
+ #include "util.hpp"
+ 
+ #include <regex>
++#include <sstream>
+ #include <utility>
+ 
+ namespace util {
+-- 
+2.42.0

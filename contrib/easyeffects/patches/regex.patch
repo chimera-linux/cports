@@ -1,0 +1,140 @@
+From 5680becb2a55c5bb90e2d3cd605e97db2e0b3509 Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Wed, 23 Aug 2023 22:57:44 +0000
+Subject: [PATCH] fix suffixed-+'s on regex's
+
+these are not valid, and libc++ fails on these with:
+
+libc++abi: terminating due to uncaught exception of type std::__1::regex_error: One of *?+{ was not preceded by a valid regular expression.
+
+it happens to work on libstdc++, but the intention is the same without
+the + and works with both
+---
+ src/equalizer_ui.cpp     | 20 ++++++++++----------
+ src/tags_plugin_name.cpp |  2 +-
+ src/util.cpp             |  2 +-
+ 3 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/src/equalizer_ui.cpp b/src/equalizer_ui.cpp
+index 47eebf62..1624ae6b 100644
+--- a/src/equalizer_ui.cpp
++++ b/src/equalizer_ui.cpp
+@@ -151,7 +151,7 @@ void on_calculate_frequencies(EqualizerBox* self, GtkButton* btn) {
+ auto parse_apo_preamp(const std::string& line, double& preamp) -> bool {
+   std::smatch matches;
+ 
+-  static const auto re_preamp = std::regex(R"(preamp\s*+:\s*+([+-]?+\d++(?:\.\d++)?+)\s*+db)", std::regex::icase);
++  static const auto re_preamp = std::regex(R"(preamp\s*:\s*([+-]?\d+(?:\.\d+)?)\s*db)", std::regex::icase);
+ 
+   std::regex_search(line, matches, re_preamp);
+ 
+@@ -166,7 +166,7 @@ auto parse_apo_filter(const std::string& line, struct APO_Band& filter) -> std::
+   std::smatch matches;
+ 
+   static const auto re_filter =
+-      std::regex(R"(filter\s*+\d*+\s*+:\s*+on\s++([a-z]++(?:\s++(?:6|12)db)?+))", std::regex::icase);
++      std::regex(R"(filter\s*\d*\s*:\s*on\s+([a-z]+(?:\s+(?:6|12)db)?))", std::regex::icase);
+ 
+   std::regex_search(line, matches, re_filter);
+ 
+@@ -175,7 +175,7 @@ auto parse_apo_filter(const std::string& line, struct APO_Band& filter) -> std::
+   }
+ 
+   // Possible multiple whitespaces are replaced by a single space
+-  auto apo_filter = std::regex_replace(matches.str(1), std::regex(R"(\s++)"), " ");
++  auto apo_filter = std::regex_replace(matches.str(1), std::regex(R"(\s+)"), " ");
+ 
+   // Filter string needed in uppercase for unordered_map
+   std::transform(apo_filter.begin(), apo_filter.end(), apo_filter.begin(),
+@@ -193,7 +193,7 @@ auto parse_apo_filter(const std::string& line, struct APO_Band& filter) -> std::
+ auto parse_apo_frequency(const std::string& line, struct APO_Band& filter) -> bool {
+   std::smatch matches;
+ 
+-  static const auto re_freq = std::regex(R"(fc\s++(\d++(?:,\d++)?+(?:\.\d++)?+)\s*+hz)", std::regex::icase);
++  static const auto re_freq = std::regex(R"(fc\s+(\d+(?:,\d+)?(?:\.\d+)?)\s*hz)", std::regex::icase);
+ 
+   std::regex_search(line, matches, re_freq);
+ 
+@@ -209,7 +209,7 @@ auto parse_apo_frequency(const std::string& line, struct APO_Band& filter) -> bo
+ auto parse_apo_gain(const std::string& line, struct APO_Band& filter) -> bool {
+   std::smatch matches;
+ 
+-  static const auto re_gain = std::regex(R"(gain\s++([+-]?+\d++(?:\.\d++)?+)\s*+db)", std::regex::icase);
++  static const auto re_gain = std::regex(R"(gain\s+([+-]?\d+(?:\.\d+)?)\s*db)", std::regex::icase);
+ 
+   std::regex_search(line, matches, re_gain);
+ 
+@@ -223,7 +223,7 @@ auto parse_apo_gain(const std::string& line, struct APO_Band& filter) -> bool {
+ auto parse_apo_quality(const std::string& line, struct APO_Band& filter) -> bool {
+   std::smatch matches;
+ 
+-  static const auto re_quality = std::regex(R"(q\s++(\d++(?:\.\d++)?+))", std::regex::icase);
++  static const auto re_quality = std::regex(R"(q\s+(\d+(?:\.\d+)?))", std::regex::icase);
+ 
+   std::regex_search(line, matches, re_quality);
+ 
+@@ -304,7 +304,7 @@ auto import_apo_preset(EqualizerBox* self, const std::string& file_path) -> bool
+   std::vector<struct APO_Band> bands;
+   double preamp = 0.0;
+ 
+-  if (const auto re = std::regex(R"(^[ \t]*+#)"); eq_file.is_open()) {
++  if (const auto re = std::regex(R"(^[ \t]*#)"); eq_file.is_open()) {
+     for (std::string line; getline(eq_file, line);) {
+       if (std::regex_search(line, re)) {  // Avoid commented lines
+         continue;
+@@ -438,7 +438,7 @@ auto parse_graphiceq_config(const std::string& str, std::vector<struct GraphicEQ
+ 
+   // In order to do it, the following regular expression is used:
+   static const auto re_geq =
+-      std::regex(R"(graphiceq\s*:((?:\s*\d++(?:,\d++)?+(?:\.\d++)?+\s++[+-]?+\d++(?:\.\d++)?+[ \t]*+(?:;|$))++))",
++      std::regex(R"(graphiceq\s*:((?:\s*\d+(?:,\d+)?(?:\.\d+)?\s+[+-]?\d+(?:\.\d+)?[ \t]*(?:;|$))+))",
+                  std::regex::icase);
+ 
+   // That regex is quite permissive since:
+@@ -469,7 +469,7 @@ auto parse_graphiceq_config(const std::string& str, std::vector<struct GraphicEQ
+   // and capturing the values will return only the last repeated group (the last band),
+   // but we need all of them.
+   std::smatch band_match;
+-  static const auto re_geq_band = std::regex(R"((\d++(?:,\d++)?+(?:\.\d++)?+)\s++([+-]?+\d++(?:\.\d++)?+))");
++  static const auto re_geq_band = std::regex(R"((\d+(?:,\d+)?(?:\.\d+)?)\s+([+-]?\d+(?:\.\d+)?))");
+ 
+   // C++ regex does not support the global PCRE flag, so we need to repeat the search in a loop.
+   while (std::regex_search(bands_substr, band_match, re_geq_band)) {
+@@ -513,7 +513,7 @@ auto import_graphiceq_preset(EqualizerBox* self, const std::string& file_path) -
+ 
+   std::vector<struct GraphicEQ_Band> bands;
+ 
+-  if (const auto re = std::regex(R"(^[ \t]*+#)"); eq_file.is_open()) {
++  if (const auto re = std::regex(R"(^[ \t]*#)"); eq_file.is_open()) {
+     for (std::string line; getline(eq_file, line);) {
+       if (std::regex_search(line, re)) {  // Avoid commented lines
+         continue;
+diff --git a/src/tags_plugin_name.cpp b/src/tags_plugin_name.cpp
+index fd097c6a..2bce2d68 100644
+--- a/src/tags_plugin_name.cpp
++++ b/src/tags_plugin_name.cpp
+@@ -21,7 +21,7 @@
+ 
+ namespace {
+ 
+-const auto id_regex = std::regex(R"(#(\d++)$)");
++const auto id_regex = std::regex(R"(#(\d+)$)");
+ 
+ }
+ 
+diff --git a/src/util.cpp b/src/util.cpp
+index 3e7200ae..02b67331 100644
+--- a/src/util.cpp
++++ b/src/util.cpp
+@@ -401,7 +401,7 @@ auto compare_versions(const std::string& v0, const std::string& v1) -> int {
+     int patch = -1;
+   };
+ 
+-  static const auto re_semver = std::regex(R"(^(\d++)\.?+(\d++)?+\.?+(\d++)?+)");
++  static const auto re_semver = std::regex(R"(^(\d+)\.?(\d+)?\.?(\d+)?)");
+ 
+   std::array<SemVer, 2> sv{};
+   std::array<std::string, 2> v{v0, v1};
+-- 
+2.42.0
+
