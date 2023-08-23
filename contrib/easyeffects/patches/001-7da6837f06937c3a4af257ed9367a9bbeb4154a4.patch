@@ -1,0 +1,21 @@
+From 7da6837f06937c3a4af257ed9367a9bbeb4154a4 Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Wed, 23 Aug 2023 18:53:22 +0000
+Subject: [PATCH] include <numeric> for std::iota in convolver_menu_combine
+
+---
+ include/convolver_menu_combine.hpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/convolver_menu_combine.hpp b/include/convolver_menu_combine.hpp
+index 84b4e1813..a15f3ebf1 100644
+--- a/include/convolver_menu_combine.hpp
++++ b/include/convolver_menu_combine.hpp
+@@ -21,6 +21,7 @@
+ 
+ #include <adwaita.h>
+ #include <execution>
++#include <numeric>
+ #include "convolver_ui_common.hpp"
+ #include "resampler.hpp"
+ #include "tags_resources.hpp"
