@@ -1,0 +1,29 @@
+commit a2ce6458736aec85c1be6e33213b65fa3ce9e476
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Aug 23 12:09:24 2023 +0200
+
+    fix ppc hwcaps checking on musl
+
+diff --git a/util/cpuinfo-ppc.c b/util/cpuinfo-ppc.c
+index 7212afa..3a2d974 100644
+--- a/util/cpuinfo-ppc.c
++++ b/util/cpuinfo-ppc.c
+@@ -15,6 +15,18 @@
+ 
+ unsigned cpuinfo;
+ 
++#ifndef PPC_FEATURE2_HAS_ISEL
++#define PPC_FEATURE2_HAS_ISEL PPC_FEATURE2_ISEL
++#endif
++
++#ifndef PPC_FEATURE2_HAS_VEC_CRYPTO
++#define PPC_FEATURE2_HAS_VEC_CRYPTO PPC_FEATURE2_VEC_CRYPTO
++#endif
++
++#ifndef PPC_FEATURE_ARCH_3_1
++#define PPC_FEATURE_ARCH_3_1 0x00040000
++#endif
++
+ /* Called both as constructor and (possibly) via other constructors. */
+ unsigned __attribute__((constructor)) cpuinfo_init(void)
+ {
