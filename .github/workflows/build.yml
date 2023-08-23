@@ -38,5 +38,8 @@ jobs:
       - name: Cycle check
         run: env PYTHONUNBUFFERED=1 python3.11 cbuild cycle-check
 
+      - name: Symlink check
+        run: env PYTHONUNBUFFERED=1 python3.11 cbuild relink-subpkgs && git diff --exit-code
+
       - name: Build and test packages
         run: env PYTHONUNBUFFERED=1 python3.11 cbuild --update-check -t bulk-pkg 'git:master..+!\[ci skip\]'
