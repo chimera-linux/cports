@@ -1,5 +1,5 @@
 pkgname = "gnome"
-pkgver = "44.2"
+pkgver = "44.4"
 pkgrel = 0
 build_style = "meta"
 depends = [
@@ -8,6 +8,7 @@ depends = [
     "eog",
     "epiphany",
     "evince",
+    "gnome-browser-connector",
     "gnome-calculator",
     "gnome-calendar",
     "gnome-characters",
