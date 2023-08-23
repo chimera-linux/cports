@@ -1,5 +1,5 @@
 pkgname = "qemu"
-pkgver = "8.0.4"
+pkgver = "8.1.0"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde liburing libssh capstone
@@ -36,7 +36,7 @@ configure_args = [
     "--disable-bsd-user",
     "--disable-werror",
     "--disable-xen",
-    "--audio-drv-list=pa,jack,sdl",
+    "--audio-drv-list=pa,pipewire,jack,sdl",
 ]
 make_cmd = "gmake"
 hostmakedepends = [
@@ -73,6 +73,7 @@ makedepends = [
     "sdl-devel",
     "sdl_image-devel",
     "libpulse-devel",
+    "pipewire-devel",
     "pipewire-jack-devel",
     "fuse-devel",
     "libseccomp-devel",
@@ -94,7 +95,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "81c817dda38af958be5bef1a6cf55b658bb2d3fb87c1e6a571de6b7b2c44516c"
+sha256 = "710c101198e334d4762eef65f649bc43fa8a5dd75303554b8acfec3eb25f0e55"
 suid_files = ["usr/libexec/qemu-bridge-helper"]
 file_modes = {
     "etc/qemu/bridge.conf": ("root", "_qemu", 0o640),
@@ -246,7 +247,7 @@ def _spkg(sname):
                     "usr/lib/qemu/s390-ccw.img",
                     "usr/lib/qemu/s390-netboot.img",
                 ]
-                self.options += ["execstack"]
+                self.options += ["execstack", "textrels"]
             case "sparc":
                 extras = [
                     "usr/lib/qemu/openbios-sparc32",
