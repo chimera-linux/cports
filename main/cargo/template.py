@@ -1,6 +1,6 @@
 pkgname = "cargo"
 pkgver = "1.72.0"
-#_cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
+# _cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
 # ffs, tag your shit
 _cargover = "103a7ff2ee7678d34f34d778614c5eb2525ae9de"
 pkgrel = 0
