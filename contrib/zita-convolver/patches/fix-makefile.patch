@@ -1,11 +1,11 @@
-commit 4aa596488b930afd5cd6602c8a449a1328aff7d1
+commit 3c84a3c1d8b156619728cc89737a3bc22b8091be
 Author: q66 <q66@chimera-linux.org>
 Date:   Fri Aug 25 01:02:08 2023 +0200
 
     fix up makefile, drop dumb shit
 
 diff --git a/source/Makefile b/source/Makefile
-index 776c067..5c5d6e5 100644
+index 776c067..dea42d8 100644
 --- a/source/Makefile
 +++ b/source/Makefile
 @@ -33,8 +33,7 @@ VERSION = $(MAJVERS).$(MINVERS)
@@ -18,12 +18,12 @@ index 776c067..5c5d6e5 100644
  LDLFAGS += 
  LDLIBS +=
  
-@@ -56,8 +55,7 @@ install:	$(ZITA-CONVOLVER_MIN)
+@@ -56,8 +55,8 @@ install:	$(ZITA-CONVOLVER_MIN)
  	install -d $(DESTDIR)$(LIBDIR)
  	install -m 644 $(ZITA-CONVOLVER_H) $(DESTDIR)$(INCDIR)
  	install -m 755 $(ZITA-CONVOLVER_MIN) $(DESTDIR)$(LIBDIR)
 -	ldconfig
--	ln -sf $(ZITA-CONVOLVER_MIN) $(DESTDIR)$(LIBDIR)/$(ZITA-CONVOLVER_SO)
+ 	ln -sf $(ZITA-CONVOLVER_MIN) $(DESTDIR)$(LIBDIR)/$(ZITA-CONVOLVER_SO)
 +	ln -sf $(ZITA-CONVOLVER_MIN) $(DESTDIR)$(LIBDIR)/$(ZITA-CONVOLVER_MAJ)
  
  uninstall:

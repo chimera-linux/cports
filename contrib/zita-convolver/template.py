@@ -1,6 +1,6 @@
 pkgname = "zita-convolver"
 pkgver = "4.0.3"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "source"
 build_style = "makefile"
 make_install_args = ["SUFFIX="]
