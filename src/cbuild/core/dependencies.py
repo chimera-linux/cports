@@ -224,7 +224,7 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
     for cr in crepos:
         if cr == "--repository":
             continue
-        pn = (
+        st = (
             apki.call(
                 "search",
                 ["--from", "none", "--repository", cr, "-e", "-a", pkgn],
@@ -236,8 +236,10 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
             )
             .stdout.strip()
             .decode()
-            .split("\n")
         )
+        if len(st) == 0:
+            continue
+        pn = st.split("\n")
         # highest priority repo takes all
         if len(pn) > 0:
             if autil.pkg_match(pn[0], ppat):
