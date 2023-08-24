@@ -1,6 +1,6 @@
 pkgname = "sqlite"
-pkgver = "3.42.0"
-_amalg = "3420000"
+pkgver = "3.43.0"
+_amalg = "3430000"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,14 +8,15 @@ configure_args = [
     "--enable-dynamic-extensions",
     "--enable-fts5",
 ]
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["libedit-devel", "zlib-devel"]
 pkgdesc = "SQL Database Engine in a C library"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "custom:none"
+license = "blessing"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2023/sqlite-autoconf-{_amalg}.tar.gz"
-sha256 = "7abcfd161c6e2742ca5c6c0895d1f853c940f203304a0b49da4e1eca5d088ca6"
+sha256 = "49008dbf3afc04d4edc8ecfc34e4ead196973034293c997adad2f63f01762ae1"
 options = ["!parallel"]
 
 _cflags = [
@@ -43,6 +44,3 @@ tool_flags = {"CFLAGS": _cflags}
 @subpackage("sqlite-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
