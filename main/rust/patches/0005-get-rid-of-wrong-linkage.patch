@@ -1,6 +1,6 @@
-From 94a46186cb9e4a8a40967a24eb843cdd5d688afa Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sat, 3 Jun 2023 00:29:22 +0200
+From bcab4c63da7cb2b0137957aa7f60684e254fe914 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 24 Aug 2023 21:37:15 +0200
 Subject: [PATCH 05/11] get rid of wrong linkage
 
 There is no good way to compute the clang builtins library
@@ -8,9 +8,9 @@ path from inside the rust code, but there should be no harm
 in just disabling nodefaultlibs for our platform.
 ---
  vendor/libc-0.2.138/src/unix/mod.rs | 7 +------
- vendor/libc-0.2.139/src/unix/mod.rs | 7 +------
  vendor/libc-0.2.140/src/unix/mod.rs | 7 +------
- vendor/libc-0.2.143/src/unix/mod.rs | 7 +------
+ vendor/libc-0.2.141/src/unix/mod.rs | 7 +------
+ vendor/libc-0.2.146/src/unix/mod.rs | 7 +------
  vendor/libc/src/unix/mod.rs         | 7 +------
  5 files changed, 5 insertions(+), 30 deletions(-)
 
@@ -19,24 +19,6 @@ index fb9ebf792..cd6968344 100644
 --- a/vendor/libc-0.2.138/src/unix/mod.rs
 +++ b/vendor/libc-0.2.138/src/unix/mod.rs
 @@ -339,12 +339,7 @@ cfg_if! {
-         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
-         extern {}
-     } else if #[cfg(target_env = "musl")] {
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", kind = "static", modifiers = "-bundle",
--                        cfg(target_feature = "crt-static")))]
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
--        extern {}
-+        // we don't set -nodefaultlibs, so no need to link anything
-     } else if #[cfg(target_os = "emscripten")] {
-         #[link(name = "c")]
-         extern {}
-diff --git a/vendor/libc-0.2.139/src/unix/mod.rs b/vendor/libc-0.2.139/src/unix/mod.rs
-index 826b83518..073217049 100644
---- a/vendor/libc-0.2.139/src/unix/mod.rs
-+++ b/vendor/libc-0.2.139/src/unix/mod.rs
-@@ -352,12 +352,7 @@ cfg_if! {
          #[link(name = "c", cfg(not(target_feature = "crt-static")))]
          extern {}
      } else if #[cfg(target_env = "musl")] {
@@ -68,10 +50,28 @@ index b005970b9..f3e674ffd 100644
      } else if #[cfg(target_os = "emscripten")] {
          #[link(name = "c")]
          extern {}
-diff --git a/vendor/libc-0.2.143/src/unix/mod.rs b/vendor/libc-0.2.143/src/unix/mod.rs
+diff --git a/vendor/libc-0.2.141/src/unix/mod.rs b/vendor/libc-0.2.141/src/unix/mod.rs
 index 75d511e39..cfacf0c73 100644
---- a/vendor/libc-0.2.143/src/unix/mod.rs
-+++ b/vendor/libc-0.2.143/src/unix/mod.rs
+--- a/vendor/libc-0.2.141/src/unix/mod.rs
++++ b/vendor/libc-0.2.141/src/unix/mod.rs
+@@ -352,12 +352,7 @@ cfg_if! {
+         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
+         extern {}
+     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", kind = "static", modifiers = "-bundle",
+-                        cfg(target_feature = "crt-static")))]
+-        #[cfg_attr(feature = "rustc-dep-of-std",
+-                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
+-        extern {}
++        // we don't set -nodefaultlibs, so no need to link anything
+     } else if #[cfg(target_os = "emscripten")] {
+         #[link(name = "c")]
+         extern {}
+diff --git a/vendor/libc-0.2.146/src/unix/mod.rs b/vendor/libc-0.2.146/src/unix/mod.rs
+index 762470a7f..212b1b942 100644
+--- a/vendor/libc-0.2.146/src/unix/mod.rs
++++ b/vendor/libc-0.2.146/src/unix/mod.rs
 @@ -352,12 +352,7 @@ cfg_if! {
          #[link(name = "c", cfg(not(target_feature = "crt-static")))]
          extern {}
@@ -87,7 +87,7 @@ index 75d511e39..cfacf0c73 100644
          #[link(name = "c")]
          extern {}
 diff --git a/vendor/libc/src/unix/mod.rs b/vendor/libc/src/unix/mod.rs
-index 75d511e39..cfacf0c73 100644
+index 9b5ce0fce..cb29b9a90 100644
 --- a/vendor/libc/src/unix/mod.rs
 +++ b/vendor/libc/src/unix/mod.rs
 @@ -352,12 +352,7 @@ cfg_if! {
@@ -105,5 +105,5 @@ index 75d511e39..cfacf0c73 100644
          #[link(name = "c")]
          extern {}
 -- 
-2.41.0
+2.42.0
 

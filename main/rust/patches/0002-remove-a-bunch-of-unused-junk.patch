@@ -1,6 +1,6 @@
-From 59a79b9cea4dec88e75578da95125bcaf861ba34 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Fri, 14 Jul 2023 18:36:24 +0200
+From 2daa018eb1778ce1c96076d8fb81c5da02df743f Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 24 Aug 2023 21:35:08 +0200
 Subject: [PATCH 02/11] remove a bunch of unused junk
 
 ---
@@ -47,28 +47,28 @@ index c126390f5..7aef73d3b 100644
      new(&[
          (LinkOutputKind::DynamicNoPicExe, &["crt2.o", "rsbegin.o"]),
 diff --git a/src/bootstrap/cc_detect.rs b/src/bootstrap/cc_detect.rs
-index 65c882fb8..f35a92821 100644
+index ade3bfed1..66d2f549a 100644
 --- a/src/bootstrap/cc_detect.rs
 +++ b/src/bootstrap/cc_detect.rs
-@@ -103,7 +103,7 @@ pub fn find(build: &mut Build) {
-         if let Some(cc) = config.and_then(|c| c.cc.as_ref()) {
-             cfg.compiler(cc);
-         } else {
--            set_compiler(&mut cfg, Language::C, target, config, build);
-+            set_compiler(&mut cfg, Language::C, target, config);
-         }
+@@ -110,7 +110,7 @@ pub fn find_target(build: &Build, target: TargetSelection) {
+     if let Some(cc) = config.and_then(|c| c.cc.as_ref()) {
+         cfg.compiler(cc);
+     } else {
+-        set_compiler(&mut cfg, Language::C, target, config, build);
++        set_compiler(&mut cfg, Language::C, target, config);
+     }
  
-         let compiler = cfg.get_compiler();
-@@ -124,7 +124,7 @@ pub fn find(build: &mut Build) {
-             cfg.compiler(cxx);
-             true
-         } else if build.hosts.contains(&target) || build.build == target {
--            set_compiler(&mut cfg, Language::CPlusPlus, target, config, build);
-+            set_compiler(&mut cfg, Language::CPlusPlus, target, config);
-             true
-         } else {
-             // Use an auto-detected compiler (or one configured via `CXX_target_triple` env vars).
-@@ -160,7 +160,6 @@ fn set_compiler(
+     let compiler = cfg.get_compiler();
+@@ -131,7 +131,7 @@ pub fn find_target(build: &Build, target: TargetSelection) {
+         cfg.compiler(cxx);
+         true
+     } else if build.hosts.contains(&target) || build.build == target {
+-        set_compiler(&mut cfg, Language::CPlusPlus, target, config, build);
++        set_compiler(&mut cfg, Language::CPlusPlus, target, config);
+         true
+     } else {
+         // Use an auto-detected compiler (or one configured via `CXX_target_triple` env vars).
+@@ -166,7 +166,6 @@ fn set_compiler(
      compiler: Language,
      target: TargetSelection,
      config: Option<&Target>,
@@ -76,7 +76,7 @@ index 65c882fb8..f35a92821 100644
  ) {
      match &*target.triple {
          // When compiling for android we may have the NDK configured in the
-@@ -196,26 +195,6 @@ fn set_compiler(
+@@ -202,26 +201,6 @@ fn set_compiler(
              }
          }
  
@@ -104,10 +104,10 @@ index 65c882fb8..f35a92821 100644
      }
  }
 diff --git a/src/bootstrap/compile.rs b/src/bootstrap/compile.rs
-index 33addb90d..06cc14e64 100644
+index 14c3ef79a..ffd07f01b 100644
 --- a/src/bootstrap/compile.rs
 +++ b/src/bootstrap/compile.rs
-@@ -236,40 +236,7 @@ fn copy_self_contained_objects(
+@@ -267,40 +267,7 @@ fn copy_self_contained_objects(
      t!(fs::create_dir_all(&libdir_self_contained));
      let mut target_deps = vec![];
  
@@ -149,7 +149,7 @@ index 33addb90d..06cc14e64 100644
          let srcdir = builder
              .wasi_root(target)
              .unwrap_or_else(|| {
-@@ -366,15 +333,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
+@@ -397,15 +364,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
              .arg("--manifest-path")
              .arg(builder.src.join("library/sysroot/Cargo.toml"));
  
@@ -166,10 +166,10 @@ index 33addb90d..06cc14e64 100644
              if let Some(p) = builder.wasi_root(target) {
                  let root = format!("native={}/lib/wasm32-wasi", p.to_str().unwrap());
 diff --git a/src/bootstrap/config.rs b/src/bootstrap/config.rs
-index e192cda9a..8fa6d4b9c 100644
+index fe932fd6b..a4a141fff 100644
 --- a/src/bootstrap/config.rs
 +++ b/src/bootstrap/config.rs
-@@ -210,8 +210,6 @@ pub struct Config {
+@@ -262,8 +262,6 @@ pub struct Config {
      pub print_step_rusage: bool,
      pub missing_tools: bool,
  
@@ -178,7 +178,7 @@ index e192cda9a..8fa6d4b9c 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -470,8 +468,6 @@ pub struct Target {
+@@ -536,8 +534,6 @@ pub struct Target {
      pub profiler: Option<bool>,
      pub rpath: Option<bool>,
      pub crt_static: Option<bool>,
@@ -187,7 +187,7 @@ index e192cda9a..8fa6d4b9c 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub no_std: bool,
-@@ -834,7 +830,6 @@ define_config! {
+@@ -945,7 +941,6 @@ define_config! {
          default_linker: Option<String> = "default-linker",
          channel: Option<String> = "channel",
          description: Option<String> = "description",
@@ -195,7 +195,7 @@ index e192cda9a..8fa6d4b9c 100644
          rpath: Option<bool> = "rpath",
          verbose_tests: Option<bool> = "verbose-tests",
          optimize_tests: Option<bool> = "optimize-tests",
-@@ -883,8 +878,6 @@ define_config! {
+@@ -994,8 +989,6 @@ define_config! {
          profiler: Option<bool> = "profiler",
          rpath: Option<bool> = "rpath",
          crt_static: Option<bool> = "crt-static",
@@ -204,7 +204,7 @@ index e192cda9a..8fa6d4b9c 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1247,7 +1240,6 @@ impl Config {
+@@ -1367,7 +1360,6 @@ impl Config {
              set(&mut config.llvm_tools_enabled, rust.llvm_tools);
              config.rustc_parallel = rust.parallel_compiler.unwrap_or(false);
              config.rustc_default_linker = rust.default_linker;
@@ -212,7 +212,7 @@ index e192cda9a..8fa6d4b9c 100644
              config.save_toolstates = rust.save_toolstates.map(PathBuf::from);
              set(
                  &mut config.deny_warnings,
-@@ -1414,8 +1406,6 @@ impl Config {
+@@ -1534,8 +1526,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -222,10 +222,10 @@ index e192cda9a..8fa6d4b9c 100644
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
                  target.sanitizers = cfg.sanitizers;
 diff --git a/src/bootstrap/configure.py b/src/bootstrap/configure.py
-index 571062a3a..3fe34eb39 100755
+index e8eebdfb5..17e8c093d 100755
 --- a/src/bootstrap/configure.py
 +++ b/src/bootstrap/configure.py
-@@ -111,38 +111,6 @@ v("aarch64-linux-android-ndk", "target.aarch64-linux-android.android-ndk",
+@@ -110,38 +110,6 @@ v("aarch64-linux-android-ndk", "target.aarch64-linux-android.android-ndk",
    "aarch64-linux-android NDK standalone path")
  v("x86_64-linux-android-ndk", "target.x86_64-linux-android.android-ndk",
    "x86_64-linux-android NDK standalone path")
@@ -265,10 +265,10 @@ index 571062a3a..3fe34eb39 100755
    "rootfs in qemu testing, you probably don't want to use this")
  v("qemu-aarch64-rootfs", "target.aarch64-unknown-linux-gnu.qemu-rootfs",
 diff --git a/src/bootstrap/lib.rs b/src/bootstrap/lib.rs
-index 943f51341..688e64296 100644
+index 0a7aff622..8f06a1b51 100644
 --- a/src/bootstrap/lib.rs
 +++ b/src/bootstrap/lib.rs
-@@ -1219,25 +1219,6 @@ impl Build {
+@@ -1256,25 +1256,6 @@ impl Build {
          }
      }
  
@@ -295,7 +295,7 @@ index 943f51341..688e64296 100644
      fn wasi_root(&self, target: TargetSelection) -> Option<&Path> {
          self.config.target_config.get(&target).and_then(|t| t.wasi_root.as_ref()).map(|p| &**p)
 diff --git a/src/bootstrap/sanity.rs b/src/bootstrap/sanity.rs
-index 140259b02..021749fd3 100644
+index 8f5ba4273..977fad2a0 100644
 --- a/src/bootstrap/sanity.rs
 +++ b/src/bootstrap/sanity.rs
 @@ -205,28 +205,6 @@ than building it.
@@ -328,5 +328,5 @@ index 140259b02..021749fd3 100644
          // FIXME: it would be better to refactor this code to split necessary setup from pure sanity
          // checks, and have a regular flag for skipping the latter. Also see
 -- 
-2.41.0
+2.42.0
 

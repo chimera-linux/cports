@@ -1,4 +1,4 @@
-From f65c7eb57fad651b69069964edb61d087193fbdd Mon Sep 17 00:00:00 2001
+From 625661b333c60f8ebde79af0bf8ff9925a07b35e Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:38:20 +0100
 Subject: [PATCH 07/11] fix rustdoc when cross-compiling
@@ -40,5 +40,5 @@ index d2b85f7a6..e625207a9 100644
          );
          eprintln!("sysroot: {:?}", sysroot);
 -- 
-2.41.0
+2.42.0
 
