@@ -11,14 +11,14 @@ diff --git a/configure b/configure
 index a66a081..ddbdec5 100755
 --- a/configure
 +++ b/configure
-@@ -23714,11 +23714,11 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
- /* Override any GCC internal prototype to avoid an error.
-    Use char because int might match the return type of a GCC
-    builtin and then its argument prototype would still apply.  */
+@@ -21110,11 +21110,11 @@
+ #ifdef __cplusplus
+ extern "C"
+ #endif
 -char rl_completion_display_matches_hook ();
 +char rl_completion_display_matches_hook_undef ();
  int
- main (void)
+ main ()
  {
 -return rl_completion_display_matches_hook ();
 +return rl_completion_display_matches_hook_undef ();
