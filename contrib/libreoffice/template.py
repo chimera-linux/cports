@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "7.5.5.2"
+pkgver = "7.6.0.3"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "aarch64"]
@@ -7,6 +7,7 @@ build_style = "gnu_configure"
 configure_args = [
     "--with-vendor=Chimera Linux",
     "--with-help",
+    "--disable-ccache",  # automatic
     "--disable-fetch-external",
     "--disable-odk",
     "--disable-online-update",
@@ -43,6 +44,7 @@ configure_args = [
     "--without-system-libzmf",
     "--without-system-libstaroffice",
     "--without-system-dragonbox",
+    "--without-system-frozen",
     "--without-system-libfixmath",
 ]
 configure_env = {"NOCONFIGURE": "1", "QT6DIR": "/usr/lib/qt6"}
@@ -191,14 +193,15 @@ source = [
     f"{_aurl}/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip",
     f"{_aurl}/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip",
     f"{_aurl}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip",
-    f"{_aurl}/skia-m103-b301ff025004c9cd82816c86c547588e6c24b466.tar.xz",
+    f"{_aurl}/skia-m111-a31e897fb3dcbc96b2b40999751611d029bf5404.tar.xz",
     f"{_aurl}/dragonbox-1.1.3.tar.gz",
+    f"{_aurl}/frozen-1.1.1.tar.gz",
 ]
 sha256 = [
-    "6628dfd2a21041a7c5bb6d72733e0fd52efa7959c95084fcd4d96cc4a61b0561",
-    "33c023d3e5abe5649350ae1242fcd5d6c069066f283db967b6aab35aa4857504",
-    "1de834979bf25c3c6f368362dd20c95d0bee514a42eee903a32188d40488aa62",
-    "24b5c791a17128361b5f3c8538348002a714d0ba2aab37e3bf10e16b7ac049b7",
+    "07f33f11a75b72a3044749d4f2f7d02a0fd79eaed4fb73e618ec5fe3576d0c25",
+    "b932cdd6bd2ee717f3a09766c88fe90100b0c2c0509313c3ee297f95c084ee2e",
+    "210f18ff60e93d366856d84e714d3fd6f184f399b5163afc92b7e11155cbe768",
+    "667e4ffeacc01bd0f830c2edcc56e2328f924eeac224639babeb3841a44ec5f4",
     "1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -225,8 +228,9 @@ sha256 = [
     "abe2c57ac12ba45d83563b02e240fa95d973376de2f720aab8fe11f2e621c095",
     "05640a1f6805b2b2d7e2cb9c50db9a5cb084e3c52ab1a71ce015239b4a1d4343",
     "085f2112c51fa8c1783fac12fbd452650596415121348393bb51f0f7e85a9045",
-    "c094a6247e44104beaaa0d00c825beb6baf1a8e532dc22214747495317a65bd9",
+    "0d08a99ed46cde43b5ad2672b5d8770c8eb85d0d26cb8f1f85fd9befe1e9ceb9",
     "09d63b05e9c594ec423778ab59b7a5aa1d76fdd71d25c7048b0258c4ec9c3384",
+    "f7c7075750e8fceeac081e9ef01944f221b36d9725beac8681cbd2838d26be45",
 ]
 
 tool_flags = {
@@ -243,9 +247,6 @@ def post_extract(self):
         if s.startswith("!"):
             s = s[1:]
         self.cp(self.sources_path / s[s.rfind("/") + 1 :], self.cwd)
-
-    # copy over patches
-    self.cp(self.files_path / "skia-no-execinfo.patch.1", "external/skia")
 
 
 def init_configure(self):

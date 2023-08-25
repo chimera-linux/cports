@@ -1,18 +1,18 @@
-commit 0bc0e6d7143b7301badcd10d90032b8b98a9edd3
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Tue Jun 6 15:30:47 2023 +0200
+commit 670bcfca01b1fb9647eb937cf71b9ed09c7328e7
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Aug 26 01:50:32 2023 +0200
 
     patch out gnu cp requirement
 
 diff --git a/configure.ac b/configure.ac
-index ebbe719..c7c9a4f 100644
+index f59c1cf..1447177 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -11553,14 +11553,11 @@ elif $GNUCP --version 2>/dev/null | grep "GNU fileutils" >/dev/null 2>/dev/null;
+@@ -11580,14 +11580,11 @@ elif $GNUCP --version 2>/dev/null | grep "GNU fileutils" >/dev/null 2>/dev/null;
      AC_MSG_RESULT([yes])
  else
      case "$build_os" in
--    darwin*|netbsd*|openbsd*|freebsd*|dragonfly*|aix*)
+-    darwin*|netbsd*|openbsd*|freebsd*|dragonfly*)
 +    *)
          x_GNUCP=[\#]
          GNUCP=''
