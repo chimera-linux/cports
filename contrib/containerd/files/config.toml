@@ -222,6 +222,12 @@ version = 2
   [plugins."io.containerd.snapshotter.v1.aufs"]
     root_path = ""
 
+  [plugins."io.containerd.snapshotter.v1.blockfile"]
+    fs_type = ""
+    mount_options = []
+    root_path = ""
+    scratch_file = ""
+
   [plugins."io.containerd.snapshotter.v1.btrfs"]
     root_path = ""
 
@@ -238,7 +244,9 @@ version = 2
     root_path = ""
 
   [plugins."io.containerd.snapshotter.v1.overlayfs"]
+    mount_options = []
     root_path = ""
+    sync_remove = false
     upperdir_label = false
 
   [plugins."io.containerd.snapshotter.v1.zfs"]
