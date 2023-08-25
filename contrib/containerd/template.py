@@ -1,5 +1,5 @@
 pkgname = "containerd"
-pkgver = "1.7.3"
+pkgver = "1.7.4"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -31,7 +31,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/containerd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "1fd19d2c75322bdbcb01d190a18d53940a4a79d909bd61a99f9e8e2dbc57a8fe"
+sha256 = "32b7d59001542cdda8ec3068b5f7cfa039149f5c9b63f14fefc443e94bc80cf7"
 # objcopy fails to split on ppc
 # can't run tests inside namespaces
 options = ["!debug", "!check"]
