@@ -1,5 +1,5 @@
 pkgname = "libinput"
-pkgver = "1.23.0"
+pkgver = "1.24.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.freedesktop.org/wiki/Software/libinput"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "7a7c90fbc59f1f65c781a51fa634e4f79e460bf6e16ad68afbe7965d25d09738"
+sha256 = "7413c3733b8c39dc38b8687950e0e0d9d38a73394539f9efa2a7c84a412cb505"
 
 
 def post_install(self):
