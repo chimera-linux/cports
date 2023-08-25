@@ -1,7 +1,8 @@
 pkgname = "xserver-xorg-input-libinput"
-pkgver = "1.3.0"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "gnu_configure"
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["xserver-xorg-devel", "libinput-devel"]
 depends = ["virtual:xserver-abi-input~24!xserver-xorg-core"]
@@ -10,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/driver/xf86-input-libinput-{pkgver}.tar.gz"
-sha256 = "3b4f519b6b3cea852e8c008fb3a3f9f5da8b7e204c31c18d4a6d1e5875ac77f1"
+sha256 = "e49131746f6fc639f58ee014b424a90be2e2073b55b9392517505fd3302fbbbe"
 
 
 def post_install(self):
@@ -20,6 +21,3 @@ def post_install(self):
 @subpackage("xserver-xorg-input-libinput-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
