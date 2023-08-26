@@ -248,6 +248,9 @@ def post_extract(self):
             s = s[1:]
         self.cp(self.sources_path / s[s.rfind("/") + 1 :], self.cwd)
 
+    # copy over patches
+    self.cp(self.files_path / "ppc-skia-musttail.patch.1", "external/skia")
+
 
 def init_configure(self):
     if self.profile().endian == "big":
