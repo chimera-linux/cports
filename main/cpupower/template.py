@@ -1,6 +1,6 @@
 pkgname = "cpupower"
 pkgver = "6.4.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 _make_args = [
