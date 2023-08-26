@@ -1,5 +1,5 @@
 pkgname = "opensbi"
-pkgver = "1.2"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/riscv-software-src/opensbi"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8fcbce598a73acc2c7f7d5607d46b9d5107d3ecbede8f68f42631dcfc25ef2b2"
+sha256 = "ee5be2c582f9a837e9db88368220758e014dd694b566bb6c8efe1e50cfad0004"
 hardening = ["!int"]
 # no test suite
 options = ["!check", "!lto", "!strip", "!debug", "foreignelf"]
