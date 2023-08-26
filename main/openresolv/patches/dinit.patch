@@ -15,13 +15,13 @@ index 198096b..0a126bb 100644
 -	if [ -x /bin/systemctl ] && [ -S /run/systemd/private ]; then
 +	if [ -x /bin/dinitctl ] && [ -S /run/dinitctl ]; then
 +		RESTARTCMD='
-+			if /bin/dinitctl --quiet is-active $1
++			if /bin/dinitctl --quiet is-started $1
 +			then
 +				/bin/systemctl restart $1
 +			fi'
 +	elif [ -x /usr/bin/dinitctl ] && [ -S /run/dinitctl ]; then
 +		RESTARTCMD='
-+			if /usr/bin/dinitctl --quiet is-active $1
++			if /usr/bin/dinitctl --quiet is-started $1
 +			then
 +				/usr/bin/systemctl restart $1
 +			fi'

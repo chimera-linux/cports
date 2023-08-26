@@ -1,6 +1,6 @@
 pkgname = "openresolv"
 pkgver = "3.13.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--libexecdir=/usr/libexec/resolvconf"]
 make_dir = "."
