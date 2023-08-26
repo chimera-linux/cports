@@ -2,7 +2,7 @@ pkgname = "libreoffice"
 pkgver = "7.6.0.3"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
-archs = ["x86_64", "ppc64le", "aarch64"]
+archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
 configure_args = [
     "--with-vendor=Chimera Linux",
