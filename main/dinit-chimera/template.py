@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
@@ -37,6 +37,7 @@ options = ["!check", "brokenlinks"]
 
 
 def post_install(self):
+    self.install_license("COPYING.md")
     self.install_file(self.files_path / "hostname", "etc")
     self.install_file(self.files_path / "locale.conf", "etc")
     # init symlink
