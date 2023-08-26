@@ -1,6 +1,6 @@
 pkgname = "cpupower"
 pkgver = "6.4.12"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 _make_args = [
@@ -10,8 +10,11 @@ _make_args = [
     # int UB that gets optimised out and then breaks in div-by-zero
     "CPUFREQ_BENCH=0",
     "LLVM=1",
+    "V=1",
     "NLS=false",
     "WERROR=0",
+    "DEBUG=false",
+    "STRIP=/bin/true",
     "libdir=/usr/lib",
     "mandir=/usr/share/man",
     "prefix=/usr",
