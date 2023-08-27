@@ -1,6 +1,6 @@
 pkgname = "opendoas"
 pkgver = "6.8.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = ["--with-pam", "--with-timestamp", "--prefix=/usr"]
 make_cmd = "gmake"
@@ -20,3 +20,9 @@ options = ["!check"]
 
 def pre_configure(self):
     self.cp(self.files_path / "doas.pam", "pam.d__doas__linux")
+
+
+def post_install(self):
+    self.install_license("LICENSE")
+    # default conf
+    self.install_file(self.files_path / "doas.conf", "etc")
