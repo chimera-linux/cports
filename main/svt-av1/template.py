@@ -1,5 +1,5 @@
 pkgname = "svt-av1"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause-Clear"
 url = "https://gitlab.com/AOMediaCodec/SVT-AV1"
 source = f"https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v{pkgver}/SVT-AV1-v{pkgver}.tar.bz2"
-sha256 = "c6b49111a2d4c5113f1ada0c2f716d94bd4a8db704623d453066826401ecdab5"
+sha256 = "e7995dfc8774f301ac94367a2e5d266dc855cf62ee3d39a635f3a014708e98e1"
 hardening = ["vis", "cfi"]
 # needs patching+clones of a bunch of stuff
 options = ["!check"]
