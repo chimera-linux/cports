@@ -1,6 +1,6 @@
 pkgname = "opendoas"
 pkgver = "6.8.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_args = ["--with-pam", "--with-timestamp", "--prefix=/usr"]
 make_cmd = "gmake"
