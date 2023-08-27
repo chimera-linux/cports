@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "0.3.78"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -56,13 +56,21 @@ makedepends = [
     "lilv-devel",
 ]
 depends = [
+    "virtual:pipewire-session-manager!pipewire-session-manager-none",
+    "rtkit",
+]
+provides = [
+    f"libspa-aec={pkgver}-r{pkgrel}",
     f"libspa-alsa={pkgver}-r{pkgrel}",
     f"libspa-audioconvert={pkgver}-r{pkgrel}",
     f"libspa-audiomixer={pkgver}-r{pkgrel}",
+    f"libspa-audiotestsrc={pkgver}-r{pkgrel}",
+    f"libspa-avb={pkgver}-r{pkgrel}",
     f"libspa-control={pkgver}-r{pkgrel}",
+    f"libspa-support={pkgver}-r{pkgrel}",
     f"libspa-v4l2={pkgver}-r{pkgrel}",
-    "virtual:pipewire-session-manager!pipewire-session-manager-none",
-    "rtkit",
+    f"libspa-videoconvert={pkgver}-r{pkgrel}",
+    f"libspa-videotestsrc={pkgver}-r{pkgrel}",
 ]
 pkgdesc = "Server and user space API to deal with multimedia pipelines"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -127,24 +135,14 @@ def _devel(self):
     return self.default_devel()
 
 
-def _genspa(spa):
-    @subpackage(f"libspa-{spa}")
-    def _spa(self):
-        self.pkgdesc = f"{pkgdesc} ({spa} plugins)"
+@subpackage("pipewire-bluetooth")
+def _bluez(self):
+    self.pkgdesc = f"{pkgdesc} (Bluetooth support)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "bluez"]
+    self.provides = [f"libspa-bluez5={pkgver}-r{pkgrel}"]
 
-        return [f"usr/lib/spa-*/{spa}"]
-
-
-for _spa in [
-    "alsa",
-    "audioconvert",
-    "audiomixer",
-    "control",
-    "v4l2",
-    "videoconvert",
-    "bluez5",
-]:
-    _genspa(_spa)
+    return ["usr/lib/spa-0.2/bluez5"]
 
 
 @subpackage("gstreamer-pipewire")
