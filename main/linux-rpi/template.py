@@ -10,7 +10,9 @@ _commit = "1c16140c1581e59320e25768d5b7fb98c709d07d"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 provides = ["linux"]
-pkgdesc = "Linux kernel for Raspberry Pi 3 and 4 (6.1.x)"
+pkgdesc = (
+    f"Linux kernel for Raspberry Pi 3 and 4 ({pkgver[0:pkgver.rfind('.')]}.x)"
+)
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
