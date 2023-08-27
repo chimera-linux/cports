@@ -5,3 +5,4 @@ command       = /usr/bin/sh -c "/usr/bin/chronyc -h 127.0.0.1,::1 waitsync 0 0.1
 start-timeout = 180
 depends-on    = chronyd
 before        = time-sync.target
+options       = start-interruptible
