@@ -2018,7 +2018,7 @@ def do_prepare_upgrade(tgt):
     tmpl_source = pathlib.Path(tmplp).read_text()
     found_sha = False
 
-    with open(f"{pkgn}/template.py", "w") as outf:
+    with open(tmplp + ".tmp", "w") as outf:
         for ln in tmpl_source.splitlines():
             # update pkgrel
             if ln.startswith("pkgrel ="):
@@ -2038,8 +2038,45 @@ def do_prepare_upgrade(tgt):
                 ln = ln.replace(f'"{oldck}"', f'"{newck}"')
             outf.write(ln)
             outf.write("\n")
+    pathlib.Path(tmplp + ".tmp").rename(tmplp)
 
     tmpl.log("PACKAGE METADATA UPDATED, now verify everything is correct.")
+
+
+def do_bump_pkgrel(tgt):
+    from cbuild.core import chroot, logger, template
+    import pathlib
+
+    if len(cmdline.command) < 2:
+        raise errors.CbuildException("bump-pkgrel needs at least one name")
+
+    for pkgn in cmdline.command[1:]:
+        try:
+            pr = template.read_pkg(
+                pkgn,
+                chroot.host_cpu(),
+                True,
+                False,
+                (1, 1),
+                False,
+                False,
+                None,
+                target="lint",
+            ).pkgrel
+            tmplp = f"{pkgn}/template.py"
+            tmpl_source = pathlib.Path(tmplp).read_text()
+            with open(tmplp + ".tmp", "w") as outf:
+                for ln in tmpl_source.splitlines():
+                    # update pkgrel
+                    if ln.startswith("pkgrel ="):
+                        outf.write(f"pkgrel = {pr + 1}\n")
+                        continue
+                    outf.write(ln)
+                    outf.write("\n")
+            pathlib.Path(tmplp + ".tmp").rename(tmplp)
+            logger.get().out(f"Bumped pkgrel: {pkgn}")
+        except Exception:
+            logger.get().warn(f"Failed to bump pkgrel: {pkgn}")
 
 
 #
@@ -2171,6 +2208,8 @@ def fire():
                 do_bulkpkg(cmd, True, True)
             case "prepare-upgrade":
                 do_prepare_upgrade(cmd)
+            case "bump-pkgrel":
+                do_bump_pkgrel(cmd)
             case _:
                 logger.get().out_red(f"cbuild: invalid target {cmd}")
                 sys.exit(1)
