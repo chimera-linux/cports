@@ -1,0 +1,31 @@
+commit 0dbfb6cd3f2113317c21d529c43d80ba52f364c7
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Aug 27 22:40:02 2023 +0200
+
+    portable invocation of paste(1)
+
+diff --git a/util/grub.d/30_os-prober.in b/util/grub.d/30_os-prober.in
+index 5984e92..11531e4 100644
+--- a/util/grub.d/30_os-prober.in
++++ b/util/grub.d/30_os-prober.in
+@@ -38,7 +38,7 @@ fi
+ 
+ grub_warn "$(gettext_printf "os-prober will be executed to detect other bootable partitions.\nIts output will be used to detect bootable binaries on them and create new boot entries.")"
+ 
+-OSPROBED="`os-prober | tr ' ' '^' | paste -s -d ' '`"
++OSPROBED="`os-prober | tr ' ' '^' | paste -s -d ' ' -`"
+ if [ -z "${OSPROBED}" ] ; then
+   # empty os-prober output, nothing doing
+   exit 0
+@@ -195,9 +195,9 @@ EOF
+     ;;
+     linux)
+       if [ "x$BTRFS" = "xbtrfs" ]; then
+-         LINUXPROBED="`linux-boot-prober btrfs ${BTRFSuuid} ${BTRFSsubvol}  2> /dev/null | tr ' ' '^' | paste -s -d ' '`"
++         LINUXPROBED="`linux-boot-prober btrfs ${BTRFSuuid} ${BTRFSsubvol}  2> /dev/null | tr ' ' '^' | paste -s -d ' ' -`"
+       else
+-         LINUXPROBED="`linux-boot-prober ${DEVICE} 2> /dev/null | tr ' ' '^' | paste -s -d ' '`"
++         LINUXPROBED="`linux-boot-prober ${DEVICE} 2> /dev/null | tr ' ' '^' | paste -s -d ' ' -`"
+       fi
+       prepare_boot_cache=
+       boot_device_id=
