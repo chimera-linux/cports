@@ -1,6 +1,6 @@
 pkgname = "libcxx-cross"
 pkgver = "16.0.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -15,13 +15,13 @@ configure_args = [
     "-DCMAKE_CXX_COMPILER_WORKS=ON",
     "-DCMAKE_ASM_COMPILER_WORKS=ON",
     "-DLIBUNWIND_USE_COMPILER_RT=YES",
-    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=YES",
+    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=NO",
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
     "-DLIBCXX_CXX_ABI=libcxxabi",
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
-    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
+    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=NO",
     "-DLIBCXX_ENABLE_ASSERTIONS=YES",
     "-DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx",
 ]
@@ -229,3 +229,6 @@ def _cxxabi_cross(self):
         self.depends.append(f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}")
 
     return []
+
+
+broken = "temp"

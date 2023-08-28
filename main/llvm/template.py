@@ -1,6 +1,6 @@
 pkgname = "llvm"
 pkgver = "16.0.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -11,11 +11,11 @@ configure_args = [
     "-DCOMPILER_RT_BUILD_GWP_ASAN=NO",
     "-DLIBCXX_CXX_ABI=libcxxabi",
     "-DLIBCXX_USE_COMPILER_RT=YES",
-    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=YES",
+    "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=NO",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
     "-DLIBCXX_ENABLE_ASSERTIONS=YES",
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
-    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=YES",
+    "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=NO",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
     "-DLLVM_INSTALL_UTILS=YES",
     "-DLLVM_BUILD_LLVM_DYLIB=YES",
@@ -293,7 +293,6 @@ def _clang(self):
     self.pkgdesc = f"{pkgdesc} (C language family frontend)"
     self.depends = [
         f"libcxx-devel={pkgver}-r{pkgrel}",
-        f"libcxxabi-devel={pkgver}-r{pkgrel}",
         f"clang-rt-devel={pkgver}-r{pkgrel}",
         "elftoolchain",
         "fortify-headers",
@@ -485,6 +484,7 @@ def _libcxx(self):
 @subpackage("libcxx-devel-static")
 def _libcxx_static(self):
     self.pkgdesc = f"{pkgdesc} (C++ standard library) (static library)"
+    self.depends += [f"libcxxabi-devel-static={pkgver}-r{pkgrel}"]
     self.options = ["ltostrip"]
 
     return ["usr/lib/libc++.a"]
