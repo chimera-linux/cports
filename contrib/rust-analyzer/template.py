@@ -1,7 +1,8 @@
 pkgname = "rust-analyzer"
 pkgver = "2023.08.21"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
+make_env = {"CARGO_PROFILE_RELEASE_PANIC": "unwind"}
 hostmakedepends = ["cargo"]
 makedepends = ["rust"]
 pkgdesc = "Rust compiler LSP server"
