@@ -1,6 +1,6 @@
 pkgname = "sdl_image"
 pkgver = "2.6.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-jpg-shared",
