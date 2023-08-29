@@ -1,13 +1,13 @@
 pkgname = "ncdu"
 pkgver = "1.18.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "autoconf",
     "automake",
     "pkgconf",
 ]
-makedepends = ["ncurses-devel"]
+makedepends = ["ncurses-devel", "linux-headers"]
 pkgdesc = "Disk usage analyzer with an ncurses interface"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
