@@ -1,0 +1,25 @@
+fixes
+error: non-virtual member function marked 'override' hides virtual member function
+but they don't set this to anything to it's a no-op..
+--
+--- a/gmic-qt/src/Widgets/PreviewWidget.h
++++ b/gmic-qt/src/Widgets/PreviewWidget.h
+@@ -96,7 +96,6 @@
+   void paintEvent(QPaintEvent * e) override;
+   bool eventFilter(QObject *, QEvent * event) override;
+   void leaveEvent(QEvent *) override;
+-  void enterEvent(QEvent *) override;
+ 
+ signals:
+   void previewVisibleRectIsChanging();
+--- a/gmic-qt/src/Widgets/PreviewWidget.cpp
++++ b/gmic-qt/src/Widgets/PreviewWidget.cpp
+@@ -484,8 +484,6 @@
+ 
+ void PreviewWidget::leaveEvent(QEvent *) {}
+ 
+-void PreviewWidget::enterEvent(QEvent *) {}
+-
+ void PreviewWidget::wheelEvent(QWheelEvent * event)
+ {
+   double degrees = event->angleDelta().y() / 8.0;
