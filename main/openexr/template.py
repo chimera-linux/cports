@@ -38,6 +38,7 @@ def post_install(self):
 
 @subpackage("openexr-devel")
 def _devel(self):
+    self.depends += ["imath-devel"]
     return self.default_devel()
 
 
