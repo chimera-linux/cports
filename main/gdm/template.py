@@ -1,6 +1,6 @@
 pkgname = "gdm"
 pkgver = "44.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -74,6 +74,10 @@ def post_install(self):
 
     self.install_service(self.files_path / "gdm-prepare")
     self.install_service(self.files_path / "gdm")
+
+    # drop magic nonsense with wayland disabling, we don't support
+    # xorg in main repository anyway, so that has to be optional
+    self.rm(self.destdir / "usr/lib/udev/rules.d/61-gdm.rules")
 
     # drop leftovers
     self.rm(self.destdir / "tmp", recursive=True)
