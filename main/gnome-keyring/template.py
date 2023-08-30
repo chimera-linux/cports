@@ -8,7 +8,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_check_args = ["-j1"]
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["weston-headless-run", "dbus-run-session"]
 hostmakedepends = [
     "gmake",
     "pkgconf",
@@ -23,7 +23,7 @@ hostmakedepends = [
     "gettext-devel",
 ]
 makedepends = ["gcr-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"]
-checkdepends = ["xserver-xorg-xvfb", "dbus-x11"]
+checkdepends = ["weston", "dbus"]
 depends = ["dconf"]
 pkgdesc = "GNOME password and secret manager"
 maintainer = "q66 <q66@chimera-linux.org>"

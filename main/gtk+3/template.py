@@ -14,7 +14,7 @@ configure_args = [
     "-Dman=true",
     "-Dintrospection=true",
 ]
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -54,7 +54,7 @@ depends = [
     "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [
-    "xserver-xorg-xvfb",
+    "weston",
     "dbus",
     "adwaita-icon-theme",
     "librsvg",
@@ -69,6 +69,7 @@ source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
 sha256 = "ce11decf018b25bdd8505544a4f87242854ec88be054d9ade5f3a20444dd8ee7"
 # FIXME int
 hardening = ["!int"]
+# gtk3 can't handle seatless wayland displays; also
 # g_log_set_writer_func called multiple times in tests
 options = ["!cross", "!check"]
 

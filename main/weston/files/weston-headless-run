@@ -1,0 +1,69 @@
+#!/bin/sh
+#
+# Written by q66 <q66@chimera-linux.org> primarily for use by cports.
+# Not to be considered stable right now.
+
+# just enough headless infrastructure
+export XDG_RUNTIME_DIR=$(mktemp -d)
+
+if [ $? -ne 0 -o -z "$XDG_RUNTIME_DIR" -o ! -d "$XDG_RUNTIME_DIR" ]; then
+    echo "failed to create XDG_RUNTIME_DIR"
+    exit 1
+fi
+
+FIFO_PATH="${XDG_RUNTIME_DIR}/weston-fifo"
+mkfifo "$FIFO_PATH"
+
+if [ $? -ne 0 ]; then
+    echo "failed to set up fifo"
+    rm -rf "$XDG_RUNTIME_DIR"
+    exit 1
+fi
+
+cleanup() {
+    rm -rf "$XDG_RUNTIME_DIR"
+}
+trap 'cleanup' INT TERM
+
+# readiness into descriptor 4
+(WESTON_READY_FD=4 weston \
+    --no-config \
+    --backend=headless \
+    --renderer=pixman \
+    --shell=kiosk-shell.so \
+    --modules=fd-notify.so \
+    --socket weston-headless \
+    4>"$FIFO_PATH" > /dev/null 2>&1 || echo "FAIL=1" > "$FIFO_PATH") &
+
+WESTON_PID=
+
+while read ln<"$FIFO_PATH"; do
+    case "$ln" in
+        READY=*)
+            WESTON_PID=${ln#READY=}
+            break
+            ;;
+        FAIL=*)
+            echo "failed to start Weston"
+            cleanup
+            exit 1
+            ;;
+    esac
+done
+
+# don't need the pipe anymore
+rm -f "$FIFO_PATH"
+unset "$FIFO_PATH"
+
+export WAYLAND_DISPLAY="weston-headless"
+"$@"
+RETVAL=$?
+
+if [ -n "$WESTON_PID" ]; then
+    kill -TERM "$WESTON_PID"
+    # wait for weston to die
+    wait
+fi
+
+cleanup
+exit $RETVAL

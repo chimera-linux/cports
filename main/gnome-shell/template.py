@@ -8,7 +8,7 @@ configure_args = [
     "-Ddefault_library=shared",
     "-Dsoup2=false",
 ]
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -49,7 +49,7 @@ depends = [
     "upower",
     "cmd:unzip!unzip",
 ]
-checkdepends = ["xserver-xorg-xvfb"]
+checkdepends = ["weston"]
 pkgdesc = "Core user interface for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

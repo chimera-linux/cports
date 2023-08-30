@@ -3,7 +3,7 @@ pkgver = "3.44.1"
 pkgrel = 0
 build_style = "meson"
 make_check_env = {"PYGI_TEST_VERBOSE": "1"}
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -14,7 +14,7 @@ makedepends = ["glib-devel", "python-cairo-devel", "python-devel"]
 checkdepends = [
     "python-pytest",
     "gtk+3",
-    "xserver-xorg-xvfb",
+    "weston",
     "fonts-dejavu-otf",
     "bash",
 ]
@@ -25,7 +25,7 @@ license = "LGPL-2.1-or-later"
 url = "https://pygobject.readthedocs.io"
 source = f"$(GNOME_SITE)/pygobject/{pkgver[:-2]}/pygobject-{pkgver}.tar.xz"
 sha256 = "3c6805d1321be90cc32e648215a562430e0d3d6edcda8f4c5e7a9daffcad5710"
-# cyclic
+# cyclic + gtk3 does not handle seatless displays
 options = ["!check"]
 
 

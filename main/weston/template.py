@@ -1,6 +1,6 @@
 pkgname = "weston"
 pkgver = "12.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
@@ -52,6 +52,7 @@ sha256 = "eb686a7cf00992a23b17f192fca9a887313e92c346ee35d8575196983d656b4a"
 
 def post_install(self):
     self.install_license("COPYING")
+    self.install_bin(self.files_path / "weston-headless-run")
 
 
 @subpackage("weston-x11")

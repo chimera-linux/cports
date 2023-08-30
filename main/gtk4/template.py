@@ -15,7 +15,7 @@ configure_args = [
     "-Dcloudproviders=enabled",
     "-Dtracker=enabled",
 ]
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -65,7 +65,7 @@ depends = [
     "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [
-    "xserver-xorg-xvfb",
+    "weston",
     "dbus",
     "adwaita-icon-theme",
     "librsvg",
@@ -80,7 +80,7 @@ source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
 sha256 = "a6d10829f405b1afc0b65e2a9642c04126a1d1b638d11c6d97426da4f84f1f6f"
 # FIXME overflow in gtklabel.c (repro: gnome-text-editor file reload)
 hardening = ["!int"]
-# xvfb doesn't do the trick for some reason?
+# FIXME
 options = ["!cross", "!check"]
 
 

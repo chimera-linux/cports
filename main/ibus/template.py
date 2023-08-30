@@ -19,7 +19,7 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_dir = "."  # tests assume this
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
     "gmake",
     "pkgconf",
@@ -46,7 +46,7 @@ makedepends = [
     "wayland-devel",
     "iso-codes",
 ]
-checkdepends = ["xserver-xorg-xvfb", "fonts-dejavu-otf", "setxkbmap", "bash"]
+checkdepends = ["weston", "fonts-dejavu-otf", "setxkbmap", "bash"]
 depends = ["python-gobject", "iso-codes", "dbus-x11"]
 pkgdesc = "Intelligent Input Bus"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -54,7 +54,8 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "6c9ff3a7576c3d61264f386030f47ee467eb7298c8104367002986e008765667"
-options = ["!cross"]
+# gtk3 can't handle seatless wayland displays
+options = ["!cross", "!check"]
 
 
 @subpackage("libibus")

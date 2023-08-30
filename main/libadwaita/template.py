@@ -9,7 +9,7 @@ configure_args = [
     "-Dvapi=true",
     "-Dintrospection=enabled",
 ]
-make_check_wrapper = ["xvfb-run"]
+make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -24,7 +24,7 @@ makedepends = [
     "glib-devel",
     "harfbuzz-devel",
 ]
-checkdepends = ["xserver-xorg-xvfb", "fonts-cantarell-otf"]
+checkdepends = ["weston", "fonts-cantarell-otf"]
 pkgdesc = "GTK4 building blocks for modern adaptive applications"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
