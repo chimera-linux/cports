@@ -1,6 +1,6 @@
 pkgname = "shaderc"
 pkgver = "2023.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DSHADERC_SKIP_TESTS=ON", "-DSHADERC_SKIP_EXAMPLES=ON"]
 hostmakedepends = ["cmake", "ninja", "python", "pkgconf"]
