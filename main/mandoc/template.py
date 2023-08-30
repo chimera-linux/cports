@@ -1,6 +1,6 @@
 pkgname = "mandoc"
 pkgver = "1.14.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 make_cmd = "gmake"
 make_check_target = "regress"
