@@ -1,5 +1,5 @@
 pkgname = "easyeffects"
-pkgver = "7.0.7"
+pkgver = "7.0.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-libcpp-workarounds=true"]
@@ -43,6 +43,6 @@ url = "https://github.com/wwmm/easyeffects"
 source = (
     f"https://github.com/wwmm/easyeffects/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "08aa95bd15be16185409dbb0aec13000034fc128ea63c05f62620c0c877acb1c"
+sha256 = "1fc601cb09ee54b5d7551ceafc309e785c72f77ed6ec980d7c00e463fc6ed66b"
 # FIXME: cfi
 hardening = ["vis"]
