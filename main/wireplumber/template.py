@@ -1,6 +1,6 @@
 pkgname = "wireplumber"
 pkgver = "0.4.14"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dsystem-lua=true",
@@ -28,7 +28,7 @@ sha256 = "b160424ce7c3eeeccba388726f6a448f53501d25085e5fa1bf6c690c1bcd85ea"
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service(self.files_path / "wireplumber.user")
+    self.install_service(self.files_path / "wireplumber.user", enable=True)
 
 
 @subpackage("wireplumber-devel")
