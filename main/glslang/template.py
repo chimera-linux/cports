@@ -1,6 +1,6 @@
 # note: some libs are unversioned (rebuild shaderc on updates)
 pkgname = "glslang"
-pkgver = "12.3.1"
+pkgver = "13.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -11,15 +11,13 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/KhronosGroup/glslang"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "a57836a583b3044087ac51bb0d5d2d803ff84591d55f89087fc29ace42a8b9a8"
+sha256 = "bcda732434f829aa74414ea0e06d329ec8ac28637c38a0de45e17c8fd25a4715"
 # missing checkdepends
 options = ["!check"]
 
 
 def post_install(self):
     self.install_license("LICENSE.txt")
-    # for whatever reason this does not get installed?
-    self.install_link("glslang", "usr/bin/glslangValidator")
 
 
 @subpackage("glslang-progs")
