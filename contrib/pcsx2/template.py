@@ -1,20 +1,17 @@
 pkgname = "pcsx2"
-pkgver = "1.7.4939"
-pkgrel = 1
+pkgver = "1.7.4967"
+pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON",
-    "-DCUBEB_API=ON",
     "-DDISABLE_ADVANCE_SIMD=ON",
     "-DDISABLE_BUILD_DATE=ON",
     "-DENABLE_TESTS=ON",
-    "-DQT_BUILD=ON",
     "-DUSE_ACHIEVEMENTS=ON",
     "-DUSE_DISCORD_PRESENCE=OFF",
     "-DUSE_LINKED_FFMPEG=ON",
-    "-DUSE_SYSTEM_LIBS=ON",
     "-DUSE_VTUNE=OFF",
     "-DUSE_VULKAN=ON",
     "-DWAYLAND_API=ON",
@@ -54,7 +51,7 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "39769eef1c17a0b1743d5e6b61ec392a19ee08cf"
+_patches = "ec2132bbb5bd9f588a983fd8949be3eaa52316a8"
 _glslang = "11.12.0"
 _gtest = "v1.14.0"
 _libchdr = "54bfb871ccae31903b95a8feb7f2bf7121f304be"
@@ -79,8 +76,8 @@ source_paths = [
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "d0e0b830f574b9c076fd4edceff2ba0d3fda888681ea1a0410fc82b2bdc4b300",
-    "2765d484f64370f3e284e39c07acf5e34a1c50de5ea71eb199d84c4d68299a34",
+    "5973db25ab029eb63b98e150ab7894d711aeb6444d9ffca3d2c103cad9a8245f",
+    "811b8391f0a2e658102aca30cb4e5418df1ef9f1f1b90f818c18036b941ae87b",
     "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
     "1ae342dfadd51f7c42b34da44f9eb534fc64ee61c88f96b6bbcbbf9ebe3df636",
