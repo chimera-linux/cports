@@ -1,5 +1,5 @@
 pkgname = "ccache"
-pkgver = "4.8.2"
+pkgver = "4.8.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTING=OFF", "-DREDIS_STORAGE_BACKEND=OFF"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://ccache.samba.org"
 source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "3d3fb3f888a5b16c4fa7ee5214cca76348afd6130e8443de5f6f2424f2076a49"
+sha256 = "e47374c810b248cfca3665ee1d86c7c763ffd68d9944bc422d9c1872611f2b11"
 hardening = ["vis", "cfi"]
 # not properly set up
 options = ["!check"]
