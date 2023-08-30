@@ -41,7 +41,6 @@ makedepends = [
     "libcanberra-devel",
     "libgudev-devel",
     "gtk+3-devel",
-    "xserver-xorg-devel",
     "linux-pam-devel",
 ]
 checkdepends = ["check-devel"]
