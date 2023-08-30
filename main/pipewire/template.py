@@ -1,26 +1,22 @@
 pkgname = "pipewire"
-pkgver = "0.3.78"
-pkgrel = 1
+pkgver = "0.3.79"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
     "-Db_ndebug=false",
-    "-Dvulkan=disabled",
     "-Ddocs=enabled",
+    "-Dvulkan=disabled",
     "-Dsdl2=disabled",
     "-Dsystemd=disabled",
     "-Dlibcamera=disabled",
-    "-Dlibmysofa=disabled",
     "-Dlibffado=disabled",
     "-Droc=disabled",
-    "-Dlv2=enabled",
-    "-Dbluez5=enabled",
-    "-Dbluez5-codec-lc3=disabled",
     "-Dbluez5-codec-lc3plus=disabled",
+    "-Djack=disabled",  # spa plugin
     "-Dpipewire-jack=enabled",  # jack server
     "-Djack-devel=true",  # jack development files
     "-Dlibjack-path=/usr/lib",
-    "-Djack=disabled",  # spa plugin
     "-Dlibv4l2-path=/usr/lib",
     "-Dudevrulesdir=/usr/lib/udev/rules.d",
     "-Dsession-managers=[]",
@@ -33,6 +29,7 @@ hostmakedepends = [
     "python-docutils",
     "doxygen",
     "graphviz",
+    "bash",
     "glib-devel",
 ]
 makedepends = [
@@ -45,6 +42,7 @@ makedepends = [
     "ncurses-devel",
     "alsa-lib-devel",
     "libpulse-devel",
+    "liblc3-devel",
     "fdk-aac-devel",
     "v4l-utils-devel",
     "avahi-devel",
@@ -53,6 +51,7 @@ makedepends = [
     "bluez-devel",
     "libfreeaptx-devel",
     "libcanberra-devel",
+    "libmysofa-devel",
     "lilv-devel",
 ]
 depends = [
@@ -77,7 +76,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "fea26577d41ef74f34932aeba4ccdc7813605f4734b66e17dc96b8b9032b7087"
+sha256 = "d5808abaf6e56b1f268a468dafc2fe9ca9efcc7cfea19f6d47ad5769271afce9"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
 

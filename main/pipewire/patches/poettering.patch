@@ -1,0 +1,36 @@
+From 2f66bbe982230b97743e1d5a6b4882dffbfde90c Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 31 Aug 2023 01:04:10 +0200
+Subject: [PATCH] fix a non-portable lennartism from 15 years ago
+
+All the standard says is that isinf returns a non-zero value for
+infinity (in C++ it even returns an actual boolean). Glibc is
+being overly smart and returns 1 for positive infinity and -1
+for negative infinity, however in musl isinf is defined in math.h
+as an inline boolean-expression macro and clang will thus warn
+about the expr being always false (which it will).
+
+What we can do is check equality with the expression -INFINITY
+which should be well defined everywhere.
+
+Originally introduced in https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/commit/045c1d602dcba57868845ba3270510593c39480f?page=4
+---
+ spa/plugins/alsa/acp/volume.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/spa/plugins/alsa/acp/volume.h b/spa/plugins/alsa/acp/volume.h
+index b916bd2..de786b7 100644
+--- a/spa/plugins/alsa/acp/volume.h
++++ b/spa/plugins/alsa/acp/volume.h
+@@ -83,7 +83,7 @@ static inline pa_volume_t pa_sw_volume_from_linear(double v)
+ 
+ static inline pa_volume_t pa_sw_volume_from_dB(double dB)
+ {
+-    if (isinf(dB) < 0 || dB <= PA_DECIBEL_MININFTY)
++    if (dB == -INFINITY || dB <= PA_DECIBEL_MININFTY)
+         return PA_VOLUME_MUTED;
+     return pa_sw_volume_from_linear(pa_volume_dB_to_linear(dB));
+ }
+-- 
+2.42.0
+
