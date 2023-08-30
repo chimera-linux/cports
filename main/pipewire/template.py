@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "0.3.79"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -90,8 +90,8 @@ else:
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service(self.files_path / "pipewire.user")
-    self.install_service(self.files_path / "pipewire-pulse.user")
+    self.install_service(self.files_path / "pipewire.user", enable=True)
+    self.install_service(self.files_path / "pipewire-pulse.user", enable=True)
 
 
 @subpackage("libpipewire")
