@@ -38,7 +38,7 @@ makedepends = [
     "libva-devel",
     "libusb-devel",
     "libsndfile-devel",
-    "libedit-devel",
+    "libedit-readline-devel",
     "ncurses-devel",
     "alsa-lib-devel",
     "libpulse-devel",
