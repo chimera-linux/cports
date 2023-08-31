@@ -177,6 +177,7 @@ targets may be promoted at a later point.
 
 **Tier 3 targets:**
 
+* `ppc64`
 * `riscv64`
 
 **Tier 4 targets:**
@@ -185,7 +186,6 @@ targets may be promoted at a later point.
 
 **Untiered targets:**
 
-* `ppc64`
 * `ppc`
 
 <a id="quality_requirements"></a>
