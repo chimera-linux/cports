@@ -1,6 +1,6 @@
 pkgname = "qemu-user"
 pkgver = "8.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # TODO vde liburing libssh capstone
 configure_args = [
@@ -46,6 +46,10 @@ sha256 = "710c101198e334d4762eef65f649bc43fa8a5dd75303554b8acfec3eb25f0e55"
 # maybe someday
 options = ["!cross", "!check"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
+
+# segfaults with pie when running bins for any target arch
+if self.profile().arch == "riscv64":
+    hardening = ["!pie"]
 
 
 def post_install(self):
