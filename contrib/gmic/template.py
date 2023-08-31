@@ -1,6 +1,6 @@
 pkgname = "gmic"
 pkgver = "3.2.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "lib"
@@ -8,10 +8,12 @@ make_build_args = [
     "cli_shared",
     "gmic_qt_shared",
     "QMAKE=qmake6",
+    "OPT_CFLAGS=",
 ]
 make_use_env = True
 hostmakedepends = [
     "bash",
+    "gimp",
     "gmake",
     "pkgconf",
     "qt6-qtbase",
@@ -37,11 +39,6 @@ hardening = []
 # no tests
 # breaks in parallel if lib isn't built first by itself
 options = ["!check", "!parallel"]
-
-
-def init_build(self):
-    # disarm silly flags
-    self.make_build_args += ["OPT_CFLAGS="]
 
 
 def post_install(self):
