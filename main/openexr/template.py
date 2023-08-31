@@ -1,14 +1,16 @@
 pkgname = "openexr"
-pkgver = "3.1.11"
-pkgrel = 1
+pkgver = "3.2.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
 ]
-# FIXME: have to figure out why this aborts
 make_check_args = [
     "-E",
-    "testOptimizedInterleavePatterns",
+    # fails to catch a divzero assert by wrong name
+    "(OpenEXR.Iex"
+    # require downloaded exr files to test against
+    "|OpenEXR.bin)",
 ]
 hostmakedepends = [
     "cmake",
@@ -18,14 +20,14 @@ hostmakedepends = [
 makedepends = [
     "boost-devel",
     "imath-devel",
-    "zlib-devel",
+    "libdeflate-devel",
 ]
 pkgdesc = "Reference implementation of the EXR format"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://www.openexr.com"
 source = f"https://github.com/openexr/openexr/archive/v{pkgver}.tar.gz"
-sha256 = "06b4a20d0791b5ec0f804c855d320a0615ce8445124f293616a086e093f1f1e1"
+sha256 = "b1b200606640547fceff0d3ebe01ac05c4a7ae2a131be7e9b3e5b9f491ef35b3"
 # FIXME: cfi has a bunch of test failures
 hardening = ["vis"]
 
