@@ -41,6 +41,10 @@ hardening = []
 options = ["!check", "!parallel"]
 
 
+if self.profile().arch == "riscv64":
+    broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
+
+
 def post_install(self):
     self.install_dir("usr/share")
     self.mv(
