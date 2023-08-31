@@ -1,6 +1,6 @@
 pkgname = "highway"
-pkgver = "1.0.6"
-pkgrel = 1
+pkgver = "1.0.7"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -18,7 +18,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0 OR BSD-3-Clause"
 url = "https://github.com/google/highway"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "d89664a045a41d822146e787bceeefbf648cc228ce354f347b18f2b419e57207"
+sha256 = "5434488108186c170a5e2fca5e3c9b6ef59a1caa4d520b008a9b8be6b8abe6c5"
 # FIXME: cfi breaks a few tests
 hardening = ["vis"]
 
