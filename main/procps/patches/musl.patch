@@ -16,22 +16,6 @@ index 16a2619..f3a4d70 100644
  
  #include "escape.h"
  #include "readproc.h"
-diff --git a/src/w.c b/src/w.c
-index 5e878f0..2e07e2c 100644
---- a/src/w.c
-+++ b/src/w.c
-@@ -46,10 +46,9 @@
- #include <termios.h>
- #include <time.h>
- #include <unistd.h>
-+#include <utmp.h>
- #ifdef HAVE_UTMPX_H
- #	include <utmpx.h>
--#else
--#	include <utmp.h>
- #endif
- #include <arpa/inet.h>
- 
 diff --git a/src/watch.c b/src/watch.c
 index cb2e299..1af9108 100644
 --- a/src/watch.c
