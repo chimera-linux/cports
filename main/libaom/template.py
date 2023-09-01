@@ -1,5 +1,5 @@
 pkgname = "libaom"
-pkgver = "3.6.1"
+pkgver = "3.7.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,7 +24,7 @@ url = "https://aomedia.org"
 source = [
     f"https://storage.googleapis.com/aom-releases/{pkgname}-{pkgver}.tar.gz"
 ]
-sha256 = ["42b862f58b3d00bd3902d2dc469526574f5b012e5b178e6a9652845a113d6887"]
+sha256 = ["d1773bb6f050b430af47741306ac37a6aa2fec7364cb0dc27e3b1454a138934f"]
 # requires a testdata download, tests take long
 options = ["!check"]
 
@@ -39,7 +39,7 @@ match self.profile().arch:
         configure_args += ["-DENABLE_VSX=0"]
     case "aarch64":
         # requires an explicit assembler
-        configure_args += ["-DAS_EXECUTABLE=clang"]
+        configure_args += ["-DCMAKE_ASM_COMPILER=clang"]
 
 
 def post_install(self):
