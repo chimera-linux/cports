@@ -1,6 +1,6 @@
 pkgname = "gmic"
 pkgver = "3.2.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "lib"
@@ -35,7 +35,8 @@ url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"
 sha256 = "55993e55a30fe2da32f9533b9db2a3250affa2b32003b0c49c36eec2b2c6e007"
 # vis broken
-hardening = []
+# FIXME int: gmic_qt PreviewWidget::updateOriginalImagePosition
+hardening = ["!int"]
 # no tests
 # breaks in parallel if lib isn't built first by itself
 options = ["!check", "!parallel"]
