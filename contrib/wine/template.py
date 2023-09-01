@@ -1,5 +1,5 @@
 pkgname = "wine"
-pkgver = "8.14"
+pkgver = "8.15"
 pkgrel = 0
 archs = ["x86_64"]
 build_style = "gnu_configure"
@@ -58,7 +58,7 @@ license = "LGPL-2.1-or-later"
 url = "https://www.winehq.org"
 # the url is .0 for .0 and .x for >0
 source = f"https://dl.winehq.org/wine/source/8.x/wine-{pkgver}.tar.xz"
-sha256 = "e1836ef66b1825fa9da042830c0495b2ac394815443643466979ee89fdd7faf4"
+sha256 = "ed8fae61784bca6475accc78eff26a9ec6b08001a7ae1698d52e25f9c2d422da"
 # FIXME: int breaks wine
 hardening = ["!int"]
 # lto: relocation R_X86_64_32 out of range,
