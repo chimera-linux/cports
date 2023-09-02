@@ -1,5 +1,5 @@
 pkgname = "benchmark"
-pkgver = "1.8.2"
+pkgver = "1.8.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/benchmark"
 source = f"https://github.com/google/benchmark/archive/v{pkgver}.tar.gz"
-sha256 = "2aab2980d0376137f969d92848fbb68216abb07633034534fc8c65cc4e7a0e93"
+sha256 = "6bc180a57d23d4d9515519f92b0c83d61b05b5bab188961f36ac7b06b0d9e9ce"
 
 
 @subpackage("benchmark-devel")
