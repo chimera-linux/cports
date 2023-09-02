@@ -149,6 +149,7 @@ class SPDXParser:
             # custom exceptions
             if self.token.startswith("custom:"):
                 self.token = self.lex()
+                self.need_install = True
                 return
             if self.token not in self.edict:
                 raise RuntimeError("exception id expected, got: " + self.token)
