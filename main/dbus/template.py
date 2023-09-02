@@ -1,5 +1,5 @@
 pkgname = "dbus"
-pkgver = "1.14.8"
+pkgver = "1.14.10"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,7 +28,7 @@ url = "https://dbus.freedesktop.org"
 source = (
     f"https://dbus.freedesktop.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "a6bd5bac5cf19f0c3c594bdae2565a095696980a683a0ef37cb6212e093bde35"
+sha256 = "ba1f21d2bd9d339da2d4aa8780c09df32fea87998b73da24f49ab9df1e36a50f"
 suid_files = ["usr/libexec/dbus-daemon-launch-helper"]
 file_modes = {"usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
 # FIXME cfi
