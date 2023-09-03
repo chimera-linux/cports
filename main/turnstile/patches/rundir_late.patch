@@ -1,11 +1,11 @@
-commit cae619b4f23c7b1bc44ba8cef59d004a1911a01d
+commit a13404efb3f82c7c0f8695e49da4b5637c186f11
 Author: q66 <q66@chimera-linux.org>
-Date:   Fri Sep 1 22:57:46 2023 +0200
+Date:   Sun Sep 3 16:36:28 2023 +0200
 
     defer creation of rundir for after pam session is established
 
 diff --git a/src/exec_utils.cc b/src/exec_utils.cc
-index 49918be..96440ec 100644
+index 85ffa33..aab57ba 100644
 --- a/src/exec_utils.cc
 +++ b/src/exec_utils.cc
 @@ -106,6 +106,8 @@ static pam_handle_t *dpam_begin(char const *user, unsigned int gid) {
@@ -34,7 +34,7 @@ index 49918be..96440ec 100644
      return true;
  }
  
-@@ -288,7 +293,7 @@ static void srv_dummy() {
+@@ -300,7 +305,7 @@ static void srv_dummy(unsigned int uid) {
      exit(0);
  }
  
@@ -43,7 +43,7 @@ index 49918be..96440ec 100644
      pam_handle_t *pamh = nullptr;
      bool is_root = (getuid() == 0);
      /* create a new session */
-@@ -297,11 +302,23 @@ void srv_child(login &lgn, char const *backend) {
+@@ -309,11 +314,23 @@ void srv_child(login &lgn, char const *backend) {
      }
      /* begin pam session setup */
      if (is_root) {
@@ -68,7 +68,7 @@ index 49918be..96440ec 100644
       * if we're forking, only child makes it past this func
       */
 diff --git a/src/turnstiled.cc b/src/turnstiled.cc
-index 71f8372..a886739 100644
+index 6f466ed..bfaf40f 100644
 --- a/src/turnstiled.cc
 +++ b/src/turnstiled.cc
 @@ -124,16 +124,6 @@ static bool srv_start(login &lgn) {
@@ -85,13 +85,13 @@ index 71f8372..a886739 100644
 -            return false;
 -        }
 -    }
-     bool has_backend = !cdata->disable && (
-         (lgn.uid != 0) || cdata->root_session
-     );
-@@ -208,7 +198,11 @@ static bool srv_start(login &lgn) {
-         close(sigpipe[0]);
-         close(sigpipe[1]);
-         /* and run the login */
+     /* set up login dir */
+     print_dbg("srv: create login dir for %u", lgn.uid);
+     /* make the directory itself */
+@@ -206,7 +196,11 @@ static bool srv_start(login &lgn) {
+         bool has_backend = !cdata->disable && (
+             (lgn.uid != 0) || cdata->root_session
+         );
 -        srv_child(lgn, has_backend ? cdata->backend.data() : nullptr);
 +        srv_child(
 +            lgn,
