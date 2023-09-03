@@ -1,7 +1,7 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
 pkgver = "20230804"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -62,7 +62,7 @@ _pkgs = [
         ["cavium/cnn55xx*"],
     ),
     ("cpia2", "STM CPIA2 cameras", None, "misc", ["cpia2"]),
-    ("cs35l41", "Cirrus CS35L41 amplifier", None, "misc", ["cirrus/cs35l41*"]),
+    ("cs35l41", "Cirrus CS35L41 amplifier", None, "audio", ["cirrus/cs35l41*"]),
     ("cxgb3", "Chelsio T3 10Gb Ethernet", None, "network", ["cxgb3"]),
     ("cxgb4", "Chelsio T4/5/6 Ethernet", None, "network", ["cxgb4"]),
     ("cw1200", "ST-E CW1200 WLAN", None, "network", ["wsm_22.bin"]),
