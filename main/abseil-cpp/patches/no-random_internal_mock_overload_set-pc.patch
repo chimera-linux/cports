@@ -1,0 +1,22 @@
+Building with -DABSL_BUILD_TEST_HELPERS=ON emitted:
+
+  => abseil-cpp-devel-20230802.0-r1: running pre_pkg hook: 001_runtime_deps...
+  => abseil-cpp-devel-20230802.0-r1: ERROR:    pc: absl_random_internal_mock_overload_set=20230802 <-> UNKNOWN PACKAGE!
+
+As per https://github.com/abseil/abseil-cpp/blob/fc44fa0/absl/random/CMakeLists.txt#L84-L98
+"random_internal_mock_overload_set" should never be depended on directly
+
+https://github.com/abseil/abseil-cpp/issues/1528
+
+diff --git a/absl/random/CMakeLists.txt b/absl/random/CMakeLists.txt
+index bd363d88..7692a35b 100644
+--- a/absl/random/CMakeLists.txt
++++ b/absl/random/CMakeLists.txt
+@@ -112,7 +112,6 @@ absl_cc_library(
+     absl::raw_logging_internal
+     absl::random_distributions
+     absl::random_internal_distribution_caller
+-    absl::random_internal_mock_overload_set
+     absl::random_random
+     absl::strings
+     absl::span
