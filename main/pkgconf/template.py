@@ -1,5 +1,5 @@
 pkgname = "pkgconf"
-pkgver = "2.0.2"
+pkgver = "2.0.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://pkgconf.org"
 source = f"https://distfiles.dereferenced.org/pkgconf/pkgconf-{pkgver}.tar.xz"
-sha256 = "ea5a25ef8f251eb5377ec0e21c75fb61894433cfbdbf0b2559ba33e4c2664401"
+sha256 = "cabdf3c474529854f7ccce8573c5ac68ad34a7e621037535cbc3981f6b23836c"
 hardening = ["!cfi"]  # TODO
 # checkdepends not available yet
 options = ["bootstrap", "!check"]
