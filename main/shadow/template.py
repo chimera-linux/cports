@@ -1,13 +1,15 @@
 pkgname = "shadow"
-pkgver = "4.13"
-pkgrel = 1
+pkgver = "4.14.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
+    "--enable-lastlog",
     "--disable-static",
     "--with-libpam",
     "--with-acl",
     "--with-attr",
+    "--without-libbsd",
     "--without-selinux",
     "--without-nscd",
     "--disable-nls",
@@ -25,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/shadow-maint/shadow"
 source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"
-sha256 = "9afe245d79a2e7caac5f1ed62519b17416b057ec89df316df1c3935502f9dd2c"
+sha256 = "87e1c5cc10109536132f1b4e29b6df6edc99b70f36f71ff042c2783f2fa01d4f"
 suid_files = [
     "usr/bin/chage",
     "usr/bin/chfn",
@@ -81,11 +83,6 @@ def post_install(self):
     # defaults for useradd
     self.install_file(
         self.files_path / "default.useradd", "etc/default", name="useradd"
-    )
-
-    # install daily cron job
-    self.install_file(
-        self.files_path / "shadow.cron-daily", "etc/cron.daily", name="shadow"
     )
 
     # chimerautils

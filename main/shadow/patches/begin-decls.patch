@@ -1,0 +1,19 @@
+commit 5b8e4d779424b96e9f89cb59dfa5ab67a5a2850d
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Sep 3 16:53:27 2023 +0200
+
+    ditch __BEGIN_DECLS garbage
+
+diff --git a/libmisc/readpassphrase.h b/libmisc/readpassphrase.h
+index 2462ecc..9d09ed8 100644
+--- a/libmisc/readpassphrase.h
++++ b/libmisc/readpassphrase.h
+@@ -36,8 +36,6 @@
+ #endif
+ #include <sys/types.h>
+ 
+-__BEGIN_DECLS
+ char * readpassphrase(const char *, char *, size_t, int);
+-__END_DECLS
+ 
+ #endif /* !LIBBSD_READPASSPHRASE_H */
