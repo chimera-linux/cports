@@ -1,6 +1,6 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.18.5"
+pkgver = "4.19.0"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -99,9 +99,8 @@ url = "https://www.samba.org"
 source = (
     f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "095256ac332e1d9fbf9b7ff7823f92a3233d3ed658ce7fc9b33905c2243f447f"
-# we don't want their makefile
-env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
+sha256 = "28f98ceab75a6a59432912fa110fc8c716abcab1ed6d8bdd4393d178acff3d20"
+env = {"PYTHONHASHSEED": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check", "!installroot"]
 
@@ -295,7 +294,6 @@ def _smbclient(self):
         "usr/share/man/man1/smbget.1",
         "usr/share/man/man1/smbtar.1",
         "usr/share/man/man1/smbtree.1",
-        "usr/share/man/man5/smbgetrc.5",
         "usr/share/man/man8/cifsdd.8",
         "usr/share/man/man8/smbspool.8",
         "usr/share/man/man8/smbspool_krb5_wrapper.8",
