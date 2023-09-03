@@ -1,5 +1,5 @@
 pkgname = "libgphoto2"
-pkgver = "2.5.30"
+pkgver = "2.5.31"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -7,7 +7,12 @@ configure_args = [
     "--disable-rpath",
     "udevscriptdir=/usr/lib/udev",
 ]
-hostmakedepends = ["pkgconf", "gettext-devel"]
+hostmakedepends = [
+    "automake",
+    "gettext-devel",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
     "libgd-devel",
     "libexif-devel",
@@ -20,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.gphoto.org"
 source = f"https://github.com/gphoto/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4d50e71d771ca78e33f10308e7f15ad00a2268d1b5af4a19cd4c5512a1b62a62"
+sha256 = "8fc7bf40f979459509b87dd4ff1aae9b6c1c2b4724d37db576081eec15406ace"
 
 if self.profile().cross:
     hostmakedepends += ["libgphoto2"]
@@ -53,6 +58,3 @@ def post_install(self):
 @subpackage("libgphoto2-devel")
 def _devel(self):
     return self.default_devel(extra=["usr/share/doc"])
-
-
-configure_gen = []
