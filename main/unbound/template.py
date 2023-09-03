@@ -1,5 +1,5 @@
 pkgname = "unbound"
-pkgver = "1.17.1"
+pkgver = "1.18.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -27,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "ee4085cecce12584e600f3d814a28fa822dfaacec1f94c84bfd67f8a5571a5f4"
+sha256 = "3da95490a85cff6420f26fae0b84a49f5112df1bf1b7fc34f8724f02082cb712"
 system_users = ["_unbound"]
 
 
