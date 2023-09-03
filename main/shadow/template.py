@@ -1,6 +1,6 @@
 pkgname = "shadow"
 pkgver = "4.13"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -81,11 +81,6 @@ def post_install(self):
     # defaults for useradd
     self.install_file(
         self.files_path / "default.useradd", "etc/default", name="useradd"
-    )
-
-    # install daily cron job
-    self.install_file(
-        self.files_path / "shadow.cron-daily", "etc/cron.daily", name="shadow"
     )
 
     # chimerautils
