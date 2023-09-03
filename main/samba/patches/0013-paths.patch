@@ -15,6 +15,6 @@
     comment = All Printers
 -   path = /usr/spool/samba
 +   path = /var/spool/samba
-    browseable = no
- # Set public = yes to allow user 'guest account' to print
+    browsable = no
+ # Change 'guest ok' from 'no' to 'yes' to allow the 'guest account' user to print
     guest ok = no
