@@ -1,6 +1,6 @@
 pkgname = "dhcpcd"
 pkgver = "10.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -22,7 +22,8 @@ url = "https://roy.marples.name/projects/dhcpcd"
 source = f"https://github.com/NetworkConfiguration/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3aa15c50be86d9595467f21dd9dc66f7115e3de1f5ab0b704b753684062b8541"
 # FIXME cfi
-hardening = ["vis", "!cfi"]
+# FIXME vis for usr/lib/dhcpcd/dev/udev.so
+hardening = ["!vis", "!cfi"]
 
 system_users = [
     {
