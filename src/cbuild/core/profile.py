@@ -21,7 +21,7 @@ hardening_fields = {
     "int": True,  # ubsan integer hardening
     # misc general hardening that you'll almost never want to disable
     "format": True,  # format-security
-    "var-init": True, # trivial-auto-var-init=zero
+    "var-init": True,  # trivial-auto-var-init=zero
     # options affecting enabled hardening types
     "cfi-genptr": False,  # loosen pointer type checks
     "cfi-icall": True,  # indirect call checks
