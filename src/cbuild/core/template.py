@@ -1130,7 +1130,7 @@ class Template(Package):
         self,
         cmd,
         *args,
-        env={},
+        env=None,
         wrksrc=None,
         capture_output=False,
         stdout=None,
@@ -1194,7 +1194,8 @@ class Template(Package):
                 cenv["CBUILD_HOST_TRIPLET"] = hpf.triplet
 
         cenv.update(self.env)
-        cenv.update(env)
+        if env:
+            cenv.update(env)
 
         wdir = self.chroot_cwd
         if wrksrc:

@@ -549,7 +549,7 @@ def enter(
     *args,
     capture_output=False,
     check=False,
-    env={},
+    env=None,
     stdout=None,
     stderr=None,
     input=None,
@@ -576,6 +576,9 @@ def enter(
     from cbuild.core import profile
 
     hprof = profile.get_profile(host_cpu())
+
+    if not env:
+        env = {}
 
     envs = {
         "PATH": defpath,
