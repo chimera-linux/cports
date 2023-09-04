@@ -1716,7 +1716,6 @@ Currently the following options are always enabled by default:
 * `ssp` Enables `-fstack-protector-strong`.
 * `scp` Enables `-fstack-clash-protection` (`ppc64le`, `ppc64`, `ppc`, `x86_64`)
 * `int` Traps signed integer overflows and integer division by zero.
-* `pac` Enables AArch64 pointer authentication (`aarch64`).
 * `format` Format-security default errors for C and C++ (compile-time).
 * `var-init` Auto-zero initialization for variables (`-ftrivial-auto-var-init=zero`)
 
