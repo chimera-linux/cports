@@ -193,6 +193,9 @@ set -e
         srepo = paths.stage_repository()
         cbpath = pathlib.Path("/stagepkgs") / binpath.relative_to(srepo)
 
+    # remove any potential outdated package
+    binpath.unlink(missing_ok=True)
+
     try:
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
 

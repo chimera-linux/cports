@@ -125,6 +125,15 @@ def build(
     if step == "check":
         return
 
+    # perform destdir and statedir cleanup
+    #
+    # this is done before install and makes sure to remove all the
+    # sentinels that marked installation from statedir, as well as
+    # removes all the destdir stuff, so that dirty builds can always
+    # be done cleanly
+    if pkg.stage > 0:
+        pkgm.remove_pkg(pkg)
+
     # invoke install for main package
     pkg.current_phase = "install"
     install.invoke(pkg, step)
