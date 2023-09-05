@@ -19,7 +19,7 @@ makedepends = [
     "ffmpeg-devel",
     "libdrm-devel",
     "libva-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "mesa-devel",
     "wayland-devel",
     "wayland-protocols",
