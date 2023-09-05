@@ -1,6 +1,6 @@
 pkgname = "gamescope"
-pkgver = "3.12.3"
-pkgrel = 1
+pkgver = "3.12.5"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "cmake",
@@ -49,7 +49,7 @@ source_paths = [
     "subprojects/vkroots",
 ]
 sha256 = [
-    "ebd8f18ca3c2ae426b2523ba6e9e4a88f5fcddd6f7761fbcc94b582a430d07fe",
+    "32a020e35b8443862c900306fb6edb84a8ecb009c89184d2062b0b8ce2811e17",
     "6285504e64a37df47856ffa4a12709d0703da37ee1b0c9fe9e8e52a55127dd7d",
     "adf158c3da572f1dfaa6e1a7a51943aafb824222e77f512a4666472d71321244",
 ]
