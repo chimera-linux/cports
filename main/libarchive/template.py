@@ -1,6 +1,6 @@
 pkgname = "libarchive"
 pkgver = "3.7.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -45,6 +45,9 @@ def post_install(self):
     with self.pushd(self.destdir):
         self.mv("usr/bin/bsdtar", "usr/bin/tar")
         self.mv("usr/bin/bsdcpio", "usr/bin/cpio")
+        with self.pushd("usr/share/man/man1"):
+            self.mv("bsdcpio.1", "cpio.1")
+            self.mv("bsdtar.1", "tar.1")
         with self.pushd("usr/share/man/man5"):
             self.mv("mtree.5", "libarchive-mtree.5")
 
