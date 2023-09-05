@@ -59,7 +59,7 @@ makedepends = [
     "xcb-util-wm-devel",
     "xcb-util-renderutil-devel",
     "xorgproto",
-    "liblz4-devel",
+    "lz4-devel",
     "zlib-devel",
     "fontconfig-devel",
     "fribidi-devel",

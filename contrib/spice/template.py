@@ -21,7 +21,7 @@ makedepends = [
     "libcacard-devel",
     "opus-devel",
     "gstreamer-devel",
-    "liblz4-devel",
+    "lz4-devel",
     "openssl-devel",
     "gnutls-devel",
     "gdk-pixbuf-devel",

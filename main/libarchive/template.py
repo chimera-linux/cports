@@ -17,7 +17,7 @@ hostmakedepends = ["pkgconf"]
 makedepends = [
     "acl-devel",
     "libbz2-devel",
-    "liblz4-devel",
+    "lz4-devel",
     "xz-devel",
     "libzstd-devel",
     "musl-bsd-headers",

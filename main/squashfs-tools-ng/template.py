@@ -5,7 +5,7 @@ build_style = "gnu_configure"
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "zlib-devel",
-    "liblz4-devel",
+    "lz4-devel",
     "xz-devel",
     "libzstd-devel",
     "lzo-devel",

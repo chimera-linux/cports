@@ -14,7 +14,7 @@ makedepends = [
     "boost-devel",
     "ffmpeg-devel",
     "mygui-devel",
-    "liblz4-devel",
+    "lz4-devel",
     "openscenegraph-devel",
     "unshield-devel",
     "openal-soft-devel",

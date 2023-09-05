@@ -9,7 +9,7 @@ makedepends = [
     "acl-devel",
     "popt-devel",
     "xxhash-devel",
-    "liblz4-devel",
+    "lz4-devel",
     "libzstd-devel",
     "openssl-devel",
 ]
