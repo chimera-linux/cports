@@ -31,3 +31,8 @@ def post_install(self):
 @subpackage("nghttp2-devel")
 def _devel(self):
     return self.default_devel()
+
+
+@subpackage("nghttp2-progs")
+def _progs(self):
+    return self.default_progs(extra=["usr/share/nghttp2/fetch-ocsp-response"])
