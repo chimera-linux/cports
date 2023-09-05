@@ -14,7 +14,7 @@ configure_args = [
     "--enable-static",
 ]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
-makedepends = ["zlib-devel", "libbz2-devel", "libedit-devel"]
+makedepends = ["zlib-devel", "bzip2-devel", "libedit-devel"]
 pkgdesc = "Perl Compatible Regular Expressions v2"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -40,5 +40,5 @@ def _libpcre2(self):
 
 @subpackage("pcre2-devel")
 def _devel(self):
-    self.depends += ["zlib-devel", "libbz2-devel"]
+    self.depends += ["zlib-devel", "bzip2-devel"]
     return self.default_devel(extra=["usr/share/doc"])

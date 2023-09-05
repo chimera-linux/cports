@@ -8,7 +8,7 @@ make_check_env = {"TESTFLAGS": f"--parallel={self.conf_jobs}"}
 hostmakedepends = ["pkgconf", "libgpg-error-progs"]
 # TODO: switch to libedit once it gains missing features
 makedepends = [
-    "libbz2-devel",
+    "bzip2-devel",
     "libassuan-devel",
     "libksba-devel",
     "npth-devel",

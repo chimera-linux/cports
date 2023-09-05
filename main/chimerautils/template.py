@@ -13,7 +13,7 @@ makedepends = [
     "musl-rpmatch-devel",
     "xz-devel",
     "zlib-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "linux-headers",
     "libxo-devel",
     "musl-bsd-headers",

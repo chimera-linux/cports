@@ -43,7 +43,7 @@ makedepends = [
     "libpng-devel",
     "gtk+3-devel",
     "gdk-pixbuf-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "libxml2-devel",
     "libgudev-devel",
     "v4l-utils-devel",

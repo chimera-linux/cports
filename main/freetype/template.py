@@ -16,7 +16,7 @@ makedepends = [
     "harfbuzz-devel",
     "zlib-devel",
     "libpng-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "brotli-devel",
 ]
 pkgdesc = "Font rendering engine"

@@ -61,7 +61,7 @@ make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf", "perl", "nasm", "texinfo"]
 makedepends = [
     "zlib-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "openssl-devel",
     "librtmp-devel",
     "freetype-devel",

@@ -9,7 +9,7 @@ makedepends = [
     "xz-devel",
     "libzstd-devel",
     "lzo-devel",
-    "libbz2-devel",
+    "bzip2-devel",
 ]
 pkgdesc = "Set of tools and libraries for working with SquashFS images"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -62,7 +62,7 @@ makedepends = [
     "openexr-devel",
     "openjpeg-devel",
     "zlib-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "libzstd-devel",
     "graphviz-devel",
     "djvulibre-devel",

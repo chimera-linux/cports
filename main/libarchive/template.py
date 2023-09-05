@@ -16,7 +16,7 @@ configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "acl-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "lz4-devel",
     "xz-devel",
     "libzstd-devel",

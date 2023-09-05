@@ -11,7 +11,7 @@ configure_args = [
 configure_gen = []
 makedepends = [
     "zlib-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "libedit-devel",
     "acl-devel",
     "linux-headers",

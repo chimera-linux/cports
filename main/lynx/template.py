@@ -10,7 +10,7 @@ configure_args = [
     "--with-ssl",
 ]
 hostmakedepends = ["pkgconf"]
-makedepends = ["zlib-devel", "libbz2-devel", "ncurses-devel", "openssl-devel"]
+makedepends = ["zlib-devel", "bzip2-devel", "ncurses-devel", "openssl-devel"]
 pkgdesc = "Text web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

@@ -1,6 +1,7 @@
 pkgname = "bzip2"
 pkgver = "1.0.8"
-pkgrel = 0
+pkgrel = 1
+provides = [f"libbz2={pkgver}-r{pkgrel}"]
 pkgdesc = "Freely available, patent free, high-quality data compressor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:bzip2"
@@ -66,15 +67,8 @@ def do_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("libbz2")
-def _lib(self):
-    self.pkgdesc = "Bzip2-format compression library"
-
-    return self.default_libs()
-
-
-@subpackage("libbz2-devel")
+@subpackage("bzip2-devel")
 def _devel(self):
-    self.pkgdesc = "Bzip2-format compression library (development files)"
+    self.provides = [f"libbz2-devel={pkgver}-r{pkgrel}"]
 
     return self.default_devel()

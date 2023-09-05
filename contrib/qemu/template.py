@@ -64,7 +64,7 @@ makedepends = [
     "gnutls-devel",
     "gtk+3-devel",
     "libaio-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "libcacard-devel",
     "libcap-ng-devel",
     "libcurl-devel",

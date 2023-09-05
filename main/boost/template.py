@@ -4,7 +4,7 @@ pkgrel = 0
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "icu-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "xz-devel",
     "libzstd-devel",
     "linux-headers",

@@ -85,7 +85,7 @@ makedepends = [
     "libass-devel",
     "bluez-devel",
     "libbs2b-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "pango-devel",
     "cairo-devel",
     "lcms2-devel",

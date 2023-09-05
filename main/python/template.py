@@ -40,7 +40,7 @@ hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
     "libffi-devel",
     "openssl-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "libedit-devel",
     "zlib-devel",
     "xz-devel",

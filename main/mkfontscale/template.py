@@ -7,7 +7,7 @@ hostmakedepends = ["pkgconf"]
 makedepends = [
     "xorgproto",
     "zlib-devel",
-    "libbz2-devel",
+    "bzip2-devel",
     "freetype-devel",
     "libfontenc-devel",
 ]
