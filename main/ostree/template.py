@@ -1,10 +1,11 @@
 pkgname = "ostree"
-pkgver = "2023.5"
+pkgver = "2023.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-builtin-grub2-mkconfig",
-    "--with-ed25519-libsodium",
+    "--with-crypto=openssl",
+    "--with-modern-grub",
     "--with-openssl",
     "--with-curl",
     "--with-soup=no",
@@ -13,26 +14,25 @@ configure_args = [
 make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "libtool",
-    "pkgconf",
     "bison",
-    "xsltproc",
+    "docbook-xsl-nons",
     "gmake",
     "gobject-introspection",
-    "docbook-xsl-nons",
     "gtk-doc-tools",
+    "libtool",
+    "pkgconf",
+    "xsltproc",
 ]
 makedepends = [
-    "glib-devel",
-    "liblzma-devel",
     "e2fsprogs-devel",
-    "gpgme-devel",
     "fuse-devel",
+    "glib-devel",
+    "gpgme-devel",
     "libcurl-devel",
     "libgpg-error-devel",
-    "libsodium-devel",
-    "openssl-devel",
+    "liblzma-devel",
     "linux-headers",
+    "openssl-devel",
 ]
 checkdepends = ["attr-progs", "bsdtar", "gnupg", "xz"]
 pkgdesc = "Operating system and container binary deployment and upgrades"
@@ -40,9 +40,9 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.0-or-later"
 url = "https://ostreedev.github.io/ostree"
 source = f"https://github.com/ostreedev/ostree/releases/download/v{pkgver}/libostree-{pkgver}.tar.xz"
-sha256 = "bc593afb31fe1ac3d50419f917fafe321a0a3561d7bb2ba498a83740fe3adb14"
+sha256 = "b43c4a373799681989bae12b3a1b94f453068dece6540b8e05a23b834c1037e2"
 # failing on their test harness, i will find motivation Soon
-options = ["!check", "!cross"]
+options = ["!check"]
 
 
 @subpackage("ostree-devel")
