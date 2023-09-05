@@ -81,7 +81,7 @@ if self.stage > 0:
         "libedit-devel",
         "elftoolchain-devel",
         "libffi-devel",
-        "libzstd-devel",
+        "zstd-devel",
         "linux-headers",
     ]
     # enable LTO except on riscv where it's broken
@@ -603,7 +603,7 @@ def _llvm_devel(self):
         f"libclang-cpp={pkgver}-r{pkgrel}",
     ]
     if self.stage > 0:
-        self.depends.append("libzstd-devel")
+        self.depends.append("zstd-devel")
 
     return [
         "usr/include",

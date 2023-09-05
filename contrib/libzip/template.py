@@ -17,7 +17,7 @@ hostmakedepends = [
 makedepends = [
     "bzip2-devel",
     "xz-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "zlib-devel",
 ]
 checkdepends = ["nihtest"]

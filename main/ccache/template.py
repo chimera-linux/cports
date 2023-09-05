@@ -5,7 +5,7 @@ build_style = "cmake"
 configure_args = ["-DENABLE_TESTING=OFF", "-DREDIS_STORAGE_BACKEND=OFF"]
 make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "perl"]
-makedepends = ["libzstd-devel", "zlib-devel"]
+makedepends = ["zstd-devel", "zlib-devel"]
 checkdepends = ["bash"]
 pkgdesc = "Fast C/C++ compiler cache"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -10,7 +10,7 @@ makedepends = [
     "jbigkit-devel",
     "libjpeg-turbo-devel",
     "xz-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "zlib-devel",
 ]
 pkgdesc = "Library and tools for reading and writing TIFF data files"

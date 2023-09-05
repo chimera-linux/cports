@@ -19,7 +19,7 @@ makedepends = [
     "libpsl-devel",
     "libidn2-devel",
     "zlib-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "xz-devel",
     "bzip2-devel",
     "brotli-devel",

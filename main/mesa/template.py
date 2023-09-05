@@ -52,7 +52,7 @@ makedepends = [
     "libexpat-devel",
     "libxml2-devel",
     "ncurses-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "zlib-devel",
     "lua5.4-devel",
     "libffi-devel",

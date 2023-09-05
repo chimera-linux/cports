@@ -78,7 +78,7 @@ makedepends = [
     "libssh-devel",
     "liburing-devel",
     "libusb-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "linux-headers",
     "linux-pam-devel",
     "lzo-devel",

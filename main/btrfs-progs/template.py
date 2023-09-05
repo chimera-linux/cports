@@ -21,7 +21,7 @@ makedepends = [
     "e2fsprogs-devel",
     "libblkid-devel",
     "libuuid-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "linux-headers",
     "lzo-devel",
     "udev-devel",

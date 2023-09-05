@@ -1,6 +1,6 @@
 pkgname = "zstd"
 pkgver = "1.5.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dzlib=enabled",
@@ -13,6 +13,7 @@ meson_dir = "build/meson"
 hostmakedepends = ["pkgconf", "meson"]
 makedepends = ["zlib-devel", "xz-devel", "lz4-devel"]
 checkdepends = ["gtest-devel"]
+provides = [f"libzstd={pkgver}-r{pkgrel}"]
 pkgdesc = "Zstd compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -31,15 +32,8 @@ def post_install(self):
         self.rm(self.destdir / "usr/share/man/man1" / (tool + ".1"))
 
 
-@subpackage("libzstd")
-def _lib(self):
-    self.pkgdesc = "Fast real-time compression algorithm"
-
-    return self.default_libs()
-
-
-@subpackage("libzstd-devel")
+@subpackage("zstd-devel")
 def _devel(self):
-    self.pkgdesc = "Fast real-time compression algorithm (development files)"
+    self.provides = [f"libzstd-devel={pkgver}-r{pkgrel}"]
 
     return self.default_devel()

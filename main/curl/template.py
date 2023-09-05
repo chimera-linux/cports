@@ -17,7 +17,7 @@ hostmakedepends = ["pkgconf", "perl", "mandoc"]
 makedepends = [
     "nghttp2-devel",
     "zlib-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "openssl-devel",
     "libssh2-devel",
 ]

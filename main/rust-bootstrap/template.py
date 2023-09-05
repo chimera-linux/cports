@@ -2,7 +2,7 @@ pkgname = "rust-bootstrap"
 pkgver = "1.71.0"
 pkgrel = 0
 # satisfy revdeps
-makedepends = ["zlib", "ncurses-libs", "libzstd"]
+makedepends = ["zlib", "ncurses-libs", "zstd"]
 # overlapping files
 depends = ["!rust"]
 pkgdesc = "Rust programming language bootstrap toolchain"

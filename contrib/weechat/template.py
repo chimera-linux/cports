@@ -21,7 +21,7 @@ makedepends = [
     # core deps
     "libgcrypt-devel",
     "gnutls-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "libcurl-devel",
     "ncurses-devel",
     # perl plugin

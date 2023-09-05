@@ -6,7 +6,7 @@ makedepends = [
     "icu-devel",
     "bzip2-devel",
     "xz-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "linux-headers",
     "python-devel",
     "zlib-devel",

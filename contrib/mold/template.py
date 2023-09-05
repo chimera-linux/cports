@@ -8,7 +8,7 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja"]
 makedepends = [
-    "libzstd-devel",
+    "zstd-devel",
     "linux-headers",
     "onetbb-devel",
     "openssl-devel",

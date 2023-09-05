@@ -35,7 +35,7 @@ makedepends = [
     "libpulse-devel",
     "libzip-devel",
     "libzip-progs",
-    "libzstd-devel",
+    "zstd-devel",
     "qt6-qtbase-devel",
     "qt6-qttools-devel",
     "rapidyaml-devel",

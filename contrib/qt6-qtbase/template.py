@@ -29,7 +29,7 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "perl", "pkgconf", "xmlstarlet"]
 makedepends = [
     "zlib-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "dbus-devel",
     "double-conversion-devel",
     "libxcb-devel",

@@ -7,7 +7,7 @@ makedepends = [
     "zlib-devel",
     "lz4-devel",
     "xz-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "lzo-devel",
     "bzip2-devel",
 ]

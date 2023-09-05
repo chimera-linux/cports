@@ -49,7 +49,7 @@ makedepends = [
     "libseccomp-devel",
     "gcab-devel",
     "libxau-devel",
-    "libzstd-devel",
+    "zstd-devel",
 ]
 checkdepends = ["bash"]
 depends = [

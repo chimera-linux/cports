@@ -63,7 +63,7 @@ makedepends = [
     "openjpeg-devel",
     "zlib-devel",
     "bzip2-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "graphviz-devel",
     "djvulibre-devel",
     "fontconfig-devel",

@@ -10,7 +10,7 @@ makedepends = [
     "popt-devel",
     "xxhash-devel",
     "lz4-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "openssl-devel",
 ]
 pkgdesc = "Fast incremental file transfer tool"

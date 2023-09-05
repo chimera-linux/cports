@@ -19,7 +19,7 @@ makedepends = [
     "bzip2-devel",
     "lz4-devel",
     "xz-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "musl-bsd-headers",
     "openssl-devel",
     "zlib-devel",
@@ -35,7 +35,7 @@ options = ["bootstrap", "!check"]
 
 if self.stage > 0:
     configure_args.append("--with-zstd")
-    makedepends.append("libzstd-devel")
+    makedepends.append("zstd-devel")
 else:
     configure_args.append("--without-zstd")
 

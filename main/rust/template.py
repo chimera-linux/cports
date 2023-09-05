@@ -12,7 +12,7 @@ hostmakedepends = [
     "ncurses-devel",
     "libxml2-devel",
     "zlib-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "cargo-bootstrap",
 ]
 makedepends = [
@@ -20,7 +20,7 @@ makedepends = [
     "ncurses-devel",
     "libxml2-devel",
     "zlib-devel",
-    "libzstd-devel",
+    "zstd-devel",
     "llvm-devel",
 ]
 depends = [f"rust-std={pkgver}-r{pkgrel}", "clang", "musl-devel"]
