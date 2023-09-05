@@ -1,12 +1,9 @@
 pkgname = "gmic"
-pkgver = "3.2.6"
-pkgrel = 2
+pkgver = "3.3.0"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
-make_build_target = "lib"
 make_build_args = [
-    "cli_shared",
-    "gmic_qt_shared",
     "QMAKE=qmake6",
     "OPT_CFLAGS=",
 ]
@@ -33,17 +30,23 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "CECILL-2.1"
 url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"
-sha256 = "55993e55a30fe2da32f9533b9db2a3250affa2b32003b0c49c36eec2b2c6e007"
+sha256 = "9c00a2b4c33ff4879860eadb89f6c836062433a5debdaffbf41f98bfa83081f3"
 # vis broken
 # FIXME int: gmic_qt PreviewWidget::updateOriginalImagePosition
 hardening = ["!int"]
 # no tests
-# breaks in parallel if lib isn't built first by itself
-options = ["!check", "!parallel"]
+options = ["!check"]
 
 
 if self.profile().arch == "riscv64":
     broken = "qmake busted under emulation (https://bugreports.qt.io/browse/QTBUG-98951)"
+
+
+def do_build(self):
+    # lib has to come first to not be built multiple times for all subsequent
+    # targets, rest can be parallel (and so this is faster than -j1)
+    self.make.build(["lib"])
+    self.make.build(["cli_shared", "gmic_qt_shared"])
 
 
 def post_install(self):
