@@ -31,7 +31,7 @@ makedepends = [
     "libcurl-devel",
     "libexpat-devel",
     "libjpeg-turbo-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libnotify-devel",
     "libsecret-devel",
     "libsm-devel",

@@ -5,7 +5,7 @@ hostmakedepends = ["pkgconf"]
 makedepends = [
     "icu-devel",
     "libbz2-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libzstd-devel",
     "linux-headers",
     "python-devel",

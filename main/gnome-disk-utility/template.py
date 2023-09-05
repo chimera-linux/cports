@@ -17,7 +17,7 @@ makedepends = [
     "glib-devel",
     "gtk+3-devel",
     "libhandy-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libnotify-devel",
     "libsecret-devel",
     "udisks-devel",

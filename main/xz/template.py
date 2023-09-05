@@ -1,9 +1,10 @@
 pkgname = "xz"
 pkgver = "5.4.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
+provides = [f"liblzma={pkgver}-r{pkgrel}"]
 pkgdesc = "XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:xz"
@@ -40,15 +41,8 @@ def post_install(self):
             self.rm(lang / "man1" / (tool + ".1"), force=True)
 
 
-@subpackage("liblzma")
-def _lib(self):
-    self.pkgdesc = "XZ-format compression library"
-
-    return self.default_libs()
-
-
-@subpackage("liblzma-devel")
+@subpackage("xz-devel")
 def _devel(self):
-    self.pkgdesc = "XZ-format compression library (development files)"
+    self.provides = [f"liblzma-devel={pkgver}-r{pkgrel}"]
 
     return self.default_devel()

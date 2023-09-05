@@ -41,7 +41,7 @@ makedepends = [
     "libxpm-devel",
     "gexiv2-devel",
     "zlib-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libarchive-devel",
     "libpoppler-glib-devel",
     "poppler-data",

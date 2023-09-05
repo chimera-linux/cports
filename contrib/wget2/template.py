@@ -20,7 +20,7 @@ makedepends = [
     "libidn2-devel",
     "zlib-devel",
     "libzstd-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libbz2-devel",
     "brotli-devel",
     "nghttp2-devel",

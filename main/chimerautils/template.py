@@ -11,7 +11,7 @@ makedepends = [
     "openssl-devel",
     "musl-fts-devel",
     "musl-rpmatch-devel",
-    "liblzma-devel",
+    "xz-devel",
     "zlib-devel",
     "libbz2-devel",
     "linux-headers",

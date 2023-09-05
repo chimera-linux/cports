@@ -6,7 +6,7 @@ hostmakedepends = ["pkgconf"]
 makedepends = [
     "zlib-devel",
     "liblz4-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libzstd-devel",
     "lzo-devel",
     "libbz2-devel",

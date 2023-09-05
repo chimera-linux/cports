@@ -16,7 +16,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "libbz2-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libzstd-devel",
     "zlib-devel",
 ]

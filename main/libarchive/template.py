@@ -18,7 +18,7 @@ makedepends = [
     "acl-devel",
     "libbz2-devel",
     "liblz4-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libzstd-devel",
     "musl-bsd-headers",
     "openssl-devel",

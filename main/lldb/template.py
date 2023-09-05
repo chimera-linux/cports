@@ -24,7 +24,7 @@ makedepends = [
     "clang-devel",
     "libffi-devel",
     "zlib-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libedit-devel",
     "libxml2-devel",
     "ncurses-devel",

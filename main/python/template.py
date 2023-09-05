@@ -43,7 +43,7 @@ makedepends = [
     "libbz2-devel",
     "libedit-devel",
     "zlib-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libexpat-devel",
     "sqlite-devel",
     "linux-headers",

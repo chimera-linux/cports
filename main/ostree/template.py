@@ -30,9 +30,9 @@ makedepends = [
     "gpgme-devel",
     "libcurl-devel",
     "libgpg-error-devel",
-    "liblzma-devel",
     "linux-headers",
     "openssl-devel",
+    "xz-devel",
 ]
 checkdepends = ["attr-progs", "bsdtar", "gnupg", "xz"]
 pkgdesc = "Operating system and container binary deployment and upgrades"

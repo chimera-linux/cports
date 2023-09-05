@@ -11,7 +11,7 @@ makedepends = [
     "libxslt-devel",
     "icu-devel",
     "zlib-devel",
-    "liblzma-devel",
+    "xz-devel",
 ]
 pkgdesc = "Raptor RDF syntax library"
 maintainer = "q66 <q66@chimera-linux.org>"

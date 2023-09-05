@@ -9,7 +9,7 @@ hostmakedepends = ["pkgconf"]
 makedepends = [
     "jbigkit-devel",
     "libjpeg-turbo-devel",
-    "liblzma-devel",
+    "xz-devel",
     "libzstd-devel",
     "zlib-devel",
 ]

@@ -32,7 +32,7 @@ makedepends = [
     "gettext-devel",
     "freetype-devel",
     "ncurses-devel",
-    "liblzma-devel",
+    "xz-devel",
     "device-mapper-devel",
     "fuse-devel",
 ]
