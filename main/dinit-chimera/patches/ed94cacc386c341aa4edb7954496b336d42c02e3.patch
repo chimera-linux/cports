@@ -1,0 +1,23 @@
+From ed94cacc386c341aa4edb7954496b336d42c02e3 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 6 Sep 2023 07:46:42 +0200
+Subject: [PATCH] disable udev in libdm in shutdown hook
+
+We don't have udevd running anymore at this point, so prevent
+libdm from trying to use it and causing potential stalls.
+---
+ shutdown-hook | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/shutdown-hook b/shutdown-hook
+index f32e0e4..bc97d67 100644
+--- a/shutdown-hook
++++ b/shutdown-hook
+@@ -18,6 +18,7 @@ fi
+ sync
+ 
+ if [ ! -e /run/dinit/container ]; then
++    export DM_DISABLE_UDEV=1
+     echo "Deactivating cryptdisks..."
+     /usr/libexec/dinit/early/cryptdisks.sh remaining stop
+     echo "Deactivating volume groups..."
