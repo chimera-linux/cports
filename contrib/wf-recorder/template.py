@@ -1,5 +1,5 @@
 pkgname = "wf-recorder"
-pkgver = "0.4.0"
+pkgver = "0.4.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -20,7 +20,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ammen99/wf-recorder"
 source = f"https://github.com/ammen99/wf-recorder/releases/download/v{pkgver}/wf-recorder-{pkgver}.tar.xz"
-sha256 = "1d0cc9c4029adfeded29203dfcdd96532b49aba0d91b9e2dedb46796fcb11af7"
+sha256 = "502ba54db8aaf5ebd280738f065c73409694a1440b9a660ef5c4e398714c51f7"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
