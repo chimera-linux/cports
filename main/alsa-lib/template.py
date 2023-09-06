@@ -1,6 +1,6 @@
 pkgname = "alsa-lib"
-pkgver = "1.2.9"
-pkgrel = 1
+pkgver = "1.2.10"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-alisp",
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
 source = f"{url}/files/pub/lib/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "dc9c643fdc4ccfd0572cc685858dd41e08afb583f30460b317e4188275f615b2"
+sha256 = "c86a45a846331b1b0aa6e6be100be2a7aef92efd405cf6bac7eef8174baa920e"
 # tests require stuff we disable
 options = ["!check"]
 
