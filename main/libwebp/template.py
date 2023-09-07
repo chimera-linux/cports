@@ -1,6 +1,6 @@
 pkgname = "libwebp"
 pkgver = "1.3.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--enable-libwebpdecoder"]
 configure_gen = []
@@ -19,7 +19,7 @@ source = (
     f"http://downloads.webmproject.org/releases/webp/{pkgname}-{pkgver}.tar.gz"
 )
 sha256 = "b3779627c2dfd31e3d8c4485962c2efe17785ef975e2be5c8c0c9e6cd3c4ef66"
-hardening = ["vis", "cfi"]
+hardening = ["vis"]
 
 
 def post_install(self):
