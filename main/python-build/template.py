@@ -1,5 +1,5 @@
 pkgname = "python-build"
-pkgver = "1.0.0"
+pkgver = "1.0.3"
 pkgrel = 0
 hostmakedepends = [
     "python",
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pypa-build.readthedocs.io"
 source = f"$(PYPI_SITE)/b/build/build-{pkgver}.tar.gz"
-sha256 = "49a60f212df4d9925727c2118e1cbe3abf30b393eff7d0e7287d2170eb36844d"
+sha256 = "538aab1b64f9828977f84bc63ae570b060a8ed1be419e7870b8b4fc5e6ea553b"
 # no tests
 options = ["!check"]
 
