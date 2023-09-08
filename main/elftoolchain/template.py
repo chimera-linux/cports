@@ -2,7 +2,7 @@ pkgname = "elftoolchain"
 # r4004
 _commit = "fea115ec80ece0a0c2271ed2bc25a30a85da990e"
 pkgver = "0.7.1_svn20230416"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = [
     "WITH_ADDITIONAL_DOCUMENTATION=no",

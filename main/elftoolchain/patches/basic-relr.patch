@@ -1,0 +1,256 @@
+commit 15072690173dd4dd8c2c606658e702131110ddf8
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Sep 8 16:08:24 2023 +0200
+
+    add basic support for DT_RELR
+    
+    This does not implement readelf support and so on yet, but it
+    does allow things like strip and objcopy to work without issues.
+
+diff --git a/common/sys/elfconstants.m4 b/common/sys/elfconstants.m4
+index 27a552b..3e26eee 100644
+--- a/common/sys/elfconstants.m4
++++ b/common/sys/elfconstants.m4
+@@ -187,6 +187,12 @@ _(`DT_PREINIT_ARRAYSZ',  33,
+ 	`size of pre-initialization array')
+ _(`DT_MAXPOSTAGS',       34,
+ 	`the number of positive tags')
++_(`DT_RELRSZ',           35,
++	`total size of RELR relative relocations')
++_(`DT_RELR',             36,
++	`address of RELR relative relocations')
++_(`DT_RELRENT',          37,
++	`size of one RELR relative relocation')
+ _(`DT_LOOS',             0x6000000D,
+ 	`start of OS-specific types')
+ _(`DT_SUNW_AUXILIARY',   0x6000000D,
+@@ -1319,6 +1325,8 @@ _(SHT_PREINIT_ARRAY,   16,
+ _(SHT_GROUP,           17, `defines a section group')
+ _(SHT_SYMTAB_SHNDX,    18,
+ 	`used for extended section numbering')
++_(SHT_RELR,            19,
++	`RELR relative relocations')
+ _(SHT_LOOS,            0x60000000UL,
+ 	`start of OS-specific range')
+ _(SHT_SUNW_dof,	     0x6FFFFFF4UL,
+diff --git a/common/sys/elfdefinitions.m4 b/common/sys/elfdefinitions.m4
+index 37f703e..2f991b8 100644
+--- a/common/sys/elfdefinitions.m4
++++ b/common/sys/elfdefinitions.m4
+@@ -234,6 +234,7 @@ typedef uint16_t	Elf32_Section;	/* Section index. */
+ typedef int32_t		Elf32_Sword;	/* Signed integer. */
+ typedef uint32_t	Elf32_Word;	/* Unsigned integer. */
+ typedef uint64_t	Elf32_Lword;	/* Unsigned long integer. */
++typedef uint32_t	Elf32_Relr;	/* RELR relocation table entry. */
+ 
+ typedef uint64_t	Elf64_Addr;	/* Program address. */
+ typedef uint8_t		Elf64_Byte;	/* Unsigned tiny integer. */
+@@ -245,6 +246,7 @@ typedef uint32_t	Elf64_Word;	/* Unsigned integer. */
+ typedef uint64_t	Elf64_Lword;	/* Unsigned long integer. */
+ typedef uint64_t	Elf64_Xword;	/* Unsigned long integer. */
+ typedef int64_t		Elf64_Sxword;	/* Signed long integer. */
++typedef uint64_t		Elf64_Relr;		/* RELR relocation table entry. */
+ 
+ 
+ /*
+diff --git a/elfdump/elfdump.c b/elfdump/elfdump.c
+index 8734de0..1097324 100644
+--- a/elfdump/elfdump.c
++++ b/elfdump/elfdump.c
+@@ -160,6 +160,9 @@ d_tags(uint64_t tag)
+ 	case DT_RELA:		return "DT_RELA";
+ 	case DT_RELASZ:		return "DT_RELASZ";
+ 	case DT_RELAENT:	return "DT_RELAENT";
++	case DT_RELR:		return "DT_RELR";
++	case DT_RELRSZ:		return "DT_RELRSZ";
++	case DT_RELRENT:	return "DT_RELRENT";
+ 	case DT_STRSZ:		return "DT_STRSZ";
+ 	case DT_SYMENT:		return "DT_SYMENT";
+ 	case DT_INIT:		return "DT_INIT";
+@@ -404,6 +407,7 @@ sh_types(uint64_t mach, uint64_t sht) {
+ 		case SHT_SYMTAB:	return "SHT_SYMTAB";
+ 		case SHT_STRTAB:	return "SHT_STRTAB";
+ 		case SHT_RELA:		return "SHT_RELA";
++		case SHT_RELR:		return "SHT_RELR";
+ 		case SHT_HASH:		return "SHT_HASH";
+ 		case SHT_DYNAMIC:	return "SHT_DYNAMIC";
+ 		case SHT_NOTE:		return "SHT_NOTE";
+diff --git a/libelf/elf_types.m4 b/libelf/elf_types.m4
+index e23cfd9..374d6b2 100644
+--- a/libelf/elf_types.m4
++++ b/libelf/elf_types.m4
+@@ -50,6 +50,7 @@ define(`ELF_TYPE_LIST',
+ 	`PHDR,		Phdr',
+ 	`REL,		Rel',
+ 	`RELA,		Rela',
++	`RELR,		Relr',
+ 	`SHDR,		Shdr',
+ 	`SWORD,		Sword',
+ 	`SXWORD,	Sxword',
+diff --git a/libelf/gelf.h b/libelf/gelf.h
+index e7a4f60..9de6df7 100644
+--- a/libelf/gelf.h
++++ b/libelf/gelf.h
+@@ -46,6 +46,7 @@ typedef Elf64_Shdr	GElf_Shdr;	/* Section header */
+ typedef Elf64_Sym	GElf_Sym;	/* Symbol table entries */
+ typedef Elf64_Rel	GElf_Rel;	/* Relocation entries */
+ typedef Elf64_Rela	GElf_Rela;	/* Relocation entries with addend */
++typedef Elf64_Relr	GElf_Relr;	/* Relocation entries in SHT_RELR */
+ 
+ typedef	Elf64_Cap	GElf_Cap;	/* SW/HW capabilities */
+ typedef Elf64_Move	GElf_Move;	/* Move entries */
+diff --git a/libelf/libelf.h b/libelf/libelf.h
+index a84bb01..80eff96 100644
+--- a/libelf/libelf.h
++++ b/libelf/libelf.h
+@@ -77,11 +77,12 @@ typedef enum {
+ 	ELF_T_WORD,
+ 	ELF_T_XWORD,
+ 	ELF_T_GNUHASH,	/* GNU style hash tables. */
++	ELF_T_RELR,
+ 	ELF_T_NUM
+ } Elf_Type;
+ 
+ #define	ELF_T_FIRST	ELF_T_ADDR
+-#define	ELF_T_LAST	ELF_T_GNUHASH
++#define	ELF_T_LAST	ELF_T_RELR
+ 
+ /* Commands */
+ typedef enum {
+diff --git a/libelf/libelf_align.c b/libelf/libelf_align.c
+index 9d05b5e..30a2246 100644
+--- a/libelf/libelf_align.c
++++ b/libelf/libelf_align.c
+@@ -79,6 +79,7 @@ static struct align malign[ELF_T_NUM] = {
+ 	[ELF_T_PHDR]	= MALIGN(Phdr),
+ 	[ELF_T_REL]	= MALIGN(Rel),
+ 	[ELF_T_RELA]	= MALIGN(Rela),
++	[ELF_T_RELR]	= MALIGN(Relr),
+ 	[ELF_T_SHDR]	= MALIGN(Shdr),
+ 	[ELF_T_SWORD]	= MALIGN(Sword),
+ 	[ELF_T_SXWORD]	= MALIGN64(Sxword),
+@@ -118,6 +119,7 @@ static struct align falign[ELF_T_NUM] = {
+ 	[ELF_T_PHDR]	= FALIGN(4,8),
+ 	[ELF_T_REL]	= FALIGN(4,8),
+ 	[ELF_T_RELA]	= FALIGN(4,8),
++	[ELF_T_RELR]	= FALIGN(4,8),
+ 	[ELF_T_SHDR]	= FALIGN(4,8),
+ 	[ELF_T_SWORD]	= FALIGN(4,4),
+ 	[ELF_T_SXWORD]	= FALIGN(0,8),
+diff --git a/libelf/libelf_convert.m4 b/libelf/libelf_convert.m4
+index 82f900c..a03ae04 100644
+--- a/libelf/libelf_convert.m4
++++ b/libelf/libelf_convert.m4
+@@ -129,10 +129,12 @@ define(`PRIM_SWORD',	1)
+ define(`PRIM_SXWORD',	1)
+ define(`PRIM_WORD',	1)
+ define(`PRIM_XWORD',	1)
++define(`PRIM_RELR',	1)
+ 
+ # Note the primitive types that are size-dependent.
+ define(`SIZEDEP_ADDR',	1)
+ define(`SIZEDEP_OFF',	1)
++define(`SIZEDEP_RELR',	1)
+ 
+ # Generate conversion functions for primitive types.
+ #
+@@ -551,6 +553,7 @@ divert(0)
+ 		(X) = (T) _t;						\
+ 	} while (/*CONSTCOND*/0)
+ #define	SWAP_ADDR32(X)	_SWAP_WORD(X, Elf32_Addr)
++#define	SWAP_RELR32(X)	_SWAP_WORD(X, Elf32_Addr)
+ #define	SWAP_OFF32(X)	_SWAP_WORD(X, Elf32_Off)
+ #define	SWAP_SWORD(X)	_SWAP_WORD(X, Elf32_Sword)
+ #define	SWAP_WORD(X)	_SWAP_WORD(X, Elf32_Word)
+@@ -567,6 +570,7 @@ divert(0)
+ 		(X) = (T) _t;						\
+ 	} while (/*CONSTCOND*/0)
+ #define	SWAP_ADDR64(X)	_SWAP_WORD64(X, Elf64_Addr)
++#define	SWAP_RELR64(X)	_SWAP_WORD64(X, Elf64_Relr)
+ #define	SWAP_LWORD(X)	_SWAP_WORD64(X, Elf64_Lword)
+ #define	SWAP_OFF64(X)	_SWAP_WORD64(X, Elf64_Off)
+ #define	SWAP_SXWORD(X)	_SWAP_WORD64(X, Elf64_Sxword)
+@@ -604,6 +608,7 @@ divert(0)
+ 		(P)		= _p + 4;				\
+ 	} while (/*CONSTCOND*/0)
+ #define	WRITE_ADDR32(P,X)	WRITE_WORD(P,X)
++#define	WRITE_RELR32(P,X)	WRITE_WORD(P,X)
+ #define	WRITE_OFF32(P,X)	WRITE_WORD(P,X)
+ #define	WRITE_SWORD(P,X)	WRITE_WORD(P,X)
+ #define	WRITE_WORD64(P,X)	do {					\
+@@ -621,6 +626,7 @@ divert(0)
+ 		(P)		= _p + 8;				\
+ 	} while (/*CONSTCOND*/0)
+ #define	WRITE_ADDR64(P,X)	WRITE_WORD64(P,X)
++#define	WRITE_RELR64(P,X)	WRITE_WORD64(P,X)
+ #define	WRITE_LWORD(P,X)	WRITE_WORD64(P,X)
+ #define	WRITE_OFF64(P,X)	WRITE_WORD64(P,X)
+ #define	WRITE_SXWORD(P,X)	WRITE_WORD64(P,X)
+@@ -668,6 +674,7 @@ divert(0)
+ 		(X)		= (T) _t;				\
+ 	} while (/*CONSTCOND*/0)
+ #define	READ_ADDR32(P,X)	_READ_WORD(P, X, Elf32_Addr)
++#define	READ_RELR32(P,X)	_READ_WORD(P, X, Elf32_Addr)
+ #define	READ_OFF32(P,X)		_READ_WORD(P, X, Elf32_Off)
+ #define	READ_SWORD(P,X)		_READ_WORD(P, X, Elf32_Sword)
+ #define	READ_WORD(P,X)		_READ_WORD(P, X, Elf32_Word)
+@@ -688,6 +695,7 @@ divert(0)
+ 		(X)		= (T) _t;				\
+ 	} while (/*CONSTCOND*/0)
+ #define	READ_ADDR64(P,X)	_READ_WORD64(P, X, Elf64_Addr)
++#define	READ_RELR64(P,X)	_READ_WORD64(P, X, Elf64_Addr)
+ #define	READ_LWORD(P,X)		_READ_WORD64(P, X, Elf64_Lword)
+ #define	READ_OFF64(P,X)		_READ_WORD64(P, X, Elf64_Off)
+ #define	READ_SXWORD(P,X)	_READ_WORD64(P, X, Elf64_Sxword)
+diff --git a/libelf/libelf_data.c b/libelf/libelf_data.c
+index 46dde2e..09f973f 100644
+--- a/libelf/libelf_data.c
++++ b/libelf/libelf_data.c
+@@ -69,6 +69,8 @@ _libelf_xlate_shtype(uint32_t sht)
+ 		return (ELF_T_REL);
+ 	case SHT_RELA:
+ 		return (ELF_T_RELA);
++	case SHT_RELR:
++		return (ELF_T_RELR);
+ 	case SHT_STRTAB:
+ 		return (ELF_T_BYTE);
+ 	case SHT_SYMTAB:
+diff --git a/readelf/readelf.c b/readelf/readelf.c
+index 205e5a3..ac134a8 100644
+--- a/readelf/readelf.c
++++ b/readelf/readelf.c
+@@ -753,6 +753,7 @@ section_type(unsigned int mach, unsigned int stype)
+ 	case SHT_SYMTAB: return "SYMTAB";
+ 	case SHT_STRTAB: return "STRTAB";
+ 	case SHT_RELA: return "RELA";
++	case SHT_RELR: return "RELR";
+ 	case SHT_HASH: return "HASH";
+ 	case SHT_DYNAMIC: return "DYNAMIC";
+ 	case SHT_NOTE: return "NOTE";
+@@ -807,6 +808,9 @@ dt_type(unsigned int mach, unsigned int dtype)
+ 	case DT_RELA: return "RELA";
+ 	case DT_RELASZ: return "RELASZ";
+ 	case DT_RELAENT: return "RELAENT";
++	case DT_RELR: return "RELR";
++	case DT_RELRSZ: return "RELRSZ";
++	case DT_RELRENT: return "RELRENT";
+ 	case DT_STRSZ: return "STRSZ";
+ 	case DT_SYMENT: return "SYMENT";
+ 	case DT_INIT: return "INIT";
+@@ -2906,6 +2910,7 @@ dump_dyn_val(struct readelf *re, GElf_Dyn *dyn, uint32_t stab)
+ 	case DT_STRTAB:
+ 	case DT_SYMTAB:
+ 	case DT_RELA:
++	case DT_RELR:
+ 	case DT_INIT:
+ 	case DT_SYMBOLIC:
+ 	case DT_REL:
+@@ -2924,6 +2929,8 @@ dump_dyn_val(struct readelf *re, GElf_Dyn *dyn, uint32_t stab)
+ 	case DT_PLTRELSZ:
+ 	case DT_RELASZ:
+ 	case DT_RELAENT:
++	case DT_RELRSZ:
++	case DT_RELRENT:
+ 	case DT_STRSZ:
+ 	case DT_SYMENT:
+ 	case DT_RELSZ:
