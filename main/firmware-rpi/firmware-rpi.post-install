@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ ! -f "/boot/config.txt" ]; then
-    cp /etc/default/rpi-config.txt /boot/config.txt
-fi
-
-if [ ! -f "/boot/cmdline.txt" ]; then
-    cp /etc/default/rpi-cmdline.txt /boot/cmdline.txt
-fi
