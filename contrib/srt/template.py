@@ -1,5 +1,5 @@
 pkgname = "srt"
-pkgver = "1.5.2"
+pkgver = "1.5.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MPL-2.0"
 url = "https://www.srtalliance.org"
 source = f"https://github.com/Haivision/srt/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "463970a3f575446b3f55abb6f323d5476c963c77b3c975cd902e9c87cdd9a92c"
+sha256 = "befaeb16f628c46387b898df02bc6fba84868e86a6f6d8294755375b9932d777"
 hardening = ["vis", "cfi"]
 # they really don't want to build
 options = ["!check"]
