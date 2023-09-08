@@ -1,5 +1,5 @@
 pkgname = "nodejs"
-pkgver = "20.6.0"
+pkgver = "20.6.1"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -39,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
-sha256 = "407ec4bb44fb297662878a0976980624dcd010a481425c5af5da9d507cdcfe5e"
+sha256 = "0053c09a01b1b355bca5af82927cae376124c13d74fa53567f08f4cfb085e6aa"
 debug_level = 1  # allow LTO build to not run out of mem
 hardening = ["!cfi"]  # TODO
 options = ["!cross"]
