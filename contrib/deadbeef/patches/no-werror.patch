@@ -1,0 +1,11 @@
+--- a/plugins/gtkui/Makefile.in
++++ b/plugins/gtkui/Makefile.in
+@@ -742,7 +742,7 @@
+ @HAVE_GTK3_TRUE@ddb_gui_GTK3_la_LDFLAGS = -module -avoid-version
+ @HAVE_GTK3_TRUE@ddb_gui_GTK3_la_SOURCES = $(GTKUI_SOURCES_GTK3)
+ @HAVE_GTK3_TRUE@ddb_gui_GTK3_la_LIBADD = $(LDADD) $(GTK3_DEPS_LIBS) $(SM_LIBADD) ../libparser/libparser.la ../../shared/libtrkpropertiesutil.la ../../shared/libeqpreset.la ../../shared/libdeletefromdisk.la ../../shared/libtftintutil.la ../../analyzer/libanalyzer.la ../../scope/libscope.la $(JANSSON_LIBS) $(DISPATCH_LIBS)
+-@HAVE_GTK3_TRUE@ddb_gui_GTK3_la_CFLAGS = -std=c99 -Werror -DGLIB_DISABLE_DEPRECATION_WARNINGS -DGDK_DISABLE_DEPRECATION_WARNINGS -DGTK_DISABLE_DEPRECATION_WARNINGS $(GTK3_DEPS_CFLAGS) $(SM_CFLAGS) $(JANSSON_CFLAGS) $(DISPATCH_CFLAGS) -DDDB_WARN_DEPRECATED=1
++@HAVE_GTK3_TRUE@ddb_gui_GTK3_la_CFLAGS = -std=c99 -DGLIB_DISABLE_DEPRECATION_WARNINGS -DGDK_DISABLE_DEPRECATION_WARNINGS -DGTK_DISABLE_DEPRECATION_WARNINGS $(GTK3_DEPS_CFLAGS) $(SM_CFLAGS) $(JANSSON_CFLAGS) $(DISPATCH_CFLAGS) -DDDB_WARN_DEPRECATED=1
+ @HAVE_GTK3_TRUE@ddb_gui_GTK3_la_OBJCFLAGS = $(GTK3_DEPS_CFLAGS) $(SM_CFLAGS) $(JANSSON_CFLAGS)
+ @HAVE_GTK3_TRUE@nodist_ddb_gui_GTK3_la_SOURCES = gtkui-gresources.c
+ @HAVE_GTK3_TRUE@BUILT_SOURCES = gtkui-gresources.c
