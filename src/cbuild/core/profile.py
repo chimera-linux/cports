@@ -156,7 +156,7 @@ def _get_hldflags(prof, tharden, opts, stage):
     if not hard["pie"]:
         hflags.append("-no-pie")
 
-    if opts["relr"] and prof._has_relr():
+    if opts["relr"] and prof._has_relr(stage):
         hflags.append("-Wl,-z,pack-relative-relocs")
 
     hflags += _get_archflags(prof, hard, opts, stage)
@@ -235,7 +235,7 @@ def _get_rustflags(
     else:
         bflags = []
 
-    if opts["relr"] and self._has_relr():
+    if opts["relr"] and self._has_relr(stage):
         bflags += ["-Clink-arg=-Wl,-z,pack-relative-relocs"]
 
     ret = self._flags["RUSTFLAGS"] + bflags + extra_flags
@@ -395,8 +395,8 @@ class Profile:
         # and in stage 1 it would just waste time
         return stage >= 2
 
-    def _has_relr(self):
-        return True
+    def _has_relr(self, stage):
+        return stage > 0
 
     @property
     def wordsize(self):
