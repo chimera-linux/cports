@@ -1,7 +1,7 @@
 # nb: neovim requires either lua5.1 or luaJIT (a mess)
 pkgname = "neovim"
-pkgver = "0.9.1"
-pkgrel = 1
+pkgver = "0.9.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
@@ -35,7 +35,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "Apache-2.0 AND custom:Vim"
 url = "https://neovim.io"
 source = f"https://github.com/neovim/neovim/archive/v{pkgver}.tar.gz"
-sha256 = "8db17c2a1f4776dcda00e59489ea0d98ba82f7d1a8ea03281d640e58d8a3a00e"
+sha256 = "06b8518bad4237a28a67a4fbc16ec32581f35f216b27f4c98347acee7f5fb369"
 # hardening: visibility is needed for "nvim --api-info"
 # testing unchecked yet (via "make test", see test/README.md)
 options = ["!check"]
