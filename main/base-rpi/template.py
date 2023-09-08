@@ -1,8 +1,9 @@
 pkgname = "base-rpi"
-pkgver = "0.1"
+pkgver = "0.2"
 pkgrel = 0
 archs = ["aarch64"]
-depends = ["firmware-rpi"]
+depends = ["rpi-boot", "firmware-linux-brcm-rpi"]
+replaces = ["firmware-rpi<=20220905-r0"]
 pkgdesc = "Chimera base package for Raspberry Pi devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
@@ -10,6 +11,10 @@ url = "https://chimera-linux.org"
 
 
 def do_install(self):
+    # config
+    self.install_file(self.files_path / "rpi-cmdline.txt", "etc/default")
+    self.install_file(self.files_path / "rpi-config.txt", "etc/default")
+
     self.install_file(
         self.files_path / "71-raspberrypi.rules", "usr/lib/udev/rules.d"
     )

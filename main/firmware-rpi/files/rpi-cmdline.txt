@@ -1,1 +1,0 @@
-root=/dev/mmcblk0p2 ro rootwait console=ttyAMA0,115200 console=tty1 dwc_otg.lpm_enable=0 quiet splash
