@@ -125,7 +125,7 @@ def _get_hcflags(prof, tharden, opts, stage):
     if hard["format"]:
         hflags += ["-Wformat", "-Werror=format-security"]
 
-    if hard["var-init"]:
+    if stage > 0 and hard["var-init"]:
         hflags.append("-ftrivial-auto-var-init=zero")
 
     if not hard["pie"]:
