@@ -98,6 +98,8 @@ def do_build(self):
 
 
 def do_install(self):
+    self.install_license("COPYRIGHT")
+
     for an in _targets:
         with self.profile(an) as pf:
             at = pf.triplet
