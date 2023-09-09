@@ -1,5 +1,5 @@
 pkgname = "u-boot-pinebook-pro-rk3399"
-pkgver = "2023.04"
+pkgver = "2023.07"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "u_boot"
@@ -27,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND BSD-3-Clause"
 url = "https://www.denx.de/wiki/U-Boot"
 source = f"https://ftp.denx.de/pub/u-boot/u-boot-{pkgver}.tar.bz2"
-sha256 = "e31cac91545ff41b71cec5d8c22afd695645cd6e2a442ccdacacd60534069341"
+sha256 = "12e921b466ae731cdbc355e6832b7f22bc90b01aeceef9886f98aaba7b394300"
 env = {
     "U_BOOT_TRIPLET": "aarch64-none-elf",
     "U_BOOT_TARGETS": "idbloader.img u-boot.itb",
