@@ -39,6 +39,10 @@ hardening = ["vis"]
 options = ["!cross"]
 
 
+if self.profile().arch == "riscv64":
+    broken = "gir generation dies with illegal instruction"
+
+
 @subpackage("libvips-devel")
 def _devel(self):
     return self.default_devel()
