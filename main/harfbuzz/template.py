@@ -10,7 +10,6 @@ configure_args = [
     "-Dgraphite2=enabled",
     "-Dintrospection=enabled",
     "-Ddocs=enabled",
-    "-Db_ndebug=false",  # stop using assert() for tests please
 ]
 hostmakedepends = [
     "meson",

@@ -2,6 +2,7 @@ pkgname = "libvips"
 pkgver = "8.14.4"
 pkgrel = 0
 build_style = "meson"
+configure_args = ["-Db_ndebug=true"]
 hostmakedepends = [
     "glib-devel",
     "gobject-introspection",

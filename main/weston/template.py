@@ -12,7 +12,6 @@ configure_args = [
     "-Dbackend-drm-screencast-vaapi=true",
     "-Dcolor-management-lcms=true",
     "-Dtest-junit-xml=false",
-    "-Db_ndebug=false",
     "-Ddefault_library=shared",
 ]
 make_check_env = {"XDG_RUNTIME_DIR": "/tmp"}

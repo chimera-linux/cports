@@ -7,7 +7,6 @@ configure_args = [
     "-Denable-wayland=true",
     "-Denable-xkbregistry=true",
     "-Denable-docs=false",
-    "-Db_ndebug=false",
 ]
 hostmakedepends = [
     "meson",

@@ -6,7 +6,6 @@ configure_args = [
     "-Ddocumentation=false",
     "-Dtests=true",
     "-Ddebug-gui=false",
-    "-Db_ndebug=false",
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [

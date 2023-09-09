@@ -17,6 +17,7 @@ configure_args = [
     "-Dglx=dri",
     "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec",
     "-Ddefault_library=shared",
+    "-Db_ndebug=true",
 ]
 hostmakedepends = [
     "meson",

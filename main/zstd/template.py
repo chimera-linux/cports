@@ -7,6 +7,7 @@ configure_args = [
     "-Dlzma=enabled",
     "-Dlz4=enabled",
     "-Dbin_contrib=true",
+    "-Db_ndebug=true",
 ]
 make_dir = "mbuild"
 meson_dir = "build/meson"

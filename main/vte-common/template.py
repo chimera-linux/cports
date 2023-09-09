@@ -3,7 +3,6 @@ pkgver = "0.72.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Db_ndebug=false",
     "-D_systemd=false",
     "-Dgir=true",
     "-Dvapi=true",

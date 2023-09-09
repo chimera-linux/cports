@@ -2,8 +2,7 @@ pkgname = "wayland"
 pkgver = "1.22.0"
 pkgrel = 0
 build_style = "meson"
-# "Tests must not be built with NDEBUG defined, they rely on assert()."
-configure_args = ["-Ddocumentation=false", "-Db_ndebug=false"]
+configure_args = ["-Ddocumentation=false"]
 hostmakedepends = ["meson", "pkgconf", "flex"]
 makedepends = [
     "libexpat-devel",

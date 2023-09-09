@@ -8,6 +8,7 @@ configure_args = [
     "-Dskip_gtk_tests=true",
     "-Dinstalled_tests=false",
     "-Dprofiler=disabled",
+    "-Db_ndebug=true",
 ]
 hostmakedepends = [
     "meson",

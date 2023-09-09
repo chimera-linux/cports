@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dnautilus_extension=false",
-    "-Db_ndebug=false",
 ]
 hostmakedepends = [
     "meson",

@@ -4,7 +4,6 @@ pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
-    "-Db_ndebug=false",
     "-Ddocs=enabled",
     "-Dvulkan=disabled",
     "-Dsdl2=disabled",

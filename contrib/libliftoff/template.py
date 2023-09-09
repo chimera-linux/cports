@@ -2,7 +2,6 @@ pkgname = "libliftoff"
 pkgver = "0.4.1"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Db_ndebug=false"]
 hostmakedepends = [
     "meson",
     "ninja",

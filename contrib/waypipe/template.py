@@ -8,6 +8,7 @@ configure_args = [
     "-Dwith_vaapi=enabled",
     "-Dwith_video=enabled",
     "-Dwith_zstd=enabled",
+    "-Db_ndebug=true",
 ]
 hostmakedepends = [
     "meson",

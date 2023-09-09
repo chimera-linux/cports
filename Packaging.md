@@ -3390,7 +3390,6 @@ The arguments passed to `meson` are in this order:
 * `--auto-features=auto`
 * `--wrap-mode=nodownload`
 * `-Ddefault_library=both`
-* `-Db_ndebug=true`
 * `-Db_staticpic=true`
 * `--cross-file=...` if cross-compiling
 * `extra_args`
