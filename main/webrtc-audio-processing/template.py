@@ -1,6 +1,6 @@
 pkgname = "webrtc-audio-processing"
-pkgver = "1.0"
-pkgrel = 2
+pkgver = "1.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dcpp_std=c++17"]
 hostmakedepends = ["meson", "pkgconf", "cmake"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://freedesktop.org/software/pulseaudio/webrtc-audio-processing"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "441a30d2717b2eb4145c6eb96c2d5a270fe0b4bc71aebf76716750c47be1936f"
+sha256 = "95552fc17faa0202133707bbb3727e8c2cf64d4266fe31bfdb2298d769c1db75"
 
 if self.profile().endian == "big":
     broken = "does not support BE"
