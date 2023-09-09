@@ -1,6 +1,6 @@
 pkgname = "musl"
 pkgver = "1.2.4"
-pkgrel = 1
+pkgrel = 2
 _scudo_ver = "16.0.6"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]

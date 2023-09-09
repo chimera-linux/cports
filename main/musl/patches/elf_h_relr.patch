@@ -1,0 +1,22 @@
+commit 9eac9ed9ad3fcd0c1502be4c4d4fb1bab95efa56
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Sep 9 03:20:14 2023 +0200
+
+    add definitions for Elf(32|64)_Relr
+    
+    This is needed for the RELR support in elftoolchain.
+
+diff --git a/include/elf.h b/include/elf.h
+index 23f2c4b..a0852df 100644
+--- a/include/elf.h
++++ b/include/elf.h
+@@ -29,6 +29,9 @@ typedef uint64_t Elf64_Off;
+ typedef uint16_t Elf32_Section;
+ typedef uint16_t Elf64_Section;
+ 
++typedef uint32_t Elf32_Relr;
++typedef uint64_t Elf64_Relr;
++
+ typedef Elf32_Half Elf32_Versym;
+ typedef Elf64_Half Elf64_Versym;
+ 
