@@ -2,7 +2,7 @@
 pkgname = "python"
 _majver = "3.11"
 pkgver = f"{_majver}.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
