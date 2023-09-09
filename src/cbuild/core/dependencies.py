@@ -1,5 +1,6 @@
 from cbuild.core import logger, template, paths, chroot
 from cbuild.apk import util as autil, cli as apki
+from cbuild.util import flock
 
 # avoid re-parsing same templates every time; the pkgver will
 # never be conditional and that is the only thing we care about
@@ -171,16 +172,17 @@ def _get_vers(pkgs, pkg, sysp, arch):
         return {}, None
 
     ret = {}
-    out, crepos = apki.call(
-        "search",
-        ["--from", "none", "-e", "-a"] + plist,
-        pkg,
-        root=sysp,
-        capture_output=True,
-        arch=arch,
-        allow_untrusted=True,
-        return_repos=True,
-    )
+    with flock.lock(flock.apklock(arch)):
+        out, crepos = apki.call(
+            "search",
+            ["--from", "none", "-e", "-a"] + plist,
+            pkg,
+            root=sysp,
+            capture_output=True,
+            arch=arch,
+            allow_untrusted=True,
+            return_repos=True,
+        )
     if out.returncode != 0:
         return None, None
 
@@ -221,31 +223,32 @@ def _is_available(pkgn, pkgop, pkgv, pkg, vers, crepos, sysp, arch):
         return pvers[0]
 
     # now check repos individually in priority order
-    for cr in crepos:
-        if cr == "--repository":
-            continue
-        st = (
-            apki.call(
-                "search",
-                ["--from", "none", "--repository", cr, "-e", "-a", pkgn],
-                None,
-                root=sysp,
-                capture_output=True,
-                arch=arch,
-                allow_untrusted=True,
+    with flock.lock(flock.apklock(arch)):
+        for cr in crepos:
+            if cr == "--repository":
+                continue
+            st = (
+                apki.call(
+                    "search",
+                    ["--from", "none", "--repository", cr, "-e", "-a", pkgn],
+                    None,
+                    root=sysp,
+                    capture_output=True,
+                    arch=arch,
+                    allow_untrusted=True,
+                )
+                .stdout.strip()
+                .decode()
             )
-            .stdout.strip()
-            .decode()
-        )
-        if len(st) == 0:
-            continue
-        pn = st.split("\n")
-        # highest priority repo takes all
-        if len(pn) > 0:
-            if autil.pkg_match(pn[0], ppat):
-                nn, nv = autil.get_namever(pn[0])
-                return nv
-            return None
+            if len(st) == 0:
+                continue
+            pn = st.split("\n")
+            # highest priority repo takes all
+            if len(pn) > 0:
+                if autil.pkg_match(pn[0], ppat):
+                    nn, nv = autil.get_namever(pn[0])
+                    return nv
+                return None
 
     # no match in individual repos? this should be unreachable
     return None
@@ -473,10 +476,12 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
 
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
-        _install_from_repo(pkg, host_binpkg_deps, "autodeps-host")
+        with flock.lock(flock.apklock(chost)):
+            _install_from_repo(pkg, host_binpkg_deps, "autodeps-host")
 
     if len(binpkg_deps) > 0:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
-        _install_from_repo(pkg, binpkg_deps, "autodeps-target", True)
+        with flock.lock(flock.apklock(tarch)):
+            _install_from_repo(pkg, binpkg_deps, "autodeps-target", True)
 
     return missing

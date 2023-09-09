@@ -9,6 +9,7 @@ from tempfile import mkstemp, mkdtemp
 
 from cbuild.core import logger, paths, errors
 from cbuild.apk import cli as apki, sign as signi
+from cbuild.util import flock
 
 _chroot_checked = False
 _chroot_ready = False
@@ -202,13 +203,14 @@ def shell_update(rnet):
     (paths.cbuild_cache() / "apk" / hcpu).mkdir(parents=True, exist_ok=True)
     cfile.symlink_to(f"/cbuild_cache/apk/{hcpu}")
 
-    if (
-        apki.call_chroot(
-            "update", [], None, full_chroot=True, allow_network=rnet
-        ).returncode
-        != 0
-    ):
-        raise errors.CbuildException("failed to update pkg database")
+    with flock.lock(flock.apklock(hcpu)):
+        if (
+            apki.call_chroot(
+                "update", [], None, full_chroot=True, allow_network=rnet
+            ).returncode
+            != 0
+        ):
+            raise errors.CbuildException("failed to update pkg database")
 
 
 def initdb(path=None):
@@ -242,12 +244,14 @@ def install():
 
     setup_keys(paths.bldroot())
 
-    irun = apki.call(
-        "add",
-        ["--no-chown", "--no-scripts", "base-cbuild"],
-        "main",
-        arch=host_cpu(),
-    )
+    with flock.lock(flock.apklock(host_cpu())):
+        irun = apki.call(
+            "add",
+            ["--no-chown", "--no-scripts", "base-cbuild"],
+            "main",
+            arch=host_cpu(),
+        )
+
     if irun.returncode != 0:
         raise errors.CbuildException("failed to install base-cbuild")
 
@@ -519,10 +523,11 @@ def update(pkg):
     # reinit passwd/group
     _prepare_etc()
 
-    apki.call_chroot("update", ["-q"], pkg, check=True, use_stage=True)
-    apki.call_chroot(
-        "upgrade", ["--available"], pkg, check=True, use_stage=True
-    )
+    with flock.lock(flock.apklock(host_cpu())):
+        apki.call_chroot("update", ["-q"], pkg, check=True, use_stage=True)
+        apki.call_chroot(
+            "upgrade", ["--available"], pkg, check=True, use_stage=True
+        )
 
     # this is bootstrap-update
     if isinstance(pkg, str):
@@ -537,11 +542,14 @@ def update(pkg):
     rootp = paths.bldroot() / prof.sysroot.relative_to("/")
 
     # otherwise also update indexes in cross root
-    if (
-        apki.call("update", ["-q"], pkg, root=rootp, arch=prof.arch).returncode
-        != 0
-    ):
-        raise errors.CbuildException("failed to update cross pkg database")
+    with flock.lock(flock.apklock(prof.arch)):
+        if (
+            apki.call(
+                "update", ["-q"], pkg, root=rootp, arch=prof.arch
+            ).returncode
+            != 0
+        ):
+            raise errors.CbuildException("failed to update cross pkg database")
 
 
 def enter(

@@ -35,6 +35,10 @@ def _archlock(rpath, arch):
     return rpath / f"cbuild-{arch}.lock"
 
 
+def apklock(arch):
+    return paths.cbuild_cache() / f"apk-{arch}.lock"
+
+
 def repolock(arch):
     return _archlock(paths.repository(), arch)
 

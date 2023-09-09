@@ -18,7 +18,7 @@ import subprocess
 import builtins
 
 from cbuild.core import logger, chroot, paths, profile, spdx, errors
-from cbuild.util import compiler
+from cbuild.util import compiler, flock
 from cbuild.apk import cli
 
 
@@ -1107,24 +1107,26 @@ class Template(Package):
         # otherwise we're good
 
     def is_built(self, quiet=False):
-        pinfo = cli.call(
-            "search",
-            ["--from", "none", "-e", self.pkgname],
-            self.repository,
-            capture_output=True,
-            arch=self.profile().arch,
-            allow_untrusted=True,
-            allow_network=False,
-            use_altrepo=False,
-        )
-        if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
-            foundp = pinfo.stdout.strip().decode()
-            if foundp == f"{self.pkgname}-{self.pkgver}-r{self.pkgrel}":
-                if self.origin == self and not quiet:
-                    # TODO: print the repo somehow
-                    self.log(f"found ({pinfo.stdout.strip().decode()})")
-                return True
-        return False
+        archn = self.profile().arch
+        with flock.lock(archn):
+            pinfo = cli.call(
+                "search",
+                ["--from", "none", "-e", self.pkgname],
+                self.repository,
+                capture_output=True,
+                arch=archn,
+                allow_untrusted=True,
+                allow_network=False,
+                use_altrepo=False,
+            )
+            if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
+                foundp = pinfo.stdout.strip().decode()
+                if foundp == f"{self.pkgname}-{self.pkgver}-r{self.pkgrel}":
+                    if self.origin == self and not quiet:
+                        # TODO: print the repo somehow
+                        self.log(f"found ({pinfo.stdout.strip().decode()})")
+                    return True
+            return False
 
     def do(
         self,

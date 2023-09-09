@@ -1,4 +1,5 @@
 from cbuild.core import logger, chroot, paths
+from cbuild.util import flock
 from cbuild.apk import cli
 
 import re
@@ -328,6 +329,7 @@ def invoke(pkg):
     if not pkg.options["scanrundeps"]:
         return
 
-    _scan_so(pkg)
-    _scan_pc(pkg)
-    _scan_symlinks(pkg)
+    with flock.lock(flock.apklock(pkg.rparent.profile().arch)):
+        _scan_so(pkg)
+        _scan_pc(pkg)
+        _scan_symlinks(pkg)
