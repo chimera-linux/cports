@@ -10,9 +10,9 @@ hostmakedepends = [
 makedepends = [
     "libsasl-devel",
     "openssl-devel",
-    "perl",
     "zlib-devel",
 ]
+checkdepends = ["perl"]
 pkgdesc = "IMAP and MailDir mailbox synchronizer"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later WITH custom:LicenseRef-isync-GPL-exception"
