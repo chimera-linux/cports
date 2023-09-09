@@ -1,6 +1,6 @@
 pkgname = "automake"
 pkgver = "1.16.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["perl", "autoconf"]
 checkdepends = ["flex", "gettext-devel", "pkgconf"]

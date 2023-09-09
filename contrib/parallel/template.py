@@ -1,6 +1,6 @@
 pkgname = "parallel"
 pkgver = "20230822"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "autoconf",

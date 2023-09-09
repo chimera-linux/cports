@@ -1,6 +1,6 @@
 pkgname = "xmltoman"
 pkgver = "0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl", "perl-xml-parser"]

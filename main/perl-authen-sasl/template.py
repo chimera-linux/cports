@@ -1,6 +1,6 @@
 pkgname = "perl-authen-sasl"
 pkgver = "2.1700"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["gmake", "perl"]
 makedepends = ["perl", "perl-digest-hmac"]

@@ -1,7 +1,7 @@
 pkgname = "imagemagick"
 _pver = "7.1.1-15"
 pkgver = _pver.replace("-", ".")
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",

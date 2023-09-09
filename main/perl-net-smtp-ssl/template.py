@@ -1,6 +1,6 @@
 pkgname = "perl-net-smtp-ssl"
 pkgver = "1.04"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["gmake", "perl"]
 makedepends = ["perl", "perl-io-socket-ssl"]

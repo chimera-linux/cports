@@ -1,7 +1,7 @@
 pkgname = "inxi"
 _pver = "3.3.29-1"
 pkgver = f"{_pver.replace('-', '.')}"
-pkgrel = 0
+pkgrel = 1
 depends = ["perl"]
 pkgdesc = "Fully featured CLI system information tool"
 maintainer = "psykose <alice@ayaya.dev>"

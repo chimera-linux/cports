@@ -1,6 +1,6 @@
 pkgname = "perl-uri"
 pkgver = "5.21"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = ["gmake", "perl"]
 makedepends = ["perl"]

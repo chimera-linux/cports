@@ -1,6 +1,6 @@
 pkgname = "perl-image-exiftool"
 pkgver = "12.60"
-pkgrel = 0
+pkgrel = 1
 build_style = "perl_module"
 hostmakedepends = [
     "gmake",

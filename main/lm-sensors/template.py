@@ -1,6 +1,6 @@
 pkgname = "lm-sensors"
 pkgver = "3.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = [f"MACHINE={self.profile().arch}"]

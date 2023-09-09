@@ -1,6 +1,6 @@
 pkgname = "help2man"
 pkgver = "1.49.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["perl-locale-gettext", "texinfo", "gmake"]

@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.42.0"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 make_check_target = "test"
 hostmakedepends = [

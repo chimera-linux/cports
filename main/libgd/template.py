@@ -1,7 +1,7 @@
 pkgname = "libgd"
 # TODO: 2.3.3 fails tests
 pkgver = "2.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--without-xpm"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]

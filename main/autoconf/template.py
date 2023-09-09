@@ -1,6 +1,6 @@
 pkgname = "autoconf"
 pkgver = "2.71"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_env = {"M4": "/usr/bin/gm4"}
 hostmakedepends = ["perl", "gm4", "texinfo"]
