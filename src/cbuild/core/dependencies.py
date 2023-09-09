@@ -172,7 +172,7 @@ def _get_vers(pkgs, pkg, sysp, arch):
         return {}, None
 
     ret = {}
-    with flock.lock(flock.apklock(arch)):
+    with flock.lock(flock.apklock(arch if arch else chroot.host_cpu())):
         out, crepos = apki.call(
             "search",
             ["--from", "none", "-e", "-a"] + plist,
