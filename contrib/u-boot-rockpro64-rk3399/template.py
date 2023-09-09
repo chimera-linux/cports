@@ -10,6 +10,7 @@ make_build_args = [
     ),
 ]
 hostmakedepends = [
+    "bash",
     "gmake",
     "gcc-aarch64-none-elf",
     "flex",
