@@ -1,5 +1,5 @@
 pkgname = "harfbuzz"
-pkgver = "8.1.1"
+pkgver = "8.2.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -10,6 +10,7 @@ configure_args = [
     "-Dgraphite2=enabled",
     "-Dintrospection=enabled",
     "-Ddocs=enabled",
+    "-Db_ndebug=false",  # stop using assert() for tests please
 ]
 hostmakedepends = [
     "meson",
@@ -31,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "0305ad702e11906a5fc0c1ba11c270b7f64a8f5390d676aacfd71db129d6565f"
+sha256 = "8cb7117a62f42d5ad25d4a697e1bbfc65933b3eed2ee7f247203c79c9f1b514c"
 # test failures since icu 71
 options = ["!cross", "!check"]
 
