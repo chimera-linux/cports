@@ -1108,7 +1108,7 @@ class Template(Package):
 
     def is_built(self, quiet=False):
         archn = self.profile().arch
-        with flock.lock(archn):
+        with flock.lock(flock.apklock(archn)):
             pinfo = cli.call(
                 "search",
                 ["--from", "none", "-e", self.pkgname],
