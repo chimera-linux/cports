@@ -2017,6 +2017,7 @@ def do_prepare_upgrade(tgt):
 
     tmpl_source = pathlib.Path(tmplp).read_text()
     found_sha = False
+    sha_replaced = set()
 
     with open(tmplp + ".tmp", "w") as outf:
         for ln in tmpl_source.splitlines():
@@ -2033,9 +2034,13 @@ def do_prepare_upgrade(tgt):
                 continue
             # update checksums
             for oldck, newck in zip(oldsha, newsha):
-                if oldck == newck:
+                if oldck == newck or newck in sha_replaced:
                     continue
-                ln = ln.replace(f'"{oldck}"', f'"{newck}"')
+                nln = ln.replace(f'"{oldck}"', f'"{newck}"')
+                # use new checksum once
+                if ln != nln:
+                    sha_replaced.add(newck)
+                    ln = nln
             outf.write(ln)
             outf.write("\n")
     pathlib.Path(tmplp + ".tmp").rename(tmplp)
