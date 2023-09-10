@@ -244,7 +244,10 @@ def install():
 
     setup_keys(paths.bldroot())
 
-    with flock.lock(flock.apklock(host_cpu())):
+    lkp = flock.apklock(host_cpu())
+    lkp.parent.mkdir(parents=True, exist_ok=True)
+
+    with flock.lock(lkp):
         irun = apki.call(
             "add",
             ["--no-chown", "--no-scripts", "base-cbuild"],
