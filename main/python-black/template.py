@@ -1,21 +1,21 @@
 pkgname = "python-black"
-pkgver = "23.7.0"
+pkgver = "23.9.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_env = {"PYTHONPATH": "src"}
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 depends = [
     "python-click",
-    "python-platformdirs",
-    "python-pathspec",
-    "python-packaging",
     "python-mypy_extensions",
+    "python-packaging",
+    "python-pathspec",
+    "python-platformdirs",
 ]
 checkdepends = [
-    "python-pytest",
-    "python-pytest-xdist",
     "python-aiohttp",
     "python-ipython",
+    "python-pytest",
+    "python-pytest-xdist",
     "python-tokenize_rt",
 ] + depends
 pkgdesc = "Python formatting tool"
@@ -23,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://black.readthedocs.io"
 source = f"$(PYPI_SITE)/b/black/black-{pkgver}.tar.gz"
-sha256 = "022a582720b0d9480ed82576c920a8c1dde97cc38ff11d8d8859b3bd6ca9eedb"
+sha256 = "3511c8a7e22ce653f89ae90dfddaf94f3bb7e2587a245246572d3b9c92adf066"
 # unpackaged checkdepends
 options = ["!check"]
 
