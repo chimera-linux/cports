@@ -3,8 +3,10 @@ pkgver = "0.7.5"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "glib-devel",
     "meson",
     "pkgconf",
+    "wayland-progs",
 ]
 makedepends = [
     "gtk+3-devel",
