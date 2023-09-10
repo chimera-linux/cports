@@ -10,6 +10,7 @@ configure_args = [
 hostmakedepends = [
     "meson",
     "pkgconf",
+    "wayland-progs",
 ]
 makedepends = [
     "cairo-devel",
