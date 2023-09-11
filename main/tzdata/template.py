@@ -1,6 +1,6 @@
 pkgname = "tzdata"
 pkgver = "2023c"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "musl-devel-static",
     "libunwind-devel-static",
