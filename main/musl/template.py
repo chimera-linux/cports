@@ -126,7 +126,7 @@ def do_install(self):
 def _progs(self):
     # we can't have a versioned symlink dep on musl
     self.options = ["brokenlinks", "!scanrundeps"]
-    self.depends = [f"so:libc.so!musl"]
+    self.depends = ["so:libc.so!musl"]
     return self.default_progs()
 
 
