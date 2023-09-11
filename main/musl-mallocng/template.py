@@ -13,7 +13,7 @@ hostmakedepends = ["gmake"]
 depends = [
     f"musl-progs~{pkgver}",
     "base-files",
-    "virtual:musl-safety-override!base-files"
+    "virtual:musl-safety-override!base-files",
 ]
 provides = ["so:libc.so=0"]
 provider_priority = 0
