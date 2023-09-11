@@ -1,6 +1,6 @@
 pkgname = "chrony"
 pkgver = "4.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-user=_chrony",
@@ -51,7 +51,7 @@ def post_install(self):
     # dinit services
     self.install_service(self.files_path / "chrony-dir")
     self.install_service(self.files_path / "chronyd")
-    self.install_service(self.files_path / "chrony")
+    self.install_service(self.files_path / "chrony", enable=True)
 
 
 configure_gen = []
