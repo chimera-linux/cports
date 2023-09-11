@@ -26,6 +26,7 @@ url = "https://github.com/gentoo/pax-utils"
 source = f"https://dev.gentoo.org/~sam/distfiles/app-misc/pax-utils/pax-utils-{pkgver}.tar.xz"
 sha256 = "108362d29668d25cf7b0cadc63b15a4c1cfc0dbc71adc151b33c5fe7dece939a"
 hardening = ["vis", "cfi"]
+# see below
 options = []
 
 
