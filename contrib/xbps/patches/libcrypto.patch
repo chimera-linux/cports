@@ -1,0 +1,23 @@
+commit fbfe4e7d77aa968fe5e0ad459c339b5aa270f920
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Sep 11 04:11:15 2023 +0200
+
+    link libcrypto for xbps
+
+diff --git a/configure b/configure
+index da8ae75..b9ad414 100755
+--- a/configure
++++ b/configure
+@@ -712,9 +712,9 @@ else
+ 	echo "libssl.pc file not found or incompatible version detected, exiting."
+ 	exit 1
+ fi
+-echo "CFLAGS += $(pkg-config --cflags libssl)" >>$CONFIG_MK
+-echo "LDFLAGS +=        $(pkg-config --libs libssl)" >>$CONFIG_MK
+-echo "STATIC_LIBS +=    $(pkg-config --libs --static libssl)" \
++echo "CFLAGS += $(pkg-config --cflags libssl libcrypto)" >>$CONFIG_MK
++echo "LDFLAGS +=        $(pkg-config --libs libssl libcrypto)" >>$CONFIG_MK
++echo "STATIC_LIBS +=    $(pkg-config --libs --static libssl libcrypto)" \
+ 	>>$CONFIG_MK
+ 
+ #
