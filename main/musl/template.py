@@ -1,13 +1,15 @@
 pkgname = "musl"
 pkgver = "1.2.4"
-pkgrel = 2
+pkgrel = 3
 _scudo_ver = "16.0.6"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
+depends = [f"musl-progs={pkgver}-r{pkgrel}"]
 provides = ["so:libc.so=0"]
+provider_priority = 999
 pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -23,8 +25,8 @@ sha256 = [
 ]
 # scp makes it segfault
 hardening = ["!scp"]
-# does not ship tests + allow "broken" symlinks to true
-options = ["bootstrap", "!check", "!lto", "brokenlinks"]
+# does not ship tests
+options = ["bootstrap", "!check", "!lto"]
 
 # whether to use musl's stock allocator instead of scudo
 _use_mng = self.profile().arch in ["ppc"]
@@ -47,7 +49,7 @@ if self.stage > 0:
     # but this only really matters for "real" systems, so in stage 0 we can
     # just avoid the dependency and work around the whole issue
     #
-    depends = ["base-files"]
+    depends += ["base-files"]
 
 
 def post_extract(self):
@@ -120,6 +122,14 @@ def do_install(self):
     self.install_link("true", "usr/bin/ldconfig")
 
 
+@subpackage("musl-progs")
+def _progs(self):
+    # we can't have a versioned symlink dep on musl
+    self.options = ["brokenlinks", "!scanrundeps"]
+    self.depends = [f"so:libc.so!musl"]
+    return self.default_progs()
+
+
 @subpackage("musl-devel-static")
 def _static(self):
     return ["usr/lib/libc.a"]
@@ -127,7 +137,9 @@ def _static(self):
 
 @subpackage("musl-devel")
 def _devel(self):
-    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    # empty depends so libc.so can be switched with alternatives
+    # the libc itself installs as a solib dep of everything anyway
+    self.depends = []
     self.options = ["!splitstatic"]
     # the .a files are empty archives
     return ["usr/include", "usr/lib/*.o", "usr/lib/*.a"]
