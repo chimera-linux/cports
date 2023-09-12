@@ -1,5 +1,5 @@
 pkgname = "rsgain"
-pkgver = "3.3"
+pkgver = "3.4"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -20,7 +20,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://github.com/complexlogic/rsgain"
 source = f"{url}/releases/download/v{pkgver}/rsgain-{pkgver}-source.tar.xz"
-sha256 = "e1eb7993b8aafad1d57df90ed92ec4c902884933976e914048a87708d98fb37c"
+sha256 = "392ad1407eea7737c6f63b6a0681a3df51f33033d2d16b644f407e6ef3f28013"
 # no tests
 options = ["!check"]
 
