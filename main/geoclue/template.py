@@ -1,5 +1,5 @@
 pkgname = "geoclue"
-pkgver = "2.7.0"
+pkgver = "2.7.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "1dce8e573cd338bc87a5bd725f89a6f543fac838e2a5d832515cb5ea0d86cf40"
+sha256 = "5624cd41148643c46d681d39153c7d26fdb8831e7e7c8601c300732fa8a6db1c"
 
 system_users = ["_geoclue"]
 
