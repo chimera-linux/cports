@@ -1,6 +1,6 @@
 pkgname = "iptables"
 pkgver = "1.8.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-devel",
