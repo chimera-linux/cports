@@ -2,7 +2,7 @@
 
 type            = process
 command         = /usr/bin/zed -F
-depends-on      = init-fs-local.target
-before          = init-done.target
+depends-on      = early-fs-local.target
+before          = pre-local.target
 restart         = true
 smooth-recovery = true
