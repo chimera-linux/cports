@@ -1,5 +1,5 @@
 pkgname = "curl"
-pkgver = "8.2.1"
+pkgver = "8.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://curl.haxx.se"
 source = f"{url}/download/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "0f1e31ebe336c09ec66381f1532f8350e466e1d02ffe10c4ac44a867f1b9d343"
+sha256 = "051a217095671e925a129ba9e2ff2e223b44b08399003ba50738060955d010ff"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # missing some checkdepends
