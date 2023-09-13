@@ -2,7 +2,7 @@
 
 type               = process
 command            = /usr/libexec/udevd.wrapper
-before             = init-done.target
-depends-on         = init-devices.target
+before             = pre-local.target
+depends-on         = early-devices.target
 restart            = true
 smooth-recovery    = true
