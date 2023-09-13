@@ -1,6 +1,6 @@
 pkgname = "qemu"
 pkgver = "8.1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [

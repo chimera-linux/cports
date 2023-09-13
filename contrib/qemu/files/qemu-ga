@@ -2,5 +2,5 @@
 
 type            = process
 command         = /usr/bin/qemu-ga -l /var/log/qemu-ga.log
-depends-on      = init-done.target
+depends-on      = pre-local.target
 smooth-recovery = true
