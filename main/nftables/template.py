@@ -1,6 +1,6 @@
 pkgname = "nftables"
 pkgver = "1.0.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-json",
