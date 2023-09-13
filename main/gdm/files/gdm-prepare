@@ -2,4 +2,4 @@
 
 type       = scripted
 command    = /usr/bin/install -d -m 711 -o root -g _gdm /run/gdm
-depends-on = init-local.target
+depends-on = local.target
