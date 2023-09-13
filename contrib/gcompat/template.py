@@ -1,6 +1,6 @@
 pkgname = "gcompat"
 pkgver = "1.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
@@ -17,7 +17,7 @@ url = "https://git.adelielinux.org/adelie/gcompat"
 source = f"https://git.adelielinux.org/adelie/gcompat/-/archive/{pkgver}/gcompat-{pkgver}.tar.gz"
 sha256 = "82e56d2ecda3f11a93efe61001394a6e5db39c91127d0812d7ad5b0bda558010"
 # no test suite
-options = ["!check"]
+options = ["!check", "brokenlinks"]
 
 match self.profile().arch:
     case "ppc64le":
@@ -56,3 +56,11 @@ make_install_args = list(make_build_args)
 def pre_install(self):
     # make install doesn't create the dirs and dies
     self.install_dir("usr/lib")
+
+
+def post_install(self):
+    self.install_license("LICENSE")
+    # compat links
+    ws = self.profile().wordsize
+    self.install_link("lib", f"lib{ws}")
+    self.install_link("lib", f"usr/lib{ws}")

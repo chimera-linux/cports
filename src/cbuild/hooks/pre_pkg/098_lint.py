@@ -3,6 +3,10 @@ def invoke(pkg):
     if pkg.pkgname == "base-files" or pkg.pkgname == "base-kernel":
         return
 
+    # gcompat is allowed to have them
+    if pkg.pkgname == "gcompat":
+        return
+
     lintfail = False
     dirempty = True
 
