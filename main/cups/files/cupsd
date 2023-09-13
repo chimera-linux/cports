@@ -2,6 +2,6 @@
 
 type            = process
 command         = /usr/bin/cupsd -f
-depends-on      = init-local.target
+depends-on      = local.target
 restart         = true
 smooth-recovery = true
