@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.1.41 Kernel Configuration
+# Linux/arm64 6.1.53 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 16.0.6"
 CONFIG_GCC_VERSION=0
@@ -343,6 +343,7 @@ CONFIG_ARCH_BCM2835=y
 #
 # ARM errata workarounds via the alternatives framework
 #
+CONFIG_AMPERE_ERRATUM_AC03_CPU_38=y
 CONFIG_ARM64_WORKAROUND_CLEAN_CACHE=y
 CONFIG_ARM64_ERRATUM_826319=y
 CONFIG_ARM64_ERRATUM_827319=y
@@ -5820,10 +5821,7 @@ CONFIG_MEDIA_ATTACH=y
 # IR I2C driver auto-selected by 'Autoselect ancillary drivers'
 #
 CONFIG_VIDEO_IR_I2C=m
-
-#
-# Camera sensor devices
-#
+CONFIG_VIDEO_CAMERA_SENSOR=y
 CONFIG_VIDEO_APTINA_PLL=m
 CONFIG_VIDEO_CCS_PLL=m
 CONFIG_VIDEO_AR0521=m
@@ -5899,7 +5897,6 @@ CONFIG_VIDEO_VS6624=m
 CONFIG_VIDEO_CCS=m
 CONFIG_VIDEO_ET8EK8=m
 CONFIG_VIDEO_M5MOLS=m
-# end of Camera sensor devices
 
 #
 # Lens drivers
