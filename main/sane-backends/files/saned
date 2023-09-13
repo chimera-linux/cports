@@ -3,6 +3,6 @@
 
 type               = process
 command            = /usr/bin/saned -l -u _saned
-depends-on         = init-local.target
+depends-on         = local.target
 restart            = true
 smooth-recovery    = true

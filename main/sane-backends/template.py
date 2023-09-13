@@ -1,6 +1,6 @@
 pkgname = "sane-backends"
 pkgver = "1.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-locking",
