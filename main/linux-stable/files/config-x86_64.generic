@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86_64 6.4.14 Kernel Configuration
+# Linux/x86_64 6.4.16 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 16.0.6"
 CONFIG_GCC_VERSION=0
@@ -6122,10 +6122,7 @@ CONFIG_MEDIA_ATTACH=y
 # IR I2C driver auto-selected by 'Autoselect ancillary drivers'
 #
 CONFIG_VIDEO_IR_I2C=m
-
-#
-# Camera sensor devices
-#
+CONFIG_VIDEO_CAMERA_SENSOR=y
 CONFIG_VIDEO_APTINA_PLL=m
 CONFIG_VIDEO_CCS_PLL=m
 CONFIG_VIDEO_AR0521=m
@@ -6187,7 +6184,6 @@ CONFIG_VIDEO_S5K5BAF=m
 CONFIG_VIDEO_S5K6A3=m
 CONFIG_VIDEO_CCS=m
 CONFIG_VIDEO_ET8EK8=m
-# end of Camera sensor devices
 
 #
 # Lens drivers
