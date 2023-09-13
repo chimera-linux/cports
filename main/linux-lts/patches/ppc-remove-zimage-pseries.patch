@@ -5,18 +5,10 @@ Date:   Fri Jun 16 22:56:41 2023 +0200
     disable some broken but unused targets
 
 diff --git a/arch/powerpc/boot/Makefile b/arch/powerpc/boot/Makefile
-index 13fad4f..4df7b16 100644
+index b13324b..f4ba904 100644
 --- a/arch/powerpc/boot/Makefile
 +++ b/arch/powerpc/boot/Makefile
-@@ -34,7 +34,6 @@ endif
- 
- BOOTCFLAGS    := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
- 		 -fno-strict-aliasing -O2 -msoft-float -mno-altivec -mno-vsx \
--		 $(call cc-option,-mno-prefixed) $(call cc-option,-mno-pcrel) \
- 		 $(call cc-option,-mno-mma) \
- 		 $(call cc-option,-mno-spe) $(call cc-option,-mspe=no) \
- 		 -pipe -fomit-frame-pointer -fno-builtin -fPIC -nostdinc \
-@@ -62,9 +61,7 @@ ifdef CONFIG_CPU_BIG_ENDIAN
+@@ -60,18 +60,14 @@ ifdef CONFIG_CPU_BIG_ENDIAN
  BOOTCFLAGS	+= -mbig-endian
  else
  BOOTCFLAGS	+= -mlittle-endian
@@ -27,7 +19,17 @@ index 13fad4f..4df7b16 100644
  endif
  
  BOOTAFLAGS	:= -D__ASSEMBLY__ $(BOOTCFLAGS) -nostdinc
-@@ -276,18 +273,6 @@ quiet_cmd_wrap	= WRAP    $@
+ 
+ BOOTARFLAGS	:= -crD
+ 
+-BOOTCFLAGS	+= $(call cc-option,-mno-prefixed) \
+-		   $(call cc-option,-mno-pcrel) \
+-		   $(call cc-option,-mno-mma)
++BOOTCFLAGS	+= $(call cc-option,-mno-mma)
+ 
+ ifdef CONFIG_CC_IS_CLANG
+ BOOTCFLAGS += $(CLANG_FLAGS)
+@@ -278,18 +274,6 @@ quiet_cmd_wrap	= WRAP    $@
  		$(CROSSWRAP) $(if $3, -s $3)$(if $4, -d $4)$(if $5, -i $5) \
  		vmlinux
  
@@ -46,14 +48,14 @@ index 13fad4f..4df7b16 100644
  #
  # Targets which embed a device tree blob
  #
-@@ -460,9 +445,7 @@ $(obj)/zImage.initrd:	$(addprefix $(obj)/, $(initrd-y))
+@@ -462,9 +446,7 @@ $(obj)/zImage.initrd:	$(addprefix $(obj)/, $(initrd-y))
  
  # anything not in $(targets)
  clean-files += $(image-) $(initrd-) cuImage.* dtbImage.* treeImage.* \
 -	zImage zImage.initrd zImage.chrp zImage.coff zImage.holly \
 -	zImage.miboot zImage.pmac zImage.pseries \
 -	zImage.maple simpleImage.* otheros.bld
-+	zImage \
++	zImage
  
  # clean up files cached by wrapper
  clean-kernel-base := vmlinux.strip vmlinux.bin
