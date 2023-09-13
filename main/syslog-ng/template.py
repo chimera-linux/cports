@@ -1,6 +1,6 @@
 pkgname = "syslog-ng"
 pkgver = "4.3.1"
-pkgrel = 0
+pkgrel = 1
 _pcre_ver = "8.45"
 build_style = "gnu_configure"
 configure_args = [
