@@ -1,6 +1,6 @@
 pkgname = "snooze"
 pkgver = "0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 depends = ["virtual:cmd:run-parts!debianutils"]
 pkgdesc = "Run a command at a particular time"
