@@ -1,6 +1,6 @@
 pkgname = "acpid"
 pkgver = "2.0.34"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "automake"]
