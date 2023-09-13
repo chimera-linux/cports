@@ -9,6 +9,7 @@ configure_args = [
     "--disable-utmp",
     "--without-selinux",
     "--without-rpath",
+    "--without-zlib-version-check",
     "--with-mantype=doc",
     "--with-pam",
     "--with-libedit",
