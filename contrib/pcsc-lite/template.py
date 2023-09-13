@@ -1,6 +1,6 @@
 pkgname = "pcsc-lite"
 pkgver = "2.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-libsystemd"]
 hostmakedepends = ["pkgconf", "flex", "perl"]

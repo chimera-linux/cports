@@ -2,5 +2,5 @@
 
 type            = process
 command         = /usr/bin/pcscd --foreground --auto-exit
-depends-on      = init-local.target
+depends-on      = local.target
 smooth-recovery = true
