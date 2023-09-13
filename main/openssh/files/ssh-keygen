@@ -2,4 +2,4 @@
 
 type       = scripted
 command    = /usr/bin/ssh-keygen -A
-depends-on = init-local.target
+depends-on = local.target
