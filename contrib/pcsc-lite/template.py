@@ -3,6 +3,7 @@ pkgver = "2.0.0"
 pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-libsystemd"]
+configure_gen = []
 hostmakedepends = ["pkgconf", "flex", "perl"]
 makedepends = ["libusb-devel", "udev-devel", "polkit-devel"]
 pkgdesc = "Middleware to access a smart card using SCard API (PC/SC)"
@@ -14,12 +15,10 @@ sha256 = "d6c3e2b64510e5ed6fcd3323febf2cc2a8e5fda5a6588c7671f2d77f9f189356"
 
 
 def post_install(self):
+    self.install_license("COPYING")
     self.install_service(self.files_path / "pcscd")
 
 
 @subpackage("pcsc-lite-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
