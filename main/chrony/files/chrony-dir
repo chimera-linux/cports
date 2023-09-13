@@ -3,4 +3,4 @@
 type       = scripted
 command    = /usr/bin/install -d -m 750 -o _chrony -g _chrony /run/chrony
 depends-on = network.target
-depends-on = init-local.target
+depends-on = local.target
