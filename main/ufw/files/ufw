@@ -4,4 +4,4 @@ type               = scripted
 command            = /usr/lib/ufw/ufw-init start
 stop-command       = /usr/lib/ufw/ufw-init stop
 before             = pre-network.target
-depends-on         = init-done.target
+depends-on         = pre-local.target

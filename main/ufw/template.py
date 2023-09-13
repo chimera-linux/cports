@@ -1,6 +1,6 @@
 pkgname = "ufw"
 pkgver = "0.36.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_module"
 hostmakedepends = ["python-setuptools", "gmake", "iptables"]
 depends = [
