@@ -2,6 +2,6 @@
 
 type            = process
 command         = /usr/libexec/rsyncd
-depends-on      = init-local.target
+depends-on      = local.target
 depends-on      = network.target
 smooth-recovery = true
