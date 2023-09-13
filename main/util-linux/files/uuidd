@@ -2,7 +2,7 @@
 
 type            = process
 command         = /usr/bin/uuidd -F -P
-before          = init-done.target
+before          = pre-local.target
 depends-on      = uuidd-dir
 run-as          = _uuidd
 restart         = true

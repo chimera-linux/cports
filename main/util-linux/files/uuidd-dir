@@ -2,4 +2,4 @@
 
 type       = scripted
 command    = install -d -m 755 -o _uuidd -g _uuidd /run/uuidd
-depends-on = init-devices.target
+depends-on = early-devices.target
