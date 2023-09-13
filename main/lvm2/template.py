@@ -1,6 +1,6 @@
 pkgname = "lvm2"
 pkgver = "2.03.22"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline",
