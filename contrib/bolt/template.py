@@ -1,6 +1,6 @@
 pkgname = "bolt"
 pkgver = "0.9.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dman=true", "-Dsystemd=false"]
 make_check_wrapper = ["dbus-run-session"]

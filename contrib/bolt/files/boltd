@@ -3,7 +3,7 @@
 type            = process
 command         = /usr/libexec/boltd
 before          = login.target
-depends-on      = init-local.target
+depends-on      = local.target
 depends-on      = dbus
 waits-for       = polkitd
 restart         = true
