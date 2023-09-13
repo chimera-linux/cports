@@ -2,4 +2,4 @@
 
 type       = scripted
 command    = install -d -m 755 /var/run/nscd /var/db/nscd
-depends-on = init-root-rw.target
+depends-on = early-root-rw.target
