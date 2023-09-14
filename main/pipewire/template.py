@@ -46,7 +46,6 @@ makedepends = [
     "v4l-utils-devel",
     "avahi-devel",
     "openssl-devel",
-    "webrtc-audio-processing-devel",
     "bluez-devel",
     "libfreeaptx-devel",
     "libcanberra-devel",
@@ -82,9 +81,9 @@ hardening = ["!int"]
 system_groups = ["_pipewire"]
 
 if self.profile().endian == "big":
-    configure_args += ["-Dbluez5-codec-ldac=disabled"]
+    configure_args += ["-Dbluez5-codec-ldac=disabled", "-Decho-cancel-webrtc=disabled"]
 else:
-    makedepends += ["ldacbt-devel"]
+    makedepends += ["ldacbt-devel", "webrtc-audio-processing-devel"]
 
 
 def post_install(self):
