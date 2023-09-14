@@ -1,6 +1,6 @@
 # AGPL: forbidden from being a dependency except in special unambiguous cases
 pkgname = "jbig2dec"
-pkgver = "0.19"
+pkgver = "0.20"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
@@ -12,9 +12,13 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "AGPL-3.0-or-later"
 url = "https://www.jbig2dec.com"
 source = f"https://github.com/ArtifexSoftware/{pkgname}/archive/{pkgver}.tar.gz"
-sha256 = "e81b787ad0b147a437a52d9ce7de1a8f429655e8aa030383b6b2dd8919373717"
+sha256 = "a9705369a6633aba532693450ec802c562397e1b824662de809ede92f67aff21"
 # FIXME int
 hardening = ["!int"]
+
+
+def post_install(self):
+    self.install_license("COPYING")
 
 
 @subpackage("jbig2dec-devel")
