@@ -1,6 +1,6 @@
 pkgname = "shadow"
 pkgver = "4.14.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -9,6 +9,7 @@ configure_args = [
     "--with-libpam",
     "--with-acl",
     "--with-attr",
+    "--with-bcrypt",
     "--without-libbsd",
     "--without-selinux",
     "--without-nscd",
