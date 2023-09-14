@@ -1,6 +1,6 @@
 pkgname = "pipewire"
-pkgver = "0.3.79"
-pkgrel = 1
+pkgver = "0.3.80"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -46,7 +46,7 @@ makedepends = [
     "v4l-utils-devel",
     "avahi-devel",
     "openssl-devel",
-    "webrtc-audio-processing-0.3-devel",
+    "webrtc-audio-processing-devel",
     "bluez-devel",
     "libfreeaptx-devel",
     "libcanberra-devel",
@@ -75,7 +75,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "d5808abaf6e56b1f268a468dafc2fe9ca9efcc7cfea19f6d47ad5769271afce9"
+sha256 = "0bbaf3d46649ac2217f0bbf68dda7e62f1f2cf6b7f3025e364cf7205d1499ef9"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
 
