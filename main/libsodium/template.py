@@ -1,5 +1,5 @@
 pkgname = "libsodium"
-pkgver = "1.0.18"
+pkgver = "1.0.19"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["lt_cv_prog_compiler_static_works=yes"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://libsodium.org"
 source = f"https://download.libsodium.org/{pkgname}/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "6f504490b342a4f8a4c4a02fc9b866cbef8622d5df4e5452b46be121e46636c1"
+sha256 = "018d79fe0a045cca07331d37bd0cb57b2e838c51bc48fd837a1472e50068bbea"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
