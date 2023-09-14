@@ -1,11 +1,17 @@
 pkgname = "libtiff"
-pkgver = "4.5.1"
+pkgver = "4.6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-cxx", "--without-x"]
+make_cmd = "gmake"
 # otherwise it builds nothing
 make_dir = "."
-hostmakedepends = ["pkgconf"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
     "jbigkit-devel",
     "libjpeg-turbo-devel",
@@ -18,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "libtiff"
 url = "http://libtiff.maptools.org"
 source = f"http://download.osgeo.org/{pkgname}/tiff-{pkgver}.tar.gz"
-sha256 = "d7f38b6788e4a8f5da7940c5ac9424f494d8a79eba53d555f4a507167dca5e2b"
+sha256 = "88b3979e6d5c7e32b50d7ec72fb15af724f6ab2cbf7e10880c360a77e4b5d99a"
 
 
 def post_install(self):
@@ -37,6 +43,3 @@ def _devel(self):
 @subpackage("libtiff-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
