@@ -1,5 +1,5 @@
 pkgname = "cryptsetup-scripts"
-_debver = "4"
+_debver = "5"
 _cver = "2.6.1"
 pkgver = f"{_cver}.{_debver}"
 pkgrel = 0
@@ -15,6 +15,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://salsa.debian.org/cryptsetup-team/cryptsetup"
 source = f"{url}/-/archive/debian/2%25{_cver}-{_debver}/cryptsetup-debian-2%25{_cver}-{_debver}.tar.gz"
-sha256 = "70ff592c2d0e49cfa18037fb972a47ec0bf28f08eb45559aba78421d623a09b4"
+sha256 = "6ae0e9e0ac03b07e77631743fbb0a695b76072ea445e3b393dffbbfed65e457b"
 # no test suite
 options = ["!check"]
