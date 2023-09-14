@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "blessing"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2023/sqlite-autoconf-{_amalg}.tar.gz"
-sha256 = "46db2f10f306e163e4571b8974d44cd37078aae04295bbf08b253655df3265f4"
+sha256 = "39116c94e76630f22d54cd82c3cea308565f1715f716d1b2527f1c9c969ba4d9"
 options = ["!parallel"]
 
 _cflags = [
