@@ -9856,6 +9856,7 @@ senomix07        8058/udp
 senomix08        8059/tcp
 senomix08        8059/udp
 aero             8060/udp
+nikatron-dev     8061/tcp
 toad-bi-appsrvr  8066/tcp
 infi-async       8067/tcp
 ucs-isc          8070/tcp
