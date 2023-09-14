@@ -1,6 +1,6 @@
 pkgname = "libtommath"
-pkgver = "1.2.0"
-pkgrel = 1
+pkgver = "1.2.1"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["-f", "makefile.shared"]
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://www.libtom.net/LibTomMath"
 source = f"https://github.com/libtom/{pkgname}/releases/download/v{pkgver}/ltm-{pkgver}.tar.xz"
-sha256 = "b7c75eecf680219484055fcedd686064409254ae44bc31a96c5032843c0e18b1"
+sha256 = "986025d7b374276fee2e30e99f3649e4ac0db8a02257a37ee10eae72abed0d1f"
 options = ["!cross"]
 
 
