@@ -1,7 +1,7 @@
 # update linux-rpi-zfs-bin when bumping
 pkgname = "linux-rpi"
 pkgver = "6.1.53"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64"]
 make_dir = "build"
 # necessary for efistub
