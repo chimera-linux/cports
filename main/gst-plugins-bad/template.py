@@ -113,7 +113,6 @@ makedepends = [
     "wayland-devel",
     "wayland-protocols",
     "libxkbcommon-devel",
-    "webrtc-audio-processing-0.3-devel",
     "v4l-utils-devel",
     "libusb-devel",
     "libfreeaptx-devel",
@@ -147,7 +146,7 @@ hardening = ["!int"]
 options = ["!check", "!cross"]
 
 if self.profile().endian == "big":
-    configure_args += ["-Dldac=disabled", "-Disac=disabled"]
+    configure_args += ["-Dldac=disabled", "-Disac=disabled", "-Dwebrtcdsp=disabled"]
 else:
     makedepends += ["ldacbt-devel", "webrtc-audio-processing-devel"]
 
