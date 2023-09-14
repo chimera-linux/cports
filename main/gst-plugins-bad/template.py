@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-bad"
 pkgver = "1.22.5"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "--auto-feature=enabled",
