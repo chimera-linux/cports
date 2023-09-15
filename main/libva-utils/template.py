@@ -1,5 +1,5 @@
 pkgname = "libva-utils"
-pkgver = "2.19.0"
+pkgver = "2.20.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddrm=true", "-Dx11=true", "-Dwayland=true"]
@@ -10,7 +10,7 @@ maintainer = "eater <=@eater.me>"
 license = "MIT"
 url = "https://github.com/intel/libva-utils"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "4135992ab534d0cfd71a93c28e1a22f79c0003cf8d157ffd4621e5e482191b4f"
+sha256 = "1a5e3c3c24677a6b4bbee21042c4c06b0a2c62e56ebb1baa4e712392b5c72f9b"
 
 
 def post_install(self):
