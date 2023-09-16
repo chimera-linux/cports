@@ -1,5 +1,5 @@
 pkgname = "wine"
-pkgver = "8.15"
+pkgver = "8.16"
 pkgrel = 0
 archs = ["x86_64"]
 build_style = "gnu_configure"
@@ -58,9 +58,11 @@ license = "LGPL-2.1-or-later"
 url = "https://www.winehq.org"
 # the url is .0 for .0 and .x for >0
 source = f"https://dl.winehq.org/wine/source/8.x/wine-{pkgver}.tar.xz"
-sha256 = "ed8fae61784bca6475accc78eff26a9ec6b08001a7ae1698d52e25f9c2d422da"
+sha256 = "168266375eef23394a3147e84b41b4297fb80363db0a07921a5ed087a9c3f3fd"
 # FIXME: int breaks wine
-hardening = ["!int"]
+# trivial-auto-var-init relies on memset() symbol existing during link for vars
+# which isn't the case for loader/preloader.o:(map_so_lib)
+hardening = ["!int", "!var-init"]
 # lto: relocation R_X86_64_32 out of range,
 # for 32-bit component
 # check: tests hard to run, etc, meh
