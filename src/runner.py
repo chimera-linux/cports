@@ -271,7 +271,15 @@ def handle_options():
         default=opt_acceptsum,
         help="Accept mismatched checksums when fetching.",
     )
-    parser.add_argument("command", nargs="+", help="The command to issue.")
+    parser.add_argument(
+        "command",
+        nargs="+",
+        help="The command to issue. See Commands in Usage.md.",
+    )
+
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
 
     cmdline = parser.parse_args()
 
