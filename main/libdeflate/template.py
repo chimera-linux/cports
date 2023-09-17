@@ -1,5 +1,5 @@
 pkgname = "libdeflate"
-pkgver = "1.18"
+pkgver = "1.19"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -21,7 +21,7 @@ url = "https://github.com/ebiggers/libdeflate"
 source = (
     f"https://github.com/ebiggers/libdeflate/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "225d982bcaf553221c76726358d2ea139bb34913180b20823c782cede060affd"
+sha256 = "27bf62d71cd64728ff43a9feb92f2ac2f2bf748986d856133cc1e51992428c25"
 # FIXME: cfi
 hardening = ["vis"]
 
