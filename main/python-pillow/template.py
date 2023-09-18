@@ -1,5 +1,5 @@
 pkgname = "python-pillow"
-pkgver = "10.0.0"
+pkgver = "10.0.1"
 pkgrel = 0
 build_style = "python_module"
 make_check_target = "Tests"
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:PIL"
 url = "https://python-pillow.org"
 source = f"$(PYPI_SITE)/P/Pillow/Pillow-{pkgver}.tar.gz"
-sha256 = "9c82b5b3e043c7af0d95792d0d20ccf68f61a1fec6b3530e718b688422727396"
+sha256 = "d72967b06be9300fed5cfbc8b5bafceec48bf7cdc7dab66b1d2549035287191d"
 
 
 def init_check(self):
