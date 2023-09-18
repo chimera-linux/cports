@@ -14,7 +14,7 @@ def do_check(self):
 
 
 def do_install(self):
-    self.make.install(args_use_env=(self.make_cmd == "ninja"))
+    cmake.install(self)
 
 
 def use(tmpl):

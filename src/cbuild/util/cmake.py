@@ -100,6 +100,23 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
     )
 
 
+def install(pkg, build_dir=None, extra_args=[], env={}):
+    if not build_dir:
+        build_dir = pkg.make_dir
+    renv = {"DESTDIR": pkg.chroot_destdir}
+    env.update(renv)
+
+    pkg.do(
+        *pkg.make_install_wrapper,
+        "cmake",
+        "--install",
+        ".",
+        *extra_args,
+        wrksrc=build_dir,
+        env=renv,
+    )
+
+
 def ctest(pkg, build_dir=None, extra_args=[], env={}):
     if not build_dir:
         build_dir = pkg.make_dir
