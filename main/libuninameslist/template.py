@@ -1,5 +1,5 @@
 pkgname = "libuninameslist"
-pkgver = "20230523"
+pkgver = "20230916"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/fontforge/libuninameslist"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-dist-{pkgver}.tar.gz"
-sha256 = "d52f9187f250984b48ac8af3db4efd46177eb28a65826d96216af71153a8a1f9"
+sha256 = "3ce49721de808a389f90997e9217adac449ab23e2fbf2115b22a8664e0e0a686"
 hardening = ["vis", "cfi"]
 
 
