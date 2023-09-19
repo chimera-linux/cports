@@ -1,6 +1,6 @@
 pkgname = "wayfire"
 pkgver = "0.7.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Duse_system_wfconfig=enabled",
@@ -33,6 +33,9 @@ hardening = ["!vis"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_file(
+        self.files_path / "wayfire-portals.conf", "etc/xdg-desktop-portal"
+    )
 
 
 @subpackage("wayfire-devel")
