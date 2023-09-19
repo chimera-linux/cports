@@ -1,6 +1,6 @@
 pkgname = "sway"
 pkgver = "1.8.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dwerror=false"]
 hostmakedepends = [
@@ -29,6 +29,9 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_file(
+        self.files_path / "sway-portals.conf", "etc/xdg-desktop-portal"
+    )
 
 
 @subpackage("sway-backgrounds")
