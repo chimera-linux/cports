@@ -1,5 +1,5 @@
 pkgname = "openssl"
-pkgver = "3.1.2"
+pkgver = "3.1.3"
 pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
@@ -7,19 +7,21 @@ configure_args = [
     "--prefix=/usr",
     "--openssldir=/etc/ssl",
     "--libdir=lib",
+    "enable-ktls",
     "shared",
-    "no-ssl3-method",
     "-Wa,--noexecstack",
 ]
 make_install_args = ["MANSUFFIX=ssl"]
 make_check_target = "test"
+# XXX: with ktls enabled this fails if the running env can't utilise it
+make_check_args = ["TESTS=-test_afalg"]
 hostmakedepends = ["pkgconf", "perl"]
 pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
-sha256 = "a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539"
+sha256 = "f0316a2ebd89e7f2352976445458689f80302093788c466692fb2a188b2eacf6"
 options = ["bootstrap"]
 
 if self.stage > 0:
@@ -46,6 +48,10 @@ def pre_configure(self):
 def do_build(self):
     self.make.invoke("depend")
     self.make.build(["MAKEDEPPROG=" + self.get_tool("CC")])
+
+
+def init_check(self):
+    self.env["HARNESS_JOBS"] = str(self.make_jobs)
 
 
 @subpackage("libcrypto3")
