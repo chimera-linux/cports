@@ -1,5 +1,5 @@
 pkgname = "gettext"
-pkgver = "0.22"
+pkgver = "0.22.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gettext"
 source = f"$(GNU_SITE)/gettext/gettext-{pkgver}.tar.gz"
-sha256 = "49f089be11b490170bbf09ed2f51e5f5177f55be4cc66504a5861820e0fb06ab"
+sha256 = "a99662bafc1cc683ec7740844b465c7f30ccb044967f157f74697df9a9306b0e"
 # most tests fail to find an adequate shell ???
 options = ["!check"]
 # broken ass autotools
