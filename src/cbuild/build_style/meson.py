@@ -10,11 +10,11 @@ def do_build(self):
 
 
 def do_check(self):
-    self.make.check()
+    meson.check(self)
 
 
 def do_install(self):
-    self.make.install(args_use_env=True)
+    meson.install(self)
 
 
 def use(tmpl):

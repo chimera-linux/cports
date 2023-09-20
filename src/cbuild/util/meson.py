@@ -111,3 +111,36 @@ def configure(pkg, meson_dir=None, build_dir=None, extra_args=[], env={}):
         build_dir,
         env=eenv,
     )
+
+
+def check(pkg, build_dir=None, extra_args=[], env={}):
+    if not build_dir:
+        build_dir = pkg.make_dir
+
+    pkg.do(
+        *pkg.make_check_wrapper,
+        "meson",
+        "test",
+        "--no-rebuild",
+        "--print-errorlogs",
+        *extra_args,
+        wrksrc=build_dir,
+        env=env,
+    )
+
+
+def install(pkg, build_dir=None, extra_args=[], env={}):
+    if not build_dir:
+        build_dir = pkg.make_dir
+
+    renv = {"DESTDIR": str(pkg.chroot_destdir)}
+    renv.update(env)
+
+    pkg.do(
+        "meson",
+        "install",
+        "--no-rebuild",
+        *extra_args,
+        wrksrc=build_dir,
+        env=renv,
+    )
