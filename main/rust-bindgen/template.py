@@ -1,9 +1,9 @@
 pkgname = "rust-bindgen"
-pkgver = "0.66.1"
+pkgver = "0.68.1"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
-make_install_args = ["--bins", "--path", "bindgen-cli"]
+make_install_args = ["--bins"]
 hostmakedepends = ["cargo"]
 makedepends = ["rust"]
 depends = ["libclang"]
@@ -15,10 +15,11 @@ url = "https://rust-lang.github.io/rust-bindgen"
 source = (
     f"https://github.com/rust-lang/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "adedec96f2a00ce835a7c31656e09d6aae6ef55df9ca3d8d65d995f8f2542388"
+sha256 = "6a577026184a6f7a99b48f46f2074c83d272d3aadf91c7b94a4c6c34e6acd445"
 # needs rustfmt nightly to run suite
 options = ["!check"]
 
 
-def post_install(self):
+def do_install(self):
+    self.cargo.install(wrksrc="bindgen-cli")
     self.install_license("LICENSE")
