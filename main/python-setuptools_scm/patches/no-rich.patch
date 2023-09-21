@@ -1,0 +1,11 @@
+not used for build but fails otherwise
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -5,7 +5,6 @@
+ requires = [
+   'importlib-metadata>=4.6; python_version < "3.10"',
+   "packaging>=20",
+-  "rich",
+   "setuptools>=61",
+   'tomli; python_version < "3.11"',
+   'typing_extensions; python_version < "3.8"',
