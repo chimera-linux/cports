@@ -1,6 +1,6 @@
 pkgname = "cups"
-pkgver = "2.4.6"
-pkgrel = 1
+pkgver = "2.4.7"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-relro",
@@ -52,7 +52,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/OpenPrinting/cups"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}-source.tar.gz"
-sha256 = "58e970cf1955e1cc87d0847c32526d9c2ccee335e5f0e3882b283138ba0e7262"
+sha256 = "dd54228dd903526428ce7e37961afaed230ad310788141da75cebaa08362cf6c"
 # build system is bad
 tool_flags = {
     "CFLAGS": ["-Wno-unused-command-line-argument"],
