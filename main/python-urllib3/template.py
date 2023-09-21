@@ -1,5 +1,5 @@
 pkgname = "python-urllib3"
-pkgver = "2.0.4"
+pkgver = "2.0.5"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatchling"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://urllib3.readthedocs.io"
 source = f"$(PYPI_SITE)/u/urllib3/urllib3-{pkgver}.tar.gz"
-sha256 = "8d22f86aae8ef5e410d4f539fde9ce6b2113a001bb4d189e0aed70642d602b11"
+sha256 = "13abf37382ea2ce6fb744d4dad67838eec857c9f4f57009891805e0b5e123594"
 # unpackaged dependency
 options = ["!check", "brokenlinks"]
 
