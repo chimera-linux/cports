@@ -1,0 +1,48 @@
+diff --git a/src/debug/CrashReporter.cpp b/src/debug/CrashReporter.cpp
+index a580ecd..c0c683d 100644
+--- a/src/debug/CrashReporter.cpp
++++ b/src/debug/CrashReporter.cpp
+@@ -1,7 +1,9 @@
+ #include "CrashReporter.hpp"
+ #include <random>
+ #include <sys/utsname.h>
++#ifdef __GLIBC__
+ #include <execinfo.h>
++#endif
+ #include <fstream>
+ #include <signal.h>
+ 
+diff --git a/src/helpers/MiscFunctions.cpp b/src/helpers/MiscFunctions.cpp
+index 7bf254e..1256e97 100644
+--- a/src/helpers/MiscFunctions.cpp
++++ b/src/helpers/MiscFunctions.cpp
+@@ -6,7 +6,9 @@
+ #include <sys/utsname.h>
+ #include <iomanip>
+ #include <sstream>
++#ifdef __GLIBC__
+ #include <execinfo.h>
++#endif
+ 
+ #if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
+ #include <sys/sysctl.h>
+@@ -699,6 +701,7 @@ std::string replaceInString(std::string subject, const std::string& search, cons
+ }
+ 
+ std::vector<SCallstackFrameInfo> getBacktrace() {
++#ifdef __GLIBC__
+     std::vector<SCallstackFrameInfo> callstack;
+ 
+     void*                            bt[1024];
+@@ -711,8 +714,10 @@ std::vector<SCallstackFrameInfo> getBacktrace() {
+     for (size_t i = 0; i < btSize; ++i) {
+         callstack.emplace_back(SCallstackFrameInfo{bt[i], std::string{btSymbols[i]}});
+     }
+-
+     return callstack;
++#else
++    return std::vector<SCallstackFrameInfo>();
++#endif
+ }
+ 
+ void throwError(const std::string& err) {
