@@ -1,5 +1,5 @@
 pkgname = "python-setuptools_scm"
-pkgver = "8.0.1"
+pkgver = "8.0.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pypa/setuptools_scm"
 source = f"$(PYPI_SITE)/s/setuptools-scm/setuptools-scm-{pkgver}.tar.gz"
-sha256 = "e69bf0b8265fdc8f4e070c98235b1b0816ffa8b7f91153400404bf68496012e3"
+sha256 = "0169fd70197efda2f8c4d0b2a7a3d614431b488116f37b79d031e9e7ec884d8c"
 # tests fail when the package is not installed
 options = ["!check"]
 
