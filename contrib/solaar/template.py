@@ -27,3 +27,12 @@ source = (
 sha256 = "40887b508e4cfc753e5c2e82caa4af7f057cadad4a32f238f9aef898b8ccfb2c"
 # no tests
 options = ["!check"]
+
+
+def post_install(self):
+    self.install_dir("usr/lib/udev/rules.d")
+    self.mv(
+        self.destdir
+        / "usr/share/solaar/udev-rules.d/42-logitech-unify-permissions.rules",
+        self.destdir / "usr/lib/udev/rules.d",
+    )
