@@ -1,5 +1,5 @@
 pkgname = "libid3tag"
-pkgver = "0.16.2"
+pkgver = "0.16.3"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -16,7 +16,7 @@ license = "GPL-2.0-or-later"
 # this is the slightly updated forked version
 url = "https://codeberg.org/tenacityteam/libid3tag"
 source = f"https://codeberg.org/tenacityteam/libid3tag/archive/{pkgver}.tar.gz"
-sha256 = "02721346d554c4b4aa3966b134152be65eb4df1fb9322d2d019133238d2ba017"
+sha256 = "8cebfba0a7cdf4fada8b715fc17a29ddadd825448da05db006e18acd8bc2731d"
 # vis breaks symbols
 hardening = []
 
