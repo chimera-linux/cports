@@ -1,6 +1,6 @@
 pkgname = "audacity"
 pkgver = "3.3.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # release
