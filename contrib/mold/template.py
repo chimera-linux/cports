@@ -1,5 +1,5 @@
 pkgname = "mold"
-pkgver = "2.1.0"
+pkgver = "2.2.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -8,18 +8,18 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja"]
 makedepends = [
-    "zstd-devel",
+    "blake3-devel",
     "linux-headers",
     "onetbb-devel",
-    "openssl-devel",
     "zlib-devel",
+    "zstd-devel",
 ]
 pkgdesc = "High-performance linker"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/rui314/mold"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a32bec1282671b18ea4691855aed925ea2f348dfef89cb7689cd81273ea0c5df"
+sha256 = "78ddddaaa004e50f8d92a13d8e792a46a1b37745fab48d39ad16aeb5a776e7c6"
 # TODO: a portion of the tests fail, for various reasons, such as assuming
 # presence of gcc, gnu grep, and various toolchain specifics; around 70%
 # of the tests pass right now, fix the rest later
