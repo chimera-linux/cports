@@ -1,8 +1,13 @@
 pkgname = "solaar"
-pkgver = "1.1.9"
+pkgver = "1.1.10"
 pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-setuptools",
+    "python-build",
+    "python-wheel",
+    "python-installer",
+]
 depends = [
     "python-evdev",
     "python-pyudev",
@@ -10,8 +15,8 @@ depends = [
     "python-pyyaml",
     "python-xlib",
     "python-gobject",
+    "python-dbus",
 ]
-checkdepends = list(depends)
 pkgdesc = "Device manager for Logitech devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -19,4 +24,6 @@ url = "https://pwr-solaar.github.io/Solaar"
 source = (
     f"https://github.com/pwr-Solaar/Solaar/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "3cb0cb4c79ef2ea0ac7c9adc9c4a6f4f15d28e99ff2df33850de0520ced9f116"
+sha256 = "40887b508e4cfc753e5c2e82caa4af7f057cadad4a32f238f9aef898b8ccfb2c"
+# no tests
+options = ["!check"]
