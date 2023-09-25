@@ -16,7 +16,7 @@ license = "GPL-2.0-or-later"
 # this is the slightly updated forked version
 url = "https://codeberg.org/tenacityteam/libid3tag"
 source = f"https://codeberg.org/tenacityteam/libid3tag/archive/{pkgver}.tar.gz"
-sha256 = "8cebfba0a7cdf4fada8b715fc17a29ddadd825448da05db006e18acd8bc2731d"
+sha256 = "0561009778513a95d91dac33cee8418d6622f710450a7cb56a74636d53b588cb"
 # vis breaks symbols
 hardening = []
 
