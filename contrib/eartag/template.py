@@ -1,5 +1,5 @@
 pkgname = "eartag"
-pkgver = "0.4.3"
+pkgver = "0.5.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,7 +22,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://gitlab.gnome.org/World/eartag"
 source = f"https://gitlab.gnome.org/World/eartag/-/archive/{pkgver}/eartag-{pkgver}.tar.bz2"
-sha256 = "ff3afabc752059bdd62e554c41e5bdbc569dae397a8ec2689c7c99a972d0c073"
+sha256 = "af09cc508abb62916b92e742ab1fa49daba6d8d7836dd1941e8cef1a3304f8b5"
 
 
 def post_install(self):
