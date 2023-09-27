@@ -1,5 +1,5 @@
 pkgname = "cairo"
-pkgver = "1.17.8"
+pkgver = "1.18.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,8 +27,8 @@ pkgdesc = "Vector graphics library with cross-device output support"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://cairographics.org"
-source = f"{url}/snapshots/{pkgname}-{pkgver}.tar.xz"
-sha256 = "5b10c8892d1b58d70d3f0ba5b47863a061262fa56b9dc7944161f8c8b783bc64"
+source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
+sha256 = "243a0736b978a33dee29f9cca7521733b78a65b5418206fef7bd1c3d4cf10b64"
 # FIXME int (causes random failures elsewhere)
 hardening = ["!int"]
 # cyclic, disabled in configure
