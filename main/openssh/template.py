@@ -1,6 +1,6 @@
 pkgname = "openssh"
 pkgver = "9.4p1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--datadir=/usr/share/openssh",
@@ -18,6 +18,7 @@ configure_args = [
     "--with-privsep-path=/var/chroot/ssh",
     "--with-xauth=/usr/bin/xauth",
     "--with-ssl-engine",
+    "--with-security-key-builtin",
     "--disable-strip",
     "ac_cv_header_sys_cdefs_h=false",
 ]
@@ -30,6 +31,7 @@ makedepends = [
     "zlib-devel",
     "libldns-devel",
     "openssl-devel",
+    "libfido2-devel",
 ]
 pkgdesc = "OpenSSH free Secure Shell (SSH) client and server implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
