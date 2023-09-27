@@ -1,0 +1,8 @@
+# thinkfan service
+
+type            = process
+command         = /usr/bin/thinkfan -n -q
+before          = login.target
+depends-on      = local.target
+restart         = true
+smooth-recovery = true
