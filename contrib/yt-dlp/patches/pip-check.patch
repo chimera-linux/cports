@@ -1,0 +1,11 @@
+silence pip check warning on these being missing, as they are optional
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,6 +1 @@
+-mutagen
+-pycryptodomex
+-websockets
+-brotli; platform_python_implementation=='CPython'
+-brotlicffi; platform_python_implementation!='CPython'
+-certifi
++
