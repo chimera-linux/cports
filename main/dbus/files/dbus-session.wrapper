@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# source profile vars, we need this for e.g. XDG_DATA_DIRS for flatpak
+. /etc/profile
+
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/`id -u`/bus"
 
 # export into activation environment to make it visible to other services
