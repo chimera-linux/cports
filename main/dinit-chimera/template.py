@@ -1,5 +1,5 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.2"
+pkgver = "0.99.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson"]
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "2262396adb150e72c912775d46f748671e319ee0c303dcce79607333e3c6b61d"
+sha256 = "b568bfc8ed93676c23d776242aadd03f40e39363455345c4650883bcf1537bfd"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]
