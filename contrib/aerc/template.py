@@ -1,9 +1,11 @@
 pkgname = "aerc"
-pkgver = "0.15.2"
-pkgrel = 2
+pkgver = "0.16.0"
+pkgrel = 0
 build_style = "makefile"
+make_cmd = "gmake"
 make_check_target = "tests"
 hostmakedepends = [
+    "gmake",
     "go",
     "scdoc",
 ]
@@ -19,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://sr.ht/~rjarry/aerc"
 source = f"https://git.sr.ht/~rjarry/aerc/archive/{pkgver}.tar.gz"
-sha256 = "722da196e8807c497f5472704b8a1737d7780ad0faa7166ae83348bc67b144f7"
+sha256 = "b81b4f27272df2e370da377438a500c0695d29b8a4c86ff5849d6ddf3433f4db"
 tool_flags = {"GOFLAGS": ["-tags=notmuch", "-buildmode=pie"]}
 # ppc64le objcopy
 options = ["!debug"]
