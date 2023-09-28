@@ -21,7 +21,7 @@ makedepends = [
     "freeglut-devel",
     "wayland-devel",
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "libxkbcommon-devel",
     "libx11-devel",
     "libxext-devel",

@@ -44,7 +44,7 @@ makedepends = [
     "libxi-devel",
     "libsm-devel",
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "mesa-devel",
     "pipewire-devel",
 ]

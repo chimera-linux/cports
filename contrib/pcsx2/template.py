@@ -40,7 +40,7 @@ makedepends = [
     "sdl-devel",
     "udev-devel",
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "wayland-devel",
     "zlib-devel",
 ]

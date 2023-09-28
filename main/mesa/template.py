@@ -178,7 +178,7 @@ else:
     configure_args += ["-Dgallium-vdpau=disabled", "-Dgallium-va=disabled"]
 
 if _have_vulkan:
-    makedepends += ["vulkan-loader"]
+    makedepends += ["vulkan-loader-devel"]
     configure_args += [
         "-Dvulkan-layers=device-select,overlay"
         + (",intel-nullhw" if _have_intel else "")

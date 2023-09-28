@@ -51,7 +51,7 @@ makedepends = [
     "libuuid-devel",
     "mesa-devel",
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "libplacebo-devel",
     "shaderc-devel",
     "ffmpeg-devel",

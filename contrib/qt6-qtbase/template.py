@@ -58,7 +58,7 @@ makedepends = [
     "wayland-devel",
     "linux-headers",
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
 ]
 pkgdesc = "Qt application framework (6.x)"
 maintainer = "q66 <q66@chimera-linux.org>"

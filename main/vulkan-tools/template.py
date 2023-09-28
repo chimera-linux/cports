@@ -10,7 +10,7 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "python", "pkgconf", "glslang-progs"]
 makedepends = [
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "libxkbcommon-devel",
     "libxcb-devel",
     "libxrandr-devel",

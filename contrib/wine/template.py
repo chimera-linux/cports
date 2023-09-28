@@ -47,7 +47,7 @@ makedepends = [
     "sdl-devel",
     "udisks-devel",
     "v4l-utils-devel",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "wayland-devel",
 ]
 # not traced but needed
