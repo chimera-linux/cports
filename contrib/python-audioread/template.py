@@ -1,12 +1,11 @@
 pkgname = "python-audioread"
-pkgver = "3.0.0"
+pkgver = "3.0.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
+    "python-flit_core",
     "python-installer",
-    "python-setuptools",
-    "python-wheel",
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "Cross-library audio decoding for Python"
@@ -16,7 +15,7 @@ url = "https://github.com/beetbox/audioread"
 source = (
     f"https://github.com/beetbox/audioread/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "57766a926f522e9a05ccd07d438d0c8998fc53d0489efeb40a256d7ca42b1369"
+sha256 = "98367fc46c436922e5c5b6aae59606c60c7ced36a0336cb8845fe85d0b2de383"
 # needs working audio backends
 options = ["!check"]
 
