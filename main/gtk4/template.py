@@ -49,7 +49,7 @@ makedepends = [
     "libxrandr-devel",
     "libxcomposite-devel",
     "libxi-devel",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "vulkan-headers",
     "cups-devel",
     "graphene-devel",

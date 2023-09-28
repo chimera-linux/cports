@@ -21,7 +21,7 @@ makedepends = [
     "pixman-devel",
     "udev-devel",
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "wayland-devel",
     "wayland-protocols",
     "xcb-util-renderutil-devel",

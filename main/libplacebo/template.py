@@ -21,7 +21,7 @@ makedepends = [
     "shaderc-devel",
     "glslang-devel",
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "lcms2-devel",
 ]
 pkgdesc = "Reusable library for GPU-accelerated video/image rendering"

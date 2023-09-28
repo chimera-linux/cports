@@ -96,7 +96,7 @@ makedepends = [
     "vapoursynth-devel",
     "libva-devel",
     "v4l-utils-devel",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "vulkan-headers",
     "libdrm-devel",
     "sdl-devel",

@@ -106,7 +106,7 @@ makedepends = [
     "librtmp-devel",
     "libsndfile-devel",
     "libva-devel",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "vulkan-headers",
     "libwebp-devel",
     "libgudev-devel",

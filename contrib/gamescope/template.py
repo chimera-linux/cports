@@ -29,7 +29,7 @@ makedepends = [
     "sdl-devel",
     "stb",
     "vulkan-headers",
-    "vulkan-loader",
+    "vulkan-loader-devel",
     "wayland-protocols",
     "wlroots-devel",
     "xwayland",
