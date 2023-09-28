@@ -1,6 +1,6 @@
 pkgname = "cairomm"
-pkgver = "1.16.2"
-pkgrel = 1
+pkgver = "1.18.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dboost-shared=true"]
 hostmakedepends = ["meson", "pkgconf"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.cairographics.org/cairomm"
 source = f"http://cairographics.org/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "6a63bf98a97dda2b0f55e34d1b5f3fb909ef8b70f9b8d382cb1ff3978e7dc13f"
+sha256 = "b81255394e3ea8e8aa887276d22afa8985fc8daef60692eb2407d23049f03cfb"
 
 
 @subpackage("cairomm-devel")
