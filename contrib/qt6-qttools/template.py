@@ -1,6 +1,6 @@
 pkgname = "qt6-qttools"
-pkgver = "6.5.2"
-pkgrel = 1
+pkgver = "6.5.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DQT_BUILD_TESTS=OFF",  # downloads gtest
@@ -34,7 +34,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qttools-everywhere-src-{pkgver}.tar.xz"
-sha256 = "551ffb22751d8fd4d88e9ebd55b9131f4ca55341ee497fdbbba4da8d10d94341"
+sha256 = "fc91d32b3f696725bbb48b0df240c25b606bbee3bd22627cfcbee876a6405e37"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
