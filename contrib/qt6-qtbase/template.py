@@ -1,6 +1,6 @@
 pkgname = "qt6-qtbase"
-pkgver = "6.5.2"
-pkgrel = 1
+pkgver = "6.5.3"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_DATADIR=share/qt6",
@@ -67,7 +67,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "3db4c729b4d80a9d8fda8dd77128406353baff4755ca619177eda4cddae71269"
+sha256 = "df2f4a230be4ea04f9798f2c19ab1413a3b8ec6a80bef359f50284235307b546"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
