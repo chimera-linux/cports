@@ -3,7 +3,7 @@ pkgver = "6.5.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
-make_check_args = ["-E", "test_seatv4$"]
+make_check_args = ["-E", "tst_seatv4$"]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 hostmakedepends = [
     "cmake",
