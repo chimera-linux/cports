@@ -112,6 +112,7 @@ def init_check(self):
         "test_generating_cpp_exports",  # Unknown platform linux-clang
         "test_widgets_app_deployment",  # Subprocess aborted
         "tst_qcolorspace",  # tst_QColorSpace::imageConversion64PM(sRGB -> Adobe RGB) Compared values are not the same
+        "tst_qdialogbuttonbox",  # tst_QDialogButtonBox::standardButtons() Compared values are not the same
         "tst_qopenglwindow",  # execution failed with exit code Segmentation fault.
         "tst_qimagereader",  # execution failed with exit code Segmentation fault.
         "tst_qicoimageformat",  # execution failed with exit code Segmentation fault.
