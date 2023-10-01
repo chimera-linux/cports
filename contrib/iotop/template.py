@@ -1,5 +1,5 @@
 pkgname = "iotop"
-pkgver = "1.23"
+pkgver = "1.24"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/Tomas-M/iotop"
 source = f"https://github.com/Tomas-M/iotop/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a2a620841f0c49caba590a730a15a546464e4aa337bbaa018eb7b6c92bc7a738"
+sha256 = "96921047354ea988349c730f88accd06bb10ced04038509952095f5654d2415a"
 # FIXME cfi
 hardening = ["vis"]
 # no tests
