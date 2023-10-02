@@ -122,6 +122,7 @@ def call(
         root if root else paths.bldroot(),
         "--repositories-file",
         "/dev/null",
+        "--no-interactive",
     ]
     if arch:
         cmd += ["--arch", arch]
