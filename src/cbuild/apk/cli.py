@@ -118,6 +118,7 @@ def call(
     cmd = [
         paths.apk(),
         subcmd,
+        "--no-interactive",
         "--root",
         root if root else paths.bldroot(),
         "--repositories-file",
