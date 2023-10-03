@@ -1,0 +1,19 @@
+commit 987188419d479e2eb7173d9976dfc8d7cf27e40b
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Oct 3 18:03:51 2023 +0200
+
+    fix implicit decl of close
+
+diff --git a/src/backends/meta-fd-source.c b/src/backends/meta-fd-source.c
+index d66c7b7..0ea6c2c 100644
+--- a/src/backends/meta-fd-source.c
++++ b/src/backends/meta-fd-source.c
+@@ -22,6 +22,8 @@
+ 
+ #include "backends/meta-fd-source.h"
+ 
++#include <unistd.h>
++
+ typedef struct _MetaFdtSource
+ {
+   GSource source;
