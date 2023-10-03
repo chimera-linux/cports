@@ -1,6 +1,6 @@
 pkgname = "gdm"
-pkgver = "44.1"
-pkgrel = 3
+pkgver = "45.0.1"
+pkgrel = 0
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -16,8 +16,10 @@ configure_args = [
     "-Dsystemd-journal=false",
     "-Dsystemdsystemunitdir=/tmp",
     "-Ddbus-sys=/usr/share/dbus-1/system.d",
-    "-Dsystemduserunitdir=/tmp",
+    "-Dsystemdsystemunitdir=no",
+    "-Dsystemduserunitdir=no",
     "-Ddefault_library=shared",
+    "-Dlogind-provider=elogind",
     "-Duser=_gdm",
     "-Dgroup=_gdm",
 ]
@@ -58,8 +60,8 @@ pkgdesc = "GNOME display manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "68266b3abe7d28fc469d0067aac9c5dabb0ca7952cc1f7c238a04951f3dc5b0d"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-4]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "6572578c05e3c6569d6ed269f7de2aaf3a035657654586d8243907bb7a6ffa85"
 system_users = [
     {
         "name": "_gdm",
@@ -78,9 +80,6 @@ def post_install(self):
     # drop magic nonsense with wayland disabling, we don't support
     # xorg in main repository anyway, so that has to be optional
     self.rm(self.destdir / "usr/lib/udev/rules.d/61-gdm.rules")
-
-    # drop leftovers
-    self.rm(self.destdir / "tmp", recursive=True)
 
 
 @subpackage("libgdm")
