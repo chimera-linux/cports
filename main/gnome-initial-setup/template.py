@@ -1,12 +1,12 @@
 pkgname = "gnome-initial-setup"
-pkgver = "44.0"
+pkgver = "45.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dparental_controls=disabled",
     "-Dsystemd=false",
 ]
-hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext"]
+hostmakedepends = ["meson", "pkgconf", "glib-devel", "gettext", "dconf"]
 makedepends = [
     "ibus-devel",
     "networkmanager-devel",
@@ -33,11 +33,12 @@ makedepends = [
     "libnma-devel",
     "libadwaita-devel",
 ]
+depends = ["dconf"]
 pkgdesc = "GNOME initial setup"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Design/OS/InitialSetup"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "593cfc6dc8f82a98671b94c035b97dbe88ef56e708780b2ad1d2324e4d04bbff"
+sha256 = "b1afe764798f8948bedb95c7ab31bd78529ac5cb481c41f7a7777f264de54bd8"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
