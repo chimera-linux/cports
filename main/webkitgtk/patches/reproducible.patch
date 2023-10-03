@@ -66,16 +66,3 @@ index 275fce91..8c1534be 100644
              push(@$outputArray, " | " . $structureFlag);
          }
          push(@$outputArray, ";\n");
-diff --git a/Source/cmake/tools/scripts/version-stamp.pl b/Source/cmake/tools/scripts/version-stamp.pl
-index 888a4502..57ab9b16 100644
---- a/Source/cmake/tools/scripts/version-stamp.pl
-+++ b/Source/cmake/tools/scripts/version-stamp.pl
-@@ -75,7 +75,7 @@ my $VERSION_FILE = File::Spec->catfile(File::Spec->canonpath($intdir), 'include'
- 
- open(VERSION_INFO, '<', $VERSION_FILE) or die "Unable to open $VERSION_FILE: $!\n";
- while (my $line = <VERSION_INFO>) {
--    foreach my $componentKey (keys %components) {
-+    foreach my $componentKey (sort keys %components) {
-         if ($line !~ m/$componentKey/) {
-             next;
-         }

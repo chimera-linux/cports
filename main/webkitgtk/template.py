@@ -1,5 +1,5 @@
 pkgname = "webkitgtk"
-pkgver = "2.40.5"
+pkgver = "2.42.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -56,6 +56,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libpng-devel",
     "libwebp-devel",
+    "libjxl-devel",
     "openjpeg-devel",
     "libxml2-devel",
     "libtasn1-devel",
@@ -89,7 +90,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "7de051a263668621d91a61a5eb1c3771d1a7cec900043d4afef06c326c16037f"
+sha256 = "6f41fac9989d3ee51c08c48de1d439cdeddecbc757e34b6180987d99b16d2499"
 debug_level = 1  # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
