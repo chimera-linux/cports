@@ -1,5 +1,5 @@
 pkgname = "gnome-clocks"
-pkgver = "44.0"
+pkgver = "45.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -30,6 +30,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Clocks"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "17d7a97365cb8f1a023a1d78f7501f3353217fa7577d73afe7d0ca1e3b4f3838"
+sha256 = "fc8eb4fd9530f1e641dc00ee2086ee7d354a7a00b0a0d1722e305d5c9aab91b5"
 
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
