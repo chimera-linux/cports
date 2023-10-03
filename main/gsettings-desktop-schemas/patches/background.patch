@@ -12,7 +12,7 @@ index 6a70b65..8dcf38f 100644
        </description>
      </key>
      <key name="picture-uri" type="s">
--      <default>'file://@datadir@/backgrounds/gnome/adwaita-l.webp'</default>
+-      <default>'file://@datadir@/backgrounds/gnome/adwaita-l.jpg'</default>
 +      <default>'file://@datadir@/backgrounds/chimera/bg-l.svg'</default>
        <summary>Picture URI</summary>
        <description>
@@ -21,7 +21,7 @@ index 6a70b65..8dcf38f 100644
        </description>
      </key>
      <key name="picture-uri-dark" type="s">
--      <default>'file://@datadir@/backgrounds/gnome/adwaita-d.webp'</default>
+-      <default>'file://@datadir@/backgrounds/gnome/adwaita-d.jpg'</default>
 +      <default>'file://@datadir@/backgrounds/chimera/bg-d.svg'</default>
        <summary>Picture URI (dark)</summary>
        <description>
