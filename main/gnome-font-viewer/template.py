@@ -1,5 +1,5 @@
 pkgname = "gnome-font-viewer"
-pkgver = "44.0"
+pkgver = "45.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-font-viewer"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a1511df30b228cc2ef1175dd9d2b93438ea912e25913404b263cf3d457bb9f97"
+sha256 = "97cb6b68dda60de0ab3038383586f1e4bc1da5a48f44025bd6bbe74ea05c2b08"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
