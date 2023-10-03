@@ -1,12 +1,11 @@
 pkgname = "gnome-shell"
-pkgver = "44.4"
+pkgver = "45.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystemd=false",
     "-Dtests=false",
     "-Ddefault_library=shared",
-    "-Dsoup2=false",
 ]
 make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
@@ -55,6 +54,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "1dd51e6ee8d92fbcb95ce6ddf11b9fece88d22622c01015ffa9360169cd41866"
+sha256 = "3cabe40bdd4e379c7082b39ffa45b8bef5c9cf86408fb0d836e1571c443217cd"
 # tests need libmutter-test
 options = ["!check"]
