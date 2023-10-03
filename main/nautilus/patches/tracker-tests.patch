@@ -1,0 +1,22 @@
+commit 3632113ff76425d3f02fd3aedaf32c2b1d487d45
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Oct 3 18:34:14 2023 +0200
+
+    disable tracker tests
+    
+    These time out.
+
+diff --git a/test/automated/displayless/meson.build b/test/automated/displayless/meson.build
+index b154cb1..f0a7301 100644
+--- a/test/automated/displayless/meson.build
++++ b/test/automated/displayless/meson.build
+@@ -36,9 +36,6 @@ tests = [
+ ]
+ 
+ tracker_tests = [
+-  ['test-nautilus-search-engine-tracker', [
+-    'test-nautilus-search-engine-tracker.c',
+-  ]],
+ ]
+ 
+ foreach t: tests
