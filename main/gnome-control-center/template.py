@@ -1,5 +1,5 @@
 pkgname = "gnome-control-center"
-pkgver = "44.3"
+pkgver = "45.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -10,6 +10,7 @@ hostmakedepends = [
     "glib-devel",
     "polkit",
     "python",
+    "tecla",
 ]
 makedepends = [
     "libhandy-devel",
@@ -48,6 +49,7 @@ makedepends = [
     "gnutls-devel",
 ]
 depends = [
+    "tecla",
     "udisks",
     "cups-pk-helper",
     "gsettings-desktop-schemas",
@@ -58,7 +60,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "066a65052fc3ecfae860025e85f797e6ab2b87a58c4f8ab9c66ec20718a80c7a"
+sha256 = "83df6a90f98914f2c19a872ce06562acef40927637f679c383099265ccfa42cf"
 # needs graphical environment
 options = ["!check"]
 
