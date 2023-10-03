@@ -1,5 +1,5 @@
 pkgname = "pugixml"
-pkgver = "1.13"
+pkgver = "1.14"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://pugixml.org"
 source = f"https://github.com/zeux/pugixml/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "5c5ad5d7caeb791420408042a7d88c2c6180781bf218feca259fd9d840a888e1"
+sha256 = "610f98375424b5614754a6f34a491adbddaaec074e9044577d965160ec103d2e"
 # FIXME: cfi
 hardening = ["vis"]
 
