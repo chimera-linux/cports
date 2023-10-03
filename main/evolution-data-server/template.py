@@ -1,5 +1,5 @@
 pkgname = "evolution-data-server"
-pkgver = "3.48.4"
+pkgver = "3.50.0"
 pkgrel = 0
 build_style = "cmake"
 # TODO: libgdata
@@ -11,6 +11,7 @@ configure_args = [
     "-DENABLE_VALA_BINDINGS=ON",
     "-DWITH_OPENLDAP=OFF",  # don't depend on shit software
 ]
+make_check_target = "test"
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -46,10 +47,15 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/evolution-data-server"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "997e3f93b17efb0affcc017bee8780ba5fa2c009e36551bbc91a08ae552d6d60"
+sha256 = "c9f793d99ba188ef8cf2891b8062d7e570e3cba22b8cfc46eb561c6cecc81d3a"
 # internally passes some stuff that only goes to linker
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["!cross"]
+
+
+# ctest craps itself in several tests
+def do_check(self):
+    self.make.check()
 
 
 def post_install(self):
