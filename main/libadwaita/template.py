@@ -1,5 +1,5 @@
 pkgname = "libadwaita"
-pkgver = "1.3.5"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -20,6 +20,7 @@ hostmakedepends = [
     "sassc",
 ]
 makedepends = [
+    "appstream-devel",
     "gtk4-devel",
     "glib-devel",
     "harfbuzz-devel",
@@ -30,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libadwaita"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "faa3ff0f36db18ab4942f4904a295293ccb144755b9bb85131393f201926b586"
+sha256 = "e51a098a54d43568218fc48fcf52e80e36f469b3ce912d8ce9c308a37e9f47c2"
 options = ["!cross"]
 
 
