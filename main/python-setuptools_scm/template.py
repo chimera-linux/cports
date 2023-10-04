@@ -1,6 +1,6 @@
 pkgname = "python-setuptools_scm"
 pkgver = "8.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -13,6 +13,7 @@ depends = [
     "python",
     "python-packaging",
     "python-setuptools",
+    "python-typing_extensions",
 ]
 pkgdesc = "Manage Python package versions with SCM tags"
 maintainer = "q66 <q66@chimera-linux.org>"
