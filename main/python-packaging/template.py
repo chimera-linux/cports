@@ -1,5 +1,5 @@
 pkgname = "python-packaging"
-pkgver = "23.1"
+pkgver = "23.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-installer", "python-flit_core"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 OR BSD-2-Clause"
 url = "https://github.com/pypa/packaging"
 source = f"$(PYPI_SITE)/p/packaging/packaging-{pkgver}.tar.gz"
-sha256 = "a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f"
+sha256 = "048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5"
 # needs pytest, is a dependency of pytest
 options = ["!check"]
 
