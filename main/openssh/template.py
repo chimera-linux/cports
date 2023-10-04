@@ -1,6 +1,6 @@
 pkgname = "openssh"
-pkgver = "9.4p1"
-pkgrel = 1
+pkgver = "9.5p1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--datadir=/usr/share/openssh",
@@ -17,26 +17,31 @@ configure_args = [
     "--with-privsep-user=nobody",
     "--with-privsep-path=/var/chroot/ssh",
     "--with-xauth=/usr/bin/xauth",
+    "--with-security-key-builtin",
     "--with-ssl-engine",
     "--disable-strip",
     "ac_cv_header_sys_cdefs_h=false",
 ]
 make_check_target = "tests"
 make_check_args = ["-j1"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = [
+    "automake",
+    "pkgconf",
+]
 makedepends = [
     "libedit-devel",
-    "linux-pam-devel",
-    "zlib-devel",
+    "libfido2-devel",
     "libldns-devel",
+    "linux-pam-devel",
     "openssl-devel",
+    "zlib-devel",
 ]
 pkgdesc = "OpenSSH free Secure Shell (SSH) client and server implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3608fd9088db2163ceb3e600c85ab79d0de3d221e59192ea1923e23263866a85"
+sha256 = "f026e7b79ba7fb540f75182af96dc8a8f1db395f922bbc9f6ca603672686086b"
 suid_files = ["usr/libexec/ssh-keysign"]
 # FIXME cfi (does not work); maybe make testsuite work first
 hardening = ["vis", "!cfi"]
@@ -60,8 +65,8 @@ def post_install(self):
 
     self.install_dir("var/chroot/ssh", empty=True)
 
+    self.install_dir("etc/ssh/ssh_config.d", empty=True)
+    self.install_dir("etc/ssh/sshd_config.d", empty=True)
+
     self.install_service(self.files_path / "ssh-keygen")
     self.install_service(self.files_path / "sshd")
-
-
-configure_gen = []
