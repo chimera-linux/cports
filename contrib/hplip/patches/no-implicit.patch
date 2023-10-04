@@ -1,0 +1,76 @@
+no header prototype..
+--- a/prnt/cupsext/cupsext.c
++++ b/prnt/cupsext/cupsext.c
+@@ -99,6 +99,12 @@
+ #define _STRINGIZE(x) #x
+ #define STRINGIZE(x) _STRINGIZE(x)
+ 
++int controlCupsPrinter(char *pr_name, int op);
++int setDefaultCupsPrinter(char *pr_name);
++int delCupsPrinter(char *pr_name);
++int addCupsPrinter(char *name, char *device_uri, char *location, char *ppd_file, char *model, char *info);
++void _releaseCupsInstance();
++
+ // static http_t * http = NULL;     /* HTTP object */
+ 
+ PyObject *releaseCupsInstance(PyObject *self, PyObject *args)
+--- a/common/utils.c
++++ b/common/utils.c
+@@ -1,5 +1,5 @@
+ #include "utils.h"
+-#include "string.h"
++#include <string.h>
+ #include <dlfcn.h>
+ #include <sys/stat.h>
+ #include <errno.h>
+--- a/scan/sane/hpaio.c
++++ b/scan/sane/hpaio.c
+@@ -50,6 +50,7 @@
+ #include "sclpml.h"
+ #include "escl.h"
+ #include "io.h"
++#include "orblite.h"
+ #include "orblitei.h"
+ 
+ 
+--- a/scan/sane/sclpml.c
++++ b/scan/sane/sclpml.c
+@@ -30,6 +30,7 @@
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <string.h>
++#include <sys/time.h>
+ #include "sane.h"
+ #include "saneopts.h"
+ #include "common.h"
+--- a/scan/sane/orblite.c
++++ b/scan/sane/orblite.c
+@@ -19,6 +19,8 @@
+ #undef NDEBUG
+ #include "orblitei.h"
+ #include "orblite.h"//Added New
++#include "escli.h"
++#include <dlfcn.h>
+ #include <math.h>
+ #include "utils.h"
+ #include "io.h"
+--- a/scan/sane/bb_ledm.c
++++ b/scan/sane/bb_ledm.c
+@@ -26,6 +26,7 @@
+ # include "http.h"
+ # include "xml.h"
+ # include <stdlib.h>
++#include <unistd.h>
+ 
+ # include <stdint.h>
+ 
+--- a/scan/sane/http.c
++++ b/scan/sane/http.c
+@@ -36,6 +36,7 @@
+ #include <string.h>
+ #include <syslog.h>
+ #include <ctype.h>
++#include <unistd.h>
+ #include "hpmud.h"
+ #include "http.h"
+ 
