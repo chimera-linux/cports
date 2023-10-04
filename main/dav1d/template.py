@@ -1,5 +1,5 @@
 pkgname = "dav1d"
-pkgver = "1.2.1"
+pkgver = "1.3.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -14,9 +14,13 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://code.videolan.org/videolan/dav1d"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "2dd85860d213479672b1c708e31593446e8c2b53ff41e2ca25a2eafb718424e2"
+sha256 = "1b3e75433dd69eb88ff3190ed1b1707ca5b9f43260b6348c551455c885eaab3a"
 # FIXME cfi, int
 hardening = ["vis", "!cfi", "!int"]
+
+
+def post_install(self):
+    self.install_license("COPYING")
 
 
 @subpackage("dav1d-devel")
