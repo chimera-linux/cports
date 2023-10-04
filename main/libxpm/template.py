@@ -1,5 +1,5 @@
 pkgname = "libxpm"
-pkgver = "3.5.16"
+pkgver = "3.5.17"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-open-zfile"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libXpm-{pkgver}.tar.gz"
-sha256 = "43a70e6f9b67215fb223ca270d83bdcb868c513948441d5b781ea0765df6bfb4"
+sha256 = "959466c7dfcfcaa8a65055bfc311f74d4c43d9257900f85ab042604d286df0c6"
 
 
 def post_install(self):
