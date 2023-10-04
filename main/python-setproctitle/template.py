@@ -1,5 +1,5 @@
 pkgname = "python-setproctitle"
-pkgver = "1.3.2"
+pkgver = "1.3.3"
 pkgrel = 0
 build_style = "python_module"
 make_check_target = "tests"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/dvarrazzo/py-setproctitle"
 source = f"$(PYPI_SITE)/s/setproctitle/setproctitle-{pkgver}.tar.gz"
-sha256 = "b9fb97907c830d260fa0658ed58afd48a86b2b88aac521135c352ff7fd3477fd"
+sha256 = "c913e151e7ea01567837ff037a23ca8740192880198b7fbb90b16d181607caae"
 # can't find itself
 options = ["!check"]
 
