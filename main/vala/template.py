@@ -1,6 +1,6 @@
 pkgname = "vala"
 pkgver = "0.56.13"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [

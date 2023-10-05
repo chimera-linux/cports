@@ -1,0 +1,39 @@
+Upstream issue: https://gitlab.gnome.org/GNOME/vala/-/issues/1485
+
+commit 37b01fd33131eb072bb5d0318f96397654768dfd
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Oct 5 14:47:49 2023 +0200
+
+    work around markup reader possibly blowing up in g_str_has_prefix
+
+diff --git a/vala/valamarkupreader.c b/vala/valamarkupreader.c
+index da9b470..7b2c760 100644
+--- a/vala/valamarkupreader.c
++++ b/vala/valamarkupreader.c
+@@ -987,11 +987,26 @@ vala_markup_reader_text (ValaMarkupReader* self,
+ 			vala_report_error (NULL, "invalid UTF-8 character");
+ 		} else {
+ 			if (u == ((gunichar) '&')) {
++				gchar hackbuf[16] = {0};
+ 				gchar* next_pos = NULL;
+ 				gchar* _tmp11_;
+ 				gchar* _tmp12_;
+ 				_tmp11_ = self->priv->current;
+ 				next_pos = _tmp11_ + g_unichar_to_utf8 (u, NULL);
++				/* we cannot use next_pos directly with g_str_has_prefix as
++				 * we are dealing with input buffer that is possibly not null
++				 * terminated, and g_str_has_prefix does a strlen on the whole
++				 * input which may blow up once it goes over the boundary; that
++				 * renders any guarantee that we have enough string to "safely"
++				 * check the prefix irrelevant - until this is fixed in the actual
++				 * vala code, make up a guaranteed-null-terminated temporary buffer
++				 * and use that to perform the prefix checks, which should work for now
++				 */
++				if ((self->priv->end - next_pos) >= sizeof(hackbuf))
++					memcpy(hackbuf, next_pos, sizeof(hackbuf) - 1);
++				else
++					memcpy(hackbuf, next_pos, self->priv->end - next_pos);
++				next_pos = hackbuf;
+ 				_tmp12_ = next_pos;
+ 				if (g_str_has_prefix ((const gchar*) _tmp12_, "amp;")) {
+ 					GString* _tmp13_;
