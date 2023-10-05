@@ -76,6 +76,7 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.138")
     cargo.clear_vendor_checksums(self, "libc-0.2.140")
     cargo.clear_vendor_checksums(self, "libc-0.2.146")
+    cargo.clear_vendor_checksums(self, "rustix-0.38.2")
 
 
 def do_configure(self):
