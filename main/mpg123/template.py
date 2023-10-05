@@ -1,5 +1,5 @@
 pkgname = "mpg123"
-pkgver = "1.31.3"
+pkgver = "1.32.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -9,12 +9,17 @@ configure_args = [
     "--enable-network=yes",
     "--disable-lfs-alias",
 ]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = [
+    "automake",
+    "libltdl-devel",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
-    "pipewire-jack-devel",
     "libpulse-devel",
-    "sdl-devel",
     "linux-headers",
+    "pipewire-jack-devel",
+    "sdl-devel",
 ]
 depends = [f"mpg123-output-dummy={pkgver}-r{pkgrel}"]
 pkgdesc = "MPEG 1.0/2.0/2.5 audio player"
@@ -22,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://www.mpg123.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "1ca77d3a69a5ff845b7a0536f783fee554e1041139a6b978f6afe14f5814ad1a"
+sha256 = "2d9913a57d4ee8f497a182c6e82582602409782a4fb481e989feebf4435867b4"
 
 
 def _genlib(libn, descn, iif):
@@ -55,6 +60,3 @@ def _libs(self):
 @subpackage("mpg123-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
