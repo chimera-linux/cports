@@ -2034,7 +2034,7 @@ def do_prepare_upgrade(tgt):
                 outf.write("pkgrel = 0\n")
                 continue
             # sha256 encountered
-            if ln.startswith("sha256 ="):
+            if ln.strip().startswith("sha256 ="):
                 found_sha = True
             elif not found_sha:
                 outf.write(ln)
