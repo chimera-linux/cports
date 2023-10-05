@@ -1,4 +1,4 @@
-From 391dbe66fbe3adf822bd85c707464b7fd2f61d68 Mon Sep 17 00:00:00 2001
+From 8c936b85b2b7db0cfe4c989b2845f465cf20f06a Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Tue, 8 Nov 2022 15:13:25 +0100
 Subject: [PATCH 01/11] add chimera targets, always dynamic musl + static pie
@@ -63,10 +63,10 @@ index 61553e71b..a5ad2a822 100644
      base
  }
 diff --git a/compiler/rustc_target/src/spec/mod.rs b/compiler/rustc_target/src/spec/mod.rs
-index 2365dfaf1..465911672 100644
+index 31b6961bb..1ce26dc8b 100644
 --- a/compiler/rustc_target/src/spec/mod.rs
 +++ b/compiler/rustc_target/src/spec/mod.rs
-@@ -1237,6 +1237,12 @@ macro_rules! supported_targets {
+@@ -1268,6 +1268,12 @@ macro_rules! supported_targets {
  }
  
  supported_targets! {

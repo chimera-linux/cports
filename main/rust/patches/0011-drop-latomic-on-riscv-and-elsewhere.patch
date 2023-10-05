@@ -1,6 +1,6 @@
-From 340dd39a9839c5a612540e45b334e9809239c501 Mon Sep 17 00:00:00 2001
+From aaff54cb835a9740a2b196a21a4bf9cf11ebfe3c Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 24 Aug 2023 21:40:39 +0200
+Date: Thu, 5 Oct 2023 22:44:33 +0200
 Subject: [PATCH 11/11] drop -latomic on riscv and elsewhere
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 11/11] drop -latomic on riscv and elsewhere
  2 files changed, 1 insertion(+), 32 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 254889dc0..de2ee282c 100644
+index a239e2921..46b280030 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -241,14 +241,7 @@ fn main() {
+@@ -242,14 +242,7 @@ fn main() {
          cmd.arg("--system-libs");
      }
  
@@ -27,8 +27,8 @@ index 254889dc0..de2ee282c 100644
 +    if target.contains("windows-gnu") {
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
-     } else if target.contains("netbsd") || target.contains("haiku") || target.contains("darwin") {
-@@ -348,14 +341,6 @@ fn main() {
+     } else if target.contains("haiku") || target.contains("darwin") {
+@@ -352,14 +345,6 @@ fn main() {
          "stdc++"
      };
  
@@ -44,19 +44,19 @@ index 254889dc0..de2ee282c 100644
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
 diff --git a/src/bootstrap/llvm.rs b/src/bootstrap/llvm.rs
-index 7e27960f3..5c905a239 100644
+index c841cb340..e9208000d 100644
 --- a/src/bootstrap/llvm.rs
 +++ b/src/bootstrap/llvm.rs
-@@ -380,22 +380,6 @@ impl Step for Llvm {
+@@ -374,22 +374,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  
--        if target.starts_with("riscv")
+-        if (target.starts_with("riscv") || target.starts_with("csky"))
 -            && !target.contains("freebsd")
 -            && !target.contains("openbsd")
 -            && !target.contains("netbsd")
 -        {
--            // RISC-V GCC erroneously requires linking against
+-            // RISC-V and CSKY GCC erroneously requires linking against
 -            // `libatomic` when using 1-byte and 2-byte C++
 -            // atomics but the LLVM build system check cannot
 -            // detect this. Therefore it is set manually here.

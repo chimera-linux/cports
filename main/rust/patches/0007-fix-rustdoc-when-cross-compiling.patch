@@ -1,6 +1,6 @@
-From 625661b333c60f8ebde79af0bf8ff9925a07b35e Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Fri, 25 Feb 2022 00:38:20 +0100
+From 558ddd4f851fea7b851fde206703ba0f9e18a527 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 5 Oct 2023 22:42:03 +0200
 Subject: [PATCH 07/11] fix rustdoc when cross-compiling
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH 07/11] fix rustdoc when cross-compiling
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/bin/rustdoc.rs b/src/bootstrap/bin/rustdoc.rs
-index d2b85f7a6..e625207a9 100644
+index 4ecb33498..496a04670 100644
 --- a/src/bootstrap/bin/rustdoc.rs
 +++ b/src/bootstrap/bin/rustdoc.rs
 @@ -32,9 +32,6 @@ fn main() {
@@ -38,7 +38,7 @@ index d2b85f7a6..e625207a9 100644
 +            PathBuf::from(libdir.clone()),
              cmd,
          );
-         eprintln!("sysroot: {:?}", sysroot);
+         eprintln!("sysroot: {sysroot:?}");
 -- 
 2.42.0
 

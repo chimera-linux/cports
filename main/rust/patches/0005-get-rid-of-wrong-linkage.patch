@@ -1,6 +1,6 @@
-From bcab4c63da7cb2b0137957aa7f60684e254fe914 Mon Sep 17 00:00:00 2001
+From b4ec0ba39551ff234a520cbd92ae755f0d7dab1b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 24 Aug 2023 21:37:15 +0200
+Date: Thu, 5 Oct 2023 22:41:26 +0200
 Subject: [PATCH 05/11] get rid of wrong linkage
 
 There is no good way to compute the clang builtins library
@@ -9,10 +9,9 @@ in just disabling nodefaultlibs for our platform.
 ---
  vendor/libc-0.2.138/src/unix/mod.rs | 7 +------
  vendor/libc-0.2.140/src/unix/mod.rs | 7 +------
- vendor/libc-0.2.141/src/unix/mod.rs | 7 +------
  vendor/libc-0.2.146/src/unix/mod.rs | 7 +------
  vendor/libc/src/unix/mod.rs         | 7 +------
- 5 files changed, 5 insertions(+), 30 deletions(-)
+ 4 files changed, 4 insertions(+), 24 deletions(-)
 
 diff --git a/vendor/libc-0.2.138/src/unix/mod.rs b/vendor/libc-0.2.138/src/unix/mod.rs
 index fb9ebf792..cd6968344 100644
@@ -36,24 +35,6 @@ diff --git a/vendor/libc-0.2.140/src/unix/mod.rs b/vendor/libc-0.2.140/src/unix/
 index b005970b9..f3e674ffd 100644
 --- a/vendor/libc-0.2.140/src/unix/mod.rs
 +++ b/vendor/libc-0.2.140/src/unix/mod.rs
-@@ -352,12 +352,7 @@ cfg_if! {
-         #[link(name = "c", cfg(not(target_feature = "crt-static")))]
-         extern {}
-     } else if #[cfg(any(target_env = "musl", target_env = "ohos"))] {
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", kind = "static", modifiers = "-bundle",
--                        cfg(target_feature = "crt-static")))]
--        #[cfg_attr(feature = "rustc-dep-of-std",
--                   link(name = "c", cfg(not(target_feature = "crt-static"))))]
--        extern {}
-+        // we don't set -nodefaultlibs, so no need to link anything
-     } else if #[cfg(target_os = "emscripten")] {
-         #[link(name = "c")]
-         extern {}
-diff --git a/vendor/libc-0.2.141/src/unix/mod.rs b/vendor/libc-0.2.141/src/unix/mod.rs
-index 75d511e39..cfacf0c73 100644
---- a/vendor/libc-0.2.141/src/unix/mod.rs
-+++ b/vendor/libc-0.2.141/src/unix/mod.rs
 @@ -352,12 +352,7 @@ cfg_if! {
          #[link(name = "c", cfg(not(target_feature = "crt-static")))]
          extern {}
