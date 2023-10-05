@@ -1,5 +1,5 @@
 pkgname = "mediainfo"
-pkgver = "23.09"
+pkgver = "23.10"
 pkgrel = 0
 build_wrksrc = "Project/GNU/CLI"
 build_style = "gnu_configure"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://mediaarea.net/en/MediaInfo"
 source = f"https://mediaarea.net/download/source/mediainfo/{pkgver}/mediainfo_{pkgver}.tar.bz2"
-sha256 = "aeba3a11f2f48c62432f3a507208b80b4bb46b71f452b3fd3d7319b356dca5c8"
+sha256 = "8c058e16be1725eac0076fa32006bbe6b5c6197ef6feae6951fc56842a480807"
 hardening = ["vis", "cfi"]
 
 
