@@ -1,6 +1,6 @@
 pkgname = "libavif"
 pkgver = "0.11.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DAVIF_BUILD_APPS=ON",
