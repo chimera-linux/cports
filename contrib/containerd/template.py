@@ -1,6 +1,6 @@
 pkgname = "containerd"
 pkgver = "1.7.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = [
