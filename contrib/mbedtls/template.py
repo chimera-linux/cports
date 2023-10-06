@@ -1,5 +1,5 @@
 pkgname = "mbedtls"
-pkgver = "3.4.1"
+pkgver = "3.5.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ url = "https://www.trustedfirmware.org/projects/mbed-tls"
 source = (
     f"https://github.com/ARMmbed/mbedtls/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "a420fcf7103e54e775c383e3751729b8fb2dcd087f6165befd13f28315f754f5"
+sha256 = "bdee0e3e45bbf360541306cac0cc27e00402c7a46b9bdf2d24787d5107f008f2"
 # vis breaks symbols
 hardening = []
 
@@ -31,8 +31,6 @@ def pre_configure(self):
     # set defines for allowing threads for non-embedded use
     self.do("python3", "scripts/config.py", "set", "MBEDTLS_THREADING_C")
     self.do("python3", "scripts/config.py", "set", "MBEDTLS_THREADING_PTHREAD")
-    # broken unless everything is built with armv8-a+crypto
-    self.do("python3", "scripts/config.py", "unset", "MBEDTLS_AESCE_C")
 
 
 @subpackage("mbedtls-devel")
