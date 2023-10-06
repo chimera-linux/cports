@@ -1,5 +1,5 @@
 pkgname = "libmediainfo"
-pkgver = "23.09"
+pkgver = "23.10"
 pkgrel = 0
 build_wrksrc = "Project/CMake"
 build_style = "cmake"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://mediaarea.net/en/MediaInfo"
 source = f"https://mediaarea.net/download/source/libmediainfo/{pkgver}/libmediainfo_{pkgver}.tar.bz2"
-sha256 = "b3746b9c46772f64dae0e97da2d2f30d37bffdf071e5024d3c5c5b66de2a5816"
+sha256 = "b5bba09896308a4715c544d36658da9634265ddc1660054c57c08b14c16462fe"
 
 
 def post_install(self):
