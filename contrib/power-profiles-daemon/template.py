@@ -4,11 +4,14 @@ pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dsystemdsystemunitdir=/tmp"]
 hostmakedepends = [
+    "glib-devel",
     "meson",
     "pkgconf",
-    "upower-devel",
+]
+makedepends = [
     "libgudev-devel",
     "polkit-devel",
+    "upower-devel",
 ]
 pkgdesc = "D-Bus daemon for power management control"
 maintainer = "Val Packett <val@packett.cool>"
