@@ -1,5 +1,5 @@
 pkgname = "wcm"
-pkgver = "0.7.5"
+pkgver = "0.8.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -10,6 +10,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "gtk+3-devel",
+    "gtkmm3.0-devel",
     "libxml2-devel",
     "wayfire-devel",
     "wayland-protocols",
@@ -20,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wcm/releases/download/v{pkgver}/wcm-{pkgver}.tar.xz"
-sha256 = "4b7c847f48e80bad3448961b9900a1f4eed8df101daa033592b60dc892f253c9"
+sha256 = "61aef3ceab7f5c16966462c42d98bd0580d45b346a86d029df3e625b9bc13bba"
 # vis breaks symbols
 hardening = ["!vis"]
 
