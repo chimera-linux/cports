@@ -1,8 +1,10 @@
 pkgname = "kmod"
-pkgver = "30"
+pkgver = "31"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-zlib", "--with-xz", "--disable-test-modules"]
+# also pulls in gtkdocize
+configure_gen = []
 make_cmd = "gmake"
 make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf"]
@@ -13,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git"
 source = f"$(KERNEL_SITE)/utils/kernel/kmod/kmod-{pkgver}.tar.xz"
-sha256 = "f897dd72698dc6ac1ef03255cd0a5734ad932318e4adbaebc7338ef2f5202f9f"
+sha256 = "f5a6949043cc72c001b728d8c218609c5a15f3c33d75614b78c79418fcf00d80"
 # broken testsuite build system
 options = ["!check"]
 
@@ -53,6 +55,3 @@ def _devel(self):
 def _lib(self):
     self.pkgdesc += " (runtime library)"
     return self.default_libs()
-
-
-configure_gen = []
