@@ -1,5 +1,5 @@
 pkgname = "python-markdown"
-pkgver = "3.4.4"
+pkgver = "3.5"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/Python-Markdown/markdown"
 source = f"$(PYPI_SITE)/M/Markdown/Markdown-{pkgver}.tar.gz"
-sha256 = "225c6123522495d4119a90b3a3ba31a1e87a70369e03f14799ea9c0d7183a3d6"
+sha256 = "a807eb2e4778d9156c8f07876c6e4d50b5494c5665c4834f67b06459dfd877b3"
 # checkdepends missing
 options = ["!check"]
 
