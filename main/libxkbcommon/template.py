@@ -1,5 +1,5 @@
 pkgname = "libxkbcommon"
-pkgver = "1.5.0"
+pkgver = "1.6.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ url = "https://xkbcommon.org"
 source = (
     f"https://github.com/xkbcommon/{pkgname}/archive/xkbcommon-{pkgver}.tar.gz"
 )
-sha256 = "053e6a6a2c3179eba20c3ada827fb8833a6663b7ffd278fdb8530c3cbf924780"
+sha256 = "4aa6c1cad7dce1238d6f48b6729f1998c7e3f0667a21100d5268c91a5830ad7b"
 
 
 def post_install(self):
