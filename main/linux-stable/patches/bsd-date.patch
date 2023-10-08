@@ -1,11 +1,11 @@
 --- a/usr/gen_initramfs.sh
 +++ b/usr/gen_initramfs.sh
-@@ -239,7 +239,7 @@ done
- # we are careful to delete tmp files
- timestamp=
- if test -n "$KBUILD_BUILD_TIMESTAMP"; then
--	timestamp="$(date -d"$KBUILD_BUILD_TIMESTAMP" +%s || :)"
-+	timestamp="$(date -j -f "%a %b %e %H:%M:%S UTC %Y" "$KBUILD_BUILD_TIMESTAMP" +%s || :)"
- 	if test -n "$timestamp"; then
- 		timestamp="-t $timestamp"
- 	fi
+@@ -221,7 +221,7 @@ while [ $# -gt 0 ]; do
+ 			shift
+ 			;;
+ 		"-d")	# date for file mtimes
+-			timestamp="$(date -d"$1" +%s || :)"
++			timestamp="$(date -j -f "%a %b %e %H:%M:%S UTC %Y" "$1" +%s || :)"
+ 			if test -n "$timestamp"; then
+ 				timestamp="-t $timestamp"
+ 			fi
