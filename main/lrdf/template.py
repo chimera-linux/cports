@@ -1,6 +1,6 @@
 pkgname = "lrdf"
 pkgver = "0.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_dir = "."  # tests assume this build directory
 hostmakedepends = ["pkgconf", "automake", "libtool"]
