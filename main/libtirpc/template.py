@@ -1,8 +1,12 @@
 pkgname = "libtirpc"
-pkgver = "1.3.3"
+pkgver = "1.3.4"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = [
+    "automake",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
     "heimdal-devel",
     "libgssglue-devel",
@@ -14,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://sourceforge.net/projects/libtirpc"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "6474e98851d9f6f33871957ddee9714fdcd9d8a5ee9abb5a98d63ea2e60e12f3"
+sha256 = "1e0b0c7231c5fa122e06c0609a76723664d068b0dba3b8219b63e6340b347860"
 
 
 def post_install(self):
@@ -24,6 +28,3 @@ def post_install(self):
 @subpackage("libtirpc-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
