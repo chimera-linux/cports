@@ -1,8 +1,9 @@
 pkgname = "usbutils"
 pkgver = "015"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["automake", "libtool", "pkgconf"]
+make_cmd = "gmake"
+hostmakedepends = ["automake", "libtool", "pkgconf", "gmake"]
 makedepends = ["udev-devel", "libusb-devel", "linux-headers"]
 depends = ["hwdata-usb"]
 pkgdesc = "Linux USB utilities"
