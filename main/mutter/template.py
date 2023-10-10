@@ -1,6 +1,6 @@
 pkgname = "mutter"
 pkgver = "45.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Degl_device=true",
