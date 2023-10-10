@@ -1,5 +1,5 @@
 pkgname = "wxwidgets"
-pkgver = "3.2.2.1"
+pkgver = "3.2.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -46,7 +46,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "custom:wxWidgets"
 url = "https://www.wxwidgets.org"
 source = f"https://github.com/wxWidgets/wxWidgets/releases/download/v{pkgver}/wxWidgets-{pkgver}.tar.bz2"
-sha256 = "dffcb6be71296fff4b7f8840eb1b510178f57aa2eb236b20da41182009242c02"
+sha256 = "c170ab67c7e167387162276aea84e055ee58424486404bba692c401730d1a67a"
 # fixme: int
 hardening = ["!int"]
 # fixme
