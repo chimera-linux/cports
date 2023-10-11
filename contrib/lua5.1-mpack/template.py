@@ -1,6 +1,6 @@
 pkgname = "lua5.1-mpack"
-pkgver = "1.0.10"
-pkgrel = 1
+pkgver = "1.0.11"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["USE_SYSTEM_MPACK=1"]
@@ -12,7 +12,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://github.com/libmpack/libmpack-lua"
 source = f"https://github.com/libmpack/libmpack-lua/archive/{pkgver}.tar.gz"
-sha256 = "b58a25a0b48e1ec584beee6c80e0e31182dad7a45005ce58e88e6cfff3a3f3e4"
+sha256 = "1d7181514aef66e6c4cad025ae7bd3f8e354125847e33db2394d91fc8dd3e478"
 # checks require to download additional tools (use luarocks)
 options = ["!cross", "!check"]
 
