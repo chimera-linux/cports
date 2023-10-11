@@ -180,6 +180,23 @@ set -e
             chcmd = "chown"
         wscript += f"""{chcmd} {uname}:{gname} {shlex.quote(str(fpath))}\n"""
 
+    # as fakeroot, add extended attributes and capabilities
+    for f in pkg.file_xattrs:
+        fpath = pkg.chroot_destdir / f
+        attrs = pkg.file_xattrs[f]
+        qfp = shlex.quote(str(fpath))
+        for a in attrs:
+            needscript = True
+            av = attrs[a]
+            if av is False:
+                wscript += f"""setfattr -x {a} {qfp}\n"""
+                continue
+            if a == "security.capability":
+                wscript += f"""setcap "{av}" {qfp}\n"""
+                continue
+            # regular attr set
+            wscript += f"""setfattr -n {a} -v "{av}" {qfp}\n"""
+
     # execute what we were wrapping
     wscript += """exec "$@"\n"""
 

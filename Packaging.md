@@ -804,6 +804,19 @@ Keep in mind that default values may be overridden by build styles.
   happen, so if you make the permissions `suid`, you also need to declare
   the file in `suid_files`. The permissions are applied in the order the
   fields are added in the dictionary.
+* `file_xattrs` *(dict)* A dictionary of strings to dictionaries, where
+  the string keys are file paths (relative to the package, e.g. `usr/foo`)
+  and the dicts contain mappings of extended attribute names to values.
+  The values can be strings, which are then passed to `setfattr`, or they
+  can be `None`, which will erase any existing extended attribute of that
+  name on the file. Currently it is not possible to preserve extended
+  attributes set by package build, but they are tracked, i.e. for any
+  already existing extended attribute you have to choose to either erase
+  it or replace it with an explicit value, or the package build will
+  fail. The `security.capability` attribute is treated specially and does
+  not use `setfattr` but `setcap` instead. For extended attributes to work
+  here, you need to have the right host programs (`setfattr` or `setcap`)
+  installed in the package build environment via `hostmakedepends`.
 * `hardening` *(list)* Hardening options to be enabled or disabled for the
   template. Refer to the hardening section for more information. This is
   a simple list of strings that works similarly to `options`, with `!`

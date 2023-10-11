@@ -424,6 +424,7 @@ core_fields = [
     ("triggers", [], list, False, True, False),
     ("scriptlets", {}, dict, False, True, False),
     ("file_modes", {}, dict, False, True, False),
+    ("file_xattrs", {}, dict, False, True, False),
     # wrappers
     ("exec_wrappers", [], list, False, False, False),
     # scriptlet generators
@@ -510,6 +511,7 @@ core_fields_priority = [
     ("nopie_files", True),
     ("suid_files", True),
     ("file_modes", True),
+    ("file_xattrs", True),
     ("hardening", True),
     ("options", True),
     ("exec_wrappers", True),
