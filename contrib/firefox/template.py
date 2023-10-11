@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "118.0.1"
+pkgver = "118.0.2"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -60,7 +60,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "a3f4da56d13605d615a740c739e3504261649d040bc473ae2ed609336d79fd95"
+sha256 = "89626520f2f0f782f37c074b94690e0f08dcf416be2b992f4aad68df5d727b21"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -79,8 +79,7 @@ env = {
 }
 # FIXME: youtube causes crashes in libxul after some seconds
 hardening = ["!int"]
-# FIXME: apk can't handle files over a ~gigabyte for now, disable debug
-options = ["!cross", "!debug"]
+options = ["!cross"]
 exec_wrappers = [
     ("/usr/bin/llvm-objdump", "objdump"),
     ("/usr/bin/llvm-readelf", "readelf"),
@@ -103,7 +102,7 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in []:
+    for crate in ["packed_simd_2"]:
         cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
