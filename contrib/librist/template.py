@@ -1,6 +1,6 @@
 pkgname = "librist"
-pkgver = "0.2.8"
-pkgrel = 1
+pkgver = "0.2.9"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dtest=false",
@@ -21,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://code.videolan.org/rist/librist"
 source = f"https://code.videolan.org/rist/librist/-/archive/v{pkgver}/librist-v{pkgver}.tar.bz2"
-sha256 = "11ab34de7ec25583baf44ba0a0dccab7f61ad5afdc5791e24997e590d8ed280f"
+sha256 = "3fb9dacd4683c31f5f3efb152615d993ec6769f60f25009f5f1dc022483348a9"
 # FIXME: cfi
 hardening = ["vis"]
 # multicast tests cannot make socket in sandbox
