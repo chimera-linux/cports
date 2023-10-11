@@ -1,0 +1,19 @@
+commit 4692435a7500b9090116e26421df635daa88ce0e
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Oct 11 18:15:01 2023 +0200
+
+    work around gross conftest
+
+diff --git a/Makefile.PL b/Makefile.PL
+index 6b1b6fa..3e76202 100644
+--- a/Makefile.PL
++++ b/Makefile.PL
+@@ -29,7 +29,7 @@ if ($ENV{PERL_MM_OPT}) {
+   }
+ }
+ 
+-my $flags = "$cfg{ccflags} $cfg{ldflags}";
++my $flags = "$cfg{ccflags} $cfg{ldflags} -Wno-int-conversion";
+ $flags =~ s/([^A-Za-z0-9 -_])/\\$1/g; # escape shell-metachars
+ 
+ $|=1; # to see output immediately
