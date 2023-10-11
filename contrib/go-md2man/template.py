@@ -1,6 +1,6 @@
 pkgname = "go-md2man"
-pkgver = "2.0.2"
-pkgrel = 1
+pkgver = "2.0.3"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Markdown to manpage converter"
@@ -8,7 +8,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/cpuguy83/go-md2man"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "2f52e37101ea2734b02f2b54a53c74305b95b3a9a27792fdac962b5354aa3e4a"
+sha256 = "7ca3a04bb4ab83387538235decc42a535097a05d2fb9f2266d0c47b33119501f"
 # objcopy fails on ppc
 options = ["!debug"]
 
