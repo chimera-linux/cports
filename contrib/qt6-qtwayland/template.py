@@ -1,10 +1,10 @@
 pkgname = "qt6-qtwayland"
-pkgver = "6.5.3"
+pkgver = "6.6.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_args = ["-E", "tst_seatv4$"]
-make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
+make_check_env = {"QT_QPA_PLATFORM": "offscreen", "XDG_RUNTIME_DIR": "/tmp"}
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -22,7 +22,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtwayland-everywhere-src-{pkgver}.tar.xz"
-sha256 = "f72a8588b7ff9b81bb311f2c8b541c11788b81003537b010360ca80eae52369f"
+sha256 = "30c3d82d85d050c83370710a26d12c802199c51eba5c2726e9d6243edd03b7e8"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
