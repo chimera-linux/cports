@@ -2466,7 +2466,7 @@ with self.pushd("build/*/foo", glob = True):
     pass
 ```
 
-##### def cp(self, srcp, destp, recursive = False, symlinks = True)
+##### def cp(self, srcp, destp, recursive = False, symlinks = True, glob = False)
 
 Copies `srcp` to `destp`. Both paths are considered potentially relative
 to `cwd`. If `srcp` is a file, it is copied into `destp` if a directory,
@@ -2481,13 +2481,19 @@ if it was a file, and `symlinks` is ignored. The meaning of `symlinks`
 is the opposite for directories with `recursive`, if it is `True`, all
 symlinks are preserved, otherwise they are resolved.
 
+If `glob` is `True`, `srcp` is first globbed and each matching path is
+copied. There must be at least one match.
+
 This mimics the behavior of the Unix `cp` tool.
 
-##### def mv(self, srcp, destp)
+##### def mv(self, srcp, destp, glob = False)
 
 Moves `srcp` to `destp`. If `destp` is an existing directory, `srcp` is
 moved into that directory, otherwise `srcp` is renamed to `destp`.
 Both paths are considered potentially relative to `cwd`.
+
+If `glob` is `True`, `srcp` is first globbed and each matching path is
+copied. There must be at least one match.
 
 This mimics the behavior of the Unix `mv` tool.
 
@@ -2501,12 +2507,15 @@ a directory.
 
 Mimics the behavior of the Unix `mkdir` tool, possibly with `-p`.
 
-##### def rm(self, path, recursive = False, force = False):
+##### def rm(self, path, recursive = False, force = False, glob = False):
 
 Removes the path `path`. Can be either a file or a directory. If it is
 a directory (symlinks are treated as files) and `recursive` is not `True`,
 an error is raised. If `force` is `True`, the function will never error
 when `path` is non-existent.
+
+If `glob` is `True`, `path` is first globbed and each matching path is
+copied. There must be at least one match.
 
 Mimics the behavior of the Unix `rm` tool, `recursive` is like `-r` and
 `force` is like `-f`.

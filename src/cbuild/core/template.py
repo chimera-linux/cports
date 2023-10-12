@@ -175,6 +175,14 @@ def call_pkg_hooks(pkg, stepn):
         run_pkg_func(pkg, f[0], f"{stepn}_{f[1]}", f"{stepn} hook: {f[1]}")
 
 
+def _pglob_path(oldp, patp):
+    oldp = pathlib.Path(oldp)
+    patp = pathlib.Path(patp)
+    if patp.is_absolute():
+        rootp = pathlib.Path("/")
+        return list(rootp.glob(str(patp.relative_to(rootp))))
+    return list(oldp.glob(str(patp)))
+
 class Package:
     def __init__(self):
         self.logger = logger.get()
@@ -206,7 +214,7 @@ class Package:
         old_cpath = self.rparent.chroot_cwd
 
         if glob:
-            new_paths = list(old_path.glob(dirn))
+            new_paths = _pglob_path(old_path, dirn)
             if len(new_paths) != 1:
                 self.error(
                     f"path '{dirn}' must match exactly one directory", bt=True
@@ -231,57 +239,80 @@ class Package:
             self.rparent.cwd = old_path
             self.rparent.chroot_cwd = old_cpath
 
-    def cp(self, srcp, destp, recursive=False, symlinks=True):
-        srcp = self.rparent.cwd / srcp
+    def cp(self, srcp, destp, recursive=False, symlinks=True, glob=False):
+        if not glob:
+            srcs = [self.rparent.cwd / srcp]
+        else:
+            srcs = _pglob_path(self.rparent.cwd, srcp)
+            if len(srcs) < 1:
+                self.error(f"path '{srcp}' does not match any files", bt=True)
+
         destp = self.rparent.cwd / destp
 
-        if recursive and srcp.is_dir():
-            if destp.is_dir():
-                destp = destp / srcp.name
-            if srcp.is_symlink():
-                ret = shutil.copy2(srcp, destp, follow_symlinks=False)
-            else:
-                ret = shutil.copytree(
-                    srcp, destp, symlinks=symlinks, dirs_exist_ok=True
+        for srcp in srcs:
+            if recursive and srcp.is_dir():
+                if destp.is_dir():
+                    destp = destp / srcp.name
+                if srcp.is_symlink():
+                    ret = shutil.copy2(srcp, destp, follow_symlinks=False)
+                else:
+                    ret = shutil.copytree(
+                        srcp, destp, symlinks=symlinks, dirs_exist_ok=True
+                    )
+            elif srcp.is_dir():
+                self.error(
+                    f"'{srcp}' is a directory, but not using 'recursive'",
+                    bt=True,
                 )
-        elif srcp.is_dir():
-            self.error(
-                f"'{srcp}' is a directory, but not using 'recursive'", bt=True
-            )
-        else:
-            ret = shutil.copy2(srcp, destp, follow_symlinks=symlinks)
+            else:
+                ret = shutil.copy2(srcp, destp, follow_symlinks=symlinks)
 
         return pathlib.Path(ret)
 
-    def mv(self, srcp, destp):
-        srcp = self.rparent.cwd / srcp
+    def mv(self, srcp, destp, glob=False):
         destp = self.rparent.cwd / destp
+        if not glob:
+            return pathlib.Path(shutil.move(self.rparent.cwd / srcp, destp))
 
-        return pathlib.Path(shutil.move(srcp, destp))
+        srcs = _pglob_path(self.rparent.cwd, srcp)
+        if len(srcs) < 1:
+            self.error(f"path '{srcp}' does not match any files", bt=True)
+
+        ret = []
+        for srcp in srcs:
+            ret.append(pathlib.Path(shutil.move(srcp, destp)))
+
+        return ret
 
     def mkdir(self, path, parents=False):
         (self.rparent.cwd / path).mkdir(parents=parents, exist_ok=parents)
 
-    def rm(self, path, recursive=False, force=False):
-        path = self.rparent.cwd / path
-
-        if not recursive:
-            if path.is_dir() and not path.is_symlink():
-                self.error(f"'{path}' is a directory", bt=True)
-            path.unlink(missing_ok=force)
+    def rm(self, path, recursive=False, force=False, glob=False):
+        if not glob:
+            paths = [self.rparent.cwd / path]
         else:
+            paths = _pglob_path(self.rparent.cwd, path)
+            if len(paths) < 1:
+                self.error(f"path '{path}' does not match any files", bt=True)
 
-            def _remove_ro(f, p, _):
-                os.chmod(p, stat.S_IWRITE)
-                f(p)
-
-            if force and not path.exists():
-                return
-
-            if not path.is_dir() or path.is_symlink():
+        for path in paths:
+            if not recursive:
+                if path.is_dir() and not path.is_symlink():
+                    self.error(f"'{path}' is a directory", bt=True)
                 path.unlink(missing_ok=force)
             else:
-                shutil.rmtree(path, onerror=_remove_ro)
+
+                def _remove_ro(f, p, _):
+                    os.chmod(p, stat.S_IWRITE)
+                    f(p)
+
+                if force and not path.exists():
+                    return
+
+                if not path.is_dir() or path.is_symlink():
+                    path.unlink(missing_ok=force)
+                else:
+                    shutil.rmtree(path, onerror=_remove_ro)
 
     def ln_s(self, srcp, destp, relative=False):
         destp = self.rparent.cwd / destp
