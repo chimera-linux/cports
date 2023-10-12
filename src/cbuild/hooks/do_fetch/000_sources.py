@@ -18,14 +18,14 @@ def make_link(dfile, cksum):
     linkpath = shapath / f"{cksum}_{dfile.name}"
     if not linkpath.is_file():
         shapath.mkdir(parents=True, exist_ok=True)
-        dfile.link_to(linkpath)
+        linkpath.hardlink_to(dfile)
     else:
         tino = linkpath.stat().st_ino
         sino = dfile.stat().st_ino
         # if inodes differ, make sure to sync it
         if tino != sino:
             linkpath.unlink()
-            dfile.link_to(linkpath)
+            linkpath.hardlink_to(dfile)
 
 
 def verify_cksum(dfile, cksum, pkg):
@@ -55,7 +55,7 @@ def link_cksum(dfile, cksum, pkg):
     shapath = paths.sources() / "by_sha256"
     linkpath = shapath / f"{cksum}_{dfile.name}"
     if len(cksum) > 0 and linkpath.is_file():
-        linkpath.link_to(dfile)
+        dfile.hardlink_to(linkpath)
         pkg.log(f"using known source '{dfile.name}'")
 
 
