@@ -1,27 +1,16 @@
 pkgname = "extra-cmake-modules"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-# who knows why these fail
-make_check_args = [
-    "-E",
-    "(ExecuteKDEModules"
-    "|KDEFetchTranslations"
-    "|KDEInstallDirsTest.not_cache_variable"
-    "|KDEInstallDirsTest.vars_in_sync_cmake_arg"
-    "|KDEInstallDirsTest.vars_in_sync_kde_arg"
-    "|KDEInstallDirsTest.vars_in_sync_no_args"
-    "|ecm_add_tests-multi_tests"
-    "|ecm_add_tests-single_tests"
-    "|ecm_add_tests_did_run-multi_tests"
-    "|ecm_add_tests_did_run-single_tests)",
-]
+configure_args = ["-DBUILD_WITH_QT6=ON"]
+# expects repo git clone
+make_check_args = ["-E", "KDEFetchTranslations"]
 hostmakedepends = ["cmake", "ninja"]
-checkdepends = ["qt6-qtbase"]
+checkdepends = ["qt6-qtdeclarative-devel"]
 pkgdesc = "Extra modules and scripts for CMake"
-maintainer = "aurelia <git@elia.garden>"
+maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause"
-url = "https://invent.kde.org/frameworks/extra-cmake-modules"
+url = "https://api.kde.org/frameworks/extra-cmake-modules/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/extra-cmake-modules-{pkgver}.tar.xz"
 sha256 = "6374bfa0dded8be265c702acd5de11eecd2851c625b93e1c87d8d0f5f1a8ebe1"
 
