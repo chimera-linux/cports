@@ -98,5 +98,27 @@ def invoke(pkg):
             pkg.log_red(f"{d} should go in /usr/share, not /usr")
             lintfail = True
 
+    # python stuff that should not be in site-packages
+    for d in (pkg.destdir / "usr/lib").glob("python*"):
+        sp = d / "site-packages"
+        if not sp.is_dir():
+            continue
+        # none of the stuff that would go in absolute prefix
+        for d in [
+            "bin",
+            "etc",
+            "lib",
+            "lib32",
+            "lib64",
+            "opt",
+            "sbin",
+            "share",
+            "usr",
+            "var",
+        ]:
+            if (sp / d).exists():
+                pkg.log_red(f"{d} found in Python site-packages")
+                lintfail = True
+
     if lintfail:
         pkg.error("package lint failed")
