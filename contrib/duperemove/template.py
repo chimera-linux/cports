@@ -1,5 +1,5 @@
 pkgname = "duperemove"
-pkgver = "0.12"
+pkgver = "0.13"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -15,7 +15,7 @@ maintainer = "autumnontape <autumn@cyfox.net>"
 license = "GPL-2.0-only AND BSD-2-Clause"
 url = "https://github.com/markfasheh/duperemove"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "53c0e1526d8bdb16ff18ad8a417570c829f8a11dea27060061c73dd6387326f4"
+sha256 = "65fc972339965976cf617ed430ece86dc64c2695b2017db058413aa098f1da89"
 tool_flags = {"CFLAGS": ["-std=gnu2x"]}
 hardening = ["vis", "cfi"]
 # no test suite exists
