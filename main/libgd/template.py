@@ -1,7 +1,7 @@
 pkgname = "libgd"
-# TODO: 2.3.3 fails tests
-pkgver = "2.3.2"
-pkgrel = 1
+pkgver = "2.3.3_git20230727"
+pkgrel = 0
+_commit = "0d75136bd3e8651ded7c64a140791ed10de1c63c"
 build_style = "gnu_configure"
 configure_args = ["--without-xpm"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -19,8 +19,9 @@ pkgdesc = "Graphics library for the dynamic creation of images"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:libgd"
 url = "https://libgd.github.io"
-source = f"https://github.com/{pkgname}/{pkgname}/releases/download/gd-{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "478a047084e0d89b83616e4c2cf3c9438175fb0cc55d8c8967f06e0427f7d7fb"
+#source = f"https://github.com/libgd/libgd/releases/download/gd-{pkgver}/libgd-{pkgver}.tar.xz"
+source = f"https://github.com/libgd/libgd/archive/{_commit}.tar.gz"
+sha256 = "bf35259c186726b26e486465ef1c9dab75a6be00a2b93e5357b4b71299e6c13a"
 # sus codebase, FIXME later (perhaps when investigating newer version)
 hardening = ["!int"]
 
