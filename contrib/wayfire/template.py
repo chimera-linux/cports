@@ -1,6 +1,6 @@
 pkgname = "wayfire"
 pkgver = "0.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Duse_system_wfconfig=enabled",
@@ -35,7 +35,7 @@ hardening = ["!vis"]
 def post_install(self):
     self.install_license("LICENSE")
     self.install_file(
-        self.files_path / "wayfire-portals.conf", "etc/xdg-desktop-portal"
+        self.files_path / "wayfire-portals.conf", "usr/share/xdg-desktop-portal"
     )
 
 

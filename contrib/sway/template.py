@@ -1,6 +1,6 @@
 pkgname = "sway"
 pkgver = "1.8.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dwerror=false"]
 hostmakedepends = [
@@ -30,7 +30,7 @@ hardening = ["vis", "cfi"]
 def post_install(self):
     self.install_license("LICENSE")
     self.install_file(
-        self.files_path / "sway-portals.conf", "etc/xdg-desktop-portal"
+        self.files_path / "sway-portals.conf", "usr/share/xdg-desktop-portal"
     )
 
 
