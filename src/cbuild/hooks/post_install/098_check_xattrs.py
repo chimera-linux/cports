@@ -5,7 +5,7 @@ def invoke(pkg):
     badattrs = []
 
     for v in pkg.destdir.rglob("*"):
-        xl = os.listxattr(v)
+        xl = os.listxattr(v, follow_symlinks=False)
 
         # nothing to do
         if len(xl) == 0:
