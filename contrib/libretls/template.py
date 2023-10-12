@@ -1,5 +1,5 @@
 pkgname = "libretls"
-pkgver = "3.7.0"
+pkgver = "3.8.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://git.causal.agency/libretls"
 source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
-sha256 = "cd72a37e93f8376c2e6310d30d39cda3d0f358bf3763d3ff22faf2454c3b25ed"
+sha256 = "4a705c9c079dc70383ccc08432b93fbb61f9ec5873a92883e01e0940b8eaf3de"
 # vis breaks symbols
 hardening = []
 # no tests
