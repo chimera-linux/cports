@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "115.2.3"
+pkgver = "115.3.2"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -56,7 +56,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/{pkgname}/releases/{pkgver.replace('_beta', 'b')}/source/{pkgname}-{pkgver.replace('_beta', 'b')}.source.tar.xz"
-sha256 = "a158da0283b7f8de8d20cb2d71ad0c8abdf407507ba2b59b8a397f616955cdff"
+sha256 = "927df96af2aa51d322c7c549aca26349656230b7bf5a79f135ab0fa4ceff71d3"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -75,8 +75,7 @@ env = {
 }
 # FIXME: see firefox
 hardening = ["!int"]
-# FIXME: apk can't handle files over a ~gigabyte for now, disable debug
-options = ["!cross", "!debug"]
+options = ["!cross"]
 exec_wrappers = [
     ("/usr/bin/llvm-objdump", "objdump"),
     ("/usr/bin/llvm-readelf", "readelf"),
