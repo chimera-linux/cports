@@ -19,7 +19,7 @@ pkgdesc = "Graphics library for the dynamic creation of images"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:libgd"
 url = "https://libgd.github.io"
-#source = f"https://github.com/libgd/libgd/releases/download/gd-{pkgver}/libgd-{pkgver}.tar.xz"
+# source = f"https://github.com/libgd/libgd/releases/download/gd-{pkgver}/libgd-{pkgver}.tar.xz"
 source = f"https://github.com/libgd/libgd/archive/{_commit}.tar.gz"
 sha256 = "bf35259c186726b26e486465ef1c9dab75a6be00a2b93e5357b4b71299e6c13a"
 # sus codebase, FIXME later (perhaps when investigating newer version)
