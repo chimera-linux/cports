@@ -1,6 +1,6 @@
 pkgname = "iptables"
-pkgver = "1.8.9"
-pkgrel = 1
+pkgver = "1.8.10"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-devel",
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.netfilter.org/projects/iptables"
 source = f"{url}/files/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ef6639a43be8325a4f8ea68123ffac236cb696e8c78501b64e8106afb008c87f"
+sha256 = "5cc255c189356e317d070755ce9371eb63a1b783c34498fb8c30264f3cc59c9c"
 
 
 @subpackage("libiptc")
