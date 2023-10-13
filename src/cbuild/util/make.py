@@ -101,6 +101,8 @@ class Make:
         argsbase = []
 
         if default_args:
+            if self.get_command() == "ninja":
+                args_use_env = True
             if not args_use_env:
                 argsbase.append("DESTDIR=" + str(pkg.chroot_destdir))
             else:

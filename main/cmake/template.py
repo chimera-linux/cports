@@ -65,8 +65,7 @@ if self.stage >= 2:
     ]
 
 
-def do_install(self):
-    self.make.install(args_use_env=True)
+def post_install(self):
     self.install_license("Copyright.txt")
     self.cp("Utilities/KWIML/Copyright.txt", "KWIML-Copyright.txt")
     self.install_license("KWIML-Copyright.txt")

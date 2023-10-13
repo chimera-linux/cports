@@ -4,7 +4,17 @@ pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "unzips"
+make_build_args = [
+    "-f",
+    "unix/Makefile",
+    "prefix=/usr",
+    "LF2=",
+    "D_USE_BZ2=-DUSE_BZIP2",
+    "L_BZ2=-lbz2",
+]
+make_install_args = list(make_build_args)
 make_check_target = "test"
+make_check_args = ["-f", "unix/Makefile"]
 make_use_env = True
 hostmakedepends = ["gmake"]
 makedepends = ["bzip2-devel"]
@@ -30,40 +40,23 @@ tool_flags = {
 hardening = ["vis", "cfi"]
 
 
-def do_build(self):
+def init_build(self):
     cfl = self.get_cflags(shell=True)
     ldfl = self.get_ldflags(shell=True)
 
-    self.make.build(
-        [
-            "-f",
-            "unix/Makefile",
-            "prefix=/usr",
-            "LF2=",
-            "LOCAL_UNZIP=" + cfl,
-            "CC=" + self.get_tool("CC"),
-            "CFLAGS=" + cfl,
-            "LFLAGS1=" + cfl + " " + ldfl,
-            "D_USE_BZ2=-DUSE_BZIP2",
-            "L_BZ2=-lbz2",
-        ]
-    )
+    self.make_build_args += [
+        "LOCAL_UNZIP=" + cfl,
+        "CC=" + self.get_tool("CC"),
+        "CFLAGS=" + cfl,
+        "LFLAGS1=" + cfl + " " + ldfl,
+    ]
+    self.make_install_args += [
+        "prefix=" + str(self.chroot_destdir / "usr"),
+        "INSTALL_PROGRAM=install",
+    ]
 
 
-def do_check(self):
-    self.make.check(["-f", "unix/Makefile"])
-
-
-def do_install(self):
-    self.make.install(
-        [
-            "-f",
-            "unix/Makefile",
-            "prefix=" + str(self.chroot_destdir / "usr"),
-            "INSTALL_PROGRAM=install",
-        ]
-    )
-
+def post_install(self):
     # hardlink
     self.rm(self.destdir / "usr/bin/zipinfo")
     self.install_link("unzip", "usr/bin/zipinfo")

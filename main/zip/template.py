@@ -4,6 +4,12 @@ pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "zips"
+make_build_args = [
+    "-f",
+    "unix/Makefile",
+    "prefix=/usr",
+]
+make_install_args = list(make_build_args)
 make_use_env = True
 hostmakedepends = ["gmake"]
 depends = ["unzip"]  # zip -T
@@ -20,31 +26,18 @@ hardening = ["!int"]
 options = ["!check"]
 
 
-def do_build(self):
+def init_build(self):
     cfl = self.get_cflags(shell=True)
     ldfl = self.get_ldflags(shell=True)
 
-    self.make.build(
-        [
-            "-f",
-            "unix/Makefile",
-            "prefix=/usr",
-            "LOCAL_ZIP=" + cfl,
-            "CC=" + self.get_tool("CC"),
-            "CPP=" + self.get_tool("CC") + " -E",
-            "LFLAGS2=" + cfl + " " + ldfl,
-        ]
-    )
+    self.make_build_args += [
+        "LOCAL_ZIP=" + cfl,
+        "CC=" + self.get_tool("CC"),
+        "CPP=" + self.get_tool("CC") + " -E",
+        "LFLAGS2=" + cfl + " " + ldfl,
+    ]
+    self.make_install_args += ["DESTDIR=" + str(self.chroot_destdir)]
 
 
-def do_install(self):
-    self.make.install(
-        [
-            "-f",
-            "unix/Makefile",
-            "PREFIX=/usr",
-            "DESTDIR=" + str(self.chroot_destdir),
-        ]
-    )
-
+def post_install(self):
     self.install_license("LICENSE")

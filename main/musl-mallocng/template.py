@@ -30,15 +30,15 @@ hardening = ["!scp"]
 options = ["!check", "!lto"]
 
 
-def do_install(self):
+def pre_install(self):
     self.install_dir("usr/lib")
     # ensure all files go in /usr/lib
     self.install_link("usr/lib", "lib")
 
     self.install_license("COPYRIGHT")
 
-    self.make.install()
 
+def post_install(self):
     # no need for the symlink anymore
     self.rm(self.destdir / "lib")
 

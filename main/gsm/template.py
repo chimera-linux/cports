@@ -17,7 +17,7 @@ options = ["!parallel", "!lto"]
 
 
 def init_configure(self):
-    self._margs = [
+    _margs = [
         "CC=" + self.get_tool("CC"),
         "LD=" + self.get_tool("CC"),
         "AR=" + self.get_tool("AR"),
@@ -25,34 +25,25 @@ def init_configure(self):
         + self.get_cflags(shell=True)
         + " -c -DNeedFunctionPrototypes=1",
     ]
+    self.make_build_args += _margs
+    self.make_check_args += _margs
+    self.make_install_args += [
+        f"INSTALL_ROOT={self.chroot_destdir / 'usr'}",
+        f"GSM_INSTALL_INC={self.chroot_destdir / 'usr/include/gsm'}",
+        f"GSM_INSTALL_MAN={self.chroot_destdir / 'usr/share/man/man3'}",
+        f"TOAST_INSTALL_MAN={self.chroot_destdir / 'usr/share/man/man1'}",
+    ]
 
 
-def do_build(self):
-    self.make.build(self._margs)
-
-
-def do_check(self):
-    self.make.check(self._margs)
-
-
-def do_install(self):
+def pre_install(self):
     self.install_dir("usr/bin")
     self.install_dir("usr/lib")
     self.install_dir("usr/include/gsm")
     self.install_dir("usr/share/man/man3")
     self.install_dir("usr/share/man/man1")
 
-    self.make.install(
-        [
-            "INSTALL_ROOT=" + str(self.chroot_destdir / "usr"),
-            "GSM_INSTALL_INC=" + str(self.chroot_destdir / "usr/include/gsm"),
-            "GSM_INSTALL_MAN="
-            + str(self.chroot_destdir / "usr/share/man/man3"),
-            "TOAST_INSTALL_MAN="
-            + str(self.chroot_destdir / "usr/share/man/man1"),
-        ]
-    )
 
+def post_install(self):
     self.install_file(
         "lib/libgsm.so", "usr/lib", name=f"libgsm.so.{pkgver}", mode=0o755
     )

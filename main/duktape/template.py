@@ -5,6 +5,8 @@ build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["-f", "Makefile.sharedlibrary"]
 make_install_args = ["-f", "Makefile.sharedlibrary", "INSTALL_PREFIX=/usr"]
+make_check_target = ""
+make_check_args = ["-f", "Makefile.cmdline"]
 hostmakedepends = ["gmake", "pkgconf"]
 pkgdesc = "Embeddeable JavaScript engine"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -16,8 +18,7 @@ hardening = ["vis", "cfi"]
 
 
 # a simple self-test in place of a real testsuite
-def do_check(self):
-    self.make.invoke(None, ["-f", "Makefile.cmdline"])
+def post_check(self):
     self.do(self.chroot_cwd / "duk", "-e", "print('hello world', 5 + 10)")
 
 
