@@ -1,0 +1,127 @@
+commit d2eba491f6c75f075e16115de9265caf2d481428
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Oct 13 19:20:17 2023 +0200
+
+    fix tests
+
+diff --git a/tst/cod2lin.c b/tst/cod2lin.c
+index 07a9510..10ccad1 100644
+--- a/tst/cod2lin.c
++++ b/tst/cod2lin.c
+@@ -7,7 +7,10 @@
+ /*$Header: /tmp_amd/presto/export/kbs/jutta/src/gsm/RCS/cod2lin.c,v 1.2 1996/07/02 14:33:10 jutta Exp jutta $*/
+ 
+ #include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
+ #include <assert.h>
++#include <unistd.h>
+ 
+ #include	"gsm.h"
+ #include	"proto.h"
+@@ -20,7 +23,7 @@ int	fast       = 0;
+ int	wav        = 0;
+ int	error      = 0;
+ 
+-usage P0()
++void usage P0()
+ {
+ 	fprintf(stderr, "Usage: %s [-vwF] [files...]\n", pname);
+ 	exit(1);
+@@ -71,7 +74,7 @@ void process P2((f, filename), FILE * f, char * filename)
+ 	}
+ }
+ 
+-main P2((ac, av), int ac, char ** av)
++int main P2((ac, av), int ac, char ** av)
+ {
+ 	int 		opt;
+ 	extern char   * optarg;
+diff --git a/tst/cod2txt.c b/tst/cod2txt.c
+index 71c362e..160973d 100644
+--- a/tst/cod2txt.c
++++ b/tst/cod2txt.c
+@@ -18,7 +18,7 @@ int	debug      = 0;
+ int	verbosity  = 0;
+ int	error      = 0;
+ 
+-usage P0()
++void usage P0()
+ {
+ 	fprintf(stderr, "Usage: %s [files...]\n", pname);
+ 	exit(1);
+@@ -68,7 +68,7 @@ void process P2((f, filename), FILE * f, char * filename)
+ 	}
+ }
+ 
+-main P2((ac, av), int ac, char ** av)
++int main P2((ac, av), int ac, char ** av)
+ {
+ 	int 		opt;
+ 	extern char   * optarg;
+diff --git a/tst/gsm2cod.c b/tst/gsm2cod.c
+index f2e7c2c..4a3a57e 100644
+--- a/tst/gsm2cod.c
++++ b/tst/gsm2cod.c
+@@ -67,7 +67,7 @@ void process P2((f, filename), FILE * f, char * filename)
+ 	}
+ }
+ 
+-main P2((ac, av), int ac, char ** av)
++int main P2((ac, av), int ac, char ** av)
+ {
+ 	int 		opt;
+ 	extern char   * optarg;
+diff --git a/tst/lin2cod.c b/tst/lin2cod.c
+index 2c42b10..b9b5c1d 100644
+--- a/tst/lin2cod.c
++++ b/tst/lin2cod.c
+@@ -7,6 +7,8 @@
+ /*$Header: /tmp_amd/presto/export/kbs/jutta/src/gsm/RCS/lin2cod.c,v 1.2 1996/07/02 14:33:13 jutta Exp jutta $*/
+ 
+ #include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
+ 
+ #include "gsm.h"
+ #include "proto.h"
+@@ -19,7 +21,7 @@ int	fast       = 0;
+ int	wav        = 0;
+ int	error      = 0;
+ 
+-usage P0()
++void usage P0()
+ {
+ 	fprintf(stderr, "Usage: %s [-vwF] [files...]\n", pname);
+ 	exit(1);
+@@ -72,7 +74,7 @@ void process P2((f, filename), FILE * f, char * filename)
+ 	}
+ }
+ 
+-main P2((ac, av), int ac, char ** av)
++int main P2((ac, av), int ac, char ** av)
+ {
+ 	int 		opt;
+ 	extern char   * optarg;
+diff --git a/tst/lin2txt.c b/tst/lin2txt.c
+index fb39504..bb04f39 100644
+--- a/tst/lin2txt.c
++++ b/tst/lin2txt.c
+@@ -17,7 +17,7 @@ int	debug      = 0;
+ int	verbosity  = 0;
+ int	error      = 0;
+ 
+-usage P0()
++void usage P0()
+ {
+ 	fprintf(stderr, "Usage: %s [-v] [files...]\n", pname);
+ 	exit(1);
+@@ -63,7 +63,7 @@ void process P2((f, filename), FILE * f, char * filename)
+ 	}
+ }
+ 
+-main P2((ac, av), int ac, char ** av)
++int main P2((ac, av), int ac, char ** av)
+ {
+ 	int 		opt;
+ 	extern char   * optarg;
