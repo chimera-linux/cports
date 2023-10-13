@@ -1,20 +1,50 @@
-from cbuild.util import make, meson
+from cbuild.util import meson
 
 
 def do_configure(self):
-    meson.configure(self, self.meson_dir)
+    meson.configure(
+        self,
+        self.make_dir,
+        self.meson_dir,
+        self.configure_args,
+        self.configure_env,
+    )
 
 
 def do_build(self):
-    self.make.build()
+    renv = dict(self.make_env)
+    renv.update(self.make_build_env)
+    meson.compile(
+        self,
+        self.make_dir,
+        self.make_build_args,
+        renv,
+        self.make_wrapper + self.make_build_wrapper,
+    )
 
 
 def do_check(self):
-    self.make.check()
+    renv = dict(self.make_env)
+    renv.update(self.make_check_env)
+    meson.test(
+        self,
+        self.make_dir,
+        self.make_check_args,
+        renv,
+        self.make_wrapper + self.make_check_wrapper,
+    )
 
 
 def do_install(self):
-    self.make.install(args_use_env=True)
+    renv = dict(self.make_env)
+    renv.update(self.make_install_env)
+    meson.install(
+        self,
+        self.make_dir,
+        self.make_install_args,
+        renv,
+        self.make_wrapper + self.make_install_wrapper,
+    )
 
 
 def use(tmpl):
@@ -23,11 +53,6 @@ def use(tmpl):
     tmpl.do_check = do_check
     tmpl.do_install = do_install
 
-    tmpl.make = make.Make(tmpl)
-
     tmpl.build_style_defaults = [
-        ("make_cmd", "ninja"),
-        ("make_build_target", "all"),
-        ("make_check_target", "test"),
         ("make_dir", "build"),
     ]

@@ -53,12 +53,9 @@ endian = '{pkg.profile().endian}'
     return cfpath
 
 
-def configure(pkg, meson_dir=None, build_dir=None, extra_args=[], env={}):
+def configure(pkg, build_dir, meson_dir=None, extra_args=[], env={}):
     if not meson_dir:
         meson_dir = "."
-
-    if not build_dir:
-        build_dir = pkg.make_dir
 
     cfp = _make_crossfile(pkg, build_dir)
 
@@ -67,10 +64,6 @@ def configure(pkg, meson_dir=None, build_dir=None, extra_args=[], env={}):
         cargs = [
             "--cross-file=" + str(pkg.chroot_cwd / cfp.relative_to(pkg.cwd))
         ]
-
-    eenv = {}
-    eenv.update(pkg.configure_env)
-    eenv.update(env)
 
     if pkg.has_lto():
         cargs.append("-Db_lto=true")
@@ -105,9 +98,42 @@ def configure(pkg, meson_dir=None, build_dir=None, extra_args=[], env={}):
         "-Db_staticpic=true",
         "-Dpython.bytecompile=0",
         *cargs,
-        *pkg.configure_args,
         *extra_args,
         meson_dir,
         build_dir,
-        env=eenv,
+        env=env,
+    )
+
+
+def invoke(pkg, command, build_dir, extra_args=[], env={}, wrapper=[]):
+    pkg.do(
+        *wrapper,
+        "meson",
+        command,
+        *extra_args,
+        wrksrc=build_dir,
+        env=env,
+    )
+
+
+def compile(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+    invoke(pkg, "compile", build_dir, extra_args, env, wrapper)
+
+
+def install(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+    renv = {"DESTDIR": str(pkg.chroot_destdir)}
+    renv.update(env)
+    invoke(
+        pkg, "install", build_dir, ["--no-rebuild"] + extra_args, renv, wrapper
+    )
+
+
+def test(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+    invoke(
+        pkg,
+        "test",
+        build_dir,
+        ["--no-rebuild", "--print-errorlogs"] + extra_args,
+        env,
+        wrapper,
     )

@@ -1246,19 +1246,23 @@ Variables:
 
 Default values:
 
-* `make_cmd` = `ninja`
-* `make_build_target` = `all`
-* `make_check_target` = `test`
 * `make_dir` = `build`
 
-Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+Sets `do_configure`, `do_build`, `do_check`, `do_install`. They are wrappers
+around the `meson` utility module API `configure`, `compile`, `install`,
+and `test` respectively.
 
-The `meson` tool is run inside `self.make_dir`.
+The `self.make_dir` value is passed as `build_dir`. The `self.configure_args`,
+`self.make_build_args`, `self.make_check_args`, `self.make_install_args` values
+are passed as extra arguments. The given environments are made up of the values
+of `self.make_env` (for every step besides `configure`) combined with the
+values of `self.configure_env`, `self.make_build_env`, `self.make_check_env`,
+`self.make_install_env`. Wrappers are allowed for everything but `configure`,
+using the combination of `self.make_wrapper` with `self.make_build_wrapper`,
+`self.make_check_wrapper` and `self.make_install_wrapper`.
 
-Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
-for the template, with `build` `wrksrc`.
-
-Implemented around `cbuild.util.meson`.
+Note these are passed by the build style only, and manual `meson` invocations
+do not receive them.
 
 #### python_module
 
@@ -3383,12 +3387,12 @@ other arguments are passed as is.
 
 A wrapper for management of Meson projects.
 
-##### def configure(pkg, meson_dir = None, build_dir = None, extra_args = [], env = {})
+##### def configure(pkg, build_dir, meson_dir = None, extra_args = [], env = {})
 
 Executes `meson`. The `meson_dir` is where the root `meson.build` is located,
 assumed to be `.` implicitly, relative to `chroot_cwd`. The `build_dir` is
-the directory for build files, also relative to `chroot_cwd`, its default
-value when `None` is `pkg.make_dir`.
+the directory for build files, also relative to `chroot_cwd` (a good value
+is `build`).
 
 The `pkg` is an instance of `Template`.
 
@@ -3421,7 +3425,28 @@ The arguments passed to `meson` are in this order:
 When cross compiling, an appropriate cross file is automatically generated.
 
 The environment from `env` is used, being the most important, followed by
-`pkg.configure_env` and then the rest.
+the rest.
+
+##### def invoke(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
+
+Generically invoke a `meson` command. This calls `meson`, giving it the command
+and `extra_args`. If `wrapper` is given, `meson` is run through it. The given
+`build_dir` is the working directory, and `env` is the environment.
+
+##### def compile(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
+
+Like running `invoke` with `compile` command. No special arguments are passed.
+
+##### def install(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
+
+Like running `invoke` with `install` command. The `DESTDIR` is passed via
+the environment (any given `env` is of higher importance however). The
+`--no-rebuild` flag is by default passed, followed by `extra_args`.
+
+##### def compile(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
+
+Like running `invoke` with `test` command. The `--no-rebuild` as well as
+`--print-errorlogs` arguments are passed, followed by any `extra_args`.
 
 <a id="update_check"></a>
 ## Update Check
