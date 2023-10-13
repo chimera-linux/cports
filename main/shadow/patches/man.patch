@@ -6,8 +6,8 @@ We want to enable man pages without regenerating them.
  top_builddir = @top_builddir@
  top_srcdir = @top_srcdir@
  EXTRA_DIST = NEWS README TODO shadow.spec.in
--SUBDIRS = libmisc lib $(am__append_1) src po contrib doc etc \
-+SUBDIRS = libmisc lib $(am__append_1) src po contrib doc etc man \
- 	$(am__append_2)
+-SUBDIRS = lib $(am__append_1) src po contrib doc etc $(am__append_2)
++SUBDIRS = lib $(am__append_1) src po contrib doc etc man $(am__append_2)
  all: config.h
  	$(MAKE) $(AM_MAKEFLAGS) all-recursive
+ 

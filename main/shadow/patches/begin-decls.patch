@@ -6,8 +6,8 @@ Date:   Sun Sep 3 16:53:27 2023 +0200
 
 diff --git a/libmisc/readpassphrase.h b/libmisc/readpassphrase.h
 index 2462ecc..9d09ed8 100644
---- a/libmisc/readpassphrase.h
-+++ b/libmisc/readpassphrase.h
+--- a/lib/readpassphrase.h
++++ b/lib/readpassphrase.h
 @@ -36,8 +36,6 @@
  #endif
  #include <sys/types.h>
