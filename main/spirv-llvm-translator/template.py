@@ -10,7 +10,7 @@ configure_args = [
     "-DCMAKE_SKIP_RPATH=ON",
     "-DLLVM_SPIRV_INCLUDE_TESTS=OFF",
 ]
-make_build_args = ["llvm-spirv"]
+make_build_target = "llvm-spirv"
 hostmakedepends = [
     "cmake",
     "ninja",

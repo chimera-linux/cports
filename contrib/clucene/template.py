@@ -11,6 +11,7 @@ configure_args = [
     # tests fail with mt enabled
     "-DDISABLE_MULTITHREADING=ON",
 ]
+make_check_target = "cl_test"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["boost-devel", "zlib-devel"]
 pkgdesc = "Text search engine written in C++"
@@ -24,8 +25,7 @@ hardening = ["!int"]
 options = ["!cross"]
 
 
-def do_check(self):
-    self.make.invoke(["cl_test"])
+def post_check(self):
     self.mkdir("build/tmp", parents=True)
     self.do("./cl_test", wrksrc="build/bin", env={"TMP": "../tmp"})
 

@@ -2,15 +2,18 @@ from cbuild.core import paths
 
 
 def configure(
-    pkg, cmake_dir=None, build_dir=None, extra_args=[], env={}, cross_build=None
+    pkg,
+    build_dir,
+    cmake_dir=None,
+    extra_args=[],
+    env={},
+    generator=None,
+    cross_build=None,
 ):
     if cmake_dir:
         cdir = pkg.chroot_cwd / cmake_dir
     else:
         cdir = pkg.chroot_cwd
-
-    if not build_dir:
-        build_dir = pkg.make_dir
 
     (pkg.cwd / build_dir).mkdir(parents=True, exist_ok=True)
 
@@ -68,15 +71,6 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
             )
         cargs.append("-DCMAKE_TOOLCHAIN_FILE=cross.cmake")
 
-    eenv = {
-        "CMAKE_GENERATOR": (
-            "Ninja" if pkg.make_cmd == "ninja" else "Unix Makefiles"
-        )
-    }
-
-    eenv.update(pkg.configure_env)
-    eenv.update(env)
-
     # this is necessary for lto to work correctly
     if pkg.stage >= 2:
         cargs += [
@@ -87,34 +81,59 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
     pkg.do(
         "cmake",
+        "-G",
+        generator or "Ninja",
         *cargs,
         "-DCMAKE_INSTALL_PREFIX=/usr",
         "-DCMAKE_BUILD_TYPE=None",
         "-DCMAKE_INSTALL_LIBDIR=lib",
         "-DCMAKE_INSTALL_SBINDIR=bin",
-        *pkg.configure_args,
         *extra_args,
         cdir,
         wrksrc=build_dir,
-        env=eenv,
+        env=env,
     )
 
 
-def ctest(pkg, build_dir=None, extra_args=[], env={}):
-    if not build_dir:
-        build_dir = pkg.make_dir
+def build(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+    pkg.do(
+        *wrapper,
+        "cmake",
+        "--build",
+        ".",
+        "--parallel",
+        str(pkg.make_jobs),
+        *extra_args,
+        wrksrc=build_dir,
+        env=env,
+    )
 
+
+def install(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
+    renv = {"DESTDIR": str(pkg.chroot_destdir)}
+    renv.update(env)
+
+    pkg.do(
+        *wrapper,
+        "cmake",
+        "--install",
+        ".",
+        *extra_args,
+        wrksrc=build_dir,
+        env=renv,
+    )
+
+
+def ctest(pkg, build_dir, extra_args=[], env={}, wrapper=[]):
     renv = {
         "CTEST_PARALLEL_LEVEL": str(pkg.make_jobs),
         "CTEST_OUTPUT_ON_FAILURE": "1",
     }
-    renv.update(pkg.make_check_env)
     renv.update(env)
 
     pkg.do(
-        *pkg.make_check_wrapper,
+        *wrapper,
         "ctest",
-        *pkg.make_check_args,
         *extra_args,
         wrksrc=build_dir,
         env=renv,

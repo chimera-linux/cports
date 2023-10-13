@@ -1164,17 +1164,35 @@ Variables:
 Default values:
 
 * `make_cmd` = `ninja`
-* `make_build_target` = `all`
+* `make_check_target` = ``
 * `make_dir` = `build`
 
-Sets `do_configure`, `do_build`, `do_check`, `do_install`.
+Sets `do_configure`, `do_build`, `do_check`, `do_install`. They are wrappers
+around the `cmake` utility module API `configure`, `build`, `install`,
+and `ctest` respectively.
 
-The `cmake` tool is run inside `self.make_dir`.
+The `self.make_dir` value is passed as `build_dir`. The `self.configure_args`,
+`self.make_build_args`, `self.make_check_args`, `self.make_install_args` values
+are passed as extra arguments. The given environments are made up of the values
+of `self.make_env` (for every step besides `configure`) combined with the
+values of `self.configure_env`, `self.make_build_env`, `self.make_check_env`,
+`self.make_install_env`. Wrappers are allowed for everything but `configure`,
+using the combination of `self.make_wrapper` with `self.make_build_wrapper`,
+`self.make_check_wrapper` and `self.make_install_wrapper`.
 
-Additionally creates `self.make`, which is an instance of `cbuild.util.make.Make`
-for the template.
+The `ctest` API is used for `check` when `self.make_check_target` is default. If
+it's set to a value, it's taken as a hint not to use `ctest` and instead use
+`build` with `--target` set to `self.make_check_target` in extra arguments.
 
-Implemented around `cbuild.util.cmake` for `configure` and `check`.
+When `self.make_build_target` is set to a value, it is passed as `--target`
+as an extra argument to `build`.
+
+The `self.make_cmd` value determines the generator. If kept as `ninja`, the
+Ninja generator will be used during `configure`. Otherwise, `Unix Makefiles`
+generator will be used.
+
+Note these variables are passed by the build style only, and manual `cmake`
+invocations do not receive them.
 
 #### configure
 
@@ -3088,30 +3106,30 @@ easy distro patching.
 
 A wrapper for management of CMake projects.
 
-##### def configure(pkg, cmake_dir = None, build_dir = None, extra_args = [], env = {}, cross_build = None)
+##### def configure(pkg, build_dir, cmake_dir = None, extra_args = [], env = {}, generator = None, cross_build = None)
 
 Executes `cmake`. The directory for build files is `build_dir`, which
-is relative to `chroot_cwd` (when `None`, it is `pkg.make_dir`). The
-root `CMakeLists.txt` exists within `cmake_dir`, which is relative to
-`chroot_cwd` (when `None`, it is assumed to be `.`).
+is relative to `chroot_cwd` (a good value is `build`). The root `CMakeLists.txt`
+exists within `cmake_dir`, which is relative to `chroot_cwd` (when `None`, it
+is assumed to be `.`).
 
 The `pkg` is an instance of `Template`.
 
 The `build_dir` is created if non-existent.
 
+If `generator` is not set, it defaults to `Ninja`.
+
 The arguments passed to `cmake` are in this order:
 
+* `-G`
+* `generator`
 * `-DCMAKE_TOOLCHAIN_FILE=...`
 * `-DCMAKE_INSTALL_PREFIX=/usr`,
 * `-DCMAKE_BUILD_TYPE=None`,
 * `-DCMAKE_INSTALL_LIBDIR=lib`,
 * `-DCMAKE_INSTALL_SBINDIR=bin`,
-* `pkg.configure_args`
 * `extra_args`
 * The directory for `cmake_dir`.
-
-The `CMAKE_GENERATOR` environment variable is set to `Ninja` if `pkg.make_cmd`
-is `ninja`, otherwise to `Unix Makefiles`.
 
 An appropriate toolchain file is created when bootstrapping and when cross
 compiling. You can prevent the creation of a toolchain file by explicitly
@@ -3119,26 +3137,35 @@ setting `cross_build` to `False`. That will ensure a native-like build even
 when the profile is set to a cross-compiling one.
 
 The environment from `env` is used, being the most important, followed by
-`pkg.configure_env` and then the rest.
+the rest.
 
-##### def ctest(pkg, build_dir = None, extra_args = [], env = {})
+##### def build(pkg, build_dir, extra_args = [], env = {}, wrapper = [])
 
-Executes `ctest`. The directory for build files is `build_dir`, which is
-relative to `chroot_cwd` (when `None`, it is `pkg.make_dir`).
+Executes `cmake` with `--build` in `build_dir`. The `--parallel` argument
+is passed with `pkg.make_jobs` alongside the given extra arguments. If a
+wrapper is provided, it's executed through the wrapper.
+
+##### def install(pkg, build_dir, extra_args = [], env = {}, wrapper = [])
+
+Executes `cmake` with `--install` in `build_dir`. If a wrapper is provided,
+it's executed through the wrapper. The `DESTDIR` variable is set in the default
+environment.
+
+##### def ctest(pkg, build_dir, extra_args = [], env = {}, wrapper = [])
+
+Executes `ctest`. The directory for build files is `build_dir`.
 
 The `pkg` is an instance of `Template`.
 
 The command order is:
 
-* `pkg.make_check_wrapper`
+* `wrapper`
 * `ctest`
-* `pkg.make_check_args`
 * `extra_args`
 
-The environment is taken from `pkg.make_check_env`, followed by `env`,
-on top of default environment. The `CTEST_PARALLEL_LEVEL` environment
-variable is by default set to the number of jobs, and `CTEST_OUTPUT_ON_FAILURE`
-is set to `1`.
+The environment is taken from `env`, on top of default environment. The
+`CTEST_PARALLEL_LEVEL` environment variable is by default set to the number
+of jobs, and `CTEST_OUTPUT_ON_FAILURE` is set to `1`.
 
 #### cbuild.util.compiler
 

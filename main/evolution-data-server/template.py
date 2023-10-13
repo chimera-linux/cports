@@ -53,11 +53,6 @@ tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["!cross"]
 
 
-# ctest craps itself in several tests
-def do_check(self):
-    self.make.check()
-
-
 def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd", recursive=True)
 

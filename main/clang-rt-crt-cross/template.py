@@ -114,9 +114,10 @@ def do_configure(self):
                 s.check()
                 cmake.configure(
                     self,
-                    self.cmake_dir,
                     f"build-{an}",
-                    [
+                    self.cmake_dir,
+                    configure_args
+                    + [
                         "-DCMAKE_SYSROOT="
                         + str(self.chroot_cwd / f"musl-{an}"),
                         f"-DCMAKE_ASM_COMPILER_TARGET={at}",
@@ -133,21 +134,26 @@ def do_configure(self):
                         ),
                     ],
                     cross_build=False,
+                    generator="Unix Makefiles",
                 )
 
 
 def do_build(self):
+    from cbuild.util import cmake
+
     for an in _btargets:
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                self.make.build(wrksrc=f"build-{an}")
+                cmake.build(self, f"build-{an}")
 
 
 def do_install(self):
+    from cbuild.util import cmake
+
     for an in _btargets:
         with self.profile(an):
-            self.make.install(wrksrc=f"build-{an}")
+            cmake.install(self, f"build-{an}")
 
 
 def _gen_subp(an):

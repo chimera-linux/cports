@@ -79,30 +79,36 @@ def do_configure(self):
                 s.check()
                 cmake.configure(
                     self,
-                    self.cmake_dir,
                     f"build-{an}",
-                    [
+                    self.cmake_dir,
+                    configure_args
+                    + [
                         f"-DCMAKE_SYSROOT=/usr/{at}",
                         f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                         f"-DCMAKE_CXX_COMPILER_TARGET={at}",
                         f"-DCMAKE_C_COMPILER_TARGET={at}",
                     ],
                     cross_build=False,
+                    generator="Unix Makefiles",
                 )
 
 
 def do_build(self):
+    from cbuild.util import cmake
+
     for an in _targets:
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                self.make.build(wrksrc=f"build-{an}")
+                cmake.build(self, f"build-{an}")
 
 
 def do_install(self):
+    from cbuild.util import cmake
+
     for an in _targets:
         with self.profile(an):
-            self.make.install(wrksrc=f"build-{an}")
+            cmake.install(f"build-{an}")
 
     # we don't need or want these for cross
     with self.pushd(self.destdir):

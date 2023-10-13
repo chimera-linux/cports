@@ -33,4 +33,4 @@ def do_configure(self):
     from cbuild.util import cmake
 
     with self.profile("host"):
-        cmake.configure(self, self.cmake_dir)
+        cmake.configure(self, "build", self.cmake_dir)

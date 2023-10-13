@@ -3,7 +3,6 @@ pkgver = "4.8.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTING=OFF", "-DREDIS_STORAGE_BACKEND=OFF"]
-make_check_target = "check"
 hostmakedepends = ["cmake", "ninja", "perl"]
 makedepends = ["zstd-devel", "zlib-devel"]
 checkdepends = ["bash"]

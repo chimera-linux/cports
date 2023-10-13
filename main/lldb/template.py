@@ -60,18 +60,18 @@ def pre_configure(self):
     if not self.profile().cross:
         return
 
-    from cbuild.util import make, cmake
+    from cbuild.util import cmake
 
     self.log("building host tblgen...")
 
     with self.profile("host"):
         with self.stamp("host_lldb_configure"):
             # need to pass the triplets so builtins are found
-            cmake.configure(self, self.cmake_dir, "build_host", [])
+            cmake.configure(self, "build_host", self.cmake_dir, [])
 
         with self.stamp("host_lldb_tblgen") as s:
             s.check()
-            make.Make(self, wrksrc="build_host").invoke(["bin/lldb-tblgen"])
+            cmake.build(self, "build_host", ["--target", "bin/lldb-tblgen"])
 
 
 def post_install(self):

@@ -172,7 +172,7 @@ def pre_configure(self):
     if not self.profile().cross:
         return
 
-    from cbuild.util import make, cmake
+    from cbuild.util import cmake
 
     self.log("building host tblgen...")
 
@@ -185,8 +185,8 @@ def pre_configure(self):
             # need to pass the triplets so builtins are found
             cmake.configure(
                 self,
-                self.cmake_dir,
                 "build_host",
+                self.cmake_dir,
                 [
                     "-DLLVM_HOST_TRIPLE=" + trip,
                     "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
@@ -195,27 +195,29 @@ def pre_configure(self):
 
         with self.stamp("host_llvm_tblgen") as s:
             s.check()
-            make.Make(self, wrksrc="build_host").invoke(["bin/llvm-tblgen"])
+            cmake.build(self, "build_host", ["--target", "bin/llvm-tblgen"])
 
         with self.stamp("host_clang_tblgen") as s:
             s.check()
-            make.Make(self, wrksrc="build_host").invoke(["bin/clang-tblgen"])
+            cmake.build(self, "build_host", ["--target", "bin/clang-tblgen"])
 
         with self.stamp("host_confusable_gen") as s:
             s.check()
-            make.Make(self, wrksrc="build_host").invoke(
-                ["bin/clang-tidy-confusable-chars-gen"]
+            cmake.build(
+                self,
+                "build_host",
+                ["--target", "bin/clang-tidy-confusable-chars-gen"],
             )
 
         with self.stamp("host_clang_pseudo_gen") as s:
             s.check()
-            make.Make(self, wrksrc="build_host").invoke(
-                ["bin/clang-pseudo-gen"]
+            cmake.build(
+                self, "build_host", ["--target", "bin/clang-pseudo-gen"]
             )
 
         with self.stamp("host_llvm_config") as s:
             s.check()
-            make.Make(self, wrksrc="build_host").invoke(["bin/llvm-config"])
+            cmake.build(self, "build_host", ["--target", "bin/llvm-config"])
 
 
 def do_configure(self):
@@ -227,8 +229,8 @@ def do_configure(self):
 
     cmake.configure(
         self,
-        self.cmake_dir,
         "build",
+        self.cmake_dir,
         [
             "-DLLVM_TARGET_ARCH=" + _arch,
             "-DLLVM_HOST_TRIPLE=" + trip,

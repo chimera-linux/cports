@@ -15,7 +15,7 @@ configure_args = [
     "-DWAYLAND_API=ON",
     "-DX11_API=ON",
 ]
-make_build_args = ["unittests"]
+make_check_target = "unittests"
 hostmakedepends = [
     "cmake",
     "ninja",

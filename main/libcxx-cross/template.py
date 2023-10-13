@@ -65,9 +65,10 @@ def do_configure(self):
                 s.check()
                 cmake.configure(
                     self,
-                    self.cmake_dir,
                     f"build-{an}",
-                    [
+                    self.cmake_dir,
+                    configure_args
+                    + [
                         f"-DCMAKE_SYSROOT=/usr/{at}",
                         f"-DCMAKE_ASM_COMPILER_TARGET={at}",
                         f"-DCMAKE_CXX_COMPILER_TARGET={at}",
@@ -75,24 +76,28 @@ def do_configure(self):
                         f"-DLIBCXX_CXX_ABI_LIBRARY_PATH=/usr/{at}/usr/lib",
                     ],
                     cross_build=False,
+                    generator="Unix Makefiles",
                 )
 
 
 def do_build(self):
+    from cbuild.util import cmake
+
     for an in _targets:
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                self.make.build(wrksrc=f"build-{an}")
+                cmake.build(f"build-{an}")
 
 
 def do_install(self):
+    from cbuild.util import cmake
+
     for an in _targets:
         with self.profile(an) as pf:
-            self.make.install(
-                ["DESTDIR=" + str(self.chroot_destdir / "usr" / pf.triplet)],
-                wrksrc=f"build-{an}",
-                default_args=False,
+            cmake.install(
+                f"build-{an}",
+                env={"DESTDIR": str(self.chroot_destdir / "usr" / pf.triplet)},
             )
 
 
