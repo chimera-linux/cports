@@ -1265,10 +1265,11 @@ Variables:
 Default values:
 
 * `make_dir` = `build`
+* `make_cmd` = `ninja`
 
 Sets `do_configure`, `do_build`, `do_check`, `do_install`. They are wrappers
-around the `meson` utility module API `configure`, `compile`, `install`,
-and `test` respectively.
+around the `meson` utility module API `configure`, `install`, and `test`, except
+`do_build`, which calls `self.make_cmd` (with the right number of jobs).
 
 The `self.make_dir` value is passed as `build_dir`. The `self.configure_args`,
 `self.make_build_args`, `self.make_check_args`, `self.make_install_args` values

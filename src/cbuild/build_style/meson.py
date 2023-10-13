@@ -14,12 +14,15 @@ def do_configure(self):
 def do_build(self):
     renv = dict(self.make_env)
     renv.update(self.make_build_env)
-    meson.compile(
-        self,
-        self.make_dir,
-        self.make_build_args,
-        renv,
-        self.make_wrapper + self.make_build_wrapper,
+    self.do(
+        *self.make_wrapper,
+        *self.make_build_wrapper,
+        self.make_cmd,
+        "-j",
+        str(self.make_jobs),
+        *self.make_build_args,
+        wrksrc=self.make_dir,
+        env=renv,
     )
 
 
@@ -55,4 +58,5 @@ def use(tmpl):
 
     tmpl.build_style_defaults = [
         ("make_dir", "build"),
+        ("make_cmd", "ninja"),
     ]
