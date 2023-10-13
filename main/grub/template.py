@@ -13,9 +13,6 @@ configure_args = [
     "--enable-grub-mkfont",
     "--enable-grub-mount",
 ]
-make_cmd = "gmake"
-# our strip wrapper prevents correct kernel.img generation
-make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 hostmakedepends = [
     "gmake",
     "pkgconf",
@@ -43,6 +40,8 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/grub"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
+# our strip wrapper prevents correct kernel.img generation
+env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 # the freestanding bits
 nopie_files = ["usr/lib/grub/*"]
 
@@ -83,12 +82,6 @@ match self.profile().arch:
         configure_args += ["grub_cv_cc_mcmodel=no"]
     case _:
         broken = f"Unsupported platform ({self.profile().arch})"
-
-
-def init_configure(self):
-    from cbuild.util import make
-
-    self.make = make.Make(self)
 
 
 def do_configure(self):
@@ -138,27 +131,30 @@ def do_configure(self):
 
 def do_build(self):
     # primary build
-    self.make.build(wrksrc="build")
+    self.do("gmake", "-C", "build", f"-j{self.make_jobs}")
     # extra targets
     for arch, platform, cfl, ldfl, desc in _platforms:
         if arch not in _archs:
             continue
-        self.make.build(wrksrc=f"build_{arch}_{platform}")
+        self.do(
+            "gmake", "-C", f"build_{arch}_{platform}", f"-j{self.make_jobs}"
+        )
 
 
 def do_install(self):
+    ddir = self.chroot_destdir
     # populate extra targets first
     for arch, platform, cfl, ldfl, desc in _platforms:
         if arch not in _archs:
             continue
         bdir = f"build_{arch}_{platform}"
         # full install
-        self.make.install(wrksrc=bdir)
+        self.do("gmake", "-C", bdir, "install", f"DESTDIR={ddir}")
         # remove stuff that is not platform specific
         for d in ["etc", "usr/share", "usr/bin"]:
             self.rm(self.destdir / d, recursive=True, force=True)
     # install tools last
-    self.make.install(wrksrc="build")
+    self.do("gmake", "-C", "build", "install", f"DESTDIR={ddir}")
 
 
 def post_install(self):

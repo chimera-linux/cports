@@ -2,7 +2,6 @@
 pkgname = "firmware-linux"
 pkgver = "20230919"
 pkgrel = 0
-make_cmd = "gmake"
 hostmakedepends = ["gmake"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -299,9 +298,11 @@ _pkgs = [
 
 
 def do_install(self):
-    from cbuild.util import make
-
-    make.Make(self).install(["FIRMWAREDIR=/usr/lib/firmware"])
+    self.do(
+        "gmake",
+        "FIRMWAREDIR=/usr/lib/firmware",
+        f"DESTDIR={self.chroot_destdir}",
+    )
 
     self.install_license("WHENCE")
 

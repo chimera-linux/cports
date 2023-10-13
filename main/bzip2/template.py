@@ -12,32 +12,18 @@ tool_flags = {"CFLAGS": ["-fPIC"]}
 options = ["bootstrap"]
 
 
-def init_build(self):
-    from cbuild.util import make
-
-    self.make = make.Make(self)
-
-
 def do_build(self):
-    self.make.build(
-        [
-            "-f",
-            "Makefile-libbz2_so",
-            "CFLAGS=" + self.get_cflags(shell=True),
-            "LDFLAGS=" + self.get_ldflags(shell=True),
-        ]
-    )
-    self.make.invoke(
-        ["bzip2recover", "libbz2.a"],
-        [
-            "CFLAGS=" + self.get_cflags(shell=True),
-            "LDFLAGS=" + self.get_ldflags(shell=True),
-        ],
-    )
+    cmd = ["make", f"-j{self.make_jobs}"]
+    eargs = [
+        "CFLAGS=" + self.get_cflags(shell=True),
+        "LDFLAGS=" + self.get_ldflags(shell=True),
+    ]
+    self.do(*cmd, "-f", "Makefile-libbz2_so", *eargs)
+    self.do(*cmd, "bzip2recover", "libbz2.a", *eargs)
 
 
 def do_check(self):
-    self.make.invoke("check")
+    self.do("make", "check")
 
 
 def do_install(self):

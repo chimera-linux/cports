@@ -1,6 +1,7 @@
 pkgname = "efibootmgr"
 pkgver = "18"
 pkgrel = 0
+build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = ["efivar-devel", "popt-devel", "linux-headers"]
@@ -12,6 +13,8 @@ url = "https://github.com/rhboot/efibootmgr"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "2b195f912aa353f0d11f21f207684c91460fbc37f9a4f2673e63e5e32d108b10"
 hardening = ["vis", "cfi"]
+# no tests
+options = ["!check"]
 
 # TODO: kernel hook?
 
@@ -27,20 +30,14 @@ match self.profile().arch:
 
 
 def init_configure(self):
+    self.make_build_args += [
+        "EXTRA_CFLAGS=" + self.get_cflags(shell=True),
+        "EFIDIR=chimera",
+        "EFI_LOADER=" + _loader,
+    ]
+
     if self.profile().cross:
         self.make_build_args += [f"CROSS_COMPILE={self.profile().triplet}-"]
-
-
-def do_build(self):
-    from cbuild.util import make
-
-    make.Make(self).build(
-        [
-            "EXTRA_CFLAGS=" + self.get_cflags(shell=True),
-            "EFIDIR=chimera",
-            "EFI_LOADER=" + _loader,
-        ]
-    )
 
 
 def do_install(self):

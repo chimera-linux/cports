@@ -4,7 +4,9 @@ pkgrel = 0
 _perl_cross_ver = "1.5"
 build_style = "gnu_configure"
 make_cmd = "gmake"
+make_dir = "."
 make_check_target = "test"
+make_check_env = {"PERL_BUILD_PACKAGING": "1"}
 hostmakedepends = ["gmake", "less"]
 makedepends = ["zlib-devel", "bzip2-devel"]
 checkdepends = ["perl-AnyEvent", "perl-Test-Pod", "procps"]
@@ -30,6 +32,10 @@ tool_flags = {
     ],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152", "-pthread"],
 }
+env = {
+    "HOSTCFLAGS": "-D_GNU_SOURCE",
+    "MAKE": "gmake",
+}
 # FIXME int; available ubsan patch does not help (e.g. automake fails to run)
 hardening = ["!int"]
 # check is cyclic: depends on perl modules
@@ -49,16 +55,7 @@ def pre_patch(self):
 
 
 def init_configure(self):
-    from cbuild.util import make
-
-    self.make = make.Make(self, wrksrc=".")
-
-    self.env["HOSTCFLAGS"] = "-D_GNU_SOURCE"
-
     self.tools["LD"] = self.tools["CC"]
-
-    # to prevent perl buildsystem from invoking bmake
-    self.env["MAKE"] = self.make.get_command()
 
 
 def do_configure(self):
@@ -103,13 +100,8 @@ def do_configure(self):
     self.do(self.chroot_cwd / "configure", *cargs)
 
 
-def do_check(self):
-    self.make.check(
-        env={
-            "TEST_JOBS": str(self.make_jobs),
-            "PERL_BUILD_PACKAGING": "1",
-        }
-    )
+def init_check(self):
+    self.make_check_env["TEST_JOBS"] = str(self.make_jobs)
 
 
 def post_install(self):

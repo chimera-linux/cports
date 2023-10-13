@@ -1,7 +1,6 @@
 pkgname = "man-pages"
 pkgver = "6.05.01"
 pkgrel = 1
-make_cmd = "gmake"
 hostmakedepends = ["gmake", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -13,10 +12,11 @@ options = ["!autosplit"]
 
 
 def do_install(self):
-    from cbuild.util import make
-
-    make.Make(self).invoke(
-        "install", ["VERBOSE=1", f"prefix={self.chroot_destdir}/usr"]
+    self.do(
+        "gmake",
+        "install",
+        "VERBOSE=1",
+        f"prefix={self.chroot_destdir}/usr",
     )
 
     # remove duplicate manpages

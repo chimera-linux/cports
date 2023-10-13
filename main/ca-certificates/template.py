@@ -1,6 +1,8 @@
 pkgname = "ca-certificates"
 pkgver = "20230311"
 pkgrel = 0
+build_style = "makefile"
+make_use_env = True
 hostmakedepends = ["openssl"]
 depends = ["openssl", "debianutils"]
 triggers = [
@@ -44,25 +46,14 @@ def post_patch(self):
     self.mv("mozilla/Makefile.new", "mozilla/Makefile")
 
 
-def init_build(self):
-    from cbuild.util import make
-
-    self.make = make.Make(self)
-
-
-def do_build(self):
-    self.make.build()
-
-
-def do_install(self):
+def pre_install(self):
     self.install_dir("usr/share/" + pkgname)
     self.install_dir("usr/bin")
     self.install_dir("etc/ssl/certs")
-
     self.install_link("bin", "usr/sbin")
 
-    self.make.install()
 
+def post_install(self):
     self.install_dir("usr/share/man/man8")
     self.install_file("sbin/update-ca-certificates.8", "usr/share/man/man8")
 

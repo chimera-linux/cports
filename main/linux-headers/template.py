@@ -1,7 +1,6 @@
 pkgname = "linux-headers"
 pkgver = "6.5.5"
 pkgrel = 0
-make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl"]
 pkgdesc = "Linux API headers for userland development"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -26,30 +25,13 @@ match self.profile().arch:
 
 
 def do_build(self):
-    from cbuild.util import make
-
-    mk = make.Make(self, jobs=1)
-
-    tcfl = self.get_cflags(shell=True)
-    tlfl = self.get_ldflags(shell=True)
-    tcc = self.get_tool("CC")
-    with self.profile("host"):
-        hcfl = self.get_cflags(shell=True)
-        hlfl = self.get_ldflags(shell=True)
-        hcc = self.get_tool("CC")
-
-    mk.invoke(
+    self.do(
+        "gmake",
+        "ARCH=" + _arch,
+        "CC=clang",
+        "HOSTCC=clang",
         "mrproper",
-        [
-            "ARCH=" + _arch,
-            "CC=" + tcc,
-            "HOSTCC=" + hcc,
-            "CFLAGS=" + tcfl,
-            "HOSTCFLAGS=" + hcfl,
-            "LDFLAGS=" + tlfl,
-            "HOSTLDFLAGS=" + hlfl,
-            "headers",
-        ],
+        "headers",
     )
 
     # remove extra files and drm headers

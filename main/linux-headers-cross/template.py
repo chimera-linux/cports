@@ -1,7 +1,6 @@
 pkgname = "linux-headers-cross"
 pkgver = "5.15.5"
 pkgrel = 1
-make_cmd = "gmake"
 hostmakedepends = ["gmake", "perl"]
 depends = []
 pkgdesc = "Linux API headers for cross-compiling"
@@ -25,16 +24,18 @@ _targets = list(filter(lambda p: p[0] != self.profile().arch, _targetlist))
 
 
 def do_build(self):
-    from cbuild.util import make
-
     for an, arch in _targets:
         # already done
         if (self.cwd / ("inc_" + an)).exists():
             continue
 
-        mk = make.Make(self, jobs=1)
-        mk.invoke(
-            "mrproper", ["ARCH=" + arch, "CC=clang", "HOSTCC=clang", "headers"]
+        self.do(
+            "gmake",
+            "ARCH=" + arch,
+            "CC=clang",
+            "HOSTCC=clang",
+            "mrproper",
+            "headers",
         )
 
         # remove extra files and drm headers

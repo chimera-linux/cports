@@ -1,8 +1,6 @@
 pkgname = "git"
 pkgver = "2.42.0"
 pkgrel = 1
-make_cmd = "gmake"
-make_check_target = "test"
 hostmakedepends = [
     "gmake",
     "asciidoc",
@@ -36,12 +34,6 @@ hardening = ["!cfi"]  # TODO
 options = ["!check"]
 
 
-def init_configure(self):
-    from cbuild.util import make
-
-    self.make = make.Make(self)
-
-
 def do_configure(self):
     with open(self.cwd / "config.mak", "w") as cf:
         cf.write(
@@ -69,42 +61,26 @@ export GIT_SKIP_TESTS=t9604.2
 
 
 def do_build(self):
-    self.make.build()
-    self.make.invoke(None, ["-C", "Documentation", "man"])
-    self.make.invoke(None, ["-C", "contrib/contacts", "all", "git-contacts.1"])
-    self.make.invoke(None, ["-C", "contrib/diff-highlight", "all"])
-    self.make.invoke(None, ["-C", "contrib/subtree", "all", "man"])
-    self.make.invoke(None, ["-C", "contrib/credential/libsecret", "all"])
+    cmd = ["gmake", f"-j{self.make_jobs}"]
+    self.do(*cmd)
+    self.do(*cmd, "-C", "Documentation", "man")
+    self.do(*cmd, "-C", "contrib/contacts", "all", "git-contacts.1")
+    self.do(*cmd, "-C", "contrib/diff-highlight", "all")
+    self.do(*cmd, "-C", "contrib/subtree", "all", "man")
+    self.do(*cmd, "-C", "contrib/credential/libsecret", "all")
 
 
 def do_check(self):
-    self.make.check()
-    self.make.invoke(None, ["-C", "contrib/diff-highlight", "test"])
-    self.make.invoke(None, ["-C", "contrib/subtree", "test"])
+    self.do("gmake", "test")
+    self.do("gmake", "-C", "contrib/diff-highlight", "test")
+    self.do("gmake", "-C", "contrib/subtree", "test")
 
 
 def do_install(self):
-    self.make.install(["install-doc"])
-    self.make.invoke(
-        None,
-        [
-            "-C",
-            "contrib/contacts",
-            "DESTDIR=" + str(self.chroot_destdir),
-            "install",
-            "install-man",
-        ],
-    )
-    self.make.invoke(
-        None,
-        [
-            "-C",
-            "contrib/subtree",
-            "DESTDIR=" + str(self.chroot_destdir),
-            "install",
-            "install-man",
-        ],
-    )
+    ddir = f"DESTDIR={self.chroot_destdir}"
+    self.do("gmake", "install", "install-doc", ddir)
+    self.do("gmake", "-C", "contrib/contacts", "install", "install-man", ddir)
+    self.do("gmake", "-C", "contrib/subtree", "install", "install-man", ddir)
     # no install target
     self.install_file(
         "contrib/credential/libsecret/git-credential-libsecret",

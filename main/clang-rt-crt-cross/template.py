@@ -81,7 +81,7 @@ def post_patch(self):
 
 
 def do_configure(self):
-    from cbuild.util import cmake, make
+    from cbuild.util import cmake
 
     for an in _btargets:
         with self.profile(an) as pf:
@@ -101,13 +101,12 @@ def do_configure(self):
             # install musl headers for arch
             with self.stamp(f"{an}_musl_install") as s:
                 s.check()
-                make.Make(
-                    self,
-                    command="gmake",
-                    wrksrc=self.chroot_cwd / f"musl/build-{an}",
-                ).invoke(
+                self.do(
+                    "gmake",
+                    "-C",
+                    f"musl/build-{an}",
                     "install-headers",
-                    ["DESTDIR=" + str(self.chroot_cwd / f"musl-{an}")],
+                    "DESTDIR=" + str(self.chroot_cwd / f"musl-{an}"),
                 )
             # configure compiler-rt
             with self.stamp(f"{an}_configure") as s:

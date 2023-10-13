@@ -2,7 +2,6 @@ pkgname = "python-pytest"
 pkgver = "7.4.2"
 pkgrel = 0
 build_style = "python_module"
-make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
     "python-setuptools_scm",
@@ -33,11 +32,11 @@ options = ["!check"]
 
 
 def post_build(self):
-    from cbuild.util import make
-
-    make.Make(self).invoke(
-        None,
-        ["-C", "doc/en", "man"],
+    self.do(
+        "gmake",
+        "-C",
+        "doc/en",
+        "man",
         env={"PYTHONPATH": str(self.chroot_cwd / "build/lib")},
     )
 
