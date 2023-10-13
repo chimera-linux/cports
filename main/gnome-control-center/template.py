@@ -65,11 +65,6 @@ sha256 = "83df6a90f98914f2c19a872ce06562acef40927637f679c383099265ccfa42cf"
 options = ["!check"]
 
 
-def pre_build(self):
-    # racey, included from elsewhere but not dependencies
-    self.make.invoke("panels/network/cc-network-resources.h")
-
-
 @subpackage("gnome-control-center-devel")
 def _devel(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
