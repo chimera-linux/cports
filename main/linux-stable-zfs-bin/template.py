@@ -1,6 +1,6 @@
 pkgname = "linux-stable-zfs-bin"
 _kernver = "6.5.6"
-_zfsver = "2.1.13"
+_zfsver = "2.2.0"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0
 hostmakedepends = ["gmake", "perl", "python", "ckms"]

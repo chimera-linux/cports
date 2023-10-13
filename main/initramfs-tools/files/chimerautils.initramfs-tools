@@ -6,7 +6,7 @@
 
 # provided by chimerautils-tiny
 BSD_TOOLS="
- [ basename cat chroot cp cut dd dir dirname du echo
+ [ basename cat chroot cp cut date dd dir dirname du echo
  egrep expand expr false fgrep find fmt fold grep
  head kill link ln look ls mkdir mkfifo mknod mv
  pathchk pivot_root printf pwd readlink realpath rgrep

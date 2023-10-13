@@ -1,0 +1,25 @@
+In file included from /builddir/linux-stable-zfs-bin-2.2.0.6.5.6/zfs/2.2.0/build/module/zfs/vdev_raidz_math_powerpc_altivec.c:204:
+/builddir/linux-stable-zfs-bin-2.2.0.6.5.6/zfs/2.2.0/build/module/zfs/vdev_raidz_math_impl.h:169:2: error: invalid output constraint '=v' in asm
+        ZERO(ZERO_D);
+        ^
+/builddir/linux-stable-zfs-bin-2.2.0.6.5.6/zfs/2.2.0/build/module/zfs/vdev_raidz_math_powerpc_altivec_common.h:240:5: note: expanded from macro 'ZERO'
+                :       WVR0(r), WVR1(r), WVR2(r), WVR3(r),     \
+                        ^
+/builddir/linux-stable-zfs-bin-2.2.0.6.5.6/zfs/2.2.0/build/module/zfs/vdev_raidz_math_powerpc_altivec_common.h:90:20: note: expanded from macro 'WVR0'
+#define WVR0(r...) WVR0_(r)
+                   ^
+/builddir/linux-stable-zfs-bin-2.2.0.6.5.6/zfs/2.2.0/build/module/zfs/vdev_raidz_math_powerpc_altivec_common.h:81:34: note: expanded from macro 'WVR0_'
+#define WVR0_(REG, ...) [w##REG] "=v" (w##REG)
+
+
+and so on.
+
+--- a/module/Kbuild.in
++++ b/module/Kbuild.in
+@@ -494,5 +494,5 @@ OBJECT_FILES_NON_STANDARD_vdev_raidz_math_avx512bw.o := y
+ OBJECT_FILES_NON_STANDARD_vdev_raidz_math_avx512f.o := y
+ 
+ ifeq ($(CONFIG_ALTIVEC),y)
+-$(obj)/zfs/vdev_raidz_math_powerpc_altivec.o : c_flags += -maltivec
++$(obj)/zfs/vdev_raidz_math_powerpc_altivec.o : c_flags += -mhard-float -maltivec
+ endif
