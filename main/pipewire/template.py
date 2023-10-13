@@ -1,5 +1,5 @@
 pkgname = "pipewire"
-pkgver = "0.3.81"
+pkgver = "0.3.82"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -11,6 +11,7 @@ configure_args = [
     "-Dlibcamera=disabled",
     "-Dlibffado=disabled",
     "-Droc=disabled",
+    "-Dselinux=disabled",
     "-Dbluez5-codec-lc3plus=disabled",
     "-Djack=disabled",  # spa plugin
     "-Dpipewire-jack=enabled",  # jack server
@@ -74,7 +75,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "241bd06703e41e30d26e096301337547ef5be1201919996c10045758673e691d"
+sha256 = "180283e33ebb4fbcfefa25f1f1c23df1c0f084ea890c9394fa0a7ba7d13d789a"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
 
