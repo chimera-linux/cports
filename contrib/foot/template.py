@@ -1,5 +1,5 @@
 pkgname = "foot"
-pkgver = "1.15.3"
+pkgver = "1.16.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -26,7 +26,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/foot"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "65006a0643ec185a0e24578365e2e7469ddeba6bd543645a15d9bbb5ec501670"
+sha256 = "43df31d457ee1f30909d12875a18845e66277def32a25d9754c96995c58d179a"
 hardening = ["vis", "cfi"]
 
 
