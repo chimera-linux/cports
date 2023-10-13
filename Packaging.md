@@ -3435,7 +3435,8 @@ and `extra_args`. If `wrapper` is given, `meson` is run through it. The given
 
 ##### def compile(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
 
-Like running `invoke` with `compile` command. No special arguments are passed.
+Like running `invoke` with `compile` command. The `--jobs` argument is passed
+before any other `extra_args`, with `pkg.make_jobs`.
 
 ##### def install(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
 
@@ -3443,10 +3444,11 @@ Like running `invoke` with `install` command. The `DESTDIR` is passed via
 the environment (any given `env` is of higher importance however). The
 `--no-rebuild` flag is by default passed, followed by `extra_args`.
 
-##### def compile(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
+##### def test(pkg, command, build_dir, extra_args = [], env = {}, wrapper = [])
 
 Like running `invoke` with `test` command. The `--no-rebuild` as well as
-`--print-errorlogs` arguments are passed, followed by any `extra_args`.
+`--print-errorlogs` and `--num-processes` (with `pkg.make_jobs`) arguments
+are passed, followed by any `extra_args`.
 
 <a id="update_check"></a>
 ## Update Check
