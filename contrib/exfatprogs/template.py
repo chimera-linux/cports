@@ -6,12 +6,10 @@ make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
     "automake",
-    "autoconf",
     "gmake",
     "libtool",
-    "linux-headers",
 ]
-makedepends = []
+makedepends = ["linux-headers"]
 pkgdesc = "ExFAT filesystem utilities"
 maintainer = "Val Packett <val@packett.cool>"
 license = "MIT"
