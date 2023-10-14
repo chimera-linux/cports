@@ -1,7 +1,6 @@
 pkgname = "syslog-ng"
-pkgver = "4.3.1"
-pkgrel = 1
-_pcre_ver = "8.45"
+pkgver = "4.4.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--sysconfdir=/etc/syslog-ng",
@@ -62,7 +61,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-or-later"
 url = "https://www.syslog-ng.com/products/open-source-log-management"
 source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "999dbab62982c3cffba02c0be22c596ee1ce81d6954689dc9b3a6afeb513cce3"
+sha256 = "583b147f3ec17fbc2dbbf31aafb1e3966237d7541313de5b41ea885dc16d932e"
 # tests need https://github.com/Snaipe/Criterion
 options = ["!check"]
 
