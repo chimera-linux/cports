@@ -1,6 +1,6 @@
 pkgname = "xdg-desktop-portal"
 pkgver = "1.18.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "bubblewrap", "glib-devel"]
 makedepends = [
@@ -23,6 +23,9 @@ sha256 = "5ea35a6420a98b598c83355fc19feaea8ba999149641bf84079b0c572b00f5bd"
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib/systemd", recursive=True)
+    self.install_file(
+        self.files_path / "portals.conf", "usr/share/xdg-desktop-portal"
+    )
 
 
 @subpackage("xdg-desktop-portal-devel")
