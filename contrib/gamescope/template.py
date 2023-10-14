@@ -1,6 +1,6 @@
 pkgname = "gamescope"
-pkgver = "3.12.5"
-pkgrel = 1
+pkgver = "3.12.7"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "cmake",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "meson",
     "ninja",
     "pkgconf",
+    "spirv-headers",
 ]
 makedepends = [
     "benchmark-devel",
@@ -42,16 +43,19 @@ source = [
     f"{url}/archive/refs/tags/{pkgver}.tar.gz",
     "https://github.com/ValveSoftware/openvr/archive/1a0ea26642e517824b66871e6a12280a426cfec3.tar.gz",
     "https://github.com/Joshua-Ashton/vkroots/archive/26757103dde8133bab432d172b8841df6bb48155.tar.gz",
+    "https://github.com/Joshua-Ashton/reshade/archive/9fdbea6892f9959fdc18095d035976c574b268b7.tar.gz",
 ]
 source_paths = [
     ".",
     "subprojects/openvr",
     "subprojects/vkroots",
+    "src/reshade",
 ]
 sha256 = [
-    "32a020e35b8443862c900306fb6edb84a8ecb009c89184d2062b0b8ce2811e17",
+    "e062eb541e20959cd3d64e79c1c31fe3bf1d773afd3da5816011f07424e33bcb",
     "6285504e64a37df47856ffa4a12709d0703da37ee1b0c9fe9e8e52a55127dd7d",
     "adf158c3da572f1dfaa6e1a7a51943aafb824222e77f512a4666472d71321244",
+    "165726ad21fbfc221c0363e40b597834068a416a11a1204ae2ac6d13ec161035",
 ]
 # sus
 options = ["!cross"]
