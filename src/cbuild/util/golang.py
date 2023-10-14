@@ -8,6 +8,9 @@ def get_go_env(pkg):
     env = {
         "GOMODCACHE": "/cbuild_cache/golang/pkg/mod",
         "GOARCH": pkg.profile().goarch,
+        "CGO_CFLAGS": pkg.get_cflags(shell=True),
+        "CGO_CXXFLAGS": pkg.get_cxxflags(shell=True),
+        "CGO_LDFLAGS": pkg.get_ldflags(shell=True),
     }
     return env
 
@@ -85,7 +88,7 @@ class Golang:
         return self._invoke("mod", ["download"], 1, False, None, env, wrksrc)
 
     def build(self, args=[], jobs=None, env={}, wrksrc=None):
-        myargs = ["-v"]  # increase go verbosity
+        myargs = ["-v", "-trimpath"]  # increase go verbosity, fix repro builds
 
         tags = self.template.go_build_tags
 
