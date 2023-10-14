@@ -1,0 +1,13 @@
+pkgname = "android-tools"
+pkgver = "34.0.4"
+pkgrel = 0
+build_style = "cmake"
+hostmakedepends = ["cmake", "ninja", "pkgconf", "go", "perl"]
+makedepends = ["pcre2-devel", "linux-headers", "libusb-devel", "gtest-devel", "protobuf", "protobuf-devel", "brotli-devel", "zstd-devel", "lz4-devel"]
+depends = ["python", "libusb"]
+pkgdesc = "Android platform tools"
+maintainer = "reocat <ng.ct_ml@tuta.io>"
+license = "Apache-2.0"
+url = "https://github.com/nmeum/android-tools"
+source = f"{url}/releases/download/{pkgver}/android-tools-{pkgver}.tar.xz"
+sha256 = "7a22ff9cea81ff4f38f560687858e8f8fb733624412597e3cc1ab0262f8da3a1"
