@@ -1,11 +1,11 @@
 pkgname = "libfido2"
 pkgver = "1.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_EXAMPLES=OFF",
     "-DBUILD_STATIC_LIBS=OFF",
-    "-DUDEV_RULES_DIR=/usr/lib/udev/rules.d",
+    "-DUDEV_RULES_DIR=",  # handled by systemd-udev
 ]
 hostmakedepends = [
     "cmake",
