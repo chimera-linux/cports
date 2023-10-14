@@ -1,6 +1,6 @@
 pkgname = "mygui"
-pkgver = "3.4.3"
-pkgrel = 0
+pkgver = "3.4.2"
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DMYGUI_BUILD_DEMOS=OFF",
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/MyGUI"
 source = f"{url}/{pkgname}/archive/MyGUI{pkgver}.tar.gz"
-sha256 = "33c91b531993047e77cace36d6fea73634b8c17bd0ed193d4cd12ac7c6328abd"
+sha256 = "1cc45fb96c9438e3476778449af0378443d84794a458978a29c75306e45dd45a"
 # unit tests are off
 options = ["!check"]
 
