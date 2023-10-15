@@ -1,1 +1,1 @@
-ignore = ["*~rc*"]
+ignore = ["*~rc*", "*~pre*"]
