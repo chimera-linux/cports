@@ -1,5 +1,5 @@
 pkgname = "libjpeg-turbo"
-pkgver = "3.0.0"
+pkgver = "3.0.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DWITH_JPEG8=1", "-DCMAKE_INSTALL_LIBDIR=/usr/lib"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "IJG AND BSD-3-Clause AND Zlib"
 url = "https://libjpeg-turbo.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "c77c65fcce3d33417b2e90432e7a0eb05f59a7fff884022a9d931775d583bfaa"
+sha256 = "22429507714ae147b3acacd299e82099fce5d9f456882fc28e252e4579ba2a75"
 
 # tests segfault with altivec simd
 # also some floattest12 tests fail
