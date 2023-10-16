@@ -1,8 +1,14 @@
 pkgname = "python-psutil"
-pkgver = "5.9.5"
+pkgver = "5.9.6"
 pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools", "python-devel"]
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-devel",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 makedepends = ["linux-headers"]
 depends = ["python"]
 pkgdesc = "Process and system monitoring module for Python"
@@ -10,7 +16,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "BSD-3-Clause"
 url = "https://github.com/giampaolo/psutil"
 source = f"$(PYPI_SITE)/p/psutil/psutil-{pkgver}.tar.gz"
-sha256 = "5410638e4df39c54d957fc51ce03048acd8e6d60abc0f5107af51e5fb566eb3c"
+sha256 = "e4b92ddcd7dd4cdd3f900180ea1e104932c7bce234fb88976e2a3b296441225a"
 # testing requires a lot of additional modules
 options = ["!check"]
 
