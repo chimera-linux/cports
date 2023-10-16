@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "254"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dadm-group=false",
@@ -124,6 +124,26 @@ source = (
 sha256 = "244da7605800a358915e4b45d079b0b89364be35da4bc8d849821e67bac0ce62"
 options = ["!splitudev"]
 
+_have_sd_boot = False
+
+# supported efi architectures
+match self.profile().arch:
+    case "x86_64" | "aarch64" | "riscv64":
+        _have_sd_boot = True
+
+if _have_sd_boot:
+    configure_args += [
+        "-Dbootloader=true",
+        "-Defi=true",
+        # secure boot
+        "-Dsbat-distro=chimera",
+        "-Dsbat-distro-summary=Chimera Linux",
+        "-Dsbat-distro-pkgname=systemd-boot",
+        "-Dsbat-distro-url=https://chimera-linux.org",
+        f"-Dsbat-distro-version={pkgver}-r{pkgrel}",
+    ]
+    hostmakedepends += ["python-pyelftools"]
+
 
 def init_configure(self):
     # bypass some ugly configure checks
@@ -143,12 +163,17 @@ def post_install(self):
     # drop some more systemd bits
     for f in [
         "usr/include/systemd",
-        "usr/lib/systemd",
         "usr/lib/tmpfiles.d",
         "usr/share/dbus-1",
         "usr/share/doc",
     ]:
         self.rm(ddir / f, recursive=True)
+
+    for f in (ddir / "usr/lib/systemd").iterdir():
+        # keep efi stubs
+        if f.name == "boot":
+            continue
+        self.rm(f, recursive=True)
 
     # move standalone in its place
     self.mv(
@@ -201,6 +226,35 @@ def _devel(self):
 @subpackage("udev-libs")
 def _libs(self):
     return self.default_libs()
+
+
+@subpackage("systemd-boot", _have_sd_boot)
+def _boot(self):
+    self.pkgdesc = "UEFI boot manager"
+    self.depends += [f"systemd-boot-efi={pkgver}-r{pkgrel}"]
+
+    return [
+        "usr/bin/bootctl",
+        "usr/libexec/systemd-bless-boot",
+        "usr/share/bash-completion/completions/bootctl",
+        "usr/share/zsh/site-functions/_bootctl",
+        "usr/share/man/man1/bootctl.1",
+        "usr/share/man/man5/loader.conf.5",
+        "usr/share/man/man7/sd-boot.7",
+        "usr/share/man/man7/systemd-boot.7",
+    ]
+
+
+@subpackage("systemd-boot-efi", _have_sd_boot)
+def _efi(self):
+    self.pkgdesc = "UEFI boot manager (EFI binaries)"
+
+    return [
+        "usr/lib/systemd/boot/efi",
+        "usr/share/man/man7/linux*.efi.stub.7",
+        "usr/share/man/man7/systemd-stub.7",
+        "usr/share/man/man7/sd-stub.7",
+    ]
 
 
 @subpackage("systemd-tmpfiles")

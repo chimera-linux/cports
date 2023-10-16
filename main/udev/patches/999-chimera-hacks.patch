@@ -1,20 +1,22 @@
-commit 8034c694168cda3e121a11e22e0e6903b8af8874
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Fri Feb 24 19:11:23 2023 +0100
+commit 0c9d3de70dcfd26459accda53d322022804ef3fc
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Oct 16 01:24:04 2023 +0200
 
-    portability/install hacks + update manpages for our environment
+     portability/install hacks + update manpages for our environment
 
 diff --git a/factory/templates/meson.build b/factory/templates/meson.build
-index ece2c64..c4b6828 100644
+index a3ba7b1..cedb35e 100644
 --- a/factory/templates/meson.build
 +++ b/factory/templates/meson.build
-@@ -7,5 +7,5 @@ custom_target(
+@@ -7,7 +7,7 @@ custom_target(
          input : 'locale.conf.in',
          output : 'locale.conf',
          command : [jinja2_cmdline, '@INPUT@', '@OUTPUT@'],
 -        install : true,
 +        install : false,
          install_dir : factory_etc_dir)
+ 
+ custom_target(
 diff --git a/hwdb.d/60-autosuspend.hwdb b/hwdb.d/60-autosuspend.hwdb
 index cfb6084..4d4e353 100644
 --- a/hwdb.d/60-autosuspend.hwdb
@@ -29,7 +31,7 @@ index cfb6084..4d4e353 100644
  #
  # If your changes are generally applicable, preferably send them as a pull
 diff --git a/hwdb.d/60-evdev.hwdb b/hwdb.d/60-evdev.hwdb
-index 7a969a8..3b8c31b 100644
+index a9ce4e2..c94d5b6 100644
 --- a/hwdb.d/60-evdev.hwdb
 +++ b/hwdb.d/60-evdev.hwdb
 @@ -33,7 +33,7 @@
@@ -55,7 +57,7 @@ index 802ed9a..4f0783f 100644
  # where /dev/input/eventXX is the device in question. If in
  # doubt, simply use /dev/input/event* to reload all input rules.
 diff --git a/hwdb.d/60-keyboard.hwdb b/hwdb.d/60-keyboard.hwdb
-index 10dde4d..e47008b 100644
+index f3f40ef..435efd7 100644
 --- a/hwdb.d/60-keyboard.hwdb
 +++ b/hwdb.d/60-keyboard.hwdb
 @@ -46,7 +46,7 @@
@@ -68,7 +70,7 @@ index 10dde4d..e47008b 100644
  # where /dev/input/eventXX is the keyboard in question. If in doubt, simply use
  # /dev/input/event* to reload all input rules.
 diff --git a/hwdb.d/60-sensor.hwdb b/hwdb.d/60-sensor.hwdb
-index 044fecd..c30f5cf 100644
+index 4fb7387..0c596a8 100644
 --- a/hwdb.d/60-sensor.hwdb
 +++ b/hwdb.d/60-sensor.hwdb
 @@ -23,7 +23,7 @@
@@ -81,7 +83,7 @@ index 044fecd..c30f5cf 100644
  # where /dev/iio:deviceXXX is the device in question.
  #
 diff --git a/hwdb.d/70-av-production.hwdb b/hwdb.d/70-av-production.hwdb
-index f89f26e..af9193e 100644
+index 9890d72..d4755e7 100644
 --- a/hwdb.d/70-av-production.hwdb
 +++ b/hwdb.d/70-av-production.hwdb
 @@ -8,7 +8,7 @@
@@ -94,10 +96,10 @@ index f89f26e..af9193e 100644
  
  ################
 diff --git a/hwdb.d/70-joystick.hwdb b/hwdb.d/70-joystick.hwdb
-index 9d5c4fc..9dc4ece 100644
+index 8e942c8..3161fb9 100644
 --- a/hwdb.d/70-joystick.hwdb
 +++ b/hwdb.d/70-joystick.hwdb
-@@ -18,7 +18,7 @@
+@@ -13,7 +13,7 @@
  # To add local entries, create a new file
  #   /etc/udev/hwdb.d/71-joystick-local.hwdb
  # and add your rules there. To load the new rules execute (as root):
@@ -107,7 +109,7 @@ index 9d5c4fc..9dc4ece 100644
  # where /dev/input/eventXX is the joystick in question. If in
  # doubt, simply use /dev/input/event* to reload all input rules.
 diff --git a/hwdb.d/70-mouse.hwdb b/hwdb.d/70-mouse.hwdb
-index 4084019..c8b8270 100644
+index 46d723a..7cbc473 100644
 --- a/hwdb.d/70-mouse.hwdb
 +++ b/hwdb.d/70-mouse.hwdb
 @@ -28,7 +28,7 @@
@@ -133,10 +135,10 @@ index a78d088..a3431ec 100644
  # where /dev/input/eventXX is the pointingstick in question. If in doubt, simply
  # use /dev/input/event* to reload all input rules.
 diff --git a/hwdb.d/70-touchpad.hwdb b/hwdb.d/70-touchpad.hwdb
-index 8194d98..b187863 100644
+index 262bca3..4355c12 100644
 --- a/hwdb.d/70-touchpad.hwdb
 +++ b/hwdb.d/70-touchpad.hwdb
-@@ -18,7 +18,7 @@
+@@ -13,7 +13,7 @@
  # To add local entries, create a new file
  #   /etc/udev/hwdb.d/71-touchpad-local.hwdb
  # and add your rules there. To load the new rules execute (as root):
@@ -197,10 +199,10 @@ index 2c1e502..7625699 100644
      </para>
    </refsect1>
 diff --git a/man/meson.build b/man/meson.build
-index b7725ce..59d7467 100644
+index 4dc5fab..35a7211 100644
 --- a/man/meson.build
 +++ b/man/meson.build
-@@ -55,7 +55,15 @@ foreach tuple : manpages
+@@ -59,7 +59,20 @@ foreach tuple : manpages
  
          mandirn = get_option('mandir') / ('man' + section)
  
@@ -209,15 +211,20 @@ index b7725ce..59d7467 100644
 +        if stem.contains('systemd') and not stem.contains('tmpfile')
 +            do_skip = true
 +        endif
-+        if not stem.contains('udev') and not stem.contains('tmpfile') and stem != 'hwdb'
++        if not stem.contains('udev') and not stem.contains('tmpfile')
 +            do_skip = true
++        endif
++        if stem == 'hwdb' or stem == 'bootctl' or stem == 'loader.conf'
++            do_skip = false
++        elif stem == 'sd-boot' or stem == 'systemd-boot' or stem == 'systemd-stub'
++            do_skip = false
 +        endif
 +
 +        if (condition == '' or conf.get(condition) == 1) and not do_skip
                  file = files(tuple[0] + '.xml')
                  source_xml_files += file
                  if tuple[0].startswith('org.freedesktop.')
-@@ -217,20 +225,6 @@ configure_file(
+@@ -221,20 +234,6 @@ configure_file(
  
  ############################################################
  
@@ -239,10 +246,10 @@ index b7725ce..59d7467 100644
          'update-man-rules-impl',
          output : 'update-man-rules',
 diff --git a/man/rules/meson.build b/man/rules/meson.build
-index c5b457b..fff11a8 100644
+index a450fed..4be5cf3 100644
 --- a/man/rules/meson.build
 +++ b/man/rules/meson.build
-@@ -913,7 +913,7 @@ manpages = [
+@@ -940,7 +940,7 @@ manpages = [
    'ENABLE_HIBERNATE'],
   ['systemd-homed.service', '8', ['systemd-homed'], 'ENABLE_HOMED'],
   ['systemd-hostnamed.service', '8', ['systemd-hostnamed'], 'ENABLE_HOSTNAMED'],
@@ -251,13 +258,22 @@ index c5b457b..fff11a8 100644
   ['systemd-id128', '1', [], ''],
   ['systemd-importd.service', '8', ['systemd-importd'], 'ENABLE_IMPORTD'],
   ['systemd-inhibit', '1', [], ''],
-diff --git a/man/systemd-hwdb.xml b/man/udev-hwdb.xml
-similarity index 79%
-rename from man/systemd-hwdb.xml
-rename to man/udev-hwdb.xml
+@@ -1080,10 +1080,7 @@ manpages = [
+  ['systemd-timesyncd.service', '8', ['systemd-timesyncd'], 'ENABLE_TIMESYNCD'],
+  ['systemd-tmpfiles',
+   '8',
+-  ['systemd-tmpfiles-clean.service',
+-   'systemd-tmpfiles-clean.timer',
+-   'systemd-tmpfiles-setup-dev.service',
+-   'systemd-tmpfiles-setup.service'],
++  [],
+   ''],
+  ['systemd-tty-ask-password-agent', '1', [], ''],
+  ['systemd-udev-settle.service', '8', [], ''],
+diff --git a/man/systemd-hwdb.xml b/man/systemd-hwdb.xml
 index 70c052e..c7876fc 100644
 --- a/man/systemd-hwdb.xml
-+++ b/man/udev-hwdb.xml
++++ b/man/systemd-hwdb.xml
 @@ -3,34 +3,34 @@
    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
  <!-- SPDX-License-Identifier: LGPL-2.1-or-later -->
@@ -316,6 +332,199 @@ index 70c052e..c7876fc 100644
        <arg choice="opt"><replaceable>options</replaceable></arg>
        query
        <arg><replaceable>MODALIAS</replaceable></arg>
+diff --git a/man/systemd-tmpfiles.xml b/man/systemd-tmpfiles.xml
+index decd66d..6adb806 100644
+--- a/man/systemd-tmpfiles.xml
++++ b/man/systemd-tmpfiles.xml
+@@ -18,10 +18,6 @@
+ 
+   <refnamediv>
+     <refname>systemd-tmpfiles</refname>
+-    <refname>systemd-tmpfiles-setup.service</refname>
+-    <refname>systemd-tmpfiles-setup-dev.service</refname>
+-    <refname>systemd-tmpfiles-clean.service</refname>
+-    <refname>systemd-tmpfiles-clean.timer</refname>
+     <refpurpose>Creates, deletes and cleans up volatile
+     and temporary files and directories</refpurpose>
+   </refnamediv>
+@@ -32,17 +28,6 @@
+       <arg choice="opt" rep="repeat">OPTIONS</arg>
+       <arg choice="opt" rep="repeat"><replaceable>CONFIGFILE</replaceable></arg>
+     </cmdsynopsis>
+-
+-    <para>System units:
+-<literallayout><filename>systemd-tmpfiles-setup.service</filename>
+-<filename>systemd-tmpfiles-setup-dev.service</filename>
+-<filename>systemd-tmpfiles-clean.service</filename>
+-<filename>systemd-tmpfiles-clean.timer</filename></literallayout></para>
+-
+-    <para>User units:
+-<literallayout><filename>systemd-tmpfiles-setup.service</filename>
+-<filename>systemd-tmpfiles-clean.service</filename>
+-<filename>systemd-tmpfiles-clean.timer</filename></literallayout></para>
+   </refsynopsisdiv>
+ 
+   <refsect1>
+@@ -63,13 +48,10 @@
+     <citerefentry><refentrytitle>tmpfiles.d</refentrytitle><manvolnum>5</manvolnum></citerefentry> are
+     searched for a matching file and the file found that has the highest priority is executed.</para>
+ 
+-    <para>System services (<filename>systemd-tmpfiles-setup.service</filename>,
+-    <filename>systemd-tmpfiles-setup-dev.service</filename>,
+-    <filename>systemd-tmpfiles-clean.service</filename>) invoke <command>systemd-tmpfiles</command> to create
++    <para>System services invoke <command>systemd-tmpfiles</command> to create
+     system files and to perform system wide cleanup. Those services read administrator-controlled
+     configuration files in <filename>tmpfiles.d/</filename> directories. User services
+-    (<filename>systemd-tmpfiles-setup.service</filename>,
+-    <filename>systemd-tmpfiles-clean.service</filename>) also invoke <command>systemd-tmpfiles</command>, but
++    also invoke <command>systemd-tmpfiles</command>, but
+     it reads a separate set of files, which includes user-controlled files under
+     <filename>~/.config/user-tmpfiles.d/</filename> and <filename>~/.local/share/user-tmpfiles.d/</filename>,
+     and administrator-controlled files under <filename>/usr/share/user-tmpfiles.d/</filename>. Users may use
+@@ -79,11 +61,10 @@
+     affect files created by the user instance if they are placed in <filename>/tmp/</filename>, even if the
+     user instance's time-based cleanup is turned off.</para>
+ 
+-    <para>To re-apply settings after configuration has been modified, simply restart
+-    <filename>systemd-tmpfiles-clean.service</filename>, which will apply any settings which can be safely
+-    executed at runtime. To debug <command>systemd-tmpfiles</command>, it may be useful to invoke it
+-    directly from the command line with increased log level (see <varname>$SYSTEMD_LOG_LEVEL</varname>
+-    below).</para>
++    <para>To re-apply settings after configuration has been modified, simply run <command>systemd-tmpfiles</command> with the
++    desired parameters, which will apply any settings which can be safely executed at runtime. To debug <command>systemd-tmpfiles</command>,
++    it may be useful to invoke it directly from the command line with increased log level
++    (see <varname>$SYSTEMD_LOG_LEVEL</varname> below).</para>
+   </refsect1>
+ 
+   <refsect1>
+@@ -203,9 +184,7 @@
+         but operates on file systems stored in disk images or block devices. The disk image should either
+         contain just a file system or a set of file systems within a GPT partition table, following the
+         <ulink url="https://uapi-group.org/specifications/specs/discoverable_partitions_specification">Discoverable Partitions
+-        Specification</ulink>. For further information on supported disk images, see
+-        <citerefentry><refentrytitle>systemd-nspawn</refentrytitle><manvolnum>1</manvolnum></citerefentry>'s
+-        switch of the same name.</para>
++        Specification</ulink>.</para>
+ 
+         <para>Implies <option>-E</option>.</para></listitem>
+       </varlistentry>
+@@ -242,31 +221,6 @@
+     <programlisting>systemd-tmpfiles --remove --create</programlisting>
+   </refsect1>
+ 
+-  <refsect1>
+-    <title>Credentials</title>
+-
+-    <para><command>systemd-tmpfiles</command> supports the service credentials logic as implemented by
+-    <varname>ImportCredential=</varname>/<varname>LoadCredential=</varname>/<varname>SetCredential=</varname>
+-    (see <citerefentry><refentrytitle>systemd.exec</refentrytitle><manvolnum>1</manvolnum></citerefentry> for
+-    details). The following credentials are used when passed in:</para>
+-
+-    <variablelist class='system-credentials'>
+-      <varlistentry>
+-        <term><varname>tmpfiles.extra</varname></term>
+-
+-        <listitem><para> The contents of this credential may contain additional lines to operate on. The
+-        credential contents should follow the same format as any other <filename>tmpfiles.d/</filename>
+-        drop-in configuration file. If this credential is passed it is processed after all of the drop-in
+-        files read from the file system. The lines in the credential can hence augment existing lines of the
+-        OS, but not override them.</para></listitem>
+-      </varlistentry>
+-    </variablelist>
+-
+-    <para>Note that by default the <filename>systemd-tmpfiles-setup.service</filename> unit file (and related
+-    unit files) is set up to inherit the <literal>tmpfiles.extra</literal> credential from the service
+-    manager.</para>
+-  </refsect1>
+-
+   <refsect1>
+     <title>Environment</title>
+ 
+@@ -317,7 +271,6 @@
+   <refsect1>
+     <title>See Also</title>
+     <para>
+-      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+       <citerefentry><refentrytitle>tmpfiles.d</refentrytitle><manvolnum>5</manvolnum></citerefentry>
+     </para>
+   </refsect1>
+diff --git a/man/tmpfiles.d.xml b/man/tmpfiles.d.xml
+index 4c972aa..16a1236 100644
+--- a/man/tmpfiles.d.xml
++++ b/man/tmpfiles.d.xml
+@@ -91,23 +91,7 @@ A+    /path-or-glob/to/append/acls/recursively -    -    -     -           POSIX
+ 
+     <para><citerefentry><refentrytitle>systemd-tmpfiles</refentrytitle><manvolnum>8</manvolnum></citerefentry>
+     uses this configuration to create volatile files and directories during boot and to do periodic cleanup
+-    afterwards. See
+-    <citerefentry><refentrytitle>systemd-tmpfiles</refentrytitle><manvolnum>8</manvolnum></citerefentry> for
+-    the description of <filename>systemd-tmpfiles-setup.service</filename>,
+-    <filename>systemd-tmpfiles-clean.service</filename>, and associated units.</para>
+-
+-    <para>System daemons frequently require private runtime directories below <filename>/run/</filename> to
+-    store communication sockets and similar. For these, it is better to use
+-    <varname>RuntimeDirectory=</varname> in their unit files (see
+-    <citerefentry><refentrytitle>systemd.exec</refentrytitle><manvolnum>5</manvolnum></citerefentry> for
+-    details), if the flexibility provided by <filename>tmpfiles.d</filename> is not required. The advantages
+-    are that the configuration required by the unit is centralized in one place, and that the lifetime of the
+-    directory is tied to the lifetime of the service itself. Similarly, <varname>StateDirectory=</varname>,
+-    <varname>CacheDirectory=</varname>, <varname>LogsDirectory=</varname>, and
+-    <varname>ConfigurationDirectory=</varname> should be used to create directories under
+-    <filename>/var/lib/</filename>, <filename>/var/cache/</filename>, <filename>/var/log/</filename>, and
+-    <filename>/etc/</filename>. <filename>tmpfiles.d</filename> should be used for files whose lifetime is
+-    independent of any service or requires more complicated configuration.</para>
++    afterwards.</para>
+   </refsect1>
+ 
+   <refsect1>
+@@ -508,16 +492,6 @@ w- /proc/sys/vm/swappiness - - - - 10</programlisting></para>
+       binary data (including newlines and NUL bytes) to files. Note that if this switch is used, the argument
+       is not subject to specifier expansion, neither before nor after Base64 decoding.</para>
+ 
+-      <para>If the caret character (<literal>^</literal>) is used, the argument (i.e. 6th) column takes a
+-      service credential name to read the argument data from. See <ulink
+-      url="https://systemd.io/CREDENTIALS">System and Service Credentials</ulink> for details about the
+-      credentials concept. This modifier is only supported on line types that can write file contents,
+-      i.e. <varname>f</varname>, <varname>f+</varname>, <varname>w</varname>, <varname>w+</varname>. This is
+-      useful for writing arbitrary files with contents sourced from elsewhere, including from VM or container
+-      managers further up. If the specified credential is not set for the <command>systemd-tmpfiles</command>
+-      service, the line is silently skipped. If <literal>^</literal> and <literal>~</literal> are combined
+-      Base64 decoding is applied to the credential contents.</para>
+-
+       <para>Note that for all line types that result in creation of any kind of file node
+       (i.e. <varname>f</varname>/<varname>F</varname>,
+       <varname>d</varname>/<varname>D</varname>/<varname>v</varname>/<varname>q</varname>/<varname>Q</varname>,
+@@ -843,19 +817,6 @@ e! /var/cache/krb5rcache - - - 0
+       will be removed on boot. The directory will not be created.
+       </para>
+     </example>
+-
+-    <example>
+-      <title>Provision SSH public key access for root user via Credentials in QEMU</title>
+-
+-      <programlisting>-smbios type=11,value=io.systemd.credential.binary:tmpfiles.extra=$(echo "f~ /root/.ssh/authorized_keys 700 root root - $(ssh-add -L | base64 -w 0)" | base64 -w 0)
+-</programlisting>
+-
+-      <para>By passing this line to QEMU, the public key of the current user will be encoded in
+-      base64, added to a tmpfiles.d line that tells systemd-tmpfiles to decode it into
+-      <filename>/root/.ssh/authorized_keys</filename>, encode that line itself in base64 and
+-      pass it as a Credential that will be picked up by systemd from SMBIOS on boot.
+-      </para>
+-    </example>
+   </refsect1>
+ 
+   <refsect1>
+@@ -868,10 +829,7 @@ e! /var/cache/krb5rcache - - - 0
+   <refsect1>
+     <title>See Also</title>
+     <para>
+-      <citerefentry><refentrytitle>systemd</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+       <citerefentry><refentrytitle>systemd-tmpfiles</refentrytitle><manvolnum>8</manvolnum></citerefentry>,
+-      <citerefentry><refentrytitle>systemd-delta</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+-      <citerefentry><refentrytitle>systemd.exec</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+       <citerefentry project='man-pages'><refentrytitle>attr</refentrytitle><manvolnum>5</manvolnum></citerefentry>,
+       <citerefentry project='man-pages'><refentrytitle>getfattr</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
+       <citerefentry project='man-pages'><refentrytitle>setfattr</refentrytitle><manvolnum>1</manvolnum></citerefentry>,
 diff --git a/man/udev.conf.xml b/man/udev.conf.xml
 index 0f51a1a..02c0571 100644
 --- a/man/udev.conf.xml
@@ -368,7 +577,7 @@ index 0f51a1a..02c0571 100644
        <citerefentry><refentrytitle>udevadm</refentrytitle><manvolnum>8</manvolnum></citerefentry>
      </para>
 diff --git a/man/udev.xml b/man/udev.xml
-index 142f295..9333d55 100644
+index 5533c68..8241253 100644
 --- a/man/udev.xml
 +++ b/man/udev.xml
 @@ -32,8 +32,7 @@
@@ -400,8 +609,8 @@ index 142f295..9333d55 100644
 +                    <para>System's virtualization environment.</para>
                    </listitem>
                  </varlistentry>
-               </variablelist>
-@@ -376,9 +371,7 @@
+                 <varlistentry>
+@@ -387,9 +382,7 @@
            <varlistentry>
              <term><varname>NAME</varname></term>
              <listitem>
@@ -412,7 +621,7 @@ index 142f295..9333d55 100644
                The name of a device node cannot be changed by udev, only additional
                symlinks can be created.</para>
              </listitem>
-@@ -498,15 +491,10 @@
+@@ -509,15 +502,10 @@
                a long period of time may block all further events for this or a dependent device.</para>
  
                <para>Note that running programs that access the network or mount/unmount filesystems is not
@@ -430,7 +639,7 @@ index 142f295..9333d55 100644
              </listitem>
            </varlistentry>
  
-@@ -662,7 +648,7 @@
+@@ -673,7 +661,7 @@
                      level name is specified, the maximum log level is changed to that level. When
                      <literal>reset</literal> is set, then the previously specified log level is
                      revoked. Defaults to the log level of the main process of
@@ -439,7 +648,7 @@ index 142f295..9333d55 100644
                      <para>This may be useful when debugging events for certain devices. Note that the
                      log level is applied when the line including this rule is processed. So, for
                      debugging, it is recommended that this is specified at earlier place, e.g., the
-@@ -843,14 +829,8 @@ SUBSYSTEM=="net", OPTIONS="log_level=debug"</programlisting></para>
+@@ -854,14 +842,8 @@ SUBSYSTEM=="net", OPTIONS="log_level=debug"</programlisting></para>
    <refsect1>
      <title>See Also</title>
      <para>
@@ -455,10 +664,10 @@ index 142f295..9333d55 100644
      </para>
    </refsect1>
 diff --git a/man/udevadm.xml b/man/udevadm.xml
-index 0298123..405d4d3 100644
+index 900bdac..c1e3759 100644
 --- a/man/udevadm.xml
 +++ b/man/udevadm.xml
-@@ -59,7 +59,7 @@
+@@ -64,7 +64,7 @@
    <refsect1><title>Description</title>
      <para><command>udevadm</command> expects a command and command
      specific options.  It controls the runtime behavior of
@@ -467,7 +676,7 @@ index 0298123..405d4d3 100644
      the event queue, and provides simple debugging mechanisms.</para>
    </refsect1>
  
-@@ -85,10 +85,8 @@
+@@ -90,10 +90,8 @@
        <para>Query the udev database for device information.</para>
  
        <para>Positional arguments should be used to specify one or more devices. Each one may be a device name
@@ -480,7 +689,7 @@ index 0298123..405d4d3 100644
        </para>
  
        <variablelist>
-@@ -448,10 +446,10 @@
+@@ -453,10 +451,10 @@
            <term><option>--initialized-nomatch</option></term>
            <listitem>
              <para>When <option>--initialized-match</option> is specified, trigger events for devices
@@ -493,7 +702,7 @@ index 0298123..405d4d3 100644
              are already initialized.</para>
              <para>Typically, it is essential that applications which intend to use such a match, make
              sure a suitable udev rule is installed that sets at least one property on devices that
-@@ -489,7 +487,7 @@
+@@ -494,7 +492,7 @@
          <varlistentry>
            <term><option>--wait-daemon[=<replaceable>SECONDS</replaceable>]</option></term>
            <listitem>
@@ -502,7 +711,7 @@ index 0298123..405d4d3 100644
              Optionally takes timeout value. Default timeout is 5 seconds. This is equivalent to invoking
              <command>udevadm control --ping</command> before <command>udevadm trigger</command>.</para>
            </listitem>
-@@ -531,10 +529,6 @@
+@@ -536,10 +534,6 @@
  
          <xi:include href="standard-options.xml" xpointer="help" />
        </variablelist>
@@ -513,7 +722,7 @@ index 0298123..405d4d3 100644
      </refsect2>
  
      <refsect2><title>udevadm control <replaceable>option</replaceable></title>
-@@ -544,12 +538,8 @@
+@@ -549,12 +543,8 @@
            <term><option>-e</option></term>
            <term><option>--exit</option></term>
            <listitem>
@@ -527,7 +736,7 @@ index 0298123..405d4d3 100644
              </para>
            </listitem>
          </varlistentry>
-@@ -558,7 +548,7 @@
+@@ -563,7 +553,7 @@
            <term><option>--log-level=<replaceable>value</replaceable></option></term>
            <listitem>
              <para>Set the internal log level of
@@ -536,7 +745,7 @@ index 0298123..405d4d3 100644
              numerical syslog priorities or their textual
              representations: <option>emerg</option>,
              <option>alert</option>, <option>crit</option>,
-@@ -571,7 +561,7 @@
+@@ -576,7 +566,7 @@
            <term><option>-s</option></term>
            <term><option>--stop-exec-queue</option></term>
            <listitem>
@@ -545,7 +754,7 @@ index 0298123..405d4d3 100644
              will be queued.</para>
            </listitem>
          </varlistentry>
-@@ -579,14 +569,14 @@
+@@ -584,14 +574,14 @@
            <term><option>-S</option></term>
            <term><option>--start-exec-queue</option></term>
            <listitem>
@@ -562,7 +771,7 @@ index 0298123..405d4d3 100644
              module index. Reloading rules and databases does not apply any changes to already
              existing devices; the new configuration will only be applied to new events.</para>
            </listitem>
-@@ -602,22 +592,22 @@
+@@ -607,22 +597,22 @@
            <term><option>-m</option></term>
            <term><option>--children-max=</option><replaceable>value</replaceable></term>
            <listitem>
@@ -589,7 +798,7 @@ index 0298123..405d4d3 100644
            </listitem>
          </varlistentry>
  
-@@ -745,12 +735,12 @@
+@@ -808,12 +798,12 @@
        </title>
  
        <para>Wait for devices or device symlinks being created and initialized by
@@ -604,7 +813,7 @@ index 0298123..405d4d3 100644
        or formatting the devices.</para>
  
        <variablelist>
-@@ -766,7 +756,7 @@
+@@ -829,7 +819,7 @@
          <varlistentry>
            <term><option>--initialized=<replaceable>BOOL</replaceable></option></term>
            <listitem>
@@ -613,7 +822,7 @@ index 0298123..405d4d3 100644
              false, the command only checks if the specified devices exist. Set false to this setting if
              there is no udev rules for the specified devices, as the devices will never be considered
              as initialized in that case. See Initialized Devices section below for more details.</para>
-@@ -785,7 +775,7 @@
+@@ -848,7 +838,7 @@
            <term><option>--settle</option></term>
            <listitem>
              <para>When specified, also watches the udev event queue, and wait for all queued events
@@ -622,7 +831,7 @@ index 0298123..405d4d3 100644
            </listitem>
          </varlistentry>
  
-@@ -806,14 +796,6 @@
+@@ -869,14 +859,6 @@
        are automatically released and its return value is propagated as exit code of <command>udevadm
        lock</command>.</para>
  
@@ -637,7 +846,7 @@ index 0298123..405d4d3 100644
        <para>The command expects at least one block device specified via <option>--device=</option> or
        <option>--backing=</option>, and a command line to execute as arguments.</para>
  
-@@ -849,8 +831,7 @@
+@@ -912,8 +894,7 @@
            <term><option>-t <replaceable>SECS</replaceable></option></term>
  
            <listitem><para>Specifies how long to wait at most until all locks can be taken. Takes a value in
@@ -647,7 +856,7 @@ index 0298123..405d4d3 100644
            specified as zero the lock is attempted and if not successful the invocation will immediately
            fail. If passed as <literal>infinity</literal> (the default) the invocation will wait indefinitely
            until the lock can be acquired. If the lock cannot be taken in the specified time the specified
-@@ -894,7 +875,7 @@
+@@ -957,7 +938,7 @@
        <title>Format a File System</title>
  
        <para>Take a lock on the backing block device while creating a file system, to ensure that
@@ -656,7 +865,7 @@ index 0298123..405d4d3 100644
        comprehensively written:</para>
  
        <programlisting># udevadm lock --device=/dev/sda1 mkfs.ext4 /dev/sda1</programlisting>
-@@ -912,7 +893,7 @@
+@@ -975,7 +956,7 @@
        <title>Copy in a File System</title>
  
        <para>Take a lock on the backing block device while copying in a prepared file system image, to ensure
@@ -665,7 +874,7 @@ index 0298123..405d4d3 100644
        written:</para>
  
        <programlisting># udevadm lock -d /dev/sda1 dd if=fs.raw of=/dev/sda1</programlisting>
-@@ -923,9 +904,6 @@
+@@ -986,9 +967,6 @@
      <title>See Also</title>
      <para><citerefentry>
          <refentrytitle>udev</refentrytitle><manvolnum>7</manvolnum>
@@ -676,7 +885,7 @@ index 0298123..405d4d3 100644
    </refsect1>
  </refentry>
 diff --git a/meson.build b/meson.build
-index 739b2f7..ec9dd35 100644
+index c4257aa..6ebfea7 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -25,10 +25,7 @@ conf.set('PROJECT_VERSION', meson.project_version(),
@@ -801,6 +1010,15 @@ index 739b2f7..ec9dd35 100644
  
          meson.add_install_script(meson_make_symlink,
                                   bindir / 'systemd-dissect',
+@@ -2897,7 +2890,7 @@ if conf.get('HAVE_BLKID') == 1 and conf.get('ENABLE_BOOTLOADER') == 1
+                                 versiondep],
+                 install_rpath : rootpkglibdir,
+                 install : true,
+-                install_dir : rootlibexecdir)
++                install_dir : rootprefixdir / 'libexec')
+ 
+         executable(
+                 'systemd-bless-boot-generator',
 @@ -2946,7 +2939,7 @@ executable(
                          userspace,
                          versiondep],
@@ -1186,7 +1404,7 @@ index 739b2f7..ec9dd35 100644
  install_data('LICENSE.GPL2',
               'LICENSE.LGPL2.1',
               'NEWS',
-@@ -4857,7 +4835,6 @@ run_target(
+@@ -4857,7 +4833,6 @@ run_target(
          depends : [man, libsystemd, libudev],
          command : [check_api_docs_sh, libsystemd.full_path(), libudev.full_path()])
  
@@ -1194,7 +1412,7 @@ index 739b2f7..ec9dd35 100644
  alias_target('update-man-rules', update_man_rules)
  
  if not meson.is_cross_build()
-@@ -4871,9 +4848,6 @@ endif
+@@ -4871,9 +4846,6 @@ endif
  
  ############################################################
  
@@ -1204,7 +1422,7 @@ index 739b2f7..ec9dd35 100644
  summary({
          'split /usr' :                      split_usr,
          'split bin-sbin' :                  split_bin,
-@@ -4929,8 +4903,7 @@ summary({
+@@ -4929,8 +4901,7 @@ summary({
          'default status unit format' :      status_unit_format_default,
          'default user $PATH' :
                  default_user_path != '' ? default_user_path : '(same as system services)',
@@ -1231,19 +1449,19 @@ index 08edb4d..bd61154 100644
 -Use 'systemd-analyze cat-config udev/rules.d' to display the effective config.
 +See man:udev(7) for an overview of the configuration file format.
 diff --git a/rules.d/meson.build b/rules.d/meson.build
-index cba9dd4..d346f71 100644
+index 20fca22..60f36d0 100644
 --- a/rules.d/meson.build
 +++ b/rules.d/meson.build
-@@ -54,7 +54,6 @@ endforeach
- rules_in = [
+@@ -56,7 +56,6 @@ rules_in = [
          ['50-udev-default.rules'],
+         ['60-persistent-storage.rules'],
          ['64-btrfs.rules'],
 -        ['99-systemd.rules'],
  
          ['70-uaccess.rules',   enable_logind and conf.get('HAVE_ACL') == 1],
          ['71-seat.rules',      enable_logind],
 diff --git a/shell-completion/bash/meson.build b/shell-completion/bash/meson.build
-index 0446be7..37d50f5 100644
+index 24cb785..4585166 100644
 --- a/shell-completion/bash/meson.build
 +++ b/shell-completion/bash/meson.build
 @@ -15,7 +15,7 @@ custom_target(
@@ -1259,13 +1477,13 @@ index 0446be7..37d50f5 100644
           ['systemd-sysext',      'ENABLE_SYSEXT'],
           ['timedatectl',         'ENABLE_TIMEDATED']]
  
-+items = [['udevadm', '']]
++items = [['udevadm', ''], ['bootctl', 'ENABLE_BOOTLOADER']]
 +
  foreach item : items
          if bashcompletiondir != 'no' and (item[1] == '' or conf.get(item[1]) == 1)
                  install_data(item[0],
 diff --git a/shell-completion/zsh/_udevadm b/shell-completion/zsh/_udevadm
-index f7c3384..f183dc7 100644
+index 37e9f28..30659f9 100644
 --- a/shell-completion/zsh/_udevadm
 +++ b/shell-completion/zsh/_udevadm
 @@ -54,14 +54,14 @@ _udevadm_settle(){
@@ -1289,7 +1507,7 @@ index f7c3384..f183dc7 100644
          '--help[Print help text.]'
  }
  
-@@ -108,7 +108,7 @@ _udevadm_test-builtin(){
+@@ -119,7 +119,7 @@ _udevadm_verify(){
  _udevadm_wait(){
      _arguments \
          '--timeout=[Maximum number of seconds to wait for the devices being created.]' \
@@ -1299,7 +1517,7 @@ index f7c3384..f183dc7 100644
          '--settle[Also wait for udev queue being empty.]' \
          '--help[Print help text.]' \
 diff --git a/shell-completion/zsh/meson.build b/shell-completion/zsh/meson.build
-index b39f933..5ff76b3 100644
+index 6703204..efd745c 100644
 --- a/shell-completion/zsh/meson.build
 +++ b/shell-completion/zsh/meson.build
 @@ -10,7 +10,7 @@ custom_target(
@@ -1315,7 +1533,7 @@ index b39f933..5ff76b3 100644
           ['_systemd-tmpfiles',         'ENABLE_TMPFILES'],
           ['_timedatectl',              'ENABLE_TIMEDATED']]
  
-+items = [['_udevadm', '']]
++items = [['_udevadm', ''], ['_bootctl', 'ENABLE_BOOTLOADER']]
 +
  foreach item : items
          if zshcompletiondir != 'no' and (item[1] == '' or conf.get(item[1]) == 1)
@@ -1334,10 +1552,10 @@ index 69e0457..4bf6341 100644
  
  #if __UAPI_DEF_ETHHDR
 diff --git a/src/basic/meson.build b/src/basic/meson.build
-index 1aa9f50..3e89566 100644
+index 9d85f66..7a7e8c9 100644
 --- a/src/basic/meson.build
 +++ b/src/basic/meson.build
-@@ -227,12 +227,6 @@ run_target(
+@@ -233,12 +233,6 @@ run_target(
  filesystem_includes = ['linux/magic.h',
                         'linux/gfs2_ondisk.h']
  
@@ -1350,11 +1568,62 @@ index 1aa9f50..3e89566 100644
  filesystems_gperf_h = custom_target(
          'filesystems-gperf.h',
          input : 'filesystems-gperf.gperf',
+diff --git a/src/boot/efi/efi.h b/src/boot/efi/efi.h
+index 5c34668..50fca66 100644
+--- a/src/boot/efi/efi.h
++++ b/src/boot/efi/efi.h
+@@ -1,6 +1,14 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ #pragma once
+ 
++#if SD_BOOT
++#define __DEFINED_wchar_t
++/* uchar.h/wchar.h are not suitable for freestanding environments. */
++typedef __WCHAR_TYPE__ wchar_t;
++typedef __CHAR16_TYPE__ char16_t;
++typedef __CHAR32_TYPE__ char32_t;
++#endif
++
+ #include <stdarg.h>
+ #include <stdbool.h>
+ #include <stddef.h>
+@@ -9,11 +17,6 @@
+ #include "macro-fundamental.h"
+ 
+ #if SD_BOOT
+-/* uchar.h/wchar.h are not suitable for freestanding environments. */
+-typedef __WCHAR_TYPE__ wchar_t;
+-typedef __CHAR16_TYPE__ char16_t;
+-typedef __CHAR32_TYPE__ char32_t;
+-
+ /* Let's be paranoid and do some sanity checks. */
+ assert_cc(__STDC_HOSTED__ == 0);
+ assert_cc(sizeof(bool) == 1);
+diff --git a/src/boot/efi/meson.build b/src/boot/efi/meson.build
+index 1c52629..94a0bcd 100644
+--- a/src/boot/efi/meson.build
++++ b/src/boot/efi/meson.build
+@@ -150,12 +150,10 @@ if get_option('mode') == 'developer' and get_option('debug')
+         efi_c_args += '-DEFI_DEBUG'
+ endif
+ 
+-efi_c_ld_args = [
+-        # We only support bfd. gold is going away, lld has issues with LTO on x86
+-        # and mold does not support linker scripts.
+-        '-fuse-ld=bfd',
++rtlib = run_command(cc, '-print-libgcc-file-name', check: true)
+ 
+-        '-lgcc',
++efi_c_ld_args = [
++        rtlib.stdout().strip(),
+         '-nostdlib',
+         '-static-pie',
+         '-Wl,--entry=efi_main',
 diff --git a/src/core/meson.build b/src/core/meson.build
-index 981b46f..f2886ea 100644
+index 91477af..79ef9be 100644
 --- a/src/core/meson.build
 +++ b/src/core/meson.build
-@@ -157,7 +157,7 @@ foreach item : in_files
+@@ -155,7 +155,7 @@ foreach item : in_files
                  input : file + '.in',
                  output: file,
                  command : [jinja2_cmdline, '@INPUT@', '@OUTPUT@'],
@@ -1372,8 +1641,39 @@ index 981b46f..f2886ea 100644
          install_tag : 'devel',
          install_dir : pkgconfigdatadir)
  
+diff --git a/src/fundamental/memory-util-fundamental.h b/src/fundamental/memory-util-fundamental.h
+index 78e2dbe..561e05f 100644
+--- a/src/fundamental/memory-util-fundamental.h
++++ b/src/fundamental/memory-util-fundamental.h
+@@ -1,11 +1,10 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ #pragma once
+ 
+-#include <stddef.h>
+-
+ #if SD_BOOT
+ #  include "efi-string.h"
+ #else
++#  include <stddef.h>
+ #  include <string.h>
+ #endif
+ 
+diff --git a/src/fundamental/string-util-fundamental.c b/src/fundamental/string-util-fundamental.c
+index a5bafc6..0d7c08a 100644
+--- a/src/fundamental/string-util-fundamental.c
++++ b/src/fundamental/string-util-fundamental.c
+@@ -4,8 +4,8 @@
+ #  include <ctype.h>
+ #endif
+ 
+-#include "macro-fundamental.h"
+ #include "string-util-fundamental.h"
++#include "macro-fundamental.h"
+ 
+ sd_char *startswith(const sd_char *s, const sd_char *prefix) {
+         size_t l;
 diff --git a/src/hwdb/hwdb.c b/src/hwdb/hwdb.c
-index edc5dfc..7d6c6b0 100644
+index 4287b1f..e9cd1c9 100644
 --- a/src/hwdb/hwdb.c
 +++ b/src/hwdb/hwdb.c
 @@ -29,7 +29,7 @@ static int help(void) {
@@ -1386,10 +1686,10 @@ index edc5dfc..7d6c6b0 100644
                  return log_oom();
  
 diff --git a/src/journal/meson.build b/src/journal/meson.build
-index 30cebe4..793d4db 100644
+index a6837d2..47ef3b8 100644
 --- a/src/journal/meson.build
 +++ b/src/journal/meson.build
-@@ -38,11 +38,6 @@ systemd_cat_sources = files('cat.c')
+@@ -39,11 +39,6 @@ systemd_cat_sources = files('cat.c')
  
  journalctl_sources = files('journalctl.c')
  
@@ -1402,10 +1702,10 @@ index 30cebe4..793d4db 100644
          meson.add_install_script(
                  'sh', '-c',
 diff --git a/src/libsystemd/meson.build b/src/libsystemd/meson.build
-index e2eb88f..09f4f38 100644
+index 8da73a1..50f3689 100644
 --- a/src/libsystemd/meson.build
 +++ b/src/libsystemd/meson.build
-@@ -136,7 +136,7 @@ libsystemd_pc = custom_target(
+@@ -138,7 +138,7 @@ libsystemd_pc = custom_target(
          input : 'libsystemd.pc.in',
          output : 'libsystemd.pc',
          command : [jinja2_cmdline, '@INPUT@', '@OUTPUT@'],
