@@ -1,5 +1,5 @@
 pkgname = "libmysofa"
-pkgver = "1.3.1"
+pkgver = "1.3.2"
 pkgrel = 0
 build_style = "cmake"
 # TODO cunit
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/hoene/libmysofa"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "a8a8cbf7b0b2508a6932278799b9bf5c63d833d9e7d651aea4622f3bc6b992aa"
+sha256 = "6c5224562895977e87698a64cb7031361803d136057bba35ed4979b69ab4ba76"
 
 
 def post_install(self):
