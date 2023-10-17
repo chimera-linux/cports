@@ -42,7 +42,7 @@ if _bootstrap:
     options += ["!debug"]
 else:
     hostmakedepends += ["rust"]
-    makedepends += ["rust"]
+    makedepends += ["rust-std"]
     depends = ["rust"]
 
 

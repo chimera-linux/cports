@@ -11,7 +11,7 @@ hostmakedepends = [
     "python-setuptools-rust",
     "python-wheel",
 ]
-makedepends = ["python-devel", "openssl-devel"]
+makedepends = ["python-devel", "openssl-devel", "rust-std"]
 depends = ["python-cffi"]
 checkdepends = [
     "python-pytest-subtests",

@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "pkgconf"]
 makedepends = [
-    "rust",
+    "rust-std",
     "oniguruma-devel",
     "libgit2-devel",
     "zlib-devel",

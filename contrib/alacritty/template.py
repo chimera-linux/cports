@@ -3,7 +3,7 @@ pkgver = "0.12.3"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "cmake", "pkgconf", "python", "ncurses"]
-makedepends = ["fontconfig-devel", "freetype-devel", "libxcb-devel", "rust"]
+makedepends = ["fontconfig-devel", "freetype-devel", "libxcb-devel", "rust-std"]
 depends = [f"alacritty-terminfo={pkgver}-r{pkgrel}"]
 pkgdesc = "Cross-platform, GPU-accelerated terminal emulator"
 maintainer = "nbfritch <nbfritch@gmail.com>"

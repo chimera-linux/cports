@@ -22,7 +22,7 @@ hostmakedepends = [
     "python-docutils",
 ]
 makedepends = [
-    "rust",
+    "rust-std",
     "vala-devel",
     "cairo-devel",
     "pango-devel",

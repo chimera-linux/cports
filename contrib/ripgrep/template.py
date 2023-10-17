@@ -3,7 +3,7 @@ pkgver = "13.0.0"
 pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo", "asciidoc"]
-makedepends = ["rust"]
+makedepends = ["rust-std"]
 pkgdesc = (
     "Tool that recursively searches the current directory for a regex pattern"
 )
