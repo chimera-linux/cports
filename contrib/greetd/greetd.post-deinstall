@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# does not contain anything worth preserving
+rm -rf /var/lib/greetd > /dev/null 2>&1
