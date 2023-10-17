@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# install greetd home dir
+install -d -m 755 /var/lib/greetd || :
+chown _greetd:_greetd /var/lib/greetd > /dev/null 2>&1 || :
