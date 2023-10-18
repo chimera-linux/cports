@@ -1,0 +1,83 @@
+From c99d5eb25acebc656d483d648d9fa7b19a4f42a6 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 18 Oct 2023 14:09:12 +0200
+Subject: [PATCH] untangle early var setting
+
+Particularly the container one needs to be available very early
+on. We also need to use a special arg to make dinitctl use the
+passed fd.
+---
+ early/scripts/env.sh   | 18 +++++++++++++++---
+ early/scripts/tmpfs.sh | 13 ++++---------
+ services/early-tmpfs   |  1 -
+ 3 files changed, 19 insertions(+), 13 deletions(-)
+
+diff --git a/early/scripts/env.sh b/early/scripts/env.sh
+index 61d77dd..5f9d630 100644
+--- a/early/scripts/env.sh
++++ b/early/scripts/env.sh
+@@ -8,14 +8,26 @@ set -e
+ 
+ # passed by the kernel
+ if [ "$dinit_early_debug" ]; then
+-    dinitctl setenv "DINIT_EARLY_DEBUG=1"
++    dinitctl --use-passed-cfd setenv "DINIT_EARLY_DEBUG=1"
+     # slow execution of each
+     if [ -n "$dinit_early_debug_slow" ]; then
+-        dinitctl setenv "DINIT_EARLY_DEBUG_SLOW=$dinit_early_debug_slow"
++        dinitctl --use-passed-cfd setenv "DINIT_EARLY_DEBUG_SLOW=$dinit_early_debug_slow"
+     fi
+     if [ -n "$dinit_early_debug_log" ]; then
+-        dinitctl setenv "DINIT_EARLY_DEBUG_LOG=$dinit_early_debug_log"
++        dinitctl --use-passed-cfd setenv "DINIT_EARLY_DEBUG_LOG=$dinit_early_debug_log"
+     fi
+ fi
+ 
++# detect if running in a container, expose it globally
++if [ -n "${container+x}" ]; then
++    dinitctl --use-passed-cfd setenv DINIT_CONTAINER=1
++fi
++
++# detect first boot
++if [ ! -e /etc/machine-id ]; then
++    dinitctl --use-passed-cfd setenv DINIT_FIRST_BOOT=1
++elif [ "$(cat /etc/machine-id)" = "uninitialized" ]; then
++    dinitctl --use-passed-cfd setenv DINIT_FIRST_BOOT=1
++fi
++
+ exit 0
+diff --git a/early/scripts/tmpfs.sh b/early/scripts/tmpfs.sh
+index 7861f09..acbaf4e 100644
+--- a/early/scripts/tmpfs.sh
++++ b/early/scripts/tmpfs.sh
+@@ -12,17 +12,12 @@ mountpoint -q /run || mount -o mode=0755,nosuid,nodev -t tmpfs run /run
+ # readable system state
+ mkdir -p /run/dinit
+ 
+-# detect if running in a container, expose it globally
+-if [ -n "${container+x}" ]; then
++# now that we a /run, expose container as state file too (for shutdown etc)
++if [ -n "$DINIT_CONTAINER" ]; then
+     touch /run/dinit/container
+-    dinitctl setenv DINIT_CONTAINER=1
+ fi
+ 
+-# detect first boot
+-if [ ! -e /etc/machine-id ]; then
++# ditto
++if [ -n "$DINIT_FIRST_BOOT" ]; then
+     touch /run/dinit/first-boot
+-    dinitctl setenv DINIT_FIRST_BOOT=1
+-elif [ "$(cat /etc/machine-id)" = "uninitialized" ]; then
+-    touch /run/dinit/first-boot
+-    dinitctl setenv DINIT_FIRST_BOOT=1
+ fi
+diff --git a/services/early-tmpfs b/services/early-tmpfs
+index c85e641..3dc657b 100644
+--- a/services/early-tmpfs
++++ b/services/early-tmpfs
+@@ -4,4 +4,3 @@ type       = scripted
+ command    = ./early/scripts/tmpfs.sh
+ depends-on = early-env
+ depends-on = early-root-remount
+-options    = pass-cs-fd
