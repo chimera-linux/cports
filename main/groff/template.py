@@ -1,6 +1,6 @@
 pkgname = "groff"
 pkgver = "1.23.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--without-x", "--without-doc", "--disable-rpath"]
 configure_gen = []
@@ -25,11 +25,3 @@ if self.profile().cross:
 
 def post_install(self):
     self.rm(self.destdir / "usr/lib", recursive=True)
-    # fix some issues when encoding to utf8 man pages
-    # the output chars don't match keyboard chars
-    atext = (self.files_path / "site.tmac").read_bytes()
-    for f in ["man", "mdoc"]:
-        with open(
-            self.destdir / f"usr/share/groff/site-tmac/{f}.local", "ab"
-        ) as af:
-            af.write(atext)
