@@ -11,7 +11,7 @@ depends = [
     "python-pyasn1_modules",
     "python-six",
 ]
-checkdepends = ["python-pytest"] + depends
+checkdepends = ["python-pytest"] + list(depends)
 pkgdesc = "Service identity verification for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

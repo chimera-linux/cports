@@ -16,7 +16,7 @@ depends = [
     "python-pillow",
     "python-pyacoustid",
 ]
-checkdepends = depends + ["python-pytest"]
+checkdepends = list(depends) + ["python-pytest"]
 pkgdesc = "Edit audio file tags"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"

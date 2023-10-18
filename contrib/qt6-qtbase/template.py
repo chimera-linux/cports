@@ -253,7 +253,7 @@ for _sp in [
 
 @subpackage("qt6-qtbase-devel")
 def _devel(self):
-    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"] + makedepends
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"] + list(makedepends)
     return self.default_devel(
         extra=[
             "usr/bin/androiddeployqt6",

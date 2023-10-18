@@ -16,7 +16,7 @@ make_check_args = [
 ]
 hostmakedepends = ["python-build", "python-installer", "python-hatchling"]
 depends = ["python-hatchling", "python-setuptools_scm"]
-checkdepends = ["python-pytest", "git"] + depends
+checkdepends = ["python-pytest", "git"] + list(depends)
 pkgdesc = "Hatch plugin for VCS versioning"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

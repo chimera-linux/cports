@@ -17,7 +17,7 @@ checkdepends = [
     "python-pytest",
     "python-pytest-xdist",
     "python-tokenize_rt",
-] + depends
+] + list(depends)
 pkgdesc = "Python formatting tool"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

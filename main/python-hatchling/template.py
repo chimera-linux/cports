@@ -13,9 +13,9 @@ hostmakedepends = [
     "python-build",
     "python-installer",
     "python-setuptools",
-] + _deps
+] + list(_deps)
 depends = list(_deps)
-checkdepends = ["python-pytest"] + _deps
+checkdepends = ["python-pytest"] + list(_deps)
 pkgdesc = "Python build backend used by Hatch"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

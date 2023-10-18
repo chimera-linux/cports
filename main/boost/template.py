@@ -173,7 +173,7 @@ def _jam(self):
 
 @subpackage("boost-devel")
 def _devel(self):
-    self.depends = [f"boost={pkgver}-r{pkgrel}"] + makedepends
+    self.depends = [f"boost={pkgver}-r{pkgrel}"] + list(makedepends)
     self.provides = [f"boost{pkgver[:-2]}-devel={pkgver}-r{pkgrel}"]
 
     return self.default_devel()

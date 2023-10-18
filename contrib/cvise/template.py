@@ -19,7 +19,7 @@ depends = [
     "python-psutil",
     "unifdef",
 ]
-checkdepends = depends + [
+checkdepends = list(depends) + [
     "python-pytest",
 ]
 pkgdesc = "Python port of C-Reduce, for program testcase minimisation"

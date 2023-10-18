@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["libmagic"]
-checkdepends = depends + ["python-pytest"]
+checkdepends = list(depends) + ["python-pytest"]
 pkgdesc = "Python wrapper for libmagic"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
