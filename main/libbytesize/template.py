@@ -1,5 +1,5 @@
 pkgname = "libbytesize"
-pkgver = "2.9"
+pkgver = "2.10"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libbytesize"
 source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "bd0ea11ece2c2423382a7c4534679050e72a8ee91b4fdea3a7cc85199846d0c3"
+sha256 = "1d1ce3be8ac59fd59511d0794c7327d5cf33f1e83496837b17e19ac49400cad1"
 # cba
 options = ["!check"]
 
@@ -32,6 +32,6 @@ def _devel(self):
 @subpackage("libbytesize-python")
 def _python(self):
     self.pkgdesc = f"{pkgdesc} (Python bindings)"
-    self.depends += ["python", "python-six"]
+    self.depends += ["python"]
 
     return ["usr/lib/python*"]
