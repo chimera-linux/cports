@@ -1,6 +1,6 @@
 pkgname = "liborcus"
-pkgver = "0.18.1"
-pkgrel = 1
+pkgver = "0.19.0"
+pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "python"]
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://gitlab.com/orcus/orcus"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "f759b9c79e1e865b39b16f0f222bc9bde9b8494e02aae4559db4053f95001e76"
+sha256 = "93be2cdd53b77816c3672f59308d023422029848b74d865cd3c0c68e73f31512"
 
 
 @subpackage("liborcus-progs")
