@@ -1,6 +1,6 @@
 pkgname = "poppler"
-pkgver = "23.08.0"
-pkgrel = 1
+pkgver = "23.10.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
@@ -10,6 +10,7 @@ configure_args = [
     "-DENABLE_UTILS=ON",
     "-DENABLE_BOOST=ON",
     "-DENABLE_QT5=OFF",
+    "-DENABLE_QT6=OFF",
 ]
 hostmakedepends = [
     "cmake",
@@ -27,13 +28,15 @@ makedepends = [
     "libpng-devel",
     "libtiff-devel",
     "openjpeg-devel",
+    "gpgme-devel",
+    "nss-devel",
 ]
 pkgdesc = "PDF rendering library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://poppler.freedesktop.org"
 source = f"{url}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4a4bf7fc903b9f1a2ab7d04b7c5d8220db9bc6261cc73fdb9a826dc272f49aa8"
+sha256 = "31a3dfdea79f4922402d313737415a44d44dc14d6b317f959a77c5bba0647dd9"
 # needs unshipped sample files
 options = ["!check"]
 
