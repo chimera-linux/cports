@@ -11,6 +11,7 @@ configure_args = [
     "-DENABLE_BOOST=ON",
     "-DENABLE_QT5=OFF",
     "-DENABLE_QT6=OFF",
+    "-DENABLE_GPGME=OFF",  # creates a cycle
 ]
 hostmakedepends = [
     "cmake",
@@ -28,7 +29,6 @@ makedepends = [
     "libpng-devel",
     "libtiff-devel",
     "openjpeg-devel",
-    "gpgme-devel",
     "nss-devel",
 ]
 pkgdesc = "PDF rendering library"
