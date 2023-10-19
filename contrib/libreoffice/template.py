@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "7.6.0.3"
-pkgrel = 1
+pkgver = "7.6.2.1"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -198,10 +198,10 @@ source = [
     f"{_aurl}/frozen-1.1.1.tar.gz",
 ]
 sha256 = [
-    "07f33f11a75b72a3044749d4f2f7d02a0fd79eaed4fb73e618ec5fe3576d0c25",
-    "b932cdd6bd2ee717f3a09766c88fe90100b0c2c0509313c3ee297f95c084ee2e",
-    "210f18ff60e93d366856d84e714d3fd6f184f399b5163afc92b7e11155cbe768",
-    "667e4ffeacc01bd0f830c2edcc56e2328f924eeac224639babeb3841a44ec5f4",
+    "e5d2733bd02ce24c30207795b77b9f5e2b5aba3a14773375fb5cc228ed2b9ca2",
+    "ef127e3535d88928e670804279551d81570e570a203b7f295941def4573bc314",
+    "6bdc27027a603031785d6c650785073add8d55872ab81a15067459ee1b6cd148",
+    "5b239fa6127e87b00b7990a5edef96b1fa522f80c1d96e3f8749d95190f6d60a",
     "1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
