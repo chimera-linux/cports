@@ -1,6 +1,6 @@
 pkgname = "man-pages"
 pkgver = "6.05.01"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["gmake", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -22,12 +22,8 @@ def do_install(self):
     # remove duplicate manpages
     with self.pushd(self.destdir / "usr/share/man"):
         self.rm("man1/time.1")
-        self.rm("man1/iconv.1")
         self.rm("man1/getent.1")
-        self.rm("man1/ldd.1")
-        self.rm("man3/err.3")
         self.rm("man3/getspnam.3")
-        self.rm("man3/rand.3")
         self.rm("man5/passwd.5")
         self.rm("man5/tzfile.5")
         self.rm("man7/man.7")
