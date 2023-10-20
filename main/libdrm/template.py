@@ -1,5 +1,5 @@
 pkgname = "libdrm"
-pkgver = "2.4.116"
+pkgver = "2.4.117"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dudev=true", "-Dvalgrind=disabled"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://dri.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/mesa/drm/-/archive/{pkgname}-{pkgver}/drm-{pkgname}-{pkgver}.tar.gz"
-sha256 = "1ec9d8263b09b9d061c39d5446339046847fc75e3e9ec3f9f562e288efa5fc34"
+sha256 = "69e0e763bea9069c32cac466264f7ff4d559058fcfe38536816a44a955df3cdc"
 # FIXME cfi int
 hardening = ["vis", "!cfi", "!int"]
 options = ["!distlicense"]
