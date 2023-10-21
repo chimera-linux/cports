@@ -1,6 +1,6 @@
 pkgname = "ruby"
 pkgver = "3.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -12,13 +12,20 @@ configure_args = [
 make_cmd = "gmake"
 make_build_args = ["all", "capi"]
 make_install_env = {"MAKE": "gmake"}
-hostmakedepends = ["gmake", "pkgconf", "bison", "flex", "mandoc"]
+hostmakedepends = [
+    "automake",
+    "bison",
+    "flex",
+    "gmake",
+    "mandoc",
+    "pkgconf",
+]
 makedepends = [
-    "zlib-devel",
     "libedit-devel",
     "libffi-devel",
-    "openssl-devel",
     "libyaml-devel",
+    "openssl-devel",
+    "zlib-devel",
 ]
 pkgdesc = "Ruby scripting language"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -32,6 +39,11 @@ sha256 = "4b352d0f7ec384e332e3e44cdbfdcd5ff2d594af3c8296b5636c710975149e23"
 options = ["!cross", "!check"]
 
 match self.profile().arch:
+    case "aarch64" | "x86_64":
+        # yjit only has backends here
+        configure_args += ["--enable-yjit"]
+        hostmakedepends += ["rust"]
+        makedepends += ["rust-std"]
     case "ppc64":
         # just ELFv2
         configure_args += ["--with-coroutine=ppc64le"]
@@ -54,6 +66,3 @@ def _ri(self):
     self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/bin/ri"]
-
-
-configure_gen = []
