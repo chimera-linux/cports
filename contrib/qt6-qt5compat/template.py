@@ -1,9 +1,9 @@
 pkgname = "qt6-qt5compat"
 pkgver = "6.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qtbase"]
-makedepends = ["qt6-qtbase-devel"]
+makedepends = ["qt6-qtdeclarative-devel"]
 pkgdesc = "Module containing unsuppored Qt5 APIs"
 maintainer = "aurelia <git@elia.garden>"
 license = (
@@ -14,6 +14,10 @@ source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/su
 sha256 = "3d85edb66126f712266dcbfc6cd00383d46cc6d66c8b84607ca21e2bc71a8fca"
 # TODO
 options = ["!check"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/tests", recursive=True)
 
 
 @subpackage("qt6-qt5compat-devel")
