@@ -1,0 +1,41 @@
+ld: error: unable to find library -lGpgmepp
+
+diff --git a/src/runtime/kwalletd/CMakeLists.txt b/src/runtime/kwalletd/CMakeLists.txt
+index 30417b9..aca8db0 100644
+--- a/src/runtime/kwalletd/CMakeLists.txt
++++ b/src/runtime/kwalletd/CMakeLists.txt
+@@ -152,7 +152,7 @@ target_link_libraries(kwalletd6
+     KF6::Notifications
+     ${Qca_LIBRARY})
+ if (Gpgmepp_FOUND)
+-    target_link_libraries(kwalletd6 Gpgmepp)
++    target_link_libraries(kwalletd6 gpgmepp)
+     kde_target_enable_exceptions(kwalletd6 PRIVATE)
+ endif(Gpgmepp_FOUND)
+ 
+diff --git a/src/runtime/kwalletd/backend/CMakeLists.txt b/src/runtime/kwalletd/backend/CMakeLists.txt
+index e531457..ea3e705 100644
+--- a/src/runtime/kwalletd/backend/CMakeLists.txt
++++ b/src/runtime/kwalletd/backend/CMakeLists.txt
+@@ -75,7 +75,7 @@ target_link_libraries(KF6WalletBackend
+     ${Qca_LIBRARY}
+ )
+ if(Gpgmepp_FOUND)
+-   target_link_libraries(KF6WalletBackend Gpgmepp)
++   target_link_libraries(KF6WalletBackend gpgmepp)
+ endif(Gpgmepp_FOUND)
+ 
+ # link with advapi32 on windows
+diff --git a/tests/kwalletd/CMakeLists.txt b/tests/kwalletd/CMakeLists.txt
+index e4011a7..7cd37c5 100644
+--- a/tests/kwalletd/CMakeLists.txt
++++ b/tests/kwalletd/CMakeLists.txt
+@@ -44,7 +44,7 @@ target_link_libraries(kwalletwizardtest
+     KF6::I18n
+     KF6::WidgetsAddons)
+ if (Gpgmepp_FOUND)
+-    target_link_libraries(kwalletwizardtest Gpgmepp)
++    target_link_libraries(kwalletwizardtest gpgmepp)
+ endif(Gpgmepp_FOUND)
+ 
+ add_library(kwallettestlib STATIC kwallettest.cpp)
