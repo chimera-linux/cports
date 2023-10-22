@@ -1,6 +1,6 @@
 pkgname = "foot"
 pkgver = "1.16.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
