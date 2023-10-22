@@ -1,6 +1,6 @@
 pkgname = "fcft"
 pkgver = "3.1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = [
