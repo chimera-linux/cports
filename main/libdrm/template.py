@@ -1,6 +1,6 @@
 pkgname = "libdrm"
 pkgver = "2.4.117"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dudev=true", "-Dvalgrind=disabled"]
 hostmakedepends = ["meson", "pkgconf"]

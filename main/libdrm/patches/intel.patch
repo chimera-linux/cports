@@ -1,0 +1,11 @@
+--- a/meson.build
++++ b/meson.build
+@@ -89,7 +89,7 @@ message(host_machine.system())
+ with_intel = get_option('intel') \
+   .require(with_atomics, error_message : 'libdrm_intel requires atomics') \
+   .require(dep_pciaccess.found(), error_message : 'libdrm_intel requires libpciaccess') \
+-  .disable_auto_if(not host_machine.system().startswith('x86')) \
++  .disable_auto_if(not host_machine.cpu_family().startswith('x86')) \
+   .allowed()
+ summary('Intel', with_intel)
+ 
