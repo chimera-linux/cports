@@ -1,5 +1,5 @@
 pkgname = "suil"
-pkgver = "0.10.18"
+pkgver = "0.10.20"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -21,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "ISC"
 url = "https://drobilla.net/software/suil.html"
 source = f"https://download.drobilla.net/suil-{pkgver}.tar.xz"
-sha256 = "84ada094fbe17ad3e765379002f3a0c7149b43b020235e4d7fa41432f206f85f"
+sha256 = "334a3ed3e73d5e17ff400b3db9801f63809155b0faa8b1b9046f9dd3ffef934e"
 hardening = ["vis", "cfi"]
 # no actual tests
 options = ["!check"]
