@@ -1,6 +1,6 @@
 pkgname = "rxvt-unicode"
 pkgver = "9.31"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-terminfo=/usr/share/terminfo",
