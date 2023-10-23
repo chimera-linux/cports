@@ -1,0 +1,1 @@
+pkgname = "layer-shell-qt"
