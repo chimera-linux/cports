@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "118.0.2"
+pkgver = "119.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -60,7 +60,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "89626520f2f0f782f37c074b94690e0f08dcf416be2b992f4aad68df5d727b21"
+sha256 = "f63e44194548f246e1396508800739a24c0517e65e920002a6f67ee099be39dd"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -102,7 +102,7 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in ["packed_simd_2"]:
+    for crate in []:
         cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
@@ -142,6 +142,8 @@ def do_configure(self):
         "--enable-optimize",
         "--disable-install-strip",
         "--disable-strip",
+        # we have our own flags and better
+        "--disable-hardening",
         # system libs
         "--with-system-pixman",
         "--with-system-ffi",
