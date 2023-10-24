@@ -29,6 +29,13 @@ hardening = ["!ssp", "!scp", "!pie", "!int"]
 options = ["!cross", "!lto"]
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 
+if self.profile().arch == "aarch64":
+    # builtins for LSE reference getauxval from libc
+    # which we aren't linking to, so eliminate them
+    tool_flags["CFLAGS"] += ["-mno-outline-atomics"]
+    # does not build
+    options += ["!check"]
+
 
 @subpackage("valgrind-devel")
 def _devel(self):
