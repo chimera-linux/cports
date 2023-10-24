@@ -1,17 +1,21 @@
+diff --git a/Makefile.tool.am b/Makefile.tool.am
+index df95029..2180daf 100644
 --- a/Makefile.tool.am
 +++ b/Makefile.tool.am
-@@ -17,7 +17,7 @@ TOOL_DEPENDENCIES_@VGCONF_PLATFORM_SEC_CAPS@ = \
+@@ -16,7 +16,7 @@ TOOL_DEPENDENCIES_@VGCONF_PLATFORM_SEC_CAPS@ = \
+ 	$(top_builddir)/VEX/libvex-@VGCONF_ARCH_SEC@-@VGCONF_OS@.a
  endif
  
- 
--TOOL_LDADD_COMMON = -lgcc \
-+TOOL_LDADD_COMMON = @VGCONF_RTLIB@ \
- 	$(top_builddir)/coregrind/libgcc-sup-@VGCONF_ARCH_PRI@-@VGCONF_OS@.a
+-TOOL_LDADD_COMMON = -lgcc
++TOOL_LDADD_COMMON = @VGCONF_RTLIB@
  TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@ = \
  	$(TOOL_DEPENDENCIES_@VGCONF_PLATFORM_PRI_CAPS@) $(TOOL_LDADD_COMMON)
+ if VGCONF_HAVE_PLATFORM_SEC
+diff --git a/configure.ac b/configure.ac
+index 79b17f3..97d4719 100755
 --- a/configure.ac
 +++ b/configure.ac
-@@ -329,6 +329,10 @@ fi
+@@ -348,6 +348,10 @@ fi
  
  #----------------------------------------------------------------------------
  
@@ -22,6 +26,8 @@
  # VGCONF_OS is the primary build OS, eg. "linux".  It is passed in to
  # compilation of many C files via -VGO_$(VGCONF_OS) and
  # -VGP_$(VGCONF_ARCH_PRI)_$(VGCONF_OS).
+diff --git a/valgrind.pc.in b/valgrind.pc.in
+index 8a923cd..4a4b27e 100644
 --- a/valgrind.pc.in
 +++ b/valgrind.pc.in
 @@ -11,6 +11,6 @@ Name: Valgrind
