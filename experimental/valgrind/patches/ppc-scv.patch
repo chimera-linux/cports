@@ -1,13 +1,48 @@
+commit 733851e0e6f9cc7f5eb3c17af46d78a92c0526f8
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Oct 24 17:42:36 2023 +0200
+
+    don't reference scv instr as clang assembler does not support it
+
+diff --git a/coregrind/m_syscall.c b/coregrind/m_syscall.c
+index 1e49ed4..c926fdd 100644
+--- a/coregrind/m_syscall.c
++++ b/coregrind/m_syscall.c
+@@ -638,7 +638,7 @@ asm(
+ 
+ "        .machine push\n"
+ "        .machine \"power9\"\n"
+-"        scv  0\n"
++"        .long 0x44000001\n"
+ "        .machine pop\n"
+ "        ld   5,-16(1)\n"  /* reacquire argblock ptr (r5 is caller-save) */
+ "        std  3,0(5)\n"    /* argblock[0] = r3 */
+diff --git a/coregrind/m_syswrap/syscall-ppc64le-linux.S b/coregrind/m_syswrap/syscall-ppc64le-linux.S
+index e416688..611b92f 100644
 --- a/coregrind/m_syswrap/syscall-ppc64le-linux.S
 +++ b/coregrind/m_syswrap/syscall-ppc64le-linux.S
 @@ -145,7 +145,10 @@ ML_(do_syscall_for_client_WRK):
             syswrap-main.c.  */
  2:      sc                      /* do the syscall */
          b       3f              /* jump over scv call */
+-8:      scv     0
 +        .machine push
 +        .machine "power9"
- 8:      scv     0
++8:      .long 0x44000001
 +        .machine pop
  
          /* put the result back in the threadstate  */
  3:	std     3,OFFSET_ppc64_GPR3(30)     /* gst->GPR3 = sc result */
+diff --git a/none/tests/ppc64/scv_test.c b/none/tests/ppc64/scv_test.c
+index 5c8df22..ff94f92 100644
+--- a/none/tests/ppc64/scv_test.c
++++ b/none/tests/ppc64/scv_test.c
+@@ -20,7 +20,7 @@
+     r0=name;                                                            \
+     __asm__ __volatile__                                                \
+       (".machine power9\n"                                              \
+-       "scv 0\n\t"                                                      \
++       ".long 0x44000001\n\t"                                           \
+        "0:"                                                             \
+        : "=&r" (r0),                                                    \
+          "=&r" (r3), "=&r" (r4), "=&r" (r5),                            \
