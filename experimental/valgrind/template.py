@@ -26,6 +26,7 @@ debug_level = 1
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE", "-fPIC"], "LDFLAGS": ["-fPIC"]}
 nostrip_files = ["usr/libexec/valgrind/*", "usr/lib/valgrind/*"]
 hardening = ["!ssp", "!scp", "!pie", "!int"]
+# check may be disabled sometimes
 options = ["!cross", "!lto"]
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 
@@ -36,7 +37,10 @@ match self.profile().arch:
         tool_flags["CFLAGS"] += ["-mno-outline-atomics"]
         # does not build
         options += ["!check"]
-    case "ppc64le" | "ppc64":
+    case "ppc64le" | "ppc64" | "ppc":
+        # lld causes the tools to segfault on start
+        hostmakedepends += [f"binutils-{self.profile().arch}"]
+        tool_flags["LDFLAGS"] += ["-fuse-ld=bfd"]
         # does not build
         options += ["!check"]
 
