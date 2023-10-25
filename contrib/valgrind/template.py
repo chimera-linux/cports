@@ -1,6 +1,7 @@
 pkgname = "valgrind"
 pkgver = "3.21.0"
 pkgrel = 0
+archs = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64"]
 build_style = "gnu_configure"
 configure_args = ["--without-mpicc"]
 configure_gen = ["./autogen.sh"]
