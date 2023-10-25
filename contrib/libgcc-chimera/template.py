@@ -1,9 +1,10 @@
 pkgname = "libgcc-chimera"
-pkgver = "15.0.7"
+pkgver = "16.0.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DCMAKE_BUILD_TYPE=Release", "-Wno-dev",
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-Wno-dev",
     # prevent a bunch of checks
     "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY",
     # we want to link it into libgcc_s
@@ -25,15 +26,19 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "python", "perl", "clang-tools-extra"]
 makedepends = [
-    "llvm-devel", "zlib-devel", "libffi-devel", "ncurses-devel",
-    "libunwind-devel", "linux-headers"
+    "llvm-devel",
+    "zlib-devel",
+    "libffi-devel",
+    "ncurses-devel",
+    "libunwind-devel",
+    "linux-headers",
 ]
 pkgdesc = "Chimera shim for libgcc runtime compatibility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "8b5fcb24b4128cf04df1b0b9410ce8b1a729cb3c544e6da885d234280dedeac6"
+sha256 = "ce5e71081d17ce9e86d7cbcfa28c4b04b9300f8fb7e78422b1feb6bc52c3028e"
 # shim
 options = ["!check", "!lto"]
 
@@ -53,15 +58,28 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
+
 def post_build(self):
     from cbuild.util import compiler
+
     # make a libgcc_s.so.1 from the builtins
     cc = compiler.C(self)
-    cc.invoke([], f"build/{_soname}", ldflags = [
-        "-nostdlib", "-shared", f"-Wl,-soname,{_soname}",
-        "-Wl,--whole-archive", f"build/lib/{_trip}/libclang_rt.builtins.a",
-        "-Wl,--no-as-needed", "-lunwind"
-    ])
+    cc.invoke(
+        [],
+        f"build/{_soname}",
+        ldflags=[
+            "-nodefaultlibs",
+            "-shared",
+            f"-Wl,-soname,{_soname}",
+            "-Wl,--no-undefined",
+            "-Wl,--whole-archive",
+            f"build/lib/{_trip}/libclang_rt.builtins.a",
+            "-Wl,--no-as-needed",
+            "-lc",
+            "-lunwind",
+        ],
+    )
+
 
 def do_install(self):
     self.install_lib(f"build/{_soname}")
