@@ -1,0 +1,35 @@
+--- bundles.go	2023-10-20 20:54:47.000000000 +0200
++++ bundles.go	2023-11-23 10:58:52.631410393 +0100
+@@ -154,17 +154,7 @@
+ 		return false, err
+ 	}
+ 	e.Close()
+-	s := e.Sections[len(e.Sections)-1]
+ 
+-	vma := uint64(s.VirtualAddress) + uint64(s.VirtualSize)
+-	switch e := e.OptionalHeader.(type) {
+-	case *pe.OptionalHeader32:
+-		vma += uint64(e.ImageBase)
+-	case *pe.OptionalHeader64:
+-		vma += e.ImageBase
+-	}
+-	vma = roundUpToBlockSize(vma)
+-
+ 	var args []string
+ 	for _, s := range sections {
+ 		if s.file == "" {
+@@ -188,13 +178,11 @@
+ 		args = append(args,
+ 			"--add-section", fmt.Sprintf("%s=%s", s.section, s.file),
+ 			"--set-section-flags", fmt.Sprintf("%s=%s", s.section, flags),
+-			"--change-section-vma", fmt.Sprintf("%s=%#x", s.section, vma),
+ 		)
+-		vma += roundUpToBlockSize(uint64(fi.Size()))
+ 	}
+ 
+ 	args = append(args, bundle.EFIStub, bundle.Output)
+-	cmd := exec.Command("objcopy", args...)
++	cmd := exec.Command("llvm-objcopy", args...)
+ 	cmd.Stdout = os.Stdout
+ 	cmd.Stderr = os.Stderr
+ 	if err := cmd.Run(); err != nil {
