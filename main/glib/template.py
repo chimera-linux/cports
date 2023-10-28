@@ -1,5 +1,5 @@
 pkgname = "glib"
-pkgver = "2.78.0"
+pkgver = "2.78.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -20,7 +20,7 @@ makedepends = [
     "pcre2-devel",
     "libffi-devel",
     "dbus-devel",
-    "elftoolchain-devel",
+    "elfutils-devel",
     "libmount-devel",
 ]
 checkdepends = [
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "44eaab8b720877ce303c5540b657b126f12dc94972d9880b52959f43fb537b30"
+sha256 = "915bc3d0f8507d650ead3832e2f8fb670fce59aac4d7754a7dab6f1e6fed78b2"
 # FIXME int - e.g. g_ascii_strtoll fails
 hardening = ["!int"]
 # cyclic with desktop-file-utils
