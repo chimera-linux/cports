@@ -1,13 +1,12 @@
 pkgname = "base-cbuild-bootstrap"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "base-cbuild-host",  # all the host tools for cbuild itself
     # toolchain base
     "clang",
     "lld",
-    "elftoolchain",
     "linux-headers",
     # stage 0 tooling
     "pkgconf",
