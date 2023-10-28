@@ -1,6 +1,6 @@
 pkgname = "musl"
 pkgver = "1.2.4"
-pkgrel = 3
+pkgrel = 4
 _scudo_ver = "16.0.6"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
@@ -10,6 +10,7 @@ hostmakedepends = ["gmake"]
 depends = [f"musl-progs={pkgver}-r{pkgrel}"]
 provides = ["so:libc.so=0"]
 provider_priority = 999
+replaces = [f"musl-mallocng~{pkgver}"]
 pkgdesc = "Musl C library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
