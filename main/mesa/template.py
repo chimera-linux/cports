@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "23.1.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
@@ -57,7 +57,7 @@ makedepends = [
     "zlib-devel",
     "lua5.4-devel",
     "libffi-devel",
-    "elftoolchain-devel",
+    "elfutils-devel",
     # video accel
     "libva-bootstrap",
 ]
