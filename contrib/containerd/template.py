@@ -1,5 +1,5 @@
 pkgname = "containerd"
-pkgver = "1.7.7"
+pkgver = "1.7.8"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -31,7 +31,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/containerd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "4c6042b13746a803766d76b07f756d03678a33a944b52c0b832c238609db1b2e"
+sha256 = "891b84e614b491ab1d3bd5c8f4fb119e4929c24762e149e83e181e72d687f706"
 # objcopy fails to split on ppc
 # can't run tests inside namespaces
 options = ["!debug", "!check"]
@@ -39,6 +39,11 @@ options = ["!debug", "!check"]
 
 if self.profile().arch == "riscv64":
     broken = "cgo runtime stuff"
+
+
+def post_extract(self):
+    # delete stray incomplete vendor dir
+    self.rm("vendor/", recursive=True)
 
 
 def post_prepare(self):
@@ -51,10 +56,6 @@ def init_build(self):
     from cbuild.util import golang
 
     self.make_env.update(golang.get_go_env(self))
-
-
-def post_build(self):
-    self.do("./bin/containerd", "config", "default")
 
 
 def post_install(self):
