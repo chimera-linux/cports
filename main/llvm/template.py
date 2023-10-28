@@ -1,6 +1,6 @@
 pkgname = "llvm"
 pkgver = "16.0.6"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -17,6 +17,7 @@ configure_args = [
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=NO",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
+    "-DLLVM_INSTALL_BINUTILS_SYMLINKS=YES",
     "-DLLVM_INSTALL_UTILS=YES",
     "-DLLVM_BUILD_LLVM_DYLIB=YES",
     "-DLLVM_LINK_LLVM_DYLIB=YES",
@@ -35,6 +36,7 @@ hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel"]
 makedepends = ["zlib-devel", "libatomic-chimera-devel"]
 depends = [
     f"libllvm={pkgver}-r{pkgrel}",
+    f"llvm-binutils={pkgver}-r{pkgrel}",
     f"llvm-linker-tools={pkgver}-r{pkgrel}",
     f"llvm-runtime={pkgver}-r{pkgrel}",
 ]
@@ -79,7 +81,6 @@ if self.stage > 0:
     makedepends += [
         "python-devel",
         "libedit-devel",
-        "elftoolchain-devel",
         "libffi-devel",
         "zstd-devel",
         "linux-headers",
@@ -187,7 +188,8 @@ def pre_configure(self):
                 self,
                 "build_host",
                 self.cmake_dir,
-                [
+                self.configure_args
+                + [
                     "-DLLVM_HOST_TRIPLE=" + trip,
                     "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
                 ],
@@ -231,7 +233,8 @@ def do_configure(self):
         self,
         "build",
         self.cmake_dir,
-        [
+        self.configure_args
+        + [
             "-DLLVM_TARGET_ARCH=" + _arch,
             "-DLLVM_HOST_TRIPLE=" + trip,
             "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
@@ -247,6 +250,11 @@ def post_install(self):
     self.install_link("clang++", "usr/bin/c++")
     if not (self.destdir / "usr/bin/ld").is_symlink():
         self.install_link("ld.lld", "usr/bin/ld")
+
+    # we don't want debuginfod symlinks, these may be provided by actual
+    # debuginfod from elfutils (and there is no need to alias them)
+    self.rm(self.destdir / "usr/bin/debuginfod")
+    self.rm(self.destdir / "usr/bin/debuginfod-find")
 
     # python bytecode cache
     if self.stage > 0:
@@ -290,13 +298,56 @@ def _tools_extra(self):
     ]
 
 
+@subpackage("llvm-binutils")
+def _binutils(self):
+    self.pkgdesc = f"{pkgdesc} (binary manipulation tools)"
+    # prevent file conflict errors, we're dropping this
+    self.replaces = ["elftoolchain<0.7.1_svn20230501"]
+
+    return [
+        "usr/bin/addr2line",
+        "usr/bin/ar",
+        "usr/bin/c++filt",
+        "usr/bin/dlltool",
+        "usr/bin/dwp",
+        "usr/bin/llvm-addr2line",
+        "usr/bin/llvm-ar",
+        "usr/bin/llvm-bitcode-strip",
+        "usr/bin/llvm-cxxfilt",
+        "usr/bin/llvm-dlltool",
+        "usr/bin/llvm-dwp",
+        "usr/bin/llvm-install-name-tool",
+        "usr/bin/llvm-lib",
+        "usr/bin/llvm-nm",
+        "usr/bin/llvm-objcopy",
+        "usr/bin/llvm-objdump",
+        "usr/bin/llvm-ranlib",
+        "usr/bin/llvm-rc",
+        "usr/bin/llvm-readelf",
+        "usr/bin/llvm-readobj",
+        "usr/bin/llvm-size",
+        "usr/bin/llvm-strings",
+        "usr/bin/llvm-strip",
+        "usr/bin/llvm-symbolizer",
+        "usr/bin/nm",
+        "usr/bin/objcopy",
+        "usr/bin/objdump",
+        "usr/bin/ranlib",
+        "usr/bin/readelf",
+        "usr/bin/size",
+        "usr/bin/strings",
+        "usr/bin/strip",
+        "usr/bin/windres",
+    ]
+
+
 @subpackage("clang")
 def _clang(self):
     self.pkgdesc = f"{pkgdesc} (C language family frontend)"
     self.depends = [
         f"libcxx-devel={pkgver}-r{pkgrel}",
         f"clang-rt-devel={pkgver}-r{pkgrel}",
-        "elftoolchain",
+        f"llvm-binutils={pkgver}-r{pkgrel}",
         "fortify-headers",
         "libatomic-chimera-devel",
         "musl-devel",

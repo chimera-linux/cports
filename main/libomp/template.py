@@ -11,7 +11,6 @@ makedepends = [
     "llvm-devel",
     "libffi-devel",
     "zlib-devel",
-    "elftoolchain-devel",
     "ncurses-devel",
     "linux-headers",
 ]

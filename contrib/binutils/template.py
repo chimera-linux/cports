@@ -183,7 +183,7 @@ def do_install(self):
         self.destdir / "usr/share/man/man1/ld.bfd.1",
     )
 
-    # rename some tools to prefixed versions - conflicts with elftoolchain
+    # rename some tools to prefixed versions - conflicts with llvm
     for p in [
         "as",
         "ar",
