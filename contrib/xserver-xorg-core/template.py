@@ -1,6 +1,6 @@
 pkgname = "xserver-xorg-core"
-pkgver = "21.1.8"
-pkgrel = 3
+pkgver = "21.1.9"
+pkgrel = 0
 build_style = "meson"
 _fontroot = "/usr/share/fonts"
 configure_args = [
@@ -70,7 +70,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT AND BSD-3-Clause"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/xorg-server-{pkgver}/xserver-xorg-server-{pkgver}.tar.gz"
-sha256 = "74e3b71ab4385d16a6cca169bb8e3664bed1f1fd16e99ae9366fcb6d68ef49b3"
+sha256 = "f0ebbc2824ade314b7b3732f59fc94dc2013ae44e34c40ed4eec1a44ce5e084d"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE", "-D__uid_t=uid_t", "-D__gid_t=gid_t"],
     "LDFLAGS": ["-Wl,-z,lazy"],  # must be set for modules to work
