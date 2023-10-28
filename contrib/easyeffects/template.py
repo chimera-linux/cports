@@ -1,5 +1,5 @@
 pkgname = "easyeffects"
-pkgver = "7.1.0"
+pkgver = "7.1.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-libcpp-workarounds=true"]
@@ -20,6 +20,7 @@ makedepends = [
     "glib-devel",
     "gsl-devel",
     "gtk4-devel",
+    "ladspa-sdk",
     "libadwaita-devel",
     "libbs2b-devel",
     "libebur128-devel",
@@ -43,6 +44,6 @@ url = "https://github.com/wwmm/easyeffects"
 source = (
     f"https://github.com/wwmm/easyeffects/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "083649d9e26315a0a005909905177cd4b093a859b5a577e8d3c5ab9c173160c3"
+sha256 = "e6b58770ca3a5f1a9ded640a093fbb90132162b9368597152f3787ca84a905b5"
 # FIXME: cfi
 hardening = ["vis"]
