@@ -18,7 +18,7 @@ make_check_args = [
     "readlink.gen seccomp-filter.gen mmap ioctl caps readv"
 ]
 hostmakedepends = ["gmake"]
-makedepends = [ "elfutils-devel", "linux-headers"]
+makedepends = ["elfutils-devel", "linux-headers"]
 pkgdesc = "System call tracer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
