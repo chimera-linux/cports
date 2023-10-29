@@ -2097,54 +2097,32 @@ def from_module(m, ret):
         if tf not in ret.tool_flags:
             ret.tool_flags[tf] = []
 
-    # when bootstrapping, use a fixed set of tools; none of the bootstrap
-    # packages should be overriding these, and we want to prefer the usual
-    # binutils/elftoolchain ones so we don't pull in all of llvm tools
-    #
-    # the llvm tools are only meaningful once we have a full chroot assembled
-    # since they provide extras and possibly help in cross-compiling scenarios
-    # as well as with LTO
-    if ret.stage == 0:
+    if "CC" not in ret.tools:
         ret.tools["CC"] = "clang"
+    if "CXX" not in ret.tools:
         ret.tools["CXX"] = "clang++"
+    if "CPP" not in ret.tools:
         ret.tools["CPP"] = "clang-cpp"
+    if "LD" not in ret.tools:
         ret.tools["LD"] = "ld.lld"
-        ret.tools["NM"] = "nm"
-        ret.tools["AR"] = "ar"
-        ret.tools["AS"] = "clang"
-        ret.tools["RANLIB"] = "ranlib"
-        ret.tools["STRIP"] = "strip"
-        # objdump explicitly not provided
-        ret.tools["OBJCOPY"] = "objcopy"
-        ret.tools["READELF"] = "readelf"
+    if "PKG_CONFIG" not in ret.tools:
         ret.tools["PKG_CONFIG"] = "pkg-config"
-    else:
-        if "CC" not in ret.tools:
-            ret.tools["CC"] = "clang"
-        if "CXX" not in ret.tools:
-            ret.tools["CXX"] = "clang++"
-        if "CPP" not in ret.tools:
-            ret.tools["CPP"] = "clang-cpp"
-        if "LD" not in ret.tools:
-            ret.tools["LD"] = "ld"
-        if "PKG_CONFIG" not in ret.tools:
-            ret.tools["PKG_CONFIG"] = "pkg-config"
-        if "NM" not in ret.tools:
-            ret.tools["NM"] = "llvm-nm"
-        if "AR" not in ret.tools:
-            ret.tools["AR"] = "llvm-ar"
-        if "AS" not in ret.tools:
-            ret.tools["AS"] = "clang"
-        if "RANLIB" not in ret.tools:
-            ret.tools["RANLIB"] = "llvm-ranlib"
-        if "STRIP" not in ret.tools:
-            ret.tools["STRIP"] = "llvm-strip"
-        if "OBJDUMP" not in ret.tools:
-            ret.tools["OBJDUMP"] = "llvm-objdump"
-        if "OBJCOPY" not in ret.tools:
-            ret.tools["OBJCOPY"] = "llvm-objcopy"
-        if "READELF" not in ret.tools:
-            ret.tools["READELF"] = "llvm-readelf"
+    if "NM" not in ret.tools:
+        ret.tools["NM"] = "nm"
+    if "AR" not in ret.tools:
+        ret.tools["AR"] = "ar"
+    if "AS" not in ret.tools:
+        ret.tools["AS"] = "clang"
+    if "RANLIB" not in ret.tools:
+        ret.tools["RANLIB"] = "ranlib"
+    if "STRIP" not in ret.tools:
+        ret.tools["STRIP"] = "strip"
+    if "OBJDUMP" not in ret.tools:
+        ret.tools["OBJDUMP"] = "objdump"
+    if "OBJCOPY" not in ret.tools:
+        ret.tools["OBJCOPY"] = "objcopy"
+    if "READELF" not in ret.tools:
+        ret.tools["READELF"] = "readelf"
 
     # ensure sources and checksums are a list
     if not isinstance(ret.source, list):
