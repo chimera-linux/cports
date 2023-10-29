@@ -1,5 +1,5 @@
 pkgname = "lilv"
-pkgver = "0.24.20"
+pkgver = "0.24.22"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/lilv.html"
 source = f"https://download.drobilla.net/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4fb082b9b8b286ea92bbb71bde6b75624cecab6df0cc639ee75a2a096212eebc"
+sha256 = "76f949d0e59fc83363409b5ec5e15c1046fb7dd6589d3c1b920cec1fd29f9ff3"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
