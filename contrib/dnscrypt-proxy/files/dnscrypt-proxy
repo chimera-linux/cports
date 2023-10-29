@@ -1,0 +1,10 @@
+# dnscrypt-proxy service
+
+type            = process
+command         = /usr/bin/dnscrypt-proxy -config /etc/dnscrypt-proxy/dnscrypt-proxy.toml
+logfile         = /var/log/dnscrypt-proxy/dnscrypt-proxy.log
+before          = network.target
+depends-on      = pre-network.target
+restart         = true
+restart-delay   = 3
+smooth-recovery = true
