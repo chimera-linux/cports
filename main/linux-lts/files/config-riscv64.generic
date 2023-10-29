@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/riscv 6.1.56 Kernel Configuration
+# Linux/riscv 6.1.60 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 16.0.6"
 CONFIG_GCC_VERSION=0
@@ -2995,7 +2995,6 @@ CONFIG_CAN_GRCAN=m
 CONFIG_CAN_JANZ_ICAN3=m
 CONFIG_CAN_KVASER_PCIEFD=m
 CONFIG_CAN_SLCAN=m
-CONFIG_CAN_SUN4I=m
 CONFIG_CAN_C_CAN=m
 CONFIG_CAN_C_CAN_PLATFORM=m
 CONFIG_CAN_C_CAN_PCI=m
