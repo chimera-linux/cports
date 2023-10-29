@@ -1,9 +1,10 @@
 pkgname = "strace"
 pkgver = "6.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--without-libunwind",
+    "--with-libdw",
+    "--enable-stacktrace",
     "--disable-mpers",
     "--disable-gcc-Werror",
 ]
@@ -17,7 +18,7 @@ make_check_args = [
     "readlink.gen seccomp-filter.gen mmap ioctl caps readv"
 ]
 hostmakedepends = ["gmake"]
-makedepends = ["linux-headers"]
+makedepends = [ "elfutils-devel", "linux-headers"]
 pkgdesc = "System call tracer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
