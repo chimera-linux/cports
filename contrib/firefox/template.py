@@ -80,10 +80,6 @@ env = {
 # FIXME: youtube causes crashes in libxul after some seconds
 hardening = ["!int"]
 options = ["!cross"]
-exec_wrappers = [
-    ("/usr/bin/llvm-objdump", "objdump"),
-    ("/usr/bin/llvm-readelf", "readelf"),
-]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."

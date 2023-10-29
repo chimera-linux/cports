@@ -76,10 +76,6 @@ env = {
 # FIXME: see firefox
 hardening = ["!int"]
 options = ["!cross"]
-exec_wrappers = [
-    ("/usr/bin/llvm-objdump", "objdump"),
-    ("/usr/bin/llvm-readelf", "readelf"),
-]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."

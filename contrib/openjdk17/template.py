@@ -102,12 +102,6 @@ def init_configure(self):
         "--with-extra-cflags=" + self.get_cflags(shell=True),
         "--with-extra-cxxflags=" + self.get_cxxflags(shell=True),
         "--with-extra-ldflags=" + self.get_ldflags(shell=True),
-        "READELF=llvm-readelf",
-        "OBJDUMP=llvm-objdump",
-        "OBJCOPY=llvm-objcopy",
-        "STRIP=llvm-strip",
-        "AR=llvm-ar",
-        "NM=llvm-nm",
     ]
     if self.profile().cross:
         self.configure_args += [

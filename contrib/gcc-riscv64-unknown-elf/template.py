@@ -71,10 +71,6 @@ nostrip_files = ["libgcc.a"]
 hardening = ["!pie", "!int"]
 # no tests to run
 options = ["!check", "!lto", "!cross", "!scanshlibs"]
-exec_wrappers = [
-    ("/usr/bin/llvm-objdump", "objdump"),
-    ("/usr/bin/llvm-readelf", "readelf"),
-]
 
 
 def post_install(self):

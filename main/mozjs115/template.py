@@ -49,10 +49,6 @@ env = {
 hardening = ["!int"]
 # dependencies are not crossable for now and it's probably tricky
 options = ["!cross"]
-exec_wrappers = [
-    ("/usr/bin/llvm-objdump", "objdump"),
-    ("/usr/bin/llvm-readelf", "readelf"),
-]
 
 
 def init_configure(self):

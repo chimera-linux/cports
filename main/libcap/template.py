@@ -3,7 +3,7 @@ pkgver = "2.69"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
-make_build_args = ["GOLANG=no", "OBJCOPY=llvm-objcopy", "RANLIB=llvm-ranlib"]
+make_build_args = ["GOLANG=no"]
 make_install_args = [
     "PKGCONFIGDIR=/usr/lib/pkgconfig",
     "SBINDIR=/usr/bin",
