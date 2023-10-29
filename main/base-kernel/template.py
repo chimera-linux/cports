@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 depends = [
     "kmod",
     "procps",
@@ -120,7 +120,7 @@ def _baseloc(self):
         "python",
         "u-boot-tools",
         "linux-headers",
-        "elftoolchain-devel",
+        "elfutils-devel",
         "openssl-devel",
         "zlib-devel",
     ]
