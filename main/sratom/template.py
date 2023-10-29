@@ -1,5 +1,5 @@
 pkgname = "sratom"
-pkgver = "0.6.14"
+pkgver = "0.6.16"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
 url = "https://drobilla.net/software/sratom.html"
 source = f"https://download.drobilla.net/{pkgname}-{pkgver}.tar.xz"
-sha256 = "9982faf40db83aedd9b3850e499fecd6852b8b4ba6dede514013655cffaca1e6"
+sha256 = "71c157991183e53d0555393bb4271c75c9b5f5dab74a5ef22f208bb22de322c4"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
