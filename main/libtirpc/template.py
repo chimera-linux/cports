@@ -9,7 +9,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "heimdal-devel",
-    "libgssglue-devel",
     "musl-bsd-headers",
     "linux-headers",
 ]
