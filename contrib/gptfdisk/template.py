@@ -16,7 +16,7 @@ pkgdesc = "Fdisk-like partitioning tool for GPT disks"
 maintainer = "reocat <ng.ct_ml@tuta.io>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/gptfdisk"
-source = f"$(SOURCEFORGE_SITE)/gptfisk/{pkgver}/gptfdisk-{pkgver}.tar.gz"
+source = f"$(SOURCEFORGE_SITE)/gptfdisk/{pkgver}/gptfdisk-{pkgver}.tar.gz"
 sha256 = "dafead2693faeb8e8b97832b23407f6ed5b3219bc1784f482dd855774e2d50c2"
 hardening = ["vis", "cfi"]
 
