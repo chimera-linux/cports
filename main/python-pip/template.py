@@ -1,5 +1,5 @@
 pkgname = "python-pip"
-pkgver = "23.3"
+pkgver = "23.3.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pip.pypa.io"
 source = f"$(PYPI_SITE)/p/pip/pip-{pkgver}.tar.gz"
-sha256 = "bb7d4f69f488432e4e96394612f43ab43dd478d073ef7422604a570f7157561e"
+sha256 = "1fcaa041308d01f14575f6d0d2ea4b75a3e2871fe4f9c694976f908768e14174"
 # unpackaged dependencies
 options = ["!check"]
 
