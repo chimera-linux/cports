@@ -1,6 +1,6 @@
 pkgname = "usbutils"
-pkgver = "015"
-pkgrel = 1
+pkgver = "017"
+pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["automake", "libtool", "pkgconf", "gmake"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://linux-usb.sourceforge.net"
 source = f"$(KERNEL_SITE)/utils/usb/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c3b451bb1f4ff9f6356cac5a6956a9ac8e85d81651af56a29e689f94fa6fda6e"
+sha256 = "a6a25ffdcf9103e38d7a44732aca17073f4e602b92e4ae55625231a82702e05b"
 hardening = ["vis", "cfi"]
 
 
