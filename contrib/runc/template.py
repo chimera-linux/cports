@@ -1,6 +1,6 @@
 pkgname = "runc"
-pkgver = "1.1.9"
-pkgrel = 1
+pkgver = "1.1.10"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["all", "man", f"COMMIT=chimera-r{pkgrel}"]
@@ -21,10 +21,15 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/opencontainers/runc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "509993674481aad7e14aedfb280e0eb160f3a34c0b77e2e98c4b3c0b1df76894"
+sha256 = "e26ae522d09b253b64a30b4e4d233988c988f7588178308b51da7aec927df47b"
 # objcopy fails on ppc
 # tests create namespaces and fail because no perms
 options = ["!debug", "!check"]
+
+
+def post_extract(self):
+    # delete stray incomplete vendor dir
+    self.rm("vendor/", recursive=True)
 
 
 def post_prepare(self):
