@@ -1,0 +1,72 @@
+From 69e9770b5657782b63dca86a4e17920d47e00a3b Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:04:27 +0100
+Subject: [PATCH 10/25] compiler-rt,libcxx(abi),libunwind: HACK: force -fno-lto
+
+---
+ compiler-rt/lib/builtins/CMakeLists.txt | 2 +-
+ libcxx/CMakeLists.txt                   | 4 ++++
+ libcxxabi/CMakeLists.txt                | 4 ++++
+ libunwind/src/CMakeLists.txt            | 3 +++
+ 4 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
+index bf4680c23..0511df00c 100644
+--- a/compiler-rt/lib/builtins/CMakeLists.txt
++++ b/compiler-rt/lib/builtins/CMakeLists.txt
+@@ -712,7 +712,7 @@ if (APPLE)
+   add_subdirectory(macho_embedded)
+   darwin_add_builtin_libraries(${BUILTIN_SUPPORTED_OS})
+ else ()
+-  set(BUILTIN_CFLAGS "")
++  set(BUILTIN_CFLAGS "-fno-lto")
+   add_security_warnings(BUILTIN_CFLAGS 0)
+ 
+   if (COMPILER_RT_HAS_FCF_PROTECTION_FLAG)
+diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
+index b8ac53658..82b9aa639 100644
+--- a/libcxx/CMakeLists.txt
++++ b/libcxx/CMakeLists.txt
+@@ -563,6 +563,10 @@ function(cxx_add_rtti_flags target)
+       target_add_compile_flags_if_supported(${target} PUBLIC -fno-rtti)
+     endif()
+   endif()
++
++  target_add_compile_flags_if_supported(${target} PRIVATE "-fno-lto")
++  target_add_link_flags_if_supported(${target} PRIVATE "-fno-lto")
++  target_add_link_flags_if_supported(${target} PRIVATE "-rtlib=compiler-rt")
+ endfunction()
+ 
+ # Modules flags ===============================================================
+diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
+index f380fe6b6..779971be7 100644
+--- a/libcxxabi/CMakeLists.txt
++++ b/libcxxabi/CMakeLists.txt
+@@ -292,6 +292,10 @@ else()
+   add_compile_flags_if_supported(-EHa-)
+ endif()
+ 
++add_compile_flags("-fno-lto")
++add_link_flags("-fno-lto")
++add_link_flags("-rtlib=compiler-rt")
++
+ # Assert
+ string(TOUPPER "${CMAKE_BUILD_TYPE}" uppercase_CMAKE_BUILD_TYPE)
+ if (LIBCXXABI_ENABLE_ASSERTIONS)
+diff --git a/libunwind/src/CMakeLists.txt b/libunwind/src/CMakeLists.txt
+index bb2ada94d..f54e8b2e4 100644
+--- a/libunwind/src/CMakeLists.txt
++++ b/libunwind/src/CMakeLists.txt
+@@ -102,6 +102,9 @@ if (APPLE)
+   endif ()
+ endif ()
+ 
++add_compile_flags("-fno-lto")
++add_link_flags("-fno-lto")
++
+ string(REPLACE ";" " " LIBUNWIND_COMPILE_FLAGS "${LIBUNWIND_COMPILE_FLAGS}")
+ string(REPLACE ";" " " LIBUNWIND_CXX_FLAGS "${LIBUNWIND_CXX_FLAGS}")
+ string(REPLACE ";" " " LIBUNWIND_C_FLAGS "${LIBUNWIND_C_FLAGS}")
+-- 
+2.42.0
+

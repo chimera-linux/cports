@@ -1,0 +1,25 @@
+From 16aaa56556b886fe0adb8524579eda6ccafaeff0 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 6 Apr 2022 00:58:39 +0200
+Subject: [PATCH 09/25] compiler-rt: HACK: hwasan build on x86_64
+
+---
+ compiler-rt/lib/hwasan/hwasan_exceptions.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/compiler-rt/lib/hwasan/hwasan_exceptions.cpp b/compiler-rt/lib/hwasan/hwasan_exceptions.cpp
+index bf700bf56..2c1f1b173 100644
+--- a/compiler-rt/lib/hwasan/hwasan_exceptions.cpp
++++ b/compiler-rt/lib/hwasan/hwasan_exceptions.cpp
+@@ -14,7 +14,7 @@
+ #include "hwasan_poisoning.h"
+ #include "sanitizer_common/sanitizer_common.h"
+ 
+-#include <unwind.h>
++#include "../../../clang/lib/Headers/unwind.h"
+ 
+ using namespace __hwasan;
+ using namespace __sanitizer;
+-- 
+2.42.0
+

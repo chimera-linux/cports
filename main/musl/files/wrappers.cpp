@@ -253,6 +253,18 @@ struct TSDRegistry {
      */
     bool getDisableMemInit() { return false; }
 
+    void getStats(scudo::ScopedString *str) {
+        str->append("Iterating each TSD is not supported\n");
+    }
+
+    void drainCaches(A *inst) {
+        auto *self = get_self();
+        inst->drainCache(static_cast<tsd_t *>(self->scudo_tsd));
+        p_fallback->lock();
+        inst->drainCache(p_fallback);
+        p_fallback->unlock();
+    }
+
     void initOnceMaybe(A *inst) {
         scudo::ScopedLock L{p_mtx};
         init_once_maybe(inst);
@@ -334,10 +346,10 @@ private:
 using Origin = scudo::Chunk::Origin;
 
 struct MuslConfig {
-    /* use table-driven size classes, found to perform better */
-    using SizeClassMap = scudo::AndroidSizeClassMap;
-
     static const bool MaySupportMemoryTagging = true;
+
+    template<typename A>
+    using TSDRegistryT = TSDRegistry<A>;
 
     /* we are not actually using primary64 at the moment, as primary32
      * appears to have similar performance and memory usage even on
@@ -345,46 +357,56 @@ struct MuslConfig {
      * entirely eliminates our qemu performance issues besides other
      * things; maybe reevaluate another time
      */
+    struct Primary {
+        /* use table-driven size classes, found to perform better */
+        using SizeClassMap = scudo::AndroidSizeClassMap;
+
 #if 0 /*SCUDO_WORDSIZE == 64U*/
-    using Primary = scudo::SizeClassAllocator64<MuslConfig>;
-    /* use pointer compacting like android, improves memory use */
-    using PrimaryCompactPtrT = uint32_t;
+        /* use pointer compacting like android, improves memory use */
+        using CompactPtrT = uint32_t;
 
-    /* too large values result in large mmaps (which will result in terrible
-     * performance in qemu-user, for example), too small values may result
-     * in size class exhaustion; for now use the same value as android
-     */
-    static const uintptr_t PrimaryRegionSizeLog = 28U;
-    static const uintptr_t PrimaryGroupSizeLog = 20U;
-    static const uintptr_t PrimaryCompactPtrScale = SCUDO_MIN_ALIGNMENT_LOG;
-    static const uintptr_t PrimaryMapSizeIncrement = 1UL << 18;
-    static const bool PrimaryEnableRandomOffset = true;
+        /* too large values result in large mmaps (which will result in terrible
+         * performance in qemu-user, for example), too small values may result
+         * in size class exhaustion; for now use the same value as android
+         */
+        static const uintptr_t RegionSizeLog = 28U;
+        static const uintptr_t GroupSizeLog = 20U;
+        static const uintptr_t CompactPtrScale = SCUDO_MIN_ALIGNMENT_LOG;
+        static const uintptr_t MapSizeIncrement = 1UL << 18;
+        static const bool EnableRandomOffset = true;
 #else
-    using Primary = scudo::SizeClassAllocator32<MuslConfig>;
-    using PrimaryCompactPtrT = uintptr_t;
+        using CompactPtrT = uintptr_t;
 
-    static const uintptr_t PrimaryRegionSizeLog = FIRST_32_SECOND_64(18U, 20U);
-    static const uintptr_t PrimaryGroupSizeLog = FIRST_32_SECOND_64(18U, 20U);
+        static const uintptr_t RegionSizeLog = FIRST_32_SECOND_64(18U, 20U);
+        static const uintptr_t GroupSizeLog = FIRST_32_SECOND_64(18U, 20U);
 #endif
-
-    static const int32_t PrimaryMinReleaseToOsIntervalMs = INT32_MIN;
-    static const int32_t PrimaryMaxReleaseToOsIntervalMs = INT32_MAX;
+        static const int32_t MinReleaseToOsIntervalMs = INT32_MIN;
+        static const int32_t MaxReleaseToOsIntervalMs = INT32_MAX;
+    };
+#if 0 /*SCUDO_WORDSIZE == 64U*/
+    template<typename C> using PrimaryT = scudo::SizeClassAllocator64<C>;
+#else
+    template<typename C> using PrimaryT = scudo::SizeClassAllocator32<C>;
+#endif
 
 #if MUSL_SCUDO_USE_SECONDARY_CACHE
-    using SecondaryCache = scudo::MapAllocatorCache<MuslConfig>;
-
-    static const uint32_t SecondaryCacheEntriesArraySize = 32U;
-    static const uint32_t SecondaryCacheQuarantineSize = 0U;
-    static const uint32_t SecondaryCacheDefaultMaxEntriesCount = 32U;
-    static const uintptr_t SecondaryCacheDefaultMaxEntrySize = 1UL << 19;
-    static const int32_t SecondaryCacheMinReleaseToOsIntervalMs = INT32_MIN;
-    static const int32_t SecondaryCacheMaxReleaseToOsIntervalMs = INT32_MAX;
+    struct Secondary {
+        struct Cache {
+            static const uint32_t EntriesArraySize = 32U;
+            static const uint32_t QuarantineSize = 0U;
+            static const uint32_t DefaultMaxEntriesCount = 32U;
+            static const uintptr_t DefaultMaxEntrySize = 1UL << 19;
+            static const int32_t MinReleaseToOsIntervalMs = INT32_MIN;
+            static const int32_t MaxReleaseToOsIntervalMs = INT32_MAX;
+        }
+        template<typename C> using CacheT = scudo::MapAllocatorCache<C>;
+    };
 #else
-    using SecondaryCache = scudo::MapAllocatorNoCache;
+    struct Secondary {
+        template<typename C> using CacheT = scudo::MapAllocatorNoCache<C>;
+    };
 #endif
-
-    template<typename A>
-    using TSDRegistryT = TSDRegistry<A>;
+    template<typename C> using SecondaryT = scudo::MapAllocator<C>;
 };
 
 extern "C" {

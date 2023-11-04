@@ -1,6 +1,6 @@
 pkgname = "llvm"
-pkgver = "16.0.6"
-pkgrel = 4
+pkgver = "17.0.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -13,7 +13,7 @@ configure_args = [
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=NO",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
-    "-DLIBCXX_ENABLE_ASSERTIONS=YES",
+    "-DLIBCXX_HARDENING_MODE=hardened",
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=NO",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
@@ -31,6 +31,7 @@ configure_args = [
     "-DLLVM_ENABLE_LLD=YES",
     "-DLLVM_ENABLE_LIBCXX=YES",
     "-DLIBUNWIND_USE_COMPILER_RT=YES",
+    "-DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel"]
 makedepends = ["zlib-devel", "libatomic-chimera-devel"]
@@ -45,7 +46,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "ce5e71081d17ce9e86d7cbcfa28c4b04b9300f8fb7e78422b1feb6bc52c3028e"
+sha256 = "a225eb96f52e7d8c6c275b351fcc66d7a21d925eecff53730900404f244ff16a"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -116,9 +117,9 @@ else:
 
 _enable_flang = False
 
-# not ready yet (no codegen in flang-new)
-# if self.stage >= 2:
-#    _enable_flang = True
+# from stage 2 only, pointless to build before
+if self.stage >= 2:
+    _enable_flang = True
 
 if _enable_flang:
     _enabled_projects += ["flang"]
@@ -293,6 +294,7 @@ def _tools_extra(self):
         "usr/bin/hmaptool",
         "usr/bin/modularize",
         "usr/bin/pp-trace",
+        "usr/bin/run-clang-tidy",
         "usr/bin/sancov",
         "usr/share/clang/*tidy*",
     ]
@@ -440,22 +442,39 @@ def _flang(self):
     self.pkgdesc = f"{pkgdesc} (Fortran frontend)"
     self.depends = [
         f"clang={pkgver}-r{pkgrel}",
-        f"mlir={pkgver}-r{pkgrel}",
-        "bash",
+        f"flang-devel={pkgver}-r{pkgrel}",
     ]
 
-    return ["usr/bin/f18*", "usr/bin/fir*", "usr/bin/flang*"]
+    return [
+        "usr/bin/bbc",
+        "usr/bin/f18*",
+        "usr/bin/fir*",
+        "usr/bin/flang*",
+        "usr/bin/tco",
+    ]
+
+
+@subpackage("flang-devel-static", _enable_flang)
+def _flang_devel_static(self):
+    self.pkgdesc = f"{pkgdesc} (Flang static libraries)"
+    self.depends = []
+    self.install_if = []
+
+    return [
+        "usr/lib/libFIR*.a",
+        "usr/lib/libflang*.a",
+        "usr/lib/libFortran*.a",
+        "usr/lib/libHLFIR*.a",
+    ]
 
 
 @subpackage("flang-devel", _enable_flang)
 def _flang_devel(self):
     self.pkgdesc = f"{pkgdesc} (Flang development files)"
-    self.options = ["!splitstatic"]
+    self.depends = [f"flang-devel-static={pkgver}-r{pkgrel}"]
 
     return [
         "usr/include/flang",
-        "usr/lib/libflang*.a",
-        "usr/lib/libFortran*.a",
         "usr/lib/cmake/flang",
     ]
 
@@ -479,8 +498,6 @@ def _mlir_static(self):
 @subpackage("mlir-devel", _enable_flang)
 def _mlir_devel(self):
     self.pkgdesc = f"{pkgdesc} (MLIR development files)"
-    # unfortunately cmake files reference the static libs and force their
-    # installation onto the target system, nothing much we can do about that
     self.depends = [f"mlir-devel-static={pkgver}-r{pkgrel}"]
 
     return [
@@ -655,6 +672,9 @@ def _llvm_devel(self):
         f"llvm-devel-static={pkgver}-r{pkgrel}",
         f"libclang-cpp={pkgver}-r{pkgrel}",
     ]
+    # dumb llvmexports shit
+    if _enable_flang:
+        self.depends.append(f"mlir={pkgver}-r{pkgrel}")
     if self.stage > 0:
         self.depends.append("zstd-devel")
 

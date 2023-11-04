@@ -1,0 +1,46 @@
+From 0b7a013d0ef6f5c94a22b0b3ad9a96b4b4440ec5 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Tue, 2 May 2023 16:25:59 +0200
+Subject: [PATCH 22/25] clang: fix unwind chain inclusion
+
+This fixes the compiler complaining about the __has_include_next.
+---
+ clang/lib/Headers/unwind.h | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/clang/lib/Headers/unwind.h b/clang/lib/Headers/unwind.h
+index 33e1792cd..a32e18cda 100644
+--- a/clang/lib/Headers/unwind.h
++++ b/clang/lib/Headers/unwind.h
+@@ -9,9 +9,6 @@
+ 
+ /* See "Data Definitions for libgcc_s" in the Linux Standard Base.*/
+ 
+-#ifndef __CLANG_UNWIND_H
+-#define __CLANG_UNWIND_H
+-
+ #if defined(__APPLE__) && __has_include_next(<unwind.h>)
+ /* Darwin (from 11.x on) provide an unwind.h. If that's available,
+  * use it. libunwind wraps some of its definitions in #ifdef _GNU_SOURCE,
+@@ -39,6 +36,9 @@
+ # endif
+ #else
+ 
++#ifndef __CLANG_UNWIND_H
++#define __CLANG_UNWIND_H
++
+ #include <stdint.h>
+ 
+ #ifdef __cplusplus
+@@ -327,6 +327,7 @@ _Unwind_Ptr _Unwind_GetTextRelBase(struct _Unwind_Context *);
+ }
+ #endif
+ 
++#endif /* __CLANG_UNWIND_H */
++
+ #endif
+ 
+-#endif /* __CLANG_UNWIND_H */
+-- 
+2.42.0
+

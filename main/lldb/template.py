@@ -1,6 +1,6 @@
 pkgname = "lldb"
-pkgver = "16.0.6"
-pkgrel = 1
+pkgver = "17.0.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -36,7 +36,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/{pkgname}-{pkgver}.src.tar.xz"
-sha256 = "e70a2360aff09553ab327f0f87a08ab869cea991068df38fd3e530368d4d3fae"
+sha256 = "388418840036f897a0b141b7f708f24ac133681ca4fb4733a2918d9dac2c2f1c"
 # tests are not enabled
 options = ["!check"]
 
@@ -46,6 +46,10 @@ def post_extract(self):
     self.mkdir("cmake/Modules", parents=True)
     self.cp(self.files_path / "FindLibEdit.cmake", self.cwd / "cmake/modules")
     self.cp(self.files_path / "CMakePolicy.cmake", self.cwd / "cmake/Modules")
+    self.cp(
+        self.files_path / "GetClangResourceDir.cmake",
+        self.cwd / "cmake/modules",
+    )
 
 
 def init_configure(self):

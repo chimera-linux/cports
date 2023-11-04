@@ -1,0 +1,45 @@
+From 36c4fc90d368dab092315f7006172e8b13d619fe Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 08:50:28 +0100
+Subject: [PATCH 02/25] llvm: musl workarounds
+
+---
+ llvm/include/llvm/Analysis/TargetLibraryInfo.h | 9 +++++++++
+ third-party/unittest/googletest/src/gtest.cc   | 1 +
+ 2 files changed, 10 insertions(+)
+
+diff --git a/llvm/include/llvm/Analysis/TargetLibraryInfo.h b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
+index 5d62e837c..5ee2d8d49 100644
+--- a/llvm/include/llvm/Analysis/TargetLibraryInfo.h
++++ b/llvm/include/llvm/Analysis/TargetLibraryInfo.h
+@@ -17,6 +17,15 @@
+ #include "llvm/TargetParser/Triple.h"
+ #include <optional>
+ 
++#undef fopen64
++#undef fseeko64
++#undef fstat64
++#undef fstatvfs64
++#undef ftello64
++#undef lstat64
++#undef stat64
++#undef tmpfile64
++
+ namespace llvm {
+ 
+ template <typename T> class ArrayRef;
+diff --git a/third-party/unittest/googletest/src/gtest.cc b/third-party/unittest/googletest/src/gtest.cc
+index a5b4e5ac7..b2235448c 100644
+--- a/third-party/unittest/googletest/src/gtest.cc
++++ b/third-party/unittest/googletest/src/gtest.cc
+@@ -114,6 +114,7 @@
+ 
+ #if GTEST_CAN_STREAM_RESULTS_
+ # include <arpa/inet.h>  // NOLINT
++# include <sys/socket.h>  // NOLINT
+ # include <netdb.h>  // NOLINT
+ # include <sys/socket.h>  // NOLINT
+ # include <sys/types.h>  // NOLINT
+-- 
+2.42.0
+

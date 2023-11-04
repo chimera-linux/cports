@@ -1,0 +1,250 @@
+From 7c2267acfb35111ed098c3e5e7fbf817cd815019 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:03:20 +0100
+Subject: [PATCH 07/25] compiler-rt: build crt in runtimes build
+
+We need this because otherwise the in-tree clang binaries will
+not work, as we don't supply external gcc-style runtime.
+---
+ compiler-rt/CMakeLists.txt              | 98 +++++++++++++++----------
+ compiler-rt/lib/builtins/CMakeLists.txt | 47 ++----------
+ llvm/runtimes/CMakeLists.txt            | 12 ++-
+ 3 files changed, 76 insertions(+), 81 deletions(-)
+
+diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
+index 5ef720f24..80305e32c 100644
+--- a/compiler-rt/CMakeLists.txt
++++ b/compiler-rt/CMakeLists.txt
+@@ -35,45 +35,6 @@ include(base-config-ix)
+ include(CompilerRTUtils)
+ include(CMakeDependentOption)
+ 
+-option(COMPILER_RT_BUILD_BUILTINS "Build builtins" ON)
+-mark_as_advanced(COMPILER_RT_BUILD_BUILTINS)
+-option(COMPILER_RT_DISABLE_AARCH64_FMV "Disable AArch64 Function Multi Versioning support" OFF)
+-mark_as_advanced(COMPILER_RT_DISABLE_AARCH64_FMV)
+-option(COMPILER_RT_BUILD_SANITIZERS "Build sanitizers" ON)
+-mark_as_advanced(COMPILER_RT_BUILD_SANITIZERS)
+-option(COMPILER_RT_BUILD_XRAY "Build xray" ON)
+-mark_as_advanced(COMPILER_RT_BUILD_XRAY)
+-option(COMPILER_RT_BUILD_LIBFUZZER "Build libFuzzer" ON)
+-mark_as_advanced(COMPILER_RT_BUILD_LIBFUZZER)
+-option(COMPILER_RT_BUILD_PROFILE "Build profile runtime" ON)
+-mark_as_advanced(COMPILER_RT_BUILD_PROFILE)
+-option(COMPILER_RT_BUILD_MEMPROF "Build memory profiling runtime" ON)
+-mark_as_advanced(COMPILER_RT_BUILD_MEMPROF)
+-option(COMPILER_RT_BUILD_XRAY_NO_PREINIT "Build xray with no preinit patching" OFF)
+-mark_as_advanced(COMPILER_RT_BUILD_XRAY_NO_PREINIT)
+-option(COMPILER_RT_BUILD_ORC "Build ORC runtime" ON)
+-mark_as_advanced(COMPILER_RT_BUILD_ORC)
+-option(COMPILER_RT_BUILD_GWP_ASAN "Build GWP-ASan, and link it into SCUDO" ON)
+-mark_as_advanced(COMPILER_RT_BUILD_GWP_ASAN)
+-option(COMPILER_RT_ENABLE_CET "Build Compiler RT with CET enabled" OFF)
+-
+-option(COMPILER_RT_SCUDO_STANDALONE_SYSROOT_PATH "Set custom sysroot for building SCUDO standalone" OFF)
+-mark_as_advanced(COMPILER_RT_SCUDO_STANDALONE_SYSROOT_PATH)
+-option(COMPILER_RT_SCUDO_STANDALONE_BUILD_SHARED "Build SCUDO standalone for shared libraries" ON)
+-mark_as_advanced(COMPILER_RT_SCUDO_STANDALONE_BUILD_SHARED)
+-option(COMPILER_RT_BUILD_SCUDO_STANDALONE_WITH_LLVM_LIBC "Build SCUDO standalone with LLVM's libc headers" OFF)
+-mark_as_advanced(COMPILER_RT_BUILD_SCUDO_STANDALONE_WITH_LLVM_LIBC)
+-
+-if(FUCHSIA)
+-  set(COMPILER_RT_HWASAN_WITH_INTERCEPTORS_DEFAULT OFF)
+-else()
+-  set(COMPILER_RT_HWASAN_WITH_INTERCEPTORS_DEFAULT ON)
+-endif()
+-set(COMPILER_RT_HWASAN_WITH_INTERCEPTORS ${COMPILER_RT_HWASAN_WITH_INTERCEPTORS_DEFAULT} CACHE BOOL "Enable libc interceptors in HWASan (testing mode)")
+-
+-set(COMPILER_RT_BAREMETAL_BUILD OFF CACHE BOOL
+-  "Build for a bare-metal target.")
+-
+ if (COMPILER_RT_STANDALONE_BUILD)
+   set(CMAKE_CXX_STANDARD 17 CACHE STRING "C++ standard to conform to")
+   set(CMAKE_CXX_STANDARD_REQUIRED YES)
+@@ -145,6 +106,65 @@ if ("${COMPILER_RT_DEFAULT_TARGET_TRIPLE}" MATCHES ".*android.*")
+ endif()
+ pythonize_bool(ANDROID)
+ 
++option(COMPILER_RT_BUILD_BUILTINS "Build builtins" ON)
++mark_as_advanced(COMPILER_RT_BUILD_BUILTINS)
++option(COMPILER_RT_DISABLE_AARCH64_FMV "Disable AArch64 Function Multi Versioning support" OFF)
++mark_as_advanced(COMPILER_RT_DISABLE_AARCH64_FMV)
++
++option(COMPILER_RT_BOOTSTRAP "Build just builtins and crt" OFF)
++mark_as_advanced(COMPILER_RT_BOOTSTRAP)
++
++if(COMPILER_RT_BOOTSTRAP)
++  include(AddCompilerRT)
++
++  set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
++
++  if(COMPILER_RT_BUILD_BUILTINS)
++    set(COMPILER_RT_BUILTINS_STANDALONE_BUILD TRUE)
++    add_subdirectory(lib/builtins)
++  endif()
++  if(COMPILER_RT_BUILD_CRT)
++    set(COMPILER_RT_CRT_STANDALONE_BUILD TRUE)
++  endif()
++
++  return()
++endif()
++
++option(COMPILER_RT_BUILD_SANITIZERS "Build sanitizers" ON)
++mark_as_advanced(COMPILER_RT_BUILD_SANITIZERS)
++option(COMPILER_RT_BUILD_XRAY "Build xray" ON)
++mark_as_advanced(COMPILER_RT_BUILD_XRAY)
++option(COMPILER_RT_BUILD_LIBFUZZER "Build libFuzzer" ON)
++mark_as_advanced(COMPILER_RT_BUILD_LIBFUZZER)
++option(COMPILER_RT_BUILD_PROFILE "Build profile runtime" ON)
++mark_as_advanced(COMPILER_RT_BUILD_PROFILE)
++option(COMPILER_RT_BUILD_MEMPROF "Build memory profiling runtime" ON)
++mark_as_advanced(COMPILER_RT_BUILD_MEMPROF)
++option(COMPILER_RT_BUILD_XRAY_NO_PREINIT "Build xray with no preinit patching" OFF)
++mark_as_advanced(COMPILER_RT_BUILD_XRAY_NO_PREINIT)
++option(COMPILER_RT_BUILD_ORC "Build ORC runtime" ON)
++mark_as_advanced(COMPILER_RT_BUILD_ORC)
++option(COMPILER_RT_BUILD_GWP_ASAN "Build GWP-ASan, and link it into SCUDO" ON)
++mark_as_advanced(COMPILER_RT_BUILD_GWP_ASAN)
++option(COMPILER_RT_ENABLE_CET "Build Compiler RT with CET enabled" OFF)
++
++option(COMPILER_RT_SCUDO_STANDALONE_SYSROOT_PATH "Set custom sysroot for building SCUDO standalone" OFF)
++mark_as_advanced(COMPILER_RT_SCUDO_STANDALONE_SYSROOT_PATH)
++option(COMPILER_RT_SCUDO_STANDALONE_BUILD_SHARED "Build SCUDO standalone for shared libraries" ON)
++mark_as_advanced(COMPILER_RT_SCUDO_STANDALONE_BUILD_SHARED)
++option(COMPILER_RT_BUILD_SCUDO_STANDALONE_WITH_LLVM_LIBC "Build SCUDO standalone with LLVM's libc headers" OFF)
++mark_as_advanced(COMPILER_RT_BUILD_SCUDO_STANDALONE_WITH_LLVM_LIBC)
++
++if(FUCHSIA)
++  set(COMPILER_RT_HWASAN_WITH_INTERCEPTORS_DEFAULT OFF)
++else()
++  set(COMPILER_RT_HWASAN_WITH_INTERCEPTORS_DEFAULT ON)
++endif()
++set(COMPILER_RT_HWASAN_WITH_INTERCEPTORS ${COMPILER_RT_HWASAN_WITH_INTERCEPTORS_DEFAULT} CACHE BOOL "Enable libc interceptors in HWASan (testing mode)")
++
++set(COMPILER_RT_BAREMETAL_BUILD OFF CACHE BOOL
++  "Build for a bare-metal target.")
++
+ set(COMPILER_RT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+ set(COMPILER_RT_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR})
+ 
+diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
+index d62fa0432..bf4680c23 100644
+--- a/compiler-rt/lib/builtins/CMakeLists.txt
++++ b/compiler-rt/lib/builtins/CMakeLists.txt
+@@ -7,47 +7,16 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+ 
+   set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+   project(CompilerRTBuiltins C ASM)
+-  set(COMPILER_RT_STANDALONE_BUILD TRUE)
+-  set(COMPILER_RT_BUILTINS_STANDALONE_BUILD TRUE)
+ 
+-  set(COMPILER_RT_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../..")
+-
+-  set(LLVM_COMMON_CMAKE_UTILS "${COMPILER_RT_SOURCE_DIR}/../cmake")
+-
+-  # Add path for custom modules
+-  list(INSERT CMAKE_MODULE_PATH 0
+-    "${COMPILER_RT_SOURCE_DIR}/cmake"
+-    "${COMPILER_RT_SOURCE_DIR}/cmake/Modules"
+-    "${LLVM_COMMON_CMAKE_UTILS}"
+-    "${LLVM_COMMON_CMAKE_UTILS}/Modules"
+-    )
+-
+-  include(base-config-ix)
+-  include(CompilerRTUtils)
+-
+-  if (NOT LLVM_RUNTIMES_BUILD)
+-    load_llvm_config()
++  if(NOT _BUILTINS_PROCESSED)
++    set(COMPILER_RT_BUILD_BUILTINS TRUE)
++    set(COMPILER_RT_BUILD_CRT FALSE)
++    set(COMPILER_RT_BOOTSTRAP TRUE)
++    set(COMPILER_RT_STANDALONE_BUILD TRUE)
++    include(../../CMakeLists.txt)
++    set(_BUILTINS_PROCESSED TRUE)
++    return()
+   endif()
+-  construct_compiler_rt_default_triple()
+-
+-  include(SetPlatformToolchainTools)
+-  if(APPLE)
+-    include(CompilerRTDarwinUtils)
+-  endif()
+-  if(APPLE)
+-    include(UseLibtool)
+-  endif()
+-  include(AddCompilerRT)
+-endif()
+-
+-if (COMPILER_RT_STANDALONE_BUILD)
+-  # When compiler-rt is being built standalone, possibly as a cross-compilation
+-  # target, the target may or may not want position independent code. This
+-  # option provides an avenue through which the flag may be controlled when an
+-  # LLVM configuration is not being utilized.
+-  option(COMPILER_RT_BUILTINS_ENABLE_PIC
+-    "Turns on or off -fPIC for the builtin library source"
+-    ON)
+ endif()
+ 
+ include(builtin-config-ix)
+diff --git a/llvm/runtimes/CMakeLists.txt b/llvm/runtimes/CMakeLists.txt
+index 75256c132..ad96d71f3 100644
+--- a/llvm/runtimes/CMakeLists.txt
++++ b/llvm/runtimes/CMakeLists.txt
+@@ -78,14 +78,16 @@ function(builtin_default_target compiler_rt_path)
+   set_enable_per_target_runtime_dir()
+ 
+   llvm_ExternalProject_Add(builtins
+-                           ${compiler_rt_path}/lib/builtins
++                           ${compiler_rt_path}
+                            DEPENDS ${ARG_DEPENDS}
+                            CMAKE_ARGS -DLLVM_LIBRARY_OUTPUT_INTDIR=${LLVM_LIBRARY_DIR}
+                                       -DLLVM_RUNTIME_OUTPUT_INTDIR=${LLVM_TOOLS_BINARY_DIR}
+                                       -DLLVM_DEFAULT_TARGET_TRIPLE=${LLVM_TARGET_TRIPLE}
+                                       -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=${LLVM_ENABLE_PER_TARGET_RUNTIME_DIR}
+                                       -DCMAKE_C_COMPILER_WORKS=ON
++                                      -DCMAKE_CXX_COMPILER_WORKS=ON
+                                       -DCMAKE_ASM_COMPILER_WORKS=ON
++                                      -DCOMPILER_RT_BOOTSTRAP=ON
+                                       ${COMMON_CMAKE_ARGS}
+                                       ${BUILTINS_CMAKE_ARGS}
+                            PASSTHROUGH_PREFIXES COMPILER_RT
+@@ -111,14 +113,16 @@ function(builtin_register_target compiler_rt_path name)
+   endforeach()
+ 
+   llvm_ExternalProject_Add(builtins-${name}
+-                           ${compiler_rt_path}/lib/builtins
++                           ${compiler_rt_path}
+                            DEPENDS ${ARG_DEPENDS}
+                            CMAKE_ARGS -DLLVM_LIBRARY_OUTPUT_INTDIR=${LLVM_LIBRARY_DIR}
+                                       -DLLVM_RUNTIME_OUTPUT_INTDIR=${LLVM_TOOLS_BINARY_DIR}
+                                       -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=ON
+                                       -DCMAKE_C_COMPILER_WORKS=ON
++                                      -DCMAKE_CXX_COMPILER_WORKS=ON
+                                       -DCMAKE_ASM_COMPILER_WORKS=ON
+                                       -DCOMPILER_RT_DEFAULT_TARGET_ONLY=ON
++                                      -DCOMPILER_RT_BOOTSTRAP=ON
+                                       ${COMMON_CMAKE_ARGS}
+                                       ${${name}_extra_args}
+                            USE_TOOLCHAIN
+@@ -230,7 +234,8 @@ function(runtime_default_target)
+                            ${CMAKE_CURRENT_SOURCE_DIR}/../../runtimes
+                            DEPENDS ${ARG_DEPENDS}
+                            # Builtins were built separately above
+-                           CMAKE_ARGS -DCOMPILER_RT_BUILD_BUILTINS=Off
++                           CMAKE_ARGS -DCOMPILER_RT_BUILD_BUILTINS=OFF
++                                      -DCOMPILER_RT_BUILD_CRT=OFF
+                                       -DLLVM_INCLUDE_TESTS=${LLVM_INCLUDE_TESTS}
+                                       -DLLVM_DEFAULT_TARGET_TRIPLE=${LLVM_TARGET_TRIPLE}
+                                       -DLLVM_ENABLE_PROJECTS_USED=${LLVM_ENABLE_PROJECTS_USED}
+@@ -339,6 +344,7 @@ function(runtime_register_target name)
+                            DEPENDS ${ARG_DEPENDS}
+                            # Builtins were built separately above
+                            CMAKE_ARGS -DCOMPILER_RT_BUILD_BUILTINS=OFF
++                                      -DCOMPILER_RT_BUILD_CRT=OFF
+                                       -DLLVM_INCLUDE_TESTS=${LLVM_INCLUDE_TESTS}
+                                       -DLLVM_ENABLE_PROJECTS_USED=${LLVM_ENABLE_PROJECTS_USED}
+                                       -DLLVM_ENABLE_PER_TARGET_RUNTIME_DIR=${LLVM_ENABLE_PER_TARGET_RUNTIME_DIR}
+-- 
+2.42.0
+

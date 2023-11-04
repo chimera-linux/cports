@@ -1,6 +1,6 @@
 pkgname = "libcxx-cross"
-pkgver = "16.0.6"
-pkgrel = 3
+pkgver = "17.0.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -22,7 +22,7 @@ configure_args = [
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=NO",
-    "-DLIBCXX_ENABLE_ASSERTIONS=YES",
+    "-DLIBCXX_HARDENING_MODE=hardened",
     "-DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx",
 ]
 make_cmd = "make"
@@ -39,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "ce5e71081d17ce9e86d7cbcfa28c4b04b9300f8fb7e78422b1feb6bc52c3028e"
+sha256 = "a225eb96f52e7d8c6c275b351fcc66d7a21d925eecff53730900404f244ff16a"
 # crosstoolchain
 options = ["!cross", "!check", "!lto"]
 
@@ -87,7 +87,7 @@ def do_build(self):
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                cmake.build(f"build-{an}")
+                cmake.build(self, f"build-{an}")
 
 
 def do_install(self):
@@ -96,6 +96,7 @@ def do_install(self):
     for an in _targets:
         with self.profile(an) as pf:
             cmake.install(
+                self,
                 f"build-{an}",
                 env={"DESTDIR": str(self.chroot_destdir / "usr" / pf.triplet)},
             )
