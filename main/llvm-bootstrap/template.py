@@ -54,6 +54,8 @@ url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "a225eb96f52e7d8c6c275b351fcc66d7a21d925eecff53730900404f244ff16a"
 debug_level = 0
+# see llvm template
+hardening = ["!int"]
 # bootstrap; LTO would just slow it down, cross is unnecessary (not used
 # in cross builds), debug info is unnecessary, and dependency/shlib scan
 # would be actually harmful
@@ -69,12 +71,6 @@ options = [
     "!scanrundeps",
     "!autosplit",
 ]
-
-if self.profile().arch == "aarch64":
-    # disable ubsan integer checks on aarch64
-    # when lto-linking lld with ubsan'd clang/lld, it causes
-    # that to crash in 'AArch64 Instruction Selection'
-    hardening = ["!int"]
 
 cmake_dir = "llvm"
 
