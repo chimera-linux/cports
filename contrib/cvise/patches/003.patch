@@ -1,0 +1,23 @@
+From 62a7ed03263344cd5d761b80d4af646af6b23815 Mon Sep 17 00:00:00 2001
+From: Martin Liska <mliska@suse.cz>
+Date: Fri, 26 May 2023 11:16:29 +0200
+Subject: [PATCH] Fix build with LLVM 17.
+
+---
+ clang_delta/TransformationManager.cpp | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/clang_delta/TransformationManager.cpp b/clang_delta/TransformationManager.cpp
+index f866cac6..1b37f229 100644
+--- a/clang_delta/TransformationManager.cpp
++++ b/clang_delta/TransformationManager.cpp
+@@ -132,8 +132,7 @@ bool TransformationManager::initializeCompilerInstance(std::string &ErrorMsg)
+ #if LLVM_VERSION_MAJOR >= 17
+     else if (!CXXStandard.compare("c++2b"))
+       LSTD = LangStandard::Kind::lang_cxx23;
+-#endif
+-#if LLVM_VERSION_MAJOR >= 14
++#elif LLVM_VERSION_MAJOR >= 14
+     else if (!CXXStandard.compare("c++2b"))
+       LSTD = LangStandard::Kind::lang_cxx2b;
+ #endif

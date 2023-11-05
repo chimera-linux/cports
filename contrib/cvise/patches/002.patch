@@ -1,0 +1,26 @@
+From 9c713b0b95b84968b5e9ef46c20d88c1ade0ab35 Mon Sep 17 00:00:00 2001
+From: Martin Liska <mliska@suse.cz>
+Date: Wed, 24 May 2023 11:48:44 +0200
+Subject: [PATCH] LLVM 17: port enum value to c++23.
+
+---
+ clang_delta/TransformationManager.cpp | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/clang_delta/TransformationManager.cpp b/clang_delta/TransformationManager.cpp
+index 70045365..f866cac6 100644
+--- a/clang_delta/TransformationManager.cpp
++++ b/clang_delta/TransformationManager.cpp
+@@ -127,6 +127,12 @@ bool TransformationManager::initializeCompilerInstance(std::string &ErrorMsg)
+ #else
+       LSTD = LangStandard::Kind::lang_cxx20;
+ #endif
++
++// TODO: simplify and use c++23 and c++26
++#if LLVM_VERSION_MAJOR >= 17
++    else if (!CXXStandard.compare("c++2b"))
++      LSTD = LangStandard::Kind::lang_cxx23;
++#endif
+ #if LLVM_VERSION_MAJOR >= 14
+     else if (!CXXStandard.compare("c++2b"))
+       LSTD = LangStandard::Kind::lang_cxx2b;
