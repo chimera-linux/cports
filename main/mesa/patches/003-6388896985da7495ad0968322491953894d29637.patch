@@ -1,0 +1,77 @@
+From 6388896985da7495ad0968322491953894d29637 Mon Sep 17 00:00:00 2001
+From: Faith Ekstrand <faith.ekstrand@collabora.com>
+Date: Wed, 1 Nov 2023 15:38:35 -0500
+Subject: [PATCH] nir: add deref follower builder for casts.
+
+This fixes intel_clc builds with llvm 17 on gfx125_bvh_build_DFS_DFS
+where it dies in the lower indirect derefs pass.
+
+Co-authored-by: Dave Airlie <airlied@redhat.com>
+Fixes: 4a4e1757381c ("nir: Support deref instructions in lower_var_copies")
+Part-of: <https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/25536>
+---
+ src/compiler/nir/nir_builder.h | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/src/compiler/nir/nir_builder.h b/src/compiler/nir/nir_builder.h
+index c9f3465406c10..d2b5702d3c975 100644
+--- a/src/compiler/nir/nir_builder.h
++++ b/src/compiler/nir/nir_builder.h
+@@ -1483,9 +1483,12 @@ nir_build_deref_struct(nir_builder *build, nir_deref_instr *parent,
+ }
+ 
+ static inline nir_deref_instr *
+-nir_build_deref_cast(nir_builder *build, nir_ssa_def *parent,
+-                     nir_variable_mode modes, const struct glsl_type *type,
+-                     unsigned ptr_stride)
++nir_build_deref_cast_with_alignment(nir_builder *build, nir_ssa_def *parent,
++                                    nir_variable_mode modes,
++                                    const struct glsl_type *type,
++                                    unsigned ptr_stride,
++                                    unsigned align_mul,
++                                    unsigned align_offset)
+ {
+    nir_deref_instr *deref =
+       nir_deref_instr_create(build->shader, nir_deref_type_cast);
+@@ -1493,6 +1496,8 @@ nir_build_deref_cast(nir_builder *build, nir_ssa_def *parent,
+    deref->modes = modes;
+    deref->type = type;
+    deref->parent = nir_src_for_ssa(parent);
++   deref->cast.align_mul = align_mul;
++   deref->cast.align_offset = align_offset;
+    deref->cast.ptr_stride = ptr_stride;
+ 
+    nir_ssa_dest_init(&deref->instr, &deref->dest, parent->num_components,
+@@ -1503,6 +1508,15 @@ nir_build_deref_cast(nir_builder *build, nir_ssa_def *parent,
+    return deref;
+ }
+ 
++static inline nir_deref_instr *
++nir_build_deref_cast(nir_builder *build, nir_ssa_def *parent,
++                     nir_variable_mode modes, const struct glsl_type *type,
++                     unsigned ptr_stride)
++{
++   return nir_build_deref_cast_with_alignment(build, parent, modes, type,
++                                              ptr_stride, 0, 0);
++}
++
+ static inline nir_deref_instr *
+ nir_alignment_deref_cast(nir_builder *build, nir_deref_instr *parent,
+                          uint32_t align_mul, uint32_t align_offset)
+@@ -1570,6 +1584,13 @@ nir_build_deref_follower(nir_builder *b, nir_deref_instr *parent,
+ 
+       return nir_build_deref_struct(b, parent, leader->strct.index);
+ 
++   case nir_deref_type_cast:
++      return nir_build_deref_cast_with_alignment(b, &parent->dest.ssa,
++                                                 leader->modes,
++                                                 leader->type,
++                                                 leader->cast.ptr_stride,
++                                                 leader->cast.align_mul,
++                                                 leader->cast.align_offset);
+    default:
+       unreachable("Invalid deref instruction type");
+    }
+-- 
+GitLab
+
