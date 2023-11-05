@@ -1,5 +1,5 @@
 pkgname = "libgcc-chimera"
-pkgver = "16.0.6"
+pkgver = "17.0.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "ce5e71081d17ce9e86d7cbcfa28c4b04b9300f8fb7e78422b1feb6bc52c3028e"
+sha256 = "a225eb96f52e7d8c6c275b351fcc66d7a21d925eecff53730900404f244ff16a"
 # shim
 options = ["!check", "!lto"]
 
