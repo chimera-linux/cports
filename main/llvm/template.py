@@ -118,8 +118,10 @@ else:
 _enable_flang = False
 
 # from stage 2 only, pointless to build before
-if self.stage >= 2:
-    _enable_flang = True
+# also only enable on some archs for now, fails to build elsewhere
+match self.profile().arch:
+    case "x86_64" | "aarch64" | "riscv64":
+        _enable_flang = (self.stage >= 2)
 
 if _enable_flang:
     _enabled_projects += ["flang"]
