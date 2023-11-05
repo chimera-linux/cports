@@ -1,5 +1,5 @@
 pkgname = "lagrange"
-pkgver = "1.17.2"
+pkgver = "1.17.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://gmi.skyjake.fi/lagrange"
 source = f"https://github.com/skyjake/lagrange/releases/download/v{pkgver}/lagrange-{pkgver}.tar.gz"
-sha256 = "17500698dd9f90ef46dc2c360f00b392f24ddc85d4f07e664834ee05a4a40f62"
+sha256 = "cd0c4797e399082ccbf4d0ede939ef286b96863c31860f62387fd94275dda3ba"
 # FIXME cfi
 hardening = ["vis"]
 # no tests
