@@ -30,7 +30,7 @@ sha256 = "410a547f08557007be0e88194f218868358edc0ab98c98ba8c167930db3d33f9"
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # FIXME cfi
 hardening = ["vis", "!cfi"]
-options = ["!cross"]
+options = ["!cross", "linkundefver"]
 
 
 def do_configure(self):

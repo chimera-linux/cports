@@ -23,7 +23,7 @@ source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{
 sha256 = "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
 # loop: automake -> autoconf -> chimerautils -> meson -> python ->
 # libffi -> dejagnu -> expect -> automake
-options = ["!check"]
+options = ["!check", "linkundefver"]
 
 
 def post_install(self):

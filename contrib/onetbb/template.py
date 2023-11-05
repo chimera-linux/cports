@@ -27,7 +27,7 @@ sha256 = "487023a955e5a3cc6d3a0d5f89179f9b6c0ae7222613a7185b0227ba0c83700b"
 # vis breaks symbols
 hardening = []
 # a lot of the tests can deadlock and it's a pain to figure out which to disable
-options = ["!check"]
+options = ["!check", "linkundefver"]
 
 
 @subpackage("onetbb-devel")

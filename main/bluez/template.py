@@ -42,6 +42,7 @@ url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/{pkgname}-{pkgver}.tar.xz"
 sha256 = "37e372e916955e144cb882f888e4be40898f10ae3b7c213ddcdd55ee9c009278"
 tool_flags = {"CFLAGS": ["-Wno-deprecated-declarations"]}
+options = ["linkundefver"]
 system_groups = ["bluetooth"]
 
 

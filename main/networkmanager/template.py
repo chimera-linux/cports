@@ -92,7 +92,7 @@ source = (
 )
 sha256 = "4b58bf3ac57e2cefb5652efd0945eb0b4bc36a63d92a61ab471d8bb2c9a420e1"
 # some tests use sysfs, + LD_BIND_NOW in tests does not work with our musl env
-options = ["!check", "!cross"]
+options = ["!check", "!cross", "linkundefver"]
 
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
 

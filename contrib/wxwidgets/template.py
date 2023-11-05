@@ -50,7 +50,7 @@ sha256 = "c170ab67c7e167387162276aea84e055ee58424486404bba692c401730d1a67a"
 # fixme: int
 hardening = ["!int"]
 # fixme
-options = ["!check"]
+options = ["!check", "linkundefver"]
 
 
 def post_install(self):

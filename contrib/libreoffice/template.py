@@ -156,7 +156,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.libreoffice.org"
 # big and not particularly useful testsuite
-options = ["!cross", "!check"]
+options = ["!cross", "!check", "linkundefver"]
 
 _surl = f"https://download.documentfoundation.org/libreoffice/src/{pkgver[:-2]}"
 _aurl = "!https://dev-www.libreoffice.org/src"

@@ -17,6 +17,7 @@ license = "LGPL-2.1-or-later"
 url = "https://www.alsa-project.org"
 source = f"{url}/files/pub/lib/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "c86a45a846331b1b0aa6e6be100be2a7aef92efd405cf6bac7eef8174baa920e"
+options = ["linkundefver"]
 
 
 @subpackage("alsa-lib-devel")

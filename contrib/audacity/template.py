@@ -65,7 +65,7 @@ sha256 = "3d9ff1fc6a0ecd6591f19445c77c80774d364b268da652760829cf3598e08071"
 # vis breaks symbols
 hardening = []
 # check: dont care
-options = ["!check"]
+options = ["!check", "linkundefver"]
 
 tool_flags = {
     # disarm debug

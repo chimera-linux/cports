@@ -13,6 +13,7 @@ license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libcdio"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "8550e9589dbd594bfac93b81ecf129b1dc9d0d51e90f9696f1b2f9b2af32712b"
+options = ["linkundefver"]
 
 
 @subpackage("libcdio-devel")

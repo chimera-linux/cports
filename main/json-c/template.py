@@ -15,6 +15,7 @@ url = "https://json-c.github.io/json-c"
 source = f"https://s3.amazonaws.com/json-c_releases/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "7550914d58fb63b2c3546f3ccfbe11f1c094147bd31a69dcd23714d7956159e6"
 tool_flags = {"CFLAGS": ["-Wno-error"]}
+options = ["linkundefver"]
 
 
 def post_install(self):

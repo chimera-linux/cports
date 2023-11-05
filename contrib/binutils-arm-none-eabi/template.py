@@ -38,7 +38,7 @@ url = "https://www.gnu.org/software/binutils"
 source = f"$(GNU_SITE)/binutils/binutils-{pkgver}.tar.xz"
 sha256 = "ae9a5789e23459e59606e6714723f2d3ffc31c03174191ef0d015bdf06007450"
 # resistance is futile
-options = ["!check", "!lto"]
+options = ["!check", "!lto", "linkundefver"]
 
 if self.profile().cross:
     configure_args += [

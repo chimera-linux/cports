@@ -27,7 +27,7 @@ sha256 = "0ac226073e3a2db8648da7af744cb95f50766a52feeb001d558b2b321b74a765"
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # FIXME cfi
 hardening = ["vis", "!cfi"]
-options = ["!cross"]
+options = ["!cross", "linkundefver"]
 
 
 @subpackage("tdb-devel")

@@ -102,7 +102,7 @@ source = (
 sha256 = "ce3b7f0d18bf91aa5fd646e8bb385a3b35375b703c6e5123b02b85a1abc81879"
 env = {"PYTHONHASHSEED": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
-options = ["!cross", "!check", "!installroot"]
+options = ["!cross", "!check", "!installroot", "linkundefver"]
 
 # idmap_ad should go here if active directory is enabled
 configure_args.append(

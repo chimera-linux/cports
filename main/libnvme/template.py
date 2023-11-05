@@ -18,6 +18,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/linux-nvme/libnvme"
 source = f"{url}/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
 sha256 = "0dd8ba8b655abe78c09833edb66632aa6bee82aebf117dd252ded968deaaeec7"
+options = ["linkundefver"]
 
 
 @subpackage("libnvme-python")

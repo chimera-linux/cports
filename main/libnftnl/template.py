@@ -14,6 +14,7 @@ source = f"{url}/files/{pkgname}-{pkgver}.tar.xz"
 sha256 = "ceeaea2cd92147da19f13a35a7f1a4bc2767ff897e838e4b479cf54b59c777f4"
 # FIXME cfi: verify function pointers
 hardening = ["vis", "!cfi"]
+options = ["linkundefver"]
 
 
 @subpackage("libnftnl-devel")

@@ -36,6 +36,7 @@ license = "LGPL-2.1-or-later"
 url = "https://www.freedesktop.org/wiki/Software/PulseAudio"
 source = f"$(FREEDESKTOP_SITE)/pulseaudio/releases/pulseaudio-{pkgver}.tar.xz"
 sha256 = "8eef32ce91d47979f95fd9a935e738cd7eb7463430dabc72863251751e504ae4"
+options = ["linkundefver"]
 
 
 @subpackage("libpulse-devel")

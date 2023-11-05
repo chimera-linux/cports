@@ -14,7 +14,7 @@ source = (
 )
 sha256 = "f9145054ae131973c61208ea82486d5dd10e3c5cdad23b7c4a0617743c8f5a18"
 # racey; FIXME: rand module fails (likely integer overflow) but we delete that
-options = ["!parallel", "!check"]
+options = ["!parallel", "!check", "linkundefver"]
 
 
 def init_configure(self):
