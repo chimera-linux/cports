@@ -384,6 +384,7 @@ default_options = {
     "ltofull": (False, True),
     "ltostrip": (False, False),
     "linkparallel": (True, True),
+    "linkundefver": (False, False),
 }
 
 core_fields = [
@@ -1256,6 +1257,10 @@ class Template(Package):
         ):
             allow_network = False
 
+        lld_args = compiler._get_lld_cpuargs(self.link_threads)
+        if self.options["linkundefver"]:
+            lld_args += ["--undefined-version"]
+
         return chroot.enter(
             cmd,
             *args,
@@ -1273,7 +1278,7 @@ class Template(Package):
             stdout=stdout,
             stderr=stderr,
             input=input,
-            lldargs=compiler._get_lld_cpuargs(self.link_threads),
+            lldargs=lld_args,
         )
 
     def stamp(self, name):

@@ -1669,6 +1669,8 @@ the template including for subpackages:
   be used. It does not activate LTO by itself.
 * `linkparallel` *(true)* Similarly to `parallel`, this can be used to
   disable linker and LTO threads.
+* `linkundefver` *(false)* Pass `--undefined-version` to `ld.lld` to
+  bypass version errors in affected packages.
 
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:
