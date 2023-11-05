@@ -1,7 +1,7 @@
 pkgname = "binutils"
 pkgver = "2.41"
-_llvmver = "16.0.6"
-pkgrel = 0
+_llvmver = "17.0.4"
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -50,10 +50,10 @@ source = [
 ]
 sha256 = [
     "ae9a5789e23459e59606e6714723f2d3ffc31c03174191ef0d015bdf06007450",
-    "41609147210145e305640b2b0ac6c5473b4515889e987beb8070d37216a43ef3",
+    "2a058c73a1c6d3d3f4a77c773de07ee628d8f1fc861cbf6ad7fc5981c07f2236",
 ]
 # resistance is futile
-options = ["!check", "!lto"]
+options = ["!check", "!lto", "linkundefver"]
 
 # currently built targets, includes the native target
 _targets = ["aarch64", "ppc64le", "ppc64", "ppc", "riscv64", "x86_64"]
