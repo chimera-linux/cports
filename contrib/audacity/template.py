@@ -1,6 +1,6 @@
 pkgname = "audacity"
-pkgver = "3.3.3"
-pkgrel = 1
+pkgver = "3.4.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     # release
@@ -16,8 +16,6 @@ configure_args = [
     "-Daudacity_has_vst3=OFF",
     "-Daudacity_lib_preference=system",
     "-Daudacity_obey_system_dependencies=ON",
-    # trash lib
-    "-Daudacity_use_libmad=local",
     # doesn't work with system version
     "-Daudacity_use_portsmf=local",
 ]
@@ -42,9 +40,11 @@ makedepends = [
     "lilv-devel",
     "lv2",
     "mpg123-devel",
+    "opusfile-devel",
     "pipewire-jack-devel",
     "portaudio-devel",
     "portmidi-devel",
+    "rapidjson",
     "soundtouch-devel",
     "soxr-devel",
     "sqlite-devel",
@@ -61,7 +61,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://www.audacityteam.org"
 source = f"https://github.com/audacity/audacity/releases/download/Audacity-{pkgver}/audacity-sources-{pkgver}.tar.gz"
-sha256 = "3d9ff1fc6a0ecd6591f19445c77c80774d364b268da652760829cf3598e08071"
+sha256 = "1f6fafb6ee7beaa5d3fd4f6ce46b3274d5278046494efb7066e801aa49d28a37"
 # vis breaks symbols
 hardening = []
 # check: dont care
