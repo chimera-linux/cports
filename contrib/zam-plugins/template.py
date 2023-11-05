@@ -1,5 +1,5 @@
 pkgname = "zam-plugins"
-pkgver = "4.1"
+pkgver = "4.2"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -23,8 +23,8 @@ pkgdesc = "Collection of audio plugins for high-quality audio processing"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/zamaudio/zam-plugins"
-_dpf = "88180608a206b529fcb660d406ddf6f934002806"
-_pugl = "844528e197c51603f6cef3238b4a48d23bf60eb7"
+_dpf = "63dfb7610bc37dee69f4a303f3e3362529d95f24"
+_pugl = "2e98e220b5b860c1c8cd5809fad61baf27380a37"
 source = [
     f"https://github.com/zamaudio/zam-plugins/archive/refs/tags/{pkgver}.tar.gz",
     f"https://github.com/DISTRHO/DPF/archive/{_dpf}.tar.gz",
@@ -36,14 +36,14 @@ source_paths = [
     "dpf/dgl/src/pugl-upstream",
 ]
 sha256 = [
-    "14fdf13e4f72e2b158c1b8db3d5c7e4a2740977acc1738c998507e0139d8ba15",
-    "859ab3eb2c04b393841d8ca0cec9ce33c41140edc2920da754625bc2b9cd6dfd",
-    "d7548b38dc4cfab3e04f32ce048b5721ff27f8facb84f6fcd488ab9216691ea4",
+    "d39fa1d6c279acdae075eb789d53803707e0d7116fcc7b12a0638e2f4866dbc1",
+    "499a2d27f935931cdef7e5b14e13b42adcd783cdc4e9eb13598be59570461877",
+    "7bd49fec34c39d1381c22eb8a1eed20332c104ded414b8d7b4779c5cdf112fbc",
 ]
 # FIXME: cfi
 hardening = ["vis"]
 # no tests
-options = ["!check"]
+options = ["!check", "linkundefver"]
 
 
 @subpackage("zam-plugins-clap")
