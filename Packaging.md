@@ -102,7 +102,7 @@ can go. These currently are:
 
 * `main`
 * `contrib`
-* `non-free`
+* `restricted`
 * `experimental`
 
 Each category has its own repository that is named the same as the category.
@@ -121,7 +121,7 @@ and templates undergo review and acceptance by the distro maintainers. In
 addition to other `contrib` templates, software here may depend on `main`
 templates.
 
-The `non-free` category in general contains proprietary software and stuff
+The `restricted` category in general contains proprietary software and stuff
 that we cannot redistribute. Software here may depend on anything from `main`
 or `contrib`. Unlike `contrib` packages, no binary packages are shipped and
 users need to build it themselves.
