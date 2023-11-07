@@ -1,5 +1,5 @@
 pkgname = "deadbeef"
-pkgver = "1.9.5"
+pkgver = "1.9.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,15 +15,15 @@ configure_args = [
     "--disable-pulse",
     "--disable-static",
 ]
-# broken
-configure_gen = []
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
-    "gettext",
+    "automake",
+    "gettext-devel",
     "gmake",
     "gtk+3-devel",
     "intltool",
+    "libtool",
     "pkgconf",
 ]
 makedepends = [
@@ -49,7 +49,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later AND Zlib AND BSD-2-Clause"
 url = "https://deadbeef.sourceforge.io"
 source = f"https://downloads.sourceforge.net/sourceforge/deadbeef/deadbeef-{pkgver}.tar.bz2"
-sha256 = "74c4478edccfee8a978d4adbeeb208f049bef63982f4df19ee208aaad8a6cd26"
+sha256 = "9d77b3d8afdeab5027d24bd18e9cfc04ce7d6ab3ddc043cc8e84c82b41b79c04"
 # plugins broken
 hardening = ["!vis"]
 
