@@ -1,8 +1,12 @@
 pkgname = "libjpeg-turbo"
 pkgver = "3.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = ["-DWITH_JPEG8=1", "-DCMAKE_INSTALL_LIBDIR=/usr/lib"]
+configure_args = [
+    "-DWITH_JPEG8=1",
+    "-DCMAKE_INSTALL_LIBDIR=/usr/lib",
+    "-DENABLE_STATIC=FALSE",
+]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "nasm"]
 pkgdesc = "Derivative of libjpeg which uses SIMD instructions"
 maintainer = "q66 <q66@chimera-linux.org>"
