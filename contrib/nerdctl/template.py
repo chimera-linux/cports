@@ -1,6 +1,6 @@
 pkgname = "nerdctl"
 pkgver = "1.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/nerdctl"]
 hostmakedepends = ["go"]
@@ -28,5 +28,24 @@ def post_build(self):
 
 
 def post_install(self):
+    self.install_service(self.files_path / "containerd.user")
+    self.install_bin(
+        "extras/rootless/containerd-rootless.sh", name="containerd-rootless"
+    )
     for shell in ["bash", "fish", "zsh"]:
         self.install_completion(f"nerdctl.{shell}", shell)
+
+
+@subpackage("containerd-rootless")
+def _rless(self):
+    self.pkgdesc = "Rootless containerd support"
+    self.depends = [
+        "containerd",
+        "rootlesskit",
+        "slirp4netns",
+    ]
+
+    return [
+        "etc/dinit.d/user",
+        "usr/bin/containerd-rootless",
+    ]
