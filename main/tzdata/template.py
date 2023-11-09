@@ -1,6 +1,6 @@
 pkgname = "tzdata"
 pkgver = "2023c"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = [
     "musl-devel-static",
     "libunwind-devel-static",
@@ -88,3 +88,5 @@ def do_install(self):
 
     for f in ["iso3166", "zone1970", "zone"]:
         self.install_file(f"{f}.tab", "usr/share/zoneinfo", mode=0o444)
+
+    self.install_file("leap-seconds.list", "usr/share/zoneinfo")
