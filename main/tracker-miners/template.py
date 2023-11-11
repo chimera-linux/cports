@@ -1,6 +1,6 @@
 pkgname = "tracker-miners"
-pkgver = "3.6.1"
-pkgrel = 1
+pkgver = "3.6.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
@@ -66,6 +66,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tracker"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "eef0e8d4aaca78feffb97d2f0957361869f53ea7768d1991385be51c17e8928e"
+sha256 = "0ad722f3d532c21d757cf488f942960679ea8f457925efa97656ed4c9e9ba4ff"
 # check relies on stuff unsupported in chroot
 options = ["!check", "!cross"]
