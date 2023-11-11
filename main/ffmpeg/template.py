@@ -119,6 +119,9 @@ options = ["!check"]
 
 if self.profile().arch != "riscv64":
     configure_args += ["--enable-lto"]
+else:
+    # asm fails to build
+    configure_args += ["--disable-rvv"]
 
 if self.profile().cross:
     _archmap = {
