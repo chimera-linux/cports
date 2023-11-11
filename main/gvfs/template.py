@@ -1,5 +1,5 @@
 pkgname = "gvfs"
-pkgver = "1.52.0"
+pkgver = "1.52.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -55,7 +55,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gvfs"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e40e2035a40bc51ce9e88eed05b025596e40bb4aaf9bc632d12ce74fdb30b1f6"
+sha256 = "cdbd4440f6d08792a6e7521244c17386e20bd537d375117099fc8fb68fe91741"
 
 
 @subpackage("gvfs-devel")
