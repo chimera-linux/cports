@@ -1,5 +1,5 @@
 pkgname = "gnome-core"
-pkgver = "45"
+pkgver = "45.1"
 pkgrel = 0
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
