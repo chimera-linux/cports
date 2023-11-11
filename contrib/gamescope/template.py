@@ -1,5 +1,5 @@
 pkgname = "gamescope"
-pkgver = "3.12.7"
+pkgver = "3.13.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -35,6 +35,7 @@ makedepends = [
     "wlroots-devel",
     "xwayland",
 ]
+depends = ["libcap-progs"]
 pkgdesc = "SteamOS compositor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
@@ -42,7 +43,7 @@ url = "https://github.com/ValveSoftware/gamescope"
 source = [
     f"{url}/archive/refs/tags/{pkgver}.tar.gz",
     "https://github.com/ValveSoftware/openvr/archive/1a0ea26642e517824b66871e6a12280a426cfec3.tar.gz",
-    "https://github.com/Joshua-Ashton/vkroots/archive/26757103dde8133bab432d172b8841df6bb48155.tar.gz",
+    "https://github.com/Joshua-Ashton/vkroots/archive/d5ef31abc7cb5c69aee4bcb67b10dd543c1ff7ac.tar.gz",
     "https://github.com/Joshua-Ashton/reshade/archive/9fdbea6892f9959fdc18095d035976c574b268b7.tar.gz",
 ]
 source_paths = [
@@ -52,9 +53,9 @@ source_paths = [
     "src/reshade",
 ]
 sha256 = [
-    "e062eb541e20959cd3d64e79c1c31fe3bf1d773afd3da5816011f07424e33bcb",
+    "77f7ed35409373ab25e558fea7ad3de096efab8655115553b94e6d3d0f0700c5",
     "6285504e64a37df47856ffa4a12709d0703da37ee1b0c9fe9e8e52a55127dd7d",
-    "adf158c3da572f1dfaa6e1a7a51943aafb824222e77f512a4666472d71321244",
+    "b4eca5edca75355ea1443ad96fd59b0a407f6a2ce17ef5a8f9849c05fc10155f",
     "165726ad21fbfc221c0363e40b597834068a416a11a1204ae2ac6d13ec161035",
 ]
 # sus
