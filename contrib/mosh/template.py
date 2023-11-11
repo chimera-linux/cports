@@ -1,6 +1,6 @@
 pkgname = "mosh"
 pkgver = "1.4.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "protobuf", "automake", "libtool", "perl"]
 makedepends = ["protobuf-devel", "ncurses-devel", "openssl-devel", "zlib-devel"]
