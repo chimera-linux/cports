@@ -1,8 +1,8 @@
 not related to `security', but displaying stuff as not realuid just shows a
 bunch of permission errors, so display current uid only
 --
---- a/dialects/linux/machine.h
-+++ b/dialects/linux/machine.h
+--- a/lib/dialects/linux/machine.h
++++ b/lib/dialects/linux/machine.h
 @@ -431,7 +431,7 @@
   * (the one that its user logged on with) of the lsof process.
   */
