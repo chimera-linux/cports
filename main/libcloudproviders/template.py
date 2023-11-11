@@ -1,5 +1,5 @@
 pkgname = "libcloudproviders"
-pkgver = "0.3.4"
+pkgver = "0.3.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dintrospection=true", "-Dvapigen=true"]
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://gitlab.gnome.org/World/libcloudproviders"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "e98897c747cb07b5ef49c9be6b7da1d47c69cc8020d08d16e5e8165eb606496a"
+sha256 = "5642fe3d89322e79bff919e828dd3ad4e109ccfaadfc2f9a87fa40694ed08bee"
 
 
 @subpackage("libcloudproviders-devel")
