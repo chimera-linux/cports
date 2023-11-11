@@ -16,10 +16,10 @@ Bug-Ubuntu: https://launchpad.net/bugs/2034672
  1 file changed, 2 insertions(+)
 
 diff --git a/cogl/cogl/winsys/cogl-onscreen-glx.c b/cogl/cogl/winsys/cogl-onscreen-glx.c
-index 10642b2..ca8adaa 100644
+index 7c9b4df..19726c8 100644
 --- a/cogl/cogl/winsys/cogl-onscreen-glx.c
 +++ b/cogl/cogl/winsys/cogl-onscreen-glx.c
-@@ -540,6 +540,8 @@ cogl_onscreen_glx_get_buffer_age (CoglOnscreen *onscreen)
+@@ -541,6 +541,8 @@ cogl_onscreen_glx_get_buffer_age (CoglOnscreen *onscreen)
    GLXDrawable drawable;
    unsigned int age = 0;
  
