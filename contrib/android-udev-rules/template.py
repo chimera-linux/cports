@@ -1,5 +1,5 @@
 pkgname = "android-udev-rules"
-pkgver = "20230614"
+pkgver = "20231104"
 pkgrel = 0
 pkgdesc = (
     "Android udev rules list aimed to be the most comprehensive on the net"
@@ -8,7 +8,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/M0Rf30/android-udev-rules"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "563b8f3194110b7173dfaad61e74da2842b28c4f2409dedce04d5572ef2f056f"
+sha256 = "2f2e82c8d352d45a93806bc776df518da59c19ee9f0bf6aa8606d5d3ae05eccf"
 options = ["!splitudev"]
 system_groups = ["adbusers"]
 
