@@ -1,6 +1,6 @@
 pkgname = "protobuf"
-pkgver = "24.4"
-pkgrel = 1
+pkgver = "25.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -14,9 +14,9 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "BSD-3-Clause"
 url = "https://protobuf.dev"
 source = f"https://github.com/protocolbuffers/protobuf/archive/v{pkgver}.tar.gz"
-sha256 = "616bb3536ac1fff3fb1a141450fa28b875e985712170ea7f1bfe5e5fc41e2cd8"
-# FIXME cfi makes protoc not compile any tests
-hardening = ["vis", "!cfi"]
+sha256 = "7beed9c511d632cff7c22ac0094dd7720e550153039d5da7e059bcceb488474a"
+# FIXME vis breaks linking lite-test, cfi makes protoc not compile any tests
+hardening = ["!vis", "!cfi"]
 
 if self.profile().cross:
     hostmakedepends += ["protoc"]  # needs host protoc
