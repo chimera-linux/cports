@@ -1,5 +1,5 @@
 pkgname = "whois"
-pkgver = "5.5.18"
+pkgver = "5.5.20"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -23,7 +23,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rfc1036/whois"
 source = f"https://github.com/rfc1036/whois/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f0ecc280b5c7130dd8fe4bd7be6acefe32481a2c29aacb1f5262800b6c79a01b"
+sha256 = "e7674972682d805488198c3345be3f1faddf94656cd0d24876826cd802ddd86c"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
