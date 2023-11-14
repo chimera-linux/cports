@@ -1,6 +1,6 @@
 pkgname = "vala"
-pkgver = "0.56.13"
-pkgrel = 2
+pkgver = "0.56.14"
+pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/Vala"
 source = f"$(GNOME_SITE)/vala/{pkgver[0:pkgver.rfind('.')]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4988223036c7e1e4874c476d0de8bd9cbe500ee25ef19a76e560dc0b6d56ae07"
+sha256 = "9382c268ca9bdc02aaedc8152a9818bf3935273041f629c56de410e360a3f557"
 
 
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
