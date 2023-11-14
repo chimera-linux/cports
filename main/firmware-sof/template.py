@@ -1,5 +1,5 @@
 pkgname = "firmware-sof"
-pkgver = "2023.09"
+pkgver = "2023.09.1"
 pkgrel = 0
 archs = ["x86_64"]
 install_if = [f"base-firmware-sof={pkgver}-r{pkgrel}"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://thesofproject.github.io/latest/index.html"
 source = f"https://github.com/thesofproject/sof-bin/releases/download/v{pkgver}/sof-bin-{pkgver}.tar.gz"
-sha256 = "4bcc75c6642348e1a516db7ff9d050b6ea1b8672983542c6952562fa8c1c7b63"
+sha256 = "583233652a298cb754c03f47c33a58c9b97770498aa0db03141f11ef705d191d"
 options = ["!strip", "foreignelf"]
 
 
