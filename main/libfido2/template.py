@@ -1,6 +1,6 @@
 pkgname = "libfido2"
-pkgver = "1.13.0"
-pkgrel = 1
+pkgver = "1.14.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_EXAMPLES=OFF",
@@ -26,7 +26,7 @@ url = "https://developers.yubico.com/libfido2"
 source = (
     f"https://developers.yubico.com/libfido2/Releases/libfido2-{pkgver}.tar.gz"
 )
-sha256 = "51d43727e2a1c4544c7fd0ee47786f443e39f1388ada735a509ad4af0a2459ca"
+sha256 = "3601792e320032d428002c4cce8499a4c7b803319051a25a0c9f1f138ffee45a"
 
 
 def post_install(self):
