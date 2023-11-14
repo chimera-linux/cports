@@ -1,7 +1,8 @@
 pkgname = "zenity"
 pkgver = "3.44.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
+configure_args = ["-Dwebkitgtk=true"]
 hostmakedepends = ["meson", "pkgconf", "gettext", "itstool"]
 makedepends = [
     "gtk+3-devel",
