@@ -1,5 +1,5 @@
 pkgname = "weechat"
-pkgver = "4.0.5"
+pkgver = "4.1.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ configure_args = [
     "-DENABLE_MAN=False",
     "-DENABLE_DOC=False",
 ]
-hostmakedepends = ["cmake", "ninja", "pkgconf"]
+hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext"]
 makedepends = [
     # core deps
     "libgcrypt-devel",
@@ -44,7 +44,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://weechat.org"
 source = f"https://weechat.org/files/src/weechat-{pkgver}.tar.gz"
-sha256 = "4564caf767ccac6c9ed51ac12bade83bd040f42931dd76a81f82a9e3ba0ee57c"
+sha256 = "1571021731e658d47edb2159a00fa48e6df7272de4f4a57b9e971592433db9a3"
 
 
 @subpackage("weechat-devel")
