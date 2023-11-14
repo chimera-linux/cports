@@ -240,9 +240,9 @@ index 853bf05..2a0632f 100755
  #
  # Preprocess asm files to add extra debugging information if debug is
 @@ -445,7 +496,8 @@ xno|x) printf "disabled\n" ; optimize=no ;;
- esac
- 
- test "$optimize" = no || tryflag CFLAGS_AUTO -Os || tryflag CFLAGS_AUTO -O2
+ tryflag CFLAGS_AUTO -fno-prefetch-loop-arrays
+ tryflag CFLAGS_AUTO -fno-tree-ch
+ fi
 -test "$optimize" = yes && optimize="internal,malloc,string"
 +test "$optimize" = no || tryflag CXXFLAGS_AUTO -Os || tryflag CXXFLAGS_AUTO -O2
 +test "$optimize" = yes && optimize="internal,malloc,malloc/scudo,string"

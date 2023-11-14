@@ -1,6 +1,7 @@
 pkgname = "musl-cross"
 pkgver = "1.2.4"
-pkgrel = 3
+pkgrel = 4
+_commit = "79bdacff83a6bd5b70ff5ae5eb8b6de82c2f7c30"
 _scudo_ver = "17.0.4"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
@@ -14,11 +15,11 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
 source = [
-    f"http://www.musl-libc.org/releases/musl-{pkgver}.tar.gz",
+    f"http://git.musl-libc.org/cgit/musl/snapshot/musl-{_commit}.tar.gz",
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz",
 ]
 sha256 = [
-    "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039",
+    "aa54c6a56982cda96c8253414d1338d23e90a7097dde090221f0ce5568e27bc8",
     "9dd56f359f3dc08fb1dd34f4e3147e5a84b4f0d96a39160c8eb739cf7ea32e64",
 ]
 # mirrors musl
@@ -41,7 +42,7 @@ elif self.profile().arch == "aarch64":
 
 def post_extract(self):
     # move musl where it should be
-    for f in (self.cwd / f"musl-{pkgver}").iterdir():
+    for f in (self.cwd / f"musl-{_commit}").iterdir():
         self.mv(f, ".")
     # prepare scudo subdir
     self.mkdir("src/malloc/scudo/scudo", parents=True)
