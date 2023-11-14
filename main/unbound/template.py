@@ -1,6 +1,6 @@
 pkgname = "unbound"
-pkgver = "1.18.0"
-pkgrel = 1
+pkgver = "1.19.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-dnscrypt",
@@ -27,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3da95490a85cff6420f26fae0b84a49f5112df1bf1b7fc34f8724f02082cb712"
+sha256 = "a97532468854c61c2de48ca4170de854fd3bc95c8043bb0cfb0fe26605966624"
 system_users = ["_unbound"]
 
 
