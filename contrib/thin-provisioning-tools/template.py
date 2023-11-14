@@ -1,5 +1,5 @@
 pkgname = "thin-provisioning-tools"
-pkgver = "1.0.6"
+pkgver = "1.0.7"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "gmake", "gawk", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/jthornber/thin-provisioning-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "bb64481c2bef330004b12cdae7cdc68a4790e55e4c0b7a3061dfb718e8396962"
+sha256 = "6fd53f6c9aa70dc43b808858f3bd5b1c49279b8773bcd5c750ae21903559e629"
 # too long
 options = ["!check"]
 
