@@ -1,6 +1,6 @@
 pkgname = "fuse"
 pkgver = "3.16.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dexamples=false", "-Duseroot=false"]
 hostmakedepends = ["meson", "pkgconf"]
