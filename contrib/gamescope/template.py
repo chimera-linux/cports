@@ -1,6 +1,6 @@
 pkgname = "gamescope"
 pkgver = "3.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "cmake",
