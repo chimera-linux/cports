@@ -1,5 +1,5 @@
 pkgname = "base-files"
-_iana_ver = "20231003"
+_iana_ver = "20231107"
 pkgver = f"0.1.{_iana_ver}"
 pkgrel = 0
 pkgdesc = "Chimera Linux base system files"
@@ -104,7 +104,7 @@ def do_install(self):
     self.install_bin(self.files_path / "lsb_release")
 
     # Create /proc/self/mounts -> /etc/mtab symlink
-    self.install_link("/proc/self/mounts", "etc/mtab")
+    self.install_link("../proc/self/mounts", "etc/mtab")
 
 
 @subpackage("base-devel")

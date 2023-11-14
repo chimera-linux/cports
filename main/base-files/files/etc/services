@@ -10062,6 +10062,7 @@ canon-bjnp4      8614/udp
 imink            8615/tcp
 monetra          8665/tcp
 monetra-admin    8666/tcp
+spartan          8668/tcp
 msi-cps-rm       8675/tcp
 msi-cps-rm-disc  8675/udp
 sun-as-jmxrmi    8686/tcp
