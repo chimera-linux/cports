@@ -1,5 +1,5 @@
 pkgname = "icewm"
-pkgver = "3.4.3"
+pkgver = "3.4.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -35,4 +35,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://ice-wm.org"
 source = f"https://github.com/ice-wm/icewm/archive/{pkgver}.tar.gz"
-sha256 = "3eab580609f22a103c4014ce7eb857f27e1728175138f2d39808d672dd9c6d81"
+sha256 = "5842b098e5dd7c89d4992fd5bc9a7ff05d1c942750eb645f8d9ee3ab201d2882"
