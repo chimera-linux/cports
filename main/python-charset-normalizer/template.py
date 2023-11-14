@@ -1,5 +1,5 @@
 pkgname = "python-charset-normalizer"
-pkgver = "3.3.1"
+pkgver = "3.3.2"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://charset-normalizer.readthedocs.io"
 source = f"https://github.com/Ousret/charset_normalizer/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "82fba49093b118ecb75724413d5838c66b3269491aecda33199e17b5487a3444"
+sha256 = "9948e5c17831916ef192cf3f26c744d539eb6f4e9e3b02eea649552c52b10d91"
 # dependency of pytest
 options = ["!check"]
 
