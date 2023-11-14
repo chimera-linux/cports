@@ -1,6 +1,6 @@
 pkgname = "prismlauncher"
-pkgver = "7.2"
-pkgrel = 1
+pkgver = "8.0"
+pkgrel = 0
 build_style = "cmake"
 configure_env = {"JAVA_HOME": "/usr/lib/jvm/java-17-openjdk"}
 hostmakedepends = [
@@ -22,4 +22,4 @@ maintainer = "aurelia <git@elia.garden>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/PrismLauncher/PrismLauncher"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "5733b55c4532286813a6fb7de2f3a38e6f6db743a251919c8b646d32a84514b4"
+sha256 = "462f35eeda6e107b5f23a97500accf43e4227a0fb40145b29d0895bcfe3372b0"
