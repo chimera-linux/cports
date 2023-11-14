@@ -1,5 +1,5 @@
 pkgname = "exiv2"
-pkgver = "0.28.0"
+pkgver = "0.28.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,8 +14,8 @@ pkgdesc = "Image metadata manipulation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://www.exiv2.org"
-source = f"https://github.com/Exiv2/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}-Source.tar.gz"
-sha256 = "89af3b5ef7277753ef7a7b5374ae017c6b9e304db3b688f1948e73e103491f3d"
+source = f"https://github.com/Exiv2/exiv2/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "3078651f995cb6313b1041f07f4dd1bf0e9e4d394d6e2adc6e92ad0b621291fa"
 # needs gtest
 options = ["!check"]
 
