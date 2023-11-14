@@ -1,5 +1,5 @@
 pkgname = "kwindowsystem"
-pkgver = "5.111.0"
+pkgver = "5.112.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"https://download.kde.org/stable/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
-sha256 = "344fbaf62c1bf3032210993da00811b4d2ff54d95898a6676bc77e6f92ece49c"
+sha256 = "418e13e52f66a4030757d8479c787adab1112f40f694c0cc26309d84bf793022"
 hardening = ["vis", "cfi"]
 
 
