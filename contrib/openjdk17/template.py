@@ -1,7 +1,7 @@
 pkgname = "openjdk17"
 _majver = "17"
-_fver = f"{_majver}.0.8.1"
-_bver = "1"
+_fver = f"{_majver}.0.9"
+_bver = "9"
 pkgver = f"{_fver}_p{_bver}"
 pkgrel = 0
 # we don't attempt zero, it's a waste of time
@@ -66,11 +66,11 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
 url = "https://openjdk.org"
 source = f"https://github.com/openjdk/jdk{_majver}u/archive/jdk-{_fver}+{_bver}.tar.gz"
-sha256 = "e57251d8306911282b6f0a2f721431dab5f87c99cce0930fc062e690f7c77f04"
+sha256 = "836adb5fec5a58ce2f49a0faeaf9e69a3cb89865f4d855c6098f0264843672ad"
 # FIXME: SIGILL in jvm
 hardening = ["!int"]
 # TODO later
-options = ["!parallel", "!check"]
+options = ["!parallel", "!check", "linkundefver"]
 
 _java_base = "usr/lib/jvm"
 _java_name = "java-17-openjdk"

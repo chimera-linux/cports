@@ -180,9 +180,9 @@ and accessing the named fields (like "->nip") by the array index constants.
 +#endif
    st->cr();
 +  st->cr();
+ }
  
-   intptr_t *sp = (intptr_t *)os::Linux::ucontext_get_sp(uc);
-   st->print_cr("Top of Stack: (sp=" PTR_FORMAT ")", p2i(sp));
+ void os::print_tos_pc(outputStream *st, const void *context) {
 @@ -482,12 +523,22 @@
    st->print_cr("Register to memory mapping:");
    st->cr();
