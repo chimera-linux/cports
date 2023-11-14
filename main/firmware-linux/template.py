@@ -1,14 +1,14 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20230919"
+pkgver = "20231111"
 pkgrel = 0
-hostmakedepends = ["gmake"]
+hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "1dac602218f83f2c81dd72e599ae6c926901b3d36babccce46cd84293a37e473"
+sha256 = "80bfc46e3fc43820331a965354f5a3a9b478df90b07e2f39d9ddebc67ae0b23a"
 
 _arch = self.profile().arch
 _arch_x86 = _arch == "x86_64"
@@ -23,6 +23,8 @@ _pkgs = [
     ("amd-sev", "AMD SEV firmware", _arch_x86, "misc", ["amd"]),
     ("amdgpu", "Newer AMD GPUs", None, "gpu", ["amdgpu"]),
     ("amphion", "i.MX8Q VPU", _arch_arm64, "misc", ["amphion"]),
+    ("amdtee", "AMD ASP TEE", _arch_x86, "misc", ["amdtee"]),
+    ("amlogic-bt", "Amlogic Bluetooth", None, "network", ["amlogic/bluetooth"]),
     ("ar3k", "Atheros AR3K Bluetooth", None, "network", ["ar3k"]),
     ("ar3011", "AR3011 Bluetooth", None, "network", ["ath3k*.fw"]),
     ("ar5523", "AR5523 WLAN", None, "network", ["ar5523.bin"]),
@@ -122,6 +124,7 @@ _pkgs = [
     ),
     ("isci", "Intel C600 SAS controller", _arch_x86, "storage", ["isci"]),
     ("iwlwifi", "Intel WLAN", _arch_x86, "network", ["iwlwifi*"]),
+    ("ixp4xx", "IXP4xx", None, "network", ["ixp4xx"]),
     ("kaweth", "KL5KUSB101 Ethernet", None, "network", ["kaweth"]),
     ("keyspan", "Keyspan serial converters", None, "misc", ["keyspan*"]),
     ("korg", "Korg audio interfaces", None, "audio", ["korg"]),
@@ -201,6 +204,7 @@ _pkgs = [
             "nxp/uartuart*",
         ],
     ),
+    ("nvidia-gsp", "Nvidia GSP", None, "gpu", ["nvidia/*/gsp"]),
     ("nvidia", "Nvidia GPUs", None, "gpu", ["nvidia"]),
     ("qat", "Intel QuickAssist Technology", _arch_x86, "misc", ["qat*"]),
     ("qca", "Qualcomm Atheros WLAN/Bluetooth", None, "network", ["qca"]),
@@ -298,10 +302,11 @@ _pkgs = [
 
 
 def do_install(self):
+    self.install_dir("usr/lib/firmware")
     self.do(
-        "gmake",
-        "FIRMWAREDIR=/usr/lib/firmware",
-        f"DESTDIR={self.chroot_destdir}",
+        "./copy-firmware.sh",
+        "-v",
+        str(self.chroot_destdir / "usr/lib/firmware"),
     )
 
     self.install_license("WHENCE")
