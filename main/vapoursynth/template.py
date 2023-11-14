@@ -1,5 +1,5 @@
 pkgname = "vapoursynth"
-pkgver = "64"
+pkgver = "65"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.vapoursynth.com"
 source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"
-sha256 = "29e7972eace52bb83365cf9a14a5552df444090391f032de23b589ed8ff64213"
+sha256 = "2bde5233b82d914b5e985119ed9cc344e3c27c3c068b5c4ab909176cd1751dce"
 
 
 @subpackage("vapoursynth-devel")
