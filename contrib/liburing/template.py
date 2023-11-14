@@ -1,8 +1,8 @@
 pkgname = "liburing"
-pkgver = "2.4"
+pkgver = "2.5"
 pkgrel = 0
 build_style = "configure"
-configure_args = ["--mandir=/usr/share/man"]
+configure_args = ["--mandir=/usr/share/man", "--use-libc"]
 make_cmd = "gmake"
 make_check_target = "runtests"
 hostmakedepends = [
@@ -15,12 +15,12 @@ pkgdesc = "Linux kernel io_uring access library"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later OR MIT"
 url = "https://git.kernel.dk/cgit/liburing"
-source = f"https://github.com/axboe/liburing/archive/refs/tags/liburing-{pkgver}.tar.gz"
-sha256 = "2398ec82d967a6f903f3ae1fd4541c754472d3a85a584dc78c5da2fabc90706b"
+source = f"{url}/snapshot/liburing-{pkgver}.tar.gz"
+sha256 = "96a04054158a89d02c28eadc7cc7db5ac0d8049120f9cb78765e961a312ca2e3"
 # vis breaks symbols
 hardening = []
 # FIXME: run into timeout
-options = ["!check"]
+options = ["!check", "linkundefver"]
 
 
 def init_configure(self):
