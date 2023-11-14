@@ -1,5 +1,5 @@
 pkgname = "libosinfo"
-pkgver = "1.10.0"
+pkgver = "1.11.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://libosinfo.org"
 source = f"https://gitlab.com/{pkgname}/{pkgname}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
-sha256 = "e709c5f7d006527caea9b128cdae0ee3404217f2edb9a673ad9574b5eec257fc"
+sha256 = "927826e666f498cef106ef1bf22af4cc0cd56749f246ab15acdc1be05695a6eb"
 options = ["!cross"]
 
 
