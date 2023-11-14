@@ -1,5 +1,5 @@
 pkgname = "xfconf"
-pkgver = "4.18.2"
+pkgver = "4.18.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-gsettings-backend"]
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.0-or-later"
 url = "https://xfce.org"
 source = f"https://archive.xfce.org/src/xfce/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "dce24fb0555e9718d139c10e714759e03ab4e40a7ffcf3c990f046f7a17213cc"
+sha256 = "c56cc69056f6947b2c60b165ec1e4c2b0acf26a778da5f86c89ffce24d5ebd98"
 
 
 @subpackage("xfconf-devel")
