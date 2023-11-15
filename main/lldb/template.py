@@ -1,5 +1,5 @@
 pkgname = "lldb"
-pkgver = "17.0.4"
+pkgver = "17.0.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -36,7 +36,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/{pkgname}-{pkgver}.src.tar.xz"
-sha256 = "388418840036f897a0b141b7f708f24ac133681ca4fb4733a2918d9dac2c2f1c"
+sha256 = "cfc10ed4a7de8681ca599c4718eecc91802f95c7f7dace66f5d0815b1aec6103"
 # tests are not enabled
 options = ["!check"]
 

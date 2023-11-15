@@ -1,7 +1,7 @@
 pkgname = "musl"
 pkgver = "1.2.4"
 pkgrel = 6
-_scudo_ver = "17.0.4"
+_scudo_ver = "17.0.5"
 _commit = "79bdacff83a6bd5b70ff5ae5eb8b6de82c2f7c30"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
@@ -23,7 +23,7 @@ source = [
 source_paths = [".", "compiler-rt"]
 sha256 = [
     "aa54c6a56982cda96c8253414d1338d23e90a7097dde090221f0ce5568e27bc8",
-    "9dd56f359f3dc08fb1dd34f4e3147e5a84b4f0d96a39160c8eb739cf7ea32e64",
+    "4e3b4a05780baf04a11e80efbe5039ff3ef17af617233f326f073e7af2cdab89",
 ]
 # scp makes it segfault
 hardening = ["!scp"]

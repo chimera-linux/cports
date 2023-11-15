@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "17.0.4"
+pkgver = "17.0.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -46,7 +46,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "a225eb96f52e7d8c6c275b351fcc66d7a21d925eecff53730900404f244ff16a"
+sha256 = "95d7eff82945cf05c16a1851d7b391fc2da726b87c1138125e3b6e4d300ab834"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -120,7 +120,7 @@ _enable_flang = False
 # from stage 2 only, pointless to build before
 # also only enable on some archs for now, fails to build elsewhere
 match self.profile().arch:
-    case "x86_64" | "aarch64":
+    case _:
         _enable_flang = self.stage >= 2
 
 if _enable_flang:
