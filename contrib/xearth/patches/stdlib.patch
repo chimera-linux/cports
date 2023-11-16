@@ -1,0 +1,10 @@
+--- a/gifout.c
++++ b/gifout.c
+@@ -44,6 +44,7 @@
+  */
+ 
+ #include <stdio.h>
++#include <stdlib.h>
+ #include "port.h"
+ #include "gifint.h"
+ #include "kljcpyrt.h"
