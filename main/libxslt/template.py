@@ -1,15 +1,22 @@
 pkgname = "libxslt"
-pkgver = "1.1.34"
+pkgver = "1.1.39"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["docbook-xml", "docbook-xsl-nons", "pkgconf"]
+configure_args = ["--with-python=no"]
+hostmakedepends = [
+    "automake",
+    "docbook-xml",
+    "docbook-xsl-nons",
+    "libtool",
+    "pkgconf",
+]
 makedepends = ["libxml2-devel", "libgcrypt-devel"]
 pkgdesc = "GNOME XSLT parser library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://xmlsoft.org/XSLT"
-source = f"http://xmlsoft.org/sources/{pkgname}-{pkgver}.tar.gz"
-sha256 = "98b1bd46d6792925ad2dfe9a87452ea2adebf69dcb9919ffd55bf926a7f93f7f"
+source = f"$(GNOME_SITE)/libxslt/{pkgver[:pkgver.rfind('.')]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "2a20ad621148339b0759c4d4e96719362dee64c9a096dbba625ba053846349f0"
 # test code seemingly incompatible with current libxml2
 options = ["!cross", "!check"]
 
@@ -27,6 +34,3 @@ def _devel(self):
 def _xsltproc(self):
     self.pkgdesc = "XSLT 1.0 command line processor"
     return self.default_progs()
-
-
-configure_gen = []
