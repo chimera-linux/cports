@@ -14,6 +14,7 @@ tool_flags = {"CFLAGS": ["-Wno-deprecated-non-prototype"]}
 # no tests
 options = ["!check"]
 
+
 def do_install(self):
     self.install_bin("xearth")
     self.install_man("xearth.man", name="xearth", cat=1)
