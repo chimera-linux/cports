@@ -23,8 +23,8 @@ checkdepends = ["bash"]
 pkgdesc = "NTP client and server"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
-url = "https://chrony.tuxfamily.org"
-source = f"https://download.tuxfamily.org/{pkgname}/{pkgname}-{pkgver}.tar.gz"
+url = "https://chrony-project.org"
+source = f"https://chrony-project.org/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "eafb07e6daf92b142200f478856dfed6efc9ea2d146eeded5edcb09b93127088"
 file_modes = {
     "var/log/chrony": ("_chrony", "_chrony", 0o755),
