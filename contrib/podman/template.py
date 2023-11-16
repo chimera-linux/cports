@@ -39,7 +39,7 @@ go_build_tags = [
     "seccomp",
 ]
 pkgdesc = "Container and image management tool"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
