@@ -116,12 +116,19 @@ else:
     ]
 
 _enable_flang = False
-
 # from stage 2 only, pointless to build before
-# also only enable on some archs for now, fails to build elsewhere
+_enable_mlir = self.stage >= 2
+
 match self.profile().arch:
+    # consistently runs out of memory in flang ConvertExpr
+    case "ppc64" | "riscv64":
+        pass
+    # elsewhere is okay
     case _:
-        _enable_flang = self.stage >= 2
+        _enable_flang = _enable_mlir
+
+if _enable_mlir:
+    _enabled_projects += ["mlir"]
 
 if _enable_flang:
     _enabled_projects += ["flang"]
@@ -481,14 +488,14 @@ def _flang_devel(self):
     ]
 
 
-@subpackage("mlir", _enable_flang)
+@subpackage("mlir", _enable_mlir)
 def _mlir(self):
     self.pkgdesc = f"{pkgdesc} (MLIR)"
 
     return ["usr/bin/mlir*"]
 
 
-@subpackage("mlir-devel-static", _enable_flang)
+@subpackage("mlir-devel-static", _enable_mlir)
 def _mlir_static(self):
     self.pkgdesc = f"{pkgdesc} (MLIR static libraries)"
     self.depends = []
@@ -497,7 +504,7 @@ def _mlir_static(self):
     return ["usr/lib/libMLIR*.a"]
 
 
-@subpackage("mlir-devel", _enable_flang)
+@subpackage("mlir-devel", _enable_mlir)
 def _mlir_devel(self):
     self.pkgdesc = f"{pkgdesc} (MLIR development files)"
     self.depends = [f"mlir-devel-static={pkgver}-r{pkgrel}"]
@@ -510,7 +517,7 @@ def _mlir_devel(self):
     ]
 
 
-@subpackage("libmlir", _enable_flang)
+@subpackage("libmlir", _enable_mlir)
 def _libmlir(self):
     self.pkgdesc = f"{pkgdesc} (MLIR runtime library)"
 
@@ -675,7 +682,7 @@ def _llvm_devel(self):
         f"libclang-cpp={pkgver}-r{pkgrel}",
     ]
     # dumb llvmexports shit
-    if _enable_flang:
+    if _enable_mlir:
         self.depends.append(f"mlir={pkgver}-r{pkgrel}")
     if self.stage > 0:
         self.depends.append("zstd-devel")
