@@ -1,0 +1,13 @@
+#!/bin/sh
+
+export PATH=/usr/bin
+
+if [ "$1" = "start" ]; then
+    ln -sf /run/podman/podman.sock /run/docker.sock
+elif [ "$1" = "stop" ]; then
+    if [ "$(realpath /run/docker.sock)" = "/run/podman/podman.sock" ]; then
+        rm -f /run/docker.sock
+    fi
+else
+    exit 1
+fi
