@@ -1,5 +1,5 @@
 pkgname = "chimerautils"
-pkgver = "13.2.8"
+pkgver = "14.0.0"
 pkgrel = 1
 build_style = "meson"
 configure_args = []
@@ -14,6 +14,7 @@ makedepends = [
     "xz-devel",
     "zlib-devel",
     "bzip2-devel",
+    "zstd-devel",
     "linux-headers",
     "libxo-devel",
     "musl-bsd-headers",
@@ -24,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "55c15c52290b44ae33dc0469bfe2b38a7b54757c307eff94d432beb5eb2da2c3"
+sha256 = "efad3620ecad90b666ea2083c456b2c9a361491c03a2982e7cd0616f0deaffd4"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
