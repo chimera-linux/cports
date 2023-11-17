@@ -1,9 +1,10 @@
 pkgname = "iso-codes"
 pkgver = "4.15.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
-hostmakedepends = ["gettext", "python", "pkgconf"]
+make_cmd = "gmake"
+hostmakedepends = ["gettext", "python", "pkgconf", "gmake"]
 pkgdesc = "List of country, language and currency names"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
