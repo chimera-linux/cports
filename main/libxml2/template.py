@@ -2,7 +2,13 @@ pkgname = "libxml2"
 pkgver = "2.12.0"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-threads", "--with-icu", "--with-history"]
+configure_args = [
+    "--with-threads",
+    "--with-icu",
+    "--with-history",
+    "--enable-shared",
+    "--enable-static",
+]
 make_cmd = "gmake"
 hostmakedepends = [
     "automake",
@@ -33,6 +39,8 @@ def post_extract(self):
 
 
 def post_install(self):
+    # Delete unwanted python static lib that gets built due to --enable-static
+    self.rm(self.destdir / "usr/lib/python*/site-packages/*.a", glob=True)
     self.install_license("Copyright")
 
 
