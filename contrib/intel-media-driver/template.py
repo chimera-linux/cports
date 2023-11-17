@@ -1,5 +1,5 @@
 pkgname = "intel-media-driver"
-pkgver = "23.4.0"
+pkgver = "23.4.1"
 pkgrel = 0
 # doesn't build elsewhere
 archs = ["x86_64"]
@@ -25,7 +25,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/intel/media-driver"
 source = f"https://github.com/intel/media-driver/archive/refs/tags/intel-media-{pkgver}.tar.gz"
-sha256 = "716a30d9ec652edf2b901aaa70c91c5618434b0980a7767b17a31edd49459627"
+sha256 = "c61e7bc8f495a2314b24d14c88a1a8955e1347d26afa54c9b37b5527b9b316ad"
 # FIXME: cfi
 hardening = ["vis"]
 # no tests
