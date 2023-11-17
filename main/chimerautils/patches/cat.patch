@@ -1,0 +1,19 @@
+--- a/src.freebsd/coreutils/cat/cat.c
++++ b/src.freebsd/coreutils/cat/cat.c
+@@ -286,16 +286,7 @@ scanfiles(char *argv[], int cooked __unused)
+ 			}
+ #endif
+ 		} else {
+-#ifndef BOOTSTRAP_CAT
+-			if (in_kernel_copy(fd) == -1) {
+-				if (errno == EINVAL || errno == EBADF)
+-					raw_cat(fd);
+-				else
+-					err(1, "stdout");
+-			}
+-#else
+ 			raw_cat(fd);
+-#endif
+ 			if (fd != STDIN_FILENO)
+ 				close(fd);
+ 		}
