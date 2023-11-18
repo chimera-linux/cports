@@ -1,13 +1,17 @@
 pkgname = "geany"
 pkgver = "2.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-configure_gen = []
+configure_env = {"NOCONFIGURE": "1"}
+configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 hostmakedepends = [
+    "automake",
+    "gettext-devel",
     "glib-devel",
     "gettext",
     "gmake",
+    "libtool",
     "pkgconf",
 ]
 makedepends = [
