@@ -1,0 +1,32 @@
+From 7a55b7c49f567bad371ecb18d2ef1833f337065a Mon Sep 17 00:00:00 2001
+From: Simon McVittie <smcv@collabora.com>
+Date: Mon, 10 Jul 2023 18:44:49 +0100
+Subject: [PATCH] app: Use AS_FORMAT_STYLE_CATALOG if available
+
+AS_FORMAT_STYLE_COLLECTION is a deprecated alias for ..._CATALOG, and
+was removed entirely in appstream git main (presumably version 0.17
+or 1.0).
+
+Resolves: https://github.com/flatpak/flatpak/issues/5472
+Signed-off-by: Simon McVittie <smcv@collabora.com>
+---
+ app/flatpak-builtins-utils.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/app/flatpak-builtins-utils.c b/app/flatpak-builtins-utils.c
+index 9dbce3357b..073d96d139 100644
+--- a/app/flatpak-builtins-utils.c
++++ b/app/flatpak-builtins-utils.c
+@@ -1130,7 +1130,12 @@ flatpak_dir_load_appstream_store (FlatpakDir   *self,
+                                        NULL);
+ 
+   appstream_file = g_file_new_for_path (appstream_path);
++#if AS_CHECK_VERSION(0, 16, 0)
++  as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_CATALOG);
++#else
++  /* Deprecated name for the same thing */
+   as_metadata_set_format_style (mdata, AS_FORMAT_STYLE_COLLECTION);
++#endif
+ #if AS_CHECK_VERSION(0, 14, 0)
+   success = as_metadata_parse_file (mdata, appstream_file, AS_FORMAT_KIND_XML, &local_error);
+ #else
