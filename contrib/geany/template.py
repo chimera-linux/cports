@@ -1,6 +1,6 @@
 pkgname = "geany"
 pkgver = "2.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_env = {"NOCONFIGURE": "1"}
 configure_gen = ["./autogen.sh"]
