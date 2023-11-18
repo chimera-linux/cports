@@ -236,8 +236,6 @@ do_prepare() {
 
     mkdir -p ${TEMPDIR}/wrappers
 
-    wrap_command bc-gh ${TEMPDIR}/wrappers/bc
-    wrap_command dc-gh ${TEMPDIR}/wrappers/dc
     wrap_command gfind ${TEMPDIR}/wrappers/find
     wrap_command gsed ${TEMPDIR}/wrappers/sed
     wrap_command gtar ${TEMPDIR}/wrappers/tar

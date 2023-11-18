@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.1"
-pkgrel = 1
+pkgrel = 2
 depends = [
     "kmod",
     "procps",
@@ -114,7 +114,6 @@ def _baseloc(self):
         "flex",
         "bison",
         "findutils",
-        "bc-gh",
         "kmod",
         "perl",
         "python",
