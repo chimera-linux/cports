@@ -1,0 +1,195 @@
+--- a/configure
++++ b/configure
+@@ -20790,7 +20790,7 @@ fi
+ 
+     if test ${GP_GTK_VERSION_MAJOR} = 3
+ then :
+-  webkit_package=webkit2gtk-4.0
++  webkit_package=webkit2gtk-4.1
+ else $as_nop
+   webkit_package=webkit-1.0
+ fi
+@@ -21036,7 +21036,7 @@ printf "%s\n" "yes" >&6; }
+ fi
+     fi
+ 
+-     if test "$webkit_package" = webkit2gtk-4.0; then
++     if test "$webkit_package" = webkit2gtk-4.1; then
+   MARKDOWN_WEBKIT2_TRUE=
+   MARKDOWN_WEBKIT2_FALSE='#'
+ else
+@@ -23174,13 +23174,13 @@ pkg_failed=no
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" >&5
+ printf %s "checking for $GP_GTK_PACKAGE >= ${GTK_VERSION}
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0... " >&6; }
+ 
+ if test -n "$WEBHELPER_CFLAGS"; then
+@@ -23191,13 +23191,13 @@ if test -n "$WEBHELPER_CFLAGS"; then
+                           glib-2.0 >= \${GLIB_VERSION}
+                           gio-2.0 >= \${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= \${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= \${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= \${WEBKIT_VERSION}
+                           gthread-2.0\""; } >&5
+   ($PKG_CONFIG --exists --print-errors "$GP_GTK_PACKAGE >= ${GTK_VERSION}
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0") 2>&5
+   ac_status=$?
+   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+@@ -23206,7 +23206,7 @@ if test -n "$WEBHELPER_CFLAGS"; then
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" 2>/dev/null`
+ 		      test "x$?" != "x0" && pkg_failed=yes
+ else
+@@ -23223,13 +23223,13 @@ if test -n "$WEBHELPER_LIBS"; then
+                           glib-2.0 >= \${GLIB_VERSION}
+                           gio-2.0 >= \${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= \${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= \${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= \${WEBKIT_VERSION}
+                           gthread-2.0\""; } >&5
+   ($PKG_CONFIG --exists --print-errors "$GP_GTK_PACKAGE >= ${GTK_VERSION}
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0") 2>&5
+   ac_status=$?
+   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+@@ -23238,7 +23238,7 @@ if test -n "$WEBHELPER_LIBS"; then
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" 2>/dev/null`
+ 		      test "x$?" != "x0" && pkg_failed=yes
+ else
+@@ -23264,14 +23264,14 @@ fi
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" 2>&1`
+         else
+ 	        WEBHELPER_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "$GP_GTK_PACKAGE >= ${GTK_VERSION}
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" 2>&1`
+         fi
+ 	# Put the nasty error message in config.log where it belongs
+@@ -23281,7 +23281,7 @@ fi
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0) were not met:
+ 
+ $WEBHELPER_PKG_ERRORS
+@@ -23321,13 +23321,13 @@ pkg_failed=no
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" >&5
+ printf %s "checking for $GP_GTK_PACKAGE >= ${GTK_VERSION}
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0... " >&6; }
+ 
+ if test -n "$WEBHELPER_CFLAGS"; then
+@@ -23338,13 +23338,13 @@ if test -n "$WEBHELPER_CFLAGS"; then
+                           glib-2.0 >= \${GLIB_VERSION}
+                           gio-2.0 >= \${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= \${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= \${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= \${WEBKIT_VERSION}
+                           gthread-2.0\""; } >&5
+   ($PKG_CONFIG --exists --print-errors "$GP_GTK_PACKAGE >= ${GTK_VERSION}
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0") 2>&5
+   ac_status=$?
+   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+@@ -23353,7 +23353,7 @@ if test -n "$WEBHELPER_CFLAGS"; then
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" 2>/dev/null`
+ 		      test "x$?" != "x0" && pkg_failed=yes
+ else
+@@ -23370,13 +23370,13 @@ if test -n "$WEBHELPER_LIBS"; then
+                           glib-2.0 >= \${GLIB_VERSION}
+                           gio-2.0 >= \${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= \${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= \${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= \${WEBKIT_VERSION}
+                           gthread-2.0\""; } >&5
+   ($PKG_CONFIG --exists --print-errors "$GP_GTK_PACKAGE >= ${GTK_VERSION}
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0") 2>&5
+   ac_status=$?
+   printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+@@ -23385,7 +23385,7 @@ if test -n "$WEBHELPER_LIBS"; then
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" 2>/dev/null`
+ 		      test "x$?" != "x0" && pkg_failed=yes
+ else
+@@ -23411,14 +23411,14 @@ fi
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" 2>&1`
+         else
+ 	        WEBHELPER_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "$GP_GTK_PACKAGE >= ${GTK_VERSION}
+                           glib-2.0 >= ${GLIB_VERSION}
+                           gio-2.0 >= ${GIO_VERSION}
+                           gdk-pixbuf-2.0 >= ${GDK_PIXBUF_VERSION}
+-                          webkit2gtk-4.0 >= ${WEBKIT_VERSION}
++                          webkit2gtk-4.1 >= ${WEBKIT_VERSION}
+                           gthread-2.0" 2>&1`
+         fi
+ 	# Put the nasty error message in config.log where it belongs
