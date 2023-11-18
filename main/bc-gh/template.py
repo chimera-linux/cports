@@ -1,9 +1,10 @@
 pkgname = "bc-gh"
 pkgver = "6.7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_check_target = "test"
 make_use_env = True
+replaces = ["chimerautils-extra<=14.0.1-r0"]
 pkgdesc = "Implementation of POSIX bc with GNU extensions"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
@@ -22,7 +23,6 @@ def do_configure(self):
         env={
             "PREFIX": "/usr",
             "DESTDIR": self.chroot_destdir,
-            "EXECSUFFIX": "-gh",
             "HOSTCC": "clang",
             "HOSTCFLAGS": self.get_cflags(shell=True, target="host"),
         },
@@ -32,5 +32,13 @@ def do_configure(self):
 def post_install(self):
     self.install_license("LICENSE.md")
 
-    self.install_file("manuals/bc.1", "usr/share/man/man1", name="bc-gh.1")
-    self.install_file("manuals/dc.1", "usr/share/man/man1", name="dc-gh.1")
+    self.install_man("manuals/bc.1")
+    self.install_man("manuals/dc.1")
+
+
+@subpackage("bc-gh-man")
+def _man(self):
+    self.replaces = ["chimerautils-extra-man<=14.0.1-r0"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "base-man"]
+
+    return ["usr/share/man"]
