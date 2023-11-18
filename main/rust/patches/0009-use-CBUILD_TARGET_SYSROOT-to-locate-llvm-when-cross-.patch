@@ -1,4 +1,4 @@
-From 041b8a925f800b3645dcba65d1df913b6b1c60db Mon Sep 17 00:00:00 2001
+From 5f8160cc845ef96aa33a04f8a5f9f9fddd05b703 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Mon, 20 Dec 2021 01:56:48 +0100
 Subject: [PATCH 09/11] use CBUILD_TARGET_SYSROOT to locate llvm when
@@ -9,10 +9,10 @@ Subject: [PATCH 09/11] use CBUILD_TARGET_SYSROOT to locate llvm when
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 4302b1618..a239e2921 100644
+index f606fa483..879705591 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
-@@ -302,9 +302,11 @@ fn main() {
+@@ -305,9 +305,11 @@ fn main() {
      for lib in output(&mut cmd).split_whitespace() {
          if is_crossed {
              if let Some(stripped) = lib.strip_prefix("-LIBPATH:") {
@@ -27,5 +27,5 @@ index 4302b1618..a239e2921 100644
          } else if let Some(stripped) = lib.strip_prefix("-LIBPATH:") {
              println!("cargo:rustc-link-search=native={stripped}");
 -- 
-2.42.0
+2.42.1
 

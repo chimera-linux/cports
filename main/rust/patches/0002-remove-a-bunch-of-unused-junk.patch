@@ -1,6 +1,6 @@
-From ed856c1c458481610f7d2b5ec9a5c8fee5ce8982 Mon Sep 17 00:00:00 2001
+From 6ae7c7e682f3253cccba904d4d51da7de82e6c5b Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 5 Oct 2023 22:39:27 +0200
+Date: Sat, 18 Nov 2023 14:01:25 +0100
 Subject: [PATCH 02/11] remove a bunch of unused junk
 
 ---
@@ -104,7 +104,7 @@ index 2496c2a9d..9aff56181 100644
      }
  }
 diff --git a/src/bootstrap/compile.rs b/src/bootstrap/compile.rs
-index 9c68e5a78..490c30791 100644
+index 292ccc578..4159b478e 100644
 --- a/src/bootstrap/compile.rs
 +++ b/src/bootstrap/compile.rs
 @@ -255,40 +255,7 @@ fn copy_self_contained_objects(
@@ -166,7 +166,7 @@ index 9c68e5a78..490c30791 100644
              if let Some(p) = builder.wasi_root(target) {
                  let root = format!(
 diff --git a/src/bootstrap/config.rs b/src/bootstrap/config.rs
-index 4821d20a8..52cab87a6 100644
+index 836328f94..72e541ad8 100644
 --- a/src/bootstrap/config.rs
 +++ b/src/bootstrap/config.rs
 @@ -263,8 +263,6 @@ pub struct Config {
@@ -178,7 +178,7 @@ index 4821d20a8..52cab87a6 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -537,8 +535,6 @@ pub struct Target {
+@@ -522,8 +520,6 @@ pub struct Target {
      pub profiler: Option<StringOrBool>,
      pub rpath: Option<bool>,
      pub crt_static: Option<bool>,
@@ -187,7 +187,7 @@ index 4821d20a8..52cab87a6 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub no_std: bool,
-@@ -998,7 +994,6 @@ define_config! {
+@@ -979,7 +975,6 @@ define_config! {
          default_linker: Option<String> = "default-linker",
          channel: Option<String> = "channel",
          description: Option<String> = "description",
@@ -195,7 +195,7 @@ index 4821d20a8..52cab87a6 100644
          rpath: Option<bool> = "rpath",
          verbose_tests: Option<bool> = "verbose-tests",
          optimize_tests: Option<bool> = "optimize-tests",
-@@ -1047,8 +1042,6 @@ define_config! {
+@@ -1028,8 +1023,6 @@ define_config! {
          profiler: Option<StringOrBool> = "profiler",
          rpath: Option<bool> = "rpath",
          crt_static: Option<bool> = "crt-static",
@@ -204,7 +204,7 @@ index 4821d20a8..52cab87a6 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1430,7 +1423,6 @@ impl Config {
+@@ -1412,7 +1405,6 @@ impl Config {
              set(&mut config.llvm_tools_enabled, rust.llvm_tools);
              config.rustc_parallel = rust.parallel_compiler.unwrap_or(false);
              config.rustc_default_linker = rust.default_linker;
@@ -212,7 +212,7 @@ index 4821d20a8..52cab87a6 100644
              config.save_toolstates = rust.save_toolstates.map(PathBuf::from);
              set(
                  &mut config.deny_warnings,
-@@ -1615,8 +1607,6 @@ impl Config {
+@@ -1597,8 +1589,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -222,10 +222,10 @@ index 4821d20a8..52cab87a6 100644
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
                  target.sanitizers = cfg.sanitizers;
 diff --git a/src/bootstrap/configure.py b/src/bootstrap/configure.py
-index 15e8c1eb9..2e16d696c 100755
+index f469dbea6..679dbc24d 100755
 --- a/src/bootstrap/configure.py
 +++ b/src/bootstrap/configure.py
-@@ -110,38 +110,6 @@ v("aarch64-linux-android-ndk", "target.aarch64-linux-android.android-ndk",
+@@ -111,38 +111,6 @@ v("aarch64-linux-android-ndk", "target.aarch64-linux-android.android-ndk",
    "aarch64-linux-android NDK standalone path")
  v("x86_64-linux-android-ndk", "target.x86_64-linux-android.android-ndk",
    "x86_64-linux-android NDK standalone path")
@@ -265,10 +265,10 @@ index 15e8c1eb9..2e16d696c 100755
    "rootfs in qemu testing, you probably don't want to use this")
  v("qemu-aarch64-rootfs", "target.aarch64-unknown-linux-gnu.qemu-rootfs",
 diff --git a/src/bootstrap/lib.rs b/src/bootstrap/lib.rs
-index 4396bbc51..683ba5480 100644
+index 8b8d4b237..06c15d468 100644
 --- a/src/bootstrap/lib.rs
 +++ b/src/bootstrap/lib.rs
-@@ -1289,25 +1289,6 @@ impl Build {
+@@ -1291,25 +1291,6 @@ impl Build {
          }
      }
  
@@ -295,14 +295,14 @@ index 4396bbc51..683ba5480 100644
      fn wasi_root(&self, target: TargetSelection) -> Option<&Path> {
          self.config.target_config.get(&target).and_then(|t| t.wasi_root.as_ref()).map(|p| &**p)
 diff --git a/src/bootstrap/sanity.rs b/src/bootstrap/sanity.rs
-index 7e83b508e..4b7fb6963 100644
+index 0febdf250..613d74f64 100644
 --- a/src/bootstrap/sanity.rs
 +++ b/src/bootstrap/sanity.rs
-@@ -205,28 +205,6 @@ than building it.
-             }
+@@ -215,28 +215,6 @@ than building it.
+             continue;
          }
  
--        // Make sure musl-root is valid
+-        // Make sure musl-root is valid.
 -        if target.contains("musl") && !target.contains("unikraft") {
 -            // If this is a native target (host is also musl) and no musl-root is given,
 -            // fall back to the system toolchain in /usr before giving up
@@ -324,9 +324,9 @@ index 7e83b508e..4b7fb6963 100644
 -            }
 -        }
 -
-         // Some environments don't want or need these tools, such as when testing Miri.
-         // FIXME: it would be better to refactor this code to split necessary setup from pure sanity
-         // checks, and have a regular flag for skipping the latter. Also see
+         if need_cmake && target.contains("msvc") {
+             // There are three builds of cmake on windows: MSVC, MinGW, and
+             // Cygwin. The Cygwin build does not have generators for Visual
 -- 
-2.42.0
+2.42.1
 

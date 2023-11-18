@@ -1,4 +1,4 @@
-From b4ec0ba39551ff234a520cbd92ae755f0d7dab1b Mon Sep 17 00:00:00 2001
+From 2011475d65983fb5358b55aead060b2cccb1bf96 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 5 Oct 2023 22:41:26 +0200
 Subject: [PATCH 05/11] get rid of wrong linkage
@@ -86,5 +86,5 @@ index 9b5ce0fce..cb29b9a90 100644
          #[link(name = "c")]
          extern {}
 -- 
-2.42.0
+2.42.1
 

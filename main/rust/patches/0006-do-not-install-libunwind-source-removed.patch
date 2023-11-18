@@ -1,4 +1,4 @@
-From 73c6eb03037170425365e73d9d7b75ca87b04ef6 Mon Sep 17 00:00:00 2001
+From e3a0463ce4804d5b52a2bde8ba0548a86a010b74 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:37:07 +0100
 Subject: [PATCH 06/11] do not install libunwind source (removed)
@@ -21,5 +21,5 @@ index 1b70ae325..2a33d430a 100644
                  // not needed and contains symlinks which rustup currently
                  // chokes on when unpacking.
 -- 
-2.42.0
+2.42.1
 

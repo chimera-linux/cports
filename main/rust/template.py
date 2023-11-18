@@ -1,6 +1,6 @@
 pkgname = "rust"
-pkgver = "1.73.0"
-pkgrel = 1
+pkgver = "1.74.0"
+pkgrel = 0
 hostmakedepends = [
     "cmake",
     "curl",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "6eaf672dbea2e6596af8c999f5e6924b9af4bb8b02166bfe0b928e68aa75ae62"
+sha256 = "23705e38c1a37acfd7fbb921c5dd8772619476e80d0b3b39ac8eb45bc0c33187"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -76,7 +76,6 @@ def post_patch(self):
     cargo.clear_vendor_checksums(self, "libc-0.2.138")
     cargo.clear_vendor_checksums(self, "libc-0.2.140")
     cargo.clear_vendor_checksums(self, "libc-0.2.146")
-    cargo.clear_vendor_checksums(self, "rustix-0.38.2")
 
 
 def do_configure(self):

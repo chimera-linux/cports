@@ -1,6 +1,6 @@
-From 558ddd4f851fea7b851fde206703ba0f9e18a527 Mon Sep 17 00:00:00 2001
+From cce405fda6d8b99b4b692c33bd66bd510afd9780 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Thu, 5 Oct 2023 22:42:03 +0200
+Date: Sat, 18 Nov 2023 14:03:42 +0100
 Subject: [PATCH 07/11] fix rustdoc when cross-compiling
 
 ---
@@ -8,12 +8,12 @@ Subject: [PATCH 07/11] fix rustdoc when cross-compiling
  1 file changed, 2 insertions(+), 5 deletions(-)
 
 diff --git a/src/bootstrap/bin/rustdoc.rs b/src/bootstrap/bin/rustdoc.rs
-index 4ecb33498..496a04670 100644
+index 6561c1c19..3bd7ee106 100644
 --- a/src/bootstrap/bin/rustdoc.rs
 +++ b/src/bootstrap/bin/rustdoc.rs
-@@ -32,9 +32,6 @@ fn main() {
-         Err(_) => 0,
-     };
+@@ -25,9 +25,6 @@ fn main() {
+     // is passed (a bit janky...)
+     let target = args.windows(2).find(|w| &*w[0] == "--target").and_then(|w| w[1].to_str());
  
 -    let mut dylib_path = dylib_path();
 -    dylib_path.insert(0, PathBuf::from(libdir.clone()));
@@ -21,7 +21,7 @@ index 4ecb33498..496a04670 100644
      let mut cmd = Command::new(rustdoc);
  
      if target.is_some() {
-@@ -47,7 +44,7 @@ fn main() {
+@@ -40,7 +37,7 @@ fn main() {
      }
  
      cmd.args(&args);
@@ -30,7 +30,7 @@ index 4ecb33498..496a04670 100644
  
      // Force all crates compiled by this compiler to (a) be unstable and (b)
      // allow the `rustc_private` feature to link to other unstable crates
-@@ -79,7 +76,7 @@ fn main() {
+@@ -72,7 +69,7 @@ fn main() {
          eprintln!(
              "rustdoc command: {:?}={:?} {:?}",
              dylib_path_var(),
@@ -40,5 +40,5 @@ index 4ecb33498..496a04670 100644
          );
          eprintln!("sysroot: {sysroot:?}");
 -- 
-2.42.0
+2.42.1
 

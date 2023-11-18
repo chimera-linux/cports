@@ -1,4 +1,4 @@
-From dc15f1e5e0fe1055379dcca74eb63a91114f9656 Mon Sep 17 00:00:00 2001
+From 2a84cc1c24600ddd13d75d4426b99ad43e1a6d3b Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 3 Jun 2023 00:25:21 +0200
 Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
@@ -37,7 +37,7 @@ index 9abed30ea..4c7f953ed 100755
  RUSTC_COMMIT_HASH="$("$RUSTC" -vV | sed -n 's/commit-hash: \([a-zA-Z0-9_]*\)/\1/p')"
  
 diff --git a/src/etc/rust-gdbgui b/src/etc/rust-gdbgui
-index 913269316..f444fbc4b 100755
+index 471810cbb..ba4e27241 100755
 --- a/src/etc/rust-gdbgui
 +++ b/src/etc/rust-gdbgui
 @@ -41,7 +41,7 @@ fi
@@ -65,5 +65,5 @@ index bce72f1ba..8abb01245 100755
  # Call LLDB with the commands added to the argument list
  exec "$lldb" --one-line-before-file "$script_import" --source-before-file "$commands_file" "$@"
 -- 
-2.42.0
+2.42.1
 
