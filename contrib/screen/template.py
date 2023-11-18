@@ -34,6 +34,7 @@ hardening = ["vis", "cfi"]
 
 tool_flags = {"CFLAGS": ["-Wno-deprecated-non-prototype"]}
 
+
 def post_install(self):
     # bundled configs
     self.install_file("etc/etcscreenrc", "etc", name="screenrc")
