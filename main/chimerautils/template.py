@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
 pkgver = "14.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
@@ -57,6 +57,11 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man1/zless.1")
     # base shell
     self.install_shell("/usr/bin/sh")
+    # remove bc/dc
+    self.rm(self.destdir / "usr/bin/bc")
+    self.rm(self.destdir / "usr/bin/dc")
+    self.rm(self.destdir / "usr/share/man/man1/bc.1")
+    self.rm(self.destdir / "usr/share/man/man1/dc.1")
     # tiny tools
     tdest = "usr/libexec/chimerautils-tiny"
     self.install_dir(tdest)
@@ -71,12 +76,10 @@ def _full(self):
 
     return [
         "etc/locate.rc",
-        "usr/bin/bc",
         "usr/bin/calendar",
         "usr/bin/cal",
         "usr/bin/compress",
         "usr/bin/cu",
-        "usr/bin/dc",
         "usr/bin/ex",
         "usr/bin/fetch",
         "usr/bin/locate",
@@ -91,12 +94,10 @@ def _full(self):
         "usr/bin/vi",
         "usr/bin/view",
         "usr/libexec/locate.*",
-        "usr/share/man/man1/bc.1",
         "usr/share/man/man1/calendar.1",
         "usr/share/man/man1/cal.1",
         "usr/share/man/man1/compress.1",
         "usr/share/man/man1/cu.1",
-        "usr/share/man/man1/dc.1",
         "usr/share/man/man1/ex.1",
         "usr/share/man/man1/fetch.1",
         "usr/share/man/man1/locate.1",
