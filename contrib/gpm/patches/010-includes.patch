@@ -1,0 +1,10 @@
+--- a/src/daemon/old_main.c
++++ b/src/daemon/old_main.c
+@@ -19,6 +19,7 @@
+  *
+  ********/
+ 
++#include <string.h>
+ #include <sys/socket.h>             /* UNIX              */
+ #include <sys/un.h>                 /* SOCKET            */
+ #include <fcntl.h>                  /* open              */
