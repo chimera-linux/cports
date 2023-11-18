@@ -1,11 +1,12 @@
 pkgname = "base-core"
 pkgver = "0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 depends = [
     "base-minimal",
     "base-man",
     "base-kernel",
+    "bc-gh",
     "chimerautils-extra",
     "console-setup",
     "dmesg",
