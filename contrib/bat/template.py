@@ -1,5 +1,5 @@
 pkgname = "bat"
-pkgver = "0.23.0"
+pkgver = "0.24.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "pkgconf"]
@@ -15,7 +15,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/bat"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "30b6256bea0143caebd08256e0a605280afbbc5eef7ce692f84621eb232a9b31"
+sha256 = "907554a9eff239f256ee8fe05a922aad84febe4fe10a499def72a4557e9eedfb"
 
 
 def do_prepare(self):
