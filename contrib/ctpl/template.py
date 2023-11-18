@@ -9,7 +9,7 @@ hostmakedepends = [
     "gettext-devel",
     "gtk-doc-tools",
     "libtool",
-    "pkgconf"
+    "pkgconf",
 ]
 makedepends = [
     "glib-devel",
