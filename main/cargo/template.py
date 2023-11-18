@@ -1,8 +1,6 @@
 pkgname = "cargo"
-pkgver = "1.73.0"
-# _cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
-# ffs, tag your shit
-_cargover = "9c4383fb55986096b414d98125421ab87b5fd642"
+pkgver = "1.74.0"
+_cargover = f"0.{int(pkgver[2:4]) + 1}.{pkgver[5:]}"
 pkgrel = 0
 build_style = "cargo"
 # PKG_CONFIG being in environment mysteriously brings target sysroot
@@ -22,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://github.com/rust-lang/{pkgname}/archive/{_cargover}.tar.gz"
-sha256 = "f3a6394359882e68ee2bf733f349471ea88c54d8e3f769e2ef431b7cf315cfb1"
+sha256 = "d6b9512bca4b4d692a242188bfe83e1b696c44903007b7b48a56b287d01c063b"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -42,15 +40,16 @@ if _bootstrap:
     options += ["!debug"]
 else:
     hostmakedepends += ["rust"]
-    makedepends += ["rust-std"]
+    makedepends += ["rust-std", "libgit2-devel"]
     depends = ["rust"]
 
 
 def init_prepare(self):
     if _bootstrap:
-        self.env["OPENSSL_STATIC"] = "1"
-        self.env["OPENSSL_NO_PKG_CONFIG"] = "1"
-        self.env["OPENSSL_DIR"] = str(self.profile().sysroot / "usr")
+        self.make_env["LIBGIT2_NO_VENDOR"] = "0"
+        self.make_env["OPENSSL_STATIC"] = "1"
+        self.make_env["OPENSSL_NO_PKG_CONFIG"] = "1"
+        self.make_env["OPENSSL_DIR"] = str(self.profile().sysroot / "usr")
 
 
 def do_install(self):
