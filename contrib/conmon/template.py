@@ -1,6 +1,6 @@
 pkgname = "conmon"
 pkgver = "2.1.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "go-md2man",
@@ -12,7 +12,6 @@ makedepends = [
     "libseccomp-devel",
     "linux-headers",
 ]
-depends = ["runc"]
 pkgdesc = "OCI container monitor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
