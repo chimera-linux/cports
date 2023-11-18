@@ -1,19 +1,20 @@
 pkgname = "geany-plugins"
 pkgver = "2.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-all-plugins",
     "--disable-geniuspaste",  # libsoup 2.x
     "--disable-updatechecker",  # libsoup 2.x
 ]
-configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = [
+    "automake",
     "glib-devel",
-    "gettext",
+    "gettext-devel",
     "gmake",
     "intltool",
+    "libtool",
     "pkgconf",
 ]
 makedepends = [
