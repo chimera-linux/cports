@@ -1,5 +1,5 @@
 pkgname = "libgit2"
-pkgver = "1.6.4"
+pkgver = "1.7.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -11,6 +11,7 @@ configure_args = [
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "python"]
 makedepends = [
+    "heimdal-devel",
     "zlib-devel",
     "libssh2-devel",
     "openssl-devel",
@@ -22,7 +23,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "GPL-2.0-only WITH GCC-exception-2.0"
 url = "https://libgit2.org"
 source = f"https://github.com/libgit2/libgit2/archive/v{pkgver}.tar.gz"
-sha256 = "d25866a4ee275a64f65be2d9a663680a5cf1ed87b7ee4c534997562c828e500d"
+sha256 = "17d2b292f21be3892b704dddff29327b3564f96099a1c53b00edc23160c71327"
 
 
 def post_install(self):
