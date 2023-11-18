@@ -1,2 +1,2 @@
 url = "https://gitlab.gnome.org/GNOME/gtkmm/-/tags"
-ignore = ["4.1[13579].*"]
+ignore = ["4.*[13579].*"]
