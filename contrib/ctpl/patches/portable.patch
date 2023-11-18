@@ -1,0 +1,19 @@
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ mkdir -p build/auxf         || exit 1
+ mkdir -p build/m4           || exit 1
+--- a/testsuite/tests.sh
++++ b/testsuite/tests.sh
+@@ -32,7 +32,7 @@ echo '*************************' >&2
+ for f in $(ls "${srcdir}/"success/* | grep -v -e '-output$'); do
+   success=false
+   output="$f-output"
+-  output_real="$(tempfile)"
++  output_real="$(mktemp)"
+   
+   echo "*** success test '$f'"
+   $TESTPRG $ARGS "$f" > "$output_real" && success=true
