@@ -21,6 +21,7 @@ def _runc(self):
 
     return []
 
+
 @subpackage("oci-runtime-crun")
 def _runc(self):
     self.pkgdesc = "OCI runtime (crun)"
