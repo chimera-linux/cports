@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "4.7.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
 hostmakedepends = [
@@ -29,7 +29,7 @@ depends = [
     "fuse-overlayfs",
     "iptables",
     "netavark",
-    "runc",
+    "oci-runtime",
     "slirp4netns",
 ]
 go_build_tags = [
