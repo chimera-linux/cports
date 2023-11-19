@@ -3,6 +3,7 @@ pkgver = "0.4.2"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
+make_dir = "."
 hostmakedepends = ["automake", "xmlto", "gmake"]
 makedepends = ["pcre2-devel"]
 depends = ["perl"]
