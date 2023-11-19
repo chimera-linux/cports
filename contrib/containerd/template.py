@@ -1,6 +1,6 @@
 pkgname = "containerd"
 pkgver = "1.7.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = [
@@ -24,7 +24,7 @@ makedepends = [
 ]
 depends = [
     "cni-plugins",
-    "runc",
+    "oci-runtime",
 ]
 pkgdesc = "Industry-standard container runtime"
 maintainer = "psykose <alice@ayaya.dev>"
