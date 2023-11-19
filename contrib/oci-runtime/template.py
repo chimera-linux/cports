@@ -23,7 +23,7 @@ def _runc(self):
 
 
 @subpackage("oci-runtime-crun")
-def _runc(self):
+def _crun(self):
     self.pkgdesc = "OCI runtime (crun)"
     self.depends = ["crun"]
     self.provides = [f"oci-runtime-provider={pkgver}-r{pkgrel}"]
