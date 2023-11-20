@@ -11,7 +11,7 @@ BSD_TOOLS="
  head kill link ln look ls mkdir mkfifo mknod mv
  pathchk pivot_root printf pwd readlink realpath rgrep
  rm rmdir sed seq sh sleep sort stat stty sync tail tee
- test touch true uname uniq unlink vdir wc which xargs yes
+ test touch tr true uname uniq unlink vdir wc which xargs yes
 "
 
 # provided by klibc-kinit-standalone
