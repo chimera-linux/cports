@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.42.1"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "gmake",
     "asciidoc",
@@ -97,13 +97,6 @@ def do_install(self):
     self.rm(self.destdir / "usr/share/man/man1/git-cvsimport.1")
     self.rm(self.destdir / "usr/share/man/man1/git-cvsserver.1")
     self.rm(self.destdir / "usr/share/man/man7/gitcvs-migration.7")
-    # remove svn for now
-    self.rm(self.destdir / "usr/libexec/git-core/git-svn")
-    self.rm(self.destdir / "usr/share/man/man1/git-svn.1")
-    self.rm(
-        self.destdir / "usr/share/perl5/vendor_perl/Git/SVN", recursive=True
-    )
-    self.rm(self.destdir / "usr/share/perl5/vendor_perl/Git/SVN.pm")
 
     self.install_file(
         "contrib/completion/git-completion.bash",
@@ -174,4 +167,23 @@ def _scalar(self):
     return [
         "usr/bin/scalar",
         "usr/libexec/git-core/scalar",
+    ]
+
+
+@subpackage("git-svn")
+def _svn(self):
+    self.pkgdesc = f"{pkgdesc} (Subversion support)"
+    self.depends += [
+        f"{pkgname}={pkgver}-r{pkgrel}",
+        # hack to work around cross-category dependency
+        # won't be installable without contrib enabled (that's fine)
+        "virtual:subversion-perl!base-files",
+        "perl-termreadkey",
+    ]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "subversion"]
+
+    return [
+        "usr/share/perl5/vendor_perl/Git/SVN*",
+        "usr/libexec/git-core/git-svn",
+        "usr/share/man/man1/git-svn.1",
     ]
