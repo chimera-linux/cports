@@ -1,6 +1,6 @@
 pkgname = "swayidle"
 pkgver = "1.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
+    "elogind-devel",
     "wayland-devel",
     "wayland-protocols",
 ]
