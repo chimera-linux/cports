@@ -1283,31 +1283,11 @@ using the combination of `self.make_wrapper` with `self.make_build_wrapper`,
 Note these are passed by the build style only, and manual `meson` invocations
 do not receive them.
 
-#### python_module
-
-A build style for Python modules (using `setup.py`).
-
-Default values:
-
-* `make_check_target` =
-
-Sets `do_build`, `do_check`, `do_install`.
-
-The `do_build` executes `setup.py` with `python`, with the `build` target
-plus any `self.make_build_args`.
-
-The `do_install` executes `setup.py` with `python`, with the `install` target
-and arguments `--prefix=/usr`, `--root={self.chroot_destdir}` plus any
-`self.make_install_args`.
-
-The `do_check` will use `pytest` if installed, or `setup.py` with `test`
-target by default, unless `make_check_target` is non-empty. For `pytest`,
-no target is passed by default, unless set to a value.
-
 #### python_pep517
 
-A build style for Python modules (PEP517). Requires to have `python-pip` in
-`hostmakedepends`.
+A build style for Python modules (PEP517). Requires to have `python-build`
+and `python-installer` in `hostmakedepends`, along with the build backend
+of your choice.
 
 Default values:
 
