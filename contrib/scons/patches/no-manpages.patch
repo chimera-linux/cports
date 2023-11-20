@@ -1,0 +1,12 @@
+This is not shipped in the repository.
+
+diff --git a/setup.cfg b/setup.cfg
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -67,6 +67,0 @@
+-
+-[options.data_files]
+-. = scons.1
+-    scons-time.1
+-    sconsign.1
+-
