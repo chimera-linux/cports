@@ -1,0 +1,13 @@
+checks symbols via readelf -s on a .a which doesn't return anything for lto IR objects
+--
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -124,8 +124,6 @@
+ test('test-avl', exe)
+ 
+ exe = find_program('test-symbols.sh')
+-test('test-symbols', exe,
+-     args : [libvarlink_sym, join_paths(meson.build_root(), 'lib/libvarlink.a')])
+ 
+ exe = executable(
+         'test-json',
