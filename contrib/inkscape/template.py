@@ -1,6 +1,6 @@
 pkgname = "inkscape"
-pkgver = "1.3"
-pkgrel = 2
+pkgver = "1.3.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DBUILD_TESTING=OFF"]
 hostmakedepends = [
@@ -50,7 +50,7 @@ url = "https://inkscape.org"
 source = (
     f"https://media.inkscape.org/dl/resources/file/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "bf4f286b025e0169b8948cc14d5199a9b4c204d761c894c4b48496571ec76307"
+sha256 = "421e0035fe5b3b054a0865dc8235be3f9e6e2dea54190d926b880a4ce05b00d8"
 # TODO
 hardening = ["!int"]
 # long, heavy, etc
