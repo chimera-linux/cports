@@ -10,7 +10,7 @@ url = "https://www.zlib.net"
 source = f"{url}/fossils/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ff0ba4c292013dbc27530b3a81e1f9a813cd39de01ca5e0f8bf355702efa593e"
 tool_flags = {"CFLAGS": ["-fPIC"]}
-options = ["bootstrap"]
+options = ["bootstrap", "linkundefver"]
 
 
 def do_configure(self):
