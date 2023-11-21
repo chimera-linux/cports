@@ -16,3 +16,13 @@ source = f"https://github.com/davmac314/{pkgname}/releases/download/v{pkgver}/{p
 sha256 = "0617956ed2e8cddae5e21f6034546a2f7338364111b99dcc6cd5f3c37080301c"
 tool_flags = {"CXXFLAGS": ["-fno-rtti"]}
 hardening = ["vis", "cfi"]
+
+
+def init_configure(self):
+    self.configure_env["CXX_FOR_BUILD"] = "clang++"
+    self.configure_env["CXXFLAGS_FOR_BUILD"] = self.get_cxxflags(
+        shell=True, target="host"
+    )
+    self.configure_env["LDFLAGS_FOR_BUILD"] = self.get_ldflags(
+        shell=True, target="host"
+    )
