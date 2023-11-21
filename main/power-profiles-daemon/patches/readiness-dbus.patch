@@ -1,0 +1,54 @@
+commit ba8d4dc04fcb2bad5785451fa11b2afa8383dc8c
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Nov 21 15:41:02 2023 +0100
+
+    readiness notification and dbus activation support
+
+diff --git a/data/net.hadess.PowerProfiles.service b/data/net.hadess.PowerProfiles.service
+index 724f631..330f9e4 100644
+--- a/data/net.hadess.PowerProfiles.service
++++ b/data/net.hadess.PowerProfiles.service
+@@ -6,6 +6,6 @@
+ 
+ [D-BUS Service]
+ Name=net.hadess.PowerProfiles
+-Exec=/bin/false
++Exec=/usr/bin/dinitctl --quiet start power-profiles-daemon
+ User=root
+ SystemdService=power-profiles-daemon.service
+diff --git a/src/power-profiles-daemon.c b/src/power-profiles-daemon.c
+index 2a3c26b..1353105 100644
+--- a/src/power-profiles-daemon.c
++++ b/src/power-profiles-daemon.c
+@@ -10,6 +10,7 @@
+ 
+ #include "config.h"
+ 
++#include <fcntl.h>
+ #include <locale.h>
+ #include <polkit/polkit.h>
+ 
+@@ -1003,6 +1004,7 @@ int main (int argc, char **argv)
+     { "replace", 'r', 0, G_OPTION_ARG_NONE, &replace, "Replace the running instance of power-profiles-daemon", NULL },
+     { NULL}
+   };
++  const char *rvar;
+ 
+   setlocale (LC_ALL, "");
+   option_context = g_option_context_new ("");
+@@ -1033,6 +1035,15 @@ int main (int argc, char **argv)
+   /* Set up D-Bus */
+   setup_dbus (data, replace);
+ 
++  rvar = g_getenv("PPD_READY_FD");
++  if (rvar) {
++      int fdn = atoi(rvar);
++      if (fdn && fcntl(fdn, F_GETFD) >= 0) {
++          write(fdn, "READY=1\n", sizeof("READY=1"));
++      }
++      close(fdn);
++  }
++
+   g_main_loop_run (data->main_loop);
+   ret = data->ret;
+   free_app_data (data);

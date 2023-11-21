@@ -1,0 +1,11 @@
+# power-profiles-daemon service
+
+type               = process
+command            = /usr/libexec/power-profiles-daemon
+before             = login.target
+depends-on         = local.target
+depends-on         = dbus
+waits-for          = polkitd
+restart            = true
+working-dir        = /var/lib/power-profiles-daemon
+ready-notification = pipevar:PPD_READY_FD

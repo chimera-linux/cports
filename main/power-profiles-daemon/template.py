@@ -1,6 +1,6 @@
 pkgname = "power-profiles-daemon"
 pkgver = "0.13"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dsystemdsystemunitdir=/tmp"]
 hostmakedepends = [
@@ -13,6 +13,8 @@ makedepends = [
     "polkit-devel",
     "upower-devel",
 ]
+depends = ["!tlp"]
+install_if = [f"power-profiles-daemon-meta={pkgver}-r{pkgrel}"]
 pkgdesc = "D-Bus daemon for power management control"
 maintainer = "Val Packett <val@packett.cool>"
 license = "GPL-3.0-or-later"
@@ -27,3 +29,10 @@ def post_install(self):
     self.install_license("COPYING")
     self.install_dir("var/lib/power-profiles-daemon", empty=True)
     self.install_service(self.files_path / "power-profiles-daemon")
+
+
+@subpackage("power-profiles-daemon-meta")
+def _meta(self):
+    self.pkgdesc = f"{pkgdesc} (recommends package)"
+    self.build_style = "meta"
+    return []
