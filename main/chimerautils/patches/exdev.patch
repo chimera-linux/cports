@@ -1,0 +1,54 @@
+commit d5afe56f1fcff424697c779f68df14ff6682cbc5
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Nov 21 20:09:05 2023 +0100
+
+    xinstall, cat: add EXDEV/ENOSYS fallbacks for copy_file_range
+
+diff --git a/src.freebsd/coreutils/cat/cat.c b/src.freebsd/coreutils/cat/cat.c
+index ae71b2b..7253c95 100644
+--- a/src.freebsd/coreutils/cat/cat.c
++++ b/src.freebsd/coreutils/cat/cat.c
+@@ -288,10 +288,18 @@ scanfiles(char *argv[], int cooked __unused)
+ 		} else {
+ #ifndef BOOTSTRAP_CAT
+ 			if (in_kernel_copy(fd) == -1) {
+-				if (errno == EINVAL || errno == EBADF || errno == ESPIPE)
++				switch (errno) {
++				case EINVAL:
++				case EBADF:
++				case EXDEV:
++				case ESPIPE:
++				case ENOSYS:
+ 					raw_cat(fd);
+-				else
++					break;
++				default:
+ 					err(1, "stdout");
++					break;
++				}
+ 			}
+ #else
+ 			raw_cat(fd);
+diff --git a/src.freebsd/coreutils/xinstall/xinstall.c b/src.freebsd/coreutils/xinstall/xinstall.c
+index 79074f3..1648927 100644
+--- a/src.freebsd/coreutils/xinstall/xinstall.c
++++ b/src.freebsd/coreutils/xinstall/xinstall.c
+@@ -1329,11 +1329,17 @@ copy(int from_fd, const char *from_name, int to_fd, const char *to_name,
+ 			/* DIGEST_NONE always returns NULL */
+ 			return (NULL);
+ 		}
+-		if (errno != EINVAL) {
++		switch (errno) {
++		case EINVAL:
++		case ENOSYS:
++		case EXDEV:
++			break;
++		default:
+ 			serrno = errno;
+ 			(void)unlink(to_name);
+ 			errno = serrno;
+ 			err(EX_OSERR, "%s", to_name);
++			break;
+ 		}
+ 		/* Fall back */
+ 	}
