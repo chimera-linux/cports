@@ -14,7 +14,6 @@ makedepends = [
     "xz-devel",
     "zlib-devel",
     "bzip2-devel",
-    "zstd-devel",
     "linux-headers",
     "libxo-devel",
     "musl-bsd-headers",
@@ -31,8 +30,10 @@ hardening = ["vis", "cfi"]
 options = ["bootstrap", "!check"]
 
 if self.stage > 0:
-    makedepends += ["linux-headers"]
+    makedepends += ["linux-headers", "zstd-devel"]
     configure_args += ["-Dtiny=enabled"]
+else:
+    configure_args += ["-Dzstd=disabled"]
 
 
 def init_configure(self):
