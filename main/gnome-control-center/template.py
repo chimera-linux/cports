@@ -1,6 +1,6 @@
 pkgname = "gnome-control-center"
 pkgver = "45.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -53,6 +53,7 @@ depends = [
     "udisks",
     "cups-pk-helper",
     "gsettings-desktop-schemas",
+    "power-profiles-daemon-meta",
     "sound-theme-freedesktop",
 ]
 pkgdesc = "GNOME control center"
