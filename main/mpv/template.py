@@ -1,6 +1,6 @@
 pkgname = "mpv"
-pkgver = "0.36.0"
-pkgrel = 4
+pkgver = "0.37.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -18,7 +18,6 @@ configure_args = [
     "-Dlcms2=enabled",
     "-Dlibarchive=enabled",
     "-Dlibbluray=enabled",
-    "-Dlibplacebo=enabled",
     "-Dmanpage-build=enabled",
     "-Dpipewire=enabled",
     "-Drubberband=enabled",
@@ -84,7 +83,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "29abc44f8ebee013bb2f9fe14d80b30db19b534c679056e4851ceadf5a5e8bf6"
+sha256 = "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # development-only
