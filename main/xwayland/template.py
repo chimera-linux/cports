@@ -1,6 +1,6 @@
 pkgname = "xwayland"
 pkgver = "23.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dipv6=true",
