@@ -1,15 +1,16 @@
 pkgname = "python-pyasn1"
-pkgver = "0.5.0"
+pkgver = "0.5.1"
 pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+build_style = "python_pep517"
+hostmakedepends = ["python-build", "python-installer", "python-wheel"]
 depends = ["python"]
+checkdepends = ["python-pytest"]
 pkgdesc = "Python ASN.1 library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://pyasn1.readthedocs.io/en/latest/contents.html"
 source = f"$(PYPI_SITE)/p/pyasn1/pyasn1-{pkgver}.tar.gz"
-sha256 = "97b7290ca68e62a832558ec3976f15cbf911bf5d7c7039d8b861c2a0ece69fde"
+sha256 = "6d391a96e59b23130a5cfa74d6fd7f388dbbe26cc8f1edf39fdddf08d9d6676c"
 
 
 def post_install(self):
