@@ -1,0 +1,10 @@
+--- a/data/dinit/turnstiled
++++ b/data/dinit/turnstiled
+@@ -2,6 +2,6 @@
+ 
+ type       = process
+ before     = login.target
+-depends-on = init-local.target
++depends-on = local.target
+ command    = /usr/bin/turnstiled
+ logfile    = /var/log/turnstiled.log
