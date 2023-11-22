@@ -198,7 +198,7 @@ def pre_configure(self):
                 self,
                 "build_host",
                 self.cmake_dir,
-                self.configure_args
+                configure_args
                 + [
                     "-DLLVM_HOST_TRIPLE=" + trip,
                     "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
