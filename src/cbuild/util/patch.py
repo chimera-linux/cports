@@ -85,7 +85,7 @@ def patch(pkg, patch_path, wrksrc=None, patch_args=[]):
             unshare_all=True,
         )
         patchfn = patch_path.stem
-    elif patchsfx == ".diff" or patchsfx == ".patch":
+    elif patchsfx == ".patch":
         pass
     else:
         pkg.error(f"unknown patch type: {patchsfx}")
