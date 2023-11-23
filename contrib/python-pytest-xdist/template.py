@@ -1,5 +1,5 @@
 pkgname = "python-pytest-xdist"
-pkgver = "3.4.0"
+pkgver = "3.5.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-xdist"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "803a7dbd7e3ba60cd1f949360155c14d231b8713432ecbe90af6450cb86a9239"
+sha256 = "a67e623c6f87d75ed94407bbf7b084eca7b219db0bc3cc4d2ac2263d56817bef"
 # unpackaged filelock
 options = ["!check"]
 
