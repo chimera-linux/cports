@@ -1,5 +1,5 @@
 pkgname = "c-ares"
-pkgver = "1.21.0"
+pkgver = "1.22.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://c-ares.haxx.se"
 source = f"https://c-ares.haxx.se/download/{pkgname}-{pkgver}.tar.gz"
-sha256 = "cd7aa3af1d3ee780d6437039a7ddb7f1ec029f9c4f7aabb0197e384eb5bc2f2d"
+sha256 = "f67c180deb799c670d9dda995a18ce06f6c7320b6c6363ff8fa85b77d0da9db8"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # does not like the sandbox
