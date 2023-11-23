@@ -1,6 +1,6 @@
 pkgname = "libvterm"
-pkgver = "0.3.2"
-pkgrel = 1
+pkgver = "0.3.3"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "test"
@@ -10,7 +10,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "http://www.leonerd.org.uk/code/libvterm"
 source = f"http://www.leonerd.org.uk/code/libvterm/libvterm-{pkgver}.tar.gz"
-sha256 = "91eb5088069f4e6edab69e14c4212f6da0192e65695956dc048016a0dab8bcf6"
+sha256 = "09156f43dd2128bd347cbeebe50d9a571d32c64e0cf18d211197946aff7226e0"
 # crossbuild fails because of libtool
 options = ["!cross"]
 
