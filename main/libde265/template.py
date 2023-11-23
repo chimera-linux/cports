@@ -1,5 +1,5 @@
 pkgname = "libde265"
-pkgver = "1.0.12"
+pkgver = "1.0.14"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-option-checking"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "http://www.libde265.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "c7e5443c9387ef2ee7bd3a25b4cfeb1a66d038584cf0ab21a4a28db64f224584"
+sha256 = "d368b771823e66715da65ee3213ef9c78c535b65ea6e18f91f347063a2ca0f00"
 hardening = ["!cfi"]  # TODO
 
 
@@ -21,7 +21,6 @@ def post_install(self):
         "bjoentegaard",
         "block-rate-estim",
         "gen-enc-table",
-        "hdrcopy",
         "rd-curves",
         "tests",
         "yuv-distortion",
