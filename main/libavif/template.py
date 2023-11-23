@@ -1,5 +1,5 @@
 pkgname = "libavif"
-pkgver = "1.0.1"
+pkgver = "1.0.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/AOMediaCodec/libavif"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "398fe7039ce35db80fe7da8d116035924f2c02ea4a4aa9f4903df6699287599c"
+sha256 = "de8bf79488c5b523b77358df8b85ae69c3078e6b3f1636fc1f313f952269ad20"
 hardening = ["!cfi"]  # TODO when we have tests
 # doesn't pass with current dependencies, needs gtest
 options = ["!check"]
