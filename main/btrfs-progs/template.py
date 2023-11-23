@@ -1,5 +1,5 @@
 pkgname = "btrfs-progs"
-pkgver = "6.6.1"
+pkgver = "6.6.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--disable-python"]
@@ -35,7 +35,7 @@ url = "https://btrfs.wiki.kernel.org/index.php/Main_Page"
 source = (
     f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
 )
-sha256 = "3e92cb6d83bdde612318fd8046dd6eff47c786e59d56dd4ece987945d5137c9e"
+sha256 = "b426736dc94e2b04b6983e998c4dc427dc166d66ddea246c890ed9c2a450044f"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
