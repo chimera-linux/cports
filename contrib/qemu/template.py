@@ -1,5 +1,5 @@
 pkgname = "qemu"
-pkgver = "8.1.2"
+pkgver = "8.1.3"
 pkgrel = 0
 build_style = "gnu_configure"
 # TODO vde
@@ -101,7 +101,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "541526a764576eb494d2ff5ec46aeb253e62ea29035d1c23c0a8af4e6cd4f087"
+sha256 = "43cc176804105586f74f90398f34e9f85787dff400d3b640d81f7779fbe265bb"
 suid_files = ["usr/libexec/qemu-bridge-helper"]
 file_modes = {
     "etc/qemu/bridge.conf": ("root", "_qemu", 0o640),
