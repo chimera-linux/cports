@@ -1,5 +1,5 @@
 pkgname = "gnutls"
-pkgver = "3.8.1"
+pkgver = "3.8.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
 source = f"https://www.gnupg.org/ftp/gcrypt/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ba8b9e15ae20aba88f44661978f5b5863494316fe7e722ede9d069fe6294829c"
+sha256 = "e765e5016ffa9b9dd243e363a0460d577074444ee2491267db2e96c9c2adef77"
 
 
 @subpackage("gnutls-devel")
