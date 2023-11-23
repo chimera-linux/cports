@@ -1,5 +1,5 @@
 pkgname = "mold"
-pkgver = "2.3.2"
+pkgver = "2.3.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/rui314/mold"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "db172c0e97606565a81e37995bf5c911606d3f3b9f3829e92cd26985c9b0ed3b"
+sha256 = "dcba90d5ee852ececb3a1a70110bb2d385079dcd1aa103e970296683c642f856"
 # TODO: a portion of the tests fail, for various reasons, such as assuming
 # presence of gcc, gnu grep, and various toolchain specifics; around 70%
 # of the tests pass right now, fix the rest later
