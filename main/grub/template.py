@@ -1,6 +1,6 @@
 pkgname = "grub"
 pkgver = "2.06"
-pkgrel = 2
+pkgrel = 3
 configure_args = [
     "--sysconfdir=/etc",
     "--prefix=/usr",
@@ -215,6 +215,8 @@ def _genplatform(arch, platform, desc):
 
         if platform == "efi":
             self.depends += ["efibootmgr", "dosfstools"]
+        elif platform == "iee1275":
+            self.depends += ["powerpc-utils"]
 
         return [f"usr/lib/grub/{arch}-{platform}"]
 
