@@ -1,6 +1,6 @@
 pkgname = "powerpc-utils"
 pkgver = "1.3.11"
-pkgrel = 0
+pkgrel = 1
 archs = ["ppc*"]
 build_style = "gnu_configure"
 configure_args = [
@@ -16,6 +16,7 @@ makedepends = [
     "libnuma-devel",
     "linux-headers",
 ]
+depends = ["bash"]
 pkgdesc = "Suite of utilities for Linux on Power systems"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
