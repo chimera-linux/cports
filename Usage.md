@@ -253,8 +253,7 @@ Bootstrapping has more requirements than simply using the system.
 The base requirements of `cbuild` still apply. You also need to be running a
 system based on the `musl` C library. This can be for example Void Linux or
 Chimera itself. Alpine Linux is not supported for direct bootstrapping because
-of its patched musl SONAME (which would be more effort to work around) and
-lack of `libc++` in repositories.
+of its patched musl SONAME (which would be more effort to work around).
 
 The system must contain an initial toolchain. It consists of these:
 
