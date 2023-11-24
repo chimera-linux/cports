@@ -1,0 +1,12 @@
+pkgname = "webp-pixbuf-loader"
+pkgver = "0.2.5"
+pkgrel = 0
+build_style = "meson"
+hostmakedepends = ["meson", "pkgconf"]
+makedepends = ["gdk-pixbuf-devel", "libwebp-devel"]
+pkgdesc = "WebP image format GdkPixbuf loader"
+maintainer = "GeopJr <evan@geopjr.dev>"
+license = "LGPL-2.0-or-later"
+url = "https://github.com/aruiz/webp-pixbuf-loader"
+source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "e1b76c538a1d3b3fc41323d044c7c84365ab9bd5ab3dcc8de7efb0c7dc2f206b"
