@@ -215,7 +215,7 @@ def _genplatform(arch, platform, desc):
 
         if platform == "efi":
             self.depends += ["efibootmgr", "dosfstools"]
-        elif platform == "iee1275":
+        elif platform == "ieee1275":
             self.depends += ["powerpc-utils"]
 
         return [f"usr/lib/grub/{arch}-{platform}"]
