@@ -1,6 +1,6 @@
 pkgname = "rsync"
 pkgver = "3.2.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--with-rrsync", "--with-included-zlib=no"]
 hostmakedepends = ["perl", "python-commonmark"]
@@ -19,7 +19,8 @@ license = "GPL-3.0-only"
 url = "https://rsync.samba.org"
 source = f"https://www.samba.org/ftp/rsync/src/rsync-{pkgver}.tar.gz"
 sha256 = "4e7d9d3f6ed10878c58c5fb724a67dacf4b6aac7340b13e488fb2dc41346f2bb"
-hardening = ["vis", "cfi"]
+# FIXME int: crashes in match_sums (match.c) after a while in partial mode
+hardening = ["vis", "cfi", "!int"]
 
 tool_flags = {
     # ipv6 on musl: https://bugzilla.samba.org/show_bug.cgi?id=10715
