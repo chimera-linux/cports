@@ -59,16 +59,13 @@ fi
 PARTNUM="$PARTN"
 
 # identify the disk itself
-DEVNAME=
-. /sys/dev/block/$MAJOR:$((MINOR - PARTNUM))/uevent
+DISKBLOCK="/dev/${DEVNAME%$PARTNUM}"
+DISKBLOCK="${DISKBLOCK%p}"
 
-if [ -z "$DEVNAME" -o ! -b "/dev/$DEVNAME" ]; then
+if [ ! -b "$DISKBLOCK" ]; then
     echo "ERROR: could not locate disk for $PARTBLOCK" 1>&2
     exit 1
 fi
-
-# located
-DISKBLOCK="/dev/$DEVNAME"
 
 # this is mostly it with sanity checks
 

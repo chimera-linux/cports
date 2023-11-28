@@ -2,7 +2,17 @@
 # Commented out lines are just defaults.
 #
 
-# Set to enable
+# !!! USE AT YOUR OWN RISK !!
+#
+# The efibootmgr hook is not officially supported by
+# the distribution, and exists for users who know what
+# they are doing and can identify potential issues and
+# fix them; moreover, the assumption is that the user
+# has EFI firmware that can handle this (which is not
+# always the case due to limitations).
+#
+# Everyone else should use a real bootloader. If you
+# still wish to proceed, set this to any value.
 #EFIBOOTMGR_ENABLE_HOOK=
 
 # The additional cmdline to use always.

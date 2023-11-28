@@ -1,6 +1,6 @@
 pkgname = "efibootmgr"
 pkgver = "18"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
