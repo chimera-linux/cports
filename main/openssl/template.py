@@ -1,6 +1,7 @@
 pkgname = "openssl"
 pkgver = "3.2.0"
-pkgrel = 0
+_actualver = "3.1.4"
+pkgrel = 1
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
@@ -20,8 +21,8 @@ pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.openssl.org"
-source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
-sha256 = "14c826f07c7e433706fb5c69fa9e25dab95684844b4c962a2cf1bf183eb4690e"
+source = f"https://www.openssl.org/source/openssl-{_actualver}.tar.gz"
+sha256 = "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3"
 options = ["bootstrap"]
 
 if self.stage > 0:
