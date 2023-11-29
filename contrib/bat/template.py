@@ -18,18 +18,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "907554a9eff239f256ee8fe05a922aad84febe4fe10a499def72a4557e9eedfb"
 
 
-def do_prepare(self):
-    # Since we update libgit2 via patch, we do not want to vendor yet
-    pass
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
-
-
 def post_install(self):
     self.install_man(next(self.find("target/", "bat.1")))
     self.install_license("LICENSE-MIT")
