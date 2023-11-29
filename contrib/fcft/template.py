@@ -1,6 +1,6 @@
 pkgname = "fcft"
-pkgver = "3.1.5"
-pkgrel = 1
+pkgver = "3.1.6"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = [
@@ -16,7 +16,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/fcft"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "8a7e09c887edce97f8780dba8a060026c3551da48252819400d7af1c5eacf871"
+sha256 = "904f40d749d198d97c46c5a459cd3c53fe92f008cf1e3e61949f6cf3036a78b7"
 hardening = ["vis", "cfi"]
 
 
