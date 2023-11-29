@@ -1,6 +1,6 @@
 pkgname = "ripgrep"
-pkgver = "14.0.2"
-pkgrel = 2
+pkgver = "14.0.3"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo"]
 makedepends = ["rust-std"]
@@ -16,8 +16,8 @@ source = [
 ]
 source_paths = [".", "docs-prebuilt"]
 sha256 = [
-    "2b9bd8a582d1fea70eb932e389e0895922b9a0147f65f9ad4b601b3f3a82a195",
-    "fe514e7761a393c0844604343a5938061d06dc7fbae9d3c5d669fcbf5a6821bc",
+    "f5794364ddfda1e0411ab6cad6dd63abe3a6b421d658d9fee017540ea4c31a0e",
+    "62cd0efc4d6f1817b9c852859987b4720cd52e0de008418266e8503028dc0c7a",
 ]
 
 
