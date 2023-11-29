@@ -1,5 +1,5 @@
 pkgname = "tailscale"
-pkgver = "1.50.1"
+pkgver = "1.54.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -12,7 +12,7 @@ maintainer = "Val Packett <val@packett.cool>"
 license = "BSD-3-Clause"
 url = "https://github.com/tailscale/tailscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "183a7d559590a759dd77aa9c2b65486ab6e13c26f3c07fad0b536e318ad5e233"
+sha256 = "c895a0f489706535ed400b0599d7d932d9eebc5f1bad2c236408a1e4b86620e7"
 options = ["!debug"]
 
 
