@@ -1,7 +1,7 @@
 # pipewire user service
 
-type          = process
-command       = /usr/bin/pipewire
-depends-on    = dbus
-restart       = true
-socket-listen = $XDG_RUNTIME_DIR/pipewire-0
+type               = process
+command            = /usr/bin/pipewire
+depends-on         = dbus
+restart            = true
+ready-notification = pipevar:PIPEWIRE_READY_FD

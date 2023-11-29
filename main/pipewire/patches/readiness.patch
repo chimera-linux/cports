@@ -1,0 +1,50 @@
+commit f91b13f17b9cd80f9f30dd8c05a1986ffcd466d4
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Nov 29 14:53:26 2023 +0100
+
+    add dinit readiness notification support
+
+diff --git a/src/pipewire/context.c b/src/pipewire/context.c
+index 1046fc9..2910970 100644
+--- a/src/pipewire/context.c
++++ b/src/pipewire/context.c
+@@ -6,6 +6,7 @@
+ #include <unistd.h>
+ #include <time.h>
+ #include <stdio.h>
++#include <fcntl.h>
+ #include <regex.h>
+ #include <limits.h>
+ #include <sys/mman.h>
+@@ -86,6 +87,22 @@ static void fill_properties(struct pw_context *context)
+ 	pw_properties_set(properties, PW_KEY_CORE_NAME, context->core->info.name);
+ }
+ 
++static void ready_notification(void) {
++	const char *ready_env;
++	int ready_fd;
++
++	ready_env = getenv("PIPEWIRE_READY_FD");
++	if (!ready_env) {
++		return;
++	}
++	ready_fd = atoi(ready_env);
++	if (!ready_fd || fcntl(ready_fd, F_GETFD) < 0) {
++		return;
++	}
++	write(ready_fd, "READY=1\n", sizeof("READY=1"));
++	close(ready_fd);
++}
++
+ static int context_set_freewheel(struct pw_context *context, bool freewheel)
+ {
+ 	struct impl *impl = SPA_CONTAINER_OF(context, struct impl, this);
+@@ -342,6 +359,8 @@ struct pw_context *pw_context_new(struct pw_loop *main_loop,
+ 	pw_impl_core_register(this->core, NULL);
+ 
+ 	fill_properties(this);
++	/* at this point wireplumber etc can launch */
++	ready_notification();
+ 
+ 	if ((res = pw_context_parse_conf_section(this, conf, "context.spa-libs")) < 0)
+ 		goto error_free;
