@@ -1,6 +1,6 @@
 pkgname = "ostree"
 pkgver = "2023.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-builtin-grub2-mkconfig",
@@ -33,6 +33,7 @@ makedepends = [
     "linux-headers",
     "openssl-devel",
     "xz-devel",
+    "libarchive-devel",
 ]
 checkdepends = ["attr-progs", "bsdtar", "gnupg", "xz"]
 pkgdesc = "Operating system and container binary deployment and upgrades"
