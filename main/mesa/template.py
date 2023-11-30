@@ -142,7 +142,6 @@ if _have_arm:
         "etnaviv",
         "lima",
         "panfrost",
-        "asahi",
     ]
     if _have_vulkan:
         _vulkan_drivers += ["broadcom", "freedreno", "panfrost"]
