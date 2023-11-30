@@ -121,7 +121,7 @@ def do_configure(self):
 
     match self.profile().arch:
         case "x86_64" | "aarch64":
-            extra_opts += ["--disable-elf-hack", "--enable-rust-simd"]
+            extra_opts += ["--enable-rust-simd"]
 
     if self.has_lto():
         extra_opts += ["--enable-lto=cross"]
