@@ -245,7 +245,7 @@ def _get_rustflags(
 
 def _get_goflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
     hard = _get_harden(self, hardening, opts, stage)
-    bflags = ["-mod=readonly", "-modcacherw"]
+    bflags = ["-modcacherw"]
 
     if hard["pie"]:
         bflags.append("-buildmode=pie")
