@@ -1,6 +1,6 @@
 pkgname = "chimerautils"
-pkgver = "14.0.1"
-pkgrel = 2
+pkgver = "14.0.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = []
 hostmakedepends = ["flex", "byacc", "meson", "pkgconf"]
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8273a46bc1b5b1345dc7794fb713dc84c16114f6eb983792fdfc2d08d57e484e"
+sha256 = "c9be7357b9236c9a75f0d0e2ef78245a0fced71df6b4c2d6c1dde0f713611d8a"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
@@ -58,11 +58,6 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man1/zless.1")
     # base shell
     self.install_shell("/usr/bin/sh")
-    # remove bc/dc
-    self.rm(self.destdir / "usr/bin/bc")
-    self.rm(self.destdir / "usr/bin/dc")
-    self.rm(self.destdir / "usr/share/man/man1/bc.1")
-    self.rm(self.destdir / "usr/share/man/man1/dc.1")
     # tiny tools
     tdest = "usr/libexec/chimerautils-tiny"
     self.install_dir(tdest)
@@ -114,6 +109,5 @@ def _full(self):
         "usr/share/man/man1/view.1",
         "usr/share/man/man8/locate.updatedb.8",
         "usr/share/man/man8/updatedb.8",
-        "usr/share/misc/bc.library",
         "usr/share/vi",
     ]
