@@ -1,6 +1,6 @@
 pkgname = "mesa"
-pkgver = "23.2.1"
-pkgrel = 2
+pkgver = "23.3.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
@@ -66,7 +66,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
 source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "64de0616fc2d801f929ab1ac2a4f16b3e2783c4309a724c8a259b20df8bbc1cc"
+sha256 = "50f729dd60ed6335b989095baad81ef5edf7cfdd4b4b48b9b955917cb07d69c5"
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -142,12 +142,14 @@ if _have_arm:
         "etnaviv",
         "lima",
         "panfrost",
+        "asahi",
     ]
     if _have_vulkan:
         _vulkan_drivers += ["broadcom", "freedreno", "panfrost"]
 
 if _have_virgl:
     _gallium_drivers += ["virgl"]
+    _vulkan_drivers += ["virtio"]
 
 if _have_nine:
     configure_args += ["-Dgallium-nine=true"]
