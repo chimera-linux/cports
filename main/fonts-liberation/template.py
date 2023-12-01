@@ -1,6 +1,6 @@
 pkgname = "fonts-liberation"
 pkgver = "2.1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "fontforge-cli", "python-fonttools"]
@@ -31,7 +31,7 @@ def do_install(self):
         glob=True,
     )
     for f in self.files_path.glob("*.conf"):
-        self.install_file(f, "etc/fonts/conf.avail")
+        self.install_file(f, "usr/share/fontconfig/conf.avail")
 
 
 @subpackage("fonts-liberation-otf")
