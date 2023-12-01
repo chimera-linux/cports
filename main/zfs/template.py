@@ -1,8 +1,8 @@
 # don't forget to update files/ckms.ini when bumping
 # also update linux-*-zfs-bin
 pkgname = "zfs"
-pkgver = "2.2.1"
-pkgrel = 1
+pkgver = "2.2.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-config=user",
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
 source = f"https://github.com/openzfs/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "4ff2de43d39710283ae8ff1744aa96e6cdc83c8efe86a715294d4f6bc34a8e8e"
+sha256 = "76bc0547d9ba31d4b0142e417aaaf9f969072c3cb3c1a5b10c8738f39ed12fc9"
 hardening = ["!cfi"]  # TODO
 
 
