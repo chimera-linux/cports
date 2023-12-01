@@ -1,10 +1,10 @@
 pkgname = "libspectrum"
 pkgver = "1.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "perl", "automake", "libtool"]
-makedepends = ["glib-devel", "libgcrypt-devel"]
+makedepends = ["audiofile-devel", "glib-devel", "libgcrypt-devel"]
 pkgdesc = "ZX Spectrum emulator support library"
 maintainer = "logout <logout128@gmail.com>"
 license = "GPL-2.0-or-later"
