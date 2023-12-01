@@ -1,6 +1,6 @@
 pkgname = "fonts-dejavu"
 pkgver = "2.37"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "full-otf"
@@ -31,7 +31,7 @@ def do_install(self):
     for f in (self.cwd / "fontconfig").glob("*.conf"):
         if "lgc" in f.name:
             continue
-        self.install_file(f, "etc/fonts/conf.avail")
+        self.install_file(f, "usr/share/fontconfig/conf.avail")
 
 
 def post_install(self):
