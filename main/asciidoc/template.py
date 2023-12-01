@@ -1,9 +1,9 @@
 pkgname = "asciidoc"
 pkgver = "10.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_module"
 hostmakedepends = ["python-setuptools", "docbook-xsl-nons", "xsltproc"]
-depends = ["python", "docbook-xsl-nons", "xsltproc"]
+depends = ["python", "docbook-xsl-nons", "xsltproc", "libxml2-progs"]
 pkgdesc = "Text-based document generation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
