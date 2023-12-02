@@ -1,0 +1,28 @@
+commit 0a60de33fa24e8edc908a4869063750f0d751709
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Dec 2 11:26:21 2023 +0100
+
+    bla
+
+diff --git a/Makefile b/Makefile
+index 3efdc3c..a11cc9f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -28,12 +28,12 @@ all: clean
+ 	@mkdir -m 777 -p $(OBJ_DIR)/$(SRC_DIR)
+ 	@mkdir -m 777 temp_includes
+ 	@echo "copying in temp include paths..."
+-	@cp --no-preserve=mode -r /usr/include/boost temp_includes/boost
+-	@cp --no-preserve=mode -r /usr/include/lv2 temp_includes/lv2
++	@cp -a /usr/include/boost temp_includes/boost
++	@cp -a /usr/include/lv2 temp_includes/lv2
+ 	@echo "Building Faust plugins..."
+-	( CXX=$(FAUST_COMPILER) CXXFLAGS+=" -Itemp_includes " faust2lv2 src/faust/valve_deck_speakers.dsp)
+-	( CXX=$(FAUST_COMPILER) CXXFLAGS+=" -Itemp_includes " faust2lv2 src/faust/valve_binaural.dsp)
+-	( CXX=$(FAUST_COMPILER) CXXFLAGS+=" -Itemp_includes " faust2lv2 src/faust/valve_deck_microphone.dsp)
++	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_deck_speakers.dsp)
++	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_binaural.dsp)
++	( CXX=$(FAUST_COMPILER) CXXFLAGS="${CXXFLAGS} -Itemp_includes " faust2lv2 src/faust/valve_deck_microphone.dsp)
+ 	@echo "Generating Faust plugin documentation..."
+ 	faust2svg src/faust/valve_deck_speakers.dsp
+ 	faust2svg src/faust/valve_binaural.dsp
