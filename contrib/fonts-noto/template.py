@@ -1,0 +1,69 @@
+pkgname = "fonts-noto"
+pkgver = "23.12.1"
+pkgrel = 0
+pkgdesc = "Google Noto fonts"
+maintainer = "GeopJr <evan@geopjr.dev>"
+license = "OFL-1.1"
+url = "https://github.com/notofonts/notofonts.github.io"
+source = f"{url}/archive/refs/tags/noto-monthly-release-{pkgver}.zip"
+sha256 = "2b271b7f038dab2d63e0d2770ce510ddb0c68dae745772fc13a662e20d1753df"
+
+
+def do_install(self):
+    for f in self.files_path.glob("*.conf"):
+        self.install_file(f, "usr/share/fontconfig/conf.avail")
+
+    self.install_file(
+        "fonts/Noto*/hinted/ttf/*.ttf", "usr/share/fonts/noto", glob=True
+    )
+
+    self.install_file(
+        "fonts/Noto*/unhinted/otf/*.otf", "usr/share/fonts/noto", glob=True
+    )
+
+
+def post_install(self):
+    self.install_license("fonts/LICENSE")
+
+
+def _gensub(subn, subd, subc):
+    @subpackage(f"{pkgname}-{subn}")
+    def _sub(self):
+        self.pkgdesc = f"{pkgdesc} - {subd}"
+        self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", f"!{pkgname}-{subc}"]
+        if subn == "otf":
+            self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+        return [
+            f"usr/share/fonts/noto/Noto*-Bold.{subn}",
+            f"usr/share/fonts/noto/Noto*-Regular.{subn}",
+        ]
+
+    @subpackage(f"{pkgname}-extra-{subn}")
+    def _sub_extra(self):
+        self.pkgdesc = f"{pkgdesc} - {subd} (additional variants)"
+        self.depends = [
+            f"{pkgname}-extra={pkgver}-r{pkgrel}",
+            f"!{pkgname}-extra-{subc}",
+            f"!{pkgname}-{subc}",
+        ]
+        if subn == "otf":
+            self.install_if = [f"{pkgname}-extra={pkgver}-r{pkgrel}"]
+
+        return [f"usr/share/fonts/noto/*.{subn}"]
+
+
+for _subn, _subd, _subc in [
+    ("otf", "OpenType", "ttf"),
+    ("ttf", "TrueType", "otf"),
+]:
+    _gensub(_subn, _subd, _subc)
+
+
+@subpackage("fonts-noto-extra")
+def _extra(self):
+    self.pkgdesc = f"{pkgdesc} (additional variants)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.build_style = "meta"
+
+    return []
