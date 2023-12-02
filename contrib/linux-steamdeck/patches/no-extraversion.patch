@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 6
+ PATCHLEVEL = 1
+ SUBLEVEL = 52
+-EXTRAVERSION =-valve9
++EXTRAVERSION =
+ NAME = Curry Ramen
+ 
+ # *DOCUMENTATION*
