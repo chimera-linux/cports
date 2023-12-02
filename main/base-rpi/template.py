@@ -1,5 +1,5 @@
 pkgname = "base-rpi"
-pkgver = "0.2"
+pkgver = "0.3"
 pkgrel = 0
 archs = ["aarch64"]
 depends = ["rpi-boot", "firmware-linux-brcm-rpi"]

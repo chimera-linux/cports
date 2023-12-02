@@ -1,7 +1,16 @@
 [all]
 include kernel.txt
 
+[pi3]
+dtoverlay=vc4-kms-v3d
+
 [pi4]
+dtoverlay=vc4-kms-v3d
+max_framebuffers=2
+arm_boost=1
+
+[pi5]
+dtoverlay=vc4-kms-v3d
 max_framebuffers=2
 arm_boost=1
 
@@ -12,6 +21,9 @@ arm_boost=1
 dtparam=audio=on
 dtparam=i2c_arm=on
 dtparam=spi=on
+
+# Don't have the firmware create an initial video= setting
+disable_fw_kms_setup=1
 
 # Comment out the following line if the edges of the desktop appear outside
 # the edges of your display
