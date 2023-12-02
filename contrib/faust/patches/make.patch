@@ -1,0 +1,19 @@
+--- a/Makefile
++++ b/Makefile
+@@ -197,13 +197,13 @@ doclib : updatesubmodules
+ 	./libraries/generateDoc
+ 
+ man :
+-	make -C documentation/man man
++	$(MAKE) -C documentation/man man
+ 
+ install :
+-	make -C $(BUILDLOCATION) install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX)
++	$(MAKE) -C $(BUILDLOCATION) install DESTDIR=$(DESTDIR) PREFIX=$(PREFIX)
+ 
+ uninstall :
+-	make -C $(BUILDLOCATION) uninstall
++	$(MAKE) -C $(BUILDLOCATION) uninstall
+ 
+ 
+ # install benchmark tools
