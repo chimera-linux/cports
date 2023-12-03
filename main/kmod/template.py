@@ -1,14 +1,19 @@
 pkgname = "kmod"
 pkgver = "31"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-configure_args = ["--with-zlib", "--with-xz", "--disable-test-modules"]
+configure_args = [
+    "--with-zlib",
+    "--with-xz",
+    "--with-zstd",
+    "--disable-test-modules",
+]
 # also pulls in gtkdocize
 configure_gen = []
 make_cmd = "gmake"
 make_check_args = ["-j1"]
 hostmakedepends = ["gmake", "pkgconf"]
-makedepends = ["zlib-devel", "xz-devel"]
+makedepends = ["zlib-devel", "xz-devel", "zstd-devel"]
 checkdepends = ["bash"]
 pkgdesc = "Linux kenrel module handling"
 maintainer = "q66 <q66@chimera-linux.org>"
