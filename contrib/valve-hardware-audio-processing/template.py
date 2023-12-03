@@ -1,6 +1,7 @@
 pkgname = "valve-hardware-audio-processing"
 pkgver = "0.39"
 pkgrel = 0
+archs = ["x86_64"]
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["FAUST_COMPILER=clang++"]
