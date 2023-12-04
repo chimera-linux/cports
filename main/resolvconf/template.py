@@ -1,6 +1,6 @@
 pkgname = "resolvconf"
 pkgver = "1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 pkgdesc = "Metapackage for resolv.conf management"
 maintainer = "q66 <q66@chimera-linux.org>"
