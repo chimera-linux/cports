@@ -1,8 +1,9 @@
 pkgname = "udev"
 pkgver = "254"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
+    "-Dacl=true",
     "-Dadm-group=false",
     "-Danalyze=false",
     "-Dapparmor=false",
@@ -106,6 +107,7 @@ hostmakedepends = [
     "xsltproc",
 ]
 makedepends = [
+    "acl-devel",
     "libblkid-devel",
     "libmount-devel",
     "libcap-devel",
@@ -261,6 +263,7 @@ def _efi(self):
 def _tmpfiles(self):
     self.pkgdesc = "Manage temporary/volatile files/directories"
     self.depends = ["virtual:cmd:snooze!snooze"]
+    self.triggers = ["/usr/lib/tmpfiles.d"]
 
     return [
         "etc/dinit.d/tmpfiles-clean",
