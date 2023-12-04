@@ -21,7 +21,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libjcat"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "e754051419d9955cfa4dcf4503aa86105c45bcbb5e95222a938ba95cc8f0569b"
-options=  ["!cross"]
+options = ["!cross"]
 
 
 @subpackage("libjcat-devel")
