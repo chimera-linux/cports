@@ -79,7 +79,13 @@ def invoke(pkg):
             lintfail = True
 
     # stuff in /etc that should go in /usr/lib
-    for d in ["modprobe.d", "sysctl.d", "udev/rules.d", "udev/hwdb.d"]:
+    for d in [
+        "modprobe.d",
+        "sysctl.d",
+        "tmpfiles.d",
+        "udev/rules.d",
+        "udev/hwdb.d",
+    ]:
         if d == "modprobe.d" and pkg.pkgname == "kmod":
             continue
         if (pkg.destdir / "etc" / d).exists():
