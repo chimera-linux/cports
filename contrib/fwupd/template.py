@@ -71,7 +71,7 @@ else:
     configure_args += [
         "-Dplugin_redfish=disabled",
         "-Dplugin_uefi_capsule=disabled",
-        "-Dplugin_ufei_pk=disabled",
+        "-Dplugin_uefi_pk=disabled",
     ]
 
 if not _have_msr:
