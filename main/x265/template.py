@@ -1,6 +1,6 @@
 pkgname = "x265"
 pkgver = "3.5"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "source"
 _commit = "f0c1022b6be1"
 build_style = "cmake"
@@ -27,6 +27,8 @@ match self.profile().arch:
         hostmakedepends += ["nasm"]
     case "ppc64le":
         configure_args += ["-DENABLE_ALTIVEC=ON", "-DCPU_POWER8=ON"]
+    case "ppc64" | "ppc":
+        configure_args += ["-DENABLE_ALTIVEC=OFF", "-DCPU_POWER8=OFF"]
 
 
 @subpackage("x265-devel")
