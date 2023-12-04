@@ -69,7 +69,7 @@ if _have_uefi:
     makedepends += ["efivar-devel"]
 else:
     configure_args += [
-        "-Dplugin_redfish=ddisabled",
+        "-Dplugin_redfish=disabled",
         "-Dplugin_uefi_capsule=disabled",
         "-Dplugin_ufei_pk=disabled",
     ]
