@@ -13,7 +13,14 @@ configure_gen = []
 make_cmd = "gmake"
 make_check_args = ["-j1"]
 hostmakedepends = ["cmocka", "gmake", "perl", "pkgconf"]
-makedepends = ["cmocka-devel", "json-c-devel", "libcurl-devel", "libuuid-devel", "linux-headers", "openssl-devel",]
+makedepends = [
+    "cmocka-devel",
+    "json-c-devel",
+    "libcurl-devel",
+    "libuuid-devel",
+    "linux-headers",
+    "openssl-devel",
+]
 pkgdesc = "Implementation of TCG TPM2"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
