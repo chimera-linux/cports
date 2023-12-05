@@ -1,0 +1,18 @@
+--- a/efi/meson.build
++++ b/efi/meson.build
+@@ -124,13 +124,14 @@ compile_args = ['-Og',
+                 '-fpic',
+                 '-fshort-wchar',
+                 '-ffreestanding',
++                '-fno-integrated-as',
+                 '-fno-strict-aliasing',
+                 '-fno-stack-protector',
+                 '-fno-stack-check',
+-                '-fno-merge-constants',
+                 '-Wsign-compare',
+                 '-Wno-missing-field-initializers',
+                 '-Wno-address-of-packed-member',
++                '-Wno-incompatible-pointer-types',
+                 '-grecord-gcc-switches',
+                 '-DDEBUGDIR="@0@"'.format(debugdir),
+                 '-I.',
