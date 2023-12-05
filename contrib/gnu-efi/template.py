@@ -1,7 +1,8 @@
 pkgname = "gnu-efi"
 pkgver = "3.0.17"
 pkgrel = 0
-archs = ["x86_64", "aarch64", "riscv64"]
+# riscv64 does not build but also nothing needs it there
+archs = ["x86_64", "aarch64"]
 build_style = "makefile"
 make_cmd = "gmake"
 make_use_env = True
