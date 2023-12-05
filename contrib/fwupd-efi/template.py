@@ -1,6 +1,6 @@
 pkgname = "fwupd-efi"
 pkgver = "1.4"
-pkgrel = 0
+pkgrel = 1
 # riscv64 not supported yet
 archs = ["aarch64", "x86_64"]
 build_style = "meson"
@@ -29,4 +29,5 @@ url = "https://github.com/fwupd/fwupd-efi"
 source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "b1f5fe72e16d4e2f4c616da416dc93bd79331057336208465da37bafe8f8f83d"
 tools = {"LD": "ld.bfd", "OBJCOPY": "gobjcopy"}
+tool_flags = {"LDFLAGS": ["-fuse-ld=bfd"]}
 options = ["!cross"]
