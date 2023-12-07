@@ -1,6 +1,6 @@
 # update linux-lts-zfs-bin when bumping
 pkgname = "linux-lts"
-pkgver = "6.1.64"
+pkgver = "6.1.65"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 make_dir = "build"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "629daa38f3ea67f29610bfbd53f9f38f46834d3654451e9474100490c66dc7e7"
+sha256 = "407229936802a44b1e484c2e9ac3bbe53a65d825cc468ccdbd76281b491ab20a"
 # no meaningful checking to be done
 options = [
     "!check",
