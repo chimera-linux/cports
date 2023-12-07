@@ -9,13 +9,3 @@
    char msgbuf[MAX_MESSAGE] ;	/* buffer in which to put the message */
    char *bufptr = msgbuf ;	/* message buffer pointer */
  
---- a/prnt/hpps/hppsfilter.c
-+++ b/prnt/hpps/hppsfilter.c
-@@ -105,7 +105,6 @@
-     if(ptempbooklet_file == NULL)
-     {
-             fprintf(stderr, "ERROR: Unable to open temp file %s\n", temp_filename);
--            return 1;
-     }  
-     chmod(temp_filename, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
- 
