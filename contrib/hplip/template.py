@@ -1,5 +1,5 @@
 pkgname = "hplip"
-pkgver = "3.23.8"
+pkgver = "3.23.12"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -35,7 +35,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only AND BSD-3-Clause AND MIT"
 url = "https://developers.hp.com/hp-linux-imaging-and-printing"
 source = f"https://downloads.sourceforge.net/hplip/hplip-{pkgver}.tar.gz"
-sha256 = "f7cc05f628c0cfd750e54ae41431c1dfdd29e97682f18b5c5ba5cb2c5b4b1b46"
+sha256 = "a76c2ac8deb31ddb5f0da31398d25ac57440928a0692dcb060a48daa718e69ed"
 # nuh uh
 hardening = ["!vis"]
 # TODO: probably ignores CC
