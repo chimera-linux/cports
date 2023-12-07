@@ -1,7 +1,6 @@
 pkgname = "openssl"
 pkgver = "3.2.0"
-_actualver = "3.1.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
@@ -21,9 +20,12 @@ pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.openssl.org"
-source = f"https://www.openssl.org/source/openssl-{_actualver}.tar.gz"
-sha256 = "840af5366ab9b522bde525826be3ef0fb0af81c6a9ebd84caa600fea1731eee3"
-options = ["bootstrap"]
+source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
+sha256 = "14c826f07c7e433706fb5c69fa9e25dab95684844b4c962a2cf1bf183eb4690e"
+# the codebase is not LTO-ready:
+# https://github.com/openssl/openssl/issues/18663
+# https://github.com/openssl/openssl/issues/22854
+options = ["bootstrap", "!lto"]
 
 if self.stage > 0:
     makedepends = ["linux-headers"]
