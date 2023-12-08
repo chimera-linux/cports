@@ -1,0 +1,560 @@
+From c1edf0791a51ceaf9490e7dc69fa7575b1fae764 Mon Sep 17 00:00:00 2001
+From: Seppo Yli-Olli <seppo.yliolli@gmail.com>
+Date: Fri, 2 Sep 2022 11:19:31 +0300
+Subject: [PATCH] Get rid of remainder of libsoup usage in flatpak-builder
+
+---
+ configure.ac                 |  4 ++--
+ src/builder-context.c        | 40 ++++++++++++++++++++----------------
+ src/builder-context.h        | 11 ++++++++--
+ src/builder-flatpak-utils.c  | 26 -----------------------
+ src/builder-flatpak-utils.h  | 10 ---------
+ src/builder-main.c           | 14 +++----------
+ src/builder-source-archive.c | 11 +++++-----
+ src/builder-source-file.c    | 37 ++++++++++++++++++---------------
+ src/builder-utils.c          | 30 +++++++++++++--------------
+ src/builder-utils.h          | 11 ++++++++--
+ tests/flatpak.supp           | 10 ---------
+ tests/glib.supp              |  9 --------
+ 12 files changed, 85 insertions(+), 128 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 79e87355..61ca39ca 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -12,7 +12,7 @@ AC_INIT([flatpak-builder],
+         [flatpak-builder],
+         [http://flatpak.org/])
+ 
+-GLIB_REQS=2.44
++GLIB_REQS=2.66
+ OSTREE_REQS=2017.14
+ FLATPAK_REQS=0.99.1
+ SYSTEM_DEBUGEDIT_REQS=5.0
+@@ -83,7 +83,7 @@ PKG_PROG_PKG_CONFIG([0.24])
+ # For libglnx
+ AC_CHECK_HEADER([sys/xattr.h], [], [AC_MSG_ERROR([You must have sys/xattr.h from glibc])])
+ 
+-PKG_CHECK_MODULES(BASE, [glib-2.0 >= $GLIB_REQS gio-2.0 gio-unix-2.0 libsoup-2.4 ostree-1 >= $OSTREE_REQS json-glib-1.0 libxml-2.0 >= 2.4 libcurl])
++PKG_CHECK_MODULES(BASE, [glib-2.0 >= $GLIB_REQS gio-2.0 gio-unix-2.0 ostree-1 >= $OSTREE_REQS json-glib-1.0 libxml-2.0 >= 2.4 libcurl])
+ 
+ dnl ************************
+ dnl *** check for libelf ***
+diff --git a/src/builder-context.c b/src/builder-context.c
+index 9d278e2c..6b8e8e23 100644
+--- a/src/builder-context.c
++++ b/src/builder-context.c
+@@ -37,6 +37,7 @@
+ #include "builder-cache.h"
+ #include "builder-utils.h"
+ 
++
+ struct BuilderContext
+ {
+   GObject         parent;
+@@ -45,7 +46,6 @@ struct BuilderContext
+   GFile          *run_dir; /* directory flatpak-builder was started from */
+   GFile          *base_dir; /* directory with json manifest, origin for source files */
+   char           *state_subdir;
+-  SoupSession    *soup_session;
+   CURL           *curl_session;
+   char           *arch;
+   char           *default_branch;
+@@ -116,7 +116,6 @@ builder_context_finalize (GObject *object)
+   g_clear_object (&self->app_dir);
+   g_clear_object (&self->run_dir);
+   g_clear_object (&self->base_dir);
+-  g_clear_object (&self->soup_session);
+   g_clear_object (&self->options);
+   g_clear_object (&self->sdk_config);
+   g_free (self->arch);
+@@ -383,24 +382,32 @@ builder_context_download_uri (BuilderContext *self,
+                               GError        **error)
+ {
+   int i;
+-  g_autoptr(SoupURI) original_uri = soup_uri_new (url);
+   g_autoptr(GError) first_error = NULL;
++  g_autoptr(GUri) original_uri = g_uri_parse (url, CONTEXT_HTTP_URI_FLAGS, &first_error);
+ 
+   if (original_uri == NULL)
+-    return flatpak_fail (error, _("Could not parse URI “%s”"), url);
++    {
++      g_propagate_error (error, g_steal_pointer (&first_error));
++      return FALSE;
++    }
+ 
+   g_print ("Downloading %s\n", url);
+ 
+   if (self->sources_urls != NULL)
+     {
+-      g_autofree char *base_name = g_path_get_basename (soup_uri_get_path (original_uri));
++      g_autofree char *base_name = g_path_get_basename (g_uri_get_path (original_uri));
+       g_autofree char *rel = g_build_filename ("downloads", checksums[0], base_name, NULL);
+ 
+       for (i = 0; i < self->sources_urls->len; i++)
+         {
+-          SoupURI *base_uri = g_ptr_array_index (self->sources_urls, i);
+-          g_autoptr(SoupURI) mirror_uri = soup_uri_new_with_base (base_uri, rel);
+-          g_autofree char *mirror_uri_str = soup_uri_to_string (mirror_uri, FALSE);
++          GUri *base_uri = g_ptr_array_index (self->sources_urls, i);
++          g_autoptr(GUri) mirror_uri = g_uri_parse_relative (base_uri, rel, CONTEXT_HTTP_URI_FLAGS, &first_error);
++          if (mirror_uri == NULL)
++            {
++              g_propagate_error (error, g_steal_pointer (&first_error));
++              return FALSE;
++            }
++          g_autofree char *mirror_uri_str = g_uri_to_string (mirror_uri);
+           g_print ("Trying mirror %s\n", mirror_uri_str);
+           g_autoptr(GError) my_error = NULL;
+ 
+@@ -430,7 +437,13 @@ builder_context_download_uri (BuilderContext *self,
+           for (i = 0; mirrors[i] != NULL; i++)
+             {
+               g_autoptr(GError) mirror_error = NULL;
+-              g_autoptr(SoupURI) mirror_uri = soup_uri_new (mirrors[i]);
++              g_autoptr(GUri) mirror_uri = g_uri_parse (mirrors[i], CONTEXT_HTTP_URI_FLAGS, &mirror_error);
++              if (!mirror_uri)
++                {
++                  g_propagate_error (error, g_steal_pointer (&mirror_error));
++                  return FALSE;
++                }
++
+               g_print ("Trying mirror %s\n", mirrors[i]);
+               if (!builder_download_uri (mirror_uri,
+                                          dest,
+@@ -544,15 +557,6 @@ builder_context_get_ccache_dir (BuilderContext *self)
+   return self->ccache_dir;
+ }
+ 
+-SoupSession *
+-builder_context_get_soup_session (BuilderContext *self)
+-{
+-  if (self->soup_session == NULL)
+-    self->soup_session = flatpak_create_soup_session ("flatpak-builder " PACKAGE_VERSION);
+-
+-  return self->soup_session;
+-}
+-
+ CURL *
+ builder_context_get_curl_session (BuilderContext *self)
+ {
+diff --git a/src/builder-context.h b/src/builder-context.h
+index dec71d63..69040d49 100644
+--- a/src/builder-context.h
++++ b/src/builder-context.h
+@@ -22,7 +22,6 @@
+ #define __BUILDER_CONTEXT_H__
+ 
+ #include <gio/gio.h>
+-#include <libsoup/soup.h>
+ #include <curl/curl.h>
+ #include "builder-options.h"
+ #include "builder-utils.h"
+@@ -30,6 +29,15 @@
+ 
+ G_BEGIN_DECLS
+ 
++/* Same as SOUP_HTTP_URI_FLAGS, means all possible flags for http uris */
++
++#if GLIB_CHECK_VERSION (2, 68, 0)
++#define CONTEXT_HTTP_URI_FLAGS (G_URI_FLAGS_HAS_PASSWORD | G_URI_FLAGS_ENCODED_PATH | G_URI_FLAGS_ENCODED_QUERY | G_URI_FLAGS_ENCODED_FRAGMENT | G_URI_FLAGS_SCHEME_NORMALIZE)
++#else
++/* GLib 2.66 didn't support scheme-based normalization */
++#define CONTEXT_HTTP_URI_FLAGS (G_URI_FLAGS_HAS_PASSWORD | G_URI_FLAGS_ENCODED_PATH | G_URI_FLAGS_ENCODED_QUERY | G_URI_FLAGS_ENCODED_FRAGMENT)
++#endif
++
+ /* BuilderContext defined in builder-cache.h to fix include loop */
+ 
+ #define BUILDER_TYPE_CONTEXT (builder_context_get_type ())
+@@ -69,7 +77,6 @@ gboolean        builder_context_download_uri (BuilderContext *self,
+                                               const char     *checksums[BUILDER_CHECKSUMS_LEN],
+                                               GChecksumType   checksums_type[BUILDER_CHECKSUMS_LEN],
+                                               GError        **error);
+-SoupSession *   builder_context_get_soup_session (BuilderContext *self);
+ CURL *          builder_context_get_curl_session (BuilderContext *self);
+ const char *    builder_context_get_arch (BuilderContext *self);
+ void            builder_context_set_arch (BuilderContext *self,
+diff --git a/src/builder-flatpak-utils.c b/src/builder-flatpak-utils.c
+index 89720075..ddb87699 100644
+--- a/src/builder-flatpak-utils.c
++++ b/src/builder-flatpak-utils.c
+@@ -39,7 +39,6 @@
+ 
+ #include <glib.h>
+ #include "libglnx/libglnx.h"
+-#include <libsoup/soup.h>
+ #include <gio/gunixoutputstream.h>
+ #include <gio/gunixinputstream.h>
+ 
+@@ -1139,31 +1138,6 @@ flatpak_allocate_tmpdir (int           tmpdir_dfd,
+ }
+ 
+ 
+-SoupSession *
+-flatpak_create_soup_session (const char *user_agent)
+-{
+-  SoupSession *soup_session;
+-  const char *http_proxy;
+-
+-  soup_session = soup_session_new_with_options (SOUP_SESSION_USER_AGENT, user_agent,
+-                                                SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
+-                                                SOUP_SESSION_USE_THREAD_CONTEXT, TRUE,
+-                                                SOUP_SESSION_TIMEOUT, 60,
+-                                                SOUP_SESSION_IDLE_TIMEOUT, 60,
+-                                                NULL);
+-  http_proxy = g_getenv ("http_proxy");
+-  if (http_proxy)
+-    {
+-      g_autoptr(SoupURI) proxy_uri = soup_uri_new (http_proxy);
+-      if (!proxy_uri)
+-        g_warning ("Invalid proxy URI '%s'", http_proxy);
+-      else
+-        g_object_set (soup_session, SOUP_SESSION_PROXY_URI, proxy_uri, NULL);
+-    }
+-
+-  return soup_session;
+-}
+-
+ CURL *
+ flatpak_create_curl_session (const char *user_agent)
+ {
+diff --git a/src/builder-flatpak-utils.h b/src/builder-flatpak-utils.h
+index ff5cc241..0a930721 100644
+--- a/src/builder-flatpak-utils.h
++++ b/src/builder-flatpak-utils.h
+@@ -26,7 +26,6 @@
+ #include "libglnx/libglnx.h"
+ #include <gio/gio.h>
+ #include <gio/gunixfdlist.h>
+-#include <libsoup/soup.h>
+ #include <ostree.h>
+ #include <json-glib/json-glib.h>
+ #include <curl/curl.h>
+@@ -283,14 +282,6 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (OstreeRepoCommitModifier, ostree_repo_commit_modi
+ G_DEFINE_AUTOPTR_CLEANUP_FUNC (OstreeRepoDevInoCache, ostree_repo_devino_cache_unref)
+ #endif
+ 
+-#if !defined(SOUP_AUTOCLEANUPS_H) && !defined(__SOUP_AUTOCLEANUPS_H__)
+-G_DEFINE_AUTOPTR_CLEANUP_FUNC (SoupSession, g_object_unref)
+-G_DEFINE_AUTOPTR_CLEANUP_FUNC (SoupMessage, g_object_unref)
+-G_DEFINE_AUTOPTR_CLEANUP_FUNC (SoupRequest, g_object_unref)
+-G_DEFINE_AUTOPTR_CLEANUP_FUNC (SoupRequestHTTP, g_object_unref)
+-G_DEFINE_AUTOPTR_CLEANUP_FUNC (SoupURI, soup_uri_free)
+-#endif
+-
+ #if !JSON_CHECK_VERSION(1,1,2)
+ G_DEFINE_AUTOPTR_CLEANUP_FUNC (JsonArray, json_array_unref)
+ G_DEFINE_AUTOPTR_CLEANUP_FUNC (JsonBuilder, g_object_unref)
+@@ -317,7 +308,6 @@ gboolean flatpak_allocate_tmpdir (int           tmpdir_dfd,
+                                   GError      **error);
+ 
+ 
+-SoupSession * flatpak_create_soup_session (const char *user_agent);
+ CURL * flatpak_create_curl_session (const char *user_agent);
+ 
+ typedef struct FlatpakContext FlatpakContext;
+diff --git a/src/builder-main.c b/src/builder-main.c
+index 0cb9d3ea..63db40d0 100644
+--- a/src/builder-main.c
++++ b/src/builder-main.c
+@@ -423,14 +423,6 @@ main (int    argc,
+   else
+     g_unsetenv ("GIO_USE_VFS");
+ 
+-  /* Work around libsoup/glib race condition, as per:
+-     https://bugzilla.gnome.org/show_bug.cgi?id=796031 and
+-     https://bugzilla.gnome.org/show_bug.cgi?id=674885#c87 */
+-  g_type_ensure (G_TYPE_SOCKET_FAMILY);
+-  g_type_ensure (G_TYPE_SOCKET_TYPE);
+-  g_type_ensure (G_TYPE_SOCKET_PROTOCOL);
+-  g_type_ensure (G_TYPE_SOCKET_ADDRESS);
+-
+   orig_argv = g_memdup (argv, sizeof (char *) * argc);
+   orig_argc = argc;
+ 
+@@ -554,7 +546,7 @@ main (int    argc,
+   if (opt_sources_urls)
+     {
+       g_autoptr(GPtrArray) sources_urls = NULL;
+-      sources_urls = g_ptr_array_new_with_free_func ((GDestroyNotify)soup_uri_free);
++      sources_urls = g_ptr_array_new_with_free_func ((GDestroyNotify) g_uri_unref);
+       for (i = 0; opt_sources_urls[i] != NULL; i++)
+         {
+           if (!g_str_has_suffix (opt_sources_urls[i], "/"))
+@@ -563,10 +555,10 @@ main (int    argc,
+               opt_sources_urls[i] = g_strdup_printf ("%s/", tmp);
+             }
+ 
+-          SoupURI *uri = soup_uri_new (opt_sources_urls[i]);
++          GUri *uri = g_uri_parse (opt_sources_urls[i], CONTEXT_HTTP_URI_FLAGS, &error);
+           if (uri == NULL)
+             {
+-              g_printerr ("Invalid URL '%s'", opt_sources_urls[i]);
++              g_printerr ("Invalid URL '%s'", error->message);
+               return 1;
+             }
+           g_ptr_array_add (sources_urls, uri);
+diff --git a/src/builder-source-archive.c b/src/builder-source-archive.c
+index 04eafe44..63c735c8 100644
+--- a/src/builder-source-archive.c
++++ b/src/builder-source-archive.c
+@@ -301,11 +301,11 @@ builder_source_archive_validate (BuilderSource  *source,
+   return TRUE;
+ }
+ 
+-static SoupURI *
++static GUri *
+ get_uri (BuilderSourceArchive *self,
+          GError              **error)
+ {
+-  SoupURI *uri;
++  GUri *uri;
+ 
+   if (self->url == NULL)
+     {
+@@ -313,10 +313,9 @@ get_uri (BuilderSourceArchive *self,
+       return NULL;
+     }
+ 
+-  uri = soup_uri_new (self->url);
++  uri = g_uri_parse (self->url, CONTEXT_HTTP_URI_FLAGS, error);
+   if (uri == NULL)
+     {
+-      g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "Invalid URL '%s'", self->url);
+       return NULL;
+     }
+   return uri;
+@@ -328,7 +327,7 @@ get_download_location (BuilderSourceArchive *self,
+                        gboolean             *is_local,
+                        GError              **error)
+ {
+-  g_autoptr(SoupURI) uri = NULL;
++  g_autoptr(GUri) uri = NULL;
+   const char *path;
+   g_autofree char *base_name = NULL;
+   g_autoptr(GFile) file = NULL;
+@@ -339,7 +338,7 @@ get_download_location (BuilderSourceArchive *self,
+   if (uri == NULL)
+     return FALSE;
+ 
+-  path = soup_uri_get_path (uri);
++  path = g_uri_get_path (uri);
+ 
+   if (self->dest_filename)
+     base_name = g_strdup (self->dest_filename);
+diff --git a/src/builder-source-file.c b/src/builder-source-file.c
+index 8a407724..1d389dbc 100644
+--- a/src/builder-source-file.c
++++ b/src/builder-source-file.c
+@@ -213,11 +213,11 @@ builder_source_file_validate (BuilderSource  *source,
+ }
+ 
+ 
+-static SoupURI *
++static GUri *
+ get_uri (BuilderSourceFile *self,
+          GError           **error)
+ {
+-  SoupURI *uri;
++  GUri *uri;
+ 
+   if (self->url == NULL)
+     {
+@@ -225,10 +225,9 @@ get_uri (BuilderSourceFile *self,
+       return NULL;
+     }
+ 
+-  uri = soup_uri_new (self->url);
++  uri = g_uri_parse (self->url, CONTEXT_HTTP_URI_FLAGS, error);
+   if (uri == NULL)
+     {
+-      g_set_error (error, G_IO_ERROR, G_IO_ERROR_FAILED, "Invalid URL '%s'", self->url);
+       return NULL;
+     }
+   return uri;
+@@ -240,7 +239,7 @@ get_download_location (BuilderSourceFile *self,
+                        BuilderContext    *context,
+                        GError           **error)
+ {
+-  g_autoptr(SoupURI) uri = NULL;
++  g_autoptr(GUri) uri = NULL;
+   const char *path;
+   g_autofree char *base_name = NULL;
+   g_autoptr(GFile) file = NULL;
+@@ -251,7 +250,7 @@ get_download_location (BuilderSourceFile *self,
+   if (uri == NULL)
+     return FALSE;
+ 
+-  path = soup_uri_get_path (uri);
++  path = g_uri_get_path (uri);
+ 
+   if (g_str_has_prefix (self->url, "data:"))
+     {
+@@ -329,23 +328,27 @@ download_data_uri (const char     *url,
+                    BuilderContext *context,
+                    GError        **error)
+ {
+-  SoupSession *session;
+-
+-  g_autoptr(SoupRequest) req = NULL;
++  CURL *session;
++  g_autoptr(GError) first_error = NULL;  
+   g_autoptr(GInputStream) input = NULL;
+   g_autoptr(GOutputStream) out = NULL;
++  g_autoptr(GUri) parsed = NULL;
+ 
+-  session = builder_context_get_soup_session (context);
++  parsed = g_uri_parse(url, CONTEXT_HTTP_URI_FLAGS, error);
++  if (!parsed)
++    {
++      return FALSE;
++    }
+ 
+-  req = soup_session_request (session, url, error);
+-  if (req == NULL)
+-    return NULL;
++  session = builder_context_get_curl_session (context);
++  out = g_memory_output_stream_new_resizable ();
+ 
+-  input = soup_request_send (req, NULL, error);
+-  if (input == NULL)
+-    return NULL;
++  if (!builder_download_uri_buffer (parsed, session, out, NULL, 0, error))
++    {
++      g_propagate_error (error, g_steal_pointer (&first_error));
++      return NULL;
++    }
+ 
+-  out = g_memory_output_stream_new_resizable ();
+   if (!g_output_stream_splice (out,
+                                input,
+                                G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET | G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE,
+diff --git a/src/builder-utils.c b/src/builder-utils.c
+index b4813c30..9605d98a 100644
+--- a/src/builder-utils.c
++++ b/src/builder-utils.c
+@@ -1091,18 +1091,18 @@ builder_curl_write_cb (gpointer *buffer,
+   return bytes_written;
+ }
+ 
+-static gboolean
+-builder_download_uri_curl (SoupURI        *uri,
+-                           CURL           *session,
+-                           GOutputStream  *out,
+-                           GChecksum     **checksums,
+-                           gsize           n_checksums,
+-                           GError        **error)
++gboolean
++builder_download_uri_buffer (GUri           *uri,
++                             CURL           *session,
++                             GOutputStream  *out,
++                             GChecksum     **checksums,
++                             gsize           n_checksums,
++                             GError        **error)
+ {
+   CURLcode retcode;
+   CURLWriteData write_data;
+   static gchar error_buffer[CURL_ERROR_SIZE];
+-  g_autofree gchar *url = soup_uri_to_string (uri, FALSE);
++  g_autofree gchar *url = g_uri_to_string (uri);
+ 
+   curl_easy_setopt (session, CURLOPT_URL, url);
+   curl_easy_setopt (session, CURLOPT_WRITEFUNCTION, builder_curl_write_cb);
+@@ -1128,7 +1128,7 @@ builder_download_uri_curl (SoupURI        *uri,
+ }
+ 
+ gboolean
+-builder_download_uri (SoupURI        *uri,
++builder_download_uri (GUri           *uri,
+                       GFile          *dest,
+                       const char     *checksums[BUILDER_CHECKSUMS_LEN],
+                       GChecksumType   checksums_type[BUILDER_CHECKSUMS_LEN],
+@@ -1159,12 +1159,12 @@ builder_download_uri (SoupURI        *uri,
+   if (out == NULL)
+     return FALSE;
+ 
+-  if (!builder_download_uri_curl (uri,
+-                                  curl_session,
+-                                  G_OUTPUT_STREAM (out),
+-                                  (GChecksum **)checksum_array->pdata,
+-                                  checksum_array->len,
+-                                  error))
++  if (!builder_download_uri_buffer (uri,
++                                    curl_session,
++                                    G_OUTPUT_STREAM (out),
++                                    (GChecksum **)checksum_array->pdata,
++                                    checksum_array->len,
++                                    error))
+     {
+       unlink (flatpak_file_get_path_cached (tmp));
+       return FALSE;
+diff --git a/src/builder-utils.h b/src/builder-utils.h
+index f9b45aeb..abe4fd9c 100644
+--- a/src/builder-utils.h
++++ b/src/builder-utils.h
+@@ -22,7 +22,6 @@
+ #define __BUILDER_UTILS_H__
+ 
+ #include <gio/gio.h>
+-#include <libsoup/soup.h>
+ #include <json-glib/json-glib.h>
+ #include <curl/curl.h>
+ 
+@@ -90,13 +89,21 @@ gboolean builder_maybe_host_spawnv (GFile                *dir,
+                                     const gchar * const  *argv,
+                                     const gchar * const  *unresolved_argv);
+ 
+-gboolean builder_download_uri (SoupURI        *uri,
++gboolean builder_download_uri (GUri           *uri,
+                                GFile          *dest,
+                                const char     *checksums[BUILDER_CHECKSUMS_LEN],
+                                GChecksumType   checksums_type[BUILDER_CHECKSUMS_LEN],
+                                CURL           *curl_session,
+                                GError        **error);
+ 
++gboolean builder_download_uri_buffer (GUri           *uri,
++                                      CURL           *session,
++                                      GOutputStream  *out,
++                                      GChecksum     **checksums,
++                                      gsize           n_checksums,
++                                      GError        **error);
++
++
+ gsize builder_get_all_checksums (const char *checksums[BUILDER_CHECKSUMS_LEN],
+                                  GChecksumType checksums_type[BUILDER_CHECKSUMS_LEN],
+                                  const char *md5,
+diff --git a/tests/flatpak.supp b/tests/flatpak.supp
+index f7b6b741..548fbf84 100644
+--- a/tests/flatpak.supp
++++ b/tests/flatpak.supp
+@@ -118,13 +118,3 @@
+   ...
+   fun:g_thread_pool_thread_proxy
+ }
+-
+-# libsoup thing
+-{
+-  ignore_libsoup_file_leak
+-  Memcheck:Leak
+-  fun:calloc
+-  ...
+-  fun:_g_local_file_new
+-  fun:soup_request_file_ensure_file
+-}
+diff --git a/tests/glib.supp b/tests/glib.supp
+index c3e00edc..022117f5 100644
+--- a/tests/glib.supp
++++ b/tests/glib.supp
+@@ -569,12 +569,3 @@
+    fun:_dl_allocate_tls
+    fun:pthread_create*
+ }
+-{
+-   soup_callback_1
+-   Memcheck:Leak
+-   fun:malloc
+-   fun:g_malloc
+-   fun:g_source_set_callback
+-   fun:soup_add_completion_reffed
+-   fun:soup_session_real_kick_queue
+-}

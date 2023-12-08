@@ -1,0 +1,28 @@
+In file included from ../src/builder-utils.c:39:
+In file included from ../src/builder-flatpak-utils.h:26:
+In file included from ../subprojects/libglnx/libglnx.h:28:
+In file included from ../subprojects/libglnx/glnx-missing.h:95:
+../subprojects/libglnx/glnx-missing-syscall.h:105:19: error: static declaration of 'memfd_create' follows non-static declaration
+  105 | static inline int memfd_create(const char *name, unsigned int flags) {
+      |                   ^
+/usr/include/sys/mman.h:132:5: note: previous declaration is here
+  132 | int memfd_create (const char *, unsigned);
+      |     ^
+
+--- a/subprojects/libglnx/glnx-missing-syscall.h
++++ b/subprojects/libglnx/glnx-missing-syscall.h
+@@ -102,16 +102,8 @@
+ #    endif
+ #  endif
+ 
+-static inline int memfd_create(const char *name, unsigned int flags) {
+-#  ifdef __NR_memfd_create
+-        return syscall(__NR_memfd_create, name, flags);
+-#  else
+-        errno = ENOSYS;
+-        return -1;
+-#  endif
+-}
+ #endif
+ 
+ /* Copied from systemd git:
