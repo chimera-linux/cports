@@ -1,10 +1,12 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5191"
+pkgver = "1.7.5266"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
 build_style = "cmake"
 configure_args = [
+    # disables debug mode
+    "-DCMAKE_BUILD_TYPE=Release",
     "-DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON",
     "-DDISABLE_ADVANCE_SIMD=ON",
     "-DDISABLE_BUILD_DATE=ON",
@@ -25,6 +27,7 @@ makedepends = [
     "boost-devel",
     "extra-cmake-modules",
     "ffmpeg-devel",
+    "fmt-devel",
     "libaio-devel",
     "libcurl-devel",
     "libpcap-devel",
@@ -49,16 +52,14 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "f97cf7fdd096987b5a15e6c8aee6c5ae5c1732da"
-_fmt = "9.1.0"
+_patches = "3e683440415e1050297ff398d504554e67cf6a89"
 _glslang = "11.12.0"
 _gtest = "v1.14.0"
-_rcheevos = "43f8c2a2a0750561786f17dd35af8755716705aa"
-_fastfloat = "v5.2.0"
+_rcheevos = "8afec6c55e3a0f72368a5a085203bab1b8828ffb"
+_fastfloat = "v5.3.0"
 source = [
     f"https://github.com/PCSX2/pcsx2/archive/refs/tags/v{pkgver}.tar.gz",
     f"https://github.com/PCSX2/pcsx2_patches/archive/{_patches}.tar.gz",
-    f"https://github.com/fmtlib/fmt/archive/{_fmt}.tar.gz",
     f"https://github.com/KhronosGroup/glslang/archive/{_glslang}.tar.gz",
     f"https://github.com/google/googletest/archive/refs/tags/{_gtest}.tar.gz",
     f"https://github.com/RetroAchievements/rcheevos/archive/{_rcheevos}.tar.gz",
@@ -67,20 +68,18 @@ source = [
 source_paths = [
     ".",
     "patches",
-    "3rdparty/fmt/fmt",
     "3rdparty/glslang/glslang",
     "3rdparty/gtest",
     "3rdparty/rcheevos/rcheevos",
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "401c0fc8e7f831b9df476a6c47e95837ef15375943089e1fe177d1945b9358ff",
-    "b26cb7ad7bec5bac5d96c592f932d7d2cd8afadb464655388c52bcf9a9767ace",
-    "5dea48d1fcddc3ec571ce2058e13910a0d4a6bab4cc09a809d8b1dd1c88ae6f2",
+    "994e866bddbe193badfe7ab9c3034a5e65c3975d7c0fcbe46cfa5946f8420ae7",
+    "c93ee6408a09f1cb2027195c1d5c76182fd7ae6d0604f17d23094b83c64493e8",
     "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
-    "b526312b9bb8c47c5a581d60b16c3c33d5ce577fb7c674c42fcefd9e119b5adc",
-    "72bbfd1914e414c920e39abdc81378adf910a622b62c45b4c61d344039425d18",
+    "4767a3b9b1b2422b002dc4aa68fc7141452950946d1da8f950880b92c91fd305",
+    "2f3bc50670455534dcaedc9dcd0517b71152f319d0cec8625f21c51d23eaf4b9",
 ]
 # FIXME: cfi, int
 # but it's an emulator so..
