@@ -1,5 +1,5 @@
 pkgname = "adw-gtk3"
-pkgver = "5.1"
+pkgver = "5.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -11,4 +11,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/lassekongo83/adw-gtk3"
 source = f"https://github.com/lassekongo83/adw-gtk3/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c71acf08341e9568b2503eda51a64a8c6489af53f256f18da8b1e917cb14c0d3"
+sha256 = "1265b9dbc933bf602da1c419e515752bc8d7b9e6f8a09eafd740315d321501d7"
