@@ -1,6 +1,6 @@
 pkgname = "chrony"
-pkgver = "4.4"
-pkgrel = 3
+pkgver = "4.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-user=_chrony",
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://chrony-project.org"
 source = f"https://chrony-project.org/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "eafb07e6daf92b142200f478856dfed6efc9ea2d146eeded5edcb09b93127088"
+sha256 = "19fe1d9f4664d445a69a96c71e8fdb60bcd8df24c73d1386e02287f7366ad422"
 file_modes = {
     "var/log/chrony": ("_chrony", "_chrony", 0o755),
     "var/lib/chrony": ("_chrony", "_chrony", 0o755),
