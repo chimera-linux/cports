@@ -1,6 +1,6 @@
 pkgname = "flatpak"
-pkgver = "1.14.4"
-pkgrel = 4
+pkgver = "1.14.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-system-bubblewrap",
@@ -65,7 +65,7 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://flatpak.org"
 source = f"https://github.com/flatpak/flatpak/releases/download/{pkgver}/flatpak-{pkgver}.tar.xz"
-sha256 = "8a34dbd0b67c434e7598b98ec690953d046f0db26e480aeafb46d72aec716799"
+sha256 = "5b70c64ce7ac134e1ea08011256e423ae5c54f277297441583f77d013f27ffac"
 file_modes = {
     "var/lib/flatpak": ("_flatpak", "_flatpak", 0o755),
 }
