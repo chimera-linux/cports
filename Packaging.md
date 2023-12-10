@@ -976,14 +976,6 @@ These variables generate scriptlets:
   `home`.
 * `system_groups` *(list)* A list of groups to create. It contains strings,
   which can be in the format `gname` or `gname:gid`.
-* `sgml_entries` *(list)* A list of 3-tuples representing arguments to
-  `xmlcatmgr -sc /etc/sgml/auto/catalog add <args>`, or `remove` (third
-  element is unused then).
-* `sgml_catalogs` *(list)* Like `("CATALOG", v, "--")` in `sgml_entries`.
-* `xml_entries` *(list)* A list of 3-tuples representing arguments to
-  `xmlcatmgr -c /etc/sgml/auto/catalog add <args>`, or `remove` (third
-  element is unused then).
-* `xml_catalogs` *(list)* Like `("nextCatalog", v, "--")` in `xml_entries`.
 
 Additionally, there is a variety of variables that are not generic but rather
 are used by specific build styles. They are listed and described in each
@@ -1912,12 +1904,6 @@ These hooks will automatically take care of creating necessary users
 and groups as well as deactivating them when needed. The creation is
 done in `pre-install` and `pre-upgrade`, while the deactivation is
 done in `post-deinstall`.
-
-##### XML/SGML catalog management
-
-Triggered by the `sgml_entries` and `xml_entries` variables. If these
-are specified, the package should also depend on `xmlcatmgr` or the
-scriptlets will fail.
 
 <a id="build_profiles"></a>
 ## Build Profiles

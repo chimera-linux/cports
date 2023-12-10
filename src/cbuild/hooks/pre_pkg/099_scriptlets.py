@@ -1,65 +1,6 @@
 import io
 import shlex
 
-# hooks for xml/sgml registration
-
-_xml_register_entries = r"""
-local sgml_catalog=/etc/sgml/auto/catalog
-local xml_catalog=/etc/xml/auto/catalog
-
-[ -n "${sgml_entries}" -a ! -f "${sgml_catalog}" ] && return 0
-[ -n "${xml_entries}" -a ! -f "${xml_catalog}" ] && return 0
-
-if [ -n "${sgml_entries}" ]; then
-    echo -n "Registering SGML catalog entries... "
-    set -- ${sgml_entries}
-    while [ $# -gt 0 ]; do
-        /usr/bin/xmlcatmgr -sc ${sgml_catalog} add "$1" "$2" "$3"
-        shift; shift; shift;
-    done
-    echo "done."
-fi
-
-if [ -n "${xml_entries}" ]; then
-    echo -n "Registering XML catalog entries... "
-    set -- ${xml_entries}
-    while [ $# -gt 0 ]; do
-        /usr/bin/xmlcatmgr -c ${xml_catalog} add "$1" "$2" "$3"
-        shift; shift; shift;
-    done
-    echo "done."
-fi
-"""
-
-_xml_unregister_entries = r"""
-local sgml_catalog=/etc/sgml/auto/catalog
-local xml_catalog=/etc/xml/auto/catalog
-
-[ -n "${sgml_entries}" -a ! -f "${sgml_catalog}" ] && return 0
-[ -n "${xml_entries}" -a ! -f "${xml_catalog}" ] && return 0
-
-if [ -n "${sgml_entries}" ]; then
-    echo -n "Unregistering SGML catalog entries... "
-    set -- ${sgml_entries}
-    while [ $# -gt 0 ]; do
-        /usr/bin/xmlcatmgr -sc ${sgml_catalog} remove "$1" "$2" \
-            2>/dev/null
-        shift; shift; shift
-    done
-    echo "done."
-fi
-if [ -n "${xml_entries}" ]; then
-    echo -n "Unregistering XML catalog entries... "
-    set -- ${xml_entries}
-    while [ $# -gt 0 ]; do
-        /usr/bin/xmlcatmgr -c ${xml_catalog} remove "$1" "$2" \
-            2>/dev/null
-        shift; shift; shift
-    done
-    echo "done."
-fi
-"""
-
 # hooks for account setup
 
 _acct_setup = r"""
@@ -215,52 +156,12 @@ done
 # all known hook scriptlets
 
 _hookscripts = {
-    "xml_catalog": {
-        "post-install": _xml_register_entries,
-        "post-upgrade": _xml_register_entries,
-        "pre-deinstall": _xml_unregister_entries,
-        "pre-upgrade": _xml_unregister_entries,
-    },
     "system_accounts": {
         "pre-install": _acct_setup,
         "pre-upgrade": _acct_setup,
         "post-deinstall": _acct_drop,
     },
 }
-
-
-def _handle_catalogs(pkg, _add_hook):
-    sgml_entries = []
-    xml_entries = []
-    catvars = {}
-
-    for ent in pkg.sgml_entries:
-        if not isinstance(ent, tuple) or len(ent) != 3:
-            pkg.error("invalid SGML catalog entry")
-        sgml_entries.append(ent)
-
-    for ent in pkg.xml_entries:
-        if not isinstance(ent, tuple) or len(ent) != 3:
-            pkg.error("invalid XML catalog entry")
-        xml_entries.append(ent)
-
-    for catalog in pkg.sgml_catalogs:
-        sgml_entries.append(("CATALOG", catalog, "--"))
-
-    for catalog in pkg.xml_catalogs:
-        xml_entries.append(("nextCatalog", catalog, "--"))
-
-    if len(sgml_entries) > 0 or len(xml_entries) > 0:
-        if len(sgml_entries) > 0:
-            catvars["sgml_entries"] = " ".join(
-                map(lambda v: " ".join(v), sgml_entries)
-            )
-        if len(xml_entries) > 0:
-            catvars["xml_entries"] = " ".join(
-                map(lambda v: " ".join(v), xml_entries)
-            )
-        # fire
-        _add_hook("xml_catalog", catvars)
 
 
 def _handle_accounts(pkg, _add_hook):
@@ -328,7 +229,6 @@ def invoke(pkg):
 
     # handle individual hooks
     _handle_accounts(pkg, _add_hook)
-    _handle_catalogs(pkg, _add_hook)
 
     # add executable scriptlets
     for h in _reghooks:

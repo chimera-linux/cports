@@ -463,10 +463,6 @@ core_fields = [
     # scriptlet generators
     ("system_users", [], list, False, True, False),
     ("system_groups", [], list, False, True, False),
-    ("sgml_catalogs", [], list, False, True, False),
-    ("sgml_entries", [], list, False, True, False),
-    ("xml_catalogs", [], list, False, True, False),
-    ("xml_entries", [], list, False, True, False),
     # fields relating to build fields
     # cmake
     ("cmake_dir", None, str, False, False, False),
@@ -551,10 +547,6 @@ core_fields_priority = [
     # scriptlet-generating stuff comes last
     ("system_users", True),
     ("system_groups", True),
-    ("sgml_entries", True),
-    ("sgml_catalogs", True),
-    ("xml_entries", True),
-    ("xml_catalogs", True),
     ("broken", True),
 ]
 
@@ -1806,7 +1798,6 @@ class Subpackage(Package):
         self.take("usr/share/info", missing_ok=True)
         self.take("usr/share/html", missing_ok=True)
         self.take("usr/share/licenses", missing_ok=True)
-        self.take("usr/share/sgml", missing_ok=True)
         self.take("usr/share/gtk-doc", missing_ok=True)
         self.take("usr/share/ri", missing_ok=True)
         self.take("usr/share/help", missing_ok=True)
