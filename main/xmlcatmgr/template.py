@@ -1,7 +1,15 @@
 pkgname = "xmlcatmgr"
 pkgver = "2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+hostmakedepends = ["automake", "libtool"]
+# trigger on /etc so the hook fires on updates to self
+triggers = [
+    "/etc/xml",
+    "/etc/sgml",
+    "/usr/share/xml/catalogs",
+    "/usr/share/sgml/catalogs",
+]
 pkgdesc = "XML and SGML catalog manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -21,45 +29,12 @@ def post_build(self):
     else:
         xcmgr = self.chroot_cwd / self.make_dir / "xmlcatmgr"
 
-    self.log("creating SGML catalogs...")
-    self.do(xcmgr, "-sc", "catalog.etc.sgml", "create")
     self.do(xcmgr, "-sc", "catalog.sgml", "create")
-    self.do(
-        xcmgr,
-        "-sc",
-        "catalog.etc.sgml",
-        "add",
-        "CATALOG",
-        "/etc/sgml/auto/catalog",
-    )
-
-    self.log("creating XML catalogs...")
-    self.do(xcmgr, "-c", "catalog.etc.xml", "create")
     self.do(xcmgr, "-c", "catalog.xml", "create")
-    self.do(
-        xcmgr,
-        "-c",
-        "catalog.etc.xml",
-        "add",
-        "nextCatalog",
-        "/etc/xml/auto/catalog",
-    )
 
 
 def post_install(self):
-    self.log("installing XML/SGML catalogs...")
-
-    self.install_file("catalog.sgml", "etc/sgml/auto", name="catalog")
-    self.install_file("catalog.etc.sgml", "etc/sgml", name="catalog")
-    self.install_file("catalog.xml", "etc/xml/auto", name="catalog")
-    self.install_file("catalog.etc.xml", "etc/xml", name="catalog")
-
-    self.install_dir("usr/share/sgml")
-    self.install_dir("usr/share/xml")
-    self.install_link("/etc/sgml/auto/catalog", "usr/share/sgml/catalog")
-    self.install_link("/etc/xml/auto/catalog", "usr/share/xml/catalog")
+    self.install_file("catalog.sgml", "etc/sgml", name="catalog")
+    self.install_file("catalog.xml", "etc/xml", name="catalog")
 
     self.install_license("COPYING")
-
-
-configure_gen = []
