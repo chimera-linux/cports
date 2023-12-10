@@ -1,5 +1,5 @@
 pkgname = "python-argcomplete"
-pkgver = "3.1.6"
+pkgver = "3.2.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/kislyuk/argcomplete"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c74c843353c0f358b908ab43f1810385bc85343b3ff02350fb673ce52c2b1012"
+sha256 = "9d840bb9ffbc44fc9ca9dd2c94d771a19989571653676e60b89ba832c3c12476"
 # missing pexpect
 options = ["!check"]
 
