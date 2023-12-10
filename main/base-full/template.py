@@ -26,7 +26,7 @@ def _fw(self):
 
 
 @subpackage("base-full-misc")
-def _net(self):
+def _misc(self):
     self.pkgdesc = f"{pkgdesc} (miscellaneous)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
