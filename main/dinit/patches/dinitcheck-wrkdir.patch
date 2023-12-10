@@ -1,0 +1,64 @@
+From 0f9e525a951d62b1b60c7a384cb53fe8a24bc598 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 10 Dec 2023 16:33:23 +0100
+Subject: [PATCH] dinitcheck: account for service working directory for
+ commands
+
+---
+ src/dinitcheck.cc | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/src/dinitcheck.cc b/src/dinitcheck.cc
+index bdabd6df..10466b81 100644
+--- a/src/dinitcheck.cc
++++ b/src/dinitcheck.cc
+@@ -338,8 +338,10 @@ service_record *load_service(service_set_t &services, const std::string &name,
+         return found->second;
+     }
+ 
++    string service_wdir;
+     string service_filename;
+     ifstream service_file;
++    int dirfd;
+ 
+     int fail_load_errno = 0;
+     std::string fail_load_path;
+@@ -347,6 +349,7 @@ service_record *load_service(service_set_t &services, const std::string &name,
+     // Couldn't find one. Have to load it.
+     for (auto &service_dir : service_dirs) {
+         service_filename = service_dir.get_dir();
++        service_wdir = service_filename;
+         if (*(service_filename.rbegin()) != '/') {
+             service_filename += '/';
+         }
+@@ -429,9 +432,19 @@ service_record *load_service(service_set_t &services, const std::string &name,
+ 
+     settings.finalise(report_err, renvmap, report_err, resolve_var);
+ 
++    if (!settings.working_dir.empty()) {
++        service_wdir = settings.working_dir;
++    }
++    dirfd = open(service_wdir.c_str(), O_DIRECTORY | O_PATH);
++    if (dirfd < 0) {
++        report_service_description_err(name,
++                std::string("could not open service working directory: ") + strerror(errno));
++        dirfd = AT_FDCWD;
++    }
++
+     auto check_command = [&](const char *setting_name, const char *command) {
+         struct stat command_stat;
+-        if (stat(command, &command_stat) == -1) {
++        if (fstatat(dirfd, command, &command_stat, 0) == -1) {
+             report_service_description_err(name,
+                     std::string("could not stat ") + setting_name + " executable '" + command
+                     + "': " + strerror(errno));
+@@ -460,5 +473,9 @@ service_record *load_service(service_set_t &services, const std::string &name,
+                 settings.stop_command.substr(offset_start, offset_end - offset_start).c_str());
+     }
+ 
++    if (dirfd != AT_FDCWD) {
++        close(dirfd);
++    }
++
+     return new service_record(name, settings.chain_to_name, settings.depends, settings.before_svcs);
+ }
