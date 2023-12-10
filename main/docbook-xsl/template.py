@@ -1,6 +1,6 @@
 pkgname = "docbook-xsl"
 pkgver = "1.79.2"
-pkgrel = 0
+pkgrel = 1
 depends = ["xmlcatmgr", "docbook-xml"]
 pkgdesc = "Docbook XSL modular stylesheet"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -8,11 +8,14 @@ license = "MIT"
 url = "https://docbook.org"
 source = f"https://github.com/docbook/xslt10-stylesheets/releases/download/release/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "316524ea444e53208a2fb90eeb676af755da96e1417835ba5f5eb719c81fa371"
-xml_catalogs = ["/usr/share/xsl/docbook/catalog.xml"]
 
 
 def do_install(self):
     self.install_license("COPYING")
+
+    self.install_file(
+        self.files_path / "docbook-xsl.conf", "usr/share/xml/catalogs"
+    )
 
     self.install_file("catalog.xml", "usr/share/xsl/docbook")
     self.install_file("VERSION", "usr/share/xsl/docbook")

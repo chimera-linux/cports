@@ -1,6 +1,6 @@
 pkgname = "docbook-xml"
 pkgver = "4.5"
-pkgrel = 0
+pkgrel = 1
 depends = ["xmlcatmgr"]
 pkgdesc = "XML DTD designed for computer documentation"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -18,22 +18,8 @@ sha256 = [
     "23068a94ea6fd484b004c5a73ec36a66aa47ea8f0d6b62cc1695931f5c143464",
     "acc4601e4f97a196076b7e64b368d9248b07c7abf26b34a02cca40eeebe60fa2",
 ]
-_url = "http://www.oasis-open.org/docbook/xml"
-_path = "/usr/share/xml/docbook"
-xml_entries = [
-    ("rewriteSystem", f"{_url}/4.2", f"{_path}/4.2"),
-    ("rewriteSystem", f"{_url}/4.3", f"{_path}/4.3"),
-    ("rewriteSystem", f"{_url}/4.4", f"{_path}/4.4"),
-    ("rewriteSystem", f"{_url}/4.5", f"{_path}/4.5"),
-    ("rewriteSystem", f"{_url}/4.1.2", f"{_path}/4.2"),
-]
-xml_catalogs = [
-    f"{_path}/4.2/catalog",
-    f"{_path}/4.3/catalog",
-    f"{_path}/4.4/catalog",
-    f"{_path}/4.5/catalog",
-    f"{_path}/4.2/catalog-4.1.2",
-]
+# don't validate license because there is no file to download
+options = ["!spdx"]
 
 
 def do_extract(self):
@@ -42,6 +28,10 @@ def do_extract(self):
 
 def do_install(self):
     vers = ["4.2", "4.3", "4.4", "4.5"]
+
+    self.install_file(
+        self.files_path / "docbook-xml.conf", "usr/share/xml/catalogs"
+    )
 
     for v in vers:
         tdir = f"usr/share/xml/docbook/{v}"
