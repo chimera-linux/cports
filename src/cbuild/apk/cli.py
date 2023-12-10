@@ -170,6 +170,7 @@ def call_chroot(
         cmd = [subcmd]
     else:
         cmd = [subcmd, "--repositories-file", "/dev/null"]
+    cmd.append("--no-interactive")
     if arch:
         cmd += ["--arch", arch]
     if not allow_network:

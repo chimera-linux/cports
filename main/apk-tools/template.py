@@ -1,6 +1,6 @@
 pkgname = "apk-tools"
 pkgver = "3.0.0_pre1"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "718c44d02e71746c614918141e967b8e45df8eb4"
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
@@ -46,8 +46,11 @@ def init_configure(self):
 
 
 def post_install(self):
+    if self.stage == 0:
+        return
     self.install_dir("etc/apk")
     self.ln_s("../../var/cache/apk", self.destdir / "etc/apk/cache")
+    (self.destdir / "etc/apk/interactive").touch()
 
 
 @subpackage("apk-tools-devel")
@@ -72,3 +75,12 @@ def _cache(self):
     self.options = ["brokenlinks"]
 
     return ["etc/apk/cache"]
+
+
+@subpackage("apk-tools-interactive", self.stage > 0)
+def _interactive(self):
+    self.pkgdesc = f"{pkgdesc} (interactive)"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+
+    return ["etc/apk/interactive"]
