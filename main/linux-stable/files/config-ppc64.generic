@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/powerpc 6.6.4 Kernel Configuration
+# Linux/powerpc 6.6.6 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 17.0.5"
 CONFIG_GCC_VERSION=0
