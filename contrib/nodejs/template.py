@@ -1,6 +1,6 @@
 pkgname = "nodejs"
-pkgver = "21.2.0"
-pkgrel = 1
+pkgver = "21.4.0"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--shared-zlib",
@@ -39,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://nodejs.org"
 source = f"{url}/dist/v{pkgver}/node-v{pkgver}.tar.gz"
-sha256 = "ce5e44838a18d96a8e5d2e835e38785c885acbcfc661d59ff0454298c716e8d6"
+sha256 = "e7b79431a3ec8c8193d30dbac92ed08777739417a9c2820acbde1eae2314eb96"
 debug_level = 1  # allow LTO build to not run out of mem
 hardening = ["!cfi"]  # TODO
 options = ["!cross"]
