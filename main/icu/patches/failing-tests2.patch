@@ -1,7 +1,7 @@
 This one consistently fails on x86_64.
 
---- a/source/test/cintltst/nucnvtst.c
-+++ b/source/test/cintltst/nucnvtst.c
+--- a/icu/source/test/cintltst/nucnvtst.c
++++ b/icu/source/test/cintltst/nucnvtst.c
 @@ -329,7 +329,6 @@ void addTestNewConvert(TestNode** root)
  #if !UCONFIG_NO_LEGACY_CONVERSION
     addTest(root, &TestJitterbug2346, "tsconv/nucnvtst/TestJitterbug2346");
