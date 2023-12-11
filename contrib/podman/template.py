@@ -1,6 +1,6 @@
 pkgname = "podman"
-pkgver = "4.7.2"
-pkgrel = 2
+pkgver = "4.8.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
 hostmakedepends = [
@@ -43,7 +43,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
-sha256 = "10346c5603546427bd809b4d855d1e39b660183232309128ad17a64969a0193d"
+sha256 = "d09697ed01cdc5c36069344b0ec2fdd26065554ff071e61a4701d31f008f0398"
 # objcopy fails to split on ppc
 options = ["!debug", "!check"]
 
