@@ -1,21 +1,37 @@
 pkgname = "icu"
-pkgver = "73.1"  # change path in build.patch when updating
+pkgver = "74.2"  # change path in build.patch when updating
 pkgrel = 0
-build_wrksrc = "source"
+build_wrksrc = "icu/source"
 build_style = "gnu_configure"
 configure_args = [
     "--with-data-packaging=archive",
     "--enable-static",
 ]
 make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = [
+    "autoconf-archive",
+    "automake",
+    "gmake",
+    "pkgconf",
+]
 checkdepends = ["python"]
 pkgdesc = "Robust and fully-featured Unicode libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ICU"
 url = "https://home.unicode.org"
-source = f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz"
-sha256 = "a457431de164b4aa7eca00ed134d00dfbf88a77c6986a10ae7774fc076bb8c45"
+source = [
+    f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz",
+    f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-data-bin-b.zip",
+]
+# we don't use bin-b but it contains the LICENCE file that -src references via symlink
+source_paths = [
+    ".",
+    ".",
+]
+sha256 = [
+    "5e4fb11d6a3e6b85afb55de8da8a71538f1d8fd64fce893986b37d60e5bb0091",
+    "42a12ebfb1a82f80bb0005d9b6e018382ccaa2462f0d086a8c69ae736fdded3e",
+]
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
 # FIXME int
 hardening = ["!int"]
@@ -84,6 +100,3 @@ def _libs(self):
 @subpackage("icu-devel")
 def _devel(self):
     return self.default_devel(extra=["usr/share/icu", "usr/lib/icu"])
-
-
-configure_gen = []
