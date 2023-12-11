@@ -1,6 +1,6 @@
 pkgname = "nodejs"
 pkgver = "21.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--shared-zlib",

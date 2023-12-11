@@ -1,6 +1,6 @@
 pkgname = "yelp"
 pkgver = "42.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-schemas-compile",

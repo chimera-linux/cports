@@ -1,6 +1,6 @@
 pkgname = "libspelling"
 pkgver = "0.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Denchant=enabled", "-Dvapi=true", "-Ddocs=false"]
 hostmakedepends = [

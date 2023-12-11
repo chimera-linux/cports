@@ -1,6 +1,6 @@
 pkgname = "gnome-text-editor"
 pkgver = "45.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",

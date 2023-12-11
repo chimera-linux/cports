@@ -1,6 +1,6 @@
 pkgname = "libxml2"
 pkgver = "2.12.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-threads",

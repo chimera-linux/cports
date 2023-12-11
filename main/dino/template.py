@@ -1,6 +1,6 @@
 pkgname = "dino"
 pkgver = "0.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 # TODO: openpgp maybe
 configure_args = [

@@ -1,6 +1,6 @@
 pkgname = "enchant"
 pkgver = "2.6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-relocatable", "--disable-static"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]

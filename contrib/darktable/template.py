@@ -1,6 +1,6 @@
 pkgname = "darktable"
 pkgver = "4.6.0"
-pkgrel = 1
+pkgrel = 2
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
