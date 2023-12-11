@@ -1,6 +1,6 @@
 pkgname = "qt6-qtbase"
 pkgver = "6.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_DATADIR=share/qt6",

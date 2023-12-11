@@ -1,6 +1,6 @@
 pkgname = "qt6-qt5compat"
 pkgver = "6.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qtbase"]
 makedepends = ["qt6-qtdeclarative-devel"]
