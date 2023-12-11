@@ -1,0 +1,21 @@
+https://github.com/llvm/llvm-project/issues/76264
+--- a/src/corelib/tools/qhash.cpp
++++ b/src/corelib/tools/qhash.cpp
+@@ -1429,7 +1429,7 @@
+     key += 0.0;
+     if constexpr (sizeof(double) == sizeof(size_t)) {
+         size_t k;
+-        memcpy(&k, &key, sizeof(double));
++        memcpy(&k, &key, sizeof(size_t));
+         return QHashPrivate::hash(k, seed);
+     } else {
+         return murmurhash(&key, sizeof(key), seed);
+@@ -1448,7 +1448,7 @@
+     key += static_cast<long double>(0.0);
+     if constexpr (sizeof(long double) == sizeof(size_t)) {
+         size_t k;
+-        memcpy(&k, &key, sizeof(long double));
++        memcpy(&k, &key, sizeof(size_t));
+         return QHashPrivate::hash(k, seed);
+     } else {
+         return murmurhash(&key, sizeof(key), seed);

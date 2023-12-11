@@ -1,6 +1,6 @@
 pkgname = "tracker-miners"
 pkgver = "3.6.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
