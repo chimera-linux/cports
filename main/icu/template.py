@@ -1,5 +1,5 @@
 pkgname = "icu"
-pkgver = "73.1"  # change path in build.patch when updating
+pkgver = "74.1"  # change path in build.patch when updating
 pkgrel = 0
 build_wrksrc = "source"
 build_style = "gnu_configure"
@@ -7,6 +7,8 @@ configure_args = [
     "--with-data-packaging=archive",
     "--enable-static",
 ]
+# autoconf-archive in contrib
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
 checkdepends = ["python"]
@@ -15,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ICU"
 url = "https://home.unicode.org"
 source = f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz"
-sha256 = "a457431de164b4aa7eca00ed134d00dfbf88a77c6986a10ae7774fc076bb8c45"
+sha256 = "86ce8e60681972e60e4dcb2490c697463fcec60dd400a5f9bffba26d0b52b8d0"
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
 # FIXME int
 hardening = ["!int"]
@@ -84,6 +86,3 @@ def _libs(self):
 @subpackage("icu-devel")
 def _devel(self):
     return self.default_devel(extra=["usr/share/icu", "usr/lib/icu"])
-
-
-configure_gen = []
