@@ -1,5 +1,5 @@
 pkgname = "imagemagick"
-_pver = "7.1.1-21"
+_pver = "7.1.1-23"
 pkgver = _pver.replace("-", ".")
 pkgrel = 0
 build_style = "gnu_configure"
@@ -81,7 +81,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "ImageMagick"
 url = "https://www.imagemagick.org"
 source = f"https://github.com/ImageMagick/ImageMagick/archive/{_pver}.tar.gz"
-sha256 = "09402e5f17c6575ef9f010bb2e21ae1710f1f3426f115ad4317ee9129c32608e"
+sha256 = "7793a2de4f11c3ee08dd5d783713ca0bc0833da533bc00973d31eaee89bdb0d0"
 # runs out of file descriptors
 options = ["!cross", "!check"]
 
