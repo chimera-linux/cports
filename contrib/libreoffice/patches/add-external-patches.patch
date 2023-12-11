@@ -1,0 +1,20 @@
+--- a/external/skia/UnpackedTarball_skia.mk
++++ b/external/skia/UnpackedTarball_skia.mk
+@@ -39,6 +39,7 @@ skia_patches := \
+     tdf147342.patch.0 \
+     redefinition-of-op.patch.0 \
+     0001-Added-missing-include-cstdio.patch \
++    ppc-skia-musttail.patch.1 \
+
+ $(eval $(call gb_UnpackedTarball_set_patchlevel,skia,1))
+
+--- a/external/libcmis/UnpackedTarball_libcmis.mk
++++ b/external/libcmis/UnpackedTarball_libcmis.mk
+@@ -20,6 +20,7 @@
+ 	external/libcmis/libcmis_oauth_pw_as_refreshtoken.patch.1 \
+ 	external/libcmis/libcmis_gdrive.patch.1 \
+ 	external/libcmis/libcmis-boost-string.patch \
++	external/libcmis/libcmis-libxml2.patch.1 \
+ ))
+ 
+ # vim: set noet sw=4 ts=4:

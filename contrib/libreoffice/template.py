@@ -250,6 +250,7 @@ def post_extract(self):
 
     # copy over patches
     self.cp(self.files_path / "ppc-skia-musttail.patch.1", "external/skia")
+    self.cp(self.files_path / "libcmis-libxml2.patch.1", "external/libcmis")
 
 
 def init_configure(self):
