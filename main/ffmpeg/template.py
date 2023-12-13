@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
-pkgver = "6.0.1"
-pkgrel = 1
+pkgver = "6.1"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -113,12 +113,12 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://ffmpeg.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "9b16b8731d78e596b4be0d720428ca42df642bb2d78342881ff7f5bc29fc9623"
+sha256 = "488c76e57dd9b3bee901f71d5c95eaf1db4a5a31fe46a28654e837144207c270"
 # seems to need rpath?
 options = ["!check"]
 
 if self.profile().arch != "riscv64":
-    configure_args += ["--enable-lto"]
+    configure_args += ["--enable-lto=thin"]
 else:
     # asm fails to build
     configure_args += ["--disable-rvv"]
