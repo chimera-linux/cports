@@ -1,16 +1,25 @@
 pkgname = "fortify-headers"
-pkgver = "1.1.99"
+pkgver = "2.1"
 pkgrel = 0
-_gitrev = "55ae3986e7c54efdbcb4b3d9e5834ed4826d81f7"
 build_style = "makefile"
+make_cmd = "gmake"
+make_check_target = "clang"
+make_check_args = ["-C", "tests", "run"]
+make_use_env = True
+hostmakedepends = ["gmake"]
+checkdepends = [
+    "musl-devel-static",
+    "libunwind-devel-static",
+    "libatomic-chimera-devel-static",
+]
 pkgdesc = "Standalone fortify implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
-url = "https://github.com/chimera-linux/fortify-headers"
-source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "c7eb4e1b442dfcf9f85862851bd5dd3f43b7f879a7755820be4e04560d3ce2c0"
-# no test suite
-options = ["bootstrap", "!check"]
+url = "https://git.2f30.org/fortify-headers"
+source = f"https://github.com/jvoisin/fortify-headers/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "12e43fd91ee0327c5f0611b72b6f2e2d4b93fae289a80e059104ef2c4801c622"
+tool_flags = {"CFLAGS": ["-Wno-macro-redefined"]}
+options = ["bootstrap"]
 
 
 def do_build(self):
