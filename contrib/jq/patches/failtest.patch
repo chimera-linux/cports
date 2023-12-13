@@ -2,14 +2,14 @@ no idea why this fails
 --- a/tests/shtest
 +++ b/tests/shtest
 @@ -525,11 +525,6 @@
-   od -c $d/expect
-   od -c $d/color
+   od -tc $d/expect
+   od -tc $d/color
    cmp $d/color $d/expect
 -  NO_COLOR=1 faketty $JQ_NO_B -n . > $d/color
 -  printf 'null\r\n' > $d/expect
--  od -c $d/expect
--  od -c $d/color
+-  od -tc $d/expect
+-  od -tc $d/color
 -  cmp $d/color $d/expect
    NO_COLOR=1 faketty $JQ_NO_B -Cn . > $d/color
    printf '\033[0;90mnull\033[0m\r\n' > $d/expect
-   od -c $d/expect
+   od -tc $d/expect
