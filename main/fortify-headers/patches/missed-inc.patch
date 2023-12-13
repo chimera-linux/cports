@@ -1,0 +1,10 @@
+--- a/include/sys/select.h
++++ b/include/sys/select.h
+@@ -23,6 +23,7 @@ __extension__
+ #include_next <sys/select.h>
+ 
+ #if defined(_FORTIFY_SOURCE) && _FORTIFY_SOURCE > 0 && defined(__OPTIMIZE__) && __OPTIMIZE__ > 0
++#include "../fortify-headers.h"
+ 
+ #ifdef __cplusplus
+ extern "C" {
