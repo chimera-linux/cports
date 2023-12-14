@@ -1,5 +1,5 @@
 pkgname = "slurp"
-pkgver = "1.4.0"
+pkgver = "1.5.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/emersion/slurp"
 source = f"{url}/releases/download/v{pkgver}/slurp-{pkgver}.tar.gz"
-sha256 = "98f6bb692be6bd015aa6251830837ea4fd9a0c5d51ce832ad147aa62ae7f095d"
+sha256 = "eeb282b2adc8db5614b852596340b69da6f3954cf6cfbdc4392da509c934208a"
 hardening = ["vis", "cfi"]
 
 
