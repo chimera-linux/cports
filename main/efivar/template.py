@@ -15,7 +15,7 @@ license = "LGPL-2.1-or-later"
 url = "https://github.com/rhboot/efivar"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "3c67feb93f901b98fbb897d5ca82931a6698b5bcd6ac34f0815f670d77747b9f"
-tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
+tool_flags = {"CFLAGS": ["-D_GNU_SOURCE", "-D_FILE_OFFSET_BITS=64"]}
 
 
 @subpackage("libefivar")

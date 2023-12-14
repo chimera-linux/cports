@@ -1,0 +1,77 @@
+From fa0df771e6020bd12659728ab5bb81fce4c0b85c Mon Sep 17 00:00:00 2001
+From: Violet Purcell <vimproved@inventati.org>
+Date: Mon, 23 Oct 2023 11:55:55 -0400
+Subject: [PATCH] Do not use LFS64 symbols on Linux
+
+Signed-off-by: Violet Purcell <vimproved@inventati.org>
+---
+ make/autoconf/configure.ac                    |  3 +++
+ src/hotspot/os/linux/attachListener_linux.cpp | 14 +++++++-------
+ 2 files changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/make/autoconf/configure.ac b/make/autoconf/configure.ac
+index ebf43c363ea..0e7c22c1fdd 100644
+--- a/make/autoconf/configure.ac
++++ b/make/autoconf/configure.ac
+@@ -200,6 +200,9 @@ LIB_TESTS_SETUP_JMH
+ # Setup Jib dependency tool
+ TOOLCHAIN_SETUP_JIB
+ 
++# Ensure _FILE_OFFSET_BITS is set to 64 for glibc
++AC_SYS_LARGEFILE
++
+ # After toolchain setup, we need to process some flags to be able to continue.
+ FLAGS_POST_TOOLCHAIN
+ 
+diff --git a/src/hotspot/os/linux/attachListener_linux.cpp b/src/hotspot/os/linux/attachListener_linux.cpp
+index 628c3f1c462..697c98848e5 100644
+--- a/src/hotspot/os/linux/attachListener_linux.cpp
++++ b/src/hotspot/os/linux/attachListener_linux.cpp
+@@ -445,14 +445,14 @@ AttachOperation* AttachListener::dequeue() {
+ 
+ void AttachListener::vm_start() {
+   char fn[UNIX_PATH_MAX];
+-  struct stat64 st;
++  struct stat st;
+   int ret;
+ 
+   int n = snprintf(fn, UNIX_PATH_MAX, "%s/.java_pid%d",
+            os::get_temp_directory(), os::current_process_id());
+   assert(n < (int)UNIX_PATH_MAX, "java_pid file name buffer overflow");
+ 
+-  RESTARTABLE(::stat64(fn, &st), ret);
++  RESTARTABLE(::stat(fn, &st), ret);
+   if (ret == 0) {
+     ret = ::unlink(fn);
+     if (ret == -1) {
+@@ -472,8 +472,8 @@ int AttachListener::pd_init() {
+ 
+ bool AttachListener::check_socket_file() {
+   int ret;
+-  struct stat64 st;
+-  ret = stat64(LinuxAttachListener::path(), &st);
++  struct stat st;
++  ret = stat(LinuxAttachListener::path(), &st);
+   if (ret == -1) { // need to restart attach listener.
+     log_debug(attach)("Socket file %s does not exist - Restart Attach Listener",
+                       LinuxAttachListener::path());
+@@ -512,14 +512,14 @@ bool AttachListener::is_init_trigger() {
+   }
+   char fn[PATH_MAX + 1];
+   int ret;
+-  struct stat64 st;
++  struct stat st;
+   sprintf(fn, ".attach_pid%d", os::current_process_id());
+-  RESTARTABLE(::stat64(fn, &st), ret);
++  RESTARTABLE(::stat(fn, &st), ret);
+   if (ret == -1) {
+     log_trace(attach)("Failed to find attach file: %s, trying alternate", fn);
+     snprintf(fn, sizeof(fn), "%s/.attach_pid%d",
+              os::get_temp_directory(), os::current_process_id());
+-    RESTARTABLE(::stat64(fn, &st), ret);
++    RESTARTABLE(::stat(fn, &st), ret);
+     if (ret == -1) {
+       log_debug(attach)("Failed to find attach file: %s", fn);
+     }
+-- 
+2.42.0

@@ -30,6 +30,8 @@ source = (
     f"https://github.com/containers/buildah/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "5e0bc3044158649983051c61330fe55e6e1f06ef98eed53861682ae54c2734ba"
+# https://github.com/mattn/go-sqlite3/issues/1164
+tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE"]}
 # needs subid config in the chroot
 options = ["!check"]
 

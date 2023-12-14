@@ -44,6 +44,8 @@ license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
 sha256 = "d09697ed01cdc5c36069344b0ec2fdd26065554ff071e61a4701d31f008f0398"
+# https://github.com/mattn/go-sqlite3/issues/1164
+tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE"]}
 # objcopy fails to split on ppc
 options = ["!debug", "!check"]
 

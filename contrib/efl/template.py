@@ -99,6 +99,7 @@ license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "d9f83aa0fd9334f44deeb4e4952dc0e5144683afac786feebce6030951617d15"
+tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE"]}
 # FIXME int: janky codebase
 hardening = ["!int"]
 # some suites are in a bad shape
