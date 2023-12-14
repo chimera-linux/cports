@@ -1,6 +1,6 @@
 pkgname = "dbus"
 pkgver = "1.14.10"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-selinux",
@@ -43,12 +43,8 @@ def post_install(self):
     self.install_dir("etc/dbus-1/session.d", empty=True)
     # service file
     self.install_file(
-        self.files_path / "dbus-daemon.wrapper", "usr/libexec", mode=0o755
-    )
-    self.install_file(
         self.files_path / "dbus-session.wrapper", "usr/libexec", mode=0o755
     )
-    self.install_service(self.files_path / "dbus-prepare")
     self.install_service(self.files_path / "dbus", enable=True)
     self.install_service(self.files_path / "dbus.user", enable=True)
     # x11 support
