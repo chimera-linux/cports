@@ -1,6 +1,6 @@
 pkgname = "musl-mallocng"
 pkgver = "1.2.4"
-pkgrel = 1
+pkgrel = 2
 _commit = "79bdacff83a6bd5b70ff5ae5eb8b6de82c2f7c30"
 build_style = "gnu_configure"
 configure_args = [
