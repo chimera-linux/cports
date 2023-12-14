@@ -1,6 +1,6 @@
 pkgname = "util-linux"
-pkgver = "2.39.2"
-pkgrel = 1
+pkgver = "2.39.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-feature=enabled",
@@ -64,7 +64,7 @@ url = "https://www.kernel.org/pub/linux/utils/util-linux"
 source = (
     f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "87abdfaa8e490f8be6dde976f7c80b9b5ff9f301e1b67e3899e1f05a59a1531f"
+sha256 = "7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f"
 tool_flags = {"CFLAGS": ["-D_DIRENT_HAVE_D_TYPE"]}
 # checkdepends are missing
 options = ["!check"]
@@ -123,9 +123,10 @@ def post_install(self):
             force=True,
         )
 
-    # services
-    for s in ["uuidd", "uuidd-dir"]:
-        self.install_service(self.files_path / s)
+    # tmpfiles.d
+    self.install_file(self.files_path / "uuidd.conf", "usr/lib/tmpfiles.d")
+    # service
+    self.install_service(self.files_path / "uuidd")
 
 
 @subpackage("util-linux-common")
