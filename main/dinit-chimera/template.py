@@ -17,7 +17,7 @@ depends = [
     "virtual:cmd:mount!mount",
     "virtual:cmd:sulogin!shadow",
     "virtual:cmd:udevadm!udev",
-    "virtual:cmd:systemd-tmpfiles!systemd-tmpfiles",
+    "virtual:cmd:systemd-tmpfiles!systemd-utils",
 ]
 triggers = ["/usr/lib/binfmt.d"]
 pkgdesc = "Chimera core services suite"
