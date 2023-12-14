@@ -1,5 +1,0 @@
-# prepare uuidd environment
-
-type       = scripted
-command    = install -d -m 755 -o _uuidd -g _uuidd /run/uuidd
-depends-on = early-devices.target
