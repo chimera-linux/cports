@@ -37,7 +37,6 @@ makedepends = [
     "libedit-readline-devel",
 ]
 depends = [
-    "desktop-file-utils",
     "python-scour",
     "python-appdirs",
     "python-lxml",

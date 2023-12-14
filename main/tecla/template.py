@@ -12,7 +12,6 @@ makedepends = [
     "libadwaita-devel",
     "libxkbcommon-devel",
 ]
-depends = ["desktop-file-utils"]
 pkgdesc = "GNOME keyboard layout viewer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

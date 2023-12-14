@@ -50,7 +50,7 @@ makedepends = [
     # XXX: https://bugzilla.mozilla.org/show_bug.cgi?id=1532281
     "dbus-glib-devel",
 ]
-depends = ["desktop-file-utils", "virtual:cmd:thunderbird!thunderbird-wayland"]
+depends = ["virtual:cmd:thunderbird!thunderbird-wayland"]
 pkgdesc = "Thunderbird mail client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"

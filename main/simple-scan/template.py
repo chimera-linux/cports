@@ -22,7 +22,7 @@ makedepends = [
     "sane-backends-devel",
     "zlib-devel",
 ]
-depends = ["desktop-file-utils", "sane-backends"]
+depends = ["sane-backends"]
 pkgdesc = "GNOME scanning utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

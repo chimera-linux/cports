@@ -16,7 +16,7 @@ makedepends = [
     "glib-devel",
     "libadwaita-devel",
 ]
-depends = ["desktop-file-utils", "gsettings-desktop-schemas"]
+depends = ["gsettings-desktop-schemas"]
 pkgdesc = "Graphical directory tree analyzer for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

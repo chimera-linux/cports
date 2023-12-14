@@ -23,7 +23,7 @@ makedepends = [
     "libpeas-devel",
     "libsoup-devel",
 ]
-depends = ["gsettings-desktop-schemas", "desktop-file-utils"]
+depends = ["gsettings-desktop-schemas"]
 pkgdesc = "GNOME calendar"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

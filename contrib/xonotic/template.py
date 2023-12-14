@@ -17,7 +17,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "alsa-lib-devel",
 ]
-depends = ["desktop-file-utils", f"xonotic-data~{pkgver}"]
+depends = [f"xonotic-data~{pkgver}"]
 pkgdesc = "Free, fast-paced cross-platform first-person shooter"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND BSD-3-Clause"

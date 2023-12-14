@@ -1,6 +1,6 @@
 pkgname = "fwupd"
 pkgver = "1.9.10"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
@@ -49,7 +49,7 @@ makedepends = [
     "sqlite-devel",
     "tpm2-tss-devel",
 ]
-depends = ["udisks"]
+depends = ["shared-mime-info", "udisks"]
 pkgdesc = "Firmware updater"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"

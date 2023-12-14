@@ -1,6 +1,7 @@
+# keep pkgver AND pkgrel in sync with qt6-qtwayland
 pkgname = "qt6-qtbase"
 pkgver = "6.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_DATADIR=share/qt6",
@@ -60,6 +61,7 @@ makedepends = [
     "vulkan-headers",
     "vulkan-loader-devel",
 ]
+depends = ["shared-mime-info"]
 pkgdesc = "Qt application framework (6.x)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = (

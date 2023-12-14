@@ -25,7 +25,7 @@ makedepends = [
     "webkitgtk-devel",
     "yelp-xsl",
 ]
-depends = ["dconf", "yelp-xsl", "desktop-file-utils"]
+depends = ["dconf", "yelp-xsl"]
 pkgdesc = "Help browser for GNOME desktop"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwayland"
 pkgver = "6.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
 make_check_args = ["-E", "tst_seatv4$"]
@@ -15,6 +15,7 @@ hostmakedepends = [
 ]
 makedepends = ["qt6-qtbase-devel", "qt6-qtdeclarative-devel"]
 checkdepends = ["mesa-dri"]
+install_if = [f"qt6-qtbase-gui={pkgver}-r{pkgrel}", "wayland"]
 pkgdesc = "Qt6 Wayland component"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = (

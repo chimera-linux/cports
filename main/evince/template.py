@@ -40,7 +40,6 @@ makedepends = [
     "gspell-devel",
     "djvulibre-devel",
 ]
-depends = ["desktop-file-utils"]
 pkgdesc = "GNOME document viewer"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

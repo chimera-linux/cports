@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "dconf-devel",
-    "desktop-file-utils",
     "gettext",
     "glib-devel",
     "libhandy-devel",

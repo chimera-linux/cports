@@ -66,7 +66,6 @@ makedepends = [
     "linux-headers",
 ]
 depends = [
-    "desktop-file-utils",
     "mypaint-brushes",
     "iso-codes",
     # prevent scripts from crashing (which prints annoying messages)

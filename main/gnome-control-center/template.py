@@ -1,6 +1,6 @@
 pkgname = "gnome-control-center"
 pkgver = "45.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -49,6 +49,7 @@ makedepends = [
     "gnutls-devel",
 ]
 depends = [
+    "desktop-file-utils",
     "tecla",
     "udisks",
     "cups-pk-helper",
