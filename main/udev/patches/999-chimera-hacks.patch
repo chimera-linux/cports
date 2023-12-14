@@ -208,10 +208,10 @@ index 4dc5fab..35a7211 100644
  
 -        if condition == '' or conf.get(condition) == 1
 +        do_skip = false
-+        if stem.contains('systemd') and not stem.contains('tmpfile')
++        if stem.contains('systemd') and not stem.contains('tmpfile') and not stem.contains('sysuser')
 +            do_skip = true
 +        endif
-+        if not stem.contains('udev') and not stem.contains('tmpfile')
++        if not stem.contains('udev') and not stem.contains('tmpfile') and not stem.contains('sysuser')
 +            do_skip = true
 +        endif
 +        if stem == 'hwdb' or stem == 'bootctl' or stem == 'loader.conf'
@@ -1599,6 +1599,46 @@ index 5c34668..50fca66 100644
  /* Let's be paranoid and do some sanity checks. */
  assert_cc(__STDC_HOSTED__ == 0);
  assert_cc(sizeof(bool) == 1);
+diff --git a/src/basic/user-util.c b/src/basic/user-util.c
+index fb62e48..357fb97 100644
+--- a/src/basic/user-util.c
++++ b/src/basic/user-util.c
+@@ -999,7 +999,7 @@ int fgetpwent_sane(FILE *stream, struct passwd **pw) {
+ 
+         errno = 0;
+         struct passwd *p = fgetpwent(stream);
+-        if (!p && errno != ENOENT)
++        if (!p && errno && errno != ENOENT)
+                 return errno_or_else(EIO);
+ 
+         *pw = p;
+@@ -1012,7 +1012,7 @@ int fgetspent_sane(FILE *stream, struct spwd **sp) {
+ 
+         errno = 0;
+         struct spwd *s = fgetspent(stream);
+-        if (!s && errno != ENOENT)
++        if (!s && errno && errno != ENOENT)
+                 return errno_or_else(EIO);
+ 
+         *sp = s;
+@@ -1025,7 +1025,7 @@ int fgetgrent_sane(FILE *stream, struct group **gr) {
+ 
+         errno = 0;
+         struct group *g = fgetgrent(stream);
+-        if (!g && errno != ENOENT)
++        if (!g && errno && errno != ENOENT)
+                 return errno_or_else(EIO);
+ 
+         *gr = g;
+@@ -1039,7 +1039,7 @@ int fgetsgent_sane(FILE *stream, struct sgrp **sg) {
+ 
+         errno = 0;
+         struct sgrp *s = fgetsgent(stream);
+-        if (!s && errno != ENOENT)
++        if (!s && errno && errno != ENOENT)
+                 return errno_or_else(EIO);
+ 
+         *sg = s;
 diff --git a/src/boot/efi/meson.build b/src/boot/efi/meson.build
 index 1c52629..94a0bcd 100644
 --- a/src/boot/efi/meson.build

@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "254"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dacl=true",
@@ -62,7 +62,6 @@ configure_args = [
     "-Dselinux=false",
     "-Dsmack=false",
     "-Dsysext=false",
-    "-Dsysusers=false",
     "-Dtimedated=false",
     "-Dtimesyncd=false",
     "-Dtpm=false",
@@ -94,6 +93,7 @@ configure_args = [
     "-Drpmmacrosdir=no",
     "-Dpamconfdir=no",
     # unrelated but we build it while at it
+    "-Dsysusers=true",
     "-Dtmpfiles=true",
 ]
 hostmakedepends = [
@@ -183,6 +183,15 @@ def post_install(self):
         self.destdir / "usr/bin/systemd-tmpfiles",
     )
 
+    # sysusers
+    self.rm(self.destdir / "usr/bin/systemd-sysusers")
+    self.rm(self.destdir / "usr/lib/sysusers.d", recursive=True)
+    self.rm(self.destdir / "usr/share/man/man8/systemd-sysusers.service.8")
+    self.mv(
+        self.destdir / "usr/bin/systemd-sysusers.standalone",
+        self.destdir / "usr/bin/systemd-sysusers",
+    )
+
     # predictable interface names
     self.install_file(
         self.files_path / "80-net-name-slot.rules",
@@ -259,18 +268,22 @@ def _efi(self):
     ]
 
 
-@subpackage("systemd-tmpfiles")
+@subpackage("systemd-utils")
 def _tmpfiles(self):
     self.pkgdesc = "Manage temporary/volatile files/directories"
     self.depends = ["virtual:cmd:snooze!snooze"]
-    self.triggers = ["/usr/lib/tmpfiles.d"]
+    self.replaces = [f"systemd-tmpfiles<{pkgver}-r{pkgrel}"]
+    self.triggers = ["/usr/lib/syusers.d", "/usr/lib/tmpfiles.d"]
 
     return [
         "etc/dinit.d/tmpfiles-clean",
+        "usr/bin/systemd-sysusers",
         "usr/bin/systemd-tmpfiles",
         "usr/libexec/systemd-tmpfiles-clean",
         "usr/lib/dinit.d/boot.d/tmpfiles-clean",
+        "usr/share/man/man5/sysusers.d.5",
         "usr/share/man/man5/tmpfiles.d.5",
+        "usr/share/man/man8/systemd-sysusers.8",
         "usr/share/man/man8/systemd-tmpfiles.8",
     ]
 
