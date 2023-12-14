@@ -1,5 +1,5 @@
 from cbuild.core import logger, paths, template, chroot
-from cbuild.apk import sign as asign
+from cbuild.apk import sign as asign, util as autil
 
 import shlex
 import pathlib
@@ -317,5 +317,11 @@ def invoke(pkg):
         spkg = template.Subpackage(
             f"{pkg.pkgname}-{apkg}", pkg.rparent, pkg.pkgdesc
         )
+
+        # carry over replaces
+        for rep in pkg.replaces:
+            sn, sv, sop = autil.split_pkg_name(rep)
+            if sn:
+                spkg.replaces.append(f"{sn}-{apkg}{sop}{sv}")
 
         genpkg(spkg, srepo, arch, binpkg)
