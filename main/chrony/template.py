@@ -1,6 +1,6 @@
 pkgname = "chrony"
 pkgver = "4.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-user=_chrony",
@@ -48,8 +48,9 @@ def post_install(self):
     # default dirs
     self.install_dir("var/log/chrony", empty=True)
     self.install_dir("var/lib/chrony", empty=True)
+    # tmpfiles.d
+    self.install_file(self.files_path / "chrony.conf", "usr/lib/tmpfiles.d")
     # dinit services
-    self.install_service(self.files_path / "chrony-dir")
     self.install_service(self.files_path / "chronyd")
     self.install_service(self.files_path / "chrony", enable=True)
 
