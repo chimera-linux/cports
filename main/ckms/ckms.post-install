@@ -1,4 +1,0 @@
-#!/bin/sh
-
-mkdir -p /var/lib/ckms || :
-chown -R _ckms:_ckms /var/lib/ckms > /dev/null 2>&1 || :

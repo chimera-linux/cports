@@ -1,6 +1,6 @@
 pkgname = "ckms"
 pkgver = "0.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 hostmakedepends = ["scdoc"]
 depends = ["python"]
@@ -13,10 +13,20 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "29e19116397cf0a50bb49a87b09d816cf8d233aa7016c4884d1ff88bfbc6ab27"
 # no tests
 options = ["!check"]
-system_users = ["_ckms"]
 
 
 def post_install(self):
+    self.install_license("COPYING.md")
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="ckms.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="ckms.conf",
+    )
     # kernel hook
     self.install_file(
         self.files_path / "10-ckms.sh", "etc/kernel.d", mode=0o755
