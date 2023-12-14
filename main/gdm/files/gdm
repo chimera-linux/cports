@@ -2,7 +2,7 @@
 
 type            = process
 command         = /usr/bin/gdm
-depends-on      = gdm-prepare
+depends-on      = local.target
 depends-on      = login.target
 depends-on      = dbus
 depends-ms      = elogind
