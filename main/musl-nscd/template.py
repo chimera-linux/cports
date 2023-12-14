@@ -1,6 +1,6 @@
 pkgname = "musl-nscd"
 pkgver = "1.1.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_env = {"YACC": "bison"}
 make_cmd = "gmake"
@@ -19,7 +19,8 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("COPYRIGHT")
-    self.install_service(self.files_path / "nscd-prepare")
+    self.install_dir("var/db/nscd", empty=True)
+    self.install_file(self.files_path / "nscd.conf", "usr/lib/tmpfiles.d")
     self.install_service(self.files_path / "nscd")
 
 
