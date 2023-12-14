@@ -2,8 +2,6 @@
 #
 # some stuff should always have a dependency on the package
 # it triggers, particularly stuff like sysusers/tmpfiles
-# as well as typically desktop/mime stuff, add it here so
-# that it's not forgotten as it tends to be
 #
 # TODO: maybe figure out a way to decentralize this?
 
@@ -13,11 +11,7 @@ _trigdeps = {
     "etc/ca-certificates/update.d": "ca-certificates",
     "usr/lib/sysusers.d": "systemd-utils",
     "usr/lib/tmpfiles.d": "systemd-utils",
-    # TODO: do we want this? it pulls in glib
-    # "usr/share/applications": "desktop-file-utils",
     "usr/share/ca-certificates": "ca-certificates",
-    # ditto
-    # "usr/share/mime": "shared-mime-info",
 }
 
 
