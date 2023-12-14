@@ -1,4 +1,0 @@
-#!/bin/sh
-
-install -d -m 700 /var/lib/dhcpcd || :
-chown -R _dhcpcd:_dhcpcd /var/lib/dhcpcd > /dev/null 2>&1 || :
