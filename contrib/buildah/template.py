@@ -1,5 +1,5 @@
 pkgname = "buildah"
-pkgver = "1.33.2"
+pkgver = "1.34.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
@@ -29,9 +29,7 @@ url = "https://buildah.io"
 source = (
     f"https://github.com/containers/buildah/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "5e0bc3044158649983051c61330fe55e6e1f06ef98eed53861682ae54c2734ba"
-# https://github.com/mattn/go-sqlite3/issues/1164
-tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE"]}
+sha256 = "847d9943195360e3dad1132f46bfac4fa333c922f3079560a25ba1b9d9b40453"
 # needs subid config in the chroot
 options = ["!check"]
 
