@@ -37,11 +37,6 @@ hardening = ["vis", "!cfi"]
 system_users = ["dbus:22"]
 
 
-def init_install(self):
-    # don't let it generate the scriptlets
-    self.system_users = []
-
-
 def post_install(self):
     # these need to exist
     self.install_dir("var/lib/dbus", empty=True)

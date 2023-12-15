@@ -119,10 +119,6 @@ else:
     configure_args += ["--disable-spice"]
 
 
-def init_build(self):
-    self.system_users = []
-
-
 def post_install(self):
     self.install_service(self.files_path / "qemu-ga")
 
