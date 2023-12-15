@@ -1,6 +1,6 @@
 pkgname = "polkit"
 pkgver = "121"
-pkgrel = 5
+pkgrel = 6
 build_style = "meson"
 configure_args = [
     "-Dsession_tracking=libelogind",
@@ -39,14 +39,22 @@ suid_files = [
 # tests are broken on musl
 options = ["!check"]
 
-system_users = ["_polkitd"]
-
 
 def post_install(self):
     self.rm(self.destdir / "tmp", recursive=True)
     self.rm(self.destdir / "etc/pam.d/polkit-1")
     self.install_file(
         self.files_path / "polkit-1.pam", "etc/pam.d", name="polkit-1"
+    )
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="polkit.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="polkit.conf",
     )
     self.install_service(self.files_path / "polkitd")
     # move defaults

@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/install -d -m 750 -o root -g _polkitd /etc/polkit-1/rules.d || :
