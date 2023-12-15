@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
 pkgver = "4.6.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DQT6=ON",
@@ -31,3 +31,52 @@ sha256 = "dbe657cdbb0b9b0e4485cc30a70cfc91b675b3af83e1da5e06d61b0d449a762c"
 hardening = ["vis"]
 # don't build
 options = ["!check"]
+
+
+def do_configure(self):
+    from cbuild.util import cmake
+
+    cmake.configure(self, build_dir="build-gui", extra_args=self.configure_args)
+    cmake.configure(
+        self,
+        build_dir="build-nox",
+        extra_args=self.configure_args + ["-DGUI=OFF"],
+    )
+
+
+def do_build(self):
+    from cbuild.util import cmake
+
+    cmake.build(self, "build-gui")
+    cmake.build(self, "build-nox")
+
+
+def do_install(self):
+    from cbuild.util import cmake
+
+    cmake.install(self, "build-gui")
+    cmake.install(self, "build-nox")
+
+    self.install_service(self.files_path / "qbittorrent-nox")
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="qbittorrent.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="qbittorrent.conf",
+    )
+
+
+@subpackage("qbittorrent-nox")
+def _nox(self):
+    self.depends = []
+    return [
+        "etc/dinit.d",
+        "usr/bin/qbittorrent-nox",
+        "usr/lib/sysusers.d",
+        "usr/lib/tmpfiles.d",
+        "usr/share/man/man1/qbittorrent-nox.1",
+    ]
