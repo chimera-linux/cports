@@ -1,12 +1,9 @@
 pkgname = "xmlcatmgr"
 pkgver = "2.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "libtool"]
-# trigger on /etc so the hook fires on updates to self
 triggers = [
-    "/etc/xml",
-    "/etc/sgml",
     "/usr/share/xml/catalogs",
     "/usr/share/sgml/catalogs",
 ]
@@ -22,3 +19,6 @@ options = ["!lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+    # also makes sure to trigger every time we update self
+    self.install_dir("usr/share/xml/catalogs", empty=True)
+    self.install_dir("usr/share/sgml/catalogs", empty=True)
