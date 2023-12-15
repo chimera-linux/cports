@@ -1,6 +1,6 @@
 pkgname = "dbus"
 pkgver = "1.14.10"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-selinux",
@@ -37,6 +37,11 @@ hardening = ["vis", "!cfi"]
 system_users = ["dbus:22"]
 
 
+def init_install(self):
+    # don't let it generate the scriptlets
+    self.system_users = []
+
+
 def post_install(self):
     # these need to exist
     self.install_dir("var/lib/dbus", empty=True)
@@ -52,8 +57,17 @@ def post_install(self):
     self.install_file(
         self.files_path / "01dbus-env", "etc/X11/Xsession.d", mode=0o755
     )
-    # tmpfiles
-    self.install_file(self.files_path / "dbus.conf", "usr/lib/tmpfiles.d")
+    # sysuser and tmpfiles
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="dbus.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="dbus.conf",
+    )
 
 
 @subpackage("dbus-devel")

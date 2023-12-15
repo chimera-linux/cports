@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo 'u dbus 22:22 "dbus user" /var/empty /usr/bin/nologin' | \
+    /usr/bin/systemd-sysusers --replace /usr/lib/sysusers.d/dbus.conf - || :
