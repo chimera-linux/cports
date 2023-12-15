@@ -1,6 +1,6 @@
 pkgname = "gdm"
 pkgver = "45.0.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -62,17 +62,21 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-4]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "6572578c05e3c6569d6ed269f7de2aaf3a035657654586d8243907bb7a6ffa85"
-system_users = [
-    {
-        "name": "_gdm",
-        "id": None,
-        "home": "/var/lib/gdm",
-    }
-]
 
 
 def post_install(self):
     self.install_file(self.files_path / "Xsession", "etc/gdm", mode=0o755)
+
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="gdm.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="gdm.conf",
+    )
 
     self.install_service(self.files_path / "gdm-prepare")
     self.install_service(self.files_path / "gdm")
