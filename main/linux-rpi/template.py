@@ -11,7 +11,7 @@ hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 provides = ["linux"]
 pkgdesc = (
-    f"Linux kernel for Raspberry Pi 3 and 4 ({pkgver[0:pkgver.rfind('.')]}.x)"
+    f"Linux kernel for Raspberry Pi 3/4/5 ({pkgver[0:pkgver.rfind('.')]}.x)"
 )
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
