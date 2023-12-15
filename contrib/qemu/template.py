@@ -1,6 +1,6 @@
 pkgname = "qemu"
 pkgver = "8.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 # TODO vde
 configure_args = [
@@ -110,13 +110,7 @@ file_modes = {
 # maybe someday
 options = ["!cross", "!check"]
 
-system_users = [
-    {
-        "name": "_qemu",
-        "id": None,
-        "groups": ["kvm"],
-    }
-]
+system_users = ["_qemu"]
 
 if self.profile().endian == "little":
     configure_args += ["--enable-spice"]
@@ -125,9 +119,14 @@ else:
     configure_args += ["--disable-spice"]
 
 
+def init_build(self):
+    self.system_users = []
+
+
 def post_install(self):
     self.install_service(self.files_path / "qemu-ga")
 
+    self.install_file(self.files_path / "qemu.conf", "usr/lib/sysusers.d")
     self.install_file(self.files_path / "80-kvm.rules", "usr/lib/udev/rules.d")
     self.install_file(self.files_path / "bridge.conf", "etc/qemu")
 
