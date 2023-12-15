@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5266"
+pkgver = "1.7.5293"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -36,7 +36,7 @@ makedepends = [
     "libwebp-devel",
     "libzip-devel",
     "libzip-progs",
-    "zstd-devel",
+    "lz4-devel",
     "qt6-qtbase-devel",
     "qt6-qttools-devel",
     "rapidyaml-devel",
@@ -46,6 +46,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-devel",
     "zlib-devel",
+    "zstd-devel",
 ]
 checkdepends = ["perl"]
 pkgdesc = "Playstation 2 emulator"
@@ -74,7 +75,7 @@ source_paths = [
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "994e866bddbe193badfe7ab9c3034a5e65c3975d7c0fcbe46cfa5946f8420ae7",
+    "5ea7c6d70f8305c79c8aff0b42cfe408be6b4442c12891df53d9fda607bd55d7",
     "c93ee6408a09f1cb2027195c1d5c76182fd7ae6d0604f17d23094b83c64493e8",
     "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
