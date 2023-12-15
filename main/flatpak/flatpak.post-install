@@ -1,4 +1,0 @@
-#!/bin/sh
-
-/usr/bin/modprobe -b -q fuse || :
-/usr/bin/flatpak remote-list > /dev/null 2>&1 || :
