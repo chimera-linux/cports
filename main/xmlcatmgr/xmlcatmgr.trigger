@@ -16,6 +16,10 @@ xmlcatmgr -sc "$SGML_CATALOG" create
 
 echo "Refreshing XML catalogs..."
 
+if [ ! -f /etc/xml/catalog ]; then
+    xmlcatmgr -c /etc/xml/catalog create
+fi
+
 if ! xmlcatmgr -c /etc/xml/catalog lookup "$XML_CATALOG" > /dev/null 2>&1; then
     xmlcatmgr -c /etc/xml/catalog add nextCatalog "$XML_CATALOG"
 fi
@@ -28,6 +32,10 @@ for f in /usr/share/xml/catalogs/*.conf; do
 done
 
 echo "Refreshing SGML catalogs..."
+
+if [ ! -f /etc/sgml/catalog ]; then
+    xmlcatmgr -sc /etc/sgml/catalog create
+fi
 
 if ! xmlcatmgr -sc /etc/sgml/catalog lookup "$SGML_CATALOG" > /dev/null 2>&1; then
     xmlcatmgr -sc /etc/sgml/catalog add CATALOG "$SGML_CATALOG"
