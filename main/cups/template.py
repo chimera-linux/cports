@@ -1,6 +1,6 @@
 pkgname = "cups"
 pkgver = "2.4.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-relro",
@@ -59,9 +59,6 @@ tool_flags = {
     "CXXFLAGS": ["-Wno-unused-command-line-argument"],
 }
 file_modes = {
-    "var/cache/cups/rss": ("_cups", "lp", 0o750),
-    "var/spool/cups": ("_cups", "lp", 0o755),
-    "etc/cups/ssl": ("_cups", "lp", 0o700),
     "etc/cups/classes.conf": ("root", "lp", 0o644),
     "etc/cups/printers.conf": ("root", "lp", 0o644),
     "etc/cups/subscriptions.conf": ("root", "lp", 0o644),
@@ -76,16 +73,6 @@ file_modes = {
 hardening = ["!int"]
 # undefined references everywhere
 options = ["!lto"]
-
-system_users = [
-    {
-        "name": "_cups",
-        "id": None,
-        "pgroup": "lp",
-        "home": "/var/spool/cups",
-    }
-]
-system_groups = ["_lpadmin"]
 
 
 def init_configure(self):
@@ -103,15 +90,20 @@ def post_install(self):
 
     self.install_service(self.files_path / "cupsd")
 
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="cups.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="cups.conf",
+    )
+
     # install some more configuration files that will get filled by cupsd
     for f in ["printers", "classes", "subscriptions"]:
         (self.destdir / f"etc/cups/{f}.conf").touch(mode=0o644)
-
-    self.install_dir("usr/lib/cups/driver", empty=True)
-    self.install_dir("var/log/cups", mode=0o750, empty=True)
-    self.install_dir("var/cache/cups/rss", mode=0o750, empty=True)
-    self.install_dir("var/spool/cups", empty=True)
-    self.install_dir("etc/cups/ssl", mode=0o700, empty=True)
 
 
 @subpackage("cups-libs")
