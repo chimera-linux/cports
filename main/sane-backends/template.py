@@ -1,6 +1,6 @@
 pkgname = "sane-backends"
 pkgver = "1.2.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-locking",
@@ -37,13 +37,13 @@ hardening = ["!int"]
 # otherwise we get conflicting providers because all the
 # plugins provide a libsane.so.1 soname for whatever reason
 options = ["!scanshlibs"]
-system_users = [{"name": "_saned", "id": None, "groups": ["lp", "scanner"]}]
 
 
 def post_install(self):
     self.install_license("LICENSE")
 
     self.install_service(self.files_path / "saned")
+    self.install_file(self.files_path / "saned.conf", "usr/lib/sysusers.d")
 
     self.install_file(
         self.files_path / "saned.xinetd", "etc/xinetd.d", name="saned.conf"
