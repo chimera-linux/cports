@@ -11,4 +11,4 @@ index 3ef99a7..b0d94b5 100644
 @@ -1,2 +1,2 @@
  #Type Name ID GECOS               Home directory Shell
 -u     tss  -  "tss user for tpm2"
-+u     tss  -  "tss user for tpm2" /var/empty     /usr/bin/nologin
++u     _tss  -  "tss user for tpm2" /var/empty     /usr/bin/nologin

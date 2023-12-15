@@ -1,6 +1,6 @@
 pkgname = "tpm2-tss"
 pkgver = "4.0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-unit",
