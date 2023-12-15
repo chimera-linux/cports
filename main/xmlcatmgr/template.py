@@ -19,9 +19,6 @@ sha256 = "ea1142b6aef40fbd624fc3e2130cf10cf081b5fa88e5229c92b8f515779d6fdc"
 # ld: error: undefined symbol: setprogname
 options = ["!lto"]
 
-if self.profile().cross:
-    hostmakedepends = ["xmlcatmgr"]
-
 
 def post_install(self):
     self.install_license("COPYING")
