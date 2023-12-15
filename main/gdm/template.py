@@ -1,6 +1,6 @@
 pkgname = "gdm"
 pkgver = "45.0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -78,7 +78,6 @@ def post_install(self):
         name="gdm.conf",
     )
 
-    self.install_service(self.files_path / "gdm-prepare")
     self.install_service(self.files_path / "gdm")
 
     # drop magic nonsense with wayland disabling, we don't support
