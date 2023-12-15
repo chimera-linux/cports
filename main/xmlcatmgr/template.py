@@ -23,12 +23,5 @@ if self.profile().cross:
     hostmakedepends = ["xmlcatmgr"]
 
 
-def post_build(self):
-    if self.profile().cross:
-        xcmgr = "/usr/bin/xmlcatmgr"
-    else:
-        xcmgr = self.chroot_cwd / self.make_dir / "xmlcatmgr"
-
-
 def post_install(self):
     self.install_license("COPYING")
