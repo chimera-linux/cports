@@ -7,11 +7,6 @@ make_check_target = "clang"
 make_check_args = ["-C", "tests", "run"]
 make_use_env = True
 hostmakedepends = ["gmake"]
-checkdepends = [
-    "musl-devel-static",
-    "libunwind-devel-static",
-    "libatomic-chimera-devel-static",
-]
 pkgdesc = "Standalone fortify implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
