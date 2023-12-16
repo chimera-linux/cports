@@ -1,6 +1,6 @@
 pkgname = "dbus"
 pkgver = "1.14.10"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 configure_args = [
     "--disable-selinux",
