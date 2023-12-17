@@ -1,6 +1,6 @@
 pkgname = "bluez"
 pkgver = "5.71"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-systemd",
@@ -43,7 +43,6 @@ source = f"$(KERNEL_SITE)/bluetooth/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b828d418c93ced1f55b616fb5482cf01537440bfb34fbda1a564f3ece94735d8"
 tool_flags = {"CFLAGS": ["-Wno-deprecated-declarations"]}
 options = ["linkundefver"]
-system_groups = ["bluetooth"]
 
 
 def post_patch(self):
@@ -55,6 +54,7 @@ def post_patch(self):
 
 def post_install(self):
     self.install_file("src/main.conf", "etc/bluetooth")
+    self.install_file(self.files_path / "bluetooth.conf", "usr/lib/sysusers.d")
     self.install_service(self.files_path / "bluetoothd")
 
 
