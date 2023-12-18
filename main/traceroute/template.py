@@ -1,5 +1,5 @@
 pkgname = "traceroute"
-pkgver = "2.1.3"
+pkgver = "2.1.4"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://traceroute.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "05ebc7aba28a9100f9bbae54ceecbf75c82ccf46bdfce8b5d64806459a7e0412"
+sha256 = "b2e39a1d04ea45a6a60c976a2637d1a16224edd2eaa19a5870af83edb2ffe3fa"
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 hardening = ["vis", "cfi"]
 # no tests
