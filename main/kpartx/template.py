@@ -1,5 +1,5 @@
 pkgname = "kpartx"
-pkgver = "0.9.6"
+pkgver = "0.9.7"
 pkgrel = 0
 build_wrksrc = "kpartx"
 build_style = "makefile"
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://christophe.varoqui.free.fr"
 source = f"https://github.com/opensvc/multipath-tools/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "401c6f6e8dc5d3feaaee76280716aee718579ac024ce4f2fae77c798dc7a0f9f"
+sha256 = "8f0a7ddc01137d0f90ac3ef5700131dfbd6cf3bbbccdcfa317e8379efa328d59"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["!check"]
