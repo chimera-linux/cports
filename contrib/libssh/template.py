@@ -1,5 +1,5 @@
 pkgname = "libssh"
-pkgver = "0.10.5"
+pkgver = "0.10.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later WITH custom:openssl-exception AND BSD-2-Clause"
 url = "https://www.libssh.org"
 source = f"https://www.libssh.org/files/{pkgver[:pkgver.rfind('.')]}/libssh-{pkgver}.tar.xz"
-sha256 = "b60e2ff7f367b9eee2b5634d3a63303ddfede0e6a18dfca88c44a8770e7e4234"
+sha256 = "1861d498f5b6f1741b6abc73e608478491edcf9c9d4b6630eef6e74596de9dc1"
 hardening = ["vis", "cfi"]
 
 
