@@ -1,0 +1,42 @@
+ 8:39.62 In file included from Unified_c_nrappkit0.c:29:
+ 8:39.62 /builddir/firefox-121.0/dom/media/webrtc/transport/third_party/nrappkit/src/registry/registry_local.c:1092:5: error: no matching function for call to 'qsort'
+ 8:39.62  1092 |     qsort(arg.children, arg.length, sizeof(*arg.children), (void*)strcasecmp);
+ 8:39.62       |     ^~~~~
+ 8:39.62 /usr/include/stdlib.h:58:6: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'int (*)(const void *, const void *)' for 4th argument
+ 8:39.62    58 | void qsort (void *, size_t, size_t, int (*)(const void *, const void *));
+ 8:39.62       |      ^                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 8:39.62 /usr/include/fortify/stdlib.h:85:25: note: candidate function not viable: cannot convert argument of incomplete type 'void *' to 'int (*)(const void *, const void *)' for 4th argument
+ 8:39.62    85 | _FORTIFY_FN(qsort) void qsort(void * _FORTIFY_POS0 base, size_t nmemb, size_t size,
+ 8:39.63       |                         ^
+ 8:39.63    86 |         int (*compar)(const void *, const void *))
+ 8:39.63       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 8:39.63 1 warning and 1 error generated.
+--- a/include/stdlib.h
++++ b/include/stdlib.h
+@@ -77,6 +77,7 @@
+ #endif // MB_CUR_MAX
+ #endif
+ 
++#if !defined(__clang__)
+ #undef qsort
+ #if __has_builtin(__builtin_qsort)
+ __diagnose_as_builtin(__builtin_qsort, 1, 2, 3, 4)
+@@ -94,6 +95,7 @@
+ 
+ 	return __orig_qsort(base, nmemb, size, compar);
+ }
++#endif
+ 
+ /* FIXME clang */
+ #if !defined(__clang__)
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -71,8 +71,6 @@
+ 	test_printf                  \
+ 	test_pwrite_dynamic          \
+ 	test_pwrite_static           \
+-	test_qsort_dynamic           \
+-	test_qsort_static            \
+ 	test_read_dynamic            \
+ 	test_read_static             \
+ 	test_readlink_dynamic        \
