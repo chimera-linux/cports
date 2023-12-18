@@ -1,5 +1,5 @@
 pkgname = "bluez-headers"
-pkgver = "5.70"
+pkgver = "5.71"
 pkgrel = 0
 depends = ["!bluez-devel"]
 pkgdesc = "Linux Bluetooth stack (header files)"
@@ -7,7 +7,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/bluez-{pkgver}.tar.xz"
-sha256 = "37e372e916955e144cb882f888e4be40898f10ae3b7c213ddcdd55ee9c009278"
+sha256 = "b828d418c93ced1f55b616fb5482cf01537440bfb34fbda1a564f3ece94735d8"
 
 
 def do_install(self):
