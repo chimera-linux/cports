@@ -1,6 +1,6 @@
 pkgname = "conmon"
 pkgver = "2.1.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "go-md2man",

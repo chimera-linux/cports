@@ -1,0 +1,33 @@
+Patch-Source: https://github.com/containers/conmon/pull/476
+--
+From 8557c117bcab03e3c16e40ffb7bd450d697f72c7 Mon Sep 17 00:00:00 2001
+From: Dominique Martinet <dominique.martinet@atmark-techno.com>
+Date: Fri, 15 Dec 2023 12:44:03 +0900
+Subject: [PATCH] Fix incorrect free in conn_sock
+
+Earlier commit freed socket_parent_dir()'s result which is correct in
+the case it returns a path from g_build_filename, but when it returns
+opt_bundle_path the string should not be freed.
+
+Make the function always return an allocated string that can be freed
+
+Fixes: #475
+Fixes: fad6bac8e65f ("fix some issues flagged by SAST scan")
+Signed-off-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
+---
+ src/conn_sock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/conn_sock.c b/src/conn_sock.c
+index 62a02266..3b854e33 100644
+--- a/src/conn_sock.c
++++ b/src/conn_sock.c
+@@ -314,7 +314,7 @@ char *socket_parent_dir(gboolean use_full_attach_path, size_t desired_len)
+ {
+ 	/* if we're to use the full path, ignore the socket path and only use the bundle_path */
+ 	if (use_full_attach_path)
+-		return opt_bundle_path;
++		return strdup(opt_bundle_path);
+ 
+ 	char *base_path = g_build_filename(opt_socket_path, opt_cuuid, NULL);
+ 
