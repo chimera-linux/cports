@@ -1,5 +1,5 @@
 pkgname = "btrfs-progs"
-pkgver = "6.6.2"
+pkgver = "6.6.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--disable-python"]
@@ -14,6 +14,7 @@ hostmakedepends = [
     "libxml2-progs",
     "pkgconf",
     "python-sphinx",
+    "python-sphinx_rtd_theme",
     "xmlto",
 ]
 makedepends = [
@@ -35,7 +36,7 @@ url = "https://btrfs.wiki.kernel.org/index.php/Main_Page"
 source = (
     f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
 )
-sha256 = "b426736dc94e2b04b6983e998c4dc427dc166d66ddea246c890ed9c2a450044f"
+sha256 = "f41ce53f6673ff551ee4a3fe7dc9601e5a0dde6b6d09177d1fab62718abc6d9a"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
