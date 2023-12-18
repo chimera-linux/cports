@@ -1,9 +1,14 @@
 pkgname = "python-hyperlink"
 pkgver = "21.0.0"
-pkgrel = 0
-build_style = "python_module"
+pkgrel = 1
+build_style = "python_pep517"
 make_check_target = "build"
-hostmakedepends = ["python-setuptools"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python-idna"]
 checkdepends = ["python-pytest", "python-idna"]
 pkgdesc = "Python immutable URLs"

@@ -1,9 +1,14 @@
 pkgname = "python-pillow"
 pkgver = "10.1.0"
-pkgrel = 0
-build_style = "python_module"
+pkgrel = 1
+build_style = "python_pep517"
 make_check_target = "Tests"
-hostmakedepends = ["python-setuptools"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 makedepends = [
     "python-devel",
     "libjpeg-turbo-devel",

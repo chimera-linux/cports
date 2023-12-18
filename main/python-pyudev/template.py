@@ -1,8 +1,13 @@
 pkgname = "python-pyudev"
 pkgver = "0.24.1"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python", "virtual:so:libudev.so.1!udev-libs"]
 checkdepends = ["python-pytest", "udev-libs"]
 pkgdesc = "Python bindings to libudev"

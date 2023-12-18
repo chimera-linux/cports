@@ -1,6 +1,6 @@
 pkgname = "boost"
 pkgver = "1.83.0"
-pkgrel = 1
+pkgrel = 2
 hostmakedepends = ["pkgconf"]
 makedepends = [
     "icu-devel",

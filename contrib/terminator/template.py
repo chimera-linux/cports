@@ -1,15 +1,15 @@
 pkgname = "terminator"
 pkgver = "2.1.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_target = "tests"
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
+    "gettext",
     "python-build",
     "python-installer",
-    "python-flit_core",
+    "python-setuptools",
     "python-wheel",
-    "gettext",
 ]
 checkdepends = [
     "python-pytest",

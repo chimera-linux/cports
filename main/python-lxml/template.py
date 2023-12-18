@@ -1,6 +1,6 @@
 pkgname = "python-lxml"
 pkgver = "4.9.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {"WITH_CYTHON": "true"}
 hostmakedepends = [

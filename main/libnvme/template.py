@@ -1,6 +1,6 @@
 pkgname = "libnvme"
 pkgver = "1.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
 hostmakedepends = ["meson", "pkgconf", "bash", "swig"]

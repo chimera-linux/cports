@@ -1,8 +1,15 @@
 pkgname = "ufw"
 pkgver = "0.36.2"
-pkgrel = 1
-build_style = "python_module"
-hostmakedepends = ["python-setuptools", "gmake", "iptables"]
+pkgrel = 2
+build_style = "python_pep517"
+hostmakedepends = [
+    "gmake",
+    "iptables",
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = [
     "iptables",
     "python",
@@ -20,4 +27,11 @@ options = ["!check"]
 
 
 def post_install(self):
+    # /usr/lib already exists so need to move one at a time for merge..
+    with self.pushd(self.destdir / "usr/lib/python*/site-packages", glob=True):
+        self.mv("usr/share", self.destdir / "usr")
+        self.mv("usr/lib/ufw", self.destdir / "usr/lib")
+        self.mv("usr/bin", self.destdir / "usr")
+        self.mv("etc", self.destdir)
+
     self.install_service(self.files_path / "ufw")

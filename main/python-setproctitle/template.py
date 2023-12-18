@@ -1,9 +1,14 @@
 pkgname = "python-setproctitle"
 pkgver = "1.3.3"
-pkgrel = 0
-build_style = "python_module"
+pkgrel = 1
+build_style = "python_pep517"
 make_check_target = "tests"
-hostmakedepends = ["python-setuptools"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python module for process title customization"

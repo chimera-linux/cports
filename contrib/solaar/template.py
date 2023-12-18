@@ -1,12 +1,12 @@
 pkgname = "solaar"
 pkgver = "1.1.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
-    "python-setuptools",
     "python-build",
-    "python-wheel",
     "python-installer",
+    "python-setuptools",
+    "python-wheel",
 ]
 depends = [
     "python-evdev",

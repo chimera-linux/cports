@@ -1,11 +1,12 @@
 pkgname = "python-openssl"
 pkgver = "23.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_env = {"PYTHONPATH": "build/lib"}
 hostmakedepends = [
     "python-build",
     "python-installer",
+    "python-setuptools",
     "python-wheel",
 ]
 depends = ["python-cryptography"]

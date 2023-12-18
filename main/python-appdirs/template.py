@@ -1,8 +1,13 @@
 pkgname = "python-appdirs"
 pkgver = "1.4.4"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python"]
 pkgdesc = "Platform-specific directory module for Python"
 maintainer = "q66 <q66@chimera-linux.org>"

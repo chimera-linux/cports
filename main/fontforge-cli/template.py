@@ -1,6 +1,6 @@
 pkgname = "fontforge-cli"
 pkgver = "20230101"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DENABLE_GUI=OFF"]
 hostmakedepends = ["cmake", "ninja", "gettext", "pkgconf"]

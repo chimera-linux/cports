@@ -1,6 +1,6 @@
 pkgname = "vapoursynth"
 pkgver = "65"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"

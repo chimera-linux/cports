@@ -1,6 +1,6 @@
 pkgname = "python-gobject"
 pkgver = "3.46.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 make_check_env = {"PYGI_TEST_VERBOSE": "1"}
 make_check_wrapper = ["weston-headless-run"]

@@ -1,8 +1,13 @@
 pkgname = "python-automat"
 pkgver = "22.10.0"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools", "python-setuptools_scm", "python-wheel"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools_scm",
+    "python-wheel",
+]
 depends = ["python-setuptools", "python-attrs", "python-six"]
 checkdepends = ["python-pytest", "python-graphviz"] + depends
 pkgdesc = "Finite state machines for Python"

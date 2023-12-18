@@ -1,8 +1,13 @@
 pkgname = "python-markupsafe"
 pkgver = "2.1.3"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 makedepends = ["python-devel"]
 checkdepends = ["python-pytest"]
 depends = ["python"]

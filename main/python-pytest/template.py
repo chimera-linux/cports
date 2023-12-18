@@ -1,6 +1,6 @@
 pkgname = "python-pytest"
 pkgver = "7.4.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "gmake",

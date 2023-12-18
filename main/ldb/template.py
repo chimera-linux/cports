@@ -1,6 +1,6 @@
 pkgname = "ldb"
 pkgver = "2.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -36,7 +36,7 @@ url = "https://www.samba.org/ldb"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "358dca10fcd27207ac857a0d7f435a46dbc6cd1f7c10dbb840c1931bf1965f08"
 env = {"PYTHONHASHSEED": "1"}
-options = ["!cross"]
+options = ["!cross", "linkundefver"]
 
 
 @subpackage("ldb-devel")

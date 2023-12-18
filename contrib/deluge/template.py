@@ -1,9 +1,15 @@
 # TODO: improve services
 pkgname = "deluge"
 pkgver = "2.1.1"
-pkgrel = 1
-build_style = "python_module"
-hostmakedepends = ["python-setuptools", "python-wheel", "intltool"]
+pkgrel = 2
+build_style = "python_pep517"
+hostmakedepends = [
+    "intltool",
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = [
     "python-setuptools",
     "python-chardet",
@@ -36,6 +42,13 @@ def post_install(self):
         name="deluge.conf",
     )
     self.install_file(
+        "deluge/ui/data/share/appdata/deluge.appdata.xml", "usr/share/appdata"
+    )
+    self.install_file(
+        "deluge/ui/data/share/applications/deluge.desktop",
+        "usr/share/applications",
+    )
+    self.install_file(
         self.files_path / "tmpfiles.conf",
         "usr/lib/tmpfiles.d",
         name="deluge.conf",
@@ -58,6 +71,7 @@ def _gtk(self):
         "usr/share/appdata",
         "usr/share/applications",
         "usr/share/icons",
+        "usr/share/pixmaps",
         "usr/share/man/man1/deluge.1",
         "usr/share/man/man1/deluge-gtk.1",
     ]

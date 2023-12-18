@@ -1,9 +1,13 @@
 pkgname = "python-wheel"
 pkgver = "0.42.0"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
-depends = ["python", "python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-flit_core",
+    "python-installer",
+]
+depends = ["python"]
 pkgdesc = "Built-in package format for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"

@@ -1,8 +1,13 @@
 pkgname = "python-semantic_version"
 pkgver = "2.10.0"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python"]
 pkgdesc = "Semantic version comparison for Python"
 maintainer = "q66 <q66@chimera-linux.org>"

@@ -1,8 +1,13 @@
 pkgname = "python-evdev"
 pkgver = "1.6.1"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 makedepends = ["python-devel", "linux-headers"]
 depends = ["python"]
 checkdepends = ["python-pytest"]

@@ -1,6 +1,6 @@
 pkgname = "python-pyproject_hooks"
 pkgver = "1.0.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["python", "python-flit_core", "python-installer"]
 checkdepends = [
     "python-pytest-xdist",

@@ -1,8 +1,13 @@
 pkgname = "python-configobj"
 pkgver = "5.0.8"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python-six"]
 pkgdesc = "Simple but powerful config file reader and writer"
 maintainer = "yopito <pierre.bourgin@free.fr>"

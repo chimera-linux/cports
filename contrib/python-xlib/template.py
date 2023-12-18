@@ -1,8 +1,13 @@
 pkgname = "python-xlib"
 pkgver = "0.33"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools_scm"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools_scm",
+    "python-wheel",
+]
 depends = ["python-six"]
 checkdepends = [
     "python-six",

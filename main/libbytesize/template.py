@@ -1,6 +1,6 @@
 pkgname = "libbytesize"
 pkgver = "2.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [

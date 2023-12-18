@@ -1,6 +1,6 @@
 pkgname = "libpwquality"
 pkgver = "1.4.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -16,6 +16,7 @@ hostmakedepends = [
     "libtool",
     "gettext-devel",
     "python-devel",
+    "python-setuptools",
 ]
 makedepends = ["cracklib-devel", "linux-pam-devel", "python-devel"]
 depends = ["cracklib-words"]
