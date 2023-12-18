@@ -1,6 +1,6 @@
 pkgname = "dbus"
 pkgver = "1.14.10"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 configure_args = [
     "--disable-selinux",
@@ -33,6 +33,7 @@ suid_files = ["usr/libexec/dbus-daemon-launch-helper"]
 file_modes = {"usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
 # FIXME cfi
 hardening = ["vis", "!cfi"]
+options = ["linkundefver"]
 
 system_users = ["dbus:22"]
 
