@@ -1,6 +1,6 @@
 pkgname = "blueprint-compiler"
 pkgver = "0.10.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [

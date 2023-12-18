@@ -1,6 +1,6 @@
 pkgname = "python-flit_core"
 pkgver = "3.9.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["python"]
 checkdepends = ["python-pytest", "python-testpath"]
 depends = ["python"]

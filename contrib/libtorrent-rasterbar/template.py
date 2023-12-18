@@ -1,6 +1,6 @@
 pkgname = "libtorrent-rasterbar"
 pkgver = "2.0.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-Dpython-bindings=ON",

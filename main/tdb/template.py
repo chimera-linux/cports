@@ -1,6 +1,6 @@
 pkgname = "tdb"
 pkgver = "1.4.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [

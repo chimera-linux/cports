@@ -1,6 +1,6 @@
 pkgname = "python-packaging"
 pkgver = "23.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = ["python-installer", "python-flit_core"]
 checkdepends = ["python-pytest"]

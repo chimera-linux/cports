@@ -1,6 +1,6 @@
 pkgname = "gexiv2"
 pkgver = "0.14.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dintrospection=true", "-Dvapi=true"]
 hostmakedepends = [

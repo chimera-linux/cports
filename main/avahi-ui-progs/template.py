@@ -1,7 +1,7 @@
 # this must be synchronized with avahi; it exists to avoid build-time cycles
 pkgname = "avahi-ui-progs"
 pkgver = "0.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",
@@ -36,23 +36,25 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
+    "automake",
+    "gettext-devel",
+    "glib-devel",
+    "gmake",
+    "gobject-introspection",
+    "libtool",
     "pkgconf",
     "python",
-    "gmake",
-    "xmltoman",
-    "gobject-introspection",
-    "gettext-devel",
     "python-dbus",
-    "glib-devel",
+    "xmltoman",
 ]
 makedepends = [
+    "avahi-devel",
     "dbus-devel",
+    "gtk+3-devel",
     "libcap-devel",
     "libdaemon-devel",
     "libevent-devel",
-    "gtk+3-devel",
     "python-gobject-devel",
-    "avahi-devel",
 ]
 depends = [f"avahi~{pkgver}"]
 pkgdesc = "Avahi Gtk+ utilities"
@@ -200,6 +202,3 @@ def _elibs(self):
     return [
         "usr/lib/libavahi-libevent*.so.*",
     ]
-
-
-configure_gen = []

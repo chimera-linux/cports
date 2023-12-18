@@ -1,8 +1,13 @@
 pkgname = "python-py"
 pkgver = "1.11.0"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools_scm"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools_scm",
+    "python-wheel",
+]
 checkdepends = ["python-pytest"]
 depends = ["python"]
 pkgdesc = "Python development support library"

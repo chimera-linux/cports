@@ -1,6 +1,6 @@
 pkgname = "ixion"
 pkgver = "0.19.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool", "python"]
 makedepends = ["boost-devel", "python-devel", "mdds"]

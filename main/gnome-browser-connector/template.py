@@ -1,6 +1,6 @@
 pkgname = "gnome-browser-connector"
 pkgver = "42.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "python-gobject"]
 depends = ["python-gobject", "gnome-shell", "dbus"]

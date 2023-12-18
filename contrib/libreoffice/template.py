@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
 pkgver = "7.6.4.1"
-pkgrel = 0
+pkgrel = 1
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"

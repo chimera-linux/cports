@@ -1,9 +1,14 @@
 pkgname = "python-flake8"
 pkgver = "6.1.0"
-pkgrel = 0
-build_style = "python_module"
+pkgrel = 1
+build_style = "python_pep517"
 make_check_env = {"PYTHONPATH": "src"}
-hostmakedepends = ["python-setuptools"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python-pycodestyle", "python-pyflakes", "python-mccabe"]
 checkdepends = ["python-pytest", "python-mock"] + depends
 pkgdesc = "Python tool for style guide enforcement"

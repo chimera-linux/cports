@@ -1,8 +1,13 @@
 pkgname = "python-libevdev"
 pkgver = "0.11"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python", "libevdev"]
 checkdepends = ["python-pytest", "libevdev"]
 pkgdesc = "Python wrapper around libevdev"

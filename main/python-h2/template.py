@@ -1,8 +1,13 @@
 pkgname = "python-h2"
 pkgver = "4.1.0"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python-hpack", "python-hyperframe"]
 checkdepends = ["python-pytest", "python-hypothesis"] + depends
 pkgdesc = "Python implementation of HTTP/2 state machine"

@@ -1,6 +1,6 @@
 pkgname = "libplist"
 pkgver = "2.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
 hostmakedepends = ["pkgconf", "automake", "libtool", "python", "python-cython"]

@@ -1,6 +1,6 @@
 pkgname = "python-hatchling"
 pkgver = "1.21.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 _deps = [
     "python-packaging",

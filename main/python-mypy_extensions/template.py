@@ -1,9 +1,14 @@
 pkgname = "python-mypy_extensions"
 pkgver = "1.0.0"
-pkgrel = 0
-build_style = "python_module"
+pkgrel = 1
+build_style = "python_pep517"
 make_check_target = "tests/testextensions.py"
-hostmakedepends = ["python-setuptools"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Powerful and lightweight Python tree data structure"

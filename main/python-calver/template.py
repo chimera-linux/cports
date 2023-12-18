@@ -1,6 +1,6 @@
 pkgname = "python-calver"
 pkgver = "2022.6.26"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

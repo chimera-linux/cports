@@ -1,11 +1,11 @@
 pkgname = "python-markdown"
 pkgver = "3.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
-    "python-flit_core",
+    "python-setuptools",
     "python-wheel",
 ]
 checkdepends = ["python-pyyaml", "python-pytest"]

@@ -1,8 +1,13 @@
 pkgname = "python-sphinxcontrib-jsmath"
 pkgver = "1.0.1"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 checkdepends = ["python-sphinx"]
 depends = ["python"]
 pkgdesc = "Sphinx extension which renders math in HTML with JavaScript"

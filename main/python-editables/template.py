@@ -1,6 +1,6 @@
 pkgname = "python-editables"
 pkgver = "0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",

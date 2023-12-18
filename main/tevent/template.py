@@ -1,6 +1,6 @@
 pkgname = "tevent"
 pkgver = "0.15.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [

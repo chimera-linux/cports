@@ -1,7 +1,6 @@
 pkgname = "python-setuptools"
 pkgver = "69.0.3"
-pkgrel = 0
-build_style = "python_module"
+pkgrel = 1
 hostmakedepends = ["python-devel"]
 depends = ["python"]
 pkgdesc = "Easily build and distribute Python packages"
@@ -16,6 +15,27 @@ env = {
 }
 # missing checkdepends
 options = ["!check"]
+
+
+def do_build(self):
+    self.do(
+        "python3",
+        "setup.py",
+        "build",
+    )
+
+
+def do_install(self):
+    from cbuild.util import python
+
+    self.do(
+        "python3",
+        "setup.py",
+        "install",
+        "--prefix=/usr",
+        "--root=" + str(self.chroot_destdir),
+    )
+    python.precompile(self, "usr/lib")
 
 
 def post_install(self):

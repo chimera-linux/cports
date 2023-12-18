@@ -1,8 +1,13 @@
 pkgname = "python-priority"
 pkgver = "2.0.0"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python"]
 checkdepends = ["python-pytest", "python-hypothesis"]
 pkgdesc = "Python implementation of HTTP/2 priority"

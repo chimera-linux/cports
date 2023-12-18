@@ -1,6 +1,6 @@
 pkgname = "python-attrs"
 pkgver = "23.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 checkdepends = ["python-pytest"]  # and other stuff, but does not matter

@@ -1,7 +1,9 @@
 pkgname = "newt"
 pkgver = "0.52.24"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+# reconf breaks library soname stuff (???)
+configure_gen = []
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = ["gmake", "pkgconf", "python-devel"]
@@ -27,6 +29,3 @@ def _progs(self):
     self.depends += ["python"]
 
     return ["usr/lib/python*"]
-
-
-configure_gen = []

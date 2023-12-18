@@ -1,6 +1,6 @@
 pkgname = "python-dbusmock"
 pkgver = "0.30.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # needs upower
 make_check_args = ["-k", "not test_dbusmock_test_template"]

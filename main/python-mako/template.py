@@ -1,10 +1,11 @@
 pkgname = "python-mako"
 pkgver = "1.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
     "python-installer",
+    "python-setuptools",
     "python-wheel",
 ]
 checkdepends = ["python-pytest", "python-setuptools", "python-markupsafe"]

@@ -1,6 +1,6 @@
 pkgname = "python-black"
 pkgver = "23.12.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_check_env = {"PYTHONPATH": "src"}
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]

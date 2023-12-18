@@ -1,8 +1,13 @@
 pkgname = "python-docutils"
 pkgver = "0.20.1"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 checkdepends = ["python-pygments"]
 depends = ["python", "python-pygments"]
 pkgdesc = "Python documentation utilities"

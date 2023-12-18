@@ -1,8 +1,13 @@
 pkgname = "python-sphinx-removed-in"
 pkgver = "0.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
-hostmakedepends = ["python-build", "python-installer", "python-wheel"]
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 checkdepends = ["python-sphinx"]
 depends = ["python-sphinx"]
 pkgdesc = "Sphinx extension for versionremoved and removed-in directives"

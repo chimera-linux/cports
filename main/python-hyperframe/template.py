@@ -1,8 +1,13 @@
 pkgname = "python-hyperframe"
 pkgver = "6.0.1"
-pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-setuptools"]
+pkgrel = 1
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python"]
 checkdepends = ["python-pytest"]
 pkgdesc = "Python implementation of HTTP/2 framing"

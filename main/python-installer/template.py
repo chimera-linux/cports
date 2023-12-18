@@ -1,6 +1,6 @@
 pkgname = "python-installer"
 pkgver = "0.7.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["python", "python-flit_core"]
 checkdepends = ["python-pytest-xdist"]
 depends = ["python"]

@@ -1,6 +1,6 @@
 pkgname = "xcbproto"
 pkgver = "1.16.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-legacy"]
 hostmakedepends = ["pkgconf", "python", "automake"]
