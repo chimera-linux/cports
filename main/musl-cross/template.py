@@ -1,8 +1,8 @@
 pkgname = "musl-cross"
 pkgver = "1.2.4"
-pkgrel = 5
-_commit = "79bdacff83a6bd5b70ff5ae5eb8b6de82c2f7c30"
-_scudo_ver = "17.0.5"
+pkgrel = 6
+_commit = "f314e133929b6379eccc632bef32eaebb66a7335"
+_scudo_ver = "17.0.6"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
