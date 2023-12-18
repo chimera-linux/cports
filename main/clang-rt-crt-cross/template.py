@@ -1,6 +1,6 @@
 pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.4"
-pkgver = "17.0.5"
+pkgver = "17.0.6"
 pkgrel = 0
 build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
@@ -50,7 +50,7 @@ source = [
     f"http://www.musl-libc.org/releases/musl-{_musl_ver}.tar.gz",
 ]
 sha256 = [
-    "95d7eff82945cf05c16a1851d7b391fc2da726b87c1138125e3b6e4d300ab834",
+    "58a8818c60e6627064f312dbf46c02d9949956558340938b71cf731ad8bc0813",
     "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039",
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
