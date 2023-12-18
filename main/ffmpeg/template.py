@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -32,6 +32,7 @@ configure_args = [
     "--enable-libcdio",
     "--enable-libbluray",
     "--enable-libfreetype",
+    "--enable-libharfbuzz",
     "--enable-libopenjpeg",
     "--enable-libplacebo",
     "--enable-libwebp",
