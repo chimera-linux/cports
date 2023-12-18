@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20231111"
+pkgver = "20231211"
 pkgrel = 0
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "80bfc46e3fc43820331a965354f5a3a9b478df90b07e2f39d9ddebc67ae0b23a"
+sha256 = "d0ba54f05f5dd34b0fc5a1e1970cd9cbc48491d2da97f3798a9e13530dc18298"
 
 _arch = self.profile().arch
 _arch_x86 = _arch == "x86_64"
@@ -206,6 +206,7 @@ _pkgs = [
     ),
     ("nvidia-gsp", "Nvidia GSP", None, "gpu", ["nvidia/*/gsp"]),
     ("nvidia", "Nvidia GPUs", None, "gpu", ["nvidia"]),
+    ("powervr", "PowerVR GPUs", None, "gpu", ["powervr"]),
     ("qat", "Intel QuickAssist Technology", _arch_x86, "misc", ["qat*"]),
     ("qca", "Qualcomm Atheros WLAN/Bluetooth", None, "network", ["qca"]),
     ("qcom", "Qualcomm SoCs", _arch_arm64, "soc", ["a300_*.fw", "qcom"]),
