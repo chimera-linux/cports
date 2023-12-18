@@ -22,7 +22,6 @@ makedepends = [
     "libportal-devel",
     "json-glib-devel",
 ]
-depends = ["desktop-file-utils"]
 pkgdesc = "GNOME archiver frontend"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

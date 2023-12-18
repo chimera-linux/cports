@@ -1,6 +1,6 @@
 pkgname = "gtk+3"
 pkgver = "3.24.38"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dx11_backend=true",
@@ -49,8 +49,9 @@ makedepends = [
     "iso-codes",
 ]
 depends = [
-    "gtk-update-icon-cache",
     "adwaita-icon-theme",
+    "gtk-update-icon-cache",
+    "shared-mime-info",
     "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [

@@ -1,6 +1,6 @@
 pkgname = "dhcpcd"
 pkgver = "10.0.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -25,15 +25,17 @@ sha256 = "eb1f3cfef3069781ff8c896d7cea922639964afe22db28c069dc3f37f57eb428"
 # FIXME vis for usr/lib/dhcpcd/dev/udev.so
 hardening = ["!vis", "!cfi"]
 
-system_users = [
-    {
-        "name": "_dhcpcd",
-        "id": None,
-        "home": "/var/lib/dhcpcd",
-    }
-]
-
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="dhcpcd.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="dhcpcd.conf",
+    )
     self.install_service(self.files_path / "dhcpcd")

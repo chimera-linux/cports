@@ -1674,6 +1674,9 @@ for subpackages separately if needed:
   on. By enabling this, you allow packages with hardlinks to build.
 * `lintstatic` *(true)* Normally, static libraries are not allowed to be in
   the main package. In specific rare cases, this may be overridden.
+* `scantrigdeps` *(true)* This specifies whether trigger dependencies should
+  be scanned. See the `src/cbuild/hooks/pre_pkg/007_trigger_deps.py` for
+  detailed list.
 * `scanrundeps` *(true)* This specifies whether automatic runtime dependencies
   are scanned for the package. By default, ELF files are scanned for their
   dependencies, which is usually desirable, but not always.

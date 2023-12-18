@@ -25,7 +25,7 @@ makedepends = [
     "libsoup-devel",
     "gsettings-desktop-schemas-devel",
 ]
-depends = ["gsettings-desktop-schemas", "desktop-file-utils"]
+depends = ["gsettings-desktop-schemas"]
 pkgdesc = "GNOME calculator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

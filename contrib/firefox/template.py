@@ -52,7 +52,6 @@ makedepends = [
 ]
 depends = [
     "libavcodec",
-    "desktop-file-utils",
     "virtual:cmd:firefox!firefox-wayland",
 ]
 pkgdesc = "Mozilla Firefox web browser"

@@ -36,7 +36,6 @@ makedepends = [
     "gst-plugins-base-devel",
     "gpgme-devel",
 ]
-depends = ["desktop-file-utils"]
 pkgdesc = "Modern XMPP client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

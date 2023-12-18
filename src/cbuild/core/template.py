@@ -364,6 +364,7 @@ default_options = {
     "splitudev": (True, False),
     "splitdinit": (True, False),
     "splitdoc": (True, False),
+    "scantrigdeps": (True, False),
     "scanrundeps": (True, False),
     "scanshlibs": (True, False),
     "scanpkgconf": (True, False),

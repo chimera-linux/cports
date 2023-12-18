@@ -1,5 +1,5 @@
 pkgname = "podman"
-pkgver = "4.8.1"
+pkgver = "4.8.2"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
@@ -36,6 +36,7 @@ go_build_tags = [
     "apparmor",
     "containers_image_openpgp",
     "containers_image_ostree_stub",
+    "libsqlite3",
     "seccomp",
 ]
 pkgdesc = "Container and image management tool"
@@ -43,9 +44,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
-sha256 = "d09697ed01cdc5c36069344b0ec2fdd26065554ff071e61a4701d31f008f0398"
-# https://github.com/mattn/go-sqlite3/issues/1164
-tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE"]}
+sha256 = "994537a8535f3e4d2f03ced8b0dd58fda44c9d44cef6ba5bf15a970ddfeaf6f8"
 # objcopy fails to split on ppc
 options = ["!debug", "!check"]
 

@@ -11,7 +11,6 @@ makedepends = [
     "libpulse-devel",
     "json-glib-devel",
 ]
-depends = ["desktop-file-utils"]
 pkgdesc = "PulseAudio volume control"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

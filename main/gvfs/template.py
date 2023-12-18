@@ -1,6 +1,6 @@
 pkgname = "gvfs"
 pkgver = "1.52.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no",
@@ -48,6 +48,7 @@ makedepends = [
     "libmtp-devel",
     "libnfs-devel",
 ]
+depends = ["desktop-file-utils"]
 # some shared libs that modules depend on
 provides = ["so:libgvfscommon.so=0", "so:libgvfsdaemon.so=0"]
 pkgdesc = "GNOME virtual file system"

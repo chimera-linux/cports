@@ -1,6 +1,6 @@
 pkgname = "colord"
 pkgver = "1.4.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # manpages fail to generate
 configure_args = [
@@ -36,10 +36,6 @@ license = "GPL-2.0-only"
 url = "https://www.freedesktop.org/software/colord"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "7407631a27bfe5d1b672e7ae42777001c105d860b7b7392283c8c6300de88e6f"
-file_modes = {
-    "var/lib/colord": ("_colord", "_colord", 0o755),
-    "var/lib/colord/icc": ("_colord", "_colord", 0o755),
-}
 # FIXME int
 hardening = ["!int"]
 # assertion failed (cd_edid_get_vendor_name (edid) == "LG"): (NULL == "LG")
@@ -48,19 +44,19 @@ options = ["!check"]
 if self.profile().cross:
     hostmakedepends.append("colord")
 
-system_users = [
-    {
-        "name": "_colord",
-        "id": None,
-        "home": "/var/lib/colord",
-    }
-]
-
 
 def post_install(self):
     self.install_service(self.files_path / "colord")
-
-    self.install_dir("var/lib/colord/icc", empty=True)
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="colord.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="colord.conf",
+    )
 
 
 @subpackage("libcolord")

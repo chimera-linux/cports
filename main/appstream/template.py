@@ -1,6 +1,6 @@
 pkgname = "appstream"
 pkgver = "1.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dsystemd=false", "-Dstemming=false", "-Dapidocs=false"]
 hostmakedepends = [
@@ -20,6 +20,7 @@ makedepends = [
     "libyaml-devel",
     "libcurl-devel",
 ]
+depends = ["shared-mime-info"]
 pkgdesc = "Tools and libraries to work with AppStream metadata"
 maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"

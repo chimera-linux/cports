@@ -25,7 +25,7 @@ makedepends = [
     "librsvg-devel",
     "libjpeg-turbo-devel",
 ]
-depends = ["desktop-file-utils", "shared-mime-info"]
+depends = ["shared-mime-info"]
 provides = ["so:libeog.so=0"]
 pkgdesc = "GNOME image viewer"
 maintainer = "q66 <q66@chimera-linux.org>"

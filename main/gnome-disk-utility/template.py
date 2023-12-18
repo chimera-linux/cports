@@ -25,7 +25,7 @@ makedepends = [
     "elogind-devel",
     "libcanberra-devel",
 ]
-depends = ["udisks", "desktop-file-utils"]
+depends = ["udisks"]
 pkgdesc = "GNOME disk drive and media management"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

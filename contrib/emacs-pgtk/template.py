@@ -1,6 +1,6 @@
 pkgname = "emacs-pgtk"
 pkgver = "29.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-gameuser=:_games",
@@ -58,10 +58,9 @@ hardening = ["vis"]
 # no tests
 options = ["!check"]
 
-system_groups = ["_games"]
-
 
 def post_install(self):
+    self.install_file(self.files_path / "emacs.conf", "usr/lib/sysusers.d")
     # remove suid from game exe
     (
         self.destdir

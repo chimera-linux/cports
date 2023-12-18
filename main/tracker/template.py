@@ -1,6 +1,6 @@
 pkgname = "tracker"
 pkgver = "3.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
@@ -32,6 +32,7 @@ makedepends = [
     "libsoup-devel",
     "bash-completion",
 ]
+depends = ["shared-mime-info"]
 pkgdesc = "Search engine and triplestore for desktop, embedded and mobile"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"

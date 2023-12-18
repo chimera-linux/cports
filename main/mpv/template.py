@@ -77,7 +77,7 @@ makedepends = [
     "zimg-devel",
     "vapoursynth-devel",
 ]
-depends = ["hicolor-icon-theme", "desktop-file-utils"]
+depends = ["hicolor-icon-theme"]
 pkgdesc = "Video player based on mplayer2"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

@@ -24,7 +24,6 @@ checkdepends = [
 depends = [
     "python-psutil",
     "python-gobject",
-    "desktop-file-utils",
     "gsettings-desktop-schemas",
     "libkeybinder3",
     "libnotify",

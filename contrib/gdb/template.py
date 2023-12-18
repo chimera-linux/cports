@@ -1,5 +1,5 @@
 pkgname = "gdb"
-pkgver = "13.2"
+pkgver = "14.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -15,14 +15,15 @@ configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "texinfo", "python-devel"]
 makedepends = [
-    "gmp-devel",
-    "zlib-devel",
-    "python-devel",
     "gettext-devel",
-    "ncurses-devel",
-    "readline-devel",
+    "gmp-devel",
     "libexpat-devel",
     "linux-headers",
+    "mpfr-devel",
+    "ncurses-devel",
+    "python-devel",
+    "readline-devel",
+    "zlib-devel",
 ]
 depends = [f"gdb-common={pkgver}-r{pkgrel}"]
 pkgdesc = "GNU debugger"
@@ -30,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/gdb"
 source = f"$(GNU_SITE)/gdb/gdb-{pkgver}.tar.xz"
-sha256 = "fd5bebb7be1833abdb6e023c2f498a354498281df9d05523d8915babeb893f0a"
+sha256 = "d66df51276143451fcbff464cc8723d68f1e9df45a6a2d5635a54e71643edb80"
 # massive
 options = ["!check", "!cross"]
 

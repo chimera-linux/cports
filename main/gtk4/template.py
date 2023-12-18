@@ -1,6 +1,6 @@
 pkgname = "gtk4"
 pkgver = "4.12.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dman-pages=true",
@@ -60,8 +60,9 @@ makedepends = [
     "iso-codes",
 ]
 depends = [
-    "gtk-update-icon-cache",
     "adwaita-icon-theme",
+    "gtk-update-icon-cache",
+    "shared-mime-info",
     "virtual:gdk-pixbuf-loader-svg!librsvg",
 ]
 checkdepends = [

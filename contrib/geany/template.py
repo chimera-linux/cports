@@ -18,7 +18,6 @@ makedepends = [
     "gtk+3-devel",
 ]
 checkdepends = ["bash"]
-depends = ["desktop-file-utils"]
 pkgdesc = "Gtk+3 IDE"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"

@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "1.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -80,8 +80,6 @@ sha256 = "f91ef1d1161b37aae6e21b9671917d97097e2664c83d919ba3a0793d6fbc543d"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
 
-system_groups = ["_pipewire"]
-
 if self.profile().endian == "big":
     configure_args += [
         "-Dbluez5-codec-ldac=disabled",
@@ -93,6 +91,7 @@ else:
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_file(self.files_path / "pipewire.conf", "usr/lib/sysusers.d")
     self.install_service(self.files_path / "pipewire.user", enable=True)
     self.install_service(self.files_path / "pipewire-pulse.user", enable=True)
 

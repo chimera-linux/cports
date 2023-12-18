@@ -1,6 +1,6 @@
 pkgname = "seatd"
 pkgver = "0.8.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dexamples=disabled",
@@ -16,11 +16,10 @@ url = "https://kl.wtf/projects/seatd"
 source = f"https://git.sr.ht/~kennylevinsen/{pkgname}/archive/{pkgver}.tar.gz"
 sha256 = "a562a44ee33ccb20954a1c1ec9a90ecb2db7a07ad6b18d0ac904328efbcf65a0"
 
-system_groups = ["_seatd"]
-
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_file(self.files_path / "seatd.conf", "usr/lib/sysusers.d")
     self.install_service(self.files_path / "seatd")
 
 

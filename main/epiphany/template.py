@@ -32,7 +32,7 @@ makedepends = [
     "gmp-devel",
     "iso-codes",
 ]
-depends = ["desktop-file-utils", "iso-codes"]
+depends = ["iso-codes"]
 pkgdesc = "GNOME web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"

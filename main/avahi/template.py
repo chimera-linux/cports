@@ -1,7 +1,7 @@
 # this must be synchronized with avahi-ui-progs
 pkgname = "avahi"
 pkgver = "0.8"
-pkgrel = 1
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",
@@ -36,6 +36,7 @@ configure_args = [
     "--without-systemdsystemunitdir",
     "ssp_cv_lib=no",
 ]
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "python", "gmake", "gettext"]
 makedepends = ["dbus-devel", "libcap-devel", "libdaemon-devel"]
@@ -47,8 +48,6 @@ source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "060309d7a333d38d951bc27598c677af1796934dbd98e1024e7ad8de798fedda"
 options = ["!cross"]
 
-system_users = ["_avahi:23"]
-
 
 def post_install(self):
     # will be in avahi-discover
@@ -56,6 +55,11 @@ def post_install(self):
         self.rm(f, recursive=True)
     # service
     self.install_service(self.files_path / "avahi-daemon")
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="avahi.conf",
+    )
 
 
 @subpackage("avahi-autoipd")
@@ -113,6 +117,3 @@ def _progs(self):
         "usr/bin/avahi-resolv*",
         "usr/share/man/man1",
     ]
-
-
-configure_gen = []

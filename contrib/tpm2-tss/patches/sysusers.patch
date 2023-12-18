@@ -1,0 +1,14 @@
+commit df5f8bd5336887472b59b2a5a1355912b64f2a41
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Dec 15 04:52:51 2023 +0100
+
+    add missing sysusers fields
+
+diff --git a/dist/sysusers.d/tpm2-tss.conf b/dist/sysusers.d/tpm2-tss.conf
+index 3ef99a7..b0d94b5 100644
+--- a/dist/sysusers.d/tpm2-tss.conf
++++ b/dist/sysusers.d/tpm2-tss.conf
+@@ -1,2 +1,2 @@
+ #Type Name ID GECOS               Home directory Shell
+-u     tss  -  "tss user for tpm2"
++u     _tss  -  "tss user for tpm2" /var/empty     /usr/bin/nologin

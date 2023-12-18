@@ -1,9 +1,0 @@
-#!/bin/sh
-#
-# this wrapper exists to prepare the environment ahead of launch if needed
-
-if [ ! -d "/run/dbus" ]; then
-    install -d -m 755 -g 22 -o 22 "/run/dbus"
-fi
-
-exec /usr/bin/dbus-daemon --system --nofork --nopidfile "$@"

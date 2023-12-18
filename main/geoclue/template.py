@@ -1,6 +1,6 @@
 pkgname = "geoclue"
 pkgver = "2.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddbus-srv-user=_geoclue",
@@ -32,7 +32,9 @@ url = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home"
 source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "5624cd41148643c46d681d39153c7d26fdb8831e7e7c8601c300732fa8a6db1c"
 
-system_users = ["_geoclue"]
+
+def post_install(self):
+    self.install_file(self.files_path / "geoclue.conf", "usr/lib/sysusers.d")
 
 
 @subpackage("geoclue-devel")

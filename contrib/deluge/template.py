@@ -1,7 +1,7 @@
 # TODO: improve services
 pkgname = "deluge"
 pkgver = "2.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_module"
 hostmakedepends = ["python-setuptools", "python-wheel", "intltool"]
 depends = [
@@ -25,20 +25,21 @@ license = "GPL-3.0-or-later"
 url = "https://deluge-torrent.org"
 source = f"https://ftp.osuosl.org/pub/{pkgname}/source/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "768dd319802e42437ab3794ebe75b497142e08ed5b0fb2503bad62cef442dff7"
-file_modes = {
-    "var/lib/deluge": ("_deluge", "_deluge", 0o755),
-    "var/lib/deluge/.config": ("_deluge", "_deluge", 0o755),
-    "var/lib/deluge/.config/deluge": ("_deluge", "_deluge", 0o755),
-}
 # unpackaged checkdepends
 options = ["!check"]
 
-system_users = [{"name": "_deluge", "id": None, "home": "/var/lib/deluge"}]
-
 
 def post_install(self):
-    # homedir structure, pin it in place
-    self.install_dir("var/lib/deluge/.config/deluge", empty=True)
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="deluge.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="deluge.conf",
+    )
     # default services
     self.install_service(self.files_path / "deluged")
     self.install_service(self.files_path / "deluge-web")

@@ -1,5 +1,5 @@
 pkgname = "jq"
-pkgver = "1.7"
+pkgver = "1.7.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/jqlang/jq"
 source = f"{url}/releases/download/jq-{pkgver}/jq-{pkgver}.tar.gz"
-sha256 = "402a0d6975d946e6f4e484d1a84320414a0ff8eb6cf49d2c11d144d4d344db62"
+sha256 = "478c9ca129fd2e3443fe27314b455e211e0d8c60bc8ff7df703873deeee580c2"
 # FIXME int: null meme in jqtest
 hardening = ["!int", "vis", "cfi"]
 
