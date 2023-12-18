@@ -1,5 +1,5 @@
 pkgname = "libxml2"
-pkgver = "2.12.1"
+pkgver = "2.12.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.xmlsoft.org"
 source = f"$(GNOME_SITE)/libxml2/{pkgver[:pkgver.rfind('.')]}/libxml2-{pkgver}.tar.xz"
-sha256 = "8982b9ccdf7f456e30d8f7012d50858c6623e495333b6191def455c7e95427eb"
+sha256 = "8c8f1092340a89ff32bc44ad5c9693aff9bc8a7a3e161bb239666e5d15ac9aaa"
 
 
 def post_extract(self):
