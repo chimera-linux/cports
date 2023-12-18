@@ -1,5 +1,5 @@
 pkgname = "python-idna"
-pkgver = "3.4"
+pkgver = "3.6"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "tests"
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/kjd/idna"
 source = f"$(PYPI_SITE)/i/idna/idna-{pkgver}.tar.gz"
-sha256 = "814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"
+sha256 = "9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"
 # dep cycle with pytest
 options = ["!check"]
 
