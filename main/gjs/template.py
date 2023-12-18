@@ -1,5 +1,5 @@
 pkgname = "gjs"
-pkgver = "1.78.0"
+pkgver = "1.78.1"
 pkgrel = 0
 build_style = "meson"
 # disable tests that need X/dbus
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gjs"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "91be2ebcab6707e2d8301d4e261530a9b1d55082f5d7746ba0f978e2efb712f5"
+sha256 = "bcb8470cf42eaf0c895f710099b0c005a359036b12197492c3a5a03ad104cdbf"
 options = ["!cross"]
 
 
