@@ -1,14 +1,16 @@
 pkgname = "c-ares"
-pkgver = "1.23.0"
+pkgver = "1.24.0"
 pkgrel = 0
 build_style = "gnu_configure"
+# circular gtest
+configure_args = ["--disable-tests"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 pkgdesc = "C library for asynchronous DNS requests"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://c-ares.haxx.se"
 source = f"https://c-ares.haxx.se/download/{pkgname}-{pkgver}.tar.gz"
-sha256 = "cb614ecf78b477d35963ebffcf486fc9d55cc3d3216f00700e71b7d4868f79f5"
+sha256 = "c517de6d5ac9cd55a9b72c1541c3e25b84588421817b5f092850ac09a8df5103"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # does not like the sandbox
