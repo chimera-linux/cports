@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-base"
-pkgver = "1.22.7"
+pkgver = "1.22.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -50,7 +50,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "62519e0d8f969ebf62a9a7996f2d23efdda330217a635f4a32c0bf1c71577468"
+sha256 = "eb6792e5c73c6defb9159c36ea6e4b78a2f8af6512678b4bd3b02c8d2d492acf"
 # FIXME int
 hardening = ["!int"]
 # FIXME libs_allocators fail
