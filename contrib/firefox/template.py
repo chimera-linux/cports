@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "120.0.1"
+pkgver = "121.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -52,14 +52,18 @@ makedepends = [
 ]
 depends = [
     "libavcodec",
-    "virtual:cmd:firefox!firefox-wayland",
+]
+provides = [
+    # backwards-compatibility with old subpackages
+    f"firefox-default={pkgver}-r{pkgrel}",
+    f"firefox-wayland={pkgver}-r{pkgrel}",
 ]
 pkgdesc = "Mozilla Firefox web browser"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "76e7bb2a144880158444d8e9014f4d080d219bd150c3db405b27e4c7e3959ae2"
+sha256 = "edc7a5159d23ff2a23e22bf5abe22231658cee2902b93b5889ee73958aa06aa4"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -78,7 +82,8 @@ env = {
 }
 # FIXME: youtube causes crashes in libxul after some seconds
 hardening = ["!int"]
-options = ["!cross"]
+# XXX: maybe someday
+options = ["!cross", "!check"]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."
@@ -211,42 +216,3 @@ def do_install(self):
     # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
     self.rm(self.destdir / "usr/lib/firefox/firefox-bin")
     self.install_link("firefox", "usr/lib/firefox/firefox-bin")
-    # to be provided
-    self.rm(self.destdir / "usr/bin/firefox")
-    # default launcher
-    self.install_link("/usr/lib/firefox/firefox", "usr/bin/firefox-default")
-    # wayland launcher
-    self.install_file(
-        self.files_path / "firefox-wayland", "usr/lib/firefox", mode=0o755
-    )
-    self.install_link(
-        "/usr/lib/firefox/firefox-wayland", "usr/bin/firefox-wayland"
-    )
-
-
-def do_check(self):
-    # XXX: maybe someday
-    pass
-
-
-@subpackage("firefox-wayland")
-def _wl(self):
-    self.pkgdesc = f"{pkgdesc} (prefer Wayland)"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
-
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.ln_s("firefox-wayland", self.destdir / "usr/bin/firefox")
-
-    return inst
-
-
-@subpackage("firefox-default")
-def _x11(self):
-    self.pkgdesc = f"{pkgdesc} (no display server preference)"
-
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.ln_s("firefox-default", self.destdir / "usr/bin/firefox")
-
-    return inst
