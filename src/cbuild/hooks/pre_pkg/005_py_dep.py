@@ -1,7 +1,7 @@
 # rewrite python dependency to include version
 
 # TODO: centralize
-gpyver = "3.11"
+gpyver = "3.12"
 
 
 def invoke(pkg):

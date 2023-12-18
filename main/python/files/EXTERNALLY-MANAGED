@@ -1,0 +1,16 @@
+[externally-managed]
+Error=
+ This Python installation is managed by apk, and installation of additional
+ modules managed outside of apk is discouraged. Please consider using a
+ virtual environment (venv) instead, for example like this:
+
+   python -m venv --system-site-packages /path/to/venv
+   . /path/to/venv/bin/activate
+
+ This will give you a shell in the virtual environment. To deactivate the
+ venv, run the following:
+
+   deactivate
+
+ You can also run pip as well as other commands installed in the venv without
+ activating it, by invoking them by their full path.

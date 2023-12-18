@@ -11,17 +11,12 @@ diff --git a/configure b/configure
 index a66a081..ddbdec5 100755
 --- a/configure
 +++ b/configure
-@@ -21110,11 +21110,11 @@
- #ifdef __cplusplus
- extern "C"
- #endif
--char rl_completion_display_matches_hook ();
-+char rl_completion_display_matches_hook_undef ();
+@@ -25152,7 +25152,7 @@
  int
- main ()
+ main (void)
  {
--return rl_completion_display_matches_hook ();
-+return rl_completion_display_matches_hook_undef ();
+-void *x = rl_completion_display_matches_hook
++void *x = rl_completion_display_matches_hook_undef
    ;
    return 0;
  }
