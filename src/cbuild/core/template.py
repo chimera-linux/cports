@@ -1589,7 +1589,7 @@ def _split_static(pkg):
 
 
 # TODO: centralize
-gpyver = "3.11"
+gpyver = "3.12"
 
 
 def _split_pycache(pkg):
