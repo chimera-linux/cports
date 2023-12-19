@@ -2,7 +2,7 @@ pkgname = "wlroots"
 pkgver = "0.16.2"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dexamples=false", "-Dwerror=false"]
+configure_args = ["-Dexamples=false"]
 hostmakedepends = [
     "meson",
     "pkgconf",
