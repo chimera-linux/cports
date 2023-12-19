@@ -2877,7 +2877,7 @@ Equivalent to `self.install_file(src, "usr/lib", 0o755, name, glob)`.
 Install a manpage `src`. That means installing into `usr/share/man` into
 the right category (e.g. `man1`), this is determined from the filename by
 default, but you can specify it as `cat` (e.g. the integer `1`). The manpage
-will retain its name, except whne `name` is specified. This name should not
+will retain its name, except when `name` is specified. This name should not
 include the category (it is automatically appended, either as previously
 determined from the filename, or as specified by `cat`).
 
