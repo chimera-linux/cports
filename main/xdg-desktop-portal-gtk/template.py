@@ -1,6 +1,6 @@
 pkgname = "xdg-desktop-portal-gtk"
 pkgver = "1.15.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     # pulls gnome-desktop
@@ -18,7 +18,7 @@ makedepends = [
     "gtk+3-devel",
     "xdg-desktop-portal-devel",
 ]
-depends = ["xdg-desktop-portal"]
+depends = ["xdg-desktop-portal", "gsettings-desktop-schemas"]
 pkgdesc = "Gtk implementation of xdg-desktop-portal"
 maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
