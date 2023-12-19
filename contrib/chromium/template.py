@@ -2,8 +2,7 @@ pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
 pkgver = "120.0.6099.109"
 pkgrel = 0
-# ppc64le TODO
-archs = ["aarch64", "x86_64"]
+archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
     'custom_toolchain="//build/toolchain/linux/unbundle:default"',
     'host_toolchain="//build/toolchain/linux/unbundle:default"',
@@ -18,7 +17,6 @@ configure_args = [
     "fatal_linker_warnings=false",
     "disable_fieldtrial_testing_config=true",
     "blink_enable_generated_code_formatting=false",
-    "v8_enable_maglev=true",
     "rtc_link_pipewire=true",
     "rtc_use_pipewire=true",
     "link_pulseaudio=true",
@@ -54,6 +52,7 @@ hostmakedepends = [
     "bash",
     "bison",
     "git",
+    "gmake",
     "gperf",
     "hwdata",
     # for gn
@@ -155,6 +154,12 @@ hardening = ["!scp"]
 # lol
 options = ["!cross", "!check", "!scanshlibs"]
 
+match self.profile().arch:
+    case "ppc64" | "riscv64":
+        # trap in add_label_offset() (assembler-ppc.cc)
+        # also crashes on riscv64
+        hardening += ["!int"]
+
 
 def post_patch(self):
     self.mkdir("third_party/node/linux/node-linux-x64/bin", parents=True)
@@ -171,6 +176,14 @@ def do_configure(self):
         f"-j{self.make_jobs}",
         "--skip-generate-buildfiles",
     )
+
+    # where we mess with libvpx configuration, regen the files
+    if self.profile().arch == "ppc64le":
+        self.do(
+            self.chroot_cwd / "third_party/libvpx/generate_gni.sh",
+            wrksrc="third_party/libvpx",
+            env={"PATH": f"{self.chroot_cwd / 'out/Release'}:/usr/bin"},
+        )
 
     _unbundle = [
         "brotli",
@@ -215,6 +228,7 @@ def do_configure(self):
     # sqlite3BtreeOpen crash
     _cfi = "false"
     _lto = "true" if self.has_lto() else "false"
+    _maglev = "true"
 
     match self.profile().arch:
         case "aarch64":
@@ -226,14 +240,17 @@ def do_configure(self):
         case "ppc64le":
             _confargs.append('target_cpu="ppc64"')
             _vaapi = "false"
+            _maglev = "false"
         case "riscv64":
             _confargs.append('target_cpu="riscv64"')
             _vaapi = "false"
+            _maglev = "false"
 
     _confargs += [
         f"use_vaapi={_vaapi}",
         f"is_cfi={_cfi}",
         f"use_thin_lto={_lto}",
+        f"v8_enable_maglev={_maglev}",
     ]
 
     self.do(
