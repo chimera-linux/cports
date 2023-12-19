@@ -2,7 +2,6 @@ pkgname = "sway"
 pkgver = "1.8.1"
 pkgrel = 2
 build_style = "meson"
-configure_args = ["-Dwerror=false"]
 hostmakedepends = [
     "meson",
     "pkgconf",
