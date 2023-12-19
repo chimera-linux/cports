@@ -1,5 +1,5 @@
 pkgname = "mozjs115"
-pkgver = "115.5.0"
+pkgver = "115.6.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "db3f710209b74c0416834f76a9cfa42da65a833bf7cf79116ff2c43c4946a728"
+sha256 = "66d7e6e5129ac8e6fe83e24227dc7bb8dc42650bc53b21838e614de80d22bc66"
 debug_level = 1  # make the debug size not explode
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
