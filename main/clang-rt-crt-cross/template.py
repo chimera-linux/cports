@@ -1,7 +1,7 @@
 pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.4"
 pkgver = "17.0.6"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
 configure_args = [
@@ -64,16 +64,8 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-_tskip = {"ppc64": "ppc"}
 _targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
-_btargets = list(
-    filter(
-        lambda p: self.profile().arch not in _tskip
-        or _tskip[self.profile().arch] != p,
-        _targets,
-    )
-)
 
 
 def post_patch(self):
@@ -83,7 +75,7 @@ def post_patch(self):
 def do_configure(self):
     from cbuild.util import cmake
 
-    for an in _btargets:
+    for an in _targets:
         with self.profile(an) as pf:
             at = pf.triplet
             # musl build dir
@@ -140,7 +132,7 @@ def do_configure(self):
 def do_build(self):
     from cbuild.util import cmake
 
-    for an in _btargets:
+    for an in _targets:
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
@@ -150,7 +142,7 @@ def do_build(self):
 def do_install(self):
     from cbuild.util import cmake
 
-    for an in _btargets:
+    for an in _targets:
         with self.profile(an):
             cmake.install(self, f"build-{an}")
 
@@ -166,7 +158,7 @@ def _gen_subp(an):
             "!splitstatic",
             "foreignelf",
         ]
-        if an not in _btargets:
+        if an not in _targets:
             self.build_style = "meta"
             return []
         with self.rparent.profile(an) as pf:
