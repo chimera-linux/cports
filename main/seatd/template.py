@@ -5,7 +5,6 @@ build_style = "meson"
 configure_args = [
     "-Dexamples=disabled",
     "-Dlibseat-logind=elogind",
-    "-Dwerror=false",
 ]
 hostmakedepends = ["meson", "pkgconf", "scdoc"]
 makedepends = ["elogind-devel", "linux-headers"]
