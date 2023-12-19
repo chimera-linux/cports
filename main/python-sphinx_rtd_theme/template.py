@@ -1,5 +1,5 @@
 pkgname = "python-sphinx_rtd_theme"
-pkgver = "1.3.0"
+pkgver = "2.0.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "eater <=@eater.me>"
 license = "MIT"
 url = "https://github.com/readthedocs/sphinx_rtd_theme"
 source = f"https://github.com/readthedocs/sphinx_rtd_theme/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "637611d42a95719235bf557567fadfea89d9e13c5e819f07640f74b75db90dd8"
+sha256 = "40446e6789dd34deb4e9814e379bae0aa74057b6fb43de4b343a48c84fc0f8db"
 # No tests available
 options = ["!check"]
 
