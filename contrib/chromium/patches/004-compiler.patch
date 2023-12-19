@@ -144,8 +144,8 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
            !(is_chromeos_lacros && is_chromeos_device)) {
 -        cflags += [ "--target=arm-linux-gnueabihf" ]
 -        ldflags += [ "--target=arm-linux-gnueabihf" ]
-+        cflags += [ "--target=armv7-alpine-linux-musleabihf" ]
-+        ldflags += [ "--target=armv7-alpine-linux-musleabihf" ]
++        cflags += [ "--target=arm-chimera-linux-musleabihf" ]
++        ldflags += [ "--target=arm-chimera-linux-musleabihf" ]
        }
        if (!is_nacl) {
          cflags += [
@@ -155,8 +155,8 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
            !(is_chromeos_lacros && is_chromeos_device)) {
 -        cflags += [ "--target=aarch64-linux-gnu" ]
 -        ldflags += [ "--target=aarch64-linux-gnu" ]
-+        cflags += [ "--target=aarch64-alpine-linux-musl" ]
-+        ldflags += [ "--target=aarch64-alpine-linux-musl" ]
++        cflags += [ "--target=aarch64-chimera-linux-musl" ]
++        ldflags += [ "--target=aarch64-chimera-linux-musl" ]
        }
      } else if (current_cpu == "mipsel" && !is_nacl) {
        ldflags += [ "-Wl,--hash-style=sysv" ]
