@@ -27,7 +27,7 @@ def post_install(self):
 @subpackage("xdg-utils-x11")
 def _x11(self):
     self.pkgdesc = f"{pkgdesc} (X11 integration)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "xset"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "xserver-xorg-core"]
 

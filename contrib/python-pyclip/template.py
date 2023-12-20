@@ -26,7 +26,7 @@ def _wayland(self):
     self.pkgdesc += " (Wayland support)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = ["wl-clipboard"]
-    self.build_style = "meta"
+    self.options = ["empty"]
     return []
 
 
@@ -35,5 +35,5 @@ def _x11(self):
     self.pkgdesc += " (X11 support)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = ["xclip"]
-    self.build_style = "meta"
+    self.options = ["empty"]
     return []

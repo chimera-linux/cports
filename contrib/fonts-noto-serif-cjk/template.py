@@ -68,6 +68,6 @@ for _subn, _subd, _subc, _sube in [
 def _extra(self):
     self.pkgdesc = f"{pkgdesc} (additional variants)"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []

@@ -64,13 +64,12 @@ def invoke(pkg):
             pkg.log_red(f"forbidden directory '{rf}'")
             lintfail = True
 
-    if dirempty and pkg.build_style != "meta":
-        if pkg.rparent is not pkg:
-            pkg.log_red("non-meta subpackages must not be empty")
-            lintfail = True
-        elif len(pkg.subpkg_list) == 0:
-            pkg.log_red("empty packages must use meta build_style")
-            lintfail = True
+    if dirempty and pkg.build_style != "meta" and not pkg.options["empty"]:
+        pkg.log_red("empty non-meta packages must be marked as such")
+        lintfail = True
+    elif not dirempty and pkg.options["empty"]:
+        pkg.log_red("package marked empty but not actually empty")
+        lintfail = True
 
     # stuff in /etc that should go in /usr/share
     for d in ["bash_completion.d", "X11/xorg.conf.d", "gconf/schemas"]:

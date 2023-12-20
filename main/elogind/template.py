@@ -69,7 +69,7 @@ def _devel(self):
 @subpackage("elogind-meta")
 def _meta(self):
     self.pkgdesc = f"{pkgdesc} (recommends package)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     return []
 
 
@@ -79,7 +79,7 @@ def _polkit(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     # break cycle (polkit depends on elogind)
     self.depends = [f"virtual:polkit!{pkgname}"]
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []
 

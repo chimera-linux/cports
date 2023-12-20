@@ -1139,9 +1139,8 @@ There are currently a few build styles available.
 #### meta
 
 A metapackage `build_style`. It merely defines empty `do_fetch` as well
-as `do_install`. All empty packages must use this build style, including
-subpackages; metasubpackages of normal packages must mark themselves with
-this. This is the only time a subpackage sets `build_style`.
+as `do_install`. Packages with this build-style are allowed to be empty
+by default, others need to use the `empty` option.
 
 #### cmake
 
@@ -1659,6 +1658,9 @@ for subpackages separately if needed:
   `libc` of the target), it will error. It is possible to override this
   by enabling this option. Usually this is a wrong thing to do, but for
   example in case of cross toolchains you might want to enable this.
+* `empty` *(false)* By default, empty packages will raise an error, unless
+  the build style is `meta`; this can be used to override it. Packages that
+  are marked empty and have contents will instead error then.
 * `keepempty` *(false)* By default, `cbuild` will prune all empty directories
   from every package. This can be used to override that. It should almost
   never be used. However, there are some cases, notably `base-files`, where

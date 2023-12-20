@@ -146,7 +146,7 @@ for _an in _targetlist:
 
 @subpackage("musl-cross-static")
 def _static(self):
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.pkgdesc = f"{pkgdesc} (static)"
     self.depends = []
     for an in _targets:

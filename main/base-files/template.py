@@ -111,7 +111,7 @@ def do_install(self):
 def _basedev(self):
     self.pkgdesc = "Base package for development packages"
     self.depends = []
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []
 
@@ -121,7 +121,7 @@ def _basedevs(self):
     self.pkgdesc = "Base package for static development packages"
     self.depends = []
     self.install_if = []
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []
 
@@ -130,7 +130,7 @@ def _basedevs(self):
 def _baseloc(self):
     self.pkgdesc = "Base package for locale data"
     self.depends = []
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []
 
@@ -139,6 +139,6 @@ def _baseloc(self):
 def _basedoc(self):
     self.pkgdesc = "Base package for documentation"
     self.depends = []
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []

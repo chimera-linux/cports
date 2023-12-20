@@ -186,7 +186,7 @@ for _an in _targetlist:
 def _unw_static(self):
     self.pkgdesc = "Cross-toolchain LLVM libunwind (static)"
     self.depends = []
-    self.build_style = "meta"
+    self.options = ["empty"]
     for an in _targets:
         self.depends.append(f"libunwind-cross-{an}-static={pkgver}-r{pkgrel}")
 
@@ -197,7 +197,7 @@ def _unw_static(self):
 def _abi_static(self):
     self.pkgdesc = "Cross-toolchain LLVM libc++abi (static)"
     self.depends = []
-    self.build_style = "meta"
+    self.options = ["empty"]
     for an in _targets:
         self.depends.append(f"libcxxabi-cross-{an}-static={pkgver}-r{pkgrel}")
 
@@ -208,7 +208,7 @@ def _abi_static(self):
 def _cxx_static(self):
     self.pkgdesc = f"{pkgdesc} (static)"
     self.depends = []
-    self.build_style = "meta"
+    self.options = ["empty"]
     for an in _targets:
         self.depends.append(f"libcxx-cross-{an}-static={pkgver}-r{pkgrel}")
 
@@ -219,7 +219,7 @@ def _cxx_static(self):
 def _unw_cross(self):
     self.pkgdesc = "Cross-toolchain LLVM libunwind"
     self.depends = ["musl-cross", "libatomic-chimera-cross"]
-    self.build_style = "meta"
+    self.options = ["empty"]
     for an in _targets:
         self.depends.append(f"libunwind-cross-{an}={pkgver}-r{pkgrel}")
 
@@ -230,7 +230,7 @@ def _unw_cross(self):
 def _cxxabi_cross(self):
     self.pkgdesc = "Cross-toolchain LLVM libcxxabi"
     self.depends = [f"libunwind-cross={pkgver}-r{pkgrel}"]
-    self.build_style = "meta"
+    self.options = ["empty"]
     for an in _targets:
         self.depends.append(f"libcxxabi-cross-{an}={pkgver}-r{pkgrel}")
 

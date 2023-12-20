@@ -9,6 +9,7 @@ license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
 sha256 = "d0ba54f05f5dd34b0fc5a1e1970cd9cbc48491d2da97f3798a9e13530dc18298"
+options = ["empty"]
 
 _arch = self.profile().arch
 _arch_x86 = _arch == "x86_64"
@@ -351,7 +352,7 @@ def post_install(self):
 @subpackage("firmware-linux-audio")
 def _audio(self):
     self.pkgdesc = f"{pkgdesc} (audio)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
 
     return []
@@ -360,7 +361,7 @@ def _audio(self):
 @subpackage("firmware-linux-gpu")
 def _gpu(self):
     self.pkgdesc = f"{pkgdesc} (graphics)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
 
     return []
@@ -369,7 +370,7 @@ def _gpu(self):
 @subpackage("firmware-linux-network")
 def _net(self):
     self.pkgdesc = f"{pkgdesc} (network devices)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
 
     return []
@@ -378,7 +379,7 @@ def _net(self):
 @subpackage("firmware-linux-storage")
 def _storage(self):
     self.pkgdesc = f"{pkgdesc} (storage devices)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.install_if = [f"base-firmware-linux={pkgver}-r{pkgrel}"]
 
     return []
@@ -387,7 +388,7 @@ def _storage(self):
 @subpackage("firmware-linux-misc")
 def _misc(self):
     self.pkgdesc = f"{pkgdesc} (misc)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
 
     return []
@@ -396,7 +397,7 @@ def _misc(self):
 @subpackage("firmware-linux-soc")
 def _soc(self):
     self.pkgdesc = f"{pkgdesc} (systems on chip)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
 
     return []
@@ -405,7 +406,7 @@ def _soc(self):
 @subpackage("base-firmware-linux")
 def _base(self):
     self.pkgdesc = f"{pkgdesc} (base metapackage)"
-    self.build_style = "meta"
+    self.options = ["empty"]
     self.install_if = [f"firmware-linux={pkgver}-r{pkgrel}"]
 
     return []

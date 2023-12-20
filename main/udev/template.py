@@ -293,6 +293,6 @@ def _base(self):
     self.pkgdesc = "Base package for udev configs"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []

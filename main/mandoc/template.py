@@ -68,7 +68,7 @@ manpath /usr/share/man
 def _base(self):
     self.pkgdesc = "Base package for manpages"
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []
 

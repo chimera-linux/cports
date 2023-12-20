@@ -184,6 +184,6 @@ def _alsadef(self):
 def _wp(self):
     self.pkgdesc = f"{pkgdesc} (no session manager)"
     self.provides = ["pipewire-session-manager=0"]
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []

@@ -309,7 +309,7 @@ def _jdkdef(self):
 def _default(self):
     self.pkgdesc = f"{pkgdesc} (default)"
     self.provides = [f"java-default={pkgver}-r{pkgrel}"]
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []
 

@@ -158,9 +158,6 @@ def _gen_subp(an):
             "!splitstatic",
             "foreignelf",
         ]
-        if an not in _targets:
-            self.build_style = "meta"
-            return []
         with self.rparent.profile(an) as pf:
             return [
                 f"usr/lib/clang/{pkgver[0:pkgver.find('.')]}/lib/{pf.triplet}"

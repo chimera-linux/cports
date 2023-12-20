@@ -144,6 +144,6 @@ def _devel(self):
 @subpackage(f"base-python{_majver}")
 def _ver(self):
     self.pkgdesc = f"{pkgdesc} (recommends package)"
-    self.build_style = "meta"
+    self.options = ["empty"]
 
     return []

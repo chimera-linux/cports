@@ -359,6 +359,7 @@ default_options = {
     "autosplit": (True, False),
     "lintstatic": (True, False),
     "distlicense": (True, False),
+    "empty": (False, False),
     # actually true by default for -devel
     "splitstatic": (False, False),
     "splitudev": (True, False),
@@ -838,12 +839,8 @@ class Template(Package):
         repo = self.repository
         bpn = self.pkgname
         for sp in self.subpkg_list:
-            if (
-                sp.build_style
-                and sp.build_style != self.build_style
-                and sp.build_style != "meta"
-            ):
-                self.error("subpackages cannot declare non-meta build_style")
+            if sp.build_style and sp.build_style != self.build_style:
+                self.error("subpackages cannot change build-style")
 
             tlink = f"{repo}/{sp.pkgname}"
             tpath = paths.distdir() / tlink
