@@ -1,5 +1,5 @@
 pkgname = "libnvme"
-pkgver = "1.7"
+pkgver = "1.7.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/linux-nvme/libnvme"
 source = f"{url}/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
-sha256 = "93febccd2e4201a6a9c696a0208a7227adfd1649ad0523754c1885503890e77c"
+sha256 = "e9c3ad59c068788faf0f0af4296f92f8ce410d12749f0f35a541d6a21e630393"
 options = ["linkundefver"]
 
 
