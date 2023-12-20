@@ -1,0 +1,15 @@
+This fails because yambar isn't built with mpd support (as it's not packaged
+yet).
+
+--- a/test/full-conf-good.yml	2023-07-14 08:03:02.000000000 +0100
++++ b/test/full-conf-good.yml	2023-12-20 13:41:03.510456963 +0000
+@@ -35,9 +35,6 @@
+           ws: {string: {text: WS}}
+     - label:
+         content: {string: {text: hello}}
+-    - mpd:
+-        host: 127.0.0.1
+-        content: {string: {text: "{state}"}}
+     - network:
+         name: ldsjfdf
+         content: {string: {text: "{name}"}}
