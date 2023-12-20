@@ -4,7 +4,10 @@
 /usr/bin/systemd-sysusers || :
 
 # always create/remove/set
-TMPFILES_ARGS="--create --remove"
+# always skip messing with resolv.conf during package configuration,
+# we don't want things to change under the users' hands, instead leave
+# it to when it's safer (after boot)
+TMPFILES_ARGS="--create --remove --replace /usr/lib/tmpfiles.d/resolv.conf -"
 
 # a little heuristical but unassuming with userland
 # the idea is that if /run is mounted, it's probably a running system
@@ -21,4 +24,4 @@ else
     fi
 fi
 
-/usr/bin/systemd-tmpfiles $TMPFILES_ARGS || :
+/usr/bin/echo | /usr/bin/systemd-tmpfiles $TMPFILES_ARGS || :

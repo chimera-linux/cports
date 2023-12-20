@@ -73,6 +73,7 @@ def _prepare_etc():
     shutil.copy(bfp / "etc/passwd", tfp)
     shutil.copy(bfp / "etc/group", tfp)
 
+    (paths.bldroot() / "etc/resolv.conf").unlink(missing_ok=True)
     shutil.copy("/etc/resolv.conf", paths.bldroot() / "etc")
 
     with open(tfp / "passwd", "a") as pf:
