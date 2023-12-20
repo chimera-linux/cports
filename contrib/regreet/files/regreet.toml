@@ -1,0 +1,3 @@
+[commands]
+reboot = [ "loginctl", "reboot" ]
+poweroff = [ "loginctl", "poweroff" ]
