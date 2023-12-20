@@ -1,6 +1,6 @@
 pkgname = "base-cbuild"
 pkgver = "0.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "meta"
 pkgdesc = "Core package set for cbuild containers"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -21,6 +21,8 @@ depends = [
     "bsdtar",
     "tzdata",
     "fakeroot-core",
+    "resolvconf",
+    "resolvconf-none",
     f"base-cbuild-progs={pkgver}-r{pkgrel}",
 ]
 provides = ["apk-tools-cache-link=9999-r0"]
