@@ -1,8 +1,10 @@
 pkgname = "iwd"
-pkgver = "2.9"
+pkgver = "2.11"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
+    # junk cflags that redefine FORTIFY
+    "--disable-optimization",
     "--disable-systemd-service",
     "--enable-dbus-policy",
     "--enable-wired",
@@ -21,7 +23,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://iwd.wiki.kernel.org"
 source = f"$(KERNEL_SITE)/network/wireless/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ec02ae5750e47204f4b91791cbab7cde670e3035f884f4143f6d00f400089d4c"
+sha256 = "37052abc176d9885c98537c403ab496500ed03977b2273397275c02c7352b66e"
 tool_flags = {
     "CFLAGS": ["-Wno-unknown-warning-option", "-Wno-duplicate-decl-specifier"]
 }
