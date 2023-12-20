@@ -1,0 +1,10 @@
+--- a/hw/vfio/container.c
++++ b/hw/vfio/container.c
+@@ -19,6 +19,7 @@
+  */
+ 
+ #include "qemu/osdep.h"
++#include <libgen.h>
+ #include <sys/ioctl.h>
+ #include <linux/vfio.h>
+ 
