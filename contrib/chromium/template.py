@@ -2,7 +2,7 @@ pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
 pkgver = "120.0.6099.109"
 pkgrel = 0
-archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
+archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
     'custom_toolchain="//build/toolchain/linux/unbundle:default"',
     'host_toolchain="//build/toolchain/linux/unbundle:default"',
@@ -155,7 +155,7 @@ hardening = ["!scp"]
 options = ["!cross", "!check", "!scanshlibs"]
 
 match self.profile().arch:
-    case "ppc64" | "riscv64":
+    case "ppc64le" | "riscv64":
         # trap in add_label_offset() (assembler-ppc.cc)
         # also crashes on riscv64
         hardening += ["!int"]
