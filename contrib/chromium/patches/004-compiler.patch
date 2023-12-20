@@ -160,6 +160,17 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
        }
      } else if (current_cpu == "mipsel" && !is_nacl) {
        ldflags += [ "-Wl,--hash-style=sysv" ]
+@@ -1411,8 +1411,8 @@ config("compiler_cpu_abi") {
+       }
+     } else if (current_cpu == "riscv64") {
+       if (is_clang && !is_android) {
+-        cflags += [ "--target=riscv64-linux-gnu" ]
+-        ldflags += [ "--target=riscv64-linux-gnu" ]
++        cflags += [ "--target=riscv64-chimera-linux-musl" ]
++        ldflags += [ "--target=riscv64-chimera-linux-musl" ]
+       }
+       cflags += [ "-mabi=lp64d" ]
+     } else if (current_cpu == "loong64") {
 @@ -1478,7 +1454,9 @@
      # This can be removed once https://bugs.llvm.org/show_bug.cgi?id=40348
      # has been resolved, and -mno-outline is obeyed by the linker during
