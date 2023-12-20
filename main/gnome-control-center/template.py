@@ -1,7 +1,8 @@
 pkgname = "gnome-control-center"
-pkgver = "45.1"
-pkgrel = 2
+pkgver = "45.2"
+pkgrel = 0
 build_style = "meson"
+make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -57,14 +58,13 @@ depends = [
     "power-profiles-daemon-meta",
     "sound-theme-freedesktop",
 ]
+checkdepends = ["python-dbusmock", "weston"] + depends
 pkgdesc = "GNOME control center"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d286c7627150e112aacbb4b7b91717fad8e89076061479dfc610b2dd744b577a"
-# needs graphical environment
-options = ["!check"]
+sha256 = "0cfa3c332d6edacb73d06c6b26ffca1078e86ff59eac819b2931e0967753df70"
 
 
 @subpackage("gnome-control-center-devel")
