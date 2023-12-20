@@ -1,9 +1,10 @@
 pkgname = "qemu-user"
-pkgver = "8.1.3"
+pkgver = "8.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
-# TODO vde liburing libssh capstone
+# TODO vde libssh capstone
 configure_args = [
+    "--enable-linux-io-uring",
     "--enable-linux-user",
     "--disable-bsd-user",
     "--disable-kvm",
@@ -16,33 +17,34 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "meson",
-    "ninja",
-    "pkgconf",
-    "gmake",
     "bash",
-    "perl",
-    "flex",
     "bison",
     "bzip2",
+    "flex",
+    "gmake",
+    "meson",
+    "ninja",
+    "perl",
+    "pkgconf",
     "ugetopt",
 ]
 makedepends = [
     "glib-devel-static",
-    "zlib-devel-static",
-    "libcxx-devel-static",
-    "pcre2-devel-static",
-    "libunwind-devel-static",
-    "musl-devel-static",
     "libatomic-chimera-devel-static",
+    "libcxx-devel-static",
+    "liburing-devel-static",
+    "libunwind-devel-static",
     "linux-headers",
+    "musl-devel-static",
+    "pcre2-devel-static",
+    "zlib-devel-static",
 ]
 pkgdesc = "QEMU user mode emulators"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
-sha256 = "43cc176804105586f74f90398f34e9f85787dff400d3b640d81f7779fbe265bb"
+sha256 = "bf00d2fa12010df8b0ade93371def58e632cb32a6bfdc5f5a0ff8e6a1fb1bf32"
 # maybe someday
 options = ["!cross", "!check"]
 exec_wrappers = [("/usr/bin/ugetopt", "getopt")]
