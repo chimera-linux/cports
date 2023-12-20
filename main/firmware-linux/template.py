@@ -1,7 +1,7 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
 pkgver = "20231211"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -19,6 +19,7 @@ _arch_arm64 = _arch == "aarch64"
 # name | description | install-if condition | install-if parent | contents
 _pkgs = [
     ("advansys", "Advansys SCSI", None, "storage", ["advansys"]),
+    ("airoha", "Airoha Ethernet PHY", None, "network", ["airoha"]),
     ("amd-ucode", "AMD CPU microcode", _arch_x86, "misc", ["amd-ucode"]),
     ("amd-sev", "AMD SEV firmware", _arch_x86, "misc", ["amd"]),
     ("amdgpu", "Newer AMD GPUs", None, "gpu", ["amdgpu"]),
