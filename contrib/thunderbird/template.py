@@ -1,5 +1,5 @@
 pkgname = "thunderbird"
-pkgver = "115.5.2"
+pkgver = "115.6.0"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -56,7 +56,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/{pkgname}/releases/{pkgver.replace('_beta', 'b')}/source/{pkgname}-{pkgver.replace('_beta', 'b')}.source.tar.xz"
-sha256 = "b6cf71489366215bb0c0b16f50c1a3895afb2404970944c2fbba55a426ee15ce"
+sha256 = "3b1cf976b0d0f48255a603f8ffe8e24390ecd5bd285fc4d10fe48e1ba2513744"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -94,7 +94,7 @@ def post_extract(self):
 def post_patch(self):
     from cbuild.util import cargo
 
-    for crate in []:
+    for crate in ["audio_thread_priority"]:
         cargo.clear_vendor_checksums(self, crate, vendor_dir="third_party/rust")
 
 
