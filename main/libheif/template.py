@@ -1,5 +1,5 @@
 pkgname = "libheif"
-pkgver = "1.17.5"
+pkgver = "1.17.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "http://www.libheif.org"
 source = f"https://github.com/strukturag/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "2150d6f643e36d0c6dc07c203510815c9660c062868f88d6f14cc6a545d6750e"
+sha256 = "55bae7858bfd1679923d4a7db08ce1dcf3216667fa8f1da193a0577876b8a904"
 hardening = ["!cfi"]  # TODO
 # needs full symbol visibility
 options = ["!check"]
