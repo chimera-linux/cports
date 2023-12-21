@@ -28,5 +28,5 @@ def _devel(self):
 
 
 @subpackage("flashrom-libs")
-def _devel(self):
+def _libs(self):
     return self.default_libs()
