@@ -6,7 +6,7 @@ build_style = "cmake"
 configure_args = ["-DBUILD_TESTING=ON", "-DBUILD_STATIC_LIBS=OFF"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libpng-devel", "libtiff-devel", "lcms2-devel"]
-pkgdesc = "Open-source JPEG 2000 codec written in C"
+pkgdesc = "Open-source JPEG 2000 codec"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://www.openjpeg.org"

@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python"]
-pkgdesc = "Generic syntax highlighter written in Python"
+pkgdesc = "Generic syntax highlighter"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://pygments.org"

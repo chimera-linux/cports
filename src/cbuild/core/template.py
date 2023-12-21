@@ -936,6 +936,8 @@ class Template(Package):
             self.error("pkgdesc should not start with an article")
         if re.search(r"^[a-z]", dstr):
             self.error("pkgdesc should start with an uppercase letter")
+        if " written in " in dstr:
+            self.error("pkgdesc should not describe implementation language")
         if len(dstr) > 72:
             self.error("pkgdesc should be no longer than 72 characters")
 
