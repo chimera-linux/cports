@@ -1,6 +1,6 @@
 pkgname = "pipewire"
 pkgver = "1.0.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -9,7 +9,7 @@ configure_args = [
     "-Dvulkan=disabled",
     "-Dsdl2=disabled",
     "-Dsystemd=disabled",
-    "-Dlibcamera=disabled",
+    "-Dlibcamera=enabled",
     "-Dlibffado=disabled",
     "-Droc=disabled",
     "-Dselinux=disabled",
@@ -46,6 +46,7 @@ makedepends = [
     "liblc3-devel",
     "fdk-aac-devel",
     "v4l-utils-devel",
+    "libcamera-devel",
     "avahi-devel",
     "openssl-devel",
     "bluez-devel",
