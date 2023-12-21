@@ -1,0 +1,11 @@
+--- a/ifrename.c	2007-10-17 00:12:41.000000000 +0100
++++ b/ifrename.c	2023-12-21 22:38:49.181227724 +0000
+@@ -68,6 +68,8 @@
+ #define ifr_newname ifr_ifru.ifru_slave
+ #endif
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ /* Types of selector we support. Must match selector_list */
+ const int SELECT_MAC		= 0;	/* Select by MAC address */
+ const int SELECT_ETHADDR	= 1;	/* Select by MAC address */
