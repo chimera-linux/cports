@@ -1,5 +1,5 @@
 pkgname = "libraw"
-pkgver = "0.21.1"
+pkgver = "0.21.2"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "libtool"]
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only OR CDDL-1.0"
 url = "https://libraw.org"
 source = f"{url}/data/LibRaw-{pkgver}.tar.gz"
-sha256 = "630a6bcf5e65d1b1b40cdb8608bdb922316759bfb981c65091fec8682d1543cd"
+sha256 = "fe7288013206854baf6e4417d0fb63ba4ed7227bf36fff021992671c2dd34b03"
 
 
 def post_install(self):
