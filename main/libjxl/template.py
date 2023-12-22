@@ -1,17 +1,20 @@
 pkgname = "libjxl"
-pkgver = "0.8.2"
-pkgrel = 1
+pkgver = "0.9.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
+    "-DBUILD_TESTING=ON",
     "-DJPEGXL_ENABLE_BENCHMARK=OFF",
-    "-DJPEGXL_ENABLE_SKCMS=OFF",
-    "-DJPEGXL_ENABLE_SJPEG=OFF",
+    "-DJPEGXL_ENABLE_JPEGLI=OFF",
     "-DJPEGXL_ENABLE_PLUGINS=OFF",
-    "-DJPEGXL_FORCE_SYSTEM_GTEST=ON",
+    "-DJPEGXL_ENABLE_SJPEG=OFF",
+    "-DJPEGXL_ENABLE_SKCMS=OFF",
     "-DJPEGXL_FORCE_SYSTEM_BROTLI=ON",
+    "-DJPEGXL_FORCE_SYSTEM_GTEST=ON",
     "-DJPEGXL_FORCE_SYSTEM_HWY=ON",
     "-DJPEGXL_FORCE_SYSTEM_LCMS2=ON",
+    f"-DJPEGXL_VERSION={pkgver}",
 ]
 hostmakedepends = [
     "asciidoc",
@@ -35,41 +38,24 @@ pkgdesc = "Reference JpegXL implementation"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/libjxl/libjxl"
-_testdata = "d6168ffb9e1cc24007e64b65dd84d822ad1fc759"
+_testdata = "6c943639760d38c91609f4a72e46c2bc19984a0a"
 source = [
     f"{url}/archive/refs/tags/v{pkgver}.tar.gz",
     f"https://github.com/libjxl/testdata/archive/{_testdata}.tar.gz",
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "c70916fb3ed43784eb840f82f05d390053a558e2da106e40863919238fa7b420",
-    "64658d3341bff2976899cb8b140242ffa4de1cd41aed507dfec4aa9e7e05ca24",
+    "d83bbe188d8fa9725bb75109c922c37fcff8c3b802808f3a6c2c14aaf8337d9f",
+    "bb1ad522df427aaee6f3fc5b67d0e4a85e59ae291450b1bedcca1ccb3bb75e99",
 ]
 # FIXME: a bunch of cfi test failures
-hardening = ["vis"]
+# vis also broken
+hardening = ["!vis"]
 
 
 # FIXME
 if self.profile().arch == "riscv64":
     configure_args += ["-DBUILD_TESTING=OFF"]
-
-
-def init_check(self):
-    skip = [
-        "(",
-        # FIXME: ?
-        "DecodeTest.ContinueFinalNonEssentialBoxTest|",
-        "JxlTest.RoundtripLossless8LightningGradient|",
-        "JxlTest.LosslessPNMRoundtrip|",
-        # whole suite fails because of using lcms instead of skcms probably
-        # (off-by-one byte errors on color management)
-        "ColorManagementTestInstantiation/ColorManagementTest.VerifyAllProfiles/ColorEncoding",
-        ")",
-    ]
-    self.make_check_args += [
-        "-E",
-        "".join(skip),
-    ]
 
 
 def post_install(self):
