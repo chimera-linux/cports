@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "23.3.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
@@ -270,6 +270,7 @@ def _xatracker(self):
 @subpackage("mesa-opencl", _have_opencl)
 def _opencl(self):
     self.pkgdesc = "Mesa implementation of OpenCL"
+    self.depends += ["libclc"]
 
     return [
         "etc/OpenCL",
