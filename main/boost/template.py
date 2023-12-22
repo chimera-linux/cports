@@ -20,7 +20,7 @@ source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/bo
 sha256 = "c0685b68dd44cc46574cce86c4e17c0f611b15e195be9848dfd0769a0a207628"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
 # FIXME: odd failures, but seems test-related
-options = ["!check", "!cross"]  # i don't dare touch this yet
+options = ["!check", "!cross", "empty"]  # i don't dare touch this yet
 
 # libs have semi-auto-generated subpkgs using this array
 # needs to be updated with new libs regularly
