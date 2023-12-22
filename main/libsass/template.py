@@ -1,5 +1,5 @@
 pkgname = "libsass"
-pkgver = "3.6.5"
+pkgver = "3.6.6"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.sass-lang.com/libsass"
 source = f"https://github.com/sass/{pkgname}/archive/{pkgver}.tar.gz"
-sha256 = "89d8f2c46ae2b1b826b58ce7dde966a176bac41975b82e84ad46b01a55080582"
+sha256 = "11f0bb3709a4f20285507419d7618f3877a425c0131ea8df40fe6196129df15d"
 
 
 def pre_configure(self):
