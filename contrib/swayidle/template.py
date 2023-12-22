@@ -1,16 +1,13 @@
 pkgname = "swayidle"
 pkgver = "1.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
     "pkgconf",
     "scdoc",
 ]
-makedepends = [
-    "wayland-devel",
-    "wayland-protocols",
-]
+makedepends = ["elogind-devel", "wayland-devel", "wayland-protocols"]
 pkgdesc = "Idle management daemon for Wayland"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
