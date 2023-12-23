@@ -1,0 +1,11 @@
+--- a/configure
++++ b/configure
+@@ -22710,7 +22710,7 @@
+ # allow BUILD_DATE to be externally set for build reproducibility
+ if test "$SOURCE_DATE_EPOCH"; then
+   DATE_FMT="%d %b %Y %H:%M:%S"
+-  BUILD_DATE=$(LC_ALL=C date -u -d "@$SOURCE_DATE_EPOCH" "+$DATE_FMT")
++  BUILD_DATE=$(LC_ALL=C date -u -j -f %s "$SOURCE_DATE_EPOCH" "+$DATE_FMT")
+   cat >>confdefs.h <<_ACEOF
+ #define BUILD_DATE "$BUILD_DATE"
+ _ACEOF
