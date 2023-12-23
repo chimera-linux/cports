@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "254"
-pkgrel = 6
+pkgrel = 7
 build_style = "meson"
 configure_args = [
     "-Dacl=true",
@@ -273,7 +273,7 @@ def _tmpfiles(self):
     self.pkgdesc = "Manage temporary/volatile files/directories"
     self.depends = ["virtual:cmd:snooze!snooze"]
     self.replaces = [f"systemd-tmpfiles<{pkgver}-r{pkgrel}"]
-    self.triggers = ["/usr/lib/syusers.d", "/usr/lib/tmpfiles.d"]
+    self.triggers = ["/usr/lib/sysusers.d", "/usr/lib/tmpfiles.d"]
 
     return [
         "etc/dinit.d/tmpfiles-clean",
