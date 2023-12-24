@@ -1,5 +1,5 @@
 pkgname = "lsp-plugins"
-pkgver = "1.2.13"
+pkgver = "1.2.14"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -22,7 +22,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"
 url = "https://lsp-plug.in"
 source = f"https://github.com/sadko4u/lsp-plugins/releases/download/{pkgver}/lsp-plugins-src-{pkgver}.tar.gz"
-sha256 = "7893bed5f08dcea8d3746acf96122b1dcdd48a69093b2751a93ab8f4837e230a"
+sha256 = "1a3359ee8b8a82971bd7e9eeabe43f58ce6b4a4793d85fb16f97b100e4edee9a"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # no tests
