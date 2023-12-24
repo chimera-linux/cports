@@ -1,6 +1,6 @@
 pkgname = "xonotic"
 pkgver = "0.8.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_use_env = True
@@ -76,10 +76,16 @@ def do_install(self):
     self.install_file(
         self.files_path / "xonotic-sdl.desktop", "usr/share/applications"
     )
+    for f in [22, 24, 32, 48, 64, 128, 256, 512]:
+        self.install_file(
+            f"misc/logos/icons_png/xonotic_{f}.png",
+            f"usr/share/icons/hicolor/{f}x{f}/apps",
+            name="xonotic.png",
+        )
     self.install_file(
-        "misc/logos/icons_png/xonotic_512.png",
-        "usr/share/pixmaps",
-        name="xonotic.png",
+        "misc/logos/xonotic_icon.svg",
+        "usr/share/icons/hicolor/scalable/apps",
+        name="xonotic.svg",
     )
 
     self.make.install(wrksrc="source/d0_blind_id")
