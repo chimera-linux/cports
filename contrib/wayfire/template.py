@@ -1,6 +1,6 @@
 pkgname = "wayfire"
 pkgver = "0.8.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Duse_system_wfconfig=enabled",
@@ -41,4 +41,10 @@ def post_install(self):
 
 @subpackage("wayfire-devel")
 def _devel(self):
-    return self.default_devel()
+    # libwayfire-blur-base.so should remain in main package
+    return [
+        "usr/include",
+        "usr/lib/*.a",
+        "usr/lib/libwf-utils.so",
+        "usr/lib/pkgconfig",
+    ]
