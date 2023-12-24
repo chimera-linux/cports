@@ -1,6 +1,6 @@
 pkgname = "xonotic"
 pkgver = "0.8.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_use_env = True
@@ -78,7 +78,7 @@ def do_install(self):
     )
     self.install_file(
         "misc/logos/icons_png/xonotic_512.png",
-        "usr/share/pixmaps",
+        "usr/share/icons/hicolor/512x512/apps",
         name="xonotic.png",
     )
 
