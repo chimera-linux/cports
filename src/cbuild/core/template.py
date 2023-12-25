@@ -1495,15 +1495,17 @@ class Template(Package):
                         f"install_man: manpage '{mnf}' has no section"
                     )
                 try:
-                    cat = int(absmn.suffix[1:])
+                    mcat = int(absmn.suffix[1:])
                 except Exception:
                     raise errors.TracebackException(
                         f"install_man: manpage '{mnf}' has an invalid section"
                     )
-            mandir = manbase / f"man{cat}"
+            else:
+                mcat = cat
+            mandir = manbase / f"man{mcat}"
             mandir.mkdir(parents=True, exist_ok=True)
             if name:
-                mnf = f"{name}.{cat}"
+                mnf = f"{name}.{mcat}"
             shutil.copy2(absmn, mandir / mnf)
             (mandir / mnf).chmod(0o644)
 
