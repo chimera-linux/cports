@@ -1,6 +1,6 @@
 pkgname = "efl"
-pkgver = "1.26.3"
-pkgrel = 1
+pkgver = "1.27.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dbuild-tests=false",  # enable if enabling tests
@@ -68,6 +68,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libpng-devel",
     "giflib-devel",
+    "libjxl-devel",
     "libtiff-devel",
     "libwebp-devel",
     "openjpeg-devel",
@@ -98,8 +99,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause AND LGPL-2.1-only AND Zlib AND custom:small"
 url = "https://enlightenment.org"
 source = f"https://download.enlightenment.org/rel/libs/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d9f83aa0fd9334f44deeb4e4952dc0e5144683afac786feebce6030951617d15"
-tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE"]}
+sha256 = "3dfb99fbcc268c0bc797e2f83e8c503ef9de66284f40b381bb597a08185c00f4"
+tool_flags = {"CFLAGS": ["-D_LARGEFILE64_SOURCE", "-D__USE_MISC"]}
 # FIXME int: janky codebase
 hardening = ["!int"]
 # some suites are in a bad shape
