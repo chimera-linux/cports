@@ -55,7 +55,7 @@
 +#if 1
 +   _cmd_hibernate = strdup("loginctl hibernate");
 +#else
- #if defined (__FreeBSD__) || defined (__OpenBSD__)
+ #if defined (__FreeBSD__)
     if (ecore_file_app_installed("acpiconf"))
       _cmd_hibernate = strdup("acpiconf -s4");
 @@ -112,6 +127,7 @@ _power_hibernate_init(void)

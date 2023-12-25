@@ -1,6 +1,6 @@
 pkgname = "enlightenment"
-pkgver = "0.25.4"
-pkgrel = 1
+pkgver = "0.26.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dpam=true",
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://enlightenment.org"
 source = f"http://download.enlightenment.org/rel/apps/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "56db5d206b821b9a8831d26e713e410ac70b2255a6f43fcdf7c01eefde23b7a2"
+sha256 = "11b6ef0671be5fead688bf554c30a2a1c683493ad10c5fe3115ffb4655424e84"
 suid_files = [
     "usr/lib/enlightenment/utils/enlightenment_ckpasswd",
     "usr/lib/enlightenment/utils/enlightenment_system",
