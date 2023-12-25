@@ -1,5 +1,5 @@
 pkgname = "epson-inkjet-printer-escpr"
-pkgver = "1.8.2"
+pkgver = "1.8.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -17,5 +17,5 @@ pkgdesc = "Epson Inkjet Printer Driver (ESC/P-R)"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://download.ebz.epson.net/dsc/search/01/search?OSC=LX&productName=B700"
-source = f"https://download3.ebz.epson.net/dsc/f/03/00/15/37/36/9209d0195bbe0743c8f9f427bdc5d09186d72ba2/epson-inkjet-printer-escpr-{pkgver}-1.tar.gz"
-sha256 = "14d5cdf300b5ff930ef268a2805568f4abf9e9cc9df17be2d76e77e3afdc5e42"
+source = f"https://download3.ebz.epson.net/dsc/f/03/00/15/48/01/7599a456504eeb6f7052b6f955735fc94475eca9/epson-inkjet-printer-escpr-{pkgver}-1.tar.gz"
+sha256 = "d0cf07fb2404b97d49fa1df62531eec0d9d985c84746e62556dc3cacd0ab0386"
