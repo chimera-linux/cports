@@ -1,62 +1,26 @@
+from cbuild.util import strip
+
 import shutil
 import stat
 
 
-def make_debug(pkg, f, relf):
-    if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
-        return
-
-    dfile = pkg.destdir / "usr/lib/debug" / relf
-    cfile = pkg.chroot_destdir / "usr/lib/debug" / relf
-
-    dfile.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        pkg.rparent.do(
-            pkg.rparent.get_tool("OBJCOPY"),
-            "--only-keep-debug",
-            pkg.chroot_destdir / relf,
-            cfile,
-        )
-    except Exception:
-        pkg.error(f"failed to create dbg file for {relf}")
-
-    dfile.chmod(0o644)
-
-
-def attach_debug(pkg, f, relf):
-    if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
-        return
-
-    cfile = pkg.chroot_destdir / "usr/lib/debug" / relf
-    try:
-        pkg.rparent.do(
-            pkg.rparent.get_tool("OBJCOPY"),
-            f"--add-gnu-debuglink={cfile}",
-            pkg.chroot_destdir / relf,
-        )
-    except Exception:
-        pkg.error(f"failed to attach debug link to {relf}")
-
-
 def _sanitize_exemode(f):
     st = f.lstat()
-    mode = 0o755
-    if st.st_mode & stat.S_ISUID:
-        mode |= 0o4000
-    if st.st_mode & stat.S_ISGID:
-        mode |= 0o2000
-    f.chmod(mode)
+    # suid/sgid binaries don't get normalized (unsafe)
+    # though it mostly does not matter as all suid binaries
+    # are detected by cbuild and the template always sets
+    # their actual final mode explicitly... but just in case
+    if (st.st_mode & stat.S_ISUID) or (st.st_mode & stat.S_ISGID):
+        return
+    f.chmod(0o755)
 
 
 def invoke(pkg):
     if not pkg.options["strip"]:
         return
 
-    strip_path = "/usr/bin/" + pkg.rparent.get_tool("STRIP")
     dbgdir = pkg.destdir / "usr/lib/debug"
-
     elfs = pkg.rparent.current_elfs
-
     have_pie = pkg.rparent.has_hardening("pie")
 
     for v in pkg.destdir.rglob("*"):
@@ -93,19 +57,12 @@ def invoke(pkg):
         if found_nostrip:
             continue
 
-        # now we've got a file we definitely can strip
-        cfile = str(pkg.chroot_destdir / vr)
-
         # strip static library, only if not LTO or when forced
         if not vt:
             v.chmod(0o644)
             if not pkg.rparent.has_lto() or pkg.options["ltostrip"]:
-                try:
-                    pkg.rparent.do(strip_path, "--strip-debug", cfile)
-                except Exception:
-                    pkg.error(f"failed to strip {vr}")
-
-                print(f"   Stripped static library: {vr}")
+                sp = strip.strip(pkg, v)
+                print(f"   Stripped static library: {sp}")
             # in any case continue
             continue
 
@@ -114,12 +71,8 @@ def invoke(pkg):
         # strip static executable
         if static:
             _sanitize_exemode(v)
-            try:
-                pkg.rparent.do(strip_path, cfile)
-            except Exception:
-                pkg.error(f"failed to strip {vr}")
-
-            print(f"   Stripped static executable: {vr}")
+            sp = strip.strip(pkg, v)
+            print(f"   Stripped static executable: {sp}")
             continue
 
         # pie or nopie?
@@ -139,14 +92,6 @@ def invoke(pkg):
 
         # strip nopie executable
         if not pie:
-            make_debug(pkg, v, vr)
-            try:
-                pkg.rparent.do(strip_path, cfile)
-            except Exception:
-                pkg.error(f"failed to strip {vr}")
-
-            print(f"   Stripped executable: {vr}")
-
             allow_nopie = False
             if have_pie:
                 for f in pkg.nopie_files:
@@ -159,24 +104,16 @@ def invoke(pkg):
             if not allow_nopie:
                 pkg.error(f"non-PIE executable found in PIE build: {vr}")
 
-            attach_debug(pkg, v, vr)
+            sp = strip.strip_attach(pkg, v)
+            print(f"   Stripped executable: {sp}")
             continue
 
         # strip pie executable or shared library
-        make_debug(pkg, v, vr)
-        try:
-            pkg.rparent.do(strip_path, "--strip-unneeded", cfile)
-        except Exception:
-            pkg.error(f"failed to strip {vr}")
-
+        sp = strip.strip_attach(pkg, v)
         if interp:
-            print(f"   Stripped position-independent executable: {vr}")
+            print(f"   Stripped position-independent executable: {sp}")
         else:
-            print(f"   Stripped library: {vr}")
-
-        attach_debug(pkg, v, vr)
-
-        # strip shared library
+            print(f"   Stripped library: {sp}")
 
     # prepare debug package
     if not pkg.rparent.options["debug"] or not pkg.rparent.build_dbg:
