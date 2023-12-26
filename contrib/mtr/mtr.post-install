@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/setcap cap_net_raw+ep /usr/bin/mtr-packet 2>/dev/null || :
