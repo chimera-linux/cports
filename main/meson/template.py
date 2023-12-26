@@ -1,15 +1,21 @@
 pkgname = "meson"
-pkgver = "1.3.0"
+pkgver = "1.3.1"
 pkgrel = 0
-build_style = "python_module"
-hostmakedepends = ["python-devel", "python-setuptools"]
+build_style = "python_pep517"
+hostmakedepends = [
+    "python-build",
+    "python-devel",
+    "python-installer",
+    "python-setuptools",
+    "python-wheel",
+]
 depends = ["python", "ninja"]
 pkgdesc = "Meson build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://mesonbuild.com"
 source = f"https://github.com/mesonbuild/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "4ba253ef60e454e23234696119cbafa082a0aead0bd3bbf6991295054795f5dc"
+sha256 = "6020568bdede1643d4fb41e28215be38eff5d52da28ac7d125457c59e0032ad7"
 # meson is early in our bootstrap path but has a million checkdepends
 options = ["!check"]
 
