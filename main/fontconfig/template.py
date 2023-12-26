@@ -1,5 +1,5 @@
 pkgname = "fontconfig"
-pkgver = "2.14.2"
+pkgver = "2.15.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,7 +8,15 @@ configure_args = [
     f"--with-cache-dir=/var/cache/{pkgname}",
 ]
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gperf", "gmake", "python"]
+hostmakedepends = [
+    "automake",
+    "gettext-devel",
+    "gmake",
+    "gperf",
+    "libtool",
+    "pkgconf",
+    "python",
+]
 makedepends = ["libexpat-devel", "freetype-bootstrap", "libuuid-devel"]
 triggers = ["/usr/share/fonts/*"]
 pkgdesc = "Library for configuring and customizing font access"
@@ -16,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.fontconfig.org"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/release/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3ba2dd92158718acec5caaf1a716043b5aa055c27b081d914af3ccb40dce8a55"
+sha256 = "f5f359d6332861bd497570848fcb42520964a9e83d5e3abe397b6b6db9bcaaf4"
 
 
 def post_install(self):
@@ -31,6 +39,3 @@ def post_install(self):
 @subpackage("fontconfig-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
