@@ -1,5 +1,5 @@
 pkgname = "python-pebble"
-pkgver = "5.0.5"
+pkgver = "5.0.6"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,4 +16,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/noxdafox/pebble"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "a9e81246a6f7c61c3f9f25cdb68fa01b08df67c19c10a93b1eb993bab100e8db"
+sha256 = "128a2033589a77b9479dcc4cc1b20a45b861b8d163bf6c65b914f3b201bd0e12"
