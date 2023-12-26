@@ -1,5 +1,5 @@
 pkgname = "cjson"
-pkgver = "1.7.16"
+pkgver = "1.7.17"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,7 +19,7 @@ url = "https://github.com/DaveGamble/cJSON"
 source = (
     f"https://github.com/DaveGamble/cJSON/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "451131a92c55efc5457276807fc0c4c2c2707c9ee96ef90c47d68852d5384c6c"
+sha256 = "c91d1eeb7175c50d49f6ba2a25e69b46bd05cffb798382c19bfb202e467ec51c"
 hardening = ["vis", "cfi"]
 
 
