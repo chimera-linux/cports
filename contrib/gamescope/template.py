@@ -1,10 +1,11 @@
 pkgname = "gamescope"
 pkgver = "3.13.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "cmake",
     "glslang-progs",
+    "libcap-progs",
     "meson",
     "ninja",
     "pkgconf",
@@ -35,7 +36,6 @@ makedepends = [
     "wlroots-devel",
     "xwayland",
 ]
-depends = ["libcap-progs"]
 pkgdesc = "SteamOS compositor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
@@ -58,6 +58,11 @@ sha256 = [
     "b4eca5edca75355ea1443ad96fd59b0a407f6a2ce17ef5a8f9849c05fc10155f",
     "165726ad21fbfc221c0363e40b597834068a416a11a1204ae2ac6d13ec161035",
 ]
+file_xattrs = {
+    "usr/bin/gamescope": {
+        "security.capability": "cap_sys_nice+ep",
+    },
+}
 # sus
 options = ["!cross"]
 
