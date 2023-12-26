@@ -1,4 +1,0 @@
-#!/bin/sh
-
-setcap cap_net_raw+p /usr/bin/ping 2>/dev/null || :
-setcap cap_net_raw+p /usr/bin/clockdiff 2>/dev/null || :
