@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "7.6.2.1"
-pkgrel = 1
+pkgver = "7.6.4.1"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -156,7 +156,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.libreoffice.org"
 # big and not particularly useful testsuite
-options = ["!cross", "!check", "linkundefver"]
+# FIXME: lto breaks LO with clang 17
+options = ["!lto", "!cross", "!check", "linkundefver", "empty"]
 
 _surl = f"https://download.documentfoundation.org/libreoffice/src/{pkgver[:-2]}"
 _aurl = "!https://dev-www.libreoffice.org/src"
@@ -170,12 +171,12 @@ source = [
     f"{_aurl}/798b2ffdc8bcfe7bca2cf92b62caf685-rhino1_5R5.zip",
     f"{_aurl}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip",
     f"{_aurl}/ace6ab49184e329db254e454a010f56d-libxml-1.1.7.zip",
-    f"{_aurl}/language-subtag-registry-2023-05-11.tar.bz2",
+    f"{_aurl}/language-subtag-registry-2023-08-02.tar.bz2",
     f"{_aurl}/17410483b5b5f267aa18b7e00b65e6e0-hsqldb_1_8_0.zip",
     f"{_aurl}/d8bd5eed178db6e2b18eeed243f85aa8-flute-1.1.6.zip",
     f"{_aurl}/ba2930200c9f019c2d93a8c88c651a0f-flow-engine-0.9.4.zip",
     f"{_aurl}/box2d-2.4.1.tar.gz",
-    f"{_aurl}/libcmis-0.5.2.tar.xz",
+    f"{_aurl}/libcmis-0.6.1.tar.xz",
     f"{_aurl}/libstaroffice-0.0.7.tar.xz",
     f"{_aurl}/libzmf-0.0.2.tar.xz",
     f"{_aurl}/pdfium-5778.tar.bz2",
@@ -198,19 +199,19 @@ source = [
     f"{_aurl}/frozen-1.1.1.tar.gz",
 ]
 sha256 = [
-    "e5d2733bd02ce24c30207795b77b9f5e2b5aba3a14773375fb5cc228ed2b9ca2",
-    "ef127e3535d88928e670804279551d81570e570a203b7f295941def4573bc314",
-    "6bdc27027a603031785d6c650785073add8d55872ab81a15067459ee1b6cd148",
-    "5b239fa6127e87b00b7990a5edef96b1fa522f80c1d96e3f8749d95190f6d60a",
+    "13fea7b8f24c776313b9e08628aa590390bea45064be73bc70ee7b1b70aa6a1e",
+    "36c0526e4c12ab38dd1e1766cd878118dd5692578b80411b9b443e389e3712fa",
+    "ed784c014096e0e7ff86294eba624bd92ecbe5be881b01950eecd69aed7d8678",
+    "3a5a0dbe40abdc55cdd9994895f6577d7e547d26a36b20641f32f3640a3b7679",
     "1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
-    "9042b64cd473bf36073513b474046f13778107b57c2ac47fb2633104120d69da",
+    "59fdc026b5088e7947e1e6add482d2a40e1f7e25c50f198b456954216462c2eb",
     "d30b13f4ba2e3b6a2d4f020c0dee0a9fb9fc6fbcc2d561f36b78da4bf3802370",
     "1b5b24f7bc543c0362b667692f78db8bab4ed6dafc6172f104d0bd3757d8a133",
     "233f66e8d25c5dd971716d4200203a612a407649686ef3b52075d04b4c9df0dd",
     "d6b4650ff897ee1ead27cf77a5933ea197cbeef6705638dd181adc2e816b23c2",
-    "d7b18d9602190e10d437f8a964a32e983afd57e2db316a07d87477a79f5000a2",
+    "d54d19d86153dbc88e2d468f7136269a2cfe71b73227e12fded01d29ac268074",
     "f94fb0ad8216f97127bedef163a45886b43c62deac5e5b0f5e628e234220c8db",
     "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
     "b1052ff24e9ffb11af017c444bb0f6ad508d64c9a0fb88cacb0e8210245dde06",
@@ -250,6 +251,7 @@ def post_extract(self):
 
     # copy over patches
     self.cp(self.files_path / "ppc-skia-musttail.patch.1", "external/skia")
+    self.cp(self.files_path / "libcmis-libxml2.patch.1", "external/libcmis")
 
 
 def init_configure(self):
