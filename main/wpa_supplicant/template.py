@@ -1,6 +1,6 @@
 pkgname = "wpa_supplicant"
 pkgver = "2.10"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = pkgname
 build_style = "makefile"
 make_cmd = "gmake"
