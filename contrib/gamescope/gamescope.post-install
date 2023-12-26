@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/setcap cap_sys_nice+ep /usr/bin/gamescope 2>/dev/null || :
