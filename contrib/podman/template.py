@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "4.8.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
 hostmakedepends = [
@@ -23,6 +23,7 @@ makedepends = [
 ]
 depends = [
     "aardvark-dns",
+    "catatonit",
     "cni-plugins",
     "conmon",
     "containers-common",
