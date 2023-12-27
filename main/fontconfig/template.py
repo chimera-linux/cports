@@ -1,6 +1,6 @@
 pkgname = "fontconfig"
 pkgver = "2.15.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-static",
@@ -29,10 +29,14 @@ sha256 = "f5f359d6332861bd497570848fcb42520964a9e83d5e3abe397b6b6db9bcaaf4"
 
 def post_install(self):
     self.install_license("COPYING")
+    self.install_file(
+        self.files_path / "70-no-nonscalable.conf",
+        "usr/share/fontconfig/conf.avail",
+    )
     # reject bitmap fonts by default, preventing them from being preferred
     self.install_link(
-        "/usr/share/fontconfig/conf.avail/70-no-bitmaps.conf",
-        "etc/fonts/conf.d/70-no-bitmaps.conf",
+        "/usr/share/fontconfig/conf.avail/70-no-nonscalable.conf",
+        "etc/fonts/conf.d/70-no-nonscalable.conf",
     )
 
 
