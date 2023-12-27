@@ -1,6 +1,6 @@
 pkgname = "bluez"
 pkgver = "5.71"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-systemd",
