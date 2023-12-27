@@ -1,12 +1,12 @@
 pkgname = "libftdi1"
 pkgver = "1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DLIB_SUFFIX="]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = ["libconfuse-devel", "libusb-devel"]
 checkdepends = ["boost-devel"]
-pkgdesc = "Yet Another JSON Library"
+pkgdesc = "Library for communicating with FTDI USB devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND GPL-2.0-only"
 url = "https://www.intra2net.com/en/developer/libftdi/download.php"
