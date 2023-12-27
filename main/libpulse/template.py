@@ -25,7 +25,6 @@ makedepends = [
     "libsamplerate-devel",
     "orc-devel",
     "libcap-devel",
-    "libcap-progs",
     "linux-headers",
 ]
 # not in a standard path and therefore not picked up by shlib scanner
