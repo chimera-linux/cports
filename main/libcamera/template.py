@@ -1,6 +1,6 @@
 pkgname = "libcamera"
 pkgver = "0.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dtest=true"]
 hostmakedepends = [
@@ -52,4 +52,4 @@ def _gst(self):
 
 @subpackage("libcamera-devel")
 def _devel(self):
-    return self.default_devel()
+    return self.default_devel(extra=["usr/bin/lc-compliance"])
