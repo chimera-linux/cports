@@ -16,19 +16,3 @@ index b421da5..8da194d 100644
  TESTS+=		deptgt-end
  TESTS+=		deptgt-end-fail
  TESTS+=		deptgt-end-fail-all
-@@ -221,7 +220,6 @@ TESTS+=		objdir-writable
- .endif
- TESTS+=		opt
- TESTS+=		opt-backwards
--TESTS+=		opt-chdir
- TESTS+=		opt-debug
- TESTS+=		opt-debug-all
- TESTS+=		opt-debug-archive
-@@ -347,7 +345,6 @@ TESTS+=		varmod-head
- TESTS+=		varmod-ifelse
- TESTS+=		varmod-indirect
- TESTS+=		varmod-l-name-to-value
--TESTS+=		varmod-localtime
- TESTS+=		varmod-loop
- TESTS+=		varmod-loop-varname
- TESTS+=		varmod-match
