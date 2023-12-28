@@ -55,7 +55,7 @@ url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
 sha256 = "58a8818c60e6627064f312dbf46c02d9949956558340938b71cf731ad8bc0813"
 # crosstoolchain
-options = ["!cross", "!check", "!lto"]
+options = ["!cross", "!check", "!lto", "empty"]
 
 cmake_dir = "compiler-rt"
 
