@@ -12,6 +12,7 @@ def do_build(self):
         "--no-isolation",
         *self.make_build_args,
         self.make_build_target,
+        env=self.make_build_env,
     )
 
 
