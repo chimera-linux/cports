@@ -11,7 +11,6 @@ make_check_env = {"MAKE": "gmake"}
 hostmakedepends = [
     "gettext",
     "glib-devel",
-    "gmake",
     "gobject-introspection",
     "meson",
     "perl",
@@ -25,7 +24,7 @@ makedepends = [
     "libxslt-devel",
 ]
 depends = ["hwdata", "osinfo-db"]
-checkdepends = list(depends)
+checkdepends = ["gmake"] + depends
 pkgdesc = "GObject API for managing information about operating systems"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
