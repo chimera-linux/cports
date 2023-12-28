@@ -1,0 +1,20 @@
+commit ecef720f2c7537211fe959555eee98001b03d1ad
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Dec 27 23:45:04 2023 +0100
+
+    use compiler-rt by default
+
+diff --git a/gcc/config/linux.h b/gcc/config/linux.h
+index b3537b8fb..a4762fdf6 100644
+--- a/gcc/config/linux.h
++++ b/gcc/config/linux.h
+@@ -214,4 +214,9 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+ # undef TARGET_LIBC_HAS_FUNCTION
+ # define TARGET_LIBC_HAS_FUNCTION linux_libc_has_function
+ 
++#undef REAL_LIBGCC_SPEC
++#define REAL_LIBGCC_SPEC \
++"-lclang_rt.builtins %{static|static-libgcc:-l:libunwind.a} \
++ %{!static:%{!static-libgcc: -lunwind}}"
++
+ #endif

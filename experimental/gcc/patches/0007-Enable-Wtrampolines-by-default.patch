@@ -1,0 +1,25 @@
+From 4a728ad48a7b437cc6f2697e26603bf648149f86 Mon Sep 17 00:00:00 2001
+From: Ariadne Conill <ariadne@dereferenced.org>
+Date: Fri, 21 Aug 2020 06:48:24 +0000
+Subject: [PATCH 07/35] Enable -Wtrampolines by default.
+
+---
+ gcc/common.opt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/gcc/common.opt b/gcc/common.opt
+index 64c4277c991..c24839d32bc 100644
+--- a/gcc/common.opt
++++ b/gcc/common.opt
+@@ -803,7 +803,7 @@ Common Var(warn_system_headers) Warning
+ Do not suppress warnings from system headers.
+ 
+ Wtrampolines
+-Common Var(warn_trampolines) Warning
++Common Var(warn_trampolines) Init(1) Warning
+ Warn whenever a trampoline is generated.
+ 
+ Wtrivial-auto-var-init
+-- 
+2.41.0
+

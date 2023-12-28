@@ -1,0 +1,32 @@
+commit ae82bbafaa6d5b87e9a5ab210c085debe7aceb0e
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Dec 27 22:46:32 2023 +0100
+
+    use libcxx by default
+
+diff --git a/gcc/cp/g++spec.cc b/gcc/cp/g++spec.cc
+index 7584f8c22..2d699a19a 100644
+--- a/gcc/cp/g++spec.cc
++++ b/gcc/cp/g++spec.cc
+@@ -97,7 +97,7 @@ lang_specific_driver (struct cl_decoded_option **in_decoded_options,
+   int library = 0;
+ 
+   /* Which c++ runtime library to link.  */
+-  stdcxxlib_kind which_library = USE_LIBSTDCXX;
++  stdcxxlib_kind which_library = USE_LIBCXX;
+ 
+   /* The number of arguments being added to what's in argv, other than
+      libraries.  We use this to track the number of times we've inserted
+diff --git a/gcc/m2/gm2spec.cc b/gcc/m2/gm2spec.cc
+index 75a6ed36c..36ec8212c 100644
+--- a/gcc/m2/gm2spec.cc
++++ b/gcc/m2/gm2spec.cc
+@@ -424,7 +424,7 @@ lang_specific_driver (struct cl_decoded_option **in_decoded_options,
+   int library = 0;
+ 
+   /* Which c++ runtime library to link.  */
+-  stdcxxlib_kind which_library = USE_LIBSTDCXX;
++  stdcxxlib_kind which_library = USE_LIBCXX;
+ 
+   const char *dialect = DEFAULT_DIALECT;
+ 
