@@ -746,6 +746,9 @@ Keep in mind that default values may be overridden by build styles.
    can be built for the current architecture. See "Architecture Patterns" below.
 * `broken` *(str)* If specified, the package will refuse to build. The value
   is a string that contains the reason why the package does not build.
+* `broken_symlinks` *(list)* A list of (possibly globbed) relative patterns
+   matching what is allowed to be a broken symlink. This is preferrable to
+   setting the brokenlinks option.
 * `build_style` *(str)* The build style used for the template. See the
   section about build styles for more details.
 * `build_wrksrc` *(str)* A subpath within `self.wrksrc` that is assumed to be
@@ -1529,7 +1532,8 @@ on whatever they correspond to (since `-devel` packages contain `.so`
 symlinks, which resolve to real files in the runtime package).
 
 Broken symlinks that do not resolve to anything are normally an error. You
-can override it by putting `brokenlinks` in `options`.
+can override it by putting `brokenlinks` in `options`, or better, using
+the `broken_symlinks` template field.
 
 Once dependencies are scanned, the package is scanned for provides, so
 that other packages can depend on it.
@@ -1671,7 +1675,8 @@ for subpackages separately if needed:
   everywhere. This lets you preserve them in specific rare cases.
 * `brokenlinks` *(false)* By default, broken symlinks that cannot be resolved
   within any subpackage will result in an error. You can override this behavior
-  but usually shouldn't.
+  but usually shouldn't. It's generally better to use the `broken_symlinks`
+  pattern list to restrict the set.
 * `hardlinks` *(false)* Normally, multiple hardlinks are detected and errored
   on. By enabling this, you allow packages with hardlinks to build.
 * `lintstatic` *(true)* Normally, static libraries are not allowed to be in

@@ -311,6 +311,15 @@ def _scan_symlinks(pkg):
                 # nothing found
                 if brokenlinks:
                     continue
+                allow_brokenlink = True
+                for f in pkg.broken_symlinks:
+                    if ssrc.match(f):
+                        break
+                else:
+                    allow_brokenlink = False
+                # fine-grained
+                if allow_brokenlink:
+                    continue
                 pkg.error(f"   symlink: {ssrc} -> {sdest} <-> UNKNOWN PACKAGE!")
 
     for k in subpkg_deps:
