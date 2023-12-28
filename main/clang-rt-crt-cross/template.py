@@ -55,7 +55,7 @@ sha256 = [
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
 # crosstoolchain
-options = ["!cross", "!check", "!lto"]
+options = ["!cross", "!check", "!lto", "empty"]
 
 cmake_dir = "compiler-rt"
 
