@@ -22,6 +22,7 @@ configure_args = [
     "--disable-libssp",
     "--disable-libstdcxx-pch",
     # we can't enable this yet as the compiler-rt builtins don't have quad yet
+    # TODO for llvm 18 i guess? could work around it probably
     "--disable-libquadmath",
     "--disable-libquadmath-support",
     "--disable-multilib",
@@ -51,6 +52,8 @@ configure_args = [
     "--with-mpfr",
     "--with-system-zlib",
     "--with-linker-hash-style=gnu",
+    f"--with-gxx-include-dir=/usr/include/c++/{_bver}",
+    "--with-gxx-libcxx-include-dir=/usr/include/c++/v1",
     "libat_cv_have_ifunc=no",
 ]
 configure_gen = []
@@ -101,7 +104,6 @@ nopie_files = [
 ]
 # skip those
 broken_symlinks = [
-    f"usr/include/c++/{_mnver}",
     f"usr/lib/gcc/{_trip}/{_mnver}/libclang_rt.builtins.a",
 ]
 
@@ -163,10 +165,6 @@ def post_install(self):
         recursive=True,
         glob=True,
     )
-    # put our own headers in place
-    self.install_dir("usr/include/c++")
-    self.install_link("v1", f"usr/include/c++/{_mnver}")
-    self.install_link(_mnver, f"usr/include/c++/{_bver}")
     # other stuff we don't want
     self.rm(self.destdir / "usr/lib/libatomic.*", glob=True)
     self.rm(self.destdir / "usr/lib/libgcc_s.*", glob=True)
