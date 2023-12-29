@@ -1,6 +1,6 @@
 pkgname = "tevent"
-pkgver = "0.16.0"
-pkgrel = 0
+pkgver = "0.15.0"
+pkgrel = 1
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -27,7 +27,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later"
 url = "https://tevent.samba.org"
 source = f"https://download.samba.org/pub/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "1aa58f21017ed8c2f606ae84aa7e795b5439edd4dd5f68f1a388a7d6fb40f682"
+sha256 = "662a9f277281bcf506b6bc0a0baa03e44a62229516ee34bcc703a0b82aa46905"
 # we don't want their makefile
 env = {"PYTHONHASHSEED": "1", "WAF_MAKE": "1"}
 # FIXME check fails in some envs
