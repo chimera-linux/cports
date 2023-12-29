@@ -1,4 +1,4 @@
-commit e553a4c882cd80b180b655b31b80cbbfe372108e
+commit 7bbba8d1383269ec71a1400ff49490d6aed8464f
 Author: q66 <q66@chimera-linux.org>
 Date:   Wed Dec 27 22:46:32 2023 +0100
 
@@ -24,6 +24,19 @@ index a4762fdf6..2a76c17b7 100644
 --- a/gcc/config/linux.h
 +++ b/gcc/config/linux.h
 @@ -126,6 +126,8 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+     { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1,		\
+       GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 1 },		\
+     { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1,	\
++      GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 0 },		\
++    { GPLUSPLUS_LIBCXX_INCLUDE_DIR, "G++", 2, 1,	\
+       GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 0 },
+ 
+ #ifdef LOCAL_INCLUDE_DIR
+diff --git a/gcc/config/rs6000/sysv4.h b/gcc/config/rs6000/sysv4.h
+index c8ff0c6dc..437a1cc8d 100644
+--- a/gcc/config/rs6000/sysv4.h
++++ b/gcc/config/rs6000/sysv4.h
+@@ -955,6 +955,8 @@ ncrtn.o%s"
      { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1,		\
        GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 1 },		\
      { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1,	\
