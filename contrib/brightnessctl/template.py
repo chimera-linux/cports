@@ -1,11 +1,12 @@
 pkgname = "brightnessctl"
 pkgver = "0.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
-make_install_args = ["UDEVDIR=/usr/lib/udev/rules.d"]
+make_env = {"ENABLE_SYSTEMD": "1"}
 make_use_env = True
-hostmakedepends = ["gmake"]
+hostmakedepends = ["gmake", "pkgconf"]
+makedepends = ["elogind-devel"]
 pkgdesc = "Program to read and control device brightness"
 maintainer = "Froggo <froggo8311@proton.me>"
 license = "X11"
