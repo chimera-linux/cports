@@ -1,6 +1,6 @@
 pkgname = "exempi"
 pkgver = "2.6.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
