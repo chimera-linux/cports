@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5310"
+pkgver = "1.7.5361"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -24,7 +24,6 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "boost-devel",
     "extra-cmake-modules",
     "ffmpeg-devel",
     "fmt-devel",
@@ -53,7 +52,7 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "42d7ee72b66955e3bbd2caaeaa855f605b463722"
+_patches = "e3a286d600ac57bef633957211afa111820901c1"
 _glslang = "11.12.0"
 _gtest = "v1.14.0"
 _rcheevos = "8afec6c55e3a0f72368a5a085203bab1b8828ffb"
@@ -75,8 +74,8 @@ source_paths = [
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "d6fe7044b6279f5644fb2af534ad5d0b253eec4bf90a330723a51f89aa81ba94",
-    "3c7b2f810db2ecf2256b1b13b28efb5faf43f97d1c681eb77823a0a4494e4ab9",
+    "fa23fa78ccd6229475c8e7618c0e8fcdf2917dfee1b6d357e54b7328a0e05a3e",
+    "0b33525d83320f4931e5b2d5fddd1c6ea760bb12762f28a2a93a04136ffdb398",
     "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
     "4767a3b9b1b2422b002dc4aa68fc7141452950946d1da8f950880b92c91fd305",
