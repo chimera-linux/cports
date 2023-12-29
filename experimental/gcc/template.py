@@ -63,6 +63,7 @@ hostmakedepends = [
     f"binutils-{self.profile().arch}",
     "bison",
     "flex",
+    "gawk",
     "perl",
     "texinfo",
 ]
@@ -93,7 +94,7 @@ options = ["!check", "!lto", "!relr", "!cross", "!scanshlibs"]
 
 _trip = self.profile().triplet
 # we cannot use clang, gcc expects binutils
-tools = {"AS": "as", "LD": "ld.bfd"}
+tools = {"AS": "as", "LD": "ld.bfd", "OBJDUMP": "gobjdump"}
 # give the build the builtins library in all cases that use LDFLAGS
 tool_flags = {"LDFLAGS": [f"-L/usr/lib/clang/{_clangver}/lib/{_trip}"]}
 # sigh
@@ -136,6 +137,7 @@ def init_configure(self):
     cfl = self.get_cflags(shell=True)
     cxfl = self.get_cxxflags(shell=True)
     ldfl = self.get_ldflags(shell=True)
+    self.env["AWK"] = "gawk"
     self.env["CFLAGS_FOR_TARGET"] = cfl
     self.env["CXXFLAGS_FOR_TARGET"] = cxfl
     self.env["LDFLAGS_FOR_TARGET"] = ldfl
