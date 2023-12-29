@@ -1,6 +1,6 @@
 pkgname = "libpagemaker"
 pkgver = "0.0.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."
