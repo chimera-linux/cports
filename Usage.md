@@ -226,15 +226,15 @@ if you ever need to re-create it.
 <a id="building_package"></a>
 ### Building a Package
 
-Then, the only thing left to do is to pick a package to build. Let's say, `awk`
-from the `main` category. You need to run this:
+Then, the only thing left to do is to pick a package to build. Let's say,
+`apk-tools` from the `main` category. You need to run this:
 
 ```
-$ ./cbuild pkg main/awk
+$ ./cbuild pkg main/apk-tools
 ```
 
-This will parse `main/awk/template.py` and build it according to the metadata
-and routines declared in the template.
+This will parse `main/apk-tools/template.py` and build it according to the
+metadata and routines declared in the template.
 
 That's it!
 
