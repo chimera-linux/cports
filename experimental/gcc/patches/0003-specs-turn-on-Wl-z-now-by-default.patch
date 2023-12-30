@@ -1,18 +1,3 @@
-From ff4dd4ce33133e675b7bedc86b73357c04631cb9 Mon Sep 17 00:00:00 2001
-From: Ariadne Conill <ariadne@dereferenced.org>
-Date: Fri, 21 Aug 2020 06:45:49 +0000
-Subject: [PATCH 03/35] specs: turn on -Wl,-z,now by default
-
-Previously, we also used to turn on -z relro here, but we now build
-binutils with --enable-relro, which is functionally equivalent.
-
-Binutils does not appear to have a similar option for enabling -z
-now by default.
----
- gcc/doc/invoke.texi | 3 +++
- gcc/gcc.cc          | 1 +
- 2 files changed, 4 insertions(+)
-
 diff --git a/gcc/doc/invoke.texi b/gcc/doc/invoke.texi
 index b6731a4673c..f393c7846c6 100644
 --- a/gcc/doc/invoke.texi
@@ -21,8 +6,8 @@ index b6731a4673c..f393c7846c6 100644
  linker.  When using the GNU linker, you can also get the same effect with
  @option{-Wl,-Map=output.map}.
  
-+NOTE: In Alpine Linux, for LDFLAGS, the option
-+@option{-Wl,-z,now} is used.  To disable, use @option{-Wl,-z,nonow}.
++NOTE: In Chimera Linux, for LDFLAGS, the option
++@option{-Wl,-z,relro} and @option{-Wl,-z,now} is used.
 +
  @opindex u
  @item -u @var{symbol}
@@ -35,7 +20,7 @@ index 33b56e721d2..f82fae23c22 100644
     "%{flto|flto=*:%<fcompare-debug*} \
      %{flto} %{fno-lto} %{flto=*} %l " LINK_PIE_SPEC \
     "%{fuse-ld=*:-fuse-ld=%*} " LINK_COMPRESS_DEBUG_SPEC \
-+   "-z now " \
++   "-z relro -z now " \
     "%X %{o*} %{e*} %{N} %{n} %{r}\
      %{s} %{t} %{u*} %{z} %{Z} %{!nostdlib:%{!r:%{!nostartfiles:%S}}} \
      %{Wno-poison-system-directories:--no-poison-system-directories} \
