@@ -1,6 +1,6 @@
 pkgname = "tailscale"
 pkgver = "1.54.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X tailscale.com/version.longStamp={pkgver} -X tailscale.com/version.shortStamp={pkgver}"
@@ -23,4 +23,4 @@ def do_build(self):
 
 def post_install(self):
     self.install_license("LICENSE")
-    self.install_service(self.files_path / "tailscaled", enable=True)
+    self.install_service(self.files_path / "tailscaled")
