@@ -1,6 +1,6 @@
 pkgname = "chrony"
 pkgver = "4.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-user=_chrony",
