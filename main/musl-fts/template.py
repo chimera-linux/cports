@@ -1,6 +1,6 @@
 pkgname = "musl-fts"
 pkgver = "1.2.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = ["PREFIX=/usr"]
 hostmakedepends = ["pkgconf"]
@@ -16,6 +16,8 @@ options = ["bootstrap", "!check", "!lto"]
 
 def post_install(self):
     self.install_license("COPYING")
+    # single fts.3, the same-named version in man-pages is 97% identical anyway
+    self.rm(self.destdir / "usr/share/man", recursive=True)
 
 
 @subpackage("musl-fts-devel")
