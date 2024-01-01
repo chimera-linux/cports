@@ -1,5 +1,5 @@
 pkgname = "python-dbusmock"
-pkgver = "0.30.1"
+pkgver = "0.30.2"
 pkgrel = 0
 build_style = "python_pep517"
 # needs upower
@@ -17,4 +17,4 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/martinpitt/python-dbusmock"
 source = f"https://github.com/martinpitt/python-dbusmock/releases/download/{pkgver}/dist.python-dbusmock-{pkgver}.tar.gz"
-sha256 = "aa865e5345aa7626583b83f70e7956c576c24dbc19491ce7fd19281cfef49690"
+sha256 = "1d7b3794af7b280942f7f6cda4d8bb5d17d8c7216000825cf8b43b6af8792d7d"
