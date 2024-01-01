@@ -140,6 +140,7 @@ def post_install(self):
 @subpackage("util-linux-common")
 def _common(self):
     self.pkgdesc = "Common data for util-linux"
+    self.options = ["empty"]
 
     return ["usr/share/locale"]
 
