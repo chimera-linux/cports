@@ -25,7 +25,7 @@ sha256 = [
 # mirrors musl
 hardening = ["!scp"]
 # crosstoolchain
-options = ["!cross", "!check", "!lto", "brokenlinks"]
+options = ["!cross", "!check", "!lto", "brokenlinks", "empty"]
 
 # whether to use musl's stock allocator instead of scudo
 _use_mng = False
