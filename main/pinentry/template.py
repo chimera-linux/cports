@@ -28,6 +28,7 @@ license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "457a185e5a85238fb945a955dc6352ab962dc8b48720b62fc9fa48c7540a4067"
+options = ["empty"]
 
 
 def post_install(self):
