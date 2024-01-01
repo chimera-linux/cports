@@ -1,16 +1,16 @@
 pkgname = "linux-headers-cross"
-pkgver = "5.15.5"
-pkgrel = 1
+pkgver = "6.5.5"
+pkgrel = 0
 hostmakedepends = ["gmake", "perl"]
 depends = []
 pkgdesc = "Linux API headers for cross-compiling"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
-url = "http://www.kernel.org"
+url = "https://www.kernel.org"
 source = f"$(KERNEL_SITE)/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "e9565a301525ac81c142ceb832f9053dd5685e107dbcf753d0de4c58bc98851f"
+sha256 = "8cf10379f7df8ea731e09bff3d0827414e4b643dd41dc99d0af339669646ef95"
 # nothing to test
-options = ["!cross", "!check"]
+options = ["!cross", "!check", "empty"]
 
 _targetlist = [
     ("aarch64", "arm64"),
