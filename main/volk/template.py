@@ -18,6 +18,7 @@ url = "https://github.com/zeux/volk"
 source = f"https://github.com/zeux/volk/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "95530bc7850b0358e4bad899eb653f882ee8a08088257d90c5042cec02208f52"
 hardening = ["vis", "cfi"]
+options = ["empty"]
 
 
 def post_install(self):
