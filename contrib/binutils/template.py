@@ -53,7 +53,7 @@ sha256 = [
     "2a058c73a1c6d3d3f4a77c773de07ee628d8f1fc861cbf6ad7fc5981c07f2236",
 ]
 # resistance is futile
-options = ["!check", "!lto", "linkundefver"]
+options = ["!check", "!lto", "linkundefver", "empty"]
 
 # currently built targets, includes the native target
 _targets = ["aarch64", "ppc64le", "ppc64", "ppc", "riscv64", "x86_64"]
