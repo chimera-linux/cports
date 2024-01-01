@@ -11,7 +11,7 @@ url = "https://github.com/chimera-linux/libatomic-chimera"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "fccbd8c0ef7fd473275f835b3fca9275fb27a0c196cdcdff1f6d14ab12ed3a53"
 # crosstoolchain
-options = ["!cross", "!check", "!lto", "brokenlinks"]
+options = ["!cross", "!check", "!lto", "brokenlinks", "empty"]
 
 _targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
 _targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
