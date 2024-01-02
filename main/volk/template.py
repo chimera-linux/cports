@@ -3,7 +3,7 @@ pkgver = "1.3.270"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DBUILD_SHARED_LIBS=ON",
+    "-DVOLK_HEADERS_ONLY=ON",
     "-DVOLK_INSTALL=ON",
 ]
 hostmakedepends = [
