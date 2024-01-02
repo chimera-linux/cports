@@ -1,6 +1,6 @@
 pkgname = "volk"
 pkgver = "1.3.270"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DVOLK_HEADERS_ONLY=ON",
@@ -17,14 +17,7 @@ license = "MIT"
 url = "https://github.com/zeux/volk"
 source = f"https://github.com/zeux/volk/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "95530bc7850b0358e4bad899eb653f882ee8a08088257d90c5042cec02208f52"
-hardening = ["vis", "cfi"]
-options = ["empty"]
 
 
 def post_install(self):
     self.install_license("LICENSE.md")
-
-
-@subpackage("volk-devel")
-def _devel(self):
-    return self.default_devel()
