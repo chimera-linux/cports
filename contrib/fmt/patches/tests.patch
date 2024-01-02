@@ -1,0 +1,39 @@
+commit bbd776081fd53aa650a8cf4a347617694fbc1ecc
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Jan 2 17:16:45 2024 +0100
+
+    work around LTO-related failure on ppc64le
+    
+    This macro is invoked multiple times in a row in ostream-test.cc,
+    and it will apparently fail on every second throw seemingly because
+    of strange variable reuse when used with LTO, i.e. the std::string
+    will have the same internal address in the second run despite having
+    been destroyed in the first run.
+    
+    Renaming the variable seems to do the trick, so do that until we
+    have isolated a case and determined if this is a compiler bug or
+    what.
+
+diff --git a/test/gtest-extra.h b/test/gtest-extra.h
+index e08c94c..d39966a 100644
+--- a/test/gtest-extra.h
++++ b/test/gtest-extra.h
+@@ -18,15 +18,15 @@
+ #define FMT_TEST_THROW_(statement, expected_exception, expected_message, fail) \
+   GTEST_AMBIGUOUS_ELSE_BLOCKER_                                                \
+   if (::testing::AssertionResult gtest_ar = ::testing::AssertionSuccess()) {   \
+-    std::string gtest_expected_message = expected_message;                     \
++    std::string gtest_expected_message##__LINE__ = expected_message;           \
+     bool gtest_caught_expected = false;                                        \
+     try {                                                                      \
+       GTEST_SUPPRESS_UNREACHABLE_CODE_WARNING_BELOW_(statement);               \
+     } catch (expected_exception const& e) {                                    \
+-      if (gtest_expected_message != e.what()) {                                \
++      if (gtest_expected_message##__LINE__ != e.what()) {                      \
+         gtest_ar << #statement                                                 \
+             " throws an exception with a different message.\n"                 \
+-                 << "Expected: " << gtest_expected_message << "\n"             \
++                 << "Expected: " << gtest_expected_message##__LINE__ << "\n"   \
+                  << "  Actual: " << e.what();                                  \
+         goto GTEST_CONCAT_TOKEN_(gtest_label_testthrow_, __LINE__);            \
+       }                                                                        \
