@@ -1,5 +1,5 @@
 pkgname = "fmt"
-pkgver = "10.1.1"
+pkgver = "10.2.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,13 +20,13 @@ url = "https://fmt.dev/latest/index.html"
 source = (
     f"https://github.com/fmtlib/fmt/releases/download/{pkgver}/fmt-{pkgver}.zip"
 )
-sha256 = "b84e58a310c9b50196cda48d5678d5fa0849bca19e5fdba6b684f0ee93ed9d1b"
+sha256 = "8a942861a94f8461a280f823041cde8f620a6d8b0e0aacc98c15bb5a9dd92399"
 # FIXME: cfi test failures
 hardening = ["vis"]
 
 
 def post_install(self):
-    self.install_license("LICENSE.rst")
+    self.install_license("LICENSE")
 
 
 @subpackage("fmt-devel")
