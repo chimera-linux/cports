@@ -70,7 +70,7 @@ sha256 = "836adb5fec5a58ce2f49a0faeaf9e69a3cb89865f4d855c6098f0264843672ad"
 # FIXME: SIGILL in jvm
 hardening = ["!int"]
 # TODO later
-options = ["!parallel", "!check", "linkundefver"]
+options = ["!parallel", "!check", "linkundefver", "empty"]
 
 _java_base = "usr/lib/jvm"
 _java_name = "java-17-openjdk"
