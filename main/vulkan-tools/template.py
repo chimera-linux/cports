@@ -14,7 +14,7 @@ makedepends = [
     "libxkbcommon-devel",
     "libxcb-devel",
     "libxrandr-devel",
-    "volk-devel",
+    "volk",
     "wayland-devel",
     "wayland-protocols",
     "linux-headers",
