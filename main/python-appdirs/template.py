@@ -9,6 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python"]
+checkdepends = ["python-pytest"]
 pkgdesc = "Platform-specific directory module for Python"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
