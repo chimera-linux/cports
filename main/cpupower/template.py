@@ -3,7 +3,8 @@ pkgver = "6.6.1"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
-_make_args = [
+make_build_target = "cpupower"
+make_build_args = [
     "-C",
     "tools",
     # FIXME: cpufreq-bench is completely broken with optimisations because of
@@ -20,10 +21,8 @@ _make_args = [
     "prefix=/usr",
     "sbindir=/usr/bin",
 ]
-make_build_target = "cpupower"
-make_build_args = _make_args
 make_install_target = "cpupower_install"
-make_install_args = _make_args
+make_install_args = list(make_build_args)
 hostmakedepends = ["gmake"]
 makedepends = ["linux-headers", "pciutils-devel"]
 pkgdesc = "Linux CPU power management tools"
