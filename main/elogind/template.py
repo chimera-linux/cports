@@ -1,6 +1,6 @@
 pkgname = "elogind"
 pkgver = "252.9"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dman=true",
@@ -55,9 +55,7 @@ def post_install(self):
     self.install_file("src/systemd/sd-id128.h", "usr/include")
     self.install_file("src/systemd/_sd-common.h", "usr/include")
     # service file
-    self.install_file(
-        self.files_path / "elogind.wrapper", "usr/libexec/elogind", mode=0o755
-    )
+    self.install_file(self.files_path / "elogind.conf", "usr/lib/tmpfiles.d")
     self.install_service(self.files_path / "elogind", enable=True)
 
 

@@ -1,9 +1,0 @@
-#!/bin/sh
-
-for tmpfs in /run/systemd /run/user; do
-    mountpoint "$tmpfs" > /dev/null 2>&1 && continue
-    mkdir -p "$tmpfs"
-    mount -t tmpfs -o nosuid,nodev,noexec,mode=0755 none "$tmpfs" || exit 1
-done
-
-exec /usr/libexec/elogind/elogind

@@ -1,7 +1,7 @@
 # elogind service
 
 type               = process
-command            = /usr/libexec/elogind/elogind.wrapper
+command            = /usr/libexec/elogind/elogind
 depends-ms         = polkitd
 depends-on         = dbus
 depends-on         = local.target
