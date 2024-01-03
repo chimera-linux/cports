@@ -3,6 +3,12 @@ From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 09:04:27 +0100
 Subject: [PATCH 10/25] compiler-rt,libcxx(abi),libunwind: HACK: force -fno-lto
 
+Also do -ftrivial-auto-var-init=unitialized for libunwind, as it appears
+to break unwinding in strange ways with C++ on ppc64le, particularly with
+LTO; this needs to be investigated properly though.
+
+https://github.com/llvm/llvm-project/issues/76771
+
 ---
  compiler-rt/lib/builtins/CMakeLists.txt | 2 +-
  libcxx/CMakeLists.txt                   | 4 ++++
@@ -61,8 +67,8 @@ index bb2ada94d..f54e8b2e4 100644
    endif ()
  endif ()
  
-+add_compile_flags("-fno-lto")
-+add_link_flags("-fno-lto")
++add_compile_flags("-fno-lto -ftrivial-auto-var-init=uninitialized")
++add_link_flags("-fno-lto -ftrivial-auto-var-init=uninitialized")
 +
  string(REPLACE ";" " " LIBUNWIND_COMPILE_FLAGS "${LIBUNWIND_COMPILE_FLAGS}")
  string(REPLACE ";" " " LIBUNWIND_CXX_FLAGS "${LIBUNWIND_CXX_FLAGS}")
