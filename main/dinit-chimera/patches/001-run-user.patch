@@ -1,0 +1,48 @@
+commit dd50c4e30d8a1288ae009a759407f64b2d45bee0
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jan 3 18:23:17 2024 +0100
+
+    mount /run/user by default
+
+diff --git a/early/scripts/tmpfs.sh b/early/scripts/tmpfs.sh
+index 6bd8b50..5d167cd 100644
+--- a/early/scripts/tmpfs.sh
++++ b/early/scripts/tmpfs.sh
+@@ -7,10 +7,35 @@ DINIT_SERVICE=tmpfs
+ umask 022
+ set -e
+ 
+-./early/helpers/mntpt /run || mount -o mode=0755,nosuid,nodev -t tmpfs run /run
++# default unset
++RUNSIZE=
++
++if [ -r /proc/cmdline ]; then
++    for x in $(cat /proc/cmdline); do
++        case "$x" in
++            # initramfs-tools compat
++            initramfs.runsize=*)
++                RUNSIZE="${x#initramfs.runsize=}"
++                ;;
++            dinit.runsize=*)
++                RUNSIZE="${x#dinit.runsize=}"
++                ;;
++        esac
++    done
++fi
++
++
++./early/helpers/mntpt /run || \
++    mount -o "nodev,noexec,nosuid,size=${RUNSIZE:-10%},mode=0755" -t tmpfs tmpfs /run
+ 
+ # readable system state
+-mkdir -p /run/dinit
++mkdir -p /run/dinit /run/user
++
++# mount /run/user at this point, should *not* be noexec (breaks some flatpaks)
++# give it the same max size as /run itself, generally it should be tiny so
++# it does not need the 50% default at any point
++./early/helpers/mntpt /run/user || \
++    mount -o "nodev,nosuid,size=${RUNSIZE:-10%},mode=0755" -t tmpfs tmpfs /run/user
+ 
+ # now that we a /run, expose container as state file too (for shutdown etc)
+ if [ -n "$DINIT_CONTAINER" ]; then

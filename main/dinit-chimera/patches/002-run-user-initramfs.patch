@@ -1,0 +1,47 @@
+commit b7cd66a370adcd5457224c5d3582508c49c2b838
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jan 3 18:29:42 2024 +0100
+
+    also source initramfs-tools config for runsize
+
+diff --git a/early/scripts/tmpfs.sh b/early/scripts/tmpfs.sh
+index 5d167cd..8ae9265 100644
+--- a/early/scripts/tmpfs.sh
++++ b/early/scripts/tmpfs.sh
+@@ -10,6 +10,15 @@ set -e
+ # default unset
+ RUNSIZE=
+ 
++# if initramfs-tools is used, source its configs for consistent runsize
++if [ -r /etc/initramfs-tools/initramfs.conf ]; then
++    . /etc/initramfs-tools/initramfs.conf
++    for conf in /etc/initramfs-tools/conf.d/*; do
++        [ -f "$conf" ] && . "$conf"
++    done
++fi
++
++# overrides via kernel cmdline
+ if [ -r /proc/cmdline ]; then
+     for x in $(cat /proc/cmdline); do
+         case "$x" in
+@@ -24,9 +33,10 @@ if [ -r /proc/cmdline ]; then
+     done
+ fi
+ 
++RUNSIZE="${RUNSIZE:-10%}"
+ 
+ ./early/helpers/mntpt /run || \
+-    mount -o "nodev,noexec,nosuid,size=${RUNSIZE:-10%},mode=0755" -t tmpfs tmpfs /run
++    mount -o "nodev,noexec,nosuid,size=${RUNSIZE},mode=0755" -t tmpfs tmpfs /run
+ 
+ # readable system state
+ mkdir -p /run/dinit /run/user
+@@ -35,7 +45,7 @@ mkdir -p /run/dinit /run/user
+ # give it the same max size as /run itself, generally it should be tiny so
+ # it does not need the 50% default at any point
+ ./early/helpers/mntpt /run/user || \
+-    mount -o "nodev,nosuid,size=${RUNSIZE:-10%},mode=0755" -t tmpfs tmpfs /run/user
++    mount -o "nodev,nosuid,size=${RUNSIZE},mode=0755" -t tmpfs tmpfs /run/user
+ 
+ # now that we a /run, expose container as state file too (for shutdown etc)
+ if [ -n "$DINIT_CONTAINER" ]; then
