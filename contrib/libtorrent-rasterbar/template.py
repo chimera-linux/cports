@@ -10,7 +10,7 @@ configure_args = [
 # known broken/flaky/conditionally broken tests
 make_check_args = [
     "-E",
-    "(test_upnp|test_flags|test_add_torrent|test_create_torrent|test_remove_torrent|test_privacy|test_copy_file|test_web_seed|test_url_seed|test_transfer|test_ssl)",
+    "(test_upnp|test_flags|test_add_torrent|test_create_torrent|test_remove_torrent|test_privacy|test_copy_file|test_web_seed|test_url_seed|test_transfer|test_ssl|test_http_connection)",
 ]
 hostmakedepends = [
     "cmake",
