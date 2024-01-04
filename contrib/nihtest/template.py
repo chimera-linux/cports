@@ -1,6 +1,6 @@
 pkgname = "nihtest"
-pkgver = "1.3.0"
-pkgrel = 1
+pkgver = "1.4.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/nih-at/nihtest"
 source = f"{url}/releases/download/v{pkgver}/nihtest-{pkgver}.tar.gz"
-sha256 = "04513e3067612ade51cf51641ed4a60b9143d61aae772ea04b043717bce6b16a"
+sha256 = "95f84ea13aedc6bc5e18b85d96b1a11151ace825235a3148f83be06f900d7643"
 # FIXME: no idea how to run these from tests/ tbh
 options = ["!check"]
 
