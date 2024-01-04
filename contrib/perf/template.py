@@ -1,6 +1,6 @@
 pkgname = "perf"
 pkgver = "6.6.9"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "tools/perf"
 build_style = "makefile"
 make_cmd = "gmake"
