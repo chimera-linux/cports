@@ -10,6 +10,7 @@ configure_args = [
     "-Diwmmxt=disabled",
     "-Da64-neon=disabled",  # added with 0.42.x, fails to build on clang
 ]
+make_check_args = ["--timeout-multiplier", "3"]
 hostmakedepends = ["meson", "pkgconf", "perl"]
 makedepends = ["linux-headers", "libpng-devel"]
 pkgdesc = "Library of low-level pixel manipulation routines"
