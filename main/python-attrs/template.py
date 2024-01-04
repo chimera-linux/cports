@@ -1,6 +1,6 @@
 pkgname = "python-attrs"
-pkgver = "23.1.0"
-pkgrel = 1
+pkgver = "23.2.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 checkdepends = ["python-pytest"]  # and other stuff, but does not matter
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://attrs.readthedocs.io"
 source = f"$(PYPI_SITE)/a/attrs/attrs-{pkgver}.tar.gz"
-sha256 = "6279836d581513a26f1bf235f9acd333bc9115683f14f7e8fae46c98fc50e015"
+sha256 = "935dc3b529c262f6cf76e50877d35a4bd3c1de194fd41f47a2b7ae8f19971f30"
 # dependency of pytest
 options = ["!check"]
 
