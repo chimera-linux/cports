@@ -5,7 +5,7 @@ build_style = "cargo"
 # skip because CARGO_PROFILE_RELEASE_PANIC="abort"
 make_check_args = ["--", "--skip=test_main_branch_not_found_error_message"]
 hostmakedepends = ["cargo"]
-makedepends = ["rust-std"]
+makedepends = ["rust-std", "sqlite-devel"]
 checkdepends = ["git"]
 pkgdesc = "Additional tools for Git"
 maintainer = "Paul A. Patience <paul@apatience.com>"
