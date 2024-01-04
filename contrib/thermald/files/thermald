@@ -1,0 +1,5 @@
+# thermald service
+
+type        = process
+command     = /usr/bin/thermald --adaptive --dbus-enable --no-daemon
+depends-on  = dbus
