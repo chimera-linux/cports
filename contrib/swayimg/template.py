@@ -1,6 +1,6 @@
 pkgname = "swayimg"
-pkgver = "1.12"
-pkgrel = 2
+pkgver = "2.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "bash-completion",
@@ -11,6 +11,7 @@ hostmakedepends = [
 makedepends = [
     "fontconfig-devel",
     "json-c-devel",
+    "libavif-devel",
     "libexif-devel",
     "libheif-devel",
     "libjpeg-turbo-devel",
@@ -27,7 +28,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/artemsen/swayimg"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "4617322a1ec17985770dc351eea69b42b1464f2d838eb5015314634b2a30f126"
+sha256 = "afcf69d9c69d826e010065dd08732fc5b0c0402c26f98d977f27b77ebd2bdee1"
 
 
 def post_install(self):
