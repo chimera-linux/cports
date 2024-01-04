@@ -15,8 +15,8 @@ pkgdesc = "High-performance regular expression matching library"
 maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "BSD-3-Clause"
 url = "https://www.vectorcamp.gr/vectorscan"
-source = f"https://github.com/vectorcamp/vectorscan/archive/refs/tags/vectorscan/{pkgver}.zip"
-sha256 = "f9c342eb067d69826481a40dd5c674373f2fa64d88e58d1cabc052070a70255b"
+source = f"https://github.com/vectorcamp/vectorscan/archive/refs/tags/vectorscan/{pkgver}.tar.gz"
+sha256 = "905f76ad1fa9e4ae0eb28232cac98afdb96c479666202c5a4c27871fb30a2711"
 
 
 def do_check(self):
