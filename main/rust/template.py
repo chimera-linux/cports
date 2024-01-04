@@ -206,11 +206,11 @@ compression-formats = ['xz']
 
 [target.{host_profile.triplet}]
 
-cc = '{self.get_tool("CC", target = "host")}'
-cxx = '{self.get_tool("CXX", target = "host")}'
+cc = '{self.get_tool("CC", target="host")}'
+cxx = '{self.get_tool("CXX", target="host")}'
 ar = '/usr/bin/llvm-ar'
 ranlib = '/usr/bin/llvm-ranlib'
-linker = '{self.get_tool("CC", target = "host")}'
+linker = '{self.get_tool("CC", target="host")}'
 llvm-config = '/usr/bin/llvm-config'
 crt-static = false
 
@@ -234,7 +234,7 @@ crt-static = false
         # wasm targets for non-bootstrap
         if not _bootstrap:
             cfg.write(
-                f"""
+                """
 [target.wasm32-unknown-unknown]
 
 sanitizers = false
