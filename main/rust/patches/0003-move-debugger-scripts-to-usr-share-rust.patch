@@ -1,20 +1,20 @@
-From 2a84cc1c24600ddd13d75d4426b99ad43e1a6d3b Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Sat, 3 Jun 2023 00:25:21 +0200
-Subject: [PATCH 03/11] move debugger scripts to /usr/share/rust
+From 838202025c6b929fbc25409bc27bcda650f14dcf Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 4 Jan 2024 15:01:57 +0100
+Subject: [PATCH 03/12] move debugger scripts to /usr/share/rust
 
 ---
- src/bootstrap/dist.rs | 2 +-
- src/etc/rust-gdb      | 2 +-
- src/etc/rust-gdbgui   | 2 +-
- src/etc/rust-lldb     | 4 ++--
+ src/bootstrap/src/core/build_steps/dist.rs | 2 +-
+ src/etc/rust-gdb                           | 2 +-
+ src/etc/rust-gdbgui                        | 2 +-
+ src/etc/rust-lldb                          | 4 ++--
  4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
-index 32da4ac29..1b70ae325 100644
---- a/src/bootstrap/dist.rs
-+++ b/src/bootstrap/dist.rs
-@@ -531,7 +531,7 @@ impl Step for DebuggerScripts {
+diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
+index c485481b9..b59aaa4fa 100644
+--- a/src/bootstrap/src/core/build_steps/dist.rs
++++ b/src/bootstrap/src/core/build_steps/dist.rs
+@@ -519,7 +519,7 @@ impl Step for DebuggerScripts {
      fn run(self, builder: &Builder<'_>) {
          let host = self.host;
          let sysroot = self.sysroot;
@@ -65,5 +65,5 @@ index bce72f1ba..8abb01245 100755
  # Call LLDB with the commands added to the argument list
  exec "$lldb" --one-line-before-file "$script_import" --source-before-file "$commands_file" "$@"
 -- 
-2.42.1
+2.43.0
 

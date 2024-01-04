@@ -1,0 +1,27 @@
+From eefa28bb806df8284e88534e312e77905972dbdc Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 4 Jan 2024 15:11:57 +0100
+Subject: [PATCH 12/12] use system lld for wasm
+
+---
+ compiler/rustc_target/src/spec/base/wasm.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/compiler/rustc_target/src/spec/base/wasm.rs b/compiler/rustc_target/src/spec/base/wasm.rs
+index 87ade9e58..1ee6589cb 100644
+--- a/compiler/rustc_target/src/spec/base/wasm.rs
++++ b/compiler/rustc_target/src/spec/base/wasm.rs
+@@ -91,8 +91,8 @@ pub fn options() -> TargetOptions {
+         // arguments just yet
+         limit_rdylib_exports: false,
+ 
+-        // we use the LLD shipped with the Rust toolchain by default
+-        linker: Some("rust-lld".into()),
++        // we use the LLD shipped with the system by default
++        linker: Some("wasm-ld".into()),
+         linker_flavor: LinkerFlavor::WasmLld(Cc::No),
+ 
+         pre_link_args,
+-- 
+2.43.0
+

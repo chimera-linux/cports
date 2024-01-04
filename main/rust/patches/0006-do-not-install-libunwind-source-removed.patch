@@ -1,17 +1,17 @@
-From e3a0463ce4804d5b52a2bde8ba0548a86a010b74 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Fri, 25 Feb 2022 00:37:07 +0100
-Subject: [PATCH 06/11] do not install libunwind source (removed)
+From ce3ed35c975e46201a88228f9f176da576161655 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 4 Jan 2024 15:05:54 +0100
+Subject: [PATCH 06/12] do not install libunwind source (removed)
 
 ---
- src/bootstrap/dist.rs | 2 +-
+ src/bootstrap/src/core/build_steps/dist.rs | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/bootstrap/dist.rs b/src/bootstrap/dist.rs
-index 1b70ae325..2a33d430a 100644
---- a/src/bootstrap/dist.rs
-+++ b/src/bootstrap/dist.rs
-@@ -921,7 +921,7 @@ impl Step for Src {
+diff --git a/src/bootstrap/src/core/build_steps/dist.rs b/src/bootstrap/src/core/build_steps/dist.rs
+index b59aaa4fa..388ff0be0 100644
+--- a/src/bootstrap/src/core/build_steps/dist.rs
++++ b/src/bootstrap/src/core/build_steps/dist.rs
+@@ -909,7 +909,7 @@ impl Step for Src {
          copy_src_dirs(
              builder,
              &builder.src,
@@ -21,5 +21,5 @@ index 1b70ae325..2a33d430a 100644
                  // not needed and contains symlinks which rustup currently
                  // chokes on when unpacking.
 -- 
-2.42.1
+2.43.0
 

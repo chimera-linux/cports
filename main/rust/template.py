@@ -1,5 +1,5 @@
 pkgname = "rust"
-pkgver = "1.74.0"
+pkgver = "1.75.0"
 pkgrel = 0
 hostmakedepends = [
     "cmake",
@@ -14,6 +14,7 @@ hostmakedepends = [
     "zlib-devel",
     "zstd-devel",
     "cargo-bootstrap",
+    "wasi-libc",
 ]
 makedepends = [
     "libffi-devel",
@@ -29,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
 source = f"https://static.rust-lang.org/dist/rustc-{pkgver}-src.tar.xz"
-sha256 = "23705e38c1a37acfd7fbb921c5dd8772619476e80d0b3b39ac8eb45bc0c33187"
+sha256 = "4526f786d673e4859ff2afa0bab2ba13c918b796519a25c1acce06dba9542340"
 # global environment
 env = {
     "SSL_CERT_FILE": "/etc/ssl/certs/ca-certificates.crt",
@@ -69,13 +70,11 @@ if _bootstrap:
 def post_patch(self):
     from cbuild.util import cargo
 
-    # we are not using bundled llvm
-    self.rm("src/llvm-project", recursive=True)
     # we are patching these
     cargo.clear_vendor_checksums(self, "libc")
-    cargo.clear_vendor_checksums(self, "libc-0.2.138")
-    cargo.clear_vendor_checksums(self, "libc-0.2.140")
     cargo.clear_vendor_checksums(self, "libc-0.2.146")
+    cargo.clear_vendor_checksums(self, "libc-0.2.148")
+    cargo.clear_vendor_checksums(self, "libc-0.2.149")
 
 
 def do_configure(self):
@@ -85,11 +84,14 @@ def do_configure(self):
         _use_docs = "false"
         _use_rpath = "true"
         _extended = "false"
+        _profiler = "false"
     else:
         _llvm_shared = "true"
-        _use_docs = "true"
+        # fails to build for wasm targets
+        _use_docs = "false"
         _use_rpath = "false"
         _extended = "true"
+        _profiler = "true"
         # while we'd love to build cargo and rust in one build, this is
         # unfortunately not possible as rustbuild is junk and breaks rather
         # hard when trying that
@@ -109,6 +111,9 @@ def do_configure(self):
     _debug_rustc = "0"
 
     tgt_profile = self.profile()
+    _tgt_spec = [f"'{tgt_profile.triplet}'"]
+    if not _bootstrap:
+        _tgt_spec += ["'wasm32-wasi'", "'wasm32-unknown-unknown'"]
 
     # this is a hack that violates packaging guidelines, but it's only
     # for bootstrapping anyway, and conditionally patching it is worse
@@ -135,7 +140,7 @@ extern {}
     with open(self.cwd / "config.toml", "w") as cfg:
         cfg.write(
             f"""
-changelog-seen = 2
+change-id = 116881
 
 [llvm]
 ninja = false
@@ -147,6 +152,7 @@ use-libcxx = true
 
 build = '{host_profile.triplet}'
 host = ['{tgt_profile.triplet}']
+target = [{','.join(_tgt_spec)}]
 
 cargo = '/usr/bin/cargo'
 rustc = '/usr/bin/rustc'
@@ -161,6 +167,8 @@ vendor = true
 extended = {_extended}
 
 tools = [{", ".join(map(lambda v: '"' + v + '"', _tools))}]
+
+profiler = {_profiler}
 
 local-rebuild = {_local_rebuild}
 
@@ -223,6 +231,22 @@ llvm-config = '/usr/bin/llvm-config'
 crt-static = false
 """
             )
+        # wasm targets for non-bootstrap
+        if not _bootstrap:
+            cfg.write(
+                f"""
+[target.wasm32-unknown-unknown]
+
+sanitizers = false
+profiler = false
+
+[target.wasm32-wasi]
+
+sanitizers = false
+profiler = false
+wasi-root = '/usr/wasm32-unknown-wasi'
+"""
+            )
 
 
 def do_build(self):
@@ -282,7 +306,9 @@ def _untar(self, name, has_triple=True):
     trip = self.profile().triplet
 
     fname = f"{name}-{pkgver}"
-    if has_triple:
+    if isinstance(has_triple, str):
+        fname += f"-{has_triple}"
+    elif has_triple:
         fname += f"-{trip}"
     fname += ".tar.xz"
 
@@ -313,6 +339,9 @@ def do_install(self):
     for f in ["rustc", "rust-std", "rustc-dev", "clippy", "rustfmt"]:
         self.log(f"unpacking {f}...")
         _untar(self, f)
+    # wasm shit
+    _untar(self, "rust-std", "wasm32-unknown-unknown")
+    _untar(self, "rust-std", "wasm32-wasi")
 
     self.log("unpacking rust-src...")
     _untar(self, "rust-src", False)
@@ -330,6 +359,15 @@ def do_install(self):
         rlibf.unlink()
         self.mv(f, rlibf)
         f.symlink_to(rlibf.relative_to(f.parent))
+
+
+@subpackage("rust-wasm")
+def _wasm(self):
+    self.pkgdesc = "WebAssembly targets"
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}", "lld", "wasi-libc"]
+    self.options = ["!strip"]
+
+    return ["usr/lib/rustlib/wasm32-*"]
 
 
 @subpackage("rust-clippy")

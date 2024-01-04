@@ -1,17 +1,17 @@
-From cce405fda6d8b99b4b692c33bd66bd510afd9780 Mon Sep 17 00:00:00 2001
+From 422ba495837f4b816c7be57ef99e34d087cd3e92 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sat, 18 Nov 2023 14:03:42 +0100
-Subject: [PATCH 07/11] fix rustdoc when cross-compiling
+Date: Thu, 4 Jan 2024 15:07:23 +0100
+Subject: [PATCH 07/12] fix rustdoc when cross-compiling
 
 ---
- src/bootstrap/bin/rustdoc.rs | 7 ++-----
+ src/bootstrap/src/bin/rustdoc.rs | 7 ++-----
  1 file changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/src/bootstrap/bin/rustdoc.rs b/src/bootstrap/bin/rustdoc.rs
-index 6561c1c19..3bd7ee106 100644
---- a/src/bootstrap/bin/rustdoc.rs
-+++ b/src/bootstrap/bin/rustdoc.rs
-@@ -25,9 +25,6 @@ fn main() {
+diff --git a/src/bootstrap/src/bin/rustdoc.rs b/src/bootstrap/src/bin/rustdoc.rs
+index dbbce6fe2..d0bcabe4e 100644
+--- a/src/bootstrap/src/bin/rustdoc.rs
++++ b/src/bootstrap/src/bin/rustdoc.rs
+@@ -29,9 +29,6 @@ fn main() {
      // is passed (a bit janky...)
      let target = args.windows(2).find(|w| &*w[0] == "--target").and_then(|w| w[1].to_str());
  
@@ -21,7 +21,7 @@ index 6561c1c19..3bd7ee106 100644
      let mut cmd = Command::new(rustdoc);
  
      if target.is_some() {
-@@ -40,7 +37,7 @@ fn main() {
+@@ -44,7 +41,7 @@ fn main() {
      }
  
      cmd.args(&args);
@@ -30,7 +30,7 @@ index 6561c1c19..3bd7ee106 100644
  
      // Force all crates compiled by this compiler to (a) be unstable and (b)
      // allow the `rustc_private` feature to link to other unstable crates
-@@ -72,7 +69,7 @@ fn main() {
+@@ -78,7 +75,7 @@ fn main() {
          eprintln!(
              "rustdoc command: {:?}={:?} {:?}",
              dylib_path_var(),
@@ -40,5 +40,5 @@ index 6561c1c19..3bd7ee106 100644
          );
          eprintln!("sysroot: {sysroot:?}");
 -- 
-2.42.1
+2.43.0
 

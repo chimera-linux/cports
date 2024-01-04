@@ -1,23 +1,23 @@
-From 6ae7c7e682f3253cccba904d4d51da7de82e6c5b Mon Sep 17 00:00:00 2001
+From 25cd3c630a7e268b834627d94367fd6179cf0176 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sat, 18 Nov 2023 14:01:25 +0100
-Subject: [PATCH 02/11] remove a bunch of unused junk
+Date: Thu, 4 Jan 2024 15:00:38 +0100
+Subject: [PATCH 02/12] remove a bunch of unused junk
 
 ---
  compiler/rustc_target/src/spec/crt_objects.rs | 22 ----------
- src/bootstrap/cc_detect.rs                    | 25 +----------
- src/bootstrap/compile.rs                      | 44 +------------------
- src/bootstrap/config.rs                       | 10 -----
  src/bootstrap/configure.py                    | 32 --------------
- src/bootstrap/lib.rs                          | 19 --------
- src/bootstrap/sanity.rs                       | 22 ----------
- 7 files changed, 3 insertions(+), 171 deletions(-)
+ src/bootstrap/src/core/build_steps/compile.rs | 44 +------------------
+ src/bootstrap/src/core/config/config.rs       | 10 -----
+ src/bootstrap/src/core/sanity.rs              | 22 ----------
+ src/bootstrap/src/lib.rs                      | 19 --------
+ src/bootstrap/src/utils/cc_detect.rs          | 24 ----------
+ 7 files changed, 1 insertion(+), 172 deletions(-)
 
 diff --git a/compiler/rustc_target/src/spec/crt_objects.rs b/compiler/rustc_target/src/spec/crt_objects.rs
-index c126390f5..7aef73d3b 100644
+index 53f710b8f..2a4eec15f 100644
 --- a/compiler/rustc_target/src/spec/crt_objects.rs
 +++ b/compiler/rustc_target/src/spec/crt_objects.rs
-@@ -63,28 +63,6 @@ pub(super) fn all(obj: &'static str) -> CrtObjects {
+@@ -61,28 +61,6 @@ pub(super) fn all(obj: &'static str) -> CrtObjects {
      ])
  }
  
@@ -46,68 +46,54 @@ index c126390f5..7aef73d3b 100644
  pub(super) fn pre_mingw_self_contained() -> CrtObjects {
      new(&[
          (LinkOutputKind::DynamicNoPicExe, &["crt2.o", "rsbegin.o"]),
-diff --git a/src/bootstrap/cc_detect.rs b/src/bootstrap/cc_detect.rs
-index 2496c2a9d..9aff56181 100644
---- a/src/bootstrap/cc_detect.rs
-+++ b/src/bootstrap/cc_detect.rs
-@@ -110,7 +110,7 @@ pub fn find_target(build: &Build, target: TargetSelection) {
-     if let Some(cc) = config.and_then(|c| c.cc.as_ref()) {
-         cfg.compiler(cc);
-     } else {
--        set_compiler(&mut cfg, Language::C, target, config, build);
-+        set_compiler(&mut cfg, Language::C, target, config);
-     }
- 
-     let compiler = cfg.get_compiler();
-@@ -131,7 +131,7 @@ pub fn find_target(build: &Build, target: TargetSelection) {
-         cfg.compiler(cxx);
-         true
-     } else if build.hosts.contains(&target) || build.build == target {
--        set_compiler(&mut cfg, Language::CPlusPlus, target, config, build);
-+        set_compiler(&mut cfg, Language::CPlusPlus, target, config);
-         true
-     } else {
-         // Use an auto-detected compiler (or one configured via `CXX_target_triple` env vars).
-@@ -166,7 +166,6 @@ fn set_compiler(
-     compiler: Language,
-     target: TargetSelection,
-     config: Option<&Target>,
--    build: &Build,
- ) {
-     match &*target.triple {
-         // When compiling for android we may have the NDK configured in the
-@@ -202,26 +201,6 @@ fn set_compiler(
-             }
-         }
- 
--        "mips-unknown-linux-musl" => {
--            if cfg.get_compiler().path().to_str() == Some("gcc") {
--                cfg.compiler("mips-linux-musl-gcc");
--            }
--        }
--        "mipsel-unknown-linux-musl" => {
--            if cfg.get_compiler().path().to_str() == Some("gcc") {
--                cfg.compiler("mipsel-linux-musl-gcc");
--            }
--        }
--
--        t if t.contains("musl") => {
--            if let Some(root) = build.musl_root(target) {
--                let guess = root.join("bin/musl-gcc");
--                if guess.exists() {
--                    cfg.compiler(guess);
--                }
--            }
--        }
--
-         _ => {}
-     }
- }
-diff --git a/src/bootstrap/compile.rs b/src/bootstrap/compile.rs
-index 292ccc578..4159b478e 100644
---- a/src/bootstrap/compile.rs
-+++ b/src/bootstrap/compile.rs
-@@ -255,40 +255,7 @@ fn copy_self_contained_objects(
+diff --git a/src/bootstrap/configure.py b/src/bootstrap/configure.py
+index 544a42d9a..05b21893f 100755
+--- a/src/bootstrap/configure.py
++++ b/src/bootstrap/configure.py
+@@ -99,38 +99,6 @@ v("llvm-config", None, "set path to llvm-config")
+ v("llvm-filecheck", None, "set path to LLVM's FileCheck utility")
+ v("python", "build.python", "set path to python")
+ v("android-ndk", "build.android-ndk", "set path to Android NDK")
+-v("musl-root", "target.x86_64-unknown-linux-musl.musl-root",
+-  "MUSL root installation directory (deprecated)")
+-v("musl-root-x86_64", "target.x86_64-unknown-linux-musl.musl-root",
+-  "x86_64-unknown-linux-musl install directory")
+-v("musl-root-i586", "target.i586-unknown-linux-musl.musl-root",
+-  "i586-unknown-linux-musl install directory")
+-v("musl-root-i686", "target.i686-unknown-linux-musl.musl-root",
+-  "i686-unknown-linux-musl install directory")
+-v("musl-root-arm", "target.arm-unknown-linux-musleabi.musl-root",
+-  "arm-unknown-linux-musleabi install directory")
+-v("musl-root-armhf", "target.arm-unknown-linux-musleabihf.musl-root",
+-  "arm-unknown-linux-musleabihf install directory")
+-v("musl-root-armv5te", "target.armv5te-unknown-linux-musleabi.musl-root",
+-  "armv5te-unknown-linux-musleabi install directory")
+-v("musl-root-armv7", "target.armv7-unknown-linux-musleabi.musl-root",
+-  "armv7-unknown-linux-musleabi install directory")
+-v("musl-root-armv7hf", "target.armv7-unknown-linux-musleabihf.musl-root",
+-  "armv7-unknown-linux-musleabihf install directory")
+-v("musl-root-aarch64", "target.aarch64-unknown-linux-musl.musl-root",
+-  "aarch64-unknown-linux-musl install directory")
+-v("musl-root-mips", "target.mips-unknown-linux-musl.musl-root",
+-  "mips-unknown-linux-musl install directory")
+-v("musl-root-mipsel", "target.mipsel-unknown-linux-musl.musl-root",
+-  "mipsel-unknown-linux-musl install directory")
+-v("musl-root-mips64", "target.mips64-unknown-linux-muslabi64.musl-root",
+-  "mips64-unknown-linux-muslabi64 install directory")
+-v("musl-root-mips64el", "target.mips64el-unknown-linux-muslabi64.musl-root",
+-  "mips64el-unknown-linux-muslabi64 install directory")
+-v("musl-root-riscv32gc", "target.riscv32gc-unknown-linux-musl.musl-root",
+-  "riscv32gc-unknown-linux-musl install directory")
+-v("musl-root-riscv64gc", "target.riscv64gc-unknown-linux-musl.musl-root",
+-  "riscv64gc-unknown-linux-musl install directory")
+ v("qemu-armhf-rootfs", "target.arm-unknown-linux-gnueabihf.qemu-rootfs",
+   "rootfs in qemu testing, you probably don't want to use this")
+ v("qemu-aarch64-rootfs", "target.aarch64-unknown-linux-gnu.qemu-rootfs",
+diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
+index 7021a9543..cb165e165 100644
+--- a/src/bootstrap/src/core/build_steps/compile.rs
++++ b/src/bootstrap/src/core/build_steps/compile.rs
+@@ -306,40 +306,7 @@ fn copy_self_contained_objects(
      t!(fs::create_dir_all(&libdir_self_contained));
      let mut target_deps = vec![];
  
@@ -149,7 +135,7 @@ index 292ccc578..4159b478e 100644
          let srcdir = builder
              .wasi_root(target)
              .unwrap_or_else(|| {
-@@ -390,15 +357,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
+@@ -436,15 +403,6 @@ pub fn std_cargo(builder: &Builder<'_>, target: TargetSelection, stage: u32, car
              .arg("--manifest-path")
              .arg(builder.src.join("library/sysroot/Cargo.toml"));
  
@@ -165,11 +151,11 @@ index 292ccc578..4159b478e 100644
          if target.contains("-wasi") {
              if let Some(p) = builder.wasi_root(target) {
                  let root = format!(
-diff --git a/src/bootstrap/config.rs b/src/bootstrap/config.rs
-index 836328f94..72e541ad8 100644
---- a/src/bootstrap/config.rs
-+++ b/src/bootstrap/config.rs
-@@ -263,8 +263,6 @@ pub struct Config {
+diff --git a/src/bootstrap/src/core/config/config.rs b/src/bootstrap/src/core/config/config.rs
+index 0a9175aa3..d286af226 100644
+--- a/src/bootstrap/src/core/config/config.rs
++++ b/src/bootstrap/src/core/config/config.rs
+@@ -269,8 +269,6 @@ pub struct Config {
      pub print_step_rusage: bool,
      pub missing_tools: bool,
  
@@ -178,7 +164,7 @@ index 836328f94..72e541ad8 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -522,8 +520,6 @@ pub struct Target {
+@@ -528,8 +526,6 @@ pub struct Target {
      pub profiler: Option<StringOrBool>,
      pub rpath: Option<bool>,
      pub crt_static: Option<bool>,
@@ -187,7 +173,7 @@ index 836328f94..72e541ad8 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub no_std: bool,
-@@ -979,7 +975,6 @@ define_config! {
+@@ -998,7 +994,6 @@ define_config! {
          default_linker: Option<String> = "default-linker",
          channel: Option<String> = "channel",
          description: Option<String> = "description",
@@ -195,7 +181,7 @@ index 836328f94..72e541ad8 100644
          rpath: Option<bool> = "rpath",
          verbose_tests: Option<bool> = "verbose-tests",
          optimize_tests: Option<bool> = "optimize-tests",
-@@ -1028,8 +1023,6 @@ define_config! {
+@@ -1046,8 +1041,6 @@ define_config! {
          profiler: Option<StringOrBool> = "profiler",
          rpath: Option<bool> = "rpath",
          crt_static: Option<bool> = "crt-static",
@@ -204,15 +190,15 @@ index 836328f94..72e541ad8 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1412,7 +1405,6 @@ impl Config {
-             set(&mut config.llvm_tools_enabled, rust.llvm_tools);
-             config.rustc_parallel = rust.parallel_compiler.unwrap_or(false);
+@@ -1437,7 +1430,6 @@ impl Config {
+                 .parallel_compiler
+                 .unwrap_or(config.channel == "dev" || config.channel == "nightly");
              config.rustc_default_linker = rust.default_linker;
 -            config.musl_root = rust.musl_root.map(PathBuf::from);
              config.save_toolstates = rust.save_toolstates.map(PathBuf::from);
              set(
                  &mut config.deny_warnings,
-@@ -1597,8 +1589,6 @@ impl Config {
+@@ -1606,8 +1598,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -221,83 +207,10 @@ index 836328f94..72e541ad8 100644
                  target.wasi_root = cfg.wasi_root.map(PathBuf::from);
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
                  target.sanitizers = cfg.sanitizers;
-diff --git a/src/bootstrap/configure.py b/src/bootstrap/configure.py
-index f469dbea6..679dbc24d 100755
---- a/src/bootstrap/configure.py
-+++ b/src/bootstrap/configure.py
-@@ -111,38 +111,6 @@ v("aarch64-linux-android-ndk", "target.aarch64-linux-android.android-ndk",
-   "aarch64-linux-android NDK standalone path")
- v("x86_64-linux-android-ndk", "target.x86_64-linux-android.android-ndk",
-   "x86_64-linux-android NDK standalone path")
--v("musl-root", "target.x86_64-unknown-linux-musl.musl-root",
--  "MUSL root installation directory (deprecated)")
--v("musl-root-x86_64", "target.x86_64-unknown-linux-musl.musl-root",
--  "x86_64-unknown-linux-musl install directory")
--v("musl-root-i586", "target.i586-unknown-linux-musl.musl-root",
--  "i586-unknown-linux-musl install directory")
--v("musl-root-i686", "target.i686-unknown-linux-musl.musl-root",
--  "i686-unknown-linux-musl install directory")
--v("musl-root-arm", "target.arm-unknown-linux-musleabi.musl-root",
--  "arm-unknown-linux-musleabi install directory")
--v("musl-root-armhf", "target.arm-unknown-linux-musleabihf.musl-root",
--  "arm-unknown-linux-musleabihf install directory")
--v("musl-root-armv5te", "target.armv5te-unknown-linux-musleabi.musl-root",
--  "armv5te-unknown-linux-musleabi install directory")
--v("musl-root-armv7", "target.armv7-unknown-linux-musleabi.musl-root",
--  "armv7-unknown-linux-musleabi install directory")
--v("musl-root-armv7hf", "target.armv7-unknown-linux-musleabihf.musl-root",
--  "armv7-unknown-linux-musleabihf install directory")
--v("musl-root-aarch64", "target.aarch64-unknown-linux-musl.musl-root",
--  "aarch64-unknown-linux-musl install directory")
--v("musl-root-mips", "target.mips-unknown-linux-musl.musl-root",
--  "mips-unknown-linux-musl install directory")
--v("musl-root-mipsel", "target.mipsel-unknown-linux-musl.musl-root",
--  "mipsel-unknown-linux-musl install directory")
--v("musl-root-mips64", "target.mips64-unknown-linux-muslabi64.musl-root",
--  "mips64-unknown-linux-muslabi64 install directory")
--v("musl-root-mips64el", "target.mips64el-unknown-linux-muslabi64.musl-root",
--  "mips64el-unknown-linux-muslabi64 install directory")
--v("musl-root-riscv32gc", "target.riscv32gc-unknown-linux-musl.musl-root",
--  "riscv32gc-unknown-linux-musl install directory")
--v("musl-root-riscv64gc", "target.riscv64gc-unknown-linux-musl.musl-root",
--  "riscv64gc-unknown-linux-musl install directory")
- v("qemu-armhf-rootfs", "target.arm-unknown-linux-gnueabihf.qemu-rootfs",
-   "rootfs in qemu testing, you probably don't want to use this")
- v("qemu-aarch64-rootfs", "target.aarch64-unknown-linux-gnu.qemu-rootfs",
-diff --git a/src/bootstrap/lib.rs b/src/bootstrap/lib.rs
-index 8b8d4b237..06c15d468 100644
---- a/src/bootstrap/lib.rs
-+++ b/src/bootstrap/lib.rs
-@@ -1291,25 +1291,6 @@ impl Build {
-         }
-     }
- 
--    /// Returns the "musl root" for this `target`, if defined
--    fn musl_root(&self, target: TargetSelection) -> Option<&Path> {
--        self.config
--            .target_config
--            .get(&target)
--            .and_then(|t| t.musl_root.as_ref())
--            .or_else(|| self.config.musl_root.as_ref())
--            .map(|p| &**p)
--    }
--
--    /// Returns the "musl libdir" for this `target`.
--    fn musl_libdir(&self, target: TargetSelection) -> Option<PathBuf> {
--        let t = self.config.target_config.get(&target)?;
--        if let libdir @ Some(_) = &t.musl_libdir {
--            return libdir.clone();
--        }
--        self.musl_root(target).map(|root| root.join("lib"))
--    }
--
-     /// Returns the sysroot for the wasi target, if defined
-     fn wasi_root(&self, target: TargetSelection) -> Option<&Path> {
-         self.config.target_config.get(&target).and_then(|t| t.wasi_root.as_ref()).map(|p| &**p)
-diff --git a/src/bootstrap/sanity.rs b/src/bootstrap/sanity.rs
-index 0febdf250..613d74f64 100644
---- a/src/bootstrap/sanity.rs
-+++ b/src/bootstrap/sanity.rs
+diff --git a/src/bootstrap/src/core/sanity.rs b/src/bootstrap/src/core/sanity.rs
+index eec3be66a..0949302fc 100644
+--- a/src/bootstrap/src/core/sanity.rs
++++ b/src/bootstrap/src/core/sanity.rs
 @@ -215,28 +215,6 @@ than building it.
              continue;
          }
@@ -327,6 +240,71 @@ index 0febdf250..613d74f64 100644
          if need_cmake && target.contains("msvc") {
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
+diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
+index 33b8f1a7c..4ba88439b 100644
+--- a/src/bootstrap/src/lib.rs
++++ b/src/bootstrap/src/lib.rs
+@@ -1306,25 +1306,6 @@ impl Build {
+         }
+     }
+ 
+-    /// Returns the "musl root" for this `target`, if defined
+-    fn musl_root(&self, target: TargetSelection) -> Option<&Path> {
+-        self.config
+-            .target_config
+-            .get(&target)
+-            .and_then(|t| t.musl_root.as_ref())
+-            .or_else(|| self.config.musl_root.as_ref())
+-            .map(|p| &**p)
+-    }
+-
+-    /// Returns the "musl libdir" for this `target`.
+-    fn musl_libdir(&self, target: TargetSelection) -> Option<PathBuf> {
+-        let t = self.config.target_config.get(&target)?;
+-        if let libdir @ Some(_) = &t.musl_libdir {
+-            return libdir.clone();
+-        }
+-        self.musl_root(target).map(|root| root.join("lib"))
+-    }
+-
+     /// Returns the sysroot for the wasi target, if defined
+     fn wasi_root(&self, target: TargetSelection) -> Option<&Path> {
+         self.config.target_config.get(&target).and_then(|t| t.wasi_root.as_ref()).map(|p| &**p)
+diff --git a/src/bootstrap/src/utils/cc_detect.rs b/src/bootstrap/src/utils/cc_detect.rs
+index 52b36ce75..a67d05075 100644
+--- a/src/bootstrap/src/utils/cc_detect.rs
++++ b/src/bootstrap/src/utils/cc_detect.rs
+@@ -201,30 +201,6 @@ fn default_compiler(
+             }
+         }
+ 
+-        "mips-unknown-linux-musl" if compiler == Language::C => {
+-            if cfg.get_compiler().path().to_str() == Some("gcc") {
+-                Some(PathBuf::from("mips-linux-musl-gcc"))
+-            } else {
+-                None
+-            }
+-        }
+-        "mipsel-unknown-linux-musl" if compiler == Language::C => {
+-            if cfg.get_compiler().path().to_str() == Some("gcc") {
+-                Some(PathBuf::from("mipsel-linux-musl-gcc"))
+-            } else {
+-                None
+-            }
+-        }
+-
+-        t if t.contains("musl") && compiler == Language::C => {
+-            if let Some(root) = build.musl_root(target) {
+-                let guess = root.join("bin/musl-gcc");
+-                if guess.exists() { Some(guess) } else { None }
+-            } else {
+-                None
+-            }
+-        }
+-
+         _ => None,
+     }
+ }
 -- 
-2.42.1
+2.43.0
 

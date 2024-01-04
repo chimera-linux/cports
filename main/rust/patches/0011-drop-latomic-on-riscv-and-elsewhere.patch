@@ -1,15 +1,15 @@
-From b3a993cfb7ce34bd9dc68dbe22c6f06e018ba5a3 Mon Sep 17 00:00:00 2001
+From 583a6e433c4c93d46b3ef68ca7f4959ee1648484 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sat, 18 Nov 2023 14:05:11 +0100
-Subject: [PATCH 11/11] drop -latomic on riscv and elsewhere
+Date: Thu, 4 Jan 2024 15:10:25 +0100
+Subject: [PATCH 11/12] drop -latomic on riscv and elsewhere
 
 ---
- compiler/rustc_llvm/build.rs | 17 +----------------
- src/bootstrap/llvm.rs        | 16 ----------------
+ compiler/rustc_llvm/build.rs               | 17 +----------------
+ src/bootstrap/src/core/build_steps/llvm.rs | 16 ----------------
  2 files changed, 1 insertion(+), 32 deletions(-)
 
 diff --git a/compiler/rustc_llvm/build.rs b/compiler/rustc_llvm/build.rs
-index 879705591..c592476a2 100644
+index 69f615014..898214daa 100644
 --- a/compiler/rustc_llvm/build.rs
 +++ b/compiler/rustc_llvm/build.rs
 @@ -242,14 +242,7 @@ fn main() {
@@ -28,7 +28,7 @@ index 879705591..c592476a2 100644
          println!("cargo:rustc-link-lib=shell32");
          println!("cargo:rustc-link-lib=uuid");
      } else if target.contains("haiku")
-@@ -355,14 +348,6 @@ fn main() {
+@@ -361,14 +354,6 @@ fn main() {
          "stdc++"
      };
  
@@ -43,11 +43,11 @@ index 879705591..c592476a2 100644
      // C++ runtime library
      if !target.contains("msvc") {
          if let Some(s) = llvm_static_stdcpp {
-diff --git a/src/bootstrap/llvm.rs b/src/bootstrap/llvm.rs
-index 455683158..db50bde2b 100644
---- a/src/bootstrap/llvm.rs
-+++ b/src/bootstrap/llvm.rs
-@@ -381,22 +381,6 @@ impl Step for Llvm {
+diff --git a/src/bootstrap/src/core/build_steps/llvm.rs b/src/bootstrap/src/core/build_steps/llvm.rs
+index a1f6fac8a..a2e1d46cc 100644
+--- a/src/bootstrap/src/core/build_steps/llvm.rs
++++ b/src/bootstrap/src/core/build_steps/llvm.rs
+@@ -380,22 +380,6 @@ impl Step for Llvm {
              cfg.define("LLVM_LINK_LLVM_DYLIB", "ON");
          }
  
@@ -67,9 +67,9 @@ index 455683158..db50bde2b 100644
 -            ldflags.shared.push(" -latomic");
 -        }
 -
-         if target.contains("msvc") {
-             cfg.define("LLVM_USE_CRT_DEBUG", "MT");
-             cfg.define("LLVM_USE_CRT_RELEASE", "MT");
+         if target.starts_with("mips") && target.contains("netbsd") {
+             // LLVM wants 64-bit atomics, while mipsel is 32-bit only, so needs -latomic
+             ldflags.exe.push(" -latomic");
 -- 
-2.42.1
+2.43.0
 
