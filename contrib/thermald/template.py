@@ -1,6 +1,6 @@
 pkgname = "thermald"
 pkgver = "2.5.4"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 build_style = "gnu_configure"
 # TODO: figure out why we need to disable dependency tracking

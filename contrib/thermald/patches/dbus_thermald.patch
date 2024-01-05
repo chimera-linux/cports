@@ -6,6 +6,6 @@ index 6b2cc8e..bf36dbb 100644
  [D-BUS Service]
  Name=org.freedesktop.thermald
 -Exec=/bin/false
-+Exec=/usr/bin/dinit --quiet start thermald
++Exec=/usr/bin/dinitctl --quiet start thermald
  User=root
 -SystemdService=dbus-org.freedesktop.thermald.service
