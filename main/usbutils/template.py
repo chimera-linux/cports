@@ -17,4 +17,4 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/bin/lsusb.py")
-    self.rm(self.destdir / "usr/lib/pkgconfig")
+    self.rm(self.destdir / "usr/lib/pkgconfig", recursive=True)
