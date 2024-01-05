@@ -1,6 +1,6 @@
 pkgname = "python-pyflakes"
-pkgver = "3.1.0"
-pkgrel = 1
+pkgver = "3.2.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/PyCQA/pyflakes"
 source = f"$(PYPI_SITE)/p/pyflakes/pyflakes-{pkgver}.tar.gz"
-sha256 = "a0aae034c444db0071aa077972ba4768d40c830d9539fd45bf4cd3f8f6992efc"
+sha256 = "1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f"
 
 
 def post_install(self):
