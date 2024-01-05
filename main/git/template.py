@@ -42,8 +42,8 @@ prefix = /usr
 CC = {self.get_tool("CC")}
 AR = {self.get_tool("AR")}
 TAR = tar
-CFLAGS = {self.get_cflags(shell = True)}
-LDFLAGS = {self.get_ldflags(shell = True)}
+CFLAGS = {self.get_cflags(shell=True)}
+LDFLAGS = {self.get_ldflags(shell=True)}
 USE_LIBPCRE2 = Yes
 NO_INSTALL_HARDLINKS = Yes
 ICONV_OMITS_BOM = Yes

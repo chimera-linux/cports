@@ -28,8 +28,8 @@ PREFIX=/usr
 SBINDIR=/usr/bin
 MANDIR=/usr/share/man
 OSNAME="Chimera Linux"
-CFLAGS="{self.get_cflags(shell = True)}"
-LDFLAGS="{self.get_ldflags(shell = True)}"
+CFLAGS="{self.get_cflags(shell=True)}"
+LDFLAGS="{self.get_ldflags(shell=True)}"
 CC="{self.get_tool("CC")}"
 HAVE_REWB_BSD=0
 UTF8_LOCALE=C.UTF-8

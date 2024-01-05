@@ -17,7 +17,7 @@ exec_wrappers = [("/usr/bin/lua5.1", "lua")]
 
 def init_configure(self):
     self.tool_flags["CFLAGS"] += [
-        f"-I{ self.profile().sysroot / 'usr/include/lua5.1'}",
+        f"-I{self.profile().sysroot / 'usr/include/lua5.1'}",
         "-fPIC",
     ]
 

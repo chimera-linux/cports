@@ -113,7 +113,7 @@ def do_build(self):
     with open(self.cwd / "user-config.jam", "w") as cf:
         cf.write(
             f"""
-using clang : : {self.get_tool("CXX")} : <cxxflags>"{self.get_cxxflags(shell = True)}" <linkflags>"{self.get_ldflags(shell = True)}" <warnings-as-errors>"off" ;
+using clang : : {self.get_tool("CXX")} : <cxxflags>"{self.get_cxxflags(shell=True)}" <linkflags>"{self.get_ldflags(shell=True)}" <warnings-as-errors>"off" ;
 using python : {self._pyver} : /usr/bin/python3 : /usr/include/python{self._pyver} : /usr/lib/python{self._pyver} ;
 """
         )
