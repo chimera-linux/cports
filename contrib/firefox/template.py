@@ -200,7 +200,7 @@ def do_configure(self):
             s.check()
             self.log("generating profile...")
             for d in self.cwd.glob("obj-*"):
-                ldp = self.chroot_cwd / d.name / f"dist/firefox"
+                ldp = self.chroot_cwd / d.name / "dist/firefox"
             self.do(
                 "xvfb-run",
                 "-w",
