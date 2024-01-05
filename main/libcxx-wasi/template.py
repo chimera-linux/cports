@@ -1,6 +1,6 @@
 pkgname = "libcxx-wasi"
 pkgver = "17.0.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -87,6 +87,8 @@ def do_configure(self):
                 "-DCMAKE_ASM_COMPILER_TARGET=wasm32-unknown-wasi",
                 "-DCMAKE_C_COMPILER_TARGET=wasm32-unknown-wasi",
                 "-DCMAKE_CXX_COMPILER_TARGET=wasm32-unknown-wasi",
+                "-DCMAKE_C_FLAGS=-O2",
+                "-DCMAKE_CXX_FLAGS=-O2",
                 "-DLIBCXXABI_ENABLE_THREADS=OFF",
                 "-DLIBCXXABI_HAS_PTHREAD_API=OFF",
                 "-DLIBCXX_ENABLE_THREADS=OFF",
@@ -113,9 +115,8 @@ def do_configure(self):
                 "-DCMAKE_ASM_COMPILER_TARGET=wasm32-unknown-wasi-threads",
                 "-DCMAKE_C_COMPILER_TARGET=wasm32-unknown-wasi-threads",
                 "-DCMAKE_CXX_COMPILER_TARGET=wasm32-unknown-wasi-threads",
-                "-DCMAKE_C_FLAGS=" + self.get_cflags(["-pthread"], shell=True),
-                "-DCMAKE_CXX_FLAGS="
-                + self.get_cxxflags(["-pthread"], shell=True),
+                "-DCMAKE_C_FLAGS=-O2 -pthread",
+                "-DCMAKE_CXX_FLAGS=-O2 -pthread",
                 "-DLIBCXXABI_ENABLE_THREADS=ON",
                 "-DLIBCXXABI_HAS_PTHREAD_API=ON",
                 "-DLIBCXX_ENABLE_THREADS=ON",
