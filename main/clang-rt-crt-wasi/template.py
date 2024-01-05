@@ -1,6 +1,6 @@
 pkgname = "clang-rt-crt-wasi"
 pkgver = "17.0.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -19,6 +19,8 @@ configure_args = [
     "-DCMAKE_ASM_COMPILER_TARGET=wasm32-unknown-wasi",
     "-DCMAKE_C_COMPILER_TARGET=wasm32-unknown-wasi",
     "-DCMAKE_CXX_COMPILER_TARGET=wasm32-unknown-wasi",
+    "-DCMAKE_C_FLAGS=-O2",
+    "-DCMAKE_CXX_FLAGS=-O2",
     "-DCMAKE_AR=/usr/bin/llvm-ar",
     "-DCMAKE_NM=/usr/bin/llvm-nm",
     "-DCMAKE_RANLIB=/usr/bin/llvm-ranlib",
