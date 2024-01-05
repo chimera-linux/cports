@@ -1,6 +1,6 @@
 pkgname = "usbutils"
 pkgver = "017"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["automake", "libtool", "pkgconf", "gmake"]
@@ -17,3 +17,4 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/bin/lsusb.py")
+    self.rm(self.destdir / "usr/lib/pkgconfig")
