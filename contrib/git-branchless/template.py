@@ -2,8 +2,6 @@ pkgname = "git-branchless"
 pkgver = "0.8.0"
 pkgrel = 1
 build_style = "cargo"
-# skip because CARGO_PROFILE_RELEASE_PANIC="abort"
-make_check_args = ["--", "--skip=test_main_branch_not_found_error_message"]
 hostmakedepends = ["cargo"]
 makedepends = ["rust-std", "sqlite-devel"]
 checkdepends = ["git"]
