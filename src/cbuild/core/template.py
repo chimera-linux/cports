@@ -1589,7 +1589,7 @@ def _split_static(pkg):
 
 
 def _split_pycache(pkg):
-    pyver = getattr(pkg.rparent, "python_version", None)
+    pyver = getattr(pkg.parent.rparent, "python_version", None)
     if not pyver:
         return
 
