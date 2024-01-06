@@ -1,0 +1,14 @@
+the requirement for this list is supporting -o pipefail in the default command,
+so permit our sh
+--
+--- a/src/reader.go
++++ b/src/reader.go
+@@ -104,7 +104,7 @@
+ 		shell := "bash"
+ 		currentShell := os.Getenv("SHELL")
+ 		currentShellName := path.Base(currentShell)
+-		for _, shellName := range []string{"bash", "zsh", "ksh", "ash", "hush", "mksh", "yash"} {
++		for _, shellName := range []string{"sh", "bash", "zsh", "ksh", "ash", "hush", "mksh", "yash"} {
+ 			if currentShellName == shellName {
+ 				shell = currentShell
+ 				break
