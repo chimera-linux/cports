@@ -1588,12 +1588,12 @@ def _split_static(pkg):
         pkg.take(str(f.relative_to(pkg.parent.destdir)))
 
 
-# TODO: centralize
-gpyver = "3.12"
-
-
 def _split_pycache(pkg):
-    pyver = gpyver.replace(".", "")
+    pyver = pkg.rparent.python_version
+    if not pyver:
+        return
+
+    pyver = pyver.replace(".", "")
 
     for f in pkg.parent.destdir.rglob("__pycache__"):
         if not f.is_dir():
@@ -1741,7 +1741,13 @@ class Subpackage(Package):
                     self.install_if = [fbdep]
                 else:
                     if instif == "python-pycache":
-                        instif = f"{instif}~{gpyver}"
+                        # this applies for auto-subpkgs at the relevant
+                        # stage, as those are created using the parent
+                        # very late; for any manually declared stuff
+                        # this is fixed up in pre_pkg/005_py_dep
+                        pyver = getattr(parent, "python_version", None)
+                        if pyver:
+                            instif = f"{instif}~{pyver}"
                     elif not instif.startswith("base-"):
                         ddeps.append(instif)
                     self.install_if = [fbdep, instif]

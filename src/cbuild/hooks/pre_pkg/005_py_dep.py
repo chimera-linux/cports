@@ -1,8 +1,5 @@
 # rewrite python dependency to include version
 
-# TODO: centralize
-gpyver = "3.12"
-
 
 def invoke(pkg):
     if pkg.rparent.pkgname == "python":
@@ -25,8 +22,13 @@ def invoke(pkg):
     if not pyver:
         return
 
-    if pyver != gpyver:
+    if pyver != pkg.rparent.python_version:
         pkg.error(f"bad python version ({pyver})")
+
+    for i in range(0, len(pkg.install_if)):
+        if pkg.install_if[i] == "python-pycache":
+            pkg.install_if[i] = f"python-pycache~{pyver}"
+            break
 
     for i in range(0, len(pkg.depends)):
         if pkg.depends[i] == "python":

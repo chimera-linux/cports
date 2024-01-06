@@ -2693,6 +2693,14 @@ packages will be stored, i.e. for the main package as well as subpackages.
 
 Like `destdir_base`, but when viewed from inside the sandbox.
 
+##### self.python_version, self.python_major, self.python_minor
+
+These variables are available from `configure` stage onwards assuming Python
+is available in the build root.
+
+The `python_version` is a string (e.g. `3.12`) while the other two are integers
+(e.g. 3 and 12).
+
 ##### def do(self, cmd, *args, env = None, wrksrc = None, capture_output = False, stdout = None, stderr = None, input = None, check = True, allow_network = False)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,

@@ -86,6 +86,8 @@ def init_configure(self):
     # real configure and linker flags here
     self.env["CFLAGS_NODIST"] = self.get_cflags(shell=True)
     self.env["LDFLAGS_NODIST"] = self.get_ldflags(shell=True)
+    # python is being bootstrapped, so set it here (the hook won't set it)
+    self.python_version = _majver
 
 
 def do_install(self):
