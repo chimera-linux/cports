@@ -96,17 +96,20 @@ def fetch_url(mv):
             clen = int(clen)
             with fmtx:
                 flens[idx] = clen
-            bsize = max(65536, clen // 100)
+            rbuf = bytearray(max(65536, clen // 100))
         else:
-            bsize = 65536
+            rbuf = bytearray(65536)
         with open(dfile, "wb") as df:
             while True:
-                buf = rqf.read(bsize)
-                if not buf:
+                nread = rqf.readinto(rbuf)
+                if nread == 0:
                     break
-                df.write(buf)
+                if nread < len(rbuf):
+                    df.write(rbuf[0:nread])
+                else:
+                    df.write(rbuf)
                 with fmtx:
-                    fstatus[idx] += len(buf)
+                    fstatus[idx] += nread
             # done fetching, report 100%
             with fmtx:
                 flens[idx] = fstatus[idx]
