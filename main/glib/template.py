@@ -1,6 +1,6 @@
 pkgname = "glib"
 pkgver = "2.78.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dgtk_doc=false",
@@ -12,6 +12,7 @@ hostmakedepends = [
     "meson",
     "gettext",
     "pkgconf",
+    "python-packaging",
     "docbook-xsl-nons",
     "xsltproc",
 ]
@@ -53,6 +54,7 @@ def post_install(self):
 
 @subpackage("glib-devel")
 def _devel(self):
+    self.depends += ["python-packaging"]
     return self.default_devel(
         extra=[
             "usr/bin/glib-compile-resources",
