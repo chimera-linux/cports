@@ -1,4 +1,0 @@
-#!/bin/sh
-
-install -d -m 700 /var/lib/iwd
-install -d -m 700 /var/lib/ead

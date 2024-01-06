@@ -1,4 +1,0 @@
-#!/bin/sh
-
-rm -rf /var/lib/iwd || :
-rm -rf /var/lib/ead || :
