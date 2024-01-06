@@ -9,14 +9,14 @@ behaviors are the same.
 
 There are two authoritative documents on the system:
 
-* `Usage.md` is the reference for users. It covers usage of `cbuild` and its
+* [`Usage.md`](Usage.md) is the reference for users. It covers usage of `cbuild` and its
   basic and advanced options as well as concepts and requirements.
-* `Packaging.md` is the reference manual for packagers. It covers the API of the
+* [`Packaging.md`](Packaging.md) is the reference manual for packagers. It covers the API of the
   system and guidelines for creating and modifying templates, but not usage.
 
 Most people looking to get involved with the project should read both.
 
-To get started, read `Usage.md` first.
+To get started, read [`Usage.md`](Usage.md) first.
 
 ## Using cports with Chimera
 
