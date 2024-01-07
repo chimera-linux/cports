@@ -1745,9 +1745,13 @@ class Subpackage(Package):
                         # stage, as those are created using the parent
                         # very late; for any manually declared stuff
                         # this is fixed up in pre_pkg/005_py_dep
-                        pyver = getattr(parent, "python_version", None)
+                        pyver = getattr(parent.rparent, "python_version", None)
                         if pyver:
                             instif = f"{instif}~{pyver}"
+                            # we want pycaches to soft-pull the right python,
+                            # in order for them to affect staging (leave no
+                            # outdated pycache behind)
+                            ddeps.append(f"base-python{pyver}~{pyver}")
                     elif not instif.startswith("base-"):
                         ddeps.append(instif)
                     self.install_if = [fbdep, instif]
