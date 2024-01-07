@@ -1,0 +1,19 @@
+commit 4baf8178f8b45a71c435a67e9bcdd92dee0c5cc9
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Apr 10 02:02:56 2022 +0200
+
+    disable xwayland tests
+
+diff --git a/tests/meson.build b/tests/meson.build
+index 1d59a93..ea55f17 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -309,7 +309,7 @@ tests_standalone = [
+ 	],
+ ]
+ 
+-if get_option('xwayland')
++if false
+ 	xcb_dep = dependency('xcb', required: false)
+ 	xcb_cursor_dep = dependency('xcb-cursor', required: false)
+ 

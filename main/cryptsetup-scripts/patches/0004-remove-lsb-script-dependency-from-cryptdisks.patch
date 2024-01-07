@@ -1,0 +1,258 @@
+From cbca99fdf1574124dd696d0f1adc48e0b860aec6 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 17 Mar 2023 19:55:50 +0100
+Subject: [PATCH 4/4] remove lsb script dependency from cryptdisks
+
+---
+ debian/cryptdisks-functions     | 49 ++++-----------------------------
+ debian/functions                |  3 +-
+ debian/scripts/cryptdisks_start |  4 +--
+ debian/scripts/cryptdisks_stop  |  5 +---
+ 4 files changed, 9 insertions(+), 52 deletions(-)
+
+diff --git a/debian/cryptdisks-functions b/debian/cryptdisks-functions
+index c35b284..bd535be 100644
+--- a/debian/cryptdisks-functions
++++ b/debian/cryptdisks-functions
+@@ -11,7 +11,6 @@ CRYPTDISKS_ENABLE="Yes"
+ # Sanity check #1
+ [ -x /usr/bin/cryptsetup ] || exit 0
+ 
+-. /usr/lib/lsb/init-functions
+ . /usr/lib/cryptsetup/functions
+ 
+ if [ -r /etc/default/cryptdisks ]; then
+@@ -33,17 +32,16 @@ do_start() {
+     dmsetup mknodes >/dev/null 2>&1 || true
+ 
+     if [ "$INITSTATE" != "init" ]; then
+-        log_action_begin_msg "Starting $INITSTATE crypto disks"
++        echo "Starting $INITSTATE crypto disks..."
+     fi
+     mount_fs
+ 
+     crypttab_foreach_entry _do_start_callback
+ 
+     umount_fs
+-    log_action_end_msg 0
+ }
+ _do_start_callback() {
+-    setup_mapping || log_action_end_msg $?
++    setup_mapping || echo "Mapping setup failed."
+ }
+ 
+ # mount_fs()
+@@ -73,7 +71,6 @@ umount_fs() {
+ #   $CRYPTTAB_SOURCE, $CRYPTTAB_KEY, $CRYPTTAB_OPTIONS.
+ setup_mapping() {
+     if dm_blkdevname "$CRYPTTAB_NAME" >/dev/null; then
+-        device_msg "running"
+         return 0
+     fi
+ 
+@@ -88,26 +85,20 @@ setup_mapping() {
+     if [ -z "${FORCE_START-}" ]; then
+         if [ "$INITSTATE" = "early" -a -n "${CRYPTTAB_OPTION_noearly+x}" ] ||
+                 [ "$INITSTATE" != "manual" -a -n "${CRYPTTAB_OPTION_noauto+x}" ]; then
+-            device_msg "ignored"
+             return 0
+         fi
+     fi
+ 
+     if [ -z "${CRYPTTAB_OPTION_keyscript+x}" ] && [ "$CRYPTTAB_KEY" != "none" ]; then
+         if ! crypttab_key_check; then
+-            device_msg "invalid key"
+             return 1
+         fi
+         CRYPTTAB_OPTION_tries=1
+     fi
+ 
+     if ! crypttab_resolve_source; then
+-        if [ "$loud" = "yes" ]; then
+-            device_msg "skipped, device $CRYPTTAB_SOURCE does not exist"
+-        fi
+         return 1
+     fi
+-    device_msg "starting"
+ 
+     local offset_bytes=""
+     if [ -n "${CRYPTTAB_OPTION_offset+x}" ] && [ ${#CRYPTTAB_OPTION_offset} -le 7 ] && [ $CRYPTTAB_OPTION_offset -lt 4194304 ]; then
+@@ -122,7 +113,7 @@ setup_mapping() {
+         # easily convert an existing plainttext swap partition to an encrypted one
+         if ! out="$(/usr/lib/cryptsetup/checks/un_blkid "$CRYPTTAB_SOURCE" "" ${CRYPTTAB_OPTION_offset+"$offset_bytes"} 2>/dev/null)" &&
+                 ! /usr/lib/cryptsetup/checks/blkid "$CRYPTTAB_SOURCE" swap ${CRYPTTAB_OPTION_offset+"$offset_bytes"} >/dev/null; then
+-            log_warning_msg "$CRYPTTAB_NAME: the precheck for '$CRYPTTAB_SOURCE' failed: $out"
++            echo "$CRYPTTAB_NAME: the precheck for '$CRYPTTAB_SOURCE' failed: $out"
+             return 1
+         fi
+     fi
+@@ -146,7 +137,7 @@ setup_mapping() {
+         fi
+         if [ -n "${CRYPTTAB_OPTION_check+x}" ] && \
+                 ! "$CRYPTTAB_OPTION_check" "$tmpdev" ${CRYPTTAB_OPTION_checkargs+"$CRYPTTAB_OPTION_checkargs"}; then
+-            log_warning_msg "$target: the check for '$CRYPTTAB_NAME' failed"
++            echo "$target: the check for '$CRYPTTAB_NAME' failed"
+             cryptsetup remove -- "$CRYPTTAB_NAME"
+             continue
+         fi
+@@ -155,7 +146,7 @@ setup_mapping() {
+                     /usr/lib/cryptsetup/checks/blkid "$tmpdev" swap ${CRYPTTAB_OPTION_offset+"$offset_bytes"} >/dev/null 2>&1; then
+                 mkswap "$tmpdev" >/dev/null 2>&1
+             else
+-                log_warning_msg "$target: the check for '$CRYPTTAB_NAME' failed. $CRYPTTAB_NAME contains data: $out"
++                echo "$target: the check for '$CRYPTTAB_NAME' failed. $CRYPTTAB_NAME contains data: $out"
+                 cryptsetup remove -- "$CRYPTTAB_NAME"
+                 return 1
+             fi
+@@ -174,10 +165,8 @@ setup_mapping() {
+             udevadm settle
+         fi
+         dmsetup rename -- "$CRYPTTAB_NAME" "$target"
+-        device_msg "$target" "started"
+         return 0
+     done
+-    device_msg "$target" "failed"
+     return 1
+ }
+ 
+@@ -186,13 +175,12 @@ setup_mapping() {
+ do_stop() {
+     local devno_rootfs devno_usr
+     dmsetup mknodes
+-    log_action_begin_msg "Stopping $INITSTATE crypto disks"
++    echo "Stopping $INITSTATE crypto disks"
+ 
+     devno_rootfs="$(get_mnt_devno /)" || devno_rootfs=""
+     devno_usr="$(get_mnt_devno /usr)" || devno_usr=""
+ 
+     crypttab_foreach_entry _do_stop_callback
+-    log_action_end_msg 0
+ }
+ _do_stop_callback() {
+     local skip="n" devno rv=0
+@@ -220,52 +208,29 @@ _do_stop_remove() {
+     for i in 1 2 4 8 16 32; do
+         remove_mapping "$name" 3<&- && break || rv=$?
+         if [ $rv -eq 1 ] || [ $rv -eq 2 -a $i -gt 16 ]; then
+-            log_action_end_msg $rv
+             break
+         fi
+-        log_action_cont_msg "$name busy..."
+         sleep $i
+     done
+ }
+ 
+-# device_msg([$name], $message)
+-#   Convenience function to handle $VERBOSE
+-device_msg() {
+-    local name message
+-    if [ $# -eq 1 ]; then
+-        name="$CRYPTTAB_NAME"
+-        message="$1"
+-    else
+-        name="$1"
+-        message="$2"
+-    fi
+-
+-    if [ "$VERBOSE" != "no" ]; then
+-        log_action_cont_msg "$name ($message)"
+-    fi
+-}
+-
+ # remove_mapping($target)
+ #   Remove mapping $target
+ remove_mapping() {
+     local CRYPTTAB_NAME="$1"
+ 
+     if ! dm_blkdevname "$CRYPTTAB_NAME" >/dev/null; then
+-        device_msg "stopped"
+         return 0
+     fi
+ 
+     if [ "$(dmsetup info --noheadings -c -o subsystem -- "$CRYPTTAB_NAME")" != "CRYPT" ]; then
+-        device_msg "error"
+         return 1
+     fi
+ 
+     local opencount="$(dmsetup info -c --noheadings -o open -- "$CRYPTTAB_NAME" 2>/dev/null || true)"
+     if [ -z "$opencount" ]; then
+-        device_msg "error"
+         return 1
+     elif [ "$opencount" != "0" ]; then
+-        device_msg "busy"
+         if [ "$INITSTATE" = "early" ] || [ "$INITSTATE" = "manual" ]; then
+             return 1
+         elif [ "$INITSTATE" = "remaining" ]; then
+@@ -275,10 +240,8 @@ remove_mapping() {
+     fi
+ 
+     if cryptsetup remove -- "$CRYPTTAB_NAME"; then
+-        device_msg "stopping"
+         return 0
+     else
+-        device_msg "error"
+         return 1
+     fi
+ }
+diff --git a/debian/functions b/debian/functions
+index 45e6f41..d6039a6 100644
+--- a/debian/functions
++++ b/debian/functions
+@@ -452,8 +452,7 @@ crypttab_key_check() {
+ 
+     local mode="$(stat -L -f "%Mp%Lp" -- "$CRYPTTAB_KEY")"
+     if [ $(stat -L -f "%u" -- "$CRYPTTAB_KEY") -ne 0 ] || [ "${mode%00}" = "$mode" ]; then
+-        cryptsetup_message "WARNING: $CRYPTTAB_NAME: key file $CRYPTTAB_KEY has" \
+-            "insecure ownership, see /usr/share/doc/cryptsetup/README.Debian.gz."
++        cryptsetup_message "WARNING: $CRYPTTAB_NAME: key file $CRYPTTAB_KEY has insecure ownership"
+     fi
+ }
+ 
+diff --git a/debian/scripts/cryptdisks_start b/debian/scripts/cryptdisks_start
+index d857fd9..8e3f852 100644
+--- a/debian/scripts/cryptdisks_start
++++ b/debian/scripts/cryptdisks_start
+@@ -37,11 +37,10 @@ done
+ [ $# -gt 0 ] || usage 1
+ 
+ if [ $(id -u) -ne 0 ]; then
+-    log_warning_msg "$0 needs root privileges"
++    echo "$0: needs root privileges"
+     exit 1
+ fi
+ 
+-log_action_begin_msg "Starting crypto disk"
+ mount_fs
+ 
+ rv=0
+@@ -59,5 +58,4 @@ for name in "$@"; do
+ done
+ umount_fs
+ 
+-log_action_end_msg $rv
+ exit $rv
+diff --git a/debian/scripts/cryptdisks_stop b/debian/scripts/cryptdisks_stop
+index 8fb7d68..48c7c32 100644
+--- a/debian/scripts/cryptdisks_stop
++++ b/debian/scripts/cryptdisks_stop
+@@ -23,16 +23,13 @@ INITSTATE="manual"
+ DEFAULT_LOUD="yes"
+ 
+ if [ $(id -u) -ne 0 ]; then
+-    log_warning_msg "$0 needs root privileges"
++    echo "$0: needs root privileges"
+     exit 1
+ fi
+ 
+-log_action_begin_msg "Stopping crypto disk"
+-
+ rv=0
+ for name in "$@"; do
+     remove_mapping "$name" || rv=$?
+ done
+ 
+-log_action_end_msg $rv
+ exit $rv
+-- 
+2.39.0
+

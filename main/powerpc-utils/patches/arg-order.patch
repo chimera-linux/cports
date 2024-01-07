@@ -1,0 +1,11 @@
+--- a/scripts/ofpathname
++++ b/scripts/ofpathname
+@@ -35,7 +35,7 @@ PSERIES_PLATFORM=$(dirname $0)/pseries_platform
+ 
+ # Find out what platfrom we are running on.  Hopefully this
+ # list will get expanded with time.
+-PLATFORM=$(sed /proc/cpuinfo -ne "s/^machine\t*: \(.*\)/\1/p")
++PLATFORM=$(sed -ne "s/^machine\t*: \(.*\)/\1/p" /proc/cpuinfo)
+ case $PLATFORM in
+     EFIKA5K2\ *)	PLATFORM=efika ;;
+     PowerBook*)		PLATFORM=mac ;;

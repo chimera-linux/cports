@@ -1,0 +1,13 @@
+fails with llvm 17 (and was ignored with 16), actual
+__builtin_ms_va_start use is allowed with __attribute__((ms_abi))
+--
+--- a/configure.ac
++++ b/configure.ac
+@@ -1943,7 +1946,6 @@
+                     CFLAGS=$saved_CFLAGS])
+                test $ac_cv_mabi_ms = yes || AC_MSG_ERROR([The compiler doesn't support -mabi=ms. Use gcc instead of clang, or install mingw-w64.])
+            fi
+-           MSVCRTFLAGS="$MSVCRTFLAGS -mabi=ms" ;;
+       esac ;;
+     arm*)
+       WINE_TRY_CFLAGS([-Wincompatible-function-pointer-types],[EXTRACFLAGS="$EXTRACFLAGS -Wno-error=incompatible-function-pointer-types"]) ;;

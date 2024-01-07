@@ -1,0 +1,30 @@
+From b28cfcc07dd7be4adbfcfc999e5bda1d7fd9fede Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:11:15 +0100
+Subject: [PATCH 17/25] clang: use --as-needed by default
+
+---
+ clang/lib/Driver/ToolChains/Gnu.cpp | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/clang/lib/Driver/ToolChains/Gnu.cpp b/clang/lib/Driver/ToolChains/Gnu.cpp
+index 40038dce4..52bdc89ef 100644
+--- a/clang/lib/Driver/ToolChains/Gnu.cpp
++++ b/clang/lib/Driver/ToolChains/Gnu.cpp
+@@ -547,6 +547,13 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
+   bool NeedsSanitizerDeps = addSanitizerRuntimes(ToolChain, Args, CmdArgs);
+   bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
+   addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
++
++  // Use --as-needed by default for all explicit linker inputs on Linux
++  // We don't reset it afterwards because explicit argument does not
++  // get reset either (and that is permitted, so it should be fine)
++  if (Triple.isOSLinux())
++    CmdArgs.push_back("--as-needed");
++
+   AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
+ 
+   addHIPRuntimeLibArgs(ToolChain, Args, CmdArgs);
+-- 
+2.42.0
+

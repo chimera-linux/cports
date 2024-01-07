@@ -1,0 +1,53 @@
+From 6e4e93bda2b4b1a02d21527733a3a005801a23bd Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 10 Apr 2022 23:35:49 +0200
+Subject: [PATCH] prevent inclusion of busybox in initramfs
+
+---
+ contrib/initramfs/conf-hooks.d/zfs |  3 ---
+ contrib/initramfs/hooks/zfs.in     | 10 ++++------
+ 2 files changed, 4 insertions(+), 9 deletions(-)
+
+diff --git a/contrib/initramfs/conf-hooks.d/zfs b/contrib/initramfs/conf-hooks.d/zfs
+index b86d362..679fcae 100644
+--- a/contrib/initramfs/conf-hooks.d/zfs
++++ b/contrib/initramfs/conf-hooks.d/zfs
+@@ -1,6 +1,3 @@
+-# Force the inclusion of Busybox in the initramfs.
+-BUSYBOX=y
+-
+ # Setup the keyboard mapping so passphrases can be entered correctly.
+ KEYMAP=y
+ 
+diff --git a/contrib/initramfs/hooks/zfs.in b/contrib/initramfs/hooks/zfs.in
+index 546841e..6cbfbed 100755
+--- a/contrib/initramfs/hooks/zfs.in
++++ b/contrib/initramfs/hooks/zfs.in
+@@ -10,6 +10,11 @@ fi
+ 
+ . /usr/share/initramfs-tools/hook-functions
+ 
++copy_exec /usr/bin/grep
++copy_exec /usr/bin/sed
++copy_exec /usr/bin/tr
++copy_exec /usr/bin/awk
++
+ for req in "@sbindir@/zpool" "@sbindir@/zfs" "@mounthelperdir@/mount.zfs"; do
+ 	copy_exec "$req" || {
+ 		echo "$req not available!" >&2
+@@ -24,12 +28,6 @@ if command -v systemd-ask-password > /dev/null; then
+ 	copy_exec "$(command -v systemd-ask-password)"
+ fi
+ 
+-# We use pthreads, but i-t from buster doesn't automatically
+-# copy this indirect dependency: this can be removed when buster finally dies.
+-find /lib/ -type f -name "libgcc_s.so.[1-9]" | while read -r libgcc; do
+-	copy_exec "$libgcc"
+-done
+-
+ # shellcheck disable=SC2050
+ if [ @LIBFETCH_DYNAMIC@ -gt 0 ]; then
+ 	find /lib/ -name "@LIBFETCH_SONAME@" | while read -r libfetch; do
+-- 
+2.35.1
+

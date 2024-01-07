@@ -1,0 +1,11 @@
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -165,7 +165,7 @@ $(RUNTIME_TARGETS): %: %.c
+ 
+ run: $(RUNTIME_TARGETS)
+ 	$(foreach EXE, $(RUNTIME_TARGETS), \
+-		timeout 1s ./$(EXE) 1234567890 2 3 4 5 6 7 8 9 0 >/dev/null && echo "$(EXE) OK" || echo "$(EXE) FAIL"; \
++		if timeout 1s ./$(EXE) 1234567890 2 3 4 5 6 7 8 9 0 >/dev/null; then echo "$(EXE) OK"; else echo "$(EXE) FAIL"; exit 1; fi; \
+ 	)
+ 
+ comptime:  # only works on clang, as gcc doesn't have the diagnose_if attribute

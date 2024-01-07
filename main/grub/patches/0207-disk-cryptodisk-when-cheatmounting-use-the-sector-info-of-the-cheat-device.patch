@@ -1,0 +1,72 @@
+From: Fabian Vogt <fvogt@suse.de>
+Date: Thu, 12 Jan 2023 17:05:07 -0600
+Subject: disk/cryptodisk: When cheatmounting, use the sector info of the cheat
+ device
+Origin: https://git.savannah.gnu.org/cgit/grub.git/commit/?id=efc9c363b2aab222586b420508eb46fc13242739
+Bug-Debian: https://bugs.debian.org/1028301
+
+When using grub-probe with cryptodisk, the mapped block device from the host
+is used directly instead of decrypting the source device in GRUB code.
+In that case, the sector size and count of the host device needs to be used.
+This is especially important when using LUKS2, which does not assign
+total_sectors and log_sector_size when scanning, but only later when the
+segments in the JSON area are evaluated. With an unset log_sector_size,
+grub_device_open() complains.
+
+This fixes grub-probe failing with
+"error: sector sizes of 1 bytes aren't supported yet.".
+
+Signed-off-by: Fabian Vogt <fvogt@suse.de>
+Reviewed-by: Patrick Steinhardt <ps@pks.im>
+Tested-by: Glenn Washburn <development@efficientek.com>
+Reviewed-by: Glenn Washburn <development@efficientek.com>
+Reviewed-by: Patrick Steinhardt <ps@pks.im>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/disk/cryptodisk.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+--- a/grub-core/disk/cryptodisk.c
++++ b/grub-core/disk/cryptodisk.c
+@@ -694,16 +694,31 @@ grub_cryptodisk_open (const char *name,
+   if (!dev)
+     return grub_error (GRUB_ERR_UNKNOWN_DEVICE, "No such device");
+ 
+-  disk->log_sector_size = dev->log_sector_size;
+-
+ #ifdef GRUB_UTIL
+   if (dev->cheat)
+     {
++      grub_uint64_t cheat_dev_size;
++      unsigned int cheat_log_sector_size;
++
+       if (!GRUB_UTIL_FD_IS_VALID (dev->cheat_fd))
+ 	dev->cheat_fd = grub_util_fd_open (dev->cheat, GRUB_UTIL_FD_O_RDONLY);
+       if (!GRUB_UTIL_FD_IS_VALID (dev->cheat_fd))
+ 	return grub_error (GRUB_ERR_IO, N_("cannot open `%s': %s"),
+ 			   dev->cheat, grub_util_fd_strerror ());
++
++      /* Use the sector size and count of the cheat device. */
++      cheat_dev_size = grub_util_get_fd_size (dev->cheat_fd, dev->cheat, &cheat_log_sector_size);
++      if (cheat_dev_size == -1)
++        {
++          const char *errmsg = grub_util_fd_strerror ();
++          grub_util_fd_close (dev->cheat_fd);
++          dev->cheat_fd = GRUB_UTIL_FD_INVALID;
++          return grub_error (GRUB_ERR_IO, N_("failed to query size of device `%s': %s"),
++                             dev->cheat, errmsg);
++        }
++
++      dev->log_sector_size = cheat_log_sector_size;
++      dev->total_sectors = cheat_dev_size >> cheat_log_sector_size;
+     }
+ #endif
+ 
+@@ -717,6 +732,7 @@ grub_cryptodisk_open (const char *name,
+     }
+ 
+   disk->data = dev;
++  disk->log_sector_size = dev->log_sector_size;
+   disk->total_sectors = dev->total_sectors;
+   disk->max_agglomerate = GRUB_DISK_MAX_MAX_AGGLOMERATE;
+   disk->id = dev->id;

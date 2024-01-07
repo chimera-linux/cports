@@ -1,0 +1,248 @@
+From 8c3ff0ae56ae00f970da5bb83b65786def7c1860 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Mon, 27 Feb 2023 02:18:41 +0100
+Subject: [PATCH] use standard console keymaps instead of xkb by default
+
+This patch will probably be reworked further later, but for now
+it will do.
+---
+ config/keyboard | 12 +++++-----
+ man/keyboard.5  | 45 ++++++++++----------------------------
+ setupcon        | 58 ++++++++++++++++++++++++++++++++++++++-----------
+ 3 files changed, 63 insertions(+), 52 deletions(-)
+
+diff --git a/config/keyboard b/config/keyboard
+index 16e8da8..c8734ca 100644
+--- a/config/keyboard
++++ b/config/keyboard
+@@ -2,9 +2,11 @@
+ 
+ # Consult the keyboard(5) manual page.
+ 
+-XKBMODEL=pc105
+-XKBLAYOUT=us
+-XKBVARIANT=
+-XKBOPTIONS=
++KMAP=us
+ 
+-BACKSPACE=guess
++#XKBMODEL=pc105
++#XKBLAYOUT=us
++#XKBVARIANT=
++#XKBOPTIONS=
++
++#BACKSPACE=guess
+diff --git a/man/keyboard.5 b/man/keyboard.5
+index 2d692f5..31fbf96 100644
+--- a/man/keyboard.5
++++ b/man/keyboard.5
+@@ -13,14 +13,18 @@ The
+ .B keyboard
+ file describes the properties of the keyboard. It is read by
+ .BR setupcon (1)
+-in order to configure the keyboard on the console.  In Debian systems
++in order to configure the keyboard on the console.  In Chimera systems
+ the default keyboard layout is described in
+ .I /etc/default/keyboard
+-and it is shared between X and the console.
++and by default uses a standard console keymap. It is also possible to
++configure the system to use an X11 keymap. Note that the support package
++for X11 keymaps needs to be installed to use them.
+ .P
+ The specification of the keyboard layout in the
+ .B keyboard
+-file is based on the
++file is based on either the
++.B KMAP
++option (specifying the console keymap) or the
+ .SM XKB
+ options XkbModel, XkbLayout, XkbVariant and XkbOptions.
+ Unfortunately, there is little documentation how to use them.  Description of all possible values for these options can be found in the file
+@@ -61,18 +65,14 @@ The following variables can be set.
+ .B XKBMODEL
+ Specifies the
+ .SM XKB
+-keyboard model name.  Default: 
+-.B pc105
+-on most platforms.
++keyboard model name.  Default: not set.
+ 
+ .TP
+ .B XKBLAYOUT
+ Specifies the
+ .SM XKB
+ keyboard layout name. This is usually the country or language type of
+-the keyboard. Default:
+-.B us
+-on most platforms
++the keyboard. Default: not set.
+ 
+ .TP
+ .B XKBVARIANT
+@@ -141,14 +141,9 @@ will generate a special function sequence.
+ 
+ .TP
+ .B KMAP
+-Usually this variable will be unset but if you don't want to use a
+-.SM XKB
+-layout on the console, you can specify an alternative keymap here.
+-Specify a file that is suitable as input for
++Specifies the console keymap that is suitable as input for
+ .BR loadkeys (1)
+-on Linux or for
+-.BR kbdcontrol (1)
+-on FreeBSD.
++on Linux.
+ 
+ .SH FILES
+ The standard location of the
+@@ -163,30 +158,12 @@ In most cases, in
+ you will find several keymaps that can be used with the variable
+ .BR KMAP .
+ 
+-.SH NOTES
+-In Debian systems, changes in
+-.I /etc/default/keyboard
+-do not become immediately visible to X.  You should either reboot the
+-system, or use
+-.in +4n
+-.nf
+-
+-udevadm trigger --subsystem-match=input --action=change
+-
+-.fi
+-.in
+-In order to activate the changes on the console, run
+-.BR setupcon (1) .
+-
+ .SH BUGS
+ When a triple-layout is used on the console, i.e. a layout with three
+ .SM XKB
+ groups, then the group toggling happens in the following way: Group1
+ \-> Group2 \-> Group1 \-> Group3.
+ .P
+-On FreeBSD triple- and quadruple-layouts are not supported on the
+-console (only the first and the second layout are taken into account).
+-.P
+ The option
+ .B grp:shifts_toggle
+ is not supported on the console.
+diff --git a/setupcon b/setupcon
+index e701a9e..b54accd 100755
+--- a/setupcon
++++ b/setupcon
+@@ -460,6 +460,12 @@ if which uname >/dev/null; then
+     esac
+ fi
+ 
++# do we have ckbcomp?
++have_ckbcomp=
++if which ckbcomp >/dev/null; then
++    have_ckbcomp=1
++fi
++
+ # do_save
+ if [ -n "$do_save" ]; then
+     if [ ! -d /usr/share ]; then
+@@ -689,7 +695,9 @@ if \
+     [ -n "$do_kbd$do_save$savekbdfile$setupdir$do_printonly" \
+          -a -z "$XKBMODEL" ]
+ then
+-    echo setupcon: The keyboard model is unknown, assuming \'pc105\'.  Keyboard may be configured incorrectly. >&2
++    if [ -z "$KMAP" ]; then
++        echo setupcon: The keyboard model is unknown, assuming \'pc105\'.  Keyboard may be configured incorrectly. >&2
++    fi
+     XKBMODEL='pc105'
+ fi
+ [ -n "$XKBMODEL" -o -z "$savekbdfile" ] || exit 1
+@@ -794,13 +802,6 @@ if [ "$kernel" = linux ] && ! which gzip >/dev/null; then
+     echo setupcon: gzip is not accessible.  Will not save cached keyboard map. >&2
+ fi
+ 
+-# KMAP
+-if [ -n "$KMAP" -a ! -f "$KMAP" ]; then
+-    echo setupcon: $KMAP does not exist. >&2
+-    KMAP=''
+-fi
+-
+-
+ ###########################################################################
+ ### SAVE THE FILES IN /etc
+ ###########################################################################
+@@ -818,7 +819,7 @@ for i in /etc/console-setup $CONSOLE_MAP $FONTFILES $FONTMAPFILE $savekbdfile; d
+     fi
+ done
+ 
+-if [ "$savekbdfile" ]; then
++if [ "$savekbdfile" -a -n "$have_ckbcomp" ]; then
+     case "$kernel" in
+         linux)
+             tempfile || { echo setupcon: Can not create temporary file >&2; exit 1; }
+@@ -1096,7 +1097,7 @@ if [ "$KMAP" ]; then
+         linux) run plain NONE loadkeys "$KMAP" ;;
+         freebsd) run in '' kbdcontrol -l "$KMAP" ;;
+     esac
+-else
++elif [ -n "$have_ckbcomp" ]; then
+     tempfile || { echo setupcon: Can not create temporary file >&2; exit 1; }
+     case "$do_kbd" in
+         linux)
+@@ -1203,8 +1204,34 @@ if [ "$setupdir" ]; then
+         fi
+     }
+ 
++    do_loadkeys () {
++        local arg args f
++        read -r arg args
++        # downstream utility
++        /usr/libexec/kbd/findkeys "$arg" | {
++            first=
++            while read -r line; do
++                f="${line##*/}"
++                f="${f%.gz}"
++                case "$line" in
++                    *.gz) zcat "$line" >"$setupdir/etc/console-setup/kmap/$f" ;;
++                    *) cp -a "$line" "$setupdir/etc/console-setup/kmap/$f" ;;
++                esac
++                if [ -z "$first" ]; then
++                    echo -n "loadkeys '"
++                    printf "%s" "/etc/console-setup/kmap/$f" \
++                        | sed "s/'/\'\\\\\'\'/g"
++                    echo -n "'"
++                    first=1
++                fi
++            done
++            echo -n ' '
++            fileargs "$args"
++        }
++    }
++
+     mkdir -p "$setupdir"/bin
+-    mkdir -p "$setupdir"/etc/console-setup
++    mkdir -p "$setupdir"/etc/console-setup/kmap
+ 
+     echo '#!/bin/sh' >"$setupdir"/bin/setupcon
+     echo '# A micro-version of setupcon with static configuration.' >>"$setupdir"/bin/setupcon
+@@ -1213,12 +1240,17 @@ if [ "$setupdir" ]; then
+     printf "%s" "$SETUP" |
+     while read -r cmd args; do
+         which "$cmd" >>$TMPFILE || true
+-        printf "%s " "$cmd"
+-        fileargs "$args"
++        if [ "$cmd" = "loadkeys" ]; then
++            printf "%s" "$args" | do_loadkeys
++        else
++            printf "%s " "$cmd"
++            fileargs "$args" "$cmd"
++        fi
+         echo
+     done >>"$setupdir"/bin/setupcon
+     echo 'mkdir /run/console-setup' >>"$setupdir"/bin/setupcon
+     echo '>/run/console-setup/keymap_loaded' >>"$setupdir"/bin/setupcon
+     echo exit 0 >>"$setupdir"/bin/setupcon
++
+     sort $TMPFILE | uniq | grep -v 'printf$' >"$setupdir"/morefiles
+ fi
+-- 
+2.39.0
+

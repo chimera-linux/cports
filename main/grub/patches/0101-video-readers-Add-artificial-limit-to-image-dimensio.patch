@@ -1,0 +1,109 @@
+From a85714545fe57a86d14ee231a4cd312158101d43 Mon Sep 17 00:00:00 2001
+From: Alec Brown <alec.r.brown@oracle.com>
+Date: Wed, 26 Oct 2022 20:16:44 -0400
+Subject: [PATCH 01/14] video/readers: Add artificial limit to image dimensions
+
+In grub-core/video/readers/jpeg.c, the height and width of a JPEG image don't
+have an upper limit for how big the JPEG image can be. In Coverity, this is
+getting flagged as an untrusted loop bound. This issue can also seen in PNG and
+TGA format images as well but Coverity isn't flagging it. To prevent this, the
+constant IMAGE_HW_MAX_PX is being added to include/grub/bitmap.h, which has
+a value of 16384, to act as an artificial limit and restrict the height and
+width of images. This value was picked as it is double the current max
+resolution size, which is 8K.
+
+Fixes: CID 292450
+
+Signed-off-by: Alec Brown <alec.r.brown@oracle.com>
+Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ docs/grub.texi                 | 3 ++-
+ grub-core/video/readers/jpeg.c | 6 +++++-
+ grub-core/video/readers/png.c  | 6 +++++-
+ grub-core/video/readers/tga.c  | 7 +++++++
+ include/grub/bitmap.h          | 2 ++
+ 5 files changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/docs/grub.texi b/docs/grub.texi
+index 0dbbdc374..2d6cd8358 100644
+--- a/docs/grub.texi
++++ b/docs/grub.texi
+@@ -1515,7 +1515,8 @@ resolution.  @xref{gfxmode}.
+ Set a background image for use with the @samp{gfxterm} graphical terminal.
+ The value of this option must be a file readable by GRUB at boot time, and
+ it must end with @file{.png}, @file{.tga}, @file{.jpg}, or @file{.jpeg}.
+-The image will be scaled if necessary to fit the screen.
++The image will be scaled if necessary to fit the screen. Image height and
++width will be restricted by an artificial limit of 16384.
+ 
+ @item GRUB_THEME
+ Set a theme for use with the @samp{gfxterm} graphical terminal.
+diff --git a/grub-core/video/readers/jpeg.c b/grub-core/video/readers/jpeg.c
+index 09596fbf5..ae634fd41 100644
+--- a/grub-core/video/readers/jpeg.c
++++ b/grub-core/video/readers/jpeg.c
+@@ -346,7 +346,11 @@ grub_jpeg_decode_sof (struct grub_jpeg_data *data)
+   data->image_height = grub_jpeg_get_word (data);
+   data->image_width = grub_jpeg_get_word (data);
+ 
+-  if ((!data->image_height) || (!data->image_width))
++  grub_dprintf ("jpeg", "image height: %d\n", data->image_height);
++  grub_dprintf ("jpeg", "image width: %d\n", data->image_width);
++
++  if ((!data->image_height) || (!data->image_width) ||
++      (data->image_height > IMAGE_HW_MAX_PX) || (data->image_width > IMAGE_HW_MAX_PX))
+     return grub_error (GRUB_ERR_BAD_FILE_TYPE, "jpeg: invalid image size");
+ 
+   cc = grub_jpeg_get_byte (data);
+diff --git a/grub-core/video/readers/png.c b/grub-core/video/readers/png.c
+index 7f2ba7849..3163e97bf 100644
+--- a/grub-core/video/readers/png.c
++++ b/grub-core/video/readers/png.c
+@@ -264,7 +264,11 @@ grub_png_decode_image_header (struct grub_png_data *data)
+   data->image_width = grub_png_get_dword (data);
+   data->image_height = grub_png_get_dword (data);
+ 
+-  if ((!data->image_height) || (!data->image_width))
++  grub_dprintf ("png", "image height: %d\n", data->image_height);
++  grub_dprintf ("png", "image width: %d\n", data->image_width);
++
++  if ((!data->image_height) || (!data->image_width) ||
++      (data->image_height > IMAGE_HW_MAX_PX) || (data->image_width > IMAGE_HW_MAX_PX))
+     return grub_error (GRUB_ERR_BAD_FILE_TYPE, "png: invalid image size");
+ 
+   color_bits = grub_png_get_byte (data);
+diff --git a/grub-core/video/readers/tga.c b/grub-core/video/readers/tga.c
+index a9ec3a1b6..9c35bf29d 100644
+--- a/grub-core/video/readers/tga.c
++++ b/grub-core/video/readers/tga.c
+@@ -340,6 +340,13 @@ grub_video_reader_tga (struct grub_video_bitmap **bitmap,
+   data.image_width = grub_le_to_cpu16 (data.hdr.image_width);
+   data.image_height = grub_le_to_cpu16 (data.hdr.image_height);
+ 
++  grub_dprintf ("tga", "image height: %d\n", data.image_height);
++  grub_dprintf ("tga", "image width: %d\n", data.image_width);
++
++  /* Check image height and width are within restrictions. */
++  if ((data.image_height > IMAGE_HW_MAX_PX) || (data.image_width > IMAGE_HW_MAX_PX))
++    return grub_error (GRUB_ERR_BAD_FILE_TYPE, "tga: invalid image size");
++
+   /* Check that bitmap encoding is supported.  */
+   switch (data.hdr.image_type)
+     {
+diff --git a/include/grub/bitmap.h b/include/grub/bitmap.h
+index 5728f8ca3..149d37bfe 100644
+--- a/include/grub/bitmap.h
++++ b/include/grub/bitmap.h
+@@ -24,6 +24,8 @@
+ #include <grub/types.h>
+ #include <grub/video.h>
+ 
++#define IMAGE_HW_MAX_PX		16384
++
+ struct grub_video_bitmap
+ {
+   /* Bitmap format description.  */
+-- 
+2.30.2
+

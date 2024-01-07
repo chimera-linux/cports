@@ -1,0 +1,59 @@
+From 7e738ed6af54e47753dc331cd3649c0628318bd7 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Tue, 24 Jan 2023 18:35:52 +0000
+Subject: [PATCH] suppress ubsan for fp16 float funcs
+
+---
+ gsk/gl/fp16.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/gsk/gl/fp16.c b/gsk/gl/fp16.c
+index 29e8352..4bd03d4 100644
+--- a/gsk/gl/fp16.c
++++ b/gsk/gl/fp16.c
+@@ -36,7 +36,7 @@ as_float (const guint x)
+ 
+ // IEEE-754 16-bit floating-point format (without infinity): 1-5-10
+ 
+-static inline float
++__attribute__((no_sanitize("undefined"))) static inline float
+ half_to_float_one (const guint16 x)
+ {
+   const guint e = (x&0x7C00)>>10; // exponent
+@@ -45,7 +45,7 @@ half_to_float_one (const guint16 x)
+   return as_float((x&0x8000)<<16 | (e!=0)*((e+112)<<23|m) | ((e==0)&(m!=0))*((v-37)<<23|((m<<(150-v))&0x007FE000)));
+ }
+ 
+-static inline guint16
++__attribute__((no_sanitize("undefined"))) static inline guint16
+ float_to_half_one (const float x)
+ {
+   const guint b = as_uint(x)+0x00001000; // round-to-nearest-even
+-- 
+2.34.1
+
+commit b623fe4494c3a8505e78b5efa7ef6226d732df55
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Jan 24 21:47:19 2023 +0000
+
+    fix shift overflow in xcursor
+
+diff --git a/gdk/wayland/cursor/xcursor.c b/gdk/wayland/cursor/xcursor.c
+index eef0133..8611499 100644
+--- a/gdk/wayland/cursor/xcursor.c
++++ b/gdk/wayland/cursor/xcursor.c
+@@ -266,10 +266,10 @@ _XcursorReadUInt (XcursorFile *file, XcursorUInt *u)
+ 
+     if ((*file->read) (file, bytes, 4) != 4)
+ 	return XcursorFalse;
+-    *u = ((bytes[0] << 0) |
+-	  (bytes[1] << 8) |
+-	  (bytes[2] << 16) |
+-	  (bytes[3] << 24));
++    *u = (((unsigned int)bytes[0] << 0) |
++	  ((unsigned int)bytes[1] << 8) |
++	  ((unsigned int)bytes[2] << 16) |
++	  ((unsigned int)bytes[3] << 24));
+     return XcursorTrue;
+ }
+ 

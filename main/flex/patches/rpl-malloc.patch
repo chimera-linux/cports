@@ -1,0 +1,37 @@
+diff --git a/lib/malloc.h b/lib/malloc.h
+new file mode 100644
+index 0000000..3859c07
+--- /dev/null
++++ b/lib/malloc.h
+@@ -0,0 +1,3 @@
++#include <sys/types.h>
++
++void * rpl_malloc (size_t n);
+diff --git a/lib/realloc.h b/lib/realloc.h
+new file mode 100644
+index 0000000..2163135
+--- /dev/null
++++ b/lib/realloc.h
+@@ -0,0 +1,3 @@
++#include <sys/types.h>
++
++void * rpl_realloc (void *p, size_t n);
+diff --git a/src/config.h.in b/src/config.h.in
+index 4756505..5397ee3 100644
+--- a/src/config.h.in
++++ b/src/config.h.in
+@@ -250,12 +250,14 @@
+ #undef const
+ 
+ /* Define to rpl_malloc if the replacement function should be used. */
++#include "rpl_malloc.h"
+ #undef malloc
+ 
+ /* Define to `int' if <sys/types.h> does not define. */
+ #undef pid_t
+ 
+ /* Define to rpl_realloc if the replacement function should be used. */
++#include "rpl_realloc.h"
+ #undef realloc
+ 
+ /* Define to `unsigned int' if <sys/types.h> does not define. */

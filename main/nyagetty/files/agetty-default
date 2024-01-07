@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# A wrapper for agetty with config files.
+#
+# Copyright 2023 Daniel "q66" Kolesa
+#
+# License: BSD-2-Clause
+#
+
+GETTY="$1"
+shift
+
+if [ -z "$GETTY" ]; then
+    echo "$0: no tty given"
+fi
+
+if [ ! -c "/dev/$GETTY" ]; then
+    echo "$0: /dev/$GETTY is not a terminal"
+fi
+
+# defaults
+GETTY_BAUD=$1
+shift
+GETTY_TERM=$1
+shift
+GETTY_ARGS=$*
+
+# do not clear tty1 by default
+if [ "$GETTY" = "tty1" ]; then
+    GETTY_ARGS="$GETTY_ARGS --noclear"
+fi
+
+# if unset, defaults for graphical terminal
+[ -n "$GETTY_TERM" ] || GETTY_TERM=linux
+[ -n "$GETTY_BAUD" ] || GETTY_BAUD=38400
+
+# read config, which may override the above vars
+[ -r "/etc/default/agetty-$GETTY" ] && . "/etc/default/agetty-$GETTY"
+
+exec /usr/bin/agetty $GETTY_ARGS "$GETTY" "$GETTY_BAUD" "$GETTY_TERM"

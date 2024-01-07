@@ -1,0 +1,102 @@
+From caa8fdb4c7f46d10cf0b3044ea63867e3ec51d6c Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 26 Aug 2022 05:48:04 +0200
+Subject: [PATCH] disable a bunch of non-portable crap
+
+---
+ sbc/sbc_primitives.c        | 4 +++-
+ sbc/sbc_primitives_armv6.h  | 2 ++
+ sbc/sbc_primitives_iwmmxt.h | 2 ++
+ sbc/sbc_primitives_neon.h   | 2 ++
+ 4 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/sbc/sbc_primitives.c b/sbc/sbc_primitives.c
+index 09c214a..83767af 100644
+--- a/sbc/sbc_primitives.c
++++ b/sbc/sbc_primitives.c
+@@ -593,7 +593,7 @@ static int sbc_calc_scalefactors_j(
+ 
+ static void sbc_init_primitives_x86(struct sbc_encoder_state *state)
+ {
+-#if defined(__x86_64__) || defined(__i386__)
++#if 0
+ 	__builtin_cpu_init();
+ 
+ #ifdef SBC_BUILD_WITH_MMX_SUPPORT
+@@ -631,6 +631,7 @@ void sbc_init_primitives(struct sbc_encoder_state *state)
+ 	state->sbc_calc_scalefactors_j = sbc_calc_scalefactors_j;
+ 	state->implementation_info = "Generic C";
+ 
++#if 0
+ 	/* X86/AMD64 optimizations */
+ 	sbc_init_primitives_x86(state);
+ 
+@@ -652,4 +653,5 @@ void sbc_init_primitives(struct sbc_encoder_state *state)
+ 		state->sbc_enc_process_input_8s_be = sbc_enc_process_input_8s_be;
+ 	}
+ #endif
++#endif
+ }
+diff --git a/sbc/sbc_primitives_armv6.h b/sbc/sbc_primitives_armv6.h
+index 6a9efe5..8ac8752 100644
+--- a/sbc/sbc_primitives_armv6.h
++++ b/sbc/sbc_primitives_armv6.h
+@@ -29,6 +29,7 @@
+ 
+ #include "sbc_primitives.h"
+ 
++#if 0
+ #if defined(__ARM_ARCH_6__) || defined(__ARM_ARCH_6J__) || \
+ 	defined(__ARM_ARCH_6K__) || defined(__ARM_ARCH_6Z__) || \
+ 	defined(__ARM_ARCH_6ZK__) || defined(__ARM_ARCH_6T2__) || \
+@@ -47,6 +48,7 @@
+ 
+ void sbc_init_primitives_armv6(struct sbc_encoder_state *encoder_state);
+ 
++#endif
+ #endif
+ 
+ #endif
+diff --git a/sbc/sbc_primitives_iwmmxt.h b/sbc/sbc_primitives_iwmmxt.h
+index b535e68..3d2d044 100644
+--- a/sbc/sbc_primitives_iwmmxt.h
++++ b/sbc/sbc_primitives_iwmmxt.h
+@@ -30,6 +30,7 @@
+ 
+ #include "sbc_primitives.h"
+ 
++#if 0
+ #if defined(__GNUC__) && defined(__IWMMXT__) && \
+ 		!defined(SBC_HIGH_PRECISION) && (SCALE_OUT_BITS == 15)
+ 
+@@ -37,6 +38,7 @@
+ 
+ void sbc_init_primitives_iwmmxt(struct sbc_encoder_state *encoder_state);
+ 
++#endif
+ #endif
+ 
+ #endif
+diff --git a/sbc/sbc_primitives_neon.h b/sbc/sbc_primitives_neon.h
+index ea3da06..af1c20b 100644
+--- a/sbc/sbc_primitives_neon.h
++++ b/sbc/sbc_primitives_neon.h
+@@ -29,6 +29,7 @@
+ 
+ #include "sbc_primitives.h"
+ 
++#if 0
+ #if defined(__GNUC__) && defined(__ARM_NEON__) && \
+ 		!defined(SBC_HIGH_PRECISION) && (SCALE_OUT_BITS == 15)
+ 
+@@ -36,6 +37,7 @@
+ 
+ void sbc_init_primitives_neon(struct sbc_encoder_state *encoder_state);
+ 
++#endif
+ #endif
+ 
+ #endif
+-- 
+2.37.1
+

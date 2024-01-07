@@ -1,0 +1,75 @@
+commit 8361b09bc5155905f7b9c20f104011a7e79e791f
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Dec 1 20:39:07 2023 +0100
+
+    fix build with modern c++
+
+diff --git a/libaudiofile/modules/SimpleModule.h b/libaudiofile/modules/SimpleModule.h
+index bad85ad..b1ad4a4 100644
+--- a/libaudiofile/modules/SimpleModule.h
++++ b/libaudiofile/modules/SimpleModule.h
+@@ -126,13 +126,17 @@ struct signConverter
+ 	static const int kMaxSignedValue = (((1 << (kScaleBits - 1)) - 1) << 1) + 1;
+ 	static const int kMinSignedValue = -kMaxSignedValue - 1;
+ 
+-	struct signedToUnsigned : public std::unary_function<SignedType, UnsignedType>
++	struct signedToUnsigned
+ 	{
++		using argument_type = SignedType;
++		using result_type = UnsignedType;
+ 		UnsignedType operator()(SignedType x) { return x - kMinSignedValue; }
+ 	};
+ 
+-	struct unsignedToSigned : public std::unary_function<SignedType, UnsignedType>
++	struct unsignedToSigned
+ 	{
++		using argument_type = UnsignedType;
++		using result_type = SignedType;
+ 		SignedType operator()(UnsignedType x) { return x + kMinSignedValue; }
+ 	};
+ };
+@@ -324,8 +328,10 @@ private:
+ };
+ 
+ template <typename Arg, typename Result>
+-struct intToFloat : public std::unary_function<Arg, Result>
++struct intToFloat
+ {
++	using argument_type = Arg;
++	using result_type = Result;
+ 	Result operator()(Arg x) const { return x; }
+ };
+ 
+@@ -390,14 +396,18 @@ private:
+ };
+ 
+ template <typename Arg, typename Result, unsigned shift>
+-struct lshift : public std::unary_function<Arg, Result>
++struct lshift
+ {
++	using argument_type = Arg;
++	using result_type = Result;
+ 	Result operator()(const Arg &x) const { return x << shift; }
+ };
+ 
+ template <typename Arg, typename Result, unsigned shift>
+-struct rshift : public std::unary_function<Arg, Result>
++struct rshift
+ {
++	using argument_type = Arg;
++	using result_type = Result;
+ 	Result operator()(const Arg &x) const { return x >> shift; }
+ };
+ 
+@@ -492,8 +502,10 @@ private:
+ };
+ 
+ template <typename Arg, typename Result>
+-struct floatToFloat : public std::unary_function<Arg, Result>
++struct floatToFloat
+ {
++	using argument_type = Arg;
++	using result_type = Result;
+ 	Result operator()(Arg x) const { return x; }
+ };
+ 

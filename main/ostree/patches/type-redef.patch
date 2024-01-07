@@ -1,0 +1,18 @@
+commit 8f5517ed46b13fa803fb65879c6a9102d16ac236
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Jun 1 18:55:33 2023 +0200
+
+    fix type redefinitions made by ext2_fs.h
+
+diff --git a/src/libostree/ostree-linuxfsutil.c b/src/libostree/ostree-linuxfsutil.c
+index bebd524..56c276b 100644
+--- a/src/libostree/ostree-linuxfsutil.c
++++ b/src/libostree/ostree-linuxfsutil.c
+@@ -24,6 +24,7 @@
+ 
+ #include <fcntl.h>
+ #include <sys/ioctl.h>
++#include <linux/types.h>
+ // This should be the only file including linux/fs.h; see
+ // https://sourceware.org/glibc/wiki/Release/2.36#Usage_of_.3Clinux.2Fmount.h.3E_and_.3Csys.2Fmount.h.3E
+ // https://github.com/ostreedev/ostree/issues/2685

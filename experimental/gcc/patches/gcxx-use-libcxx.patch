@@ -1,0 +1,95 @@
+commit 7bbba8d1383269ec71a1400ff49490d6aed8464f
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Dec 27 22:46:32 2023 +0100
+
+    use libcxx by default
+
+diff --git a/gcc/c-family/c.opt b/gcc/c-family/c.opt
+index b98726f33..5ea9ac13b 100644
+--- a/gcc/c-family/c.opt
++++ b/gcc/c-family/c.opt
+@@ -2553,8 +2553,8 @@ C ObjC Alias(std=c17)
+ Conform to the ISO 2017 C standard (published in 2018).
+ 
+ stdlib=
+-Driver C++ ObjC++ Common Condition(ENABLE_STDLIB_OPTION) Var(flag_stdlib_kind) Joined Enum(stdlib_kind) RejectNegative Init(1)
+--stdlib=[libstdc++|libc++]	The standard library to be used for C++ headers
++Driver C++ ObjC++ Common Condition(ENABLE_STDLIB_OPTION) Var(flag_stdlib_kind) Joined Enum(stdlib_kind) RejectNegative Init(2)
++-stdlib=[libc++|libstdc++]	The standard library to be used for C++ headers
+ and runtime.
+ 
+ Enum
+diff --git a/gcc/config/linux.h b/gcc/config/linux.h
+index a4762fdf6..2a76c17b7 100644
+--- a/gcc/config/linux.h
++++ b/gcc/config/linux.h
+@@ -126,6 +126,8 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
+     { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1,		\
+       GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 1 },		\
+     { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1,	\
++      GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 0 },		\
++    { GPLUSPLUS_LIBCXX_INCLUDE_DIR, "G++", 2, 1,	\
+       GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 0 },
+ 
+ #ifdef LOCAL_INCLUDE_DIR
+diff --git a/gcc/config/rs6000/sysv4.h b/gcc/config/rs6000/sysv4.h
+index c8ff0c6dc..437a1cc8d 100644
+--- a/gcc/config/rs6000/sysv4.h
++++ b/gcc/config/rs6000/sysv4.h
+@@ -955,6 +955,8 @@ ncrtn.o%s"
+     { GPLUSPLUS_TOOL_INCLUDE_DIR, "G++", 1, 1,		\
+       GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 1 },		\
+     { GPLUSPLUS_BACKWARD_INCLUDE_DIR, "G++", 1, 1,	\
++      GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 0 },		\
++    { GPLUSPLUS_LIBCXX_INCLUDE_DIR, "G++", 2, 1,	\
+       GPLUSPLUS_INCLUDE_DIR_ADD_SYSROOT, 0 },
+ 
+ #ifdef LOCAL_INCLUDE_DIR
+diff --git a/gcc/cp/g++spec.cc b/gcc/cp/g++spec.cc
+index 7584f8c22..2d699a19a 100644
+--- a/gcc/cp/g++spec.cc
++++ b/gcc/cp/g++spec.cc
+@@ -97,7 +97,7 @@ lang_specific_driver (struct cl_decoded_option **in_decoded_options,
+   int library = 0;
+ 
+   /* Which c++ runtime library to link.  */
+-  stdcxxlib_kind which_library = USE_LIBSTDCXX;
++  stdcxxlib_kind which_library = USE_LIBCXX;
+ 
+   /* The number of arguments being added to what's in argv, other than
+      libraries.  We use this to track the number of times we've inserted
+diff --git a/gcc/doc/invoke.texi b/gcc/doc/invoke.texi
+index 157c1a68a..0f7447fed 100644
+--- a/gcc/doc/invoke.texi
++++ b/gcc/doc/invoke.texi
+@@ -3655,12 +3655,11 @@ directory separators or enclosed in @code{<>} or @code{""}).
+ @opindex stdlib
+ @item -stdlib=@var{libstdc++,libc++}
+ When G++ is configured to support this option, it allows specification of
+-alternate C++ runtime libraries.  Two options are available: @var{libstdc++}
+-(the default, native C++ runtime for G++) and @var{libc++} which is the
+-C++ runtime installed on some operating systems (e.g. Darwin versions from
+-Darwin11 onwards).  The option switches G++ to use the headers from the
+-specified library and to emit @code{-lstdc++} or @code{-lc++} respectively,
+-when a C++ runtime is required for linking.
++alternate C++ runtime libraries.  Two options are available: @var{libc++}
++(the default, native C++ runtime for Chimera) and @var{libstdc++} which is the
++C++ runtime that is originally native to GCC.  The option switches G++ to use
++the headers from the specified library and to emit @code{-lc++} or @code{-lstdc++}
++respectively, when a C++ runtime is required for linking.
+ @end table
+ 
+ In addition, these warning options have meanings only for C++ programs:
+diff --git a/gcc/m2/gm2spec.cc b/gcc/m2/gm2spec.cc
+index 75a6ed36c..36ec8212c 100644
+--- a/gcc/m2/gm2spec.cc
++++ b/gcc/m2/gm2spec.cc
+@@ -424,7 +424,7 @@ lang_specific_driver (struct cl_decoded_option **in_decoded_options,
+   int library = 0;
+ 
+   /* Which c++ runtime library to link.  */
+-  stdcxxlib_kind which_library = USE_LIBSTDCXX;
++  stdcxxlib_kind which_library = USE_LIBCXX;
+ 
+   const char *dialect = DEFAULT_DIALECT;
+ 

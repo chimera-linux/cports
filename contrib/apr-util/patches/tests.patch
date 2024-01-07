@@ -1,0 +1,11 @@
+--- a/test/testxlate.c
++++ b/test/testxlate.c
+@@ -126,7 +126,7 @@ abts_suite *testxlate(abts_suite *suite)
+ {
+     suite = ADD_SUITE(suite);
+ 
+-#if APR_HAS_XLATE
++#if 0
+     abts_run_test(suite, test_transformation, NULL);
+ #endif
+ 

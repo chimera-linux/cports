@@ -1,0 +1,26 @@
+From 7e580c07af76716c83daab1def3e7a75986a9f5b Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:09:18 +0100
+Subject: [PATCH 15/25] clang: drop incorrect warning about vector equality
+ results
+
+---
+ clang/lib/Sema/SemaExpr.cpp | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/clang/lib/Sema/SemaExpr.cpp b/clang/lib/Sema/SemaExpr.cpp
+index 3a5e302cc..e3a1194db 100644
+--- a/clang/lib/Sema/SemaExpr.cpp
++++ b/clang/lib/Sema/SemaExpr.cpp
+@@ -13505,8 +13505,6 @@ QualType Sema::CheckVectorCompareOperands(ExprResult &LHS, ExprResult &RHS,
+       if (vType->castAs<VectorType>()->getVectorKind() ==
+           VectorType::AltiVecVector)
+         return Context.getLogicalOperationType();
+-      else
+-        Diag(Loc, diag::warn_deprecated_altivec_src_compat);
+       break;
+     case LangOptions::AltivecSrcCompatKind::GCC:
+       // For GCC we always return the vector type.
+-- 
+2.42.0
+

@@ -1,0 +1,20 @@
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -395,7 +395,7 @@
+ ifeq ($(OS),Darwin)
+ 	$(CXX) -shared -std=c++11 -pedantic -o libgmic.so.$(VERSION) libgmic.o $(LIBS)
+ else
+-	$(CXX) -shared -std=c++11 -pedantic -Wl,-soname,libgmic.so.$(VERSION1) -o libgmic.so.$(VERSION) libgmic.o $(LIBS)
++	$(CXX) -shared -std=c++11 -pedantic -Wl,-soname,libgmic.so.$(VERSION1) -o libgmic.so.$(VERSION) libgmic.o $(LDFLAGS) $(LIBS)
+ endif
+ ifneq ($(OS),Windows)
+ 	ln -fs libgmic.so.$(VERSION) libgmic.so.$(VERSION1)
+@@ -433,7 +433,7 @@
+ _cli: gmic$(EXE)
+ 
+ gmic$(EXE): gmic_cli.cpp gmic.o
+-	$(CXX) -o gmic$(EXE) gmic_cli.cpp $(CFLAGS) $(LIBS)
++	$(CXX) -o gmic$(EXE) gmic_cli.cpp $(CFLAGS) $(LDFLAGS) $(LIBS)
+ 
+ gmic.o: gmic.cpp gmic.h gmic_stdlib.h CImg.h
+ 	$(CXX) -o gmic.o -c gmic.cpp -Dgmic_core $(CFLAGS)

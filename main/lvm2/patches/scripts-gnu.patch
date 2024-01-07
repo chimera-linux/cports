@@ -1,0 +1,140 @@
+commit 362125a389965820550da4ab3e6f753831d7851c
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Wed Nov 16 03:43:41 2022 +0100
+
+    attempt to remove gnuisms the best i can
+
+diff --git a/scripts/fsadm.sh b/scripts/fsadm.sh
+index d22c7d0..3b193b8 100755
+--- a/scripts/fsadm.sh
++++ b/scripts/fsadm.sh
+@@ -222,7 +222,7 @@ detect_fs() {
+ 		MINOR=${MAJORMINOR##*:}
+ 		;;
+ 	  *)
+-		STAT=$(stat --format "MAJOR=\$((0x%t)) MINOR=\$((0x%T))" "$RVOLUME")
++		STAT=$(stat -f "MAJOR=\$((0x%XHr)) MINOR=\$((0x%XLr))" "$RVOLUME")
+ 		test -n "$STAT" || error "Cannot get major:minor for \"$VOLUME\"."
+ 		eval "$STAT"
+ 		MAJORMINOR="${MAJOR}:${MINOR}"
+@@ -277,7 +277,7 @@ check_valid_mounted_device() {
+ 		read -r <"/sys/block/${VOL#/dev/}/dev" MOUNTEDMAJORMINOR 2>&1 || error "Cannot get major:minor for \"$VOLUME\"."
+ 		;;
+ 	  *)
+-		STAT=$(stat --format "MOUNTEDMAJORMINOR=\$((0x%t)):\$((0x%T))" "$VOL")
++		STAT=$(stat -f "MOUNTEDMAJORMINOR=\$((0x%XHr)):\$((0x%XLr))" "$VOL")
+ 		test -n "$STAT" || error "Cannot get major:minor for \"$VOLUME\"."
+ 		eval "$STAT"
+ 		;;
+@@ -354,7 +354,7 @@ detect_mounted_with_proc_mounts() {
+ 			MOUNTDEV=$(echo -n -e "${i%% *}")
+ 			MOUNTED=${i#* }
+ 			MOUNTED=$(echo -n -e "${MOUNTED%% *}")
+-			STAT=$(stat --format "%d" "$MOUNTED")
++			STAT=$(stat -f "%d" "$MOUNTED")
+ 			validate_mounted_major_minor "$(decode_major_minor "$STAT")"
+ 		done < "$PROCMOUNTS"
+ 	fi
+@@ -698,7 +698,7 @@ resize() {
+ #  only one supported
+ ####################################
+ diff_dates() {
+-         echo $(( $("$DATE" -u -d"$1" +%s 2>"$NULL") - $("$DATE" -u -d"$2" +%s 2>"$NULL") ))
++         echo $(( $("$DATE" -j -f "%a %b %e %H:%M:%S %Y" "$1" +%s 2>"$NULL") - $("$DATE" -j -f "%a %b %e %H:%M:%S %Y" "$2" +%s 2>"$NULL") ))
+ }
+ 
+ check_luks() {
+@@ -789,7 +789,7 @@ done
+ TEST64BIT=$(( 1000 * 1000000000000 ))
+ test "$TEST64BIT" -eq 1000000000000000 || error "Shell does not handle 64bit arithmetic."
+ echo Y | "$GREP" Y >"$NULL" || error "Grep does not work properly."
+-test "$("$DATE" -u -d"Jan 01 00:00:01 1970" +%s)" -eq 1 || error "Date translation does not work."
++test "$("$DATE" -j -f "%b %e %H:%M:%S %Y" "Jan 1 00:00:01 1970" +%s)" -eq 1 || error "Date translation does not work."
+ 
+ 
+ if [ "$#" -eq 0 ] ; then
+diff --git a/scripts/lvm_import_vdo.sh b/scripts/lvm_import_vdo.sh
+index c4c1d15..d4bb301 100755
+--- a/scripts/lvm_import_vdo.sh
++++ b/scripts/lvm_import_vdo.sh
+@@ -163,7 +163,7 @@ detect_lv_() {
+ 		DEVMINOR=${MAJORMINOR##*:}
+ 		;;
+ 	  *)
+-		RSTAT=$("$STAT" --format "DEVMAJOR=\$((0x%t)) DEVMINOR=\$((0x%T))" "$RDEVICE" || true)
++		RSTAT=$("$STAT" -f "DEVMAJOR=\$((0x%XHr)) DEVMINOR=\$((0x%XLr))" "$RDEVICE" || true)
+ 		test -n "$RSTAT" || error "Cannot get major:minor for \"$DEVICE\"."
+ 		eval "$RSTAT"
+ 		;;
+@@ -282,7 +282,7 @@ convert2lvm_() {
+ 	for i in $(awk '/.*device:/ {print $2}' "$TEMPDIR/vdoconf.yml") ; do
+ 		local DEV
+ 		DEV=$("$READLINK" $READLINK_E "$i") || continue
+-		RSTAT=$("$STAT" --format "MAJOR=\$((0x%t)) MINOR=\$((0x%T))" "$DEV" 2>/dev/null) || continue
++		RSTAT=$("$STAT" -f "MAJOR=\$((0x%XHr)) MINOR=\$((0x%XLr))" "$DEV" 2>/dev/null) || continue
+ 		eval "$RSTAT"
+ 		test "$MAJOR" = "$DEVMAJOR" && test "$MINOR" = "$DEVMINOR" && {
+ 			test -z "$FOUND" || error "VDO configuration contains duplicate entries $FOUND and $i"
+@@ -440,5 +440,7 @@ done
+ 
+ test -n "$DEVICENAME" || error "Device name is not specified. (see: $TOOL --help)"
+ 
++"$READLINK" -e / >/dev/null 2>&1 || READLINK_E="-f"
++
+ # do conversion
+ convert2lvm_ "$DEVICENAME"
+diff --git a/scripts/lvmdump.sh.in b/scripts/lvmdump.sh.in
+index 0685d85..12f98d3 100644
+--- a/scripts/lvmdump.sh.in
++++ b/scripts/lvmdump.sh.in
+@@ -98,7 +98,7 @@ while getopts :acd:hlpmus opt; do
+ 	esac
+ done
+ 
+-NOW=$("$DATE" -u +%G%m%d%k%M%S | "$TR" -d ' ')
++NOW=$("$DATE" -u +%G%m%d%_H%M%S | "$TR" -d ' ')
+ if test -n "$userdir"; then
+ 	dir=$userdir
+ else
+@@ -225,7 +225,7 @@ log "$TAIL -n 75 /var/log/messages >> \"$dir/messages\" 2>> \"$log\""
+ 
+ myecho "Gathering /etc/lvm info..."
+ log "$LS -laR /etc/lvm >> \"$dir/etc_lvm_listing\" 2>> \"$log\""
+-log "$CP -RL --preserve=all /etc/lvm \"$dir/lvm\" 2>> \"$log\""
++log "$CP -RLp /etc/lvm \"$dir/lvm\" 2>> \"$log\""
+ log "$LVM dumpconfig --type diff --file \"$dir/config_diff\" 2>> \"$log\""
+ log "$LVM dumpconfig --type missing --file \"$dir/config_missing\" 2>> \"$log\""
+ 
+@@ -313,8 +313,8 @@ if (( udev )); then
+ 	log "$UDEVADM info --export-db >> \"$udev_dir/db\" 2>> \"$log\""
+ 	log "$CP -a /etc/udev/udev.conf \"$udev_dir/conf\" 2>> \"$log\""
+ 	log "$LS -la /lib/udev >> \"$udev_dir/lib_dir\" 2>> \"$log\""
+-	log "$CP -RL --preserve=all /etc/udev/rules.d \"$udev_dir/rules_etc\" 2>> \"$log\""
+-	log "$CP -RL --preserve=all /lib/udev/rules.d \"$udev_dir/rules_lib\" 2>> \"$log\""
++	log "$CP -RLp /etc/udev/rules.d \"$udev_dir/rules_etc\" 2>> \"$log\""
++	log "$CP -RLp /lib/udev/rules.d \"$udev_dir/rules_lib\" 2>> \"$log\""
+ fi
+ 
+ if (( lvmetad )); then
+diff --git a/scripts/lvresize_fs_helper.sh b/scripts/lvresize_fs_helper.sh
+index 031b845..3e42453 100755
+--- a/scripts/lvresize_fs_helper.sh
++++ b/scripts/lvresize_fs_helper.sh
+@@ -311,7 +311,7 @@ if [ "$UID" != 0 ] && [ "$EUID" != 0 ]; then
+ 	errorexit "${SCRIPTNAME} must be run as root."
+ fi
+ 
+-GETOPT="getopt"
++GETOPT="ugetopt"
+ 
+ OPTIONS=$("$GETOPT" -o h -l help,fsextend,fsreduce,cryptresize,mount,unmount,remount,fsck,fstype:,lvpath:,newsizebytes:,mountdir:,cryptpath: -n "${SCRIPTNAME}" -- "$@")
+ eval set -- "$OPTIONS"
+@@ -435,7 +435,7 @@ if [[ "$DO_FSCK" -eq 1 && "$FSTYPE" == "xfs" ]]; then
+ fi
+ 
+ if [ "$DO_MOUNT" -eq 1 ]; then
+-	TMPDIR=$(mktemp --suffix _lvresize_$$ -d -p /tmp)
++	TMPDIR=$(mktemp -d -t tmp_lvresize_$$)
+ 	if [ ! -e "$TMPDIR" ]; then
+ 		errorexit "Failed to create temp dir."
+ 	fi

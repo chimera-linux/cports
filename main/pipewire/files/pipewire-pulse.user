@@ -1,0 +1,7 @@
+# pipewire-pulse user service
+
+type            = process
+command         = /usr/bin/pipewire-pulse
+depends-on      = pipewire
+restart         = true
+smooth-recovery = true

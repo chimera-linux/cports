@@ -1,0 +1,9 @@
+# uuidd service
+
+type            = process
+command         = /usr/bin/uuidd -F -P
+before          = pre-local.target
+depends-on      = early-devices.target
+run-as          = _uuidd
+restart         = true
+smooth-recovery = true

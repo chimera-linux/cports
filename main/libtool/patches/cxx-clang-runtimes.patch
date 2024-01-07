@@ -1,0 +1,46 @@
+From 969258b1b25b5b0f78a2a0a2427c4dd4b038f13f Mon Sep 17 00:00:00 2001
+From: q66 <daniel@octaforge.org>
+Date: Sat, 3 Sep 2022 09:41:45 +0000
+Subject: [PATCH] permit clang builtins library to be linked in
+
+libtool links c++ stuff with -nostdlib and manually extracts the
+allowed libs, but this did not previously cover the clang runtimes
+and broke builds on some targets where builtins are needed.
+---
+ build-aux/ltmain.in | 6 ++++++
+ m4/libtool.m4       | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/build-aux/ltmain.in b/build-aux/ltmain.in
+index a5f21a1..e1d4d81 100644
+--- a/build-aux/ltmain.in
++++ b/build-aux/ltmain.in
+@@ -5900,6 +5900,12 @@ func_mode_link ()
+ 	  lib)
+ 	    # Linking convenience modules into shared libraries is allowed,
+ 	    # but linking other static libraries is non-portable.
++	    case "$deplib" in
++	      */libclang_rt*.$libext)
++	        deplibs="$deplib $deplibs"
++	        continue
++	      ;;
++	    esac
+ 	    case " $dlpreconveniencelibs " in
+ 	    *" $deplib "*) ;;
+ 	    *)
+diff --git a/m4/libtool.m4 b/m4/libtool.m4
+index 79a2451..9c08481 100644
+--- a/m4/libtool.m4
++++ b/m4/libtool.m4
+@@ -7554,7 +7554,7 @@ if AC_TRY_EVAL(ac_compile); then
+   for p in `eval "$output_verbose_link_cmd"`; do
+     case $prev$p in
+ 
+-    -L* | -R* | -l*)
++    -L* | -R* | -l* | */libclang_rt*.a)
+        # Some compilers place space between "-{L,R}" and the path.
+        # Remove the space.
+        if test x-L = "$p" ||
+-- 
+2.34.1
+

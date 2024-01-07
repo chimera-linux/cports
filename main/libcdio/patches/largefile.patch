@@ -1,0 +1,21 @@
+commit 97a42eb641bc0afb67dd064f150e6cd68778e835
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jun 17 15:09:36 2023 +0200
+
+    don't check for largefile funcs
+
+diff --git a/configure b/configure
+index 34a5133..e34f073 100755
+--- a/configure
++++ b/configure
+@@ -18300,8 +18300,8 @@ _ACEOF
+ 
+ 
+ 
+-for ac_func in chdir drand48 fseeko fseeko64 ftruncate geteuid getgid \
+-		 getuid getpwuid gettimeofday lseek64 lstat memcpy memset mkstemp rand \
++for ac_func in chdir drand48 fseeko ftruncate geteuid getgid \
++		 getuid getpwuid gettimeofday lstat memcpy memset mkstemp rand \
+ 		 seteuid setegid snprintf setenv strndup unsetenv tzset sleep \
+ 		 _stati64 usleep vsnprintf readlink realpath gmtime_r localtime_r
+ do :

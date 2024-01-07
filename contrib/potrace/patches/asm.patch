@@ -1,0 +1,18 @@
+commit 19dcf5787d51324d1cc8e73a3af75e7cf100ff99
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Wed May 17 23:52:13 2023 +0200
+
+    disable spurious i386 asm
+
+diff --git a/configure b/configure
+index 2a07b2f..fbdaf3c 100755
+--- a/configure
++++ b/configure
+@@ -12713,6 +12713,7 @@ $as_echo_n "checking for Intel 386... " >&6; }
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
++#error no
+ int
+ main ()
+ {

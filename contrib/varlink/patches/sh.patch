@@ -1,0 +1,20 @@
+diff --git a/lib/meson.build b/lib/meson.build
+index 812154c..3812b9c 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -132,13 +132,13 @@ exe = executable(
+         'test-json.c',
+         link_with : libvarlink_a)
+ 
+-c = run_command('/bin/sh', ['-c', 'cd $1; echo y_*.json', '--', meson.source_root() + '/tests-json' ] )
++c = run_command('/bin/sh', ['-c', 'cd $1; echo y_*.json', 'sh', meson.source_root() + '/tests-json' ] )
+ sources = c.stdout().strip().split(' ')
+ foreach arg : sources
+     test(arg, exe, args: [ meson.source_root() + '/tests-json/' + arg ] )
+ endforeach
+ 
+-c = run_command('/bin/sh', ['-c', 'cd $1; echo n_*.json', '--', meson.source_root() + '/tests-json' ] )
++c = run_command('/bin/sh', ['-c', 'cd $1; echo n_*.json', 'sh', meson.source_root() + '/tests-json' ] )
+ sources = c.stdout().strip().split(' ')
+ foreach arg : sources
+     test(arg, exe, should_fail: true, args: [ meson.source_root() + '/tests-json/' + arg ] )

@@ -1,0 +1,5 @@
+# generate host keys if not already existing
+
+type       = scripted
+command    = /usr/bin/ssh-keygen -A
+depends-on = local.target

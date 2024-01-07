@@ -1,0 +1,31 @@
+From ef9425c31a0a48c516cd4fac72e23d5f72a3fea0 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:11:37 +0100
+Subject: [PATCH 18/25] clang: switch on default now/relro
+
+---
+ clang/lib/Driver/ToolChains/Linux.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
+index beac59a42..f9be633ba 100644
+--- a/clang/lib/Driver/ToolChains/Linux.cpp
++++ b/clang/lib/Driver/ToolChains/Linux.cpp
+@@ -227,12 +227,12 @@ Linux::Linux(const Driver &D, const llvm::Triple &Triple, const ArgList &Args)
+ 
+   Distro Distro(D.getVFS(), Triple);
+ 
+-  if (Distro.IsAlpineLinux() || Triple.isAndroid()) {
++  if (Triple.isMusl() || Triple.isAndroid()) {
+     ExtraOpts.push_back("-z");
+     ExtraOpts.push_back("now");
+   }
+ 
+-  if (Distro.IsOpenSUSE() || Distro.IsUbuntu() || Distro.IsAlpineLinux() ||
++  if (Distro.IsOpenSUSE() || Distro.IsUbuntu() || Triple.isMusl() ||
+       Triple.isAndroid()) {
+     ExtraOpts.push_back("-z");
+     ExtraOpts.push_back("relro");
+-- 
+2.42.0
+

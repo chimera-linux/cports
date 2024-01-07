@@ -1,0 +1,28 @@
+commit 93e54432c64a835331d41aaf471a025bbe97d974
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jun 17 22:20:30 2023 +0200
+
+    fix clang 16 build
+
+diff --git a/libdjvu/GBitmap.h b/libdjvu/GBitmap.h
+index ca89a19..b579f5d 100644
+--- a/libdjvu/GBitmap.h
++++ b/libdjvu/GBitmap.h
+@@ -620,7 +620,7 @@ GBitmap::euclidian_ratio(int a, int b, int &q, int &r)
+ inline int
+ GBitmap::read_run(unsigned char *&data)
+ {
+-  register int z=*data++;
++  int z=*data++;
+   return (z>=RUNOVERFLOWVALUE)?
+     ((z&~RUNOVERFLOWVALUE)<<8)|(*data++):z;
+ }
+@@ -628,7 +628,7 @@ GBitmap::read_run(unsigned char *&data)
+ inline int
+ GBitmap::read_run(const unsigned char *&data)
+ {
+-  register int z=*data++;
++  int z=*data++;
+   return (z>=RUNOVERFLOWVALUE)?
+     ((z&~RUNOVERFLOWVALUE)<<8)|(*data++):z;
+ }

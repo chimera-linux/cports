@@ -1,0 +1,26 @@
+commit 33ee0596f89b54dd0dfe2be442a4b71bb3e33fbe
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu Jun 15 10:51:42 2023 +0200
+
+    fix implicit conf decls in configure
+
+diff --git a/configure b/configure
+index 1a458f0..2dfda84 100755
+--- a/configure
++++ b/configure
+@@ -12787,6 +12787,7 @@ for zeroth in ssize_t int; do
+       cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <unistd.h>
++#include <stdio.h>
+         $zeroth readlink(const char *path, $second *buf, $third bufsiz);
+ int
+ main ()
+@@ -12835,6 +12836,7 @@ for first in size_t int; do
+ #include <sys/types.h>
+ #endif
+ #include <unistd.h>
++#include <stdio.h>
+ #ifdef HAVE_GRP_H
+ #include <grp.h>
+ #endif

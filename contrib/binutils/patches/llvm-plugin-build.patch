@@ -1,0 +1,22 @@
+--- a/gold-plugin.cpp
++++ b/gold-plugin.cpp
+@@ -15,7 +15,7 @@
+ #include "llvm/Bitcode/BitcodeReader.h"
+ #include "llvm/Bitcode/BitcodeWriter.h"
+ #include "llvm/CodeGen/CommandFlags.h"
+-#include "llvm/Config/config.h" // plugin-api.h requires HAVE_STDINT_H
++//#include "llvm/Config/config.h" // plugin-api.h requires HAVE_STDINT_H
+ #include "llvm/Config/llvm-config.h"
+ #include "llvm/IR/Constants.h"
+ #include "llvm/IR/DiagnosticPrinter.h"
+@@ -331,8 +331,8 @@ static ld_plugin_status claim_file_hook(const ld_plugin_input_file *file,
+ static ld_plugin_status all_symbols_read_hook(void);
+ static ld_plugin_status cleanup_hook(void);
+ 
+-extern "C" ld_plugin_status onload(ld_plugin_tv *tv);
+-ld_plugin_status onload(ld_plugin_tv *tv) {
++extern "C" __attribute__((visibility("default"))) ld_plugin_status onload(ld_plugin_tv *tv);
++__attribute__((visibility("default"))) ld_plugin_status onload(ld_plugin_tv *tv) {
+   InitializeAllTargetInfos();
+   InitializeAllTargets();
+   InitializeAllTargetMCs();

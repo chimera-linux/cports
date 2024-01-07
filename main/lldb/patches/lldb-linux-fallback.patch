@@ -1,0 +1,39 @@
+From 38fabfded732339ccd3be8d543cbd91c0c54f320 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Fri, 27 Jan 2023 00:15:33 +0100
+Subject: [PATCH] lldb: use a reasonable fallback for unidentifiable cores
+
+When the OS of the core cannot be identified, fall back to our
+native OS; this allows usage of LLDB to debug core files generated
+in x86 KVM virtual machines, as the note by which Linux cores are
+identified in LLDB is not included in such cores
+---
+ .../Plugins/Process/elf-core/ProcessElfCore.cpp      | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git lldb/source/Plugins/Process/elf-core/ProcessElfCore.cpp lldb/source/Plugins/Process/elf-core/ProcessElfCore.cpp
+index 24d3c4b..789849a 100644
+--- lldb/source/Plugins/Process/elf-core/ProcessElfCore.cpp
++++ lldb/source/Plugins/Process/elf-core/ProcessElfCore.cpp
+@@ -992,6 +992,18 @@ ArchSpec ProcessElfCore::GetArchitecture() {
+   ArchSpec arch = m_core_module_sp->GetObjectFile()->GetArchitecture();
+ 
+   ArchSpec target_arch = GetTarget().GetArchitecture();
++
++  if ((arch.GetTriple().getOS() == llvm::Triple::UnknownOS) &&
++      (target_arch.GetTriple().getOS() == llvm::Triple::UnknownOS)) {
++    // When the OS of the core file is unknown, which may happen for
++    // example in x86 virtual machines (where NT_X86_XSTATE note by
++    // which Linux is identified in LLDB is not included in cores),
++    // assume Linux (as that is our native environment) for better
++    // user experience (as otherwise it is not possible to open
++    // such core dumps in LLDB, which sucks)
++    target_arch.GetTriple().setOS(llvm::Triple::Linux);
++  }
++
+   arch.MergeFrom(target_arch);
+ 
+   // On MIPS there is no way to differentiate betwenn 32bit and 64bit core
+-- 
+2.38.1
+

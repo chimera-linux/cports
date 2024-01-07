@@ -1,0 +1,16 @@
+On chimera, apropos(1) is available in a separate subpackage and is optional.
+For this reason, having this warning always be printed when apropos is not
+installed is just cosmetically annoying, and when it is installed, the trigger
+ensures it's always up to date.
+diff -upr a/main.c b/main.c
+--- a/main.c	2021-09-19 18:21:40.000000000 +0200
++++ b/main.c	2021-09-19 19:40:28.711594083 +0200
+@@ -822,8 +822,6 @@ fs_lookup(const struct manpaths *paths,
+ 	return globres;
+ 
+ found:
+-	warnx("outdated mandoc.db lacks %s(%s) entry, run %s %s",
+-	    name, sec, BINM_MAKEWHATIS, paths->paths[ipath]);
+ 	if (res == NULL)
+ 		free(file);
+ 	else if (file == NULL)

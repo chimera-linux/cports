@@ -1,0 +1,28 @@
+# The configuration file for the efibootmgr hook
+# Commented out lines are just defaults.
+#
+
+# !!! USE AT YOUR OWN RISK !!
+#
+# The efibootmgr hook is not officially supported by
+# the distribution, and exists for users who know what
+# they are doing and can identify potential issues and
+# fix them; moreover, the assumption is that the user
+# has EFI firmware that can handle this (which is not
+# always the case due to limitations).
+#
+# Everyone else should use a real bootloader. If you
+# still wish to proceed, set this to any value.
+#EFIBOOTMGR_ENABLE_HOOK=
+
+# The additional cmdline to use always.
+EFIBOOTMGR_CMDLINE=
+
+# The additional cmdline to use in normal (non-recovery) boot only.
+EFIBOOTMGR_CMDLINE_DEFAULT="quiet splash"
+
+# If set, recovery mode entries will be disabled.
+#EFIBOOTMGR_DISABLE_RECOVERY=
+
+# The base part of boot entry name.
+#EFIBOOTMGR_ENTRY_TITLE="Chimera Linux"

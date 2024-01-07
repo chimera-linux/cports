@@ -1,0 +1,51 @@
+--- a/boot-strap
++++ b/boot-strap
+@@ -1,4 +1,4 @@
+-:
++#!/bin/sh
+ # NAME:
+ #	boot-strap
+ #
+@@ -413,9 +413,6 @@ op_build() {
+ 	[ -s make-bootstrap.sh ] || op_configure
+ 	chmod 755 make-bootstrap.sh || exit 1
+ 	./make-bootstrap.sh || exit 1
+-	case "$op" in
+-	build) op_test;;
+-	esac
+ }
+ 
+ op_test() {
+@@ -434,14 +431,13 @@ op_clean() {
+ }
+ 
+ op_install() {
+-	op_test
+ 	case "$INSTALL_PREFIX,$INSTALL_BIN,$prefix" in
+ 	,$HOST_TARGET/bin,*/$HOST_TARGET)
+ 		INSTALL_PREFIX=`dirname $prefix`
+ 		;;
+ 	esac
+ 	INSTALL_PREFIX=${INSTALL_PREFIX:-$prefix}
+-	Bmake install prefix=$INSTALL_PREFIX BINDIR=$INSTALL_PREFIX/${INSTALL_BIN:-bin} ${INSTALL_DESTDIR:+DESTDIR=$INSTALL_DESTDIR} $INSTALL_ARGS || exit 1
++	Bmake install BINOWN= BINMODE=755 NONBINMODE=644 DIRMODE=755 prefix=$INSTALL_PREFIX BINDIR=$INSTALL_PREFIX/${INSTALL_BIN:-bin} ${INSTALL_DESTDIR:+DESTDIR=$INSTALL_DESTDIR} $INSTALL_ARGS || exit 1
+ }
+ 
+ op_all() {
+@@ -449,7 +445,7 @@ op_all() {
+ 	if [ -n "$INSTALL_PREFIX" ]; then
+ 		op_install
+ 	else
+-		op_test
++		op_build
+ 		MAKE_VERSION=`sed -n '/^_MAKE_VERSION/ { s,.*=  *,,;p; }' $srcdir/Makefile`
+ 		cat << EOM
+ You can install by running:
+--- a/install-sh
++++ b/install-sh
+@@ -1,4 +1,4 @@
+-:
++#!/bin/sh
+ # NAME:
+ #	install.sh - portable version of install(1)
+ #

@@ -1,0 +1,69 @@
+From e085a7d68a10be81be23e6b4d68bf82d5d302b91 Mon Sep 17 00:00:00 2001
+From: Conrad Poelman <cpgithub@stellarscience.com>
+Date: Fri, 15 May 2020 19:21:01 -0400
+Subject: [PATCH] Remove register keyword (deprecated in C++17/20)
+
+The "register" keyword is deprecated as of C++17. (https://en.cppreference.com/w/cpp/keyword/register) Removing it is necessary to build with clang10+.
+---
+ src/osgPlugins/cfg/ConfigParser.cpp | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/src/osgPlugins/cfg/ConfigParser.cpp b/src/osgPlugins/cfg/ConfigParser.cpp
+index 263c8289638..62d30c3f5a6 100644
+--- a/src/osgPlugins/cfg/ConfigParser.cpp
++++ b/src/osgPlugins/cfg/ConfigParser.cpp
+@@ -351,7 +351,7 @@ union yyalloc
+ #   define YYCOPY(To, From, Count)        \
+       do                    \
+     {                    \
+-      register YYSIZE_T yyi;        \
++      YYSIZE_T yyi;        \
+       for (yyi = 0; yyi < (Count); yyi++)    \
+         (To)[yyi] = (From)[yyi];        \
+     }                    \
+@@ -1025,7 +1025,7 @@ yystrlen (yystr)
+      const char *yystr;
+ #   endif
+ {
+-  register const char *yys = yystr;
++  const char *yys = yystr;
+ 
+   while (*yys++ != '\0')
+     continue;
+@@ -1050,8 +1050,8 @@ yystpcpy (yydest, yysrc)
+      const char *yysrc;
+ #   endif
+ {
+-  register char *yyd = yydest;
+-  register const char *yys = yysrc;
++  char *yyd = yydest;
++  const char *yys = yysrc;
+ 
+   while ((*yyd++ = *yys++) != '\0')
+     continue;
+@@ -1175,8 +1175,8 @@ yyparse ()
+ #endif
+ {
+ 
+-  register int yystate;
+-  register int yyn;
++  int yystate;
++  int yyn;
+   int yyresult;
+   /* Number of tokens to shift before error messages enabled.  */
+   int yyerrstatus;
+@@ -1194,12 +1194,12 @@ yyparse ()
+   /* The state stack.  */
+   short    yyssa[YYINITDEPTH];
+   short *yyss = yyssa;
+-  register short *yyssp;
++  short *yyssp;
+ 
+   /* The semantic value stack.  */
+   YYSTYPE yyvsa[YYINITDEPTH];
+   YYSTYPE *yyvs = yyvsa;
+-  register YYSTYPE *yyvsp;
++  YYSTYPE *yyvsp;
+ 
+ 
+ 

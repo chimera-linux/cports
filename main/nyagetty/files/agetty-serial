@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# A convenience wrapper for serial gettys. Takes the same arguments as
+# the agetty helper script, but has different defaults, and assumes a
+# no-parity 8-bit-clean tty, also does not clear the screen by default.
+#
+# Copyright 2023 Daniel "q66" Kolesa
+#
+# License: BSD-2-Clause
+#
+
+GETTY="$1"
+shift
+GETTY_BAUD="$1"
+shift
+GETTY_TERM="$1"
+shift
+
+[ -n "$GETTY_TERM" ] || GETTY_TERM=vt100
+[ -n "$GETTY_BAUD" ] || GETTY_BAUD=115200
+
+exec /usr/libexec/agetty-default "$GETTY" "$GETTY_BAUD" "$GETTY_TERM" -8 -L --noclear "$@"

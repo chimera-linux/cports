@@ -1,0 +1,33 @@
+From 0fe39582cc6cc1bfa6567a44af86d66564175269 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:20:52 +0100
+Subject: [PATCH 25/25] Get rid of spurious trailing space in __clang_version__
+
+---
+ clang/lib/Frontend/InitPreprocessor.cpp | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/clang/lib/Frontend/InitPreprocessor.cpp b/clang/lib/Frontend/InitPreprocessor.cpp
+index 316fae2b2..cf04ca93c 100644
+--- a/clang/lib/Frontend/InitPreprocessor.cpp
++++ b/clang/lib/Frontend/InitPreprocessor.cpp
+@@ -764,9 +764,13 @@ static void InitializePredefinedMacros(const TargetInfo &TI,
+   Builder.defineMacro("__clang_patchlevel__", TOSTR(CLANG_VERSION_PATCHLEVEL));
+ #undef TOSTR
+ #undef TOSTR2
+-  Builder.defineMacro("__clang_version__",
+-                      "\"" CLANG_VERSION_STRING " "
+-                      + getClangFullRepositoryVersion() + "\"");
++  auto fullver = getClangFullRepositoryVersion();
++  if (!fullver.empty()) {
++    Builder.defineMacro("__clang_version__",
++                        "\"" CLANG_VERSION_STRING " " + fullver + "\"");
++  } else {
++    Builder.defineMacro("__clang_version__", "\"" CLANG_VERSION_STRING "\"");
++  }
+ 
+   if (LangOpts.GNUCVersion != 0) {
+     // Major, minor, patch, are given two decimal places each, so 4.2.1 becomes
+-- 
+2.42.0
+

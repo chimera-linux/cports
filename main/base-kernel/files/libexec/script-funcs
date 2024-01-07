@@ -1,0 +1,13 @@
+get_kernver() {
+    printf "%s" "$(echo ${1}|sed 's/-r\([0-9]*\)/-\1/')-${2}"
+}
+
+copy_modfiles() {
+    for modf in /usr/lib/modules/${1}/apk-dist/modules.*; do
+        [ -f "$modf" ] || continue
+        bdirn=$(dirname "$modf")
+        tdirn=$(dirname "$bdirn")
+        fn=$(basename "$modf")
+        ln -f "$modf" "${tdirn}/$fn"
+    done
+}

@@ -1,0 +1,7 @@
+# cupsd daemon service
+
+type            = process
+command         = /usr/bin/cupsd -f
+depends-on      = local.target
+restart         = true
+smooth-recovery = true

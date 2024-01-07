@@ -1,0 +1,22 @@
+diff --git a/configure.ac b/configure.ac
+index 533dd908..510b017d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -69,7 +69,7 @@ AC_CHECK_PROG(SORDI_ENABLED, sordi, yes, no)
+ 
+ if test "$have_jack_header" = "yes"; then
+   PKG_CHECK_MODULES(JACK_DEPS, jack >= 0.103.0,
+-    AC_CHECK_LIB([jack], [jack_port_register], JACK_FOUND="yes", ),)
++    [AC_CHECK_LIB([jack], [jack_port_register], JACK_FOUND="yes", )],)
+ fi
+ 
+ if test "$JACK_FOUND" = "yes"; then
+@@ -83,7 +83,7 @@ fi
+ PKG_CHECK_MODULES(LV2_DEPS, lv2 >= 1.1.14, LV2_FOUND="yes", LV2_FOUND="no")
+ 
+ PKG_CHECK_MODULES(LASH_DEPS, lash-1.0 >= 0.6.0,
+-  AC_CHECK_LIB([lash], [lash_client_is_being_restored], LASH_0_6_FOUND="yes", LASH_0_6_FOUND="no"),
++  [AC_CHECK_LIB([lash], [lash_client_is_being_restored], LASH_0_6_FOUND="yes", LASH_0_6_FOUND="no")],
+   LASH_0_6_FOUND="no")
+ if test "$LASH_0_6_FOUND" = "yes"; then
+   LASH_FOUND="yes"

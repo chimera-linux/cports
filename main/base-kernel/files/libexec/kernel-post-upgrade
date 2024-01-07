@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# kernel version must be supplied
+[ $# -lt 1 -o -z "$1" ] && exit 0
+
+set -e
+
+do_restore() {
+    srcn="/boot/.apk-backup.$1"
+    [ -f "$srcn" ] || return 0
+    tgtn="/boot/$1"
+    if [ -f "$tgtn" ]; then
+        rm -f "$srcn"
+    else
+        mv "/boot/.apk-backup.$1" "$tgtn"
+        # keep track of it for pruning
+        ln -sf "$tgtn" "/usr/lib/modules/apk-backup/$1"
+    fi
+}
+
+restore_kernel() {
+    # try names we might have backed up
+    do_restore "vmlinux-$1"
+    do_restore "vmlinuz-$1"
+    do_restore "initramfs-$1.img"
+    do_restore "initrd.img-$1"
+    do_restore "config-$1"
+    do_restore "System.map-$1"
+}
+
+restore_modules() {
+    # must exist as a directory
+    [ -d "/usr/lib/modules/apk-backup/$1" ] || return 0
+    # target path
+    kpath="/usr/lib/modules/$1"
+    # in case apk restores it, drop it
+    rm -rf "$kpath"
+    # link it
+    ln -sf "apk-backup/$1" "$kpath"
+}
+
+mkdir -p /usr/lib/modules/apk-backup || exit 1
+
+restore_kernel "$1"
+restore_modules "$1"

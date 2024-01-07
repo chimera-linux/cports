@@ -1,0 +1,65 @@
+From 12185e5227cbb2efe6e0a5a55cc3d8269143ff85 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 17 Jul 2021 04:03:17 +0200
+Subject: [PATCH] fix makefiles
+
+---
+ Makefile           | 8 ++++----
+ Makefile-libbz2_so | 9 +++++----
+ 2 files changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index f8a1772..cf897af 100644
+--- a/Makefile
++++ b/Makefile
+@@ -15,13 +15,13 @@
+ SHELL=/bin/sh
+ 
+ # To assist in cross-compiling
+-CC=gcc
+-AR=ar
+-RANLIB=ranlib
++CC ?= gcc
++AR ?= ar
++RANLIB ?= ranlib
+ LDFLAGS=
+ 
+ BIGFILES=-D_FILE_OFFSET_BITS=64
+-CFLAGS=-Wall -Winline -O2 -g $(BIGFILES)
++CFLAGS += -Wall -Winline -O2 $(BIGFILES)
+ 
+ # Where you want it installed when you do 'make install'
+ PREFIX=/usr/local
+diff --git a/Makefile-libbz2_so b/Makefile-libbz2_so
+index fb0f230..1b3a94d 100644
+--- a/Makefile-libbz2_so
++++ b/Makefile-libbz2_so
+@@ -22,9 +22,9 @@
+ 
+ 
+ SHELL=/bin/sh
+-CC=gcc
++CC ?= gcc
+ BIGFILES=-D_FILE_OFFSET_BITS=64
+-CFLAGS=-fpic -fPIC -Wall -Winline -O2 -g $(BIGFILES)
++CFLAGS += -fpic -fPIC -Wall -Winline $(BIGFILES)
+ 
+ OBJS= blocksort.o  \
+       huffman.o    \
+@@ -35,10 +35,11 @@ OBJS= blocksort.o  \
+       bzlib.o
+ 
+ all: $(OBJS)
+-	$(CC) -shared -Wl,-soname -Wl,libbz2.so.1.0 -o libbz2.so.1.0.8 $(OBJS)
+-	$(CC) $(CFLAGS) -o bzip2-shared bzip2.c libbz2.so.1.0.8
++	$(CC) $(CFLAGS) $(LDFLAGS) -shared -Wl,-soname -Wl,libbz2.so.1 -o libbz2.so.1.0.8 $(OBJS)
++	$(CC) $(CFLAGS) $(LDFLAGS) -o bzip2-shared bzip2.c libbz2.so.1.0.8
+ 	rm -f libbz2.so.1.0
+ 	ln -s libbz2.so.1.0.8 libbz2.so.1.0
++	ln -s libbz2.so.1.0.8 libbz2.so.1
+ 
+ clean: 
+ 	rm -f $(OBJS) bzip2.o libbz2.so.1.0.8 libbz2.so.1.0 bzip2-shared
+-- 
+2.32.0
+

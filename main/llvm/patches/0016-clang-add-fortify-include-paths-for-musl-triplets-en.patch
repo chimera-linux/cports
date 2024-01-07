@@ -1,0 +1,53 @@
+From e2c9d8b51b63879094060bdcf36a9513555f0687 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:09:40 +0100
+Subject: [PATCH 16/25] clang: add fortify include paths for musl triplets +
+ enable fortify
+
+---
+ clang/lib/Driver/ToolChains/Linux.cpp   | 12 ++++++++----
+ clang/lib/Frontend/InitPreprocessor.cpp |  5 +++++
+ 2 files changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
+index 139d99a6a..beac59a42 100644
+--- a/clang/lib/Driver/ToolChains/Linux.cpp
++++ b/clang/lib/Driver/ToolChains/Linux.cpp
+@@ -664,10 +664,14 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
+   if (getTriple().getOS() == llvm::Triple::RTEMS)
+     return;
+ 
+-  // Add an include of '/include' directly. This isn't provided by default by
+-  // system GCCs, but is often used with cross-compiling GCCs, and harmless to
+-  // add even when Clang is acting as-if it were a system compiler.
+-  addExternCSystemInclude(DriverArgs, CC1Args, concat(SysRoot, "/include"));
++  if (getTriple().isMusl()) {
++    addExternCSystemInclude(DriverArgs, CC1Args, concat(SysRoot, "/usr/include/fortify"));
++  } else {
++    // Preserve original clang behavior for non-musl triples, but for musl
++    // this just gets in the way and none of our crosstoolchains are ever
++    // actually built this way (and we'd have to figure out fortify for it)
++    addExternCSystemInclude(DriverArgs, CC1Args, concat(SysRoot, "/include"));
++  }
+ 
+   addExternCSystemInclude(DriverArgs, CC1Args, concat(SysRoot, "/usr/include"));
+ 
+diff --git a/clang/lib/Frontend/InitPreprocessor.cpp b/clang/lib/Frontend/InitPreprocessor.cpp
+index f8fae82fb..316fae2b2 100644
+--- a/clang/lib/Frontend/InitPreprocessor.cpp
++++ b/clang/lib/Frontend/InitPreprocessor.cpp
+@@ -1329,6 +1329,11 @@ static void InitializePredefinedMacros(const TargetInfo &TI,
+   if (TI.getTriple().isOSBinFormatELF())
+     Builder.defineMacro("__ELF__");
+ 
++  // Enable fortify by default on musl when optimizing, but not with asan
++  if (TI.getTriple().isMusl() && LangOpts.Optimize &&
++      !LangOpts.Sanitize.has(SanitizerKind::Address))
++    Builder.defineMacro("_FORTIFY_SOURCE", "2");
++
+   // Get other target #defines.
+   TI.getTargetDefines(LangOpts, Builder);
+ }
+-- 
+2.42.0
+

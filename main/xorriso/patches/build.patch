@@ -1,0 +1,276 @@
+commit f2b994444a822cab205884236102c9b58c4bccc7
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jun 10 00:09:13 2023 +0200
+
+    build fixes
+
+diff --git a/libisofs/ecma119.h b/libisofs/ecma119.h
+index 88b4420..f19d779 100644
+--- a/libisofs/ecma119.h
++++ b/libisofs/ecma119.h
+@@ -22,6 +22,9 @@
+ #include <inttypes.h>
+ #endif
+ #endif
++#ifdef HAVE_SYS_TYPES_H
++# include <sys/types.h>
++#endif
+ 
+ #include <pthread.h>
+ 
+diff --git a/libisofs/hfsplus.h b/libisofs/hfsplus.h
+index 4aaceae..35098b9 100644
+--- a/libisofs/hfsplus.h
++++ b/libisofs/hfsplus.h
+@@ -187,10 +187,10 @@ struct hfsplus_catfile_common
+ #define HFSPLUS_MAX_DECOMPOSE_LEN 4
+ 
+ extern uint16_t (*hfsplus_decompose_pages[256])[HFSPLUS_MAX_DECOMPOSE_LEN + 1];
+-void make_hfsplus_decompose_pages();
++void make_hfsplus_decompose_pages(void);
+ 
+ extern uint16_t *hfsplus_class_pages[256];
+-void make_hfsplus_class_pages();
++void make_hfsplus_class_pages(void);
+ 
+ extern const uint16_t hfsplus_casefold[];
+ 
+diff --git a/libisofs/hfsplus_classes.c b/libisofs/hfsplus_classes.c
+index d47aade..72b3ce3 100644
+--- a/libisofs/hfsplus_classes.c
++++ b/libisofs/hfsplus_classes.c
+@@ -432,7 +432,7 @@ uint16_t *hfsplus_class_pages[256];
+ 
+ static uint16_t class_pages[19][256];
+ 
+-void make_hfsplus_class_pages()
++void make_hfsplus_class_pages(void)
+ {
+     int page_idx = -1, char_idx, i;
+     uint16_t *rpt, *page_pt;
+diff --git a/libisofs/hfsplus_classes_old.c b/libisofs/hfsplus_classes_old.c
+index 1e9b720..db96d97 100644
+--- a/libisofs/hfsplus_classes_old.c
++++ b/libisofs/hfsplus_classes_old.c
+@@ -383,7 +383,7 @@ uint16_t *hfsplus_class_pages[256] = {
+ };
+ 
+ 
+-void make_hfsplus_class_pages()
++void make_hfsplus_class_pages(void)
+ {
+  return;
+ }
+diff --git a/libisofs/hfsplus_classes_test.c b/libisofs/hfsplus_classes_test.c
+index 4905e1c..1782948 100644
+--- a/libisofs/hfsplus_classes_test.c
++++ b/libisofs/hfsplus_classes_test.c
+@@ -397,7 +397,7 @@ const uint16_t *hfsplus_class_pages_old[256] = {
+ /* The new implementation */
+ #include  "hfsplus_classes_ts.c"
+ 
+-static int compare_class_pages()
++static int compare_class_pages(void)
+ {
+     int i, j;
+ 
+@@ -423,7 +423,7 @@ static int compare_class_pages()
+     return 1;
+ }
+ 
+-main()
++int main(void)
+ {
+ 
+  make_hfsplus_class_pages();
+diff --git a/libisofs/hfsplus_classes_ts_test.c b/libisofs/hfsplus_classes_ts_test.c
+index ce93738..6b898cd 100644
+--- a/libisofs/hfsplus_classes_ts_test.c
++++ b/libisofs/hfsplus_classes_ts_test.c
+@@ -781,7 +781,7 @@ uint16_t *hfsplus_class_pages[256];
+ 
+ static uint16_t class_pages[19][256];
+ 
+-void make_hfsplus_class_pages()
++void make_hfsplus_class_pages(void)
+ {
+     int page_idx = -1, char_idx, i;
+     uint16_t *rpt, *page_pt;
+@@ -828,7 +828,7 @@ void make_hfsplus_class_pages()
+ }
+ 
+ 
+-static int compare_class_pages()
++static int compare_class_pages(void)
+ {
+     int i, j;
+ 
+@@ -854,7 +854,7 @@ static int compare_class_pages()
+     return 1;
+ }
+ 
+-main()
++int main(void)
+ {
+ 
+  make_hfsplus_class_pages();
+diff --git a/libisofs/hfsplus_decompose.c b/libisofs/hfsplus_decompose.c
+index e2761d1..49b5f6c 100644
+--- a/libisofs/hfsplus_decompose.c
++++ b/libisofs/hfsplus_decompose.c
+@@ -1051,7 +1051,7 @@ static uint16_t decompose_pages[16 * 256][HFSPLUS_MAX_DECOMPOSE_LEN + 1];
+ uint16_t (*hfsplus_decompose_pages[256])[HFSPLUS_MAX_DECOMPOSE_LEN + 1];
+ 
+ 
+-void make_hfsplus_decompose_pages()
++void make_hfsplus_decompose_pages(void)
+ {
+     int page_idx = -1, char_idx, i;
+     uint16_t *rpt, *page_pt, *value_pt;
+diff --git a/libisofs/hfsplus_decompose_old.c b/libisofs/hfsplus_decompose_old.c
+index 504f9bd..0f71aff 100644
+--- a/libisofs/hfsplus_decompose_old.c
++++ b/libisofs/hfsplus_decompose_old.c
+@@ -1018,7 +1018,7 @@ uint16_t (*hfsplus_decompose_pages[256])[HFSPLUS_MAX_DECOMPOSE_LEN + 1] = {
+   [0xfb] = pagefb,
+ };
+ 
+-void make_hfsplus_decompose_pages()
++void make_hfsplus_decompose_pages(void)
+ {
+  return;
+ }
+diff --git a/libisofs/hfsplus_decompose_test.c b/libisofs/hfsplus_decompose_test.c
+index 66965d8..ffd254f 100644
+--- a/libisofs/hfsplus_decompose_test.c
++++ b/libisofs/hfsplus_decompose_test.c
+@@ -1033,7 +1033,7 @@ const uint16_t (*hfsplus_decompose_pages_old[256])[HFSPLUS_MAX_DECOMPOSE_LEN + 1
+ /* The new implementation */
+ #include  "hfsplus_decompose_ts.c"
+ 
+-static int compare_decompose_pages()
++static int compare_decompose_pages(void)
+ {
+     int i, j, k;
+ 
+@@ -1063,7 +1063,7 @@ static int compare_decompose_pages()
+ }
+ 
+ 
+-main()
++int main(void)
+ {
+ 
+  make_hfsplus_decompose_pages();
+diff --git a/libisofs/hfsplus_decompose_ts_test.c b/libisofs/hfsplus_decompose_ts_test.c
+index 916c7df..a4ed379 100644
+--- a/libisofs/hfsplus_decompose_ts_test.c
++++ b/libisofs/hfsplus_decompose_ts_test.c
+@@ -2058,7 +2058,7 @@ static uint16_t decompose_pages[16 * 256][HFSPLUS_MAX_DECOMPOSE_LEN + 1];
+ uint16_t (*hfsplus_decompose_pages[256])[HFSPLUS_MAX_DECOMPOSE_LEN + 1];
+ 
+ 
+-void make_hfsplus_decompose_pages()
++void make_hfsplus_decompose_pages(void)
+ {
+     int page_idx = -1, char_idx, i;
+     uint16_t *rpt, *page_pt, *value_pt;
+@@ -2113,7 +2113,7 @@ void make_hfsplus_decompose_pages()
+ }
+ 
+ 
+-static int compare_decompose_pages()
++static int compare_decompose_pages(void)
+ {
+     int i, j, k;
+ 
+@@ -2143,7 +2143,7 @@ static int compare_decompose_pages()
+ }
+ 
+ 
+-main()
++int main(void)
+ {
+ 
+  make_hfsplus_decompose_pages();
+diff --git a/libisofs/libisofs.h b/libisofs/libisofs.h
+index 0b43242..ebe3190 100644
+--- a/libisofs/libisofs.h
++++ b/libisofs/libisofs.h
+@@ -1199,7 +1199,7 @@ struct iso_stream
+  *
+  * @since 0.6.2
+  */
+-int iso_init();
++int iso_init(void);
+ 
+ /**
+  * Initialize libisofs. Before any usage of the library you must either call
+@@ -1219,7 +1219,7 @@ int iso_init_with_flag(int flag);
+  *
+  * @since 0.6.2
+  */
+-void iso_finish();
++void iso_finish(void);
+ 
+ /**
+  * Override the reply of libc function nl_langinfo(CODESET) which may or may
+@@ -6996,7 +6996,7 @@ int iso_set_abort_severity(char *severity);
+  *
+  * @since 0.6.2
+  */
+-void *iso_get_messenger();
++void *iso_get_messenger(void);
+ 
+ /**
+  * Take a ref to the given IsoFileSource.
+diff --git a/libisofs/messages.c b/libisofs/messages.c
+index 5d677ed..4a3ad9e 100644
+--- a/libisofs/messages.c
++++ b/libisofs/messages.c
+@@ -224,12 +224,12 @@ LIBJTE_MISCONFIGURATION_ = 0;
+     return 1;
+ }
+ 
+-int iso_init()
++int iso_init(void)
+ {
+     return iso_init_with_flag(0);
+ }
+ 
+-void iso_finish()
++void iso_finish(void)
+ {
+     libiso_msgs_destroy(&libiso_msgr, 0);
+     iso_node_xinfo_dispose_cloners(0);
+@@ -769,7 +769,7 @@ int iso_sev_to_text(int severity_number, char **severity_name)
+  *
+  * @return the handle. Do only use with compatible
+  */
+-void *iso_get_messenger()
++void *iso_get_messenger(void)
+ {
+     return libiso_msgr;
+ }
+diff --git a/xorriso/xorriso_main.c b/xorriso/xorriso_main.c
+index 269c8e9..2646c46 100644
+--- a/xorriso/xorriso_main.c
++++ b/xorriso/xorriso_main.c
+@@ -114,7 +114,7 @@
+ #define Xorriso_req_micrO  6
+ 
+ 
+-static void yell_xorriso()
++static void yell_xorriso(void)
+ {
+  fprintf(stderr,
+          "%sxorriso %d.%d.%d%s : RockRidge filesystem manipulator, libburnia project.\n\n",
+@@ -130,7 +130,7 @@ static void yell_xorriso()
+ 
+ /* Check whether build configuration and runtime linking are consistent.
+ */
+-static void check_compatibility()
++static void check_compatibility(void)
+ {
+  int lib_major, lib_minor, lib_micro;
+ 

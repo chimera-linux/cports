@@ -1,0 +1,176 @@
+From b6eca90c7fd54b94f613c163e1b7bdd2b9486f46 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Mon, 27 Feb 2023 02:17:21 +0100
+Subject: [PATCH] add a findkeys utility
+
+This allows one to print all paths involved when loading a given
+keymap, including all include files.
+---
+ src/Makefile.am                |  3 +-
+ src/findkeys.c                 | 86 ++++++++++++++++++++++++++++++++++
+ src/libkeymap/analyze.c        |  4 ++
+ src/libkeymap/keymap/context.h |  3 +-
+ src/libkeymap/parser.c         |  4 ++
+ 5 files changed, 98 insertions(+), 2 deletions(-)
+ create mode 100644 src/findkeys.c
+
+diff --git a/src/Makefile.am b/src/Makefile.am
+index c495883..7dd8492 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -14,7 +14,7 @@ SUBDIRS = libcommon libkbdfile libkfont libkeymap vlock
+ 
+ OLDPROGS = mapscrn loadunimap
+ PROGS = \
+-	dumpkeys loadkeys showkey setfont showconsolefont \
++	dumpkeys loadkeys findkeys showkey setfont showconsolefont \
+ 	setleds setmetamode kbd_mode psfxtable fgconsole \
+ 	kbdrate chvt deallocvt openvt kbdinfo setvtrgb
+ 
+@@ -67,6 +67,7 @@ kbdinfo_SOURCES         = $(ALL_S) kbdinfo.c
+ 
+ dumpkeys_SOURCES        = $(ALL_S) dumpkeys.c
+ loadkeys_SOURCES        = $(ALL_S) loadkeys.c
++findkeys_SOURCES        = $(ALL_S) findkeys.c
+ 
+ getunimap_CFLAGS = -DUSE_LIBC
+ 
+diff --git a/src/findkeys.c b/src/findkeys.c
+new file mode 100644
+index 0000000..3725dc5
+--- /dev/null
++++ b/src/findkeys.c
+@@ -0,0 +1,86 @@
++#include "config.h"
++
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <getopt.h>
++#include <unistd.h>
++#include <errno.h>
++#include <sysexits.h>
++#include <sys/ioctl.h>
++
++#include "libcommon.h"
++
++#include "paths.h"
++#include "keymap.h"
++
++static const char *const dirpath1[] = {
++	"",
++	DATADIR "/" KEYMAPDIR "/**",
++	KERNDIR "/",
++	NULL
++};
++static const char *const suffixes[] = {
++	"",
++	".kmap",
++	".map",
++	NULL
++};
++
++int main(int argc, char *argv[])
++{
++	const char *const *dirpath;
++	const char *dirpath2[] = { NULL, NULL };
++
++	struct lk_ctx *ctx;
++
++	int rc = -1;
++	int fd = -1;
++	char *ev;
++	struct kbdfile_ctx *fctx;
++	struct kbdfile *fp = NULL;
++
++	ctx = lk_init();
++	if (!ctx) {
++		exit(EXIT_FAILURE);
++	}
++
++	if (!(fctx = kbdfile_context_new()))
++		kbd_error(EXIT_FAILURE, errno, "Unable to create kbdfile context");
++
++	lk_set_parser_flags(ctx, LK_FLAG_IS_FINDKEYS);
++
++	dirpath = dirpath1;
++	if ((ev = getenv("LOADKEYS_KEYMAP_PATH")) != NULL) {
++		dirpath2[0] = ev;
++		dirpath     = dirpath2;
++	}
++
++	if (argc != 2) {
++		kbd_error(EXIT_FAILURE, 0, "A single name must be provided.");
++	}
++
++    if (!(fp = kbdfile_new(fctx))) {
++        kbd_error(EXIT_FAILURE, 0, "Unable to create kbdfile instance: %m");
++    }
++
++    if (kbdfile_find(argv[1], dirpath, suffixes, fp)) {
++        kbd_warning(0, "Unable to open file: %s: %m", argv[1]);
++        goto fail;
++    }
++
++    rc = lk_parse_keymap(ctx, fp);
++    kbdfile_free(fp);
++
++fail:
++	lk_free(ctx);
++	kbdfile_context_free(fctx);
++
++	if (fd >= 0)
++		close(fd);
++
++	if (rc < 0)
++		exit(EXIT_FAILURE);
++
++	exit(EXIT_SUCCESS);
++}
+diff --git a/src/libkeymap/analyze.c b/src/libkeymap/analyze.c
+index 76eb888..c762dd2 100644
+--- a/src/libkeymap/analyze.c
++++ b/src/libkeymap/analyze.c
+@@ -1020,6 +1020,10 @@ open_include(struct lk_ctx *ctx, char *s, yyscan_t scanner)
+ 		return -1;
+ 	}
+ 
++	if (ctx->flags & LK_FLAG_IS_FINDKEYS) {
++		printf("%s\n", kbdfile_get_pathname(fp));
++	}
++
+ 	free(s);
+ 
+ 	return stack_push(ctx, fp, scanner);
+diff --git a/src/libkeymap/keymap/context.h b/src/libkeymap/keymap/context.h
+index c353952..8672e04 100644
+--- a/src/libkeymap/keymap/context.h
++++ b/src/libkeymap/keymap/context.h
+@@ -17,7 +17,8 @@ typedef enum {
+ 	LK_FLAG_UNICODE_MODE   = (1 << 1), /**< Unicode mode */
+ 	LK_FLAG_CLEAR_COMPOSE  = (1 << 2), /**< Compose */
+ 	LK_FLAG_CLEAR_STRINGS  = (1 << 3), /**< Strings */
+-	LK_FLAG_PREFER_UNICODE = (1 << 4)  /**< Prefer unicode */
++	LK_FLAG_PREFER_UNICODE = (1 << 4), /**< Prefer unicode */
++	LK_FLAG_IS_FINDKEYS    = (1 << 5)
+ } lk_flags;
+ 
+ /**
+diff --git a/src/libkeymap/parser.c b/src/libkeymap/parser.c
+index ef4a9d0..1159253 100644
+--- a/src/libkeymap/parser.c
++++ b/src/libkeymap/parser.c
+@@ -2274,6 +2274,10 @@ lk_parse_keymap(struct lk_ctx *ctx, struct kbdfile *fp)
+ 
+ 	yylex_init_extra(ctx, &scanner);
+ 
++	if (ctx->flags & LK_FLAG_IS_FINDKEYS) {
++		printf("%s\n", kbdfile_get_pathname(fp));
++	}
++
+ 	INFO(ctx, _("Loading %s"), kbdfile_get_pathname(fp));
+ 
+ 	if (stack_push(ctx, fp, scanner) == -1)
+-- 
+2.39.0
+

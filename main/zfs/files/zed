@@ -1,0 +1,8 @@
+# zfs event daemon service
+
+type            = process
+command         = /usr/bin/zed -F
+depends-on      = early-fs-local.target
+before          = pre-local.target
+restart         = true
+smooth-recovery = true

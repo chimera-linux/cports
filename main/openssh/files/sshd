@@ -1,0 +1,8 @@
+# sshd service
+
+type            = process
+command         = /usr/bin/sshd -D
+depends-on      = ssh-keygen
+depends-on      = network.target
+restart         = true
+smooth-recovery = true

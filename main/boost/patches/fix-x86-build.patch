@@ -1,0 +1,87 @@
+commit bf9578c62265ea2e4fcb0d172e20cc9bb5e7d0e5
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Aug 23 14:54:28 2022 +0200
+
+    Revert: Add Linux arm & x86 clang cross compile defs.
+    
+    This reverts https://github.com/boostorg/build/commit/397fdf56b7c409ea2d3dfd687a3ebdf319baa95d.
+    
+    It breaks x86 build in our environment.
+
+diff --git a/tools/build/src/tools/clang.jam b/tools/build/src/tools/clang.jam
+index a6dd513..75e3b91 100644
+--- a/tools/build/src/tools/clang.jam
++++ b/tools/build/src/tools/clang.jam
+@@ -67,43 +67,34 @@ rule init-cxxstd-flags ( toolset : condition * : version )
+     cxxstd-flags $(toolset) : $(condition)/<cxxstd>latest/<cxxstd-dialect>$(dialects) : -std=c++$(std) ;
+ }
+ 
+-local rule init-flags-cross ( toolset : condition * : architecture + : address-model + : target-os )
++local rule init-flags-cross ( toolset : condition * : architecture address-model target-os )
+ {
+-    local vendor = unknown ;
+-    local sys = unknown ;
+-    switch $(target-os)
++    local arch ;
++    local vendor ;
++    local sys ;
++    switch $(architecture)-$(address-model)
+     {
+-        case darwin : vendor = apple ; sys = darwin ;
+-        case linux : vendor = pc ; sys = linux ;
++        case arm-64 : arch = arm64 ;
++        case arm-32 : arch = arm ;
++        case x86-64 : arch = x86_64 ;
++        case x86-32 : arch = i386 ;
+     }
+-    local vendor-sys = $(vendor)-$(sys) ;
+-    for local _architecture_ in $(architecture)
++    switch $(target-os)
+     {
+-        for local _address-model_ in $(address-model)
+-        {
+-            local arch = unknown ;
+-            switch $(_architecture_)-$(_address-model_)
+-            {
+-                case arm-64 : arch = arm64 ;
+-                case arm-32 : arch = arm ;
+-                case x86-64 : arch = x86_64 ;
+-                case x86-32 : arch = i386 ;
+-            }
+-
+-            toolset.flags $(toolset)
+-                OPTIONS $(condition)/<target-os>$(target-os)/<architecture>$(_architecture_)/<address-model>$(_address-model_)
+-                : "--target=$(arch)-$(vendor-sys)"
+-                : unchecked ;
+-        }
++        case darwin : vendor = apple ; sys = darwin ;
+     }
++    toolset.flags $(toolset)
++        OPTIONS $(condition)/<target-os>$(target-os)/<architecture>$(architecture)/<address-model>$(address-model)
++        : "--target=$(arch)-$(vendor)-$(sys)"
++        : unchecked ;
+ }
+ 
+ rule init-flags ( toolset : condition * : version )
+ {
+     init-cxxstd-flags $(toolset) : $(condition) : $(version) ;
+ 
+-    init-flags-cross $(toolset) : $(condition) : arm x86 : 64 : darwin ;
+-    init-flags-cross $(toolset) : $(condition) : arm x86 : 64 32 : linux ;
++    init-flags-cross $(toolset) : $(condition) : arm 64 darwin ;
++    init-flags-cross $(toolset) : $(condition) : x86 64 darwin ;
+ 
+     # This is a temporary solution for doing combined architecture builds on macOS.
+     toolset.flags $(toolset)
+diff --git a/tools/build/test/test_all.py b/tools/build/test/test_all.py
+index 3965735..d29313d 100644
+--- a/tools/build/test/test_all.py
++++ b/tools/build/test/test_all.py
+@@ -312,7 +312,6 @@ tests = ["abs_workdir",
+          "testing",
+          "timedata",
+          "toolset_clang_darwin",
+-         "toolset_clang_linux",
+          "toolset_clang_vxworks",
+          "toolset_darwin",
+          "toolset_defaults",

@@ -1,0 +1,8 @@
+# buildkitd service
+
+type        = process
+command     = /usr/bin/buildkitd
+depends-on  = network.target
+restart     = true
+logfile     = /var/log/buildkitd.log
+working-dir = /var/lib/buildkit

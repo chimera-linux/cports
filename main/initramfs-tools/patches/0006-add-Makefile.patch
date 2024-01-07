@@ -1,0 +1,122 @@
+From 8424b7c0c9368dfbd97a014dbeb9d8c13e716f83 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 22 Oct 2021 02:59:12 +0200
+Subject: [PATCH 6/7] add Makefile
+
+---
+ Makefile | 103 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 103 insertions(+)
+ create mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..fee205c
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,103 @@
++PREFIX     ?= /usr
++SYSCONFDIR ?= /etc
++BINDIR     ?= $(PREFIX)/bin
++DATADIR    ?= $(PREFIX)/share
++MANDIR     ?= $(DATADIR)/man
++
++INITRAMFS_TOOLS_CONFDIR := $(SYSCONFDIR)/initramfs-tools
++INITRAMFS_TOOLS_DATADIR := $(DATADIR)/initramfs-tools
++INITRAMFS_TOOLS_EXAMPLES := $(DATADIR)/doc/initramfs-tools/examples
++
++INSTALL_SCRIPTDIRS = \
++	init-bottom init-premount init-top \
++	local-bottom local-premout local-top \
++	nfs-bottom nfs-premount nfs-top \
++	panic
++
++INSTALL_HOOKS = fsck keymap resume thermal
++
++all:
++	@echo "Nothing to be done here."
++
++install:
++	# make directories
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/conf.d
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/hooks
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/scripts
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/conf.d
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/conf-hooks.d
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/modules.d
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/hooks
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_EXAMPLES)
++	install -d $(DESTDIR)$(BINDIR)
++	install -d $(DESTDIR)$(MANDIR)/man5
++	install -d $(DESTDIR)$(MANDIR)/man7
++	install -d $(DESTDIR)$(MANDIR)/man8
++	# script dirs
++	for d in $(INSTALL_HOOKS); do \
++		install -d $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/scripts/$$d; \
++		touch $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/scripts/$$d/.empty; \
++		chmod 644 $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/scripts/$$d/.empty; \
++	done
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts/init-top
++	install -d $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts/local-premount
++	# empty dir placeholders
++	touch $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/conf.d/.empty
++	touch $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/hooks/.empty
++	chmod 644 $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/conf.d/.empty
++	chmod 644 $(DESTDIR)$(INITRAMFS_TOOLS_CONFDIR)/hooks/.empty
++	touch $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/conf.d/.empty
++	touch $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/modules.d/.empty
++	touch $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/conf-hooks.d/.empty
++	chmod 644 $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/conf.d/.empty
++	chmod 644 $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/modules.d/.empty
++	chmod 644 $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/conf-hooks.d/.empty
++	# bins
++	install -m 755 update-initramfs $(DESTDIR)$(BINDIR)
++	install -m 755 lsinitramfs $(DESTDIR)$(BINDIR)
++	install -m 755 mkinitramfs $(DESTDIR)$(BINDIR)
++	install -m 755 unmkinitramfs $(DESTDIR)$(BINDIR)
++	# manpages
++	install -m 644 initramfs.conf.5 $(DESTDIR)$(MANDIR)/man5
++	install -m 644 update-initramfs.conf.5 $(DESTDIR)$(MANDIR)/man5
++	install -m 644 initramfs-tools.7 $(DESTDIR)$(MANDIR)/man7
++	install -m 644 update-initramfs.8 $(DESTDIR)$(MANDIR)/man8
++	install -m 644 lsinitramfs.8 $(DESTDIR)$(MANDIR)/man8
++	install -m 644 mkinitramfs.8 $(DESTDIR)$(MANDIR)/man8
++	install -m 644 unmkinitramfs.8 $(DESTDIR)$(MANDIR)/man8
++	# modules example conf
++	install -m 644 conf/modules $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)
++	# generate actual module conf
++	sed '/###/d' conf/modules > $(DESTDIR)/$(INITRAMFS_TOOLS_CONFDIR)/modules
++	chmod 644 $(DESTDIR)/$(INITRAMFS_TOOLS_CONFDIR)/modules
++	# other confs
++	install -m 644 conf/initramfs.conf $(DESTDIR)/$(INITRAMFS_TOOLS_CONFDIR)
++	install -m 644 conf/update-initramfs.conf \
++		$(DESTDIR)/$(INITRAMFS_TOOLS_CONFDIR)
++	# examples
++	install -m 644 docs/example_hook $(DESTDIR)$(INITRAMFS_TOOLS_EXAMPLES)
++	install -m 644 docs/example_script $(DESTDIR)$(INITRAMFS_TOOLS_EXAMPLES)
++	install -m 644 docs/framebuffer $(DESTDIR)$(INITRAMFS_TOOLS_EXAMPLES)
++	# init
++	install -m 755 init $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)
++	# hook-functions
++	install -m 755 hook-functions $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)
++	# scripts
++	install -m 755 scripts/functions $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts
++	install -m 755 scripts/local $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts
++	install -m 755 scripts/nfs $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts
++	# hooks
++	for h in $(INSTALL_HOOKS); do \
++		install -m 755 hooks/$$h $(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/hooks; \
++	done
++	# scripts
++	install -m 755 scripts/init-top/all_generic_ide \
++		$(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts/init-top
++	install -m 755 scripts/init-top/blacklist \
++		$(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts/init-top
++	install -m 755 scripts/init-top/keymap \
++		$(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts/init-top
++	install -m 755 scripts/local-premount/resume \
++		$(DESTDIR)$(INITRAMFS_TOOLS_DATADIR)/scripts/local-premount
+-- 
+2.37.1
+

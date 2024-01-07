@@ -1,0 +1,289 @@
+This patch renames the --with-sysroot option to --with-libtool-sysroot
+to avoid namespace conflict with binutils, gcc and other toolchain
+components.
+
+I also reported the problem to libtool here
+
+http://lists.gnu.org/archive/html/libtool/2010-10/msg00048.html
+
+-Khem Raj <raj.khem@gmail.com>
+
+Adapted to libtool-2.4.7 configure files and line numbers by q66
+
+diff --git a/configure b/configure
+index faba8d7..2d34e94 100755
+--- a/configure
++++ b/configure
+@@ -832,7 +832,7 @@ with_pic
+ enable_fast_install
+ with_aix_soname
+ with_gnu_ld
+-with_sysroot
++with_libtool_sysroot
+ enable_libtool_lock
+ enable_cross_guesses
+ '
+@@ -1509,7 +1509,8 @@ Optional Packages:
+                           shared library versioning (aka "SONAME") variant to
+                           provide on AIX, [default=aix].
+   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
+-  --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
++  --with-libtool-sysroot[=DIR]
++                          Search for dependent libraries within DIR (or the
+                           compiler's sysroot if not specified).
+ 
+ Some influential environment variables:
+@@ -7610,29 +7611,29 @@ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for sysroot" >&5
+ $as_echo_n "checking for sysroot... " >&6; }
+ 
+-# Check whether --with-sysroot was given.
+-if test "${with_sysroot+set}" = set; then :
+-  withval=$with_sysroot;
++# Check whether --with-libtool-sysroot was given.
++if test "${with_libtool_sysroot+set}" = set; then :
++  withval=$with_libtool_sysroot;
+ else
+-  with_sysroot=no
++  with_libtool_sysroot=no
+ fi
+ 
+ 
+ lt_sysroot=
+-case $with_sysroot in #(
++case $with_libtool_sysroot in #(
+  yes)
+    if test yes = "$GCC"; then
+      lt_sysroot=`$CC --print-sysroot 2>/dev/null`
+    fi
+    ;; #(
+  /*)
+-   lt_sysroot=`echo "$with_sysroot" | $SED -e "$sed_quote_subst"`
++   lt_sysroot=`echo "$with_libtool_sysroot" | $SED -e "$sed_quote_subst"`
+    ;; #(
+  no|'')
+    ;; #(
+  *)
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $with_sysroot" >&5
+-$as_echo "$with_sysroot" >&6; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $with_libtool_sysroot" >&5
++$as_echo "$with_libtool_sysroot" >&6; }
+    as_fn_error $? "The sysroot must be an absolute path." "$LINENO" 5
+    ;;
+ esac
+diff --git a/libltdl/configure b/libltdl/configure
+index 625c6a3..25892f4 100755
+--- a/libltdl/configure
++++ b/libltdl/configure
+@@ -777,7 +777,7 @@ enable_fast_install
+ with_aix_soname
+ enable_dependency_tracking
+ with_gnu_ld
+-with_sysroot
++with_libtool_sysroot
+ enable_libtool_lock
+ enable_ltdl_install
+ '
+@@ -1442,7 +1442,8 @@ Optional Packages:
+                           shared library versioning (aka "SONAME") variant to
+                           provide on AIX, [default=aix].
+   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
+-  --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
++  --with-libtool-sysroot[=DIR]
++                          Search for dependent libraries within DIR (or the
+                           compiler's sysroot if not specified).
+ 
+ Some influential environment variables:
+@@ -6398,28 +6399,28 @@ fi
+ $as_echo_n "checking for sysroot... " >&6; }
+ 
+ # Check whether --with-sysroot was given.
+-if test "${with_sysroot+set}" = set; then :
+-  withval=$with_sysroot;
++if test "${with_libtool_sysroot+set}" = set; then :
++  withval=$with_libtool_sysroot;
+ else
+-  with_sysroot=no
++  with_libtool_sysroot=no
+ fi
+ 
+ 
+ lt_sysroot=
+-case $with_sysroot in #(
++case $with_libtool_sysroot in #(
+  yes)
+    if test yes = "$GCC"; then
+      lt_sysroot=`$CC --print-sysroot 2>/dev/null`
+    fi
+    ;; #(
+  /*)
+-   lt_sysroot=`echo "$with_sysroot" | $SED -e "$sed_quote_subst"`
++   lt_sysroot=`echo "$with_libtool_sysroot" | $SED -e "$sed_quote_subst"`
+    ;; #(
+  no|'')
+    ;; #(
+  *)
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $with_sysroot" >&5
+-$as_echo "$with_sysroot" >&6; }
++   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $with_libtool_sysroot" >&5
++$as_echo "$with_libtool_sysroot" >&6; }
+    as_fn_error $? "The sysroot must be an absolute path." "$LINENO" 5
+    ;;
+ esac
+diff --git a/m4/libtool.m4 b/m4/libtool.m4
+index 79a2451..d782949 100644
+--- a/m4/libtool.m4
++++ b/m4/libtool.m4
+@@ -1243,29 +1243,29 @@ _LT_DECL([], [ECHO], [1], [An echo program that protects backslashes])
+ # ----------------
+ AC_DEFUN([_LT_WITH_SYSROOT],
+ [m4_require([_LT_DECL_SED])dnl
+-AC_MSG_CHECKING([for sysroot])
+-AC_ARG_WITH([sysroot],
+-[AS_HELP_STRING([--with-sysroot@<:@=DIR@:>@],
++AC_MSG_CHECKING([for libtool-sysroot])
++AC_ARG_WITH([libtool-sysroot],
++[AS_HELP_STRING([--with-libtool-sysroot@<:@=DIR@:>@],
+   [Search for dependent libraries within DIR (or the compiler's sysroot
+    if not specified).])],
+-[], [with_sysroot=no])
++[], [with_libtool_sysroot=no])
+ 
+ dnl lt_sysroot will always be passed unquoted.  We quote it here
+ dnl in case the user passed a directory name.
+ lt_sysroot=
+-case $with_sysroot in #(
++case $with_libtool_sysroot in #(
+  yes)
+    if test yes = "$GCC"; then
+      lt_sysroot=`$CC --print-sysroot 2>/dev/null`
+    fi
+    ;; #(
+  /*)
+-   lt_sysroot=`echo "$with_sysroot" | $SED -e "$sed_quote_subst"`
++   lt_sysroot=`echo "$with_libtool_sysroot" | $SED -e "$sed_quote_subst"`
+    ;; #(
+  no|'')
+    ;; #(
+  *)
+-   AC_MSG_RESULT([$with_sysroot])
++   AC_MSG_RESULT([$with_libtool_sysroot])
+    AC_MSG_ERROR([The sysroot must be an absolute path.])
+    ;;
+ esac
+diff --git a/tests/sysroot.at b/tests/sysroot.at
+index 540edde..47fce0c 100644
+--- a/tests/sysroot.at
++++ b/tests/sysroot.at
+@@ -65,7 +65,7 @@ while read file; do
+ done])
+ 
+ LDFLAGS="$LDFLAGS --sysroot=$sysroot -no-undefined"
+-configure_options="$configure_options --with-sysroot=$sysroot --prefix=$prefix"
++configure_options="$configure_options --with-libtool-sysroot=$sysroot --prefix=$prefix"
+ 
+ #???
+ if test PATH = "$shlibpath_var"; then
+@@ -115,7 +115,7 @@ AM_INIT_AUTOMAKE([foreign])
+ AC_PROG_CC
+ AC_CONFIG_SRCDIR([lib2.c])
+ LT_INIT
+-sysroot=$with_sysroot
++sysroot=$with_libtool_sysroot
+ AC_SUBST([sysroot])
+ AC_OUTPUT(Makefile)
+ ]])
+@@ -156,7 +156,7 @@ AM_INIT_AUTOMAKE([foreign])
+ AC_PROG_CC
+ AC_CONFIG_SRCDIR([prog.c])
+ LT_INIT
+-sysroot=$with_sysroot
++sysroot=$with_libtool_sysroot
+ AC_SUBST([sysroot])
+ AC_OUTPUT(Makefile)
+ ]])
+diff --git a/tests/testsuite b/tests/testsuite
+index 24265e4..d388e3e 100755
+--- a/tests/testsuite
++++ b/tests/testsuite
+@@ -48997,7 +48997,7 @@ $at_traceon; }
+ 
+ 
+ LDFLAGS="$LDFLAGS --sysroot=$sysroot -no-undefined"
+-configure_options="$configure_options --with-sysroot=$sysroot --prefix=$prefix"
++configure_options="$configure_options --with-libtool-sysroot=$sysroot --prefix=$prefix"
+ 
+ #???
+ if test PATH = "$shlibpath_var"; then
+@@ -49211,7 +49211,7 @@ AM_INIT_AUTOMAKE([foreign])
+ AC_PROG_CC
+ AC_CONFIG_SRCDIR([lib2.c])
+ LT_INIT
+-sysroot=$with_sysroot
++sysroot=$with_libtool_sysroot
+ AC_SUBST([sysroot])
+ AC_OUTPUT(Makefile)
+ _ATEOF
+@@ -49404,7 +49404,7 @@ AM_INIT_AUTOMAKE([foreign])
+ AC_PROG_CC
+ AC_CONFIG_SRCDIR([prog.c])
+ LT_INIT
+-sysroot=$with_sysroot
++sysroot=$with_libtool_sysroot
+ AC_SUBST([sysroot])
+ AC_OUTPUT(Makefile)
+ _ATEOF
+@@ -49761,7 +49761,7 @@ $at_traceon; }
+ 
+ 
+ LDFLAGS="$LDFLAGS --sysroot=$sysroot -no-undefined"
+-configure_options="$configure_options --with-sysroot=$sysroot --prefix=$prefix"
++configure_options="$configure_options --with-libtool-sysroot=$sysroot --prefix=$prefix"
+ 
+ #???
+ if test PATH = "$shlibpath_var"; then
+@@ -49975,7 +49975,7 @@ AM_INIT_AUTOMAKE([foreign])
+ AC_PROG_CC
+ AC_CONFIG_SRCDIR([lib2.c])
+ LT_INIT
+-sysroot=$with_sysroot
++sysroot=$with_libtool_sysroot
+ AC_SUBST([sysroot])
+ AC_OUTPUT(Makefile)
+ _ATEOF
+@@ -50168,7 +50168,7 @@ AM_INIT_AUTOMAKE([foreign])
+ AC_PROG_CC
+ AC_CONFIG_SRCDIR([prog.c])
+ LT_INIT
+-sysroot=$with_sysroot
++sysroot=$with_libtool_sysroot
+ AC_SUBST([sysroot])
+ AC_OUTPUT(Makefile)
+ _ATEOF
+@@ -50525,7 +50525,7 @@ $at_traceon; }
+ 
+ 
+ LDFLAGS="$LDFLAGS --sysroot=$sysroot -no-undefined"
+-configure_options="$configure_options --with-sysroot=$sysroot --prefix=$prefix"
++configure_options="$configure_options --with-libtool-sysroot=$sysroot --prefix=$prefix"
+ 
+ #???
+ if test PATH = "$shlibpath_var"; then
+@@ -50739,7 +50739,7 @@ AM_INIT_AUTOMAKE([foreign])
+ AC_PROG_CC
+ AC_CONFIG_SRCDIR([lib2.c])
+ LT_INIT
+-sysroot=$with_sysroot
++sysroot=$with_libtool_sysroot
+ AC_SUBST([sysroot])
+ AC_OUTPUT(Makefile)
+ _ATEOF
+@@ -50932,7 +50932,7 @@ AM_INIT_AUTOMAKE([foreign])
+ AC_PROG_CC
+ AC_CONFIG_SRCDIR([prog.c])
+ LT_INIT
+-sysroot=$with_sysroot
++sysroot=$with_libtool_sysroot
+ AC_SUBST([sysroot])
+ AC_OUTPUT(Makefile)
+ _ATEOF

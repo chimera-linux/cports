@@ -1,0 +1,1 @@
+pkgname = "charset_normalizer"

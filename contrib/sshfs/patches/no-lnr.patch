@@ -1,0 +1,13 @@
+--- a/utils/install_helper.sh
++++ b/utils/install_helper.sh
+@@ -12,8 +12,8 @@
+ 
+ mkdir -p "${prefix}/${sbindir}"
+ 
+-ln -svf --relative "${prefix}/${bindir}/sshfs" \
++ln -svf sshfs \
+    "${prefix}/${sbindir}/mount.sshfs"
+ 
+-ln -svf --relative "${prefix}/${bindir}/sshfs" \
++ln -svf sshfs \
+    "${prefix}/${sbindir}/mount.fuse.sshfs"

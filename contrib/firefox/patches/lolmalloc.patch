@@ -1,0 +1,44 @@
+14:02.77 In file included from Unified_cpp_gfx_graphite2_src0.cpp:29:
+14:02.77 In file included from /builddir/thunderbird-115.4.2/gfx/graphite2/src/Collider.cpp:31:
+14:02.77 In file included from ../../../dist/stl_wrappers/functional:62:
+14:02.77 In file included from ../../../dist/system_wrappers/functional:3:
+14:02.77 In file included from /usr/bin/../include/c++/v1/functional:526:
+14:02.77 In file included from /usr/bin/../include/c++/v1/__functional/boyer_moore_searcher.h:27:
+14:02.77 In file included from ../../../dist/stl_wrappers/vector:62:
+14:02.77 In file included from ../../../dist/system_wrappers/vector:3:
+14:02.77 In file included from /usr/bin/../include/c++/v1/vector:321:
+14:02.77 In file included from /usr/bin/../include/c++/v1/__format/formatter_bool.h:20:
+14:02.77 In file included from /usr/bin/../include/c++/v1/__format/formatter_integral.h:32:
+14:02.77 In file included from ../../../dist/system_wrappers/locale:3:
+14:02.77 /usr/bin/../include/c++/v1/locale:2830:22: error: no member named 'moz_xrealloc' in namespace 'std'; did you mean simply 'moz_xrealloc'?
+14:02.77  2830 |     _Tp* __t = (_Tp*)std::realloc(__owns ? __b.get() : 0, __new_cap);
+14:02.77       |                      ^~~~~
+14:02.77 ../../../dist/include/mozilla/mozalloc.h:82:16: note: 'moz_xrealloc' declared here
+14:02.77    82 | MFBT_API void* moz_xrealloc(void* ptr, size_t size) MOZ_INFALLIBLE_ALLOCATOR;
+14:02.77       |                ^
+14:02.77 In file included from Unified_cpp_gfx_graphite2_src0.cpp:74:
+14:02.77 /builddir/thunderbird-115.4.2/gfx/graphite2/src/GlyphCache.cpp:47:40: warning: 'iterator<std::input_iterator_tag, std::pair<unsigned short, unsigned short>>' is deprecated [-Wdeprecated-declarations]
+14:02.77    47 |     class _glat_iterator : public std::iterator<std::input_iterator_tag, std::pair<sparse::key_type, sparse::mapped_type> >
+14:02.77       |                                        ^
+14:02.77 /usr/bin/../include/c++/v1/__iterator/iterator.h:24:29: note: 'iterator<std::input_iterator_tag, std::pair<unsigned short, unsigned short>>' has been explicitly marked deprecated here
+14:02.77    24 | struct _LIBCPP_TEMPLATE_VIS _LIBCPP_DEPRECATED_IN_CXX17 iterator
+14:02.77       |                             ^
+14:02.77 /usr/bin/../include/c++/v1/__config:983:41: note: expanded from macro '_LIBCPP_DEPRECATED_IN_CXX17'
+14:02.77   983 | #    define _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_DEPRECATED
+14:02.77       |                                         ^
+14:02.77 /usr/bin/../include/c++/v1/__config:956:49: note: expanded from macro '_LIBCPP_DEPRECATED'
+14:02.77   956 | #      define _LIBCPP_DEPRECATED __attribute__((__deprecated__))
+14:02.77       |                                                 ^
+14:02.77 1 warning and 1 error generated.
+
+--- a/gfx/graphite2/src/MozGrMalloc.h
++++ b/gfx/graphite2/src/MozGrMalloc.h
+@@ -12,7 +12,7 @@
+ 
+ #include "mozilla/mozalloc.h"
+ 
+-#if defined(XP_LINUX)
++#if 0
+ 
+ #define malloc moz_xmalloc
+ #define calloc moz_xcalloc

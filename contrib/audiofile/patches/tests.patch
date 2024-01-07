@@ -1,0 +1,28 @@
+commit 4ffb34cab529e9d7b1268a6c4b4fc0c46404710f
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Dec 1 20:50:34 2023 +0100
+
+    fix tests build
+
+diff --git a/test/Sign.cpp b/test/Sign.cpp
+index 7275399..fdf3139 100644
+--- a/test/Sign.cpp
++++ b/test/Sign.cpp
+@@ -134,7 +134,7 @@ TEST_F(SignConversionTest, Int24)
+ 	AFframecount framesRead = afReadFrames(file, AF_DEFAULT_TRACK, readData, frameCount);
+ 	ASSERT_EQ(framesRead, frameCount);
+ 	afCloseFile(file);
+-	const uint32_t expectedData[] = { 0, -kMinInt24, kMaxUInt24 };
++	const uint32_t expectedData[] = { 0, uint32_t(-kMinInt24), kMaxUInt24 };
+ 	for (int i=0; i<frameCount; i++)
+ 		EXPECT_EQ(readData[i], expectedData[i]);
+ }
+@@ -157,7 +157,7 @@ TEST_F(SignConversionTest, Int32)
+ 	AFframecount framesRead = afReadFrames(file, AF_DEFAULT_TRACK, readData, frameCount);
+ 	ASSERT_EQ(framesRead, frameCount);
+ 	afCloseFile(file);
+-	const uint32_t expectedData[] = { 0, -kMinInt32, kMaxUInt32 };
++	const uint32_t expectedData[] = { 0, uint32_t(-kMinInt32), kMaxUInt32 };
+ 	for (int i=0; i<frameCount; i++)
+ 		EXPECT_EQ(readData[i], expectedData[i]);
+ }

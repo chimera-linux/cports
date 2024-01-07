@@ -1,0 +1,21 @@
+commit 252f91ed4a8d1cc668e1a853c13ef120239feb37
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue May 16 00:48:29 2023 +0200
+
+    drop deprecated ptr_fun
+
+diff --git a/src/osgPlugins/obj/obj.cpp b/src/osgPlugins/obj/obj.cpp
+index 859add6..0a195ce 100644
+--- a/src/osgPlugins/obj/obj.cpp
++++ b/src/osgPlugins/obj/obj.cpp
+@@ -38,8 +38,8 @@ using namespace obj;
+ static std::string strip( const std::string& ss )
+ {
+     std::string result;
+-    result.assign( std::find_if( ss.begin(), ss.end(), std::not1( std::ptr_fun< int, int >( isspace ) ) ),
+-                   std::find_if( ss.rbegin(), ss.rend(), std::not1( std::ptr_fun< int, int >( isspace ) ) ).base() );
++    result.assign( std::find_if( ss.begin(), ss.end(), std::not_fn( isspace ) ),
++                   std::find_if( ss.rbegin(), ss.rend(), std::not_fn( isspace ) ).base() );
+     return( result );
+ }
+ 

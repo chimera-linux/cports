@@ -1,0 +1,371 @@
+commit 071135865bc1c84ec3f87493d30d31e70e798d82
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue Nov 15 01:22:23 2022 +0100
+
+    portable install(1) use
+
+diff --git a/conf/Makefile.in b/conf/Makefile.in
+index ee3b032..6954507 100644
+--- a/conf/Makefile.in
++++ b/conf/Makefile.in
+@@ -39,13 +39,15 @@ generate:
+ install_conf: $(CONFSRC)
+ 	@if [ ! -e $(confdir)/$(CONFDEST) ]; then \
+ 		echo "$(INSTALL_WDATA) -D $< $(confdir)/$(CONFDEST)"; \
+-		$(INSTALL_WDATA) -D $< $(confdir)/$(CONFDEST); \
++		$(INSTALL_DIR) $(confdir); \
++		$(INSTALL_WDATA) $< $(confdir)/$(CONFDEST); \
+ 	fi
+ 
+ install_localconf: $(CONFLOCAL)
+ 	@if [ ! -e $(confdir)/$(CONFLOCAL) ]; then \
+ 		echo "$(INSTALL_WDATA) -D $< $(confdir)/$(CONFLOCAL)"; \
+-		$(INSTALL_WDATA) -D $< $(confdir)/$(CONFLOCAL); \
++		$(INSTALL_DIR) $(confdir); \
++		$(INSTALL_WDATA) $< $(confdir)/$(CONFLOCAL); \
+ 	fi
+ 
+ install_profiles: $(PROFILES)
+diff --git a/daemons/cmirrord/Makefile.in b/daemons/cmirrord/Makefile.in
+index 8f68ba9..6a99b9d 100644
+--- a/daemons/cmirrord/Makefile.in
++++ b/daemons/cmirrord/Makefile.in
+@@ -38,6 +38,7 @@ cmirrord: $(OBJECTS)
+ 
+ install_cluster: $(TARGETS)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(usrsbindir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(usrsbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(usrsbindir)/$(<F)
+ 
+ install: install_cluster
+diff --git a/daemons/dmeventd/Makefile.in b/daemons/dmeventd/Makefile.in
+index af51198..19948ae 100644
+--- a/daemons/dmeventd/Makefile.in
++++ b/daemons/dmeventd/Makefile.in
+@@ -85,27 +85,32 @@ endif
+ 
+ install_include: $(srcdir)/libdevmapper-event.h
+ 	@echo "    [INSTALL] $(<F)"
+-	$(Q) $(INSTALL_DATA) -D $< $(includedir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(includedir)
++	$(Q) $(INSTALL_DATA) $< $(includedir)/$(<F)
+ 
+ install_pkgconfig: libdevmapper-event.pc
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_DATA) -D $< $(pkgconfigdir)/devmapper-event.pc
++	$(Q) $(INSTALL_DIR) $(pkgconfigdir)
++	$(Q) $(INSTALL_DATA) $< $(pkgconfigdir)/devmapper-event.pc
+ 
+ install_lib_dynamic: install_lib_shared
+ 
+ install_lib_static: $(LIB_STATIC)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_DATA) -D $< $(usrlibdir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(usrlibdir)
++	$(Q) $(INSTALL_DATA) $< $(usrlibdir)/$(<F)
+ 
+ install_lib: $(INSTALL_LIB_TARGETS)
+ 
+ install_dmeventd_dynamic: dmeventd
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(sbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
+ 
+ install_dmeventd_static: dmeventd.static
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(staticdir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(staticdir)
++	$(Q) $(INSTALL_PROGRAM) $< $(staticdir)/$(<F)
+ 
+ install_dmeventd: $(INSTALL_DMEVENTD_TARGETS)
+ 
+diff --git a/daemons/lvmlockd/Makefile.in b/daemons/lvmlockd/Makefile.in
+index 91beb1a..9298721 100644
+--- a/daemons/lvmlockd/Makefile.in
++++ b/daemons/lvmlockd/Makefile.in
+@@ -66,11 +66,13 @@ lvmlockctl: lvmlockctl.o $(INTERNAL_LIBS)
+ 
+ install_lvmlockd: lvmlockd
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(sbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
+ 
+ install_lvmlockctl: lvmlockctl
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(sbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
+ 
+ install_lvm2: install_lvmlockd install_lvmlockctl
+ 
+diff --git a/daemons/lvmpolld/Makefile.in b/daemons/lvmpolld/Makefile.in
+index 3e85644..c46c6b4 100644
+--- a/daemons/lvmpolld/Makefile.in
++++ b/daemons/lvmpolld/Makefile.in
+@@ -37,7 +37,8 @@ lvmpolld: $(OBJECTS) $(top_builddir)/libdaemon/server/libdaemonserver.a $(INTERN
+ 
+ install_lvmpolld: lvmpolld
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(sbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
+ 
+ install_lvm2: install_lvmpolld
+ 
+diff --git a/libdm/Makefile.in b/libdm/Makefile.in
+index 35115d7..dccb13c 100644
+--- a/libdm/Makefile.in
++++ b/libdm/Makefile.in
+@@ -97,7 +97,8 @@ install_device-mapper: install
+ 
+ install_include: $(srcdir)/libdevmapper.h
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_DATA) -D $< $(includedir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(includedir)
++	$(Q) $(INSTALL_DATA) $< $(includedir)/$(<F)
+ 
+ install_dynamic: install_@interface@
+ 
+@@ -107,11 +108,13 @@ install_ioctl: install_lib_shared
+ 
+ install_pkgconfig: libdevmapper.pc
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_DATA) -D $< $(pkgconfigdir)/devmapper.pc
++	$(Q) $(INSTALL_DIR) $(pkgconfigdir)
++	$(Q) $(INSTALL_DATA) $< $(pkgconfigdir)/devmapper.pc
+ 
+ install_ioctl_static: $(LIB_STATIC)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_DATA) -D $< $(usrlibdir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(usrlibdir)
++	$(Q) $(INSTALL_DATA) $< $(usrlibdir)/$(<F)
+ 
+ CLEAN_TARGETS += ioctl/libdevmapper.a
+ DISTCLEAN_TARGETS += libdevmapper.pc make.tmpl
+diff --git a/libdm/dm-tools/Makefile.in b/libdm/dm-tools/Makefile.in
+index 9ddb3c2..d31af40 100644
+--- a/libdm/dm-tools/Makefile.in
++++ b/libdm/dm-tools/Makefile.in
+@@ -68,12 +68,14 @@ dmsetup.static: dmsetup.o $(LIBDM_STATIC)
+ 
+ install_dmsetup_dynamic: dmsetup
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(sbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
+ 	$(Q) $(LN_S) -f $(<F) $(sbindir)/dmstats
+ 
+ install_dmsetup_static: dmsetup.static
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(staticdir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(staticdir)
++	$(Q) $(INSTALL_PROGRAM) $< $(staticdir)/$(<F)
+ 	$(Q) $(LN_S) -f $(<F) $(staticdir)/dmstats.static
+ 
+ 
+@@ -89,11 +91,13 @@ dmfilemapd.static: dmfilemapd.o $(LIBDM_STATIC)
+ 
+ install_dmfilemapd_dynamic: dmfilemapd
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(sbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
+ 
+ install_dmfilemapd_static: dmfilemapd.static
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(staticdir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(staticdir)
++	$(Q) $(INSTALL_PROGRAM) $< $(staticdir)/$(<F)
+ 
+ 
+ .PHONY: install_dmsetup_dynamic install_dmsetup_static
+diff --git a/libdm/make.tmpl.in b/libdm/make.tmpl.in
+index f1c88fa..71c302f 100644
+--- a/libdm/make.tmpl.in
++++ b/libdm/make.tmpl.in
+@@ -449,7 +449,8 @@ CLEAN_TARGETS += $(LDDEPS) .exported_symbols_generated
+ 
+ install_lib_shared: $(LIB_SHARED)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/$(<F).$(LIB_VERSION)
++	$(Q) $(INSTALL_DIR) $(libdir)
++	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/$(<F).$(LIB_VERSION)
+ 	$(Q) $(INSTALL_DIR) $(usrlibdir)
+ 	$(Q) $(LN_S) -f $(USRLIB_RELPATH)$(<F).$(LIB_VERSION) $(usrlibdir)/$(<F)
+ 
+@@ -458,12 +459,14 @@ install_lib_shared: $(LIB_SHARED)
+ #        when the code is fixed links could be removed.
+ install_dm_plugin: $(LIB_SHARED)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/device-mapper/$(<F)
++	$(Q) $(INSTALL_DIR) $(libdir)/device-mapper
++	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/device-mapper/$(<F)
+ 	$(Q) $(LN_S) -f device-mapper/$(<F) $(libdir)/$(<F)
+ 
+ install_lvm2_plugin: $(LIB_SHARED)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/lvm2/$(<F)
++	$(Q) $(INSTALL_DIR) $(libdir)/lvm2
++	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/lvm2/$(<F)
+ 	$(Q) $(LN_S) -f lvm2/$(<F) $(libdir)/$(<F)
+ 	$(Q) $(LN_S) -f $(<F) $(libdir)/$(<F).$(LIB_VERSION)
+ endif
+diff --git a/make.tmpl.in b/make.tmpl.in
+index 869b87e..67cf661 100644
+--- a/make.tmpl.in
++++ b/make.tmpl.in
+@@ -514,7 +514,8 @@ CLEAN_TARGETS += $(LDDEPS) .exported_symbols_generated
+ 
+ install_lib_shared: $(LIB_SHARED)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/$(<F).$(LIB_VERSION)
++	$(Q) $(INSTALL_DIR) $(libdir)
++	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/$(<F).$(LIB_VERSION)
+ 	$(Q) $(INSTALL_DIR) $(usrlibdir)
+ 	$(Q) $(LN_S) -f $(USRLIB_RELPATH)$(<F).$(LIB_VERSION) $(usrlibdir)/$(<F)
+ 
+@@ -523,12 +524,14 @@ install_lib_shared: $(LIB_SHARED)
+ #        when the code is fixed links could be removed.
+ install_dm_plugin: $(LIB_SHARED)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/device-mapper/$(<F)
++	$(Q) $(INSTALL_DIR) $(libdir)/device-mapper
++	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/device-mapper/$(<F)
+ 	$(Q) $(LN_S) -f device-mapper/$(<F) $(libdir)/$(<F)
+ 
+ install_lvm2_plugin: $(LIB_SHARED)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/lvm2/$(<F)
++	$(Q) $(INSTALL_DIR) $(libdir)/lvm2
++	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/lvm2/$(<F)
+ 	$(Q) $(LN_S) -f lvm2/$(<F) $(libdir)/$(<F)
+ 	$(Q) $(LN_S) -f $(<F) $(libdir)/$(<F).$(LIB_VERSION)
+ endif
+diff --git a/po/Makefile.in b/po/Makefile.in
+index 6201f59..4cc1b36 100644
+--- a/po/Makefile.in
++++ b/po/Makefile.in
+@@ -53,13 +53,15 @@ install: $(TARGETS)
+ 	@echo Installing translation files in $(localedir)
+ 	@( \
+ 		for lang in $(LANGS); do \
+-			$(INSTALL_DATA) -D $$lang.mo \
++			$(INSTALL_DIR) $(localedir)/$$lang/LC_MESSAGES; \
++			$(INSTALL_DATA) $$lang.mo \
+ 			    $(localedir)/$$lang/LC_MESSAGES/lvm2.mo;\
+ 	  done; \
+ 	)
+ 	@( \
+ 		for lang in $(LANGS); do \
+-			$(INSTALL_DATA) -D $$lang.mo \
++			$(INSTALL_DIR) $(localedir)/$$lang/LC_MESSAGES; \
++			$(INSTALL_DATA) $$lang.mo \
+ 			    $(localedir)/$$lang/LC_MESSAGES/device-mapper.mo;\
+ 	  done; \
+ 	)
+diff --git a/scripts/Makefile.in b/scripts/Makefile.in
+index 47b24a2..f35b6c6 100644
+--- a/scripts/Makefile.in
++++ b/scripts/Makefile.in
+@@ -45,7 +45,8 @@ vpath %.sh $(srcdir)
+ vpath %.ocf $(srcdir)
+ 
+ %_install: %.sh
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(basename $(<F))
++	$(Q) $(INSTALL_DIR) $(sbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(basename $(<F))
+ 
+ %_install: %.ocf
+ 	$(Q) $(INSTALL_DIR) $(ocf_scriptdir)
+diff --git a/test/Makefile.in b/test/Makefile.in
+index 1cad634..abd85a3 100644
+--- a/test/Makefile.in
++++ b/test/Makefile.in
+@@ -50,7 +50,7 @@ T ?= .
+ S ?= @ # never match anything by default
+ VERBOSE ?= 0
+ comma = ,
+-RUN := $(shell find -L $(srcdir) -regextype posix-egrep \( -path \*/shell/\*.sh -or -path \*/api/\*.sh -or -path \*/unit/\*.sh \) -and -regex "$(srcdir)/.*($(subst $(comma),|,$(T))).*" -and -not -regex "$(srcdir)/.*($(subst $(comma),|,$(S))).*" | $(SORT))
++RUN := $(shell find -E -L $(srcdir) \( -path \*/shell/\*.sh -or -path \*/api/\*.sh -or -path \*/unit/\*.sh \) -and -regex "$(srcdir)/.*($(subst $(comma),|,$(T))).*" -and -not -regex "$(srcdir)/.*($(subst $(comma),|,$(S))).*" | $(SORT))
+ RUN_BASE = $(subst $(srcdir)/,,$(RUN))
+ 
+ ifeq ("@BUILD_LVMPOLLD@", "yes")
+@@ -237,14 +237,15 @@ install: .tests-stamp lib/paths-installed
+ 	$(Q) cd lib &&\
+ 		$(INSTALL_SCRIPT) $(LIB_SHARED) $(DATADIR)/lib
+ 	$(Q) cd lib &&\
+-		$(INSTALL_PROGRAM) -D $(LIB_EXEC) $(EXECDIR)
++		$(INSTALL_PROGRAM) $(LIB_EXEC) $(EXECDIR)
+ 	$(Q) cd $(abs_top_srcdir)/conf &&\
+ 		$(INSTALL_DATA) $(LVM_PROFILES) $(DATADIR)/lib
+ 	$(Q) cd $(DATADIR)/lib &&\
+ 		$(foreach FILE, $(CMDS), $(LN_S) -f lvm-wrapper $(FILE) $(newline))
+ 	$(Q) cd $(EXECDIR) &&\
+ 		$(foreach FILE, $(LIB_LINK_NOT), $(LN_S) -f $(LIB_NOT) $(FILE) $(newline))
+-	$(Q) $(INSTALL_PROGRAM) -D lib/runner $(bindir)/lvm2-testsuite
++	$(Q) $(INSTALL_DIR) $(bindir)
++	$(Q) $(INSTALL_PROGRAM) lib/runner $(bindir)/lvm2-testsuite
+ 
+ lib/should lib/invalid lib/fail: lib/not
+ 	$(SHOW) "    [LN] $@"
+diff --git a/tools/Makefile.in b/tools/Makefile.in
+index a6e2291..bae202d 100644
+--- a/tools/Makefile.in
++++ b/tools/Makefile.in
+@@ -194,21 +194,25 @@ lvm.cflow lvm.xref lvm.tree lvm.xref: command-lines-input.h command-count.h
+ 
+ install_cmdlib_include: $(srcdir)/lvm2cmd.h
+ 	@echo "    [INSTALL] $(<F)"
+-	$(Q) $(INSTALL_DATA) -D $< $(includedir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(includedir)
++	$(Q) $(INSTALL_DATA) $< $(includedir)/$(<F)
+ 
+ install_cmdlib_dynamic: liblvm2cmd.$(LIB_SUFFIX)
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(libdir)/$(<F).$(LIB_VERSION)
++	$(Q) $(INSTALL_DIR) $(libdir)
++	$(Q) $(INSTALL_PROGRAM) $< $(libdir)/$(<F).$(LIB_VERSION)
+ 	$(Q) $(INSTALL_DIR) $(usrlibdir)
+ 	$(Q) $(LN_S) -f $(USRLIB_RELPATH)$(<F).$(LIB_VERSION) $(usrlibdir)/$(<F)
+ 
+ install_cmdlib_static: liblvm2cmd-static.a
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_DATA) -D $< $(usrlibdir)/liblvm2cmd.a
++	$(Q) $(INSTALL_DIR) $(usrlibdir)
++	$(Q) $(INSTALL_DATA) $< $(usrlibdir)/liblvm2cmd.a
+ 
+ install_tools_dynamic: lvm .commands
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(sbindir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(sbindir)
++	$(Q) $(INSTALL_PROGRAM) $< $(sbindir)/$(<F)
+ 	@echo Creating symbolic links for individual commands in $(sbindir)
+ 	@cat .commands | while read v ; do \
+ 		test -n "$(Q)" || echo "$(LN_S) -f $(<F) $(sbindir)/$$v"; \
+@@ -217,7 +221,8 @@ install_tools_dynamic: lvm .commands
+ 
+ install_tools_static: lvm.static
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_PROGRAM) -D $< $(staticdir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(staticdir)
++	$(Q) $(INSTALL_PROGRAM) $< $(staticdir)/$(<F)
+ 
+ install_lvm2: $(INSTALL_LVM_TARGETS)
+ 
+diff --git a/udev/Makefile.in b/udev/Makefile.in
+index e777dda..ebfc7da 100644
+--- a/udev/Makefile.in
++++ b/udev/Makefile.in
+@@ -56,7 +56,8 @@ endif
+ 
+ %_install: %.rules
+ 	@echo "    [INSTALL] $<"
+-	$(Q) $(INSTALL_DATA) -D $< $(udevdir)/$(<F)
++	$(Q) $(INSTALL_DIR) $(udevdir)
++	$(Q) $(INSTALL_DATA) $< $(udevdir)/$(<F)
+ 
+ all: $(DM_RULES) $(LVM_RULES)
+ CLEAN_TARGETS = $(DM_RULES) $(LVM_RULES)

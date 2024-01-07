@@ -1,0 +1,28 @@
+commit 1d6f48d2f16c6fb588a2800a85cfd42de7347c0b
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Tue May 16 01:41:08 2023 +0200
+
+    use local paths for cmake fetch
+
+diff --git a/extern/CMakeLists.txt b/extern/CMakeLists.txt
+index 5dc9642..abf9d6f 100644
+--- a/extern/CMakeLists.txt
++++ b/extern/CMakeLists.txt
+@@ -47,7 +47,7 @@ if(NOT OPENMW_USE_SYSTEM_BULLET)
+     # May 7, 2021
+     include(FetchContent)
+     FetchContent_Declare(bullet
+-        URL https://github.com/bulletphysics/bullet3/archive/refs/tags/3.17.tar.gz
++        URL file:///builddir/openmw-0.47.0/3.17.tar.gz
+         URL_HASH MD5=7711bce9a49c289a08ecda34eaa0f32e
+         SOURCE_DIR fetched/bullet
+     )
+@@ -180,7 +180,7 @@ if(NOT OPENMW_USE_SYSTEM_RECASTNAVIGATION)
+     # master on 15 Feb 2021
+     include(FetchContent)
+     FetchContent_Declare(recastnavigation
+-        URL https://github.com/recastnavigation/recastnavigation/archive/e75adf86f91eb3082220085e42dda62679f9a3ea.zip
++        URL file:///builddir/openmw-0.47.0/e75adf86f91eb3082220085e42dda62679f9a3ea.zip
+         URL_HASH MD5=af905d121ef9d1cdfa979b0495cba059
+         SOURCE_DIR fetched/recastnavigation
+     )

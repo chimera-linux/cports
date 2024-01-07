@@ -1,0 +1,29 @@
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -44,9 +44,9 @@ endif
+ if with_etnaviv
+   subdir('etnaviv')
+ endif
+-if with_nouveau
+-  subdir('nouveau')
+-endif
++#if with_nouveau
++#  subdir('nouveau')
++#endif
+ 
+ drmsl = executable(
+   'drmsl',
+diff --git a/symbols-check.py b/symbols-check.py
+index 2e7ba68..7e17dc3 100644
+--- a/symbols-check.py
++++ b/symbols-check.py
+@@ -16,6 +16,9 @@ PLATFORM_SYMBOLS = [
+     '_end',
+     '_fini',
+     '_init',
++    '__cxa_finalize',
++    '__deregister_frame_info',
++    '__register_frame_info',
+ ]
+ 
+ 

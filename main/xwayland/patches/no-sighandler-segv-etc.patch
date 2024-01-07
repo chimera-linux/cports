@@ -1,0 +1,19 @@
+commit 27dea9978147004dd96a757195d4c97ba6e66c7c
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Nov 22 16:16:05 2023 +0100
+
+    stop catching sigsegv and the likes
+
+diff --git a/os/osinit.c b/os/osinit.c
+index 8575319..9225c75 100644
+--- a/os/osinit.c
++++ b/os/osinit.c
+@@ -174,7 +174,7 @@ OsInit(void)
+         struct sigaction act, oact;
+         int i;
+ 
+-        int siglist[] = { SIGSEGV, SIGQUIT, SIGILL, SIGFPE, SIGBUS,
++        int siglist[] = { SIGQUIT,
+             SIGABRT,
+             SIGSYS,
+             SIGXCPU,

@@ -1,0 +1,24 @@
+commit 8d42ee77fb7869e55fc94984b456863281197d2b
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Dec 8 00:42:16 2023 +0100
+
+    disable eierpecken sigalrm test
+    
+    This times out on our slow builders.
+
+diff --git a/test/meson.build b/test/meson.build
+index a2bd86a..94d3ee9 100644
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -73,11 +73,6 @@ eierpecken = executable('eierpecken',
+                         include_directories: [inc_builddir],
+                         dependencies: [dep_unittest, dep_libei, dep_libeis])
+ 
+-test('eierpecken',
+-    eierpecken,
+-    args: ['--log-visible', 'debug', '--enable-sigalarm'],
+-    suite: 'sigalrm')
+-
+ test('eierpecken-no-sigalrm',
+     eierpecken,
+     args: ['--log-visible', 'debug'],

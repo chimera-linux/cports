@@ -1,0 +1,14 @@
+pkgname = "desktop-file-utils"
+pkgver = "0.27"
+pkgrel = 0
+build_style = "meson"
+hostmakedepends = ["meson", "pkgconf"]
+makedepends = ["glib-devel"]
+triggers = ["/usr/share/applications"]
+pkgdesc = "Utilities to manage desktop entries"
+maintainer = "q66 <q66@chimera-linux.org>"
+license = "GPL-2.0-or-later"
+url = "https://freedesktop.org/wiki/Software/desktop-file-utils"
+source = f"$(FREEDESKTOP_SITE)/{pkgname}/releases/{pkgname}-{pkgver}.tar.xz"
+sha256 = "a0817df39ce385b6621880407c56f1f298168c040c2032cedf88d5b76affe836"
+hardening = ["vis", "cfi"]

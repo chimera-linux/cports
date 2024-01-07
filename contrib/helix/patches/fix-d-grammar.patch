@@ -1,0 +1,18 @@
+commit 3a75cfb80e88b2d1a7be14effb97b00aeee4264e
+Author: Wesley Moore <wes@wezm.net>
+Date:   Wed Aug 2 21:55:37 2023 +1000
+
+    Fix build with -std=c11
+
+diff --git a/runtime/grammars/sources/d/src/scanner.c b/runtime/grammars/sources/d/src/scanner.c
+index 6753ba0..d5dc16d 100644
+--- a/runtime/grammars/sources/d/src/scanner.c
++++ b/runtime/grammars/sources/d/src/scanner.c
+@@ -7,6 +7,7 @@
+  * (See accompanying file LICENSE.txt or https://opensource.org/licenses/MIT)
+  * SPDX-License-Identifier: MIT
+  */
++#define _XOPEN_SOURCE
+ #include "tree_sitter/parser.h"
+ #include <assert.h>
+ #include <ctype.h>

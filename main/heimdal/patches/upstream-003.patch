@@ -1,0 +1,32 @@
+From 3c9019d678138512fcc4c181b17ac38fc36460bd Mon Sep 17 00:00:00 2001
+From: Jeffrey Altman <jaltman@auristor.com>
+Date: Wed, 16 Nov 2022 13:00:34 -0500
+Subject: [PATCH] kuser/kinit:  NO_AFS unused-but-set-variable
+
+When NO_AFS is defined, 'ret' is set but unused resulting in a build
+failure on macOS.
+
+  error: variable 'ret' set but not used [-Werror,-Wunused-but-set-variable
+---
+ kuser/kinit.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/kuser/kinit.c b/kuser/kinit.c
+index 61f962bbe7..f04f265c24 100644
+--- a/kuser/kinit.c
++++ b/kuser/kinit.c
+@@ -976,10 +976,12 @@ renew_func(void *ptr)
+     expire = ticket_lifetime(ctx->context, ctx->ccache, ctx->principal,
+ 			     server_str, &renew_expire);
+ 
++    if (ret == 0 && server_str == NULL) {
+ #ifndef NO_AFS
+-    if (ret == 0 && server_str == NULL && do_afslog && k_hasafs())
+-	krb5_afslog(ctx->context, ctx->ccache, NULL, NULL);
++	if (do_afslog && k_hasafs())
++	    krb5_afslog(ctx->context, ctx->ccache, NULL, NULL);
+ #endif
++    }
+ 
+     update_siginfo_msg(expire, server_str);
+ 

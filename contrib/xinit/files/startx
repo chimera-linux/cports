@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# we always start on the current tty
+TTY=$XDG_VTNR
+
+if [ -z "$TTY" ]; then
+    TTY=$(tty)
+    TTY=${TTY#/dev/tty}
+fi
+
+if [ -z "$TTY" -o "$TTY" -ne "$TTY" ] 2> /dev/null; then
+    echo "$0: must run from a tty"
+    exit 1
+fi
+
+# determine the lowest unused DISPLAY
+d=0
+while :; do
+    [ -e "/tmp/.X$d-lock" -o -S "/tmp/.X11-unix/X$d" ] || break
+    d=$(($d + 1))
+done
+display=":$d"
+unset d
+
+rcfile=${XDG_CONFIG_HOME:-$HOME/.config}/xinitrc
+[ -x "$rcfile" ] || rcfile=${HOME}/.xinitrc
+
+if [ ! -x "$rcfile" ]; then
+    echo "$0: $rcfile does not exist or is not executable"
+    exit 1
+fi
+
+if [ -z "$XAUTHORITY" ]; then
+    # get it away from the homedir if we can
+    if [ -n "$XDG_RUNTIME_DIR" ]; then
+        export XAUTHORITY="${XDG_RUNTIME_DIR}/xauthority"
+    else
+        export XAUTHORITY="${HOME}/.Xauthority"
+    fi
+fi
+
+# ensure it exists
+touch "$XAUTHORITY"
+
+# set session type
+export XDG_SESSION_TYPE=x11
+
+xauth add "$display" . `/usr/bin/mcookie`
+
+xinit /etc/X11/Xsession "$rcfile" "$@" -- \
+    /usr/bin/X "$display" vt$TTY -nolisten tcp -keeptty -noreset -auth "$XAUTHORITY"
+
+ret=$?
+
+xauth remove "$display"
+
+exit $ret

@@ -1,0 +1,31 @@
+From ba3a0d4b6c0b56f6d7935911b53a02a7d0504da5 Mon Sep 17 00:00:00 2001
+From: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
+Date: Sat, 10 Jul 2021 22:32:00 +0100
+Subject: tpm: Pass unknown error as non-fatal, but debug print the error we
+ got
+
+Signed-off-by: Mathieu Trudel-Lapierre <mathieu.trudel-lapierre@canonical.com>
+
+Bug-Debian: https://bugs.debian.org/940911
+Bug-Ubuntu: https://bugs.launchpad.net/ubuntu/+source/grub2/+bug/1848892
+Last-Update: 2021-09-24
+
+Patch-Name: tpm-unknown-error-non-fatal.patch
+---
+ grub-core/commands/efi/tpm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/grub-core/commands/efi/tpm.c b/grub-core/commands/efi/tpm.c
+index a97d85368..e73bd5561 100644
+--- a/grub-core/commands/efi/tpm.c
++++ b/grub-core/commands/efi/tpm.c
+@@ -145,7 +145,8 @@ grub_efi_log_event_status (grub_efi_status_t status)
+     case GRUB_EFI_NOT_FOUND:
+       return grub_error (GRUB_ERR_UNKNOWN_DEVICE, N_("TPM unavailable"));
+     default:
+-      return grub_error (GRUB_ERR_UNKNOWN_DEVICE, N_("Unknown TPM error"));
++      grub_dprintf ("tpm", "Unknown TPM error: %" PRIdGRUB_SSIZE, status);
++      return 0;
+     }
+ }
+ 

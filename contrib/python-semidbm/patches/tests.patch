@@ -1,0 +1,23 @@
+commit 5e5baf9ae49b5917b55d1c38e0d96d7d3705ca27
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jan 3 23:20:48 2024 +0100
+
+    try fix tests
+
+diff --git a/test_semidbm.py b/test_semidbm.py
+index 08218c8..804b88b 100644
+--- a/test_semidbm.py
++++ b/test_semidbm.py
+@@ -296,9 +296,9 @@ class TestSemiDBM(SemiDBMTest):
+             original_size = os.path.getsize(filename)
+         self.truncate_data_file(bytes_from_end=100)
+         db2 = self.open_db_file()
+-        self.assertEquals(db2['foobar'], b'foobar')
+-        self.assertEquals(db2['key'], b'value')
+-        self.assertEquals(db2['key2'], b'value2')
++        self.assertEqual(db2['foobar'], b'foobar')
++        self.assertEqual(db2['key'], b'value')
++        self.assertEqual(db2['key2'], b'value2')
+         # But largevalue is not there, we recovered and just removed it.
+         self.assertNotIn('largevalue', db2)
+         # And when we compact the data file, the junk data

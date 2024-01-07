@@ -1,0 +1,32 @@
+From 007d789a9e05ef4265dbfb5366903bcb1a1077fb Mon Sep 17 00:00:00 2001
+From: q66 <daniel@octaforge.org>
+Date: Fri, 2 Sep 2022 21:01:53 +0000
+Subject: [PATCH] disable HAVE_AS_FUNC check
+
+This passes but the asm code does not actually compile with it.
+---
+ meson.build | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index a312ae0..763c9c6 100644
+--- a/meson.build
++++ b/meson.build
+@@ -351,13 +351,7 @@ if (is_asm_enabled and
+     (host_machine.cpu_family() == 'aarch64' or
+      host_machine.cpu_family().startswith('arm')))
+ 
+-   as_func_code = '''__asm__ (
+-".func meson_test"
+-".endfunc"
+-);
+-'''
+-    have_as_func = cc.compiles(as_func_code)
+-    cdata.set10('HAVE_AS_FUNC', have_as_func)
++    cdata.set10('HAVE_AS_FUNC', false)
+ 
+     # fedora package build infrastructure uses a gcc specs file to enable
+     # '-fPIE' by default. The chosen way only adds '-fPIE' to the C compiler
+-- 
+2.34.1
+

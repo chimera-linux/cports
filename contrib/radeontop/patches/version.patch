@@ -1,0 +1,11 @@
+--- a/getver.sh
++++ b/getver.sh
+@@ -4,6 +4,8 @@ ver=unknown
+ 
+ if [ -n "`which git`" ] && git rev-parse HEAD 2>/dev/null; then
+   ver=`git describe`
++elif [ -n "$VERSION" ]; then
++  ver="$VERSION"
+ fi
+ 
+ cat > include/version.h << EOF

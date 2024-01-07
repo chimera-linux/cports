@@ -1,0 +1,19 @@
+--- a/lib/alloc.h
++++ b/lib/alloc.h
+@@ -84,14 +84,14 @@
+ }
+ 
+ 
+-inline void *
++inline __attribute__((__always_inline__)) void *
+ mallocarray(size_t nmemb, size_t size)
+ {
+ 	return reallocarray(NULL, nmemb, size);
+ }
+ 
+ 
+-inline void *
++inline __attribute__((__always_inline__)) void *
+ reallocarrayf(void *p, size_t nmemb, size_t size)
+ {
+ 	void  *q;

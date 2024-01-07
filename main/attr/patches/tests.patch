@@ -1,0 +1,25 @@
+From 0ec996e87b2514e61ca221e0a7bfb4b1bd15930f Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Mon, 11 Oct 2021 00:34:15 +0200
+Subject: [PATCH] fix tests
+
+---
+ test/attr.test | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/attr.test b/test/attr.test
+index 6ce2f9b..e9bde92 100644
+--- a/test/attr.test
++++ b/test/attr.test
+@@ -11,7 +11,7 @@ Try various valid and invalid names
+ 
+ 	$ touch f
+ 	$ setfattr -n user -v value f
+-	> setfattr: f: Operation not supported
++	> setfattr: f: Not supported
+ 	
+ 	$ setfattr -n user. -v value f
+ 	> setfattr: f: Invalid argument
+-- 
+2.33.0
+

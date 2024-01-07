@@ -1,0 +1,167 @@
+From d8650e7fb8196e09da3ba591cb2e1cee975f16bb Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 22 Oct 2021 05:07:48 +0200
+Subject: [PATCH 5/7] general portability fixes for bsdutils and musl
+
+---
+ hook-functions | 49 +++++++++++++++++++++----------------------------
+ mkinitramfs    | 21 ++++-----------------
+ unmkinitramfs  |  2 +-
+ 3 files changed, 26 insertions(+), 46 deletions(-)
+
+diff --git a/hook-functions b/hook-functions
+index af6dec4..4944f05 100644
+--- a/hook-functions
++++ b/hook-functions
+@@ -170,6 +170,19 @@ _sanitize_target() {
+ 	printf "%s" "${target}"
+ }
+ 
++_relpath() {
++    local pos="$(dirname $1 | sed -e 's,//*,/,g')" ref="${2%%/}" down=''
++
++    while :; do
++        test "$pos" = '/' && break
++        case "$ref" in $pos/*) break;; esac
++        down="../$down"
++        pos=${pos%/*}
++    done
++
++    echo "$down${ref##$pos/}"
++}
++
+ # $1 = file type (for logging)
+ # $2 = file to copy to initramfs
+ # $3 (optional) Name for the file on the initramfs
+@@ -177,7 +190,7 @@ _sanitize_target() {
+ # If the target exists, we leave it and return 1.
+ # On any other error, we return >1.
+ copy_file() {
+-	local type src target link_target
++	local type src target link_target relp
+ 
+ 	type="${1}"
+ 	src="${2}"
+@@ -213,7 +226,8 @@ copy_file() {
+ 
+ 			# Create a relative link so it always points
+ 			# to the right place
+-			ln -rs "${DESTDIR}/${link_target}" "${DESTDIR}/${target}"
++			relp=$(_relpath "${target}" "${link_target}")
++			ln -sf "${relp}" "${DESTDIR}/${target}"
+ 		fi
+ 
+ 		# Copy the link target if it doesn't already exist
+@@ -240,29 +254,7 @@ copy_exec() {
+ 	copy_file binary "${src}" "${target}" || return $(($? - 1))
+ 
+ 	# Copy the dependant libraries
+-	for x in $(env --unset=LD_PRELOAD ldd "${src}" 2>/dev/null | sed -e '
+-		/\//!d;
+-		/linux-gate/d;
+-		/=>/ {s/.*=>[[:blank:]]*\([^[:blank:]]*\).*/\1/};
+-		s/[[:blank:]]*\([^[:blank:]]*\) (.*)/\1/' 2>/dev/null); do
+-
+-		# Try to use non-optimised libraries where possible.
+-		# We assume that all HWCAP libraries will be in tls,
+-		# sse2, vfp or neon.
+-		nonoptlib=$(echo "${x}" | sed -e 's#/lib/\([^/]*/\)\?\(tls\|i686\|sse2\|neon\|vfp\).*/\(lib.*\)#/lib/\1\3#')
+-		nonoptlib=$(echo "${nonoptlib}" | sed -e 's#-linux-gnu/\(tls\|i686\|sse2\|neon\|vfp\).*/\(lib.*\)#-linux-gnu/\2#')
+-
+-		if [ -e "${nonoptlib}" ]; then
+-			x="${nonoptlib}"
+-		fi
+-
+-		# Handle common dlopen() dependency (Debian bug #950254)
+-		case "${x}" in
+-		*/libpthread.so.*)
+-			copy_libgcc "${x%/*}" || return
+-			;;
+-		esac
+-
++	for x in $(env -u LD_PRELOAD ldd "${src}" 2>/dev/null | awk '{print $3}'); do
+ 		copy_file binary "${x}" || {
+ 			ret=$?
+ 			[ ${ret} = 1 ] || return $((ret - 1))
+@@ -310,7 +302,8 @@ copy_modules_dir()
+ 	done
+ 
+ 	# shellcheck disable=SC2044
+-	for kmod in $(find "${MODULESDIR}/${dir}" "$@" -name '*.ko*' -printf '%f\n'); do
++	for kmod in $(find "${MODULESDIR}/${dir}" "$@" -name '*.ko*'); do
++		kmod=$(basename "$kmod")
+ 		modules="$modules ${kmod%%.*}"
+ 	done
+ 	# shellcheck disable=SC2086
+@@ -373,8 +366,8 @@ block_dev_mod_add()
+ 	dev_node="$1"
+ 
+ 	# Look up device number and convert to decimal as it appears in sysfs
+-	dev_num="$(stat -L -c %t:%T "$dev_node")"
+-	dev_num="$((0x${dev_num%:*})):$((0x${dev_num#*:}))"
++	dev_num="$(stat -L -f %Z "$dev_node")"
++	dev_num="$(echo $dev_num | tr ',' ':')"
+ 
+ 	# Look up device in sysfs
+ 	dev_sys_path="/sys/dev/block/$dev_num"
+diff --git a/mkinitramfs b/mkinitramfs
+index 8152558..d9b8e39 100755
+--- a/mkinitramfs
++++ b/mkinitramfs
+@@ -366,16 +366,16 @@ add_builtin_firmware
+ cp -p /usr/share/initramfs-tools/init "${DESTDIR}/init"
+ 
+ # add existant boot scripts
+-for b in $(cd /usr/share/initramfs-tools/scripts/ && find . \
+-	-regextype posix-extended -regex '.*/[[:alnum:]\._-]+$' -type f); do
++for b in $(cd /usr/share/initramfs-tools/scripts/ && find -E . \
++	-regex '.*/[[:alnum:]\._-]+$' -type f); do
+ 	[ -d "${DESTDIR}/scripts/$(dirname "${b}")" ] \
+ 		|| mkdir -p "${DESTDIR}/scripts/$(dirname "${b}")"
+ 	cp -p "/usr/share/initramfs-tools/scripts/${b}" \
+ 		"${DESTDIR}/scripts/$(dirname "${b}")/"
+ done
+ # Prune dot-files/directories and limit depth to exclude VCS files
+-for b in $(cd "${CONFDIR}/scripts" && find . -maxdepth 2 -name '.?*' -prune -o \
+-	-regextype posix-extended -regex '.*/[[:alnum:]\._-]+$' -type f -print); do
++for b in $(cd "${CONFDIR}/scripts" && find -E . -maxdepth 2 -name '.?*' -prune -o \
++	-regex '.*/[[:alnum:]\._-]+$' -type f -print); do
+ 	[ -d "${DESTDIR}/scripts/$(dirname "${b}")" ] \
+ 		|| mkdir -p "${DESTDIR}/scripts/$(dirname "${b}")"
+ 	cp -p "${CONFDIR}/scripts/${b}" "${DESTDIR}/scripts/$(dirname "${b}")/"
+@@ -441,19 +441,6 @@ done
+ depmod -a -b "${DESTDIR}" "${version}"
+ rm -f "${DESTDIR}/lib/modules/${version}"/modules.*map
+ 
+-# make sure that library search path is up to date
+-cp -pPr /etc/ld.so.conf* "$DESTDIR"/etc/
+-if ! ldconfig -r "$DESTDIR" ; then
+-	[ "$(id -u)" != "0" ] \
+-	&& echo "ldconfig might need uid=0 (root) for chroot()" >&2
+-fi
+-# The auxiliary cache is not reproducible and is always invalid at boot
+-# (see #845034)
+-if [ -d "${DESTDIR}"/var/cache/ldconfig ]; then
+-	rm -f "${DESTDIR}"/var/cache/ldconfig/aux-cache
+-	rmdir --ignore-fail-on-non-empty "${DESTDIR}"/var/cache/ldconfig
+-fi
+-
+ # Apply DSDT to initramfs
+ if [ -e "${CONFDIR}/DSDT.aml" ]; then
+ 	copy_file DSDT "${CONFDIR}/DSDT.aml"
+diff --git a/unmkinitramfs b/unmkinitramfs
+index d1226c3..889e4b8 100755
+--- a/unmkinitramfs
++++ b/unmkinitramfs
+@@ -136,7 +136,7 @@ splitinitramfs()
+ 
+ OPTIONS=$(getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
+ 
+-cpio_opts="--preserve-modification-time --no-absolute-filenames --quiet"
++cpio_opts="--preserve-modification-time --quiet"
+ expected_args=2
+ eval set -- "$OPTIONS"
+ 
+-- 
+2.37.1
+

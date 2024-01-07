@@ -1,0 +1,11 @@
+--- a/Make.rules
++++ b/Make.rules
+@@ -17,7 +17,7 @@ $(error srcdir variable not defined)
+ endif
+ 
+ 
+-MAKE = make --no-print-directory -r
++MAKE = gmake --no-print-directory -r
+ 
+ 
+ #  Use env=yes on cmdline to inherit environment values

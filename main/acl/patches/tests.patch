@@ -1,0 +1,22 @@
+From a66d8b175270c3fa7c0629c8608c453d8645d682 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 10 Oct 2021 23:54:54 +0200
+Subject: [PATCH] acl: do not use bash for runwrapper
+
+---
+ test/runwrapper | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/runwrapper b/test/runwrapper
+index 6e0e899..ae3cb20 100755
+--- a/test/runwrapper
++++ b/test/runwrapper
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ 
+ if [ -e "$PWD/.libs/libtestlookup.so" ]; then
+ 	export LD_PRELOAD="$PWD/.libs/libtestlookup.so"
+-- 
+2.33.0
+

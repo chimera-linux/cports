@@ -1,0 +1,32 @@
+--- a/cmake/modules/PopplerMacros.cmake
++++ b/cmake/modules/PopplerMacros.cmake
+@@ -80,7 +80,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+ endif(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+ 
+ string(TOUPPER "${CMAKE_BUILD_TYPE}" _CMAKE_BUILD_TYPE_UPPER)
+-set(_known_build_types RELWITHDEBINFO;RELEASE;DEBUG;DEBUGFULL;PROFILE)
++set(_known_build_types RELWITHDEBINFO;RELEASE;DEBUG;DEBUGFULL;PROFILE;NONE)
+ # We override CMAKE_CXX_FLAGS_${_CMAKE_BUILD_TYPE_UPPER} below. If the user
+ # selects a CMAKE_BUILD_TYPE that is not handled by the logic below, we will
+ # end up dropping the previous flags (e.g. those set in a cross-compilation
+@@ -161,16 +161,18 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+   set(DEFAULT_COMPILE_WARNINGS "${_warn}")
+   set(DEFAULT_COMPILE_WARNINGS_EXTRA "${_warn} ${_warnx}")
+ 
+-  set(CMAKE_CXX_FLAGS                "-fno-exceptions -fno-check-new -fno-common -D_DEFAULT_SOURCE")
++  set(CMAKE_CXX_FLAGS                "-fno-exceptions -fno-check-new -fno-common -D_DEFAULT_SOURCE ${_save_cxxflags}")
+   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+   set(CMAKE_CXX_FLAGS_RELEASE        "-O2 -DNDEBUG")
++  set(CMAKE_CXX_FLAGS_NONE           "-DNDEBUG")
+   # clang does not support -fno-reorder-blocks -fno-schedule-insns, so do not use -O2
+   set(CMAKE_CXX_FLAGS_DEBUG          "-g")
+   set(CMAKE_CXX_FLAGS_DEBUGFULL      "-g3 -fno-inline")
+   set(CMAKE_CXX_FLAGS_PROFILE        "-g3 -fno-inline -ftest-coverage -fprofile-arcs")
+-  set(CMAKE_C_FLAGS                  "-std=c99 -D_DEFAULT_SOURCE")
++  set(CMAKE_C_FLAGS                  "-std=c99 -D_DEFAULT_SOURCE ${_save_cflags}")
+   set(CMAKE_C_FLAGS_RELWITHDEBINFO   "-O2 -g")
+   set(CMAKE_C_FLAGS_RELEASE          "-O2 -DNDEBUG")
++  set(CMAKE_C_FLAGS_NONE             "-DNDEBUG")
+   # clang does not support -fno-reorder-blocks -fno-schedule-insns, so do not use -O2
+   set(CMAKE_C_FLAGS_DEBUG            "-g")
+   set(CMAKE_C_FLAGS_DEBUGFULL        "-g3 -fno-inline")

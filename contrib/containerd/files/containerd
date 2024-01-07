@@ -1,0 +1,7 @@
+# containerd service
+
+type       = process
+command    = /usr/bin/containerd
+depends-on = network.target
+restart    = true
+logfile    = /var/log/containerd.log

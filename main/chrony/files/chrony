@@ -1,0 +1,8 @@
+# wait for time to be synchronized
+
+type          = scripted
+command       = /usr/bin/sh -c "/usr/bin/chronyc -h 127.0.0.1,::1 waitsync 180 0.1 0.0 1 || :"
+start-timeout = 240
+depends-on    = chronyd
+before        = time-sync.target
+options       = start-interruptible

@@ -1,0 +1,62 @@
+commit 6de72a3ba3e883bbf14d22f855218fed03c360f7
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Apr 22 20:41:53 2023 +0200
+
+    use gcr4
+
+diff --git a/daemon/gvfsdaemonutils.c b/daemon/gvfsdaemonutils.c
+index f793129..d0f8efd 100644
+--- a/daemon/gvfsdaemonutils.c
++++ b/daemon/gvfsdaemonutils.c
+@@ -37,7 +37,7 @@
+ #include <gio/gio.h>
+ #ifdef HAVE_GCR
+ #define GCR_API_SUBJECT_TO_CHANGE
+-#include <gcr/gcr-base.h>
++#include <gcr/gcr.h>
+ #endif
+ #include "gvfsdaemonutils.h"
+ #include "gvfsdaemonprotocol.h"
+@@ -274,8 +274,8 @@ certificate_to_string (GTlsCertificate *certificate)
+ {
+   GByteArray *certificate_data;
+   GcrCertificate *simple_certificate;
+-  GDate *date;
+-  char date_str[32];
++  GDateTime *date;
++  char *date_str;
+   char *subject_name, *issuer_name, *fingerprint, *certificate_str;
+ 
+   g_object_get (certificate, "certificate", &certificate_data, NULL);
+@@ -283,8 +283,8 @@ certificate_to_string (GTlsCertificate *certificate)
+ 						          certificate_data->len);
+ 
+   date = gcr_certificate_get_expiry_date (simple_certificate);
+-  g_date_strftime (date_str, 32, "%x", date);
+-  g_date_free (date);
++  date_str = g_date_time_format (date, "%x");
++  g_date_time_unref (date);
+ 
+   subject_name = gcr_certificate_get_subject_name (simple_certificate);
+   issuer_name = gcr_certificate_get_issuer_name (simple_certificate);
+@@ -304,6 +304,7 @@ certificate_to_string (GTlsCertificate *certificate)
+   g_free (subject_name);
+   g_free (issuer_name);
+   g_free (fingerprint);
++  g_free (date_str);
+ 
+   return certificate_str;
+ }
+diff --git a/meson.build b/meson.build
+index 56b7412..ef49951 100644
+--- a/meson.build
++++ b/meson.build
+@@ -294,7 +294,7 @@ endif
+ # *** Check for gcr ***
+ enable_gcr = get_option('gcr')
+ if enable_gcr
+-  gcr_dep = dependency('gcr-base-3')
++  gcr_dep = dependency('gcr-4')
+ endif
+ config_h.set('HAVE_GCR', enable_gcr)
+ 

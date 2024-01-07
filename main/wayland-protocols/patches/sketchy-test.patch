@@ -1,0 +1,35 @@
+From 3b21f21d3a588c549d302a41543e0684282619bc Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 3 Nov 2021 02:40:01 +0100
+Subject: [PATCH] disable failing test
+
+The xdg-decoration-unstable-v1 test is wonky. Apparently the
+scanner generates a reference to xdg_toplevel_interface in the
+code but no actual structure definition, resulting in an undefined
+symbol.
+
+Oddly enough, this fails in some of my environments and does not
+in others (it fails in some of my Void setups too). It does not
+seem to be affected by musl.
+---
+ tests/meson.build | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/tests/meson.build b/tests/meson.build
+index 66337e7..dbe52e4 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -28,6 +28,10 @@ foreach protocol_file : protocol_files
+ 	xml_components = xml_file.split('.')
+ 	protocol_base_file_name = xml_components[0]
+ 
++	if protocol_file.contains('xdg-decoration-unstable-v1')
++		continue
++	endif
++
+ 	protocol_path = files(join_paths(wayland_protocols_srcdir, protocol_file))
+ 	client_header_path = '@0@-client.h'.format(protocol_base_file_name)
+ 	server_header_path = '@0@-server.h'.format(protocol_base_file_name)
+-- 
+2.33.1
+

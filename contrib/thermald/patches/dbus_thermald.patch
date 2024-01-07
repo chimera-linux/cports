@@ -1,0 +1,11 @@
+diff --git a/data/org.freedesktop.thermald.service.in b/data/org.freedesktop.thermald.service.in
+index 6b2cc8e..bf36dbb 100644
+--- a/data/org.freedesktop.thermald.service.in
++++ b/data/org.freedesktop.thermald.service.in
+@@ -1,5 +1,4 @@
+ [D-BUS Service]
+ Name=org.freedesktop.thermald
+-Exec=/bin/false
++Exec=/usr/bin/dinitctl --quiet start thermald
+ User=root
+-SystemdService=dbus-org.freedesktop.thermald.service

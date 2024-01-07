@@ -1,0 +1,29 @@
+From 9e2d57d58d1752ad7fa91966d086c7be982a5f73 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Thu, 9 Dec 2021 23:10:32 +0100
+Subject: [PATCH] workaround: enable R_X86_64_32
+
+Otherwise, we get a lot of failures for x86_64 EFI like:
+
+build-grub-module-verifier: error: ehci: unsupported relocation 0xa
+---
+ util/grub-module-verifier.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/util/grub-module-verifier.c b/util/grub-module-verifier.c
+index 163529c..617dbd5 100644
+--- a/util/grub-module-verifier.c
++++ b/util/grub-module-verifier.c
+@@ -15,7 +15,8 @@ struct grub_module_verifier_arch archs[] = {
+   { "x86_64", 8, 0, EM_X86_64, GRUB_MODULE_VERIFY_SUPPORTS_RELA, (int[]){
+       R_X86_64_64,
+       R_X86_64_PC64,
+-      /* R_X86_64_32, R_X86_64_32S are supported but shouldn't be used because of their limited range.  */
++      R_X86_64_32,
++      R_X86_64_32S,
+       -1
+     }, (int[]){
+       R_X86_64_PC32,
+-- 
+2.25.1
+

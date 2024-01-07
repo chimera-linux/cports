@@ -1,0 +1,33 @@
+Use clang toolset by default as we have no gcc in main.
+
+--- a/tools/build/src/build-system.jam
++++ b/tools/build/src/build-system.jam
+@@ -633,7 +633,7 @@ local rule should-clean-project ( project )
+         }
+         else
+         {
+-            default-toolset = gcc ;
++            default-toolset = clang ;
+             if [ os.name ] = NT
+             {
+                 default-toolset = msvc ;
+--- a/tools/build/test/BoostBuild.py
++++ b/tools/build/test/BoostBuild.py
+@@ -108,7 +108,7 @@
+     if sys.platform == "darwin" or sys.platform.startswith("freebsd"):
+         return "clang"
+ 
+-    return "gcc"
++    return "clang"
+ 
+ 
+ # Detect the host OS.
+@@ -276,7 +276,7 @@ class Tester(TestCmd.TestCmd):
+         self.pass_toolset = pass_toolset
+         self.ignore_toolset_requirements = ignore_toolset_requirements
+ 
+-        prepare_prefixes_and_suffixes(pass_toolset and self.toolset or "gcc")
++        prepare_prefixes_and_suffixes(pass_toolset and self.toolset or "clang")
+ 
+         use_default_bjam = "--default-bjam" in sys.argv
+ 

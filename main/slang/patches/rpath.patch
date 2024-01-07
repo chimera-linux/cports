@@ -1,0 +1,30 @@
+commit 9fcf393adea60952768c9498cf4d4013918b9911
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Jan 23 05:30:32 2022 +0100
+
+    disable rpath
+
+diff --git a/modules/Makefile.in b/modules/Makefile.in
+index f82f0ed..9b0bf44 100644
+--- a/modules/Makefile.in
++++ b/modules/Makefile.in
+@@ -87,7 +87,6 @@ DEST_SLSH_DIR	= $(DESTDIR)$(SLSH_DIR)
+ DEST_CMAPSDIR	= $(DESTDIR)$(CMAPS_DIR)
+ DEST_HELPDIR	= $(DESTDIR)$(HELP_DIR)
+ # ---------------------------------------------------------------------------
+-RPATH = @RPATH@
+ 
+ LIBS = $(LDFLAGS) $(RPATH) $(SLANG_LIB) $(DL_LIB) @M_LIB@
+ INCS = $(SLANG_SRCINC)
+diff --git a/slsh/Makefile.in b/slsh/Makefile.in
+index cba9d81..93d49cf 100644
+--- a/slsh/Makefile.in
++++ b/slsh/Makefile.in
+@@ -23,7 +23,6 @@ SLANG_OBJLIB	= -L@OBJDIR@#  for statically linked
+ #---------------------------------------------------------------------------
+ DYNAMIC_LIBS	= @TERMCAP@ @DYNAMIC_LINK_LIB@ @LIBS@ @M_LIB@
+ STATIC_LIBS	= @TERMCAP@ @LIBS@ @M_LIB@
+-RPATH		= @RPATH@
+ #----------------------------------------------------------------------------
+ INSTALL		= @INSTALL@
+ INSTALL_DATA	= @INSTALL_DATA@

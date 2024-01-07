@@ -1,0 +1,20 @@
+--- a/os-probes/mounted/common/90linux-distro
++++ b/os-probes/mounted/common/90linux-distro
+@@ -116,6 +116,17 @@ if (ls "$dir"/lib*/ld*.so* && [ -d "$dir/boot" ] || ls "$dir"/usr/lib*/ld*.so*)
+ 	elif [ -e "$dir/sbin/pkgtool" ]; then
+ 		short="Slackware"
+ 		long="Slackware Linux"
++	elif [ -e "$dir/sbin/apk" -o -e "$dir/usr/bin/apk" ]; then
++		if [ -e "$dir/usr/bin/chimera-buildkernel" ]; then
++			short="Chimera"
++			long="Chimera Linux"
++		else
++			short="Alpine"
++			long="Alpine Linux"
++		fi
++	elif [ -e "$dir/usr/bin/xbps-install" ]; then
++		short="Void"
++		long="Void Linux"
+ 	elif grep -qs OpenLinux "$dir/etc/issue"; then
+ 		short="Caldera"
+ 		long="Caldera OpenLinux"

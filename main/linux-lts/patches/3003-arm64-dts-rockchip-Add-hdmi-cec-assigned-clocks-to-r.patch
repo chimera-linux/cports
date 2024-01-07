@@ -1,0 +1,32 @@
+From b9363177c19fe18bb5649061b7fa01e7ca479064 Mon Sep 17 00:00:00 2001
+From: Peter Geis <pgwipeout@gmail.com>
+Date: Tue, 7 Jun 2022 16:56:09 -0400
+Subject: [PATCH 18/39] arm64: dts: rockchip: Add hdmi-cec assigned clocks to
+ rk356x
+
+The hdmi-cec clock defaults to 24mhz on rk356x, which is too high for
+cec to function correctly. Ensure we are assigned to the fractional
+divider and set it to 32khz for proper cec operation.
+
+Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk356x.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk356x.dtsi b/arch/arm64/boot/dts/rockchip/rk356x.dtsi
+index cc1c5a65c5e5..3cc707ee14dc 100644
+--- a/arch/arm64/boot/dts/rockchip/rk356x.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk356x.dtsi
+@@ -687,6 +687,9 @@ hdmi: hdmi@fe0a0000 {
+ 		compatible = "rockchip,rk3568-dw-hdmi";
+ 		reg = <0x0 0xfe0a0000 0x0 0x20000>;
+ 		interrupts = <GIC_SPI 45 IRQ_TYPE_LEVEL_HIGH>;
++		assigned-clocks = <&cru CLK_RTC_32K>, <&cru CLK_HDMI_CEC>;
++		assigned-clocks-parents = <&cru CLK_RTC32K_FRAC>, <&cru CLK_RTC_32K>;
++		assigned-clock-rates = <32768>, <32768>;
+ 		clocks = <&cru PCLK_HDMI_HOST>,
+ 			 <&cru CLK_HDMI_SFR>,
+ 			 <&cru CLK_HDMI_CEC>,
+-- 
+2.33.1
+

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+TYPE=$1
+shift
+
+case "$TYPE" in
+    hourly) set -- -H \* -s 1h ;;
+    daily) set -- -s 1d ;;
+    weekly) set -- -w 0 -s 7d ;;
+    monthly) set -- -d 1 -s 28d ;;
+    *) exit 69 ;;
+esac
+
+SCRIPT="/usr/bin/test -d /etc/cron.$TYPE && /usr/bin/run-parts --lsbsysinit /etc/cron.$TYPE; /usr/bin/touch /var/cache/snooze/$TYPE"
+
+exec /usr/libexec/dinit-snooze "$SCRIPT" "$@"

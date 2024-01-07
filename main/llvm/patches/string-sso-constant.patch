@@ -1,0 +1,592 @@
+Patch-Source: https://github.com/llvm/llvm-project/pull/66576
+--
+From 209a8f9c06a7633737e9f022bc4e61d580ad95e7 Mon Sep 17 00:00:00 2001
+From: James Y Knight <jyknight@google.com>
+Date: Sat, 16 Sep 2023 12:32:21 +0000
+Subject: [PATCH 1/6] [libcxx] Allow string to use SSO in constant evaluation.
+
+Previously, libcxx forced all strings created during constant
+evaluation to point to allocated memory. That was apparently done due
+to implementation difficultites, but it turns out not to be necessary:
+this patch shows that it is feasible to use SSO strings during
+constant evaluation. It also simplifies the implementation.
+
+However, I'm not convinced that this is a good idea.
+
+It is currently an error in C++ for a pointer created during
+constant-evaluation-time to attempt to escape into the binary and
+become runtime-allocated memory. Thus, the existing string
+implementation has the property that NO constant-evaluation-created
+string object can escape to runtime. It is always an error. On the
+other hand, once we permit SSO strings at constant-evaluation-time,
+then "short enough" strings will be permitted to escape to runtime,
+while longer strings will produce an error.
+
+Thus, whether code will successfully compile now depends on whether
+the text is smaller than the SSO capacity. Given that the maximum SSO
+string length is an unspecified internal implementation detail which
+differs between implementations or platforms, having it become an
+important part of the API seems unfortunate.
+
+It is a new way to inadvertently write non-portable code, and to write
+difficult-to-modify code. If you depend on constexpr string
+initialization for a string that initially fits, it may be tricky to
+later modify your code to no longer depend on constexpr string
+initialization when it turns out you need a slightly longer string, or
+to port the code to a different implementation.
+
+That said, the other implementations already permit this, and don't
+seem to have any inclination to change. So, perhaps it's best to just
+follow suit. Currently, libstdc++ and MSVC allow constant-initialized
+strings to escape to runtime if they're 15 bytes or less (excluding
+the trailing NUL) -- except that libstdc++ does allow it for
+function-locals, only globals. With this patch, libc++ will permit
+such strings up to 22 bytes on 64-bit platforms, and up to 10 bytes on
+32-bit platforms.
+---
+ libcxx/include/string | 54 ++++++++++++-------------------------------
+ 1 file changed, 15 insertions(+), 39 deletions(-)
+
+diff --git a/libcxx/include/string b/libcxx/include/string
+index 4b96273698166d..349c892b9243dd 100644
+--- a/libcxx/include/string
++++ b/libcxx/include/string
+@@ -830,8 +830,8 @@ private:
+     {
+         union
+         {
+-            __long  __l;
+             __short __s;
++            __long  __l;
+             __raw   __r;
+         };
+     };
+@@ -1729,8 +1729,10 @@ private:
+ 
+     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20
+     bool __is_long() const _NOEXCEPT {
+-        if (__libcpp_is_constant_evaluated())
+-            return true;
++        if (__libcpp_is_constant_evaluated()) {
++            if (__builtin_constant_p(__r_.first().__l.__is_long_))
++                return __r_.first().__l.__is_long_;
++        }
+         return __r_.first().__s.__is_long_;
+     }
+ 
+@@ -1748,24 +1750,11 @@ private:
+ 
+     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __default_init() {
+         __r_.first() = __rep();
+-        if (__libcpp_is_constant_evaluated()) {
+-            size_type __sz = __recommend(0) + 1;
+-            pointer __ptr = __alloc_traits::allocate(__alloc(), __sz);
+-            __begin_lifetime(__ptr, __sz);
+-            __set_long_pointer(__ptr);
+-            __set_long_cap(__sz);
+-            __set_long_size(0);
+-        }
+-    }
+-
+-    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __deallocate_constexpr() {
+-        if (__libcpp_is_constant_evaluated() && __get_pointer() != nullptr)
+-            __alloc_traits::deallocate(__alloc(), __get_pointer(), __get_long_cap());
+     }
+ 
+     _LIBCPP_CONSTEXPR _LIBCPP_HIDE_FROM_ABI static bool __fits_in_sso(size_type __sz) {
+         // SSO is disabled during constant evaluation because `__is_long` isn't constexpr friendly
+-        return !__libcpp_is_constant_evaluated() && (__sz < __min_cap);
++        return (__sz < __min_cap);
+     }
+ 
+     template <class _Iterator, class _Sentinel>
+@@ -1877,10 +1866,7 @@ private:
+     size_type __recommend(size_type __s) _NOEXCEPT
+     {
+         if (__s < __min_cap) {
+-            if (__libcpp_is_constant_evaluated())
+-                return static_cast<size_type>(__min_cap);
+-            else
+-                return static_cast<size_type>(__min_cap) - 1;
++            return static_cast<size_type>(__min_cap) - 1;
+         }
+         size_type __guess = __align_it<sizeof(value_type) < __alignment ?
+                      __alignment/sizeof(value_type) : 1 > (__s+1) - 1;
+@@ -1969,7 +1955,8 @@ private:
+                     allocator_type __a = __str.__alloc();
+                     auto __allocation = std::__allocate_at_least(__a, __str.__get_long_cap());
+                     __begin_lifetime(__allocation.ptr, __allocation.count);
+-                    __alloc_traits::deallocate(__alloc(), __get_long_pointer(), __get_long_cap());
++                    if (__is_long())
++                        __alloc_traits::deallocate(__alloc(), __get_long_pointer(), __get_long_cap());
+                     __alloc() = std::move(__a);
+                     __set_long_pointer(__allocation.ptr);
+                     __set_long_cap(__allocation.count);
+@@ -2020,7 +2007,7 @@ private:
+     _LIBCPP_CONSTEXPR_SINCE_CXX20 basic_string& __assign_external(const value_type* __s, size_type __n);
+ 
+     // Assigns the value in __s, guaranteed to be __n < __min_cap in length.
+-    inline basic_string& __assign_short(const value_type* __s, size_type __n) {
++    inline _LIBCPP_CONSTEXPR_SINCE_CXX20 basic_string& __assign_short(const value_type* __s, size_type __n) {
+       pointer __p = __is_long()
+                         ? (__set_long_size(__n), __get_long_pointer())
+                         : (__set_short_size(__n), __get_short_pointer());
+@@ -2334,7 +2321,7 @@ basic_string<_CharT, _Traits, _Allocator>::__grow_by_and_replace
+     if (__sec_cp_sz != 0)
+         traits_type::copy(std::__to_address(__p) + __n_copy + __n_add,
+                           std::__to_address(__old_p) + __n_copy + __n_del, __sec_cp_sz);
+-    if (__old_cap+1 != __min_cap || __libcpp_is_constant_evaluated())
++    if (__old_cap+1 != __min_cap)
+         __alloc_traits::deallocate(__alloc(), __old_p, __old_cap+1);
+     __set_long_pointer(__p);
+     __set_long_cap(__allocation.count);
+@@ -2374,7 +2361,7 @@ basic_string<_CharT, _Traits, _Allocator>::__grow_by(size_type __old_cap, size_t
+         traits_type::copy(std::__to_address(__p) + __n_copy + __n_add,
+                           std::__to_address(__old_p) + __n_copy + __n_del,
+                           __sec_cp_sz);
+-    if (__libcpp_is_constant_evaluated() || __old_cap + 1 != __min_cap)
++    if (__old_cap + 1 != __min_cap)
+         __alloc_traits::deallocate(__alloc(), __old_p, __old_cap + 1);
+     __set_long_pointer(__p);
+     __set_long_cap(__allocation.count);
+@@ -2537,12 +2524,8 @@ basic_string<_CharT, _Traits, _Allocator>::__move_assign(basic_string& __str, tr
+   }
+   __move_assign_alloc(__str);
+   __r_.first() = __str.__r_.first();
+-  if (__libcpp_is_constant_evaluated()) {
+-    __str.__default_init();
+-  } else {
+-    __str.__set_short_size(0);
+-    traits_type::assign(__str.__get_short_pointer()[0], value_type());
+-  }
++  __str.__set_short_size(0);
++  traits_type::assign(__str.__get_short_pointer()[0], value_type());
+ }
+ 
+ #endif
+@@ -2828,13 +2811,6 @@ basic_string<_CharT, _Traits, _Allocator>::insert(size_type __pos, const value_t
+     if (__pos > __sz)
+         __throw_out_of_range();
+     size_type __cap = capacity();
+-    if (__libcpp_is_constant_evaluated()) {
+-        if (__cap - __sz >= __n)
+-            __grow_by_and_replace(__cap, 0, __sz, __pos, 0, __n, __s);
+-        else
+-            __grow_by_and_replace(__cap, __sz + __n - __cap, __sz, __pos, 0, __n, __s);
+-        return *this;
+-    }
+     if (__cap - __sz >= __n)
+     {
+         if (__n)
+@@ -2843,7 +2819,7 @@ basic_string<_CharT, _Traits, _Allocator>::insert(size_type __pos, const value_t
+             size_type __n_move = __sz - __pos;
+             if (__n_move != 0)
+             {
+-                if (__p + __pos <= __s && __s < __p + __sz)
++                if (std::__is_pointer_in_range(__p + __pos, __p + __sz, __s))
+                     __s += __n;
+                 traits_type::move(__p + __pos + __n, __p + __pos, __n_move);
+             }
+
+From e198d3699334aa0534b71a949a1c8e56f3c65caa Mon Sep 17 00:00:00 2001
+From: James Y Knight <jyknight@google.com>
+Date: Mon, 18 Sep 2023 13:22:24 +0000
+Subject: [PATCH 2/6] Address review comments.
+
+---
+ libcxx/include/string | 24 +++++++++---------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
+
+diff --git a/libcxx/include/string b/libcxx/include/string
+index 349c892b9243dd..fb943ecc1fc3aa 100644
+--- a/libcxx/include/string
++++ b/libcxx/include/string
+@@ -880,7 +880,7 @@ public:
+   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 basic_string()
+       _NOEXCEPT_(is_nothrow_default_constructible<allocator_type>::value)
+       : __r_(__default_init_tag(), __default_init_tag()) {
+-    __default_init();
++    __r_.first() = __rep();
+   }
+ 
+   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 explicit basic_string(const allocator_type& __a)
+@@ -890,7 +890,7 @@ public:
+       _NOEXCEPT
+ #endif
+       : __r_(__default_init_tag(), __a) {
+-    __default_init();
++    __r_.first() = __rep();
+   }
+ 
+   _LIBCPP_CONSTEXPR_SINCE_CXX20 basic_string(const basic_string& __str)
+@@ -917,7 +917,7 @@ public:
+       _NOEXCEPT
+ #  endif
+       : __r_(std::move(__str.__r_)) {
+-    __str.__default_init();
++    __str.__r_.first() = __rep();
+   }
+ 
+   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 basic_string(basic_string&& __str, const allocator_type& __a)
+@@ -928,7 +928,7 @@ public:
+       if (__libcpp_is_constant_evaluated())
+         __r_.first() = __rep();
+       __r_.first() = __str.__r_.first();
+-      __str.__default_init();
++      __str.__r_.first() = __rep();
+     }
+   }
+ #endif // _LIBCPP_CXX03_LANG
+@@ -984,7 +984,7 @@ public:
+     auto __len = std::min<size_type>(__n, __str.size() - __pos);
+     if (__alloc_traits::is_always_equal::value || __alloc == __str.__alloc()) {
+       __r_.first() = __str.__r_.first();
+-      __str.__default_init();
++      __str.__r_.first() = __rep();
+ 
+       _Traits::move(data(), data() + __pos, __len);
+       __set_size(__len);
+@@ -1729,9 +1729,8 @@ private:
+ 
+     _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20
+     bool __is_long() const _NOEXCEPT {
+-        if (__libcpp_is_constant_evaluated()) {
+-            if (__builtin_constant_p(__r_.first().__l.__is_long_))
+-                return __r_.first().__l.__is_long_;
++        if (__libcpp_is_constant_evaluated() && __builtin_constant_p(__r_.first().__l.__is_long_)) {
++            return __r_.first().__l.__is_long_;
+         }
+         return __r_.first().__s.__is_long_;
+     }
+@@ -1748,12 +1747,7 @@ private:
+ #endif // _LIBCPP_STD_VER >= 20
+     }
+ 
+-    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 void __default_init() {
+-        __r_.first() = __rep();
+-    }
+-
+     _LIBCPP_CONSTEXPR _LIBCPP_HIDE_FROM_ABI static bool __fits_in_sso(size_type __sz) {
+-        // SSO is disabled during constant evaluation because `__is_long` isn't constexpr friendly
+         return (__sz < __min_cap);
+     }
+ 
+@@ -2221,7 +2215,7 @@ template <class _CharT, class _Traits, class _Allocator>
+ template <class _InputIterator, class _Sentinel>
+ _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20
+ void basic_string<_CharT, _Traits, _Allocator>::__init_with_sentinel(_InputIterator __first, _Sentinel __last) {
+-    __default_init();
++    __r_.first() = __rep();
+ 
+ #ifndef _LIBCPP_HAS_NO_EXCEPTIONS
+     try
+@@ -3842,7 +3836,7 @@ basic_string<_CharT, _Traits, _Allocator>::__clear_and_shrink() _NOEXCEPT
+     if(__is_long())
+     {
+         __alloc_traits::deallocate(__alloc(), __get_long_pointer(), capacity() + 1);
+-        __default_init();
++        __r_.first() = __rep();
+     }
+ }
+ 
+
+From 829978bbb01c2dbb2334a14795f17f1655e41e03 Mon Sep 17 00:00:00 2001
+From: James Y Knight <jyknight@google.com>
+Date: Mon, 25 Sep 2023 16:36:26 +0000
+Subject: [PATCH 3/6] Add test, address comment, add doc note.
+
+---
+ libcxx/docs/UsingLibcxx.rst                   | 24 +++++++++++++++++++
+ libcxx/include/string                         |  2 +-
+ .../constinit_sso_string.compile.pass.cpp     | 22 +++++++++++++++++
+ 3 files changed, 47 insertions(+), 1 deletion(-)
+ create mode 100644 libcxx/test/libcxx/strings/basic.string/string.cons/constinit_sso_string.compile.pass.cpp
+
+diff --git a/libcxx/docs/UsingLibcxx.rst b/libcxx/docs/UsingLibcxx.rst
+index 0b517c0f8f7860..cd3dc9bfff5c93 100644
+--- a/libcxx/docs/UsingLibcxx.rst
++++ b/libcxx/docs/UsingLibcxx.rst
+@@ -545,6 +545,30 @@ Extensions to the C++23 modules ``std`` and ``std.compat``
+ Like other major implementations, libc++ provides C++23 modules ``std`` and
+ ``std.compat`` in C++20 as an extension"
+ 
++Constant-initialized std::string
++--------------------------------
++
++As an implementation-specific optimization, ``std::basic_string`` (``std::string``,
++``std::wstring``, etc.) may either store the string data directly in the object, or else store a
++pointer to heap-allocated memory, depending on the length of the string.
++
++As of C++20, the constructors are now declared ``constexpr``, which permits strings to be used
++during constant-evaluation time. In libc++, as in other common implementations, it is also possible
++to constant-initialize a string object (e.g. via declaring a variable with ``constinit`` or
++``constexpr``), but, only if the string is short enough to not require a heap allocation. Reliance
++upon this should be discouraged in portable code, as the allowed length differs based on the
++standard-library implementation and also based on whether the platform uses 32-bit or 64-bit
++pointers.
++
++.. code-block:: cpp
++
++  // Non-portable: 11-char string works on 64-bit libc++, but not on 32-bit.
++  constinit std::string x = "hello world";
++
++  // Prefer to use string_view, or remove constinit/constexpr from the variable definition:
++  constinit std::string_view x = "hello world";
++  std::string_view y = "hello world";
++
+ .. _turning-off-asan:
+ 
+ Turning off ASan annotation in containers
+diff --git a/libcxx/include/string b/libcxx/include/string
+index fb943ecc1fc3aa..5a922f281f1f24 100644
+--- a/libcxx/include/string
++++ b/libcxx/include/string
+@@ -1748,7 +1748,7 @@ private:
+     }
+ 
+     _LIBCPP_CONSTEXPR _LIBCPP_HIDE_FROM_ABI static bool __fits_in_sso(size_type __sz) {
+-        return (__sz < __min_cap);
++        return __sz < __min_cap;
+     }
+ 
+     template <class _Iterator, class _Sentinel>
+diff --git a/libcxx/test/libcxx/strings/basic.string/string.cons/constinit_sso_string.compile.pass.cpp b/libcxx/test/libcxx/strings/basic.string/string.cons/constinit_sso_string.compile.pass.cpp
+new file mode 100644
+index 00000000000000..9caf298c05177b
+--- /dev/null
++++ b/libcxx/test/libcxx/strings/basic.string/string.cons/constinit_sso_string.compile.pass.cpp
+@@ -0,0 +1,22 @@
++//===----------------------------------------------------------------------===//
++//
++// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
++// See https://llvm.org/LICENSE.txt for license information.
++// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
++//
++//===----------------------------------------------------------------------===//
++
++// UNSUPPORTED: c++03, c++11, c++14, c++17
++
++// Ensure that strings which fit within the SSO size can be constant-initialized
++// globals.  (this is permitted but not required to work by the standard).
++
++#include <string>
++
++#if __SIZE_WIDTH__ == 64
++constinit std::string my_str = "0123456789012345678901";
++#elif __SIZE_WIDTH__ == 32
++constinit std::string my_str = "0123456789";
++#else
++#  error "std::size_t has an unexpected size"
++#endif
+
+From 9d179b43ad62c2d66d7bd0f9588147c6141a54c1 Mon Sep 17 00:00:00 2001
+From: James Y Knight <jyknight@google.com>
+Date: Tue, 26 Sep 2023 17:06:39 +0000
+Subject: [PATCH 4/6] Address value_init_tag comment
+
+---
+ libcxx/include/string | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/libcxx/include/string b/libcxx/include/string
+index 5a922f281f1f24..33e87406a1156a 100644
+--- a/libcxx/include/string
++++ b/libcxx/include/string
+@@ -879,9 +879,7 @@ public:
+ 
+   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 basic_string()
+       _NOEXCEPT_(is_nothrow_default_constructible<allocator_type>::value)
+-      : __r_(__default_init_tag(), __default_init_tag()) {
+-    __r_.first() = __rep();
+-  }
++      : __r_(__value_init_tag(), __default_init_tag()) {}
+ 
+   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 explicit basic_string(const allocator_type& __a)
+ #if _LIBCPP_STD_VER <= 14
+@@ -889,9 +887,7 @@ public:
+ #else
+       _NOEXCEPT
+ #endif
+-      : __r_(__default_init_tag(), __a) {
+-    __r_.first() = __rep();
+-  }
++      : __r_(__value_init_tag(), __a) {}
+ 
+   _LIBCPP_CONSTEXPR_SINCE_CXX20 basic_string(const basic_string& __str)
+       : __r_(__default_init_tag(), __alloc_traits::select_on_container_copy_construction(__str.__alloc())) {
+
+From db9f3b84e91a948ff0c5d9a7b7a058b61cdbe9e9 Mon Sep 17 00:00:00 2001
+From: James Y Knight <jyknight@google.com>
+Date: Fri, 6 Oct 2023 22:26:09 +0000
+Subject: [PATCH 5/6] Tweak test per review comments.
+
+---
+ .../string.cons/constinit_sso_string.compile.pass.cpp | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/libcxx/test/libcxx/strings/basic.string/string.cons/constinit_sso_string.compile.pass.cpp b/libcxx/test/libcxx/strings/basic.string/string.cons/constinit_sso_string.compile.pass.cpp
+index 9caf298c05177b..5c0114c02970e6 100644
+--- a/libcxx/test/libcxx/strings/basic.string/string.cons/constinit_sso_string.compile.pass.cpp
++++ b/libcxx/test/libcxx/strings/basic.string/string.cons/constinit_sso_string.compile.pass.cpp
+@@ -9,14 +9,19 @@
+ // UNSUPPORTED: c++03, c++11, c++14, c++17
+ 
+ // Ensure that strings which fit within the SSO size can be constant-initialized
+-// globals.  (this is permitted but not required to work by the standard).
++// as both a global and local.
+ 
+ #include <string>
+ 
+ #if __SIZE_WIDTH__ == 64
+-constinit std::string my_str = "0123456789012345678901";
++#define LONGEST_STR "0123456789012345678901"
+ #elif __SIZE_WIDTH__ == 32
+-constinit std::string my_str = "0123456789";
++#define LONGEST_STR "0123456789"
+ #else
+ #  error "std::size_t has an unexpected size"
+ #endif
++
++constinit std::string g_str = LONGEST_STR;
++void fn() {
++  constexpr std::string l_str = LONGEST_STR;
++}
+
+From 98ca35e17520376b367f283a696868b986405a05 Mon Sep 17 00:00:00 2001
+From: James Y Knight <jyknight@google.com>
+Date: Sun, 8 Oct 2023 23:29:42 +0000
+Subject: [PATCH 6/6] Split off wchar bitset::to_string tests to avoid
+ constexpr evaluation limit.
+
+---
+ .../bitset.members/to_string.pass.cpp         | 78 ++++++++++++-------
+ 1 file changed, 51 insertions(+), 27 deletions(-)
+
+diff --git a/libcxx/test/std/utilities/template.bitset/bitset.members/to_string.pass.cpp b/libcxx/test/std/utilities/template.bitset/bitset.members/to_string.pass.cpp
+index 78c58f678e7960..809de12d45dbac 100644
+--- a/libcxx/test/std/utilities/template.bitset/bitset.members/to_string.pass.cpp
++++ b/libcxx/test/std/utilities/template.bitset/bitset.members/to_string.pass.cpp
+@@ -47,16 +47,6 @@ TEST_CONSTEXPR_CXX23 bool test_to_string() {
+     std::vector<std::bitset<N> > const cases = get_test_cases<N>();
+     for (std::size_t c = 0; c != cases.size(); ++c) {
+         std::bitset<N> const v = cases[c];
+-#ifndef TEST_HAS_NO_WIDE_CHARACTERS
+-        {
+-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >();
+-            check_equal(s, v, L'0', L'1');
+-        }
+-        {
+-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >();
+-            check_equal(s, v, L'0', L'1');
+-        }
+-#endif
+         {
+             std::string s = v.template to_string<char>();
+             check_equal(s, v, '0', '1');
+@@ -65,49 +55,64 @@ TEST_CONSTEXPR_CXX23 bool test_to_string() {
+             std::string s = v.to_string();
+             check_equal(s, v, '0', '1');
+         }
+-#ifndef TEST_HAS_NO_WIDE_CHARACTERS
+         {
+-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >('0');
+-            check_equal(s, v, L'0', L'1');
++            std::string s = v.template to_string<char>('0');
++            check_equal(s, v, '0', '1');
+         }
+         {
+-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >('0');
+-            check_equal(s, v, L'0', L'1');
++            std::string s = v.to_string('0');
++            check_equal(s, v, '0', '1');
+         }
+-#endif
+         {
+-            std::string s = v.template to_string<char>('0');
++            std::string s = v.template to_string<char>('0', '1');
+             check_equal(s, v, '0', '1');
+         }
+         {
+-            std::string s = v.to_string('0');
++            std::string s = v.to_string('0', '1');
+             check_equal(s, v, '0', '1');
+         }
++        {
++            std::string s = v.to_string('x', 'y');
++            check_equal(s, v, 'x', 'y');
++        }
++    }
++    return true;
++}
++
+ #ifndef TEST_HAS_NO_WIDE_CHARACTERS
++template <std::size_t N>
++TEST_CONSTEXPR_CXX23 bool test_to_string_wchar() {
++    std::vector<std::bitset<N> > const cases = get_test_cases<N>();
++    for (std::size_t c = 0; c != cases.size(); ++c) {
++        std::bitset<N> const v = cases[c];
+         {
+-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >('0', '1');
++            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >();
+             check_equal(s, v, L'0', L'1');
+         }
+         {
+-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >('0', '1');
++            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >();
+             check_equal(s, v, L'0', L'1');
+         }
+-#endif
+         {
+-            std::string s = v.template to_string<char>('0', '1');
+-            check_equal(s, v, '0', '1');
++            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >('0');
++            check_equal(s, v, L'0', L'1');
+         }
+         {
+-            std::string s = v.to_string('0', '1');
+-            check_equal(s, v, '0', '1');
++            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >('0');
++            check_equal(s, v, L'0', L'1');
+         }
+         {
+-            std::string s = v.to_string('x', 'y');
+-            check_equal(s, v, 'x', 'y');
++            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >('0', '1');
++            check_equal(s, v, L'0', L'1');
++        }
++        {
++            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >('0', '1');
++            check_equal(s, v, L'0', L'1');
+         }
+     }
+     return true;
+ }
++#endif
+ 
+ int main(int, char**) {
+   test_to_string<0>();
+@@ -130,5 +135,24 @@ int main(int, char**) {
+   static_assert(test_to_string<65>());
+ #endif
+ 
++#ifndef TEST_HAS_NO_WIDE_CHARACTERS
++  test_to_string_wchar<0>();
++  test_to_string_wchar<1>();
++  test_to_string_wchar<31>();
++  test_to_string_wchar<32>();
++  test_to_string_wchar<33>();
++  test_to_string_wchar<63>();
++  test_to_string_wchar<64>();
++  test_to_string_wchar<65>();
++  test_to_string_wchar<1000>(); // not in constexpr because of constexpr evaluation step limits
++#if TEST_STD_VER > 20
++  static_assert(test_to_string_wchar<0>());
++  static_assert(test_to_string_wchar<1>());
++  static_assert(test_to_string_wchar<31>());
++  static_assert(test_to_string_wchar<32>());
++  static_assert(test_to_string_wchar<33>());
++  static_assert(test_to_string_wchar<63>());
++#endif
++#endif
+   return 0;
+ }

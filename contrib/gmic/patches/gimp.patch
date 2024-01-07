@@ -1,0 +1,19 @@
+commit ebeefee7d599ff96fec660c96c61f722acea6f96
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Aug 31 21:18:54 2023 +0200
+
+    use correct gimptool
+
+diff --git a/src/Makefile b/src/Makefile
+index 6c960ff..079ec9b 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -87,7 +87,7 @@ INCLUDE ?= include
+ PIC = -fPIC
+ EXE =
+ WGET = wget --no-check-certificate --quiet -O
+-PLUGINDIR = $(shell gimptool-2.0 --gimpplugindir)/plug-ins
++PLUGINDIR = $(shell gimptool-2.99 --gimpplugindir)/plug-ins
+ BASH_COMPLETIONSDIR = $(shell pkg-config --variable completionsdir bash-completion || echo $(PREFIX)/share/bash-completion/completions)
+ VERSION = $(shell grep 'gmic_version\ ' gmic.h | tail -c4 | head -c3)
+ VERSION1 = $(shell grep 'gmic_version\ ' gmic.h | tail -c4 | head -c1)

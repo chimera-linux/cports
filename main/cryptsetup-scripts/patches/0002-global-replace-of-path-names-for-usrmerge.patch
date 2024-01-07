@@ -1,0 +1,717 @@
+From ae23de6d8839ae3e743e6ecb8a298e3f68135c26 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Fri, 17 Mar 2023 19:53:56 +0100
+Subject: [PATCH 2/4] global replace of path names for usrmerge
+
+---
+ debian/askpass.c                              | 10 ++++----
+ debian/checks/blkid                           |  6 ++---
+ debian/checks/un_blkid                        |  6 ++---
+ debian/cryptdisks-functions                   | 18 +++++++-------
+ debian/functions                              | 20 ++++++++--------
+ debian/initramfs/cryptroot-unlock             | 14 +++++------
+ debian/initramfs/hooks/cryptgnupg             |  8 +++----
+ debian/initramfs/hooks/cryptgnupg-sc          |  8 +++----
+ debian/initramfs/hooks/cryptkeyctl            |  6 ++---
+ debian/initramfs/hooks/cryptopensc            |  8 +++----
+ debian/initramfs/hooks/cryptpassdev           |  2 +-
+ debian/initramfs/hooks/cryptroot              | 24 +++++++++----------
+ debian/initramfs/hooks/cryptroot-unlock       |  8 +++----
+ .../scripts/local-bottom/cryptopensc          |  4 ++--
+ .../initramfs/scripts/local-bottom/cryptroot  |  4 ++--
+ .../initramfs/scripts/local-top/cryptopensc   |  8 +++----
+ debian/initramfs/scripts/local-top/cryptroot  |  6 ++---
+ debian/scripts/cryptdisks_start               |  2 +-
+ debian/scripts/cryptdisks_stop                |  2 +-
+ debian/scripts/decrypt_gnupg                  |  2 +-
+ debian/scripts/decrypt_keyctl                 |  2 +-
+ debian/scripts/decrypt_opensc                 |  2 +-
+ debian/scripts/passdev.c                      |  2 +-
+ 23 files changed, 87 insertions(+), 85 deletions(-)
+
+diff --git a/debian/askpass.c b/debian/askpass.c
+index 07826de..7756d59 100644
+--- a/debian/askpass.c
++++ b/debian/askpass.c
+@@ -140,7 +140,8 @@ reread:
+  * systemd functions                                                         *
+  *****************************************************************************/
+ 
+-#define SYSTEMD_ASKPASS "/bin/systemd-ask-password"
++#if 0
++#define SYSTEMD_ASKPASS "/usr/bin/systemd-ask-password"
+ static pid_t systemdpid;
+ static size_t systemdused = 0;
+ static size_t systemdsize = 0;
+@@ -210,12 +211,13 @@ systemd_finish(int fd)
+ 	kill(systemdpid, SIGTERM);
+ 	fifo_common_finish(fd, &systemdbuf, &systemdused, &systemdsize);
+ }
++#endif
+ 
+ /*****************************************************************************
+  * plymouth functions                                                        *
+  *****************************************************************************/
+ 
+-#define PLYMOUTH_PATH "/bin/plymouth"
++#define PLYMOUTH_PATH "/usr/bin/plymouth"
+ static pid_t plymouthpid;
+ static size_t plymouthused = 0;
+ static size_t plymouthsize = 0;
+@@ -287,7 +289,7 @@ plymouth_finish(int fd)
+ /*****************************************************************************
+  * fifo functions                                                            *
+  *****************************************************************************/
+-#define FIFO_PATH "/lib/cryptsetup/passfifo"
++#define FIFO_PATH "/usr/lib/cryptsetup/passfifo"
+ static size_t fifoused = 0;
+ static size_t fifosize = 0;
+ static char *fifobuf = NULL;
+@@ -456,7 +458,7 @@ struct method {
+ };
+ 
+ static struct method methods[] = {
+-	{ "systemd", systemd_prepare, systemd_read, systemd_finish, true, false, true, -1 },
++	/*{ "systemd", systemd_prepare, systemd_read, systemd_finish, true, false, true, -1 },*/
+ 	{ "fifo", fifo_prepare, fifo_read, fifo_finish, false, false, true, -1 },
+ 	{ "plymouth", plymouth_prepare, plymouth_read, plymouth_finish, true, false, true, -1 },
+ 	{ "console", console_prepare, console_read, console_finish, false, false, true, -1 }
+diff --git a/debian/checks/blkid b/debian/checks/blkid
+index 27615d3..c7d58e2 100644
+--- a/debian/checks/blkid
++++ b/debian/checks/blkid
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-# this script depends on /sbin/blkid from the util-linux package
++# this script depends on /usr/bin/blkid from the util-linux package
+ 
+ # usage: blkid <device> <fs_type> [<offset>]
+ # <device> may be any device that should be checked.
+@@ -8,7 +8,7 @@
+ # is found on the device. if <fs_type> is 'none', the check fails if any
+ # know filesystem is found.
+ 
+-if test ! -x "/sbin/blkid"; then
++if test ! -x "/usr/bin/blkid"; then
+   echo " - WARNING: blkid from util-linux is not available, impossible to run checks."
+   exit 1
+ fi
+@@ -17,7 +17,7 @@ dev="$1"
+ fs="$2"
+ offset="${3-}"
+ 
+-blkid="$(/sbin/blkid -o value -s TYPE -p ${offset:+-O "$offset"} -- "$dev")"
++blkid="$(/usr/bin/blkid -o value -s TYPE -p ${offset:+-O "$offset"} -- "$dev")"
+ 
+ # blkid output is empty if $dev has an unknown filesystem
+ if [ -z "$blkid" ] && [ -z "$fs" ]; then
+diff --git a/debian/checks/un_blkid b/debian/checks/un_blkid
+index 572d937..271999e 100644
+--- a/debian/checks/un_blkid
++++ b/debian/checks/un_blkid
+@@ -1,5 +1,5 @@
+ #!/bin/sh
+-# this script depends on /sbin/blkid from the util-linux package
++# this script depends on /usr/bin/blkid from the util-linux package
+ 
+ # usage: un_blkid <device> <fs_type> [<offset>]
+ # <device> may be any device that should be checked.
+@@ -7,7 +7,7 @@
+ # if <fs_type> is given, the check fails when a filesystem type <fs_type>
+ # is found on the device.
+ 
+-if test ! -x "/sbin/blkid"; then
++if test ! -x "/usr/bin/blkid"; then
+   echo " - WARNING: blkid from util-linux is not available, impossible to run checks."
+   exit 1
+ fi
+@@ -16,7 +16,7 @@ dev="$1"
+ fs="$2"
+ offset="${3-}"
+ 
+-blkid="$(/sbin/blkid -o value -s TYPE -p ${offset:+-O "$offset"} -- "$dev")"
++blkid="$(/usr/bin/blkid -o value -s TYPE -p ${offset:+-O "$offset"} -- "$dev")"
+ 
+ # blkid output is empty if $dev has an unknown filesystem
+ if [ -n "$blkid" ] && [ -z "$fs" ]; then
+diff --git a/debian/cryptdisks-functions b/debian/cryptdisks-functions
+index ce5e6f4..c35b284 100644
+--- a/debian/cryptdisks-functions
++++ b/debian/cryptdisks-functions
+@@ -1,18 +1,18 @@
+ #
+ # This file is for inclusion with
+-#    . /lib/cryptsetup/cryptdisks-functions
++#    . /usr/lib/cryptsetup/cryptdisks-functions
+ # and should not be executed directly.
+ 
+-PATH="/usr/sbin:/usr/bin:/sbin:/bin"
++PATH="/usr/bin"
+ CRYPTDISKS_ENABLE="Yes"
+ 
+ #set -x
+ 
+ # Sanity check #1
+-[ -x /sbin/cryptsetup ] || exit 0
++[ -x /usr/bin/cryptsetup ] || exit 0
+ 
+-. /lib/lsb/init-functions
+-. /lib/cryptsetup/functions
++. /usr/lib/lsb/init-functions
++. /usr/lib/cryptsetup/functions
+ 
+ if [ -r /etc/default/cryptdisks ]; then
+     . /etc/default/cryptdisks
+@@ -120,8 +120,8 @@ setup_mapping() {
+         # fail if the device has a filesystem and the disk encryption format doesn't
+         # verify the key digest (unlike LUKS); unless it's swap, otherwise people can't
+         # easily convert an existing plainttext swap partition to an encrypted one
+-        if ! out="$(/lib/cryptsetup/checks/un_blkid "$CRYPTTAB_SOURCE" "" ${CRYPTTAB_OPTION_offset+"$offset_bytes"} 2>/dev/null)" &&
+-                ! /lib/cryptsetup/checks/blkid "$CRYPTTAB_SOURCE" swap ${CRYPTTAB_OPTION_offset+"$offset_bytes"} >/dev/null; then
++        if ! out="$(/usr/lib/cryptsetup/checks/un_blkid "$CRYPTTAB_SOURCE" "" ${CRYPTTAB_OPTION_offset+"$offset_bytes"} 2>/dev/null)" &&
++                ! /usr/lib/cryptsetup/checks/blkid "$CRYPTTAB_SOURCE" swap ${CRYPTTAB_OPTION_offset+"$offset_bytes"} >/dev/null; then
+             log_warning_msg "$CRYPTTAB_NAME: the precheck for '$CRYPTTAB_SOURCE' failed: $out"
+             return 1
+         fi
+@@ -151,8 +151,8 @@ setup_mapping() {
+             continue
+         fi
+         if [ "${CRYPTTAB_OPTION_swap+x}" ]; then
+-            if out="$(/lib/cryptsetup/checks/un_blkid "$tmpdev" "" ${CRYPTTAB_OPTION_offset+"$offset_bytes"} 2>/dev/null)" ||
+-                    /lib/cryptsetup/checks/blkid "$tmpdev" swap ${CRYPTTAB_OPTION_offset+"$offset_bytes"} >/dev/null 2>&1; then
++            if out="$(/usr/lib/cryptsetup/checks/un_blkid "$tmpdev" "" ${CRYPTTAB_OPTION_offset+"$offset_bytes"} 2>/dev/null)" ||
++                    /usr/lib/cryptsetup/checks/blkid "$tmpdev" swap ${CRYPTTAB_OPTION_offset+"$offset_bytes"} >/dev/null 2>&1; then
+                 mkswap "$tmpdev" >/dev/null 2>&1
+             else
+                 log_warning_msg "$target: the check for '$CRYPTTAB_NAME' failed. $CRYPTTAB_NAME contains data: $out"
+diff --git a/debian/functions b/debian/functions
+index 8758abb..45e6f41 100644
+--- a/debian/functions
++++ b/debian/functions
+@@ -15,7 +15,7 @@ export DM_DEFAULT_NAME_MANGLING_MODE=hex # for dmsetup(8)
+ # and print it to the standard error.
+ cryptsetup_message() {
+     local IFS=' '
+-    if [ "${0#/scripts/}" != "$0" ] && [ -x /bin/plymouth ] && plymouth --ping; then
++    if [ "${0#/scripts/}" != "$0" ] && [ -x /usr/bin/plymouth ] && plymouth --ping; then
+         plymouth message --text="cryptsetup: $*"
+     elif [ ${#*} -lt 70 ]; then
+         echo "cryptsetup: $*" >&2
+@@ -208,7 +208,7 @@ crypttab_validate_option() {
+                 fi
+             fi
+             if [ "${VALUE#/}" = "$VALUE" ]; then
+-                VALUE="/lib/cryptsetup/checks/$VALUE"
++                VALUE="/usr/lib/cryptsetup/checks/$VALUE"
+             fi
+             if [ ! -x "$VALUE" ] || [ ! -f "$VALUE" ]; then
+                 return 1
+@@ -220,7 +220,7 @@ crypttab_validate_option() {
+         keyscript)
+             [ -n "${VALUE:+x}" ] || return 1 # must have a value
+             if [ "${VALUE#/}" = "$VALUE" ]; then
+-                VALUE="/lib/cryptsetup/scripts/$VALUE"
++                VALUE="/usr/lib/cryptsetup/scripts/$VALUE"
+             fi
+             if [ ! -x "$VALUE" ] || [ ! -f "$VALUE" ]; then
+                 return 1
+@@ -273,7 +273,7 @@ crypttab_resolve_source() {
+ #   exec()'ute `$CRYPTTAB_OPTION_keyscript "$CRYPTTAB_KEY"`.
+ #   If $CRYPTTAB_OPTION_keyscript is unset or null and $CRYPTTAB_KEY is
+ #   "none" (meaning the passphrase is to be read interactively from the
+-#   console), then use `/lib/cryptsetup/askpass` as keyscript with a
++#   console), then use `/usr/lib/cryptsetup/askpass` as keyscript with a
+ #   suitable prompt message instead.
+ #   Since the shell process is replaced with the $CRYPTTAB_OPTION_keyscript
+ #   program, run_keyscript() must be used on the left-hand side of a
+@@ -285,13 +285,13 @@ run_keyscript() {
+     export CRYPTTAB_TRIED="$1"
+ 
+     if [ -n "${CRYPTTAB_OPTION_keyscript+x}" ] && \
+-            [ "$CRYPTTAB_OPTION_keyscript" != "/lib/cryptsetup/askpass" ]; then
++            [ "$CRYPTTAB_OPTION_keyscript" != "/usr/lib/cryptsetup/askpass" ]; then
+         # 'keyscript' option is present: export its argument as $CRYPTTAB_KEY
+         export CRYPTTAB_KEY _CRYPTTAB_KEY
+         keyscript="$CRYPTTAB_OPTION_keyscript"
+     elif [ "$keyscriptarg" = "none" ]; then
+         # don't export the prompt message as CRYPTTAB_KEY
+-        keyscript="/lib/cryptsetup/askpass"
++        keyscript="/usr/lib/cryptsetup/askpass"
+         keyscriptarg="Please unlock disk $CRYPTTAB_NAME: "
+     fi
+ 
+@@ -317,11 +317,11 @@ _get_crypt_type() {
+         t="fvault2"
+     elif [ -n "${CRYPTTAB_OPTION_header+x}" ]; then
+         # detached headers are only supported for LUKS devices
+-        if [ -e "$CRYPTTAB_OPTION_header" ] && /sbin/cryptsetup isLuks -- "$CRYPTTAB_OPTION_header"; then
++        if [ -e "$CRYPTTAB_OPTION_header" ] && /usr/bin/cryptsetup isLuks -- "$CRYPTTAB_OPTION_header"; then
+             t="luks"
+         fi
+     elif [ -f "$s" ] || s="$(_resolve_device_spec "$CRYPTTAB_SOURCE")"; then
+-        if /sbin/cryptsetup isLuks -- "$s"; then
++        if /usr/bin/cryptsetup isLuks -- "$s"; then
+             t="luks"
+         elif blk_t="$(blkid -s TYPE -o value -- "$s")" && [ "$blk_t" = "BitLocker" ]; then
+             t="bitlk"
+@@ -363,7 +363,7 @@ unlock_mapping() {
+         unset -v CRYPTTAB_OPTION_keyslot
+     fi
+ 
+-    /sbin/cryptsetup -T1 \
++    /usr/bin/cryptsetup -T1 \
+         ${CRYPTTAB_OPTION_header:+--header="$CRYPTTAB_OPTION_header"} \
+         ${CRYPTTAB_OPTION_cipher:+--cipher="$CRYPTTAB_OPTION_cipher"} \
+         ${CRYPTTAB_OPTION_size:+--key-size="$CRYPTTAB_OPTION_size"} \
+@@ -393,7 +393,7 @@ unlock_mapping() {
+ resume_mapping() {
+     local keyfile="${1:--}"
+ 
+-    /sbin/cryptsetup -T1 \
++    /usr/bin/cryptsetup -T1 \
+         ${CRYPTTAB_OPTION_header:+--header="$CRYPTTAB_OPTION_header"} \
+         ${CRYPTTAB_OPTION_keyslot:+--key-slot="$CRYPTTAB_OPTION_keyslot"} \
+         ${CRYPTTAB_OPTION_keyfile_size:+--keyfile-size="$CRYPTTAB_OPTION_keyfile_size"} \
+diff --git a/debian/initramfs/cryptroot-unlock b/debian/initramfs/cryptroot-unlock
+index 1e9cf69..44d531a 100644
+--- a/debian/initramfs/cryptroot-unlock
++++ b/debian/initramfs/cryptroot-unlock
+@@ -18,15 +18,15 @@
+ # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ set -ue
+-PATH=/sbin:/bin
++PATH=/usr/bin
+ 
+ TIMEOUT=10
+-PASSFIFO=/lib/cryptsetup/passfifo
+-ASKPASS=/lib/cryptsetup/askpass
++PASSFIFO=/usr/lib/cryptsetup/passfifo
++ASKPASS=/usr/lib/cryptsetup/askpass
+ UNLOCK_ALL=n
+ 
+-[ -f /lib/cryptsetup/functions ] || return 0
+-. /lib/cryptsetup/functions
++[ -f /usr/lib/cryptsetup/functions ] || return 0
++. /usr/lib/cryptsetup/functions
+ TABFILE="/cryptroot/crypttab"
+ unset -v IFS
+ 
+@@ -57,7 +57,7 @@ in_fds() {
+ }
+ 
+ # Print the PID of the askpass process with a file descriptor opened to
+-# /lib/cryptsetup/passfifo.
++# /usr/lib/cryptsetup/passfifo.
+ get_askpass_pid() {
+ 	local pid
+ 	for pid in $(pgrep_exe "$ASKPASS"); do
+@@ -127,7 +127,7 @@ wait_for_prompt() {
+ 		exit 1
+ 	fi
+ 
+-	for pid in $(pgrep_exe "/sbin/cryptsetup"); do
++	for pid in $(pgrep_exe "/usr/bin/cryptsetup"); do
+ 		if grep -Fxqz "CRYPTTAB_NAME=$CRYPTTAB_NAME" "/proc/$pid/environ"; then
+ 			PID=$pid
+ 			BIRTH=$(stat -f "%c" "/proc/$PID" 2>/dev/null) || break
+diff --git a/debian/initramfs/hooks/cryptgnupg b/debian/initramfs/hooks/cryptgnupg
+index dcb5248..6580288 100644
+--- a/debian/initramfs/hooks/cryptgnupg
++++ b/debian/initramfs/hooks/cryptgnupg
+@@ -17,9 +17,9 @@ case "$1" in
+ esac
+ 
+ . /usr/share/initramfs-tools/hook-functions
+-. /lib/cryptsetup/functions
++. /usr/lib/cryptsetup/functions
+ 
+-if [ ! -x "$DESTDIR/lib/cryptsetup/scripts/decrypt_gnupg" ] || [ ! -f "$TABFILE" ]; then
++if [ ! -x "${DESTDIR}/usr/lib/cryptsetup/scripts/decrypt_gnupg" ] || [ ! -f "$TABFILE" ]; then
+     exit 0
+ fi
+ 
+@@ -27,7 +27,7 @@ fi
+ # the initramfs
+ copy_keys() {
+     crypttab_parse_options
+-    if [ "${CRYPTTAB_OPTION_keyscript-}" = "/lib/cryptsetup/scripts/decrypt_gnupg" ]; then
++    if [ "${CRYPTTAB_OPTION_keyscript-}" = "/usr/lib/cryptsetup/scripts/decrypt_gnupg" ]; then
+         if [ -f "$CRYPTTAB_KEY" ]; then
+             [ -f "$DESTDIR$CRYPTTAB_KEY" ] || copy_file keyfile "$CRYPTTAB_KEY" || RV=$?
+         else
+@@ -41,6 +41,6 @@ RV=0
+ crypttab_foreach_entry copy_keys
+ 
+ # install askpass and GnuPG
+-copy_exec /lib/cryptsetup/askpass
++copy_exec /usr/lib/cryptsetup/askpass
+ copy_exec /usr/bin/gpg
+ exit $RV
+diff --git a/debian/initramfs/hooks/cryptgnupg-sc b/debian/initramfs/hooks/cryptgnupg-sc
+index 9e45000..1b08437 100644
+--- a/debian/initramfs/hooks/cryptgnupg-sc
++++ b/debian/initramfs/hooks/cryptgnupg-sc
+@@ -17,16 +17,16 @@ case "$1" in
+ esac
+ 
+ . /usr/share/initramfs-tools/hook-functions
+-. /lib/cryptsetup/functions
++. /usr/lib/cryptsetup/functions
+ 
+-if [ ! -x "$DESTDIR/lib/cryptsetup/scripts/decrypt_gnupg-sc" ] || [ ! -f "$TABFILE" ]; then
++if [ ! -x "$DESTDIR/usr/lib/cryptsetup/scripts/decrypt_gnupg-sc" ] || [ ! -f "$TABFILE" ]; then
+     exit 0
+ fi
+ 
+ # Hooks for loading gnupg software and encrypted key into the initramfs
+ copy_keys() {
+     crypttab_parse_options
+-    if [ "${CRYPTTAB_OPTION_keyscript-}" = "/lib/cryptsetup/scripts/decrypt_gnupg-sc" ]; then
++    if [ "${CRYPTTAB_OPTION_keyscript-}" = "/usr/lib/cryptsetup/scripts/decrypt_gnupg-sc" ]; then
+         if [ -f "$CRYPTTAB_KEY" ]; then
+             [ -f "$DESTDIR$CRYPTTAB_KEY" ] || copy_file keyfile "$CRYPTTAB_KEY" || RV=$?
+         else
+@@ -75,7 +75,7 @@ fi
+ 
+ # #1028202: ncurses-base: move terminfo files from /lib/terminfo to
+ # /usr/share/terminfo
+-for d in "/usr/share/terminfo" "/lib/terminfo"; do
++for d in "/usr/share/terminfo" "/usr/lib/terminfo"; do
+     if [ -f "$d/l/linux" ]; then
+         if [ ! -f "$DESTDIR$d/l/linux" ]; then
+             copy_file terminfo "$d/l/linux" || RV=$?
+diff --git a/debian/initramfs/hooks/cryptkeyctl b/debian/initramfs/hooks/cryptkeyctl
+index 5ae6ae8..184da3f 100644
+--- a/debian/initramfs/hooks/cryptkeyctl
++++ b/debian/initramfs/hooks/cryptkeyctl
+@@ -21,10 +21,10 @@ esac
+ # Hooks for loading keyctl software into the initramfs
+ 
+ # Check whether cryptroot hook has installed decrypt_keyctl script
+-if [ ! -x "$DESTDIR/lib/cryptsetup/scripts/decrypt_keyctl" ]; then
++if [ ! -x "${DESTDIR}/usr/lib/cryptsetup/scripts/decrypt_keyctl" ]; then
+     exit 0
+ fi
+ 
+-copy_exec /lib/cryptsetup/askpass
+-copy_exec /bin/keyctl
++copy_exec /usr/lib/cryptsetup/askpass
++copy_exec /usr/bin/keyctl
+ exit 0
+diff --git a/debian/initramfs/hooks/cryptopensc b/debian/initramfs/hooks/cryptopensc
+index bd49e84..3e86dae 100644
+--- a/debian/initramfs/hooks/cryptopensc
++++ b/debian/initramfs/hooks/cryptopensc
+@@ -17,16 +17,16 @@ case "$1" in
+ esac
+ 
+ . /usr/share/initramfs-tools/hook-functions
+-. /lib/cryptsetup/functions
++. /usr/lib/cryptsetup/functions
+ 
+-if [ ! -x "$DESTDIR/lib/cryptsetup/scripts/decrypt_opensc" ] || [ ! -f "$TABFILE" ]; then
++if [ ! -x "${DESTDIR}/usr/lib/cryptsetup/scripts/decrypt_opensc" ] || [ ! -f "$TABFILE" ]; then
+     exit 0
+ fi
+ 
+ # Hooks for loading smartcard reading software into the initramfs
+ copy_keys() {
+     crypttab_parse_options
+-    if [ "${CRYPTTAB_OPTION_keyscript-}" = "/lib/cryptsetup/scripts/decrypt_opensc" ]; then
++    if [ "${CRYPTTAB_OPTION_keyscript-}" = "/usr/lib/cryptsetup/scripts/decrypt_opensc" ]; then
+         if [ -f "$CRYPTTAB_KEY" ]; then
+             [ -f "$DESTDIR$CRYPTTAB_KEY" ] || copy_file keyfile "$CRYPTTAB_KEY" || RV=$?
+         else
+@@ -44,7 +44,7 @@ crypttab_foreach_entry copy_keys
+ mkdir -p -- "$DESTDIR/etc/opensc" "$DESTDIR/usr/lib/pcsc" "$DESTDIR/var/run" "$DESTDIR/tmp"
+ 
+ # Install pcscd daemon, drivers, conf file
+-copy_exec /usr/sbin/pcscd
++copy_exec /usr/bin/pcscd
+ 
+ cp -R /usr/lib/pcsc/* "${DESTDIR}/usr/lib/pcsc"
+ cp /etc/reader.conf "${DESTDIR}/etc" || true
+diff --git a/debian/initramfs/hooks/cryptpassdev b/debian/initramfs/hooks/cryptpassdev
+index 54492f0..24c2613 100644
+--- a/debian/initramfs/hooks/cryptpassdev
++++ b/debian/initramfs/hooks/cryptpassdev
+@@ -22,7 +22,7 @@ esac
+ # keyscript is used
+ 
+ # Check whether the passdev script has been included
+-if [ ! -x "$DESTDIR/lib/cryptsetup/scripts/passdev" ]; then
++if [ ! -x "${DESTDIR}/usr/lib/cryptsetup/scripts/passdev" ]; then
+ 	exit 0
+ fi
+ 
+diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
+index 008c0af..052821b 100644
+--- a/debian/initramfs/hooks/cryptroot
++++ b/debian/initramfs/hooks/cryptroot
+@@ -15,7 +15,7 @@ case "$1" in
+ esac
+ 
+ . /usr/share/initramfs-tools/hook-functions
+-. /lib/cryptsetup/functions
++. /usr/lib/cryptsetup/functions
+ TABFILE="/etc/crypttab"
+ 
+ 
+@@ -106,7 +106,7 @@ crypttab_print_entry() {
+     elif [ "$CRYPTTAB_KEY" = "none" ]; then
+         ASKPASS="y"
+     fi
+-    if [ "${CRYPTTAB_OPTION_keyscript-}" = "/lib/cryptsetup/scripts/decrypt_derived" ]; then
++    if [ "${CRYPTTAB_OPTION_keyscript-}" = "/usr/lib/cryptsetup/scripts/decrypt_derived" ]; then
+         # (recursively) list first the device to derive the key from (so
+         # the boot scripts unlock it first); since _CRYPTTAB_* are local
+         # to crypttab_find_and_print_entry() the new value won't
+@@ -205,7 +205,7 @@ populate_CRYPTO_HASHES() {
+     elif [ "$CRYPTTAB_TYPE" = "luks" ]; then
+         # using --dump-json-metadata would be more robust for LUKS2 but
+         # we also have to support LUKS1 hence have to parse luksDump output
+-        hash="$(/sbin/cryptsetup luksDump -- "$source" | sed -nr 's/^\s*(AF hash|Hash|Hash spec)\s*:\s*//Ip')"
++        hash="$(/usr/bin/cryptsetup luksDump -- "$source" | sed -nr 's/^\s*(AF hash|Hash|Hash spec)\s*:\s*//Ip')"
+     elif [ "$CRYPTTAB_TYPE" = "plain" ]; then
+         # --hash is being ignored when opening via key file
+         if [ "$CRYPTTAB_KEY" = "none" ] && [ -z "${CRYPTTAB_OPTION_keyscript+x}" ]; then
+@@ -269,13 +269,13 @@ add_crypto_modules() {
+     for mod in "$@"; do
+         # We have several potential sources of modules (in order of preference):
+         #
+-        #   a) /lib/modules/$VERSION/kernel/arch/$ARCH/crypto/$mod-$specific.ko
+-        #   b) /lib/modules/$VERSION/kernel/crypto/$mod_generic.ko
+-        #   c) /lib/modules/$VERSION/kernel/crypto/$mod.ko
++        #   a) /usr/lib/modules/$VERSION/kernel/arch/$ARCH/crypto/$mod-$specific.ko
++        #   b) /usr/lib/modules/$VERSION/kernel/crypto/$mod_generic.ko
++        #   c) /usr/lib/modules/$VERSION/kernel/crypto/$mod.ko
+         #
+         # and (currently ignored):
+         #
+-        #   d) /lib/modules/$VERSION/kernel/drivers/crypto/$specific-$mod.ko
++        #   d) /usr/lib/modules/$VERSION/kernel/drivers/crypto/$specific-$mod.ko
+         add_modules "$mod-*" "$MODULESDIR"/kernel/arch/*/crypto || true
+         add_modules "${mod}_generic" "$MODULESDIR/kernel/crypto" \
+             || add_modules "$mod" "$MODULESDIR/kernel/crypto" \
+@@ -290,7 +290,7 @@ add_crypto_modules() {
+ copy_libssl_legacy_library() {
+     local libcryptodir CRYPTO_HASHES=""
+ 
+-    libcryptodir="/lib"
++    libcryptodir="/usr/lib"
+     [ -d "$libcryptodir" ] || return
+ 
+     crypttab_foreach_entry populate_CRYPTO_HASHES
+@@ -335,10 +335,10 @@ fi
+ manual_add_modules dm_mod
+ manual_add_modules dm_crypt
+ 
+-copy_exec /sbin/cryptsetup
+-copy_exec /sbin/dmsetup
++copy_exec /usr/bin/cryptsetup
++copy_exec /usr/bin/dmsetup
+ 
+-[ "$ASKPASS" = n ] || copy_exec /lib/cryptsetup/askpass
++[ "$ASKPASS" = n ] || copy_exec /usr/lib/cryptsetup/askpass
+ 
+ # We need sed. Either via busybox or as standalone binary.
+ # chimera: already provided via chimerautils-tiny by default
+@@ -368,4 +368,4 @@ else
+     fi
+     add_crypto_modules $(printf '%s' "${CRYPTO_MODULES-}" | tr ' ' '\n' | sort -u)
+ fi
+-copy_file library /lib/cryptsetup/functions /lib/cryptsetup/functions
++copy_file library /usr/lib/cryptsetup/functions /usr/lib/cryptsetup/functions
+diff --git a/debian/initramfs/hooks/cryptroot-unlock b/debian/initramfs/hooks/cryptroot-unlock
+index 06fe976..cc1b8df 100644
+--- a/debian/initramfs/hooks/cryptroot-unlock
++++ b/debian/initramfs/hooks/cryptroot-unlock
+@@ -19,15 +19,15 @@ case "$1" in
+         ;;
+ esac
+ 
+-if [ ! -f "$DESTDIR/lib/cryptsetup/askpass" ]; then
++if [ ! -f "${DESTDIR}/usr/lib/cryptsetup/askpass" ]; then
+     # cryptroot-unlock is useless without askpass
+     exit 0
+ fi
+ 
+ . /usr/share/initramfs-tools/hook-functions
+-if [ ! -f "$DESTDIR/bin/cryptroot-unlock" ] &&
+-        ! copy_file script /usr/share/cryptsetup/initramfs/bin/cryptroot-unlock /bin/cryptroot-unlock; then
+-    echo "ERROR: Couldn't copy /bin/cryptroot-unlock" >&2
++if [ ! -f "${DESTDIR}/usr/bin/cryptroot-unlock" ] &&
++        ! copy_file script /usr/share/cryptsetup/initramfs/bin/cryptroot-unlock /usr/bin/cryptroot-unlock; then
++    echo "ERROR: Couldn't copy /usr/bin/cryptroot-unlock" >&2
+     exit 1
+ fi
+ 
+diff --git a/debian/initramfs/scripts/local-bottom/cryptopensc b/debian/initramfs/scripts/local-bottom/cryptopensc
+index 4de8f48..22406bc 100644
+--- a/debian/initramfs/scripts/local-bottom/cryptopensc
++++ b/debian/initramfs/scripts/local-bottom/cryptopensc
+@@ -18,14 +18,14 @@ esac
+ 
+ # Hook for stopping smartcard reading software
+ 
+-if [ ! -x /usr/sbin/pcscd ]; then
++if [ ! -x /usr/bin/pcscd ]; then
+     exit 0
+ fi
+ 
+ . /scripts/functions
+ 
+ if PID="$(cat /run/pcscd.pid)" 2>/dev/null &&
+-        [ "$(readlink -f "/proc/$PID/exe")" = "/usr/sbin/pcscd" ]; then
++        [ "$(readlink -f "/proc/$PID/exe")" = "/usr/bin/pcscd" ]; then
+     log_begin_msg "Stopping pcscd"
+     kill -TERM "$PID"
+     log_end_msg
+diff --git a/debian/initramfs/scripts/local-bottom/cryptroot b/debian/initramfs/scripts/local-bottom/cryptroot
+index 945739f..3d43776 100644
+--- a/debian/initramfs/scripts/local-bottom/cryptroot
++++ b/debian/initramfs/scripts/local-bottom/cryptroot
+@@ -16,7 +16,7 @@ esac
+ 
+ # If we reached this stage, we do have a rootfs mounted
+ # so let's clean-up cryptroot setup mess...
+-[ -f /lib/cryptsetup/functions ] || return 0
+-. /lib/cryptsetup/functions
++[ -f /usr/lib/cryptsetup/functions ] || return 0
++. /usr/lib/cryptsetup/functions
+ 
+ rm -f -- "$CRYPTROOT_COUNT_FILE"
+diff --git a/debian/initramfs/scripts/local-top/cryptopensc b/debian/initramfs/scripts/local-top/cryptopensc
+index 344acc6..445e5f9 100644
+--- a/debian/initramfs/scripts/local-top/cryptopensc
++++ b/debian/initramfs/scripts/local-top/cryptopensc
+@@ -18,7 +18,7 @@ esac
+ 
+ # Hook for starting smartcard reading software
+ 
+-if [ ! -x /usr/sbin/pcscd ]; then
++if [ ! -x /usr/bin/pcscd ]; then
+     exit 0
+ fi
+ 
+@@ -27,11 +27,11 @@ fi
+ # Start pcscd daemon normally:
+ #   start-stop-daemon --start --quiet \
+ #       --pidfile /run/pcscd.pid \
+-#       --exec /usr/sbin/pcscd
++#       --exec /usr/bin/pcscd
+ # Alternatively, start pcscd daemon in foreground so that it's pretty colored
+ # output may be seen on the console, useful for watching error messages since
+ # pcscd uses syslog which is not available (use --error or --critical to filter
+ # out debug message clutter):
+-#    /usr/sbin/pcscd --error --foreground &
+-/usr/sbin/pcscd --foreground &
++#    /usr/bin/pcscd --error --foreground &
++/usr/bin/pcscd --foreground &
+ echo $! >/run/pcscd.pid
+diff --git a/debian/initramfs/scripts/local-top/cryptroot b/debian/initramfs/scripts/local-top/cryptroot
+index 90b521b..c814721 100644
+--- a/debian/initramfs/scripts/local-top/cryptroot
++++ b/debian/initramfs/scripts/local-top/cryptroot
+@@ -26,8 +26,8 @@ esac
+ 
+ . /scripts/functions
+ 
+-[ -f /lib/cryptsetup/functions ] || return 0
+-. /lib/cryptsetup/functions
++[ -f /usr/lib/cryptsetup/functions ] || return 0
++. /usr/lib/cryptsetup/functions
+ 
+ 
+ # wait_for_source()
+@@ -174,7 +174,7 @@ setup_mapping() {
+                 # bad password for plain dm-crypt device?  or mkfs not run yet?
+                 cryptsetup_message "ERROR: $CRYPTTAB_NAME: unknown fstype, bad password or options?"
+                 wait_for_udev 10
+-                /sbin/cryptsetup remove -- "$CRYPTTAB_NAME"
++                /usr/bin/cryptsetup remove -- "$CRYPTTAB_NAME"
+                 sleep 1
+                 continue
+             fi
+diff --git a/debian/scripts/cryptdisks_start b/debian/scripts/cryptdisks_start
+index 623423f..d857fd9 100644
+--- a/debian/scripts/cryptdisks_start
++++ b/debian/scripts/cryptdisks_start
+@@ -9,7 +9,7 @@
+ 
+ set -e
+ 
+-. /lib/cryptsetup/cryptdisks-functions
++. /usr/lib/cryptsetup/cryptdisks-functions
+ 
+ INITSTATE="manual"
+ DEFAULT_LOUD="yes"
+diff --git a/debian/scripts/cryptdisks_stop b/debian/scripts/cryptdisks_stop
+index ea0faaf..8fb7d68 100644
+--- a/debian/scripts/cryptdisks_stop
++++ b/debian/scripts/cryptdisks_stop
+@@ -17,7 +17,7 @@ if [ $# -lt 1 ]; then
+     exit 1
+ fi
+ 
+-. /lib/cryptsetup/cryptdisks-functions
++. /usr/lib/cryptsetup/cryptdisks-functions
+ 
+ INITSTATE="manual"
+ DEFAULT_LOUD="yes"
+diff --git a/debian/scripts/decrypt_gnupg b/debian/scripts/decrypt_gnupg
+index 18ab575..d6d572a 100644
+--- a/debian/scripts/decrypt_gnupg
++++ b/debian/scripts/decrypt_gnupg
+@@ -2,7 +2,7 @@
+ 
+ decrypt_gpg () {
+ 	echo "Performing GPG symmetric decryption ..." >&2
+-	if ! /lib/cryptsetup/askpass "Enter passphrase for key $1: " | \
++	if ! /usr/lib/cryptsetup/askpass "Enter passphrase for key $1: " | \
+ 		/usr/bin/gpg -q --batch --no-options  \
+ 		--no-random-seed-file --no-default-keyring \
+ 		--keyring /dev/null --secret-keyring /dev/null \
+diff --git a/debian/scripts/decrypt_keyctl b/debian/scripts/decrypt_keyctl
+index 6032db0..cc82653 100644
+--- a/debian/scripts/decrypt_keyctl
++++ b/debian/scripts/decrypt_keyctl
+@@ -28,7 +28,7 @@ else
+     ID_="cryptsetup:$CRYPTTAB_KEY"
+ fi
+ TIMEOUT_='60'
+-ASKPASS_='/lib/cryptsetup/askpass'
++ASKPASS_='/usr/lib/cryptsetup/askpass'
+ PROMPT_="Caching passphrase for ${CRYPTTAB_NAME}: "
+ 
+ 
+diff --git a/debian/scripts/decrypt_opensc b/debian/scripts/decrypt_opensc
+index b06fc98..8bb0e8f 100644
+--- a/debian/scripts/decrypt_opensc
++++ b/debian/scripts/decrypt_opensc
+@@ -35,7 +35,7 @@ wait_card() {
+ }
+ 
+ wait_card
+-if [ -x /bin/plymouth ] && plymouth --ping; then
++if [ -x /usr/bin/plymouth ] && plymouth --ping; then
+ 	# Get pin number from plymouth
+ 	/usr/bin/pkcs15-crypt --decipher --input "$1" --pkcs1 --raw \
+ 		--pin "$(plymouth ask-for-password --prompt "Enter pin for $CRYPTTAB_NAME: ")"
+diff --git a/debian/scripts/passdev.c b/debian/scripts/passdev.c
+index 845ccae..5bc2828 100644
+--- a/debian/scripts/passdev.c
++++ b/debian/scripts/passdev.c
+@@ -85,7 +85,7 @@ do_mount(const char *device, const char *dir)
+ 			open("/dev/null", O_RDONLY, 0);
+ 			open("/dev/null", O_WRONLY, 0);
+ 			open("/dev/null", O_WRONLY, 0);
+-			execl("/bin/mount", "/bin/mount", "-n", "-t",
++			execl("/usr/bin/mount", "/usr/bin/mount", "-n", "-t",
+ 			      fstypes[fsindex],
+ 			      /*"ext4,ext3,ext2,vfat,btrfs,reiserfs,xfs,jfs,ntfs,iso9660,udf",*/
+ 			      "-o", "noatime,nodiratime,nodev,noexec,nosuid,ro",
+-- 
+2.39.0
+

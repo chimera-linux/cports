@@ -1,0 +1,19 @@
+commit 29474fd28dc5ac3db7904557e3ca7fb14175575d
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Thu May 5 02:43:52 2022 +0200
+
+    fix out of tree build
+
+diff --git a/src/struct_offsets.c b/src/struct_offsets.c
+index 4dc6fcc..1210754 100644
+--- a/src/struct_offsets.c
++++ b/src/struct_offsets.c
+@@ -6,7 +6,7 @@
+  */
+ #include <stddef.h>
+ #include <assert.h>
+-#include <libaio.h>
++#include "libaio.h"
+ 
+ void
+ offset_check(void)

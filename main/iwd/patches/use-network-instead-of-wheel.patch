@@ -1,0 +1,11 @@
+--- a/src/iwd-dbus.conf
++++ b/src/iwd-dbus.conf
+@@ -14,7 +14,7 @@
+     <allow send_interface="net.connman.iwd.SignalLevelAgent"/>
+   </policy>
+ 
+-  <policy group="wheel">
++  <policy group="network">
+     <allow send_destination="net.connman.iwd"/>
+   </policy>
+ 

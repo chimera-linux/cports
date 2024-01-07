@@ -1,0 +1,30 @@
+diff --git a/scripts/editdiff.in b/scripts/editdiff.in
+index 3c8f0de..c5d26cc 100644
+--- a/scripts/editdiff.in
++++ b/scripts/editdiff.in
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ #
+ # editdiff - simple wrapper around rediff
+ # Copyright (C) 2001-2002, 2011 Tim Waugh <twaugh@redhat.com>
+diff --git a/scripts/espdiff.in b/scripts/espdiff.in
+index c4af4fb..4c1a62b 100644
+--- a/scripts/espdiff.in
++++ b/scripts/espdiff.in
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ #
+ # espdiff - do whatever it was you wanted
+ # Copyright (C) 2003 Tim Waugh <twaugh@redhat.com>
+diff --git a/scripts/move-to-front b/scripts/move-to-front
+index 1212fed..638aa85 100755
+--- a/scripts/move-to-front
++++ b/scripts/move-to-front
+@@ -1,4 +1,4 @@
+-#!/bin/bash
++#!/bin/sh
+ if [ "$#" -eq 0 ] || [ "x$1" == "x--help" ]
+ then
+   echo "usage: move-to-front [PATCHES..] PATCH"

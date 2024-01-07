@@ -1,0 +1,112 @@
+From 63fd07cf3f1ea2689db01f312ec6d8676927f953 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 30 Aug 2023 02:26:47 +0200
+Subject: [PATCH] compositor: add fd-notify plugin
+
+This is a more generic alternative to systemd-notify. It should
+not be considered stable right now.
+---
+ compositor/fd-notify.c | 68 ++++++++++++++++++++++++++++++++++++++++++
+ compositor/meson.build | 11 +++++++
+ 2 files changed, 79 insertions(+)
+ create mode 100644 compositor/fd-notify.c
+
+diff --git a/compositor/fd-notify.c b/compositor/fd-notify.c
+new file mode 100644
+index 0000000..21966d9
+--- /dev/null
++++ b/compositor/fd-notify.c
+@@ -0,0 +1,68 @@
++/*
++ * Copyright © 2023 q66 <q66@chimera-linux.org>
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining
++ * a copy of this software and associated documentation files (the
++ * "Software"), to deal in the Software without restriction, including
++ * without limitation the rights to use, copy, modify, merge, publish,
++ * distribute, sublicense, and/or sell copies of the Software, and to
++ * permit persons to whom the Software is furnished to do so, subject to
++ * the following conditions:
++ *
++ * The above copyright notice and this permission notice (including the
++ * next paragraph) shall be included in all copies or substantial
++ * portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++ * NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
++ * BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
++ * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++ * SOFTWARE.
++ */
++
++#include <string.h>
++#include <stdlib.h>
++#include <limits.h>
++#include <errno.h>
++#include <fcntl.h>
++#include <unistd.h>
++
++#include <libweston/libweston.h>
++
++WL_EXPORT int wet_module_init(
++    struct weston_compositor *comp, int argc, char *argv[0]
++) {
++    char *endp = NULL;
++    const char *env = getenv("WESTON_READY_FD");
++    unsigned long fdl;
++    int fd;
++    char buf[128];
++
++    if (!env || !env[0]) {
++        return 0;
++    }
++
++    fdl = strtoul(env, &endp, 10);
++    if (!fdl || (fdl > INT_MAX)) {
++        return -1;
++    }
++
++    fd = (int)fdl;
++    errno = 0;
++    if ((fcntl(fd, F_GETFD) < 0) || (errno == EBADF)) {
++        return -1;
++    }
++
++    int wn = snprintf(
++        buf, sizeof(buf), "READY=%llu\n", (unsigned long long)getpid()
++    );
++    if ((wn < 0) || (write(fd, buf, wn) != wn)) {
++        return -1;
++    }
++    close(fd);
++
++    return 0;
++}
+diff --git a/compositor/meson.build b/compositor/meson.build
+index cf09150..6de8012 100644
+--- a/compositor/meson.build
++++ b/compositor/meson.build
+@@ -177,6 +177,17 @@ if get_option('systemd')
+ 	env_modmap += 'systemd-notify.so=@0@;'.format(plugin_systemd_notify.full_path())
+ endif
+ 
++plugin_fd_notify = shared_library(
++	'fd-notify',
++	'fd-notify.c',
++	include_directories: common_inc,
++	dependencies: [ dep_libweston_public ],
++	name_prefix: '',
++	install: true,
++	install_dir: dir_module_weston
++)
++env_modmap += 'fd-notify.so=@0@;'.format(plugin_fd_notify.full_path())
++
+ weston_ini_config = configuration_data()
+ weston_ini_config.set('bindir', dir_bin)
+ weston_ini_config.set('libexecdir', dir_libexec)
+-- 
+2.42.0
+

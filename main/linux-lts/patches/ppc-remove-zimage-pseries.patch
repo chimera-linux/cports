@@ -1,0 +1,61 @@
+commit aa3cbfeaa839621aabcda73fc56f16fdbadbd4a2
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Jun 16 22:56:41 2023 +0200
+
+    disable some broken but unused targets
+
+diff --git a/arch/powerpc/boot/Makefile b/arch/powerpc/boot/Makefile
+index b13324b..f4ba904 100644
+--- a/arch/powerpc/boot/Makefile
++++ b/arch/powerpc/boot/Makefile
+@@ -60,18 +60,14 @@ ifdef CONFIG_CPU_BIG_ENDIAN
+ BOOTCFLAGS	+= -mbig-endian
+ else
+ BOOTCFLAGS	+= -mlittle-endian
+-endif
+-ifdef CONFIG_PPC64_ELF_ABI_V2
+-BOOTCFLAGS	+= $(call cc-option,-mabi=elfv2)
++BOOTCFLAGS	+= $(call cc-option,-mno-prefixed) $(call cc-option,-mno-pcrel)
+ endif
+ 
+ BOOTAFLAGS	:= -D__ASSEMBLY__ $(BOOTCFLAGS) -nostdinc
+ 
+ BOOTARFLAGS	:= -crD
+ 
+-BOOTCFLAGS	+= $(call cc-option,-mno-prefixed) \
+-		   $(call cc-option,-mno-pcrel) \
+-		   $(call cc-option,-mno-mma)
++BOOTCFLAGS	+= $(call cc-option,-mno-mma)
+ 
+ ifdef CONFIG_CC_IS_CLANG
+ BOOTCFLAGS += $(CLANG_FLAGS)
+@@ -278,18 +274,6 @@ quiet_cmd_wrap	= WRAP    $@
+ 		$(CROSSWRAP) $(if $3, -s $3)$(if $4, -d $4)$(if $5, -i $5) \
+ 		vmlinux
+ 
+-image-$(CONFIG_PPC_PSERIES)		+= zImage.pseries
+-image-$(CONFIG_PPC_POWERNV)		+= zImage.pseries
+-image-$(CONFIG_PPC_MAPLE)		+= zImage.maple
+-image-$(CONFIG_PPC_IBM_CELL_BLADE)	+= zImage.pseries
+-image-$(CONFIG_PPC_PS3)			+= dtbImage.ps3
+-image-$(CONFIG_PPC_CHRP)		+= zImage.chrp
+-image-$(CONFIG_PPC_EFIKA)		+= zImage.chrp
+-image-$(CONFIG_PPC_PMAC)		+= zImage.pmac
+-image-$(CONFIG_PPC_HOLLY)		+= dtbImage.holly
+-image-$(CONFIG_DEFAULT_UIMAGE)		+= uImage
+-image-$(CONFIG_EPAPR_BOOT)		+= zImage.epapr
+-
+ #
+ # Targets which embed a device tree blob
+ #
+@@ -462,9 +446,7 @@ $(obj)/zImage.initrd:	$(addprefix $(obj)/, $(initrd-y))
+ 
+ # anything not in $(targets)
+ clean-files += $(image-) $(initrd-) cuImage.* dtbImage.* treeImage.* \
+-	zImage zImage.initrd zImage.chrp zImage.coff zImage.holly \
+-	zImage.miboot zImage.pmac zImage.pseries \
+-	zImage.maple simpleImage.* otheros.bld
++	zImage
+ 
+ # clean up files cached by wrapper
+ clean-kernel-base := vmlinux.strip vmlinux.bin

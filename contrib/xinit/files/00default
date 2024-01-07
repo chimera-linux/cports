@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# This is the default snippet that is always executed by Xsession.
+# It comes with the Xsession infrastructure itself.
+#
+
+:

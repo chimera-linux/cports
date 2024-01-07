@@ -1,0 +1,51 @@
+From 2833b7ccdb164df15e562d415a8ee685b267433b Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:04:56 +0100
+Subject: [PATCH 11/25] compiler-rt: HACK: always compile in gcc_personality_v0
+
+Looks like HAVE_UNWIND_H is not accounted for when doing the
+runtimes build, but this is the only place where it's checked.
+
+Unconditionally compile it in because some things use it.
+---
+ compiler-rt/lib/builtins/CMakeLists.txt       | 10 ++++------
+ compiler-rt/lib/builtins/gcc_personality_v0.c |  2 +-
+ 2 files changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
+index 0511df00c..f52045ca2 100644
+--- a/compiler-rt/lib/builtins/CMakeLists.txt
++++ b/compiler-rt/lib/builtins/CMakeLists.txt
+@@ -219,12 +219,10 @@ if(APPLE)
+   )
+ endif()
+ 
+-if (HAVE_UNWIND_H)
+-  set(GENERIC_SOURCES
+-    ${GENERIC_SOURCES}
+-    gcc_personality_v0.c
+-  )
+-endif ()
++set(GENERIC_SOURCES
++  ${GENERIC_SOURCES}
++  gcc_personality_v0.c
++)
+ 
+ if (NOT FUCHSIA)
+   set(GENERIC_SOURCES
+diff --git a/compiler-rt/lib/builtins/gcc_personality_v0.c b/compiler-rt/lib/builtins/gcc_personality_v0.c
+index ef63a5fb8..5a0a90b38 100644
+--- a/compiler-rt/lib/builtins/gcc_personality_v0.c
++++ b/compiler-rt/lib/builtins/gcc_personality_v0.c
+@@ -9,7 +9,7 @@
+ #include "int_lib.h"
+ #include <stddef.h>
+ 
+-#include <unwind.h>
++#include "../../../libunwind/include/unwind.h"
+ #if defined(__arm__) && !defined(__ARM_DWARF_EH__) &&                          \
+     !defined(__USING_SJLJ_EXCEPTIONS__)
+ // When building with older compilers (e.g. clang <3.9), it is possible that we
+-- 
+2.42.0
+

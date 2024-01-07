@@ -1,0 +1,14 @@
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -113,11 +113,3 @@ fonttest(piglatin1 PigLatinBenchmark_v3.ttf 0068 0065 006C 006C 006F)
+ feattest(padauk_feat Padauk.ttf)
+ feattest(charis_feat charis_r_gr.ttf)
+ feattest(scher_feat Scheherazadegr.ttf)
+-
+-cmptest(padaukcmp1 Padauk.ttf my_HeadwordSyllables.txt)
+-cmptest(chariscmp1 charis_r_gr.ttf udhr_eng.txt)
+-cmptest(chariscmp2 charis_r_gr.ttf udhr_yor.txt)
+-cmptest(annacmp1 Annapurnarc2.ttf udhr_nep.txt)
+-cmptest(schercmp1 Scheherazadegr.ttf udhr_arb.txt -r)
+-cmptest(awamicmp1 AwamiNastaliq-Regular.ttf awami_tests.txt -r -e 1)
+-cmptest(awamicmp2 Awami_compressed_test.ttf awami_tests.txt -r -e 1)

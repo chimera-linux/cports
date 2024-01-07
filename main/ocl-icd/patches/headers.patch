@@ -1,0 +1,29 @@
+commit cf52854e7faec6c52106974eea57d7788d6a8071
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Jun 3 21:06:56 2023 +0200
+
+    drop non-existent pc requirement
+
+diff --git a/OpenCL.pc.in b/OpenCL.pc.in
+index 9774436..13c0e03 100644
+--- a/OpenCL.pc.in
++++ b/OpenCL.pc.in
+@@ -5,6 +5,5 @@ includedir=@includedir@
+ 
+ Name: OpenCL
+ Description: Open Computing Language generic Installable Client Driver Loader
+-Requires: OpenCL-Headers
+ Version: @OPENCL_VERSION@
+ Libs: -L${libdir} -lOpenCL
+diff --git a/ocl-icd.pc.in b/ocl-icd.pc.in
+index 4389156..89c2c84 100644
+--- a/ocl-icd.pc.in
++++ b/ocl-icd.pc.in
+@@ -5,7 +5,6 @@ includedir=@includedir@
+ 
+ Name: ocl-icd
+ Description: Open Computing Language generic Installable Client Driver support
+-Requires: OpenCL-Headers
+ Version: @VERSION@
+ Libs: -L${libdir}
+ Cflags: -I${includedir}

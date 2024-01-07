@@ -1,0 +1,106 @@
+From a1f05fbafec484de8bdb72e4e25311a6c71fdfa3 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sat, 10 Dec 2022 17:24:17 +0100
+Subject: [PATCH 3/3] do not rely on system headers for cpu info
+
+---
+ src/malloc/scudo/checksum.cpp | 32 +++++++++++++++++++++++---------
+ src/malloc/scudo/checksum.h   | 26 ++++++++++++++++----------
+ 2 files changed, 39 insertions(+), 19 deletions(-)
+
+diff --git a/src/malloc/scudo/checksum.cpp b/src/malloc/scudo/checksum.cpp
+index 2c27739..49270ec 100644
+--- a/src/malloc/scudo/checksum.cpp
++++ b/src/malloc/scudo/checksum.cpp
+@@ -10,9 +10,7 @@
+ #include "atomic_helpers.h"
+ #include "chunk.h"
+ 
+-#if defined(__x86_64__) || defined(__i386__)
+-#include <cpuid.h>
+-#elif defined(__arm__) || defined(__aarch64__)
++#if defined(__arm__) || defined(__aarch64__)
+ #if SCUDO_FUCHSIA
+ #include <zircon/features.h>
+ #include <zircon/syscalls.h>
+@@ -28,16 +26,32 @@ Checksum HashAlgorithm = {Checksum::BSD};
+ #if defined(__x86_64__) || defined(__i386__)
+ // i386 and x86_64 specific code to detect CRC32 hardware support via CPUID.
+ // CRC32 requires the SSE 4.2 instruction set.
+-#ifndef bit_SSE4_2
+-#define bit_SSE4_2 bit_SSE42 // clang and gcc have different defines.
+-#endif
+-
+-#ifndef signature_HYGON_ebx // They are not defined in gcc.
+-// HYGON: "HygonGenuine".
++#define bit_SSE4_2 (1 << 20)
++// signatures from cpuid.h
++#define signature_AMD_ebx 0x68747541
++#define signature_AMD_edx 0x69746e65
++#define signature_AMD_ecx 0x444d4163
++#define signature_INTEL_ebx 0x756e6547
++#define signature_INTEL_edx 0x49656e69
++#define signature_INTEL_ecx 0x6c65746e
+ #define signature_HYGON_ebx 0x6f677948
+ #define signature_HYGON_edx 0x6e65476e
+ #define signature_HYGON_ecx 0x656e6975
++
++inline void __get_cpuid(
++    unsigned int leaf, unsigned int *eax, unsigned int *ebx,
++    unsigned int *ecx, unsigned int *edx
++) {
++#if __i386__
++    __asm("cpuid" : "=a"(*eax), "=b" (*ebx), "=c"(*ecx), "=d"(*edx) : "0"(leaf));
++#else
++    __asm("  xchgq  %%rbx,%q1\n"
++          "  cpuid\n"
++          "  xchgq  %%rbx,%q1"
++        : "=a"(*eax), "=r" (*ebx), "=c"(*ecx), "=d"(*edx)
++        : "0"(leaf));
+ #endif
++}
+ 
+ bool hasHardwareCRC32() {
+   u32 Eax, Ebx = 0, Ecx = 0, Edx = 0;
+diff --git a/src/malloc/scudo/checksum.h b/src/malloc/scudo/checksum.h
+index d61b6d8..8e73873 100644
+--- a/src/malloc/scudo/checksum.h
++++ b/src/malloc/scudo/checksum.h
+@@ -17,18 +17,24 @@
+ // An additional check must be performed at runtime as well to make sure the
+ // emitted instructions are valid on the target host.
+ 
+-#if defined(__CRC32__)
+-// NB: clang has <crc32intrin.h> but GCC does not
+-#include <smmintrin.h>
+-#define CRC32_INTRINSIC                                                        \
+-  FIRST_32_SECOND_64(__builtin_ia32_crc32si, __builtin_ia32_crc32di)
+-#elif defined(__SSE4_2__)
+-#include <smmintrin.h>
+-#define CRC32_INTRINSIC FIRST_32_SECOND_64(_mm_crc32_u32, _mm_crc32_u64)
++#if defined(__CRC32__) || defined(__SSE4_2__)
++#ifdef __x86_64__
++#define CRC32_INTRINSIC __builtin_ia32_crc32di
++#else
++#define CRC32_INTRINSIC __builtin_ia32_crc32si
+ #endif
++#endif
++
+ #ifdef __ARM_FEATURE_CRC32
+-#include <arm_acle.h>
+-#define CRC32_INTRINSIC FIRST_32_SECOND_64(__crc32cw, __crc32cd)
++#ifndef __aarch64__
++#define CRC32_INTRINSIC __builtin_arm_crc32cw
++#else
++#ifdef __clang__
++#define CRC32_INTRINSIC __builtin_arm_crc32cd
++#else
++#define CRC32_INTRINSIC __builtin_aarch64_crc32cx
++#endif
++#endif
+ #endif
+ 
+ namespace scudo {
+-- 
+2.38.1
+

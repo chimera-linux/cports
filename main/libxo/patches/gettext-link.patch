@@ -1,0 +1,46 @@
+commit 4ded1fb078d713ff10634c903831ac9fd560c468
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Aug 22 18:54:12 2023 +0200
+
+    remove libintl link
+
+diff --git a/configure b/configure
+index b0eb52e..7889424 100755
+--- a/configure
++++ b/configure
+@@ -13860,7 +13860,7 @@ if test "$GETTEXT_ENABLE" != "no"; then
+ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+ 
+   _save_cflags="$CFLAGS"
+-  CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror -lintl"
++  CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror"
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <libintl.h>
+@@ -13885,7 +13885,7 @@ printf "%s\n" "$HAVE_GETTEXT" >&6; }
+ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+ 
+       _save_cflags="$CFLAGS"
+-      CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror -lintl"
++      CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror"
+       cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <libintl.h>
+@@ -13911,7 +13911,7 @@ printf "%s\n" "$HAVE_GETTEXT" >&6; }
+ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+ 
+       _save_cflags="$CFLAGS"
+-      CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror -lintl"
++      CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror"
+       cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <libintl.h>
+@@ -13937,7 +13937,7 @@ if test "$HAVE_GETTEXT" = "yes"; then
+ printf "%s\n" "#define HAVE_GETTEXT 1" >>confdefs.h
+ 
+     GETTEXT_CFLAGS="-I${GETTEXT_PREFIX}/include"
+-    GETTEXT_LIBS="-L${GETTEXT_PREFIX}/lib -lintl"
++    GETTEXT_LIBS="-L${GETTEXT_PREFIX}/lib"
+ else
+     GETTEXT_PREFIX=none
+     GETTEXT_CFLAGS=

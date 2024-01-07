@@ -1,0 +1,38 @@
+commit 77fdabaebe1db7ac3af8f7ab6ec75e143982b4d4
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Apr 21 18:47:37 2023 +0200
+
+    drop -latomic (none in pure-llvm env)
+
+diff --git a/node.gyp b/node.gyp
+index f092c332..ddbd8085 100644
+--- a/node.gyp
++++ b/node.gyp
+@@ -418,9 +418,6 @@
+           '-Wl,-bnoerrmsg',
+         ],
+       }],
+-      ['OS == "linux" and llvm_version != "0.0"', {
+-        'libraries': ['-latomic'],
+-      }],
+     ],
+   },
+ 
+diff --git a/tools/v8_gypfiles/v8.gyp b/tools/v8_gypfiles/v8.gyp
+index 4ed21761..b00c158b 100644
+--- a/tools/v8_gypfiles/v8.gyp
++++ b/tools/v8_gypfiles/v8.gyp
+@@ -1084,13 +1084,6 @@
+         ['v8_enable_third_party_heap', {
+           # TODO(targos): add values from v8_third_party_heap_libs to link_settings.libraries
+         }],
+-        # Platforms that don't have Compare-And-Swap (CAS) support need to link atomic library
+-        # to implement atomic memory access
+-        ['v8_current_cpu in ["mips64", "mips64el", "ppc", "arm", "riscv64", "loong64"]', {
+-          'link_settings': {
+-            'libraries': ['-latomic', ],
+-          },
+-        }],
+       ],
+     },  # v8_base_without_compiler
+     {

@@ -1,0 +1,14 @@
+*~
+*.o
+__pycache__
+/bldroot*
+/cbuild_cache
+sources*
+packages*
+pkgstage*
+etc/keys
+etc/config.ini
+void-*.tar.xz
+bootstrap.*
+!bootstrap.sh
+!bootstrap.ini

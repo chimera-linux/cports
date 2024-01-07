@@ -1,0 +1,10 @@
+--- a/lib/alloc.h
++++ b/lib/alloc.h
+@@ -108,6 +108,7 @@ reallocarrayf(void *p, size_t nmemb, size_t size)
+ inline char *
+ xstrdup(const char *str)
+ {
++	if (str == NULL) return NULL;
+ 	return strcpy(XMALLOC(strlen(str) + 1, char), str);
+ }
+ 

@@ -1,0 +1,20 @@
+--- a/scan/sane/OrbliteScan/LinuxCommon.h
++++ b/scan/sane/OrbliteScan/LinuxCommon.h
+@@ -3,6 +3,17 @@
+ 
+ #include <sys/types.h>
+ 
++#ifndef __GLIBC__
++#include <bits/reg.h>
++#if __WORDSIZE == 32
++# define __S64_TYPE long long int
++# define __U64_TYPE unsigned long long int
++#elif __WORDSIZE == 64
++# define __S64_TYPE long int
++# define __U64_TYPE unsigned long int
++#endif
++#endif
++
+ /* Common typedefs for Linux */
+ 
+ typedef unsigned char *			StringPtr;

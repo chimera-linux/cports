@@ -1,0 +1,61 @@
+commit 98f15bcc165c28e1490d21c353f4205bf9cb9f91
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Jun 30 04:45:35 2023 +0200
+
+    install(1) portability
+
+diff --git a/Makefile b/Makefile
+index 599b145..7541621 100644
+--- a/Makefile
++++ b/Makefile
+@@ -194,10 +194,12 @@ pkgconfig:
+ 
+ install: all
+ ifeq ($(NO_ARLIB),0)
+-	$(INSTALL) -D -m 0644 $(ARLIB) $(DESTDIR)$(USRLIBDIR)/$(ARLIB)
++	$(INSTALL) -d $(DESTDIR)$(USRLIBDIR)
++	$(INSTALL) -m 0644 $(ARLIB) $(DESTDIR)$(USRLIBDIR)/$(ARLIB)
+ endif
+ ifeq ($(NO_SOLIB),0)
+-	$(INSTALL) -D $(LIBNAME) $(DESTDIR)$(LIBDIR)/$(LIBNAME)
++	$(INSTALL) -d $(DESTDIR)$(LIBDIR)
++	$(INSTALL) $(LIBNAME) $(DESTDIR)$(LIBDIR)/$(LIBNAME)
+ 	$(LNS) $(LIBNAME) $(DESTDIR)$(LIBDIR)/$(SONAME)
+ 	mkdir -p $(DESTDIR)$(USRLIBDIR)
+ 	$(LNS) $(LIBDIR)/$(SONAME) $(DESTDIR)$(USRLIBDIR)/$(DEVELLIB)
+@@ -208,14 +210,20 @@ ifeq ($(NO_SOLIB),0)
+ 	-e 's,@libdir\@,$(USRLIBDIR),g' \
+ 	-e 's,@includedir\@,$(INCLUDEDIR),g' \
+ 	< $(PKGCONFIG).in > $(PKGCONFIG) || rm $(PKGCONFIG)
+-	$(INSTALL) -D $(PKGCONFIG) $(DESTDIR)$(LIBDIR)/$(PKGCONFIG_DIR)/$(PKGCONFIG)
++	$(INSTALL) -d $(DESTDIR)$(LIBDIR)/$(PKGCONFIG_DIR)
++	$(INSTALL) $(PKGCONFIG) $(DESTDIR)$(LIBDIR)/$(PKGCONFIG_DIR)/$(PKGCONFIG)
+ 	rm $(PKGCONFIG)
+ endif
+-	$(INSTALL) -D keyctl $(DESTDIR)$(BINDIR)/keyctl
+-	$(INSTALL) -D request-key $(DESTDIR)$(SBINDIR)/request-key
+-	$(INSTALL) -D request-key-debug.sh $(DESTDIR)$(SHAREDIR)/request-key-debug.sh
+-	$(INSTALL) -D key.dns_resolver $(DESTDIR)$(SBINDIR)/key.dns_resolver
+-	$(INSTALL) -D -m 0644 request-key.conf $(DESTDIR)$(ETCDIR)/request-key.conf
++	$(INSTALL) -d $(DESTDIR)$(BINDIR)
++	$(INSTALL) -d $(DESTDIR)$(SBINDIR)
++	$(INSTALL) -d $(DESTDIR)$(SHAREDIR)
++	$(INSTALL) -d $(DESTDIR)$(ETCDIR)
++	$(INSTALL) -d $(DESTDIR)$(INCLUDEDIR)
++	$(INSTALL) keyctl $(DESTDIR)$(BINDIR)/keyctl
++	$(INSTALL) request-key $(DESTDIR)$(SBINDIR)/request-key
++	$(INSTALL) request-key-debug.sh $(DESTDIR)$(SHAREDIR)/request-key-debug.sh
++	$(INSTALL) key.dns_resolver $(DESTDIR)$(SBINDIR)/key.dns_resolver
++	$(INSTALL) -m 0644 request-key.conf $(DESTDIR)$(ETCDIR)/request-key.conf
+ 	mkdir -p $(DESTDIR)$(ETCDIR)/request-key.d
+ 	mkdir -p $(DESTDIR)$(ETCDIR)/keyutils
+ 	mkdir -p $(DESTDIR)$(MAN1)
+@@ -239,7 +247,7 @@ endif
+ 	$(LNS) recursive_key_scan.3 $(DESTDIR)$(MAN3)/recursive_session_key_scan.3
+ 	$(LNS) keyctl_dh_compute.3 $(DESTDIR)$(MAN3)/keyctl_dh_compute_alloc.3
+ 	$(LNS) keyctl_dh_compute.3 $(DESTDIR)$(MAN3)/keyctl_dh_compute_kdf.3
+-	$(INSTALL) -D -m 0644 keyutils.h $(DESTDIR)$(INCLUDEDIR)/keyutils.h
++	$(INSTALL) -m 0644 keyutils.h $(DESTDIR)$(INCLUDEDIR)/keyutils.h
+ 
+ ###############################################################################
+ #

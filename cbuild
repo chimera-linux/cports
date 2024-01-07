@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+# divert pycache early
+if sys.pycache_prefix is None:
+    cbp = os.path.dirname(os.path.realpath(__file__))
+    sys.pycache_prefix = f"{cbp}/__pycache__"
+
+from src import early
+
+early.fire()

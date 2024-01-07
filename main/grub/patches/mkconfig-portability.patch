@@ -1,0 +1,35 @@
+commit a62577ecd34fbae610834b677cb3e3f94dbb8115
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sat Mar 4 04:13:29 2023 +0100
+
+    portability fix in grub-mkconfig root fallback + fix zfs detection
+
+diff --git a/util/grub-mkconfig.in b/util/grub-mkconfig.in
+index f8cbb8d..8d71f54 100644
+--- a/util/grub-mkconfig.in
++++ b/util/grub-mkconfig.in
+@@ -148,7 +148,7 @@ GRUB_DISABLE_OS_PROBER="true"
+ GRUB_FS="`${grub_probe} --device ${GRUB_DEVICE} --target=fs 2> /dev/null || echo unknown`"
+ 
+ if [ x"$GRUB_FS" = xunknown ]; then
+-    GRUB_FS="$(stat -f -c %T / || echo unknown)"
++    GRUB_FS="$(findmnt -no fstype / 2>/dev/null || echo unknown)"
+ fi
+ 
+ # Provide a default set of stock linux early initrd images.
+diff --git a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
+index e8b01c0..fca46a3 100644
+--- a/util/grub.d/10_linux.in
++++ b/util/grub.d/10_linux.in
+@@ -71,9 +71,8 @@ case x"$GRUB_FS" in
+ 	    GRUB_CMDLINE_LINUX="rootflags=subvol=${rootsubvol} ${GRUB_CMDLINE_LINUX}"
+ 	fi;;
+     xzfs)
+-	rpool=`${grub_probe} --device ${GRUB_DEVICE} --target=fs_label 2>/dev/null || true`
+-	bootfs="`make_system_path_relative_to_its_root / | sed -e "s,@$,,"`"
+-	LINUX_ROOT_DEVICE="ZFS=${rpool}${bootfs%/}"
++	bootfs="`findmnt -no source / 2>/dev/null || true`"
++	[ -n "$bootfs" ] && LINUX_ROOT_DEVICE="ZFS=${bootfs}"
+ 	;;
+ esac
+ 

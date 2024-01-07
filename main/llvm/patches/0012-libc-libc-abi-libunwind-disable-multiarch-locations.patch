@@ -1,0 +1,67 @@
+From 2cca69b5cd32bf91a88266604a06d805f48dc018 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 4 Nov 2023 09:05:30 +0100
+Subject: [PATCH 12/25] libc++,libc++abi,libunwind: disable multiarch locations
+
+---
+ libcxx/CMakeLists.txt            | 2 +-
+ libcxx/benchmarks/CMakeLists.txt | 2 +-
+ libcxxabi/CMakeLists.txt         | 2 +-
+ libunwind/CMakeLists.txt         | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
+index 82b9aa639..eb7ed152a 100644
+--- a/libcxx/CMakeLists.txt
++++ b/libcxx/CMakeLists.txt
+@@ -396,7 +396,7 @@ set(LIBCXX_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
+ set(LIBCXX_SHARED_OUTPUT_NAME "c++" CACHE STRING "Output name for the shared libc++ runtime library.")
+ set(LIBCXX_STATIC_OUTPUT_NAME "c++" CACHE STRING "Output name for the static libc++ runtime library.")
+ 
+-if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE)
++if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
+   set(LIBCXX_LIBRARY_DIR ${LLVM_LIBRARY_OUTPUT_INTDIR}/${LLVM_DEFAULT_TARGET_TRIPLE})
+   set(LIBCXX_GENERATED_INCLUDE_DIR "${LLVM_BINARY_DIR}/include/c++/v1")
+   set(LIBCXX_GENERATED_MODULE_DIR "${LLVM_BINARY_DIR}/modules/c++/v1")
+diff --git a/libcxx/benchmarks/CMakeLists.txt b/libcxx/benchmarks/CMakeLists.txt
+index 1de1cfa99..1a57648cc 100644
+--- a/libcxx/benchmarks/CMakeLists.txt
++++ b/libcxx/benchmarks/CMakeLists.txt
+@@ -15,7 +15,7 @@ set(BENCHMARK_LIBCXX_COMPILE_FLAGS
+     -Wl,-rpath,${LIBCXX_LIBRARY_DIR}
+     ${SANITIZER_FLAGS}
+     )
+-if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE)
++if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
+   list(APPEND BENCHMARK_LIBCXX_COMPILE_FLAGS
+     -isystem "${LIBCXX_GENERATED_INCLUDE_TARGET_DIR}")
+ endif()
+diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
+index 779971be7..c635e6d99 100644
+--- a/libcxxabi/CMakeLists.txt
++++ b/libcxxabi/CMakeLists.txt
+@@ -185,7 +185,7 @@ set(CMAKE_MODULE_PATH
+ set(LIBCXXABI_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
+     "Path where built libc++abi runtime libraries should be installed.")
+ 
+-if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE)
++if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
+   set(LIBCXXABI_HEADER_DIR ${LLVM_BINARY_DIR})
+   set(LIBCXXABI_LIBRARY_DIR ${LLVM_LIBRARY_OUTPUT_INTDIR}/${LLVM_DEFAULT_TARGET_TRIPLE})
+   set(LIBCXXABI_INSTALL_LIBRARY_DIR lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE} CACHE STRING
+diff --git a/libunwind/CMakeLists.txt b/libunwind/CMakeLists.txt
+index bc2a820fe..2b18451ab 100644
+--- a/libunwind/CMakeLists.txt
++++ b/libunwind/CMakeLists.txt
+@@ -117,7 +117,7 @@ set(LIBUNWIND_INSTALL_RUNTIME_DIR "${CMAKE_INSTALL_BINDIR}" CACHE PATH
+ set(LIBUNWIND_SHARED_OUTPUT_NAME "unwind" CACHE STRING "Output name for the shared libunwind runtime library.")
+ set(LIBUNWIND_STATIC_OUTPUT_NAME "unwind" CACHE STRING "Output name for the static libunwind runtime library.")
+ 
+-if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE)
++if(LLVM_ENABLE_PER_TARGET_RUNTIME_DIR AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "Linux")
+   set(LIBUNWIND_LIBRARY_DIR ${LLVM_LIBRARY_OUTPUT_INTDIR}/${LLVM_DEFAULT_TARGET_TRIPLE})
+   set(LIBUNWIND_INSTALL_LIBRARY_DIR lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE} CACHE PATH
+       "Path where built libunwind libraries should be installed.")
+-- 
+2.42.0
+

@@ -1,0 +1,11 @@
+--- a/configure.in
++++ b/configure.in
+@@ -658,7 +658,7 @@
+    AC_CHECK_PROGS(PYTHON,[python python3 python2])
+    AM_PATH_PYTHON([2.2])
+    AC_MSG_CHECKING([for path to Python.h])
+-   PYTHONINCLUDEDIR=`$PYTHON -c "from distutils.sysconfig import get_python_inc; print (get_python_inc());"`
++   PYTHONINCLUDEDIR=`$PYTHON -c "import sysconfig; print (sysconfig.get_path('include'));"`
+    AC_MSG_RESULT("using $PYTHONINCLUDEDIR ....  python${PYTHON_VERSION}/Python.h")
+    AC_ARG_VAR(PYTHONINCLUDEDIR, [path to Python.h C header file])
+    AC_CHECK_HEADERS([python${PYTHON_VERSION}/Python.h python${PYTHON_VERSION}mu/Python.h python${PYTHON_VERSION}m/Python.h ],

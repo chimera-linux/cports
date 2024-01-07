@@ -1,0 +1,79 @@
+From c945b3d51410fb9e4f2c44e27ac7bda5baec1953 Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Thu, 16 Feb 2023 21:04:57 +0100
+Subject: [PATCH] get rid of bash dependency for wayland sessions
+
+---
+ gnome-session/gnome-session.in |  2 +-
+ gnome-session/gsm-exec.c       | 27 +++++++++++++++++++++++++++
+ gnome-session/meson.build      |  7 +++++++
+ 3 files changed, 35 insertions(+), 1 deletion(-)
+ create mode 100644 gnome-session/gsm-exec.c
+
+diff --git a/gnome-session/gnome-session.in b/gnome-session/gnome-session.in
+index ddd1a59..a47d112 100755
+--- a/gnome-session/gnome-session.in
++++ b/gnome-session/gnome-session.in
+@@ -7,7 +7,7 @@ if [ "x$XDG_SESSION_TYPE" = "xwayland" ] &&
+    ! (echo "$SHELL" | grep -q "false") &&
+    ! (echo "$SHELL" | grep -q "nologin"); then
+   if [ "$1" != '-l' ]; then
+-    exec bash -c "exec -l '$SHELL' -c '$0 -l $*'"
++    exec @libexecdir@/gnome-session-exec "$SHELL" -c "$0 -l $*"
+   else
+     shift
+   fi
+diff --git a/gnome-session/gsm-exec.c b/gnome-session/gsm-exec.c
+new file mode 100644
+index 0000000..478c736
+--- /dev/null
++++ b/gnome-session/gsm-exec.c
+@@ -0,0 +1,27 @@
++/* execute a process with - prepended to argv[0], similar to login(1)
++ *
++ * this will make the shell portably source its profile, which is used
++ * for gnome wayland sessions without having to depend on bash
++ *
++ * https://gitlab.gnome.org/GNOME/gnome-session/-/commit/7e307f8ddb91db5d4051c4c792519a660ba67f35
++ *
++ * written by q66 <q66@chimera-linux.org>, public domain
++ */
++
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++
++int main(int argc, char **argv) {
++    if (argc < 2) {
++        return 1;
++    }
++    char *prog = argv[1];
++    size_t al = strlen(prog);
++    char *news = malloc(al + 2);
++    news[0] = '-';
++    memcpy(news + 1, prog, al + 1);
++    argv[1] = news;
++    execvp(prog, argv + 1);
++    return 1;
++}
+diff --git a/gnome-session/meson.build b/gnome-session/meson.build
+index 7d2f3c0..5a2a1cf 100644
+--- a/gnome-session/meson.build
++++ b/gnome-session/meson.build
+@@ -95,6 +95,13 @@ executable(
+   install_dir: session_libexecdir
+ )
+ 
++executable(
++  meson.project_name() + '-exec',
++  'gsm-exec.c',
++  install: true,
++  install_dir: session_libexecdir
++)
++
+ units = [
+   ['test-inhibit', [], session_deps + [gtk_dep]],
+   ['test-client-dbus', [], [gio_dep]],
+-- 
+2.39.0
+

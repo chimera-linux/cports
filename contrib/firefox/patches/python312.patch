@@ -1,0 +1,101 @@
+diff --git a/testing/mozbase/mozdevice/mozdevice/adb.py b/testing/mozbase/mozdevice/mozdevice/adb.py
+--- a/testing/mozbase/mozdevice/mozdevice/adb.py
++++ b/testing/mozbase/mozdevice/mozdevice/adb.py
+@@ -13,11 +13,11 @@
+ import subprocess
+ import sys
+ import tempfile
+ import time
+ import traceback
+-from distutils import dir_util
++from shutil import copytree
+ from threading import Thread
+ 
+ import six
+ from six.moves import range
+ 
+@@ -2981,11 +2981,11 @@
+         elif os.path.isdir(local):
+             copy_required = True
+             temp_parent = tempfile.mkdtemp()
+             remote_name = os.path.basename(remote)
+             new_local = os.path.join(temp_parent, remote_name)
+-            dir_util.copy_tree(local, new_local)
++            copytree(local, new_local)
+             local = new_local
+             # See do_sync_push in
+             # https://android.googlesource.com/platform/system/core/+/master/adb/file_sync_client.cpp
+             # Work around change in behavior in adb 1.0.36 where if
+             # the remote destination directory exists, adb push will
+@@ -3134,11 +3134,11 @@
+                     self._logger.error("pull %s %s: %s" % (intermediate, local, str(e)))
+                 finally:
+                     self.rm(intermediate, recursive=True, force=True, timeout=timeout)
+         finally:
+             if copy_required:
+-                dir_util.copy_tree(local, original_local)
++                copytree(local, original_local, dirs_exist_ok=True)
+                 shutil.rmtree(temp_parent)
+ 
+     def get_file(self, remote, offset=None, length=None, timeout=None):
+         """Pull file from device and return the file's content
+ 
+diff --git a/testing/mozbase/mozdevice/mozdevice/remote_process_monitor.py b/testing/mozbase/mozdevice/mozdevice/remote_process_monitor.py
+--- a/testing/mozbase/mozdevice/mozdevice/remote_process_monitor.py
++++ b/testing/mozbase/mozdevice/mozdevice/remote_process_monitor.py
+@@ -133,11 +133,11 @@
+                         self.last_test_seen = "{} (finished)".format(message["test"])
+                     elif message.get("action") == "suite_end":
+                         self.last_test_seen = "Last test finished"
+                     elif message.get("action") == "log":
+                         line = message["message"].strip()
+-                        m = re.match(".*:\s*(\d*)", line)
++                        m = re.match(r".*:\s*(\d*)", line)
+                         if m:
+                             try:
+                                 val = int(m.group(1))
+                                 if "Passed:" in line:
+                                     self.counts["pass"] += val
+diff --git a/testing/mozbase/mozrunner/mozrunner/application.py b/testing/mozbase/mozrunner/mozrunner/application.py
+--- a/testing/mozbase/mozrunner/mozrunner/application.py
++++ b/testing/mozbase/mozrunner/mozrunner/application.py
+@@ -3,11 +3,11 @@
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ 
+ import os
+ import posixpath
+ from abc import ABCMeta, abstractmethod
+-from distutils.spawn import find_executable
++from shutil import which
+ 
+ import six
+ from mozdevice import ADBDeviceFactory
+ from mozprofile import (
+     ChromeProfile,
+@@ -49,11 +49,11 @@
+     remote_process = None
+ 
+     @property
+     def bindir(self):
+         if self._bindir is None:
+-            paths = [find_executable("emulator")]
++            paths = [which("emulator")]
+             paths = [p for p in paths if p is not None if os.path.isfile(p)]
+             if not paths:
+                 self._bindir = ""
+             else:
+                 self._bindir = os.path.dirname(paths[0])
+@@ -86,11 +86,11 @@
+         paths = os.environ.get("PATH", {}).split(os.pathsep)
+         if self.bindir is not None and os.path.abspath(self.bindir) not in paths:
+             paths.insert(0, os.path.abspath(self.bindir))
+             os.environ["PATH"] = os.pathsep.join(paths)
+ 
+-        return find_executable(binary)
++        return which(binary)
+ 
+     @abstractmethod
+     def stop_application(self):
+         """Run (device manager) command to stop application."""
+         pass
+

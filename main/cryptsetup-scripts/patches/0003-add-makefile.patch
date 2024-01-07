@@ -1,0 +1,100 @@
+From 5899266b5586df74957adf16fdd686def4e2116e Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <q66@chimera-linux.org>
+Date: Sat, 19 Nov 2022 02:52:19 +0100
+Subject: [PATCH 3/4] add makefile
+
+---
+ Makefile | 81 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 81 insertions(+)
+ create mode 100644 Makefile
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..020a307
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,81 @@
++PREFIX     ?= /usr
++SYSCONFDIR ?= /etc
++BINDIR     ?= $(PREFIX)/bin
++LIBDIR     ?= $(PREFIX)/lib
++DATADIR    ?= $(PREFIX)/share
++MANDIR     ?= $(DATADIR)/man
++
++VERSION ?= 2.5.0
++DATE ?= 2022-10-28
++DOCBOOK_XSL ?= /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl
++
++BASE_CFLAGS = -Wall -Wextra -Wshadow -Wno-unused-parameter -Wno-sign-compare
++
++all: askpass passdev debian/doc/crypttab.5
++
++askpass:
++	$(CC) $(BASE_CFLAGS) $(CFLAGS) $(LDFLAGS) debian/askpass.c -o askpass
++
++passdev:
++	$(CC) $(BASE_CFLAGS) $(CFLAGS) $(LDFLAGS) debian/scripts/passdev.c -o passdev
++
++debian/doc/crypttab.5:
++	sed 's/VERSION/$(VERSION)/;s/DATE/$(DATE)/' debian/doc/variables.xml.in > debian/doc/variables.xml
++	xsltproc --nonet --xinclude -o debian/doc/ $(DOCBOOK_XSL) \
++		debian/doc/manpages.xml
++
++clean:
++	rm -f askpass passdev debian/doc/crypttab.5 debian/doc/*.5 debian/doc/*.7 debian/doc/*.8
++
++install: askpass passdev debian/doc/crypttab.5
++	# make directories
++	install -d $(DESTDIR)$(SYSCONFDIR)/default
++	install -d $(DESTDIR)$(SYSCONFDIR)/cryptsetup-initramfs
++	install -d $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-block
++	install -d $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-bottom
++	install -d $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-top
++	install -d $(DESTDIR)$(DATADIR)/initramfs-tools/hooks
++	install -d $(DESTDIR)$(DATADIR)/initramfs-tools/conf-hooks.d
++	install -d $(DESTDIR)$(DATADIR)/cryptsetup/initramfs/bin
++	install -d $(DESTDIR)$(LIBDIR)/cryptsetup/checks
++	install -d $(DESTDIR)$(LIBDIR)/cryptsetup/scripts
++	install -d $(DESTDIR)$(MANDIR)/man5
++	install -d $(DESTDIR)$(MANDIR)/man8
++	install -d $(DESTDIR)$(BINDIR)
++	# cryptdisks
++	install -m 644 debian/cryptsetup.cryptdisks.default $(DESTDIR)$(SYSCONFDIR)/default/cryptdisks
++	install -m 755 debian/scripts/cryptdisks_start $(DESTDIR)$(BINDIR)
++	install -m 755 debian/scripts/cryptdisks_stop $(DESTDIR)$(BINDIR)
++	install -m 644 debian/cryptdisks-functions $(DESTDIR)$(LIBDIR)/cryptsetup
++	install -m 644 debian/doc/cryptdisks_start.8 $(DESTDIR)$(MANDIR)/man8
++	install -m 644 debian/doc/cryptdisks_stop.8 $(DESTDIR)$(MANDIR)/man8
++	# cryptsetup
++	install -m 755 debian/scripts/decrypt_derived $(DESTDIR)$(LIBDIR)/cryptsetup/scripts
++	install -m 755 debian/scripts/decrypt_gnupg $(DESTDIR)$(LIBDIR)/cryptsetup/scripts
++	install -m 755 debian/scripts/decrypt_gnupg-sc $(DESTDIR)$(LIBDIR)/cryptsetup/scripts
++	install -m 755 debian/scripts/decrypt_keyctl $(DESTDIR)$(LIBDIR)/cryptsetup/scripts
++	install -m 755 debian/scripts/decrypt_opensc $(DESTDIR)$(LIBDIR)/cryptsetup/scripts
++	install -m 755 debian/scripts/decrypt_ssl $(DESTDIR)$(LIBDIR)/cryptsetup/scripts
++	install -m 755 passdev $(DESTDIR)$(LIBDIR)/cryptsetup/scripts
++	install -m 755 debian/checks/blkid $(DESTDIR)$(LIBDIR)/cryptsetup/checks
++	install -m 755 debian/checks/un_blkid $(DESTDIR)$(LIBDIR)/cryptsetup/checks
++	install -m 755 debian/functions $(DESTDIR)$(LIBDIR)/cryptsetup
++	install -m 755 askpass $(DESTDIR)$(LIBDIR)/cryptsetup
++	install -m 644 debian/doc/crypttab.5 $(DESTDIR)$(MANDIR)/man5
++	# initramfs-tools
++	install -m 644 debian/initramfs/conf-hook $(DESTDIR)$(SYSCONFDIR)/cryptsetup-initramfs
++	install -m 755 debian/initramfs/hooks/cryptgnupg $(DESTDIR)$(DATADIR)/initramfs-tools/hooks
++	install -m 755 debian/initramfs/hooks/cryptgnupg-sc $(DESTDIR)$(DATADIR)/initramfs-tools/hooks
++	install -m 755 debian/initramfs/hooks/cryptkeyctl $(DESTDIR)$(DATADIR)/initramfs-tools/hooks
++	install -m 755 debian/initramfs/hooks/cryptopensc $(DESTDIR)$(DATADIR)/initramfs-tools/hooks
++	install -m 755 debian/initramfs/hooks/cryptpassdev $(DESTDIR)$(DATADIR)/initramfs-tools/hooks
++	install -m 755 debian/initramfs/hooks/cryptroot $(DESTDIR)$(DATADIR)/initramfs-tools/hooks
++	install -m 755 debian/initramfs/hooks/cryptroot-unlock $(DESTDIR)$(DATADIR)/initramfs-tools/hooks
++	install -m 755 debian/initramfs/scripts/local-block/cryptroot $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-block
++	install -m 755 debian/initramfs/scripts/local-bottom/cryptgnupg-sc $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-bottom
++	install -m 755 debian/initramfs/scripts/local-bottom/cryptopensc $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-bottom
++	install -m 755 debian/initramfs/scripts/local-bottom/cryptroot $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-bottom
++	install -m 755 debian/initramfs/scripts/local-top/cryptopensc $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-top
++	install -m 755 debian/initramfs/scripts/local-top/cryptroot $(DESTDIR)$(DATADIR)/initramfs-tools/scripts/local-top
++	install -m 644 debian/initramfs/conf-hooks.d/cryptsetup $(DESTDIR)$(DATADIR)/initramfs-tools/conf-hooks.d
++	install -m 755 debian/initramfs/cryptroot-unlock $(DESTDIR)$(DATADIR)/cryptsetup/initramfs/bin
+-- 
+2.39.0
+

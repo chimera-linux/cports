@@ -1,0 +1,15 @@
+commit 3b07a3037c56a4dd497f4c4b5c7c0a55b1bc4493
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Oct 3 18:14:12 2023 +0200
+
+    remove test which requires setxkbmap
+
+diff --git a/tests/meson.build b/tests/meson.build
+index 37334b7..a369aa2 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -11,4 +11,3 @@ endif
+ 
+ subdir('printers')
+ subdir('info')
+-subdir('keyboard')

@@ -1,0 +1,11 @@
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -113,7 +113,7 @@
+ install-data-hook:
+ 	@echo "(data/install-data-hook)===> Executing rule: install-data-hook"
+ if !INSTALL_LIB_ONLY_COND
+-	sed  -i "s|/usr|${prefix}|" ${DESTDIR}${rulesdir}/60-ddcutil-usb.rules 
++	sed  -i '' "s|/usr|${prefix}|" ${DESTDIR}${rulesdir}/60-ddcutil-usb.rules 
+ endif
+ 	@echo "Clear out files possibly left over from earlier installation"
+ 	rm -f ${DESTDIR}${resdir}/45-ddcutil*

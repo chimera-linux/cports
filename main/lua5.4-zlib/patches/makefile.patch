@@ -1,0 +1,62 @@
+commit 4999580deb17a006f49b319e5e0d6c5ed46b4794
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Oct 9 14:11:28 2022 +0200
+
+    clean up makefile
+
+diff --git a/Makefile b/Makefile
+index 801ea04..1c050d1 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,9 +1,9 @@
+ # This Makefile is based on LuaSec's Makefile. Thanks to the LuaSec developers.
+ # Inform the location to intall the modules
+-LUAPATH  ?= /usr/share/lua/5.1
+-LUACPATH ?= /usr/lib/lua/5.1
+-INCDIR   ?= -I/usr/include/lua5.1
+-LIBDIR   ?= -L/usr/lib
++LUAPATH  ?= /usr/share/lua/$(LUA_VER)
++LUACPATH ?= /usr/lib/lua/$(LUA_VER)
++INCDIR   ?= -I$(CBUILD_TARGET_SYSROOT)/usr/include/lua$(LUA_VER)
++LIBDIR   ?= -L$(CBUILD_TARGET_SYSROOT)/usr/lib
+ 
+ # For Mac OS X: set the system version
+ MACOSX_VERSION = 10.4
+@@ -11,24 +11,19 @@ MACOSX_VERSION = 10.4
+ CMOD = zlib.so
+ OBJS = lua_zlib.o
+ 
+-LIBS = -lz -llua -lm
++LIBS = -lz -lm
+ WARN = -Wall -pedantic
+ 
+ BSD_CFLAGS  = -O2 -fPIC $(WARN) $(INCDIR) $(DEFS)
+ BSD_LDFLAGS = -O -shared -fPIC $(LIBDIR)
+ 
+-LNX_CFLAGS  = -O2 -fPIC $(WARN) $(INCDIR) $(DEFS)
+-LNX_LDFLAGS = -O -shared -fPIC $(LIBDIR)
++LNX_CFLAGS  = -fPIC $(WARN) $(INCDIR) $(DEFS)
++LNX_LDFLAGS = -shared $(LIBDIR)
+ 
+ MAC_ENV     = env MACOSX_DEPLOYMENT_TARGET='$(MACVER)'
+ MAC_CFLAGS  = -O2 -fPIC -fno-common $(WARN) $(INCDIR) $(DEFS)
+ MAC_LDFLAGS = -bundle -undefined dynamic_lookup -fPIC $(LIBDIR)
+ 
+-CC = gcc
+-LD = $(MYENV) gcc
+-CFLAGS  = $(MYCFLAGS)
+-LDFLAGS = $(MYLDFLAGS)
+-
+ .PHONY: all clean install none linux bsd macosx
+ 
+ all:
+@@ -56,7 +51,7 @@ clean:
+ 	rm -f $(OBJS) $(CMOD)
+ 
+ .c.o:
+-	$(CC) -c $(CFLAGS) $(DEFS) $(INCDIR) -o $@ $<
++	$(CC) -c $(MYCFLAGS) $(CFLAGS) $(DEFS) $(INCDIR) -o $@ $<
+ 
+ $(CMOD): $(OBJS)
+-	$(LD) $(LDFLAGS) $(LIBDIR) $(OBJS) $(LIBS) -o $@
++	$(CC) $(MYCFLAGS) $(CFLAGS) $(MYLDFLAGS) $(LDFLAGS) $(LIBDIR) $(OBJS) $(LIBS) -o $@

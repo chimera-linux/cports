@@ -1,0 +1,81 @@
+From 6233a66d33e41074e9c3ebe6beff6a2d7065c7bf Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 9 Nov 2023 20:48:44 +0100
+Subject: [PATCH] mntent: unescape octal sequences
+
+As entries in mtab are delimited by spaces, whitespace characters
+are escaped as octal sequences. When reading them out, we have to
+unescape these sequences to get the proper string.
+---
+ src/misc/mntent.c | 49 ++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 40 insertions(+), 9 deletions(-)
+
+diff --git a/src/misc/mntent.c b/src/misc/mntent.c
+index d404fbe..f729a68 100644
+--- a/src/misc/mntent.c
++++ b/src/misc/mntent.c
+@@ -20,6 +20,42 @@ int endmntent(FILE *f)
+ 	return 1;
+ }
+ 
++static char *escape_ent(char *beg, char *end)
++{
++	char *dest = beg;
++	char *src = dest;
++	while (src != end) {
++		char *val;
++		unsigned char cval = 0;
++		if (*src != '\\') {
++			*dest++ = *src++;
++			continue;
++		}
++		if (src[1] == '\\') {
++			++src;
++			*dest++ = *src++;
++			continue;
++		}
++		val = src + 1;
++		for (int i = 0; i < 3; ++i) {
++			if (*val >= '0' && *val <= '7') {
++				cval <<= 3;
++				cval += *val++ - '0';
++			} else {
++				break;
++			}
++		}
++		if (cval) {
++			*dest++ = (char)cval;
++			src = val;
++		} else {
++			*dest++ = *src++;
++		}
++	}
++	*dest = '\0';
++	return beg;
++}
++
+ struct mntent *getmntent_r(FILE *f, struct mntent *mnt, char *linebuf, int buflen)
+ {
+ 	int n[8], use_internal = (linebuf == SENTINEL);
+@@ -50,15 +86,10 @@ struct mntent *getmntent_r(FILE *f, struct mntent *mnt, char *linebuf, int bufle
+ 			&mnt->mnt_freq, &mnt->mnt_passno);
+ 	} while (linebuf[n[0]] == '#' || n[1]==len);
+ 
+-	linebuf[n[1]] = 0;
+-	linebuf[n[3]] = 0;
+-	linebuf[n[5]] = 0;
+-	linebuf[n[7]] = 0;
+-
+-	mnt->mnt_fsname = linebuf+n[0];
+-	mnt->mnt_dir = linebuf+n[2];
+-	mnt->mnt_type = linebuf+n[4];
+-	mnt->mnt_opts = linebuf+n[6];
++	mnt->mnt_fsname = escape_ent(linebuf+n[0], linebuf+n[1]);
++	mnt->mnt_dir = escape_ent(linebuf+n[2], linebuf+n[3]);
++	mnt->mnt_type = escape_ent(linebuf+n[4], linebuf+n[5]);
++	mnt->mnt_opts = escape_ent(linebuf+n[6], linebuf+n[7]);
+ 
+ 	return mnt;
+ }
+-- 
+2.42.0

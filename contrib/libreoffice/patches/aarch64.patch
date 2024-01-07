@@ -1,0 +1,22 @@
+commit 1e39f1fdce1572e37bbd86aca08de296268d069a
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Fri Jun 9 14:55:32 2023 +0200
+
+    fix aarch64 build
+    
+    Our clear_cache is in libclang_rt.builtins and is a hidden
+    symbol statically linked into each DSO, so the dlsym will fail.
+
+diff --git a/bridges/source/cpp_uno/gcc3_linux_aarch64/cpp2uno.cxx b/bridges/source/cpp_uno/gcc3_linux_aarch64/cpp2uno.cxx
+index 775a4aff6..09584786e 100644
+--- a/bridges/source/cpp_uno/gcc3_linux_aarch64/cpp2uno.cxx
++++ b/bridges/source/cpp_uno/gcc3_linux_aarch64/cpp2uno.cxx
+@@ -576,7 +576,7 @@ unsigned char * bridges::cpp_uno::shared::VtableFactory::addLocalFunctions(
+ void bridges::cpp_uno::shared::VtableFactory::flushCode(
+     unsigned char const * begin, unsigned char const * end)
+ {
+-#if !defined ANDROID && !defined MACOSX
++#if 0
+    static void (*clear_cache)(unsigned char const *, unsigned char const *)
+        = (void (*)(unsigned char const *, unsigned char const *)) dlsym(
+            RTLD_DEFAULT, "__clear_cache");

@@ -1,0 +1,28 @@
+commit 405384c5490a34534a1d76c8ff6c3521b223325f
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Sep 3 16:58:26 2023 +0200
+
+    drop libcrypt nonsense
+
+diff --git a/configure b/configure
+index 371cd2b..bf8e7bf 100755
+--- a/configure
++++ b/configure
+@@ -16152,7 +16152,7 @@ fi
+ printf "%s\n" "$ac_cv_lib_crypt_crypt" >&6; }
+ if test "x$ac_cv_lib_crypt_crypt" = xyes
+ then :
+-  LIBCRYPT=-lcrypt
++  LIBCRYPT=
+ else $as_nop
+   as_fn_error $? "crypt() not found" "$LINENO" 5
+ fi
+@@ -16196,7 +16196,7 @@ fi
+ printf "%s\n" "$ac_cv_lib_crypt_crypt" >&6; }
+ if test "x$ac_cv_lib_crypt_crypt" = xyes
+ then :
+-  LIYESCRYPT=-lcrypt
++  LIYESCRYPT=
+ else $as_nop
+   as_fn_error $? "crypt() not found" "$LINENO" 5
+ fi

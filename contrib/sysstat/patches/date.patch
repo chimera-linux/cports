@@ -1,0 +1,25 @@
+--- a/sa1.in
++++ b/sa1.in
+@@ -42,9 +42,9 @@
+ then
+ 	if [ "${LONG_NAME}" = "y" ]
+ 	then
+-		DATE=`date --date=yesterday +%Y%m%d`
++		DATE=`date -v -1d +%Y%m%d`
+ 	else
+-		DATE=`date --date=yesterday +%d`
++		DATE=`date -v -1d +%d`
+ 	fi
+ 	SA_DIR=${SA_DIR}/sa${DATE}
+ fi
+--- a/sa2.in
++++ b/sa2.in
+@@ -38,7 +38,7 @@
+ then
+ 	DATE_OPTS=
+ else
+-	DATE_OPTS="--date=yesterday"
++	DATE_OPTS="-v -1d"
+ fi
+ 
+ if [ ${HISTORY} -gt 28 ]

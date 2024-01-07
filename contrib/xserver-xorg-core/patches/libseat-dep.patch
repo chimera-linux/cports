@@ -1,0 +1,43 @@
+Actually link to libseat.
+
+diff --git a/hw/xfree86/os-support/meson.build b/hw/xfree86/os-support/meson.build
+index b6069ee..eb1965d 100644
+--- a/hw/xfree86/os-support/meson.build
++++ b/hw/xfree86/os-support/meson.build
+@@ -49,6 +49,12 @@ if host_machine.system() == 'linux'
+     if build_systemd_logind
+         srcs_xorg_os_support += 'linux/systemd-logind.c'
+     endif
++    if build_seatd_libseat
++        srcs_xorg_os_support += 'linux/seatd-libseat.c'
++        libseat_dep = dependency('libseat')
++    else
++        libseat_dep = dependency('', required: false)
++    endif
+ 
+     # this is ugly because the code is also
+     if build_apm or build_acpi
+@@ -163,6 +169,7 @@ xorg_os_support = static_library('xorg_os_support',
+         dbus_dep,
+         libdrm_dep,
+         os_dep,
++        libseat_dep,
+     ],
+     c_args: xorg_c_args + os_c_args,
+ )
+diff --git a/meson.build b/meson.build
+index 637938a..ce3cb0a 100644
+--- a/meson.build
++++ b/meson.build
+@@ -105,10 +105,7 @@ dbus_required = get_option('systemd_logind') == 'true'
+ dbus_dep = dependency('dbus-1', version: '>= 1.0', required: dbus_required)
+ 
+ # libsystemd-daemon was moved into libsystemd in version 209
+-libsystemd_daemon_dep = dependency('libsystemd', version: '>= 209', required: false)
+-if not libsystemd_daemon_dep.found()
+-    libsystemd_daemon_dep = dependency('libsystemd-daemon', required: false)
+-endif
++libsystemd_daemon_dep = dependency('', required: false)
+ 
+ build_hashtable = false
+ 

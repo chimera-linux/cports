@@ -1,0 +1,44 @@
+#!/bin/sh
+
+[ "$1" = "prereqs" ] && exit 0
+
+. /usr/share/initramfs-tools/hook-functions
+
+# provided by chimerautils-tiny
+BSD_TOOLS="
+ [ basename cat chroot cp cut date dd dir dirname du echo
+ egrep expand expr false fgrep find fmt fold grep
+ head kill link ln look ls mkdir mkfifo mknod mv
+ pathchk pivot_root printf pwd readlink realpath rgrep
+ rm rmdir sed seq sh sleep sort stat stty sync tail tee
+ test touch tr true uname uniq unlink vdir wc which xargs yes
+"
+
+# provided by klibc-kinit-standalone
+KINIT_TOOLS="fstype ipconfig nfsmount resume run-init"
+
+# provided by klibc-utils-standalone
+KLIBC_TOOLS="
+ cpio dmesg halt losetup minips mount nuke poweroff reboot umount
+"
+
+# copy musl first
+LDSO_ARCH=$(/usr/lib/libc.so 2>&1 | head -n1 | sed 's/musl libc (\(.*\))/\1/')
+cp -an /usr/lib/libc.so "${DESTDIR}/usr/lib"
+ln -sf /usr/lib/libc.so "${DESTDIR}/usr/lib/ld-musl-${LDSO_ARCH}.so.1"
+
+for kt in ${KINIT_TOOLS}; do
+    copy_exec /usr/libexec/kinit-standalone/${kt} /usr/bin/${kt}
+done
+
+for kt in ${KLIBC_TOOLS}; do
+    copy_exec /usr/libexec/klibc-utils-standalone/${kt} /usr/bin/${kt}
+done
+
+for bt in ${BSD_TOOLS}; do
+    if [ -x /usr/libexec/chimerautils-tiny/${bt} ]; then
+        copy_exec /usr/libexec/chimerautils-tiny/${bt} /usr/bin/${bt}
+    else
+        copy_exec /usr/bin/${bt}
+    fi
+done

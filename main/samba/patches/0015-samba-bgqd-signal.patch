@@ -1,0 +1,11 @@
+--- a/source3/printing/samba-bgqd.c
++++ b/source3/printing/samba-bgqd.c
+@@ -42,6 +42,8 @@
+ #include "source3/printing/queue_process.h"
+ #include "source3/lib/substitute.h"
+ 
++#include <signal.h>
++
+ static void watch_handler(struct tevent_req *req)
+ {
+ 	bool *pdone = tevent_req_callback_data_void(req);

@@ -1,0 +1,12 @@
+make apk compatible
+--- a/configure.ac
++++ b/configure.ac
+@@ -1,7 +1,7 @@
+ # -*- Autoconf -*-
+ # Process this file with autoconf to produce a configure script.
+ AC_PREREQ(2.59)
+-AC_INIT([libmspack],[0.11alpha],[kyzer@cabextract.org.uk])
++AC_INIT([libmspack],[0.11_alpha],[kyzer@cabextract.org.uk])
+ AC_CONFIG_MACRO_DIR([m4])
+ AM_INIT_AUTOMAKE([1.11])
+ AM_SILENT_RULES([yes])

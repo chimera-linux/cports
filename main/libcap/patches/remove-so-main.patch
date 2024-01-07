@@ -1,0 +1,52 @@
+From db79116710455cad5f96fd1d19b808306c7e752b Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Wed, 24 Nov 2021 16:30:22 +0100
+Subject: [PATCH] eliminate cursed library exec code
+
+This is pointless, and doesn't even work on various setups, with
+the sole purpose being printing a bunch of version information
+when you call the library as a command.
+---
+ libcap/Makefile | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/libcap/Makefile b/libcap/Makefile
+index 7706063..c716ddf 100644
+--- a/libcap/Makefile
++++ b/libcap/Makefile
+@@ -110,7 +110,7 @@ loader.txt: empty
+ cap_magic.o: execable.h execable.c loader.txt
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -DLIBRARY_VERSION=\"$(LIBTITLE)-$(VERSION).$(MINOR)\" -DSHARED_LOADER=\"$(shell cat loader.txt)\" -c execable.c -o $@
+ 
+-$(CAPLIBNAME) $(MAJCAPLIBNAME) $(MINCAPLIBNAME): $(CAPOBJS) $(CAPMAGICOBJ)
++$(CAPLIBNAME) $(MAJCAPLIBNAME) $(MINCAPLIBNAME): $(CAPOBJS)
+ 	$(LD) $(CFLAGS) $(LDFLAGS) -Wl,-soname,$(MAJCAPLIBNAME) -o $(MINCAPLIBNAME) $^ $(MAGIC)
+ 	ln -sf $(MINCAPLIBNAME) $(MAJCAPLIBNAME)
+ 	ln -sf $(MAJCAPLIBNAME) $(CAPLIBNAME)
+@@ -118,8 +118,8 @@ $(CAPLIBNAME) $(MAJCAPLIBNAME) $(MINCAPLIBNAME): $(CAPOBJS) $(CAPMAGICOBJ)
+ psx_magic.o: execable.h execable.c loader.txt
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) -DLIBRARY_VERSION=\"$(PSXTITLE)-$(VERSION).$(MINOR)\" -DSHARED_LOADER=\"$(shell cat loader.txt)\" -c execable.c -o $@
+ 
+-$(PSXLIBNAME) $(MAJPSXLIBNAME) $(MINPSXLIBNAME): $(PSXOBJS) include/sys/psx_syscall.h $(PSXMAGICOBJ)
+-	$(LD) $(CFLAGS) $(LDFLAGS) -Wl,-soname,$(MAJPSXLIBNAME) -o $(MINPSXLIBNAME) $(PSXOBJS) $(PSXMAGICOBJ) $(MAGIC) $(PSXLINKFLAGS)
++$(PSXLIBNAME) $(MAJPSXLIBNAME) $(MINPSXLIBNAME): $(PSXOBJS) include/sys/psx_syscall.h
++	$(LD) $(CFLAGS) $(LDFLAGS) -Wl,-soname,$(MAJPSXLIBNAME) -o $(MINPSXLIBNAME) $(PSXOBJS) $(MAGIC) $(PSXLINKFLAGS)
+ 	ln -sf $(MINPSXLIBNAME) $(MAJPSXLIBNAME)
+ 	ln -sf $(MAJPSXLIBNAME) $(PSXLIBNAME)
+ endif
+@@ -141,12 +141,6 @@ libpsxsotest: $(PSXLIBNAME)
+ 
+ test: cap_test
+ 	./cap_test
+-ifeq ($(SHARED),yes)
+-	$(MAKE) libcapsotest
+-ifeq ($(PTHREADS),yes)
+-	$(MAKE) libpsxsotest
+-endif
+-endif
+ 
+ sudotest:
+ 	@echo no sudotests for libcap
+-- 
+2.34.0
+

@@ -1,0 +1,207 @@
+diff --git a/nss/lib/freebl/Makefile b/nss/lib/freebl/Makefile
+index 7673357..1d2fe12 100644
+--- a/nss/lib/freebl/Makefile
++++ b/nss/lib/freebl/Makefile
+@@ -746,15 +746,6 @@ ifdef INTEL_GCM
+ # GCM binary needs -mssse3
+ #
+ $(OBJDIR)/$(PROG_PREFIX)intel-gcm-wrap$(OBJ_SUFFIX): CFLAGS += -mssse3
+-
+-# The integrated assembler in Clang 3.2 does not support % in the
+-# expression of a .set directive. intel-gcm.s uses .set to give
+-# symbolic names to registers, for example,
+-#     .set  Htbl, %rdi
+-# So we can't use Clang's integrated assembler with intel-gcm.s.
+-ifdef CC_IS_CLANG
+-$(OBJDIR)/$(PROG_PREFIX)intel-gcm$(OBJ_SUFFIX): CFLAGS += -no-integrated-as
+-endif
+ endif
+ 
+ ifdef INTEL_GCM_CLANG_CL
+diff --git a/nss/lib/freebl/ppc-gcm.s b/nss/lib/freebl/ppc-gcm.s
+index 06ad586..471c502 100644
+--- a/nss/lib/freebl/ppc-gcm.s
++++ b/nss/lib/freebl/ppc-gcm.s
+@@ -4,9 +4,6 @@
+ 
+ # Registers:
+ 
+-.set SP, 1
+-.set TOCP, 2
+-
+ .macro VEC_LOAD_DATA   VR, DATA, GPR
+     addis        \GPR, 2, \DATA@got@ha
+     ld           \GPR, \DATA@got@l(\GPR)
+@@ -90,8 +87,8 @@
+ .type	ppc_aes_gcmINIT,@function
+ .align	5
+ ppc_aes_gcmINIT:
+-addis	TOCP,12,(.TOC.-ppc_aes_gcmINIT)@ha
+-addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmINIT)@l
++addis	%r2,12,(.TOC.-ppc_aes_gcmINIT)@ha
++addi	%r2,%r2,(.TOC.-ppc_aes_gcmINIT)@l
+ .localentry	ppc_aes_gcmINIT, .-ppc_aes_gcmINIT
+ 
+ .set Htbl, 3
+@@ -255,8 +252,8 @@ addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmINIT)@l
+ .type	ppc_aes_gcmHASH,@function
+ .align	5
+ ppc_aes_gcmHASH:
+-addis	TOCP,12,(.TOC.-ppc_aes_gcmHASH)@ha
+-addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmHASH)@l
++addis	%r2,12,(.TOC.-ppc_aes_gcmHASH)@ha
++addi	%r2,%r2,(.TOC.-ppc_aes_gcmHASH)@l
+ .localentry	ppc_aes_gcmHASH, .-ppc_aes_gcmHASH
+ 
+ .set Htbl, 3
+@@ -290,13 +287,13 @@ addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmHASH)@l
+ .set H4L, 31
+ 
+     # store non-volatile vector registers
+-    addi         7, SP, -16
++    addi         7, %r1, -16
+     stvx         31, 0, 7
+-    addi         7, SP, -32
++    addi         7, %r1, -32
+     stvx         30, 0, 7
+-    addi         7, SP, -48
++    addi         7, %r1, -48
+     stvx         29, 0, 7
+-    addi         7, SP, -64
++    addi         7, %r1, -64
+     stvx         28, 0, 7
+     
+     VEC_LOAD_DATA SWAP_MASK, .Ldb_bswap_mask, 7
+@@ -482,13 +479,13 @@ addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmHASH)@l
+     VEC_STORE    D, Tp, 0
+ 
+     # restore non-volatile vector registers
+-    addi         7, SP, -16
++    addi         7, %r1, -16
+     lvx          31, 0, 7
+-    addi         7, SP, -32
++    addi         7, %r1, -32
+     lvx          30, 0, 7
+-    addi         7, SP, -48
++    addi         7, %r1, -48
+     lvx          29, 0, 7
+-    addi         7, SP, -64
++    addi         7, %r1, -64
+     lvx          28, 0, 7
+     blr
+ .size ppc_aes_gcmHASH, . - ppc_aes_gcmHASH
+@@ -500,8 +497,8 @@ addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmHASH)@l
+ .type	ppc_aes_gcmTAG,@function
+ .align	5
+ ppc_aes_gcmTAG:
+-addis	TOCP,12,(.TOC.-ppc_aes_gcmTAG)@ha
+-addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmTAG)@l
++addis	%r2,12,(.TOC.-ppc_aes_gcmTAG)@ha
++addi	%r2,%r2,(.TOC.-ppc_aes_gcmTAG)@l
+ .localentry	ppc_aes_gcmTAG, .-ppc_aes_gcmTAG
+ 
+ .set Htbl, 3
+@@ -567,8 +564,8 @@ addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmTAG)@l
+ .type	ppc_aes_gcmCRYPT,@function
+ .align	5
+ ppc_aes_gcmCRYPT:
+-addis	TOCP,12,(.TOC.-ppc_aes_gcmCRYPT)@ha
+-addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmCRYPT)@l
++addis	%r2,12,(.TOC.-ppc_aes_gcmCRYPT)@ha
++addi	%r2,%r2,(.TOC.-ppc_aes_gcmCRYPT)@l
+ .localentry	ppc_aes_gcmCRYPT, .-ppc_aes_gcmCRYPT
+ 
+ .set PT, 3
+@@ -639,30 +636,30 @@ addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmCRYPT)@l
+ .endm
+ 
+     # store non-volatile general registers
+-    std          31,-8(SP);
+-    std          30,-16(SP);
+-    std          29,-24(SP);
+-    std          28,-32(SP);
+-    std          27,-40(SP);
+-    std          26,-48(SP);
+-    std          25,-56(SP);
++    std          31,-8(%r1);
++    std          30,-16(%r1);
++    std          29,-24(%r1);
++    std          28,-32(%r1);
++    std          27,-40(%r1);
++    std          26,-48(%r1);
++    std          25,-56(%r1);
+ 
+     # store non-volatile vector registers
+-    addi         9, SP, -80
++    addi         9, %r1, -80
+     stvx         31, 0, 9
+-    addi         9, SP, -96
++    addi         9, %r1, -96
+     stvx         30, 0, 9
+-    addi         9, SP, -112
++    addi         9, %r1, -112
+     stvx         29, 0, 9
+-    addi         9, SP, -128
++    addi         9, %r1, -128
+     stvx         28, 0, 9
+-    addi         9, SP, -144
++    addi         9, %r1, -144
+     stvx         27, 0, 9
+-    addi         9, SP, -160
++    addi         9, %r1, -160
+     stvx         26, 0, 9
+-    addi         9, SP, -176
++    addi         9, %r1, -176
+     stvx         25, 0, 9
+-    addi         9, SP, -192
++    addi         9, %r1, -192
+     stvx         24, 0, 9
+ 
+     VEC_LOAD_DATA SWAP_MASK, .Ldb_bswap_mask, 9
+@@ -1013,31 +1010,31 @@ addi	TOCP,TOCP,(.TOC.-ppc_aes_gcmCRYPT)@l
+     VEC_STORE    CTR, CTRP, 0
+ 
+     # restore non-volatile vector registers
+-    addi         9, SP, -80
++    addi         9, %r1, -80
+     lvx          31, 0, 9
+-    addi         9, SP, -96
++    addi         9, %r1, -96
+     lvx          30, 0, 9
+-    addi         9, SP, -112
++    addi         9, %r1, -112
+     lvx          29, 0, 9
+-    addi         9, SP, -128
++    addi         9, %r1, -128
+     lvx          28, 0, 9
+-    addi         9, SP, -144
++    addi         9, %r1, -144
+     lvx          27, 0, 9
+-    addi         9, SP, -160
++    addi         9, %r1, -160
+     lvx          26, 0, 9
+-    addi         9, SP, -176
++    addi         9, %r1, -176
+     lvx          25, 0, 9
+-    addi         9, SP, -192
++    addi         9, %r1, -192
+     lvx          24, 0, 9
+     
+     # restore non-volatile general registers
+-    ld           31,-8(SP);
+-    ld           30,-16(SP);
+-    ld           29,-24(SP);
+-    ld           28,-32(SP);
+-    ld           27,-40(SP);
+-    ld           26,-48(SP);
+-    ld           25,-56(SP);
++    ld           31,-8(%r1);
++    ld           30,-16(%r1);
++    ld           29,-24(%r1);
++    ld           28,-32(%r1);
++    ld           27,-40(%r1);
++    ld           26,-48(%r1);
++    ld           25,-56(%r1);
+     blr
+ .size ppc_aes_gcmCRYPT, . - ppc_aes_gcmCRYPT
+ 

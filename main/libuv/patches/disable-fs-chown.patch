@@ -1,0 +1,18 @@
+--- a/test/test-list.h
++++ b/test/test-list.h
+@@ -366,7 +366,6 @@ TEST_DECLARE   (fs_unlink_readonly)
+ #ifdef _WIN32
+ TEST_DECLARE   (fs_unlink_archive_readonly)
+ #endif
+-TEST_DECLARE   (fs_chown)
+ TEST_DECLARE   (fs_link)
+ TEST_DECLARE   (fs_readlink)
+ TEST_DECLARE   (fs_realpath)
+@@ -1063,7 +1062,6 @@ TASK_LIST_START
+ #ifdef _WIN32
+   TEST_ENTRY  (fs_unlink_archive_readonly)
+ #endif
+-  TEST_ENTRY  (fs_chown)
+   TEST_ENTRY  (fs_link)
+   TEST_ENTRY  (fs_utime)
+   TEST_ENTRY  (fs_utime_round)

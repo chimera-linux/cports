@@ -1,0 +1,26 @@
+From 3abe27fb801758cc02d0954756e4b19651113fca Mon Sep 17 00:00:00 2001
+From: Daniel Kolesa <daniel@octaforge.org>
+Date: Sun, 21 Aug 2022 18:28:04 +0200
+Subject: [PATCH] explicitly use gmake for configure test to accommodate our
+ env
+
+---
+ config/kernel.m4 | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config/kernel.m4 b/config/kernel.m4
+index 41492c1..a833c21 100644
+--- a/config/kernel.m4
++++ b/config/kernel.m4
+@@ -645,7 +645,7 @@ AC_DEFUN([ZFS_LINUX_COMPILE], [
+ 		build kernel modules with LLVM/CLANG toolchain])
+ 	AC_TRY_COMMAND([
+ 	    KBUILD_MODPOST_NOFINAL="$5" KBUILD_MODPOST_WARN="$6"
+-	    make modules -k -j$TEST_JOBS ${KERNEL_CC:+CC=$KERNEL_CC}
++	    gmake modules -k -j$TEST_JOBS ${KERNEL_CC:+CC=$KERNEL_CC}
+ 	    ${KERNEL_LD:+LD=$KERNEL_LD} ${KERNEL_LLVM:+LLVM=$KERNEL_LLVM}
+ 	    CONFIG_MODULES=y CFLAGS_MODULE=-DCONFIG_MODULES
+ 	    -C $LINUX_OBJ $ARCH_UM M=$PWD/$1 >$1/build.log 2>&1])
+-- 
+2.37.1
+

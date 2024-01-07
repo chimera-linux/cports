@@ -1,0 +1,42 @@
+Fix SIGILL in parse_display_range_limits() due to overflow of
+max_pixel_clock_hz under QEMU/KVM when launching kwin_wayland:
+https://gitlab.freedesktop.org/emersion/libdisplay-info/-/merge_requests/169
+
+diff --git a/di-edid-decode/edid.c b/di-edid-decode/edid.c
+index 17ee2c6..8492100 100644
+--- a/di-edid-decode/edid.c
++++ b/di-edid-decode/edid.c
+@@ -592,7 +592,7 @@ print_display_desc(const struct di_edid *edid,
+ 		       range_limits->min_horiz_rate_hz / 1000,
+ 		       range_limits->max_horiz_rate_hz / 1000);
+ 		if (range_limits->max_pixel_clock_hz != 0) {
+-			printf(", max dotclock %d MHz",
++			printf(", max dotclock %"PRIi64" MHz",
+ 			       range_limits->max_pixel_clock_hz / (1000 * 1000));
+ 		}
+ 		printf("\n");
+diff --git a/edid.c b/edid.c
+index af4685e..fc75b37 100644
+--- a/edid.c
++++ b/edid.c
+@@ -556,7 +556,7 @@ parse_display_range_limits(struct di_edid *edid,
+ 		return false;
+ 	}
+ 
+-	base->max_pixel_clock_hz = (int32_t) data[9] * 10 * 1000 * 1000;
++	base->max_pixel_clock_hz = (int64_t) data[9] * 10 * 1000 * 1000;
+ 	if (edid->revision == 4 && base->max_pixel_clock_hz == 0) {
+ 		add_failure(edid, "Display Range Limits: EDID 1.4 block does not set max dotclock.");
+ 	}
+diff --git a/include/libdisplay-info/edid.h b/include/libdisplay-info/edid.h
+index ec11ed0..49d8226 100644
+--- a/include/libdisplay-info/edid.h
++++ b/include/libdisplay-info/edid.h
+@@ -606,7 +606,7 @@ struct di_edid_display_range_limits {
+ 	/* Maximum pixel clock in Hz, zero if unset, rounded to the nearest
+ 	 * multiple of 0.25 MHz if CVT, otherwise to the nearest multiple of
+ 	 * 10 MHz */
+-	int32_t max_pixel_clock_hz;
++	int64_t max_pixel_clock_hz;
+ 
+ 	enum di_edid_display_range_limits_type type;

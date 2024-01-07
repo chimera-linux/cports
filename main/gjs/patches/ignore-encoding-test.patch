@@ -1,0 +1,18 @@
+commit 7c66e07bfdb6c619d0aa3c5ea38616d1a9e0a107
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun Jan 23 23:52:05 2022 +0100
+
+    this is broken on musl
+
+diff --git a/installed-tests/js/meson.build b/installed-tests/js/meson.build
+index 6a5c40b..1df0800 100644
+--- a/installed-tests/js/meson.build
++++ b/installed-tests/js/meson.build
+@@ -234,7 +234,6 @@ modules_tests = [
+     'Console',
+     'ESModules',
+     'AsyncMainloop',
+-    'Encoding',
+     'GLibLogWriter',
+     'Global',
+     'Timers',

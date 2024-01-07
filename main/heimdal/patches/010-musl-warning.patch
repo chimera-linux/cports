@@ -1,0 +1,22 @@
+--- a/lib/roken/roken.h.in
++++ b/lib/roken/roken.h.in
+@@ -189,7 +189,7 @@ struct sockaddr_dl;
+ #include <sys/types.h>
+ #endif
+ #ifdef HAVE_SYS_ERRNO_H
+-#include <sys/errno.h>
++#include <errno.h>
+ #endif
+ #ifdef HAVE_SYS_BITYPES_H
+ #include <sys/bitypes.h>
+--- a/lib/krb5/krb5_locl.h
++++ b/lib/krb5/krb5_locl.h
+@@ -44,7 +44,7 @@
+ #include <ctype.h>
+ 
+ #ifdef HAVE_POLL_H
+-#include <sys/poll.h>
++#include <poll.h>
+ #endif
+ 
+ #include <krb5-types.h>
