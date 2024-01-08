@@ -1,5 +1,0 @@
-#!/bin/sh
-
-if /usr/bin/mountpoint -q /run; then
-    /usr/bin/install -d -m 777 /run/screens > /dev/null 2>&1 || :
-fi
