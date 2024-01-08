@@ -1,5 +1,5 @@
 pkgname = "ripgrep"
-pkgver = "14.0.3"
+pkgver = "14.1.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo"]
@@ -16,8 +16,8 @@ source = [
 ]
 source_paths = [".", "docs-prebuilt"]
 sha256 = [
-    "f5794364ddfda1e0411ab6cad6dd63abe3a6b421d658d9fee017540ea4c31a0e",
-    "62cd0efc4d6f1817b9c852859987b4720cd52e0de008418266e8503028dc0c7a",
+    "33c6169596a6bbfdc81415910008f26e0809422fda2d849562637996553b2ab6",
+    "f84757b07f425fe5cf11d87df6644691c644a5cd2348a2c670894272999d3ba7",
 ]
 
 
