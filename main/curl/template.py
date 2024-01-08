@@ -1,10 +1,12 @@
 pkgname = "curl"
 pkgver = "8.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-threaded-resolver",
     "--enable-ipv6",
+    "--with-libidn2",
+    "--with-libpsl",
     "--with-libssh2",
     "--with-ssl",
     "--with-zstd",
@@ -15,11 +17,13 @@ configure_args = [
 make_check_env = {"USER": "nobody"}
 hostmakedepends = ["pkgconf", "perl", "mandoc"]
 makedepends = [
+    "libidn2-devel",
+    "libpsl-devel",
+    "libssh2-devel",
     "nghttp2-devel",
+    "openssl-devel",
     "zlib-devel",
     "zstd-devel",
-    "openssl-devel",
-    "libssh2-devel",
 ]
 checkdepends = ["python", "nghttp2"]
 depends = ["ca-certificates"]
