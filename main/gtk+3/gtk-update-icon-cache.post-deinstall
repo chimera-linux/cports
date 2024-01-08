@@ -1,8 +1,0 @@
-#!/bin/sh
-
-for ic in /usr/share/icons/*; do
-    if [ -d "$ic" ]; then
-        rm -f "${ic}/icon-theme.cache" || :
-        rmdir "${ic}" > /dev/null 2>&1 || :
-    fi
-done

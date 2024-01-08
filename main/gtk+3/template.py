@@ -1,6 +1,6 @@
 pkgname = "gtk+3"
 pkgver = "3.24.39"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dx11_backend=true",
