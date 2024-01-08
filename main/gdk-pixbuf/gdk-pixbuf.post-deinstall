@@ -1,6 +1,0 @@
-#!/bin/sh
-
-rm -f /usr/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache || :
-# try removing leftover dirs
-rmdir /usr/lib/gdk-pixbuf-2.0/2.10.0 > /dev/null 2>&1 || :
-rmdir /usr/lib/gdk-pixbuf-2.0 > /dev/null 2>&1 || :

@@ -1,6 +1,6 @@
 pkgname = "gdk-pixbuf"
 pkgver = "2.42.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dintrospection=enabled",
