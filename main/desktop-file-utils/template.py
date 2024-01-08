@@ -1,6 +1,6 @@
 pkgname = "desktop-file-utils"
 pkgver = "0.27"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["glib-devel"]

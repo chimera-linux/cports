@@ -1,4 +1,0 @@
-#!/bin/sh
-
-rm -f /usr/share/applications/mimeinfo.cache || :
-rmdir /usr/share/applications > /dev/null 2>&1 || :
