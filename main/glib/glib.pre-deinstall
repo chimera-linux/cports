@@ -1,4 +1,0 @@
-#!/bin/sh
-
-rm -f /usr/share/glib-2.0/schemas/*.compiled || :
-rm -f /usr/lib/gio/modules/*.cache || :
