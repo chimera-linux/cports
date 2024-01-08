@@ -1,9 +1,0 @@
-#!/bin/sh
-
-cd /usr/share/mime
-
-rm -rf font globs globs2 icons treemagic generic-icons types magic \
-    XMLnamespaces subclasses aliases mime.cache application audio image \
-    inode message model multipart text version video x-content x-epoc || :
-
-rmdir /usr/share/mime 2>/dev/null || :
