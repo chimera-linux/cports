@@ -1,12 +1,12 @@
 pkgname = "x265"
 pkgver = "3.5"
-pkgrel = 1
+pkgrel = 2
 build_wrksrc = "source"
 _commit = "f0c1022b6be1"
 build_style = "cmake"
 configure_args = ["-DENABLE_PIC=1", "-DGIT_ARCHETYPE=1"]
 hostmakedepends = ["pkgconf", "cmake", "ninja"]
-makedepends = ["linux-headers"]
+makedepends = ["libnuma-devel", "linux-headers"]
 pkgdesc = "Open source H.265/HEVC encoder"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
