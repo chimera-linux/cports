@@ -1,6 +1,6 @@
 pkgname = "tzdata"
-pkgver = "2023c"
-pkgrel = 2
+pkgver = "2023d"
+pkgrel = 0
 hostmakedepends = [
     "musl-devel-static",
     "libunwind-devel-static",
@@ -15,11 +15,11 @@ source = [
     f"https://github.com/eggert/tz/archive/{pkgver}.tar.gz",
 ]
 sha256 = [
-    "3f510b5d1b4ae9bb38e485aa302a776b317fb3637bdb6404c4adf7b6cadd965c",
-    "9aa20ef838183e58f09acca92098cf6aa6d8e229aecf24e098c3af2a38e596f8",
+    "dbca21970b0a8b8c0ceceec1d7b91fa903be0f6eca5ae732b5329672232a08f3",
+    "487df6ff5f4a577fd96568d0fd0a22e8062b0ec59af7ad3e66b5dd23a85cfc1c",
 ]
 # no tests
-options = ["bootstrap", "!check", "hardlinks"]
+options = ["bootstrap", "!check", "hardlinks", "!scantrigdeps"]
 
 if self.stage == 0:
     makedepends = list(hostmakedepends)
@@ -34,6 +34,18 @@ def do_build(self):
 static char const PKGVERSION[]="unknown";
 static char const TZVERSION[]="unknown";
 static char const REPORT_BUGS_TO[]="none";
+"""
+        )
+
+    with open(self.cwd / f"tz-{pkgver}/tzdir.h", "w") as vh:
+        vh.write(
+            """
+#ifndef TZDEFAULT
+#define TZDEFAULT "UTC"
+#endif
+#ifndef TZDIR
+#define TZDIR "/usr/share/zoneinfo"
+#endif
 """
         )
 
@@ -90,3 +102,4 @@ def do_install(self):
         self.install_file(f"{f}.tab", "usr/share/zoneinfo", mode=0o444)
 
     self.install_file("leap-seconds.list", "usr/share/zoneinfo")
+    self.install_file(self.files_path / "tzdata.conf", "usr/lib/tmpfiles.d")
