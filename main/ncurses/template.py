@@ -1,6 +1,6 @@
 pkgname = "ncurses"
 pkgver = "6.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-widec",
@@ -18,6 +18,8 @@ configure_args = [
 # a hack to disable ncurses's magic detection code
 # see https://ariadne.space/2021/10/25/dont-do-clever-things-in-configure-scripts
 configure_env = {"PKG_CONFIG_LIBDIR": "/usr/lib/pkgconfig"}
+# reconf is broken
+configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]
 depends = [f"ncurses-base={pkgver}-r{pkgrel}"]
@@ -120,6 +122,13 @@ def _devel(self):
 @subpackage("ncurses-base")
 def _base(self):
     self.pkgdesc = f"{pkgdesc} (base terminfo files)"
+    self.replaces = [
+        # these used to ship their own, compat for upgrade
+        "alacritty-terminfo",
+        "foot-terminfo",
+        # moved from there into here
+        "ncurses-term<6.4-r1",
+    ]
     self.options = ["hardlinks"]
 
     flist = []
@@ -140,6 +149,3 @@ def _term(self):
         "usr/share/tabset",
         "usr/share/terminfo",
     ]
-
-
-configure_gen = []
