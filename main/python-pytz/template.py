@@ -1,6 +1,7 @@
 pkgname = "python-pytz"
 pkgver = "2023.3"
-pkgrel = 1
+_relver = f"{pkgver}.post1"
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,8 +15,8 @@ pkgdesc = "Python timezone library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pythonhosted.org/pytz"
-source = f"$(PYPI_SITE)/p/pytz/pytz-{pkgver}.tar.gz"
-sha256 = "1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588"
+source = f"$(PYPI_SITE)/p/pytz/pytz-{_relver}.tar.gz"
+sha256 = "7b4fddbeb94a1eba4b557da24f19fdf9db575192544270a9101d8509f9f43d7b"
 # dependency of pytest
 options = ["!check", "brokenlinks"]
 
