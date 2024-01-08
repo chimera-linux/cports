@@ -1,0 +1,11 @@
+--- a/doc/Makefile.orig	2024-01-08 20:20:50.584116218 +0100
++++ b/doc/Makefile	2024-01-08 20:21:40.783645535 +0100
+@@ -23,7 +23,7 @@
+ 
+ # reproducible builds: reference date is ":date:" attribute from asciidoc source
+ date_attr = $(shell sed -rn 's/:date:\s*//p' $(1))
+-source_date_epoch = $(shell date +%s -u -d $(call date_attr,$(1)))
++source_date_epoch = $(shell date -j -f "%Y-%m-%d-%H:%M:%S" $(call date_attr,$(1))-0:0:0 "+%s")
+ 
+ 
+ all: man
