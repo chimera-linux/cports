@@ -1,11 +1,18 @@
 pkgname = "cracklib"
 pkgver = "2.9.11"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = f"{pkgname}"
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gettext-devel", "gmake", "bash"]
+hostmakedepends = [
+    "automake",
+    "bash",
+    "gettext-devel",
+    "gmake",
+    "libtool",
+    "pkgconf",
+]
 depends = ["cmd:gzip!chimerautils"]
 triggers = ["/usr/share/cracklib"]
 pkgdesc = "Password checking library"
@@ -55,6 +62,3 @@ def _words(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/share/cracklib/cracklib-words.gz"]
-
-
-configure_gen = []
