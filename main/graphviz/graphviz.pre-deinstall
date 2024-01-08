@@ -1,3 +1,0 @@
-#!/bin/sh
-
-rm -f /usr/lib/graphviz/config6 > /dev/null 2>&1 || :

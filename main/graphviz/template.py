@@ -1,6 +1,6 @@
 pkgname = "graphviz"
 pkgver = "9.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-lefty"]
 configure_gen = ["./autogen.sh"]
