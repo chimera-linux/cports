@@ -24,4 +24,24 @@ def invoke(pkg):
         pkg.python_version = None
         pkg.python_major = None
         pkg.python_minor = None
-        pkg.python_site = None
+    # determine ruby version
+    rbpath = paths.bldroot() / "usr/lib/ruby"
+    pkg.ruby_version = None
+    pkg.ruby_major = None
+    pkg.ruby_minor = None
+    pkg.ruby_patch = None
+    if rbpath.is_dir():
+        for rb in rbpath.iterdir():
+            rver = rb.name.split(".")
+            if len(rver) != 3:
+                continue
+            try:
+                rmaj = int(rver[0])
+                rmin = int(rver[1])
+                rpatch = int(rver[2])
+            except ValueError:
+                continue
+            pkg.ruby_version = ".".join(rver)
+            pkg.ruby_major = rmaj
+            pkg.ruby_minor = rmin
+            pkg.ruby_patch = rpatch

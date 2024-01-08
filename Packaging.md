@@ -2701,6 +2701,10 @@ is available in the build root.
 The `python_version` is a string (e.g. `3.12`) while the other two are integers
 (e.g. 3 and 12).
 
+##### self.ruby_version, self.ruby_major, self.ruby_minor, self.ruby_patch
+
+Similar to Python above, but for Ruby.
+
 ##### def do(self, cmd, *args, env = None, wrksrc = None, capture_output = False, stdout = None, stderr = None, input = None, check = True, allow_network = False)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,
