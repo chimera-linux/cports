@@ -1,0 +1,11 @@
+--- a/lib/device/device_id.c
++++ b/lib/device/device_id.c
+@@ -723,7 +723,7 @@ static int _dev_read_sys_serial(struct cmd_context *cmd, struct device *dev,
+ 		int ret;
+ 
+ 		/* /dev/vda to vda */
+-		base = basename(devname);
++		base = strrchr(devname, '/') + 1;
+ 
+ 		/* vda1 to vda */
+ 		for (i = 0; i < strlen(base); i++) {

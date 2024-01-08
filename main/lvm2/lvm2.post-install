@@ -1,4 +1,0 @@
-#!/bin/sh
-
-install -d -m 755 /etc/lvm/archive
-install -d -m 755 /etc/lvm/backup

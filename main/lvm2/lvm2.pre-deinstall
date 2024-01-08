@@ -1,4 +1,0 @@
-#!/bin/sh
-
-rmdir /etc/lvm/archive > /dev/null 2>&1 || :
-rmdir /etc/lvm/backup > /dev/null 2>&1 || :

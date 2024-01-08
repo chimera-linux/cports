@@ -1,6 +1,6 @@
 pkgname = "lvm2"
-pkgver = "2.03.22"
-pkgrel = 1
+pkgver = "2.03.23"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-editline",
@@ -51,7 +51,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://sourceware.org/lvm2"
 source = f"https://mirrors.kernel.org/sourceware/{pkgname}/releases/LVM2.{pkgver}.tgz"
-sha256 = "4c5a6923bd1ace7ce04474608a84937ce053ba91b1ace9f0b0017268e732dc7c"
+sha256 = "74e794a9e9dee1bcf8a2065f65b9196c44fdf321e22d63b98ed7de8c9aa17a5d"
 # the tests are full of scary gnuisms + don't work rootless
 options = ["!check"]
 # otherwise we're in for a world of pain
@@ -71,6 +71,7 @@ def pre_install(self):
 def post_install(self):
     self.install_service(self.files_path / "dmeventd")
     self.install_service(self.files_path / "lvmetad")
+    self.install_file(self.files_path / "lvm2.conf", "usr/lib/tmpfiles.d")
 
     self.install_file(
         self.files_path / "dmsetup.hook",

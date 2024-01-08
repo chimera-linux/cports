@@ -1,6 +1,6 @@
-commit 362125a389965820550da4ab3e6f753831d7851c
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Wed Nov 16 03:43:41 2022 +0100
+commit 3ba0159e3fe03ff288b635b8c5b616890fdb461a
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Jan 8 02:09:10 2024 +0100
 
     attempt to remove gnuisms the best i can
 
@@ -54,35 +54,34 @@ index d22c7d0..3b193b8 100755
  
  if [ "$#" -eq 0 ] ; then
 diff --git a/scripts/lvm_import_vdo.sh b/scripts/lvm_import_vdo.sh
-index c4c1d15..d4bb301 100755
+index 7f3f413..19f391b 100755
 --- a/scripts/lvm_import_vdo.sh
 +++ b/scripts/lvm_import_vdo.sh
-@@ -163,7 +163,7 @@ detect_lv_() {
+@@ -304,7 +304,7 @@ detect_lv_() {
  		DEVMINOR=${MAJORMINOR##*:}
  		;;
  	  *)
 -		RSTAT=$("$STAT" --format "DEVMAJOR=\$((0x%t)) DEVMINOR=\$((0x%T))" "$RDEVICE" || true)
 +		RSTAT=$("$STAT" -f "DEVMAJOR=\$((0x%XHr)) DEVMINOR=\$((0x%XLr))" "$RDEVICE" || true)
- 		test -n "$RSTAT" || error "Cannot get major:minor for \"$DEVICE\"."
+ 		[ -n "$RSTAT" ] || error "Cannot get major:minor for \"$DEVICE\"."
  		eval "$RSTAT"
  		;;
-@@ -282,7 +282,7 @@ convert2lvm_() {
+@@ -598,7 +598,7 @@ convert2lvm_() {
  	for i in $(awk '/.*device:/ {print $2}' "$TEMPDIR/vdoconf.yml") ; do
  		local DEV
  		DEV=$("$READLINK" $READLINK_E "$i") || continue
 -		RSTAT=$("$STAT" --format "MAJOR=\$((0x%t)) MINOR=\$((0x%T))" "$DEV" 2>/dev/null) || continue
 +		RSTAT=$("$STAT" -f "MAJOR=\$((0x%XHr)) MINOR=\$((0x%XLr))" "$DEV" 2>/dev/null) || continue
  		eval "$RSTAT"
- 		test "$MAJOR" = "$DEVMAJOR" && test "$MINOR" = "$DEVMINOR" && {
- 			test -z "$FOUND" || error "VDO configuration contains duplicate entries $FOUND and $i"
-@@ -440,5 +440,7 @@ done
+ 		if [ "$MAJOR" = "$DEVMAJOR" ] && [ "$MINOR" = "$DEVMINOR" ]; then
+ 			[ -z "$FOUND" ] || error "VDO configuration contains duplicate entries $FOUND and $i."
+@@ -711,4 +711,6 @@ done
  
- test -n "$DEVICENAME" || error "Device name is not specified. (see: $TOOL --help)"
+ [ -n "$DEVICE" ] || error "Device name is not specified. (see: $TOOL --help)"
  
 +"$READLINK" -e / >/dev/null 2>&1 || READLINK_E="-f"
 +
- # do conversion
- convert2lvm_ "$DEVICENAME"
+ convert2lvm_
 diff --git a/scripts/lvmdump.sh.in b/scripts/lvmdump.sh.in
 index 0685d85..12f98d3 100644
 --- a/scripts/lvmdump.sh.in
@@ -117,10 +116,10 @@ index 0685d85..12f98d3 100644
  
  if (( lvmetad )); then
 diff --git a/scripts/lvresize_fs_helper.sh b/scripts/lvresize_fs_helper.sh
-index 031b845..3e42453 100755
+index 1c48a71..81a4b7e 100755
 --- a/scripts/lvresize_fs_helper.sh
 +++ b/scripts/lvresize_fs_helper.sh
-@@ -311,7 +311,7 @@ if [ "$UID" != 0 ] && [ "$EUID" != 0 ]; then
+@@ -295,7 +295,7 @@ if [ "$(id -u)" != 0 ]; then
  	errorexit "${SCRIPTNAME} must be run as root."
  fi
  
@@ -129,7 +128,7 @@ index 031b845..3e42453 100755
  
  OPTIONS=$("$GETOPT" -o h -l help,fsextend,fsreduce,cryptresize,mount,unmount,remount,fsck,fstype:,lvpath:,newsizebytes:,mountdir:,cryptpath: -n "${SCRIPTNAME}" -- "$@")
  eval set -- "$OPTIONS"
-@@ -435,7 +435,7 @@ if [[ "$DO_FSCK" -eq 1 && "$FSTYPE" == "xfs" ]]; then
+@@ -419,7 +419,7 @@ if [ "$DO_FSCK" -eq 1 ] && [ "$FSTYPE" = "xfs" ]; then
  fi
  
  if [ "$DO_MOUNT" -eq 1 ]; then
