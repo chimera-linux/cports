@@ -1,6 +1,6 @@
 pkgname = "os-prober"
 pkgver = "1.81"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Utility to detect other OSes on a set of drives"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
@@ -27,6 +27,8 @@ def do_build(self):
 def do_install(self):
     self.install_bin("linux-boot-prober")
     self.install_bin("os-prober")
+
+    self.install_file(self.files_path / "os-prober.conf", "usr/lib/tmpfiles.d")
 
     self.install_file("newns", "usr/lib/os-prober", mode=0o755)
     self.install_file("common.sh", "usr/share/os-prober", mode=0o755)
