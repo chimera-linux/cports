@@ -1,3 +1,0 @@
-#!/bin/sh
-
-/usr/bin/rm -f /etc/ssl/certs/java/cacerts > /dev/null 2>&1 || :

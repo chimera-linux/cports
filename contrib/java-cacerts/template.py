@@ -1,6 +1,6 @@
 pkgname = "java-cacerts"
 pkgver = "1.0"
-pkgrel = 0
+pkgrel = 1
 depends = ["p11-kit"]
 pkgdesc = "Script to update Java cacerts store"
 maintainer = "q66 <q66@chimera-linux.org>"
