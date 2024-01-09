@@ -1,0 +1,2 @@
+# Enable serial console on HiFive Unmatched by default.
+EXTRA_GETTYS="/dev/ttySIF0"
