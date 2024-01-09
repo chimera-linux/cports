@@ -1,0 +1,53 @@
+diff -Nurp a/GNUmakefile b/GNUmakefile
+--- a/GNUmakefile	2021-11-10 02:42:18.000000000 +0000
++++ b/GNUmakefile	2024-01-10 06:28:27.867044579 +0000
+@@ -170,12 +170,12 @@ JAVA_RUNTIME_CLASSES=$(JAVARUNTIME_SOURCES:.java=.clas
+ JAVA_CLASSES = $(JAVA_SOURCES:.java=.class)
+ JAVA_RUNTIME_CLASSES=$(JAVARUNTIME_SOURCES:.java=.class)
+ 
+-CFLAGS=-O2 -W -Wall -Wmissing-prototypes -Wmissing-declarations
++CFLAGS=-fPIC -O2 -W -Wall -Wmissing-prototypes -Wmissing-declarations
+ CPPFLAGS=
+ 
+ INCLUDES=-Iinclude
+ 
+-all: snowball$(EXEEXT) libstemmer.a stemwords$(EXEEXT) $(C_OTHER_SOURCES) $(C_OTHER_HEADERS) $(C_OTHER_OBJECTS)
++all: snowball$(EXEEXT) libstemmer.so stemwords$(EXEEXT) $(C_OTHER_SOURCES) $(C_OTHER_HEADERS) $(C_OTHER_OBJECTS)
+ 
+ algorithms.mk: libstemmer/mkalgorithms.pl libstemmer/modules.txt
+ 	libstemmer/mkalgorithms.pl algorithms.mk libstemmer/modules.txt
+@@ -222,19 +222,20 @@ libstemmer/libstemmer.o: libstemmer/modules.h $(C_LIB_
+ 
+ libstemmer/libstemmer.o: libstemmer/modules.h $(C_LIB_HEADERS)
+ 
+-libstemmer.a: libstemmer/libstemmer.o $(RUNTIME_OBJECTS) $(C_LIB_OBJECTS)
+-	$(AR) -cru $@ $^
++libstemmer.so: libstemmer/libstemmer.o $(RUNTIME_OBJECTS) $(C_LIB_OBJECTS)
++	$(CC) $(CFLAGS) -shared $(LDFLAGS) -Wl,-soname,$@.$(SNOWBALL_VERSION),-version-script,libstemmer/symbol.map -o $@.$(SNOWBALL_VERSION) $^
++	ln -s $@.$(SNOWBALL_VERSION) $@
+ 
+ examples/%.o: examples/%.c
+ 	$(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) -c -o $@ $<
+ 
+-stemwords$(EXEEXT): $(STEMWORDS_OBJECTS) libstemmer.a
++stemwords$(EXEEXT): $(STEMWORDS_OBJECTS) libstemmer.so
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+ 
+ tests/%.o: tests/%.c
+ 	$(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) -c -o $@ $<
+ 
+-stemtest$(EXEEXT): $(STEMTEST_OBJECTS) libstemmer.a
++stemtest$(EXEEXT): $(STEMTEST_OBJECTS) libstemmer.so
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+ 
+ csharp_stemwords$(EXEEXT): $(CSHARP_STEMWORDS_SOURCES) $(CSHARP_RUNTIME_SOURCES) $(CSHARP_SOURCES)
+diff -Nurp a/libstemmer/symbol.map b/libstemmer/symbol.map
+--- a/libstemmer/symbol.map	1970-01-01 00:00:00.000000000 +0000
++++ b/libstemmer/symbol.map	2024-01-09 22:39:45.233427379 +0000
+@@ -0,0 +1,6 @@
++SB_STEMMER_0 {
++    global:
++        sb_stemmer_*;
++    local:
++        *;
++};
