@@ -1,4 +1,0 @@
-#!/bin/sh
-# enable serial console on first install
-/usr/bin/mkdir -p /etc/dinit.d/boot.d || :
-/usr/bin/ln -sf ../agetty-ttymxc0 /etc/dinit.d/boot.d/agetty-ttymxc0 || :
