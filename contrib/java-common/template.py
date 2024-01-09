@@ -1,6 +1,6 @@
 pkgname = "java-common"
 pkgver = "1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 # technically a cycle, but we don't want this installable without having
 # any java provider around, and it gets built as a dep of every openjdk

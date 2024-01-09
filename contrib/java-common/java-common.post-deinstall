@@ -1,3 +1,0 @@
-#!/bin/sh
-
-rm -f "/etc/profile.d/java-jre.sh" || :
