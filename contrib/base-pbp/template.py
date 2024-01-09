@@ -1,6 +1,6 @@
 pkgname = "base-pbp"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64"]
 depends = [
     "firmware-ap6256",
@@ -15,6 +15,7 @@ url = "https://chimera-linux.org"
 
 
 def do_install(self):
+    self.install_file(self.files_path / "agetty", "etc/default")
     self.install_file(
         self.files_path / "60-pinebookpro.rules", "usr/lib/udev/rules.d"
     )
