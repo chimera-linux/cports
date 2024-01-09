@@ -1,6 +1,6 @@
 pkgname = "shadow"
 pkgver = "4.14.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",
@@ -16,12 +16,14 @@ configure_args = [
     "--enable-subordinate-ids",
     "--disable-account-tools-setuid",
 ]
+configure_gen = []
 make_cmd = "gmake"
 # out of tree is broken with libsubid
 make_dir = "."
 hostmakedepends = ["gmake"]
 makedepends = ["acl-devel", "linux-pam-devel", "linux-headers"]
 depends = ["linux-pam", "base-shells"]
+triggers = ["/var/lib/shadow"]
 pkgdesc = "Shadow password file utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -89,7 +91,12 @@ def post_install(self):
     self.rm(self.destdir / "usr/bin/groups")
     self.rm(self.destdir / "usr/share/man/man1/groups.1")
 
+    # trigger
+    self.install_dir("var/lib/shadow", empty=True)
+
     self.install_license(self.files_path / "LICENSE")
 
 
-configure_gen = []
+@subpackage("shadow-devel")
+def _devel(self):
+    return self.default_devel()
