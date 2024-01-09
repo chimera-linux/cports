@@ -1,5 +1,5 @@
 pkgname = "atf-rk3399-bl31"
-pkgver = "2.8.11"
+pkgver = "2.10.2"
 pkgrel = 0
 archs = ["aarch64"]
 build_style = "makefile"
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://developer.trustedfirmware.org/dashboard/view/6"
 source = f"https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot/trusted-firmware-a-lts-v{pkgver}.tar.gz"
-sha256 = "7b061acf0696df4a9f6cbeeb485ed9d875275a9dd426293ef572e5060dc6af10"
+sha256 = "70d2104e75f3dc1daf01b73ec31d81ddefb81bdacf66f9052ad7b0cf53a064c0"
 hardening = ["!int"]
 # not relevant
 options = ["!strip", "!check", "!lto", "!debug", "execstack"]
