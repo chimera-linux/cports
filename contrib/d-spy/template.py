@@ -1,5 +1,5 @@
 pkgname = "d-spy"
-pkgver = "1.8.0"
+pkgver = "1.9.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -18,8 +18,8 @@ pkgdesc = "D-Bus inspector and debugger"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/d-spy"
-source = f"https://gitlab.gnome.org/GNOME/d-spy/-/archive/{pkgver}/d-spy-{pkgver}.tar.gz"
-sha256 = "bb11d69662415ed61e9d4c2da03a6d6b4bf2877e46f09ec8f4fa3837c7977245"
+source = f"{url}/-/archive/{pkgver}/d-spy-{pkgver}.tar.gz"
+sha256 = "89b3b5aec27b88c8d99ebc9c79ecb9b7af0789dd39f487a1c25c70293b394209"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 
