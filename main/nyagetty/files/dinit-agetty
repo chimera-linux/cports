@@ -1,12 +1,13 @@
 #!/bin/sh
 
 [ -r /etc/default/console-setup ] && . /etc/default/console-setup
+[ -r /etc/default/agetty ] && . /etc/default/agetty
 
 export PATH=/usr/bin
 
 # the specified active consoles we want
 ACTIVE_CONSOLES=$(
-    for tty in $ACTIVE_CONSOLES; do
+    for tty in $ACTIVE_CONSOLES $EXTRA_GETTYS; do
         if [ -e $tty ]; then
             echo $tty
         fi
