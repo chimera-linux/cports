@@ -1,6 +1,6 @@
 pkgname = "power-profiles-daemon"
 pkgver = "0.13"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dsystemdsystemunitdir=/tmp"]
 hostmakedepends = [
@@ -13,7 +13,7 @@ makedepends = [
     "polkit-devel",
     "upower-devel",
 ]
-depends = ["!tlp"]
+depends = ["!tlp", "python-gobject"]
 install_if = [f"power-profiles-daemon-meta={pkgver}-r{pkgrel}"]
 pkgdesc = "D-Bus daemon for power management control"
 maintainer = "Val Packett <val@packett.cool>"
