@@ -1,8 +1,0 @@
-#!/bin/sh
-
-export PATH=/usr/bin
-
-install -d -m 755 /etc/dinit.d/boot.d > /dev/null 2>&1 || :
-install -d -m 755 /usr/lib/dinit.d/boot.d > /dev/null 2>&1 || :
-install -d -m 700 /var/lib/swclock > /dev/null 2>&1 || :
-touch /var/lib/swclock/timestamp > /dev/null 2>&1 || :

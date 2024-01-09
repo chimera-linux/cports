@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
@@ -19,7 +19,7 @@ depends = [
     "virtual:cmd:udevadm!udev",
     "virtual:cmd:systemd-tmpfiles!systemd-utils",
 ]
-triggers = ["/usr/lib/binfmt.d"]
+triggers = ["/usr/lib/binfmt.d", "/var/lib/swclock"]
 pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
@@ -33,8 +33,11 @@ options = ["!check", "brokenlinks"]
 
 def post_install(self):
     self.install_license("COPYING.md")
-    self.install_file(self.files_path / "hostname", "etc")
     self.install_file(self.files_path / "locale.conf", "etc")
+    self.install_file(self.files_path / "dinit.conf", "usr/lib/tmpfiles.d")
+    # swclock
+    self.install_dir("var/lib/swclock")
+    (self.destdir / "var/lib/swclock/timestamp").touch(0o644)
     # init symlink
     self.install_dir("usr/bin")
     self.install_link("dinit", "usr/bin/init")
