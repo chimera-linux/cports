@@ -1,6 +1,6 @@
 pkgname = "firefox"
 pkgver = "121.0.1"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 hostmakedepends = [
     "pkgconf",
@@ -156,7 +156,6 @@ def do_configure(self):
         "--enable-default-toolkit=cairo-gtk3-wayland",
         "--enable-audio-backends=pulseaudio",
         # disabled features
-        "--disable-crashreporter",
         "--disable-profiling",
         "--disable-jemalloc",
         "--disable-tests",
