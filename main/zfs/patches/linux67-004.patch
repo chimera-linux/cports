@@ -1,0 +1,362 @@
+From 03b84099d9c4d3f1b4d1b123abc967e81f6d15db Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Sun, 17 Dec 2023 00:36:21 +1100
+Subject: [PATCH] linux 6.7 compat: rework shrinker setup for heap allocations
+
+6.7 changes the shrinker API such that shrinkers must be allocated
+dynamically by the kernel. To accomodate this, this commit reworks
+spl_register_shrinker() to do something similar against earlier kernels.
+
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+Sponsored-by: https://github.com/sponsors/robn
+---
+ config/kernel-shrink.m4             |  52 +++++++++++--
+ include/os/linux/spl/sys/shrinker.h |  66 +++++-----------
+ module/Kbuild.in                    |   1 +
+ module/os/linux/spl/spl-shrinker.c  | 115 ++++++++++++++++++++++++++++
+ module/os/linux/zfs/arc_os.c        |  11 ++-
+ 5 files changed, 189 insertions(+), 56 deletions(-)
+ create mode 100644 module/os/linux/spl/spl-shrinker.c
+
+diff --git a/config/kernel-shrink.m4 b/config/kernel-shrink.m4
+index 1c5f753d411c..4a529c43b5b0 100644
+--- a/config/kernel-shrink.m4
++++ b/config/kernel-shrink.m4
+@@ -128,6 +128,25 @@ AC_DEFUN([ZFS_AC_KERNEL_SRC_SHRINKER_CALLBACK], [
+ 	])
+ ])
+ 
++dnl #
++dnl # 6.7 API change
++dnl # register_shrinker has been replaced by shrinker_register.
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_SHRINKER_REGISTER], [
++	ZFS_LINUX_TEST_SRC([shrinker_register], [
++		#include <linux/shrinker.h>
++		unsigned long shrinker_cb(struct shrinker *shrink,
++		    struct shrink_control *sc) { return 0; }
++	],[
++		struct shrinker cache_shrinker = {
++			.count_objects = shrinker_cb,
++			.scan_objects = shrinker_cb,
++			.seeks = DEFAULT_SEEKS,
++		};
++		shrinker_register(&cache_shrinker);
++	])
++])
++
+ AC_DEFUN([ZFS_AC_KERNEL_SHRINKER_CALLBACK],[
+ 	dnl #
+ 	dnl # 6.0 API change
+@@ -165,14 +184,36 @@ AC_DEFUN([ZFS_AC_KERNEL_SHRINKER_CALLBACK],[
+ 			dnl # cs->shrink() is logically split in to
+ 			dnl # cs->count_objects() and cs->scan_objects()
+ 			dnl #
+-			AC_MSG_CHECKING([if cs->count_objects callback exists])
++			AC_MSG_CHECKING(
++			    [whether cs->count_objects callback exists])
+ 			ZFS_LINUX_TEST_RESULT(
+-				[shrinker_cb_shrink_control_split],[
+-					AC_MSG_RESULT(yes)
+-					AC_DEFINE(HAVE_SPLIT_SHRINKER_CALLBACK, 1,
+-						[cs->count_objects exists])
++			    [shrinker_cb_shrink_control_split],[
++				AC_MSG_RESULT(yes)
++				AC_DEFINE(HAVE_SPLIT_SHRINKER_CALLBACK, 1,
++				    [cs->count_objects exists])
+ 			],[
++				AC_MSG_RESULT(no)
++
++				AC_MSG_CHECKING(
++				    [whether shrinker_register exists])
++				ZFS_LINUX_TEST_RESULT([shrinker_register], [
++					AC_MSG_RESULT(yes)
++					AC_DEFINE(HAVE_SHRINKER_REGISTER, 1,
++					    [shrinker_register exists])
++
++					dnl # We assume that the split shrinker
++					dnl # callback exists if
++					dnl # shrinker_register() exists,
++					dnl # because the latter is a much more
++					dnl # recent addition, and the macro
++					dnl # test for shrinker_register() only
++					dnl # works if the callback is split
++					AC_DEFINE(HAVE_SPLIT_SHRINKER_CALLBACK,
++					    1, [cs->count_objects exists])
++				],[
++					AC_MSG_RESULT(no)
+ 					ZFS_LINUX_TEST_ERROR([shrinker])
++				])
+ 			])
+ 		])
+ 	])
+@@ -211,6 +252,7 @@ AC_DEFUN([ZFS_AC_KERNEL_SRC_SHRINKER], [
+ 	ZFS_AC_KERNEL_SRC_SHRINKER_CALLBACK
+ 	ZFS_AC_KERNEL_SRC_SHRINK_CONTROL_STRUCT
+ 	ZFS_AC_KERNEL_SRC_REGISTER_SHRINKER_VARARG
++	ZFS_AC_KERNEL_SRC_SHRINKER_REGISTER
+ ])
+ 
+ AC_DEFUN([ZFS_AC_KERNEL_SHRINKER], [
+diff --git a/include/os/linux/spl/sys/shrinker.h b/include/os/linux/spl/sys/shrinker.h
+index d472754be4f4..bca4c850694a 100644
+--- a/include/os/linux/spl/sys/shrinker.h
++++ b/include/os/linux/spl/sys/shrinker.h
+@@ -29,12 +29,13 @@
+ 
+ /*
+  * Due to frequent changes in the shrinker API the following
+- * compatibility wrappers should be used.  They are as follows:
++ * compatibility wrapper should be used.
+  *
+- *   SPL_SHRINKER_DECLARE(varname, countfunc, scanfunc, seek_cost);
++ *   shrinker = spl_register_shrinker(name, countfunc, scanfunc, seek_cost);
++ *   spl_unregister_shrinker(shrinker);
+  *
+- * SPL_SHRINKER_DECLARE is used to declare a shrinker with the name varname,
+- * which is passed to spl_register_shrinker()/spl_unregister_shrinker().
++ * spl_register_shrinker is used to create and register a shrinker with the
++ * given name.
+  * The countfunc returns the number of free-able objects.
+  * The scanfunc returns the number of objects that were freed.
+  * The callbacks can return SHRINK_STOP if further calls can't make any more
+@@ -57,57 +58,28 @@
+  *	...scan objects in the cache and reclaim them...
+  * }
+  *
+- * SPL_SHRINKER_DECLARE(my_shrinker, my_count, my_scan, DEFAULT_SEEKS);
++ * static struct shrinker *my_shrinker;
+  *
+  * void my_init_func(void) {
+- *	spl_register_shrinker(&my_shrinker);
++ *	my_shrinker = spl_register_shrinker("my-shrinker",
++ *	    my_count, my_scan, DEFAULT_SEEKS);
++ * }
++ *
++ * void my_fini_func(void) {
++ *	spl_unregister_shrinker(my_shrinker);
+  * }
+  */
+ 
+-#ifdef HAVE_REGISTER_SHRINKER_VARARG
+-#define	spl_register_shrinker(x)	register_shrinker(x, "zfs-arc-shrinker")
+-#else
+-#define	spl_register_shrinker(x)	register_shrinker(x)
+-#endif
+-#define	spl_unregister_shrinker(x)	unregister_shrinker(x)
++typedef unsigned long (*spl_shrinker_cb)
++	(struct shrinker *, struct shrink_control *);
+ 
+-/*
+- * Linux 3.0 to 3.11 Shrinker API Compatibility.
+- */
+-#if defined(HAVE_SINGLE_SHRINKER_CALLBACK)
+-#define	SPL_SHRINKER_DECLARE(varname, countfunc, scanfunc, seek_cost)	\
+-static int								\
+-__ ## varname ## _wrapper(struct shrinker *shrink, struct shrink_control *sc)\
+-{									\
+-	if (sc->nr_to_scan != 0) {					\
+-		(void) scanfunc(shrink, sc);				\
+-	}								\
+-	return (countfunc(shrink, sc));					\
+-}									\
+-									\
+-static struct shrinker varname = {					\
+-	.shrink = __ ## varname ## _wrapper,				\
+-	.seeks = seek_cost,						\
+-}
++struct shrinker *spl_register_shrinker(const char *name,
++    spl_shrinker_cb countfunc, spl_shrinker_cb scanfunc, int seek_cost);
++void spl_unregister_shrinker(struct shrinker *);
+ 
++#ifndef SHRINK_STOP
++/* 3.0-3.11 compatibility */
+ #define	SHRINK_STOP	(-1)
+-
+-/*
+- * Linux 3.12 and later Shrinker API Compatibility.
+- */
+-#elif defined(HAVE_SPLIT_SHRINKER_CALLBACK)
+-#define	SPL_SHRINKER_DECLARE(varname, countfunc, scanfunc, seek_cost)	\
+-static struct shrinker varname = {					\
+-	.count_objects = countfunc,					\
+-	.scan_objects = scanfunc,					\
+-	.seeks = seek_cost,						\
+-}
+-
+-#else
+-/*
+- * Linux 2.x to 2.6.22, or a newer shrinker API has been introduced.
+- */
+-#error "Unknown shrinker callback"
+ #endif
+ 
+ #endif /* SPL_SHRINKER_H */
+diff --git a/module/Kbuild.in b/module/Kbuild.in
+index b9c284a24418..f1a145779ddc 100644
+--- a/module/Kbuild.in
++++ b/module/Kbuild.in
+@@ -79,6 +79,7 @@ SPL_OBJS := \
+ 	spl-kstat.o \
+ 	spl-proc.o \
+ 	spl-procfs-list.o \
++	spl-shrinker.o \
+ 	spl-taskq.o \
+ 	spl-thread.o \
+ 	spl-trace.o \
+diff --git a/module/os/linux/spl/spl-shrinker.c b/module/os/linux/spl/spl-shrinker.c
+new file mode 100644
+index 000000000000..d5c8da471cbb
+--- /dev/null
++++ b/module/os/linux/spl/spl-shrinker.c
+@@ -0,0 +1,115 @@
++/*
++ *  Copyright (C) 2007-2010 Lawrence Livermore National Security, LLC.
++ *  Copyright (C) 2007 The Regents of the University of California.
++ *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
++ *  Written by Brian Behlendorf <behlendorf1@llnl.gov>.
++ *  UCRL-CODE-235197
++ *
++ *  This file is part of the SPL, Solaris Porting Layer.
++ *
++ *  The SPL is free software; you can redistribute it and/or modify it
++ *  under the terms of the GNU General Public License as published by the
++ *  Free Software Foundation; either version 2 of the License, or (at your
++ *  option) any later version.
++ *
++ *  The SPL is distributed in the hope that it will be useful, but WITHOUT
++ *  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
++ *  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++ *  for more details.
++ *
++ *  You should have received a copy of the GNU General Public License along
++ *  with the SPL.  If not, see <http://www.gnu.org/licenses/>.
++ *
++ *  Solaris Porting Layer (SPL) Shrinker Implementation.
++ */
++
++#include <sys/kmem.h>
++#include <sys/shrinker.h>
++
++#ifdef HAVE_SINGLE_SHRINKER_CALLBACK
++/* 3.0-3.11: single shrink() callback, which we wrap to carry both functions */
++struct spl_shrinker_wrap {
++	struct shrinker shrinker;
++	spl_shrinker_cb countfunc;
++	spl_shrinker_cb scanfunc;
++};
++
++static int
++spl_shrinker_single_cb(struct shrinker *shrinker, struct shrink_control *sc)
++{
++	struct spl_shrinker_wrap *sw = (struct spl_shrinker_wrap *)shrinker;
++
++	if (sc->nr_to_scan != 0)
++		(void) sw->scanfunc(&sw->shrinker, sc);
++	return (sw->countfunc(&sw->shrinker, sc));
++}
++#endif
++
++struct shrinker *
++spl_register_shrinker(const char *name, spl_shrinker_cb countfunc,
++    spl_shrinker_cb scanfunc, int seek_cost)
++{
++	struct shrinker *shrinker;
++
++	/* allocate shrinker */
++#if defined(HAVE_SHRINKER_REGISTER)
++	/* 6.7: kernel will allocate the shrinker for us */
++	shrinker = shrinker_alloc(0, name);
++#elif defined(HAVE_SPLIT_SHRINKER_CALLBACK)
++	/* 3.12-6.6: we allocate the shrinker  */
++	shrinker = kmem_zalloc(sizeof (struct shrinker), KM_SLEEP);
++#elif defined(HAVE_SINGLE_SHRINKER_CALLBACK)
++	/* 3.0-3.11: allocate a wrapper */
++	struct spl_shrinker_wrap *sw =
++	    kmem_zalloc(sizeof (struct spl_shrinker_wrap), KM_SLEEP);
++	shrinker = &sw->shrinker;
++#else
++	/* 2.x-2.6.22, or a newer shrinker API has been introduced. */
++#error "Unknown shrinker API"
++#endif
++
++	if (shrinker == NULL)
++		return (NULL);
++
++	/* set callbacks */
++#ifdef HAVE_SINGLE_SHRINKER_CALLBACK
++	sw->countfunc = countfunc;
++	sw->scanfunc = scanfunc;
++	shrinker->shrink = spl_shrinker_single_cb;
++#else
++	shrinker->count_objects = countfunc;
++	shrinker->scan_objects = scanfunc;
++#endif
++
++	/* set params */
++	shrinker->seeks = seek_cost;
++
++	/* register with kernel */
++#if defined(HAVE_SHRINKER_REGISTER)
++	shrinker_register(shrinker);
++#elif defined(HAVE_REGISTER_SHRINKER_VARARG)
++	register_shrinker(shrinker, name);
++#else
++	register_shrinker(shrinker);
++#endif
++
++	return (shrinker);
++}
++EXPORT_SYMBOL(spl_register_shrinker);
++
++void
++spl_unregister_shrinker(struct shrinker *shrinker)
++{
++#if defined(HAVE_SHRINKER_REGISTER)
++	shrinker_free(shrinker);
++#elif defined(HAVE_SPLIT_SHRINKER_CALLBACK)
++	unregister_shrinker(shrinker);
++	kmem_free(shrinker, sizeof (struct shrinker));
++#elif defined(HAVE_SINGLE_SHRINKER_CALLBACK)
++	unregister_shrinker(shrinker);
++	kmem_free(shrinker, sizeof (struct spl_shrinker_wrap));
++#else
++#error "Unknown shrinker API"
++#endif
++}
++EXPORT_SYMBOL(spl_unregister_shrinker);
+diff --git a/module/os/linux/zfs/arc_os.c b/module/os/linux/zfs/arc_os.c
+index 43ed087e2dbb..1fa9f3eb3f5b 100644
+--- a/module/os/linux/zfs/arc_os.c
++++ b/module/os/linux/zfs/arc_os.c
+@@ -247,8 +247,7 @@ arc_shrinker_scan(struct shrinker *shrink, struct shrink_control *sc)
+ 	return (sc->nr_to_scan);
+ }
+ 
+-SPL_SHRINKER_DECLARE(arc_shrinker,
+-    arc_shrinker_count, arc_shrinker_scan, DEFAULT_SEEKS);
++static struct shrinker *arc_shrinker = NULL;
+ 
+ int
+ arc_memory_throttle(spa_t *spa, uint64_t reserve, uint64_t txg)
+@@ -351,14 +350,18 @@ arc_lowmem_init(void)
+ 	 * reclaim from the arc.  This is done to prevent kswapd from
+ 	 * swapping out pages when it is preferable to shrink the arc.
+ 	 */
+-	spl_register_shrinker(&arc_shrinker);
++	arc_shrinker = spl_register_shrinker("zfs-arc-shrinker",
++	    arc_shrinker_count, arc_shrinker_scan, DEFAULT_SEEKS);
++	VERIFY(arc_shrinker);
++
+ 	arc_set_sys_free(allmem);
+ }
+ 
+ void
+ arc_lowmem_fini(void)
+ {
+-	spl_unregister_shrinker(&arc_shrinker);
++	spl_unregister_shrinker(arc_shrinker);
++	arc_shrinker = NULL;
+ }
+ 
+ int
