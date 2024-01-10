@@ -28,9 +28,5 @@ def init_build(self):
     self.env["SETUPTOOLS_SCM_PRETEND_VERSION"] = f"{pkgver}"
 
 
-def init_check(self):
-    self.env["PYTHONPATH"] = "src"
-
-
 def post_install(self):
     self.install_license("LICENSE")

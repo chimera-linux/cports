@@ -2,7 +2,6 @@ pkgname = "python-click"
 pkgver = "8.1.7"
 pkgrel = 1
 build_style = "python_pep517"
-make_check_env = {"PYTHONPATH": "src"}
 hostmakedepends = [
     "python-build",
     "python-installer",

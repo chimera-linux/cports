@@ -2,7 +2,6 @@ pkgname = "python-service-identity"
 pkgver = "23.1.0"
 pkgrel = 1
 build_style = "python_pep517"
-make_check_env = {"PYTHONPATH": "src"}
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 depends = [
     "python-attrs",

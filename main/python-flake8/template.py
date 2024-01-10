@@ -2,7 +2,6 @@ pkgname = "python-flake8"
 pkgver = "7.0.0"
 pkgrel = 0
 build_style = "python_pep517"
-make_check_env = {"PYTHONPATH": "src"}
 hostmakedepends = [
     "python-build",
     "python-installer",

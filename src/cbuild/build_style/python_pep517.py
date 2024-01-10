@@ -27,22 +27,43 @@ def do_check(self):
             ro_build=True,
             unshare_all=True,
         ).returncode
-        == 0
+        != 0
     ):
-        ctgt = []
-        if len(self.make_check_target) > 0:
-            ctgt = [self.make_check_target]
-
-        self.do(
-            "python3",
-            "-m",
-            "pytest",
-            *self.make_check_args,
-            *ctgt,
-            env=self.make_check_env,
-        )
-    else:
         self.error("pytest not found")
+
+    whl = list(
+        map(
+            lambda p: str(p.relative_to(self.cwd)),
+            self.cwd.glob(self.make_install_target),
+        )
+    )
+
+    ctgt = []
+    if len(self.make_check_target) > 0:
+        ctgt = [self.make_check_target]
+
+    self.rm(".cbuild-checkenv", recursive=True, force=True)
+    self.do(
+        "python3",
+        "-m",
+        "venv",
+        "--without-pip",
+        "--system-site-packages",
+        "--clear",
+        ".cbuild-checkenv",
+    )
+
+    envpy = self.chroot_cwd / ".cbuild-checkenv/bin/python3"
+
+    self.do(envpy, "-m", "installer", *self.make_install_args, *whl)
+    self.do(
+        self.chroot_cwd / ".cbuild-checkenv/bin/python3",
+        "-m",
+        "pytest",
+        *self.make_check_args,
+        *ctgt,
+        env=self.make_check_env,
+    )
 
 
 def do_install(self):

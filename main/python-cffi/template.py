@@ -22,20 +22,5 @@ sha256 = "bcb3ef43e58665bbda2fb198698fcae6776483e0c4a631aa5647806c25e02cc0"
 options = ["!check"]
 
 
-def do_check(self):
-    self.do(
-        "python",
-        "-m",
-        "pytest",
-        env={
-            "PYTHONPATH": str(
-                list((self.cwd / "build").glob("lib.*"))[0].relative_to(
-                    self.cwd
-                )
-            )
-        },
-    )
-
-
 def post_install(self):
     self.install_license("LICENSE")
