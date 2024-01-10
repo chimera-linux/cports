@@ -1,0 +1,107 @@
+From 18a9185165e2713e690e52347a37de1878e2a9fc Mon Sep 17 00:00:00 2001
+From: Rob Norris <robn@despairlabs.com>
+Date: Sat, 16 Dec 2023 17:39:07 +1100
+Subject: [PATCH] linux 6.7 compat: handle superblock shrinker member change
+
+In 6.7 the superblock shrinker member s_shrink has changed from being an
+embedded struct to a pointer. Detect this, and don't take a reference if
+it already is one.
+
+Signed-off-by: Rob Norris <robn@despairlabs.com>
+Sponsored-by: https://github.com/sponsors/robn
+---
+ config/kernel-shrink.m4          | 35 +++++++++++++++++++++++++++++++-
+ module/os/linux/zfs/zfs_vfsops.c | 10 +++++++--
+ 2 files changed, 42 insertions(+), 3 deletions(-)
+
+diff --git a/config/kernel-shrink.m4 b/config/kernel-shrink.m4
+index 0c702153e8c4..1c5f753d411c 100644
+--- a/config/kernel-shrink.m4
++++ b/config/kernel-shrink.m4
+@@ -19,12 +19,44 @@ AC_DEFUN([ZFS_AC_KERNEL_SRC_SUPER_BLOCK_S_SHRINK], [
+ 	],[])
+ ])
+ 
++dnl #
++dnl # 6.7 API change
++dnl # s_shrink is now a pointer.
++dnl #
++AC_DEFUN([ZFS_AC_KERNEL_SRC_SUPER_BLOCK_S_SHRINK_PTR], [
++	ZFS_LINUX_TEST_SRC([super_block_s_shrink_ptr], [
++		#include <linux/fs.h>
++		unsigned long shrinker_cb(struct shrinker *shrink,
++		    struct shrink_control *sc) { return 0; }
++		static struct shrinker shrinker = {
++			.count_objects = shrinker_cb,
++			.scan_objects = shrinker_cb,
++			.seeks = DEFAULT_SEEKS,
++		};
++		static const struct super_block
++		    sb __attribute__ ((unused)) = {
++			.s_shrink = &shrinker,
++		};
++	],[])
++])
++
+ AC_DEFUN([ZFS_AC_KERNEL_SUPER_BLOCK_S_SHRINK], [
+ 	AC_MSG_CHECKING([whether super_block has s_shrink])
+ 	ZFS_LINUX_TEST_RESULT([super_block_s_shrink], [
+ 		AC_MSG_RESULT(yes)
++		AC_DEFINE(HAVE_SUPER_BLOCK_S_SHRINK, 1,
++			[have super_block s_shrink])
+ 	],[
+-		ZFS_LINUX_TEST_ERROR([sb->s_shrink()])
++		AC_MSG_RESULT(no)
++		AC_MSG_CHECKING([whether super_block has s_shrink pointer])
++		ZFS_LINUX_TEST_RESULT([super_block_s_shrink_ptr], [
++			AC_MSG_RESULT(yes)
++			AC_DEFINE(HAVE_SUPER_BLOCK_S_SHRINK_PTR, 1,
++				[have super_block s_shrink pointer])
++		],[
++			AC_MSG_RESULT(no)
++			ZFS_LINUX_TEST_ERROR([sb->s_shrink()])
++		])
+ 	])
+ ])
+ 
+@@ -174,6 +206,7 @@ AC_DEFUN([ZFS_AC_KERNEL_SHRINK_CONTROL_STRUCT], [
+ 
+ AC_DEFUN([ZFS_AC_KERNEL_SRC_SHRINKER], [
+ 	ZFS_AC_KERNEL_SRC_SUPER_BLOCK_S_SHRINK
++	ZFS_AC_KERNEL_SRC_SUPER_BLOCK_S_SHRINK_PTR
+ 	ZFS_AC_KERNEL_SRC_SHRINK_CONTROL_HAS_NID
+ 	ZFS_AC_KERNEL_SRC_SHRINKER_CALLBACK
+ 	ZFS_AC_KERNEL_SRC_SHRINK_CONTROL_STRUCT
+diff --git a/module/os/linux/zfs/zfs_vfsops.c b/module/os/linux/zfs/zfs_vfsops.c
+index 2792bc027213..2015c20d7340 100644
+--- a/module/os/linux/zfs/zfs_vfsops.c
++++ b/module/os/linux/zfs/zfs_vfsops.c
+@@ -1240,12 +1240,18 @@ zfs_prune_aliases(zfsvfs_t *zfsvfs, unsigned long nr_to_scan)
+  * and inode caches.  This can occur when the ARC needs to free meta data
+  * blocks but can't because they are all pinned by entries in these caches.
+  */
++#if defined(HAVE_SUPER_BLOCK_S_SHRINK)
++#define	S_SHRINK(sb)	(&(sb)->s_shrink)
++#elif defined(HAVE_SUPER_BLOCK_S_SHRINK_PTR)
++#define	S_SHRINK(sb)	((sb)->s_shrink)
++#endif
++
+ int
+ zfs_prune(struct super_block *sb, unsigned long nr_to_scan, int *objects)
+ {
+ 	zfsvfs_t *zfsvfs = sb->s_fs_info;
+ 	int error = 0;
+-	struct shrinker *shrinker = &sb->s_shrink;
++	struct shrinker *shrinker = S_SHRINK(sb);
+ 	struct shrink_control sc = {
+ 		.nr_to_scan = nr_to_scan,
+ 		.gfp_mask = GFP_KERNEL,
+@@ -1257,7 +1263,7 @@ zfs_prune(struct super_block *sb, unsigned long nr_to_scan, int *objects)
+ #if defined(HAVE_SPLIT_SHRINKER_CALLBACK) && \
+ 	defined(SHRINK_CONTROL_HAS_NID) && \
+ 	defined(SHRINKER_NUMA_AWARE)
+-	if (sb->s_shrink.flags & SHRINKER_NUMA_AWARE) {
++	if (shrinker->flags & SHRINKER_NUMA_AWARE) {
+ 		*objects = 0;
+ 		for_each_online_node(sc.nid) {
+ 			*objects += (*shrinker->scan_objects)(shrinker, &sc);
