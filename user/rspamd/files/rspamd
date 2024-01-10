@@ -1,0 +1,6 @@
+# rspamd service
+
+type            = process
+command         = /usr/bin/rspamd -u _rspamd -g _rspamd --no-fork
+logfile         = /var/log/rspamd/rspamd.log
+depends-on      = network.target
