@@ -1,0 +1,21 @@
+commit 4e252e6797d764ac4fa58387a87e9f5609f5a3f3
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jan 10 06:45:46 2024 +0100
+
+    fix clang build
+
+diff --git a/libbcachefs.c b/libbcachefs.c
+index 68b750a..dc53adf 100644
+--- a/libbcachefs.c
++++ b/libbcachefs.c
+@@ -468,8 +468,9 @@ struct bchfs_handle bchu_fs_open_by_dev(const char *path, int *idx)
+ 		p = strrchr(buf, '/');
+ 		uuid_str = p + 1;
+ 	} else {
++		struct bch_opts opts;
+ read_super:
+-		struct bch_opts opts = bch2_opts_empty();
++		opts = bch2_opts_empty();
+ 
+ 		opt_set(opts, noexcl,	true);
+ 		opt_set(opts, nochanges, true);

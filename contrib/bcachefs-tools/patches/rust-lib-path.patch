@@ -1,0 +1,28 @@
+commit 6e1879582802da8d7d0daea29e77194adde998c1
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jan 10 06:48:59 2024 +0100
+
+    fix libbcachefs_rust path
+
+diff --git a/Makefile b/Makefile
+index b55dd97..9ffa23a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -174,7 +174,7 @@ OBJS:=$(SRCS:.c=.o)
+ BCACHEFS_DEPS=libbcachefs.a
+ 
+ ifndef NO_RUST
+-	BCACHEFS_DEPS+=rust-src/target/release/libbcachefs_rust.a
++	BCACHEFS_DEPS+=rust-src/target/$(CARGO_BUILD_TARGET)/release/libbcachefs_rust.a
+ else
+ 	CFLAGS+=-DBCACHEFS_NO_RUST
+ endif
+@@ -188,7 +188,7 @@ libbcachefs.a: $(filter-out ./tests/%.o, $(OBJS))
+ 	$(Q)ar -rc $@ $+
+ 
+ RUST_SRCS:=$(shell find rust-src/src rust-src/bch_bindgen/src -type f -iname '*.rs')
+-rust-src/target/release/libbcachefs_rust.a: $(RUST_SRCS)
++rust-src/target/$(CARGO_BUILD_TARGET)/release/libbcachefs_rust.a: $(RUST_SRCS)
+ 	$(CARGO_BUILD)
+ 
+ tests/test_helper: $(filter ./tests/%.o, $(OBJS))

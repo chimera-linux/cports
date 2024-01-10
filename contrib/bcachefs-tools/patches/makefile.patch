@@ -1,0 +1,50 @@
+commit f043f0797cbdf8b56460a51ce1de7809489731c4
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jan 10 06:43:20 2024 +0100
+
+    makefile portability
+
+diff --git a/Makefile b/Makefile
+index 0e5cf6e..b55dd97 100644
+--- a/Makefile
++++ b/Makefile
+@@ -210,20 +210,25 @@ cmd_version.o : .version
+ install: INITRAMFS_HOOK=$(INITRAMFS_DIR)/hooks/bcachefs
+ install: INITRAMFS_SCRIPT=$(INITRAMFS_DIR)/scripts/local-premount/bcachefs
+ install: bcachefs $(optional_install)
+-	$(INSTALL) -m0755 -D bcachefs      -t $(DESTDIR)$(ROOT_SBINDIR)
+-	$(INSTALL) -m0644 -D bcachefs.8    -t $(DESTDIR)$(PREFIX)/share/man/man8/
+-	$(INSTALL) -m0755 -D initramfs/script $(DESTDIR)$(INITRAMFS_SCRIPT)
+-	$(INSTALL) -m0755 -D initramfs/hook   $(DESTDIR)$(INITRAMFS_HOOK)
+-	$(INSTALL) -m0644 -D udev/64-bcachefs.rules -t $(DESTDIR)$(PKGCONFIG_UDEVRULESDIR)/
+-	$(LN) -sfr $(DESTDIR)$(ROOT_SBINDIR)/bcachefs $(DESTDIR)$(ROOT_SBINDIR)/mkfs.bcachefs
+-	$(LN) -sfr $(DESTDIR)$(ROOT_SBINDIR)/bcachefs $(DESTDIR)$(ROOT_SBINDIR)/fsck.bcachefs
+-	$(LN) -sfr $(DESTDIR)$(ROOT_SBINDIR)/bcachefs $(DESTDIR)$(ROOT_SBINDIR)/mount.bcachefs
+-	$(LN) -sfr $(DESTDIR)$(ROOT_SBINDIR)/bcachefs $(DESTDIR)$(ROOT_SBINDIR)/mkfs.fuse.bcachefs
+-	$(LN) -sfr $(DESTDIR)$(ROOT_SBINDIR)/bcachefs $(DESTDIR)$(ROOT_SBINDIR)/fsck.fuse.bcachefs
+-	$(LN) -sfr $(DESTDIR)$(ROOT_SBINDIR)/bcachefs $(DESTDIR)$(ROOT_SBINDIR)/mount.fuse.bcachefs
+-
+-	sed -i '/^# Note: make install replaces/,$$d' $(DESTDIR)$(INITRAMFS_HOOK)
+-	echo "copy_exec $(ROOT_SBINDIR)/bcachefs /sbin/bcachefs" >> $(DESTDIR)$(INITRAMFS_HOOK)
++	$(INSTALL) -d $(DESTDIR)$(ROOT_SBINDIR)
++	$(INSTALL) -d $(DESTDIR)$(PREFIX)/share/man/man8
++	$(INSTALL) -d $(DESTDIR)$(INITRAMFS_DIR)/scripts/local-premount
++	$(INSTALL) -d $(DESTDIR)$(INITRAMFS_DIR)/hooks
++	$(INSTALL) -d $(DESTDIR)$(PKGCONFIG_UDEVRULESDIR)
++	$(INSTALL) -m0755 bcachefs $(DESTDIR)$(ROOT_SBINDIR)
++	$(INSTALL) -m0644 bcachefs.8 $(DESTDIR)$(PREFIX)/share/man/man8/
++	$(INSTALL) -m0755 initramfs/script $(DESTDIR)$(INITRAMFS_SCRIPT)
++	$(INSTALL) -m0755 initramfs/hook $(DESTDIR)$(INITRAMFS_HOOK)
++	$(INSTALL) -m0644 udev/64-bcachefs.rules $(DESTDIR)$(PKGCONFIG_UDEVRULESDIR)/
++	$(LN) -sf bcachefs $(DESTDIR)$(ROOT_SBINDIR)/mkfs.bcachefs
++	$(LN) -sf bcachefs $(DESTDIR)$(ROOT_SBINDIR)/fsck.bcachefs
++	$(LN) -sf bcachefs $(DESTDIR)$(ROOT_SBINDIR)/mount.bcachefs
++	$(LN) -sf bcachefs $(DESTDIR)$(ROOT_SBINDIR)/mkfs.fuse.bcachefs
++	$(LN) -sf bcachefs $(DESTDIR)$(ROOT_SBINDIR)/fsck.fuse.bcachefs
++	$(LN) -sf bcachefs $(DESTDIR)$(ROOT_SBINDIR)/mount.fuse.bcachefs
++
++	sed -i '' '/^# Note: make install replaces/,$$d' $(DESTDIR)$(INITRAMFS_HOOK)
++	echo "copy_exec $(ROOT_SBINDIR)/bcachefs /usr/bin/bcachefs" >> $(DESTDIR)$(INITRAMFS_HOOK)
+ 
+ .PHONY: install_systemd
+ install_systemd: $(systemd_services) $(systemd_libfiles)
