@@ -1,6 +1,6 @@
 pkgname = "alacritty"
 pkgver = "0.13.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = [
     "cargo",
@@ -9,7 +9,6 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = ["fontconfig-devel", "freetype-devel", "libxcb-devel", "rust-std"]
-depends = [f"alacritty-terminfo={pkgver}-r{pkgrel}"]
 pkgdesc = "Cross-platform, GPU-accelerated terminal emulator"
 maintainer = "nbfritch <nbfritch@gmail.com>"
 license = "MIT OR Apache-2.0"
@@ -45,19 +44,3 @@ def do_install(self):
         "usr/share/icons/hicolor/scalable/apps/",
         name="Alacritty.svg",
     )
-    self.install_dir("usr/share/terminfo")
-    self.do(
-        "tic",
-        "-xe",
-        "alacritty,alacritty-direct",
-        "-o",
-        self.chroot_destdir / "usr/share/terminfo",
-        "extra/alacritty.info",
-    )
-
-
-@subpackage("alacritty-terminfo")
-def _tinfo(self):
-    self.pkgdesc = f"{pkgdesc} (terminfo data)"
-
-    return ["usr/share/terminfo"]
