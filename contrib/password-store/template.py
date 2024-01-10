@@ -1,6 +1,6 @@
 pkgname = "password-store"
 pkgver = "1.7.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_install_args = ["WITH_ALLCOMP=yes"]
@@ -8,7 +8,7 @@ make_check_target = "test"
 hostmakedepends = ["gmake"]
 depends = ["bash", "git", "gnupg", "tree", "ugetopt"]
 checkdepends = list(depends)
-pkgdesc = "Standard unix password manager"
+pkgdesc = "Console-based password manager"
 maintainer = "eater <=@eater.me>"
 license = "GPL-2.0-or-later"
 url = "https://www.passwordstore.org"
