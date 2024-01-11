@@ -1,6 +1,6 @@
 pkgname = "python-jinja2"
-pkgver = "3.1.2"
-pkgrel = 1
+pkgver = "3.1.3"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://jinja.pocoo.org"
 source = f"$(PYPI_SITE)/J/Jinja2/Jinja2-{pkgver}.tar.gz"
-sha256 = "31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852"
+sha256 = "ac8bd6544d4bb2c9792bf3a159e80bba8fda7f07e81bc3aed565432d5925ba90"
 # dependency of pytest
 options = ["!check"]
 
