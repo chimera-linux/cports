@@ -1,22 +1,11 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -43,7 +43,7 @@ DEFINES+=-DCONFDIR=\"$(CONFDIR)\" \
- #options for mpls
- ADDLIB+=mpls_ntop.o mpls_pton.o
+@@ -56,7 +56,7 @@
+ #options for NETROM
+ ADDLIB+=netrom_ntop.o
  
 -CC := gcc
-+CC := clang
++CC ?= gcc
  HOSTCC ?= $(CC)
  DEFINES += -D_GNU_SOURCE
  # Turn on transparent support for LFS
---- a/configure
-+++ b/configure
-@@ -20,7 +20,7 @@ check_toolchain()
- {
-     : ${PKG_CONFIG:=pkg-config}
-     : ${AR=ar}
--    : ${CC=gcc}
-+    : ${CC=clang}
-     : ${YACC=bison}
-     echo "PKG_CONFIG:=${PKG_CONFIG}" >>$CONFIG
-     echo "AR:=${AR}" >>$CONFIG
