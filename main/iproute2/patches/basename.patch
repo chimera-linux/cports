@@ -1,0 +1,22 @@
+--- a/lib/bpf_legacy.c
++++ b/lib/bpf_legacy.c
+@@ -41,6 +41,8 @@
+ #include "bpf_elf.h"
+ #include "bpf_scm.h"
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ struct bpf_prog_meta {
+ 	const char *type;
+ 	const char *subdir;
+--- a/rdma/rdma.c
++++ b/rdma/rdma.c
+@@ -8,6 +8,8 @@
+ #include "version.h"
+ #include "color.h"
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ /* Global utils flags */
+ int json;
+ 
