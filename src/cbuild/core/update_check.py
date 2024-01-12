@@ -250,7 +250,7 @@ class UpdateCheck:
         pname = self.pkgname
 
         if not self.url:
-            # TODO: cran, rubygems, crates.io
+            # TODO: cran, crates.io
             if "sourceforge.net/sourceforge" in url:
                 pn = url.split("/")[4]
                 url = f"https://sourceforge.net/projects/{pn}/rss?limit=200"
@@ -261,6 +261,13 @@ class UpdateCheck:
                 if pname == self.template.pkgname:
                     pname = pname.removeprefix("python-")
                 url = f"https://pypi.org/simple/{pname}"
+            elif "rubygems.org" in url:
+                if pname == self.template.pkgname:
+                    pname = pname.removeprefix("ruby-")
+                url = f"https://rubygems.org/gems/{pname}"
+                rx = rf"""
+                    /gems/{re.escape(pname)}/versions/([\d.]+)(?=")
+                """
             elif "cpan." in url:
                 if pname == self.template.pkgname:
                     pname = pname.removeprefix("perl-")
