@@ -1,5 +1,5 @@
 pkgname = "libjxl"
-pkgver = "0.9.0"
+pkgver = "0.9.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -38,15 +38,15 @@ pkgdesc = "Reference JpegXL implementation"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/libjxl/libjxl"
-_testdata = "6c943639760d38c91609f4a72e46c2bc19984a0a"
+_testdata = "ff8d743aaba05b3014f17e5475e576242fa979fc"
 source = [
     f"{url}/archive/refs/tags/v{pkgver}.tar.gz",
     f"https://github.com/libjxl/testdata/archive/{_testdata}.tar.gz",
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "d83bbe188d8fa9725bb75109c922c37fcff8c3b802808f3a6c2c14aaf8337d9f",
-    "bb1ad522df427aaee6f3fc5b67d0e4a85e59ae291450b1bedcca1ccb3bb75e99",
+    "a0e72e9ece26878147069ad4888ac3382021d4bbee71c2e1b687d5bde7fd7e01",
+    "9c45a108df32a002a69465df896d33acf77d97c88fb59dffa0dff5628370e96f",
 ]
 # FIXME: a bunch of cfi test failures
 # vis also broken
