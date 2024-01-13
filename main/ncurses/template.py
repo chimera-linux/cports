@@ -35,6 +35,7 @@ tool_flags = {
     "CFLAGS": ["-fPIC"],
 }
 # FIXME int; prevents some chroots from working
+# var-init breaks non-ascii input in catgirl
 hardening = ["!int", "!var-init"]
 options = ["bootstrap"]
 
