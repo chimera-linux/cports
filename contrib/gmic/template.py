@@ -1,5 +1,5 @@
 pkgname = "gmic"
-pkgver = "3.3.2"
+pkgver = "3.3.3"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -30,7 +30,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "CECILL-2.1"
 url = "https://gmic.eu"
 source = f"https://gmic.eu/files/source/gmic_{pkgver}.tar.gz"
-sha256 = "d95ead2339c552378cef2947e844d5ec247f3a8485471786395aee10f566f868"
+sha256 = "903937d6475878df1e2130eee32d1fd93c4597bd2ef7f94e1d9775da1839645d"
 # vis broken
 # FIXME int: gmic_qt PreviewWidget::updateOriginalImagePosition
 hardening = ["!int"]
