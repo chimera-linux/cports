@@ -1,6 +1,6 @@
 pkgname = "ncurses"
 pkgver = "6.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-widec",
@@ -35,7 +35,7 @@ tool_flags = {
     "CFLAGS": ["-fPIC"],
 }
 # FIXME int; prevents some chroots from working
-hardening = ["!int"]
+hardening = ["!int", "!var-init"]
 options = ["bootstrap"]
 
 
