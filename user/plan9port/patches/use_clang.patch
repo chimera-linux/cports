@@ -1,0 +1,11 @@
+--- a/bin/9c	2024-01-10 01:00:21.000000000 +0100
++++ b/bin/9c	2024-01-15 19:47:39.494474877 +0100
+@@ -106,7 +106,7 @@
+ tag="${SYSNAME:-`uname`}-${CC9:-cc}"
+ case "$tag" in
+ *DragonFly*gcc*|*BSD*gcc*)	usegcc ;;
+-*DragonFly*clang|*BSD*clang*)	useclang ;;
++*DragonFly*clang|*BSD*clang*|*Linux*clang*)	useclang ;;
+ *Darwin*)
+ 		useclang
+ 		cflags="$cflags -g3 -m64"
