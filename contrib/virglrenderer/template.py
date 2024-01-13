@@ -1,5 +1,5 @@
 pkgname = "virglrenderer"
-pkgver = "1.0.0"
+pkgver = "1.0.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "eater <=@eater.me>"
 license = "MIT"
 url = "https://docs.mesa3d.org/drivers/virgl"
 source = f"https://gitlab.freedesktop.org/virgl/virglrenderer/-/archive/{pkgver}/virglrenderer-{pkgver}.tar.gz"
-sha256 = "130c417bfcc8d35063245322609fd310e981a33e2a6c73beac7fb98c4beed8e6"
+sha256 = "e4a61bfeda06e34b8df188366abff77b090fcd877536fd83db83448cdd56c72e"
 
 
 def post_install(self):
