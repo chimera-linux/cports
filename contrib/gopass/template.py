@@ -1,10 +1,10 @@
 pkgname = "gopass"
 pkgver = "1.15.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Pass-compatible password manager with more features"
-maintainer = "Callum Andrew <contact@candrew.net>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://www.gopass.pw"
 source = (
