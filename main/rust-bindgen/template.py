@@ -1,5 +1,5 @@
 pkgname = "rust-bindgen"
-pkgver = "0.69.1"
+pkgver = "0.69.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--bins"]
@@ -15,7 +15,7 @@ url = "https://rust-lang.github.io/rust-bindgen"
 source = (
     f"https://github.com/rust-lang/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "c10e2806786fb75f05ef32f3f03f4cb7e37bb8e06be5a4a0e95f974fdc567d87"
+sha256 = "78fbb8bd100e145d1effc982eaab21b555ccc3fc1cbe6e734f17cdfe5c33af32"
 # needs rustfmt nightly to run suite
 options = ["!check"]
 
