@@ -1,0 +1,39 @@
+From de9583af96f1ba274ab77c36d88ad72e57286514 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 11 Jan 2024 00:37:38 +0100
+Subject: [PATCH] database: account for newmode in directory preparation
+
+The commit a6736532001fd625f1ab3dd82abc2a4c5366c79c (database:
+implement uvol support) switched from using newmode to always
+using dir->mode when creating non-existent directories, making
+newmode an unused argument.
+
+As far as I can see this is probably an oversight and may result
+in incorrect directory permissions, as we've been seeing in the
+https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues/10952
+issue; this is however not confirmed.
+
+This restores the prior behavior.
+---
+ src/database.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/database.c b/src/database.c
+index 3873025..623e46d 100644
+--- a/src/database.c
++++ b/src/database.c
+@@ -284,8 +284,10 @@ static void apk_db_dir_prepare(struct apk_database *db, struct apk_db_dir *dir,
+ 	apk_fsdir_get(&d, APK_BLOB_PTR_LEN(dir->name, dir->namelen), db->ctx, APK_BLOB_NULL);
+ 	switch (apk_fsdir_check(&d, dir_mode, dir->uid, dir->gid)) {
+ 	default:
++		if (!newmode)
++			return;
+ 		if (!(db->ctx->flags & APK_SIMULATE))
+-			apk_fsdir_create(&d, dir_mode);
++			apk_fsdir_create(&d, apk_db_dir_get_mode(db, newmode));
+ 	case 0:
+ 		dir->update_permissions = 1;
+ 	case APK_FS_DIR_MODIFIED:
+-- 
+GitLab
+
