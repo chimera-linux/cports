@@ -1,6 +1,6 @@
 pkgname = "bluez"
-pkgver = "5.71"
-pkgrel = 2
+pkgver = "5.72"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-systemd",
@@ -40,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b828d418c93ced1f55b616fb5482cf01537440bfb34fbda1a564f3ece94735d8"
+sha256 = "499d7fa345a996c1bb650f5c6749e1d929111fa6ece0be0e98687fee6124536e"
 tool_flags = {"CFLAGS": ["-Wno-deprecated-declarations"]}
 options = ["linkundefver"]
 
