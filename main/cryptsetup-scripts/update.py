@@ -1,4 +1,5 @@
-pattern = r"cryptsetup\ Debian\ release\ 2:([\d.-]+)"
+pattern = r"cryptsetup\ Debian\ release\ 2:([\d.\-~rc]+)"
+ignore = ["*rc*", "*~*"]
 
 
 def fetch_versions(self, src):
