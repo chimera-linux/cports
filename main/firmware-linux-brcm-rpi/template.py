@@ -48,9 +48,12 @@ def do_install(self):
     with (self.cwd / bfw / "../bluez-firmware.links").open() as lf:
         for ln in lf:
             froml, tol = ln.split()
-            froml = self.destdir / froml.replace("/lib/", "usr/lib/")
-            tol = self.destdir / tol.replace("/lib/", "usr/lib/")
-            self.install_link(
-                str(froml.relative_to(tol.parent, walk_up=True)),
-                tol.relative_to(self.destdir),
-            )
+            froml = froml.removeprefix("/lib/firmware/")
+            tol = tol.replace("/lib/", "usr/lib/")
+            if froml.startswith("brcm/"):
+                froml = froml.removeprefix("brcm/")
+            elif froml.startswith("synaptics/"):
+                froml = f"../{froml}"
+            else:
+                self.error(f"unknown firmware path{froml}")
+            self.install_link(froml, tol)
