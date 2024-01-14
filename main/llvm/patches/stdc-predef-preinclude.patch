@@ -1,0 +1,32 @@
+commit e0a2ae9501aaea74a5d631bdd98e9643d15e7528
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Jan 14 18:31:07 2024 +0100
+
+    clang: implicitly include stdc-predef.h
+    
+    This behavior is required to match gcc and get default access
+    to some macros to get rid of certain hacks (especially on musl,
+    which does not explicitly include this - glibc includes it from
+    features.h)
+    
+    Inspired by https://reviews.llvm.org/D137043 but this should not
+    be tied to libc choice, as gcc unconditionally does the preinclude
+    for both.
+
+diff --git a/clang/lib/Driver/ToolChains/Linux.cpp b/clang/lib/Driver/ToolChains/Linux.cpp
+index 1ba222b..3381fff 100644
+--- a/clang/lib/Driver/ToolChains/Linux.cpp
++++ b/clang/lib/Driver/ToolChains/Linux.cpp
+@@ -668,6 +668,12 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
+ 
+   if (!DriverArgs.hasArg(options::OPT_nobuiltininc) && getTriple().isMusl())
+     addSystemInclude(DriverArgs, CC1Args, ResourceDirInclude);
++
++  // Follow gcc in pre-including stdc-predef.h in non-freestanding mode
++  if (!DriverArgs.hasArg(options::OPT_ffreestanding)) {
++    CC1Args.push_back("-include");
++    CC1Args.push_back("stdc-predef.h");
++  }
+ }
+ 
+ void Linux::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
