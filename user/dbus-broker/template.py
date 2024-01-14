@@ -14,3 +14,4 @@ url = "https://github.com/bus1/dbus-broker/wiki"
 source = f"https://github.com/bus1/dbus-broker/releases/download/v{pkgver}/dbus-broker-{pkgver}.tar.xz"
 sha256 = "23713f25624749fdb274907e429080fa2d8f4dbe76acd87bb6d21a3c818c7841"
 hardening = ["vis", "cfi"]
+restricted = "no dinit controller"

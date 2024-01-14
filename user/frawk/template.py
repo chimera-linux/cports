@@ -1,6 +1,7 @@
 pkgname = "frawk"
 pkgver = "0.4.7"
 pkgrel = 0
+archs = ["aarch64", "riscv64", "x86_64"]
 build_style = "cargo"
 # disable llvm_backend (needs LLVM 12), unstable and use-jemalloc features
 make_build_args = ["--no-default-features", "--features=allow_avx2"]

@@ -31,6 +31,7 @@ hardening = ["!int", "!scp", "!var-init"]
 # lto only gets applied to the C bootstrap and slows down the build (doesn't
 # affect the zig output)
 options = ["!lto"]
+restricted = "work in progress"
 
 # ditto
 tool_flags = {"CFLAGS": ["-U_FORTIFY_SOURCE"]}

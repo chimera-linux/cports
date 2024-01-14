@@ -91,6 +91,7 @@ sha256 = "40bf42e54cefefa4a8f35c48e0f290c9ef8118eee9a72800296a0e620dfb0240"
 hardening = ["!int", "!format", "!var-init"]
 # no tests to run
 options = ["!check", "!lto", "!relr", "!cross", "!scanshlibs"]
+restricted = "work in progress"
 
 _trip = self.profile().triplet
 # we cannot use clang, gcc expects binutils
