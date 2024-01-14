@@ -1,0 +1,32 @@
+commit d883582e71d2d6fd8b5af2005059dcd23bc314f7
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Jan 14 07:40:52 2024 +0100
+
+    fix libc-iconv with clang
+    
+    This is defined with gcc and not with clang, and we need it to
+    avoid gcc falling back to dummy iconv, which does not support
+    unicode.
+
+diff --git a/gdb/gdb_wchar.h b/gdb/gdb_wchar.h
+index 6621b18..da7de10 100644
+--- a/gdb/gdb_wchar.h
++++ b/gdb/gdb_wchar.h
+@@ -58,7 +58,7 @@
+    libiconv version 0x108 because it is the first version with
+    iconvlist.  */
+ #if defined (HAVE_ICONV) && defined (HAVE_BTOWC) \
+-  && (defined (__STDC_ISO_10646__) \
++  && (defined (__STDC_ISO_10646__) || defined (__clang__) \
+       || (defined (_LIBICONV_VERSION) && _LIBICONV_VERSION >= 0x108))
+ 
+ typedef wchar_t gdb_wchar_t;
+@@ -77,7 +77,7 @@ typedef wint_t gdb_wint_t;
+    this but which do not support "wchar_t" as an encoding argument to
+    iconv_open.  We put the endianness into the encoding name to avoid
+    hosts that emit a BOM when the unadorned name is used.  */
+-#if defined (__STDC_ISO_10646__)
++#if defined (__STDC_ISO_10646__) || defined(__clang__)
+ #define USE_INTERMEDIATE_ENCODING_FUNCTION
+ #define INTERMEDIATE_ENCODING intermediate_encoding ()
+ const char *intermediate_encoding (void);
