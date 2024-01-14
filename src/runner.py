@@ -42,6 +42,7 @@ opt_stagepath = "pkgstage"
 opt_statusfd = None
 opt_bulkcont = False
 opt_allowcat = "main contrib"
+opt_restricted = False
 opt_updatecheck = False
 opt_acceptsum = False
 
@@ -98,7 +99,7 @@ def handle_options():
     global opt_cflags, opt_cxxflags, opt_fflags
     global opt_arch, opt_harch, opt_gen_dbg, opt_check, opt_ccache
     global opt_makejobs, opt_lthreads, opt_nocolor, opt_signkey
-    global opt_unsigned, opt_force, opt_mdirtemp, opt_allowcat
+    global opt_unsigned, opt_force, opt_mdirtemp, opt_allowcat, opt_restricted
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
@@ -314,6 +315,9 @@ def handle_options():
         opt_srcpath = bcfg.get("sources", fallback=opt_srcpath)
         opt_cchpath = bcfg.get("cbuild_cache_path", fallback=opt_cchpath)
         opt_allowcat = bcfg.get("categories", fallback=opt_allowcat)
+        opt_restricted = bcfg.getboolean(
+            "allow_restricted", fallback=opt_restricted
+        )
         opt_nonet = not bcfg.getboolean("remote", fallback=not opt_nonet)
 
     if "flags" not in global_cfg:
@@ -1551,6 +1555,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         target=tgt if (tgt != "pkg") else None,
         force_check=opt_forcecheck,
         stage=bstage,
+        allow_restricted=opt_restricted,
     )
     if opt_mdirtemp:
         chroot.install()
@@ -1724,6 +1729,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                 None,
                 force_check=opt_forcecheck,
                 bulk_mode=True,
+                allow_restricted=opt_restricted,
             )
         )
         if not tp:

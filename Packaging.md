@@ -102,7 +102,6 @@ can go. These currently are:
 
 * `main`
 * `contrib`
-* `restricted`
 * `experimental`
 
 Each category has its own repository that is named the same as the category.
@@ -121,16 +120,11 @@ and templates undergo review and acceptance by the distro maintainers. In
 addition to other `contrib` templates, software here may depend on `main`
 templates.
 
-The `restricted` category in general contains proprietary software and stuff
-that we cannot redistribute. Software here may depend on anything from `main`
-or `contrib`. Unlike `contrib` packages, no binary packages are shipped and
-users need to build it themselves.
-
 Finally, the `experimental` category is mostly unrestricted and has the
 least stringent quality requirements. Anything that is anyhow controversial
 goes here; once determined to be acceptable, a maintainer may move the
-template to `contrib` (or sometimes `non-free`). Software in this category
-does not have binary packages shipped and users are on their own testing it.
+template to `contrib`. Software in this category does not have binary packages
+shipped and users are on their own testing it.
 
 <a id="targets"></a>
 ## Targets and Tiers
@@ -936,6 +930,10 @@ Keep in mind that default values may be overridden by build styles.
   conflicting files. This is primarily useful for moving files from one
   package to another, or together with `replaces_priority`, for "policy
   packages".
+* `restricted` *(str)* By default, `cbuild` does not allow packages that
+  are marked this way to be built. The value is the reason why it's marked
+  like that. Often this will be e.g. non-redistributable clause in the
+  terms of the package.
 * `scriptlets` *(dict)* A dictionary of strings that are the scriptlets for
   this package. These take precedence over file scriptlets.
 * `sha256` *(list or str)* A list of SHA256 checksums (or just one checksum

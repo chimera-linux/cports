@@ -403,6 +403,7 @@ core_fields = [
     ("options", [], list, False, True, False),
     # other core-ish fields
     ("broken", None, str, False, False, False),
+    ("restricted", None, str, False, False, False),
     ("build_style", None, str, False, False, False),
     # sources
     ("sha256", [], (list, str), False, False, False),
@@ -551,6 +552,7 @@ core_fields_priority = [
     # scriptlet-generating stuff comes last
     ("system_users", True),
     ("system_groups", True),
+    ("restricted", True),
     ("broken", True),
 ]
 
@@ -716,6 +718,7 @@ class Template(Package):
             "maintainer": self.maintainer,
             "url": self.url,
             "broken": self.broken,
+            "restricted": self.restricted,
             "subpackages": subpkgs,
             "variables": metadata,
         }
@@ -2092,6 +2095,8 @@ def from_module(m, ret):
     # sometimes things need to know if a package is buildable
     if ret.broken:
         ret.broken = f"cannot be built, it's currently broken: {ret.broken}"
+    elif ret.restricted and not ret._allow_restricted:
+        ret.broken = f"cannot be built, it's restricted: {ret.restricted}"
     elif ret.repository not in _allow_cats:
         ret.broken = f"cannot be built, disallowed by cbuild (not in {', '.join(_allow_cats)})"
     elif ret.profile().cross and not ret.options["cross"]:
@@ -2164,6 +2169,7 @@ def read_mod(
     autopkg=False,
     stage=3,
     bulk_mode=False,
+    allow_restricted=True,
 ):
     global _tmpl_dict
 
@@ -2214,6 +2220,7 @@ def read_mod(
     ret.stage = stage
     ret._target = target
     ret._force_check = force_check
+    ret._allow_restricted = allow_restricted
 
     if pkgarch:
         ret._current_profile = profile.get_profile(pkgarch)
@@ -2279,6 +2286,7 @@ def read_pkg(
     autopkg=False,
     stage=3,
     bulk_mode=False,
+    allow_restricted=True,
 ):
     modh, ret = read_mod(
         pkgname,
@@ -2296,6 +2304,7 @@ def read_pkg(
         autopkg,
         stage,
         bulk_mode,
+        allow_restricted,
     )
     return from_module(modh, ret)
 

@@ -46,6 +46,8 @@ keep_stage = no
 remote = yes
 # categories that are permitted to build; primarily for bulk builds
 categories = main contrib
+# whether restricted packages can be considered for building
+allow_restricted = no
 
 # flags passed to tools
 [flags]

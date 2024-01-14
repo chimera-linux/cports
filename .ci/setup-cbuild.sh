@@ -23,6 +23,9 @@ echo "=> Setting up cbuild configuration..."
 cat << EOF > etc/config.ini
 [apk]
 command = $(pwd)/${APK_FILE}
+[build]
+# they will not be packaged, but we can still CI them (no public artifacts)
+allow_restricted = yes
 EOF
 
 echo "=> Generating cbuild key..."
