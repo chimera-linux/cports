@@ -1,0 +1,11 @@
+--- a/tools/attr.c
++++ b/tools/attr.c
+@@ -31,6 +31,8 @@
+ 
+ #include <attr/attributes.h>
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ #include "misc.h"
+ 
+ #define	SETOP		1		/* do a SET operation */

@@ -1,8 +1,10 @@
 pkgname = "attr"
-pkgver = "2.5.1"
+pkgver = "2.5.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--libdir=/usr/lib", "--libexecdir=/usr/lib"]
+# cycle with automake -> chimerautils
+configure_gen = []
 make_check_args = ["-j1"]  # Tests broken when ran in parallel
 hostmakedepends = ["pkgconf"]
 checkdepends = ["perl"]
@@ -11,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://savannah.nongnu.org/projects/attr"
 source = f"$(NONGNU_SITE)/attr/attr-{pkgver}.tar.gz"
-sha256 = "bae1c6949b258a0d68001367ce0c741cebdacdd3b62965d17e5eb23cd78adaf8"
+sha256 = "39bf67452fa41d0948c2197601053f48b3d78a029389734332a6309a680c6c87"
 options = ["bootstrap"]
 
 
@@ -23,6 +25,3 @@ def _devel(self):
 @subpackage("attr-progs")
 def _progs(self):
     return self.default_progs(extra=["usr/share"])
-
-
-configure_gen = []
