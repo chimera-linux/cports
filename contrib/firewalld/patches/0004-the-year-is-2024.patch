@@ -1,0 +1,48 @@
+From b07fb3ed7a93c92896d92ffb058d4d78255a4ac9 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Tue, 16 Jan 2024 20:58:10 +0100
+Subject: [PATCH 4/4] the year is 2024
+
+---
+ config/Makefile.am | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
+
+diff --git a/config/Makefile.am b/config/Makefile.am
+index 2b4ae095..1aa3921a 100644
+--- a/config/Makefile.am
++++ b/config/Makefile.am
+@@ -416,20 +416,9 @@ UNINSTALL_TARGETS = uninstall-config
+ INSTALL_TARGETS += install-modprobe.d
+ UNINSTALL_TARGETS += uninstall-modprobe.d
+ 
+-INSTALL_TARGETS += install-logrotate.d
+-UNINSTALL_TARGETS += uninstall-logrotate.d
+-
+ if USE_SYSTEMD
+ INSTALL_TARGETS += install-service
+ UNINSTALL_TARGETS += uninstall-service
+-else
+-INSTALL_TARGETS += install-init
+-UNINSTALL_TARGETS += uninstall-init
+-endif
+-
+-if INSTALL_SYSCONFIG
+-INSTALL_TARGETS += install-sysconfig
+-UNINSTALL_TARGETS += uninstall-sysconfig
+ endif
+ 
+ if INSTALL_RPMMACROS
+@@ -487,8 +476,8 @@ uninstall-service: uninstall-sysconfig
+ 	rmdir $(DESTDIR)$(SYSTEMD_UNITDIR) || :
+ 
+ install-modprobe.d:
+-	$(MKDIR_P) $(DESTDIR)$(sysconfdir)/modprobe.d
+-	$(INSTALL_DATA) firewalld-sysctls.conf $(DESTDIR)$(sysconfdir)/modprobe.d/firewalld-sysctls.conf
++	$(MKDIR_P) $(DESTDIR)$(libdir)/modprobe.d
++	$(INSTALL_DATA) firewalld-sysctls.conf $(DESTDIR)$(libdir)/modprobe.d/firewalld-sysctls.conf
+ 
+ uninstall-modprobe.d:
+ 	rm -f $(DESTDIR)$(sysconfdir)/modprobe.d/firewalld-sysctls.conf
+-- 
+2.43.0
+
