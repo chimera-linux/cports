@@ -17,6 +17,7 @@ checkdepends = [
     "python-packaging",
     "python-pluggy",
     "python-pytest",
+    "python-pytest-subtests",
     "python-rpds-py",
 ]
 depends = [
@@ -29,8 +30,6 @@ license = "MIT"
 url = "https://github.com/python-jsonschema/referencing"
 source = f"$(PYPI_SITE)/r/referencing/referencing-{pkgver}.tar.gz"
 sha256 = "3c57da0513e9563eb7e203ebe9bb3a1b509b042016433bd1e45a2853466c3dd3"
-# TODO: package python-pytest-subtests
-options = ["!check"]
 
 
 def post_install(self):
