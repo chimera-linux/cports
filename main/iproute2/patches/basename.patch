@@ -1,0 +1,22 @@
+--- a/lib/bpf_legacy.c	2024-01-08 17:38:23.000000000 +0000
++++ b/lib/bpf_legacy.c	2024-01-15 13:24:39.145154984 +0000
+@@ -41,6 +41,8 @@
+ #include "bpf_elf.h"
+ #include "bpf_scm.h"
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ struct bpf_prog_meta {
+ 	const char *type;
+ 	const char *subdir;
+--- a/rdma/rdma.c	2024-01-08 17:38:23.000000000 +0000
++++ b/rdma/rdma.c	2024-01-15 13:26:43.538547535 +0000
+@@ -8,6 +8,8 @@
+ #include "version.h"
+ #include "color.h"
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ /* Global utils flags */
+ int json;
+ 
