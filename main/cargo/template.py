@@ -19,7 +19,7 @@ pkgdesc = "Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
 url = "https://rust-lang.org"
-source = f"https://github.com/rust-lang/{pkgname}/archive/{_cargover}.tar.gz"
+source = f"https://github.com/rust-lang/cargo/archive/{_cargover}.tar.gz"
 sha256 = "52d57889715cdfe0070b13f6d4dbfc4affdafc763483269e78b6ebd7166fdb83"
 # global environment
 env = {

@@ -10,7 +10,9 @@ pkgdesc = "Network diagnostic tool"
 maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-only AND BSD-3-Clause"
 url = "https://www.bitwizard.nl/mtr"
-source = f"https://github.com/traviscross/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
+source = (
+    f"https://github.com/traviscross/mtr/archive/refs/tags/v{pkgver}.tar.gz"
+)
 sha256 = "12490fb660ba5fb34df8c06a0f62b4f9cbd11a584fc3f6eceda0a99124e8596f"
 file_xattrs = {
     "usr/bin/mtr-packet": {

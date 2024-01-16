@@ -29,7 +29,7 @@ pkgdesc = "D-Bus geoinformation service"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/geoclue/geoclue/wikis/home"
-source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
+source = f"https://gitlab.freedesktop.org/geoclue/geoclue/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "5624cd41148643c46d681d39153c7d26fdb8831e7e7c8601c300732fa8a6db1c"
 
 

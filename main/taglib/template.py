@@ -9,7 +9,7 @@ pkgdesc = "Library for accessing ID tags in various media files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://taglib.github.io"
-source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
+source = f"https://github.com/taglib/taglib/archive/v{pkgver}.tar.gz"
 sha256 = "c8da2b10f1bfec2cd7dbfcd33f4a2338db0765d851a50583d410bacf055cfd0b"
 hardening = ["!cfi"]  # TODO
 # test target does not work with shared libs

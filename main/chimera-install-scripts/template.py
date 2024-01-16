@@ -17,7 +17,7 @@ pkgdesc = "Scripts to aid Chimera system installation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimera-install-scripts"
-source = f"https://github.com/chimera-linux/{pkgname}/archive/{_commit}.tar.gz"
+source = f"{url}/archive/{_commit}.tar.gz"
 sha256 = "c952e71cc081f504c943ae124f5ca83143a47d24558f4c356bd90d307694a32d"
 # no test suite
 options = ["!check"]

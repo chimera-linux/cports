@@ -16,7 +16,7 @@ pkgdesc = "C library for reading and writing files containing sampled sound"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libsndfile.github.io/libsndfile"
-source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://github.com/libsndfile/libsndfile/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e"
 
 

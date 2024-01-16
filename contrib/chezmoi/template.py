@@ -11,7 +11,7 @@ pkgdesc = "Manage your dotfiles across multiple machines, securely"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://chezmoi.io"
-source = f"https://github.com/twpayne/{pkgname}/archive/v{pkgver}.tar.gz"
+source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
 sha256 = "4f105472a0b419c1f9bf15dc3ecc2009d98be113c87c257cf0710ce97edea714"
 options = ["!debug"]
 

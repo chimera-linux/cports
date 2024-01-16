@@ -12,7 +12,7 @@ pkgdesc = "Data munging language"
 maintainer = "Paul A. Patience <paul@apatience.com>"
 license = "custom:txr"
 url = "https://www.nongnu.org/txr"
-source = f"https://www.kylheku.com/cgit/{pkgname}/snapshot/{pkgname}-{pkgver}.tar.bz2"
+source = f"https://www.kylheku.com/cgit/txr/snapshot/txr-{pkgver}.tar.bz2"
 sha256 = "6fc21ae7332f98f97af35ad3ca1808d0043c4c85384c4e7bebcfce967e36fa5c"
 hardening = ["vis"]
 # tests disabled on ppc

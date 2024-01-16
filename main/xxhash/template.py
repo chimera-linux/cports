@@ -12,7 +12,7 @@ pkgdesc = "Fast non-cryptographic hashing algorithm"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://cyan4973.github.io/xxHash"
-source = f"https://github.com/Cyan4973/{pkgname}/archive/v{pkgver}.tar.gz"
+source = f"https://github.com/Cyan4973/xxhash/archive/v{pkgver}.tar.gz"
 sha256 = "baee0c6afd4f03165de7a4e67988d16f0f2b257b51d0e3cb91909302a26a79c4"
 
 

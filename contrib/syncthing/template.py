@@ -20,7 +20,7 @@ pkgdesc = "Continuous file synchronization program"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "MPL-2.0"
 url = "https://syncthing.net"
-source = f"https://github.com/syncthing/{pkgname}/archive/v{pkgver}.tar.gz"
+source = f"https://github.com/syncthing/syncthing/archive/v{pkgver}.tar.gz"
 sha256 = "a22817aa73a2a7412196d7daa20c88738b3d02e6dfb0b69338d8646f6f36e400"
 
 

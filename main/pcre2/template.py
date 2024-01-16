@@ -19,7 +19,7 @@ pkgdesc = "Perl Compatible Regular Expressions v2"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.pcre.org"
-source = f"https://github.com/PhilipHazel/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://github.com/PCRE2Project/pcre2/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c33b418e3b936ee3153de2c61cc638e7e4fe3156022a5c77d0711bcbb9d64f1f"
 
 match self.profile().arch:

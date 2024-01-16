@@ -14,7 +14,7 @@ pkgdesc = "Meson build system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://mesonbuild.com"
-source = f"https://github.com/mesonbuild/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://github.com/mesonbuild/meson/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "6020568bdede1643d4fb41e28215be38eff5d52da28ac7d125457c59e0032ad7"
 # meson is early in our bootstrap path but has a million checkdepends
 options = ["!check"]

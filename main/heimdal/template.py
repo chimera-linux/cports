@@ -46,7 +46,7 @@ pkgdesc = "Implementation of the Kerberos authentication protocol"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://heimdal.software"
-source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"https://github.com/heimdal/heimdal/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "fd87a207846fa650fd377219adc4b8a8193e55904d8a752c2c3715b4155d8d38"
 exec_wrappers = [("/usr/bin/mandoc", "nroff")]
 

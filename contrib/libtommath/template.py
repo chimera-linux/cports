@@ -11,7 +11,7 @@ pkgdesc = "Portable number theoretic multiple-precision integer library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://www.libtom.net/LibTomMath"
-source = f"https://github.com/libtom/{pkgname}/releases/download/v{pkgver}/ltm-{pkgver}.tar.xz"
+source = f"https://github.com/libtom/libtommath/releases/download/v{pkgver}/ltm-{pkgver}.tar.xz"
 sha256 = "986025d7b374276fee2e30e99f3649e4ac0db8a02257a37ee10eae72abed0d1f"
 options = ["!cross"]
 

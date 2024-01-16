@@ -8,7 +8,7 @@ pkgdesc = "Management framework for resolv.conf"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://roy.marples.name/projects/openresolv"
-source = f"https://github.com/NetworkConfiguration/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://github.com/NetworkConfiguration/openresolv/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "36b5bcbe257a940c884f0d74321a47407baabab9e265e38859851c8311f6f0b0"
 hardening = ["vis", "cfi"]
 # no test suite

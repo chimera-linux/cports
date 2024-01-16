@@ -82,7 +82,7 @@ pkgdesc = "Video player based on mplayer2"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://mpv.io"
-source = f"https://github.com/mpv-player/{pkgname}/archive/v{pkgver}.tar.gz"
+source = f"https://github.com/mpv-player/mpv/archive/v{pkgver}.tar.gz"
 sha256 = "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
 # FIXME cfi
 hardening = ["vis", "!cfi"]

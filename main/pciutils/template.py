@@ -24,7 +24,7 @@ pkgdesc = "PCI bus utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "http://mj.ucw.cz/pciutils.html"
-source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
+source = f"https://github.com/pciutils/pciutils/archive/v{pkgver}.tar.gz"
 sha256 = "e579d87f1afe2196db7db648857023f80adb500e8194c4488c8b47f9a238c1c6"
 # no check target
 # ld: error: undefined symbol: pci_alloc ... and so on

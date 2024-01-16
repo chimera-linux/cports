@@ -30,7 +30,7 @@ pkgdesc = "Abstraction for enumerating power devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://upower.freedesktop.org"
-source = f"https://gitlab.freedesktop.org/{pkgname}/{pkgname}/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
+source = f"https://gitlab.freedesktop.org/upower/upower/-/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
 sha256 = "5c4e736648f0c89d2368fbbe1e6fc0598a1565c4b435bade1d65e890259fb759"
 # unpackaged umockdev
 options = ["!check"]

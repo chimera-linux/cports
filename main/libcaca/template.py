@@ -10,7 +10,7 @@ pkgdesc = "Graphics library that outputs text instead of pixels"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "WTFPL"
 url = "http://caca.zoy.org/wiki/libcaca"
-source = f"https://github.com/cacalabs/{pkgname}/releases/download/v{pkgver.replace('_', '.')}/{pkgname}-{pkgver.replace('_', '.')}.tar.gz"
+source = f"https://github.com/cacalabs/libcaca/releases/download/v{pkgver.replace('_', '.')}/{pkgname}-{pkgver.replace('_', '.')}.tar.gz"
 sha256 = "8ad74babc63bf665b0b2378d95b4da65b7493c11bd9f3ac600517085b0c4acf2"
 
 

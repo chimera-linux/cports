@@ -10,7 +10,7 @@ pkgdesc = "Open-source JPEG 2000 codec written in C"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://www.openjpeg.org"
-source = f"https://github.com/uclouvain/{pkgname}/archive/v{pkgver}.tar.gz"
+source = f"https://github.com/uclouvain/openjpeg/archive/v{pkgver}.tar.gz"
 sha256 = "0333806d6adecc6f7a91243b2b839ff4d2053823634d4f6ed7a59bc87409122a"
 hardening = ["!cfi"]  # TODO
 # missing test data

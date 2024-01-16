@@ -31,7 +31,7 @@ pkgdesc = "Text shaping engine"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.freedesktop.org/wiki/Software/HarfBuzz"
-source = f"https://github.com/{pkgname}/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://github.com/harfbuzz/harfbuzz/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "109501eaeb8bde3eadb25fab4164e993fbace29c3d775bcaa1c1e58e2f15f847"
 # test failures since icu 71
 options = ["!cross", "!check"]

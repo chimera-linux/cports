@@ -30,7 +30,7 @@ pkgdesc = "Open source implementation of iCalendar protocols and formats"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0 OR LGPL-2.1-only"
 url = "https://libical.github.io/libical"
-source = f"https://github.com/{pkgname}/{pkgname}/archive/v{pkgver}.tar.gz"
+source = f"https://github.com/libical/libical/archive/v{pkgver}.tar.gz"
 sha256 = "bcda9a6db6870240328752854d1ea475af9bbc6356e6771018200e475e5f781b"
 options = ["!cross"]
 

@@ -5,7 +5,7 @@ pkgdesc = "Chimera Linux artwork"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "CC-BY-SA-4.0"
 url = "https://chimera-linux.org"
-source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
+source = f"https://github.com/chimera-linux/chimera-artwork/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "77b74b464d78938ebebd9f73f5dbf7a932aa43c0cdf11ed25358fb3fd49ce66c"
 
 

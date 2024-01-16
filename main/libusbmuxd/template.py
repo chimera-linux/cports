@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
 source = (
-    f"https://github.com/libimobiledevice/{pkgname}/archive/{pkgver}.tar.gz"
+    f"https://github.com/libimobiledevice/libusbmuxd/archive/{pkgver}.tar.gz"
 )
 sha256 = "8ae3e1d9340177f8f3a785be276435869363de79f491d05d8a84a59efc8a8fdc"
 hardening = ["vis", "cfi"]

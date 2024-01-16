@@ -23,7 +23,7 @@ pkgdesc = "Chimera Linux userland"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
-source = f"https://github.com/chimera-linux/{pkgname}/archive/refs/tags/v{pkgver}.tar.gz"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "8f420b76adb5b1e8f1e6b96179d90fcd2296478353e24970a1d767e43cdd6162"
 hardening = ["vis", "cfi"]
 # no test suite

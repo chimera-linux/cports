@@ -8,7 +8,7 @@ pkgdesc = "C implementation of the Sass CSS preprocessor"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.sass-lang.com/libsass"
-source = f"https://github.com/sass/{pkgname}/archive/{pkgver}.tar.gz"
+source = f"https://github.com/sass/libsass/archive/{pkgver}.tar.gz"
 sha256 = "11f0bb3709a4f20285507419d7618f3877a425c0131ea8df40fe6196129df15d"
 
 

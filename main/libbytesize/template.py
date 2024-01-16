@@ -16,7 +16,7 @@ pkgdesc = "Library for operations with sizes in bytes"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/storaged-project/libbytesize"
-source = f"https://github.com/storaged-project/{pkgname}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
+source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "1d1ce3be8ac59fd59511d0794c7327d5cf33f1e83496837b17e19ac49400cad1"
 # cba
 options = ["!check"]

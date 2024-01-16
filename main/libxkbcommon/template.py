@@ -28,9 +28,7 @@ pkgdesc = "Library to handle keyboard descriptions"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xkbcommon.org"
-source = (
-    f"https://github.com/xkbcommon/{pkgname}/archive/xkbcommon-{pkgver}.tar.gz"
-)
+source = f"https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-{pkgver}.tar.gz"
 sha256 = "4aa6c1cad7dce1238d6f48b6729f1998c7e3f0667a21100d5268c91a5830ad7b"
 
 

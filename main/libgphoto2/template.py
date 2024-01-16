@@ -24,7 +24,7 @@ pkgdesc = "Digital camera access library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "http://www.gphoto.org"
-source = f"https://github.com/gphoto/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
+source = f"https://github.com/gphoto/libgphoto2/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "8fc7bf40f979459509b87dd4ff1aae9b6c1c2b4724d37db576081eec15406ace"
 
 if self.profile().cross:

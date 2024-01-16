@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://www.cl.cam.ac.uk/~mgk25/jbigkit"
 source = (
-    f"https://github.com/void-linux/{pkgname}-shared/archive/v{pkgver}.tar.gz"
+    f"https://github.com/void-linux/jbigkit-shared/archive/v{pkgver}.tar.gz"
 )
 sha256 = "5cccbfb3bd7daf224a244ce0578dbcf706e4f39962426ceede873262b29b9931"
 
