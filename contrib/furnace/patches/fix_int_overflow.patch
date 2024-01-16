@@ -1,0 +1,28 @@
+--- a/src/gui/gui.cpp	2023-10-02 06:08:46.000000000 +0200
++++ b/src/gui/gui.cpp	2024-01-27 09:47:27.924507710 +0100
+@@ -3350,7 +3350,7 @@
+ }
+ 
+ #define DECLARE_METRIC(_n) \
+-  int __perfM##_n;
++  Uint64 __perfM##_n;
+ 
+ #define MEASURE_BEGIN(_n) \
+   __perfM##_n=SDL_GetPerformanceCounter();
+--- a/src/gui/gui.h	2023-10-02 06:08:46.000000000 +0200
++++ b/src/gui/gui.h	2024-01-27 09:46:32.739971831 +0100
+@@ -1990,10 +1990,10 @@
+   ImVec2 orderScrollRealOrigin;
+   ImVec2 dragMobileMenuOrigin;
+ 
+-  int layoutTimeBegin, layoutTimeEnd, layoutTimeDelta;
+-  int renderTimeBegin, renderTimeEnd, renderTimeDelta;
+-  int drawTimeBegin, drawTimeEnd, drawTimeDelta;
+-  int eventTimeBegin, eventTimeEnd, eventTimeDelta;
++  Uint64 layoutTimeBegin, layoutTimeEnd, layoutTimeDelta;
++  Uint64 renderTimeBegin, renderTimeEnd, renderTimeDelta;
++  Uint64 drawTimeBegin, drawTimeEnd, drawTimeDelta;
++  Uint64 eventTimeBegin, eventTimeEnd, eventTimeDelta;
+ 
+   FurnaceGUIPerfMetric perfMetrics[64];
+   int perfMetricsLen;
