@@ -1,5 +1,5 @@
 pkgname = "python-jsonschema"
-pkgver = "4.20.0"
+pkgver = "4.21.0"
 pkgrel = 0
 build_style = "python_pep517"
 # needs pip
@@ -26,7 +26,7 @@ maintainer = "miko <mikoxyzzz@gmail.com>"
 license = "MIT"
 url = "https://github.com/python-jsonschema/jsonschema"
 source = f"$(PYPI_SITE)/j/jsonschema/jsonschema-{pkgver}.tar.gz"
-sha256 = "4f614fd46d8d61258610998997743ec5492a648b33cf478c1ddc23ed4598a5fa"
+sha256 = "3ba18e27f7491ea4a1b22edce00fb820eec968d397feb3f9cb61d5894bb38167"
 
 
 def post_install(self):
