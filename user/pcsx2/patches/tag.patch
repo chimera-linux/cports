@@ -1,0 +1,12 @@
+initialising this out of band so it's not "unknown" after git detection fails
+--
+--- a/cmake/Pcsx2Utils.cmake
++++ b/cmake/Pcsx2Utils.cmake
+@@ -45,7 +45,6 @@
+ 
+ function(get_git_version_info)
+ 	set(PCSX2_GIT_REV "")
+-	set(PCSX2_GIT_TAG "")
+ 	set(PCSX2_GIT_HASH "")
+ 	if (GIT_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/.git)
+ 		EXECUTE_PROCESS(WORKING_DIRECTORY ${PROJECT_SOURCE_DIR} COMMAND ${GIT_EXECUTABLE} describe --tags
