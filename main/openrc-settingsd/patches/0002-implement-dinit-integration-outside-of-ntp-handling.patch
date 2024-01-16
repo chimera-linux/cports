@@ -1,0 +1,204 @@
+From f6aa94c8a84bb438ba690b526d1e477a85b735d1 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Mon, 15 Jan 2024 01:17:49 +0100
+Subject: [PATCH 2/3] implement dinit integration outside of ntp handling
+
+We will implement better NTP handling later, but it's going to
+be a little more complicated.
+---
+ data/org.freedesktop.hostname1.service.in |  4 ++--
+ data/org.freedesktop.locale1.service.in   |  4 ++--
+ data/org.freedesktop.timedate1.service.in |  4 ++--
+ meson.build                               |  5 +++++
+ src/hostnamed.c                           |  5 +++++
+ src/main.c                                | 15 +++++++++++++--
+ src/timedated.c                           | 14 ++++++++++----
+ 7 files changed, 39 insertions(+), 12 deletions(-)
+
+diff --git a/data/org.freedesktop.hostname1.service.in b/data/org.freedesktop.hostname1.service.in
+index 56f4a80..8f4516e 100644
+--- a/data/org.freedesktop.hostname1.service.in
++++ b/data/org.freedesktop.hostname1.service.in
+@@ -1,4 +1,4 @@
+ [D-BUS Service]
+ Name=org.freedesktop.hostname1
+-Exec=@libexecdir@/openrc-settingsd --update-rc-status
+-User=root
+\ No newline at end of file
++Exec=/usr/bin/dinitctl --quiet start openrc-settingsd
++User=root
+diff --git a/data/org.freedesktop.locale1.service.in b/data/org.freedesktop.locale1.service.in
+index 1debcbb..48b76df 100644
+--- a/data/org.freedesktop.locale1.service.in
++++ b/data/org.freedesktop.locale1.service.in
+@@ -1,4 +1,4 @@
+ [D-BUS Service]
+ Name=org.freedesktop.locale1
+-Exec=@libexecdir@/openrc-settingsd --update-rc-status
+-User=root
+\ No newline at end of file
++Exec=/usr/bin/dinitctl --quiet start openrc-settingsd
++User=root
+diff --git a/data/org.freedesktop.timedate1.service.in b/data/org.freedesktop.timedate1.service.in
+index 77dd26d..b62eeed 100644
+--- a/data/org.freedesktop.timedate1.service.in
++++ b/data/org.freedesktop.timedate1.service.in
+@@ -1,4 +1,4 @@
+ [D-BUS Service]
+ Name=org.freedesktop.timedate1
+-Exec=@libexecdir@/openrc-settingsd --update-rc-status
+-User=root
+\ No newline at end of file
++Exec=/usr/bin/dinitctl --quiet start openrc-settingsd
++User=root
+diff --git a/meson.build b/meson.build
+index f975f8f..fc07852 100644
+--- a/meson.build
++++ b/meson.build
+@@ -132,12 +132,15 @@ install_data(
+   install_dir : polkit_dep.get_pkgconfig_variable('actiondir')
+ )
+ 
++if not get_option('openrc').disabled()
++
+ install_data(
+   'data/conf.d/openrc-settingsd',
+   install_dir : get_option('sysconfdir') / 'conf.d',
+ )
+ 
+ # install_dir cannot be used in configure_file here, see https://github.com/mesonbuild/meson/issues/7675
++
+ initd_file = configure_file(
+   input : 'data/init.d/openrc-settingsd.in',
+   output : 'openrc-settingsd.initd',
+@@ -149,4 +152,6 @@ install_data(
+   install_dir : get_option('sysconfdir') / 'init.d',
+ )
+ 
++endif
++
+ install_man('data/openrc-settingsd.8')
+diff --git a/src/hostnamed.c b/src/hostnamed.c
+index 7305c24..c87eca7 100644
+--- a/src/hostnamed.c
++++ b/src/hostnamed.c
+@@ -94,6 +94,11 @@ guess_chassis ()
+         goto out;
+     }
+ #endif
++    /* chimera container detection */
++    if (!access ("/run/dinit/container", F_OK)) {
++        ret = g_strdup ("vm");
++        goto out;
++    }
+ 
+ #if defined(__i386__) || defined(__x86_64__)
+     /* 
+diff --git a/src/main.c b/src/main.c
+index 7d9444e..378d976 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -56,8 +56,8 @@ static GOptionEntry option_entries[] =
+     { "debug", 0, 0, G_OPTION_ARG_NONE, &debug, "Enable debugging messages", NULL },
+     { "read-only", 0, 0, G_OPTION_ARG_NONE, &read_only, "Run in read-only mode", NULL },
+     { "syslog", 0, 0, G_OPTION_ARG_NONE, &use_syslog, "Log to syslog", NULL },
+-    { "ntp-service", 0, 0, G_OPTION_ARG_STRING, &ntp_preferred_service, "Preferred rc NTP service for timedated", NULL },
+ #if HAVE_OPENRC
++    { "ntp-service", 0, 0, G_OPTION_ARG_STRING, &ntp_preferred_service, "Preferred rc NTP service for timedated", NULL },
+     { "update-rc-status", 0, 0, G_OPTION_ARG_NONE, &update_rc_status, "Force openrc-settingsd rc service to be marked as started", NULL },
+ #endif
+     { "version", 0, 0, G_OPTION_ARG_NONE, &print_version, "Show version information", NULL },
+@@ -158,6 +158,7 @@ openrc_settingsd_exit (int status)
+ void
+ openrc_settingsd_component_started ()
+ {
++    const gchar *rfd = NULL;
+     gchar *pidstring = NULL;
+     GError *err = NULL;
+ 
+@@ -174,6 +175,16 @@ openrc_settingsd_component_started ()
+ #endif
+     started = TRUE;
+ 
++    /* dinit readiness */
++    rfd = g_getenv ("OPENRC_SETTINGSD_READY_FD");
++    if (rfd) {
++        int fdnum = atoi (rfd);
++        if (fdnum && !fcntl (fdnum, F_GETFD)) {
++            write (fdnum, "READY=1\n", sizeof("READY=1"));
++            close (fdnum);
++        }
++    }
++
+   out:
+     G_UNLOCK (components_started);
+     g_free (pidstring);
+@@ -189,7 +200,7 @@ main (gint argc, gchar *argv[])
+ 
+     g_log_set_default_handler (log_handler, NULL);
+ 
+-    option_context = g_option_context_new ("- system settings D-Bus service for OpenRC");
++    option_context = g_option_context_new ("- system settings D-Bus service");
+     g_option_context_add_main_entries (option_context, option_entries, NULL);
+     if (!g_option_context_parse (option_context, &argc, &argv, &error)) {
+         g_critical ("Failed to parse options: %s", error->message);
+diff --git a/src/timedated.c b/src/timedated.c
+index 746eade..3b83a35 100644
+--- a/src/timedated.c
++++ b/src/timedated.c
+@@ -58,9 +58,10 @@ gchar *timezone_name = NULL;
+ G_LOCK_DEFINE_STATIC (clock);
+ 
+ gboolean use_ntp = FALSE;
++#if HAVE_OPENRC
+ static const gchar *ntp_preferred_service = NULL;
+ static const gchar *ntp_default_services[] = { "ntpd", "chronyd", "busybox-ntpd", NULL };
+-#define NTP_DEFAULT_SERVICES_PACKAGES "ntp, openntpd, chrony, busybox-ntpd"
++#endif
+ G_LOCK_DEFINE_STATIC (ntp);
+ 
+ static gboolean
+@@ -630,8 +631,7 @@ on_handle_set_ntp_authorized_cb (GObject *source_object,
+     G_LOCK (ntp);
+     if (ntp_service () == NULL) {
+         g_dbus_method_invocation_return_dbus_error (data->invocation, DBUS_ERROR_FAILED,
+-                                                    "No ntp implementation found. Please install one of the following packages: "
+-                                                    NTP_DEFAULT_SERVICES_PACKAGES);
++                                                    "No ntp implementation found.");
+         goto unlock;
+     }
+     if ((data->use_ntp && !service_enable (ntp_service (), &err)) ||
+@@ -736,7 +736,11 @@ timedated_init (gboolean _read_only,
+     GError *err = NULL;
+ 
+     read_only = _read_only;
++#if HAVE_OPENRC
+     ntp_preferred_service = _ntp_preferred_service;
++#else
++    (void)_ntp_preferred_service;
++#endif
+ 
+     hwclock_file = g_file_new_for_path (SYSCONFDIR "/hwclock");
+     timezone_file = g_file_new_for_path (SYSCONFDIR "/timezone");
+@@ -753,7 +757,7 @@ timedated_init (gboolean _read_only,
+         g_clear_error (&err);
+     }
+     if (ntp_service () == NULL) {
+-        g_warning ("No ntp implementation found. Please install one of the following packages: " NTP_DEFAULT_SERVICES_PACKAGES);
++        g_warning ("No ntp implementation found.");
+         use_ntp = FALSE;
+     } else {
+         use_ntp = service_started (ntp_service (), &err);
+@@ -779,7 +783,9 @@ timedated_destroy (void)
+     g_bus_unown_name (bus_id);
+     bus_id = 0;
+     read_only = FALSE;
++#if HAVE_OPENRC
+     ntp_preferred_service = NULL;
++#endif
+ 
+     g_object_unref (hwclock_file);
+     g_object_unref (timezone_file);
+-- 
+2.43.0
+

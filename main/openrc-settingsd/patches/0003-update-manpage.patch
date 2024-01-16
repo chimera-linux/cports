@@ -1,0 +1,116 @@
+From 361601a3f0b3417de98a5eb817709e7bd3f2459d Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Mon, 15 Jan 2024 01:20:23 +0100
+Subject: [PATCH 3/3] update manpage
+
+---
+ data/openrc-settingsd.8     | 25 +++++--------------------
+ data/openrc-settingsd.8.scd | 19 ++++---------------
+ 2 files changed, 9 insertions(+), 35 deletions(-)
+
+diff --git a/data/openrc-settingsd.8 b/data/openrc-settingsd.8
+index be158c2..eb3af8b 100644
+--- a/data/openrc-settingsd.8
++++ b/data/openrc-settingsd.8
+@@ -5,11 +5,11 @@
+ .nh
+ .ad l
+ .\" Begin generated content:
+-.TH "OPENRC-SETTINGSD" "8" "2023-06-05"
++.TH "OPENRC-SETTINGSD" "8" "2024-01-15"
+ .P
+ .SH NAME
+ .P
+-openrc-settingsd - system settings D-Bus service for OpenRC
++openrc-settingsd - system settings D-Bus service
+ .P
+ .SH SYNOPSIS
+ .P
+@@ -19,11 +19,12 @@ openrc-settingsd - system settings D-Bus service for OpenRC
+ .P
+ The \fBopenrc-settingsd\fR daemon implements the standard hostnamed (i.\&e.\&
+ \fIorg.\&freedesktop.\&hostname1\fR), localed (i.\&e.\& \fIorg.\&freedesktop.\&locale1\fR), and
+-timedated (\fIorg.\&freedesktop.\&timedate1\fR) D-Bus interfaces for OpenRC systems.\&
++timedated (\fIorg.\&freedesktop.\&timedate1\fR) D-Bus interfaces for OpenRC and other
++systems.\&
+ Users and administrators should not need to launch the \fBopenrc-settingsd\fR
+ executable manually.\& Depending on the installation, it will either be launched
+ automatically via D-Bus activation when needed, or started by the administrator
+-as an OpenRC service using \fI/etc/init.\&d/openrc-settingsd\fR.\&
++as a service.\&
+ .P
+ .SH OPTIONS
+ .P
+@@ -53,22 +54,6 @@ Run daemon in read-only mode.\& It will read settings files, but will not
+ modify them.\&
+ .P
+ .RE
+-\fB--ntp-service\fR=\fISERVICE\fR
+-.RS 4
+-Specify which OpenRC service to use as the NTP service.\& If this option is
+-not used, \fBopenrc-settingsd\fR will attempt to autodetect an appropriate NTP
+-implementation.\&
+-.P
+-.RE
+-\fB--update-rc-status\fR
+-.RS 4
+-Automatically set the status of the \fIopenrc-settingsd\fR service to \fIstarted\fR
+-when the daemon successfully starts, and to \fIstopped\fR when the daemon stops.\&
+-If \fBopenrc-settingsd\fR is manually launched with this argument, the
+-administrator will be able to stop it via \fI/etc/init.\&d/openrc-settingsd
+-stop\fR.\&
+-.P
+-.RE
+ .SH AUTHORS
+ .P
+ Written by Alexandre Rostovtsev ⟨tetromino@gentoo.\&org⟩.\&
+diff --git a/data/openrc-settingsd.8.scd b/data/openrc-settingsd.8.scd
+index 0fb5d7f..ee8ed38 100644
+--- a/data/openrc-settingsd.8.scd
++++ b/data/openrc-settingsd.8.scd
+@@ -2,7 +2,7 @@ OPENRC-SETTINGSD(8)
+ 
+ # NAME
+ 
+-openrc-settingsd - system settings D-Bus service for OpenRC
++openrc-settingsd - system settings D-Bus service
+ 
+ # SYNOPSIS
+ 
+@@ -12,11 +12,12 @@ openrc-settingsd - system settings D-Bus service for OpenRC
+ 
+ The *openrc-settingsd* daemon implements the standard hostnamed (i.e.
+ _org.freedesktop.hostname1_), localed (i.e. _org.freedesktop.locale1_), and
+-timedated (_org.freedesktop.timedate1_) D-Bus interfaces for OpenRC systems.
++timedated (_org.freedesktop.timedate1_) D-Bus interfaces for OpenRC and other
++systems.
+ Users and administrators should not need to launch the *openrc-settingsd*
+ executable manually. Depending on the installation, it will either be launched
+ automatically via D-Bus activation when needed, or started by the administrator
+-as an OpenRC service using _/etc/init.d/openrc-settingsd_.
++as a service.
+ 
+ # OPTIONS
+ 
+@@ -36,18 +37,6 @@ as an OpenRC service using _/etc/init.d/openrc-settingsd_.
+ 	Run daemon in read-only mode. It will read settings files, but will not
+ 	modify them.
+ 
+-*--ntp-service*=_SERVICE_
+-	Specify which OpenRC service to use as the NTP service. If this option is
+-	not used, *openrc-settingsd* will attempt to autodetect an appropriate NTP
+-	implementation.
+-
+-*--update-rc-status*
+-	Automatically set the status of the _openrc-settingsd_ service to _started_
+-	when the daemon successfully starts, and to _stopped_ when the daemon stops.
+-	If *openrc-settingsd* is manually launched with this argument, the
+-	administrator will be able to stop it via _/etc/init.d/openrc-settingsd
+-	stop_.
+-
+ # AUTHORS
+ 
+ Written by Alexandre Rostovtsev ⟨tetromino@gentoo.org⟩.
+-- 
+2.43.0
+

@@ -1,0 +1,154 @@
+From 74ca40d8123433078ed07e176f2e89fbe525b7e1 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Mon, 15 Jan 2024 00:26:24 +0100
+Subject: [PATCH 1/3] adjust files to match Chimera's setup
+
+---
+ src/localed.c   | 22 ++++++++++++----------
+ src/main.c      |  1 +
+ src/timedated.c | 22 ++++++++++++++--------
+ 3 files changed, 27 insertions(+), 18 deletions(-)
+
+diff --git a/src/localed.c b/src/localed.c
+index ed07dba..1618a0f 100644
+--- a/src/localed.c
++++ b/src/localed.c
+@@ -836,7 +836,7 @@ on_handle_set_locale_authorized_cb (GObject *source_object,
+     if (shell_parser_is_empty (locale_file_parsed)) {
+         /* Simply write the new env file */
+         shell_parser_free (locale_file_parsed);
+-        if ((locale_file_parsed = shell_parser_new_from_string (locale_file, "# Configuration file for eselect\n# This file has been automatically generated\n", &err)) == NULL) {
++        if ((locale_file_parsed = shell_parser_new_from_string (locale_file, "LANG=C.UTF-8\nLC_COLLATE=C\n", &err)) == NULL) {
+             g_dbus_method_invocation_return_gerror (data->invocation, err);
+             goto unlock;
+         }
+@@ -973,7 +973,7 @@ on_handle_set_vconsole_keyboard_authorized_cb (GObject *source_object,
+     }
+ 
+     /* We do not set vconsole_keymap_toggle because there is no good equivalent for it in OpenRC */
+-    if (!shell_parser_set_and_save (keymaps_file, &err, "keymap", NULL, data->vconsole_keymap, NULL)) {
++    if (!shell_parser_set_and_save (keymaps_file, &err, "KMAP", NULL, data->vconsole_keymap, NULL)) {
+         g_dbus_method_invocation_return_gerror (data->invocation, err);
+         goto unlock;
+     }
+@@ -1164,7 +1164,7 @@ on_handle_set_x11_keyboard_authorized_cb (GObject *source_object,
+             g_printerr ("Failed to find conversion entry for x11 layout '%s' in '%s'\n", data->x11_layout, filename);
+             g_free (filename);
+         } else {
+-            if (!shell_parser_set_and_save (keymaps_file, &err, "keymap", NULL, best_entry->vconsole_keymap, NULL)) {
++            if (!shell_parser_set_and_save (keymaps_file, &err, "KMAP", NULL, best_entry->vconsole_keymap, NULL)) {
+                 g_dbus_method_invocation_return_gerror (data->invocation, err);
+                 goto unlock;
+             }
+@@ -1288,15 +1288,17 @@ localed_init (gboolean _read_only)
+     kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/kbd-model-map");
+     locale_file = g_file_new_for_path (SYSCONFDIR "/env.d/02locale");
+     keymaps_file = g_file_new_for_path (SYSCONFDIR "/conf.d/keymaps");
+-#else
+-    kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/openrc-settingsd/kbd-model-map");
+-    locale_file = g_file_new_for_path (SYSCONFDIR "/profile.d/locale.sh");
+-    keymaps_file = g_file_new_for_path (SYSCONFDIR "/conf.d/loadkeys");
+-#endif
+-
+     /* See http://www.gentoo.org/doc/en/xorg-config.xml */
+     x11_gentoo_file = g_file_new_for_path (SYSCONFDIR "/X11/xorg.conf.d/30-keyboard.conf");
+     x11_systemd_file = g_file_new_for_path (SYSCONFDIR "/X11/xorg.conf.d/00-keyboard.conf");
++#else
++    kbd_model_map_file = g_file_new_for_path (PKGDATADIR "/openrc-settingsd/kbd-model-map");
++    locale_file = g_file_new_for_path (SYSCONFDIR "/locale.conf");
++    keymaps_file = g_file_new_for_path (SYSCONFDIR "/default/keyboard");
++    /* Use systemd-style always */
++    x11_gentoo_file = g_file_new_for_path (SYSCONFDIR "/X11/xorg.conf.d/00-keyboard.conf");
++    x11_systemd_file = g_file_new_for_path (SYSCONFDIR "/X11/xorg.conf.d/00-keyboard.conf");
++#endif
+ 
+     locale = g_new0 (gchar *, g_strv_length (locale_variables) + 1);
+     locale_values = shell_parser_source_var_list (locale_file, (const gchar * const *)locale_variables, &err);
+@@ -1318,7 +1320,7 @@ localed_init (gboolean _read_only)
+         g_clear_error (&err);
+     }
+ 
+-    vconsole_keymap = shell_source_var (keymaps_file, "${keymap}", &err);
++    vconsole_keymap = shell_source_var (keymaps_file, "${KMAP}", &err);
+     if (vconsole_keymap == NULL)
+         vconsole_keymap = g_strdup ("");
+     if (err != NULL) {
+diff --git a/src/main.c b/src/main.c
+index 7476b2f..7d9444e 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -21,6 +21,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <syslog.h>
++#include <fcntl.h>
+ 
+ #include <glib.h>
+ #include <gio/gio.h>
+diff --git a/src/timedated.c b/src/timedated.c
+index 54636e6..746eade 100644
+--- a/src/timedated.c
++++ b/src/timedated.c
+@@ -69,9 +69,10 @@ get_local_rtc (GError **error)
+     gchar *clock = NULL;
+     gboolean ret = FALSE;
+ 
+-    clock = shell_source_var (hwclock_file, "${clock}", error);
+-    if (!g_strcmp0 (clock, "local"))
+-        ret = TRUE;
++    if (g_file_load_contents (hwclock_file, NULL, &clock, NULL, NULL, error)) {
++        if (!g_strcmp0 (clock, "localtime"))
++            ret = TRUE;
++    }
+     g_free (clock);
+     return ret;
+ }
+@@ -92,6 +93,9 @@ set_timezone_file (const gchar *identifier,
+ 
+     g_return_val_if_fail (error != NULL, FALSE);
+ 
++    /* We don't use the timezone file in Chimera */
++    return TRUE;
++
+     /* We don't actually own the timezone file, but it's something distros
+      * need to take care of installing if they use it, which not all do.
+      * So if it doesn't exist, don't create it, it's not our responsibility */
+@@ -498,7 +502,7 @@ on_handle_set_local_rtc_authorized_cb (GObject *source_object,
+     GError *err = NULL;
+     struct invoked_set_local_rtc *data;
+     gchar *clock = NULL;
+-    const gchar *clock_types[2] = { "UTC", "local" };
++    const gchar *clock_types[2] = { "utc\n", "localtime\n" };
+ 
+     data = (struct invoked_set_local_rtc *) user_data;
+     if (!check_polkit_finish (res, &err)) {
+@@ -507,12 +511,14 @@ on_handle_set_local_rtc_authorized_cb (GObject *source_object,
+     }
+ 
+     G_LOCK (clock);
+-    clock = shell_source_var (hwclock_file, "${clock}", NULL);
+-    if (clock != NULL || data->local_rtc)
+-        if (!shell_parser_set_and_save (hwclock_file, &err, "clock", NULL, clock_types[data->local_rtc], NULL)) {
++    g_file_load_contents (hwclock_file, NULL, &clock, NULL, NULL, NULL);
++    if (clock != NULL || data->local_rtc) {
++        const gchar *ctype = clock_types[data->local_rtc];
++        if (!g_file_replace_contents (hwclock_file, ctype, strlen(ctype), NULL, FALSE, G_FILE_CREATE_NONE, NULL, NULL, &err)) {
+             g_dbus_method_invocation_return_gerror (data->invocation, err);
+             goto unlock;
+         }
++    }
+ 
+     if (data->local_rtc != local_rtc) {
+         /* The clock sync code below taken almost verbatim from systemd's timedated.c, and is
+@@ -732,7 +738,7 @@ timedated_init (gboolean _read_only,
+     read_only = _read_only;
+     ntp_preferred_service = _ntp_preferred_service;
+ 
+-    hwclock_file = g_file_new_for_path (SYSCONFDIR "/conf.d/hwclock");
++    hwclock_file = g_file_new_for_path (SYSCONFDIR "/hwclock");
+     timezone_file = g_file_new_for_path (SYSCONFDIR "/timezone");
+     localtime_file = g_file_new_for_path (SYSCONFDIR "/localtime");
+ 
+-- 
+2.43.0
+

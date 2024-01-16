@@ -1,0 +1,10 @@
+# openrc-settingsd service
+
+type               = process
+command            = /usr/libexec/openrc-settingsd --syslog
+before             = login.target
+depends-on         = local.target
+depends-on         = dbus
+depends-ms         = polkitd
+smooth-recovery    = true
+ready-notification = pipevar:OPENRC_SETTINGSD_READY_FD
