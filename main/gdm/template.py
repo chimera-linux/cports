@@ -1,6 +1,6 @@
 pkgname = "gdm"
 pkgver = "45.0.1"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -55,6 +55,7 @@ depends = [
     "gsettings-desktop-schemas",
     "elogind",
     "turnstile",
+    "openrc-settingsd",
 ]
 pkgdesc = "GNOME display manager"
 maintainer = "q66 <q66@chimera-linux.org>"
