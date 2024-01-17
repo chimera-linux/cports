@@ -796,11 +796,13 @@ class Template(Package):
             )
 
         # find the last revision modifying the template
-        self.git_revision = _gitlog("%H", self.template_path, True)
+        grev = _gitlog("%H", self.template_path, True)
 
-        if len(self.git_revision) != 40:
+        # 0 length means untracked in git
+        if len(grev) != 40 and len(grev) != 0:
             self.error(f"invalid commit format for {self.template_path}")
 
+        self.git_revision = grev
         self.git_dirty = dirty
 
         # template directory modified, do not use a reproducible date
