@@ -1,14 +1,14 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20231211"
-pkgrel = 1
+pkgver = "20240115"
+pkgrel = 0
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "d0ba54f05f5dd34b0fc5a1e1970cd9cbc48491d2da97f3798a9e13530dc18298"
+sha256 = "86c2799516c9dc24e73214bd58ccd8297356186e97c5458baf4eb7cc8dbfea0a"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -41,6 +41,7 @@ _pkgs = [
     ),
     ("ath10k", "ath10k WLAN", None, "network", ["ath10k"]),
     ("ath11k", "ath11k WLAN", None, "network", ["ath11k"]),
+    ("ath12k", "ath12k WLAN", None, "network", ["ath12k"]),
     ("atwilc", "Atmel WILC WLAN", None, "network", ["atmel"]),
     ("atusb", "ATUSB IEEE 802.15.4 transceiver", None, "network", ["atusb"]),
     ("bnx2", "BNX2 1Gb Ethernet", None, "network", ["bnx2"]),
@@ -66,6 +67,7 @@ _pkgs = [
     ),
     ("cpia2", "STM CPIA2 cameras", None, "misc", ["cpia2"]),
     ("cs35l41", "Cirrus CS35L41 amplifier", None, "audio", ["cirrus/cs35l41*"]),
+    ("cs42l43", "Cirrus CS42L43 amplifier", None, "audio", ["cs42l43.bin"]),
     ("cxgb3", "Chelsio T3 10Gb Ethernet", None, "network", ["cxgb3"]),
     ("cxgb4", "Chelsio T4/5/6 Ethernet", None, "network", ["cxgb4"]),
     ("cw1200", "ST-E CW1200 WLAN", None, "network", ["wsm_22.bin"]),
@@ -116,6 +118,13 @@ _pkgs = [
             "intel/ipu3-fw.bin",
             "intel/irci_*.bin",
         ],
+    ),
+    (
+        "intel-ivsc",
+        "Intel Visual Sensing Controller",
+        _arch_x86,
+        "misc",
+        ["intel/vsc"],
     ),
     (
         "inside-secure",
@@ -283,6 +292,13 @@ _pkgs = [
         ["ti-connectivity"],
     ),
     ("ti-serial", "TI USB 3410/5052", None, "misc", ["ti_*.fw"]),
+    (
+        "ti-tas",
+        "Texas Instruments amplifiers",
+        None,
+        "audio",
+        ["INT88*", "TAS2*", "TIAS2*", "ti/tas*"],
+    ),
     ("tigon", "Tigon I/II/III Ethernet", None, "network", ["acenic", "tigon"]),
     ("typhoon", "3Com Typhoon Ethernet", None, "network", ["3com"]),
     ("ueagle-atm", "Eagle USB modems", None, "network", ["ueagle-atm"]),
