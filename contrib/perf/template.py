@@ -1,6 +1,6 @@
 pkgname = "perf"
-pkgver = "6.6.9"
-pkgrel = 1
+pkgver = "6.7"
+pkgrel = 0
 build_wrksrc = "tools/perf"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -10,11 +10,11 @@ make_build_args = [
     "NO_LIBBABELTRACE=1",
     "NO_LIBDEBUGINFOD=1",
     "NO_LIBPFM4=1",
-    "NO_LIBTRACEEVENT=1",
     "NO_LIBUNWIND=1",
     "NO_SDT=1",
     "STRIP=/bin/true",
     "V=1",
+    "WERROR=0",
     "libdir=/usr/lib",
     "mandir=/usr/share/man",
     "prefix=/usr",
@@ -26,12 +26,14 @@ hostmakedepends = [
     "bison",
     "flex",
     "gmake",
+    "pkgconf",
     "python-setuptools",
 ]
 makedepends = [
     "elfutils-devel",
     "libcap-devel",
     "libnuma-devel",
+    "libtraceevent-devel",
     "linux-headers",
     "openssl-devel",
     "python-devel",
@@ -45,7 +47,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://perf.wiki.kernel.org/index.php/Main_Page"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[:pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"
-sha256 = "8ebc65af0cfc891ba63dce0546583da728434db0f5f6a54d979f25ec47f548b3"
+sha256 = "ef31144a2576d080d8c31698e83ec9f66bf97c677fa2aaf0d5bbb9f3345b1069"
 # nope
 options = ["!check"]
 # MAKE is ignored in some places
