@@ -783,27 +783,23 @@ class Template(Package):
             != 0
         )
 
-        # find the last revision modifying the template
-        self.git_revision = (
-            subprocess.run(
-                [
-                    "git",
-                    "log",
-                    "--format=oneline",
-                    "-n1",
-                    "--",
-                    self.template_path,
-                ],
-                capture_output=True,
+        def _gitlog(fmt, tgt, pkg):
+            bargs = ["git", "log", "-n1", f"--format={fmt}"]
+            if pkg:
+                bargs += ["--", tgt]
+            else:
+                bargs.append(tgt)
+            return (
+                subprocess.run(bargs, capture_output=True)
+                .stdout.strip()
+                .decode("ascii")
             )
-            .stdout.strip()[0:40]
-            .decode("ascii")
-        )
 
-        if len(self.git_revision) < 40:
-            # ???
-            self.git_revision = None
-            return
+        # find the last revision modifying the template
+        self.git_revision = _gitlog("%H", self.template_path, True)
+
+        if len(self.git_revision) != 40:
+            self.error(f"invalid commit format for {self.template_path}")
 
         self.git_dirty = dirty
 
@@ -812,23 +808,12 @@ class Template(Package):
             return
 
         # get the date of the git revision
-        ts = subprocess.run(
-            [
-                "git",
-                "log",
-                "-1",
-                "--format=%cd",
-                "--date=unix",
-                self.git_revision,
-            ],
-            capture_output=True,
-        ).stdout.strip()
+        ts = _gitlog("%ct", self.git_revision, False)
 
         try:
             self.source_date_epoch = int(ts)
         except ValueError:
-            # ???
-            pass
+            self.error(f"invalid commit timestamp for {self.template_path}")
 
     def build_lint(self):
         if self.broken:
