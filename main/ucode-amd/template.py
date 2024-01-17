@@ -1,6 +1,6 @@
 # keep in sync with firmware-linux
 pkgname = "ucode-amd"
-pkgver = "20230919"
+pkgver = "20240115"
 pkgrel = 0
 archs = ["x86_64"]
 makedepends = ["firmware-linux-amd-ucode"]
