@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "23.3.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
