@@ -14,7 +14,6 @@ configure_args = [
     "ac_cv_path_NROFF=/usr/bin/mandoc",
     "ac_cv_sizeof_off_t=8",
 ]
-make_check_env = {"USER": "nobody"}
 hostmakedepends = ["pkgconf", "perl", "mandoc"]
 makedepends = [
     "libidn2-devel",
