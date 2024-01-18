@@ -596,6 +596,7 @@ def enter(
         "PATH": defpath,
         "SHELL": "/bin/sh",
         "HOME": "/tmp",
+        "USER": "root" if fakeroot else "cbuild",
         "LC_COLLATE": "C",
         "LANG": "C.UTF-8",
         "UNAME_m": hprof.machine,
