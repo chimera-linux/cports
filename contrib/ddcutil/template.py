@@ -1,5 +1,5 @@
 pkgname = "ddcutil"
-pkgver = "2.0.0"
+pkgver = "2.1.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-x11"]
@@ -27,7 +27,7 @@ url = "https://www.ddcutil.com"
 source = (
     f"https://github.com/rockowitz/ddcutil/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "054b89623e5321ffe504e809a72cfe7be73e9eacd74dcdb39b1a8d22c35c6551"
+sha256 = "c0bf89fcff98c6c3755b328c6fc01617b860ef7e067174f589afa1da5bc4129b"
 # breaks symbols
 hardening = ["!vis"]
 # no tests
