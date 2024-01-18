@@ -1,5 +1,5 @@
 pkgname = "linux-pam"
-pkgver = "1.5.3"
+pkgver = "1.6.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/linux-pam/linux-pam"
 source = f"{url}/releases/download/v{pkgver}/Linux-PAM-{pkgver}.tar.xz"
-sha256 = "7ac4b50feee004a9fa88f1dfd2d2fa738a82896763050cd773b3c54b0a818283"
+sha256 = "fff4a34e5bbee77e2e8f1992f27631e2329bcbf8a0563ddeb5c3389b4e3169ad"
 suid_files = ["usr/bin/unix_chkpwd"]
 
 
