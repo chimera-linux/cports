@@ -15,16 +15,16 @@ index e5e7ee7..81f672e 100644
  build-backend = "hatchling.build"
  
  [project]
-@@ -52,36 +52,6 @@ Tidelift = "https://tidelift.com/subscription/pkg/pypi-service-identity?utm_sour
+@@ -54,34 +54,8 @@
  source = "vcs"
  raw-options = { local_scheme = "no-local-version" }
  
 -[tool.hatch.metadata.hooks.fancy-pypi-readme]
 -content-type = "text/markdown"
--
+ 
 -[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
 -text = "# Service Identity Verification for pyOpenSSL & *cryptography*\n"
--
+ 
 -[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
 -path = "README.md"
 -start-after = "spiel-begin -->\n"
@@ -45,10 +45,8 @@ index e5e7ee7..81f672e 100644
 -text = """
 -----
 -
--[→ Complete Changelog](https://service-identity.readthedocs.io/en/stable/changelog.html)
+-[Complete Changelog →](https://service-identity.readthedocs.io/en/stable/changelog.html)
 -"""
--
--
+ 
+ 
  [tool.pytest.ini_options]
- addopts = ["-ra", "--strict-markers", "--strict-config"]
- xfail_strict = true

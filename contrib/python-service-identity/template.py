@@ -1,6 +1,6 @@
 pkgname = "python-service-identity"
-pkgver = "23.1.0"
-pkgrel = 1
+pkgver = "24.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 depends = [
@@ -16,9 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pyca/service-identity"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "35c8caebaa66d1f88e1651a9de32e34fd5323561499f01e918f8e25a19020bd8"
-# requires to be installed
-options = ["!check"]
+sha256 = "0a4d5c1e489fe71d379d7c091068a6a6e8e836567bd936006d2ba435a7e14141"
 
 
 def post_install(self):
