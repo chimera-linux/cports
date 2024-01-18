@@ -1,0 +1,64 @@
+Patch-Source: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/commit/0166a0fb86dc6c0e8903436bbc3a89bc3273ebc0
+--
+From 0166a0fb86dc6c0e8903436bbc3a89bc3273ebc0 Mon Sep 17 00:00:00 2001
+From: Viktoria Maximova <viktoria.maksimova@intel.com>
+Date: Wed, 13 Dec 2023 16:46:33 +0100
+Subject: [PATCH] Update LongConstantCompositeINTEL to LongCompositesINTEL
+ capability after Headers change (#2258)
+
+* Bump SPIRV-Headers to 1c6bb2743599e6eb6f37b2969acc0aef812e32e3
+* replace internal SPV_INTEL_long_composites ext with the published SPV_INTEL_long_composites
+* don't rename extension for now
+This closes: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/issues/2261
+
+Co-authored-by: Wlodarczyk, Bertrand <bertrand.wlodarczyk@intel.com>
+---
+ include/LLVMSPIRVExtensions.inc                 | 3 ++-
+ lib/SPIRV/libSPIRV/SPIRVEntry.h                 | 2 +-
+ lib/SPIRV/libSPIRV/SPIRVNameMapEnum.h           | 2 +-
+ spirv-headers-tag.conf                          | 2 +-
+ test/SpecConstants/long-spec-const-composite.ll | 2 +-
+ test/long-constant-array.ll                     | 2 +-
+ test/long-type-struct.ll                        | 2 +-
+ 7 files changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/include/LLVMSPIRVExtensions.inc b/include/LLVMSPIRVExtensions.inc
+index 8ff153993..780faec57 100644
+--- a/include/LLVMSPIRVExtensions.inc
++++ b/include/LLVMSPIRVExtensions.inc
+@@ -43,7 +43,8 @@ EXT(SPV_INTEL_variable_length_array)
+ EXT(SPV_INTEL_fp_fast_math_mode)
+ EXT(SPV_INTEL_fpga_cluster_attributes)
+ EXT(SPV_INTEL_loop_fuse)
+-EXT(SPV_INTEL_long_constant_composite)
++EXT(SPV_INTEL_long_constant_composite) // TODO: rename to
++                                       // SPV_INTEL_long_composites later
+ EXT(SPV_INTEL_optnone)
+ EXT(SPV_INTEL_fpga_dsp_control)
+ EXT(SPV_INTEL_memory_access_aliasing)
+diff --git a/lib/SPIRV/libSPIRV/SPIRVEntry.h b/lib/SPIRV/libSPIRV/SPIRVEntry.h
+index e5475a2be..5131a2a1e 100644
+--- a/lib/SPIRV/libSPIRV/SPIRVEntry.h
++++ b/lib/SPIRV/libSPIRV/SPIRVEntry.h
+@@ -908,7 +908,7 @@ class SPIRVContinuedInstINTELBase : public SPIRVEntryNoId<OC> {
+   }
+ 
+   SPIRVCapVec getRequiredCapability() const override {
+-    return getVec(CapabilityLongConstantCompositeINTEL);
++    return getVec(CapabilityLongCompositesINTEL);
+   }
+ 
+   std::optional<ExtensionID> getRequiredExtension() const override {
+diff --git a/lib/SPIRV/libSPIRV/SPIRVNameMapEnum.h b/lib/SPIRV/libSPIRV/SPIRVNameMapEnum.h
+index 6d44142d8..ae2aa3950 100644
+--- a/lib/SPIRV/libSPIRV/SPIRVNameMapEnum.h
++++ b/lib/SPIRV/libSPIRV/SPIRVNameMapEnum.h
+@@ -618,7 +618,7 @@ template <> inline void SPIRVMap<Capability, std::string>::init() {
+   add(CapabilityGroupNonUniformRotateKHR, "GroupNonUniformRotateKHR");
+   add(CapabilityAtomicFloat32AddEXT, "AtomicFloat32AddEXT");
+   add(CapabilityAtomicFloat64AddEXT, "AtomicFloat64AddEXT");
+-  add(CapabilityLongConstantCompositeINTEL, "LongConstantCompositeINTEL");
++  add(CapabilityLongCompositesINTEL, "LongCompositesINTEL");
+   add(CapabilityOptNoneINTEL, "OptNoneINTEL");
+   add(CapabilityAtomicFloat16AddEXT, "AtomicFloat16AddEXT");
+   add(CapabilityDebugInfoModuleINTEL, "DebugInfoModuleINTEL");

@@ -1,6 +1,6 @@
 pkgname = "spirv-llvm-translator"
 pkgver = "17.0.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-Wno-dev",
