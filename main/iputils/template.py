@@ -1,5 +1,5 @@
 pkgname = "iputils"
-pkgver = "20231222"
+pkgver = "20240117"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "https://github.com/iputils/iputils"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "18d51e7b416da0ecbc0ae18a2cba76407ca0b5b3f32c356034f258a0cb56793f"
+sha256 = "a5d66e2997945b2541b8f780a7f5a5ec895d53a517ae1dc4f3ab762573edea9a"
 file_xattrs = {
     "usr/bin/clockdiff": {
         "security.capability": "cap_net_raw,cap_sys_nice+ep",
