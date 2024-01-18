@@ -1,0 +1,18 @@
+commit 936c8ed2d5e78b03a244e5b9e193f005f8b9a7a9
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Jan 18 04:37:39 2024 +0100
+
+    drop a leftover debug printf
+
+diff --git a/early/helpers/swap.c b/early/helpers/swap.c
+index 8476310..8220f74 100644
+--- a/early/helpers/swap.c
++++ b/early/helpers/swap.c
+@@ -124,7 +124,6 @@ static int do_start(void) {
+             }
+         }
+         devname = resolve_dev(m->mnt_fsname, devbuf, sizeof(devbuf));
+-        printf("DEVN %s %s\n", m->mnt_fsname, devname);
+         if (stat(devname, &st)) {
+             warn("stat failed for '%s'", m->mnt_fsname);
+             ret = 1;
