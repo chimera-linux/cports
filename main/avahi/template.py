@@ -1,7 +1,7 @@
 # this must be synchronized with avahi-ui-progs
 pkgname = "avahi"
 pkgver = "0.8"
-pkgrel = 3
+pkgrel = 4
 build_style = "gnu_configure"
 configure_args = [
     "--disable-qt3",
@@ -31,6 +31,7 @@ configure_args = [
     "--with-autoipd-user=_avahi",
     "--with-autoipd-group=_avahi",
     "--with-avahi-priv-access-group=network",
+    "--with-dbus-sys=/usr/share/dbus-1/system.d",
     "--with-distro=none",
     "--with-dbus-system-socket=unix:path=/run/dbus/system_bus_socket",
     "--without-systemdsystemunitdir",

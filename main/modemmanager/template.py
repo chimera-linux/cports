@@ -1,6 +1,6 @@
 pkgname = "modemmanager"
 pkgver = "1.18.12"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -10,6 +10,7 @@ configure_args = [
     "--enable-plugin-qcom-soc",
     "--with-polkit=permissive",
     "--with-udev-base-dir=/usr/lib/udev",
+    "--with-dbus-sys-dir=/usr/share/dbus-1/system.d",
 ]
 make_cmd = "gmake"
 hostmakedepends = [

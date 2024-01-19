@@ -1,6 +1,6 @@
 pkgname = "networkmanager"
 pkgver = "1.44.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemd_journal=false",
@@ -27,7 +27,7 @@ configure_args = [
     "-Dconfig_wifi_backend_default=wpa_supplicant",
     "-Dconfig_dhcp_default=internal",
     "-Dkernel_firmware_dir=/usr/lib/firmware",
-    "-Ddbus_conf_dir=/etc/dbus-1/system.d",
+    "-Ddbus_conf_dir=/usr/share/dbus-1/system.d",
     "-Dudev_dir=/usr/lib/udev",
     "-Dpppd_plugin_dir=/usr/lib/pppd/2.5.0",
     "-Dsession_tracking=elogind",
@@ -106,16 +106,9 @@ def post_install(self):
         self.files_path / "50-org.freedesktop.NetworkManager.rules",
         "usr/share/polkit-1/rules.d",
     )
-    # default dirs
-    self.install_dir("etc/NetworkManager/system-connections", empty=True)
-    self.install_dir(
-        "etc/NetworkManager/dispatcher.d/pre-up.d", empty=True, mode=0o750
+    self.install_file(
+        self.files_path / "networkmanager.conf", "usr/lib/tmpfiles.d"
     )
-    self.install_dir(
-        "etc/NetworkManager/dispatcher.d/pre-down.d", empty=True, mode=0o750
-    )
-    self.install_dir("etc/NetworkManager/VPN", empty=True)
-    self.install_dir("var/lib/NetworkManager", empty=True)
     # kill hardlinks
     for f in ["nmtui-connect", "nmtui-hostname", "nmtui-edit"]:
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1")

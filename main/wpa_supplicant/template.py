@@ -1,6 +1,6 @@
 pkgname = "wpa_supplicant"
 pkgver = "2.10"
-pkgrel = 1
+pkgrel = 2
 build_wrksrc = pkgname
 build_style = "makefile"
 make_cmd = "gmake"
@@ -39,7 +39,7 @@ def post_install(self):
     # dbus config
     self.install_file(
         "dbus/dbus-wpa_supplicant.conf",
-        "etc/dbus-1/system.d",
+        "usr/share/dbus-1/system.d",
         name="wpa_supplicant.conf",
     )
     # default config
