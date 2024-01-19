@@ -1,5 +1,5 @@
 pkgname = "sbctl"
-pkgver = "0.12"
+pkgver = "0.13"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/sbctl"]
@@ -12,7 +12,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://github.com/Foxboron/sbctl"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "72475519733385b0effb422ff058e95f0282fa93eccf03df07e3402736646b97"
+sha256 = "efe855ea3de3dcaf5bc8974f724983fee0320a47094f6f4fd5f9e34cfa239456"
 options = ["!cross"]
 
 
