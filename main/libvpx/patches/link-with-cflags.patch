@@ -8,7 +8,7 @@ diff --git a/build/make/Makefile b/build/make/Makefile
 index 9ca97c8..17f2b8e 100644
 --- a/build/make/Makefile
 +++ b/build/make/Makefile
-@@ -266,13 +266,13 @@ define linker_template
+@@ -280,13 +280,13 @@
  $(1): $(filter-out -%,$(2))
  $(1):
  	$(if $(quiet),@echo    "    [LD] $$@")
@@ -24,16 +24,16 @@ index 9ca97c8..17f2b8e 100644
  endef
  # make-3.80 has a bug with expanding large input strings to the eval function,
  # which was triggered in some cases by the following component of
-@@ -306,7 +306,7 @@ define so_template
+@@ -333,7 +333,7 @@
  # This needs further abstraction for dealing with non-GNU linkers.
  $(1):
  	$(if $(quiet),@echo "    [LD] $$@")
 -	$(qexec)$$(LD) -shared $$(LDFLAGS) \
 +	$(qexec)$$(LD) -shared $$(CFLAGS) $$(LDFLAGS) \
-             -Wl,--no-undefined -Wl,-soname,$$(SONAME) \
+             $(NO_UNDEFINED) \
+             -Wl,-soname,$$(SONAME) \
              -Wl,--version-script,$$(EXPORTS_FILE) -o $$@ \
-             $$(filter %.o,$$^) $$(extralibs)
-@@ -318,7 +318,7 @@ define dl_template
+@@ -346,7 +346,7 @@
  # for creating them.
  $(1):
  	$(if $(quiet),@echo "    [LD] $$@")
