@@ -1,6 +1,6 @@
 pkgname = "dbus"
 pkgver = "1.14.10"
-pkgrel = 7
+pkgrel = 8
 build_style = "gnu_configure"
 configure_args = [
     "--disable-selinux",
@@ -39,9 +39,6 @@ system_users = ["dbus:22"]
 
 
 def post_install(self):
-    # these need to exist
-    self.install_dir("var/lib/dbus", empty=True)
-    self.install_dir("etc/dbus-1/session.d", empty=True)
     # service file
     self.install_file(
         self.files_path / "dbus-session.wrapper", "usr/libexec", mode=0o755
