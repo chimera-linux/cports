@@ -1,18 +1,19 @@
 pkgname = "gtk+3"
-pkgver = "3.24.39"
-pkgrel = 1
+pkgver = "3.24.40"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dx11_backend=true",
-    "-Dwayland_backend=true",
     "-Dbroadway_backend=true",
-    "-Dprint_backends=cups,file",
     "-Dcloudproviders=true",
     "-Dcolord=yes",
-    "-Dtracker3=true",
     "-Dgtk_doc=false",
-    "-Dman=true",
     "-Dintrospection=true",
+    "-Dman=true",
+    "-Dprint_backends=cups,file",
+    "-Dtests=false",
+    "-Dtracker3=true",
+    "-Dwayland_backend=true",
+    "-Dx11_backend=true",
 ]
 make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
@@ -67,7 +68,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk+/{pkgver[:-3]}/gtk+-{pkgver}.tar.xz"
-sha256 = "1cac3e566b9b2f3653a458c08c2dcdfdca9f908037ac03c9d8564b4295778d79"
+sha256 = "444dbb11f4fd5d592d74422441671854d1b744d0a7f3a3fbf9d4f936eb0552d3"
 # FIXME int
 hardening = ["!int"]
 # gtk3 can't handle seatless wayland displays; also
