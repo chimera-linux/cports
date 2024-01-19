@@ -71,12 +71,6 @@ def invoke(pkg):
         pkg.log_red("package marked empty but not actually empty")
         lintfail = True
 
-    # stuff in /etc that should go in /usr/share
-    for d in ["bash_completion.d", "X11/xorg.conf.d", "gconf/schemas"]:
-        if (pkg.destdir / "etc" / d).exists():
-            pkg.log_red(f"{d} should go in /usr/share, not /etc")
-            lintfail = True
-
     # stuff in /etc that should go in /usr/lib
     for d in [
         "modprobe.d",
@@ -92,7 +86,15 @@ def invoke(pkg):
             lintfail = True
 
     # stuff in /etc that should go in /usr/share
-    for d in ["polkit-1/rules.d", "fonts/conf.avail"]:
+    for d in [
+        "bash_completion.d",
+        "dbus-1/session.d",
+        "dbus-1/system.d",
+        "fonts/conf.avail",
+        "polkit-1/rules.d",
+        "X11/xorg.conf.d",
+        "gconf/schemas",
+    ]:
         if (pkg.destdir / "etc" / d).exists():
             pkg.log_red(f"{d} should go in /usr/share, not /etc")
             lintfail = True
