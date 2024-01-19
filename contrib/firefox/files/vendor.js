@@ -14,3 +14,7 @@ pref("browser.topsites.contile.enabled", false);
 // Does not work on musl (proprietary)
 pref("media.gmp-widevinecdm.visible", false);
 pref("media.gmp-widevinecdm.enabled", false);
+
+// Ditto (crashes)
+pref("media.gmp-gmpopenh264.visible", false);
+pref("media.gmp-gmpopenh264.enabled", false);
