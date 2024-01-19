@@ -1,0 +1,24 @@
+qmake doesn't support env flags. but we want to set them, so wire them through
+with the usual env
+--- a/pyqtbuild/builder.py
++++ b/pyqtbuild/builder.py
+@@ -656,6 +656,19 @@
+ 
+         # Build the command line.
+         args = [self.qmake]
++        cflags = os.getenv("CFLAGS")
++        cxxflags = os.getenv("CXXFLAGS")
++        ldflags = os.getenv("LDFLAGS")
++
++        if cflags:
++            args.append(f'QMAKE_CFLAGS+="{cflags}"')
++
++        if cxxflags:
++            args.append(f'QMAKE_CXXFLAGS+="{cxxflags}"')
++
++        if ldflags:
++            # qmake_lflags is not a typo
++            args.append(f'QMAKE_LFLAGS+="{ldflags}"')
+ 
+         # If the spec is the same as the default then we don't need to specify
+         # it.
