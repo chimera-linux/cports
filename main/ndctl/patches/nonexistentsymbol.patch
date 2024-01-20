@@ -1,0 +1,13 @@
+cxl/libcxl.h has a header decl for this but there is no impl anywhere
+this makes -Wl,--undefined (default with lld 17) fail.
+--
+--- a/cxl/lib/libcxl.sym
++++ b/cxl/lib/libcxl.sym
+@@ -208,7 +208,6 @@
+ 	cxl_mapping_get_first;
+ 	cxl_mapping_get_next;
+ 	cxl_mapping_get_decoder;
+-	cxl_mapping_get_region;
+ 	cxl_mapping_get_position;
+ 	cxl_decoder_get_by_name;
+ 	cxl_decoder_get_memdev;
