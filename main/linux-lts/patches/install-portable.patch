@@ -1,0 +1,19 @@
+commit 8ea93966cdcaf968b6bf4be92652cbda5cd062d6
+Author: Daniel Kolesa <daniel@octaforge.org>
+Date:   Sun May 21 14:47:38 2023 +0200
+
+    install(1) argument order portability
+
+diff --git a/tools/lib/subcmd/Makefile b/tools/lib/subcmd/Makefile
+index b87213263..138bfdf05 100644
+--- a/tools/lib/subcmd/Makefile
++++ b/tools/lib/subcmd/Makefile
+@@ -92,7 +92,7 @@ define do_install
+ 	if [ ! -d '$2' ]; then             \
+ 		$(INSTALL) -d -m 755 '$2'; \
+ 	fi;                                             \
+-	$(INSTALL) $1 $(if $3,-m $3,) '$2'
++	$(INSTALL) $(if $3,-m $3,) $1 '$2'
+ endef
+ 
+ install_lib: $(LIBFILE)

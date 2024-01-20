@@ -1,8 +1,7 @@
-From 53e41a90c6294d815fd963f2c33482e69383e21e Mon Sep 17 00:00:00 2001
+From c9f2bd743be591bd5f89b80b6b74af4b444c1cf6 Mon Sep 17 00:00:00 2001
 From: Fuhai Wang <fuhaiwang@tencent.com>
-Date: Fri, 26 May 2023 17:33:10 +0000
-Subject: [PATCH 2/2] ampere/arm64: Work around Ampere Altra erratum #82288
- PCIE_65
+Date: Wed, 29 Nov 2023 18:31:03 +0100
+Subject: [PATCH] ampere/arm64: Work around Ampere Altra erratum #82288 PCIE_65
 
 Altra's PCIe controller may generate incorrect addresses when receiving
 writes from the CPU with a discontiguous set of byte enables. Attempt to
@@ -17,31 +16,21 @@ Notes by q66 <q66@chimera-linux.org>:
 
 Original patch source: https://github.com/Tencent/TencentOS-kernel/commit/f454797b673c06c0eb1b77be20d8a475ad2fbf6f
 
-I have rebased this patch on top of 6.1 kernel, adjusting things
+I have rebased this patch on top of 6.6 kernel, adjusting things
 so that they still apply.
-
-The most notable upstream change is that arm64 now uses generic
-ioremap code. Since we don't want to patch the generic code with
-arm64 bits, add a special hook (similar to ioremap_allowed) to
-map the prot.
-
-The rest is mostly a straightforward rebase.
 ---
  arch/arm64/Kconfig               | 21 +++++++++++++++++++++
- arch/arm64/include/asm/io.h      |  3 +++
  arch/arm64/include/asm/pci.h     |  4 ++++
  arch/arm64/include/asm/pgtable.h | 26 +++++++++++++++++++++-----
- arch/arm64/mm/ioremap.c          | 25 +++++++++++++++++++++++++
+ arch/arm64/mm/ioremap.c          | 23 ++++++++++++++++++++++-
  drivers/pci/quirks.c             |  9 +++++++++
- include/asm-generic/io.h         |  4 ++++
- mm/ioremap.c                     |  2 +-
- 8 files changed, 88 insertions(+), 6 deletions(-)
+ 5 files changed, 77 insertions(+), 6 deletions(-)
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 43ff7c7a3..1a130f946 100644
+index 6062a52..2d8227a 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -378,6 +378,27 @@ menu "ARM errata workarounds via the alternatives framework"
+@@ -437,6 +437,27 @@ config AMPERE_ERRATUM_AC03_CPU_38
  config ARM64_WORKAROUND_CLEAN_CACHE
  	bool
  
@@ -69,22 +58,8 @@ index 43ff7c7a3..1a130f946 100644
  config ARM64_ERRATUM_826319
  	bool "Cortex-A53: 826319: System might deadlock if a write cannot complete until read data is accepted"
  	default y
-diff --git a/arch/arm64/include/asm/io.h b/arch/arm64/include/asm/io.h
-index 877495a0f..ad4dab85e 100644
---- a/arch/arm64/include/asm/io.h
-+++ b/arch/arm64/include/asm/io.h
-@@ -142,6 +142,9 @@ extern void __memset_io(volatile void __iomem *, int, size_t);
- bool ioremap_allowed(phys_addr_t phys_addr, size_t size, unsigned long prot);
- #define ioremap_allowed ioremap_allowed
- 
-+pgprot_t ioremap_map_prot(phys_addr_t phys_addr, size_t size, unsigned long prot);
-+#define ioremap_map_prot ioremap_map_prot
-+
- #define _PAGE_IOREMAP PROT_DEVICE_nGnRE
- 
- #define ioremap_wc(addr, size)	\
 diff --git a/arch/arm64/include/asm/pci.h b/arch/arm64/include/asm/pci.h
-index 016eb6b46..a99be43ba 100644
+index 016eb6b..a99be43 100644
 --- a/arch/arm64/include/asm/pci.h
 +++ b/arch/arm64/include/asm/pci.h
 @@ -16,6 +16,10 @@
@@ -99,10 +74,10 @@ index 016eb6b46..a99be43ba 100644
  
  /* Generic PCI */
 diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index 5d0f1f7b7..72890b4cd 100644
+index 7f7d9b1..8847e55 100644
 --- a/arch/arm64/include/asm/pgtable.h
 +++ b/arch/arm64/include/asm/pgtable.h
-@@ -229,11 +229,6 @@ static inline pte_t pte_mkyoung(pte_t pte)
+@@ -230,11 +230,6 @@ static inline pte_t pte_mkyoung(pte_t pte)
  	return set_pte_bit(pte, __pgprot(PTE_AF));
  }
  
@@ -114,7 +89,7 @@ index 5d0f1f7b7..72890b4cd 100644
  static inline pte_t pte_mkcont(pte_t pte)
  {
  	pte = set_pte_bit(pte, __pgprot(PTE_CONT));
-@@ -578,6 +573,27 @@ static inline void set_pud_at(struct mm_struct *mm, unsigned long addr,
+@@ -581,6 +576,27 @@ static inline void set_pud_at(struct mm_struct *mm, unsigned long addr,
  	__pgprot_modify(prot, PTE_ATTRINDX_MASK, \
  			PTE_ATTRINDX(MT_NORMAL_NC) | PTE_PXN | PTE_UXN)
  
@@ -143,10 +118,10 @@ index 5d0f1f7b7..72890b4cd 100644
  struct file;
  extern pgprot_t phys_mem_access_prot(struct file *file, unsigned long pfn,
 diff --git a/arch/arm64/mm/ioremap.c b/arch/arm64/mm/ioremap.c
-index c5af103d4..9e3ce24c3 100644
+index 269f2f6..9b312ca 100644
 --- a/arch/arm64/mm/ioremap.c
 +++ b/arch/arm64/mm/ioremap.c
-@@ -3,6 +3,31 @@
+@@ -3,10 +3,25 @@
  #include <linux/mm.h>
  #include <linux/io.h>
  
@@ -154,7 +129,7 @@ index c5af103d4..9e3ce24c3 100644
 +bool have_altra_erratum_82288 __read_mostly;
 +EXPORT_SYMBOL(have_altra_erratum_82288);
 +
-+static bool is_altra_pci(phys_addr_t phys_addr, size_t size)
++static inline bool is_altra_pci(phys_addr_t phys_addr, size_t size)
 +{
 +	phys_addr_t end = phys_addr + size;
 +
@@ -164,29 +139,37 @@ index c5af103d4..9e3ce24c3 100644
 +}
 +#endif
 +
-+pgprot_t ioremap_map_prot(phys_addr_t phys_addr, size_t size,
-+                          unsigned long prot_val)
-+{
-+	pgprot_t prot = __pgprot(prot_val);
-+#ifdef CONFIG_ALTRA_ERRATUM_82288
-+	if (unlikely(have_altra_erratum_82288 && is_altra_pci(phys_addr, size)))
-+		prot = pgprot_device(prot);
-+#endif
-+	return prot;
-+}
-+
- bool ioremap_allowed(phys_addr_t phys_addr, size_t size, unsigned long prot)
+ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
+ 			   unsigned long prot)
  {
  	unsigned long last_addr = phys_addr + size - 1;
++	pgprot_t pgprot;
+ 
+ 	/* Don't allow outside PHYS_MASK */
+ 	if (last_addr & ~PHYS_MASK)
+@@ -16,7 +31,13 @@ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
+ 	if (WARN_ON(pfn_is_map_memory(__phys_to_pfn(phys_addr))))
+ 		return NULL;
+ 
+-	return generic_ioremap_prot(phys_addr, size, __pgprot(prot));
++	pgprot = __pgprot(prot);
++#ifdef CONFIG_ALTRA_ERRATUM_82288
++	if (unlikely(have_altra_erratum_82288 && is_altra_pci(phys_addr, size)))
++		pgprot = pgprot_device(pgprot);
++#endif
++
++	return generic_ioremap_prot(phys_addr, size, pgprot);
+ }
+ EXPORT_SYMBOL(ioremap_prot);
+ 
 diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 8d32a3834..0cef2fc68 100644
+index ae95d09..26f09c1 100644
 --- a/drivers/pci/quirks.c
 +++ b/drivers/pci/quirks.c
-@@ -6028,3 +6028,12 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x9a2d, dpc_log_size);
- DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x9a2f, dpc_log_size);
+@@ -6200,6 +6200,15 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x9a2f, dpc_log_size);
  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x9a31, dpc_log_size);
  #endif
-+
+ 
 +#ifdef CONFIG_ALTRA_ERRATUM_82288
 +static void quirk_altra_erratum_82288(struct pci_dev *dev)
 +{
@@ -195,34 +178,10 @@ index 8d32a3834..0cef2fc68 100644
 +}
 +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMPERE, 0xe100, quirk_altra_erratum_82288);
 +#endif
-diff --git a/include/asm-generic/io.h b/include/asm-generic/io.h
-index cde032f86..c87cda60a 100644
---- a/include/asm-generic/io.h
-+++ b/include/asm-generic/io.h
-@@ -1047,6 +1047,10 @@ static inline void iounmap(volatile void __iomem *addr)
- #elif defined(CONFIG_GENERIC_IOREMAP)
- #include <linux/pgtable.h>
- 
-+#ifndef ioremap_map_prot
-+#define ioremap_map_prot(phys_addr, size, prot) __pgprot(prot)
-+#endif
 +
  /*
-  * Arch code can implement the following two hooks when using GENERIC_IOREMAP
-  * ioremap_allowed() return a bool,
-diff --git a/mm/ioremap.c b/mm/ioremap.c
-index 865242628..60f51bad2 100644
---- a/mm/ioremap.c
-+++ b/mm/ioremap.c
-@@ -39,7 +39,7 @@ void __iomem *ioremap_prot(phys_addr_t phys_addr, size_t size,
- 	area->phys_addr = phys_addr;
- 
- 	if (ioremap_page_range(vaddr, vaddr + size, phys_addr,
--			       __pgprot(prot))) {
-+			       ioremap_map_prot(phys_addr, size, prot))) {
- 		free_vm_area(area);
- 		return NULL;
- 	}
+  * For a PCI device with multiple downstream devices, its driver may use
+  * a flattened device tree to describe the downstream devices.
 -- 
-2.39.0
+2.43.0
 
