@@ -5,7 +5,6 @@ build_style = "cmake"
 configure_args = [
     "-DCONFDIR=/etc/rspamd",
     "-DENABLE_FASTTEXT=ON",
-    "-DENABLE_HYPERSCAN=ON",
     "-DENABLE_LUAJIT=OFF",
     "-DENABLE_URI_INCLUDE=ON",
     "-DRSPAMD_GROUP=_rspamd",
@@ -45,6 +44,7 @@ sha256 = "3fba8b0086fe68ac16146cfc25cfcff352bff52fa5cef7d277007ed008170330"
 
 match self.profile().arch:
     case "aarch64" | "ppc64le" | "x86_64":
+        configure_args += ["-DENABLE_HYPERSCAN=ON"]
         makedepends += ["vectorscan-devel"]
 
 
