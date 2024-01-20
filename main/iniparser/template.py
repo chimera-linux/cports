@@ -1,6 +1,6 @@
 pkgname = "iniparser"
 pkgver = "4.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_dir = "."
