@@ -1,27 +1,27 @@
 pkgname = "libblockdev"
 pkgver = "3.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    # TODO: ndctl
+    # TODO: volume_key
     "--without-escrow",
-    "--without-nvdimm",
 ]
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "bash", "pkgconf", "python", "automake", "libtool"]
 makedepends = [
     "cryptsetup-devel",
     "device-mapper-devel",
-    "libbytesize-devel",
+    "e2fsprogs-devel",
     "glib-devel",
     "keyutils-devel",
+    "libbytesize-devel",
+    "libfdisk-devel",
     "libkmod-devel",
     "libnvme-devel",
+    "linux-headers",
+    "ndctl-devel",
     "parted-devel",
     "pcre2-devel",
-    "libfdisk-devel",
-    "e2fsprogs-devel",
-    "linux-headers",
 ]
 pkgdesc = "Library for manipulating block devices"
 maintainer = "q66 <q66@chimera-linux.org>"
