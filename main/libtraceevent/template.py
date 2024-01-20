@@ -1,6 +1,6 @@
 pkgname = "libtraceevent"
 pkgver = "1.8.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     # builds both libtracevent.so and loadable plugins,
