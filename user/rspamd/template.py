@@ -32,7 +32,6 @@ makedepends = [
     "pcre2-devel",
     "snowball-devel",
     "sqlite-devel",
-    "vectorscan-devel",
     "xxhash-devel",
     "zstd-devel",
 ]
@@ -42,6 +41,11 @@ license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 
 url = "https://rspamd.com/index.html"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "3fba8b0086fe68ac16146cfc25cfcff352bff52fa5cef7d277007ed008170330"
+
+
+match self.profile().arch:
+    case "aarch64" | "ppc64le" | "x86_64":
+        makedepends += ["vectorscan-devel"]
 
 
 def do_check(self):
