@@ -1,0 +1,51 @@
+commit cc3ac6cca8736023205fac947e5bd651ed169520
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Jan 20 19:26:36 2024 +0100
+
+    fix potential signed integer overflows
+
+diff --git a/lib/libv4lconvert/libv4lconvert.c b/lib/libv4lconvert/libv4lconvert.c
+index 201dcf4..e069918 100644
+--- a/lib/libv4lconvert/libv4lconvert.c
++++ b/lib/libv4lconvert/libv4lconvert.c
+@@ -460,10 +460,10 @@ static int v4lconvert_do_try_format_uvc(struct v4lconvert_data *data,
+ 	for (i = 0; i < data->no_framesizes; i++) {
+ 		if (data->framesizes[i].discrete.width <= dest_fmt->fmt.pix.width &&
+ 				data->framesizes[i].discrete.height <= dest_fmt->fmt.pix.height) {
+-			int size_x_diff = dest_fmt->fmt.pix.width -
+-				data->framesizes[i].discrete.width;
+-			int size_y_diff = dest_fmt->fmt.pix.height -
+-				data->framesizes[i].discrete.height;
++			unsigned int size_x_diff = abs(dest_fmt->fmt.pix.width -
++				data->framesizes[i].discrete.width);
++			unsigned int size_y_diff = abs(dest_fmt->fmt.pix.height -
++				data->framesizes[i].discrete.height);
+ 			unsigned int size_diff = size_x_diff * size_x_diff +
+ 				size_y_diff * size_y_diff;
+ 
+@@ -511,8 +511,8 @@ static int v4lconvert_do_try_format_uvc(struct v4lconvert_data *data,
+ static int v4lconvert_do_try_format(struct v4lconvert_data *data,
+ 		struct v4l2_format *dest_fmt, struct v4l2_format *src_fmt)
+ {
+-	int i, size_x_diff, size_y_diff, rank, best_rank = 0;
+-	unsigned int size_diff, closest_fmt_size_diff = -1;
++	int i, rank, best_rank = 0;
++	unsigned int size_diff, size_x_diff, size_y_diff, closest_fmt_size_diff = -1;
+ 	unsigned int desired_pixfmt = dest_fmt->fmt.pix.pixelformat;
+ 	struct v4l2_format try_fmt, closest_fmt = { .type = 0 };
+ 
+@@ -535,10 +535,10 @@ static int v4lconvert_do_try_format(struct v4lconvert_data *data,
+ 			continue;
+ 
+ 		/* Did we get a better match than before? */
+-		size_x_diff = (int)try_fmt.fmt.pix.width -
+-			      (int)dest_fmt->fmt.pix.width;
+-		size_y_diff = (int)try_fmt.fmt.pix.height -
+-			      (int)dest_fmt->fmt.pix.height;
++		size_x_diff = abs((int)try_fmt.fmt.pix.width -
++			      (int)dest_fmt->fmt.pix.width);
++		size_y_diff = abs((int)try_fmt.fmt.pix.height -
++			      (int)dest_fmt->fmt.pix.height);
+ 		size_diff = size_x_diff * size_x_diff +
+ 			    size_y_diff * size_y_diff;
+ 

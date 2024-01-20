@@ -1,6 +1,6 @@
 pkgname = "v4l-utils"
 pkgver = "1.24.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-qv4l2", "--with-udevdir=/usr/lib/udev"]
 make_cmd = "gmake"
