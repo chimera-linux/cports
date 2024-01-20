@@ -1,6 +1,6 @@
 pkgname = "python-psutil"
-pkgver = "5.9.7"
-pkgrel = 1
+pkgver = "5.9.8"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -16,7 +16,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "BSD-3-Clause"
 url = "https://github.com/giampaolo/psutil"
 source = f"$(PYPI_SITE)/p/psutil/psutil-{pkgver}.tar.gz"
-sha256 = "3f02134e82cfb5d089fddf20bb2e03fd5cd52395321d1c8458a9e58500ff417c"
+sha256 = "6be126e3225486dff286a8fb9a06246a5253f4c7c53b475ea5f5ac934e64194c"
 # testing requires a lot of additional modules
 options = ["!check"]
 
