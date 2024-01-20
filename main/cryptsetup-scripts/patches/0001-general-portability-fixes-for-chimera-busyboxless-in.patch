@@ -1,6 +1,6 @@
-From b15505eee57b82033d7dfad15f3737bd4fa931f4 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Fri, 17 Mar 2023 19:51:20 +0100
+From 5684a9b17926967e3a4561ffff3701c72d768d77 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 20 Jan 2024 20:41:45 +0100
 Subject: [PATCH 1/4] general portability fixes for chimera/busyboxless
  initramfs
 
@@ -9,8 +9,8 @@ Subject: [PATCH 1/4] general portability fixes for chimera/busyboxless
  debian/initramfs/conf-hooks.d/cryptsetup |  3 --
  debian/initramfs/cryptroot-unlock        | 18 +++++-----
  debian/initramfs/hooks/cryptopensc       |  9 ++---
- debian/initramfs/hooks/cryptroot         | 43 +++---------------------
- 5 files changed, 27 insertions(+), 62 deletions(-)
+ debian/initramfs/hooks/cryptroot         | 46 ++++--------------------
+ 5 files changed, 29 insertions(+), 63 deletions(-)
 
 diff --git a/debian/functions b/debian/functions
 index 917abad..8758abb 100644
@@ -164,7 +164,7 @@ index e0c5167..bd49e84 100644
  
  exit $RV
 diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
-index 3557786..008c0af 100644
+index c16f7c2..5e7f6f1 100644
 --- a/debian/initramfs/hooks/cryptroot
 +++ b/debian/initramfs/hooks/cryptroot
 @@ -89,7 +89,7 @@ crypttab_print_entry() {
@@ -194,7 +194,17 @@ index 3557786..008c0af 100644
      # regular swsusp
      dev="$(sed -nr 's,^(.*\s)?resume=(\S+)(\s.*)?$,\2,p' /proc/cmdline)"
      _print_devno "$(printf '%b' "$dev")" # unmangle
-@@ -301,7 +290,7 @@ add_crypto_modules() {
+@@ -266,7 +255,8 @@ populate_CRYPTO_MODULES() {
+ add_modules() {
+     local glob="$1" found=n
+     shift
+-    for mod in $(find -H "$@" -name "$glob.ko*" -type f -printf '%f\n'); do
++    for mod in $(find -H "$@" -name "$glob.ko*" -type f); do
++        mod=$(basename "$mod")
+         manual_add_modules "${mod%%.*}"
+         found=y
+     done
+@@ -301,7 +291,7 @@ add_crypto_modules() {
  copy_libssl_legacy_library() {
      local libcryptodir CRYPTO_HASHES=""
  
@@ -203,7 +213,7 @@ index 3557786..008c0af 100644
      [ -d "$libcryptodir" ] || return
  
      crypttab_foreach_entry populate_CRYPTO_HASHES
-@@ -313,28 +302,6 @@ copy_libssl_legacy_library() {
+@@ -313,28 +303,6 @@ copy_libssl_legacy_library() {
      fi
  }
  
@@ -232,7 +242,7 @@ index 3557786..008c0af 100644
  #######################################################################
  # Begin real processing
  
-@@ -370,14 +337,12 @@ manual_add_modules dm_crypt
+@@ -370,14 +338,12 @@ manual_add_modules dm_crypt
  
  copy_exec /sbin/cryptsetup
  copy_exec /sbin/dmsetup
@@ -250,5 +260,5 @@ index 3557786..008c0af 100644
  # detect whether the host CPU has AES-NI support
  if grep -Eq '^flags\s*:(.*\s)?aes(\s.*)?$' /proc/cpuinfo; then
 -- 
-2.39.0
+2.43.0
 

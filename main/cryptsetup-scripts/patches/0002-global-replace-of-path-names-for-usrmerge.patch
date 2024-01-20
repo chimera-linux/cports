@@ -1,4 +1,4 @@
-From ae23de6d8839ae3e743e6ecb8a298e3f68135c26 Mon Sep 17 00:00:00 2001
+From 8995ccbf34c2a639cdc2ff823d664ec7530702ef Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 17 Mar 2023 19:53:56 +0100
 Subject: [PATCH 2/4] global replace of path names for usrmerge
@@ -446,7 +446,7 @@ index 54492f0..24c2613 100644
  fi
  
 diff --git a/debian/initramfs/hooks/cryptroot b/debian/initramfs/hooks/cryptroot
-index 008c0af..052821b 100644
+index 5e7f6f1..d9ebe13 100644
 --- a/debian/initramfs/hooks/cryptroot
 +++ b/debian/initramfs/hooks/cryptroot
 @@ -15,7 +15,7 @@ case "$1" in
@@ -476,7 +476,7 @@ index 008c0af..052821b 100644
      elif [ "$CRYPTTAB_TYPE" = "plain" ]; then
          # --hash is being ignored when opening via key file
          if [ "$CRYPTTAB_KEY" = "none" ] && [ -z "${CRYPTTAB_OPTION_keyscript+x}" ]; then
-@@ -269,13 +269,13 @@ add_crypto_modules() {
+@@ -270,13 +270,13 @@ add_crypto_modules() {
      for mod in "$@"; do
          # We have several potential sources of modules (in order of preference):
          #
@@ -494,7 +494,7 @@ index 008c0af..052821b 100644
          add_modules "$mod-*" "$MODULESDIR"/kernel/arch/*/crypto || true
          add_modules "${mod}_generic" "$MODULESDIR/kernel/crypto" \
              || add_modules "$mod" "$MODULESDIR/kernel/crypto" \
-@@ -290,7 +290,7 @@ add_crypto_modules() {
+@@ -291,7 +291,7 @@ add_crypto_modules() {
  copy_libssl_legacy_library() {
      local libcryptodir CRYPTO_HASHES=""
  
@@ -503,7 +503,7 @@ index 008c0af..052821b 100644
      [ -d "$libcryptodir" ] || return
  
      crypttab_foreach_entry populate_CRYPTO_HASHES
-@@ -335,10 +335,10 @@ fi
+@@ -336,10 +336,10 @@ fi
  manual_add_modules dm_mod
  manual_add_modules dm_crypt
  
@@ -517,7 +517,7 @@ index 008c0af..052821b 100644
  
  # We need sed. Either via busybox or as standalone binary.
  # chimera: already provided via chimerautils-tiny by default
-@@ -368,4 +368,4 @@ else
+@@ -369,4 +369,4 @@ else
      fi
      add_crypto_modules $(printf '%s' "${CRYPTO_MODULES-}" | tr ' ' '\n' | sort -u)
  fi
@@ -713,5 +713,5 @@ index 845ccae..5bc2828 100644
  			      /*"ext4,ext3,ext2,vfat,btrfs,reiserfs,xfs,jfs,ntfs,iso9660,udf",*/
  			      "-o", "noatime,nodiratime,nodev,noexec,nosuid,ro",
 -- 
-2.39.0
+2.43.0
 

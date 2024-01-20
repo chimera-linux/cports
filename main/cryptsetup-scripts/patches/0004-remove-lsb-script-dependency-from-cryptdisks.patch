@@ -1,4 +1,4 @@
-From cbca99fdf1574124dd696d0f1adc48e0b860aec6 Mon Sep 17 00:00:00 2001
+From 20f096dcf93c65b105b71e364a108c56cab30baf Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 17 Mar 2023 19:55:50 +0100
 Subject: [PATCH 4/4] remove lsb script dependency from cryptdisks
@@ -254,5 +254,5 @@ index 8fb7d68..48c7c32 100644
 -log_action_end_msg $rv
  exit $rv
 -- 
-2.39.0
+2.43.0
 
