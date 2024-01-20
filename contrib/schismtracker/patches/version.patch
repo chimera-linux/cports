@@ -1,0 +1,21 @@
+https://github.com/chimera-linux/cports/pull/1273#discussion_r1466266497
+--- a/schism/version.c	2023-10-29 03:15:48.000000000 +0100
++++ b/schism/version.c	2024-01-26 11:30:37.064498803 +0100
+@@ -97,7 +97,7 @@
+ 	char *ret;
+ 
+ 	memset(version, 0, sizeof(*version));
+-	ret = strptime(VERSION, "%Y %m %d", version);
++	ret = strptime(VERSION2, "%Y %m %d", version);
+ 	if (ret && !*ret)
+ 		return 1;
+ 	/* Argh. */
+@@ -113,7 +113,7 @@
+ {
+ 	struct tm version, epoch = { .tm_year = 109, .tm_mon = 9, .tm_mday = 31 }; /* 2009-10-31 */
+ 	time_t version_sec;
+-	char ver[32] = VERSION;
++	char ver[32] = VERSION2;
+ 
+ 	if (get_version_tm(&version)) {
+ 		version_sec = mktime(&version);
