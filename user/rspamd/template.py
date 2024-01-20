@@ -26,6 +26,7 @@ makedepends = [
     "icu-devel",
     "libsodium-devel",
     "libunwind-devel",
+    "linux-headers",
     "lua5.4-devel",
     "openssl-devel",
     "pcre2-devel",
