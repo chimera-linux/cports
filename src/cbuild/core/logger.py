@@ -43,6 +43,15 @@ class Logger:
             self.estream.write("\033[m")
         self.estream.write(end)
 
+    def out_green(self, msg, end="\n"):
+        if self.use_colors:
+            self.estream.write("\033[1m\033[32m")
+        self.estream.write("=> ")
+        self.estream.write(msg)
+        if self.use_colors:
+            self.estream.write("\033[m")
+        self.estream.write(end)
+
 
 def init(colors):
     global logger_inst

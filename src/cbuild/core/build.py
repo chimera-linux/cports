@@ -1,6 +1,6 @@
 from cbuild.step import fetch, extract, prepare, patch, configure
 from cbuild.step import build as buildm, check, install, prepkg, pkg as pkgsm
-from cbuild.core import chroot, logger, dependencies
+from cbuild.core import chroot, logger, dependencies, profile
 from cbuild.core import template, pkg as pkgm, errors
 from cbuild.util import flock
 from cbuild.apk import cli as apk
@@ -57,6 +57,23 @@ def build(
     pkg.cwd = pkg.builddir / pkg.wrksrc
     pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
 
+    prof = pkg.profile()
+    hard = profile.get_hardening(prof, pkg.hardening, pkg.options, pkg.stage)
+    hpos = []
+    hneg = []
+    for hk in hard:
+        if hard[hk]:
+            hpos.append("+" + hk)
+        else:
+            hneg.append("-" + hk)
+
+    hpos.sort()
+    hneg.sort()
+
+    pkg.log(f"start build (target: {step}), available hardening:")
+    pkg.logger.out_green("  " + " ".join(hpos))
+    pkg.logger.out_red("  " + " ".join(hneg))
+
     # ensure the wrksrc exists; it will be populated later
     pkg.cwd.mkdir(exist_ok=True, parents=True)
 
@@ -77,7 +94,7 @@ def build(
         if pkg.stage > 0 and not no_update:
             chroot.update(pkg)
 
-        chroot.remove_autodeps(pkg.stage == 0, pkg.profile())
+        chroot.remove_autodeps(pkg.stage == 0, prof)
 
         # check and install dependencies
         # if a missing dependency has triggered a build, update the chroot

@@ -196,6 +196,9 @@ class Package:
     def log_red(self, msg, end="\n"):
         self.logger.out_red(self._get_pv() + ": " + msg, end)
 
+    def log_green(self, msg, end="\n"):
+        self.logger.out_green(self._get_pv() + ": " + msg, end)
+
     def log_warn(self, msg, end="\n"):
         self.logger.warn(self._get_pv() + ": " + msg, end)
 

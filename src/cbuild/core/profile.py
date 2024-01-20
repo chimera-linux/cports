@@ -38,7 +38,7 @@ supported_fields = {
 }
 
 
-def _get_harden(prof, hlist, opts, stage):
+def get_hardening(prof, hlist, opts, stage):
     hdict = dict(hardening_fields)
 
     for fl in hlist:
@@ -120,7 +120,7 @@ def _get_archflags(prof, hard, opts, stage):
 
 def _get_hcflags(prof, tharden, opts, stage):
     hflags = []
-    hard = _get_harden(prof, tharden, opts, stage)
+    hard = get_hardening(prof, tharden, opts, stage)
 
     if hard["format"]:
         hflags += ["-Wformat", "-Werror=format-security"]
@@ -151,7 +151,7 @@ def _get_hcflags(prof, tharden, opts, stage):
 
 def _get_hldflags(prof, tharden, opts, stage):
     hflags = []
-    hard = _get_harden(prof, tharden, opts, stage)
+    hard = get_hardening(prof, tharden, opts, stage)
 
     if not hard["pie"]:
         hflags.append("-no-pie")
@@ -244,7 +244,7 @@ def _get_rustflags(
 
 
 def _get_goflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
-    hard = _get_harden(self, hardening, opts, stage)
+    hard = get_hardening(self, hardening, opts, stage)
     bflags = ["-modcacherw"]
 
     if hard["pie"]:
@@ -266,7 +266,7 @@ _flag_handlers = {
 
 
 def has_hardening(prof, hname, hardening, opts, stage):
-    return _get_harden(prof, hardening, opts, stage)[hname]
+    return get_hardening(prof, hardening, opts, stage)[hname]
 
 
 _flag_types = list(_flag_handlers.keys())
