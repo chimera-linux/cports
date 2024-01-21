@@ -1,0 +1,48 @@
+diff -Nurp a/setup.py b/setup.py
+--- a/setup.py	2020-04-28 09:40:33.000000000 +0000
++++ b/setup.py	2024-01-21 19:37:54.216448159 +0000
+@@ -22,7 +22,6 @@ __version__ = '0.9.2'
+ import io
+ 
+ __version__ = '0.9.2'
+-FASTTEXT_SRC = "src"
+ 
+ # Based on https://github.com/pybind/python_example
+ 
+@@ -54,32 +53,24 @@ else:
+     del sys.argv[coverage_index]
+     coverage = True
+ 
+-fasttext_src_files = map(str, os.listdir(FASTTEXT_SRC))
+-fasttext_src_cc = list(filter(lambda x: x.endswith('.cc'), fasttext_src_files))
+ 
+-fasttext_src_cc = list(
+-    map(lambda x: str(os.path.join(FASTTEXT_SRC, x)), fasttext_src_cc)
+-)
+-
+ ext_modules = [
+     Extension(
+         str('fasttext_pybind'),
+         [
+             str('python/fasttext_module/fasttext/pybind/fasttext_pybind.cc'),
+-        ] + fasttext_src_cc,
++        ],
+         include_dirs=[
+             # Path to pybind11 headers
+             get_pybind_include(),
+             get_pybind_include(user=True),
+-            # Path to fasttext source code
+-            FASTTEXT_SRC,
+-        ],
++            "/usr/include/fasttext",
++            ],
+         language='c++',
+-        extra_compile_args=["-O0 -fno-inline -fprofile-arcs -pthread -march=native" if coverage else
+-                            "-O3 -funroll-loops -pthread -march=native"],
+     ),
+ ]
+ 
++#extra_compile_args=["-lfasttext.so"],
+ 
+ # As of Python 3.6, CCompiler has a `has_flag` method.
+ # cf http://bugs.python.org/issue26689
