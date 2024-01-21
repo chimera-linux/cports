@@ -1,7 +1,7 @@
-From 7a4a7ca8f645e437fceab2f868ca4e18e0202f74 Mon Sep 17 00:00:00 2001
+From 97709fa233503b9056b2840408276a490d144521 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 01:52:09 +0200
-Subject: [PATCH 2/7] remove remaining dpkg references
+Subject: [PATCH 2/8] remove remaining dpkg references
 
 ---
  mkinitramfs      |  2 +-
@@ -58,5 +58,5 @@ index 746a6c1..4f8922c 100755
  	# first time run thus no backup
  	[ ! -r "${initramfs_bak}" ] && return 0
 -- 
-2.37.1
+2.43.0
 

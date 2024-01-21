@@ -1,7 +1,7 @@
-From c6ba29d315a2437e1a0341236974485a70b99e89 Mon Sep 17 00:00:00 2001
+From c0a2df51953d983d059ae25652af3317035db399 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Wed, 20 Jul 2022 04:06:22 +0200
-Subject: [PATCH 7/7] use fstype from klibc-kinit-standalone
+Subject: [PATCH 7/8] use fstype from klibc-kinit-standalone
 
 ---
  hook-functions | 2 +-
@@ -9,7 +9,7 @@ Subject: [PATCH 7/7] use fstype from klibc-kinit-standalone
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index 4944f05..f6d3b6e 100644
+index 5a10ed8..1639100 100644
 --- a/hook-functions
 +++ b/hook-functions
 @@ -480,7 +480,7 @@ dep_add_modules_mount()
@@ -35,5 +35,5 @@ index 01e47cc..4e80070 100755
  				echo "W: Couldn't identify type of $2 file system for fsck hook" >&2
  			fi
 -- 
-2.37.1
+2.43.0
 

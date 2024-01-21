@@ -1,4 +1,4 @@
-From 116c6086a40cb883bbcb1811ff3811d44371079a Mon Sep 17 00:00:00 2001
+From b01e02395a0b40284acf4978fbf7bdd529b83178 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 29 Jul 2022 14:16:30 +0200
 Subject: [PATCH 8/8] force ugetopt
@@ -11,7 +11,7 @@ Subject: [PATCH 8/8] force ugetopt
  4 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/lsinitramfs b/lsinitramfs
-index 5b3315f..7cd1e18 100755
+index 5b3315f..838cde4 100755
 --- a/lsinitramfs
 +++ b/lsinitramfs
 @@ -24,7 +24,7 @@ usage_error()
@@ -24,7 +24,7 @@ index 5b3315f..7cd1e18 100755
  eval set -- "$OPTIONS"
  
 diff --git a/mkinitramfs b/mkinitramfs
-index d9b8e39..0e53634 100755
+index d9b8e39..d9e271d 100755
 --- a/mkinitramfs
 +++ b/mkinitramfs
 @@ -33,7 +33,7 @@ usage_error()
@@ -37,7 +37,7 @@ index d9b8e39..0e53634 100755
  eval set -- "$OPTIONS"
  
 diff --git a/unmkinitramfs b/unmkinitramfs
-index 889e4b8..b50c018 100755
+index 959112a..f87ac5c 100755
 --- a/unmkinitramfs
 +++ b/unmkinitramfs
 @@ -134,7 +134,7 @@ splitinitramfs()
@@ -50,7 +50,7 @@ index 889e4b8..b50c018 100755
  cpio_opts="--preserve-modification-time --quiet"
  expected_args=2
 diff --git a/update-initramfs b/update-initramfs
-index 4f8922c..f83ad06 100755
+index 4f8922c..c2bb1e8 100755
 --- a/update-initramfs
 +++ b/update-initramfs
 @@ -291,7 +291,7 @@ verbose=0
@@ -63,5 +63,5 @@ index 4f8922c..f83ad06 100755
  eval set -- "$OPTIONS"
  
 -- 
-2.37.1
+2.43.0
 

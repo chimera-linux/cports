@@ -1,7 +1,7 @@
-From bd28f46e537255f328b34164184b85223f05e686 Mon Sep 17 00:00:00 2001
+From 284898a8395597fa5147ac4015139d851b02b8e7 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 02:56:25 +0200
-Subject: [PATCH 4/7] enforce strictly usrmerged layout
+Subject: [PATCH 4/8] enforce strictly usrmerged layout
 
 ---
  docs/framebuffer                 |  6 +++---
@@ -199,7 +199,7 @@ index 99c842f..b46f2e7 100755
  
  # No init on rootmount
 diff --git a/initramfs-tools.7 b/initramfs-tools.7
-index e25e455..4958df2 100644
+index d3ac64f..eac47ca 100644
 --- a/initramfs-tools.7
 +++ b/initramfs-tools.7
 @@ -268,7 +268,7 @@ If you need to copy an executable or shared library to the initramfs
@@ -412,5 +412,5 @@ index 26a969b..4608cd7 100644
  	wait_for_udev 10
  
 -- 
-2.37.1
+2.43.0
 

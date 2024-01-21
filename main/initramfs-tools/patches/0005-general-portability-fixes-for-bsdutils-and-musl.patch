@@ -1,16 +1,16 @@
-From d8650e7fb8196e09da3ba591cb2e1cee975f16bb Mon Sep 17 00:00:00 2001
+From a2afa44889254f53774a41a088c668ee9eae11eb Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 05:07:48 +0200
-Subject: [PATCH 5/7] general portability fixes for bsdutils and musl
+Subject: [PATCH 5/8] general portability fixes for bsdutils and musl
 
 ---
  hook-functions | 49 +++++++++++++++++++++----------------------------
  mkinitramfs    | 21 ++++-----------------
- unmkinitramfs  |  2 +-
- 3 files changed, 26 insertions(+), 46 deletions(-)
+ unmkinitramfs  | 12 ++++++------
+ 3 files changed, 31 insertions(+), 51 deletions(-)
 
 diff --git a/hook-functions b/hook-functions
-index af6dec4..4944f05 100644
+index af6dec4..5a10ed8 100644
 --- a/hook-functions
 +++ b/hook-functions
 @@ -170,6 +170,19 @@ _sanitize_target() {
@@ -150,10 +150,40 @@ index 8152558..d9b8e39 100755
  if [ -e "${CONFDIR}/DSDT.aml" ]; then
  	copy_file DSDT "${CONFDIR}/DSDT.aml"
 diff --git a/unmkinitramfs b/unmkinitramfs
-index d1226c3..889e4b8 100755
+index d1226c3..959112a 100755
 --- a/unmkinitramfs
 +++ b/unmkinitramfs
-@@ -136,7 +136,7 @@ splitinitramfs()
+@@ -110,13 +110,13 @@ splitinitramfs()
+ 		else
+ 			subdir=early$count
+ 		fi
+-		dd < "$initramfs" skip=$start count=$((end - start)) iflag=skip_bytes 2> /dev/null |
++		dd < "$initramfs" skip=$((start / 512)) count=$(((end - start) / 512)) 2> /dev/null |
+ 		(
+ 			if [ -n "$dir" ]; then
+ 				mkdir -p -- "$dir/$subdir"
+ 				cd -- "$dir/$subdir"
+ 			fi
+-			cpio -i "$@"
++			cpio -di "$@"
+ 		)
+ 		start=$end
+ 	done
+@@ -125,18 +125,18 @@ splitinitramfs()
+ 		# Extract to main subdirectory
+ 		subarchive=$(mktemp "${TMPDIR:-/var/tmp}/unmkinitramfs_XXXXXX")
+ 		trap 'rm -f "$subarchive"' EXIT
+-		dd < "$initramfs" skip=$end iflag=skip_bytes 2> /dev/null \
++		dd < "$initramfs" skip=$((end / 512)) 2> /dev/null \
+ 			> "$subarchive"
+-		xcpio "$subarchive" "${dir:+$dir/main}" -i "$@"
++		xcpio "$subarchive" "${dir:+$dir/main}" -di "$@"
+ 	else
+ 		# Don't use subdirectories (for backward compatibility)
+-		xcpio "$initramfs" "$dir" -i "$@"
++		xcpio "$initramfs" "$dir" -di "$@"
+ 	fi
+ }
  
  OPTIONS=$(getopt -o hv --long help,list,verbose -n "$0" -- "$@") || usage_error
  
@@ -163,5 +193,5 @@ index d1226c3..889e4b8 100755
  eval set -- "$OPTIONS"
  
 -- 
-2.37.1
+2.43.0
 

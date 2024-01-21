@@ -1,16 +1,16 @@
-From bd0b8968b0ea8f220a7da1ddab7f74d53dd019e4 Mon Sep 17 00:00:00 2001
+From 50c1e10e5b1375d40ccaf3855b9ce82c78e6b617 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 01:44:15 +0200
-Subject: [PATCH 1/7] export MACHINE_ARCH instead of DPKG_ARCH
+Subject: [PATCH 1/8] export MACHINE_ARCH instead of DPKG_ARCH
 
 This allows us to do machine checks in hooks in a way that is
 independent of dpkg.
 ---
  hooks/thermal     | 4 ++--
  init              | 6 +++---
- initramfs-tools.7 | 6 +++---
+ initramfs-tools.7 | 4 ++--
  mkinitramfs       | 6 +++---
- 4 files changed, 11 insertions(+), 11 deletions(-)
+ 4 files changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/hooks/thermal b/hooks/thermal
 index 0a42c12..b318e9f 100755
@@ -53,7 +53,7 @@ index 43eb349..99c842f 100755
  unset ROOTFSTYPE
  unset ROOTDELAY
 diff --git a/initramfs-tools.7 b/initramfs-tools.7
-index 2d5d2d2..242541b 100644
+index 2d5d2d2..6d1bde2 100644
 --- a/initramfs-tools.7
 +++ b/initramfs-tools.7
 @@ -309,7 +309,7 @@ is the path of the used initramfs-tools configurations.
@@ -106,5 +106,5 @@ index df1b940..0f7b81e 100755
  for i in ${EXTRA_CONF}; do
  	copy_file config "${i}" /conf/conf.d
 -- 
-2.37.1
+2.43.0
 

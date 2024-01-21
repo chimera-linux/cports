@@ -1,7 +1,7 @@
-From e82838b195896404c5418ad5acc7a7b892973c47 Mon Sep 17 00:00:00 2001
+From 685bdcf57397f330cc5ca2ddc66bbfc77422940f Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 22 Oct 2021 01:54:10 +0200
-Subject: [PATCH 3/7] remove all references to busybox
+Subject: [PATCH 3/8] remove all references to busybox
 
 ---
  conf/initramfs.conf | 10 ----------
@@ -32,7 +32,7 @@ index aa561bd..5e1a319 100644
  # KEYMAP: [ y | n ]
  #
 diff --git a/initramfs-tools.7 b/initramfs-tools.7
-index 242541b..e25e455 100644
+index 6d1bde2..d3ac64f 100644
 --- a/initramfs-tools.7
 +++ b/initramfs-tools.7
 @@ -143,8 +143,7 @@ Valid boot and hook scripts names consist solely of alphabetics, numerics,
@@ -123,5 +123,5 @@ index 6be2173..551d564 100755
  export FSTYPE
  
 -- 
-2.37.1
+2.43.0
 
