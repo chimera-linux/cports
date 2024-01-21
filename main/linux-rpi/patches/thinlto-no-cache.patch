@@ -1,0 +1,39 @@
+commit aa1fe8e67e9f63f0abb43347f3b6b703f4289ed0
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Jan 21 15:12:13 2024 +0100
+
+    nuke thinlto cache stuff
+    
+    This by default points to a non-writable directory which is
+    totally useless, and makes random stuff fail.
+
+diff --git a/Makefile b/Makefile
+index e4f2d01..6924c00 100644
+--- a/Makefile
++++ b/Makefile
+@@ -981,7 +981,6 @@ endif
+ ifdef CONFIG_LTO_CLANG
+ ifdef CONFIG_LTO_CLANG_THIN
+ CC_FLAGS_LTO	:= -flto=thin -fsplit-lto-unit
+-KBUILD_LDFLAGS	+= --thinlto-cache-dir=$(extmod_prefix).thinlto-cache
+ else
+ CC_FLAGS_LTO	:= -flto
+ endif
+@@ -1592,7 +1591,7 @@ endif # CONFIG_MODULES
+ # Directories & files removed with 'make clean'
+ CLEAN_FILES += include/ksym vmlinux.symvers modules-only.symvers \
+ 	       modules.builtin modules.builtin.modinfo modules.nsdeps \
+-	       compile_commands.json .thinlto-cache rust/test rust/doc \
++	       compile_commands.json rust/test rust/doc \
+ 	       .vmlinux.objs .vmlinux.export.c
+ 
+ # Directories & files removed with 'make mrproper'
+@@ -1888,7 +1887,7 @@ PHONY += compile_commands.json
+ 
+ clean-dirs := $(KBUILD_EXTMOD)
+ clean: rm-files := $(KBUILD_EXTMOD)/Module.symvers $(KBUILD_EXTMOD)/modules.nsdeps \
+-	$(KBUILD_EXTMOD)/compile_commands.json $(KBUILD_EXTMOD)/.thinlto-cache
++	$(KBUILD_EXTMOD)/compile_commands.json
+ 
+ PHONY += prepare
+ # now expand this into a simple variable to reduce the cost of shell evaluations
