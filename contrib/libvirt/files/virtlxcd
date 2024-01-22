@@ -1,0 +1,7 @@
+# virtlxcd daemon service
+
+type       = process
+command    = /usr/bin/virtlxcd
+before     = login.target
+depends-on = local.target
+restart    = true

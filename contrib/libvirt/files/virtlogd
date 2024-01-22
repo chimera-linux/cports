@@ -1,0 +1,7 @@
+# virtlogd daemon service
+
+type       = process
+command    = /usr/bin/virtlogd
+before     = login.target
+depends-on = local.target
+restart    = true

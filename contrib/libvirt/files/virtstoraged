@@ -1,0 +1,7 @@
+# virtstoraged daemon service
+
+type       = process
+command    = /usr/bin/virtstoraged
+before     = login.target
+depends-on = local.target
+restart    = true
