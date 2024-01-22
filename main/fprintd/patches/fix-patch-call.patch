@@ -1,0 +1,29 @@
+From 7021b805da31a80d8d01bd7423ff4938c12901b3 Mon Sep 17 00:00:00 2001
+From: Mohammed Anas <triallax@tutanota.com>
+Date: Mon, 22 Jan 2024 11:24:29 +0000
+Subject: [PATCH] build: don't pass `--merge` to `patch`
+
+`--merge` is a non-portable GNU extension that may not be present
+on other userlands (e.g. it doesn't exist in Chimera Linux, whose
+userland is based on that of FreeBSD). The `patch` command seems to
+run successfully without the argument, so remove it to fix the build on
+these systems.
+---
+ src/meson.build | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/meson.build b/src/meson.build
+index a7ce3fe..99c32a9 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -26,7 +26,6 @@ fprintd_dbus_sources += custom_target('fprintd-dbus-interactive',
+     command: [
+         find_program('patch'),
+         '-p1',
+-        '--merge',
+         '@INPUT@',
+         files('dbus-interactive-auth.patch'),
+         '-o', '@OUTPUT@',
+-- 
+2.43.0
+
