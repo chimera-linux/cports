@@ -1,5 +1,5 @@
 pkgname = "github-cli"
-pkgver = "2.42.0"
+pkgver = "2.42.1"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -15,7 +15,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://cli.github.com"
 source = f"https://github.com/cli/cli/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c25cddb83037f351468eb06ed1ac9cea0a25c8fdf4dcaf9b6eb509c10cedb395"
+sha256 = "20d5d7470dcd2107b9f357a1879ae0ff0389ed750c964b28d2db3215fe2e9623"
 options = ["!cross", "!debug"]
 
 
