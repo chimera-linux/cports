@@ -1,18 +1,18 @@
 pkgname = "thermald"
-pkgver = "2.5.4"
-pkgrel = 1
+pkgver = "2.5.5"
+pkgrel = 0
 archs = ["x86_64"]
+# don't use autogen.sh, it generates files that force reconf in do_build
 build_style = "gnu_configure"
-# TODO: figure out why we need to disable dependency tracking
-configure_args = ["--disable-dependency-tracking"]
-configure_env = {"NO_CONFIGURE": "1"}
-configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
+make_dir = "."
 hostmakedepends = [
     "autoconf",
     "autoconf-archive",
     "automake",
+    "dbus-glib",
     "gettext",
+    "glib-devel",
     "gmake",
     "gtk-doc-tools",
     "libtool",
@@ -32,8 +32,13 @@ maintainer = "miko <mikoxyzzz@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/intel/thermal_daemon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2addedfc7974b30ed6a553a5690961eb48d6abacd4584e3b6d3fd292343d694e"
+sha256 = "d5d6d8213fcfd6f3cf073b993225699154b1e22f6053332830231da5038ce8a9"
 hardening = ["vis"]
+
+
+# autoreconf fails otherwise
+def pre_configure(self):
+    self.mkdir("m4")
 
 
 def post_install(self):
