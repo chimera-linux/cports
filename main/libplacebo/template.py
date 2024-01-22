@@ -1,6 +1,6 @@
 pkgname = "libplacebo"
-pkgver = "6.338.1"
-pkgrel = 2
+pkgver = "6.338.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dshaderc=enabled",
@@ -38,7 +38,7 @@ source_paths = [
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "f748bf9385f4c228e1379d7d1bed13581176bfdc54eb99f4abe22e649f8dc93f",
+    "d029adbe55bba8aed7aed2c48b0b66081dddfb9d42683a709342e33aa666c544",
     "72bbfd1914e414c920e39abdc81378adf910a622b62c45b4c61d344039425d18",
 ]
 # FIXME cfi
