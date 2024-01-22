@@ -1,0 +1,9 @@
+--- a/Documentation/git-absorb.txt
++++ b/Documentation/git-absorb.txt
+@@ -1,5 +1,5 @@
+ :man source:   git-absorb
+-:man version:  0.5.0
++:man version:  0.6.11
+ :man manual:   git absorb
+ 
+ git-absorb(1)
