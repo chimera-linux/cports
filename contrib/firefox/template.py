@@ -1,56 +1,54 @@
 pkgname = "firefox"
-pkgver = "121.0.1"
-pkgrel = 1
+pkgver = "122.0"
+pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
-    "pkgconf",
-    "zip",
-    "nasm",
-    "cargo",
-    "rust",
-    "python",
-    "cbindgen",
-    "llvm-devel",
-    "clang-devel",
-    "nodejs",
-    "gettext",
     "automake",
-    "libtool",
+    "cargo",
+    "cbindgen",
+    "clang-devel",
+    "gettext",
     "gmake",
+    "libtool",
+    "llvm-devel",
+    "nasm",
+    "nodejs",
+    "pkgconf",
+    "python",
+    "rust",
     "wasi-sdk",
     "xserver-xorg-xvfb",
+    "zip",
 ]
 makedepends = [
-    "rust-std",
-    "nss-devel",
-    "nspr-devel",
+    "alsa-lib-devel",
+    "dbus-devel",
+    "ffmpeg-devel",
+    "freetype-devel",
+    "glib-devel",
     "gtk+3-devel",
     "icu-devel",
-    "dbus-devel",
-    "glib-devel",
-    "libpulse-devel",
-    "pixman-devel",
-    "freetype-devel",
-    "libjpeg-turbo-devel",
-    "libpng-devel",
-    "libwebp-devel",
     "libevent-devel",
+    "libffi-devel",
+    "libjpeg-turbo-devel",
     "libnotify-devel",
-    "libvpx-devel",
-    "libvorbis-devel",
     "libogg-devel",
+    "libpng-devel",
+    "libpulse-devel",
     "libtheora-devel",
-    "libxt-devel",
+    "libvorbis-devel",
+    "libvpx-devel",
+    "libwebp-devel",
     "libxcomposite-devel",
     "libxscrnsaver-devel",
-    "pipewire-jack-devel",
-    "ffmpeg-devel",
-    "alsa-lib-devel",
+    "libxt-devel",
     "mesa-devel",
-    "libffi-devel",
+    "nspr-devel",
+    "nss-devel",
+    "pipewire-jack-devel",
+    "pixman-devel",
+    "rust-std",
     "zlib-devel",
-    # XXX: https://bugzilla.mozilla.org/show_bug.cgi?id=1532281
-    "dbus-glib-devel",
 ]
 depends = [
     "libavcodec",
@@ -65,7 +63,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "b3a4216e01eaeb9a7c6ef4659d8dcd956fbd90a78a8279ee3a598881e63e49ce"
+sha256 = "b84815a90e147965e4c0b50599c85b1022ab0fce42105e5ef45c630dcca5dec3"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
