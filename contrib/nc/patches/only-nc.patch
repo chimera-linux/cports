@@ -1,0 +1,56 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -414,20 +414,7 @@
+ 	set(LIBTLS_TEST_LIBS tls ${PLATFORM_LIBS})
+ endif()
+ 
+-add_subdirectory(include)
+-add_subdirectory(crypto)
+-add_subdirectory(ssl)
+-if(LIBRESSL_APPS)
+-	add_subdirectory(apps)
+-endif()
+-add_subdirectory(tls)
+-if(NOT MSVC)
+-	add_subdirectory(man)
+-endif()
+-# Tests require the openssl executable and are unavailable when building shared libraries
+-if(LIBRESSL_APPS AND LIBRESSL_TESTS)
+-	add_subdirectory(tests)
+-endif()
++add_subdirectory(apps)
+ 
+ if (BUILD_APPLE_XCFRAMEWORK)
+ 	# Create the super library from object libraries
+--- a/apps/CMakeLists.txt
++++ b/apps/CMakeLists.txt
+@@ -1,3 +1 @@
+-add_subdirectory(ocspcheck)
+-add_subdirectory(openssl)
+ add_subdirectory(nc)
+--- a/apps/nc/CMakeLists.txt
++++ b/apps/nc/CMakeLists.txt
+@@ -6,6 +6,9 @@
+ 	netcat.c
+ 	socks.c
+ 	compat/socket.c
++	compat/strtonum.c
++	compat/arc4random.c
++	compat/arc4random_uniform.c
+ )
+ 
+ check_function_exists(b64_ntop HAVE_B64_NTOP)
+@@ -46,11 +49,7 @@
+ 		${CMAKE_BINARY_DIR}/include)
+ target_link_libraries(nc ${LIBTLS_LIBS})
+ 
+-if(ENABLE_NC)
+-	if(ENABLE_LIBRESSL_INSTALL)
+-		install(TARGETS nc DESTINATION ${CMAKE_INSTALL_BINDIR})
+-		install(FILES nc.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+-	endif(ENABLE_LIBRESSL_INSTALL)
+-endif()
++install(TARGETS nc DESTINATION ${CMAKE_INSTALL_BINDIR})
++install(FILES nc.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
+ 
+ endif()
