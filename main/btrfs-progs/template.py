@@ -1,15 +1,15 @@
 pkgname = "btrfs-progs"
-pkgver = "6.6.3"
+pkgver = "6.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--disable-python"]
-configure_gen = []
-# build system assumes . is the root right off the bat
 make_cmd = "gmake"
+# build system assumes . is the root right off the bat
 make_dir = "."
 make_check_target = "test"
 hostmakedepends = [
     "asciidoc",
+    "automake",
     "gmake",
     "libxml2-progs",
     "pkgconf",
@@ -22,11 +22,11 @@ makedepends = [
     "e2fsprogs-devel",
     "libblkid-devel",
     "libuuid-devel",
-    "zstd-devel",
     "linux-headers",
     "lzo-devel",
     "udev-devel",
     "zlib-devel",
+    "zstd-devel",
 ]
 checkdepends = ["xz"]
 pkgdesc = "Btrfs file system utilities"
@@ -36,21 +36,11 @@ url = "https://btrfs.wiki.kernel.org/index.php/Main_Page"
 source = (
     f"$(KERNEL_SITE)/kernel/people/kdave/{pkgname}/{pkgname}-v{pkgver}.tar.xz"
 )
-sha256 = "f41ce53f6673ff551ee4a3fe7dc9601e5a0dde6b6d09177d1fab62718abc6d9a"
+sha256 = "c27f755185b9f2dab31f42e8a303d36bed2a3f3341cc6d75ee68a0a650a24767"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
 options = ["!check"]
-
-
-# clang only issues a warning about unused compiler arg for -msse2 etc
-if self.profile().arch != "x86_64":
-    configure_args += [
-        "ax_cv_check_cflags___msse2=no",
-        "ax_cv_check_cflags___msse4_1=no",
-        "ax_cv_check_cflags___mavx2=no",
-        "ax_cv_check_cflags___msha=no",
-    ]
 
 
 @subpackage("libbtrfs")
