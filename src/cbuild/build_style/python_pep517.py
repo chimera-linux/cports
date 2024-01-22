@@ -63,6 +63,7 @@ def do_check(self):
         *self.make_check_args,
         *ctgt,
         env=self.make_check_env,
+        path=[envpy.parent],
     )
 
 

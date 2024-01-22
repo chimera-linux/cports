@@ -579,11 +579,16 @@ def enter(
     binpkgs_rw=False,
     signkey=None,
     wrapper=None,
+    binpath=None,
     lldargs=None,
 ):
-    defpath = "/usr/bin"
+    defpath = []
+    if binpath:
+        defpath += binpath
     if bootstrapping:
-        defpath = os.environ["PATH"]
+        defpath += [os.environ["PATH"]]
+    else:
+        defpath += ["/usr/bin"]
 
     from cbuild.core import profile
 
@@ -593,7 +598,7 @@ def enter(
         env = {}
 
     envs = {
-        "PATH": defpath,
+        "PATH": ":".join(map(lambda v: str(v), defpath)),
         "SHELL": "/bin/sh",
         "HOME": "/tmp",
         "USER": "root" if fakeroot else "cbuild",

@@ -2708,7 +2708,7 @@ The `python_version` is a string (e.g. `3.12`) while the other two are integers
 
 Similar to Python above, but for Ruby.
 
-##### def do(self, cmd, *args, env = None, wrksrc = None, capture_output = False, stdout = None, stderr = None, input = None, check = True, allow_network = False)
+##### def do(self, cmd, *args, env = None, wrksrc = None, capture_output = False, stdout = None, stderr = None, input = None, check = True, allow_network = False, path = None)
 
 Execute a command in the build container, sandboxed. Does not spawn a shell,
 instead directly runs `cmd`, passing it `*args`. You can use `env` to provide
@@ -2727,6 +2727,10 @@ namespace) unless we're at `fetch`.
 
 The `allow_network` argument can be used to conditionally allow network access
 but only during the `fetch`, `extract`, `prepare` and `patch` phases.
+
+The `path` argument is an array that can specify additional executable paths
+to prepend to the sandbox `PATH`. These will take priority over the default
+`/usr/bin`.
 
 If run during the `install` phase (or during the `check` phase when `checkroot`
 is enabled in `options`), the command will be run masquerading as the `root`
