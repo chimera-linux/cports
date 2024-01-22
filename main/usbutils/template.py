@@ -1,6 +1,6 @@
 pkgname = "usbutils"
 pkgver = "017"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["automake", "libtool", "pkgconf", "gmake"]
@@ -17,4 +17,9 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.rm(self.destdir / "usr/bin/lsusb.py")
-    self.rm(self.destdir / "usr/lib/pkgconfig", recursive=True)
+
+
+@subpackage("usbutils-devel")
+def _devel(self):
+    self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    return self.default_devel()

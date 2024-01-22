@@ -10,7 +10,7 @@ makedepends = [
     "libgudev-devel",
     "json-glib-devel",
     "vala-devel",
-    "usbutils",
+    "usbutils-devel",
 ]
 pkgdesc = "GLib wrapper around libusb"
 maintainer = "q66 <q66@chimera-linux.org>"
