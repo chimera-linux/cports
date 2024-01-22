@@ -788,10 +788,11 @@ class Template(Package):
 
         def _gitlog(fmt, tgt, pkg):
             bargs = ["git", "log", "-n1", f"--format={fmt}"]
-            if pkg:
-                bargs += ["--", tgt]
-            else:
-                bargs.append(tgt)
+            if tgt:
+                if pkg:
+                    bargs += ["--", tgt]
+                else:
+                    bargs.append(tgt)
             return (
                 subprocess.run(bargs, capture_output=True)
                 .stdout.strip()
