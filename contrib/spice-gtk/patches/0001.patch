@@ -1,0 +1,21 @@
+From 953556c8a757cdadb0ebf2b040dfc78ee45d40b7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 15 Mar 2023 09:24:37 +0000
+Subject: [PATCH] Remove dependency on gobject-introspection-1.0
+
+---
+ meson.build | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 341f5fb5..44017e55 100644
+--- a/meson.build
++++ b/meson.build
+@@ -345,7 +345,6 @@ summary_info += {'coroutine': spice_gtk_coroutine}
+ spice_gtk_has_introspection = false
+ d = dependency('gobject-introspection-1.0', version : '>= 0.94', required : get_option('introspection'))
+ if d.found()
+-  spice_glib_deps += d
+   spice_gtk_has_introspection = true
+ endif
+ summary_info += {'introspection': spice_gtk_has_introspection}
