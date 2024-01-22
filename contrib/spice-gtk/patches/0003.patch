@@ -1,0 +1,23 @@
+From 11149e5d4eb13389af38b30b3f6d4a6c69bfaf60 Mon Sep 17 00:00:00 2001
+From: Frediano Ziglio <freddy77@gmail.com>
+Date: Sun, 2 Jul 2023 18:12:01 +0100
+Subject: [PATCH] Remove not private function declaration
+
+Already declared in spice-audio.h.
+
+Signed-off-by: Frediano Ziglio <freddy77@gmail.com>
+---
+ src/spice-session-priv.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/spice-session-priv.h b/src/spice-session-priv.h
+index b4919a47..60cf4a9d 100644
+--- a/src/spice-session-priv.h
++++ b/src/spice-session-priv.h
+@@ -90,6 +90,5 @@ gboolean spice_session_get_gl_scanout_enabled(SpiceSession *session);
+ PhodavServer *spice_session_get_webdav_server(SpiceSession *session);
+ guint spice_session_get_n_display_channels(SpiceSession *session);
+ gboolean spice_session_set_migration_session(SpiceSession *session, SpiceSession *mig_session);
+-SpiceAudio *spice_audio_get(SpiceSession *session, GMainContext *context);
+ const gchar* spice_audio_data_mode_to_string(gint mode);
+ G_END_DECLS
