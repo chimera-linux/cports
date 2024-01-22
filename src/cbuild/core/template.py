@@ -808,12 +808,12 @@ class Template(Package):
         self.git_revision = grev
         self.git_dirty = dirty
 
-        # template directory modified, do not use a reproducible date
-        if dirty:
+        # template directory modified or not tracked, no  reproducible date
+        if dirty or not grev:
             return
 
         # get the date of the git revision
-        ts = _gitlog("%ct", self.git_revision, False)
+        ts = _gitlog("%ct", grev, False)
 
         try:
             self.source_date_epoch = int(ts)
