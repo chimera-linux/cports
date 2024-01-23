@@ -1,0 +1,74 @@
+Patch-Source: https://github.com/llvm/llvm-project/commit/078651b6de4b767b91e3e6a51e5df11a06d7bc4f
+chromium 121 needs this
+--
+From 078651b6de4b767b91e3e6a51e5df11a06d7bc4f Mon Sep 17 00:00:00 2001
+From: Daniel Cheng <zetafunction+github@gmail.com>
+Date: Mon, 18 Sep 2023 05:46:59 -0700
+Subject: [PATCH] [libc++] Implement LWG3545: std::pointer_traits should be
+ SFINAE-friendly. (#65177)
+
+See https://wg21.link/LWG3545 for background and details.
+
+Differential Revision: https://reviews.llvm.org/D158922
+---
+ libcxx/docs/Status/Cxx23Issues.csv            |   2 +-
+ libcxx/include/__memory/pointer_traits.h      |  17 +-
+ .../contiguous_iterator.verify.cpp            |  54 ----
+ ...to_address_without_pointer_traits.pass.cpp |  66 ++++
+ .../pointer.traits/difference_type.pass.cpp   |  28 --
+ .../pointer.traits/element_type.pass.cpp      |  28 --
+ .../memory/pointer.traits/pointer.pass.cpp    |  35 ---
+ .../memory/pointer.traits/rebind.pass.cpp     |  32 --
+ .../pointer.traits/types.compile.pass.cpp     | 289 ++++++++++++++++++
+ 9 files changed, 367 insertions(+), 184 deletions(-)
+ delete mode 100644 libcxx/test/libcxx/iterators/iterator.requirements/iterator.concepts/iterator.concept.random.access/contiguous_iterator.verify.cpp
+ create mode 100644 libcxx/test/std/utilities/memory/pointer.conversion/to_address_without_pointer_traits.pass.cpp
+ delete mode 100644 libcxx/test/std/utilities/memory/pointer.traits/difference_type.pass.cpp
+ delete mode 100644 libcxx/test/std/utilities/memory/pointer.traits/element_type.pass.cpp
+ delete mode 100644 libcxx/test/std/utilities/memory/pointer.traits/pointer.pass.cpp
+ delete mode 100644 libcxx/test/std/utilities/memory/pointer.traits/rebind.pass.cpp
+ create mode 100644 libcxx/test/std/utilities/memory/pointer.traits/types.compile.pass.cpp
+
+diff --git a/libcxx/include/__memory/pointer_traits.h b/libcxx/include/__memory/pointer_traits.h
+index c33e7bd43f29f7d..7617948ed76bd66 100644
+--- a/libcxx/include/__memory/pointer_traits.h
++++ b/libcxx/include/__memory/pointer_traits.h
+@@ -35,7 +35,7 @@ template <class _Tp>
+ struct __has_element_type<_Tp, __void_t<typename _Tp::element_type> > : true_type {};
+ 
+ template <class _Ptr, bool = __has_element_type<_Ptr>::value>
+-struct __pointer_traits_element_type;
++struct __pointer_traits_element_type {};
+ 
+ template <class _Ptr>
+ struct __pointer_traits_element_type<_Ptr, true>
+@@ -111,12 +111,14 @@ struct __pointer_traits_rebind<_Sp<_Tp, _Args...>, _Up, false>
+     typedef _Sp<_Up, _Args...> type;
+ };
+ 
++template <class _Ptr, class = void>
++struct __pointer_traits_impl {};
++
+ template <class _Ptr>
+-struct _LIBCPP_TEMPLATE_VIS pointer_traits
+-{
+-    typedef _Ptr                                                     pointer;
+-    typedef typename __pointer_traits_element_type<pointer>::type    element_type;
+-    typedef typename __pointer_traits_difference_type<pointer>::type difference_type;
++struct __pointer_traits_impl<_Ptr, __void_t<typename __pointer_traits_element_type<_Ptr>::type> > {
++  typedef _Ptr pointer;
++  typedef typename __pointer_traits_element_type<pointer>::type element_type;
++  typedef typename __pointer_traits_difference_type<pointer>::type difference_type;
+ 
+ #ifndef _LIBCPP_CXX03_LANG
+     template <class _Up> using rebind = typename __pointer_traits_rebind<pointer, _Up>::type;
+@@ -133,6 +135,9 @@ struct _LIBCPP_TEMPLATE_VIS pointer_traits
+         {return pointer::pointer_to(__r);}
+ };
+ 
++template <class _Ptr>
++struct _LIBCPP_TEMPLATE_VIS pointer_traits : __pointer_traits_impl<_Ptr> {};
++
+ template <class _Tp>
+ struct _LIBCPP_TEMPLATE_VIS pointer_traits<_Tp*>
+ {
