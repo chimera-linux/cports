@@ -1,6 +1,6 @@
 pkgname = "nsd"
 pkgver = "4.8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-user=_nsd"]
 make_check_target = "test"
