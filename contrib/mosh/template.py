@@ -1,6 +1,6 @@
 pkgname = "mosh"
 pkgver = "1.4.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
@@ -11,7 +11,13 @@ hostmakedepends = [
     "pkgconf",
     "protobuf",
 ]
-makedepends = ["protobuf-devel", "ncurses-devel", "openssl-devel", "zlib-devel"]
+makedepends = [
+    "abseil-cpp-devel",
+    "protobuf-devel",
+    "ncurses-devel",
+    "openssl-devel",
+    "zlib-devel",
+]
 depends = ["perl"]
 pkgdesc = "Mobile shell"
 maintainer = "q66 <q66@chimera-linux.org>"
