@@ -1,6 +1,6 @@
 pkgname = "evince"
 pkgver = "45.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # dvi needs kpathsea, which is in texlive
 # does anyone actually need dvi?
@@ -13,32 +13,32 @@ configure_args = [
     "-Ddvi=disabled",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "gobject-introspection",
-    "glib-devel",
-    "itstool",
-    "gettext",
-    "perl-xml-parser",
     "adwaita-icon-theme",
     "desktop-file-utils",
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
+    "itstool",
+    "meson",
+    "perl-xml-parser",
+    "pkgconf",
 ]
 makedepends = [
-    "gtk+3-devel",
-    "glib-devel",
-    "libhandy-devel",  # "nautilus-devel",
     "dbus-devel",
-    "libsecret-devel",
-    "gstreamer-devel",
-    "libspectre-devel",
-    "libarchive-devel",
-    "libpoppler-glib-devel",
-    "gst-plugins-base-devel",
-    "gsettings-desktop-schemas-devel",
-    "libtiff-devel",
-    "libgxps-devel",
-    "gspell-devel",
     "djvulibre-devel",
+    "glib-devel",
+    "gsettings-desktop-schemas-devel",
+    "gspell-devel",
+    "gst-plugins-base-devel",
+    "gstreamer-devel",
+    "gtk+3-devel",
+    "libarchive-devel",
+    "libgxps-devel",
+    "libhandy-devel",  # "nautilus-devel",
+    "libpoppler-glib-devel",
+    "libsecret-devel",
+    "libspectre-devel",
+    "libtiff-devel",
 ]
 pkgdesc = "GNOME document viewer"
 maintainer = "q66 <q66@chimera-linux.org>"
