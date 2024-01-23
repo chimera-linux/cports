@@ -1,6 +1,6 @@
 pkgname = "colord"
-pkgver = "1.4.6"
-pkgrel = 1
+pkgver = "1.4.7"
+pkgrel = 0
 build_style = "meson"
 # manpages fail to generate
 configure_args = [
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://www.freedesktop.org/software/colord"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "7407631a27bfe5d1b672e7ae42777001c105d860b7b7392283c8c6300de88e6f"
+sha256 = "de02d9910634ae159547585cec414e450f711c27235453b4f9b38a9f2361a653"
 # FIXME int
 hardening = ["!int"]
 # assertion failed (cd_edid_get_vendor_name (edid) == "LG"): (NULL == "LG")
