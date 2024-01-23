@@ -1,5 +1,5 @@
 pkgname = "chimerautils"
-pkgver = "14.0.4"
+pkgver = "14.0.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = []
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/chimerautils"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8f420b76adb5b1e8f1e6b96179d90fcd2296478353e24970a1d767e43cdd6162"
+sha256 = "2a73af240f8f4e3a76d0ded0a3e1b29dd6ba111ff65f638eb9bc45ade47338fe"
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["bootstrap", "!check"]
@@ -80,6 +80,7 @@ def _full(self):
         "usr/bin/fetch",
         "usr/bin/locate",
         "usr/bin/m4",
+        "usr/bin/nc",
         "usr/bin/ncal",
         "usr/bin/nex",
         "usr/bin/nvi",
@@ -98,6 +99,7 @@ def _full(self):
         "usr/share/man/man1/fetch.1",
         "usr/share/man/man1/locate.1",
         "usr/share/man/man1/m4.1",
+        "usr/share/man/man1/nc.1",
         "usr/share/man/man1/ncal.1",
         "usr/share/man/man1/nex.1",
         "usr/share/man/man1/nvi.1",
