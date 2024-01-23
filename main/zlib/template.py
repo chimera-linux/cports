@@ -1,5 +1,5 @@
 pkgname = "zlib"
-pkgver = "1.3"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "configure"
 hostmakedepends = ["pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Zlib"
 url = "https://www.zlib.net"
 source = f"{url}/fossils/{pkgname}-{pkgver}.tar.gz"
-sha256 = "ff0ba4c292013dbc27530b3a81e1f9a813cd39de01ca5e0f8bf355702efa593e"
+sha256 = "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 options = ["bootstrap", "linkundefver"]
 
