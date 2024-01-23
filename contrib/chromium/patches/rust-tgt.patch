@@ -1,0 +1,18 @@
+--- a/build/config/rust.gni
++++ b/build/config/rust.gni
+@@ -186,11 +186,13 @@
+ rust_abi_target = ""
+ if (is_linux || is_chromeos) {
+   if (current_cpu == "arm64") {
+-    rust_abi_target = "aarch64-unknown-linux-gnu"
++    rust_abi_target = "aarch64-chimera-linux-musl"
+   } else if (current_cpu == "x86") {
+     rust_abi_target = "i686-unknown-linux-gnu"
+   } else if (current_cpu == "x64") {
+-    rust_abi_target = "x86_64-unknown-linux-gnu"
++    rust_abi_target = "x86_64-chimera-linux-musl"
++  } else if (current_cpu == "ppc64") {
++    rust_abi_target = "powerpc64le-chimera-linux-musl"
+   } else if (current_cpu == "arm") {
+     if (arm_float_abi == "hard") {
+       float_suffix = "hf"

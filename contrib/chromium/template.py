@@ -1,45 +1,47 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "120.0.6099.224"
+pkgver = "121.0.6167.160"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
     'custom_toolchain="//build/toolchain/linux/unbundle:default"',
     'host_toolchain="//build/toolchain/linux/unbundle:default"',
-    'host_pkg_config="/usr/bin/pkg-config"',
+    "blink_enable_generated_code_formatting=false",
     "blink_symbol_level=0",
-    "symbol_level=0",
     "chrome_pgo_phase=0",
     'clang_base_path="/usr"',
     "clang_use_chrome_plugins=false",
-    'rust_sysroot_absolute="/usr"',
-    "treat_warnings_as_errors=false",
-    "fatal_linker_warnings=false",
     "disable_fieldtrial_testing_config=true",
-    "blink_enable_generated_code_formatting=false",
-    "rtc_link_pipewire=true",
-    "rtc_use_pipewire=true",
+    "enable_hangout_services_extension=true",
+    "enable_nacl=false",
+    "enable_nocompile_tests_new=false",
+    "enable_rust=true",
+    "enable_stripping=false",
+    "enable_vr=false",
+    "fatal_linker_warnings=false",
+    'ffmpeg_branding="Chrome"',
+    'host_pkg_config="/usr/bin/pkg-config"',
+    "icu_use_data_file=false",
+    "is_clang=true",
+    "is_component_ffmpeg=true",
+    "is_debug=false",
+    "is_official_build=true",
     "link_pulseaudio=true",
     "proprietary_codecs=true",
     "regenerate_x11_protos=true",
-    'ffmpeg_branding="Chrome"',
-    "icu_use_data_file=false",
-    "enable_nacl=false",
-    "enable_nocompile_tests_new=false",
-    "enable_rust=false",
-    "enable_stripping=false",
-    "enable_hangout_services_extension=true",
-    "enable_vr=false",
-    "is_clang=true",
-    "is_debug=false",
-    "is_official_build=true",
-    "is_component_ffmpeg=true",
+    "rtc_link_pipewire=true",
+    "rtc_use_pipewire=true",
+    'rust_sysroot_absolute="/usr"',
+    # anything works
+    'rustc_version="0"',
+    "symbol_level=0",
+    "treat_warnings_as_errors=false",
     "use_custom_libcxx=false",
     "use_gold=false",
     "use_lld=true",
-    "use_sysroot=false",
-    "use_qt=false",
     "use_pulseaudio=true",
+    "use_qt=false",
+    "use_sysroot=false",
     "use_system_freetype=true",
     "use_system_harfbuzz=true",
     "use_system_lcms2=true",
@@ -62,6 +64,7 @@ hostmakedepends = [
     "perl",
     "pkgconf",
     "python",
+    "rust",
 ]
 makedepends = [
     "alsa-lib-devel",
@@ -117,6 +120,7 @@ makedepends = [
     "opus-devel",
     "pciutils-devel",
     "pipewire-devel",
+    "rust-std",
     "snappy-devel",
     "speex-devel",
     "sqlite-devel",
@@ -133,7 +137,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
-sha256 = "850a85c8d8a01041a07dfaaea8289fa5f8294b4e375e6b77997b61434e0a2f1a"
+sha256 = "4586673899383d30e9d95fa3a9c5f8160f32a9d5789e40be82abf3e4dd9cc3df"
 debug_level = 0
 tool_flags = {
     "CFLAGS": [
@@ -212,9 +216,7 @@ def do_configure(self):
 
     for lib in _unbundle:
         self.do("./unbundle.sh", lib)
-
     self.do("./unbundle.sh", "libjpeg_turbo")
-
     self.do(
         "./build/linux/unbundle/replace_gn_files.py",
         "--system-libraries",
