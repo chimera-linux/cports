@@ -3812,3 +3812,15 @@ index 6a04cbca45..53ef9f998d 100644
    ]
  
    if (v8_enable_webassembly) {
+--- a/third_party/skia/modules/skcms/src/skcms_internals.h
++++ b/third_party/skia/modules/skcms/src/skcms_internals.h
+@@ -46,7 +46,8 @@
+                                                  && !defined(__EMSCRIPTEN__) \
+                                                  && !defined(__arm__) \
+                                                  && !defined(__riscv) \
+-                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__)
++                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__) \
++                                                 && !defined(__powerpc__) 
+             #define SKCMS_MUSTTAIL [[clang::musttail]]
+         #else
+             #define SKCMS_MUSTTAIL

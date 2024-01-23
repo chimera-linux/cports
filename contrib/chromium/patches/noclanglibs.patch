@@ -1,0 +1,15 @@
+q66 doesn't want to pass clang_version for clanglib path since it's only used to
+link the libclang_rt.builtins.a. but those are linked by default already so skip
+it instead of computing the version
+--
+--- a/build/config/clang/BUILD.gn
++++ b/build/config/clang/BUILD.gn
+@@ -101,7 +101,7 @@
+ }
+ 
+ template("clang_lib") {
+-  if (!defined(invoker.libname)) {
++  if (true) {
+     not_needed(invoker, "*")
+     config(target_name) {
+     }
