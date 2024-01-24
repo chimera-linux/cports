@@ -1,10 +1,12 @@
 pkgname = "perf"
 pkgver = "6.7.1"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "tools/perf"
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = [
+    "-f",
+    "Makefile.perf",
     "LLVM=1",
     "NO_LIBAUDIT=1",
     "NO_LIBBABELTRACE=1",
@@ -21,13 +23,16 @@ make_build_args = [
     "sbindir=/usr/bin",
 ]
 make_install_args = list(make_build_args)
+make_use_env = True
 hostmakedepends = [
+    "asciidoc",
     "bash",
     "bison",
     "flex",
     "gmake",
     "pkgconf",
     "python-setuptools",
+    "xmlto",
 ]
 makedepends = [
     "elfutils-devel",
