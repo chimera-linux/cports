@@ -1,0 +1,30 @@
+Patch-Source: https://github.com/libuv/libuv/pull/4285
+--
+From 08f4fb449048e22be034b26fa41fb0723189f2b8 Mon Sep 17 00:00:00 2001
+From: Brad King <brad.king@kitware.com>
+Date: Fri, 12 Jan 2024 15:02:22 -0500
+Subject: [PATCH] linux: disable io_uring on ppc64 and ppc64le
+
+Since `io_uring` support was added, libuv's signal handler randomly
+segfaults on ppc64 when interrupting `epoll_pwait`.  Disable it
+pending further investigation.
+
+Issue: https://github.com/libuv/libuv/issues/4283
+---
+ src/unix/linux.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/unix/linux.c b/src/unix/linux.c
+index 3c1313e7efc..4164e90dbb0 100644
+--- a/src/unix/linux.c
++++ b/src/unix/linux.c
+@@ -463,6 +463,9 @@ static int uv__use_io_uring(void) {
+ #elif defined(__arm__) && __SIZEOF_POINTER__ == 4
+   /* See https://github.com/libuv/libuv/issues/4158. */
+   return 0;  /* All 32 bits kernels appear buggy. */
++#elif defined(__powerpc64__) || defined(__ppc64__)
++  /* See https://github.com/libuv/libuv/issues/4283. */
++  return 0; /* Random SIGSEGV in signal handler. */
+ #else
+   /* Ternary: unknown=0, yes=1, no=-1 */
+   static _Atomic int use_io_uring;

@@ -1,6 +1,6 @@
 pkgname = "libuv"
 pkgver = "1.47.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
