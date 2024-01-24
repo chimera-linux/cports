@@ -1,5 +1,5 @@
---- a/image-5.29.0/registries.conf
-+++ b/image-5.29.0/registries.conf
+--- a/image-5.29.1/registries.conf
++++ b/image-5.29.1/registries.conf
 @@ -18,7 +18,7 @@
  # of these registries, it should be added at the end of the list.
  #
@@ -17,8 +17,8 @@
  PREFIX ?= ${DESTDIR}/usr
  MANINSTALLDIR=${PREFIX}/share/man
  MANPAGES_MD = $(wildcard docs/*.5.md)
---- a/common-0.57.1/pkg/config/containers.conf
-+++ b/common-0.57.1/pkg/config/containers.conf
+--- a/common-0.57.2/pkg/config/containers.conf
++++ b/common-0.57.2/pkg/config/containers.conf
 @@ -417,7 +417,7 @@ default_sysctls = [
  # Cgroup management implementation used for the runtime.
  # Valid options "systemd" or "cgroupfs"
