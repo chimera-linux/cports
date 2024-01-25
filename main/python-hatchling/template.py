@@ -1,6 +1,6 @@
 pkgname = "python-hatchling"
-pkgver = "1.21.0"
-pkgrel = 1
+pkgver = "1.21.1"
+pkgrel = 0
 build_style = "python_pep517"
 _deps = [
     "python-packaging",
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://hatch.pypa.io/latest"
 source = f"$(PYPI_SITE)/h/hatchling/hatchling-{pkgver}.tar.gz"
-sha256 = "5c086772357a50723b825fd5da5278ac7e3697cdf7797d07541a6c90b6ff754c"
+sha256 = "bba440453a224e7d4478457fa2e8d8c3633765bafa02975a6b53b9bf917980bc"
 # no tests?
 options = ["!check"]
 
