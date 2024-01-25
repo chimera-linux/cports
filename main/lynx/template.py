@@ -1,6 +1,6 @@
 pkgname = "lynx"
 pkgver = "2.9.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-widec",
@@ -25,5 +25,6 @@ license = "GPL-2.0-or-later"
 url = "https://lynx.invisible-island.net"
 source = f"https://invisible-mirror.net/archives/{pkgname}/tarballs/{pkgname}{pkgver.replace('_pre', 'dev.')}.tar.bz2"
 sha256 = "5bcae5e2e6043ca7b220963a97763c49c13218d849ffda6be7739bfd5a2d36ff"
-hardening = ["vis", "cfi"]
+# FIXME cfi: crashes in UCPutUtf8_charstring via magic function pointer stuff
+hardening = ["vis", "cfi-genptr"]
 options = ["!cross"]
