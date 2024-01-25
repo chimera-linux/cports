@@ -1,0 +1,6 @@
+# haproxy service
+
+type                = process
+command             = /usr/bin/haproxy -Ws -f /etc/haproxy/haproxy.cfg
+logfile             = /var/log/haproxy.log
+depends-on          = network.target
