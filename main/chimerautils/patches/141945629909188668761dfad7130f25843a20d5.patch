@@ -1,0 +1,25 @@
+From 141945629909188668761dfad7130f25843a20d5 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Thu, 25 Jan 2024 19:21:53 +0100
+Subject: [PATCH] fix find -ls output
+
+the LOGIN_NAME_MAX on Linux is 256, but the POSIX value is 9.
+We want the POSIX value here as find -ls uses it for the overall
+width.
+---
+ src.freebsd/findutils/find/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src.freebsd/findutils/find/meson.build b/src.freebsd/findutils/find/meson.build
+index ae258951..d17a989d 100644
+--- a/src.freebsd/findutils/find/meson.build
++++ b/src.freebsd/findutils/find/meson.build
+@@ -4,7 +4,7 @@ find_prog = executable(
+         'find.c', 'function.c', yacc.process('getdate.y'),
+         'ls.c', 'main.c', 'misc.c', 'operator.c', 'option.c',
+     ],
+-    c_args: ['-DQUAD_MAX=LONG_MAX', '-DMAXLOGNAME=LOGIN_NAME_MAX', '-DACL_TYPE_NFS4'],
++    c_args: ['-DQUAD_MAX=LONG_MAX', '-DMAXLOGNAME=_POSIX_LOGIN_NAME_MAX', '-DACL_TYPE_NFS4'],
+     include_directories: [inc],
+     dependencies: [libfts, librpmatch, libacl],
+     link_with: [libcompat],
