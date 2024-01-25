@@ -1,10 +1,11 @@
 pkgname = "ibus"
-pkgver = "1.5.28"
-pkgrel = 2
+pkgver = "1.5.29"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-ui",
     "--enable-gtk3",
+    "--enable-gtk4",
     "--enable-memconf",
     "--enable-dconf",
     "--enable-wayland",
@@ -13,6 +14,8 @@ configure_args = [
     "--enable-introspection",
     "--enable-vala",
     "--enable-setup",
+    # dbusmenu-glib
+    "--disable-appindicator",
     "--disable-gtk2",
     "--disable-schemas-compile",
     "--disable-systemd-services",
@@ -21,30 +24,33 @@ make_cmd = "gmake"
 make_dir = "."  # tests assume this
 make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
-    "gmake",
-    "pkgconf",
+    "automake",
     "dconf",
-    "python",
-    "vala",
-    "gtk-doc-tools",
-    "gobject-introspection",
-    "glib-devel",
     "gettext-devel",
+    "glib-devel",
+    "gmake",
+    "gobject-introspection",
+    "gtk-doc-tools",
+    "libtool",
+    "pkgconf",
+    "python",
     "python-gobject-devel",
+    "unicode-character-database",
     "unicode-cldr-common",
     "unicode-emoji",
-    "unicode-character-database",
+    "vala",
 ]
 makedepends = [
     "dconf-devel",
     "gtk+3-devel",
+    "gtk4-devel",
+    "iso-codes",
     "json-glib-devel",
     "libnotify-devel",
     "libx11-devel",
-    "libxtst-devel",
     "libxkbcommon-devel",
+    "libxtst-devel",
     "wayland-devel",
-    "iso-codes",
 ]
 checkdepends = ["weston", "fonts-dejavu-otf", "setxkbmap", "bash"]
 depends = ["python-gobject", "iso-codes", "dbus-x11"]
@@ -52,10 +58,19 @@ pkgdesc = "Intelligent Input Bus"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/ibus/ibus"
-source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "6c9ff3a7576c3d61264f386030f47ee467eb7298c8104367002986e008765667"
+# they botched the number for this one https://github.com/ibus/ibus/issues/2584
+source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}-rc2.tar.gz"
+sha256 = "3a27ed120485b2077c62e36e788c302f34544ceac3b3b9cda28b7418e8051415"
 # gtk3 can't handle seatless wayland displays
 options = ["!cross", "!check"]
+
+
+def post_extract(self):
+    # for some magical reason, not having this makes it run vala on something
+    # weird and behave as if appindicator isn't disabled (we've always had it disabled
+    # since no libdbusmenu-glib)
+    # so, just touch an empty file
+    (self.cwd / "ui/gtk3/panel.vala").touch()
 
 
 @subpackage("libibus")
@@ -71,6 +86,14 @@ def _gtk3(self):
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk+3"]
 
     return ["usr/lib/gtk-3.0/3.0.0/immodules/im-ibus.so"]
+
+
+@subpackage("ibus-gtk4")
+def _gtk4(self):
+    self.pkgdesc = f"{pkgdesc} (Gtk4 immodule)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}", "gtk4"]
+
+    return ["usr/lib/gtk-4.0/4.0.0/immodules/libim-ibus.so"]
 
 
 @subpackage("ibus-wayland")
@@ -92,6 +115,3 @@ def _xorg(self):
 @subpackage("ibus-devel")
 def _devel(self):
     return self.default_devel(extra=["usr/share/gtk-doc"])
-
-
-configure_gen = []

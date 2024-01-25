@@ -1,0 +1,11 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -23,7 +23,7 @@
+ 
+ 
+ # If ibus_released is 0, append beta to the version number.
+-m4_define([ibus_released], [0])
++m4_define([ibus_released], [1])
+ 
+ m4_define([ibus_major_version], [1])
+ m4_define([ibus_minor_version], [5])
