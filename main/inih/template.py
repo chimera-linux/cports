@@ -1,6 +1,6 @@
 pkgname = "inih"
-pkgver = "57"
-pkgrel = 1
+pkgver = "58"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddistro_install=true",
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/benhoyt/inih"
 source = f"{url}/archive/r{pkgver}.tar.gz"
-sha256 = "f03f98ca35c3adb56b2358573c8d3eda319ccd5287243d691e724b7eafa970b3"
+sha256 = "e79216260d5dffe809bda840be48ab0eec7737b2bb9f02d2275c1b46344ea7b7"
 # FIXME: cfi breaks xdg-desktop-portal-wlr when it loads an empty config
 hardening = ["vis"]
 
