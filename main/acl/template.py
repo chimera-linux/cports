@@ -1,8 +1,10 @@
 pkgname = "acl"
-pkgver = "2.3.1"
+pkgver = "2.3.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--libdir=/usr/lib", "--libexecdir=/usr/lib"]
+# cycle chimerautils -> acl -> automake -> chimerautils
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["attr-devel"]
 checkdepends = ["perl"]
@@ -11,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://savannah.nongnu.org/projects/acl"
 source = f"$(NONGNU_SITE)/acl/acl-{pkgver}.tar.gz"
-sha256 = "760c61c68901b37fdd5eefeeaf4c0c7a26bdfdd8ac747a1edff1ce0e243c11af"
+sha256 = "5f2bdbad629707aa7d85c623f994aa8a1d2dec55a73de5205bac0bf6058a2f7c"
 # test suite makes assumptions about a GNU environment
 options = ["bootstrap", "!check"]
 
@@ -26,6 +28,3 @@ def _devel(self):
 @subpackage("acl-progs")
 def _progs(self):
     return self.default_progs(extra=["usr/share"])
-
-
-configure_gen = []
