@@ -1,0 +1,61 @@
+From af3e702b16d7ab50eddcc65ccd70ebcce5e41f23 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 28 Jan 2024 04:50:21 +0100
+Subject: [PATCH] allow for readiness notification with -Ws and dinit
+
+---
+ src/haproxy.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/src/haproxy.c b/src/haproxy.c
+index 5e13ae6..2ab0f1e 100644
+--- a/src/haproxy.c
++++ b/src/haproxy.c
+@@ -618,6 +618,8 @@ static void usage(char *name)
+ 		"        -W master-worker mode.\n"
+ #if defined(USE_SYSTEMD)
+ 		"        -Ws master-worker mode with systemd notify support.\n"
++#else
++		"        -Ws master-worker mode with fd notify support.\n"
+ #endif
+ 		"        -q quiet mode : don't display messages\n"
+ 		"        -c check mode : only check config files and exit\n"
+@@ -914,6 +916,10 @@ void reexec_on_failure()
+ 	 * the READY=1 signal still need to be sent */
+ 	if (global.tune.options & GTUNE_USE_SYSTEMD)
+ 		sd_notify(0, "READY=1\nSTATUS=Reload failed!\n");
++#else
++	/* the reexec is transparent to the supervisor and the fd that was
++	 * used for the notification is already gone, so do nothing here
++	 */
+ #endif
+ 
+ 	mworker_reexec_waitmode();
+@@ -1761,9 +1767,6 @@ static void init_args(int argc, char **argv)
+ 				arg_mode |= MODE_MWORKER | MODE_FOREGROUND;
+ #if defined(USE_SYSTEMD)
+ 				global.tune.options |= GTUNE_USE_SYSTEMD;
+-#else
+-				ha_alert("master-worker mode with systemd support (-Ws) requested, but not compiled. Use master-worker mode (-W) if you are not using Type=notify in your unit file or recompile with USE_SYSTEMD=1.\n\n");
+-				usage(progname);
+ #endif
+ 			}
+ 			else if (*flag == 'W')
+@@ -3764,6 +3767,15 @@ int main(int argc, char **argv)
+ #if defined(USE_SYSTEMD)
+ 					if (global.tune.options & GTUNE_USE_SYSTEMD)
+ 						sd_notifyf(0, "READY=1\nMAINPID=%lu\nSTATUS=Ready.\n", (unsigned long)getpid());
++#else
++					const char *rvar = getenv("HAPROXY_READY_FD");
++					if (rvar && (global.mode & MODE_FOREGROUND)) {
++						int fdn = atoi(rvar);
++						if (fdn && !fcntl(fdn, F_GETFD)) {
++							write(fdn, "READY=1\n", sizeof("READY=1"));
++							close(fdn);
++						}
++					}
+ #endif
+ 					/* if not in wait mode, reload in wait mode to free the memory */
+ 					setenv("HAPROXY_LOAD_SUCCESS", "1", 1);
+-- 
+2.43.0
