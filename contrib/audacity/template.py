@@ -49,7 +49,6 @@ makedepends = [
     "soxr-devel",
     "sqlite-devel",
     "suil-devel",
-    "taglib-devel",
     "twolame-devel",
     "vamp-plugin-sdk-devel",
     "wavpack-devel",
