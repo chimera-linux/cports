@@ -5,6 +5,8 @@ build_style = "gnu_configure"
 # old and doesn't reconf
 configure_gen = []
 make_cmd = "gmake"
+# fails when 'basic' runs before 'user-dict'
+make_check_args = ["-j1"]
 hostmakedepends = [
     "automake",
     "gettext-devel",
