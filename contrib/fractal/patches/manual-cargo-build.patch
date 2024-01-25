@@ -1,0 +1,29 @@
+build it ourselves to keep all the envs
+ + it doesn't work anyway and tries redownloading something
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -41,24 +41,6 @@
+ 
+ cargo_env = [ 'CARGO_HOME=' + meson.project_build_root() / 'cargo-home' ]
+ 
+-custom_target(
+-  'cargo-build',
+-  build_by_default: true,
+-  build_always_stale: true,
+-  output: meson.project_name(),
+-  console: true,
+-  install: true,
+-  install_dir: bindir,
+-  depends: [resources, ui_resources],
+-  command: [
+-    'env',
+-    cargo_env,
+-    cargo, 'build',
+-    cargo_options,
+-    '&&',
+-    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
+-  ]
+-)
+ 
+ rustdoc_flags = ' '.join([
+   '-Zunstable-options',
