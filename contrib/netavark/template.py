@@ -1,5 +1,5 @@
 pkgname = "netavark"
-pkgver = "1.10.0"
+pkgver = "1.10.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "go-md2man", "protoc"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/containers/netavark"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "35020dc6e5d45b0179e8590fe5b9c5f1a8cefc8e5ab94b6cd5447b86a85d1627"
+sha256 = "8870d36f87cfef802a6af06f64069397b7e69b0de0e6b0ba79c06d785c2e9bb7"
 
 
 def do_install(self):
