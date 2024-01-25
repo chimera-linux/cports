@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-bad"
-pkgver = "1.22.8"
+pkgver = "1.22.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -139,7 +139,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "458783f8236068991e3e296edd671c8eddb8be6fac933c1c2e1503462864ea0f"
+sha256 = "1bc65d0fd5f53a3636564efd3fcf318c3edcdec39c4109a503c1fc8203840a1d"
 # FIXME int
 hardening = ["!int"]
 # TODO: a few fails, debug later
