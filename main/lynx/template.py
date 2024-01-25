@@ -26,5 +26,6 @@ url = "https://lynx.invisible-island.net"
 source = f"https://invisible-mirror.net/archives/{pkgname}/tarballs/{pkgname}{pkgver.replace('_pre', 'dev.')}.tar.bz2"
 sha256 = "5bcae5e2e6043ca7b220963a97763c49c13218d849ffda6be7739bfd5a2d36ff"
 # FIXME cfi: crashes in UCPutUtf8_charstring via magic function pointer stuff
+# when -display_charset utf-8 on any website
 hardening = ["vis", "cfi-genptr"]
 options = ["!cross"]
