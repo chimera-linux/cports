@@ -1,12 +1,9 @@
 pkgname = "tty-copy"
 pkgver = "0.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
-# TODO: asciidoctor for manpage
-make_build_target = "build-exec"
-make_install_target = "install-exec"
-hostmakedepends = ["gmake"]
+hostmakedepends = ["asciidoctor", "gmake"]
 pkgdesc = "Copy content to system clipboard using OSC52"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
