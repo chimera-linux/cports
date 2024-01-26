@@ -17,9 +17,9 @@ def get_arch(arch):
 
 
 def _gen_script(pkg, script, flavor, args=""):
-    pkg.scriptlets[
-        script
-    ] = f'/usr/libexec/base-kernel/script-{script} "$1"{args} "{flavor}"'
+    pkg.scriptlets[script] = (
+        f'/usr/libexec/base-kernel/script-{script} "$1"{args} "{flavor}"'
+    )
 
 
 def generate_scriptlets(pkg, flavor):

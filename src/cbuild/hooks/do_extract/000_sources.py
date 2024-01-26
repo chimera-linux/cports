@@ -164,9 +164,10 @@ def invoke(pkg):
                     tmpd.cleanup()
 
     # now extract in a temporary place
-    with tempfile.TemporaryDirectory(
-        dir=pkg.builddir
-    ) as extractdir, close_edirs():
+    with (
+        tempfile.TemporaryDirectory(dir=pkg.builddir) as extractdir,
+        close_edirs(),
+    ):
         # need to be able to manipulate it
         extractdir = pathlib.Path(extractdir)
         if not pkg.source_paths:

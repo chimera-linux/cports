@@ -42,15 +42,15 @@ hardening = ["vis", "!cfi"]
 
 
 def init_configure(self):
-    self.make_install_env[
-        "TERMINFO"
-    ] = f"{self.chroot_destdir}/usr/share/terminfo"
+    self.make_install_env["TERMINFO"] = (
+        f"{self.chroot_destdir}/usr/share/terminfo"
+    )
 
 
 def pre_install(self):
-    self.make_install_env[
-        "TERMINFO"
-    ] = f"{self.chroot_destdir}/usr/share/terminfo"
+    self.make_install_env["TERMINFO"] = (
+        f"{self.chroot_destdir}/usr/share/terminfo"
+    )
 
     self.install_dir("usr/share/terminfo")
 
