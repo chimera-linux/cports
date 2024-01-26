@@ -1,0 +1,12 @@
+pkgname = "asciidoctor"
+pkgver = "2.0.20"
+pkgrel = 0
+build_style = "ruby_gem"
+hostmakedepends = ["ruby"]
+depends = ["ruby"]
+pkgdesc = "Ruby-based AsciiDoc converter"
+maintainer = "Erica Z <zerica@callcc.eu>"
+license = "MIT"
+url = "https://asciidoctor.org"
+source = f"!https://rubygems.org/downloads/{pkgname}-{pkgver}.gem"
+sha256 = "835eabd445e4ae88f56a5f4e07593c3612b2be72eb661c612c3a8e1e17c57479"
