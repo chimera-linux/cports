@@ -1,0 +1,14 @@
+diff --git a/tests/support/server.tcl b/tests/support/server.tcl
+index 67979e5..76ffa07 100644
+--- a/tests/support/server.tcl
++++ b/tests/support/server.tcl
+@@ -508,6 +508,9 @@ proc start_server {options {code undefined}} {
+     set unixsocket [file normalize [format "%s/%s" [dict get $config "dir"] "socket"]]
+     dict set config "unixsocket" $unixsocket
+ 
++    set pidfile [file normalize [format "%s/%s" [dict get $config "dir"] "pid"]]
++    dict set config "pidfile" $pidfile
++
+     # apply overrides from global space and arguments
+     foreach {directive arguments} [concat $::global_overrides $overrides] {
+         dict set config $directive $arguments

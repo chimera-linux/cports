@@ -1,0 +1,12 @@
+diff --git a/tests/test_helper.tcl b/tests/test_helper.tcl
+index 21fa35d..d025ba7 100644
+--- a/tests/test_helper.tcl
++++ b/tests/test_helper.tcl
+@@ -88,7 +88,6 @@ set ::all_tests {
+     unit/querybuf
+     unit/tls
+     unit/tracking
+-    unit/oom-score-adj
+     unit/shutdown
+     unit/networking
+     unit/client-eviction

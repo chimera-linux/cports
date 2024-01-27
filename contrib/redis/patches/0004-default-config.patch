@@ -1,0 +1,63 @@
+diff --git a/redis.conf b/redis.conf
+index 97f077b..40c8d08 100644
+--- a/redis.conf
++++ b/redis.conf
+@@ -338,7 +338,7 @@ daemonize no
+ #
+ # Note that on modern Linux systems "/run/redis.pid" is more conforming
+ # and should be used instead.
+-pidfile /var/run/redis_6379.pid
++pidfile ""
+ 
+ # Specify the server verbosity level.
+ # This can be one of:
+@@ -352,11 +352,11 @@ loglevel notice
+ # Specify the log file name. Also the empty string can be used to force
+ # Redis to log on the standard output. Note that if you use standard
+ # output for logging but daemonize, logs will be sent to /dev/null
+-logfile ""
++logfile /dev/null
+ 
+ # To enable logging to the system logger, just set 'syslog-enabled' to yes,
+ # and optionally update the other syslog parameters to suit your needs.
+-# syslog-enabled no
++syslog-enabled yes
+ 
+ # Specify the syslog identity.
+ # syslog-ident redis
+@@ -507,7 +507,7 @@ rdb-del-sync-files no
+ # The Append Only File will also be created inside this directory.
+ #
+ # Note that you must specify a directory here, not a file name.
+-dir ./
++dir /var/lib/redis
+ 
+ ################################# REPLICATION #################################
+ 
+diff --git a/sentinel.conf b/sentinel.conf
+index b7b3604..a2523d0 100644
+--- a/sentinel.conf
++++ b/sentinel.conf
+@@ -17,7 +17,7 @@ daemonize no
+ # When running daemonized, Redis Sentinel writes a pid file in
+ # /var/run/redis-sentinel.pid by default. You can specify a custom pid file
+ # location here.
+-pidfile /var/run/redis-sentinel.pid
++pidfile ""
+ 
+ # Specify the server verbosity level.
+ # This can be one of:
+@@ -31,11 +31,11 @@ loglevel notice
+ # Specify the log file name. Also the empty string can be used to force
+ # Sentinel to log on the standard output. Note that if you use standard
+ # output for logging but daemonize, logs will be sent to /dev/null
+-logfile ""
++logfile /dev/null
+ 
+ # To enable logging to the system logger, just set 'syslog-enabled' to yes,
+ # and optionally update the other syslog parameters to suit your needs.
+-# syslog-enabled no
++syslog-enabled yes
+ 
+ # Specify the syslog identity.
+ # syslog-ident sentinel

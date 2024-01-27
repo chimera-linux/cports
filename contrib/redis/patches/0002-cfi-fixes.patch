@@ -1,0 +1,235 @@
+diff --git a/src/acl.c b/src/acl.c
+index 5fd956d..2a099a8 100644
+--- a/src/acl.c
++++ b/src/acl.c
+@@ -489,10 +489,14 @@ void ACLCopyUser(user *dst, user *src) {
+     }
+ }
+ 
++void ACLFreeUserAndKillClients_generic(void *ptr) {
++    ACLFreeUserAndKillClients((user*)ptr);
++}
++
+ /* Free all the users registered in the radix tree 'users' and free the
+  * radix tree itself. */
+ void ACLFreeUsersSet(rax *users) {
+-    raxFreeWithCallback(users,(void(*)(void*))ACLFreeUserAndKillClients);
++    raxFreeWithCallback(users,ACLFreeUserAndKillClients_generic);
+ }
+ 
+ /* Given a command ID, this function set by reference 'word' and 'bit'
+diff --git a/src/call_reply.c b/src/call_reply.c
+index ccd1b36..39d2405 100644
+--- a/src/call_reply.c
++++ b/src/call_reply.c
+@@ -554,7 +554,7 @@ CallReply *callReplyCreateError(sds reply, void *private_data) {
+         sdsfree(reply);
+     }
+     list *deferred_error_list = listCreate();
+-    listSetFreeMethod(deferred_error_list, (void (*)(void*))sdsfree);
++    listSetFreeMethod(deferred_error_list, sdsfree_generic);
+     listAddNodeTail(deferred_error_list, sdsnew(err_buff));
+     return callReplyCreate(err_buff, deferred_error_list, private_data);
+ }
+diff --git a/src/db.c b/src/db.c
+index a7cb4db..93577f2 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -1042,7 +1042,7 @@ void scanGenericCommand(client *c, robj *o, unsigned long cursor) {
+      * The exception to the above is ZSET, where we do allocate temporary
+      * strings even when scanning a dict. */
+     if (o && (!ht || o->type == OBJ_ZSET)) {
+-        listSetFreeMethod(keys, (void (*)(void*))sdsfree);
++        listSetFreeMethod(keys, sdsfree_generic);
+     }
+ 
+     if (ht) {
+diff --git a/src/eval.c b/src/eval.c
+index eb4b529..ab25d66 100644
+--- a/src/eval.c
++++ b/src/eval.c
+@@ -673,7 +673,7 @@ void ldbInit(void) {
+     ldb.conn = NULL;
+     ldb.active = 0;
+     ldb.logs = listCreate();
+-    listSetFreeMethod(ldb.logs,(void (*)(void*))sdsfree);
++    listSetFreeMethod(ldb.logs,sdsfree_generic);
+     ldb.children = listCreate();
+     ldb.src = NULL;
+     ldb.lines = 0;
+diff --git a/src/functions.c b/src/functions.c
+index c858db9..d3be94b 100644
+--- a/src/functions.c
++++ b/src/functions.c
+@@ -324,6 +324,10 @@ static void libraryLink(functionsLibCtx *lib_ctx, functionLibInfo* li) {
+     stats->n_functions += dictSize(li->functions);
+ }
+ 
++void engineLibraryFree_generic(void *li) {
++    engineLibraryFree((void*)li);
++}
++
+ /* Takes all libraries from lib_ctx_src and add to lib_ctx_dst.
+  * On collision, if 'replace' argument is true, replace the existing library with the new one.
+  * Otherwise abort and leave 'lib_ctx_dst' and 'lib_ctx_src' untouched.
+@@ -349,7 +353,7 @@ static int libraryJoin(functionsLibCtx *functions_lib_ctx_dst, functionsLibCtx *
+             } else {
+                 if (!old_libraries_list) {
+                     old_libraries_list = listCreate();
+-                    listSetFreeMethod(old_libraries_list, (void (*)(void*))engineLibraryFree);
++                    listSetFreeMethod(old_libraries_list, engineLibraryFree_generic);
+                 }
+                 libraryUnlink(functions_lib_ctx_dst, old_li);
+                 listAddNodeTail(old_libraries_list, old_li);
+diff --git a/src/listpack.c b/src/listpack.c
+index ecc7e9f..f463ad7 100644
+--- a/src/listpack.c
++++ b/src/listpack.c
+@@ -2506,7 +2506,7 @@ int listpackTest(int argc, char *argv[], int flags) {
+         for (i = 0; i < iteration; i++) {
+             lp = lpNew(0);
+             ref = listCreate();
+-            listSetFreeMethod(ref,(void (*)(void*))sdsfree);
++            listSetFreeMethod(ref,sdsfree_generic);
+             len = rand() % 256;
+ 
+             /* Create lists */
+diff --git a/src/module.c b/src/module.c
+index ac6cbbb..d5ef588 100644
+--- a/src/module.c
++++ b/src/module.c
+@@ -10341,7 +10341,7 @@ RedisModuleServerInfoData *RM_GetServerInfo(RedisModuleCtx *ctx, const char *sec
+  * context instead of passing NULL. */
+ void RM_FreeServerInfo(RedisModuleCtx *ctx, RedisModuleServerInfoData *data) {
+     if (ctx != NULL) autoMemoryFreed(ctx,REDISMODULE_AM_INFO,data);
+-    raxFreeWithCallback(data->rax, (void(*)(void*))sdsfree);
++    raxFreeWithCallback(data->rax, sdsfree_generic);
+     zfree(data);
+ }
+ 
+diff --git a/src/networking.c b/src/networking.c
+index 7696e8c..d236d80 100644
+--- a/src/networking.c
++++ b/src/networking.c
+@@ -500,7 +500,7 @@ void afterErrorReply(client *c, const char *s, size_t len, int flags) {
+     if (c->flags & CLIENT_MODULE) {
+         if (!c->deferred_reply_errors) {
+             c->deferred_reply_errors = listCreate();
+-            listSetFreeMethod(c->deferred_reply_errors, (void (*)(void*))sdsfree);
++            listSetFreeMethod(c->deferred_reply_errors, sdsfree_generic);
+         }
+         listAddNodeTail(c->deferred_reply_errors, sdsnewlen(s, len));
+         return;
+diff --git a/src/replication.c b/src/replication.c
+index fbd9b0a..90ac359 100644
+--- a/src/replication.c
++++ b/src/replication.c
+@@ -200,7 +200,7 @@ void rebaseReplicationBuffer(long long base_repl_offset) {
+ void resetReplicationBuffer(void) {
+     server.repl_buffer_mem = 0;
+     server.repl_buffer_blocks = listCreate();
+-    listSetFreeMethod(server.repl_buffer_blocks, (void (*)(void*))zfree);
++    listSetFreeMethod(server.repl_buffer_blocks, zfree);
+ }
+ 
+ int canFeedReplicaReplBuffer(client *replica) {
+diff --git a/src/sds.c b/src/sds.c
+index 2cc5b23..dcc885c 100644
+--- a/src/sds.c
++++ b/src/sds.c
+@@ -197,6 +197,10 @@ void sdsfree(sds s) {
+     s_free((char*)s-sdsHdrSize(s[-1]));
+ }
+ 
++void sdsfree_generic(void *s) {
++    sdsfree((sds)s);
++}
++
+ /* Set the sds string length to the length as obtained with strlen(), so
+  * considering as content only up to the first null term character.
+  *
+diff --git a/src/sds.h b/src/sds.h
+index 208eaa2..13b72b6 100644
+--- a/src/sds.h
++++ b/src/sds.h
+@@ -221,6 +221,7 @@ sds sdsnew(const char *init);
+ sds sdsempty(void);
+ sds sdsdup(const sds s);
+ void sdsfree(sds s);
++void sdsfree_generic(void *s);
+ sds sdsgrowzero(sds s, size_t len);
+ sds sdscatlen(sds s, const void *t, size_t len);
+ sds sdscat(sds s, const char *t);
+diff --git a/src/server.c b/src/server.c
+index 438325f..8ddcb86 100644
+--- a/src/server.c
++++ b/src/server.c
+@@ -2641,7 +2641,7 @@ void initServer(void) {
+         server.db[j].avg_ttl = 0;
+         server.db[j].defrag_later = listCreate();
+         server.db[j].slots_to_keys = NULL; /* Set by clusterInit later on if necessary. */
+-        listSetFreeMethod(server.db[j].defrag_later,(void (*)(void*))sdsfree);
++        listSetFreeMethod(server.db[j].defrag_later,sdsfree_generic);
+     }
+     evictionPoolAlloc(); /* Initialize the LRU keys pool. */
+     server.pubsub_channels = dictCreate(&keylistDictType);
+diff --git a/src/t_stream.c b/src/t_stream.c
+index 5fcb631..ea61f53 100644
+--- a/src/t_stream.c
++++ b/src/t_stream.c
+@@ -79,11 +79,19 @@ stream *streamNew(void) {
+     return s;
+ }
+ 
++void lpFree_generic(void *ptr) {
++    lpFree((unsigned char*)ptr);
++}
++
++void streamFreeCG_generic(void *ptr) {
++    streamFreeCG((streamCG*)ptr);
++}
++
+ /* Free a stream, including the listpacks stored inside the radix tree. */
+ void freeStream(stream *s) {
+-    raxFreeWithCallback(s->rax,(void(*)(void*))lpFree);
++    raxFreeWithCallback(s->rax,lpFree_generic);
+     if (s->cgroups)
+-        raxFreeWithCallback(s->cgroups,(void(*)(void*))streamFreeCG);
++        raxFreeWithCallback(s->cgroups,streamFreeCG_generic);
+     zfree(s);
+ }
+ 
+@@ -2493,10 +2501,18 @@ streamCG *streamCreateCG(stream *s, char *name, size_t namelen, streamID *id, lo
+     return cg;
+ }
+ 
++void streamFreeNACK_generic(void *ptr) {
++    streamFreeNACK((streamNACK*)ptr);
++}
++
++void streamFreeConsumer_generic(void *ptr) {
++    streamFreeConsumer((streamConsumer*)ptr);
++}
++
+ /* Free a consumer group and all its associated data. */
+ void streamFreeCG(streamCG *cg) {
+-    raxFreeWithCallback(cg->pel,(void(*)(void*))streamFreeNACK);
+-    raxFreeWithCallback(cg->consumers,(void(*)(void*))streamFreeConsumer);
++    raxFreeWithCallback(cg->pel,streamFreeNACK_generic);
++    raxFreeWithCallback(cg->consumers,streamFreeConsumer_generic);
+     zfree(cg);
+ }
+ 
+diff --git a/src/ziplist.c b/src/ziplist.c
+index c891625..d833fd8 100644
+--- a/src/ziplist.c
++++ b/src/ziplist.c
+@@ -2368,7 +2368,7 @@ int ziplistTest(int argc, char **argv, int flags) {
+         for (i = 0; i < iteration; i++) {
+             zl = ziplistNew();
+             ref = listCreate();
+-            listSetFreeMethod(ref,(void (*)(void*))sdsfree);
++            listSetFreeMethod(ref,sdsfree_generic);
+             len = rand() % 256;
+ 
+             /* Create lists */

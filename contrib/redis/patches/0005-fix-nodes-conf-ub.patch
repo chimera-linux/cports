@@ -1,0 +1,15 @@
+diff --git a/src/cluster.c b/src/cluster.c
+index c985d0b..1d82ac6 100644
+--- a/src/cluster.c
++++ b/src/cluster.c
+@@ -617,8 +617,8 @@ int clusterLoadConfig(char *filename) {
+         }
+ 
+         /* Set ping sent / pong received timestamps */
+-        if (atoi(argv[4])) n->ping_sent = mstime();
+-        if (atoi(argv[5])) n->pong_received = mstime();
++        if (strtoull(argv[4],NULL,10)) n->ping_sent = mstime();
++        if (strtoull(argv[5],NULL,10)) n->pong_received = mstime();
+ 
+         /* Set configEpoch for this node.
+          * If the node is a replica, set its config epoch to 0.

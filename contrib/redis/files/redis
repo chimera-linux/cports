@@ -1,0 +1,8 @@
+# redis daemon service
+
+type               = process
+command            = /usr/bin/redis-server /etc/redis/redis.conf
+before             = network.target
+depends-on         = pre-network.target
+smooth-recovery    = true
+run-as             = _redis
