@@ -1,0 +1,22 @@
+diff --git a/configure.ac b/configure.ac
+index 4d234585..d19c976b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1068,17 +1068,6 @@ AC_OUTPUT
+ AC_MSG_CHECKING(in)
+ AC_MSG_RESULT(and out again)
+ 
+-echo $ECHO_N "ordering CD from https://tobi.oetiker.ch/wish $ECHO_C" 1>&6
+-sleep 1
+-echo $ECHO_N ".$ECHO_C" 1>&6
+-sleep 1
+-echo $ECHO_N ".$ECHO_C" 1>&6
+-sleep 1
+-echo $ECHO_N ".$ECHO_C" 1>&6
+-sleep 1
+-echo $ECHO_N ".$ECHO_C" 1>&6
+-sleep 1
+-AC_MSG_RESULT([ just kidding ;-)])
+ echo
+ echo "----------------------------------------------------------------"
+ echo "Config is DONE!"
