@@ -1,5 +1,5 @@
 pkgname = "xz"
-pkgver = "5.4.5"
+pkgver = "5.4.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -9,8 +9,8 @@ pkgdesc = "XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:xz"
 url = "https://tukaani.org/xz"
-source = f"https://tukaani.org/xz/xz-{pkgver}.tar.bz2"
-sha256 = "8ccf5fff868c006f29522e386fb4c6a1b66463fbca65a4cfc3c4bd596e895e79"
+source = f"https://github.com/tukaani-project/xz/releases/download/v{pkgver}/xz-{pkgver}.tar.bz2"
+sha256 = "913851b274e8e1d31781ec949f1c23e8dbcf0ecf6e73a2436dc21769dd3e6f49"
 options = ["bootstrap"]
 
 
