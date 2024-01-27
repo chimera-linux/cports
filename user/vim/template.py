@@ -1,6 +1,6 @@
 pkgname = "vim"
 pkgver = "9.1.0059"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -46,10 +46,16 @@ def post_install(self):
     # chimerautils-extra ex/view conflict with these symlinks
     # TODO: just rename and update the code in main.c:parse_command_name
     self.rm(self.destdir / "usr/bin/ex")
+    self.rm(self.destdir / "usr/share/man/*/man1/ex.1", glob=True)
     self.rm(self.destdir / "usr/bin/view")
+    self.rm(self.destdir / "usr/share/man/*/man1/view.1", glob=True)
 
 
 @subpackage("xxd")
 def _xxd(self):
     self.pkgdesc = "Tool for viewing/editing hex dumps"
-    return ["usr/bin/xxd"]
+    return [
+        "usr/bin/xxd",
+        "usr/share/man/man1/xxd.1",
+        "usr/share/man/*/man1/xxd.1",
+    ]
