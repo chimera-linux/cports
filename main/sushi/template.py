@@ -1,29 +1,29 @@
 pkgname = "sushi"
 pkgver = "45.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
-    "gobject-introspection",
     "gettext",
     "gjs",
+    "glib-devel",
+    "gobject-introspection",
+    "meson",
+    "pkgconf",
 ]
 makedepends = [
-    "glib-devel",
-    "libepoxy-devel",
-    "freetype-devel",
     "evince-devel",
+    "freetype-devel",
     "gdk-pixbuf-devel",
-    "gstreamer-devel",
+    "glib-devel",
     "gst-plugins-base-devel",
+    "gstreamer-devel",
     "gtk+3-devel",
     "gtksourceview4-devel",
     "harfbuzz-devel",
+    "libepoxy-devel",
     "webkitgtk-devel",
 ]
-depends = ["evince", "nautilus"]
+depends = ["evince", "gtksourceview4", "nautilus", "webkitgtk"]
 pkgdesc = "File previewer for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
