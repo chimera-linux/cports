@@ -1,15 +1,23 @@
 pkgname = "libidn2"
-pkgver = "2.3.4"
+pkgver = "2.3.7"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["gettext-devel", "pkgconf"]
+# defines this to nothing and yields #if invalid syntax for some reason
+make_build_args = ["GNULIBHEADERS_OVERRIDE_WINT_T=0"]
+hostmakedepends = [
+    "automake",
+    "gettext-devel",
+    "gtk-doc-tools",
+    "libtool",
+    "pkgconf",
+]
 makedepends = ["libunistring-devel"]
 pkgdesc = "Internationalized string handling library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://www.gnu.org/software/libidn#libidn2"
 source = f"$(GNU_SITE)/libidn/{pkgname}-{pkgver}.tar.gz"
-sha256 = "93caba72b4e051d1f8d4f5a076ab63c99b77faee019b72b9783b267986dbb45f"
+sha256 = "4c21a791b610b9519b9d0e12b8097bf2f359b12f8dd92647611a929e6bfd7d64"
 hardening = ["vis", "cfi"]
 
 
@@ -25,6 +33,3 @@ def _devel(self):
 @subpackage("libidn2-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
