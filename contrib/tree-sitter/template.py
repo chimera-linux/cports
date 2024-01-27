@@ -1,6 +1,6 @@
 pkgname = "tree-sitter"
-pkgver = "0.20.8"
-pkgrel = 1
+pkgver = "0.20.9"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "yopito <pierre.bourgin@free.fr>"
 license = "MIT"
 url = "https://tree-sitter.github.io"
 source = f"https://github.com/tree-sitter/tree-sitter/archive/v{pkgver}.tar.gz"
-sha256 = "6181ede0b7470bfca37e293e7d5dc1d16469b9485d13f13a605baec4a8b1f791"
+sha256 = "9b2fd489a7281e3a7e5e7cbbf3a974e5a6a115889ae65676d61b79bdae96464e"
 # check requires cargo/fixture stuff (from remote repositories)
 options = ["!check"]
 
