@@ -1,5 +1,5 @@
 pkgname = "mbedtls"
-pkgver = "3.5.1"
+pkgver = "3.5.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -22,7 +22,7 @@ url = "https://www.trustedfirmware.org/projects/mbed-tls"
 source = (
     f"https://github.com/ARMmbed/mbedtls/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "2597419f1a4a79dd28e6f5edc5180aff7e83bd85548437e07dcf9f808ceccb76"
+sha256 = "35890edf1a2c7a7e29eac3118d43302c3e1173e0df0ebaf5db56126dabe5bb05"
 # vis breaks symbols
 hardening = []
 
