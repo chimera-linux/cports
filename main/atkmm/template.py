@@ -1,5 +1,5 @@
 pkgname = "atkmm"
-pkgver = "2.36.2"
+pkgver = "2.36.3"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "6f62dd99f746985e573605937577ccfc944368f606a71ca46342d70e1cdae079"
+sha256 = "6ec264eaa0c4de0adb7202c600170bde9a7fbe4d466bfbe940eaf7faaa6c5974"
 
 
 @subpackage("atkmm-devel")
