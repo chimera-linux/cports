@@ -1,0 +1,37 @@
+commit 6d59dddfeee4d085ae3699b3366d0cd73c472299
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Jan 28 01:04:36 2024 +0100
+
+    remove any_invocable_test from the build
+    
+    This gets stuck compiling forever on riscv64.
+
+diff --git a/absl/functional/CMakeLists.txt b/absl/functional/CMakeLists.txt
+index 602829c..573bf5e 100644
+--- a/absl/functional/CMakeLists.txt
++++ b/absl/functional/CMakeLists.txt
+@@ -32,24 +32,6 @@ absl_cc_library(
+   PUBLIC
+ )
+ 
+-absl_cc_test(
+-  NAME
+-    any_invocable_test
+-  SRCS
+-    "any_invocable_test.cc"
+-    "internal/any_invocable.h"
+-  COPTS
+-    ${ABSL_TEST_COPTS}
+-  DEPS
+-    absl::any_invocable
+-    absl::base_internal
+-    absl::config
+-    absl::core_headers
+-    absl::type_traits
+-    absl::utility
+-    GTest::gmock_main
+-)
+-
+ absl_cc_library(
+   NAME
+     bind_front
