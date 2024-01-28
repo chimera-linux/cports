@@ -1,6 +1,6 @@
 pkgname = "libtool"
 pkgver = "2.4.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
