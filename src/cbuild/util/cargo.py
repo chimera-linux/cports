@@ -149,7 +149,9 @@ class Cargo:
         wrksrc=None,
         wrapper=[],
     ):
-        return self._invoke(command, args, jobs, None, env, wrksrc, [], wrapper)
+        return self._invoke(
+            command, args, jobs, offline, None, env, wrksrc, [], wrapper
+        )
 
     def vendor(self, args=[], env={}, wrksrc=None, wrapper=[]):
         return self._invoke(
