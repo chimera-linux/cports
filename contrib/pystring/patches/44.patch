@@ -1,0 +1,29 @@
+From 4c059cdedd2eea410cda32483e54055120119371 Mon Sep 17 00:00:00 2001
+From: Anders Langlands <anderslanglands@gmail.com>
+Date: Thu, 15 Jun 2023 14:15:18 +1200
+Subject: [PATCH] Make shared libraries an option and install header
+
+---
+ CMakeLists.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index fed418f..6ddd196 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,7 +1,7 @@
+ cmake_minimum_required(VERSION 3.2)
+ project(pystring CXX)
+ 
+-set(BUILD_SHARED_LIBS YES)
++option(BUILD_SHARED_LIBS "Choose to build shared or static libraries" YES)
+ 
+ add_library(pystring
+     pystring.cpp
+@@ -19,4 +19,6 @@ include(GNUInstallDirs)
+ install(TARGETS pystring
+     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+ )
++set_target_properties(pystring PROPERTIES PUBLIC_HEADER pystring.h)
++install(TARGETS pystring PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/pystring")
+ 

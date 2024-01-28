@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8,6 +8,8 @@ add_library(pystring
+     pystring.h
+ )
+ 
++set_target_properties(pystring PROPERTIES SOVERSION 0)
++
+ add_executable (pystring_test test.cpp)
+ TARGET_LINK_LIBRARIES (pystring_test pystring)
+ 
