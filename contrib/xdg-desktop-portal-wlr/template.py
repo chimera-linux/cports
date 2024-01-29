@@ -1,5 +1,5 @@
 pkgname = "xdg-desktop-portal-wlr"
-pkgver = "0.7.0"
+pkgver = "0.7.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -23,7 +23,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/emersion/xdg-desktop-portal-wlr"
 source = f"https://github.com/emersion/xdg-desktop-portal-wlr/releases/download/v{pkgver}/xdg-desktop-portal-wlr-{pkgver}.tar.gz"
-sha256 = "e397a72314165ef736d91655fe95867056efe371935f2d1e4a10d34fa0fffb4f"
+sha256 = "eec6e4be808e1a445e677dba1e20e5acb2f091825f5ff4c6ac49d5843b2185f9"
 # FIXME: cfi
 hardening = ["vis"]
 # no tests
