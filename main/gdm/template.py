@@ -1,6 +1,6 @@
 pkgname = "gdm"
 pkgver = "45.0.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -24,38 +24,39 @@ configure_args = [
     "-Dgroup=_gdm",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
     "dconf",
     "gettext",
-    "gobject-introspection",
     "glib-devel",
-    "linux-pam-devel",
+    "gobject-introspection",
     "itstool",
+    "linux-pam-devel",
+    "meson",
+    "pkgconf",
 ]
 makedepends = [
+    "accountsservice-devel",
     "elogind-devel",
     "gettext-devel",
-    "accountsservice-devel",
     "glib-devel",
-    "libx11-devel",
-    "libxau-devel",
+    "gtk+3-devel",
     "libcanberra-devel",
     "libgudev-devel",
-    "gtk+3-devel",
+    "libx11-devel",
+    "libxau-devel",
     "linux-pam-devel",
 ]
 checkdepends = ["check-devel"]
 depends = [
+    "elogind",
+    "fprintd-meta",
+    "gnome-session",
     "gnome-settings-daemon",
     "gnome-shell",
-    "gnome-session",
-    "xwayland",
-    "xrdb",
     "gsettings-desktop-schemas",
-    "elogind",
-    "turnstile",
     "openrc-settingsd",
+    "turnstile",
+    "xrdb",
+    "xwayland",
 ]
 pkgdesc = "GNOME display manager"
 maintainer = "q66 <q66@chimera-linux.org>"
