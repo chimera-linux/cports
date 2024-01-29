@@ -1,5 +1,5 @@
 pkgname = "mc"
-pkgver = "4.8.30"
+pkgver = "4.8.31"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-screen=ncurses", "--without-x"]
@@ -17,5 +17,5 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://midnight-commander.org"
 source = f"{url}/downloads/mc-{pkgver}.tar.xz"
-sha256 = "5ebc3cb2144b970c5149fda556c4ad50b78780494696cdf2d14a53204c95c7df"
+sha256 = "24191cf8667675b8e31fc4a9d18a0a65bdc0598c2c5c4ea092494cd13ab4ab1a"
 hardening = ["vis", "cfi"]
