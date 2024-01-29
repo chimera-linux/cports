@@ -1,7 +1,6 @@
 pkgname = "dinit"
-pkgver = "0.17.1"
-pkgrel = 2
-_commit = "f28ab8c656afa9dcb5a61d5cd4b91f1b43760c3a"
+pkgver = "0.18.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--syscontrolsocket=/run/dinitctl"]
 configure_gen = []
@@ -13,8 +12,8 @@ pkgdesc = "Service manager and init system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://davmac.org/projects/dinit"
-source = f"https://github.com/davmac314/dinit/archive/{_commit}.tar.gz"
-sha256 = "0da1bf4b4305d2132af73ea24336d4894b9eb544d6c5f6ae8893c78564fdbf7a"
+source = f"https://github.com/davmac314/dinit/archive/v{pkgver}.tar.gz"
+sha256 = "ec854903e93416b3f65e72009dcde4965869d8793e2314565484d94ede534e48"
 tool_flags = {"CXXFLAGS": ["-fno-rtti"]}
 hardening = ["vis", "cfi"]
 
