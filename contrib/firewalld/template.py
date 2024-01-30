@@ -1,5 +1,5 @@
 pkgname = "firewalld"
-pkgver = "2.1.0"
+pkgver = "2.1.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
@@ -30,7 +30,7 @@ maintainer = "miko <mikoxyzzz@gmail.com>"
 license = "GPL-2.0-or-later"
 url = "https://firewalld.org"
 source = f"https://github.com/firewalld/firewalld/releases/download/v{pkgver}/firewalld-{pkgver}.tar.bz2"
-sha256 = "22e3c700c2e4867796e9c22cf929cba4b2c143c8884240cfb9f3ef731366ff71"
+sha256 = "a138a3799b5f6e6539bac308e5ae8950998d5173f588231214e979524e7c9416"
 # tests don't work in our build env
 options = ["!check"]
 
