@@ -6,14 +6,12 @@ Date:   Tue Jun 6 00:12:51 2023 +0200
     
     It seems to be trying to do sslv3?
 
-diff --git a/test/Makefile.in b/test/Makefile.in
-index 5c7f840..6a0fe7f 100644
 --- a/test/Makefile.in
 +++ b/test/Makefile.in
-@@ -23,7 +23,7 @@ ZLIB_TESTS = compress
+@@ -23,7 +23,7 @@
  ZLIB_HELPERS = file1.gz file2.gz trailing.gz badcsum.gz truncated.gz \
  	corrupt1.gz corrupt2.gz empty.gz random.txt hello.txt hello.gz
- DAV_TESTS = xml xmlreq oldacl acl3744 props lock
+ DAV_TESTS = xml xmlreq twooh7 oldacl acl3744 props lock
 -SSL_TESTS = socket-ssl ssl
 +SSL_TESTS = ssl
  SSL_HELPERS = ca-stamp

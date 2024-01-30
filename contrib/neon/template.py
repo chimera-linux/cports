@@ -1,5 +1,5 @@
 pkgname = "neon"
-pkgver = "0.32.5"
+pkgver = "0.33.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -12,11 +12,11 @@ configure_args = [
     "--disable-static",
     "--disable-nls",
 ]
-configure_gen = []
+configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 make_dir = "."
 make_check_args = ["-j1"]
-hostmakedepends = ["pkgconf", "gmake", "xmlto", "perl"]
+hostmakedepends = ["automake", "pkgconf", "libtool", "gmake", "xmlto", "perl"]
 makedepends = [
     "openssl-devel",
     "libproxy-devel",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://notroj.github.io/neon"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "4872e12f802572dedd4b02f870065814b2d5141f7dbdaf708eedab826b51a58a"
+sha256 = "659a5cc9cea05e6e7864094f1e13a77abbbdbab452f04d751a8c16a9447cf4b8"
 
 
 @subpackage("neon-devel")
