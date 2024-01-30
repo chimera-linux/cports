@@ -1,0 +1,6 @@
+# crond service
+
+type            = process
+command         = /usr/bin/crond -n -s
+restart         = true
+smooth-recovery = true
