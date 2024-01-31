@@ -1,62 +1,65 @@
 pkgname = "thunderbird"
-pkgver = "115.6.0"
-pkgrel = 1
+pkgver = "123.0_beta2"
+pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
-    "pkgconf",
-    "zip",
-    "nasm",
-    "cargo",
-    "rust",
-    "python",
-    "cbindgen",
-    "llvm-devel",
-    "clang-devel",
-    "nodejs",
-    "gettext",
     "automake",
-    "libtool",
+    "cargo",
+    "cbindgen",
+    "clang-devel",
+    "gettext",
     "gmake",
+    "libtool",
+    "llvm-devel",
+    "nasm",
+    "nodejs",
+    "pkgconf",
+    "python",
+    "rust",
+    "wasi-sdk",
+    "zip",
 ]
 makedepends = [
-    "rust-std",
-    "nss-devel",
-    "nspr-devel",
+    "alsa-lib-devel",
+    "dbus-devel",
+    "ffmpeg-devel",
+    "freetype-devel",
+    "glib-devel",
     "gtk+3-devel",
     "icu-devel",
-    "dbus-devel",
-    "glib-devel",
-    "libpulse-devel",
-    "pixman-devel",
-    "freetype-devel",
-    "libjpeg-turbo-devel",
-    "libpng-devel",
-    "libwebp-devel",
     "libevent-devel",
+    "libffi-devel",
+    "libjpeg-turbo-devel",
     "libnotify-devel",
-    "libvpx-devel",
-    "libvorbis-devel",
     "libogg-devel",
+    "libpng-devel",
+    "libpulse-devel",
     "libtheora-devel",
-    "libxt-devel",
+    "libvorbis-devel",
+    "libvpx-devel",
+    "libwebp-devel",
     "libxcomposite-devel",
     "libxscrnsaver-devel",
-    "pipewire-jack-devel",
-    "ffmpeg-devel",
-    "alsa-lib-devel",
+    "libxt-devel",
     "mesa-devel",
-    "libffi-devel",
+    "nspr-devel",
+    "nss-devel",
+    "pipewire-jack-devel",
+    "pixman-devel",
+    "rust-std",
     "zlib-devel",
-    # XXX: https://bugzilla.mozilla.org/show_bug.cgi?id=1532281
-    "dbus-glib-devel",
 ]
-depends = ["virtual:cmd:thunderbird!thunderbird-wayland"]
+provides = [
+    # backwards-compatibility with old subpackages
+    f"thunderbird-default={pkgver}-r{pkgrel}",
+    f"thunderbird-wayland={pkgver}-r{pkgrel}",
+]
 pkgdesc = "Thunderbird mail client"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/{pkgname}/releases/{pkgver.replace('_beta', 'b')}/source/{pkgname}-{pkgver.replace('_beta', 'b')}.source.tar.xz"
-sha256 = "3b1cf976b0d0f48255a603f8ffe8e24390ecd5bd285fc4d10fe48e1ba2513744"
+sha256 = "1cb17b9a6121e8aee7cf2bcc2bfd37d8d0f96ea07b4242388de226668f52e249"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -75,7 +78,8 @@ env = {
 }
 # FIXME: see firefox
 hardening = ["!int"]
-options = ["!cross"]
+# XXX: maybe someday
+options = ["!cross", "!check"]
 
 if self.profile().endian == "big":
     broken = "broken colors, needs patching, etc."
@@ -117,7 +121,7 @@ def do_configure(self):
 
     match self.profile().arch:
         case "x86_64" | "aarch64":
-            extra_opts += ["--disable-elf-hack", "--enable-rust-simd"]
+            extra_opts += ["--enable-rust-simd"]
 
     if self.has_lto():
         extra_opts += ["--enable-lto=cross"]
@@ -134,6 +138,9 @@ def do_configure(self):
         "--enable-optimize",
         "--disable-install-strip",
         "--disable-strip",
+        "--with-wasi-sysroot=/usr/wasm32-unknown-wasi",
+        # we have our own flags and better
+        "--disable-hardening",
         # system libs
         "--with-system-pixman",
         "--with-system-ffi",
@@ -147,8 +154,6 @@ def do_configure(self):
         "--with-system-icu",
         # no apng support
         "--without-system-png",
-        # wasi currently not ready
-        "--without-wasm-sandboxed-libraries",
         # features
         "--enable-dbus",
         "--enable-jack",
@@ -158,7 +163,6 @@ def do_configure(self):
         "--enable-default-toolkit=cairo-gtk3-wayland",
         "--enable-audio-backends=pulseaudio",
         # disabled features
-        "--disable-crashreporter",
         "--disable-profiling",
         "--disable-jemalloc",
         "--disable-tests",
@@ -205,47 +209,3 @@ def do_install(self):
     # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
     self.rm(self.destdir / "usr/lib/thunderbird/thunderbird-bin")
     self.install_link("thunderbird", "usr/lib/thunderbird/thunderbird-bin")
-    # to be provided
-    self.rm(self.destdir / "usr/bin/thunderbird")
-    # default launcher
-    self.install_link(
-        "/usr/lib/thunderbird/thunderbird", "usr/bin/thunderbird-default"
-    )
-    # wayland launcher
-    self.install_file(
-        self.files_path / "thunderbird-wayland",
-        "usr/lib/thunderbird",
-        mode=0o755,
-    )
-    self.install_link(
-        "/usr/lib/thunderbird/thunderbird-wayland",
-        "usr/bin/thunderbird-wayland",
-    )
-
-
-def do_check(self):
-    # XXX: maybe someday
-    pass
-
-
-@subpackage("thunderbird-wayland")
-def _wl(self):
-    self.pkgdesc = f"{pkgdesc} (prefer Wayland)"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
-
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.ln_s("thunderbird-wayland", self.destdir / "usr/bin/thunderbird")
-
-    return inst
-
-
-@subpackage("thunderbird-default")
-def _x11(self):
-    self.pkgdesc = f"{pkgdesc} (no display server preference)"
-
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.ln_s("thunderbird-default", self.destdir / "usr/bin/thunderbird")
-
-    return inst
