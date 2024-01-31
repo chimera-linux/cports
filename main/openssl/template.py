@@ -1,6 +1,6 @@
 pkgname = "openssl"
-pkgver = "3.2.0"
-pkgrel = 5
+pkgver = "3.2.1"
+pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
-sha256 = "14c826f07c7e433706fb5c69fa9e25dab95684844b4c962a2cf1bf183eb4690e"
+sha256 = "83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39"
 # the codebase is not LTO-ready:
 # https://github.com/openssl/openssl/issues/18663
 # https://github.com/openssl/openssl/issues/22854
