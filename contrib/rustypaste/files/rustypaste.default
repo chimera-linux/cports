@@ -1,0 +1,4 @@
+# path to the config file
+CONFIG=/etc/rustypaste/config.toml
+# To enable basic HTTP auth, set the AUTH_TOKEN
+AUTH_TOKEN=
