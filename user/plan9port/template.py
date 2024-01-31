@@ -1,6 +1,6 @@
 pkgname = "plan9port"
 pkgver = "0_git20240110"
-pkgrel = 0
+pkgrel = 1
 _commit = "be7c68f6954f7dcaa53403e0f600716f65a13d32"
 hostmakedepends = ["perl"]
 makedepends = [
