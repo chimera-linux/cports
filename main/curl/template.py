@@ -1,6 +1,6 @@
 pkgname = "curl"
-pkgver = "8.5.0"
-pkgrel = 1
+pkgver = "8.6.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-threaded-resolver",
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://curl.haxx.se"
 source = f"{url}/download/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "ce4b6a6655431147624aaf582632a36fe1ade262d5fab385c60f78942dd8d87b"
+sha256 = "b4785f2d8877fa92c0e45d7155cf8cc6750dbda961f4b1a45bcbec990cf2fa9b"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # missing some checkdepends
