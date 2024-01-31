@@ -1,5 +1,5 @@
 pkgname = "docker-compose"
-pkgver = "2.24.4"
+pkgver = "2.24.5"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://docs.docker.com/compose"
 source = f"https://github.com/docker/compose/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "a276cce106f65c139cc20530f5d32b546d86cccebca9fe4880246a814caa8034"
+sha256 = "160c575658cdd65836ea3138bb6337f75877df6cbad8e2d4bf4ddcf850cee382"
 # need a running docker daemon
 options = ["!debug", "!check"]
 
