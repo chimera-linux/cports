@@ -1,0 +1,11 @@
+# rustypaste system service
+
+type            = process
+command         = /usr/bin/rustypaste
+working-dir     = /var/lib/rustypaste
+env-file        = /etc/default/rustypaste
+logfile         = /var/log/rustypaste.log
+run-as          = _rustypaste
+depends-on      = network.target
+restart         = true
+smooth-recovery = true
