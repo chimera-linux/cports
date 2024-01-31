@@ -1,5 +1,5 @@
 pkgname = "buildkit"
-pkgver = "0.12.4"
+pkgver = "0.12.5"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
@@ -10,7 +10,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/moby/buildkit"
 source = f"https://github.com/moby/buildkit/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f8f59c55cece2aca48bdd468d30e087920b0000555f9b8cde62f8605137b49fb"
+sha256 = "978d241fefb4d7b5cdf8eaf5fd72102c74083269e9db316cc9d1589ab3698bef"
 # objcopy ppc64
 options = ["!debug"]
 
