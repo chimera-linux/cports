@@ -1,5 +1,5 @@
 pkgname = "runc"
-pkgver = "1.1.11"
+pkgver = "1.1.12"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -21,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/opencontainers/runc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "129ad7cd470e4bdc82cdd3d5f0aa93e43674bf8ea115da2b42a27361885fe3ee"
+sha256 = "be31b07d6a54a8f234016501c300ad04b6c428c56588e7eca8c3b663308db208"
 # objcopy fails on ppc
 # tests create namespaces and fail because no perms
 options = ["!debug", "!check"]
