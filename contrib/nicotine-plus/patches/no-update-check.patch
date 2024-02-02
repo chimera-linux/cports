@@ -1,0 +1,13 @@
+disable by default
+--
+--- a/pynicotine/core.py
++++ b/pynicotine/core.py
+@@ -68,7 +68,7 @@
+         if enabled_components is None:
+             enabled_components = {
+                 "error_handler", "signal_handler", "cli", "portmapper", "network_thread", "shares", "users",
+-                "notifications", "network_filter", "now_playing", "statistics", "update_checker",
++                "notifications", "network_filter", "now_playing", "statistics",
+                 "search", "downloads", "uploads", "interests", "userbrowse", "userinfo", "buddies",
+                 "chatrooms", "privatechat", "pluginhandler"
+             }
