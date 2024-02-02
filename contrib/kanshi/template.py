@@ -1,5 +1,5 @@
 pkgname = "kanshi"
-pkgver = "1.5.0"
+pkgver = "1.5.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://sr.ht/~emersion/kanshi"
 source = f"https://git.sr.ht/~emersion/kanshi/archive/v{pkgver}.tar.gz"
-sha256 = "303676479dbd944204632e4baf7c20cf74ab8d9b218d98ffc531650632e8fc56"
+sha256 = "d403d2a99170261baa6606336724bc9721f779dc39294d2e088745d7bd41f427"
 hardening = ["vis", "cfi"]
 
 
