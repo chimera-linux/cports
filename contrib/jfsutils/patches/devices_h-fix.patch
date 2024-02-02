@@ -1,0 +1,12 @@
+diff -ur jfsutils-1.1.15.old/libfs/devices.h jfsutils-1.1.15.new/libfs/devices.h
+--- jfsutils-1.1.15.old/libfs/devices.h	2024-02-02 10:04:39.947415740 +0100
++++ jfsutils-1.1.15.new/libfs/devices.h	2024-02-02 10:17:34.792627512 +0100
+@@ -40,6 +40,8 @@
+ #define ERROR_INVALID_PARAMETER	87
+ #define ERROR_DISK_FULL		112
+ 
++#include <stdint.h>
++
+ struct stat;
+ 
+ int ujfs_get_dev_size(FILE *, int64_t * size);

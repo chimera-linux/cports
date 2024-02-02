@@ -1,0 +1,11 @@
+diff -ur jfsutils-1.1.15.old/fscklog/fscklog.c jfsutils-1.1.15.new/fscklog/fscklog.c
+--- jfsutils-1.1.15.old/fscklog/fscklog.c	2024-02-02 10:04:39.946415737 +0100
++++ jfsutils-1.1.15.new/fscklog/fscklog.c	2024-02-02 10:19:25.214929951 +0100
+@@ -63,6 +63,7 @@
+  */
+ #define _GNU_SOURCE	/* for basename() */
+ #include <config.h>
++#include <libgen.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ 

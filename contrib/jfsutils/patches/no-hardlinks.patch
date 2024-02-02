@@ -1,0 +1,32 @@
+diff -ur jfsutils-1.1.15.old/fsck/Makefile.am jfsutils-1.1.15.new/fsck/Makefile.am
+--- jfsutils-1.1.15.old/fsck/Makefile.am	2024-02-02 10:04:39.945415734 +0100
++++ jfsutils-1.1.15.new/fsck/Makefile.am	2024-02-02 18:58:05.046716912 +0100
+@@ -14,10 +14,10 @@
+           fsckpfs.h xchkdsk.h xfsck.h xfsckint.h
+ 
+ install-exec-hook:
+-	$(LN) -f $(DESTDIR)$(sbindir)/jfs_fsck $(DESTDIR)$(sbindir)/fsck.jfs
++	$(LN) -sf jfs_fsck $(DESTDIR)$(sbindir)/fsck.jfs
+ 
+ install-data-hook:
+-	$(LN) -f $(DESTDIR)$(man8dir)/jfs_fsck.8 $(DESTDIR)$(man8dir)/fsck.jfs.8
++	$(LN) -sf jfs_fsck.8 $(DESTDIR)$(man8dir)/fsck.jfs.8
+ 
+ uninstall-local:
+ 	rm -f $(DESTDIR)$(sbindir)/fsck.jfs
+diff -ur jfsutils-1.1.15.old/mkfs/Makefile.am jfsutils-1.1.15.new/mkfs/Makefile.am
+--- jfsutils-1.1.15.old/mkfs/Makefile.am	2024-02-02 10:04:39.948415743 +0100
++++ jfsutils-1.1.15.new/mkfs/Makefile.am	2024-02-02 18:57:45.674662230 +0100
+@@ -13,10 +13,10 @@
+                  inodemap.h inodes.h
+ 
+ install-exec-hook:
+-	$(LN) -f $(DESTDIR)$(sbindir)/jfs_mkfs $(DESTDIR)$(sbindir)/mkfs.jfs
++	$(LN) -sf jfs_mkfs $(DESTDIR)$(sbindir)/mkfs.jfs
+ 
+ install-data-hook:
+-	$(LN) -f $(DESTDIR)$(man8dir)/jfs_mkfs.8 $(DESTDIR)$(man8dir)/mkfs.jfs.8
++	$(LN) -sf jfs_mkfs.8 $(DESTDIR)$(man8dir)/mkfs.jfs.8
+ 
+ uninstall-local:
+ 	rm -f $(DESTDIR)$(sbindir)/mkfs.jfs
