@@ -1,11 +1,12 @@
 pkgname = "qtractor"
 pkgver = "0.9.39"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DCONFIG_WAYLAND=1"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
     "alsa-lib-devel",
+    "aubio-devel",
     "ladspa-sdk",
     "liblo-devel",
     "libsamplerate-devel",
