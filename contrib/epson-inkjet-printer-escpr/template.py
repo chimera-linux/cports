@@ -7,10 +7,9 @@ configure_args = [
     "--with-cupsppddir=/usr/share/ppd",
     "--with-cupsfilterdir=/usr/lib/cups/filter",
 ]
-configure_gen = []
 make_cmd = "gmake"
 make_dir = "."
-hostmakedepends = ["gmake"]
+hostmakedepends = ["automake", "gmake", "libtool"]
 makedepends = ["cups-devel"]
 depends = ["cups-filters"]
 pkgdesc = "Epson Inkjet Printer Driver (ESC/P-R)"
