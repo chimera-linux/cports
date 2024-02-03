@@ -1,5 +1,5 @@
 pkgname = "libwpe"
-pkgver = "1.14.1"
+pkgver = "1.14.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddefault_library=shared"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://wpewebkit.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b1d0cdcf0f8dbb494e65b0f7913e357106da9a0d57f4fbb7b9d1238a6dbe9ade"
+sha256 = "8ae38022c50cb340c96fdbee1217f1e46ab57fbc1c8ba98142565abbedbe22ef"
 # FIXME cfi (wpe_view_backend_create_with_backend_interface)
 hardening = ["vis", "!cfi"]
 
