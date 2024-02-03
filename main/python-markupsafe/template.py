@@ -1,5 +1,5 @@
 pkgname = "python-markupsafe"
-pkgver = "2.1.4"
+pkgver = "2.1.5"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://palletsprojects.com/p/markupsafe"
 source = f"$(PYPI_SITE)/M/MarkupSafe/MarkupSafe-{pkgver}.tar.gz"
-sha256 = "3aae9af4cac263007fd6309c64c6ab4506dd2b79382d9d19a1994f9240b8db4f"
+sha256 = "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
 # dependency of pytest; also needs itsself to be installed
 options = ["!check"]
 
