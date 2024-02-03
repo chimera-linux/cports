@@ -1,5 +1,5 @@
 pkgname = "perl-uri"
-pkgver = "5.25"
+pkgver = "5.26"
 pkgrel = 0
 build_style = "perl_module"
 hostmakedepends = ["gmake", "perl"]
@@ -10,6 +10,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Artistic-1.0-Perl OR GPL-1.0-or-later"
 url = "https://metacpan.org/release/URI"
 source = f"$(CPAN_SITE)/URI/URI-{pkgver}.tar.gz"
-sha256 = "ef61941da09fff2503cea3692c4f2fc48c0e4442486e2a28345cb32d44d0d271"
+sha256 = "622bb95f588e25923a504c62687f4c8c7d7c3e0cc247449edf146228e5ae686f"
 # missing checkdepends
 options = ["!check"]
