@@ -1,6 +1,6 @@
 pkgname = "vim"
-pkgver = "9.1.0059"
-pkgrel = 1
+pkgver = "9.1.0071"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
@@ -33,7 +33,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Vim"
 url = "https://vim.org"
 source = f"https://github.com/vim/vim/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7463ef80dc13d6a26cef1fa65a8f33c618ed4e324b1e7d133a2458aba1c0848a"
+sha256 = "455fb418be262cd0f56ce6a367a0b7361c6933b76d1bc7f8f0c1e31f9004b8a3"
 # FIXME cfi int
 hardening = ["vis", "!cfi", "!int"]
 # TODO
