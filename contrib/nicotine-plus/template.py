@@ -1,6 +1,6 @@
 pkgname = "nicotine-plus"
 pkgver = "3.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # test_update_check: no networking + patched
 # FIXME test_gui_startup: for some reason there's a sigill in python somewhere

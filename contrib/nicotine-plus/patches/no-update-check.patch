@@ -11,3 +11,39 @@ disable by default
                  "search", "downloads", "uploads", "interests", "userbrowse", "userinfo", "buddies",
                  "chatrooms", "privatechat", "pluginhandler"
              }
+diff --git a/pynicotine/gtkgui/dialogs/about.py b/pynicotine/gtkgui/dialogs/about.py
+index 0477f9b09193..11d3964a0435 100644
+--- a/pynicotine/gtkgui/dialogs/about.py
++++ b/pynicotine/gtkgui/dialogs/about.py
+@@ -452,6 +452,10 @@ def on_check_latest_version(self, latest_version, is_outdated, error):
+ 
+     def on_show(self, *_args):
+ 
++        if core.update_checker is None:
++            # Update checker is not loaded
++            return
++
+         if self.is_version_outdated:
+             # No need to check latest version again
+             return
+@@ -465,6 +469,7 @@ def on_show(self, *_args):
+         self.status_label.set_label(_("Checking latest version…"))
+         self.status_spinner.set_visible(True)
+         self.status_spinner.start()
++        self.status_container.set_visible(True)
+ 
+         core.update_checker.check()
+ 
+diff --git a/pynicotine/gtkgui/ui/dialogs/about.ui b/pynicotine/gtkgui/ui/dialogs/about.ui
+index 44f0d9584f88..738f6565971b 100644
+--- a/pynicotine/gtkgui/ui/dialogs/about.ui
++++ b/pynicotine/gtkgui/ui/dialogs/about.ui
+@@ -59,7 +59,7 @@
+                   <object class="GtkBox" id="status_container">
+                     <property name="halign">center</property>
+                     <property name="spacing">6</property>
+-                    <property name="visible">True</property>
++                    <property name="visible">False</property>
+                     <child>
+                       <object class="GtkLabel" id="status_label">
+                         <property name="justify">center</property>
