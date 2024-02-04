@@ -1,5 +1,5 @@
 pkgname = "gc"
-pkgver = "8.2.4"
+pkgver = "8.2.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.hboehm.info/gc"
 source = f"https://github.com/ivmai/bdwgc/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3d0d3cdbe077403d3106bb40f0cbb563413d6efdbb2a7e1cd6886595dec48fc2"
+sha256 = "b9183fe49d4c44c7327992f626f8eaa1d8b14de140f243edb1c9dcff7719a7fc"
 
 tool_flags = {
     "CFLAGS": [
