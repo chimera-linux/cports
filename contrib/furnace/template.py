@@ -1,10 +1,11 @@
 pkgname = "furnace"
 pkgver = "0.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSYSTEM_FFTW=ON",
     "-DSYSTEM_FMT=ON",
+    "-DSYSTEM_FREETYPE=ON",
     "-DSYSTEM_LIBSNDFILE=ON",
     "-DSYSTEM_PORTAUDIO=ON",
     "-DSYSTEM_RTMIDI=ON",
@@ -16,6 +17,7 @@ makedepends = [
     "alsa-lib-devel",
     "fftw-devel",
     "fmt-devel",
+    "freetype-devel",
     "libsndfile-devel",
     "pipewire-jack-devel",
     "portaudio-devel",
