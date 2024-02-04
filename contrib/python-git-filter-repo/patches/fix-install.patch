@@ -1,0 +1,12 @@
+diff --git a/release/setup.cfg b/release/setup.cfg
+index 078f3ff..79a6929 100644
+--- a/release/setup.cfg
++++ b/release/setup.cfg
+@@ -23,7 +23,6 @@ platforms = any
+ license = MIT
+ 
+ [options]
+-scripts = git-filter-repo
+ py_modules = git_filter_repo
+ python_requires = >= 3.5
+ setup_requires = setuptools_scm
