@@ -1,5 +1,5 @@
 pkgname = "imlib2"
-pkgver = "1.12.1"
+pkgver = "1.12.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -7,7 +7,7 @@ configure_args = [
     "--sysconfdir=/etc/imlib2",
     "--enable-visibility-hiding",
 ]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 # mp3 loader is disabled because libid3tag is old and busted
 makedepends = [
     "freetype-devel",
@@ -27,7 +27,7 @@ url = "https://www.enlightenment.org"
 source = (
     f"$(SOURCEFORGE_SITE)/enlightenment/{pkgname}-src/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "d35d746b245e64cd024833414eef148a8625f1bed720193cd5c2c33730188425"
+sha256 = "e96b43014ac9d61a0775e28a46cf7befbd49654705df845001e849e44839481b"
 hardening = ["!cfi"]  # TODO investigate
 
 
@@ -43,6 +43,3 @@ def _devel(self):
 @subpackage("imlib2-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
