@@ -8,24 +8,25 @@ diff --git a/src/Makefile.am b/src/Makefile.am
 index 48fce70..53545b4 100644
 --- a/src/Makefile.am
 +++ b/src/Makefile.am
-@@ -24,19 +24,13 @@ noinst_HEADERS = debug.h
- pkgdata_DATA = enchant.ordering
+@@ -37,7 +37,7 @@
+ libenchant_data_DATA = enchant.ordering
  
  dist_man_MANS = enchant-@ENCHANT_MAJOR_VERSION@.1 enchant-lsmod-@ENCHANT_MAJOR_VERSION@.1 enchant.5
 -nodist_doc_DATA = enchant-@ENCHANT_MAJOR_VERSION@.html enchant-lsmod-@ENCHANT_MAJOR_VERSION@.html enchant.html
 +nodist_doc_DATA =
  
  edit = sed \
- 	-e 's|DATADIR|$(datadir)|g'
- 
- DISTCLEANFILES = $(dist_man_MANS) $(nodist_doc_DATA)
- 
+ 	-e 's|@PKGDATADIR[@]|$(pkgdatadir)|g' \
+@@ -49,12 +49,6 @@
+ 	rm -f $@ $@.tmp
+ 	$(edit) $(abs_builddir)/enchant.5.in >$@.tmp
+ 	mv $@.tmp $@
+-
 -.1.html:
 -	groff -mandoc -Thtml $< > $@
 -
 -enchant.html: enchant.5
 -	groff -mandoc -Thtml $< > $@
--
+ 
  enchant-@ENCHANT_MAJOR_VERSION@.1: $(builddir)/enchant.1 Makefile.am $(top_builddir)/config.status
- 	rm -f $@ $@.tmp
- 	$(edit) $(abs_builddir)/enchant.1 >$@.tmp
+ 	cp $(abs_builddir)/enchant.1 $@
