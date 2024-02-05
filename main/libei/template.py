@@ -1,5 +1,5 @@
 pkgname = "libei"
-pkgver = "1.2.0"
+pkgver = "1.2.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -28,7 +28,7 @@ source = [
 ]
 source_paths = [".", "subprojects/munit"]
 sha256 = [
-    "c9566812722b703435230b38379f33fd4429b999cd56d10c26f4e01ed76afcaf",
+    "3ea3580fc309c38e064084a0ab4a00dbfa10632efc777dfe1cff007e6082d1dd",
     "d0c8bf80b9804d4df5301bd428702352fe7e14f84f22027c3a2c084a0d9f69a7",
 ]
 hardening = []
