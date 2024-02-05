@@ -1,16 +1,15 @@
 pkgname = "libxvmc"
-pkgver = "1.0.13"
+pkgver = "1.0.14"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = ["--enable-malloc0returnsnull"]
-hostmakedepends = ["pkgconf"]
+build_style = "meson"
+hostmakedepends = ["meson", "pkgconf"]
 makedepends = ["xorgproto", "libx11-devel", "libxext-devel", "libxv-devel"]
 pkgdesc = "XvMC extension library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXvMC-{pkgver}.tar.gz"
-sha256 = "e630b4373af8c67a7c8f07ebe626a1269a613d262d1f737b57231a06f7c34b4e"
+source = f"$(XORG_SITE)/lib/libXvMC-{pkgver}.tar.xz"
+sha256 = "e4be9eb6b6bafdbbf81f47f7163047215376e45e2dc786d0ea6181c930725ed9"
 
 
 def post_install(self):
@@ -22,6 +21,3 @@ def post_install(self):
 @subpackage("libxvmc-devel")
 def _devel(self):
     return self.default_devel(extra=["usr/share/doc"])
-
-
-configure_gen = []
