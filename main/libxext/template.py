@@ -1,16 +1,21 @@
 pkgname = "libxext"
-pkgver = "1.3.5"
+pkgver = "1.3.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-malloc0returnsnull"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = [
+    "automake",
+    "libtool",
+    "pkgconf",
+    "xorg-util-macros",
+]
 makedepends = ["xorgproto", "libx11-devel"]
 pkgdesc = "X extension library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
-source = f"$(XORG_SITE)/lib/libXext-{pkgver}.tar.gz"
-sha256 = "1a3dcda154f803be0285b46c9338515804b874b5ccc7a2b769ab7fd76f1035bd"
+source = f"$(XORG_SITE)/lib/libXext-{pkgver}.tar.xz"
+sha256 = "edb59fa23994e405fdc5b400afdf5820ae6160b94f35e3dc3da4457a16e89753"
 
 
 def post_install(self):
@@ -20,6 +25,3 @@ def post_install(self):
 @subpackage("libxext-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
