@@ -1,5 +1,5 @@
 pkgname = "fzf"
-pkgver = "0.46.0"
+pkgver = "0.46.1"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/junegunn/fzf"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "56d0ecaaff90dd33c371f7d23d1fd1cb36eb42554e88284c2781a067fba2a645"
+sha256 = "b0d640be3ae79980fdf461096f7d9d36d38ec752e25f8c4d2ca3ca6c041c2491"
 options = ["!strip"]
 
 
