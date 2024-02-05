@@ -1,5 +1,5 @@
 pkgname = "libgsf"
-pkgver = "1.14.51"
+pkgver = "1.14.52"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-introspection"]
@@ -21,7 +21,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libgsf"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f0b83251f98b0fd5592b11895910cc0e19f798110b389aba7da1cb7c474017f5"
+sha256 = "9181c914b9fac0e05d6bcaa34c7b552fe5fc0961d3c9f8c01ccc381fb084bcf0"
 
 
 @subpackage("libgsf-devel")
