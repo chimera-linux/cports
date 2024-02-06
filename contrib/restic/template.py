@@ -1,5 +1,5 @@
 pkgname = "restic"
-pkgver = "0.16.3"
+pkgver = "0.16.4"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/restic"]
@@ -9,7 +9,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "BSD-2-Clause"
 url = "https://restic.net"
 source = f"https://github.com/restic/restic/releases/download/v{pkgver}/restic-{pkgver}.tar.gz"
-sha256 = "a94d6c1feb0034fcff3e8b4f2d65c0678f906fc21a1cf2d435341f69e7e7af52"
+sha256 = "d736a57972bb7ee3398cf6b45f30e5455d51266f5305987534b45a4ef505f965"
 options = ["!debug"]
 
 
