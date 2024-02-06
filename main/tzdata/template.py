@@ -1,5 +1,5 @@
 pkgname = "tzdata"
-pkgver = "2023d"
+pkgver = "2024a"
 pkgrel = 0
 hostmakedepends = [
     "musl-devel-static",
@@ -15,8 +15,8 @@ source = [
     f"https://github.com/eggert/tz/archive/{pkgver}.tar.gz",
 ]
 sha256 = [
-    "dbca21970b0a8b8c0ceceec1d7b91fa903be0f6eca5ae732b5329672232a08f3",
-    "487df6ff5f4a577fd96568d0fd0a22e8062b0ec59af7ad3e66b5dd23a85cfc1c",
+    "0d0434459acbd2059a7a8da1f3304a84a86591f6ed69c6248fffa502b6edffe3",
+    "1f562444eb9a646ac9eb4cf7ed9a149e00f7834e373032dd0b2cc773341924a8",
 ]
 # no tests
 options = ["bootstrap", "!check", "hardlinks", "!scantrigdeps"]
