@@ -1,5 +1,5 @@
 pkgname = "python-pytz"
-pkgver = "2023.4"
+pkgver = "2024.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pythonhosted.org/pytz"
 source = f"$(PYPI_SITE)/p/pytz/pytz-{pkgver}.tar.gz"
-sha256 = "31d4583c4ed539cd037956140d695e42c033a19e984bfce9964a3f7d59bc2b40"
+sha256 = "2a29735ea9c18baf14b448846bde5a48030ed267578472d8955cd0e7443a9812"
 # dependency of pytest
 options = ["!check", "brokenlinks"]
 
