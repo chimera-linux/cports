@@ -1,6 +1,6 @@
 pkgname = "ca-certificates"
-pkgver = "20230311"
-pkgrel = 1
+pkgver = "20240203"
+pkgrel = 0
 build_style = "makefile"
 make_use_env = True
 hostmakedepends = ["openssl"]
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND MPL-2.0"
 url = "https://tracker.debian.org/pkg/ca-certificates"
 source = f"$(DEBIAN_SITE)/main/c/{pkgname}/{pkgname}_{pkgver}.tar.xz"
-sha256 = "83de934afa186e279d1ed08ea0d73f5cf43a6fbfb5f00874b6db3711c64576f3"
+sha256 = "3286d3fc42c4d11b7086711a85f865b44065ce05cf1fb5376b2abed07622a9c6"
 # no tests
 options = ["!check", "keepempty", "brokenlinks"]
 
