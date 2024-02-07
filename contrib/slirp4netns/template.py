@@ -1,5 +1,5 @@
 pkgname = "slirp4netns"
-pkgver = "1.2.2"
+pkgver = "1.2.3"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rootless-containers/slirp4netns"
 source = f"https://github.com/rootless-containers/slirp4netns/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "2450afb5730ee86a70f9c3f0d3fbc8981ab8e147246f4e0d354f0226a3a40b36"
+sha256 = "acce648fab8fe5f113c41a8fd6d20177708519b4ddaa60f845e1998a17b22ca5"
 hardening = ["vis", "cfi"]
 # needs ncat from nmap
 options = ["!check"]
