@@ -1,6 +1,6 @@
 pkgname = "libexpat"
-pkgver = "2.5.0"
-pkgrel = 1
+pkgver = "2.6.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-examples"]
 configure_gen = []
@@ -11,10 +11,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://libexpat.github.io"
 source = f"https://github.com/libexpat/libexpat/releases/download/R_{pkgver.replace('.', '_')}/expat-{pkgver}.tar.xz"
-sha256 = "ef2420f0232c087801abf705e89ae65f6257df6b7931d37846a193ef2e8cdcbe"
+sha256 = "cb5f5a8ea211e1cabd59be0a933a52e3c02cc326e86a4d387d8d218e7ee47a3e"
 # FIXME crash reproducible e.g. with graphene build
-# FIXME visiility
-hardening = ["!vis", "!cfi"]
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):
