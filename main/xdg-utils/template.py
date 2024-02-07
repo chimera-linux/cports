@@ -1,5 +1,5 @@
 pkgname = "xdg-utils"
-pkgver = "1.2.0"
+pkgver = "1.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -13,7 +13,7 @@ url = "https://www.freedesktop.org/wiki/Software/xdg-utils"
 source = (
     f"https://gitlab.freedesktop.org/xdg/xdg-utils/-/archive/v{pkgver}.tar.gz"
 )
-sha256 = "082b2f13537b7e7e8ced1f3a98eea4f9bfd35967468fc4a0be42cb614301fb27"
+sha256 = "61315926667f979921d3fda4471bed22aaeefcf84996e854786528bbcbcfbd8d"
 hardening = ["vis", "cfi"]
 # no check target
 options = ["!check"]
