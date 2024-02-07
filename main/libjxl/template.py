@@ -1,5 +1,5 @@
 pkgname = "libjxl"
-pkgver = "0.9.1"
+pkgver = "0.9.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -45,7 +45,7 @@ source = [
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "a0e72e9ece26878147069ad4888ac3382021d4bbee71c2e1b687d5bde7fd7e01",
+    "bf28e411d84c50578ab74107cdd624e099313129883a43907c261e8116a11b3b",
     "9c45a108df32a002a69465df896d33acf77d97c88fb59dffa0dff5628370e96f",
 ]
 # FIXME: a bunch of cfi test failures
