@@ -1,6 +1,6 @@
 pkgname = "curl"
 pkgver = "8.6.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-threaded-resolver",
@@ -8,6 +8,7 @@ configure_args = [
     "--with-libidn2",
     "--with-libpsl",
     "--with-libssh2",
+    "--with-openssl-quic",
     "--with-ssl",
     "--with-zstd",
     "--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt",
@@ -20,6 +21,7 @@ makedepends = [
     "libpsl-devel",
     "libssh2-devel",
     "nghttp2-devel",
+    "nghttp3-devel",
     "openssl-devel",
     "zlib-devel",
     "zstd-devel",
