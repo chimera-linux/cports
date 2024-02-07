@@ -1,7 +1,7 @@
 # update pyver in autosplit logic and pre_pkg hook on major bumps
 pkgname = "python"
 _majver = "3.12"
-pkgver = f"{_majver}.1"
+pkgver = f"{_majver}.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -38,16 +38,16 @@ make_check_args = [
 ]
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
-    "libffi-devel",
-    "openssl-devel",
+    "bluez-headers",
     "bzip2-devel",
     "libedit-devel",
-    "zlib-devel",
-    "xz-devel",
     "libexpat-devel",
-    "sqlite-devel",
+    "libffi-devel",
     "linux-headers",
-    "bluez-headers",
+    "openssl-devel",
+    "sqlite-devel",
+    "xz-devel",
+    "zlib-devel",
 ]
 checkdepends = ["ca-certificates"]
 depends = [f"base-python{_majver}={pkgver}-r{pkgrel}", "ca-certificates"]
@@ -58,7 +58,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "8dfb8f426fcd226657f9e2bd5f1e96e53264965176fa17d32658e873591aeb21"
+sha256 = "be28112dac813d2053545c14bf13a16401a21877f1a69eb6ea5d84c4a0f3d870"
 # FIXME int cfi; cfi ftbfs, int fails ctypes test
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being
