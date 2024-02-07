@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-base"
 pkgver = "1.22.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dexamples=disabled",
