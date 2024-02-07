@@ -1,0 +1,59 @@
+From 83bbf91926459866ed10f5374ea181d35d76d196 Mon Sep 17 00:00:00 2001
+From: ttyyls <contact@behri.org>
+Date: Fri, 23 Feb 2024 05:28:47 +0100
+Subject: [PATCH] update git2 to 0.18.2 with libgit-sys-0.16.2+1.7.2
+
+This should be kept up to date with system's libgit
+which at the time of writing is at 1.7.2
+---
+ Cargo.lock | 10 +++++-----
+ Cargo.toml |  2 +-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 4b0c241..928b385 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -568,11 +568,11 @@ dependencies = [
+ 
+ [[package]]
+ name = "git2"
+-version = "0.16.1"
++version = "0.18.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ccf7f68c2995f392c49fffb4f95ae2c873297830eb25c6bc4c114ce8f4562acc"
++checksum = "1b3ba52851e73b46a4c3df1d89343741112003f0f6f13beb0dfac9e457c3fdcd"
+ dependencies = [
+- "bitflags 1.3.2",
++ "bitflags 2.4.2",
+  "libc",
+  "libgit2-sys",
+  "log",
+@@ -749,9 +749,9 @@ checksum = "201de327520df007757c1f0adce6e827fe8562fbc28bfd9c15571c66ca1f5f79"
+ 
+ [[package]]
+ name = "libgit2-sys"
+-version = "0.14.2+1.5.1"
++version = "0.16.2+1.7.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "7f3d95f6b51075fe9810a7ae22c7095f12b98005ab364d8544797a825ce946a4"
++checksum = "ee4126d8b4ee5c9d9ea891dd875cfdc1e9d0950437179104b183d7d8a74d24e8"
+ dependencies = [
+  "cc",
+  "libc",
+diff --git a/Cargo.toml b/Cargo.toml
+index 8c0c6d8..77ae670 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -46,7 +46,7 @@ vte = "0.11.0"
+ xdg = "2.4.1"
+ 
+ [dependencies.git2]
+-version = "0.16.1"
++version = "0.18.2"
+ default-features = false
+ features = []
+ 
+-- 
+2.43.2
+
