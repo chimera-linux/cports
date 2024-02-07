@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "g _wireshark -" | \
+    /usr/bin/sd-sysusers --replace /usr/lib/sysusers.d/wireshark.conf - || :
