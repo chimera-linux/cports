@@ -1,6 +1,6 @@
 pkgname = "curl"
 pkgver = "8.6.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-threaded-resolver",
