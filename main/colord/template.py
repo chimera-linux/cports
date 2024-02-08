@@ -1,6 +1,6 @@
 pkgname = "colord"
 pkgver = "1.4.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 # manpages fail to generate
 configure_args = [
@@ -38,8 +38,6 @@ source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "de02d9910634ae159547585cec414e450f711c27235453b4f9b38a9f2361a653"
 # FIXME int
 hardening = ["!int"]
-# assertion failed (cd_edid_get_vendor_name (edid) == "LG"): (NULL == "LG")
-options = ["!check"]
 
 if self.profile().cross:
     hostmakedepends.append("colord")

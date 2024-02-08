@@ -1,0 +1,62 @@
+Patch-Source: https://github.com/hughsie/colord/pull/168
+--
+From 1671597e0605b8f1748cc2826f0ddc13fbf4fe68 Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Thu, 8 Feb 2024 12:10:45 +0000
+Subject: [PATCH] fix NULL passed to free with sqlite3 error_msg pointers
+
+when an error does not happen, sqlite sets the error_msg pointer to NULL
+before returning. this is then passed to g_free via autofree and crashes
+in tests.
+
+use a regular pointer and free it manually on error, as sqlite writes to
+it after setting it with sqlite_malloc.
+
+fixes https://github.com/hughsie/colord/issues/163
+---
+ src/cd-mapping-db.c | 3 ++-
+ src/cd-profile-db.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/src/cd-mapping-db.c b/src/cd-mapping-db.c
+index 996f07e3..5ffd74dd 100644
+--- a/src/cd-mapping-db.c
++++ b/src/cd-mapping-db.c
+@@ -67,7 +67,7 @@ cd_mapping_db_open (CdMappingDb *mdb,
+ 		    GError  **error)
+ {
+ 	CdMappingDbPrivate *priv = GET_PRIVATE (mdb);
+-	g_autofree gchar *error_msg = NULL;
++	gchar *error_msg = NULL;
+ 	gint rc;
+ 	g_autofree gchar *path = NULL;
+ 
+@@ -97,6 +97,7 @@ cd_mapping_db_open (CdMappingDb *mdb,
+ 	if (rc != SQLITE_OK) {
+ 		/* Database appears to be mangled, so wipe it and try again */
+ 		sqlite3_close (priv->db);
++		sqlite3_free(error_msg);
+ 		priv->db = NULL;
+ 
+ 		if (retry) {
+diff --git a/src/cd-profile-db.c b/src/cd-profile-db.c
+index 57ab864f..e5b74e37 100644
+--- a/src/cd-profile-db.c
++++ b/src/cd-profile-db.c
+@@ -48,7 +48,7 @@ cd_profile_db_load (CdProfileDb *pdb,
+ {
+ 	CdProfileDbPrivate *priv = GET_PRIVATE (pdb);
+ 	const gchar *statement;
+-	g_autofree gchar *error_msg = NULL;
++	gchar *error_msg = NULL;
+ 	gint rc;
+ 	g_autofree gchar *path = NULL;
+ 
+@@ -69,6 +69,7 @@ cd_profile_db_load (CdProfileDb *pdb,
+ 			     CD_CLIENT_ERROR_INTERNAL,
+ 			     "Can't open database: %s\n",
+ 			     sqlite3_errmsg (priv->db));
++		sqlite3_free (error_msg);
+ 		sqlite3_close (priv->db);
+ 		return FALSE;
+ 	}
