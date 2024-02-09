@@ -1,6 +1,6 @@
 pkgname = "cliphist"
-pkgver = "0.4.0"
-pkgrel = 1
+pkgver = "0.5.0"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["wl-clipboard", "xdg-utils"]
@@ -9,6 +9,6 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://github.com/sentriz/cliphist"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "e492d6cd4e1bfc77582e32e25a3683687f2ff22e8d390cd06e14d21d7bef32c2"
+sha256 = "02285cf3358a1851e34f95c0c369b27284d8d0996759d759fa2bbcb5b30fb13d"
 # objcopy fails on ppc
 options = ["!debug"]
