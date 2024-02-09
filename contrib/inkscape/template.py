@@ -1,46 +1,52 @@
 pkgname = "inkscape"
 pkgver = "1.3.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
-configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DBUILD_TESTING=OFF"]
+configure_args = [
+    "-D2GEOM_BUILD_SHARED=OFF",
+    "-DBUILD_SHARED_LIBS=ON",
+    "-DBUILD_TESTING=OFF",
+]
 hostmakedepends = [
     "cmake",
-    "ninja",
-    "pkgconf",
-    "perl",
     "gettext",
     "glib-devel",
+    "ninja",
+    "perl",
+    "pkgconf",
 ]
+# TODO: package lib2geom separately
 makedepends = [
-    "gtk+3-devel",
     "boost-devel",
+    "double-conversion-devel",
     "gc-devel",
     "graphicsmagick-devel",
-    "gtkmm3.0-devel",
+    "gsl-devel",
     "gspell-devel",
+    "gtk+3-devel",
+    "gtkmm3.0-devel",
     "lcms2-devel",
     "libcdr-devel",
-    "libwpg-devel",
-    "libvisio-devel",
-    "librevenge-devel",
+    "libedit-readline-devel",
     "libjpeg-turbo-devel",
+    "libomp-devel",
+    "libpoppler-devel",
+    "librevenge-devel",
     "libsoup-devel",
+    "libvisio-devel",
+    "libwpg-devel",
     "libxml2-devel",
     "libxslt-devel",
-    "libpoppler-devel",
     "popt-devel",
     "potrace-devel",
-    "gsl-devel",
-    "double-conversion-devel",
-    "libomp-devel",
     "python-devel",
-    "libedit-readline-devel",
 ]
 depends = [
-    "python-scour",
     "python-appdirs",
+    "python-cssselect",
     "python-lxml",
     "python-pillow",
+    "python-scour",
 ]
 pkgdesc = "Vector graphics editor"
 maintainer = "q66 <q66@chimera-linux.org>"
