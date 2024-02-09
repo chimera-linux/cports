@@ -28,23 +28,21 @@ configure_gen = []
 make_dir = "."
 make_check_args = ["-j1"]
 hostmakedepends = [
-    "pkgconf",
     "avahi-devel",
     "openssl-devel",
-    "poppler",
+    "pkgconf",
     "xdg-utils",
 ]
 makedepends = [
     "acl-devel",
-    "openssl-devel",
+    "avahi-devel",
     "libpaper-devel",
     "libpng-devel",
     "libtiff-devel",
-    "libpoppler-devel",
     "libusb-devel",
-    "linux-pam-devel",
-    "avahi-devel",
     "linux-headers",
+    "linux-pam-devel",
+    "openssl-devel",
 ]
 depends = ["xdg-utils"]
 pkgdesc = "Common Unix Printing System"
