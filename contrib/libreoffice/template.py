@@ -1,6 +1,6 @@
 pkgname = "libreoffice"
-pkgver = "7.6.4.1"
-pkgrel = 1
+pkgver = "24.2.1.2"
+pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
 build_style = "gnu_configure"
@@ -46,6 +46,7 @@ configure_args = [
     "--without-system-dragonbox",
     "--without-system-frozen",
     "--without-system-libfixmath",
+    "--without-system-zxcvbn",
 ]
 configure_env = {"NOCONFIGURE": "1", "QT6DIR": "/usr/lib/qt6"}
 configure_gen = ["perl", "autogen.sh"]
@@ -54,33 +55,34 @@ make_dir = "."
 make_build_target = "build"
 make_use_env = True
 hostmakedepends = [
-    "gmake",
-    "pkgconf",
     "automake",
-    "libtool",
     "bash",
-    "flex",
     "bison",
+    "flex",
+    "fontforge-cli",
+    "gettext",
+    "gmake",
+    "gnupg",
+    "gobject-introspection",
     "gperf",
+    "gtk4-devel",
     "hyphen",
     "icu",
-    "gettext",
-    "gnupg",
-    "xz",
-    "zip",
+    "libtool",
+    "libxml2-progs",
+    "pkgconf",
+    "python-lxml",
+    "python-setuptools",
+    "qt6-qtbase",
+    "sane-backends",
     "unzip",
     "xsltproc",
-    "libxml2-progs",
-    "sane-backends",
-    "fontforge-cli",
-    "python-setuptools",
-    "python-lxml",
-    "qt6-qtbase",
-    "gtk4-devel",
-    "gobject-introspection",
+    "xz",
+    "zip",
 ]
 makedepends = [
     "abseil-cpp-devel",
+    "argon2-devel",
     "avahi-devel",
     "bluez-devel",
     "boost-devel",
@@ -138,8 +140,8 @@ makedepends = [
     "mdds",
     "mythes-devel",
     "neon-devel",
-    "nss-devel",
     "nspr-devel",
+    "nss-devel",
     "openjpeg-devel",
     "openssl-devel",
     "python-devel",
@@ -179,7 +181,7 @@ source = [
     f"{_aurl}/libcmis-0.6.1.tar.xz",
     f"{_aurl}/libstaroffice-0.0.7.tar.xz",
     f"{_aurl}/libzmf-0.0.2.tar.xz",
-    f"{_aurl}/pdfium-5778.tar.bz2",
+    f"{_aurl}/pdfium-6179.tar.bz2",
     f"{_eurl}/8249374c274932a21846fa7629c2aa9b-officeotron-0.7.4-master.jar",
     f"{_eurl}/odfvalidator-0.9.0-RC2-SNAPSHOT-jar-with-dependencies-2726ab578664434a545f8379a01a9faffac0ae73.jar",
     f"{_aurl}/dtoa-20180411.tgz",
@@ -194,15 +196,16 @@ source = [
     f"{_aurl}/8ce2fcd72becf06c41f7201d15373ed9-librepository-1.1.6.zip",
     f"{_aurl}/f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip",
     f"{_aurl}/39bb3fcea1514f1369fcfc87542390fd-sacjava-1.3.zip",
-    f"{_aurl}/skia-m111-a31e897fb3dcbc96b2b40999751611d029bf5404.tar.xz",
+    f"{_aurl}/skia-m116-2ddcf183eb260f63698aa74d1bb380f247ad7ccd.tar.xz",
     f"{_aurl}/dragonbox-1.1.3.tar.gz",
     f"{_aurl}/frozen-1.1.1.tar.gz",
+    f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "13fea7b8f24c776313b9e08628aa590390bea45064be73bc70ee7b1b70aa6a1e",
-    "36c0526e4c12ab38dd1e1766cd878118dd5692578b80411b9b443e389e3712fa",
-    "ed784c014096e0e7ff86294eba624bd92ecbe5be881b01950eecd69aed7d8678",
-    "3a5a0dbe40abdc55cdd9994895f6577d7e547d26a36b20641f32f3640a3b7679",
+    "3ccf577e8f665059ed5a06577b3b37278080be9f29cc4ad3352857a8f2549fa8",
+    "db010c781e85b401e87aa2030902565d5dfceb2c5ff4483c7172484d0f645eab",
+    "6f8b03b1af94e72c8301164fbcb84c0af57ba6416be8ff02f7b7dd06ff4c2f74",
+    "bf5b164b5e8ac9f796dbc2cf1e9d30e345341d367f634852c47e4572a94f58e9",
     "1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -214,7 +217,7 @@ sha256 = [
     "d54d19d86153dbc88e2d468f7136269a2cfe71b73227e12fded01d29ac268074",
     "f94fb0ad8216f97127bedef163a45886b43c62deac5e5b0f5e628e234220c8db",
     "27051a30cb057fdb5d5de65a1f165c7153dc76e27fe62251cbb86639eb2caf22",
-    "b1052ff24e9ffb11af017c444bb0f6ad508d64c9a0fb88cacb0e8210245dde06",
+    "4d3f08fe0e2fda86246832085426616826dcca0912202874428bfbc24d13d95c",
     "f2443f27561af52324eee03a1892d9f569adc8db9e7bca55614898bc2a13a770",
     "d55495ab3a86544650587de2a72180ddf8bfc6376d14ddfa923992dbc86a06e0",
     "0082d0684f7db6f62361b76c4b7faba19e0c7ce5cb8e36c4b65fea8281e711b4",
@@ -229,9 +232,10 @@ sha256 = [
     "abe2c57ac12ba45d83563b02e240fa95d973376de2f720aab8fe11f2e621c095",
     "05640a1f6805b2b2d7e2cb9c50db9a5cb084e3c52ab1a71ce015239b4a1d4343",
     "085f2112c51fa8c1783fac12fbd452650596415121348393bb51f0f7e85a9045",
-    "0d08a99ed46cde43b5ad2672b5d8770c8eb85d0d26cb8f1f85fd9befe1e9ceb9",
+    "2223ebce534458a37826e8fe4f24635b0712cde7ed1bd3208f089f6fdd796e01",
     "09d63b05e9c594ec423778ab59b7a5aa1d76fdd71d25c7048b0258c4ec9c3384",
     "f7c7075750e8fceeac081e9ef01944f221b36d9725beac8681cbd2838d26be45",
+    "77d6c6ecb35952a8d8ce7f736b7a2bf466275c48210e309b73782d6b7e84dffd",
 ]
 
 tool_flags = {
