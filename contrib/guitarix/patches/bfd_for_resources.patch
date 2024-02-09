@@ -1,0 +1,11 @@
+--- a/src/LV2/xputty/resources/wscript	2022-05-02 20:38:03.000000000 +0200
++++ b/src/LV2/xputty/resources/wscript	2024-02-10 19:34:00.166157338 +0100
+@@ -42,7 +42,7 @@
+     cmd = ("cd src/LV2/xputty/resources/ \
+     && for f in %s; do\
+      %s -r -b binary -z noexecstack ${f}.png -o  ${f}.o; \
+-     done " % (src, env.LD[0]) )
++     done " % (src, 'ld.bfd') )
+    # Logs.debug("runner: system command -> %s" % cmd)
+     ret = task.exec_command(cmd, shell=True)
+     return ret
