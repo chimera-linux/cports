@@ -17,9 +17,4 @@ pref("media.gmp-widevinecdm.enabled", false);
 
 // Ditto (crashes)
 pref("media.gmp-gmpopenh264.visible", false);
-// visible=false means websites that check for it will see it as missing and
-// then not try to use it,
-// but for some strange reason microsoft teams specifically will then fail
-// to load screenshare/video content in calls if it's actually disabled, even
-// though it apparently cannot be used. so leave it "enabled"
-pref("media.gmp-gmpopenh264.enabled", true);
+pref("media.gmp-gmpopenh264.enabled", false);
