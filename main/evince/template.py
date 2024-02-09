@@ -35,7 +35,7 @@ makedepends = [
     "libarchive-devel",
     "libgxps-devel",
     "libhandy-devel",  # "nautilus-devel",
-    "libpoppler-glib-devel",
+    "libpoppler-devel",
     "libsecret-devel",
     "libspectre-devel",
     "libtiff-devel",

@@ -21,7 +21,7 @@ makedepends = [
     "libexif-devel",
     "libjpeg-turbo-devel",
     "libpng-devel",
-    "libpoppler-cpp-devel",
+    "libpoppler-devel",
     "libqpdf-devel",
     "libtiff-devel",
     "linux-headers",

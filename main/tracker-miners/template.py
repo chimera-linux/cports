@@ -50,7 +50,7 @@ makedepends = [
     "libtiff-devel",
     "giflib-devel",
     "libxml2-devel",
-    "libpoppler-glib-devel",
+    "libpoppler-devel",
     "upower-devel",
     "exempi-devel",
     "networkmanager-devel",

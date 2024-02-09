@@ -29,7 +29,7 @@ makedepends = [
     "librsvg-devel",
     "libraw-devel",
     "libwebp-devel",
-    "libpoppler-glib-devel",
+    "libpoppler-devel",
     "openexr-devel",
     "pango-devel",
     "lensfun-devel",

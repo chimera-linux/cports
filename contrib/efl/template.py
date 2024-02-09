@@ -78,7 +78,7 @@ makedepends = [
     "libraw-devel",
     "librsvg-devel",
     "libspectre-devel",
-    "libpoppler-cpp-devel",
+    "libpoppler-devel",
     "libsndfile-devel",
     "gstreamer-devel",
     "gst-plugins-base-devel",
