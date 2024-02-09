@@ -17,7 +17,7 @@ makedepends = [
     "libtiff-devel",
     "sdl-devel",
     "gst-plugins-base-devel",
-    "libpoppler-glib-devel",
+    "libpoppler-devel",
     "libxrandr-devel",
     "libxinerama-devel",
 ]

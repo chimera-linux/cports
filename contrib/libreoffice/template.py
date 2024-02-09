@@ -122,7 +122,7 @@ makedepends = [
     "liborcus-devel",
     "libpagemaker-devel",
     "libpng-devel",
-    "libpoppler-cpp-devel",
+    "libpoppler-devel",
     "libqxp-devel",
     "librevenge-devel",
     "librsvg-devel",

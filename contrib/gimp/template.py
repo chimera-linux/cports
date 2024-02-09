@@ -47,7 +47,7 @@ makedepends = [
     "libjpeg-turbo-devel",
     "libmypaint-devel",
     "libpng-devel",
-    "libpoppler-glib-devel",
+    "libpoppler-devel",
     "librsvg-devel",
     "libtiff-devel",
     "libunwind-devel",

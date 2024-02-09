@@ -27,7 +27,7 @@ makedepends = [
     "libsoup-devel",
     "libxml2-devel",
     "libxslt-devel",
-    "libpoppler-glib-devel",
+    "libpoppler-devel",
     "popt-devel",
     "potrace-devel",
     "gsl-devel",
