@@ -1,6 +1,6 @@
 pkgname = "libhandy"
-pkgver = "1.8.2"
-pkgrel = 1
+pkgver = "1.8.3"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dexamples=false",
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libhandy"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d11aa2cd3e570ac6d0efdba46d173147c11f45826457e924c05990bb2e0df9ad"
+sha256 = "05b497229073ff557f10b326e074c5066f8743a302d4820ab97bcb5cd2dab087"
 # gdk_seat_get_keyboard: assertion 'GDK_IS_SEAT (seat)' failed
 options = ["!check"]
 
