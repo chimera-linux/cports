@@ -1,5 +1,5 @@
 pkgname = "libadwaita"
-pkgver = "1.4.2"
+pkgver = "1.4.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libadwaita"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "33fa16754e7370c841767298b3ff5f23003ee1d2515cc2ff255e65ef3d4e8713"
+sha256 = "ae9622222b0eb18e23675655ad2ba01741db4d8655a796f4cf077b093e2f5841"
 options = ["!cross"]
 
 
