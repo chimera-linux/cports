@@ -2,6 +2,9 @@
 
 
 def do_configure(self):
+    env = {"PKGCONFIG": self.get_tool("PKG_CONFIG")}
+    env.update(self.configure_env)
+
     self.do(
         "python3",
         self.configure_script,
@@ -9,7 +12,7 @@ def do_configure(self):
         "--prefix=/usr",
         "--libdir=/usr/lib",
         *self.configure_args,
-        env=self.configure_env,
+        env=env,
     )
 
 
