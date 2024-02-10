@@ -1,5 +1,5 @@
 pkgname = "libmanette"
-pkgver = "0.2.6"
+pkgver = "0.2.7"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -13,9 +13,9 @@ makedepends = ["glib-devel", "libevdev-devel", "libgudev-devel"]
 pkgdesc = "Simple GObject game controller library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
-url = "https://gitlab.gnome.org/aplazas/libmanette"
+url = "https://gitlab.gnome.org/GNOME/libmanette"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "63653259a821ec7d90d681e52e757e2219d462828c9d74b056a5f53267636bac"
+sha256 = "cddd5c02a131072c19c6cde6f2cb2cd57eae7dacb50d14c337efd980baa51a51"
 
 
 @subpackage("libmanette-devel")
