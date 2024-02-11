@@ -1,0 +1,29 @@
+From 311e0cb6feffca6c9321383d5aa63da607bd7553 Mon Sep 17 00:00:00 2001
+From: Isaac Freund <mail@isaacfreund.com>
+Date: Sun, 11 Feb 2024 22:40:04 +0100
+Subject: [PATCH] Fix compatibility with FreeBSD coreutils
+
+---
+ Makefile | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 2f92f79..1f86474 100644
+--- a/Makefile
++++ b/Makefile
+@@ -21,8 +21,10 @@ $(OBJ): $(GEN)
+ 	$(SCANNER) client-header < $< > $@
+ 
+ install: wlopm
+-	install -D wlopm   $(DESTDIR)$(BINDIR)/wlopm
+-	install -D wlopm.1 $(DESTDIR)$(MANDIR)/man1/wlopm.1
++	install -d $(DESTDIR)$(BINDIR)
++	install wlopm $(DESTDIR)$(BINDIR)
++	install -d $(DESTDIR)$(MANDIR)/man1
++	install -m 644 wlopm.1 $(DESTDIR)$(MANDIR)/man1
+ 
+ uninstall:
+ 	$(RM) $(DESTDIR)$(BINDIR)/wlopm
+-- 
+2.43.1
+
