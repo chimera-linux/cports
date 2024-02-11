@@ -1,0 +1,7 @@
+# soju system service
+
+type       = process
+command    = /usr/bin/capsh --caps="cap_net_bind_service,cap_setgid,cap_setuid+eip" --user=_soju --addamb='cap_net_bind_service' -- -c "exec /usr/bin/soju -config /etc/soju/config"
+depends-on = network.target
+depends-on = pre-local.target
+logfile    = /var/log/soju.log
