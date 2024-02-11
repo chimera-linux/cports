@@ -1,6 +1,6 @@
 pkgname = "kanshi"
 pkgver = "1.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -22,3 +22,4 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_service(self.files_path / "kanshi.user")
