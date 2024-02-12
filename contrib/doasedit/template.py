@@ -1,5 +1,5 @@
 pkgname = "doasedit"
-pkgver = "1.0.6"
+pkgver = "1.0.7"
 pkgrel = 0
 depends = ["opendoas"]
 pkgdesc = "Shell script to edit files with doas"
@@ -7,7 +7,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://codeberg.org/TotallyLeGIT/doasedit"
 source = f"https://codeberg.org/TotallyLeGIT/doasedit/archive/{pkgver}.tar.gz"
-sha256 = "bfe0af402b1f2df447a3cecb3027a9176f8de0bbe8f09be9f59a15fcd58e22bf"
+sha256 = "300fafa03099b99597ab99d6d1e0376e817e82f1223e3c04c62d8ad8e26c6744"
 
 
 def do_install(self):
