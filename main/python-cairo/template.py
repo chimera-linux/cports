@@ -1,6 +1,6 @@
 pkgname = "python-cairo"
-pkgver = "1.25.1"
-pkgrel = 1
+pkgver = "1.26.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://pycairo.readthedocs.io"
 source = f"https://github.com/pygobject/pycairo/releases/download/v{pkgver}/pycairo-{pkgver}.tar.gz"
-sha256 = "7e2be4fbc3b4536f16db7a11982cbf713e75069a4d73d44fe5a49b68423f5c0c"
+sha256 = "2dddd0a874fbddb21e14acd9b955881ee1dc6e63b9c549a192d613a907f9cbeb"
 
 
 @subpackage("python-cairo-devel")
