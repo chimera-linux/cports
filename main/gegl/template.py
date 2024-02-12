@@ -1,6 +1,6 @@
 pkgname = "gegl"
-pkgver = "0.4.46"
-pkgrel = 2
+pkgver = "0.4.48"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Ddocs=false",
@@ -42,7 +42,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-3.0-only"
 url = "https://gegl.org"
 source = f"https://download.gimp.org/pub/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d0b3b2481bc8774c5f3d0a487611910166d18eef823a859fb91e781ab7b1e892"
+sha256 = "418c26d94be8805d7d98f6de0c6825ca26bd74fcacb6c188da47533d9ee28247"
 # TODO
 hardening = ["!int"]
 
