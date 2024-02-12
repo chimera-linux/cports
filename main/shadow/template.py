@@ -1,5 +1,5 @@
 pkgname = "shadow"
-pkgver = "4.14.3"
+pkgver = "4.14.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/shadow-maint/shadow"
 source = f"{url}/releases/download/{pkgver}/shadow-{pkgver}.tar.xz"
-sha256 = "6969279236fe3152768573a38c9f83cb9ca109851a5a990aec1fc672ac2cfcd2"
+sha256 = "396a5cb7e2f0f7c21b7227ab88ae17ec8c02d6abc5257fd17d6167baf9c4e3fc"
 suid_files = [
     "usr/bin/chage",
     "usr/bin/chfn",
