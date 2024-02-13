@@ -1,5 +1,5 @@
 pkgname = "gstreamer"
-pkgver = "1.22.9"
+pkgver = "1.22.10"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -32,7 +32,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "1e7124d347e8cdc80f08ec1d370c201be513002af1102bb20e83c5279cb48ebd"
+sha256 = "969aaef396f252ce925132a4be2aa004e0320f5c1baf0acaaae09c544a6759f4"
 file_xattrs = {
     "usr/libexec/gstreamer-1.0/gst-ptp-helper": {
         "security.capability": "cap_net_bind_service,cap_net_admin+ep",
