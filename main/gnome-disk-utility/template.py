@@ -1,6 +1,6 @@
 pkgname = "gnome-disk-utility"
 pkgver = "45.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dlogind=libelogind"]
 hostmakedepends = [
@@ -32,5 +32,3 @@ license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Disks"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "540ff4ec9a6b9630003ff4cd60d624f39fe70f25a9559e5333389603c85b9529"
-# FIXME cfi
-hardening = ["vis", "!cfi"]
