@@ -1,0 +1,268 @@
+diff -ur motif-2.3.8.orig/configure.ac motif-2.3.8.new/configure.ac
+--- motif-2.3.8.orig/configure.ac	2017-12-05 13:43:54.000000000 +0100
++++ motif-2.3.8.new/configure.ac	2024-02-12 22:40:52.237349219 +0100
+@@ -1,14 +1,14 @@
+ dnl Process this file with autoconf to produce a configure script.
+ AC_INIT
+ AC_CONFIG_SRCDIR([lib/Xm/Form.c])
+-AC_PREREQ(2.52)
+-AC_CONFIG_AUX_DIR(.)
+-AC_CHECK_FILE(/usr/X/include/X11/X.h,
+-  AC_PREFIX_DEFAULT(/usr/X),
+-  AC_PREFIX_DEFAULT(/usr))
+-AC_CHECK_FILE(/usr/X11R6/include/X11/X.h,
+-  AC_PREFIX_DEFAULT(/usr/X11R6),
+-  AC_PREFIX_DEFAULT(/usr))
++AC_PREREQ([2.52])
++AC_CONFIG_AUX_DIR([.])
++AC_CHECK_FILE([/usr/X/include/X11/X.h],
++  [AC_PREFIX_DEFAULT(/usr/X)],
++  [AC_PREFIX_DEFAULT(/usr)])
++AC_CHECK_FILE([/usr/X11R6/include/X11/X.h],
++  [AC_PREFIX_DEFAULT(/usr/X11R6)],
++  [AC_PREFIX_DEFAULT(/usr)])
+ 
+ dnl AM_MAINTAINER_MODE
+ AC_CANONICAL_TARGET
+@@ -17,12 +17,12 @@
+ CURRENT=4
+ REVISION=4
+ AGE=0
+-AC_SUBST(CURRENT)
+-AC_SUBST(REVISION)
+-AC_SUBST(AGE)
++AC_SUBST([CURRENT])
++AC_SUBST([REVISION])
++AC_SUBST([AGE])
+ 
+ dnl This is really dumb but it seems to be bug
+-AM_INIT_AUTOMAKE(motif,2.3.8,no-define)
++AM_INIT_AUTOMAKE([motif],[2.3.8],[no-define])
+ 
+ LIBTOOL_VERSION=$CURRENT:$REVISION:$AGE
+ 
+@@ -31,7 +31,7 @@
+ dnl
+ dnl AC_DISABLE_STATIC
+ 
+-AC_CONFIG_HEADERS(include/config.h lib/Xm/Xm.h)
++AC_CONFIG_HEADERS([include/config.h lib/Xm/Xm.h])
+ 
+ dnl Checks for programs.
+ AC_PROG_CC
+@@ -42,10 +42,10 @@
+ 
+ dnl AC_PROG_YACC
+ dnl Do this the old fashioned way. 'bison -y' doesn't cut it
+-AC_CHECK_PROGS(YACC, byacc, yacc)
++AC_CHECK_PROGS([YACC], [byacc], [yacc])
+ 
+ dnl AC_PROG_SPLINT
+-AC_CHECK_PROGS(SPLINT, splint)
++AC_CHECK_PROGS([SPLINT], [splint])
+ 
+ AM_PROG_LEX
+ AC_PROG_INSTALL
+@@ -70,32 +70,32 @@
+ save_CFLAGS="$CFLAGS"
+ LIBS="$X_LIBS $LIBS"
+ CFLAGS="$X_CFLAGS $CFLAGS"
+-AC_CHECK_HEADERS(X11/Xmu/Editres.h,
+-AC_CHECK_LIB(Xmu, _XEditResCheckMessages,
+-X_XMU=-lXmu
+-AC_DEFINE(HAVE_LIBXMU, 1, This System has libXmu)
+-, X_XMU="", -lXt -lX11)
+-AC_CHECK_LIB(Xmu,XmuNCopyISOLatin1Lowered ,
+-AC_DEFINE(HAVE_XMU_N_COPY_ISO,1,Have XmuNCopyISOLatin1Lowered)
+-, , -lXt -lX11)
++AC_CHECK_HEADERS([X11/Xmu/Editres.h],
++[AC_CHECK_LIB([Xmu], [_XEditResCheckMessages],
++[X_XMU=-lXmu
++AC_DEFINE([HAVE_LIBXMU], [1], [This System has libXmu])]
++, [X_XMU=""], [-lXt -lX11])
++AC_CHECK_LIB([Xmu],[XmuNCopyISOLatin1Lowered] ,
++[AC_DEFINE([HAVE_XMU_N_COPY_ISO],[1],[Have XmuNCopyISOLatin1Lowered])]
++, , [-lXt -lX11])]
+ ,,[[#include <X11/Intrinsic.h>]]
+ )
+ 
+ 
+-AC_SUBST(X_XMU)
++AC_SUBST([X_XMU])
+ LIBS="$save_LIBS"
+ CFLAGS="$save_CFLAGS"
+-AM_CONDITIONAL(OM_XMU, test x$X_XMU != x)
++AM_CONDITIONAL([OM_XMU], [test x$X_XMU != x])
+ 
+ dnl Checks for header files.
+ AC_HEADER_DIRENT
+ AC_HEADER_STDC
+ AC_HEADER_SYS_WAIT
+-AC_CHECK_HEADERS(fcntl.h limits.h malloc.h sys/malloc.h strings.h sys/file.h sys/time.h unistd.h wchar.h)
+-AC_CHECK_HEADERS(wctype.h, AC_DEFINE(HAS_WIDECHAR_FUNCTIONS,1,System supports wchar))
+-AC_CHECK_HEADER(langinfo.h,,AC_DEFINE(CSRG_BASED,1,System Has langinfo.h))
+-AC_CHECK_HEADER(X11/Xos_r.h,,AC_DEFINE(NEED_XOS_R_H,1,System Missing Xos_r.h))
+-AC_CHECK_HEADER(X11/Xpoll.h,,AC_DEFINE(NEED_XPOLL_H,1,system Missing X11/Xpoll.h))
++AC_CHECK_HEADERS([fcntl.h limits.h malloc.h sys/malloc.h strings.h sys/file.h sys/time.h unistd.h wchar.h])
++AC_CHECK_HEADERS([wctype.h], [AC_DEFINE([HAS_WIDECHAR_FUNCTIONS],[1],[System supports wchar])])
++AC_CHECK_HEADER([langinfo.h],,[AC_DEFINE([CSRG_BASED],[1],[System Has langinfo.h])])
++AC_CHECK_HEADER([X11/Xos_r.h],,[AC_DEFINE([NEED_XOS_R_H],[1],[System Missing Xos_r.h])])
++AC_CHECK_HEADER([X11/Xpoll.h],,[AC_DEFINE([NEED_XPOLL_H],[1],[system Missing X11/Xpoll.h])])
+ dnl Checks for typedefs, structures, and compiler characteristics.
+ AC_C_CONST
+ AC_TYPE_MODE_T
+@@ -117,28 +117,28 @@
+ AC_FUNC_FORK([])
+ AC_FUNC_VPRINTF
+ AM_FUNC_VOID_SPRINTF
+-AC_CHECK_FUNCS(wcslen wcscpy wcsncpy wcschr wcscat wcsncat getcwd gettimeofday mkdir re_comp regcmp select strcspn strerror strstr strtod strtol uname)
+-AC_CHECK_FUNCS(strdup,,AC_DEFINE(NEED_STRDUP, 1, no strdup))
+-AC_CHECK_FUNCS(strcasecmp,,AC_DEFINE(NEED_STRCASECMP, 1, no strcasecmp))
+-AC_CHECK_FUNCS(putenv,,AC_DEFINE(NO_PUTENV, 1, No PUTENV))
+-AC_CHECK_FUNCS(regcomp,,AC_DEFINE(NO_REGCOMP, 1, no regcmp))
+-AC_CHECK_FUNCS(memmove,,AC_DEFINE(NO_MEMMOVE, 1, no memmove))
+-AC_CHECK_TYPE(XICProc,,AC_DEFINE(NO_XICPROC, 1, XICProc isn't defined), [#include <X11/Xlib.h>])
++AC_CHECK_FUNCS([wcslen wcscpy wcsncpy wcschr wcscat wcsncat getcwd gettimeofday mkdir re_comp regcmp select strcspn strerror strstr strtod strtol uname])
++AC_CHECK_FUNCS([strdup],,[AC_DEFINE([NEED_STRDUP], [1], [no strdup])])
++AC_CHECK_FUNCS([strcasecmp],,[AC_DEFINE([NEED_STRCASECMP], [1], [no strcasecmp])])
++AC_CHECK_FUNCS([putenv],,[AC_DEFINE([NO_PUTENV], [1], [No PUTENV])])
++AC_CHECK_FUNCS([regcomp],,[AC_DEFINE([NO_REGCOMP], [1], [no regcmp])])
++AC_CHECK_FUNCS([memmove],,[AC_DEFINE([NO_MEMMOVE], [1], [no memmove])])
++AC_CHECK_TYPE([XICProc],,[AC_DEFINE([NO_XICPROC], [1], [XICProc isn't defined])], [#include <X11/Xlib.h>])
+ 
+-AC_ARG_ENABLE(message-catalog, [  --enable-message-catalog
++AC_ARG_ENABLE([message-catalog], [  --enable-message-catalog
+                           Enable building of the message catalog (default=no)])
+ if test "$enable_message_catalog" != "yes"
+ then
+-    AC_DEFINE(NO_MESSAGE_CATALOG, 1, No Defined Message Catalog)
++    AC_DEFINE([NO_MESSAGE_CATALOG], [1], [No Defined Message Catalog])
+ fi
+-AM_CONDITIONAL(MessageCatalog, test x$enable_message_catalog = xyes)
++AM_CONDITIONAL([MessageCatalog], [test x$enable_message_catalog = xyes])
+ 
+-AC_ARG_ENABLE(themes, [  --enable-themes         Enable themes (default=no)])
++AC_ARG_ENABLE([themes], [  --enable-themes         Enable themes (default=no)])
+ if test "$enable_themes" = "yes"
+ then
+     if test -f $srcdir/lib/Xm/Theme.h
+     then
+-	AC_DEFINE(USE_XMTHEMES, 1, "Use XmThemes")
++	AC_DEFINE([USE_XMTHEMES], [1], ["Use XmThemes"])
+ 	XMTHEME_DIST = "Theme.h ThemeP.h DynLibP.h Theme.c DynLib.c"
+     else
+ 	AC_MSG_WARN([--enable-themes specified, but I don't have the code. Disabled])
+@@ -146,14 +146,14 @@
+     fi
+ fi
+ AC_SUBST(XMTHEME_DIST)
+-AM_CONDITIONAL(OM_XMTHEMES, test "$enable_themes" = "yes")
++AM_CONDITIONAL([OM_XMTHEMES], [test "$enable_themes" = "yes"])
+ 
+-AC_ARG_ENABLE(debug-themes, [  --enable-debug-themes   Enable themes debugging (default=no)])
++AC_ARG_ENABLE([debug-themes], [  --enable-debug-themes   Enable themes debugging (default=no)])
+ if test "$enable_themes" = "yes"
+ then
+     if test "$enable_debug_themes" = "yes"
+     then
+-	AC_DEFINE(DEBUGTHEMES, 1, "Debug Themes")
++	AC_DEFINE([DEBUGTHEMES], [1], ["Debug Themes"])
+     fi
+ fi
+ 
+@@ -164,32 +164,32 @@
+         CFLAGS="$CFLAGS -fno-tree-ter"
+     fi
+ fi
+-AC_DEFINE(NO_OL_COMPAT, 1, "No OL Compatability")
++AC_DEFINE([NO_OL_COMPAT], [1], ["No OL Compatability"])
+ 
+ CDE_INSTALLATION_TOP="\${prefix}/dt"
+-AC_SUBST(CDE_INSTALLATION_TOP)
++AC_SUBST([CDE_INSTALLATION_TOP])
+ 
+ CDE_CONFIGURATION_TOP="\${prefix}/etc/dt"
+-AC_SUBST(CDE_CONFIGURATION_TOP)
++AC_SUBST([CDE_CONFIGURATION_TOP])
+ 
+ LIBDIR="${libdir}/X11"
+-AC_SUBST(LIBDIR)
++AC_SUBST([LIBDIR])
+ 
+ MWMRCDIR="${libdir}/X11"
+-AC_SUBST(MWMRCDIR)
++AC_SUBST([MWMRCDIR])
+ 
+ INCDIR="${includedir}/X11"
+-AC_SUBST(INCDIR)
++AC_SUBST([INCDIR])
+ 
+ XMBINDDIR_FALLBACK="${libdir}/X11/bindings"
+-AC_SUBST(XMBINDDIR_FALLBACK)
++AC_SUBST([XMBINDDIR_FALLBACK])
+ 
+ RM="rm -f"
+-AC_SUBST(RM)
++AC_SUBST([RM])
+ 
+-AC_ARG_ENABLE(motif22-compatibility, [  --disable-motif22-compatibility
++AC_ARG_ENABLE([motif22-compatibility], [  --disable-motif22-compatibility
+                        Disable binary compatibility with OpenMotif 2.2])
+-AC_ARG_ENABLE(utf8, [  --disable-utf8
++AC_ARG_ENABLE([utf8], [  --disable-utf8
+                        Disable UTF-8 support])
+ 
+ case "$host_os" in
+@@ -225,8 +225,8 @@
+   OM22_COMPATIBILITY_FALSE=
+   OM22_COMPATIBILITY_TRUE=!
+ fi
+-AC_SUBST(OM22_COMPATIBILITY_FALSE)
+-AC_SUBST(OM22_COMPATIBILITY_TRUE)
++AC_SUBST([OM22_COMPATIBILITY_FALSE])
++AC_SUBST([OM22_COMPATIBILITY_TRUE])
+ 
+ if test x$enable_utf8 = x
+ then
+@@ -237,10 +237,10 @@
+ then
+   AC_DEFINE([UTF8_SUPPORTED], [1], [UTF8 is supported])
+   AC_SEARCH_LIBS([iconv_open], [iconv], ,
+-    AC_SEARCH_LIBS([libiconv_open], [iconv]))
++    [AC_SEARCH_LIBS([libiconv_open], [iconv])])
+ fi
+ 
+-AC_ARG_ENABLE(printing, [  --disable-printing
++AC_ARG_ENABLE([printing], [  --disable-printing
+                        Disable printing support])
+ 
+ if test x$enable_printing = x
+@@ -251,9 +251,9 @@
+ if test "$enable_printing" = "yes"
+ then
+   AC_MSG_CHECKING([for libXp])
+-  AC_CHECK_HEADERS(X11/extensions/Print.h,
+-    AC_CHECK_LIB(Xp, XpCreateContext, ,enable_printing="no"),
+-  enable_printing="no")
++  AC_CHECK_HEADERS([X11/extensions/Print.h],
++    [AC_CHECK_LIB([Xp], [XpCreateContext], ,[enable_printing="no"])],
++  [enable_printing="no"])
+ fi
+ 
+ if test "$enable_printing" = "yes"
+@@ -267,11 +267,11 @@
+   PRINTING_SUPPORTED_FALSE=
+   PRINTING_SUPPORTED_TRUE=!
+ fi
+-AC_SUBST(PRINTING_SUPPORTED_FALSE)
+-AC_SUBST(PRINTING_SUPPORTED_TRUE)
++AC_SUBST([PRINTING_SUPPORTED_FALSE])
++AC_SUBST([PRINTING_SUPPORTED_TRUE])
+ 
+-AM_CONDITIONAL(PRINTING, test "$enable_printing" = "yes")
+-AC_SUBST(LIB_XP)
++AM_CONDITIONAL([PRINTING], [test "$enable_printing" = "yes"])
++AC_SUBST([LIB_XP])
+ 
+ AC_FIND_XFT
+ AC_IMAGE_SUPPORT

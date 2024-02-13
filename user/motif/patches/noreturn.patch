@@ -1,0 +1,12 @@
+diff -ur motif-2.3.8.orig/clients/mwm/WmError.h motif-2.3.8.new/clients/mwm/WmError.h
+--- motif-2.3.8.orig/clients/mwm/WmError.h	2024-02-12 15:38:57.794580532 +0100
++++ motif-2.3.8.new/clients/mwm/WmError.h	2024-02-13 07:03:35.404438925 +0100
+@@ -32,7 +32,7 @@
+ extern void WmInitErrorHandler (Display *display);
+ extern int WmXErrorHandler (Display *display, XErrorEvent *errorEvent);
+ extern int WmXIOErrorHandler (Display *display);
+-extern void WmXtErrorHandler (char *message);
++__attribute__((noreturn)) extern void WmXtErrorHandler (char *message);
+ extern void WmXtWarningHandler (char *message);
+ extern void Warning (char *message);
+ #ifndef NO_MESSAGE_CATALOG

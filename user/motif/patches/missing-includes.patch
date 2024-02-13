@@ -1,0 +1,119 @@
+--- motif-2.3.8.orig/lib/Xm/XpmCrBufFrI.c	2024-02-12 15:38:57.761580459 +0100
++++ motif-2.3.8.new/lib/Xm/XpmCrBufFrI.c	2024-02-12 15:39:46.476688455 +0100
+@@ -36,6 +36,8 @@
+ *  Developed by Arnaud Le Hors                                                *
+ \*****************************************************************************/
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+diff -ur motif-2.3.8.orig/lib/Xm/XpmCrDatFrI.c motif-2.3.8.new/lib/Xm/XpmCrDatFrI.c
+--- motif-2.3.8.orig/lib/Xm/XpmCrDatFrI.c	2024-02-12 15:38:57.746580426 +0100
++++ motif-2.3.8.new/lib/Xm/XpmCrDatFrI.c	2024-02-12 15:43:01.075119095 +0100
+@@ -33,6 +33,8 @@
+ *  Developed by Arnaud Le Hors                                                *
+ \*****************************************************************************/
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+diff -ur motif-2.3.8.orig/lib/Xm/Xpmcreate.c motif-2.3.8.new/lib/Xm/Xpmcreate.c
+--- motif-2.3.8.orig/lib/Xm/Xpmcreate.c	2024-02-12 15:38:57.759580454 +0100
++++ motif-2.3.8.new/lib/Xm/Xpmcreate.c	2024-02-12 15:49:44.168010489 +0100
+@@ -39,6 +39,8 @@
+  * HeDu (hedu@cul-ipn.uni-kiel.de) 4/94
+  */
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+diff -ur motif-2.3.8.orig/lib/Xm/Xpmdata.c motif-2.3.8.new/lib/Xm/Xpmdata.c
+--- motif-2.3.8.orig/lib/Xm/Xpmdata.c	2024-02-12 15:38:57.757580450 +0100
++++ motif-2.3.8.new/lib/Xm/Xpmdata.c	2024-02-12 15:58:16.207142855 +0100
+@@ -33,6 +33,8 @@
+ *  Developed by Arnaud Le Hors                                                *
+ \*****************************************************************************/
+ 
++#include <string.h>
++
+ /* October 2004, source code review by Thomas Biege <thomas@suse.de> */
+ 
+ /* Official version number */
+diff -ur motif-2.3.8.orig/lib/Xm/Xpmhashtab.c motif-2.3.8.new/lib/Xm/Xpmhashtab.c
+--- motif-2.3.8.orig/lib/Xm/Xpmhashtab.c	2024-02-12 15:38:57.749580432 +0100
++++ motif-2.3.8.new/lib/Xm/Xpmhashtab.c	2024-02-12 15:56:22.926892341 +0100
+@@ -34,6 +34,8 @@
+ *                                                                             *
+ \*****************************************************************************/
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+diff -ur motif-2.3.8.orig/lib/Xm/XpmRdFToI.c motif-2.3.8.new/lib/Xm/XpmRdFToI.c
+--- motif-2.3.8.orig/lib/Xm/XpmRdFToI.c	2024-02-12 15:38:57.755580446 +0100
++++ motif-2.3.8.new/lib/Xm/XpmRdFToI.c	2024-02-12 15:53:20.765489496 +0100
+@@ -33,6 +33,8 @@
+ *  Developed by Arnaud Le Hors                                                *
+ \*****************************************************************************/
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+diff -ur motif-2.3.8.orig/lib/Xm/Xpmrgb.c motif-2.3.8.new/lib/Xm/Xpmrgb.c
+--- motif-2.3.8.orig/lib/Xm/Xpmrgb.c	2024-02-12 15:38:57.747580428 +0100
++++ motif-2.3.8.new/lib/Xm/Xpmrgb.c	2024-02-12 15:44:52.472365425 +0100
+@@ -43,6 +43,8 @@
+  * W. Snitily but has been modified for my special need
+  */
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+diff -ur motif-2.3.8.orig/lib/Xm/Xpmscan.c motif-2.3.8.new/lib/Xm/Xpmscan.c
+--- motif-2.3.8.orig/lib/Xm/Xpmscan.c	2024-02-12 15:38:57.759580454 +0100
++++ motif-2.3.8.new/lib/Xm/Xpmscan.c	2024-02-12 15:51:22.775228560 +0100
+@@ -38,6 +38,8 @@
+  * HeDu (hedu@cul-ipn.uni-kiel.de) 4/94
+  */
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+diff -ur motif-2.3.8.orig/lib/Xm/XpmWrFFrBuf.c motif-2.3.8.new/lib/Xm/XpmWrFFrBuf.c
+--- motif-2.3.8.orig/lib/Xm/XpmWrFFrBuf.c	2024-02-12 15:38:57.762580461 +0100
++++ motif-2.3.8.new/lib/Xm/XpmWrFFrBuf.c	2024-02-12 15:55:03.309716269 +0100
+@@ -33,6 +33,8 @@
+ *  Developed by Arnaud Le Hors                                                *
+ \*****************************************************************************/
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
+diff -ur motif-2.3.8.orig/lib/Xm/XpmWrFFrI.c motif-2.3.8.new/lib/Xm/XpmWrFFrI.c
+--- motif-2.3.8.orig/lib/Xm/XpmWrFFrI.c	2024-02-12 15:38:57.755580446 +0100
++++ motif-2.3.8.new/lib/Xm/XpmWrFFrI.c	2024-02-12 15:46:57.505641933 +0100
+@@ -33,6 +33,8 @@
+ *  Developed by Arnaud Le Hors                                                *
+ \*****************************************************************************/
+ 
++#include <string.h>
++
+ #ifdef HAVE_CONFIG_H
+ #include <config.h>
+ #endif
