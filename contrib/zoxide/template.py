@@ -1,6 +1,6 @@
 pkgname = "zoxide"
-pkgver = "0.9.2"
-pkgrel = 1
+pkgver = "0.9.3"
+pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo"]
 makedepends = ["rust-std"]
@@ -9,7 +9,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "MIT"
 url = "https://github.com/ajeetdsouza/zoxide"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "a6c2d993a02211c3d23b242c2c6faab9a2648be7a45ad1ff0586651ac827e914"
+sha256 = "f733fabe5d25978f538a4d4cb7a2732a066adc21eeac8e8110f9aedd47f38470"
 
 
 def post_install(self):
