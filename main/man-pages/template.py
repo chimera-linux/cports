@@ -1,13 +1,13 @@
 pkgname = "man-pages"
-pkgver = "6.05.01"
-pkgrel = 2
+pkgver = "6.06"
+pkgrel = 0
 hostmakedepends = ["gmake", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://man7.org/linux/man-pages/index.html"
 source = f"$(KERNEL_SITE)/docs/man-pages/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b96ab6b44a688c91d1b572e52fece519e1cfd2bb4c33fe7014fc3fd1ef3f9cae"
+sha256 = "bd6f89cf26d2262567dac41d2640fc3667f240cb658079530141e372c8581928"
 options = ["!autosplit"]
 
 

@@ -1,15 +1,8 @@
-From bcb9beb11c4d0f38564a4a0566415e793b9f5db7 Mon Sep 17 00:00:00 2001
-From: q66 <q66@chimera-linux.org>
-Date: Sat, 5 Aug 2023 14:16:33 +0200
-Subject: [PATCH] bsd install(1) and sed(1) compatibility
-
----
- share/mk/install/html.mk | 2 +-
- share/mk/install/man.mk  | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/share/mk/install/html.mk b/share/mk/install/html.mk
-index 97e00ce..11dcff5 100644
+also a revert of
+https://git.kernel.org/pub/scm/docs/man-pages/man-pages.git/commit/share/mk/install/man.mk?id=30c38a8bf8ae8f4a6e71d3b8ac4abf0a40778f1e
+because bsd install does only a copy and does not allow to 'install' /dev/stdin
+via reading from it
+--
 --- a/share/mk/install/html.mk
 +++ b/share/mk/install/html.mk
 @@ -23,7 +23,7 @@ _htmlpages_rm   := $(addsuffix -rm,$(wildcard $(_htmlpages)))
@@ -21,21 +14,19 @@ index 97e00ce..11dcff5 100644
  
  
  .PHONY: install-html
-diff --git a/share/mk/install/man.mk b/share/mk/install/man.mk
-index a135788..06e6b1c 100644
 --- a/share/mk/install/man.mk
 +++ b/share/mk/install/man.mk
-@@ -119,8 +119,8 @@ $(_man8pages):      $(_man8dir)/%$(Z):      $(MANDIR)/man8/%      | $$(@D)/
+@@ -60,10 +60,10 @@
  
  $(_manpages):
  	$(info INSTALL	$@)
--	$(INSTALL_DATA) -T $< $@
--	$(SED) -i \
+-	<$< \
 +	$(INSTALL_DATA) $< $@
-+	$(SED) -i '' \
- 		-e '/^\.so /s, man1/\(.*\)\.1$$, $(notdir $(man1dir))/\1$(man1ext),' \
- 		-e '/^\.so /s, man2/\(.*\)\.2$$, $(notdir $(man2dir))/\1$(man2ext),' \
- 		-e '/^\.so /s, man2type/\(.*\)\.2type$$, $(notdir $(man2typedir))/\1$(man2typeext),' \
--- 
-2.41.0
-
+ 	$(SED) $(foreach s, $(MANSECTIONS), \
+-		-e '/^\.so /s, man$(s)/\(.*\)\.$(s)$$, $(notdir $(man$(s)dir))/\1$(man$(s)ext)$(Z),') \
+-	| $(INSTALL_DATA) -T /dev/stdin $@
++		-i '' -e '/^\.so /s, man$(s)/\(.*\)\.$(s)$$, $(notdir $(man$(s)dir))/\1$(man$(s)ext)$(Z),') \
++		$@
+ ifeq ($(LINK_PAGES),symlink)
+ 	if $(GREP) '^\.so ' <$@ >/dev/null; then \
+ 		$(GREP) '^\.so ' <$@ \
