@@ -1,10 +1,11 @@
 pkgname = "wlr-randr"
-pkgver = "0.3.1"
+pkgver = "0.4.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
     "pkgconf",
+    "wayland-progs",
 ]
 makedepends = [
     "wayland-devel",
@@ -14,7 +15,7 @@ maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://sr.ht/~emersion/wlr-randr"
 source = f"https://git.sr.ht/~emersion/wlr-randr/refs/download/v{pkgver}/wlr-randr-{pkgver}.tar.gz"
-sha256 = "37ef025da9653d327bc7bb46c34294171d64749f5e12a3d08d124a2e81b4a089"
+sha256 = "da6814105e97843d2aedc6d0639b210a571ae85b36aca69ee1ecf173e9652a7a"
 
 
 def post_install(self):
