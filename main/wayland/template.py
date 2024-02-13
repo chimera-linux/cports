@@ -1,6 +1,6 @@
 pkgname = "wayland"
 pkgver = "1.22.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddocumentation=false"]
 hostmakedepends = ["meson", "pkgconf", "flex"]
@@ -31,6 +31,7 @@ def _progs(self):
         extra=[
             "usr/share/aclocal/wayland-scanner.m4",
             "usr/share/wayland/wayland-scanner.mk",
+            "usr/lib/pkgconfig/wayland-scanner.pc",
         ]
     )
 
