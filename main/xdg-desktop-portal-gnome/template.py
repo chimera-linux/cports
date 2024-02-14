@@ -10,7 +10,7 @@ makedepends = [
     "gsettings-desktop-schemas-devel",
     "gnome-desktop-devel",
 ]
-depends = ["xdg-desktop-portal-gtk", "dbus"]
+depends = ["xdg-desktop-portal-gtk"]
 pkgdesc = "Backend implementation for xdg-desktop-portal for GNOME"
 maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"

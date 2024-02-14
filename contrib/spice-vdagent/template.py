@@ -15,7 +15,6 @@ makedepends = [
     "spice-protocol",
 ]
 checkdepends = ["procps"]
-depends = ["dbus"]
 pkgdesc = "SPICE VDAgent for Linux guests"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-3.0-or-later"

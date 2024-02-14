@@ -76,7 +76,6 @@ makedepends = [
     "mobile-broadband-provider-info",
 ]
 depends = [
-    "dbus",
     "wpa_supplicant",
     "resolvconf",
     "iproute2",
