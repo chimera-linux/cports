@@ -1,23 +1,23 @@
 pkgname = "libnvme"
-pkgver = "1.7.1"
-pkgrel = 1
+pkgver = "1.8"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
-hostmakedepends = ["meson", "pkgconf", "bash", "swig"]
+hostmakedepends = ["meson", "pkgconf", "bash", "gtar", "swig"]
 makedepends = [
-    "json-c-devel",
-    "openssl-devel",
     "dbus-devel",
-    "python-devel",
+    "json-c-devel",
     "keyutils-devel",
     "linux-headers",
+    "openssl-devel",
+    "python-devel",
 ]
 pkgdesc = "C library for NVMe on Linux"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/linux-nvme/libnvme"
 source = f"{url}/archive/v{pkgver}/{pkgname}-v{pkgver}.tar.gz"
-sha256 = "e9c3ad59c068788faf0f0af4296f92f8ce410d12749f0f35a541d6a21e630393"
+sha256 = "d59939a280eec41eb7a716e1681d0d0c612099385204ffb55d07134a6be08d75"
 options = ["linkundefver"]
 
 
