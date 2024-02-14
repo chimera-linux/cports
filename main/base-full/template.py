@@ -1,6 +1,6 @@
 pkgname = "base-full"
 pkgver = "0.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "meta"
 depends = ["base-core"]
 pkgdesc = "Chimera base package for bare metal and virtual machines"
@@ -25,13 +25,23 @@ def _fw(self):
     return []
 
 
+@subpackage("base-full-locale")
+def _locale(self):
+    self.pkgdesc = f"{pkgdesc} (locale)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.depends = [
+        f"{pkgname}={pkgver}-r{pkgrel}",
+        "base-locale",
+    ]
+    return []
+
+
 @subpackage("base-full-misc")
 def _misc(self):
     self.pkgdesc = f"{pkgdesc} (miscellaneous)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         f"{pkgname}={pkgver}-r{pkgrel}",
-        "base-locale",
         "chimera-artwork",
         "chrony",
         "nano",
