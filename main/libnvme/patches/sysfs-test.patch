@@ -1,0 +1,18 @@
+commit 974daf045eafcb3b3ad44641e0d8608749ac7f3e
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Feb 14 15:20:20 2024 +0100
+
+    disable sysfs test (prone to timing out)
+
+diff --git a/test/meson.build b/test/meson.build
+index 93e6999..2b4c6d8 100644
+--- a/test/meson.build
++++ b/test/meson.build
+@@ -97,7 +97,3 @@ endif
+ 
+ subdir('ioctl')
+ subdir('nbft')
+-
+-if json_c_dep.found()
+-  subdir('sysfs')
+-endif

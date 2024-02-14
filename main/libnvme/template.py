@@ -3,7 +3,7 @@ pkgver = "1.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false"]
-hostmakedepends = ["meson", "pkgconf", "bash", "gtar", "swig"]
+hostmakedepends = ["meson", "pkgconf", "bash", "swig"]
 makedepends = [
     "dbus-devel",
     "json-c-devel",
