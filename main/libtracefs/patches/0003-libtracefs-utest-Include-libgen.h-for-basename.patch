@@ -1,0 +1,33 @@
+From 04505a07824592f039eac66fe565994635eb5d5d Mon Sep 17 00:00:00 2001
+From: Miko Larsson <mikoxyzzz@gmail.com>
+Date: Thu, 22 Feb 2024 11:12:46 +0100
+Subject: [PATCH 3/3] libtracefs utest: Include libgen.h for basename()
+
+This fixes the build with musl + clang >=15; musl doesn't declare
+basename() anywhere else, and clang >=15 doesn't allow implicit
+declarations.
+
+Link: https://lore.kernel.org/linux-trace-devel/20240222-utest-fixes-v2-3-ba9cd06b41d3@gmail.com
+
+Fixes: 845f16976929 ("libtracefs: Add unit tests")
+Signed-off-by: Miko Larsson <mikoxyzzz@gmail.com>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+---
+ utest/trace-utest.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/utest/trace-utest.c b/utest/trace-utest.c
+index 58d4d4e..39485a1 100644
+--- a/utest/trace-utest.c
++++ b/utest/trace-utest.c
+@@ -3,6 +3,7 @@
+  * Copyright (C) 2020, VMware, Tzvetomir Stoyanov <tz.stoyanov@gmail.com>
+  *
+  */
++#include <libgen.h>
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <getopt.h>
+-- 
+2.43.2
+

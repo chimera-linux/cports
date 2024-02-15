@@ -1,0 +1,34 @@
+From 7b4a9c9c9b962929323f9d97e00fb5e51bb205b9 Mon Sep 17 00:00:00 2001
+From: Miko Larsson <mikoxyzzz@gmail.com>
+Date: Thu, 22 Feb 2024 11:12:45 +0100
+Subject: [PATCH 2/3] libtracefs utest: Define _LARGEFILE64_SOURCE for
+ lseek64() with musl
+
+This fixes the build with musl + clang >=15; musl doesn't declare
+lseek64() otherwise, and clang >=15 doesn't allow implicit declarations.
+
+Link: https://lore.kernel.org/linux-trace-devel/20240222-utest-fixes-v2-2-ba9cd06b41d3@gmail.com
+
+Fixes: 0f45e68cb04a ("libtracefs: Add unit tests for tracefs_cpu functions")
+Signed-off-by: Miko Larsson <mikoxyzzz@gmail.com>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+---
+ utest/tracefs-utest.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/utest/tracefs-utest.c b/utest/tracefs-utest.c
+index 07ecd32..737e54a 100644
+--- a/utest/tracefs-utest.c
++++ b/utest/tracefs-utest.c
+@@ -3,6 +3,8 @@
+  * Copyright (C) 2020, VMware, Tzvetomir Stoyanov <tz.stoyanov@gmail.com>
+  *
+  */
++#define _LARGEFILE64_SOURCE
++
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <sys/stat.h>
+-- 
+2.43.2
+
