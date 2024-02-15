@@ -14,7 +14,7 @@ hostmakedepends = [
     "pkgconf",
     "xmlto",
 ]
-makedepends = ["linux-headers"]
+makedepends = ["cunit-devel", "linux-headers"]
 pkgdesc = "Linux kernel trace event library"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-only AND GPL-2.0-only"
@@ -23,8 +23,6 @@ source = f"{url}/snapshot/libtraceevent-{pkgver}.tar.gz"
 sha256 = "919f0c024c7b5059eace52d854d4df00ae7e361a4033e1b4d6fe01d97064a1b9"
 # vis breaks symbols
 hardening = ["!vis"]
-# TODO: needs cunit
-options = ["!check"]
 
 
 @subpackage("libtraceevent-devel")
