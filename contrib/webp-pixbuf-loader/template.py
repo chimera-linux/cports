@@ -1,5 +1,5 @@
 pkgname = "webp-pixbuf-loader"
-pkgver = "0.2.6"
+pkgver = "0.2.7"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,4 +9,4 @@ maintainer = "GeopJr <evan@geopjr.dev>"
 license = "LGPL-2.0-or-later"
 url = "https://github.com/aruiz/webp-pixbuf-loader"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "8d6db7f8a95df7649dccb9cfff1b922793427c0d59bc4d07723e3ba4c9e9832d"
+sha256 = "61ce5e8e036043f9d0e78c1596a621788e879c52aedf72ab5e78a8c44849411a"
