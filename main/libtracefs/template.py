@@ -17,6 +17,7 @@ hostmakedepends = [
     "xmlto",
 ]
 makedepends = [
+    "cunit-devel",
     "libtraceevent-devel",
     "linux-headers",
 ]
@@ -28,8 +29,6 @@ source = f"https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/snapshot/
 sha256 = "f92475d5c4cb509983697fb359ee615bef4f08ed8bdc9c690f6118ba68886de0"
 # vis breaks symbols
 hardening = ["!vis"]
-# TODO: needs cunit
-options = ["!check"]
 
 
 @subpackage("libtracefs-devel")
