@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 pkgname = "qt6-qtbase"
-pkgver = "6.6.1"
-pkgrel = 2
+pkgver = "6.6.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_DATADIR=share/qt6",
@@ -69,7 +69,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "450c5b4677b2fe40ed07954d7f0f40690068e80a94c9df86c2c905ccd59d02f7"
+sha256 = "b89b426b9852a17d3e96230ab0871346574d635c7914480a2a27f98ff942677b"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
@@ -145,6 +145,8 @@ def init_check(self):
         "tst_qopenglwidget",  # execution failed with exit code Segmentation fault.
         "tst_qcomplextext",  # tst_QComplexText::bidiCursorMovement(data46) 'newX <= x' returned FALSE
         "tst_qsharedmemory",  # tst_QSharedMemory::simpleThreadedProducerConsumer(POSIX:5 consumers, producer is this) 'p.producer.isAttached()' returned FALSE
+        "test_qt_extract_metatypes",  # fails to find qt6config.cmake in the test
+        "test_qt_add_resources_rebuild",  # ditto
     ]
     self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
     self.make_check_env["QT_QPA_PLATFORM"] = "offscreen"
