@@ -1,6 +1,6 @@
 pkgname = "obs-studio"
 pkgver = "30.0.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
@@ -9,8 +9,9 @@ configure_args = [
     "-DENABLE_AJA=OFF",
     "-DENABLE_WEBRTC=ON",
     "-DENABLE_JACK=ON",
-    # XXX: python+lua scripting is checked at once, latter needs luajit
-    "-DENABLE_SCRIPTING=OFF",
+    "-DENABLE_SCRIPTING=ON",
+    "-DENABLE_SCRIPTING_LUA=OFF",
+    "-DENABLE_SCRIPTING_PYTHON=ON",
     "-DENABLE_VLC=OFF",
     # TODO: onevpl
     "-DENABLE_QSV11=OFF",
