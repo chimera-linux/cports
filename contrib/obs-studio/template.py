@@ -7,8 +7,7 @@ configure_args = [
     f"-DOBS_VERSION_OVERRIDE={pkgver}",
     "-DENABLE_ALSA=OFF",
     "-DENABLE_AJA=OFF",
-    # TODO: libdatachannel
-    "-DENABLE_WEBRTC=OFF",
+    "-DENABLE_WEBRTC=ON",
     "-DENABLE_JACK=ON",
     # XXX: python+lua scripting is checked at once, latter needs luajit
     "-DENABLE_SCRIPTING=OFF",
@@ -30,6 +29,7 @@ makedepends = [
     "freetype-devel",
     "jansson-devel",
     "libcurl-devel",
+    "libdatachannel-devel",
     "libpulse-devel",
     "librist-devel",
     "libva-devel",
