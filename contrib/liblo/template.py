@@ -1,5 +1,5 @@
 pkgname = "liblo"
-pkgver = "0.31"
+pkgver = "0.32"
 pkgrel = 0
 build_style = "gnu_configure"
 make_dir = "."
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://liblo.sourceforge.net"
 source = f"$(SOURCEFORGE_SITE)/liblo/{pkgver}/liblo-{pkgver}.tar.gz"
-sha256 = "2b4f446e1220dcd624ecd8405248b08b7601e9a0d87a0b94730c2907dbccc750"
+sha256 = "5df05f2a0395fc5ac90f6b538b8c82bb21941406fd1a70a765c7336a47d70208"
 # vis breaks symbols
 hardening = []
 # fails in chroot networking
