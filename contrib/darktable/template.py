@@ -1,6 +1,6 @@
 pkgname = "darktable"
-pkgver = "4.6.0"
-pkgrel = 2
+pkgver = "4.6.1"
+pkgrel = 0
 # only supported archs
 archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_style = "cmake"
@@ -65,7 +65,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://www.darktable.org"
 source = f"https://github.com/darktable-org/darktable/releases/download/release-{pkgver}/darktable-{pkgver}.tar.xz"
-sha256 = "724b27e3204d1822de6dc53ea090a6b1ce55f7c32226d34642689775c68aacc2"
+sha256 = "16edc0a070293e2d3cda4ea10e49bda9bde932e23f9e62e2fa2e7ac74acf7afd"
 # vis breaks symbols
 hardening = []
 # no tests in release tarball
