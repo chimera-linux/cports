@@ -1,5 +1,5 @@
 pkgname = "yq"
-pkgver = "4.40.7"
+pkgver = "4.41.1"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/mikefarah/yq"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "c38024d40ee37d26caba1824965d9ea1d65468f48b2bacd45647ff4f547fa59f"
+sha256 = "25d61e72887f57510f88d1a30d515c7e2d79e7c6dce5c96aea7c069fcbc089e7"
 
 
 def do_check(self):
