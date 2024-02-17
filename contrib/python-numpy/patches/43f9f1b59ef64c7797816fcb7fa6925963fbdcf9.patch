@@ -1,0 +1,23 @@
+From 43f9f1b59ef64c7797816fcb7fa6925963fbdcf9 Mon Sep 17 00:00:00 2001
+From: "Benjamin A. Beasley" <code@musicinmybrain.net>
+Date: Wed, 17 Apr 2024 11:40:12 -0400
+Subject: [PATCH] BLD: In 1.26.x, do not upper-bound the meson-python version
+
+Allows building with the just-released meson-python 0.16.0.
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index b9a032ce2861..154385639c1a 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -2,7 +2,7 @@
+ build-backend = "mesonpy"
+ requires = [
+     "Cython>=0.29.34,<3.1",
+-    "meson-python>=0.15.0,<0.16.0",
++    "meson-python>=0.15.0",
+ ]
+ 
+ [project]
