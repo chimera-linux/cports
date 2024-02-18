@@ -3,20 +3,12 @@ which was broken due to usually google bullshittery
 
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -256,16 +256,6 @@ else()
-     )
+@@ -288,7 +288,7 @@
+     endif()
    endif()  # HWY_CMAKE_ARM7
  
 -  if(HWY_RISCV)
--    # gcc(13) and recent clang both support V, but not yet runtime dispatch, so
--    # we add the gcv compiler flag, which then requires the CPU (now when using
--    # either compiler) to support V.
--    list(APPEND HWY_FLAGS -march=rv64gcv1p0)
--    if(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
--      list(APPEND HWY_FLAGS -menable-experimental-extensions)
--    endif()
--  endif()
--
-   if (HWY_WARNINGS_ARE_ERRORS)
-     list(APPEND HWY_FLAGS -Werror)
-   endif()
++  if(0)
+     # gcc(13) and recent clang both support V, but not yet runtime dispatch, so
+     # we add the gcv compiler flag, which then requires the CPU (now when using
+     # either compiler) to support V.
