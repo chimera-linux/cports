@@ -43,8 +43,6 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "432d7c3b5170c595b1b31a8d64d73ded26e32af9f03a2d1a01828c22a8ade3fa"
 # generates errors with llvm 16
 tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
-# FIXME: cfi breaks tests
-hardening = ["!cfi", "vis"]
 
 
 def do_check(self):
