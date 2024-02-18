@@ -10,6 +10,7 @@ license = "MIT"
 url = "https://github.com/mikefarah/yq"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "25d61e72887f57510f88d1a30d515c7e2d79e7c6dce5c96aea7c069fcbc089e7"
+options = ["!cross"]
 
 
 def do_check(self):

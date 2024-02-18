@@ -26,6 +26,7 @@ source = (
     f"https://github.com/starship/starship/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "2b2fc84feb0197104982e8baf17952449375917da66b7a98b3e3fd0be63e5dba"
+options = ["!cross"]
 
 
 def post_install(self):
