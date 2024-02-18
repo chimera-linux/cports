@@ -2,7 +2,7 @@
 # also update linux-*-zfs-bin
 pkgname = "zfs"
 pkgver = "2.2.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--with-config=user",
@@ -31,9 +31,20 @@ pkgdesc = "OpenZFS for Linux"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "CDDL-1.0"
 url = "https://openzfs.github.io/openzfs-docs"
-source = f"https://github.com/openzfs/{pkgname}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "76bc0547d9ba31d4b0142e417aaaf9f969072c3cb3c1a5b10c8738f39ed12fc9"
+source = [
+    f"https://github.com/openzfs/zfs/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz",
+    # not shipped in tarballs? why
+    f"!https://raw.githubusercontent.com/openzfs/zfs/zfs-{pkgver}/contrib/debian/tree/zfs-initramfs/usr/share/initramfs-tools/hooks/zdev>zdev-{pkgver}",
+]
+sha256 = [
+    "76bc0547d9ba31d4b0142e417aaaf9f969072c3cb3c1a5b10c8738f39ed12fc9",
+    "c541dfec33ba7dfec3fb85a4532fc9c7a72035316716e93074b2cfa030ca2d12",
+]
 hardening = ["!cfi"]  # TODO
+
+
+def post_extract(self):
+    self.cp(self.sources_path / f"zdev-{pkgver}", ".")
 
 
 def post_patch(self):
@@ -59,6 +70,14 @@ def post_install(self):
     self.rm(self.destdir / "etc/init.d", recursive=True)
     self.rm(self.destdir / "usr/share/pam-configs/zfs_key")
     self.rm(self.destdir / "usr/share/man/man8/zfs-mount-generator.8")
+
+    # install the zdev hook for udev rules (also handles enc keys)
+    self.install_file(
+        f"zdev-{pkgver}",
+        "usr/share/initramfs-tools/hooks",
+        name="zdev",
+        mode=0o755,
+    )
 
     # install ckms source tree
     srcp = f"usr/src/{pkgname}-{pkgver}"
