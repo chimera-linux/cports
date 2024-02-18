@@ -1,0 +1,5 @@
+# openpgp-card-ssh-agent user service
+
+type     = process
+command  = /usr/bin/openpgp-card-ssh-agent --host unix://$XDG_RUNTIME_DIR/ocsa.sock
+log-type = buffer
