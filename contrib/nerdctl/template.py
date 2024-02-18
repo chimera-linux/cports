@@ -13,7 +13,8 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "e702e93e8831113f38edbfc7b5fcaa4352bf83c796238628bda55287b08e768d"
 # objcopy fails to split on ppc
 # can't run tests inside namespaces
-options = ["!debug", "!check"]
+# cross: generates completions with host binary
+options = ["!debug", "!check", "!cross"]
 
 
 def post_build(self):
