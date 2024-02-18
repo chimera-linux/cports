@@ -1,0 +1,158 @@
+From 7577fa1b668ea81eb9b7b9af690a4161187129dd Mon Sep 17 00:00:00 2001
+From: Maxime Coste <mawww@kakoune.org>
+Date: Fri, 3 Nov 2023 13:08:44 +1100
+Subject: [PATCH] Use explicit target types for gather calls to bypass clang
+ regression
+
+Since clang-16 there has been a regression in the P0522R0 support.
+(Bug report at https://github.com/llvm/llvm-project/issue/63281)
+
+Closes #4892
+---
+ src/command_manager.cc  |  2 +-
+ src/commands.cc         |  2 +-
+ src/highlighters.cc     |  2 +-
+ src/insert_completer.cc |  6 +++---
+ src/main.cc             | 10 +++++-----
+ src/normal.cc           |  2 +-
+ src/string_utils.cc     |  4 ++--
+ 7 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/src/command_manager.cc b/src/command_manager.cc
+index 68ea6c63ab..cfd031b25e 100644
+--- a/src/command_manager.cc
++++ b/src/command_manager.cc
+@@ -95,7 +95,7 @@ HashSet<String> CommandManager::loaded_modules() const
+ {
+     return m_modules | filter([](auto&& elem) { return elem.value.state == Module::State::Loaded; })
+                      | transform([](auto&& elem) { return elem.key; })
+-                     | gather<HashSet>();
++                     | gather<HashSet<String>>();
+ }
+ 
+ struct parse_error : runtime_error
+diff --git a/src/commands.cc b/src/commands.cc
+index 685ced82c8..94c6124162 100644
+--- a/src/commands.cc
++++ b/src/commands.cc
+@@ -2161,7 +2161,7 @@ const CommandDesc evaluate_commands_cmd = {
+             ScopedSetBool disable_hooks(context.hooks_disabled(), no_hooks);
+ 
+             if (parser.get_switch("verbatim"))
+-                CommandManager::instance().execute_single_command(parser | gather<Vector>(), context, shell_context);
++                CommandManager::instance().execute_single_command(parser | gather<Vector<String>>(), context, shell_context);
+             else
+                 CommandManager::instance().execute(join(parser, ' ', false), context, shell_context);
+         });
+diff --git a/src/highlighters.cc b/src/highlighters.cc
+index 6eedf46bce..de1dcb04f5 100644
+--- a/src/highlighters.cc
++++ b/src/highlighters.cc
+@@ -197,7 +197,7 @@ class RegexHighlighter : public Highlighter
+ 
+         const auto faces = m_faces | transform([&faces = context.context.faces()](auto&& spec) {
+                 return faces[spec.second];
+-            }) | gather<Vector>();
++            }) | gather<Vector<Face>>();
+ 
+         const auto& matches = get_matches(context.context.buffer(), display_buffer.range(), range);
+         kak_assert(matches.size() % m_faces.size() == 0);
+diff --git a/src/insert_completer.cc b/src/insert_completer.cc
+index c18b3961d0..967131d94e 100644
+--- a/src/insert_completer.cc
++++ b/src/insert_completer.cc
+@@ -123,9 +123,9 @@ InsertCompletion complete_word(const SelectionList& sels,
+     };
+ 
+     auto& word_db = get_word_db(buffer);
+-    Vector<RankedMatchAndBuffer> matches = word_db.find_matching(prefix)
+-                                         | transform([&](auto& m) { return RankedMatchAndBuffer{m, &buffer}; })
+-                                         | gather<Vector>();
++    auto matches = word_db.find_matching(prefix)
++                 | transform([&](auto& m) { return RankedMatchAndBuffer{m, &buffer}; })
++                 | gather<Vector<RankedMatchAndBuffer>>();
+     // Remove words that are being edited
+     for (auto& word_count : sel_word_counts)
+     {
+diff --git a/src/main.cc b/src/main.cc
+index 438a3012ae..1d5b8dd7a3 100644
+--- a/src/main.cc
++++ b/src/main.cc
+@@ -226,7 +226,7 @@ static const EnvVarDesc builtin_env_vars[] = { {
+     }, {
+         "buflist", false,
+         [](StringView name, const Context& context) -> Vector<String>
+-        { return BufferManager::instance() | transform(&Buffer::display_name) | gather<Vector>(); }
++        { return BufferManager::instance() | transform(&Buffer::display_name) | gather<Vector<String>>(); }
+     }, {
+         "buf_line_count", false,
+         [](StringView name, const Context& context) -> Vector<String>
+@@ -294,7 +294,7 @@ static const EnvVarDesc builtin_env_vars[] = { {
+         [](StringView name, const Context& context) -> Vector<String>
+         { return ClientManager::instance() |
+                       transform([](const std::unique_ptr<Client>& c) -> const String&
+-                                { return c->context().name(); }) | gather<Vector>(); }
++                                { return c->context().name(); }) | gather<Vector<String>>(); }
+     }, {
+         "modified", false,
+         [](StringView name, const Context& context) -> Vector<String>
+@@ -340,21 +340,21 @@ static const EnvVarDesc builtin_env_vars[] = { {
+         { return main_sel_first(context.selections()) |
+                      transform([&buffer=context.buffer()](const Selection& sel) {
+                          return selection_to_string(ColumnType::Byte, buffer, sel);
+-                     }) | gather<Vector>(); }
++                     }) | gather<Vector<String>>(); }
+     }, {
+         "selections_char_desc", false,
+         [](StringView name, const Context& context) -> Vector<String>
+         { return main_sel_first(context.selections()) |
+                      transform([&buffer=context.buffer()](const Selection& sel) {
+                          return selection_to_string(ColumnType::Codepoint, buffer, sel);
+-                     }) | gather<Vector>(); }
++                     }) | gather<Vector<String>>(); }
+     }, {
+         "selections_display_column_desc", false,
+         [](StringView name, const Context& context) -> Vector<String>
+         { return main_sel_first(context.selections()) |
+                      transform([&buffer=context.buffer(), tabstop=context.options()["tabstop"].get<int>()](const Selection& sel) {
+                          return selection_to_string(ColumnType::DisplayColumn, buffer, sel, tabstop);
+-                     }) | gather<Vector>(); }
++                     }) | gather<Vector<String>>(); }
+     }, {
+         "selection_length", false,
+         [](StringView name, const Context& context) -> Vector<String>
+diff --git a/src/normal.cc b/src/normal.cc
+index 1ce5315871..69fc92850c 100644
+--- a/src/normal.cc
++++ b/src/normal.cc
+@@ -998,7 +998,7 @@ void use_selection_as_search_pattern(Context& context, NormalParams params)
+                       smart and is_bow(buffer, beg) ? "\\b" : "",
+                       escape(buffer.string(beg, end), "^$\\.*+?()[]{}|", '\\'),
+                       smart and is_eow(buffer, end) ? "\\b" : "");
+-    }) | gather<HashSet>();
++    }) | gather<HashSet<String>>();
+     String pattern = join(patterns, '|', false);
+ 
+     const char reg = to_lower(params.reg ? params.reg : '/');
+diff --git a/src/string_utils.cc b/src/string_utils.cc
+index 0b0de19e38..bc3689781e 100644
+--- a/src/string_utils.cc
++++ b/src/string_utils.cc
+@@ -438,7 +438,7 @@ UnitTest test_string{[]()
+     kak_assert(StringView{"youpi"}.ends_with("youpi"));
+     kak_assert(not StringView{"youpi"}.ends_with("oup"));
+ 
+-    auto wrapped = "wrap this paragraph\n respecting whitespaces and much_too_long_words" | wrap_at(16) | gather<Vector>();
++    auto wrapped = "wrap this paragraph\n respecting whitespaces and much_too_long_words" | wrap_at(16) | gather<Vector<String>>();
+     kak_assert(wrapped.size() == 6);
+     kak_assert(wrapped[0] == "wrap this");
+     kak_assert(wrapped[1] == "paragraph");
+@@ -447,7 +447,7 @@ UnitTest test_string{[]()
+     kak_assert(wrapped[4] == "much_too_long_wo");
+     kak_assert(wrapped[5] == "rds");
+ 
+-    auto wrapped2 = "error: unknown type" | wrap_at(7) | gather<Vector>();
++    auto wrapped2 = "error: unknown type" | wrap_at(7) | gather<Vector<String>>();
+     kak_assert(wrapped2.size() == 3);
+     kak_assert(wrapped2[0] == "error:");
+     kak_assert(wrapped2[1] == "unknown");
