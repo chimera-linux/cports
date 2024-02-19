@@ -14,19 +14,16 @@ as macro and everything messes up
  utils/cec-follower/cec-tuner.cpp             |  2 ++
  utils/common/v4l2-tpg-core.c                 |  2 ++
  utils/libcecutil/cec-log.cpp                 |  2 ++
- utils/qv4l2/v4l2-tpg-core.c                  |  2 ++
- utils/qvidcap/v4l2-tpg-core.c                |  2 ++
  utils/v4l2-compliance/v4l2-test-colors.cpp   |  2 ++
  utils/v4l2-compliance/v4l2-test-controls.cpp |  2 ++
  utils/v4l2-compliance/v4l2-test-formats.cpp  |  2 ++
  utils/v4l2-ctl/v4l2-ctl-edid.cpp             |  2 ++
  utils/v4l2-ctl/v4l2-ctl-streaming.cpp        |  2 ++
  utils/v4l2-ctl/v4l2-ctl-vbi.cpp              |  2 ++
- utils/v4l2-ctl/v4l2-tpg-core.c               |  2 ++
- 17 files changed, 32 insertions(+), 17 deletions(-)
+ 14 files changed, 26 insertions(+), 17 deletions(-)
 
 diff --git a/include/compiler.h b/include/compiler.h
-index 5ad54f4..e69de29 100644
+index 5ad54f41..e69de29b 100644
 --- a/include/compiler.h
 +++ b/include/compiler.h
 @@ -1,17 +0,0 @@
@@ -48,7 +45,7 @@ index 5ad54f4..e69de29 100644
 -#endif // __cplusplus
 -#endif // _LIBCPP_VERSION
 diff --git a/utils/cec-compliance/cec-test-audio.cpp b/utils/cec-compliance/cec-test-audio.cpp
-index 611f600..7d9d042 100644
+index 611f600f..7d9d0429 100644
 --- a/utils/cec-compliance/cec-test-audio.cpp
 +++ b/utils/cec-compliance/cec-test-audio.cpp
 @@ -13,6 +13,8 @@
@@ -61,10 +58,10 @@ index 611f600..7d9d042 100644
  {
  	switch (format_code) {
 diff --git a/utils/cec-ctl/cec-ctl.cpp b/utils/cec-ctl/cec-ctl.cpp
-index 4bed81a..0cd1f02 100644
+index 400e013c..9efe1aa6 100644
 --- a/utils/cec-ctl/cec-ctl.cpp
 +++ b/utils/cec-ctl/cec-ctl.cpp
-@@ -34,6 +34,8 @@
+@@ -28,6 +28,8 @@
  #include "cec-ctl.h"
  #include "compiler.h"
  
@@ -72,9 +69,9 @@ index 4bed81a..0cd1f02 100644
 +
  static struct timespec start_monotonic;
  static struct timeval start_timeofday;
- static bool ignore_la[16];
+ static time_t valid_until_t;
 diff --git a/utils/cec-follower/cec-follower.cpp b/utils/cec-follower/cec-follower.cpp
-index 0adf6ce..30e6386 100644
+index a7481aea..ab72c44a 100644
 --- a/utils/cec-follower/cec-follower.cpp
 +++ b/utils/cec-follower/cec-follower.cpp
 @@ -14,6 +14,8 @@
@@ -87,7 +84,7 @@ index 0adf6ce..30e6386 100644
  
     Please keep in alphabetical order.
 diff --git a/utils/cec-follower/cec-processing.cpp b/utils/cec-follower/cec-processing.cpp
-index 661cbf4..a51b621 100644
+index 14ee211b..af838d06 100644
 --- a/utils/cec-follower/cec-processing.cpp
 +++ b/utils/cec-follower/cec-processing.cpp
 @@ -13,6 +13,8 @@
@@ -100,7 +97,7 @@ index 661cbf4..a51b621 100644
  #define VOLUME_MIN 0
  
 diff --git a/utils/cec-follower/cec-tuner.cpp b/utils/cec-follower/cec-tuner.cpp
-index a2cb6ca..ae7fd6e 100644
+index a2cb6cab..ae7fd6e0 100644
 --- a/utils/cec-follower/cec-tuner.cpp
 +++ b/utils/cec-follower/cec-tuner.cpp
 @@ -11,6 +11,8 @@
@@ -113,7 +110,7 @@ index a2cb6ca..ae7fd6e 100644
  #define NUM_DIGITAL_CHANS 3
  #define TOT_ANALOG_FREQS analog_freqs_khz[0][0].size()
 diff --git a/utils/common/v4l2-tpg-core.c b/utils/common/v4l2-tpg-core.c
-index f0090ed..ad43426 100644
+index b4075bcb..dc1faa13 100644
 --- a/utils/common/v4l2-tpg-core.c
 +++ b/utils/common/v4l2-tpg-core.c
 @@ -11,6 +11,8 @@
@@ -126,7 +123,7 @@ index f0090ed..ad43426 100644
  const char * const tpg_pattern_strings[] = {
  	"75% Colorbar",
 diff --git a/utils/libcecutil/cec-log.cpp b/utils/libcecutil/cec-log.cpp
-index 0ee63de..3b176e2 100644
+index 0ee63de6..3b176e28 100644
 --- a/utils/libcecutil/cec-log.cpp
 +++ b/utils/libcecutil/cec-log.cpp
 @@ -14,6 +14,8 @@
@@ -138,34 +135,8 @@ index 0ee63de..3b176e2 100644
  static const struct cec_arg arg_u8 = {
  	CEC_ARG_TYPE_U8,
  };
-diff --git a/utils/qv4l2/v4l2-tpg-core.c b/utils/qv4l2/v4l2-tpg-core.c
-index f0090ed..ad43426 100644
---- a/utils/qv4l2/v4l2-tpg-core.c
-+++ b/utils/qv4l2/v4l2-tpg-core.c
-@@ -11,6 +11,8 @@
- #include "compiler.h"
- #include "v4l2-tpg-colors.h"
- 
-+#define fallthrough [[clang::fallthrough]]
-+
- /* Must remain in sync with enum tpg_pattern */
- const char * const tpg_pattern_strings[] = {
- 	"75% Colorbar",
-diff --git a/utils/qvidcap/v4l2-tpg-core.c b/utils/qvidcap/v4l2-tpg-core.c
-index f0090ed..ad43426 100644
---- a/utils/qvidcap/v4l2-tpg-core.c
-+++ b/utils/qvidcap/v4l2-tpg-core.c
-@@ -11,6 +11,8 @@
- #include "compiler.h"
- #include "v4l2-tpg-colors.h"
- 
-+#define fallthrough [[clang::fallthrough]]
-+
- /* Must remain in sync with enum tpg_pattern */
- const char * const tpg_pattern_strings[] = {
- 	"75% Colorbar",
 diff --git a/utils/v4l2-compliance/v4l2-test-colors.cpp b/utils/v4l2-compliance/v4l2-test-colors.cpp
-index 887b2fd..42ddb9a 100644
+index 87bf0cd7..5154910f 100644
 --- a/utils/v4l2-compliance/v4l2-test-colors.cpp
 +++ b/utils/v4l2-compliance/v4l2-test-colors.cpp
 @@ -23,6 +23,8 @@
@@ -178,7 +149,7 @@ index 887b2fd..42ddb9a 100644
  {
  	if (fmt.g_num_planes() > 1)
 diff --git a/utils/v4l2-compliance/v4l2-test-controls.cpp b/utils/v4l2-compliance/v4l2-test-controls.cpp
-index 22e8dec..e456cc3 100644
+index d7f6be43..46980438 100644
 --- a/utils/v4l2-compliance/v4l2-test-controls.cpp
 +++ b/utils/v4l2-compliance/v4l2-test-controls.cpp
 @@ -29,6 +29,8 @@
@@ -191,7 +162,7 @@ index 22e8dec..e456cc3 100644
  {
  	struct v4l2_querymenu qmenu;
 diff --git a/utils/v4l2-compliance/v4l2-test-formats.cpp b/utils/v4l2-compliance/v4l2-test-formats.cpp
-index 3761b1f..de04136 100644
+index 8a16613c..91f95c25 100644
 --- a/utils/v4l2-compliance/v4l2-test-formats.cpp
 +++ b/utils/v4l2-compliance/v4l2-test-formats.cpp
 @@ -27,6 +27,8 @@
@@ -204,7 +175,7 @@ index 3761b1f..de04136 100644
  	0,
  	V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_VIDEO_M2M,
 diff --git a/utils/v4l2-ctl/v4l2-ctl-edid.cpp b/utils/v4l2-ctl/v4l2-ctl-edid.cpp
-index c3a4a28..e7a5406 100644
+index c9f827dc..873f2f15 100644
 --- a/utils/v4l2-ctl/v4l2-ctl-edid.cpp
 +++ b/utils/v4l2-ctl/v4l2-ctl-edid.cpp
 @@ -6,6 +6,8 @@
@@ -217,7 +188,7 @@ index c3a4a28..e7a5406 100644
   * The 24-bit IEEE Registration Identifier for the HDMI-LLC Vendor
   * Specific Data Block.
 diff --git a/utils/v4l2-ctl/v4l2-ctl-streaming.cpp b/utils/v4l2-ctl/v4l2-ctl-streaming.cpp
-index 7e24e0e..732412c 100644
+index 63522e87..e8f75424 100644
 --- a/utils/v4l2-ctl/v4l2-ctl-streaming.cpp
 +++ b/utils/v4l2-ctl/v4l2-ctl-streaming.cpp
 @@ -14,6 +14,8 @@ extern "C" {
@@ -230,7 +201,7 @@ index 7e24e0e..732412c 100644
  static unsigned stream_skip;
  static __u32 memory = V4L2_MEMORY_MMAP;
 diff --git a/utils/v4l2-ctl/v4l2-ctl-vbi.cpp b/utils/v4l2-ctl/v4l2-ctl-vbi.cpp
-index dc7b428..4a49d52 100644
+index dc7b4282..4a49d520 100644
 --- a/utils/v4l2-ctl/v4l2-ctl-vbi.cpp
 +++ b/utils/v4l2-ctl/v4l2-ctl-vbi.cpp
 @@ -3,6 +3,8 @@
@@ -242,19 +213,6 @@ index dc7b428..4a49d52 100644
  static struct v4l2_format sliced_fmt;	  /* set_format/get_format for sliced VBI */
  static struct v4l2_format sliced_fmt_out; /* set_format/get_format for sliced VBI output */
  static struct v4l2_format raw_fmt;	  /* set_format/get_format for VBI */
-diff --git a/utils/v4l2-ctl/v4l2-tpg-core.c b/utils/v4l2-ctl/v4l2-tpg-core.c
-index f0090ed..800032a 100644
---- a/utils/v4l2-ctl/v4l2-tpg-core.c
-+++ b/utils/v4l2-ctl/v4l2-tpg-core.c
-@@ -11,6 +11,8 @@
- #include "compiler.h"
- #include "v4l2-tpg-colors.h"
- 
-+#define fallthrough ((void)0)
-+
- /* Must remain in sync with enum tpg_pattern */
- const char * const tpg_pattern_strings[] = {
- 	"75% Colorbar",
 -- 
-2.34.1
+2.43.2
 
