@@ -24,6 +24,7 @@ Prepare options and their default values:
     ARCH=                The architecture to build for.
     CC=clang             The target compiler to use.
     CFLAGS=              The target CFLAGS to use.
+    COMP=zstd            The compression to use (none, gzip, zstd).
     CROSS_COMPILE=       The cross triplet to use.
     CONFIG_FILE=         The config file to copy if not present.
     HOSTCC=clang         The host compiler to use.
@@ -69,6 +70,7 @@ shift
 ARCH=$(uname -m)
 CC=clang
 CFLAGS=
+COMP=zstd
 CROSS_COMPILE=
 CONFIG_FILE=
 HOSTCC=clang
@@ -140,11 +142,7 @@ read_prepared() {
 
 call_make() {
     local cmdline
-    local cc
-    local hostcc
 
-    cc="${CC} -fuse-ld=${LD}"
-    hostcc="${HOSTCC} -fuse-ld=${LD}"
     objdump="$OBJDUMP"
     if [ "$objdump" != "llvm-objdump" ]; then
         objdump="${CROSS_COMPILE}${objdump}"
@@ -153,8 +151,6 @@ call_make() {
 
     if [ $LLVM -ne 0 ]; then
         cmdline="$cmdline LLVM=1 LLVM_IAS=${LLVM_IAS}"
-        cc="$cc -Wno-unused-command-line-argument"
-        hostcc="$hostcc -Wno-unused-command-line-argument"
     fi
 
     if [ -n "$CROSS_COMPILE" ]; then
@@ -164,7 +160,7 @@ call_make() {
     env -u ARCH -u CC -u CFLAGS -u HOSTCC -u HOSTCFLAGS -u CROSS_COMPILE \
         -u LLVM -u LLVM_IAS -u LD -u OBJDUMP \
     ${MAKE} -j${JOBS} "O=${OBJDIR}" "$@" $cmdline ARCH=${ARCH} \
-        "CC=${cc}" "HOSTCC=${hostcc}" \
+        "CC=${CC}" "HOSTCC=${HOSTCC}" \
         "CFLAGS=${CFLAGS}" \
         "HOSTCFLAGS=${HOSTCFLAGS}" \
             || die "Failed to run ${1}."
@@ -189,6 +185,7 @@ do_prepare() {
             ARCH=*) ARCH=${1#ARCH=};;
             CC=*) CC=${1#CC=};;
             CFLAGS=*) CFLAGS=${1#CFLAGS=};;
+            COMP=*) COMP=${1#COMP=};;
             CROSS_COMPILE=*) CROSS_COMPILE=${1#CROSS_COMPILE=};;
             CONFIG_FILE=*) CONFIG_FILE=${1#CONFIG_FILE=};;
             HOSTCC=*) HOSTCC=${1#HOSTCC=};;
@@ -205,6 +202,13 @@ do_prepare() {
         esac
         shift
     done
+
+    case "$COMP" in
+        none) COMP="true";;
+        gzip) COMP="gzip -9";;
+        zstd) COMP="zstd -T0 --rm -f -q";;
+        *) die "Unknown compression format: $COMP";;
+    esac
 
     validate_arch
     setup_epoch
@@ -301,7 +305,7 @@ mkdir -p usr/lib/debug/\${mod%/*}
 /usr/bin/llvm-objcopy --add-gnu-debuglink=\${DESTDIR}/usr/lib/debug/\$mod \\
     \$mod
 /usr/bin/llvm-strip --strip-debug \$mod
-gzip -9 \$mod
+$COMP \$mod
 EOF
     chmod +x "${TEMPDIR}/mv-debug"
 
