@@ -1,5 +1,5 @@
 pkgname = "i3status-rust"
-pkgver = "0.32.3"
+pkgver = "0.33.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--features=notmuch"]
@@ -17,7 +17,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-only"
 url = "https://github.com/greshake/i3status-rust"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6a2c37d0e424d666f297d7ec36279b54a522acf5bf77af883be1991513e4da61"
+sha256 = "fd722f630080ef0b25558bec9b342a9fe8842c3af049d55a1370c6760ad84c67"
 
 
 def post_install(self):
