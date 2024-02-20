@@ -1,5 +1,5 @@
 pkgname = "libffi8"
-pkgver = "3.4.4"
+pkgver = "3.4.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://sourceware.org/libffi"
 source = f"https://github.com/libffi/libffi/releases/download/v{pkgver}/libffi-{pkgver}.tar.gz"
-sha256 = "d66c56ad259a82cf2a9dfc408b32bf5da52371500b84745f7fb8b645712df676"
+sha256 = "b0dea9df23c863a7a50e825440f3ebffabd65df1497108e5d437747843895a4e"
 # loop: automake -> autoconf -> chimerautils -> meson -> python ->
 # libffi -> dejagnu -> expect -> automake
 options = ["!check", "linkundefver"]
