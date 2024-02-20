@@ -1,0 +1,6 @@
+# darkhttpd system service
+
+type            = process
+command         = /usr/bin/darkhttpd ${ROOT:-/var/www/htdocs} --addr ${ADDR:-127.0.0.1} --port ${PORT:-8080} --uid _darkhttpd --gid _darkhttpd --chroot --log /var/log/darkhttpd/access.log
+env-file        = /etc/default/darkhttpd
+logfile         = /var/log/darkhttpd.log
