@@ -1,5 +1,5 @@
 pkgname = "rspamd"
-pkgver = "3.8.1"
+pkgver = "3.8.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,6 +16,8 @@ configure_args = [
     "-DHAVE_ATOMIC_BUILTINS_EXITCODE=0",
 ]
 make_build_args = ["--target", "all", "check"]
+# full tests require luajit
+make_check_args = [ "-R", "rspamd-test-cxx" ]
 hostmakedepends = ["cmake", "ninja", "perl", "pkgconf", "ragel"]
 makedepends = [
     "elfutils-devel",
@@ -39,18 +41,13 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND LGPL-3.0-only AND MIT AND Zlib"
 url = "https://rspamd.com/index.html"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "04c117fe3a3cc0aeab73b5cc276810d89fcbbd420a120f029ca43fdca459b68a"
+sha256 = "63891245865efe7fe5c440f0a0c92dda54effe17105105db7a371ab5db04ec8e"
 
 
 match self.profile().arch:
     case "aarch64" | "ppc64le" | "x86_64":
         configure_args += ["-DENABLE_HYPERSCAN=ON"]
         makedepends += ["vectorscan-devel"]
-
-
-def do_check(self):
-    # full tests require luajit
-    self.do("build/test/rspamd-test-cxx")
 
 
 def post_install(self):
