@@ -1,13 +1,11 @@
 pkgname = "mozjs115"
-pkgver = "115.6.0"
-pkgrel = 1
+pkgver = "115.8.0"
+pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
     "pkgconf",
-    "python",
-    "python-setuptools",
-    "python-six",
+    "python3.11",
     "perl",
     "gm4",
     "gawk",
@@ -18,7 +16,6 @@ makedepends = [
     "icu-devel",
     "libffi-devel",
     "nspr-devel",
-    "python-devel",
     "zlib-devel",
     "libedit-devel",
     "rust-std",
@@ -29,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}esr/source/firefox-{pkgver}esr.source.tar.xz"
-sha256 = "66d7e6e5129ac8e6fe83e24227dc7bb8dc42650bc53b21838e614de80d22bc66"
+sha256 = "af8086f23efc8492d286671f6035b1a915de6f4ed5c7897e40be0e1cb6b895ea"
 debug_level = 1  # make the debug size not explode
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=1048576"]}
 env = {
@@ -37,7 +34,7 @@ env = {
     "MOZBUILD_STATE_PATH": f"/builddir/{pkgname}-{pkgver}/.mozbuild",
     "RUST_TARGET": self.profile().triplet,
     "RUSTFLAGS": "",  # our -Clink-arg breaks this build
-    "PYTHON": "/usr/bin/python",
+    "PYTHON": "/usr/bin/python3.11",
     "SHELL": "/usr/bin/sh",
     "MAKE": "gmake",
     "AWK": "gawk",
@@ -77,6 +74,7 @@ def do_configure(self):
         extra_opts += ["--enable-lto=cross"]
 
     self.do(
+        "python3.11",
         self.chroot_cwd / "mach",
         "configure",
         "--prefix=/usr",
@@ -111,7 +109,7 @@ def do_configure(self):
 
 
 def do_build(self):
-    self.do(self.chroot_cwd / "mach", "build", wrksrc="objdir")
+    self.do("python3.11", self.chroot_cwd / "mach", "build", wrksrc="objdir")
 
 
 def do_install(self):
