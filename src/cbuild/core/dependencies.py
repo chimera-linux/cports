@@ -123,27 +123,29 @@ def _install_from_repo(pkg, pkglist, virtn, cross=False):
 
     signkey = sign.get_keypath()
 
-    # if installing target deps and we're crossbuilding, target the sysroot
-    sroot = cross and pkg.profile().cross
-
-    if pkg.stage == 0 or sroot:
-        rootp = paths.bldroot()
-
-        if sroot:
-            # pretend we're another arch
-            # scripts are already never run in this case
-            aarch = pkg.profile().arch
-            rootp = rootp / pkg.profile().sysroot.relative_to("/")
-        else:
-            aarch = None
-
+    if pkg.stage == 0:
         ret = apki.call(
             "add",
             ["--no-chown", "--no-scripts", "--virtual", virtn] + pkglist,
             pkg,
-            root=rootp,
             capture_output=True,
-            arch=aarch,
+            allow_untrusted=not signkey,
+        )
+    elif cross and pkg.profile().cross:
+        # for cross target dependencies, install into sysroot
+        ret = apki.call_chroot(
+            "add",
+            [
+                "--root",
+                str(pkg.profile().sysroot),
+                "--no-scripts",
+                "--virtual",
+                virtn,
+            ]
+            + pkglist,
+            pkg,
+            capture_output=True,
+            arch=pkg.profile().arch,
             allow_untrusted=not signkey,
         )
     else:
