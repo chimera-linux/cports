@@ -1,5 +1,5 @@
 pkgname = "bolt"
-pkgver = "0.9.6"
+pkgver = "0.9.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dman=true", "-Dsystemd=false"]
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.freedesktop.org/bolt/bolt"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "87b442645e8dc06bc4cb3718b6ba8bff6e91401f642aeff83cc4274d633b38fe"
+sha256 = "593c7e7d0ecebd7b9e2c3efabe33f8fec5501ff02ffd6d8563cfc14a91c31c1c"
 
 
 def post_install(self):
