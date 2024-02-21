@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5560"
+pkgver = "1.7.5571"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -52,7 +52,7 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "612721e040a6c4b70d18ae285cc670bf4f64a63e"
+_patches = "958d1c0ba868642e5c7557a7b7eab61dab123182"
 _glslang = "11.12.0"
 _gtest = "v1.14.0"
 _rcheevos = "3cadf84c30bbc050c0fec79d26e1c8ff504bda42"
@@ -74,8 +74,8 @@ source_paths = [
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "37818a9a721fe0b897ff2bc5848a2fefd1b4825b53ca6812541c90d426ece6e0",
-    "71f6ce80c5109460e22d3c754ae1d493b2eb4798e6e6a165dc8b69ac09a50919",
+    "3564b0716846be582ffb51295d5741368340766dfd21c2c3fc8aaa76da085d07",
+    "bcae748a2d3a41738cb18d419a3ae5a62095bd3e1660198c6a3986a0be6213e6",
     "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
     "f2e623936167b7300c4b65abf6ea096218d2492310438eb3932a76b3cc804ecb",
