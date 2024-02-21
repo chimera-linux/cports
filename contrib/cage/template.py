@@ -1,9 +1,9 @@
 pkgname = "cage"
 pkgver = "0.1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "scdoc", "wayland-progs"]
-makedepends = ["wayland-protocols", "wlroots-devel"]
+makedepends = ["wayland-protocols", "wlroots0.16-devel"]
 pkgdesc = "Kiosk compositor for Wayland"
 maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
