@@ -1,6 +1,6 @@
 pkgname = "wayfire"
 pkgver = "0.8.0"
-pkgrel = 4
+pkgrel = 5
 build_style = "meson"
 configure_args = [
     "-Duse_system_wfconfig=enabled",
@@ -20,7 +20,7 @@ makedepends = [
     "pango-devel",
     "wayland-protocols",
     "wf-config-devel",
-    "wlroots-devel",
+    "wlroots0.16-devel",
 ]
 pkgdesc = "Modular and extensible wayland compositor"
 maintainer = "psykose <alice@ayaya.dev>"
