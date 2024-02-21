@@ -1,6 +1,6 @@
 pkgname = "solaar"
-pkgver = "1.1.10"
-pkgrel = 1
+pkgver = "1.1.11"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -24,15 +24,6 @@ url = "https://pwr-solaar.github.io/Solaar"
 source = (
     f"https://github.com/pwr-Solaar/Solaar/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "40887b508e4cfc753e5c2e82caa4af7f057cadad4a32f238f9aef898b8ccfb2c"
+sha256 = "2b292da8923e19a4a7a459d6fcd1119ce157cb579fd00077f87633c0dedfbba5"
 # no tests
 options = ["!check"]
-
-
-def post_install(self):
-    self.install_dir("usr/lib/udev/rules.d")
-    self.mv(
-        self.destdir
-        / "usr/share/solaar/udev-rules.d/42-logitech-unify-permissions.rules",
-        self.destdir / "usr/lib/udev/rules.d",
-    )
