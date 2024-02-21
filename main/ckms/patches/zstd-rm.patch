@@ -1,0 +1,11 @@
+--- a/ckms
++++ b/ckms
+@@ -558,7 +558,7 @@ def do_install(cmd):
+             compret = pkg.do("xz", "-f", modf, cwd = dpath).returncode
+         elif csfx == ".zst":
+             compret = pkg.do(
+-                "zstd", "-q", "-f", "-T0", "-20", "--ultra",
++                "zstd", "-q", "-f", "-T0", "--rm",
+                 modf, cwd = dpath
+             ).returncode
+         else:

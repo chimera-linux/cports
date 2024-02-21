@@ -158,7 +158,15 @@ fi"""
 
 
 def _call_ckms(pkg, kver, *args):
-    pkg.do("ckms", "-s", pkg.chroot_cwd, "-k", kver, *args)
+    pkg.do(
+        "ckms",
+        "-s",
+        pkg.chroot_cwd,
+        "-k",
+        kver,
+        *args,
+        env={"CBUILD_BYPASS_STRIP_WRAPPER": "1"},
+    )
 
 
 def ckms_configure(pkg, modname, modver, kver):
@@ -181,7 +189,7 @@ def ckms_install(pkg, modname, modver, kver):
         pkg.chroot_destdir / modbase,
         "-D",
         "-x",
-        "gz",
+        "zst",
         "install",
         f"{modname}={modver}",
     )

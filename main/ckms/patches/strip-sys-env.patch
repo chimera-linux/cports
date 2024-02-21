@@ -1,0 +1,33 @@
+--- a/ckms
++++ b/ckms
+@@ -241,12 +241,17 @@ class Package:
+             s, shell = True, cwd = cwd, env = self.env
+         )
+ 
+-    def do(self, cmd, *args, cwd = None, env = None):
++    def do(self, cmd, *args, cwd = None, env = None, sys_env = False):
+         if not cwd:
+             cwd = self.pkgpath / "build"
+         if not env:
+             env = self.env
+-        return subprocess.run([cmd, *args], cwd = cwd, env = env)
++        if sys_env:
++            benv = dict(os.environ)
++            benv.update(env)
++        else:
++            benv = env
++        return subprocess.run([cmd, *args], cwd = cwd, env = benv)
+ 
+     def run_hook(self, hookn):
+         if "hooks" not in self.cfgdata:
+@@ -469,7 +474,9 @@ def do_build(cmd, quiet = False):
+             raise CkmsError(f"kernel module '{modn}' does not exist")
+         # strip first
+         if dostrip or (pkg.strip and dostrip != False):
+-            if pkg.do(*shlex.split(opt_stripcmd), modf).returncode != 0:
++            if pkg.do(
++                *shlex.split(opt_stripcmd), modf, sys_env = True
++            ).returncode != 0:
+                 raise CkmsError(f"strip failed for '{modf}'")
+         # then copy
+         destf.mkdir(parents = True, exist_ok = True)
