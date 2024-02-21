@@ -1,6 +1,6 @@
 pkgname = "libplist"
-pkgver = "2.3.0"
-pkgrel = 1
+pkgver = "2.4.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]  # prevent building python binding .a
 hostmakedepends = ["pkgconf", "automake", "libtool", "python", "python-cython"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://libimobiledevice.org"
 source = f"https://github.com/libimobiledevice/libplist/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "4e8580d3f39d3dfa13cefab1a13f39ea85c4b0202e9305c5c8f63818182cac61"
+sha256 = "3f5868ae15b117320c1ff5e71be53d29469d4696c4085f89db1975705781a7cd"
 # FIXME int
 hardening = ["!int"]
 options = ["!cross"]
