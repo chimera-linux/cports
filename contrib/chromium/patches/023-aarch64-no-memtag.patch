@@ -1,14 +1,15 @@
 Hard-disable memory tagging on ARM64 - it does exist there but musl is
 missing some required interface headers for it, and it's not clear how
 to make the partalloc support code for it work.
---- a/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_config.h
-+++ b/base/allocator/partition_allocator/src/partition_alloc/partition_alloc_config.h
-@@ -163,7 +163,7 @@
- #if defined(ARCH_CPU_ARM64) && defined(__clang__) && \
-     !defined(ADDRESS_SANITIZER) &&                   \
-     (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_ANDROID))
--#define PA_CONFIG_HAS_MEMORY_TAGGING() 1
-+#define PA_CONFIG_HAS_MEMORY_TAGGING() 0
- #else
- #define PA_CONFIG_HAS_MEMORY_TAGGING() 0
- #endif
+--- a/base/allocator/partition_allocator/partition_alloc.gni
++++ b/base/allocator/partition_allocator/partition_alloc.gni
+@@ -29,8 +29,7 @@
+   assert(false, "Unknown CPU: $current_cpu")
+ }
+ 
+-has_memory_tagging =
+-    current_cpu == "arm64" && is_clang && !is_asan && (is_linux || is_android)
++has_memory_tagging = false
+ 
+ declare_args() {
+   # Causes all the allocations to be routed via allocator_shim.cc. Usually,

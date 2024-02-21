@@ -1,5 +1,5 @@
---- chromium-120.0.6099.35/chrome/browser/media/router/media_router_feature.cc.orig	2023-11-26 13:25:34.724228755 +0100
-+++ chromium-120.0.6099.35/chrome/browser/media/router/media_router_feature.cc	2023-11-26 13:28:26.452359146 +0100
+--- a/chrome/browser/media/router/media_router_feature.cc
++++ b/chrome/browser/media/router/media_router_feature.cc
 @@ -71,11 +71,7 @@
  // TODO(b/202294946): Remove when enabled by default on ChromeOS.
  BASE_FEATURE(kGlobalMediaControlsCastStartStop,
@@ -9,6 +9,6 @@
 -#else
 -             base::FEATURE_ENABLED_BY_DEFAULT);
 -#endif  // BUILDFLAG(IS_CHROMEOS)
- #endif  // !BUILDFLAG(IS_ANDROID)
  
- namespace {
+ BASE_FEATURE(kCastSilentlyRemoveVcOnNavigation,
+              "CastSilentlyRemoveVcOnNavigation",
