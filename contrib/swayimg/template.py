@@ -1,6 +1,6 @@
 pkgname = "swayimg"
 pkgver = "2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "bash-completion",
