@@ -1,8 +1,8 @@
-pkgname = "wlroots"
+pkgname = "wlroots0.16"
 pkgver = "0.16.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
-configure_args = ["-Dexamples=false"]
+configure_args = ["-Dexamples=false", "--includedir=/usr/include/wlroots-0.16"]
 hostmakedepends = [
     "meson",
     "pkgconf",
@@ -27,11 +27,11 @@ makedepends = [
     "xcb-util-renderutil-devel",
     "xcb-util-wm-devel",
 ]
-pkgdesc = "Modular Wayland compositor library"
+pkgdesc = "Modular Wayland compositor library (0.16.x)"
 maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/wlroots/wlroots"
-source = f"https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/{pkgver}/downloads/{pkgname}-{pkgver}.tar.gz"
+source = f"https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/{pkgver}/downloads/wlroots-{pkgver}.tar.gz"
 sha256 = "83e9a11605f23d4bf781ab1947089483d9ec3f7e9ba65398e0609593b77d44aa"
 
 
@@ -39,6 +39,6 @@ def post_install(self):
     self.install_license("LICENSE")
 
 
-@subpackage("wlroots-devel")
+@subpackage("wlroots0.16-devel")
 def _devel(self):
     return self.default_devel()
