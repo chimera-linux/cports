@@ -1,6 +1,6 @@
 pkgname = "thunderbird"
-pkgver = "115.6.0"
-pkgrel = 1
+pkgver = "115.8.0"
+pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
     "pkgconf",
@@ -17,6 +17,8 @@ hostmakedepends = [
     "automake",
     "libtool",
     "gmake",
+    "wasi-sdk",
+    "xserver-xorg-xvfb",
 ]
 makedepends = [
     "rust-std",
@@ -56,7 +58,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/{pkgname}/releases/{pkgver.replace('_beta', 'b')}/source/{pkgname}-{pkgver.replace('_beta', 'b')}.source.tar.xz"
-sha256 = "3b1cf976b0d0f48255a603f8ffe8e24390ecd5bd285fc4d10fe48e1ba2513744"
+sha256 = "804c8cb0896b2cf24643621c0c879c9bb8c56abd517eb9d603cec6fdb91561c7"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
@@ -70,6 +72,7 @@ env = {
     "USE_SHORT_LIBNAME": "1",
     "MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE": "system",
     "MOZ_APP_REMOTINGNAME": "Thunderbird",
+    "MOZ_NOSPAM": "1",
     "MOZBUILD_STATE_PATH": f"/builddir/{pkgname}-{pkgver}/.mozbuild",
     # thunderbird checks for it by calling --help
     "CBUILD_BYPASS_STRIP_WRAPPER": "1",
@@ -111,22 +114,7 @@ def init_configure(self):
 
 
 def do_configure(self):
-    self.rm("objdir", recursive=True, force=True)
-    self.mkdir("objdir")
-
-    extra_opts = []
-
-    match self.profile().arch:
-        case "x86_64" | "aarch64":
-            extra_opts += ["--disable-elf-hack", "--enable-rust-simd"]
-
-    if self.has_lto():
-        extra_opts += ["--enable-lto=cross"]
-
-    self.do(
-        "python3.11",
-        self.chroot_cwd / "mach",
-        "configure",
+    conf_opts = [
         "--prefix=/usr",
         "--libdir=/usr/lib",
         "--host=" + self.profile().triplet,
@@ -136,6 +124,7 @@ def do_configure(self):
         "--enable-optimize",
         "--disable-install-strip",
         "--disable-strip",
+        "--with-wasi-sysroot=/usr/wasm32-unknown-wasi",
         # system libs
         "--with-system-pixman",
         "--with-system-ffi",
@@ -149,8 +138,6 @@ def do_configure(self):
         "--with-system-icu",
         # no apng support
         "--without-system-png",
-        # wasi currently not ready
-        "--without-wasm-sandboxed-libraries",
         # features
         "--enable-dbus",
         "--enable-jack",
@@ -170,22 +157,87 @@ def do_configure(self):
         "--enable-official-branding",
         "--enable-application=comm/mail",
         "--allow-addon-sideload",
-        # conditional opts
-        *extra_opts,
-        wrksrc="objdir",
-    )
+    ]
+
+    match self.profile().arch:
+        case "x86_64" | "aarch64":
+            conf_opts += ["--disable-elf-hack", "--enable-rust-simd"]
+
+    if self.has_lto():
+        conf_opts += ["--enable-lto=cross"]
+
+    # PGO; tries to connect to the network, but maybe someday?
+    if False:
+        # configure for profiling
+        self.log("bootstrapping profile...")
+        with self.stamp("profile_configure") as s:
+            s.check()
+            self.log("configuring profile build...")
+            self.do(
+                "python3.11",
+                "./mach",
+                "configure",
+                *conf_opts,
+                "--enable-profile-generate=cross",
+            )
+        # do the profiling build
+        with self.stamp("profile_build") as s:
+            s.check()
+            self.log("building profile build...")
+            self.do("python3.11", "./mach", "build")
+        # package it
+        with self.stamp("profile_package") as s:
+            s.check()
+            self.log("packaging profile build...")
+            self.do("python3.11", "./mach", "package")
+        # generate the profile data
+        with self.stamp("profile_generate") as s:
+            s.check()
+            self.log("generating profile...")
+            for d in self.cwd.glob("obj-*"):
+                ldp = self.chroot_cwd / d.name / "dist/thunderbird"
+            self.do(
+                "xvfb-run",
+                "-w",
+                "10",
+                "-s",
+                "-screen 0 1920x1080x24",
+                "python3.11",
+                "./mach",
+                "python",
+                "./build/pgo/profileserver.py",
+                env={
+                    "HOME": str(self.chroot_cwd),
+                    "LLVM_PROFDATA": "llvm-profdata",
+                    "JARLOG_FILE": str(self.chroot_cwd / "jarlog"),
+                    "LD_LIBRARY_PATH": ldp,
+                },
+            )
+        # clean up build dir
+        with self.stamp("profile_clobber") as s:
+            s.check()
+            self.log("cleaning up profile build...")
+            self.do("python3.11", "./mach", "clobber")
+        # and finally make use of this for real configure
+        conf_opts += [
+            "--enable-profile-use=cross",
+            f"--with-pgo-profile-path={self.chroot_cwd / 'merged.profdata'}",
+            f"--with-pgo-jarlog={self.chroot_cwd / 'jarlog'}",
+        ]
+
+    self.log("configuring final thunderbird...")
+    self.do("python3.11", "./mach", "configure", *conf_opts)
 
 
 def do_build(self):
-    self.do("python3.11", self.chroot_cwd / "mach", "build", wrksrc="objdir")
+    self.do("python3.11", "./mach", "build")
 
 
 def do_install(self):
     self.do(
         "python3.11",
-        self.chroot_cwd / "mach",
+        "./mach",
         "install",
-        wrksrc="objdir",
         env={"DESTDIR": str(self.chroot_destdir)},
     )
 
