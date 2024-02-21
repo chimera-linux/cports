@@ -1,6 +1,6 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
-pkgver = "20240115"
+pkgver = "20240312"
 pkgrel = 0
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:linux-firmware"
 url = "https://www.kernel.org"
 source = f"https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-{pkgver}.tar.gz"
-sha256 = "86c2799516c9dc24e73214bd58ccd8297356186e97c5458baf4eb7cc8dbfea0a"
+sha256 = "89cbac35d1bd21ebf64936d764ccd01d4e0b6cde973e3b940f8ad2bac9086ec8"
 options = ["empty"]
 
 _arch = self.profile().arch
@@ -28,16 +28,16 @@ _pkgs = [
     ("amdtee", "AMD ASP TEE", _arch_x86, "misc", ["amdtee"]),
     ("amlogic-bt", "Amlogic Bluetooth", None, "network", ["amlogic/bluetooth"]),
     ("ar3k", "Atheros AR3K Bluetooth", None, "network", ["ar3k"]),
-    ("ar3011", "AR3011 Bluetooth", None, "network", ["ath3k*.fw"]),
-    ("ar5523", "AR5523 WLAN", None, "network", ["ar5523.bin"]),
-    ("ar9170", "AR9170 WLAN", None, "network", ["ar9170*.fw", "carl9170*"]),
+    ("ar3011", "AR3011 Bluetooth", None, "network", ["ath3k*.fw*"]),
+    ("ar5523", "AR5523 WLAN", None, "network", ["ar5523.bin*"]),
+    ("ar9170", "AR9170 WLAN", None, "network", ["ar9170*.fw*", "carl9170*"]),
     ("ath6k", "AR6000x WLAN", None, "network", ["ath6k"]),
     (
         "ath9k_htc",
         "AR7010/9271 WLAN",
         None,
         "network",
-        ["ar*.fw", "ath9k_htc", "htc_*.fw"],
+        ["ar*.fw*", "ath9k_htc", "htc_*.fw*"],
     ),
     ("ath10k", "ath10k WLAN", None, "network", ["ath10k"]),
     ("ath11k", "ath11k WLAN", None, "network", ["ath11k"]),
@@ -53,8 +53,8 @@ _pkgs = [
         None,
         "audio",
         [
-            "ctefx.bin",
-            "ctspeq.bin",
+            "ctefx.bin*",
+            "ctspeq.bin*",
         ],
     ),
     ("cassini", "Sun Cassini Ethernet", None, "network", ["sun/cassini*"]),
@@ -67,10 +67,10 @@ _pkgs = [
     ),
     ("cpia2", "STM CPIA2 cameras", None, "misc", ["cpia2"]),
     ("cs35l41", "Cirrus CS35L41 amplifier", None, "audio", ["cirrus/cs35l41*"]),
-    ("cs42l43", "Cirrus CS42L43 amplifier", None, "audio", ["cs42l43.bin"]),
+    ("cs42l43", "Cirrus CS42L43 amplifier", None, "audio", ["cs42l43.bin*"]),
     ("cxgb3", "Chelsio T3 10Gb Ethernet", None, "network", ["cxgb3"]),
     ("cxgb4", "Chelsio T4/5/6 Ethernet", None, "network", ["cxgb4"]),
-    ("cw1200", "ST-E CW1200 WLAN", None, "network", ["wsm_22.bin"]),
+    ("cw1200", "ST-E CW1200 WLAN", None, "network", ["wsm_22.bin*"]),
     ("dpaa2", "NXP DPAA2", _arch_arm64, "misc", ["dpaa2"]),
     (
         "dvb",
@@ -78,9 +78,9 @@ _pkgs = [
         None,
         "misc",
         [
-            "as102*.hex",
-            "dvb-*.fw",
-            "v4l-cx*.fw",
+            "as102*.hex*",
+            "dvb-*.fw*",
+            "v4l-cx*.fw*",
             "tlg2300*",
             "ttusb-budget",
         ],
@@ -92,7 +92,7 @@ _pkgs = [
     ("ess", "ESS audio controllers", None, "audio", ["ess"]),
     ("go7007", "WIS GO7007 MPEG encoder", None, "misc", ["go7007"]),
     ("hermes", "Orinoco Hermes WLAN", None, "network", ["agere*"]),
-    ("hfi1", "Intel OPA hfi1", _arch_x86, "network", ["hfi1_*.fw"]),
+    ("hfi1", "Intel OPA hfi1", _arch_x86, "network", ["hfi1_*.fw*"]),
     ("i915", "Intel GPUs", _arch_x86, "gpu", ["i915"]),
     (
         "intel-audio",
@@ -100,8 +100,8 @@ _pkgs = [
         _arch_x86,
         "audio",
         [
-            "intel/IntcSST2.bin",
-            "intel/dsp_fw_*.bin",
+            "intel/IntcSST2.bin*",
+            "intel/dsp_fw_*.bin*",
             "intel/fw_sst_*.bin*",
             "intel/avs",
             "intel/catpt",
@@ -110,14 +110,31 @@ _pkgs = [
     ("intel-bt", "Intel Bluetooth", _arch_x86, "network", ["intel/ibt*"]),
     ("intel-ice", "Intel E800 series", _arch_x86, "network", ["intel/ice"]),
     (
+        "intel-ipu2",
+        "Intel IPU2",
+        _arch_x86,
+        "misc",
+        [
+            "intel/ipu/shisp_*.bin*",
+        ],
+    ),
+    (
         "intel-ipu3",
         "Intel IPU3",
         _arch_x86,
         "misc",
         [
-            "intel/ipu3-fw.bin",
-            "intel/irci_*.bin",
+            "intel/ipu/irci_*.bin*",
+            "intel/ipu3-fw.bin*",
+            "intel/irci_*.bin*",
         ],
+    ),
+    (
+        "intel-ipu6",
+        "Intel IPU6",
+        _arch_x86,
+        "misc",
+        ["intel/ipu/ipu6*.bin*"],
     ),
     (
         "intel-ivsc",
@@ -139,9 +156,16 @@ _pkgs = [
     ("kaweth", "KL5KUSB101 Ethernet", None, "network", ["kaweth"]),
     ("keyspan", "Keyspan serial converters", None, "misc", ["keyspan*"]),
     ("korg", "Korg audio interfaces", None, "audio", ["korg"]),
-    ("lgs8g75", "Legend Silicon LGS8GXX", None, "misc", ["lgs8g75.fw"]),
+    ("lgs8g75", "Legend Silicon LGS8GXX", None, "misc", ["lgs8g75.fw*"]),
     ("liquidio", "Cavium LiquidIO NICs", None, "network", ["liquidio"]),
-    ("lt9611uxc", "LT9611UXC DSI to HDMI", None, "misc", ["lt9611uxc_fw.bin"]),
+    (
+        "lt9611uxc",
+        "LT9611UXC DSI to HDMI",
+        None,
+        "misc",
+        ["lt9611uxc_fw.bin*"],
+    ),
+    ("mali", "ARM Mali GPUs", _arch_arm64, "gpu", ["arm/mali"]),
     ("matrox", "Matrox G200/400", None, "gpu", ["matrox"]),
     (
         "mediatek-soc",
@@ -152,7 +176,7 @@ _pkgs = [
             "mediatek/mt798*",
             "mediatek/mt81*",
             "mediatek/sof",
-            "vpu_*.bin",
+            "vpu_*.bin*",
         ],
     ),
     (
@@ -160,7 +184,7 @@ _pkgs = [
         "Mediatek WLAN/Bluetooth",
         None,
         "network",
-        ["mediatek", "mt7*.bin"],
+        ["mediatek", "mt7*.bin*"],
     ),
     ("mellanox", "Mellanox Ethernet", None, "network", ["mellanox"]),
     (
@@ -191,9 +215,9 @@ _pkgs = [
         "Marvell WLAN/Bluetooth",
         None,
         "network",
-        ["mrvl", "lbtf_usb.bin", "libertas", "mwl8k"],
+        ["mrvl", "lbtf_usb.bin*", "libertas", "mwl8k"],
     ),
-    ("multitech", "Multi-Tech modems", None, "network", ["mts_*.fw"]),
+    ("multitech", "Multi-Tech modems", None, "network", ["mts_*.fw*"]),
     (
         "myricom",
         "Myricom Ethernet NICs",
@@ -202,16 +226,16 @@ _pkgs = [
         ["myri10ge*", "myricom"],
     ),
     ("nfp", "Netronome Flow Processor", None, None, ["netronome"]),
-    ("nxp-uwb", "NXP UWB firmware", None, "network", ["nxp/sr150_fw.bin"]),
+    ("nxp-uwb", "NXP UWB firmware", None, "network", ["nxp/sr150_fw.bin*"]),
     (
         "nxp-bt",
         "NXP BT chipsets",
         None,
         "network",
         [
-            "nxp/helper_uart*.bin",
-            "nxp/uartiw*.bin",
-            "nxp/uartspi*.se",
+            "nxp/helper_uart*.bin*",
+            "nxp/uartiw*.bin*",
+            "nxp/uartspi*.se*",
             "nxp/uartuart*",
         ],
     ),
@@ -220,26 +244,26 @@ _pkgs = [
     ("powervr", "PowerVR GPUs", None, "gpu", ["powervr"]),
     ("qat", "Intel QuickAssist Technology", _arch_x86, "misc", ["qat*"]),
     ("qca", "Qualcomm Atheros WLAN/Bluetooth", None, "network", ["qca"]),
-    ("qcom", "Qualcomm SoCs", _arch_arm64, "soc", ["a300_*.fw", "qcom"]),
+    ("qcom", "Qualcomm SoCs", _arch_arm64, "soc", ["a300_*.fw*", "qcom"]),
     (
         "qlogic",
         "QLogic HBAs",
         None,
         "network",
         [
-            "cbfw*.bin",
-            "ct2fw*.bin",
-            "ctfw*.bin",
+            "cbfw*.bin*",
+            "ct2fw*.bin*",
+            "ctfw*.bin*",
             "qed",
-            "ql2*.bin",
+            "ql2*.bin*",
             "qlogic",
-            "phanfw.bin",
+            "phanfw.bin*",
         ],
     ),
     ("radeon", "Older AMD GPUs", None, "gpu", ["radeon"]),
-    ("ralink", "Ralink WLAN", None, "network", ["rt*.bin"]),
+    ("ralink", "Ralink WLAN", None, "network", ["rt*.bin*"]),
     ("rockchip", "Rockchip SoCs", _arch_arm64, "soc", ["rockchip"]),
-    ("rp2", "Comtrol RocketPort 2", None, "misc", ["rp2.fw"]),
+    ("rp2", "Comtrol RocketPort 2", None, "misc", ["rp2.fw*"]),
     ("rsi", "Redpine RSI91X WLAN/Bluetooth", None, "network", ["rsi*"]),
     ("rtl_bt", "Realtek Bluetooth", None, "network", ["rtl_bt"]),
     ("rtl_nic", "Realtek Ethernet", None, "network", ["rtl_nic"]),
@@ -248,14 +272,14 @@ _pkgs = [
         "Realtek WLAN",
         None,
         "network",
-        ["RTL8192E", "rtlwifi", "rtw88", "rtw89"],
+        ["rtlwifi", "rtw88", "rtw89"],
     ),
     (
         "sagrad",
         "Sagrad SG901-1091/1098 WLAN",
         None,
         "network",
-        ["sdd_sagrad_*.bin"],
+        ["sdd_sagrad_*.bin*"],
     ),
     (
         "sensoray",
@@ -263,8 +287,8 @@ _pkgs = [
         None,
         "misc",
         [
-            "f2255usb.bin",
-            "s2250*.fw",
+            "f2255usb.bin*",
+            "s2250*.fw*",
         ],
     ),
     (
@@ -272,9 +296,9 @@ _pkgs = [
         "Samsung Multi Format Codec",
         _arch_arm64,
         "misc",
-        ["s5p-mfc*.fw"],
+        ["s5p-mfc*.fw*"],
     ),
-    ("siano", "Siano DTV", None, "misc", ["sms1xxx*.fw", "*.inp"]),
+    ("siano", "Siano DTV", None, "misc", ["sms1xxx*.fw*", "*.inp*"]),
     ("slicoss", "Alacritech Slicoss NICs", None, "network", ["slicoss"]),
     (
         "starfire",
@@ -291,7 +315,7 @@ _pkgs = [
         "network",
         ["ti-connectivity"],
     ),
-    ("ti-serial", "TI USB 3410/5052", None, "misc", ["ti_*.fw"]),
+    ("ti-serial", "TI USB 3410/5052", None, "misc", ["ti_*.fw*"]),
     (
         "ti-tas",
         "Texas Instruments amplifiers",
@@ -300,22 +324,30 @@ _pkgs = [
         ["INT88*", "TAS2*", "TIAS2*", "ti/tas*"],
     ),
     ("tigon", "Tigon I/II/III Ethernet", None, "network", ["acenic", "tigon"]),
+    (
+        "tsse",
+        "Mont-TSSE crypto algorithm accelerator",
+        None,
+        "misc",
+        ["tsse_firmware.bin*"],
+    ),
     ("typhoon", "3Com Typhoon Ethernet", None, "network", ["3com"]),
     ("ueagle-atm", "Eagle USB modems", None, "network", ["ueagle-atm"]),
     ("vicam", "ViCam USB camera", None, "misc", ["vicam"]),
-    ("vntwusb", "Via VNT6656 USB WLAN", None, "network", ["vntwusb.fw"]),
+    ("vntwusb", "Via VNT6656 USB WLAN", None, "network", ["vntwusb.fw*"]),
     (
         "vsc85xx",
         "Microchip VSX85xx Ethernet PHYs",
         None,
         "network",
-        ["microchip/mscc_vsc85*.bin"],
+        ["microchip/mscc_vsc85*.bin*"],
     ),
     ("vxge", "Exar X3100 10Gb Ethernet", None, "network", ["vxge"]),
     ("wave521c", "WAVE521C encoder IP", None, "misc", ["cnm/wave521c*"]),
     ("whiteheat", "WhiteHEAT USB-Serial", None, "misc", ["whiteheat*"]),
     ("wil6210", "Qualcomm wil6210 60GHz WLAN", None, "network", ["wil6210*"]),
     ("wfx", "Silicon Laboratories WFx WLAN", None, "network", ["wfx"]),
+    ("xe", "Intel Xe GPUs", None, "gpu", ["xe"]),
     ("yamaha", "Yamaha audio drivers", None, "audio", ["yamaha"]),
 ]
 
@@ -324,6 +356,7 @@ def do_install(self):
     self.install_dir("usr/lib/firmware")
     self.do(
         "./copy-firmware.sh",
+        "--zstd",
         "-v",
         str(self.chroot_destdir / "usr/lib/firmware"),
     )
@@ -352,16 +385,16 @@ def post_install(self):
     # not in our kernels, mostly 32-bit socs etc.
     self.rm(dp / "ositech", recursive=True)
     self.rm(dp / "r128", recursive=True)
-    self.rm(dp / "r8a779x_usb3_v1.dlmem")
-    self.rm(dp / "r8a779x_usb3_v2.dlmem")
-    self.rm(dp / "r8a779x_usb3_v3.dlmem")
+    self.rm(dp / "r8a779x_usb3_v1.dlmem*", glob=True)
+    self.rm(dp / "r8a779x_usb3_v2.dlmem*", glob=True)
+    self.rm(dp / "r8a779x_usb3_v3.dlmem*", glob=True)
     self.rm(dp / "sb16", recursive=True)
     self.rm(dp / "sxg", recursive=True)
     self.rm(dp / "ti-keystone", recursive=True)
-    self.rm(dp / "ti/vpdma-1b8.bin")
-    self.rm(dp / "usbdux_firmware.bin")
-    self.rm(dp / "usbduxfast_firmware.bin")
-    self.rm(dp / "usbduxsigma_firmware.bin")
+    self.rm(dp / "ti/vpdma-1b8.bin*", glob=True)
+    self.rm(dp / "usbdux_firmware.bin*", glob=True)
+    self.rm(dp / "usbduxfast_firmware.bin*", glob=True)
+    self.rm(dp / "usbduxsigma_firmware.bin*", glob=True)
     self.rm(dp / "yam", recursive=True)
 
 
