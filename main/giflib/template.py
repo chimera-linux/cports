@@ -1,5 +1,5 @@
 pkgname = "giflib"
-pkgver = "5.2.1"
+pkgver = "5.2.2"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://sourceforge.net/projects/giflib"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "31da5562f44c5f15d63340a09a4fd62b48c45620cd302f77a6d9acf0077879bd"
+sha256 = "be7ffbd057cadebe2aa144542fd90c6838c6a083b5e8a9048b8ee3b66b29d5fb"
 tool_flags = {"CFLAGS": ["-fPIC"]}
 
 
