@@ -1,6 +1,6 @@
 pkgname = "sdl_image"
 pkgver = "2.8.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DSDL2IMAGE_AVIF=ON",
