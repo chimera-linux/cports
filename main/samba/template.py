@@ -1,6 +1,6 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.19.4"
+pkgver = "4.19.5"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -99,7 +99,7 @@ url = "https://www.samba.org"
 source = (
     f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "4026d93b866db198c8ca1685b0f5d52793f65c6e63cb364163af661fdff0968c"
+sha256 = "0e2405b4cec29d0459621f4340a1a74af771ec7cffedff43250cad7f1f87605e"
 env = {"PYTHONHASHSEED": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check", "!installroot", "linkundefver"]
