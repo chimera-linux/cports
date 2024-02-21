@@ -1,0 +1,108 @@
+From 9b6167c4a6f0bf1a941d4cafee823655fe8f4d76 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Wed, 21 Feb 2024 22:45:30 +0100
+Subject: [PATCH] sdlwindow: use a mutex instead of atomic shared_ptr
+
+libc++ does not implement this yet, and these are one-off events
+(not something to be run per frame) so it does not matter if it
+is a little bit slower
+---
+ src/sdlwindow.cpp | 40 +++++++++++++++++++++++++++++++---------
+ 1 file changed, 31 insertions(+), 9 deletions(-)
+
+diff --git a/src/sdlwindow.cpp b/src/sdlwindow.cpp
+index 50c3b95..7bd1104 100644
+--- a/src/sdlwindow.cpp
++++ b/src/sdlwindow.cpp
+@@ -177,13 +177,14 @@ namespace gamescope
+ 		std::vector<const char *> m_pszInstanceExtensions;
+ 
+ 		std::thread m_SDLThread;
++		std::mutex m_pSharedMutex;
+ 		std::atomic<SDLInitState> m_eSDLInit = { SDLInitState::SDLInit_Waiting };
+ 
+ 		std::atomic<bool> m_bApplicationGrabbed = { false };
+ 		std::atomic<bool> m_bApplicationVisible = { false };
+-		std::atomic<std::shared_ptr<INestedHints::CursorInfo>> m_pApplicationCursor;
+-		std::atomic<std::shared_ptr<std::string>> m_pApplicationTitle;
+-		std::atomic<std::shared_ptr<std::vector<uint32_t>>> m_pApplicationIcon;
++		std::shared_ptr<INestedHints::CursorInfo> m_pApplicationCursor;
++		std::shared_ptr<std::string> m_pApplicationTitle;
++		std::shared_ptr<std::vector<uint32_t>> m_pApplicationIcon;
+ 		SDL_Surface *m_pIconSurface = nullptr;
+ 		SDL_Surface *m_pCursorSurface = nullptr;
+ 		SDL_Cursor *m_pCursor = nullptr;
+@@ -479,7 +480,10 @@ namespace gamescope
+ 
+ 	void CSDLBackend::SetCursorImage( std::shared_ptr<INestedHints::CursorInfo> info )
+ 	{
+-		m_pApplicationCursor = info;
++		{
++			std::lock_guard<std::mutex> g{m_pSharedMutex};
++			m_pApplicationCursor = info;
++		}
+ 		PushUserEvent( GAMESCOPE_SDL_EVENT_CURSOR );
+ 	}
+ 	void CSDLBackend::SetRelativeMouseMode( bool bRelative )
+@@ -494,12 +498,18 @@ namespace gamescope
+ 	}
+ 	void CSDLBackend::SetTitle( std::shared_ptr<std::string> szTitle )
+ 	{
+-		m_pApplicationTitle = szTitle;
++		{
++			std::lock_guard<std::mutex> g{m_pSharedMutex};
++			m_pApplicationTitle = szTitle;
++		}
+ 		PushUserEvent( GAMESCOPE_SDL_EVENT_TITLE );
+ 	}
+ 	void CSDLBackend::SetIcon( std::shared_ptr<std::vector<uint32_t>> uIconPixels )
+ 	{
+-		m_pApplicationIcon = uIconPixels;
++		{
++			std::lock_guard<std::mutex> g{m_pSharedMutex};
++			m_pApplicationIcon = uIconPixels;
++		}
+ 		PushUserEvent( GAMESCOPE_SDL_EVENT_ICON );
+ 	}
+ 
+@@ -874,7 +884,11 @@ namespace gamescope
+ 					}
+ 					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_TITLE ) )
+ 					{
+-						std::shared_ptr<std::string> pAppTitle = m_pApplicationTitle;
++						std::shared_ptr<std::string> pAppTitle;
++						{
++							std::lock_guard<std::mutex> g{m_pSharedMutex};
++							pAppTitle = m_pApplicationTitle;
++						}
+ 
+ 						std::string szTitle = pAppTitle ? *pAppTitle : "gamescope";
+ 						if ( g_bGrabbed )
+@@ -883,7 +897,11 @@ namespace gamescope
+ 					}
+ 					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_ICON ) )
+ 					{
+-						std::shared_ptr<std::vector<uint32_t>> pIcon = m_pApplicationIcon;
++						std::shared_ptr<std::vector<uint32_t>> pIcon;
++						{
++							std::lock_guard<std::mutex> g{m_pSharedMutex};
++							pIcon = m_pApplicationIcon;
++						}
+ 
+ 						if ( m_pIconSurface )
+ 						{
+@@ -911,7 +929,11 @@ namespace gamescope
+ 					}
+ 					else if ( event.type == GetUserEventIndex( GAMESCOPE_SDL_EVENT_CURSOR ) )
+ 					{
+-						std::shared_ptr<INestedHints::CursorInfo> pCursorInfo = m_pApplicationCursor;
++						std::shared_ptr<INestedHints::CursorInfo> pCursorInfo;
++						{
++							std::lock_guard<std::mutex> g{m_pSharedMutex};
++							pCursorInfo = m_pApplicationCursor;
++						}
+ 
+ 						if ( m_pCursorSurface )
+ 						{
+-- 
+2.43.1
