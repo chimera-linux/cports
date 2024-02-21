@@ -1,0 +1,22 @@
+--- a/Makefile	2024-02-20 01:41:27.000000000 +0100
++++ b/Makefile	2024-02-21 07:52:19.692131660 +0100
+@@ -157,15 +157,13 @@
+ MAN_DOCS := man/man1/fennel.1 man/man3/fennel-api.3 man/man5/fennel-reference.5\
+ 	    man/man7/fennel-tutorial.7
+ 
+-define maninst =
+-mkdir -p $(dir $(2)) && cp $(1) $(2)
+-endef
+-
+ install: fennel fennel.lua
+ 	mkdir -p $(DESTDIR)$(BIN_DIR) && cp fennel $(DESTDIR)$(BIN_DIR)/
+ 	mkdir -p $(DESTDIR)$(LUA_LIB_DIR) && cp fennel.lua $(DESTDIR)$(LUA_LIB_DIR)/
+-	$(foreach doc,$(MAN_DOCS),\
+-		$(call maninst,$(doc),$(DESTDIR)$(MAN_DIR)/$(doc)))
++	mkdir -p $(DESTDIR)$(MAN_DIR)/man/man1 && cp man/man1/fennel.1 $(DESTDIR)$(MAN_DIR)/man/man1/
++	mkdir -p $(DESTDIR)$(MAN_DIR)/man/man3 && cp man/man3/fennel-api.3 $(DESTDIR)$(MAN_DIR)/man/man3/
++	mkdir -p $(DESTDIR)$(MAN_DIR)/man/man5 && cp man/man5/fennel-reference.5 $(DESTDIR)$(MAN_DIR)/man/man5/
++	mkdir -p $(DESTDIR)$(MAN_DIR)/man/man7 && cp man/man7/fennel-tutorial.7 $(DESTDIR)$(MAN_DIR)/man/man7/
+ 
+ uninstall:
+ 	rm $(DESTDIR)$(BIN_DIR)/fennel

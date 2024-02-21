@@ -1,5 +1,5 @@
 pkgname = "fennel"
-pkgver = "1.4.0"
+pkgver = "1.4.1"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -11,7 +11,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://fennel-lang.org"
 source = f"https://git.sr.ht/~technomancy/fennel/archive/{pkgver}.tar.gz"
-sha256 = "375892126dae7fa80f727db613ccb7480d18c958cd00f9f6c8c3f82ab1751f98"
+sha256 = "89a1a15442f29891f7cc6bdf07d1dc22be983bfe78ccf8c62d6ae2c220fe1af0"
 
 
 def post_install(self):
