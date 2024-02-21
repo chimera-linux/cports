@@ -8,7 +8,7 @@ hostmakedepends = [
     "nasm",
     "cargo",
     "rust",
-    "python",
+    "python3.11",
     "cbindgen",
     "llvm-devel",
     "clang-devel",
@@ -63,6 +63,7 @@ tool_flags = {
 }
 env = {
     "MAKE": "/usr/bin/gmake",
+    "PYTHON": "/usr/bin/python3.11",
     "SHELL": "/usr/bin/sh",
     "BUILD_OFFICIAL": "1",
     "MOZILLA_OFFICIAL": "1",
@@ -123,6 +124,7 @@ def do_configure(self):
         extra_opts += ["--enable-lto=cross"]
 
     self.do(
+        "python3.11",
         self.chroot_cwd / "mach",
         "configure",
         "--prefix=/usr",
@@ -175,11 +177,12 @@ def do_configure(self):
 
 
 def do_build(self):
-    self.do(self.chroot_cwd / "mach", "build", wrksrc="objdir")
+    self.do("python3.11", self.chroot_cwd / "mach", "build", wrksrc="objdir")
 
 
 def do_install(self):
     self.do(
+        "python3.11",
         self.chroot_cwd / "mach",
         "install",
         wrksrc="objdir",
