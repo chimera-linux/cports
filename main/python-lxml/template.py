@@ -1,6 +1,6 @@
 pkgname = "python-lxml"
-pkgver = "4.9.4"
-pkgrel = 1
+pkgver = "5.1.0"
+pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"WITH_CYTHON": "true"}
 hostmakedepends = [
@@ -16,11 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND custom:ElementTree"
 url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
-sha256 = "0aff5e6d17cf92262d49ca8d5ac51fc686810cea1771842d7c9f1800a32b61a1"
-# https://bugs.gentoo.org/917562
-tool_flags = {
-    "CFLAGS": ["-Wno-incompatible-function-pointer-types"],
-}
+sha256 = "26c83dd0e6866a53d15606c3175d84cecb524e8bad6b8bfdd6112dc037c6be64"
 # missing checkdepends
 options = ["!check"]
 
