@@ -25,6 +25,10 @@ def invoke(pkg):
     if pyver != pkg.rparent.python_version:
         pkg.error(f"bad python version ({pyver})")
 
+    # other python versions
+    if pkg.rparent.pkgname == f"python{pyver}":
+        return
+
     for i in range(0, len(pkg.install_if)):
         if pkg.install_if[i] == "python-pycache":
             pkg.install_if[i] = f"python-pycache~{pyver}"

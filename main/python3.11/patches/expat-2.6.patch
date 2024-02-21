@@ -1,0 +1,48 @@
+Patch-Source: https://github.com/python/cpython/pull/115138
+--
+From a147a3e2b9252e8452a37628e07ddcd4e0709880 Mon Sep 17 00:00:00 2001
+From: Sebastian Pipping <sebastian@pipping.org>
+Date: Wed, 7 Feb 2024 15:32:45 +0100
+Subject: [PATCH] test_xml_etree.py: Fix for Expat >=2.6.0 with reparse
+ deferral
+
+---
+ Lib/test/test_xml_etree.py                             | 10 ++++++----
+ .../2024-02-07-15-49-37.gh-issue-115133.WBajNr.rst     |  1 +
+ 2 files changed, 7 insertions(+), 4 deletions(-)
+ create mode 100644 Misc/NEWS.d/next/Tests/2024-02-07-15-49-37.gh-issue-115133.WBajNr.rst
+
+diff --git a/Lib/test/test_xml_etree.py b/Lib/test/test_xml_etree.py
+index a435ec7822ea0c..1eac7dd08b9676 100644
+--- a/Lib/test/test_xml_etree.py
++++ b/Lib/test/test_xml_etree.py
+@@ -1483,6 +1483,7 @@ def assert_event_tags(self, parser, expected, max_events=None):
+     def test_simple_xml(self):
+         for chunk_size in (None, 1, 5):
+             with self.subTest(chunk_size=chunk_size):
++                expected_events = []
+                 parser = ET.XMLPullParser()
+                 self.assert_event_tags(parser, [])
+                 self._feed(parser, "<!-- comment -->\n", chunk_size)
+@@ -1492,16 +1493,17 @@ def test_simple_xml(self):
+                            chunk_size)
+                 self.assert_event_tags(parser, [])
+                 self._feed(parser, ">\n", chunk_size)
+-                self.assert_event_tags(parser, [('end', 'element')])
++                expected_events += [('end', 'element')]
+                 self._feed(parser, "<element>text</element>tail\n", chunk_size)
+                 self._feed(parser, "<empty-element/>\n", chunk_size)
+-                self.assert_event_tags(parser, [
++                expected_events += [
+                     ('end', 'element'),
+                     ('end', 'empty-element'),
+-                    ])
++                    ]
+                 self._feed(parser, "</root>\n", chunk_size)
+-                self.assert_event_tags(parser, [('end', 'root')])
++                expected_events += [('end', 'root')]
+                 self.assertIsNone(parser.close())
++                self.assert_event_tags(parser, expected_events)
+ 
+     def test_feed_while_iterating(self):
+         parser = ET.XMLPullParser()

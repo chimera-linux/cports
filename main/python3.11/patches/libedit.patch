@@ -1,0 +1,27 @@
+commit 99638ed9c6f93028ae50fab4e086ec00ff303255
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Jun 21 05:46:04 2023 +0200
+
+    do not test for rl_completion_display_matches_hook
+    
+    This is unimplemented in libedit and results in readline module
+    failing to build.
+
+diff --git a/configure b/configure
+index a66a081..ddbdec5 100755
+--- a/configure
++++ b/configure
+@@ -21110,11 +21110,11 @@
+ #ifdef __cplusplus
+ extern "C"
+ #endif
+-char rl_completion_display_matches_hook ();
++char rl_completion_display_matches_hook_undef ();
+ int
+ main ()
+ {
+-return rl_completion_display_matches_hook ();
++return rl_completion_display_matches_hook_undef ();
+   ;
+   return 0;
+ }
