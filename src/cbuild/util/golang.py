@@ -115,6 +115,8 @@ class Golang:
 
         if self.template.make_check_args:
             myargs += self.template.make_check_args
+        else:
+            myargs += ["./..."]
 
         return self._invoke("test", myargs)
 
