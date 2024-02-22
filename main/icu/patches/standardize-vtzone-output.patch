@@ -1,8 +1,8 @@
 This is needed for calendar functionality to work in Thunderbird.
 
-diff --git a/intl/icu/source/i18n/vtzone.cpp b/intl/icu/source/i18n/vtzone.cpp
---- a/icu/source/i18n/vtzone.cpp
-+++ b/icu/source/i18n/vtzone.cpp
+diff --git a/intl/source/i18n/vtzone.cpp b/intl/source/i18n/vtzone.cpp
+--- a/source/i18n/vtzone.cpp
++++ b/source/i18n/vtzone.cpp
 @@ -1735,14 +1735,17 @@ VTimeZone::write(VTZWriter& writer, UErr
              }
          }

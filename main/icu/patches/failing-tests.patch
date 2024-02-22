@@ -1,5 +1,5 @@
---- a/icu/source/test/cintltst/crestst.c
-+++ b/icu/source/test/cintltst/crestst.c
+--- a/source/test/cintltst/crestst.c
++++ b/source/test/cintltst/crestst.c
 @@ -114,7 +114,6 @@ void addResourceBundleTest(TestNode** root)
      addTest(root, &TestResourceBundles, "tsutil/crestst/TestResourceBundles");
      addTest(root, &TestTable32, "tsutil/crestst/TestTable32");
@@ -26,8 +26,8 @@
  static void TestGetLocaleByType(void) {
      static const struct {
          const char *requestedLocale;
---- a/icu/source/test/cintltst/creststn.c
-+++ b/icu/source/test/cintltst/creststn.c
+--- a/source/test/cintltst/creststn.c
++++ b/source/test/cintltst/creststn.c
 @@ -227,9 +227,7 @@ void addNEWResourceBundleTest(TestNode** root)
      addTest(root, &TestEmptyBundle,           "tsutil/creststn/TestEmptyBundle");
      addTest(root, &TestConstruction1,         "tsutil/creststn/TestConstruction1");
@@ -74,8 +74,8 @@
  static void TestAPI() {
      UErrorCode status=U_ZERO_ERROR;
      int32_t len=0;
---- a/icu/source/test/cintltst/ucptrietest.c
-+++ b/icu/source/test/cintltst/ucptrietest.c
+--- a/source/test/cintltst/ucptrietest.c
++++ b/source/test/cintltst/ucptrietest.c
 @@ -1640,6 +1640,7 @@ static void ShortAllSameBlocksTest(void) {
  
  void
@@ -90,8 +90,8 @@
      addTest(root, &ShortAllSameBlocksTest, "tsutil/ucptrietest/ShortAllSameBlocksTest");
 +#endif
  }
---- a/icu/source/test/intltest/restest.cpp
-+++ b/icu/source/test/intltest/restest.cpp
+--- a/source/test/intltest/restest.cpp
++++ b/source/test/intltest/restest.cpp
 @@ -554,7 +554,6 @@ ResourceBundleTest::TestGetSize(void)
          { "emptyint", 1}, 
          { "emptybin", 1},

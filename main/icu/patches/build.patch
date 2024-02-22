@@ -1,5 +1,5 @@
---- a/icu/source/common/putil.cpp
-+++ b/icu/source/common/putil.cpp
+--- a/source/common/putil.cpp
++++ b/source/common/putil.cpp
 @@ -39,6 +39,8 @@
  ******************************************************************************
  */
@@ -9,8 +9,8 @@
  // Defines _XOPEN_SOURCE for access to POSIX functions.
  // Must be before any other #includes.
  #include "uposixdefs.h"
---- a/icu/source/config/mh-linux
-+++ b/icu/source/config/mh-linux
+--- a/source/config/mh-linux
++++ b/source/config/mh-linux
 @@ -23,7 +23,7 @@ LD_RPATH= -Wl,-zorigin,-rpath,'$$'ORIGIN
  LD_RPATH_PRE = -Wl,-rpath,
  
@@ -20,8 +20,8 @@
  
  ## Compiler switch to embed a library name
  # The initial tab in the next line is to prevent icu-config from reading it.
---- a/icu/source/configure
-+++ b/icu/source/configure
+--- a/source/configure
++++ b/source/configure
 @@ -7210,10 +7210,10 @@ fi
  
      if test "$ac_cv_header_xlocale_h" = yes; then

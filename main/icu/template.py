@@ -1,7 +1,7 @@
 pkgname = "icu"
 pkgver = "74.2"  # change path in build.patch when updating
 pkgrel = 0
-build_wrksrc = "icu/source"
+build_wrksrc = "source"
 build_style = "gnu_configure"
 configure_args = [
     "--with-data-packaging=archive",
@@ -19,19 +19,8 @@ pkgdesc = "Robust and fully-featured Unicode libraries"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ICU"
 url = "https://home.unicode.org"
-source = [
-    f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz",
-    f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-data-bin-b.zip",
-]
-# we don't use bin-b but it contains the LICENCE file that -src references via symlink
-source_paths = [
-    ".",
-    ".",
-]
-sha256 = [
-    "5e4fb11d6a3e6b85afb55de8da8a71538f1d8fd64fce893986b37d60e5bb0091",
-    "42a12ebfb1a82f80bb0005d9b6e018382ccaa2462f0d086a8c69ae736fdded3e",
-]
+source = f"https://github.com/unicode-org/{pkgname}/releases/download/release-{pkgver.replace('.', '-')}/icu4c-{pkgver.replace('.', '_')}-src.tgz"
+sha256 = "68db082212a96d6f53e35d60f47d38b962e9f9d207a74cfac78029ae8ff5e08c"
 tool_flags = {"CFLAGS": ["-fPIC"], "CXXFLAGS": ["-fPIC"]}
 # FIXME int
 hardening = ["!int"]
