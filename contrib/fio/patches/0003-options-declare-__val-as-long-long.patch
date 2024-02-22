@@ -1,0 +1,73 @@
+From dcb1f3a975b7551b68ef9c8216a9488a6b490de3 Mon Sep 17 00:00:00 2001
+From: Miko Larsson <mikoxyzzz@gmail.com>
+Date: Thu, 22 Feb 2024 13:02:23 +0100
+Subject: [PATCH 3/3] options: declare *__val as long long
+
+Fixes CFI as the function signatures will now match with parse.h
+
+Signed-off-by: Miko Larsson <mikoxyzzz@gmail.com>
+---
+ options.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/options.c b/options.c
+index 25e042d0..de935efc 100644
+--- a/options.c
++++ b/options.c
+@@ -647,7 +647,7 @@ static int fio_clock_source_cb(void *data, const char *str)
+ 	return 0;
+ }
+ 
+-static int str_rwmix_read_cb(void *data, unsigned long long *val)
++static int str_rwmix_read_cb(void *data, long long *val)
+ {
+ 	struct thread_data *td = cb_data_to_td(data);
+ 
+@@ -656,7 +656,7 @@ static int str_rwmix_read_cb(void *data, unsigned long long *val)
+ 	return 0;
+ }
+ 
+-static int str_rwmix_write_cb(void *data, unsigned long long *val)
++static int str_rwmix_write_cb(void *data, long long *val)
+ {
+ 	struct thread_data *td = cb_data_to_td(data);
+ 
+@@ -1625,7 +1625,7 @@ static int str_gtod_reduce_cb(void *data, int *il)
+ 	return 0;
+ }
+ 
+-static int str_offset_cb(void *data, unsigned long long *__val)
++static int str_offset_cb(void *data, long long *__val)
+ {
+ 	struct thread_data *td = cb_data_to_td(data);
+ 	unsigned long long v = *__val;
+@@ -1646,7 +1646,7 @@ static int str_offset_cb(void *data, unsigned long long *__val)
+ 	return 0;
+ }
+ 
+-static int str_offset_increment_cb(void *data, unsigned long long *__val)
++static int str_offset_increment_cb(void *data, long long *__val)
+ {
+ 	struct thread_data *td = cb_data_to_td(data);
+ 	unsigned long long v = *__val;
+@@ -1667,7 +1667,7 @@ static int str_offset_increment_cb(void *data, unsigned long long *__val)
+ 	return 0;
+ }
+ 
+-static int str_size_cb(void *data, unsigned long long *__val)
++static int str_size_cb(void *data, long long *__val)
+ {
+ 	struct thread_data *td = cb_data_to_td(data);
+ 	unsigned long long v = *__val;
+@@ -1711,7 +1711,7 @@ static int str_io_size_cb(void *data, unsigned long long *__val)
+ 	return 0;
+ }
+ 
+-static int str_zoneskip_cb(void *data, unsigned long long *__val)
++static int str_zoneskip_cb(void *data, long long *__val)
+ {
+ 	struct thread_data *td = cb_data_to_td(data);
+ 	unsigned long long v = *__val;
+-- 
+2.43.2
+
