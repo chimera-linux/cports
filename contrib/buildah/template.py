@@ -1,5 +1,5 @@
 pkgname = "buildah"
-pkgver = "1.34.0"
+pkgver = "1.34.1"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
@@ -29,11 +29,6 @@ url = "https://buildah.io"
 source = (
     f"https://github.com/containers/buildah/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "847d9943195360e3dad1132f46bfac4fa333c922f3079560a25ba1b9d9b40453"
+sha256 = "2160dcfe42abfd4225f03c62de74f56b8fd120aff0f9a19ea73d13f81e9ad5c1"
 # needs subid config in the chroot
 options = ["!check"]
-
-
-def post_extract(self):
-    # delete stray incomplete vendor dir
-    self.rm("vendor/", recursive=True)
