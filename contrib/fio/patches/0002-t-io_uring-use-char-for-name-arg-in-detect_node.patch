@@ -1,0 +1,30 @@
+From 72af98b3ea4c6e468d9bd59c840ce4fb75f9f491 Mon Sep 17 00:00:00 2001
+From: Miko Larsson <mikoxyzzz@gmail.com>
+Date: Thu, 22 Feb 2024 13:11:27 +0100
+Subject: [PATCH 2/3] t/io_uring: use char * for name arg in detect_node
+
+Fixes the following compiler warning:
+warning: passing 'const char *' to parameter of type 'char *' discards
+qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+
+Signed-off-by: Miko Larsson <mikoxyzzz@gmail.com>
+---
+ t/io_uring.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/t/io_uring.c b/t/io_uring.c
+index 6fc40cbb..18e8b38e 100644
+--- a/t/io_uring.c
++++ b/t/io_uring.c
+@@ -820,7 +820,7 @@ static void set_affinity(struct submitter *s)
+ #endif
+ }
+ 
+-static int detect_node(struct submitter *s, const char *name)
++static int detect_node(struct submitter *s, char *name)
+ {
+ #ifdef CONFIG_LIBNUMA
+ 	const char *base = basename(name);
+-- 
+2.43.2
+
