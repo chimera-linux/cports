@@ -27,4 +27,4 @@ def post_install(self):
             "-c",
             f"{self.chroot_cwd}/build/yq shell-completion {shell} > yq.{shell}",
         )
-        self.install_completion(f"yq.{shell}", shell=shell)
+        self.install_completion(f"yq.{shell}", shell)

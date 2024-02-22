@@ -38,4 +38,4 @@ def post_install(self):
             "-c",
             f"{self.chroot_cwd}/target/{self.profile().triplet}/release/starship completions {shell} > starship.{shell}",
         )
-        self.install_completion(f"starship.{shell}", shell=shell)
+        self.install_completion(f"starship.{shell}", shell)
