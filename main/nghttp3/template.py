@@ -1,20 +1,18 @@
 pkgname = "nghttp3"
-pkgver = "1.1.0"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-cunit"]
 hostmakedepends = [
     "automake",
     "libtool",
     "pkgconf",
 ]
-makedepends = ["cunit-devel"]
 pkgdesc = "C HTTP/3 library"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://nghttp2.org/nghttp3"
 source = f"https://github.com/ngtcp2/nghttp3/releases/download/v{pkgver}/nghttp3-{pkgver}.tar.xz"
-sha256 = "f7ffcf21fb889e7d6a8422a3620deb52a8516364805ec3bd7ef296628ca595cb"
+sha256 = "d2e216bae7bd7362f850922e4237a5caa204853b3594b22adccab4c1e1c1d1aa"
 
 
 def post_install(self):
