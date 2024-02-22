@@ -1,0 +1,8 @@
+# headscale system service
+
+type        = process
+command     = /usr/bin/headscale serve
+working-dir = /var/lib/headscale
+logfile     = /var/log/headscale.log
+run-as      = _headscale
+depends-on  = network.target
