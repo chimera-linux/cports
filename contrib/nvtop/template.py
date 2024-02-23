@@ -1,5 +1,5 @@
 pkgname = "nvtop"
-pkgver = "3.0.2"
+pkgver = "3.1.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -20,6 +20,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/Syllo/nvtop"
 source = f"https://github.com/Syllo/nvtop/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "63fa45a2d675fe5320704850c216da6a6bb2edaf09821c26b3800fa7744bae00"
+sha256 = "9481c45c136163574f1f16d87789859430bc90a1dc62f181b269b5edd92f01f3"
 # FIXME: cfi
 hardening = ["vis"]
