@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.1"
-pkgrel = 4
+pkgrel = 5
 depends = [
     "kmod",
     "procps",
@@ -91,6 +91,12 @@ def do_install(self):
         mode=0o755,
         name="chimera-buildkernel",
     )
+    self.install_file(
+        self.files_path / "chimera-stripko.sh",
+        "usr/bin",
+        mode=0o755,
+        name="chimera-stripko",
+    )
 
     self.install_file(
         self.files_path / "chimera-prunekernels.sh",
@@ -126,4 +132,4 @@ def _baseloc(self):
         "zlib-devel",
     ]
 
-    return ["usr/bin/chimera-buildkernel"]
+    return ["usr/bin/chimera-buildkernel", "usr/bin/chimera-stripko"]

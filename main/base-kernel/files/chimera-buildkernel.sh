@@ -24,7 +24,6 @@ Prepare options and their default values:
     ARCH=                The architecture to build for.
     CC=clang             The target compiler to use.
     CFLAGS=              The target CFLAGS to use.
-    COMP=zstd            The compression to use (none, gzip, zstd).
     CROSS_COMPILE=       The cross triplet to use.
     CONFIG_FILE=         The config file to copy if not present.
     HOSTCC=clang         The host compiler to use.
@@ -38,6 +37,8 @@ Prepare options and their default values:
     OBJDIR=build         The directory to build in.
     EPOCH=               The Unix timestamp for reproducible builds.
     JOBS=1               The number of build jobs to use.
+    STRIP=1              Strip the modules.
+    SPLIT_DBG=1          Separate the debug info.
 
 Install target takes one argument, the destination directory.
 
@@ -70,7 +71,6 @@ shift
 ARCH=$(uname -m)
 CC=clang
 CFLAGS=
-COMP=zstd
 CROSS_COMPILE=
 CONFIG_FILE=
 HOSTCC=clang
@@ -84,6 +84,8 @@ LOCALVERSION=
 OBJDIR=build
 EPOCH=
 JOBS=1
+STRIP=1
+SPLIT_DBG=1
 
 case "$ARCH" in
     x86_64) ARCH=x86_64;;
@@ -133,6 +135,8 @@ read_prepared() {
     OBJDUMP=$(cat "${prepdir}/objdump")
     OBJDIR=$(cat "${prepdir}/objdir")
     JOBS=$(cat "${prepdir}/jobs")
+    STRIP=$(cat "${prepdir}/strip")
+    SPLIT_DBG=$(cat "${prepdir}/split-dbg")
     [ -r "${prepdir}/epoch" ] && EPOCH=$(cat "${prepdir}/epoch")
 
     export PATH="${prepdir}/wrappers:${PATH}"
@@ -185,7 +189,6 @@ do_prepare() {
             ARCH=*) ARCH=${1#ARCH=};;
             CC=*) CC=${1#CC=};;
             CFLAGS=*) CFLAGS=${1#CFLAGS=};;
-            COMP=*) COMP=${1#COMP=};;
             CROSS_COMPILE=*) CROSS_COMPILE=${1#CROSS_COMPILE=};;
             CONFIG_FILE=*) CONFIG_FILE=${1#CONFIG_FILE=};;
             HOSTCC=*) HOSTCC=${1#HOSTCC=};;
@@ -199,16 +202,11 @@ do_prepare() {
             OBJDIR=*) OBJDIR=${1#OBJDIR=};;
             EPOCH=*) EPOCH=${1#EPOCH=};;
             JOBS=*) JOBS=${1#JOBS=};;
+            STRIP=*) STRIP=${1#STRIP=};;
+            SPLIT_DBG=*) SPLIT_DBG=${1#SPLIT_DBG=};;
         esac
         shift
     done
-
-    case "$COMP" in
-        none) COMP="true";;
-        gzip) COMP="gzip -9";;
-        zstd) COMP="zstd -T0 --rm -f -q";;
-        *) die "Unknown compression format: $COMP";;
-    esac
 
     validate_arch
     setup_epoch
@@ -295,19 +293,8 @@ do_prepare() {
     printf "%s" "$OBJDIR" > "${TEMPDIR}/objdir"
     printf "%s" "$JOBS" > "${TEMPDIR}/jobs"
     printf "%s" "$EPOCH" > "${TEMPDIR}/epoch"
-
-    cat << EOF > ${TEMPDIR}/mv-debug
-#!/bin/sh
-mod=\$1
-mkdir -p usr/lib/debug/\${mod%/*}
-/usr/bin/llvm-objcopy --only-keep-debug --compress-debug-sections \\
-    \$mod usr/lib/debug/\$mod
-/usr/bin/llvm-objcopy --add-gnu-debuglink=\${DESTDIR}/usr/lib/debug/\$mod \\
-    \$mod
-/usr/bin/llvm-strip --strip-debug \$mod
-$COMP \$mod
-EOF
-    chmod +x "${TEMPDIR}/mv-debug"
+    printf "%s" "$STRIP" > "${TEMPDIR}/strip"
+    printf "%s" "$SPLIT_DBG" > "${TEMPDIR}/split-dbg"
 
     printf "%s" "$TEMPDIR" > .chimera_prepare_done
 
@@ -342,11 +329,6 @@ do_build() {
         arm64|riscv) args="Image modules dtbs";;
     esac
 
-    if [ -r "scripts/depmod.sh.bak" ]; then
-        rm -f scripts/depmod.sh
-        mv scripts/depmod.sh.bak scripts/depmod.sh
-    fi
-
     unset LDFLAGS
     call_make
 
@@ -374,23 +356,27 @@ do_install() {
 
     DESTDIR="$1"
 
-    if [ ! -d "$DESTDIR" ]; then
-        mkdir -p "$DESTDIR"
-    fi
+    mkdir -p "${DESTDIR}/usr/lib"
+    # needed for depmod
+    ln -sf usr/lib "${DESTDIR}/lib"
 
     [ -d "$DESTDIR" ] || die "Could not create destination directory."
 
-    # turn depmod into noop
-    if [ ! -r "scripts/depmod.sh.bak" ]; then
-        mv scripts/depmod.sh scripts/depmod.sh.bak
-        echo "#!/bin/sh" >> scripts/depmod.sh
-        echo "exit 0" >> scripts/depmod.sh
-        chmod 755 scripts/depmod.sh
-    fi
-
     echo "=> Installing modules..."
 
-    call_make modules_install INSTALL_MOD_PATH="$DESTDIR"
+    strip_exe=/usr/bin/true
+    strip_arg=--strip-module
+
+    if [ "$STRIP" -ne 0 ]; then
+        strip_exe=/usr/bin/chimera-stripko
+    fi
+    if [ "$SPLIT_DBG" -ne 0 ]; then
+        strip_arg="--strip-module=${DESTDIR}/usr/lib/debug"
+    fi
+
+    call_make modules_install INSTALL_MOD_PATH="$DESTDIR" \
+        "MODLIB=${DESTDIR}/usr/lib/modules/${kernver}" \
+        "STRIP=$strip_exe" "INSTALL_MOD_STRIP=$strip_arg"
 
     # can be renamed later
     hdrdest="${DESTDIR}/usr/src/linux-headers-${kernver}"
@@ -431,10 +417,13 @@ do_install() {
             ;;
     esac
 
-    rm -rf "${DESTDIR}/usr/lib/firmware"
+    if [ "$SPLIT_DBG" -ne 0 ]; then
+        install -d "${DESTDIR}/usr/lib/debug/boot"
+        install -m644 "${OBJDIR}/vmlinux" \
+            "${DESTDIR}/usr/lib/debug/boot/vmlinux-${kernver}"
+    fi
 
-    install -d "${DESTDIR}/usr" || die "Could not create usr"
-    mv "${DESTDIR}/lib" "${DESTDIR}/usr" || die "Could not move lib"
+    rm -f "${DESTDIR}/lib"
 
     cd "${DESTDIR}/usr/lib/modules/${kernver}" \
         || die "Could not change directory"
@@ -443,9 +432,6 @@ do_install() {
     ln -sf "../../../src/linux-headers-${kernver}" build
 
     cd "${wrksrc}"
-
-    rm -f scripts/depmod.sh
-    mv scripts/depmod.sh.bak scripts/depmod.sh
 
     echo "=> Setting up headers..."
 
@@ -477,27 +463,6 @@ do_install() {
         cp "${OBJDIR}/arch/powerpc/lib/crtsavres.o" \
             "${hdrdest}/arch/powerpc/lib"
     fi
-
-    # extract debug symbols and compress modules
-    echo "=> Extracting debug info and compressing modules..."
-
-    install -d "${DESTDIR}/usr/lib/debug/boot"
-    install -m644 "${OBJDIR}/vmlinux" \
-        "${DESTDIR}/usr/lib/debug/boot/vmlinux-${kernver}"
-
-    TEMPDIR=$(cat .chimera_prepare_done)
-
-    export DESTDIR
-    cd "${DESTDIR}"
-
-    find ./ -name '*.ko' -print0 | \
-        xargs -0r -n1 -P ${JOBS} ${TEMPDIR}/mv-debug
-
-    cd "${wrksrc}"
-
-    # ... and run depmod again.
-    depmod -b "${DESTDIR}/usr" -F "${DESTDIR}/boot/System.map-${kernver}" \
-        ${kernver}
 
     echo ""
     echo "Kernel installation done ($kernver), files in ${DESTDIR}."
