@@ -1,0 +1,64 @@
+From 6e0074063479c8ade345be9e6b8e386f246852a0 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sat, 24 Feb 2024 00:42:54 +0100
+Subject: [PATCH] try compressed firmware
+
+---
+ hook-functions | 36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/hook-functions b/hook-functions
+index 1639100..fd6b25c 100644
+--- a/hook-functions
++++ b/hook-functions
+@@ -57,29 +57,29 @@ add_modules_from_file()
+ # whether a warning should be printed in that case.)
+ add_firmware()
+ {
+-	local firmware fwloc
++	local ext firmware found_fwloc fwloc path
+ 
+ 	firmware="${1}"
+ 
+-	if [ -e "${DESTDIR}/lib/firmware/updates/${version?}/${firmware}" ] \
+-	|| [ -e "${DESTDIR}/lib/firmware/updates/${firmware}" ] \
+-	|| [ -e "${DESTDIR}/lib/firmware/${version}/${firmware}" ] \
+-	|| [ -e "${DESTDIR}/lib/firmware/${firmware}" ]; then
+-		return 0
+-	fi
+-
+-	for fwloc in "/lib/firmware/updates/${version}/${firmware}" \
+-		"/lib/firmware/updates/${firmware}" \
+-		"/lib/firmware/${version}/${firmware}" \
+-		"/lib/firmware/${firmware}"; do
+-		if [ -e "$fwloc" ]; then
+-			copy_file firmware "$fwloc"
+-			return 0
+-		fi
++	for path in "updates/${version?}" "updates" "${version}" ""; do
++		for ext in ".xz" ".zst" ""; do
++			fwloc="/lib/firmware${path:+/}${path}/${firmware}${ext}"
++			if [ -e "${DESTDIR}${fwloc}" ]; then
++				# DESTDIR already contains a matching firmware file.
++				return 0
++			fi
++			if [ -z "${found_fwloc}" ] && [ -e "${fwloc}" ]; then
++				found_fwloc="$fwloc"
++			fi
++		done
+ 	done
+ 
+-	# We can't figure out where to get that firmware from.
+-	return 1
++	if [ -z "${found_fwloc}" ]; then
++		# We can't figure out where to get that firmware from.
++		return 1
++	fi
++
++	copy_file firmware "${found_fwloc}"
+ }
+ 
+ # Add dependent modules + eventual firmware
+-- 
+2.43.2
+
