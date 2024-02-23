@@ -1,0 +1,39 @@
+From 0c198ec99af74e40a07e1404c87a1b1eb871ebfc Mon Sep 17 00:00:00 2001
+From: Boian Bonev <bbonev@ipacct.com>
+Date: Fri, 23 Feb 2024 18:18:21 +0000
+Subject: [PATCH 2/2] Also change pidgen_cb to match pg_cb
+
+---
+ src/iotop.h | 2 +-
+ src/utils.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/iotop.h b/src/iotop.h
+index aa98a18..392a346 100644
+--- a/src/iotop.h
++++ b/src/iotop.h
+@@ -188,7 +188,7 @@ inline char *u8strpadt(const char *s,ssize_t len);
+ inline char *esc_low_ascii(char *p);
+ 
+ typedef void (*pg_cb)(pid_t pid,pid_t tid,struct xxxid_stats_arr *hint1,filter_callback hint2);
+-inline void pidgen_cb(pg_cb cb,void *hint1,void *hint2);
++inline void pidgen_cb(pg_cb cb,struct xxxid_stats_arr *hint1,filter_callback hint2);
+ 
+ 
+ inline int is_a_dir(const char *p);
+diff --git a/src/utils.c b/src/utils.c
+index bdc6017..0dff070 100644
+--- a/src/utils.c
++++ b/src/utils.c
+@@ -118,7 +118,7 @@ inline char *read_cmdline(int pid,int isshort) {
+ 	return rv;
+ }
+ 
+-inline void pidgen_cb(pg_cb cb,void *hint1,void *hint2) {
++inline void pidgen_cb(pg_cb cb,struct xxxid_stats_arr *hint1,filter_callback hint2) {
+ 	DIR *pr;
+ 
+ 	if ((pr=opendir("/proc"))) {
+-- 
+2.43.2
+

@@ -1,0 +1,26 @@
+From ce383b31132d0b924c292135eb36771c20991714 Mon Sep 17 00:00:00 2001
+From: Miko Larsson <mikoxyzzz@gmail.com>
+Date: Fri, 23 Feb 2024 14:05:39 +0100
+Subject: [PATCH 1/2] src/iotop: correct pg_cb signature
+
+This fixes CFI due to mismatching signatures between pg_cb and pid_cb.
+---
+ src/iotop.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/iotop.h b/src/iotop.h
+index 74cde0b..aa98a18 100644
+--- a/src/iotop.h
++++ b/src/iotop.h
+@@ -187,7 +187,7 @@ inline int64_t monotime(void);
+ inline char *u8strpadt(const char *s,ssize_t len);
+ inline char *esc_low_ascii(char *p);
+ 
+-typedef void (*pg_cb)(pid_t pid,pid_t tid,void *hint1,void *hint2);
++typedef void (*pg_cb)(pid_t pid,pid_t tid,struct xxxid_stats_arr *hint1,filter_callback hint2);
+ inline void pidgen_cb(pg_cb cb,void *hint1,void *hint2);
+ 
+ 
+-- 
+2.43.2
+
