@@ -1,0 +1,155 @@
+From 169a58ad824d896b9e291a27193342616e651b82 Mon Sep 17 00:00:00 2001
+From: Stephen Boyd <swboyd@chromium.org>
+Date: Tue, 6 Dec 2022 13:53:18 -0800
+Subject: [PATCH] module/decompress: Support zstd in-kernel decompression
+
+Add support for zstd compressed modules to the in-kernel decompression
+code. This allows zstd compressed modules to be decompressed by the
+kernel, similar to the existing support for gzip and xz compressed
+modules.
+
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Piotr Gorski <lucjan.lucjanov@gmail.com>
+Cc: Nick Terrell <terrelln@fb.com>
+Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Reviewed-by: Piotr Gorski <lucjan.lucjanov@gmail.com>
+Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+---
+ kernel/module/Kconfig      |  3 +-
+ kernel/module/decompress.c | 92 +++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 92 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/module/Kconfig b/kernel/module/Kconfig
+index 26ea5d04f56c2d..424b3bc58f3f51 100644
+--- a/kernel/module/Kconfig
++++ b/kernel/module/Kconfig
+@@ -221,9 +221,10 @@ endchoice
+ 
+ config MODULE_DECOMPRESS
+ 	bool "Support in-kernel module decompression"
+-	depends on MODULE_COMPRESS_GZIP || MODULE_COMPRESS_XZ
++	depends on MODULE_COMPRESS_GZIP || MODULE_COMPRESS_XZ || MODULE_COMPRESS_ZSTD
+ 	select ZLIB_INFLATE if MODULE_COMPRESS_GZIP
+ 	select XZ_DEC if MODULE_COMPRESS_XZ
++	select ZSTD_DECOMPRESS if MODULE_COMPRESS_ZSTD
+ 	help
+ 
+ 	  Support for decompressing kernel modules by the kernel itself
+diff --git a/kernel/module/decompress.c b/kernel/module/decompress.c
+index 720e719253cd14..bb79ac1a6d8f79 100644
+--- a/kernel/module/decompress.c
++++ b/kernel/module/decompress.c
+@@ -50,7 +50,7 @@ static struct page *module_get_next_page(struct load_info *info)
+ 	return page;
+ }
+ 
+-#ifdef CONFIG_MODULE_COMPRESS_GZIP
++#if defined(CONFIG_MODULE_COMPRESS_GZIP)
+ #include <linux/zlib.h>
+ #define MODULE_COMPRESSION	gzip
+ #define MODULE_DECOMPRESS_FN	module_gzip_decompress
+@@ -141,7 +141,7 @@ static ssize_t module_gzip_decompress(struct load_info *info,
+ 	kfree(s.workspace);
+ 	return retval;
+ }
+-#elif CONFIG_MODULE_COMPRESS_XZ
++#elif defined(CONFIG_MODULE_COMPRESS_XZ)
+ #include <linux/xz.h>
+ #define MODULE_COMPRESSION	xz
+ #define MODULE_DECOMPRESS_FN	module_xz_decompress
+@@ -199,6 +199,94 @@ static ssize_t module_xz_decompress(struct load_info *info,
+ 	xz_dec_end(xz_dec);
+ 	return retval;
+ }
++#elif defined(CONFIG_MODULE_COMPRESS_ZSTD)
++#include <linux/zstd.h>
++#define MODULE_COMPRESSION	zstd
++#define MODULE_DECOMPRESS_FN	module_zstd_decompress
++
++static ssize_t module_zstd_decompress(struct load_info *info,
++				    const void *buf, size_t size)
++{
++	static const u8 signature[] = { 0x28, 0xb5, 0x2f, 0xfd };
++	ZSTD_outBuffer zstd_dec;
++	ZSTD_inBuffer zstd_buf;
++	zstd_frame_header header;
++	size_t wksp_size;
++	void *wksp = NULL;
++	ZSTD_DStream *dstream;
++	size_t ret;
++	size_t new_size = 0;
++	int retval;
++
++	if (size < sizeof(signature) ||
++	    memcmp(buf, signature, sizeof(signature))) {
++		pr_err("not a zstd compressed module\n");
++		return -EINVAL;
++	}
++
++	zstd_buf.src = buf;
++	zstd_buf.pos = 0;
++	zstd_buf.size = size;
++
++	ret = zstd_get_frame_header(&header, zstd_buf.src, zstd_buf.size);
++	if (ret != 0) {
++		pr_err("ZSTD-compressed data has an incomplete frame header\n");
++		retval = -EINVAL;
++		goto out;
++	}
++	if (header.windowSize > (1 << ZSTD_WINDOWLOG_MAX)) {
++		pr_err("ZSTD-compressed data has too large a window size\n");
++		retval = -EINVAL;
++		goto out;
++	}
++
++	wksp_size = zstd_dstream_workspace_bound(header.windowSize);
++	wksp = vmalloc(wksp_size);
++	if (!wksp) {
++		retval = -ENOMEM;
++		goto out;
++	}
++
++	dstream = zstd_init_dstream(header.windowSize, wksp, wksp_size);
++	if (!dstream) {
++		pr_err("Can't initialize ZSTD stream\n");
++		retval = -ENOMEM;
++		goto out;
++	}
++
++	do {
++		struct page *page = module_get_next_page(info);
++
++		if (IS_ERR(page)) {
++			retval = PTR_ERR(page);
++			goto out;
++		}
++
++		zstd_dec.dst = kmap_local_page(page);
++		zstd_dec.pos = 0;
++		zstd_dec.size = PAGE_SIZE;
++
++		ret = zstd_decompress_stream(dstream, &zstd_dec, &zstd_buf);
++		kunmap_local(zstd_dec.dst);
++		retval = zstd_get_error_code(ret);
++		if (retval)
++			break;
++
++		new_size += zstd_dec.pos;
++	} while (zstd_dec.pos == PAGE_SIZE && ret != 0);
++
++	if (retval) {
++		pr_err("ZSTD-decompression failed with status %d\n", retval);
++		retval = -EINVAL;
++		goto out;
++	}
++
++	retval = new_size;
++
++ out:
++	vfree(wksp);
++	return retval;
++}
+ #else
+ #error "Unexpected configuration for CONFIG_MODULE_DECOMPRESS"
+ #endif
