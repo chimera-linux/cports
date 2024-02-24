@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.5"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
@@ -17,8 +17,11 @@ depends = [
     "virtual:cmd:mount!mount",
     "virtual:cmd:sulogin!shadow",
     "virtual:cmd:udevadm!udev",
-    "virtual:cmd:systemd-tmpfiles!systemd-utils",
+    "virtual:cmd:snooze!snooze",
+    "virtual:cmd:sd-tmpfiles!sd-tools",
+    "virtual:cmd:systemd-tmpfiles!sd-tools",
 ]
+replaces = ["systemd-utils<255"]
 triggers = ["/usr/lib/binfmt.d", "/var/lib/swclock"]
 pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -35,6 +38,10 @@ def post_install(self):
     self.install_license("COPYING.md")
     self.install_file(self.files_path / "locale.conf", "etc")
     self.install_file(self.files_path / "dinit.conf", "usr/lib/tmpfiles.d")
+    self.install_file(
+        self.files_path / "sd-tmpfiles-clean", "usr/libexec", mode=0o755
+    )
+    self.install_service(self.files_path / "tmpfiles-clean", enable=True)
     # swclock
     self.install_dir("var/lib/swclock")
     (self.destdir / "var/lib/swclock/timestamp").touch(0o644)

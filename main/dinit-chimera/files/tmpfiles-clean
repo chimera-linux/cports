@@ -1,0 +1,8 @@
+# Periodically clean up temporary directories
+
+type            = process
+command         = /usr/libexec/sd-tmpfiles-clean
+depends-on      = local.target
+depends-on      = time-sync.target
+restart         = true
+smooth-recovery = true
