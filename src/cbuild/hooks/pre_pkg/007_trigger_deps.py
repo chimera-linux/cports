@@ -9,8 +9,6 @@ from cbuild.core import logger
 
 _trigdeps = {
     "etc/ca-certificates/update.d": "ca-certificates",
-    "usr/lib/sysusers.d": "systemd-utils",
-    "usr/lib/tmpfiles.d": "systemd-utils",
     "usr/share/ca-certificates": "ca-certificates",
 }
 
