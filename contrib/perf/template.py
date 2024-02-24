@@ -1,5 +1,5 @@
 pkgname = "perf"
-pkgver = "6.7.3"
+pkgver = "6.7.6"
 pkgrel = 0
 build_wrksrc = "tools/perf"
 build_style = "makefile"
@@ -52,7 +52,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://perf.wiki.kernel.org/index.php/Main_Page"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[:pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"
-sha256 = "b7f08c652747574a3aa26e317d7a8f23ffab3fb645e1b1533b215dcfd5742b44"
+sha256 = "e489ec0e1370d089b446d565aded7a698093d2b7c4122a18f21edb6ef93d37d3"
 # nope
 options = ["!check"]
 # MAKE is ignored in some places
