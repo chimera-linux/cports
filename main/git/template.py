@@ -1,5 +1,5 @@
 pkgname = "git"
-pkgver = "2.43.2"
+pkgver = "2.44.0"
 pkgrel = 0
 hostmakedepends = [
     "gmake",
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f612c1abc63557d50ad3849863fc9109670139fc9901e574460ec76e0511adb9"
+sha256 = "e358738dcb5b5ea340ce900a0015c03ae86e804e7ff64e47aa4631ddee681de3"
 hardening = ["!cfi"]  # TODO
 # missing checkdepends
 options = ["!check"]
@@ -98,11 +98,7 @@ def do_install(self):
     self.rm(self.destdir / "usr/share/man/man1/git-cvsserver.1")
     self.rm(self.destdir / "usr/share/man/man7/gitcvs-migration.7")
 
-    self.install_file(
-        "contrib/completion/git-completion.bash",
-        "usr/share/bash-completion/completions",
-        name="git",
-    )
+    self.install_completion("contrib/completion/git-completion.bash", "bash")
     self.install_file("contrib/completion/git-prompt.sh", "usr/share/git")
 
     self.install_bin("contrib/diff-highlight/diff-highlight")
