@@ -1,1 +1,0 @@
-pattern = r">SpeexDSP-([\d.]+)<"

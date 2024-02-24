@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# use a /run file so it's non-existent every boot
-SCRIPT="/usr/bin/sleep 900; /usr/bin/systemd-tmpfiles --clean; touch /run/systemd-tmpfiles-clean"
-
-exec /usr/libexec/dinit-snooze "$SCRIPT" -s 1d -t /run/systemd-tmpfiles-clean

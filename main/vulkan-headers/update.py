@@ -1,1 +1,0 @@
-pkgname = "Vulkan-Headers"

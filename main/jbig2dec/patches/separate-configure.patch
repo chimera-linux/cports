@@ -1,8 +1,0 @@
---- a/autogen.sh
-+++ b/autogen.sh
-@@ -176,5 +176,3 @@ if test -z "$*"; then
- else
- 	echo "running ./configure $@"
- fi
--
--$srcdir/configure "$@" && echo

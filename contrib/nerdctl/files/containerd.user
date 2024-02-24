@@ -1,5 +1,0 @@
-# containerd user service
-
-type       = process
-command    = /usr/bin/containerd-rootless
-restart    = true

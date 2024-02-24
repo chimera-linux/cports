@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if [ -x /etc/X11/Xsession ]; then
-    exec /etc/X11/Xsession "$@"
-fi
-
-exec "$@"

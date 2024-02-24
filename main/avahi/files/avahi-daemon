@@ -1,9 +1,0 @@
-# avahi-daemon service
-
-type            = process
-command         = /usr/bin/avahi-daemon -s
-before          = login.target
-depends-on      = local.target
-depends-on      = dbus
-restart         = true
-smooth-recovery = true

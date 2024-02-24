@@ -1,1 +1,0 @@
-pkgname = "XML-Parser"

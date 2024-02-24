@@ -1,7 +1,0 @@
-polkit.addRule(function(action, subject) {
-    if (subject.isInGroup("rtkit")) {
-        if (action.id.indexOf("org.freedesktop.RealtimeKit1.") == 0) {
-            return polkit.Result.YES;
-        }
-    }
-});

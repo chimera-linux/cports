@@ -1,7 +1,0 @@
-# pipewire user service
-
-type               = process
-command            = /usr/bin/pipewire
-depends-on         = dbus
-restart            = true
-ready-notification = pipevar:PIPEWIRE_READY_FD

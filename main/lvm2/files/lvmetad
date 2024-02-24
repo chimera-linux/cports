@@ -1,8 +1,0 @@
-# lvmetad service
-
-type            = process
-command         = lvmetad -f
-before          = pre-local.target
-depends-on      = early-fs-pre.target
-restart         = true
-smooth-recovery = true

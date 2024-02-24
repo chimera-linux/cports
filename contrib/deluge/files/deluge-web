@@ -1,7 +1,0 @@
-# deluge-web service
-
-type       = process
-command    = /usr/bin/deluge-web -d
-depends-on = deluged
-restart    = true
-run-as     = _deluge

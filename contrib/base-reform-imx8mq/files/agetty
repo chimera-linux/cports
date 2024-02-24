@@ -1,2 +1,0 @@
-# Enable serial console on MNT Reform by default.
-EXTRA_GETTYS="/dev/ttymxc0"

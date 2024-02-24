@@ -1,1 +1,0 @@
-pkgname = "smpeg2"

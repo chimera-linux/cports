@@ -1,1 +1,0 @@
-pkgname = "Digest-HMAC"

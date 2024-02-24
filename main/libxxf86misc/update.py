@@ -1,1 +1,0 @@
-pkgname = "libXxf86misc"

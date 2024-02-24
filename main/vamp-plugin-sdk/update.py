@@ -1,1 +1,0 @@
-url = "https://code.soundsoftware.ac.uk/projects/vamp-plugin-sdk/files"

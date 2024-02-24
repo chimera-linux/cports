@@ -1,1 +1,0 @@
-pkgname = "charset_normalizer"

@@ -1,7 +1,0 @@
-#!/bin/sh
-
-if [ -z "$1" -o ! -e "$1" ]; then
-    exit 0
-fi
-
-/usr/bin/nft -f "$1"

@@ -1,8 +1,0 @@
-# colord service
-
-type       = process
-command    = /usr/libexec/colord
-depends-on = login.target
-depends-on = dbus
-restart    = true
-run-as     = _colord

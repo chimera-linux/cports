@@ -1,4 +1,0 @@
-type            = process
-command         = /usr/bin/keyd
-smooth-recovery = true
-depends-on      = local.target

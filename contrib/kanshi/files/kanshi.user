@@ -1,5 +1,0 @@
-# kanshi user service
-
-type     = process
-command  = /usr/bin/kanshi
-log-type = buffer

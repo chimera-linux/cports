@@ -1,7 +1,0 @@
-# spice-vdagentd service
-
-type               = process
-command            = /usr/bin/spice-vdagentd -x
-depends-on         = dbus
-restart            = true
-smooth-recovery    = true
