@@ -7,7 +7,7 @@ hostmakedepends = ["pkgconf"]
 provides = [f"liblzma={pkgver}-r{pkgrel}"]
 pkgdesc = "XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
-license = "custom:xz"
+license = "0BSD"
 url = "https://tukaani.org/xz"
 source = f"https://github.com/tukaani-project/xz/releases/download/v{pkgver}/xz-{pkgver}.tar.bz2"
 sha256 = "88c8631cefba91664fdc47b14bb753e1876f4964a07db650821d203992b1e1ea"
