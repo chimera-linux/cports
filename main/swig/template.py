@@ -1,5 +1,5 @@
 pkgname = "swig"
-pkgver = "4.2.0"
+pkgver = "4.2.1"
 pkgrel = 0
 build_style = "gnu_configure"
 # broken
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.swig.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "261ca2d7589e260762817b912c075831572b72ff2717942f75b3e51244829c97"
+sha256 = "fa045354e2d048b2cddc69579e4256245d4676894858fcf0bab2290ecf59b7d8"
 hardening = ["!cfi"]  # TODO
 # broken check target?
 options = ["!check"]
