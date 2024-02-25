@@ -1,4 +1,5 @@
 pkgname = "gnome-keyring"
+# 46 moved the pam module to libsecret, so rebuild it with -Dpam=true when upgrading
 pkgver = "42.1"
 pkgrel = 0
 build_style = "gnu_configure"
