@@ -1,6 +1,6 @@
 pkgname = "kitty"
 pkgver = "0.32.2"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "go",
     "pkgconf",
@@ -85,4 +85,4 @@ def _terminfo(self):
 def _kitten(self):
     self.pkgdesc = f"{pkgdesc} (kitten client)"
 
-    return ["usr/bin/kitten"]
+    return ["usr/bin/kitten", "usr/share/man1/kitten*.1"]
