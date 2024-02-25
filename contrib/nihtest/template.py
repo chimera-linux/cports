@@ -9,15 +9,20 @@ hostmakedepends = [
     "python-wheel",
 ]
 depends = ["python-dateutil"]
-checkdepends = ["python-pytest"]
+checkdepends = ["cmake", "ninja"] + depends
 pkgdesc = "Testing tool for command line utilities"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/nih-at/nihtest"
 source = f"{url}/releases/download/v{pkgver}/nihtest-{pkgver}.tar.gz"
 sha256 = "2af782ef39654a531584d65d507fc467938c53bfd00c08848e031108e92af929"
-# FIXME: no idea how to run these from tests/ tbh
-options = ["!check"]
+
+
+def do_check(self):
+    from cbuild.util import cmake
+
+    for func in [cmake.configure, cmake.build, cmake.ctest]:
+        func(pkg=self, build_dir="build")
 
 
 def post_install(self):

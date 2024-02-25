@@ -1,0 +1,34 @@
+From 73d29b9bfb2a0595ba6f9e39a93c90101c51390a Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Sun, 25 Feb 2024 16:18:22 +0100
+Subject: [PATCH] CMakeLists: use system packages for tests
+
+---
+ CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7abcd40..94fa862 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -26,8 +26,8 @@ file(GLOB SOURCES ${CMAKE_SOURCE_DIR}/nihtest/*.py)
+ 
+ add_custom_command(
+         OUTPUT ${NIHTEST}
+-        COMMAND ${Python3_EXECUTABLE} -m venv ${VENV}
+-        COMMAND ${VENV_BIN_DIR}/pip install -q --disable-pip-version-check ${CMAKE_SOURCE_DIR}
++        COMMAND ${Python3_EXECUTABLE} -m venv --without-pip --system-site-packages ${VENV}
++        COMMAND ${VENV_BIN_DIR}/python3 -m installer ${CMAKE_SOURCE_DIR}/dist/nihtest*.whl
+         DEPENDS ${SOURCES}
+ )
+ 
+@@ -35,4 +35,4 @@ add_custom_target(venv ALL DEPENDS ${NIHTEST})
+ 
+ # TODO: target for wheel
+ 
+-add_subdirectory(tests)
+\ No newline at end of file
++add_subdirectory(tests)
+-- 
+2.43.2
+
