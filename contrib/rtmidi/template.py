@@ -1,8 +1,9 @@
 pkgname = "rtmidi"
 pkgver = "6.0.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
+makedepends = ["pipewire-jack-devel", "alsa-lib-devel"]
 pkgdesc = "Common API for realtime MIDI input/output"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
