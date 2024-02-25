@@ -17,8 +17,10 @@ license = "MIT"
 url = "http://pyyaml.org/wiki/PyYAML"
 source = f"$(PYPI_SITE)/P/PyYAML/PyYAML-{pkgver}.tar.gz"
 sha256 = "bfdf460b1736c775f2ba9f6a92bca30bc2095067b8a9d77876d1fad6cc3b4a43"
-# FIXME: fail to run
-options = ["!check"]
+
+
+def do_check(self):
+    self.do("python", "setup.py", "test")
 
 
 def post_install(self):
