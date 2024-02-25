@@ -85,4 +85,4 @@ def _terminfo(self):
 def _kitten(self):
     self.pkgdesc = f"{pkgdesc} (kitten client)"
 
-    return ["usr/bin/kitten", "usr/share/man1/kitten*.1"]
+    return ["usr/bin/kitten", "usr/share/man/man1/kitten*.1"]
