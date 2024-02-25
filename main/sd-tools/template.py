@@ -1,6 +1,6 @@
 pkgname = "sd-tools"
 pkgver = "0.99.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -10,7 +10,7 @@ makedepends = [
 ]
 depends = ["base-files"]
 # replace the other package
-provides = [f"systemd-utils={pkgver}-r{pkgrel}"]
+provides = [f"systemd-utils=255-r0"]
 triggers = ["/usr/lib/sysusers.d", "/usr/lib/tmpfiles.d"]
 pkgdesc = "Small set of tools forked from systemd"
 maintainer = "q66 <q66@chimera-linux.org>"
