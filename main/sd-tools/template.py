@@ -10,7 +10,7 @@ makedepends = [
 ]
 depends = ["base-files"]
 # replace the other package
-provides = [f"systemd-utils=255-r0"]
+provides = ["systemd-utils=255-r0"]
 triggers = ["/usr/lib/sysusers.d", "/usr/lib/tmpfiles.d"]
 pkgdesc = "Small set of tools forked from systemd"
 maintainer = "q66 <q66@chimera-linux.org>"
