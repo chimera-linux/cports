@@ -9,7 +9,6 @@ makedepends = [
     "linux-headers",
 ]
 depends = ["base-files"]
-checkdepends = ["bash", "python"]
 # replace the other package
 provides = [f"systemd-utils={pkgver}-r{pkgrel}"]
 triggers = ["/usr/lib/sysusers.d", "/usr/lib/tmpfiles.d"]
