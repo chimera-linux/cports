@@ -1,5 +1,5 @@
 pkgname = "python-pytest"
-pkgver = "8.0.1"
+pkgver = "8.0.2"
 pkgrel = 0
 build_style = "python_pep517"
 _deps = [
@@ -22,7 +22,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://docs.pytest.org/en/latest"
 source = f"$(PYPI_SITE)/p/pytest/pytest-{pkgver}.tar.gz"
-sha256 = "267f6563751877d772019b13aacbe4e860d73fe8f651f28112e9ac37de7513ae"
+sha256 = "d4051d623a2e0b7e51960ba963193b09ce6daeb9759a451844a21e4ddedfc1bd"
 # missing checkdepends
 options = ["!check"]
 
