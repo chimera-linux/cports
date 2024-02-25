@@ -62,8 +62,10 @@ configure_args = [
     "-Dselinux=false",
     "-Dsmack=false",
     "-Dsysext=false",
+    "-Dsysusers=false",
     "-Dtimedated=false",
     "-Dtimesyncd=false",
+    "-Dtmpfiles=false",
     "-Dtpm=false",
     "-Dqrencode=false",
     "-Dquotacheck=false",
@@ -92,9 +94,6 @@ configure_args = [
     "-Dsysvinit-path=",
     "-Drpmmacrosdir=no",
     "-Dpamconfdir=no",
-    # unrelated but we build it while at it
-    "-Dsysusers=true",
-    "-Dtmpfiles=true",
 ]
 hostmakedepends = [
     "meson",
@@ -165,7 +164,6 @@ def post_install(self):
     # drop some more systemd bits
     for f in [
         "usr/include/systemd",
-        "usr/lib/tmpfiles.d",
         "usr/share/dbus-1",
         "usr/share/doc",
     ]:
@@ -176,21 +174,6 @@ def post_install(self):
         if f.name == "boot":
             continue
         self.rm(f, recursive=True)
-
-    # move standalone in its place
-    self.mv(
-        self.destdir / "usr/bin/systemd-tmpfiles.standalone",
-        self.destdir / "usr/bin/systemd-tmpfiles",
-    )
-
-    # sysusers
-    self.rm(self.destdir / "usr/bin/systemd-sysusers")
-    self.rm(self.destdir / "usr/lib/sysusers.d", recursive=True)
-    self.rm(self.destdir / "usr/share/man/man8/systemd-sysusers.service.8")
-    self.mv(
-        self.destdir / "usr/bin/systemd-sysusers.standalone",
-        self.destdir / "usr/bin/systemd-sysusers",
-    )
 
     # predictable interface names
     self.install_file(
@@ -220,12 +203,8 @@ def post_install(self):
     )
     # services
     self.install_file(
-        self.files_path / "systemd-tmpfiles-clean", "usr/libexec", mode=0o755
-    )
-    self.install_file(
         self.files_path / "udevd.wrapper", "usr/libexec", mode=0o755
     )
-    self.install_service(self.files_path / "tmpfiles-clean", enable=True)
     self.install_service(self.files_path / "udevd", enable=True)
 
 
@@ -265,26 +244,6 @@ def _efi(self):
         "usr/share/man/man7/linux*.efi.stub.7",
         "usr/share/man/man7/systemd-stub.7",
         "usr/share/man/man7/sd-stub.7",
-    ]
-
-
-@subpackage("systemd-utils")
-def _tmpfiles(self):
-    self.pkgdesc = "Manage temporary/volatile files/directories"
-    self.depends = ["virtual:cmd:snooze!snooze"]
-    self.replaces = [f"systemd-tmpfiles<{pkgver}-r{pkgrel}"]
-    self.triggers = ["/usr/lib/sysusers.d", "/usr/lib/tmpfiles.d"]
-
-    return [
-        "etc/dinit.d/tmpfiles-clean",
-        "usr/bin/systemd-sysusers",
-        "usr/bin/systemd-tmpfiles",
-        "usr/libexec/systemd-tmpfiles-clean",
-        "usr/lib/dinit.d/boot.d/tmpfiles-clean",
-        "usr/share/man/man5/sysusers.d.5",
-        "usr/share/man/man5/tmpfiles.d.5",
-        "usr/share/man/man8/systemd-sysusers.8",
-        "usr/share/man/man8/systemd-tmpfiles.8",
     ]
 
 
