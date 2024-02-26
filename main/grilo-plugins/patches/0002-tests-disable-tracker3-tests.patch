@@ -1,0 +1,25 @@
+From 82a6acb0c07fbea964e9e8cba6dec02113a1190c Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Mon, 26 Feb 2024 21:31:15 +0100
+Subject: [PATCH 2/2] tests: disable tracker3 tests
+
+tracker pulls in upower, which doesn't like running in a chroot
+---
+ tests/meson.build | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/tests/meson.build b/tests/meson.build
+index 7ba2236b..97b66e33 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -38,7 +38,3 @@ endif
+ if local_metadata_enabled and lua_factory_enabled
+     subdir('local-metadata')
+ endif
+-
+-if get_option('enable-tracker3') != 'no' and tracker3_dep.found() and tracker3_testutils_dep.found()
+-    subdir('tracker3')
+-endif
+-- 
+2.44.0
+
