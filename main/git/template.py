@@ -17,6 +17,7 @@ makedepends = [
     "pcre2-devel",
     "tk-devel",
 ]
+checkdepends = ["gnupg"]
 depends = [
     "ca-certificates",
     "perl-authen-sasl",
@@ -30,7 +31,7 @@ url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "e358738dcb5b5ea340ce900a0015c03ae86e804e7ff64e47aa4631ddee681de3"
 hardening = ["!cfi"]  # TODO
-# missing checkdepends
+# FIXME: a number of tests fail
 options = ["!check"]
 
 
