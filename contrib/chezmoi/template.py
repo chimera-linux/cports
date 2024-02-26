@@ -1,5 +1,5 @@
 pkgname = "chezmoi"
-pkgver = "2.46.1"
+pkgver = "2.47.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -12,7 +12,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
-sha256 = "5b6b908da4a374d9fcad07b1f5002e50f3d5a8fdda2eb5f471befdcf365f67e4"
+sha256 = "1a7fe26f787a5f5b0bcfbba03de0769a1da56608561783d72a1e1bab865e915d"
 options = ["!debug"]
 
 
