@@ -1,4 +1,4 @@
 #!/bin/sh
 
-echo 'g dbus 22' | \
+echo 'g dbus -' | \
     /usr/bin/systemd-sysusers --replace /usr/lib/sysusers.d/dbus.conf - || :

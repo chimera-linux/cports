@@ -1,6 +1,6 @@
 pkgname = "dbus"
 pkgver = "1.14.10"
-pkgrel = 8
+pkgrel = 9
 build_style = "gnu_configure"
 configure_args = [
     "--disable-selinux",
@@ -35,7 +35,7 @@ file_modes = {"usr/libexec/dbus-daemon-launch-helper": ("root", "dbus", 0o4750)}
 hardening = ["vis", "!cfi"]
 options = ["linkundefver"]
 
-system_users = ["dbus:22"]
+system_users = ["dbus"]
 
 
 def post_install(self):
