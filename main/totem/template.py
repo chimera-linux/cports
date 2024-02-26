@@ -1,6 +1,6 @@
 pkgname = "totem"
 pkgver = "43.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Denable-python=no",
@@ -29,8 +29,12 @@ makedepends = [
     "gnome-desktop-devel",
     "grilo-devel",
 ]
-# TODO: add grilo-plugins once we have them
-depends = ["gst-plugins-good", "gst-libav", "gsettings-desktop-schemas"]
+depends = [
+    "grilo-plugins",
+    "gst-plugins-good",
+    "gst-libav",
+    "gsettings-desktop-schemas",
+]
 pkgdesc = "GNOME media player"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
