@@ -1,10 +1,16 @@
 pkgname = "catatonit"
 pkgver = "0.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
     "libtool",
+]
+# copied into containers so has to be static to work
+makedepends = [
+    "libatomic-chimera-devel-static",
+    "libunwind-devel-static",
+    "musl-devel-static",
 ]
 pkgdesc = "Init for containers"
 maintainer = "psykose <alice@ayaya.dev>"
