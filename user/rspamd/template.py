@@ -1,5 +1,5 @@
 pkgname = "rspamd"
-pkgver = "3.8.3"
+pkgver = "3.8.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND CC0-1.0 AND LGPL-3.0-only AND MIT AND Zlib"
 url = "https://rspamd.com/index.html"
 source = f"https://github.com/rspamd/rspamd/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "1311be293cdfd7ba4630f92040fb6b6a49b23cfe396688429eea02e93f9215a6"
+sha256 = "ebea263f60a3d6036c153df0766b4aa03690e8caf59946d24ee54d8bb595c75d"
 
 
 match self.profile().arch:
