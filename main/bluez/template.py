@@ -1,6 +1,6 @@
 pkgname = "bluez"
 pkgver = "5.72"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-systemd",
@@ -54,7 +54,6 @@ def post_patch(self):
 
 def post_install(self):
     self.install_file("src/main.conf", "etc/bluetooth")
-    self.install_file(self.files_path / "bluetooth.conf", "usr/lib/sysusers.d")
     self.install_service(self.files_path / "bluetoothd")
 
 
