@@ -110,6 +110,10 @@ def _prepare():
     if (paths.bldroot() / "usr/bin/update-ca-certificates").is_file():
         enter("update-ca-certificates", "--fresh")
 
+    # Create temporary files for the chroot
+    if (paths.bldroot() / "usr/bin/sd-tmpfiles").is_file():
+        enter("sd-tmpfiles", "--create", fakeroot=True)
+
     _prepare_etc()
 
     with open(sfpath, "w") as sf:

@@ -1,5 +1,5 @@
 pkgname = "base-files"
-_iana_ver = "20231107"
+_iana_ver = "20240222"
 pkgver = f"0.1.{_iana_ver}"
 pkgrel = 0
 pkgdesc = "Chimera Linux base system files"
@@ -68,27 +68,45 @@ def do_install(self):
     self.install_link("bin", "usr/sbin")
     self.install_link("bin", "usr/local/sbin")
 
+    # Users and tmpfiles
+    self.install_file(
+        self.files_path / "sysusers.conf",
+        "usr/lib/sysusers.d",
+        name="base-files.conf",
+    )
+    self.install_file(
+        self.files_path / "tmpfiles.conf",
+        "usr/lib/tmpfiles.d",
+        name="base-files.conf",
+    )
+
+    # Mutable files not to be tracked by apk
     for f in [
-        "chimera-release",
-        "profile",
-        "profile.path",
+        "fstab",
         "hosts",
         "issue",
-        "subuid",
-        "subgid",
-        "fstab",
+        "nsswitch.conf",
+        "securetty",
+    ]:
+        self.install_file(self.files_path / "etc" / f, "usr/share/base-files")
+
+    # Mutable files to be tracked by apk
+    for f in [
+        "profile",
         "passwd",
         "group",
-        "securetty",
-        "nsswitch.conf",
+    ]:
+        self.install_file(self.files_path / "etc" / f, "etc")
+
+    # Files that should usually not be changed
+    for f in [
+        "chimera-release",
         "os-release",
+        "profile.path",
         "protocols",
         "services",
     ]:
         self.install_file(self.files_path / "etc" / f, "etc")
-
-    # permissions for securetty
-    (self.destdir / "etc/securetty").chmod(0o600)
 
     self.install_dir("etc/profile.d")
 
