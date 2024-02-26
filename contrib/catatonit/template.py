@@ -1,6 +1,6 @@
 pkgname = "catatonit"
 pkgver = "0.2.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -19,3 +19,8 @@ url = "https://github.com/openSUSE/catatonit"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "d0cf1feffdc89c9fb52af20fc10127887a408bbd99e0424558d182b310a3dc92"
 hardening = ["vis", "cfi"]
+
+
+def post_install(self):
+    self.install_dir("usr/libexec/podman")
+    self.install_link("../../bin/catatonit", "usr/libexec/podman/catatonit")
