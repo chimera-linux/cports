@@ -1,0 +1,87 @@
+From 8540c7333071b8ccbe0175dabfb2d3b055abd3b0 Mon Sep 17 00:00:00 2001
+From: Miko Larsson <mikoxyzzz@gmail.com>
+Date: Tue, 27 Feb 2024 15:39:37 +0100
+Subject: [PATCH] glslang/MachineIndependent: fix UB
+
+Output from UBSAN:
+/builddir/glslang-14.0.0/glslang/MachineIndependent/Constant.cpp:510:57:
+runtime error: negation of -9223372036854775808 cannot be represented in
+type 'long lo ng'; cast to an unsigned type to negate this value to
+itself SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior
+/builddir/glslang-14.0.0/glslang/MachineIndependent/Constant.cpp:510:57
+in
+/builddir/glslang-14.0.0/glslang/MachineIndependent/preprocessor/Pp.cpp:377:32:
+runtime error: negation of -2147483648 cannot be represented in type
+'int'; cas t to an unsigned type to negate this value to itself SUMMARY:
+UndefinedBehaviorSanitizer: undefined-behavior
+/builddir/glslang-14.0.0/glslang/MachineIndependent/preprocessor/Pp.cpp:377:32
+in
+---
+ glslang/MachineIndependent/Constant.cpp       | 34 ++++++++++++++-----
+ .../MachineIndependent/preprocessor/Pp.cpp    |  2 +-
+ 2 files changed, 26 insertions(+), 10 deletions(-)
+
+diff --git a/glslang/MachineIndependent/Constant.cpp b/glslang/MachineIndependent/Constant.cpp
+index ac7fc8cd..58539441 100644
+--- a/glslang/MachineIndependent/Constant.cpp
++++ b/glslang/MachineIndependent/Constant.cpp
+@@ -496,18 +496,34 @@ TIntermTyped* TIntermConstantUnion::fold(TOperator op, const TType& returnType)
+             case EbtDouble:
+             case EbtFloat16:
+             case EbtFloat: newConstArray[i].setDConst(-unionArray[i].getDConst()); break;
+-            // Note: avoid UBSAN error regarding negating 0x80000000
+-            case EbtInt:   newConstArray[i].setIConst(
+-                                static_cast<unsigned int>(unionArray[i].getIConst()) == 0x80000000
+-                                    ? -0x7FFFFFFF - 1
+-                                    : -unionArray[i].getIConst());
+-                           break;
++            // Note: avoid UBSAN error regarding negating INT_MIN, signed overflow is UB
++            case EbtInt:
++                {
++                    int t = unionArray[i].getIConst();
++                    newConstArray[i].setIConst(t == INT_MIN ? INT_MIN : -t);
++                    break;
++                }
+             case EbtUint:  newConstArray[i].setUConst(static_cast<unsigned int>(-static_cast<int>(unionArray[i].getUConst())));  break;
+-            case EbtInt8:  newConstArray[i].setI8Const(-unionArray[i].getI8Const()); break;
++            case EbtInt8:
++                {
++                    signed char t = unionArray[i].getI8Const();
++                    newConstArray[i].setI8Const(t == SCHAR_MIN ? SCHAR_MIN : -t);
++                    break;
++                }
+             case EbtUint8: newConstArray[i].setU8Const(static_cast<unsigned int>(-static_cast<signed int>(unionArray[i].getU8Const())));  break;
+-            case EbtInt16: newConstArray[i].setI16Const(-unionArray[i].getI16Const()); break;
++            case EbtInt16:
++                {
++                    signed short t = unionArray[i].getI16Const();
++                    newConstArray[i].setI16Const(t == SHRT_MIN ? SHRT_MIN : t);
++                    break;
++                }
+             case EbtUint16:newConstArray[i].setU16Const(static_cast<unsigned int>(-static_cast<signed int>(unionArray[i].getU16Const())));  break;
+-            case EbtInt64: newConstArray[i].setI64Const(-unionArray[i].getI64Const()); break;
++            case EbtInt64:
++                {
++                    long long t = unionArray[i].getI64Const();
++                    newConstArray[i].setI64Const(t == LLONG_MIN ? LLONG_MIN : -t);
++                    break;
++                }
+             case EbtUint64: newConstArray[i].setU64Const(static_cast<unsigned long long>(-static_cast<long long>(unionArray[i].getU64Const())));  break;
+             default:
+                 return nullptr;
+diff --git a/glslang/MachineIndependent/preprocessor/Pp.cpp b/glslang/MachineIndependent/preprocessor/Pp.cpp
+index 16b9d243..fbc03e8c 100644
+--- a/glslang/MachineIndependent/preprocessor/Pp.cpp
++++ b/glslang/MachineIndependent/preprocessor/Pp.cpp
+@@ -374,7 +374,7 @@ namespace {
+     int op_div(int a, int b) { return a == INT_MIN && b == -1 ? 0 : a / b; }
+     int op_mod(int a, int b) { return a == INT_MIN && b == -1 ? 0 : a % b; }
+     int op_pos(int a) { return a; }
+-    int op_neg(int a) { return -a; }
++    int op_neg(int a) { return a == INT_MIN ? INT_MIN : -a; }
+     int op_cmpl(int a) { return ~a; }
+     int op_not(int a) { return !a; }
+ 
+-- 
+2.43.2
+
