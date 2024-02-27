@@ -1,6 +1,6 @@
 pkgname = "rustypaste"
 pkgver = "0.14.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_args = [
     "--no-default-features",
@@ -59,6 +59,3 @@ def post_install(self):
     self.install_service(self.files_path / "rustypaste")
 
     self.install_file("config.toml", "etc/rustypaste")
-    self.install_file(
-        self.files_path / "rustypaste.default", "etc/default", name="rustypaste"
-    )
