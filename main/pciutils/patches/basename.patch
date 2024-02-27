@@ -1,0 +1,11 @@
+--- a/lib/sysfs.c
++++ b/lib/sysfs.c
+@@ -21,6 +21,8 @@
+ #include <fcntl.h>
+ #include <sys/types.h>
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ #include "internal.h"
+ 
+ static void
