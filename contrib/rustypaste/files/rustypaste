@@ -1,9 +1,8 @@
 # rustypaste system service
 
 type            = process
-command         = /usr/bin/rustypaste
+command         = /usr/bin/env CONFIG=/etc/rustypaste/config.toml /usr/bin/rustypaste
 working-dir     = /var/lib/rustypaste
-env-file        = /etc/default/rustypaste
 logfile         = /var/log/rustypaste.log
 run-as          = _rustypaste
 depends-on      = network.target
