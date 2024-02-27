@@ -1,6 +1,6 @@
 pkgname = "accountsservice"
 pkgver = "23.13.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemdsystemunitdir=no",

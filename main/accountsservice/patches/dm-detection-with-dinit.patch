@@ -1,0 +1,39 @@
+This patch isn't strictly necessary right now because `accountsservice` defaults
+to GDM if it can't detect a DM. However, if upstream adds support for more
+DMs, this patch will fail to apply and let us know so we can detect any newly
+supported DMs if we have them packaged.
+diff --git a/src/daemon.c b/src/daemon.c
+index aa9d050..6bfba82 100644
+--- a/src/daemon.c
++++ b/src/daemon.c
+@@ -55,7 +55,6 @@
+ #define PATH_PASSWD "passwd"
+ #define PATH_SHADOW "shadow"
+ #define PATH_GROUP "/etc/group"
+-#define PATH_DM     "/etc/systemd/system/display-manager.service"
+ 
+ enum
+ {
+@@ -183,20 +182,8 @@ error_get_type (void)
+ static DisplayManagerType
+ get_current_system_dm_type (void)
+ {
+-        g_autofree gchar *link_target = NULL;
+-        g_autofree gchar *basename = NULL;
+-        GFile *file;
+-
+-        link_target = g_file_read_link (PATH_DM, NULL);
+-        if (link_target) {
+-                file = g_file_new_for_path (link_target);
+-                basename = g_file_get_basename (file);
+-                g_object_unref (file);
+-
+-                if (g_strcmp0 (basename, "lightdm.service") == 0)
+-                        return DISPLAY_MANAGER_TYPE_LIGHTDM;
+-                else if (g_strcmp0 (basename, "gdm.service") == 0)
+-                        return DISPLAY_MANAGER_TYPE_GDM;
++        if (g_file_test ("/etc/dinit.d/boot.d/gdm", G_FILE_TEST_EXISTS)) {
++                return DISPLAY_MANAGER_TYPE_GDM;
+         }
+ 
+         return DISPLAY_MANAGER_TYPE_NONE;
