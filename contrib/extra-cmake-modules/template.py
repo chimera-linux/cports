@@ -1,26 +1,29 @@
 pkgname = "extra-cmake-modules"
-pkgver = "5.115.0"
+pkgver = "6.0.0"
 pkgrel = 0
 build_style = "cmake"
+# who knows why these fail
+make_check_args = [
+    "-E",
+    "(ExecuteKDEModules"
+    "|KDEFetchTranslations"
+    "|KDEInstallDirsTest.not_cache_variable"
+    "|KDEInstallDirsTest.vars_in_sync_cmake_arg"
+    "|KDEInstallDirsTest.vars_in_sync_kde_arg"
+    "|KDEInstallDirsTest.vars_in_sync_no_args"
+    "|ecm_add_tests-multi_tests"
+    "|ecm_add_tests-single_tests"
+    "|ecm_add_tests_did_run-multi_tests"
+    "|ecm_add_tests_did_run-single_tests)",
+]
 hostmakedepends = ["cmake", "ninja"]
+checkdepends = ["qt6-qtbase"]
 pkgdesc = "Extra modules and scripts for CMake"
 maintainer = "aurelia <git@elia.garden>"
 license = "BSD-3-Clause"
 url = "https://invent.kde.org/frameworks/extra-cmake-modules"
-source = f"https://download.kde.org/stable/frameworks/{pkgver[:pkgver.rfind('.')]}/extra-cmake-modules-{pkgver}.tar.xz"
-sha256 = "ee3e35f6a257526b8995a086dd190528a8ef4b3854b1e457b8122701b0ce45ee"
-# 10 out of 83 tests fail? It still seemed to run fine when building with it.
-#  2 - ExecuteKDEModules
-#  3 - KDEFetchTranslations
-#  4 - KDEInstallDirsTest.vars_in_sync_no_args
-#  5 - KDEInstallDirsTest.not_cache_variable
-#  6 - KDEInstallDirsTest.vars_in_sync_kde_arg
-#  7 - KDEInstallDirsTest.vars_in_sync_cmake_arg
-# 16 - ecm_add_tests-single_tests
-# 17 - ecm_add_tests_did_run-single_tests
-# 18 - ecm_add_tests-multi_tests
-# 19 - ecm_add_tests_did_run-multi_tests
-options = ["!check"]
+source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/extra-cmake-modules-{pkgver}.tar.xz"
+sha256 = "23992bf19db717156b7d6dd13118caa79fd57f090beb062e8308db3c09f70d0c"
 
 
 def post_install(self):
