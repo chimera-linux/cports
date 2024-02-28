@@ -1545,6 +1545,12 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         elif len(cmdline.command) > 2:
             raise errors.CbuildException(f"{tgt} needs only one package")
         pkgn = cmdline.command[1]
+    if opt_mdirtemp:
+        chroot.install()
+    elif not stage and not chroot.chroot_check():
+        raise errors.CbuildException(
+            "build root not found (have you boootstrapped?)"
+        )
     rp = template.read_pkg(
         pkgn,
         opt_arch if opt_arch else chroot.host_cpu(),
@@ -1559,12 +1565,6 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         stage=bstage,
         allow_restricted=opt_restricted,
     )
-    if opt_mdirtemp:
-        chroot.install()
-    elif not stage and not chroot.chroot_check():
-        raise errors.CbuildException(
-            "build root not found (have you boootstrapped?)"
-        )
     # don't remove builddir/destdir
     chroot.prepare_arch(opt_arch, opt_dirty)
     build.build(
