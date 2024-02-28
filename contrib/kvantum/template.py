@@ -10,7 +10,6 @@ hostmakedepends = [
     "qt6-qttools",
 ]
 makedepends = [
-    "kwindowsystem-devel",
     "libx11-devel",
     "libxext-devel",
     "qt6-qtbase-devel",
