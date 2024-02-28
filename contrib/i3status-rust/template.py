@@ -1,8 +1,13 @@
 pkgname = "i3status-rust"
 pkgver = "0.33.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
-make_build_args = ["--features=notmuch"]
+make_build_args = [
+    "--no-default-features",
+    "--features=icu_calendar,maildir,notmuch,pipewire,pulseaudio",
+]
+make_install_args = list(make_build_args)
+make_check_args = list(make_build_args)
 hostmakedepends = ["cargo", "pkgconf"]
 makedepends = [
     "dbus-devel",
@@ -11,6 +16,7 @@ makedepends = [
     "libsensors-devel",
     "notmuch-devel",
     "openssl-devel",
+    "pipewire-devel",
 ]
 pkgdesc = "Generates content on bars that support the i3bar protocol"
 maintainer = "ttyyls <contact@behri.org>"
