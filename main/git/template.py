@@ -51,7 +51,11 @@ INSTALLDIRS = vendor
 INSTALL_SYMLINKS = 1
 perllibdir = /usr/share/perl5/vendor_perl
 PYTHON_PATH = /usr/bin/python
+DEFAULT_TEST_TARGET=prove
+GIT_PROVE_OPTS=--jobs={self.make_jobs}
 HOST_CPU = {self.profile().arch}
+# FIXME: figure out why these fail
+export GIT_SKIP_TESTS=t4201 t4301 t7008 t7003
 """
         )
 
@@ -67,14 +71,7 @@ def do_build(self):
 
 
 def do_check(self):
-    self.do(
-        "gmake",
-        "DEFAULT_TEST_TARGET=prove",
-        f"GIT_PROVE_OPTS=--jobs={self.make_jobs}",
-        # FIXME: figure out why these fails
-        "GIT_SKIP_TESTS=t4201 t4301 t7008 t7003",
-        "test",
-    )
+    self.do("gmake", "test")
     self.do("gmake", "-C", "contrib/diff-highlight", "test")
     self.do("gmake", "-C", "contrib/subtree", "test")
 
