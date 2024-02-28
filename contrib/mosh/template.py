@@ -1,6 +1,6 @@
 pkgname = "mosh"
 pkgver = "1.4.0"
-pkgrel = 5
+pkgrel = 6
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
