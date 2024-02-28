@@ -1,5 +1,5 @@
 pkgname = "granite"
-pkgver = "7.4.0"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "meson"
 # missing dep on meson-generated_Application.c.o somewhere for granite .a
@@ -13,7 +13,7 @@ hostmakedepends = [
     "vala",
 ]
 makedepends = [
-    "gtk4-devel",
+    "gtk+3-devel",
     "libgee-devel",
 ]
 pkgdesc = "GTK widget extension library"
@@ -21,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-3.0-or-later"
 url = "https://github.com/elementary/granite"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "594fe6670940bf2e5d094c73071025d77efab9c5b147a6f64134fe10d370e40e"
+sha256 = "067d31445da9808a802fca523630c3e4b84d2d7c78ae547ced017cb7f3b9c6b5"
 
 
 @subpackage("granite-devel")
