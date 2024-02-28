@@ -1,5 +1,5 @@
 pkgname = "rust-bootstrap"
-pkgver = "1.74.0"
+pkgver = "1.75.0"
 pkgrel = 0
 # satisfy revdeps
 makedepends = ["zlib", "ncurses-libs", "zstd"]
@@ -19,28 +19,28 @@ options = ["!strip"]
 match self.profile().arch:
     case "aarch64":
         sha256 = [
-            "a0c5ad9ebf87e0999bb741d801020c5afc685ae685b7a7ab71754eabf656ce59",
-            "fbe43d939727c227902fcf61b8f93e78118bc986e8c175dae6b711198f51e23c",
+            "135e7a7e108bcd9cd7ab00fefc3537ef2eb6f758205dc99776b419cea5e9c40e",
+            "4ee83d7337cd50f11ed899d44f2a864e262e510f4160aa638b23efcc1d09a921",
         ]
     case "ppc64le":
         sha256 = [
-            "65a0ec426ef429b85b611a42916ed1c5be69cef4e10c3ad64b5ebfe1e6782df1",
-            "ddab3e32421053899bb1b3f08272e454bf8f615f340c3b04ed9ee3c7b492ecba",
+            "e040c205b0736372b5632cfd47b86be05ddafe2f013f69525710d61f30f54a73",
+            "99e0d5d8347354ad46c587be545614d124aa1d4817d7bd70ff672ee9305e2cce",
         ]
     case "ppc64":
         sha256 = [
-            "19f94672efe7155314d7a8899f28343a59610cfa3e64c2cd1d32d7f0bd339bcf",
-            "e6ea813e9bf17e6d1fdb04b05fec996740d473c7ab3d26ffdd1adb2347ad54ad",
+            "f45c66e84f7e717b251bd3931f0cd5a4aee3887653d4e8cc60ca7a141ba29cd1",
+            "596acee0939decc4c3597aa0fb97b4b28dd468cecc987a93133f8b2f61768229",
         ]
     case "riscv64":
         sha256 = [
-            "2b5a067c7df45a2936d3c830f4fd181d2f4abdb54422cb39447af59acbef81b4",
-            "501de9a5e1dd8f07ac371bf1ff7704bad886fc1a6dcde18dd142e69e284b1f6c",
+            "c953666114964d1682fbfd5c1e2b581a2185a2917eef43890a4f198533d67080",
+            "ce9a816d5544778e7d101df03aff3db6bc11aca858e32872bad646c24c2c717d",
         ]
     case "x86_64":
         sha256 = [
-            "a6839391661f25a6842c74707338ef7ebc8edef8a7cef7c2e3ebca582650911d",
-            "53d75bfb9f5ac99e0ac15d6334bd6c06748914f7eeb5978555bc24b93cf84eb8",
+            "b3c273e2cfca8fcc3681e4735c1ec8fe5303a66b865fd94f335bd77927382a85",
+            "ef69c3bf8296078c7da7716f57d666837f0f90f0105949299abe6281d6e8ae17",
         ]
     case _:
         broken = f"not yet built for {self.profile().arch}"
