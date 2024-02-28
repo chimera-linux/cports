@@ -1,5 +1,5 @@
 pkgname = "kwindowsystem"
-pkgver = "5.115.0"
+pkgver = "6.0.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -15,13 +15,18 @@ hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
     "ninja",
+    "pkgconf",
     "qt6-qtbase",
     "qt6-qttools",
 ]
 makedepends = [
     "libxrender-devel",
+    "plasma-wayland-protocols",
     "qt6-qtbase-devel",
+    "qt6-qtdeclarative-devel",
     "qt6-qttools-devel",
+    "qt6-qtwayland-devel",
+    "wayland-protocols",
     "xcb-util-keysyms-devel",
     "xcb-util-wm-devel",
 ]
@@ -30,8 +35,8 @@ pkgdesc = "KDE windowing system access"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
-source = f"https://download.kde.org/stable/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
-sha256 = "e0a06b19b5fb3ce534b35ddb1db96911c9452e791c0c650eae77bf59fb355f53"
+source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
+sha256 = "1906caa53b7d58fc0c4d78a3c8d99f25aa056fc6d09c5fc121ed5e1f80396a94"
 hardening = ["vis", "cfi"]
 
 
