@@ -1,6 +1,6 @@
 pkgname = "git"
 pkgver = "2.44.0"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = [
     "gmake",
     "asciidoc",
@@ -23,6 +23,7 @@ depends = [
     "perl-mime-tools",
     "perl-net-smtp-ssl",
 ]
+checkdepends = ["gnupg"]
 pkgdesc = "Fast, distributed version control system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
@@ -30,8 +31,6 @@ url = "https://git-scm.com"
 source = f"https://www.kernel.org/pub/software/scm/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "e358738dcb5b5ea340ce900a0015c03ae86e804e7ff64e47aa4631ddee681de3"
 hardening = ["!cfi"]  # TODO
-# missing checkdepends
-options = ["!check"]
 
 
 def do_configure(self):
@@ -52,10 +51,7 @@ INSTALLDIRS = vendor
 INSTALL_SYMLINKS = 1
 perllibdir = /usr/share/perl5/vendor_perl
 PYTHON_PATH = /usr/bin/python
-DEFAULT_TEST_TARGET = prove
-GIT_PROVE_OPTS = {self.make_jobs}
 HOST_CPU = {self.profile().arch}
-export GIT_SKIP_TESTS=t9604.2
 """
         )
 
@@ -71,7 +67,14 @@ def do_build(self):
 
 
 def do_check(self):
-    self.do("gmake", "test")
+    self.do(
+        "gmake",
+        "DEFAULT_TEST_TARGET=prove",
+        f"GIT_PROVE_OPTS=--jobs={self.make_jobs}",
+        # FIXME: figure out why these fails
+        "GIT_SKIP_TESTS=t4201 t4301 t7008 t7003",
+        "test",
+    )
     self.do("gmake", "-C", "contrib/diff-highlight", "test")
     self.do("gmake", "-C", "contrib/subtree", "test")
 
