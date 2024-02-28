@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5571"
+pkgver = "1.7.5581"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -74,7 +74,7 @@ source_paths = [
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "3564b0716846be582ffb51295d5741368340766dfd21c2c3fc8aaa76da085d07",
+    "a461813c69758ca751106b43bd3b97cc130d84096ad008ff2f2616a8191183c4",
     "bcae748a2d3a41738cb18d419a3ae5a62095bd3e1660198c6a3986a0be6213e6",
     "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
