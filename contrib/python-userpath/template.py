@@ -1,6 +1,6 @@
 pkgname = "python-userpath"
-pkgver = "1.9.1"
-pkgrel = 1
+pkgver = "1.9.2"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ofek/userpath"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9a8d42168d961c15a07e12074b860c660234d320eb98bbacf03e8a498739a59a"
+sha256 = "c5e0019949f432afe28a7809ddb2197fe027e909cde78744400e77986f3eb99d"
 
 
 def post_install(self):
