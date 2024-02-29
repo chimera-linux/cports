@@ -1,4 +1,4 @@
-From 25cd3c630a7e268b834627d94367fd6179cf0176 Mon Sep 17 00:00:00 2001
+From 92b3b06c27c1ab824b87ce104cbe0cb911bc3bb4 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:00:38 +0100
 Subject: [PATCH 02/12] remove a bunch of unused junk
@@ -7,11 +7,11 @@ Subject: [PATCH 02/12] remove a bunch of unused junk
  compiler/rustc_target/src/spec/crt_objects.rs | 22 ----------
  src/bootstrap/configure.py                    | 32 --------------
  src/bootstrap/src/core/build_steps/compile.rs | 44 +------------------
- src/bootstrap/src/core/config/config.rs       | 10 -----
+ src/bootstrap/src/core/config/config.rs       | 11 -----
  src/bootstrap/src/core/sanity.rs              | 22 ----------
  src/bootstrap/src/lib.rs                      | 19 --------
  src/bootstrap/src/utils/cc_detect.rs          | 24 ----------
- 7 files changed, 1 insertion(+), 172 deletions(-)
+ 7 files changed, 1 insertion(+), 173 deletions(-)
 
 diff --git a/compiler/rustc_target/src/spec/crt_objects.rs b/compiler/rustc_target/src/spec/crt_objects.rs
 index 53f710b8f..2a4eec15f 100644
@@ -90,7 +90,7 @@ index 544a42d9a..05b21893f 100755
    "rootfs in qemu testing, you probably don't want to use this")
  v("qemu-aarch64-rootfs", "target.aarch64-unknown-linux-gnu.qemu-rootfs",
 diff --git a/src/bootstrap/src/core/build_steps/compile.rs b/src/bootstrap/src/core/build_steps/compile.rs
-index 7021a9543..cb165e165 100644
+index df4d1a43d..4b598d0e0 100644
 --- a/src/bootstrap/src/core/build_steps/compile.rs
 +++ b/src/bootstrap/src/core/build_steps/compile.rs
 @@ -306,40 +306,7 @@ fn copy_self_contained_objects(
@@ -152,10 +152,10 @@ index 7021a9543..cb165e165 100644
              if let Some(p) = builder.wasi_root(target) {
                  let root = format!(
 diff --git a/src/bootstrap/src/core/config/config.rs b/src/bootstrap/src/core/config/config.rs
-index 0a9175aa3..d286af226 100644
+index f1e1b89d9..7f487fc57 100644
 --- a/src/bootstrap/src/core/config/config.rs
 +++ b/src/bootstrap/src/core/config/config.rs
-@@ -269,8 +269,6 @@ pub struct Config {
+@@ -307,8 +307,6 @@ pub struct Config {
      pub print_step_rusage: bool,
      pub missing_tools: bool,
  
@@ -164,7 +164,7 @@ index 0a9175aa3..d286af226 100644
      pub prefix: Option<PathBuf>,
      pub sysconfdir: Option<PathBuf>,
      pub datadir: Option<PathBuf>,
-@@ -528,8 +526,6 @@ pub struct Target {
+@@ -574,8 +572,6 @@ pub struct Target {
      pub profiler: Option<StringOrBool>,
      pub rpath: Option<bool>,
      pub crt_static: Option<bool>,
@@ -173,15 +173,15 @@ index 0a9175aa3..d286af226 100644
      pub wasi_root: Option<PathBuf>,
      pub qemu_rootfs: Option<PathBuf>,
      pub no_std: bool,
-@@ -998,7 +994,6 @@ define_config! {
+@@ -1080,7 +1076,6 @@ define_config! {
          default_linker: Option<String> = "default-linker",
          channel: Option<String> = "channel",
          description: Option<String> = "description",
 -        musl_root: Option<String> = "musl-root",
          rpath: Option<bool> = "rpath",
-         verbose_tests: Option<bool> = "verbose-tests",
-         optimize_tests: Option<bool> = "optimize-tests",
-@@ -1046,8 +1041,6 @@ define_config! {
+         strip: Option<bool> = "strip",
+         stack_protector: Option<String> = "stack-protector",
+@@ -1131,8 +1126,6 @@ define_config! {
          profiler: Option<StringOrBool> = "profiler",
          rpath: Option<bool> = "rpath",
          crt_static: Option<bool> = "crt-static",
@@ -190,15 +190,23 @@ index 0a9175aa3..d286af226 100644
          wasi_root: Option<String> = "wasi-root",
          qemu_rootfs: Option<String> = "qemu-rootfs",
          no_std: Option<bool> = "no-std",
-@@ -1437,7 +1430,6 @@ impl Config {
-                 .parallel_compiler
-                 .unwrap_or(config.channel == "dev" || config.channel == "nightly");
-             config.rustc_default_linker = rust.default_linker;
--            config.musl_root = rust.musl_root.map(PathBuf::from);
-             config.save_toolstates = rust.save_toolstates.map(PathBuf::from);
+@@ -1532,7 +1525,6 @@ impl Config {
+                 default_linker,
+                 channel,
+                 description,
+-                musl_root,
+                 rpath,
+                 verbose_tests,
+                 optimize_tests,
+@@ -1634,7 +1626,6 @@ impl Config {
+             config.rustc_parallel =
+                 parallel_compiler.unwrap_or(config.channel == "dev" || config.channel == "nightly");
+             config.rustc_default_linker = default_linker;
+-            config.musl_root = musl_root.map(PathBuf::from);
+             config.save_toolstates = save_toolstates.map(PathBuf::from);
              set(
                  &mut config.deny_warnings,
-@@ -1606,8 +1598,6 @@ impl Config {
+@@ -1827,8 +1818,6 @@ impl Config {
                  target.ranlib = cfg.ranlib.map(PathBuf::from);
                  target.linker = cfg.linker.map(PathBuf::from);
                  target.crt_static = cfg.crt_static;
@@ -208,7 +216,7 @@ index 0a9175aa3..d286af226 100644
                  target.qemu_rootfs = cfg.qemu_rootfs.map(PathBuf::from);
                  target.sanitizers = cfg.sanitizers;
 diff --git a/src/bootstrap/src/core/sanity.rs b/src/bootstrap/src/core/sanity.rs
-index eec3be66a..0949302fc 100644
+index 9101d94ea..fbb0b661a 100644
 --- a/src/bootstrap/src/core/sanity.rs
 +++ b/src/bootstrap/src/core/sanity.rs
 @@ -215,28 +215,6 @@ than building it.
@@ -237,14 +245,14 @@ index eec3be66a..0949302fc 100644
 -            }
 -        }
 -
-         if need_cmake && target.contains("msvc") {
+         if need_cmake && target.is_msvc() {
              // There are three builds of cmake on windows: MSVC, MinGW, and
              // Cygwin. The Cygwin build does not have generators for Visual
 diff --git a/src/bootstrap/src/lib.rs b/src/bootstrap/src/lib.rs
-index 33b8f1a7c..4ba88439b 100644
+index 871318de5..b3f1eff91 100644
 --- a/src/bootstrap/src/lib.rs
 +++ b/src/bootstrap/src/lib.rs
-@@ -1306,25 +1306,6 @@ impl Build {
+@@ -1290,25 +1290,6 @@ impl Build {
          }
      }
  
@@ -271,7 +279,7 @@ index 33b8f1a7c..4ba88439b 100644
      fn wasi_root(&self, target: TargetSelection) -> Option<&Path> {
          self.config.target_config.get(&target).and_then(|t| t.wasi_root.as_ref()).map(|p| &**p)
 diff --git a/src/bootstrap/src/utils/cc_detect.rs b/src/bootstrap/src/utils/cc_detect.rs
-index 52b36ce75..a67d05075 100644
+index fb5b9d8c8..c6c9368a0 100644
 --- a/src/bootstrap/src/utils/cc_detect.rs
 +++ b/src/bootstrap/src/utils/cc_detect.rs
 @@ -201,30 +201,6 @@ fn default_compiler(
@@ -306,5 +314,5 @@ index 52b36ce75..a67d05075 100644
      }
  }
 -- 
-2.43.0
+2.44.0
 

@@ -1,4 +1,4 @@
-From 741ec5a378ac0d0b13d4e87b5ec7ba533e405361 Mon Sep 17 00:00:00 2001
+From 04a344c1e3351a26242e2e9c18eef506264ed81f Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:08:06 +0100
 Subject: [PATCH 08/12] link stage 2 tools dynamically to libstd
@@ -11,10 +11,10 @@ about unstable ABI
  1 file changed, 2 insertions(+)
 
 diff --git a/src/bootstrap/src/core/builder.rs b/src/bootstrap/src/core/builder.rs
-index cd276674d..4741cd11b 100644
+index e18096443..c5b526ccd 100644
 --- a/src/bootstrap/src/core/builder.rs
 +++ b/src/bootstrap/src/core/builder.rs
-@@ -2062,6 +2062,8 @@ impl<'a> Builder<'a> {
+@@ -2097,6 +2097,8 @@ impl<'a> Builder<'a> {
          // linking all deps statically into the dylib.
          if matches!(mode, Mode::Std | Mode::Rustc) {
              rustflags.arg("-Cprefer-dynamic");
@@ -24,5 +24,5 @@ index cd276674d..4741cd11b 100644
  
          // When building incrementally we default to a lower ThinLTO import limit
 -- 
-2.43.0
+2.44.0
 
