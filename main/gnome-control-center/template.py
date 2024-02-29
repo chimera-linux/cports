@@ -1,6 +1,6 @@
 pkgname = "gnome-control-center"
 pkgver = "45.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
@@ -56,6 +56,7 @@ depends = [
     "gsettings-desktop-schemas",
     "power-profiles-daemon-meta",
     "sound-theme-freedesktop",
+    "system-config-printer",
     "tecla",
     "udisks",
 ]
