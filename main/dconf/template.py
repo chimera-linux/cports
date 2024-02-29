@@ -25,6 +25,7 @@ license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/dconf"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "cf7f22a4c9200421d8d3325c5c1b8b93a36843650c9f95d6451e20f0bcb24533"
+options = ["linkundefver"]
 
 
 @subpackage("dconf-devel")
