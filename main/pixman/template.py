@@ -1,5 +1,5 @@
 pkgname = "pixman"
-pkgver = "0.43.2"
+pkgver = "0.43.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -18,7 +18,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pixman.org"
 source = f"https://www.cairographics.org/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "ea79297e5418fb528d0466e8b5b91d1be88857fa3706f49777b2925a72ae9924"
+sha256 = "a0624db90180c7ddb79fc7a9151093dc37c646d8c38d3f232f767cf64b85a226"
 # needs a lot larger stack than musl default
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=2097152"]}
 # FIXME int (test fails)
