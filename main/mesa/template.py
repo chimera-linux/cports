@@ -1,63 +1,65 @@
 pkgname = "mesa"
-pkgver = "24.0.8"
-pkgrel = 1
+pkgver = "24.1.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dglvnd=false",
-    "-Dosmesa=true",
-    "-Dgbm=enabled",
+    "-Db_ndebug=true",
+    "-Ddefault_library=shared",
+    "-Ddri3=enabled",
     "-Degl=enabled",
+    "-Dgbm=enabled",
     "-Dgles1=enabled",
     "-Dgles2=enabled",
-    "-Ddri3=enabled",
+    "-Dglvnd=disabled",
+    "-Dglx=dri",
     "-Dllvm=enabled",
     "-Dlmsensors=enabled",
-    "-Dshared-glapi=enabled",
+    "-Dosmesa=true",
     "-Dplatforms=x11,wayland",
-    "-Dglx=dri",
+    "-Dshared-glapi=enabled",
     "-Dvideo-codecs=all",
-    "-Ddefault_library=shared",
-    "-Db_ndebug=true",
 ]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
+    "bison",
+    "cbindgen",
     "flex",
     "glslang-progs",
-    "bison",
-    "wayland-protocols",
-    "wayland-progs",
+    "meson",
+    "pkgconf",
     "python-mako",
+    "python-ply",
+    "wayland-progs",
+    "wayland-protocols",
 ]
 makedepends = [
-    "llvm-devel",
     "clang-devel",
+    "llvm-devel",
     # base driver/platform stuff
     "libdrm-devel",
     # wayland
-    "wayland-protocols",
     "wayland-devel",
+    "wayland-protocols",
     # x11
-    "libxshmfence-devel",
-    "libxext-devel",
-    "libxxf86vm-devel",
-    "libxdamage-devel",
-    "libxfixes-devel",
     "libx11-devel",
     "libxcb-devel",
-    "libxv-devel",
+    "libxdamage-devel",
+    "libxext-devel",
+    "libxfixes-devel",
     "libxrandr-devel",
+    "libxshmfence-devel",
+    "libxv-devel",
+    "libxxf86vm-devel",
     # misc libs
-    "libarchive-devel",
-    "libsensors-devel",
-    "libexpat-devel",
-    "libxml2-devel",
-    "ncurses-devel",
-    "zstd-devel",
-    "zlib-devel",
-    "lua5.4-devel",
-    "libffi-devel",
     "elfutils-devel",
+    "libarchive-devel",
+    "libexpat-devel",
+    "libffi-devel",
+    "libsensors-devel",
+    "libxml2-devel",
+    "lua5.4-devel",
+    "ncurses-devel",
+    "zlib-devel",
+    "zstd-devel",
     # video accel
     "libva-bootstrap",
 ]
@@ -65,8 +67,27 @@ pkgdesc = "Mesa 3D Graphics Library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.mesa3d.org"
-source = f"https://mesa.freedesktop.org/archive/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d1ed86a266d5b7b8c136ae587ef5618ed1a9837a43440f3713622bf0123bf5c1"
+_paste = "1.0.14"
+_proc_macro2 = "1.0.70"
+_quote = "1.0.33"
+_syn = "2.0.39"
+_unicode_ident = "1.0.12"
+source = [
+    f"https://mesa.freedesktop.org/archive/mesa-{pkgver.replace('_', '-')}.tar.xz",
+    f"!https://crates.io/api/v1/crates/paste/{_paste}/download>paste-{_paste}.tar.gz",
+    f"!https://crates.io/api/v1/crates/proc-macro2/{_proc_macro2}/download>proc-macro2-{_proc_macro2}.tar.gz",
+    f"!https://crates.io/api/v1/crates/quote/{_quote}/download>quote-{_quote}.tar.gz",
+    f"!https://crates.io/api/v1/crates/syn/{_syn}/download>syn-{_syn}.tar.gz",
+    f"!https://crates.io/api/v1/crates/unicode-ident/{_unicode_ident}/download>unicode-ident-{_unicode_ident}.tar.gz",
+]
+sha256 = [
+    "0038826c6f7e88d90b4ce6f719192fa58ca7dedf4edcaa1174cf7bd920ef89ea",
+    "de3145af08024dea9fa9914f381a17b8fc6034dfb00f3a84013f7ff43f29ed4c",
+    "39278fbbf5fb4f646ce651690877f89d1c5811a3d4acb27700c1cb3cdb78fd3b",
+    "5267fca4496028628a95160fc423a33e8b2e6af8a5302579e322e4b520293cae",
+    "23e78b90f2fcf45d3e842032ce32e3f2d1545ba6636271dcbf24fa306d87be7a",
+    "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b",
+]
 # lots of issues in swrast and so on
 hardening = ["!int"]
 # cba to deal with cross patching nonsense
@@ -130,6 +151,7 @@ if _have_intel:
 
 if _have_nvidia:
     _gallium_drivers += ["nouveau"]
+    _vulkan_drivers += ["nouveau"]
     if _have_arm:
         _gallium_drivers += ["tegra"]
 
@@ -160,18 +182,20 @@ else:
     configure_args += ["-Dgallium-xa=disabled"]
 
 if _have_opencl:
-    hostmakedepends += ["rust-bindgen", "rust"]
     makedepends += [
         "libclc",
-        "rust",
         "spirv-llvm-translator-devel",
         "spirv-tools-devel",
     ]
     configure_args += [
         "-Dgallium-opencl=icd",
         "-Dgallium-rusticl=true",
-        "-Drust_std=2021",
     ]
+
+# nvk/nouveau or rusticl need rust
+if _have_opencl or _have_nvidia:
+    hostmakedepends += ["rust-bindgen", "rust"]
+    makedepends += ["rust"]
 
 if _have_hwdec:
     configure_args += ["-Dgallium-vdpau=disabled", "-Dgallium-va=enabled"]
@@ -190,6 +214,27 @@ if _have_zink:
 
 configure_args += ["-Dgallium-drivers=" + ",".join(_gallium_drivers)]
 configure_args += ["-Dvulkan-drivers=" + ",".join(_vulkan_drivers)]
+
+
+def post_extract(self):
+    self.cp(self.sources_path / f"paste-{_paste}.tar.gz", self.builddir)
+    self.cp(
+        self.sources_path / f"proc-macro2-{_proc_macro2}.tar.gz", self.builddir
+    )
+    self.cp(
+        self.sources_path / f"unicode-ident-{_unicode_ident}.tar.gz",
+        self.builddir,
+    )
+    self.cp(self.sources_path / f"syn-{_syn}.tar.gz", self.builddir)
+    self.cp(self.sources_path / f"quote-{_quote}.tar.gz", self.builddir)
+
+
+def init_configure(self):
+    # meson requires finding source_filename in .wrap unextracted to apply
+    # patch_directory (which contains the meson.build definitions for rust
+    # crates) upon extracting the tarball itself. we fetch those above and leave
+    # them named the same as in the .wrap in here
+    self.env = {"MESON_PACKAGE_CACHE_DIR": str(self.chroot_builddir)}
 
 
 def post_install(self):
