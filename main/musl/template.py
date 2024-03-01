@@ -1,8 +1,8 @@
 pkgname = "musl"
-pkgver = "1.2.4"
-pkgrel = 10
+pkgver = "1.2.5"
+pkgrel = 0
 _scudo_ver = "17.0.6"
-_commit = "2c887f24da36fa30eccd72e50d91222828fa526e"
+_commit = "v1.2.5"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
 configure_gen = []
@@ -22,7 +22,7 @@ source = [
 ]
 source_paths = [".", "compiler-rt"]
 sha256 = [
-    "0b5a1701b4948fbbe77611ee51c0ead4f71591ae77ea551e460ff9b2f3c73819",
+    "5829457efb2247c1e39920b14721b75e9c488a06149736c8317536ec4aa3764b",
     "11b8d09dcf92a0f91c5c82defb5ad9ff4acf5cf073a80c317204baa922d136b4",
 ]
 # scp makes it segfault
