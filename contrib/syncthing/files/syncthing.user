@@ -1,0 +1,5 @@
+# syncthing user service
+
+type     = process
+command  = /usr/bin/syncthing --no-browser
+log-type = buffer
