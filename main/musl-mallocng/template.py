@@ -1,7 +1,7 @@
 pkgname = "musl-mallocng"
-pkgver = "1.2.4"
-pkgrel = 2
-_commit = "79bdacff83a6bd5b70ff5ae5eb8b6de82c2f7c30"
+pkgver = "1.2.5"
+pkgrel = 0
+_commit = "v1.2.5"
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
 source = f"http://git.musl-libc.org/cgit/musl/snapshot/musl-{_commit}.tar.gz"
-sha256 = "aa54c6a56982cda96c8253414d1338d23e90a7097dde090221f0ce5568e27bc8"
+sha256 = "5829457efb2247c1e39920b14721b75e9c488a06149736c8317536ec4aa3764b"
 # scp makes it segfault
 hardening = ["!scp"]
 # does not ship tests
