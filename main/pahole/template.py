@@ -1,5 +1,5 @@
 pkgname = "pahole"
-pkgver = "1.25"
+pkgver = "1.26"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-D__LIB=lib"]
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/devel/pahole/pahole.git"
 source = f"https://fedorapeople.org/~acme/dwarves/dwarves-{pkgver}.tar.xz"
-sha256 = "e7d45955f6f4eca25a4c8c3bd6611059b35dc217e45976681d7db170fccdec4a"
+sha256 = "ad4c08339850e404609e2808012580b7e98366d2b91054bb93fe6dca94651fb4"
 # no tests
 options = ["!check"]
 
