@@ -1,6 +1,6 @@
 pkgname = "python-build"
-pkgver = "1.0.3"
-pkgrel = 1
+pkgver = "1.1.1"
+pkgrel = 0
 hostmakedepends = [
     "python",
     "python-flit_core",
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pypa-build.readthedocs.io"
 source = f"$(PYPI_SITE)/b/build/build-{pkgver}.tar.gz"
-sha256 = "538aab1b64f9828977f84bc63ae570b060a8ed1be419e7870b8b4fc5e6ea553b"
+sha256 = "8eea65bb45b1aac2e734ba2cc8dad3a6d97d97901a395bd0ed3e7b46953d2a31"
 # no tests
 options = ["!check"]
 
