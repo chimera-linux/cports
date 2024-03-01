@@ -1,5 +1,5 @@
 pkgname = "python-hypothesis"
-pkgver = "6.98.6"
+pkgver = "6.98.15"
 pkgrel = 0
 build_wrksrc = "hypothesis-python"
 build_style = "python_pep517"
@@ -26,7 +26,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MPL-2.0"
 url = "https://hypothesis.works/index.html"
 source = f"https://github.com/HypothesisWorks/hypothesis/archive/refs/tags/hypothesis-python-{pkgver}.tar.gz"
-sha256 = "bb865401d4cb298d7c3e7615cb39f15f533b014b3c71e33be85bfc55442c06c9"
+sha256 = "6dbaf5a10daef77a716a3b7f04ef1aa1cc8ec56e1313fd0e85619b998de1ec1a"
 
 
 def init_check(self):
