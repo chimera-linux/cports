@@ -1,11 +1,12 @@
 pkgname = "gdb"
 pkgver = "14.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-werror",
     "--disable-nls",
     "--with-system-zlib",
+    "--with-system-zstd",
     "--with-system-readline",
     "--with-system-gdbinit=/etc/gdb/gdbinint",
     "--with-python=/usr/bin/python",
@@ -24,6 +25,7 @@ makedepends = [
     "python-devel",
     "readline-devel",
     "zlib-devel",
+    "zstd-devel",
 ]
 depends = [f"gdb-common={pkgver}-r{pkgrel}"]
 pkgdesc = "GNU debugger"
