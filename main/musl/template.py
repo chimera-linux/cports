@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
 source = [
-    f"http://git.musl-libc.org/cgit/musl/snapshot/musl-{_commit}.tar.gz",
+    f"https://git.musl-libc.org/cgit/musl/snapshot/musl-{_commit}.tar.gz",
     f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz",
 ]
 source_paths = [".", "compiler-rt"]
