@@ -1,7 +1,7 @@
 pkgname = "clang-rt-crt-cross"
-_musl_ver = "1.2.4"
+_musl_ver = "1.2.5"
 pkgver = "17.0.6"
-pkgrel = 1
+pkgrel = 2
 build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
 configure_args = [
@@ -51,7 +51,7 @@ source = [
 ]
 sha256 = [
     "58a8818c60e6627064f312dbf46c02d9949956558340938b71cf731ad8bc0813",
-    "7a35eae33d5372a7c0da1188de798726f68825513b7ae3ebe97aaaa52114f039",
+    "a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4",
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
 # crosstoolchain
