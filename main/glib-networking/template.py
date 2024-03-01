@@ -1,5 +1,5 @@
 pkgname = "glib-networking"
-pkgver = "2.78.0"
+pkgver = "2.78.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/glib-networking"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "52fe4ce93f7dc51334b102894599858d23c8a65ac4a1110b30920565d68d3aba"
+sha256 = "e48f2ddbb049832cbb09230529c5e45daca9f0df0eda325f832f7379859bf09f"
 
 
 def post_install(self):
