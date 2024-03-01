@@ -1,5 +1,5 @@
 pkgname = "tk"
-pkgver = "8.6.13"
+pkgver = "8.6.14"
 pkgrel = 0
 build_wrksrc = "unix"
 build_style = "gnu_configure"
@@ -11,7 +11,7 @@ configure_args = [
     "tk_cv_strtod_unbroken=ok",
     "LIBS=-ltcl8.6",
 ]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf"]
 makedepends = [
     "zlib-devel",
     "tcl-devel",
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "TCL"
 url = "http://www.tcl.tk"
 source = f"$(SOURCEFORGE_SITE)/tcl/{pkgname}{pkgver}-src.tar.gz"
-sha256 = "2e65fa069a23365440a3c56c556b8673b5e32a283800d8d9b257e3f584ce0675"
+sha256 = "8ffdb720f47a6ca6107eac2dd877e30b0ef7fac14f3a84ebbd0b3612cee41a94"
 # no check target
 options = ["!check", "!cross", "!lto"]
 
@@ -54,6 +54,3 @@ def _devel(self):
         "usr/share/man/mann",
         "usr/lib/*.a",
     ]
-
-
-configure_gen = []
