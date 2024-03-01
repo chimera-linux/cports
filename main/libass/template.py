@@ -1,9 +1,19 @@
 pkgname = "libass"
 pkgver = "0.17.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf", "nasm"]
-makedepends = ["fontconfig-devel", "fribidi-devel", "harfbuzz-devel"]
+hostmakedepends = [
+    "automake",
+    "libtool",
+    "pkgconf",
+    "nasm",
+]
+makedepends = [
+    "fontconfig-devel",
+    "fribidi-devel",
+    "harfbuzz-devel",
+    "libunibreak-devel",
+]
 pkgdesc = "Portable library for SSA/ASS subtitle rendering"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
@@ -19,6 +29,3 @@ def post_install(self):
 @subpackage("libass-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
