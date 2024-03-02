@@ -1,6 +1,6 @@
 pkgname = "sane-backends"
 pkgver = "1.2.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--disable-locking",
@@ -36,7 +36,8 @@ sha256 = "f832395efcb90bb5ea8acd367a820c393dda7e0dd578b16f48928b8f5bdd0524"
 hardening = ["!int"]
 # otherwise we get conflicting providers because all the
 # plugins provide a libsane.so.1 soname for whatever reason
-options = ["!scanshlibs"]
+# lto causes segfaults and usb scanner detection issues
+options = ["!scanshlibs", "!lto"]
 
 
 def post_install(self):
