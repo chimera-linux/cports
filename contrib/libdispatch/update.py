@@ -1,4 +1,2 @@
-# technically this, but
-pattern = r">swift-([\d.]+)-RELEASE.tar.gz<"
-# they have a million spam DEVELOPMENT tags so it fails to trawl through them
-ignore = True
+url = "https://api.github.com/repos/apple/swift-corelibs-libdispatch/git/refs/tags"
+pattern = r"/refs/tags/swift-([\d\.]+)-RELEASE"
