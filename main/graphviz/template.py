@@ -1,6 +1,6 @@
 pkgname = "graphviz"
-pkgver = "9.0.0"
-pkgrel = 1
+pkgver = "10.0.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-lefty"]
 configure_gen = ["./autogen.sh"]
@@ -9,27 +9,28 @@ make_cmd = "gmake"
 make_dir = "."
 make_install_args = ["-j1"]
 hostmakedepends = [
-    "gmake",
-    "pkgconf",
     "automake",
-    "libtool",
-    "libltdl-devel",
-    "flex",
     "bison",
+    "flex",
+    "gmake",
+    "libltdl-devel",
+    "libtool",
     "perl",
+    "pkgconf",
     "python",
 ]
 makedepends = [
-    "libpng-devel",
-    "libjpeg-turbo-devel",
-    "libwebp-devel",
-    "libgd-devel",
-    "zlib-devel",
-    "libexpat-devel",
-    "fontconfig-devel",
     "cairo-devel",
-    "pango-devel",
+    "fontconfig-devel",
     "freetype-devel",
+    "gdk-pixbuf-devel",
+    "libexpat-devel",
+    "libgd-devel",
+    "libjpeg-turbo-devel",
+    "libpng-devel",
+    "libwebp-devel",
+    "pango-devel",
+    "zlib-devel",
 ]
 checkdepends = ["fonts-liberation-otf"]
 depends = ["fonts-liberation"]
@@ -39,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "EPL-1.0"
 url = "https://graphviz.org"
 source = f"https://gitlab.com/graphviz/graphviz/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "504d19b5d0e5398a57e9d9de42393f90b9e79aff0969b4ebc3b891ccb39602ed"
+sha256 = "28f452ef1cb12288c8758a62f8c3fcfefdb91b251f7aae61d0d703f851bde931"
 # expects already installed graphviz
 # testing is via pytest
 options = ["!check"]
