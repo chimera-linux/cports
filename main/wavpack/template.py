@@ -1,14 +1,14 @@
 pkgname = "wavpack"
-pkgver = "5.6.0"
+pkgver = "5.7.0"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "gettext-devel", "libtool", "pkgconf"]
 pkgdesc = "Hybrid lossless audio compression"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.wavpack.com"
 source = f"https://github.com/dbry/WavPack/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "af8035f457509c3d338b895875228a9b81de276c88c79bb2d3e31d9b605da9a9"
+sha256 = "e81510fd9ec5f309f58d5de83e9af6c95e267a13753d7e0bbfe7b91273a88bee"
 
 
 def post_install(self):
@@ -23,6 +23,3 @@ def _devel(self):
 @subpackage("wavpack-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []
