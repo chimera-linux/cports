@@ -10,6 +10,7 @@ hostmakedepends = [
     "desktop-file-utils",
     "meson",
     "pkgconf",
+    "scdoc",
 ]
 makedepends = [
     "libseccomp-devel",
