@@ -1,15 +1,15 @@
 pkgname = "mkfontscale"
-pkgver = "1.2.2"
+pkgver = "1.2.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-bzip2"]
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf", "xorg-util-macros"]
 makedepends = [
-    "xorgproto",
-    "zlib-devel",
     "bzip2-devel",
     "freetype-devel",
     "libfontenc-devel",
+    "xorgproto",
+    "zlib-devel",
 ]
 triggers = ["/usr/share/fonts/*"]
 pkgdesc = "X11 scalable font index generator"
@@ -17,12 +17,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/app/{pkgname}-{pkgver}.tar.gz"
-sha256 = "4a5af55e670713024639a7f7d10826d905d86faf574cd77e0f5aef2d00e70168"
+sha256 = "3a026b468874eb672a1d0a57dbd3ddeda4f0df09886caf97d30097b70c2df3f8"
 hardening = ["vis", "cfi"]
 
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []
