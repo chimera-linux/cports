@@ -1,0 +1,12 @@
+diff -Nurp a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml	2020-02-02 00:00:00.000000000 +0000
++++ b/pyproject.toml	2024-03-10 16:58:36.178168073 +0000
+@@ -146,7 +146,7 @@ timeout = 600
+ [tool.pytest.ini_options]
+ markers = ["slow"]
+ timeout = 600
+-addopts = "--showlocals --no-success-flaky-report"
++addopts = "--showlocals"
+ env = ["PYTHONIOENCODING=utf-8"]
+ 
+ [tool.coverage]
