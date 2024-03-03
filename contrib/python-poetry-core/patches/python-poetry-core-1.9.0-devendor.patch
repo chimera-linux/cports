@@ -1,0 +1,12 @@
+diff -ruN a/src/poetry/core/__init__.py b/src/poetry/core/__init__.py
+--- a/src/poetry/core/__init__.py	2024-02-02 15:03:53.000000000 +0100
++++ b/src/poetry/core/__init__.py	2024-02-25 14:45:34.346860290 +0100
+@@ -8,8 +8,3 @@
+ # this cannot presently be replaced with importlib.metadata.version as when building
+ # itself, poetry-core is not available as an installed distribution.
+ __version__ = "1.9.0"
+-
+-__vendor_site__ = (Path(__file__).parent / "_vendor").as_posix()
+-
+-if __vendor_site__ not in sys.path:
+-    sys.path.insert(0, __vendor_site__)
