@@ -1,16 +1,18 @@
 pkgname = "kwindowsystem"
 pkgver = "6.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-configure_args = [
-    "-DQT_MAJOR_VERSION=6",
-]
 make_check_args = [
     "-E",
-    # FIXME: hangs/crashes
-    "(threadtest|compositingenabled|kwindowinfox11test|kwindowsystemx11test|netrootinfotestwm|kwindoweffectstest)",
+    # kwindowinfox11test takes over 5 minutes and is broken,
+    # threadtest & kwindowsystemx11test are broken,
+    "(thread|kwindowsystemx11|kwindowinfox11)test",
+    # at least compositingenabled_test is flaky when parallel
+    "-j1",
 ]
-make_check_wrapper = ["xvfb-run"]
+# almost all tests need x11, net* need xvfb around
+make_check_env = {"QT_QPA_PLATFORM": "xcb"}
+make_check_wrapper = ["xwfb-run", "--"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -30,14 +32,15 @@ makedepends = [
     "xcb-util-keysyms-devel",
     "xcb-util-wm-devel",
 ]
-checkdepends = ["xserver-xorg-xvfb"]
+checkdepends = ["xwayland-run", "xserver-xorg-xvfb"]
 pkgdesc = "KDE windowing system access"
-maintainer = "psykose <alice@ayaya.dev>"
+maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
 sha256 = "0f8fb12b4eea926a7f4cf59ec85d95297a8cb67d8093dc4b194b51a1c4671d89"
-hardening = ["vis", "cfi"]
+# FIXME: cfi breaks at least kwin testDontCrashUseractionsMenu
+hardening = ["vis", "!cfi"]
 
 
 def post_install(self):
