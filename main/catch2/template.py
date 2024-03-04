@@ -1,5 +1,5 @@
 pkgname = "catch2"
-pkgver = "3.5.2"
+pkgver = "3.5.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "miko <mikoxyzzz@gmail.com>"
 license = "BSL-1.0"
 url = "https://github.com/catchorg/Catch2"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "269543a49eb76f40b3f93ff231d4c24c27a7e16c90e47d2e45bcc564de470c6e"
+sha256 = "8d723b0535c94860ef8cf6231580fa47d67a3416757ecb10639e40d748ab6c71"
 # vis breaks symbols
 hardening = ["!vis"]
 
