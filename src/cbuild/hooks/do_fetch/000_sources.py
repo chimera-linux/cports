@@ -112,6 +112,10 @@ def fetch_url(mv):
                     fstatus[idx] += nread
             # done fetching, report 100%
             with fmtx:
+                # if we know the final content-length and we receive less than
+                # that in the body, treat it as a fetch error just in case
+                if clen and fstatus[idx] != clen:
+                    return url, dfile, "incomplete file"
                 flens[idx] = fstatus[idx]
         return None, None, None
     except Exception as e:
