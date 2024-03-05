@@ -1,6 +1,6 @@
 pkgname = "usrsctp"
 pkgver = "0.9.5.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Portable SCTP userland stack"
