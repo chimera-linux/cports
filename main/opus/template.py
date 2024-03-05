@@ -1,10 +1,13 @@
 pkgname = "opus"
-pkgver = "1.4"
+pkgver = "1.5.1"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = ["--enable-float-approx"]
-make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake", "automake", "libtool"]
+build_style = "meson"
+configure_args = [
+    "-Dcustom-modes=true",
+    "-Dfloat-approx=true",
+    "-Dtests=enabled",
+]
+hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Totally open, royalty-free, highly versatile audio codec"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
@@ -12,7 +15,7 @@ url = "https://www.opus-codec.org"
 source = (
     f"https://downloads.xiph.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "c9b32b4253be5ae63d1ff16eea06b94b5f0f2951b7a02aceef58e3a3ce49c51f"
+sha256 = "b84610959b8d417b611aa12a22565e0a3732097c6389d19098d844543e340f85"
 # FIXME int
 hardening = ["vis", "cfi", "!int"]
 
