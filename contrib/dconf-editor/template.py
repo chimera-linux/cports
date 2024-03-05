@@ -4,6 +4,7 @@ pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "dconf-devel",
+    "desktop-file-utils",
     "gettext",
     "glib-devel",
     "libhandy-devel",
@@ -23,6 +24,3 @@ license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/dconf-editor"
 source = f"$(GNOME_SITE)/dconf-editor/{pkgver[:-pkgver.rfind('.')]}/dconf-editor-{pkgver}.tar.xz"
 sha256 = "1180297678eedae6217cc514a2638c187d2f1d1ef2720cb9079b740c429941dd"
-
-# vala broken
-tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}

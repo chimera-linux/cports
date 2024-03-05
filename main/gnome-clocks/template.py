@@ -31,5 +31,3 @@ license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Clocks"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "fc8eb4fd9530f1e641dc00ee2086ee7d354a7a00b0a0d1722e305d5c9aab91b5"
-
-tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}

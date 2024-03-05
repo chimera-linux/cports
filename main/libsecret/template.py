@@ -22,8 +22,6 @@ sha256 = "163d08d783be6d4ab9a979ceb5a4fecbc1d9660d3c34168c581301cd53912b20"
 # does not work in container
 options = ["!check", "!cross"]
 
-tool_flags = {"CFLAGS": ["-Wno-incompatible-function-pointer-types"]}
-
 
 @subpackage("libsecret-devel")
 def _devel(self):
