@@ -18,7 +18,7 @@ pkgdesc = "Collection of tools for the Opus audio codec"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause AND GPL-2.0-only"
 url = "https://wiki.xiph.org/Opus-tools"
-source = f"https://archive.mozilla.org/pub/opus/opus-tools-{pkgver}.tar.gz"
+source = f"https://downloads.xiph.org/releases/opus/opus-tools-{pkgver}.tar.gz"
 sha256 = "b4e56cb00d3e509acfba9a9b627ffd8273b876b4e2408642259f6da28fa0ff86"
 
 
