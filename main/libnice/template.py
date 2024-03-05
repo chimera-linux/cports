@@ -1,5 +1,5 @@
 pkgname = "libnice"
-pkgver = "0.1.21"
+pkgver = "0.1.22"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://libnice.freedesktop.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.gz"
-sha256 = "72e73a2acf20f59093e21d5601606e405873503eb35f346fa621de23e99b3b39"
+sha256 = "a5f724cf09eae50c41a7517141d89da4a61ec9eaca32da4a0073faed5417ad7e"
 # tests fail for now
 options = ["!cross", "!check"]
 
