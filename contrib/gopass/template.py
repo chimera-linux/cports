@@ -1,8 +1,9 @@
 pkgname = "gopass"
 pkgver = "1.15.11"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 hostmakedepends = ["go"]
+checkdepends = ["git", "gnupg"]
 pkgdesc = "Pass-compatible password manager with more features"
 maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
@@ -11,7 +12,9 @@ source = (
     f"https://github.com/gopasspw/gopass/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "f85610a4f114125bd21e1100d6a2970c7ab76f09a7e094aa6be378018979eb56"
-options = ["!debug"]
+# debug: fails to split on powerpc
+# check: needs initialising git config
+options = ["!debug", "!check"]
 
 
 def post_install(self):

@@ -1,6 +1,6 @@
 pkgname = "restic"
 pkgver = "0.16.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/restic"]
 hostmakedepends = ["go"]
@@ -10,7 +10,9 @@ license = "BSD-2-Clause"
 url = "https://restic.net"
 source = f"https://github.com/restic/restic/releases/download/v{pkgver}/restic-{pkgver}.tar.gz"
 sha256 = "d736a57972bb7ee3398cf6b45f30e5455d51266f5305987534b45a4ef505f965"
-options = ["!debug"]
+# debug: fails to split on powerpc
+# check: fails in bwrap chroot
+options = ["!debug", "!check"]
 
 
 def post_install(self):

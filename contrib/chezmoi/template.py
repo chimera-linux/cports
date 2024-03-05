@@ -1,6 +1,6 @@
 pkgname = "chezmoi"
 pkgver = "2.47.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X main.commit=v{pkgver}",
@@ -13,7 +13,9 @@ license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
 sha256 = "0a87ab59bf9bb66b70e0711a4fe4b8c60cce431df089896db7e25324e8758523"
-options = ["!debug"]
+# debug: fails to split on powerpc
+# check: needs network access
+options = ["!debug", "!check"]
 
 
 def post_install(self):
