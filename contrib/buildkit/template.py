@@ -1,6 +1,6 @@
 pkgname = "buildkit"
 pkgver = "0.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = ["go"]
@@ -11,8 +11,9 @@ license = "Apache-2.0"
 url = "https://github.com/moby/buildkit"
 source = f"https://github.com/moby/buildkit/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "6b7cece44acce189870d7fe68521d1f9b2fbc07e791843f77f930b6ad82057b4"
-# objcopy ppc64
-options = ["!debug"]
+# debug: objcopy ppc64
+# check: cannot work in bwrap
+options = ["!debug", "!check"]
 
 
 def post_extract(self):
