@@ -7,6 +7,7 @@ configure_args = [
     "-Dfloat-approx=true",
     "-Dtests=enabled",
 ]
+make_check_args = ["--timeout-multiplier", "10"]
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Totally open, royalty-free, highly versatile audio codec"
 maintainer = "q66 <q66@chimera-linux.org>"
