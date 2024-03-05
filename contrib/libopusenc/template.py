@@ -12,7 +12,7 @@ pkgdesc = "Library for encoding Opus files"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://opus-codec.org"
-source = f"https://archive.mozilla.org/pub/opus/libopusenc-{pkgver}.tar.gz"
+source = f"https://downloads.xiph.org/releases/opus/libopusenc-{pkgver}.tar.gz"
 sha256 = "8298db61a8d3d63e41c1a80705baa8ce9ff3f50452ea7ec1c19a564fe106cbb9"
 
 
