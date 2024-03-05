@@ -1,6 +1,6 @@
 pkgname = "gst-plugins-good"
-pkgver = "1.22.10"
-pkgrel = 2
+pkgver = "1.24.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-feature=enabled",
@@ -13,6 +13,8 @@ configure_args = [
     # there are too many auto features and it's difficult to take care that
     # nothing is accidentally disabled and so on, so implicitly enable all,
     # and then disable what's not relevant to us:
+    "-Damrnb=disabled",
+    "-Damrwbdec=disabled",
     "-Ddirectsound=disabled",
     "-Dosxaudio=disabled",
     "-Dosxvideo=disabled",
@@ -68,7 +70,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f748feae922cad62f20102a84ade8f42b78e1e44a34866aa3ea766f9172e1c7f"
+sha256 = "c02ba5583863e0bd9e265e5e4a27a03a3c473eb9ec1c10b07238f7176d9368a2"
 # FIXME int (extra tests fail, look for SIGILL)
 hardening = ["!int"]
 # 4 out of 105 tests currently fail (qtmux, splitmux, pipelines_tagschecking)
