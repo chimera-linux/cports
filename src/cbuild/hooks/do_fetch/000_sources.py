@@ -161,6 +161,9 @@ def invoke(pkg):
 
     tofetch = []
     dfiles = []
+    # reset (could be filled from previous bulk)
+    fstatus = []
+    flens = []
 
     for dc in zip(pkg.source, pkg.sha256):
         d, ck = dc
