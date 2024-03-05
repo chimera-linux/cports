@@ -1,5 +1,5 @@
 pkgname = "python-maturin"
-pkgver = "1.4.0"
+pkgver = "1.5.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {
@@ -22,12 +22,12 @@ maintainer = "miko <mikoxyzzz@gmail.com>"
 license = "Apache-2.0 OR MIT"
 url = "https://www.maturin.rs"
 source = f"https://github.com/PyO3/maturin/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "cd2cd3d465619bb997b41594398310e8b257d0c17854a58ca0598efa11e6d698"
+sha256 = "19eacc3befa15ff6302ef08951ed1a0516f5edea5ef1fae7f98fd8bd669610ff"
 # yeah no
 options = ["!check"]
 
 
-def post_patch(self):
+def do_prepare(self):
     from cbuild.util import cargo
 
     self.cargo = cargo.Cargo(self)
