@@ -1,56 +1,56 @@
 pkgname = "thunderbird"
-pkgver = "115.8.0"
+pkgver = "115.8.1"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
-    "pkgconf",
-    "zip",
-    "nasm",
-    "cargo",
-    "rust",
-    "python3.11",
-    "cbindgen",
-    "llvm-devel",
-    "clang-devel",
-    "nodejs",
-    "gettext",
     "automake",
-    "libtool",
+    "cargo",
+    "cbindgen",
+    "clang-devel",
+    "gettext",
     "gmake",
+    "libtool",
+    "llvm-devel",
+    "nasm",
+    "nodejs",
+    "pkgconf",
+    "python3.11",
+    "rust",
     "wasi-sdk",
     "xserver-xorg-xvfb",
+    "zip",
 ]
 makedepends = [
-    "rust-std",
-    "nss-devel",
-    "nspr-devel",
-    "gtk+3-devel",
-    "icu-devel",
-    "dbus-devel",
-    "glib-devel",
-    "libpulse-devel",
-    "pixman-devel",
-    "freetype-devel",
-    "libjpeg-turbo-devel",
-    "libpng-devel",
-    "libwebp-devel",
-    "libevent-devel",
-    "libnotify-devel",
-    "libvpx-devel",
-    "libvorbis-devel",
-    "libogg-devel",
-    "libtheora-devel",
-    "libxt-devel",
-    "libxcomposite-devel",
-    "libxscrnsaver-devel",
-    "pipewire-jack-devel",
-    "ffmpeg-devel",
     "alsa-lib-devel",
-    "mesa-devel",
-    "libffi-devel",
-    "zlib-devel",
+    "dbus-devel",
     # XXX: https://bugzilla.mozilla.org/show_bug.cgi?id=1532281
     "dbus-glib-devel",
+    "ffmpeg-devel",
+    "freetype-devel",
+    "glib-devel",
+    "gtk+3-devel",
+    "icu-devel",
+    "libevent-devel",
+    "libffi-devel",
+    "libjpeg-turbo-devel",
+    "libnotify-devel",
+    "libogg-devel",
+    "libpng-devel",
+    "libpulse-devel",
+    "libtheora-devel",
+    "libvorbis-devel",
+    "libvpx-devel",
+    "libwebp-devel",
+    "libxcomposite-devel",
+    "libxscrnsaver-devel",
+    "libxt-devel",
+    "mesa-devel",
+    "nspr-devel",
+    "nss-devel",
+    "pipewire-jack-devel",
+    "pixman-devel",
+    "rust-std",
+    "zlib-devel",
 ]
 depends = ["virtual:cmd:thunderbird!thunderbird-wayland"]
 pkgdesc = "Thunderbird mail client"
@@ -58,7 +58,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.thunderbird.net"
 source = f"$(MOZILLA_SITE)/{pkgname}/releases/{pkgver.replace('_beta', 'b')}/source/{pkgname}-{pkgver.replace('_beta', 'b')}.source.tar.xz"
-sha256 = "804c8cb0896b2cf24643621c0c879c9bb8c56abd517eb9d603cec6fdb91561c7"
+sha256 = "80d75ae91b7cbd60bcbaf134fc3f11290bd542a8a7ff965eaa4a0d95bb0d4d51"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/thunderbird", "-Wl,-z,stack-size=2097152"]
