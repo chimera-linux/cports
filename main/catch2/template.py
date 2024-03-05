@@ -6,6 +6,7 @@ configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
     "-DCATCH_BUILD_EXTRA_TESTS=ON",
     "-DCATCH_DEVELOPMENT_BUILD=ON",
+    "-DCATCH_ENABLE_WERROR=OFF",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 checkdepends = ["python"]
