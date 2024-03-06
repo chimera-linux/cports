@@ -1,1 +1,2 @@
-url = "http://www.musl-libc.org/releases"
+pkgname = "musl"
+url = "https://musl.libc.org/releases.html"
