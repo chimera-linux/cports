@@ -1,6 +1,6 @@
 pkgname = "docker-cli"
 pkgver = "25.0.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 _commit = "4debf411d1e6efbd9ce65e4250718e9c529a6525"
 make_cmd = "gmake"
@@ -34,6 +34,7 @@ def init_prepare(self):
 
     self.env["GOPATH"] = str(self.chroot_cwd)
     self.env["GOBIN"] = str(self.chroot_cwd / "bin")
+    self.env["CGO_ENABLED"] = "1"
     self.env.update(golang.get_go_env(self))
 
 
