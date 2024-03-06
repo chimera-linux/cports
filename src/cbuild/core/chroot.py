@@ -697,6 +697,8 @@ def enter(
         "--proc",
         "/proc",
         "--tmpfs",
+        "/run",
+        "--tmpfs",
         "/tmp",
         "--tmpfs",
         "/var/tmp",
