@@ -1,5 +1,5 @@
 pkgname = "gcr"
-pkgver = "4.2.0"
+pkgver = "4.2.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gcr"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "e15e31329e0171229d552d25563f176c5b6179795bf91fae2b141f69a9b7c480"
+sha256 = "ed783b5c80373cd058c02ea9e3e2a64e558599ca190a5abd598122e479967de5"
 # getpass
 tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 # FIXME int (crashes gnome-keyring suite)
