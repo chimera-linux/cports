@@ -1,6 +1,6 @@
 pkgname = "kanshi"
-pkgver = "1.5.1"
-pkgrel = 1
+pkgver = "1.6.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -8,6 +8,7 @@ hostmakedepends = [
     "scdoc",
 ]
 makedepends = [
+    "libscfg-devel",
     "varlink-devel",
     "wayland-devel",
 ]
@@ -16,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://sr.ht/~emersion/kanshi"
 source = f"https://git.sr.ht/~emersion/kanshi/archive/v{pkgver}.tar.gz"
-sha256 = "d403d2a99170261baa6606336724bc9721f779dc39294d2e088745d7bd41f427"
+sha256 = "1021bee594672c5304caf548865459bab097f0e2f95de3865ec2079c76a1aaac"
 hardening = ["vis", "cfi"]
 
 
