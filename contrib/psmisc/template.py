@@ -1,9 +1,9 @@
 pkgname = "psmisc"
-pkgver = "23.6"
+pkgver = "23.7"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
-hostmakedepends = ["gmake", "automake"]
+hostmakedepends = ["gettext-devel", "gmake", "automake"]
 makedepends = ["ncurses-devel", "gnu-getopt", "linux-headers"]
 checkdepends = ["dejagnu"]
 pkgdesc = "Small utilities that use the proc file-system"
@@ -11,11 +11,9 @@ maintainer = "roastveg <louis@hamptonsoftworks.com>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.com/psmisc/psmisc"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "257dde06159a4c49223d06f1cccbeb68933a4514fc8f1d77c64b54f0d108822a"
+sha256 = "58c55d9c1402474065adae669511c191de374b0871eec781239ab400b907c327"
 tool_flags = {
     "LDFLAGS": ["-lgnu_getopt"],
     "CFLAGS": ["-Dgetopt_long_only=gnu_getopt_long_only"],
 }
 hardening = ["vis", "cfi"]
-
-configure_gen = []
