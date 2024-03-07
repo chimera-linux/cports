@@ -1,5 +1,5 @@
 pkgname = "containers-common"
-pkgver = "0.57.4"
+pkgver = "0.58.0"
 pkgrel = 0
 make_cmd = "gmake"
 make_build_args = ["-C", "docs"]
@@ -11,9 +11,9 @@ license = "Apache-2.0"
 url = "https://github.com/containers/common"
 _base_url = url.removesuffix("/common")
 _common_ver = pkgver
-_storage_ver = "1.52.0"
-_image_ver = "5.29.2"
-_skopeo_ver = "1.14.2"
+_storage_ver = "1.53.0"
+_image_ver = "5.30.0"
+_skopeo_ver = "1.15.0"
 _shortnames_ver = "2023.02.20"
 source = [
     f"{_base_url}/common/archive/v{_common_ver}.tar.gz",
@@ -23,10 +23,10 @@ source = [
     f"{_base_url}/shortnames/archive/v{_shortnames_ver}.tar.gz",
 ]
 sha256 = [
-    "cb829c87030b13513077e3926e1f73bb03cf49a3a92613adc4a5b02b7ead66c7",
-    "199b1d85e5da318e1fd60bace35dd217c93e62237662b5ab0d934984a6811933",
-    "28e2d18929cd455f532696226032f263be227cf0edbeb700ddf0a07007eeeb2a",
-    "f0f5bc1367982d195c4bc13c003ee7ab0c829d36d808fe519accef64ebf5de23",
+    "d8985643c514130b26bc15b7da275e15d4007675dbedfa701cb757f0d51407f6",
+    "d178e872d0ef2b9658c60a40238d2fb71588bc66e8265e998f1525983bc5166e",
+    "1c4d5b98c762396633cf26c71709bdda3315846290fef687931259573e95a685",
+    "f219d31e5f3742b08a6e7327d84fd84cdcf8e5a297914bb6e19a96fef1b19b76",
     "336ba679d4e510d2eb59cb11321bf16a36ef2dba58024e79dd76b89ffee539e6",
 ]
 # no tests
@@ -67,12 +67,6 @@ def do_install(self):
     with self.pushd(f"image-{_image_ver}"):
         self.install_file("registries.conf", "etc/containers")
         self.do("gmake", "install", f"DESTDIR={self.chroot_destdir}")
-
-    with self.pushd(f"skopeo-{_skopeo_ver}"):
-        self.install_file(
-            "default-policy.json", "etc/containers", name="policy.json"
-        )
-        self.install_file("default.yaml", "etc/containers/registries.d")
 
     with self.pushd(f"shortnames-{_shortnames_ver}"):
         self.install_file(
