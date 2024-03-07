@@ -1,8 +1,9 @@
 pkgname = "libdeflate"
 pkgver = "1.19"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
+    "-DLIBDEFLATE_BUILD_STATIC_LIB=OFF",
     "-DLIBDEFLATE_BUILD_TESTS=ON",
     "-DLIBDEFLATE_USE_SHARED_LIB=ON",
 ]
