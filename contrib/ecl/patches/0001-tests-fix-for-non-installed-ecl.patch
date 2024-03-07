@@ -1,0 +1,42 @@
+From e2321c5dd13e9821e9fd0338eab031d29b2ba9ec Mon Sep 17 00:00:00 2001
+From: "Paul A. Patience" <paul@apatience.com>
+Date: Sat, 30 Dec 2023 20:15:34 -0500
+Subject: [PATCH 1/4] tests: fix for non-installed ecl
+
+---
+ src/tests/config.lsp.in | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+diff --git a/src/tests/config.lsp.in b/src/tests/config.lsp.in
+index 6d5e91c51..a7146eeea 100755
+--- a/src/tests/config.lsp.in
++++ b/src/tests/config.lsp.in
+@@ -31,25 +31,9 @@
+       #+windows (namestring (truename "sys:ecl.exe"))
+       #-windows "@prefix@/bin/ecl"))
+ 
+-#+ecl
+-(ext:setenv "ECLDIR" (namestring (truename "SYS:")))
+-
+ (defvar *test-name* (or (ext:getenv "TEST_NAME") "ecl"))
+ (defvar *sandbox* (merge-pathnames "temporary/" *here*))
+ 
+-(defun lisp-system-directory ()
+-  (loop with root = (si::get-library-pathname)
+-        with lib-name = (format nil "../lib/ecl-~A/" (lisp-implementation-version))
+-        for base in (list root (merge-pathnames lib-name root))
+-        when (or (probe-file (merge-pathnames "./BUILD-STAMP" base))
+-                 (probe-file (merge-pathnames "./COPYING" base)))
+-        do (return base)))
+-
+-(setf (logical-pathname-translations "SYS")
+-      (list (list #p"sys:**;*.*"
+-                  (merge-pathnames "**/*.*"
+-                                   (lisp-system-directory)))))
+-
+ ;;;
+ ;;; PREPARATION OF DIRECTORIES AND FILES
+ ;;;
+-- 
+2.41.0
+
