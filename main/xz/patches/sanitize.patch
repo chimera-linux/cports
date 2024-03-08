@@ -1,0 +1,30 @@
+commit 985c6cd070772cf6ae89cb47eeb516d8003dc04e
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Mar 8 13:06:01 2024 +0100
+
+    remove bullshit logic preventing landlock with fsanitize
+    
+    We use pure trapping sanitizers only, which does not interefere
+    with landlock in any way. The logic here is pure nonsense.
+
+diff --git a/configure b/configure
+index c43d63f..b37819b 100755
+--- a/configure
++++ b/configure
+@@ -22491,16 +22491,6 @@ then :
+   printf "%s\n" "#define HAVE_LINUX_LANDLOCK_H 1" >>confdefs.h
+ 
+ 			enable_sandbox=found
+-
+-			case $CFLAGS in #(
+-  *-fsanitize=*) :
+-    as_fn_error $? "
+-    CFLAGS contains '-fsanitize=' which is incompatible with the Landlock
+-    sandboxing. Use --disable-sandbox when using '-fsanitize'." "$LINENO" 5 ;; #(
+-  *) :
+-     ;;
+-esac
+-
+ fi
+ 
+ done
