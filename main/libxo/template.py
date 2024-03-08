@@ -37,6 +37,9 @@ def init_configure(self):
 def post_install(self):
     self.install_license("Copyright")
 
+    if self.stage == 0:
+        self.rm(self.destdir / "usr/lib/libxo", recursive=True)
+
 
 @subpackage("libxo-devel")
 def _devel(self):
