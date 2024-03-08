@@ -34,6 +34,7 @@ if self.stage > 0:
     # don't bother in stage 0
     depends += ["sd-tools"]
 else:
+    makedepends += ["libxo-devel-static"]
     configure_args += ["-Dzstd=disabled"]
 
 
