@@ -1,5 +1,5 @@
 pkgname = "python-pytest-subtests"
-pkgver = "0.11.0"
+pkgver = "0.12.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -8,17 +8,14 @@ hostmakedepends = [
     "python-setuptools_scm",
     "python-wheel",
 ]
-checkdepends = ["python-pytest"]
-depends = [
-    "python-attrs",
-    "python-pytest",
-]
+depends = ["python-attrs", "python-pytest"]
+checkdepends = ["python-pytest-xdist"] + depends
 pkgdesc = "Unittest subTest() and subtests fixture"
 maintainer = "miko <mikoxyzzz@gmail.com>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-subtests"
 source = f"$(PYPI_SITE)/p/pytest-subtests/pytest-subtests-{pkgver}.tar.gz"
-sha256 = "51865c88457545f51fb72011942f0a3c6901ee9e24cbfb6d1b9dc1348bafbe37"
+sha256 = "d6605dcb88647e0b7c1889d027f8ef1c17d7a2c60927ebfdc09c7b0d8120476d"
 
 
 def post_install(self):
