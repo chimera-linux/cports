@@ -1,5 +1,5 @@
 pkgname = "libxfce4ui"
-pkgver = "4.18.5"
+pkgver = "4.18.6"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-tests", "--disable-static"]
@@ -30,7 +30,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://xfce.org"
 source = f"https://archive.xfce.org/src/xfce/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "0dbbf7fc6da07fe743cca020280e1f6cc437cba61698bb0694619fbebf4ee7e7"
+sha256 = "77dd99206cc8c6c7f69c269c83c7ee6a037bca9d4a89b1a6d9765e5a09ce30cd"
 
 
 @subpackage("libxfce4ui-devel")
