@@ -1,6 +1,6 @@
 pkgname = "mpv"
 pkgver = "0.37.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
