@@ -1,5 +1,5 @@
 pkgname = "cryptsetup"
-pkgver = "2.7.0"
+pkgver = "2.7.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -34,7 +34,7 @@ url = "https://gitlab.com/cryptsetup/cryptsetup"
 source = (
     f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "94003a00cd5a81944f45e8dc529e0cfd2a6ff629bd2cd21cf5e574e465daf795"
+sha256 = "da5d1419e2a86e01aa32fd79582cd54d208857cb541bca2fd426a5ff1aaabbc3"
 
 if self.profile().arch == "riscv64":
     # udev static library weirdness
