@@ -1,0 +1,34 @@
+From e6bd5949b224dcbf9ad6314421dca0852b140e62 Mon Sep 17 00:00:00 2001
+From: "Paul A. Patience" <paul@apatience.com>
+Date: Thu, 7 Mar 2024 18:41:26 -0500
+Subject: [PATCH 4/4] tests: disable FPE tests on aarch64
+
+---
+ src/tests/normal-tests/ieee-fp.lsp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/tests/normal-tests/ieee-fp.lsp b/src/tests/normal-tests/ieee-fp.lsp
+index 02caaa573..5ebd0f621 100644
+--- a/src/tests/normal-tests/ieee-fp.lsp
++++ b/src/tests/normal-tests/ieee-fp.lsp
+@@ -332,7 +332,7 @@ Common Lisp type contagion rules."
+ 
+ ;;; ... but we don't, therefore everything throws arithmetic errors.
+ 
+-#+floating-point-exceptions
++#+(and floating-point-exceptions (not aarch64))
+ (test ieee-fp.0010.NaN-floor/ceiling/truncate/round/mod/rem
+       (loop :for function :in '(floor ceiling truncate round
+                                 ffloor fceiling ftruncate fround
+@@ -348,7 +348,7 @@ Common Lisp type contagion rules."
+          (for-all-number-subtypes (x float 0)
+            (signals arithmetic-error (funcall function x x)))))
+ 
+-#+floating-point-exceptions
++#+(and floating-point-exceptions (not aarch64))
+ (test ieee-fp.0011.infinity-floor/ceiling/truncate/round
+       (loop :for function :in '(floor ceiling truncate round
+                                 ffloor fceiling ftruncate fround
+-- 
+2.41.0
+

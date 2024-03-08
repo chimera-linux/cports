@@ -18,12 +18,7 @@ license = "LGPL-2.1-or-later"
 url = "https://ecl.common-lisp.dev"
 source = f"https://gitlab.com/embeddable-common-lisp/{pkgname}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "2ccda77461f651089d474f57d34c2fcee380ae54e734779b1bf4a4126e2a4686"
-# FP failures on aarch64 for now
 options = ["!cross", "!lto"]
-
-
-if self.profile().arch == "aarch64":
-    options += ["!check"]
 
 
 def do_check(self):
