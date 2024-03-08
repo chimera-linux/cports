@@ -14,7 +14,6 @@ makedepends = [
     "xz-devel",
     "zlib-devel",
     "bzip2-devel",
-    "linux-headers",
     "libxo-devel",
     "musl-bsd-headers",
 ]
