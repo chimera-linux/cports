@@ -1,5 +1,5 @@
 pkgname = "asciidoctor"
-pkgver = "2.0.21"
+pkgver = "2.0.22"
 pkgrel = 0
 build_style = "ruby_gem"
 hostmakedepends = ["ruby"]
@@ -9,4 +9,4 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MIT"
 url = "https://asciidoctor.org"
 source = f"!https://rubygems.org/downloads/{pkgname}-{pkgver}.gem"
-sha256 = "07138c69d2aa320932d38beb17fedb09090cdb38e64d14c1f6926b620715c100"
+sha256 = "a6d8f1bb593a3617c0334fdf36b1e25186c4f4d0e15636538c5811de9bb1cad6"
