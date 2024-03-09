@@ -1,0 +1,5 @@
+# nfs-blkmap service
+
+type        = process
+depends-on  = rpc_pipefs
+command     = /usr/bin/blkmapd -f

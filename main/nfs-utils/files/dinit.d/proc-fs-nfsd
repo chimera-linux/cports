@@ -1,0 +1,5 @@
+# proc-fs-nfsd service
+
+type        = scripted
+after       = early-fs-local.target
+command     = /usr/libexec/dinit-proc-fs-nfsd

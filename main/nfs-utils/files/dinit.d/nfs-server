@@ -1,0 +1,12 @@
+# nfs-server service
+
+type           = scripted
+depends-on     = nfs-mountd
+depends-on     = proc-fs-nfsd
+depends-on     = rpcbind
+depends-on     = rpc-statd
+waits-for      = nfs-idmapd
+waits-for      = nfsdcld
+after          = network.target
+command        = /usr/libexec/dinit-nfs-server start
+stop-command   = /usr/libexec/dinit-nfs-server stop

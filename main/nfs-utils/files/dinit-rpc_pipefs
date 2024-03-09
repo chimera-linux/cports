@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export PATH=/usr/bin
+
+if ! mountpoint -q /var/lib/nfs/rpc_pipefs; then
+    mount -t rpc_pipefs rpc_pipefs /var/lib/nfs/rpc_pipefs
+fi

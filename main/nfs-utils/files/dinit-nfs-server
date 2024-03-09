@@ -1,0 +1,25 @@
+#!/bin/sh
+
+export PATH=/usr/bin
+
+start()
+{
+    exportfs -r
+    rpc.nfsd
+}
+
+stop()
+{
+    rpc.nfsd 0
+    exportfs -au
+    exportfs -f
+}
+
+case $1 in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+esac

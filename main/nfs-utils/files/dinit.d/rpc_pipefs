@@ -1,0 +1,5 @@
+# rpc_pipefs service
+
+type        = scripted
+depends-on  = early-fs-local.target
+command     = /usr/libexec/dinit-rpc_pipefs

@@ -1,0 +1,4 @@
+# nfs-client target
+
+type        = internal
+waits-for   = rpc-statd

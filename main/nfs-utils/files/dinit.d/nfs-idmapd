@@ -1,0 +1,7 @@
+# nfs-idmapd service
+
+type        = process
+depends-on  = rpc_pipefs
+depends-on  = rpcbind
+after       = network.target
+command     = /usr/bin/rpc.idmapd -f
