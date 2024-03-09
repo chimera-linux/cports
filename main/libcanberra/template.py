@@ -1,6 +1,6 @@
 pkgname = "libcanberra"
 pkgver = "0.30"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-null",
@@ -15,7 +15,13 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_install_args = ["-j1"]  # racey install
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "gtk-doc-tools",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
     "gtk+3-devel",
     "gstreamer-devel",
@@ -62,4 +68,6 @@ def _gst(self):
     return ["usr/lib/libcanberra-*/libcanberra-gstreamer.so"]
 
 
-configure_gen = []
+@subpackage("libcanberra-progs")
+def _progs(self):
+    return self.default_progs()
