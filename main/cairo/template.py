@@ -12,7 +12,7 @@ hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
     "fontconfig-devel",
     "freetype-bootstrap",
-    "glib-devel",
+    "glib-bootstrap",
     "libpng-devel",
     "libx11-devel",
     "libxcb-devel",
