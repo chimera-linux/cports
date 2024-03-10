@@ -1,0 +1,28 @@
+From 181873674a70b6dc5e4290dfaf32d73b2d9d45f4 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Sun, 10 Mar 2024 22:11:44 +0100
+Subject: [PATCH] grub-mkconfig: set -x
+
+This fixes an issue where grub-probe, when figuring out GRUB_DEVICE,
+would bring down grub-mkconfig if it were to error out. grub-probe
+erroring out is expected in some configurations (e.g. NFS root with
+/boot on physical storage), so it really shouldn't bring down
+grub-mkconfig.
+---
+ util/grub-mkconfig.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/util/grub-mkconfig.in b/util/grub-mkconfig.in
+index f8cbb8d7a..bb123a36d 100644
+--- a/util/grub-mkconfig.in
++++ b/util/grub-mkconfig.in
+@@ -1,5 +1,5 @@
+ #! /bin/sh
+-set -e
++set -x
+ 
+ # Generate grub.cfg by inspecting /boot contents.
+ # Copyright (C) 2006,2007,2008,2009,2010 Free Software Foundation, Inc.
+-- 
+2.44.0
+
