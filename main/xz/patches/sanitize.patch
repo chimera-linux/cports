@@ -11,20 +11,14 @@ diff --git a/configure b/configure
 index c43d63f..b37819b 100755
 --- a/configure
 +++ b/configure
-@@ -22491,16 +22491,6 @@ then :
-   printf "%s\n" "#define HAVE_LINUX_LANDLOCK_H 1" >>confdefs.h
- 
+@@ -22512,10 +22512,6 @@
  			enable_sandbox=found
--
--			case $CFLAGS in #(
+ 
+ 			case $CFLAGS in #(
 -  *-fsanitize=*) :
 -    as_fn_error $? "
 -    CFLAGS contains '-fsanitize=' which is incompatible with the Landlock
 -    sandboxing. Use --disable-sandbox when using '-fsanitize'." "$LINENO" 5 ;; #(
--  *) :
--     ;;
--esac
--
- fi
- 
- done
+   *) :
+      ;;
+ esac

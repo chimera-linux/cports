@@ -1,6 +1,6 @@
 pkgname = "xz"
-pkgver = "5.6.0"
-pkgrel = 1
+pkgver = "5.6.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
 url = "https://tukaani.org/xz"
 source = f"https://github.com/tukaani-project/xz/releases/download/v{pkgver}/xz-{pkgver}.tar.bz2"
-sha256 = "88c8631cefba91664fdc47b14bb753e1876f4964a07db650821d203992b1e1ea"
+sha256 = "d300422649a0124b1121630be559c890ceedf32667d7064b8128933166c217c8"
 options = ["bootstrap"]
 
 
