@@ -1,0 +1,24 @@
+diff --git a/src/3rdparty/chromium/net/third_party/quiche/src/quiche/http2/adapter/window_manager.h b/src/3rdparty/chromium/net/third_party/quiche/src/quiche/http2/adapter/window_manager.h
+index 700597416..75dd4e73c 100644
+--- a/src/3rdparty/chromium/net/third_party/quiche/src/quiche/http2/adapter/window_manager.h
++++ b/src/3rdparty/chromium/net/third_party/quiche/src/quiche/http2/adapter/window_manager.h
+@@ -3,6 +3,7 @@
+ 
+ #include <stddef.h>
+ #include <stdint.h>
++#include <inttypes.h>
+ 
+ #include <functional>
+ 
+diff --git a/src/3rdparty/chromium/sandbox/linux/services/credentials.h b/src/3rdparty/chromium/sandbox/linux/services/credentials.h
+index e59ebef4a..c4bae5d36 100644
+--- a/src/3rdparty/chromium/sandbox/linux/services/credentials.h
++++ b/src/3rdparty/chromium/sandbox/linux/services/credentials.h
+@@ -15,6 +15,7 @@
+ 
+ #include <string>
+ #include <vector>
++#include <sys/types.h>
+ 
+ #include "sandbox/linux/system_headers/capability.h"
+ #include "sandbox/sandbox_export.h"

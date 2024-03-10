@@ -1,0 +1,40 @@
+Submodule src/3rdparty da62c2f7a..fca79fbcf:
+diff --git a/src/3rdparty/chromium/build/config/compiler/BUILD.gn b/src/3rdparty/chromium/build/config/compiler/BUILD.gn
+index bcc97108b9c..2be7959040f 100644
+--- a/src/3rdparty/chromium/build/config/compiler/BUILD.gn
++++ b/src/3rdparty/chromium/build/config/compiler/BUILD.gn
+@@ -2163,7 +2163,14 @@ config("chromium_code") {
+       # Warn on unreachable code, including unreachable breaks and returns.
+       # See https://crbug.com/346399#c148 for suppression strategies.
+ #      "-Wunreachable-code-aggressive",
++
++      "-Wno-thread-safety-reference-return",
+     ]
++    if (!is_nacl) {
++      cflags += [
++        "-Wno-c++11-narrowing-const-reference",
++      ]
++    }
+ 
+     # Thread safety analysis is broken under nacl: https://crbug.com/982423.
+     if (!is_nacl || is_nacl_saigo) {
+@@ -2217,6 +2224,9 @@ config("no_chromium_code") {
+       # Similarly, we're not going to fix all the C++11 narrowing issues in
+       # third-party libraries.
+       "-Wno-c++11-narrowing",
++
++      # TODO(https://crbug.com/1490607): Fix and re-enable.
++      "-Wno-thread-safety-reference-return",
+     ]
+     if (!is_nacl) {
+       cflags += [
+@@ -2225,6 +2235,9 @@ config("no_chromium_code") {
+ 
+         # TODO(https://crbug.com/1202159): Clean up and enable.
+         "-Wno-misleading-indentation",
++
++        # TODO(https://crbug.com/1513724): Fix and re-enable.
++        "-Wno-c++11-narrowing-const-reference",
+       ]
+     }
+   }
