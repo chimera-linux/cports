@@ -1,11 +1,11 @@
 pkgname = "gobject-introspection"
-pkgver = "1.78.1"
-pkgrel = 1
+pkgver = "1.80.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "flex", "bison"]
 makedepends = [
+    "glib-bootstrap",
     "libffi-devel",
-    "glib-devel",
     "python-devel",
     "python-mako",
     "python-markdown",
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GObjectIntrospection"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "bd7babd99af7258e76819e45ba4a6bc399608fe762d83fde3cac033c50841bb4"
+sha256 = "54a90b4a3cb82fd6a3e8b8a7775178ebc954af3c2bc726ed5961e6503ce62636"
 # FIXME int (fails e.g. gstreamer)
 hardening = ["!int"]
 # check creates a dependency cycle
