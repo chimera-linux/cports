@@ -1,0 +1,22 @@
+From 2b987f5be1873617f02f24cb6d76196f9aed21bd Mon Sep 17 00:00:00 2001
+From: Daniel Garcia Moreno <daniel.garcia@suse.com>
+Date: Tue, 17 Jan 2023 14:00:14 +0100
+Subject: [PATCH] tests: Make test_abort_broken compatible with python 3.11
+
+See https://github.com/ionelmc/pytest-benchmark/issues/231
+---
+ tests/test_benchmark.py | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/tests/test_benchmark.py b/tests/test_benchmark.py
+index 280ce24..964787f 100644
+--- a/tests/test_benchmark.py
++++ b/tests/test_benchmark.py
+@@ -952,7 +952,6 @@ def result():
+ 
+         "    def test_bad(benchmark):",
+         "?       @benchmark",
+-        "?       def result():",
+ 
+         "test_abort_broken.py:*",
+         "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _*",
