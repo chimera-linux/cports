@@ -2,12 +2,12 @@ We want to enable man pages without regenerating them.
 
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -372,7 +372,7 @@ top_build_prefix = @top_build_prefix@
+@@ -390,7 +390,7 @@
  top_builddir = @top_builddir@
  top_srcdir = @top_srcdir@
- EXTRA_DIST = NEWS README TODO shadow.spec.in
--SUBDIRS = lib $(am__append_1) src po contrib doc etc $(am__append_2)
-+SUBDIRS = lib $(am__append_1) src po contrib doc etc man $(am__append_2)
+ EXTRA_DIST = NEWS README
+-SUBDIRS = lib $(am__append_1) src po contrib doc etc tests/unit \
++SUBDIRS = lib $(am__append_1) src po contrib doc etc man tests/unit \
+ 	$(am__append_2)
  all: config.h
  	$(MAKE) $(AM_MAKEFLAGS) all-recursive
- 
