@@ -1,46 +1,46 @@
 pkgname = "glib"
-pkgver = "2.78.4"
+pkgver = "2.80.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dgtk_doc=false",
-    "-Dman=true",
+    "-Dintrospection=enabled",
+    "-Dman-pages=enabled",
     "-Dselinux=disabled",
 ]
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
-    "meson",
     "gettext",
+    "gobject-introspection",
+    "meson",
     "pkgconf",
+    "python-docutils",
     "python-packaging",
-    "docbook-xsl-nons",
-    "xsltproc",
 ]
 makedepends = [
-    "zlib-devel",
-    "pcre2-devel",
-    "libffi-devel",
     "dbus-devel",
     "elfutils-devel",
+    "glib-bootstrap",
+    "libffi-devel",
     "libmount-devel",
+    "pcre2-devel",
+    "zlib-devel",
 ]
 checkdepends = [
-    "desktop-file-utils",
-    "shared-mime-info",
     "dbus",
     "python-pytest",
 ]
+# introspection data now lives here
+replaces = ["gir-freedesktop<1.80.0"]
 triggers = ["/usr/share/glib-2.0/schemas", "/usr/lib/gio/modules"]
 pkgdesc = "GLib library of C routines"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "24b8e0672dca120cc32d394bccb85844e732e04fe75d18bb0573b2dbc7548f63"
-# FIXME int - e.g. g_ascii_strtoll fails
+sha256 = "8228a92f92a412160b139ae68b6345bd28f24434a7b5af150ebe21ff587a561d"
+# FIXME int - strfuncs failure
 hardening = ["!int"]
-# cyclic with desktop-file-utils
-options = ["!check"]
 
 
 def post_install(self):
@@ -55,6 +55,8 @@ def post_install(self):
 @subpackage("glib-devel")
 def _devel(self):
     self.depends += ["python-packaging"]
+    self.replaces = ["libgirepository-devel<1.80"]
+    self.provider_priority = 100
     return self.default_devel(
         extra=[
             "usr/bin/glib-compile-resources",
