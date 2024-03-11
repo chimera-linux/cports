@@ -13,4 +13,4 @@ index 57ff976..c037132 100644
  . ./early/scripts/common.sh
  
 -exec mount -o remount,${dinit_early_root_remount:-ro} /
-+exec mount -o remount,${dinit_early_root_remount:-ro,shared} /
++exec mount -o remount,${dinit_early_root_remount:-ro,rshared} /
