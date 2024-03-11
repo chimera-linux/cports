@@ -1,13 +1,20 @@
-silence pip check warning on these being missing, as they are optional
---- a/requirements.txt
-+++ b/requirements.txt
-@@ -1,8 +1 @@
--mutagen
--pycryptodomex
--brotli; implementation_name=='cpython'
--brotlicffi; implementation_name!='cpython'
--certifi
--requests>=2.31.0,<3
--urllib3>=1.26.17,<3
--websockets>=12
-+
+at some point these will explicitly be marked optional (because in code they are):
+https://github.com/yt-dlp/yt-dlp/pull/9295
+--
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -41,14 +41,7 @@
+ ]
+ dynamic = ["version"]
+ dependencies = [
+-    "brotli; implementation_name=='cpython'",
+-    "brotlicffi; implementation_name!='cpython'",
+     "certifi",
+-    "mutagen",
+-    "pycryptodomex",
+-    "requests>=2.31.0,<3",
+-    "urllib3>=1.26.17,<3",
+-    "websockets>=12.0",
+ ]
+ 
+ [project.optional-dependencies]
