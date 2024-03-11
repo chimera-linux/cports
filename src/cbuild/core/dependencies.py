@@ -447,7 +447,10 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
 
     for rd, rop, rv in missing_rdeps:
         if rop and rv:
-            rfv = f"{rd}-{_srcpkg_ver(rd, pkg)}"
+            rdv = _srcpkg_ver(rd, pkg)
+            if not rdv:
+                pkg.error(f"template '{rd}' cannot be resolved")
+            rfv = f"{rd}-{rdv}"
             rpt = rd + rop + rv
             # ensure the build is not futile
             if not autil.pkg_match(rfv, rpt):
