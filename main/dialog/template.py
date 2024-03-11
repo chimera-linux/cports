@@ -1,5 +1,5 @@
 pkgname = "dialog"
-pkgver = "1.3.20240101"
+pkgver = "1.3.20240307"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--with-ncursesw", "--disable-nls"]
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://invisible-island.net/dialog"
 source = f"https://invisible-mirror.net/archives/{pkgname}/{pkgname}-{pkgver.replace('.2024', '-2024')}.tgz"
-sha256 = "9419eb52b95837312a76ccb26002c5d624fab53abde0859f1c7364179dc0ebad"
+sha256 = "339d311c6abb240213426b99ad63565cbcb3e8641ef1989c033e945b754d34ef"
 hardening = ["vis", "cfi"]
 
 
