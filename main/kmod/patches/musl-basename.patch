@@ -1,0 +1,65 @@
+diff --git a/libkmod/libkmod-config.c b/libkmod/libkmod-config.c
+index e83621b..353543c 100644
+--- a/libkmod/libkmod-config.c
++++ b/libkmod/libkmod-config.c
+@@ -35,6 +35,8 @@
+ #include "libkmod.h"
+ #include "libkmod-internal.h"
+ 
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++
+ struct kmod_alias {
+ 	char *name;
+ 	char modname[];
+diff --git a/shared/util.c b/shared/util.c
+index e2bab83..4293d18 100644
+--- a/shared/util.c
++++ b/shared/util.c
+@@ -35,6 +35,8 @@
+ #define USEC_PER_SEC  1000000ULL
+ #define NSEC_PER_USEC 1000ULL
+ 
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++
+ static const struct kmod_ext {
+ 	const char *ext;
+ 	size_t len;
+diff --git a/testsuite/testsuite.c b/testsuite/testsuite.c
+index 318343a..f2586e1 100644
+--- a/testsuite/testsuite.c
++++ b/testsuite/testsuite.c
+@@ -36,6 +36,8 @@
+ 
+ #include "testsuite.h"
+ 
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++
+ static const char *ANSI_HIGHLIGHT_GREEN_ON = "\x1B[1;32m";
+ static const char *ANSI_HIGHLIGHT_YELLOW_ON = "\x1B[1;33m";
+ static const char *ANSI_HIGHLIGHT_RED_ON =  "\x1B[1;31m";
+diff --git a/tools/depmod.c b/tools/depmod.c
+index 43fc354..8d955ec 100644
+--- a/tools/depmod.c
++++ b/tools/depmod.c
+@@ -45,6 +45,8 @@
+ 
+ #include "kmod.h"
+ 
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++
+ #define DEFAULT_VERBOSE LOG_WARNING
+ static int verbose = DEFAULT_VERBOSE;
+ 
+diff --git a/tools/kmod.c b/tools/kmod.c
+index 1015575..a50d628 100644
+--- a/tools/kmod.c
++++ b/tools/kmod.c
+@@ -29,6 +29,8 @@
+ 
+ #include "kmod.h"
+ 
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++
+ static const char options_s[] = "+hV";
+ static const struct option options[] = {
+ 	{ "help", no_argument, NULL, 'h' },
