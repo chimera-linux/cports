@@ -75,7 +75,7 @@ tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE", "-D__uid_t=uid_t", "-D__gid_t=gid_t"],
     "LDFLAGS": ["-Wl,-z,lazy"],  # must be set for modules to work
 }
-suid_files = ["usr/libexec/Xorg.wrap"]
+file_modes = {"usr/libexec/Xorg.wrap": ("root", "root", 0o4755)}
 # FIXME int
 hardening = ["!int"]
 # test times out

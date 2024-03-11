@@ -102,7 +102,6 @@ license = "GPL-2.0-only AND LGPL-2.1-only"
 url = "https://qemu.org"
 source = f"https://download.qemu.org/qemu-{pkgver}.tar.xz"
 sha256 = "847346c1b82c1a54b2c38f6edbd85549edeb17430b7d4d3da12620e2962bc4f3"
-suid_files = ["usr/libexec/qemu-bridge-helper"]
 file_modes = {
     "etc/qemu/bridge.conf": ("root", "_qemu", 0o640),
     "usr/libexec/qemu-bridge-helper": ("root", "_qemu", 0o4710),

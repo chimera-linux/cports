@@ -5,6 +5,17 @@ import os
 
 
 def invoke(pkg):
+    # require files with security xattrs to have an explicit mode, just to
+    # make sure the packager knows what it is; suid files are checked later
+    # after all the modes are applied (suid files without file_mode are not
+    # allowed)
+    for k in pkg.file_xattrs:
+        if k in pkg.file_modes:
+            continue
+        for xa in pkg.file_xattrs[k]:
+            if xa.startswith("security."):
+                pkg.error(f"security xattr without an explicit mode: {k}")
+
     for k in pkg.file_modes:
         p = pkg.destdir / k
 

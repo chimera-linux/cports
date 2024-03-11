@@ -21,9 +21,9 @@ license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/libgtop"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "775676df958e2ea2452f7568f28b2ea581063d312773dd5c0b7624c1b9b2da8c"
-suid_files = [
-    "usr/libexec/libgtop_server2",
-]
+file_modes = {
+    "usr/libexec/libgtop_server2": ("root", "root", 0o4755),
+}
 
 
 @subpackage("libgtop-devel")

@@ -32,10 +32,10 @@ license = "GPL-2.0-or-later"
 url = "https://www.freedesktop.org/wiki/Software/polkit"
 source = f"$(FREEDESKTOP_SITE)/{pkgname}/releases/{pkgname}-{pkgver}.tar.gz"
 sha256 = "9dc7ae341a797c994a5a36da21963f0c5c8e3e5a1780ccc2a5f52e7be01affaa"
-suid_files = [
-    "usr/lib/polkit-1/polkit-agent-helper-1",
-    "usr/bin/pkexec",
-]
+file_modes = {
+    "usr/lib/polkit-1/polkit-agent-helper-1": ("root", "root", 0o4755),
+    "usr/bin/pkexec": ("root", "root", 0o4755),
+}
 # tests are broken on musl
 options = ["!check"]
 

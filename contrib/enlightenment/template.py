@@ -39,11 +39,19 @@ license = "BSD-2-Clause"
 url = "https://enlightenment.org"
 source = f"http://download.enlightenment.org/rel/apps/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "11b6ef0671be5fead688bf554c30a2a1c683493ad10c5fe3115ffb4655424e84"
-suid_files = [
-    "usr/lib/enlightenment/utils/enlightenment_ckpasswd",
-    "usr/lib/enlightenment/utils/enlightenment_system",
-    "usr/lib/enlightenment/utils/enlightenment_sys",
-]
+file_modes = {
+    "usr/lib/enlightenment/utils/enlightenment_ckpasswd": (
+        "root",
+        "root",
+        0o4755,
+    ),
+    "usr/lib/enlightenment/utils/enlightenment_system": (
+        "root",
+        "root",
+        0o4755,
+    ),
+    "usr/lib/enlightenment/utils/enlightenment_sys": ("root", "root", 0o4755),
+}
 # FIXME int: janky codebase
 hardening = ["!int"]
 

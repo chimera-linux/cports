@@ -150,9 +150,9 @@ tool_flags = {
         "-Wno-deprecated-declarations",
     ],
 }
-suid_files = [
-    "usr/lib/chromium/chrome-sandbox",
-]
+file_modes = {
+    "usr/lib/chromium/chrome-sandbox": ("root", "root", 0o4755),
+}
 hardening = ["!scp"]
 # lol
 options = ["!cross", "!check", "!scanshlibs"]

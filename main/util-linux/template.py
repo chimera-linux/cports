@@ -161,10 +161,10 @@ def _dmesg(self):
 def _mnt(self):
     self.pkgdesc = "The mount(8) program and related utilities"
     self.depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
-    self.suid_files = [
-        "usr/bin/mount",
-        "usr/bin/umount",
-    ]
+    self.file_modes = {
+        "usr/bin/mount": ("root", "root", 0o4755),
+        "usr/bin/umount": ("root", "root", 0o4755),
+    }
 
     return [
         "usr/bin/blkid",

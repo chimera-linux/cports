@@ -42,7 +42,7 @@ license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
 source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgver}.tar.gz"
 sha256 = "910211c07255a8c5ad654391b40ee59800710dd8119dd5362de09385aa7a777c"
-suid_files = ["usr/libexec/ssh-keysign"]
+file_modes = {"usr/libexec/ssh-keysign": ("root", "root", 0o4755)}
 # FIXME cfi (does not work); maybe make testsuite work first
 hardening = ["vis", "!cfi"]
 # portable openssh is not very portable

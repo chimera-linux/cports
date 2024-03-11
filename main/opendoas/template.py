@@ -12,7 +12,7 @@ license = "ISC AND BSD-3-Clause"
 url = "https://github.com/Duncaen/OpenDoas"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "6da058a0e70b7543bc60624389b0b00b686189ec933828c522bf8b2600495a67"
-suid_files = ["usr/bin/doas"]
+file_modes = {"usr/bin/doas": ("root", "root", 0o4755)}
 hardening = ["vis", "cfi"]
 # no test suite
 options = ["!check"]

@@ -1,6 +1,6 @@
 pkgname = "mtr"
 pkgver = "0.95"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--without-gtk"]
 configure_gen = ["./bootstrap.sh"]
@@ -14,6 +14,9 @@ source = (
     f"https://github.com/traviscross/mtr/archive/refs/tags/v{pkgver}.tar.gz"
 )
 sha256 = "12490fb660ba5fb34df8c06a0f62b4f9cbd11a584fc3f6eceda0a99124e8596f"
+file_modes = {
+    "usr/bin/mtr-packet": ("root", "root", 0o755),
+}
 file_xattrs = {
     "usr/bin/mtr-packet": {
         "security.capability": "cap_net_raw+ep",

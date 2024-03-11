@@ -58,6 +58,9 @@ sha256 = [
     "b4eca5edca75355ea1443ad96fd59b0a407f6a2ce17ef5a8f9849c05fc10155f",
     "165726ad21fbfc221c0363e40b597834068a416a11a1204ae2ac6d13ec161035",
 ]
+file_modes = {
+    "usr/bin/gamescope": ("root", "root", 0o755),
+}
 file_xattrs = {
     "usr/bin/gamescope": {
         "security.capability": "cap_sys_nice+ep",

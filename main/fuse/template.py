@@ -12,7 +12,7 @@ license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://github.com/libfuse/libfuse"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "f797055d9296b275e981f5f62d4e32e089614fc253d1ef2985851025b8a0ce87"
-suid_files = ["usr/bin/fusermount3"]
+file_modes = {"usr/bin/fusermount3": ("root", "root", 0o4755)}
 # ld: error: default version symbol fuse_loop_mt@@FUSE_3.2 must be defined
 # tests need examples and are useless in chroot
 options = ["!lto", "!check"]
@@ -23,7 +23,6 @@ def do_check(self):
 
 
 def post_install(self):
-    self.chmod(self.destdir / "usr/bin/fusermount3", 0o4755)
     self.rm(self.destdir / "etc/init.d/fuse3")
     # compat links
     self.install_link("fusermount3", "usr/bin/fusermount")

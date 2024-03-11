@@ -19,7 +19,7 @@ def invoke(pkg):
         vr = v.relative_to(pkg.destdir)
         found_suid = True
 
-        for f in pkg.suid_files:
+        for f in pkg.file_modes:
             if vr.match(f):
                 break
         else:

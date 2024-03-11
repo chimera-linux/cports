@@ -1,6 +1,6 @@
 pkgname = "extrace"
 pkgver = "0.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 hostmakedepends = ["libcap-progs"]
 makedepends = ["linux-headers"]
@@ -10,6 +10,10 @@ license = "GPL-2.0-or-later AND BSD-2-Clause"
 url = "https://github.com/leahneukirchen/extrace"
 source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "e488db1126bd941e5a094e6024c3975f70abfa7ad51a3451191d1518c0b35ced"
+file_modes = {
+    "usr/bin/extrace": ("root", "root", 0o755),
+    "usr/bin/pwait": ("root", "root", 0o755),
+}
 file_xattrs = {
     "usr/bin/extrace": {
         "security.capability": "cap_net_admin+ep",

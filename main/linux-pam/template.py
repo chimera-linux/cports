@@ -23,7 +23,7 @@ license = "BSD-3-Clause"
 url = "https://github.com/linux-pam/linux-pam"
 source = f"{url}/releases/download/v{pkgver}/Linux-PAM-{pkgver}.tar.xz"
 sha256 = "fff4a34e5bbee77e2e8f1992f27631e2329bcbf8a0563ddeb5c3389b4e3169ad"
-suid_files = ["usr/bin/unix_chkpwd"]
+file_modes = {"usr/bin/unix_chkpwd": ("root", "root", 0o4755)}
 
 
 def post_install(self):

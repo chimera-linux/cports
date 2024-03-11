@@ -4,12 +4,16 @@ import shutil
 import stat
 
 
-def _sanitize_exemode(f):
+def _sanitize_exemode(pkg, f, vr):
+    # don't normalize if file_modes specifies this, as that would
+    # revert what the packager actually wanted to set
+    if vr in pkg.file_modes:
+        return
     st = f.lstat()
-    # suid/sgid binaries don't get normalized (unsafe)
-    # though it mostly does not matter as all suid binaries
-    # are detected by cbuild and the template always sets
-    # their actual final mode explicitly... but just in case
+    # don't normalize suid files; it would render the suid detector
+    # useless, and we require all suid files as well as files with
+    # security xattrs to have an explicitly specified mode in the
+    # template (for tighter control)
     if (st.st_mode & stat.S_ISUID) or (st.st_mode & stat.S_ISGID):
         return
     f.chmod(0o755)
@@ -70,7 +74,7 @@ def invoke(pkg):
 
         # strip static executable
         if static:
-            _sanitize_exemode(v)
+            _sanitize_exemode(pkg, v, str(vr))
             sp = strip.strip(pkg, v)
             print(f"   Stripped static executable: {sp}")
             continue
@@ -88,7 +92,7 @@ def invoke(pkg):
             pkg.error(f"dynamic executable without an interpreter: {vr}")
 
         # regardless, sanitize mode
-        _sanitize_exemode(v)
+        _sanitize_exemode(pkg, v, str(vr))
 
         # strip nopie executable
         if not pie:

@@ -160,27 +160,8 @@ set -e
 
     needscript = False
 
-    # at this point permissions are already applied, we just need owners
-    for f in pkg.file_modes:
-        fpath = pkg.chroot_destdir / f
-        recursive = False
-        if len(pkg.file_modes[f]) == 4:
-            uname, gname, fmode, recursive = pkg.file_modes[f]
-        else:
-            uname, gname, fmode = pkg.file_modes[f]
-        # avoid noops
-        if (uname == "root" or uname == 0) and (gname == "root" or gname == 0):
-            continue
-        # now we know it's needed
-        needscript = True
-        # handle recursive owner
-        if recursive:
-            chcmd = "chown -R"
-        else:
-            chcmd = "chown"
-        wscript += f"""{chcmd} {uname}:{gname} {shlex.quote(str(fpath))}\n"""
-
     # as fakeroot, add extended attributes and capabilities
+    # this needs to be done BEFORE chowning, or fakeroot messes things up
     for f in pkg.file_xattrs:
         fpath = pkg.chroot_destdir / f
         attrs = pkg.file_xattrs[f]
@@ -196,6 +177,27 @@ set -e
                 continue
             # regular attr set
             wscript += f"""setfattr -n {a} -v "{av}" {qfp}\n"""
+
+    # at this point permissions are already applied, we just need owners
+    for f in pkg.file_modes:
+        fpath = pkg.chroot_destdir / f
+        recursive = False
+        if len(pkg.file_modes[f]) == 4:
+            uname, gname, fmode, recursive = pkg.file_modes[f]
+        else:
+            uname, gname, fmode = pkg.file_modes[f]
+        # avoid noops (except when xattring, then we need to re-chown)
+        if (uname == "root" or uname == 0) and (gname == "root" or gname == 0):
+            if f not in pkg.file_xattrs:
+                continue
+        # now we know it's needed
+        needscript = True
+        # handle recursive owner
+        if recursive:
+            chcmd = "chown -R"
+        else:
+            chcmd = "chown"
+        wscript += f"""{chcmd} {uname}:{gname} {shlex.quote(str(fpath))}\n"""
 
     # execute what we were wrapping
     wscript += """exec "$@"\n"""

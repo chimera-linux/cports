@@ -802,10 +802,13 @@ Keep in mind that default values may be overridden by build styles.
   and optionally the recursive flag (`True` or `False`). The third field
   is a regular permissions integer, e.g. `0o755`. This can be used when
   the package creates a new group or user and needs to have files that
-  are owned by that. Keep in mind that the `suid` checks and so on still
-  happen, so if you make the permissions `suid`, you also need to declare
-  the file in `suid_files`. The permissions are applied in the order the
-  fields are added in the dictionary.
+  are owned by that. The permissions are applied in the order the
+  fields are added in the dictionary. Note that all setuid/setgid files
+  as well as files with xattrs in the security namespace must have an
+  explicit mode set here, otherwise they will not be allowed. That means
+  any suid file installed by a package without the template re-declaring
+  its mode is forbidden; the primary purpose is to make sure the packager
+  knows what kind of mode it needs to have.
 * `file_xattrs` *(dict)* A dictionary of strings to dictionaries, where
   the string keys are file paths (relative to the package, e.g. `usr/foo`)
   and the dicts contain mappings of extended attribute names to values.
@@ -819,6 +822,8 @@ Keep in mind that default values may be overridden by build styles.
   not use `setfattr` but `setcap` instead. For extended attributes to work
   here, you need to have the right host programs (`setfattr` or `setcap`)
   installed in the package build environment via `hostmakedepends`.
+  If setting the security namespace, `file_modes` entry must also be
+  declared, see above.
 * `hardening` *(list)* Hardening options to be enabled or disabled for the
   template. Refer to the hardening section for more information. This is
   a simple list of strings that works similarly to `options`, with `!`
@@ -960,9 +965,6 @@ Keep in mind that default values may be overridden by build styles.
   string or `.` implies default behavior. Effectively all sources that have
   a path that is not the default will be extracted separately and then moved
   into place.
-* `suid_files` *(list)* A list of glob patterns (strings). The system will
-  reject any `setuid` and `setgid` files that do not match at least one
-  pattern in this list.
 * `tools` *(dict)* This can be used to override default tools. Refer to the
   section about tools for more information.
 * `tool_flags` *(dict)* This can be used to override things such as `CFLAGS`
@@ -1373,9 +1375,9 @@ those are explicitly marked.
 * `nostrip_files`
 * `hardening`
 * `nopie_files`
+* `file_modes`
 * `shlib_provides`
 * `shlib_requires`
-* `suid_files`
 * `triggers`
 
 The `hardening` option does not actually do anything (since subpackages do

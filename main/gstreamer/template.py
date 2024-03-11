@@ -33,6 +33,9 @@ license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
 sha256 = "969aaef396f252ce925132a4be2aa004e0320f5c1baf0acaaae09c544a6759f4"
+file_modes = {
+    "usr/libexec/gstreamer-1.0/gst-ptp-helper": ("root", "root", 0o755),
+}
 file_xattrs = {
     "usr/libexec/gstreamer-1.0/gst-ptp-helper": {
         "security.capability": "cap_net_bind_service,cap_net_admin+ep",

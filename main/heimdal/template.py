@@ -151,7 +151,7 @@ def _kdc(self):
 @subpackage("heimdal-clients")
 def _client(self):
     self.pkgdesc = f"{pkgdesc} (clients)"
-    self.suid_files = ["usr/bin/ksu"]
+    self.file_modes = {"usr/bin/ksu": ("root", "root", 0o4755)}
 
     def _install():
         self.take("usr/libexec/kdigest")
