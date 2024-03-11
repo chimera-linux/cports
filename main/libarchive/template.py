@@ -7,7 +7,6 @@ configure_args = [
     "--enable-xattr",
     "--without-expat",
     "--with-lz4",
-    "--with-openssl",
     "--without-xml2",
     "--without-nettle",
     "--disable-rpath",
@@ -19,9 +18,7 @@ makedepends = [
     "bzip2-devel",
     "lz4-devel",
     "xz-devel",
-    "zstd-devel",
     "musl-bsd-headers",
-    "openssl-devel",
     "zlib-devel",
 ]
 pkgdesc = "Library to read/write several different streaming archive formats"
@@ -34,10 +31,10 @@ sha256 = "df404eb7222cf30b4f8f93828677890a2986b66ff8bf39dac32a804e96ddf104"
 options = ["bootstrap", "!check"]
 
 if self.stage > 0:
-    configure_args.append("--with-zstd")
-    makedepends.append("zstd-devel")
+    configure_args += ["--with-openssl", "--with-zstd"]
+    makedepends += ["openssl-devel", "zstd-devel"]
 else:
-    configure_args.append("--without-zstd")
+    configure_args += ["--without-openssl", "--without-zstd"]
 
 
 def post_install(self):
