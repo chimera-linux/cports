@@ -1,0 +1,45 @@
+--- a/src/makefile.common	2021-05-15 14:59:32.000000000 +0200
++++ b/src/makefile.common	2024-03-14 11:31:54.572719809 +0100
+@@ -2,8 +2,7 @@
+ 
+ CC?=gcc
+ CXX?=g++
+-CFLAGS+=-Ibme -Iasm -O3
+-CXXFLAGS+=$(CFLAGS) -fpermissive
++CFLAGS+=-Ibme -Iasm
+ 
+ EXE=	$(PREFIX)goattrk2$(SUFFIX) \
+ 	$(PREFIX)gt2reloc$(SUFFIX) \
+@@ -23,7 +22,7 @@
+ asm/asmtab.o asm/chnkpool.o asm/expr.o asm/lexyy.o asm/log.o asm/membuf.o asm/membufio.o asm/namedbuf.o asm/parse.o \
+ asm/pc.o asm/vec.o \
+ bme/bme_gfx.o bme/bme_snd.o bme/bme_win.o bme/bme_mou.o bme/bme_kbd.o bme/bme_io.o bme/bme_end.o bme/bme.o
+-	$(CXX) -o $@ $^ $(LIBS)
++	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+ 	strip $@
+ 
+ # it would be nice not having to link things like resid, however the source is
+@@ -38,19 +37,19 @@
+ asm/asmtab.o asm/chnkpool.o asm/expr.o asm/lexyy.o asm/log.o asm/membuf.o asm/membufio.o asm/namedbuf.o asm/parse.o \
+ asm/pc.o asm/vec.o \
+ bme/bme_gfx.o bme/bme_snd.o bme/bme_win.o bme/bme_mou.o bme/bme_kbd.o bme/bme_io.o bme/bme_end.o bme/bme.o
+-	$(CXX) -DGT2RELOC -o $@ $^ $(LIBS)
++	$(CXX) $(CXXFLAGS) $(LDFLAGS) -DGT2RELOC -o $@ $^ $(LIBS)
+ 	strip $@
+ 	
+ $(PREFIX)mod2sng$(SUFFIX): mod2sng.o bme/bme_end.o
+-	$(CC) -o $@ $^
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+ 	strip $@
+ 
+ $(PREFIX)ins2snd2$(SUFFIX): ins2snd2.o bme/bme_end.o
+-	$(CC) -o $@ $^
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+ 	strip $@
+ 
+ $(PREFIX)sngspli2$(SUFFIX): sngspli2.o bme/bme_end.o
+-	$(CC) -o $@ $^
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+ 	strip $@
+ 
+ goattrk2.dat: player.s altplayer.s chargen.bin palette.bin cursor.bin bcursor.bin goattrk2.bmp goattrk2.seq

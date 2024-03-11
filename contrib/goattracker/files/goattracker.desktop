@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=GoatTracker
+Comment=C64 music editor
+Exec=goattracker %F
+Icon=goattracker
+Categories=AudioVideo;AudioVideoEditing
