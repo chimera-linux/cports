@@ -15,19 +15,19 @@ depends = [
     "lld",
     "ncurses",
     "chimerautils-extra",
-    "bc-gh",
     "apk-tools",
     "bmake",
     "bsdtar",
     "tzdata",
     "fakeroot-core",
-    "resolvconf",
-    "resolvconf-none",
     f"base-cbuild-progs={pkgver}-r{pkgrel}",
 ]
 provides = ["apk-tools-cache-link=9999-r0"]
 
 options = ["bootstrap", "brokenlinks"]
+
+if self.stage > 0:
+    depends += ["bc-gh", "resolvconf", "resolvconf-none"]
 
 if self.stage > 1:
     depends += ["ccache"]
