@@ -1,5 +1,5 @@
 pkgname = "notmuch"
-pkgver = "0.38.2"
+pkgver = "0.38.3"
 pkgrel = 0
 build_style = "configure"
 configure_args = ["--prefix=/usr"]
@@ -21,7 +21,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://notmuchmail.org"
 source = f"{url}/releases/notmuch-{pkgver}.tar.xz"
-sha256 = "5282ebe4742b03ee00fc3ab835969f94d229279db7232112bdc5009d861e947e"
+sha256 = "9af46cc80da58b4301ca2baefcc25a40d112d0315507e632c0f3f0f08328d054"
 # FIXME: cfi
 hardening = ["vis"]
 # FIXME: they hang forever, after failing a test for -v not silencing output in harness
