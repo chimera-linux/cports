@@ -1,4 +1,4 @@
-From 37dc5d9198e2a423902613a9d800d531ea2ba4e1 Mon Sep 17 00:00:00 2001
+From 9cc40824632982ff52359be36e44d5c5a1b1f929 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Sat, 18 Feb 2023 01:45:34 +0100
 Subject: [PATCH] drop guess behavior for consoles/charmap and specify fixed
@@ -14,8 +14,8 @@ kernel defaults to, unless the user wants something else.
 ---
  config/console-setup |  8 ++++----
  man/console-setup.5  | 17 +----------------
- setupcon             | 37 +------------------------------------
- 3 files changed, 6 insertions(+), 56 deletions(-)
+ setupcon             | 34 ++--------------------------------
+ 3 files changed, 7 insertions(+), 52 deletions(-)
 
 diff --git a/config/console-setup b/config/console-setup
 index d27955c..bd20f61 100644
@@ -75,10 +75,10 @@ index 8bc515d..3135b8b 100644
  .TP
  .B CODESET
 diff --git a/setupcon b/setupcon
-index 85de539..05eb761 100755
+index 04641c6..6a638cf 100755
 --- a/setupcon
 +++ b/setupcon
-@@ -477,46 +477,11 @@ ACTIVE_CONSOLES=$(
+@@ -477,42 +477,12 @@ ACTIVE_CONSOLES=$(
          fi
      done
  )
@@ -92,12 +92,8 @@ index 85de539..05eb761 100755
 -    #    Linux:   /dev/tty[1-9][0-9]*
 -    #    FreeBSD: /dev/ttyv[0-9a-f]
 -    for tty in \
--        $(cat /etc/inittab /etc/init/* /etc/ttys 2>/dev/null \
--	| grep getty \
--        | egrep '([[:blank:]]|^)tty([1-9][0-9]*|v[0-9a-f])([[:blank:]]|$)' \
--        | sed -e '/^ *#/d' \
--              -e 's/.*[[:blank:]]\(tty[1-9][0-9]*\).*/\1/' \
--              -e 's/.*[[:blank:]]\(ttyv[0-9a-f]\).*/\1/')
+-        $(sed -nEe '/^\s*#/d;/getty/s/.*\s(tty([1-9][0-9]*|v[0-9a-f]))(\s|$).*/\1/p' \
+-            /etc/inittab /etc/init/* /etc/ttys 2>/dev/null)
 -    do
 -        if [ -e /dev/$tty ]; then
 -            ACTIVE_CONSOLES="$ACTIVE_CONSOLES /dev/$tty"
@@ -112,6 +108,7 @@ index 85de539..05eb761 100755
 -    report Can not find the active virtual consoles, \
 -        assuming ACTIVE_CONSOLES=\"$ACTIVE_CONSOLES\" >&2
 -else
++
 +if [ -n "$ACTIVE_CONSOLES" ]; then
      report Configuring $ACTIVE_CONSOLES
  fi
@@ -127,5 +124,5 @@ index 85de539..05eb761 100755
  # FreeBSD uses ISO8859-1, GNU uses ISO-8859-1, we use the GNU names
  case "$CHARMAP" in
 -- 
-2.39.0
+2.44.0
 
