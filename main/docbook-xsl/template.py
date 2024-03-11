@@ -1,7 +1,7 @@
 pkgname = "docbook-xsl"
 pkgver = "1.79.2"
-pkgrel = 2
-depends = ["xmlcatmgr", "docbook-xml", "libxml2-progs"]
+pkgrel = 3
+depends = ["xmlcatmgr", "docbook-xml"]
 pkgdesc = "Docbook XSL modular stylesheet"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
