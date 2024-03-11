@@ -1,5 +1,5 @@
 pkgname = "gptfdisk"
-pkgver = "1.0.9"
+pkgver = "1.0.10"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -17,7 +17,7 @@ maintainer = "reocat <ng.ct_ml@tuta.io>"
 license = "GPL-2.0-or-later"
 url = "https://sourceforge.net/projects/gptfdisk"
 source = f"$(SOURCEFORGE_SITE)/gptfdisk/{pkgver}/gptfdisk-{pkgver}.tar.gz"
-sha256 = "dafead2693faeb8e8b97832b23407f6ed5b3219bc1784f482dd855774e2d50c2"
+sha256 = "2abed61bc6d2b9ec498973c0440b8b804b7a72d7144069b5a9209b2ad693a282"
 hardening = ["vis", "cfi"]
 
 
