@@ -1,6 +1,6 @@
 pkgname = "kmod"
-pkgver = "31"
-pkgrel = 1
+pkgver = "32"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-zlib",
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git"
 source = f"$(KERNEL_SITE)/utils/kernel/kmod/kmod-{pkgver}.tar.xz"
-sha256 = "f5a6949043cc72c001b728d8c218609c5a15f3c33d75614b78c79418fcf00d80"
+sha256 = "630ed0d92275a88cb9a7bf68f5700e911fdadaf02e051cf2e4680ff8480bd492"
 # broken testsuite build system
 options = ["!check"]
 
@@ -36,10 +36,6 @@ def post_install(self):
     self.install_dir("etc/depmod.d", empty=True)
     self.install_dir("etc/modprobe.d", empty=True)
     self.install_dir("usr/lib/modprobe.d", empty=True)
-
-    # compat
-    for tool in ["lsmod", "insmod", "rmmod", "depmod", "modprobe", "modinfo"]:
-        self.install_link("kmod", f"usr/bin/{tool}")
 
     # initramfs-tools
     self.install_file(
