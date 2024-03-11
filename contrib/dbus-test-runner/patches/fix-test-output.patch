@@ -1,0 +1,27 @@
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 4f4aad9..5e2d0b7 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -159,17 +159,17 @@ test-output: Makefile.am
+ 	@echo "#!/bin/sh -e" > $@
+ 	@echo "$(DBUS_RUNNER) --task cat --parameter \"$(top_srcdir)/src/dbus-test-runner.c\" --task-name \"cat1\" --task cat --parameter \"$(top_srcdir)/src/dbus-test-runner.c\" --task-name \"cat2\" > testcat.output.txt" >> $@
+ 	@echo "echo Finding cat1 data" >> $@
+-	@echo "grep ^cat1: testcat.output.txt | tail -n +2 | head -n -1 > testcat.output.cat1.txt" >> $@
++	@echo "grep ^cat1: testcat.output.txt | tail -n +2 | sed '$d' > testcat.output.cat1.txt" >> $@
+ 	@echo "echo Finding cat2 data" >> $@
+-	@echo "grep ^cat2: testcat.output.txt | tail -n +2 | head -n -1 > testcat.output.cat2.txt" >> $@
++	@echo "grep ^cat2: testcat.output.txt | tail -n +2 | sed '$d' > testcat.output.cat2.txt" >> $@
+ 	@echo "echo Filtering cat1 data" >> $@
+-	@echo "sed -e s/cat1:\\ //g testcat.output.cat1.txt > testcat.output.cat1.filtered.txt" >> $@
++	@echo "sed -re 's/cat1:\ //g;/(^Shutting\ down)/d' testcat.output.cat1.txt > testcat.output.cat1.filtered.txt" >> $@
+ 	@echo "echo Filtering cat2 data" >> $@
+-	@echo "sed -e s/cat2:\\ //g testcat.output.cat2.txt > testcat.output.cat2.filtered.txt" >> $@
++	@echo "sed -re 's/cat2:\ //g;/(^Shutting\ down)/d' testcat.output.cat2.txt > testcat.output.cat2.filtered.txt" >> $@
+ 	@echo "echo Verifying cat 1" >> $@
+ 	@echo "diff testcat.output.cat1.filtered.txt \"$(top_srcdir)/src/dbus-test-runner.c\" > /dev/null" >> $@
+ 	@echo "echo Verifying cat 2" >> $@
+-	@echo "diff testcat.output.cat2.filtered.txt \"$(top_srcdir)/src/dbus-test-runner.c\" > /dev/null" >> $@
++	@echo "diff testcat.output.cat2.filtered.txt \"$(top_srcdir)/src/dbus-test-runner.c\"" >> $@
+ 	@chmod +x $@
+ DISTCLEANFILES += testcat.output.txt testcat.output.cat1.txt testcat.output.cat2.txt testcat.output.cat1.filtered.txt testcat.output.cat2.filtered.txt
+ 
