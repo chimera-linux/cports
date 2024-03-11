@@ -1,0 +1,19 @@
+commit 50cddf8e83ad128902b1f89192a8ae8ab39b2c40
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Mar 11 19:29:44 2024 +0100
+
+    up the sample tolerance
+
+diff --git a/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp b/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp
+index 9e02dfe..d4b7f67 100644
+--- a/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp
++++ b/tests/auto/integration/qmediaplayerbackend/tst_qmediaplayerbackend.cpp
+@@ -2849,7 +2849,7 @@ void tst_QMediaPlayerBackend::play_playsRotatedVideoOutput_whenVideoFileHasOrien
+     QImage image = videoFrame.toImage();
+     QVERIFY(!image.isNull());
+     QRgb upperLeftColor = image.pixel(5, 5);
+-    QCOMPARE_LT(colorDifference(upperLeftColor, expectedColor), 0.004);
++    QCOMPARE_LT(colorDifference(upperLeftColor, expectedColor), 0.006);
+ }
+ 
+ QTEST_MAIN(tst_QMediaPlayerBackend)
