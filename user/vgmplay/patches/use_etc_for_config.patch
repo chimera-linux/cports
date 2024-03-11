@@ -1,0 +1,14 @@
+--- a/main.cpp	2024-01-03 21:18:09.000000000 +0100
++++ b/main.cpp	2024-04-18 22:00:02.716857376 +0200
+@@ -245,10 +245,7 @@
+ {
+ 	appSearchPaths.clear();
+ 	
+-#ifndef _WIN32
+-	// 1. [Unix only] global share directory
+-	appSearchPaths.push_back(SHARE_PREFIX "/share/vgmplay/");
+-#endif
++	appSearchPaths.push_back("/etc/vgmplay/");
+ 	
+ 	// 2. actual application path (potentially resolved symlink)
+ 	char* appPath = GetAppFilePath();
