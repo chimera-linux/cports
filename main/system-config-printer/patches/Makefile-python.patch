@@ -1,0 +1,16 @@
+--- a/Makefile.am	2022-08-30 16:20:07.000000000 +0100
++++ b/Makefile.am	2024-02-28 23:56:38.523125518 +0000
+@@ -59,11 +59,11 @@
+ 
+ # Use distutils to build the module.
+ all-local: .stamp-distutils-in-builddir config.py cupshelpers/config.py
+-	$(PYTHON) setup.py build
++	$(PYTHON) -m build --wheel --no-isolation .
+ 
+ # Use distutils to install the module.
+ install-exec-local: .stamp-distutils-in-builddir
+-	$(PYTHON) setup.py install --prefix=$(DESTDIR)$(prefix)
++	$(PYTHON) -m installer --compile-bytecode 0 --destdir "$(DESTDIR)" $(top_srcdir)/build/dist/cupshelpers-1.0-py3-none-any.whl
+ 
+ # Uninstall the module, crossing our fingers that we know enough
+ # about how distutils works to do this.  Unfortunately, distutils
