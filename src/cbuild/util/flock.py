@@ -36,7 +36,12 @@ def _archlock(rpath, arch):
 
 
 def apklock(arch):
-    return paths.cbuild_cache() / f"apk-{arch}.lock"
+    cpath = paths.cbuild_cache()
+    # ensure it exists; this is needed because various operations
+    # rely on apk locking even if the bldroot is not prepared, etc.
+    if not cpath.is_dir():
+        cpath.mkdir(parents=True, exist_ok=True)
+    return cpath / f"apk-{arch}.lock"
 
 
 def repolock(arch):
