@@ -1,5 +1,5 @@
 pkgname = "libunibreak"
-pkgver = "6.0"
+pkgver = "6.1"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -12,7 +12,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Zlib"
 url = "https://github.com/adah1972/libunibreak"
 source = f"{url}/releases/download/libunibreak_{pkgver.replace('.', '_')}/libunibreak-{pkgver}.tar.gz"
-sha256 = "f189daa18ead6312c5db6ed3d0c76799135910ed6c06637c7eea20a7e5e7cc7f"
+sha256 = "cc4de0099cf7ff05005ceabff4afed4c582a736abc38033e70fdac86335ce93f"
 # no tests
 options = ["!check"]
 
