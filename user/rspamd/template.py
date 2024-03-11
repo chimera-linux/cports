@@ -17,7 +17,7 @@ configure_args = [
 ]
 make_build_args = ["--target", "all", "check"]
 # full tests require luajit
-make_check_args = [ "-R", "rspamd-test-cxx" ]
+make_check_args = ["-R", "rspamd-test-cxx"]
 hostmakedepends = ["cmake", "ninja", "perl", "pkgconf", "ragel"]
 makedepends = [
     "elfutils-devel",
