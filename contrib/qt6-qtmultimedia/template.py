@@ -40,6 +40,12 @@ hardening = ["!int"]
 options = ["!cross"]
 
 
+match self.profile().arch:
+    case "ppc64" | "ppc":
+        # vsx assumptions in altivec code
+        tool_flags = {"CXXFLAGS": ["-DEIGEN_DONT_VECTORIZE"]}
+
+
 def init_check(self):
     self.make_check_env = {
         "QML2_IMPORT_PATH": str(
