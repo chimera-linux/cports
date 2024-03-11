@@ -1,5 +1,5 @@
 pkgname = "git-absorb"
-pkgver = "0.6.11"
+pkgver = "0.6.12"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "pkgconf", "asciidoc"]
@@ -9,7 +9,7 @@ maintainer = "Subhaditya Nath <sn03.general@gmail.com>"
 license = "BSD-3-Clause"
 url = "https://github.com/tummychow/git-absorb"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "36c3b2c7bcd1d9db5d1dedd02d6b0ac58faaeb6fd50df7ff01f5cf87e5367b52"
+sha256 = "88a64712bcb4885a65984359c783e7f16b76fe4ca4ccd339d0c2d83139d0428b"
 
 
 def do_prepare(self):
