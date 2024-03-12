@@ -1,0 +1,29 @@
+diff --git a/Makefile b/Makefile
+index 08da30b..46ab762 100644
+--- a/Makefile
++++ b/Makefile
+@@ -245,13 +245,13 @@ $(SRC:=.o):
+ 	$(CC) -c -o $@ $(CPPFLAGS) $(CFLAGS) $(SHFLAGS) $(@:.o=.c)
+ 
+ $(BENCHMARK):
+-	$(CC) -o $@ $(LDFLAGS) $@.o benchmark/util.o libgrapheme.a -lutf8proc
++	$(CC) -o $@ $(CPPFLAGS) $(CFLAGS) $(SHFLAGS) $(LDFLAGS) $@.o benchmark/util.o libgrapheme.a -lutf8proc
+ 
+ $(GEN):
+ 	$(BUILD_CC) -o $@ $(BUILD_LDFLAGS) $@.o gen/util.o
+ 
+ $(TEST):
+-	$(CC) -o $@ $(LDFLAGS) $@.o test/util.o libgrapheme.a
++	$(CC) -o $@ $(CPPFLAGS) $(CFLAGS) $(SHFLAGS) $(LDFLAGS) $@.o test/util.o libgrapheme.a
+ 
+ $(GEN:=.h):
+ 	$(@:.h=) > $@
+@@ -261,7 +261,7 @@ libgrapheme.a: $(SRC:=.o)
+ 	$(RANLIB) $@
+ 
+ $(SONAME): $(SRC:=.o)
+-	$(CC) -o $@ $(SOFLAGS) $(LDFLAGS) $(SRC:=.o)
++	$(CC) -o $@ $(SOFLAGS) $(CPPFLAGS) $(CFLAGS) $(SHFLAGS) $(LDFLAGS) $(SRC:=.o)
+ 
+ $(MAN3:=.3):
+ 	SH="$(SH)" MAN_DATE="$(MAN_DATE)" UNICODE_VERSION="$(UNICODE_VERSION)" $(SH) $(@:.3=.sh) > $@
