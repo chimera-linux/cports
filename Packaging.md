@@ -722,6 +722,7 @@ These variables are mandatory:
   it themselves. License exceptions can be from the standard list or they
   can be custom as well, e.g. `GPL-2.0-or-later WITH custom:foo-exception`.
 * `pkgname` *(str)* The primary package name, must match template name.
+  It must be lowercase, likewise for subpackages.
 * `pkgver` *(str)* The package version, applies to all subpackages. Must
   follow the correct format for the `apk` package manager.
 * `pkgrel` *(int)* The release number for the package. When changes are
@@ -1323,8 +1324,9 @@ def _subpkg(self):
     ...
 ```
 
-The function name is up to you, it does not matter. In order to cover more
-cases, the subpackage definition can also be conditional:
+The function name is up to you, it does not matter. The subpackage name follows
+the same conventions as the main package (notably, it must be lowercase).
+In order to cover more cases, the subpackage definition can also be conditional:
 
 ```
 @subpackage("mysubpackage", foo == bar)

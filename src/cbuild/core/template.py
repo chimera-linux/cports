@@ -1900,6 +1900,10 @@ def from_module(m, ret):
     if ret.pkgname != prevpkg:
         ret.error(f"pkgname does not match template ({prevpkg})")
 
+    # ensure pkgname is lowercase
+    if ret.pkgname.lower() != ret.pkgname:
+        ret.error("package name must be lowercase")
+
     # possibly skip very early once we have the bare minimum info
     if (
         not ret.force_mode
@@ -2037,6 +2041,8 @@ def from_module(m, ret):
     for spn, spf in ret.subpackages:
         if spn in spdupes:
             ret.error(f"subpackage '{spn}' already exists")
+        if spn.lower() != spn:
+            ret.error(f"subpackage '{spn}' must be lowercase")
         spdupes[spn] = True
         sp = Subpackage(spn, ret)
         pinst = spf(sp)
