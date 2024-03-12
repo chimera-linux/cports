@@ -3,7 +3,7 @@
 # better hinting - do not actually use this package in a regular system
 pkgname = "freetype-bootstrap"
 pkgver = "2.13.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dbrotli=disabled",
@@ -26,7 +26,7 @@ license = "FTL OR GPL-2.0-or-later"
 url = "https://freetype.org"
 source = f"https://de.freedif.org/savannah/freetype/freetype-{pkgver}.tar.xz"
 sha256 = "12991c4e55c506dd7f9b765933e62fd2be2e06d421505d7950a132e4f1bb484d"
-options = ["!lto", "!scanshlibs", "!scanpkgconf"]
+options = ["!lto", "!scanshlibs", "!scanpkgconf", "!autosplit"]
 
 
 def post_install(self):

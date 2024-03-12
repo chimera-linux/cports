@@ -17,6 +17,7 @@ you should not rely on them or expect them to be stable.
     * [Hardening Templates](#template_hardening)
 * [Build Phases](#phases)
 * [Package Naming](#naming)
+  * [Bootstrap Packages](#bootstrap_packages)
 * [Filesystem Structure](#filesystem_structure)
 * [Template Structure](#template_structure)
   * [Template Variables](#template_variables)
@@ -678,6 +679,27 @@ Cross-compiling sysroots are in `/usr/<triplet>` where triplet is for
 example `powerpc64-linux-musl` (i.e. short triplet). These contain a
 simplified filesystem layout (the `usr` directory with the usual files
 and symlinks, and the `bin`, `lib` etc symlinks at top level).
+
+<a id="bootstrap_packages"></a>
+### Bootstrap Packages
+
+Packages with the suffix `-bootstrap` are special, provided they are not
+metapackages (`build_style = meta`). They will not be installable by default
+in a regular system and represent either bootstrap builds of various software
+needed to break dependency cycles in `cbuild` or bootstrap toolchains for
+various programming language compilers.
+
+Every package `foo-bootstrap` gains an implicit dependency on `bootstrap:foo`.
+This package is not provided by anything. Whenever `cbuild` sees a bootstrap
+package in its `hostmakedepends` or `makedepends`, it will implicitly create
+a virtual package in the current build environment to allow such package to
+be installed.
+
+You can do so in your own environment like such:
+
+```
+$ apk add --virtual bootstrap:foo
+```
 
 <a id="template_structure"></a>
 ## Template Structure

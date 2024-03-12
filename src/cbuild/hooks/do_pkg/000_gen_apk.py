@@ -53,6 +53,10 @@ def genpkg(pkg, repo, arch, binpkg):
     # dependencies of any sort
     deps = []
 
+    # bootstrap packages are not installable ootb
+    if pkg.pkgname.endswith("-bootstrap") and pkg.build_style != "meta":
+        deps += ["bootstrap:" + pkg.pkgname.removesuffix("-bootstrap")]
+
     # explicit package depends
     for c in pkg.depends:
         ploc = c.find("!")
