@@ -118,7 +118,7 @@ def setup_depends(pkg, only_names=False):
     return hdeps, tdeps, rdeps
 
 
-def _install_from_repo(pkg, pkglist, virtn, cross=False):
+def _install_from_repo(pkg, pkglist, cross=False):
     from cbuild.apk import sign
 
     signkey = sign.get_keypath()
@@ -126,7 +126,7 @@ def _install_from_repo(pkg, pkglist, virtn, cross=False):
     if pkg.stage == 0:
         ret = apki.call(
             "add",
-            ["--no-chown", "--no-scripts", "--virtual", virtn] + pkglist,
+            ["--no-chown", "--no-scripts"] + pkglist,
             pkg,
             capture_output=True,
             allow_untrusted=not signkey,
@@ -139,8 +139,6 @@ def _install_from_repo(pkg, pkglist, virtn, cross=False):
                 "--root",
                 str(pkg.profile().sysroot),
                 "--no-scripts",
-                "--virtual",
-                virtn,
             ]
             + pkglist,
             pkg,
@@ -149,12 +147,12 @@ def _install_from_repo(pkg, pkglist, virtn, cross=False):
             allow_untrusted=not signkey,
         )
     else:
-        if virtn:
-            aopts = ["--virtual", virtn] + pkglist
-        else:
-            aopts = pkglist
         ret = apki.call_chroot(
-            "add", aopts, pkg, capture_output=True, allow_untrusted=not signkey
+            "add",
+            pkglist,
+            pkg,
+            capture_output=True,
+            allow_untrusted=not signkey,
         )
     if ret.returncode != 0:
         outl = ret.stderr.strip().decode()
@@ -485,11 +483,11 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
     if len(host_binpkg_deps) > 0:
         pkg.log(f"installing host dependencies: {', '.join(host_binpkg_deps)}")
         with flock.lock(flock.apklock(chost)):
-            _install_from_repo(pkg, host_binpkg_deps, "autodeps-host")
+            _install_from_repo(pkg, host_binpkg_deps)
 
     if len(binpkg_deps) > 0:
         pkg.log(f"installing target dependencies: {', '.join(binpkg_deps)}")
         with flock.lock(flock.apklock(tarch)):
-            _install_from_repo(pkg, binpkg_deps, "autodeps-target", True)
+            _install_from_repo(pkg, binpkg_deps, True)
 
     return missing

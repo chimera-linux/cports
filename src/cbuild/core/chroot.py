@@ -472,43 +472,19 @@ def remove_autodeps(bootstrapping, prof=None):
 
     paths.prepare()
 
-    if (
-        apki.call(
-            "info",
-            ["--installed", "autodeps-host"],
-            None,
-            capture_output=True,
-            allow_untrusted=True,
-        ).returncode
-        == 0
-    ):
-        del_ret = apki.call_chroot(
-            "del", ["autodeps-host"], None, capture_output=True
-        )
+    # clean world
+    with open(paths.bldroot() / "etc/apk/world", "w") as outf:
+        outf.write("base-cbuild\n")
 
-        if del_ret.returncode != 0:
-            log.out_plain(">> stderr (host):")
-            log.out_plain(del_ret.stderr.decode())
-            failed = True
+    # perform transaction
+    f_ret = apki.call_chroot(
+        "fix", [], None, capture_output=True, allow_untrusted=True
+    )
 
-    if (
-        apki.call(
-            "info",
-            ["--installed", "autodeps-target"],
-            None,
-            capture_output=True,
-            allow_untrusted=True,
-        ).returncode
-        == 0
-    ):
-        del_ret = apki.call_chroot(
-            "del", ["autodeps-target"], None, capture_output=True
-        )
-
-        if del_ret.returncode != 0:
-            log.out_plain(">> stderr (target):")
-            log.out_plain(del_ret.stderr.decode())
-            failed = True
+    if f_ret.returncode != 0:
+        log.out_plain(">> stderr (host):")
+        log.out_plain(f_ret.stderr.decode())
+        failed = True
 
     if prof and prof.cross:
         _prepare_arch(prof, False)
