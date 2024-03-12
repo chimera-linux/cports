@@ -1,6 +1,6 @@
 pkgname = "sqlite"
-pkgver = "3.45.1"
-_amalg = "3450100"
+pkgver = "3.45.2"
+_amalg = "3450200"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "blessing"
 url = "https://sqlite.org"
 source = f"https://sqlite.org/2024/sqlite-autoconf-{_amalg}.tar.gz"
-sha256 = "cd9c27841b7a5932c9897651e20b86c701dd740556989b01ca596fcfa3d49a0a"
+sha256 = "bc9067442eedf3dd39989b5c5cfbfff37ae66cc9c99274e0c3052dc4d4a8f6ae"
 options = ["!parallel"]
 
 _cflags = [
