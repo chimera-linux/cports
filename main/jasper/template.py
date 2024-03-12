@@ -1,5 +1,5 @@
 pkgname = "jasper"
-pkgver = "4.2.1"
+pkgver = "4.2.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "JasPer-2.0"
 url = "https://ece.engr.uvic.ca/~frodo/jasper"
 source = f"https://github.com/jasper-software/jasper/releases/download/version-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "2d1e21f1b346709bc176156173c6d77a3e5543346764085dbde732215120b796"
+sha256 = "5e397570b3110a8edef6d50127e20a2297939809cea25d29068823b442ecdd6d"
 
 
 def post_install(self):
