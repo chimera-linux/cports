@@ -1,5 +1,5 @@
 pkgname = "fwupd"
-pkgver = "1.9.14"
+pkgver = "1.9.15"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -55,7 +55,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "bf7c96882499fa9c9b845c25d885a59104db09bb0e554902bb463ec2be232a49"
+sha256 = "bb9726a9370a2f1aea8f8242df4da7d83874406192a9144ada104d859ffd756a"
 options = ["!cross"]
 
 _have_uefi = False
