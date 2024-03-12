@@ -1,0 +1,23 @@
+From 7b8c143958992f04c9ee25814255e49d50738071 Mon Sep 17 00:00:00 2001
+From: ttyyls <contact@behri.org>
+Date: Mon, 11 Mar 2024 19:16:23 +0000
+Subject: [PATCH 3/3] fix maturin version check
+
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index 5655122ad..b588673f0 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -23,5 +23,5 @@ pytest = "*"
+ toml = "*"
+ 
+ [build-system]
+-requires = ["maturin>=0.12,<0.13"]
++requires = ["maturin>=0.12"]
+ build-backend = "maturin"
+-- 
+2.44.0
+

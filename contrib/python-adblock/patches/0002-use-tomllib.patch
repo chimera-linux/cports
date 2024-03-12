@@ -1,0 +1,43 @@
+From 6c3eab3f4f5372fde4e662a23483a60cc460769b Mon Sep 17 00:00:00 2001
+From: ttyyls <contact@behri.org>
+Date: Mon, 11 Mar 2024 19:14:26 +0000
+Subject: [PATCH 2/3] use tomllib
+
+---
+ tests/test_metadata.py | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/tests/test_metadata.py b/tests/test_metadata.py
+index 62152f55c..90352844a 100644
+--- a/tests/test_metadata.py
++++ b/tests/test_metadata.py
+@@ -1,7 +1,7 @@
+ import re
+ import sys
+ 
+-import toml
++import tomllib
+ import adblock
+ 
+ 
+@@ -12,7 +12,7 @@ def parse_version(version):
+ 
+ def get_version_value_cargo():
+     with open("Cargo.toml", encoding="utf-8") as f:
+-        cargo_toml = toml.loads(f.read())
++        cargo_toml = tomllib.loads(f.read())
+     return parse_version(cargo_toml["package"]["version"])
+ 
+ 
+@@ -58,7 +58,7 @@ def test_required_python_version():
+     falls into the required Python range.
+     """
+     with open("pyproject.toml", encoding="utf-8") as f:
+-        pyproject_toml = toml.loads(f.read())
++        pyproject_toml = tomllib.loads(f.read())
+ 
+     required_python = pyproject_toml["project"]["requires-python"]
+     assert required_python.startswith(">=")
+-- 
+2.44.0
+
