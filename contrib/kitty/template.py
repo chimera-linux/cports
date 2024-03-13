@@ -1,6 +1,6 @@
 pkgname = "kitty"
-pkgver = "0.32.2"
-pkgrel = 2
+pkgver = "0.33.0"
+pkgrel = 0
 hostmakedepends = [
     "go",
     "pkgconf",
@@ -36,13 +36,14 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://sw.kovidgoyal.net/kitty"
 source = f"https://github.com/kovidgoyal/kitty/releases/download/v{pkgver}/kitty-{pkgver}.tar.xz"
-sha256 = "d4bb54f7bfc16e274d60326323555b63733915c3e32d2ef711fd9860404bd6f2"
+sha256 = "5b11b4edddba41269824df9049d60e22ffc35551446161018dfaf5cd22f77297"
 # nah
 options = ["!cross"]
 
 tool_flags = {
     # musl/posix ioctl int argument crap
-    "CFLAGS": ["-Wno-error=overflow"],
+    # sketchy simd garbage
+    "CFLAGS": ["-Wno-error=overflow", "-DKITTY_NO_SIMD"],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
 }
 
@@ -60,6 +61,7 @@ def do_build(self):
         "python3",
         "setup.py",
         "linux-package",
+        "--ignore-compiler-warnings",
         "--update-check-interval=0",
         "--verbose",
         env=golang.get_go_env(self),

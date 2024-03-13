@@ -1,0 +1,52 @@
+--- a/kitty/simd-string.c
++++ b/kitty/simd-string.c
+@@ -144,6 +144,7 @@ test_find_either_of_two_bytes(PyObject *self UNUSED, PyObject *args) {
+     return PyLong_FromUnsignedLongLong(n);
+ }
+ 
++#if 0
+ static PyObject*
+ test_xor64(PyObject *self UNUSED, PyObject *args) {
+     RAII_PY_BUFFER(buf);
+@@ -179,6 +180,7 @@ test_xor64(PyObject *self UNUSED, PyObject *args) {
+     free(abuf);
+     return ans;
+ }
++#endif
+ 
+ 
+ // }}}
+@@ -186,12 +188,13 @@ test_xor64(PyObject *self UNUSED, PyObject *args) {
+ static PyMethodDef module_methods[] = {
+     METHODB(test_utf8_decode_to_sentinel, METH_VARARGS),
+     METHODB(test_find_either_of_two_bytes, METH_VARARGS),
+-    METHODB(test_xor64, METH_VARARGS),
++    //METHODB(test_xor64, METH_VARARGS),
+     {NULL, NULL, 0, NULL}        /* Sentinel */
+ };
+ 
+ bool
+ init_simd(void *x) {
++#if 0
+     PyObject *module = (PyObject*)x;
+     if (PyModule_AddFunctions(module, module_methods) != 0) return false;
+ #define A(x, val) { Py_INCREF(Py_##val); if (0 != PyModule_AddObject(module, #x, Py_##val)) return false; }
+@@ -245,5 +248,7 @@ init_simd(void *x) {
+         A(has_sse4_2, False);
+     }
+ #undef A
++#endif
++    (void)x;
+     return true;
+ }
+--- a/kitty_tests/graphics.py
++++ b/kitty_tests/graphics.py
+@@ -11,7 +11,7 @@
+ from dataclasses import dataclass
+ from io import BytesIO
+ 
+-from kitty.fast_data_types import base64_decode, base64_encode, has_avx2, has_sse4_2, load_png_data, shm_unlink, shm_write, test_xor64
++from kitty.fast_data_types import base64_decode, base64_encode, has_avx2, has_sse4_2, load_png_data, shm_unlink, shm_write
+ 
+ from . import BaseTest, parse_bytes
+ 
