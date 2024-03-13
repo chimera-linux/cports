@@ -1,5 +1,5 @@
 pkgname = "python-pytest-rerunfailures"
-pkgver = "13.0"
+pkgver = "14.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,4 +16,4 @@ url = "https://github.com/pytest-dev/pytest-rerunfailures"
 source = (
     f"$(PYPI_SITE)/p/pytest-rerunfailures/pytest-rerunfailures-{pkgver}.tar.gz"
 )
-sha256 = "e132dbe420bc476f544b96e7036edd0a69707574209b6677263c950d19b09199"
+sha256 = "4a400bcbcd3c7a4ad151ab8afac123d90eca3abe27f98725dc4d9702887d2e92"
