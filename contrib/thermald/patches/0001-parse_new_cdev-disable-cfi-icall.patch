@@ -1,0 +1,24 @@
+From 148b455010c8bae8cc43bd21653b7f3805668ad4 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Wed, 13 Mar 2024 11:35:14 +0100
+Subject: [PATCH] parse_new_cdev: disable cfi-icall
+
+---
+ src/thd_cdev_order_parser.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/thd_cdev_order_parser.cpp b/src/thd_cdev_order_parser.cpp
+index 477b3d7..a194878 100644
+--- a/src/thd_cdev_order_parser.cpp
++++ b/src/thd_cdev_order_parser.cpp
+@@ -62,6 +62,7 @@ void cthd_cdev_order_parse::parser_deinit() {
+ 	xmlFreeDoc(doc);
+ }
+ 
++__attribute__((no_sanitize("cfi-icall")))
+ int cthd_cdev_order_parse::parse_new_cdev(xmlNode * a_node, xmlDoc *doc) {
+ 	xmlNode *cur_node = NULL;
+ 	char *tmp_value;
+-- 
+2.44.0
+

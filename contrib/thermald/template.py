@@ -1,6 +1,6 @@
 pkgname = "thermald"
 pkgver = "2.5.6"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 # don't use autogen.sh, it generates files that force reconf in do_build
 build_style = "gnu_configure"
@@ -32,8 +32,7 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/intel/thermal_daemon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "e5a452624f133d71f4aff0bd0c8f8258399a5ae1a7d5aea177fa6a6e33dad1fd"
-# TODO: cfi
-hardening = ["vis"]
+hardening = ["cfi", "vis"]
 
 
 # autoreconf fails otherwise
