@@ -4,8 +4,8 @@ pkgrel = 0
 build_style = "go"
 make_build_args = [
     "-ldflags="
-    f" -X tailscale.com/version.longStamp={pkgver}"
-    f" -X tailscale.com/version.shortStamp={pkgver}",
+    + f" -X tailscale.com/version.longStamp={pkgver}"
+    + f" -X tailscale.com/version.shortStamp={pkgver}",
     "./cmd/tailscale",
     "./cmd/tailscaled",
 ]
