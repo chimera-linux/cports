@@ -1,0 +1,24 @@
+From e4a46cabf90155e4c965daf35aa889acdd694f95 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Wed, 13 Mar 2024 14:39:23 +0100
+Subject: [PATCH] CMakeLists: set version
+
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index fb10f47..212f52d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,5 @@
+-cmake_minimum_required(VERSION 2.8.1)
+-project(UnitTest++)
++cmake_minimum_required(VERSION 3.0)
++project(UnitTest++ VERSION 2.0.0)
+ 
+ option(UTPP_USE_PLUS_SIGN
+     "Set this to OFF if you wish to use '-cpp' instead of '++' in lib/include paths"
+-- 
+2.44.0
+
