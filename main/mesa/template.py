@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "24.0.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
@@ -15,7 +15,7 @@ configure_args = [
     "-Dshared-glapi=enabled",
     "-Dplatforms=x11,wayland",
     "-Dglx=dri",
-    "-Dvideo-codecs=h264dec,h264enc,h265dec,h265enc,vc1dec",
+    "-Dvideo-codecs=all",
     "-Ddefault_library=shared",
     "-Db_ndebug=true",
 ]
