@@ -1,6 +1,6 @@
 pkgname = "obs-studio"
-pkgver = "30.0.2"
-pkgrel = 2
+pkgver = "30.1.0"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
@@ -15,6 +15,7 @@ configure_args = [
     "-DENABLE_VLC=OFF",
     # TODO: onevpl
     "-DENABLE_QSV11=OFF",
+    "-DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so",
 ]
 hostmakedepends = [
     "cmake",
@@ -60,7 +61,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://obsproject.com"
 source = f"https://github.com/obsproject/obs-studio/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "be12c3ad0a85713750d8325e4b1db75086223402d7080d0e3c2833d7c5e83c27"
+sha256 = "ec5c1932954fdfb5c5166ebd5f10f791c0557b0e241ece7443a24e8fce88bd56"
 # FIXME: cfi
 hardening = ["vis"]
 # don't build with lto
