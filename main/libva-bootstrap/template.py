@@ -18,7 +18,7 @@ license = "MIT"
 url = "https://01.org/linuxmedia/vaapi"
 source = f"https://github.com/intel/libva/archive/{pkgver}.tar.gz"
 sha256 = "117f8d658a5fc9ea406ca80a3eb4ae1d70b15a54807c9ed77199c812bed73b60"
-options = ["!lto", "!scanshlibs", "!scanpkgconf", "!autosplit"]
+options = ["!lto", "!scanshlibs", "!scanpkgconf", "!autosplit" "linkundefver"]
 
 
 def post_install(self):
