@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "dbus",
-    "dbus-glib-devel",
     "gettext-devel",
     "glib-devel",
     "glibmm-devel",
