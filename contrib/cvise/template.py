@@ -1,5 +1,5 @@
 pkgname = "cvise"
-pkgver = "2.9.0"
+pkgver = "2.10.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = [
@@ -27,7 +27,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "NCSA"
 url = "https://github.com/marxin/cvise"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "e4acb8c4de9433766c4d6fc90e9dfb271a9b69a60f6118b00ae5218a8ce50366"
+sha256 = "ee9bdfce6f139d0317c98d9c9b51cc68bcaead059de97aac2cf81d71f2215f54"
 
 
 def do_check(self):
