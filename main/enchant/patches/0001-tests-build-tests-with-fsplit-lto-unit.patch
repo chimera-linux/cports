@@ -1,0 +1,31 @@
+From 36edeede034277f323c6718033d1cc6296afb821 Mon Sep 17 00:00:00 2001
+From: miko <mikoxyzzz@gmail.com>
+Date: Wed, 13 Mar 2024 15:01:15 +0100
+Subject: [PATCH] tests: build tests with -fsplit-lto-unit
+
+---
+ tests/Makefile.am | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 4584ed8..06691be 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -130,6 +130,7 @@ main_test_SOURCES = main.test.cpp \
+ main_test_DEPENDENCIES = $(LIBENCHANT_COPY)
+ main_test_LDADD = $(LIBENCHANT_COPY) $(GLIB_LIBS) $(UNITTESTPP_LIBS)
+ main_test_CPPFLAGS = $(AM_CPPFLAGS) $(UNITTESTPP_CFLAGS) -DLIBDIR_SUBDIR=\"$(libdir_subdir)\"
++main_test_CXXFLAGS = $(AM_CXXFLAGS) $(UNITTESTPP_CFLAGS) -fsplit-lto-unit
+ 
+ APPLESPELL_CONFIG = config/AppleSpell.config
+ $(APPLESPELL_CONFIG): $(top_srcdir)/providers/AppleSpell.config
+@@ -152,5 +153,6 @@ providers_test_SOURCES = enchant_providers/providers.test.cpp \
+ providers_test_DEPENDENCIES = $(LIBENCHANT_COPY) $(APPLESPELL_CONFIG)
+ providers_test_LDADD = $(LIBENCHANT_COPY) $(GLIB_LIBS) $(UNITTESTPP_LIBS)
+ providers_test_CPPFLAGS = $(AM_CPPFLAGS) $(UNITTESTPP_CFLAGS) -DLIBDIR_SUBDIR=\"$(libdir_subdir)\"
++providers_test_CXXFLAGS = $(AM_CXXFLAGS) $(UNITTESTPP_CFLAGS) -fsplit-lto-unit
+ 
+ TESTS = $(check_PROGRAMS)
+-- 
+2.44.0
+
