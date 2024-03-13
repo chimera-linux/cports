@@ -1,5 +1,5 @@
 pkgname = "python-flaky"
-pkgver = "3.8.0"
+pkgver = "3.8.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,6 +14,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/box/flaky"
 source = f"$(PYPI_SITE)/f/flaky/flaky-{pkgver}.tar.gz"
-sha256 = "3b4b9f5c15829c919c8e05b15582fa1c9c7f20a303581dd5d0bc56a66441389c"
+sha256 = "47204a81ec905f3d5acfbd61daeabcada8f9d4031616d9bcb0618461729699f5"
 # bunch more deps + broken
 options = ["!check"]
