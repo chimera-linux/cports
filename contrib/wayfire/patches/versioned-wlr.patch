@@ -4,8 +4,8 @@
  
  elif get_option('use_system_wlroots').enabled()
  	use_system_wlroots = true
--	wlroots = dependency('wlroots', version: ['>=0.16.0', '<0.17.0'], required: true)
-+	wlroots = dependency('wlroots-0.16', version: ['>=0.16.0', '<0.17.0'], required: true)
+-	wlroots = dependency('wlroots', version: ['>=0.17.0', '<0.18.0'], required: true)
++	wlroots = dependency('wlroots-0.17', version: ['>=0.17.0', '<0.18.0'], required: true)
  
  elif get_option('use_system_wlroots').auto()
  	message( 'SEARCHING FOR WLROOTS' )
@@ -16,7 +16,7 @@
      pixman,
      # These might be subprojects so we need to pass them as strings
 -    'wlroots',
-+    'wlroots-0.16',
++    'wlroots-0.17',
      'wf-config',
  ]
  

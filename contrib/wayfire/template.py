@@ -1,6 +1,6 @@
 pkgname = "wayfire"
-pkgver = "0.8.0"
-pkgrel = 5
+pkgver = "0.8.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Duse_system_wfconfig=enabled",
@@ -20,14 +20,14 @@ makedepends = [
     "pango-devel",
     "wayland-protocols",
     "wf-config-devel",
-    "wlroots0.16-devel",
+    "wlroots0.17-devel",
 ]
 pkgdesc = "Modular and extensible wayland compositor"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://wayfire.org"
 source = f"https://github.com/WayfireWM/wayfire/releases/download/v{pkgver}/wayfire-{pkgver}.tar.xz"
-sha256 = "6e6af885c08822e3a0b1fd748e1ee75e29bc000e376f6613b26c564f8cbc2baf"
+sha256 = "8ac1947b688a9ec6c4d9ee2d77311bb357a8ead25665b8000eda96952328290d"
 # vis breaks symbols
 hardening = ["!vis"]
 # FIXME: crashes in signal-provider.hpp::provider_t::emit from libblur
