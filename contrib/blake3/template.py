@@ -1,5 +1,5 @@
 pkgname = "blake3"
-pkgver = "1.5.0"
+pkgver = "1.5.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON"]
@@ -16,7 +16,7 @@ url = "https://github.com/BLAKE3-team/BLAKE3"
 source = (
     f"https://github.com/BLAKE3-team/BLAKE3/archive/refs/tags/{pkgver}.tar.gz"
 )
-sha256 = "f506140bc3af41d3432a4ce18b3b83b08eaa240e94ef161eb72b2e57cdc94c69"
+sha256 = "822cd37f70152e5985433d2c50c8f6b2ec83aaf11aa31be9fe71486a91744f37"
 hardening = ["vis", "cfi"]
 
 
