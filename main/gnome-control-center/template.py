@@ -1,6 +1,6 @@
 pkgname = "gnome-control-center"
 pkgver = "45.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 make_check_wrapper = ["weston-headless-run"]
 hostmakedepends = [
@@ -18,7 +18,7 @@ makedepends = [
     "colord-devel",
     "colord-gtk-devel",
     "cups-devel",
-    "gcr-devel",
+    "gcr3-devel",
     "glib-devel",
     "gnome-bluetooth-devel",
     "gnome-desktop-devel",

@@ -1,6 +1,6 @@
 pkgname = "pinentry"
 pkgver = "1.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-tty",
@@ -16,7 +16,7 @@ makedepends = [
     "ncurses-devel",
     "libassuan-devel",
     "libgpg-error-devel",
-    "gcr-devel",
+    "gcr3-devel",
     "libsecret-devel",
     "gtk+3-devel",
     "gettext-devel",

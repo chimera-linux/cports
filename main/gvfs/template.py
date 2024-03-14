@@ -1,6 +1,6 @@
 pkgname = "gvfs"
 pkgver = "1.52.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no",
@@ -27,7 +27,7 @@ makedepends = [
     "bluez-devel",
     "libbluray-devel",
     "libcap-devel",
-    "gcr-devel",
+    "gcr3-devel",
     "libcdio-paranoia-devel",
     "libgcrypt-devel",
     "libgphoto2-devel",

@@ -1,7 +1,7 @@
 pkgname = "gnome-keyring"
 # 46 moved the pam module to libsecret, so rebuild it with -Dpam=true when upgrading
 pkgver = "42.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-pam-dir=/usr/lib/security",
@@ -23,7 +23,7 @@ hostmakedepends = [
     "libtool",
     "gettext-devel",
 ]
-makedepends = ["gcr-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"]
+makedepends = ["gcr3-devel", "glib-devel", "linux-pam-devel", "libgcrypt-devel"]
 checkdepends = ["weston", "dbus"]
 depends = ["dconf"]
 pkgdesc = "GNOME password and secret manager"
