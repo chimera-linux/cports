@@ -1,5 +1,5 @@
 pkgname = "libva"
-pkgver = "2.20.0"
+pkgver = "2.21.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dwith_glx=yes", "-Dwith_wayland=yes"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://01.org/linuxmedia/vaapi"
 source = f"https://github.com/intel/libva/archive/{pkgver}.tar.gz"
-sha256 = "117f8d658a5fc9ea406ca80a3eb4ae1d70b15a54807c9ed77199c812bed73b60"
+sha256 = "f7c3fffef3f04eb146e036dad2587d852bfb70e4926d014bf437244915ef7425"
 options = ["linkundefver"]
 
 
