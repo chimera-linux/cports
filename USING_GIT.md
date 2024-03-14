@@ -82,19 +82,22 @@ In order to be able to send your changes as a pull request, you will need
 a branch for that pull request, and the difference over `master` is what the
 pull request will contain.
 
-### Using checkout
+### Using checkout and switch
 
 To create a new branch in the current tree and switch to it, you can use
-the `checkout` command like so:
+either the older `checkout` command or the newer (and as of version 2.44,
+experimental) `switch` command. These two are equivalent:
 
 ```
 $ git checkout -b my-custom-branch-name
+$ git switch -c my-custom-branch-name
 ```
 
-The `-b` argument tells Git to create a new branch if none yet exists. You
-can use the `checkout` command without `-b` to switch between your branches;
-if you use the command without any additional arguments, it will list the
-branches you have available, including which is the current one.
+The `-b` and `-c` arguments respectively tell Git to create a new branch
+if none yet exists; otherwise the command will only switch branches.
+
+Use the `branch` command without arguments or with the `--list` argument to
+list your local branches. It can also be used to create and delete branches.
 
 ### Using worktree
 
