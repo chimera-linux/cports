@@ -1,6 +1,6 @@
 pkgname = "gcr"
 pkgver = "4.2.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dgpg_path=/usr/bin/gpg",
@@ -38,12 +38,6 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 hardening = ["!int"]
 # needs x11
 options = ["!check"]
-
-
-def post_install(self):
-    self.install_file(
-        self.files_path / "10-gcr-memlock.conf", "etc/security/limits.d"
-    )
 
 
 @subpackage("gcr-devel")
