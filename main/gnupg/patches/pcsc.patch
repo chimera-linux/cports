@@ -1,0 +1,12 @@
+it's .so.1 even when not on glibc
+--- a/scd/scdaemon.c
++++ b/scd/scdaemon.c
+@@ -222,7 +222,7 @@
+ #elif defined(__GLIBC__)
+ #define DEFAULT_PCSC_DRIVER "libpcsclite.so.1"
+ #else
+-#define DEFAULT_PCSC_DRIVER "libpcsclite.so"
++#define DEFAULT_PCSC_DRIVER "libpcsclite.so.1"
+ #endif
+ 
+ /* The timer tick used to check card removal.
