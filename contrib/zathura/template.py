@@ -1,6 +1,6 @@
 pkgname = "zathura"
 pkgver = "0.5.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "appstream-glib",
@@ -46,6 +46,7 @@ def _backends(self):
         "virtual:zathura-pdf-poppler!zathura",
         "virtual:zathura-cb!zathura",
         "virtual:zathura-djvu!zathura",
+        "virtual:zathura-ps!zathura",
     ]
     self.options = ["empty"]
 
