@@ -1,5 +1,5 @@
 pkgname = "libaom"
-pkgver = "3.8.1"
+pkgver = "3.8.2"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -24,7 +24,7 @@ url = "https://aomedia.org"
 source = [
     f"https://storage.googleapis.com/aom-releases/{pkgname}-{pkgver}.tar.gz"
 ]
-sha256 = ["dedc65060812a7df801c0270a2fe8bd773c6bb0b601f2144ecfbc62dc0f671ca"]
+sha256 = ["98f7d6d7ddbf06d088735f5e51782df053fd1b08c553882c2924bd0b2021a202"]
 # requires a testdata download, tests take long
 options = ["!check"]
 
