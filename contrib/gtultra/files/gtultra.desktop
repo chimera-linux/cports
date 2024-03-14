@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=GTUltra
+Comment=C64 music editor
+Exec=gtultra %F
+Icon=gtultra
+Categories=AudioVideo;AudioVideoEditing
