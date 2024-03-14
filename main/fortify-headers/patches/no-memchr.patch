@@ -1,0 +1,50 @@
+commit 098fc65aaac0278dd86ce3e6ac69e98a08e2a000
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Mar 14 23:52:42 2024 +0100
+
+    disable memchr
+    
+    since C11 it's well defined if the character is found within
+    the array even if the array is smaller than the given size
+
+diff --git a/include/string.h b/include/string.h
+index 2ede429..327ce11 100644
+--- a/include/string.h
++++ b/include/string.h
+@@ -30,7 +30,6 @@ extern "C" {
+ #endif
+ 
+ #undef memcpy
+-#undef memchr
+ #undef memmove
+ #undef memset
+ #undef strcat
+@@ -102,6 +101,7 @@ __warning_if(__c != 0 && __n == 0, "'memset' will set `0` bytes; did you invert
+ #endif
+ }
+ 
++#if 0
+ __fh_access(read_only, 1, 3)
+ #if __has_builtin(__builtin_memchr)
+ __diagnose_as_builtin(__builtin_memchr, 1, 2, 3)
+@@ -118,6 +118,7 @@ _FORTIFY_FN(memchr) void *memchr(const void * _FORTIFY_POS0 __d, int __c, size_t
+ 	return __builtin_memchr(__d, __c, __n);
+ #endif
+ }
++#endif
+ 
+ #if 0
+ __fh_access(read_only, 1, 2)
+diff --git a/tests/Makefile b/tests/Makefile
+index 80cb48c..ff94b0c 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -46,8 +46,6 @@ RUNTIME_TARGETS= \
+ 	test_mbsrtowcs_static        \
+ 	test_mbstowcs_dynamic        \
+ 	test_mbstowcs_static         \
+-	test_memchr_dynamic_read     \
+-	test_memchr_static_read      \
+ 	test_memcpy_dynamic_read     \
+ 	test_memcpy_dynamic_write    \
+ 	test_memcpy_overwrite_over   \
