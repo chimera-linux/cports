@@ -2,6 +2,7 @@
 
 type               = process
 command            = /usr/bin/pipewire
+log-type           = buffer
 depends-on         = dbus
 restart            = true
 ready-notification = pipevar:PIPEWIRE_READY_FD
