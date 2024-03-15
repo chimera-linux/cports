@@ -37,6 +37,6 @@ def post_patch(self):
 
 def post_install(self):
     self.install_license("LICENSE-MIT")
-    self.install_completion("completion/bash_tealdeer", "bash", name="tldr")
-    self.install_completion("completion/zsh_tealdeer", "zsh", name="tldr")
-    self.install_completion("completion/fish_tealdeer", "fish", name="tldr")
+    self.install_completion("completion/bash_tealdeer", "bash", "tldr")
+    self.install_completion("completion/zsh_tealdeer", "zsh", "tldr")
+    self.install_completion("completion/fish_tealdeer", "fish", "tldr")
