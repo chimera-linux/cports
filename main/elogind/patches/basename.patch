@@ -5,7 +5,7 @@ Date:   Fri Dec 22 04:06:26 2023 +0100
     fix a bunch of basename fallout junk
 
 diff --git a/src/basic/conf-files.c b/src/basic/conf-files.c
-index 484749d..64d62fa 100644
+index 484749d7c..64d62fa88 100644
 --- a/src/basic/conf-files.c
 +++ b/src/basic/conf-files.c
 @@ -21,6 +21,11 @@
@@ -21,7 +21,7 @@ index 484749d..64d62fa 100644
                  Hashmap *h,
                  Set *masked,
 diff --git a/src/login/logind-inhibit.c b/src/login/logind-inhibit.c
-index c156414..b8d3777 100644
+index c1564149d..b8d377740 100644
 --- a/src/login/logind-inhibit.c
 +++ b/src/login/logind-inhibit.c
 @@ -27,6 +27,11 @@
@@ -37,7 +37,7 @@ index c156414..b8d3777 100644
  
  int inhibitor_new(Inhibitor **ret, Manager *m, const char* id) {
 diff --git a/src/login/logind-seat.c b/src/login/logind-seat.c
-index a7356f9..6d26951 100644
+index 7b1540276..d1b09571e 100644
 --- a/src/login/logind-seat.c
 +++ b/src/login/logind-seat.c
 @@ -25,6 +25,11 @@
@@ -53,7 +53,7 @@ index a7356f9..6d26951 100644
          _cleanup_(seat_freep) Seat *s = NULL;
          int r;
 diff --git a/src/login/logind-session.c b/src/login/logind-session.c
-index 7b4f42e..902c7d9 100644
+index 8122a69e3..8935b3399 100644
 --- a/src/login/logind-session.c
 +++ b/src/login/logind-session.c
 @@ -43,6 +43,11 @@
@@ -69,10 +69,10 @@ index 7b4f42e..902c7d9 100644
  
  static void session_remove_fifo(Session *s);
 diff --git a/src/shared/btrfs-util.c b/src/shared/btrfs-util.c
-index 7e585fd..2d765b7 100644
+index bbe2ca7b9..3f431b4c2 100644
 --- a/src/shared/btrfs-util.c
 +++ b/src/shared/btrfs-util.c
-@@ -33,6 +33,11 @@
+@@ -34,6 +34,11 @@
  //#include "time-util.h"
  //#include "util.h"
  
@@ -85,10 +85,10 @@ index 7e585fd..2d765b7 100644
   * need to make sure it either refers to only a regular file or
   * directory, or that it is located on btrfs, before invoking any
 diff --git a/src/shared/exec-util.c b/src/shared/exec-util.c
-index cdf1805..7efbd6e 100644
+index 5a233f66c..fdbcb9a2e 100644
 --- a/src/shared/exec-util.c
 +++ b/src/shared/exec-util.c
-@@ -31,6 +31,11 @@
+@@ -32,6 +32,11 @@
  //#include "tmpfile-util.h"
  //#include "util.h"
  
@@ -100,8 +100,24 @@ index cdf1805..7efbd6e 100644
  /* Put this test here for a lack of better place */
  assert_cc(EAGAIN == EWOULDBLOCK);
  
+diff --git a/src/test/test-mountpoint-util.c b/src/test/test-mountpoint-util.c
+index b2d1eab68..a6be234b5 100644
+--- a/src/test/test-mountpoint-util.c
++++ b/src/test/test-mountpoint-util.c
+@@ -19,6 +19,11 @@
+ #include "virt.h"
+ #include "tmpfile-util.h"
+ 
++#if !defined(__GLIBC__)
++#include <string.h>
++#define basename(src) (strrchr(src,'/') ? strrchr(src,'/')+1 : src)
++#endif
++
+ static void test_mount_propagation_flags_one(const char *name, int ret, unsigned long expected) {
+         unsigned long flags;
+ 
 diff --git a/src/test/test-path-util.c b/src/test/test-path-util.c
-index 305cc7b..601a805 100644
+index cad532792..0a077da8d 100644
 --- a/src/test/test-path-util.c
 +++ b/src/test/test-path-util.c
 @@ -18,6 +18,11 @@
