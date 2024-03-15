@@ -20,7 +20,8 @@ sha256 = "6458274008ef06362c912eb67e285b734906acdb5c56e8490144f45bc1b81d51"
 options = ["!cross"]
 
 
-def post_install(self):
+def do_install(self):
+    self.install_bin(f"target/{self.profile().triplet}/release/sq")
     self.install_man("assets/man-pages/*.1", glob=True)
 
     self.install_completion("assets/shell-completions/sq.bash", "bash", "sq")
