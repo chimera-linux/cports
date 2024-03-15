@@ -8,12 +8,12 @@ configure_args = [
     "-Dintrospection=enabled",
 ]
 hostmakedepends = [
+    "doxygen",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
     "python-lxml",
-    "glib-devel",
-    "doxygen",
 ]
 makedepends = ["pipewire-devel", "glib-devel", "lua5.4-devel"]
 checkdepends = ["pipewire", "dbus"]
