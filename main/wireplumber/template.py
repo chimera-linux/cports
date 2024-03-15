@@ -1,6 +1,6 @@
 pkgname = "wireplumber"
 pkgver = "0.4.17"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystem-lua=true",
@@ -8,12 +8,12 @@ configure_args = [
     "-Dintrospection=enabled",
 ]
 hostmakedepends = [
+    "doxygen",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "gobject-introspection",
     "python-lxml",
-    "glib-devel",
-    "doxygen",
 ]
 makedepends = ["pipewire-devel", "glib-devel", "lua5.4-devel"]
 checkdepends = ["pipewire", "dbus"]
