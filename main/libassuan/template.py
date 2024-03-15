@@ -1,5 +1,5 @@
 pkgname = "libassuan"
-pkgver = "2.5.6"
+pkgver = "2.5.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
@@ -10,7 +10,7 @@ maintainer = "eater <=@eater.me>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnupg.org/related_software/libassuan"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "e9fd27218d5394904e4e39788f9b1742711c3e6b41689a31aa3380bd5aa4f426"
+sha256 = "0103081ffc27838a2e50479153ca105e873d3d65d8a9593282e9c94c7e6afb76"
 
 
 @subpackage("libassuan-devel")
