@@ -1,5 +1,5 @@
 pkgname = "gnome-online-accounts"
-pkgver = "3.48.0"
+pkgver = "3.48.1"
 pkgrel = 0
 build_style = "meson"
 # TODO: figure out if we can make it work with heimdal
@@ -36,7 +36,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-online-accounts"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "418bb9fcffdbd72a98205ad365137617fc1e3551a54de74f6a98d45d266175bf"
+sha256 = "3ea0c71084bf595cce5caa37ceff2e853d0ec9644bb01fd4643300adb9517f8a"
 options = ["!cross"]
 
 
