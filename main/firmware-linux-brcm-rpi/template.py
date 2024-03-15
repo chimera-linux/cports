@@ -1,9 +1,10 @@
 pkgname = "firmware-linux-brcm-rpi"
 pkgver = "20231024"
-pkgrel = 0
+pkgrel = 1
 _fw_rev = "88aa085bfa1a4650e1ccd88896f8343c22a24055"
 _bt_rev = "d9d4741caba7314d6500f588b1eaa5ab387a4ff5"
 archs = ["aarch64"]
+hostmakedepends = ["zstd"]
 replaces = ["firmware-linux-brcm", "firmware-rpi<=20220905-r0"]
 replaces_priority = 100  # always overrides files of firmware-linux-brcm
 pkgdesc = "Broadcom firmware for Raspberry Pi"
@@ -25,10 +26,6 @@ def do_install(self):
     bfw = f"bluez-firmware-{_bt_rev}/debian/firmware"
     wfw = f"firmware-nonfree-{_fw_rev}/debian/config/brcm80211"
 
-    # license files
-    self.install_license(f"{bfw}/broadcom/LICENSE.cypress")
-    self.install_license(f"{bfw}/synaptics/LICENSE.synaptics")
-
     # need either standard or minimal
     self.ln_s(
         "cyfmac43455-sdio-standard.bin", f"{wfw}/cypress/cyfmac43455-sdio.bin"
@@ -44,6 +41,28 @@ def do_install(self):
     self.install_file(
         f"{bfw}/synaptics/SYN*", "usr/lib/firmware/synaptics", glob=True
     )
+
+    # compress
+    for root, dirs, files in self.destdir.walk():
+        for file in files:
+            file = root / file
+            dfile = file.relative_to(self.destdir)
+            if file.is_symlink():
+                ltgt = file.readlink()
+                file.unlink()
+                self.install_link(f"{ltgt}.zst", f"{dfile}.zst")
+            elif file.name == "README.txt":
+                # cypress
+                continue
+            else:
+                self.do(
+                    "zstd",
+                    "--compress",
+                    "--quiet",
+                    "--rm",
+                    self.chroot_destdir / dfile,
+                )
+
     # links
     with (self.cwd / bfw / "../bluez-firmware.links").open() as lf:
         for ln in lf:
@@ -56,4 +75,8 @@ def do_install(self):
                 froml = f"../{froml}"
             else:
                 self.error(f"unknown firmware path{froml}")
-            self.install_link(froml, tol)
+            self.install_link(f"{froml}.zst", f"{tol}.zst")
+
+    # license files
+    self.install_license(f"{bfw}/broadcom/LICENSE.cypress")
+    self.install_license(f"{bfw}/synaptics/LICENSE.synaptics")
