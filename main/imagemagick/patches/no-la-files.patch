@@ -1,0 +1,37 @@
+commit 1f14721da0d99755a478e8f91538ba1626d4dea6
+Author: q66 <q66@chimera-linux.org>
+Date:   Fri Mar 15 22:11:35 2024 +0100
+
+    stop using libtool .la files
+
+diff --git a/MagickCore/module.c b/MagickCore/module.c
+index e36214d..c5ab960 100644
+--- a/MagickCore/module.c
++++ b/MagickCore/module.c
+@@ -78,7 +78,7 @@ typedef void *ModuleHandle;
+   Define declarations.
+ */
+ #if defined(MAGICKCORE_LTDL_DELEGATE)
+-#  define ModuleGlobExpression "*.la"
++#  define ModuleGlobExpression "*.so"
+ #else
+ #  if defined(_DEBUG)
+ #    define ModuleGlobExpression "IM_MOD_DB_*.dll"
+@@ -1475,7 +1475,7 @@ static void TagToCoderModuleName(const char *tag,char *name)
+   if (IsEventLogging() != MagickFalse)
+     (void) LogMagickEvent(TraceEvent,GetMagickModule(),"%s",tag);
+ #if defined(MAGICKCORE_LTDL_DELEGATE)
+-  (void) FormatLocaleString(name,MagickPathExtent,"%s.la",tag);
++  (void) FormatLocaleString(name,MagickPathExtent,"%s.so",tag);
+   (void) LocaleLower(name);
+ #else
+ #if defined(MAGICKCORE_WINDOWS_SUPPORT)
+@@ -1529,7 +1529,7 @@ static void TagToFilterModuleName(const char *tag,char *name)
+ #elif !defined(MAGICKCORE_LTDL_DELEGATE)
+   (void) FormatLocaleString(name,MagickPathExtent,"%s.dll",tag);
+ #else
+-  (void) FormatLocaleString(name,MagickPathExtent,"%s.la",tag);
++  (void) FormatLocaleString(name,MagickPathExtent,"%s.so",tag);
+ #endif
+ }
+ 

@@ -1,7 +1,7 @@
 pkgname = "imagemagick"
 _pver = "7.1.1-29"
 pkgver = _pver.replace("-", ".")
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -96,7 +96,6 @@ def post_install(self):
 @subpackage("libmagick")
 def _lib(self):
     self.pkgdesc = "ImageMagick library"
-    self.options = ["keeplibtool"]
 
     return [
         "usr/lib/libMagick*.so.*",
