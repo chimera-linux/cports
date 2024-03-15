@@ -1,6 +1,8 @@
 pkgname = "bzip2"
+# update bzip2.pc if the version changes (and check if upstreamed)
 pkgver = "1.0.8"
-pkgrel = 1
+pkgrel = 2
+hostmakedepends = ["pkgconf"]
 provides = [f"libbz2={pkgver}-r{pkgrel}"]
 pkgdesc = "Freely available, patent free, high-quality data compressor"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -44,6 +46,7 @@ def do_install(self):
 
     self.install_file("libbz2.a", "usr/lib")
     self.install_file("bzlib.h", "usr/include")
+    self.install_file(self.files_path / "bzip2.pc", "usr/lib/pkgconfig")
 
     self.install_man("bzip2.1")
     self.install_link("bzip2.1", "usr/share/man/man1/bunzip2.1")
