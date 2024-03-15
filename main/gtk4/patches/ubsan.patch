@@ -31,29 +31,3 @@ index 29e8352..4bd03d4 100644
    const guint b = as_uint(x)+0x00001000; // round-to-nearest-even
 -- 
 2.34.1
-
-commit b623fe4494c3a8505e78b5efa7ef6226d732df55
-Author: q66 <q66@chimera-linux.org>
-Date:   Tue Jan 24 21:47:19 2023 +0000
-
-    fix shift overflow in xcursor
-
-diff --git a/gdk/wayland/cursor/xcursor.c b/gdk/wayland/cursor/xcursor.c
-index eef0133..8611499 100644
---- a/gdk/wayland/cursor/xcursor.c
-+++ b/gdk/wayland/cursor/xcursor.c
-@@ -266,10 +266,10 @@ _XcursorReadUInt (XcursorFile *file, XcursorUInt *u)
- 
-     if ((*file->read) (file, bytes, 4) != 4)
- 	return XcursorFalse;
--    *u = ((bytes[0] << 0) |
--	  (bytes[1] << 8) |
--	  (bytes[2] << 16) |
--	  (bytes[3] << 24));
-+    *u = (((unsigned int)bytes[0] << 0) |
-+	  ((unsigned int)bytes[1] << 8) |
-+	  ((unsigned int)bytes[2] << 16) |
-+	  ((unsigned int)bytes[3] << 24));
-     return XcursorTrue;
- }
- 
