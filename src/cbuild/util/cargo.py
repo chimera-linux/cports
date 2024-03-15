@@ -41,6 +41,8 @@ def get_environment(pkg, jobs=None):
         "RUSTONIG_SYSTEM_LIBONIG": "1",
         # zstd-sys
         "ZSTD_SYS_USE_PKG_CONFIG": "1",
+        # libsqlite3-sys
+        "LIBSQLITE3_SYS_USE_PKG_CONFIG": "1",
         # cc-rs: make sure host compiler autoguess behavior is bypassed
         "HOST_CC": "clang",
         "HOST_CFLAGS": "-O2",
