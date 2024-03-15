@@ -43,25 +43,25 @@ def do_install(self):
     )
 
     # compress
-    for root, dirs, files in self.destdir.walk():
-        for file in files:
-            file = root / file
-            dfile = file.relative_to(self.destdir)
-            if file.is_symlink():
-                ltgt = file.readlink()
-                file.unlink()
-                self.install_link(f"{ltgt}.zst", f"{dfile}.zst")
-            elif file.name == "README.txt":
-                # cypress
-                continue
-            else:
-                self.do(
-                    "zstd",
-                    "--compress",
-                    "--quiet",
-                    "--rm",
-                    self.chroot_destdir / dfile,
-                )
+    for file in self.destdir.rglob("*"):
+        if file.is_dir():
+            continue
+        elif file.name == "README.txt":
+            # cypress
+            continue
+        dfile = file.relative_to(self.destdir)
+        if file.is_symlink():
+            ltgt = file.readlink()
+            file.unlink()
+            self.install_link(f"{ltgt}.zst", f"{dfile}.zst")
+        else:
+            self.do(
+                "zstd",
+                "--compress",
+                "--quiet",
+                "--rm",
+                self.chroot_destdir / dfile,
+            )
 
     # links
     with (self.cwd / bfw / "../bluez-firmware.links").open() as lf:

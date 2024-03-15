@@ -35,22 +35,22 @@ def do_install(self):
     # dsp
     self.install_file("cs35l41-dsp1-*", "usr/lib/firmware", glob=True)
     # compress
-    for root, dirs, files in self.destdir.walk():
-        for file in files:
-            file = root / file
-            dfile = file.relative_to(self.destdir)
-            if file.is_symlink():
-                ltgt = file.readlink()
-                file.unlink()
-                self.install_link(f"{ltgt}.zst", f"{dfile}.zst")
-            else:
-                self.do(
-                    "zstd",
-                    "--compress",
-                    "--quiet",
-                    "--rm",
-                    self.chroot_destdir / dfile,
-                )
+    for file in self.destdir.rglob("*"):
+        if file.is_dir():
+            continue
+        dfile = file.relative_to(self.destdir)
+        if file.is_symlink():
+            ltgt = file.readlink()
+            file.unlink()
+            self.install_link(f"{ltgt}.zst", f"{dfile}.zst")
+        else:
+            self.do(
+                "zstd",
+                "--compress",
+                "--quiet",
+                "--rm",
+                self.chroot_destdir / dfile,
+            )
     # license
     self.install_license("LICENSE.QualcommAtheros_ath10k")
     self.install_license("LICENSE.cirrus")
