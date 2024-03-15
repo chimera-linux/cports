@@ -1,6 +1,6 @@
 pkgname = "dav1d"
-pkgver = "1.4.0"
-pkgrel = 1
+pkgver = "1.4.1"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Denable_tests=true",
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://code.videolan.org/videolan/dav1d"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "0b6d484fc3d20541a21403812499530b72875dee0ec88f682cb1d73943dfc156"
+sha256 = "04da7689748a3501d00b6796b6de0596177019709ecc6095c667b7964895dd8c"
 # FIXME cfi, int
 hardening = ["vis", "!cfi", "!int"]
 
