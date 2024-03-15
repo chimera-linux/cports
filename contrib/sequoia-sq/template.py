@@ -1,10 +1,11 @@
 pkgname = "sequoia-sq"
 pkgver = "0.34.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 make_build_env = {"ASSET_OUT_DIR": "assets"}
 hostmakedepends = ["cargo", "pkgconf", "capnproto"]
 makedepends = [
+    "bzip2-devel",
     "capnproto-devel",
     "nettle-devel",
     "openssl-devel",
