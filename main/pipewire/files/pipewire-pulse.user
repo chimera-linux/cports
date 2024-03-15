@@ -2,6 +2,7 @@
 
 type            = process
 command         = /usr/bin/pipewire-pulse
+log-type        = buffer
 depends-on      = pipewire
 restart         = true
 smooth-recovery = true
