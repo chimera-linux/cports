@@ -1,0 +1,18 @@
+revert of https://github.com/rust-secure-code/cargo-auditable/pull/138
+
+rust 1.77 means cargo 0.78; but our cargo is 0.77 because of ppc64le
+regressions, so it doesn't have the change that needs this test update.
+--
+--- a/cargo-auditable/tests/it.rs
++++ b/cargo-auditable/tests/it.rs
+@@ -113,9 +113,7 @@
+             binaries
+         })
+         .for_each(|(package, binary)| {
+-            bins.entry(pkgid_to_bin_name(&package))
+-                .or_insert(Vec::new())
+-                .push(binary);
++            bins.entry(package).or_insert(Vec::new()).push(binary);
+         });
+     bins
+ }
