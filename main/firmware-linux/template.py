@@ -1,7 +1,7 @@
 # also update ucode-amd when updating
 pkgname = "firmware-linux"
 pkgver = "20240312"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["python", "rdfind"]
 pkgdesc = "Binary firmware blobs for the Linux kernel"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -151,7 +151,7 @@ _pkgs = [
         ["inside-secure"],
     ),
     ("isci", "Intel C600 SAS controller", _arch_x86, "storage", ["isci"]),
-    ("iwlwifi", "Intel WLAN", _arch_x86, "network", ["iwlwifi*"]),
+    ("iwlwifi", "Intel WLAN", None, "network", ["iwlwifi*"]),
     ("ixp4xx", "IXP4xx", None, "network", ["ixp4xx"]),
     ("kaweth", "KL5KUSB101 Ethernet", None, "network", ["kaweth"]),
     ("keyspan", "Keyspan serial converters", None, "misc", ["keyspan*"]),
