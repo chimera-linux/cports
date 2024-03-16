@@ -1,0 +1,23 @@
+# Qutebrowser
+dot_desktop_path = "/usr/share/applications/qutebrowser.desktop"
+description='''
+Qutebrowser
+'''
+
+import_tips = '''
+Move $XDG_CONFIG_HOME/qutebrowser folder from your home directory in to instance
+home directory.
+'''
+
+
+[services.common]
+executable_name = "/usr/bin/qutebrowser"
+dbus_name = "org.qutebrowser.*"
+[services.wayland]
+[services.network]
+[services.direct_rendering]
+[services.pulse_audio]
+[services.notify]
+
+[services.home_share]
+home_paths = [ "Downloads",]
