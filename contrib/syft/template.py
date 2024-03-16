@@ -19,12 +19,11 @@ options = ["!check", "!cross"]
 
 
 def post_build(self):
-    self.do("sh", "-c", "build/syft completion bash > syft.bash")
-    self.do("sh", "-c", "build/syft completion fish > syft.fish")
-    self.do("sh", "-c", "build/syft completion zsh > _syft")
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"syft.{shell}", "w") as outf:
+            self.do("build/syft", "completion", shell, stdout=outf)
 
 
 def post_install(self):
-    self.install_completion("syft.bash", "bash")
-    self.install_completion("syft.fish", "fish")
-    self.install_completion("_syft", "zsh")
+    for shell in ["bash", "fish", "zsh"]:
+        self.install_completion(f"syft.{shell}", shell)
