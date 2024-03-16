@@ -1994,7 +1994,7 @@ def do_bulkpkg(tgt, do_build=True, do_raw=False):
 
 
 def do_prepare_upgrade(tgt):
-    from cbuild.core import template, chroot, build
+    from cbuild.core import template, chroot, build, errors
     import pathlib
 
     if len(cmdline.command) < 2:
