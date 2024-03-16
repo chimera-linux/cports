@@ -6,7 +6,6 @@ make_build_args = [
     f"-ldflags=-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v{pkgver}",
     "./cmd/headscale",
 ]
-make_check_args = ["./..."]
 hostmakedepends = ["go"]
 pkgdesc = "Open source implementation of the tailscale control server"
 maintainer = "psykose <alice@ayaya.dev>"
