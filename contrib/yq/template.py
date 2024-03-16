@@ -19,12 +19,13 @@ def do_check(self):
     self.do("scripts/acceptance.sh")
 
 
+def post_build(self):
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"yq.{shell}", "w") as outf:
+            self.do("build/yq", "shell-completion", shell, stdout=outf)
+
+
 def post_install(self):
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "zsh"]:
-        self.do(
-            "sh",
-            "-c",
-            f"{self.chroot_cwd}/build/yq shell-completion {shell} > yq.{shell}",
-        )
         self.install_completion(f"yq.{shell}", shell)
