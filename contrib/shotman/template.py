@@ -28,26 +28,13 @@ def post_patch(self):
 def post_build(self):
     self.do("make", "shotman.1")
 
-    with open(self.cwd / "shotman.bash", "w") as cf:
-        self.do(
-            f"target/{self.profile().triplet}/release/shotman_completions",
-            "bash",
-            stdout=cf,
-        )
-
-    with open(self.cwd / "shotman.fish", "w") as cf:
-        self.do(
-            f"target/{self.profile().triplet}/release/shotman_completions",
-            "fish",
-            stdout=cf,
-        )
-
-    with open(self.cwd / "shotman.zsh", "w") as cf:
-        self.do(
-            f"target/{self.profile().triplet}/release/shotman_completions",
-            "zsh",
-            stdout=cf,
-        )
+    for shell in ["bash", "zsh", "fish"]:
+        with open(self.cwd / f"shotman.{shell}", "w") as cf:
+            self.do(
+                f"target/{self.profile().triplet}/release/shotman_completions",
+                shell,
+                stdout=cf,
+            )
 
 
 def post_install(self):
