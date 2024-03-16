@@ -1,5 +1,5 @@
-# Keep in sync with cargo-auditable-bootstrap
-pkgname = "cargo-auditable"
+# Keep in sync with cargo-auditable
+pkgname = "cargo-auditable-bootstrap"
 pkgver = "0.6.4"
 pkgrel = 0
 build_style = "cargo"
