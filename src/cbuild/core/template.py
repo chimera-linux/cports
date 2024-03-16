@@ -2197,10 +2197,21 @@ def read_mod(
             if ignore_missing:
                 return None, None
             raise errors.CbuildException(f"missing template for '{pkgname}'")
-    elif not (paths.distdir() / pkgname / "template.py").is_file():
-        if ignore_missing:
-            return None, None
-        raise errors.CbuildException(f"missing template for '{pkgname}'")
+    else:
+        pnl = pkgname.split("/")
+        if len(pnl) == 3 and pnl[2] == "template.py":
+            pnl = pnl[:-1]
+            if not ignore_missing:
+                logger.get().warn("the '/template.py' is superfluous")
+        if len(pnl) != 2 and not ignore_missing:
+            raise errors.CbuildException(
+                f"template name '{pkgname}' has an invalid format"
+            )
+        pkgname = "/".join(pnl)
+        if not (paths.distdir() / pkgname / "template.py").is_file():
+            if ignore_missing:
+                return None, None
+            raise errors.CbuildException(f"missing template for '{pkgname}'")
 
     tmplp = (paths.distdir() / pkgname).resolve()
     pkgname = str(tmplp.relative_to(paths.distdir()))
