@@ -1,6 +1,6 @@
 pkgname = "wxwidgets"
 pkgver = "3.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DwxBUILD_PRECOMP=OFF",
@@ -55,6 +55,7 @@ options = ["!check", "linkundefver"]
 
 def post_install(self):
     self.install_license("docs/licence.txt")
+    self.install_file("wxwin.m4", "usr/share/aclocal")
 
 
 @subpackage("wxwidgets-devel")
