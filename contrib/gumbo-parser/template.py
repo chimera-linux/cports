@@ -17,7 +17,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "Apache-2.0"
 url = "https://codeberg.org/grisha/gumbo-parser"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "a0ff2e1b613403fe69ff6407f3f93221fdfa67da357be158bb1e6903b33c1c10"
+sha256 = "c0bb5354e46539680724d638dbea07296b797229a7e965b13305c930ddc10d82"
 
 
 @subpackage("gumbo-parser-devel")
