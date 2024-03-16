@@ -1,11 +1,13 @@
-# Keep in sync with cargo-auditable
-pkgname = "cargo-auditable-bootstrap"
+# Keep in sync with cargo-auditable-bootstrap
+pkgname = "cargo-auditable"
 pkgver = "0.6.2"
 pkgrel = 0
 build_wrksrc = "cargo-auditable"
 build_style = "cargo"
-hostmakedepends = ["cargo"]
+hostmakedepends = ["cargo-auditable-bootstrap"]
 depends = ["cargo"]
+cargo_auditable = True
+provider_priority = 1
 pkgdesc = "Tool for embedding dependency information in rust binaries"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
