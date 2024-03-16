@@ -17,6 +17,17 @@ sha256 = "ee408065c879fc5148a10050d663f93148eccdd6bf59d3b953673a36eaad4070"
 options = ["!cross"]
 
 
+def post_build(self):
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"headscale.{shell}", "w") as f:
+            self.do(
+                self.chroot_cwd / self.make_dir / "headscale",
+                "completion",
+                shell,
+                stdout=f,
+            )
+
+
 def post_install(self):
     self.install_license("LICENSE")
     self.install_service(self.files_path / "headscale")
@@ -32,11 +43,4 @@ def post_install(self):
         name="headscale.conf",
     )
     for shell in ["bash", "fish", "zsh"]:
-        with open(self.cwd / f"headscale.{shell}", "w") as f:
-            self.do(
-                self.chroot_cwd / self.make_dir / "headscale",
-                "completion",
-                shell,
-                stdout=f,
-            )
         self.install_completion(f"headscale.{shell}", shell)
