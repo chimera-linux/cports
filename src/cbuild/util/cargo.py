@@ -136,10 +136,15 @@ class Cargo:
         if legacy.is_file():
             self.template.error("cargo: found legacy .cargo/config")
 
+        auditable = (
+            self.template.bldroot_path / "usr/bin/cargo-auditable"
+        ).exists()
+
+        cargo = ["cargo", "auditable"] if auditable else ["cargo"]
         return self.template.do(
             *wrapper,
             *ewrapper,
-            "cargo",
+            *cargo,
             command,
             *bargs,
             *args,
