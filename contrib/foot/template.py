@@ -26,7 +26,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/foot"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "8060ec28cbf6e2e3d408665330da4bc48fd094d4f1265d7c58dc75c767463c29"
+sha256 = "0e02af376e5f4a96eeb90470b7ad2e79a1d660db2a7d1aa772be43c7db00e475"
 hardening = ["vis", "cfi"]
 
 
