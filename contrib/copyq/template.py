@@ -1,8 +1,11 @@
 pkgname = "copyq"
-pkgver = "7.1.0"
+pkgver = "8.0.0"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DWITH_QT6=ON"]
+configure_args = [
+    "-DWITH_NATIVE_NOTIFICATIONS=OFF",
+    "-DWITH_QT6=ON",
+]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -24,8 +27,8 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "GPL-3.0-or-later"
 url = "https://hluk.github.io/CopyQ"
 source = f"https://github.com/hluk/CopyQ/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ce0265b0a86350fda7bfa1a9d4b74d794a4077551b28186012683567d6fd8158"
-# FIXME: segfaults with cfi
+sha256 = "4883538182df81d1c88497d3f2b7b0d9d1f59a0381654869c45dccfc78daf9aa"
+# FIXME: loading plugins fail with cfi enabled
 hardening = ["vis", "!cfi"]
 # requires building project a second time in debug mode
 options = ["!check"]
