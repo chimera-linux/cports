@@ -480,6 +480,8 @@ core_fields = [
     ("go_mod_dl", None, str, False, False, False),
     ("go_build_tags", [], list, False, False, False),
     ("go_check_tags", [], list, False, False, False),
+    # cargo
+    ("cargo_auditable", False, bool, False, False, False),
 ]
 
 # a field priority list, the second element indicates whether
@@ -522,6 +524,7 @@ core_fields_priority = [
     ("go_mod_dl", True),
     ("go_build_tags", False),
     ("go_check_tags", False),
+    ("cargo_auditable", True),
     ("provides", True),
     ("provider_priority", True),
     ("replaces", True),
