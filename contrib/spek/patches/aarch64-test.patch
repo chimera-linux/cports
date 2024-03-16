@@ -1,0 +1,24 @@
+Patch-Source: https://github.com/alexkay/spek/commit/0998df9a7ac99d509ddd10fb76d883f24efc0179
+--
+From 0998df9a7ac99d509ddd10fb76d883f24efc0179 Mon Sep 17 00:00:00 2001
+From: Mike Wang <mikewang000000@gmail.com>
+Date: Sat, 28 Jan 2023 07:44:49 +0800
+Subject: [PATCH] Fix FFT unit tests (#263)
+
+---
+ tests/test-fft.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/test-fft.cc b/tests/test-fft.cc
+index 34519a1e..6b194249 100644
+--- a/tests/test-fft.cc
++++ b/tests/test-fft.cc
+@@ -62,7 +62,7 @@ static void test_sine()
+                 if (i == k) {
+                     continue;
+                 }
+-                if (plan->get_output(i) > -150.0f) {
++                if (plan->get_output(i) > -149.0f) {
+                     silence = false;
+                     break;
+                 }
