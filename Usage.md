@@ -440,6 +440,8 @@ only have an effect with specific commands.
   location before being migrated into the primary repository. This separate location
   mirrors the primary repository's layout. This allows one to "hide" changes until
   they are ready, for example until all shlibs are properly bumped.
+* `--status-fd N` A file descriptor number (must be open) to be used for status
+  reporting in bulk builds.
 * `-t`, `--temporary` Create a temporary `bldroot` for the build. The `-b` argument
   is used as a base path as well as the name prefix for the temporary root if
   provided. The temporary root is removed at the end (whether the build succeeded
@@ -460,53 +462,52 @@ The following commands are recognized:
   compatible host system.
 * `bootstrap-update` Update the packages in your build root to latest.
   Acts like `binary-bootstrap` if the `bldroot` does not exist.
+* `bulk-pkg` Given a list of bulk expressions (may be zero, see below), perform
+  a bulk build. The templates are sorted topologically, accounting for any
+  intermediate deps so that the build order is always guaranteed correct.
+  A status file descriptor (`--status-fd`) may be given, in which case
+  the final status of each template's build is written on a new line, in the
+  format `NAME STATUS`. The `STATUS` may be `skipped` (if skipped because of
+  previous failure), `invalid` (if an invalid template is given), `missing`
+  (if the template is a valid name but it's not found), `parse` (if it was
+  found but failed to parse), `broken` (if it's explicitly marked `broken`),
+  `failed` (if it failed to build) or `ok`. The bulk expressions themselves
+  may be a variety of things; if given no expressions, a full bulk build of
+  the whole `cports` is performed, otherwise the inputs may be simple template
+  names (like for `pkg`), category names (e.g. `main`), or special expressions.
+  The special expressions include `list:XXX` (a list of template names separated
+  by whitespace, but given as a single string), `file:PATH` (a file containing
+  a list of bulk expressions each on a new line), `-` or `file:-` (expressions
+  are collected from `stdin`), `status:unbuilt` (all templates that would be
+  printed by `print-unbuilt`), `status:FILE` (given a status file emitted by
+  `--status-fd` in a previous bulk, build those that were skipped or failed to
+  build; broken/invalid/missing/built templates are not included), or `git:EXPR`
+  (templates affected by the given Git expression; this may be a single commit
+  or a range of commits (`A..B`, half-open interval like regular Git ranges),
+  the commit may be represented by a name (e.g. branch name, `HEAD` and others,
+  just like in Git) and may include a positive or negative commit message `grep`
+  (e.g. `git:COMMIT+GREP` where `GREP` may be optionally prefixed with `^`,
+  which makes the expression case-insensitive, and `!`, which makes the match
+  negative).
+* `bulk-print` Like `bulk-pkg`, but only print the template names instead of
+  building them. The status reporting still works but obviously won't include
+  build failures, only parse failures and the likes.
+* `bulk-raw` Perform a raw bulk build. In this mode, only template names may
+  be given, no special expressions, and no sorting is done, i.e. packages are
+  built in the order that is given.
+* `bump-pkgrel` Given a list of template names (at least one), increase
+  the `pkgrel` number by one for each.
 * `chroot` Enter the build root with an interactive shell. In this environment,
   the root is mostly unsandboxed, i.e. writable and with network access. You
   can use this kind of environment for quick testing, as well as entering failed
   builds and inspecting them.
 * `clean` Clean up the build root. This means removing automatic dependencies
   and removing `builddir` and `destdir` within.
-* `keygen [KEYPATH [KEYSIZE]]` Generate your signing key. You can optionally
-  specify the key name (if not a path, will be stored in the default location
-  of `etc/keys`), key path, and key size (2048 by default). The configuration
-  file will automatically be updated. You can also pre-specify the key path
-  or name in the configuration file ahead of time, in which case it will use
-  those, unless overridden on the command line. The system will not overwrite
-  keys that already exist (i.e. if a valid key is specified in configuration,
-  this will fail).
-* `prune-obsolete` Prune obsolete packages within all repositories for the
-  current architecture (can be set with `-a`). This works for recursively
-  searching for `APKINDEX.tar.gz` within the repository path (`-r` or default)
-  and using those paths as repositories.
-* `prune-removed` Prune removed packages within all repositories for the
-  current architecture (can be set with `-a`). This works for recursively
-  searching for `APKINDEX.tar.gz` within the repository path (`-r` or default)
-  and using those paths as repositories. The affected repositories are
-  reindexed afterwards.
-* `prune-pkgs` Like running `prune-obsolete` followed by `prune-removed`.
-* `relink-subpkgs` Recreate subpackage symlinks for a template. If not
-  given any arguments, it will do it for all available templates. Otherwise,
-  it will do it for the given template. Invalid symlinks will be deleted
-  when the global action is performed, otherwise symlinks will only be
-  created or replaced. For the global action, passing `prune` as an
-  argument will result in the command also removing invalid directories
-  (not containing templates) and files.
-* `remove-autodeps` Remove automatic dependencies possibly installed in the
-  build root.
-* `zap` Remove the build root.
-* `lint` Read and parse the template, and do lint checks on it. Do nothing
-  else. Error on failures.
 * `cycle-check` Scan all templates or a single template for build-time
   dependency cycles. Only one cycle at a time is printed. The goal is to
   keep the tree free of cycles at all times. Therefore, if you encounter
   a cycle, resolve it and check again.
-* `print-unbuilt` Parse all templates and compare the local repository
-  against them. Print a spaces-separated list of templates that are either
-  out of date or missing. Templates that are not buildable are not included.
-* `index` When not given a path, reindex all known repositories. When given
-  a path, reindex a specific repository. Only either the host architecture or
-  the `-a` architecture are indexed, and the path should not include the
-  architecture.
+* `dump` Dump serialized template metadata in JSON format for all of `cports`.
 * `fetch`, `extract`, `prepare`, `patch`, `configure`, `build`, `check`,
   `install`, `pkg` Given an argument of template path (`category/name`) this
   will invoke the build process for the given template up until the given phase.
@@ -518,11 +519,66 @@ The following commands are recognized:
   overridden with `-f` or `--force`, when using the "pkg" target. Other
   targets will run always unless already finished in builddir (you can
   make them always run regardless by passing `-f` or `--force`).
+* `index` When not given a path, reindex all known repositories. When given
+  a path, reindex a specific repository. Only either the host architecture or
+  the `-a` architecture are indexed, and the path should not include the
+  architecture.
+* `keygen [KEYPATH [KEYSIZE]]` Generate your signing key. You can optionally
+  specify the key name (if not a path, will be stored in the default location
+  of `etc/keys`), key path, and key size (2048 by default). The configuration
+  file will automatically be updated. You can also pre-specify the key path
+  or name in the configuration file ahead of time, in which case it will use
+  those, unless overridden on the command line. The system will not overwrite
+  keys that already exist (i.e. if a valid key is specified in configuration,
+  this will fail).
+* `lint` Read and parse the template, and do lint checks on it. Do nothing
+  else. Error on failures.
+* `list-unbuilt` Sort of like `print-unbuilt`, but separate the outputs by
+  newlines and include a version (in the format `PNAME=PVER`) if possible.
+* `prepare-upgrade` Given a template name (one), read the template, fetch its
+  sources, update the `sha256` fields appropriately to match what was
+  downloaded, and reset `pkgrel` to zero. Note that you still need to manually
+  check whether the downloaded sources are good, don't trust it blindly.
+* `print-build-graph` Given a template name, print the build graph like if the
+  repository was empty, accounting for dependencies. Each further build level
+  (i.e. when a template is built as a dependency of another) is indented by
+  an extra space. Otherwise, the template names are printed on their own lines.
+* `print-unbuilt` Parse all templates and compare the local repository
+  against them. Print a spaces-separated list of templates that are either
+  out of date or missing. Templates that are not buildable are not included.
+* `prune-pkgs` Like running `prune-obsolete` followed by `prune-removed`.
+* `prune-obsolete` Prune obsolete packages within all repositories for the
+  current architecture (can be set with `-a`). This works for recursively
+  searching for `APKINDEX.tar.gz` within the repository path (`-r` or default)
+  and using those paths as repositories.
+* `prune-removed` Prune removed packages within all repositories for the
+  current architecture (can be set with `-a`). This works for recursively
+  searching for `APKINDEX.tar.gz` within the repository path (`-r` or default)
+  and using those paths as repositories. The affected repositories are
+  reindexed afterwards.
+* `prune-sources` Given no arguments, clean up the `sources/`. That includes
+  removing any sources that are no longer referred to by any template, as well
+  as any other unrelated files.
+* `relink-subpkgs` Recreate subpackage symlinks for a template. If not
+  given any arguments, it will do it for all available templates. Otherwise,
+  it will do it for the given template. Invalid symlinks will be deleted
+  when the global action is performed, otherwise symlinks will only be
+  created or replaced. For the global action, passing `prune` as an
+  argument will result in the command also removing invalid directories
+  (not containing templates) and files.
+* `remove-autodeps` Remove automatic dependencies possibly installed in the
+  build root.
 * `unstage` Attempt unstaging the repositories if possible. If conflicts
   prevent it from doing so (i.e. missing rebuilds and so on) you will get
   a warning instead, and nothing will happen.
 * `unstage-check-remote` Treating the local repository as a stage, check
-  if the local packages would unstage cleanly in the remote repo.
+  if the local packages would unstage cleanly in the remote repo. This is
+  useful to check if you've missed some rebuilds locally when rebuilding
+  for changed SONAMEs and so on.
+* `update-check` Check the given template for new versions. An extra argument
+  (may be any) makes the output verbose. See the relevant section inside the
+  packaging manual.
+* `zap` Remove the build root.
 
 <a id="config_file"></a>
 ### Configuration File
