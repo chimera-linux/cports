@@ -30,12 +30,18 @@ sha256 = "2b2fc84feb0197104982e8baf17952449375917da66b7a98b3e3fd0be63e5dba"
 options = ["!cross"]
 
 
+def post_build(self):
+    for shell in ["bash", "fish", "zsh"]:
+        with open(self.cwd / f"starship.{shell}", "w") as outf:
+            self.do(
+                f"target/{self.profile().triplet}/release/starship",
+                "completions",
+                shell,
+                stdout=outf,
+            )
+
+
 def post_install(self):
     self.install_license("LICENSE")
     for shell in ["bash", "fish", "zsh"]:
-        self.do(
-            "sh",
-            "-c",
-            f"{self.chroot_cwd}/target/{self.profile().triplet}/release/starship completions {shell} > starship.{shell}",
-        )
         self.install_completion(f"starship.{shell}", shell)
