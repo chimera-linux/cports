@@ -1,5 +1,5 @@
 pkgname = "waypipe"
-pkgver = "0.8.6"
+pkgver = "0.9.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -20,17 +20,18 @@ makedepends = [
     "ffmpeg-devel",
     "libdrm-devel",
     "libva-devel",
-    "zstd-devel",
+    "lz4-devel",
     "mesa-devel",
     "wayland-devel",
     "wayland-protocols",
+    "zstd-devel",
 ]
 pkgdesc = "Proxy for wayland clients"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/mstoeckl/waypipe"
 source = f"https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v{pkgver}/waypipe-v{pkgver}.tar.bz2"
-sha256 = "da40de2e02d60c2c34d549e791a9019c1ddf9d79f42bfad0c6cb74f3f6af9b16"
+sha256 = "79d5e8c534e190b0f076ae2e9cd711881d31efc58dbbd6326b477f3ed5a99807"
 hardening = ["vis", "cfi"]
 
 
