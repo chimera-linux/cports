@@ -1,8 +1,8 @@
 pkgname = "kvantum"
-pkgver = "1.0.10"
+pkgver = "1.1.0"
 pkgrel = 0
 build_style = "cmake"
-configure_args = ["-DQT_VERSION_MAJOR=6"]
+cmake_dir = "Kvantum"
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -10,6 +10,7 @@ hostmakedepends = [
     "qt6-qttools",
 ]
 makedepends = [
+    "kwindowsystem-devel",
     "libx11-devel",
     "libxext-devel",
     "qt6-qtbase-devel",
@@ -21,9 +22,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/tsujan/Kvantum"
 source = f"{url}/releases/download/V{pkgver}/Kvantum-{pkgver}.tar.xz"
-sha256 = "4a070a1a6fac3d1861010aa44d34e665e4697bc64c4c5015a6448203c31f1f1f"
+sha256 = "bfc5d97630c87e5b21ccab86efbc3511105c61829a75798923ec2274b7d5cd32"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check"]
-
-cmake_dir = "Kvantum"
