@@ -323,7 +323,7 @@ class Package:
         if destp.is_dir():
             destp = destp / pathlib.Path(srcp).name
         if relative:
-            srcp = os.path.relpath(srcp, start=destp)
+            srcp = os.path.relpath(srcp, start=destp.parent)
         destp.symlink_to(srcp)
 
     def chmod(self, path, mode):

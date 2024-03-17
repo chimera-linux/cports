@@ -18,7 +18,6 @@ depends = [
     "apk-tools",
     "bmake",
     "bsdtar",
-    "tzdata",
     "fakeroot-core",
     f"base-cbuild-progs={pkgver}-r{pkgrel}",
 ]
@@ -27,7 +26,7 @@ provides = ["apk-tools-cache-link=9999-r0"]
 options = ["bootstrap", "brokenlinks"]
 
 if self.stage > 0:
-    depends += ["bc-gh", "resolvconf", "resolvconf-none"]
+    depends += ["bc-gh", "resolvconf", "resolvconf-none", "tzdata"]
 
 if self.stage > 1:
     depends += ["ccache"]
