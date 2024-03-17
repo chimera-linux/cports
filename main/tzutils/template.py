@@ -3,7 +3,7 @@ pkgver = "2024a"
 pkgrel = 0
 build_style = "makefile"
 make_build_args = ["TZDIR=/usr/share/zoneinfo", "KSHELL=/bin/sh"]
-checkdepends = ["groff", "perl", "curl"]
+checkdepends = ["perl", "curl"]
 pkgdesc = "Time zone and daylight-saving time utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none AND BSD-3-Clause"
