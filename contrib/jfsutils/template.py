@@ -1,6 +1,6 @@
 pkgname = "jfsutils"
 pkgver = "1.1.15"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 makedepends = ["libuuid-devel"]
 pkgdesc = "JFS filesystem utilities"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://jfs.sourceforge.net"
 source = f"{url}/project/pub/jfsutils-{pkgver}.tar.gz"

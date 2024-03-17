@@ -1,10 +1,10 @@
 pkgname = "usrsctp"
 pkgver = "0.9.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 pkgdesc = "Portable SCTP userland stack"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/sctplab/usrsctp"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

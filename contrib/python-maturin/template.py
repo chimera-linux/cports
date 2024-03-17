@@ -1,6 +1,6 @@
 pkgname = "python-maturin"
 pkgver = "1.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {
     "MATURIN_SETUP_ARGS": "--features=full,native-tls,password-storage"
@@ -18,7 +18,7 @@ makedepends = ["rust-std", "openssl-devel"]
 checkdepends = ["pytest"]
 depends = ["python-tomli"]
 pkgdesc = "Tool for building and publishing Rust-based Python packages"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0 OR MIT"
 url = "https://www.maturin.rs"
 source = f"https://github.com/PyO3/maturin/archive/refs/tags/v{pkgver}.tar.gz"

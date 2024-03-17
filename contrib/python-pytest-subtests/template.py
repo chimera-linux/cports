@@ -1,6 +1,6 @@
 pkgname = "python-pytest-subtests"
 pkgver = "0.12.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -11,7 +11,7 @@ hostmakedepends = [
 depends = ["python-attrs", "python-pytest"]
 checkdepends = ["python-pytest-xdist"] + depends
 pkgdesc = "Unittest subTest() and subtests fixture"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-subtests"
 source = f"$(PYPI_SITE)/p/pytest-subtests/pytest-subtests-{pkgver}.tar.gz"

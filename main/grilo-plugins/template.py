@@ -1,6 +1,6 @@
 pkgname = "grilo-plugins"
 pkgver = "0.3.16"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     # TODO: gom
@@ -36,7 +36,7 @@ makedepends = [
     "tracker-devel",
 ]
 pkgdesc = "Collection of plugins for Grilo"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/grilo-plugins"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"

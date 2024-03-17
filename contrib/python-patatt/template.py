@@ -1,6 +1,6 @@
 pkgname = "python-patatt"
 pkgver = "0.6.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -12,7 +12,7 @@ depends = ["python-pynacl"]
 pkgdesc = (
     "Library that adds cryptographic attestation to patches sent via email"
 )
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT-0"
 url = "https://git.kernel.org/pub/scm/utils/patatt/patatt.git"
 source = f"$(PYPI_SITE)/p/patatt/patatt-{pkgver}.tar.gz"

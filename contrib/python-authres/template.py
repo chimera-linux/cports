@@ -1,6 +1,6 @@
 pkgname = "python-authres"
 pkgver = "1.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -9,7 +9,7 @@ hostmakedepends = [
     "python-wheel",
 ]
 pkgdesc = "Authentication-Results verification module"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://launchpad.net/authentication-results-python"
 source = f"$(PYPI_SITE)/a/authres/authres-{pkgver}.tar.gz"
