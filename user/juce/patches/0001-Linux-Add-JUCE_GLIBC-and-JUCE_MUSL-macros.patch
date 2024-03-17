@@ -1,0 +1,39 @@
+From a730316bbc6255e764c51f49df42570e9fd26ac2 Mon Sep 17 00:00:00 2001
+From: Violet Purcell <vimproved@inventati.org>
+Date: Thu, 15 Jun 2023 18:34:45 +0000
+Subject: [PATCH 1/4] Linux: Add JUCE_GLIBC and JUCE_MUSL macros
+
+---
+ modules/juce_core/system/juce_TargetPlatform.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/modules/juce_core/system/juce_TargetPlatform.h b/modules/juce_core/system/juce_TargetPlatform.h
+index 9b3b495f8..ae4ee89c5 100644
+--- a/modules/juce_core/system/juce_TargetPlatform.h
++++ b/modules/juce_core/system/juce_TargetPlatform.h
+@@ -45,6 +45,7 @@
+     - Either JUCE_LITTLE_ENDIAN or JUCE_BIG_ENDIAN.
+     - Either JUCE_INTEL or JUCE_ARM
+     - Either JUCE_GCC or JUCE_CLANG or JUCE_MSVC
++    - Either JUCE_GLIBC or JUCE_MUSL will be defined on Linux depending on the system's libc implementation.
+ */
+ 
+ //==============================================================================
+@@ -196,6 +197,14 @@
+   #elif __MMX__ || __SSE__ || __amd64__
+     #define JUCE_INTEL 1
+   #endif
++
++  #if JUCE_LINUX
++    #ifdef __GLIBC__
++      #define JUCE_GLIBC 1
++    #else
++      #define JUCE_MUSL 1
++    #endif
++  #endif
+ #endif
+ 
+ //==============================================================================
+-- 
+2.46.0
+
