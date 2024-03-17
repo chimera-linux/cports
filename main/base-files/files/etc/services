@@ -11151,6 +11151,7 @@ icl-twobase9    25008/tcp
 icl-twobase9    25008/udp
 icl-twobase10   25009/tcp
 icl-twobase10   25009/udp
+db2c-tls        25100/tcp
 rna             25471/sctp
 sauterdongle    25576/tcp
 idtp            25604/tcp

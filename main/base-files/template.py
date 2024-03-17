@@ -1,7 +1,9 @@
 pkgname = "base-files"
-_iana_ver = "20240222"
+_iana_ver = "20240305"
 pkgver = f"0.1.{_iana_ver}"
 pkgrel = 0
+# highest priority dir owner
+replaces_priority = 65535
 pkgdesc = "Chimera Linux base system files"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
@@ -40,7 +42,7 @@ def do_install(self):
         self.install_dir("usr/share/man/man" + str(i))
 
     # /var dirs
-    for d in ["empty", "log", "opt", "cache", "lib", "mail", "spool"]:
+    for d in ["empty", "log", "opt", "cache", "lib", "mail", "spool", "www"]:
         self.install_dir("var/" + d)
 
     # /var symlinks
