@@ -1,6 +1,6 @@
 pkgname = "inkscape"
 pkgver = "1.3.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DBUILD_TESTING=OFF"]
 hostmakedepends = [
@@ -11,11 +11,11 @@ hostmakedepends = [
     "gettext",
     "glib-devel",
 ]
-# TODO: graphicsmagick once we have it
 makedepends = [
     "gtk+3-devel",
     "boost-devel",
     "gc-devel",
+    "graphicsmagick-devel",
     "gtkmm3.0-devel",
     "gspell-devel",
     "lcms2-devel",
