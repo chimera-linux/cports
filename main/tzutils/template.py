@@ -92,7 +92,7 @@ def post_install(self):
         for sl in hv[1:]:
             sl.unlink()
             # use relative symlinks
-            sl.symlink_to(fl.relative_to(sl))
+            self.ln_s(fl, sl, relative=True)
     # tmpfiles
     self.install_file(self.files_path / "tzdata.conf", "usr/lib/tmpfiles.d")
 
