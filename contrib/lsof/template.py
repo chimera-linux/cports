@@ -5,9 +5,9 @@ build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = [
     "automake",
-    "groff",
     "gmake",
     "libtool",
+    "mandoc",
     "pkgconf",
 ]
 makedepends = ["linux-headers"]
@@ -22,6 +22,7 @@ sha256 = "b9c56468b927d9691ab168c0b1e9f8f1f835694a35ff898c549d383bd8d09bd4"
 hardening = ["vis"]
 # FIXME: weird failures
 options = ["!check"]
+exec_wrappers = [("/usr/bin/mandoc", "nroff")]
 
 
 def post_install(self):
