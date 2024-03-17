@@ -1,6 +1,6 @@
 pkgname = "mandoc"
 pkgver = "1.14.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
 make_cmd = "gmake"
 make_check_target = "regress"
@@ -28,6 +28,7 @@ PREFIX=/usr
 SBINDIR=/usr/bin
 MANDIR=/usr/share/man
 OSNAME="Chimera Linux"
+BINM_SOELIM=mandoc-soelim
 CFLAGS="{self.get_cflags(shell=True)}"
 LDFLAGS="{self.get_ldflags(shell=True)}"
 CC="{self.get_tool("CC")}"
@@ -39,6 +40,9 @@ UTF8_LOCALE=C.UTF-8
 
 def post_install(self):
     self.install_license("LICENSE")
+
+    # conflicts with groff-man
+    self.rm(self.destdir / "usr/share/man/man7/roff.7")
 
     self.install_dir("etc")
     # from void
