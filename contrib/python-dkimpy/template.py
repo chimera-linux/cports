@@ -1,6 +1,6 @@
 pkgname = "python-dkimpy"
 pkgver = "1.1.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -16,7 +16,7 @@ depends = [
 ]
 checkdepends = ["python-pytest"] + depends
 pkgdesc = "Python library that implements DKIM email signing and verification"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://launchpad.net/dkimpy"
 source = f"$(PYPI_SITE)/d/dkimpy/dkimpy-{pkgver}.tar.gz"

@@ -1,6 +1,6 @@
 pkgname = "python-certifi"
 pkgver = "2024.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 depends = ["ca-certificates", "python"]
 pkgdesc = "Python package for providing Mozilla's CA bundle"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://github.com/certifi/python-certifi"
 source = f"$(PYPI_SITE)/c/certifi/certifi-{pkgver}.tar.gz"

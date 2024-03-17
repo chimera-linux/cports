@@ -1,6 +1,6 @@
 pkgname = "python-git-filter-repo"
 pkgver = "2.38.0"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "release"
 build_style = "python_pep517"
 make_build_env = {"SETUPTOOLS_SCM_PRETEND_VERSION": pkgver}
@@ -13,7 +13,7 @@ hostmakedepends = [
 depends = ["git", "python"]
 checkdepends = ["bash", "rsync"] + depends
 pkgdesc = "Tool for rewriting git history"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/newren/git-filter-repo"
 # pypi tarball doesn't contain tests and man pages

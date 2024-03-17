@@ -1,6 +1,6 @@
 pkgname = "python-aiodns"
 pkgver = "3.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -10,7 +10,7 @@ hostmakedepends = [
 ]
 depends = ["python-pycares"]
 pkgdesc = "Simple DNS resolver for asyncio"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/saghul/aiodns"
 source = f"$(PYPI_SITE)/a/aiodns/aiodns-{pkgver}.tar.gz"

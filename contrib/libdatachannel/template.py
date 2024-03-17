@@ -1,6 +1,6 @@
 pkgname = "libdatachannel"
 pkgver = "0.20.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DNO_EXAMPLES=ON",
@@ -21,7 +21,7 @@ makedepends = [
     "usrsctp-devel",
 ]
 pkgdesc = "WebRTC network library"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MPL-2.0"
 url = "https://libdatachannel.org"
 source = f"https://github.com/paullouisageneau/libdatachannel/archive/refs/tags/v{pkgver}.tar.gz"

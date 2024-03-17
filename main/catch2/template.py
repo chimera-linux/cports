@@ -1,6 +1,6 @@
 pkgname = "catch2"
 pkgver = "3.5.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -11,7 +11,7 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 checkdepends = ["python"]
 pkgdesc = "C++-based test framework"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://github.com/catchorg/Catch2"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

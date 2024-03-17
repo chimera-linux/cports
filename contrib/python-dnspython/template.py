@@ -1,6 +1,6 @@
 pkgname = "python-dnspython"
 pkgver = "2.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -9,7 +9,7 @@ hostmakedepends = [
 ]
 checkdepends = ["python-pytest"]
 pkgdesc = "DNS toolkit for Python"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "ISC"
 url = "https://www.dnspython.org"
 source = f"$(PYPI_SITE)/d/dnspython/dnspython-{pkgver}.tar.gz"

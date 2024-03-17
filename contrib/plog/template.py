@@ -1,6 +1,6 @@
 pkgname = "plog"
 pkgver = "1.1.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DPLOG_BUILD_SAMPLES=OFF",
@@ -11,7 +11,7 @@ hostmakedepends = [
     "ninja",
 ]
 pkgdesc = "Portable, simple, and extensible C++ logging library"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/SergiusTheBest/plog"
 source = f"{url}/archive/refs/tags/{pkgver}.tar.gz"

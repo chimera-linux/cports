@@ -1,6 +1,6 @@
 pkgname = "python-b4"
 pkgver = "0.13.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -17,7 +17,7 @@ depends = [
 ]
 checkdepends = ["python-git-filter-repo", "python-pytest", "python-requests"]
 pkgdesc = "Tool to help with email-based patch workflows"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/mricon/b4"
 # pypi tarball doesn't contain tests

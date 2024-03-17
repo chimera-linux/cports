@@ -1,6 +1,6 @@
 pkgname = "python-jsonschema"
 pkgver = "4.21.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 # needs pip
 make_check_args = ["-k", "not test_license"]
@@ -22,7 +22,7 @@ depends = [
     "python-rpds-py",
 ]
 pkgdesc = "Implementation of the JSON Schema specification for Python"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/python-jsonschema/jsonschema"
 source = f"$(PYPI_SITE)/j/jsonschema/jsonschema-{pkgver}.tar.gz"

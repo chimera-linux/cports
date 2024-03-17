@@ -1,6 +1,6 @@
 pkgname = "thermald"
 pkgver = "2.5.6"
-pkgrel = 0
+pkgrel = 1
 archs = ["x86_64"]
 # don't use autogen.sh, it generates files that force reconf in do_build
 build_style = "gnu_configure"
@@ -27,7 +27,7 @@ makedepends = [
     "xz-devel",
 ]
 pkgdesc = "Thermal daemon for x86_64-based Intel CPUs"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/intel/thermal_daemon"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"

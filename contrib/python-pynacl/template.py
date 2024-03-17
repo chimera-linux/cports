@@ -1,6 +1,6 @@
 pkgname = "python-pynacl"
 pkgver = "1.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 make_build_env = {"SODIUM_INSTALL": "system"}
 hostmakedepends = [
@@ -14,7 +14,7 @@ makedepends = ["libsodium-devel", "python-devel"]
 checkdepends = ["python-hypothesis", "python-pytest"]
 depends = ["python-cffi"]
 pkgdesc = "Python bindings for libsodium"
-maintainer = "miko <mikoxyzzz@gmail.com>"
+maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/pyca/pynacl"
 source = f"$(PYPI_SITE)/P/PyNaCl/PyNaCl-{pkgver}.tar.gz"
