@@ -51,7 +51,7 @@ options = ["!check"]
 
 
 def pre_build(self):
-    self.do("sh", "-c", "gmake opts")
+    self.do("gmake", "opts")
 
 
 def post_install(self):
