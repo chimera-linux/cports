@@ -1,14 +1,13 @@
 pkgname = "wlroots0.17"
 pkgver = "0.17.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    # all except xcb-errors are needed,
+    # all auto features are needed,
     # don't accidentally end up with them disabled
     "--auto-features=enabled",
     "--includedir=/usr/include/wlroots-0.17",
     "-Dexamples=false",
-    "-Dxcb-errors=disabled",
 ]
 hostmakedepends = [
     "glslang-progs",
@@ -33,6 +32,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-devel",
     "wayland-protocols",
+    "xcb-util-errors-devel",
     "xcb-util-renderutil-devel",
     "xcb-util-wm-devel",
 ]
