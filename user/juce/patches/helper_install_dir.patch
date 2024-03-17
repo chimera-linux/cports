@@ -1,0 +1,23 @@
+Patch-Source: https://gitlab.archlinux.org/archlinux/packaging/packages/juce/-/blob/85ac0733192bb74ca0ae07f64f38d20a1a9a9691/juce-7.0.11-helper_install_dir.patch
+
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index 04842652c..59cb982a0 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -167,14 +167,14 @@ if(("${CMAKE_SOURCE_DIR}" STREQUAL "${JUCE_SOURCE_DIR}") AND (NOT JUCE_BUILD_HEL
+     _juce_add_lv2_manifest_helper_target()
+ 
+     if(TARGET juce_lv2_helper)
+-        install(TARGETS juce_lv2_helper EXPORT LV2_HELPER DESTINATION "bin/JUCE-${JUCE_VERSION}")
++        install(TARGETS juce_lv2_helper EXPORT LV2_HELPER DESTINATION "bin")
+         install(EXPORT LV2_HELPER NAMESPACE juce:: DESTINATION "${JUCE_INSTALL_DESTINATION}")
+     endif()
+ 
+     _juce_add_vst3_manifest_helper_target()
+ 
+     if(TARGET juce_vst3_helper)
+-        install(TARGETS juce_vst3_helper EXPORT VST3_HELPER DESTINATION "bin/JUCE-${JUCE_VERSION}")
++        install(TARGETS juce_vst3_helper EXPORT VST3_HELPER DESTINATION "bin")
+         install(EXPORT VST3_HELPER NAMESPACE juce:: DESTINATION "${JUCE_INSTALL_DESTINATION}")
+     endif()
+ endif()

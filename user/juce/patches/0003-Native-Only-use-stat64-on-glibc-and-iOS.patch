@@ -1,0 +1,28 @@
+From 34a1265a71fcb3029a07b52c566ef09c9e2f2b6d Mon Sep 17 00:00:00 2001
+From: Violet Purcell <vimproved@inventati.org>
+Date: Thu, 15 Jun 2023 18:40:57 +0000
+Subject: [PATCH 3/4] Native: Only use stat64 on glibc and iOS
+
+Musl 1.2.4 made the LFS64 interfaces only available when
+_LARGEFILE64_SOURCE is defined, and they will be removed altogether in
+Musl 1.2.5.
+---
+ modules/juce_core/native/juce_SharedCode_posix.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules/juce_core/native/juce_SharedCode_posix.h b/modules/juce_core/native/juce_SharedCode_posix.h
+index 0efb43a53..ac25477aa 100644
+--- a/modules/juce_core/native/juce_SharedCode_posix.h
++++ b/modules/juce_core/native/juce_SharedCode_posix.h
+@@ -178,7 +178,7 @@ int juce_siginterrupt ([[maybe_unused]] int sig, [[maybe_unused]] int flag)
+ //==============================================================================
+ namespace
+ {
+-   #if JUCE_LINUX || (JUCE_IOS && (! TARGET_OS_MACCATALYST) && (! __DARWIN_ONLY_64_BIT_INO_T)) // (this iOS stuff is to avoid a simulator bug)
++   #if JUCE_GLIBC || (JUCE_IOS && (! TARGET_OS_MACCATALYST) && (! __DARWIN_ONLY_64_BIT_INO_T)) // (this iOS stuff is to avoid a simulator bug)
+     using juce_statStruct = struct stat64;
+     #define JUCE_STAT  stat64
+    #else
+-- 
+2.46.0
+

@@ -1,0 +1,47 @@
+From: Debian Multimedia Maintainers <debian-multimedia@lists.debian.org>
+Date: Wed, 13 Jan 2021 13:47:55 +0100
+Subject: link applications against libpng/libjpeg/zlib
+
+Origin: Debian
+Forwarded: not-needed
+Last-Update: 2021-01-13
+
+since we have stripped some libraries, we need to explicitly link against
+the system provided libraries
+Last-Update: 2022-11-10
+---
+ extras/Build/CMake/JUCEUtils.cmake | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff -ruN a/extras/Build/CMake/JUCEModuleSupport.cmake b/extras/Build/CMake/JUCEModuleSupport.cmake
+--- a/extras/Build/CMake/JUCEModuleSupport.cmake	2024-07-29 13:47:03.000000000 +0200
++++ b/extras/Build/CMake/JUCEModuleSupport.cmake	2024-08-31 13:41:21.395323533 +0200
+@@ -486,7 +486,7 @@
+     if(${module_name} STREQUAL "juce_core")
+         _juce_add_standard_defs(${module_name})
+ 
+-        target_link_libraries(juce_core INTERFACE juce::juce_atomic_wrapper)
++        target_link_libraries(juce_core INTERFACE juce::juce_atomic_wrapper z)
+ 
+         if(CMAKE_SYSTEM_NAME MATCHES ".*BSD")
+             target_link_libraries(juce_core INTERFACE execinfo)
+diff -ruN a/extras/Build/CMake/JUCEUtils.cmake b/extras/Build/CMake/JUCEUtils.cmake
+--- a/extras/Build/CMake/JUCEUtils.cmake	2024-07-29 13:47:03.000000000 +0200
++++ b/extras/Build/CMake/JUCEUtils.cmake	2024-08-31 13:42:10.947964363 +0200
+@@ -108,6 +108,7 @@
+     _juce_create_pkgconfig_target(JUCE_CURL_LINUX_DEPS libcurl)
+     _juce_available_pkgconfig_module_or_else(webkit_package_name webkit2gtk-4.1 webkit2gtk-4.0)
+     _juce_create_pkgconfig_target(JUCE_BROWSER_LINUX_DEPS ${webkit_package_name} gtk+-x11-3.0)
++    _juce_create_pkgconfig_target(JUCE_IMG_LINUX_DEPS libpng libjpeg)
+ endif()
+ 
+ # We set up default/fallback copy dirs here. If you need different copy dirs, use
+@@ -275,6 +276,8 @@
+                 juce_link_with_embedded_linux_subprocess(${target})
+             endif()
+         endif()
++
++        target_link_libraries(${target} PRIVATE juce::pkgconfig_JUCE_IMG_LINUX_DEPS)
+     elseif(APPLE)
+         get_target_property(needs_storekit ${target} JUCE_NEEDS_STORE_KIT)
+ 
