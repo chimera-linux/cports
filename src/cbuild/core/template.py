@@ -1304,6 +1304,10 @@ class Template(Package):
             tfb = [
                 f"-ffile-prefix-map={self.chroot_builddir / self.wrksrc}=."
             ] + tfb
+        if self.stage > 0 and name == "RUSTFLAGS":
+            tfb = [
+                f"--remap-path-prefix={self.chroot_builddir / self.wrksrc}=."
+            ] + tfb
 
         return target._get_tool_flags(
             name,
