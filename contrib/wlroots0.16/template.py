@@ -1,6 +1,6 @@
 pkgname = "wlroots0.16"
 pkgver = "0.16.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = ["-Dexamples=false", "--includedir=/usr/include/wlroots-0.16"]
 hostmakedepends = [
@@ -24,6 +24,7 @@ makedepends = [
     "vulkan-loader-devel",
     "wayland-devel",
     "wayland-protocols",
+    "xcb-util-errors-devel",
     "xcb-util-renderutil-devel",
     "xcb-util-wm-devel",
 ]
