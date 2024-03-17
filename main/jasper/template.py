@@ -1,6 +1,6 @@
 pkgname = "jasper"
 pkgver = "4.2.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # checks for subdir of source tree, so srcdir/jbuild is 'in-source'

@@ -1,0 +1,27 @@
+For some reason this otherwise segfaults on this line:
+
+pxform->refcnt = 0;
+
+The debugger however does not report anything being wrong
+and happily reads the memory, so I don't know.
+
+Easily reproducible through graphicsmagick tests.
+
+--- a/src/libjasper/base/jas_cm.c
++++ b/src/libjasper/base/jas_cm.c
+@@ -817,14 +817,7 @@ static int jas_cmpxformseq_resize(jas_cmpxformseq_t *pxformseq, unsigned n)
+ 
+ static jas_cmpxform_t *jas_cmpxform_create0()
+ {
+-	jas_cmpxform_t *pxform;
+-	if (!(pxform = jas_malloc(sizeof(jas_cmpxform_t)))) {
+-		return 0;
+-	}
+-	memset(pxform, 0, sizeof(jas_cmpxform_t));
+-	pxform->refcnt = 0;
+-	pxform->ops = 0;
+-	return pxform;
++	return jas_calloc(1, sizeof(jas_cmpxform_t));
+ }
+ 
+ static void jas_cmpxform_destroy(jas_cmpxform_t *pxform)
