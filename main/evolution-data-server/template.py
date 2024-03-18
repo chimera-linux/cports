@@ -1,10 +1,8 @@
 pkgname = "evolution-data-server"
-pkgver = "3.50.4"
+pkgver = "3.52.0"
 pkgrel = 0
 build_style = "cmake"
-# TODO: libgdata
 configure_args = [
-    "-DENABLE_GOOGLE=OFF",
     "-DWITH_LIBDB=OFF",
     "-DSYSCONF_INSTALL_DIR=/etc",
     "-DENABLE_INTROSPECTION=ON",
@@ -47,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/evolution-data-server"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d7edffbe03a0bbcecbee67393214b831c7b18cd895b84c4dbfe1387776e257c5"
+sha256 = "a5d5e11c7a1e585846efe260f3c1c61a78399bd8b623bfd79ac1c0ffea7bde06"
 # internally passes some stuff that only goes to linker
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["!cross"]
