@@ -1,0 +1,14 @@
+Otherwise version in .pc file has suffix -unknown which cbuild fails on.
+diff --git a/autogen.sh b/autogen.sh
+index 9b36158..d5cccd2 100755
+--- a/autogen.sh
++++ b/autogen.sh
+@@ -266,7 +266,7 @@ if [ "$myhost" = "find-version" ]; then
+     else
+       ingit=no
+       beta=yes
+-      tmp="-unknown"
++      tmp=""
+       rev="0000000"
+       rvd="0"
+     fi
