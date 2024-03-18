@@ -1,6 +1,6 @@
 pkgname = "tzutils"
 pkgver = "2024a"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_build_args = ["KSHELL=/bin/sh"]
 make_install_args = ["ZICDIR=/usr/bin", "ZFLAGS=-b fat"]
@@ -31,42 +31,24 @@ def post_install(self):
     self.rm(self.destdir / "usr/lib", recursive=True)
     # irrelevant c manpages
     self.rm(self.destdir / "usr/share/man/man3", recursive=True)
-    # for clean upgrades
+    # don't care
+    self.rm(self.destdir / "usr/share/zoneinfo-posix")
+    # this will be split
     self.mv(
         self.destdir / "usr/share/zoneinfo-leaps",
         self.destdir / "usr/share/zoneinfo/right",
     )
-    self.install_link("zoneinfo/right", "usr/share/zoneinfo-leaps")
-    # ditto
-    self.rm(self.destdir / "usr/share/zoneinfo-posix")
-    self.install_link("zoneinfo/posix", "usr/share/zoneinfo-posix")
-    # now build up the posix dir
-    dst = "usr/share/zoneinfo/posix"
-    self.install_dir(dst)
-    # we need links to individual files and just the whole directory,
-    # because apk cannot transition dirs to links without failing
-    # and we don't want a pre-upgrade hook (apk is expected to be
-    # fixed eventually, at that point we could migrate this)
-    for d in (self.destdir / "usr/share/zoneinfo").glob("[A-Z]*"):
-        if d.is_dir():
-            self.install_dir(f"{dst}/{d.name}")
-            for dd in d.iterdir():
-                # max nesting level is two deep
-                if dd.is_dir():
-                    self.install_dir(f"{dst}/{d.name}/{dd.name}")
-                    for f in dd.iterdir():
-                        self.install_link(
-                            f"../../../{d.name}/{dd.name}/{f.name}",
-                            f"{dst}/{d.name}/{dd.name}/{f.name}",
-                        )
-                else:
-                    self.install_link(
-                        f"../../{d.name}/{dd.name}", f"{dst}/{d.name}/{dd.name}"
-                    )
-        else:
-            self.install_link(f"../{d.name}", f"{dst}/{d.name}")
     # tmpfiles
     self.install_file(self.files_path / "tzdata.conf", "usr/lib/tmpfiles.d")
+
+
+@subpackage("tzdata-right")
+def _tzdatar(self):
+    self.pkgdesc = "Time zone and daylight-saving time data (TAI)"
+    self.options = ["hardlinks"]
+    self.depends = [f"tzdata={pkgver}-r{pkgrel}"]
+
+    return ["usr/share/zoneinfo/right"]
 
 
 @subpackage("tzdata")
@@ -75,4 +57,4 @@ def _tzdata(self):
     # cannot be symlinks; some software does not like it
     self.options = ["hardlinks"]
 
-    return ["usr/lib/tmpfiles.d", "usr/share/zoneinfo*"]
+    return ["usr/lib/tmpfiles.d", "usr/share/zoneinfo"]
