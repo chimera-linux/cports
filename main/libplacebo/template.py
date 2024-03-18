@@ -20,7 +20,6 @@ hostmakedepends = [
 makedepends = [
     "glslang-devel",
     "lcms2-devel",
-    "mesa-devel",
     "shaderc-devel",
     "vulkan-headers",
     "vulkan-loader-devel",
