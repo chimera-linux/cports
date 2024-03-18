@@ -1,6 +1,6 @@
 pkgname = "tzutils"
 pkgver = "2024a"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_build_args = ["KSHELL=/bin/sh"]
 make_install_args = ["ZICDIR=/usr/bin", "ZFLAGS=-b fat"]
@@ -65,34 +65,6 @@ def post_install(self):
                     )
         else:
             self.install_link(f"../{d.name}", f"{dst}/{d.name}")
-    # now convert all hardlinks to symlinks; in order to avoid duplicating
-    # the files (as apk does not track hardlinks) we can save some two
-    # megabytes of space here, at seemingly no cost
-    #
-    # first collect hardlinks in a set of lists
-    hlinks = {}
-    for f in (self.destdir / "usr/share/zoneinfo").rglob("*"):
-        if not f.is_file():
-            continue
-        st = f.lstat()
-        # first summatize in a dictionary
-        if st.st_ino not in hlinks:
-            hlinks[st.st_ino] = [f]
-        else:
-            hlinks[st.st_ino].append(f)
-    # now go over each hardlink list with multiple items and sort it
-    for hk in hlinks:
-        hv = hlinks[hk]
-        # skip uniques
-        if len(hv) < 2:
-            continue
-        # sorted so it's stable
-        hv.sort()
-        fl = hv[0]
-        for sl in hv[1:]:
-            sl.unlink()
-            # use relative symlinks
-            self.ln_s(fl, sl, relative=True)
     # tmpfiles
     self.install_file(self.files_path / "tzdata.conf", "usr/lib/tmpfiles.d")
 
@@ -100,5 +72,7 @@ def post_install(self):
 @subpackage("tzdata")
 def _tzdata(self):
     self.pkgdesc = "Time zone and daylight-saving time data"
+    # cannot be symlinks; some software does not like it
+    self.options = ["hardlinks"]
 
     return ["usr/lib/tmpfiles.d", "usr/share/zoneinfo*"]
