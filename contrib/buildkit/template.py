@@ -1,6 +1,6 @@
 pkgname = "buildkit"
-pkgver = "0.13.0"
-pkgrel = 1
+pkgver = "0.13.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/..."]
 hostmakedepends = ["go"]
@@ -10,7 +10,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/moby/buildkit"
 source = f"https://github.com/moby/buildkit/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6b7cece44acce189870d7fe68521d1f9b2fbc07e791843f77f930b6ad82057b4"
+sha256 = "96466d2a51d5327e9a1e5e99fe2a229ba2b3ff62175f0c45e4e9b82e904fdc65"
 # debug: objcopy ppc64
 # check: cannot work in bwrap
 options = ["!debug", "!check"]
