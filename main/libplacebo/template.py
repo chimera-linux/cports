@@ -1,6 +1,6 @@
 pkgname = "libplacebo"
 pkgver = "6.338.2"
-pkgrel = 3
+pkgrel = 4
 build_style = "meson"
 configure_args = [
     "-Dshaderc=enabled",
@@ -24,6 +24,7 @@ makedepends = [
     "shaderc-devel",
     "vulkan-headers",
     "vulkan-loader-devel",
+    "xxhash-devel",
 ]
 pkgdesc = "Reusable library for GPU-accelerated video/image rendering"
 maintainer = "q66 <q66@chimera-linux.org>"
