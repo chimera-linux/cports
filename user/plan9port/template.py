@@ -22,9 +22,9 @@ options = ["!cross", "!lintstatic"]
 
 def do_configure(self):
     with open(self.cwd / "LOCAL.config", "w") as config:
-        config.write(f"CC9=" + self.get_tool("CC") + "\n")
+        config.write("CC9=" + self.get_tool("CC") + "\n")
         config.write(
-            f"CC9FLAGS='"
+            "CC9FLAGS='"
             + self.get_cflags(shell=True)
             + " "
             + self.get_ldflags(shell=True)
