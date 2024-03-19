@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.56.4"
+pkgver = "2.57.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -11,25 +11,25 @@ configure_args = [
 configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
-    "pkgconf",
     "cargo",
-    "python",
-    "gobject-introspection",
-    "glib-devel",
     "gdk-pixbuf-devel",
-    "vala",
+    "glib-devel",
+    "gmake",
+    "gobject-introspection",
+    "pkgconf",
+    "python",
     "python-docutils",
+    "vala",
 ]
 makedepends = [
-    "rust-std",
-    "vala-devel",
     "cairo-devel",
-    "pango-devel",
     "freetype-devel",
     "gdk-pixbuf-devel",
     "glib-devel",
     "libxml2-devel",
+    "pango-devel",
+    "rust-std",
+    "vala-devel",
 ]
 provides = [f"gdk-pixbuf-loader-svg={pkgver}-r{pkgrel}"]
 pkgdesc = "SVG library for GNOME"
@@ -37,7 +37,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ea87fdcf5159348fcb08b14c43e91a9d3d9e45dc2006a875d1711bb65b6740f5"
+sha256 = "1b2267082c0b77ef93b15747a5c754584eb5886baf2d5a08011cde0659c2c479"
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check", "!cross"]
 
