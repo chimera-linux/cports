@@ -1,0 +1,33 @@
+From eff6ecda9614f673bb859f5c45c9666d9a3cd383 Mon Sep 17 00:00:00 2001
+From: Jami Kettunen <jami.kettunen@protonmail.com>
+Date: Mon, 15 Apr 2024 19:17:53 +0300
+Subject: [PATCH] create: make rootless podman containers with
+ --stop-signal=SIGKILL
+
+Otherwise "podman stop" commands for them always hang for a while with:
+
+  WARN[0010] StopSignal SIGTERM failed to stop container debian in 10 seconds, resorting to SIGKILL
+---
+ distrobox-create | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/distrobox-create b/distrobox-create
+index 6ba79ad..0872d28 100755
+--- a/distrobox-create
++++ b/distrobox-create
+@@ -543,6 +543,12 @@ if [ -n "${container_additional_volumes}" ]; then
+ 	done
+ fi
+ 
++# avoid guaranteed 10s wait on "podman stop" of rootless containers
++if [ "${container_manager}" = "podman" ] && [ "${rootful}" -eq 0 ]; then
++	container_manager_additional_flags="${container_manager_additional_flags}
++			--stop-signal=SIGKILL"
++fi
++
+ # Check that we have a complete distrobox installation or
+ # entrypoint and export will not work.
+ if [ -z "${distrobox_entrypoint_path}" ] || [ -z "${distrobox_export_path}" ]; then
+-- 
+2.44.0
+
