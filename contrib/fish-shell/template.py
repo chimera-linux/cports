@@ -1,6 +1,6 @@
 pkgname = "fish-shell"
-pkgver = "3.7.0"
-pkgrel = 1
+pkgver = "3.7.1"
+pkgrel = 0
 build_style = "cmake"
 make_check_target = "fish_run_tests"
 hostmakedepends = ["cmake", "ninja", "pkgconf", "gettext"]
@@ -11,7 +11,7 @@ maintainer = "lunamothxyz <mail@lunamoth.xyz>"
 license = "GPL-2.0-only"
 url = "https://fishshell.com"
 source = f"https://github.com/fish-shell/fish-shell/releases/download/{pkgver}/fish-{pkgver}.tar.xz"
-sha256 = "df1b7378b714f0690b285ed9e4e58afe270ac98dbc9ca5839589c1afcca33ab1"
+sha256 = "614c9f5643cd0799df391395fa6bbc3649427bb839722ce3b114d3bbc1a3b250"
 hardening = ["vis", "cfi"]
 
 
