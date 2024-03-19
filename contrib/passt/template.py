@@ -1,5 +1,5 @@
 pkgname = "passt"
-_pkgver = "2024_03_18.615d370"
+_pkgver = "2024_03_19.d35bcbe"
 # yeardate only
 pkgver = _pkgver.split(".")[0].replace("_", ".")
 pkgrel = 0
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause AND GPL-2.0-or-later"
 url = "https://passt.top/passt/about"
 source = f"https://passt.top/passt/snapshot/passt-{_pkgver}.tar.zst"
-sha256 = "274cccc5602453d5e7c30fa374bada44d7a18670f72655c5b0d43746146d99e2"
+sha256 = "a761ab618ce6cd082b751955e3ed553e813acb8c550403c97f20d06aa8250db5"
 # tries to pass this via __attribute(optimise) for some stuff but that is ignored
 tool_flags = {"CFLAGS": ["-fno-strict-aliasing"]}
 hardening = ["vis", "cfi"]
