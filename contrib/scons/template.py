@@ -1,6 +1,6 @@
 pkgname = "scons"
-pkgver = "4.6.0"
-pkgrel = 1
+pkgver = "4.7.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://scons.org"
 source = f"https://github.com/SCons/scons/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "085fc9df961224b91ed715c5c44a11796a3e614d146139989ab14e8a347425ff"
+sha256 = "0182f95eecacb4a0effa89e5b2f1e0f7b5ea9f6e6b331e8486f0ce81b05bbb47"
 # uhhh, nah
 options = ["!check"]
 
