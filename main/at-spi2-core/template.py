@@ -1,29 +1,29 @@
 pkgname = "at-spi2-core"
-pkgver = "2.50.1"
+pkgver = "2.50.2"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "dbus",
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
-    "gobject-introspection",
-    "dbus",
 ]
 makedepends = [
-    "glib-devel",
-    "libxext-devel",
-    "libxtst-devel",
-    "libsm-devel",
     "dbus-devel",
+    "glib-devel",
+    "libsm-devel",
+    "libxext-devel",
     "libxml2-devel",
+    "libxtst-devel",
 ]
 pkgdesc = "Assistive Technology Service Provider Interface"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/at-spi2-core"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "5727b5c0687ac57ba8040e79bd6731b714a36b8fcf32190f236b8fb3698789e7"
+sha256 = "5b81b1461a62dd8fbed1a276fa9ef5b7112f9ae5ff86e1e32ad9644b654ff78c"
 # non-trivial dbus setup
 options = ["!check", "!cross"]
 
