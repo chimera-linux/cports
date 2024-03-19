@@ -1,0 +1,46 @@
+From 2c10573cff0dfb983b5ec16252ca5fea397480c5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Tue, 19 Mar 2024 22:37:50 +0100
+Subject: [PATCH 2/2] Look for sq-git in the path where chimera builds it
+
+---
+ tests/common.rs | 22 ++--------------------
+ 1 file changed, 2 insertions(+), 20 deletions(-)
+
+diff --git a/tests/common.rs b/tests/common.rs
+index d5253a6..4576b52 100644
+--- a/tests/common.rs
++++ b/tests/common.rs
+@@ -274,26 +274,8 @@ impl Environment {
+     }
+ 
+     pub fn sq_git_path() -> Result<PathBuf> {
+-        use std::sync::Once;
+-        static BUILD: Once = Once::new();
+-        BUILD.call_once(|| {
+-            let o = Command::new("cargo")
+-                .arg("build").arg("--quiet")
+-                .arg("--bin").arg("sq-git")
+-                .output()
+-                .expect("running cargo failed");
+-            if ! o.status.success() {
+-                panic!("build failed:\n\nstdout:\n{}\n\n stderr:\n{}",
+-                        String::from_utf8_lossy(&o.stdout),
+-                        String::from_utf8_lossy(&o.stderr));
+-            }
+-        });
+-
+-        Ok(if let Ok(target) = std::env::var("CARGO_TARGET_DIR") {
+-            PathBuf::from(target).canonicalize()?
+-        } else {
+-            std::env::current_dir()?.join("target")
+-        }.join("debug/sq-git"))
++        Ok(std::env::current_dir()?.join("target")
++            .join(format!("{}/release/sq-git", std::env::var("TARGET")?)))
+     }
+ 
+     pub fn sq_git<A: AsRef<str>>(&self, args: &[A]) -> Result<Output> {
+-- 
+2.44.0
+
