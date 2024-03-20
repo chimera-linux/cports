@@ -1,0 +1,41 @@
+--- a/crates/ruff/Cargo.toml
++++ b/crates/ruff/Cargo.toml
+@@ -72,8 +72,5 @@
+ [target.'cfg(target_os = "windows")'.dependencies]
+ mimalloc = { workspace = true }
+ 
+-[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dependencies]
+-tikv-jemallocator = { workspace = true }
+-
+ [lints]
+ workspace = true
+--- a/crates/ruff/src/main.rs
++++ b/crates/ruff/src/main.rs
+@@ -10,18 +10,6 @@
+ #[global_allocator]
+ static GLOBAL: mimalloc::MiMalloc = mimalloc::MiMalloc;
+ 
+-#[cfg(all(
+-    not(target_os = "windows"),
+-    not(target_os = "openbsd"),
+-    any(
+-        target_arch = "x86_64",
+-        target_arch = "aarch64",
+-        target_arch = "powerpc64"
+-    )
+-))]
+-#[global_allocator]
+-static GLOBAL: tikv_jemallocator::Jemalloc = tikv_jemallocator::Jemalloc;
+-
+ pub fn main() -> ExitCode {
+     let args = wild::args_os();
+     let mut args =
+--- a/crates/ruff_benchmark/Cargo.toml
++++ b/crates/ruff_benchmark/Cargo.toml
+@@ -55,6 +55,3 @@
+ 
+ [target.'cfg(target_os = "windows")'.dev-dependencies]
+ mimalloc = { workspace = true }
+-
+-[target.'cfg(all(not(target_os = "windows"), not(target_os = "openbsd"), any(target_arch = "x86_64", target_arch = "aarch64", target_arch = "powerpc64")))'.dev-dependencies]
+-tikv-jemallocator = { workspace = true }
