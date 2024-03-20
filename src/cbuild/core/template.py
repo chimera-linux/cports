@@ -464,6 +464,7 @@ core_fields = [
     ("file_modes", {}, dict, False, True, False),
     ("file_xattrs", {}, dict, False, True, False),
     ("broken_symlinks", [], list, False, True, False),
+    ("compression", None, "comp", False, True, True),
     # wrappers
     ("exec_wrappers", [], list, False, False, False),
     # scriptlet generators
@@ -547,10 +548,10 @@ core_fields_priority = [
     ("file_modes", True),
     ("file_xattrs", True),
     ("broken_symlinks", True),
+    ("compression", True),
     ("hardening", True),
     ("options", True),
     ("exec_wrappers", True),
-    # scriptlet-generating stuff comes last
     ("system_users", True),
     ("system_groups", True),
     ("restricted", True),
@@ -596,6 +597,26 @@ def copy_of_dval(val):
 
 def validate_type(val, tp):
     if not tp:
+        return True
+    if tp == "comp":
+        if val is None:
+            return True
+        sv = val.split(":")
+        if len(sv) < 0 or len(sv) > 2:
+            return False
+        match sv[0]:
+            case "deflate" | "zstd":
+                if len(sv) == 2:
+                    try:
+                        iv = int(sv[1])
+                        if iv < 0 or iv > (9 if sv[0] == "deflate" else 22):
+                            return False
+                    except Exception:
+                        return False
+            case "none":
+                return len(sv) == 1
+            case _:
+                return False
         return True
     if isinstance(tp, tuple):
         for rt in tp:
