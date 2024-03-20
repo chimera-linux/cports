@@ -1,5 +1,5 @@
 pkgname = "bind"
-pkgver = "9.18.24"
+pkgver = "9.18.25"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -33,7 +33,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "MPL-2.0"
 url = "https://www.isc.org/bind"
 source = f"https://downloads.isc.org/isc/bind9/{pkgver}/bind-{pkgver}.tar.xz"
-sha256 = "709d73023c9115ddad3bab65b6c8c79a590196d0d114f5d0ca2533dbd52ddf66"
+sha256 = "5a4a70432a33d009f0e6e9dbb328aae7a5e27507e98e28bf3c0c6b250ccb2ab3"
 
 
 def post_install(self):
