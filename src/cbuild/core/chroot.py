@@ -5,6 +5,7 @@ import time
 import shutil
 import pathlib
 import binascii
+import stat
 from tempfile import mkstemp, mkdtemp
 
 from cbuild.core import logger, paths, errors

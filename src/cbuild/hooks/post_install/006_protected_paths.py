@@ -19,8 +19,8 @@ def invoke(pkg):
 
     with open(ppath / f"apk-{pkg.pkgname}.list", "w") as outf:
         for pp in pkg.protected_paths:
-            if not pp[0:1] in _valid_pfx:
-                pkg.error(f"protected path '{path}' has an invalid prefix")
+            if pp[0:1] not in _valid_pfx:
+                pkg.error(f"protected path '{pp}' has an invalid prefix")
             if pathlib.Path(pp[1:]).is_absolute():
-                pkg.error(f"protected path '{path}' is not relative")
+                pkg.error(f"protected path '{pp}' is not relative")
             outf.write(f"{pp}\n")
