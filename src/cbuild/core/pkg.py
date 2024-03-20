@@ -1,6 +1,7 @@
 from cbuild.core import template
 import os
 import shutil
+import stat
 
 
 def _remove_ro(f, path, _):

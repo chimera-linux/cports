@@ -17,7 +17,7 @@ def invoke(pkg):
         pcname = p[3:]
         eq = pcname.find("=")
         if eq < 0:
-            pkg.error(f"invalid explicit .pc file: {soname}")
+            pkg.error(f"invalid explicit .pc file: {pcname}")
         pcname = pcname[:eq]
         sfx = pcname[eq + 1 :]
         pcset[pcname] = True

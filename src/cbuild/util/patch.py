@@ -1,5 +1,6 @@
 from cbuild.core import chroot
 
+import shlex
 import shutil
 import pathlib
 import subprocess

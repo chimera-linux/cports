@@ -1825,6 +1825,7 @@ def _repo_check():
     global _repo_checked
     if _repo_checked:
         return
+    import errors
     import subprocess
 
     if (
@@ -1838,6 +1839,7 @@ def _repo_check():
 
 
 def _collect_git(expr):
+    import errors
     import subprocess
     import pathlib
 
@@ -1920,6 +1922,8 @@ def _collect_status(inf):
 
 
 def _collect_blist(pkgs):
+    import sys
+
     rpkgs = []
     for pkg in pkgs:
         # empty args

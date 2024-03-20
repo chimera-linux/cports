@@ -16,6 +16,7 @@ import pathlib
 import contextlib
 import subprocess
 import builtins
+import stat
 
 from cbuild.core import logger, chroot, paths, profile, spdx, errors
 from cbuild.util import compiler, flock
