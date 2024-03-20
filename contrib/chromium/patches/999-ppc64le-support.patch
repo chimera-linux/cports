@@ -73,14 +73,14 @@ diff --git a/base/compiler_specific.h b/base/compiler_specific.h
 index 5caeab5fa2..739187c1d8 100644
 --- a/base/compiler_specific.h
 +++ b/base/compiler_specific.h
-@@ -440,7 +440,7 @@ inline constexpr bool AnalyzerAssumeTrue(bool arg) {
- // preserve_most in clang >= 17 (see https://reviews.llvm.org/D143425).
+@@ -446,7 +446,7 @@
+ // Clang only supports preserve_most on X86-64 and AArch64 for now.
  // See https://clang.llvm.org/docs/AttributeReference.html#preserve-most for
  // more details.
--#if defined(ARCH_CPU_64_BITS) &&                       \
-+#if defined(ARCH_CPU_64_BITS) && !defined(ARCH_CPU_PPC64) && \
-     !(BUILDFLAG(IS_WIN) && defined(ARCH_CPU_ARM64)) && \
-     !defined(COMPONENT_BUILD) && defined(__clang__) && \
+-#if (defined(ARCH_CPU_ARM64) || defined(ARCH_CPU_X86_64)) && \
++#if !defined(ARCH_CPU_PPC64) && (defined(ARCH_CPU_ARM64) || defined(ARCH_CPU_X86_64)) && \
+     !(BUILDFLAG(IS_WIN) && defined(ARCH_CPU_ARM64)) &&       \
+     !defined(COMPONENT_BUILD) && defined(__clang__) &&       \
      __clang_major__ >= 17 && HAS_ATTRIBUTE(preserve_most)
 diff --git a/build/download_nacl_toolchains.py b/build/download_nacl_toolchains.py
 index 1b86a4bb9e..bc95083101 100755
@@ -3384,10 +3384,10 @@ diff --git a/third_party/eigen3/BUILD.gn b/third_party/eigen3/BUILD.gn
 index d07d4e9724..beb2bd42b4 100644
 --- a/third_party/eigen3/BUILD.gn
 +++ b/third_party/eigen3/BUILD.gn
-@@ -16,6 +16,10 @@ config("eigen_public_includes") {
-     # for this component on Windows on Arm due to compilation errors.
-     defines += [ "EIGEN_DONT_VECTORIZE" ]
-   }
+@@ -10,6 +10,10 @@
+     "EIGEN_MAX_ALIGN_BYTES=64",
+     "EIGEN_HAS_TYPE_TRAITS=0",
+   ]
 +
 +  if (target_cpu == "ppc64") {
 +    defines += [ "EIGEN_DONT_VECTORIZE" ]
