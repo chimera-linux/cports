@@ -28,7 +28,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install python3-pip
 
       - name: Install dependencies
-        run: sudo pip3 install black flake8
+        run: sudo pip3 install flake8 ruff
 
       - name: Checkout
         uses: classabbyamp/treeless-checkout-action@v1
@@ -37,4 +37,4 @@ jobs:
         run: flake8 main contrib user src
 
       - name: Check format
-        run: black --check main contrib user src
+        run: ruff format --check main contrib user src
