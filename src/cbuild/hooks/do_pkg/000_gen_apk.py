@@ -220,16 +220,8 @@ set -e
     binpath.unlink(missing_ok=True)
 
     # for stage 1, we have stage0 apk built without zstd
-    if pkg.stage > 1 and pkg.compression:
-        if pkg.compression == "zstd":
-            pargs += ["--compression", "zstd"]
-        elif pkg.compression == "deflate":
-            pargs += ["--compression", "deflate"]
-        else:
-            pargs += ["--compression", pkg.compression]
-    else:
-        if pkg.compression == "none":
-            pargs += ["--compression", "none"]
+    if (pkg.stage > 1 and pkg.compression) or pkg.compression == "none":
+        pargs += ["--compression", pkg.compression]
 
     try:
         logger.get().out(f"Creating {binpkg} in repository {repo}...")
