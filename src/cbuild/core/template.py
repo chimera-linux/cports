@@ -2226,10 +2226,11 @@ def read_mod(
             raise errors.CbuildException(f"missing template for '{pkgname}'")
     else:
         pnl = pkgname.split("/")
-        if len(pnl) == 3 and pnl[2] == "template.py":
+        if len(pnl) == 3 and (pnl[2] == "template.py" or pnl[2] == ""):
+            psfx = pnl[2]
             pnl = pnl[:-1]
             if not ignore_missing:
-                logger.get().warn("the '/template.py' is superfluous")
+                logger.get().warn(f"the trailing '/{psfx}' is superfluous")
         if len(pnl) != 2 and not ignore_missing:
             raise errors.CbuildException(
                 f"template name '{pkgname}' has an invalid format"
