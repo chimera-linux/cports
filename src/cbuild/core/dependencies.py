@@ -165,7 +165,7 @@ def _install_from_repo(pkg, pkglist, cross=False):
     if pkg.stage == 0:
         ret = apki.call(
             "add",
-            ["--no-chown", "--no-scripts"] + pkglist,
+            ["--usermode", "--no-scripts"] + pkglist,
             pkg,
             capture_output=True,
             allow_untrusted=not signkey,

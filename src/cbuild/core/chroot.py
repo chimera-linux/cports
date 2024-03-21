@@ -250,7 +250,7 @@ def install():
     with flock.lock(lkp):
         irun = apki.call(
             "add",
-            ["--no-chown", "--no-scripts", "base-cbuild"],
+            ["--usermode", "--no-scripts", "base-cbuild"],
             "main",
             arch=host_cpu(),
         )
@@ -389,7 +389,7 @@ def _setup_dummy(rootp, archn):
 
         ret = apki.call(
             "add",
-            ["--no-scripts", "--no-chown", "--repository", tmpd, pkgn],
+            ["--no-scripts", "--usermode", "--repository", tmpd, pkgn],
             None,
             root=rootp,
             capture_output=True,
