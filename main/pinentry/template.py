@@ -1,7 +1,8 @@
 pkgname = "pinentry"
 # Keep pkgver in sync with contrib/pinentry-qt
+# keep pkgrel higher or equal to pinentry-qt
 pkgver = "1.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-tty",
@@ -48,6 +49,7 @@ def _frontend(name):
         self.depends = [f"pinentry-{name}={pkgver}-r{pkgrel}"]
         if name == "curses":
             self.install_if = [f"pinentry-{name}={pkgver}-r{pkgrel}"]
+            self.provider_priority = 100
 
         def inst():
             self.mkdir(self.destdir / "usr/bin", parents=True)
