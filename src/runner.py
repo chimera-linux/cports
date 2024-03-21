@@ -900,7 +900,7 @@ def do_lint(tgt):
         False,
         None,
         target="lint",
-    )
+    ).build_lint()
 
 
 def _collect_tmpls(pkgn, catn=None):
