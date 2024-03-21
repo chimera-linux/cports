@@ -1830,7 +1830,7 @@ def _repo_check():
     global _repo_checked
     if _repo_checked:
         return
-    import errors
+    from cbuild.core import errors
     import subprocess
 
     if (
@@ -1844,7 +1844,7 @@ def _repo_check():
 
 
 def _collect_git(expr):
-    import errors
+    from cbuild.core import errors
     import subprocess
     import pathlib
 
