@@ -5,7 +5,6 @@ import time
 import shutil
 import pathlib
 import binascii
-import stat
 from tempfile import mkstemp, mkdtemp
 
 from cbuild.core import logger, paths, errors
@@ -60,11 +59,6 @@ def _subst_in(pat, rep, src, dest=None):
 
     if not dest:
         shutil.move(nm, src)
-
-
-def _remove_ro(f, path, _):
-    os.chmod(path, stat.S_IWRITE)
-    f(path)
 
 
 def _prepare_etc():
