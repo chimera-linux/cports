@@ -18,13 +18,13 @@ makedepends = [
     "libsecret-devel",
     "qt6-qtbase-devel",
 ]
+origin = "pinentry"
 pkgdesc = "PIN or passphrase entry dialogs for GnuPG (qt6 frontend)"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/pinentry/pinentry-{pkgver}.tar.bz2"
 sha256 = "9b3cd5226e7597f2fded399a3bc659923351536559e9db0826981bca316494de"
-origin = "pinentry"
 
 
 def post_install(self):
