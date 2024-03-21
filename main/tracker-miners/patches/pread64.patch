@@ -1,0 +1,24 @@
+commit dca1f0c7fa4e74d000020e38e2fdfbdb561f967c
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Mar 21 16:26:26 2024 +0100
+
+    allow pread64 syscall
+    
+    This is disabled for !GLIBC upstream but I'm hitting sandbox
+    violation on musl when indexing video files.
+
+diff --git a/src/libtracker-miners-common/tracker-seccomp.c b/src/libtracker-miners-common/tracker-seccomp.c
+index b2ad0b7..a322216 100644
+--- a/src/libtracker-miners-common/tracker-seccomp.c
++++ b/src/libtracker-miners-common/tracker-seccomp.c
+@@ -311,9 +311,8 @@ tracker_seccomp_init (void)
+ #if !defined(__GLIBC__)
+ 	ALLOW_RULE (rt_sigreturn);
+ 	ALLOW_RULE (readv);
+-#else
+-	ALLOW_RULE (pread64);
+ #endif
++	ALLOW_RULE (pread64);
+ 
+ 	g_debug ("Loading seccomp rules.");
+ 
