@@ -2274,7 +2274,11 @@ def read_mod(
 
     def subpkg_deco(spkgname, cond=True, alternative=None):
         def deco(f):
-            ret.all_subpackages.append(spkgname)
+            if alternative:
+                pn = f"{alternative}-{spkgname}-default"
+            else:
+                pn = spkgname
+            ret.all_subpackages.append(pn)
             if cond:
                 ret.subpackages.append((spkgname, f, alternative))
 
