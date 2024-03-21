@@ -1,7 +1,7 @@
 pkgname = "pinentry-qt"
 # Keep pkgver in sync with main/pinentry
 pkgver = "1.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-qt",
@@ -35,6 +35,7 @@ def post_install(self):
 @subpackage("pinentry-qt-default")
 def _default(self):
     self.depends = [f"pinentry-qt={pkgver}-r{pkgrel}"]
+    self.provides = ["pinentry-default=0"]
 
     def inst():
         self.mkdir(self.destdir / "usr/bin", parents=True)

@@ -1,6 +1,6 @@
 pkgname = "pinentry-bemenu"
 pkgver = "0.13.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -20,6 +20,7 @@ sha256 = "db513f0cb2ee81f064da2dca976cb9376857da4bef316d493b347f692521bb40"
 @subpackage("pinentry-bemenu-default")
 def _def(self):
     self.depends = [f"{pkgname}={pkgver}-r{pkgrel}"]
+    self.provides = ["pinentry-default=0"]
     self.origin = "pinentry"
 
     def inst():

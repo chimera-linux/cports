@@ -1,6 +1,5 @@
 pkgname = "pinentry"
 # Keep pkgver in sync with contrib/pinentry-qt
-# keep pkgrel higher or equal to pinentry-qt
 pkgver = "1.3.0"
 pkgrel = 1
 build_style = "gnu_configure"
@@ -23,7 +22,7 @@ makedepends = [
     "libsecret-devel",
     "ncurses-devel",
 ]
-depends = ["cmd:pinentry!pinentry-curses-default"]
+depends = ["virtual:pinentry-default!pinentry-curses-default"]
 pkgdesc = "PIN or passphrase entry dialogs for GnuPG"
 maintainer = "eater <=@eater.me>"
 license = "GPL-2.0-or-later"
@@ -47,8 +46,10 @@ def _frontend(name):
     @subpackage(f"pinentry-{name}-default")
     def _default(self):
         self.depends = [f"pinentry-{name}={pkgver}-r{pkgrel}"]
+        self.provides = ["pinentry-default=0"]
         if name == "curses":
             self.install_if = [f"pinentry-{name}={pkgver}-r{pkgrel}"]
+            # highest priority provider is curses
             self.provider_priority = 100
 
         def inst():
