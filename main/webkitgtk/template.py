@@ -124,6 +124,11 @@ match self.profile().arch:
     case _:
         configure_args += ["-DLTO_MODE=thin"]
 
+# B3_JIT broken on riscv64, which is enabled by FTL_JIT
+match self.profile().arch:
+    case "riscv64":
+        configure_args += ["-DENABLE_FTL_JIT=OFF"]
+
 
 def post_install(self):
     self.install_license("Source/WebCore/LICENSE-APPLE")
