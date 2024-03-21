@@ -115,7 +115,7 @@ def _scan_one(fpath):
     inf = open(fpath, "rb")
     mm = mmap.mmap(inf.fileno(), 0, prot=mmap.PROT_READ)
 
-    if mm[0:4] != b"\x7FELF":
+    if mm[0:4] != b"\x7fELF":
         mm.close()
         inf.close()
         return None

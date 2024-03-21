@@ -33,8 +33,5 @@ jobs:
       - name: Checkout
         uses: classabbyamp/treeless-checkout-action@v1
 
-      - name: Lint tree
-        run: flake8 main contrib user src
-
-      - name: Check format
-        run: black --check main contrib user src
+      - name: Lint tree and check format
+        run: sh .ci/lint.sh
