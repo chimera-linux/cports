@@ -460,6 +460,7 @@ core_fields = [
     ("env", {}, dict, False, False, False),
     ("debug_level", 2, int, False, False, False),
     # packaging
+    ("origin", None, str, False, True, True),
     ("triggers", [], list, False, True, False),
     ("scriptlets", {}, dict, False, True, False),
     ("file_modes", {}, dict, False, True, False),
@@ -531,6 +532,7 @@ core_fields_priority = [
     ("install_if", True),
     ("triggers", True),
     ("scriptlets", True),
+    ("origin", True),
     ("pkgdesc", True),
     ("maintainer", True),
     ("license", True),
@@ -648,9 +650,9 @@ class Template(Package):
         super().__init__()
 
         if origin:
-            self.origin = origin
+            self.origin_pkg = origin
         else:
-            self.origin = self
+            self.origin_pkg = self
 
         # default all the fields
         for fl, dval, tp, mand, sp, inh in core_fields:
@@ -1162,7 +1164,7 @@ class Template(Package):
             if pinfo.returncode == 0 and len(pinfo.stdout.strip()) > 0:
                 foundp = pinfo.stdout.strip().decode()
                 if foundp == f"{self.pkgname}-{self.pkgver}-r{self.pkgrel}":
-                    if self.origin == self and not quiet:
+                    if self.origin_pkg == self and not quiet:
                         # TODO: print the repo somehow
                         self.log(f"found ({pinfo.stdout.strip().decode()})")
                     return True

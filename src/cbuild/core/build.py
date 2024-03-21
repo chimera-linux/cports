@@ -25,7 +25,7 @@ def build(
 
     if depn in depmap:
         pkg.error(
-            f"build-time dependency cycle encountered for {pkg.pkgname} (dependency of {pkg.origin.pkgname})"
+            f"build-time dependency cycle encountered for {pkg.pkgname} (dependency of {pkg.origin_pkg.pkgname})"
         )
 
     depmap[depn] = True
@@ -100,7 +100,7 @@ def build(
         # if a missing dependency has triggered a build, update the chroot
         # afterwards to have a clean state with up to date dependencies
         if dependencies.install(
-            pkg, pkg.origin.pkgname, "pkg", depmap, chost, update_check
+            pkg, pkg.origin_pkg.pkgname, "pkg", depmap, chost, update_check
         ):
             chroot.update(pkg)
 

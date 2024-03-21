@@ -781,6 +781,10 @@ Keep in mind that default values may be overridden by build styles.
   run tests, in order to ensure a reproducible build environment. It mostly
   exists to visually separate dependencies only needed for tests from
   the others.
+* `compression` *(str)* Specifies the package compression. The default is
+  unspecified (which means the global default will be used). Currently this
+  can be `deflate`, `zstd`, and `none`, optionally with a compression level
+  for the former two like `deflate:9` or `zstd:3`.
 * `configure_args` *(list)* This list is generally specific to the build
   system the template uses. Generally speaking, it provides the arguments
   passed to some kind of `configure` script.
@@ -928,6 +932,15 @@ Keep in mind that default values may be overridden by build styles.
 * `options` *(list)* Various boolean toggles for the template. It is a list
   of strings; a string `foo` toggles the option on, while `!foo` does the
   opposite. Every permissible option has a default.
+* `origin` *(str)* This can be optionally specified and it's a package
+  name (without a version). Normally, the origin for primary package is
+  itself, and for subpackage it's its primary package. This can be overridden
+  for instance when what would normally be a subpackage is split off into
+  a separate template. It primarily affects the implicit replaces behavior
+  related to other packages of the same origin. It inherits into subpackages.
+  The primary use for this is to give all "defaults" packages providing
+  alternative program symlinks the same origin so they can replace each other
+  freely without errors.
 * `patch_args` *(list)* Options passed to `patch` when applying patches,
   in addition to the builtin ones (`-sNp1 -V none`). You can use this to
   override the strip count or pass additional options.
