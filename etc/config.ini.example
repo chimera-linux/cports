@@ -3,8 +3,10 @@
 
 # options related to your host apk
 [apk]
-# the apk command to use
+# the fallback apk command to use
 # also overridden by environment variable CBUILD_APK_PATH
+# this is used to bootstrap, but once we have a bldroot,
+# static apk from inside of it is used always
 command = apk
 
 # options related to building packages
