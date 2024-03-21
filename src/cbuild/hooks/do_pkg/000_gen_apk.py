@@ -37,7 +37,7 @@ def genpkg(pkg, repo, arch, binpkg):
         "--info",
         f"license:{pkg.license}",
         "--info",
-        f"origin:{pkg.origin if pkg.origin else pkg.rparent.pkgname}",
+        f"origin:{pkg.origin}",
         "--info",
         f"maintainer:{pkg.rparent.maintainer}",
         "--info",

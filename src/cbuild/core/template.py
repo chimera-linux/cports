@@ -1928,6 +1928,9 @@ def from_module(m, ret):
     if ret.pkgname.lower() != ret.pkgname:
         ret.error("package name must be lowercase")
 
+    # ensure origin is filled
+    ret.origin = ret.pkgname
+
     # possibly skip very early once we have the bare minimum info
     if (
         not ret.force_mode
