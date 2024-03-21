@@ -1,0 +1,6 @@
+# php-fpm service
+
+type            = process
+command         = /usr/bin/php-fpm-83 -F
+depends-on      = local.target
+smooth-recovery = true
