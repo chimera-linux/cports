@@ -1,6 +1,7 @@
 pkgname = "pinentry"
-pkgver = "1.2.1"
-pkgrel = 1
+# Keep pkgver in sync with contrib/pinentry-qt
+pkgver = "1.3.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-tty",
@@ -11,23 +12,23 @@ configure_args = [
     "--enable-ncurses",
 ]
 configure_gen = ["./autogen.sh"]
-hostmakedepends = ["pkgconf", "automake", "libtool", "gettext"]
+hostmakedepends = ["automake", "gettext", "libtool", "pkgconf"]
 makedepends = [
-    "ncurses-devel",
+    "gcr-devel",
+    "gettext-devel",
+    "gtk+3-devel",
     "libassuan-devel",
     "libgpg-error-devel",
-    "gcr3-devel",
     "libsecret-devel",
-    "gtk+3-devel",
-    "gettext-devel",
+    "ncurses-devel",
 ]
 depends = ["cmd:pinentry!pinentry-curses-default"]
-pkgdesc = "PIN or passphrase entry di:alogs for GnuPG"
+pkgdesc = "PIN or passphrase entry dialogs for GnuPG"
 maintainer = "eater <=@eater.me>"
 license = "GPL-2.0-or-later"
 url = "https://www.gnupg.org/related_software/pinentry/index.html"
 source = f"https://gnupg.org/ftp/gcrypt/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "457a185e5a85238fb945a955dc6352ab962dc8b48720b62fc9fa48c7540a4067"
+sha256 = "9b3cd5226e7597f2fded399a3bc659923351536559e9db0826981bca316494de"
 options = ["empty"]
 
 
