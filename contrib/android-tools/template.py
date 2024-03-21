@@ -1,6 +1,6 @@
 pkgname = "android-tools"
-pkgver = "34.0.4"
-pkgrel = 5
+pkgver = "34.0.5"
+pkgrel = 0
 # only supports specific little-endian archs, particularly in boringssl
 archs = ["x86_64", "aarch64", "ppc64le", "riscv64"]
 build_style = "cmake"
@@ -21,7 +21,7 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "Apache-2.0 AND ISC AND GPL-2.0-only AND MIT"
 url = "https://github.com/nmeum/android-tools"
 source = f"{url}/releases/download/{pkgver}/android-tools-{pkgver}.tar.xz"
-sha256 = "7a22ff9cea81ff4f38f560687858e8f8fb733624412597e3cc1ab0262f8da3a1"
+sha256 = "fb09cff12cfb82acf42a8ebebbc0342671bfcd02117716368bdc73fdda60304a"
 tool_flags = {"CXXFLAGS": ["-D_LARGEFILE64_SOURCE"]}
 hardening = ["vis", "cfi"]
 # no tests
