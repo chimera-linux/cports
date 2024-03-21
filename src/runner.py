@@ -18,6 +18,7 @@ opt_harch = None
 opt_gen_dbg = True
 opt_check = True
 opt_ccache = False
+opt_comp = "deflate"
 opt_makejobs = 0
 opt_lthreads = 0
 opt_nocolor = False
@@ -103,7 +104,7 @@ def handle_options():
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
-    global opt_acceptsum
+    global opt_acceptsum, opt_comp
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -309,6 +310,7 @@ def handle_options():
         opt_harch = bcfg.get("host_arch", fallback=opt_harch)
         opt_bldroot = bcfg.get("build_root", fallback=opt_bldroot)
         opt_blddir = bcfg.get("build_dir", fallback=opt_blddir)
+        opt_comp = bcfg.get("compression", fallback=opt_comp)
         opt_stagepath = bcfg.get("stage_repository", fallback=opt_stagepath)
         opt_altrepo = bcfg.get("alt_repository", fallback=opt_altrepo)
         opt_pkgpath = bcfg.get("repository", fallback=opt_pkgpath)
@@ -433,7 +435,7 @@ def init_late():
     import os
 
     from cbuild.core import paths, spdx
-    from cbuild.apk import sign
+    from cbuild.apk import sign, util as autil
 
     mainrepo = opt_altrepo
     altrepo = opt_pkgpath
@@ -471,6 +473,9 @@ def init_late():
 
     # register signing key
     sign.register_key(opt_signkey)
+
+    # set compression type
+    autil.set_compression(opt_comp)
 
 
 #

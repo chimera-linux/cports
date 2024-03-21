@@ -184,3 +184,15 @@ def pkg_match(ver, pattern):
         return False
 
     return True
+
+
+_comp = None
+
+
+def set_compression(comp):
+    global _comp
+    _comp = comp
+
+
+def get_compression():
+    return _comp
