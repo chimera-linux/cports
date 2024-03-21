@@ -118,7 +118,7 @@ hardening = ["!int"]
 options = ["!check"]
 
 match self.profile().arch:
-    case "x86_64" | "aarch64" | "riscv64":
+    case "x86_64" | "aarch64":
         configure_args += ["-DENABLE_JIT=ON", "-DENABLE_C_LOOP=OFF"]
     case _:
         configure_args += ["-DENABLE_JIT=OFF", "-DENABLE_C_LOOP=ON"]
@@ -129,11 +129,6 @@ match self.profile().arch:
         options += ["!lto"]
     case _:
         configure_args += ["-DLTO_MODE=thin"]
-
-# B3_JIT broken on riscv64, which is enabled by FTL_JIT
-match self.profile().arch:
-    case "riscv64":
-        configure_args += ["-DENABLE_FTL_JIT=OFF"]
 
 
 def post_install(self):
