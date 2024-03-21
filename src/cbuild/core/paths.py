@@ -58,7 +58,7 @@ def apk():
     # for stage 0 we always use host apk
     # for stage 1 we still use host apk as stage0 does not build static
     if _stage > 1:
-        sapk = bldroot() / "usr/bin/apk"
+        sapk = bldroot() / "usr/bin/apk.static"
         if sapk.is_file():
             return sapk
     # fall back to host apk if no bldroot and so on
