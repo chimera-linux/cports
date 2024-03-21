@@ -286,7 +286,7 @@ class UpdateCheck:
                 rx = rf"""
                     /archive/[^/]+/
                     {re.escape(pname)}-v?
-                    ([\d.]+)(?=\.tar\.gz") # match
+                    ([\d.]+)(?=\.tar\.gz) # match
                 """
             elif "bitbucket.org" in url:
                 pn = "/".join(url.split("/")[3:5])
