@@ -115,7 +115,11 @@ match self.profile().arch:
     case "x86_64" | "aarch64":
         configure_args += ["-DENABLE_JIT=ON", "-DENABLE_C_LOOP=OFF"]
     case _:
-        configure_args += ["-DENABLE_JIT=OFF", "-DENABLE_C_LOOP=ON"]
+        configure_args += [
+            "-DENABLE_JIT=OFF",
+            "-DENABLE_C_LOOP=ON",
+            "-DENABLE_WEBASSEMBLY=OFF",
+        ]
 
 # LTO broken on aarch64 (JIT segfault) and on riscv64 (broken in LLVM)
 match self.profile().arch:
