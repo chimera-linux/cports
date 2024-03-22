@@ -18,3 +18,4 @@ options = ["!check"]
 
 def post_install(self):
     self.install_license("LICENSE")
+    self.install_file("README.md", "usr/share/doc/snibbetracker")
