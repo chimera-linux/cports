@@ -11,3 +11,13 @@
  #else
  // Note BoringSSL only supports standard 32-bit and 64-bit two's-complement,
  // little-endian architectures. Functions will not produce the correct answer
+--- a/vendor/e2fsprogs/contrib/android/perms.h
++++ b/vendor/e2fsprogs/contrib/android/perms.h
+@@ -1,6 +1,7 @@
+ #ifndef ANDROID_PERMS_H
+ # define ANDROID_PERMS_H
+ 
++# include <linux/types.h>
+ # include <ext2fs/ext2fs.h>
+ 
+ typedef void (*fs_config_f)(const char *path, int dir,
