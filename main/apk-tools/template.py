@@ -1,7 +1,7 @@
 pkgname = "apk-tools"
-pkgver = "3.0.0_pre3"
-pkgrel = 1
-_gitrev = "690083b4391b175b7a4acf9b24915fc5613b2ea1"
+pkgver = "3.0.0_pre4"
+pkgrel = 0
+_gitrev = "c6d0ee842a2596bdfd5dcfba9f9b182696e00013"
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
 hostmakedepends = ["pkgconf", "meson", "lua5.4", "lua5.4-zlib", "scdoc"]
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"https://gitlab.alpinelinux.org/alpine/{pkgname}/-/archive/{_gitrev}.tar.gz"
-sha256 = "9faddc136eb48d134ff65f57b9c384b8b284ffeb17c23fe5d0b5442952160d39"
+sha256 = "050de2b6c2be4681074fe0f2b29f14be2fdcca10e508867a9c8af864f0ea8ae7"
 options = ["bootstrap"]
 
 if self.stage > 0:
