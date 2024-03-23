@@ -1,5 +1,5 @@
 pkgname = "libpciaccess"
-pkgver = "0.18"
+pkgver = "0.18.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/{pkgname}-{pkgver}.tar.xz"
-sha256 = "5461b0257d495254346f52a9c329b44b346262663675d3fecdb204a7e7c262a9"
+sha256 = "4af43444b38adb5545d0ed1c2ce46d9608cc47b31c2387fc5181656765a6fa76"
 
 
 def post_install(self):
