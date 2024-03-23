@@ -1,6 +1,6 @@
 pkgname = "sway"
 pkgver = "1.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -36,5 +36,6 @@ def post_install(self):
 @subpackage("sway-backgrounds")
 def _backgrounds(self):
     self.pkgdesc = f"{pkgdesc} (backgrounds)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/share/backgrounds"]
