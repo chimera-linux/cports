@@ -1,5 +1,5 @@
 pkgname = "libbsd"
-pkgver = "0.12.1"
+pkgver = "0.12.2"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -21,11 +21,10 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "BSD-3-Clause"
 url = "https://libbsd.freedesktop.org"
 source = f"{url}/releases/libbsd-{pkgver}.tar.xz"
-sha256 = "d7747f8ec1baa6ff5c096a9dd587c061233dec90da0f1aedd66d830f6db6996a"
+sha256 = "b88cc9163d0c652aaf39a99991d974ddba1c3a9711db8f1b5838af2a14731014"
 # FIXME: ld.lld version 16 and up regressions, needs linkundefver to work around it
 # https://lists.freedesktop.org/archives/libbsd/2024-January/000381.html
-# lto: breaks <nlist.h> test
-options = ["linkundefver", "!lto"]
+options = ["linkundefver"]
 # format.ld needs gnu syntax
 exec_wrappers = [("/usr/bin/gsed", "sed")]
 
