@@ -1,5 +1,5 @@
 pkgname = "python-asgiref"
-pkgver = "3.7.2"
+pkgver = "3.8.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "BSD-3-Clause"
 url = "https://github.com/django/asgiref"
 source = f"$(PYPI_SITE)/a/asgiref/asgiref-{pkgver}.tar.gz"
-sha256 = "9e0ce3aa93a819ba5b45120216b23878cf6e8525eb3848653452b4192b92afed"
+sha256 = "c343bd80a0bec947a9860adb4c432ffa7db769836c64238fc34bdc3fec84d590"
 
 
 def post_install(self):
