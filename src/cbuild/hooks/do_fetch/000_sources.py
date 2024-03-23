@@ -6,6 +6,7 @@ import hashlib
 import threading
 from time import time as timer
 from urllib import request
+from http.client import responses
 from multiprocessing.pool import ThreadPool
 
 
@@ -94,11 +95,32 @@ def fetch_url(url, dfile, idx, ntry, rbuf=None):
             headers=hdrs,
         )
         rqf = request.urlopen(rq)
+        # ensure the response if what we expect, otherwise error
+        match int(rqf.status):
+            case 200 | 206:
+                pass
+            case _:
+                status = responses[int(rqf.status)]
+                return url, dfile, f"unexpected status: {status}"
         # if resuming fetch the known length
         if ntry > 0:
             with fmtx:
                 clen = flens[idx]
-            fmode = "ab"
+                if int(rqf.status) != 206:
+                    # range ignored/not supported, do a normal retry
+                    fmode = "wb"
+                    fstatus[idx] = 0
+                    if ntry > 3:
+                        # don't iterate forever
+                        return (
+                            url,
+                            dfile,
+                            "incomplete file, fetch attempts exceeded",
+                        )
+                else:
+                    fmode = "ab"
+                    # reset the counter, we allow unlimited chunks
+                    ntry = 0
         else:
             fmode = "wb"
             clen = rqf.getheader("content-length")
