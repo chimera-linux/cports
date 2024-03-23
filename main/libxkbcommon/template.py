@@ -1,5 +1,5 @@
 pkgname = "libxkbcommon"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -9,19 +9,19 @@ configure_args = [
     "-Denable-docs=false",
 ]
 hostmakedepends = [
+    "bison",
     "meson",
     "pkgconf",
-    "bison",
-    "wayland-protocols",
     "wayland-progs",
+    "wayland-protocols",
 ]
 makedepends = [
-    "xkeyboard-config",
     "libxcb-devel",
+    "libxml2-devel",
     "wayland-devel",
     "wayland-protocols",
+    "xkeyboard-config",
     "xorgproto",
-    "libxml2-devel",
 ]
 depends = ["xkeyboard-config"]
 pkgdesc = "Library to handle keyboard descriptions"
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xkbcommon.org"
 source = f"https://github.com/xkbcommon/libxkbcommon/archive/xkbcommon-{pkgver}.tar.gz"
-sha256 = "4aa6c1cad7dce1238d6f48b6729f1998c7e3f0667a21100d5268c91a5830ad7b"
+sha256 = "20d5e40dabd927f7a7f4342bebb1e8c7a59241283c978b800ae3bf60394eabc4"
 
 
 def post_install(self):
