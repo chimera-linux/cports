@@ -77,29 +77,43 @@ fstatus = []
 flens = []
 
 
-def fetch_url(mv):
+def fetch_url(url, dfile, idx, ntry, rbuf=None):
     global fmtx, fstatus, flens
 
-    url, dfile, idx = mv
     try:
+        hdrs = {
+            "User-Agent": "cbuild-fetch/4.20.69",
+            "Accept": "*/*",
+        }
+        if ntry > 0:
+            with fmtx:
+                hdrs["Range"] = f"bytes={fstatus[idx]}-{flens[idx]}"
         rq = request.Request(
             url,
             data=None,
-            headers={
-                "User-Agent": "cbuild-fetch/4.20.69",
-                "Accept": "*/*",
-            },
+            headers=hdrs,
         )
         rqf = request.urlopen(rq)
-        clen = rqf.getheader("content-length")
-        if clen:
-            clen = int(clen)
+        # if resuming fetch the known length
+        if ntry > 0:
             with fmtx:
-                flens[idx] = clen
+                clen = flens[idx]
+            fmode = "ab"
+        else:
+            fmode = "wb"
+            clen = rqf.getheader("content-length")
+            if clen:
+                clen = int(clen)
+                with fmtx:
+                    flens[idx] = clen
+        # regardless, make a buffer
+        if clen and not rbuf:
             rbuf = bytearray(max(65536, clen // 100))
         else:
             rbuf = bytearray(65536)
-        with open(dfile, "wb") as df:
+        dores = False
+        pfile = dfile.with_name(dfile.name + ".part")
+        with open(pfile, fmode) as df:
             while True:
                 nread = rqf.readinto(rbuf)
                 if nread == 0:
@@ -110,13 +124,19 @@ def fetch_url(mv):
                     df.write(rbuf)
                 with fmtx:
                     fstatus[idx] += nread
-            # done fetching, report 100%
             with fmtx:
                 # if we know the final content-length and we receive less than
-                # that in the body, treat it as a fetch error just in case
+                # that in the body, resume the request with a range header set
                 if clen and fstatus[idx] != clen:
-                    return url, dfile, "incomplete file"
-                flens[idx] = fstatus[idx]
+                    dores = True
+                else:
+                    # otherwise just mark the file at 100%
+                    flens[idx] = fstatus[idx]
+        # resume outside the mutex
+        if dores:
+            return fetch_url(url, dfile, idx, ntry + 1, rbuf)
+        # rename and return
+        pfile.rename(dfile)
         return None, None, None
     except Exception as e:
         return url, dfile, str(e)
@@ -179,9 +199,13 @@ def invoke(pkg):
             flens.append(-1)
             pkg.log(f"fetching source '{fname}'...")
 
+    def do_fetch_url(mv):
+        url, dfile, idx = mv
+        return fetch_url(url, dfile, idx, 0)
+
     # max 16 connections
     tpool = ThreadPool(16)
-    dretr = tpool.map_async(fetch_url, tofetch)
+    dretr = tpool.map_async(do_fetch_url, tofetch)
     ferrs = 0
     # progress while processing
     start = timer()
