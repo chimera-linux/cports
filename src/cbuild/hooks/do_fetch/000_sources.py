@@ -78,6 +78,81 @@ fstatus = []
 flens = []
 
 
+def fetch_stream(url, dfile, idx, ntry, rqf, rbuf):
+    global fmtx, fstatus, flens
+
+    # ensure the response if what we expect, otherwise error
+    # it may be None for FTP and so on though
+    if rqf.status is not None:
+        match int(rqf.status):
+            case 200 | 206:
+                pass
+            case _:
+                status = responses[int(rqf.status)]
+                return url, dfile, f"unexpected status: {status}"
+    # if resuming fetch the known length
+    if ntry > 0:
+        with fmtx:
+            clen = flens[idx]
+            if int(rqf.status) != 206:
+                # range ignored/not supported, do a normal retry
+                fmode = "wb"
+                fstatus[idx] = 0
+                if ntry > 3:
+                    # don't iterate forever
+                    return (
+                        url,
+                        dfile,
+                        "incomplete file, fetch attempts exceeded",
+                    )
+            else:
+                fmode = "ab"
+                # reset the counter, we allow unlimited chunks
+                ntry = 0
+    else:
+        fmode = "wb"
+        if rqf.status is not None:
+            clen = rqf.getheader("content-length")
+            if clen:
+                clen = int(clen)
+                with fmtx:
+                    flens[idx] = clen
+        else:
+            clen = None
+    # regardless, make a buffer
+    if clen and not rbuf:
+        rbuf = bytearray(max(65536, clen // 100))
+    else:
+        rbuf = bytearray(65536)
+    dores = False
+    pfile = dfile.with_name(dfile.name + ".part")
+    with open(pfile, fmode) as df:
+        while True:
+            nread = rqf.readinto(rbuf)
+            if nread == 0:
+                break
+            if nread < len(rbuf):
+                df.write(rbuf[0:nread])
+            else:
+                df.write(rbuf)
+            with fmtx:
+                fstatus[idx] += nread
+        with fmtx:
+            # if we know the final content-length and we receive less than
+            # that in the body, resume the request with a range header set
+            if clen and fstatus[idx] != clen:
+                dores = True
+            else:
+                # otherwise just mark the file at 100%
+                flens[idx] = fstatus[idx]
+    # resume outside the mutex
+    if dores:
+        return fetch_url(url, dfile, idx, ntry + 1, rbuf)
+    # rename and return
+    pfile.rename(dfile)
+    return None, None, None
+
+
 def fetch_url(url, dfile, idx, ntry, rbuf=None):
     global fmtx, fstatus, flens
 
@@ -94,74 +169,13 @@ def fetch_url(url, dfile, idx, ntry, rbuf=None):
             data=None,
             headers=hdrs,
         )
-        rqf = request.urlopen(rq)
-        # ensure the response if what we expect, otherwise error
-        match int(rqf.status):
-            case 200 | 206:
-                pass
-            case _:
-                status = responses[int(rqf.status)]
-                return url, dfile, f"unexpected status: {status}"
-        # if resuming fetch the known length
-        if ntry > 0:
-            with fmtx:
-                clen = flens[idx]
-                if int(rqf.status) != 206:
-                    # range ignored/not supported, do a normal retry
-                    fmode = "wb"
-                    fstatus[idx] = 0
-                    if ntry > 3:
-                        # don't iterate forever
-                        return (
-                            url,
-                            dfile,
-                            "incomplete file, fetch attempts exceeded",
-                        )
-                else:
-                    fmode = "ab"
-                    # reset the counter, we allow unlimited chunks
-                    ntry = 0
-        else:
-            fmode = "wb"
-            clen = rqf.getheader("content-length")
-            if clen:
-                clen = int(clen)
-                with fmtx:
-                    flens[idx] = clen
-        # regardless, make a buffer
-        if clen and not rbuf:
-            rbuf = bytearray(max(65536, clen // 100))
-        else:
-            rbuf = bytearray(65536)
-        dores = False
-        pfile = dfile.with_name(dfile.name + ".part")
-        with open(pfile, fmode) as df:
-            while True:
-                nread = rqf.readinto(rbuf)
-                if nread == 0:
-                    break
-                if nread < len(rbuf):
-                    df.write(rbuf[0:nread])
-                else:
-                    df.write(rbuf)
-                with fmtx:
-                    fstatus[idx] += nread
-            with fmtx:
-                # if we know the final content-length and we receive less than
-                # that in the body, resume the request with a range header set
-                if clen and fstatus[idx] != clen:
-                    dores = True
-                else:
-                    # otherwise just mark the file at 100%
-                    flens[idx] = fstatus[idx]
-        # resume outside the mutex
-        if dores:
-            return fetch_url(url, dfile, idx, ntry + 1, rbuf)
-        # rename and return
-        pfile.rename(dfile)
-        return None, None, None
+        with request.urlopen(rq) as rqf:
+            return fetch_stream(url, dfile, idx, ntry, rqf, rbuf)
     except Exception as e:
-        return url, dfile, str(e)
+        if ntry > 3:
+            return url, dfile, str(e)
+        # try a few times on failures
+        return fetch_url(url, dfile, idx, ntry + 1, rbuf)
 
 
 def invoke(pkg):
