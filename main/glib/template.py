@@ -43,6 +43,11 @@ sha256 = "8228a92f92a412160b139ae68b6345bd28f24434a7b5af150ebe21ff587a561d"
 hardening = ["!int"]
 
 
+if self.profile().arch == "riscv64":
+    # ftbfs
+    configure_args += ["-Dtests=false"]
+
+
 def post_install(self):
     from cbuild.util import python
 
