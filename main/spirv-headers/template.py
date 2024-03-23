@@ -1,5 +1,5 @@
 pkgname = "spirv-headers"
-pkgver = "1.3.275.0"
+pkgver = "1.3.280.0"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:spirv-headers"
 url = "https://github.com/KhronosGroup/SPIRV-Headers"
 source = f"{url}/archive/refs/tags/vulkan-sdk-{pkgver}.tar.gz"
-sha256 = "d46b261f1fbc5e85022cb2fada9a6facb5b0c9932b45007a77fe05639a605bd1"
+sha256 = "a00906b6bddaac1e37192eff2704582f82ce2d971f1aacee4d51d9db33b0f772"
 # no test suite
 options = ["!check"]
 
