@@ -5,7 +5,6 @@ pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
-    "-DPREFER_LUA=OFF",
 ]
 hostmakedepends = [
     "cmake",
