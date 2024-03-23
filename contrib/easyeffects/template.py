@@ -1,5 +1,5 @@
 pkgname = "easyeffects"
-pkgver = "7.1.4"
+pkgver = "7.1.5"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Denable-libcpp-workarounds=true"]
@@ -41,9 +41,7 @@ pkgdesc = "PipeWire audio plugins"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/wwmm/easyeffects"
-source = (
-    f"https://github.com/wwmm/easyeffects/archive/refs/tags/v{pkgver}.tar.gz"
-)
-sha256 = "bf7988cd683e225f929bfc07ad7227bd30de2d256e53c082712c729780e22dea"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "f365c70a5ff750b73c1996e5355109c4f9ea48c68e4420eab189a5ede9af90cc"
 # FIXME: cfi
 hardening = ["vis"]
