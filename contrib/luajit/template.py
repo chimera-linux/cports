@@ -1,6 +1,7 @@
 pkgname = "luajit"
 pkgver = "2.1_p20231117"
 pkgrel = 0
+archs = ["aarch64", "ppc64le", "ppc64", "x86_64"]
 _tests_rev = "9ad3724b1a02855a3cad638bba2e564f825954ce"
 build_style = "makefile"
 make_cmd = "gmake"
@@ -29,8 +30,14 @@ sha256 = [
     "cc92968c57c00303eb9eaebf65cc8b29a0f851670f16bb514896ab5057ae381f",
     "f87648d5392b0fa7a82107b84478d1011d12f82920b2757ca0029c9330c2fb3e",
 ]
+hardening = []
 # cba
 options = ["!cross"]
+
+
+if self.profile().arch == "aarch64":
+    # fails buildvm
+    hardening += ["!int"]
 
 
 def init_build(self):
