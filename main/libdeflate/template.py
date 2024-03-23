@@ -1,6 +1,6 @@
 pkgname = "libdeflate"
-pkgver = "1.19"
-pkgrel = 1
+pkgver = "1.20"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DLIBDEFLATE_BUILD_STATIC_LIB=OFF",
@@ -19,10 +19,8 @@ pkgdesc = "Library for DEFLATE/zlib/gzip compression and decompression"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ebiggers/libdeflate"
-source = (
-    f"https://github.com/ebiggers/libdeflate/archive/refs/tags/v{pkgver}.tar.gz"
-)
-sha256 = "27bf62d71cd64728ff43a9feb92f2ac2f2bf748986d856133cc1e51992428c25"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "ed1454166ced78913ff3809870a4005b7170a6fd30767dc478a09b96847b9c2a"
 # FIXME: cfi
 hardening = ["vis"]
 
