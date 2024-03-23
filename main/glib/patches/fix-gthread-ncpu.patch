@@ -1,0 +1,21 @@
+commit cb7011276a7b36c3d447911111e1bb0b6225aa09
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Mar 23 20:41:51 2024 +0100
+
+    normalize CPU_ISSET to 0/1
+    
+    Otherwise we may get bogus values like 65535 for CPU count.
+
+diff --git a/glib/gthread.c b/glib/gthread.c
+index b39acc4..0e39e6a 100644
+--- a/glib/gthread.c
++++ b/glib/gthread.c
+@@ -1101,7 +1101,7 @@ g_get_num_processors (void)
+     int err = pthread_getaffinity_np (pthread_self (), sizeof (cpu_mask), &cpu_mask);
+     if (!err)
+       for (idx = 0; idx < ncores && idx < CPU_SETSIZE; ++idx)
+-        af_count += CPU_ISSET (idx, &cpu_mask);
++        af_count += !! CPU_ISSET (idx, &cpu_mask);
+ 
+     int count = (af_count > 0) ? af_count : ncores;
+     return count;
