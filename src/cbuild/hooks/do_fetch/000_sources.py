@@ -147,6 +147,7 @@ def fetch_stream(url, dfile, idx, ntry, rqf, rbuf):
                 flens[idx] = fstatus[idx]
     # resume outside the mutex
     if dores:
+        rqf.close()
         return fetch_url(url, dfile, idx, ntry + 1, rbuf)
     # rename and return
     pfile.rename(dfile)
