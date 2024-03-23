@@ -1,7 +1,7 @@
 # update and rebuild shaderc when updating
 # update vulkan-validationlayers on next release
 pkgname = "spirv-tools"
-pkgver = "1.3.275.0"
+pkgver = "1.3.280.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/KhronosGroup/SPIRV-Tools"
 source = f"{url}/archive/vulkan-sdk-{pkgver}.tar.gz"
-sha256 = "f6fe32edc00b73400e9d5474d87d474478bf8bc0fb73d2767fecd847c05a4b1d"
+sha256 = "703c772a850fa7fbe57a2f8dc99b4c1422a59fa5ff098a80c8ce12fcdf6a2613"
 hardening = ["!cfi"]  # TODO
 # needs gtest
 options = ["!check"]
