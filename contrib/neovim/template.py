@@ -38,7 +38,8 @@ options = ["!check"]
 
 
 match self.profile().arch:
-    case "aarch64" | "ppc64le" | "ppc64" | "x86_64":
+    case "aarch64" | "ppc64le" | "x86_64":
+        # ppc64 could work but it misgenerates?
         configure_args += ["-DPREFER_LUA=OFF"]
         hostmakedepends += ["luajit"]
         makedepends += ["luajit-devel"]
