@@ -1,5 +1,5 @@
 pkgname = "gnutls"
-pkgver = "3.8.3"
+pkgver = "3.8.4"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -13,16 +13,16 @@ configure_args = [
 configure_gen = []
 hostmakedepends = ["pkgconf", "gettext"]
 makedepends = [
-    "nettle-devel",
-    "libtasn1-devel",
-    "libidn2-devel",
     "libgpg-error-devel",
+    "libidn2-devel",
+    "libtasn1-devel",
     "libunistring-devel",
-    "zlib-devel",
     "lzo-devel",
+    "nettle-devel",
     "p11-kit-devel",
-    "unbound-devel",
     "trousers-devel",
+    "unbound-devel",
+    "zlib-devel",
 ]
 # dlopened
 depends = ["libtspi"]
@@ -31,7 +31,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gnutls.org"
 source = f"https://www.gnupg.org/ftp/gcrypt/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f74fc5954b27d4ec6dfbb11dea987888b5b124289a3703afcada0ee520f4173e"
+sha256 = "2bea4e154794f3f00180fa2a5c51fe8b005ac7a31cd58bd44cdfa7f36ebc3a9b"
 
 
 @subpackage("gnutls-devel")
