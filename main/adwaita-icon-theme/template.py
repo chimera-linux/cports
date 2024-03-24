@@ -1,5 +1,5 @@
 pkgname = "adwaita-icon-theme"
-pkgver = "45.0"
+pkgver = "46.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,4 +9,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later OR CC-BY-SA-3.0"
 url = "https://gitlab.gnome.org/GNOME/adwaita-icon-theme"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "2442bfb06f4e6cc95bf6e2682fdff98fa5eddc688751b9d6215c623cb4e42ff1"
+sha256 = "4bcb539bd75d64da385d6fa08cbaa9ddeaceb6ac8e82b85ba6c41117bf5ba64e"
