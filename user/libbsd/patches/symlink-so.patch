@@ -1,0 +1,34 @@
+the musl target sets ABI_TRANSPARENT_LIBMD
+and that makes libbsd.so an ld script referrencing libmd
+
+this patch removes that logic in favor of a "conventional" symlink
+---
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 00181bd..c5405f5 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -377,24 +377,12 @@ install-exec-hook: $(TRANSPARENT_LIBMD_DEPENDS)
+ 		mv $(DESTDIR)$(libdir)/libbsd*.so.* \
+ 		   $(DESTDIR)$(runtimelibdir)/; \
+ 	fi
+-if ABI_TRANSPARENT_LIBMD
+-# The "GNU ld script" magic is required so that GNU ldconfig does not complain
+-# about an unknown format file.
+-	soname=`readlink $(DESTDIR)$(libdir)/libbsd.so`; \
+-	$(RM) $(DESTDIR)$(libdir)/libbsd.so; \
+-	(echo '/* GNU ld script'; \
+-	 echo ' * The MD5 functions are provided by the libmd library. */'; \
+-	 cat format.ld; \
+-	 echo "GROUP($(runtimelibdir)/$$soname AS_NEEDED($(MD5_LIBS)))"; \
+-	)>$(DESTDIR)$(libdir)/libbsd.so
+-else
+ 	if [ "$(libdir)" != "$(runtimelibdir)" ]; then \
+ 		soname=`readlink $(DESTDIR)$(libdir)/libbsd.so`; \
+ 		sorelprefix=`echo $(libdir) | $(SED) -r -e 's:(^/)?[^/]+:..:g'`; \
+ 		ln -sf $$sorelprefix$(runtimelibdir)/$$soname \
+ 		       $(DESTDIR)$(libdir)/libbsd.so; \
+ 	fi
+-endif
+ 
+ uninstall-hook:
+ 	rm -f $(DESTDIR)$(runtimelibdir)/libbsd*.so*
