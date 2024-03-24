@@ -1,5 +1,5 @@
 pkgname = "emacs-gtk3"
-pkgver = "29.2"
+pkgver = "29.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -54,7 +54,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/emacs/emacs.html"
 source = f"https://ftp.gnu.org/gnu/emacs/emacs-{pkgver}.tar.xz"
-sha256 = "7d3d2448988720bf4bf57ad77a5a08bf22df26160f90507a841ba986be2670dc"
+sha256 = "c34c05d3ace666ed9c7f7a0faf070fea3217ff1910d004499bd5453233d742a0"
 # FIXME cfi: breaks
 hardening = ["vis"]
 # no tests
