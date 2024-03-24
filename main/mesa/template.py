@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "24.0.3"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
@@ -265,6 +265,13 @@ def _xatracker(self):
     self.pkgdesc = "X acceleration library (shared library)"
 
     return ["usr/lib/libxatracker*.so.*"]
+
+
+@subpackage("mesa-gallium-nine", _have_nine)
+def _gallium_nine(self):
+    self.pkgdesc = "Mesa implementation of D3D9"
+
+    return ["usr/lib/d3d"]
 
 
 @subpackage("mesa-opencl", _have_opencl)
