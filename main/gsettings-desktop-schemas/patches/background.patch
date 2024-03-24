@@ -1,18 +1,18 @@
-commit de7a7ff947e6cfa667cc5e6573f34c248b591277
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Mon Oct 10 23:08:32 2022 +0200
+commit ad6faff24bdf2011bc12cb2b49bde1606453acfd
+Author: q66 <q66@chimera-linux.org>
+Date:   Sun Mar 24 14:29:21 2024 +0100
 
     change default background
 
 diff --git a/schemas/org.gnome.desktop.background.gschema.xml.in b/schemas/org.gnome.desktop.background.gschema.xml.in
-index 6a70b65..8dcf38f 100644
+index 8abe8ea..8dcf38f 100644
 --- a/schemas/org.gnome.desktop.background.gschema.xml.in
 +++ b/schemas/org.gnome.desktop.background.gschema.xml.in
 @@ -11,7 +11,7 @@
        </description>
      </key>
      <key name="picture-uri" type="s">
--      <default>'file://@datadir@/backgrounds/gnome/adwaita-l.jpg'</default>
+-      <default>'file://@datadir@/backgrounds/gnome/adwaita-l.jxl'</default>
 +      <default>'file://@datadir@/backgrounds/chimera/bg-l.svg'</default>
        <summary>Picture URI</summary>
        <description>
@@ -21,7 +21,7 @@ index 6a70b65..8dcf38f 100644
        </description>
      </key>
      <key name="picture-uri-dark" type="s">
--      <default>'file://@datadir@/backgrounds/gnome/adwaita-d.jpg'</default>
+-      <default>'file://@datadir@/backgrounds/gnome/adwaita-d.jxl'</default>
 +      <default>'file://@datadir@/backgrounds/chimera/bg-d.svg'</default>
        <summary>Picture URI (dark)</summary>
        <description>
