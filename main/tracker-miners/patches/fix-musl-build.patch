@@ -1,0 +1,25 @@
+diff --git a/src/libtracker-miners-common/tracker-landlock.c b/src/libtracker-miners-common/tracker-landlock.c
+index 95c652ecd..cb2553aed 100644
+--- a/src/libtracker-miners-common/tracker-landlock.c
++++ b/src/libtracker-miners-common/tracker-landlock.c
+@@ -28,6 +28,7 @@
+ #include <linux/landlock.h>
+ #include <sys/prctl.h>
+ #include <sys/syscall.h>
++#include <unistd.h>
+ 
+ #include "tracker-debug.h"
+ 
+diff --git a/src/libtracker-miners-common/tracker-seccomp.c b/src/libtracker-miners-common/tracker-seccomp.c
+index 9432ed6f3..0e6648f6b 100644
+--- a/src/libtracker-miners-common/tracker-seccomp.c
++++ b/src/libtracker-miners-common/tracker-seccomp.c
+@@ -95,7 +95,7 @@ sigsys_handler (gint       signal,
+ 		free (syscall_name);
+ 
+ 		/* Ensure to propagate SIGSYS to generate a core file */
+-		tgkill (gettid(), getpid(), SIGSYS);
++		syscall (SYS_tgkill, gettid(), getpid(), SIGSYS);
+ 	}
+ }
+ 
