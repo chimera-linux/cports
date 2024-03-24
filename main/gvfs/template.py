@@ -1,6 +1,6 @@
 pkgname = "gvfs"
-pkgver = "1.52.2"
-pkgrel = 1
+pkgver = "1.54.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dsystemduserunitdir=no",
@@ -8,6 +8,7 @@ configure_args = [
     "-Dlogind=true",
     "-Dman=true",
     "-Dgoogle=false",  # TODO libgdata
+    "-Donedrive=false",  # TODO msgraph
 ]
 hostmakedepends = [
     "meson",
@@ -27,7 +28,7 @@ makedepends = [
     "bluez-devel",
     "libbluray-devel",
     "libcap-devel",
-    "gcr3-devel",
+    "gcr-devel",
     "libcdio-paranoia-devel",
     "libgcrypt-devel",
     "libgphoto2-devel",
@@ -56,7 +57,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/gvfs"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "a643aceaa053caac0d8eff9a015f636e4bd1bb09cfe27864e347db67460e7b91"
+sha256 = "f53d81df86c2e86cdd25182c2d8a669a22371e83623ded1b9d5416dcfc6de366"
 
 
 @subpackage("gvfs-devel")
