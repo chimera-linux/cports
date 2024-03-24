@@ -1,6 +1,6 @@
 pkgname = "apk-tools"
 pkgver = "3.0.0_pre4"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "c6d0ee842a2596bdfd5dcfba9f9b182696e00013"
 build_style = "meson"
 configure_args = ["-Dlua=disabled", "-Dstatic_apk=true", "-Dlua_version=5.4"]
