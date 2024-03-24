@@ -1,0 +1,15 @@
+basename from chimerautils does not support long flags
+---
+diff --git a/doc/gen.sh b/doc/gen.sh
+index 447e722..32ece60 100755
+--- a/doc/gen.sh
++++ b/doc/gen.sh
+@@ -18,7 +18,7 @@ if [ ! -d "$GEN_DIR" ]; then
+ fi
+ 
+ for FILE in "$DIR"/*scd; do
+-	GEN="$GEN_DIR"/"$(basename --suffix .scd "$FILE")"
++	GEN="$GEN_DIR"/"$(basename -s .scd "$FILE")"
+ 	printf "generating %s..." "$GEN"
+ 	scdoc < "$FILE" > "$GEN"
+ 	printf " ...done!\n"
