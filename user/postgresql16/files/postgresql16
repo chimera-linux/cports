@@ -1,0 +1,6 @@
+# postgresql service
+
+type            = process
+command         = /usr/libexec/postgresql16/postgres -D /var/lib/postgres
+depends-on      = network.target
+smooth-recovery = true
