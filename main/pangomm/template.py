@@ -1,5 +1,5 @@
 pkgname = "pangomm"
-pkgver = "2.50.2"
+pkgver = "2.52.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.gtkmm.org"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "1bc5ab4ea3280442580d68318226dab36ceedfc3288f9d83711cf7cfab50a9fb"
+sha256 = "34a134126a6484ff12f774358c36ecc44d0e9df094e1b83796d9774bb7d24947"
 
 
 @subpackage("pangomm-devel")
