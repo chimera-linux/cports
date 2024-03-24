@@ -8,12 +8,12 @@ pkgrel = 0
 build_style = "gnu_configure"
 _bindir = f"usr/libexec/{pkgname}"
 _datadir = f"usr/share/{pkgname}"
-_includedir = f"usr/include/postgresql"
+_includedir = "usr/include/postgresql"
 _srvlibdir = f"usr/lib/{pkgname}"
 configure_args = [
     # TODO: review path choices - alpine puts pkgname in a few of these
     f"--bindir=/{_bindir}",
-    f"--libdir=/usr/lib",
+    "--libdir=/usr/lib",
     f"--includedir=/{_includedir}",
     f"--datadir=/{_datadir}",
     "--disable-rpath",  # TODO: alpine does this but the docs say not to. should we?
@@ -51,7 +51,7 @@ def _postgresql_devel(self):
     return [f"usr/lib/{pkgname}/pgxs"]
 
 
-@subpackage(f"postgresql-libs", _default_ver)
+@subpackage("postgresql-libs", _default_ver)
 def _libs(self):
     return [
         "usr/lib/libpq.so.*",
@@ -61,7 +61,7 @@ def _libs(self):
 
 
 # TODO: a lot of this could probably be done using the default subpackage functions
-@subpackage(f"postgresql-libs-devel", _default_ver)
+@subpackage("postgresql-libs-devel", _default_ver)
 def _libs_devel(self):
     return [
         # libpq
