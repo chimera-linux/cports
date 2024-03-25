@@ -196,7 +196,3 @@ def _plpython_contrib(self):
             _subpackage_install(self, f"contrib/{subdir}")
 
     return subpackage
-
-
-# TODO: dinit service
-# TODO: tmpfile.d
