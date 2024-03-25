@@ -1,0 +1,254 @@
+From 425842144ea60ea92f19a0604819653b22b3ab5d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Fri, 29 Mar 2024 18:34:43 +0100
+Subject: [PATCH] Use openssl
+
+---
+ Cargo.lock | 123 +++++++++++++++++++++++++++++++++++++++--------------
+ Cargo.toml |   4 +-
+ 2 files changed, 93 insertions(+), 34 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index e2630a1a..5e5f1f91 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -1247,6 +1247,21 @@ version = "1.0.7"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
+ 
++[[package]]
++name = "foreign-types"
++version = "0.3.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f6f339eb8adc052cd2ca78910fda869aefa38d22d5cb648e6485e4d3fc06f3b1"
++dependencies = [
++ "foreign-types-shared",
++]
++
++[[package]]
++name = "foreign-types-shared"
++version = "0.1.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "00b0228411908ca8685dba7fc2cdd70ec9990a6e753e89b6ac91a84c40fbaf4b"
++
+ [[package]]
+ name = "form_urlencoded"
+ version = "1.2.1"
+@@ -1652,17 +1667,16 @@ dependencies = [
+ ]
+ 
+ [[package]]
+-name = "hyper-rustls"
+-version = "0.24.2"
++name = "hyper-tls"
++version = "0.5.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ec3efd23720e2049821a693cbc7e65ea87c72f1c58ff2f9522ff332b1491e590"
++checksum = "d6183ddfa99b85da61a140bea0efc93fdf56ceaa041b37d553518030827f9905"
+ dependencies = [
+- "futures-util",
+- "http 0.2.12",
++ "bytes",
+  "hyper 0.14.28",
+- "rustls",
++ "native-tls",
+  "tokio",
+- "tokio-rustls",
++ "tokio-native-tls",
+ ]
+ 
+ [[package]]
+@@ -2092,6 +2106,24 @@ dependencies = [
+  "windows-sys 0.48.0",
+ ]
+ 
++[[package]]
++name = "native-tls"
++version = "0.2.11"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "07226173c32f2926027b63cce4bcd8076c3552846cbe7925f3aaffeac0a3b92e"
++dependencies = [
++ "lazy_static",
++ "libc",
++ "log",
++ "openssl",
++ "openssl-probe",
++ "openssl-sys",
++ "schannel",
++ "security-framework",
++ "security-framework-sys",
++ "tempfile",
++]
++
+ [[package]]
+ name = "nix"
+ version = "0.24.3"
+@@ -2329,12 +2361,50 @@ version = "0.3.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "c08d65885ee38876c4f86fa503fb49d7b507c2b62552df7c70b2fce627e06381"
+ 
++[[package]]
++name = "openssl"
++version = "0.10.64"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "95a0481286a310808298130d22dd1fef0fa571e05a8f44ec801801e84b216b1f"
++dependencies = [
++ "bitflags 2.4.2",
++ "cfg-if",
++ "foreign-types",
++ "libc",
++ "once_cell",
++ "openssl-macros",
++ "openssl-sys",
++]
++
++[[package]]
++name = "openssl-macros"
++version = "0.1.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "a948666b637a0f465e8564c73e89d4dde00d72d4d473cc972f390fc3dcee7d9c"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 2.0.52",
++]
++
+ [[package]]
+ name = "openssl-probe"
+ version = "0.1.5"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "ff011a302c396a5197692431fc1948019154afc178baf7d8e37367442a4601cf"
+ 
++[[package]]
++name = "openssl-sys"
++version = "0.9.101"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "dda2b0f344e78efc2facf7d195d098df0dd72151b26ab98da807afc26c198dff"
++dependencies = [
++ "cc",
++ "libc",
++ "pkg-config",
++ "vcpkg",
++]
++
+ [[package]]
+ name = "option-ext"
+ version = "0.2.0"
+@@ -2743,16 +2813,15 @@ dependencies = [
+  "http 0.2.12",
+  "http-body 0.4.6",
+  "hyper 0.14.28",
+- "hyper-rustls",
++ "hyper-tls",
+  "ipnet",
+  "js-sys",
+  "log",
+  "mime",
++ "native-tls",
+  "once_cell",
+  "percent-encoding",
+  "pin-project-lite",
+- "rustls",
+- "rustls-native-certs",
+  "rustls-pemfile 1.0.4",
+  "serde",
+  "serde_json",
+@@ -2760,7 +2829,7 @@ dependencies = [
+  "sync_wrapper",
+  "system-configuration",
+  "tokio",
+- "tokio-rustls",
++ "tokio-native-tls",
+  "tower-service",
+  "url",
+  "wasm-bindgen",
+@@ -2891,18 +2960,6 @@ dependencies = [
+  "sct",
+ ]
+ 
+-[[package]]
+-name = "rustls-native-certs"
+-version = "0.6.3"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a9aace74cb666635c918e9c12bc0d348266037aa8eb599b5cba565709a8dff00"
+-dependencies = [
+- "openssl-probe",
+- "rustls-pemfile 1.0.4",
+- "schannel",
+- "security-framework",
+-]
+-
+ [[package]]
+ name = "rustls-pemfile"
+ version = "1.0.4"
+@@ -3355,11 +3412,10 @@ dependencies = [
+  "indexmap 2.2.5",
+  "log",
+  "memchr",
++ "native-tls",
+  "once_cell",
+  "paste",
+  "percent-encoding",
+- "rustls",
+- "rustls-pemfile 1.0.4",
+  "serde",
+  "serde_json",
+  "sha2",
+@@ -3372,7 +3428,6 @@ dependencies = [
+  "tracing",
+  "url",
+  "uuid",
+- "webpki-roots",
+ ]
+ 
+ [[package]]
+@@ -3796,6 +3851,16 @@ dependencies = [
+  "syn 2.0.52",
+ ]
+ 
++[[package]]
++name = "tokio-native-tls"
++version = "0.3.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "bbae76ab933c85776efabc971569dd6119c580d8f5d448769dec1764bf796ef2"
++dependencies = [
++ "native-tls",
++ "tokio",
++]
++
+ [[package]]
+ name = "tokio-rustls"
+ version = "0.24.1"
+@@ -4272,12 +4337,6 @@ dependencies = [
+  "wasm-bindgen",
+ ]
+ 
+-[[package]]
+-name = "webpki-roots"
+-version = "0.25.4"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "5f20c57d8d7db6d3b86154206ae5d8fba62dd39573114de97c2cb0578251f8e1"
+-
+ [[package]]
+ name = "whoami"
+ version = "1.5.0"
+diff --git a/Cargo.toml b/Cargo.toml
+index a3a8fd12..a6dcade4 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -50,9 +50,9 @@ rustix = {version = "0.38.30", features=["process", "fs"]}
+ 
+ [workspace.dependencies.reqwest]
+ version = "0.11"
+-features = ["json", "rustls-tls-native-roots"]
++features = ["json", "default-tls"]
+ default-features = false
+ 
+ [workspace.dependencies.sqlx]
+ version = "0.7.3"
+-features = ["runtime-tokio-rustls", "time", "postgres", "uuid"]
++features = ["runtime-tokio-native-tls", "time", "postgres", "uuid"]
+-- 
+2.44.0
+
