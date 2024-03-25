@@ -1,9 +1,10 @@
 pkgname = "nlohmann-json"
 pkgver = "3.11.3"
-pkgrel = 0
-build_style = "meson"
+pkgrel = 1
+build_style = "cmake"
+configure_args = ["-DJSON_BuildTests=OFF"]
 hostmakedepends = [
-    "meson",
+    "cmake",
     "ninja",
     "pkgconf",
 ]
