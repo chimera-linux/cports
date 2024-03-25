@@ -1,5 +1,5 @@
 pkgname = "wofi"
-pkgver = "1.3"
+pkgver = "1.4.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,7 +9,7 @@ maintainer = "avgwst <avgwst@tutanota.de>"
 license = "GPL-3.0-or-later"
 url = "https://sr.ht/~scoopta/wofi"
 source = f"https://hg.sr.ht/~scoopta/{pkgname}/archive/v{pkgver}.tar.gz"
-sha256 = "7644e4e995bc027b7f3f411ceda82b3e2a72a4a424f6193663c27bbf00f23067"
+sha256 = "e95e35c03551c39178c16ad6213a88e3883a236e942d7f2666c780d934c270bb"
 # vis breaks all modes
 hardening = ["!vis"]
 # no check
