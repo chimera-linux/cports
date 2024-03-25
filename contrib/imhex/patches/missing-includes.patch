@@ -1,0 +1,44 @@
+--- a/lib/external/pattern_language/lib/source/pl/core/evaluator.cpp
++++ b/lib/external/pattern_language/lib/source/pl/core/evaluator.cpp
+@@ -23,6 +23,7 @@
+ #include <pl/patterns/pattern_array_dynamic.hpp>
+ #include <pl/patterns/pattern_padding.hpp>
+ 
++#include <exception>
+ #include <utility>
+ 
+ namespace pl::core {
+@@ -1131,4 +1132,4 @@
+         }
+     }
+ 
+-}
+\ No newline at end of file
++}
+--- a/lib/libimhex/include/hex/api/event_manager.hpp
++++ b/lib/libimhex/include/hex/api/event_manager.hpp
+@@ -2,6 +2,7 @@
+ 
+ #include <hex.hpp>
+ 
++#include <algorithm>
+ #include <list>
+ #include <map>
+ #include <string_view>
+@@ -314,4 +315,4 @@
+      * Called when ImHex managed to catch an error in a general try/catch to prevent/recover from a crash
+     */
+     EVENT_DEF(EventCrashRecovered, const std::exception &);
+-}
+\ No newline at end of file
++}
+--- a/lib/libimhex/include/hex/api/content_registry.hpp
++++ b/lib/libimhex/include/hex/api/content_registry.hpp
+@@ -6,6 +6,7 @@
+ 
+ #include <functional>
+ #include <map>
++#include <mutex>
+ #include <span>
+ #include <string>
+ #include <utility>
