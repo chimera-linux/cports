@@ -1,0 +1,11 @@
+--- a/src/libtracker-miners-common/tracker-seccomp.c
++++ b/src/libtracker-miners-common/tracker-seccomp.c
+@@ -95,7 +95,7 @@
+ 		free (syscall_name);
+ 
+ 		/* Ensure to propagate SIGSYS to generate a core file */
+-		tgkill (gettid(), getpid(), SIGSYS);
++		syscall (SYS_tgkill, gettid(), getpid(), SIGSYS);
+ 	}
+ }
+ 
