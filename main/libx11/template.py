@@ -1,5 +1,5 @@
 pkgname = "libx11"
-pkgver = "1.8.7"
+pkgver = "1.8.8"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"$(XORG_SITE)/lib/libX11-{pkgver}.tar.gz"
-sha256 = "793ebebf569f12c864b77401798d38814b51790fce206e01a431e5feb982e20b"
+sha256 = "26997a2bc48c03df7d670f8a4ee961d1d6b039bf947475e5fec6b7635b4efe72"
 # FIXME int (_XkbReadGetIndicatorMapReply)
 hardening = ["!int"]
 # broken for now
