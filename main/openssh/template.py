@@ -41,8 +41,10 @@ pkgdesc = "OpenSSH free Secure Shell (SSH) client and server implementation"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "SSH-OpenSSH"
 url = "https://www.openssh.com"
-#source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgver.replace('_', '')}.tar.gz"
-source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.7p1.tar.gz"
+# source = f"https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/{pkgname}-{pkgver.replace('_', '')}.tar.gz"
+source = (
+    "https://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-9.7p1.tar.gz"
+)
 sha256 = "490426f766d82a2763fcacd8d83ea3d70798750c7bd2aff2e57dc5660f773ffd"
 file_modes = {"usr/libexec/ssh-keysign": ("root", "root", 0o4755)}
 # FIXME cfi (does not work); maybe make testsuite work first
