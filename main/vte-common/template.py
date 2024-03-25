@@ -1,6 +1,6 @@
 pkgname = "vte-common"
-pkgver = "0.74.2"
-pkgrel = 1
+pkgver = "0.76.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-D_systemd=false",
@@ -28,6 +28,7 @@ makedepends = [
     "pango-devel",
     "fribidi-devel",
     "icu-devel",
+    "lz4-devel",
     "zlib-devel",
     "linux-headers",
 ]
@@ -38,9 +39,14 @@ url = "https://wiki.gnome.org/Apps/Terminal/VTE"
 source = (
     f"https://gitlab.gnome.org/GNOME/vte/-/archive/{pkgver}/vte-{pkgver}.tar.gz"
 )
-sha256 = "03a5a41c777d233341753d8ecd23c882e76f6464310bb2b8065425a1c859060a"
+sha256 = "2275d5958d89ca1a93488e066ee33987557db36f560a5dfd4101b1a2d4f150a4"
 # assert in meson
 options = ["!lto", "!cross"]
+
+tool_flags = {
+    "CFLAGS": ["-Wno-cast-function-type-strict"],
+    "CXXFLAGS": ["-Wno-cast-function-type-strict"],
+}
 
 
 @subpackage("vte-gtk3")
