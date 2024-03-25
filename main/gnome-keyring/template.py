@@ -1,7 +1,8 @@
 pkgname = "gnome-keyring"
-# 46 moved the pam module to libsecret, so rebuild it with -Dpam=true when upgrading
-pkgver = "42.1"
-pkgrel = 1
+# pam_gnome_keyring may be moved to libsecret later?
+# as of 46 it does not install it and distros don't use it
+pkgver = "46.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-pam-dir=/usr/lib/security",
@@ -31,4 +32,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-keyring"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c7f4d040cc76a6b7fe67e08ef9106911c3c80d40fc88cbfc8e2684a4c946e3e6"
+sha256 = "b1d3ae9132ff2f8b3f25a190790892968e3d0acf952a487e40f644a8550ce3f6"
