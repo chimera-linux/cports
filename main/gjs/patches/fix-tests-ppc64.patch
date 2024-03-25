@@ -1,0 +1,11 @@
+--- a/gi/function.cpp
++++ b/gi/function.cpp
+@@ -837,6 +837,8 @@ namespace Gjs {
+ 
+ static void* get_return_ffi_pointer_from_gi_argument(
+     GITypeTag tag, GITypeInfo* return_type, GIFFIReturnValue* return_value) {
++    if (return_type && g_type_info_is_pointer(return_type))
++        return &gjs_arg_member<void*>(return_value);
+     switch (tag) {
+         case GI_TYPE_TAG_VOID:
+             return nullptr;
