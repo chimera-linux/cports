@@ -47,7 +47,8 @@ makedepends = [
     "libxml2-devel",
     "e2fsprogs-devel",
 ]
-depends = ["tzdata"]
+depends = ["postgresql-common", "tzdata"]
+provides = ["postgresql"]
 pkgdesc = "Sophisticated object-relational DBMS"
 maintainer = "mia <mia@mia.jetzt>"
 license = "PostgreSQL"
@@ -64,6 +65,7 @@ def post_install(self):
     if _default_ver:
         self.install_man("doc/src/sgml/man*/*", glob=True)
     self.install_file(self.files_path / "pltcl_create_tables.sql", "usr/share")
+    (self.destdir / _bindir / "PG_VERSION").write_text(_major)
 
 
 @subpackage(f"{pkgname}-devel")
@@ -196,6 +198,5 @@ def _plpython_contrib(self):
     return subpackage
 
 
-# TODO: read more about postgresql-common stuff from alpine
 # TODO: dinit service
-# TODO: tmpfile.d and sysuser.d files (where should databases be by default?)
+# TODO: tmpfile.d
