@@ -1,10 +1,8 @@
 pkgname = "gnome-session"
-pkgver = "45.0"
+pkgver = "46.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dsystemd_journal=false",
-    "-Dsystemd_session=disable",
     "-Dsystemduserunitdir=/tmp",
 ]
 hostmakedepends = [
@@ -36,6 +34,10 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-session"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "706d2ffcacac38553a3c0185793f5a2b4aac940bb5e789d953c9808163bef2f1"
+sha256 = "c6e1624af6090bc4e1a191fe2268abfa7a8de07831ca7a57f217e679bf7b9a54"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "tmp", recursive=True)
