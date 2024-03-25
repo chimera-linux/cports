@@ -1,6 +1,6 @@
 pkgname = "mpv"
 pkgver = "0.37.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -84,6 +84,7 @@ license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/mpv/archive/v{pkgver}.tar.gz"
 sha256 = "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
+tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # development-only
