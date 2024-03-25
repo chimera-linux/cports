@@ -1,0 +1,138 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 58f7820be..3501190b8 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -2458,15 +2458,6 @@ version = "0.2.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "dfa686283ad6dd069f105e5ab091b04c62850d3e4cf5d67debad1933f55023df"
+ 
+-[[package]]
+-name = "home"
+-version = "0.5.9"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "e3d1354bf6b7235cb4a0576c2619fd4ed18183f689b12b006a0ee7329eeff9a5"
+-dependencies = [
+- "windows-sys 0.52.0",
+-]
+-
+ [[package]]
+ name = "hostname"
+ version = "0.3.1"
+@@ -3131,15 +3122,6 @@ dependencies = [
+  "hashbrown 0.12.3",
+ ]
+ 
+-[[package]]
+-name = "lua-src"
+-version = "546.0.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2da0daa7eee611a4c30c8f5ee31af55266e26e573971ba9336d2993e2da129b2"
+-dependencies = [
+- "cc",
+-]
+-
+ [[package]]
+ name = "luahelper"
+ version = "0.1.0"
+@@ -3150,16 +3132,6 @@ dependencies = [
+  "wezterm-dynamic",
+ ]
+ 
+-[[package]]
+-name = "luajit-src"
+-version = "210.5.5+f2336c4"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "d8bcba9790f4e3b1c1467d75cdd011a63bbe6bc75da95af5d2cb4e3631f939c4"
+-dependencies = [
+- "cc",
+- "which",
+-]
+-
+ [[package]]
+ name = "mac_address"
+ version = "1.1.5"
+@@ -3376,8 +3348,6 @@ checksum = "2847b42764435201d8cbee1f517edb79c4cca4181877b90047587c89e1b7bce4"
+ dependencies = [
+  "cc",
+  "cfg-if",
+- "lua-src",
+- "luajit-src",
+  "pkg-config",
+ ]
+ 
+@@ -6730,19 +6700,6 @@ dependencies = [
+  "web-sys",
+ ]
+ 
+-[[package]]
+-name = "which"
+-version = "5.0.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "9bf3ea8596f3a0dd5980b46430f2058dfe2c36a27ccfbb1845d6fbfcd9ba6e14"
+-dependencies = [
+- "either",
+- "home",
+- "once_cell",
+- "rustix 0.38.30",
+- "windows-sys 0.48.0",
+-]
+-
+ [[package]]
+ name = "whoami"
+ version = "1.4.1"
+diff --git a/config/Cargo.toml b/config/Cargo.toml
+index 580920b9a..9211694d9 100644
+--- a/config/Cargo.toml
++++ b/config/Cargo.toml
+@@ -23,7 +23,7 @@ lazy_static = "1.4"
+ libc = "0.2"
+ log = "0.4"
+ luahelper = { path = "../luahelper" }
+-mlua = {version="0.9", features=["vendored", "lua54", "async", "send"]}
++mlua = {version="0.9", features=["lua54", "async", "send"]}
+ # file change notification
+ notify = "5.0.0"
+ once_cell = "1.8"
+diff --git a/deps/freetype/build.rs b/deps/freetype/build.rs
+index b4a8407b8..c3b16d422 100644
+--- a/deps/freetype/build.rs
++++ b/deps/freetype/build.rs
+@@ -235,9 +235,9 @@ fn git_submodule_update() {
+ }
+ 
+ fn main() {
+-    zlib();
+-    libpng();
+-    freetype();
++    println!("cargo:rustc-link-lib=z");
++    println!("cargo:rustc-link-lib=png");
++    println!("cargo:rustc-link-lib=freetype");
+     let out_dir = env::var("OUT_DIR").unwrap();
+     println!("cargo:outdir={}", out_dir);
+     println!("cargo:rustc-env=MACOSX_DEPLOYMENT_TARGET=10.9");
+diff --git a/deps/harfbuzz/build.rs b/deps/harfbuzz/build.rs
+index 98c372e71..37cd13001 100644
+--- a/deps/harfbuzz/build.rs
++++ b/deps/harfbuzz/build.rs
+@@ -65,7 +65,7 @@ fn git_submodule_update() {
+ }
+ 
+ fn main() {
+-    harfbuzz();
++    println!("cargo:rustc-link-lib=harfbuzz");
+     let out_dir = env::var("OUT_DIR").unwrap();
+     println!("cargo:outdir={}", out_dir);
+     println!("cargo:rustc-env=MACOSX_DEPLOYMENT_TARGET=10.9");
+diff --git a/window/Cargo.toml b/window/Cargo.toml
+index 218f2a17b..56775b553 100644
+--- a/window/Cargo.toml
++++ b/window/Cargo.toml
+@@ -79,7 +79,7 @@ smithay-client-toolkit = {version = "0.16.1", default-features=false, optional=t
+ wayland-protocols = {version="0.29", optional=true}
+ wayland-client = {version="0.29", optional=true}
+ wayland-egl = {version="0.29", optional=true}
+-xcb-imdkit = { version="0.3", git="https://github.com/wez/xcb-imdkit-rs.git", rev="215ce4b08ac9c4822e541efd4f4ffb1062806051"}
++xcb-imdkit = { git = "https://github.com/wez/xcb-imdkit-rs.git", rev = "215ce4b08ac9c4822e541efd4f4ffb1062806051", version = "0.3", features = ["use-system-lib"] }
+ zbus = "3.14"
+ zvariant = "3.15"
+ futures-util = "0.3"
