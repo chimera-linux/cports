@@ -1,5 +1,5 @@
 pkgname = "libgweather"
-pkgver = "4.4.0"
+pkgver = "4.4.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/LibGWeather"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "366e866ff2a708b894cfea9475b8e8ff54cb3e2b477ea72a8ade0dabee5f48a4"
+sha256 = "a6e427b4770ada48945f3aa906af710fc833cff0d42df91f1828302740d794ec"
 # needs network access
 options = ["!check"]
 
