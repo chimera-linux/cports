@@ -2,11 +2,13 @@ pkgname = "gnome-keyring"
 # pam_gnome_keyring may be moved to libsecret later?
 # as of 46 it does not install it and distros don't use it
 pkgver = "46.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-pam-dir=/usr/lib/security",
     "--disable-schemas-compile",
+    # TODO replace with gcr + user service
+    "--enable-ssh-agent",
 ]
 make_cmd = "gmake"
 make_check_args = ["-j1"]
