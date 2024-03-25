@@ -1,6 +1,6 @@
 pkgname = "xwayland-run"
 pkgver = "0.0.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Dcompositor=weston"]
 hostmakedepends = ["meson"]
@@ -8,6 +8,7 @@ depends = [
     "python",
     "weston",
     "xauth",
+    "xwayland",
 ]
 pkgdesc = "Utilities around xwayland for running headless applications"
 maintainer = "psykose <alice@ayaya.dev>"
