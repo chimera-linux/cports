@@ -1,13 +1,5 @@
-commit 854864b98f0405542bcc17ca63792b6925fad216
-Author: Daniel Kolesa <daniel@octaforge.org>
-Date:   Tue Jan 25 04:43:20 2022 +0100
-
-    heimdal fixes
-
-diff --git a/panels/user-accounts/cc-realm-manager.c b/panels/user-accounts/cc-realm-manager.c
-index bc43e6d..d61fc51 100644
---- a/panels/user-accounts/cc-realm-manager.c
-+++ b/panels/user-accounts/cc-realm-manager.c
+--- a/panels/system/users/cc-realm-manager.c
++++ b/panels/system/users/cc-realm-manager.c
 @@ -22,7 +22,7 @@
  
  #include "cc-realm-manager.h"
