@@ -1,6 +1,6 @@
 pkgname = "tracker-miners"
 pkgver = "3.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
@@ -13,6 +13,7 @@ configure_args = [
     # features
     "-Dminer_rss=false",  # libgrss hasn't been touched in a while
     "-Dplaylist=enabled",
+    "-Dlandlock=enabled",
     "-Dexif=enabled",
     "-Djpeg=enabled",
     "-Dtiff=enabled",
