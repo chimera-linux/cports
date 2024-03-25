@@ -34,18 +34,18 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
+    "e2fsprogs-devel",
     "icu-devel",
-    "readline-devel",
-    "zlib-devel",
+    "libxml2-devel",
     "linux-headers",
     "lz4-devel",
-    "zstd-devel",
+    "openssl-devel",
     "perl",
     "python-devel",
+    "readline-devel",
     "tcl-devel",
-    "openssl-devel",
-    "libxml2-devel",
-    "e2fsprogs-devel",
+    "zlib-devel",
+    "zstd-devel",
 ]
 depends = ["postgresql-common", "tzdata"]
 provides = ["postgresql"]
