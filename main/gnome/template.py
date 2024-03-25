@@ -1,5 +1,5 @@
 pkgname = "gnome"
-pkgver = "45.1"
+pkgver = "46.0"
 pkgrel = 0
 build_style = "meta"
 depends = [
@@ -36,7 +36,7 @@ def _apps(self):
         "gnome-screenshot",
         "gnome-software",
         "gnome-shell-extensions",
-        # "gnome-system-monitor",
+        "gnome-system-monitor",
         "gnome-text-editor",
         "gnome-user-docs",
         # "gnome-user-share",
