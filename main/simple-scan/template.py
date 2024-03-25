@@ -1,6 +1,6 @@
 pkgname = "simple-scan"
-pkgver = "44.0"
-pkgrel = 1
+pkgver = "46.0"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
     "meson",
@@ -11,9 +11,9 @@ hostmakedepends = [
     "itstool",
 ]
 makedepends = [
-    "gtk+3-devel",
+    "gtk4-devel",
     "glib-devel",
-    "libhandy-devel",
+    "libadwaita-devel",
     "cairo-devel",
     "gdk-pixbuf-devel",
     "libgusb-devel",
@@ -28,6 +28,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/simple-scan"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "39b870fd46f447f747eaecc2df26049ef773185099f0e13c675656264dd98e95"
+sha256 = "c16e6590142fe563be5143122b3bbb53f6b00a7da9d952f61c47fa26f7b4f0a9"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
