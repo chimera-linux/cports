@@ -1,5 +1,5 @@
 pkgname = "gnome-calculator"
-pkgver = "45.0.2"
+pkgver = "46.0"
 pkgrel = 0
 build_style = "meson"
 # the library has some kind of weird meson issue:
@@ -30,5 +30,5 @@ pkgdesc = "GNOME calculator"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://wiki.gnome.org/Apps/Calculator"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-4]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "7dcbf32384897171cbe5483ec664d994e5e755e912ae1df911624f03c90867c2"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "44694fda6b6233923f5c10a48d02d2cf5724e011a8a85789074c953101f33bf1"
