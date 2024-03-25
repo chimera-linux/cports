@@ -1,6 +1,6 @@
 pkgname = "gdm"
-pkgver = "45.0.1"
-pkgrel = 5
+pkgver = "46.0"
+pkgrel = 0
 build_style = "meson"
 # TODO: plymouth
 configure_args = [
@@ -39,6 +39,7 @@ makedepends = [
     "gettext-devel",
     "glib-devel",
     "gtk+3-devel",
+    "json-glib-devel",
     "libcanberra-devel",
     "libgudev-devel",
     "libx11-devel",
@@ -62,8 +63,8 @@ pkgdesc = "GNOME display manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GDM"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-4]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "6572578c05e3c6569d6ed269f7de2aaf3a035657654586d8243907bb7a6ffa85"
+source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
+sha256 = "8d6cb52176eca48b6bbf1cfe2fdae08d9677b5a0f2bca600dee4604de0dd1efc"
 
 
 def post_install(self):
