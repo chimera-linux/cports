@@ -21,6 +21,4 @@ def do_install(self):
         "usr/lib/tmpfiles.d",
         name="postgresql.conf",
     )
-
-
-# TODO: dinit service
+    self.install_service(self.files_path / "postgresql")

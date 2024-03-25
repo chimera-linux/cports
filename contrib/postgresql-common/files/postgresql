@@ -1,0 +1,6 @@
+# postgresql service
+
+type            = process
+command         = /usr/bin/postgres -D /var/lib/postgres 
+depends-on      = local.target
+smooth-recovery = true
