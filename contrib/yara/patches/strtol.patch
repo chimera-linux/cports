@@ -1,0 +1,42 @@
+fix overflows that trap and sigill in tests
+--
+--- a/libyara/re_lexer.c
++++ b/libyara/re_lexer.c
+@@ -1146,7 +1146,7 @@
+   // Examples: {3,8} {0,5} {,5} {7,}
+ 
+   int hi_bound;
+-  int lo_bound = atoi(yytext + 1);
++  int lo_bound = (int)strtol(yytext + 1, NULL, 10);
+ 
+   char* comma = strchr(yytext, ',');
+ 
+@@ -1155,7 +1155,7 @@
+     // (example: {2,}) set high bound value to maximum.
+     hi_bound = RE_MAX_RANGE;
+   else
+-    hi_bound = atoi(comma + 1);
++    hi_bound = (int)strtol(comma + 1, NULL, 10);
+ 
+   if (hi_bound > RE_MAX_RANGE)
+   {
+@@ -1181,7 +1181,7 @@
+ 
+   // Example: {10}
+ 
+-  int value = atoi(yytext + 1);
++  int value = (int)strtol(yytext + 1, NULL, 10);
+ 
+   // atoi can return a negative value if the input string represents a number
+   // too large to fit in an integer.
+--- a/libyara/hex_lexer.c
++++ b/libyara/hex_lexer.c
+@@ -1241,7 +1241,7 @@
+ #line 182 "libyara/hex_lexer.l"
+ {
+ 
+-  yylval->integer = atoi(yytext);
++  yylval->integer = (int)strtol(yytext, NULL, 10);
+   return _NUMBER_;
+ }
+ 	YY_BREAK
