@@ -178,7 +178,7 @@ def _plperl_contrib(self):
 
 
 @subpackage(f"{pkgname}-plpython")
-def _plperl(self):
+def _plpython(self):
     return [
         f"{_srvlibdir}/plpython3.so",
         f"{_datadir}/extension/plpython3*",
@@ -186,7 +186,7 @@ def _plperl(self):
 
 
 @subpackage(f"{pkgname}-plpython-contrib")
-def _plperl_contrib(self):
+def _plpython_contrib(self):
     def subpackage():
         for subdir in _contrib_search(
             self, lambda name: name.endswith("_plpython")
