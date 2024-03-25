@@ -332,7 +332,7 @@ def summarize_repo(repopath, olist, quiet=False):
                 else:
                     obsolete.append(f.name)
 
-            if compare_version(tov, fromv) < 0 and not quiet:
+            if compare_version(tov, fromv, False) < 0 and not quiet:
                 logger.get().warn(
                     f"Using lower version ({fromf} => {tof}): newer timestamp..."
                 )
