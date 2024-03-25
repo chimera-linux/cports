@@ -1,5 +1,5 @@
 pkgname = "gnome-core"
-pkgver = "45.1"
+pkgver = "46.0"
 pkgrel = 0
 build_style = "meta"
 # a bunch of stuff is indirect dependencies we don't need to list
@@ -13,7 +13,7 @@ depends = [
     "gdm",
     "gjs",
     "glib-networking",
-    "gnome-backgrounds",
+    "gnome-backgrounds-gnome",
     "gnome-bluetooth",
     "gnome-color-manager",
     "gnome-control-center",
