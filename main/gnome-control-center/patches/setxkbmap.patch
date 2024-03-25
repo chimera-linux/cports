@@ -9,7 +9,7 @@ index 37334b7..a369aa2 100644
 --- a/tests/meson.build
 +++ b/tests/meson.build
 @@ -11,4 +11,3 @@ endif
+ endif
  
  subdir('printers')
- subdir('info')
 -subdir('keyboard')
