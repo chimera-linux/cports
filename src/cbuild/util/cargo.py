@@ -130,10 +130,13 @@ class Cargo:
         if offline:
             bargs.append("--offline")
 
+        auditable = self.template.cargo_auditable
+
+        cargo = ["cargo", "auditable"] if auditable else ["cargo"]
         return self.template.do(
             *wrapper,
             *ewrapper,
-            "cargo",
+            *cargo,
             command,
             *bargs,
             *args,
