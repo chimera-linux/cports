@@ -1886,7 +1886,10 @@ class Subpackage(Package):
 def _subpkg_install_list(self, lst):
     def real_install():
         for it in lst:
-            self.take(it)
+            if it.startswith("?"):
+                self.take(it.removeprefix("?"), missing_ok=True)
+            else:
+                self.take(it)
 
     return real_install
 

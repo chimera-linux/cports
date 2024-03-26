@@ -1394,6 +1394,11 @@ package. This is why subpackage ordering can be important; sometimes
 some files may overlap and you may need to ensure some subpackages
 "steal" their files first.
 
+Any list entries that start with a question mark, e.g. `"?usr/foo"`, are
+optional (i.e. that path may be missing). This is useful for programatically
+generated subpackages (when multiple subpackages are generated from some kind
+of input list and they share the general layout but not the exact contents).
+
 The `self` argument here is the subpackage handle.
 
 If better control over the files is needed, you can also return a function
