@@ -1,5 +1,5 @@
 pkgname = "lsd"
-pkgver = "1.1.1"
+pkgver = "1.1.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "aurelia <git@elia.garden>"
 license = "Apache-2.0"
 url = "https://github.com/lsd-rs/lsd"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "7933e196bf7b164ea8879078f8a8e87381e0c49f71867e0036c82916199aba61"
+sha256 = "cd80dae9a8f6c4c2061f79084468ea6e04c372e932e3712a165119417960e14e"
 
 
 def post_install(self):
