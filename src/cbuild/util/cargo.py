@@ -130,6 +130,12 @@ class Cargo:
         if offline:
             bargs.append("--offline")
 
+        # legacy config format to be avoided
+        legacy = self.template.cwd / ".cargo/config"
+
+        if legacy.is_file():
+            self.template.error("cargo: found legacy .cargo/config")
+
         return self.template.do(
             *wrapper,
             *ewrapper,
