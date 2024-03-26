@@ -1,0 +1,26 @@
+From 869c5ced740c5d1d6fa4621fe9a65dd45c9bb76e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Tue, 26 Mar 2024 21:43:15 +0100
+Subject: [PATCH 2/3] remove taskchampion integration tests, as they are
+ missing from the tarball
+
+---
+ Cargo.toml | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index 34828a6bf..f57cdc362 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -4,7 +4,6 @@ members = [
+     "taskchampion/taskchampion",
+     "taskchampion/sync-server",
+     "taskchampion/lib",
+-    "taskchampion/integration-tests",
+     "taskchampion/xtask",
+ ]
+ 
+-- 
+2.44.0
+
