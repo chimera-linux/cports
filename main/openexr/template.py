@@ -1,5 +1,5 @@
 pkgname = "openexr"
-pkgver = "3.2.3"
+pkgver = "3.2.4"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -27,7 +27,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://www.openexr.com"
 source = f"https://github.com/openexr/openexr/archive/v{pkgver}.tar.gz"
-sha256 = "f3f6c4165694d5c09e478a791eae69847cadb1333a2948ca222aa09f145eba63"
+sha256 = "81e6518f2c4656fdeaf18a018f135e96a96e7f66dbe1c1f05860dd94772176cc"
 # FIXME: cfi has a bunch of test failures
 hardening = ["vis"]
 
