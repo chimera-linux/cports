@@ -1,0 +1,88 @@
+Fixes tests following migrations in glib 2.80.
+
+diff --git a/installed-tests/fixtures/backend.js b/installed-tests/fixtures/backend.js
+index e126c35..cec523a 100644
+--- a/installed-tests/fixtures/backend.js
++++ b/installed-tests/fixtures/backend.js
+@@ -5,6 +5,7 @@
+ 'use strict';
+ 
+ const Gio = imports.gi.Gio;
++const GioUnix = imports.gi.GioUnix;
+ const GLib = imports.gi.GLib;
+ const GObject = imports.gi.GObject;
+ 
+@@ -127,7 +128,7 @@ var ChannelService = GObject.registerClass({
+ 
+             // Input stream
+             this._udp6_stream = new Gio.DataInputStream({
+-                base_stream: new Gio.UnixInputStream({
++                base_stream: new GioUnix.InputStream({
+                     fd: this._udp6.fd,
+                     close_fd: false,
+                 }),
+@@ -159,7 +160,7 @@ var ChannelService = GObject.registerClass({
+ 
+             // Input stream
+             this._udp4_stream = new Gio.DataInputStream({
+-                base_stream: new Gio.UnixInputStream({
++                base_stream: new GioUnix.InputStream({
+                     fd: this._udp4.fd,
+                     close_fd: false,
+                 }),
+diff --git a/src/service/backends/lan.js b/src/service/backends/lan.js
+index a5357bf..b6526b8 100644
+--- a/src/service/backends/lan.js
++++ b/src/service/backends/lan.js
+@@ -5,6 +5,7 @@
+ 'use strict';
+ 
+ const Gio = imports.gi.Gio;
++const GioUnix = imports.gi.GioUnix;
+ const GLib = imports.gi.GLib;
+ const GObject = imports.gi.GObject;
+ 
+@@ -264,7 +265,7 @@ var ChannelService = GObject.registerClass({
+ 
+             // Input stream
+             this._udp6_stream = new Gio.DataInputStream({
+-                base_stream: new Gio.UnixInputStream({
++                base_stream: new GioUnix.InputStream({
+                     fd: this._udp6.fd,
+                     close_fd: false,
+                 }),
+@@ -296,7 +297,7 @@ var ChannelService = GObject.registerClass({
+ 
+             // Input stream
+             this._udp4_stream = new Gio.DataInputStream({
+-                base_stream: new Gio.UnixInputStream({
++                base_stream: new GioUnix.InputStream({
+                     fd: this._udp4.fd,
+                     close_fd: false,
+                 }),
+diff --git a/src/service/nativeMessagingHost.js b/src/service/nativeMessagingHost.js
+index d83fc7f..e4d8922 100755
+--- a/src/service/nativeMessagingHost.js
++++ b/src/service/nativeMessagingHost.js
+@@ -7,10 +7,12 @@
+ 'use strict';
+ 
+ imports.gi.versions.Gio = '2.0';
++imports.gi.versions.GioUnix = '2.0';
+ imports.gi.versions.GLib = '2.0';
+ imports.gi.versions.GObject = '2.0';
+ 
+ const Gio = imports.gi.Gio;
++const GioUnix = imports.gi.GioUnix;
+ const GLib = imports.gi.GLib;
+ const GObject = imports.gi.GObject;
+ const System = imports.system;
+@@ -44,7 +46,7 @@ const NativeMessagingHost = GObject.registerClass({
+ 
+         // IO Channels
+         this._stdin = new Gio.DataInputStream({
+-            base_stream: new Gio.UnixInputStream({fd: 0}),
++            base_stream: new GioUnix.InputStream({fd: 0}),
+             byte_order: Gio.DataStreamByteOrder.HOST_ENDIAN,
+         });
+ 

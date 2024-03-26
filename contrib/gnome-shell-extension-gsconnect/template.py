@@ -1,6 +1,8 @@
 pkgname = "gnome-shell-extension-gsconnect"
 pkgver = "56"
-pkgrel = 0
+pkgrel = 1
+# XXX drop after next release
+_commit = "43594cc23826fdc6b17acd04b67b34338acf78d4"
 build_style = "meson"
 configure_args = ["-Dinstalled_tests=false"]
 # Would've used weston-headless-run here instead of xvfb-run, but that runs
@@ -23,5 +25,6 @@ pkgdesc = "KDE Connect implementation for GNOME"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/GSConnect/gnome-shell-extension-gsconnect"
-source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "283e977b7739fe67d61cc5650fee2bb24bc59fb1f905258f3a4547398464c8e5"
+# source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+source = f"{url}/archive/{_commit}.tar.gz"
+sha256 = "bcce8a391b4f18a5d94d250af923f7ecec203a81a1d0a71c8527005dccaad856"
