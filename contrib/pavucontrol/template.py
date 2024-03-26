@@ -1,21 +1,27 @@
 pkgname = "pavucontrol"
 pkgver = "5.0"
-pkgrel = 1
-build_style = "gnu_configure"
-make_cmd = "gmake"
-hostmakedepends = ["gmake", "pkgconf", "intltool"]
+pkgrel = 2
+_commit = "c330506815f78f77f6685cb40749679eae789d63"
+build_style = "meson"
+hostmakedepends = ["gettext", "meson", "lynx", "pkgconf"]
 makedepends = [
-    "gtkmm3.0-devel",
-    "libcanberra-devel",
-    "gtk+3-devel",
-    "libpulse-devel",
+    "gtk4-devel",
+    "gtkmm-devel",
     "json-glib-devel",
+    "libcanberra-devel",
+    "libpulse-devel",
+    "libsigc++2-devel",
 ]
 pkgdesc = "PulseAudio volume control"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://freedesktop.org/software/pulseaudio/pavucontrol"
-source = f"$(FREEDESKTOP_SITE)/pulseaudio/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ce2b72c3b5f1a70ad0df19dd81750f9455bd20870d1d3a36d20536af2e8f4e7a"
+source = f"https://gitlab.freedesktop.org/pulseaudio/pavucontrol/-/archive/{_commit}.tar.gz"
+sha256 = "51c4b4002836aa53ddef88b16300b4ab5ef983b4e3a36b38274843e8d6447e9d"
 
-configure_gen = []
+
+def post_extract(self):
+    self.mv(
+        "src/pavucontrol.desktop.in",
+        "src/org.pulseaudio.pavucontrol.desktop.in",
+    )
