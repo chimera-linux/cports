@@ -10,7 +10,7 @@ makedepends = [
     "json-glib-devel",
     "libcanberra-devel",
     "libpulse-devel",
-    "libsigc++2-devel",
+    "libsigc++-devel",
 ]
 pkgdesc = "PulseAudio volume control"
 maintainer = "q66 <q66@chimera-linux.org>"
