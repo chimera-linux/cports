@@ -1,6 +1,6 @@
 pkgname = "pavucontrol"
 pkgver = "5.0"
-pkgrel = 2
+pkgrel = 3
 _commit = "c330506815f78f77f6685cb40749679eae789d63"
 build_style = "meson"
 hostmakedepends = ["gettext", "meson", "lynx", "pkgconf"]

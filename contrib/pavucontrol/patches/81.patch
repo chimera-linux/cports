@@ -1594,7 +1594,7 @@ index b9155fb..25591fd 100644
 +                </child>
 +                <child>
 +                  <object class="GtkBox" id="codecBox">
-+                    <property name="halign">center</property>
++                    <property name="halign">start</property>
                      <property name="spacing">6</property>
                      <child>
 -                      <object class="GtkLabel" id="label1">
