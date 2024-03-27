@@ -3,7 +3,15 @@ pkgver = "1.94.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dsystemd=false", "-Dpam_modules_dir=/usr/lib/security"]
-hostmakedepends = ["bash", "gettext", "meson", "perl", "pkgconf"]
+hostmakedepends = [
+    "bash",
+    "gettext",
+    "glib-devel",
+    "meson",
+    "perl",
+    "pkgconf",
+    "polkit-devel",
+]
 makedepends = [
     "dbus-devel",
     "elogind-devel",
