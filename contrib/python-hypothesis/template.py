@@ -1,5 +1,5 @@
 pkgname = "python-hypothesis"
-pkgver = "6.99.5"
+pkgver = "6.99.13"
 pkgrel = 0
 build_wrksrc = "hypothesis-python"
 build_style = "python_pep517"
@@ -26,7 +26,7 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "MPL-2.0"
 url = "https://hypothesis.works/index.html"
 source = f"https://github.com/HypothesisWorks/hypothesis/archive/refs/tags/hypothesis-python-{pkgver}.tar.gz"
-sha256 = "2af1f7152ad39670a0fbef09ecdaf5f5738e969518f077de9373c587f01e07cb"
+sha256 = "3827866ca2c223216048d920c2862ddf49d45c62754f3f4d4a8fef3d3f0b7548"
 
 
 def init_check(self):
@@ -44,5 +44,8 @@ def init_check(self):
         "--ignore=tests/codemods/test_codemod_cli.py",
         "--ignore=tests/pandas",
         "--ignore=tests/numpy",
+        "-k",
+        # XXX: fails because posix/ tzdata folder doesn't exist
+        "not test_can_generate_prefixes_if_allowed_and_available",
         f"--numprocesses={self.make_jobs}",
     ]
