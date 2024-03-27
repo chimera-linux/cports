@@ -3,7 +3,7 @@ pkgver = "0.15.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dseccomp=enabled"]
-hostmakedepends = ["meson", "pkgconf", "scdoc"]
+hostmakedepends = ["meson", "pkgconf", "scdoc", "wayland-progs"]
 makedepends = [
     "inih-devel",
     "libffi-devel",
