@@ -1,17 +1,22 @@
 pkgname = "curl"
-pkgver = "8.6.0"
-pkgrel = 2
+pkgver = "8.7.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-threaded-resolver",
+    "--disable-optimize",
     "--enable-ipv6",
+    "--enable-threaded-resolver",
+    "--enable-threads",
+    "--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt",
     "--with-libidn2",
     "--with-libpsl",
     "--with-libssh2",
+    "--with-nghttp2",
+    "--with-nghttp3",
     "--with-openssl-quic",
     "--with-ssl",
+    "--with-zlib",
     "--with-zstd",
-    "--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt",
     "ac_cv_path_NROFF=/usr/bin/mandoc",
     "ac_cv_sizeof_off_t=8",
 ]
@@ -32,8 +37,8 @@ pkgdesc = "Command line tool for transferring data with URL syntax"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://curl.haxx.se"
-source = f"{url}/download/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "b4785f2d8877fa92c0e45d7155cf8cc6750dbda961f4b1a45bcbec990cf2fa9b"
+source = f"{url}/download/{pkgname}-{pkgver}.tar.xz"
+sha256 = "6fea2aac6a4610fbd0400afb0bcddbe7258a64c63f1f68e5855ebc0c659710cd"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # missing some checkdepends
