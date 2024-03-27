@@ -1,6 +1,6 @@
 pkgname = "elogind"
-pkgver = "252.9"
-pkgrel = 5
+pkgver = "252.23"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dman=true",
@@ -43,7 +43,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://github.com/elogind/elogind"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "7af8caa8225a406e77fb99c9f33dba5e1f0a94f0e1277c9d91dcfc016f116d85"
+sha256 = "d73f1b203a5d5ee9fd77f649475d1193f9dc4f2c3451ef95f5110a1a9a0e766d"
 
 
 def post_install(self):
