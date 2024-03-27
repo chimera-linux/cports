@@ -1,6 +1,6 @@
 pkgname = "wireguard-tools"
 pkgver = "1.0.20210914"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_dir = "src"
@@ -44,6 +44,7 @@ def _wgquick(self):
         "bash",
         "iproute2",
         "openresolv",
+        "nftables",
     ]
     self.pkgdesc = f"{pkgdesc} (wg-quick script)"
 
