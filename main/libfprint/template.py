@@ -14,6 +14,7 @@ hostmakedepends = [
 ]
 makedepends = [
     "glib-devel",
+    "gobject-introspection",
     "libgudev-devel",
     "libgusb-devel",
     "linux-headers",
@@ -27,6 +28,8 @@ license = "LGPL-2.1-or-later"
 url = "https://fprint.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/libfprint/libfprint/-/archive/v{pkgver}/libfprint-v{pkgver}.tar.gz"
 sha256 = "6d2cc09c72f86865b49a911690b43e363aed7595b66e6599232a572ccce95342"
+# meson error: "ERROR: An exe_wrapper is needed but was not found."
+options = ["!cross"]
 
 
 @subpackage("libfprint-devel")
