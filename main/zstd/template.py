@@ -1,13 +1,13 @@
 pkgname = "zstd"
-pkgver = "1.5.5"
-pkgrel = 1
+pkgver = "1.5.6"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dzlib=enabled",
-    "-Dlzma=enabled",
-    "-Dlz4=enabled",
-    "-Dbin_contrib=true",
     "-Db_ndebug=true",
+    "-Dbin_contrib=true",
+    "-Dlz4=enabled",
+    "-Dlzma=enabled",
+    "-Dzlib=enabled",
 ]
 make_dir = "mbuild"
 meson_dir = "build/meson"
@@ -20,7 +20,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "http://www.zstd.net"
 source = f"https://github.com/facebook/{pkgname}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "9c4396cc829cfae319a6e2615202e82aad41372073482fce286fac78646d3ee4"
+sha256 = "8c29e06cf42aacc1eafc4077ae2ec6c6fcb96a626157e0593d5e82a34fd403c1"
 hardening = ["!cfi"]  # TODO
 # checkdepends not available yet
 options = ["!check"]
