@@ -1,0 +1,5 @@
+# msmtpd system service
+
+type    = process
+command = /usr/bin/msmtpd --interface=127.0.0.1 --port=25 --command='/usr/bin/msmtp -f %F'
+logfile = /var/log/msmtpd.log
