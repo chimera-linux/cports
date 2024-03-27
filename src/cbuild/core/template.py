@@ -392,6 +392,7 @@ default_options = {
     "ltostrip": (False, False),
     "linkparallel": (True, True),
     "linkundefver": (False, False),
+    "framepointer": (True, True),
 }
 
 core_fields = [
