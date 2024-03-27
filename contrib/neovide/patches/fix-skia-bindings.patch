@@ -1,0 +1,22 @@
+--- a/vendor/skia-bindings/build_support/skia_bindgen.rs
++++ b/vendor/skia-bindings/build_support/skia_bindgen.rs
+@@ -805,15 +805,18 @@ pub(crate) mod definitions {
+     }
+ 
+     fn ninja_files_for_features(features: &features::Features) -> Vec<PathBuf> {
++        use crate::skia::env;
+         let mut files = vec!["obj/skia.ninja".into()];
+         if features.text_layout {
+             files.extend(vec![
+                 "obj/modules/skshaper/skshaper.ninja".into(),
+                 "obj/modules/skparagraph/skparagraph.ninja".into(),
+                 // shaper.cpp includes SkLoadICU.h
+-                "obj/third_party/icu/icu.ninja".into(),
+                 "obj/modules/skunicode/skunicode.ninja".into(),
+             ]);
++            if !env::use_system_libraries() {
++                files.push("obj/third_party/icu/icu.ninja".into());
++            }
+         }
+         if features.svg {
+             files.push("obj/modules/svg/svg.ninja".into());

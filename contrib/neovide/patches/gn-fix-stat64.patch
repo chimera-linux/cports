@@ -1,0 +1,62 @@
+--- a/gn/src/base/files/file.h
++++ b/gn/src/base/files/file.h
+@@ -21,13 +21,7 @@
+ 
+ namespace base {
+ 
+-#if defined(OS_BSD) || defined(OS_MACOSX) || defined(OS_NACL) || \
+-    defined(OS_HAIKU) || defined(OS_MSYS) || defined(OS_ZOS) ||  \
+-    defined(OS_ANDROID) && __ANDROID_API__ < 21 || defined(OS_SERENITY)
+ typedef struct stat stat_wrapper_t;
+-#elif defined(OS_POSIX) || defined(OS_FUCHSIA)
+-typedef struct stat64 stat_wrapper_t;
+-#endif
+ 
+ // Thin wrapper around an OS-level file.
+ // Note that this class does not provide any support for asynchronous IO.
+--- a/gn/src/base/files/file_posix.cc
++++ b/gn/src/base/files/file_posix.cc
+@@ -24,17 +24,9 @@ static_assert(File::FROM_BEGIN == SEEK_SET && File::FROM_CURRENT == SEEK_CUR &&
+ 
+ namespace {
+ 
+-#if defined(OS_BSD) || defined(OS_MACOSX) || defined(OS_NACL) || \
+-    defined(OS_HAIKU) || defined(OS_MSYS) || defined(OS_ZOS) ||  \
+-    defined(OS_ANDROID) && __ANDROID_API__ < 21 || defined(OS_SERENITY)
+ int CallFstat(int fd, stat_wrapper_t* sb) {
+   return fstat(fd, sb);
+ }
+-#else
+-int CallFstat(int fd, stat_wrapper_t* sb) {
+-  return fstat64(fd, sb);
+-}
+-#endif
+ 
+ // Some systems don't provide the following system calls, so either simulate
+ // them or wrap them in order to minimize the number of #ifdef's in this file.
+--- a/gn/src/base/files/file_util_posix.cc
++++ b/gn/src/base/files/file_util_posix.cc
+@@ -59,23 +59,12 @@ namespace base {
+ 
+ namespace {
+ 
+-#if defined(OS_BSD) || defined(OS_MACOSX) || defined(OS_NACL) || \
+-    defined(OS_HAIKU) || defined(OS_MSYS) || defined(OS_ZOS) ||  \
+-    defined(OS_ANDROID) && __ANDROID_API__ < 21 || defined(OS_SERENITY)
+ int CallStat(const char* path, stat_wrapper_t* sb) {
+   return stat(path, sb);
+ }
+ int CallLstat(const char* path, stat_wrapper_t* sb) {
+   return lstat(path, sb);
+ }
+-#else
+-int CallStat(const char* path, stat_wrapper_t* sb) {
+-  return stat64(path, sb);
+-}
+-int CallLstat(const char* path, stat_wrapper_t* sb) {
+-  return lstat64(path, sb);
+-}
+-#endif
+ 
+ // Helper for VerifyPathControlledByUser.
+ bool VerifySpecificPathControlledByUser(const FilePath& path,
