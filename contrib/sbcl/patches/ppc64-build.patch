@@ -1,0 +1,65 @@
+From q66:
+
+Using PIE results in bad relocations for ppc64-assem.S:
+
+ld: error: relocation R_PPC64_ADDR16_HI cannot be used against local symbol; recompile with -fPIC
+>>> defined in ppc64-assem.o
+>>> referenced by ppc64-assem.S:174 (./src/runtime/ppc64-assem.S:174)
+>>>               ppc64-assem.o:(call_into_lisp)
+
+ld: error: relocation R_PPC64_ADDR16_LO cannot be used against local symbol; recompile with -fPIC
+>>> defined in ppc64-assem.o
+>>> referenced by ppc64-assem.S:175 (./src/runtime/ppc64-assem.S:175)
+>>>               ppc64-assem.o:(call_into_lisp)
+
+The affected asm:
+
+	lis reg_LRA,lra@h
+	ori reg_LRA,reg_LRA,lra@l
+
+The other changes are related to incomplete definitions of struct pt_regs.
+
+--- a/src/runtime/Config.ppc64-linux
++++ b/src/runtime/Config.ppc64-linux
+@@ -10,7 +10,7 @@
+ # files for more information.
+ 
+ CFLAGS += -m64 -std=gnu99
+-LINKFLAGS += -m64 -Wl,--export-dynamic
++LINKFLAGS += -m64 -Wl,--export-dynamic -no-pie
+ 
+ ASSEM_SRC = ppc64-assem.S
+ ARCH_SRC = ppc-arch.c
+--- a/src/runtime/os-common.c
++++ b/src/runtime/os-common.c
+@@ -34,6 +34,10 @@
+ #include "gc.h" // for find_page_index
+ #endif
+ 
++#ifdef __powerpc__
++#include <asm/ptrace.h>
++#endif
++
+ /*
+  * historically, this used sysconf to select the runtime page size
+  * per recent changes on other arches and discussion on sbcl-devel,
+--- a/src/runtime/ppc-arch.c
++++ b/src/runtime/ppc-arch.c
+@@ -10,6 +10,7 @@
+  */
+ 
+ #include <stdio.h>
++#include <asm/ptrace.h>
+ 
+ #include "genesis/sbcl.h"
+ #include "arch.h"
+--- a/src/runtime/ppc-linux-os.c
++++ b/src/runtime/ppc-linux-os.c
+@@ -32,6 +32,7 @@
+ #include <sys/stat.h>
+ #include <unistd.h>
+ #include <sys/prctl.h>
++#include <asm/ptrace.h>
+ 
+ #include "validate.h"
+ #include "ppc-linux-mcontext.h"

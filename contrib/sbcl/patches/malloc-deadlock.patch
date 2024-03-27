@@ -1,0 +1,26 @@
+From 2747cd2a6ac1f54e9c04a3fe2ee5f681eab7be95 Mon Sep 17 00:00:00 2001
+From: "Paul A. Patience" <paul@apatience.com>
+Date: Tue, 2 Jan 2024 20:06:16 -0500
+Subject: [PATCH] Fix run-program :malloc-deadlock on two threads.
+
+Nonzero sleep between GCs.
+---
+ tests/run-program.impure.lisp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/run-program.impure.lisp b/tests/run-program.impure.lisp
+index 0eab8884c..99356558a 100644
+--- a/tests/run-program.impure.lisp
++++ b/tests/run-program.impure.lisp
+@@ -449,7 +449,7 @@
+                   .00000001)) ; 10 nanoseconds
+               #+(and darwin arm64)
+                0.01
+-              0))
++              0.00000001))
+          (threads (list*
+                    (sb-thread:make-thread (lambda ()
+                                             (loop until (progn (sb-thread:barrier (:read))
+-- 
+2.41.0
+
