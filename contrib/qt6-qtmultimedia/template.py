@@ -54,10 +54,6 @@ def init_check(self):
     }
 
 
-def post_install(self):
-    self.rm(self.destdir / "usr/tests", recursive=True)
-
-
 @subpackage("qt6-qtmultimedia-devel")
 def _devel(self):
     self.depends += [

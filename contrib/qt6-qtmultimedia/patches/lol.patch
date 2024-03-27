@@ -1,0 +1,9 @@
+these install a broken mock plugin in 6.6.3
+--
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -7,4 +7,3 @@
+     # Add qt_find_package calls for extra dependencies that need to be found when building
+     # the standalone tests here.
+ endif()
+-qt_build_tests()
