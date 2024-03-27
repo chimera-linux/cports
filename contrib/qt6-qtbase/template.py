@@ -147,6 +147,8 @@ def init_check(self):
         "tst_qsharedmemory",  # tst_QSharedMemory::simpleThreadedProducerConsumer(POSIX:5 consumers, producer is this) 'p.producer.isAttached()' returned FALSE
         "test_qt_extract_metatypes",  # fails to find qt6config.cmake in the test
         "test_qt_add_resources_rebuild",  # ditto
+        "test_collecting_plugins",  # unknown platform linux-clang
+        "test_standalone_test",  # can't find random .cmake file
     ]
     self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
     self.make_check_env["QT_QPA_PLATFORM"] = "offscreen"
