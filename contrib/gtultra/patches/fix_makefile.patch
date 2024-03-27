@@ -1,0 +1,45 @@
+--- a/src/makefile.common	2023-06-21 09:29:03.000000000 +0200
++++ b/src/makefile.common	2024-03-14 12:10:34.204585576 +0100
+@@ -2,8 +2,7 @@
+ 
+ CC?=gcc
+ CXX?=g++
+-CFLAGS+=-Ibme -Iasm -O3 -Wall
+-CXXFLAGS+=$(CFLAGS) -fpermissive
++CFLAGS+=-Ibme -Iasm
+ 
+ EXE=	$(PREFIX)gtultra$(SUFFIX) \
+ 	$(PREFIX)gt2reloc$(SUFFIX) \
+@@ -23,7 +22,7 @@
+ asm/asmtab.o asm/chnkpool.o asm/expr.o asm/lexyy.o asm/log.o asm/membuf.o asm/membufio.o asm/namedbuf.o asm/parse.o \
+ asm/pc.o asm/vec.o \
+ bme/bme_gfx.o bme/bme_snd.o bme/bme_win.o bme/bme_mou.o bme/bme_kbd.o bme/bme_io.o bme/bme_end.o bme/bme.o
+-	$(CXX) -o $@ $^ $(LIBS)
++	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $^ $(LIBS)
+ 	strip $@
+ 
+ 
+@@ -39,19 +38,19 @@
+ asm/asmtab.o asm/chnkpool.o asm/expr.o asm/lexyy.o asm/log.o asm/membuf.o asm/membufio.o asm/namedbuf.o asm/parse.o \
+ asm/pc.o asm/vec.o \
+ bme/bme_gfx.o bme/bme_snd.o bme/bme_win.o bme/bme_mou.o bme/bme_kbd.o bme/bme_io.o bme/bme_end.o bme/bme.o
+-	$(CXX) -DGT2RELOC -o $@ $^ $(LIBS)
++	$(CXX) $(CXXFLAGS) $(LDFLAGS) -DGT2RELOC -o $@ $^ $(LIBS)
+ 	strip $@
+ 
+ $(PREFIX)mod2sng2$(SUFFIX): mod2sng2.o bme/bme_end.o
+-	$(CC) -o $@ $^
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+ 	strip $@
+ 
+ $(PREFIX)ins2snd2$(SUFFIX): ins2snd2.o bme/bme_end.o
+-	$(CC) -o $@ $^
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+ 	strip $@
+ 
+ $(PREFIX)ss2stereo$(SUFFIX): ss2stereo.o bme/bme_end.o
+-	$(CC) -o $@ $^
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+ 	strip $@
+ 
+ gt2stereo.dat: player.s altplayer.s player3.s altplayer3.s player9.s altplayer9.s player12.s altplayer12.s  0default.gtp 1default.gtp 2default.gtp 3default.gtp 4default.gtp 5default.gtp 6default.gtp 7default.gtp 8default.gtp chargen.bin palette.bin cursor.bin bcursor.bin goattrk2.bmp gt2stereo.seq

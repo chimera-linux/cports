@@ -1,0 +1,31 @@
+--- a/src/ginfo.c	2023-06-21 09:29:03.000000000 +0200
++++ b/src/ginfo.c	2024-03-14 11:51:22.318865365 +0100
+@@ -466,7 +466,7 @@
+ 				sprintf(infoTextBuffer, "Channel Tempo: %02X", (data - 0x80));
+ 		}
+ 		else
+-			sprintf(infoTextBuffer, patternInstructionInfoString[instr]);
++			sprintf(infoTextBuffer, "%s", patternInstructionInfoString[instr]);
+ 	}
+ 	else
+ 		sprintf(infoTextBuffer, "                                ");
+
+--- a/src/gt2stereo.c	2023-06-21 09:29:03.000000000 +0200
++++ b/src/gt2stereo.c	2024-03-14 11:52:49.828172501 +0100
+@@ -1194,14 +1194,14 @@
+ 						else
+ 						{
+ 							sprintf(&keyOffsetText[0], "                        ");
+-							sprintf(infoTextBuffer, keyOffsetText);
++							sprintf(infoTextBuffer, "%s", keyOffsetText);
+ 						}
+ 					}
+ 				}
+ 				else
+ 				{
+ 					calculateNoteOffsets();
+-					sprintf(infoTextBuffer, keyOffsetText);
++					sprintf(infoTextBuffer, "%s", keyOffsetText);
+ 				}
+ 			}
+ 		}
