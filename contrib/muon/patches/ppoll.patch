@@ -1,0 +1,14 @@
+musl 1.2.5 exposes ppoll by default, which fails a ppoll exposed test
+
+but we can't patch a path with whitespace in it (???  LMAO) so delete the whole testsuite
+--
+--- a/tests/project/meson.build
++++ b/tests/project/meson.build
+@@ -110,7 +110,6 @@
+     ['common/100 postconf with args', ['python']],
+     ['common/101 testframework options'],
+     ['common/102 extract same name'],
+-    ['common/103 has header symbol'],
+     ['common/104 has arg'],
+     ['common/105 generatorcustom', ['python']],
+     ['common/106 multiple dir configure file', ['python']],
