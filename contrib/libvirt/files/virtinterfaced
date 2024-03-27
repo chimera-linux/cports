@@ -1,0 +1,7 @@
+# virtinterfaced daemon service
+
+type       = process
+command    = /usr/bin/virtinterfaced
+before     = login.target
+depends-on = local.target
+restart    = true

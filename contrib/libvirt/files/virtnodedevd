@@ -1,0 +1,7 @@
+# virtnodedevd daemon service
+
+type       = process
+command    = /usr/bin/virtnodedevd
+before     = login.target
+depends-on = local.target
+restart    = true
