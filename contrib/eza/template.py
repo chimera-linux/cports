@@ -1,5 +1,5 @@
 pkgname = "eza"
-pkgver = "0.18.8"
+pkgver = "0.18.9"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "pkgconf"]
@@ -15,7 +15,7 @@ url = "https://eza.rocks"
 source = (
     f"https://github.com/eza-community/eza/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "4169f57c522cd17e195a7bc36a9ea671e5b1d905f9ab57c66a49f6edf343179c"
+sha256 = "917736591429813ef4cfce47bb2d3d87e9f1e142b2a6ebf74a345c3a15894918"
 
 
 def post_install(self):
