@@ -1,5 +1,5 @@
 pkgname = "rabbitmq-c"
-pkgver = "0.13.0"
+pkgver = "0.14.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/alanxz/rabbitmq-c"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8b224e41bba504fc52b02f918d8df7e4bf5359d493cbbff36c06078655c676e6"
+sha256 = "839b28eae20075ac58f45925fe991d16a3138cbde015db0ee11df1acb1c493df"
 hardening = ["vis", "cfi"]
 
 
