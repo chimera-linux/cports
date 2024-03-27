@@ -1,0 +1,10 @@
+# agate system service
+
+type            = process
+command         = /usr/bin/agate
+depends-on      = network.target
+working-dir     = /var/gemini
+logfile         = /var/log/agate.log
+run-as          = _agate
+restart         = true
+smooth-recovery = true
