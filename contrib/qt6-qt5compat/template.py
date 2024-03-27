@@ -2,6 +2,8 @@ pkgname = "qt6-qt5compat"
 pkgver = "6.6.3"
 pkgrel = 0
 build_style = "cmake"
+# FIXME: times out after 5 minutes on aarch64
+make_check_args = ["-E", "tst_qxmlinputsource"]
 hostmakedepends = ["cmake", "ninja", "pkgconf", "qt6-qtbase"]
 makedepends = ["qt6-qtdeclarative-devel"]
 pkgdesc = "Module containing unsupported Qt5 APIs"
