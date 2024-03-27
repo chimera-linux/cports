@@ -143,3 +143,20 @@
  
  $(LIBBPF)-clean: FORCE | $(LIBBPF_OUTPUT)
  	$(call QUIET_CLEAN, libbpf)
+--- a/tools/build/feature/Makefile
++++ b/tools/build/feature/Makefile
+@@ -85,12 +85,12 @@
+ 
+ all: $(FILES)
+ 
+-__BUILD = $(CC) $(CFLAGS) -MD -Wall -Werror -o $@ $(patsubst %.bin,%.c,$(@F)) $(LDFLAGS)
++__BUILD = $(CC) $(CFLAGS) -MD -Wall -o $@ $(patsubst %.bin,%.c,$(@F)) $(LDFLAGS)
+   BUILD = $(__BUILD) > $(@:.bin=.make.output) 2>&1
+   BUILD_BFD = $(BUILD) -DPACKAGE='"perf"' -lbfd -ldl
+   BUILD_ALL = $(BUILD) -fstack-protector-all -O2 -D_FORTIFY_SOURCE=2 -ldw -lelf -lnuma -lelf -lslang $(FLAGS_PERL_EMBED) $(FLAGS_PYTHON_EMBED) -DPACKAGE='"perf"' -lbfd -ldl -lz -llzma -lzstd -lcap
+ 
+-__BUILDXX = $(CXX) $(CXXFLAGS) -MD -Wall -Werror -o $@ $(patsubst %.bin,%.cpp,$(@F)) $(LDFLAGS)
++__BUILDXX = $(CXX) $(CXXFLAGS) -MD -Wall -o $@ $(patsubst %.bin,%.cpp,$(@F)) $(LDFLAGS)
+   BUILDXX = $(__BUILDXX) > $(@:.bin=.make.output) 2>&1
+ 
+ ###############################
