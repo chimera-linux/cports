@@ -1697,6 +1697,8 @@ the template including for subpackages:
   disable linker and LTO threads.
 * `linkundefver` *(false)* Pass `--undefined-version` to `ld.lld` to
   bypass version errors in affected packages.
+* `framepointer` *(true)* If enabled, frame pointers will be turned
+  on to make profiling of resultant binaries easier.
 
 The following options apply to a single package and need to be specified
 for subpackages separately if needed:

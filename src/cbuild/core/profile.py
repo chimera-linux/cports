@@ -81,6 +81,9 @@ def _get_archflags(prof, tmpl, hard):
     if not hard["ssp"]:
         sflags.append("-fno-stack-protector")
 
+    if opts["framepointer"]:
+        sflags.append("-fno-omit-frame-pointer")
+
     if hard["sst"]:
         sflags.append("-fsanitize=safe-stack")
 
@@ -234,6 +237,9 @@ def _get_rustflags(self, tmpl, name, extra_flags, debug, hardening, shell):
             "--sysroot",
             self.sysroot / "usr",
         ]
+
+    if opts["framepointer"]:
+        bflags += ["-Cforce-frame-pointers=true"]
 
     if tmpl.options["relr"] and self._has_relr(tmpl.stage):
         bflags += ["-Clink-arg=-Wl,-z,pack-relative-relocs"]
