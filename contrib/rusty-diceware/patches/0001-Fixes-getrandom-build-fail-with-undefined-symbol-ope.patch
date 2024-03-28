@@ -1,0 +1,29 @@
+From c2efc2a8347bd1e483ff5cabdf69745e98c354cf Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Thu, 28 Mar 2024 11:08:20 +0100
+Subject: [PATCH] Fixes getrandom build fail with `undefined symbol: open64`
+
+---
+ Cargo.lock | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 57e5897..f14465b 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -47,9 +47,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "libc"
+-version = "0.2.135"
++version = "0.2.153"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "68783febc7782c6c5cb401fbda4de5a9898be1762314da0bb2c10ced61f18b0c"
++checksum = "9c198f91728a82281a64e1f4f9eeb25d82cb32a5de251c6bd1b5154d63a8e7bd"
+ 
+ [[package]]
+ name = "ppv-lite86"
+-- 
+2.44.0
+
