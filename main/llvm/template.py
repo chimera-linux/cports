@@ -265,6 +265,8 @@ def post_install(self):
         self.install_link("ld.lld", "usr/bin/ld")
     # posix mandates this
     self.install_bin(self.files_path / "c99")
+    # widely provided though not required anymore
+    self.install_bin(self.files_path / "c89")
 
     # we don't want debuginfod symlinks, these may be provided by actual
     # debuginfod from elfutils (and there is no need to alias them)
