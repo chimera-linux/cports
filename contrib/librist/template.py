@@ -1,6 +1,6 @@
 pkgname = "librist"
 pkgver = "0.2.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dtest=false",
