@@ -1,0 +1,61 @@
+From 428462ddf3f812a1da63d0b499e105c6391abbf4 Mon Sep 17 00:00:00 2001
+From: Pauli Virtanen <pav@iki.fi>
+Date: Thu, 21 Mar 2024 20:02:02 +0200
+Subject: [PATCH] filter-utils: fix handling of targetless smart filters
+
+A smart filter should be considered "targetless" (i.e. interpose on
+streams going to default target) only if filter.smart.target is not set.
+
+Currently any smart filter with specified target not found is considered
+such, which is wrong.  This causes misbehavior, such as all recording
+streams going to the bluetooth dummy source.
+
+Fix this by doing it correctly.
+---
+ src/scripts/lib/filter-utils.lua | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/src/scripts/lib/filter-utils.lua b/src/scripts/lib/filter-utils.lua
+index c3671242..804c3ea1 100644
+--- a/src/scripts/lib/filter-utils.lua
++++ b/src/scripts/lib/filter-utils.lua
+@@ -157,6 +157,19 @@ local function getFilterSmartTarget (metadata, node, om)
+   return target
+ end
+ 
++local function getFilterSmartTargetless (metadata, node)
++  local id = node["bound-id"]
++  local value_str = nil
++  if metadata ~= nil then
++    value_str = metadata:find (id, "filter.smart.target")
++  end
++  if value_str == nil then
++    value_str = node.properties ["filter.smart.target"]
++  end
++
++  return value_str == nil
++end
++
+ local function getFilterSmartBefore (metadata, node)
+   -- Check metadata and fallback to properties
+   local id = node["bound-id"]
+@@ -312,6 +325,7 @@ local function rescanFilters (om, metadata_om)
+     filter.disabled = getFilterSmartDisabled (metadata, n)
+     filter.targetable = getFilterSmartTargetable (metadata, n)
+     filter.target = getFilterSmartTarget (metadata, n, om)
++    filter.targetless = getFilterSmartTargetless (metadata, n)
+     filter.before = getFilterSmartBefore (metadata, n)
+     filter.after = getFilterSmartAfter (metadata, n)
+ 
+@@ -471,7 +485,7 @@ function module.get_filter_from_target (direction, si_target)
+         not v.disabled and
+         v.smart and
+         ((v.target ~= nil and target ~= nil and v.target.id == target.id) or
+-            (target == nil and v.target == nil)) then
++            (target == nil and v.targetless)) then
+       return v.main_si
+     end
+   end
+-- 
+GitLab
+
