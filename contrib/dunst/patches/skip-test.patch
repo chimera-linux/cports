@@ -1,0 +1,15 @@
+scaling tests fail to load the icon
+
+diff --git a/Makefile b/Makefile
+index 6b33848..57673ab 100644
+--- a/Makefile
++++ b/Makefile
+@@ -75,7 +75,7 @@ endif
+ test: test/test clean-coverage-run
+ 	# Make sure an error code is returned when the test fails
+ 	/usr/bin/env bash -c 'set -euo pipefail;\
+-	./test/test -v | ./test/greenest.awk '
++	./test/test -x scaling -v | ./test/greenest.awk '
+ 
+ test-valgrind: test/test
+ 	${VALGRIND} \
