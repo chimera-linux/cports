@@ -263,6 +263,8 @@ def post_install(self):
     self.install_link("clang++", "usr/bin/c++")
     if not (self.destdir / "usr/bin/ld").is_symlink():
         self.install_link("ld.lld", "usr/bin/ld")
+    # posix mandates this
+    self.install_bin(self.files_path / "c99")
 
     # we don't want debuginfod symlinks, these may be provided by actual
     # debuginfod from elfutils (and there is no need to alias them)
