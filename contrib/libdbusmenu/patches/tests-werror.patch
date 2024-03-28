@@ -1,0 +1,13 @@
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 64e3e75..699c2c9 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -103,7 +103,7 @@ TESTS_ENVIRONMENT = env GI_TYPELIB_PATH=$(top_builddir)/libdbusmenu-glib:$(top_b
+ ############################################
+ 
+ DBUSMENU_GLIB_TEST_CFLAGS = \
+-	-Wall -Werror \
++	-Wall \
+ 	-DG_DISABLE_DEPRECATED \
+ 	-I$(top_srcdir) \
+ 	$(DBUSMENUTESTS_CFLAGS) \

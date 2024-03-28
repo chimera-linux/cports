@@ -1,0 +1,14 @@
+diff --git a/configure.ac b/configure.ac
+index ace54d112..cbd38a694 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -120,8 +120,8 @@ PKG_CHECK_MODULES(DBUSMENUTESTS,  json-glib-1.0 >= $JSON_GLIB_REQUIRED_VERSION
+                                   [have_tests=yes]
+ )
+ PKG_CHECK_MODULES(DBUSMENUTESTSVALGRIND, valgrind, have_valgrind=yes, have_valgrind=no)
+-AM_CONDITIONAL([HAVE_VALGRIND], [test "x$have_valgrind" = "xyes"])
+ ])
++AM_CONDITIONAL([HAVE_VALGRIND], [test "x$have_valgrind" = "xyes"])
+ 
+ AC_SUBST(DBUSMENUTESTS_CFLAGS)
+ AC_SUBST(DBUSMENUTESTS_LIBS)
