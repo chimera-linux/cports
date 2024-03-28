@@ -1,0 +1,29 @@
+From 5deabca769ddd7e7af36285a0743f9d4aa8cffb9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20Christian=20Gr=C3=BCnhage?=
+ <jan.christian@gruenhage.xyz>
+Date: Thu, 28 Mar 2024 12:28:12 +0100
+Subject: [PATCH] Fixes getrandom build fail with `undefined symbol: open64`
+
+---
+ Cargo.lock | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 865b2a9..b72540d 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -433,9 +433,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
+ 
+ [[package]]
+ name = "libc"
+-version = "0.2.139"
++version = "0.2.153"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "201de327520df007757c1f0adce6e827fe8562fbc28bfd9c15571c66ca1f5f79"
++checksum = "9c198f91728a82281a64e1f4f9eeb25d82cb32a5de251c6bd1b5154d63a8e7bd"
+ 
+ [[package]]
+ name = "line-wrap"
+-- 
+2.44.0
+
