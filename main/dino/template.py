@@ -1,8 +1,7 @@
 pkgname = "dino"
 pkgver = "0.4.3"
-pkgrel = 2
+pkgrel = 3
 build_style = "cmake"
-# TODO: openpgp maybe
 configure_args = [
     "-DBUILD_TESTS=ON",
     "-DDINO_PLUGIN_ENABLED_notification-sound=ON",
@@ -46,3 +45,24 @@ sha256 = "432d7c3b5170c595b1b31a8d64d73ded26e32af9f03a2d1a01828c22a8ade3fa"
 def do_check(self):
     for test in ["libdino", "signal-protocol-vala", "xmpp-vala"]:
         self.do(f"./build/{test}-test")
+
+
+def _genmod(pname, pdesc):
+    @subpackage(f"dino-plugin-{pname}")
+    def _plug(self):
+        self.pkgdesc = f"{pkgdesc} ({pdesc} plugin)"
+        # this is not normally built with default settings
+        if pname != "notification-sound":
+            self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
+        return [f"usr/lib/dino/plugins/{pname}.so"]
+
+
+for _plugin, _desc in [
+    ("http-files", "file host"),
+    ("ice", "ICE"),
+    ("notification-sound", "notification sound"),
+    ("omemo", "OMEMO"),
+    ("openpgp", "OpenPGP"),
+    ("rtp", "Jingle RTP"),
+]:
+    _genmod(_plugin, _desc)
