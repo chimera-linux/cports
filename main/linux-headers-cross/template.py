@@ -1,6 +1,6 @@
 pkgname = "linux-headers-cross"
 pkgver = "6.5.5"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["gmake", "perl"]
 depends = []
 pkgdesc = "Linux API headers for cross-compiling"
@@ -19,6 +19,8 @@ _targetlist = [
     ("ppc", "powerpc"),
     ("x86_64", "x86_64"),
     ("riscv64", "riscv"),
+    ("armhf", "arm"),
+    ("armv7", "arm"),
 ]
 _targets = list(filter(lambda p: p[0] != self.profile().arch, _targetlist))
 
