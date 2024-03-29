@@ -20,6 +20,8 @@ match self.profile().arch:
         _arch = "powerpc"
     case "riscv64":
         _arch = "riscv"
+    case "armhf" | "armv7":
+        _arch = "arm"
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
