@@ -1,7 +1,7 @@
 pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.5"
 pkgver = "17.0.6"
-pkgrel = 2
+pkgrel = 3
 build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
 configure_args = [
@@ -64,7 +64,16 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-_targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
+_targetlist = [
+    "aarch64",
+    "ppc64le",
+    "ppc64",
+    "ppc",
+    "x86_64",
+    "riscv64",
+    "armhf",
+    "armv7",
+]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 
