@@ -1,0 +1,61 @@
+commit 3af9e549128c3bdbf2737424990c5ef29181ee90
+Author: q66 <q66@chimera-linux.org>
+Date:   Sat Mar 30 00:42:08 2024 +0100
+
+    patch out NLS support
+    
+    We need this to break the early bootstrap cycle, as xz would
+    depend on gettext which depends on libxml2 which depends on xz.
+    
+    We can figure out a better way later.
+
+diff --git a/Makefile.am b/Makefile.am
+index 56ecf7d..71882cf 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -4,14 +4,14 @@
+ # Use -n to prevent gzip from adding a timestamp to the .gz headers.
+ GZIP_ENV = -9n
+ 
+-DIST_SUBDIRS = lib src po tests debug
++DIST_SUBDIRS = lib src tests debug
+ SUBDIRS =
+ 
+ if COND_GNULIB
+ SUBDIRS += lib
+ endif
+ 
+-SUBDIRS += src po tests
++SUBDIRS += src tests
+ 
+ if COND_DOC
+ dist_doc_DATA = \
+diff --git a/configure.ac b/configure.ac
+index 075567f..3ed7dd8 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -775,16 +775,6 @@ AM_CONDITIONAL([COND_SYMVERS_GENERIC],
+ # Checks for libraries.
+ ###############################################################################
+ 
+-dnl Support for _REQUIRE_VERSION was added in gettext 0.19.6. If both
+-dnl _REQUIRE_VERSION and _VERSION are present, the _VERSION is ignored.
+-dnl We use both for compatibility with other programs in the Autotools family.
+-echo
+-echo "Initializing gettext:"
+-AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.6])
+-AM_GNU_GETTEXT_VERSION([0.19.6])
+-AM_GNU_GETTEXT([external])
+-
+-
+ ###############################################################################
+ # Checks for header files.
+ ###############################################################################
+@@ -1343,7 +1333,6 @@ AC_SUBST([xz])
+ 
+ AC_CONFIG_FILES([
+ 	Makefile
+-	po/Makefile.in
+ 	lib/Makefile
+ 	src/Makefile
+ 	src/liblzma/Makefile

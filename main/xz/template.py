@@ -1,17 +1,22 @@
 pkgname = "xz"
 pkgver = "5.6.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
-configure_gen = []
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = []
 provides = [f"liblzma={pkgver}-r{pkgrel}"]
 pkgdesc = "XZ compression utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "0BSD"
 url = "https://tukaani.org/xz"
-source = f"https://github.com/tukaani-project/xz/releases/download/v{pkgver}/xz-{pkgver}.tar.bz2"
-sha256 = "d300422649a0124b1121630be559c890ceedf32667d7064b8128933166c217c8"
+# backdoored release tarball; use github generated tarball instead
+# if the checksum changes, be extremely careful as it may mean the
+# source has been re-tagged (this checksum is known safe)
+# commit fd1b975b7851e081ed6e5cf63df946cd5cbdbb94
+source = (
+    f"https://github.com/tukaani-project/xz/archive/refs/tags/v{pkgver}.tar.gz"
+)
+sha256 = "237284fae40e5f8e9908f0a977e7d0b9a5c7c1c10a41b8e6ed0fb40e930467c8"
 options = ["bootstrap"]
 
 
