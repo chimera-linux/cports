@@ -1,41 +1,32 @@
-From ac676aac3fa475cf0c65e9a3f6a0aa63485f32b0 Mon Sep 17 00:00:00 2001
+From c5505a4a9b497d1a4e46887a6b406caf2438f674 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 17 Mar 2023 04:39:15 +0100
 Subject: [PATCH] tests portability
 
 ---
- Makefile.in       |   3 +-
- tests/test-run.sh | 114 +++++++++++++++++++---------------------------
+ tests/meson.build |   1 -
+ tests/test-run.sh | 116 +++++++++++++++++++---------------------------
  2 files changed, 48 insertions(+), 69 deletions(-)
 
-diff --git a/Makefile.in b/Makefile.in
-index dbe0e0e..4ab8738 100644
---- a/Makefile.in
-+++ b/Makefile.in
-@@ -384,7 +384,7 @@ am__set_TESTS_bases = \
-   bases=`echo $$bases`
- AM_TESTSUITE_SUMMARY_HEADER = ' for $(PACKAGE_STRING)'
- RECHECK_LOGS = $(TEST_LOGS)
--am__EXEEXT_3 = tests/test-run.sh tests/test-seccomp.py \
-+am__EXEEXT_3 = tests/test-run.sh \
- 	tests/test-specifying-userns.sh tests/test-specifying-pidns.sh
- TEST_SUITE_LOG = test-suite.log
- TEST_EXTENSIONS = @EXEEXT@ .test
-@@ -571,7 +571,6 @@ test_programs = \
+diff --git a/tests/meson.build b/tests/meson.build
+index 87bf709..c44f159 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -17,7 +17,6 @@ executable(
  
- test_scripts = \
- 	tests/test-run.sh \
--	tests/test-seccomp.py \
- 	tests/test-specifying-userns.sh \
- 	tests/test-specifying-pidns.sh \
- 	$(NULL)
+ test_scripts = [
+   'test-run.sh',
+-  'test-seccomp.py',
+   'test-specifying-pidns.sh',
+   'test-specifying-userns.sh',
+ ]
 diff --git a/tests/test-run.sh b/tests/test-run.sh
-index 979480e..c801cd2 100755
+index 6151f1a..aa8bba8 100755
 --- a/tests/test-run.sh
 +++ b/tests/test-run.sh
-@@ -84,15 +84,6 @@ assert_file_has_content json-status.json '"child-pid": [0-9]'
+@@ -109,15 +109,6 @@ assert_file_has_content json-status.json '"child-pid": [0-9]'
  assert_file_has_content_literal json-status.json '"exit-code": 42'
- echo "ok info and json-status fd"
+ ok "info and json-status fd"
  
 -DATA=$($RUN --proc /proc --unshare-all --info-fd 42 --json-status-fd 43 -- bash -c 'stat -L --format "%n %i" /proc/self/ns/*' 42>info.json 43>json-status.json 2>err.txt)
 -
@@ -46,28 +37,28 @@ index 979480e..c801cd2 100755
 -    assert_file_has_content json-status.json "$want"
 -done
 -
- echo "ok namespace id info in info and json-status fd"
+ ok "namespace id info in info and json-status fd"
  
  if ! command -v strace >/dev/null || ! strace -h | grep -v -e default | grep -e fault >/dev/null; then
-@@ -121,8 +112,9 @@ else
+@@ -146,8 +137,9 @@ else
      assert_file_has_content recursive_proc.txt "hello"
-     echo "ok - can mount /proc recursively"
+     ok "can mount /proc recursively"
  
 -    $BWRAP_RECURSE -- /proc/self/exe --unshare-all ${BWRAP_RO_HOST_ARGS} findmnt > recursive-newroot.txt
 -    assert_file_has_content recursive-newroot.txt "/usr"
 +    # no findmnt in test environment
 +    #$BWRAP_RECURSE -- /proc/self/exe --unshare-all ${BWRAP_RO_HOST_ARGS} findmnt > recursive-newroot.txt
 +    #assert_file_has_content recursive-newroot.txt "/usr"
-     echo "ok - can pivot to new rootfs recursively"
+     ok "can pivot to new rootfs recursively"
  
      $BWRAP --dev-bind / / -- true
-@@ -203,25 +195,25 @@ for die_with_parent_argv in "--die-with-parent" "--die-with-parent --unshare-pid
+@@ -237,25 +229,25 @@ for die_with_parent_argv in "--die-with-parent" "--die-with-parent --unshare-pid
      # We have to loop here, because bwrap doesn't wait for the lock if
      # another process is holding it. If we're unlucky, lockf-n.py will
      # be holding it.
--    /bin/bash -c "while true; do $RUN ${die_with_parent_argv} --lock-file $(pwd)/lock sleep 1h; done" &
+-    bash -c "while true; do $RUN ${die_with_parent_argv} --lock-file $(pwd)/lock sleep 1h; done" &
 -    childshellpid=$!
-+    #/bin/bash -c "while true; do $RUN ${die_with_parent_argv} --lock-file $(pwd)/lock sleep 1h; done" &
++    #bash -c "while true; do $RUN ${die_with_parent_argv} --lock-file $(pwd)/lock sleep 1h; done" &
 +    #childshellpid=$!
  
      # Wait for lock to be taken (yes hacky)
@@ -98,10 +89,10 @@ index 979480e..c801cd2 100755
      # Lock file should be unlocked
 -    ./lockf-n.py ./lock wait
 +    #./lockf-n.py ./lock wait
-     echo "ok die with parent ${die_with_parent_argv}"
+     ok "die with parent ${die_with_parent_argv}"
  done
  
-@@ -305,9 +297,9 @@ $RUN \
+@@ -339,9 +331,9 @@ $RUN \
      --bind "$(pwd -P)/some-dir" "$(pwd -P)/new-dir-mountpoint" \
      --bind "$(pwd -P)/some-file" "$(pwd -P)/new-file-mountpoint" \
      true
@@ -111,9 +102,9 @@ index 979480e..c801cd2 100755
 -command stat -c '%a' new-file-mountpoint > new-file-permissions
 +command stat -f '%OLp' new-file-mountpoint > new-file-permissions
  assert_file_has_content new-file-permissions 444
- echo "ok - Files and directories created as mount points have expected permissions"
+ ok "Files and directories created as mount points have expected permissions"
  
-@@ -333,15 +325,15 @@ $RUN \
+@@ -367,15 +359,15 @@ $RUN \
      --chmod 1755 "$(pwd -P)/dir-chmod" \
      --dir "$(pwd -P)/new-dir-default-perms" \
      true
@@ -132,9 +123,9 @@ index 979480e..c801cd2 100755
 -command stat -c '%a' dir-chmod > dir-permissions
 +command stat -f '%OMp%OLp' dir-chmod > dir-permissions
  assert_file_has_content dir-permissions '^1755$'
- echo "ok - Directories created explicitly have expected permissions"
+ ok "Directories created explicitly have expected permissions"
  
-@@ -373,31 +365,31 @@ $RUN \
+@@ -407,31 +399,31 @@ $RUN \
      --perms 0604 --dir "$(pwd -P)"/parent-of-0604/dir \
      --perms 0000 --dir "$(pwd -P)"/parent-of-0000/dir \
      true
@@ -179,7 +170,7 @@ index 979480e..c801cd2 100755
  assert_file_has_content dir-permissions '^700$'
  chmod -R 0700 parent*
  rm -fr parent*
-@@ -408,11 +400,11 @@ $RUN \
+@@ -442,11 +434,11 @@ $RUN \
      cat /proc/self/mountinfo >&2
  $RUN \
      --perms 01777 --tmpfs "$(pwd -P)" \
@@ -191,38 +182,9 @@ index 979480e..c801cd2 100755
 -    stat -c '%a' "$(pwd -P)" > dir-permissions
 +    stat -f '%OLp' "$(pwd -P)" > dir-permissions
  assert_file_has_content dir-permissions '^755$'
- echo "ok - tmpfs has expected permissions"
+ ok "tmpfs has expected permissions"
  
-@@ -423,26 +415,14 @@ if test -n "${bwrap_is_suid:-}"; then
-     fi
-     echo "ok - --size --tmpfs is not allowed when setuid"
- elif df --output=size --block-size=1K "$(pwd -P)" >/dev/null 2>/dev/null; then
--    $RUN \
--        --size 1048576 --tmpfs "$(pwd -P)" \
--        df --output=size --block-size=1K "$(pwd -P)" > dir-size
--    assert_file_has_content dir-size '^ *1024$'
-     $RUN \
-         --size 1048576 --perms 01777 --tmpfs "$(pwd -P)" \
--        stat -c '%a' "$(pwd -P)" > dir-permissions
-+        stat -f '%OMp%OLp' "$(pwd -P)" > dir-permissions
-     assert_file_has_content dir-permissions '^1777$'
--    $RUN \
--        --size 1048576 --perms 01777 --tmpfs "$(pwd -P)" \
--        df --output=size --block-size=1K "$(pwd -P)" > dir-size
--    assert_file_has_content dir-size '^ *1024$'
-     $RUN \
-         --perms 01777 --size 1048576 --tmpfs "$(pwd -P)" \
--        stat -c '%a' "$(pwd -P)" > dir-permissions
-+        stat -f '%OMp%OLp' "$(pwd -P)" > dir-permissions
-     assert_file_has_content dir-permissions '^1777$'
--    $RUN \
--        --perms 01777 --size 1048576 --tmpfs "$(pwd -P)" \
--        df --output=size --block-size=1K "$(pwd -P)" > dir-size
--    assert_file_has_content dir-size '^ *1024$'
-     echo "ok - tmpfs has expected size"
- else
-     $RUN --size 1048576 --tmpfs "$(pwd -P)" true
-@@ -453,27 +433,27 @@ fi
+@@ -487,27 +467,27 @@ fi
  
  $RUN \
      --file 0 /tmp/file \
@@ -254,8 +216,8 @@ index 979480e..c801cd2 100755
 -    stat -c '%a' /tmp/file < /dev/null > file-permissions
 +    stat -f '%OLp' /tmp/file < /dev/null > file-permissions
  assert_file_has_content file-permissions '^640$'
- echo "ok - files have expected permissions"
+ ok "files have expected permissions"
  
 -- 
-2.39.0
+2.44.0
 
