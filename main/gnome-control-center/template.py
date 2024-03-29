@@ -1,5 +1,5 @@
 pkgname = "gnome-control-center"
-pkgver = "46.0"
+pkgver = "46.0.1"
 pkgrel = 0
 build_style = "meson"
 make_check_wrapper = ["weston-headless-run"]
@@ -66,8 +66,10 @@ pkgdesc = "GNOME control center"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/gnome-control-center"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "25f67de05897868b2e97eaa0ecc986a408af08d4985c8a9da44f0d7bd8fea7a4"
+source = (
+    f"$(GNOME_SITE)/{pkgname}/{pkgver.split('.')[0]}/{pkgname}-{pkgver}.tar.xz"
+)
+sha256 = "53cfbc25156b5ca0b302531ebaeefd7f915f39b08aca143d5b0ec80855221fe4"
 
 
 @subpackage("gnome-control-center-devel")
