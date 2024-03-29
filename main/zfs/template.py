@@ -2,7 +2,7 @@
 # also update linux-*-zfs-bin
 pkgname = "zfs"
 pkgver = "2.2.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-config=user",
