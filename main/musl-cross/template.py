@@ -1,6 +1,6 @@
 pkgname = "musl-cross"
 pkgver = "1.2.5"
-pkgrel = 0
+pkgrel = 1
 _commit = "v1.2.5"
 _scudo_ver = "17.0.6"
 build_style = "gnu_configure"
@@ -30,7 +30,16 @@ options = ["!cross", "!check", "!lto", "brokenlinks", "empty"]
 # whether to use musl's stock allocator instead of scudo
 _use_mng = False
 
-_targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
+_targetlist = [
+    "aarch64",
+    "ppc64le",
+    "ppc64",
+    "ppc",
+    "x86_64",
+    "riscv64",
+    "armhf",
+    "armv7",
+]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 if _use_mng:
