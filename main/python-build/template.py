@@ -1,12 +1,11 @@
 pkgname = "python-build"
-pkgver = "1.1.1"
+pkgver = "1.2.1"
 pkgrel = 0
 hostmakedepends = [
-    "python",
     "python-flit_core",
+    "python-installer",
     "python-packaging",
     "python-pyproject_hooks",
-    "python-installer",
 ]
 depends = ["python-pyproject_hooks", "python-packaging"]
 pkgdesc = "Simple PEP 517 build frontend"
@@ -14,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pypa-build.readthedocs.io"
 source = f"$(PYPI_SITE)/b/build/build-{pkgver}.tar.gz"
-sha256 = "8eea65bb45b1aac2e734ba2cc8dad3a6d97d97901a395bd0ed3e7b46953d2a31"
+sha256 = "526263f4870c26f26c433545579475377b2b7588b6f1eac76a001e873ae3e19d"
 # no tests
 options = ["!check"]
 
