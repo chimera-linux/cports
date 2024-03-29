@@ -9,10 +9,9 @@ hostmakedepends = [
     "perl",
     "automake",
     "help2man",
-    "xz",
     "texinfo",
 ]
-depends = ["gm4", "cmd:tar!bsdtar"]
+depends = ["gm4", "cmd:tar!base-files"]
 pkgdesc = "Generic library support script"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
