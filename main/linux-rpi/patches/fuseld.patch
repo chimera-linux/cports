@@ -1,0 +1,17 @@
+commit 6b2001c1b614c7665a6f9fad9e0f2df09a86ef5b
+Author: q66 <q66@chimera-linux.org>
+Date:   Mon Jul 24 14:49:24 2023 +0200
+
+    let me fuse-ld in peace
+
+diff --git a/scripts/Makefile.clang b/scripts/Makefile.clang
+index 058a4c0..0108bbc 100644
+--- a/scripts/Makefile.clang
++++ b/scripts/Makefile.clang
+@@ -33,6 +33,5 @@ endif
+ CLANG_FLAGS	+= -Werror=unknown-warning-option
+ CLANG_FLAGS	+= -Werror=ignored-optimization-argument
+ CLANG_FLAGS	+= -Werror=option-ignored
+-CLANG_FLAGS	+= -Werror=unused-command-line-argument
+ KBUILD_CPPFLAGS	+= $(CLANG_FLAGS)
+ export CLANG_FLAGS
