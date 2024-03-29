@@ -1,5 +1,5 @@
 pkgname = "openpgp-card-ssh-agent"
-pkgver = "0.2.3"
+pkgver = "0.3.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://codeberg.org/openpgp-card/ssh-agent"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "afbb3620a361eb541d0a289ee9789f68c04db2dc07135f42ac989b92a4f149b0"
+sha256 = "3a916e09f46539d18bcc443e78bd14d19c490f5312325920e074e114a1454e5d"
 
 
 def post_install(self):
