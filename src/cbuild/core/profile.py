@@ -388,7 +388,7 @@ class Profile:
         if self._arch == "riscv64":
             return False
         # probably not worth it, no scudo makes linking slow
-        if self._arch == "ppc":
+        if self._wordsize == 32:
             return False
 
         # it would be problematic to lto stage 0,
