@@ -1,6 +1,6 @@
 pkgname = "base-cbuild-bootstrap"
 pkgver = "0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 depends = [
     "base-cbuild-host",  # all the host tools for cbuild itself
@@ -14,6 +14,8 @@ depends = [
     "flex",
     "perl",
     # stage 0 build systems
+    "automake",
+    "libtool",
     "cmake",
     "meson",
     "bmake",
