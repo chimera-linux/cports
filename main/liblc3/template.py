@@ -1,5 +1,5 @@
 pkgname = "liblc3"
-pkgver = "1.0.4"
+pkgver = "1.1.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtools=true"]
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/liblc3"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "9cf7177b864cac7612f27c0737440b1b7b53d88687778405060de29dfd6e0aaa"
+sha256 = "958725e277685f9506d30ea341c38a03b245c3b33852cd074da6c8857525e808"
 
 
 @subpackage("liblc3-devel")
