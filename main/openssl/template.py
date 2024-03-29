@@ -39,6 +39,8 @@ match self.profile().arch:
         configure_args += [f"linux-{self.profile().arch}"]
     case "riscv64":
         configure_args += ["linux64-riscv64"]
+    case "armhf" | "armv7":
+        configure_args += ["linux-armv4"]
     case _:
         broken = f"Unknown CPU architecture: {self.profile().arch}"
 
