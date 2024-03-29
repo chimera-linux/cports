@@ -1,6 +1,6 @@
 pkgname = "curl"
 pkgver = "8.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimize",
@@ -8,6 +8,7 @@ configure_args = [
     "--enable-threaded-resolver",
     "--enable-threads",
     "--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt",
+    "--with-fish-functions-dir=/usr/share/fish/vendor_completions.d",
     "--with-libidn2",
     "--with-libpsl",
     "--with-libssh2",
@@ -16,6 +17,7 @@ configure_args = [
     "--with-openssl-quic",
     "--with-ssl",
     "--with-zlib",
+    "--with-zsh-functions-dir=/usr/share/zsh/site-functions/",
     "--with-zstd",
     "ac_cv_path_NROFF=/usr/bin/mandoc",
     "ac_cv_sizeof_off_t=8",
