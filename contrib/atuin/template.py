@@ -6,7 +6,7 @@ make_build_args = [
     "--no-default-features",
     "--features=client,server,sync,clipboard",
 ]
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["sqlite-devel", "openssl-devel"]
 pkgdesc = "Sync, search and backup tool for shell history"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"

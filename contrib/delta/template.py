@@ -2,7 +2,7 @@ pkgname = "delta"
 pkgver = "0.17.0"
 pkgrel = 1
 build_style = "cargo"
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
     "oniguruma-devel",

@@ -8,7 +8,7 @@ make_build_args = ["--features=completions"]
 make_build_env = {
     "ASSET_OUT_DIR": "assets",
 }
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "zstd-devel"]
 pkgdesc = "Minimal jinja implementation"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"

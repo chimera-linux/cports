@@ -3,7 +3,7 @@ pkgver = "0.13.2"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "ncurses",
     "pkgconf",
     "scdoc",

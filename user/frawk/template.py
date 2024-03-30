@@ -7,7 +7,7 @@ build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=allow_avx2"]
 make_install_args = list(make_build_args)
 make_check_args = list(make_build_args)
-hostmakedepends = ["cargo"]
+hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = "Awk-like language"
 maintainer = "Paul A. Patience <paul@apatience.com>"
@@ -22,6 +22,8 @@ def do_prepare(self):
 
 
 def post_patch(self):
+    self.do("rm", ".cargo/config")
+
     from cbuild.util import cargo
 
     self.cargo.vendor()

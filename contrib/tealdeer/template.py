@@ -13,7 +13,7 @@ make_check_args = [
     "--skip=test_spaces_find_command",
     "--skip=test_update_cache",
 ]
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl-devel"]
 pkgdesc = "Alternative implementation of tldr"
 maintainer = "ttyyls <contact@behri.org>"

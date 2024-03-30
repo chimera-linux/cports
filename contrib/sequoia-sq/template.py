@@ -3,7 +3,7 @@ pkgver = "0.35.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_env = {"ASSET_OUT_DIR": "assets"}
-hostmakedepends = ["cargo", "pkgconf", "capnproto"]
+hostmakedepends = ["cargo-auditable", "pkgconf", "capnproto"]
 makedepends = [
     "bzip2-devel",
     "capnproto-devel",

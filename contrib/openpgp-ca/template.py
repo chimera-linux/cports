@@ -3,7 +3,7 @@ pkgver = "0.13.1"
 pkgrel = 0
 build_wrksrc = "openpgp-ca-bin"
 build_style = "cargo"
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "nettle-devel",
     "openssl-devel",

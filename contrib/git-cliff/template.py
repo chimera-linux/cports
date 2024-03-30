@@ -8,7 +8,7 @@ make_check_args = [
     "--skip=repo::test::git_tags",
     "--skip=repo::test::git_upstream_remote",
 ]
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["libgit2-devel"]
 pkgdesc = "Changelog generator for conventional commits"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
