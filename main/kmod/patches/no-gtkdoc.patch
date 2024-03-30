@@ -1,0 +1,28 @@
+--- a/configure.ac
++++ b/configure.ac
+@@ -226,10 +226,7 @@ AS_IF([test "x$enable_coverage" = "xyes"], [
+ ])
+ AM_CONDITIONAL([ENABLE_COVERAGE], [test "x$enable_coverage" = "xyes"])
+ 
+-m4_ifdef([GTK_DOC_CHECK], [
+-GTK_DOC_CHECK([1.14],[--flavour no-tmpl-flat])
+-], [
+-AM_CONDITIONAL([ENABLE_GTK_DOC], false)])
++AM_CONDITIONAL([ENABLE_GTK_DOC], false)
+ 
+ #####################################################################
+ # Default CFLAGS and LDFLAGS
+--- a/libkmod/docs/Makefile.am
++++ b/libkmod/docs/Makefile.am
+@@ -25,10 +25,4 @@ IGNORE_HFILES = libkmod-internal.h \
+ 
+ content_files = version.xml
+ 
+-EXTRA_DIST =
+-
+-if ENABLE_GTK_DOC
+-include $(top_srcdir)/libkmod/docs/gtk-doc.make
+-else
+-EXTRA_DIST += libkmod-docs.xml libkmod-sections.txt
+-endif
++EXTRA_DIST = libkmod-docs.xml libkmod-sections.txt
