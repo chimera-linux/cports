@@ -1,6 +1,6 @@
 pkgname = "llvm"
 pkgver = "17.0.6"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
@@ -105,6 +105,8 @@ if self.stage > 0:
             tool_flags["LDFLAGS"] += [
                 "-fuse-ld=/usr/lib/llvm-bootstrap/bin/ld.lld"
             ]
+        else:
+            hostmakedepends += ["llvm", "clang-tools-extra", "mlir"]
 else:
     configure_args += [
         "-DLLVM_ENABLE_LIBEDIT=NO",
@@ -159,80 +161,18 @@ def init_configure(self):
     if not self.profile().cross:
         return
 
-    self.configure_args.append(
-        "-DLLVM_TABLEGEN=" + str(self.chroot_cwd / "build_host/bin/llvm-tblgen")
-    )
-    self.configure_args.append(
-        "-DCLANG_TABLEGEN="
-        + str(self.chroot_cwd / "build_host/bin/clang-tblgen")
-    )
-    self.configure_args.append(
-        "-DCLANG_PSEUDO_GEN="
-        + str(self.chroot_cwd / "build_host/bin/clang-pseudo-gen")
-    )
-    self.configure_args.append(
-        "-DCLANG_TIDY_CONFUSABLE_CHARS_GEN="
-        + str(
-            self.chroot_cwd / "build_host/bin/clang-tidy-confusable-chars-gen"
-        )
-    )
-    self.configure_args.append(
-        "-DLLVM_CONFIG_PATH="
-        + str(self.chroot_cwd / "build_host/bin/llvm-config")
-    )
-
-
-def pre_configure(self):
-    if not self.profile().cross:
-        return
-
-    from cbuild.util import cmake
-
-    self.log("building host tblgen...")
-
-    with self.profile(self.profile().arch) as pf:
-        trip = pf.triplet
-
-    with self.profile("host"):
-        with self.stamp("host_llvm_configure") as s:
-            s.check()
-            # need to pass the triplets so builtins are found
-            cmake.configure(
-                self,
-                "build_host",
-                self.cmake_dir,
-                configure_args
-                + [
-                    "-DLLVM_HOST_TRIPLE=" + trip,
-                    "-DLLVM_DEFAULT_TARGET_TRIPLE=" + trip,
-                ],
-            )
-
-        with self.stamp("host_llvm_tblgen") as s:
-            s.check()
-            cmake.build(self, "build_host", ["--target", "bin/llvm-tblgen"])
-
-        with self.stamp("host_clang_tblgen") as s:
-            s.check()
-            cmake.build(self, "build_host", ["--target", "bin/clang-tblgen"])
-
-        with self.stamp("host_confusable_gen") as s:
-            s.check()
-            cmake.build(
-                self,
-                "build_host",
-                ["--target", "bin/clang-tidy-confusable-chars-gen"],
-            )
-
-        with self.stamp("host_clang_pseudo_gen") as s:
-            s.check()
-            cmake.build(
-                self, "build_host", ["--target", "bin/clang-pseudo-gen"]
-            )
-
-        with self.stamp("host_llvm_config") as s:
-            s.check()
-            cmake.build(self, "build_host", ["--target", "bin/llvm-config"])
+    # grab these from the host
+    self.configure_args += [
+        "-DLLVM_NATIVE_TOOL_DIR=/usr/bin",
+        "-DLLVM_CONFIG_PATH=/usr/bin/llvm-config",
+        "-DLLVM_TABLEGEN=/usr/bin/llvm-tblgen",
+        "-DCLANG_TABLEGEN=/usr/bin/clang-tblgen",
+        "-DCLANG_PSEUDO_GEN=/usr/bin/clang-pseudo-gen",
+        "-DCLANG_TIDY_CONFUSABLE_CHARS_GEN=/usr/bin/clang-tidy-confusable-chars-gen",
+        "-DMLIR_TABLEGEN=/usr/bin/mlir-tblgen",
+        "-DMLIR_PDLL_TABLEGEN=/usr/bin/mlir-pdll",
+        "-DMLIR_LINALG_ODS_YAML_GEN=/usr/bin/mlir-linalg-ods-yaml-gen",
+    ]
 
 
 def do_configure(self):
@@ -277,6 +217,10 @@ def post_install(self):
     if self.stage > 0:
         python.precompile(self, "usr/share/scan-view")
 
+    # extra cross bins, not super useful outside of that but harmless
+    self.install_bin("build/bin/clang-tidy-confusable-chars-gen")
+    self.install_bin("build/bin/clang-pseudo-gen")
+
 
 @subpackage("clang-tools-extra-static")
 def _tools_extra_static(self):
@@ -303,8 +247,10 @@ def _tools_extra(self):
         "usr/include/clang-tidy",
         "usr/bin/clang-apply-replacements",
         "usr/bin/clang-query",
+        "usr/bin/clang-pseudo-gen",
         "usr/bin/clang-rename",
         "usr/bin/clang-tidy",
+        "usr/bin/clang-tidy-confusable-chars-gen",
         "usr/bin/diagtool",
         "usr/bin/find-all-symbols",
         "usr/bin/hmaptool",
