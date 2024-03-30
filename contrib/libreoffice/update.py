@@ -1,2 +1,2 @@
-url = "https://www.libreoffice.org/download/download-libreoffice"
-pattern = r"libreoffice-([\d.]+).tar.xz"
+url = "https://download.documentfoundation.org/libreoffice/src"
+pattern = r">commits-libreoffice-.*-release-([\d.]+).log<"
