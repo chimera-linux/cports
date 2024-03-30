@@ -1,6 +1,6 @@
 pkgname = "neofetch"
 pkgver = "7.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 depends = ["bash"]
 pkgdesc = "Simple system information script"
