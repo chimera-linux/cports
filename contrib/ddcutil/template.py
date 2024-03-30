@@ -1,6 +1,6 @@
 pkgname = "ddcutil"
 pkgver = "2.1.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-x11"]
 make_cmd = "gmake"
@@ -20,6 +20,7 @@ makedepends = [
     "linux-headers",
     "udev-devel",
 ]
+triggers = ["/usr/lib/modules-load.d"]
 pkgdesc = "Control monitor settings using DDC/CI and USB"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
