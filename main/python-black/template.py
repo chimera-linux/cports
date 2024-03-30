@@ -1,6 +1,6 @@
 pkgname = "python-black"
 pkgver = "24.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = ["python-build", "python-installer", "python-hatch_vcs"]
 depends = [
@@ -17,6 +17,7 @@ checkdepends = [
     "python-pytest-xdist",
     "python-tokenize_rt",
 ] + depends
+provides = [f"black={pkgver}-r{pkgrel}"]
 pkgdesc = "Python formatting tool"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
