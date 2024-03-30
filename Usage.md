@@ -388,7 +388,7 @@ only have an effect with specific commands.
 
 * `--allow-unsigned` Do not sign packages and allow building without a signing
   key set up.
-  `-A ARCH`, `--host-arch ARCH` Override the host architecture. The given host
+* `-A ARCH`, `--host-arch ARCH` Override the host architecture. The given host
   arch must be runnable on the current kernel. This is typically useful for e.g.
   32-bit builds on 64-bit architectures, or for emulated targets. Note that once
   a build root is bootstrapped, it decides the host architecture exclusively, so
