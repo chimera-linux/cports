@@ -8,7 +8,7 @@ make_build_args = [
 ]
 make_install_args = list(make_build_args)
 make_check_args = list(make_install_args)
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libcurl-devel",
     "rust-std",

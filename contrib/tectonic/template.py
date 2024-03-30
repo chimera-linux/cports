@@ -9,7 +9,7 @@ make_build_args = [
 ]
 make_install_args = make_build_args
 make_check_args = ["--features", "external-harfbuzz"]
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "freetype-devel",
     "graphite2-devel",

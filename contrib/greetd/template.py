@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cargo"
 hostmakedepends = [
     "bmake",
-    "cargo",
+    "cargo-auditable",
     "pkgconf",
     "scdoc",
 ]

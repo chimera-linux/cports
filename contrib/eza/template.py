@@ -2,7 +2,7 @@ pkgname = "eza"
 pkgver = "0.18.15"
 pkgrel = 0
 build_style = "cargo"
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "libgit2-devel",
     "rust-std",

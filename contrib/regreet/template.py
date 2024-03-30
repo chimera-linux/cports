@@ -6,7 +6,7 @@ make_build_args = [
     "--features=gtk4_8",
 ]
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "pkgconf",
 ]
 makedepends = [

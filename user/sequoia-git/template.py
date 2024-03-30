@@ -3,7 +3,7 @@ pkgver = "0.1.0"
 pkgrel = 1
 build_style = "cargo"
 make_check_env = {"TARGET": self.profile().triplet}
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "bzip2-devel",
     "libgit2-devel",

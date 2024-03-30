@@ -2,7 +2,7 @@ pkgname = "bat"
 pkgver = "0.24.0"
 pkgrel = 0
 build_style = "cargo"
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "rust-std",
     "oniguruma-devel",

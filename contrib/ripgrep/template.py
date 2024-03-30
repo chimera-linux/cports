@@ -2,7 +2,7 @@ pkgname = "ripgrep"
 pkgver = "14.1.0"
 pkgrel = 0
 build_style = "cargo"
-hostmakedepends = ["cargo"]
+hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 pkgdesc = (
     "Tool that recursively searches the current directory for a regex pattern"

@@ -14,7 +14,7 @@ make_check_args = make_build_args + [
     "--skip=paste::tests::test_paste_data",
     "--skip=server::tests::test_upload_remote_file",
 ]
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "openssl-devel",
     "rust-std",

@@ -15,7 +15,7 @@ make_check_args = make_build_args + [
     "--skip=modules::directory::tests::highlight_git_root_dir_zero_truncation_length",
     "--skip=modules::directory::tests::truncated_directory_config_large",
 ]
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "zlib-devel"]
 checkdepends = ["git"]
 pkgdesc = "Cross-shell prompt"

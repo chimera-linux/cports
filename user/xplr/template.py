@@ -5,7 +5,7 @@ build_style = "cargo"
 make_build_args = ["--no-default-features"]
 make_install_args = list(make_build_args)
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "pkgconf",
 ]
 makedepends = [
