@@ -1,8 +1,9 @@
 pkgname = "soundtouch"
-pkgver = "2.3.2"
+pkgver = "2.3.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-openmp"]
+configure_gen = ["./bootstrap"]
 make_build_args = ["V=1"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = ["libomp-devel"]
@@ -11,16 +12,9 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-only"
 url = "https://www.surina.net/soundtouch"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3bde8ddbbc3661f04e151f72cf21ca9d8f8c88e265833b65935b8962d12d6b08"
-
-
-def pre_configure(self):
-    self.do(self.chroot_cwd / "bootstrap")
+sha256 = "43b23dfac2f64a3aff55d64be096ffc7b73842c3f5665caff44975633a975a99"
 
 
 @subpackage("soundtouch-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []

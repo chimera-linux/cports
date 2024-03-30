@@ -14,7 +14,7 @@ diff --git a/source/SoundTouch/Makefile.am b/source/SoundTouch/Makefile.am
 index eac15a9..acdfe00 100644
 --- a/source/SoundTouch/Makefile.am
 +++ b/source/SoundTouch/Makefile.am
-@@ -65,7 +65,7 @@ libSoundTouchSSE_la_CXXFLAGS = $(AM_CXXFLAGS)
+@@ -65,7 +65,7 @@
  endif
  
  # Modify the default 0.0.0 to LIB_SONAME.0.0
@@ -27,15 +27,12 @@ diff --git a/source/SoundTouchDLL/Makefile.am b/source/SoundTouchDLL/Makefile.am
 index f867184..1d02f05 100644
 --- a/source/SoundTouchDLL/Makefile.am
 +++ b/source/SoundTouchDLL/Makefile.am
-@@ -34,7 +34,7 @@ libSoundTouchDll_la_SOURCES=../SoundTouch/AAFilter.cpp ../SoundTouch/FIRFilter.c
+@@ -34,7 +34,7 @@
  # Compiler flags
  
  # Modify the default 0.0.0 to LIB_SONAME.0.0
--LDFLAGS=-version-info @LIB_SONAME@
-+LDFLAGS=-lomp -version-info @LIB_SONAME@
+-AM_LDFLAGS=$(LDFLAGS) -version-info @LIB_SONAME@
++AM_LDFLAGS=$(LDFLAGS) -lomp -version-info @LIB_SONAME@
  
  if X86
  CXXFLAGS1=-mstackrealign -msse
--- 
-2.39.0
-
