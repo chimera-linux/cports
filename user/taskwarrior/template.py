@@ -1,6 +1,7 @@
 pkgname = "taskwarrior"
 pkgver = "3.0.0"
-pkgrel = 0
+pkgrel = 1
+archs = ["aarch64", "x86_64"]
 build_style = "cmake"
 make_dir = "."
 hostmakedepends = ["cmake", "ninja", "cargo", "corrosion"]
