@@ -1,4 +1,4 @@
-pattern = r"man-pages-posix-([\d\-a-z]+).tar.xz"
+pattern = r"man-pages-posix-([\d\-a-z]+)\.tar\.xz"
 url = "https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/man-pages-posix"
 
 
