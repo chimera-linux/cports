@@ -1,1 +1,1 @@
-pattern = r"/gnu-efi-([\d.]+).tar.bz2"
+pattern = r"/gnu-efi-([\d.]+)\.tar\.bz2"
