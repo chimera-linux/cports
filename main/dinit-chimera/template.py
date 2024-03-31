@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
-pkgver = "0.99.5"
-pkgrel = 4
+pkgver = "0.99.6"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
@@ -22,13 +22,18 @@ depends = [
     "virtual:cmd:systemd-tmpfiles!sd-tools",
 ]
 replaces = ["systemd-utils<255"]
-triggers = ["/usr/lib/binfmt.d", "/var/lib/swclock"]
+triggers = [
+    "/usr/lib/binfmt.d",
+    "/usr/lib/modprobe.d",
+    "/usr/lib/modules-load.d",
+    "/var/lib/swclock",
+]
 pkgdesc = "Chimera core services suite"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/chimera-linux/dinit-chimera"
 source = f"https://github.com/chimera-linux/dinit-chimera/archive/tags/v{pkgver}.tar.gz"
-sha256 = "8252caea1030813e7ced5f197e04bf79a09b011b26cabcd8a966ade16bc05b60"
+sha256 = "6d60b216e7ba8126e9feafa0f4a05c86943d5f7071052f276c41db830ffb1ff1"
 hardening = ["vis", "cfi"]
 # no tests
 options = ["!check", "brokenlinks"]

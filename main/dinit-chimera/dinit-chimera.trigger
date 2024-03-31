@@ -1,20 +1,32 @@
 #!/bin/sh
 
+services=
+
 for x in "$@"; do
     case "$x" in
         *swclock*)
             # update the timestamp to system clock every time
             touch /var/lib/swclock/timestamp > /dev/null 2>&1 || :
             ;;
+        *modules-load*|*modprobe*)
+            case "$services" in
+                *early-modules*) ;;
+                *) services="$services early-modules" ;;
+            esac
+            ;;
         *binfmt*)
-            # restart the service instead of directly invoking the helper,
-            # as we don't want to mess with it in chroots with pseudofs mounted
-            if [ -S /run/dinitctl ]; then
-                if /usr/bin/dinitctl --quiet is-started early-binfmt; then
-                    echo "Reloading binfmts..."
-                    /usr/bin/dinitctl restart early-binfmt || :
-                fi
-            fi
+            case "$services" in
+                *early-binfmt*) ;;
+                *) services="$services early-binfmt" ;;
+            esac
             ;;
     esac
+done
+
+[ -S /run/dinitctl ] || exit 0
+
+for service in $services; do
+    /usr/bin/dinitctl --quiet is-started "$service" || continue
+    echo "Restarting ${service}..."
+    /usr/bin/dinitctl restart "$service" || :
 done
