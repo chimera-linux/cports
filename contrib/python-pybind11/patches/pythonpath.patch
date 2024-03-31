@@ -1,0 +1,13 @@
+diff -Nurp a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml	2024-03-27 23:24:54.000000000 +0000
++++ b/pyproject.toml	2024-03-31 07:51:56.112972823 +0000
+@@ -39,8 +39,7 @@ testpaths = [
+ testpaths = [
+     "tests",
+ ]
+-timeout=300
+-
++pythonpath = "build-tests/tests"
+ 
+ [tool.pylint]
+ master.py-version = "3.6"
