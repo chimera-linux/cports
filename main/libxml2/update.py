@@ -1,1 +1,1 @@
-pattern = r"libxml2-([\d\.]+).tar.xz"
+pattern = r"libxml2-([\d\.]+)\.tar\.xz"
