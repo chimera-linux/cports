@@ -1,5 +1,4 @@
 #!/bin/sh
-/usr/bin/modprobe -q tun
 
 conf="-autoconf"
 if [ -f /etc/yggdrasil.conf ]; then
