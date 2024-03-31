@@ -1,2 +1,2 @@
 # ignore development versions
-ignore = [r"9.[0-9][13579].*"]
+ignore = [r"9.\d[13579].*"]
