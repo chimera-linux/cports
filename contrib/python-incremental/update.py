@@ -1,1 +1,1 @@
-ignore = ["*rc[0-9]"]
+ignore = ["*rc\d"]
