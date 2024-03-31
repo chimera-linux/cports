@@ -33,6 +33,8 @@ hardening = ["vis", "!cfi", "!int"]
 def init_configure(self):
     tcap = self.profile().sysroot / "usr/lib/libncursesw.a"
     self.make_build_args += [f"TERMCAP_LIB={tcap}"]
+    with self.profile("host"):
+        self.make_build_args += ["CC_FOR_BUILD=" + self.get_tool("CC")]
 
 
 def post_install(self):
