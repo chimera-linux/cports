@@ -1,4 +1,4 @@
-pattern = r"(\d+_\d+_\d+).[A-z0-9]+.tar.zst"
+pattern = r"(\d+_\d+_\d+)\.[\w]+\.tar\.zst"
 url = "https://passt.top/passt/refs/tags"
 
 
