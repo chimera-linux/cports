@@ -1,1 +1,1 @@
-pattern = r"psmisc-(\d+\.\d+).tar.xz"
+pattern = r"psmisc-(\d+\.\d+)\.tar\.xz"
