@@ -1,2 +1,2 @@
 pkgname = "pyparsing"
-pattern = r"pyparsing_([\d.]+).tar.gz"
+pattern = r"pyparsing_([\d.]+)\.tar\.gz"
