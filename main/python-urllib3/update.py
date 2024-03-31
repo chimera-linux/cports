@@ -1,1 +1,1 @@
-ignore = ["*[ab][0-9]"]
+ignore = ["*[ab]\d"]
