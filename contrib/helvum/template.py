@@ -31,3 +31,7 @@ def init_build(self):
 
     renv = cargo.get_environment(self)
     self.make_env.update(renv)
+
+
+def post_install(self):
+    self.install_bin(f"./build/src/{self.profile().triplet}/release/helvum")

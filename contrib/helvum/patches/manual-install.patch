@@ -1,6 +1,6 @@
---- a/src/meson.build	2023-09-28 14:13:00.000000000 +0200
-+++ b/src/meson.build	2024-01-13 03:39:06.993688820 +0100
-@@ -10,8 +10,6 @@
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -10,22 +10,15 @@
    message('Building in debug mode')
  endif
  
@@ -9,12 +9,17 @@
  custom_target(
    'cargo-build',
    build_by_default: true,
-@@ -21,8 +19,6 @@
-   install: true,
+   build_always_stale: true,
+   output: meson.project_name(),
+   console: true,
+-  install: true,
    install_dir: bindir,
    command: [
 -    'env',
 -    cargo_env,
      cargo, 'build',
      cargo_options,
-     '&&',
+-    '&&',
+-    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
+   ],
+ )
