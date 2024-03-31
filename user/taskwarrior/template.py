@@ -1,11 +1,11 @@
 pkgname = "taskwarrior"
 pkgver = "3.0.0"
 pkgrel = 1
-archs = ["aarch64", "x86_64"]
+pkgrel = 0
 build_style = "cmake"
 make_dir = "."
 hostmakedepends = ["cmake", "ninja", "cargo", "corrosion"]
-makedepends = ["libuuid-devel"]
+makedepends = ["libuuid-devel", "sqlite-devel"]
 pkgdesc = "TODO list manager for the command line"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
