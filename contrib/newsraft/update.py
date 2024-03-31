@@ -1,1 +1,1 @@
-pattern = r"newsraft-([\d.]+).tar.gz"
+pattern = r"newsraft-([\d.]+)\.tar\.gz"
