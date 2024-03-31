@@ -1,1 +1,1 @@
-pattern = r"libgudev-([0-9]*[0-9]*[0-9])"
+pattern = r"libgudev-(\d*\d*\d)"
