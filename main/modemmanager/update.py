@@ -1,2 +1,2 @@
 pkgname = "ModemManager"
-ignore = ["*.*.99[0-9]"]
+ignore = ["*.*.99\d"]
