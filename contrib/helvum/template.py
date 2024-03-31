@@ -1,6 +1,6 @@
 pkgname = "helvum"
 pkgver = "0.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["--buildtype=release"]
 hostmakedepends = ["meson", "ninja", "cargo", "pkgconf", "desktop-file-utils"]
@@ -22,6 +22,12 @@ sha256 = "d4f5cc0c3a70a91edfc816f12a10426dadd9ca74ea82662e2df5e6c4eb31d8ca"
 def post_patch(self):
     from cbuild.util import cargo
 
-    self.cargo = cargo.Cargo(self, wrksrc=".")
-    self.cargo.vendor()
+    cargo.Cargo(self, wrksrc=".").vendor()
     cargo.setup_vendor(self)
+
+
+def init_build(self):
+    from cbuild.util import cargo
+
+    renv = cargo.get_environment(self)
+    self.make_env.update(renv)
