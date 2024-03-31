@@ -1,1 +1,1 @@
-pattern = r">btrfs-progs-v([\d.]+).tar.xz<"
+pattern = r">btrfs-progs-v([\d.]+)\.tar\.xz<"
