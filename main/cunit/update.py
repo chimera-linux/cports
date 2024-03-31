@@ -1,5 +1,5 @@
 pkgname = "CUnit"
-pattern = r"/CUnit-([0-9\-\.]+).tar.bz2"
+pattern = r"/CUnit-([\d\-\.]+)\.tar\.bz2"
 
 
 def fetch_versions(self, src):
