@@ -14,14 +14,13 @@ sha256 = "30f397081044f5dc2e5a0ba51609223011a23281cd9947ea718df98d149fcc83"
 
 
 def post_extract(self):
-    (self.cwd / ".cargo" / "config").unlink()
+    self.rm(".cargo/config")
 
 
 def post_patch(self):
     from cbuild.util import cargo
 
-    self.cargo = cargo.Cargo(self)
-    self.cargo.vendor()
+    cargo.Cargo(self).vendor()
     cargo.setup_vendor(self)
 
 
