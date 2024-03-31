@@ -64,6 +64,7 @@ sha256 = "be28112dac813d2053545c14bf13a16401a21877f1a69eb6ea5d84c4a0f3d870"
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being
 hardening = ["vis", "!cfi", "!int"]
+options = ["!framepointer"]
 
 env = {
     # emulate python's configure stuff but with -O2
