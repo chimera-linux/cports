@@ -5,8 +5,7 @@ build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 make_dir = "."
 make_build_args = ["SYSCONFDIR=/etc"]
-hostmakedepends = ["automake", "pkgconf"]
-makedepends = ["bash-completion"]
+hostmakedepends = ["automake", "bash-completion", "pkgconf"]
 pkgdesc = "Flexible scheduler for i3bar"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-3.0-or-later"
