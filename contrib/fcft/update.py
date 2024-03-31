@@ -1,1 +1,1 @@
-pattern = r"/archive/([\d\.]+).tar.gz"
+pattern = r"/archive/([\d\.]+)\.tar\.gz"
