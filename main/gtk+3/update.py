@@ -1,2 +1,2 @@
 pkgname = "gtk+"
-ignore = ["*.9[0-9].*"]
+ignore = ["*.9\d.*"]
