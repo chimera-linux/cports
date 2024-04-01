@@ -1,6 +1,6 @@
 pkgname = "wpa_supplicant"
 pkgver = "2.10"
-pkgrel = 3
+pkgrel = 4
 build_wrksrc = pkgname
 build_style = "makefile"
 make_cmd = "gmake"
@@ -8,11 +8,11 @@ make_build_args = ["V=1"]
 make_use_env = True
 hostmakedepends = ["gmake", "pkgconf"]
 makedepends = [
-    "libnl-devel",
-    "openssl-devel",
     "dbus-devel",
     "libedit-readline-devel",
+    "libnl-devel",
     "linux-headers",
+    "openssl-devel",
 ]
 pkgdesc = "WPA/WPA2/IEEE 802.1X Supplicant"
 maintainer = "q66 <q66@chimera-linux.org>"
