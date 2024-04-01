@@ -1,6 +1,6 @@
 pkgname = "python-aiodns"
-pkgver = "3.1.1"
-pkgrel = 1
+pkgver = "3.2.0"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -14,7 +14,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/saghul/aiodns"
 source = f"$(PYPI_SITE)/a/aiodns/aiodns-{pkgver}.tar.gz"
-sha256 = "1073eac48185f7a4150cad7f96a5192d6911f12b4fb894de80a088508c9b3a99"
+sha256 = "62869b23409349c21b072883ec8998316b234c9a9e36675756e8e317e8768f72"
 # no standard pytest tests, requires an internet connection
 options = ["!check"]
 
