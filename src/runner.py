@@ -1950,7 +1950,7 @@ def _collect_blist(pkgs):
         if pkg.startswith("file:") and pkg != "file:-":
             with open(pkg.removeprefix("file:"), "r") as inf:
                 for ln in inf:
-                    rpkgs += _collect_blist(ln.strip())
+                    rpkgs += _collect_blist([ln.strip()])
             continue
         # list
         if pkg.startswith("list:"):
@@ -1959,7 +1959,7 @@ def _collect_blist(pkgs):
         # stdin
         if pkg == "-" or pkg == "file:-":
             for ln in sys.stdin:
-                rpkgs += _collect_blist(ln.strip())
+                rpkgs += _collect_blist([ln.strip()])
             continue
         # full template name
         if "/" in pkg:
