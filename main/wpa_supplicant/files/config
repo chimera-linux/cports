@@ -311,7 +311,7 @@ CONFIG_BACKEND=file
 #CONFIG_NO_LINUX_PACKET_SOCKET_WAR=y
 
 # Support Operating Channel Validation
-#CONFIG_OCV=y
+CONFIG_OCV=y
 
 # Select TLS implementation
 # openssl = OpenSSL (default)
@@ -319,25 +319,25 @@ CONFIG_BACKEND=file
 # internal = Internal TLSv1 implementation (experimental)
 # linux = Linux kernel AF_ALG and internal TLSv1 implementation (experimental)
 # none = Empty template
-#CONFIG_TLS=openssl
+CONFIG_TLS=openssl
 
 # TLS-based EAP methods require at least TLS v1.0. Newer version of TLS (v1.1)
 # can be enabled to get a stronger construction of messages when block ciphers
 # are used. It should be noted that some existing TLS v1.0 -based
 # implementation may not be compatible with TLS v1.1 message (ClientHello is
 # sent prior to negotiating which version will be used)
-#CONFIG_TLSV11=y
+CONFIG_TLSV11=y
 
 # TLS-based EAP methods require at least TLS v1.0. Newer version of TLS (v1.2)
 # can be enabled to enable use of stronger crypto algorithms. It should be
 # noted that some existing TLS v1.0 -based implementation may not be compatible
 # with TLS v1.2 message (ClientHello is sent prior to negotiating which version
 # will be used)
-#CONFIG_TLSV12=y
+CONFIG_TLSV12=y
 
 # Select which ciphers to use by default with OpenSSL if the user does not
 # specify them.
-#CONFIG_TLS_DEFAULT_CIPHERS="DEFAULT:!EXP:!LOW"
+CONFIG_TLS_DEFAULT_CIPHERS="DEFAULT:@SECLEVEL=1"
 
 # If CONFIG_TLS=internal is used, additional library and include paths are
 # needed for LibTomMath. Alternatively, an integrated, minimal version of
