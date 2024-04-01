@@ -29,7 +29,7 @@ index bba4d3d..fea8074 100644
              cpp_args=['-E', r'-Iutils/fake_libc_include'])
      ast.show()
 diff --git a/pycparser/__init__.py b/pycparser/__init__.py
-index d82eb2d..a1f64dd 100644
+index bf4b0d4..e0b2dfc 100644
 --- a/pycparser/__init__.py
 +++ b/pycparser/__init__.py
 @@ -15,7 +15,7 @@ from subprocess import check_output
@@ -47,7 +47,7 @@ index d82eb2d..a1f64dd 100644
  
 -def parse_file(filename, use_cpp=False, cpp_path='cpp', cpp_args='',
 +def parse_file(filename, use_cpp=False, cpp_path='clang-cpp', cpp_args='',
-                parser=None):
+                parser=None, encoding=None):
      """ Parse a C file using pycparser.
  
 @@ -62,7 +62,7 @@ def parse_file(filename, use_cpp=False, cpp_path='cpp', cpp_args='',
@@ -60,7 +60,7 @@ index d82eb2d..a1f64dd 100644
          cpp_args:
              If use_cpp is True, set this to the command line arguments strings
 diff --git a/tests/test_util.py b/tests/test_util.py
-index 38dfdf5..208ffc5 100644
+index 56835a0..a2d11d5 100644
 --- a/tests/test_util.py
 +++ b/tests/test_util.py
 @@ -22,7 +22,7 @@ def cpp_path():
