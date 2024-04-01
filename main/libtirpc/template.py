@@ -18,6 +18,7 @@ license = "BSD-3-Clause"
 url = "https://sourceforge.net/projects/libtirpc"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.bz2"
 sha256 = "1e0b0c7231c5fa122e06c0609a76723664d068b0dba3b8219b63e6340b347860"
+options = ["linkundefver"]
 
 
 def post_install(self):
