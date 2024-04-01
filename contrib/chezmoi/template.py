@@ -1,5 +1,5 @@
 pkgname = "chezmoi"
-pkgver = "2.47.2"
+pkgver = "2.47.3"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -12,7 +12,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://chezmoi.io"
 source = f"https://github.com/twpayne/chezmoi/archive/v{pkgver}.tar.gz"
-sha256 = "b5289f22341318a2fb4f42cffc7b819ed43ae59e85d40f2daa3f4b2ea070fae3"
+sha256 = "bf449244b62e5a57c80e685f5358ad3e13e77bb552a48a753c01c82c8ab34b94"
 # debug: fails to split on powerpc
 # check: needs network access
 options = ["!debug", "!check"]
