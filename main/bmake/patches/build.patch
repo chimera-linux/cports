@@ -11,7 +11,7 @@
  	chmod 755 make-bootstrap.sh || exit 1
  	./make-bootstrap.sh || exit 1
 -	case "$op" in
--	build) op_test;;
+-	build) rm -f tested; op_test;;
 -	esac
  }
  
