@@ -1,5 +1,5 @@
 pkgname = "elfutils"
-pkgver = "0.189"
+pkgver = "0.191"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -44,7 +44,7 @@ url = "https://sourceware.org/elfutils"
 source = (
     f"https://sourceware.org/elfutils/ftp/{pkgver}/elfutils-{pkgver}.tar.bz2"
 )
-sha256 = "39bd8f1a338e2b7cd4abc3ff11a0eddc6e690f69578a57478d8179b4148708c8"
+sha256 = "df76db71366d1d708365fc7a6c60ca48398f14367eb2b8954efc8897147ad871"
 tool_flags = {
     "CFLAGS": ["-D_GNU_SOURCE"],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],

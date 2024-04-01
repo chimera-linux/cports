@@ -1,6 +1,6 @@
-commit bcfe0e37d153ecbd3f223600c32c1838295da966
+commit 81c830256394a25c34be97214f9b3fe6874b6d21
 Author: q66 <q66@chimera-linux.org>
-Date:   Sun Oct 29 00:41:15 2023 +0200
+Date:   Tue Apr 2 00:07:02 2024 +0200
 
     fix up tests for cbuild
 
@@ -49,6 +49,17 @@ index 7ed795d..5a80bf1 100755
  # This test really cannot be run under valgrind, it tries to introspect
  # itself through ptrace and will find bits and pieces of valgrind.
  # On top of that valgrind also tries to read all the unwind info and
+diff --git a/tests/run-backtrace-native-core.sh b/tests/run-backtrace-native-core.sh
+index db95895..031571d 100755
+--- a/tests/run-backtrace-native-core.sh
++++ b/tests/run-backtrace-native-core.sh
+@@ -17,4 +17,6 @@
+ 
+ . $srcdir/backtrace-subr.sh
+ 
++exit 77
++
+ check_native_core backtrace-child
 diff --git a/tests/run-backtrace-native.sh b/tests/run-backtrace-native.sh
 index 823c411..c234d1c 100755
 --- a/tests/run-backtrace-native.sh
@@ -116,10 +127,10 @@ index e2c394e..e591239 100755
  rm -rf extracted
  
 diff --git a/tests/run-debuginfod-extraction.sh b/tests/run-debuginfod-extraction.sh
-index 3ca31b8..fa18fd4 100755
+index da6b25c..83d4a65 100755
 --- a/tests/run-debuginfod-extraction.sh
 +++ b/tests/run-debuginfod-extraction.sh
-@@ -94,7 +94,7 @@ done
+@@ -97,7 +97,7 @@ done
  sourcefiles=$(find -name \*\\.debug \
                | env LD_LIBRARY_PATH=$ldpath xargs \
                  ${abs_top_builddir}/src/readelf --debug-dump=decodedline \
@@ -142,10 +153,10 @@ index f40e99c..cbd0461 100755
    err
  fi
 diff --git a/tests/run-debuginfod-response-headers.sh b/tests/run-debuginfod-response-headers.sh
-index 8cb7b84..eb2e4b0 100755
+index ea516ce..f9edecf 100755
 --- a/tests/run-debuginfod-response-headers.sh
 +++ b/tests/run-debuginfod-response-headers.sh
-@@ -95,7 +95,7 @@ grep -i 'X-DEBUGINFOD-ARCHIVE: ' vlog-find$PORT1.2
+@@ -100,7 +100,7 @@ grep -i 'X-DEBUGINFOD-ARCHIVE: .*/.*' vlog-find$PORT1.2
  # Check that X-DEBUGINFOD-SIZE matches the size of each file
  for file in vlog-find$PORT1.1 vlog-find$PORT1.2
  do
@@ -264,7 +275,7 @@ index 66ef944..b65bdb3 100755
  testfiles testfile-debug-types
  
 diff --git a/tests/run-large-elf-file.sh b/tests/run-large-elf-file.sh
-index 7116de5..26ccaaa 100755
+index 8108cb4..077ec25 100755
 --- a/tests/run-large-elf-file.sh
 +++ b/tests/run-large-elf-file.sh
 @@ -18,6 +18,9 @@
@@ -278,7 +289,7 @@ index 7116de5..26ccaaa 100755
  # ELF files.
  long_bit=$(getconf LONG_BIT)
 diff --git a/tests/run-lfs-symbols.sh b/tests/run-lfs-symbols.sh
-index 762a5d9..c95de77 100755
+index 88c6270..8d0af41 100755
 --- a/tests/run-lfs-symbols.sh
 +++ b/tests/run-lfs-symbols.sh
 @@ -17,6 +17,9 @@
@@ -333,7 +344,7 @@ index 6a31afc..01c56c4 100755
  # Test on nm ET_REL, ET_EXEC and ET_DYN files.
  ET_REL=${abs_top_builddir}/src/nm.o
 diff --git a/tests/run-readelf-self.sh b/tests/run-readelf-self.sh
-index f598459..26c2820 100755
+index de528d5..bcc51b5 100755
 --- a/tests/run-readelf-self.sh
 +++ b/tests/run-readelf-self.sh
 @@ -17,6 +17,8 @@
@@ -358,30 +369,6 @@ index 71afd6a..41e6c4a 100755
  test_reverse_self ()
  {
    in_file="$1"
-diff --git a/tests/run-strip-reloc.sh b/tests/run-strip-reloc.sh
-index 02e626a..8a41261 100755
---- a/tests/run-strip-reloc.sh
-+++ b/tests/run-strip-reloc.sh
-@@ -17,6 +17,8 @@
- 
- . $srcdir/test-subr.sh
- 
-+exit 77
-+
- if test -n "$ELFUTILS_MEMORY_SANITIZER"; then
-   echo "binaries linked with memory sanitizer are too big"
-   exit 77
-@@ -57,8 +59,8 @@ runtest() {
-   { echo "*** failure compare stripped files $infile"; status=1; }
- 
-   # debug files however should be smaller, when ET_REL.
--  SIZE1=$(stat -c%s $debugfile1)
--  SIZE2=$(stat -c%s $debugfile2)
-+  SIZE1=$(stat -f%z $debugfile1)
-+  SIZE2=$(stat -f%z $debugfile2)
-   test \( \( $is_ET_REL -eq 1 \) -a \( $SIZE1 -gt $SIZE2 \) \) \
- 	-o \( \( $is_ET_REL -eq 0 \) -a \( $SIZE1 -eq $SIZE2 \) \) ||
-   { echo "*** failure --reloc-debug-sections not smaller $infile"; status=1; }
 diff --git a/tests/run-strip-strmerge.sh b/tests/run-strip-strmerge.sh
 index aa9c1eb..52fb3a5 100755
 --- a/tests/run-strip-strmerge.sh
@@ -451,3 +438,27 @@ index 760fe4d..9d9060b 100755
  if test -n "$ELFUTILS_MEMORY_SANITIZER"; then
    echo "binaries linked with memory sanitizer are too big"
    exit 77
+diff --git a/tests/strip-reloc-subr.sh b/tests/strip-reloc-subr.sh
+index c4d55ce..cbccd71 100755
+--- a/tests/strip-reloc-subr.sh
++++ b/tests/strip-reloc-subr.sh
+@@ -17,6 +17,8 @@
+ 
+ . $srcdir/test-subr.sh
+ 
++exit 77
++
+ if test -n "$ELFUTILS_MEMORY_SANITIZER"; then
+   echo "binaries linked with memory sanitizer are too big"
+   exit 77
+@@ -49,8 +51,8 @@ runtest() {
+   { echo "*** failure compare stripped files $infile"; runtest_status=1; }
+ 
+   # debug files however should be smaller, when ET_REL.
+-  SIZE1=$(stat -c%s $debugfile1)
+-  SIZE2=$(stat -c%s $debugfile2)
++  SIZE1=$(stat -f%z $debugfile1)
++  SIZE2=$(stat -f%z $debugfile2)
+   test \( \( $is_ET_REL -eq 1 \) -a \( $SIZE1 -gt $SIZE2 \) \) \
+ 	-o \( \( $is_ET_REL -eq 0 \) -a \( $SIZE1 -eq $SIZE2 \) \) ||
+   { echo "*** failure --reloc-debug-sections not smaller $infile"; runtest_status=1; }
