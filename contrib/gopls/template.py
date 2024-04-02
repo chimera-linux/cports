@@ -1,6 +1,6 @@
 pkgname = "gopls"
-pkgver = "0.14.2"
-pkgrel = 1
+pkgver = "0.15.2"
+pkgrel = 0
 build_wrksrc = "gopls"
 build_style = "go"
 hostmakedepends = ["go"]
@@ -12,7 +12,7 @@ url = "https://github.com/golang/tools/tree/master/gopls"
 source = (
     f"https://github.com/golang/tools/archive/refs/tags/gopls/v{pkgver}.tar.gz"
 )
-sha256 = "5a4939e08adf4de0720042868b43405de0cf221ae9a0b266694d4f222b3edfbb"
+sha256 = "cf5b8246b36967eb8fbbed518ea941110cc6bbcc7f42a44bc5a4fe0d7ee61652"
 # debug: fails to split on powerpc
 # check: regtest/marker fails with go1.22
 options = ["!debug", "!check"]
