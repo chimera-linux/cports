@@ -20,6 +20,7 @@ hostmakedepends = [
 makedepends = [
     "dbus-devel",
     "elfutils-devel",
+    "freetype-bootstrap",
     "glib-bootstrap",
     "libffi-devel",
     "libmount-devel",
