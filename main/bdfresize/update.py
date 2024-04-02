@@ -1,1 +1,1 @@
-ignore = "*pre*"
+ignore = ["*pre*"]

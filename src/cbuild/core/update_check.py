@@ -449,6 +449,12 @@ def update_check(pkg, verbose=False, error=False):
     if uc.ignore is True or pkg.build_style == "meta":
         return checkvers
 
+    if uc.ignore and type(uc.ignore) is not list:
+        if error:
+            return None
+        print(f"CAUTION: malformed ignore list for {pkg.pkgname}")
+        return checkvers
+
     # use hooks if defined
 
     if collect_sources:
