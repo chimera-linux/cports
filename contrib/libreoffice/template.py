@@ -1,5 +1,5 @@
 pkgname = "libreoffice"
-pkgver = "24.2.1.2"
+pkgver = "24.2.2.2"
 pkgrel = 0
 # riscv64: no handling of libcxxabi + likely too slow
 archs = ["x86_64", "ppc64le", "ppc64", "aarch64"]
@@ -129,7 +129,6 @@ makedepends = [
     "librevenge-devel",
     "librsvg-devel",
     "libtiff-devel",
-    "libtommath-devel",
     "libvisio-devel",
     "libwebp-devel",
     "libwpg-devel",
@@ -202,10 +201,10 @@ source = [
     f"{_aurl}/zxcvbn-c-2.5.tar.gz",
 ]
 sha256 = [
-    "3ccf577e8f665059ed5a06577b3b37278080be9f29cc4ad3352857a8f2549fa8",
-    "db010c781e85b401e87aa2030902565d5dfceb2c5ff4483c7172484d0f645eab",
-    "6f8b03b1af94e72c8301164fbcb84c0af57ba6416be8ff02f7b7dd06ff4c2f74",
-    "bf5b164b5e8ac9f796dbc2cf1e9d30e345341d367f634852c47e4572a94f58e9",
+    "c205a65042f65c94b54ea310344b851043633c3eb5259f4e567d9341aae5e45e",
+    "a4606997cbb04d5aa0043ccdc55abad802d8fe6aab78b1166ef562fb678f130d",
+    "e4ca31ec501c3c59e6c7aa4cc1279185675b088b2d042f17a7e6b0a8304ce025",
+    "925016b4172c1dcfb2774cdb0376df949241e369375399b9875b154e65f319b2",
     "1fb458d6aab06932693cc8a9b6e4e70944ee1ff052fa63606e3131df34e21753",
     "75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870",
     "7d2797fe9f79a77009721e3f14fa4a1dec17a6d706bdc93f85f1f01d124fab66",
@@ -284,12 +283,6 @@ def do_install(self):
     )
     # move stuff out
     self.mv(self.destdir / "all/usr", self.destdir)
-    # qt6 is not installed for some reason?
-    self.install_file(
-        "instdir/program/libvclplug_qt6lo.so",
-        "usr/lib/libreoffice/program",
-        mode=0o755,
-    )
 
 
 def _take_list(self, listn):
@@ -369,6 +362,7 @@ for _langc, _langd in [
     ("hr", "Croatian"),
     ("hsb", "Upper Sorbian"),
     ("hu", "Hungarian"),
+    ("hy", "Armenian"),
     ("id", "Indonesian"),
     ("is", "Icelandic"),
     ("it", "Italian"),

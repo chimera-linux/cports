@@ -1,0 +1,15 @@
+--- a/sal/osl/unx/file.cxx	2024-03-22 19:34:51.000000000 +0000
++++ b/sal/osl/unx/file.cxx	2024-04-01 21:24:54.452961768 +0100
+@@ -67,9 +67,9 @@
+ #ifdef LINUX
+ #include <sys/vfs.h>
+ // As documented by the kernel
+-#define SMB_SUPER_MAGIC  static_cast<__fsword_t>(0x517B)
+-#define CIFS_SUPER_MAGIC static_cast<__fsword_t>(0xFF534D42)
+-#define SMB2_SUPER_MAGIC static_cast<__fsword_t>(0xFE534D42)
++#define SMB_SUPER_MAGIC  static_cast<unsigned long>(0x517B)
++#define CIFS_SUPER_MAGIC static_cast<unsigned long>(0xFF534D42)
++#define SMB2_SUPER_MAGIC static_cast<unsigned long>(0xFE534D42)
+ #endif
+ 
+ namespace {
