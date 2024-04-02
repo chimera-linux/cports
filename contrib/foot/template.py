@@ -1,6 +1,6 @@
 pkgname = "foot"
-pkgver = "1.16.2"
-pkgrel = 2
+pkgver = "1.17.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dterminfo-base-name=foot-extra"]
 hostmakedepends = [
@@ -26,7 +26,7 @@ maintainer = "flukey <flukey@vapourmail.eu>"
 license = "MIT"
 url = "https://codeberg.org/dnkl/foot"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "0e02af376e5f4a96eeb90470b7ad2e79a1d660db2a7d1aa772be43c7db00e475"
+sha256 = "ab5603edad89d26e8ae543e92c72210a1fbbe7abdf15a0729664b41baed6a3b8"
 hardening = ["vis", "cfi"]
 
 
