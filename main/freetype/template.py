@@ -4,20 +4,21 @@ pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dbrotli=enabled",
-    "-Dharfbuzz=enabled",
     "-Dbzip2=enabled",
+    "-Dharfbuzz=enabled",
     "-Dmmap=enabled",
     "-Dpng=enabled",
-    "-Dzlib=enabled",
     "-Dtests=enabled",
+    "-Dzlib=enabled",
 ]
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
-    "harfbuzz-devel",
-    "zlib-devel",
-    "libpng-devel",
-    "bzip2-devel",
     "brotli-devel",
+    "bzip2-devel",
+    "freetype-bootstrap",
+    "harfbuzz-devel",
+    "libpng-devel",
+    "zlib-devel",
 ]
 pkgdesc = "Font rendering engine"
 maintainer = "q66 <q66@chimera-linux.org>"
