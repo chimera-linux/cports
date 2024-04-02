@@ -1,24 +1,19 @@
 pkgname = "libtommath"
-pkgver = "1.2.1"
+pkgver = "1.3.0"
 pkgrel = 0
-build_style = "makefile"
-make_cmd = "gmake"
-make_build_args = ["-f", "makefile.shared"]
-make_install_args = ["-f", "makefile.shared"]
-make_use_env = True
-hostmakedepends = ["pkgconf", "gmake", "libtool"]
+build_style = "cmake"
+configure_args = [
+    "-DBUILD_SHARED_LIBS=ON",
+    "-DBUILD_TESTING=ON",
+    "-DENABLE_CCACHE=OFF",  # automatic
+]
+hostmakedepends = ["cmake", "ninja", "pkgconf"]
 pkgdesc = "Portable number theoretic multiple-precision integer library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
 url = "https://www.libtom.net/LibTomMath"
 source = f"https://github.com/libtom/libtommath/releases/download/v{pkgver}/ltm-{pkgver}.tar.xz"
-sha256 = "986025d7b374276fee2e30e99f3649e4ac0db8a02257a37ee10eae72abed0d1f"
-options = ["!cross"]
-
-
-def do_check(self):
-    self.do("gmake", "test_standalone")
-    self.do("./test")
+sha256 = "296272d93435991308eb73607600c034b558807a07e829e751142e65ccfa9d08"
 
 
 @subpackage("libtommath-devel")
