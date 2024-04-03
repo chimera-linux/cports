@@ -58,7 +58,7 @@ def build(
     pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
 
     prof = pkg.profile()
-    hard = profile.get_hardening(prof, pkg.hardening, pkg.options, pkg.stage)
+    hard = profile.get_hardening(prof, pkg)
     hpos = []
     hneg = []
     for hk in hard:

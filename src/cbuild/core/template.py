@@ -1314,33 +1314,8 @@ class Template(Package):
     def get_tool_flags(
         self, name, extra_flags=[], hardening=[], shell=False, target=None
     ):
-        target = pkg_profile(self, target)
-
-        if name in self.tool_flags:
-            tfb = self.tool_flags[name] + extra_flags
-        else:
-            tfb = extra_flags
-
-        dodbg = self.build_dbg and self.options["debug"]
-
-        # stop trashing ccache upon minor version changes
-        if self.stage > 0 and name == "CFLAGS" or name == "CXXFLAGS":
-            tfb = [
-                f"-ffile-prefix-map={self.chroot_builddir / self.wrksrc}=."
-            ] + tfb
-        if self.stage > 0 and name == "RUSTFLAGS":
-            tfb = [
-                f"--remap-path-prefix={self.chroot_builddir / self.wrksrc}=."
-            ] + tfb
-
-        return target._get_tool_flags(
-            name,
-            tfb,
-            self.debug_level if dodbg else -1,
-            self.hardening + hardening,
-            self.options,
-            self.stage,
-            shell,
+        return pkg_profile(self, target)._get_tool_flags(
+            self, name, extra_flags, hardening, shell
         )
 
     def get_cflags(
@@ -1401,9 +1376,7 @@ class Template(Package):
     def has_hardening(self, hname, target=None):
         target = pkg_profile(self, target)
 
-        return profile.has_hardening(
-            target, hname, self.hardening, self.options, self.stage
-        )
+        return profile.get_hardening(target, self)[hname]
 
     def has_lto(self, target=None):
         target = pkg_profile(self, target)

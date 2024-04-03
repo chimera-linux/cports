@@ -38,10 +38,10 @@ supported_fields = {
 }
 
 
-def get_hardening(prof, hlist, opts, stage):
+def get_hardening(prof, tmpl, hlist=None):
     hdict = dict(hardening_fields)
 
-    for fl in hlist:
+    for fl in tmpl.hardening + hlist if hlist else []:
         neg = fl.startswith("!")
         if neg:
             fl = fl[1:]
@@ -55,7 +55,7 @@ def get_hardening(prof, hlist, opts, stage):
 
     # perform dependency checks *before* disabling hardenings per-arch
     if hdict["cfi"]:
-        if not opts["lto"]:
+        if not tmpl.options["lto"]:
             raise errors.CbuildException("CFI requires LTO")
         if not hdict["vis"]:
             raise errors.CbuildException("CFI requires hidden visibility")
@@ -70,10 +70,10 @@ def get_hardening(prof, hlist, opts, stage):
 
 # stuff that should go in both regular and linker flags, as it
 # involves linking an extra runtime component (from compiler-rt)
-def _get_archflags(prof, hard, opts, stage):
+def _get_archflags(prof, tmpl, hard):
     sflags = []
     ubsan = False
-    lto = opts["lto"] and prof._has_lto(stage)
+    lto = tmpl.options["lto"] and prof._has_lto(tmpl.stage)
 
     if hard["vis"]:
         sflags.append("-fvisibility=hidden")
@@ -110,7 +110,7 @@ def _get_archflags(prof, hard, opts, stage):
         sflags.append("-fno-sanitize-recover")
 
     if lto:
-        if opts["ltofull"]:
+        if tmpl.options["ltofull"]:
             sflags.append("-flto")
         else:
             sflags.append("-flto=thin")
@@ -118,14 +118,18 @@ def _get_archflags(prof, hard, opts, stage):
     return sflags
 
 
-def _get_hcflags(prof, tharden, opts, stage):
-    hflags = []
-    hard = get_hardening(prof, tharden, opts, stage)
+def _get_hcflags(prof, tmpl, tharden):
+    hard = get_hardening(prof, tmpl, tharden)
+
+    if tmpl.stage > 0:
+        hflags = [f"-ffile-prefix-map={tmpl.chroot_builddir / tmpl.wrksrc}=."]
+    else:
+        hflags = []
 
     if hard["format"]:
         hflags += ["-Wformat", "-Werror=format-security"]
 
-    if stage > 0 and hard["var-init"]:
+    if tmpl.stage > 0 and hard["var-init"]:
         hflags.append("-ftrivial-auto-var-init=zero")
 
     if not hard["pie"]:
@@ -144,22 +148,22 @@ def _get_hcflags(prof, tharden, opts, stage):
     elif hard["bti"]:
         hflags.append("-mbranch-protection=bti")
 
-    hflags += _get_archflags(prof, hard, opts, stage)
+    hflags += _get_archflags(prof, tmpl, hard)
 
     return hflags
 
 
-def _get_hldflags(prof, tharden, opts, stage):
+def _get_hldflags(prof, tmpl, tharden):
     hflags = []
-    hard = get_hardening(prof, tharden, opts, stage)
+    hard = get_hardening(prof, tmpl, tharden)
 
     if not hard["pie"]:
         hflags.append("-no-pie")
 
-    if opts["relr"] and prof._has_relr(stage):
+    if tmpl.options["relr"] and prof._has_relr(tmpl.stage):
         hflags.append("-Wl,-z,pack-relative-relocs")
 
-    hflags += _get_archflags(prof, hard, opts, stage)
+    hflags += _get_archflags(prof, tmpl, hard)
 
     return hflags
 
@@ -188,10 +192,8 @@ def _flags_ret(it, shell):
         return list(it)
 
 
-def _get_gencflags(
-    self, name, extra_flags, debug, hardening, opts, stage, shell
-):
-    hflags = _get_hcflags(self, hardening, opts, stage)
+def _get_gencflags(self, tmpl, name, extra_flags, debug, hardening, shell):
+    hflags = _get_hcflags(self, tmpl, hardening)
 
     # bootstrap
     if not self._triplet:
@@ -207,8 +209,8 @@ def _get_gencflags(
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
 
-def _get_ldflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
-    hflags = _get_hldflags(self, hardening, opts, stage)
+def _get_ldflags(self, tmpl, name, extra_flags, debug, hardening, shell):
+    hflags = _get_hldflags(self, tmpl, hardening)
 
     # bootstrap
     if not self._triplet:
@@ -224,18 +226,16 @@ def _get_ldflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
 
-def _get_rustflags(
-    self, name, extra_flags, debug, hardening, opts, stage, shell
-):
+def _get_rustflags(self, tmpl, name, extra_flags, debug, hardening, shell):
+    bflags = [f"--remap-path-prefix={tmpl.chroot_builddir / tmpl.wrksrc}=."]
+
     if self.cross:
-        bflags = [
+        bflags += [
             "--sysroot",
             self.sysroot / "usr",
         ]
-    else:
-        bflags = []
 
-    if opts["relr"] and self._has_relr(stage):
+    if tmpl.options["relr"] and self._has_relr(tmpl.stage):
         bflags += ["-Clink-arg=-Wl,-z,pack-relative-relocs"]
 
     ret = self._flags["RUSTFLAGS"] + bflags + extra_flags
@@ -243,8 +243,8 @@ def _get_rustflags(
     return _flags_ret(map(lambda v: str(v), ret), shell)
 
 
-def _get_goflags(self, name, extra_flags, debug, hardening, opts, stage, shell):
-    hard = get_hardening(self, hardening, opts, stage)
+def _get_goflags(self, tmpl, name, extra_flags, debug, hardening, shell):
+    hard = get_hardening(self, tmpl, hardening)
     bflags = ["-modcacherw"]
 
     if hard["pie"]:
@@ -263,10 +263,6 @@ _flag_handlers = {
     "GOFLAGS": _get_goflags,
     "RUSTFLAGS": _get_rustflags,
 }
-
-
-def has_hardening(prof, hname, hardening, opts, stage):
-    return get_hardening(prof, hardening, opts, stage)[hname]
 
 
 _flag_types = list(_flag_handlers.keys())
@@ -373,11 +369,23 @@ class Profile:
 
         return pathlib.Path("/usr") / self.triplet
 
-    def _get_tool_flags(
-        self, name, extra_flags, debug, hardening, opts, stage, shell
-    ):
+    def _get_tool_flags(self, tmpl, name, extra_flags, hardening, shell):
         return _flag_handlers[name](
-            self, name, extra_flags, debug, hardening, opts, stage, shell
+            self,
+            tmpl,
+            name,
+            (
+                tmpl.tool_flags[name] + extra_flags
+                if name in tmpl.tool_flags
+                else extra_flags
+            ),
+            (
+                tmpl.debug_level
+                if tmpl.build_dbg and tmpl.options["debug"]
+                else -1
+            ),
+            hardening,
+            shell,
         )
 
     def _get_supported_tool_flags(self):
