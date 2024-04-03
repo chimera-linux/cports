@@ -1,6 +1,6 @@
 pkgname = "vim"
 pkgver = "9.1.0258"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-acl",
