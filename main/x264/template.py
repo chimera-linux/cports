@@ -1,7 +1,7 @@
 pkgname = "x264"
 _commit = "cde9a93319bea766a92e306d69059c76de970190"
 pkgver = "20200702"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-static", "--enable-shared"]
 make_cmd = "gmake"
