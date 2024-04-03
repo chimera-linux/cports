@@ -94,26 +94,28 @@ def _nft(self):
     self.pkgdesc = f"{pkgdesc} (use nftables)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
 
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        for f in ["tables", "tables-save", "tables-restore"]:
-            self.ln_s("xtables-nft-multi", self.destdir / f"usr/bin/ip{f}")
-            self.ln_s("xtables-nft-multi", self.destdir / f"usr/bin/ip6{f}")
-
-    return inst
+    return [
+        "@usr/bin/iptables=>xtables-nft-multi",
+        "@usr/bin/ip6tables=>xtables-nft-multi",
+        "@usr/bin/iptables-save=>xtables-nft-multi",
+        "@usr/bin/ip6tables-save=>xtables-nft-multi",
+        "@usr/bin/iptables-restore=>xtables-nft-multi",
+        "@usr/bin/ip6tables-restore=>xtables-nft-multi",
+    ]
 
 
 @subpackage("iptables-legacy")
 def _legacy(self):
     self.pkgdesc = f"{pkgdesc} (use legacy)"
 
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        for f in ["tables", "tables-save", "tables-restore"]:
-            self.ln_s("xtables-legacy-multi", self.destdir / f"usr/bin/ip{f}")
-            self.ln_s("xtables-legacy-multi", self.destdir / f"usr/bin/ip6{f}")
-
-    return inst
+    return [
+        "@usr/bin/iptables=>xtables-legacy-multi",
+        "@usr/bin/ip6tables=>xtables-legacy-multi",
+        "@usr/bin/iptables-save=>xtables-legacy-multi",
+        "@usr/bin/ip6tables-save=>xtables-legacy-multi",
+        "@usr/bin/iptables-restore=>xtables-legacy-multi",
+        "@usr/bin/ip6tables-restore=>xtables-legacy-multi",
+    ]
 
 
 configure_gen = []

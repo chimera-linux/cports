@@ -66,10 +66,6 @@ def do_configure(self):
     )
 
 
-def post_build(self):
-    self.ln_s("fw_printenv", "tools/env/fw_setenv")
-
-
 def do_install(self):
     for t in [
         "dumpimage",
@@ -89,3 +85,5 @@ def do_install(self):
         "env/fw_setenv",
     ]:
         self.install_bin(f"tools/{t}")
+    # extras
+    self.make_link("usr/bin/fw_setenv", "fw_printenv")

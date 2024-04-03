@@ -171,14 +171,9 @@ def _alsadef(self):
     self.pkgdesc = f"{pkgdesc} (use for ALSA by default)"
     self.install_if = [f"alsa-pipewire={pkgver}-r{pkgrel}"]
 
-    def inst():
-        self.mkdir(self.destdir / "etc/alsa/conf.d", parents=True)
-        self.ln_s(
-            "../../../usr/share/alsa/alsa.conf.d/99-pipewire-default.conf",
-            self.destdir / "etc/alsa/conf.d/99-pipewire-default.conf",
-        )
-
-    return inst
+    return [
+        "@etc/alsa/conf.d/99-pipewire-default.conf=>../../../usr/share/alsa/alsa.conf.d/99-pipewire-default.conf"
+    ]
 
 
 @subpackage("pipewire-session-manager-none")

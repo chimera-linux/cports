@@ -32,16 +32,10 @@ def _openresolv(self):
     self.depends = ["openresolv"]
     self.options = ["brokenlinks"]
 
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.mkdir(self.destdir / "usr/share/man/man8", parents=True)
-        self.ln_s("resolvconf-openresolv", self.destdir / "usr/bin/resolvconf")
-        self.ln_s(
-            "resolvconf-openresolv.8",
-            self.destdir / "usr/share/man/man8/resolvconf.8",
-        )
-
-    return inst
+    return [
+        "@usr/bin/resolvconf=>resolvconf-openresolv",
+        "@usr/share/man/man8/resolvconf.8=>resolvconf-openresolv.8",
+    ]
 
 
 @subpackage("resolvconf-none")

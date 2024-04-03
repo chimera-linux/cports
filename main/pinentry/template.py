@@ -52,11 +52,7 @@ def _frontend(name):
             # highest priority provider is curses
             self.provider_priority = 100
 
-        def inst():
-            self.mkdir(self.destdir / "usr/bin", parents=True)
-            self.ln_s(f"pinentry-{name}", self.destdir / "usr/bin/pinentry")
-
-        return inst
+        return [f"@usr/bin/pinentry=>pinentry-{name}"]
 
 
 for _fe in ["curses", "tty", "gnome3"]:

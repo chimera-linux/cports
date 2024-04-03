@@ -23,8 +23,4 @@ def _def(self):
     self.provides = ["pinentry-default=0"]
     self.origin = "pinentry"
 
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.ln_s("pinentry-bemenu", self.destdir / "usr/bin/pinentry")
-
-    return inst
+    return ["@usr/bin/pinentry=>pinentry-bemenu"]

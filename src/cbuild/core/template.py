@@ -1772,6 +1772,12 @@ class Subpackage(Package):
                 pathlib.Path(fullp).relative_to(pdest), self.destdir, pdest
             )
 
+    def make_link(self, path, tgt):
+        dstp = self.destdir / path
+        self.log(f"symlink: {dstp} -> {tgt}")
+        self.mkdir(dstp.parent, parents=True)
+        self.ln_s(tgt, dstp)
+
     def take_static(self):
         self.take("usr/lib/*.a")
 
@@ -1861,6 +1867,11 @@ def _subpkg_install_list(self, lst):
         for it in lst:
             if it.startswith("?"):
                 self.take(it.removeprefix("?"), missing_ok=True)
+            elif it.startswith("@"):
+                sd = it.removeprefix("@").split("=>")
+                if len(sd) != 2 or len(sd[0]) == 0 or len(sd[1]) == 0:
+                    self.error(f"malformed symlink spec '{it}'")
+                self.make_link(*sd)
             else:
                 self.take(it)
 

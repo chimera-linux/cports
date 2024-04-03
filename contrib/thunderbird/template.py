@@ -288,19 +288,11 @@ def _wl(self):
     self.pkgdesc = f"{pkgdesc} (prefer Wayland)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]  # prefer
 
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.ln_s("thunderbird-wayland", self.destdir / "usr/bin/thunderbird")
-
-    return inst
+    return ["@usr/bin/thunderbird=>thunderbird-wayland"]
 
 
 @subpackage("thunderbird-default")
 def _x11(self):
     self.pkgdesc = f"{pkgdesc} (no display server preference)"
 
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.ln_s("thunderbird-default", self.destdir / "usr/bin/thunderbird")
-
-    return inst
+    return ["@usr/bin/thunderbird=>thunderbird-default"]

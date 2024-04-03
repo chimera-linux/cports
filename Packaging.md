@@ -1399,6 +1399,10 @@ optional (i.e. that path may be missing). This is useful for programatically
 generated subpackages (when multiple subpackages are generated from some kind
 of input list and they share the general layout but not the exact contents).
 
+They may also start with `@`, in which case a symlink will be created. The
+string must be in the format `@path=>target`, e.g. `@usr/bin/foo=>bar`. The
+special delimiter `=>` is not allowed in the path.
+
 The `self` argument here is the subpackage handle.
 
 If better control over the files is needed, you can also return a function
@@ -2584,6 +2588,10 @@ like `destp`.
 This mimics the behavior of the Unix `ln` tool with the `-s` switch and
 optionally with `-r`.
 
+This is a low level API. It should not be used for installation, you should
+use `install_link` or `make_link` (or the `@` syntax) for that. It is, however,
+useful to manipulate the local source tree in build steps.
+
 ##### def chmod(self, path, mode)
 
 Changes the mode of `path` to `mode`. Usually you will want to use the
@@ -3122,6 +3130,16 @@ The `man` argument is passed as is to `take_progs`. The `extra` argument
 can specify additional things to take. If `extra` is a `list`, each item
 in the list is passed to `take()` (without any other arguments). Otherwise
 it is considered a callable and called as is without argunents.
+
+##### def make_link(self, path, tgt)
+
+A convenience wrapper around `self.ln_s`. Used to create symlinks, typically
+for symlink provider packages. For example, to create a symlink `foo` in
+`usr/bin` pointing to another binary called `bar`, you would do the following:
+
+```
+self.make_link("usr/bin/foo", "bar")
+```
 
 <a id="api_util"></a>
 ### Utility API

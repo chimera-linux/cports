@@ -37,8 +37,4 @@ def _default(self):
     self.depends = [f"pinentry-qt={pkgver}-r{pkgrel}"]
     self.provides = ["pinentry-default=0"]
 
-    def inst():
-        self.mkdir(self.destdir / "usr/bin", parents=True)
-        self.ln_s("pinentry-qt", self.destdir / "usr/bin/pinentry")
-
-    return inst
+    return ["@usr/bin/pinentry=>pinentry-qt"]
