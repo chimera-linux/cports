@@ -1,5 +1,5 @@
 pkgname = "qt6-qtdeclarative"
-pkgver = "6.6.3"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DQT_BUILD_TESTS=ON"]
@@ -20,7 +20,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtdeclarative-everywhere-src-{pkgver}.tar.xz"
-sha256 = "05207b2cfcf2ca74321165e81fc382ca289340d52de74ca2bad4c2b124a792f3"
+sha256 = "5a0c39579a74d7cca581162c866ed0887287d4f8d5abff7ab9492d4a58fa9e2c"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
@@ -86,9 +86,20 @@ def post_install(self):
         f.unlink()
 
 
+@subpackage("qt6-qtdeclarative-devel-static")
+def _clang_static(self):
+    self.pkgdesc = f"{pkgdesc} (static libraries)"
+    self.depends = []
+    self.install_if = []
+
+    return ["usr/lib/*.a"]
+
+
 @subpackage("qt6-qtdeclarative-devel")
 def _devel(self):
     self.depends += [
+        # from 6.7 cmake finding of this fails without libQt6QmlBuiltins.a
+        f"qt6-qtdeclarative-devel-static={pkgver}-r{pkgrel}",
         f"qt6-qtshadertools-devel~{pkgver[:-2]}",
         f"qt6-qtbase-devel~{pkgver[:-2]}",
     ]
