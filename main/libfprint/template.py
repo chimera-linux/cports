@@ -14,7 +14,6 @@ hostmakedepends = [
 ]
 makedepends = [
     "glib-devel",
-    "gobject-introspection",
     "libgudev-devel",
     "libgusb-devel",
     "linux-headers",
