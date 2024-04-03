@@ -11,6 +11,7 @@ license = "LGPL-2.1-or-later"
 url = "https://lame.sourceforge.io"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "ddfe36cab873794038ae2c1210557ad34857a4b6bdc515785d1da9e175b1da1e"
+options = ["linkundefver"]
 
 
 @subpackage("lame-devel")
