@@ -47,7 +47,3 @@ tool_flags = {
     "CFLAGS": ["-fcommon"],
 }
 hardening = ["vis"]
-
-
-def post_install(self):
-    self.install_license("LICENSE")
