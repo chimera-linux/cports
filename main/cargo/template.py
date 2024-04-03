@@ -14,7 +14,7 @@ hostmakedepends = [
     "pkgconf",
     "zlib-devel",
 ]
-makedepends = ["libcurl-devel", "openssl-devel"]
+makedepends = ["libcurl-devel", "openssl-devel", "sqlite-devel"]
 pkgdesc = "Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT OR Apache-2.0"
