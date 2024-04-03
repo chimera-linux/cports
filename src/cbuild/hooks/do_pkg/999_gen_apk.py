@@ -1,5 +1,6 @@
 from cbuild.core import logger, paths, template, chroot
 from cbuild.apk import sign as asign, util as autil
+from cbuild.util.deps import collect_deps
 
 import shlex
 import pathlib
@@ -55,35 +56,11 @@ def genpkg(pkg, repo, arch, binpkg):
     if pkg.rparent.git_revision and not pkg.rparent.git_dirty:
         pargs += ["--info", f"repo-commit:{pkg.rparent.git_revision}"]
 
-    # dependencies of any sort
-    deps = []
+    if not hasattr(pkg, "all_rdeps"):
+        pkg.all_rdeps = collect_deps(pkg)
 
-    # bootstrap packages are not installable ootb
-    if pkg.pkgname.endswith("-bootstrap") and pkg.build_style != "meta":
-        deps += ["bootstrap:" + pkg.pkgname.removesuffix("-bootstrap")]
-
-    # explicit package depends
-    for c in pkg.depends:
-        ploc = c.find("!")
-        if ploc > 0:
-            deps.append(c[0:ploc].removeprefix("virtual:"))
-        else:
-            deps.append(c.removeprefix("virtual:"))
-
-    # sort before adding more
-    deps.sort()
-
-    # shlib requires
-    if hasattr(pkg, "so_requires"):
-        pkg.so_requires.sort()
-        deps += map(lambda v: f"so:{v}", sorted(pkg.so_requires))
-
-    # .pc file requires
-    if hasattr(pkg, "pc_requires"):
-        deps += map(lambda v: f"pc:{v}", sorted(pkg.pc_requires))
-
-    if len(deps) > 0:
-        pargs += ["--info", f"depends:{' '.join(deps)}"]
+    if len(pkg.all_rdeps) > 0:
+        pargs += ["--info", f"depends:{' '.join(pkg.all_rdeps)}"]
 
     # install-if
     if len(pkg.install_if) > 0:
