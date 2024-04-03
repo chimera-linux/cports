@@ -1,57 +1,51 @@
 pkgname = "awesome"
-
-pkgdesc = "Highly configurable, next generation framework window manager"
-license = "GPL-2.0-or-later"
-maintainer = "dlatchx <dlatchx@tfnux.org>"
-url = "https://awesomewm.org"
-
 pkgver = "4.3"
 pkgrel = 0
-
-source = f"https://github.com/awesomeWM/awesome/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b8a509464fb964acfc0cfaa4c689beaceb0f720de3983053d54d440158c281dd"
-
-_luaver = "5.4"
-hostmakedepends = [
-    "cmake",
-    "ninja",
-    "pkgconf",
-    "imagemagick",
-]
-makedepends = [
-    f"lua{_luaver}-devel",
-    f"lua{_luaver}-lgi",
-    "libxcb-devel",
-    "glib-devel",
-    "gdk-pixbuf-devel",
-    "cairo-devel",
-    "libx11-devel",
-    "xcb-util-devel",
-    "xcb-util-cursor-devel",
-    "xcb-util-keysyms-devel",
-    "xcb-util-wm-devel",
-    "libxkbcommon-devel",
-    "startup-notification-devel",
-    "libxdg-basedir-devel",
-    "xcb-util-xrm-devel",
-]
-depends = [
-    f"lua{_luaver}",
-    f"lua{_luaver}-lgi",
-]
-
 build_style = "cmake"
-
-tool_flags = {
-    "CFLAGS": ["-fcommon"],
-}
-
+_luaver = "5.4"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=RELEASE",
     "-DCMAKE_INSTALL_PREFIX=/usr",
     "-DSYSCONFDIR=/etc",
 ]
-
+hostmakedepends = [
+    "cmake",
+    "imagemagick",
+    "ninja",
+    "pkgconf",
+]
+makedepends = [
+    "cairo-devel",
+    "gdk-pixbuf-devel",
+    "glib-devel",
+    "libx11-devel",
+    "libxcb-devel",
+    "libxdg-basedir-devel",
+    "libxkbcommon-devel",
+    "startup-notification-devel",
+    "xcb-util-cursor-devel",
+    "xcb-util-devel",
+    "xcb-util-keysyms-devel",
+    "xcb-util-wm-devel",
+    "xcb-util-xrm-devel",
+    f"lua{_luaver}-devel",
+    f"lua{_luaver}-lgi",
+]
+depends = [
+    f"lua{_luaver}",
+    f"lua{_luaver}-lgi",
+]
+pkgdesc = "Highly configurable, next generation framework window manager"
+maintainer = "dlatchx <dlatchx@tfnux.org>"
+license = "GPL-2.0-or-later"
+url = "https://awesomewm.org"
+source = (
+    f"https://github.com/awesomeWM/awesome/archive/refs/tags/v{pkgver}.tar.gz"
+)
+sha256 = "b8a509464fb964acfc0cfaa4c689beaceb0f720de3983053d54d440158c281dd"
+tool_flags = {
+    "CFLAGS": ["-fcommon"],
+}
 hardening = ["vis"]
 
 
