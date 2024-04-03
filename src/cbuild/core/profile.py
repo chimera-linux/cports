@@ -41,7 +41,7 @@ supported_fields = {
 def get_hardening(prof, tmpl, hlist=None):
     hdict = dict(hardening_fields)
 
-    for fl in tmpl.hardening + hlist if hlist else []:
+    for fl in tmpl.hardening + (hlist if hlist else []):
         neg = fl.startswith("!")
         if neg:
             fl = fl[1:]
