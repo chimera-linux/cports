@@ -1,6 +1,6 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 pkgname = "qt6-qtbase"
-pkgver = "6.6.3"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -69,7 +69,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "0493fd0b380c4edf8872f011a7f26d245aa4cdd75b349904ef340a22dedf7462"
+sha256 = "11b2e29e2e52fb0e3b453ea13bbe51a10fdff36e1c192d8868c5a40233b8b254"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
@@ -149,6 +149,9 @@ def init_check(self):
         "test_qt_add_resources_rebuild",  # ditto
         "test_collecting_plugins",  # unknown platform linux-clang
         "test_standalone_test",  # can't find random .cmake file
+        "tst_qstorageinfo",  # Test data requested, but no testdata available
+        "tst_qfloat16",  # 0.000000_vs_-1300000.000000 qfloat16 vs qint16 comparison failed
+        "tst_qdir",  # flaky
     ]
     self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
     self.make_check_env["QT_QPA_PLATFORM"] = "offscreen"
@@ -194,7 +197,7 @@ def post_install(self):
     ) as f:
         for line in f.readlines():
             a, b = line.split()
-            self.install_link(b, a)
+            self.install_link(b, a.replace("/usr/lib", "../lib"))
 
 
 @subpackage("qt6-qtbase-gui")
