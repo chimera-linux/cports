@@ -1,11 +1,10 @@
 pkgname = "qt6-qttools"
-pkgver = "6.6.3"
+pkgver = "6.7.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DQT_BUILD_TESTS=OFF",  # downloads gtest
     "-DINSTALL_PUBLICBINDIR=usr/bin",
-    "-DLITEHTML_UTF8=ON",
     "-DQT_BUILD_SHARED_LIBS=ON",
     "-DQT_FEATURE_assistant=ON",
     "-DQT_FEATURE_pixeltool=ON",
@@ -34,7 +33,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qttools-everywhere-src-{pkgver}.tar.xz"
-sha256 = "aa6d4c822d8cb74066ef30ab42283ac24e5cc702f33e6d78a9ebef5b0df91bc0"
+sha256 = "c8da6b239e82fe1e23465cbf0936c0da5a334438d3fb433e19c503cbb1abee7b"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
@@ -58,7 +57,7 @@ def post_install(self):
     ) as f:
         for line in f.readlines():
             a, b = line.split()
-            self.install_link(b, a)
+            self.install_link(b, a.replace("/usr/lib", "../lib"))
 
 
 @subpackage("qt6-qttools-libs")
