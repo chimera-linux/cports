@@ -1,6 +1,6 @@
 pkgname = "cups"
 pkgver = "2.4.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-relro",
@@ -14,6 +14,7 @@ configure_args = [
     "--without-systemd",
     "--with-tls=openssl",
     "--with-dnssd=avahi",
+    "--with-dbusdir=/usr/share/dbus-1",
     "--with-rundir=/run/cups",
     "--with-logdir=/var/log/cups",
     "--with-docdir=/usr/share/cups/doc",
@@ -71,6 +72,8 @@ file_modes = {
 hardening = ["!int"]
 # undefined references everywhere
 options = ["!lto"]
+
+system_groups = ["lp"]
 
 
 def init_configure(self):
