@@ -1,6 +1,6 @@
 pkgname = "rtmpdump"
 pkgver = "2.4.20210219"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_build_args = ["CRYPTO=OPENSSL"]
 make_install_args = ["prefix=/usr", "sbindir=/usr/bin", "mandir=/usr/share/man"]

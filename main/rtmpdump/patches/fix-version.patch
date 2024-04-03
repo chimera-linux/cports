@@ -1,0 +1,20 @@
+diff --git a/Makefile b/Makefile
+index a1595a8..9c8de22 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-VERSION=v2.4
++VERSION=2.4
+ 
+ prefix=/usr/local
+ 
+diff --git a/librtmp/Makefile b/librtmp/Makefile
+index 568fc71..3babe3e 100644
+--- a/librtmp/Makefile
++++ b/librtmp/Makefile
+@@ -1,4 +1,4 @@
+-VERSION=v2.4
++VERSION=2.4
+ 
+ prefix=/usr/local
+ 
