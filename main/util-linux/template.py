@@ -39,15 +39,16 @@ configure_args = [
     "-Dsysvinit=disabled",
 ]
 hostmakedepends = [
+    "bash",
     "meson",
     "ninja",
     "bison",
     "flex",
     "gettext-devel",
     "pkgconf",
-    "bash-completion",
 ]
 makedepends = [
+    "bash-completion",
     "linux-headers",
     "libcap-ng-devel",
     "linux-pam-devel",
@@ -73,6 +74,12 @@ options = ["!check"]
 def post_extract(self):
     self.rm("tests/ts/lsns/ioctl_ns", force=True)
     self.rm("tests/ts/col/multibyte", force=True)
+
+
+def init_configure(self):
+    # https://github.com/pkgconf/pkgconf/issues/205
+    # causes --variable=completionsdir for bash-completion to double-prefix otherwise
+    self.env["PKG_CONFIG_FDO_SYSROOT_RULES"] = "1"
 
 
 def post_install(self):
