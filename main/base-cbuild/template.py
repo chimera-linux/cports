@@ -54,8 +54,8 @@ def do_install(self):
     self.install_bin("cbuild-lld-wrapper")
 
     # replace regular ld and ld.lld symlinks
-    self.install_link("cbuild-lld-wrapper", "usr/bin/ld.lld")
-    self.install_link("cbuild-lld-wrapper", "usr/bin/ld64.lld")
+    self.install_link("usr/bin/ld.lld", "cbuild-lld-wrapper")
+    self.install_link("usr/bin/ld64.lld", "cbuild-lld-wrapper")
 
 
 @subpackage("base-cbuild-progs")

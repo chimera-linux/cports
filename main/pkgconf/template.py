@@ -19,8 +19,8 @@ options = ["bootstrap", "!check"]
 def post_install(self):
     self.install_license("COPYING")
 
-    self.install_link("pkgconf", "usr/bin/pkg-config")
-    self.install_link("pkgconf.1", "usr/share/man/man1/pkg-config.1")
+    self.install_link("usr/bin/pkg-config", "pkgconf")
+    self.install_link("usr/share/man/man1/pkg-config.1", "pkgconf.1")
 
 
 @subpackage("libpkgconf")

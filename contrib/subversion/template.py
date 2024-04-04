@@ -92,7 +92,7 @@ def post_install(self):
         "svnversion",
     ]:
         self.install_link(
-            "subversion", f"usr/share/bash-completion/completions/{f}"
+            f"usr/share/bash-completion/completions/{f}", "subversion"
         )
     # remove these, conflicts
     self.rm(self.destdir / "usr/bin/diff*", glob=True)

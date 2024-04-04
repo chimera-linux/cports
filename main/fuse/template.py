@@ -25,10 +25,10 @@ def do_check(self):
 def post_install(self):
     self.rm(self.destdir / "etc/init.d/fuse3")
     # compat links
-    self.install_link("fusermount3", "usr/bin/fusermount")
-    self.install_link("mount.fuse3", "usr/bin/mount.fuse")
-    self.install_link("fusermount3.1", "usr/share/man/man1/fusermount.1")
-    self.install_link("mount.fuse3.8", "usr/share/man/man8/mount.fuse.8")
+    self.install_link("usr/bin/fusermount", "fusermount3")
+    self.install_link("usr/bin/mount.fuse", "mount.fuse3")
+    self.install_link("usr/share/man/man1/fusermount.1", "fusermount3.1")
+    self.install_link("usr/share/man/man8/mount.fuse.8", "mount.fuse3.8")
 
 
 @subpackage("fuse-devel")

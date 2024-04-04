@@ -71,8 +71,8 @@ options = ["!lto", "!check"]
 
 def post_install(self):
     # when building 64+32 compat, only bare name is emitted, add *64 names for compat
-    self.install_link("wine", "usr/bin/wine64")
-    self.install_link("wine-preloader", "usr/bin/wine64-preloader")
+    self.install_link("usr/bin/wine64", "wine")
+    self.install_link("usr/bin/wine64-preloader", "wine-preloader")
 
     # all of these are the same wineapploader shell script that uses $0,
     # so just create links to it
@@ -91,7 +91,7 @@ def post_install(self):
         "winepath",
     ]:
         self.rm(self.destdir / f"usr/bin/{link}")
-        self.install_link("wineapploader", f"usr/bin/{link}")
+        self.install_link(f"usr/bin/{link}", "wineapploader")
 
 
 @subpackage("wine-devel")

@@ -43,7 +43,7 @@ def post_install(self):
 
     self.rm(self.destdir / "usr/share/doc", recursive=True, force=True)
 
-    self.install_link("bash", "usr/bin/rbash")
+    self.install_link("usr/bin/rbash", "bash")
 
     self.install_file(self.files_path / "bashrc", "etc/bash")
     self.install_file(self.files_path / "bash.sh", "etc/profile.d")

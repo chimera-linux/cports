@@ -16,7 +16,7 @@ def post_install(self):
     # hardlinks + we don't want to conflict with awk
     (self.destdir / "usr/bin/awk").unlink()
     (self.destdir / "usr/bin/gawk").unlink()
-    self.install_link(f"gawk-{pkgver}", "usr/bin/gawk")
+    self.install_link("usr/bin/gawk", f"gawk-{pkgver}")
 
 
 configure_gen = []

@@ -67,4 +67,4 @@ def post_install(self):
     self.install_file(self.files_path / "zprofile", "etc/zsh")
     # hardlink
     self.rm(self.destdir / "usr/bin/zsh")
-    self.install_link(f"zsh-{pkgver}", "usr/bin/zsh")
+    self.install_link("usr/bin/zsh", f"zsh-{pkgver}")

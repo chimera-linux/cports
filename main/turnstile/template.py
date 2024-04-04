@@ -24,4 +24,4 @@ def post_install(self):
     self.install_dir("var/lib/turnstiled/linger", empty=True)
     # also default systemwide link
     self.install_dir("usr/lib/dinit.d/boot.d")
-    self.install_link("../turnstiled", "usr/lib/dinit.d/boot.d/turnstiled")
+    self.install_link("usr/lib/dinit.d/boot.d/turnstiled", "../turnstiled")

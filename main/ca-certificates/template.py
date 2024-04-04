@@ -50,7 +50,7 @@ def pre_install(self):
     self.install_dir("usr/share/" + pkgname)
     self.install_dir("usr/bin")
     self.install_dir("etc/ssl/certs")
-    self.install_link("bin", "usr/sbin")
+    self.install_link("usr/sbin", "bin")
 
 
 def post_install(self):
@@ -63,7 +63,7 @@ def post_install(self):
             ofile.write(str(f.relative_to(cpath)))
             ofile.write("\n")
 
-    self.install_link("/etc/ssl/certs/ca-certificates.crt", "etc/ssl/certs.pem")
+    self.install_link("etc/ssl/certs.pem", "/etc/ssl/certs/ca-certificates.crt")
     self.rm(self.destdir / "usr/sbin")
 
     self.install_dir("etc/ca-certificates/update.d")

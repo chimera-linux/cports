@@ -60,4 +60,4 @@ def do_check(self):
 def do_install(self):
     self.install_license("../../../../DOC/License.txt")
     self.install_bin("b/c/7zz")
-    self.install_link("7zz", "usr/bin/7z")
+    self.install_link("usr/bin/7z", "7zz")

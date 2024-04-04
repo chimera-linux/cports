@@ -113,7 +113,7 @@ def post_install(self):
         if f.is_file() and not f.is_symlink():
             f.chmod(0o644)
 
-    self.install_link("perl", f"usr/bin/perl{pkgver}")
+    self.install_link(f"usr/bin/perl{pkgver}", "perl")
 
     # remove all pod files except those under
     # /usr/share/perl5/core_perl/pod/ (FS#16488)

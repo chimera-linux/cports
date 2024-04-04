@@ -23,7 +23,7 @@ def do_install(self):
     self.install_file("brcmfmac43456-sdio.clm_blob", destp)
     self.install_file("brcmfmac43456-sdio.AP6256.txt", destp)
     self.install_link(
-        "brcmfmac43456-sdio.AP6256.txt", f"{destp}/brcmfmac43456-sdio.txt"
+        f"{destp}/brcmfmac43456-sdio.txt", "brcmfmac43456-sdio.AP6256.txt"
     )
     for ln in [
         "radxa,rockpi4b",
@@ -37,6 +37,6 @@ def do_install(self):
         "rockchip,rk3399-orangepi",
     ]:
         self.install_link(
-            "brcmfmac43456-sdio.AP6256.txt",
             f"{destp}/brcmfmac43456-sdio.{ln}.txt",
+            "brcmfmac43456-sdio.AP6256.txt",
         )

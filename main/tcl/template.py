@@ -33,7 +33,7 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.install_link("tclsh8.6", "usr/bin/tclsh")
+    self.install_link("usr/bin/tclsh", "tclsh8.6")
     self.install_license("../license.terms")
 
 

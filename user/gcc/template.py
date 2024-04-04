@@ -155,8 +155,8 @@ def post_install(self):
     )
     # link the runtime and nuke libgcc
     self.install_link(
-        f"../../../clang/{_clangver}/lib/{_trip}/libclang_rt.builtins.a",
         f"usr/lib/gcc/{_trip}/{_mnver}/libclang_rt.builtins.a",
+        f"../../../clang/{_clangver}/lib/{_trip}/libclang_rt.builtins.a",
     )
     self.rm(self.destdir / f"usr/lib/gcc/{_trip}/{_mnver}/libgcc*.a", glob=True)
     # nuke libstdc++; this build is not compatible with chimera
@@ -177,18 +177,18 @@ def post_install(self):
     # hardlinks
     for f in ["g++", "gcc", "gcc-ar", "gcc-nm", "gcc-ranlib", "gfortran"]:
         self.rm(self.destdir / f"usr/bin/{_trip}-{f}")
-        self.install_link(f, f"usr/bin/{_trip}-{f}")
+        self.install_link(f"usr/bin/{_trip}-{f}", f)
     self.rm(self.destdir / f"usr/bin/{_trip}-gcc")
     self.rm(self.destdir / f"usr/bin/{_trip}-gcc-{_bver}")
-    self.install_link("gcc", f"usr/bin/{_trip}-gcc-{_bver}")
-    self.install_link(f"{_trip}-gcc-{_bver}", f"usr/bin/{_trip}-gcc")
+    self.install_link(f"usr/bin/{_trip}-gcc-{_bver}", "gcc")
+    self.install_link(f"usr/bin/{_trip}-gcc", f"{_trip}-gcc-{_bver}")
     # lto plugin symlink
     self.install_dir("usr/lib/bfd-plugins")
     self.install_link(
-        f"../gcc/{_trip}/{_bver}/liblto_plugin.so",
         "usr/lib/bfd-plugins/liblto_plugin.so",
+        f"../gcc/{_trip}/{_bver}/liblto_plugin.so",
     )
-    self.install_link(_mnver, f"usr/lib/gcc/{_trip}/{_bver}")
+    self.install_link(f"usr/lib/gcc/{_trip}/{_bver}", _mnver)
 
 
 @subpackage("gcc-fortran")

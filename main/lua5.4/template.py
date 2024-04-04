@@ -57,17 +57,17 @@ def post_install(self):
         self.destdir / f"usr/share/man/man1/luac{_lver}.1",
     )
 
-    self.install_link(f"lua{_lver}.1", "usr/share/man/man1/lua.1")
-    self.install_link(f"luac{_lver}.1", "usr/share/man/man1/luac.1")
+    self.install_link("usr/share/man/man1/lua.1", f"lua{_lver}.1")
+    self.install_link("usr/share/man/man1/luac.1", f"luac{_lver}.1")
 
     _libf = f"liblua{_lver}.so.{pkgver}"
-    self.install_link(_libf, f"usr/lib/liblua{_lver}.so")
-    self.install_link(_libf, f"usr/lib/liblua{_lver}.so.{_lver}")
+    self.install_link(f"usr/lib/liblua{_lver}.so", _libf)
+    self.install_link(f"usr/lib/liblua{_lver}.so.{_lver}", _libf)
 
     # this is the primary lua
-    self.install_link(f"lua{_lver}", "usr/bin/lua")
-    self.install_link(f"luac{_lver}", "usr/bin/luac")
-    self.install_link(f"lua{_lver}.pc", "usr/lib/pkgconfig/lua.pc")
+    self.install_link("usr/bin/lua", f"lua{_lver}")
+    self.install_link("usr/bin/luac", f"luac{_lver}")
+    self.install_link("usr/lib/pkgconfig/lua.pc", f"lua{_lver}.pc")
 
 
 @subpackage("lua5.4-devel")

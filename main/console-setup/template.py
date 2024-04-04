@@ -29,7 +29,7 @@ def pre_build(self):
 
 def do_install(self):
     self.install_dir("usr/bin")
-    self.install_link("usr/bin", "bin")
+    self.install_link("bin", "usr/bin")
     self.make.install(
         [
             "prefix=" + str(self.chroot_destdir / "usr"),

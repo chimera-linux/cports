@@ -20,7 +20,7 @@ options = ["!cross", "!check"]
 
 def post_install(self):
     self.mv(self.destdir / "usr/share/faust", self.destdir / "usr/lib")
-    self.install_link("../lib/faust", "usr/share/faust")
+    self.install_link("usr/share/faust", "../lib/faust")
     self.rm(self.destdir / "usr/lib/libOSCFaust.a")
     self.rm(self.destdir / "usr/lib/ios-libsndfile.a")
     self.rm(self.destdir / "usr/lib/faust/max-msp/sndfile", recursive=True)

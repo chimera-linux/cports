@@ -61,8 +61,8 @@ def post_install(self):
     )
 
     _libf = f"liblua{_lver}.so.{pkgver}"
-    self.install_link(_libf, f"usr/lib/liblua{_lver}.so")
-    self.install_link(_libf, f"usr/lib/liblua{_lver}.so.{_lver}")
+    self.install_link(f"usr/lib/liblua{_lver}.so", _libf)
+    self.install_link(f"usr/lib/liblua{_lver}.so.{_lver}", _libf)
 
 
 @subpackage("lua5.1-devel")

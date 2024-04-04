@@ -68,4 +68,4 @@ def post_install(self):
     self.install_dir("usr/libexec/hplip")
     for f in ["locatedriver", "dat2drv"]:
         self.mv(dd / "usr/share/hplip" / f, dd / "usr/libexec/hplip")
-        self.install_link(f"../../libexec/hplip/{f}", f"usr/share/hplip/{f}")
+        self.install_link(f"usr/share/hplip/{f}", f"../../libexec/hplip/{f}")

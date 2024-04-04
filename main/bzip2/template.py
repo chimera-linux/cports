@@ -34,24 +34,24 @@ def do_install(self):
     self.install_bin("bzip2")
     self.install_bin("bzip2recover")
 
-    self.install_link("bzip2", "usr/bin/bunzip2")
-    self.install_link("bzip2", "usr/bin/bzcat")
+    self.install_link("usr/bin/bunzip2", "bzip2")
+    self.install_link("usr/bin/bzcat", "bzip2")
 
     self.install_bin("bzmore")
 
     self.install_lib(f"libbz2.so.{pkgver}")
-    self.install_link(f"libbz2.so.{pkgver}", "usr/lib/libbz2.so")
-    self.install_link(f"libbz2.so.{pkgver}", "usr/lib/libbz2.so.1")
-    self.install_link(f"libbz2.so.{pkgver}", "usr/lib/libbz2.so.1.0")
+    self.install_link("usr/lib/libbz2.so", f"libbz2.so.{pkgver}")
+    self.install_link("usr/lib/libbz2.so.1", f"libbz2.so.{pkgver}")
+    self.install_link("usr/lib/libbz2.so.1.0", f"libbz2.so.{pkgver}")
 
     self.install_file("libbz2.a", "usr/lib")
     self.install_file("bzlib.h", "usr/include")
     self.install_file(self.files_path / "bzip2.pc", "usr/lib/pkgconfig")
 
     self.install_man("bzip2.1")
-    self.install_link("bzip2.1", "usr/share/man/man1/bunzip2.1")
-    self.install_link("bzip2.1", "usr/share/man/man1/bzcat.1")
-    self.install_link("bzip2.1", "usr/share/man/man1/bzip2recover.1")
+    self.install_link("usr/share/man/man1/bunzip2.1", "bzip2.1")
+    self.install_link("usr/share/man/man1/bzcat.1", "bzip2.1")
+    self.install_link("usr/share/man/man1/bzip2recover.1", "bzip2.1")
 
     self.install_license("LICENSE")
 

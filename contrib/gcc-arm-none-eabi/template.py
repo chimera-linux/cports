@@ -82,8 +82,8 @@ def post_install(self):
     # hardlinks
     self.rm(self.destdir / f"usr/bin/{_trip}-gcc")
     self.rm(self.destdir / f"usr/bin/{_trip}-c++")
-    self.install_link(f"{_trip}-gcc-{pkgver}", f"usr/bin/{_trip}-gcc")
-    self.install_link(f"{_trip}-g++", f"usr/bin/{_trip}-c++")
+    self.install_link(f"usr/bin/{_trip}-gcc", f"{_trip}-gcc-{pkgver}")
+    self.install_link(f"usr/bin/{_trip}-c++", f"{_trip}-g++")
 
 
 configure_gen = []

@@ -35,8 +35,8 @@ def post_install(self):
     )
     # reject bitmap fonts by default, preventing them from being preferred
     self.install_link(
-        "/usr/share/fontconfig/conf.avail/70-no-nonscalable.conf",
         "etc/fonts/conf.d/70-no-nonscalable.conf",
+        "/usr/share/fontconfig/conf.avail/70-no-nonscalable.conf",
     )
 
 

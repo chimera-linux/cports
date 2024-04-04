@@ -17,7 +17,7 @@ def do_install(self):
     runtime_dir = "usr/libexec/helix/runtime"
     self.install_dir(runtime_dir)
     self.mv(self.destdir / "usr/bin/hx", self.destdir / "usr/libexec/helix")
-    self.install_link("/usr/libexec/helix/hx", "usr/bin/hx")
+    self.install_link("usr/bin/hx", "/usr/libexec/helix/hx")
 
     self.install_files("runtime/queries", runtime_dir)
     self.install_files("runtime/themes", runtime_dir)

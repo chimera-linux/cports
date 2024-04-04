@@ -51,7 +51,7 @@ options = ["!check"]
 def pre_install(self):
     # shadow force-installs into sbin regardless of configure
     self.install_dir("usr/bin")
-    self.install_link("bin", "usr/sbin")
+    self.install_link("usr/sbin", "bin")
 
 
 def post_install(self):

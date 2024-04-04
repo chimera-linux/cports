@@ -33,7 +33,7 @@ tool_flags = {
 
 def post_install(self):
     for f in (self.destdir / "usr/lib").glob("libomp.so.*"):
-        self.install_link(f.name, "usr/lib/libomp.so")
+        self.install_link("usr/lib/libomp.so", f.name)
 
 
 @subpackage("libomp-devel-static")

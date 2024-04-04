@@ -24,12 +24,12 @@ def post_install(self):
     self.install_file(
         self.files_path / "zless.sh", "usr/bin", mode=0o755, name="zless"
     )
-    self.install_link("less", "usr/bin/more")
-    self.install_link("less.1", "usr/share/man/man1/more.1")
-    self.install_link("zless", "usr/bin/bzless")
-    self.install_link("zless", "usr/bin/xzless")
-    self.install_link("zless", "usr/bin/lzless")
-    self.install_link("zless", "usr/bin/zstdless")
+    self.install_link("usr/bin/more", "less")
+    self.install_link("usr/share/man/man1/more.1", "less.1")
+    self.install_link("usr/bin/bzless", "zless")
+    self.install_link("usr/bin/xzless", "zless")
+    self.install_link("usr/bin/lzless", "zless")
+    self.install_link("usr/bin/zstdless", "zless")
 
 
 configure_gen = []

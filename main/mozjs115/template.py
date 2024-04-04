@@ -125,7 +125,7 @@ def post_install(self):
         self.destdir / "usr/lib/libmozjs-115.so",
         self.destdir / "usr/lib/libmozjs-115.so.0",
     )
-    self.install_link("libmozjs-115.so.0", "usr/lib/libmozjs-115.so")
+    self.install_link("usr/lib/libmozjs-115.so", "libmozjs-115.so.0")
 
 
 def do_check(self):

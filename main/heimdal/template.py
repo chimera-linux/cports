@@ -84,9 +84,9 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man8/ipropd-master.8")
     self.rm(self.destdir / "usr/share/man/man8/ipropd-slave.8")
     self.rm(self.destdir / "usr/share/man/man5/qop.5")
-    self.install_link("iprop.8", "usr/share/man/man8/ipropd-master.8")
-    self.install_link("iprop.8", "usr/share/man/man8/ipropd-slave.8")
-    self.install_link("mech.5", "usr/share/man/man5/qop.5")
+    self.install_link("usr/share/man/man8/ipropd-master.8", "iprop.8")
+    self.install_link("usr/share/man/man8/ipropd-slave.8", "iprop.8")
+    self.install_link("usr/share/man/man5/qop.5", "mech.5")
 
 
 def _genlib(pkgn, desc):

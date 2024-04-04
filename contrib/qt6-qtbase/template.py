@@ -184,7 +184,7 @@ def post_install(self):
     for f in (self.destdir / "usr/lib/qt6/bin").glob("*6"):
         nsname = f.name.removesuffix("6")
         f.with_name(nsname).unlink()
-        self.install_link(f.name, f"usr/lib/qt6/bin/{nsname}")
+        self.install_link(f"usr/lib/qt6/bin/{nsname}", f.name)
 
     # link publicbindir utils to usr/bin, like qmake6
     # used outside of cmake
@@ -193,7 +193,8 @@ def post_install(self):
         self.cwd / self.make_dir / "user_facing_tool_links.txt", "r"
     ) as f:
         for line in f.readlines():
-            self.install_link(*line.split())
+            a, b = *line.split()
+            self.install_link(b, a)
 
 
 @subpackage("qt6-qtbase-gui")

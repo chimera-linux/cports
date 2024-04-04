@@ -52,7 +52,7 @@ def post_install(self):
     (self.destdir / "var/lib/swclock/timestamp").touch(0o644)
     # init symlink
     self.install_dir("usr/bin")
-    self.install_link("dinit", "usr/bin/init")
+    self.install_link("usr/bin/init", "dinit")
     # x11 support
     self.install_dir("etc/X11/Xsession.d")
     self.install_file(

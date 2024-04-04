@@ -41,7 +41,7 @@ def do_install(self):
     self.install_man("bmake.1")
     self.install_man("make.1")
     self.install_license("LICENSE")
-    self.install_link("bmake", "usr/bin/make")
+    self.install_link("usr/bin/make", "bmake")
 
 
 def do_check(self):

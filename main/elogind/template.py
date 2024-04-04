@@ -48,9 +48,9 @@ sha256 = "7af8caa8225a406e77fb99c9f33dba5e1f0a94f0e1277c9d91dcfc016f116d85"
 
 def post_install(self):
     # compat symlinks
-    self.install_link("libelogind.pc", "usr/lib/pkgconfig/libsystemd.pc")
-    self.install_link("libelogind.pc", "usr/lib/pkgconfig/libsystemd-logind.pc")
-    self.install_link("elogind", "usr/include/systemd")
+    self.install_link("usr/lib/pkgconfig/libsystemd.pc", "libelogind.pc")
+    self.install_link("usr/lib/pkgconfig/libsystemd-logind.pc", "libelogind.pc")
+    self.install_link("usr/include/systemd", "elogind")
     # extra includes
     self.install_file("src/systemd/sd-id128.h", "usr/include")
     self.install_file("src/systemd/_sd-common.h", "usr/include")

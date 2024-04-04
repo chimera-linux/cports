@@ -259,12 +259,12 @@ def do_install(self):
 
     # https://bugzilla.mozilla.org/show_bug.cgi?id=658850
     self.rm(self.destdir / "usr/lib/thunderbird/thunderbird-bin")
-    self.install_link("thunderbird", "usr/lib/thunderbird/thunderbird-bin")
+    self.install_link("usr/lib/thunderbird/thunderbird-bin", "thunderbird")
     # to be provided
     self.rm(self.destdir / "usr/bin/thunderbird")
     # default launcher
     self.install_link(
-        "/usr/lib/thunderbird/thunderbird", "usr/bin/thunderbird-default"
+        "usr/bin/thunderbird-default", "/usr/lib/thunderbird/thunderbird"
     )
     # wayland launcher
     self.install_file(
@@ -273,8 +273,8 @@ def do_install(self):
         mode=0o755,
     )
     self.install_link(
-        "/usr/lib/thunderbird/thunderbird-wayland",
         "usr/bin/thunderbird-wayland",
+        "/usr/lib/thunderbird/thunderbird-wayland",
     )
 
 

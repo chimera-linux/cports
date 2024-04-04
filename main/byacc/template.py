@@ -18,5 +18,5 @@ hardening = ["vis", "cfi"]
 def post_install(self):
     self.install_license("README")
     self.install_license("LICENSE")
-    self.install_link("byacc", "usr/bin/yacc")
-    self.install_link("byacc.1", "usr/share/man/man1/yacc.1")
+    self.install_link("usr/bin/yacc", "byacc")
+    self.install_link("usr/share/man/man1/yacc.1", "byacc.1")

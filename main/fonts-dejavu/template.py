@@ -35,8 +35,8 @@ def do_install(self):
             continue
         self.install_file(f, "usr/share/fontconfig/conf.avail")
         self.install_link(
-            f"/usr/share/fontconfig/conf.avail/{f.name}",
             f"etc/fonts/conf.d/{f.name}",
+            f"/usr/share/fontconfig/conf.avail/{f.name}",
         )
 
 

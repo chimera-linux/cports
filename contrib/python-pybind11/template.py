@@ -58,16 +58,16 @@ def post_install(self):
     self.install_dir("usr/share/pkgconfig")
     _pypath = f"lib/python{self.python_version}/site-packages/pybind11"
     self.install_link(
-        f"../{_pypath}/include/pybind11",
         "usr/include/pybind11",
+        f"../{_pypath}/include/pybind11",
     )
     self.install_link(
-        f"../../{_pypath}/share/cmake/pybind11",
         "usr/share/cmake/pybind11",
+        f"../../{_pypath}/share/cmake/pybind11",
     )
     self.install_link(
-        f"../../{_pypath}/share/pkgconfig/pybind11.pc",
         "usr/share/pkgconfig/pybind11.pc",
+        f"../../{_pypath}/share/pkgconfig/pybind11.pc",
     )
 
 

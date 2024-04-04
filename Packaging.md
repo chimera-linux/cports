@@ -2988,14 +2988,14 @@ If `enable` is `True`, the service will be implicitly enabled as system service.
 
 Equivalent to `self.install_file(src, "etc/dinit.d/scripts", 0o755, name)`.
 
-##### def install_link(self, src, dest)
+##### def install_link(self, dest, tgt)
 
-Creates a symbolic link at `dest`, pointing to `src`.
+Creates a symbolic link at `dest`, pointing to `tgt`.
 
 Usage:
 
 ```
-self.install_link("libfoo.so.1", "usr/lib/libfoo.so")
+self.install_link("usr/lib/libfoo.so", "libfoo.so.1")
 ```
 
 ##### def install_shell(self, *args)

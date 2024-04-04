@@ -31,7 +31,7 @@ def do_install(self):
         ("hpnv21g.bin", "qca/hpnv21g.309"),
     ]:
         self.rm(self.destdir / f"usr/lib/firmware/{tof}")
-        self.install_link(fromf, f"usr/lib/firmware/{tof}")
+        self.install_link(f"usr/lib/firmware/{tof}", fromf)
     # dsp
     self.install_file("cs35l41-dsp1-*", "usr/lib/firmware", glob=True)
     # compress
@@ -42,7 +42,7 @@ def do_install(self):
         if file.is_symlink():
             ltgt = file.readlink()
             file.unlink()
-            self.install_link(f"{ltgt}.zst", f"{dfile}.zst")
+            self.install_link(f"{dfile}.zst", f"{ltgt}.zst")
         else:
             self.do(
                 "zstd",

@@ -111,11 +111,11 @@ def do_install(self):
     self.install_dir("usr/bin")
 
     for f in (self.destdir / "usr/lib/go/bin").iterdir():
-        self.install_link(f"../lib/go/bin/{f.name}", f"usr/bin/{f.name}")
+        self.install_link(f"usr/bin/{f.name}", f"../lib/go/bin/{f.name}")
 
     self.install_dir("usr/share/go")
-    self.install_link("../../lib/go/doc", "usr/share/go/doc")
-    self.install_link("../../lib/go/misc", "usr/share/go/misc")
+    self.install_link("usr/share/go/doc", "../../lib/go/doc")
+    self.install_link("usr/share/go/misc", "../../lib/go/misc")
 
     self.install_license("LICENSE")
 

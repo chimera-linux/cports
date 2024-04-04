@@ -44,7 +44,7 @@ def post_install(self):
         ],
     )
 
-    self.install_link("librhash.so.1", "usr/lib/librhash.so")
+    self.install_link("usr/lib/librhash.so", "librhash.so.1")
 
     self.install_license("COPYING")
 

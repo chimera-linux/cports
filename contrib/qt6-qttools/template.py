@@ -48,7 +48,7 @@ nopie_files = ["usr/lib/qt6/bin/lupdate", "usr/lib/qt6/bin/qdoc"]
 def post_install(self):
     # hardlink
     self.rm(self.destdir / "usr/lib/qt6/bin/qtdiag")
-    self.install_link("qtdiag6", "usr/lib/qt6/bin/qtdiag")
+    self.install_link("usr/lib/qt6/bin/qtdiag", "qtdiag6")
 
     # link publicbindir utils to usr/bin, like qmake6
     # used outside of cmake
@@ -57,7 +57,8 @@ def post_install(self):
         self.cwd / self.make_dir / "user_facing_tool_links.txt", "r"
     ) as f:
         for line in f.readlines():
-            self.install_link(*line.split())
+            a, b = *line.split()
+            self.install_link(b, a)
 
 
 @subpackage("qt6-qttools-libs")

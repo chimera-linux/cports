@@ -97,7 +97,7 @@ def post_build(self):
 def pre_install(self):
     self.install_dir("usr/lib")
     # ensure all files go in /usr/lib
-    self.install_link("usr/lib", "lib")
+    self.install_link("lib", "usr/lib")
 
     self.install_license("COPYRIGHT")
 
@@ -112,7 +112,7 @@ def post_install(self):
         f.symlink_to("libc.so")
 
     self.install_dir("usr/bin")
-    self.install_link("../lib/libc.so", "usr/bin/ldd")
+    self.install_link("usr/bin/ldd", "../lib/libc.so")
 
     self.install_bin("iconv")
     self.install_bin("getent")
@@ -121,7 +121,7 @@ def post_install(self):
     self.install_man(self.files_path / "getent.1")
     self.install_man(self.files_path / "getconf.1")
 
-    self.install_link("true", "usr/bin/ldconfig")
+    self.install_link("usr/bin/ldconfig", "true")
 
 
 @subpackage("musl-progs")

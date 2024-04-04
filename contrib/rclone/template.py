@@ -36,8 +36,8 @@ def post_build(self):
 
 def do_install(self):
     self.install_bin("build/rclone")
-    self.install_link("rclone", "usr/bin/mount.rclone")
-    self.install_link("rclone", "usr/bin/rclonefs")
+    self.install_link("usr/bin/mount.rclone", "rclone")
+    self.install_link("usr/bin/rclonefs", "rclone")
 
     self.install_man("rclone.1")
     self.install_dir(f"usr/share/doc/{pkgname}")

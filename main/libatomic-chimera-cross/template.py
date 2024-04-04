@@ -49,7 +49,7 @@ def do_install(self):
         with self.profile(an) as pf:
             at = pf.triplet
             self.install_dir(f"usr/{at}/usr/lib")
-            self.install_link("usr/lib", f"usr/{at}/lib")
+            self.install_link(f"usr/{at}/lib", "usr/lib")
             self.make.install(
                 [
                     "PREFIX=/usr",

@@ -46,9 +46,9 @@ def do_install(self):
         self.install_dir("var/" + d)
 
     # /var symlinks
-    self.install_link("../run/lock", "var/lock")
-    self.install_link("../run", "var/run")
-    self.install_link("../mail", "var/spool/mail")
+    self.install_link("var/lock", "../run/lock")
+    self.install_link("var/run", "../run")
+    self.install_link("var/spool/mail", "../mail")
 
     # root's home dir
     self.install_dir("root")
@@ -63,12 +63,12 @@ def do_install(self):
     # Create bin and lib dirs and symlinks
     for d in ["bin", "lib"]:
         self.install_dir("usr/" + d)
-        self.install_link("usr/" + d, d)
+        self.install_link(d, "usr/" + d)
 
     # Symlink sbin paths to /usr/bin
-    self.install_link("usr/bin", "sbin")
-    self.install_link("bin", "usr/sbin")
-    self.install_link("bin", "usr/local/sbin")
+    self.install_link("sbin", "usr/bin")
+    self.install_link("usr/sbin", "bin")
+    self.install_link("usr/local/sbin", "bin")
 
     # Users and tmpfiles
     self.install_file(
@@ -124,7 +124,7 @@ def do_install(self):
     self.install_bin(self.files_path / "lsb_release")
 
     # Create /proc/self/mounts -> /etc/mtab symlink
-    self.install_link("../proc/self/mounts", "etc/mtab")
+    self.install_link("etc/mtab", "../proc/self/mounts")
 
 
 @subpackage("base-devel")

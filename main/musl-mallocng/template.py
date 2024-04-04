@@ -34,7 +34,7 @@ options = ["!check", "!lto"]
 def pre_install(self):
     self.install_dir("usr/lib")
     # ensure all files go in /usr/lib
-    self.install_link("usr/lib", "lib")
+    self.install_link("lib", "usr/lib")
 
     self.install_license("COPYRIGHT")
 

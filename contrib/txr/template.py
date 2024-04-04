@@ -46,4 +46,4 @@ def post_install(self):
     # hardlinks
     for f in ["txrlisp", "txrvm"]:
         self.rm(self.destdir / f"usr/bin/{f}")
-        self.install_link("txr", f"usr/bin/{f}")
+        self.install_link(f"usr/bin/{f}", "txr")

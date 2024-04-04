@@ -46,7 +46,7 @@ def do_install(self):
     self.install_file(self.files_path / "apache-ant.sh", "etc/profile.d")
     self.install_dir("usr/bin")
     self.install_dir("usr/share/doc")
-    self.install_link("../share/apache-ant/bin/ant", "usr/bin/ant")
+    self.install_link("usr/bin/ant", "../share/apache-ant/bin/ant")
     self.mv(
         self.destdir / _pfx / "manual",
         self.destdir / "usr/share/doc/apache-ant",

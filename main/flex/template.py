@@ -24,7 +24,7 @@ def post_patch(self):
 
 
 def post_install(self):
-    self.install_link("flex", "usr/bin/lex")
+    self.install_link("usr/bin/lex", "flex")
     self.install_license("COPYING")
 
 

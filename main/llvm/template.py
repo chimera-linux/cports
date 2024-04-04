@@ -199,10 +199,10 @@ def post_install(self):
     from cbuild.util import python
 
     # it's our default toolchain
-    self.install_link("clang", "usr/bin/cc")
-    self.install_link("clang++", "usr/bin/c++")
+    self.install_link("usr/bin/cc", "clang")
+    self.install_link("usr/bin/c++", "clang++")
     if not (self.destdir / "usr/bin/ld").is_symlink():
-        self.install_link("ld.lld", "usr/bin/ld")
+        self.install_link("usr/bin/ld", "ld.lld")
     # posix mandates this
     self.install_bin(self.files_path / "c99")
     # widely provided though not required anymore

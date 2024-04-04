@@ -41,8 +41,8 @@ def post_install(self):
     # get rid of hard links
     self.rm(self.destdir / "usr/bin/named-compilezone")
     self.rm(self.destdir / "usr/bin/ddns-confgen")
-    self.install_link("named-checkzone", "usr/bin/named-compilezone")
-    self.install_link("tsig-keygen", "usr/bin/ddns-confgen")
+    self.install_link("usr/bin/named-compilezone", "named-checkzone")
+    self.install_link("usr/bin/ddns-confgen", "tsig-keygen")
 
 
 @subpackage("bind-devel")

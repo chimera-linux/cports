@@ -53,7 +53,7 @@ def do_install(self):
         if file.is_symlink():
             ltgt = file.readlink()
             file.unlink()
-            self.install_link(f"{ltgt}.zst", f"{dfile}.zst")
+            self.install_link(f"{dfile}.zst", f"{ltgt}.zst")
         else:
             self.do(
                 "zstd",
@@ -75,7 +75,7 @@ def do_install(self):
                 froml = f"../{froml}"
             else:
                 self.error(f"unknown firmware path{froml}")
-            self.install_link(f"{froml}.zst", f"{tol}.zst")
+            self.install_link(f"{tol}.zst", f"{froml}.zst")
 
     # license files
     self.install_license(f"{bfw}/broadcom/LICENSE.cypress")

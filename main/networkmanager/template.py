@@ -111,13 +111,13 @@ def post_install(self):
     # kill hardlinks
     for f in ["nmtui-connect", "nmtui-hostname", "nmtui-edit"]:
         self.rm(self.destdir / f"usr/share/man/man1/{f}.1")
-        self.install_link("nmtui.1", f"usr/share/man/man1/{f}.1")
+        self.install_link(f"usr/share/man/man1/{f}.1", "nmtui.1")
 
     self.rm(self.destdir / "usr/share/man/man5/nm-settings.5")
-    self.install_link("nm-settings-nmcli.5", "usr/share/man/man5/nm-settings.5")
+    self.install_link("usr/share/man/man5/nm-settings.5", "nm-settings-nmcli.5")
     self.rm(self.destdir / "usr/share/man/man5/nm-system-settings.conf.5")
     self.install_link(
-        "NetworkManager.conf.5", "usr/share/man/man5/nm-system-settings.conf.5"
+        "usr/share/man/man5/nm-system-settings.conf.5", "NetworkManager.conf.5"
     )
 
 

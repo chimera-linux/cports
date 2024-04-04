@@ -30,11 +30,11 @@ sha256 = "f20e36ee68074b845e3629e6bced4706ad053804cbaf062fbae60738f854170c"
 
 
 def pre_install(self):
-    self.install_link("usr/bin", "sbin")
+    self.install_link("sbin", "usr/bin")
 
 
 def post_install(self):
-    self.install_link("ntfs-3g", "usr/bin/mount.ntfs")
+    self.install_link("usr/bin/mount.ntfs", "ntfs-3g")
     self.rm(self.destdir / "usr/share/man/man8/ntfsfallocate.8")
     self.rm(self.destdir / "sbin")
 

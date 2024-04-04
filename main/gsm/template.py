@@ -47,10 +47,10 @@ def post_install(self):
     self.install_file(
         "lib/libgsm.so", "usr/lib", name=f"libgsm.so.{pkgver}", mode=0o755
     )
-    self.install_link(f"libgsm.so.{pkgver}", "usr/lib/libgsm.so.1")
-    self.install_link(f"libgsm.so.{pkgver}", "usr/lib/libgsm.so")
+    self.install_link("usr/lib/libgsm.so.1", f"libgsm.so.{pkgver}")
+    self.install_link("usr/lib/libgsm.so", f"libgsm.so.{pkgver}")
 
-    self.install_link("gsm/gsm.h", "usr/include/gsm.h")
+    self.install_link("usr/include/gsm.h", "gsm/gsm.h")
 
     self.install_license("COPYRIGHT")
 

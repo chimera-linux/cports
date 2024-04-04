@@ -164,7 +164,7 @@ def do_install(self):
 
     # lto plugin
     self.install_file("LLVMgold.so", "usr/lib", mode=0o755)
-    self.install_link("../LLVMgold.so", "usr/lib/bfd-plugins/LLVMgold.so")
+    self.install_link("usr/lib/bfd-plugins/LLVMgold.so", "../LLVMgold.so")
 
     for m in ["dlltool", "nlmconv", "windres", "windmc"]:
         self.rm(self.destdir / f"usr/share/man/man1/{m}.1", force=True)
@@ -219,8 +219,8 @@ def do_install(self):
         )
 
     # gas can be symlinked to as though, as nothing else provides it
-    self.install_link("gas", "usr/bin/as")
-    self.install_link("gas.1", "usr/share/man/man1/as.1")
+    self.install_link("usr/bin/as", "gas")
+    self.install_link("usr/share/man/man1/as.1", "gas.1")
 
     tgt = self.profile()
 

@@ -1539,7 +1539,7 @@ class Template(Package):
             if enable:
                 self.install_dir("usr/lib/dinit.d/user/boot.d")
                 self.install_link(
-                    f"../{svname}", f"usr/lib/dinit.d/user/boot.d/{svname}"
+                    f"usr/lib/dinit.d/user/boot.d/{svname}", f"../{svname}"
                 )
         else:
             svname = name or src.name
@@ -1547,25 +1547,25 @@ class Template(Package):
             if enable:
                 self.install_dir("usr/lib/dinit.d/boot.d")
                 self.install_link(
-                    f"../{svname}", f"usr/lib/dinit.d/boot.d/{svname}"
+                    f"usr/lib/dinit.d/boot.d/{svname}", f"../{svname}"
                 )
 
     def install_svscript(self, src, name=None):
         self.install_file(src, "etc/dinit.d/scripts", mode=0o755, name=name)
 
-    def install_link(self, src, dest):
+    def install_link(self, dest, tgt):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
             raise errors.TracebackException(
                 f"install_link: path '{dest}' must not be absolute"
             )
         dest = self.destdir / dest
-        dest.symlink_to(src)
+        dest.symlink_to(tgt)
 
     def install_shell(self, *args):
         self.install_dir("etc/shells.d")
         for s in args:
-            self.install_link(s, f"etc/shells.d/{os.path.basename(s)}")
+            self.install_link(f"etc/shells.d/{os.path.basename(s)}", s)
 
 
 def _default_take_extra(self, extra):

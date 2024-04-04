@@ -115,7 +115,7 @@ def post_install(self):
     self.install_file(self.files_path / "default.conf", "etc/nginx/http.d")
     self.install_file(self.files_path / "stream.conf", "etc/nginx/conf.d")
     # needed for relative module loads
-    self.install_link("../../../usr/lib/nginx/modules", "var/lib/nginx/modules")
+    self.install_link("var/lib/nginx/modules", "../../../usr/lib/nginx/modules")
     # remove old charset maps
     self.rm(self.destdir / "etc/nginx/koi-*", glob=True)
     self.rm(self.destdir / "etc/nginx/win-utf")

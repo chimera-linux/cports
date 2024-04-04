@@ -155,20 +155,20 @@ def do_install(self):
     # shared cacerts store
     _cacerts = f"{_java_home}/lib/security/cacerts"
     self.rm(self.destdir / _cacerts)
-    self.install_link("/etc/ssl/certs/java/cacerts", _cacerts)
+    self.install_link(_cacerts, "/etc/ssl/certs/java/cacerts")
 
     # system links
 
     self.install_dir("usr/bin")
     self.install_dir("usr/share/man/man1")
-    self.install_link(_java_name, f"{_java_base}/default")
+    self.install_link(f"{_java_base}/default", _java_name)
 
     for f in (self.destdir / _java_home / "bin").iterdir():
-        self.install_link(f"/{_java_home}/bin/{f.name}", f"usr/bin/{f.name}")
+        self.install_link(f"usr/bin/{f.name}", f"/{_java_home}/bin/{f.name}")
 
     for f in (self.destdir / _java_home / "man/man1").iterdir():
         self.install_link(
-            f"/{_java_home}/man/man1/{f.name}", f"usr/share/man/man1/{f.name}"
+            f"usr/share/man/man1/{f.name}", f"/{_java_home}/man/man1/{f.name}"
         )
 
 

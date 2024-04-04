@@ -24,7 +24,7 @@ def do_install(self):
     self.install_license("LICENSE")
     # bruh moment
     self.install_file("libiniparser.*", "usr/lib", glob=True)
-    self.install_link("libiniparser.so.1", "usr/lib/libiniparser.so")
+    self.install_link("usr/lib/libiniparser.so", "libiniparser.so.1")
     self.install_file("src/*.h", "usr/include", glob=True)
 
 

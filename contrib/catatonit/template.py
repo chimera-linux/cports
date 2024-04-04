@@ -23,4 +23,4 @@ hardening = ["vis", "cfi"]
 
 def post_install(self):
     self.install_dir("usr/libexec/podman")
-    self.install_link("../../bin/catatonit", "usr/libexec/podman/catatonit")
+    self.install_link("usr/libexec/podman/catatonit", "../../bin/catatonit")

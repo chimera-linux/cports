@@ -52,11 +52,11 @@ def post_install(self):
     for f in (self.destdir / f"usr/{_trip}/bin").iterdir():
         self.rm(self.destdir / f"usr/bin/{_trip}-{f.name}")
         self.install_link(
-            f"../{_trip}/bin/{f.name}", f"usr/bin/{_trip}-{f.name}"
+            f"usr/bin/{_trip}-{f.name}", f"../{_trip}/bin/{f.name}"
         )
     # this is also a hardlink
     self.rm(self.destdir / f"usr/{_trip}/bin/ld")
-    self.install_link("ld.bfd", f"usr/{_trip}/bin/ld")
+    self.install_link(f"usr/{_trip}/bin/ld", "ld.bfd")
     # remove unnecessary dupe
     self.rm(self.destdir / "usr/lib", recursive=True)
 

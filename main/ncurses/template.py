@@ -58,10 +58,10 @@ def post_install(self):
         with open(libp, "w") as f:
             f.write(f"INPUT(-l{lib}w)\n")
         libp.chmod(0o755)
-        self.install_link(f"lib{lib}w.a", f"usr/lib/lib{lib}.a")
+        self.install_link(f"usr/lib/lib{lib}.a", f"lib{lib}w.a")
 
     self.rm(self.destdir / "usr/lib/libncurses++.a", force=True)
-    self.install_link("libncurses++w.a", "usr/lib/libncurses++.a")
+    self.install_link("usr/lib/libncurses++.a", "libncurses++w.a")
 
     # some packages look for -lcurses during build
     self.rm(self.destdir / "usr/lib/libcursesw.so", force=True)
@@ -73,20 +73,20 @@ def post_install(self):
     self.rm(self.destdir / "usr/lib/libcursesw.a", force=True)
     self.rm(self.destdir / "usr/lib/libcurses.a", force=True)
 
-    self.install_link("libncurses.so", "usr/lib/libcurses.so")
-    self.install_link("libncursesw.a", "usr/lib/libcursesw.a")
-    self.install_link("libncurses.a", "usr/lib/libcurses.a")
+    self.install_link("usr/lib/libcurses.so", "libncurses.so")
+    self.install_link("usr/lib/libcursesw.a", "libncursesw.a")
+    self.install_link("usr/lib/libcurses.a", "libncurses.a")
 
     # create libtinfo symlinks
-    self.install_link("libncursesw.so", "usr/lib/libtinfo.so")
+    self.install_link("usr/lib/libtinfo.so", "libncursesw.so")
     self.install_link(
-        f"libncursesw.so.{pkgver}", f"usr/lib/libtinfo.so.{pkgver}"
+        f"usr/lib/libtinfo.so.{pkgver}", f"libncursesw.so.{pkgver}"
     )
     self.install_link(
-        f"libtinfo.so.{pkgver}",
         f"usr/lib/libtinfo.so.{pkgver[0:pkgver.find('.')]}",
+        f"libtinfo.so.{pkgver}",
     )
-    self.install_link("ncursesw.pc", "usr/lib/pkgconfig/tinfo.pc")
+    self.install_link("usr/lib/pkgconfig/tinfo.pc", "ncursesw.pc")
 
     # remove broken symlink
     self.rm(self.destdir / "usr/lib/terminfo", force=True)

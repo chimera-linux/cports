@@ -54,7 +54,7 @@ def do_install(self):
     self.install_files(".", "usr/lib", name="plan9")
 
     self.install_dir("usr/bin")
-    self.install_link("../lib/plan9/bin/9", "usr/bin/9")
+    self.install_link("usr/bin/9", "../lib/plan9/bin/9")
     self.install_file(
         self.files_path / "acme.desktop", "usr/share/applications"
     )

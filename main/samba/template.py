@@ -130,7 +130,7 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man7/traffic_replay.7")
     # symlink cups backend
     self.install_dir("usr/lib/cups/backend")
-    self.install_link("/usr/bin/smbspool", "usr/lib/cups/backend/smb")
+    self.install_link("usr/lib/cups/backend/smb", "/usr/bin/smbspool")
     # private dir
     self.install_dir("var/lib/samba/private", mode=0o750, empty=True)
 

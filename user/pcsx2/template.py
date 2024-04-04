@@ -117,4 +117,4 @@ def do_install(self):
         f.unlink()
 
     self.install_dir("usr/bin")
-    self.install_link("../lib/PCSX2/pcsx2-qt", "usr/bin/pcsx2")
+    self.install_link("usr/bin/pcsx2", "../lib/PCSX2/pcsx2-qt")

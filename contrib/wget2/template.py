@@ -39,7 +39,7 @@ def post_install(self):
     # testing-only
     self.rm(self.destdir / "usr/bin/wget2_noinstall")
     # we don't have wget1
-    self.install_link("wget2", "usr/bin/wget")
+    self.install_link("usr/bin/wget", "wget2")
 
 
 @subpackage("libwget")

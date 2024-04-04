@@ -26,5 +26,5 @@ hardening = ["vis", "!cfi"]
 
 def post_install(self):
     # deprecated names, to be phased out
-    self.install_link("sd-tmpfiles", "usr/bin/systemd-tmpfiles")
-    self.install_link("sd-sysusers", "usr/bin/systemd-sysusers")
+    self.install_link("usr/bin/systemd-tmpfiles", "sd-tmpfiles")
+    self.install_link("usr/bin/systemd-sysusers", "sd-sysusers")

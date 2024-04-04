@@ -127,7 +127,7 @@ def post_install(self):
 
     # no elf files in /usr/share
     self.mv(self.destdir / "usr/share/qemu", self.destdir / "usr/lib/qemu")
-    self.install_link("../lib/qemu", "usr/share/qemu")
+    self.install_link("usr/share/qemu", "../lib/qemu")
 
     self.rm(self.destdir / "usr/share/doc", recursive=True)
 

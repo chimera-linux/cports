@@ -38,6 +38,6 @@ def post_install(self):
         "xetex",
         "xml",
     ]:
-        self.install_link(f"rst2{b}.py", f"usr/bin/rst2{b}")
+        self.install_link(f"usr/bin/rst2{b}", f"rst2{b}.py")
 
-    self.install_link("rstpep2html.py", "usr/bin/rstpep2html")
+    self.install_link("usr/bin/rstpep2html", "rstpep2html.py")

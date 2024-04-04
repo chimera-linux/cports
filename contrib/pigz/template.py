@@ -17,4 +17,4 @@ def do_install(self):
     self.install_bin("pigz")
     self.install_bin("unpigz")
     self.install_man("pigz.1")
-    self.install_link("pigz.1", "usr/share/man/man1/unpigz.1")
+    self.install_link("usr/share/man/man1/unpigz.1", "pigz.1")

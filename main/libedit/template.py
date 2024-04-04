@@ -22,9 +22,9 @@ def post_install(self):
     self.install_file(self.files_path / "history.h", "usr/include/readline")
     self.install_file(self.files_path / "libhistory.so", "usr/lib")
     self.install_file(self.files_path / "libreadline.so", "usr/lib")
-    self.install_link("libedit.a", "usr/lib/libreadline.a")
-    self.install_link("libedit.a", "usr/lib/libhistory.a")
-    self.install_link("libedit.pc", "usr/lib/pkgconfig/readline.pc")
+    self.install_link("usr/lib/libreadline.a", "libedit.a")
+    self.install_link("usr/lib/libhistory.a", "libedit.a")
+    self.install_link("usr/lib/pkgconfig/readline.pc", "libedit.pc")
 
 
 @subpackage("libedit-readline-devel")

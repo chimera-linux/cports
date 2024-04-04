@@ -63,7 +63,7 @@ exec_wrappers = [("/usr/bin/gmake", "make")]
 def post_install(self):
     # relink hardlink
     self.rm(self.destdir / "usr/bin/trace")
-    self.install_link("perf", "usr/bin/trace")
+    self.install_link("usr/bin/trace", "perf")
     # valid as both
     self.rm(self.destdir / "etc/bash_completion.d", recursive=True)
     self.install_completion("perf-completion.sh", "bash")

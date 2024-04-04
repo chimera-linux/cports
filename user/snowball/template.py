@@ -25,9 +25,9 @@ def do_install(self):
     self.install_bin("stemwords")
     self.install_lib(f"libstemmer.so.{pkgver}")
     self.install_link(
-        f"libstemmer.so.{pkgver}", f"usr/lib/libstemmer.so.{pkgver[0]}"
+        f"usr/lib/libstemmer.so.{pkgver[0]}", f"libstemmer.so.{pkgver}"
     )
-    self.install_link(f"libstemmer.so.{pkgver}", "usr/lib/libstemmer.so")
+    self.install_link("usr/lib/libstemmer.so", f"libstemmer.so.{pkgver}")
     self.install_file("include/libstemmer.h", "usr/include")
     self.install_license("COPYING")
 

@@ -117,9 +117,9 @@ def do_install(self):
         self.files_path / "EXTERNALLY-MANAGED", f"usr/lib/python{_majver}"
     )
 
-    self.install_link("pydoc" + _majver, "usr/bin/pydoc")
-    self.install_link("python" + _majver, "usr/bin/python")
-    self.install_link("python" + _majver + ".1", "usr/share/man/man1/python.1")
+    self.install_link("usr/bin/pydoc", "pydoc" + _majver)
+    self.install_link("usr/bin/python", "python" + _majver)
+    self.install_link("usr/share/man/man1/python.1", "python" + _majver + ".1")
 
 
 @subpackage("python-devel")

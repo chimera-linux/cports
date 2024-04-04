@@ -18,7 +18,7 @@ def do_install(self):
             folder, "usr/lib/firmware/intel", name=f"{folder}-v{pkgver}"
         )
         self.install_link(
-            f"{folder}-v{pkgver}", f"usr/lib/firmware/intel/{folder}"
+            f"usr/lib/firmware/intel/{folder}", f"{folder}-v{pkgver}"
         )
     self.install_license("LICENCE.NXP")
     self.install_license("LICENCE.Intel")

@@ -323,10 +323,10 @@ def do_install(self):
 
     self.install_dir("usr/bin")
     self.install_link(
-        "../lib/chromium/chromium-launcher.sh", "usr/bin/chromium-browser"
+        "usr/bin/chromium-browser", "../lib/chromium/chromium-launcher.sh"
     )
-    self.install_link("../lib/chromium/chromedriver", "usr/bin/chromedriver")
-    self.install_link("chromium-browser", "usr/bin/chromium")
+    self.install_link("usr/bin/chromedriver", "../lib/chromium/chromedriver")
+    self.install_link("usr/bin/chromium", "chromium-browser")
 
     # desktop file, manpage etc
     self.do("./pp-data.sh")

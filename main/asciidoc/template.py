@@ -27,5 +27,5 @@ def post_install(self):
     for f in (self.destdir / "usr/lib").glob("python*"):
         adpath = f / "site-packages/asciidoc/resources"
         self.install_link(
-            f"../{adpath.relative_to(self.destdir)}", "etc/asciidoc"
+            "etc/asciidoc", f"../{adpath.relative_to(self.destdir)}"
         )

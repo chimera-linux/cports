@@ -38,7 +38,7 @@ def init_configure(self):
 
 
 def post_install(self):
-    self.install_link("wish8.6", "usr/bin/wish")
+    self.install_link("usr/bin/wish", "wish8.6")
     self.install_license("../license.terms")
 
 

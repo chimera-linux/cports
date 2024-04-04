@@ -24,7 +24,7 @@ options = ["!check"]
 
 
 def post_install(self):
-    self.install_link("libgpm.so.2.1.0", "usr/lib/libgpm.so")
+    self.install_link("usr/lib/libgpm.so", "libgpm.so.2.1.0")
     self.install_service(self.files_path / "gpm")
     self.install_file(self.files_path / "gpm.sh", "etc/profile.d")
 

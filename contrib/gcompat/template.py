@@ -62,5 +62,5 @@ def post_install(self):
     self.install_license("LICENSE")
     # compat links
     ws = self.profile().wordsize
-    self.install_link("lib", f"lib{ws}")
-    self.install_link("lib", f"usr/lib{ws}")
+    self.install_link(f"lib{ws}", "lib")
+    self.install_link(f"usr/lib{ws}", "lib")

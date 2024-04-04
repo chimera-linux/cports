@@ -28,7 +28,7 @@ def post_install(self):
     for f in (self.destdir / "usr/lib").glob("python3*"):
         self.rm(f / "site-packages/pycparser/ply", recursive=True)
         self.install_link(
-            "../ply",
             str(f.relative_to(self.destdir) / "site-packages/pycparser/ply"),
+            "../ply",
         )
     self.install_license("LICENSE")
