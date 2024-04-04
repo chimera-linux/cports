@@ -57,7 +57,7 @@ def post_install(self):
         self.cwd / self.make_dir / "user_facing_tool_links.txt", "r"
     ) as f:
         for line in f.readlines():
-            a, b = *line.split()
+            a, b = line.split()
             self.install_link(b, a)
 
 
