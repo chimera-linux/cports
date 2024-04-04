@@ -11,7 +11,7 @@ configure_args = [
     "--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt",
 ]
 configure_gen = []
-hostmakedepends = ["pkgconf", "gettext"]
+hostmakedepends = ["pkgconf", "gettext", "trousers-devel"]
 makedepends = [
     "libgpg-error-devel",
     "libidn2-devel",
