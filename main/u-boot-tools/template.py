@@ -17,6 +17,7 @@ hostmakedepends = [
     "flex",
     "python",
     "swig",
+    "python-devel",
     "python-setuptools",
 ]
 makedepends = [
