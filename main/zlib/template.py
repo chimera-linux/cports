@@ -10,7 +10,8 @@ url = "https://www.zlib.net"
 source = f"{url}/fossils/{pkgname}-{pkgver}.tar.gz"
 sha256 = "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23"
 tool_flags = {"CFLAGS": ["-fPIC"]}
-options = ["bootstrap", "linkundefver"]
+# cross build broken
+options = ["bootstrap", "linkundefver", "!cross"]
 
 
 def do_configure(self):
