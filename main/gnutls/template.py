@@ -11,7 +11,7 @@ configure_args = [
     "--with-zlib",
 ]
 configure_gen = []
-hostmakedepends = ["pkgconf", "gettext"]
+hostmakedepends = ["pkgconf", "gettext", "trousers-devel"]
 makedepends = [
     "libgpg-error-devel",
     "libidn2-devel",
