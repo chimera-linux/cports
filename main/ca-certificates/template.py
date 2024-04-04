@@ -1,6 +1,6 @@
 pkgname = "ca-certificates"
 pkgver = "20240203"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_use_env = True
 hostmakedepends = ["openssl"]
@@ -63,7 +63,7 @@ def post_install(self):
             ofile.write(str(f.relative_to(cpath)))
             ofile.write("\n")
 
-    self.install_link("etc/ssl/certs.pem", "/etc/ssl/certs/ca-certificates.crt")
+    self.install_link("etc/ssl/certs.pem", "certs/ca-certificates.crt")
     self.rm(self.destdir / "usr/sbin")
 
     self.install_dir("etc/ca-certificates/update.d")
