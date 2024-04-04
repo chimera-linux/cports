@@ -4,8 +4,6 @@ pkgrel = 0
 build_style = "cmake"
 _luaver = "5.4"
 configure_args = [
-    "-DCMAKE_BUILD_TYPE=RELEASE",
-    "-DCMAKE_INSTALL_PREFIX=/usr",
     "-DSYSCONFDIR=/etc",
 ]
 hostmakedepends = [
