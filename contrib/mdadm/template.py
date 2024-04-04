@@ -1,0 +1,13 @@
+pkgname = "mdadm"
+pkgver = "4.2"
+pkgrel = 0
+build_style = "gnu_configure"
+make_cmd = "gmake"
+hostmakedepends = ["gmake", "automake"]
+makedepends = ["linux-headers"]
+pkgdesc = "Tool for managing Linux Software RAID arrays"
+maintainer = "Neil Brown <neilb@cse.unsw.edu.au>"
+license = "GPL-2.0-only"
+url = "https://raid.wiki.kernel.org/index.php/A_guide_to_mdadm"
+source = "https://www.kernel.org/pub/linux/utils/raid/mdadm/mdadm-4.2.tar.xz"
+sha256 = "461c215670864bb74a4d1a3620684aa2b2f8296dffa06743f26dda5557acf01d"
