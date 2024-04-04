@@ -1,0 +1,43 @@
+diff --git a/compiler-rt/CMakeLists.txt b/compiler-rt/CMakeLists.txt
+index 5ef720f24..80305e32c 100644
+--- a/compiler-rt/CMakeLists.txt
++++ b/compiler-rt/CMakeLists.txt
+@@ -88,20 +88,7 @@ if (COMPILER_RT_STANDALONE_BUILD)
+     set_target_properties(intrinsics_gen PROPERTIES FOLDER "Compiler-RT Misc")
+   endif()
+ 
+-  find_package(Python3 COMPONENTS Interpreter)
+-  if(NOT Python3_Interpreter_FOUND)
+-    message(WARNING "Python3 not found, using python2 as a fallback")
+-    find_package(Python2 COMPONENTS Interpreter REQUIRED)
+-    if(Python2_VERSION VERSION_LESS 2.7)
+-      message(SEND_ERROR "Python 2.7 or newer is required")
+-    endif()
+-
+-    # Treat python2 as python3
+-    add_executable(Python3::Interpreter IMPORTED)
+-    set_target_properties(Python3::Interpreter PROPERTIES
+-      IMPORTED_LOCATION ${Python2_EXECUTABLE})
+-    set(Python3_EXECUTABLE ${Python2_EXECUTABLE})
+-  endif()
++  set(Python3_EXECUTABLE "/usr/bin/python3")
+ 
+   # Ensure that fat libraries are built correctly on Darwin
+   if(APPLE)
+
+diff --git a/runtimes/CMakeLists.txt b/runtimes/CMakeLists.txt
+index 5995298..d94db35 100644
+--- a/runtimes/CMakeLists.txt
++++ b/runtimes/CMakeLists.txt
+@@ -155,7 +155,7 @@ set(LLVM_COMPILER_CHECKED ON)
+ include(AddLLVM)
+ include(HandleLLVMOptions)
+ 
+-find_package(Python3 REQUIRED COMPONENTS Interpreter)
++set(Python3_EXECUTABLE "/usr/bin/python3")
+ 
+ # Host triple is used by tests to check if they are running natively.
+ include(GetHostTriple)
+-- 
+2.42.0
+
