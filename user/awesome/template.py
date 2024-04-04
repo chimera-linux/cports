@@ -5,6 +5,7 @@ build_style = "cmake"
 _luaver = "5.4"
 configure_args = [
     "-DSYSCONFDIR=/etc",
+    f"-DOVERRIDE_VERSION={pkgver}",
 ]
 hostmakedepends = [
     "asciidoctor",
