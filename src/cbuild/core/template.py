@@ -1569,7 +1569,9 @@ class Template(Package):
     def install_shell(self, *args):
         self.install_dir("etc/shells.d")
         for s in args:
-            self.install_link(f"etc/shells.d/{os.path.basename(s)}", s)
+            self.install_link(
+                f"etc/shells.d/{os.path.basename(s)}", s, absolute=True
+            )
 
 
 def _default_take_extra(self, extra):
