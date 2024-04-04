@@ -164,11 +164,14 @@ def do_install(self):
     self.install_link(f"{_java_base}/default", _java_name)
 
     for f in (self.destdir / _java_home / "bin").iterdir():
-        self.install_link(f"usr/bin/{f.name}", f"../lib/jvm/{_java_name}/bin/{f.name}")
+        self.install_link(
+            f"usr/bin/{f.name}", f"../lib/jvm/{_java_name}/bin/{f.name}"
+        )
 
     for f in (self.destdir / _java_home / "man/man1").iterdir():
         self.install_link(
-            f"usr/share/man/man1/{f.name}", f"../../../lib/jvm/{_java_name}/man/man1/{f.name}"
+            f"usr/share/man/man1/{f.name}",
+            f"../../../lib/jvm/{_java_name}/man/man1/{f.name}",
         )
 
 
