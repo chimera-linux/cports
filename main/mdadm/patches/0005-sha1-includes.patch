@@ -1,0 +1,40 @@
+Author: Michael Tokarev <mjt@tls.msk.ru>
+Description: Do not #include ansidecl.h from sha1.h, use system headers.
+ In 3.2.5 version of mdadm, new sha1 implementation has been included
+ which tries to include ansidecl.h header which is internal to some
+ other project. But this #include isn't really necessary, since this
+ implementation does not actually use any defines from ansidecl.h. So
+ just remove the #include, instead of adding a new external dependency.
+ .
+ References: http://www.spinics.net/lists/raid/msg38859.html
+ .
+ While at it, unconditionally include system headers like limits.h and
+ stdint.h, since on a Linux system these headers are available, and
+ these contains definitive information about real system types than
+ any guesses.
+
+diff -Naurp mdadm.orig/sha1.h mdadm/sha1.h
+--- mdadm.orig/sha1.h
++++ mdadm/sha1.h
+@@ -22,7 +22,7 @@
+ 
+ #include <stdio.h>
+ 
+-#if defined HAVE_LIMITS_H || _LIBC
++#if 1 /* defined HAVE_LIMITS_H || _LIBC */
+ # include <limits.h>
+ #endif
+ 
+@@ -33,9 +33,9 @@
+    the resulting executable.  Locally running cross-compiled executables
+    is usually not possible.  */
+ 
+-#ifdef _LIBC
+-# include <sys/types.h>
+-typedef u_int32_t sha1_uint32;
++#if 1 /* def _LIBC */
++# include <stdint.h>
++typedef uint32_t sha1_uint32;
+ typedef uintptr_t sha1_uintptr;
+ #else
+ #  define INT_MAX_32_BITS 2147483647

@@ -1,0 +1,17 @@
+Author: Felix Lechner <felix.lechner@lease-up.com>
+Description: Add host name to default MAILFROM (Closes: #1006464).
+ The host on which the error occurred is mentioned in the subject and also in
+ the message body, but some may find it useful in the From address, as well.
+
+diff -Naurp mdadm.orig/Monitor.c mdadm/Monitor.c
+--- mdadm.orig/Monitor.c
++++ mdadm/Monitor.c
+@@ -627,7 +627,7 @@ static void send_event_email(const struc
+ 	if (info.mailfrom)
+ 		fprintf(mp, "From: %s\n", info.mailfrom);
+ 	else
+-		fprintf(mp, "From: %s monitoring <root>\n", Name);
+++		fprintf(mp, "From: %s monitoring <root@%s>\n", Name, info.hostname);
+ 	fprintf(mp, "To: %s\n", info.mailaddr);
+ 	fprintf(mp, "Subject: %s event on %s:%s\n\n", data->event_name, data->dev, info.hostname);
+ 	fprintf(mp, "This is an automatically generated mail message.\n");

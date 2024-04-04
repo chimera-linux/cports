@@ -1,0 +1,6 @@
+# mdadm service
+
+type       = process
+command    = /usr/bin/mdadm --monitor --scan --syslog
+depends-on = local.target
+depends-on = pre-network.target

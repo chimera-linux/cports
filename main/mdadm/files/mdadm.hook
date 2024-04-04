@@ -1,0 +1,97 @@
+#!/bin/sh
+#
+# Copyright © 2006-2008 Martin F. Krafft <madduck@debian.org>,
+#             2012 Michael Tokarev <mjt@tls.msk.ru>
+# based on the scripts in the initramfs-tools package.
+# released under the terms of the Artistic Licence.
+# Adapted for Chimera Linux by q66 <q66@chimera-linux.org>
+#
+set -eu
+
+PREREQ="udev"
+
+prereqs() {
+    echo "$PREREQ"
+}
+
+case "${1:-}" in
+    prereqs)
+        prereqs
+        exit 0
+        ;;
+esac
+
+is_true() {
+    case "${1:-}" in
+        [Yy]es|[Yy]|1|[Tt]rue|[Tt]) return 0;;
+        *) return 1;;
+    esac
+}
+
+write() {
+    local PREFIX; PREFIX=$1; shift
+    echo "${PREFIX}: mdadm: $@" >&2
+}
+
+info() {
+    is_true ${VERBOSE:-false} && write I "$@" || :
+}
+
+warn() {
+    write W "$@"
+}
+
+. /usr/share/initramfs-tools/hook-functions
+
+# check mdadm configuration, exit if we have none
+CONFIG=/etc/mdadm.conf
+ALTCONFIG=/etc/mdadm/mdadm.conf
+DESTMDADMCONF=$DESTDIR/etc/mdadm.conf
+[ ! -f "$CONFIG" ] && [ -f "$ALTCONFIG" ] && CONFIG="$ALTCONFIG" || :
+
+# no config, exit
+if [ ! -f "$CONFIG" ]; then
+    exit 0
+fi
+
+# no array in config
+if ! grep -q '^ARRAY' "$CONFIG"; then
+    exit 0
+fi
+
+# copy the binary as early as possible
+copy_exec /usr/bin/mdadm
+copy_exec /usr/bin/mdmon
+
+# Copy udev rules, which udev no longer does
+for UDEV_RULE in 63-md-raid-arrays.rules 64-md-raid-assembly.rules; do
+    for rules_folder in /usr/lib/udev/rules.d /etc/udev/rules.d; do
+        if [ -f "${rules_folder}/${UDEV_RULE}" ]; then
+            mkdir -p "${DESTDIR}${rules_folder}"
+            cp "${rules_folder}/$UDEV_RULE" "${DESTDIR}${rules_folder}/$UDEV_RULE"
+        fi
+    done
+done
+
+# load raid modules in the initramfs
+for module in linear multipath raid0 raid1 raid456 raid5 raid6 raid10; do
+    force_load $module
+done
+
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=962844
+if [ -e /sys/firmware/efi ]; then
+    force_load efivarfs || true
+fi
+
+# copy config
+mkdir -p "${DESTDIR}/etc/mdadm"
+cp -p "$CONFIG" "${DESTDIR}/etc/mdadm"
+sed -i '' '/^CREATE/s/^/#/' "$DESTMDADMCONF"
+
+# make sure the configuration file knows about all running devices
+/usr/bin/mdadm --detail --scan | while read array device params; do
+    uuid=${params#*UUID=}; uuid=${uuid%% *}
+    if grep -qi "UUID=$uuid" "$DESTMDADMCONF"; then
+        info "$uuid $device added to the mdadm.conf in the initramfs"
+    fi
+done
