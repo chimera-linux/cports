@@ -44,7 +44,8 @@ sha256 = "9c21645feac182611e28b47769d5f613cb9e2ecab58ece60b10e6c55a9ead575"
 # FIXME cfi
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
-options = ["!check"]
+# libbtrfsutils/python broken on cross
+options = ["!check", "!cross"]
 
 
 def post_install(self):
