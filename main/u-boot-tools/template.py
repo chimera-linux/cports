@@ -82,8 +82,7 @@ def do_install(self):
         "proftool",
         "spl_size_limit",
         "env/fw_printenv",
-        "env/fw_setenv",
     ]:
         self.install_bin(f"tools/{t}")
     # extras
-    self.make_link("usr/bin/fw_setenv", "fw_printenv")
+    self.install_link("usr/bin/fw_setenv", "fw_printenv")
