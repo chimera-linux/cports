@@ -264,7 +264,7 @@ def do_install(self):
     self.rm(self.destdir / "usr/bin/thunderbird")
     # default launcher
     self.install_link(
-        "usr/bin/thunderbird-default", "/usr/lib/thunderbird/thunderbird"
+        "usr/bin/thunderbird-default", "../lib/thunderbird/thunderbird"
     )
     # wayland launcher
     self.install_file(
@@ -274,7 +274,7 @@ def do_install(self):
     )
     self.install_link(
         "usr/bin/thunderbird-wayland",
-        "/usr/lib/thunderbird/thunderbird-wayland",
+        "../lib/thunderbird/thunderbird-wayland",
     )
 
 
