@@ -1553,13 +1553,17 @@ class Template(Package):
     def install_svscript(self, src, name=None):
         self.install_file(src, "etc/dinit.d/scripts", mode=0o755, name=name)
 
-    def install_link(self, dest, tgt):
+    def install_link(self, dest, tgt, absolute=False):
         dest = pathlib.Path(dest)
         if dest.is_absolute():
             raise errors.TracebackException(
                 f"install_link: path '{dest}' must not be absolute"
             )
         dest = self.destdir / dest
+        if not absolute and str(tgt).startswith("/"):
+            raise errors.TracebackException(
+                f"install_link: target '{tgt}' must not be absolute"
+            )
         dest.symlink_to(tgt)
 
     def install_shell(self, *args):

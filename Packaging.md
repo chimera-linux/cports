@@ -2988,9 +2988,10 @@ If `enable` is `True`, the service will be implicitly enabled as system service.
 
 Equivalent to `self.install_file(src, "etc/dinit.d/scripts", 0o755, name)`.
 
-##### def install_link(self, dest, tgt)
+##### def install_link(self, dest, tgt, absolute=False)
 
-Creates a symbolic link at `dest`, pointing to `tgt`.
+Creates a symbolic link at `dest`, pointing to `tgt`. The `tgt` should be
+a relative target unless `absolute` is `True`.
 
 Usage:
 
