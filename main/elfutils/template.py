@@ -46,7 +46,7 @@ source = (
 )
 sha256 = "df76db71366d1d708365fc7a6c60ca48398f14367eb2b8954efc8897147ad871"
 tool_flags = {
-    "CFLAGS": ["-D_GNU_SOURCE"],
+    "CFLAGS": ["-D_GNU_SOURCE", "-Wno-unaligned-access"],
     "LDFLAGS": ["-Wl,-z,stack-size=2097152"],
 }
 
