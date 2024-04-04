@@ -7,6 +7,7 @@ configure_args = [
     "-DSYSCONFDIR=/etc",
 ]
 hostmakedepends = [
+    "asciidoctor",
     "cmake",
     "imagemagick",
     "ninja",
