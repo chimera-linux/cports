@@ -13,7 +13,7 @@ configure_args = [
     "BUILD_LDFLAGS=",
     "ac_cv_search_crypt=no",
 ]
-hostmakedepends = ["pkgconf", "automake", "libtool", "gettext"]
+hostmakedepends = ["pkgconf", "automake", "libtool", "gettext-devel"]
 makedepends = ["gettext-devel", "libfl-devel-static", "linux-headers"]
 checkdepends = ["linux-pam-base"]
 depends = ["linux-pam-base"]
