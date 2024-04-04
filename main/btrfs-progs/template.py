@@ -43,7 +43,8 @@ source = (
 sha256 = "43865bb272dc0ab2585de3605434d81ba217578f0897bf700cd36c14ac40652a"
 hardening = ["vis", "!cfi"]
 # non-portable testsuite assumptions, possibly FIXME
-options = ["!check"]
+# libbtrfsutils/python broken on cross
+options = ["!check", "!cross"]
 
 
 def post_install(self):
