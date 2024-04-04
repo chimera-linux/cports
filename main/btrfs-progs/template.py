@@ -14,6 +14,7 @@ hostmakedepends = [
     "gmake",
     "libxml2-progs",
     "pkgconf",
+    "python-devel",
     "python-setuptools",
     "python-sphinx",
     "python-sphinx_rtd_theme",
