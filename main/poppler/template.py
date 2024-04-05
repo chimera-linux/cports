@@ -1,5 +1,6 @@
 pkgname = "poppler"
-pkgver = "24.03.0"
+pkgver = "24.04.0"
+_test_commit = "400f3ff05b2b1c0ae17797a0bd50e75e35c1f1b1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -35,10 +36,21 @@ pkgdesc = "PDF rendering library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only OR GPL-3.0-only"
 url = "https://poppler.freedesktop.org"
-source = f"{url}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "bafbf0db5713dec25b5d16eb2cd87e4a62351cdc40f050c3937cd8dd6882d446"
-# needs unshipped sample files
-options = ["!check"]
+source = [
+    f"{url}/{pkgname}-{pkgver}.tar.xz",
+    f"https://gitlab.freedesktop.org/poppler/test/-/archive/{_test_commit}/test-{_test_commit}.tar.gz",
+]
+source_paths = [".", "testdata"]
+sha256 = [
+    "1e804ec565acf7126eb2e9bb3b56422ab2039f7e05863a5dfabdd1ffd1bb77a7",
+    "0d850a1d06944671c991be6822b7146ade401b06aad560ff39b254a028074525",
+]
+
+
+def init_configure(self):
+    self.configure_args.append(
+        f"-DTESTDATADIR=/builddir/{self.wrksrc}/testdata"
+    )
 
 
 @subpackage("libpoppler")
