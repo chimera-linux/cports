@@ -1,6 +1,6 @@
 pkgname = "ladspa-sdk"
 pkgver = "1.17"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["gmake"]
 makedepends = ["libsndfile-devel"]
 pkgdesc = "Linux Audio Developer's Simple Plugin API (LADSPA)"
