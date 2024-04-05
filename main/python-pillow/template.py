@@ -1,5 +1,5 @@
 pkgname = "python-pillow"
-pkgver = "10.2.0"
+pkgver = "10.3.0"
 pkgrel = 0
 build_style = "python_pep517"
 make_check_target = "Tests"
@@ -10,13 +10,13 @@ hostmakedepends = [
     "python-wheel",
 ]
 makedepends = [
-    "python-devel",
+    "freetype-devel",
+    "lcms2-devel",
     "libjpeg-turbo-devel",
-    "openjpeg-devel",
     "libtiff-devel",
     "libwebp-devel",
-    "lcms2-devel",
-    "freetype-devel",
+    "openjpeg-devel",
+    "python-devel",
 ]
 depends = ["python"]
 checkdepends = ["python-pytest"]
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:PIL"
 url = "https://python-pillow.org"
 source = f"$(PYPI_SITE)/p/pillow/pillow-{pkgver}.tar.gz"
-sha256 = "e87f0b2c78157e12d7686b27d63c070fd65d994e8ddae6f328e0dcf4a0cd007e"
+sha256 = "9d2455fbf44c914840c793e89aa82d0e1763a14253a000743719ae5946814b2d"
 
 
 def post_install(self):
