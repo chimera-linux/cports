@@ -1,0 +1,14 @@
+`timeout` needs `python-pytest-timeout`, and the `cov` options need
+`python-pytest-cov`.
+--- a/pyproject.toml	2024-03-07 18:50:41.000000000 +0000
++++ b/pyproject.toml	2024-04-05 12:59:17.458444759 +0100
+@@ -112,8 +112,7 @@
+ 
+ [tool.pytest.ini_options]
+ minversion = "6.0"
+-timeout = 5
+ log_level = "DEBUG"
+ python_files = ["test_*.py"]
+ testpaths = ["tests"]
+-addopts = "-v --tb=short -rxs -W=error --durations=0 --cov=shtab --cov-report=term-missing --cov-report=xml"
++addopts = "-v --tb=short -rxs -W=error --durations=0"
