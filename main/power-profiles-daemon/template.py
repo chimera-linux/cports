@@ -1,12 +1,18 @@
 pkgname = "power-profiles-daemon"
-pkgver = "0.20"
+pkgver = "0.21"
 pkgrel = 0
 build_style = "meson"
-configure_args = ["-Dsystemdsystemunitdir=", "-Dtests=false"]
+configure_args = [
+    "-Dsystemdsystemunitdir=",
+    "-Dtests=false",
+    "-Dzshcomp=/usr/share/zsh/site-functions",
+]
 hostmakedepends = [
     "glib-devel",
     "meson",
     "pkgconf",
+    "python-gobject",
+    "python-shtab",
 ]
 makedepends = [
     "libgudev-devel",
@@ -20,7 +26,7 @@ maintainer = "Val Packett <val@packett.cool>"
 license = "GPL-3.0-or-later"
 url = "https://gitlab.freedesktop.org/upower/power-profiles-daemon"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.bz2"
-sha256 = "24a0bf1a3012c4f49fbe146fed6bce9fbb7b20c92e4123690ff727a376cc3b6c"
+sha256 = "c61a2350e58d51d4d6e58a61cf2aaa9b307ce42f16c40c4ece0bf1ed6d020506"
 hardening = ["vis"]
 # TODO: fix checks
 options = ["!check"]
