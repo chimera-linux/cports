@@ -1,6 +1,6 @@
 pkgname = "chromaprint"
 pkgver = "1.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DBUILD_TOOLS=ON"]
 make_check_target = "check"
