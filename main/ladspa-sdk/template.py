@@ -32,7 +32,7 @@ def do_install(self):
     self.install_dir("usr/share/doc")
     self.cp("doc", self.destdir / "usr/share/doc/ladspa-sdk", recursive=True)
     self.install_link(
-        "usr/share/doc/ladspa-sdk/ladspa.h.txt", "/usr/include/ladspa.h"
+        "usr/share/doc/ladspa-sdk/ladspa.h.txt", "../../../include/ladspa.h"
     )
 
 
