@@ -17,7 +17,7 @@ index 5baefa1..dfc7258 100644
  User=root
  SystemdService=power-profiles-daemon.service
 diff --git a/src/power-profiles-daemon.c b/src/power-profiles-daemon.c
-index eb673cf..eb84caa 100644
+index 73ca470..4d64b52 100644
 --- a/src/power-profiles-daemon.c
 +++ b/src/power-profiles-daemon.c
 @@ -12,6 +12,7 @@
@@ -28,16 +28,16 @@ index eb673cf..eb84caa 100644
  #include <glib-unix.h>
  #include <locale.h>
  #include <polkit/polkit.h>
-@@ -1351,6 +1352,7 @@ int main (int argc, char **argv)
-     { "replace", 'r', 0, G_OPTION_ARG_NONE, &replace, "Replace the running instance of power-profiles-daemon", NULL },
-     { NULL}
-   };
+@@ -1734,6 +1735,7 @@ int main (int argc, char **argv)
+   g_autoptr(PpdApp) data = NULL;
+   g_autoptr(GOptionContext) option_context = NULL;
+   g_autoptr(GError) error = NULL;
 +  const char *rvar;
  
-   setlocale (LC_ALL, "");
-   option_context = g_option_context_new ("");
-@@ -1389,6 +1391,15 @@ int main (int argc, char **argv)
-     return 1;
+   debug_options->log_level = G_LOG_LEVEL_MESSAGE;
+   debug_options->group = g_option_group_new ("debug",
+@@ -1779,6 +1781,15 @@ int main (int argc, char **argv)
+     return EXIT_FAILURE;
    }
  
 +  rvar = g_getenv("PPD_READY_FD");
