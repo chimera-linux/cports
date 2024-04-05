@@ -1,6 +1,6 @@
 pkgname = "fonts-dejavu"
 pkgver = "2.37"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "full-otf"
@@ -36,7 +36,7 @@ def do_install(self):
         self.install_file(f, "usr/share/fontconfig/conf.avail")
         self.install_link(
             f"etc/fonts/conf.d/{f.name}",
-            f"/usr/share/fontconfig/conf.avail/{f.name}",
+            f"../../../usr/share/fontconfig/conf.avail/{f.name}",
         )
 
 
