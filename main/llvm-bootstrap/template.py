@@ -102,7 +102,7 @@ configure_args += [
 
 def post_install(self):
     # otherwise it'd use /usr/bin/ld by default
-    self.install_link("ld.lld", "usr/lib/llvm-bootstrap/bin/ld")
+    self.install_link("usr/lib/llvm-bootstrap/bin/ld", "ld.lld")
     # cc/c++ symlinks
-    self.install_link("clang", "usr/lib/llvm-bootstrap/bin/cc")
-    self.install_link("clang++", "usr/lib/llvm-bootstrap/bin/c++")
+    self.install_link("usr/lib/llvm-bootstrap/bin/cc", "clang")
+    self.install_link("usr/lib/llvm-bootstrap/bin/c++", "clang++")
