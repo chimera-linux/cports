@@ -1,0 +1,64 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 5f86cac..95e2d39 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -787,25 +787,6 @@ dependencies = [
+  "nu-ansi-term",
+ ]
+ 
+-[[package]]
+-name = "lua-src"
+-version = "546.0.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2da0daa7eee611a4c30c8f5ee31af55266e26e573971ba9336d2993e2da129b2"
+-dependencies = [
+- "cc",
+-]
+-
+-[[package]]
+-name = "luajit-src"
+-version = "210.5.7+d06beb0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "0d251fdacdabbf87704cf48ac1f8b1eb23d6e10855c3ee08e5beb25b4be2e9e4"
+-dependencies = [
+- "cc",
+- "which",
+-]
+-
+ [[package]]
+ name = "memchr"
+ version = "2.7.1"
+@@ -857,9 +838,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "mlua"
+-version = "0.9.6"
++version = "0.9.7"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "868d02cb5eb97761bbf6bd6922c1c7a88b8ea252bbf43bd8350a0bf8497a1fc0"
++checksum = "6d9bed6bce296397a9d6a86f995dd10a547a4e6949825d45225906bdcbfe7367"
+ dependencies = [
+  "bstr",
+  "erased-serde",
+@@ -879,8 +860,6 @@ checksum = "2847b42764435201d8cbee1f517edb79c4cca4181877b90047587c89e1b7bce4"
+ dependencies = [
+  "cc",
+  "cfg-if",
+- "lua-src",
+- "luajit-src",
+  "pkg-config",
+ ]
+ 
+diff --git a/Cargo.toml b/Cargo.toml
+index 6c50de0..953d578 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -73,7 +73,7 @@ features = ['serde']
+ 
+ [dependencies.mlua]
+ version = "0.9.6"
+-features = ['luajit', 'vendored', 'serialize', 'send']
++features = ['luajit', 'serialize', 'send']
+ 
+ [dependencies.tui-input]
+ version = "0.8.0"
