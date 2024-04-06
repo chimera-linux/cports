@@ -1,0 +1,22 @@
+--- a/po/CMakeLists.txt
++++ b/po/CMakeLists.txt
+@@ -1,17 +1,5 @@
+-set(GMOFILES
+-    de.gmo fr.gmo sv.gmo cs.gmo es.gmo ru.gmo
+-	hu.gmo da.gmo it.gmo nl.gmo pt.gmo no.gmo pl.gmo
+-	el.gmo fi.gmo hr.gmo ro.gmo zh_TW.gmo zh_CN.gmo
+-	sk.gmo ca.gmo sl.gmo en_UK.gmo mk.gmo pt_BR.gmo eo.gmo
+-	is.gmo ko.gmo tr.gmo th.gmo he.gmo et.gmo br.gmo ja.gmo)
+-
+-set(CHARSETFILES
+-    de.charset cs.charset pl.charset ru.charset fr.charset
+-    hu.charset ro.charset fi.charset da.charset pt.charset
+-    sk.charset es.charset sv.charset eo.charset no.charset
+-    is.charset hr.charset sl.charset ca.charset he.charset
+-    et.charset it.charset pt_BR.charset br.charset hs.charset)
+-
++set(GMOFILES)
++set(CHARSETFILES)
+ 
+ install(FILES kde.pot DESTINATION ${KDE1_LOCALE})
+ install_kdegmo(${GMOFILES})

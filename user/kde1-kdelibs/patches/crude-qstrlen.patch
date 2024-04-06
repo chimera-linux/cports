@@ -1,0 +1,45 @@
+--- a/kdecore/ksock.h
++++ b/kdecore/ksock.h
+@@ -119,11 +119,19 @@
+ #endif
+ #define NULL 0
+ 
++#ifdef QSTRING_H
++#undef strlen
++#endif
++
+ #include <sys/types.h>
+ #include <sys/socket.h> 
+ #include <sys/un.h>
+ #include <netinet/in.h>
+ 
++#ifdef QSTRING_H
++#define strlen qstrlen
++#endif
++
+ #include <qsocketnotifier.h>
+ 
+ /** 
+--- a/kab/stl_headers.h
++++ b/kab/stl_headers.h
+@@ -19,11 +19,20 @@
+ #define MS_STL_HEADERS_H
+ 
+ #include <config.h>
++
++#ifdef QSTRING_H
++#undef strlen
++#endif
++
+ #include <string>
+ #include <list>
+ #include <iostream>
+ #include <fstream>
+ 
++#ifdef QSTRING_H
++#define strlen qstrlen
++#endif
++
+ using namespace std;
+ 
+ /* The map-header is needed, but declares two global 
