@@ -1,6 +1,6 @@
 pkgname = "obs-studio"
-pkgver = "30.1.1"
-pkgrel = 1
+pkgver = "30.1.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
@@ -61,7 +61,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://obsproject.com"
 source = f"https://github.com/obsproject/obs-studio/archive/refs/tags/{pkgver}.tar.gz"
-sha256 = "7fe7f67d683fb1fdc2fc58b0c07dd75622a6daba36b90959fc5b5d642a293dab"
+sha256 = "490bae1c392b3b344b0270afd8cb887da4bc50bd92c0c426e96713c1ccb9701a"
 # FIXME: cfi
 hardening = ["vis"]
 # don't build with lto
