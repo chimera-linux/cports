@@ -69,7 +69,9 @@ def invoke(pkg):
                 pkg.error(f"invalid so version {autosfx}")
 
             if soname not in soset:
-                asonames.append((soname, autosfx))
+                asonames.append(
+                    (soname, autosfx if not pkg.alternative else "0")
+                )
                 logger.get().out_plain(f"   SONAME {soname} from {fp.parent}")
             else:
                 logger.get().out_plain(

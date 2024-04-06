@@ -54,7 +54,7 @@ def invoke(pkg):
         mver = pcc.stdout.decode().strip()
         mver = re.sub("-(alpha|beta|rc|pre)", "_\\1", mver)
         # fallback
-        if len(mver) == 0:
+        if len(mver) == 0 or pkg.alternative:
             mver = "0"
         elif not cli.check_version(mver):
             # test with apk

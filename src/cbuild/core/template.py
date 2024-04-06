@@ -190,6 +190,7 @@ class Package:
         self.logger = logger.get()
         self.pkgname = None
         self.pkgver = None
+        self.alternative = None
 
     def log(self, msg, end="\n"):
         self.logger.out(self._get_pv() + ": " + msg, end)
@@ -1675,7 +1676,7 @@ autopkgs = [
 
 
 class Subpackage(Package):
-    def __init__(self, name, parent, oldesc=None):
+    def __init__(self, name, parent, oldesc=None, alternative=None):
         super().__init__()
 
         self.pkgname = name
@@ -1686,6 +1687,7 @@ class Subpackage(Package):
         self.pkgrel = parent.pkgrel
         self.statedir = parent.statedir
         self.build_style = parent.build_style
+        self.alternative = alternative
 
         self.destdir = (
             parent.rparent.destdir_base / f"{self.pkgname}-{self.pkgver}"
@@ -2062,13 +2064,15 @@ def from_module(m, ret):
 
     spdupes = {}
     # link subpackages and fill in their fields
-    for spn, spf in ret.subpackages:
+    for spn, spf, spa in ret.subpackages:
+        if spa:
+            spn = f"{spa}-{spn}-default"
         if spn in spdupes:
             ret.error(f"subpackage '{spn}' already exists")
         if spn.lower() != spn:
             ret.error(f"subpackage '{spn}' must be lowercase")
         spdupes[spn] = True
-        sp = Subpackage(spn, ret)
+        sp = Subpackage(spn, ret, alternative=spa)
         pinst = spf(sp)
         if isinstance(pinst, list):
             sp.pkg_install = _subpkg_install_list(sp, pinst)
@@ -2260,11 +2264,11 @@ def read_mod(
 
     ret._target_profile = ret._current_profile
 
-    def subpkg_deco(spkgname, cond=True):
+    def subpkg_deco(spkgname, cond=True, alternative=None):
         def deco(f):
             ret.all_subpackages.append(spkgname)
             if cond:
-                ret.subpackages.append((spkgname, f))
+                ret.subpackages.append((spkgname, f, alternative))
 
         return deco
 

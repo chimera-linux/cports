@@ -47,6 +47,8 @@ def _is_rdep(pn):
         return False
     elif pn.startswith("cmd:"):
         return False
+    elif pn.startswith("alt:"):
+        return False
     elif pn.startswith("virtual:"):
         return False
 
@@ -78,7 +80,11 @@ def setup_depends(pkg, only_names=False):
             ppos = dep.find("!")
             if ppos < 0:
                 pkg.error(f"virtual dependency {dep} has no specified provider")
-            dep = dep[ppos + 1 :]
+            # alternatives need special resolution
+            if dep.startswith("alt:"):
+                dep = f"{dep[4:ppos]}-{dep[ppos + 1 :]}-default"
+            else:
+                dep = dep[ppos + 1 :]
             pn, pv, pop = autil.split_pkg_name(dep)
 
         if only_names:

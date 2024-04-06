@@ -26,7 +26,10 @@ def invoke(pkg):
         if any(v in f.name for v in "[]=<>~"):
             continue
         logger.get().out_plain(f"   cmd: {f.name} from usr/bin")
-        cmds.append(f.name + f"={pkg.pkgver}-r{pkg.pkgrel}")
+        if pkg.alternative:
+            cmds.append(f.name + "=0")
+        else:
+            cmds.append(f.name + f"={pkg.pkgver}-r{pkg.pkgrel}")
 
     cmds.sort()
 

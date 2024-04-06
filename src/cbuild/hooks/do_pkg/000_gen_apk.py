@@ -25,6 +25,11 @@ def genpkg(pkg, repo, arch, binpkg):
 
     repo.mkdir(parents=True, exist_ok=True)
 
+    origin = pkg.origin
+    if pkg.alternative:
+        # extract from the name instead
+        origin = f"alt:{pkg.alternative}"
+
     pargs = [
         "--info",
         f"name:{pkg.pkgname}",
@@ -37,7 +42,7 @@ def genpkg(pkg, repo, arch, binpkg):
         "--info",
         f"license:{pkg.license}",
         "--info",
-        f"origin:{pkg.origin}",
+        f"origin:{origin}",
         "--info",
         f"maintainer:{pkg.rparent.maintainer}",
         "--info",
@@ -86,6 +91,10 @@ def genpkg(pkg, repo, arch, binpkg):
 
     # providers
     provides = []
+
+    # alternatives provider
+    if pkg.alternative:
+        provides += [f"{origin}=0"]
 
     # explicit provides
     provides += sorted(pkg.provides)
