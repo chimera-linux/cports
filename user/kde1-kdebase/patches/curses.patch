@@ -1,0 +1,11 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -60,7 +60,7 @@ if (ENABLE_SANITIZERS)
+ endif()
+ 
+ find_package(PkgConfig REQUIRED)
+-pkg_check_modules(CURSES ncurses)
++pkg_check_modules(CURSES ncursesw)
+ 
+ create_kde1_config_header()
+ 

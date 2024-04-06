@@ -1,0 +1,21 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -62,8 +62,6 @@ endif()
+ find_package(PkgConfig REQUIRED)
+ pkg_check_modules(CURSES ncurses)
+ 
+-pkg_check_modules(libcrypt IMPORTED_TARGET libcrypt)
+-
+ create_kde1_config_header()
+ 
+ if(ENABLE_COMPAT)
+--- a/kdm/CMakeLists.txt
++++ b/kdm/CMakeLists.txt
+@@ -61,7 +61,6 @@ target_link_libraries(kdm
+     X11::X11
+     X11::Xdmcp
+     X11::Xau
+-    PkgConfig::libcrypt
+     ${PAM_LIBRARIES}
+     ${KDE1_KDECORE}
+     ${KDE1_KFILE}
