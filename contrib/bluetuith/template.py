@@ -1,6 +1,6 @@
 pkgname = "bluetuith"
-pkgver = "0.2.1"
-pkgrel = 1
+pkgver = "0.2.2"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 depends = ["bluez"]
@@ -9,7 +9,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/darkhz/bluetuith"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "34b853a2e1ef1c77d06dc761c5e40050763d509cadc98a48e5342154633fffde"
+sha256 = "2a02f51c53668fa3171e642e25f268fc50fbb2438f764956fb7cd46fb786083d"
 # objcopy ppc64le fails
 options = ["!debug"]
 
