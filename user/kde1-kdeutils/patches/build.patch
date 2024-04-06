@@ -1,0 +1,291 @@
+diff --git a/kcalc/kcalc.h b/kcalc/kcalc.h
+index 6b3c56f..f5b2155 100644
+--- a/kcalc/kcalc.h
++++ b/kcalc/kcalc.h
+@@ -205,8 +205,8 @@ public:
+ 
+     QtCalculator( QWidget *parent=0, const char *name=0 );
+ 
+-    void QtCalculator::keyPressEvent( QKeyEvent *e );    
+-    void QtCalculator::keyReleaseEvent( QKeyEvent *e );
++    void keyPressEvent( QKeyEvent *e );    
++    void keyReleaseEvent( QKeyEvent *e );
+     void  closeEvent( QCloseEvent *e );
+     void writeSettings();
+     void readSettings();
+diff --git a/kedit/keditcl1.cpp b/kedit/keditcl1.cpp
+index 876d70f..db7b718 100644
+--- a/kedit/keditcl1.cpp
++++ b/kedit/keditcl1.cpp
+@@ -1511,11 +1511,11 @@ QString KEdit::prefixString(QString string){
+ 
+ void KEdit::mousePressEvent (QMouseEvent* e){
+   if ( e->button() == ScrollUpButton ) {
+-      verticalScrollBar()->setValue(verticalScrollBar()->value() - cellHeight());
++      ((QScrollBar*)verticalScrollBar())->setValue(verticalScrollBar()->value() - cellHeight());
+       return;
+   }
+   if ( e->button() == ScrollDownButton ) {
+-      verticalScrollBar()->setValue(verticalScrollBar()->value() + cellHeight());
++      ((QScrollBar*)verticalScrollBar())->setValue(verticalScrollBar()->value() + cellHeight());
+       return;
+   }
+ 
+diff --git a/kfloppy/mount.c b/kfloppy/mount.c
+index 0139da8..3f669da 100644
+--- a/kfloppy/mount.c
++++ b/kfloppy/mount.c
+@@ -8,6 +8,7 @@
+ 
+ 
+ #include <stdio.h>
++#include <string.h>
+ #include <unistd.h>
+ #include <stdlib.h>
+ #include <errno.h>
+diff --git a/klipper/mykapp.h b/klipper/mykapp.h
+index dd81626..2b5780f 100644
+--- a/klipper/mykapp.h
++++ b/klipper/mykapp.h
+@@ -18,7 +18,7 @@ private:
+ 
+   KGlobalAccel *accel;
+ 
+-  inline bool MyKApplication::x11EventFilter( XEvent *e )
++  inline bool x11EventFilter( XEvent *e )
+   {
+     if ( accel )
+       {
+diff --git a/klipper/toplevel.cpp b/klipper/toplevel.cpp
+index 95e8be6..fcac6bf 100644
+--- a/klipper/toplevel.cpp
++++ b/klipper/toplevel.cpp
+@@ -21,6 +21,8 @@
+ #include <kkeydialog.h>
+ #include <kconfig.h>
+ 
++#include <cmath>
++
+ #define QUIT_ITEM   50
+ #define CONFIG_ITEM 60
+ #define POPUP_ITEM  70
+diff --git a/kpm/details.C b/kpm/details.C
+index 0e219b2..e14dd37 100644
+--- a/kpm/details.C
++++ b/kpm/details.C
+@@ -4,7 +4,7 @@
+ // Author: Mattias Engdegård, 1997
+ 
+ #include <features.h>
+-#if (defined(__GLIBC__) && (__GLIBC__ > 1))
++#if 1
+ // glibc 2 (aka linux libc 6) doesn't use linux kernel headers
+ #define _GNU_SOURCE
+ #include <netinet/tcp.h>
+diff --git a/kpm/svec.C b/kpm/svec.C
+index 94d87ba..d6a92c8 100644
+--- a/kpm/svec.C
++++ b/kpm/svec.C
+@@ -1,7 +1,7 @@
+ // svec.C
+ //
+ // This program is free software. See the file COPYING for details.
+-// Author: Mattias Engdegård, 1997
++// Author: Mattias EngdegÃ¥rd, 1997
+ 
+ // implement a stretchy vector class:
+ // An Svec<T> grows automatically (doubles when full), so that adding
+@@ -9,72 +9,3 @@
+ 
+ #include <qglobal.h>
+ #include "svec.h"
+-
+-template<class T>
+-Svec<T>::Svec(int max)
+-       : alloced(max), used(0)
+-{
+-    vect = (T *)malloc(max * sizeof(T));
+-}
+-
+-template<class T>
+-Svec<T>::Svec(const Svec<T> &s)
+-{
+-    int n = s.size();
+-    vect = (T *)malloc(n * sizeof(T));
+-    alloced = used = n;
+-    for(int i = 0; i < n; i++)
+-	vect[i] = s[i];
+-}
+-
+-template<class T>
+-Svec<T> &Svec<T>::operator=(const Svec<T> &s)
+-{
+-    if(this != &s) {
+-	if(alloced < s.size()) {
+-	    alloced = s.size();
+-	    vect = (T *)realloc(vect, alloced * sizeof(T));
+-	}
+-	for(int i = 0; i < s.size(); i++) {
+-	    vect[i] = s.vect[i];
+-	}
+-	used = s.size();
+-    }
+-    return *this;
+-}
+-
+-template<class T>
+-T &Svec<T>::accessref(int index)
+-{
+-    if(index < 0)
+-	fatal("Svec: index out of range");
+-    while(index >= alloced) grow();
+-    if(index >= used) used = index + 1;
+-    return vect[index];
+-}
+-
+-template<class T>
+-T Svec<T>::access(int index) const
+-{
+-    if(index < 0 || index >= used)
+-	fatal("Svec: index out of range");
+-    return vect[index];
+-}
+-
+-template<class T>
+-void Svec<T>::remove(int index)
+-{
+-    if(index < 0 || index >= used)
+-	fatal("Svec: index out of range");
+-    for(int j = index; j < used - 1; j++)
+-	vect[j] = vect[j + 1];
+-    used--;
+-}
+-
+-template<class T>
+-void Svec<T>::sort(int (*compare)(T *a, T *b))
+-{
+-    qsort(vect, used, sizeof(T), (int (*)(const void *, const void *))compare);
+-}
+-
+-
+diff --git a/kpm/svec.h b/kpm/svec.h
+index db18b29..1d669e2 100644
+--- a/kpm/svec.h
++++ b/kpm/svec.h
+@@ -1,7 +1,7 @@
+ // svec.h					emacs, this is a -*-c++-*- file
+ //
+ // This program is free software. See the file COPYING for details.
+-// Author: Mattias Engdegård, 1997
++// Author: Mattias EngdegÃ¥rd, 1997
+ 
+ #ifndef SVEC_H
+ #define SVEC_H
+@@ -12,28 +12,74 @@ template<class T>
+ class Svec
+ {
+ public:
+-    Svec(int max = 16);
+-    Svec(const Svec<T> &s);
++    Svec(int max = 16)
++       : alloced(max), used(0)
++    {
++        vect = (T *)malloc(max * sizeof(T));
++    }
++    Svec(const Svec<T> &s)
++    {
++        int n = s.size();
++        vect = (T *)malloc(n * sizeof(T));
++        alloced = used = n;
++        for(int i = 0; i < n; i++)
++	    vect[i] = s[i];
++    }
+     ~Svec() {
+         free(vect);
+     }
+ 
+-    Svec<T> &operator=(const Svec<T> &s);
++    Svec<T> &operator=(const Svec<T> &s)
++    {
++        if(this != &s) {
++	    if(alloced < s.size()) {
++	        alloced = s.size();
++	        vect = (T *)realloc(vect, alloced * sizeof(T));
++	    }
++	    for(int i = 0; i < s.size(); i++) {
++	        vect[i] = s.vect[i];
++	    }
++	    used = s.size();
++        }
++        return *this;
++    }
+     int size() const { return used; };
+     T &operator[](int index) {
+ 	return (index < 0 || index >= used) ? accessref(index) : vect[index];};
+     T operator[](int index) const {
+ 	return (index < 0 || index >= used) ? access(index) : vect[index]; };
+-    void sort(int (*compare)(T *a, T *b));
++    void sort(int (*compare)(T *a, T *b))
++    {
++        qsort(vect, used, sizeof(T), (int (*)(const void *, const void *))compare);
++    }
+     void add(T x) { if(++used > alloced) grow(); vect[used - 1] = x; };
+-    void remove(int index);
++    void remove(int index)
++    {
++        if(index < 0 || index >= used)
++	    fatal("Svec: index out of range");
++        for(int j = index; j < used - 1; j++)
++	    vect[j] = vect[j + 1];
++        used--;
++    }
+     void clear() { used = 0; };
+     int allocated_size() const { return alloced; };
+ 
+ private:
+     void grow() { vect = (T *)realloc(vect, (alloced *= 2) * sizeof(T)); };
+-    T &accessref(int index);
+-    T access(int index) const;
++    T &accessref(int index)
++    {
++        if(index < 0)
++	    fatal("Svec: index out of range");
++        while(index >= alloced) grow();
++        if(index >= used) used = index + 1;
++        return vect[index];
++    }
++    T access(int index) const
++    {
++        if(index < 0 || index >= used)
++	    fatal("Svec: index out of range");
++        return vect[index];
++    }
+ 
+     T *vect;
+     int alloced;		// # of entries allocated
+diff --git a/ktop/PerfMonPage.cpp b/ktop/PerfMonPage.cpp
+index 51db131..d85a4e6 100644
+--- a/ktop/PerfMonPage.cpp
++++ b/ktop/PerfMonPage.cpp
+@@ -35,7 +35,7 @@
+ 
+ #include "PerfMonPage.moc"
+ 
+-PerfMonPage::PerfMonPage(QWidget* parent = 0, const char* name = 0)
++PerfMonPage::PerfMonPage(QWidget* parent, const char* name)
+ 	: QWidget(parent, name)
+ {
+ 	noCpus = stat.getCpuCount();
+diff --git a/ktop/ProcListPage.cpp b/ktop/ProcListPage.cpp
+index c3a9959..75016c7 100644
+--- a/ktop/ProcListPage.cpp
++++ b/ktop/ProcListPage.cpp
+@@ -34,7 +34,7 @@
+ 
+ #define NONE -1
+ 
+-ProcListPage::ProcListPage(QWidget* parent = 0, const char* name = 0)
++ProcListPage::ProcListPage(QWidget* parent, const char* name)
+ 	: QWidget(parent, name)
+ {
+ 	// Create the box that will contain the other widgets.
