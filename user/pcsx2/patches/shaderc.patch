@@ -1,0 +1,20 @@
+Patch-Source: https://gitweb.gentoo.org/repo/gentoo.git/commit/games-emulation/pcsx2/files/pcsx2-1.7.5700-vanilla-shaderc.patch?id=fa7a60f4742c5599d49d055bcbece43e3e3a3deb
+--
+This does not exist in normal shaderc and was modified[1] by PCSX2
+for use in their CI/appimage making it impossible to use system's
+(despite they do not bundle it). So not much choices but to remove
+usage.
+
+Partial (for simplification) revert of [2], hopefully temporary.
+
+[1] https://github.com/PCSX2/pcsx2/commit/1cd4ba269854646
+[2] https://github.com/PCSX2/pcsx2/commit/fbfdf1200d27260
+--- a/pcsx2/GS/Renderers/Vulkan/VKShaderCache.cpp
++++ b/pcsx2/GS/Renderers/Vulkan/VKShaderCache.cpp
+@@ -113,6 +113,4 @@
+ 	{
+ 		options.SetGenerateDebugInfo();
+-		if (GSDeviceVK::GetInstance()->GetOptionalExtensions().vk_khr_shader_non_semantic_info)
+-			options.SetEmitNonSemanticDebugInfo();
+ 
+ 		options.SetOptimizationLevel(shaderc_optimization_level_zero);

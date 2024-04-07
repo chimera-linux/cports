@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5684"
+pkgver = "1.7.5734"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -40,6 +40,7 @@ makedepends = [
     "qt6-qttools-devel",
     "rapidyaml-devel",
     "sdl-devel",
+    "shaderc-devel",
     "udev-devel",
     "vulkan-headers",
     "vulkan-loader-devel",
@@ -52,28 +53,24 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "845abfcc55f7136edac098b885f0dbd29ca71869"
-_glslang = "11.12.0"
+_patches = "0f52d8a5eb1cefea8b416532ce6ba225271e267f"
 _gtest = "v1.14.0"
 _fastfloat = "v6.1.1"
 source = [
     f"https://github.com/PCSX2/pcsx2/archive/refs/tags/v{pkgver}.tar.gz",
     f"https://github.com/PCSX2/pcsx2_patches/archive/{_patches}.tar.gz",
-    f"https://github.com/KhronosGroup/glslang/archive/{_glslang}.tar.gz",
     f"https://github.com/google/googletest/archive/refs/tags/{_gtest}.tar.gz",
     f"https://github.com/fastfloat/fast_float/archive/refs/tags/{_fastfloat}.tar.gz",
 ]
 source_paths = [
     ".",
     "patches",
-    "3rdparty/glslang/glslang",
     "3rdparty/gtest",
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "4f69b939a90a5d118942c62de49f4a7aa856c35a141631a6bab64458373ae885",
-    "094e5c4669ce87df4e1e089f1552b76d3c2058c22f686a31e0efbfdf59c049cf",
-    "7795a97450fecd9779f3d821858fbc2d1a3bf1dd602617d95b685ccbcabc302f",
+    "ab4564cb51738c3c2618a26ecce2d3b1bd07cc19934bf4f0f9bd343649ae0042",
+    "e5cd4ab0be0d00ec7a06642903645fbcd406aa9f0ec1f5377044d40b696912a2",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
     "10159a4a58ba95fe9389c3c97fe7de9a543622aa0dcc12dd9356d755e9a94cb4",
 ]
