@@ -1,5 +1,5 @@
 pkgname = "pciutils"
-pkgver = "3.11.1"
+pkgver = "3.12.0"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -23,9 +23,9 @@ depends = ["hwdata-pci"]
 pkgdesc = "PCI bus utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
-url = "http://mj.ucw.cz/pciutils.html"
+url = "https://mj.ucw.cz/sw/pciutils"
 source = f"https://github.com/pciutils/pciutils/archive/v{pkgver}.tar.gz"
-sha256 = "464644e3542a8d3aaf5373a2be6cb9ddfaa583cb39fbafbbedc10ca458fb48a1"
+sha256 = "3a76ca02581fed03d0470ba822e72ee06e492442a990062f9638dec90018505f"
 # no check target
 # ld: error: undefined symbol: pci_alloc ... and so on
 options = ["!check", "!lto"]
