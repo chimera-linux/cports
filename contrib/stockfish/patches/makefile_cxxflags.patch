@@ -1,0 +1,11 @@
+--- old/src/Makefile
++++ new/src/Makefile
+@@ -1048,7 +1048,7 @@ $(EXE): $(OBJS)
+ 	|| test "$(comp)" = "armv7a-linux-androideabi16-clang"  || test "$(comp)" = "aarch64-linux-android21-clang"
+ 
+ $(EXE): $(OBJS)
+-	+$(CXX) -o $@ $(OBJS) $(LDFLAGS)
++	+$(CXX) -o $@ $(OBJS) $(LDFLAGS) $(CXXFLAGS)
+ 
+ # Force recompilation to ensure version info is up-to-date
+ misc.o: FORCE
