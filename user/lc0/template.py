@@ -1,6 +1,6 @@
 pkgname = "lc0"
 pkgver = "0.30.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
