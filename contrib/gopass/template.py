@@ -1,5 +1,5 @@
 pkgname = "gopass"
-pkgver = "1.15.12"
+pkgver = "1.15.13"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -11,7 +11,7 @@ url = "https://www.gopass.pw"
 source = (
     f"https://github.com/gopasspw/gopass/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "803d779bc55aab3c1e0ade85612f287b3007cd5316a7a571314e08b015a95426"
+sha256 = "8f7ee347f517bf66a7d0760e7a5ed6c948d66737559bd04fa8da594801ed9b4f"
 # debug: fails to split on powerpc
 # check: needs initialising git config
 options = ["!debug", "!check"]
