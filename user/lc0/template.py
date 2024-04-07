@@ -24,3 +24,7 @@ sha256 = [
     "c5a11469364d06731b8da09bf9e1989ca6b39695add7d08bd96dd834dd0b5b2a",
     "6de0fd8248369ad1050e6433c6d8d14044e99f53ccf4ffc763ad47c046979237",
 ]
+tool_flags = {"CXXFLAGS": []}
+
+if self.profile().arch == "ppc64":
+    tool_flags["CXXFLAGS"] += ["-DEIGEN_DONT_VECTORIZE"]
