@@ -1,11 +1,11 @@
 pkgname = "snappy"
-pkgver = "1.1.10"
+pkgver = "1.2.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
-    "-DBUILD_SHARED_LIBS=1",
-    "-DSNAPPY_BUILD_TESTS=0",
-    "-DSNAPPY_BUILD_BENCHMARKS=0",
+    "-DBUILD_SHARED_LIBS=ON",
+    "-DSNAPPY_BUILD_TESTS=OFF",
+    "-DSNAPPY_BUILD_BENCHMARKS=OFF",
 ]
 hostmakedepends = ["cmake", "ninja"]
 pkgdesc = "Fast compressor/decompressor"
@@ -13,10 +13,13 @@ maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://google.github.io/snappy"
 source = f"https://github.com/google/snappy/archive/{pkgver}.tar.gz"
-sha256 = "49d831bffcc5f3d01482340fe5af59852ca2fe76c3e05df0e67203ebbe0f1d90"
-tool_flags = {"CXXFLAGS": ["-Wno-sign-compare"]}
+sha256 = "9b8f10fbb5e3bc112f2e5e64f813cb73faea42ec9c533a5023b5ae08aedef42e"
 # tests depend on in-tree gtest
 options = ["!check"]
+
+
+def post_install(self):
+    self.install_license("COPYING")
 
 
 @subpackage("snappy-devel")
