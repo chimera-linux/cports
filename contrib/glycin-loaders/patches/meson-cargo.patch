@@ -1,0 +1,42 @@
+--- a/loaders/meson.build	2024-03-30 22:29:20.000000000 +0000
++++ b/loaders/meson.build	2024-04-06 01:29:01.206154760 +0100
+@@ -26,17 +26,8 @@
+ ]
+ 
+ cargo_env = {
+-  # Don't use $HOME/.cargo/ for this
+-  'CARGO_HOME': meson.project_build_root() / 'cargo',
+   # Gettext translation
+   'LOCALEDIR': get_option('prefix') / get_option('localedir'),
+-  # Git commit for debugging
+-  'GIT_DESCRIBE': run_command(
+-      'git',
+-      '-C', meson.project_source_root(),
+-      'rev-parse', '--short', 'HEAD',
+-      check: false
+-    ).stdout().strip(),
+ }
+ 
+ test_args = []
+@@ -54,21 +45,6 @@
+       cargo_bin, 'build',
+       '--target-dir', target_dir / 'loaders',
+       [cargo_options, [ '--package', loader ]],
+-    ],
+-  )
+-
+-  custom_target(
+-    loader + '-cp-binary',
+-    depends: cargo_build,
+-    build_by_default: true,
+-    build_always_stale: true,
+-    install: true,
+-    install_dir: libexecdir,
+-    output: loader,
+-    command: [
+-      'cp',
+-      target_dir / 'loaders' / rust_target / loader,
+-      '@OUTPUT@',
+     ],
+   )
+ 
