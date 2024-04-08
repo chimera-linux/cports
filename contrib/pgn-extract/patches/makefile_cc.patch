@@ -1,0 +1,11 @@
+--- old/Makefile
++++ new/Makefile
+@@ -44,7 +44,6 @@
+         $(CPPFLAGS) \
+         $(OPTIMISE)
+ 	 
+-CC=gcc
+ LIBS=-lm
+ 
+ # AIX 3.2 Users might like to use these alternatives for CFLAGS and CC.
+Common subdirectories: pgn-extract-22.11/test and pgn-extract-22.11_new/test
