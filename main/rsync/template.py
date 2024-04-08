@@ -1,24 +1,30 @@
 pkgname = "rsync"
-pkgver = "3.2.7"
-pkgrel = 2
+pkgver = "3.3.0"
+pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-rrsync", "--with-included-zlib=no"]
+configure_args = [
+    "--with-rrsync",
+    "--with-included-popt=no",
+    "--with-included-zlib=no",
+]
+# breaks when regened
+configure_gen = []
 hostmakedepends = ["perl", "python-commonmark"]
 makedepends = [
-    "zlib-devel",
     "acl-devel",
+    "lz4-devel",
+    "openssl-devel",
     "popt-devel",
     "xxhash-devel",
-    "lz4-devel",
+    "zlib-devel",
     "zstd-devel",
-    "openssl-devel",
 ]
 pkgdesc = "Fast incremental file transfer tool"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only"
 url = "https://rsync.samba.org"
 source = f"https://www.samba.org/ftp/rsync/src/rsync-{pkgver}.tar.gz"
-sha256 = "4e7d9d3f6ed10878c58c5fb724a67dacf4b6aac7340b13e488fb2dc41346f2bb"
+sha256 = "7399e9a6708c32d678a72a63219e96f23be0be2336e50fd1348498d07041df90"
 # FIXME int: crashes in match_sums (match.c) after a while in partial mode
 hardening = ["vis", "cfi", "!int"]
 
@@ -42,6 +48,3 @@ def post_install(self):
     self.install_bin("support/nameconvert")
     self.install_bin("support/json-rsync-version")
     self.install_bin("support/rsyncstats")
-
-
-configure_gen = []
