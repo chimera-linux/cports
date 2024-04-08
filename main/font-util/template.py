@@ -1,7 +1,8 @@
 pkgname = "font-util"
 pkgver = "1.4.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
+configure_args = ["--with-fontrootdir=${datadir}/fonts"]
 hostmakedepends = [
     "automake",
     "bdftopcf",
