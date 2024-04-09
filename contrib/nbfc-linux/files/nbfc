@@ -1,0 +1,7 @@
+# NoteBook FanControl service
+
+type = process
+command = /usr/bin/nbfc_service
+depends-on = local.target
+logfile = /var/log/nbfc.log
+logile-permissions = 644
