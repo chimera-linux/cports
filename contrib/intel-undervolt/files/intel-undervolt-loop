@@ -1,0 +1,5 @@
+# intel-undervolt daemon service
+
+type = process
+command = /usr/bin/intel-undervolt daemon
+depends-on = local.target
