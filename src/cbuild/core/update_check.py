@@ -100,10 +100,9 @@ class UpdateCheck:
         )
         try:
             f = ureq.urlopen(req, None, 10)
+            ret = f.read().decode("utf-8", "ignore")
         except Exception:
             return None
-
-        ret = f.read().decode("utf-8", "ignore")
 
         self._urlcache[u] = True
 
