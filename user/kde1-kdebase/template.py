@@ -1,6 +1,6 @@
 pkgname = "kde1-kdebase"
 pkgver = "1.1.2"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "4987e047002f9b8364c16fa0e6650717c24bcc7e"
 build_style = "cmake"
 hostmakedepends = [
@@ -25,6 +25,8 @@ makedepends = [
     "openssl-devel",
     "qt1-devel",
 ]
+# for konsole
+depends = ["font-misc-misc"]
 pkgdesc = "KDE1 base applications"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
