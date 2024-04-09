@@ -1,5 +1,5 @@
 pkgname = "python-flask"
-pkgver = "3.0.2"
+pkgver = "3.0.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -21,8 +21,8 @@ maintainer = "firefly-cpp <iztok@iztok.space>"
 license = "MIT"
 url = "https://github.com/pallets/flask"
 source = f"https://github.com/pallets/flask/archive/{pkgver}.tar.gz"
-sha256 = "48843a02c216f7386163b76e9b0d7226716bfbd5155a127cf00ae2094c6c2f16"
+sha256 = "d4d25a9b939b5e0e14b3dbc118805101a01eff0b47b1456b4a775a568af2ecd6"
 
 
 def post_install(self):
-    self.install_license("LICENSE.rst")
+    self.install_license("LICENSE.txt")
