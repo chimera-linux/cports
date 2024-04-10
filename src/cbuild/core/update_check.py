@@ -9,6 +9,8 @@ import importlib.util
 import urllib.request as ureq
 import fnmatch
 import time
+import gzip
+import io
 import re
 
 from cbuild.apk import cli as apkcli
@@ -96,12 +98,21 @@ class UpdateCheck:
             return False
 
         req = ureq.Request(
-            u, None, {"User-Agent": "cbuild-update-check/4.20.69"}
+            u,
+            None,
+            {
+                "User-Agent": "cbuild-update-check/4.20.69",
+                "Accept-Encoding": "gzip",
+            },
         )
         try:
             f = ureq.urlopen(req, None, 10)
-            ret = f.read().decode("utf-8", "ignore")
-        except Exception:
+            if f.info().get("Content-Encoding") == "gzip":
+                resp = gzip.GzipFile(fileobj=io.BytesIO(f.read())).read()
+            else:
+                resp = f.read()
+            ret = resp.decode("utf-8", "ignore")
+        except Exception as e:
             return None
 
         self._urlcache[u] = True
