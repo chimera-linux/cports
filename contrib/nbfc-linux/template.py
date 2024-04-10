@@ -1,6 +1,6 @@
 pkgname = "nbfc-linux"
 pkgver = "0.1.15"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_args = ["confdir=/etc"]
