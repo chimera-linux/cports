@@ -1,5 +1,5 @@
 pkgname = "gmime"
-pkgver = "3.2.13"
+pkgver = "3.2.14"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,7 +28,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/jstedfast/gmime"
 source = f"{url}/releases/download/{pkgver}/gmime-{pkgver}.tar.xz"
-sha256 = "2e10a54d4821daf8b16c019ad5d567e0fb8e766f8ffe5fec3d4c6a37373d6406"
+sha256 = "a5eb3dd675f72e545c8bc1cd12107e4aad2eaec1905eb7b4013cdb1fbe5e2317"
 # vis breaks symbols
 hardening = []
 
