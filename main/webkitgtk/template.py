@@ -1,5 +1,5 @@
 pkgname = "webkitgtk"
-pkgver = "2.44.0"
+pkgver = "2.44.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -91,7 +91,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later AND BSD-2-Clause"
 url = "https://webkitgtk.org"
 source = f"{url}/releases/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c66530e41ba59b1edba4ee89ef20b2188e273bed0497e95084729e3cfbe30c87"
+sha256 = "425b1459b0f04d0600c78d1abb5e7edfa3c060a420f8b231e9a6a2d5d29c5561"
 debug_level = 1  # otherwise LTO link runs out of memory + fat debuginfo
 tool_flags = {
     "CFLAGS": ["-DNDEBUG"],
