@@ -1,5 +1,5 @@
 pkgname = "libcap-ng"
-pkgver = "0.8.4"
+pkgver = "0.8.5"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--without-python3"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://people.redhat.com/sgrubb/libcap-ng"
 source = f"{url}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "68581d3b38e7553cb6f6ddf7813b1fc99e52856f21421f7b477ce5abd2605a8a"
+sha256 = "3ba5294d1cbdfa98afaacfbc00b6af9ed2b83e8a21817185dfd844cc8c7ac6ff"
 
 
 @subpackage("libcap-ng-devel")
