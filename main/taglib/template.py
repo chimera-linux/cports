@@ -1,5 +1,5 @@
 pkgname = "taglib"
-pkgver = "2.0"
+pkgver = "2.0.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -13,7 +13,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later OR MPL-1.1"
 url = "https://taglib.github.io"
 source = f"https://github.com/taglib/taglib/archive/v{pkgver}.tar.gz"
-sha256 = "e36ea877a6370810b97d84cf8f72b1e4ed205149ab3ac8232d44c850f38a2859"
+sha256 = "08c0a27b96aa5c4e23060fe0b6f93102ee9091a9385257b9d0ddcf467de0d925"
 hardening = ["!cfi"]  # TODO
 
 
