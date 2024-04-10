@@ -1,5 +1,5 @@
 pkgname = "libarchive"
-pkgver = "3.7.2"
+pkgver = "3.7.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -26,7 +26,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "http://www.libarchive.org"
 source = f"https://github.com/libarchive/libarchive/releases/download/v{pkgver}/libarchive-{pkgver}.tar.gz"
-sha256 = "df404eb7222cf30b4f8f93828677890a2986b66ff8bf39dac32a804e96ddf104"
+sha256 = "f27a97bc22ceb996e72502df47dc19f99f9a0f09181ae909f09f3c9eb17b67e2"
 # encoding failures on musl; harmless
 options = ["bootstrap", "!check"]
 
