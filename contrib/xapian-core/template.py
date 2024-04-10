@@ -1,5 +1,5 @@
 pkgname = "xapian-core"
-pkgver = "1.4.23"
+pkgver = "1.4.25"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://xapian.org"
 source = f"https://oligarchy.co.uk/xapian/{pkgver}/xapian-core-{pkgver}.tar.xz"
-sha256 = "30d3518172084f310dab86d262b512718a7f9a13635aaa1a188e61dc26b2288c"
+sha256 = "0c99dfdd817571cb5689bc412a7e021407938313f38ea3a70fa3bf86410608ee"
 hardening = ["vis", "cfi"]
 
 
