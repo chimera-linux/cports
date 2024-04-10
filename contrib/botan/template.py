@@ -37,7 +37,7 @@ hardening = ["vis"]
 
 
 if self.profile().arch == "ppc64":
-    configure_args += ["--disable-altivec"]
+    configure_args += ["--disable-modules=aes_power8"]
 
 
 def post_install(self):
