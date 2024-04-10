@@ -1,6 +1,6 @@
 pkgname = "catch2"
-pkgver = "3.5.3"
-pkgrel = 1
+pkgver = "3.5.4"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -15,7 +15,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://github.com/catchorg/Catch2"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8d723b0535c94860ef8cf6231580fa47d67a3416757ecb10639e40d748ab6c71"
+sha256 = "b7754b711242c167d8f60b890695347f90a1ebc95949a045385114165d606dbb"
 # vis breaks symbols
 hardening = ["!vis"]
 
