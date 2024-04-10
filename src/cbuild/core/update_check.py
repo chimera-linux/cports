@@ -112,7 +112,7 @@ class UpdateCheck:
             else:
                 resp = f.read()
             ret = resp.decode("utf-8", "ignore")
-        except Exception as e:
+        except Exception:
             return None
 
         self._urlcache[u] = True
