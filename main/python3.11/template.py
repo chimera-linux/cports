@@ -1,6 +1,6 @@
 pkgname = "python3.11"
 _majver = "3.11"
-pkgver = f"{_majver}.8"
+pkgver = f"{_majver}.9"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -56,7 +56,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Python-2.0"
 url = "https://python.org"
 source = f"https://python.org/ftp/python/{pkgver}/Python-{pkgver}.tar.xz"
-sha256 = "9e06008c8901924395bc1da303eac567a729ae012baa182ab39269f650383bb3"
+sha256 = "9b1e896523fc510691126c864406d9360a3d1e986acbda59cda57b5abda45b87"
 # FIXME int cfi; cfi ftbfs, int fails ctypes test
 # we cannot enable ubsan stuff because there is known UB where tests
 # are just skipped and so on, so be on the safe side for the time being
