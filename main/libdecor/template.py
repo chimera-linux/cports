@@ -1,5 +1,5 @@
 pkgname = "libdecor"
-pkgver = "0.1.1"
+pkgver = "0.2.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -8,18 +8,19 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf", "wayland-progs"]
 makedepends = [
+    "dbus-devel",
+    "gtk+3-devel",
+    "linux-headers",
+    "pango-devel",
     "wayland-devel",
     "wayland-protocols",
-    "pango-devel",
-    "dbus-devel",
-    "linux-headers",
 ]
 pkgdesc = "Decorations library for Wayland clients"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
-url = "https://gitlab.gnome.org/jadahl/libdecor"
+url = "https://gitlab.freedesktop.org/libdecor/libdecor"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "82adece5baeb6194292b0d1a91b4b3d10da41115f352a5e6c5844b20b88a0512"
+sha256 = "40a1d8be07d8b1f66e8fb98a1f4a84549ca6bf992407198a5055952be80a8525"
 
 
 def post_install(self):
