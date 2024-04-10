@@ -36,6 +36,10 @@ sha256 = "71843afcc0a2c585f8f33fa304f0b58ae4b9c5d8306f894667b3746044277557"
 hardening = ["vis"]
 
 
+if self.profile().arch == "ppc64":
+    configure_args += ["--disable-altivec"]
+
+
 def post_install(self):
     self.install_license("license.txt")
 
