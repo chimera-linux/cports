@@ -1,0 +1,8 @@
+# virtchd daemon service
+
+type          = process
+command       = /usr/bin/virtchd
+depends-on    = network.target
+after         = dbus
+depends-on    = local.target
+before        = login.target

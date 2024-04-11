@@ -1,0 +1,8 @@
+# virtnetworkd daemon service
+
+type          = process
+command       = /usr/bin/virtnetworkd
+depends-on    = network.target
+after         = dbus
+depends-on    = local.target
+before        = login.target

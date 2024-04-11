@@ -1,0 +1,10 @@
+# virtqemud daemon service
+
+type          = process
+command       = /usr/bin/virtqemud
+depends-on    = virtlogd
+depends-on    = virtlockd
+depends-on    = network.target
+after         = dbus
+depends-on    = local.target
+before        = login.target
