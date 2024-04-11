@@ -42,7 +42,7 @@ options = ["!check"]
 
 if self.profile().arch == "aarch64":
     # qopengl doesn't have desktop gl functions here
-    self.configure_args += ["-DENABLE_iv=OFF"]
+    configure_args += ["-DENABLE_iv=OFF"]
 
 
 @subpackage("openimageio-progs")
