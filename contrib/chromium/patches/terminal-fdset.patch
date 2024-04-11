@@ -1,0 +1,10 @@
+--- a/third_party/dawn/src/tint/utils/system/terminal_posix.cc
++++ b/third_party/dawn/src/tint/utils/system/terminal_posix.cc
+@@ -37,6 +37,7 @@
+ #include <optional>
+ #include <string_view>
+ #include <utility>
++#include <sys/select.h>
+ 
+ #include "src/tint/utils/containers/vector.h"
+ #include "src/tint/utils/macros/compiler.h"

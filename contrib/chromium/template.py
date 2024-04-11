@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "123.0.6312.105"
+pkgver = "124.0.6367.78"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -136,7 +136,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
-sha256 = "0a14fba1fb1a288d99b188160e3138295aa8604bdf492e62a94c0ec35a4e229d"
+sha256 = "697ea9e8591e0a74deea260a50441711b1ea499ca19e91d6012c5b4d200d1acf"
 debug_level = 0
 tool_flags = {
     "CFLAGS": [
@@ -173,12 +173,15 @@ def post_patch(self):
 
 
 def do_configure(self):
-    # compile gn early so it can be used to generate gni stuff
-    self.do(
-        "./tools/gn/bootstrap/bootstrap.py",
-        f"-j{self.make_jobs}",
-        "--skip-generate-buildfiles",
-    )
+    # gn rebootstrap will fail after unbundle step below
+    with self.stamp("bootstrap_gn") as s:
+        s.check()
+        # compile gn early so it can be used to generate gni stuff
+        self.do(
+            "./tools/gn/bootstrap/bootstrap.py",
+            f"-j{self.make_jobs}",
+            "--skip-generate-buildfiles",
+        )
 
     # where we mess with libvpx configuration, regen the files
     if self.profile().arch == "ppc64le":
