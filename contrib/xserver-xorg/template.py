@@ -1,9 +1,10 @@
 pkgname = "xserver-xorg"
 pkgver = "1.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 depends = [
     "xserver-xorg-minimal",
+    "fonts-xorg",
     # additional utilities and other packages for most users
     "iceauth",
     "setxkbmap",
@@ -39,12 +40,3 @@ pkgdesc = "Default X.org metapackage (with common apps)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://xorg.freedesktop.org"
-
-
-@subpackage("xserver-xorg-fonts")
-def _fonts(self):
-    self.pkgdesc = f"{pkgdesc} (fonts meta)"
-    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
-    self.depends = ["fonts-xorg"]
-
-    return []
