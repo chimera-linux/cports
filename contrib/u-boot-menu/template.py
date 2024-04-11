@@ -1,6 +1,6 @@
 pkgname = "u-boot-menu"
 pkgver = "0.1"
-pkgrel = 0
+pkgrel = 1
 depends = ["base-kernel"]
 pkgdesc = "Common U-Boot boot menu generator for device targets"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -21,5 +21,5 @@ def do_install(self):
     self.install_file(self.files_path / "u-boot", "etc/default")
     # kernel hook
     self.install_file(
-        self.files_path / "99-gen-uboot.sh", "etc/kernel.d", mode=0o755
+        self.files_path / "99-gen-uboot.sh", "usr/lib/kernel.d", mode=0o755
     )
