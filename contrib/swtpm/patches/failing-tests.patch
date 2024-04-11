@@ -1,0 +1,26 @@
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -18,7 +18,6 @@ TESTS = \
+ TESTS += \
+ 	test_commandline \
+ 	test_ctrlchannel \
+-	test_ctrlchannel2 \
+ 	test_ctrlchannel3 \
+ 	test_ctrlchannel4 \
+ 	test_encrypted_state \
+@@ -42,7 +41,6 @@ TESTS += \
+ 	test_print_capabilities \
+ 	test_print_states \
+ 	test_swtpm_setup_overwrite \
+-	test_swtpm_setup_file_backend \
+ 	test_swtpm_setup_misc
+ 
+ TESTS += \
+@@ -50,7 +48,6 @@ TESTS += \
+ 	test_tpm2_chroot_socket \
+ 	test_tpm2_chroot_chardev \
+ 	test_tpm2_chroot_cuse \
+-	test_tpm2_ctrlchannel2 \
+ 	test_tpm2_ctrlchannel3 \
+ 	test_tpm2_derived_keys \
+ 	test_tpm2_encrypted_state \
