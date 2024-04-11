@@ -1,0 +1,12 @@
+diff --git a/src/config.h b/src/config.h
+index e722e98..5535d77 100644
+--- a/src/config.h
++++ b/src/config.h
+@@ -463,3 +463,7 @@ static char *compile_opts =
+ "dumpfile";
+ 
+ #endif /* defined(HAVE_DHCP) */
++#define HAVE_DNSSEC
++#define HAVE_DBUS
++#define HAVE_LIBIDN2
++#define HAVE_CONNTRACK
