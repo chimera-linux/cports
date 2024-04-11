@@ -1705,7 +1705,7 @@ diff --git a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linu
 index 2adc39e122..f2054e99f4 100644
 --- a/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
 +++ b/third_party/breakpad/breakpad/src/client/linux/minidump_writer/linux_ptrace_dumper.cc
-@@ -157,14 +157,23 @@ bool LinuxPtraceDumper::ReadRegisterSet(ThreadInfo* info, pid_t tid)
+@@ -189,12 +189,12 @@
  #ifdef PTRACE_GETREGSET
    struct iovec io;
    info->GetGeneralPurposeRegisters(&io.iov_base, &io.iov_len);
@@ -1717,7 +1717,12 @@ index 2adc39e122..f2054e99f4 100644
    info->GetFloatingPointRegisters(&io.iov_base, &io.iov_len);
 -  if (sys_ptrace(PTRACE_GETREGSET, tid, (void*)NT_FPREGSET, (void*)&io) == -1) {
 +  if (ptrace(PTRACE_GETREGSET, tid, (void*)NT_FPREGSET, (void*)&io) == -1) {
-     return false;
+   // We are going to check if we can read VFP registers on ARM32.
+   // Currently breakpad does not support VFP registers to be a part of minidump,
+   // so this is only to confirm that we can actually read FP registers.
+@@ -214,6 +214,15 @@
+     }
+ #endif  // defined(__arm__)
    }
 +
 +#if defined(__powerpc64__)
@@ -3814,10 +3819,10 @@ index 6a04cbca45..53ef9f998d 100644
    if (v8_enable_webassembly) {
 --- a/third_party/skia/modules/skcms/src/skcms_internals.h
 +++ b/third_party/skia/modules/skcms/src/skcms_internals.h
-@@ -46,7 +46,8 @@
-                                                  && !defined(__EMSCRIPTEN__) \
+@@ -48,7 +48,8 @@
                                                   && !defined(__arm__) \
                                                   && !defined(__riscv) \
+                                                  && !defined(__loongarch__) \
 -                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__)
 +                                                 && !defined(_WIN32) && !defined(__SYMBIAN32__) \
 +                                                 && !defined(__powerpc__)
