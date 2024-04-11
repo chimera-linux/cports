@@ -1,14 +1,7 @@
 pkgname = "fonts-xorg"
 pkgver = "1.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
-depends = [
-    f"fonts-xorg-100dpi={pkgver}-r{pkgrel}",
-    f"fonts-xorg-75dpi={pkgver}-r{pkgrel}",
-    f"fonts-xorg-cyrillic={pkgver}-r{pkgrel}",
-    f"fonts-xorg-misc={pkgver}-r{pkgrel}",
-    f"fonts-xorg-type1={pkgver}-r{pkgrel}",
-]
 pkgdesc = "X.org font packages"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
@@ -18,6 +11,7 @@ url = "https://xorg.freedesktop.org"
 @subpackage("fonts-xorg-100dpi")
 def _100dpi(self):
     self.pkgdesc = f"{pkgdesc} (100dpi)"
+    # don't install 100dpi by default
     self.depends = [
         "font-adobe-100dpi",
         "font-adobe-utopia-100dpi",
@@ -32,6 +26,7 @@ def _100dpi(self):
 @subpackage("fonts-xorg-75dpi")
 def _75dpi(self):
     self.pkgdesc = f"{pkgdesc} (100dpi)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "font-adobe-75dpi",
         "font-adobe-utopia-75dpi",
@@ -46,6 +41,7 @@ def _75dpi(self):
 @subpackage("fonts-xorg-cyrillic")
 def _cyrillic(self):
     self.pkgdesc = f"{pkgdesc} (cyrillic)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "font-cronyx-cyrillic",
         "font-misc-cyrillic",
@@ -59,6 +55,7 @@ def _cyrillic(self):
 @subpackage("fonts-xorg-misc")
 def _misc(self):
     self.pkgdesc = f"{pkgdesc} (misc)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "font-arabic-misc",
         "font-cursor-misc",
@@ -82,6 +79,7 @@ def _misc(self):
 @subpackage("fonts-xorg-type1")
 def _type1(self):
     self.pkgdesc = f"{pkgdesc} (type1)"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.depends = [
         "font-adobe-utopia-type1",
         "font-bh-type1",
