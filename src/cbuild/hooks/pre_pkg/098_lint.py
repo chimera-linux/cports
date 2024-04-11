@@ -73,6 +73,7 @@ def invoke(pkg):
 
     # stuff in /etc that should go in /usr/lib
     for d in [
+        "kernel.d",
         "modprobe.d",
         "sysctl.d",
         "tmpfiles.d",
