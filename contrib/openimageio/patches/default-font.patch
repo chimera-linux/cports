@@ -1,0 +1,19 @@
+Use a more ubiquitous default, and remove a
+null from the static array, which is just
+iterated and it would result in a segfault
+when trying to strlen said null in a hashtable.
+
+Fixes segfaulting test.
+
+--- a/src/libOpenImageIO/imagebufalgo_draw.cpp
++++ b/src/libOpenImageIO/imagebufalgo_draw.cpp
+@@ -882,8 +882,7 @@ static mutex ft_mutex;
+ static FT_Library ft_library = NULL;
+ static bool ft_broken        = false;
+ 
+-static const char* default_font_name[] = { "DroidSans", "cour", "Courier New",
+-                                           "FreeMono", nullptr };
++static const char* default_font_name[] = { "DejaVu Sans", "cour", "Courier New", "FreeMono" };
+ 
+ 
+ 

@@ -1,13 +1,20 @@
 pkgname = "openimageio"
 pkgver = "2.5.10.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     # disabled below
-    "-DBUILD_TESTING=OFF",
     "-DINSTALL_FONTS=OFF",
     "-DSTOP_ON_WARNING=OFF",
     "-DUSE_EXTERNAL_PUGIXML=ON",
+    "-DUSE_QT=OFF",
+]
+make_check_args = [
+    # missing testdata, tools, fonts
+    # a few instances of output format diff
+    # python tests try to self-import (which does not work)
+    "-E",
+    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-levels-stoch.*|texture-udim.*)",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
@@ -28,21 +35,16 @@ makedepends = [
     "onetbb-devel",
     "pugixml-devel",
     "python-pybind11-devel",
-    "qt6-qtbase-devel",
     "robin-map",
 ]
+checkdepends = ["bash", "fonts-dejavu"]
 pkgdesc = "Toolset for manipulating VFX-related image file formats"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "Apache-2.0"
 url = "https://github.com/AcademySoftwareFoundation/OpenImageIO"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "8f6a547f6a5d510737ba436f867043db537def65f0fdb14ec30e5a185b619f93"
-# FIXME: tests are broken
-options = ["!check"]
-
-if self.profile().arch == "aarch64":
-    # qopengl doesn't have desktop gl functions here
-    configure_args += ["-DENABLE_iv=OFF"]
+hardening = ["!int"]
 
 
 @subpackage("openimageio-progs")
