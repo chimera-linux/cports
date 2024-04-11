@@ -1,6 +1,6 @@
 pkgname = "efibootmgr"
 pkgver = "18"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf"]
@@ -50,5 +50,7 @@ def do_install(self):
     self.install_file(self.files_path / "efibootmgr-hook", "etc/default")
     # kernel hook
     self.install_file(
-        self.files_path / "99-efibootmgr-hook.sh", "etc/kernel.d", mode=0o755
+        self.files_path / "99-efibootmgr-hook.sh",
+        "usr/lib/kernel.d",
+        mode=0o755,
     )
