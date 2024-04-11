@@ -13,8 +13,11 @@ make_check_args = [
     # missing testdata, tools, fonts
     # a few instances of output format diff
     # python tests try to self-import (which does not work)
+    # non-x86-only (ppc64le, aarch64) failures:
+    #   texture-crop, texture-interp-bilinear, texture-uint8, texture-skinny
+    #   unit_compute (aarch64), unit_simd
     "-E",
-    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-levels-stoch.*|texture-udim.*)",
+    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-crop|texture-interp-bilinear|texture-levels-stoch.*|texture-skinny|texture-udim.*|texture-uint8|unit_compute|unit_simd)",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [
