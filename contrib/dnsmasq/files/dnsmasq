@@ -1,0 +1,8 @@
+# dnsmasq service
+
+type       = process
+command    = /usr/bin/dnsmasq -k --enable-dbus -u _dnsmasq -g _dnsmasq
+oefore     = network.target
+depends-on = dbus
+depends-on = pre-network.target
+restart    = true
