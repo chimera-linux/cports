@@ -15,6 +15,10 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
 #GRUB_GFXMODE=1920x1080x32
 #GRUB_DISABLE_LINUX_UUID=true
 #GRUB_DISABLE_RECOVERY=true
+# Uncomment to disable os-prober
+#GRUB_DISABLE_OS_PROBER=true
+# Uncomment to disable kernel update-grub hook
+#GRUB_DISABLE_KERNEL_HOOK=true
 # Uncomment and set to the desired menu colors.  Used by normal and wallpaper
 # modes only.  Entries specified as foreground/background.
 #GRUB_COLOR_NORMAL="light-blue/black"

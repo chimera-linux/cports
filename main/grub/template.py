@@ -1,6 +1,6 @@
 pkgname = "grub"
 pkgver = "2.06"
-pkgrel = 4
+pkgrel = 5
 configure_args = [
     "--sysconfdir=/etc",
     "--prefix=/usr",
@@ -160,7 +160,7 @@ def do_install(self):
 def post_install(self):
     # kernel hook
     self.install_file(
-        self.files_path / "99-grub.sh", "etc/kernel.d", mode=0o755
+        self.files_path / "99-grub.sh", "usr/lib/kernel.d", mode=0o755
     )
     # conf file
     self.install_file(
