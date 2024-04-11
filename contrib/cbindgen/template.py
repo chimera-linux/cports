@@ -12,3 +12,7 @@ source = f"{url}/archive/v{pkgver}.tar.gz"
 sha256 = "b45e1a64875b615702a86ac3084ef69ae32926241cd2b687a30c12474be15105"
 # only expected to work with rust nightly
 options = ["!check"]
+
+
+def do_install(self):
+    self.install_bin(f"./target/{self.profile().triplet}/release/cbindgen")
