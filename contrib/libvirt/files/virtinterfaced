@@ -1,0 +1,8 @@
+# virtinterfaced daemon service
+
+type = process
+command = /usr/bin/virtinterfaced
+depends-on = network.target
+depends-on = dbus
+depends-on = local.target
+before = login.target

@@ -1,0 +1,8 @@
+# virtlxcd daemon service
+
+type = process
+command = /usr/bin/virtlxcd
+depends-on = network.target
+depends-on = dbus
+depends-on = local.target
+before = login.target
