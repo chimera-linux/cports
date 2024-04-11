@@ -40,6 +40,10 @@ sha256 = "8f6a547f6a5d510737ba436f867043db537def65f0fdb14ec30e5a185b619f93"
 # FIXME: tests are broken
 options = ["!check"]
 
+if self.profile().arch = "aarch64":
+    # qopengl doesn't have desktop gl functions here
+    self.configure_args += ["-DENABLE_iv=OFF"]
+
 
 @subpackage("openimageio-progs")
 def _progs(self):
