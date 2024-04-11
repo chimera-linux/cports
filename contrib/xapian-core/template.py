@@ -18,6 +18,12 @@ url = "https://xapian.org"
 source = f"https://oligarchy.co.uk/xapian/{pkgver}/xapian-core-{pkgver}.tar.xz"
 sha256 = "0c99dfdd817571cb5689bc412a7e021407938313f38ea3a70fa3bf86410608ee"
 hardening = ["vis", "cfi"]
+# see below
+options = []
+
+if self.profile().arch == "ppc64":
+    # FIXME: hangs after replacedoc9
+    options += ["!check"]
 
 
 @subpackage("xapian-core-devel")
