@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.1"
-pkgrel = 5
+pkgrel = 6
 depends = [
     "kmod",
     "procps",
@@ -11,7 +11,6 @@ pkgdesc = "Common data and scripts for Linux kernels in Chimera"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:meta"
 url = "https://chimera-linux.org"
-protected_paths = ["-etc/kernel.d"]
 # no tests
 options = ["!check", "keepempty"]
 

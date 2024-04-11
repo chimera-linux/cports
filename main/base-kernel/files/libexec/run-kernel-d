@@ -1,10 +1,14 @@
 #!/bin/sh
 
-[ ! -d "/etc/kernel.d" ] && exit 0
-
 echo "Running kernel.d scripts..."
 
-for f in /etc/kernel.d/*; do
-    [ -f "$f" ] || continue # possibly empty
-    $f || echo "FAILED: $f"
+find -L /etc/kernel.d /usr/lib/kernel.d -maxdepth 1 -not -type d 2>/dev/null | \
+  sed 's,.*/\(.*\),& \1,' | sort -k2 -s | uniq -f1 | cut -d' ' -f1 | \
+  while read hook; do
+    if [ -x "$hook" ]; then
+        /bin/sh "$hook"
+    else
+        "$hook"
+    fi
+    [ $? -eq 0 ] || echo "FAILED: $line"
 done
