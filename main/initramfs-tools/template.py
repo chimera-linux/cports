@@ -1,6 +1,6 @@
 pkgname = "initramfs-tools"
 pkgver = "0.142"
-pkgrel = 5
+pkgrel = 6
 build_style = "makefile"
 depends = [
     "base-kernel",
@@ -28,7 +28,7 @@ options = ["!check"]
 def post_install(self):
     for f in ["50-initramfs"]:
         self.install_file(
-            self.files_path / (f + ".sh"), "etc/kernel.d", mode=0o755
+            self.files_path / (f + ".sh"), "usr/lib/kernel.d", mode=0o755
         )
 
     # hook for core userland
