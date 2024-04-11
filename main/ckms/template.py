@@ -1,6 +1,6 @@
 pkgname = "ckms"
 pkgver = "0.1.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "makefile"
 hostmakedepends = ["scdoc"]
 depends = ["python"]
@@ -29,7 +29,7 @@ def post_install(self):
     )
     # kernel hook
     self.install_file(
-        self.files_path / "10-ckms.sh", "etc/kernel.d", mode=0o755
+        self.files_path / "10-ckms.sh", "usr/lib/kernel.d", mode=0o755
     )
     # initramfs refresh hook
     self.install_file(
