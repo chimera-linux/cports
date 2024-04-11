@@ -1,0 +1,51 @@
+commit a5aaf46eb3d734d2f900e8e6b72b1c4da05614f7
+Author: q66 <q66@chimera-linux.org>
+Date:   Thu Apr 11 15:12:29 2024 +0200
+
+    disable getgroups fortification for now
+    
+    This breaks autotools 2.72 checking of getgroups array arguments,
+    particularly in C++ with Clang, so disable until investigated and
+    proven safe.
+
+diff --git a/include/unistd.h b/include/unistd.h
+index 69095d5..875565b 100644
+--- a/include/unistd.h
++++ b/include/unistd.h
+@@ -31,7 +31,6 @@ extern "C" {
+ 
+ #undef confstr
+ #undef getcwd
+-#undef getgroups
+ #undef gethostname
+ #undef getlogin_r
+ #undef pread
+@@ -84,6 +83,7 @@ _FORTIFY_FN(getdomainname) int getdomainname(char * _FORTIFY_POS0 __s, size_t __
+ }
+ #endif
+ 
++#if 0
+ #if __has_builtin(__builtin_getgroups)
+ __diagnose_as_builtin(__builtin_getgroups, 1, 2)
+ #endif
+@@ -95,6 +95,7 @@ _FORTIFY_FN(getgroups) int getgroups(int __l, gid_t * _FORTIFY_POS0 __s)
+ 		__builtin_trap();
+ 	return __orig_getgroups(__l, __s);
+ }
++#endif
+ 
+ __fh_access(write_only, 1, 2)
+ #if __has_builtin(__builtin_gethostname)
+diff --git a/tests/Makefile b/tests/Makefile
+index 352e6f8..e52303f 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -36,8 +36,6 @@ RUNTIME_TARGETS= \
+ 	test_getcwd_static           \
+ 	test_getdomainname_dynamic   \
+ 	test_getdomainname_static    \
+-	test_getgroups_dynamic       \
+-	test_getgroups_static        \
+ 	test_gethostname_dynamic     \
+ 	test_gethostname_static      \
+ 	test_getlogin_r_dynamic      \

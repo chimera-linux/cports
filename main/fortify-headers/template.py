@@ -1,6 +1,6 @@
 pkgname = "fortify-headers"
 pkgver = "2.1"
-pkgrel = 4
+pkgrel = 5
 build_style = "makefile"
 make_cmd = "gmake"
 make_check_target = "clang"
