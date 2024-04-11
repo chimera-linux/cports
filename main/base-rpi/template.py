@@ -22,5 +22,5 @@ def do_install(self):
     )
     # kernel hook
     self.install_file(
-        self.files_path / "99-rpi-kernel.sh", "etc/kernel.d", mode=0o755
+        self.files_path / "99-rpi-kernel.sh", "usr/lib/kernel.d", mode=0o755
     )
