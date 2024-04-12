@@ -1,21 +1,22 @@
 pkgname = "python-docutils"
-pkgver = "0.20.1"
-pkgrel = 1
+pkgver = "0.21.1"
+pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
+    "python-flit_core",
     "python-installer",
-    "python-setuptools",
-    "python-wheel",
 ]
-checkdepends = ["python-pygments"]
 depends = ["python", "python-pygments"]
+checkdepends = ["python-pillow", "python-pygments"]
 pkgdesc = "Python documentation utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none AND BSD-2-Clause AND GPL-3.0-or-later AND Python-2.0"
 url = "http://docutils.sourceforge.net"
 source = f"$(PYPI_SITE)/d/docutils/docutils-{pkgver}.tar.gz"
-sha256 = "f08a4e276c3a1583a86dce3e34aba3fe04d02bba2dd51ed16106244e8a923e3b"
+sha256 = "65249d8a5345bc95e0f40f280ba63c98eb24de35c6c8f5b662e3e8948adea83f"
+# Some test files seem to be missing in the tarball
+options = ["!check"]
 
 
 def do_check(self):
@@ -24,20 +25,3 @@ def do_check(self):
 
 def post_install(self):
     self.install_license("COPYING.txt")
-
-    for b in [
-        "html",
-        "html4",
-        "html5",
-        "latex",
-        "man",
-        "odt",
-        "odt_prepstyles",
-        "pseudoxml",
-        "s5",
-        "xetex",
-        "xml",
-    ]:
-        self.install_link(f"usr/bin/rst2{b}", f"rst2{b}.py")
-
-    self.install_link("usr/bin/rstpep2html", "rstpep2html.py")
