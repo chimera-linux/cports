@@ -1,13 +1,16 @@
 pkgname = "opencolorio"
 pkgver = "2.3.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_BUILD_TYPE=Release",
-    # disabled below
-    "-DOCIO_BUILD_TESTS=OFF",
+    "-DOCIO_BUILD_TESTS=ON",
+    "-DOCIO_BUILD_GPU_TESTS=OFF",
     "-DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so",
 ]
+# this skips most of the (sub)tests but they are not granular, and there are
+# hundreds of off-by-1 failures. check them next release
+make_check_args = ["-E", "test_cpu*"]
 hostmakedepends = [
     "cmake",
     "ninja",
@@ -34,8 +37,6 @@ license = "BSD-3-Clause"
 url = "https://opencolorio.org"
 source = f"https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "6bbf4e7fa4ea2f743a238cb22aff44890425771a2f57f62cece1574e46ceec2f"
-# FIXME: ??
-options = ["!check"]
 
 
 def post_install(self):
