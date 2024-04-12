@@ -324,7 +324,6 @@ class UpdateCheck:
                     /archive/
                     ([\d.]+)(?=\.tar\.gz) # match
                 """
-                rxg = 1
             elif "hg.sr.ht" in url:
                 pn = "/".join(url.split("/")[3:5])
                 url = f"https://hg.sr.ht/{pn}/tags"
