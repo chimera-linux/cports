@@ -13,9 +13,7 @@ configure_args = [
     "--with-zlib",
 ]
 configure_gen = []
-make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
     "pkgconf",
     "python",
 ]
@@ -30,7 +28,7 @@ pkgdesc = "Crypto and TLS for C++"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-2-Clause"
 url = "https://botan.randombit.net"
-source = f"https://botan.randombit.net/releases/Botan-{pkgver}.tar.xz"
+source = f"{url}/releases/Botan-{pkgver}.tar.xz"
 sha256 = "71843afcc0a2c585f8f33fa304f0b58ae4b9c5d8306f894667b3746044277557"
 # FIXME: cfi
 hardening = ["vis"]
