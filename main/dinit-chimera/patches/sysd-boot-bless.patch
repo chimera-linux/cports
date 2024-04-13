@@ -1,0 +1,79 @@
+commit 5ac19aa07aebaf77832b990bfd4d1f60ae575113
+Author: q66 <q66@chimera-linux.org>
+Date:   Wed Apr 10 00:43:56 2024 +0200
+
+    add systemd-boot bless service
+
+diff --git a/early/scripts/bless-boot.sh b/early/scripts/bless-boot.sh
+new file mode 100644
+index 0000000..25175ab
+--- /dev/null
++++ b/early/scripts/bless-boot.sh
+@@ -0,0 +1,27 @@
++#!/bin/sh
++
++DINIT_SERVICE=bless-boot
++DINIT_NO_CONTAINER=1
++
++. ./early/scripts/common.sh
++
++bless=/usr/libexec/systemd-bless-boot
++
++[ -x $bless ] || exit 0
++
++case "$($bless status)" in
++    indeterminate)
++        # bless quietly
++        $bless good
++        ;;
++    bad)
++        # notify and bless
++        echo "Successful boot from bad image, clearing..."
++        $bless good
++        ;;
++    *)
++        # probably not used
++        ;;
++esac
++
++exit 0
+diff --git a/meson.build b/meson.build
+index 0d93000..303b2ba 100644
+--- a/meson.build
++++ b/meson.build
+@@ -45,6 +45,7 @@ endforeach
+ 
+ scripts = [
+     'binfmt.sh',
++    'bless-boot.sh',
+     'cgroups.sh',
+     'clock.sh',
+     'common.sh',
+@@ -88,6 +89,7 @@ endforeach
+ services = [
+     'boot',
+     'early-binfmt',
++    'early-bless-boot',
+     'early-cgroups',
+     'early-console.target',
+     'early-cryptdisks',
+diff --git a/services/early-bless-boot b/services/early-bless-boot
+new file mode 100644
+index 0000000..c5fdf6e
+--- /dev/null
++++ b/services/early-bless-boot
+@@ -0,0 +1,5 @@
++# Bless the current boot as good
++
++type       = scripted
++command    = ./early/scripts/bless-boot.sh
++depends-on = pre-local.target
+diff --git a/services/local.target b/services/local.target
+index b6f1302..d5e23a6 100644
+--- a/services/local.target
++++ b/services/local.target
+@@ -4,3 +4,4 @@ type       = scripted
+ command    = ./early/scripts/local.sh
+ depends-on = pre-local.target
+ depends-on = early-tmpfiles
++waits-for  = early-bless-boot

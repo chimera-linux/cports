@@ -1,6 +1,6 @@
 pkgname = "dinit-chimera"
 pkgver = "0.99.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = ["meson"]
 makedepends = ["linux-headers"]
