@@ -1,6 +1,6 @@
 pkgname = "udev"
 pkgver = "254"
-pkgrel = 7
+pkgrel = 8
 build_style = "meson"
 configure_args = [
     "-Dacl=true",
@@ -206,6 +206,16 @@ def post_install(self):
         self.files_path / "udevd.wrapper", "usr/libexec", mode=0o755
     )
     self.install_service(self.files_path / "udevd", enable=True)
+    # systemd-boot
+    self.install_file(
+        self.files_path / "99-gen-systemd-boot.sh",
+        "usr/lib/kernel.d",
+        mode=0o755,
+    )
+    self.install_bin(
+        self.files_path / "gen-systemd-boot.sh", name="gen-systemd-boot"
+    )
+    self.install_file(self.files_path / "systemd-boot", "etc/default")
 
 
 @subpackage("udev-devel")
@@ -224,7 +234,10 @@ def _boot(self):
     self.depends += [f"systemd-boot-efi={pkgver}-r{pkgrel}"]
 
     return [
+        "etc/default/systemd-boot",
         "usr/bin/bootctl",
+        "usr/bin/gen-systemd-boot",
+        "usr/lib/kernel.d/99-gen-systemd-boot.sh",
         "usr/libexec/systemd-bless-boot",
         "usr/share/bash-completion/completions/bootctl",
         "usr/share/zsh/site-functions/_bootctl",
