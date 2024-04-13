@@ -1,8 +1,9 @@
 pkgname = "libxo"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--disable-dependency-tracking"]
+configure_args = []
+configure_gen = []
 hostmakedepends = ["pkgconf"]
 makedepends = ["musl-bsd-headers"]
 pkgdesc = "Library for generating text, XML, JSON, and HTML output"
@@ -10,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-2-Clause"
 url = "https://github.com/Juniper/libxo"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "9f2f276d7a5f25ff6fbfc0f38773d854c9356e7f985501627d0c0ee336c19006"
+sha256 = "9de1e322382ecfdf0310ce7b083ea22e8fdbddca27290652b021edca78fdf201"
 tool_flags = {"CFLAGS": ["-Wno-unused-command-line-argument"]}
 options = ["bootstrap"]
 
@@ -49,6 +50,3 @@ def _devel(self):
 @subpackage("libxo-progs")
 def _progs(self):
     return self.default_progs()
-
-
-configure_gen = []

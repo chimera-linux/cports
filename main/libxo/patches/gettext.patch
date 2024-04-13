@@ -1,8 +1,11 @@
-diff --git a/configure b/configure
-index df6756c..f2b83e7 100755
 --- a/configure
 +++ b/configure
-@@ -13864,7 +13864,7 @@ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+@@ -14375,11 +14375,11 @@ if test "$GETTEXT_ENABLE" != "no"; then
+ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+ 
+   _save_cflags="$CFLAGS"
+-  CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror -lintl"
++  CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror"
    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  #include <libintl.h>
@@ -11,7 +14,12 @@ index df6756c..f2b83e7 100755
  _ACEOF
  if ac_fn_c_try_link "$LINENO"
  then :
-@@ -13889,7 +13889,7 @@ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+@@ -14401,11 +14401,11 @@ printf "%s\n" "$HAVE_GETTEXT" >&6; }
+ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+ 
+       _save_cflags="$CFLAGS"
+-      CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror -lintl"
++      CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror"
        cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  #include <libintl.h>
@@ -20,7 +28,12 @@ index df6756c..f2b83e7 100755
  _ACEOF
  if ac_fn_c_try_link "$LINENO"
  then :
-@@ -13915,7 +13915,7 @@ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+@@ -14428,11 +14428,11 @@ printf "%s\n" "$HAVE_GETTEXT" >&6; }
+ printf %s "checking gettext in ${GETTEXT_PREFIX}... " >&6; }
+ 
+       _save_cflags="$CFLAGS"
+-      CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror -lintl"
++      CFLAGS="$CFLAGS -I${GETTEXT_PREFIX}/include -L${GETTEXT_PREFIX}/lib -Werror"
        cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  #include <libintl.h>
@@ -29,3 +42,12 @@ index df6756c..f2b83e7 100755
  _ACEOF
  if ac_fn_c_try_link "$LINENO"
  then :
+@@ -14455,7 +14455,7 @@ if test "$HAVE_GETTEXT" = "yes"; then
+ printf "%s\n" "#define HAVE_GETTEXT 1" >>confdefs.h
+ 
+     GETTEXT_CFLAGS="-I${GETTEXT_PREFIX}/include"
+-    GETTEXT_LIBS="-L${GETTEXT_PREFIX}/lib -lintl"
++    GETTEXT_LIBS="-L${GETTEXT_PREFIX}/lib"
+ else
+     GETTEXT_PREFIX=none
+     GETTEXT_CFLAGS=
