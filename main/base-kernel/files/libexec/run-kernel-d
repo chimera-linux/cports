@@ -10,5 +10,5 @@ find -L /etc/kernel.d /usr/lib/kernel.d -maxdepth 1 -not -type d 2>/dev/null | \
     else
         "$hook"
     fi
-    [ $? -eq 0 ] || echo "FAILED: $line"
+    [ $? -eq 0 ] || echo "FAILED: $hook"
 done
