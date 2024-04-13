@@ -6,7 +6,7 @@ build_style = "gnu_configure"
 # fails reconf
 configure_gen = []
 make_dir = "."
-make_check_target = "testmxml"
+make_check_target = "test"
 hostmakedepends = ["automake", "pkgconf"]
 pkgdesc = "C XML Library"
 maintainer = "psykose <alice@ayaya.dev>"
@@ -14,10 +14,6 @@ license = "Apache-2.0"
 url = "https://www.msweet.org/mxml"
 source = f"https://github.com/michaelrsweet/mxml/archive/v{pkgver}.tar.gz"
 sha256 = "59eba16ce43765f2e2a6cf4873a58d317be801f1e929647d85da9f171e41e9ac"
-
-
-def do_check(self):
-    self.do("./testmxml", "test.xml")
 
 
 def init_install(self):
