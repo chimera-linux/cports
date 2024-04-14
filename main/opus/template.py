@@ -1,5 +1,5 @@
 pkgname = "opus"
-pkgver = "1.5.1"
+pkgver = "1.5.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -16,7 +16,7 @@ url = "https://www.opus-codec.org"
 source = (
     f"https://downloads.xiph.org/releases/{pkgname}/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "b84610959b8d417b611aa12a22565e0a3732097c6389d19098d844543e340f85"
+sha256 = "65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1"
 # FIXME int
 hardening = ["vis", "cfi", "!int"]
 
