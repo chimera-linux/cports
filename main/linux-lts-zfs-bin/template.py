@@ -1,5 +1,5 @@
 pkgname = "linux-lts-zfs-bin"
-_kernver = "6.6.25"
+_kernver = "6.6.27"
 _zfsver = "2.2.3"
 pkgver = f"{_zfsver}.{_kernver}"
 pkgrel = 0

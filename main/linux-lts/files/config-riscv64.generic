@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/riscv 6.6.25 Kernel Configuration
+# Linux/riscv 6.6.27 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="clang version 17.0.6"
 CONFIG_GCC_VERSION=0
@@ -7630,8 +7630,8 @@ CONFIG_USB_HIDDEV=y
 #
 # USB HID Boot Protocol drivers
 #
-CONFIG_USB_KBD=m
-CONFIG_USB_MOUSE=m
+# CONFIG_USB_KBD is not set
+# CONFIG_USB_MOUSE is not set
 # end of USB HID Boot Protocol drivers
 # end of USB HID support
 
