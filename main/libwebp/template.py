@@ -1,5 +1,5 @@
 pkgname = "libwebp"
-pkgver = "1.3.2"
+pkgver = "1.4.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-libwebpdecoder"]
@@ -18,7 +18,7 @@ url = "http://www.libpng.org/pub/png/libpng.html"
 source = (
     f"http://downloads.webmproject.org/releases/webp/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "2a499607df669e40258e53d0ade8035ba4ec0175244869d1025d460562aa09b4"
+sha256 = "61f873ec69e3be1b99535634340d5bde750b2e4447caa1db9f61be3fd49ab1e5"
 hardening = ["vis"]
 
 
