@@ -1,0 +1,97 @@
+From 0b45f6631aa8e32d6dd9d8883d9311d315c704aa Mon Sep 17 00:00:00 2001
+From: Erica Z <zerica@callcc.eu>
+Date: Mon, 15 Apr 2024 10:13:00 +0200
+Subject: [PATCH 27/27] 32-bit musl sanitizer fixes
+
+---
+ .../lib/sanitizer_common/sanitizer_linux.cpp  | 49 +++----------------
+ 1 file changed, 7 insertions(+), 42 deletions(-)
+
+diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
+index 5d25d58c9..6c82c0958 100644
+--- a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
++++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
+@@ -278,26 +278,6 @@ uptr internal_ftruncate(fd_t fd, uptr size) {
+   return res;
+ }
+ 
+-#    if (!SANITIZER_LINUX_USES_64BIT_SYSCALLS || SANITIZER_SPARC) && \
+-        SANITIZER_LINUX
+-static void stat64_to_stat(struct stat64 *in, struct stat *out) {
+-  internal_memset(out, 0, sizeof(*out));
+-  out->st_dev = in->st_dev;
+-  out->st_ino = in->st_ino;
+-  out->st_mode = in->st_mode;
+-  out->st_nlink = in->st_nlink;
+-  out->st_uid = in->st_uid;
+-  out->st_gid = in->st_gid;
+-  out->st_rdev = in->st_rdev;
+-  out->st_size = in->st_size;
+-  out->st_blksize = in->st_blksize;
+-  out->st_blocks = in->st_blocks;
+-  out->st_atime = in->st_atime;
+-  out->st_mtime = in->st_mtime;
+-  out->st_ctime = in->st_ctime;
+-}
+-#    endif
+-
+ #    if SANITIZER_LINUX && defined(__loongarch__)
+ static void statx_to_stat(struct statx *in, struct stat *out) {
+   internal_memset(out, 0, sizeof(*out));
+@@ -385,17 +365,11 @@ uptr internal_stat(const char *path, void *buf) {
+   return internal_syscall(SYSCALL(newfstatat), AT_FDCWD, (uptr)path, (uptr)buf,
+                           0);
+ #      else
+-  struct stat64 buf64;
+-  int res = internal_syscall(SYSCALL(fstatat64), AT_FDCWD, (uptr)path,
+-                             (uptr)&buf64, 0);
+-  stat64_to_stat(&buf64, (struct stat *)buf);
+-  return res;
++  return internal_syscall(SYSCALL(fstatat64), AT_FDCWD, (uptr)path, (uptr)buf,
++                          0);
+ #      endif
+ #    else
+-  struct stat64 buf64;
+-  int res = internal_syscall(SYSCALL(stat64), path, &buf64);
+-  stat64_to_stat(&buf64, (struct stat *)buf);
+-  return res;
++  return internal_syscall(SYSCALL(stat64), path, (uptr)buf);
+ #    endif
+ }
+ 
+@@ -417,17 +391,11 @@ uptr internal_lstat(const char *path, void *buf) {
+   return internal_syscall(SYSCALL(newfstatat), AT_FDCWD, (uptr)path, (uptr)buf,
+                           AT_SYMLINK_NOFOLLOW);
+ #      else
+-  struct stat64 buf64;
+-  int res = internal_syscall(SYSCALL(fstatat64), AT_FDCWD, (uptr)path,
+-                             (uptr)&buf64, AT_SYMLINK_NOFOLLOW);
+-  stat64_to_stat(&buf64, (struct stat *)buf);
+-  return res;
++  return internal_syscall(SYSCALL(fstatat64), AT_FDCWD, (uptr)path, (uptr)buf,
++                          AT_SYMLINK_NOFOLLOW);
+ #      endif
+ #    else
+-  struct stat64 buf64;
+-  int res = internal_syscall(SYSCALL(lstat64), path, &buf64);
+-  stat64_to_stat(&buf64, (struct stat *)buf);
+-  return res;
++  return internal_syscall(SYSCALL(lstat64), path, (uptr)buf);
+ #    endif
+ }
+ 
+@@ -449,10 +417,7 @@ uptr internal_fstat(fd_t fd, void *buf) {
+   return internal_syscall(SYSCALL(fstat), fd, (uptr)buf);
+ #      endif
+ #    else
+-  struct stat64 buf64;
+-  int res = internal_syscall(SYSCALL(fstat64), fd, &buf64);
+-  stat64_to_stat(&buf64, (struct stat *)buf);
+-  return res;
++  return internal_syscall(SYSCALL(fstat64), fd, (uptr)buf);
+ #    endif
+ }
+ 
+-- 
+2.44.0
+

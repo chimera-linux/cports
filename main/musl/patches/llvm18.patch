@@ -1,0 +1,16 @@
+https://www.openwall.com/lists/musl/2024/03/18/2
+
+--- a/src/network/res_msend.c
++++ b/src/network/res_msend.c
+@@ -83,9 +83,9 @@ int __res_msend_rc(int nqueries, const unsigned char *const *queries,
+ 	int fd;
+ 	int timeout, attempts, retry_interval, servfail_retry;
+ 	union {
+-		struct sockaddr_in sin;
+ 		struct sockaddr_in6 sin6;
+-	} sa = {0}, ns[MAXNS] = {{0}};
++		struct sockaddr_in sin;
++	} sa = {}, ns[MAXNS] = {{}};
+ 	socklen_t sl = sizeof sa.sin;
+ 	int nns = 0;
+ 	int family = AF_INET;

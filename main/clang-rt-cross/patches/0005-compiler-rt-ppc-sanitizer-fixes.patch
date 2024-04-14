@@ -1,48 +1,47 @@
-From 63c7ac184238074c92f120adbe831c72b90690a3 Mon Sep 17 00:00:00 2001
+From dd0b7655944947d50684b15f0d89ff31a6ae4ff1 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sat, 4 Nov 2023 08:52:29 +0100
-Subject: [PATCH 05/25] compiler-rt: ppc sanitizer fixes
+Date: Sun, 14 Apr 2024 14:33:38 +0200
+Subject: [PATCH 05/27] compiler-rt: ppc sanitizer fixes
 
 ---
- compiler-rt/cmake/base-config-ix.cmake        |  4 +-
+ compiler-rt/cmake/base-config-ix.cmake        |  3 +-
  .../lib/sanitizer_common/sanitizer_linux.cpp  |  4 ++
  .../sanitizer_platform_limits_posix.cpp       |  2 +-
  .../sanitizer_stoptheworld_linux_libcdep.cpp  |  2 +-
  compiler-rt/lib/xray/xray_powerpc64.inc       | 37 ++++++++++++++++++-
- 5 files changed, 45 insertions(+), 4 deletions(-)
+ 5 files changed, 44 insertions(+), 4 deletions(-)
 
 diff --git a/compiler-rt/cmake/base-config-ix.cmake b/compiler-rt/cmake/base-config-ix.cmake
-index 9c62320c3..5e37d339d 100644
+index 908c8a402..aac61db31 100644
 --- a/compiler-rt/cmake/base-config-ix.cmake
 +++ b/compiler-rt/cmake/base-config-ix.cmake
-@@ -217,9 +217,11 @@ macro(test_targets)
+@@ -217,9 +217,10 @@ macro(test_targets)
        test_target_arch(loongarch64 "" "")
      elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "powerpc64le|ppc64le")
        test_target_arch(powerpc64le "" "-m64")
--    elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "powerpc")
 +    elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "powerpc64")
++      test_target_arch(powerpc64 "" "-m64")
+     elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "powerpc")
        test_target_arch(powerpc "" "-m32")
-       test_target_arch(powerpc64 "" "-m64")
-+    elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "powerpc")
-+      test_target_arch(powerpc "" "-m32")
+-      test_target_arch(powerpc64 "" "-m64")
      elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "s390x")
        test_target_arch(s390x "" "")
      elseif("${COMPILER_RT_DEFAULT_TARGET_ARCH}" MATCHES "sparc")
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-index d2b3b63f3..7a3a0f000 100644
+index 5d2dd3a7a..5d25d58c9 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux.cpp
-@@ -74,6 +74,10 @@
- #include <sys/utsname.h>
- #endif
+@@ -77,6 +77,10 @@
+ #    include <sys/personality.h>
+ #  endif
  
-+#if SANITIZER_LINUX && defined(__powerpc__)
-+#include <asm/ptrace.h>
-+#endif
++#  if SANITIZER_LINUX && defined(__powerpc__)
++#    include <asm/ptrace.h>
++#  endif
 +
- #if SANITIZER_LINUX && !SANITIZER_ANDROID
- #include <sys/personality.h>
- #endif
+ #  if SANITIZER_LINUX && defined(__loongarch__)
+ #    include <sys/sysmacros.h>
+ #  endif
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
 index 6d61d276d..9948eafd9 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
@@ -57,7 +56,7 @@ index 6d61d276d..9948eafd9 100644
  #      ifdef __arm__
  typedef struct user_fpregs elf_fpregset_t;
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
-index 13b90ce9b..f8702753e 100644
+index 25c4af708..9f8b7db14 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_stoptheworld_linux_libcdep.cpp
 @@ -31,7 +31,7 @@
@@ -133,5 +132,5 @@ index 7e872b5b4..9616a09d8 100644
  
  inline bool probeRequiredCPUFeatures() XRAY_NEVER_INSTRUMENT {
 -- 
-2.42.0
+2.44.0
 

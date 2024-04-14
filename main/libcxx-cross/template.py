@@ -1,5 +1,5 @@
 pkgname = "libcxx-cross"
-pkgver = "17.0.6"
+pkgver = "18.1.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -23,7 +23,7 @@ configure_args = [
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=NO",
-    "-DLIBCXX_HARDENING_MODE=hardened",
+    "-DLIBCXX_HARDENING_MODE=fast",
     "-DLLVM_ENABLE_RUNTIMES=libunwind;libcxxabi;libcxx",
 ]
 make_cmd = "make"
@@ -40,18 +40,27 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "58a8818c60e6627064f312dbf46c02d9949956558340938b71cf731ad8bc0813"
+sha256 = "2929f62d69dec0379e529eb632c40e15191e36f3bd58c2cb2df0413a0dc48651"
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "empty"]
 
 cmake_dir = "runtimes"
 
-_targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
+_targetlist = [
+    "aarch64",
+    "armhf",
+    "armv7",
+    "ppc64le",
+    "ppc64",
+    "ppc",
+    "x86_64",
+    "riscv64",
+]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 tool_flags = {
     "CFLAGS": ["-fPIC"],
-    "CXXFLAGS": ["-fPIC", "-nostdlib"],
+    "CXXFLAGS": ["-fPIC"],
 }
 
 
@@ -88,7 +97,7 @@ def do_build(self):
         with self.profile(an):
             with self.stamp(f"{an}_build") as s:
                 s.check()
-                cmake.build(self, f"build-{an}")
+                cmake.build(self, f"build-{an}", ["--verbose"])
 
 
 def do_install(self):

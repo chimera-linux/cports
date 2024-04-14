@@ -1,40 +1,40 @@
-From 92c5b0f8e5a5b8862406d37d0108d7d6dde240bb Mon Sep 17 00:00:00 2001
+From 114faa53a4db7b4e2d82902fdd1f0e64370e1e50 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sat, 4 Nov 2023 09:08:29 +0100
-Subject: [PATCH 13/25] libc++: musl locale workarounds
+Date: Sun, 14 Apr 2024 14:45:36 +0200
+Subject: [PATCH 13/27] libc++: musl locale workarounds
 
 ---
  libcxx/include/locale | 8 ++++++++
  1 file changed, 8 insertions(+)
 
 diff --git a/libcxx/include/locale b/libcxx/include/locale
-index e8ce28234..5cc4ee9a4 100644
+index 9e97eb9f3..a00dff3c0 100644
 --- a/libcxx/include/locale
 +++ b/libcxx/include/locale
-@@ -758,7 +758,11 @@ __num_get_signed_integral(const char* __a, const char* __a_end,
-         __libcpp_remove_reference_t<decltype(errno)> __save_errno = errno;
-         errno = 0;
-         char *__p2;
+@@ -716,7 +716,11 @@ __num_get_signed_integral(const char* __a, const char* __a_end, ios_base::iostat
+     __libcpp_remove_reference_t<decltype(errno)> __save_errno = errno;
+     errno                                                     = 0;
+     char* __p2;
 +#if defined(__linux__) && !defined(__GLIBC__)
-+        long long __ll = strtoll(__a, &__p2, __base);
++    long long __ll                                               = strtoll(__a, &__p2, __base);
 +#else
-         long long __ll = strtoll_l(__a, &__p2, __base, _LIBCPP_GET_C_LOCALE);
+     long long __ll                                               = strtoll_l(__a, &__p2, __base, _LIBCPP_GET_C_LOCALE);
 +#endif
-         __libcpp_remove_reference_t<decltype(errno)> __current_errno = errno;
-         if (__current_errno == 0)
-             errno = __save_errno;
-@@ -798,7 +802,11 @@ __num_get_unsigned_integral(const char* __a, const char* __a_end,
-         __libcpp_remove_reference_t<decltype(errno)> __save_errno = errno;
-         errno = 0;
-         char *__p2;
+     __libcpp_remove_reference_t<decltype(errno)> __current_errno = errno;
+     if (__current_errno == 0)
+       errno = __save_errno;
+@@ -748,7 +752,11 @@ __num_get_unsigned_integral(const char* __a, const char* __a_end, ios_base::iost
+     __libcpp_remove_reference_t<decltype(errno)> __save_errno = errno;
+     errno                                                     = 0;
+     char* __p2;
 +#if defined(__linux__) && !defined(__GLIBC__)
-+        unsigned long long __ll = strtoull(__a, &__p2, __base);
++    unsigned long long __ll                                      = strtoull(__a, &__p2, __base);
 +#else
-         unsigned long long __ll = strtoull_l(__a, &__p2, __base, _LIBCPP_GET_C_LOCALE);
+     unsigned long long __ll                                      = strtoull_l(__a, &__p2, __base, _LIBCPP_GET_C_LOCALE);
 +#endif
-         __libcpp_remove_reference_t<decltype(errno)> __current_errno = errno;
-         if (__current_errno == 0)
-             errno = __save_errno;
+     __libcpp_remove_reference_t<decltype(errno)> __current_errno = errno;
+     if (__current_errno == 0)
+       errno = __save_errno;
 -- 
-2.42.0
+2.44.0
 

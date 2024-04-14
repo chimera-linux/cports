@@ -1,7 +1,7 @@
-From 7e580c07af76716c83daab1def3e7a75986a9f5b Mon Sep 17 00:00:00 2001
+From ee096ffac895b0c637c1a004f9922726c98f9fdd Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sat, 4 Nov 2023 09:09:18 +0100
-Subject: [PATCH 15/25] clang: drop incorrect warning about vector equality
+Date: Sun, 14 Apr 2024 14:46:54 +0200
+Subject: [PATCH 15/27] clang: drop incorrect warning about vector equality
  results
 
 ---
@@ -9,12 +9,12 @@ Subject: [PATCH 15/25] clang: drop incorrect warning about vector equality
  1 file changed, 2 deletions(-)
 
 diff --git a/clang/lib/Sema/SemaExpr.cpp b/clang/lib/Sema/SemaExpr.cpp
-index 3a5e302cc..e3a1194db 100644
+index 4cce0abc2..581483e5f 100644
 --- a/clang/lib/Sema/SemaExpr.cpp
 +++ b/clang/lib/Sema/SemaExpr.cpp
-@@ -13505,8 +13505,6 @@ QualType Sema::CheckVectorCompareOperands(ExprResult &LHS, ExprResult &RHS,
+@@ -13641,8 +13641,6 @@ QualType Sema::CheckVectorCompareOperands(ExprResult &LHS, ExprResult &RHS,
        if (vType->castAs<VectorType>()->getVectorKind() ==
-           VectorType::AltiVecVector)
+           VectorKind::AltiVecVector)
          return Context.getLogicalOperationType();
 -      else
 -        Diag(Loc, diag::warn_deprecated_altivec_src_compat);
@@ -22,5 +22,5 @@ index 3a5e302cc..e3a1194db 100644
      case LangOptions::AltivecSrcCompatKind::GCC:
        // For GCC we always return the vector type.
 -- 
-2.42.0
+2.44.0
 

@@ -1,7 +1,7 @@
 pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.5"
-pkgver = "17.0.6"
-pkgrel = 2
+pkgver = "18.1.3"
+pkgrel = 0
 build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
 configure_args = [
@@ -50,7 +50,7 @@ source = [
     f"https://www.musl-libc.org/releases/musl-{_musl_ver}.tar.gz",
 ]
 sha256 = [
-    "58a8818c60e6627064f312dbf46c02d9949956558340938b71cf731ad8bc0813",
+    "2929f62d69dec0379e529eb632c40e15191e36f3bd58c2cb2df0413a0dc48651",
     "a9a118bbe84d8764da0ea0d28b3ab3fae8477fc7e4085d90102b8596fc7c75e4",
 ]
 patch_args = ["-d", f"llvm-project-{pkgver}.src"]
@@ -64,7 +64,16 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-_targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
+_targetlist = [
+    "aarch64",
+    "armhf",
+    "armv7",
+    "ppc64le",
+    "ppc64",
+    "ppc",
+    "x86_64",
+    "riscv64",
+]
 _targets = sorted(filter(lambda p: p != self.profile().arch, _targetlist))
 
 

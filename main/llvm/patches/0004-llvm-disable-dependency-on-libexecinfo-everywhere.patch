@@ -1,7 +1,7 @@
-From 3aece415d17271ad55f087adb06002d556347b78 Mon Sep 17 00:00:00 2001
+From 4ca715eb6e8ad146b9b55cba4d553314cc2c57d1 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Sat, 4 Nov 2023 08:51:17 +0100
-Subject: [PATCH 04/25] llvm: disable dependency on libexecinfo everywhere
+Subject: [PATCH 04/27] llvm: disable dependency on libexecinfo everywhere
 
 ---
  compiler-rt/cmake/config-ix.cmake       | 1 -
@@ -11,10 +11,10 @@ Subject: [PATCH 04/25] llvm: disable dependency on libexecinfo everywhere
  4 files changed, 16 deletions(-)
 
 diff --git a/compiler-rt/cmake/config-ix.cmake b/compiler-rt/cmake/config-ix.cmake
-index 8d3dc8d20..1a615be04 100644
+index 2ca18ebb4..77b3c4eaf 100644
 --- a/compiler-rt/cmake/config-ix.cmake
 +++ b/compiler-rt/cmake/config-ix.cmake
-@@ -168,7 +168,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
+@@ -179,7 +179,6 @@ check_library_exists(dl dlopen "" COMPILER_RT_HAS_LIBDL)
  check_library_exists(rt shm_open "" COMPILER_RT_HAS_LIBRT)
  check_library_exists(m pow "" COMPILER_RT_HAS_LIBM)
  check_library_exists(pthread pthread_create "" COMPILER_RT_HAS_LIBPTHREAD)
@@ -23,10 +23,10 @@ index 8d3dc8d20..1a615be04 100644
  # Look for terminfo library, used in unittests that depend on LLVMSupport.
  if(LLVM_ENABLE_TERMINFO STREQUAL FORCE_ON)
 diff --git a/llvm/cmake/config-ix.cmake b/llvm/cmake/config-ix.cmake
-index f63c3f1a3..061763836 100644
+index bf1b11024..28530e69d 100644
 --- a/llvm/cmake/config-ix.cmake
 +++ b/llvm/cmake/config-ix.cmake
-@@ -266,8 +266,6 @@ endif()
+@@ -260,8 +260,6 @@ endif()
  # function checks
  check_symbol_exists(arc4random "stdlib.h" HAVE_DECL_ARC4RANDOM)
  find_package(Backtrace)
@@ -52,7 +52,7 @@ index fc1f9bf34..93a7a9b16 100644
  #cmakedefine HAVE_CRASHREPORTERCLIENT_H
  
 diff --git a/llvm/lib/Support/CMakeLists.txt b/llvm/lib/Support/CMakeLists.txt
-index 87fe7bebf..0bb7128fe 100644
+index e19223fde..8ce5bc253 100644
 --- a/llvm/lib/Support/CMakeLists.txt
 +++ b/llvm/lib/Support/CMakeLists.txt
 @@ -48,14 +48,6 @@ elseif( CMAKE_HOST_UNIX )
@@ -71,5 +71,5 @@ index 87fe7bebf..0bb7128fe 100644
      set(imported_libs ${imported_libs} Terminfo::terminfo)
    endif()
 -- 
-2.42.0
+2.44.0
 

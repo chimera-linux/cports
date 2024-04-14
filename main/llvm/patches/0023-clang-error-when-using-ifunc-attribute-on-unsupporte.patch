@@ -1,0 +1,32 @@
+From 1ed34897986ed0085d58e065daddcdcc89427bf1 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 14 Apr 2024 14:53:14 +0200
+Subject: [PATCH 23/27] clang: error when using ifunc attribute on unsupported
+ targets
+
+Upstream: to be submitted (bigger patch for upstream)
+---
+ clang/lib/Sema/SemaDeclAttr.cpp | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/clang/lib/Sema/SemaDeclAttr.cpp b/clang/lib/Sema/SemaDeclAttr.cpp
+index 6f462de4b..c84df2a64 100644
+--- a/clang/lib/Sema/SemaDeclAttr.cpp
++++ b/clang/lib/Sema/SemaDeclAttr.cpp
+@@ -1991,6 +1991,13 @@ static void handleIFuncAttr(Sema &S, Decl *D, const ParsedAttr &AL) {
+     return;
+   }
+ 
++  // Unsupported targets should raise a diagnostic error.
++  if (!S.Context.getTargetInfo().supportsIFunc()) {
++    S.Diag(AL.getLoc(), diag::err_keyword_not_supported_on_target)
++      << AL << AL.getRange();
++    return;
++  }
++
+   D->addAttr(::new (S.Context) IFuncAttr(S.Context, AL, Str));
+ }
+ 
+-- 
+2.44.0
+

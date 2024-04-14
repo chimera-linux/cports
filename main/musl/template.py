@@ -1,7 +1,7 @@
 pkgname = "musl"
 pkgver = "1.2.5"
-pkgrel = 0
-_scudo_ver = "17.0.6"
+pkgrel = 1
+_scudo_ver = "18.1.3"
 _commit = "v1.2.5"
 build_style = "gnu_configure"
 configure_args = ["--prefix=/usr", "--disable-gcc-wrapper"]
@@ -23,7 +23,7 @@ source = [
 source_paths = [".", "compiler-rt"]
 sha256 = [
     "5829457efb2247c1e39920b14721b75e9c488a06149736c8317536ec4aa3764b",
-    "11b8d09dcf92a0f91c5c82defb5ad9ff4acf5cf073a80c317204baa922d136b4",
+    "9a7df9300413696b0c4f7ff1e2729cb82aca375f35c05d698c44f26a4edf1c27",
 ]
 # scp makes it segfault
 hardening = ["!scp"]
@@ -31,7 +31,7 @@ hardening = ["!scp"]
 options = ["bootstrap", "!check", "!lto"]
 
 # whether to use musl's stock allocator instead of scudo
-_use_mng = self.profile().arch in ["ppc"]
+_use_mng = self.profile().wordsize == 32
 
 if _use_mng:
     configure_args += ["--with-malloc=mallocng"]

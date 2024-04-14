@@ -1,0 +1,16 @@
+We don't want to pull in unistd.h here for now as it causes
+conflicting definitions of the syscall API. Maybe solve better
+in musl at some later point.
+
+--- a/src/malloc/scudo/common.h
++++ b/src/malloc/scudo/common.h
+@@ -17,7 +17,9 @@
+ 
+ #include <stddef.h>
+ #include <string.h>
++#if SCUDO_ANDROID
+ #include <unistd.h>
++#endif
+ 
+ namespace scudo {
+ 

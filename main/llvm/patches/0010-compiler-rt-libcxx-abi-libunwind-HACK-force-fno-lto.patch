@@ -1,14 +1,13 @@
-From 69e9770b5657782b63dca86a4e17920d47e00a3b Mon Sep 17 00:00:00 2001
+From f97ba32f5882d6eccf1bdd448f17821a7883bfb0 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
-Date: Sat, 4 Nov 2023 09:04:27 +0100
-Subject: [PATCH 10/25] compiler-rt,libcxx(abi),libunwind: HACK: force -fno-lto
+Date: Sun, 14 Apr 2024 14:42:37 +0200
+Subject: [PATCH 10/27] compiler-rt,libcxx(abi),libunwind: HACK: force -fno-lto
 
 Also do -ftrivial-auto-var-init=unitialized for libunwind, as it appears
 to break unwinding in strange ways with C++ on ppc64le, particularly with
 LTO; this needs to be investigated properly though.
 
 https://github.com/llvm/llvm-project/issues/76771
-
 ---
  compiler-rt/lib/builtins/CMakeLists.txt | 2 +-
  libcxx/CMakeLists.txt                   | 4 ++++
@@ -17,10 +16,10 @@ https://github.com/llvm/llvm-project/issues/76771
  4 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/compiler-rt/lib/builtins/CMakeLists.txt b/compiler-rt/lib/builtins/CMakeLists.txt
-index bf4680c23..0511df00c 100644
+index a22169342..8cba9ded3 100644
 --- a/compiler-rt/lib/builtins/CMakeLists.txt
 +++ b/compiler-rt/lib/builtins/CMakeLists.txt
-@@ -712,7 +712,7 @@ if (APPLE)
+@@ -721,7 +721,7 @@ if (APPLE)
    add_subdirectory(macho_embedded)
    darwin_add_builtin_libraries(${BUILTIN_SUPPORTED_OS})
  else ()
@@ -30,10 +29,10 @@ index bf4680c23..0511df00c 100644
  
    if (COMPILER_RT_HAS_FCF_PROTECTION_FLAG)
 diff --git a/libcxx/CMakeLists.txt b/libcxx/CMakeLists.txt
-index b8ac53658..82b9aa639 100644
+index d392e9507..44560b208 100644
 --- a/libcxx/CMakeLists.txt
 +++ b/libcxx/CMakeLists.txt
-@@ -563,6 +563,10 @@ function(cxx_add_rtti_flags target)
+@@ -595,6 +595,10 @@ function(cxx_add_rtti_flags target)
        target_add_compile_flags_if_supported(${target} PUBLIC -fno-rtti)
      endif()
    endif()
@@ -45,10 +44,10 @@ index b8ac53658..82b9aa639 100644
  
  # Modules flags ===============================================================
 diff --git a/libcxxabi/CMakeLists.txt b/libcxxabi/CMakeLists.txt
-index f380fe6b6..779971be7 100644
+index da998d222..8d9a93316 100644
 --- a/libcxxabi/CMakeLists.txt
 +++ b/libcxxabi/CMakeLists.txt
-@@ -292,6 +292,10 @@ else()
+@@ -288,6 +288,10 @@ else()
    add_compile_flags_if_supported(-EHa-)
  endif()
  
@@ -60,11 +59,11 @@ index f380fe6b6..779971be7 100644
  string(TOUPPER "${CMAKE_BUILD_TYPE}" uppercase_CMAKE_BUILD_TYPE)
  if (LIBCXXABI_ENABLE_ASSERTIONS)
 diff --git a/libunwind/src/CMakeLists.txt b/libunwind/src/CMakeLists.txt
-index bb2ada94d..f54e8b2e4 100644
+index 780430ba7..ae0e79370 100644
 --- a/libunwind/src/CMakeLists.txt
 +++ b/libunwind/src/CMakeLists.txt
-@@ -102,6 +102,9 @@ if (APPLE)
-   endif ()
+@@ -124,6 +124,9 @@ if (HAIKU)
+   add_compile_flags("-DPT_GNU_EH_FRAME=PT_EH_FRAME")
  endif ()
  
 +add_compile_flags("-fno-lto -ftrivial-auto-var-init=uninitialized")
@@ -74,5 +73,5 @@ index bb2ada94d..f54e8b2e4 100644
  string(REPLACE ";" " " LIBUNWIND_CXX_FLAGS "${LIBUNWIND_CXX_FLAGS}")
  string(REPLACE ";" " " LIBUNWIND_C_FLAGS "${LIBUNWIND_C_FLAGS}")
 -- 
-2.42.0
+2.44.0
 

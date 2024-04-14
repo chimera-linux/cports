@@ -1,6 +1,6 @@
 pkgname = "base-cross"
 pkgver = "0.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "meta"
 depends = [
     "clang-rt-cross",
@@ -15,7 +15,16 @@ license = "custom:meta"
 url = "https://chimera-linux.org"
 options = ["!cross"]
 
-_targetlist = ["aarch64", "ppc64le", "ppc64", "ppc", "x86_64", "riscv64"]
+_targetlist = [
+    "aarch64",
+    "armhf",
+    "armv7",
+    "ppc64le",
+    "ppc64",
+    "ppc",
+    "x86_64",
+    "riscv64",
+]
 _targets = list(filter(lambda p: p != self.profile().arch, _targetlist))
 
 

@@ -1,19 +1,19 @@
-From 112b795ad690505402d7c5d7541bf11ee63bdf09 Mon Sep 17 00:00:00 2001
-From: Daniel Kolesa <daniel@octaforge.org>
-Date: Tue, 2 May 2023 16:24:09 +0200
-Subject: [PATCH 08/25] compiler-rt: lsan: basic musl fixes on various archs
+From e87111d2ba3ecffcf9b6de8ca8e2da895a6a9dbe Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Sun, 14 Apr 2024 14:41:14 +0200
+Subject: [PATCH 08/27] compiler-rt: lsan: basic musl fixes on various archs
 
 ---
  .../sanitizer_common/sanitizer_linux_libcdep.cpp  | 15 +++++++++++++++
  1 file changed, 15 insertions(+)
 
 diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
-index 42013f471..f91ec71fa 100644
+index cccbb4d25..84566c679 100644
 --- a/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
 +++ b/compiler-rt/lib/sanitizer_common/sanitizer_linux_libcdep.cpp
-@@ -29,6 +29,14 @@
- #include "sanitizer_procmaps.h"
- #include "sanitizer_solaris.h"
+@@ -28,6 +28,14 @@
+ #  include "sanitizer_procmaps.h"
+ #  include "sanitizer_solaris.h"
  
 +#if defined(__powerpc__)
 +#define DTP_OFFSET 0x8000
@@ -23,10 +23,10 @@ index 42013f471..f91ec71fa 100644
 +#define DTP_OFFSET 0
 +#endif
 +
- #if SANITIZER_NETBSD
- #define _RTLD_SOURCE  // for __lwp_gettcb_fast() / __lwp_getprivate_fast()
- #endif
-@@ -292,6 +300,7 @@ static uptr ThreadDescriptorSizeFallback() {
+ #  if SANITIZER_NETBSD
+ #    define _RTLD_SOURCE  // for __lwp_gettcb_fast() / __lwp_getprivate_fast()
+ #  endif
+@@ -294,6 +302,7 @@ static uptr ThreadDescriptorSizeFallback() {
    return val;
  }
  
@@ -34,7 +34,7 @@ index 42013f471..f91ec71fa 100644
  uptr ThreadDescriptorSize() {
    uptr val = atomic_load_relaxed(&thread_descriptor_size);
    if (val)
-@@ -306,6 +315,9 @@ uptr ThreadDescriptorSize() {
+@@ -308,6 +317,9 @@ uptr ThreadDescriptorSize() {
    atomic_store_relaxed(&thread_descriptor_size, val);
    return val;
  }
@@ -42,28 +42,28 @@ index 42013f471..f91ec71fa 100644
 +uptr ThreadDescriptorSize() { return 0; }
 +#endif
  
- #if defined(__mips__) || defined(__powerpc64__) || SANITIZER_RISCV64 || \
-     SANITIZER_LOONGARCH64
-@@ -398,6 +410,7 @@ static int CollectStaticTlsBlocks(struct dl_phdr_info *info, size_t size,
+ #    if defined(__mips__) || defined(__powerpc64__) || SANITIZER_RISCV64 || \
+         SANITIZER_LOONGARCH64
+@@ -399,6 +411,7 @@ static int CollectStaticTlsBlocks(struct dl_phdr_info *info, size_t size,
      begin = (uptr)__tls_get_addr(mod_and_off);
- #endif
+ #    endif
    }
 +  begin -= DTP_OFFSET;
    for (unsigned i = 0; i != info->dlpi_phnum; ++i)
      if (info->dlpi_phdr[i].p_type == PT_TLS) {
        static_cast<InternalMmapVector<TlsBlock> *>(data)->push_back(
-@@ -557,9 +570,11 @@ static void GetTls(uptr *addr, uptr *size) {
+@@ -556,9 +569,11 @@ static void GetTls(uptr *addr, uptr *size) {
    else if (SANITIZER_FREEBSD)
      *size += 128;  // RTLD_STATIC_TLS_EXTRA
- #if defined(__mips__) || defined(__powerpc64__) || SANITIZER_RISCV64
-+#if SANITIZER_GLIBC
+ #        if defined(__mips__) || defined(__powerpc64__) || SANITIZER_RISCV64
++#if      SANITIZER_GLIBC
    const uptr pre_tcb_size = TlsPreTcbSize();
    *addr -= pre_tcb_size;
    *size += pre_tcb_size;
-+#endif
- #else
++#        endif
+ #        else
    // arm and aarch64 reserve two words at TP, so this underestimates the range.
    // However, this is sufficient for the purpose of finding the pointers to
 -- 
-2.42.0
+2.44.0
 

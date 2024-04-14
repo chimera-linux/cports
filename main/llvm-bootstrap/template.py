@@ -1,5 +1,5 @@
 pkgname = "llvm-bootstrap"
-pkgver = "17.0.6"
+pkgver = "18.1.3"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -15,7 +15,7 @@ configure_args = [
     "-DLIBCXX_USE_COMPILER_RT=YES",
     "-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY=NO",
     "-DLIBCXX_HAS_MUSL_LIBC=YES",
-    "-DLIBCXX_HARDENING_MODE=hardened",
+    "-DLIBCXX_HARDENING_MODE=fast",
     "-DLIBCXXABI_USE_LLVM_UNWINDER=YES",
     "-DLIBCXXABI_ENABLE_STATIC_UNWINDER=NO",
     "-DLIBCXXABI_USE_COMPILER_RT=YES",
@@ -54,7 +54,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "58a8818c60e6627064f312dbf46c02d9949956558340938b71cf731ad8bc0813"
+sha256 = "2929f62d69dec0379e529eb632c40e15191e36f3bd58c2cb2df0413a0dc48651"
 debug_level = 0
 # see llvm template
 hardening = ["!int"]

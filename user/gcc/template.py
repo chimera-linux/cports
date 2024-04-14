@@ -1,6 +1,6 @@
 # rebuild on major clang version updates
 pkgname = "gcc"
-_clangver = "17"
+_clangver = "18"
 _mver = "13"
 _mnver = f"{_mver}.2"
 _bver = f"{_mnver}.1"

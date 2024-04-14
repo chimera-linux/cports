@@ -1,7 +1,7 @@
-From ee1d7439197903e5f930d659c42e855d7d77cee0 Mon Sep 17 00:00:00 2001
+From e6385d7355b6e3e0231ae4bf3bb321cf3a770da5 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Tue, 2 May 2023 16:23:22 +0200
-Subject: [PATCH 21/25] clang: use strong stack protector by default
+Subject: [PATCH 21/27] clang: use strong stack protector by default
 
 ---
  clang/lib/Driver/ToolChains/Linux.h | 5 +++++
@@ -24,5 +24,5 @@ index 524391743..bfaa3a8a7 100644
    Tool *buildAssembler() const override;
    Tool *buildLinker() const override;
 -- 
-2.42.0
+2.44.0
 
