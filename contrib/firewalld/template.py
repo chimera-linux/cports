@@ -1,6 +1,6 @@
 pkgname = "firewalld"
-pkgver = "2.1.1"
-pkgrel = 1
+pkgver = "2.1.2"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-systemd"]
 configure_gen = ["./autogen.sh"]
@@ -30,7 +30,7 @@ maintainer = "Orphaned <orphaned@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://firewalld.org"
 source = f"https://github.com/firewalld/firewalld/releases/download/v{pkgver}/firewalld-{pkgver}.tar.bz2"
-sha256 = "a138a3799b5f6e6539bac308e5ae8950998d5173f588231214e979524e7c9416"
+sha256 = "94323ebff87185721caa6bff80699132f15131af73b9bcedc45e60b1827c91c5"
 # tests don't work in our build env
 options = ["!check"]
 
