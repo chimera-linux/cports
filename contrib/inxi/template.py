@@ -1,5 +1,5 @@
 pkgname = "inxi"
-_pver = "3.3.33-1"
+_pver = "3.3.34-1"
 pkgver = f"{_pver.replace('-', '.')}"
 pkgrel = 0
 depends = ["perl"]
@@ -8,7 +8,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://codeberg.org/smxi/inxi"
 source = f"https://codeberg.org/smxi/inxi/archive/{_pver}.tar.gz"
-sha256 = "c2d7ae8914f2810d4377999c24d3839fa9a757a6ace59ff57ab366873161d38c"
+sha256 = "7cfc5c0abe10cb59f281733ce1d526583312344007756e7713fd5c51200b80fb"
 
 
 def do_install(self):
