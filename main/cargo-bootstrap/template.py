@@ -4,7 +4,7 @@ pkgrel = 0
 # satisfy runtime dependencies
 hostmakedepends = ["curl"]
 # satisfy revdeps
-makedepends = ["zlib"]
+makedepends = ["sqlite", "zlib"]
 depends = ["!cargo"]
 pkgdesc = "Bootstrap binaries of Rust package manager"
 maintainer = "q66 <q66@chimera-linux.org>"
