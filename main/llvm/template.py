@@ -568,10 +568,7 @@ def _libcxxabi_static(self):
 def _libllvm(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
 
-    return [
-        "usr/lib/libLLVM.so.*",
-        f"usr/lib/libLLVM-{_llvmgen}*.so"
-    ]
+    return ["usr/lib/libLLVM.so.*", f"usr/lib/libLLVM-{_llvmgen}*.so"]
 
 
 @subpackage("lld")
