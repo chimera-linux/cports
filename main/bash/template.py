@@ -1,18 +1,18 @@
 pkgname = "bash"
 pkgver = "5.2.21"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--without-bash-malloc",
     "--with-curses",
-    "--without-installed-readline",
+    "--with-installed-readline",
     "gl_cv_func_working_acl_get_file=yes",
     "ac_cv_lib_error_at_line=no",
     "ac_cv_header_sys_cdefs_h=no",
 ]
 make_check_target = "tests"
 hostmakedepends = ["bison", "texinfo"]
-makedepends = ["ncurses-devel"]
+makedepends = ["ncurses-devel", "readline-devel"]
 checkdepends = ["perl"]
 pkgdesc = "GNU Bourne Again Shell"
 maintainer = "q66 <q66@chimera-linux.org>"

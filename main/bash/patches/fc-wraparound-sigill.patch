@@ -1,0 +1,13 @@
+e.g. fzf's bash keybindings (/usr/share/fzf/key-bindings.bash) run
+`fc -lnr -2147483648` and that SIGILL's without this patch
+--- a/builtins/fc.def	2021-06-16 19:32:26.000000000 +0100
++++ b/builtins/fc.def	2024-04-15 10:58:49.300048307 +0100
+@@ -608,7 +609,7 @@
+ 
+   if (s && DIGIT(*s))
+     {
+-      n = atoi (s);
++      n = strtol (s, NULL, 10);
+       n *= sign;
+ 
+       /* We want to return something that is an offset to HISTORY_BASE. */
