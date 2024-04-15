@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "5.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
 hostmakedepends = [
