@@ -1,7 +1,6 @@
 pkgname = "rnnoise"
-pkgver = "0_git20210122"
+pkgver = "0.2"
 pkgrel = 0
-_gitrev = "1cbdbcf1283499bbb2230a6b0f126eb9b236defd"
 build_style = "gnu_configure"
 hostmakedepends = [
     "autoconf",
@@ -13,14 +12,12 @@ pkgdesc = "Neural network based noise reduction library"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://jmvalin.ca/demo/rnnoise"
-source = f"https://github.com/xiph/rnnoise/archive/{_gitrev}.tar.gz"
-sha256 = "68c7ab4e408426088603e19955e746bb2a412d84bb121b6f39834c60fc8068b7"
+source = f"https://github.com/xiph/rnnoise/releases/download/v{pkgver}/rnnoise-{pkgver}.tar.gz"
+sha256 = "90fce4b00b9ff24c08dbfe31b82ffd43bae383d85c5535676d28b0a2b11c0d37"
 hardening = ["vis", "cfi"]
 
-
-def post_extract(self):
-    with open(self.cwd / "package_version", "w") as f:
-        f.write(f'PACKAGE_VERSION="{pkgver}"\n')
+if self.profile().arch == "x86_64":
+    configure_args = ["--enable-x86-rtcd"]
 
 
 def post_install(self):
