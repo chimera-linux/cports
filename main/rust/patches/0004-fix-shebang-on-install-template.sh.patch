@@ -1,4 +1,4 @@
-From f85f7837d4dbbf16a3b8baff1c6e72c2c93f2fbf Mon Sep 17 00:00:00 2001
+From 80cc918258ba3435e8a3f7947e46fcf9bf56f17c Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 5 Oct 2023 22:40:31 +0200
 Subject: [PATCH 04/12] fix shebang on install-template.sh

@@ -1,4 +1,4 @@
-From 4a6ba1fb9914aab8595c43975bf32d2937520d16 Mon Sep 17 00:00:00 2001
+From 477f6eb3ab09eb35d90b057837e90bccef01f2d5 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 4 Jan 2024 15:07:23 +0100
 Subject: [PATCH 07/12] fix rustdoc when cross-compiling

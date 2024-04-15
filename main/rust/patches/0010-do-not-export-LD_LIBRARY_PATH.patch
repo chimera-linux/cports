@@ -1,4 +1,4 @@
-From 7534ff977206e7eed30418093b9ef1ce7ce485ef Mon Sep 17 00:00:00 2001
+From 909611a850b3b32fc532142edd2f4d9106bddd16 Mon Sep 17 00:00:00 2001
 From: Daniel Kolesa <daniel@octaforge.org>
 Date: Fri, 25 Feb 2022 00:39:21 +0100
 Subject: [PATCH 10/12] do not export LD_LIBRARY_PATH
@@ -8,7 +8,7 @@ Subject: [PATCH 10/12] do not export LD_LIBRARY_PATH
  1 file changed, 6 deletions(-)
 
 diff --git a/src/bootstrap/bootstrap.py b/src/bootstrap/bootstrap.py
-index fea194a80..20426f338 100644
+index 0d604c0d3..1fdfe7868 100644
 --- a/src/bootstrap/bootstrap.py
 +++ b/src/bootstrap/bootstrap.py
 @@ -893,12 +893,6 @@ class RustBuild(object):

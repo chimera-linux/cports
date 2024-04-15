@@ -1,4 +1,4 @@
-From 9300368d0b60268e8736741117671ebf268febb8 Mon Sep 17 00:00:00 2001
+From 9e32d4a8589bd72273494c49c5be110898a26583 Mon Sep 17 00:00:00 2001
 From: q66 <q66@chimera-linux.org>
 Date: Thu, 29 Feb 2024 01:11:46 +0100
 Subject: [PATCH 11/12] drop -latomic on riscv and elsewhere
