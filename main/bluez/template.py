@@ -1,5 +1,5 @@
 pkgname = "bluez"
-pkgver = "5.73"
+pkgver = "5.74"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -40,7 +40,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://www.bluez.org"
 source = f"$(KERNEL_SITE)/bluetooth/{pkgname}-{pkgver}.tar.xz"
-sha256 = "257e9075ce05c70d48c5defd254e78c418416f7584b45f9dddc884ff88e3fc53"
+sha256 = "1b35d23099f6b66d1ab065c17bf9bf286e854063e9b17477b17804d70de9089a"
 tool_flags = {
     "CFLAGS": ["-Wno-deprecated-declarations"],
     # workaround for --gc-sections breaking in test files
