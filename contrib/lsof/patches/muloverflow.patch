@@ -1,0 +1,11 @@
+--- a/lib/dialects/linux/dfile.c
++++ b/lib/dialects/linux/dfile.c
+@@ -53,7 +53,7 @@
+  * minor device, and inode, modulo mod
+  * (mod must be a power of 2) */
+ #define SFHASHDEVINO(maj, min, ino, mod)                                       \
+-    ((int)(((int)((((int)(maj + 1)) * ((int)((min + 1)))) + ino) * 31415) &    \
++    ((int)(((int)((((int)(maj + 1)) * ((int)((min + 1)))) + ino) * 31415U) &    \
+            (mod - 1)))
+ #define SFRDHASH                                                               \
+     1024 /* Sfile hash by raw device number                                    \
