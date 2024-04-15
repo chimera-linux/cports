@@ -1,5 +1,5 @@
 pkgname = "tio"
-pkgver = "2.7"
+pkgver = "2.8"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -10,10 +10,11 @@ makedepends = [
     "bash-completion",
     "inih-devel",
     "linux-headers",
+    "lua5.4-devel",
 ]
 pkgdesc = "Terminal Serial I/O tool"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/tio/tio"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "c1fb02f953a9a1f37a2077dd7030afbb99ace10a8c6204a810f2e662ecd43fe4"
+sha256 = "2a9e120a8da379c1510af4f2f37cf7cd400280d687efe65657351b75daed866e"
