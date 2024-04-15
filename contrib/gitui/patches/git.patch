@@ -1,0 +1,16 @@
+diff --git a/build.rs b/build.rs
+index 64470c1..13fdd30 100644
+--- a/build.rs
++++ b/build.rs
+@@ -22,10 +22,9 @@ fn main() {
+ 
+ 	let build_name = if std::env::var("GITUI_RELEASE").is_ok() {
+ 		format!(
+-			"{} {} ({})",
++			"{} {}",
+ 			env!("CARGO_PKG_VERSION"),
+ 			build_date,
+-			get_git_hash()
+ 		)
+ 	} else {
+ 		format!("nightly {} ({})", build_date, get_git_hash())
