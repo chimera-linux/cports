@@ -1,6 +1,6 @@
 pkgname = "xcbproto"
-pkgver = "1.16.0"
-pkgrel = 1
+pkgver = "1.17.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-legacy"]
 hostmakedepends = ["pkgconf", "python", "automake"]
@@ -10,7 +10,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xcb.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/proto/xcbproto/-/archive/xcb-proto-{pkgver}/{pkgname}-xcb-proto-{pkgver}.tar.gz"
-sha256 = "0e88e4a68e28521cab05660c14c320ae32ea7aa64bc498c25557f726ccfda388"
+sha256 = "479447448281cfb6585ad780f23bd75311af20daf344fb9209c8a87ea77e296a"
 
 
 def post_install(self):
