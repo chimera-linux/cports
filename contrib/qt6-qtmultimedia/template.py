@@ -1,6 +1,6 @@
 pkgname = "qt6-qtmultimedia"
 pkgver = "6.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",
