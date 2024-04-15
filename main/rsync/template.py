@@ -1,6 +1,6 @@
 pkgname = "rsync"
 pkgver = "3.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-rrsync",
@@ -32,6 +32,9 @@ tool_flags = {
     # ipv6 on musl: https://bugzilla.samba.org/show_bug.cgi?id=10715
     "CFLAGS": ["-DINET6"]
 }
+
+if self.profile().arch == "x86_64":
+    configure_args += ["--enable-roll-simd"]
 
 
 def post_extract(self):
