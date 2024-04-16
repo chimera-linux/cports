@@ -191,9 +191,11 @@ def do_configure(self):
             outp.symlink_to(f"/usr/lib/llvm-bootstrap/bin/{f}")
             continue
         with open(outp, "w") as outf:
-            outf.write(f"""#!/bin/sh
+            outf.write(
+                f"""#!/bin/sh
 exec /usr/bin/ccache /usr/lib/llvm-bootstrap/bin/{f} "$@"
-""")
+"""
+            )
         outp.chmod(0o755)
 
     cmake.configure(
