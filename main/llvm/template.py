@@ -96,8 +96,6 @@ if self.stage > 0:
             hostmakedepends += ["llvm-bootstrap"]
             # set all the stuff that matters
             configure_args += [
-                "-DCMAKE_C_COMPILER=/usr/lib/llvm-bootstrap/bin/clang",
-                "-DCMAKE_CXX_COMPILER=/usr/lib/llvm-bootstrap/bin/clang++",
                 "-DCMAKE_AR=/usr/lib/llvm-bootstrap/bin/llvm-ar",
                 "-DCMAKE_NM=/usr/lib/llvm-bootstrap/bin/llvm-nm",
                 "-DCMAKE_RANLIB=/usr/lib/llvm-bootstrap/bin/llvm-ranlib",
@@ -159,6 +157,11 @@ def init_configure(self):
         self.configure_args += ["-DLLVM_ENABLE_LTO=Thin"]
 
     if not self.profile().cross:
+        if self.stage >= 2:
+            self.configure_args += [
+                f"-DCMAKE_C_COMPILER={self.chroot_cwd / 'boot-clang'}",
+                f"-DCMAKE_CXX_COMPILER={self.chroot_cwd / 'boot-clang++'}",
+            ]
         return
 
     # grab these from the host
@@ -181,6 +184,17 @@ def do_configure(self):
     # when bootstrapping, this will check the actual profile
     with self.profile(self.profile().arch) as pf:
         trip = pf.triplet
+
+    for f in ["clang", "clang++"]:
+        outp = self.cwd / f"boot-{f}"
+        if not self.use_ccache:
+            outp.symlink_to(f"/usr/lib/llvm-bootstrap/bin/{f}")
+            continue
+        with open(outp, "w") as outf:
+            outf.write(f"""#!/bin/sh
+exec /usr/bin/ccache /usr/lib/llvm-bootstrap/bin/{f} "$@"
+""")
+        outp.chmod(0o755)
 
     cmake.configure(
         self,
