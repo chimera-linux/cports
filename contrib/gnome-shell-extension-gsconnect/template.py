@@ -1,8 +1,8 @@
 pkgname = "gnome-shell-extension-gsconnect"
 pkgver = "56"
-pkgrel = 1
+pkgrel = 2
 # XXX drop after next release
-_commit = "43594cc23826fdc6b17acd04b67b34338acf78d4"
+_commit = "7ba08309a682212f9ca5dab9afb19430458f8651"
 build_style = "meson"
 configure_args = ["-Dinstalled_tests=false"]
 # Would've used weston-headless-run here instead of xvfb-run, but that runs
@@ -27,4 +27,4 @@ license = "GPL-2.0-or-later"
 url = "https://github.com/GSConnect/gnome-shell-extension-gsconnect"
 # source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "bcce8a391b4f18a5d94d250af923f7ecec203a81a1d0a71c8527005dccaad856"
+sha256 = "13844ca6b2f369884ba1f3ff115b03edf5b6a0199724dc880fcd45fe4c1dca4e"
