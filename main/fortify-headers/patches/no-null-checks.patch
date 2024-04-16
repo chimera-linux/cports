@@ -1,0 +1,86 @@
+commit 7bcc9d163e2e22ebabbe0a19024f5848e00e020a
+Author: q66 <q66@chimera-linux.org>
+Date:   Tue Apr 16 18:57:16 2024 +0200
+
+    re-relax mem* null checks
+    
+    I have no interest in breaking random code for spurious reasons
+    at this moment.
+
+diff --git a/include/string.h b/include/string.h
+index 6f90e6f..6d3e00a 100644
+--- a/include/string.h
++++ b/include/string.h
+@@ -50,9 +50,6 @@ __error_if((__fh_bos(__od, 0) < __n), "'memcpy' called with `n` bigger than the
+ #if __has_builtin(__builtin___memcpy_chk) && USE_NATIVE_CHK
+ 	return __builtin___memcpy_chk(__od, __os, __n, __fh_bos(__od, 0));
+ #else
+-	if (!__od || !__os)
+-      		__builtin_trap();
+-
+ 	__fh_size_t __bd = __fh_bos(__od, 0);
+ 	__fh_size_t __bs = __fh_bos(__os, 0);
+ 	char *__d = (char *)__od;
+@@ -77,9 +74,6 @@ _FORTIFY_FN(memmove) void *memmove(void * _FORTIFY_POS0 __d,
+ #if __has_builtin(__builtin___memmove_chk) && USE_NATIVE_CHK
+ 	return __builtin___memmove_chk(__d, __s, __n, __fh_bos(__d, 0));
+ #else
+-	if (!__d || !__s)
+-		__builtin_trap();
+-
+ 	__fh_size_t __bd = __fh_bos(__d, 0);
+ 	__fh_size_t __bs = __fh_bos(__s, 0);
+ 
+@@ -99,9 +93,6 @@ __warning_if(__c != 0 && __n == 0, "'memset' will set `0` bytes; did you invert
+ #if __has_builtin(__builtin___memset_chk) && USE_NATIVE_CHK
+ 	return __builtin___memset_chk(__d, __c, __n, __fh_bos(__d, 0));
+ #else
+-	if (!__d)
+-		__builtin_trap();
+-
+ 	__fh_size_t __b = __fh_bos(__d, 0);
+ 
+ 	if (__n > __b)
+@@ -120,9 +111,6 @@ _FORTIFY_FN(memchr) void *memchr(const void * _FORTIFY_POS0 __d, int __c, size_t
+ #if __has_builtin(__builtin___memchr_chk) && USE_NATIVE_CHK
+ 	return __builtin___memchr_chk(__d, __c, __n, __fh_bos(__d, 0));
+ #else
+-	if (!__d)
+-		__builtin_trap();
+-
+ #if __STDC_VERSION__ < 201112L
+ 	__fh_size_t __b = __fh_bos(__d, 0);
+ 	if (__n > __b)
+@@ -337,9 +325,6 @@ _FORTIFY_FN(mempcpy) void *mempcpy(void * _FORTIFY_POS0 __d,
+ #if __has_builtin(__builtin___mempcpy_chk) && USE_NATIVE_CHK
+ 	return __builtin___mempcpy_chk(__d, __s, __n, __fh_bos(__d, 0));
+ #else
+-	if (!__d || !__s)
+-		__builtin_trap();
+-
+ 	__fh_size_t __bd = __fh_bos(__d, 0);
+ 	__fh_size_t __bs = __fh_bos(__s, 0);
+ 
+diff --git a/tests/Makefile b/tests/Makefile
+index 3213319..5e0abbd 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -50,10 +50,6 @@ RUNTIME_TARGETS= \
+ 	test_memcpy_dynamic_write    \
+ 	test_memcpy_overwrite_over   \
+ 	test_memcpy_static_read      \
+-	test_memcpy_null_src         \
+-	test_memcpy_null_dst         \
+-	test_memmove_null_src        \
+-	test_memmove_null_dst        \
+ 	test_memmove_dynamic_read    \
+ 	test_memmove_dynamic_write   \
+ 	test_memmove_static_read     \
+@@ -64,7 +60,6 @@ RUNTIME_TARGETS= \
+ 	test_mempcpy_static_write    \
+ 	test_memset_dynamic_write    \
+ 	test_memset_static_write     \
+-	test_memset_null             \
+ 	test_poll_dynamic            \
+ 	test_poll_static             \
+ 	test_ppoll_dynamic           \
