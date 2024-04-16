@@ -1,18 +1,15 @@
 pkgname = "xorg-util-macros"
-pkgver = "1.20.0"
+pkgver = "1.20.1"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = ["automake", "pkgconf"]
 pkgdesc = "X.org autotools macros"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://gitlab.freedesktop.org/xorg/util/macros"
 source = f"$(XORG_SITE)/util/util-macros-{pkgver}.tar.gz"
-sha256 = "8daf36913d551a90fd1013cb078401375dabae021cb4713b9b256a70f00eeb74"
+sha256 = "b373f72887b1394ce2193180a60cb0d1fb8b17bc96ddd770cfd7a808cb489a15"
 
 
 def post_install(self):
     self.install_license("COPYING")
-
-
-configure_gen = []
