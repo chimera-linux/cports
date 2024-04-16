@@ -1,6 +1,6 @@
 pkgname = "pipewire"
-pkgver = "1.0.4"
-pkgrel = 1
+pkgver = "1.0.5"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "--auto-features=enabled",
@@ -24,36 +24,36 @@ configure_args = [
     "-Drlimits-match=@_pipewire",
 ]
 hostmakedepends = [
+    "bash",
+    "doxygen",
+    "gettext",
+    "glib-devel",
+    "graphviz",
     "meson",
     "pkgconf",
-    "gettext",
     "python-docutils",
-    "doxygen",
-    "graphviz",
-    "bash",
-    "glib-devel",
 ]
 makedepends = [
-    "gst-plugins-base-devel",
-    "sbc-devel",
-    "libva-devel",
-    "libusb-devel",
-    "libsndfile-devel",
-    "libedit-readline-devel",
-    "ncurses-devel",
     "alsa-lib-devel",
-    "libpulse-devel",
-    "liblc3-devel",
-    "fdk-aac-devel",
-    "v4l-utils-devel",
-    "libcamera-devel",
     "avahi-devel",
-    "openssl-devel",
     "bluez-devel",
-    "libfreeaptx-devel",
+    "fdk-aac-devel",
+    "gst-plugins-base-devel",
+    "libcamera-devel",
     "libcanberra-devel",
+    "libedit-readline-devel",
+    "libfreeaptx-devel",
+    "liblc3-devel",
     "libmysofa-devel",
+    "libpulse-devel",
+    "libsndfile-devel",
+    "libusb-devel",
+    "libva-devel",
     "lilv-devel",
+    "ncurses-devel",
+    "openssl-devel",
+    "sbc-devel",
+    "v4l-utils-devel",
 ]
 depends = [
     "virtual:pipewire-session-manager!pipewire-session-manager-none",
@@ -77,7 +77,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pipewire.org"
 source = f"https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "ce00e0cee3eefaf8e92eecf5d28985f6dab43ccfe7e704d41b0cfda8376a187c"
+sha256 = "c5a5de26d684a1a84060ad7b6131654fb2835e03fccad85059be92f8e3ffe993"
 # FIXME int: e.g. https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2968
 hardening = ["!int"]
 
