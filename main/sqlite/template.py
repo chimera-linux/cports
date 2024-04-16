@@ -1,7 +1,7 @@
 pkgname = "sqlite"
 pkgver = "3.45.3"
 _amalg = "3450300"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-threadsafe",

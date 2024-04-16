@@ -1,6 +1,6 @@
 pkgname = "libwacom"
 pkgver = "2.11.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = ["-Ddocumentation=disabled", "-Dtests=enabled"]
 hostmakedepends = ["meson", "pkgconf"]

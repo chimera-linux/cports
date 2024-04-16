@@ -1,6 +1,6 @@
 pkgname = "bluez"
 pkgver = "5.75"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-deprecated",
