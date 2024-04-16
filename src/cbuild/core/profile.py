@@ -81,7 +81,7 @@ def _get_archflags(prof, tmpl, hard):
     if not hard["ssp"]:
         sflags.append("-fno-stack-protector")
 
-    if opts["framepointer"]:
+    if tmpl.options["framepointer"]:
         sflags.append("-fno-omit-frame-pointer")
 
     if hard["sst"]:
@@ -238,7 +238,7 @@ def _get_rustflags(self, tmpl, name, extra_flags, debug, hardening, shell):
             self.sysroot / "usr",
         ]
 
-    if opts["framepointer"]:
+    if tmpl.options["framepointer"]:
         bflags += ["-Cforce-frame-pointers=true"]
 
     if tmpl.options["relr"] and self._has_relr(tmpl.stage):
