@@ -1,5 +1,5 @@
 pkgname = "libwacom"
-pkgver = "2.10.0"
+pkgver = "2.11.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocumentation=disabled", "-Dtests=enabled"]
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/linuxwacom/libwacom"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "3f8ef37de78ac3d08af1bdcb5d5828ec8284dcb7154bbec4995238728914aa0e"
+sha256 = "b03f991ec82c543a42386274e1290c326934e4f25246dc3789ca3037c7181344"
 
 
 def post_install(self):
