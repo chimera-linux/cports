@@ -58,9 +58,6 @@ tool_flags = {
     "CXXFLAGS": ["-fPIC"],
 }
 
-if self.profile().arch == "aarch64":
-    broken = "needs fixing __getauxval"
-
 
 def post_build(self):
     from cbuild.util import compiler
