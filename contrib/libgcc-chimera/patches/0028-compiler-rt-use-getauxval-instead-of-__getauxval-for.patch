@@ -1,0 +1,31 @@
+From b74d1fc4670b36cce603e3e3111aeb098d6b3911 Mon Sep 17 00:00:00 2001
+From: q66 <q66@chimera-linux.org>
+Date: Tue, 16 Apr 2024 11:12:39 +0200
+Subject: [PATCH 28/28] compiler-rt: use getauxval instead of __getauxval for
+ aarch64 sme
+
+Unlike glibc, musl does not export the underscored version.
+---
+ compiler-rt/lib/builtins/aarch64/sme-abi-init.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/compiler-rt/lib/builtins/aarch64/sme-abi-init.c b/compiler-rt/lib/builtins/aarch64/sme-abi-init.c
+index b6ee12170..29b20bebb 100644
+--- a/compiler-rt/lib/builtins/aarch64/sme-abi-init.c
++++ b/compiler-rt/lib/builtins/aarch64/sme-abi-init.c
+@@ -20,10 +20,10 @@ _Bool __aarch64_has_sme_and_tpidr2_el0;
+ #define HWCAP2_SME (1 << 23)
+ #endif
+ 
+-extern unsigned long int __getauxval (unsigned long int);
++extern unsigned long int getauxval (unsigned long int);
+ 
+ static _Bool has_sme(void) {
+-  return __getauxval(AT_HWCAP2) & HWCAP2_SME;
++  return getauxval(AT_HWCAP2) & HWCAP2_SME;
+ }
+ 
+ #else  // defined(__linux__)
+-- 
+2.44.0
+
