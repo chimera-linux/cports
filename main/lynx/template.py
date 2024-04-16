@@ -1,6 +1,6 @@
 pkgname = "lynx"
-pkgver = "2.9.0"
-pkgrel = 2
+pkgver = "2.9.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-widec",
@@ -24,7 +24,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://lynx.invisible-island.net"
 source = f"https://invisible-mirror.net/archives/{pkgname}/tarballs/{pkgname}{pkgver.replace('_pre', 'dev.')}.tar.bz2"
-sha256 = "5bcae5e2e6043ca7b220963a97763c49c13218d849ffda6be7739bfd5a2d36ff"
+sha256 = "a6db9b22c20df435df3757925a505531ce9a514d134742e935d71aa5c41339c5"
 # FIXME cfi: crashes in UCPutUtf8_charstring via magic function pointer stuff
 # when -display_charset utf-8 on any website
 hardening = ["vis", "cfi", "cfi-genptr"]
