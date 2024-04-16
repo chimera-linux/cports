@@ -1,7 +1,7 @@
 pkgname = "clang-rt-crt-cross"
 _musl_ver = "1.2.5"
 pkgver = "18.1.3"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = f"llvm-project-{pkgver}.src"
 build_style = "cmake"
 configure_args = [
