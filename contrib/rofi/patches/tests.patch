@@ -4,23 +4,23 @@ Date:   Sun Oct 15 02:42:35 2023 +0200
 
     disable libnkutils module tests
 
-diff --git a/subprojects/libnkutils/meson.build b/subprojects/libnkutils/meson.build
-index b35ee68..9dcc174 100644
---- a/subprojects/libnkutils/meson.build
-+++ b/subprojects/libnkutils/meson.build
-@@ -218,6 +218,7 @@ if bindings
-     endif
- endif
- 
-+if false
- foreach m : nk_modules
-     if get_variable(m.underscorify())
-         nk_test = executable('nk-@0@.test'.format(m), files('tests/@0@.c'.format(m)), c_args: nk_args, dependencies: libnkutils)
-@@ -228,6 +229,7 @@ foreach m : nk_modules
-         )
-     endif
- endforeach
-+endif
- 
- foreach m : nk_special_modules
-     if get_variable(m.underscorify())
+
+diff --git a/subprojects/libnkutils/core/meson.build b/subprojects/libnkutils/core/meson.build
+index 6884331..0733845 100644
+--- a/subprojects/libnkutils/core/meson.build
++++ b/subprojects/libnkutils/core/meson.build
+@@ -90,14 +90,6 @@ test('libnkutils enum module tests',
+     args: [ '--tap' ],
+     protocol: 'tap',
+ )
+-test('libnkutils format-string module tests',
+-    executable('nk-format-string.test', files('tests/format-string.c'),
+-        dependencies: libnkutils
+-    ),
+-    suite: [ 'format-string' ],
+-    args: [ '--tap' ],
+-    protocol: 'tap',
+-)
+ test('libnkutils colour module tests',
+     executable('nk-colour.test', files('tests/colour.c'),
+         dependencies: libnkutils
