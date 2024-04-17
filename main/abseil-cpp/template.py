@@ -1,6 +1,6 @@
 pkgname = "abseil-cpp"
 pkgver = "20240116.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DCMAKE_CXX_STANDARD=17",
