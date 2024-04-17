@@ -1,6 +1,6 @@
 pkgname = "mpv"
-pkgver = "0.37.0"
-pkgrel = 3
+pkgver = "0.38.0"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dlibmpv=true",
@@ -21,7 +21,6 @@ configure_args = [
     "-Dmanpage-build=enabled",
     "-Dpipewire=enabled",
     "-Drubberband=enabled",
-    "-Dshaderc=enabled",
     "-Duchardet=enabled",
     "-Dvapoursynth=enabled",
     "-Dvaapi=enabled",
@@ -45,37 +44,36 @@ configure_args = [
 ]
 hostmakedepends = ["meson", "pkgconf", "python-docutils", "wayland-progs"]
 makedepends = [
-    "libarchive-devel",
-    "lua5.1-devel",
-    "libuuid-devel",
-    "mesa-devel",
-    "vulkan-headers",
-    "vulkan-loader-devel",
-    "libplacebo-devel",
-    "shaderc-devel",
     "ffmpeg-devel",
-    "libxv-devel",
-    "libxrandr-devel",
-    "libxinerama-devel",
-    "libxscrnsaver-devel",
-    "libxkbcommon-devel",
-    "libxpresent-devel",
-    "wayland-devel",
-    "wayland-protocols",
-    "libva-devel",
-    "pipewire-devel",
-    "pipewire-jack-devel",
+    "harfbuzz-devel",
     "lcms2-devel",
+    "libarchive-devel",
     "libass-devel",
     "libbluray-devel",
-    "libdvdnav-devel",
+    "libcaca-devel",
     "libcdio-paranoia-devel",
+    "libdvdnav-devel",
+    "libplacebo-devel",
+    "libuuid-devel",
+    "libva-devel",
+    "libxinerama-devel",
+    "libxkbcommon-devel",
+    "libxpresent-devel",
+    "libxrandr-devel",
+    "libxscrnsaver-devel",
+    "libxv-devel",
+    "lua5.1-devel",
+    "mesa-devel",
+    "pipewire-devel",
+    "pipewire-jack-devel",
     "rubberband-devel",
     "uchardet-devel",
-    "harfbuzz-devel",
-    "libcaca-devel",
-    "zimg-devel",
     "vapoursynth-devel",
+    "vulkan-headers",
+    "vulkan-loader-devel",
+    "wayland-devel",
+    "wayland-protocols",
+    "zimg-devel",
 ]
 depends = ["hicolor-icon-theme"]
 pkgdesc = "Video player based on mplayer2"
@@ -83,7 +81,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://mpv.io"
 source = f"https://github.com/mpv-player/mpv/archive/v{pkgver}.tar.gz"
-sha256 = "1d2d4adbaf048a2fa6ee134575032c4b2dad9a7efafd5b3e69b88db935afaddf"
+sha256 = "86d9ef40b6058732f67b46d0bbda24a074fae860b3eaae05bab3145041303066"
 tool_flags = {"LDFLAGS": ["-Wl,-z,stack-size=0x100000"]}
 # FIXME cfi
 hardening = ["vis", "!cfi"]
