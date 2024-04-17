@@ -19,5 +19,5 @@ options = ["!check"]
 
 
 def do_install(self):
-    self.cargo.install(wrksrc="bindgen-cli")
+    self.install_bin(f"./target/{self.profile().triplet}/release/bindgen")
     self.install_license("LICENSE")
