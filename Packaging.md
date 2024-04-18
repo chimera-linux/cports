@@ -2806,7 +2806,7 @@ access the return code as well as possibly captured `stdout`.
 Usage:
 
 ```
-self.do("foo", ["--arg1", "--arg2"], wrksrc = "bar")
+self.do("foo", "--arg1", "--arg2", wrksrc = "bar")
 ```
 
 ##### def stamp(self, name)
