@@ -51,6 +51,16 @@ tool_flags = {
 }
 
 
+def post_build(self):
+    self.ln_s("eustack", "build/src/stack")
+
+
+def post_install(self):
+    self.mv(
+        self.destdir / "usr/bin/eu-eustack", self.destdir / "usr/bin/eu-stack"
+    )
+
+
 @subpackage("elfutils-libs")
 def _libs(self):
     # since the resolved (after symlinks) filename of the .so is without
