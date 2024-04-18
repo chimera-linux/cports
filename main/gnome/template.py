@@ -1,6 +1,6 @@
 pkgname = "gnome"
 pkgver = "46.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     f"gnome-core~{pkgver}",
@@ -26,11 +26,11 @@ def _apps(self):
         "gnome-characters",
         "gnome-clocks",
         "gnome-console",
-        # "gnome-contacts",
+        "gnome-contacts",
         # "gnome-connections",
         "gnome-disk-utility",
         "gnome-font-viewer",
-        # "gnome-maps",
+        "gnome-maps",
         # "gnome-music",
         # "gnome-remote-desktop",
         "gnome-screenshot",
@@ -40,7 +40,7 @@ def _apps(self):
         "gnome-text-editor",
         "gnome-user-docs",
         # "gnome-user-share",
-        # "gnome-weather",
+        "gnome-weather",
         # "orca",
         # "phodav",
         "simple-scan",
