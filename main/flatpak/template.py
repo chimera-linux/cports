@@ -1,6 +1,6 @@
 pkgname = "flatpak"
-pkgver = "1.14.5"
-pkgrel = 2
+pkgver = "1.14.6"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-system-bubblewrap",
@@ -67,7 +67,7 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://flatpak.org"
 source = f"https://github.com/flatpak/flatpak/releases/download/{pkgver}/flatpak-{pkgver}.tar.xz"
-sha256 = "5b70c64ce7ac134e1ea08011256e423ae5c54f277297441583f77d013f27ffac"
+sha256 = "538f36b2c6f8c70eefd12d13ad5b1ad830820106a8bd3a9f6b8e4d9de81e4946"
 # test runner expects a different env (possible FIXME?)
 options = ["!check", "!cross"]
 
