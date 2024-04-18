@@ -1,11 +1,10 @@
 pkgname = "enchant"
 pkgver = "2.6.9"
-pkgrel = 1
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-relocatable", "--disable-static"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]
 makedepends = [
-    "aspell-devel",
     "glib-devel",
     "hunspell-devel",
     "icu-devel",
