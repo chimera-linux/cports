@@ -593,14 +593,15 @@ should follow the upstream name (other than case) regardless of the
 contents of the package. That is, when a library is called `foo`,
 the package should be called `foo`, not `libfoo`.
 
-However, if a library is a subpackage of a bigger software project,
-there are two things you can do. If the subpackage provides a single
-library that is usable as a standalone runtime dependency for other
-things, you should use the `lib` prefix. If it provides multiple
-libraries that should be shipped together, the `-libs` suffix should
-be used. Whether to separate the individual libraries into individual
-subpackages or bundle them together or even not separate them at all
-should be decided on per-package basis.
+If you need to split one or more libraries from the main package,
+the package should take on the `-libs` suffix. This should be the
+default approach. However, if the library or libraries are a subproject
+of the main project and are called `libfoo` upstream, you can use that
+name. Additionally, the `lib` prefix can also be used in cases when
+the main package is splitting off multiple libraries each into its
+own subpackage (this should be done sparingly and mostly only when
+combining the libraries would pull in unnecessary bulk, for example
+through different dependencies).
 
 Development packages should use the `-devel` suffix, like `foo-devel`
 for the `foo` template. The convention with library subpackages and
