@@ -1,5 +1,5 @@
 pkgname = "atuin"
-pkgver = "18.1.0"
+pkgver = "18.2.0"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -13,7 +13,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/atuinsh/atuin"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "17712bed6528a7f82cc1dffd56b7effe28270ee2f99247908d7a6adff9474338"
+sha256 = "7fb87902ce09af2d29459e9158bc83c18519690d555259709cab40d9ee75b024"
 # A bunch of failures yet to be investigated
 # generates completions using host binary
 options = ["!check", "!cross"]
