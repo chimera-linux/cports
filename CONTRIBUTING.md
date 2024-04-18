@@ -39,6 +39,8 @@ Using a correct commit message is also important:
 * Non-update changes to templates should use `category/pkgname: custom message`.
 * Removals should use `category/pkgname: remove`.
 * Changes to `cbuild` should use `cbuild: custom message`.
+* Changes to other parts should use the same format but relating to the thing
+  they change, e.g. for `Packaging.md` changes it's `packaging: ...` and so on.
 
 Commit messages as well as things such as package descriptions should be
 written in American English and be grammatically correct.
