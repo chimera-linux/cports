@@ -47,7 +47,18 @@ def post_install(self):
 
 @subpackage("bind-devel")
 def _devel(self):
-    return self.default_devel()
+    # shared libraries are versioned like libfoo-0.so, not libfoo.so.0,
+    # so glob patterns won't work
+    return [
+        "usr/include",
+        "usr/lib/libbind9.so",
+        "usr/lib/libdns.so",
+        "usr/lib/libirs.so",
+        "usr/lib/libisc.so",
+        "usr/lib/libisccc.so",
+        "usr/lib/libisccfg.so",
+        "usr/lib/libns.so",
+    ]
 
 
 @subpackage("bind-progs")
