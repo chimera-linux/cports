@@ -126,6 +126,9 @@ match self.profile().arch:
     # consistently runs out of memory in flang ConvertExpr
     case "ppc64" | "riscv64":
         pass
+    # unsupported on 32 bit cpus
+    case "ppc" | "armhf" | "armv7":
+        pass
     # elsewhere is okay
     case _:
         _enable_flang = _enable_mlir
