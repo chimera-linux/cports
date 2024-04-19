@@ -11,7 +11,6 @@ configure_args = [
     "--enable-ssh-agent",
 ]
 make_cmd = "gmake"
-make_check_args = ["-j1"]
 make_check_wrapper = ["weston-headless-run", "dbus-run-session"]
 hostmakedepends = [
     "gmake",
