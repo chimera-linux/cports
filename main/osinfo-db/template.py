@@ -17,5 +17,5 @@ def do_install(self):
         "--root",
         self.chroot_destdir,
         "--system",
-        f"/sources/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.xz",
+        self.chroot_sources_path / f"{pkgname}-{pkgver}.tar.xz",
     )

@@ -66,7 +66,7 @@ def post_extract(self):
     self.do(
         "tar",
         "xf",
-        f"/sources/{pkgname}-{pkgver}/libvpx-testdata-{pkgver}.tar.xz",
+        self.chroot_sources_path / f"libvpx-testdata-{pkgver}.tar.xz",
     )
 
 
