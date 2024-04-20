@@ -18,6 +18,10 @@ makedepends = [
     "quazip-devel",
     "zlib-devel",
 ]
+depends = [
+    # prismlauncher does not directly link to qt6-qtsvg
+    "qt6-qtsvg",
+]
 pkgdesc = "Minecraft launcher with multiple instances support"
 maintainer = "aurelia <git@elia.garden>"
 license = "GPL-3.0-or-later"
