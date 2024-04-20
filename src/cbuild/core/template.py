@@ -2048,12 +2048,14 @@ def from_module(m, ret):
         ret.chroot_cwd = ret.cwd
         ret.chroot_builddir = ret.builddir
         ret.chroot_destdir_base = ret.destdir_base
+        ret.chroot_sources_path = ret.sources_path
     else:
         ret.chroot_cwd = pathlib.Path("/builddir") / ret.cwd.relative_to(
             ret.builddir
         )
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
+        ret.chroot_sources_path = pathlib.Path("/sources")
         if ret.profile().cross:
             ret.chroot_destdir_base = (
                 ret.chroot_destdir_base / ret.profile().triplet
