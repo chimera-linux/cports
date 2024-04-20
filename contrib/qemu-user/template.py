@@ -105,6 +105,7 @@ def _upkg(uname):
     def _binfmt(self):
         self.pkgdesc = f"{pkgdesc} ({uname} binfmt)"
         self.install_if = [f"qemu-user-{uname}={pkgver}-r{pkgrel}"]
+        self.depends = [f"qemu-user-{uname}={pkgver}-r{pkgrel}"]
 
         extra = []
 
