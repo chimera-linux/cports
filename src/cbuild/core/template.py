@@ -2055,7 +2055,9 @@ def from_module(m, ret):
         )
         ret.chroot_builddir = pathlib.Path("/builddir")
         ret.chroot_destdir_base = pathlib.Path("/destdir")
-        ret.chroot_sources_path = pathlib.Path("/sources")
+        ret.chroot_sources_path = (
+            pathlib.Path("/sources") / f"{ret.pkgname}-{ret.pkgver}"
+        )
         if ret.profile().cross:
             ret.chroot_destdir_base = (
                 ret.chroot_destdir_base / ret.profile().triplet
