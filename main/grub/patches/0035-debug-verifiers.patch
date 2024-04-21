@@ -1,0 +1,27 @@
+From: Steve McIntyre <93sam@debian.org>
+Date: Sat, 17 Apr 2021 22:05:47 +0100
+Subject: Add debug to display what's going on with verifiers
+
+Patch-Name: debug_verifiers.patch
+---
+ grub-core/kern/verifiers.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/grub-core/kern/verifiers.c b/grub-core/kern/verifiers.c
+index 1245d0d..5242a72 100644
+--- a/grub-core/kern/verifiers.c
++++ b/grub-core/kern/verifiers.c
+@@ -100,11 +100,13 @@ grub_verifiers_open (grub_file_t io, enum grub_file_type type)
+   FOR_LIST_ELEMENTS(ver, grub_file_verifiers)
+     {
+       enum grub_verify_flags flags = 0;
++      grub_dprintf ("verify", "trying verifier %s\n", ver->name);
+       err = ver->init (io, type, &context, &flags);
+       if (err)
+ 	goto fail_noclose;
+       if (flags & GRUB_VERIFY_FLAGS_DEFER_AUTH)
+ 	{
++	  grub_dprintf ("verify", "verifier %s said GRUB_VERIFY_FLAGS_DEFER_AUTH\n", ver->name);
+ 	  defer = 1;
+ 	  continue;
+ 	}

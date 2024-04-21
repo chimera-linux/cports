@@ -1,0 +1,26 @@
+From: Robbie Harwood <rharwood@redhat.com>
+Date: Tue, 25 Apr 2023 11:05:14 -0400
+Subject: net/http: check result of grub_netbuff_put() in http_receive()
+
+Co-authored-by: Peter Jones <pjones@redhat.com>
+Signed-off-by: Peter Jones <pjones@redhat.com>
+Signed-off-by: Robbie Harwood <rharwood@redhat.com>
+---
+ grub-core/net/http.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/grub-core/net/http.c b/grub-core/net/http.c
+index f389bf0..69b6296 100644
+--- a/grub-core/net/http.c
++++ b/grub-core/net/http.c
+@@ -291,7 +291,9 @@ http_receive (grub_net_tcp_socket_t sock __attribute__ ((unused)),
+ 	  nb2 = grub_netbuff_alloc (data->chunk_rem);
+ 	  if (!nb2)
+ 	    return grub_errno;
+-	  grub_netbuff_put (nb2, data->chunk_rem);
++	  err = grub_netbuff_put (nb2, data->chunk_rem);
++	  if (err)
++	    return grub_errno;
+ 	  grub_memcpy (nb2->data, nb->data, data->chunk_rem);
+ 	  if (file->device->net->packs.count >= 20)
+ 	    {

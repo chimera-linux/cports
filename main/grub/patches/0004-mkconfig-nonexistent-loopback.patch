@@ -1,0 +1,54 @@
+From: Colin Watson <cjwatson@ubuntu.com>
+Date: Mon, 13 Jan 2014 12:13:08 +0000
+Subject: Avoid getting confused by inaccessible loop device backing paths
+
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/938724
+Forwarded: no
+Last-Update: 2021-09-24
+
+Patch-Name: mkconfig-nonexistent-loopback.patch
+---
+ util/grub-mkconfig_lib.in   | 2 +-
+ util/grub.d/30_os-prober.in | 9 +++++----
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/util/grub-mkconfig_lib.in b/util/grub-mkconfig_lib.in
+index cc3c4f0..121df9a 100644
+--- a/util/grub-mkconfig_lib.in
++++ b/util/grub-mkconfig_lib.in
+@@ -143,7 +143,7 @@ prepare_grub_to_access_device ()
+         *)
+           loop_device="$1"
+           shift
+-          set -- `"${grub_probe}" --target=device "${loop_file}"` "$@"
++          set -- `"${grub_probe}" --target=device "${loop_file}"` "$@" || return 0
+         ;;
+       esac
+     ;;
+diff --git a/util/grub.d/30_os-prober.in b/util/grub.d/30_os-prober.in
+index b74606b..c54b526 100644
+--- a/util/grub.d/30_os-prober.in
++++ b/util/grub.d/30_os-prober.in
+@@ -226,6 +226,11 @@ EOF
+ 	  LINITRD="${LINITRD#/boot}"
+ 	fi
+ 
++	if [ -z "${prepare_boot_cache}" ]; then
++	  prepare_boot_cache="$(prepare_grub_to_access_device ${LBOOT} | grub_add_tab)"
++	  [ "${prepare_boot_cache}" ] || continue
++	fi
++
+ 	onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
+ 	recovery_params="$(echo "${LPARAMS}" | grep 'single\|recovery')" || true
+ 	counter=1
+@@ -237,10 +242,6 @@ EOF
+ 	fi
+ 	used_osprober_linux_ids="$used_osprober_linux_ids 'osprober-gnulinux-$LKERNEL-${recovery_params}-$counter-$boot_device_id'"
+ 
+-	if [ -z "${prepare_boot_cache}" ]; then
+-	  prepare_boot_cache="$(prepare_grub_to_access_device ${LBOOT} | grub_add_tab)"
+-	fi
+-
+ 	# The GRUB_DISABLE_SUBMENU option used to be different than others since it was
+ 	# mentioned in the documentation that has to be set to 'y' instead of 'true' to
+ 	# enable it. This caused a lot of confusion to users that set the option to 'y',

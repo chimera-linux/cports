@@ -1,0 +1,166 @@
+From: Michael Chang <mchang@suse.com>
+Date: Thu, 18 Mar 2021 19:30:26 +0800
+Subject: i386-pc: build verifiers API as module
+
+Given no core functions on i386-pc would require verifiers to work and
+the only consumer of the verifier API is the pgp module, it looks good
+to me that we can move the verifiers out of the kernel image and let
+moddep.lst to auto-load it when pgp is loaded on i386-pc platform.
+
+This helps to reduce the size of core image and thus can relax the
+tension of exploding on some i386-pc system with very short MBR gap
+size. See also a very comprehensive summary from Colin [1] about the
+details.
+
+[1] https://lists.gnu.org/archive/html/grub-devel/2021-03/msg00240.html
+
+V2:
+Drop COND_NOT_i386_pc and use !COND_i386_pc.
+Add comment in kern/verifiers.c to help understanding what's going on
+without digging into the commit history.
+
+Reported-by: Colin Watson <cjwatson@debian.org>
+Reviewed-by: Colin Watson <cjwatson@debian.org>
+Signed-off-by: Michael Chang <mchang@suse.com>
+
+Origin: other, https://lists.gnu.org/archive/html/grub-devel/2021-03/msg00251.html
+Bug-Debian: https://bugs.debian.org/984488
+Bug-Debian: https://bugs.debian.org/985374
+Last-Update: 2021-09-24
+
+Patch-Name: pc-verifiers-module.patch
+---
+ grub-core/Makefile.am       |  2 ++
+ grub-core/Makefile.core.def |  8 +++++++-
+ grub-core/kern/main.c       |  4 ++++
+ grub-core/kern/verifiers.c  | 17 +++++++++++++++++
+ include/grub/verify.h       |  9 +++++++++
+ 5 files changed, 39 insertions(+), 1 deletion(-)
+
+diff --git a/grub-core/Makefile.am b/grub-core/Makefile.am
+index f18550c..f9d4aa2 100644
+--- a/grub-core/Makefile.am
++++ b/grub-core/Makefile.am
+@@ -93,7 +93,9 @@ KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/partition.h
+ KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/stack_protector.h
+ KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/term.h
+ KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/time.h
++if !COND_i386_pc
+ KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/verify.h
++endif
+ KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/mm_private.h
+ KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/net.h
+ KERNEL_HEADER_FILES += $(top_srcdir)/include/grub/memory.h
+diff --git a/grub-core/Makefile.core.def b/grub-core/Makefile.core.def
+index 044e53c..333d3fe 100644
+--- a/grub-core/Makefile.core.def
++++ b/grub-core/Makefile.core.def
+@@ -152,7 +152,7 @@ kernel = {
+   common = kern/rescue_parser.c;
+   common = kern/rescue_reader.c;
+   common = kern/term.c;
+-  common = kern/verifiers.c;
++  nopc = kern/verifiers.c;
+ 
+   noemu = kern/compiler-rt.c;
+   noemu = kern/mm.c;
+@@ -975,6 +975,12 @@ module = {
+   cppflags = '-I$(srcdir)/lib/posix_wrap';
+ };
+ 
++module = {
++  name = verifiers;
++  common = kern/verifiers.c;
++  enable = i386_pc;
++};
++
+ module = {
+   name = hdparm;
+   common = commands/hdparm.c;
+diff --git a/grub-core/kern/main.c b/grub-core/kern/main.c
+index 8401bc3..1258514 100644
+--- a/grub-core/kern/main.c
++++ b/grub-core/kern/main.c
+@@ -29,7 +29,9 @@
+ #include <grub/command.h>
+ #include <grub/reader.h>
+ #include <grub/parser.h>
++#ifndef GRUB_MACHINE_PCBIOS
+ #include <grub/verify.h>
++#endif
+ 
+ #ifdef GRUB_MACHINE_PCBIOS
+ #include <grub/machine/memory.h>
+@@ -296,8 +298,10 @@ grub_main (void)
+ #endif
+ #endif
+ 
++#ifndef GRUB_MACHINE_PCBIOS
+   /* Init verifiers API. */
+   grub_verifiers_init ();
++#endif
+ 
+   grub_load_config ();
+ 
+diff --git a/grub-core/kern/verifiers.c b/grub-core/kern/verifiers.c
+index 75d7994..1245d0d 100644
+--- a/grub-core/kern/verifiers.c
++++ b/grub-core/kern/verifiers.c
+@@ -221,8 +221,25 @@ grub_verify_string (char *str, enum grub_verify_string_type type)
+   return GRUB_ERR_NONE;
+ }
+ 
++/*
++ * It is intended to build verifiers as module on i386-pc platform to minimize
++ * the impact of growing core image size could blow up the 63 sectors limit of
++ * some MBR gap one day. It is also adequate to do so, given no core function
++ * on i386-pc would require the verifiers API to work.
++ */
++#ifdef GRUB_MACHINE_PCBIOS
++GRUB_MOD_INIT(verifiers)
++#else
+ void
+ grub_verifiers_init (void)
++#endif
+ {
+   grub_file_filter_register (GRUB_FILE_FILTER_VERIFY, grub_verifiers_open);
+ }
++
++#ifdef GRUB_MACHINE_PCBIOS
++GRUB_MOD_FINI(verifiers)
++{
++  grub_file_filter_unregister (GRUB_FILE_FILTER_VERIFY);
++}
++#endif
+diff --git a/include/grub/verify.h b/include/grub/verify.h
+index 672ae16..6744816 100644
+--- a/include/grub/verify.h
++++ b/include/grub/verify.h
+@@ -65,10 +65,14 @@ struct grub_file_verifier
+   grub_err_t (*verify_string) (char *str, enum grub_verify_string_type type);
+ };
+ 
++#ifdef GRUB_MACHINE_PCBIOS
++extern struct grub_file_verifier *grub_file_verifiers;
++#else
+ extern struct grub_file_verifier *EXPORT_VAR (grub_file_verifiers);
+ 
+ extern void
+ grub_verifiers_init (void);
++#endif
+ 
+ static inline void
+ grub_verifier_register (struct grub_file_verifier *ver)
+@@ -82,7 +86,12 @@ grub_verifier_unregister (struct grub_file_verifier *ver)
+   grub_list_remove (GRUB_AS_LIST (ver));
+ }
+ 
++#ifdef GRUB_MACHINE_PCBIOS
++grub_err_t
++grub_verify_string (char *str, enum grub_verify_string_type type);
++#else
+ extern grub_err_t
+ EXPORT_FUNC (grub_verify_string) (char *str, enum grub_verify_string_type type);
++#endif
+ 
+ #endif /* ! GRUB_VERIFY_HEADER */
