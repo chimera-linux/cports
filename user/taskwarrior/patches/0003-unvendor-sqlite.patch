@@ -1,0 +1,56 @@
+From 539c9f8909ac8156012d4296f66c4e5235738935 Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Sun, 31 Mar 2024 20:37:10 +0000
+Subject: [PATCH 3/4] unvendor sqlite
+
+---
+ Cargo.lock         | 1 -
+ Cargo.toml         | 2 +-
+ src/CMakeLists.txt | 6 +++---
+ 3 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/Cargo.lock b/Cargo.lock
+index 8d742b235..5fc2bcaf6 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -859,7 +859,6 @@ version = "0.26.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "afc22eff61b133b115c6e8c74e818c628d6d5e7a502afea6f64dee076dd94326"
+ dependencies = [
+- "cc",
+  "pkg-config",
+  "vcpkg",
+ ]
+diff --git a/Cargo.toml b/Cargo.toml
+index efe0c179d..092e8a166 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -29,7 +29,7 @@ pretty_assertions = "1"
+ proptest = "^1.4.0"
+ ring = "0.17"
+ rstest = "0.17"
+-rusqlite = { version = "0.29", features = ["bundled"] }
++rusqlite = { version = "0.29" }
+ serde_json = "^1.0"
+ serde = { version = "^1.0.147", features = ["derive"] }
+ strum = "0.25"
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 9b095c45e..1530e9af4 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -53,9 +53,9 @@ add_executable (lex_executable lex.cpp)
+ 
+ # Yes, 'task' (and hence libshared) is included twice, otherwise linking fails on assorted OSes.
+ # Similarly for `tc`.
+-target_link_libraries (task_executable task tc commands tc columns libshared task libshared ${TASK_LIBRARIES})
+-target_link_libraries (calc_executable task tc commands tc columns libshared task libshared ${TASK_LIBRARIES})
+-target_link_libraries (lex_executable  task tc commands tc columns libshared task libshared ${TASK_LIBRARIES})
++target_link_libraries (calc_executable task tc commands tc columns libshared task libshared ${TASK_LIBRARIES} sqlite3)
++target_link_libraries (lex_executable  task tc commands tc columns libshared task libshared ${TASK_LIBRARIES} sqlite3)
++target_link_libraries (task_executable task tc commands tc columns libshared task libshared ${TASK_LIBRARIES} sqlite3)
+ if (DARWIN)
+     # SystemConfiguration is required by Rust libraries like reqwest, to get proxy configuration.
+     target_link_libraries (task_executable "-framework CoreFoundation -framework Security -framework SystemConfiguration")
+-- 
+2.44.0
+
