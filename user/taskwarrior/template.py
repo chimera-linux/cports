@@ -1,6 +1,6 @@
 pkgname = "taskwarrior"
-pkgver = "3.0.0"
-pkgrel = 2
+pkgver = "3.0.1"
+pkgrel = 0
 build_style = "cmake"
 make_dir = "."
 hostmakedepends = ["cmake", "ninja", "cargo", "corrosion"]
@@ -10,7 +10,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://taskwarrior.org"
 source = f"https://github.com/GothenburgBitFactory/taskwarrior/releases/download/v{pkgver}/task-{pkgver}.tar.gz"
-sha256 = "30f397081044f5dc2e5a0ba51609223011a23281cd9947ea718df98d149fcc83"
+sha256 = "e36653304c4850e7808bd417309c1e8ef6ce7c44ae8d7e553a076e36c0871655"
 
 
 def post_extract(self):
