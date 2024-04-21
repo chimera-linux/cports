@@ -1,6 +1,6 @@
 pkgname = "sequoia-sq"
-pkgver = "0.34.0"
-pkgrel = 1
+pkgver = "0.35.0"
+pkgrel = 0
 build_style = "cargo"
 make_build_env = {"ASSET_OUT_DIR": "assets"}
 hostmakedepends = ["cargo", "pkgconf", "capnproto"]
@@ -17,7 +17,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "LGPL-2.0-or-later"
 url = "https://sequoia-pgp.org/projects#sq"
 source = f"https://gitlab.com/sequoia-pgp/sequoia-sq/-/archive/v{pkgver}/sequoia-sq-v{pkgver}.tar.gz"
-sha256 = "6458274008ef06362c912eb67e285b734906acdb5c56e8490144f45bc1b81d51"
+sha256 = "0b16bb4dcd7b85eb1292dfe4b22dfa3c0df44bae1e84859e91aadfee80b08bec"
 options = ["!cross"]
 
 
