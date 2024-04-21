@@ -206,7 +206,8 @@ def _get_gencflags(self, tmpl, name, extra_flags, debug, hardening, shell):
 
     ret = hflags + self._flags[name] + bflags + extra_flags
 
-    if debug >= 0:
+    # llvm regression: https://github.com/llvm/llvm-project/issues/89524
+    if debug >= 0 and self._arch != "riscv64":
         ret.append(f"-g{debug}")
 
     return _flags_ret(map(lambda v: str(v), ret), shell)
