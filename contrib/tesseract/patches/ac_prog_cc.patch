@@ -1,0 +1,18 @@
+/usr/share/automake-1.17/am/depend2.am: error: am__fastdepCC does not appear in AM_CONDITIONAL
+/usr/share/automake-1.17/am/depend2.am:   The usual way to define 'am__fastdepCC' is to add 'AC_PROG_CC'
+/usr/share/automake-1.17/am/depend2.am:   to 'configure.ac' and run 'aclocal' and 'autoconf' again
+Makefile.am: error: C source seen but 'CC' is undefined
+Makefile.am:   The usual way to define 'CC' is to add 'AC_PROG_CC'
+Makefile.am:   to 'configure.ac' and run 'autoconf' again.
+
+diff -ruN a/configure.ac b/configure.ac
+--- a/configure.ac	2024-06-11 20:18:21.000000000 +0200
++++ b/configure.ac	2024-08-27 19:04:54.397374753 +0200
+@@ -13,6 +13,7 @@
+ 
+ # Store command like options for CXXFLAGS
+ OLD_CXXFLAGS=$CXXFLAGS
++AC_PROG_CC([gcc clang])
+ AC_PROG_CXX([g++ clang++])
+ # reset compiler flags to initial flags
+ AC_LANG([C++])
