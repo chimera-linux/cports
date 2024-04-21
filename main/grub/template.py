@@ -1,6 +1,6 @@
 pkgname = "grub"
-pkgver = "2.06"
-pkgrel = 5
+pkgver = "2.12"
+pkgrel = 0
 configure_args = [
     "--sysconfdir=/etc",
     "--prefix=/usr",
@@ -12,12 +12,14 @@ configure_args = [
     "--enable-nls",
     "--enable-grub-mkfont",
     "--enable-grub-mount",
+    "AWK=gawk",
 ]
 hostmakedepends = [
     "gmake",
     "pkgconf",
     "flex",
     "bison",
+    "gawk",
     "help2man",
     "python",
     "gettext",
@@ -39,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/grub"
 source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "b79ea44af91b93d17cd3fe80bdae6ed43770678a9a5ae192ccea803ebb657ee1"
+sha256 = "f3c97391f7c4eaa677a78e090c7e97e6dc47b16f655f04683ebd37bef7fe0faa"
 # our strip wrapper prevents correct kernel.img generation
 env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
 # the freestanding bits

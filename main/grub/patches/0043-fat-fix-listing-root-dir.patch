@@ -1,0 +1,46 @@
+From: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Date: Fri, 21 Jan 2022 20:15:41 +0100
+Subject: fat: fix listing the root directory
+
+ls / for a FAT partition leads to
+
+   error: invalid modification timestamp for /.
+
+Not all entries of the directory are displayed.
+
+Linux never updates the modification timestamp of the /. directory entry.
+The FAT specification allows the access and creation date fields to be
+zero.
+
+We should follow Linux and render initial FAT timestamps as start of
+the epoch.
+
+Signed-off-by: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>
+Origin: https://lists.gnu.org/archive/html/grub-devel/2022-01/msg00116.html
+---
+ grub-core/fs/fat.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/grub-core/fs/fat.c b/grub-core/fs/fat.c
+index c5efed7..f786a9e 100644
+--- a/grub-core/fs/fat.c
++++ b/grub-core/fs/fat.c
+@@ -901,6 +901,18 @@ grub_fat_timestamp (grub_uint16_t time, grub_uint16_t date, grub_int64_t *nix) {
+     .second = (time & 0x001F) * 2,
+   };
+ 
++  /*
++   * The modification time of the root directory is never set by Linux.
++   * Creation and access time are optional and can be zero.
++   * Follow Linux and render FAT initial timestamps as the start of the epoch.
++   */
++  if (date == 0 && time == 0)
++    {
++      datetime.year = 1970;
++      datetime.month = 1;
++      datetime.day = 1;
++    }
++
+   /* The conversion below allows seconds=60, so don't trust its validation. */
+   if ((time & 0x1F) > 29)
+     return 0;

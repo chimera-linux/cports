@@ -1,4 +1,3 @@
-From 6a1ff6845e571d2a9885763a3e52a16a9eec54bb Mon Sep 17 00:00:00 2001
 From: Colin Watson <cjwatson@debian.org>
 Date: Mon, 13 Jan 2014 12:12:54 +0000
 Subject: Disable use of floppy devices
@@ -13,7 +12,7 @@ Patch-Name: disable-floppies.patch
  1 file changed, 12 insertions(+)
 
 diff --git a/grub-core/kern/emu/hostdisk.c b/grub-core/kern/emu/hostdisk.c
-index d975265b2..f90b6c9ce 100644
+index 0e6eebd..3e39fc6 100644
 --- a/grub-core/kern/emu/hostdisk.c
 +++ b/grub-core/kern/emu/hostdisk.c
 @@ -532,6 +532,18 @@ read_device_map (const char *dev_map)

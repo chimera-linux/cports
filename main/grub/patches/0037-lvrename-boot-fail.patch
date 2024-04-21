@@ -1,0 +1,46 @@
+From: Rogier <rogier777@gmail.com>
+Date: Mon, 19 Jun 2023 17:23:25 +0200
+Subject: fix renamed LV detection
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Origin: other
+Bug: https://savannah.gnu.org/bugs/index.php?61620
+Bug-Debian: https://bugs.debian.org/987008
+Forwarded: https://savannah.gnu.org/bugs/index.php?61620
+Reviewed-By: Antoine Beaupré
+Last-Update: 2023-02-25
+
+ It looks like the detection of the LVM logical volumes fails in
+ certain edge conditions. In particular, it was reported that
+ renaming an LV will make grub fail to boot from the system as it
+ cannot properly detect it anymore.
+ .
+ I have looked at the code surrounding the patch and cannot claim to
+ understand the entire function here, as it is huge and quite
+ cryptic. But it seems sane: the `ptr` we're inspecting here starts
+ at the `rlocn->offset`, but we were adding `mda_size` to the
+ (somewhat) unrelated metadatabuf instead. Now we're marking the
+ `mda_end` correctly, based on the rlocn->offsite and ->size.
+ .
+ I have not tested this myself as the test setup is quite involved,
+ but it seems others (e.g. "Hoyer, David" <David.Hoyer@netapp.com>)
+ have tested the patch and confirmed it worked.
+---
+ grub-core/disk/lvm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/grub-core/disk/lvm.c b/grub-core/disk/lvm.c
+index 7942485..8535d5a 100644
+--- a/grub-core/disk/lvm.c
++++ b/grub-core/disk/lvm.c
+@@ -290,7 +290,7 @@ grub_lvm_detect (grub_disk_t disk,
+ 
+   p = q = (char *)ptr;
+ 
+-  if (grub_add ((grub_size_t)metadatabuf, (grub_size_t)mda_size, &ptr))
++  if (grub_add (ptr, (grub_size_t)grub_le_to_cpu64 (rlocn->size), &ptr))
+     goto error_parsing_metadata;
+ 
+   mda_end = (char *)ptr;
