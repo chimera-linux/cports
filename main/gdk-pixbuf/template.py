@@ -1,6 +1,6 @@
 pkgname = "gdk-pixbuf"
-pkgver = "2.42.10"
-pkgrel = 1
+pkgver = "2.42.11"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     "-Dintrospection=enabled",
@@ -29,7 +29,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GdkPixbuf"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-3]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "ee9b6c75d13ba096907a2e3c6b27b61bcd17f5c7ebeab5a5b439d2f2e39fe44b"
+sha256 = "49dcb402388708647e8c321d56b6fb30f21e51e515d0c5a942268d23052a2f00"
 # FIXME int
 hardening = ["!int"]
 # pixbuf-randomly-modified aborts, FIXME
