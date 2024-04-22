@@ -17,8 +17,8 @@
  PREFIX ?= ${DESTDIR}/usr
  MANINSTALLDIR=${PREFIX}/share/man
  MANPAGES_MD = $(wildcard docs/*.5.md)
---- a/common-0.58.1/pkg/config/containers.conf
-+++ b/common-0.58.1/pkg/config/containers.conf
+--- a/common-0.58.2/pkg/config/containers.conf
++++ b/common-0.58.2/pkg/config/containers.conf
 @@ -417,7 +417,7 @@ default_sysctls = [
  # Cgroup management implementation used for the runtime.
  # Valid options "systemd" or "cgroupfs"
