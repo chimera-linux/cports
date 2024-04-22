@@ -1,5 +1,5 @@
 pkgname = "nihtest"
-pkgver = "1.6.0"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause"
 url = "https://github.com/nih-at/nihtest"
 source = f"{url}/releases/download/v{pkgver}/nihtest-{pkgver}.tar.gz"
-sha256 = "132f2b775b16a3093f5da3ac73c6c46274fa4d2082828d38c86992b0dedb374c"
+sha256 = "f0a4ecc483066b90e1916e20dba98567500aa06a7f81110f7b71c5e7dd66a177"
 
 
 def do_check(self):
