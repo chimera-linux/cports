@@ -1,5 +1,5 @@
 pkgname = "gnome-shell-extensions"
-pkgver = "46.0"
+pkgver = "46.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf", "gettext", "glib-devel"]
@@ -9,4 +9,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/GnomeShell/Extensions"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d8138f88cd92df9f932309149c236fbdd77c1bc095445036ab7eb0ecda53c01a"
+sha256 = "c5ba50700da77a986f0060beedacfc017e7ec82283f2a6384842a0807bc4553f"
