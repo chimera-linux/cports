@@ -17,8 +17,8 @@ Date:   Tue Dec 5 16:05:14 2023 +0100
 
 diff --git a/src/Snap.cpp b/src/Snap.cpp
 index 0ec6b90..6c84839 100644
---- a/src/Snap.cpp
-+++ b/src/Snap.cpp
+--- a/libraries/lib-snapping/Snap.cpp
++++ b/libraries/lib-snapping/Snap.cpp
 @@ -129,8 +129,9 @@ double SnapManager::Get(size_t index)
  // Returns the difference in time between t and the point at a given index
  wxInt64 SnapManager::PixelDiff(double t, size_t index)
