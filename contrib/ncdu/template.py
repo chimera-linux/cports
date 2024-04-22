@@ -1,5 +1,5 @@
 pkgname = "ncdu"
-pkgver = "1.19"
+pkgver = "1.20"
 pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
@@ -13,7 +13,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://dev.yorhel.nl/ncdu"
 source = f"https://dev.yorhel.nl/download/ncdu-{pkgver}.tar.gz"
-sha256 = "30363019180cde0752c7fb006c12e154920412f4e1b5dc3090654698496bb17d"
+sha256 = "5fe2bb841abe72374bb242dbb93293c4ae053078432d896a7481b2ff10be9572"
 hardening = ["vis", "cfi"]
 
 
