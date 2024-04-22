@@ -4,7 +4,6 @@ pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--with-crypto_backend=openssl",
-    "--enable-libargon2",
     "--enable-static-cryptsetup",
     "--disable-ssh-token",
     "--disable-asciidoc",
@@ -18,13 +17,12 @@ hostmakedepends = [
 ]
 makedepends = [
     "device-mapper-devel-static",
+    "json-c-devel-static",
+    "libatomic-chimera-devel-static",
+    "libuuid-devel-static",
+    "linux-headers",
     "openssl-devel-static",
     "popt-devel-static",
-    "json-c-devel-static",
-    "libuuid-devel-static",
-    "argon2-devel-static",
-    "libatomic-chimera-devel-static",
-    "linux-headers",
 ]
 checkdepends = ["procps", "xz"]
 pkgdesc = "Open source Linux disk encryption setup"
