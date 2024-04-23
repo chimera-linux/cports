@@ -1,14 +1,14 @@
 pkgname = "gnutls"
 pkgver = "3.8.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
-    "--with-zlib",
-    "--disable-guile",
+    "--disable-rpath",
     "--disable-static",
     "--disable-valgrind-tests",
-    "--disable-rpath",
+    "--enable-ktls",
     "--with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt",
+    "--with-zlib",
 ]
 configure_gen = []
 hostmakedepends = ["pkgconf", "gettext"]
@@ -17,6 +17,7 @@ makedepends = [
     "libidn2-devel",
     "libtasn1-devel",
     "libunistring-devel",
+    "linux-headers",
     "lzo-devel",
     "nettle-devel",
     "p11-kit-devel",
