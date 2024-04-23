@@ -30,7 +30,7 @@ check = yes
 # whether checks are allowed to fail (by default they will abort build)
 check_fail = no
 # what type of compression to use by default for packages
-compression = deflate
+compression = zstd
 # number of jobs to use when building; all available threads by default
 jobs = 0
 # number of linker threads to use; jobs by default

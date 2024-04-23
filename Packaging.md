@@ -784,8 +784,8 @@ Keep in mind that default values may be overridden by build styles.
   the others.
 * `compression` *(str)* Specifies the package compression. The default is
   unspecified (which means the global default will be used). Currently this
-  can be `deflate`, `zstd`, and `none`, optionally with a compression level
-  for the former two like `deflate:9` or `zstd:3`.
+  can be `zstd`, `deflate`, and `none`, optionally with a compression level
+  for the former two like `zstd:3` or `deflate:9`.
 * `configure_args` *(list)* This list is generally specific to the build
   system the template uses. Generally speaking, it provides the arguments
   passed to some kind of `configure` script.
@@ -2721,6 +2721,10 @@ contains patches that are applied in the `patch` phase.
 ##### self.sources_path
 
 The aboslute path to where the source files for the template are stored.
+
+##### self.chroot_sources_path
+
+Like `self.sources_path`, but within the sandbox for in-chroot operations.
 
 ##### self.bldroot_path
 
