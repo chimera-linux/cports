@@ -1,5 +1,5 @@
 pkgname = "libxmlb"
-pkgver = "0.3.18"
+pkgver = "0.3.19"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtkdoc=false"]
@@ -12,7 +12,7 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libxmlb"
 source = f"https://github.com/hughsie/libxmlb/releases/download/{pkgver}/libxmlb-{pkgver}.tar.xz"
-sha256 = "552131b3f58520478683ac75fa08fd95cf58db5aa7dac332144bcee5e7780b4f"
+sha256 = "0a3ec258b12dbf10e5fe840b2421c84137eb7cc1b09c3de6210f3f7d51733733"
 options = ["!cross"]
 
 
