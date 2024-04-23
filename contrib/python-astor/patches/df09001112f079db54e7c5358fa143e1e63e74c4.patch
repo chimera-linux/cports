@@ -1,0 +1,140 @@
+From df09001112f079db54e7c5358fa143e1e63e74c4 Mon Sep 17 00:00:00 2001
+From: "2.30am" <111672334+am230@users.noreply.github.com>
+Date: Sat, 30 Mar 2024 17:11:44 +0900
+Subject: [PATCH] Add support for type parameter syntax (PEP 695) (#222)
+
+---
+ astor/code_gen.py      | 30 +++++++++++++++++++++++++++-
+ docs/changelog.rst     |  5 +++++
+ tests/test_code_gen.py | 44 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 78 insertions(+), 1 deletion(-)
+
+diff --git a/astor/code_gen.py b/astor/code_gen.py
+index 562ba15..b2bae12 100644
+--- a/astor/code_gen.py
++++ b/astor/code_gen.py
+@@ -285,6 +285,12 @@ def comma_list(self, items, trailing=False):
+             self.write(', ' if idx else '', item)
+         self.write(',' if trailing else '')
+ 
++    def type_params(self, node):
++        if getattr(node, 'type_params', []):  # Python >= 3.12
++            self.write('[')
++            self.comma_list(node.type_params)
++            self.write(']')
++
+     # Statements
+ 
+     def visit_Assign(self, node):
+@@ -326,10 +332,31 @@ def visit_Expr(self, node):
+         self.statement(node)
+         self.generic_visit(node)
+ 
++    def visit_TypeAlias(self, node):
++        self.statement(node, 'type ', node.name)
++        self.type_params(node)
++        self.write(' = ')
++        self.visit(node.value)
++
++    def visit_TypeVar(self, node):
++        self.write(node.name)
++        if node.bound:
++            self.write(': ', node.bound)
++
++    def visit_TypeVarTuple(self, node):
++        self.write('*')
++        self.write(node.name)
++
++    def visit_ParamSpec(self, node):
++        self.write('**')
++        self.write(node.name)
++
+     def visit_FunctionDef(self, node, is_async=False):
+         prefix = 'async ' if is_async else ''
+         self.decorators(node, 1 if self.indentation else 2)
+-        self.statement(node, '%sdef %s' % (prefix, node.name), '(')
++        self.statement(node, '%sdef %s' % (prefix, node.name))
++        self.type_params(node)
++        self.write('(')
+         self.visit_arguments(node.args)
+         self.write(')')
+         self.conditional_write(' -> ', self.get_returns(node))
+@@ -354,6 +381,7 @@ def paren_or_comma():
+ 
+         self.decorators(node, 2)
+         self.statement(node, 'class %s' % node.name)
++        self.type_params(node)
+         for base in node.bases:
+             self.write(paren_or_comma, base)
+         # keywords not available in early version
+diff --git a/docs/changelog.rst b/docs/changelog.rst
+index 6b7d359..87fea79 100644
+--- a/docs/changelog.rst
++++ b/docs/changelog.rst
+@@ -14,6 +14,11 @@ New features
+ .. _`Issue 215`: https://github.com/berkerpeksag/astor/issues/215
+ .. _`PR 219`: https://github.com/berkerpeksag/astor/pull/219
+ 
++* Add support for Type Parameter Syntax, see :pep:`695` for more details.
++  (Contributed by am230 in `PR 222`_.)
++
++.. _`PR 222`: https://github.com/berkerpeksag/astor/pull/222
++
+ Bug fixes
+ ~~~~~~~~~
+ 
+diff --git a/tests/test_code_gen.py b/tests/test_code_gen.py
+index a57ed22..e828eb9 100644
+--- a/tests/test_code_gen.py
++++ b/tests/test_code_gen.py
+@@ -1046,6 +1046,50 @@ def f(arg):
+         '''
+         self.assertSrcRoundtrips(source)
+ 
++    @unittest.skipUnless(sys.version_info >= (3, 12, 0),
++                         "type parameter introduced in Python 3.12")
++    def test_type_parameter_function(self):
++        source = '''
++        def f[T](arg: T) -> T:
++            return arg
++
++
++        def f[*V](*args: *V) -> tuple[*V,]:
++            return args
++
++
++        def f[**P](*args: P.args, **kwargs: P.kwargs):
++            pass
++        '''
++        self.assertSrcRoundtrips(source)
++
++    @unittest.skipUnless(sys.version_info >= (3, 12, 0),
++                            "type parameter introduced in Python 3.12")
++    def test_type_parameter_class(self):
++        source = '''
++        class Class[T]:
++            pass
++
++
++        class Class[*V]:
++            pass
++
++
++        class Class[**P]:
++            pass
++        '''
++        self.assertSrcRoundtrips(source)
++
++    @unittest.skipUnless(sys.version_info >= (3, 12, 0),
++                            "type alias statement introduced in Python 3.12")
++    def test_type_alias(self):
++        source = '''
++        type A = int
++        type B[T] = T
++        type C[*V] = tuple[*V,]
++        '''
++        self.assertSrcRoundtrips(source)
++
+ 
+ if __name__ == '__main__':
+     unittest.main()
