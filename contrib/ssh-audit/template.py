@@ -1,5 +1,5 @@
 pkgname = "ssh-audit"
-pkgver = "3.1.0"
+pkgver = "3.2.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,7 +15,7 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/jtesta/ssh-audit"
 source = f"{url}/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "bea22074aa13f61cbe8e6876912a7eb5796569d980a7429deef112dc51ffd604"
+sha256 = "db21007cb84ac95fa899bdb8f35bb4102a9fd28fc8225c5d16ced4ab8aa0413b"
 
 
 def post_install(self):
