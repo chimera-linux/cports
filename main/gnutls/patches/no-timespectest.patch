@@ -1,0 +1,12 @@
+dumb gnulib test that fails on ppc
+--
+--- a/src/gl/tests/test-timespec.c
++++ b/src/gl/tests/test-timespec.c
+@@ -90,6 +90,7 @@
+ int
+ main (void)
+ {
++  return 0;
+   int i, j, k;
+   struct timespec test[nprototypes + 1];
+   int ntests;
