@@ -785,7 +785,9 @@ Keep in mind that default values may be overridden by build styles.
 * `compression` *(str)* Specifies the package compression. The default is
   unspecified (which means the global default will be used). Currently this
   can be `zstd`, `deflate`, and `none`, optionally with a compression level
-  for the former two like `zstd:3` or `deflate:9`.
+  for the former two like `zstd:3` or `deflate:9`. You can also specify
+  special values `slow` and `fast` which will respect the global compression
+  but use special levels, as well as `zstd:fast`, `zstd:slow` and so on.
 * `configure_args` *(list)* This list is generally specific to the build
   system the template uses. Generally speaking, it provides the arguments
   passed to some kind of `configure` script.
