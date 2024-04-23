@@ -1,6 +1,6 @@
 pkgname = "base-kernel"
 pkgver = "0.1"
-pkgrel = 7
+pkgrel = 8
 depends = [
     "kmod",
     "procps",
@@ -116,7 +116,7 @@ def _baseloc(self):
         "gsed",
         "gtar",
         "xz",
-        "zstd",
+        "zstd-progs",
         "flex",
         "bison",
         "findutils",

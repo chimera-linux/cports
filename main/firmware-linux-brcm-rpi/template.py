@@ -4,7 +4,7 @@ pkgrel = 1
 _fw_rev = "88aa085bfa1a4650e1ccd88896f8343c22a24055"
 _bt_rev = "d9d4741caba7314d6500f588b1eaa5ab387a4ff5"
 archs = ["aarch64"]
-hostmakedepends = ["zstd"]
+hostmakedepends = ["zstd-progs"]
 replaces = ["firmware-linux-brcm", "firmware-rpi<=20220905-r0"]
 replaces_priority = 100  # always overrides files of firmware-linux-brcm
 pkgdesc = "Broadcom firmware for Raspberry Pi"
