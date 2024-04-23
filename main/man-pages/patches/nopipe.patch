@@ -1,0 +1,48 @@
+also has the install_data -T change
+--
+rom 9524f0f63badd896ccf6da7d79511100d86c4721 Mon Sep 17 00:00:00 2001
+From: Alejandro Colomar <alx@kernel.org>
+Date: Tue, 16 Apr 2024 00:29:17 +0200
+Subject: share/mk/: install-man: Don't pipe to install(1)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+install(1) doesn't work well in Darwin.  It seems to be unable to handle
+</dev/stdin>.  The problem seems to be that Darwin's stdin misbehaves.
+
+I've only workarounded the install target, and not the dist target,
+since it's unlikely that one would run it in such a broken system.  But
+since installing the pages is a common operation that everybody needs,
+let's work around it here.
+
+Fixes: 30c38a8bf8ae ("*.mk: Pipe to install(1)")
+Link: <https://github.com/NixOS/nixpkgs/pull/300797>
+Closes: <https://bugzilla.kernel.org/show_bug.cgi?id=218730>
+Reported-by: Sergei Trofimovich <slyich@gmail.com>
+Reported-by: Mario Rodas <https://github.com/marsam>
+Cc: Eli Schwartz <eschwartz93@gmail.com>
+Cc: Pádraig Brady <P@draigBrady.com>
+Signed-off-by: Alejandro Colomar <alx@kernel.org>
+---
+ share/mk/install/man.mk | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/share/mk/install/man.mk b/share/mk/install/man.mk
+index f32fd01b1..eafbbaa32 100644
+--- a/share/mk/install/man.mk
++++ b/share/mk/install/man.mk
+@@ -51,10 +51,10 @@
+ 
+ $(_manpages):
+ 	$(info	$(INFO_)INSTALL		$@)
+-	<$< \
+-	$(SED) $(foreach s, $(MANSECTIONS), \
++	$(INSTALL_DATA) $< $@
++	$(SED) -i $(foreach s, $(MANSECTIONS), \
+ 		-e '/^\.so /s, man$(s)/\(.*\)\.$(s)$$, $(notdir $(man$(s)dir))/\1$(man$(s)ext)$(Z),') \
+-	| $(INSTALL_DATA) -T /dev/stdin $@
++		$@
+ ifeq ($(LINK_PAGES),symlink)
+ 	if $(GREP) '^\.so ' <$@ >/dev/null; then \
+ 		$(GREP) '^\.so ' <$@ \
