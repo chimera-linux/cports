@@ -1,5 +1,5 @@
 pkgname = "fzf"
-pkgver = "0.49.0"
+pkgver = "0.50.0"
 pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
@@ -9,8 +9,9 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT"
 url = "https://github.com/junegunn/fzf"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "e3abb3afcfacf3dfea3144bf801c39fa51ee8ce65c1e8d8ff14521b3d7d2e249"
-options = ["!strip"]
+sha256 = "3dd8f57eb58c039d343c23fbe1b4f03e441eb796d564c959f8241106805370d0"
+# debug: fails to split on powerpc
+options = ["!debug"]
 
 
 def post_install(self):
