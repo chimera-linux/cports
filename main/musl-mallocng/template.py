@@ -25,6 +25,7 @@ license = "MIT"
 url = "http://www.musl-libc.org"
 source = f"https://git.musl-libc.org/cgit/musl/snapshot/musl-{_commit}.tar.gz"
 sha256 = "5829457efb2247c1e39920b14721b75e9c488a06149736c8317536ec4aa3764b"
+compression = "deflate"
 # scp makes it segfault
 hardening = ["!scp"]
 # does not ship tests

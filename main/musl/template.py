@@ -25,6 +25,7 @@ sha256 = [
     "5829457efb2247c1e39920b14721b75e9c488a06149736c8317536ec4aa3764b",
     "f178ce9bf17f46dc5786e59346c8b4dd43f4d566cf75c87380e103802a2e6eb3",
 ]
+compression = "deflate"
 # scp makes it segfault
 hardening = ["!scp"]
 # does not ship tests
