@@ -17,6 +17,7 @@ license = "GPL-2.0-only"
 url = "http://git.alpinelinux.org/cgit/apk-tools"
 source = f"https://gitlab.alpinelinux.org/alpine/{pkgname}/-/archive/{_gitrev}.tar.gz"
 sha256 = "d9deac8159fb35eb7d03919c1bec1af46ae75b86e11e9646d3f57ea6eef5e226"
+compression = "deflate"
 options = ["bootstrap"]
 
 if self.stage > 0:
