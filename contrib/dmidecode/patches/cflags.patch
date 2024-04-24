@@ -1,0 +1,23 @@
+--- a/Makefile
++++ b/Makefile
+@@ -64,16 +64,16 @@
+ #
+ 
+ dmidecode : dmidecode.o dmiopt.o dmioem.o dmioutput.o util.o
+-	$(CC) $(LDFLAGS) dmidecode.o dmiopt.o dmioem.o dmioutput.o util.o -o $@
++	$(CC) $(LDFLAGS) $(CFLAGS) dmidecode.o dmiopt.o dmioem.o dmioutput.o util.o -o $@
+ 
+ biosdecode : biosdecode.o util.o
+-	$(CC) $(LDFLAGS) biosdecode.o util.o -o $@
++	$(CC) $(LDFLAGS) $(CFLAGS) biosdecode.o util.o -o $@
+ 
+ ownership : ownership.o util.o
+-	$(CC) $(LDFLAGS) ownership.o util.o -o $@
++	$(CC) $(LDFLAGS) $(CFLAGS) ownership.o util.o -o $@
+ 
+ vpddecode : vpddecode.o vpdopt.o util.o
+-	$(CC) $(LDFLAGS) vpddecode.o vpdopt.o util.o -o $@
++	$(CC) $(LDFLAGS) $(CFLAGS) vpddecode.o vpdopt.o util.o -o $@
+ 
+ #
+ # Objects
