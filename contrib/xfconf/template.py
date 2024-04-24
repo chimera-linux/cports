@@ -3,25 +3,27 @@ pkgver = "4.18.3"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-gsettings-backend"]
-# broken presently
-configure_gen = []
 make_cmd = "gmake"
 make_check_wrapper = ["dbus-run-session", "xvfb-run"]
 hostmakedepends = [
+    "automake",
     "glib-devel",
     "gmake",
+    "gtk-doc-tools",
     "intltool",
+    "libtool",
     "pkgconf",
     "python",
     "vala-devel",
+    "xfce4-dev-tools",
 ]
-makedepends = ["glib-devel", "vala-devel", "libxfce4util-devel"]
-checkdepends = ["xserver-xorg-xvfb", "dbus"]
+makedepends = ["glib-devel", "libxfce4util-devel", "vala-devel"]
+checkdepends = ["dbus", "xserver-xorg-xvfb"]
 pkgdesc = "Xfce configuration system"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only AND LGPL-2.0-or-later"
-url = "https://xfce.org"
-source = f"https://archive.xfce.org/src/xfce/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.bz2"
+url = "https://docs.xfce.org/xfce/xfconf/start"
+source = f"$(XFCE_SITE)/xfce/xfconf/{pkgver[:-2]}/xfconf-{pkgver}.tar.bz2"
 sha256 = "c56cc69056f6947b2c60b165ec1e4c2b0acf26a778da5f86c89ffce24d5ebd98"
 
 
