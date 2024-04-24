@@ -3,23 +3,26 @@ pkgver = "4.18.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--disable-static"]
-configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = [
-    "pkgconf",
-    "gmake",
-    "intltool",
-    "gettext",
+    "automake",
+    "gettext-devel",
     "glib-devel",
+    "gmake",
+    "gtk-doc-tools",
+    "intltool",
+    "libtool",
+    "pkgconf",
     "python",
+    "xfce4-dev-tools",
 ]
-makedepends = ["glib-devel", "libxfce4ui-devel", "gtk+3-devel"]
+makedepends = ["glib-devel", "gtk+3-devel", "libxfce4ui-devel"]
 depends = ["desktop-file-utils"]
 pkgdesc = "Xfce extensions library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
-url = "https://xfce.org"
-source = f"https://archive.xfce.org/src/xfce/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.bz2"
+url = "https://docs.xfce.org/xfce/exo/start"
+source = f"$(XFCE_SITE)/xfce/exo/{pkgver[:-2]}/exo-{pkgver}.tar.bz2"
 sha256 = "4f2c61d045a888cdb64297fd0ae20cc23da9b97ffb82562ed12806ed21da7d55"
 
 
