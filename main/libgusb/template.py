@@ -1,5 +1,5 @@
 pkgname = "libgusb"
-pkgver = "0.4.8"
+pkgver = "0.4.9"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Ddocs=false", "-Dintrospection=true"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/hughsie/libgusb"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "77aec51de289afe3bf5f8a1a36ae989d1a59748391097242949daccda9569ede"
+sha256 = "9df5ef301d6a4b361002aa52cce1165a87a89744055879bdbab31e7e86f1e846"
 # no access to usb in container
 options = ["!check", "!cross"]
 
