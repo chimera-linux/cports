@@ -1,5 +1,5 @@
 pkgname = "python-freezegun"
-pkgver = "1.4.0"
+pkgver = "1.5.0"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -17,4 +17,4 @@ maintainer = "Duncan Bellamy <dunk@denkimushi.com>"
 license = "Apache-2.0"
 url = "https://github.com/spulec/freezegun"
 source = f"$(PYPI_SITE)/f/freezegun/freezegun-{pkgver}.tar.gz"
-sha256 = "10939b0ba0ff5adaecf3b06a5c2f73071d9678e507c5eaedb23c761d56ac774b"
+sha256 = "200a64359b363aa3653d8aac289584078386c7c3da77339d257e46a01fb5c77c"
