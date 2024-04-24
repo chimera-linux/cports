@@ -1,0 +1,13 @@
+diff --git a/defaults/defaults b/defaults/defaults
+index 83e873ff6..613d2a103 100644
+--- a/defaults/defaults
++++ b/defaults/defaults
+@@ -56,7 +56,7 @@ snap_to_border=true
+ snap_to_windows=false
+ snap_width=10
+ sync_to_vblank=false
+-theme=Default
++theme=adw-gtk3
+ tile_on_move=true
+ title_alignment=center
+ title_font=Sans Bold 9
