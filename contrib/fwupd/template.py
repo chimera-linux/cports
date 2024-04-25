@@ -1,5 +1,5 @@
 pkgname = "fwupd"
-pkgver = "1.9.16"
+pkgver = "1.9.18"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,6 +27,7 @@ hostmakedepends = [
 makedepends = [
     "cairo-devel",
     "elogind-devel",
+    "flashrom-devel",
     "gcab-devel",
     "gnutls-devel",
     "gpgme-devel",
@@ -55,7 +56,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://github.com/fwupd/fwupd"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "4ce148024df297307742fc19fda3a620455e344ba21b37bc9f498b3b03d57110"
+sha256 = "102e042d003c5534280106974178b58623eed7a781b3aa4f158bc24722019a0e"
 options = ["!cross"]
 
 _have_uefi = False
