@@ -1,5 +1,5 @@
 pkgname = "fossil"
-pkgver = "2.23"
+pkgver = "2.24"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -19,8 +19,9 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-2-Clause"
 url = "https://fossil-scm.org"
 source = f"https://fossil-scm.org/home/tarball/version-{pkgver}/fossil-src-{pkgver}.tar.gz"
-sha256 = "a94aec2609331cd6890c6725b55aea43041011863f3d84fdc380415af75233e4"
-options = ["!cross"]
+sha256 = "e6f5a559369bf16baf539e69e6d0cea5a6410efa9a6e7f160c7a4932080413be"
+# tests are unmaintained: https://fossil-scm.org/forum/forumpost/77cd773882607d94
+options = ["!cross", "!check"]
 
 
 def post_install(self):
