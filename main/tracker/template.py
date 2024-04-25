@@ -1,6 +1,6 @@
 pkgname = "tracker"
-pkgver = "3.7.1"
-pkgrel = 1
+pkgver = "3.7.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = [
     # TODO: user services with dinit?
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tracker"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "cd91b885ee9839cde5387f8e05ed24a7108d1627629cb6b1b2aa51a9603e130a"
+sha256 = "debcaa291e46afadc1cf6a251f17efb02440aa48bff643d78c61123807dce00f"
 options = ["!cross"]
 
 
