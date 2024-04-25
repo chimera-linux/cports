@@ -1,0 +1,6 @@
+# coturn system service
+
+type = process
+command = /usr/bin/turnserver
+logfile = /var/log/coturn.log
+run-as = _coturn
