@@ -1,0 +1,17 @@
+diff --git a/src/makefile b/src/makefile
+index 25b293c..9fc685b 100755
+--- a/src/makefile
++++ b/src/makefile
+@@ -283,11 +283,10 @@ SOCKET=$(SOCKET_$(PLAT))
+ #------
+ # Settings selected for platform
+ #
+-CC=$(CC_$(PLAT))
+ DEF=$(DEF_$(PLAT))
+ CFLAGS=$(MYCFLAGS) $(CFLAGS_$(PLAT))
+ LDFLAGS=$(MYLDFLAGS) $(LDFLAGS_$(PLAT))
+-LD=$(LD_$(PLAT))
++LD=$(CC)
+ LUAINC= $(LUAINC_$(PLAT))
+ LUALIB= $(LUALIB_$(PLAT))
+ 
