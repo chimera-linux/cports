@@ -1,0 +1,7 @@
+# MPD service
+
+type = process
+command = /usr/bin/mpd --no-daemon
+depends-on = network.target
+depends-on = local.target
+smooth-recovery = true
