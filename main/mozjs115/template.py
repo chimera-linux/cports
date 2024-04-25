@@ -1,6 +1,6 @@
 pkgname = "mozjs115"
 pkgver = "115.10.0"
-pkgrel = 0
+pkgrel = 1
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake",
@@ -129,7 +129,7 @@ def post_install(self):
 
 
 def do_check(self):
-    self.do("objdir/dist/bin/jsapi-tests", "basic")
+    self.do("objdir/dist/bin/jsapi-tests")
 
 
 @subpackage("mozjs115-devel")
