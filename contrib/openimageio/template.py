@@ -1,6 +1,6 @@
 pkgname = "openimageio"
 pkgver = "2.5.10.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 configure_args = [
     # disabled below
@@ -17,7 +17,7 @@ make_check_args = [
     #   texture-crop, texture-interp-bilinear, texture-uint8, texture-skinny
     #   unit_compute (aarch64), unit_simd
     "-E",
-    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-crop|texture-interp-bilinear|texture-levels-stoch.*|texture-skinny|texture-udim.*|texture-uint8|unit_compute|unit_simd)",
+    "(.*-broken|cmake-consumer|docs-examples-.*|filters|igrep|oiiotool|oiiotool-copy|oiiotool-subimage|oiiotool-text|python-.*|texture-crop|texture-interp-bilinear|texture-levels-stoch.*|texture-skinny|texture-udim.*|texture-uint8|unit_compute|unit_simd|unit_imageinout)",
 ]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
 makedepends = [

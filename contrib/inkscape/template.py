@@ -1,6 +1,6 @@
 pkgname = "inkscape"
 pkgver = "1.3.2"
-pkgrel = 4
+pkgrel = 5
 build_style = "cmake"
 configure_args = [
     "-D2GEOM_BUILD_SHARED=OFF",

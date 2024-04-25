@@ -1,6 +1,6 @@
 pkgname = "libodfgen"
 pkgver = "0.1.8"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."

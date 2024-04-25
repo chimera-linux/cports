@@ -1,6 +1,6 @@
 pkgname = "protobuf-c"
 pkgver = "1.5.0"
-pkgrel = 7
+pkgrel = 8
 build_style = "gnu_configure"
 configure_args = [
     "--enable-protoc",

@@ -1,6 +1,6 @@
 pkgname = "mdds"
 pkgver = "2.1.1"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["gmake", "pkgconf", "automake", "libtool"]
