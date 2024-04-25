@@ -22,12 +22,12 @@ Use clang toolset by default as we have no gcc in main.
  
  
  # Detect the host OS.
-@@ -276,7 +276,7 @@ class Tester(TestCmd.TestCmd):
-         self.pass_toolset = pass_toolset
-         self.ignore_toolset_requirements = ignore_toolset_requirements
+@@ -349,7 +372,7 @@
+             pass
  
--        prepare_prefixes_and_suffixes(pass_toolset and self.toolset or "gcc")
-+        prepare_prefixes_and_suffixes(pass_toolset and self.toolset or "clang")
- 
-         use_default_bjam = "--default-bjam" in sys.argv
- 
+     def set_toolset(self, toolset, target_os=None, _pass_toolset=True):
+-        self.toolset = _pass_toolset and toolset or "gcc"
++        self.toolset = _pass_toolset and toolset or "clang"
+         if not target_os and self.toolset.startswith("emscripten"):
+             target_os = "unknown"
+         self.target_os = target_os or host_os

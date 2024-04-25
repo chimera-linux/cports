@@ -1,5 +1,5 @@
 pkgname = "boost"
-pkgver = "1.84.0"
+pkgver = "1.85.0"
 pkgrel = 0
 hostmakedepends = ["pkgconf"]
 makedepends = [
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSL-1.0"
 url = "https://boost.org"
 source = f"https://boostorg.jfrog.io/artifactory/main/release/{pkgver}/source/boost_{pkgver.replace('.', '_')}.tar.gz"
-sha256 = "a5800f405508f5df8114558ca9855d2640a2de8f0445f051fa1c7c3383045724"
+sha256 = "be0d91732d5b0cc6fbb275c7939974457e79b54d6f07ce2e3dfdd68bef883b0b"
 tool_flags = {"CXXFLAGS": ["-std=c++14"]}
 # FIXME: odd failures, but seems test-related
 options = ["!check", "!cross", "empty"]  # i don't dare touch this yet
@@ -26,6 +26,7 @@ options = ["!check", "!cross", "empty"]  # i don't dare touch this yet
 # needs to be updated with new libs regularly
 _libs = [
     "atomic",
+    "charconv",
     "chrono",
     "container",
     "context",
@@ -108,6 +109,9 @@ def do_build(self):
         f"--prefix={self.chroot_destdir}/usr",
         "--with-python=/usr/bin/python",
         "--with-python-root=/usr",
+        # runs windres on res.rc and tries to link in a COFF object otherwise
+        # which clang rejects
+        env={"B2_DONT_EMBED_MANIFEST": "1"},
     )
 
     with open(self.cwd / "user-config.jam", "w") as cf:
@@ -180,10 +184,11 @@ def _devel(self):
 
 
 def _gen_libp(libname):
-    @subpackage(f"libboost_{libname}")
+    @subpackage(f"boost-{libname}-libs")
     def _subp(self):
         self.pkgdesc = f"{pkgdesc} ({libname})"
         self.depends = [f"boost={pkgver}-r{pkgrel}"]
+        self.provides = [f"libboost_{libname}={pkgver}-r{pkgrel}"]
 
         return [f"usr/lib/libboost_{libname}*.so.*"]
 
