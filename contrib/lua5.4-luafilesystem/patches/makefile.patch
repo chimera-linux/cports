@@ -1,0 +1,28 @@
+--- a/Makefile
++++ b/Makefile
+@@ -11,8 +11,11 @@ OBJS= src/$T.o
+ 
+ lib: src/lfs.so
+ 
++.c.o:
++	$(CC) $(WARN) $(INCS) $(CFLAGS) -c -o $@ $<
++
+ src/lfs.so: $(OBJS)
+-	MACOSX_DEPLOYMENT_TARGET=$(MACOSX_DEPLOYMENT_TARGET); export MACOSX_DEPLOYMENT_TARGET; $(CC) $(LIB_OPTION) -o src/lfs.so $(OBJS)
++	MACOSX_DEPLOYMENT_TARGET=$(MACOSX_DEPLOYMENT_TARGET); export MACOSX_DEPLOYMENT_TARGET; $(CC) $(CFLAGS) $(LDFLAGS) $(LIB_OPTION) -o src/lfs.so $(OBJS)
+ 
+ test: lib
+ 	LUA_CPATH=./src/?.so lua tests/test.lua
+--- a/config
++++ b/config
+@@ -20,9 +20,8 @@ LIB_OPTION= -shared #for Linux
+ MACOSX_DEPLOYMENT_TARGET= 10.5
+ 
+ # Compilation directives
+-WARN= -O2 -Wall -fPIC -W -Waggregate-return -Wcast-align -Wmissing-prototypes -Wnested-externs -Wshadow -Wwrite-strings -pedantic
++WARN= -Wall -fPIC -W -Waggregate-return -Wcast-align -Wmissing-prototypes -Wnested-externs -Wshadow -Wwrite-strings
+ INCS= $(LUA_INC)
+-CFLAGS= $(WARN) $(INCS)
+ CC= gcc
+ 
+ # $Id: config,v 1.21 2007/10/27 22:42:32 carregal Exp $
