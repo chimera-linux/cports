@@ -1,6 +1,6 @@
 pkgname = "slirp4netns"
-pkgver = "1.2.3"
-pkgrel = 1
+pkgver = "1.3.0"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -17,7 +17,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/rootless-containers/slirp4netns"
 source = f"https://github.com/rootless-containers/slirp4netns/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "acce648fab8fe5f113c41a8fd6d20177708519b4ddaa60f845e1998a17b22ca5"
+sha256 = "551a63647114a0c50dd115640161c9330832e2466f602fd3d1eaf95d3226baab"
 # cfi failure likely due to libslirp non-cfi timer shenanigans
 hardening = ["vis", "!cfi"]
 # needs ncat from nmap
