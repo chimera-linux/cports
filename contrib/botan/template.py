@@ -35,6 +35,7 @@ hardening = ["vis"]
 
 
 if self.profile().arch == "ppc64":
+    broken = "hangs forever in tests"
     configure_args += ["--disable-modules=aes_power8"]
 
 
