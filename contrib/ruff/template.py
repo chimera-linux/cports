@@ -19,6 +19,10 @@ sha256 = "7f08b9b79afdf75eb5528986f0ac8a7fe0183d5b1917cba7d7d595b09cb58d6a"
 options = ["!cross"]
 
 
+if self.profile().arch == "riscv64":
+    broken = "runs for hours, uses 100GB memory, dies"
+
+
 def post_patch(self):
     from cbuild.util import cargo
 
