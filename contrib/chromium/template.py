@@ -26,6 +26,7 @@ configure_args = [
     "is_debug=false",
     "is_official_build=true",
     "link_pulseaudio=true",
+    'moc_qt6_path="/usr/lib/qt6"',
     "proprietary_codecs=true",
     "regenerate_x11_protos=true",
     "rtc_link_pipewire=true",
@@ -40,6 +41,7 @@ configure_args = [
     "use_lld=true",
     "use_pulseaudio=true",
     "use_qt=false",
+    "use_qt6=true",
     "use_sysroot=false",
     "use_system_freetype=true",
     "use_system_harfbuzz=true",
@@ -119,6 +121,7 @@ makedepends = [
     "opus-devel",
     "pciutils-devel",
     "pipewire-devel",
+    "qt6-qtbase-devel",
     "rust-std",
     "snappy-devel",
     "speex-devel",
@@ -295,6 +298,7 @@ def do_install(self):
     )
     self.install_file(f"{srcp}/libEGL.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/libGLESv2.so", dstp, mode=0o755)
+    self.install_file(f"{srcp}/libqt6_shim.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/libvulkan.so.1", dstp, mode=0o755)
     self.install_file(f"{srcp}/libvk_swiftshader.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/vk_swiftshader_icd.json", dstp, mode=0o755)
