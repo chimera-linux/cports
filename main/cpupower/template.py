@@ -1,6 +1,6 @@
 pkgname = "cpupower"
-pkgver = "6.8.4"
-pkgrel = 1
+pkgver = "6.8.8"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_build_target = "cpupower"
@@ -36,7 +36,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[:pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"
-sha256 = "d5dec495fc00605fa9e04114df547fbc92b33d9ea7a4a2b7073c589590e79e63"
+sha256 = "1c4cdcb9d560fad1fb95db2cb8afbedc922f9ead848371fe40363b13f9f631ba"
 # nope
 options = ["!check"]
 
