@@ -1,0 +1,19 @@
+The code here uses ifunc which we don't have:
+
+../../../../../src/3rdparty/chromium/base/allocator/partition_allocator/tagging.cc:17:10: fatal error: 'sys/ifunc.h' file not found
+   17 | #include <sys/ifunc.h>
+
+--- a/src/3rdparty/chromium/base/allocator/partition_allocator/partition_alloc_config.h
++++ b/src/3rdparty/chromium/base/allocator/partition_allocator/partition_alloc_config.h
+@@ -152,10 +152,7 @@ static_assert(sizeof(void*) != 8, "");
+   (!BUILDFLAG(PUT_REF_COUNT_IN_PREVIOUS_SLOT) && \
+    defined(ARCH_CPU_LITTLE_ENDIAN))
+ 
+-#define PA_CONFIG_HAS_MEMORY_TAGGING()              \
+-  (defined(ARCH_CPU_ARM64) && defined(__clang__) && \
+-   !defined(ADDRESS_SANITIZER) &&                   \
+-   (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_ANDROID)))
++#define PA_CONFIG_HAS_MEMORY_TAGGING() 0
+ 
+ #if PA_CONFIG(HAS_MEMORY_TAGGING)
+ static_assert(sizeof(void*) == 8);
