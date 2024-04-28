@@ -1,5 +1,5 @@
 pkgname = "enchant"
-pkgver = "2.7.1"
+pkgver = "2.7.2"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = ["--enable-relocatable", "--disable-static"]
@@ -25,7 +25,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://abiword.github.io/enchant"
 source = f"https://github.com/AbiWord/enchant/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "a1cb8239095d6b0bd99ba2dd012a1402cef1a194f5de1b7214bd528676a65229"
+sha256 = "7cc3400a6657974a740b6e3c2568e2935c70e5302f07fadb2095366b75ecad6f"
 # missing checkdepends
 options = ["!check"]
 
