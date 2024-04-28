@@ -1,0 +1,22 @@
+diff --git a/tests/test_release.py b/tests/test_release.py
+index 15091c2..5bc671c 100644
+--- a/tests/test_release.py
++++ b/tests/test_release.py
+@@ -11,7 +11,7 @@ from pathlib import Path
+ from typing import Iterable
+ 
+ import pytest
+-import toml
++import tomllib
+ 
+ # TODO: skip if poetry is not available or add mark to test it explicitly
+ 
+@@ -32,7 +32,7 @@ def pyproject_path() -> Path:
+ def pyproject(pyproject_path: Path):
+     assert pyproject_path.is_file()
+     with pyproject_path.open() as infile:
+-        pyproject = toml.load(infile)
++        pyproject = tomllib.load(infile)
+     return pyproject
+ 
+ 
