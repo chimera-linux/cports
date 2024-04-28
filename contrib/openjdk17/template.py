@@ -3,7 +3,7 @@ _majver = "17"
 _fver = f"{_majver}.0.11"
 _bver = "9"
 pkgver = f"{_fver}_p{_bver}"
-pkgrel = 0
+pkgrel = 1
 # we don't attempt zero, it's a waste of time
 archs = ["x86_64", "aarch64", "ppc64le", "ppc64"]
 build_style = "gnu_configure"
@@ -57,10 +57,7 @@ makedepends = [
     "alsa-lib-devel",
     "linux-headers",
 ]
-depends = [
-    f"{pkgname}-jdk={pkgver}-r{pkgrel}",
-    f"{pkgname}-demos={pkgver}-r{pkgrel}",
-]
+depends = [f"openjdk{_majver}-jdk={pkgver}-r{pkgrel}"]
 pkgdesc = f"Oracle OpenJDK {_majver}"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only WITH Classpath-exception-2.0"
@@ -178,6 +175,7 @@ def do_install(self):
 @subpackage(f"openjdk{_majver}-demos")
 def _demos(self):
     self.pkgdesc = f"{pkgdesc} (demos)"
+    self.install_if = [f"openjdk{_majver}-jdk={pkgver}-r{pkgrel}"]
 
     return [f"{_java_home}/demo"]
 
