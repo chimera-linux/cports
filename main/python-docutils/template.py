@@ -15,6 +15,8 @@ license = "custom:none AND BSD-2-Clause AND GPL-3.0-or-later AND Python-2.0"
 url = "http://docutils.sourceforge.net"
 source = f"$(PYPI_SITE)/d/docutils/docutils-{pkgver}.tar.gz"
 sha256 = "3a6b18732edf182daa3cd12775bbb338cf5691468f91eeeb109deff6ebfa986f"
+# cyclic: pillow -> freetype -> harfbuzz -> glib -> docutils
+options = ["!check"]
 
 
 def do_check(self):
