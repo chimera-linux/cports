@@ -1,6 +1,6 @@
 pkgname = "curl"
 pkgver = "8.7.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-optimize",
