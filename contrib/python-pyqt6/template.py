@@ -1,6 +1,6 @@
 pkgname = "python-pyqt6"
 pkgver = "6.7.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_dir = "build"
 make_use_env = True
@@ -15,8 +15,11 @@ makedepends = [
     "python-devel",
     "qt6-qtbase-devel",
     "qt6-qtdeclarative-devel",
+    "qt6-qtmultimedia-devel",
     "qt6-qtsvg-devel",
     "qt6-qttools-devel",
+    "qt6-qtwebchannel-devel",
+    "qt6-qtwebsockets-devel",
 ]
 depends = ["python-pyqt6_sip"]
 pkgdesc = "Python Qt6 bindings"
