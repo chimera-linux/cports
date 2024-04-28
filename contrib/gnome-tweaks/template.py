@@ -1,5 +1,5 @@
 pkgname = "gnome-tweaks"
-pkgver = "46.0"
+pkgver = "46.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -30,4 +30,4 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later AND CC0-1.0"
 url = "https://wiki.gnome.org/Apps/Tweaks"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "1678786341f664ac4580784222a16409fa9bf5cc7a5f1b46dcefd2aa13ddba31"
+sha256 = "2f192a7085fbd6843ecf825716d9da21ec9272029149ea35f3e159e0ac309b80"
