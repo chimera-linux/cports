@@ -1,6 +1,6 @@
 pkgname = "iniparser"
-pkgver = "4.1"
-pkgrel = 1
+pkgver = "4.2"
+pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
 make_dir = "."
@@ -12,10 +12,8 @@ pkgdesc = "C library for INI file parsing"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ndevilla/iniparser"
-source = (
-    f"https://github.com/ndevilla/iniparser/archive/refs/tags/v{pkgver}.tar.gz"
-)
-sha256 = "960daa800dd31d70ba1bacf3ea2d22e8ddfc2906534bf328319495966443f3ae"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "dbcbaf3aedb4f88a9fc0df4b315737ddd10e6c37918e3d89f0ecc475333bde4d"
 # vis breaks symbols
 hardening = []
 
