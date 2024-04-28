@@ -1,5 +1,5 @@
 pkgname = "rootlesskit"
-pkgver = "2.0.2"
+pkgver = "2.1.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -13,6 +13,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/rootless-containers/rootlesskit"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "8324faa8ae2bab7b79d9b3b5acb9568ab28a3e3df4900001dc4a8b01adaff161"
+sha256 = "b3afab504a1021d26117e7df0a86125ea5b0b009299368231870feada57489d6"
 # no tests
 options = ["!debug", "!check"]
