@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5734"
+pkgver = "1.7.5750"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -48,12 +48,13 @@ makedepends = [
     "zlib-devel",
     "zstd-devel",
 ]
+depends = ["virtual:cmd:gst-play-1.0!gst-plugins-base"]
 checkdepends = ["perl"]
 pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "0f52d8a5eb1cefea8b416532ce6ba225271e267f"
+_patches = "b3a788e16ea12efac006cbbe1ece45b6b9b34326"
 _gtest = "v1.14.0"
 _fastfloat = "v6.1.1"
 source = [
@@ -69,8 +70,8 @@ source_paths = [
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "ab4564cb51738c3c2618a26ecce2d3b1bd07cc19934bf4f0f9bd343649ae0042",
-    "e5cd4ab0be0d00ec7a06642903645fbcd406aa9f0ec1f5377044d40b696912a2",
+    "af1fd71e4bed06af74b116166cd8136e0e5d28de375b03ba2417cb50ff3a11a0",
+    "a531b037e1d58c01ee18ea81c0466995e4321cdff7291a1484d1882293ffbce3",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
     "10159a4a58ba95fe9389c3c97fe7de9a543622aa0dcc12dd9356d755e9a94cb4",
 ]
