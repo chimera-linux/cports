@@ -1,0 +1,14 @@
+fatal error: no template named 'result_of' in namespace 'std'; 
+(removed for c++20)
+--
+--- a/src/common/sorting.h
++++ b/src/common/sorting.h
+@@ -28,7 +28,7 @@
+ 
+ template<  typename Titer
+          , typename Tcriterion_maker
+-         , typename Tcriterion = typename std::result_of< Tcriterion_maker(typename std::iterator_traits<Titer>::value_type) >::type
++         , typename Tcriterion = std::invoke_result_t< Tcriterion_maker, typename std::iterator_traits<Titer>::value_type >
+          , typename Tcomparator = std::less<Tcriterion>
+          >
+ void
