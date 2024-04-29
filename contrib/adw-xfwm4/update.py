@@ -1,0 +1,2 @@
+# No releases
+ignore = True
