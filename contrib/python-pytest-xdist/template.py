@@ -1,5 +1,5 @@
 pkgname = "python-pytest-xdist"
-pkgver = "3.6.0"
+pkgver = "3.6.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/pytest-dev/pytest-xdist"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f8d2926a28c0ed02fe8e9cc9338060f982c31cb18fd84a21e26602b8a4add849"
+sha256 = "d8a26b8dbfa97f6f5bee904816b0feb15f3b95eec1e0fcee601535a572a03f5a"
 # unpackaged filelock
 options = ["!check"]
 
