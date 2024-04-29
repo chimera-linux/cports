@@ -1,6 +1,6 @@
 pkgname = "ggrep"
 pkgver = "3.11"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--program-prefix=g"]
 hostmakedepends = ["automake", "libtool", "pkgconf", "gettext-devel"]
