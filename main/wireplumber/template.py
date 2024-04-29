@@ -1,6 +1,6 @@
 pkgname = "wireplumber"
 pkgver = "0.5.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dsystem-lua=true",
@@ -17,6 +17,7 @@ hostmakedepends = [
 ]
 makedepends = ["pipewire-devel", "glib-devel", "lua5.4-devel"]
 checkdepends = ["pipewire", "dbus"]
+depends = ["pipewire"]
 provides = [f"pipewire-session-manager={pkgver}-r{pkgrel}"]
 pkgdesc = "Session and policy manager implementation for PipeWire"
 maintainer = "q66 <q66@chimera-linux.org>"
