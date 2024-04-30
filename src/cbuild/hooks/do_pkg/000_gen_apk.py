@@ -75,7 +75,6 @@ def genpkg(pkg, repo, arch, binpkg):
 
     # shlib requires
     if hasattr(pkg, "so_requires"):
-        pkg.so_requires.sort()
         deps += map(lambda v: f"so:{v}", sorted(pkg.so_requires))
 
     # .pc file requires
