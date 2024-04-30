@@ -1,5 +1,5 @@
 pkgname = "nerdctl"
-pkgver = "1.7.5"
+pkgver = "1.7.6"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/nerdctl"]
@@ -10,7 +10,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "Apache-2.0"
 url = "https://github.com/containerd/nerdctl"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "cea6e2d6e3bd0f09047870f8bb6a145c5b4110128c39d833842faa5f9def47e9"
+sha256 = "9a204b15ab4a0c260a9615a0254fb91ec2ccd9815be85b0890130ef1f3920717"
 # objcopy fails to split on ppc
 # can't run tests inside namespaces
 # cross: generates completions with host binary
