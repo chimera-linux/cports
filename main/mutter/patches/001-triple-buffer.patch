@@ -22,9 +22,9 @@ git suggests. Also add Gbp-Pq: Topic debian
 Bug: https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/3760
 Forwarded: https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1441
 Applied-upstream: no, see also https://bugs.debian.org/1050020
-Last-Update: 2024-03-18
+Last-Update: 2024-04-29
 ---
- clutter/clutter/clutter-frame-clock.c      | 352 +++++++++++++++++++++------
+ clutter/clutter/clutter-frame-clock.c      | 368 +++++++++++++++++++++++------
  clutter/clutter/clutter-frame-clock.h      |  11 +-
  clutter/clutter/clutter-frame-private.h    |   1 +
  clutter/clutter/clutter-frame.c            |  13 +
@@ -32,6 +32,8 @@ Last-Update: 2024-03-18
  clutter/clutter/clutter-stage-view.c       |  11 +-
  cogl/cogl/cogl-onscreen-private.h          |   5 +-
  cogl/cogl/cogl-onscreen.c                  |   8 +
+ meson.build                                |   1 -
+ po/pt.po                                   | 142 +++++------
  src/backends/meta-stage-impl.c             |   2 +
  src/backends/native/meta-kms-impl-device.c |   4 +-
  src/backends/native/meta-kms.c             |   9 +
@@ -39,11 +41,15 @@ Last-Update: 2024-03-18
  src/backends/native/meta-onscreen-native.c | 368 +++++++++++++++++++++++------
  src/backends/native/meta-onscreen-native.h |   2 +
  src/backends/native/meta-renderer-native.c |  34 ++-
+ src/meson.build                            |   1 -
  src/tests/native-kms-render.c              | 106 +++++++--
- 16 files changed, 762 insertions(+), 173 deletions(-)
+ src/wayland/meta-wayland-keyboard.c        |  11 +-
+ src/wayland/meta-wayland-surface.c         |   2 +-
+ src/wayland/meta-wayland-tablet-tool.c     |  50 +++-
+ 22 files changed, 907 insertions(+), 251 deletions(-)
 
 diff --git a/clutter/clutter/clutter-frame-clock.c b/clutter/clutter/clutter-frame-clock.c
-index 93e4c93..a6c7ece 100644
+index 93e4c93..b637fac 100644
 --- a/clutter/clutter/clutter-frame-clock.c
 +++ b/clutter/clutter/clutter-frame-clock.c
 @@ -42,6 +42,15 @@ enum
@@ -418,7 +424,33 @@ index 93e4c93..a6c7ece 100644
            break;
          }
  
-@@ -770,11 +892,18 @@ clutter_frame_clock_schedule_update_now (ClutterFrameClock *frame_clock)
+@@ -753,6 +875,25 @@ clutter_frame_clock_uninhibit (ClutterFrameClock *frame_clock)
+     maybe_reschedule_update (frame_clock);
+ }
+ 
++static gboolean
++want_triple_buffering (ClutterFrameClock *frame_clock)
++{
++  switch (triple_buffering_mode)
++    {
++    case TRIPLE_BUFFERING_MODE_NEVER:
++      return FALSE;
++    case TRIPLE_BUFFERING_MODE_AUTO:
++      return frame_clock->mode == CLUTTER_FRAME_CLOCK_MODE_FIXED &&
++             !(frame_clock->last_flip_hints &
++               CLUTTER_FRAME_HINT_DIRECT_SCANOUT_ATTEMPTED);
++    case TRIPLE_BUFFERING_MODE_ALWAYS:
++      return TRUE;
++    }
++
++  g_assert_not_reached ();
++  return FALSE;
++}
++
+ void
+ clutter_frame_clock_schedule_update_now (ClutterFrameClock *frame_clock)
+ {
+@@ -770,11 +911,24 @@ clutter_frame_clock_schedule_update_now (ClutterFrameClock *frame_clock)
      case CLUTTER_FRAME_CLOCK_STATE_INIT:
      case CLUTTER_FRAME_CLOCK_STATE_IDLE:
      case CLUTTER_FRAME_CLOCK_STATE_SCHEDULED:
@@ -429,17 +461,23 @@ index 93e4c93..a6c7ece 100644
        return;
 -    case CLUTTER_FRAME_CLOCK_STATE_DISPATCHING:
 -    case CLUTTER_FRAME_CLOCK_STATE_PENDING_PRESENTED:
-+    case CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_ONE:
 +    case CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_ONE_AND_SCHEDULED:
-+      next_update_time_us = g_get_monotonic_time ();
 +      frame_clock->state =
 +        CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_ONE_AND_SCHEDULED_NOW;
 +      break;
++    case CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_ONE:
++      if (want_triple_buffering (frame_clock))
++        {
++          frame_clock->state =
++            CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_ONE_AND_SCHEDULED_NOW;
++          break;
++        }
++      G_GNUC_FALLTHROUGH;
 +    case CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_TWO:
        frame_clock->pending_reschedule = TRUE;
        frame_clock->pending_reschedule_now = TRUE;
        return;
-@@ -803,13 +932,18 @@ clutter_frame_clock_schedule_update_now (ClutterFrameClock *frame_clock)
+@@ -803,13 +957,17 @@ clutter_frame_clock_schedule_update_now (ClutterFrameClock *frame_clock)
  
    frame_clock->next_update_time_us = next_update_time_us;
    g_source_set_ready_time (frame_clock->source, next_update_time_us);
@@ -453,13 +491,12 @@ index 93e4c93..a6c7ece 100644
 +  TripleBufferingMode current_mode = triple_buffering_mode;
 +
 +  if (current_mode == TRIPLE_BUFFERING_MODE_AUTO &&
-+      (frame_clock->last_flip_hints &
-+       CLUTTER_FRAME_HINT_DIRECT_SCANOUT_ATTEMPTED))
++      !want_triple_buffering (frame_clock))
 +    current_mode = TRIPLE_BUFFERING_MODE_NEVER;
  
    if (frame_clock->inhibit_count > 0)
      {
-@@ -825,12 +959,41 @@ clutter_frame_clock_schedule_update (ClutterFrameClock *frame_clock)
+@@ -825,12 +983,33 @@ clutter_frame_clock_schedule_update (ClutterFrameClock *frame_clock)
        frame_clock->state = CLUTTER_FRAME_CLOCK_STATE_SCHEDULED;
        return;
      case CLUTTER_FRAME_CLOCK_STATE_IDLE:
@@ -479,14 +516,6 @@ index 93e4c93..a6c7ece 100644
 +          frame_clock->pending_reschedule = TRUE;
 +          return;
 +        case TRIPLE_BUFFERING_MODE_AUTO:
-+          calculate_next_update_time_us (frame_clock,
-+                                         &next_update_time_us,
-+                                         &frame_clock->next_presentation_time_us,
-+                                         &frame_clock->next_frame_deadline_us);
-+          frame_clock->is_next_presentation_time_valid =
-+            (frame_clock->next_presentation_time_us != 0);
-+          frame_clock->has_next_frame_deadline =
-+            (frame_clock->next_frame_deadline_us != 0);
 +          frame_clock->state =
 +            CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_ONE_AND_SCHEDULED;
 +          break;
@@ -496,14 +525,14 @@ index 93e4c93..a6c7ece 100644
 +          frame_clock->is_next_presentation_time_valid = FALSE;
 +          frame_clock->state =
 +            CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_ONE_AND_SCHEDULED;
-+          break;
++          return;
 +        }
 +      break;
 +    case CLUTTER_FRAME_CLOCK_STATE_DISPATCHED_TWO:
        frame_clock->pending_reschedule = TRUE;
        return;
      }
-@@ -859,7 +1022,6 @@ clutter_frame_clock_schedule_update (ClutterFrameClock *frame_clock)
+@@ -859,7 +1038,6 @@ clutter_frame_clock_schedule_update (ClutterFrameClock *frame_clock)
  
    frame_clock->next_update_time_us = next_update_time_us;
    g_source_set_ready_time (frame_clock->source, next_update_time_us);
@@ -511,7 +540,7 @@ index 93e4c93..a6c7ece 100644
  }
  
  void
-@@ -875,6 +1037,8 @@ clutter_frame_clock_set_mode (ClutterFrameClock     *frame_clock,
+@@ -875,6 +1053,8 @@ clutter_frame_clock_set_mode (ClutterFrameClock     *frame_clock,
      {
      case CLUTTER_FRAME_CLOCK_STATE_INIT:
      case CLUTTER_FRAME_CLOCK_STATE_IDLE:
@@ -520,7 +549,7 @@ index 93e4c93..a6c7ece 100644
        break;
      case CLUTTER_FRAME_CLOCK_STATE_SCHEDULED:
        frame_clock->pending_reschedule = TRUE;
-@@ -885,8 +1049,14 @@ clutter_frame_clock_set_mode (ClutterFrameClock     *frame_clock,
+@@ -885,8 +1065,14 @@ clutter_frame_clock_set_mode (ClutterFrameClock     *frame_clock,
        frame_clock->pending_reschedule_now = TRUE;
        frame_clock->state = CLUTTER_FRAME_CLOCK_STATE_IDLE;
        break;
@@ -537,7 +566,7 @@ index 93e4c93..a6c7ece 100644
        break;
      }
  
-@@ -922,7 +1092,7 @@ clutter_frame_clock_dispatch (ClutterFrameClock *frame_clock,
+@@ -922,7 +1108,7 @@ clutter_frame_clock_dispatch (ClutterFrameClock *frame_clock,
                               frame_clock->refresh_interval_us;
  
    lateness_us = time_us - ideal_dispatch_time_us;
@@ -546,7 +575,7 @@ index 93e4c93..a6c7ece 100644
      frame_clock->last_dispatch_lateness_us = 0;
    else
      frame_clock->last_dispatch_lateness_us = lateness_us;
-@@ -943,10 +1113,27 @@ clutter_frame_clock_dispatch (ClutterFrameClock *frame_clock,
+@@ -943,10 +1129,27 @@ clutter_frame_clock_dispatch (ClutterFrameClock *frame_clock,
      }
  #endif
  
@@ -575,7 +604,7 @@ index 93e4c93..a6c7ece 100644
  
    frame_count = frame_clock->frame_count++;
  
-@@ -977,26 +1164,36 @@ clutter_frame_clock_dispatch (ClutterFrameClock *frame_clock,
+@@ -977,26 +1180,36 @@ clutter_frame_clock_dispatch (ClutterFrameClock *frame_clock,
    result = iface->frame (frame_clock, frame, frame_clock->listener.user_data);
    COGL_TRACE_END (ClutterFrameClockFrame);
  
@@ -625,7 +654,7 @@ index 93e4c93..a6c7ece 100644
          }
        break;
      }
-@@ -1029,21 +1226,31 @@ frame_clock_source_dispatch (GSource     *source,
+@@ -1029,21 +1242,31 @@ frame_clock_source_dispatch (GSource     *source,
  }
  
  void
@@ -662,7 +691,7 @@ index 93e4c93..a6c7ece 100644
  
    if (frame_clock->got_measurements_last_frame)
      g_string_append_printf (string, " =");
-@@ -1210,8 +1417,6 @@ clutter_frame_clock_dispose (GObject *object)
+@@ -1210,8 +1433,6 @@ clutter_frame_clock_dispose (GObject *object)
  {
    ClutterFrameClock *frame_clock = CLUTTER_FRAME_CLOCK (object);
  
@@ -671,7 +700,7 @@ index 93e4c93..a6c7ece 100644
    if (frame_clock->source)
      {
        g_signal_emit (frame_clock, signals[DESTROY], 0);
-@@ -1235,6 +1440,15 @@ static void
+@@ -1235,6 +1456,15 @@ static void
  clutter_frame_clock_class_init (ClutterFrameClockClass *klass)
  {
    GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -765,10 +794,10 @@ index 34f0770..c7b3d02 100644
 +
  G_DEFINE_AUTOPTR_CLEANUP_FUNC (ClutterFrame, clutter_frame_unref)
 diff --git a/clutter/clutter/clutter-stage-view.c b/clutter/clutter/clutter-stage-view.c
-index b503ef8..1fbe3ae 100644
+index f5188e2..d53e377 100644
 --- a/clutter/clutter/clutter-stage-view.c
 +++ b/clutter/clutter/clutter-stage-view.c
-@@ -902,14 +902,21 @@ handle_frame_clock_frame (ClutterFrameClock *frame_clock,
+@@ -898,14 +898,21 @@ handle_frame_clock_frame (ClutterFrameClock *frame_clock,
  
        _clutter_stage_window_redraw_view (stage_window, view, frame);
  
@@ -806,10 +835,10 @@ index 959a605..86d8ea2 100644
 +COGL_EXPORT unsigned int
 +cogl_onscreen_count_pending_frames (CoglOnscreen *onscreen);
 diff --git a/cogl/cogl/cogl-onscreen.c b/cogl/cogl/cogl-onscreen.c
-index f4b460a..3e3f73a 100644
+index afb648b..086be7e 100644
 --- a/cogl/cogl/cogl-onscreen.c
 +++ b/cogl/cogl/cogl-onscreen.c
-@@ -511,6 +511,14 @@ cogl_onscreen_pop_head_frame_info (CoglOnscreen *onscreen)
+@@ -515,6 +515,14 @@ cogl_onscreen_pop_head_frame_info (CoglOnscreen *onscreen)
    return g_queue_pop_head (&priv->pending_frame_infos);
  }
  
@@ -824,6 +853,364 @@ index f4b460a..3e3f73a 100644
  CoglFrameClosure *
  cogl_onscreen_add_frame_callback (CoglOnscreen *onscreen,
                                    CoglFrameCallback callback,
+diff --git a/meson.build b/meson.build
+index 131c19f..544b39c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -160,7 +160,6 @@ if have_x11_client
+   xkbfile_dep = dependency('xkbfile')
+   xkeyboard_config_dep = dependency('xkeyboard-config')
+   xkbcommon_x11_dep = dependency('xkbcommon-x11')
+-  xrender_dep = dependency('xrender')
+   x11_xcb_dep = dependency('x11-xcb')
+   xrandr_dep = dependency('xrandr', version: xrandr_req)
+   xcb_randr_dep = dependency('xcb-randr')
+diff --git a/po/pt.po b/po/pt.po
+index 88da880..c9968e9 100644
+--- a/po/pt.po
++++ b/po/pt.po
+@@ -5,14 +5,14 @@
+ # Pedro Albuquerque <palbuquerque73@openmailbox.com>, 2015.
+ # Tiago Santos <tiagofsantos81@sapo.pt>, 2016.
+ # Juliano de Souza Camargo <julianosc@protonmail.com>, 2020.
+-# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023.
++# Hugo Carvalho <hugokarvalho@hotmail.com>, 2020, 2021, 2022, 2023, 2024.
+ #
+ msgid ""
+ msgstr ""
+ "Project-Id-Version: 3.10\n"
+-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/mutter/issues\n"
+-"POT-Creation-Date: 2023-07-16 01:41+0000\n"
+-"PO-Revision-Date: 2023-08-04 17:11+0100\n"
++"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/mutter/issues/\n"
++"POT-Creation-Date: 2024-04-21 15:14+0000\n"
++"PO-Revision-Date: 2024-04-28 21:14+0100\n"
+ "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
+ "Language-Team: https://l10n.gnome.org/teams/pt/\n"
+ "Language: pt\n"
+@@ -20,7 +20,7 @@ msgstr ""
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+-"X-Generator: Poedit 3.3.2\n"
++"X-Generator: Poedit 3.4.2\n"
+ "X-DamnedLies-Scope: partial\n"
+ 
+ #: data/50-mutter-navigation.xml:6
+@@ -251,11 +251,11 @@ msgstr "Maximizar janela verticalmente"
+ msgid "Maximize window horizontally"
+ msgstr "Maximizar janela horizontalmente"
+ 
+-#: data/50-mutter-windows.xml:41 data/org.gnome.mutter.gschema.xml.in:164
++#: data/50-mutter-windows.xml:41 data/org.gnome.mutter.gschema.xml.in:167
+ msgid "View split on left"
+ msgstr "Ver a divisão à esquerda"
+ 
+-#: data/50-mutter-windows.xml:45 data/org.gnome.mutter.gschema.xml.in:169
++#: data/50-mutter-windows.xml:45 data/org.gnome.mutter.gschema.xml.in:172
+ msgid "View split on right"
+ msgstr "Ver a divisão à direita"
+ 
+@@ -396,39 +396,43 @@ msgid ""
+ "space, while scaling monitor framebuffers instead of window content, to "
+ "manage HiDPI monitors. Does not require a restart. • “kms-modifiers” — makes "
+ "mutter always allocate scanout buffers with explicit modifiers, if supported "
+-"by the driver. Requires a restart. • “rt-scheduler” — makes mutter request a "
+-"low priority real-time scheduling. Requires a restart. • “autoclose-"
+-"xwayland” — automatically terminates Xwayland if all relevant X11 clients "
+-"are gone. Requires a restart."
++"by the driver. Requires a restart. • “autoclose-xwayland” — automatically "
++"terminates Xwayland if all relevant X11 clients are gone. Requires a "
++"restart. • “variable-refresh-rate” — makes mutter dynamically adjust the "
++"refresh rate of the monitor when applicable if supported by the monitor, GPU "
++"and DRM driver. Configurable in Settings. Requires a restart."
+ msgstr ""
+-"Para ativar as funcionalidades experimentais, adicione a respetiva palavra-"
+-"chave à lista. Se deve reiniciar o compositor após ativá-la, depende de cada "
+-"funcionalidade. Qualquer funcionalidade experimental não necessita de estar "
+-"disponível ou configurável. Não espere que adicionar algo nas definições "
+-"seja mantido por tempo indeterminado. Atualmente as palavras-chave são: • "
+-"“scale-monitor-framebuffer” — torna o mutter padrão para a disposição de "
+-"monitores lógicos num espaço de coordenadas de pixel lógico, enquanto "
+-"dimensiona os framebuffers do monitor em vez do conteúdo da janela, para "
+-"gerir monitores HiDPI. Não requer um reinício. • “kms-modifiers” — faz o "
+-"mutter publicitar sempre modificadores buffer. se suportado pelo "
+-"controlador. Requer um reinício. - \"rt-scheduler\" - torna o pedido do "
+-"mutter uma programação em tempo real de baixa prioridade. Requer um "
+-"reinício. • “autoclose-xwayland” — Termina automaticamente o Xwayland se "
+-"todos os clientes X11 relevantes desapareceram. Requer um reinício."
+-
+-#: data/org.gnome.mutter.gschema.xml.in:141
++"Para ativar funcionalidades experimentais, adicione a palavra-chave "
++"caraterística à lista. O facto de a funcionalidade exigir o reinício do "
++"compositor depende da funcionalidade em causa. Não é necessário que qualquer "
++"recurso experimental ainda esteja disponível ou configurável. Não espere que "
++"adicionar algo nesta configuração seja à prova de futuro. Palavras-chave "
++"atualmente possíveis: - “scale-monitor-framebuffer” - torna o mutter padrão "
++"para a disposição de monitores lógicos em um espaço lógico de coordenadas de "
++"pixel, enquanto escala os framebuffers do monitor em vez do conteúdo da "
++"janela, para gerenciar monitores HiDPI. Não requer uma reinicialização. - "
++"“kms-modifiers” - faz com que o mutter sempre aloque buffers de \"scanout\" "
++"com modificadores explícitos, se suportados pelo controlador. Requer uma "
++"reinicialização. - “autoclose-xwayland” - termina automaticamente o Xwayland "
++"se todos os clientes X11 relevantes tiverem desaparecido. Requer um "
++"reinício. - “variable-refresh-rate” - faz com que o mutter ajuste "
++"dinamicamente a taxa de atualização do monitor quando aplicável, se "
++"suportado pelo monitor, GPU e driver DRM. Configurável em Definições. Requer "
++"uma reinicialização."
++
++#: data/org.gnome.mutter.gschema.xml.in:144
+ msgid "Modifier to use to locate the pointer"
+ msgstr "Modificador para localizar o cursor"
+ 
+-#: data/org.gnome.mutter.gschema.xml.in:142
++#: data/org.gnome.mutter.gschema.xml.in:145
+ msgid "This key will initiate the “locate pointer” action."
+ msgstr "Esta chave iniciará a ação “localizar cursor”."
+ 
+-#: data/org.gnome.mutter.gschema.xml.in:149
++#: data/org.gnome.mutter.gschema.xml.in:152
+ msgid "Timeout for check-alive ping"
+ msgstr "Expirou o teste de atividade"
+ 
+-#: data/org.gnome.mutter.gschema.xml.in:150
++#: data/org.gnome.mutter.gschema.xml.in:153
+ msgid ""
+ "Number of milliseconds a client has to respond to a ping request in order to "
+ "not be detected as frozen. Using 0 will disable the alive check completely."
+@@ -437,15 +441,15 @@ msgstr ""
+ "atividade de maneira que não seja detetado como inativo. Usar 0 desativará o "
+ "teste de atividade completamente."
+ 
+-#: data/org.gnome.mutter.gschema.xml.in:174
++#: data/org.gnome.mutter.gschema.xml.in:177
+ msgid "Switch monitor configurations"
+ msgstr "Alternar configurações de ecrã"
+ 
+-#: data/org.gnome.mutter.gschema.xml.in:179
++#: data/org.gnome.mutter.gschema.xml.in:182
+ msgid "Rotates the built-in monitor configuration"
+ msgstr "Alternar as configurações nativas do ecrã"
+ 
+-#: data/org.gnome.mutter.gschema.xml.in:184
++#: data/org.gnome.mutter.gschema.xml.in:187
+ msgid "Cancel any active input capture session"
+ msgstr "Cancelar qualquer sessão de captura de entrada ativa"
+ 
+@@ -603,26 +607,26 @@ msgstr ""
+ "configuração. O Xwayland precisa de ser reiniciado para que esta "
+ "configuração tenha efeito."
+ 
+-#: src/backends/meta-monitor.c:253
++#: src/backends/meta-monitor.c:251
+ msgid "Built-in display"
+ msgstr "Ecrã embutido"
+ 
+-#: src/backends/meta-monitor.c:280
++#: src/backends/meta-monitor.c:278
+ msgid "Unknown"
+ msgstr "Desconhecido"
+ 
+-#: src/backends/meta-monitor.c:282
++#: src/backends/meta-monitor.c:280
+ msgid "Unknown Display"
+ msgstr "Ecrã desconhecido"
+ 
+-#: src/backends/meta-monitor.c:290
++#: src/backends/meta-monitor.c:288
+ #, c-format
+ msgctxt ""
+ "This is a monitor vendor name, followed by a size in inches, like 'Dell 15\"'"
+ msgid "%s %s"
+ msgstr "%s %s"
+ 
+-#: src/backends/meta-monitor.c:298
++#: src/backends/meta-monitor.c:296
+ #, c-format
+ msgctxt ""
+ "This is a monitor vendor name followed by product/model name where size in "
+@@ -634,78 +638,82 @@ msgstr "%s %s"
+ msgid "Bell event"
+ msgstr "Evento de campainha"
+ 
+-#: src/core/display.c:718
++#: src/core/display.c:734
+ msgid "Privacy Screen Enabled"
+ msgstr "Ecrã de privacidade ativado"
+ 
+-#: src/core/display.c:719
++#: src/core/display.c:735
+ msgid "Privacy Screen Disabled"
+ msgstr "Ecrã de privacidade desativado"
+ 
+-#: src/core/meta-context-main.c:581
++#: src/core/meta-context-main.c:601
+ msgid "Replace the running window manager"
+ msgstr "Substituir o gestor de janelas em execução"
+ 
+-#: src/core/meta-context-main.c:587
++#: src/core/meta-context-main.c:607
+ msgid "X Display to use"
+ msgstr "Ecrã X a utilizar"
+ 
+-#: src/core/meta-context-main.c:593
++#: src/core/meta-context-main.c:613
+ msgid "Disable connection to session manager"
+ msgstr "Desativar a ligação ao gestor de sessão"
+ 
+-#: src/core/meta-context-main.c:599
++#: src/core/meta-context-main.c:619
+ msgid "Specify session management ID"
+ msgstr "Especificar a ID de gestão de sessão"
+ 
+-#: src/core/meta-context-main.c:605
++#: src/core/meta-context-main.c:625
+ msgid "Initialize session from savefile"
+ msgstr "Inicializar a sessão a partir de um ficheiro de gravação de sessão"
+ 
+-#: src/core/meta-context-main.c:611
++#: src/core/meta-context-main.c:631
+ msgid "Make X calls synchronous"
+ msgstr "Fazer as chamadas X sincronamente"
+ 
+-#: src/core/meta-context-main.c:619
++#: src/core/meta-context-main.c:639
+ msgid "Run as a wayland compositor"
+ msgstr "Executar como compositor wayland"
+ 
+-#: src/core/meta-context-main.c:625
++#: src/core/meta-context-main.c:645
+ msgid "Run as a nested compositor"
+ msgstr "Executar como compositor aninhado"
+ 
+-#: src/core/meta-context-main.c:631
++#: src/core/meta-context-main.c:651
+ msgid "Run wayland compositor without starting Xwayland"
+ msgstr "Executar o compositor wayland sem a utilização do Xwayland"
+ 
+-#: src/core/meta-context-main.c:637
++#: src/core/meta-context-main.c:657
+ msgid "Specify Wayland display name to use"
+ msgstr "Especificar o nome do visor Wayland a utilizar"
+ 
+-#: src/core/meta-context-main.c:645
++#: src/core/meta-context-main.c:665
+ msgid "Run as a full display server, rather than nested"
+ msgstr "Executar como servidor de ecrã inteiro, em vez de aninhado"
+ 
+-#: src/core/meta-context-main.c:650
++#: src/core/meta-context-main.c:670
+ msgid "Run as a headless display server"
+ msgstr "Executar como um servidor sem monitor"
+ 
+-#: src/core/meta-context-main.c:655
++#: src/core/meta-context-main.c:675
+ msgid "Add persistent virtual monitor (WxH or WxH@R)"
+ msgstr "Adicionar monitor virtual persistente (WxH ou WxH@R)"
+ 
+-#: src/core/meta-context-main.c:667
++#: src/core/meta-context-main.c:687
+ msgid "Run with X11 backend"
+ msgstr "Executar com a infira-estrutura X11"
+ 
+-#: src/core/meta-context-main.c:673
++#: src/core/meta-context-main.c:693
+ msgid "Profile performance using trace instrumentation"
+ msgstr "Desempenho do perfil utilizando instrumentação de rastreio"
+ 
++#: src/core/meta-context-main.c:699
++msgid "Enable debug control D-Bus interface"
++msgstr "Ativar o controlo de depuração da interface D-Bus"
++
+ #. TRANSLATORS: This string refers to a button that switches between
+ #. * different modes.
+ #.
+-#: src/core/meta-pad-action-mapper.c:861
++#: src/core/meta-pad-action-mapper.c:826
+ #, c-format
+ msgid "Mode Switch (Group %d)"
+ msgstr "Alteração de modo (Grupo %d)"
+@@ -713,16 +721,16 @@ msgstr "Alteração de modo (Grupo %d)"
+ #. TRANSLATORS: This string refers to an action, cycles drawing tablets'
+ #. * mapping through the available outputs.
+ #.
+-#: src/core/meta-pad-action-mapper.c:884
++#: src/core/meta-pad-action-mapper.c:848
+ msgid "Switch monitor"
+ msgstr "Alternar monitor"
+ 
+-#: src/core/meta-pad-action-mapper.c:886
++#: src/core/meta-pad-action-mapper.c:850
+ msgid "Show on-screen help"
+ msgstr "Mostrar ajuda no ecrã"
+ 
+ #. Translators: this string will appear in Sysprof
+-#: src/core/meta-profiler.c:111 src/core/meta-profiler.c:301
++#: src/core/meta-profiler.c:109 src/core/meta-profiler.c:299
+ msgid "Compositor"
+ msgstr "Compositor"
+ 
+@@ -734,7 +742,7 @@ msgstr "Imprimir a versão"
+ msgid "Mutter plugin to use"
+ msgstr "Extensão Mutter a utilizar"
+ 
+-#: src/core/prefs.c:1843
++#: src/core/prefs.c:1842
+ #, c-format
+ msgid "Workspace %d"
+ msgstr "Área de trabalho %d"
+@@ -743,16 +751,16 @@ msgstr "Área de trabalho %d"
+ msgid "Mutter was compiled without support for verbose mode"
+ msgstr "O Mutter foi compilado sem suporte para modo verbose"
+ 
+-#: src/core/workspace.c:541
++#: src/core/workspace.c:510
+ msgid "Workspace switched"
+ msgstr "Área de trabalho alterada"
+ 
+-#: src/wayland/meta-wayland-tablet-pad.c:530
++#: src/wayland/meta-wayland-tablet-pad.c:532
+ #, c-format
+ msgid "Mode Switch: Mode %d"
+ msgstr "Alteração de Modo: Modo %d"
+ 
+-#: src/x11/meta-x11-display.c:708
++#: src/x11/meta-x11-display.c:723
+ #, c-format
+ msgid ""
+ "Display “%s” already has a window manager; try using the --replace option to "
+@@ -761,19 +769,19 @@ msgstr ""
+ "O ecrã “%s” já tem um gestor de janelas; tente utilizar a opção --replace "
+ "para substituir o gestor de janelas atual."
+ 
+-#: src/x11/meta-x11-display.c:1073
++#: src/x11/meta-x11-display.c:1088
+ #, c-format
+ msgid "Failed to open X Window System display “%s”"
+ msgstr "Falha ao abrir ecrã “%s” do sistema Janelas X"
+ 
+-#: src/x11/meta-x11-display.c:1219
++#: src/x11/meta-x11-display.c:1268
+ #, c-format
+ msgid "Screen %d on display “%s” is invalid"
+ msgstr "Ecrã %d no monitor “%s” é inválido"
+ 
+ #. This probably means that a non-WM compositor like xcompmgr is running;
+ #. * we have no way to get it to exit
+-#: src/x11/meta-x11-display.c:2550
++#: src/x11/meta-x11-display.c:2547
+ #, c-format
+ msgid ""
+ "Another compositing manager is already running on screen %i on display “%s”."
+@@ -785,7 +793,7 @@ msgstr ""
+ msgid "Format %s not supported"
+ msgstr "O formato “%s” não é suportado"
+ 
+-#: src/x11/window-props.c:548
++#: src/x11/window-props.c:528
+ #, c-format
+ msgid "%s (on %s)"
+ msgstr "%s (em %s)"
 diff --git a/src/backends/meta-stage-impl.c b/src/backends/meta-stage-impl.c
 index 7aa2443..727e1a5 100644
 --- a/src/backends/meta-stage-impl.c
@@ -902,10 +1289,10 @@ index 7434014..f6b1952 100644
                          MetaKmsFlags   flags,
                          GError       **error);
 diff --git a/src/backends/native/meta-onscreen-native.c b/src/backends/native/meta-onscreen-native.c
-index e40b03f..9617d00 100644
+index 1a31f04..9836663 100644
 --- a/src/backends/native/meta-onscreen-native.c
 +++ b/src/backends/native/meta-onscreen-native.c
-@@ -75,7 +75,7 @@ typedef struct _MetaOnscreenNativeSecondaryGpuState
+@@ -76,7 +76,7 @@ typedef struct _MetaOnscreenNativeSecondaryGpuState
  
    struct {
      MetaDrmBufferDumb *current_dumb_fb;
@@ -914,7 +1301,7 @@ index e40b03f..9617d00 100644
    } cpu;
  
    gboolean noted_primary_gpu_copy_ok;
-@@ -97,9 +97,13 @@ struct _MetaOnscreenNative
+@@ -98,9 +98,13 @@ struct _MetaOnscreenNative
    struct {
      struct gbm_surface *surface;
      MetaDrmBuffer *current_fb;
@@ -928,7 +1315,7 @@ index e40b03f..9617d00 100644
    } gbm;
  
  #ifdef HAVE_EGL_DEVICE
-@@ -124,6 +128,16 @@ struct _MetaOnscreenNative
+@@ -125,6 +129,16 @@ struct _MetaOnscreenNative
    gulong privacy_screen_changed_handler_id;
    gulong color_space_changed_handler_id;
    gulong hdr_metadata_changed_handler_id;
@@ -945,7 +1332,7 @@ index e40b03f..9617d00 100644
  };
  
  G_DEFINE_TYPE (MetaOnscreenNative, meta_onscreen_native,
-@@ -131,44 +145,42 @@ G_DEFINE_TYPE (MetaOnscreenNative, meta_onscreen_native,
+@@ -132,44 +146,42 @@ G_DEFINE_TYPE (MetaOnscreenNative, meta_onscreen_native,
  
  static GQuark blit_source_quark = 0;
  
@@ -1006,7 +1393,7 @@ index e40b03f..9617d00 100644
  }
  
  static void
-@@ -206,7 +218,7 @@ meta_onscreen_native_notify_frame_complete (CoglOnscreen *onscreen)
+@@ -207,7 +219,7 @@ meta_onscreen_native_notify_frame_complete (CoglOnscreen *onscreen)
  
    info = cogl_onscreen_pop_head_frame_info (onscreen);
  
@@ -1015,7 +1402,7 @@ index e40b03f..9617d00 100644
  
    _cogl_onscreen_notify_frame_sync (onscreen, info);
    _cogl_onscreen_notify_complete (onscreen, info);
-@@ -242,6 +254,7 @@ notify_view_crtc_presented (MetaRendererView *view,
+@@ -243,6 +255,7 @@ notify_view_crtc_presented (MetaRendererView *view,
  
    meta_onscreen_native_notify_frame_complete (onscreen);
    meta_onscreen_native_swap_drm_fb (onscreen);
@@ -1023,7 +1410,7 @@ index e40b03f..9617d00 100644
  }
  
  static void
-@@ -291,15 +304,13 @@ page_flip_feedback_ready (MetaKmsCrtc *kms_crtc,
+@@ -292,15 +305,13 @@ page_flip_feedback_ready (MetaKmsCrtc *kms_crtc,
    CoglFramebuffer *framebuffer =
      clutter_stage_view_get_onscreen (CLUTTER_STAGE_VIEW (view));
    CoglOnscreen *onscreen = COGL_ONSCREEN (framebuffer);
@@ -1040,7 +1427,7 @@ index e40b03f..9617d00 100644
  }
  
  static void
-@@ -349,7 +360,8 @@ page_flip_feedback_discarded (MetaKmsCrtc  *kms_crtc,
+@@ -350,7 +361,8 @@ page_flip_feedback_discarded (MetaKmsCrtc  *kms_crtc,
    frame_info->flags |= COGL_FRAME_INFO_FLAG_SYMBOLIC;
  
    meta_onscreen_native_notify_frame_complete (onscreen);
@@ -1050,7 +1437,7 @@ index e40b03f..9617d00 100644
  }
  
  static const MetaKmsPageFlipListenerVtable page_flip_listener_vtable = {
-@@ -410,18 +422,41 @@ custom_egl_stream_page_flip (gpointer custom_page_flip_data,
+@@ -411,18 +423,41 @@ custom_egl_stream_page_flip (gpointer custom_page_flip_data,
  }
  #endif /* HAVE_EGL_DEVICE */
  
@@ -1096,9 +1483,9 @@ index e40b03f..9617d00 100644
  apply_transform (MetaCrtcKms            *crtc_kms,
                   MetaKmsPlaneAssignment *kms_plane_assignment,
 @@ -521,13 +556,21 @@ meta_onscreen_native_flip_crtc (CoglOnscreen           *onscreen,
-       graphene_rect_t src_rect;
-       MtkRectangle dst_rect;
- 
+   switch (renderer_gpu_data->mode)
+     {
+     case META_RENDERER_NATIVE_MODE_GBM:
 -      buffer = onscreen_native->gbm.next_fb;
 +      g_set_object (&onscreen_native->gbm.posted_fb,
 +                    onscreen_native->gbm.next_fb);
@@ -1121,7 +1508,7 @@ index e40b03f..9617d00 100644
                                       &dst_rect);
          }
        else
-@@ -915,12 +958,17 @@ static MetaDrmBufferDumb *
+@@ -918,12 +961,17 @@ static MetaDrmBufferDumb *
  secondary_gpu_get_next_dumb_buffer (MetaOnscreenNativeSecondaryGpuState *secondary_gpu_state)
  {
    MetaDrmBufferDumb *current_dumb_fb;
@@ -1143,7 +1530,7 @@ index e40b03f..9617d00 100644
  }
  
  static MetaDrmBuffer *
-@@ -1253,10 +1301,17 @@ swap_buffer_result_feedback (const MetaKmsFeedback *kms_feedback,
+@@ -1255,10 +1303,17 @@ swap_buffer_result_feedback (const MetaKmsFeedback *kms_feedback,
      g_warning ("Page flip failed: %s", error->message);
  
    frame_info = cogl_onscreen_peek_head_frame_info (onscreen);
@@ -1164,7 +1551,7 @@ index e40b03f..9617d00 100644
  }
  
  static const MetaKmsResultListenerVtable swap_buffer_result_listener_vtable = {
-@@ -1277,30 +1332,35 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1279,32 +1334,37 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
    CoglRendererEGL *cogl_renderer_egl = cogl_renderer->winsys;
    MetaRendererNativeGpuData *renderer_gpu_data = cogl_renderer_egl->platform;
    MetaRendererNative *renderer_native = renderer_gpu_data->renderer_native;
@@ -1173,12 +1560,14 @@ index e40b03f..9617d00 100644
 -  MetaMonitorManager *monitor_manager =
 -    meta_backend_get_monitor_manager (backend);
    MetaOnscreenNative *onscreen_native = META_ONSCREEN_NATIVE (onscreen);
+   MetaOnscreenNativeSecondaryGpuState *secondary_gpu_state;
    MetaGpuKms *render_gpu = onscreen_native->render_gpu;
    MetaDeviceFile *render_device_file;
    ClutterFrame *frame = user_data;
 -  MetaFrameNative *frame_native = meta_frame_native_from_frame (frame);
 -  MetaKmsUpdate *kms_update;
    CoglOnscreenClass *parent_class;
+   gboolean create_timestamp_query = TRUE;
    gboolean egl_context_changed = FALSE;
 -  MetaPowerSave power_save_mode;
    g_autoptr (GError) error = NULL;
@@ -1209,7 +1598,7 @@ index e40b03f..9617d00 100644
    secondary_gpu_fb =
      update_secondary_gpu_state_pre_swap_buffers (onscreen,
                                                   rectangles,
-@@ -1359,7 +1419,17 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1379,7 +1439,17 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
    switch (renderer_gpu_data->mode)
      {
      case META_RENDERER_NATIVE_MODE_GBM:
@@ -1228,7 +1617,7 @@ index e40b03f..9617d00 100644
        if (onscreen_native->secondary_gpu_state)
          g_set_object (&onscreen_native->gbm.next_fb, secondary_gpu_fb);
        else
-@@ -1373,6 +1443,9 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1404,6 +1474,9 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
  #endif
      }
  
@@ -1238,7 +1627,7 @@ index e40b03f..9617d00 100644
    /*
     * If we changed EGL context, cogl will have the wrong idea about what is
     * current, making it fail to set it when it needs to. Avoid that by making
-@@ -1382,12 +1455,78 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1413,12 +1486,78 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
    if (egl_context_changed)
      _cogl_winsys_egl_ensure_current (cogl_display);
  
@@ -1319,7 +1708,7 @@ index e40b03f..9617d00 100644
        kms_update = meta_frame_native_ensure_kms_update (frame_native,
                                                          kms_device);
        meta_kms_update_add_result_listener (kms_update,
-@@ -1402,15 +1541,13 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1433,15 +1572,13 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
                                        onscreen_native->crtc,
                                        kms_update,
                                        META_KMS_ASSIGN_PLANE_FLAG_NONE,
@@ -1337,7 +1726,7 @@ index e40b03f..9617d00 100644
        return;
      }
  
-@@ -1430,8 +1567,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1461,8 +1598,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
            kms_update = meta_frame_native_steal_kms_update (frame_native);
            meta_renderer_native_queue_mode_set_update (renderer_native,
                                                        kms_update);
@@ -1346,7 +1735,7 @@ index e40b03f..9617d00 100644
            return;
          }
        else if (meta_renderer_native_has_pending_mode_set (renderer_native))
-@@ -1445,8 +1580,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1476,8 +1611,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
  
            meta_frame_native_steal_kms_update (frame_native);
            meta_renderer_native_post_mode_set_updates (renderer_native);
@@ -1355,7 +1744,7 @@ index e40b03f..9617d00 100644
            return;
          }
        break;
-@@ -1462,8 +1595,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1493,8 +1626,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
                                                        kms_update);
  
            meta_renderer_native_post_mode_set_updates (renderer_native);
@@ -1364,7 +1753,7 @@ index e40b03f..9617d00 100644
            return;
          }
        break;
-@@ -1478,7 +1609,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
+@@ -1509,7 +1640,6 @@ meta_onscreen_native_swap_buffers_with_damage (CoglOnscreen  *onscreen,
    kms_update = meta_frame_native_steal_kms_update (frame_native);
    meta_kms_device_post_update (kms_device, kms_update,
                                 META_KMS_UPDATE_FLAG_NONE);
@@ -1372,7 +1761,7 @@ index e40b03f..9617d00 100644
  }
  
  gboolean
-@@ -1549,7 +1679,7 @@ scanout_result_feedback (const MetaKmsFeedback *kms_feedback,
+@@ -1580,7 +1710,7 @@ scanout_result_feedback (const MetaKmsFeedback *kms_feedback,
  
        g_warning ("Direct scanout page flip failed: %s", error->message);
  
@@ -1381,7 +1770,7 @@ index e40b03f..9617d00 100644
                                    onscreen);
        clutter_stage_view_add_redraw_clip (view, NULL);
        clutter_stage_view_schedule_update_now (view);
-@@ -1559,7 +1689,7 @@ scanout_result_feedback (const MetaKmsFeedback *kms_feedback,
+@@ -1590,7 +1720,7 @@ scanout_result_feedback (const MetaKmsFeedback *kms_feedback,
    frame_info->flags |= COGL_FRAME_INFO_FLAG_SYMBOLIC;
  
    meta_onscreen_native_notify_frame_complete (onscreen);
@@ -1390,7 +1779,7 @@ index e40b03f..9617d00 100644
  }
  
  static const MetaKmsResultListenerVtable scanout_result_listener_vtable = {
-@@ -1611,6 +1741,18 @@ meta_onscreen_native_direct_scanout (CoglOnscreen   *onscreen,
+@@ -1642,6 +1772,18 @@ meta_onscreen_native_direct_scanout (CoglOnscreen   *onscreen,
        return FALSE;
      }
  
@@ -1409,7 +1798,7 @@ index e40b03f..9617d00 100644
    renderer_gpu_data = meta_renderer_native_get_gpu_data (renderer_native,
                                                           render_gpu);
  
-@@ -1726,11 +1868,7 @@ meta_onscreen_native_before_redraw (CoglOnscreen *onscreen,
+@@ -1757,11 +1899,7 @@ meta_onscreen_native_before_redraw (CoglOnscreen *onscreen,
                                      ClutterFrame *frame)
  {
    MetaOnscreenNative *onscreen_native = META_ONSCREEN_NATIVE (onscreen);
@@ -1421,7 +1810,7 @@ index e40b03f..9617d00 100644
    maybe_update_frame_sync (onscreen_native, frame);
  }
  
-@@ -1846,22 +1984,79 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
+@@ -1877,22 +2015,79 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
    MetaKmsDevice *kms_device = meta_kms_crtc_get_device (kms_crtc);
    MetaFrameNative *frame_native = meta_frame_native_from_frame (frame);
    MetaKmsUpdate *kms_update;
@@ -1509,7 +1898,7 @@ index e40b03f..9617d00 100644
    meta_kms_update_add_result_listener (kms_update,
                                         &finish_frame_result_listener_vtable,
                                         NULL,
-@@ -1884,7 +2079,19 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
+@@ -1915,7 +2110,19 @@ meta_onscreen_native_finish_frame (CoglOnscreen *onscreen,
    meta_kms_update_set_flushing (kms_update, kms_crtc);
    meta_kms_device_post_update (kms_device, kms_update,
                                 META_KMS_UPDATE_FLAG_NONE);
@@ -1530,7 +1919,7 @@ index e40b03f..9617d00 100644
  }
  
  static gboolean
-@@ -2790,8 +2997,11 @@ meta_onscreen_native_dispose (GObject *object)
+@@ -2830,8 +3037,11 @@ meta_onscreen_native_dispose (GObject *object)
      {
      case META_RENDERER_NATIVE_MODE_GBM:
        g_clear_object (&onscreen_native->gbm.next_fb);
@@ -1543,7 +1932,7 @@ index e40b03f..9617d00 100644
        break;
      case META_RENDERER_NATIVE_MODE_SURFACELESS:
        g_assert_not_reached ();
-@@ -2825,6 +3035,10 @@ meta_onscreen_native_dispose (GObject *object)
+@@ -2865,6 +3075,10 @@ meta_onscreen_native_dispose (GObject *object)
  
    g_clear_object (&onscreen_native->output);
    g_clear_object (&onscreen_native->crtc);
@@ -1568,10 +1957,10 @@ index 0e11933..e30357d 100644
                                      MetaRendererView *view);
  
 diff --git a/src/backends/native/meta-renderer-native.c b/src/backends/native/meta-renderer-native.c
-index 7b64ff3..c32a6ca 100644
+index aa76d01..3c22b4e 100644
 --- a/src/backends/native/meta-renderer-native.c
 +++ b/src/backends/native/meta-renderer-native.c
-@@ -726,12 +726,18 @@ static gboolean
+@@ -731,12 +731,18 @@ static gboolean
  dummy_power_save_page_flip_cb (gpointer user_data)
  {
    MetaRendererNative *renderer_native = user_data;
@@ -1592,7 +1981,7 @@ index 7b64ff3..c32a6ca 100644
    renderer_native->power_save_page_flip_source_id = 0;
  
    return G_SOURCE_REMOVE;
-@@ -743,6 +749,9 @@ meta_renderer_native_queue_power_save_page_flip (MetaRendererNative *renderer_na
+@@ -748,6 +754,9 @@ meta_renderer_native_queue_power_save_page_flip (MetaRendererNative *renderer_na
  {
    const unsigned int timeout_ms = 100;
  
@@ -1602,7 +1991,7 @@ index 7b64ff3..c32a6ca 100644
    if (!renderer_native->power_save_page_flip_source_id)
      {
        renderer_native->power_save_page_flip_source_id =
-@@ -1524,6 +1533,26 @@ detach_onscreens (MetaRenderer *renderer)
+@@ -1529,6 +1538,26 @@ detach_onscreens (MetaRenderer *renderer)
      }
  }
  
@@ -1629,7 +2018,7 @@ index 7b64ff3..c32a6ca 100644
  static void
  meta_renderer_native_rebuild_views (MetaRenderer *renderer)
  {
-@@ -1534,6 +1563,7 @@ meta_renderer_native_rebuild_views (MetaRenderer *renderer)
+@@ -1539,6 +1568,7 @@ meta_renderer_native_rebuild_views (MetaRenderer *renderer)
    MetaRendererClass *parent_renderer_class =
      META_RENDERER_CLASS (meta_renderer_native_parent_class);
  
@@ -1637,6 +2026,18 @@ index 7b64ff3..c32a6ca 100644
    meta_kms_discard_pending_page_flips (kms);
    g_hash_table_remove_all (renderer_native->mode_set_updates);
  
+diff --git a/src/meson.build b/src/meson.build
+index 05df3bf..3060b28 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -115,7 +115,6 @@ if have_x11
+     xkbfile_dep,
+     xkeyboard_config_dep,
+     xkbcommon_x11_dep,
+-    xrender_dep,
+     x11_xcb_dep,
+     xcb_randr_dep,
+     xcb_res_dep,
 diff --git a/src/tests/native-kms-render.c b/src/tests/native-kms-render.c
 index f5ebc23..2f870fd 100644
 --- a/src/tests/native-kms-render.c
@@ -1879,4 +2280,149 @@ index f5ebc23..2f870fd 100644
 +    .number_of_frames_left = N_FRAMES_PER_TEST,
      .loop = g_main_loop_new (NULL, FALSE),
    };
+ 
+diff --git a/src/wayland/meta-wayland-keyboard.c b/src/wayland/meta-wayland-keyboard.c
+index 80c772a..3c741a0 100644
+--- a/src/wayland/meta-wayland-keyboard.c
++++ b/src/wayland/meta-wayland-keyboard.c
+@@ -77,6 +77,7 @@ struct _MetaWaylandKeyboard
+   struct wl_array pressed_keys;
+   GHashTable *key_down_serials;
+   uint32_t last_key_up_serial;
++  uint32_t last_key_up;
+ 
+   MetaWaylandXkbInfo xkb_info;
+   enum xkb_state_component mods_changed;
+@@ -279,6 +280,13 @@ meta_wayland_keyboard_broadcast_key (MetaWaylandKeyboard *keyboard,
+ 
+       serial = meta_wayland_input_device_next_serial (input_device);
+ 
++      if (keyboard->last_key_up)
++        {
++          g_hash_table_remove (keyboard->key_down_serials,
++                               GUINT_TO_POINTER (keyboard->last_key_up));
++          keyboard->last_key_up = 0;
++        }
++
+       if (state)
+         {
+           g_hash_table_insert (keyboard->key_down_serials,
+@@ -288,9 +296,8 @@ meta_wayland_keyboard_broadcast_key (MetaWaylandKeyboard *keyboard,
+         }
+       else
+         {
+-          g_hash_table_remove (keyboard->key_down_serials,
+-                               GUINT_TO_POINTER (key));
+           keyboard->last_key_up_serial = serial;
++          keyboard->last_key_up = key;
+         }
+ 
+       wl_resource_for_each (resource, &keyboard->focus_resource_list)
+diff --git a/src/wayland/meta-wayland-surface.c b/src/wayland/meta-wayland-surface.c
+index 6dc5006..64d9408 100644
+--- a/src/wayland/meta-wayland-surface.c
++++ b/src/wayland/meta-wayland-surface.c
+@@ -2457,7 +2457,7 @@ committed_state_handle_highest_scale_monitor (MetaWaylandSurface *surface)
+       transform = meta_wayland_surface_get_output_transform (surface);
+       if (transform != surface->preferred_transform)
+         {
+-          wl_surface_send_preferred_buffer_transform (surface->resource, ceiled_scale);
++          wl_surface_send_preferred_buffer_transform (surface->resource, transform);
+           surface->preferred_transform = transform;
+         }
+     }
+diff --git a/src/wayland/meta-wayland-tablet-tool.c b/src/wayland/meta-wayland-tablet-tool.c
+index 5d83383..c262391 100644
+--- a/src/wayland/meta-wayland-tablet-tool.c
++++ b/src/wayland/meta-wayland-tablet-tool.c
+@@ -64,9 +64,14 @@ struct _MetaWaylandTabletTool
+ 
+   float grab_x, grab_y;
+ 
++  gulong current_surface_destroyed_handler_id;
++
+   MetaWaylandTablet *current_tablet;
+ };
+ 
++static void meta_wayland_tablet_tool_set_current_surface (MetaWaylandTabletTool *tool,
++							  MetaWaylandSurface    *surface);
++
+ static MetaBackend *
+ backend_from_tool (MetaWaylandTabletTool *tool)
+ {
+@@ -453,6 +458,7 @@ meta_wayland_tablet_tool_free (MetaWaylandTabletTool *tool)
+ {
+   struct wl_resource *resource, *next;
+ 
++  meta_wayland_tablet_tool_set_current_surface (tool, NULL);
+   meta_wayland_tablet_tool_set_focus (tool, NULL, NULL);
+   meta_wayland_tablet_tool_set_cursor_surface (tool, NULL);
+   g_clear_object (&tool->cursor_renderer);
+@@ -595,10 +601,41 @@ meta_wayland_tablet_tool_account_button (MetaWaylandTabletTool *tool,
+ }
+ 
+ static void
+-sync_focus_surface (MetaWaylandTabletTool *tool,
+-                    const ClutterEvent    *event)
++current_surface_destroyed (MetaWaylandSurface    *surface,
++                           MetaWaylandTabletTool *tool)
+ {
+-  meta_wayland_tablet_tool_set_focus (tool, tool->current, event);
++  meta_wayland_tablet_tool_set_current_surface (tool, NULL);
++}
++
++static void
++meta_wayland_tablet_tool_set_current_surface (MetaWaylandTabletTool *tool,
++					      MetaWaylandSurface    *surface)
++{
++  MetaWaylandTabletSeat *tablet_seat;
++  MetaWaylandInput *input;
++
++  if (tool->current == surface)
++    return;
++
++  if (tool->current)
++    {
++      g_clear_signal_handler (&tool->current_surface_destroyed_handler_id,
++                              tool->current);
++      tool->current = NULL;
++    }
++
++  if (surface)
++    {
++      tool->current = surface;
++      tool->current_surface_destroyed_handler_id =
++        g_signal_connect (surface, "destroy",
++                          G_CALLBACK (current_surface_destroyed),
++                          tool);
++    }
++
++  tablet_seat = tool->seat;
++  input = meta_wayland_seat_get_input (tablet_seat->seat);
++  meta_wayland_input_invalidate_focus (input, tool->device, NULL);
+ }
+ 
+ static void
+@@ -607,6 +644,7 @@ repick_for_event (MetaWaylandTabletTool *tool,
+ {
+   MetaBackend *backend = backend_from_tool (tool);
+   ClutterStage *stage = CLUTTER_STAGE (meta_backend_get_stage (backend));
++  MetaWaylandSurface *surface;
+   ClutterActor *actor;
+ 
+   actor = clutter_stage_get_device_actor (stage,
+@@ -614,11 +652,11 @@ repick_for_event (MetaWaylandTabletTool *tool,
+                                           clutter_event_get_event_sequence (for_event));
+ 
+   if (META_IS_SURFACE_ACTOR_WAYLAND (actor))
+-    tool->current = meta_surface_actor_wayland_get_surface (META_SURFACE_ACTOR_WAYLAND (actor));
++    surface = meta_surface_actor_wayland_get_surface (META_SURFACE_ACTOR_WAYLAND (actor));
+   else
+-    tool->current = NULL;
++    surface = NULL;
+ 
+-  sync_focus_surface (tool, for_event);
++  meta_wayland_tablet_tool_set_current_surface (tool, surface);
+   meta_wayland_tablet_tool_update_cursor_surface (tool);
+ }
  
