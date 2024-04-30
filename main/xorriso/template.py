@@ -7,14 +7,13 @@ configure_args = [
     "--disable-libreadline",
     "MKDIR_P=mkdir -p",  # install-sh is buggy
 ]
-# won't configure
-configure_gen = []
+hostmakedepends = ["automake", "libtool", "pkgconf"]
 makedepends = [
-    "zlib-devel",
+    "acl-devel",
     "bzip2-devel",
     "libedit-devel",
-    "acl-devel",
     "linux-headers",
+    "zlib-devel",
 ]
 pkgdesc = "ISO 9660 Rock Ridge Filesystem Manipulator"
 maintainer = "q66 <q66@chimera-linux.org>"
