@@ -1,5 +1,5 @@
 pkgname = "mutter"
-pkgver = "46.0"
+pkgver = "46.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -54,7 +54,6 @@ makedepends = [
     "libxinerama-devel",
     "libxkbfile-devel",
     "libxrandr-devel",
-    "libxrender-devel",
     "libxtst-devel",
     "mesa-devel",
     "pango-devel",
@@ -70,7 +69,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/Mutter"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "bb3f7d77aebdea9d317d3f5ef03868e4e7969da423ac495e33a16d61db2c9373"
+sha256 = "63b2660dd0fa193fa662c80ee12eb8b16f2b8c3bc3896366200c79943824d51d"
 # libmutter crashes gnome-shell with some applications? FIXME debug
 hardening = ["!int"]
 # needs graphical environment
