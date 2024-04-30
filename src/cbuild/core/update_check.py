@@ -175,6 +175,7 @@ class UpdateCheck:
             or "//gitlab." in url
             or "bitbucket.org" in url
             or "ftp.gnome.org" in url
+            or "archive.xfce.org" in url
             or "kernel.org/pub/linux/kernel/" in url
             or "cran.r-project.org/src/contrib" in url
             or "rubygems.org" in url
@@ -314,6 +315,14 @@ class UpdateCheck:
                 """
                 rxg = 0
                 url = f"https://download.gnome.org/sources/{pname}/cache.json"
+            elif "archive.xfce.org" in url:
+                pn = "/".join(url.split("/")[4:6])
+                url = f"https://gitlab.xfce.org/{pn}/-/tags"
+                rx = rf"""
+                    /archive/[^/]+/
+                    {re.escape(f"{pname}-{pname}")}-v? # lol
+                    ([\d.]+)(?=\.tar\.gz) # match
+                """
             elif "kernel.org/pub/linux/kernel/" in url:
                 mver = ".".join(self.pkgver.split(".")[0:2])
                 rx = rf"{mver}[\d.]+(?=\.tar\.xz)"
