@@ -1,5 +1,5 @@
 pkgname = "flatpak"
-pkgver = "1.14.6"
+pkgver = "1.14.7"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -16,49 +16,49 @@ configure_args = [
 ]
 make_cmd = "gmake"
 hostmakedepends = [
-    "gmake",
-    "pkgconf",
     "automake",
-    "libtool",
-    "xsltproc",
-    "docbook-xml",
-    "libxml2-progs",
     "bison",
-    "python-pyparsing",
     "bubblewrap",
-    "xdg-dbus-proxy",
-    "gobject-introspection",
-    "xmlto",
-    "gtk-doc-tools",
+    "docbook-xml",
     "gettext-devel",
+    "gmake",
+    "gobject-introspection",
+    "gtk-doc-tools",
+    "libtool",
+    "libxml2-progs",
+    "pkgconf",
+    "python-pyparsing",
+    "xdg-dbus-proxy",
+    "xmlto",
+    "xsltproc",
 ]
 makedepends = [
-    "libcap-devel",
-    "libarchive-devel",
-    "glib-devel",
-    "libxml2-devel",
-    "libcurl-devel",
-    "gpgme-devel",
-    "polkit-devel",
-    "fuse-devel",
-    "ostree-devel",
-    "json-glib-devel",
     "appstream-devel",
     "appstream-glib-devel",
-    "gdk-pixbuf-devel",
-    "libseccomp-devel",
+    "fuse-devel",
     "gcab-devel",
+    "gdk-pixbuf-devel",
+    "glib-devel",
+    "gpgme-devel",
+    "json-glib-devel",
+    "libarchive-devel",
+    "libcap-devel",
+    "libcurl-devel",
+    "libseccomp-devel",
     "libxau-devel",
+    "libxml2-devel",
+    "ostree-devel",
+    "polkit-devel",
     "zstd-devel",
 ]
-checkdepends = ["bash"]
+checkdepends = ["bash", "dbus", "socat"]
 depends = [
     "bubblewrap",
     "desktop-file-utils",
     "gtk-update-icon-cache",
+    "kmod",
     "shared-mime-info",
     "xdg-dbus-proxy",
-    "kmod",
 ]
 # invoke the trigger on self
 triggers = ["/usr/share/flatpak"]
@@ -67,7 +67,7 @@ maintainer = "eater <=@eater.me>"
 license = "LGPL-2.1-or-later"
 url = "https://flatpak.org"
 source = f"https://github.com/flatpak/flatpak/releases/download/{pkgver}/flatpak-{pkgver}.tar.xz"
-sha256 = "538f36b2c6f8c70eefd12d13ad5b1ad830820106a8bd3a9f6b8e4d9de81e4946"
+sha256 = "526f5b592839fe47a6fa149df09ed1d1d7742e0497913e51683d4f1ab33c2da4"
 # test runner expects a different env (possible FIXME?)
 options = ["!check", "!cross"]
 
