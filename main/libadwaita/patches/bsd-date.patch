@@ -1,0 +1,11 @@
+--- a/demo/data/meson.build
++++ b/demo/data/meson.build
+@@ -21,7 +21,7 @@
+ if date.found()
+   time_epoch = run_command(sh, '-c', 'echo "$SOURCE_DATE_EPOCH"', check: true).stdout().strip()
+   if time_epoch != ''
+-    r = run_command(date, '-I', '-u', '-d', '@' + time_epoch, check: false)
++    r = run_command(date, '-I', '-z', 'UTC', '-r', time_epoch, check: false)
+   else
+     r = run_command(date, '-I', check: false)
+   endif
