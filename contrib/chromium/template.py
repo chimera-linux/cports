@@ -1,6 +1,6 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "124.0.6367.78"
+pkgver = "124.0.6367.118"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
@@ -139,7 +139,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
-sha256 = "697ea9e8591e0a74deea260a50441711b1ea499ca19e91d6012c5b4d200d1acf"
+sha256 = "8aa5a14aad1234b48b568da9ef23d6e0b1b72d7f4ca5c4039462e54e6ad45d96"
 debug_level = 0
 tool_flags = {
     "CFLAGS": [
@@ -298,7 +298,7 @@ def do_install(self):
     )
     self.install_file(f"{srcp}/libEGL.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/libGLESv2.so", dstp, mode=0o755)
-    self.install_file(f"{srcp}/libqt6_shim.so", dstp, mode=0o755)
+    # self.install_file(f"{srcp}/libqt6_shim.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/libvulkan.so.1", dstp, mode=0o755)
     self.install_file(f"{srcp}/libvk_swiftshader.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/vk_swiftshader_icd.json", dstp, mode=0o755)

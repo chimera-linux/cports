@@ -1,0 +1,10 @@
+this assert forces use_qt(5) to be on for qt6 which requires qt5 libs
+--
+--- a/ui/qt/qt.gni
++++ b/ui/qt/qt.gni
+@@ -29,4 +29,4 @@
+ }
+ 
+ # use_qt6 => use_qt
+-assert(!use_qt6 || use_qt)
++# assert(!use_qt6 || use_qt)
