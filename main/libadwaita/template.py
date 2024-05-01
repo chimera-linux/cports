@@ -1,9 +1,9 @@
 pkgname = "libadwaita"
 pkgver = "1.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
-    "-Dexamples=false",
+    "-Dexamples=true",
     "-Dtests=true",
     "-Dgtk_doc=false",
     "-Dvapi=true",
@@ -38,3 +38,12 @@ options = ["!cross"]
 @subpackage("libadwaita-devel")
 def _devel(self):
     return self.default_devel()
+
+
+@subpackage("libadwaita-demo")
+def _demo(self):
+    self.pkgdesc = f"{pkgdesc} (demo application)"
+    return [
+        "usr/bin/adwaita-1-demo",
+        "usr/share",
+    ]
