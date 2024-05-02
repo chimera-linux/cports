@@ -1,0 +1,10 @@
+--- a/deps/googletest/include/gtest/internal/gtest-port.h
++++ b/deps/googletest/include/gtest/internal/gtest-port.h
+@@ -302,6 +302,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <unistd.h>
+ 
+ #include <cerrno>
+ // #include <condition_variable>  // Guarded by GTEST_IS_THREADSAFE below
