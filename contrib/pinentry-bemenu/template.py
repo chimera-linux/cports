@@ -1,6 +1,6 @@
 pkgname = "pinentry-bemenu"
-pkgver = "0.13.1"
-pkgrel = 3
+pkgver = "0.13.2"
+pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
 makedepends = [
@@ -14,7 +14,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/t-8ch/pinentry-bemenu"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "db513f0cb2ee81f064da2dca976cb9376857da4bef316d493b347f692521bb40"
+sha256 = "a1296ed087335d68df65442b222bcdd34c9b51132623a8141d5a8cca8e735a1c"
 
 
 @subpackage("pinentry-bemenu-default")
