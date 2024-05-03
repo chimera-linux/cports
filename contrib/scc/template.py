@@ -1,6 +1,6 @@
 pkgname = "scc"
-pkgver = "3.2.0"
-pkgrel = 1
+pkgver = "3.3.2"
+pkgrel = 0
 build_style = "go"
 hostmakedepends = ["go"]
 pkgdesc = "Fast and accurate code counter"
@@ -8,7 +8,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT OR Unlicense"
 url = "https://github.com/boyter/scc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "69cce0b57e66c736169bd07943cdbe70891bc2ff3ada1f4482acbd1335adbfad"
+sha256 = "2bbfed4cf34bbe50760217b479331cf256285335556a0597645b7250fb603388"
 # objcopy fails on ppc
 options = ["!debug"]
 
