@@ -1,5 +1,5 @@
 pkgname = "corrosion"
-pkgver = "0.4.8"
+pkgver = "0.4.9"
 pkgrel = 0
 build_style = "cmake"
 hostmakedepends = ["cmake", "ninja", "cargo"]
@@ -8,7 +8,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "MIT"
 url = "https://github.com/corrosion-rs/corrosion"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "6b9090647d372adec2b09ac7a553458b6e39004238967f9a25e9dd8c1d77584d"
+sha256 = "3346b21c4986c077988e10a19b8737a7b56f6f84ef8e800058b58d1f138e8fa9"
 # Checks require rustup, because they support specifying specific toolchains
 options = ["!check"]
 
