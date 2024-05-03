@@ -1,5 +1,5 @@
 pkgname = "openpgp-card-tools"
-pkgver = "0.10.0"
+pkgver = "0.10.1"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo", "pkgconf"]
@@ -10,7 +10,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0 OR MIT"
 url = "https://codeberg.org/openpgp-card/openpgp-card-tools"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "2bea380d0038208d5b6bd93cb7580e6522d4f43bc1e429cc977cb678adb061fb"
+sha256 = "fb8cd1c95c558f1e16a749746dadc6040deca54f4e3aa7735ffa5f082cdfcc01"
 
 
 def post_install(self):
