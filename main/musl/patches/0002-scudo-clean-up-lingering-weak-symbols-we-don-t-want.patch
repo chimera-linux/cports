@@ -55,7 +55,7 @@ diff --git a/src/malloc/scudo/linux.cpp b/src/malloc/scudo/linux.cpp
 index 9c5755a..e79e8e8 100644
 --- a/src/malloc/scudo/linux.cpp
 +++ b/src/malloc/scudo/linux.cpp
-@@ -177,9 +177,11 @@ bool getRandom(void *Buffer, uptr Length, UNUSED bool Blocking) {
+@@ -200,10 +200,13 @@
    return (ReadBytes == static_cast<ssize_t>(Length));
  }
  
@@ -65,17 +65,11 @@ index 9c5755a..e79e8e8 100644
                                           const char *msg);
 +#endif
  
- static uptr GetRSSFromBuffer(const char *Buf) {
-   // The format of the file is:
-@@ -214,6 +216,7 @@ uptr GetRSS() {
-   return GetRSSFromBuffer(Buf);
- }
- 
 +#if SCUDO_ANDROID
  void outputRaw(const char *Buffer) {
    if (&async_safe_write_log) {
      constexpr s32 AndroidLogInfo = 4;
-@@ -246,6 +249,10 @@ void setAbortMessage(const char *Message) {
+@@ -236,6 +239,10 @@
    if (&android_set_abort_message)
      android_set_abort_message(Message);
  }
