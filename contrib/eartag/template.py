@@ -1,8 +1,9 @@
 pkgname = "eartag"
-pkgver = "0.6.0"
+pkgver = "0.6.1"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
+    "blueprint-compiler",
     "gettext",
     "glib-devel",
     "meson",
@@ -22,7 +23,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://apps.gnome.org/EarTag"
 source = f"https://gitlab.gnome.org/World/eartag/-/archive/{pkgver}/eartag-{pkgver}.tar.bz2"
-sha256 = "d5c9567effcedf99004c8f2dd5aacff377fdbeda5e3813de75e091327760b324"
+sha256 = "952d339caf74ed842a13a8039b6d97c0203581d97b1d47dc7da2e094c8f755ae"
 
 
 def post_install(self):
