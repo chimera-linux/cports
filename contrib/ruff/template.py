@@ -1,5 +1,5 @@
 pkgname = "ruff"
-pkgver = "0.4.2"
+pkgver = "0.4.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -14,7 +14,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://docs.astral.sh/ruff"
 source = f"https://github.com/astral-sh/ruff/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "7f08b9b79afdf75eb5528986f0ac8a7fe0183d5b1917cba7d7d595b09cb58d6a"
+sha256 = "7fdff8b7391c305bad50b7982790638176785337d7369c3c8518fd384643cd5e"
 # generates completions with host bin
 options = ["!cross"]
 
