@@ -1,0 +1,13 @@
+pkgname = "cmatrix"
+pkgver = "2.0"
+pkgrel = 0
+build_style = "gnu_configure"
+hostmakedepends = ["automake"]
+makedepends = ["ncurses-devel"]
+pkgdesc = "Matrix like effect for terminals"
+maintainer = "ttyyls <contact@behri.org>"
+license = "GPL-3.0-or-later"
+url = "https://github.com/abishekvashok/cmatrix"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "ad93ba39acd383696ab6a9ebbed1259ecf2d3cf9f49d6b97038c66f80749e99a"
+hardening = ["vis", "cfi"]
