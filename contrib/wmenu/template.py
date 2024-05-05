@@ -1,5 +1,5 @@
 pkgname = "wmenu"
-pkgver = "0.1.7"
+pkgver = "0.1.8"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = [
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://git.sr.ht/~adnano/wmenu"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "f86c9bfb32a907d467c59d34123c8e7d55cda08524735b7c640b682830f854b9"
+sha256 = "0079d3bbe82e0b02035450b4b31609dd5b822116ea4c14979d2e26d91db3c461"
 hardening = ["vis", "cfi"]
 
 
