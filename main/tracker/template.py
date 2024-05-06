@@ -1,5 +1,5 @@
 pkgname = "tracker"
-pkgver = "3.7.2"
+pkgver = "3.7.3"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -38,7 +38,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://gnome.pages.gitlab.gnome.org/tracker"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "debcaa291e46afadc1cf6a251f17efb02440aa48bff643d78c61123807dce00f"
+sha256 = "ab3d4a50937e04c5ed7846f6dbb999e2909819402f389ca592ee6b77dd28d1f9"
 options = ["!cross"]
 
 
