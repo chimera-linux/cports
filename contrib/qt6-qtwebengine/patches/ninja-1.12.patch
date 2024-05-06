@@ -1,0 +1,18 @@
+--- a/src/3rdparty/chromium/content/browser/BUILD.gn
++++ b/src/3rdparty/chromium/content/browser/BUILD.gn
+@@ -198,2 +198,3 @@
+     "//components/services/storage/public/mojom",
++    "//components/spellcheck:buildflags",
+     "//components/sqlite_proto",
+--- a/src/3rdparty/chromium/extensions/browser/api/declarative_net_request/BUILD.gn
++++ b/src/3rdparty/chromium/extensions/browser/api/declarative_net_request/BUILD.gn
+@@ -22,2 +22,3 @@
+     "//content/public/browser",
++    "//components/web_cache/public/mojom",
+     "//extensions/common",
+--- a/src/3rdparty/chromium/ui/gl/gl_display.h
++++ b/src/3rdparty/chromium/ui/gl/gl_display.h
+@@ -13,2 +13,3 @@
+ #include "ui/gl/gl_export.h"
++#include "ui/gl/gpu_preference.h"
+ 
