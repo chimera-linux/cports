@@ -1,5 +1,5 @@
 pkgname = "gtk4"
-pkgver = "4.14.3"
+pkgver = "4.14.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -79,7 +79,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gtk.org"
 source = f"$(GNOME_SITE)/gtk/{pkgver[:-2]}/gtk-{pkgver}.tar.xz"
-sha256 = "2be5c858bdef1104d37848c9779c089372c8d31503f6efc4b94e53b546fc9a43"
+sha256 = "443518b97e8348f9f6430ac435b1010f9a6c5207f4dc6a7cd5d24e3820cee633"
 # FIXME overflow in gtklabel.c (repro: gnome-text-editor file reload)
 hardening = ["!int"]
 # FIXME
