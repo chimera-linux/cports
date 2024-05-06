@@ -1,7 +1,9 @@
 pkgname = "xplr"
-pkgver = "0.21.7"
+pkgver = "0.21.8"
 pkgrel = 0
 build_style = "cargo"
+make_build_args = ["--no-default-features"]
+make_install_args = list(make_build_args)
 hostmakedepends = [
     "cargo",
     "pkgconf",
@@ -17,7 +19,7 @@ url = "https://xplr.dev"
 source = (
     f"https://github.com/sayanarijit/xplr/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "d38f94cc46044dac3cfc96d89dec81989b69a66a98c2f960ea3abe44313675a6"
+sha256 = "6fa6ab87cd9f48e531146e2f04c980f2ec90259b3e7b874bf9e165e613be0789"
 # needs rebuild with non-release to use bin from debug/
 options = ["!check"]
 
