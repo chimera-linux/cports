@@ -1,6 +1,6 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.19.5"
+pkgver = "4.19.6"
 pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
@@ -99,7 +99,7 @@ url = "https://www.samba.org"
 source = (
     f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
 )
-sha256 = "0e2405b4cec29d0459621f4340a1a74af771ec7cffedff43250cad7f1f87605e"
+sha256 = "653b52095554dbc223c63b96af5cdf9e98c3e048549c5f56143d3b33dce1cef1"
 env = {"PYTHONHASHSEED": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check", "!installroot", "linkundefver"]
@@ -130,7 +130,7 @@ def post_install(self):
     self.rm(self.destdir / "usr/share/man/man7/traffic_replay.7")
     # symlink cups backend
     self.install_dir("usr/lib/cups/backend")
-    self.install_link("usr/lib/cups/backend/smb", "/usr/bin/smbspool")
+    self.install_link("usr/lib/cups/backend/smb", "../../../bin/smbspool")
     # private dir
     self.install_dir("var/lib/samba/private", mode=0o750, empty=True)
 
