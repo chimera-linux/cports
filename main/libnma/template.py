@@ -1,6 +1,6 @@
 pkgname = "libnma"
 pkgver = "1.10.6"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dgtk_doc=false",
@@ -30,6 +30,15 @@ url = "https://gitlab.gnome.org/GNOME/libnma"
 source = f"{url}/-/archive/{pkgver}/{pkgname}-{pkgver}.tar.gz"
 sha256 = "c88fd3408c4ff166b06179b5ce5186e08a57b64eb8c9b22e055ca0dbc5e8002b"
 options = ["!cross"]
+
+
+def post_install(self):
+    # Conflicts with contrib/network-manager-applet
+    # See https://gitlab.gnome.org/GNOME/network-manager-applet/-/commit/574fdd97ae38b89f6d3d1a1c3fbfd63754b25df2
+    self.rm(
+        self.destdir
+        / "usr/share/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml"
+    )
 
 
 @subpackage("libnma-devel")
