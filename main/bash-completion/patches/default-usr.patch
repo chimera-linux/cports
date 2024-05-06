@@ -1,0 +1,13 @@
+with changed compatdir=
+--
+--- a/bash_completion
++++ b/bash_completion
+@@ -3306,7 +3306,7 @@
+ if [[ ${BASH_COMPLETION_COMPAT_DIR-} ]]; then
+     _comp__init_compat_dirs+=("$BASH_COMPLETION_COMPAT_DIR")
+ else
+-    _comp__init_compat_dirs+=(/etc/bash_completion.d)
++    _comp__init_compat_dirs+=(/usr/share/bash-completion/completions)
+     # Similarly as for the "completions" dir, look up from relative to
+     # bash_completion, primarily for installed-with-prefix and
+     # run-in-place-from-git-clone setups.  Notably we do it after the system
