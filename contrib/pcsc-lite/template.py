@@ -1,17 +1,21 @@
 pkgname = "pcsc-lite"
-pkgver = "2.1.0"
+pkgver = "2.2.0"
 pkgrel = 0
-build_style = "gnu_configure"
-configure_args = ["--disable-libsystemd"]
-configure_gen = []
-hostmakedepends = ["pkgconf", "flex", "perl"]
+build_style = "meson"
+configure_args = [
+    "-Dlibsystemd=false",
+    "-Dlibudev=true",
+    "-Dpolkit=true",
+    "-Dusb=true",
+]
+hostmakedepends = ["flex", "meson", "perl", "pkgconf"]
 makedepends = ["libusb-devel", "udev-devel", "polkit-devel"]
 pkgdesc = "Middleware to access a smart card using SCard API (PC/SC)"
 maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://pcsclite.apdu.fr"
-source = f"https://pcsclite.apdu.fr/files/pcsc-lite-{pkgver}.tar.bz2"
-sha256 = "85cab61cc744c81e2bc432656863293b8428d0136f079e3b12a84b335b5b35aa"
+source = f"https://pcsclite.apdu.fr/files/pcsc-lite-{pkgver}.tar.xz"
+sha256 = "76e06bb9f47f0c10c4eaec3ee9cea634bda28a1fc46f1286c097d220386c22d4"
 
 
 def post_install(self):

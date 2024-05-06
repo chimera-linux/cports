@@ -1,0 +1,20 @@
+--- a/meson.build
++++ b/meson.build
+@@ -24,7 +24,7 @@
+   'VERSION' : meson.project_version(),
+   'ipcdir' : get_option('ipcdir'),
+   'sysconfdir' : get_option('sysconfdir'),
+-  'sbindir_exp' : '/' / get_option('sbindir'),
++  'sbindir_exp' : get_option('sbindir'),
+   'PCSCLITE_CONFIG_DIR' : get_option('serialconfdir'),
+   'usbdropdir' : get_option('usbdropdir'),
+   })
+@@ -143,7 +143,7 @@
+   dependencies : pcscd_dep,
+   c_args: '-DPCSCD',
+   export_dynamic : true,
+-  install_dir : '/' / get_option('sbindir'),
++  install_dir : get_option('sbindir'),
+   install : true)
+ 
+ # libpcsclite_real library
