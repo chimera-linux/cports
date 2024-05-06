@@ -1,6 +1,6 @@
 pkgname = "python-pyproject_hooks"
-pkgver = "1.0.0"
-pkgrel = 1
+pkgver = "1.1.0"
+pkgrel = 0
 hostmakedepends = ["python", "python-flit_core", "python-installer"]
 checkdepends = [
     "python-pytest-xdist",
@@ -15,9 +15,10 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://pyproject-hooks.readthedocs.io"
 source = f"$(PYPI_SITE)/p/pyproject_hooks/pyproject_hooks-{pkgver}.tar.gz"
-sha256 = "f271b298b97f5955d53fb12b72c1fb1948c22c1a6b70b315c54cedaca0264ef5"
+sha256 = "4b37730834edbd6bd37f26ece6b44802fb1c1ee2ece0e54ddff8bfc06db86965"
 # missing checkdepends
-options = ["!check"]
+# no licence in tarballs
+options = ["!check", "!distlicense"]
 
 
 def do_build(self):
@@ -40,4 +41,3 @@ def do_install(self):
         f"dist/pyproject_hooks-{pkgver}-py3-none-any.whl",
     )
     python.precompile(self, "usr/lib")
-    self.install_license("LICENSE")
