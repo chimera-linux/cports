@@ -1,6 +1,6 @@
 pkgname = "shaderc"
-pkgver = "2024.0"
-pkgrel = 2
+pkgver = "2024.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DSHADERC_SKIP_TESTS=ON",
@@ -14,7 +14,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://github.com/google/shaderc"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "c761044e4e204be8e0b9a2d7494f08671ca35b92c4c791c7049594ca7514197f"
+sha256 = "eb3b5f0c16313d34f208d90c2fa1e588a23283eed63b101edd5422be6165d528"
 tool_flags = {
     "CXXFLAGS": [f"-I{self.profile().sysroot / 'usr/include/glslang'}"]
 }
