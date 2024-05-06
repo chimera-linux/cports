@@ -1,16 +1,16 @@
 pkgname = "vapoursynth"
-pkgver = "66"
+pkgver = "67"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = ["./autogen.sh"]
 make_cmd = "gmake"
 make_dir = "."
 hostmakedepends = [
-    "gmake",
-    "pkgconf",
     "automake",
+    "gmake",
     "libtool",
     "nasm",
+    "pkgconf",
     "python-cython",
 ]
 makedepends = ["python-devel", "zimg-devel"]
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.vapoursynth.com"
 source = f"https://github.com/vapoursynth/vapoursynth/archive/R{pkgver}.tar.gz"
-sha256 = "e2c82b1f583adbc33dabbe59c0dc65e6aede70dedebe79be94155cb38d418b2c"
+sha256 = "0224be706a251d7936396aa83dfb21c7a7764c8bd80c29085a6415ac1453420d"
 
 
 @subpackage("vapoursynth-devel")
