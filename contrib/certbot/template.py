@@ -1,6 +1,6 @@
 pkgname = "certbot"
 pkgver = "2.10.0"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "certbot"
 build_style = "python_pep517"
 hostmakedepends = [
