@@ -1,22 +1,26 @@
 pkgname = "squashfs-tools-ng"
-pkgver = "1.2.0"
+pkgver = "1.3.1"
 pkgrel = 0
 build_style = "gnu_configure"
-hostmakedepends = ["pkgconf"]
+hostmakedepends = [
+    "automake",
+    "libtool",
+    "pkgconf",
+]
 makedepends = [
-    "zlib-devel",
-    "lz4-devel",
-    "xz-devel",
-    "zstd-devel",
-    "lzo-devel",
     "bzip2-devel",
+    "lz4-devel",
+    "lzo-devel",
+    "xz-devel",
+    "zlib-devel",
+    "zstd-devel",
 ]
 pkgdesc = "Set of tools and libraries for working with SquashFS images"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-3.0-or-later AND GPL-3.0-or-later"
 url = "https://infraroot.at/projects/squashfs-tools-ng/index.html"
 source = f"https://infraroot.at/pub/squashfs/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d736076095d584975640a78cd1554ce15ccbdebdd73d779b7d1ec8004832b7e7"
+sha256 = "0728e825f18ce1af0ec0090ae9892665e61590bb94910f12bf0810b874fdce7f"
 
 
 @subpackage("libsquashfs")
@@ -29,6 +33,3 @@ def _libmagic(self):
 @subpackage("squashfs-tools-ng-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []
