@@ -1,0 +1,26 @@
+diff --git a/bindings/vala/examples/CMakeLists.txt b/bindings/vala/examples/CMakeLists.txt
+index 2751096..6ef4eba 100644
+--- a/bindings/vala/examples/CMakeLists.txt
++++ b/bindings/vala/examples/CMakeLists.txt
+@@ -15,7 +15,7 @@ add_custom_command(
+     VERBATIM
+     COMMAND
+     sed
+-    -i "s|#include\\s*<\\s*libayatana-appindicator/app-indicator.h\\s*>||g"
++    -i "" "s|#include\\s*<\\s*libayatana-appindicator/app-indicator.h\\s*>||g"
+     "${CMAKE_CURRENT_BINARY_DIR}/ayatana-indicator-example.c"
+ )
+ 
+diff --git a/example/CMakeLists.txt b/example/CMakeLists.txt
+index 0b5f133..7cd1182 100644
+--- a/example/CMakeLists.txt
++++ b/example/CMakeLists.txt
+@@ -25,7 +25,7 @@ if (FLAVOUR_GTK3)
+         VERBATIM
+         COMMAND
+         sed
+-        -i "s|#include\\s*<\\s*libayatana-appindicator/app-indicator.h\\s*>||g"
++        -i "" "s|#include\\s*<\\s*libayatana-appindicator/app-indicator.h\\s*>||g"
+         "${CMAKE_CURRENT_BINARY_DIR}/simple-client-vala.c"
+     )
+ 
