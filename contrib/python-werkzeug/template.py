@@ -30,4 +30,4 @@ sha256 = "097e5bfda9f0aba8da6b8545146def481d06aa7d3266e7448e2cccf67dd8bd18"
 
 
 def post_install(self):
-    self.install_license("LICENSE.rst")
+    self.install_license("LICENSE.txt")
