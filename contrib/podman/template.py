@@ -1,6 +1,6 @@
 pkgname = "podman"
 pkgver = "5.0.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
 hostmakedepends = [
@@ -57,6 +57,7 @@ def post_build(self):
 def post_install(self):
     self.install_service(self.files_path / "podman")
     self.install_service(self.files_path / "podman-docker")
+    self.install_service(self.files_path / "podman-restart")
     self.install_file(
         self.files_path / "podman-docker.libexec",
         "usr/libexec",
