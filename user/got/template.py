@@ -1,8 +1,11 @@
 pkgname = "got"
-pkgver = "0.98.2"
-pkgrel = 1
+pkgver = "0.99"
+pkgrel = 0
 build_style = "gnu_configure"
-configure_gen = []
+configure_args = [
+    "--exec-prefix=/usr",
+    "--with-gitwrapper-git-libexec=/usr/libexec/git-core",
+]
 make_cmd = "gmake"
 make_check_target = "tests"
 hostmakedepends = [
@@ -12,22 +15,22 @@ hostmakedepends = [
     "pkgconf",
 ]
 makedepends = [
-    "libmd-devel",
     "libbsd-devel",
     "libevent-devel",
     "libretls-devel",
+    "libuuid-devel",
     "linux-headers",
     "musl-devel",
     "ncurses-devel",
-    "libuuid-devel",
     "zlib-devel",
 ]
+checkdepends = ["git"]
 pkgdesc = "VCS prioritizing simplicity over flexibily"
 maintainer = "ttyyls <contact@behri.org>"
 license = "ISC"
 url = "https://gameoftrees.org"
 source = f"{url}/releases/portable/got-portable-{pkgver}.tar.gz"
-sha256 = "ff5d4ad9922edf1c8055b2398650972fd463c809590dbe78e2eab1bf78a150c8"
+sha256 = "aea408353a02b2e3ad9b4d1b7607900269af97986d40998c57f10acdf0fa1e38"
 env = {"GOT_RELEASE": "Yes"}
 hardening = ["vis", "cfi"]
 # tests require pre-installing got/tog in pre_check and running ssh locally
