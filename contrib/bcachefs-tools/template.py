@@ -1,5 +1,5 @@
 pkgname = "bcachefs-tools"
-pkgver = "1.6.4"
+pkgver = "1.7.0"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/koverstreet/bcachefs-tools"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9d33b234b282ec3d3e4be43a4af85766b2cc3b6bc08f7687d36dde96a254728e"
+sha256 = "5347235f7ecd72faf2a04480a482753188f1ed3198747bcdb51eb7f181ed3e79"
 # no tests
 options = ["!check"]
 
