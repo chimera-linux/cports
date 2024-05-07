@@ -1,12 +1,12 @@
 pkgname = "game-devices-udev"
-pkgver = "0.22"
+pkgver = "0.23"
 pkgrel = 0
 pkgdesc = "Miscellaneous udev rules for game devices"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://codeberg.org/fabiscafe/game-devices-udev"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "bb490a48dcd6066ec0aedad618cf9e636586442597c2b8d2496be1be4263a9fc"
+sha256 = "9eb09eea9b66692cbe076e74a649957a091ae4b8ae07ea51fe08693ecb48b521"
 
 
 def do_install(self):
