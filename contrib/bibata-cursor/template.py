@@ -1,6 +1,6 @@
 pkgname = "bibata-cursor"
 pkgver = "2.0.6"
-pkgrel = 0
+pkgrel = 1
 pkgdesc = "Material design cursor set"
 maintainer = "ogromny <ogromnycoding@gmail.com>"
 license = "GPL-3.0-only"
@@ -26,5 +26,3 @@ def do_install(self):
     ]
     for theme in themes:
         self.install_files(theme, "usr/share/icons")
-
-    self.install_license("LICENSE")
