@@ -1,2 +1,2 @@
-url = "http://git.ghostscript.com/?p=ghostpdl.git;a=blob_plain;f=ijs/README;hb=HEAD"
+url = "https://cgit.ghostscript.com/cgi-bin/cgit.cgi/ghostpdl.git/plain/ijs/README"
 pattern = r"IJS\ ([\d.]+)\n"
