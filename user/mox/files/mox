@@ -1,0 +1,7 @@
+# mox system service
+
+type         = process
+command      = /usr/bin/mox serve
+stop-command = /usr/bin/mox stop
+working-dir  = /var/lib/mox
+logfile      = /var/log/mox.log

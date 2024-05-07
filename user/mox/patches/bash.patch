@@ -1,0 +1,10 @@
+diff --git a/gendoc.sh b/gendoc.sh
+index 833fe86..4861d92 100755
+--- a/gendoc.sh
++++ b/gendoc.sh
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env sh
++#!/usr/bin/env bash
+ 
+ # ./doc.go
+ (
