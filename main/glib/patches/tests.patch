@@ -10,14 +10,17 @@ diff --git a/gio/tests/meson.build b/gio/tests/meson.build
 index 232ecca..4a799a1 100644
 --- a/gio/tests/meson.build
 +++ b/gio/tests/meson.build
-@@ -454,10 +454,6 @@ if host_machine.system() != 'windows'
+@@ -439,12 +439,6 @@ if host_machine.system() != 'windows'
          'extra_sources' : extra_sources,
          'extra_programs': extra_programs,
        },
 -      'gdbus-connection-slow' : {
 -        'extra_sources' : extra_sources,
 -        'extra_programs': extra_programs + ['gdbus-connection-flush-helper'],
+-        # FIXME: https://gitlab.gnome.org/GNOME/glib/-/issues/3148
+-        'can_fail' : host_system == 'gnu',
 -      },
        'gdbus-error' : {'extra_sources' : extra_sources},
        'gdbus-exit-on-close' : {'extra_sources' : extra_sources},
        'gdbus-export' : {
+
