@@ -1,6 +1,6 @@
 # update linux-stable-zfs-bin when bumping
 pkgname = "linux-stable"
-pkgver = "6.8.6"
+pkgver = "6.8.9"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "ppc64", "riscv64", "x86_64"]
 make_dir = "build"
@@ -12,7 +12,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://kernel.org"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[0]}.x/linux-{pkgver}.tar.xz"
-sha256 = "9e723232d603ab45ebf043c34714c48f277ab195c29abcb8472f2a4c3a5a1995"
+sha256 = "f905f1238ea7a8e85314bacf283302e8097006010d25fcea726d0de0ea5bc9b6"
 # no meaningful checking to be done
 options = [
     "!check",
