@@ -1,5 +1,5 @@
 pkgname = "unbound"
-pkgver = "1.19.3"
+pkgver = "1.20.0"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -28,7 +28,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://nlnetlabs.nl/projects/unbound/about"
 source = f"https://nlnetlabs.nl/downloads/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "3ae322be7dc2f831603e4b0391435533ad5861c2322e34a76006a9fb65eb56b9"
+sha256 = "56b4ceed33639522000fd96775576ddf8782bb3617610715d7f1e777c5ec1dbf"
 
 
 def post_install(self):
