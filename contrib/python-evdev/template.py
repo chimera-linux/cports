@@ -1,5 +1,5 @@
 pkgname = "python-evdev"
-pkgver = "1.7.0"
+pkgver = "1.7.1"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://github.com/gvalkov/python-evdev"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "3bf81c674412298531d26dd1e83b4b555faf392ba8a761c546aecd7ce4d8a7ba"
+sha256 = "9f09ccbb89880dd82c7f71482b662fb1ebb5824968cac0cd3d4e50b9f7715f6a"
 # can't find itself
 options = ["!check"]
 
