@@ -1,6 +1,6 @@
 pkgname = "sbctl"
 pkgver = "0.13"
-pkgrel = 1
+pkgrel = 2
 build_style = "go"
 make_build_args = ["./cmd/sbctl"]
 hostmakedepends = ["go", "asciidoc", "gmake"]

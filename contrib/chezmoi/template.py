@@ -1,6 +1,6 @@
 pkgname = "chezmoi"
 pkgver = "2.48.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X main.version={pkgver} -X main.commit=v{pkgver}",
