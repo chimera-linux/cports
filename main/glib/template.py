@@ -1,5 +1,5 @@
 pkgname = "glib"
-pkgver = "2.80.1"
+pkgver = "2.80.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -39,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Projects/GLib"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "bcfc8c2fab64fc9dcb91011375422159f1440502257fb90219215079d8716705"
+sha256 = "b9cfb6f7a5bd5b31238fd5d56df226b2dda5ea37611475bf89f6a0f9400fe8bd"
 # FIXME int - strfuncs failure
 hardening = ["!int"]
 
