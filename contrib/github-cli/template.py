@@ -1,6 +1,6 @@
 pkgname = "github-cli"
-pkgver = "2.49.0"
-pkgrel = 1
+pkgver = "2.49.1"
+pkgrel = 0
 build_style = "go"
 make_build_args = [
     f"-ldflags=-X github.com/cli/cli/v2/internal/build.Version=v{pkgver}",
@@ -15,7 +15,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT"
 url = "https://cli.github.com"
 source = f"https://github.com/cli/cli/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fc21c007219919da19f09180d3b966db95cd766bdb4123800d5ce292633a2132"
+sha256 = "e898bcfec71ee1b5eba3bba0816eaca5f735e7443e11864dddbf753f8ecc3cf7"
 # cross: uses native binary to generate completions
 # debug: fails to split on powerpc
 # check: needs network access
