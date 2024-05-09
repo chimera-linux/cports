@@ -1,5 +1,5 @@
 pkgname = "tailscale"
-pkgver = "1.66.0"
+pkgver = "1.66.1"
 pkgrel = 0
 build_style = "go"
 make_build_args = [
@@ -16,7 +16,7 @@ maintainer = "Val Packett <val@packett.cool>"
 license = "BSD-3-Clause"
 url = "https://github.com/tailscale/tailscale"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "f26641a421b77e360dfb4ca7c3bc27ad2a4f3c537923eaff1d82d7fafd244682"
+sha256 = "a3c8645891d2dd25ad417df16e7f635cdf98d2c01778614942c6e39218c84a65"
 # debug: fails to split on powerpc
 # check: needs network access
 options = ["!debug", "!check"]
