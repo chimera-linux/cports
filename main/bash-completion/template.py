@@ -1,6 +1,6 @@
 pkgname = "bash-completion"
-pkgver = "2.13.0"
-pkgrel = 1
+pkgver = "2.14.0"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_gen = []
 make_cmd = "gmake"
@@ -16,6 +16,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/scop/bash-completion"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "c5f99a39e40f0d154c03ff15438e87ece1f5ac666336a4459899e2ff4bedf3d1"
+sha256 = "5c7494f968280832d6adb5aa19f745a56f1a79df311e59338c5efa6f7285e168"
 # what's the point (needs a truckload of checkdepends too)
 options = ["!check"]
