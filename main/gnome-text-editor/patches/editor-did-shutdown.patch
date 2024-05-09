@@ -1,0 +1,10 @@
+--- a/src/editor-text-buffer-spell-adapter.c
++++ b/src/editor-text-buffer-spell-adapter.c
+@@ -23,6 +23,7 @@
+ #include "cjhtextregionprivate.h"
+ 
+ #include "editor-document.h"
++#include "editor-document-private.h"
+ #include "editor-spell-checker.h"
+ #include "editor-spell-cursor.h"
+ #include "editor-spell-language.h"
