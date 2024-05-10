@@ -1,5 +1,5 @@
 pkgname = "kwindowsystem"
-pkgver = "6.1.0"
+pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -8,7 +8,7 @@ configure_args = [
 make_check_args = [
     "-E",
     # FIXME: hangs/crashes
-    "(threadtest|compositingenabled|kwindowinfox11test|kwindowsystemx11test|netrootinfotestwm)",
+    "(threadtest|compositingenabled|kwindowinfox11test|kwindowsystemx11test|netrootinfotestwm|kwindoweffectstest)",
 ]
 make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
@@ -36,7 +36,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
 url = "https://invent.kde.org/frameworks/kwindowsystem"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwindowsystem-{pkgver}.tar.xz"
-sha256 = "8c07543883aaa38b01508f06b4439559d890770006f8e9f6e8e769c5d4226595"
+sha256 = "0f8fb12b4eea926a7f4cf59ec85d95297a8cb67d8093dc4b194b51a1c4671d89"
 hardening = ["vis", "cfi"]
 
 
