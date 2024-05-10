@@ -9,11 +9,11 @@ make_check_target = "tests"
 hostmakedepends = [
     "automake",
     "gmake",
+    "libltdl-devel",
     "libtool",
     "pkgconf",
 ]
 makedepends = [
-    "libltdl-devel",
     "libmnl-devel",
     "linux-headers",
 ]
