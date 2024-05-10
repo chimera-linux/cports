@@ -10,9 +10,9 @@ make_check_args = [
     "-E",
     "("
     # tiny floating point errors
-    + "circle-test" + "|ellipse-test"
+    + "circle-test|ellipse-test"
     # ??
-    + "|bezier-test" + "|elliptical-arc-test" + ")",
+    + "|bezier-test|elliptical-arc-test)",
 ]
 hostmakedepends = [
     "cmake",
