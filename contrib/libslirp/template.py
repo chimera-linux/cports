@@ -1,5 +1,5 @@
 pkgname = "libslirp"
-pkgver = "4.7.0"
+pkgver = "4.8.0"
 pkgrel = 0
 build_style = "meson"
 hostmakedepends = ["meson", "pkgconf"]
@@ -9,7 +9,11 @@ maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://gitlab.freedesktop.org/slirp/libslirp"
 source = f"https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v{pkgver}/libslirp-v{pkgver}.tar.gz"
-sha256 = "9398f0ec5a581d4e1cd6856b88ae83927e458d643788c3391a39e61b75db3d3b"
+sha256 = "2a98852e65666db313481943e7a1997abff0183bd9bea80caec1b5da89fda28c"
+
+
+def post_install(self):
+    self.install_license("COPYRIGHT")
 
 
 @subpackage("libslirp-devel")
