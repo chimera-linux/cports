@@ -1,11 +1,12 @@
 pkgname = "inkscape"
 pkgver = "1.3.2"
-pkgrel = 5
+pkgrel = 6
 build_style = "cmake"
 configure_args = [
-    "-D2GEOM_BUILD_SHARED=OFF",
     "-DBUILD_SHARED_LIBS=ON",
     "-DBUILD_TESTING=OFF",
+    "-DWITH_INTERNAL_2GEOM=OFF",
+    "-DWITH_INTERNAL_CAIRO=OFF",
 ]
 hostmakedepends = [
     "cmake",
@@ -15,7 +16,6 @@ hostmakedepends = [
     "perl",
     "pkgconf",
 ]
-# TODO: package lib2geom separately
 makedepends = [
     "boost-devel",
     "double-conversion-devel",
@@ -26,6 +26,7 @@ makedepends = [
     "gtk+3-devel",
     "gtkmm3.0-devel",
     "lcms2-devel",
+    "lib2geom-devel",
     "libcdr-devel",
     "libedit-readline-devel",
     "libjpeg-turbo-devel",
