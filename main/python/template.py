@@ -21,21 +21,21 @@ make_check_target = "quicktest"
 # disable tests that disagree with our build environment or musl
 make_check_args = [
     "EXTRATESTOPTS="
-    "-i test_chown_* "
-    "-i test_getspnam_exception "
-    "-i test_find_library_with_* "
-    "-i test_localtime_daylight_*_dst_true "
-    "-i test__locale "
-    "-i test_c_locale_coercion "
-    "-i test_cmd_line "
-    "-i test_locale "
-    "-i test_os "
-    "-i test_re "
-    "-i test_readline "
-    "-i test_threading "
-    "-i test_unicodedata "
-    "-i test_urllib2net "  # just loops blocked connection failures into success
-    "-i test_tools "
+    + "-i test_chown_* "
+    + "-i test_getspnam_exception "
+    + "-i test_find_library_with_* "
+    + "-i test_localtime_daylight_*_dst_true "
+    + "-i test__locale "
+    + "-i test_c_locale_coercion "
+    + "-i test_cmd_line "
+    + "-i test_locale "
+    + "-i test_os "
+    + "-i test_re "
+    + "-i test_readline "
+    + "-i test_threading "
+    + "-i test_unicodedata "
+    + "-i test_urllib2net "  # just loops blocked connection failures into success
+    + "-i test_tools "
 ]
 hostmakedepends = ["pkgconf", "gmake"]
 makedepends = [
