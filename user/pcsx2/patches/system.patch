@@ -8,7 +8,7 @@
  add_subdirectory(3rdparty/lzma EXCLUDE_FROM_ALL)
  add_subdirectory(3rdparty/libchdr EXCLUDE_FROM_ALL)
  disable_compiler_warnings_for_target(libchdr)
-@@ -120,11 +119,15 @@
+@@ -104,11 +104,15 @@
  add_subdirectory(3rdparty/cpuinfo EXCLUDE_FROM_ALL)
  disable_compiler_warnings_for_target(cpuinfo)
  add_subdirectory(3rdparty/zydis EXCLUDE_FROM_ALL)
@@ -16,15 +16,15 @@
  add_subdirectory(3rdparty/rcheevos EXCLUDE_FROM_ALL)
  add_subdirectory(3rdparty/rapidjson EXCLUDE_FROM_ALL)
  add_subdirectory(3rdparty/discord-rpc EXCLUDE_FROM_ALL)
- 
+ add_subdirectory(3rdparty/freesurround EXCLUDE_FROM_ALL)
++
 +find_package(libzip REQUIRED)
 +find_package(ryml REQUIRED)
 +find_package(Vulkan REQUIRED)
 +find_package(fmt REQUIRED)
-+
+ 
  if(USE_OPENGL)
  	add_subdirectory(3rdparty/glad EXCLUDE_FROM_ALL)
- endif()
 @@ -134,6 +134,5 @@
  
  if(USE_VULKAN)
