@@ -1,7 +1,6 @@
 # podman service
 
-type       = process
-command    = /usr/bin/podman system service --time 0
+type = process
+command = /usr/bin/podman system service --time 0
 depends-on = network.target
-restart    = true
-logfile    = /var/log/podman.log
+logfile = /var/log/podman.log
