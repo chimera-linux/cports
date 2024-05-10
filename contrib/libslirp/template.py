@@ -8,7 +8,7 @@ pkgdesc = "General purpose TCP-IP emulator"
 maintainer = "eater <=@eater.me>"
 license = "BSD-3-Clause"
 url = "https://gitlab.freedesktop.org/slirp/libslirp"
-source = f"https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v{pkgver}/libslirp-v{pkgver}.tar.gz"
+source = f"{url}/-/archive/v{pkgver}/libslirp-v{pkgver}.tar.gz"
 sha256 = "2a98852e65666db313481943e7a1997abff0183bd9bea80caec1b5da89fda28c"
 
 
