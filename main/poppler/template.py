@@ -1,7 +1,7 @@
 pkgname = "poppler"
-pkgver = "24.04.0"
+pkgver = "24.05.0"
 _test_commit = "400f3ff05b2b1c0ae17797a0bd50e75e35c1f1b1"
-pkgrel = 1
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DENABLE_UNSTABLE_API_ABI_HEADERS=ON",
@@ -42,7 +42,7 @@ source = [
 ]
 source_paths = [".", "testdata"]
 sha256 = [
-    "1e804ec565acf7126eb2e9bb3b56422ab2039f7e05863a5dfabdd1ffd1bb77a7",
+    "d8c5eb30b50285ad9f0af8c6335cc2d3b9597fca475cbc2598a5479fa379f779",
     "0d850a1d06944671c991be6822b7146ade401b06aad560ff39b254a028074525",
 ]
 
