@@ -16,7 +16,7 @@ pkgdesc = "Minimal and flexible login manager daemon"
 maintainer = "natthias <natthias@proton.me>"
 license = "GPL-3.0-or-later"
 url = "https://git.sr.ht/~kennylevinsen/greetd"
-source = f"https://git.sr.ht/~kennylevinsen/greetd/archive/{pkgver}.tar.gz"
+source = f"{url}/archive/{pkgver}.tar.gz"
 sha256 = "d6151a8683f386c53a010b6dfe37cf4c842bc03313bed7a917be96309372d1df"
 
 
