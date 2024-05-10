@@ -1,0 +1,32 @@
+Patch-Source: https://gitlab.com/inkscape/lib2geom/-/commit/9b1ff56ae90db7fbbceebaac3ccf521f6ceb32f4
+needed since poppler is c++20 now
+--
+From 9b1ff56ae90db7fbbceebaac3ccf521f6ceb32f4 Mon Sep 17 00:00:00 2001
+From: PBS <pbs3141@gmail.com>
+Date: Sun, 21 Apr 2024 11:58:04 +0900
+Subject: [PATCH] Avoid std::shared_ptr<T>::unique()
+
+Replace unique() with use_count() == 1, since unique() was removed in
+C++20.
+
+Fixes https://gitlab.com/inkscape/lib2geom/-/issues/74
+---
+ include/2geom/path.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/2geom/path.h b/include/2geom/path.h
+index f797dabf..25c8e5ce 100644
+--- a/include/2geom/path.h
++++ b/include/2geom/path.h
+@@ -843,7 +843,7 @@ private:
+     void _unshare() {
+         // Called before every mutation.
+         // Ensure we have our own copy of curve data and reset cached values
+-        if (!_data.unique()) {
++        if (_data.use_count() != 1) {
+             _data.reset(new PathData(*_data));
+             _closing_seg = static_cast<ClosingSegment*>(&_data->curves.back());
+         }
+-- 
+GitLab
+
