@@ -15,7 +15,7 @@ def _make_crossfile(pkg, build_dir):
         case "ppc":
             meson_cpu = "ppc"
         case _:
-            pkg.error(f"unknown architecture: {pkg.profile().arch}")
+            pkg.error(f"unknown meson architecture: {pkg.profile().arch}")
 
     with open(cfpath, "w") as outf:
         outf.write(
