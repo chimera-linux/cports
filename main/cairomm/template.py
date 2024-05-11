@@ -10,7 +10,7 @@ pkgdesc = "C++ bindings to Cairo graphics library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://www.cairographics.org/cairomm"
-source = f"http://cairographics.org/releases/{pkgname}-{pkgver}.tar.xz"
+source = f"https://cairographics.org/releases/{pkgname}-{pkgver}.tar.xz"
 sha256 = "b81255394e3ea8e8aa887276d22afa8985fc8daef60692eb2407d23049f03cfb"
 
 
