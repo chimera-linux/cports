@@ -1,5 +1,6 @@
 def do_fetch(self):
-    pass
+    if len(self.source) > 0:
+        self.error("meta build style cannot define sources")
 
 
 def do_install(self):
