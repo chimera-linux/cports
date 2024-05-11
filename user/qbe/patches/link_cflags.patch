@@ -1,0 +1,11 @@
+--- a/Makefile	2024-01-29 10:24:41.000000000 +0100
++++ b/Makefile	2024-05-11 20:30:08.361264338 +0200
+@@ -17,7 +17,7 @@
+ CFLAGS   = -std=c99 -g -Wall -Wextra -Wpedantic
+ 
+ qbe: $(OBJ)
+-	$(CC) $(LDFLAGS) $(OBJ) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -o $@
+ 
+ .c.o:
+ 	$(CC) $(CFLAGS) -c $< -o $@
