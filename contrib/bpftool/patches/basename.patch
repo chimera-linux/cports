@@ -1,0 +1,11 @@
+--- a/tools/bpf/bpftool/gen.c
++++ b/tools/bpf/bpftool/gen.c
+@@ -20,6 +20,8 @@
+ #include <sys/mman.h>
+ #include <bpf/btf.h>
+ 
++#define basename(src) (strrchr((src),'/') ? strrchr((src),'/')+1 : (src))
++
+ #include "json_writer.h"
+ #include "main.h"
+ 
