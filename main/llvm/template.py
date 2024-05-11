@@ -1,5 +1,5 @@
 pkgname = "llvm"
-pkgver = "18.1.4"
+pkgver = "18.1.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -39,7 +39,7 @@ configure_args = [
 hostmakedepends = ["cmake", "ninja", "pkgconf", "perl", "python", "zlib-devel"]
 makedepends = ["zlib-devel", "libatomic-chimera-devel"]
 depends = [
-    f"libllvm={pkgver}-r{pkgrel}",
+    f"llvm-libs={pkgver}-r{pkgrel}",
     f"llvm-binutils={pkgver}-r{pkgrel}",
     f"llvm-linker-tools={pkgver}-r{pkgrel}",
     f"llvm-runtime={pkgver}-r{pkgrel}",
@@ -49,7 +49,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "2c01b2fbb06819a12a92056a7fd4edcdc385837942b5e5260b9c2c0baff5116b"
+sha256 = "3591a52761a7d390ede51af01ea73abfecc4b1d16445f9d019b67a57edd7de56"
 # reduce size of debug symbols
 debug_level = 1
 # lto does not kick in until stage 2
@@ -337,6 +337,8 @@ def _clang(self):
         "usr/bin/*clang*",
         "usr/bin/c-index-test",
         "usr/bin/cc",
+        "usr/bin/c89",
+        "usr/bin/c99",
         "usr/bin/c++",
         "usr/lib/cmake/clang",
         "usr/share/clang",
@@ -368,8 +370,8 @@ def _clang_devel(self):
     self.depends = [
         f"clang-rt-devel={pkgver}-r{pkgrel}",
         f"clang-devel-static={pkgver}-r{pkgrel}",
-        f"libclang={pkgver}-r{pkgrel}",
-        f"libclang-cpp={pkgver}-r{pkgrel}",
+        f"clang-libs={pkgver}-r{pkgrel}",
+        f"clang-cpp-libs={pkgver}-r{pkgrel}",
         f"libcxx-devel={pkgver}-r{pkgrel}",
     ]
 
@@ -401,16 +403,18 @@ def _clang_analyzer(self):
     ]
 
 
-@subpackage("libclang")
+@subpackage("clang-libs")
 def _libclang(self):
     self.pkgdesc = f"{pkgdesc} (C frontend runtime library)"
+    self.provides = [f"libclang={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libclang.so.*"]
 
 
-@subpackage("libclang-cpp")
+@subpackage("clang-cpp-libs")
 def _libclang_cpp(self):
     self.pkgdesc = f"{pkgdesc} (C frontend runtime library)"
+    self.provides = [f"libclang-cpp={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libclang-cpp.so.*"]
 
@@ -486,9 +490,10 @@ def _mlir_devel(self):
     ]
 
 
-@subpackage("libmlir", _enable_mlir)
+@subpackage("mlir-libs", _enable_mlir)
 def _libmlir(self):
-    self.pkgdesc = f"{pkgdesc} (MLIR runtime library)"
+    self.pkgdesc = f"{pkgdesc} (MLIR runtime libraries)"
+    self.provides = [f"libmlir={pkgver}-r{pkgrel}"]
 
     return [
         "usr/lib/libMLIR.so.*",
@@ -580,9 +585,10 @@ def _libcxxabi_static(self):
     return ["usr/lib/libc++abi.a"]
 
 
-@subpackage("libllvm")
+@subpackage("llvm-libs")
 def _libllvm(self):
     self.pkgdesc = f"{pkgdesc} (runtime library)"
+    self.provides = [f"libllvm={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libLLVM.so.*", f"usr/lib/libLLVM-{_llvmgen}*.so"]
 
@@ -648,7 +654,7 @@ def _llvm_devel(self):
         f"llvm={pkgver}-r{pkgrel}",
         f"llvm-tools={pkgver}-r{pkgrel}",
         f"llvm-devel-static={pkgver}-r{pkgrel}",
-        f"libclang-cpp={pkgver}-r{pkgrel}",
+        f"clang-cpp-libs={pkgver}-r{pkgrel}",
     ]
     # dumb llvmexports shit
     if _enable_mlir:

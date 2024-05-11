@@ -1,13 +1,13 @@
 pkgname = "rust-bindgen"
 pkgver = "0.69.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "cargo"
 make_build_args = ["--bins"]
 make_install_args = ["--bins"]
 hostmakedepends = ["cargo"]
 makedepends = ["rust-std"]
-depends = ["libclang"]
-checkdepends = ["libclang"]
+depends = ["clang-libs"]
+checkdepends = ["clang-libs"]
 pkgdesc = "Tool to generate Rust bindings for C/C++ code"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"

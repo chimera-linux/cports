@@ -1,5 +1,5 @@
 pkgname = "lldb"
-pkgver = "18.1.4"
+pkgver = "18.1.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -35,8 +35,8 @@ pkgdesc = "LLVM debugger"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
-source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/{pkgname}-{pkgver}.src.tar.xz"
-sha256 = "5bc3c621320b438d9c347797d03863bfa8d62e26aaa31444acbac1539811f27d"
+source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/lldb-{pkgver}.src.tar.xz"
+sha256 = "3591a52761a7d390ede51af01ea73abfecc4b1d16445f9d019b67a57edd7de56"
 # tests are not enabled
 options = ["!check"]
 
