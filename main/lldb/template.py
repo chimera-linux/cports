@@ -36,7 +36,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/lldb-{pkgver}.src.tar.xz"
-sha256 = "3591a52761a7d390ede51af01ea73abfecc4b1d16445f9d019b67a57edd7de56"
+sha256 = "926224b8708053fc2106d11ad152a15c05551d68975a66e7b4d8426f7e213648"
 # tests are not enabled
 options = ["!check"]
 
