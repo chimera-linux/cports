@@ -42,7 +42,7 @@ SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
             case "aarch64" | "ppc64le" | "ppc64" | "ppc" | "x86_64" | "riscv64":
                 cmake_cpu = pkg.profile().arch
             case _:
-                pkg.error(f"unknown architecture: {pkg.profile().arch}")
+                pkg.error(f"unknown cmake architecture: {pkg.profile().arch}")
 
         sroot = pkg.profile().sysroot
 
