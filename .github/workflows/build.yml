@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install python3.11 openssl git bubblewrap wget xz-utils
+        run: sudo apt-get update && sudo apt-get install python3.11 openssl git bubblewrap wget
 
       - name: Checkout
         uses: classabbyamp/treeless-checkout-action@v1
