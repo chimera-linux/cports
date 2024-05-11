@@ -1,13 +1,13 @@
 pkgname = "ninja"
-pkgver = "1.12.0"
-pkgrel = 1
+pkgver = "1.12.1"
+pkgrel = 0
 hostmakedepends = ["python"]
 pkgdesc = "Small build system with a focus on speed"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://ninja-build.org"
 source = f"https://github.com/ninja-build/ninja/archive/v{pkgver}.tar.gz"
-sha256 = "8b2c86cd483dc7fcb7975c5ec7329135d210099a89bc7db0590a07b0bbfe49a5"
+sha256 = "821bdff48a3f683bc4bb3b6f0b5fe7b2d647cf65d52aeb63328c91a6c6df285a"
 # Cycle: ninja -> gtest -> ninja
 options = ["!check"]
 
