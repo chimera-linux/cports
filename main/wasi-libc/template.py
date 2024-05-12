@@ -1,7 +1,7 @@
 pkgname = "wasi-libc"
-pkgver = "0.20240103"
+pkgver = "0.20240412"
 pkgrel = 0
-_gitrev = "925ad6d75899397d26b9f09a6f195dbf5eb35814"
+_gitrev = "9e8c542319242a5e536e14e6046de5968d298038"
 make_cmd = "gmake"
 hostmakedepends = ["gmake"]
 pkgdesc = "WebAssembly libc implementation"
@@ -9,7 +9,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0 WITH LLVM-exception AND Apache-2.0 AND MIT AND CC0-1.0 AND BSD-2-Clause"
 url = "https://github.com/WebAssembly/wasi-libc"
 source = f"{url}/archive/{_gitrev}.tar.gz"
-sha256 = "236fa7fc985a69e7dbbbbf5074c703d81e1388c531e2ff484587287462618d95"
+sha256 = "d86d115be80cc796da0e1b7d63f192da91e17927cf24273be7d89b2a9284ad4c"
 # no tests
 options = ["!check", "!lto"]
 
