@@ -1,0 +1,56 @@
+--- a/libbpf-tools/Makefile
++++ b/libbpf-tools/Makefile
+@@ -4,11 +4,9 @@
+ LLVM_STRIP ?= llvm-strip
+ BPFTOOL_SRC := $(abspath ./bpftool/src)
+ BPFTOOL_OUTPUT ?= $(abspath $(OUTPUT)/bpftool)
+-BPFTOOL ?= $(BPFTOOL_OUTPUT)/bootstrap/bpftool
+-LIBBPF_SRC := $(abspath ../src/cc/libbpf/src)
+-LIBBPF_OBJ := $(abspath $(OUTPUT)/libbpf.a)
++BPFTOOL ?= bpftool
+ LIBBLAZESYM_SRC := $(abspath blazesym/target/release/libblazesym.a)
+-INCLUDES := -I$(OUTPUT) -I../src/cc/libbpf/include/uapi
++INCLUDES := -I$(OUTPUT)
+ CFLAGS := -g -O2 -Wall
+ BPFCFLAGS := -g -O2 -Wall
+ INSTALL ?= install
+@@ -172,17 +170,13 @@
+ 	$(call msg,INC,$@)
+ 	$(Q)cp blazesym/target/release/blazesym.h $@
+ 
+-$(OUTPUT) $(OUTPUT)/libbpf $(BPFTOOL_OUTPUT):
++$(OUTPUT) $(OUTPUT)/libbpf:
+ 	$(call msg,MKDIR,$@)
+ 	$(Q)mkdir -p $@
+ 
+-$(BPFTOOL): | $(BPFTOOL_OUTPUT)
+-	$(call msg,BPFTOOL,$@)
+-	$(Q)$(MAKE) ARCH= CROSS_COMPILE=  OUTPUT=$(BPFTOOL_OUTPUT)/ -C $(BPFTOOL_SRC) bootstrap
+-
+-$(APPS): %: $(OUTPUT)/%.o $(COMMON_OBJ) $(LIBBPF_OBJ) | $(OUTPUT)
++$(APPS): %: $(OUTPUT)/%.o $(COMMON_OBJ) | $(OUTPUT)
+ 	$(call msg,BINARY,$@)
+-	$(Q)$(CC) $(CFLAGS) $^ $(LDFLAGS) -lelf -lz -o $@
++	$(Q)$(CC) $(CFLAGS) $^ $(LDFLAGS) $$(pkgconf --cflags --libs libbpf) -lelf -lz -o $@
+ 
+ ifeq ($(USE_BLAZESYM),1)
+ $(patsubst %,$(OUTPUT)/%.o,$(BZ_APPS)): $(OUTPUT)/blazesym.h
+@@ -190,15 +184,15 @@
+ 
+ $(patsubst %,$(OUTPUT)/%.o,$(APPS)): %.o: %.skel.h
+ 
+-$(OUTPUT)/%.o: %.c $(wildcard %.h) $(LIBBPF_OBJ) | $(OUTPUT)
++$(OUTPUT)/%.o: %.c $(wildcard %.h) | $(OUTPUT)
+ 	$(call msg,CC,$@)
+-	$(Q)$(CC) $(CFLAGS) $(INCLUDES) -c $(filter %.c,$^) -o $@
++	$(Q)$(CC) $(CFLAGS) $(INCLUDES) $$(pkgconf --cflags libbpf) -c $(filter %.c,$^) -o $@
+ 
+ $(OUTPUT)/%.skel.h: $(OUTPUT)/%.bpf.o | $(OUTPUT) $(BPFTOOL)
+ 	$(call msg,GEN-SKEL,$@)
+ 	$(Q)$(BPFTOOL) gen skeleton $< > $@
+ 
+-$(OUTPUT)/%.bpf.o: %.bpf.c $(LIBBPF_OBJ) $(wildcard %.h) $(ARCH)/vmlinux.h | $(OUTPUT)
++$(OUTPUT)/%.bpf.o: %.bpf.c $(wildcard %.h) $(ARCH)/vmlinux.h | $(OUTPUT)
+ 	$(call msg,BPF,$@)
+ 	$(Q)$(CLANG) $(BPFCFLAGS) -target bpf -D__TARGET_ARCH_$(ARCH)	      \
+ 		     -I$(ARCH)/ $(INCLUDES) -c $(filter %.c,$^) -o $@ &&      \
