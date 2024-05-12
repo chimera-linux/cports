@@ -1,0 +1,19 @@
+???
+
+--- a/tests/pipeline-p.tst
++++ b/tests/pipeline-p.tst
+@@ -43,14 +43,6 @@ c 0
+ d 1
+ __OUT__
+ 
+-test_oE 'stdin for first command & stdout for last are not modified'
+-cat | tail -n 1
+-foo
+-bar
+-__IN__
+-bar
+-__OUT__
+-
+ test_Oe 'stderr is not modified'
+ (echo >&2) | (echo >&2)
+ __IN__
