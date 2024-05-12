@@ -1,7 +1,8 @@
 pkgname = "musl-mallocng"
-pkgver = "1.2.5"
+pkgver = "1.2.5_git20240511"
 pkgrel = 0
-_commit = "v1.2.5"
+_commit = "84015cee177e835db5e65bd34b60635f2a5a5056"
+_scudo_ver = "18.1.5"
 build_style = "gnu_configure"
 configure_args = [
     "--prefix=/usr",
@@ -23,13 +24,43 @@ pkgdesc = "Musl C library (with mallocng allocator)"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.musl-libc.org"
-source = f"https://git.musl-libc.org/cgit/musl/snapshot/musl-{_commit}.tar.gz"
-sha256 = "5829457efb2247c1e39920b14721b75e9c488a06149736c8317536ec4aa3764b"
+source = [
+    f"https://git.musl-libc.org/cgit/musl/snapshot/musl-{_commit}.tar.gz",
+    f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{_scudo_ver}/compiler-rt-{_scudo_ver}.src.tar.xz",
+]
+source_paths = [".", "compiler-rt"]
+sha256 = [
+    "1d75d71482d339ef13cdf7f8ae16e4e818170306ddc5e662f9f72aa71655743f",
+    "a58fa6ce9b2d1653eaad384be4972cfdfde6dac11d2f7764f17eed801fe8c289",
+]
 compression = "deflate"
 # scp makes it segfault
 hardening = ["!scp"]
 # does not ship tests
 options = ["!check", "!lto"]
+
+
+def post_extract(self):
+    # reported in libc.so --version
+    with open(self.cwd / "VERSION", "w") as f:
+        f.write(pkgver)
+    # prepare scudo subdir
+    self.mkdir("src/malloc/scudo/scudo", parents=True)
+    # move compiler-rt stuff in there
+    scpath = self.cwd / "compiler-rt/lib/scudo/standalone"
+    for f in scpath.glob("*.cpp"):
+        self.cp(f, "src/malloc/scudo")
+    for f in scpath.glob("*.h"):
+        self.cp(f, "src/malloc/scudo")
+    for f in scpath.glob("*.inc"):
+        self.cp(f, "src/malloc/scudo")
+    self.cp(scpath / "include/scudo/interface.h", "src/malloc/scudo/scudo")
+    # remove wrappers
+    for f in (self.cwd / "src/malloc/scudo").glob("wrappers_*"):
+        f.unlink()
+    # copy in our own wrappers
+    self.cp(self.files_path / "wrappers.cpp", "src/malloc/scudo")
+    # now we're ready to get patched
 
 
 def pre_install(self):
