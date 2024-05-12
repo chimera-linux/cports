@@ -1,5 +1,5 @@
 pkgname = "spdlog"
-pkgver = "1.13.0"
+pkgver = "1.14.1"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -15,7 +15,7 @@ maintainer = "avgwst <avgwst@tutanota.de>"
 license = "MIT"
 url = "https://github.com/gabime/spdlog"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "534f2ee1a4dcbeb22249856edfb2be76a1cf4f708a20b0ac2ed090ee24cfdbc9"
+sha256 = "1586508029a7d0670dfcb2d97575dcdc242d3868a259742b69f100801ab4e16b"
 
 
 def post_install(self):
