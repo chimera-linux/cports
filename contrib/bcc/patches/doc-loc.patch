@@ -1,0 +1,26 @@
+--- a/man/man8/CMakeLists.txt
++++ b/man/man8/CMakeLists.txt
+@@ -9,4 +9,4 @@
+   list(APPEND GZFILES "${CMAKE_CURRENT_BINARY_DIR}/${NAME}.gz")
+ endforeach()
+ add_custom_target(man ALL DEPENDS ${GZFILES})
+-install(FILES ${GZFILES} DESTINATION share/bcc/man/man8)
++install(FILES ${GZFILES} DESTINATION share/man/man8)
+--- a/tools/CMakeLists.txt
++++ b/tools/CMakeLists.txt
+@@ -21,6 +21,6 @@
+   endif()
+ endforeach()
+ install(FILES ${C_FILES} DESTINATION share/bcc/tools)
+-install(FILES ${TXT_FILES} DESTINATION share/bcc/tools/doc)
++install(FILES ${TXT_FILES} DESTINATION share/doc/bcc/tools)
+ add_subdirectory(lib)
+ add_subdirectory(old)
+--- a/tools/lib/CMakeLists.txt
++++ b/tools/lib/CMakeLists.txt
+@@ -5,4 +5,4 @@
+   get_filename_component(FIL_WE ${FIL} NAME_WE)
+   install(PROGRAMS ${FIL} DESTINATION share/bcc/tools/lib RENAME ${FIL_WE})
+ endforeach()
+-install(FILES ${TXT_FILES} DESTINATION share/bcc/tools/doc/lib)
++install(FILES ${TXT_FILES} DESTINATION share/doc/bcc/tools/lib)
