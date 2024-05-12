@@ -1,5 +1,5 @@
 pkgname = "cmus"
-pkgver = "2.10.0"
+pkgver = "2.11.0"
 pkgrel = 0
 build_style = "configure"
 configure_args = [
@@ -42,7 +42,7 @@ maintainer = "Erica Z <zerica@callcc.eu>"
 license = "GPL-2.0-or-later"
 url = "https://cmus.github.io"
 source = f"https://github.com/cmus/cmus/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "ff40068574810a7de3990f4f69c9c47ef49e37bd31d298d372e8bcdafb973fff"
+sha256 = "2bbdcd6bbbae301d734214eab791e3755baf4d16db24a44626961a489aa5e0f7"
 # no tests
 options = ["!check"]
 
