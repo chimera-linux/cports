@@ -1,11 +1,11 @@
 pkgname = "wasi-sdk"
-pkgver = "21"
+pkgver = "22"
 pkgrel = 0
 build_style = "meta"
 depends = [
-    "wasi-libc",
     "clang-rt-crt-wasi",
     "libcxx-wasi",
+    "wasi-libc",
 ]
 pkgdesc = "WebAssembly C/C++ toolchain"
 maintainer = "q66 <q66@chimera-linux.org>"
