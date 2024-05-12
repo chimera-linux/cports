@@ -1,6 +1,6 @@
 pkgname = "luajit"
 pkgver = "2.1_p20231117"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "ppc64le", "ppc64", "x86_64"]
 _tests_rev = "9ad3724b1a02855a3cad638bba2e564f825954ce"
 build_style = "makefile"
