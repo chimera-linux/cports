@@ -1,5 +1,5 @@
 pkgname = "faust"
-pkgver = "2.70.3"
+pkgver = "2.72.14"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -11,7 +11,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://faust.grame.fr"
 source = f"https://github.com/grame-cncm/faust/releases/download/{pkgver}/faust-{pkgver}.tar.gz"
-sha256 = "3ac3aab87d60257b3fff03ffeb42e190480fb9828266fa1c35574b6cbf6a13bb"
+sha256 = "dcd5aaf263c59d34c385e65c4f4c5b85b0e9435e57cbfd79bb67a01e5780acf0"
 # skip execinfo
 tool_flags = {"CXXFLAGS": ["-DALPINE"]}
 # no check target
