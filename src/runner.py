@@ -489,7 +489,26 @@ def short_traceback(e, log):
     import shlex
 
     log.out("Stack trace:")
-    for fs in traceback.extract_tb(e.__traceback__):
+    # filter out some pointless stuff:
+    # 1) anything coming from inside python at the end (don't care)
+    # 2) runner.py entries at the beginning if there's more (also don't care)
+    stk = list(traceback.extract_tb(e.__traceback__))
+    # first the python ones
+    while len(stk) > 0:
+        if not stk[-1].filename.startswith(rtpath):
+            stk.pop()
+        else:
+            break
+    # now the runner.pys if needed
+    if len(stk) > 0 and not stk[-1].filename.endswith("/runner.py"):
+        nrunner = 0
+        for fs in stk:
+            if not fs.filename.endswith("/runner.py"):
+                break
+            nrunner += 1
+        stk = stk[nrunner:]
+    # print whatever is left
+    for fs in stk:
         log.out(f"  {fs.filename}:{fs.lineno}:", end="")
         log.out_plain(f" in function '{fs.name}'")
     log.out("Raised exception:")
