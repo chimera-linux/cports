@@ -1,5 +1,5 @@
 pkgname = "libsoup"
-pkgver = "3.4.4"
+pkgver = "3.5.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -35,7 +35,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libsoup"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "291c67725f36ed90ea43efff25064b69c5a2d1981488477c05c481a3b4b0c5aa"
+sha256 = "c1d7cfb89832d35c271f37d544f2cfe21fa60ae9faad4a7ac58996ae4031f7ba"
 # krb5-config may be problematic
 options = ["!cross"]
 
