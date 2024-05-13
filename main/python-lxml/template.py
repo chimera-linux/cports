@@ -1,5 +1,5 @@
 pkgname = "python-lxml"
-pkgver = "5.2.1"
+pkgver = "5.2.2"
 pkgrel = 0
 build_style = "python_pep517"
 make_build_env = {"WITH_CYTHON": "true"}
@@ -16,7 +16,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause AND custom:ElementTree"
 url = "https://lxml.de"
 source = f"https://github.com/lxml/lxml/archive/lxml-{pkgver}.tar.gz"
-sha256 = "376d47cfc10aa75537ebaae2700e934e2f7a7435bee04c9b566fc79bb8135833"
+sha256 = "1801c8576a4fca14d46561f2963cebe4dad2c90f6d98aaaa4f241eff757e7c6c"
 # missing checkdepends
 options = ["!check"]
 
