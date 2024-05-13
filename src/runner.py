@@ -483,6 +483,18 @@ def init_late():
 #
 
 
+def short_traceback(e, log):
+    import traceback
+
+    log.out("Stack trace:")
+    for fs in traceback.extract_tb(e.__traceback__):
+        log.out(f"  {fs.filename}:{fs.lineno}:", end="")
+        log.out_plain(f" in function '{fs.name}'")
+    log.out("Raised exception:")
+    log.out(f"  {type(e).__name__}: ", end="")
+    log.out_plain(str(e))
+
+
 def binary_bootstrap(tgt):
     from cbuild.core import chroot, paths
 
@@ -1589,7 +1601,6 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
 def _bulkpkg(pkgs, statusf, do_build, do_raw):
     import pathlib
     import graphlib
-    import traceback
 
     from cbuild.core import logger, template, chroot, errors, build
 
@@ -1621,18 +1632,18 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
             return False
         except errors.TracebackException as e:
             log.out_red(str(e))
-            traceback.print_exc(file=log.estream)
+            short_traceback(e, log)
             failed = True
             return False
         except errors.PackageException as e:
             e.pkg.log_red(f"ERROR: {e}", e.end)
             if e.bt:
-                traceback.print_exc(file=log.estream)
+                short_traceback(e, log)
             failed = True
             return False
-        except Exception:
+        except Exception as e:
             logger.get().out_red("A failure has occurred!")
-            traceback.print_exc(file=log.estream)
+            short_traceback(e, log)
             failed = True
             return False
         # signal we're continuing
@@ -2252,16 +2263,16 @@ def fire():
         sys.exit(1)
     except errors.TracebackException as e:
         logger.get().out_red(str(e))
-        traceback.print_exc(file=logger.get().estream)
+        short_traceback(e, logger.get())
         sys.exit(1)
     except errors.PackageException as e:
         e.pkg.log_red(f"ERROR: {e}", e.end)
         if e.bt:
-            traceback.print_exc(file=logger.get().estream)
+            short_traceback(e, logger.get())
         sys.exit(1)
-    except Exception:
+    except Exception as e:
         logger.get().out_red("A failure has occurred!")
-        traceback.print_exc(file=logger.get().estream)
+        short_traceback(e, logger.get())
         sys.exit(1)
     finally:
         if opt_mdirtemp and not opt_keeptemp:
