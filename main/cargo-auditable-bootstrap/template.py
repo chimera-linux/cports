@@ -10,7 +10,7 @@ make_check_args = make_build_args + [
     # probably fails because we have slightly older cargo
     "test_wasm",
 ]
-hostmakedepends = ["cargo-auditable-bootstrap"]
+hostmakedepends = ["cargo"]
 makedepends = ["rust-std"]
 depends = ["cargo"]
 pkgdesc = "Tool for embedding dependency information in rust binaries"
