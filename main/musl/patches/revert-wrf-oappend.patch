@@ -1,0 +1,61 @@
+From df93d22a5c6eea26f92f6cde49f396c60cc5df81 Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Mon, 13 May 2024 08:10:51 +0000
+Subject: [PATCH] Revert "fix pwrite/pwritev handling of O_APPEND files"
+
+This reverts commit 5370070fded61b569196764673a4fc8440aac79e.
+---
+ src/unistd/pwrite.c  | 11 -----------
+ src/unistd/pwritev.c | 10 +---------
+ 2 files changed, 1 insertion(+), 20 deletions(-)
+
+diff --git a/src/unistd/pwrite.c b/src/unistd/pwrite.c
+index a008b3ec..869b69f0 100644
+--- a/src/unistd/pwrite.c
++++ b/src/unistd/pwrite.c
+@@ -1,18 +1,7 @@
+-#define _GNU_SOURCE
+ #include <unistd.h>
+-#include <sys/uio.h>
+-#include <fcntl.h>
+ #include "syscall.h"
+ 
+ ssize_t pwrite(int fd, const void *buf, size_t size, off_t ofs)
+ {
+-	if (ofs == -1) ofs--;
+-	int r = __syscall_cp(SYS_pwritev2, fd,
+-		(&(struct iovec){ .iov_base = (void *)buf, .iov_len = size }),
+-		1, (long)(ofs), (long)(ofs>>32), RWF_NOAPPEND);
+-	if (r != -EOPNOTSUPP && r != -ENOSYS)
+-		return __syscall_ret(r);
+-	if (fcntl(fd, F_GETFL) & O_APPEND)
+-		return __syscall_ret(-EOPNOTSUPP);
+ 	return syscall_cp(SYS_pwrite, fd, buf, size, __SYSCALL_LL_PRW(ofs));
+ }
+diff --git a/src/unistd/pwritev.c b/src/unistd/pwritev.c
+index 44a53d85..becf9deb 100644
+--- a/src/unistd/pwritev.c
++++ b/src/unistd/pwritev.c
+@@ -1,18 +1,10 @@
+-#define _GNU_SOURCE
++#define _BSD_SOURCE
+ #include <sys/uio.h>
+ #include <unistd.h>
+-#include <fcntl.h>
+ #include "syscall.h"
+ 
+ ssize_t pwritev(int fd, const struct iovec *iov, int count, off_t ofs)
+ {
+-	if (ofs == -1) ofs--;
+-	int r = __syscall_cp(SYS_pwritev2, fd, iov, count,
+-		(long)(ofs), (long)(ofs>>32), RWF_NOAPPEND);
+-	if (r != -EOPNOTSUPP && r != -ENOSYS)
+-		return __syscall_ret(r);
+-	if (fcntl(fd, F_GETFL) & O_APPEND)
+-		return __syscall_ret(-EOPNOTSUPP);
+ 	return syscall_cp(SYS_pwritev, fd, iov, count,
+ 		(long)(ofs), (long)(ofs>>32));
+ }
+-- 
+2.45.0
+
