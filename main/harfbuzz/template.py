@@ -1,10 +1,11 @@
 pkgname = "harfbuzz"
 pkgver = "8.4.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Db_ndebug=true",
     "-Dcairo=enabled",
+    "-Dcpp_std=c++17",
     "-Ddocs=enabled",
     "-Dfreetype=enabled",
     "-Dglib=enabled",

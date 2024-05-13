@@ -1,6 +1,6 @@
 pkgname = "gspell"
 pkgver = "1.12.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-static", "--enable-introspection", "--enable-vala"]
 make_cmd = "gmake"

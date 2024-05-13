@@ -1,6 +1,6 @@
 pkgname = "mozjs115"
 pkgver = "115.10.0"
-pkgrel = 1
+pkgrel = 2
 make_cmd = "gmake"
 hostmakedepends = [
     "gmake",

@@ -1,6 +1,6 @@
 pkgname = "dino"
 pkgver = "0.4.3"
-pkgrel = 3
+pkgrel = 4
 build_style = "cmake"
 configure_args = [
     "-DBUILD_TESTS=ON",
