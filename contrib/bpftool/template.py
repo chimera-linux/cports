@@ -1,5 +1,5 @@
 pkgname = "bpftool"
-pkgver = "6.8.9"
+pkgver = "6.9"
 pkgrel = 0
 build_wrksrc = "tools/bpf/bpftool"
 build_style = "makefile"
@@ -29,6 +29,6 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-only"
 url = "https://perf.wiki.kernel.org/index.php/Main_Page"
 source = f"https://cdn.kernel.org/pub/linux/kernel/v{pkgver[:pkgver.find('.')]}.x/linux-{pkgver}.tar.xz"
-sha256 = "f905f1238ea7a8e85314bacf283302e8097006010d25fcea726d0de0ea5bc9b6"
+sha256 = "24fa01fb989c7a3e28453f117799168713766e119c5381dac30115f18f268149"
 # nope
 options = ["!check"]
