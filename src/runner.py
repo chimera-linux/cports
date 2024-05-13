@@ -485,6 +485,8 @@ def init_late():
 
 def short_traceback(e, log):
     import traceback
+    import subprocess
+    import shlex
 
     log.out("Stack trace:")
     for fs in traceback.extract_tb(e.__traceback__):
@@ -492,7 +494,27 @@ def short_traceback(e, log):
         log.out_plain(f" in function '{fs.name}'")
     log.out("Raised exception:")
     log.out(f"  {type(e).__name__}: ", end="")
-    log.out_plain(str(e))
+    match type(e):
+        case subprocess.CalledProcessError:
+            # a bit nicer handling of cmd
+            # for bwrap commands, skip all the pointless parts of the cmdline
+            fcmd = []
+            in_bwrap = False
+            for ce in map(lambda v: str(v), e.cmd):
+                if ce == "bwrap":
+                    in_bwrap = True
+                    fcmd += ["bwrap", "..."]
+                elif ce == "--":
+                    in_bwrap = False
+                    fcmd.append("--")
+                elif not in_bwrap:
+                    fcmd.append(ce)
+            # now print the command in a nice quoted way
+            log.out_plain(
+                f"command '{shlex.join(fcmd)}' failed with exit code {e.returncode}"
+            )
+        case _:
+            log.out_plain(str(e))
 
 
 def binary_bootstrap(tgt):
