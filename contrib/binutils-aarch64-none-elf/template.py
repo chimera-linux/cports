@@ -1,6 +1,6 @@
 _trip = "aarch64-none-elf"
 pkgname = f"binutils-{_trip}"
-pkgver = "2.41"
+pkgver = "2.42"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -36,7 +36,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.gnu.org/software/binutils"
 source = f"$(GNU_SITE)/binutils/binutils-{pkgver}.tar.xz"
-sha256 = "ae9a5789e23459e59606e6714723f2d3ffc31c03174191ef0d015bdf06007450"
+sha256 = "f6e4d41fd5fc778b06b7891457b3620da5ecea1006c6a4a41ae998109f85a800"
 # resistance is futile
 options = ["!check", "!lto", "linkundefver"]
 
