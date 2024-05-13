@@ -182,6 +182,8 @@ def post_install(self):
     self.rm(self.destdir / "usr/lib/qt6/bin/nospace")
     self.rm(self.destdir / "usr/lib/qt6/bin/one space")
     self.rm(self.destdir / "usr/lib/qt6/bin/two space s")
+    self.rm(self.destdir / "usr/lib/qt6/bin/write-read-write")
+    self.rm(self.destdir / "usr/lib/qt6/bin/test*", glob=True)
     self.install_file(self.files_path / "target_qt.conf", "usr/lib/qt6/bin")
     # eliminate hardlinks
     for f in (self.destdir / "usr/lib/qt6/bin").glob("*6"):
