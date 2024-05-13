@@ -1,6 +1,6 @@
 pkgname = "evolution-data-server"
 pkgver = "3.52.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DWITH_LIBDB=OFF",

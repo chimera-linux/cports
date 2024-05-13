@@ -1,0 +1,13 @@
+[build BRK] CustomTarget/i18npool/breakiterator/sent.brk
+createRuleBasedBreakIterator: ICU Error "U_BRK_RULE_EMPTY_SET"  at line 109, column 1
+--
+--- a/i18npool/source/breakiterator/data/sent.txt
++++ b/i18npool/source/breakiterator/data/sent.txt
+@@ -106,7 +106,6 @@
+ #            builder.  Needs more investigation.
+ #
+ 
+-[{bof}] (.? | $LF $CR) [^$Sep]* [$Sep {eof}] ($SpEx_R* $CloseEx_R* ($STermEx_R | $ATermEx_R))*;
+ #.*;
+ 
+ # Explanation for this rule:
