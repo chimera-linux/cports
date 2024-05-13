@@ -1,6 +1,6 @@
 pkgname = "cmocka"
 pkgver = "1.1.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = ["-DUNIT_TESTING=ON"]
 hostmakedepends = ["cmake", "ninja", "pkgconf"]

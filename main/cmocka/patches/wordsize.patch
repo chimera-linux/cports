@@ -4,7 +4,7 @@
   */
  
  /* If __WORDSIZE is not set, try to figure it out and default to 32 bit. */
-+#include <bits/reg.h>
++#include <sys/reg.h>
  #ifndef __WORDSIZE
 -# if (defined(__x86_64__) && !defined(__ILP32__)) || defined(__sparc_v9__) || defined(__sparcv9)
 -#  define __WORDSIZE 64
