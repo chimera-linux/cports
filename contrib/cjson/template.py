@@ -1,5 +1,5 @@
 pkgname = "cjson"
-pkgver = "1.7.17"
+pkgver = "1.7.18"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -16,10 +16,8 @@ pkgdesc = "Lightweight C JSON parser"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/DaveGamble/cJSON"
-source = (
-    f"https://github.com/DaveGamble/cJSON/archive/refs/tags/v{pkgver}.tar.gz"
-)
-sha256 = "c91d1eeb7175c50d49f6ba2a25e69b46bd05cffb798382c19bfb202e467ec51c"
+source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
+sha256 = "3aa806844a03442c00769b83e99970be70fbef03735ff898f4811dd03b9f5ee5"
 hardening = ["vis", "cfi"]
 
 
