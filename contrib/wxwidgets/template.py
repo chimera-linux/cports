@@ -1,6 +1,6 @@
 pkgname = "wxwidgets"
-pkgver = "3.2.4"
-pkgrel = 1
+pkgver = "3.2.5"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DwxBUILD_PRECOMP=OFF",
@@ -46,7 +46,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "custom:wxWidgets"
 url = "https://www.wxwidgets.org"
 source = f"https://github.com/wxWidgets/wxWidgets/releases/download/v{pkgver}/wxWidgets-{pkgver}.tar.bz2"
-sha256 = "0640e1ab716db5af2ecb7389dbef6138d7679261fbff730d23845ba838ca133e"
+sha256 = "0ad86a3ad3e2e519b6a705248fc9226e3a09bbf069c6c692a02acf7c2d1c6b51"
 # fixme: int
 hardening = ["!int"]
 # fixme
