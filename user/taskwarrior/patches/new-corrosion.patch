@@ -1,0 +1,10 @@
+diff --git a/src/tc/CMakeLists.txt b/src/tc/CMakeLists.txt
+index 8009dae04..b81c51c49 100644
+--- a/src/tc/CMakeLists.txt
++++ b/src/tc/CMakeLists.txt
+@@ -24,4 +24,4 @@ set (tc_SRCS
+   Task.cpp Task.h)
+ 
+ add_library (tc STATIC ${tc_SRCS})
+-target_link_libraries(tc taskchampion-lib)
++target_link_libraries(tc taskchampion_lib)
