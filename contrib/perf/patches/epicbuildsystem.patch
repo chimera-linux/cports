@@ -9,7 +9,7 @@
  ifndef NO_PERF_READ_VDSO32
  	$(call QUIET_INSTALL, perf-read-vdso32) \
  		$(INSTALL) $(OUTPUT)perf-read-vdso32 '$(DESTDIR_SQ)$(bindir_SQ)';
-@@ -963,52 +963,52 @@ endif
+@@ -1005,39 +1005,39 @@
  	$(call QUIET_INSTALL, libexec) \
  		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)'
  	$(call QUIET_INSTALL, perf-archive) \
@@ -17,7 +17,7 @@
 +		$(INSTALL) $(OUTPUT)perf-archive '$(DESTDIR_SQ)$(perfexec_instdir_SQ)'
  	$(call QUIET_INSTALL, perf-iostat) \
 -		$(INSTALL) $(OUTPUT)perf-iostat -t '$(DESTDIR_SQ)$(perfexec_instdir_SQ)'
-+		$(INSTALL) $(OUTPUT)perf-iostat  '$(DESTDIR_SQ)$(perfexec_instdir_SQ)'
++		$(INSTALL) $(OUTPUT)perf-iostat '$(DESTDIR_SQ)$(perfexec_instdir_SQ)'
  ifndef NO_LIBAUDIT
  	$(call QUIET_INSTALL, strace/groups) \
  		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(STRACE_GROUPS_INSTDIR_SQ)'; \
@@ -60,23 +60,6 @@
  
  install-tests: all install-gtk
  	$(call QUIET_INSTALL, tests) \
- 		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests'; \
--		$(INSTALL) tests/attr.py -m 644 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests'; \
-+		$(INSTALL) -m 644 tests/attr.py  '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests'; \
- 		$(INSTALL) tests/pe-file.exe* '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests'; \
- 		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/attr'; \
--		$(INSTALL) tests/attr/* -m 644 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/attr'; \
-+		$(INSTALL) -m 644 tests/attr/* '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/attr'; \
- 		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell'; \
- 		$(INSTALL) tests/shell/*.sh '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell'; \
- 		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell/lib'; \
--		$(INSTALL) tests/shell/lib/*.sh -m 644 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell/lib'; \
--		$(INSTALL) tests/shell/lib/*.py -m 644 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell/lib'; \
-+		$(INSTALL) -m 644 tests/shell/lib/*.sh '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell/lib'; \
-+		$(INSTALL) -m 644 tests/shell/lib/*.py '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell/lib'; \
- 		$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell/coresight' ; \
- 		$(INSTALL) tests/shell/coresight/*.sh '$(DESTDIR_SQ)$(perfexec_instdir_SQ)/tests/shell/coresight'
- 	$(Q)$(MAKE) -C tests/shell/coresight install-tests
 --- a/tools/lib/perf/Makefile
 +++ b/tools/lib/perf/Makefile
 @@ -179,7 +179,7 @@
