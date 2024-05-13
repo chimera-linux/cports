@@ -2128,7 +2128,6 @@ def do_bump_pkgrel(tgt):
 def fire():
     import sys
     import shutil
-    import traceback
     import subprocess
 
     from cbuild.core import chroot, logger, template, profile
