@@ -1,6 +1,6 @@
 pkgname = "libimobiledevice-glue"
 pkgver = "1.2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",

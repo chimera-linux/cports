@@ -1,6 +1,6 @@
 pkgname = "usbmuxd"
 pkgver = "1.1.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--without-systemd"]
 make_cmd = "gmake"
