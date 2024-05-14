@@ -1,7 +1,7 @@
 pkgname = "libbpf-tools"
 pkgver = "0.30.0"
 pkgrel = 0
-arch = ["aarch64", "ppc64le", "riscv64", "x86_64"]
+archs = ["aarch64", "ppc64le", "riscv64", "x86_64"]
 build_wrksrc = "libbpf-tools"
 build_style = "makefile"
 make_cmd = "gmake"
