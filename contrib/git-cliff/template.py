@@ -22,10 +22,6 @@ sha256 = "c47b517907cfede556c50d790fddc07039c7ab477a2a059dde57090c97adfbac"
 options = ["!cross"]
 
 
-if self.profile().arch == "riscv64":
-    broken = "linking fails with floating point abi mismatch?"
-
-
 def post_build(self):
     self.do(
         f"target/{self.profile().triplet}/release/git-cliff-mangen",
