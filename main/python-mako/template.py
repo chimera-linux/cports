@@ -1,5 +1,5 @@
 pkgname = "python-mako"
-pkgver = "1.3.3"
+pkgver = "1.3.5"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -15,9 +15,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://www.makotemplates.org"
 source = f"$(PYPI_SITE)/M/Mako/Mako-{pkgver}.tar.gz"
-sha256 = "e16c01d9ab9c11f7290eef1cfefc093fb5a45ee4a3da09e2fec2e4d1bae54e73"
-# tests failing with 3.10 for now, should be harmless
-options = ["!check"]
+sha256 = "48dbc20568c1d276a2698b36d968fa76161bf127194907ea6fc594fa81f943bc"
 
 
 def post_install(self):
