@@ -1,6 +1,6 @@
 pkgname = "catgirl"
-pkgver = "2.2"
-pkgrel = 1
+pkgver = "2.2a"
+pkgrel = 0
 build_style = "configure"
 configure_args = ["--prefix=/usr", "--mandir=/usr/share/man"]
 make_build_target = "all"
@@ -16,7 +16,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://git.causal.agency/catgirl"
 source = f"{url}/snapshot/{pkgname}-{pkgver}.tar.gz"
-sha256 = "fb6d04a099303af05d278c705c1542e7ee61643c030d6a0b68dec5371080a3c7"
+sha256 = "c6d760aaee134e052586def7a9103543f7281fde6531fbcb41086470794297c2"
 # FIXME: cfi
 hardening = ["vis"]
 # no tests
