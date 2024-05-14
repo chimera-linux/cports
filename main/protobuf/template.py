@@ -1,6 +1,6 @@
 pkgname = "protobuf"
 pkgver = "26.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
@@ -37,6 +37,7 @@ def _lite(self):
 @subpackage("protoc")
 def _protoc(self):
     self.pkgdesc = "Protocol buffers compiler and its library"
+    self.depends = [f"protobuf-devel={pkgver}-r{pkgrel}"]
 
     return [
         "usr/bin",
