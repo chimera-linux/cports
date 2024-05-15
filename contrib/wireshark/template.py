@@ -1,5 +1,5 @@
 pkgname = "wireshark"
-pkgver = "4.2.4"
+pkgver = "4.2.5"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -56,8 +56,8 @@ pkgdesc = "Network protocol analyzer"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://www.wireshark.org"
-source = f"https://www.wireshark.org/download/src/all-versions/wireshark-{pkgver}.tar.xz"
-sha256 = "46bd0f4474337144b30816fb2d8f14e72a26d0391f24fe0b7b619acdcdad8c0c"
+source = f"https://www.wireshark.org/download/src/wireshark-{pkgver}.tar.xz"
+sha256 = "55e793ab87a9a73aac44336235c92cb76c52180c469b362ed3a54f26fbb1261f"
 # forbid non-wireshark-group users from reading all network packets
 file_modes = {
     "usr/bin/dumpcap": ("root", "_wireshark", 0o750),
