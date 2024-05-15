@@ -1,23 +1,20 @@
 pkgname = "mandoc"
 pkgver = "1.14.6"
-pkgrel = 2
+pkgrel = 3
 build_style = "configure"
 make_cmd = "gmake"
 make_check_target = "regress"
 hostmakedepends = ["gmake"]
-makedepends = ["less", "zlib-devel"]
+makedepends = ["zlib-devel"]
 checkdepends = ["perl"]
 depends = ["less"]
 pkgdesc = "UNIX manpage compiler toolset"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
-url = "http://mandoc.bsd.lv"
+url = "https://mandoc.bsd.lv"
 source = f"{url}/snapshots/{pkgname}-{pkgver}.tar.gz"
 sha256 = "8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c"
-# FIXME int
-hardening = ["!int"]
-# ld: error: undefined symbol: mchars_alloc
-options = ["!lto"]
+hardening = ["vis", "cfi"]
 
 
 def pre_configure(self):
@@ -78,9 +75,6 @@ def _apropos(self):
     self.pkgdesc = f"{pkgdesc} (apropos trigger)"
     self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
     self.triggers = ["/usr/share/man"]
+    self.options = ["empty"]
 
-    return [
-        "usr/bin/apropos",
-        "usr/bin/makewhatis",
-        "usr/bin/whatis",
-    ]
+    return []
