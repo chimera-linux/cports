@@ -1,5 +1,5 @@
 pkgname = "iniparser"
-pkgver = "4.2"
+pkgver = "4.2.1"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -13,7 +13,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "MIT"
 url = "https://github.com/ndevilla/iniparser"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "dbcbaf3aedb4f88a9fc0df4b315737ddd10e6c37918e3d89f0ecc475333bde4d"
+sha256 = "9120fd13260be1dbec74b8aaf47777c434976626f3b3288c0d17b70e21cce2d2"
 # vis breaks symbols
 hardening = []
 
