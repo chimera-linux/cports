@@ -1,5 +1,5 @@
 pkgname = "xwayland"
-pkgver = "23.2.6"
+pkgver = "23.2.7"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -41,7 +41,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://xorg.freedesktop.org"
 source = f"https://gitlab.freedesktop.org/xorg/xserver/-/archive/{pkgname}-{pkgver}/xserver-{pkgname}-{pkgver}.tar.gz"
-sha256 = "4e01673bbb5d5fe897c532e670187fa0b9af73f1d740b40a149d23475ad4f214"
+sha256 = "7dccc9f3c898438715193f8fd3979a9810200f554c1d73f3122bf9463e42acad"
 hardening = ["!cfi"]  # TODO
 # needs xtest repository
 options = ["!check"]
