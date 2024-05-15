@@ -9,10 +9,10 @@ Node.js 7.2.0
 
 --- a/Makefile
 +++ b/Makefile
-@@ -141,7 +141,7 @@
- 	echo "'test-code-cache' target is a noop"
+@@ -172,7 +172,7 @@
+ 	$(warning '$@' target is a noop)
  
- out/Makefile: config.gypi common.gypi node.gyp \
+ out/Makefile: config.gypi common.gypi common_node.gypi node.gyp \
 -	deps/uv/uv.gyp deps/llhttp/llhttp.gyp deps/zlib/zlib.gyp \
 +	deps/uv/uv.gyp deps/llhttp/llhttp.gyp \
  	deps/simdutf/simdutf.gyp deps/ada/ada.gyp \
