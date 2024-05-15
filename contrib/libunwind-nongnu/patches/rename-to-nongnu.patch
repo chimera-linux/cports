@@ -1,0 +1,572 @@
+From 17c8aac2158accf99b26d70fed3069d2532aa2b6 Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Wed, 15 May 2024 20:43:46 +0000
+Subject: [PATCH] rename to libunwind-nongnu
+
+to fix conflict with llvm libunwind which owns the same basic name
+---
+ configure.ac                                  |   2 +-
+ src/Makefile.am                               | 200 +++++++++---------
+ src/coredump/libunwind-coredump.pc.in         |   2 +-
+ src/libunwind-generic.pc.in                   |   2 +-
+ src/ptrace/libunwind-ptrace.pc.in             |   2 +-
+ src/setjmp/libunwind-setjmp.pc.in             |   2 +-
+ ...libunwind.pc.in => libunwind-nongnu.pc.in} |   2 +-
+ tests/Makefile.am                             |   2 +-
+ 8 files changed, 107 insertions(+), 107 deletions(-)
+ rename src/unwind/{libunwind.pc.in => libunwind-nongnu.pc.in} (84%)
+
+diff --git a/configure.ac b/configure.ac
+index 82caaa7..be8f498 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -571,7 +571,7 @@ AC_SUBST(enable_debug_frame)
+ AC_CONFIG_FILES(Makefile src/Makefile
+                 include/libunwind-common.h
+                 include/libunwind.h include/tdep/libunwind_i.h)
+-AC_CONFIG_FILES(src/unwind/libunwind.pc src/coredump/libunwind-coredump.pc
++AC_CONFIG_FILES(src/unwind/libunwind-nongnu.pc src/coredump/libunwind-coredump.pc
+                 src/ptrace/libunwind-ptrace.pc src/setjmp/libunwind-setjmp.pc
+                 src/libunwind-generic.pc)
+ AC_OUTPUT
+diff --git a/src/Makefile.am b/src/Makefile.am
+index 63041fd..23a92d2 100644
+--- a/src/Makefile.am
++++ b/src/Makefile.am
+@@ -38,7 +38,7 @@ COMMON_SO_LDFLAGS = $(LDFLAGS_NOSTARTFILES)
+ #
+ lib_LTLIBRARIES =
+ if !REMOTE_ONLY
+- lib_LTLIBRARIES += libunwind.la
++ lib_LTLIBRARIES += libunwind-nongnu.la
+ endif
+ if ARCH_AARCH64
+  lib_LTLIBRARIES += libunwind-aarch64.la
+@@ -109,7 +109,7 @@ endif
+ # If local unwinding is being built, link in the local unwinding functions
+ libunwind_libadd =
+ if !REMOTE_ONLY
+-  libunwind_libadd += libunwind.la -lc
++  libunwind_libadd += libunwind-nongnu.la -lc
+ endif
+ 
+ ### pkg-config:
+@@ -117,7 +117,7 @@ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = libunwind-generic.pc
+ 
+ if !REMOTE_ONLY
+-pkgconfig_DATA += unwind/libunwind.pc
++pkgconfig_DATA += unwind/libunwind-nongnu.pc
+ endif
+ if BUILD_COREDUMP
+ pkgconfig_DATA += coredump/libunwind-coredump.pc
+@@ -216,19 +216,19 @@ libunwind_setjmp_la_LIBADD =                   \
+ 	$(libunwind_libadd)
+ 
+ ### libunwind:
+-libunwind_la_LIBADD =
++libunwind_nongnu_la_LIBADD =
+ 
+ # List of arch-independent files needed by both local-only and generic
+ # libraries:
+-libunwind_la_SOURCES_common =                  \
+-	$(libunwind_la_SOURCES_os)             \
++libunwind_nongnu_la_SOURCES_common =                  \
++	$(libunwind_nongnu_la_SOURCES_os)             \
+ 	mi/init.c                              \
+ 	mi/flush_cache.c                       \
+ 	mi/mempool.c                           \
+ 	mi/strerror.c
+ 
+ # List of arch-independent files needed by generic library (libunwind-$ARCH):
+-libunwind_la_SOURCES_generic =                 \
++libunwind_nongnu_la_SOURCES_generic =                 \
+ 	mi/Gaddress_validator.c                \
+ 	mi/Gdestroy_addr_space.c               \
+ 	mi/Gdyn-extract.c                      \
+@@ -248,7 +248,7 @@ libunwind_la_SOURCES_generic =                 \
+ 	mi/Gget_elf_filename.c
+ 
+ if SUPPORT_CXX_EXCEPTIONS
+-libunwind_la_SOURCES_local_unwind =            \
++libunwind_nongnu_la_SOURCES_local_unwind =            \
+ 	unwind/Backtrace.c                     \
+ 	unwind/DeleteException.c               \
+ 	unwind/FindEnclosingFunction.c         \
+@@ -269,14 +269,14 @@ libunwind_la_SOURCES_local_unwind =            \
+ 	unwind/SetIP.c
+ 
+ #  _ReadULEB()/_ReadSLEB() are needed for Intel C++ 8.0 compatibility
+-libunwind_la_SOURCES_os_linux_local =          \
++libunwind_nongnu_la_SOURCES_os_linux_local =          \
+ 	mi/_ReadULEB.c                         \
+ 	mi/_ReadSLEB.c
+ endif SUPPORT_CXX_EXCEPTIONS
+ 
+ # List of arch-independent files needed by local-only library (libunwind):
+-libunwind_la_SOURCES_local_nounwind =          \
+-	$(libunwind_la_SOURCES_os_local)       \
++libunwind_nongnu_la_SOURCES_local_nounwind =          \
++	$(libunwind_nongnu_la_SOURCES_os_local)       \
+ 	mi/backtrace.c                         \
+ 	mi/dyn-cancel.c                        \
+ 	mi/dyn-info-list.c                     \
+@@ -297,9 +297,9 @@ libunwind_la_SOURCES_local_nounwind =          \
+ 	mi/Lset_reg.c                          \
+ 	mi/Lget_elf_filename.c
+ 
+-libunwind_la_SOURCES_local =                   \
+-	$(libunwind_la_SOURCES_local_nounwind) \
+-	$(libunwind_la_SOURCES_local_unwind)
++libunwind_nongnu_la_SOURCES_local =                   \
++	$(libunwind_nongnu_la_SOURCES_local_nounwind) \
++	$(libunwind_nongnu_la_SOURCES_local_unwind)
+ 
+ noinst_HEADERS += os-linux.h
+ 
+@@ -330,7 +330,7 @@ if USE_DWARF
+ if !REMOTE_ONLY
+  noinst_LTLIBRARIES += libunwind-dwarf-local.la
+ endif
+- libunwind_la_LIBADD += libunwind-dwarf-local.la
++ libunwind_nongnu_la_LIBADD += libunwind-dwarf-local.la
+ endif
+ 
+ noinst_HEADERS += elf32.h elf64.h elfxx.h
+@@ -343,19 +343,19 @@ libunwind_elf64_la_LIBADD  = $(LIBLZMA) $(LIBZ)
+ libunwind_elfxx_la_LIBADD  = $(LIBLZMA) $(LIBZ)
+ 
+ noinst_LTLIBRARIES += $(libunwind_elf_libs)
+-libunwind_la_LIBADD += $(libunwind_elf_libs)
++libunwind_nongnu_la_LIBADD += $(libunwind_elf_libs)
+ 
+ if OS_LINUX
+- libunwind_la_SOURCES_os               = os-linux.c dl-iterate-phdr.c
+- libunwind_la_SOURCES_os_local         = $(libunwind_la_SOURCES_os_linux_local)
+- libunwind_la_SOURCES_aarch64_os       = aarch64/Gos-linux.c
+- libunwind_la_SOURCES_aarch64_os_local = aarch64/Los-linux.c
+- libunwind_la_SOURCES_arm_os           = arm/Gos-linux.c
+- libunwind_la_SOURCES_arm_os_local     = arm/Los-linux.c
+- libunwind_la_SOURCES_x86_os           = x86/Gos-linux.c
+- libunwind_la_SOURCES_x86_os_local     = x86/Los-linux.c x86/getcontext-linux.S
+- libunwind_la_SOURCES_x86_64_os        = x86_64/Gos-linux.c
+- libunwind_la_SOURCES_x86_64_os_local  = x86_64/Los-linux.c
++ libunwind_nongnu_la_SOURCES_os               = os-linux.c dl-iterate-phdr.c
++ libunwind_nongnu_la_SOURCES_os_local         = $(libunwind_la_SOURCES_os_linux_local)
++ libunwind_nongnu_la_SOURCES_aarch64_os       = aarch64/Gos-linux.c
++ libunwind_nongnu_la_SOURCES_aarch64_os_local = aarch64/Los-linux.c
++ libunwind_nongnu_la_SOURCES_arm_os           = arm/Gos-linux.c
++ libunwind_nongnu_la_SOURCES_arm_os_local     = arm/Los-linux.c
++ libunwind_nongnu_la_SOURCES_x86_os           = x86/Gos-linux.c
++ libunwind_nongnu_la_SOURCES_x86_os_local     = x86/Los-linux.c x86/getcontext-linux.S
++ libunwind_nongnu_la_SOURCES_x86_64_os        = x86_64/Gos-linux.c
++ libunwind_nongnu_la_SOURCES_x86_64_os_local  = x86_64/Los-linux.c
+  libunwind_coredump_la_SOURCES += coredump/_UCD_access_reg_linux.c
+  libunwind_coredump_la_SOURCES += coredump/_UCD_get_threadinfo_prstatus.c
+  libunwind_coredump_la_SOURCES += coredump/_UCD_get_mapinfo_linux.c
+@@ -403,17 +403,17 @@ endif
+ ### target AArch64:
+ # The list of files that go into libunwind and libunwind-aarch64:
+ noinst_HEADERS += aarch64/init.h aarch64/ucontext_i.h aarch64/unwind_i.h
+-libunwind_la_SOURCES_aarch64_common =          \
+-	$(libunwind_la_SOURCES_common)         \
++libunwind_nongnu_la_SOURCES_aarch64_common =          \
++	$(libunwind_nongnu_la_SOURCES_common)         \
+ 	aarch64/is_fpreg.c                     \
+ 	aarch64/regname.c
+ 
+ # The list of files that go into libunwind:
+ if ARCH_AARCH64
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_aarch64_common) \
+-	$(libunwind_la_SOURCES_local)          \
+-	$(libunwind_la_SOURCES_aarch64_os_local)   \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_aarch64_common) \
++	$(libunwind_nongnu_la_SOURCES_local)          \
++	$(libunwind_nongnu_la_SOURCES_aarch64_os_local)   \
+ 	aarch64/getcontext.S                   \
+ 	aarch64/Lapply_reg_state.c             \
+ 	aarch64/Lcreate_addr_space.c           \
+@@ -437,9 +437,9 @@ libunwind_setjmp_la_SOURCES +=                 \
+ endif ARCH_AARCH64
+ 
+ libunwind_aarch64_la_SOURCES =                 \
+-	$(libunwind_la_SOURCES_aarch64_common) \
+-	$(libunwind_la_SOURCES_generic)        \
+-	$(libunwind_la_SOURCES_aarch64_os)     \
++	$(libunwind_nongnu_la_SOURCES_aarch64_common) \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_aarch64_os)     \
+ 	aarch64/Gapply_reg_state.c             \
+ 	aarch64/Gcreate_addr_space.c           \
+ 	aarch64/Gget_proc_info.c               \
+@@ -469,16 +469,16 @@ noinst_HEADERS +=                              \
+ 	arm/init.h                             \
+ 	arm/offsets.h                          \
+ 	arm/unwind_i.h
+-libunwind_la_SOURCES_arm_common =              \
+-	$(libunwind_la_SOURCES_common)         \
++libunwind_nongnu_la_SOURCES_arm_common =              \
++	$(libunwind_nongnu_la_SOURCES_common)         \
+ 	arm/is_fpreg.c arm/regname.c
+ 
+ # The list of files that go into libunwind:
+ if ARCH_ARM
+-libunwind_la_SOURCES = \
+-	$(libunwind_la_SOURCES_arm_common)     \
+-	$(libunwind_la_SOURCES_arm_os_local)   \
+-	$(libunwind_la_SOURCES_local)          \
++libunwind_nongnu_la_SOURCES = \
++	$(libunwind_nongnu_la_SOURCES_arm_common)     \
++	$(libunwind_nongnu_la_SOURCES_arm_os_local)   \
++	$(libunwind_nongnu_la_SOURCES_local)          \
+ 	arm/getcontext.S                       \
+ 	arm/Lapply_reg_state.c                 \
+ 	arm/Lcreate_addr_space.c               \
+@@ -500,9 +500,9 @@ endif # ARCH_ARM
+ 
+ # The list of files that go into libunwind-arm:
+ libunwind_arm_la_SOURCES =                     \
+-	$(libunwind_la_SOURCES_arm_common)     \
+-	$(libunwind_la_SOURCES_arm_os)         \
+-	$(libunwind_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_arm_common)     \
++	$(libunwind_nongnu_la_SOURCES_arm_os)         \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
+ 	arm/Gapply_reg_state.c                 \
+ 	arm/Gcreate_addr_space.c               \
+ 	arm/Gex_tables.c                       \
+@@ -532,15 +532,15 @@ noinst_HEADERS +=                              \
+ 	hppa/init.h                            \
+ 	hppa/offsets.h                         \
+ 	hppa/unwind_i.h
+-libunwind_la_SOURCES_hppa_common =             \
+-	$(libunwind_la_SOURCES_common)	       \
++libunwind_nongnu_la_SOURCES_hppa_common =             \
++	$(libunwind_nongnu_la_SOURCES_common)	       \
+ 	hppa/regname.c
+ 
+ if ARCH_HPPA
+ # The list of files that go into libunwind:
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_hppa_common)    \
+-	$(libunwind_la_SOURCES_local)          \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_hppa_common)    \
++	$(libunwind_nongnu_la_SOURCES_local)          \
+ 	hppa/getcontext.S                      \
+ 	hppa/Lapply_reg_state.c                \
+ 	hppa/Lcreate_addr_space.c              \
+@@ -795,7 +795,7 @@ libunwind_mips_la_LIBADD =                     \
+ 
+ ### target PowerPC:
+ # The list of local files that go to Power 64 and 32:
+-libunwind_la_SOURCES_ppc =                     \
++libunwind_nongnu_la_SOURCES_ppc =                     \
+ 	ppc/Lget_proc_info.c                   \
+ 	ppc/Lget_save_loc.c                    \
+ 	ppc/Linit_local.c                      \
+@@ -816,18 +816,18 @@ noinst_HEADERS +=                              \
+ 	ppc32/init.h                           \
+ 	ppc32/unwind_i.h                       \
+ 	ppc32/ucontext_i.h
+-libunwind_la_SOURCES_ppc32_common =            \
+-	$(libunwind_la_SOURCES_common)         \
++libunwind_nongnu_la_SOURCES_ppc32_common =            \
++	$(libunwind_nongnu_la_SOURCES_common)         \
+ 	ppc32/get_func_addr.c                  \
+ 	ppc32/is_fpreg.c                       \
+ 	ppc32/regname.c 
+ 
+ if ARCH_PPC32
+ # The list of files that go into libunwind:
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_ppc32_common)   \
+-	$(libunwind_la_SOURCES_local)          \
+-	$(libunwind_la_SOURCES_ppc)            \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_ppc32_common)   \
++	$(libunwind_nongnu_la_SOURCES_local)          \
++	$(libunwind_nongnu_la_SOURCES_ppc)            \
+ 	ppc32/Lapply_reg_state.c               \
+ 	ppc32/Lcreate_addr_space.c             \
+ 	ppc32/Lglobal.c                        \
+@@ -844,8 +844,8 @@ endif # ARCH_PPC32
+ 
+ # The list of files that go into libunwind-ppc32:
+ libunwind_ppc32_la_SOURCES =                   \
+-	$(libunwind_la_SOURCES_ppc32_common)   \
+-	$(libunwind_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_ppc32_common)   \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
+ 	$(libunwind_ppc_la_SOURCES_ppc_generic)\
+ 	ppc32/Gapply_reg_state.c               \
+ 	ppc32/Gcreate_addr_space.c             \
+@@ -868,18 +868,18 @@ noinst_HEADERS +=                              \
+ 	ppc64/init.h                           \
+ 	ppc64/unwind_i.h                       \
+ 	ppc64/ucontext_i.h
+-libunwind_la_SOURCES_ppc64_common =            \
+-	$(libunwind_la_SOURCES_common)         \
++libunwind_nongnu_la_SOURCES_ppc64_common =            \
++	$(libunwind_nongnu_la_SOURCES_common)         \
+         ppc64/get_func_addr.c                  \
+         ppc64/is_fpreg.c                       \
+         ppc64/regname.c
+ 
+ if ARCH_PPC64
+ # The list of files that go into libunwind:
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_ppc64_common)   \
+-	$(libunwind_la_SOURCES_local)          \
+-	$(libunwind_la_SOURCES_ppc)            \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_ppc64_common)   \
++	$(libunwind_nongnu_la_SOURCES_local)          \
++	$(libunwind_nongnu_la_SOURCES_ppc)            \
+ 	ppc64/Lapply_reg_state.c               \
+ 	ppc64/Lcreate_addr_space.c             \
+ 	ppc64/Lglobal.c                        \
+@@ -895,8 +895,8 @@ endif # ARCH_PPC64
+ 
+ # The list of files that go into libunwind-ppc64:
+ libunwind_ppc64_la_SOURCES =                   \
+-	$(libunwind_la_SOURCES_ppc64_common)   \
+-	$(libunwind_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_ppc64_common)   \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
+ 	$(libunwind_ppc_la_SOURCES_ppc_generic)\
+ 	ppc64/Gapply_reg_state.c               \
+ 	ppc64/Gcreate_addr_space.c             \
+@@ -921,16 +921,16 @@ noinst_HEADERS +=                              \
+ 	riscv/init.h                           \
+ 	riscv/offsets.h                        \
+ 	riscv/unwind_i.h 
+-libunwind_la_SOURCES_riscv_common =            \
+-	$(libunwind_la_SOURCES_common)         \
++libunwind_nongnu_la_SOURCES_riscv_common =            \
++	$(libunwind_nongnu_la_SOURCES_common)         \
+ 	riscv/is_fpreg.c                       \
+ 	riscv/regname.c
+ 
+ if ARCH_RISCV
+ # The list of files that go into libunwind:
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_riscv_common)   \
+-	$(libunwind_la_SOURCES_local)          \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_riscv_common)   \
++	$(libunwind_nongnu_la_SOURCES_local)          \
+ 	riscv/getcontext.S                     \
+ 	riscv/Lapply_reg_state.c               \
+ 	riscv/Lcreate_addr_space.c             \
+@@ -952,8 +952,8 @@ libunwind_setjmp_la_SOURCES +=                 \
+ endif # ARCH_RISCV
+ 
+ libunwind_riscv_la_SOURCES =                   \
+-	$(libunwind_la_SOURCES_riscv_common)   \
+-	$(libunwind_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_riscv_common)   \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
+ 	riscv/Gapply_reg_state.c               \
+ 	riscv/Gcreate_addr_space.c             \
+ 	riscv/Gget_proc_info.c                 \
+@@ -981,16 +981,16 @@ libunwind_riscv_la_LIBADD =                    \
+ noinst_HEADERS +=                              \
+ 	s390x/init.h                           \
+ 	s390x/unwind_i.h
+-libunwind_la_SOURCES_s390x_common =            \
+-	$(libunwind_la_SOURCES_common)         \
++libunwind_nongnu_la_SOURCES_s390x_common =            \
++	$(libunwind_nongnu_la_SOURCES_common)         \
+ 	s390x/is_fpreg.c                       \
+ 	s390x/regname.c
+ 
+ if ARCH_S390X
+ # The list of files that go into libunwind:
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_s390x_common)   \
+-	$(libunwind_la_SOURCES_local)          \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_s390x_common)   \
++	$(libunwind_nongnu_la_SOURCES_local)          \
+ 	s390x/getcontext.S                     \
+ 	s390x/Lapply_reg_state.c               \
+ 	s390x/Lcreate_addr_space.c             \
+@@ -1010,8 +1010,8 @@ endif # ARCH_S390X
+ 
+ # The list of files that go into libunwind-s390x:
+ libunwind_s390x_la_SOURCES =                   \
+-	$(libunwind_la_SOURCES_s390x_common)   \
+-	$(libunwind_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_s390x_common)   \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
+ 	s390x/Gapply_reg_state.c               \
+ 	s390x/Gcreate_addr_space.c             \
+ 	s390x/Gget_proc_info.c                 \
+@@ -1102,10 +1102,10 @@ libunwind_la_SOURCES_x86_common =              \
+ 
+ if ARCH_X86
+ # The list of files that go into libunwind:
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_x86_common)     \
+-	$(libunwind_la_SOURCES_x86_os_local)   \
+-	$(libunwind_la_SOURCES_local)          \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_x86_common)     \
++	$(libunwind_nongnu_la_SOURCES_x86_os_local)   \
++	$(libunwind_nongnu_la_SOURCES_local)          \
+ 	x86/Lapply_reg_state.c                 \
+ 	x86/Lcreate_addr_space.c               \
+ 	x86/Lget_proc_info.c                   \
+@@ -1126,9 +1126,9 @@ endif # ARCH_X86
+ 
+ # The list of files that go into libunwind-x86:
+ libunwind_x86_la_SOURCES =                     \
+-	$(libunwind_la_SOURCES_x86_common)     \
+-	$(libunwind_la_SOURCES_x86_os)         \
+-	$(libunwind_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_x86_common)     \
++	$(libunwind_nongnu_la_SOURCES_x86_os)         \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
+ 	x86/Gapply_reg_state.c                 \
+ 	x86/Gcreate_addr_space.c               \
+ 	x86/Gget_proc_info.c                   \
+@@ -1155,17 +1155,17 @@ noinst_HEADERS +=                              \
+ 	x86_64/init.h                          \
+ 	x86_64/ucontext_i.h                    \
+ 	x86_64/unwind_i.h
+-libunwind_la_SOURCES_x86_64_common =           \
+-	$(libunwind_la_SOURCES_common)         \
++libunwind_nongnu_la_SOURCES_x86_64_common =           \
++	$(libunwind_nongnu_la_SOURCES_common)         \
+ 	x86_64/is_fpreg.c                      \
+ 	x86_64/regname.c
+ 
+ if ARCH_X86_64
+ # The list of files that go into libunwind:
+-libunwind_la_SOURCES =                         \
+-	$(libunwind_la_SOURCES_x86_64_common)  \
+-	$(libunwind_la_SOURCES_x86_64_os_local)\
+-	$(libunwind_la_SOURCES_local)          \
++libunwind_nongnu_la_SOURCES =                         \
++	$(libunwind_nongnu_la_SOURCES_x86_64_common)  \
++	$(libunwind_nongnu_la_SOURCES_x86_64_os_local)\
++	$(libunwind_nongnu_la_SOURCES_local)          \
+ 	x86_64/getcontext.S                    \
+ 	x86_64/Lapply_reg_state.c              \
+ 	x86_64/Lcreate_addr_space.c            \
+@@ -1190,9 +1190,9 @@ endif # ARCH_X86_64
+ 
+ # The list of files that go into libunwind-x86_64:
+ libunwind_x86_64_la_SOURCES =                  \
+-	$(libunwind_la_SOURCES_x86_64_common)  \
+-	$(libunwind_la_SOURCES_x86_64_os)      \
+-	$(libunwind_la_SOURCES_generic)        \
++	$(libunwind_nongnu_la_SOURCES_x86_64_common)  \
++	$(libunwind_nongnu_la_SOURCES_x86_64_os)      \
++	$(libunwind_nongnu_la_SOURCES_generic)        \
+ 	x86_64/Gapply_reg_state.c              \
+ 	x86_64/Gcreate_addr_space.c            \
+ 	x86_64/Gget_proc_info.c                \
+@@ -1239,16 +1239,16 @@ endif
+ # Don't link with standard libraries, because those may mention
+ # libunwind already.
+ #
+-libunwind_la_LDFLAGS =	$(COMMON_SO_LDFLAGS) -XCClinker -nostdlib \
++libunwind_nongnu_la_LDFLAGS =	$(COMMON_SO_LDFLAGS) -XCClinker -nostdlib \
+ 			$(LDFLAGS_STATIC_LIBCXA) -version-info $(SOVERSION)
+-libunwind_la_LIBADD  += -lc $(LIBCRTS)
+-libunwind_la_LIBADD += $(LIBLZMA) $(LIBZ)
++libunwind_nongnu_la_LIBADD  += -lc $(LIBCRTS)
++libunwind_nongnu_la_LIBADD += $(LIBLZMA) $(LIBZ)
+ 
+ AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/include/tdep-$(arch) -I.
+ AM_CCASFLAGS = $(AM_CPPFLAGS)
+ noinst_HEADERS += unwind/unwind-internal.h
+ 
+-EXTRA_DIST = $(libunwind_la_EXTRAS_ia64)
++EXTRA_DIST = $(libunwind_nongnu_la_EXTRAS_ia64)
+ 
+ MAINTAINERCLEANFILES = Makefile.in
+ 
+diff --git a/src/coredump/libunwind-coredump.pc.in b/src/coredump/libunwind-coredump.pc.in
+index 9cb62c0..75d1e4e 100644
+--- a/src/coredump/libunwind-coredump.pc.in
++++ b/src/coredump/libunwind-coredump.pc.in
+@@ -6,6 +6,6 @@ includedir=@includedir@
+ Name: libunwind-coredump
+ Description: libunwind coredump library
+ Version: @VERSION@
+-Requires: libunwind-generic libunwind
++Requires: libunwind-generic libunwind-nongnu
+ Libs: -L${libdir} -lunwind-coredump
+ Cflags: -I${includedir}
+diff --git a/src/libunwind-generic.pc.in b/src/libunwind-generic.pc.in
+index 1f3baff..eccf8e4 100644
+--- a/src/libunwind-generic.pc.in
++++ b/src/libunwind-generic.pc.in
+@@ -6,6 +6,6 @@ includedir=@includedir@
+ Name: libunwind-generic
+ Description: libunwind generic library
+ Version: @VERSION@
+-Requires: libunwind
++Requires: libunwind-nongnu
+ Libs: -L${libdir} -lunwind-generic
+ Cflags: -I${includedir}
+diff --git a/src/ptrace/libunwind-ptrace.pc.in b/src/ptrace/libunwind-ptrace.pc.in
+index 673004b..544b9dd 100644
+--- a/src/ptrace/libunwind-ptrace.pc.in
++++ b/src/ptrace/libunwind-ptrace.pc.in
+@@ -6,6 +6,6 @@ includedir=@includedir@
+ Name: libunwind-ptrace
+ Description: libunwind ptrace library
+ Version: @VERSION@
+-Requires: libunwind-generic libunwind
++Requires: libunwind-generic libunwind-nongnu
+ Libs: -L${libdir} -lunwind-ptrace
+ Cflags: -I${includedir}
+diff --git a/src/setjmp/libunwind-setjmp.pc.in b/src/setjmp/libunwind-setjmp.pc.in
+index 7b71126..2dec733 100644
+--- a/src/setjmp/libunwind-setjmp.pc.in
++++ b/src/setjmp/libunwind-setjmp.pc.in
+@@ -6,6 +6,6 @@ includedir=@includedir@
+ Name: libunwind-setjmp
+ Description: libunwind setjmp library
+ Version: @VERSION@
+-Requires: libunwind
++Requires: libunwind-nongnu
+ Libs: -L${libdir} -lunwind-setjmp
+ Cflags: -I${includedir}
+diff --git a/src/unwind/libunwind.pc.in b/src/unwind/libunwind-nongnu.pc.in
+similarity index 84%
+rename from src/unwind/libunwind.pc.in
+rename to src/unwind/libunwind-nongnu.pc.in
+index 9a65faf..fc1b9ae 100644
+--- a/src/unwind/libunwind.pc.in
++++ b/src/unwind/libunwind-nongnu.pc.in
+@@ -6,6 +6,6 @@ includedir=@includedir@
+ Name: libunwind
+ Description: libunwind base library
+ Version: @VERSION@
+-Libs: -L${libdir} -lunwind
++Libs: -L${libdir} -lunwind-nongnu -lucontext
+ Libs.private: @LIBLZMA@ @LIBZ@
+ Cflags: -I${includedir}
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index 37aef18..1c2528f 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -61,7 +61,7 @@ if REMOTE_ONLY
+ perf:
+ 
+ else
+- LIBUNWIND_local = $(top_builddir)/src/libunwind.la
++ LIBUNWIND_local = $(top_builddir)/src/libunwind-nongnu.la
+ if ARCH_IA64
+  noinst_PROGRAMS_arch += ia64-test-dyn1
+  check_SCRIPTS_arch +=	run-ia64-test-dyn1
+-- 
+2.45.1
+
