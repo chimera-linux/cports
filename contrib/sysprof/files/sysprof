@@ -1,0 +1,5 @@
+# sysprofd service
+
+type = process
+command = /usr/libexec/sysprofd
+depends-on = dbus
