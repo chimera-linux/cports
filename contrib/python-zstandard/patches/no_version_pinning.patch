@@ -1,0 +1,13 @@
+--- a/pyproject.toml	2023-11-01 07:04:15.000000000 +0100
++++ b/pyproject.toml	2024-05-15 13:39:28.955889641 +0200
+@@ -1,8 +1,8 @@
+ [build-system]
+ requires = [
+     "cffi==1.16.0",
+-    "setuptools==68.2.2",
+-    "wheel==0.41.2",
++    "setuptools>=68.2.2",
++    "wheel>=0.41.2",
+ ]
+ # Need to use legacy backend because setup_zstd.py breaks build isolation.
+ build-backend = "setuptools.build_meta:__legacy__"
