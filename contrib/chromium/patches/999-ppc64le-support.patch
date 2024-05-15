@@ -1145,9 +1145,9 @@ index 24b324ac99..33715130d4 100644
  
  // The following platforms have an implementation of a hardware counter.
  #if defined(__i386__) || defined(__x86_64__) || defined(__aarch64__) || \
--    defined(__powerpc__) || defined(__ppc__) || defined(__riscv) ||     \
-+    ((defined(__powerpc__) || defined(__ppc__)) && defined(__GLIBC__)) || defined(__riscv) ||     \
-     defined(_M_IX86) || (defined(_M_X64) && !defined(_M_ARM64EC))
+-    defined(__powerpc__) || defined(__ppc__) || defined(_M_IX86) ||     \
++    ((defined(__powerpc__) || defined(__ppc__)) && defined(__GLIBC__)) || defined(_M_IX86) ||     \
+     (defined(_M_X64) && !defined(_M_ARM64EC))
  #define ABSL_HAVE_UNSCALED_CYCLECLOCK_IMPLEMENTATION 1
  #else
 diff --git a/third_party/abseil-cpp/absl/debugging/internal/stacktrace_config.h b/third_party/abseil-cpp/absl/debugging/internal/stacktrace_config.h
@@ -3630,12 +3630,12 @@ diff --git a/third_party/skia/src/core/SkRasterPipeline.h b/third_party/skia/src
 index dc5fb4b8f2..f696f25a8b 100644
 --- a/third_party/skia/src/core/SkRasterPipeline.h
 +++ b/third_party/skia/src/core/SkRasterPipeline.h
-@@ -24,7 +24,7 @@ enum SkColorType : int;
- struct SkImageInfo;
+@@ -27,7 +27,7 @@
  struct skcms_TransferFunction;
  
--#if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32)
-+#if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && !defined(__powerpc__)
+ #if __has_cpp_attribute(clang::musttail) && !defined(__EMSCRIPTEN__) && !defined(SK_CPU_ARM32) && \
+-        !defined(SK_CPU_LOONGARCH)
++        !defined(SK_CPU_LOONGARCH) && !defined(__powerpc__)
      #define SK_HAS_MUSTTAIL 1
  #else
      #define SK_HAS_MUSTTAIL 0
