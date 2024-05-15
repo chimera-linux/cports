@@ -1,6 +1,6 @@
 pkgname = "minify"
-pkgver = "2.20.19"
-pkgrel = 1
+pkgver = "2.20.23"
+pkgrel = 0
 build_style = "go"
 make_build_args = ["./cmd/minify"]
 hostmakedepends = ["go"]
@@ -9,7 +9,7 @@ maintainer = "Isaac Freund <mail@isaacfreund.com>"
 license = "MIT"
 url = "https://github.com/tdewolff/minify"
 source = f"{url}/archive/v{pkgver}.tar.gz"
-sha256 = "705356c3d7eb2e773557a280579c1dcbcda5c78378ea77dd346f7a367946f5e1"
+sha256 = "38a203e20a2da2613c3431baee50fd85fc7ac36b5c5533e7ca1db0e75930ea64"
 
 
 def post_install(self):
