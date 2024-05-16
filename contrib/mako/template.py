@@ -1,5 +1,5 @@
 pkgname = "mako"
-pkgver = "1.8.0"
+pkgver = "1.9.0"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,7 +27,7 @@ maintainer = "Umar Getagazov <umar@handlerug.me>"
 license = "MIT"
 url = "https://wayland.emersion.fr/mako"
 source = f"https://github.com/emersion/mako/releases/download/v{pkgver}/mako-{pkgver}.tar.gz"
-sha256 = "f20ff74925d6876fc243c49cb45cdb849afd55611aa1640471020d191823e3bb"
+sha256 = "16d821ef49acfc8503367e1a886d28b2f8578ae9ceb1a7e284888b1e32b3a337"
 hardening = ["vis", "cfi"]
 
 
