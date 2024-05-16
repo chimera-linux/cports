@@ -1,15 +1,15 @@
 pkgname = "comrak"
 pkgver = "0.23.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["oniguruma-devel"]
 pkgdesc = "CommonMark compatible GitHub Flavored Markdown parser and formatter"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "BSD-2-Clause"
-url = "https://hrzn.ee/kivikakk/comrak"
+url = "https://github.com/kivikakk/comrak"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "2090b91c8366f50071694823063f1944964def187c0c1ad6ea06a306b1db972a"
+sha256 = "e291ac08a699cc6c4afb79f3dd23ee1b453dfd66d1c86af5d71889e25a458830"
 
 
 def do_prepare(self):
