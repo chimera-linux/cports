@@ -15,6 +15,7 @@ hostmakedepends = [
     "ninja",
     "qt6-qtbase",
     "pkgconf",
+    "wayland-progs",
 ]
 makedepends = [
     "fcitx5-devel",
@@ -30,6 +31,8 @@ url = "https://fcitx-im.org"
 source = f"https://github.com/fcitx/fcitx5-qt/archive/refs/tags/{pkgver}.tar.gz"
 sha256 = "f498c1dc26567fcc62d27aac3869b9e3e0f39ee8602f4aa5c2edc496a192227d"
 hardening = ["vis", "cfi"]
+# fails
+options = ["!cross"]
 
 
 def post_install(self):
