@@ -5,12 +5,13 @@ build_style = "cmake"
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
+    "fcitx5-devel",
+    "gettext",
     "ninja",
     "pkgconf",
 ]
 makedepends = [
     "fcitx5-devel",
-    "gettext-devel",
     "libhangul-devel",
 ]
 pkgdesc = "Hangul Wrapper for Fcitx5"
