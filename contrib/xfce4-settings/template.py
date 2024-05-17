@@ -1,6 +1,6 @@
 pkgname = "xfce4-settings"
 pkgver = "4.18.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pluggable-dialogs",
