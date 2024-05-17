@@ -863,6 +863,8 @@ Keep in mind that default values may be overridden by build styles.
   be installed in the build container before building. These are always
   installed in the build container itself rather than target sysroot,
   even if cross compiling. Typically contains runnable tools. This is
+* `ignore_shlibs` *(list)* A list of shared libraries (`NEEDED` values)
+  to ignore in runtime dependency scan.
   not installed during stage 0 bootstrap, since they come from the host.
 * `install_if` *(list)* A list of package names or version constraints that
   must be satisfied in order for this package to auto-install (i.e. if

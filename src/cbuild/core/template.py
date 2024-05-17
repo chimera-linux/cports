@@ -431,6 +431,7 @@ core_fields = [
     ("replaces", [], list, False, True, False),
     ("replaces_priority", 0, int, False, True, True),
     ("install_if", [], list, False, True, False),
+    ("ignore_shlibs", [], list, False, True, False),
     # build systems
     ("configure_args", [], list, False, False, False),
     ("configure_script", "configure", str, False, False, False),
@@ -532,6 +533,7 @@ core_fields_priority = [
     ("replaces", True),
     ("replaces_priority", True),
     ("install_if", True),
+    ("ignore_shlibs", True),
     ("triggers", True),
     ("scriptlets", True),
     ("origin", True),

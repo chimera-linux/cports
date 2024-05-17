@@ -38,6 +38,9 @@ def _scan_so(pkg):
 
     # FIXME: also emit dependencies for proper version constraints
     for dep in verify_deps:
+        if dep in pkg.ignore_shlibs:
+            log.out_plain(f"   SONAME: {dep} <-> ignore")
+            continue
         # current package or a subpackage
         if dep in curso:
             depn = curso[dep]
