@@ -1,5 +1,5 @@
 pkgname = "iw"
-pkgver = "6.7"
+pkgver = "6.9"
 pkgrel = 0
 build_style = "makefile"
 make_cmd = "gmake"
@@ -10,9 +10,9 @@ makedepends = ["libnl-devel", "linux-headers"]
 pkgdesc = "Utility for nl80211 based CLI configuration of wireless devices"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "ISC"
-url = "http://wireless.kernel.org/en/users/Documentation/iw"
-source = f"http://www.kernel.org/pub/software/network/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "aacf49c266b29d500d73086798a1c652e760c19126a8599fd811850430789a35"
+url = "https://wireless.kernel.org/en/users/Documentation/iw"
+source = f"https://www.kernel.org/pub/software/network/iw/iw-{pkgver}.tar.xz"
+sha256 = "3f2db22ad41c675242b98ae3942dbf3112548c60a42ff739210f2de4e98e4894"
 hardening = ["vis", "cfi"]
 
 
