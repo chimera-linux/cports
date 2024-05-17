@@ -1,8 +1,9 @@
 pkgname = "sway"
 pkgver = "1.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 hostmakedepends = [
+    "libcap-progs",
     "meson",
     "pkgconf",
     "scdoc",
@@ -23,6 +24,14 @@ license = "MIT"
 url = "https://swaywm.org"
 source = f"https://github.com/swaywm/sway/releases/download/{pkgver}/sway-{pkgver}.tar.gz"
 sha256 = "a63b2df8722ee595695a0ec6c84bf29a055a9767e63d8e4c07ff568cb6ee0b51"
+file_modes = {
+    "usr/bin/sway": ("root", "root", 0o755),
+}
+file_xattrs = {
+    "usr/bin/sway": {
+        "security.capability": "cap_sys_nice+ep",
+    },
+}
 hardening = ["vis", "cfi"]
 
 
