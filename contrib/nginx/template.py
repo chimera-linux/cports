@@ -1,6 +1,6 @@
 pkgname = "nginx"
 pkgver = "1.26.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/var/lib/nginx",
@@ -38,6 +38,7 @@ configure_args = [
     "--with-http_stub_status_module",
     "--with-http_sub_module",
     "--with-http_v2_module",
+    "--with-http_v3_module",
     "--with-http_xslt_module=dynamic",
     "--with-mail=dynamic",
     "--with-mail_ssl_module",
