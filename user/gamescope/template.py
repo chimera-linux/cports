@@ -1,7 +1,9 @@
 pkgname = "gamescope"
-pkgver = "3.14.2"
-pkgrel = 1
+pkgver = "3.14.16"
+pkgrel = 0
 build_style = "meson"
+configure_args = ["-Ddefault_library=static"]
+make_install_args = ["--skip-subprojects", "wlroots"]
 hostmakedepends = [
     "cmake",
     "glslang-progs",
@@ -13,12 +15,14 @@ hostmakedepends = [
 ]
 makedepends = [
     "benchmark-devel",
+    "glm",
     "glslang-devel",
     "hwdata-devel",
-    "glm",
     "libcap-devel",
     "libdisplay-info-devel",
+    "libinput-devel",
     "libliftoff-devel",
+    "libseat-devel",
     "libx11-devel",
     "libxcomposite-devel",
     "libxdamage-devel",
@@ -28,12 +32,13 @@ makedepends = [
     "libxtst-devel",
     "libxxf86vm-devel",
     "pipewire-devel",
+    "pixman-devel",
     "sdl-devel",
     "stb",
     "vulkan-headers",
     "vulkan-loader-devel",
     "wayland-protocols",
-    "wlroots0.17-devel",
+    "xcb-util-wm-devel",
     "xwayland",
 ]
 pkgdesc = "SteamOS compositor"
@@ -43,19 +48,22 @@ url = "https://github.com/ValveSoftware/gamescope"
 source = [
     f"{url}/archive/refs/tags/{pkgver}.tar.gz",
     "https://github.com/ValveSoftware/openvr/archive/15f0838a0487feb7da60acd39aab8099b994234c.tar.gz",
-    "https://github.com/Joshua-Ashton/vkroots/archive/d5ef31abc7cb5c69aee4bcb67b10dd543c1ff7ac.tar.gz",
+    "https://github.com/Joshua-Ashton/vkroots/archive/5106d8a0df95de66cc58dc1ea37e69c99afc9540.tar.gz",
+    "https://gitlab.freedesktop.org/wlroots/wlroots/-/archive/a5c9826e6d7d8b504b07d1c02425e6f62b020791.tar.gz",
     "https://github.com/Joshua-Ashton/reshade/archive/9fdbea6892f9959fdc18095d035976c574b268b7.tar.gz",
 ]
 source_paths = [
     ".",
     "subprojects/openvr",
     "subprojects/vkroots",
+    "subprojects/wlroots",
     "src/reshade",
 ]
 sha256 = [
-    "91ed63557d3601723f1b1d554ea65a3850656a78bb7e32610330035160704836",
+    "6f1db6dedde89f6f6b8d4abd984177a7c9320bb8f5e5430784ced8d36494e009",
     "cf63f641985a70e6a4cb6aad081832f3a33bf26f8973f71c69af24debc8ceadf",
-    "b4eca5edca75355ea1443ad96fd59b0a407f6a2ce17ef5a8f9849c05fc10155f",
+    "37b77586e91f7ebee70380dcddd73bf01ae4acef1053e6be41d0485ede022422",
+    "f3f91b679114e565d94e87cd0c4c61444e48d7ef8a77cd101ef3081fd87f4726",
     "165726ad21fbfc221c0363e40b597834068a416a11a1204ae2ac6d13ec161035",
 ]
 file_modes = {
