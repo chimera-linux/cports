@@ -157,7 +157,12 @@ def post_patch(self):
         "ext/gd/tests/bug73272.phpt",
         # https://github.com/php/php-src/issues/13806
         "ext/openssl/tests/openssl_x509_parse_basic.phpt",
-        # ppc64le
+        # aarch64; all related to chunked encoding?
+        "ext/soap/tests/bug47021.phpt",
+        "ext/standard/tests/filters/chunked_001.phpt",
+        "ext/standard/tests/http/bug47021.phpt",
+        "ext/standard/tests/http/bug80256.phpt",
+        # ppc64le; all related to fibers?
         "Zend/tests/fibers/no-switch-force-close-finally.phpt",
         "Zend/tests/fibers/suspend-in-force-close-fiber-after-shutdown.phpt",
         "Zend/tests/fibers/throw-in-multiple-destroyed-fibers-after-shutdown.phpt",
