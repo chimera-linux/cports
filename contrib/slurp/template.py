@@ -1,6 +1,6 @@
 pkgname = "slurp"
 pkgver = "1.5.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "meson",
