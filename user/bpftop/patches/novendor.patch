@@ -1,0 +1,34 @@
+From ced2f8760ed599eb4a92cbe4a0eccadbff5ad945 Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Sat, 18 May 2024 21:23:31 +0000
+Subject: [PATCH] novendor
+
+---
+ Cargo.toml | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index cec7ee3..1eb83a1 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -4,14 +4,14 @@ version = "0.5.1"
+ edition = "2021"
+ 
+ [build-dependencies]
+-libbpf-cargo = "0.23.1"
++libbpf-cargo = { version = "0.23.1", default-features = false }
+ 
+ [dependencies]
+ tracing = "0.1.40"
+ tracing-subscriber = "0.3.18"
+ tracing-journald = "0.3.0"
+-libbpf-rs = "0.23.1"
+-libbpf-sys = "1.4.1"
++libbpf-rs = { version ="0.23.1", default-features = false }
++libbpf-sys = { version = "1.4.1", default-features = false }
+ crossterm = "0.27.0"
+ anyhow = "1.0.83"
+ ratatui = { version = "0.26.2", default-features = false, features = ['crossterm'] }
+-- 
+2.45.1
+
