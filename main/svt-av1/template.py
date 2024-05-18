@@ -1,5 +1,5 @@
 pkgname = "svt-av1"
-pkgver = "2.0.0"
+pkgver = "2.1.0"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -17,8 +17,8 @@ pkgdesc = "AOMedia Scalable Video Technology AV1 Encoder/Decoder"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "BSD-3-Clause-Clear"
 url = "https://gitlab.com/AOMediaCodec/SVT-AV1"
-source = f"https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v{pkgver}/SVT-AV1-v{pkgver}.tar.bz2"
-sha256 = "f9c076c377e504be15e195db8dd36d91233bc37cb8e82530382f38bc1926df02"
+source = f"{url}/-/archive/v{pkgver}/SVT-AV1-v{pkgver}.tar.bz2"
+sha256 = "2bfd098770bba185cd1ced8e1ff389837e3dca0d8b5cfb0d97c925a61dbbf955"
 # FIXME int: muloverflow in svt_av1_find_best_sub_pixel_tree for certain encodes
 hardening = ["vis", "cfi", "!int"]
 # needs patching+clones of a bunch of stuff
