@@ -48,3 +48,5 @@ match self.profile().arch:
     case "ppc64" | "ppc":
         # vsx assumptions in altivec code
         tool_flags = {"CXXFLAGS": ["-DEIGEN_DONT_VECTORIZE"]}
+    case "riscv64":
+        broken = "lv2: cannot link object files with different floating-point ABI from /lib/crti.o"
