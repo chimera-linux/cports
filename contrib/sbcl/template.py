@@ -29,6 +29,8 @@ license = "custom:sbcl"
 url = "https://www.sbcl.org"
 source = f"$(SOURCEFORGE_SITE)/{pkgname}/{pkgname}-{pkgver}-source.tar.bz2"
 sha256 = "8a932627b3f1d8e9618f1cdc225edcb002456804697e2c87d140683764a106d5"
+# notably not pie on ppc64le due to asm stuff
+nopie_files = ["usr/bin/sbcl"]
 # tests are unreliable
 options = ["!cross", "!lto", "!check"]
 # GNUMAKE disregarded in tests
