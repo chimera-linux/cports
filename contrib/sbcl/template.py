@@ -56,11 +56,15 @@ def do_check(self):
 
 
 def do_install(self):
+    # on ppc64le it installs this and fails because missing dir? why
+    self.install_dir("usr/tlsf-bsd/tlsf")
     self.do(
         "sh",
         "install.sh",
         env={"INSTALL_ROOT": str(self.chroot_destdir / "usr")},
     )
+    # nuke that afterwards
+    self.rm(self.destdir / "usr/tlsf-bsd", recursive=True)
 
     self.install_license("COPYING")
     self.rm(self.destdir / "usr/share/doc/sbcl/COPYING")
