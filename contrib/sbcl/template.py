@@ -6,7 +6,6 @@ configure_args = [
     "--prefix=/usr",
     "--with-sb-core-compression",
     "--with-sb-dynamic-core",
-    "--with-sb-linkable-runtime",
     "--with-sb-test",
     "--with-sb-unicode",
 ]
@@ -36,11 +35,14 @@ exec_wrappers = [("/usr/bin/gmake", "make")]
 
 
 def init_configure(self):
+    # only available on a few archs
+    # --fancy implies threads
     match self.profile().arch:
-        # only available on a few archs
-        # --fancy implies threads
         case "aarch64" | "riscv64" | "x86_64":
             self.configure_args += ["--fancy", "--with-sb-thread"]
+    # does not work on riscv64?
+    if self.profile().arch != "riscv64":
+        self.configure_args += ["--with-sb-linkable-runtime"]
 
 
 def do_build(self):
