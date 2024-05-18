@@ -1,6 +1,6 @@
 pkgname = "openssl"
-pkgver = "3.2.1"
-pkgrel = 2
+pkgver = "3.3.0"
+pkgrel = 0
 build_style = "configure"
 configure_script = "Configure"
 configure_args = [
@@ -13,15 +13,22 @@ configure_args = [
 ]
 make_install_args = ["MANSUFFIX=ssl"]
 make_check_target = "test"
-# XXX: with ktls enabled this fails if the running env can't utilise it
-make_check_args = ["TESTS=-test_afalg"]
+make_check_args = [
+    "TESTS="
+    # XXX: with ktls enabled this fails if the running env can't utilise it
+    + "-test_afalg"
+    # flaky on ppc64le
+    + " -test_key_share"
+    + " -test_sslrecords"
+    + " -test_sslsigalgs"
+]
 hostmakedepends = ["pkgconf", "perl"]
 pkgdesc = "Toolkit for Secure Sockets Layer and Transport Layer Security"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://www.openssl.org"
 source = f"https://www.openssl.org/source/openssl-{pkgver}.tar.gz"
-sha256 = "83c7329fe52c850677d75e5d0b0ca245309b97e8ecbcfdc1dfdc4ab9fac35b39"
+sha256 = "53e66b043322a606abf0087e7699a0e033a37fa13feb9742df35c3a33b18fb02"
 compression = "deflate"
 # the codebase is not LTO-ready:
 # https://github.com/openssl/openssl/issues/18663
