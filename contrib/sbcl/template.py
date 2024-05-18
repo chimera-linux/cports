@@ -1,7 +1,8 @@
 pkgname = "sbcl"
 pkgver = "2.4.4"
 pkgrel = 0
-archs = ["aarch64", "ppc", "ppc64le", "riscv64", "x86_64"]
+# riscv64 FIXME
+archs = ["aarch64", "ppc", "ppc64le", "x86_64"]
 configure_args = [
     "--prefix=/usr",
     "--with-sb-core-compression",
