@@ -42,3 +42,9 @@ source = f"$(SOURCEFORGE_SITE)/guitarix/guitarix/guitarix2-{pkgver}.tar.xz"
 sha256 = "77e83d754f51ac38c5423f38eeb55de5b3e26128e60b511b02d2defcf36e6c18"
 # no tests
 options = ["!check"]
+
+
+match self.profile().arch:
+    case "ppc64" | "ppc":
+        # vsx assumptions in altivec code
+        tool_flags = {"CXXFLAGS": ["-DEIGEN_DONT_VECTORIZE"]}
