@@ -1,6 +1,6 @@
 pkgname = "libbpf"
 pkgver = "1.4.2"
-pkgrel = 0
+pkgrel = 1
 build_wrksrc = "src"
 build_style = "makefile"
 make_cmd = "gmake"

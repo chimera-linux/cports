@@ -1,0 +1,21 @@
+$ cargo build --release
+   Compiling bpftop v0.5.1 (/tmp/mytemp.SsJ0cH)
+error: failed to run custom build command for `bpftop v0.5.1 (/tmp/mytemp.SsJ0cH)`
+
+Caused by:
+  process didn't exit successfully: `/tmp/mytemp.SsJ0cH/target/release/build/bpftop-d51fbb35a3a86673/build-script-build` (exit status: 1)
+  --- stderr
+  btf.c:3320:11: runtime error: signed integer overflow: 1846341270001253864 * 31 cannot be represented in type 'long'
+  SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior btf.c:3320:11 
+--
+--- a/src/btf.c
++++ b/src/btf.c
+@@ -3317,7 +3317,7 @@
+ 
+ static long hash_combine(long h, long value)
+ {
+-	return h * 31 + value;
++	return (long)(((unsigned long long)h * 31) + value);
+ }
+ 
+ #define for_each_dedup_cand(d, node, hash) \
