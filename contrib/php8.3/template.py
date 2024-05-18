@@ -145,6 +145,8 @@ def post_patch(self):
         # Marked as XFAIL on PHP repo in March 2024
         "ext/openssl/tests/openssl_error_string_basic_openssl3.phpt",
         "ext/openssl/tests/openssl_private_decrypt_basic.phpt",
+        # fails with openssl 3.3
+        "ext/openssl/tests/bug74341.phpt",
         # Broken and being discussed upstream
         # https://github.com/php/php-src/issues/11252
         "ext/gd/tests/bug43073.phpt",
