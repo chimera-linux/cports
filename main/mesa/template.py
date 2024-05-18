@@ -1,6 +1,6 @@
 pkgname = "mesa"
 pkgver = "24.0.7"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dglvnd=false",
@@ -203,6 +203,7 @@ def post_install(self):
 @subpackage("libglapi")
 def _glapi(self):
     self.pkgdesc = "Free implementation of the GL API (shared library)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libglapi.so.*"]
 
@@ -228,6 +229,7 @@ def _gbm_devel(self):
 @subpackage("libosmesa")
 def _osmesa(self):
     self.pkgdesc = "Mesa off-screen interface (shared library)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libOSMesa.so.*"]
 
@@ -235,6 +237,7 @@ def _osmesa(self):
 @subpackage("libgles1")
 def _gles1(self):
     self.pkgdesc = "Free implementation of OpenGL ES 1.x API (shared library)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libGLESv1_CM.so.*"]
 
@@ -242,6 +245,7 @@ def _gles1(self):
 @subpackage("libgles2")
 def _gles2(self):
     self.pkgdesc = "Free implementation of OpenGL ES 2.x API (shared library)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libGLESv2.so.*"]
 
@@ -249,6 +253,7 @@ def _gles2(self):
 @subpackage("libegl")
 def _egl(self):
     self.pkgdesc = "Free implementation of the EGL API (shared library)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libEGL.so.*"]
 
@@ -256,6 +261,7 @@ def _egl(self):
 @subpackage("libgl")
 def _libgl(self):
     self.pkgdesc = "Free implementation of the OpenGL API (shared library)"
+    self.depends += [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/libGL.so.*"]
 
@@ -296,8 +302,8 @@ def _vaapi(self):
 
 @subpackage("mesa-dri")
 def _dri(self):
-    self.pkgdesc = "Mesa graphics drivers"
-    self.depends += [f"mesa={pkgver}-r{pkgrel}"]
+    self.pkgdesc = "Mesa DRI drivers"
+    self.install_if = [f"{pkgname}={pkgver}-r{pkgrel}"]
 
     return ["usr/lib/dri"]
 
@@ -305,7 +311,6 @@ def _dri(self):
 @subpackage("mesa-vulkan", _have_vulkan)
 def _vulkan(self):
     self.pkgdesc = "Mesa Vulkan drivers"
-    self.depends += [f"mesa={pkgver}-r{pkgrel}"]
     self.install_if = [f"mesa-dri={pkgver}-r{pkgrel}", "vulkan-loader"]
 
     return [
