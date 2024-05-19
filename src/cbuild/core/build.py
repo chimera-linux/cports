@@ -17,6 +17,7 @@ def build(
     no_update=False,
     update_check=False,
     accept_checksums=False,
+    maintainer=None,
 ):
     pkgm.push(pkg)
     try:
@@ -31,6 +32,7 @@ def build(
             no_update,
             update_check,
             accept_checksums,
+            maintainer,
         )
     except Exception:
         pkgm.set_failed(pkgm.pop())
@@ -49,6 +51,7 @@ def _build(
     no_update,
     update_check,
     accept_checksums,
+    maintainer,
 ):
     if chost:
         depn = "host-" + pkg.pkgname
@@ -88,6 +91,8 @@ def _build(
 
     pkg.cwd = pkg.builddir / pkg.wrksrc
     pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
+
+    pkg._maintainer = maintainer
 
     prof = pkg.profile()
     hard = profile.get_hardening(prof, pkg)

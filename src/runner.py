@@ -49,6 +49,7 @@ opt_allowcat = "main contrib user"
 opt_restricted = False
 opt_updatecheck = False
 opt_acceptsum = False
+opt_maint = "unknown <cports@local>"
 
 #
 # INITIALIZATION ROUTINES
@@ -107,7 +108,7 @@ def handle_options():
     global opt_nonet, opt_dirty, opt_statusfd, opt_keeptemp, opt_forcecheck
     global opt_checkfail, opt_stage, opt_altrepo, opt_stagepath, opt_bldroot
     global opt_blddir, opt_pkgpath, opt_srcpath, opt_cchpath, opt_updatecheck
-    global opt_acceptsum, opt_comp
+    global opt_acceptsum, opt_comp, opt_maint
 
     # respect NO_COLOR
     opt_nocolor = ("NO_COLOR" in os.environ) or not sys.stdout.isatty()
@@ -337,6 +338,7 @@ def handle_options():
         opt_srcpath = bcfg.get("sources", fallback=opt_srcpath)
         opt_cchpath = bcfg.get("cbuild_cache_path", fallback=opt_cchpath)
         opt_allowcat = bcfg.get("categories", fallback=opt_allowcat)
+        opt_maint = bcfg.get("maintainer", fallback=opt_maint)
         opt_restricted = bcfg.getboolean(
             "allow_restricted", fallback=opt_restricted
         )
@@ -659,7 +661,7 @@ def bootstrap(tgt):
         chroot.initdb()
         chroot.repo_init()
         if rp:
-            build.build(tgt, rp, {})
+            build.build(tgt, rp, {}, maintainer=opt_maint)
         do_unstage(tgt, True)
         shutil.rmtree(paths.bldroot())
         chroot.install()
@@ -1540,7 +1542,6 @@ def do_update_check(tgt):
             tmpl.pkgname,
         ),
     )
-
     for tmpl in stmpls:
         if tmpl.maintainer != maint:
             maint = tmpl.maintainer
@@ -1681,6 +1682,7 @@ def do_pkg(tgt, pkgn=None, force=None, check=None, stage=None):
         check_fail=opt_checkfail,
         update_check=opt_updatecheck,
         accept_checksums=opt_acceptsum,
+        maintainer=opt_maint,
     )
     if tgt == "pkg" and (not opt_stage or bstage < 3):
         do_unstage(tgt, bstage < 3)
@@ -1914,6 +1916,7 @@ def _bulkpkg(pkgs, statusf, do_build, do_raw):
                         check_fail=opt_checkfail,
                         update_check=opt_updatecheck,
                         accept_checksums=opt_acceptsum,
+                        maintainer=opt_maint,
                     )
                 ):
                     statusf.write(f"{pn} ok\n")

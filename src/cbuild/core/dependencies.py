@@ -457,6 +457,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                 chost=hostdep or not not pprof.cross,
                 no_update=not missing,
                 update_check=update_check,
+                maintainer=pkg._maintainer,
             )
             missing = True
         except template.SkipPackage:
@@ -488,6 +489,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                 chost=hostdep,
                 no_update=not missing,
                 update_check=update_check,
+                maintainer=pkg._maintainer,
             )
             missing = True
         except template.SkipPackage:
@@ -528,6 +530,7 @@ def install(pkg, origpkg, step, depmap, hostdep, update_check):
                 chost=hostdep,
                 no_update=not missing,
                 update_check=update_check,
+                maintainer=pkg._maintainer,
             )
             missing = True
         except template.SkipPackage:
