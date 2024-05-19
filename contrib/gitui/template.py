@@ -1,5 +1,5 @@
 pkgname = "gitui"
-pkgver = "0.26.1"
+pkgver = "0.26.2"
 pkgrel = 0
 build_style = "cargo"
 make_build_args = [
@@ -20,12 +20,8 @@ maintainer = "ttyyls <contact@behri.org>"
 license = "MIT"
 url = "https://github.com/extrawurst/gitui"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "b1b0a6c692771a4e37f7ff33490365f8f330660a4110adf650b2483d99379c1d"
+sha256 = "c69eccba2457c53c18b933794aa4ff3dfecb71af42349282108354d543e4d956"
 env = {"GITUI_RELEASE": "1"}
-
-
-def pre_prepare(self):
-    self.rm(".cargo/config")
 
 
 def post_install(self):
