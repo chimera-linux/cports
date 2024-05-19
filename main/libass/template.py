@@ -1,6 +1,6 @@
 pkgname = "libass"
-pkgver = "0.17.1"
-pkgrel = 1
+pkgver = "0.17.2"
+pkgrel = 0
 build_style = "gnu_configure"
 hostmakedepends = [
     "automake",
@@ -19,7 +19,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/libass/libass"
 source = f"{url}/releases/download/{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "d653be97198a0543c69111122173c41a99e0b91426f9e17f06a858982c2fb03d"
+sha256 = "a9afb52bf76a2569263fe2038896774c991b35c0968342a03be708e56ea60c3b"
 
 
 def post_install(self):
