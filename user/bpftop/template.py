@@ -18,17 +18,5 @@ source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
 sha256 = "8457caf5ededba38aad01ed6317bd737a8079bbb26ca9a79cfdca5848a8c80f6"
 
 
-def do_prepare(self):
-    # we patch the lockfile so vendor after patch
-    pass
-
-
-def post_patch(self):
-    from cbuild.util import cargo
-
-    self.cargo.vendor()
-    cargo.setup_vendor(self)
-
-
 def do_install(self):
     self.install_bin(f"target/{self.profile().triplet}/release/bpftop")
