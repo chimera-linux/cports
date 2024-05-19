@@ -745,7 +745,6 @@ class Template(Package):
             "pkgrel": self.pkgrel,
             "pkgdesc": self.pkgdesc,
             "license": self.license,
-            "maintainer": self.maintainer,
             "url": self.url,
             "broken": self.broken,
             "restricted": self.restricted,
@@ -876,7 +875,6 @@ class Template(Package):
 
         # validate other stuff
         self.validate_pkgdesc()
-        self.validate_maintainer()
         self.validate_url()
         self.validate_order()
         self.validate_spdx()
@@ -960,25 +958,6 @@ class Template(Package):
             self.error("pkgdesc should start with an uppercase letter")
         if len(dstr) > 72:
             self.error("pkgdesc should be no longer than 72 characters")
-
-    def validate_maintainer(self):
-        # do not validate if not linting
-        if not self.options["lint"]:
-            return
-
-        m = re.fullmatch(r"^(.+) <([^>]+)>$", self.maintainer)
-        if not m:
-            self.error("maintainer has an invalid format")
-
-        grp = m.groups()
-
-        if grp[0] != " ".join(grp[0].split()):
-            self.error("maintainer name has an invalid format")
-
-        addrp = r"^[A-Za-z0-9._%+=-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}$"
-
-        if not re.fullmatch(addrp, grp[1]):
-            self.error("maintainer email has an invalid format")
 
     def validate_order(self):
         global core_fields_map

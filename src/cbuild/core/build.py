@@ -17,6 +17,7 @@ def build(
     no_update=False,
     update_check=False,
     accept_checksums=False,
+    maintainer=None,
 ):
     if chost:
         depn = "host-" + pkg.pkgname
@@ -56,6 +57,8 @@ def build(
 
     pkg.cwd = pkg.builddir / pkg.wrksrc
     pkg.chroot_cwd = pkg.chroot_builddir / pkg.wrksrc
+
+    pkg._maintainer = maintainer
 
     prof = pkg.profile()
     hard = profile.get_hardening(prof, pkg)

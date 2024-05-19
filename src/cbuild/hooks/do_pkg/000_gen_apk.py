@@ -44,7 +44,7 @@ def genpkg(pkg, repo, arch, binpkg):
         "--info",
         f"origin:{origin}",
         "--info",
-        f"maintainer:{pkg.rparent.maintainer}",
+        f"maintainer:{pkg.rparent._maintainer}",
         "--info",
         f"url:{pkg.rparent.url}",
         "--info",

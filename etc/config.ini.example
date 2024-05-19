@@ -52,6 +52,8 @@ remote = yes
 categories = main contrib user
 # whether restricted packages can be considered for building
 allow_restricted = no
+# maintainer field to use for packages, you can set it for personal repos
+maintainer = unknown <cports@local>
 
 # flags passed to tools
 [flags]
