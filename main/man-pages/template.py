@@ -1,6 +1,6 @@
 pkgname = "man-pages"
 pkgver = "6.8"
-pkgrel = 0
+pkgrel = 1
 hostmakedepends = ["gmake", "gsed", "bash"]
 pkgdesc = "Linux Documentation Project manual pages"
 maintainer = "q66 <q66@chimera-linux.org>"
@@ -39,4 +39,4 @@ def _devel(self):
     self.pkgdesc = f"{pkgdesc} (development pages)"
     self.options = ["!autosplit"]
 
-    return ["usr/share/man/man[23]"]
+    return ["usr/share/man/man[23]*"]
