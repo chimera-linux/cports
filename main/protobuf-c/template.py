@@ -1,6 +1,6 @@
 pkgname = "protobuf-c"
 pkgver = "1.5.0"
-pkgrel = 8
+pkgrel = 9
 build_style = "gnu_configure"
 configure_args = [
     "--enable-protoc",
@@ -22,4 +22,4 @@ def post_install(self):
 
 @subpackage("protobuf-c-devel")
 def _dev(self):
-    return self.default_devel()
+    return self.default_devel(extra=["usr/bin"])
