@@ -1,12 +1,15 @@
 pkgname = "ncurses"
-pkgver = "6.4"
-pkgrel = 2
+pkgver = "6.5"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
-    "--enable-widec",
+    "--disable-root-access",
+    "--disable-setuid-environ",
     "--enable-big-core",
     "--enable-ext-colors",
+    "--enable-fvisibility",
     "--enable-pc-files",
+    "--enable-widec",
     "--without-debug",
     "--without-ada",
     "--with-shared",
@@ -30,7 +33,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "http://www.gnu.org/software/ncurses"
 source = f"$(GNU_SITE)/ncurses/{pkgname}-{pkgver}.tar.gz"
-sha256 = "6931283d9ac87c5073f30b6290c4c75f21632bb4fc3603ac8100812bed248159"
+sha256 = "136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6"
 tool_flags = {
     "CFLAGS": ["-fPIC"],
 }
