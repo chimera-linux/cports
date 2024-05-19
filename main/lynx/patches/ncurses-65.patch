@@ -1,0 +1,29 @@
+--- a/src/LYCurses.h
++++ b/src/LYCurses.h
+@@ -354,21 +354,21 @@ extern "C" {
+ /*
+  * Useful macros not in PDCurses or very old ncurses headers.
+  */
+-#if !defined(HAVE_GETBEGX) && !defined(getbegx)
++#if 0
+ #define getbegx(win) ((win)->_begx)
+ #endif
+-#if !defined(HAVE_GETBEGY) && !defined(getbegy)
++#if 0
+ #define getbegy(win) ((win)->_begy)
+ #endif
+-#if !defined(HAVE_GETBKGD) && !defined(getbkgd)
++#if 0
+ #define getbkgd(win) ((win)->_bkgd)
+ #endif
+ 
+-#if defined(HAVE_WATTR_GET)
++#if 0
+     extern long LYgetattrs(WINDOW * win);
+ 
+ #else
+-#if defined(HAVE_GETATTRS) || defined(getattrs)
++#if 1
+ #define LYgetattrs(win) getattrs(win)
+ #else
+ #define LYgetattrs(win) ((win)->_attrs)
