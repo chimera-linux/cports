@@ -10,7 +10,7 @@ make_check_args = make_build_args + [
     "--",
     "--skip=workspace::package::external::remote_repo::test::full_download",
 ]
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["rust-std", "openssl-devel"]
 pkgdesc = "Language server for typst"
 maintainer = "ttyyls <contact@behri.org>"

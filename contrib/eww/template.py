@@ -2,7 +2,7 @@ pkgname = "eww"
 pkgver = "0.6.0"
 pkgrel = 0
 build_style = "cargo"
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = [
     "gtk-layer-shell-devel",
     "libdbusmenu-devel",

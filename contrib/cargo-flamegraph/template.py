@@ -2,9 +2,9 @@
 # plugin
 pkgname = "cargo-flamegraph"
 pkgver = "0.6.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
-hostmakedepends = ["cargo"]
+hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
 depends = ["perf"]
 pkgdesc = "Perf-based flamegraph generator"

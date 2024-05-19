@@ -1,9 +1,9 @@
 pkgname = "bpftop"
 pkgver = "0.5.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cargo"
 hostmakedepends = [
-    "cargo",
+    "cargo-auditable",
     "pkgconf",
 ]
 makedepends = [

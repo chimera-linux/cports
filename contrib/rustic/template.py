@@ -4,7 +4,7 @@ pkgrel = 0
 build_style = "cargo"
 make_build_args = ["--no-default-features", "--features=webdav"]
 make_install_args = list(make_build_args)
-hostmakedepends = ["cargo", "pkgconf"]
+hostmakedepends = ["cargo-auditable", "pkgconf"]
 makedepends = ["zstd-devel"]
 pkgdesc = "Encrypted and deduplicated backups - restic compatible"
 maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
