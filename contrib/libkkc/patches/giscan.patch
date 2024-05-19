@@ -1,0 +1,18 @@
+static deps ends up containing -latomic (from implicit llvm linkage) and -lm
+(from pkg-config --libs --static glib-2.0), which fails in g-ir-scanner with
+ERROR: can't resolve libraries to shared libraries: m, atomic
+
+for libm there is no .so, but for atomic there is. no idea why this happens, so
+manually input this list to work around it...
+--
+--- a/marisa-glib/Makefile.am
++++ b/marisa-glib/Makefile.am
+@@ -37,7 +37,7 @@
+ INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
+ 
+ Marisa.gir: libmarisa-glib.la
+-Marisa_gir_SCANNERFLAGS = --pkg-export=marisa-glib --pkg=marisa --namespace=Marisa $(MARISA_GLIB_STATIC_DEPENDENCIES)
++Marisa_gir_SCANNERFLAGS = --pkg-export=marisa-glib --pkg=marisa --namespace=Marisa -lc++ -lc++abi -lunwind -lc
+ Marisa_gir_INCLUDES = GLib-2.0 GObject-2.0 Gio-2.0
+ Marisa_gir_CFLAGS = $(libmarisa_glib_la_CFLAGS)
+ Marisa_gir_LIBS = libmarisa-glib.la
