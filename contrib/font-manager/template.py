@@ -28,7 +28,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://fontmanager.github.io"
 # they forgor to tag it lol
-source = f"https://github.com/FontManager/font-manager/archive/9c52ed802841eed2bd9ed4f1c7d662dd94a112dc.tar.gz"
+source = "https://github.com/FontManager/font-manager/archive/9c52ed802841eed2bd9ed4f1c7d662dd94a112dc.tar.gz"
 sha256 = "2f33bdfca59c8c72d044e7fce3d0f103371647eff63fd64248699d7b9c2b2669"
 # gobject-introspection
 options = ["!cross"]
