@@ -1,6 +1,6 @@
 pkgname = "qt6-qtwebengine"
 pkgver = "6.7.1"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "ppc64le", "x86_64"]
 build_style = "cmake"
 configure_args = [
@@ -97,6 +97,11 @@ tool_flags = {
 hardening = ["!int", "!scp"]
 # lol
 options = ["!check", "!cross"]
+
+
+def post_install(self):
+    self.rm(self.destdir / "usr/lib/qt6/bin/testbrowser")
+    self.rm(self.destdir / "usr/lib/qt6/libexec/gn")
 
 
 @subpackage("qt6-qtwebengine-devel")
