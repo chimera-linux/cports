@@ -63,6 +63,8 @@ CXXFLAGS = -O2
 FFLAGS = -O2
 # default user linker flags
 LDFLAGS =
+# default user rust flags
+RUSTFLAGS =
 
 # options related to signing packages
 [signing]
