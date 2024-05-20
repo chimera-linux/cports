@@ -113,7 +113,6 @@ def init_configure(self):
     self.env["AS"] = self.get_tool("CC")
     self.env["MOZ_MAKE_FLAGS"] = f"-j{self.make_jobs}"
     self.env["RUST_TARGET"] = self.profile().triplet
-    self.env["RUSTFLAGS"] = ""
     # use all the cargo env vars we enforce
     self.env.update(cargo.get_environment(self))
 
