@@ -1,6 +1,6 @@
 pkgname = "musl-mallocng"
 pkgver = "1.2.5_git20240512"
-pkgrel = 3
+pkgrel = 4
 _commit = "007997299248b8682dcbb73595c53dfe86071c83"
 _scudo_ver = "18.1.7"
 build_style = "gnu_configure"

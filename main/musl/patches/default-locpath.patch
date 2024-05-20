@@ -1,0 +1,14 @@
+--- a/src/locale/locale_map.c	2024-05-12 20:33:15.000000000 +0100
++++ b/src/locale/locale_map.c	2024-05-20 22:53:02.685916344 +0100
+@@ -64,7 +64,10 @@
+ 		if (!strcmp(val, p->name)) return p;
+ 
+ 	if (!libc.secure) path = getenv("MUSL_LOCPATH");
+-	/* FIXME: add a default path? */
++	if (!path) {
++		// Provided by musl-locales
++		path = "/usr/share/i18n/locales/musl";
++	}
+ 
+ 	if (path) for (; *path; path=z+!!*z) {
+ 		z = __strchrnul(path, ':');
