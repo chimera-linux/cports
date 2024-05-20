@@ -1,7 +1,7 @@
 # keep pkgver AND pkgrel in sync with qt6-qtwayland
 pkgname = "qt6-qtbase"
-pkgver = "6.7.0"
-pkgrel = 1
+pkgver = "6.7.1"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DINSTALL_DATADIR=share/qt6",
@@ -69,7 +69,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtbase-everywhere-src-{pkgver}.tar.xz"
-sha256 = "11b2e29e2e52fb0e3b453ea13bbe51a10fdff36e1c192d8868c5a40233b8b254"
+sha256 = "b7338da1bdccb4d861e714efffaa83f174dfe37e194916bfd7ec82279a6ace19"
 debug_level = 1  # defatten, especially with LTO
 # FIXME
 hardening = ["!int"]
@@ -152,6 +152,8 @@ def init_check(self):
         "tst_qstorageinfo",  # Test data requested, but no testdata available
         "tst_qfloat16",  # 0.000000_vs_-1300000.000000 qfloat16 vs qint16 comparison failed
         "tst_qdir",  # flaky
+        "tst_qsqltablemodel",  # tst_QSqlTableModel::modelInAnotherThread() 't.isFinished()' returned FALSE. ()
+        "tst_qtimer_no_glib",  # times out after 300s
     ]
     self.make_check_args += ["-E", "(" + "|".join(excl_list) + ")"]
     self.make_check_env["QT_QPA_PLATFORM"] = "offscreen"
@@ -273,6 +275,8 @@ def _devel(self):
         extra=[
             "usr/bin/androiddeployqt6",
             "usr/bin/qmake6",
+            # named based on BUILD_TYPE
+            "usr/lib/objects-*",
             "usr/lib/qt6/metatypes",
             "usr/lib/qt6/mkspecs",
             "usr/lib/qt6/modules",
