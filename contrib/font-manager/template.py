@@ -1,5 +1,5 @@
 pkgname = "font-manager"
-pkgver = "0.8.9"
+pkgver = "0.8.8"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -27,9 +27,8 @@ pkgdesc = "Font management application"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later"
 url = "https://fontmanager.github.io"
-# they forgor to tag it lol
-source = "https://github.com/FontManager/font-manager/archive/9c52ed802841eed2bd9ed4f1c7d662dd94a112dc.tar.gz"
-sha256 = "2f33bdfca59c8c72d044e7fce3d0f103371647eff63fd64248699d7b9c2b2669"
+source = f"https://github.com/FontManager/font-manager/archive/refs/tags/{pkgver}.tar.gz"
+sha256 = "7badeefe47df3f21d4e9087889fe3d2a6f8e97c95c32fa7fae78ccb59ac40868"
 # gobject-introspection
 options = ["!cross"]
 
