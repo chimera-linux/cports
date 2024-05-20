@@ -1,6 +1,6 @@
 pkgname = "qt6-qtmultimedia"
-pkgver = "6.7.0"
-pkgrel = 1
+pkgver = "6.7.1"
+pkgrel = 0
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -33,7 +33,7 @@ license = (
 )
 url = "https://www.qt.io"
 source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/submodules/qtmultimedia-everywhere-src-{pkgver}.tar.xz"
-sha256 = "f394bae49e3d4ee6a3b0c9e1e5e31bb870cc04a4b44f4cda3615baf7bd078c70"
+sha256 = "656d1543727f5bf1bd39fe2548ac454860109dc8555df77d7940f21e3d65cd3e"
 # FIXME: int breaks at least tst_qaudiodecoderbackend
 hardening = ["!int"]
 # TODO
@@ -54,6 +54,10 @@ def init_check(self):
     }
 
 
+def post_install(self):
+    self.rm(self.destdir / "usr/tests", recursive=True)
+
+
 @subpackage("qt6-qtmultimedia-devel")
 def _devel(self):
     self.depends += [
@@ -67,6 +71,9 @@ def _devel(self):
             "usr/lib/qt6/metatypes",
             "usr/lib/qt6/mkspecs",
             "usr/lib/qt6/modules",
+            # named based on BUILD_TYPE
+            "usr/lib/qt6/plugins/multimedia/objects-*",
+            "usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.*",
             "usr/lib/*.prl",
         ]
     )
