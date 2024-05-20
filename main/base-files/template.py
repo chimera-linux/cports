@@ -1,7 +1,7 @@
 pkgname = "base-files"
 _iana_ver = "20240318"
 pkgver = f"0.1.{_iana_ver}"
-pkgrel = 0
+pkgrel = 1
 # highest priority dir owner
 replaces_priority = 65535
 pkgdesc = "Chimera Linux base system files"
@@ -133,15 +133,6 @@ def _basedevs(self):
     self.pkgdesc = "Base package for static development packages"
     self.depends = []
     self.install_if = []
-    self.options = ["empty"]
-
-    return []
-
-
-@subpackage("base-locale")
-def _baseloc(self):
-    self.pkgdesc = "Base package for locale data"
-    self.depends = []
     self.options = ["empty"]
 
     return []
