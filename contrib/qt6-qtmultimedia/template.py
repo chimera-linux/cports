@@ -1,6 +1,6 @@
 pkgname = "qt6-qtmultimedia"
 pkgver = "6.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -55,7 +55,7 @@ def init_check(self):
 
 
 def post_install(self):
-    self.rm(self.destdir / "usr/tests", recursive=True)
+    self.rm(self.destdir / "usr/tests", recursive=True, force=True)
 
 
 @subpackage("qt6-qtmultimedia-devel")
@@ -72,8 +72,8 @@ def _devel(self):
             "usr/lib/qt6/mkspecs",
             "usr/lib/qt6/modules",
             # named based on BUILD_TYPE
-            "usr/lib/qt6/plugins/multimedia/objects-*",
-            "usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.*",
+            # "usr/lib/qt6/plugins/multimedia/objects-*",
+            # "usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.*",
             "usr/lib/*.prl",
         ]
     )
