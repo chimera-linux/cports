@@ -1,5 +1,5 @@
 pkgname = "tig"
-pkgver = "2.5.9"
+pkgver = "2.5.10"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -13,7 +13,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "GPL-2.0-or-later"
 url = "https://github.com/jonas/tig"
 source = f"{url}/releases/download/{pkgname}-{pkgver}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "0cb4d9e3de00dc92aaa7996e1517845bd9b9a0d4368f3206f618d813e8db8b39"
+sha256 = "f655cc1366fc10058a2bd505bb88ca78e653ff7526c1b81774c44b9d841210e3"
 # test suite tries to access /dev/tty which fails
 options = ["!check"]
 
