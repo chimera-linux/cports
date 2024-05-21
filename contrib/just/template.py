@@ -1,5 +1,5 @@
 pkgname = "just"
-pkgver = "1.25.2"
+pkgver = "1.26.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -10,7 +10,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "CC0-1.0"
 url = "https://github.com/casey/just"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "5a005a4de9f99b297ba7b5dc02c3365c689e579148790660384afee0810a2342"
+sha256 = "20c4109bf30590e5633ae005329508c3fa772c3d86d0994bd2f770ade02dd6a7"
 
 
 def post_install(self):
