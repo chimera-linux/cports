@@ -1,5 +1,5 @@
 pkgname = "clang-rt-cross"
-pkgver = "18.1.5"
+pkgver = "18.1.6"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -53,7 +53,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://llvm.org"
 source = f"https://github.com/llvm/llvm-project/releases/download/llvmorg-{pkgver}/llvm-project-{pkgver}.src.tar.xz"
-sha256 = "3591a52761a7d390ede51af01ea73abfecc4b1d16445f9d019b67a57edd7de56"
+sha256 = "bd4b4cb6374bcd5fc5a3ba60cb80425d29da34f316b8821abc12c0db225cf6b4"
 # crosstoolchain
 options = ["!cross", "!check", "!lto", "empty"]
 
