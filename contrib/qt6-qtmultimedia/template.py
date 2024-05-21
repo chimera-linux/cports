@@ -1,7 +1,11 @@
 pkgname = "qt6-qtmultimedia"
 pkgver = "6.7.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
+# these install /usr/lib/qt6/plugins/multimedia/libmockmultimediaplugin.a which
+# then has to exist for the -devel to work, but not splitting static keeps around
+# stuff that can be split, so just don't build this instead
+configure_args = ["-DQT_BUILD_TESTS=OFF"]
 make_check_args = [
     "-E",
     "(tst_qscreencapturebackend"  # blacklisted on upstream CI, https://bugreports.qt.io/browse/QTBUG-111190
