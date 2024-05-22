@@ -1,0 +1,287 @@
+FAILED: bin/llvm-exegesis 
+: && /builddir/llvm-18.1.6/boot-clang++ -ffile-prefix-map=/builddir/llvm-18.1.6=. -Wformat -Werror=format-security -ftrivial-auto-var-init=zero -fstack-clash-protection -fno-omit-frame-pointer -flto=thin -mcpu=970 -mtune=power9 -O2 -fPIC -g1 -stdlib=libc++ -fPIC -fno-semantic-interposition -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -Wall -Wextra -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -pedantic -Wno-long-long -Wc++98-compat-extra-semi -Wimplicit-fallthrough -Wcovered-switch-default -Wno-noexcept-type -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Wsuggest-override -Wstring-conversion -Wmisleading-indentation -Wctad-maybe-unsupported -fdiagnostics-color -ffunction-sections -fdata-sections -flto=thin -O3 -DNDEBUG -Wl,-z,pack-relative-relocs -fno-omit-frame-pointer -flto=thin -fuse-ld=/usr/lib/llvm-bootstrap/bin/ld.lld -stdlib=libc++ -fuse-ld=lld -Wl,--color-diagnostics -flto=thin -Wl,--thinlto-cache-dir=/builddir/llvm-18.1.6/build/lto.cache    -Wl,--gc-sections tools/llvm-exegesis/CMakeFiles/llvm-exegesis.dir/llvm-exegesis.cpp.o -o bin/llvm-exegesis  -Wl,-rpath,"\$ORIGIN/../lib:"  lib/libLLVMAArch64AsmParser.a  lib/libLLVMAMDGPUAsmParser.a  lib/libLLVMARMAsmParser.a  lib/libLLVMAVRAsmParser.a  lib/libLLVMBPFAsmParser.a  lib/libLLVMHexagonAsmParser.a  lib/libLLVMLanaiAsmParser.a  lib/libLLVMLoongArchAsmParser.a  lib/libLLVMMipsAsmParser.a  lib/libLLVMMSP430AsmParser.a  lib/libLLVMPowerPCAsmParser.a  lib/libLLVMRISCVAsmParser.a  lib/libLLVMSparcAsmParser.a  lib/libLLVMSystemZAsmParser.a  lib/libLLVMVEAsmParser.a  lib/libLLVMWebAssemblyAsmParser.a  lib/libLLVMX86AsmParser.a  lib/libLLVMAArch64CodeGen.a  lib/libLLVMAMDGPUCodeGen.a  lib/libLLVMARMCodeGen.a  lib/libLLVMAVRCodeGen.a  lib/libLLVMBPFCodeGen.a  lib/libLLVMHexagonCodeGen.a  lib/libLLVMLanaiCodeGen.a  lib/libLLVMLoongArchCodeGen.a  lib/libLLVMMipsCodeGen.a  lib/libLLVMMSP430CodeGen.a  lib/libLLVMNVPTXCodeGen.a  lib/libLLVMPowerPCCodeGen.a  lib/libLLVMRISCVCodeGen.a  lib/libLLVMSparcCodeGen.a  lib/libLLVMSystemZCodeGen.a  lib/libLLVMVECodeGen.a  lib/libLLVMWebAssemblyCodeGen.a  lib/libLLVMX86CodeGen.a  lib/libLLVMXCoreCodeGen.a  lib/libLLVMAArch64Desc.a  lib/libLLVMAMDGPUDesc.a  lib/libLLVMARMDesc.a  lib/libLLVMAVRDesc.a  lib/libLLVMBPFDesc.a  lib/libLLVMHexagonDesc.a  lib/libLLVMLanaiDesc.a  lib/libLLVMLoongArchDesc.a  lib/libLLVMMipsDesc.a  lib/libLLVMMSP430Desc.a  lib/libLLVMNVPTXDesc.a  lib/libLLVMPowerPCDesc.a  lib/libLLVMRISCVDesc.a  lib/libLLVMSparcDesc.a  lib/libLLVMSystemZDesc.a  lib/libLLVMVEDesc.a  lib/libLLVMWebAssemblyDesc.a  lib/libLLVMX86Desc.a  lib/libLLVMXCoreDesc.a  lib/libLLVMAArch64Disassembler.a  lib/libLLVMAMDGPUDisassembler.a  lib/libLLVMARMDisassembler.a  lib/libLLVMAVRDisassembler.a  lib/libLLVMBPFDisassembler.a  lib/libLLVMHexagonDisassembler.a  lib/libLLVMLanaiDisassembler.a  lib/libLLVMLoongArchDisassembler.a  lib/libLLVMMipsDisassembler.a  lib/libLLVMMSP430Disassembler.a  lib/libLLVMPowerPCDisassembler.a  lib/libLLVMRISCVDisassembler.a  lib/libLLVMSparcDisassembler.a  lib/libLLVMSystemZDisassembler.a  lib/libLLVMVEDisassembler.a  lib/libLLVMWebAssemblyDisassembler.a  lib/libLLVMX86Disassembler.a  lib/libLLVMXCoreDisassembler.a  lib/libLLVMAArch64Info.a  lib/libLLVMAMDGPUInfo.a  lib/libLLVMARMInfo.a  lib/libLLVMAVRInfo.a  lib/libLLVMBPFInfo.a  lib/libLLVMHexagonInfo.a  lib/libLLVMLanaiInfo.a  lib/libLLVMLoongArchInfo.a  lib/libLLVMMipsInfo.a  lib/libLLVMMSP430Info.a  lib/libLLVMNVPTXInfo.a  lib/libLLVMPowerPCInfo.a  lib/libLLVMRISCVInfo.a  lib/libLLVMSparcInfo.a  lib/libLLVMSystemZInfo.a  lib/libLLVMVEInfo.a  lib/libLLVMWebAssemblyInfo.a  lib/libLLVMX86Info.a  lib/libLLVMXCoreInfo.a  lib/libLLVMCodeGenTypes.a  lib/libLLVMMC.a  lib/libLLVMMCParser.a  lib/libLLVMSupport.a  lib/libLLVMTargetParser.a  lib/libLLVMExegesis.a  lib/libLLVMExegesisX86.a  lib/libLLVMExegesisAArch64.a  lib/libLLVMExegesisPowerPC.a  lib/libLLVMExegesisMips.a  lib/libLLVMMIRParser.a  lib/libLLVMHexagonAsmParser.a  li
+  lib/libLLVMAMDGPUInfo.a  lib/libLLVMAMDGPUUtils.a  lib/libLLVMARMDesc.a  lib/libLLVMARMInfo.a  lib/libLLVMARMUtils.a  lib/libLLVMHexagonDesc.a  lib/libLLVMHexagonInfo.a  lib/libLLVMLanaiDesc.a  lib/libLLVMLanaiInfo.a  lib/libLLVMLoongArchDesc.a  lib/libLLVMLoongArchInfo.a  lib/libLLVMRISCVDesc.a  lib/libLLVMRISCVInfo.a  lib/libLLVMSystemZDesc.a  lib/libLLVMSystemZInfo.a  lib/libLLVMWebAssemblyDesc.a  lib/libLLVMWebAssemblyInfo.a  lib/libLLVMX86AsmParser.a  lib/libLLVMX86CodeGen.a  lib/libLLVMX86Desc.a  lib/libLLVMX86Disassembler.a  lib/libLLVMX86Info.a  lib/libLLVMAArch64AsmParser.a  lib/libLLVMAArch64CodeGen.a  lib/libLLVMAArch64Disassembler.a  lib/libLLVMAArch64Desc.a  lib/libLLVMAArch64Info.a  lib/libLLVMAArch64Utils.a  lib/libLLVMPowerPCAsmParser.a  lib/libLLVMPowerPCCodeGen.a  lib/libLLVMPowerPCDesc.a  lib/libLLVMPowerPCDisassembler.a  lib/libLLVMPowerPCInfo.a  lib/libLLVMMipsAsmParser.a  lib/libLLVMMipsCodeGen.a  lib/libLLVMAsmPrinter.a  lib/libLLVMMipsDesc.a  lib/libLLVMMipsDisassembler.a  lib/libLLVMMipsInfo.a  lib/libLLVMExegesis.a  lib/libLLVMGlobalISel.a  lib/libLLVMSelectionDAG.a  lib/libLLVMMCDisassembler.a  lib/libLLVMMCA.a  lib/libLLVMObjectYAML.a  lib/libLLVMOrcJIT.a  lib/libLLVMPasses.a  lib/libLLVMCFGuard.a  lib/libLLVMCodeGen.a  lib/libLLVMCodeGenTypes.a  lib/libLLVMHipStdPar.a  lib/libLLVMIRPrinter.a  lib/libLLVMObjCARCOpts.a  lib/libLLVMCoroutines.a  lib/libLLVMipo.a  lib/libLLVMVectorize.a  lib/libLLVMInstrumentation.a  lib/libLLVMFrontendOpenMP.a  lib/libLLVMScalarOpts.a  lib/libLLVMAggressiveInstCombine.a  lib/libLLVMInstCombine.a  lib/libLLVMFrontendOffloading.a  lib/libLLVMLinker.a  lib/libLLVMTransformUtils.a  lib/libLLVMExecutionEngine.a  lib/libLLVMTarget.a  lib/libLLVMBitWriter.a  lib/libLLVMAnalysis.a  lib/libLLVMProfileData.a  lib/libLLVMSymbolize.a  lib/libLLVMDebugInfoDWARF.a  lib/libLLVMDebugInfoPDB.a  lib/libLLVMDebugInfoMSF.a  lib/libLLVMDebugInfoBTF.a  lib/libLLVMJITLink.a  lib/libLLVMOrcTargetProcess.a  lib/libLLVMOrcShared.a  lib/libLLVMWindowsDriver.a  lib/libLLVMOption.a  lib/libLLVMRuntimeDyld.a  lib/libLLVMObject.a  lib/libLLVMMCParser.a  lib/libLLVMMC.a  lib/libLLVMDebugInfoCodeView.a  lib/libLLVMIRReader.a  lib/libLLVMBitReader.a  lib/libLLVMAsmParser.a  lib/libLLVMTextAPI.a  lib/libLLVMCore.a  lib/libLLVMBinaryFormat.a  lib/libLLVMTargetParser.a  lib/libLLVMRemarks.a  lib/libLLVMBitstreamReader.a  lib/libLLVMSupport.a  -lrt  -ldl  -lm  /usr/lib/libz.so  /usr/lib/libzstd.so  /usr/lib/libcurses.so  lib/libLLVMDemangle.a && :
+PLEASE submit a bug report to https://github.com/llvm/llvm-project/issues/ and include the crash backtrace.
+Stack dump:
+0.	Running pass 'PPC Merge String Pool' on module 'lib/libLLVMX86CodeGen.a(X86TargetMachine.cpp.o at 20709228)'.
+clang++: error: unable to execute command: Segmentation fault
+clang++: error: linker command failed due to signal (use -v to see invocation)
+--
+From 9de6a3ee5617608308650dc2704372a19f926941 Mon Sep 17 00:00:00 2001
+From: psykose <alice@ayaya.dev>
+Date: Wed, 22 May 2024 03:09:07 +0000
+Subject: [PATCH] Revert "[PPCMergeStringPool] Avoid replacing constant with
+ instruction (#88846)"
+
+This reverts commit 1184a9cb30e6a12c883b918867f2f06bc3096fc0.
+---
+ .../lib/Target/PowerPC/PPCMergeStringPool.cpp | 57 +++++++++++++------
+ .../mergeable-string-pool-exceptions.ll       | 47 ---------------
+ .../PowerPC/mergeable-string-pool-large.ll    | 14 ++---
+ .../mergeable-string-pool-pass-only.mir       | 18 +++---
+ .../CodeGen/PowerPC/mergeable-string-pool.ll  | 14 ++---
+ 5 files changed, 63 insertions(+), 87 deletions(-)
+ delete mode 100644 llvm/test/CodeGen/PowerPC/mergeable-string-pool-exceptions.ll
+
+diff --git a/llvm/lib/Target/PowerPC/PPCMergeStringPool.cpp b/llvm/lib/Target/PowerPC/PPCMergeStringPool.cpp
+index ebd876d50c44..d9465e86d896 100644
+--- a/llvm/lib/Target/PowerPC/PPCMergeStringPool.cpp
++++ b/llvm/lib/Target/PowerPC/PPCMergeStringPool.cpp
+@@ -23,7 +23,6 @@
+ #include "llvm/Analysis/ScalarEvolutionAliasAnalysis.h"
+ #include "llvm/IR/Constants.h"
+ #include "llvm/IR/Instructions.h"
+-#include "llvm/IR/IntrinsicInst.h"
+ #include "llvm/IR/Module.h"
+ #include "llvm/IR/ValueSymbolTable.h"
+ #include "llvm/Pass.h"
+@@ -117,20 +116,9 @@ private:
+ // sure that they can be replaced.
+ static bool hasReplaceableUsers(GlobalVariable &GV) {
+   for (User *CurrentUser : GV.users()) {
+-    if (auto *I = dyn_cast<Instruction>(CurrentUser)) {
+-      // Do not merge globals in exception pads.
+-      if (I->isEHPad())
+-        return false;
+-
+-      if (auto *II = dyn_cast<IntrinsicInst>(I)) {
+-        // Some intrinsics require a plain global.
+-        if (II->getIntrinsicID() == Intrinsic::eh_typeid_for)
+-          return false;
+-      }
+-
+-      // Other instruction users are always valid.
++    // Instruction users are always valid.
++    if (isa<Instruction>(CurrentUser))
+       continue;
+-    }
+ 
+     // We cannot replace GlobalValue users because they are not just nodes
+     // in IR. To replace a user like this we would need to create a new
+@@ -314,6 +302,14 @@ void PPCMergeStringPool::replaceUsesWithGEP(GlobalVariable *GlobalToReplace,
+     Users.push_back(CurrentUser);
+ 
+   for (User *CurrentUser : Users) {
++    Instruction *UserInstruction = dyn_cast<Instruction>(CurrentUser);
++    Constant *UserConstant = dyn_cast<Constant>(CurrentUser);
++
++    // At this point we expect that the user is either an instruction or a
++    // constant.
++    assert((UserConstant || UserInstruction) &&
++           "Expected the user to be an instruction or a constant.");
++
+     // The user was not found so it must have been replaced earlier.
+     if (!userHasOperand(CurrentUser, GlobalToReplace))
+       continue;
+@@ -322,13 +318,38 @@ void PPCMergeStringPool::replaceUsesWithGEP(GlobalVariable *GlobalToReplace,
+     if (isa<GlobalValue>(CurrentUser))
+       continue;
+ 
+-    Constant *ConstGEP = ConstantExpr::getInBoundsGetElementPtr(
+-        PooledStructType, GPool, Indices);
++    if (!UserInstruction) {
++      // User is a constant type.
++      Constant *ConstGEP = ConstantExpr::getInBoundsGetElementPtr(
++          PooledStructType, GPool, Indices);
++      UserConstant->handleOperandChange(GlobalToReplace, ConstGEP);
++      continue;
++    }
++
++    if (PHINode *UserPHI = dyn_cast<PHINode>(UserInstruction)) {
++      // GEP instructions cannot be added before PHI nodes.
++      // With getInBoundsGetElementPtr we create the GEP and then replace it
++      // inline into the PHI.
++      Constant *ConstGEP = ConstantExpr::getInBoundsGetElementPtr(
++          PooledStructType, GPool, Indices);
++      UserPHI->replaceUsesOfWith(GlobalToReplace, ConstGEP);
++      continue;
++    }
++    // The user is a valid instruction that is not a PHINode.
++    GetElementPtrInst *GEPInst =
++        GetElementPtrInst::Create(PooledStructType, GPool, Indices);
++    GEPInst->insertBefore(UserInstruction);
++
++    LLVM_DEBUG(dbgs() << "Inserting GEP before:\n");
++    LLVM_DEBUG(UserInstruction->dump());
++
+     LLVM_DEBUG(dbgs() << "Replacing this global:\n");
+     LLVM_DEBUG(GlobalToReplace->dump());
+     LLVM_DEBUG(dbgs() << "with this:\n");
+-    LLVM_DEBUG(ConstGEP->dump());
+-    GlobalToReplace->replaceAllUsesWith(ConstGEP);
++    LLVM_DEBUG(GEPInst->dump());
++
++    // After the GEP is inserted the GV can be replaced.
++    CurrentUser->replaceUsesOfWith(GlobalToReplace, GEPInst);
+   }
+ }
+ 
+diff --git a/llvm/test/CodeGen/PowerPC/mergeable-string-pool-exceptions.ll b/llvm/test/CodeGen/PowerPC/mergeable-string-pool-exceptions.ll
+deleted file mode 100644
+index 0489c74c0f81..000000000000
+--- a/llvm/test/CodeGen/PowerPC/mergeable-string-pool-exceptions.ll
++++ /dev/null
+@@ -1,47 +0,0 @@
+-; NOTE: Assertions have been autogenerated by utils/update_llc_test_checks.py UTC_ARGS: --version 4
+-; RUN: llc -mtriple=ppc64le-unknown-linux-gnu < %s | FileCheck %s
+-
+-@id = private unnamed_addr constant [4 x i8] c"@id\00", align 1
+-@id2 = private unnamed_addr constant [5 x i8] c"@id2\00", align 1
+-
+-; Higher-aligned dummy to make sure it is first in the string pool.
+-@dummy = private unnamed_addr constant [1 x i32] [i32 42], align 4
+-
+-define ptr @test1() personality ptr @__gnu_objc_personality_v0 {
+-; CHECK-LABEL: test1:
+-; CHECK:       # %bb.0:
+-; CHECK-NEXT:    mflr 0
+-; CHECK-NEXT:    stdu 1, -32(1)
+-; CHECK-NEXT:    std 0, 48(1)
+-; CHECK-NEXT:    .cfi_def_cfa_offset 32
+-; CHECK-NEXT:    .cfi_offset lr, 16
+-; CHECK-NEXT:    addis 3, 2, .L__ModuleStringPool@toc@ha
+-; CHECK-NEXT:    addi 3, 3, .L__ModuleStringPool@toc@l
+-; CHECK-NEXT:    bl foo
+-; CHECK-NEXT:    nop
+-  invoke void @foo(ptr @dummy)
+-          to label %cont unwind label %unwind
+-
+-cont:
+-  unreachable
+-
+-unwind:
+-  %lp = landingpad { ptr, i32 }
+-          catch ptr @id
+-  resume { ptr, i32 } %lp
+-}
+-
+-define i32 @test2() personality ptr @__gnu_objc_personality_v0 {
+-; CHECK-LABEL: test2:
+-; CHECK:       # %bb.0:
+-; CHECK-NEXT:    li 3, 1
+-; CHECK-NEXT:    blr
+-  %id = tail call i32 @llvm.eh.typeid.for(ptr @id2)
+-  ret i32 %id
+-}
+-
+-declare i32 @__gnu_objc_personality_v0(...)
+-
+-declare i32 @llvm.eh.typeid.for(ptr)
+-
+-declare void @foo()
+diff --git a/llvm/test/CodeGen/PowerPC/mergeable-string-pool-large.ll b/llvm/test/CodeGen/PowerPC/mergeable-string-pool-large.ll
+index b182763ccc14..b13b01b416e6 100644
+--- a/llvm/test/CodeGen/PowerPC/mergeable-string-pool-large.ll
++++ b/llvm/test/CodeGen/PowerPC/mergeable-string-pool-large.ll
+@@ -319,16 +319,16 @@ define dso_local signext i32 @array0() local_unnamed_addr #0 {
+ ; AIX32-NEXT:    mflr r0
+ ; AIX32-NEXT:    stwu r1, -96(r1)
+ ; AIX32-NEXT:    lis r6, 0
+-; AIX32-NEXT:    lwz r5, L..C0(r2) # @__ModuleStringPool
+-; AIX32-NEXT:    li r4, 12
++; AIX32-NEXT:    lwz r4, L..C0(r2) # @__ModuleStringPool
++; AIX32-NEXT:    li r5, 12
+ ; AIX32-NEXT:    addi r3, r1, 64
+ ; AIX32-NEXT:    stw r0, 104(r1)
+ ; AIX32-NEXT:    ori r7, r6, 35596
+-; AIX32-NEXT:    rlwimi r4, r3, 0, 30, 27
+-; AIX32-NEXT:    lxvw4x vs0, r5, r7
+-; AIX32-NEXT:    stxvw4x vs0, 0, r4
+-; AIX32-NEXT:    ori r4, r6, 35584
+-; AIX32-NEXT:    lxvw4x vs0, r5, r4
++; AIX32-NEXT:    rlwimi r5, r3, 0, 30, 27
++; AIX32-NEXT:    lxvw4x vs0, r4, r7
++; AIX32-NEXT:    stxvw4x vs0, 0, r5
++; AIX32-NEXT:    ori r5, r6, 35584
++; AIX32-NEXT:    lxvw4x vs0, r4, r5
+ ; AIX32-NEXT:    stxvw4x vs0, 0, r3
+ ; AIX32-NEXT:    bl .calleeInt[PR]
+ ; AIX32-NEXT:    nop
+diff --git a/llvm/test/CodeGen/PowerPC/mergeable-string-pool-pass-only.mir b/llvm/test/CodeGen/PowerPC/mergeable-string-pool-pass-only.mir
+index 3d8afb604fd3..e2fb0ced8f34 100644
+--- a/llvm/test/CodeGen/PowerPC/mergeable-string-pool-pass-only.mir
++++ b/llvm/test/CodeGen/PowerPC/mergeable-string-pool-pass-only.mir
+@@ -35,7 +35,8 @@
+     ret i32 %call
+ 
+   ; CHECK-LABEL: test1
+-  ; CHECK:         %call = tail call signext i32 @calleeStr(ptr noundef nonnull getelementptr inbounds ({ [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 6))
++  ; CHECK:         %0 = getelementptr { [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 6
++  ; CHECK:         tail call signext i32 @calleeStr
+   }
+ 
+   define dso_local signext i32 @test2() local_unnamed_addr #0 {
+@@ -48,7 +49,7 @@
+     ret i32 %call
+ 
+   ; CHECK-LABEL: test2
+-  ; CHECK:         call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(24) %A, ptr noundef nonnull align 4 dereferenceable(24) getelementptr inbounds ({ [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 2), i64 24, i1 false)
++  ; CHECK:         %0 = getelementptr { [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 2
+   ; CHECK:         call signext i32 @calleeInt
+   }
+ 
+@@ -61,7 +62,7 @@
+     call void @llvm.lifetime.end.p0(i64 28, ptr nonnull %A) #0
+     ret i32 %call
+   ; CHECK-LABEL: test3
+-  ; CHECK:         call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(28) %A, ptr noundef nonnull align 4 dereferenceable(28) getelementptr inbounds ({ [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 4), i64 28, i1 false)
++  ; CHECK:         %0 = getelementptr { [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 4
+   ; CHECK:         call signext i32 @calleeFloat
+   }
+ 
+@@ -74,7 +75,7 @@
+     call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %A) #0
+     ret i32 %call
+   ; CHECK-LABEL: test4
+-  ; CHECK:         call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %A, ptr noundef nonnull align 8 dereferenceable(56) @__ModuleStringPool, i64 56, i1 false)
++  ; CHECK:         %0 = getelementptr { [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 0
+   ; CHECK:         call signext i32 @calleeDouble
+   }
+ 
+@@ -101,10 +102,11 @@
+     call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %B) #0
+     ret i32 %add7
+   ; CHECK-LABEL: test5
+-  ; CHECK:         call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(24) %B, ptr noundef nonnull align 4 dereferenceable(24) getelementptr inbounds ({ [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 3), i64 24, i1 false)
+-  ; CHECK:         call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 4 dereferenceable(28) %C, ptr noundef nonnull align 4 dereferenceable(28) getelementptr inbounds ({ [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 5), i64 28, i1 false)
+-  ; CHECK:         call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(56) %D, ptr noundef nonnull align 8 dereferenceable(56) getelementptr inbounds ({ [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 1), i64 56, i1 false)
+-  ; CHECK:         call signext i32 @calleeStr(ptr noundef nonnull getelementptr inbounds ({ [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 7))
++  ; CHECK:         %0 = getelementptr { [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 3
++  ; CHECK:         %1 = getelementptr { [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 5
++  ; CHECK:         %2 = getelementptr { [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 1
++  ; CHECK:         %3 = getelementptr { [7 x double], [7 x double], [6 x i32], [6 x i32], [7 x float], [7 x float], [8 x i8], [16 x i8] }, ptr @__ModuleStringPool, i32 0, i32 7
++  ; CHECK:         call signext i32 @calleeStr
+   ; CHECK:         call signext i32 @calleeInt
+   ; CHECK:         call signext i32 @calleeFloat
+   ; CHECK:         call signext i32 @calleeDouble
+diff --git a/llvm/test/CodeGen/PowerPC/mergeable-string-pool.ll b/llvm/test/CodeGen/PowerPC/mergeable-string-pool.ll
+index 7ccdaaf91136..a6c5057dde57 100644
+--- a/llvm/test/CodeGen/PowerPC/mergeable-string-pool.ll
++++ b/llvm/test/CodeGen/PowerPC/mergeable-string-pool.ll
+@@ -398,16 +398,16 @@ define dso_local signext i32 @array1() local_unnamed_addr #0 {
+ ; AIX32:       # %bb.0: # %entry
+ ; AIX32-NEXT:    mflr r0
+ ; AIX32-NEXT:    stwu r1, -96(r1)
+-; AIX32-NEXT:    lwz r5, L..C0(r2) # @__ModuleStringPool
++; AIX32-NEXT:    lwz r4, L..C0(r2) # @__ModuleStringPool
+ ; AIX32-NEXT:    li r6, 372
+-; AIX32-NEXT:    li r4, 12
++; AIX32-NEXT:    li r5, 12
+ ; AIX32-NEXT:    addi r3, r1, 64
+ ; AIX32-NEXT:    stw r0, 104(r1)
+-; AIX32-NEXT:    rlwimi r4, r3, 0, 30, 27
+-; AIX32-NEXT:    lxvw4x vs0, r5, r6
+-; AIX32-NEXT:    stxvw4x vs0, 0, r4
+-; AIX32-NEXT:    li r4, 360
+-; AIX32-NEXT:    lxvw4x vs0, r5, r4
++; AIX32-NEXT:    rlwimi r5, r3, 0, 30, 27
++; AIX32-NEXT:    lxvw4x vs0, r4, r6
++; AIX32-NEXT:    stxvw4x vs0, 0, r5
++; AIX32-NEXT:    li r5, 360
++; AIX32-NEXT:    lxvw4x vs0, r4, r5
+ ; AIX32-NEXT:    stxvw4x vs0, 0, r3
+ ; AIX32-NEXT:    bl .calleeInt[PR]
+ ; AIX32-NEXT:    nop
+-- 
+2.45.1
+
