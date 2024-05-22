@@ -1,0 +1,11 @@
+--- a/src/cardwidget.ui
++++ b/src/cardwidget.ui
+@@ -75,7 +75,7 @@
+             </child>
+             <child>
+               <object class="GtkBox" id="codecBox">
+-                <property name="halign">center</property>
++                <property name="halign">start</property>
+                 <property name="spacing">6</property>
+                 <child>
+                   <object class="GtkLabel">
