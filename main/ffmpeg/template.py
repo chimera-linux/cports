@@ -1,6 +1,6 @@
 pkgname = "ffmpeg"
 pkgver = "6.1.1"
-pkgrel = 7
+pkgrel = 8
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",
@@ -125,9 +125,6 @@ options = ["!check"]
 
 if self.profile().arch != "riscv64":
     configure_args += ["--enable-lto=thin"]
-else:
-    # asm fails to build
-    configure_args += ["--disable-rvv"]
 
 if self.profile().cross:
     _archmap = {
