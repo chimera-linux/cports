@@ -1,6 +1,6 @@
 pkgname = "gimp"
 pkgver = "2.99.18"
-pkgrel = 1
+pkgrel = 2
 build_style = "meson"
 configure_args = [
     "-Dcheck-update=no",
