@@ -5,12 +5,12 @@ diff --git a/curl-config.in b/curl-config.in
 index 8b4a29a..4fb1995 100644
 --- a/curl-config.in
 +++ b/curl-config.in
-@@ -172,7 +172,7 @@ while test $# -gt 0; do
+@@ -171,7 +171,7 @@
  
-     --static-libs)
-         if test "X@ENABLE_STATIC@" != "Xno" ; then
--          echo "@libdir@/libcurl.@libext@" @LDFLAGS@ @LIBCURL_LIBS@
-+          echo "@libdir@/libcurl.@libext@" @LIBCURL_LIBS@
-         else
-           echo "curl was built with static libraries disabled" >&2
-           exit 1
+   --static-libs)
+     if test "X@ENABLE_STATIC@" != "Xno" ; then
+-      echo "@libdir@/libcurl.@libext@" @LDFLAGS@ @LIBCURL_LIBS@
++      echo "@libdir@/libcurl.@libext@" @LIBCURL_LIBS@
+     else
+       echo 'curl was built with static libraries disabled' >&2
+       exit 1
