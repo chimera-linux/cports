@@ -1,5 +1,5 @@
 pkgname = "noise-suppression-for-voice"
-pkgver = "1.03"
+pkgver = "1.10"
 pkgrel = 0
 build_style = "cmake"
 configure_args = [
@@ -19,6 +19,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://github.com/werman/noise-suppression-for-voice"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "8c85cae3ebbb3a18facc38930a3b67ca90e3ad609526a0018c71690de35baf04"
+sha256 = "6e0c11aeb8392891750b0243c2ba695dab07654bf3f4e01adbed927b36cc690a"
 # tests ftbfs
 options = ["!check"]
