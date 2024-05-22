@@ -46,8 +46,8 @@
  		GS/Renderers/Vulkan/VKStreamBuffer.h
  		GS/Renderers/Vulkan/VKSwapChain.h
  	)
--	target_link_libraries(PCSX2_FLAGS INTERFACE Vulkan-Headers Shaderc::shaderc_shared)
-+	target_link_libraries(PCSX2_FLAGS INTERFACE Vulkan::Headers Shaderc::shaderc_shared)
+-	target_link_libraries(PCSX2_FLAGS INTERFACE Vulkan-Headers)
++	target_link_libraries(PCSX2_FLAGS INTERFACE Vulkan::Headers)
+ 	target_include_directories(PCSX2_FLAGS INTERFACE ${SHADERC_INCLUDE_DIR})
  endif()
  
- set(pcsx2GSMetalShaders

@@ -1,5 +1,5 @@
 pkgname = "pcsx2"
-pkgver = "1.7.5809"
+pkgver = "1.7.5835"
 pkgrel = 0
 # pcsx2 doesn't support anything else
 archs = ["x86_64"]
@@ -27,7 +27,6 @@ makedepends = [
     "extra-cmake-modules",
     "ffmpeg-devel",
     "fmt-devel",
-    "libaio-devel",
     "libcurl-devel",
     "libpcap-devel",
     "libpng-devel",
@@ -54,7 +53,7 @@ pkgdesc = "Playstation 2 emulator"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-3.0-or-later AND LGPL-3.0-or-later"
 url = "https://pcsx2.net"
-_patches = "0535f2234debd0cb56f3328e9fba0e3102886299"
+_patches = "968ea67b702724d9c99455ceea87b76d5f21fd2e"
 _gtest = "v1.14.0"
 _fastfloat = "v6.1.1"
 source = [
@@ -70,8 +69,8 @@ source_paths = [
     "3rdparty/fast_float",
 ]
 sha256 = [
-    "b2c0f08885f569d54a4f0a908819ee742a9becb795c57d26a715a56683775e3c",
-    "b63a5981714353a0615cc887cf420a6990ac5dc84ec69c6d250b2bc348064724",
+    "4d838c868c0f4beb30c040932be36c74f8e07249df0c0d7a5aed82fb556e89e7",
+    "2b2f9694e79989968be04749bbf2d6daa4887fcc3fbe1372ed2f1caa6106bb14",
     "8ad598c73ad796e0d8280b082cebd82a630d73e73cd3c70057938a6501bba5d7",
     "10159a4a58ba95fe9389c3c97fe7de9a543622aa0dcc12dd9356d755e9a94cb4",
 ]
