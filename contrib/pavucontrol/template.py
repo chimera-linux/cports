@@ -20,5 +20,7 @@ pkgdesc = "PulseAudio volume control"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://freedesktop.org/software/pulseaudio/pavucontrol"
-source = f"https://gitlab.freedesktop.org/pulseaudio/pavucontrol/-/archive/v{pkgver}.tar.gz"
-sha256 = "7d0e97790bfbfb7489bc19aacac94b395e8aaf591e21be9ee2102a7adafa2d82"
+source = (
+    f"$(FREEDESKTOP_SITE)/pulseaudio/pavucontrol/pavucontrol-{pkgver}.tar.xz"
+)
+sha256 = "85c860d68ff1f82cd98c72a9257184bee39299578ab122d29bc51ecbecfbf65b"
