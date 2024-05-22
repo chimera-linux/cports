@@ -1,0 +1,13 @@
+-Wmacro-redefined
+--
+--- a/meson.build
++++ b/meson.build
+@@ -107,7 +107,7 @@
+     # enables it by default. FORTIFY will not work properly with `-O0`, and may
+     # result in macro redefinition errors if the user already has a setting for
+     # `-D_FORTIFY_SOURCE`. Do not enable FORTIFY in either of those cases.
+-    if get_option('optimization') != '0'
++    if false
+         fortify = cc.get_define('_FORTIFY_SOURCE')
+         if fortify == ''
+             message('Adding _FORTIFY_SOURCE')
