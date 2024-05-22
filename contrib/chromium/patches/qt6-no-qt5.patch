@@ -1,10 +1,26 @@
-this assert forces use_qt(5) to be on for qt6 which requires qt5 libs
+we don't have qt5
 --
---- a/ui/qt/qt.gni
-+++ b/ui/qt/qt.gni
-@@ -29,4 +29,4 @@
+--- a/ui/qt/BUILD.gn
++++ b/ui/qt/BUILD.gn
+@@ -102,12 +102,6 @@
+     }
+   }
  }
+-qt_shim("qt5_shim") {
+-  qt_version = "5"
+-  if (!use_sysroot) {
+-    moc_qt_path = "$moc_qt5_path"
+-  }
+-}
+ if (use_qt6) {
+   qt_shim("qt6_shim") {
+     qt_version = "6"
+@@ -123,7 +117,6 @@
+   defines = [ "IS_QT_IMPL" ]
  
- # use_qt6 => use_qt
--assert(!use_qt6 || use_qt)
-+# assert(!use_qt6 || use_qt)
+   # qt_shim is in data_deps since we want to load it manually.
+-  data_deps = [ ":qt5_shim" ]
+   if (use_qt6) {
+-    data_deps += [ ":qt6_shim" ]
++    data_deps = [ ":qt6_shim" ]
+   }

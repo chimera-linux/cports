@@ -1,13 +1,12 @@
 pkgname = "chromium"
 # https://chromiumdash.appspot.com/releases?platform=Linux
-pkgver = "125.0.6422.60"
+pkgver = "125.0.6422.76"
 pkgrel = 0
 archs = ["aarch64", "ppc64le", "x86_64"]
 configure_args = [
     'custom_toolchain="//build/toolchain/linux/unbundle:default"',
     'host_toolchain="//build/toolchain/linux/unbundle:default"',
     "blink_enable_generated_code_formatting=false",
-    "blink_symbol_level=0",
     "chrome_pgo_phase=0",
     'clang_base_path="/usr"',
     "clang_use_chrome_plugins=false",
@@ -26,7 +25,7 @@ configure_args = [
     "is_debug=false",
     "is_official_build=true",
     "link_pulseaudio=true",
-    'moc_qt6_path="/usr/lib/qt6"',
+    'moc_qt6_path="/usr/lib/qt6/libexec"',
     "proprietary_codecs=true",
     "regenerate_x11_protos=true",
     "rtc_link_pipewire=true",
@@ -34,13 +33,14 @@ configure_args = [
     'rust_sysroot_absolute="/usr"',
     # anything works
     'rustc_version="0"',
-    "symbol_level=0",
+    "symbol_level=1",
     "treat_warnings_as_errors=false",
     "use_custom_libcxx=false",
+    "use_dwarf5=true",
     "use_gold=false",
     "use_lld=true",
     "use_pulseaudio=true",
-    "use_qt=false",
+    "use_qt=true",  # qt5 manually patched out
     "use_qt6=true",
     "use_sysroot=false",
     "use_system_freetype=true",
@@ -139,8 +139,8 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "BSD-3-Clause"
 url = "https://www.chromium.org"
 source = f"https://commondatastorage.googleapis.com/chromium-browser-official/chromium-{pkgver}.tar.xz"
-sha256 = "93f5850101225945d7ec80959b38460e6a63777055bf2d9e893860c33cb60080"
-debug_level = 0
+sha256 = "4167218463d2848f4a0fe35f60d062a8e7e5c7ce5bc8c8c2260a80186b1deccf"
+debug_level = 1
 tool_flags = {
     "CFLAGS": [
         "-Wno-unknown-warning-option",
@@ -298,7 +298,7 @@ def do_install(self):
     )
     self.install_file(f"{srcp}/libEGL.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/libGLESv2.so", dstp, mode=0o755)
-    # self.install_file(f"{srcp}/libqt6_shim.so", dstp, mode=0o755)
+    self.install_file(f"{srcp}/libqt6_shim.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/libvulkan.so.1", dstp, mode=0o755)
     self.install_file(f"{srcp}/libvk_swiftshader.so", dstp, mode=0o755)
     self.install_file(f"{srcp}/vk_swiftshader_icd.json", dstp, mode=0o755)

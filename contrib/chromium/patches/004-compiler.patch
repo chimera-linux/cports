@@ -1,6 +1,6 @@
 re: removing safe - hardened is enabled somewhere, and it can't be both.
---- ./build_overrides/build.gni.orig
-+++ ./build_overrides/build.gni
+--- a/build_overrides/build.gni
++++ b/build_overrides/build.gni
 @@ -24,7 +24,7 @@
  #
  # Note that setting this to true only has an effect when also building with
@@ -10,8 +10,8 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
  
  # Features used by //base/trace_event and //services/tracing.
  declare_args() {
---- ./build/config/compiler/BUILD.gn.orig
-+++ ./build/config/compiler/BUILD.gn
+--- a/build/config/compiler/BUILD.gn
++++ b/build/config/compiler/BUILD.gn
 @@ -616,24 +618,6 @@
        }
      }
@@ -113,6 +113,30 @@ re: removing safe - hardened is enabled somewhere, and it can't be both.
        }
        cflags += [ "-mabi=lp64d" ]
      } else if (current_cpu == "loong64") {
+@@ -2714,7 +2714,6 @@
+     if (!is_nacl && current_os != "aix") {
+       if (use_dwarf5) {
+         cflags += [ "-gdwarf-5" ]
+-        rustflags += [ "-Zdwarf-version=5" ]
+       } else {
+         # Recent clang versions default to DWARF5 on Linux, and Android is about
+         # to switch. TODO: Adopt that in controlled way. For now, keep DWARF4.
+@@ -2726,7 +2725,6 @@
+ 
+         # On Apple, rustc defaults to DWARF2 so it needs to be told how to
+         # match clang.
+-        rustflags += [ "-Zdwarf-version=4" ]
+       }
+     }
+ 
+@@ -2870,7 +2868,6 @@
+ 
+     if (use_dwarf5 && !is_nacl) {
+       cflags += [ "-gdwarf-5" ]
+-      rustflags += [ "-Zdwarf-version=5" ]
+     }
+ 
+     # The gcc-based nacl compilers don't support -fdebug-compilation-dir (see
 --- a/build/config/sanitizers/BUILD.gn
 +++ b/build/config/sanitizers/BUILD.gn
 @@ -331,7 +331,6 @@
