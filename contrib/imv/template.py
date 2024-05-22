@@ -18,7 +18,6 @@ hostmakedepends = [
     "asciidoc",
     "meson",
     "pkgconf",
-    "wayland-progs",
 ]
 makedepends = [
     "cmocka-devel",
