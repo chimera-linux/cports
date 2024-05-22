@@ -8,14 +8,27 @@ diff --git a/libmount/meson.build b/libmount/meson.build
 index c52e2be..1c6b38e 100644
 --- a/libmount/meson.build
 +++ b/libmount/meson.build
-@@ -140,10 +140,6 @@ foreach libmount_test: libmount_tests
-     dependencies : lib__mount_deps,
-     c_args : ['-DTEST_PROGRAM'],
-   )
--  # the test-setup expects the helpers in the toplevel build-directory
--  link = meson.project_build_root() / test_name
--  run_command('ln', '-srf', exe.full_path(), link,
--    check : true)
- endforeach
+@@ -143,10 +143,6 @@
+       dependencies : lib__mount_deps + blkid_static_dep,
+       c_args : ['-DTEST_PROGRAM'],
+     )
+-    # the test-setup expects the helpers in the toplevel build-directory
+-    link = meson.project_build_root() / test_name
+-    run_command('ln', '-srf', exe.full_path(), link,
+-      check : true)
+   endforeach
+ endif
  
- subdir('python')
+--- a/liblastlog2/meson.build
++++ b/liblastlog2/meson.build
+@@ -54,10 +54,6 @@
+       link_with : [lib_common],
+       dependencies : [libdl, lastlog2_dep],
+     )
+-    # the test-setup expects the helpers in the toplevel build-directory
+-    link = meson.project_build_root() / test_name
+-    run_command('ln', '-srf', exe.full_path(), link,
+-      check : true)
+   endforeach
+ 
+ endif  

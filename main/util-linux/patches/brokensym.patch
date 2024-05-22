@@ -1,0 +1,17 @@
+ld: error: version script assignment of 'global' to symbol 'pam_sm_chauthtok' failed: symbol not defined
+doesnt exist
+--
+--- a/pam_lastlog2/src/pam_lastlog2.sym
++++ b/pam_lastlog2/src/pam_lastlog2.sym
+@@ -3,9 +3,8 @@
+   global:
+     pam_sm_acct_mgmt;
+     pam_sm_authenticate;
+-    pam_sm_chauthtok;
+     pam_sm_close_session;
+     pam_sm_open_session;
+     pam_sm_setcred;
+   local: *;
+-};
+\ No newline at end of file
++};

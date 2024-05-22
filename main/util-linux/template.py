@@ -1,5 +1,5 @@
 pkgname = "util-linux"
-pkgver = "2.39.4"
+pkgver = "2.40.1"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -19,6 +19,7 @@ configure_args = [
     "-Dbuild-cal=disabled",
     "-Dbuild-fallocate=disabled",
     "-Dbuild-kill=disabled",
+    "-Dbuild-liblastlog2=disabled",
     "-Dbuild-logger=disabled",
     "-Dbuild-login=disabled",
     "-Dbuild-mesg=disabled",
@@ -26,6 +27,7 @@ configure_args = [
     "-Dbuild-chfn-chsh=disabled",
     "-Dbuild-nologin=disabled",
     "-Dbuild-newgrp=disabled",
+    "-Dbuild-pam-lastlog2=disabled",
     "-Dbuild-pivot_root=disabled",
     "-Dbuild-switch_root=disabled",
     "-Dbuild-sulogin=disabled",
@@ -40,21 +42,20 @@ configure_args = [
 ]
 hostmakedepends = [
     "bash",
-    "meson",
-    "ninja",
     "bison",
     "flex",
     "gettext-devel",
+    "meson",
     "pkgconf",
 ]
 makedepends = [
     "bash-completion",
-    "linux-headers",
-    "libcap-ng-devel",
-    "linux-pam-devel",
-    "zlib-devel",
     "file-devel",
+    "libcap-ng-devel",
+    "linux-headers",
+    "linux-pam-devel",
     "ncurses-devel",
+    "zlib-devel",
 ]
 checkdepends = ["xz", "iproute2", "socat", "procps"]
 depends = [f"util-linux-common={pkgver}-r{pkgrel}"]
@@ -65,7 +66,7 @@ url = "https://www.kernel.org/pub/linux/utils/util-linux"
 source = (
     f"$(KERNEL_SITE)/utils/{pkgname}/v{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
 )
-sha256 = "6c4f8723dafd41c39d93ecbf16509fc88c33cd5bd3277880ae5a1d97a014fd0e"
+sha256 = "59e676aa53ccb44b6c39f0ffe01a8fa274891c91bef1474752fad92461def24f"
 tool_flags = {"CFLAGS": ["-D_DIRENT_HAVE_D_TYPE"]}
 # checkdepends are missing
 options = ["!check"]
