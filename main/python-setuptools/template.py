@@ -1,5 +1,5 @@
 pkgname = "python-setuptools"
-pkgver = "69.5.1"
+pkgver = "70.0.0"
 pkgrel = 0
 hostmakedepends = ["python-devel"]
 depends = ["python"]
@@ -8,7 +8,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "MIT"
 url = "https://github.com/pypa/setuptools"
 source = f"$(PYPI_SITE)/s/setuptools/setuptools-{pkgver}.tar.gz"
-sha256 = "6c1fccdac05a97e598fb0ae3bbed5904ccb317337a51139dcd51453611bbb987"
+sha256 = "f211a66637b8fa059bb28183da127d4e86396c991a942b028c6650d4319c3fd0"
 env = {
     "SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES": "0",
     "SETUPTOOLS_DISABLE_VERSIONED_EASY_INSTALL_SCRIPT": "1",
