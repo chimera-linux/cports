@@ -7,12 +7,13 @@ configure_args = [
     "-Dbash-completions=true",
 ]
 hostmakedepends = [
-    "bash-completion",
     "meson",
     "pkgconf",
     "scdoc",
+    "wayland-progs",
 ]
 makedepends = [
+    "bash-completion",
     "cairo-devel",
     "libjpeg-turbo-devel",
     "libxkbcommon-devel",
