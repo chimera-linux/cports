@@ -1,10 +1,9 @@
 pkgname = "gnome-software"
 pkgver = "46.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Dpackagekit=false",
-    "-Dfwupd=false",
     "-Dmalcontent=false",
     "-Dwebapps=false",
     "-Dgtk_doc=false",
@@ -13,27 +12,28 @@ configure_args = [
     "-Ddefault_library=shared",
 ]
 hostmakedepends = [
+    "appstream",
+    "docbook-xsl-nons",
+    "gettext",
+    "glib-devel",
     "meson",
     "pkgconf",
-    "glib-devel",
-    "gettext",
-    "docbook-xsl-nons",
     "xsltproc",
-    "appstream",
 ]
 makedepends = [
-    "gtk4-devel",
-    "libadwaita-devel",
     "appstream-devel",
+    "flatpak-devel",
+    "fwupd-devel",
     "gsettings-desktop-schemas-devel",
     "gspell-devel",
-    "polkit-devel",
-    "flatpak-devel",
+    "gtk4-devel",
+    "json-glib-devel",
+    "libadwaita-devel",
     "libgudev-devel",
     "libsoup-devel",
     "libxmlb-devel",
-    "json-glib-devel",
     "linux-headers",
+    "polkit-devel",
 ]
 checkdepends = ["dbus"]
 pkgdesc = "GNOME software center"
