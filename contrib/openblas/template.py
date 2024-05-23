@@ -6,7 +6,7 @@ build_style = "cmake"
 configure_args = ["-DBUILD_SHARED_LIBS=ON", "-DUSE_OPENMP=1"]
 # FIXME: flang support
 hostmakedepends = ["cmake", "ninja", "pkgconf"]
-makedepends = ["libomp-devel"]
+makedepends = ["libomp-devel", "linux-headers"]
 pkgdesc = "Optimized BLAS library"
 maintainer = "Erica Z <zerica@callcc.eu>"
 license = "BSD-3-Clause"
