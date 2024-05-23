@@ -1,0 +1,13 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -104,8 +104,8 @@
+ 
+ # If no git version can be determined, use the version
+ # from the project() command
+-if ("${GIT_VERSION}" STREQUAL "0.0.0")
+-  set(VERSION "v${benchmark_VERSION}")
++if ("${GIT_VERSION}" STREQUAL "v0.0.0")
++  set(VERSION "${benchmark_VERSION}")
+ else()
+   set(VERSION "${GIT_VERSION}")
+ endif()
