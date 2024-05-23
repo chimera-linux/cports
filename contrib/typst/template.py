@@ -1,5 +1,5 @@
 pkgname = "typst"
-pkgver = "0.11.0"
+pkgver = "0.11.1"
 pkgrel = 0
 build_wrksrc = "crates/typst-cli"
 build_style = "cargo"
@@ -14,7 +14,7 @@ maintainer = "Jan Christian Grünhage <jan.christian@gruenhage.xyz>"
 license = "Apache-2.0"
 url = "https://typst.app"
 source = f"https://github.com/typst/typst/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "fd8debe21d5d22d4cd6c823494537f1356c9954cc2fe6c5db8c76c1b126112dd"
+sha256 = "b1ba054e821073daafd90675c4822bcd8166f33fe2e3acba87ba1451a0d1fc56"
 
 
 def do_install(self):
