@@ -1,6 +1,6 @@
 pkgname = "cups"
 pkgver = "2.4.8"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-relro",
@@ -22,7 +22,7 @@ configure_args = [
     "--with-xinetd=/etc/xinetd.d",
     "--with-cups-user=_cups",
     "--with-cups-group=lp",
-    "--with-system-groups=_lpadmin sys root",
+    "--with-system-groups=_lpadmin root",
 ]
 configure_gen = []
 # build system is bad
