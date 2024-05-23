@@ -1,11 +1,10 @@
 pkgname = "bash-completion"
 pkgver = "2.14.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_gen = []
 make_cmd = "gmake"
 make_install_args = [
-    "compatdir=/usr/share/bash-completion/completions",
     "profiledir=/etc/bash/bashrc.d",
 ]
 hostmakedepends = ["gmake", "pkgconf"]
