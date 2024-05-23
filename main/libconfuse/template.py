@@ -1,6 +1,6 @@
 pkgname = "libconfuse"
 pkgver = "3.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["pkgconf", "automake", "gettext-devel", "libtool"]
 pkgdesc = "Configuration file parser library"

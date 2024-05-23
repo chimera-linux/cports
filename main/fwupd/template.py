@@ -1,6 +1,6 @@
 pkgname = "fwupd"
 pkgver = "1.9.20"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
@@ -68,10 +68,7 @@ match self.profile().arch:
 
 if _have_uefi:
     makedepends += ["efivar-devel"]
-    if self.profile().arch != "riscv64":
-        makedepends += ["fwupd-efi"]
-        depends += ["fwupd-efi"]
-    else:
+    if self.profile().arch == "riscv64":
         configure_args += ["-Dplugin_uefi_capsule=disabled"]
 else:
     configure_args += [
