@@ -3,8 +3,8 @@ def invoke(pkg):
     if pkg.pkgname == "base-files" or pkg.pkgname == "base-kernel":
         return
 
-    # gcompat is allowed to have them
-    if pkg.pkgname == "gcompat":
+    # gcompat and bash-completion is allowed to have them
+    if pkg.pkgname in ["bash-completion", "gcompat"]:
         return
 
     lintfail = False
