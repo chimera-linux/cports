@@ -1,6 +1,6 @@
 pkgname = "bash-completion"
 pkgver = "2.14.0"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_gen = []
 make_cmd = "gmake"
