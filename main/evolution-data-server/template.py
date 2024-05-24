@@ -1,6 +1,6 @@
 pkgname = "evolution-data-server"
-pkgver = "3.52.1"
-pkgrel = 1
+pkgver = "3.52.2"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DWITH_LIBDB=OFF",
@@ -45,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.0-or-later"
 url = "https://gitlab.gnome.org/GNOME/evolution-data-server"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "825b3d7d5468440a67d11dd2a23933960c07b9eecc797bb125843cb2c870a348"
+sha256 = "a006a44edcb38d26ffb1c62e1d5d0a31d1f2e59075565e26c79a2ee01c45a7e5"
 options = ["!cross"]
 
 
