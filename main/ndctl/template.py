@@ -1,6 +1,6 @@
 pkgname = "ndctl"
 pkgver = "79"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     # use this instead of asciidoc+xmlto when added
