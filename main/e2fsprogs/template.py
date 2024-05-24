@@ -1,10 +1,11 @@
 pkgname = "e2fsprogs"
-pkgver = "1.47.0"
+pkgver = "1.47.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--enable-elf-shlibs",
     "--enable-e2initrd-helper",
+    "--enable-fuse2fs",
     "--enable-symlink-build",
     "--enable-symlink-install",
     "--enable-relative-symlinks",
@@ -17,17 +18,25 @@ configure_args = [
     "e2fsprogs_cv_struct_st_flags=no",
     "MKDIR_P=mkdir -p",  # install-sh is buggy: it only creates one directory
 ]
+# breaks build entirely
+configure_gen = []
 make_cmd = "gmake"
 make_install_args = ["install-libs"]
 hostmakedepends = ["gmake", "pkgconf", "texinfo"]
-makedepends = ["libuuid-devel", "libblkid-devel"]
+makedepends = [
+    "fuse-devel",
+    "libblkid-devel",
+    "libuuid-devel",
+    "linux-headers",
+    "udev-devel",
+]
 checkdepends = ["perl", "bzip2"]
 pkgdesc = "Ext2/3/4 file system utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "http://e2fsprogs.sourceforge.net"
 source = f"$(KERNEL_SITE)/kernel/people/tytso/{pkgname}/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "144af53f2bbd921cef6f8bea88bb9faddca865da3fbc657cc9b4d2001097d5db"
+sha256 = "5a33dc047fd47284bca4bb10c13cfe7896377ae3d01cb81a05d406025d99e0d1"
 # test suite hangs on tr, killing it makes it continue? FIXME
 options = ["!check"]
 
@@ -45,6 +54,11 @@ def post_patch(self):
         "m_offset",
     ]:
         self.rm(f"tests/{test}", recursive=True)
+
+
+def post_install(self):
+    # prevents udisks automount
+    self.rm(self.destdir / "usr/lib/udev/rules.d/64-ext4.rules")
 
 
 @subpackage("e2fsprogs-devel")
@@ -68,4 +82,12 @@ def _libs(self):
     return self.default_libs()
 
 
-configure_gen = []
+@subpackage("fuse2fs")
+def _fuse2fs(self):
+    self.pkgdesc = "Ext2/3/4 FUSE driver"
+    self.depends += ["fuse"]
+
+    return [
+        "usr/bin/fuse2fs",
+        "usr/share/man/man1/fuse2fs.1",
+    ]
