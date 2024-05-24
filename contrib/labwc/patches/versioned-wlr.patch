@@ -1,0 +1,11 @@
+--- a/meson.build
++++ b/meson.build
+@@ -49,7 +49,7 @@
+ add_project_arguments('-DLABWC_VERSION=@0@'.format(version), language: 'c')
+ 
+ wlroots = dependency(
+-  'wlroots',
++  'wlroots-0.17',
+   default_options: ['default_library=static', 'examples=false'],
+   version: ['>=0.17.0', '<0.18.0'],
+ )
