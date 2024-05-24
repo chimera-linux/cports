@@ -1,6 +1,6 @@
 pkgname = "xorriso"
 pkgver = "1.5.6.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-libedit",
