@@ -1,6 +1,6 @@
 pkgname = "kwindowsystem"
 pkgver = "6.2.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
 make_check_args = [
     "-E",
@@ -11,9 +11,8 @@ make_check_args = [
     # at least compositingenabled_test is flaky when parallel
     "-j1",
 ]
-# almost all tests need x11, net* need xvfb around
 make_check_env = {"QT_QPA_PLATFORM": "xcb"}
-make_check_wrapper = ["xwfb-run", "--"]
+make_check_wrapper = ["xvfb-run"]
 hostmakedepends = [
     "cmake",
     "extra-cmake-modules",
@@ -33,7 +32,12 @@ makedepends = [
     "xcb-util-keysyms-devel",
     "xcb-util-wm-devel",
 ]
-checkdepends = ["xwayland-run", "xserver-xorg-xvfb"]
+checkdepends = [
+    "xserver-xorg-xvfb",
+]
+depends = [
+    "qqc2-desktop-style",
+]
 pkgdesc = "KDE windowing system access"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "MIT AND (LGPL-2.1-only OR LGPL-3.0-only)"
