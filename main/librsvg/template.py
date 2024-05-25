@@ -1,5 +1,5 @@
 pkgname = "librsvg"
-pkgver = "2.58.0"
+pkgver = "2.58.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -8,14 +8,15 @@ configure_args = [
     "--disable-static",
     "--disable-gtk-doc",
 ]
-configure_gen = []
 make_cmd = "gmake"
 hostmakedepends = [
+    "automake",
     "cargo",
     "gdk-pixbuf-devel",
     "glib-devel",
     "gmake",
     "gobject-introspection",
+    "libtool",
     "pkgconf",
     "python",
     "python-docutils",
@@ -36,8 +37,8 @@ pkgdesc = "SVG library for GNOME"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.0-or-later"
 url = "https://wiki.gnome.org/Projects/LibRsvg"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "d7c444a926406b59790be0deae196e18ed26059da573fa1aa9ec9ca7658a559c"
+source = f"$(GNOME_SITE)/librsvg/{pkgver[:-2]}/librsvg-{pkgver}.tar.xz"
+sha256 = "3728596290a8576d305d06ec8afdf473516feee9dff22e03235eac433d56824e"
 # sample files may differ based on pango/freetype/harfbuzz version
 options = ["!check", "!cross"]
 
@@ -53,6 +54,13 @@ def post_patch(self):
     from cbuild.util import cargo
 
     cargo.clear_vendor_checksums(self, "system-deps")
+
+
+def init_build(self):
+    from cbuild.util import cargo
+
+    renv = cargo.get_environment(self)
+    self.make_env.update(renv)
 
 
 @subpackage("librsvg-devel")
