@@ -1,0 +1,13 @@
+diff --git a/commit.d/50vcs-commit.orig b/commit.d/50vcs-commit
+index a76eb7e..547b9f6 100755
+--- a/commit.d/50vcs-commit.orig
++++ b/commit.d/50vcs-commit
+@@ -44,7 +44,7 @@ else
+ 	# try to check tty ownership, in case user su'd to root
+ 	TTY="$(tty 2>/dev/null || true)"
+ 	if [ -n "$TTY" ] && [ -c "$TTY" ]; then
+-		USER="$(find "$TTY" -printf "%u")"
++		USER="$(id -u -n $(stat -f "%u" "$TTY"))"
+ 	fi
+ fi
+ 
