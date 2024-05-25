@@ -1,6 +1,6 @@
 pkgname = "fwupd"
 pkgver = "1.9.20"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 configure_args = [
     "-Ddefault_library=shared",
@@ -60,6 +60,7 @@ sha256 = "00d65628ef06603ba5aa4fae4fad0060abc07533a1c9a71de1e3da484afceb59"
 options = ["!cross"]
 
 _have_uefi = False
+_have_uefi_capsule = False
 _have_msr = self.profile().arch == "x86_64"
 
 match self.profile().arch:
@@ -69,8 +70,8 @@ match self.profile().arch:
 if _have_uefi:
     makedepends += ["efivar-devel"]
     if self.profile().arch != "riscv64":
-        makedepends += ["fwupd-efi"]
-        depends += ["fwupd-efi"]
+        depends += ["virtual:fwupd-efi!fwupd-efi-dummy"]
+        _have_uefi_capsule = True
     else:
         configure_args += ["-Dplugin_uefi_capsule=disabled"]
 else:
@@ -91,8 +92,22 @@ def post_install(self):
     self.install_completion(
         "data/bash-completion/fwupdtool", "bash", name="fwupdtool"
     )
+    # nuke installed tests
+    self.rm(self.destdir / "usr/share/fwupd/remotes.d/fwupd-tests.conf")
+    self.rm(self.destdir / "usr/libexec/installed-tests", recursive=True)
+    self.rm(self.destdir / "usr/share/fwupd/device-tests", recursive=True)
+    self.rm(self.destdir / "usr/share/installed-tests", recursive=True)
 
 
 @subpackage("fwupd-devel")
 def _devel(self):
     return self.default_devel()
+
+
+@subpackage("fwupd-efi-dummy", _have_uefi_capsule)
+def _efi_dummy(self):
+    self.pkgdesc = f"{pkgdesc} (UEFI application dummy provider)"
+    self.provides = ["fwupd-efi=0"]
+    self.options = ["empty"]
+
+    return []
