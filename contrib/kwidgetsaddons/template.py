@@ -1,5 +1,5 @@
 pkgname = "kwidgetsaddons"
-pkgver = "6.2.0"
+pkgver = "6.2.2"
 pkgrel = 0
 build_style = "cmake"
 # kcolumnresizertest broken, tooltipwidget hangs indefinitely with QT_QPA_PLATFORM=offscreen
@@ -21,8 +21,10 @@ maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only AND LGPL-2.1-only AND Unicode-DFS-2016"
 url = "https://api.kde.org/frameworks/kwidgetsaddons/html"
 source = f"$(KDE_SITE)/frameworks/{pkgver[:pkgver.rfind('.')]}/kwidgetsaddons-{pkgver}.tar.xz"
-sha256 = "03cef2f66aec6b7f7b2276c47e720bdab939b05b77b70345e7f076d3dead8211"
-hardening = ["vis", "cfi"]
+sha256 = "391bd57846ad1451c4a1adfd09cfbfa8c23b14bf2b6bf710842360b57d90049d"
+# FIXME: cfi kills systemsettings/kwrite etc upon "save unsaved changes?" dialog in
+# https://invent.kde.org/frameworks/kwidgetsaddons/-/blob/v6.2.2/src/kmessagedialog.cpp#L496
+hardening = ["vis", "!cfi"]
 # fails
 options = ["!cross"]
 
