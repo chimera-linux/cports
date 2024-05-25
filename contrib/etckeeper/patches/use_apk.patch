@@ -1,0 +1,18 @@
+diff --git a/etckeeper.conf.orig b/etckeeper.conf
+index 06ce250..a88dd3f 100644
+--- a/etckeeper.conf.orig
++++ b/etckeeper.conf
+@@ -33,11 +33,11 @@ DARCS_COMMIT_OPTIONS="-a"
+ 
+ # The high-level package manager that's being used.
+ # (apt, pacman, pacman-g2, yum, dnf, zypper, apk, xbps, emerge, cave, etc)
+-HIGHLEVEL_PACKAGE_MANAGER=apt
++HIGHLEVEL_PACKAGE_MANAGER=apk
+ 
+ # The low-level package manager that's being used.
+ # (dpkg, rpm, pacman, pacmatic, pacman-g2, apk, xbps, cave, qlist, etc)
+-LOWLEVEL_PACKAGE_MANAGER=dpkg
++LOWLEVEL_PACKAGE_MANAGER=apk
+ 
+ # To push each commit to a remote, put the name of the remote here.
+ # (eg, "origin" for git). Space-separated lists of multiple remotes
