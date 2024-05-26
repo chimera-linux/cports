@@ -11,12 +11,12 @@ fix overflows that trap and sigill in tests
  
    char* comma = strchr(yytext, ',');
  
-@@ -1155,7 +1155,7 @@
-     // (example: {2,}) set high bound value to maximum.
+@@ -1163,7 +1163,7 @@
+   if (*hi_bound_ptr == '}')
      hi_bound = RE_MAX_RANGE;
    else
--    hi_bound = atoi(comma + 1);
-+    hi_bound = (int)strtol(comma + 1, NULL, 10);
+-    hi_bound = atoi(hi_bound_ptr);
++    hi_bound = (int)strtol(hi_bound_ptr, NULL, 10);
  
    if (hi_bound > RE_MAX_RANGE)
    {

@@ -1,5 +1,5 @@
 pkgname = "yara"
-pkgver = "4.5.0"
+pkgver = "4.5.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -26,7 +26,7 @@ url = "https://virustotal.github.io/yara"
 source = (
     f"https://github.com/VirusTotal/yara/archive/refs/tags/v{pkgver}.tar.gz"
 )
-sha256 = "f6db34bd102703bf56cc2878ddfb249c3fb2e09c9194d3adb78c3ab79282c827"
+sha256 = "011b95f903d8fc22de50aa1e3c1bf4ed598dbde6f9ea45176945cec5520452dc"
 
 
 def post_install(self):
