@@ -34,8 +34,8 @@ options = [
 
 _flavor = "rpi"
 
-#if self.profile().cross:
-#    broken = "linux-devel does not come out right"
+if self.profile().cross:
+    broken = "linux-devel does not come out right"
 
 
 def init_configure(self):
