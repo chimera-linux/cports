@@ -1,7 +1,7 @@
 pkgname = "pinentry-qt"
 # Keep pkgver in sync with main/pinentry
 pkgver = "1.3.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pinentry-qt",
@@ -13,6 +13,7 @@ make_cmd = "gmake"
 hostmakedepends = ["automake", "gettext", "gmake", "libtool", "pkgconf"]
 makedepends = [
     "gettext-devel",
+    "kwindowsystem-devel",
     "libassuan-devel",
     "libgpg-error-devel",
     "libsecret-devel",
