@@ -8,7 +8,7 @@ build_style = "gnu_configure"
 configure_args = [
     f"--bindir=/usr/libexec/{pkgname}",
     f"--datadir=/usr/share/{pkgname}",
-    f"--includedir=/usr/include/postgresql",
+    "--includedir=/usr/include/postgresql",
     f"--sysconfdir=/etc/{pkgname}",
     "--disable-rpath",
     # "--with-llvm", # NOTE: postgresql 16 doesn't support llvm 16+
@@ -47,7 +47,7 @@ depends = ["postgresql-common", "tzdata"]
 provides = ["postgresql-runtime"]
 pkgdesc = f"Sophisticated object-relational DBMS ({_major}.x)"
 maintainer = "mia <mia@mia.jetzt>"
-license = f"PostgreSQL"
+license = "PostgreSQL"
 url = "https://www.postgresql.org"
 source = [
     f"https://ftp.postgresql.org/pub/source/v{pkgver}/postgresql-{pkgver}.tar.bz2"
@@ -307,11 +307,11 @@ def _libpq_devel(self):
     self.pkgdesc = f"{pkgname} (client library development files)"
 
     return [
-        f"usr/bin/pg_config",
-        f"usr/include/postgresql/libpq-*.h",
-        f"usr/include/postgresql/libpq/*",
-        f"usr/include/postgresql/pg_config*.h",
-        f"usr/include/postgresql/postgres_ext.h",
+        "usr/bin/pg_config",
+        "usr/include/postgresql/libpq-*.h",
+        "usr/include/postgresql/libpq/*",
+        "usr/include/postgresql/pg_config*.h",
+        "usr/include/postgresql/postgres_ext.h",
         "usr/lib/libpq.*",
         "usr/lib/libpgcommon*.a",
         "usr/lib/libpgport*.a",
@@ -333,11 +333,11 @@ def _libecpg_devel(self):
 
     return [
         f"usr/libexec/{pkgname}/ecpg",
-        f"usr/include/postgresql/ecpg*.h",
-        f"usr/include/postgresql/sqlca.h",
-        f"usr/include/postgresql/sqlda*.h",
-        f"usr/include/postgresql/pgtypes*.h",
-        f"usr/include/postgresql/sql3types.h",
+        "usr/include/postgresql/ecpg*.h",
+        "usr/include/postgresql/sqlca.h",
+        "usr/include/postgresql/sqlda*.h",
+        "usr/include/postgresql/pgtypes*.h",
+        "usr/include/postgresql/sql3types.h",
         "usr/lib/libecpg.*",
         "usr/lib/libpgtypes.*",
         "usr/lib/pkgconfig/libecpg.pc",
