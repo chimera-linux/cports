@@ -1,0 +1,13 @@
+enable xpm as the 'others' attribute either enables everything or nothing
+this is needed by fuse-emulator (and maybe more stuff)
+--
+--- a/meson.build
++++ b/meson.build
+@@ -295,6 +295,7 @@
+     'xpm',
+   ]
+ endif
++enabled_loaders += ['xpm']
+ 
+ # On Windows, check whether we are building the native Windows loaders
+ # (it is an "all-or-nothing" option for BMP, EMF, GIF, ICO, JPEG, TIFF and WMF)
