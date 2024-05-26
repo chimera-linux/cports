@@ -1,15 +1,20 @@
 pkgname = "gsl"
-pkgver = "2.7.1"
+pkgver = "2.8"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
-hostmakedepends = ["pkgconf", "gmake"]
+hostmakedepends = [
+    "automake",
+    "gmake",
+    "libtool",
+    "pkgconf",
+]
 pkgdesc = "GNU Scientific Library"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gsl/gsl.html"
-source = f"$(GNU_SITE)/{pkgname}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "dcb0fbd43048832b757ff9942691a8dd70026d5da0ff85601e52687f6deeb34b"
+source = f"$(GNU_SITE)/gsl/gsl-{pkgver}.tar.gz"
+sha256 = "6a99eeed15632c6354895b1dd542ed5a855c0f15d9ad1326c6fe2b2c9e423190"
 # FIXME fails tests
 hardening = ["!int"]
 # fails on x86_64, passes elsewhere, takes a long time
@@ -19,6 +24,3 @@ options = ["!check"]
 @subpackage("gsl-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []

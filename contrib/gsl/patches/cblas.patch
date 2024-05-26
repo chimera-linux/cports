@@ -8,11 +8,11 @@ Date:   Thu May 18 00:26:34 2023 +0200
 
 diff --git a/configure b/configure
 index b593652..e45d3ef 100755
---- a/configure
-+++ b/configure
-@@ -13617,15 +13617,11 @@ fi
+--- a/configure.ac
++++ b/configure.ac
+@@ -171,15 +171,11 @@
  
- 
+ dnl Checks for typedefs, structures, and compiler characteristics.
  
 -case $host in
 -  *-*-cygwin* | *-*-mingw* )
@@ -24,5 +24,5 @@ index b593652..e45d3ef 100755
 -  ;;
 -esac
  
- 
- 
+ AC_SUBST(GSLCBLAS_LDFLAGS)
+ AC_SUBST(GSL_LDFLAGS)
