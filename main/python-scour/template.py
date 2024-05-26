@@ -1,6 +1,6 @@
 pkgname = "python-scour"
 pkgver = "0.38.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "python_pep517"
 hostmakedepends = [
     "python-build",
@@ -8,8 +8,8 @@ hostmakedepends = [
     "python-setuptools",
     "python-wheel",
 ]
-depends = ["python-setuptools", "python-six"]
-checkdepends = ["python-six"]
+depends = ["python-six"]
+checkdepends = list(depends)
 pkgdesc = "Python SVG scrubber"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
