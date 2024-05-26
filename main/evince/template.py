@@ -1,5 +1,5 @@
 pkgname = "evince"
-pkgver = "46.2"
+pkgver = "46.3"
 pkgrel = 0
 build_style = "meson"
 # dvi needs kpathsea, which is in texlive
@@ -45,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later"
 url = "https://wiki.gnome.org/Apps/Evince"
 source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:-2]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "8afb533cd6660fe4006339aaa03c0fe449e60d1042d25bbe51dc98fbee789f8b"
+sha256 = "bc0d1d41b9d7ffc762e99d2abfafacbf745182f0b31d86db5eec8c67f5f3006b"
 
 
 @subpackage("evince-libs")
