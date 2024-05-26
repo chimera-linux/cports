@@ -1,29 +1,29 @@
 pkgname = "nautilus"
-pkgver = "46.1"
+pkgver = "46.2"
 pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dtests=headless"]
 hostmakedepends = [
-    "meson",
-    "pkgconf",
-    "glib-devel",
-    "gettext",
-    "gobject-introspection",
     "cmake",
     "desktop-file-utils",
+    "gettext",
+    "glib-devel",
+    "gobject-introspection",
+    "meson",
+    "pkgconf",
 ]
 makedepends = [
-    "glib-devel",
-    "gnome-desktop-devel",
-    "gnome-autoar-devel",
-    "libadwaita-devel",
-    "gtk4-devel",
-    "libportal-devel",
-    "tracker-devel",
-    "libxml2-devel",
     "gexiv2-devel",
+    "glib-devel",
+    "gnome-autoar-devel",
+    "gnome-desktop-devel",
     "gst-plugins-base-devel",
+    "gtk4-devel",
+    "libadwaita-devel",
     "libcloudproviders-devel",
+    "libportal-devel",
+    "libxml2-devel",
+    "tracker-devel",
 ]
 depends = ["desktop-file-utils", "tracker", "tracker-miners"]
 checkdepends = ["dbus", "tracker", "tracker-miners", "python-gobject"]
@@ -31,8 +31,8 @@ pkgdesc = "GNOME file manager"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later AND LGPL-2.1-or-later"
 url = "https://wiki.gnome.org/Apps/Files"
-source = f"$(GNOME_SITE)/{pkgname}/{pkgver[:pkgver.find('.')]}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "cc1a5fdf1dd72f92e9e3f3c7ad263709a0de5391a895be9344f6a67f43887bd7"
+source = f"$(GNOME_SITE)/nautilus/{pkgver[:pkgver.find('.')]}/nautilus-{pkgver}.tar.xz"
+sha256 = "6ee8c99019b9e3447f6918d68232a20deca89e5525c05805432b7d8840ca71fa"
 options = ["!cross"]
 
 
