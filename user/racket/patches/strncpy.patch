@@ -1,0 +1,13 @@
+--- a/src/bc/src/regexp.c
++++ b/src/bc/src/regexp.c
+@@ -4187,10 +4187,6 @@
+   return(count);
+ }
+ 
+-#ifndef strncpy
+-  extern char *strncpy();
+-#endif
+-
+ /*
+    - regsub - perform substitutions after a regexp match
+    */

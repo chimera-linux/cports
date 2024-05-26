@@ -1,0 +1,18 @@
+clang optimisations break the stack direction calculations so it thinks it grows up
+this only matters for the bc backend (on ppc64le/riscv64); hardcode this as down for now
+--
+--- a/src/bc/configure
++++ b/src/bc/configure
+@@ -6644,11 +6644,7 @@
+       return grows_down_p(0, 0);
+    }
+ _ACEOF
+-if ac_fn_c_try_run "$LINENO"; then :
+-  stack_direction=up
+-else
+-  stack_direction=down
+-fi
++stack_direction=down
+ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
+   conftest.$ac_objext conftest.beam conftest.$ac_ext
+ fi
