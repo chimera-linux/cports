@@ -2,10 +2,10 @@
 +++ b/Makefile
 @@ -2,7 +2,7 @@
  VERSION = 6
- PATCHLEVEL = 1
- SUBLEVEL = 52
--EXTRAVERSION =-valve19
+ PATCHLEVEL = 5
+ SUBLEVEL = 0
+-EXTRAVERSION =-valve7
 +EXTRAVERSION =
- NAME = Curry Ramen
+ NAME = Hurr durr I'ma ninja sloth
  
  # *DOCUMENTATION*

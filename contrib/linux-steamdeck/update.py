@@ -1,8 +1,8 @@
-_vver = 19
+_vver = 7
 
 pattern = r"/tags/([\d.]+-valve\d+)"
 pkgver = f"{self.pkgver}.{_vver}"
-ignore = ["6.1.61.*"]
+ignore = ["6.8.*"]
 
 
 def fetch_versions(self, src):
