@@ -1,12 +1,12 @@
 # update linux-rpi-zfs-bin when bumping
 pkgname = "linux-rpi"
-pkgver = "6.6.30"
+pkgver = "6.6.31"
 pkgrel = 0
 archs = ["aarch64"]
 make_dir = "build"
 # necessary for efistub
 make_env = {"CBUILD_BYPASS_STRIP_WRAPPER": "1"}
-_commit = "1e53604087930e7cf42eee3d42572d0d6f54c86a"
+_commit = "dda83b1fb650670b865e8735115c00bdfccacabf"
 hostmakedepends = ["base-kernel-devel"]
 depends = ["base-kernel"]
 provides = ["linux"]
@@ -17,7 +17,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-only"
 url = "https://github.com/raspberrypi/linux"
 source = f"{url}/archive/{_commit}.tar.gz"
-sha256 = "9c895d088e569987bd9db69f6c0ab0a5b4dd0ed7f7745520b67acf4d3d9248e9"
+sha256 = "435ab088b7beab3706ac91f24fd537be676946c0cf316e529384cfa79b3fc3d9"
 # no meaningful checking to be done
 options = [
     "!check",
@@ -34,8 +34,8 @@ options = [
 
 _flavor = "rpi"
 
-if self.profile().cross:
-    broken = "linux-devel does not come out right"
+#if self.profile().cross:
+#    broken = "linux-devel does not come out right"
 
 
 def init_configure(self):
