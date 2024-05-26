@@ -46,6 +46,7 @@ depends = [
     "python-appdirs",
     "python-cssselect",
     "python-lxml",
+    "python-numpy",
     "python-pillow",
     "python-scour",
 ]
