@@ -1,6 +1,6 @@
 pkgname = "screen"
 pkgver = "4.9.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--enable-pam",

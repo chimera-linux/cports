@@ -1,7 +1,7 @@
 pkgname = "python3.11"
 _majver = "3.11"
 pkgver = f"{_majver}.9"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",

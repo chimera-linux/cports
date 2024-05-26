@@ -1,6 +1,6 @@
 pkgname = "oksh"
 pkgver = "7.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 make_dir = "."

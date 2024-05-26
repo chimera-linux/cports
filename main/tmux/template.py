@@ -1,6 +1,6 @@
 pkgname = "tmux"
 pkgver = "3.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = ["automake", "byacc", "pkgconf"]
 makedepends = ["libevent-devel", "ncurses-devel"]

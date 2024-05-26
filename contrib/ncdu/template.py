@@ -1,6 +1,6 @@
 pkgname = "ncdu"
 pkgver = "1.20"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 hostmakedepends = [
     "autoconf",

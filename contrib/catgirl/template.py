@@ -1,6 +1,6 @@
 pkgname = "catgirl"
 pkgver = "2.2a"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = ["--prefix=/usr", "--mandir=/usr/share/man"]
 make_build_target = "all"

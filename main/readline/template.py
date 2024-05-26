@@ -5,7 +5,7 @@ pkgname = "readline"
 # use a git revision so we don't have to deal with the stupid patches
 _gitrev = "7274faabe97ce53d6b464272d7e6ab6c1392837b"
 pkgver = "8.2.001"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-curses",

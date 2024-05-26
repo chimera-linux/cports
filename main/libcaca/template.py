@@ -1,6 +1,6 @@
 pkgname = "libcaca"
 pkgver = "0.99_beta20"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."

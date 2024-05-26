@@ -1,6 +1,6 @@
 pkgname = "cmake"
 pkgver = "3.29.3"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--prefix=/usr",

@@ -1,6 +1,6 @@
 pkgname = "libedit"
 pkgver = "20230530"
-pkgrel = 0
+pkgrel = 1
 _gitrev = "bcf25b69b1a52b9b9b33c17e742f429983e30b9d"
 build_style = "makefile"
 make_cmd = "gmake"

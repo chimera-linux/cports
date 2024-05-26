@@ -3,7 +3,7 @@ pkgname = "python"
 _majver = "3.12"
 # .3 segfaults in ppc64le tests
 pkgver = f"{_majver}.2"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = [
     "--enable-shared",

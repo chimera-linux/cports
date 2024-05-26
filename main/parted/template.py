@@ -1,6 +1,6 @@
 pkgname = "parted"
 pkgver = "3.6"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_gen = []
 hostmakedepends = ["pkgconf"]

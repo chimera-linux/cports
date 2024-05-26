@@ -1,6 +1,6 @@
 pkgname = "psmisc"
 pkgver = "23.7"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 hostmakedepends = ["gettext-devel", "gmake", "automake"]

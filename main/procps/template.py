@@ -1,6 +1,6 @@
 pkgname = "procps"
 pkgver = "4.0.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-kill",

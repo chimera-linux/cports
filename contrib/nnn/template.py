@@ -1,6 +1,6 @@
 pkgname = "nnn"
 pkgver = "4.9"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 hostmakedepends = ["pkgconf", "gmake"]

@@ -1,6 +1,6 @@
 pkgname = "radeontop"
 pkgver = "1.4"
-pkgrel = 1
+pkgrel = 2
 build_style = "makefile"
 make_cmd = "gmake"
 make_use_env = True

@@ -1,6 +1,6 @@
 pkgname = "nano"
 pkgver = "8.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-utf8"]
 # fails to regen

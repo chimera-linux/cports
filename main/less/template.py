@@ -1,6 +1,6 @@
 pkgname = "less"
 pkgver = "643"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-regex=posix"]
 make_cmd = "gmake"

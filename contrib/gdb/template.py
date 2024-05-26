@@ -1,6 +1,6 @@
 pkgname = "gdb"
 pkgver = "14.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-werror",

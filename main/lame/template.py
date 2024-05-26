@@ -1,6 +1,6 @@
 pkgname = "lame"
 pkgver = "3.100"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-nasm", "--enable-shared"]
 hostmakedepends = ["nasm"]

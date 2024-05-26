@@ -1,6 +1,6 @@
 pkgname = "tig"
 pkgver = "2.5.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 make_cmd = "gmake"
 make_dir = "."

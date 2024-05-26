@@ -1,6 +1,6 @@
 pkgname = "racket"
 pkgver = "8.11.1"
-pkgrel = 0
+pkgrel = 1
 archs = ["aarch64", "x86_64"]
 build_wrksrc = "src"
 build_style = "gnu_configure"

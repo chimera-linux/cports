@@ -1,6 +1,6 @@
 pkgname = "got"
 pkgver = "0.98.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 make_cmd = "gmake"

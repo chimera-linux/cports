@@ -1,6 +1,6 @@
 pkgname = "powertop"
 pkgver = "2.15"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--disable-nls"]
 configure_gen = ["./autogen.sh"]

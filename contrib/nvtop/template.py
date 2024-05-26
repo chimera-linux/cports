@@ -1,6 +1,6 @@
 pkgname = "nvtop"
 pkgver = "3.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_TESTING=ON",

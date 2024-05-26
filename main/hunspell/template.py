@@ -1,6 +1,6 @@
 pkgname = "hunspell"
 pkgver = "1.7.2"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--with-ui", "--with-readline"]
 hostmakedepends = ["pkgconf", "automake", "libtool"]

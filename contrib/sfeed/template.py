@@ -1,6 +1,6 @@
 pkgname = "sfeed"
 pkgver = "2.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_install_args = [
     "COMPATOBJ=",

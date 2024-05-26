@@ -1,6 +1,6 @@
 pkgname = "gptfdisk"
 pkgver = "1.0.10"
-pkgrel = 0
+pkgrel = 1
 build_style = "makefile"
 make_cmd = "gmake"
 make_dir = "."

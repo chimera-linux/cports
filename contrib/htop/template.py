@@ -1,6 +1,6 @@
 pkgname = "htop"
 pkgver = "3.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = ["--enable-unicode", "--enable-sensors"]
 configure_gen = []

@@ -1,6 +1,6 @@
 pkgname = "cava"
 pkgver = "0.10.2"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = [
     "--disable-input-alsa",

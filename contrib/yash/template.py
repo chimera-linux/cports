@@ -1,6 +1,6 @@
 pkgname = "yash"
 pkgver = "2.56.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "configure"
 configure_args = [
     "--enable-array",

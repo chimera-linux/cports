@@ -1,6 +1,6 @@
 pkgname = "mtr"
 pkgver = "0.95"
-pkgrel = 2
+pkgrel = 3
 build_style = "gnu_configure"
 configure_args = ["--without-gtk"]
 configure_gen = ["./bootstrap.sh"]

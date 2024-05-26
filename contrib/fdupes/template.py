@@ -1,6 +1,6 @@
 pkgname = "fdupes"
 pkgver = "2.3.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_gen = []
 makedepends = ["ncurses-devel", "pcre2-devel", "sqlite-devel"]
