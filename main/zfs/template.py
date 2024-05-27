@@ -2,7 +2,7 @@
 # also update linux-*-zfs-bin
 pkgname = "zfs"
 pkgver = "2.2.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--with-config=user",
@@ -55,6 +55,10 @@ def post_patch(self):
 
 def pre_configure(self):
     self.do("autoreconf", "-if")
+    # unfuck the perms of files introduced by autoreconf
+    self.chmod("config/config.guess", 0o755)
+    self.chmod("config/config.sub", 0o755)
+    self.chmod("config/install-sh", 0o755)
     # compress source tree for ckms
     fn = f"{pkgname}-{pkgver}.tar"
     self.do("tar", "cf", fn, "--exclude", fn, ".")
