@@ -3,6 +3,8 @@ pkgver = "4.18.6"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
+# check target fails without this
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
@@ -34,8 +36,6 @@ source = (
     f"$(XFCE_SITE)/xfce/xfce4-panel/{pkgver[:-2]}/xfce4-panel-{pkgver}.tar.bz2"
 )
 sha256 = "21337161f58bb9b6e42760cb6883bc79beea27882aa6272b61f0e09d750d7c62"
-# TODO
-options = ["!check"]
 
 
 @subpackage("xfce4-panel-devel")
