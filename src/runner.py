@@ -487,6 +487,7 @@ def short_traceback(e, log):
     import traceback
     import subprocess
     import shlex
+    from cbuild.core import pkg as pkgm
 
     log.out("Stack trace:")
     # filter out some pointless stuff:
@@ -534,6 +535,16 @@ def short_traceback(e, log):
             )
         case _:
             log.out_plain(str(e))
+    curpkg = pkgm.failed()
+    if curpkg:
+        if hasattr(curpkg, "current_phase"):
+            log.out_orange(
+                f"Phase '{curpkg.current_phase}' failed for package '{curpkg.pkgname}'."
+            )
+        else:
+            log.out_orange(
+                f"Failure during build of package '{curpkg.pkgname}'."
+            )
 
 
 def binary_bootstrap(tgt):

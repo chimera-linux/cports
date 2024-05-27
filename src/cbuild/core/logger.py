@@ -25,14 +25,17 @@ class Logger:
             self.ostream.write("\033[m")
         self.ostream.write(end)
 
-    def warn(self, msg, end="\n"):
+    def out_orange(self, msg, end="\n"):
         if self.use_colors:
             self.estream.write("\033[1m\033[33m")
-        self.estream.write("=> WARNING: ")
+        self.estream.write("=> ")
         self.estream.write(msg)
         if self.use_colors:
             self.estream.write("\033[m")
         self.estream.write(end)
+
+    def warn(self, msg, end="\n"):
+        self.out_orange(f"WARNING: {msg}", end)
 
     def out_red(self, msg, end="\n"):
         if self.use_colors:

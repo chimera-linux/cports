@@ -18,6 +18,38 @@ def build(
     update_check=False,
     accept_checksums=False,
 ):
+    pkgm.push(pkg)
+    try:
+        _build(
+            step,
+            pkg,
+            depmap,
+            chost,
+            dirty,
+            keep_temp,
+            check_fail,
+            no_update,
+            update_check,
+            accept_checksums,
+        )
+    except Exception:
+        pkgm.set_failed(pkgm.pop())
+        raise
+    pkgm.pop()
+
+
+def _build(
+    step,
+    pkg,
+    depmap,
+    chost,
+    dirty,
+    keep_temp,
+    check_fail,
+    no_update,
+    update_check,
+    accept_checksums,
+):
     if chost:
         depn = "host-" + pkg.pkgname
     else:
@@ -174,6 +206,7 @@ def build(
             pkgsm.invoke(sp)
         # generate primary packages
         pkgsm.invoke(pkg)
+        pkg.current_phase = "index"
         # stage binary packages
         for repo in pkg._stage:
             logger.get().out(f"Staging new packages to {repo}...")
@@ -181,6 +214,7 @@ def build(
                 raise errors.CbuildException("indexing repositories failed")
 
     # cleanup
+    pkg.current_phase = "cleanup"
     if not keep_temp:
         chroot.remove_autodeps(pkg.stage == 0, pkg.profile())
         pkgm.remove_pkg_wrksrc(pkg)
