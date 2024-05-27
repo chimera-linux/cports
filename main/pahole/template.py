@@ -1,12 +1,20 @@
 pkgname = "pahole"
 pkgver = "1.26"
-pkgrel = 1
+pkgrel = 2
 build_style = "cmake"
-configure_args = ["-D__LIB=lib"]
-hostmakedepends = ["cmake", "ninja"]
+configure_args = [
+    "-D__LIB=lib",
+    "-DLIBBPF_EMBEDDED=OFF",
+]
+hostmakedepends = [
+    "cmake",
+    "ninja",
+    "pkgconf",
+]
 makedepends = [
     "argp-standalone",
     "elfutils-devel",
+    "libbpf-devel",
     "linux-headers",
     "musl-obstack-devel",
     "zlib-devel",
@@ -17,6 +25,11 @@ license = "GPL-2.0-only"
 url = "https://git.kernel.org/pub/scm/devel/pahole/pahole.git"
 source = f"https://fedorapeople.org/~acme/dwarves/dwarves-{pkgver}.tar.xz"
 sha256 = "ad4c08339850e404609e2808012580b7e98366d2b91054bb93fe6dca94651fb4"
+tool_flags = {
+    # see libbpf comment about bpf headers
+    "CFLAGS": ["-I/usr/include/bpf/uapi"],
+    "CXXFLAGS": ["-I/usr/include/bpf/uapi"],
+}
 # no tests
 options = ["!check"]
 
