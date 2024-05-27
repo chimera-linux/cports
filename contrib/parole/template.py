@@ -3,6 +3,8 @@ pkgver = "4.18.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
+# check target fails without this
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
@@ -33,8 +35,6 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/parole/start"
 source = f"$(XFCE_SITE)/apps/parole/{pkgver[:-2]}/parole-{pkgver}.tar.bz2"
 sha256 = "0c7364a484812f69cf2b20a2323864203334cc854fd8103d1d1131814ac55a66"
-# TODO
-options = ["!check"]
 
 # TODO: kinda broken on wayland
 
