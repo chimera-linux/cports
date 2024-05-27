@@ -1,6 +1,6 @@
 pkgname = "libshumate"
-pkgver = "1.2.1"
-pkgrel = 1
+pkgver = "1.2.2"
+pkgrel = 0
 build_style = "meson"
 configure_args = ["-Dgtk_doc=false"]
 make_check_env = {"GTK_A11Y": "none"}
@@ -26,7 +26,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "LGPL-2.1-or-later"
 url = "https://gitlab.gnome.org/GNOME/libshumate"
 source = f"$(GNOME_SITE)/libshumate/{pkgver[:-2]}/libshumate-{pkgver}.tar.xz"
-sha256 = "1105ee077e2147f2a039cddfa616fa5cb9438883dd940427e11699dcd6549c11"
+sha256 = "6f587579f7f2d60b38d3f4727eb1a8d2feac9cbdc018e53ff5f772a8608fa44b"
 options = ["!cross"]
 
 
