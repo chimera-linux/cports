@@ -1,5 +1,5 @@
 pkgname = "numbat"
-pkgver = "1.11.0"
+pkgver = "1.12.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -9,7 +9,7 @@ maintainer = "triallax <triallax@tutanota.com>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/sharkdp/numbat"
 source = f"{url}/archive/refs/tags/v{pkgver}.tar.gz"
-sha256 = "9543f449e758b2db6d1299b4eee88dbeac1ba57a427580c7f45d3ee613b089a0"
+sha256 = "6e5f2d3e912d38c2b55d10e151498d9d7837541502243bdf1330a7b44cd9da24"
 
 
 def do_install(self):
