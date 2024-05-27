@@ -1,5 +1,5 @@
 pkgname = "marisa-trie"
-# match to marisa-trie
+# match to python-marisa
 pkgver = "0.2.6"
 pkgrel = 0
 build_style = "gnu_configure"
