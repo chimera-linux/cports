@@ -3,6 +3,8 @@ pkgver = "1.10.5"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
+# check target fails without this
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
@@ -35,8 +37,6 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-screenshooter/start"
 source = f"$(XFCE_SITE)/apps/xfce4-screenshooter/{'.'.join(pkgver.split('.')[:-1])}/xfce4-screenshooter-{pkgver}.tar.bz2"
 sha256 = "fa711f2a6a5517f575f2e129fe48c2678e836bd4ede5433075f3076d7670621c"
-# TODO
-options = ["!check"]
 
 
 @subpackage("xfce4-screenshooter-imgur")
