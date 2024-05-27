@@ -3,6 +3,8 @@ pkgver = "4.18.1"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
+# check target fails without this
+make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext",
@@ -35,8 +37,6 @@ license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/xfce/xfdesktop/start"
 source = f"$(XFCE_SITE)/xfce/xfdesktop/{pkgver[:-2]}/xfdesktop-{pkgver}.tar.bz2"
 sha256 = "ef9268190c25877e22a9ff5aa31cc8ede120239cb0dfca080c174e7eed4ff756"
-# TODO
-options = ["!check"]
 
 
 @subpackage("xfce4-backgrounds")
