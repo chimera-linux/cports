@@ -1,6 +1,6 @@
 pkgname = "sane-backends"
-pkgver = "1.2.1"
-pkgrel = 3
+pkgver = "1.3.1"
+pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
     "--disable-locking",
@@ -12,26 +12,34 @@ configure_args = [
 ]
 make_cmd = "gmake"
 make_dir = "."  # bad build system
-hostmakedepends = ["gmake", "pkgconf", "python"]
+hostmakedepends = [
+    "autoconf-archive",
+    "automake",
+    "gettext-devel",
+    "gmake",
+    "libtool",
+    "pkgconf",
+    "python",
+]
 makedepends = [
-    "linux-headers",
-    "libgphoto2-devel",
-    "v4l-utils-devel",
-    "libusb-devel",
-    "openssl-devel",
-    "libxml2-devel",
-    "libcurl-devel",
     "avahi-devel",
+    "libcurl-devel",
+    "libgphoto2-devel",
     "libjpeg-turbo-devel",
     "libtiff-devel",
+    "libusb-devel",
+    "libxml2-devel",
+    "linux-headers",
+    "openssl-devel",
+    "v4l-utils-devel",
 ]
 pkgdesc = "Scanner Access Now Easy"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-2.0-or-later WITH custom:sane-exception"
 url = "http://sane-project.org"
-_rhash = "110fc43336d0fb5e514f1fdc7360dd87"
-source = f"https://gitlab.com/sane-project/backends/uploads/{_rhash}/{pkgname}-{pkgver}.tar.gz"
-sha256 = "f832395efcb90bb5ea8acd367a820c393dda7e0dd578b16f48928b8f5bdd0524"
+_rhash = "83bdbb6c9a115184c2d48f1fdc6847db"
+source = f"https://gitlab.com/sane-project/backends/uploads/{_rhash}/sane-backends-{pkgver}.tar.gz"
+sha256 = "aa82f76f409b88f8ea9793d4771fce01254d9b6549ec84d6295b8f59a3879a0c"
 # FIXME int (fails tests)
 hardening = ["!int"]
 # otherwise we get conflicting providers because all the
@@ -64,6 +72,3 @@ def _lib(self):
 @subpackage("sane-backends-devel")
 def _devel(self):
     return self.default_devel()
-
-
-configure_gen = []

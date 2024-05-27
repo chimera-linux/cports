@@ -1,0 +1,74 @@
+--- a/testsuite/tools/data/db.ref
++++ b/testsuite/tools/data/db.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.2.1
++# by sane-desc 3.6 from sane-backends 1.3.1
+ #
+ # The entries below are used to detect a USB device when it's plugged in
+ # and then run a script to change the ownership and
+--- a/testsuite/tools/data/usermap.ref
++++ b/testsuite/tools/data/usermap.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.2.1
++# by sane-desc 3.6 from sane-backends 1.3.1
+ #
+ # The entries below are used to detect a USB device and change owner
+ # and permissions on the "device node" used by libusb.
+--- a/testsuite/tools/data/hwdb.ref
++++ b/testsuite/tools/data/hwdb.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.2.1
++# by sane-desc 3.6 from sane-backends 1.3.1
+ #
+ # hwdb file for supported USB devices
+ #
+--- a/testsuite/tools/data/udev+acl.ref
++++ b/testsuite/tools/data/udev+acl.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.2.1
++# by sane-desc 3.6 from sane-backends 1.3.1
+ #
+ # udev rules file for supported USB and SCSI devices
+ #
+--- a/testsuite/tools/data/udev.ref
++++ b/testsuite/tools/data/udev.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.2.1
++# by sane-desc 3.6 from sane-backends 1.3.1
+ #
+ # udev rules file for supported USB and SCSI devices
+ #
+--- a/testsuite/tools/data/udev+hwdb.ref
++++ b/testsuite/tools/data/udev+hwdb.ref
+@@ -1,5 +1,5 @@
+ # This file was generated from description files (*.desc)
+-# by sane-desc 3.6 from sane-backends 1.2.1
++# by sane-desc 3.6 from sane-backends 1.3.1
+ #
+ # udev rules file for supported USB and SCSI devices
+ #
+--- a/testsuite/tools/data/html-backends-split.ref
++++ b/testsuite/tools/data/html-backends-split.ref
+@@ -16496,6 +16496,6 @@
+ >Contact</a>
+ </address>
+ <font size=-1>
+-This page was created by sane-desc 3.6 from sane-backends 1.2.1
++This page was created by sane-desc 3.6 from sane-backends 1.3.1
+ </font>
+ </body> </html>
+--- a/testsuite/tools/data/html-mfgs.ref
++++ b/testsuite/tools/data/html-mfgs.ref
+@@ -23910,6 +23910,6 @@
+ >Contact</a>
+ </address>
+ <font size=-1>
+-This page was created by sane-desc 3.6 from sane-backends 1.2.1
++This page was created by sane-desc 3.6 from sane-backends 1.3.1
+ </font>
+ </body> </html>
