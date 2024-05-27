@@ -1,6 +1,6 @@
 pkgname = "qbittorrent"
-pkgver = "4.6.4"
-pkgrel = 1
+pkgver = "4.6.5"
+pkgrel = 0
 build_style = "cmake"
 configure_args = [
     "-DQT6=ON",
@@ -26,7 +26,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
 url = "https://www.qbittorrent.org"
 source = f"https://github.com/qbittorrent/qBittorrent/archive/refs/tags/release-{pkgver}.tar.gz"
-sha256 = "5842eb2cc1745b72b090df562d35a7ec0a6469d898d411544808731578447e1d"
+sha256 = "f330042fd0b27530b4a7b70b5d7ab356b2c9246393761df3b06891dc9dd8c106"
 # FIXME: BitTorrent::SessionImpl::SessionImpl cfi crash
 hardening = ["vis"]
 # don't build
