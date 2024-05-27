@@ -1,7 +1,7 @@
 # TODO: service files, cleanup
 pkgname = "samba"
-pkgver = "4.19.6"
-pkgrel = 2
+pkgver = "4.20.1"
+pkgrel = 0
 build_style = "waf"
 configure_script = "buildtools/bin/waf"
 configure_args = [
@@ -40,66 +40,65 @@ configure_args = [
     "--without-ad-dc",
 ]
 hostmakedepends = [
-    "pkgconf",
-    "python",
+    "bison",
+    "docbook-xsl-nons",
+    "flex",
+    "gettext-devel",
+    "heimdal",
+    "ldb-python",
+    "libtasn1-progs",
     "perl",
     "perl-parse-yapp",
-    "gettext-devel",
-    "libtasn1-progs",
-    "docbook-xsl-nons",
-    "xsltproc",
+    "pkgconf",
+    "python",
     "rpcsvc-proto",
-    "flex",
-    "bison",
     "tdb-python",
     "tevent-python",
-    "ldb-python",
-    "heimdal",
+    "xsltproc",
 ]
 makedepends = [
-    "gettext-devel",
-    "python-devel",
-    "libtirpc-devel",
-    "popt-devel",
-    "e2fsprogs-devel",
-    "zlib-devel",
-    "ncurses-devel",
-    "libarchive-devel",
-    "musl-bsd-headers",
-    "linux-pam-devel",
-    "heimdal-devel",
     "acl-devel",
     "attr-devel",
-    "cups-devel",
-    "jansson-devel",
     "avahi-devel",
-    "fuse-devel",
-    "dbus-devel",
-    "tdb-devel",
-    "talloc-devel",
-    "ldb-devel",
-    "tevent-devel",
-    "gnutls-devel",
     "cmocka-devel",
-    "icu-devel",
-    "musl-nscd",
+    "cups-devel",
+    "dbus-devel",
+    "e2fsprogs-devel",
+    "fuse-devel",
+    "gettext-devel",
     "glib-devel",
+    "gnutls-devel",
     "gpgme-devel",
+    "heimdal-devel",
+    "icu-devel",
+    "jansson-devel",
+    "ldb-devel",
+    "libarchive-devel",
     "libedit-readline-devel",
+    "libtirpc-devel",
+    "linux-pam-devel",
+    "musl-bsd-headers",
+    "musl-nscd",
+    "ncurses-devel",
+    "popt-devel",
+    "python-devel",
+    "talloc-devel",
+    "tdb-devel",
+    "tevent-devel",
+    "zlib-devel",
 ]
 self.depends = [
-    f"samba-libs={pkgver}-r{pkgrel}",
     f"samba-common={pkgver}-r{pkgrel}",
+    f"samba-libs={pkgver}-r{pkgrel}",
     "tdb-progs",
 ]
 pkgdesc = "SMB/CIFS file, print, and login server for Unix"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "https://www.samba.org"
-source = (
-    f"https://download.samba.org/pub/samba/stable/{pkgname}-{pkgver}.tar.gz"
-)
-sha256 = "653b52095554dbc223c63b96af5cdf9e98c3e048549c5f56143d3b33dce1cef1"
+source = f"https://download.samba.org/pub/samba/stable/samba-{pkgver}.tar.gz"
+sha256 = "f93c3af5295340d08106c7c0dcfb85e4f85057dfd14587aa8817beb31aff88f7"
+tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"]}
 env = {"PYTHONHASHSEED": "1"}
 # check needs --enable-selftest, which needs extra system dependencies
 options = ["!cross", "!check", "!installroot", "linkundefver"]
@@ -118,8 +117,6 @@ configure_args.append(
         ]
     )
 )
-
-tool_flags = {"CFLAGS": ["-D_BSD_SOURCE"], "LDFLAGS": []}
 
 
 def post_install(self):
@@ -234,8 +231,8 @@ def _winbind(self):
         "usr/lib/samba/idmap",
         "usr/lib/samba/krb5",
         "usr/lib/samba/nss_info",
-        "usr/lib/libidmap-samba4.so",
-        "usr/lib/libnss-info-samba4.so",
+        "usr/lib/libidmap-private-samba.so",
+        "usr/lib/libnss-info-private-samba.so",
         "usr/share/man/man1/ntlm_auth.1",
         "usr/share/man/man1/wbinfo.1",
         "usr/share/man/man8/idmap_*.8",
@@ -284,6 +281,7 @@ def _smbclient(self):
         "usr/bin/smbspool",
         "usr/bin/smbtar",
         "usr/bin/smbtree",
+        "usr/bin/wspsearch",
         "usr/lib/cups/backend/smb",
         "usr/libexec/samba/smbspool_krb5_wrapper",
         "usr/share/man/man1/mdsearch.1",
@@ -327,8 +325,8 @@ def _test(self):
         "usr/bin/masktest",
         "usr/bin/ndrdump",
         "usr/bin/smbtorture",
-        "usr/lib/libprinter-driver-samba4.so",
-        "usr/lib/libtorture-samba4.so",
+        "usr/lib/libprinter-driver-private-samba.so",
+        "usr/lib/libtorture-private-samba.so",
         "usr/share/man/man1/gentest.1",
         "usr/share/man/man1/locktest.1",
         "usr/share/man/man1/masktest.1",
@@ -352,8 +350,8 @@ def _ctdb(self):
         "usr/bin/ltdbtool",
         "usr/bin/onnode",
         "usr/bin/ping_pong",
-        "usr/lib/libctdb-event-client-samba4.so",
-        "usr/lib/libtalloc-report-samba4.so",
+        "usr/lib/libctdb-event-client-private-samba.so",
+        "usr/lib/libtalloc-report-private-samba.so",
         "usr/libexec/ctdb",
         "usr/share/ctdb",
         "usr/share/man/man1/ctdb*.1",
