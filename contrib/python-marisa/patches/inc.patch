@@ -1,0 +1,6 @@
+fails to find ./marisa-swig.h otherwise
+--
+--- /dev/null
++++ b/bindings/python/MANIFEST.in
+@@ -0,0 +1 @@
++marisa-swig.h
