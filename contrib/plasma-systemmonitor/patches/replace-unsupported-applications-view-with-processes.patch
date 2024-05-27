@@ -1,0 +1,124 @@
+"Applications view is unsupported on your system" until we have turnstile user slice cgroup anyway
+
+--- a/src/pages/overview.page
++++ b/src/pages/overview.page
+@@ -112,7 +112,7 @@ totalSensors=["network/(?!all).*/network"]
+ groupByTotal=true
+ 
+ [Face-94410254040128][Appearance]
+-chartFace=org.kde.ksysguard.applicationstable
++chartFace=org.kde.ksysguard.processtable
+ 
+ [Face-94410261307168][Appearance]
+ chartFace=org.kde.ksysguard.piechart
+@@ -512,51 +512,51 @@ name=section-4
+ isTitle=true
+ name=row-3
+ heightMode=minimum
+-Title=Applications
+-Title[ar]=التّطبيقات
+-Title[ast]=Aplicaciones
+-Title[az]=Tətbiqlər
+-Title[be]=Праграмы
+-Title[bg]=Приложения
+-Title[ca]=Aplicacions
+-Title[ca@valencia]=Aplicacions
+-Title[cs]=Aplikace
+-Title[de]=Programme
+-Title[en_GB]=Applications
+-Title[eo]=Aplikoj
+-Title[es]=Aplicaciones
+-Title[eu]=Aplikazioak
+-Title[fi]=Sovellukset
+-Title[fr]=Applications
+-Title[gl]=Aplicacións
+-Title[hsb]=Aplikacije
+-Title[hu]=Alkalmazások
+-Title[ia]=Applicationes
+-Title[id]=Aplikasi
+-Title[ie]=Applicationes
+-Title[it]=Applicazioni
+-Title[ja]=アプリケーション
+-Title[ka]=პლიკაციები
+-Title[ko]=앱
+-Title[lt]=Programos
+-Title[nl]=Toepassingen
+-Title[nn]=Program
+-Title[pa]=ਐਪਲੀਕੇਸ਼ਨਾਂ
+-Title[pl]=Programy
+-Title[pt]=Aplicações
+-Title[pt_BR]=Aplicativos
+-Title[ro]=Aplicații
+-Title[ru]=Приложения
+-Title[sa]=अनुप्रयोगाः
+-Title[sk]=Aplikácie
+-Title[sl]=Aplikacije
+-Title[sv]=Program
+-Title[ta]=செயலிகள்
+-Title[tr]=Uygulamalar
+-Title[uk]=Програми
+-Title[x-test]=xxApplicationsxx
+-Title[zh_CN]=应用程序
+-Title[zh_TW]=應用程式
++Title=Processes
++Title[ar]=العمليات
++Title[ast]=Procesos
++Title[az]=Proseslər
++Title[be]=Працэсы
++Title[bg]=Процеси
++Title[ca]=Processos
++Title[ca@valencia]=Processos
++Title[cs]=Procesy
++Title[de]=Prozesse
++Title[en_GB]=Processes
++Title[eo]=Procezoj
++Title[es]=Procesos
++Title[eu]=Prozesuak
++Title[fi]=Prosessit
++Title[fr]=Processus
++Title[gl]=Procesos
++Title[hsb]=Procesy
++Title[hu]=Folyamatok
++Title[ia]=Processos
++Title[id]=Proses
++Title[ie]=Processes
++Title[it]=Processi
++Title[ja]=プロセス
++Title[ka]=პროცესები
++Title[ko]=프로세스
++Title[lt]=Procesai
++Title[nl]=Processen
++Title[nn]=Prosessar
++Title[pa]=ਪਰੋਸੈੱਸ
++Title[pl]=Procesy
++Title[pt]=Processos
++Title[pt_BR]=Processos
++Title[ro]=Procese
++Title[ru]=Процессы
++Title[sa]=प्रक्रियाः
++Title[sk]=Procesy
++Title[sl]=Procesi
++Title[sv]=Processer
++Title[ta]=பணிகள்
++Title[tr]=Süreçler
++Title[uk]=Процеси
++Title[x-test]=xxProcessesxx
++Title[zh_CN]=进程列表
++Title[zh_TW]=行程
+ 
+ [page][row-4]
+ isTitle=false
+--- a/src/systemmonitor.kcfg
++++ b/src/systemmonitor.kcfg
+@@ -24,9 +24,10 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
+             <default>false</default>
+         </entry>
+         <entry name="pageOrder" type="StringList">
+-            <default>overview.page,applications.page,history.page,processes.page</default>
++            <default>overview.page,processes.page,history.page</default>
+         </entry>
+         <entry name="hiddenPages" type="StringList">
++            <default>applications.page</default>
+         </entry>
+         <entry name="startPage" type="String">
+             <default>overview.page</default>
