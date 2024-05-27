@@ -21,7 +21,7 @@ configure_args = [
 # breaks build entirely
 configure_gen = []
 make_cmd = "gmake"
-make_install_args = ["install-libs"]
+make_install_args = ["-j1", "install-libs"]
 hostmakedepends = ["gmake", "pkgconf", "texinfo"]
 makedepends = [
     "fuse-devel",
