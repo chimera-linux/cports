@@ -1,0 +1,62 @@
+https://invent.kde.org/plasma/plasma-integration/-/merge_requests/144
+
+--- a/qt6/autotests/khintssettings_unittest.cpp
++++ b/qt6/autotests/khintssettings_unittest.cpp
+@@ -30,7 +30,7 @@ void KHintsSettingsTest::testDefaults()
+     QCOMPARE(hints.hint(QPlatformTheme::ToolButtonStyle).toInt(), int(Qt::ToolButtonTextBesideIcon));
+ 
+     QCOMPARE(hints.hint(QPlatformTheme::ToolBarIconSize).toInt(), 22);
+-    QCOMPARE(hints.hint(QPlatformTheme::ItemViewActivateItemOnSingleClick).toBool(), true);
++    QCOMPARE(hints.hint(QPlatformTheme::ItemViewActivateItemOnSingleClick).toBool(), false);
+ 
+     QCOMPARE(hints.hint(QPlatformTheme::SystemIconThemeName).toString(), QStringLiteral("breeze"));
+     QCOMPARE(hints.hint(QPlatformTheme::SystemIconFallbackThemeName).toString(), QStringLiteral("hicolor"));
+--- a/qt6/autotests/qml/filedialog_parentless.qml
++++ b/qt6/autotests/qml/filedialog_parentless.qml
+@@ -4,8 +4,8 @@
+     SPDX-License-Identifier: LGPL-2.0-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+ */
+ 
+-import QtQuick 2.2
+-import QtQuick.Dialogs 1.0
++import QtQuick
++import QtQuick.Dialogs
+ 
+ FileDialog {
+     id: fileDialog
+--- a/qt6/autotests/qml/filedialog_withparent.qml
++++ b/qt6/autotests/qml/filedialog_withparent.qml
+@@ -4,9 +4,9 @@
+     SPDX-License-Identifier: LGPL-2.0-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL
+ */
+ 
+-import QtQuick 2.2
+-import QtQuick.Window 2.2
+-import QtQuick.Dialogs 1.0
++import QtQuick
++import QtQuick.Window
++import QtQuick.Dialogs
+ 
+ Window {
+     x: 100
+--- a/qt6/autotests/tst_filedialog.qml
++++ b/qt6/autotests/tst_filedialog.qml
+@@ -1,6 +1,6 @@
+-import QtQuick 2.2
+-import QtTest 1.0
+-import QtQuick.Dialogs 1.2
++import QtQuick
++import QtTest
++import QtQuick.Dialogs
+ TestCase {
+     id: testCase
+     width: 400
+@@ -11,7 +11,7 @@ TestCase {
+ 
+     FileDialog {
+         id: fileDialog
+-        folder: shortcuts.home
++        currentFolder: shortcuts.home
+     }
+ 
+     function test_filedialog() {
