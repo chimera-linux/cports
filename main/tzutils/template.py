@@ -1,6 +1,6 @@
 pkgname = "tzutils"
 pkgver = "2024a"
-pkgrel = 3
+pkgrel = 4
 build_style = "makefile"
 make_build_args = ["KSHELL=/bin/sh"]
 make_install_args = ["ZICDIR=/usr/bin", "ZFLAGS=-b fat"]
@@ -9,10 +9,8 @@ checkdepends = ["curl", "perl"]
 pkgdesc = "Time zone and daylight-saving time utilities"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "custom:none"
-url = "http://www.iana.org/time-zones"
-source = (
-    f"https://www.iana.org/time-zones/repository/releases/tzdb-{pkgver}.tar.lz"
-)
+url = "https://www.iana.org/time-zones"
+source = f"{url}/repository/releases/tzdb-{pkgver}.tar.lz"
 sha256 = "511af6b467f40b1ec9ac3684d1701793af470f3e29ddfb97b82be438e8601a7a"
 hardening = ["vis", "cfi"]
 # needs network access
@@ -40,6 +38,8 @@ def post_install(self):
     )
     # tmpfiles
     self.install_file(self.files_path / "tzdata.conf", "usr/lib/tmpfiles.d")
+    # used by some software, e.g. hare's standard library
+    self.install_file("leap-seconds.list", "usr/share/zoneinfo")
 
 
 @subpackage("tzdata-right")
