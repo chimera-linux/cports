@@ -1,5 +1,5 @@
 pkgname = "git-grab"
-pkgver = "2.1.0"
+pkgver = "3.0.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
@@ -10,7 +10,7 @@ maintainer = "Wesley Moore <wes@wezm.net>"
 license = "MIT OR Apache-2.0"
 url = "https://github.com/wezm/git-grab"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "ae9edda2d9ff499d2282035e84fa3d5da3776fab1a36e1922dce9584222a196a"
+sha256 = "542a1e1c1d2a3f1f073e23817bfbab1b98f352f590991e50c6a484177a724b95"
 
 
 def post_install(self):
