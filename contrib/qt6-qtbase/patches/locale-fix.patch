@@ -1,0 +1,50 @@
+Patch-Source: https://github.com/qt/qtbase/commit/f05cf3f11f4e42e05d069b5d9249d4b9aff41ffe
+--
+From f05cf3f11f4e42e05d069b5d9249d4b9aff41ffe Mon Sep 17 00:00:00 2001
+From: Kirikaze Chiyuki <yidaozhanyaqwq@gmail.com>
+Date: Sun, 21 Apr 2024 11:08:10 +0800
+Subject: [PATCH] Fix separator in QLocale::uiLanguages()
+
+Since commit 91e70f23 introduced separator to uiLanguages(), the system
+locale id still does not respect the separator parameter and hardcodes
+dash as separator. Fixing this should make the format consistent.
+
+Change-Id: I1ab8edfa49117bdc9c4353228e73c2d1e5becffc
+Reviewed-by: Edward Welbourne <edward.welbourne@qt.io>
+Reviewed-by: Moody Liu <mooodyhunter@outlook.com>
+(cherry picked from commit 4431ffa8b90f4d089f98544e8c2eeac6cfc7abb2)
+Reviewed-by: Qt Cherry-pick Bot <cherrypick_bot@qt-project.org>
+---
+ src/corelib/text/qlocale.cpp                    | 5 +++++
+ tests/auto/corelib/text/qlocale/tst_qlocale.cpp | 2 ++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/src/corelib/text/qlocale.cpp b/src/corelib/text/qlocale.cpp
+index 6d6c01da662..d3dfff1497f 100644
+--- a/src/corelib/text/qlocale.cpp
++++ b/src/corelib/text/qlocale.cpp
+@@ -4750,6 +4750,11 @@ QStringList QLocale::uiLanguages(TagSeparator separator) const
+     const bool isSystem = d->m_data == &systemLocaleData;
+     if (isSystem) {
+         uiLanguages = systemLocale()->query(QSystemLocale::UILanguages).toStringList();
++        if (separator != TagSeparator::Dash) {
++            // Map from default separator, Dash, used by backends:
++            const QChar join = QLatin1Char(sep);
++            uiLanguages = uiLanguages.replaceInStrings(u"-", QStringView(&join, 1));
++        }
+         // ... but we need to include likely-adjusted forms of each of those, too.
+         // For now, collect up locale Ids representing the entries, for later processing:
+         for (const auto &entry : std::as_const(uiLanguages))
+diff --git a/tests/auto/corelib/text/qlocale/tst_qlocale.cpp b/tests/auto/corelib/text/qlocale/tst_qlocale.cpp
+index 5551f6c4a97..05660684e75 100644
+--- a/tests/auto/corelib/text/qlocale/tst_qlocale.cpp
++++ b/tests/auto/corelib/text/qlocale/tst_qlocale.cpp
+@@ -4102,6 +4102,8 @@ void tst_QLocale::mySystemLocale()
+             qDebug("\n\t%s", qPrintable(QLocale::system().uiLanguages().join(u"\n\t")));
+         });
+         QCOMPARE(QLocale::system().uiLanguages(), uiLanguages);
++        QCOMPARE(QLocale::system().uiLanguages(QLocale::TagSeparator::Underscore),
++                 uiLanguages.replaceInStrings(u"-", u"_"));
+         reporter.dismiss();
+     }
+ 

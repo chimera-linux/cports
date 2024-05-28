@@ -1,0 +1,213 @@
+Patch-Source: https://github.com/qt/qtbase/commit/a8ef8ea55014546e0e835cd0eacf694919702a11
+--
+From a8ef8ea55014546e0e835cd0eacf694919702a11 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Tor=20Arne=20Vestb=C3=B8?= <tor.arne.vestbo@qt.io>
+Date: Wed, 24 Apr 2024 22:33:42 +0200
+Subject: [PATCH] Don't quit automatically via QEventLoopLocker if there are
+ open windows
+
+As part of df359bcb703db5a8adbf14e88ba4ae0d54f0cfcd the semantics and
+interaction between QEventLoopLocker and QGuiApplication was changed,
+based on the assumption that these two mechanisms were independent
+and should not affect each other.
+
+This had a surprising regression where the use of QEventLoopLocker in
+combination with the QCoreApplication::isQuitLockEnabled() automatic
+quit would end up quitting the app, even if it had open windows, for
+example when the last job of some internal job queue finished.
+
+It could be argued that if the app has open windows that should not
+be closed, they should ignore the Close event, and that an application
+with running QEventLoopLocker jobs should maintain an active window
+showing the progress of those jobs, but still, this is regression
+that we want to fix.
+
+We now bail out if !lastWindowClosed() in QGuiApplication's
+canQuitAutomatically, which is triggered from QEventLoopLocker's
+isQuitLockEnabled() behavior. And we do so regardless of whether
+quitOnLastWindowClosed is set or not, as the latter property
+determines the behavior when closing a window, not the behavior
+when a QEventLoopLocker goes out of scope.
+
+Similarly, we now block quitting of the application when triggered
+by quitOnLastWindowClosed() if a QEventLoop is active, regardless of
+the isQuitLockEnabled(), as the latter property is determining
+whether we should trigger a quit, not whether we should block them.
+
+[ChangeLog][Important behavior changes] Fixed a regression where
+the last QEventLoopLocker going out of scope would quit the app,
+even if there were open windows, if quitOnLastWindowClosed was
+false.
+
+[ChangeLog][Important behavior changes] Fixed a regression where
+closing the last window would quit the app, even if there were
+active QEventLoopLockers, if isQuitLockEnabled was false.
+
+Fixes: QTBUG-124386
+Pick-to: 6.5
+Change-Id: I84fd0ddea78a2f417f3a17b326113c880079cf85
+Reviewed-by: Thiago Macieira <thiago.macieira@intel.com>
+Reviewed-by: Volker Hilsheimer <volker.hilsheimer@qt.io>
+(cherry picked from commit 0b494c47d36a8234b1763518c9cddafe62f03715)
+Reviewed-by: Qt Cherry-pick Bot <cherrypick_bot@qt-project.org>
+---
+ src/corelib/kernel/qcoreapplication.cpp       | 16 ++++++-
+ src/corelib/kernel/qeventloop.cpp             |  6 ++-
+ src/gui/kernel/qguiapplication.cpp            | 18 ++++++--
+ .../qguiapplication/tst_qguiapplication.cpp   | 42 ++++++++++++++++---
+ 4 files changed, 71 insertions(+), 11 deletions(-)
+
+diff --git a/src/corelib/kernel/qcoreapplication.cpp b/src/corelib/kernel/qcoreapplication.cpp
+index 1ce2642cf2d4..5a1ad13b6035 100644
+--- a/src/corelib/kernel/qcoreapplication.cpp
++++ b/src/corelib/kernel/qcoreapplication.cpp
+@@ -1079,6 +1079,14 @@ bool QCoreApplication::testAttribute(Qt::ApplicationAttribute attribute)
+     \brief Whether the use of the QEventLoopLocker feature can cause the
+     application to quit.
+ 
++    When this property is \c true the release of the last remaining
++    QEventLoopLocker operating on the application will attempt to
++    quit the application.
++
++    Note that attempting a quit may not necessarily result in the
++    application quitting, for example if there still are open windows,
++    or the QEvent::Quit event is ignored.
++
+     The default is \c true.
+ 
+     \sa QEventLoopLocker
+@@ -2081,7 +2089,13 @@ bool QCoreApplicationPrivate::canQuitAutomatically()
+     if (!in_exec)
+         return false;
+ 
+-    if (quitLockEnabled && quitLockRef.loadRelaxed())
++    // The automatic quit functionality is triggered by
++    // both QEventLoopLocker and maybeLastWindowClosed.
++    // In either case, we don't want to quit if there
++    // are active QEventLoopLockers, even if quitLockEnabled
++    // is not enabled, as the property signals whether to
++    // trigger the automatic quit, not whether to block it.
++    if (quitLockRef.loadRelaxed())
+         return false;
+ 
+     return true;
+diff --git a/src/corelib/kernel/qeventloop.cpp b/src/corelib/kernel/qeventloop.cpp
+index dcd5f6d5c07d..47ab76635423 100644
+--- a/src/corelib/kernel/qeventloop.cpp
++++ b/src/corelib/kernel/qeventloop.cpp
+@@ -337,7 +337,11 @@ static_assert(alignof(QCoreApplication) >= 4);
+ /*!
+     Creates an event locker operating on the QCoreApplication.
+ 
+-    The application will quit when there are no more QEventLoopLockers operating on it.
++    The application will attempt to quit when there are no more QEventLoopLockers
++    operating on it, as long as QCoreApplication::isQuitLockEnabled() is \c true.
++
++    Note that attempting a quit may not necessarily result in the application quitting,
++    if there for example are open windows, or the QEvent::Quit event is ignored.
+ 
+     \sa QCoreApplication::quit(), QCoreApplication::isQuitLockEnabled()
+  */
+diff --git a/src/gui/kernel/qguiapplication.cpp b/src/gui/kernel/qguiapplication.cpp
+index 86f4e5fdea0e..af28f083a3a5 100644
+--- a/src/gui/kernel/qguiapplication.cpp
++++ b/src/gui/kernel/qguiapplication.cpp
+@@ -3675,9 +3675,13 @@ void QGuiApplicationPrivate::notifyWindowIconChanged()
+ 
+     The default is \c true.
+ 
+-    If this property is \c true, the applications quits when the last visible
+-    \l{Primary and Secondary Windows}{primary window} (i.e. top level window
+-    with no transient parent) is closed.
++    If this property is \c true, the application will attempt to
++    quit when the last visible \l{Primary and Secondary Windows}{primary window}
++    (i.e. top level window with no transient parent) is closed.
++
++    Note that attempting a quit may not necessarily result in the
++    application quitting, for example if there still are active
++    QEventLoopLocker instances, or the QEvent::Quit event is ignored.
+ 
+     \sa quit(), QWindow::close()
+  */
+@@ -3733,7 +3737,13 @@ bool QGuiApplicationPrivate::lastWindowClosed() const
+ 
+ bool QGuiApplicationPrivate::canQuitAutomatically()
+ {
+-    if (quitOnLastWindowClosed && !lastWindowClosed())
++    // The automatic quit functionality is triggered by
++    // both QEventLoopLocker and maybeLastWindowClosed.
++    // Although the former is a QCoreApplication feature
++    // we don't want to quit the application when there
++    // are open windows, regardless of whether the app
++    // also quits automatically on maybeLastWindowClosed.
++    if (!lastWindowClosed())
+         return false;
+ 
+     return QCoreApplicationPrivate::canQuitAutomatically();
+diff --git a/tests/auto/gui/kernel/qguiapplication/tst_qguiapplication.cpp b/tests/auto/gui/kernel/qguiapplication/tst_qguiapplication.cpp
+index 2fef17978923..38a6a311fc30 100644
+--- a/tests/auto/gui/kernel/qguiapplication/tst_qguiapplication.cpp
++++ b/tests/auto/gui/kernel/qguiapplication/tst_qguiapplication.cpp
+@@ -1008,8 +1008,8 @@ void tst_QGuiApplication::quitOnLastWindowClosedWithEventLoopLocker()
+     });
+ 
+     {
+-        // Disabling QEventLoopLocker support should not affect
+-        // quitting when last window is closed.
++        // Disabling QEventLoopLocker automatic quit should not affect
++        // quitting when last window is closed if there are no lockers.
+         app.setQuitLockEnabled(false);
+ 
+         QuitSpy quitSpy;
+@@ -1023,8 +1023,40 @@ void tst_QGuiApplication::quitOnLastWindowClosedWithEventLoopLocker()
+     }
+ 
+     {
+-        // Disabling quitOnLastWindowClosed support should not affect
+-        // quitting when last QEventLoopLocker goes out of scope.
++        // Disabling QEventLoopLocker automatic quit should still block
++        // quitting when last window is closed if there is a locker alive.
++        app.setQuitLockEnabled(false);
++
++        QScopedPointer<QEventLoopLocker> locker(new QEventLoopLocker);
++
++        QuitSpy quitSpy;
++        QWindow window;
++        window.show();
++        QVERIFY(QTest::qWaitForWindowExposed(&window));
++        QTimer::singleShot(0, &window, &QWindow::close);
++        QTimer::singleShot(200, &app, []{ QCoreApplication::exit(0); });
++        app.exec();
++        QCOMPARE(quitSpy.quits, 0);
++    }
++
++    {
++        // Disabling quitOnLastWindowClosed automatic quit should not affect
++        // quitting when last QEventLoopLocker goes out of scope if
++        // there are no windows.
++        app.setQuitLockEnabled(true);
++        app.setQuitOnLastWindowClosed(false);
++
++        QuitSpy quitSpy;
++        QScopedPointer<QEventLoopLocker> locker(new QEventLoopLocker);
++        QTimer::singleShot(0, [&]{ locker.reset(nullptr); });
++        QTimer::singleShot(200, &app, []{ QCoreApplication::exit(0); });
++        app.exec();
++        QCOMPARE(quitSpy.quits, 1);
++    }
++
++    {
++        // Disabling quitOnLastWindowClosed automatic quit should still block
++        // quitting via QEventLoopLocker if there's a window alive.
+         app.setQuitLockEnabled(true);
+         app.setQuitOnLastWindowClosed(false);
+ 
+@@ -1036,7 +1068,7 @@ void tst_QGuiApplication::quitOnLastWindowClosedWithEventLoopLocker()
+         QTimer::singleShot(0, [&]{ locker.reset(nullptr); });
+         QTimer::singleShot(200, &app, []{ QCoreApplication::exit(0); });
+         app.exec();
+-        QCOMPARE(quitSpy.quits, 1);
++        QCOMPARE(quitSpy.quits, 0);
+     }
+ 
+     {
