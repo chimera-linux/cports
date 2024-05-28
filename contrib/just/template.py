@@ -1,16 +1,16 @@
 pkgname = "just"
-pkgver = "1.26.0"
+pkgver = "1.27.0"
 pkgrel = 0
 build_style = "cargo"
 hostmakedepends = ["cargo-auditable"]
 makedepends = ["rust-std"]
-checkdepends = ["bash"]
+checkdepends = ["bash", "python"]
 pkgdesc = "Save and run commands from justfile"
 maintainer = "Wesley Moore <wes@wezm.net>"
 license = "CC0-1.0"
 url = "https://github.com/casey/just"
 source = f"{url}/archive/{pkgver}.tar.gz"
-sha256 = "20c4109bf30590e5633ae005329508c3fa772c3d86d0994bd2f770ade02dd6a7"
+sha256 = "3f7af44ce43fef5e54df2b64574930e036baadae4a66645e996c4bb2164bf2a3"
 
 
 def post_install(self):
