@@ -1,5 +1,5 @@
 pkgname = "firefox"
-pkgver = "126.0"
+pkgver = "126.0.1"
 pkgrel = 0
 make_cmd = "gmake"
 hostmakedepends = [
@@ -63,7 +63,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
 url = "https://www.mozilla.org/firefox"
 source = f"$(MOZILLA_SITE)/firefox/releases/{pkgver}/source/firefox-{pkgver}.source.tar.xz"
-sha256 = "910e82a1999ec229e5bc5090a39cec9c575e8bafcac2c54f9bb5c699bd868526"
+sha256 = "f63026359f678a5d45cea4c7744fcef512abbb58a5b016bbbb1c6ace723a263b"
 debug_level = 1  # defatten, especially with LTO
 tool_flags = {
     "LDFLAGS": ["-Wl,-rpath=/usr/lib/firefox", "-Wl,-z,stack-size=2097152"]
@@ -199,8 +199,6 @@ def do_configure(self):
                 ldp = self.chroot_cwd / d.name / "dist/firefox"
             self.do(
                 "xvfb-run",
-                "-w",
-                "10",
                 "-s",
                 "-screen 0 1920x1080x24",
                 "./mach",
@@ -208,9 +206,11 @@ def do_configure(self):
                 "./build/pgo/profileserver.py",
                 env={
                     "HOME": str(self.chroot_cwd),
-                    "LLVM_PROFDATA": "llvm-profdata",
                     "JARLOG_FILE": str(self.chroot_cwd / "jarlog"),
                     "LD_LIBRARY_PATH": ldp,
+                    "LIBGL_ALWAYS_SOFTWARE": "1",
+                    "LLVM_PROFDATA": "llvm-profdata",
+                    "XDG_RUNTIME_DIR": "/tmp",
                 },
             )
         # clean up build dir
