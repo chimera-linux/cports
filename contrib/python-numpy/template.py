@@ -1,6 +1,6 @@
 pkgname = "python-numpy"
 pkgver = "1.26.4"
-pkgrel = 0
+pkgrel = 1
 build_style = "python_pep517"
 hostmakedepends = [
     "pkgconf",
@@ -62,3 +62,12 @@ def post_install(self):
         / f"usr/lib/python{self.python_version}/site-packages/numpy/*/lib/lib*.a",
         glob=True,
     )
+
+
+@subpackage("python-numpy-tests")
+def _tests(self):
+    self.pkgdesc = f"{pkgdesc} (tests)"
+    return [
+        "usr/lib/python*/site-packages/numpy/*/tests/",
+        "usr/lib/python*/site-packages/numpy/tests/",
+    ]
