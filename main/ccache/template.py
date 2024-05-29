@@ -1,18 +1,28 @@
 pkgname = "ccache"
-pkgver = "4.9.1"
+pkgver = "4.10"
 pkgrel = 0
 build_style = "cmake"
 configure_args = ["-DENABLE_TESTING=OFF", "-DREDIS_STORAGE_BACKEND=OFF"]
-hostmakedepends = ["cmake", "ninja", "perl"]
-makedepends = ["zstd-devel", "zlib-devel"]
+hostmakedepends = [
+    "cmake",
+    "ninja",
+    "perl",
+]
+makedepends = [
+    "fmt-devel",
+    "xxhash-devel",
+    "zstd-devel",
+    "zlib-devel",
+]
 checkdepends = ["bash"]
 pkgdesc = "Fast C/C++ compiler cache"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
-url = "https://ccache.samba.org"
+url = "https://ccache.dev"
 source = f"https://github.com/ccache/ccache/releases/download/v{pkgver}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "4c03bc840699127d16c3f0e6112e3f40ce6a230d5873daa78c60a59c7ef59d25"
-hardening = ["vis", "cfi"]
+sha256 = "83630b5e922b998ab2538823e0cad962c0f956fad1fcf443dd5288269a069660"
+# cfi crashes in fmt template expansion
+hardening = ["vis", "!cfi"]
 # not properly set up
 options = ["!check"]
 
