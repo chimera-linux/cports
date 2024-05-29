@@ -52,6 +52,7 @@ makedepends = [
 ]
 depends = [
     "libavcodec",
+    "speechd-meta",
 ]
 provides = [
     # backwards-compatibility with old subpackages
