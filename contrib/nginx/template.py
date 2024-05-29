@@ -1,6 +1,6 @@
 pkgname = "nginx"
-pkgver = "1.26.0"
-pkgrel = 1
+pkgver = "1.26.1"
+pkgrel = 0
 build_style = "configure"
 configure_args = [
     "--prefix=/var/lib/nginx",
@@ -86,7 +86,7 @@ source = [
 ]
 source_paths = [".", "nginx-tests"]
 sha256 = [
-    "d2e6c8439d6c6db5015d8eaab2470ab52aef85a7bf363182879977e084370497",
+    "f9187468ff2eb159260bfd53867c25ff8e334726237acf227b9e870e53d3e36b",
     "c9b464e6f9cc129eade5d3068c168bf598513d346799483c73cd18c107859d38",
 ]
 # needs a lot more work
