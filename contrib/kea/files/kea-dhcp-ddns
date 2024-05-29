@@ -1,0 +1,8 @@
+# kea-dhcp-ddns service
+
+type = process
+command = /usr/bin/kea-dhcp-ddns -c /etc/kea/kea-dhcp-ddns.conf
+depends-on = local.target
+depends-on = network.target
+after = kea-dhcp4
+after = kea-dhcp6

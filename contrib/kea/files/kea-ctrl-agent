@@ -1,0 +1,9 @@
+# kea-ctrl-agent service
+
+type = process
+command = /usr/bin/kea-ctrl-agent -c /etc/kea/kea-ctrl-agent.conf
+depends-on = local.target
+depends-on = network.target
+after = kea-dhcp4
+after = kea-dhcp6
+after = kea-dhcp-ddns
