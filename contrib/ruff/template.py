@@ -34,12 +34,14 @@ def post_patch(self):
     with open(
         f"{self.builddir}/{pkgname}-{pkgver}/.cargo/config.toml", "a"
     ) as f:
-        f.write("""
+        f.write(
+            """
 [source."git+https://github.com/astral-sh/lsp-types.git?rev=3512a9f"]
 git = "https://github.com/astral-sh/lsp-types.git"
 rev = "3512a9f"
 replace-with = "vendored-sources"
-""")
+"""
+        )
 
 
 def init_build(self):
