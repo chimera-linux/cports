@@ -19,6 +19,7 @@ makedepends = [
     "plasma-activities-devel",
     "qt6-qtdeclarative-devel",
 ]
+checkdepends = ["kirigami"]
 pkgdesc = "Utilities for KDE System Settings modules"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "LGPL-2.1-only AND LGPL-2.1-or-later"
