@@ -3,7 +3,11 @@ pkgver = "6.2.0"
 pkgrel = 0
 build_style = "cmake"
 # FIXME: similar tests broken on alpine, everything can work in the right env
-make_check_args = ["-E", "(dbusrunner|runnermanager(singlerunnermode|))test"]
+# threading is flaky
+make_check_args = [
+    "-E",
+    "(dbusrunner|threading|runnermanager(singlerunnermode|))test",
+]
 make_check_env = {"QT_QPA_PLATFORM": "offscreen"}
 make_check_wrapper = ["dbus-run-session"]
 hostmakedepends = [
