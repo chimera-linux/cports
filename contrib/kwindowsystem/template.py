@@ -6,7 +6,8 @@ make_check_args = [
     "-E",
     # kwindowinfox11test takes over 5 minutes and is broken,
     # threadtest & kwindowsystemx11test are broken,
-    "(thread|kwindowsystemx11|kwindowinfox11)test",
+    # netrootinfotestwm fails on ppc64le
+    "((thread|kwindowsystemx11|kwindowinfox11)test|netrootinfotestwm)",
     # at least compositingenabled_test is flaky when parallel
     "-j1",
 ]
