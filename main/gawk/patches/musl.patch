@@ -6,47 +6,57 @@ Date:   Fri Nov 26 02:33:47 2021 +0100
 
 diff --git a/test/Makefile.in b/test/Makefile.in
 index b265eab..4871d03 100644
---- a/test/Makefile.in
-+++ b/test/Makefile.in
-@@ -1701,8 +1701,8 @@ UNIX_TESTS = \
+--- a/test/Makefile.am
++++ b/test/Makefile.am
+@@ -1494,7 +1494,7 @@
+ 	aryprm2 aryprm3 aryprm4 aryprm5 aryprm6 aryprm7 aryprm8 aryprm9 \
+ 	arysubnm aryunasgn asgext assignnumfield assignnumfield2 awkpath \
+ 	back89 backgsub badassign1 badbuild callparam childin clobber \
+-	close_status closebad clsflnam cmdlinefsbacknl cmdlinefsbacknl2 \
++	close_status closebad clsflnam cmdlinefsbacknl \
+ 	compare compare2 concat1 concat2 concat3 concat4 concat5 \
+ 	convfmt datanonl defref delargv delarpm2 delarprm delfunc \
+ 	dfacheck2 dfamb1 dfastress divzero divzero2 dynlj eofsplit \
+@@ -1535,8 +1535,8 @@
  GAWK_EXT_TESTS = \
  	aadelete1 aadelete2 aarray1 aasort aasorti argtest arraysort \
- 	arraysort2 arraytype backw badargs beginfile1 beginfile2 binmode1 \
--	charasbytes colonwarn clos1way clos1way2 clos1way3 clos1way4 \
--	clos1way5 clos1way6 commas crlf dbugeval dbugeval2 dbugeval3 \
-+	colonwarn clos1way clos1way2 clos1way3 clos1way4 \
-+	clos1way5 crlf dbugeval dbugeval2 dbugeval3 \
+ 	arraysort2 arraytype asortbool asortsymtab backw badargs \
+-	beginfile1 beginfile2 binmode1 charasbytes clos1way clos1way2 \
+-	clos1way3 clos1way4 clos1way5 clos1way6 colonwarn commas crlf \
++	beginfile1 beginfile2 binmode1 clos1way clos1way2 \
++	clos1way3 clos1way4 clos1way5 colonwarn crlf \
+ 	csv1 csv2 csv3 csvodd dbugeval dbugeval2 dbugeval3 dbugeval4 \
  	dbugtypedre1 dbugtypedre2 delsub devfd devfd1 devfd2 dfacheck1 \
- 	dumpvars errno exit fieldwdth forcenum fpat1 fpat2 fpat3 fpat4 \
- 	fpat5 fpat6 fpat7 fpat8 fpat9 fpatnull fsfwfs funlen functab1 \
-@@ -1711,7 +1711,7 @@ GAWK_EXT_TESTS = \
- 	gnuops2 gnuops3 gnureops gsubind icasefs icasers id igncdym igncfs \
- 	ignrcas2 ignrcas4 ignrcase incdupe incdupe2 incdupe3 incdupe4 \
- 	incdupe5 incdupe6 incdupe7 include include2 indirectbuiltin \
--	indirectcall indirectcall2 inf-nan-torture intarray iolint \
-+	indirectcall indirectcall2 inf-nan-torture intarray \
- 	isarrayunset lint lintexp lintindex lintint lintlength lintplus \
- 	lintold lintset lintwarn manyfiles match1 match2 match3 mbstr1 \
- 	mbstr2 mixed1 mktime modifiers muldimposix nastyparm negtime \
-@@ -1721,7 +1721,7 @@ GAWK_EXT_TESTS = \
- 	printfbad1 printfbad2 printfbad3 printfbad4 printhuge procinfs \
- 	profile0 profile1 profile2 profile3 profile4 profile5 profile6 \
- 	profile7 profile8 profile9 profile10 profile11 profile12 profile13 \
--	profile14 profile15 profile16 pty1 pty2 rebuf regexsub regnul1 regnul2 \
-+	profile14 profile15 profile16 pty1 rebuf regexsub regnul1 regnul2 \
- 	regx8bit reginttrad reint reint2 rsgetline rsglstdin rsstart1 \
- 	rsstart2 rsstart3 rstest6 sandbox1 shadow shadowbuiltin sortfor \
- 	sortfor2 sortu sourcesplit split_after_fpat splitarg4 strftfld \
-@@ -1749,7 +1749,7 @@ SHLIB_TESTS = \
- 	ordchr ordchr2 \
- 	readdir readdir_test readdir_retest readfile readfile2 revout \
- 	revtwoway rwarray \
+ 	dumpvars elemnew1 elemnew2 elemnew3 errno exit fieldwdth forcenum \
+@@ -1547,7 +1547,7 @@
+ 	icasefs icasers id igncdym igncfs ignrcas2 ignrcas4 ignrcase \
+ 	incdupe incdupe2 incdupe3 incdupe4 incdupe5 incdupe6 incdupe7 \
+ 	include include2 indirectbuiltin indirectcall indirectcall2 \
+-	indirectcall3 intarray iolint isarrayunset lint lintexp lintindex \
++	indirectcall3 intarray isarrayunset lint lintexp lintindex \
+ 	lintint lintlength lintold lintplus lintplus2 lintplus3 lintset \
+ 	lintwarn manyfiles match1 match2 match3 mbstr1 mbstr2 mdim1 mdim2 \
+ 	mdim3 mdim4 mdim5 mdim6 mdim7 mdim8 mixed1 mktime modifiers \
+@@ -1559,7 +1559,7 @@
+ 	profile0 profile1 profile10 profile11 profile12 profile13 \
+ 	profile14 profile15 profile16 profile17 profile2 profile3 \
+ 	profile4 profile5 profile6 profile7 profile8 profile9 pty1 \
+-	pty2 rebuf regexsub reginttrad regnul1 regnul2 regx8bit reint \
++	rebuf regexsub reginttrad regnul1 regnul2 regx8bit reint \
+ 	reint2 rsgetline rsglstdin rsstart1 rsstart2 rsstart3 rstest6 \
+ 	sandbox1 shadow shadowbuiltin sortfor sortfor2 sortu sourcesplit \
+ 	split_after_fpat splitarg4 strftfld strftime strtonum strtonum1 \
+@@ -1586,7 +1586,7 @@
+ SHLIB_TESTS = \
+ 	apiterm filefuncs fnmatch fork fork2 fts functab4 functab5 \
+ 	getfile indirectbuiltin2 inplace1 inplace2 inplace2bcomp inplace3 \
+-	inplace3bcomp ordchr ordchr2 readall readdir readdir_retest \
++	inplace3bcomp ordchr ordchr2 readdir readdir_retest \
+ 	readdir_test readfile readfile2 revout revtwoway rwarray \
 -	testext time
 +	time
  
- 
- # List of the tests which should be run with --debug option:
-@@ -5336,7 +5336,7 @@ diffout:
+@@ -2696,7 +2696,7 @@
  		diff -u "$(srcdir)"/$${base}.ok  $$i ; \
  		fi ; \
  		fi ; \
