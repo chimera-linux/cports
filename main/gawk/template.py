@@ -1,15 +1,18 @@
 pkgname = "gawk"
-pkgver = "5.1.1"
+pkgver = "5.3.0"
 pkgrel = 0
 build_style = "gnu_configure"
-configure_args = ["--with-readline"]
+configure_args = ["--with-readline", "--disable-pma"]
+# makes another test pass
+make_cmd = "gmake"
+hostmakedepends = ["automake", "gettext-devel", "libtool", "gmake"]
 makedepends = ["libedit-readline-devel"]
 pkgdesc = "GNU awk utility"
 maintainer = "q66 <q66@chimera-linux.org>"
 license = "GPL-3.0-or-later"
 url = "http://www.gnu.org/software/gawk"
 source = f"$(GNU_SITE)/gawk/gawk-{pkgver}.tar.xz"
-sha256 = "d87629386e894bbea11a5e00515fc909dc9b7249529dad9e6a3a2c77085f7ea2"
+sha256 = "ca9c16d3d11d0ff8c69d79dc0b47267e1329a69b39b799895604ed447d3ca90b"
 
 
 def post_install(self):
@@ -17,6 +20,3 @@ def post_install(self):
     (self.destdir / "usr/bin/awk").unlink()
     (self.destdir / "usr/bin/gawk").unlink()
     self.install_link("usr/bin/gawk", f"gawk-{pkgver}")
-
-
-configure_gen = []
