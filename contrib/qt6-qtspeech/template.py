@@ -1,15 +1,16 @@
 pkgname = "qt6-qtspeech"
 pkgver = "6.7.1"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
-hostmakedepends = ["cmake", "ninja", "pkgconf"]
-# FIXME: package Speech Dispatcher / Flite for an actual text-to-speech engine!
-# QINFO  : tst_QVoice::initTestCase() Available text-to-speech engines:
-# SKIP   : tst_QVoice::initTestCase() No speech engines available, skipping test case
+hostmakedepends = [
+    "cmake",
+    "ninja",
+    "pkgconf",
+]
 makedepends = [
-    "alsa-lib-devel",
     "qt6-qtdeclarative-devel",
     "qt6-qtmultimedia-devel",
+    "speechd-devel",
 ]
 pkgdesc = "Qt6 Speech component"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
@@ -21,8 +22,9 @@ source = f"https://download.qt.io/official_releases/qt/{pkgver[:-2]}/{pkgver}/su
 sha256 = "6c6f1d15c8fc0ef5cb0cfc401a07ecc56e34f1e8510126383cef658cf751eb88"
 # FIXME?
 hardening = ["!int"]
-# TODO
-options = ["!cross"]
+# cross: TODO
+# check: with speechd support the tests hang..
+options = ["!cross", "!check"]
 
 
 def init_check(self):
