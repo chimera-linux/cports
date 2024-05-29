@@ -1,0 +1,16 @@
+/builddir/speechd-0.11.5/src/server/module.c:267:41: error: initializer element is not a compile-time constant
+  267 |         static const int FNAME_PREFIX_LENGTH = strlen(FNAME_PREFIX);
+      |                                                ^~~~~~~~~~~~~~~~~~~~
+1 error generated.
+--
+--- a/src/server/module.c
++++ b/src/server/module.c
+@@ -264,7 +264,7 @@
+  */
+ GList *detect_output_modules(GList *modules, const char *dirname, const char *user_config_dirname, const char *config_dirname)
+ {
+-	static const int FNAME_PREFIX_LENGTH = strlen(FNAME_PREFIX);
++	const int FNAME_PREFIX_LENGTH = strlen(FNAME_PREFIX);
+ 	DIR *module_dir = opendir(dirname);
+ 	struct dirent *entry;
+ 	char *module_name;
