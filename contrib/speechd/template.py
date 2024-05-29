@@ -1,6 +1,6 @@
 pkgname = "speechd"
 pkgver = "0.11.5"
-pkgrel = 0
+pkgrel = 1
 build_style = "gnu_configure"
 configure_args = [
     "--disable-static",
@@ -27,7 +27,10 @@ makedepends = [
     "libpulse-devel",
     "libsndfile-devel",
 ]
-depends = ["python-pyxdg"]
+depends = [
+    f"speechd-meta={pkgver}-r{pkgrel}",
+    "python-pyxdg",
+]
 pkgdesc = "High level interface to speech synthesis"
 maintainer = "psykose <alice@ayaya.dev>"
 license = "GPL-2.0-or-later"
@@ -41,3 +44,10 @@ tool_flags = {"CFLAGS": ["-D_GNU_SOURCE"]}
 @subpackage("speechd-devel")
 def _devel(self):
     return self.default_devel()
+
+
+@subpackage("speechd-meta")
+def _meta(self):
+    self.pkgdesc = f"{pkgdesc} (recommends package)"
+    self.options = ["empty"]
+    return []
