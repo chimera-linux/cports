@@ -1,6 +1,6 @@
 pkgname = "xfce4"
 pkgver = "4.18"
-pkgrel = 0
+pkgrel = 1
 build_style = "meta"
 depends = [
     "thunar",
@@ -41,6 +41,7 @@ def _apps(self):
         "xfce4-taskmanager",
         "xfce4-terminal",
         "xfce4-volumed-pulse",
+        "xfdashboard",
         # "orca"
     ]
     return []
