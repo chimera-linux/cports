@@ -1,5 +1,5 @@
 pkgname = "gnuplot"
-pkgver = "6.0.0"
+pkgver = "6.0.1"
 pkgrel = 0
 build_style = "gnu_configure"
 configure_args = [
@@ -39,7 +39,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "gnuplot"
 url = "http://www.gnuplot.info"
 source = f"$(SOURCEFORGE_SITE)/gnuplot/gnuplot/{pkgver}/gnuplot-{pkgver}.tar.gz"
-sha256 = "635a28f0993f6ab0d1179e072ad39b8139d07f51237f841d93c6c2ff4b1758ec"
+sha256 = "e85a660c1a2a1808ff24f7e69981ffcbac66a45c9dcf711b65610b26ea71379a"
 # fails tests
 hardening = ["!int"]
 options = ["!cross"]
