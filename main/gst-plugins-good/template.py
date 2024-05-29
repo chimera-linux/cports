@@ -1,5 +1,5 @@
 pkgname = "gst-plugins-good"
-pkgver = "1.24.3"
+pkgver = "1.24.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
@@ -8,6 +8,8 @@ configure_args = [
     "-Dglib-asserts=disabled",
     "-Dglib-checks=disabled",
     "-Dgobject-cast-checks=disabled",
+    # disabled below
+    "-Dtests=disabled",
     "-Dexamples=disabled",
     "-Ddoc=disabled",
     # there are too many auto features and it's difficult to take care that
@@ -70,7 +72,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "150f914e61dc05600b68b88ca103c7cc227130158e389ea9ea159f4050a2ebb0"
+sha256 = "023096d661cf58cde3e0dcdbf56897bf588830232358c305f3e15fd63e116626"
 # FIXME int (extra tests fail, look for SIGILL)
 hardening = ["!int"]
 # 4 out of 105 tests currently fail (qtmux, splitmux, pipelines_tagschecking)
