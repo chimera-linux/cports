@@ -1,5 +1,5 @@
 pkgname = "xfce4-screenshooter"
-pkgver = "1.10.5"
+pkgver = "1.10.6"
 pkgrel = 0
 build_style = "gnu_configure"
 make_cmd = "gmake"
@@ -8,11 +8,12 @@ make_dir = "."
 hostmakedepends = [
     "automake",
     "gettext-devel",
+    "glib-devel",
     "gmake",
     "help2man",
-    "intltool",
     "libtool",
     "pkgconf",
+    "wayland-progs",
     "xfce4-dev-tools",
 ]
 makedepends = [
@@ -30,13 +31,16 @@ makedepends = [
     "pango-devel",
     "xfce4-panel-devel",
     "xfconf-devel",
+    "wayland-devel",
 ]
 pkgdesc = "Xfce screenshot app"
 maintainer = "triallax <triallax@tutanota.com>"
 license = "GPL-2.0-or-later"
 url = "https://docs.xfce.org/apps/xfce4-screenshooter/start"
 source = f"$(XFCE_SITE)/apps/xfce4-screenshooter/{'.'.join(pkgver.split('.')[:-1])}/xfce4-screenshooter-{pkgver}.tar.bz2"
-sha256 = "fa711f2a6a5517f575f2e129fe48c2678e836bd4ede5433075f3076d7670621c"
+sha256 = "992066cfecfb44a68681340bfd55d524d40410aac3da6ef25c6c6cb2150a5965"
+# Tries to run built executable to generate manpage
+options = ["!cross"]
 
 
 @subpackage("xfce4-screenshooter-imgur")
