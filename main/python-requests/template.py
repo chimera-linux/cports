@@ -1,5 +1,5 @@
 pkgname = "python-requests"
-pkgver = "2.32.2"
+pkgver = "2.32.3"
 pkgrel = 0
 build_style = "python_pep517"
 hostmakedepends = [
@@ -20,6 +20,6 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://requests.readthedocs.io"
 source = f"$(PYPI_SITE)/r/requests/requests-{pkgver}.tar.gz"
-sha256 = "dd951ff5ecf3e3b3aa26b40703ba77495dab41da839ae72ef3c8e5d8e2433289"
+sha256 = "55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760"
 # needs pytest, is a dependency of pytest
 options = ["!check"]
