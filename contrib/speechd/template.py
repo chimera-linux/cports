@@ -21,9 +21,9 @@ hostmakedepends = [
     "python",
 ]
 makedepends = [
+    "dotconf-devel",
     "espeak-ng-devel",
     "glib-devel",
-    "libdotconf-devel",
     "libpulse-devel",
     "libsndfile-devel",
 ]
