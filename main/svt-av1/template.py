@@ -1,10 +1,11 @@
 pkgname = "svt-av1"
 pkgver = "2.1.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "cmake"
 configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
     "-DBUILD_TESTING=OFF",
+    "-DENABLE_AVX512=ON",
 ]
 hostmakedepends = [
     "cmake",
