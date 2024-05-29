@@ -1,5 +1,5 @@
 pkgname = "7zip"
-pkgver = "24.05"
+pkgver = "24.06"
 pkgrel = 0
 # Alone2: CLI with all format support
 build_wrksrc = "CPP/7zip/Bundles/Alone2"
@@ -19,7 +19,7 @@ maintainer = "psykose <alice@ayaya.dev>"
 license = "LGPL-2.0-only AND BSD-3-Clause"
 url = "https://7-zip.org"
 source = f"https://7-zip.org/a/7z{pkgver.replace('.', '')}-src.tar.xz"
-sha256 = "63f341cf80b8d287c6e945519b3da0fa75553c85572a471b7fa6e68f9a90b790"
+sha256 = "2aa1660c773525b2ed84d6cd7ff0680c786ec0893b87e4db44654dcb7f5ac8b5"
 # FIXME cfi
 hardening = ["vis"]
 
