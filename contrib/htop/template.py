@@ -1,10 +1,23 @@
 pkgname = "htop"
 pkgver = "3.3.0"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
-configure_args = ["--enable-unicode", "--enable-sensors"]
-configure_gen = []
-makedepends = ["ncurses-devel", "libsensors-devel"]
+configure_args = [
+    "--enable-capabilities",
+    "--enable-delayacct",
+    "--enable-sensors",
+    "--enable-unicode",
+]
+hostmakedepends = [
+    "automake",
+    "pkgconf",
+]
+makedepends = [
+    "libcap-devel",
+    "libnl-devel",
+    "libsensors-devel",
+    "ncurses-devel",
+]
 pkgdesc = "Interactive process viewer"
 maintainer = "Jami Kettunen <jami.kettunen@protonmail.com>"
 license = "GPL-2.0-only"
