@@ -1,5 +1,5 @@
 pkgname = "podman"
-pkgver = "5.0.3"
+pkgver = "5.1.0"
 pkgrel = 0
 build_style = "go"
 make_build_args = ["-mod", "vendor", "./cmd/podman", "./cmd/rootlessport"]
@@ -45,7 +45,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "Apache-2.0"
 url = "https://podman.io"
 source = f"https://github.com/containers/podman/archive/v{pkgver}.tar.gz"
-sha256 = "271e915bef96f42737517fe4df6e92e07717a486d769ce50123890b3a6721908"
+sha256 = "e0687779c82b58422d458dc3776ffa7f79e1a04614a3f1a7ef93f7769bf8a8e6"
 # objcopy fails to split on ppc
 options = ["!debug", "!check"]
 
@@ -69,6 +69,7 @@ def post_install(self):
         self.destdir / "usr/bin/rootlessport",
         self.destdir / "usr/libexec/podman",
     )
+    self.install_link("usr/bin/podmansh", "podman")
     self.do(
         "gmake", "install.man", "PREFIX=/usr", f"DESTDIR={self.chroot_destdir}"
     )
