@@ -6,7 +6,8 @@ configure_args = [
     "-DBUILD_SHARED_LIBS=ON",
 ]
 # FIXME: random musl issues
-make_check_args = ["-E", "(chrono|unicode|xchar)"]
+# format hangs on ppc64
+make_check_args = ["-E", "(format|chrono|unicode|xchar)"]
 hostmakedepends = [
     "cmake",
     "ninja",
