@@ -11,7 +11,7 @@ hostmakedepends = [
 makedepends = [
     "kcoreaddons-devel",
     "kwindowsystem-devel",
-    "polkit-qt6-devel",
+    "polkit-qt-1-devel",
     "qt6-qtbase-devel",
     "qt6-qttools-devel",
 ]
