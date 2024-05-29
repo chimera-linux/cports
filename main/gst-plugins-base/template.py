@@ -1,14 +1,16 @@
 pkgname = "gst-plugins-base"
-pkgver = "1.24.3"
+pkgver = "1.24.4"
 pkgrel = 0
 build_style = "meson"
 configure_args = [
-    "-Dexamples=disabled",
-    "-Dtremor=disabled",
-    "-Ddoc=disabled",
     "-Dcdparanoia=enabled",
-    "-Dintrospection=enabled",
     "-Ddefault_library=shared",
+    "-Ddoc=disabled",
+    "-Dexamples=disabled",
+    "-Dintrospection=enabled",
+    # disabled below
+    "-Dtests=disabled",
+    "-Dtremor=disabled",
 ]
 make_check_env = {"XDG_RUNTIME_DIR": "/etc/xdg"}
 hostmakedepends = [
@@ -50,7 +52,7 @@ maintainer = "q66 <q66@chimera-linux.org>"
 license = "LGPL-2.1-or-later"
 url = "https://gstreamer.freedesktop.org"
 source = f"{url}/src/{pkgname}/{pkgname}-{pkgver}.tar.xz"
-sha256 = "f1094397eaa7932f06e57ebbb075aa33aa2c76e4b75630a16b02c8d4af46832e"
+sha256 = "09f4ddf246eeb819da1494ce336316edbbcb28fdff3ee2f9804891e84df39b2a"
 # FIXME int
 hardening = ["!int"]
 # FIXME libs_allocators fail
