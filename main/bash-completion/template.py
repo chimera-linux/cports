@@ -2,12 +2,11 @@ pkgname = "bash-completion"
 pkgver = "2.14.0"
 pkgrel = 3
 build_style = "gnu_configure"
-configure_gen = []
 make_cmd = "gmake"
 make_install_args = [
     "profiledir=/etc/bash/bashrc.d",
 ]
-hostmakedepends = ["gmake", "pkgconf"]
+hostmakedepends = ["automake", "gmake", "pkgconf"]
 checkdepends = ["bash", "python-pytest", "python-pexpect"]
 depends = ["bash"]
 pkgdesc = "Programmable completion functions for bash"
