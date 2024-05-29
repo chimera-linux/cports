@@ -17,12 +17,16 @@ def pop():
 
 
 def failed():
-    return pkg_failed
+    global pkg_failed
+    retv = pkg_failed
+    pkg_failed = None
+    return retv
 
 
 def set_failed(pkg):
     global pkg_failed
-    pkg_failed = pkg
+    if not pkg_failed:
+        pkg_failed = pkg
 
 
 def _remove_ro(f, path, _):
