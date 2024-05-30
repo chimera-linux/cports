@@ -21,7 +21,6 @@ makedepends = [
     "qt6-qttools-devel",
     "syndication-devel",
 ]
-# depends = ["kirigami"]
 pkgdesc = (
     "KDE Framework for downloading and sharing additional application data"
 )
