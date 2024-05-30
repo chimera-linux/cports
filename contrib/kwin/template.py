@@ -5,14 +5,14 @@ build_style = "cmake"
 make_check_args = [
     "-E",
     "(kwin-testClientMachine"  # initTestCase() segfaults in libc.so after 5s
-    "|kwin-testPointerInput"  # 11/130 subtests fail, cursor image (specifically fallback) changes problematic?
-    "|^kwin-testXdgShellWindow$"  # testDesktopFileName() Compared values are not the same ("" vs "wayland"), xdgshellwindow_test.cpp(675)
-    "|kwin-testScreenEdges"  # 8/20 subtests fail, testPushBack() & testTouchCallback() invalid touch moves
-    "|kwin-testPlasmaWindow"  # testLockScreenNoPlasmaWindow() '!waylandServer()->isScreenLocked()' returned FALSE, plasmawindow_test.cpp(267)
-    "|kwin-testScriptingScreenEdge"  # 4/18 subtests fail, testTouchEdge() & testDeclarativeTouchEdge() invalid touch moves
-    "|kwin-testDrm",  # testAmsDetection() segfaults
-    "|kwin-testColorspaces",  # out of range on ppc64le float accuracy
-    ")",
+    + "|kwin-testPointerInput"  # 11/130 subtests fail, cursor image (specifically fallback) changes problematic?
+    + "|^kwin-testXdgShellWindow$"  # testDesktopFileName() Compared values are not the same ("" vs "wayland"), xdgshellwindow_test.cpp(675)
+    + "|kwin-testScreenEdges"  # 8/20 subtests fail, testPushBack() & testTouchCallback() invalid touch moves
+    + "|kwin-testPlasmaWindow"  # testLockScreenNoPlasmaWindow() '!waylandServer()->isScreenLocked()' returned FALSE, plasmawindow_test.cpp(267)
+    + "|kwin-testScriptingScreenEdge"  # 4/18 subtests fail, testTouchEdge() & testDeclarativeTouchEdge() invalid touch moves
+    + "|kwin-testDrm"  # testAmsDetection() segfaults
+    + "|kwin-testColorspaces"  # out of range on ppc64le float accuracy
+    + ")",
     # parallel tests cause a bunch of flakes
     "-j1",
 ]
