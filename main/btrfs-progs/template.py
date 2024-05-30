@@ -1,6 +1,6 @@
 pkgname = "btrfs-progs"
 pkgver = "6.8.1"
-pkgrel = 1
+pkgrel = 2
 build_style = "gnu_configure"
 configure_args = ["--disable-backtrace", "--enable-python"]
 make_cmd = "gmake"
