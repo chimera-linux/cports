@@ -1,6 +1,6 @@
 pkgname = "libwnck"
 pkgver = "43.0"
-pkgrel = 0
+pkgrel = 1
 build_style = "meson"
 hostmakedepends = [
     "gettext",
