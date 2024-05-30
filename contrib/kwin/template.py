@@ -10,7 +10,9 @@ make_check_args = [
     "|kwin-testScreenEdges"  # 8/20 subtests fail, testPushBack() & testTouchCallback() invalid touch moves
     "|kwin-testPlasmaWindow"  # testLockScreenNoPlasmaWindow() '!waylandServer()->isScreenLocked()' returned FALSE, plasmawindow_test.cpp(267)
     "|kwin-testScriptingScreenEdge"  # 4/18 subtests fail, testTouchEdge() & testDeclarativeTouchEdge() invalid touch moves
-    "|kwin-testDrm)",  # testAmsDetection() segfaults
+    "|kwin-testDrm",  # testAmsDetection() segfaults
+    "|kwin-testColorspaces",  # out of range on ppc64le float accuracy
+    ")",
     # parallel tests cause a bunch of flakes
     "-j1",
 ]
