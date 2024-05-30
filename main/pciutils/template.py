@@ -29,7 +29,7 @@ source = f"https://github.com/pciutils/pciutils/archive/v{pkgver}.tar.gz"
 sha256 = "861fc26151a4596f5c3cb6f97d6c75c675051fa014959e26fb871c8c932ebc67"
 # no check target
 # ld: error: undefined symbol: pci_alloc ... and so on
-options = ["!check", "linkundefver"]
+options = ["!check", "!lto"]
 
 
 def init_build(self):
